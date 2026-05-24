@@ -35,6 +35,7 @@
 {"source": "clm-3npynp", "target": "clm-j550uh", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "the A1 ⊕ T2 group theory this entry applies", "fraction": null}
 {"source": "clm-3zz0f6", "target": "clm-8nkvwy", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.85, "strength": null, "context": "the cancellation argument depends on the symmetric case", "fraction": null}
 {"source": "clm-48g5qf", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "A", "fraction": null}
+{"source": "clm-48g5qf", "target": "clm-1eg13f", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "vol3→vol4 exception, D11", "fraction": null}
 {"source": "clm-48g5qf", "target": "clm-dsb560", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-48g5qf", "target": "clm-gz7ryg", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-48g5qf", "target": "clm-sysqaf", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
@@ -60,7 +61,9 @@
 {"source": "clm-5965y1", "target": "clm-qjwj12", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-5em8fx", "target": "axiom-3", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Minimum Reflection Principle — matched-impedance coupling", "fraction": null}
 {"source": "clm-5em8fx", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Universal Saturation Kernel — vacuum varactor at sub-yield", "fraction": null}
+{"source": "clm-5em8fx", "target": "clm-6t3p6x", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "vol3→vol4 exception, D11", "fraction": null}
 {"source": "clm-5em8fx", "target": "clm-b27pnp", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-5em8fx", "target": "clm-rtdmsn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "vol3→vol4 exception, D11", "fraction": null}
 {"source": "clm-5fu303", "target": "clm-hvvvop", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the ASYM-N set this axis sub-divides", "fraction": null}
 {"source": "clm-5s5b0d", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "asymmetric saturation: only $\\varepsilon$ scales by $S$", "fraction": null}
 {"source": "clm-5s5b0d", "target": "clm-kezk9z", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
@@ -76,11 +79,13 @@
 {"source": "clm-6kwzot", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "composite $6^3_2\\cup0_1$ topology; flux-tube minimum thickness", "fraction": null}
 {"source": "clm-6kwzot", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "composite $6^3_2\\cup0_1$ topology; flux-tube minimum thickness", "fraction": null}
 {"source": "clm-6kwzot", "target": "axiom-2", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "-1", "fraction": null}
+{"source": "clm-6kwzot", "target": "clm-cmic3e", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-6kwzot", "target": "clm-mnb3lt", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-6kwzot", "target": "clm-uatcql", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-6mvtsf", "target": "clm-gdd70j", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the invariant operator this thesis names as the inheritance root", "fraction": null}
 {"source": "clm-6mvtsf", "target": "clm-sysqaf", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the Op1–Op22 set whose scale-invariance is being asserted", "fraction": null}
 {"source": "clm-6t3p6x", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "V", "fraction": null}
+{"source": "clm-6t3p6x", "target": "clm-rtdmsn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-6t3p6x", "target": "clm-vjv4zf", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-6tuqjh", "target": "INVARIANT-N2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "lattice node-spacing notation, vol-split", "fraction": null}
 {"source": "clm-7o8clt", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "K4 3-connectivity = trefoil $c=3$ = $\\Delta c_{crit}$; torus-knot crossing numbers", "fraction": null}
@@ -109,6 +114,7 @@
 {"source": "clm-8zpicx", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "bipartite K4 lobe-count = 2; lemniscate-with-$q$-half-twists", "fraction": null}
 {"source": "clm-8zpicx", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "bipartite K4 lobe-count = 2; lemniscate-with-$q$-half-twists", "fraction": null}
 {"source": "clm-8zpicx", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Meissner-asymmetric saturation collapse", "fraction": null}
+{"source": "clm-8zpicx", "target": "clm-8c3yhs", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-8zpicx", "target": "clm-h9aqmt", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-8zwyl3", "target": "axiom-3", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Minimum Reflection Principle — impedance match/mismatch framing of the reinterpretations", "fraction": null}
 {"source": "clm-8zwyl3", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "saturation kernel invoked for red-light UV saturation, cavity eigenmode threshold", "fraction": null}
@@ -118,6 +124,7 @@
 {"source": "clm-9kd2t3", "target": "clm-j550uh", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies A_1/T_2 sectors and the bare S-matrix this dissipation acts on", "fraction": null}
 {"source": "clm-9s9apq", "target": "clm-0ktpcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "α enters every numerical claim downstream of the identity", "fraction": null}
 {"source": "clm-9sujp8", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "V", "fraction": null}
+{"source": "clm-9sujp8", "target": "clm-o2shcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-a034pf", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "A", "fraction": null}
 {"source": "clm-a034pf", "target": "clm-dxdsvt", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-a034pf", "target": "clm-gz7ryg", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
@@ -135,8 +142,12 @@
 {"source": "clm-ak97cb", "target": "clm-oltvwy", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-av2o4v", "target": "clm-a71inj", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-b27pnp", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Universal Saturation Kernel — saturation back-reaction on the LC tank", "fraction": null}
+{"source": "clm-b27pnp", "target": "clm-1eg13f", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "vol3→vol4 exception, D11", "fraction": null}
+{"source": "clm-b27pnp", "target": "clm-ce8dg1", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-b27pnp", "target": "clm-rtdmsn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "vol3→vol4 exception, D11", "fraction": null}
 {"source": "clm-b27pnp", "target": "clm-stgx1i", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-b27pnp", "target": "clm-u86caq", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-b27pnp", "target": "clm-v6ti0v", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "vol3→vol4 exception, D11", "fraction": null}
 {"source": "clm-b2anl4", "target": "clm-0ktpcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.23, "strength": null, "context": "for $r_1 = \\sqrt{2\\alpha}$ numerical value", "fraction": null}
 {"source": "clm-b9eura", "target": "clm-efo113", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.5, "strength": null, "context": "the saturated-knot $Z \\to 0$ behavior depends on master-equation dynamics at saturation", "fraction": null}
 {"source": "clm-baoa36", "target": "axiom-2", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "$p_{vac}=\\Phi\\,\\xi_{topo}$ flux-momentum mapping", "fraction": null}
@@ -156,6 +167,7 @@
 {"source": "clm-br3bcv", "target": "clm-yyhczl", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-c54kdd", "target": "INVARIANT-C1", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "$V_{yield}\\approx43.65$ kV", "fraction": null}
 {"source": "clm-c54kdd", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "$V_{yield}$ rupture → $\\Gamma=-1$ leaky cavity", "fraction": null}
+{"source": "clm-c54kdd", "target": "clm-o2shcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-c6k5om", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Universal Saturation Kernel — FDT at the phase boundary", "fraction": null}
 {"source": "clm-c6k5om", "target": "clm-ir8h78", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-c6k5om", "target": "clm-x19btt", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
@@ -175,6 +187,7 @@
 {"source": "clm-cltls0", "target": "INVARIANT-C1", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "$V_{yield}\\approx43.65$ kV", "fraction": null}
 {"source": "clm-cltls0", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "TVS-Zener impedance-rupture mechanism", "fraction": null}
 {"source": "clm-cltls0", "target": "clm-kezk9z", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-cltls0", "target": "clm-o2shcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-cmic3e", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "2,5", "fraction": null}
 {"source": "clm-cmic3e", "target": "clm-67jn9o", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-cmic3e", "target": "clm-9s9apq", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
@@ -234,6 +247,7 @@
 {"source": "clm-fh6w3y", "target": "INVARIANT-C1", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "$V_{yield}$ rupture point", "fraction": null}
 {"source": "clm-fh6w3y", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "$\\tau_{tick}=\\ell_{node}/c\\approx1.28\\times10^{-21}$ s from lattice pitch", "fraction": null}
 {"source": "clm-fh6w3y", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "linear-below-rupture / dissipative-at-rupture regime switch", "fraction": null}
+{"source": "clm-fh6w3y", "target": "clm-n3un96", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-fndptx", "target": "clm-pe8lpx", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "G-anisotropy is observable 7; supplies the Ω_freeze symmetry axis", "fraction": null}
 {"source": "clm-fr3mos", "target": "clm-5xon03", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "the one-empirical-input-mass-scale disclosure", "fraction": null}
 {"source": "clm-g0mkne", "target": "clm-0ktpcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies Q=1/α and the R=φ/2, r=(φ−1)/2 geometry used in the calibration", "fraction": null}
@@ -247,6 +261,7 @@
 {"source": "clm-g6e3zw", "target": "clm-mnb3lt", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-gfdplp", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "2\\pi", "fraction": null}
 {"source": "clm-gfdplp", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "2\\pi", "fraction": null}
+{"source": "clm-gfdplp", "target": "clm-8c3yhs", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-gfdplp", "target": "clm-uatcql", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-gfs4j8", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "2,q", "fraction": null}
 {"source": "clm-gfs4j8", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "2,q", "fraction": null}
@@ -296,6 +311,7 @@
 {"source": "clm-ir8h78", "target": "clm-iouqn9", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-ir8h78", "target": "clm-rd9cjm", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-iz3svl", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Sagnac mass-density-coupled mutual inductance; framework-derived $\\rho_{bulk}$", "fraction": null}
+{"source": "clm-iz3svl", "target": "clm-qx9bb8", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-j20lz8", "target": "clm-4jy0t8", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-j20lz8", "target": "clm-lm9b3j", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-j550uh", "target": "clm-ys0xl1", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "T_d is the point group whose irreps decompose the port space", "fraction": null}
@@ -341,6 +357,7 @@
 {"source": "clm-kezk9z", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "symmetric vs asymmetric saturation branch", "fraction": null}
 {"source": "clm-kl1ern", "target": "INVARIANT-C1", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "$V_{yield}\\approx43.65$ kV one-way valve", "fraction": null}
 {"source": "clm-kl1ern", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "impedance-rupture / $\\Gamma=-1$ at fast edge", "fraction": null}
+{"source": "clm-kl1ern", "target": "clm-o2shcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-kl1ern", "target": "clm-ui3m8a", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-knveh6", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "2,q", "fraction": null}
 {"source": "clm-knveh6", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "energy-density boundedness used in the Riemann below-cutoff argument", "fraction": null}
@@ -417,6 +434,7 @@
 {"source": "clm-oltvwy", "target": "axiom-2", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Coulomb $V=-Z_{net}\\alpha\\hbar c/r$; Gauss screening", "fraction": null}
 {"source": "clm-oltvwy", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "r", "fraction": null}
 {"source": "clm-oltvwy", "target": "clm-h9aqmt", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-oltvwy", "target": "clm-qde5gn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-om0rtq", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "single $\\ell_{node}$ calibration from which the chain hangs", "fraction": null}
 {"source": "clm-ome498", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "7-mode compliance manifold; $N_{K4}=4$ K4 unit cell", "fraction": null}
 {"source": "clm-ome498", "target": "axiom-2", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "$\\alpha$ as the EM coupling projected", "fraction": null}
@@ -455,6 +473,7 @@
 {"source": "clm-q5izb7", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "discrete pitch $\\to$ UV cutoff; lattice dispersion", "fraction": null}
 {"source": "clm-q5izb7", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "saturation cap $H_{cell}\\le m_ec^2$", "fraction": null}
 {"source": "clm-q5izb7", "target": "clm-h9aqmt", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-q5izb7", "target": "clm-oygz1i", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-q8un7j", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "$\\alpha^2$ two-vertex dielectric coupling", "fraction": null}
 {"source": "clm-q8un7j", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "ring topology $2\\pi$ enhancement; PAT $\\sqrt{3/7}$ from $J=2I$", "fraction": null}
 {"source": "clm-q8un7j", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "ring topology $2\\pi$ enhancement; PAT $\\sqrt{3/7}$ from $J=2I$", "fraction": null}
@@ -463,6 +482,7 @@
 {"source": "clm-q8un7j", "target": "clm-9s9apq", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-qagkgy", "target": "INVARIANT-C1", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "$V_{yield}\\approx43.65$ kV", "fraction": null}
 {"source": "clm-qagkgy", "target": "axiom-2", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "$\\xi_{topo}$, $V=\\xi_{topo}^{-1}F$ ion-collision strain", "fraction": null}
+{"source": "clm-qagkgy", "target": "clm-ui3m8a", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-qde5gn", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "LC pressure field; standing-wave $2\\pi r=n\\lambda$; $a_0=\\ell_{node}/\\alpha$", "fraction": null}
 {"source": "clm-qde5gn", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "r", "fraction": null}
 {"source": "clm-qde5gn", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "r", "fraction": null}
@@ -476,6 +496,7 @@
 {"source": "clm-qky559", "target": "clm-gdd70j", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-qky559", "target": "clm-gz7ryg", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-qsgl7d", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Sagnac material-dependent entrainment; framework-derived $v_{vac}$, $\\rho_{bulk}$", "fraction": null}
+{"source": "clm-qsgl7d", "target": "clm-qx9bb8", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-qx9bb8", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "mass-density-coupled mutual inductance / metric drag", "fraction": null}
 {"source": "clm-qyn8t0", "target": "axiom-3", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Minimum Reflection Principle — Ponderomotive Equivalence pathway", "fraction": null}
 {"source": "clm-qyn8t0", "target": "clm-iouqn9", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
@@ -535,6 +556,7 @@
 {"source": "clm-tt8j0v", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Substrate Topology — shared K4 Cosserat substrate", "fraction": null}
 {"source": "clm-tt8j0v", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "A", "fraction": null}
 {"source": "clm-tt8j0v", "target": "clm-527k22", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-tt8j0v", "target": "clm-6t3p6x", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "vol3→vol4 exception, D11", "fraction": null}
 {"source": "clm-tt8j0v", "target": "clm-b27pnp", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-tt8j0v", "target": "clm-u86caq", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-u1o2lo", "target": "clm-ys0xl1", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "the T=A_4/T_d symmetry the cubic signature is attributed to", "fraction": null}
@@ -562,6 +584,7 @@
 {"source": "clm-v2sg8z", "target": "clm-stgx1i", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-v6ti0v", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "$\\eta\\to0$ dielectric-phase-transition drag suppression", "fraction": null}
 {"source": "clm-v6ti0v", "target": "clm-i9l284", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-v6ti0v", "target": "clm-o2shcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-viawy9", "target": "clm-0ktpcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies α in the natural-units form ⟨V²⟩_T = k_B T·4π/α via ε₀=α/4π", "fraction": null}
 {"source": "clm-vjv4zf", "target": "INVARIANT-C1", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "$V_{yield}\\approx43.65$ kV", "fraction": null}
 {"source": "clm-vjv4zf", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "A", "fraction": null}
@@ -611,6 +634,7 @@
 {"source": "clm-z73h6n", "target": "INVARIANT-N3", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "shared impedance-operator chain", "fraction": null}
 {"source": "clm-z73h6n", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "x,x_{yield}", "fraction": null}
 {"source": "clm-z73h6n", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "x,x_{yield}", "fraction": null}
+{"source": "clm-z73h6n", "target": "clm-d9ivj1", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-z73h6n", "target": "clm-dboxok", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-ze4clw", "target": "clm-ofys5v", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies that the Γ=−1 boundary exposes only integrated boundary observables", "fraction": null}
 {"source": "clm-zfqd9v", "target": "clm-zgllr2", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the engine split this localization claim partitions across", "fraction": null}

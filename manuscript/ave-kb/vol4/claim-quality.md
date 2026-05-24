@@ -310,7 +310,8 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 - depends-on:
   - Axiom 2 ($\xi_{topo}$, $V=\xi_{topo}^{-1}F$ ion-collision strain)
   - INVARIANT-C1 ($V_{yield}\approx43.65$ kV)
-- solidity: 0.30 (do not build on, rework needed) [= 0.30 × 1.00]
+  - clm-ui3m8a ($\sqrt{\alpha}$ yield-limit $E_{yield}$ prediction the strain references)
+- solidity: 0.18 (refuted, do not use) [= 0.30 × 0.60]
 - rationale: STALE FOOTER — all seven `advanced-applications/ch8-applied-fusion/*.md` primary leaves DO NOT EXIST anywhere in the KB (no `advanced-applications/` directory in vol4). The only surviving support is `falsification/ch11-experimental-bench/zero-parameter-derivations.md`, which states a single-line "60.3 kV exceeds $V_{yield}$ by 38%" alignment with NO visible derivation of $n^*=1.114$, the Bohr-radius compression $r(n)=a_0/n$, the WKB $T_{ign}(n)=T_0/n^2$, or the Gamow scaling. Graded against the surviving stub: an asserted alignment plus sketch, no closed derivation reachable in-leaf. See worksheet Flags.
 - strengthen-by:
   - Restore the missing ch8-applied-fusion leaves (or repair the footer to point at the actual canonical homes) so the $n^*=1.114$ / radius / temperature / Gamow chain is reachable and graded on its merits.
@@ -454,7 +455,8 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 - depends-on:
   - Axiom 4 ($V_{yield}$ rupture → $\Gamma=-1$ leaky cavity)
   - INVARIANT-C1 ($V_{yield}\approx43.65$ kV)
-- solidity: 0.70 (ok to build on, see caveats) [= 0.70 × 1.00]
+  - clm-o2shcn (TVS solid→slipstream phase transition underlying the rupture cavity)
+- solidity: 0.49 (use as input only, don't build deeper) [= 0.70 × 0.70]
 - rationale: The mechanism — standing wave exceeding $V_{yield}$ collapses $R_{eff}$ ($1\,\text{G}\Omega\to50\,\Omega$) into an RC discharge — is cleanly modeled and the leaf is explicit (Critical Distinction #5) that this is QUALITATIVE: the SPICE netlist demonstrates the mechanism, not the quantitative lifetime (which comes from Fermi/$G_F$). The bulk-dielectric-invariance argument (muon topology in the void space between electron clouds) is a sound geometric argument. Disclosed-bound: closes as a mechanism demonstration, explicitly not a quantitative $\tau$ derivation.
 - strengthen-by:
   - Derive the muon $L,C$ values from its topology so the RC time constant reproduces $\tau\approx2.2\,\mu$s rather than being a chosen $1$ mH / $1$ nF illustration.
@@ -479,7 +481,8 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 - confidence: 0.3
 - depends-on:
   - Axiom 4 (nonlinear $C_{eff}(V)$ Duffing detuning)
-- solidity: 0.30 (do not build on, rework needed) [= 0.30 × 1.00]
+  - clm-o2shcn (TVS solid→slipstream transition setting the $\eta_{eff}(V)$ step)
+- solidity: 0.21 (do not build on, rework needed) [= 0.30 × 0.70]
 - rationale: The primary leaf `simulation/ch15-autoresonant-breakdown/theory.md` carries an explicit ⛔ INVALIDATED — RECOMPUTATION REQUIRED banner: the $C_{eff}(V)=C_0\sqrt{1-(V/60\text{k})^2}$ detuning curve, the PLL frequency-tracking demonstration, and the "pumps past the 60 kV yield" Schwinger-bypass conclusion all rest on the wrong 60 kV rupture threshold (the canonical yield is 43.65 kV). The leaf's own notice states "none of the numerical autoresonant predictions" are defensible. The Duffing-detuning qualitative picture survives, but every quantitative claim is flagged for recompute. Asserted-partial at best.
 - strengthen-by:
   - Recompute the entire $C_{eff}(V)$ detuning and PLL-bypass chain against $V_{yield}=43.65$ kV per the leaf's banner.
@@ -503,7 +506,8 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 - confidence: 0.6
 - depends-on:
   - Axiom 1 (Sagnac mass-density-coupled mutual inductance; framework-derived $\rho_{bulk}$)
-- solidity: 0.60 (use as input only, don't build deeper) [= 0.60 × 1.00]
+  - clm-qx9bb8 (active Sagnac material-dependent entrainment law)
+- solidity: 0.36 (do not build on, rework needed) [= 0.60 × 0.60]
 - rationale: The chain $v_{vac}=v_s(\rho_{Al_2O_3}/\rho_{bulk})\approx5.58$ m/s → $a_{LT}=v_{vac}^2/r=6.35$ G is clean algebra. But the whole prediction is downstream of the framework-derived $\rho_{bulk}=7.91\times10^6$ kg/m³ (imported, not independently grounded — same caveat as the Sagnac-RLVE entry), and the engineering feasibility of trapping a stable 11.1 km/s acoustic vortex in a 1 m sapphire sphere is asserted, not demonstrated. The "inductive shield" framing is disclosed as interpretive. Substantive open dependency on $\rho_{bulk}$ pins the band.
 - strengthen-by:
   - Ground $\rho_{bulk}$ independently (or carry its derivation provenance inline) so the $a_{LT}$ prediction is not contingent on an unverified bulk-density import.
@@ -553,7 +557,8 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 - depends-on:
   - Axiom 4 ($\eta\to0$ dielectric-phase-transition drag suppression)
   - clm-i9l284 (Topo-Kinematic identity mapping $F_g\to V$, $v_{orb}\to I$)
-- solidity: 0.63 (use as input only, don't build deeper) [= 0.70 × 0.90]
+  - clm-o2shcn (TVS solid→slipstream transition giving the $\eta_{eff}(V)$ drag step)
+- solidity: 0.49 (use as input only, don't build deeper) [= 0.70 × 0.70]
 - rationale: $P_{real}=F_g\,v_{orb}\cos(90°)\equiv0$ is exact classical AC-power algebra, and the orthogonality of radial gravity to tangential velocity in a circular orbit is correct. The AVE-specific content — identifying orbital geometry as a lossless reactive LC tank — is a sound mapping but, as the leaf discloses, not an independent quantitative prediction (it imports the $\eta\to0$ drag-suppression result and recasts a standard power-analysis identity). The $\theta\neq90°$ inspiral case is acknowledged without a quantitative match. Closes cleanly given the imported drag-suppression.
 - strengthen-by:
   - Derive a quantitative $\theta\neq90°$ orbital-decay rate and compare to an observed inspiral so the framework makes a prediction beyond the lossless-tank identity.
@@ -608,7 +613,8 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 - confidence: 0.55
 - depends-on:
   - Axiom 1 (Sagnac material-dependent entrainment; framework-derived $v_{vac}$, $\rho_{bulk}$)
-- solidity: 0.55 (use as input only, don't build deeper) [= 0.55 × 1.00]
+  - clm-qx9bb8 (active Sagnac material-dependent entrainment law)
+- solidity: 0.33 (do not build on, rework needed) [= 0.55 × 0.60]
 - rationale: The Roentgen $\mathbf{B}=(1/c^2)\mathbf{v}\times\mathbf{E}$ synthesis and the $\sim4.2$ pT → $\sim0.26\,\mu$V pickup are dimensionally clean, but the load-bearing input — the $v_{vac}\approx0.038$ m/s drift at 10k RPM — rests on the framework-derived $\rho_{bulk}\approx7.9\times10^6$ kg/m³ via the same Sagnac-RLVE entrainment chain (imported). The Lock-In SNR recoverability of $0.26\,\mu$V against motor EMI / mains / ground-loop noise is asserted with no leaf-level noise budget. Closes given imports but with a real open dependency on $\rho_{bulk}$ plus an unshown SNR claim.
 - strengthen-by:
   - Provide a noise budget proving $\sim0.26\,\mu$V is recoverable on a high-RPM rig.
@@ -637,7 +643,8 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - Axiom 4 (TVS-Zener impedance-rupture mechanism)
   - INVARIANT-C1 ($V_{yield}\approx43.65$ kV)
   - clm-kezk9z ($Z_0\approx377\,\Omega$ baseline)
-- solidity: 0.63 (use as input only, don't build deeper) [= 0.70 × 0.90]
+  - clm-o2shcn (TVS solid→slipstream phase transition driving the Zener rupture)
+- solidity: 0.49 (use as input only, don't build deeper) [= 0.70 × 0.70]
 - rationale: The predicted "Avalanche Knee" — an anomalous $I_D=C\,dV/dt$ discontinuity exactly as the localized field crosses $V_{yield}=43.65$ kV — follows cleanly from the TVS impedance-rupture mechanism (clm-o2shcn), contrasted against the linear electrostatic prediction. The protocol (80 kV sub-µs Marx into an encapsulated spherical electrode) is concrete and falsifiable, and the leaf correctly anchors on the 43.65 kV onset (vs the 60 kV figure used elsewhere). Disclosed gap: no vacuum-quality threshold specified to exclude surface-arc mimics. A clean mechanism-following prediction with one disclosed protocol gap.
 - strengthen-by:
   - Specify the vacuum-quality threshold needed to exclude classical surface-arc artefacts mimicking the knee.
@@ -666,6 +673,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - Axiom 4 (impedance-rupture / $\Gamma=-1$ at fast edge)
   - INVARIANT-C1 ($V_{yield}\approx43.65$ kV one-way valve)
   - clm-ui3m8a (1.846 g vertical cap this protocol bypasses)
+  - clm-o2shcn (TVS solid→slipstream transition enabling the fast-edge rupture)
 - solidity: 0.30 (do not build on, rework needed) [= 0.50 × 0.60]
 - rationale: The one-way-impedance-valve concept (slow $+500$ V grip → $+0.207$ mN matched; fast $-75$ kV kickback → ruptured $\Gamma=-1$ → $0$ mN reaction) gives a $\sim100\,\mu$N time-averaged DC thrust, but this rests on an IDEALIZED perfect step-function rectification at the $V_{yield}$ crossing. The leaf explicitly does NOT quantify the finite-rise-time backward-reaction leakage floor (even at $<10$ ns) and does not enumerate Cavendish-pendulum systematics (patch potentials, gas drift, seismic) at the 100 µN level. Real open gaps in the quantitative prediction pin it at substantive-open-dependency.
 - strengthen-by:
@@ -809,7 +817,8 @@ Standard-model empirical results that *appear* to contradict an LC-network vacuu
   - Axiom 4 (linear-below-rupture / dissipative-at-rupture regime switch)
   - Axiom 1 ($\tau_{tick}=\ell_{node}/c\approx1.28\times10^{-21}$ s from lattice pitch)
   - INVARIANT-C1 ($V_{yield}$ rupture point)
-- solidity: 0.70 (ok to build on, see caveats) [= 0.70 × 1.00]
+  - clm-n3un96 ($\tau_{relax}=\ell_{node}/c$ minimum state-change time bounding the edge)
+- solidity: 0.56 (use as input only, don't build deeper) [= 0.70 × 0.80]
 - rationale: Both resolutions are clean order-of-magnitude regime arguments: LHC ($\tau_{tick}\approx1.28\times10^{-21}$ s vs $\sim10^{-28}$ s crossing → vacuum cannot polarize → linear rigid line) and LIGO ($h\sim10^{-21}$ is $\sim10^{19}\times$ below rupture → lossless line). The framework-derived $\tau_{tick}$ and rupture threshold drive both. The leaf is explicit these are defensive consistency claims (regime-switch explanations, not separately-measured loss curves), not positive empirical confirmations. Closed regime arguments resting on disclosed framework-derived constants.
 - strengthen-by:
   - Replace the regime-switch assertion with a derived loss curve $\eta(V/V_{yield})$ so the linear-below / dissipative-above transition is quantitative rather than a binary switch.
@@ -1088,7 +1097,8 @@ For an N-coherent-site LC apparatus embedded in the bulk substrate with vacuum v
 - depends-on:
   - Axiom 4 (vacuum varactor $C_{eff}(V)$; Theorem 3.1' $Z_{radiation}=Z_0/4\pi$ inheritance)
   - clm-vjv4zf (constitutive $C_{eff}(V)$ form)
-- solidity: 0.54 (use as input only, don't build deeper) [= 0.60 × 0.90]
+  - clm-rtdmsn (Theorem 3.1' $Z_{radiation}=Z_0/4\pi$ LC-tank Q-factor inherited)
+- solidity: 0.51 (use as input only, don't build deeper) [= 0.60 × 0.85]
 - rationale: The kernel $\varepsilon_{det}=4\pi\kappa_{quality}/N^2$ is derived substrate-native (N-parallel-LC voltage-divider for the first $1/N$, substrate-clock phase-bin enumeration for the second, $4\pi$ inherited from spinor-cycle radiation impedance), and $\delta C/C_0=\tfrac14(V_{pump}/V_{yield})^2\approx4.57\%$ is clean algebra with a textbook degenerate-parametric cross-check. But the leaf is candid that $\kappa_{quality}$ per detector and the per-defect detuning $(\Delta\omega/\omega)_{per-defect}\approx0.1$ are load-bearing-open (sub-regenerative envelope "rigorous derivation pending"; per-defect-class sub-derivations open). Closes to leading order with substantive disclosed open dependencies on $\kappa_{quality}$.
 - strengthen-by:
   - Derive the per-defect-class $(\Delta\omega/\omega)_{per-defect}$ from first principles so $\kappa_{quality}(\rho_{def})$ is fully parameter-free.

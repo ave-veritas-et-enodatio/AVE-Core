@@ -324,7 +324,8 @@
   - INVARIANT-S2 / Axiom 4 (soliton mass / dispersion $\to k(r)$)
   - INVARIANT-N3 (Op2–Op6 operator chain)
   - clm-h9aqmt (single-electron unknot mass/Compton baseline underlying the Step-1 eigenvalue)
-- solidity: 0.39 (do not build on, rework needed) [= 0.55 × 0.70]
+  - clm-qde5gn (deterministic Helmholtz-cavity basis for the radial eigenvalue solver)
+- solidity: 0.31 (do not build on, rework needed) [= 0.55 × 0.56]
 - rationale: The single-electron eigenvalue ($Ry$ emergent, $r_n=n^2a_0/Z$) and H/He/Li results ($\le1.5\%$) close cleanly, and the corrections A–D have stated gate conditions. But the leaf documents that for Be ($11.9\%$) and B the corrections are applied *outside* the phase integral — "violating the action principle" — with the complete-phase-integral architecture (E2k) still in-progress and unvalidated $Z\ge5$; the Li residual is internally inconsistent ($+2.46\%$ vs $-1.2\%$). The $\pm2.8\%$ headline averages over a real per-element spread. Substantive acknowledged open dependency.
 - strengthen-by:
   - Land the E2k complete-phase-integral architecture (all operators inside $V(r)$) and re-validate $Z=5$–14 end-to-end.
@@ -409,7 +410,8 @@
   - INVARIANT-S2 / Axiom 1 (discrete pitch $\to$ UV cutoff; lattice dispersion)
   - INVARIANT-S2 / Axiom 4 (saturation cap $H_{cell}\le m_ec^2$)
   - clm-h9aqmt (unknot $0_1$ as the lightest topological defect = mass gap)
-- solidity: 0.45 (use as input only, don't build deeper) [= 0.65 × 0.70]
+  - clm-oygz1i (Faddeev-Skyrme topological mass functional for the defect spectrum)
+- solidity: 0.39 (do not build on, rework needed) [= 0.65 × 0.60]
 - rationale: Within the lattice framework the result is rigorous: $H\ge0$, $H_{cell}\le m_ec^2$, self-adjointness, and a Bogomol'nyi bound $E\ge2\pi^3c/\kappa_{FS}>0$ all close. The leaf carries a thorough, honest scope correction: the continuum limit is explicitly NOT taken, SU($N$) emergence from $(2,q)$ knots is an ansatz (not derived from YM field equations), Osterwalder-Schrader reconstruction is absent, and $\Delta=m_ec^2$ is the assumed lightest defect's energy. Framework-conditional, not Clay-rigorous; the SU($N$) step pins the band below the Navier-Stokes case.
 - strengthen-by:
   - Derive SU($N$) emergence from the gauge dynamics rather than identifying it from torus-knot topology.
@@ -460,7 +462,7 @@
 - depends-on:
   - INVARIANT-S2 / Axiom 1 (gauge structure from $(2,q)$ torus knots; quantized phase winding)
   - clm-q5izb7 (mass-gap barrier preventing inter-$\theta$-sector tunneling)
-- solidity: 0.23 (do not build on, rework needed) [= 0.50 × 0.45]
+- solidity: 0.20 (do not build on, rework needed) [= 0.50 × 0.39]
 - rationale: The five-step proof has clean structure (zero-charge unique ground state $\to$ mass-gap barrier $\to$ no tunneling $\to \theta=0$), but the load-bearing step 1 asserts the AVE vacuum is *the unique* ground state with zero topological charge — a uniqueness against all competing ground states that the leaf itself flags as not formally proven within ZFC. The $\theta=0$ result is therefore as strong as that asserted uniqueness. Substantive open dependency.
 - strengthen-by:
   - Prove the uniqueness of the zero-charge AVE vacuum topology against competing ground states.
@@ -601,7 +603,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - INVARIANT-S2 / Axiom 2 (Gauss cross-shell screening)
   - INVARIANT-N3 (operator-boundary tripwires Op4/Op6 etc.)
   - clm-oltvwy (atomic IE solver this discipline governs)
-- solidity: 0.27 (do not build on, rework needed) [= 0.70 × 0.39]
+- solidity: 0.22 (do not build on, rework needed) [= 0.70 × 0.31]
 - rationale: This is a methodological discipline statement (true-by-construction within the framework: "all atomic states must emerge from the 5-step method, never $Z_{eff}^2 Ry/n^2$"), not an empirical prediction — so it cannot be falsified by a measurement, but it is backed by clean supporting derivations ($Ry$ emergent from the cavity-saturation boundary; $r_n\propto n^2$ from the standing-wave condition, both shown algebraically). The band reflects a well-grounded boundary plus its clean supporting algebra rather than a closed numerical prediction.
 - strengthen-by:
   - Add a mechanical contamination-detector check (e.g. a unit test) that flags any downstream reuse of the forbidden $Z_{eff}^2 Ry/n^2$ form.
@@ -859,7 +861,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - clm-5zuo7g ($\sin^2\theta_W=2/9$ row)
   - clm-7o8clt (PMNS rows)
   - clm-4vwsjc ($g_*=7^3/4$ row)
-- solidity: 0.09 (refuted, do not use) [= 0.40 × 0.23]
+- solidity: 0.08 (refuted, do not use) [= 0.40 × 0.20]
 - rationale: A headline aggregation: "26 of 26 SM parameters, max residual $<4.1\%$" assembled from per-chapter results that live in (and are scored under) their own entries. As an aggregation it is a structural-unification claim about a common derivation principle (lattice scale invariance + integer ratios), not a single computed result; the leaf does not provide a complete CKM derivation (Wolfenstein parameters not fitted to PMNS accuracy), and $\alpha_s=\alpha^{3/7}$ is an AVE-native-scheme identification with no running-coupling. Per-parameter accuracy spans $0.09\%$ to $\sim4\%$. Aggregation with several asserted/scheme-specific rows.
 - strengthen-by:
   - Provide the full CKM matrix derivation (all four Wolfenstein parameters) at the same rigor as the PMNS matrix.
@@ -893,7 +895,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - INVARIANT-S2 / Axiom 1 (lattice spectral structure; $(2,q)$ torus-knot quantization; impedance relaxation)
   - INVARIANT-S2 / Axiom 4 (energy-density boundedness used in the Riemann below-cutoff argument)
   - clm-q5izb7 (mass-gap barrier reused in several reinterpretations)
-- solidity: 0.18 (refuted, do not use) [= 0.40 × 0.45]
+- solidity: 0.16 (refuted, do not use) [= 0.40 × 0.39]
 - rationale: Five framework-conditional reinterpretations, each explicitly NOT Clay-rigorous (Poincaré is interpretive-only, Perelman's proof being canonical; P-vs-NP is "rendered moot," an explicit non-resolution). They are structural physical interpretations (rank$\leftrightarrow$mutual-inductance, $\zeta$-zeros$\leftrightarrow$spectral-cutoff, Hodge-classes$\leftrightarrow$standing-waves), not algorithmic or ZFC-level derivations; e.g. BSD computes no specific curve's rank, Riemann's below-cutoff step is physical not a zero-free-strip proof. A routing index over five distinct arguments. Asserted/interpretive.
 - strengthen-by:
   - For at least one problem (e.g. BSD), demonstrate the physical identification computes a known answer for a specific instance.
@@ -923,7 +925,8 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - INVARIANT-S2 / Axiom 4 (single saturation kernel $S(x,x_{yield})=\sqrt{1-(x/x_{yield})^2}$ across 39 OOM)
   - INVARIANT-N3 (shared impedance-operator chain)
   - clm-dboxok (operator chain on nuclear + protein)
-- solidity: 0.22 (do not build on, rework needed) [= 0.40 × 0.55]
+  - clm-d9ivj1 (regime-boundary eigenvalue method shared across the domain modules)
+- solidity: 0.04 (refuted, do not use) [= 0.40 × 0.10]
 - rationale: This leaf is an aggregation/routing table: 13 domain rows whose canonical derivations and caveats live in other vol2/3/4/5 chapters. The verifiable load-bearing fact is the *software* identity — one `scale_invariant.py` imported by 13 modules, test-checked to give identical results across scales — but the per-row physical predictions (5%–10% to "exact" regime checks) are not derived here, and "exact" rows are regime/identity checks, not sub-percent waveform matches. As a derivation the leaf asserts agreement and points elsewhere. Aggregation index.
 - strengthen-by:
   - Replace the summary table with per-row links to the canonical derivation + its own confidence, so the headline cannot be read as uniform sub-percent.
@@ -1151,7 +1154,8 @@ A-024 operationalization: the canonical AVE electron-soliton seeder injects a Co
 - depends-on:
   - INVARIANT-S2 / Axiom 1 (horn-torus unknot at $R=r=\ell_{node}/(2\pi)$; Bounding Limit 1 saturation)
   - clm-uatcql (canonical electron definition the seeder instantiates)
-- solidity: 0.26 (do not build on, rework needed) [= 0.50 × 0.52]
+  - clm-8c3yhs ($(2,3)$ torus-knot uniqueness fixing the electron topology seeded)
+- solidity: 0.25 (do not build on, rework needed) [= 0.50 × 0.49]
 - rationale: This operationalizes a seeding/initialization protocol, validated by 9/9 unit tests (topology preservation under finite-time evolution, three-layer real-space + SU(2) + $(2,3)$ structure, Bounding Limit 1). It closes cleanly as what it claims — a validated, engine-agnostic injection protocol — but it is an operationalization, not an independent empirical confirmation or a physics derivation; the "results" are test-passes confirming the protocol behaves as designed. Modest local rigor.
 - strengthen-by:
   - Add a long-time-evolution stability test (beyond finite-time) confirming the seeded unknot is a true attractor, not a metastable seed.
@@ -1181,7 +1185,8 @@ Canonical AVE-native description of the $(2,q)$ stable-particle family ($q$ odd:
   - INVARIANT-S2 / Axiom 1 (bipartite K4 lobe-count = 2; lemniscate-with-$q$-half-twists)
   - INVARIANT-S2 / Axiom 4 (Meissner-asymmetric saturation collapse)
   - clm-h9aqmt (electron rest-energy / virial baseline)
-- solidity: 0.28 (do not build on, rework needed) [= 0.40 × 0.70]
+  - clm-8c3yhs ($(2,3)$ trefoil uniqueness anchoring the $(2,q)$ family)
+- solidity: 0.20 (do not build on, rework needed) [= 0.40 × 0.49]
 - rationale: An integrative $(2,q)$-family synthesis with several explicitly-open pieces: the rest-energy virial sum is labeled "structural, not predicted"; substrate-native Pauli is "PROVISIONAL"; the $R/r$ ladder is "open across three surviving structural reasons." The forward $\chi_{(2,3)}=1.2\alpha$ birefringence prediction and $m_{Cosserat}=2m_e$ from bipartite K4 are the more concrete elements; empirical state is "Mode III canonical + one structural partial-positive." Asserted-partial synthesis with disclosed open/provisional items.
 - strengthen-by:
   - Resolve the $R/r=\varphi^2$ ladder across the three surviving structural reasons.
@@ -1345,7 +1350,8 @@ AVE-native canonical identification of the neutron as $6_2^3 \cup 0_1$ (the prot
   - INVARIANT-S2 / Axiom 2 (charge neutrality via additive $+1+(-1)=0$ twist count)
   - clm-mnb3lt (proton $6^3_2$ / $m_p$ that the neutron composite builds on)
   - clm-uatcql (threaded electron $0_1$ identification)
-- solidity: 0.07 (refuted, do not use) [= 0.50 × 0.14]
+  - clm-cmic3e (proton canonical identification the neutron composite incorporates)
+- solidity: 0.05 (refuted, do not use) [= 0.50 × 0.10]
 - rationale: A rigorous, self-critical audit: the composite topology $n=6^3_2\cup0_1$ and charge neutrality are clean axiom-derived, but the leaf explicitly flags TWO load-bearing derivation gaps — the mass split $m_n-m_p\approx1.293$ MeV is mechanism-named (elastic-expansion tension) but NOT derived from a Faddeev-Skyrme calculation, and the lifetime $\tau_n\approx880$ s mechanism is named but the rate is NOT derived. Magnetic moment and charge radius are structural-only. Substantive acknowledged open dependencies on the two main quantitative observables.
 - strengthen-by:
   - Derive the 1.293 MeV mass split as $E_{FS}(6^3_2\cup0_1)-E_{FS}(6^3_2)$ from the threaded-knot Faddeev-Skyrme energy.

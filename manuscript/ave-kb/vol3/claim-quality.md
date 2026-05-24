@@ -911,6 +911,7 @@ Applies the canonical Op14 long-range coupling operator ($Z_{\text{eff}}(r) = Z_
   - `clm-gz7ryg` (common: A-034 single-kernel unification, solidity X)
   - `clm-ze4clw` (common: $\Gamma=-1$ M,Q,J boundary observables, solidity X)
   - `clm-dsb560` (common: three-route $\alpha$/$G$/$J_{cosmic}$ from $\Omega_{freeze}$, solidity X)
+  - `clm-1eg13f` (Vol 4 Op14 saturation modulating local clock rate, solidity X) [vol3→vol4 exception, D11]
 - solidity: 0.04 (refuted, do not use) [= 0.70 × 0.06]
 - rationale: The leaf is **explicit and disciplined** that this is a (c)-operator-application — canonical Op14 ($Z_{eff} = Z_0/\sqrt{S(A)}$) applied at cosmic-horizon scale, NOT a new operator or new derivation. The profile forms ($Z_{eff}\to\infty$, $\omega_{local}\to0$, asymmetric Meissner $Z_{eff} = Z_0\sqrt{S_\mu/S_\varepsilon}$) follow directly from the canonical kernel and disclosed canonical pieces. It is explicitly a Class-E operating-point projection at $u_0^*$, NOT an independent prediction. Disclosed-import bound: the assembly is clean but the rigor is inherited from the (vol4-canonical) Op14 derivation, which cannot be cited as a vol3 dependency (acyclicity — see worksheet flag).
 - strengthen-by:
@@ -972,6 +973,10 @@ Predicts a DAMA/LIBRA coupling quantum at $E = \alpha\, m_e c^2 \approx 3.728$ k
   - Axiom 4 (Universal Saturation Kernel — saturation back-reaction on the LC tank)
   - `clm-stgx1i` (Vol 2 $g-2$ Schwinger $a_e = \alpha/2\pi$, solidity X)
   - `clm-u86caq` (Vol 3 MOND $a_0$ — shared Hoop-Stress $2\pi$ projection, solidity X)
+  - `clm-ce8dg1` (Vol 1 substrate-equilibrium $v=\alpha c/2\pi$ — shared α-slew rate, solidity X)
+  - `clm-rtdmsn` (Vol 4 electron Q-factor LC tank — α-slew LC mechanism, solidity X) [vol3→vol4 exception, D11]
+  - `clm-1eg13f` (Vol 4 Op14 saturation modulating local clock rate, solidity X) [vol3→vol4 exception, D11]
+  - `clm-v6ti0v` (Vol 4 orbital friction reactive-vs-real power, solidity X) [vol3→vol4 exception, D11]
 - solidity: 0.02 (refuted, do not use) [= 0.50 × 0.04]
 - rationale: $E = a_e\,m_ec^2 = \alpha m_ec^2 = 3.728$ keV follows by a clean substitution chain ($\nu_{slew} = a_e\nu_{Compton}$, $\ell_{node} = \hbar/m_ec$) and lands in the DAMA 2–6 keV window. But the leaf's own 8th/9th-cycle audit (preserved 🔴 author markers) **demotes** the "zero-parameter CONFIRMED" energy-scale status: it is a 1% coincidence with Ca Kα via Moseley, so magnitude alone does not discriminate AVE from SM atomic physics. Rate magnitude is explicitly PAUSED. The AVE-distinct content (Z-independence, CMB phase-lock, solid/liquid gate) is partly confirmed but the load-bearing energy claim rests on a disclosed unresolved anti-anchor — substantive open dependency.
 - strengthen-by:
@@ -1001,6 +1006,8 @@ Candidate formula for the DAMA rate magnitude from matched-impedance coupling be
   - Axiom 3 (Minimum Reflection Principle — matched-impedance coupling)
   - Axiom 4 (Universal Saturation Kernel — vacuum varactor at sub-yield)
   - `clm-b27pnp` (Vol 3 DAMA α-slew energy quantum / $\nu_{slew}$, solidity X)
+  - `clm-6t3p6x` (Vol 4 parametric coupling kernel — matched-LC varactor coupling, solidity X) [vol3→vol4 exception, D11]
+  - `clm-rtdmsn` (Vol 4 electron Q-factor LC tank — matched-impedance coupling, solidity X) [vol3→vol4 exception, D11]
 - solidity: 0.01 (refuted, do not use) [= 0.30 × 0.02]
 - rationale: $\epsilon_{det} = 4\pi/N_{single}^2$ yields a rate $4.80\times10^{-7}$ within 0.6% of DAMA Phase-2. But the leaf is explicit (§3.2, preserved honest-scope / CANONIZED-status Grant marker) that this is a **POST-HOC consistency check, NOT a forward prediction** — the $4\pi$ prefactor was selected from five canonical candidates *after* inspecting the rate gap. The Theorem 3.1′ "inheritance" argument is structurally clean but acknowledged as assembled post-hoc, and the $1/N^2$ scaling is a heuristic Dicke-amplitude argument with full QM derivation pending (§12). Sketch with structural support, not a closed forward derivation — asserted-partial.
 - strengthen-by:
@@ -1031,6 +1038,7 @@ Three independently-validated AVE dark-sector observables share one foundational
   - `clm-u86caq` (Vol 3 MOND $a_0$ — limb i, solidity X)
   - `clm-527k22` (Vol 1 bullet-cluster ponderomotive halo — limb ii, solidity X)
   - `clm-b27pnp` (Vol 3 DAMA α-slew — limb iii, solidity X)
+  - `clm-6t3p6x` (Vol 4 parametric coupling kernel — shared vacuum-varactor operator, solidity X) [vol3→vol4 exception, D11]
 - solidity: 0.01 (refuted, do not use) [= 0.70 × 0.02]
 - rationale: This is a **classification/synthesis** claim and it closes cleanly *as such*: three dark-sector observables share one substrate (Ax1+Ax4) but operate via three distinct operators, with limbs i+iii sharing the Hoop-Stress $2\pi$ projection sub-pattern and limb ii (cluster) a separate ponderomotive class. The leaf is disciplined — it explicitly states this is NOT a one-Lagrangian deep unification and scopes each limb to its own canonical derivation. Band at disclosed-bound rather than higher because the unification claim is only as solid as the disclosed-partial limbs it aggregates (limb iii post-hoc, limb ii qualitatively confirmed) and limb iii's parametric kernel is vol4-canonical (omitted as cyclic dep).
 - strengthen-by:
