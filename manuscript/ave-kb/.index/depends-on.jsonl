@@ -141,6 +141,7 @@
 {"source": "clm-ak97cb", "target": "axiom-2", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Gauss cross-shell screening", "fraction": null}
 {"source": "clm-ak97cb", "target": "clm-oltvwy", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-av2o4v", "target": "clm-a71inj", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-av2o4v", "target": "clm-k3p9wz", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-b27pnp", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Universal Saturation Kernel — saturation back-reaction on the LC tank", "fraction": null}
 {"source": "clm-b27pnp", "target": "clm-1eg13f", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "vol3→vol4 exception, D11", "fraction": null}
 {"source": "clm-b27pnp", "target": "clm-ce8dg1", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
@@ -596,6 +597,7 @@
 {"source": "clm-w6kk5y", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "same-shell chiral coupling $J_{shell}$ via Op4", "fraction": null}
 {"source": "clm-w6kk5y", "target": "clm-9s9apq", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-wd5rs0", "target": "clm-a71inj", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-wd5rs0", "target": "clm-k3p9wz", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-wx5324", "target": "axiom-3", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Minimum Reflection Principle — the action that fixes $G$", "fraction": null}
 {"source": "clm-wx5324", "target": "clm-9s9apq", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-wx5324", "target": "clm-m3z5ux", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}

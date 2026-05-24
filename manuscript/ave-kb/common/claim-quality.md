@@ -97,6 +97,30 @@ The Unified Index of Experimental Falsifications enumerates ~17 experimental tar
 
 ---
 
+## Macroscopic Sagnac Amplification = Proton Faddeev Eigenvalue ($m_p/m_e \approx 1836$) — Cross-Scale Identity (Asserted)
+<!-- id: clm-k3p9wz -->
+
+The framework reuses the proton-to-electron mass ratio $m_p/m_e \approx 1836$ — genuinely derived in Vol 2 as the Faddeev-Skyrme eigenvalue of the Borromean flux linkage — as the **macroscopic Sagnac drag-boundary amplification factor** (the "Macroscopic Baryon Phase Shear"): the gain applied to classical tidal/rotational dissipation to reach the lunar inductive-heating budget ($P_{topo} \approx 1.04$ TW) and the geodynamo back-EMF. `mathematical-closure.md` asserts "the structural Sagnac reflection boundary forces a geometric power scaling structurally equal to the Torus knot eigenvalue of the Proton." This entry tracks that **cross-scale identity itself** as a first-class claim — so it is scoreable, greppable, and gates its consumers — rather than recurring untracked across ~5 leaves.
+
+- _Specific Claims_
+  - The same scalar $\approx 1836$ that is the subatomic proton eigenvalue also sets the macroscopic Sagnac drag-boundary amplification at planetary/orbital scales (geodynamo, Earth-Moon inductive shell).
+- _Specific Non-Claims and Caveats_
+  - **The cross-scale identity is ASSERTED, not derived.** No leaf supplies a mechanism for why a macroscopic drag-boundary amplification must equal the proton's Faddeev-Skyrme eigenvalue; the only support is the numerical coincidence (both $\approx 1836$). The corpus files it under its own `derived-numerology` appendix.
+  - Does NOT re-assert the Vol 2 proton-mass derivation (solid, separate); scopes only the cross-scale *reuse*.
+  - Downstream macroscopic results that consume this amplification — lunar inductive heating (`clm-av2o4v`), geodynamo back-EMF (`clm-wd5rs0`) — `depend-on` this claim and inherit its solidity as an upper bound (they cannot be more solid than the asserted identity they rest on).
+
+> **Leaf references:** [mathematical-closure](./mathematical-closure.md).
+
+### Quality
+- confidence: 0.2
+- solidity: 0.20 (do not build on, rework needed)
+- rationale: Asserted cross-scale identity. The subatomic $m_p/m_e \approx 1836$ is genuinely derived (Vol 2 Faddeev-Skyrme eigenvalue); its reuse as the macroscopic Sagnac drag amplification rests only on the numerical coincidence — `mathematical-closure.md`'s "forces a geometric power scaling structurally equal to the Torus knot eigenvalue of the Proton" asserts a structural equality with no derived mechanism connecting a topological mass eigenvalue to a macroscopic drag-boundary gain, and the corpus itself files it under `derived-numerology`. Scored asserted (a striking numerical match dressed as a structural identity, mechanism absent), pending either a derivation (→ promote) or a walk-back to "order ~10³ amplification, coincidence noted" (→ rescope the dependents). No entry-level dependencies — the asserted-conjecture status is independent of the (solid) Vol 2 proton-mass derivation it numerically references.
+- strengthen-by:
+  - Derive the macroscopic Sagnac drag-boundary amplification from AVE micropolar/Cosserat dynamics and show it must equal $m_p/m_e$ — i.e. make `mathematical-closure.md`'s "structurally equal" claim a derivation rather than an assertion.
+  - Failing that, walk the dependent leaves (lunar, geodynamo) back to "an amplification of order $\sim 10^3$ reaches the observed budget; the precise $1836 = m_p/m_e$ is an unproven cross-scale coincidence," and rescore.
+
+---
+
 ## Universal Solver Toolchain — Operator Reuse, Not Per-Domain Derivation
 <!-- id: clm-m7qd0w -->
 

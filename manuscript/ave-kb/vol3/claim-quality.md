@@ -349,8 +349,9 @@
 ### Quality
 - confidence: 0.5
 - depends-on:
-  - `clm-a71inj` (Vol 3 flyby Sagnac stator boundary — $\Gamma_{sagnac}$, solidity X)
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.50, 0.45)]
+  - `clm-a71inj` (Vol 3 flyby Sagnac stator boundary — $\Gamma_{sagnac}$ mechanism, solidity X)
+  - `clm-k3p9wz` (common: macroscopic Sagnac amplification = $m_p/m_e \approx 1836$ — asserted cross-scale identity supplying the $\Gamma_{sagnac}$ value, solidity X)
+- solidity: 0.20 (do not build on, rework needed) [= min(0.50, 0.20)]
 - rationale: $P_{topo} = (\text{standard tidal formula})\times\Gamma_{sagnac}$ recovers the ~1 TW lunar budget that classical tidal friction underpredicts by ~1000×. The leaf openly states the Love number $k_2 \approx 0.022$ and $Q \approx 38$ are **empirical lunar inputs**, not AVE-derived, and the $\Gamma_{sagnac}$ amplification is reused cross-application without per-application derivation. So the derivation closes only modulo a substantive imported amplification factor and two empirical inputs — substantive open dependency. (Note: leaf body says "$\Gamma\sim1000$" while the cross-ref note says "$\approx1836$"; flagged in worksheet.)
 - strengthen-by:
   - Derive $\Gamma_{sagnac}$ (whether ~1000 or 1836) from the Earth–Moon orbital LC geometry within this leaf, resolving the internal value inconsistency.
@@ -375,8 +376,9 @@
 ### Quality
 - confidence: 0.3
 - depends-on:
-  - `clm-a71inj` (Vol 3 flyby Sagnac stator boundary — $\Gamma_{sagnac}$, solidity X)
-- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 0.45)]
+  - `clm-a71inj` (Vol 3 flyby Sagnac stator boundary — $\Gamma_{sagnac}$ mechanism, solidity X)
+  - `clm-k3p9wz` (common: macroscopic Sagnac amplification = $m_p/m_e \approx 1836$ — asserted cross-scale identity supplying the $\Gamma_{sagnac}$ value, solidity X)
+- solidity: 0.20 (do not build on, rework needed) [= min(0.30, 0.20)]
 - rationale: The AC-motor back-EMF chain ($\mathcal{E}_{emf} = \omega_\oplus R_{core}\Gamma_{sagnac}\cdot B_{stator}\cdot2R_{core}$ → $M_\oplus$) is assembled from several plugged values (solar-wind $B\sim400$ nT, core reactance $Z$, and $\Gamma_{sagnac}\approx1836$ **asserted** as the baryon-phase shear factor, not derived). Result is ~$1.5\times10^{23}$ vs empirical $8.0\times10^{22}$ — a ~2× order-of-magnitude match, correctly flagged as not precision. The Venus/Mars "natural failures" are qualitative. This is a sketch with plausible support, not a closed derivation.
 - strengthen-by:
   - Derive $\Gamma_{sagnac} = \mu_B \approx 1836$ from substrate primitives rather than asserting the proton/electron-mass-ratio identification.
