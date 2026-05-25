@@ -28,6 +28,8 @@ The now-deprecated `axiom-homologation.md` (`session/`) called for unifying the 
 - Move `src/ave/kb/` to `manuscript/ave-kb/tools/kb-cmd/` - all kb tooling belongs together
 - replace all read_bytes()/write_bytes() with utf-8 format read_text()/write_text() in ave-kb/tools and test code
   - NB: this will require some test fixup since some of the tests use b"som-str" comparison values
+- replace all literal duplicates of make target names with string formatted reference to defined value
+  - e.g. `refresh-kb-metadata` is repeated in dozens of places. 
 
 ### D13. Distill 3 manuscript derivations the KB never captured, then bridge P10/P41/P47
 Surfaced 2026-05-25 during the predictions-manifest → claim-DAG bridge (Phase 2). Three **shipped** predictions point at `.tex` derivations that exist in the manuscript but were never distilled into KB leaves, so `predictions.yaml` cannot bridge them to a `clm-` (they sit in the unbridged-warn set). Distillation must be verbatim-faithful per INVARIANT-S7 (leaves canonical). After minting each clm, add the bridge to `predictions.yaml` (`clm:` field) + run `make refresh-predictions`; the entry then leaves the unbridged set.
