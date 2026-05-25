@@ -19,15 +19,12 @@ By simulating these noise sources, we establish the explicit "Signal-to-Noise Ra
 required to falsify or confirm the AVE Kinematic Entrainment Law.
 """
 
-import os
-import pathlib
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import C_0, HBAR
+from scripts._output import sim_output
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 # Target AVE Signal Amplitude (Estimate from Lead vs. Aluminum 1-meter RLG at 1000 RPM)
 # The density difference generates a microscopic but steady phase offset.
 AVE_TARGET_ANOMALY_PHASE = 1.5e-10  # Radians (Order of magnitude estimate for tabletop RLGs)
@@ -190,9 +187,7 @@ def run_tolerance_sweeps() -> None:
     plt.tight_layout()
     plt.subplots_adjust(top=0.85)
 
-    outdir = project_root / "assets" / "sim_outputs"
-    os.makedirs(outdir, exist_ok=True)
-    target = outdir / "sagnac_rlvg_tolerances.png"
+    target = sim_output("sagnac_rlvg_tolerances.png")
     plt.savefig(target, dpi=300)
     print(f"[*] Plotted System Tolerance Sweeps: {target}")
 

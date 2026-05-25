@@ -28,8 +28,6 @@ Usage:
     python src/scripts/vol_3_macroscopic/simulate_black_hole_core.py
 """
 
-import os
-
 import matplotlib
 import numpy as np
 
@@ -48,6 +46,7 @@ from ave.gravity import (  # noqa: E402
     schwarzschild_radius,
     shear_modulus_factor,
 )
+from scripts._output import sim_output  # noqa: E402
 
 # ══════════════════════════════════════════════════════════════════════════════
 # SOLAR MASS AND KNOWN BH DATA
@@ -428,9 +427,7 @@ def run_simulation() -> None:
 
     plt.tight_layout(rect=[0, 0, 1, 0.93])
 
-    out_dir = os.path.join(os.path.dirname(__file__), "..", "assets", "sim_outputs")
-    os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, "simulate_black_hole_core.png")
+    out_path = sim_output("simulate_black_hole_core.png")
     plt.savefig(out_path, dpi=200, facecolor=C_BG, bbox_inches="tight")
     print(f"\n  ✓ Plot saved → {out_path}")
     print("\n  ═══ BLACK HOLE DERIVATION COMPLETE ═══")

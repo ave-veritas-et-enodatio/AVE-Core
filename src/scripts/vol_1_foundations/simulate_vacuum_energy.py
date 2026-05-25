@@ -28,14 +28,11 @@ Title "Derives the cosmological constant" was misleading; corrected
 flag on the projection step.
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import ALPHA, C_0, HBAR, L_NODE, M_E, G
-
-# Ensure local ave package is in path
+from scripts._output import sim_output
 
 
 def derive_vacuum_energy() -> float:
@@ -129,8 +126,7 @@ def simulate_cosmic_inflation() -> None:
     plt.legend()
     plt.grid(True, alpha=0.3)
 
-    output_path = os.path.join(os.path.dirname(__file__), "../assets/sim_outputs/simulate_cosmic_inflation.png")
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    output_path = sim_output("simulate_cosmic_inflation.png")
     plt.savefig(output_path, dpi=300)
     print(f"\nSaved Cosmic Inflation plot to {output_path}")
 

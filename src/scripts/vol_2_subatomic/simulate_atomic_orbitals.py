@@ -2,33 +2,13 @@
 # Solves standard electron orbitals entirely deterministically as 3D Macroscopic
 # Acoustic Chladni Standing-Wave logic formed inside the LC lattice tensor gradients.
 
-import os
-from pathlib import Path
-
 import matplotlib.pyplot as plt
 import numpy as np
 
+from scripts._output import sim_output
 from scripts.vol_2_subatomic.solve_orbital_eigenmodes import OrbitalODE
 
 plt.style.use("dark_background")
-
-
-# --- Standard AVE output directory ---
-def _find_repo_root() -> str:
-    d = os.path.dirname(os.path.abspath(__file__))
-    while d != os.path.dirname(d):
-        if os.path.exists(os.path.join(d, "pyproject.toml")):
-            return d
-        d = os.path.dirname(d)
-    return os.path.dirname(os.path.abspath(__file__))
-
-
-PROJECT_ROOT = Path(_find_repo_root())
-OUTPUT_DIR = os.path.join(_find_repo_root(), "assets", "sim_outputs")
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-# --- End standard output directory ---
-if not os.path.exists(OUTPUT_DIR):
-    os.makedirs(OUTPUT_DIR)
 
 
 def generate_orbitals() -> None:
@@ -149,7 +129,7 @@ def generate_orbitals() -> None:
         bbox=dict(boxstyle="round", facecolor="#111122", alpha=0.8, edgecolor="#ff00aa"),
     )
 
-    output_path = os.path.join(OUTPUT_DIR, "atomic_orbital_standing_waves.pdf")
+    output_path = sim_output("atomic_orbital_standing_waves.pdf")
     plt.tight_layout()
     plt.savefig(output_path, dpi=300, format="pdf", facecolor=fig.get_facecolor(), bbox_inches="tight")
     print(f"Saved Acoustic Orbital Mode simulation to: {output_path}")

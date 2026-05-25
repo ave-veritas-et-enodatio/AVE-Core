@@ -23,16 +23,13 @@ Docstring corrected 2026-05-17: "compute explicit topological strain matrix"
 softened to "render illustrative N-body with phenomenological constants".
 """
 
-import os
-import pathlib
-
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.solvers.topology_optimizer import TopologicalOptimizer
+from scripts._output import sim_output
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 # Simulation Parameters
 Z = 92  # Protons in U-235
 A = 235  # Total nucleons in U-235
@@ -188,9 +185,7 @@ def run_fission_simulation() -> None:
 
     anim = animation.FuncAnimation(fig, update, frames=FRAMES, interval=40, blit=False)
 
-    outdir = project_root / "assets" / "sim_outputs"
-    os.makedirs(outdir, exist_ok=True)
-    target = outdir / "topological_fission_dynamic.gif"
+    target = sim_output("topological_fission_dynamic.gif")
 
     anim.save(target, writer="pillow", fps=25)
     print(f"[*] Visualized Macroscopic Fission Dynamics: {target}")

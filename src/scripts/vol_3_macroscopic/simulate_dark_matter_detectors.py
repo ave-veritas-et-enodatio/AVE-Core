@@ -27,15 +27,11 @@ to a fluid (liquids have zero sheer modulus)" — clarified that the
 amplitude derivation is C14-open per refresh-rate framing.
 """
 
-import os
-import pathlib
-
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import numpy as np
 
-project_root = pathlib.Path(__file__).parent.parent.absolute()
-
+from scripts._output import sim_output
 
 # FDTD Grid
 GRID_SIZE = 300
@@ -146,9 +142,7 @@ def run_detector_comparison() -> None:
 
     anim = animation.FuncAnimation(fig, update, frames=FRAMES, interval=40, blit=True)
 
-    outdir = project_root / "assets" / "sim_outputs"
-    os.makedirs(outdir, exist_ok=True)
-    target = outdir / "dark_matter_detectors.gif"
+    target = sim_output("dark_matter_detectors.gif")
 
     anim.save(target, writer="pillow", fps=25)
     print(f"[*] Visualized Detector Physics: {target}")

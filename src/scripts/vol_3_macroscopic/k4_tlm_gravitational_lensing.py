@@ -32,6 +32,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.colors import PowerNorm  # noqa: E402
 
 from ave.core.k4_tlm import K4Lattice2D, build_k4_scattering_matrix  # noqa: E402
+from scripts._output import SIM_OUTPUTS  # noqa: E402
 
 
 def apply_lens_2d(lattice: "K4Lattice2D", cx: float, cy: float, n0: float, r_core: float) -> None:
@@ -269,8 +270,8 @@ def main() -> bool:
             ax.set_ylabel("y [cells]", fontsize=10)
 
     plt.tight_layout(rect=[0, 0, 1, 0.95])
-    output_dir = os.path.join(os.path.dirname(__file__), "..", "assets", "sim_outputs")
-    os.makedirs(output_dir, exist_ok=True)
+    output_dir = SIM_OUTPUTS
+    output_dir.mkdir(parents=True, exist_ok=True)
     path1 = os.path.join(output_dir, "k4_tlm_gravitational_lensing.png")
     plt.savefig(path1, dpi=150, bbox_inches="tight", facecolor="black")
     print(f"  Saved: {path1}")

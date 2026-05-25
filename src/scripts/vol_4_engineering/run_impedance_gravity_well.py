@@ -12,27 +12,11 @@ wavelength (Relativistic Shift) inside the well on a LINEAR grid,
 but NEVER generates a backward reflected signal.
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.integrate import solve_ivp
 
-
-# --- Standard AVE output directory ---
-def _find_repo_root() -> str:
-    d = os.path.dirname(os.path.abspath(__file__))
-    while d != os.path.dirname(d):
-        if os.path.exists(os.path.join(d, "pyproject.toml")):
-            return d
-        d = os.path.dirname(d)
-    return os.path.dirname(os.path.abspath(__file__))
-
-
-OUTPUT_DIR = os.path.join(_find_repo_root(), "assets", "sim_outputs")
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-# --- End standard output directory ---, "outputs")
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+from scripts._output import sim_output
 
 
 def simulate_impedance_matched_gravity() -> None:
@@ -139,7 +123,7 @@ def simulate_impedance_matched_gravity() -> None:
             spine.set_color("#333333")
 
     plt.tight_layout()
-    filepath = os.path.join(OUTPUT_DIR, "impedance_gravity_well_time_domain.png")
+    filepath = sim_output("impedance_gravity_well_time_domain.png")
     plt.savefig(filepath, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close()
     print(f"Saved: {filepath}")

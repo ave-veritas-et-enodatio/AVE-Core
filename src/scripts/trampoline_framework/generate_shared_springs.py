@@ -11,11 +11,12 @@ Run from repo root:
 """
 
 import math
-from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import Arc, Circle, FancyArrowPatch
+
+from scripts._output import SIM_OUTPUTS
 
 plt.rcParams.update(
     {
@@ -29,7 +30,7 @@ plt.rcParams.update(
     }
 )
 
-OUTDIR = Path("assets/sim_outputs/trampoline_framework")
+OUTDIR = SIM_OUTPUTS / "trampoline_framework"
 OUTDIR.mkdir(parents=True, exist_ok=True)
 
 

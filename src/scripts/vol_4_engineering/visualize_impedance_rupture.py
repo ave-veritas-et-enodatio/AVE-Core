@@ -1,9 +1,8 @@
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.solvers.fdtd_lc_network import FDTDLattice1D
+from scripts._output import sim_output
 
 
 def run_simulation() -> None:
@@ -64,8 +63,7 @@ def run_simulation() -> None:
     ax2.legend()
 
     plt.tight_layout()
-    output_path = os.path.join(os.path.dirname(__file__), "../assets/sim_outputs/achromatic_fdtd_refraction.png")
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    output_path = sim_output("achromatic_fdtd_refraction.png")
     plt.savefig(output_path, dpi=300)
     print(f"Saved visualization to {output_path}")
 

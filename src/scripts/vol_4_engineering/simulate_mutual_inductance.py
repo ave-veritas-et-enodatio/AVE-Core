@@ -1,9 +1,8 @@
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import C_0, G
+from scripts._output import sim_output
 
 
 def simulate_frame_dragging_as_inductance() -> None:
@@ -60,8 +59,7 @@ def simulate_frame_dragging_as_inductance() -> None:
 
     plt.yscale("log")
 
-    output_path = os.path.join(os.path.dirname(__file__), "../assets/sim_outputs/simulate_mutual_inductance.png")
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    output_path = sim_output("simulate_mutual_inductance.png")
     plt.savefig(output_path, dpi=300)
     print(f"Saved visualization to {output_path}")
 

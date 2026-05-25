@@ -3,12 +3,11 @@ Cosmological Simulation / Derivations for the AVE LC Network.
 Derives the Hubble Constant, MOND acceleration limits, and Acoustic Baryon scales.
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import ALPHA, C_0, HBAR, M_E, G
+from scripts._output import sim_output
 
 # Ensure local ave package is in path
 
@@ -77,8 +76,7 @@ def plot_bao_acoustic_peaks() -> None:
     plt.legend()
     plt.grid(True, alpha=0.3)
 
-    output_path = os.path.join(os.path.dirname(__file__), "../assets/sim_outputs/cmb_bao_fitting.png")
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    output_path = sim_output("cmb_bao_fitting.png")
     plt.savefig(output_path, dpi=300)
     print(f"\nSaved BAO Acoustic Peak visualization to {output_path}")
 

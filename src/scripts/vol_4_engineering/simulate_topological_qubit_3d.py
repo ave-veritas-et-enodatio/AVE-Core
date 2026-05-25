@@ -21,12 +21,11 @@ Docstring corrected 2026-05-17: "Proves mathematically" → "Demonstrates
 at NOISE_AMP=0.025"
 """
 
-import os
-from pathlib import Path
-
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import numpy as np
+
+from scripts._output import sim_output
 
 # Parameters
 N_NODES = 100  # Nodes per ring
@@ -263,10 +262,6 @@ def generate_3d_animation(history_r1: list, history_r2: list, out_path: str) -> 
 
 
 if __name__ == "__main__":
-    PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
-    out_dir = PROJECT_ROOT / "assets" / "sim_outputs"
-    os.makedirs(out_dir, exist_ok=True)
-
     t, L_history, dist_history, r1_hist, r2_hist = simulate_topological_immunity()
-    generate_plot(t, L_history, dist_history, out_dir / "topological_qubit_plot.png")
-    generate_3d_animation(r1_hist, r2_hist, out_dir / "topological_qubit_3d.gif")
+    generate_plot(t, L_history, dist_history, sim_output("topological_qubit_plot.png"))
+    generate_3d_animation(r1_hist, r2_hist, sim_output("topological_qubit_3d.gif"))

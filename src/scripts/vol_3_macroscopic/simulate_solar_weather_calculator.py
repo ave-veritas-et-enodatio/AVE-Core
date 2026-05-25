@@ -20,16 +20,13 @@ This script:
 3. Computes the Full-Width at Half-Maximum (FWHM) of the Solar Maximum topological saturation zone.
 """
 
-import os
-import pathlib
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 # AVE Engine — for context on the macroscopic yield limit
 from ave.core.constants import AVALANCHE_N_3D
+from scripts._output import sim_output
 
-project_root = pathlib.Path(__file__).parent.parent.absolute()
 # ── PHENOMENOLOGICAL PARAMETERS ──────────────────────────────────────────
 # These are phenomenological fits to the Shockley diode + avalanche model.
 # V_BD, I_S, V_T are macroscopic analogy parameters (NOT derived from AVE axioms).
@@ -198,9 +195,7 @@ def generate_weather_calculator() -> None:
 
     plt.tight_layout()
 
-    outdir = project_root / "assets" / "sim_outputs"
-    os.makedirs(outdir, exist_ok=True)
-    target = outdir / "solar_weather_iv_calculator.png"
+    target = sim_output("solar_weather_iv_calculator.png")
     plt.savefig(target, dpi=300)
     print(f"[*] Visualized Solar Weather Calculator & I-V Curves: {target}")
     print(f"[*] Calculated Solar Maximum FWHM: {fwhm_duration:.2f} Years.")

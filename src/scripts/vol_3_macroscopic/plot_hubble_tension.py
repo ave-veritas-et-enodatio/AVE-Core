@@ -7,12 +7,10 @@ SH0ES (local) measurements, visualizing the Hubble tension.
 Output: assets/sim_outputs/hubble_tension_position.png
 """
 
-import os
-import shutil
-
 import matplotlib.pyplot as plt
 
 from ave.core.constants import H_INFINITY
+from scripts._output import sim_output
 
 # Convert H_inf to km/s/Mpc
 H_inf_kms = H_INFINITY * 3.0857e22 / 1e3
@@ -81,11 +79,7 @@ ax.spines["right"].set_visible(False)
 ax.spines["left"].set_visible(False)
 
 plt.tight_layout()
-output_path = os.path.join(os.path.dirname(__file__), "..", "assets", "sim_outputs", "hubble_tension_position.png")
+output_path = sim_output("hubble_tension_position.png")
 plt.savefig(output_path, dpi=200, facecolor=fig.get_facecolor(), bbox_inches="tight")
 plt.close()
 print(f"Saved: {output_path}")
-
-dst = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "sim_outputs", "hubble_tension_position.png")
-shutil.copy2(output_path, dst)
-print(f"Copied to: {dst}")

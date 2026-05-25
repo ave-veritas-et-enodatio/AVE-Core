@@ -63,6 +63,7 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 import ave.core.constants as _avc
 from ave.core.constants import ALPHA, ALPHA_COLD_INV
 from ave.topological.vacuum_engine import VacuumEngine3D
+from scripts._output import sim_output
 
 assert _avc.__file__.endswith("ave/core/constants.py"), "ave.core.constants is not the AVE-Core canonical source"
 
@@ -478,9 +479,6 @@ print("=" * 78)
 # =============================================================================
 print("\nGenerating visualization...")
 
-OUT = REPO_ROOT / "assets" / "sim_outputs"
-OUT.mkdir(parents=True, exist_ok=True)
-
 fig = plt.figure(figsize=(16, 11), facecolor="#0a0a0a")
 gs = GridSpec(3, 3, figure=fig, hspace=0.35, wspace=0.3)
 
@@ -662,7 +660,7 @@ fig.suptitle(
     y=0.98,
 )
 
-out_path = OUT / f"r10_path_alpha_{VARIANT}_single_cell_boundary.png"
+out_path = sim_output(f"r10_path_alpha_{VARIANT}_single_cell_boundary.png")
 plt.savefig(out_path, dpi=140, facecolor="#0a0a0a", bbox_inches="tight")
 print(f"  Figure: {out_path}")
 print()

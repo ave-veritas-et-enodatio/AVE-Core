@@ -12,10 +12,10 @@ These are physically distinct:
 Output: assets/sim_outputs/vacuum_dielectric_saturation.png
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
+
+from scripts._output import sim_output
 
 # Normalised field variable: A / A_yield  (0 to 0.999)
 x = np.linspace(0, 0.999, 2000)
@@ -129,14 +129,7 @@ ax2.spines["right"].set_visible(False)
 ax2.grid(True, alpha=0.15, color="#30363d")
 
 plt.tight_layout()
-output_path = os.path.join(
-    os.path.dirname(__file__),
-    "..",
-    "..",
-    "assets",
-    "sim_outputs",
-    "vacuum_dielectric_saturation.png",
-)
+output_path = sim_output("vacuum_dielectric_saturation.png")
 plt.savefig(output_path, dpi=200, facecolor=fig.get_facecolor())
 plt.close()
 print(f"Saved: {output_path}")

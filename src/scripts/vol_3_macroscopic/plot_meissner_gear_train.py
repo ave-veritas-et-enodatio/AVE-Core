@@ -9,13 +9,10 @@ Left: Normal conduction — boundary torque causes localized slipping
 Right: Superconduction — phase-locked flywheels create infinite inertia,
        boundary gears refuse to rotate, exponential decay = London penetration depth.
 """
-import os
-import pathlib
-
 import matplotlib.pyplot as plt
 import numpy as np
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
+from scripts._output import sim_output
 
 
 def generate() -> None:
@@ -142,9 +139,7 @@ def generate() -> None:
 
     plt.tight_layout(pad=2.5)
 
-    out_dir = project_root / "assets" / "sim_outputs"
-    os.makedirs(out_dir, exist_ok=True)
-    out_path = out_dir / "meissner_gear_train.png"
+    out_path = sim_output("meissner_gear_train.png")
     plt.savefig(out_path, dpi=300, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close()
     print(f"[*] Meissner Gear Train Figure Saved: {out_path}")

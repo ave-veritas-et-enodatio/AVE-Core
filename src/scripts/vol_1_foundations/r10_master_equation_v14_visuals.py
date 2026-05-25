@@ -32,6 +32,7 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from ave.core.constants import ALPHA, ALPHA_COLD_INV
 from ave.core.master_equation_fdtd import MasterEquationFDTD
+from scripts._output import SIM_OUTPUTS
 
 print("=" * 78)
 print("R10 v14 Visualization Suite — Master Equation FDTD breathing soliton")
@@ -59,7 +60,7 @@ N_STEPS = 5000
 SNAPSHOT_CADENCE = 25  # 200 snapshots total
 FRAMES_FOR_GIF = 100  # subsample for GIF (every other snapshot)
 
-OUT = REPO_ROOT / "assets" / "sim_outputs"
+OUT = SIM_OUTPUTS
 OUT.mkdir(parents=True, exist_ok=True)
 
 print(f"Engine: N={N}, V_yield={V_YIELD}, c0={C0}, PML={PML}")

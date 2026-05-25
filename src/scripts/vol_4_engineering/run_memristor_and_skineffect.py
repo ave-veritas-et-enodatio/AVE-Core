@@ -1,24 +1,8 @@
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.integrate import solve_ivp
 
-
-# --- Standard AVE output directory ---
-def _find_repo_root() -> str:
-    d = os.path.dirname(os.path.abspath(__file__))
-    while d != os.path.dirname(d):
-        if os.path.exists(os.path.join(d, "pyproject.toml")):
-            return d
-        d = os.path.dirname(d)
-    return os.path.dirname(os.path.abspath(__file__))
-
-
-OUTPUT_DIR = os.path.join(_find_repo_root(), "assets", "sim_outputs")
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-# --- End standard output directory ---, "outputs")
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+from scripts._output import sim_output
 
 
 def simulate_memristor_and_skin_effect() -> None:
@@ -115,7 +99,7 @@ def simulate_memristor_and_skin_effect() -> None:
 
     plt.tight_layout()
     plt.savefig(
-        os.path.join(OUTPUT_DIR, "memristor_and_skineffect.png"),
+        sim_output("memristor_and_skineffect.png"),
         facecolor=fig.get_facecolor(),
         bbox_inches="tight",
     )

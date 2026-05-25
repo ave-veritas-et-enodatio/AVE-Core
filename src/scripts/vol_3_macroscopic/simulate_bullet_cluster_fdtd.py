@@ -46,13 +46,12 @@ vlbi_impedance_parallax.py (which was renamed in docstring, not file path,
 to preserve commit history; same pattern applies here).
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import M_SUN, G
 from ave.regime_3_saturated.galactic_rotation import A0_LATTICE, ave_saturation_acceleration
+from scripts._output import sim_output
 
 
 def simulate_bullet_cluster_fdtd() -> None:
@@ -150,8 +149,7 @@ def simulate_bullet_cluster_fdtd() -> None:
     axes[-1].set_xlabel("Galaxy Collision Axis (kiloparsecs)")
 
     plt.tight_layout()
-    output_path = os.path.join(os.path.dirname(__file__), "../../../assets/sim_outputs/bullet_cluster_axiomatic.png")
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    output_path = sim_output("bullet_cluster_axiomatic.png")
     plt.savefig(output_path, dpi=200, bbox_inches="tight")
     print(f"Saved Axiomatic Bullet Cluster footprint to {output_path}")
 

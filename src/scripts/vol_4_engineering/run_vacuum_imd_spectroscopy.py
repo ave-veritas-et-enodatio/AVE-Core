@@ -1,25 +1,9 @@
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.integrate import solve_ivp
 from scipy.signal.windows import blackmanharris
 
-
-# --- Standard AVE output directory ---
-def _find_repo_root() -> str:
-    d = os.path.dirname(os.path.abspath(__file__))
-    while d != os.path.dirname(d):
-        if os.path.exists(os.path.join(d, "pyproject.toml")):
-            return d
-        d = os.path.dirname(d)
-    return os.path.dirname(os.path.abspath(__file__))
-
-
-OUTPUT_DIR = os.path.join(_find_repo_root(), "assets", "sim_outputs")
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-# --- End standard output directory ---, "outputs")
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+from scripts._output import sim_output
 
 
 def simulate_condensate_imd_spectroscopy() -> None:
@@ -97,7 +81,7 @@ def simulate_condensate_imd_spectroscopy() -> None:
 
     plt.tight_layout()
     plt.savefig(
-        os.path.join(OUTPUT_DIR, "condensate_imd_spectroscopy.png"),
+        sim_output("condensate_imd_spectroscopy.png"),
         facecolor=fig.get_facecolor(),
         bbox_inches="tight",
     )

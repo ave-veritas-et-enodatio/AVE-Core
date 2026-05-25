@@ -1,14 +1,10 @@
-import os
-import pathlib
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.axioms.scale_invariant import epsilon_eff
 from ave.axioms.scale_invariant import impedance as _impedance
 from ave.core.constants import V_YIELD, Z_0
-
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
+from scripts._output import sim_output
 
 
 def calculate_effective_permittivity(V_applied: np.ndarray) -> np.ndarray:
@@ -128,10 +124,7 @@ def run_sensitivity_sweeps() -> None:
     plt.tight_layout()
 
     # Save output
-    project_root = pathlib.Path(str(pathlib.Path(__file__).parent.parent.parent.parent.absolute()))
-    outdir = project_root / "assets" / "sim_outputs"
-    os.makedirs(outdir, exist_ok=True)
-    target = outdir / "vacuum_mirror_sensitivities.png"
+    target = sim_output("vacuum_mirror_sensitivities.png")
 
     plt.savefig(target, dpi=150, facecolor="#0f0f0f")
     print(f"[*] Visualized Vacuum Mirror Sensitivity Bounds: {target}")

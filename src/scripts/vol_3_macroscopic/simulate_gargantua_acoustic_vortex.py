@@ -35,11 +35,13 @@ import numpy as np
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
+from scripts._output import sim_output  # noqa: E402
+
 
 # ─────────────────────────────────────────────────────────────
 # Blackbody → sRGB conversion (Planck spectrum)
 # ─────────────────────────────────────────────────────────────
-def _blackbody_rgb(T: float | "np.ndarray") -> "np.ndarray":
+def _blackbody_rgb(T: float | np.ndarray) -> np.ndarray:
     """Convert temperature (K) to approximate sRGB [0,1].
     Tanner Helland approximation (1000 K – 40,000 K)."""
     T = np.atleast_1d(np.asarray(T, dtype=float))
@@ -72,13 +74,13 @@ def _blackbody_rgb(T: float | "np.ndarray") -> "np.ndarray":
     return rgb
 
 
-def _aces_tonemap(color: "np.ndarray") -> "np.ndarray":
+def _aces_tonemap(color: np.ndarray) -> np.ndarray:
     """ACES filmic tone mapping for cinema-grade HDR → LDR."""
     a, b, c, d, e = 2.51, 0.03, 2.43, 0.59, 0.14
     return np.clip((color * (a * color + b)) / (color * (c * color + d) + e), 0.0, 1.0)
 
 
-def _hash_noise(x: "np.ndarray", y: "np.ndarray", seed: float = 0.0) -> "np.ndarray":
+def _hash_noise(x: np.ndarray, y: np.ndarray, seed: float = 0.0) -> np.ndarray:
     """Deterministic 2D hash noise for disk texture."""
     val = np.sin(x * 127.1 + y * 311.7 + seed) * 43758.5453
     return val - np.floor(val)
@@ -394,9 +396,7 @@ def render_gargantua() -> None:
 
     plt.tight_layout(pad=0)
 
-    out_dir = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "sim_outputs")
-    os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, "gargantua_acoustic_vortex.png")
+    out_path = str(sim_output("gargantua_acoustic_vortex.png"))
     plt.savefig(out_path, dpi=250, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close()
 

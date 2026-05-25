@@ -8,13 +8,11 @@ Also marks the Cauchy solid (K/G = 5/3) and the rigidity threshold.
 Output: assets/sim_outputs/emt_packing_landscape.png
 """
 
-import os
-import shutil
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import P_C
+from scripts._output import sim_output
 
 # ─── EMT model ───
 # For a 3D amorphous central-force network (Feng-Thorpe-Garboczi),
@@ -157,12 +155,7 @@ ax.spines["top"].set_visible(False)
 ax.spines["right"].set_visible(False)
 
 plt.tight_layout()
-output_path = os.path.join(os.path.dirname(__file__), "..", "assets", "sim_outputs", "emt_packing_landscape.png")
+output_path = sim_output("emt_packing_landscape.png")
 plt.savefig(output_path, dpi=200, facecolor=fig.get_facecolor(), bbox_inches="tight")
 plt.close()
 print(f"Saved: {output_path}")
-
-# Also copy to standard location
-dst = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "sim_outputs", "emt_packing_landscape.png")
-shutil.copy2(output_path, dst)
-print(f"Copied to: {dst}")

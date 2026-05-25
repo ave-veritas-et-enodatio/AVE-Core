@@ -7,10 +7,9 @@ operator, from ℓ_node (~10⁻¹³ m) to the Hubble radius (~10²⁶ m).
 Output: assets/sim_outputs/cross_scale_verification.png
 """
 
-import os
-import shutil
-
 import matplotlib.pyplot as plt
+
+from scripts._output import sim_output
 
 # Domain data: (name, log10(scale_m), agreement, color)
 domains = [
@@ -106,11 +105,7 @@ ax.spines["right"].set_visible(False)
 ax.spines["left"].set_visible(False)
 
 plt.tight_layout()
-output_path = os.path.join(os.path.dirname(__file__), "..", "assets", "sim_outputs", "cross_scale_verification.png")
+output_path = sim_output("cross_scale_verification.png")
 plt.savefig(output_path, dpi=200, facecolor=fig.get_facecolor(), bbox_inches="tight")
 plt.close()
 print(f"Saved: {output_path}")
-
-dst = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "sim_outputs", "cross_scale_verification.png")
-shutil.copy2(output_path, dst)
-print(f"Copied to: {dst}")

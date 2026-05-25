@@ -7,29 +7,12 @@
 # language softened 2026-05-17 to match what the code actually computes (visualization,
 # not derivation).
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
+from scripts._output import sim_output
+
 plt.style.use("dark_background")
-
-
-# --- Standard AVE output directory ---
-def _find_repo_root() -> str:
-    d = os.path.dirname(os.path.abspath(__file__))
-    while d != os.path.dirname(d):
-        if os.path.exists(os.path.join(d, "pyproject.toml")):
-            return d
-        d = os.path.dirname(d)
-    return os.path.dirname(os.path.abspath(__file__))
-
-
-OUTPUT_DIR = os.path.join(_find_repo_root(), "assets", "sim_outputs")
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-# --- End standard output directory ---
-if not os.path.exists(OUTPUT_DIR):
-    os.makedirs(OUTPUT_DIR)
 
 
 def generate_trefoil(
@@ -141,7 +124,7 @@ def simulate_proton() -> None:
 
     ax.legend(loc="lower left", facecolor="black", edgecolor="white", labelcolor="white")
 
-    output_path = os.path.join(OUTPUT_DIR, "borromean_proton_3d.png")
+    output_path = sim_output("borromean_proton_3d.png")
     plt.tight_layout()
     plt.savefig(output_path, dpi=300, facecolor=fig.get_facecolor(), bbox_inches="tight")
     print(f"Saved Borromean Proton 6^3_2 Topology simulation to: {output_path}")

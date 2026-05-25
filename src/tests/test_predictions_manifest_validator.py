@@ -1,15 +1,15 @@
 """
-Unit tests for the claim-graph validator.
+Unit tests for the predictions-manifest validator.
 
 Covers each of the 4 structural checks (schema, label, engine, parity) with
 both happy-path and failure fixtures, plus an end-to-end assertion that the
 live manifest has zero critical findings (its quality gate for CI).
 
-Reference: src/scripts/claim_graph_validator.py,
+Reference: src/scripts/predictions_manifest_validator.py,
            manuscript/predictions.yaml
 """
 
-from scripts.claim_graph_validator import (
+from scripts.predictions_manifest_validator import (
     ALLOWED_TYPES,
     MANIFEST_PATH,
     REPO_ROOT,

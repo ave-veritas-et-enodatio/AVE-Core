@@ -26,8 +26,6 @@ to "Illustrative accumulation visualization" since the Gaussian centers
 are inputs, not predictions.
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -152,21 +150,6 @@ def simulate_accumulation_boundaries() -> None:
 
     plt.tight_layout(rect=[0, 0.03, 1, 0.92])
 
-    # --- Standard AVE output directory ---
-
-
-def _find_repo_root() -> str:
-    d = os.path.dirname(os.path.abspath(__file__))
-    while d != os.path.dirname(d):
-        if os.path.exists(os.path.join(d, "pyproject.toml")):
-            return d
-        d = os.path.dirname(d)
-    return os.path.dirname(os.path.abspath(__file__))
-
-
-OUTPUT_DIR = os.path.join(_find_repo_root(), "assets", "sim_outputs")
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-# --- End standard output directory ---
 
 if __name__ == "__main__":
     simulate_accumulation_boundaries()

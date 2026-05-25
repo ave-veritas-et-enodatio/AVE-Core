@@ -16,8 +16,6 @@ Panels:
 All constants from ave.core.constants — zero free parameters.
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -32,11 +30,7 @@ from ave.solvers.orbital_resonance import (
     refractive_index,
     schwarzschild_radius,
 )
-
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-# Standard AVE output directory
-OUTPUT_DIR = os.path.join(project_root, "assets", "sim_outputs")
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+from scripts._output import sim_output
 
 plt.style.use("dark_background")
 
@@ -208,7 +202,7 @@ def main() -> None:
         y=1.02,
     )
 
-    out_path = os.path.join(OUTPUT_DIR, "bh_orbital_resonance.png")
+    out_path = sim_output("bh_orbital_resonance.png")
     plt.savefig(out_path, dpi=300, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close()
     print(f"\n[*] Saved figure: {out_path}")

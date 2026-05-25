@@ -4,16 +4,11 @@ Author: AI (Antigravity Assistant)
 Based on: Vol 4, Section 12.4.3 - Applied RLVG Telemetry
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import C_0
-
-# Set up output directory
-OUTPUT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "assets", "sim_outputs"))
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+from scripts._output import sim_output
 
 
 def simulate_polyhedral_rlvg() -> None:
@@ -79,7 +74,7 @@ def simulate_polyhedral_rlvg() -> None:
 
     plt.tight_layout()
 
-    output_path = os.path.join(OUTPUT_DIR, "polyhedral_rlvg_compass.png")
+    output_path = sim_output("polyhedral_rlvg_compass.png")
     plt.savefig(output_path, dpi=300)
     print(f"Plot saved to '{output_path}'")
 

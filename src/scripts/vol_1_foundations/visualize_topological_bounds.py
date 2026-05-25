@@ -1,5 +1,3 @@
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -8,6 +6,7 @@ from ave.topological.tensors import (
     compute_toroidal_halo_volume,
     witten_effect_fractionalization,
 )
+from scripts._output import sim_output
 
 
 def visualize_baryon_bounds() -> None:
@@ -94,8 +93,7 @@ def visualize_baryon_bounds() -> None:
     ax3.grid(True, alpha=0.3)
 
     plt.tight_layout()
-    output_path = os.path.join(os.path.dirname(__file__), "../assets/sim_outputs/visualize_topological_bounds.png")
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    output_path = sim_output("visualize_topological_bounds.png")
     plt.savefig(output_path, dpi=300)
     print(f"Saved visualization to {output_path}")
 

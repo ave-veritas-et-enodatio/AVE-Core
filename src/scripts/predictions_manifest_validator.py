@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 """
-Claim Graph Validator — verifies the structured claim graph in
-manuscript/predictions.yaml against the manuscript and physics engine.
+Predictions Manifest Validator — verifies the structured prediction manifest
+in manuscript/predictions.yaml against the manuscript and physics engine.
+
+(Validates the public PREDICTION manifest — the P-numbered Master Prediction
+Table rows — NOT the ave-kb clm-/exp-/sup- claim DAG, which is a separate
+graph validated by the ave-kb metadata-spine tooling.)
 
 This is the Tier-2 rigor upgrade (see session handoff). Where the
 defense_context_checker catches FRAMING anti-patterns via regex, this
@@ -22,10 +26,10 @@ Exit codes:
   2 — script error (missing manifest, bad YAML, etc.)
 
 Usage:
-  python src/scripts/claim_graph_validator.py                 # full run
-  python src/scripts/claim_graph_validator.py --json          # machine output
-  python src/scripts/claim_graph_validator.py --warn-only     # exit 0 on failures
-  python src/scripts/claim_graph_validator.py --check label   # one check
+  python src/scripts/predictions_manifest_validator.py                 # full run
+  python src/scripts/predictions_manifest_validator.py --json          # machine output
+  python src/scripts/predictions_manifest_validator.py --warn-only     # exit 0 on failures
+  python src/scripts/predictions_manifest_validator.py --check label   # one check
 
 Reference: docs/framing_and_presentation.md (Tier 2 proposal),
            manuscript/predictions.yaml (the manifest).
@@ -642,7 +646,7 @@ def format_json(findings: list[Finding], n_entries: int) -> str:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Validate the AVE claim graph (manuscript/predictions.yaml).")
+    parser = argparse.ArgumentParser(description="Validate the AVE predictions manifest (manuscript/predictions.yaml).")
     parser.add_argument(
         "--manifest",
         type=Path,

@@ -2,28 +2,11 @@
 # Renders a rigorous mathematical 3D diagram of the standard FDTD Yee Cell,
 # explicitly mapping the staggered spatial gradients (\nabla_d \times) that
 # govern the fundamental discrete limits of causality in the universe.
-import os
-
 import matplotlib.pyplot as plt
 
+from scripts._output import sim_output
+
 plt.style.use("dark_background")
-
-
-# --- Standard AVE output directory ---
-def _find_repo_root() -> str:
-    d = os.path.dirname(os.path.abspath(__file__))
-    while d != os.path.dirname(d):
-        if os.path.exists(os.path.join(d, "pyproject.toml")):
-            return d
-        d = os.path.dirname(d)
-    return os.path.dirname(os.path.abspath(__file__))
-
-
-OUTPUT_DIR = os.path.join(_find_repo_root(), "assets", "sim_outputs")
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-# --- End standard output directory ---
-if not os.path.exists(OUTPUT_DIR):
-    os.makedirs(OUTPUT_DIR)
 
 
 def generate_yee_cell() -> None:
@@ -130,7 +113,7 @@ def generate_yee_cell() -> None:
 
     ax.legend(loc="upper right", facecolor="#000000", edgecolor="white", labelcolor="white")
 
-    output_path = os.path.join(OUTPUT_DIR, "fdtd_continuous_yee_mesh.pdf")
+    output_path = sim_output("fdtd_continuous_yee_mesh.pdf")
     plt.tight_layout()
     plt.savefig(output_path, facecolor=fig.get_facecolor(), bbox_inches="tight")
     print(f"Saved mathematically staggered Yee Cell plot to: {output_path}")

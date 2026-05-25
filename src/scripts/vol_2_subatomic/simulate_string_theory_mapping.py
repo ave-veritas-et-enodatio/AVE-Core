@@ -8,29 +8,12 @@
 # would require a substantive analytical derivation (not in corpus). Annotation
 # language softened 2026-05-17 to match what the FDTD actually computes.
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
+from scripts._output import sim_output
+
 plt.style.use("dark_background")
-
-
-# --- Standard AVE output directory ---
-def _find_repo_root() -> str:
-    d = os.path.dirname(os.path.abspath(__file__))
-    while d != os.path.dirname(d):
-        if os.path.exists(os.path.join(d, "pyproject.toml")):
-            return d
-        d = os.path.dirname(d)
-    return os.path.dirname(os.path.abspath(__file__))
-
-
-OUTPUT_DIR = os.path.join(_find_repo_root(), "assets", "sim_outputs")
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-# --- End standard output directory ---
-if not os.path.exists(OUTPUT_DIR):
-    os.makedirs(OUTPUT_DIR)
 
 # --- FDTD Discrete LC Line Parameters ---
 # The continuous string wave equation is d2V/dt2 = (1/LC) d2V/dx2
@@ -186,10 +169,10 @@ def generate_string_mapping() -> None:
         bbox=dict(boxstyle="round", facecolor="#111122", alpha=0.9, edgecolor="#ff00aa", pad=1),
     )
 
-    output_path = os.path.join(OUTPUT_DIR, "string_theory_lc_mapping.pdf")
+    output_path = sim_output("string_theory_lc_mapping.pdf")
     # Because LaTeX requires .png for normal \includegraphics without specific \DeclareGraphicsRule,
     # let's save a PNG as well to ensure smooth compilation in main.tex
-    png_path = os.path.join(OUTPUT_DIR, "string_theory_lc_mapping.png")
+    png_path = sim_output("string_theory_lc_mapping.png")
 
     plt.tight_layout(rect=[0, 0.15, 1, 1])
     plt.savefig(output_path, dpi=300, format="pdf", facecolor=fig.get_facecolor(), bbox_inches="tight")

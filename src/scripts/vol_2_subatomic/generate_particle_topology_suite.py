@@ -13,14 +13,12 @@ particles in the AVE framework:
   7. Summary   (All particles in a single 2x3+1 panel)
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
+from scripts._output import sim_output
+
 plt.style.use("dark_background")
-OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "sim_outputs")
-os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # ─── Topology Generators ────────────────────────────────────────────
 
@@ -178,7 +176,7 @@ def figure_electron() -> None:
     ax.set_title("Electron: Ground-State Unknot ($0_1$)", color="white", fontsize=15, pad=15)
     set_cubic_limits(ax)
     ax.view_init(elev=30, azim=45)
-    path = os.path.join(OUTPUT_DIR, "topology_electron.png")
+    path = sim_output("topology_electron.png")
     plt.savefig(path, dpi=300, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close()
     print(f"[+] {path}")
@@ -192,7 +190,7 @@ def figure_muon() -> None:
     ax.set_title("Muon: Torsional Cosserat Excitation", color="white", fontsize=15, pad=15)
     set_cubic_limits(ax)
     ax.view_init(elev=30, azim=45)
-    path = os.path.join(OUTPUT_DIR, "topology_muon.png")
+    path = sim_output("topology_muon.png")
     plt.savefig(path, dpi=300, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close()
     print(f"[+] {path}")
@@ -206,7 +204,7 @@ def figure_tau() -> None:
     ax.set_title("Tau: Curvature-Twist Cosserat Excitation", color="white", fontsize=15, pad=15)
     set_cubic_limits(ax)
     ax.view_init(elev=30, azim=45)
-    path = os.path.join(OUTPUT_DIR, "topology_tau.png")
+    path = sim_output("topology_tau.png")
     plt.savefig(path, dpi=300, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close()
     print(f"[+] {path}")
@@ -220,7 +218,7 @@ def figure_neutrino() -> None:
     ax.set_title("Neutrino: Dispersive Twisted Unknot", color="white", fontsize=15, pad=15)
     set_cubic_limits(ax, lim=4.0)
     ax.view_init(elev=20, azim=30)
-    path = os.path.join(OUTPUT_DIR, "topology_neutrino.png")
+    path = sim_output("topology_neutrino.png")
     plt.savefig(path, dpi=300, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close()
     print(f"[+] {path}")
@@ -246,7 +244,7 @@ def figure_proton() -> None:
     ax.set_title(r"Proton: $6^3_2$ Borromean Linkage", color="white", fontsize=15, pad=15)
     set_cubic_limits(ax, lim=2.5)
     ax.view_init(elev=25, azim=40)
-    path = os.path.join(OUTPUT_DIR, "topology_proton.png")
+    path = sim_output("topology_proton.png")
     plt.savefig(path, dpi=300, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close()
     print(f"[+] {path}")
@@ -275,7 +273,7 @@ def figure_neutron() -> None:
     ax.set_title(r"Neutron: Borromean Link $\cup$ Threaded Unknot", color="white", fontsize=15, pad=15)
     set_cubic_limits(ax, lim=2.5)
     ax.view_init(elev=25, azim=40)
-    path = os.path.join(OUTPUT_DIR, "topology_neutron.png")
+    path = sim_output("topology_neutron.png")
     plt.savefig(path, dpi=300, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close()
     print(f"[+] {path}")
@@ -356,7 +354,7 @@ def figure_summary_panel() -> None:
         )
 
     plt.tight_layout(rect=[0, 0.02, 1, 0.95])
-    path = os.path.join(OUTPUT_DIR, "topology_particle_zoo.png")
+    path = sim_output("topology_particle_zoo.png")
     plt.savefig(path, dpi=300, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close()
     print(f"[+] {path}")

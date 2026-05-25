@@ -72,8 +72,8 @@ verify: verify-kb-metadata verify-md-links
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_atomic_ie_manuscript_table.py
 	@echo "\n[Verify] Running defense-context checker (critical-tier gate)..."
 	$(PYTHON) $(SCRIPT_DIR)/defense_context_checker.py --severity critical
-	@echo "\n[Verify] Running claim-graph validator..."
-	$(PYTHON) $(SCRIPT_DIR)/claim_graph_validator.py
+	@echo "\n[Verify] Running predictions-manifest validator..."
+	$(PYTHON) $(SCRIPT_DIR)/predictions_manifest_validator.py
 	@echo "\n=================================================="
 	@echo "[Verify] ALL PHYSICS PROTOCOLS PASSED."
 	@echo "=================================================="

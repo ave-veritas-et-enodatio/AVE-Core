@@ -3,13 +3,12 @@ Generates annotated 2D static stills of the Axiom 4 Bullet Cluster collision seq
 to embed directly into the manuscript.
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import M_SUN, G
 from ave.regime_3_saturated.galactic_rotation import A0_LATTICE, ave_saturation_acceleration
+from scripts._output import sim_output
 
 
 def extract_bullet_stills() -> None:
@@ -131,8 +130,7 @@ def extract_bullet_stills() -> None:
 
     fig.patch.set_facecolor("black")
     plt.tight_layout()
-    output_path = os.path.join(os.path.dirname(__file__), "../../../assets/sim_outputs/bullet_annotated_stills.png")
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    output_path = sim_output("bullet_annotated_stills.png")
     plt.savefig(output_path, dpi=200, facecolor=fig.get_facecolor(), bbox_inches="tight")
     print(f"Annotated stills saved to {output_path}")
 

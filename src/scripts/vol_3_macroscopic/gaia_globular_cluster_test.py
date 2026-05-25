@@ -49,6 +49,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import ALPHA, C_0
+from scripts._output import sim_output
 
 V_SUBSTRATE_KMS = ALPHA * C_0 / (2 * np.pi) / 1000.0  # canonical: 348.18 km/s
 
@@ -310,8 +311,7 @@ def main() -> None:
     axes[1].grid(alpha=0.3, axis="y")
 
     plt.tight_layout()
-    out_path = Path(__file__).parent.parent.parent / "assets" / "sim_outputs" / "gaia_globular_cluster_test.png"
-    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path = sim_output("gaia_globular_cluster_test.png")
     plt.savefig(out_path, dpi=150, bbox_inches="tight")
     print(f"Saved plot to: {out_path}")
     print()

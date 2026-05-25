@@ -8,14 +8,11 @@ violently "snaps" back to a lower energy state, ejecting a massive
 directional density wave (Coronal Mass Ejection / Solar Flare).
 """
 
-import os
-import pathlib
-
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import numpy as np
 
-project_root = pathlib.Path(__file__).parent.parent.absolute()
+from scripts._output import sim_output
 
 # Simulation Parameters
 N_RADIAL = 30  # Number of shells
@@ -219,9 +216,7 @@ def animate_flare(R: np.ndarray, history_theta: np.ndarray, flare_wave: np.ndarr
 
     anim = animation.FuncAnimation(fig, update, frames=FRAMES, interval=40, blit=False)
 
-    outdir = project_root / "assets" / "sim_outputs"
-    os.makedirs(outdir, exist_ok=True)
-    target = outdir / "solar_flare_topology.gif"
+    target = sim_output("solar_flare_topology.gif")
 
     anim.save(target, writer="pillow", fps=25)
     print(f"[*] Topological Solar Flare Animation Saved: {target}")

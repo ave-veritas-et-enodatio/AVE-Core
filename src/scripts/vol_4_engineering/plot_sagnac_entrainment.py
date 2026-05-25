@@ -15,15 +15,11 @@ relativity based on real-world material and environmental limits:
 5. Latitude Lense-Thirring Drift
 """
 
-import os
-import pathlib
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import C_0
-
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
+from scripts._output import sim_output
 
 
 def generate_sagnac_sweeps() -> None:
@@ -172,9 +168,7 @@ def generate_sagnac_sweeps() -> None:
 
     plt.tight_layout(pad=2.5)
 
-    out_dir = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "sim_outputs")
-    os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, "sagnac_kinematic_entrainment.png")
+    out_path = sim_output("sagnac_kinematic_entrainment.png")
 
     plt.savefig(out_path, dpi=300, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close()

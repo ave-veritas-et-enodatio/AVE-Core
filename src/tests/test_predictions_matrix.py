@@ -18,7 +18,7 @@ junk/empty ID — while staying silent on legitimate growth.
 
 Reference:
   - manuscript/predictions.yaml (manifest)
-  - src/scripts/claim_graph_validator.py REPO_ROOT
+  - src/scripts/predictions_manifest_validator.py REPO_ROOT
 """
 
 import re
@@ -26,7 +26,7 @@ import re
 import pytest
 import yaml
 
-from scripts.claim_graph_validator import REPO_ROOT
+from scripts.predictions_manifest_validator import REPO_ROOT
 
 MANIFEST_PATH = REPO_ROOT / "manuscript" / "predictions.yaml"
 

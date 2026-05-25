@@ -17,14 +17,11 @@ over time in 3D space.
 Generates an animated GIF of the structural evolution.
 """
 
-import os
-import pathlib
-
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import numpy as np
 
-project_root = pathlib.Path(__file__).parent.parent.absolute()
+from scripts._output import sim_output
 
 # JAX GPU acceleration (graceful fallback to numpy)
 try:
@@ -203,9 +200,7 @@ def animate_simulation(history: np.ndarray) -> None:
 
     anim = animation.FuncAnimation(fig, update, frames=FRAMES, interval=50, blit=False)
 
-    outdir = project_root / "assets" / "sim_outputs"
-    os.makedirs(outdir, exist_ok=True)
-    target = outdir / "saturn_rings_evolution.gif"
+    target = sim_output("saturn_rings_evolution.gif")
 
     anim.save(target, writer="pillow", fps=20)
     print(f"[*] Scale-Invariant Topology Generated: {target}")

@@ -16,12 +16,13 @@ to avoid coupling the canonical reference visuals to engine internal state.
 """
 
 import math
-from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import Circle, FancyArrowPatch
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+
+from scripts._output import SIM_OUTPUTS
 
 # Use embedded TeX for math rendering; falls back gracefully on systems without
 plt.rcParams.update(
@@ -36,7 +37,7 @@ plt.rcParams.update(
     }
 )
 
-OUTDIR = Path("assets/sim_outputs/trampoline_framework")
+OUTDIR = SIM_OUTPUTS / "trampoline_framework"
 OUTDIR.mkdir(parents=True, exist_ok=True)
 
 

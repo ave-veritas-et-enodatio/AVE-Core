@@ -6,15 +6,12 @@ Simulates the anomalous perihelion precession of inner planets
 drag of the Sun's massive topological displacement field.
 """
 
-import os
-import pathlib
-
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.integrate import solve_ivp
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
+from scripts._output import sim_output
 
 # Constants (Normalized for aesthetic visual scaling)
 G_M = 1.0  # Standard 1/r^2 mass displacement constant
@@ -129,18 +126,15 @@ def simulate_precession() -> None:
 
     anim = animation.FuncAnimation(fig, update, frames=frames // step_size, interval=20, blit=True)
 
-    outdir = project_root / "assets" / "sim_outputs"
-    os.makedirs(outdir, exist_ok=True)
-
     # Save GIF
-    target_gif = outdir / "topological_precession_rosette.gif"
+    target_gif = sim_output("topological_precession_rosette.gif")
     anim.save(target_gif, writer="pillow", fps=30)
     print(f"[*] Precession Animation Saved: {target_gif}")
 
     # Also save a static PNG of the full rosette track for the PDF manuscript
     track_line.set_data(x_track, y_track)
     planet_dot.set_data(np.array([x_track[-1]]), np.array([y_track[-1]]))
-    target_png = outdir / "topological_precession_rosette.png"
+    target_png = sim_output("topological_precession_rosette.png")
     plt.savefig(target_png, dpi=300, bbox_inches="tight", facecolor=fig.get_facecolor())
     print(f"[*] Static Precession Image Saved: {target_png}")
 

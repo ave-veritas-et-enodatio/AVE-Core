@@ -25,12 +25,11 @@ phase-gap derivation chain to be sourced (TBD-pin 2026-05-17 audit).
 Docstring corrected 2026-05-17.
 """
 
-import os
-from pathlib import Path
-
 import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 import numpy as np
+
+from scripts._output import sim_output
 
 # The subatomic phase-gap separating the V_II dielectric phase from the V_I conduction phase
 # Claim: derived from Void Fraction remainder (1 - Phi_limit) — derivation chain
@@ -204,9 +203,7 @@ def plot_memory_hysteresis(times: np.ndarray, V_app: np.ndarray, current_I: np.n
     plt.gcf().patch.set_facecolor("black")
 
     # Save Output Asset
-    out_dir = Path(os.path.dirname(__file__)) / ".." / ".." / ".." / "assets" / "sim_outputs"
-    out_dir.mkdir(parents=True, exist_ok=True)
-    out_path = out_dir / "neuromorphic_memristor_hysteresis.png"
+    out_path = sim_output("neuromorphic_memristor_hysteresis.png")
     plt.savefig(out_path, dpi=300, facecolor="black")
     print(f"Asset successfully rendered to: {out_path}")
 

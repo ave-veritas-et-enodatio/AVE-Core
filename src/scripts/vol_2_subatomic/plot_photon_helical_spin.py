@@ -10,13 +10,10 @@ network impedance (Z → Z_crit). The discrete sequential excitation of
 the M_A LC nodes structurally guarantees absolute charge containment.
 """
 
-import os
-import pathlib
-
 import matplotlib.pyplot as plt
 import numpy as np
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
+from scripts._output import sim_output
 
 
 def generate_photon_helical_spin() -> None:
@@ -159,9 +156,7 @@ def generate_photon_helical_spin() -> None:
 
     plt.tight_layout(pad=2.0)
 
-    out_dir = project_root / "assets" / "sim_outputs"
-    os.makedirs(out_dir, exist_ok=True)
-    out_path = out_dir / "photon_helical_spin.png"
+    out_path = sim_output("photon_helical_spin.png")
     plt.savefig(out_path, dpi=300, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close()
 

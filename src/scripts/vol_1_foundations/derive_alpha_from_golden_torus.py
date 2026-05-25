@@ -17,11 +17,10 @@ Output: assets/sim_outputs/trefoil_alpha_qfactor.png
 Reference: manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex
 """
 
-import os
-
 import numpy as np
 
 from ave.core.constants import ALPHA, ALPHA_COLD_INV, DELTA_STRAIN
+from scripts._output import sim_output
 
 # ═══════════════════════════════════════════════════════════════════════════
 # Pure-numeric module-level constants (safe to import)
@@ -52,15 +51,6 @@ def golden_torus_multipole() -> dict[str, float]:
         "Lambda_line": Lambda_line,
         "alpha_inv": Lambda_vol + Lambda_surf + Lambda_line,
     }
-
-
-def _find_repo_root() -> str:
-    d = os.path.dirname(os.path.abspath(__file__))
-    while d != os.path.dirname(d):
-        if os.path.exists(os.path.join(d, "pyproject.toml")):
-            return d
-        d = os.path.dirname(d)
-    return os.path.dirname(os.path.abspath(__file__))
 
 
 def render_figure(output_path: str | None = None) -> str:
@@ -159,9 +149,7 @@ def render_figure(output_path: str | None = None) -> str:
     ax.view_init(elev=22, azim=38)
 
     if output_path is None:
-        output_dir = os.path.join(_find_repo_root(), "assets", "sim_outputs")
-        os.makedirs(output_dir, exist_ok=True)
-        output_path = os.path.join(output_dir, "trefoil_alpha_qfactor.png")
+        output_path = str(sim_output("trefoil_alpha_qfactor.png"))
 
     plt.savefig(output_path, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close()

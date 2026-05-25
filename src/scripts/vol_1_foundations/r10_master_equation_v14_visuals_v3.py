@@ -40,6 +40,7 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 from skimage import measure
 
 from ave.core.master_equation_fdtd import MasterEquationFDTD
+from scripts._output import sim_output
 
 print("=" * 78)
 print("R10 v14 Visualization v3 — Watchable pace, zoomed-in")
@@ -78,9 +79,6 @@ GIF_FPS = 5
 ZOOM_HALF = 7
 ZOOM_LO = N // 2 - ZOOM_HALF
 ZOOM_HI = N // 2 + ZOOM_HALF
-
-OUT = REPO_ROOT / "assets" / "sim_outputs"
-OUT.mkdir(parents=True, exist_ok=True)
 
 print(f"Run: {N_STEPS} steps, snapshot every {SNAPSHOT_CADENCE} → " f"{N_STEPS // SNAPSHOT_CADENCE} frames")
 print(f"Playback: {GIF_FPS} fps → {(N_STEPS // SNAPSHOT_CADENCE) / GIF_FPS:.0f}s animation")
@@ -255,7 +253,7 @@ ax.tick_params(colors="white", labelsize=9)
 # Pick a good static view angle
 ax.view_init(elev=22, azim=35)
 
-still_path = OUT / "v14_zoomed_hero.png"
+still_path = sim_output("v14_zoomed_hero.png")
 plt.savefig(still_path, dpi=160, facecolor="#0a0a0a", bbox_inches="tight")
 print(f"  {still_path}")
 plt.close(fig)
@@ -382,7 +380,7 @@ def update_dual(frame_idx):
 
 
 anim_dual = FuncAnimation(fig, update_dual, frames=len(snapshots_V), interval=1000 // GIF_FPS, blit=False)
-anim_dual_path = OUT / "v14_breathing_dual_view.gif"
+anim_dual_path = sim_output("v14_breathing_dual_view.gif")
 
 print(f"  Saving {anim_dual_path} (this takes ~30-60s)...")
 fig.suptitle("AVE breathing soliton — 2D equatorial slice + 3D isosurface", color="white", fontsize=14, y=0.96)
@@ -495,7 +493,7 @@ def update_2d_zoom(frame_idx):
 
 
 anim_zoom = FuncAnimation(fig, update_2d_zoom, frames=len(snapshots_V), interval=1000 // GIF_FPS, blit=False)
-anim_zoom_path = OUT / "v14_breathing_2d_zoomed.gif"
+anim_zoom_path = sim_output("v14_breathing_2d_zoomed.gif")
 print(f"  Saving {anim_zoom_path}...")
 anim_zoom.save(str(anim_zoom_path), writer=PillowWriter(fps=GIF_FPS))
 print(f"  {anim_zoom_path}")

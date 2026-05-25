@@ -24,7 +24,6 @@ Title "Deriving Macroscopic Gravity (G)" was misleading; corrected to
 serves the manuscript's pedagogical purpose, with honest scope.
 """
 
-import os
 import sys
 from pathlib import Path
 
@@ -34,6 +33,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
 from ave.core.constants import H_INFINITY
+from scripts._output import sim_output
 
 # Megaparsec in km, for converting H_∞ from SI [s⁻¹] to astronomical [km/s/Mpc].
 # 1 Mpc = 3.0856775814913673e22 m = 3.0856775814913673e19 km (IAU 2015).
@@ -125,10 +125,7 @@ def simulate_cosmological_equilibrium() -> None:
     plt.tight_layout()
 
     # Save the output
-    output_path = os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "../assets/sim_outputs/simulate_cosmological_equilibrium.png")
-    )
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    output_path = sim_output("simulate_cosmological_equilibrium.png")
     plt.savefig(output_path, dpi=300, facecolor=fig.get_facecolor())
 
     print(f"\nSaved cosmological equilibrium plot to {output_path}")

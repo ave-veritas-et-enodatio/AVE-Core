@@ -1,8 +1,8 @@
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.integrate import solve_ivp
+
+from scripts._output import sim_output
 
 # Physical parameters (normalized for visual clarity)
 GAMMA = 1.0  # Gyromagnetic ratio
@@ -180,8 +180,7 @@ def main() -> None:
     plt.tight_layout()
 
     # Save output
-    os.makedirs("assets/sim_outputs", exist_ok=True)
-    out_path = "assets/sim_outputs/quantum_spin_gyroscopic_precession.png"
+    out_path = sim_output("quantum_spin_gyroscopic_precession.png")
     plt.savefig(out_path, dpi=300, bbox_inches="tight")
     print(f"Saved artifact successfully to: {out_path}")
 

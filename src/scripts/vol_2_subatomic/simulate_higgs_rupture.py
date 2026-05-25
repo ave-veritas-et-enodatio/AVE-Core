@@ -26,8 +26,6 @@ Usage:
     python src/scripts/vol_2_subatomic/simulate_higgs_rupture.py
 """
 
-import os
-
 import matplotlib
 import numpy as np
 
@@ -48,6 +46,7 @@ from ave.core.constants import (
     e_charge,
 )
 from ave.core.universal_operators import universal_saturation
+from scripts._output import sim_output
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
@@ -367,9 +366,7 @@ def run_simulation() -> None:
 
     plt.tight_layout(rect=[0, 0, 1, 0.93])
 
-    out_dir = os.path.join(os.path.dirname(__file__), "..", "assets", "sim_outputs")
-    os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, "electroweak_dielectric_spark.png")
+    out_path = sim_output("electroweak_dielectric_spark.png")
     plt.savefig(out_path, dpi=200, facecolor=C_BG, bbox_inches="tight")
     print(f"\n  ✓ Plot saved → {out_path}")
     print("\n  ═══ HIGGS RUPTURE SIMULATION COMPLETE ═══")

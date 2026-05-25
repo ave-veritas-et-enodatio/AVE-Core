@@ -21,13 +21,10 @@ It generates a simulated distribution of solar flares and compares it to
 the empirical power-law distribution observed by astrophysicists.
 """
 
-import os
-import pathlib
-
 import matplotlib.pyplot as plt
 import numpy as np
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
+from scripts._output import sim_output
 
 # Simulation Parameters: Macroscopic Diode (The Sun)
 YEARS_TO_SIMULATE = 50.0  # Covering multiple 11-year solar cycles
@@ -176,9 +173,7 @@ def run_solar_led_simulation() -> None:
 
     plt.tight_layout()
 
-    outdir = project_root / "assets" / "sim_outputs"
-    os.makedirs(outdir, exist_ok=True)
-    target = outdir / "solar_led_statistics.png"
+    target = sim_output("solar_led_statistics.png")
     plt.savefig(target, dpi=300)
     print(f"[*] Visualized Solar-LED Macroscopic Avalanche: {target}")
 

@@ -46,6 +46,7 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from ave.core.constants import ALPHA, ALPHA_COLD_INV
 from ave.topological.vacuum_engine import VacuumEngine3D
+from scripts._output import sim_output
 
 print("=" * 78)
 print("R10 Path-α v14 — Soliton Visualizer (seed-focused)")
@@ -130,9 +131,6 @@ print()
 # =============================================================================
 # Build figure
 # =============================================================================
-OUT = REPO_ROOT / "assets" / "sim_outputs"
-OUT.mkdir(parents=True, exist_ok=True)
-
 fig = plt.figure(figsize=(17, 12), facecolor="#0a0a0a")
 gs = GridSpec(3, 4, figure=fig, hspace=0.4, wspace=0.35, height_ratios=[1.0, 1.0, 0.7])
 
@@ -346,7 +344,7 @@ fig.suptitle(
     y=0.995,
 )
 
-out_path = OUT / "r10_path_alpha_v14_soliton_seed.png"
+out_path = sim_output("r10_path_alpha_v14_soliton_seed.png")
 plt.savefig(out_path, dpi=140, facecolor="#0a0a0a", bbox_inches="tight")
 print(f"Figure: {out_path}")
 print()

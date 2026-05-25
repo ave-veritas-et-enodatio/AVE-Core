@@ -1,14 +1,10 @@
 #!/usr/bin/env python3
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
+from scripts._output import sim_output
 from src.ave.condensed.bjt_mechanics import bjt_current_gain
 from src.scripts.vol_4_engineering.temperature_stress_test import ave_V_bi, classical_V_bi
-
-output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../assets/sim_outputs"))
-os.makedirs(output_dir, exist_ok=True)
 
 
 def generate_bjt_surface() -> None:
@@ -44,7 +40,7 @@ def generate_bjt_surface() -> None:
 
     fig.colorbar(surf, shrink=0.5, aspect=5)
 
-    path = os.path.join(output_dir, "bjt_geometric_beta_surface.png")
+    path = sim_output("bjt_geometric_beta_surface.png")
     plt.savefig(path, dpi=300, bbox_inches="tight")
     plt.close()
     print(f"Saved {path}")
@@ -94,7 +90,7 @@ def generate_thermal_rigidity() -> None:
     # Add text annotation
     plt.text(400, 1.08, "AVE Absolute Rigid Boundary", color="blue", fontweight="bold")
 
-    path = os.path.join(output_dir, "cryogenic_rigidity_falsification.png")
+    path = sim_output("cryogenic_rigidity_falsification.png")
     plt.savefig(path, dpi=300, bbox_inches="tight")
     plt.close()
     print(f"Saved {path}")
@@ -145,7 +141,7 @@ def generate_spice_override() -> None:
     plt.grid(True, linestyle="-", alpha=0.3)
     plt.legend(loc="upper left")
 
-    path = os.path.join(output_dir, "spice_zener_override_comparison.png")
+    path = sim_output("spice_zener_override_comparison.png")
     plt.savefig(path, dpi=300, bbox_inches="tight")
     plt.close()
     print(f"Saved {path}")

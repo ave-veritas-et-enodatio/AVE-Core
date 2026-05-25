@@ -5,14 +5,11 @@ Demonstrates how symmetric elements repel external flows (Diamagnetism)
 and asymmetric elements generate topological torque (Paramagnetism).
 """
 
-import os
-import pathlib
-
 import matplotlib.pyplot as plt
 import numpy as np
 from periodic_table.simulations.simulate_element import get_nucleon_coordinates
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
+from scripts._output import sim_output
 
 
 def calculate_flow_field(
@@ -105,11 +102,8 @@ def plot_magnetism(element_name: str, Z: int, A: int, is_paramagnetic: bool = Fa
     ax.set_ylabel("Z-Axis (Spatial Extent)", color="white")
 
     # Save the plot
-    out_dir = project_root / "assets" / "sim_outputs"
-    os.makedirs(out_dir, exist_ok=True)
-
     filename = element_name.lower().replace("-", "_") + "_magnetism.png"
-    out_path = out_dir / filename
+    out_path = sim_output(filename)
     plt.savefig(out_path, dpi=200, bbox_inches="tight", facecolor=fig.get_facecolor())
     plt.close()
     print(f"[*] Generated Magnetism Visualization: {out_path}")

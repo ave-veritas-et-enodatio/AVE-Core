@@ -8,9 +8,6 @@ Generates a three-panel figure demonstrating:
     3. The derivation of the macroscopic avalanche exponent from 3D Poisson scaling.
 """
 
-import os
-import pathlib
-
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -21,11 +18,11 @@ from ave.regime_3_saturated.kolmogorov_cutoff import (
     lattice_nyquist_wavenumber,
     spectral_cascade_demo,
 )
+from scripts._output import sim_output
 
 
 def build_visualization() -> None:
     print("[*] Generating Kolmogorov Cascade Topology Visualizations...")
-    project_root = pathlib.Path(__file__).parent.parent.parent.parent.absolute()
 
     # Typical water parameters
     nu_water = 1.0e-6  # m^2/s kinematic viscosity
@@ -150,9 +147,7 @@ def build_visualization() -> None:
 
     plt.tight_layout()
 
-    outdir = project_root / "assets" / "sim_outputs"
-    os.makedirs(outdir, exist_ok=True)
-    target = outdir / "kolmogorov_spectral_cutoff.png"
+    target = sim_output("kolmogorov_spectral_cutoff.png")
     plt.savefig(target, dpi=300)
     print(f"[*] Visualized Kolmogorov Cascade: {target}")
 

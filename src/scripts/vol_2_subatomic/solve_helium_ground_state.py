@@ -48,7 +48,6 @@ Outputs → assets/sim_outputs/
 """
 
 import os
-from pathlib import Path
 
 import matplotlib
 import numpy as np
@@ -59,14 +58,13 @@ from scipy.optimize import minimize_scalar
 # All constants from the physics engine — ZERO free parameters
 # ═══════════════════════════════════════════════════════════
 from ave.core.constants import ALPHA, C_0, HBAR, L_NODE, M_E, e_charge
+from scripts._output import SIM_OUTPUTS
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
-PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
-
-OUT = PROJECT_ROOT / "assets/sim_outputs"
-OUT.mkdir(exist_ok=True)
+OUT = SIM_OUTPUTS
+OUT.mkdir(parents=True, exist_ok=True)
 
 # Derived constants — ALL first-principles from (m_e, α)
 A_BOHR = L_NODE / ALPHA  # a₀ = ℏ/(m_e c α) [m]
