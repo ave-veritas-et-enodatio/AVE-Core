@@ -16,7 +16,7 @@ SCRIPT_DIR = $(SOURCE_DIR)/scripts
 # Volume list — public volumes only (0–6)
 VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_macroscopic vol_4_engineering vol_5_biology vol_6_periodic_table
 
-.PHONY: all clean distclean verify verify-kb-metadata refresh-kb-metadata kb-claim-stats verify-md-links verify-inter-repo-links framing-audit test pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 setup
+.PHONY: all clean distclean verify verify-kb-metadata refresh-kb-metadata refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links framing-audit test pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 setup
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -85,6 +85,10 @@ verify-kb-metadata:
 refresh-kb-metadata:
 	@echo "Regenerating derived KB metadata fields (subtree-claims, ...)..."
 	$(PYTHON) manuscript/ave-kb/tools/refresh-kb-metadata.py
+
+refresh-predictions:
+	@echo "Regenerating derived predictions-manifest fields (axioms_used from claim DAG)..."
+	PYTHONPATH=$(SOURCE_DIR) $(PYTHON) $(SCRIPT_DIR)/predictions_manifest_refresh.py
 
 kb-claim-stats:
 	@echo "Claim-graph stats summary (counts + solidity build-band distribution, read-only)..."

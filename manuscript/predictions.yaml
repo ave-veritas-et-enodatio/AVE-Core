@@ -58,7 +58,7 @@ predictions:
     observed_value: 137.035999
     observed_source: "CODATA 2022"
     error_percent: 0.000222
-    axioms_used: [1, 2, 4]
+    axioms_used: [1]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -76,7 +76,7 @@ predictions:
     observed_value: 376.730313668
     observed_source: "SI definition"
     error_percent: 0.0
-    axioms_used: [1]
+    axioms_used: [1, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -111,7 +111,7 @@ predictions:
     observed_value: 80379.0
     observed_source: "CODATA 2022"
     error_percent: 0.57
-    axioms_used: [1, 2, 4]
+    axioms_used: [1, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: "m_e / (8πα³√(3/7)) — torsional ring self-energy with chirality mismatch."
@@ -127,7 +127,7 @@ predictions:
     observed_value: 91188.0
     observed_source: "CODATA 2022"
     error_percent: 0.62
-    axioms_used: [1, 2, 4]
+    axioms_used: [1, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: "M_Z = M_W · 3/√7 — PAT pole-mass ratio."
@@ -143,7 +143,7 @@ predictions:
     observed_value: 69.8
     observed_source: "TRGB (late-universe), km/s/Mpc"
     error_percent: 0.7
-    axioms_used: [1, 3, 4]
+    axioms_used: [1, 2, 3]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -228,7 +228,7 @@ predictions:
     observed_value: 0.2230
     observed_source: "PDG on-shell"
     error_percent: 0.35
-    axioms_used: [1, 2]
+    axioms_used: [1]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -306,7 +306,7 @@ predictions:
     type: derived_prediction
     derivation_label: "ch:electroweak_higgs"
     error_percent: 0.66
-    axioms_used: [1, 2, 4]
+    axioms_used: [1, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -337,7 +337,7 @@ predictions:
     observed_value: 125100.0
     observed_source: "PDG 2022 (ATLAS + CMS)"
     error_percent: 0.55
-    axioms_used: [1, 2, 4]
+    axioms_used: [1, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -382,7 +382,7 @@ predictions:
     name: "Solar flare LED-avalanche kernel (NOAA GOES 40-yr)"
     type: axiom_manifestation
     derivation_label: "ch:orbital_mechanics"
-    axioms_used: [4]
+    axioms_used: [1, 4]
     public_in_readme: false
     public_in_living_ref: false
     notes: |
@@ -406,7 +406,7 @@ predictions:
     observed_value: 0.3737
     observed_source: "GR exact (Berti et al., 3 LIGO events GW150914, GW170104, GW151226)"
     error_percent: 1.7
-    axioms_used: [3, 4]
+    axioms_used: [1, 3, 4]
     public_in_readme: false
     public_in_living_ref: false
     notes: |
@@ -424,7 +424,7 @@ predictions:
     name: "Schwarzschild radius exact match (ε₁₁(r) = 1 boundary)"
     type: identity
     derivation_label: "ch:bh_orbitals"
-    axioms_used: [3, 4]
+    axioms_used: [1, 2, 3, 4]
     public_in_readme: false
     public_in_living_ref: false
     notes: |
@@ -484,7 +484,7 @@ predictions:
     observed_value: 1600.0
     observed_source: "PDG — Δ(1600); the (2,11) matches Δ(1900) at 1900 MeV"
     error_percent: 1.11
-    axioms_used: [1, 2, 4]
+    axioms_used: [1]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -515,7 +515,7 @@ predictions:
     name: "Yang-Mills mass gap"
     type: engineering_limit
     derivation_label: "sec:ym_millennium"
-    axioms_used: [1, 4]
+    axioms_used: [1, 2, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -583,7 +583,7 @@ predictions:
     name: "Kirkwood gaps, Cassini division"
     type: consistency_check
     derivation_label: "ch:orbital_mechanics"
-    axioms_used: [3]
+    axioms_used: [1, 2, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -626,7 +626,7 @@ predictions:
     name: "Magnetopause (Earth, Jupiter)"
     type: derived_prediction
     derivation_label: "sec:planetary_magnetosphere"
-    axioms_used: [1, 2]
+    axioms_used: [1, 2, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -651,7 +651,7 @@ predictions:
     predicted_value: 6.08e-10
     observed_value: 6.1e-10
     error_percent: 0.38
-    axioms_used: [1, 4]
+    axioms_used: [1]
     public_in_readme: true
     public_in_living_ref: true
     notes: "η_B = n_B/n_γ from sphaleron + CP-violation open problem in Vol 2 Ch 10 sec:baryon_asymmetry; NOT in ch:cosmology_v7 (Vol 3 Ch 5) as previously labeled. No ETA_BARYON module-level constant; engine computes inline in src/ave/axioms/open_problems.py:236."
@@ -661,7 +661,7 @@ predictions:
     name: "CKM matrix (V_us, V_cb, V_ub)"
     type: derived_prediction
     derivation_label: "ch:electroweak"
-    axioms_used: [1, 2, 4]
+    axioms_used: [1]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -677,7 +677,7 @@ predictions:
     name: "PMNS matrix (all 4 parameters)"
     type: derived_prediction
     derivation_label: "ch:neutrino_sector"
-    axioms_used: [1, 2, 4]
+    axioms_used: [1]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -706,7 +706,7 @@ predictions:
     derivation_label: "ch:condensed_matter"
     cross_repo: "AVE-Protein"
     error_percent: 0.8
-    axioms_used: []
+    axioms_used: [1, 2]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -728,7 +728,7 @@ predictions:
     name: "NS compactness limit"
     type: engineering_limit
     derivation_label: "ch:gravitational_waves"
-    axioms_used: [3, 4]
+    axioms_used: [1, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -760,7 +760,7 @@ predictions:
     name: "α invariance under gravity"
     type: derived_prediction
     derivation_label: "sec:galactic_saturation"
-    axioms_used: [1, 2, 3, 4]
+    axioms_used: [3, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -778,7 +778,7 @@ predictions:
     name: "BH interior, Regime IV"
     type: derived_prediction
     derivation_label: "ch:bh_interior"
-    axioms_used: [1, 3, 4]
+    axioms_used: [1, 2, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |

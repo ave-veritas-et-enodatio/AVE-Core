@@ -111,7 +111,7 @@ PRE_REGISTERED_REQUIRED_FIELDS = {
 # ───────────────────────────────────────────────────────────────────────────
 @dataclass
 class Finding:
-    check: str  # "schema" | "label" | "engine" | "bridge" | "parity"
+    check: str  # "schema" | "label" | "engine" | "bridge" | "axioms" | "parity"
     severity: str  # "critical" | "warn" | "info"
     entry_id: str | None
     message: str
@@ -198,6 +198,62 @@ def collect_spine_nodes(path: Path = KB_CLAIMS_INDEX) -> dict[str, str]:
         if nid:
             nodes[nid] = rec.get("node_type", "")
     return nodes
+
+
+KB_DEPENDS_INDEX = REPO_ROOT / "manuscript" / "ave-kb" / ".index" / "depends-on.jsonl"
+
+
+def collect_dependency_edges(path: Path = KB_DEPENDS_INDEX) -> dict[str, set[str]]:
+    """Read the KB depends-on index and return adjacency {source: {targets}}
+    for `relation: depends` edges only (not strengthens / supports). Stdlib
+    `json`. Missing index → empty map.
+    """
+    adj: dict[str, set[str]] = {}
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError:
+        return adj
+    for line in text.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            e = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if e.get("relation") == "depends":
+            adj.setdefault(e["source"], set()).add(e["target"])
+    return adj
+
+
+def derive_axioms_used(clm_id: str, adjacency: dict[str, set[str]] | None = None) -> list[int]:
+    """Derive a claim's axiom basis by walking its transitive `depends_on`
+    cone and collecting every `axiom-N` node reached, returned as a sorted
+    list of ints. This is the single source for both the refresh-writer (which
+    writes `axioms_used` into bridged manifest entries) and the `check_axioms`
+    drift-gate — they must agree, so they share this one function.
+
+    Note: this is a *source-grounded lower bound* — it returns only the axioms
+    the claim DAG explicitly chains to. It tightens as more `clm->axiom` edges
+    are wired (each grounded in a claim's own cited axiom basis).
+    """
+    if adjacency is None:
+        adjacency = collect_dependency_edges()
+    seen: set[str] = set()
+    stack = [clm_id]
+    axioms: set[int] = set()
+    while stack:
+        node = stack.pop()
+        for target in adjacency.get(node, ()):
+            if target.startswith("axiom-"):
+                try:
+                    axioms.add(int(target.split("-", 1)[1]))
+                except ValueError:
+                    pass
+            elif target not in seen:
+                seen.add(target)
+                stack.append(target)
+    return sorted(axioms)
 
 
 def _extract_prediction_table_rows(
@@ -616,6 +672,55 @@ def check_bridge(
     return findings
 
 
+def check_axioms(
+    manifest: dict,
+    adjacency: dict[str, set[str]] | None = None,
+) -> list[Finding]:
+    """`axioms_used` is a DERIVED field for bridged entries: it must equal the
+    sorted axiom cone of the entry's `clm:` bridge (see derive_axioms_used).
+    `predictions_manifest_refresh.py` writes it; this gate fails if the stored
+    value drifts from the recomputed one (refresh-fixable, like the KB's
+    subtree-claims / solidity derived fields).
+
+    Only bridged entries are gated — an unbridged entry (no clm/exp) has no DAG
+    cone to derive from, so its `axioms_used` stays hand-authored and untouched.
+    """
+    findings: list[Finding] = []
+    if adjacency is None:
+        adjacency = collect_dependency_edges()
+    if not adjacency:
+        return [
+            Finding(
+                check="axioms",
+                severity="warn",
+                entry_id=None,
+                message=(f"KB depends-on index not found/empty at {KB_DEPENDS_INDEX} — cannot derive axioms_used"),
+            )
+        ]
+    for entry in manifest.get("predictions", []):
+        clm = entry.get("clm")
+        if not clm:
+            continue  # unbridged: axioms_used stays hand-authored
+        eid = entry.get("id", "<missing-id>")
+        derived = derive_axioms_used(clm, adjacency)
+        stored = entry.get("axioms_used")
+        stored_sorted = sorted(stored) if isinstance(stored, list) else stored
+        if stored_sorted != derived:
+            findings.append(
+                Finding(
+                    check="axioms",
+                    severity="critical",
+                    entry_id=eid,
+                    message=(
+                        f"axioms_used {stored} drifts from the derived cone of "
+                        f"{clm} = {derived} (run predictions_manifest_refresh.py)"
+                    ),
+                    details={"clm": clm, "stored": stored, "derived": derived},
+                )
+            )
+    return findings
+
+
 def check_readme_parity(manifest: dict) -> list[Finding]:
     """
     Every row in the README Master Prediction Table maps to a manifest
@@ -754,6 +859,7 @@ ALL_CHECKS = {
     "label": check_labels,
     "engine": check_engine,
     "bridge": check_bridge,
+    "axioms": check_axioms,
     "parity": check_readme_parity,
     "lr_parity": check_living_reference_parity,
 }

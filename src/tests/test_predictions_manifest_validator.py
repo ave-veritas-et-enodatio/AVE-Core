@@ -13,6 +13,7 @@ from scripts.predictions_manifest_validator import (
     ALLOWED_TYPES,
     MANIFEST_PATH,
     REPO_ROOT,
+    check_axioms,
     check_bridge,
     check_engine,
     check_labels,
@@ -20,8 +21,10 @@ from scripts.predictions_manifest_validator import (
     check_readme_parity,
     check_schema,
     collect_constants_symbols,
+    collect_dependency_edges,
     collect_manuscript_labels,
     collect_spine_nodes,
+    derive_axioms_used,
     extract_living_reference_prediction_rows,
     load_manifest,
     run,
@@ -303,6 +306,61 @@ class TestBridge:
         assert "claim" in set(nodes.values())
         # every id is a known spine prefix
         assert all(nid.split("-", 1)[0] in {"clm", "exp", "sup", "axiom", "INVARIANT"} for nid in nodes)
+
+
+# ───────────────────────────────────────────────────────────────────────────
+# derive_axioms_used + check_axioms (axioms_used is a derived field)
+# ───────────────────────────────────────────────────────────────────────────
+class TestAxioms:
+    # Synthetic DAG: clm-aaaaaa -> clm-bbbbbb -> axiom-2 ; clm-aaaaaa -> axiom-1
+    ADJ = {
+        "clm-aaaaaa": {"clm-bbbbbb", "axiom-1"},
+        "clm-bbbbbb": {"axiom-2"},
+    }
+
+    def test_derive_transitive_cone(self) -> None:
+        # Reaches axiom-1 directly and axiom-2 transitively via clm-bbbbbb.
+        assert derive_axioms_used("clm-aaaaaa", self.ADJ) == [1, 2]
+        assert derive_axioms_used("clm-bbbbbb", self.ADJ) == [2]
+
+    def test_derive_no_axioms(self) -> None:
+        assert derive_axioms_used("clm-zzzzzz", self.ADJ) == []
+
+    def test_derive_is_cycle_safe(self) -> None:
+        adj = {"clm-a": {"clm-b"}, "clm-b": {"clm-a", "axiom-3"}}
+        assert derive_axioms_used("clm-a", adj) == [3]
+
+    def test_check_axioms_match_no_finding(self) -> None:
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "axioms_used": [1, 2]}])
+        assert check_axioms(m, adjacency=self.ADJ) == []
+
+    def test_check_axioms_unsorted_stored_still_matches(self) -> None:
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "axioms_used": [2, 1]}])
+        assert check_axioms(m, adjacency=self.ADJ) == []
+
+    def test_check_axioms_drift_is_critical(self) -> None:
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "axioms_used": [1, 2, 4]}])
+        findings = check_axioms(m, adjacency=self.ADJ)
+        assert len(findings) == 1
+        assert findings[0].severity == "critical"
+        assert "drifts" in findings[0].message
+
+    def test_check_axioms_skips_unbridged(self) -> None:
+        # No clm: -> axioms_used stays hand-authored, not gated.
+        m = _manifest([{"id": "P10", "axioms_used": [1, 2, 3]}])
+        assert check_axioms(m, adjacency=self.ADJ) == []
+
+    def test_check_axioms_missing_index_warns(self) -> None:
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "axioms_used": [1, 2]}])
+        findings = check_axioms(m, adjacency={})
+        assert len(findings) == 1
+        assert findings[0].severity == "warn"
+
+    def test_live_dependency_index_loads(self) -> None:
+        adj = collect_dependency_edges()
+        assert len(adj) > 0
+        # at least one claim depends directly on an axiom node
+        assert any(any(t.startswith("axiom-") for t in tgts) for tgts in adj.values())
 
 
 # ───────────────────────────────────────────────────────────────────────────
