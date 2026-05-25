@@ -97,7 +97,7 @@ Last 50 commits cover infrastructure work — KB claim-quality DAG, frontmatter 
 Diff scope on Chain B-relevant files:
 
 ```
-git diff analysis/integration..benn/long-running -- manuscript/ave-kb/vol3/gravity/ manuscript/ave-kb/vol3/cosmology/ manuscript/ave-kb/common/full-derivation-chain.md manuscript/ave-kb/common/mathematical-closure.md manuscript/ave-kb/common/closure-roadmap.md
+git diff analysis/integration..benn/long-running -- manuscript/ave-kb/vol3/gravity/ manuscript/ave-kb/vol3/cosmology/ manuscript/ave-kb/common/full-derivation-chain.md manuscript/ave-kb/common/mathematical-closure.md manuscript/ave-kb/claim-quality-closure-roadmap.md
 ```
 
 Surface findings:
@@ -107,7 +107,7 @@ Surface findings:
 - `manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex` — LaTeX mirror of above; same "Geometric consistency" framing on benn; cross-ref to "App.~\ref{app:verification} Outstanding Rigour Gaps".
 - `manuscript/ave-kb/common/full-derivation-chain.md` — extensive Axiom-rename refactor on benn (Ax 1 "Substrate Topology" → "Impedance"; Ax 2 → "Fine Structure"; etc.) — this is the unification project. NO change to Layer 8 "G is derived" qualitative gloss that affects the Chain B' question. Same Bounding-Limit-3 vs Layer-8 internal contradiction persists on benn.
 - `manuscript/ave-kb/common/mathematical-closure.md` — 912dd88 added the H_∞ rigor-gap row on benn (per audit §7). On `analysis/integration` this row is absent (per audit §6.1).
-- `manuscript/ave-kb/common/closure-roadmap.md` — DELETED on benn (planning artifact promoted into other places per benn's reorganization). Roadmap is intact on `analysis/integration`.
+- `manuscript/ave-kb/claim-quality-closure-roadmap.md` — DELETED on benn (planning artifact promoted into other places per benn's reorganization). Roadmap is intact on `analysis/integration`.
 
 **912dd88 verification (trigger 8)**: `git branch --contains 912dd88` returns `benn/long-running` and `golden-torus-update`. NOT on `analysis/integration`. Author: Benn Herrera, 2026-04-28. Files changed: 4 (matches audit §7). Commit message: "consistency in framing of Hubble Constant as consistency check vs. prediction."
 

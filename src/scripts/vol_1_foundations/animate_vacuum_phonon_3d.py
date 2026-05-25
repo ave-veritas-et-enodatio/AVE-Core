@@ -17,8 +17,6 @@ Two panels:
 Output:  assets/sim_outputs/vacuum_phonon_propagation_3d.gif
 """
 
-import os
-
 import matplotlib
 import numpy as np
 
@@ -27,8 +25,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.animation import FuncAnimation  # noqa: E402
 from matplotlib.colors import PowerNorm  # noqa: E402
 
-OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "assets", "sim_outputs")
-os.makedirs(OUT_DIR, exist_ok=True)
+from ave_path_util import sim_output  # noqa: E402
 
 
 def main() -> None:
@@ -196,7 +193,7 @@ def main() -> None:
 
     ani = FuncAnimation(fig, update, frames=TOTAL_FRAMES, blit=True, interval=50)
 
-    out_path = os.path.join(OUT_DIR, "vacuum_phonon_propagation_3d.gif")
+    out_path = sim_output("vacuum_phonon_propagation_3d.gif")
     print(f"  Saving animation to: {out_path}")
     ani.save(out_path, writer="pillow", fps=22, dpi=110)
     plt.close()

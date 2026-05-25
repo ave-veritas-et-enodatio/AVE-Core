@@ -30,7 +30,6 @@ References:
 - doc 20_ Sub-Theorem 3.1.1 (κ_chiral = 1.2·α)
 - STAGE6_V4_HANDOFF.md §9 G-11 option (c)
 """
-from __future__ import annotations
 
 import numpy as np
 import pytest
@@ -47,9 +46,14 @@ from ave.topological.vacuum_engine import (
 class TestConstruction:
     def test_rh_constructs(self):
         src = CosseratBeltramiSource(
-            x0=4, propagation_axis=0, amplitude=1.0,
-            omega=2.0 * np.pi / 3.5, handedness="RH",
-            sigma_yz=2.0, t_ramp=5.0, t_sustain=20.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=1.0,
+            omega=2.0 * np.pi / 3.5,
+            handedness="RH",
+            sigma_yz=2.0,
+            t_ramp=5.0,
+            t_sustain=20.0,
         )
         assert src._sign == +1
         assert src.handedness == "RH"
@@ -57,32 +61,53 @@ class TestConstruction:
 
     def test_lh_constructs(self):
         src = CosseratBeltramiSource(
-            x0=4, propagation_axis=0, amplitude=1.0,
-            omega=1.0, handedness="LH",
-            sigma_yz=2.0, t_ramp=5.0, t_sustain=20.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=1.0,
+            omega=1.0,
+            handedness="LH",
+            sigma_yz=2.0,
+            t_ramp=5.0,
+            t_sustain=20.0,
         )
         assert src._sign == -1
 
     def test_invalid_handedness_rejected(self):
         with pytest.raises(ValueError, match="handedness"):
             CosseratBeltramiSource(
-                x0=4, propagation_axis=0, amplitude=1.0,
-                omega=1.0, handedness="circular",  # invalid
-                sigma_yz=2.0, t_ramp=1.0, t_sustain=1.0,
+                x0=4,
+                propagation_axis=0,
+                amplitude=1.0,
+                omega=1.0,
+                handedness="circular",  # invalid
+                sigma_yz=2.0,
+                t_ramp=1.0,
+                t_sustain=1.0,
             )
 
     def test_invalid_propagation_axis_rejected(self):
         with pytest.raises(ValueError, match="propagation_axis"):
             CosseratBeltramiSource(
-                x0=4, propagation_axis=3,  # invalid
-                amplitude=1.0, omega=1.0, handedness="RH",
-                sigma_yz=2.0, t_ramp=1.0, t_sustain=1.0,
+                x0=4,
+                propagation_axis=3,  # invalid
+                amplitude=1.0,
+                omega=1.0,
+                handedness="RH",
+                sigma_yz=2.0,
+                t_ramp=1.0,
+                t_sustain=1.0,
             )
 
     def test_y_propagation_transverse_axes(self):
         src = CosseratBeltramiSource(
-            x0=4, propagation_axis=1, amplitude=1.0, omega=1.0,
-            handedness="RH", sigma_yz=2.0, t_ramp=1.0, t_sustain=1.0,
+            x0=4,
+            propagation_axis=1,
+            amplitude=1.0,
+            omega=1.0,
+            handedness="RH",
+            sigma_yz=2.0,
+            t_ramp=1.0,
+            t_sustain=1.0,
         )
         assert src._trans_axes == (0, 2)  # x, z for +y propagation
 
@@ -114,8 +139,14 @@ class TestSlabInjectionPattern:
         carrier = 1.0
         amp = 0.5
         src = CosseratBeltramiSource(
-            x0=4, propagation_axis=0, amplitude=amp, omega=carrier,
-            handedness="RH", sigma_yz=2.0, t_ramp=0.0, t_sustain=100.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=amp,
+            omega=carrier,
+            handedness="RH",
+            sigma_yz=2.0,
+            t_ramp=0.0,
+            t_sustain=100.0,
         )
         t = np.pi / (2.0 * carrier)
         src.apply(engine, t)
@@ -125,17 +156,23 @@ class TestSlabInjectionPattern:
         expected_z = amp * profile_at_site  # sin(π/2) = 1
         assert abs(ω_site[0]) < 1e-10, "Propagation-axis ω (x) should be 0"
         assert abs(ω_site[1]) < expected_z * 0.01, f"ω_y at ωt=π/2 should be ~0, got {ω_site[1]}"
-        assert ω_site[2] == pytest.approx(expected_z, rel=1e-6), (
-            f"RH ω_z at ωt=π/2 should be amp·profile = {expected_z:.4f}, got {ω_site[2]:.4f}"
-        )
+        assert ω_site[2] == pytest.approx(
+            expected_z, rel=1e-6
+        ), f"RH ω_z at ωt=π/2 should be amp·profile = {expected_z:.4f}, got {ω_site[2]:.4f}"
 
     def test_lh_at_peak_t_writes_negative_sin_on_z(self, engine):
         """LH: at ω·t = π/2, ω_z = -A·profile (opposite of RH)."""
         carrier = 1.0
         amp = 0.5
         src = CosseratBeltramiSource(
-            x0=4, propagation_axis=0, amplitude=amp, omega=carrier,
-            handedness="LH", sigma_yz=2.0, t_ramp=0.0, t_sustain=100.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=amp,
+            omega=carrier,
+            handedness="LH",
+            sigma_yz=2.0,
+            t_ramp=0.0,
+            t_sustain=100.0,
         )
         t = np.pi / (2.0 * carrier)
         src.apply(engine, t)
@@ -143,33 +180,45 @@ class TestSlabInjectionPattern:
         profile_at_site = src._transverse_profile[site_idx]
         ω_site = engine.cos.omega[src.x0][site_idx]
         expected_z = -amp * profile_at_site
-        assert ω_site[2] == pytest.approx(expected_z, rel=1e-6), (
-            f"LH ω_z at ωt=π/2 should be -amp·profile = {expected_z:.4f}, got {ω_site[2]:.4f}"
-        )
+        assert ω_site[2] == pytest.approx(
+            expected_z, rel=1e-6
+        ), f"LH ω_z at ωt=π/2 should be -amp·profile = {expected_z:.4f}, got {ω_site[2]:.4f}"
 
     def test_at_t_zero_writes_only_cos_on_y(self, engine):
         """At ω·t = 0: ω_y = A·profile, ω_z = 0."""
         carrier = 1.0
         amp = 0.7
         src = CosseratBeltramiSource(
-            x0=4, propagation_axis=0, amplitude=amp, omega=carrier,
-            handedness="RH", sigma_yz=2.0, t_ramp=0.0, t_sustain=100.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=amp,
+            omega=carrier,
+            handedness="RH",
+            sigma_yz=2.0,
+            t_ramp=0.0,
+            t_sustain=100.0,
         )
         src.apply(engine, t=0.0)
         site_idx = self._active_site_near_peak(engine, src)
         profile_at_site = src._transverse_profile[site_idx]
         ω_site = engine.cos.omega[src.x0][site_idx]
         expected_y = amp * profile_at_site
-        assert ω_site[1] == pytest.approx(expected_y, rel=1e-6), (
-            f"ω_y at t=0 should be amp·profile = {expected_y:.4f}, got {ω_site[1]:.4f}"
-        )
+        assert ω_site[1] == pytest.approx(
+            expected_y, rel=1e-6
+        ), f"ω_y at t=0 should be amp·profile = {expected_y:.4f}, got {ω_site[1]:.4f}"
         assert abs(ω_site[2]) < expected_y * 0.01
 
     def test_envelope_zero_before_ramp(self, engine):
         """Before t=0, envelope=0 → no injection."""
         src = CosseratBeltramiSource(
-            x0=4, propagation_axis=0, amplitude=1.0, omega=1.0,
-            handedness="RH", sigma_yz=2.0, t_ramp=5.0, t_sustain=10.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=1.0,
+            omega=1.0,
+            handedness="RH",
+            sigma_yz=2.0,
+            t_ramp=5.0,
+            t_sustain=10.0,
         )
         src.apply(engine, t=-1.0)
         # Nothing should have changed (engine.cos.omega was 0 at init)
@@ -180,8 +229,14 @@ class TestSlabInjectionPattern:
         # Seed engine with deterministic non-zero ω elsewhere, then apply source
         engine.cos.omega[...] = 0.1  # fill everything
         src = CosseratBeltramiSource(
-            x0=4, propagation_axis=0, amplitude=1.0, omega=1.0,
-            handedness="RH", sigma_yz=2.0, t_ramp=0.0, t_sustain=100.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=1.0,
+            omega=1.0,
+            handedness="RH",
+            sigma_yz=2.0,
+            t_ramp=0.0,
+            t_sustain=100.0,
         )
         src.apply(engine, t=0.0)
         # Source slab (x=4) should be overwritten
@@ -208,8 +263,14 @@ class TestEngineIntegration:
         N = 12
         engine = VacuumEngine3D.from_args(N=N, pml=2, temperature=0.0)
         src = CosseratBeltramiSource(
-            x0=4, propagation_axis=0, amplitude=0.5, omega=2.0 * np.pi / 4.0,
-            handedness="RH", sigma_yz=2.0, t_ramp=2.0, t_sustain=20.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=0.5,
+            omega=2.0 * np.pi / 4.0,
+            handedness="RH",
+            sigma_yz=2.0,
+            t_ramp=2.0,
+            t_sustain=20.0,
         )
         engine.add_source(src)
         for _ in range(10):
@@ -222,8 +283,14 @@ class TestEngineIntegration:
         N = 12
         engine = VacuumEngine3D.from_args(N=N, pml=2, temperature=0.0)
         src = CosseratBeltramiSource(
-            x0=4, propagation_axis=0, amplitude=0.5, omega=2.0 * np.pi / 4.0,
-            handedness="LH", sigma_yz=2.0, t_ramp=2.0, t_sustain=20.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=0.5,
+            omega=2.0 * np.pi / 4.0,
+            handedness="LH",
+            sigma_yz=2.0,
+            t_ramp=2.0,
+            t_sustain=20.0,
         )
         engine.add_source(src)
         for _ in range(10):
@@ -235,8 +302,14 @@ class TestEngineIntegration:
         N = 12
         engine = VacuumEngine3D.from_args(N=N, pml=2, temperature=0.0)
         src = CosseratBeltramiSource(
-            x0=4, propagation_axis=0, amplitude=0.8, omega=2.0 * np.pi / 4.0,
-            handedness="RH", sigma_yz=2.0, t_ramp=0.0, t_sustain=100.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=0.8,
+            omega=2.0 * np.pi / 4.0,
+            handedness="RH",
+            sigma_yz=2.0,
+            t_ramp=0.0,
+            t_sustain=100.0,
         )
         engine.add_source(src)
         for _ in range(5):
@@ -247,9 +320,7 @@ class TestEngineIntegration:
         omega_mag_sq = np.sum(slab * slab, axis=-1)
         max_omega_mag_sq = float(omega_mag_sq[slab_mask].max())
         # At peak profile × some phase, |ω|² = amp²·profile² ~ 0.8²·0.9² = 0.52
-        assert max_omega_mag_sq > 0.1, (
-            f"Max |ω|² at source slab = {max_omega_mag_sq:.4f}; expected > 0.1"
-        )
+        assert max_omega_mag_sq > 0.1, f"Max |ω|² at source slab = {max_omega_mag_sq:.4f}; expected > 0.1"
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -267,15 +338,27 @@ class TestHandednessDiscrimination:
 
         eng_rh = VacuumEngine3D.from_args(N=N, pml=2, temperature=0.0)
         src_rh = CosseratBeltramiSource(
-            x0=4, propagation_axis=0, amplitude=amp, omega=carrier,
-            handedness="RH", sigma_yz=2.0, t_ramp=0.0, t_sustain=100.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=amp,
+            omega=carrier,
+            handedness="RH",
+            sigma_yz=2.0,
+            t_ramp=0.0,
+            t_sustain=100.0,
         )
         src_rh.apply(eng_rh, t)
 
         eng_lh = VacuumEngine3D.from_args(N=N, pml=2, temperature=0.0)
         src_lh = CosseratBeltramiSource(
-            x0=4, propagation_axis=0, amplitude=amp, omega=carrier,
-            handedness="LH", sigma_yz=2.0, t_ramp=0.0, t_sustain=100.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=amp,
+            omega=carrier,
+            handedness="LH",
+            sigma_yz=2.0,
+            t_ramp=0.0,
+            t_sustain=100.0,
         )
         src_lh.apply(eng_lh, t)
 
@@ -301,8 +384,14 @@ class TestNoK4Injection:
     def test_V_inc_untouched_by_source(self):
         engine = VacuumEngine3D.from_args(N=10, pml=1, temperature=0.0)
         src = CosseratBeltramiSource(
-            x0=3, propagation_axis=0, amplitude=1.0, omega=1.0,
-            handedness="RH", sigma_yz=2.0, t_ramp=0.0, t_sustain=100.0,
+            x0=3,
+            propagation_axis=0,
+            amplitude=1.0,
+            omega=1.0,
+            handedness="RH",
+            sigma_yz=2.0,
+            t_ramp=0.0,
+            t_sustain=100.0,
         )
         engine.add_source(src)
         for _ in range(5):
@@ -314,29 +403,36 @@ class TestNoK4Injection:
         fresh = VacuumEngine3D.from_args(N=10, pml=1, temperature=0.0)
         V_before = fresh.k4.V_inc.copy()
         src_fresh = CosseratBeltramiSource(
-            x0=3, propagation_axis=0, amplitude=1.0, omega=1.0,
-            handedness="RH", sigma_yz=2.0, t_ramp=0.0, t_sustain=100.0,
+            x0=3,
+            propagation_axis=0,
+            amplitude=1.0,
+            omega=1.0,
+            handedness="RH",
+            sigma_yz=2.0,
+            t_ramp=0.0,
+            t_sustain=100.0,
         )
         src_fresh.apply(fresh, t=0.5)
-        assert np.array_equal(fresh.k4.V_inc, V_before), (
-            "CosseratBeltramiSource must not touch K4 V_inc directly"
-        )
+        assert np.array_equal(fresh.k4.V_inc, V_before), "CosseratBeltramiSource must not touch K4 V_inc directly"
 
     def test_pml_sites_not_written(self):
         """Cosserat mask_alive excludes PML; source respects it."""
         engine = VacuumEngine3D.from_args(N=12, pml=2, temperature=0.0)
         src = CosseratBeltramiSource(
-            x0=4, propagation_axis=0, amplitude=1.0, omega=1.0,
-            handedness="RH", sigma_yz=4.0,  # wide enough to hit PML
-            t_ramp=0.0, t_sustain=100.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=1.0,
+            omega=1.0,
+            handedness="RH",
+            sigma_yz=4.0,  # wide enough to hit PML
+            t_ramp=0.0,
+            t_sustain=100.0,
         )
         src.apply(engine, t=0.0)
         # Inactive sites at the source slab should stay 0
         inactive_mask = ~engine.cos.mask_alive[src.x0]
         ω_at_slab = engine.cos.omega[src.x0]
-        assert np.all(ω_at_slab[inactive_mask] == 0.0), (
-            "Source must not write to PML-masked sites"
-        )
+        assert np.all(ω_at_slab[inactive_mask] == 0.0), "Source must not write to PML-masked sites"
 
 
 # ═══════════════════════════════════════════════════════════════════════════

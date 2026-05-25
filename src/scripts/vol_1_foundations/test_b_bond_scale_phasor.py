@@ -28,7 +28,6 @@ Adjudication categories per pred:
   Mode II:  closed trajectory but R/r ≠ φ² ± 0.10
   Mode III: open / chaotic trajectory OR simple ellipse (single-frequency)
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -39,8 +38,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
-from ave.topological.vacuum_engine import VacuumEngine3D, AutoresonantCWSource
-
+from ave.topological.vacuum_engine import AutoresonantCWSource, VacuumEngine3D
 
 # ─── Constants per pred ───────────────────────────────────────────────────────
 
@@ -48,27 +46,30 @@ PHI = 0.5 * (1.0 + np.sqrt(5.0))
 PHI_SQ = PHI * PHI
 
 # Drive parameters
-N_LATTICE = 32           # smaller than doc 28_'s 96³; sufficient for single-bond physics
+N_LATTICE = 32  # smaller than doc 28_'s 96³; sufficient for single-bond physics
 PML = 4
-OMEGA_C = 1.0            # natural units
+OMEGA_C = 1.0  # natural units
 WAVELENGTH_CARRIER = 2.0 * np.pi / OMEGA_C  # ≈ 6.28 cells
-DRIVE_AMP = 0.1          # 0.1 · V_SNAP — small-signal regime
+DRIVE_AMP = 0.1  # 0.1 · V_SNAP — small-signal regime
 T_RAMP_PERIODS = 5.0
 T_SUSTAIN_PERIODS = 50.0
 T_DECAY_PERIODS = 2.0
 
 # Phase-space adjudication
 R_OVER_R_TARGET = PHI_SQ
-R_OVER_R_TOL = 0.10      # ±10% tolerance per pred
-LOBE_TARGET = (2, 3)     # (2,3) Lissajous
+R_OVER_R_TOL = 0.10  # ±10% tolerance per pred
+LOBE_TARGET = (2, 3)  # (2,3) Lissajous
 
 # Bond selection: A-B near lattice center
-PORT_VECTORS = np.array([
-    [+1, +1, +1],
-    [+1, -1, -1],
-    [-1, +1, -1],
-    [-1, -1, +1],
-], dtype=float)
+PORT_VECTORS = np.array(
+    [
+        [+1, +1, +1],
+        [+1, -1, -1],
+        [-1, +1, -1],
+        [-1, -1, +1],
+    ],
+    dtype=float,
+)
 
 OUTPUT_JSON = Path(__file__).parent / "test_b_bond_scale_phasor_results.json"
 
@@ -120,9 +121,7 @@ def extract_phasor_trajectory(engine, A_idx, port, B_idx, n_steps, record_cadenc
             v_ref_B.append(float(engine.k4.V_ref[B_idx[0], B_idx[1], B_idx[2], port]))
             times.append(float(engine.time))
 
-    return (np.array(v_inc_A), np.array(v_ref_A),
-            np.array(v_inc_B), np.array(v_ref_B),
-            np.array(times))
+    return (np.array(v_inc_A), np.array(v_ref_A), np.array(v_inc_B), np.array(v_ref_B), np.array(times))
 
 
 def analyze_phasor_trajectory(v_inc, v_ref, transient_skip=0):
@@ -191,8 +190,8 @@ def analyze_phasor_trajectory(v_inc, v_ref, transient_skip=0):
     chunk_size = len(v_inc) // chunks
     chunk_R_values = []
     for i in range(chunks):
-        chunk_v_inc = v_inc[i * chunk_size:(i + 1) * chunk_size]
-        chunk_v_ref = v_ref[i * chunk_size:(i + 1) * chunk_size]
+        chunk_v_inc = v_inc[i * chunk_size : (i + 1) * chunk_size]
+        chunk_v_ref = v_ref[i * chunk_size : (i + 1) * chunk_size]
         if len(chunk_v_inc) < 3:
             continue
         chunk_pts = np.column_stack([chunk_v_inc, chunk_v_ref])
@@ -200,12 +199,14 @@ def analyze_phasor_trajectory(v_inc, v_ref, transient_skip=0):
     if chunk_R_values:
         R_drift = float(np.std(chunk_R_values) / max(np.mean(chunk_R_values), 1e-30))
     else:
-        R_drift = float('inf')
+        R_drift = float("inf")
 
     is_closed = R_drift < 0.20  # heuristic: amplitude stable to within 20% over 5 chunks
 
     return {
-        "R": R, "r": r, "R_over_r": R_over_r,
+        "R": R,
+        "r": r,
+        "R_over_r": R_over_r,
         "is_closed": bool(is_closed),
         "amplitude_drift": R_drift,
         "lobe_count_x": lobe_x,
@@ -221,10 +222,8 @@ def main():
     print(f"  P_phase5_bond_scale_phasor_trajectory (per doc 28_ §5.1)")
     print("=" * 78, flush=True)
     print(f"  Lattice: N={N_LATTICE}, pml={PML}")
-    print(f"  Drive: ω_C = {OMEGA_C}, λ = {WAVELENGTH_CARRIER:.4f} cells, "
-          f"amp = {DRIVE_AMP}·V_SNAP")
-    print(f"  Periods: ramp {T_RAMP_PERIODS} + sustain {T_SUSTAIN_PERIODS} + "
-          f"decay {T_DECAY_PERIODS}")
+    print(f"  Drive: ω_C = {OMEGA_C}, λ = {WAVELENGTH_CARRIER:.4f} cells, " f"amp = {DRIVE_AMP}·V_SNAP")
+    print(f"  Periods: ramp {T_RAMP_PERIODS} + sustain {T_SUSTAIN_PERIODS} + " f"decay {T_DECAY_PERIODS}")
     print(f"  Pred PASS: closed trajectory + R/r = {R_OVER_R_TARGET:.4f} ± {R_OVER_R_TOL}")
     print()
 
@@ -238,7 +237,9 @@ def main():
 
     # Build engine + central bond
     engine = VacuumEngine3D.from_args(
-        N=N_LATTICE, pml=PML, temperature=0.0,
+        N=N_LATTICE,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -248,17 +249,28 @@ def main():
 
     # Drive: head-on autoresonant collision (mirrors phase5 driver convention)
     src_offset = PML + 3
-    engine.add_source(AutoresonantCWSource(
-        x0=src_offset, direction=(1.0, 0.0, 0.0),
-        amplitude=DRIVE_AMP, omega=OMEGA_C,
-        sigma_yz=3.0, t_ramp=t_ramp, t_sustain=t_sustain,
-        t_decay=t_decay,
-    ))
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=src_offset,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=DRIVE_AMP,
+            omega=OMEGA_C,
+            sigma_yz=3.0,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            t_decay=t_decay,
+        )
+    )
 
     print(f"  Running {n_steps} steps ({total_time:.2f} natural-time-units)...")
     t0 = time.time()
     v_inc_A, v_ref_A, v_inc_B, v_ref_B, times = extract_phasor_trajectory(
-        engine, A_idx, port, B_idx, n_steps, record_cadence=1,
+        engine,
+        A_idx,
+        port,
+        B_idx,
+        n_steps,
+        record_cadence=1,
     )
     elapsed = time.time() - t0
     print(f"  Elapsed: {elapsed:.1f}s, recorded {len(v_inc_A)} samples")
@@ -267,18 +279,18 @@ def main():
     # Phase-space analysis on A-side after transient
     print(f"  Phase-space analysis (A-side, skip first {transient_steps} samples)...")
     analysis_A = analyze_phasor_trajectory(v_inc_A, v_ref_A, transient_steps)
-    print(f"    A-side R = {analysis_A['R']:.4f}, r = {analysis_A['r']:.4f}, "
-          f"R/r = {analysis_A['R_over_r']:.4f}")
-    print(f"    A-side closed-trajectory: {analysis_A['is_closed']} "
-          f"(amplitude drift {analysis_A['amplitude_drift']:.4f})")
-    print(f"    A-side Lissajous lobes: V_inc={analysis_A['lobe_count_x']}, "
-          f"V_ref={analysis_A['lobe_count_y']}")
+    print(f"    A-side R = {analysis_A['R']:.4f}, r = {analysis_A['r']:.4f}, " f"R/r = {analysis_A['R_over_r']:.4f}")
+    print(
+        f"    A-side closed-trajectory: {analysis_A['is_closed']} "
+        f"(amplitude drift {analysis_A['amplitude_drift']:.4f})"
+    )
+    print(f"    A-side Lissajous lobes: V_inc={analysis_A['lobe_count_x']}, " f"V_ref={analysis_A['lobe_count_y']}")
     print(f"    A-side dominant freqs: {analysis_A['dominant_freqs']}")
     print(f"    A-side freq ratio: {analysis_A['freq_ratio']}")
     print()
 
     # Adjudication
-    R_over_r_pass = abs(analysis_A['R_over_r'] - R_OVER_R_TARGET) <= R_OVER_R_TOL
+    R_over_r_pass = abs(analysis_A["R_over_r"] - R_OVER_R_TARGET) <= R_OVER_R_TOL
     print(f"  R/r criterion: {analysis_A['R_over_r']:.4f} vs target {R_OVER_R_TARGET:.4f} ± {R_OVER_R_TOL}")
     print(f"    {'PASS' if R_over_r_pass else 'FAIL'}")
     print()
@@ -286,7 +298,7 @@ def main():
     print("=" * 78, flush=True)
     print("  Adjudication")
     print("=" * 78, flush=True)
-    if not analysis_A['is_closed']:
+    if not analysis_A["is_closed"]:
         mode = "III"
         verdict = (
             f"MODE III — Trajectory is open / drifting (amplitude drift "

@@ -32,28 +32,29 @@ Configuration (8 configs = 4λ × 1amp × 2T, same amp=0.5 as v1's best):
   N = 40, pml = 5, n_steps = 300
   K_drift = 0.5 (default from Stage 4c tuning)
 """
-from __future__ import annotations
 
 import os
 import sys
+
 sys.path.insert(0, os.path.dirname(__file__))
 
 import json
 import time
 from dataclasses import dataclass
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from ave.topological.vacuum_engine import (
-    VacuumEngine3D,
     AutoresonantCWSource,
     DarkWakeObserver,
+    EnergyBudgetObserver,
     RegimeClassifierObserver,
     TopologyObserver,
-    EnergyBudgetObserver,
+    VacuumEngine3D,
 )
 
 
@@ -81,7 +82,8 @@ class RunConfigV2:
 
 def run_one_config(cfg: RunConfigV2) -> dict:
     engine = VacuumEngine3D.from_args(
-        N=cfg.N, pml=cfg.pml,
+        N=cfg.N,
+        pml=cfg.pml,
         temperature=cfg.temperature,
         amplitude_convention="V_SNAP",
     )
@@ -91,19 +93,31 @@ def run_one_config(cfg: RunConfigV2) -> dict:
 
     source_offset = cfg.pml + 3
     # Source at x_left moving +x̂
-    engine.add_source(AutoresonantCWSource(
-        x0=source_offset, direction=(1.0, 0.0, 0.0),
-        amplitude=cfg.amplitude, omega=cfg.omega_carrier,
-        sigma_yz=3.5, t_ramp=t_ramp, t_sustain=t_sustain,
-        K_drift=cfg.K_drift,
-    ))
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=source_offset,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=cfg.amplitude,
+            omega=cfg.omega_carrier,
+            sigma_yz=3.5,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            K_drift=cfg.K_drift,
+        )
+    )
     # Source at x_right moving -x̂
-    engine.add_source(AutoresonantCWSource(
-        x0=cfg.N - source_offset, direction=(-1.0, 0.0, 0.0),
-        amplitude=cfg.amplitude, omega=cfg.omega_carrier,
-        sigma_yz=3.5, t_ramp=t_ramp, t_sustain=t_sustain,
-        K_drift=cfg.K_drift,
-    ))
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=cfg.N - source_offset,
+            direction=(-1.0, 0.0, 0.0),
+            amplitude=cfg.amplitude,
+            omega=cfg.omega_carrier,
+            sigma_yz=3.5,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            K_drift=cfg.K_drift,
+        )
+    )
 
     regime_obs = RegimeClassifierObserver(cadence=cfg.record_cadence)
     topo_obs = TopologyObserver(cadence=cfg.record_cadence, threshold_frac=0.7)
@@ -138,10 +152,12 @@ def run_one_config(cfg: RunConfigV2) -> dict:
     else:
         verdict = "P_IIIb-v2-no-change"
 
-    print(f"  λ={cfg.wavelength:>4} T={cfg.temperature:>4.2f}: "
-          f"max A²_K4={max_A2_k4:.3f}  A²_cos={max_A2_cos:.3f}  "
-          f"max τ_zx={max_tau_zx:.3e}  #cent={max_centroids:>2d}  "
-          f"verdict={verdict}  ({elapsed:.1f}s)")
+    print(
+        f"  λ={cfg.wavelength:>4} T={cfg.temperature:>4.2f}: "
+        f"max A²_K4={max_A2_k4:.3f}  A²_cos={max_A2_cos:.3f}  "
+        f"max τ_zx={max_tau_zx:.3e}  #cent={max_centroids:>2d}  "
+        f"verdict={verdict}  ({elapsed:.1f}s)"
+    )
 
     return {
         "config": {
@@ -172,8 +188,7 @@ def run_sweep() -> list[dict]:
 
     results = []
     total = len(wavelengths) * len(amplitudes) * len(temperatures)
-    print(f"Phase III-B v2 sweep: {total} configurations "
-          f"(autoresonant + dark-wake)")
+    print(f"Phase III-B v2 sweep: {total} configurations " f"(autoresonant + dark-wake)")
     print()
 
     for T in temperatures:
@@ -199,18 +214,17 @@ def render(results: list[dict], out: str = "/tmp/phase_iiib_v2_summary.png") -> 
         cos_vals = []
         for wl in wls:
             for r in results:
-                if (r["config"]["temperature"] == T and
-                    r["config"]["wavelength"] == wl):
+                if r["config"]["temperature"] == T and r["config"]["wavelength"] == wl:
                     omega_taus.append(r["config"]["omega_tau"])
                     cos_vals.append(r["max_A2_cos"])
         if omega_taus:
-            ax.plot(omega_taus, cos_vals, "o-", lw=1.5, color=color,
-                    label=f"T = {T}")
+            ax.plot(omega_taus, cos_vals, "o-", lw=1.5, color=color, label=f"T = {T}")
     ax.axvline(1.0, color="#888", ls="--", lw=0.8, alpha=0.7, label="ω·τ=1")
     ax.set_xlabel("ω·τ_relax")
     ax.set_ylabel("max A²_Cosserat")
     ax.set_title("σ(ω) — v2 autoresonant")
-    ax.legend(fontsize=9); ax.grid(alpha=0.3)
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.3)
 
     # Panel 2: max τ_zx vs ω·τ (new in v2)
     ax = axes[0, 1]
@@ -219,17 +233,16 @@ def render(results: list[dict], out: str = "/tmp/phase_iiib_v2_summary.png") -> 
         tau_vals = []
         for wl in wls:
             for r in results:
-                if (r["config"]["temperature"] == T and
-                    r["config"]["wavelength"] == wl):
+                if r["config"]["temperature"] == T and r["config"]["wavelength"] == wl:
                     omega_taus.append(r["config"]["omega_tau"])
                     tau_vals.append(r["max_tau_zx"])
         if omega_taus:
-            ax.plot(omega_taus, tau_vals, "o-", lw=1.5, color=color,
-                    label=f"T = {T}")
+            ax.plot(omega_taus, tau_vals, "o-", lw=1.5, color=color, label=f"T = {T}")
     ax.set_xlabel("ω·τ_relax")
     ax.set_ylabel("max |τ_zx|")
     ax.set_title("Dark-wake amplitude vs frequency")
-    ax.legend(fontsize=9); ax.grid(alpha=0.3)
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.3)
 
     # Panel 3: Verdict matrix
     ax = axes[1, 0]
@@ -242,9 +255,15 @@ def render(results: list[dict], out: str = "/tmp/phase_iiib_v2_summary.png") -> 
         T_val = r["config"]["temperature"]
         wl = r["config"]["wavelength"]
         color = verdict_colors.get(r["verdict"], "gray")
-        ax.scatter(r["config"]["omega_tau"], T_val + np.random.uniform(-0.005, 0.005),
-                    color=color, s=180, alpha=0.8,
-                    edgecolors="black", linewidths=0.8)
+        ax.scatter(
+            r["config"]["omega_tau"],
+            T_val + np.random.uniform(-0.005, 0.005),
+            color=color,
+            s=180,
+            alpha=0.8,
+            edgecolors="black",
+            linewidths=0.8,
+        )
     ax.axvline(1.0, color="#888", ls="--", lw=0.8, alpha=0.7)
     ax.set_xlabel("ω·τ_relax")
     ax.set_ylabel("Temperature (m_e c²)")
@@ -258,22 +277,20 @@ def render(results: list[dict], out: str = "/tmp/phase_iiib_v2_summary.png") -> 
         cent_vals = []
         for wl in wls:
             for r in results:
-                if (r["config"]["temperature"] == T and
-                    r["config"]["wavelength"] == wl):
+                if r["config"]["temperature"] == T and r["config"]["wavelength"] == wl:
                     omega_taus.append(r["config"]["omega_tau"])
                     cent_vals.append(r["max_centroids"])
         if omega_taus:
-            ax.plot(omega_taus, cent_vals, "o-", lw=1.5, color=color,
-                    label=f"T = {T}")
+            ax.plot(omega_taus, cent_vals, "o-", lw=1.5, color=color, label=f"T = {T}")
     ax.axhline(2, color="#2a7", ls="--", lw=0.8, label="pair threshold")
     ax.set_xlabel("ω·τ_relax")
     ax.set_ylabel("# centroids")
     ax.set_title("Detected soliton count (threshold_frac=0.7)")
-    ax.legend(fontsize=9); ax.grid(alpha=0.3)
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.3)
 
     plt.suptitle(
-        f"Phase III-B v2 — Autoresonant sources + Dark-wake diagnostic "
-        f"({len(results)} configs)",
+        f"Phase III-B v2 — Autoresonant sources + Dark-wake diagnostic " f"({len(results)} configs)",
         fontsize=12,
     )
     plt.tight_layout()
@@ -286,8 +303,7 @@ if __name__ == "__main__":
     print("── Phase III-B v2: Autoresonant + dark-wake sweep ──\n")
     results = run_sweep()
 
-    np.savez("/tmp/phase_iiib_v2_sweep.npz",
-             results=np.array(results, dtype=object))
+    np.savez("/tmp/phase_iiib_v2_sweep.npz", results=np.array(results, dtype=object))
 
     render(results)
 
@@ -303,9 +319,13 @@ if __name__ == "__main__":
     cold = [r for r in results if r["config"]["temperature"] == 0.0]
     hot = [r for r in results if r["config"]["temperature"] > 0.0]
     if cold:
-        print(f"  Cold (T=0): max A²_cos = {max(r['max_A2_cos'] for r in cold):.3e}, "
-              f"max #centroids = {max(r['max_centroids'] for r in cold)}")
+        print(
+            f"  Cold (T=0): max A²_cos = {max(r['max_A2_cos'] for r in cold):.3e}, "
+            f"max #centroids = {max(r['max_centroids'] for r in cold)}"
+        )
     if hot:
-        print(f"  Hot (T>0):  max A²_cos = {max(r['max_A2_cos'] for r in hot):.3e}, "
-              f"max τ_zx = {max(r['max_tau_zx'] for r in hot):.3e}, "
-              f"max #centroids = {max(r['max_centroids'] for r in hot)}")
+        print(
+            f"  Hot (T>0):  max A²_cos = {max(r['max_A2_cos'] for r in hot):.3e}, "
+            f"max τ_zx = {max(r['max_tau_zx'] for r in hot):.3e}, "
+            f"max #centroids = {max(r['max_centroids'] for r in hot)}"
+        )

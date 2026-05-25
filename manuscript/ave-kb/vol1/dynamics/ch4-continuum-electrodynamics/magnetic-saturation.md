@@ -1,5 +1,9 @@
 [↑ Ch.4 Continuum Electrodynamics](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-8ep2b4]
+-->
 
 ## Section 4.4: The Macroscopic Yield Limit: The Magnetic Saturation Transition
 
@@ -12,6 +16,8 @@ By evaluating the scalar volume summation of these topological knot crossings ($
 > $$
 > \tau_{yield} = (\rho_{bulk} c^2) \cdot (6 \times \mathcal{V}_{crossing}) \cdot \left(\frac{p_c}{8\pi}\right)
 > $$
+
+**Notation.** $\mathcal{V}_{crossing}$ is the per-crossing topological halo volume (dimensionless, in lattice units); the $6^3_2$ Borromean proton has six crossings, so the total topological halo volume is $\mathcal{V}_{total} = 6\,\mathcal{V}_{crossing} = 2.0$ (FEM-verified). Substituting $\rho_{bulk} = \xi_{topo}^2 \mu_0 / (p_c \ell_{node}^2)$ and using $\mu_0 c^2 = 1/\varepsilon_0$ rewrites the formula in the equivalent compact electrostatic form $\tau_{yield} = e^2\,\mathcal{V}_{total}/(8\pi\varepsilon_0\,\ell_{node}^4)$ used in the appendices summary table; the two presentations differ only by factoring choice and yield identical $1.04\times 10^{22}$ Pa.
 
 In regions of high gravitational shear (e.g., the spatial envelope surrounding a planetary body), the local magnetic field exceeds this structural saturation limit ($\tau > \tau_{yield}$).
 

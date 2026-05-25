@@ -1,6 +1,10 @@
 [↑ Ch.1 — Topological Matter](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol1 ch4 photon-identification + vol2 ch04 quantum-spin + vol3 ch15 bh-orbitals + vol4 simulation ch14 as canonical electron identification -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-uatcql]
+path-stable: "referenced from vol1 ch4 photon-identification + vol2 ch04 quantum-spin + vol3 ch15 bh-orbitals + vol4 simulation ch14 as canonical electron identification"
+-->
 
 # Electron — Canonical Identification + First-Principles Axiom Audit
 
@@ -49,7 +53,7 @@ These are the quantities a laboratory measures on an electron. Each must be eith
 | **Compton wavelength $\ell_C = \hbar/(m_e c) = \ell_{node}$** | Direct identification with Ax1 calibration anchor | ⚠ **DEFINITIONAL, not derivation** | Same as rest mass — this IS the calibration anchor restated. Honest. |
 | **Magnetic moment $\mu_B = e\hbar/(2m_e)$** | Derives from $e$ (Ax2) + spin-½ (Ax1) + $\hbar$ (Ax1 action quantum) + $m_e$ (calibration) | ✅ axiom-derived from above components | Combines axiom-derived parts (e, spin) with calibration ($m_e$). |
 | **Long-range refractive-index tail (gravitational coupling)** | Ax4 saturation kernel + Op14 cross-sector trading propagates $S(r)$ outward as $1/r^2$ → refractive index $n(r) = 1 + 2GM/(rc^2)$ | ✅ axiom-derived | Per Vol 3 Ch 2 [`refractive-index-of-gravity.md`](../../../vol3/gravity/ch03-macroscopic-relativity/refractive-index-of-gravity.md). |
-| **Stability (non-decay)** | Ax2 (TKI: topology = charge; charge conservation IS loop conservation) + Ax1 (K4 lattice topological protection) | ✅ axiom-derived | Per `common/grants-random-tangents.md` (on sibling branch `analysis/divergence-test-substrate-map`, not yet merged to L3) Entry #001 (f.3): two-reason trap (topological + impedance) explicit. |
+| **Stability (non-decay)** | Ax2 (TKI: topology = charge; charge conservation IS loop conservation) + Ax1 (K4 lattice topological protection) | ✅ axiom-derived | Two-reason trap: topological (the loop cannot untangle) + impedance — both independently prevent decay. |
 
 ### Honest scoping summary
 
@@ -135,4 +139,3 @@ If a new **observable property** is discovered or sharpened (e.g., further g-2 p
 > ↗ See also: [`../ch04-quantum-spin/spin-as-precession.md`](../ch04-quantum-spin/spin-as-precession.md), [`../ch04-quantum-spin/larmor-derivation.md`](../ch04-quantum-spin/larmor-derivation.md) — topological flywheel framing (#5)
 > ↗ See also: [`../../../vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md`](../../../vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md) — electron ↔ BH isomorphism (Γ=-1 confinement at every scale)
 > ↗ See also: [`../ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md`](../ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md) — g-2 derivation (partial closure status per §2 audit)
-> ↗ See also: `common/grants-random-tangents.md` (on sibling branch `analysis/divergence-test-substrate-map`, not yet merged to L3) Entry #001 (f.3) — the two-reason trap (topological + impedance) for why the electron can't untangle, with the boundary-observables-m-q-j.md:73 "interior causally disconnected" key insight

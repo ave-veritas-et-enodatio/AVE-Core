@@ -30,14 +30,14 @@ Usage:
     → writes /tmp/phase5e_cool_from_above_v2.png
     → writes /tmp/phase5e_cool_from_above_v2.npz
 """
-from __future__ import annotations
 
 import sys
 import time
 from dataclasses import dataclass
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -54,8 +54,8 @@ from ave.topological.vacuum_engine import (
 @dataclass
 class RunConfig:
     wavelength: float = 3.5
-    amplitude_k4: float = 0.9              # K4 autoresonant drive amplitude
-    amplitude_cos: float = 2.0             # Cosserat ω direct-seed amplitude
+    amplitude_k4: float = 0.9  # K4 autoresonant drive amplitude
+    amplitude_cos: float = 2.0  # Cosserat ω direct-seed amplitude
     temperature: float = 0.1
     N: int = 32
     pml: int = 4
@@ -74,9 +74,7 @@ class RunConfig:
 
     @property
     def n_outer_steps(self) -> int:
-        total_time = (
-            self.t_ramp_periods + self.t_sustain_periods + self.t_cooling_periods
-        ) * self.period
+        total_time = (self.t_ramp_periods + self.t_sustain_periods + self.t_cooling_periods) * self.period
         return int(total_time * np.sqrt(2.0)) + 1
 
     @property
@@ -86,7 +84,8 @@ class RunConfig:
 
 def run_cool_from_above_v2(cfg: RunConfig) -> dict:
     engine = VacuumEngine3D.from_args(
-        N=cfg.N, pml=cfg.pml,
+        N=cfg.N,
+        pml=cfg.pml,
         temperature=cfg.temperature,
         amplitude_convention="V_SNAP",
         use_memristive_saturation=True,
@@ -97,32 +96,47 @@ def run_cool_from_above_v2(cfg: RunConfig) -> dict:
     src_offset = cfg.pml + 3
 
     # K4 autoresonant sources (head-on collision)
-    engine.add_source(AutoresonantCWSource(
-        x0=src_offset, direction=(1.0, 0.0, 0.0),
-        amplitude=cfg.amplitude_k4, omega=cfg.omega_carrier,
-        sigma_yz=3.0, t_ramp=t_ramp, t_sustain=t_sustain,
-        t_decay=period * 0.5,
-    ))
-    engine.add_source(AutoresonantCWSource(
-        x0=cfg.N - src_offset, direction=(-1.0, 0.0, 0.0),
-        amplitude=cfg.amplitude_k4, omega=cfg.omega_carrier,
-        sigma_yz=3.0, t_ramp=t_ramp, t_sustain=t_sustain,
-        t_decay=period * 0.5,
-    ))
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=src_offset,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=cfg.amplitude_k4,
+            omega=cfg.omega_carrier,
+            sigma_yz=3.0,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            t_decay=period * 0.5,
+        )
+    )
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=cfg.N - src_offset,
+            direction=(-1.0, 0.0, 0.0),
+            amplitude=cfg.amplitude_k4,
+            omega=cfg.omega_carrier,
+            sigma_yz=3.0,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            t_decay=period * 0.5,
+        )
+    )
 
     # Cosserat direct-ω seed at center — RH Beltrami at the collision plane
     # amp=2.0 above saturation amp_sat=π/k=λ/2=1.75 for A²_μ_base~1 per
     # CosseratBeltramiSource docstring
-    engine.add_source(CosseratBeltramiSource(
-        x0=cfg.N // 2,                    # center of lattice
-        propagation_axis=0,                # along x (same as K4 drive)
-        amplitude=cfg.amplitude_cos,
-        omega=cfg.omega_carrier,
-        handedness="RH",
-        sigma_yz=3.0,
-        t_ramp=t_ramp, t_sustain=t_sustain,
-        t_decay=period * 0.5,
-    ))
+    engine.add_source(
+        CosseratBeltramiSource(
+            x0=cfg.N // 2,  # center of lattice
+            propagation_axis=0,  # along x (same as K4 drive)
+            amplitude=cfg.amplitude_cos,
+            omega=cfg.omega_carrier,
+            handedness="RH",
+            sigma_yz=3.0,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            t_decay=period * 0.5,
+        )
+    )
 
     gate = PairNucleationGate(cadence=cfg.record_cadence)
     regime_obs = RegimeClassifierObserver(cadence=cfg.record_cadence)
@@ -139,21 +153,25 @@ def run_cool_from_above_v2(cfg: RunConfig) -> dict:
     for step in range(cfg.n_outer_steps):
         engine.step()
         if engine.step_count % S_field_cadence == 0:
-            S_field_history.append({
-                "t": engine.time,
-                "S_min": float(engine.k4.S_field[engine.k4.mask_active].min()),
-                "S_mean": float(engine.k4.S_field[engine.k4.mask_active].mean()),
-            })
+            S_field_history.append(
+                {
+                    "t": engine.time,
+                    "S_min": float(engine.k4.S_field[engine.k4.mask_active].min()),
+                    "S_mean": float(engine.k4.S_field[engine.k4.mask_active].mean()),
+                }
+            )
             A2_mu_field = gate._compute_A2_mu(engine)
             active = engine.cos.mask_alive
             if active.any():
                 A2_mu_active = A2_mu_field[active]
-                A2_mu_history.append({
-                    "t": engine.time,
-                    "A2_mu_max": float(A2_mu_active.max()),
-                    "A2_mu_mean": float(A2_mu_active.mean()),
-                    "n_above_c1": int((A2_mu_active >= 0.95).sum()),
-                })
+                A2_mu_history.append(
+                    {
+                        "t": engine.time,
+                        "A2_mu_max": float(A2_mu_active.max()),
+                        "A2_mu_mean": float(A2_mu_active.mean()),
+                        "n_above_c1": int((A2_mu_active >= 0.95).sum()),
+                    }
+                )
 
     elapsed = time.time() - t0
 
@@ -219,9 +237,9 @@ if __name__ == "__main__":
     print(f"Total:                  {result['total_firings']}")
 
     print("\n── Interpretation ──")
-    if result['total_firings'] > 0:
+    if result["total_firings"] > 0:
         print("✓ Gate fired. Mechanism confirmed operational.")
-        if result['phase_B_firings'] > 0:
+        if result["phase_B_firings"] > 0:
             print("  ★ Phase B firings — cool-from-above mechanism produces pairs!")
     else:
         if A2_hist:

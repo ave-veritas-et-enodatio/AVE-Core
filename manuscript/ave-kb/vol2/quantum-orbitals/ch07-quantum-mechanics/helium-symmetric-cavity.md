@@ -1,5 +1,9 @@
 [↑ Ch. 7: Quantum Mechanics and Atomic Orbitals](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-w6kk5y]
+-->
 
 ## Helium and the Symmetric Topological Cavity
 

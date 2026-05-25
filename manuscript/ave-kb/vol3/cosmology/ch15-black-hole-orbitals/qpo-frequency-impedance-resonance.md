@@ -1,5 +1,9 @@
 [↑ Ch.15 Black Hole Orbitals](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-395gps]
+-->
 
 <!-- NOTE: This resultbox is also included in accretion-disk-resonance.md within its derivation context. This leaf isolates the result for direct navigation. -->
 

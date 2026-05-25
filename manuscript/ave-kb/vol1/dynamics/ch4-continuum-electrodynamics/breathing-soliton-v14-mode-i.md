@@ -1,10 +1,16 @@
 [↑ Ch.4 Continuum Electrodynamics](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from two-engine-architecture-a027 + boundary-observables-m-q-j + L3 closure synthesis as canonical v14 Mode I empirical validation -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-utnwkc, clm-usflef]
+path-stable: "referenced from two-engine-architecture-a027 + boundary-observables-m-q-j + L3 closure synthesis as canonical v14 Mode I empirical validation"
+-->
 
 # Breathing Soliton on Master Equation FDTD: v14 Mode I PASS
 
 The canonical empirical validation that the Master Equation FDTD engine autonomously hosts a sustained breathing soliton bound state at one active cell — closing the L3-electron-soliton branch's v14 pre-registered test (doc 109 §14.7) with 4/4 acceptance criteria PASS on the breathing-soliton-appropriate interpretation. This validates the boundary-envelope reformulation (§M/Q/J substrate-observability rule) at the **dynamic engine level**, complementing the Q-G19α Route B 50 ppm match at the boundary-integrated observable level.
+
+Here "substrate" / "lattice" refers to the Chiral LC Network of Axiom 1, corresponding to a chiral Laves K4 Cosserat crystal at the substrate level.
 
 ## Key Results
 
@@ -18,6 +24,8 @@ The canonical empirical validation that the Master Equation FDTD engine autonomo
 | Contrast | K4-TLM at same geometry: Mode III (no autonomous bound state across 4 seed variants) |
 
 ## The breathing-soliton interpretation
+
+<!-- claim-quality: clm-usflef -->
 
 Per doc 109 §14.7, the original Test 1 criterion required $V_{\text{center}} > 0.5 \times \text{initial}$ at $t > 1000 \,dt$ — the CORRECT criterion for a STATIONARY bound state ($V_{\text{center}}$ never crosses zero). It is the WRONG criterion for a BREATHING SOLITON ($V_{\text{center}}$ oscillates through zero as the wave breathes in and out).
 
@@ -48,6 +56,8 @@ For breathing solitons, the appropriate persistence criterion is $\text{mean}(V_
 The breathing structure is consistent with the doc 101 three-layer canonical electron: Cosserat $\omega$ rotates at $\omega_{\text{Compton}}$ bulk-spin rate → $V$ oscillates correspondingly. **The breathing solution IS the physical state of the canonical electron**, not a numerical artifact.
 
 ## 4/4 acceptance adjudication
+
+<!-- claim-quality: clm-utnwkc -->
 
 Using Test 1b breathing-soliton criterion + the original 3 acceptance criteria from doc 109 §14.7:
 
@@ -118,5 +128,5 @@ The simulation hosts a localized breathing structure whose physical boundary is 
   - `src/ave/core/master_equation_fdtd.py` — Master Equation FDTD canonical bound-state engine
   - `src/ave/core/k4_tlm.py` — K4-TLM canonical sub-saturation engine
 - **Empirical validation companions:**
-  - Q-G19α Route B (canonical at AVE-QED sibling repo's Q-G19α closure analysis) — 50 ppm to PDG $C_2 = -0.32848$ via boundary-integrated observable
+  - Q-G19α Route B (canonical at the AVE-QED sibling repo's Q-G19α closure analysis) — 50 ppm to PDG $C_2 = -0.32848$ via boundary-integrated observable
   - Q-G19α saliency closure — $\delta = -3\alpha/2$ to 50 ppm via $(2, 3)$ trefoil q-axis winding (also boundary-integrated)

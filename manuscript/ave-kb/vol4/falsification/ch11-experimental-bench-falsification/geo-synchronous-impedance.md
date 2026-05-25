@@ -1,5 +1,9 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-cwjd8t]
+-->
 
 ## Protocol 12: GEO-Synchronous Impedance Differential — AVE = GR Shapiro at $O(GM/c^2r)$, corroborative-null
 

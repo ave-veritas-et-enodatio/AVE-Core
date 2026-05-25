@@ -1,66 +1,71 @@
 [↑ Common Resources](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol3 ch13 + vol4 ch1 + AVE-PONDER + AVE-Propulsion + AVE-Fusion as canonical Core synthesis of dark-wake + back-EMF + FOC d-q -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-exjfai, clm-jwyy6l, clm-533gvm]
+-->
 
 # Dark Wake + Back-EMF + FOC d-q: Core Synthesis (Grant directive 2026-05-16)
 
-Per Grant directive 2026-05-16: *"core derivations belong in core, if they are in sibling repos, duplicate in a core kb leaf."* This leaf is the Core canonical synthesis of the **dark-wake + back-EMF + FOC d-q** bundle currently distributed across AVE-PONDER (thrust mechanics), AVE-Propulsion (autoresonant rupture + warp-metric), AVE-Fusion (DT pair production + L-H transition), and AVE-Core (Op14 cross-sector trading + FOC at backmatter/05 + helium-symmetric-cavity). **Substantial substrate-physics content already lives in Core**; this leaf consolidates the canonical chain + sibling-repo citations + flags one substantive open derivation (the dark-wake $\tau_{zx}$ chain itself).
+Per Grant directive 2026-05-16: *"core derivations belong in core, if they are in sibling repos, duplicate in a core kb leaf."* This leaf is the Core canonical synthesis of the **dark-wake + back-EMF + FOC d-q** bundle: it consolidates the canonical back-EMF chain, records the FOC d-q decomposition with its retraction caveat, cross-references the sibling hardware-engineering compendia where the engineering instances live, and flags one substantive open derivation (the dark-wake $\tau_{zx}$ chain itself). The substrate noun is the Chiral LC Network, corresponding to a chiral Laves K4 Cosserat crystal at the substrate level.
 
-## Key Results (already Core-canonical, this leaf consolidates)
+## Key Results (consolidation)
 
-| Result | Statement | Canonical Core source |
+| Result | Statement | Canonical home |
 |---|---|---|
-| Op14 cross-sector trading | $\rho(H_{\text{cos}}, \Sigma\|\Phi_{\text{link}}\|^2) = -0.990$; Cosserat ↔ K4-inductive energy exchange via Axiom 4 saturation kernel | [op14-cross-sector-trading.md](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md) |
-| Back-EMF blocks $d\omega/dt$ at yield crossing | $L_{\text{eff}} \to \infty$ near $S \to 0$ (Op14) generates diverging Lenz back-EMF; freezes topologically-non-trivial $\omega$ configurations during $\tau_{\text{relax}}$ window | [predictions.yaml:2814-2823](../../predictions.yaml); [tau-relax-derivation.md](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/tau-relax-derivation.md) §4 |
-| Universal vacuum drag = $Z_0 = 376.73$ Ω | $R_{\text{drag}} = \xi_{\text{topo}}^{-2} \cdot \eta_{\text{vac}} \equiv Z_0$ via TKI mapping (Axiom 2) | Vol 4 Ch 1 + [lattice-impedance-decomposition.md](../vol1/operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md) |
-| Mass IS inductive resistance | $M_{\text{inertial}} \equiv L_{\text{drag}}$ from Lenz back-EMF at $Z_0$ grid | [Newtonian Inertia as Lenz's Law](../vol2/particle-physics/ch01-topological-matter/newtonian-inertia-as-lenz.md) |
-| FOC d-q at BH QNM (co-rotating frame) | Park transform = K4 lattice spin phase $\Omega_H t$ decomposition; d-axis = reactive, q-axis = radiating; back-EMF = curvature radiation | Backmatter Ch 5 §FOC/Park Transform Analogy:120-136 |
-| FOC at atomic shell (spatial 90°) | Helium 1s² inner core acts as primary inductive rotor; 2s² valence pair phase-locks **perpendicularly** (90° orientation) — isomorphic to FOC | [Helium Symmetric Cavity](../vol2/quantum-orbitals/ch07-quantum-mechanics/helium-symmetric-cavity.md):48-72 |
-| Asynchronous cross-shell decoupling | Each filled shell = independent AC motor winding; $\langle M \rangle \propto \int \cos((\omega_1 - \omega_2) t) dt \to 0$ eliminates cross-shell mutual inductance | [Analog Ladder Filter](../vol2/quantum-orbitals/ch07-quantum-mechanics/analog-ladder-filter.md):6 |
+| Op14 cross-sector trading | $\rho(H_{\text{cos}}, \Sigma\|\Phi_{\text{link}}\|^2) = -0.990$; Cosserat ↔ K4-inductive energy exchange via Axiom 4's saturation kernel | Vol 4 Ch 1 vacuum-circuit analysis (Op14) |
+| Back-EMF blocks $d\omega/dt$ at yield crossing | $L_{\text{eff}} \to \infty$ near $S \to 0$ (Op14) generates diverging Lenz back-EMF; freezes topologically-non-trivial $\omega$ configurations during the $\tau_{\text{relax}}$ window | this leaf §1.2 |
+| Universal vacuum drag = $Z_0 = 376.73$ Ω | $R_{\text{drag}} = \xi_{\text{topo}}^{-2} \cdot \eta_{\text{vac}} \equiv Z_0$ via the TKI mapping (Axiom 2, Topo-Kinematic Isomorphism) | Vol 4 Ch 1 |
+| Mass IS inductive resistance | $M_{\text{inertial}} \equiv L_{\text{drag}}$ from Lenz back-EMF at the $Z_0$ grid | [Newtonian Inertia as Lenz's Law](../vol2/particle-physics/ch01-topological-matter/newtonian-inertia-as-lenz.md) |
+| FOC d-q at BH QNM (co-rotating frame) | Park transform = K4 lattice spin-phase $\Omega_H t$ decomposition; d-axis = reactive, q-axis = radiating; back-EMF = curvature radiation | Backmatter Ch 5 §FOC/Park Transform Analogy |
+| FOC at atomic shell (spatial 90°) | Helium 1s² inner core acts as primary inductive rotor; 2s² valence pair phase-locks **perpendicularly** (90° orientation) — isomorphic to FOC | [Helium Symmetric Cavity](../vol2/quantum-orbitals/ch07-quantum-mechanics/helium-symmetric-cavity.md) |
+| Asynchronous cross-shell decoupling | Each filled shell = independent AC motor winding; $\langle M \rangle \propto \int \cos((\omega_1 - \omega_2) t)\, dt \to 0$ eliminates cross-shell mutual inductance | [Analog Ladder Filter](../vol2/quantum-orbitals/ch07-quantum-mechanics/analog-ladder-filter.md) |
 | Geodynamo as motional back-EMF | $\mathcal{E}_{\text{emf}} = (\omega_\oplus R_{\text{core}} \Gamma_{\text{sagnac}}) B_{\text{stator}} (2 R_{\text{core}})$ → Earth dipole $M_\oplus \approx 1.5 \times 10^{23}$ A·m² (factor-of-2 of empirical $8.0 \times 10^{22}$) | [Geodynamo VCA Back-EMF](../vol3/applied-physics/ch13-geophysics/geodynamo-vca-back-emf.md) |
 
-## §1 — Back-EMF substrate-physics chain (Core-canonical)
+## §1 — Back-EMF substrate-physics chain
 
-The substrate-native back-EMF mechanism is **canonically derived in Core** via the Op14 + Lenz chain:
+The substrate-native back-EMF mechanism is derived via the Op14 + Lenz chain.
 
 ### §1.1 Op14 dynamic impedance generates back-EMF
 
 Op14's dynamic impedance $Z_{\text{eff}}(r) = Z_0 / \sqrt{S(r)}$ couples to the bond LC tank. As saturation engages at high amplitude:
 
-1. **Local $Z_{\text{eff}}$ rises** → reflection coefficient changes
-2. **Bond inductance $L_{\text{eff}}$ grows** (Op14) → stored energy in $\Phi_{\text{link}}$ increases
-3. **Cosserat $\omega$ field couples via** $\rho \dot u + I_\omega \dot \omega$ kinetic terms sharing the bond LC tank's inductive side
-4. **Energy flows** Cosserat → K4-inductive when $Z_{\text{eff}}$ rises, back when it falls — **reactive trading, NOT dissipation**
+1. **Local $Z_{\text{eff}}$ rises** → reflection coefficient changes.
+2. **Bond inductance $L_{\text{eff}}$ grows** (Op14) → stored energy in $\Phi_{\text{link}}$ increases.
+3. **Cosserat $\omega$ field couples via** the $\rho \dot u + I_\omega \dot \omega$ kinetic terms sharing the bond LC tank's inductive side.
+4. **Energy flows** Cosserat → K4-inductive when $Z_{\text{eff}}$ rises, back when it falls — **reactive trading, NOT dissipation**.
 
-This is the substrate-native Lenz back-EMF mechanism. Empirically validated at Pearson $\rho = -0.990$ over $t \in [150 P, 200 P]$ recording window per [op14-cross-sector-trading.md](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md).
+This is the substrate-native Lenz back-EMF mechanism. Empirically validated at Pearson $\rho = -0.990$ over $t \in [150 P, 200 P]$ recording window per the Op14 cross-sector-trading work.
 
 ### §1.2 Lenz back-EMF blocks $d\omega/dt$ at yield crossing
 
-Per `predictions.yaml:2814-2823` (canonical AVE-Core statement):
+<!-- claim-quality: clm-exjfai -->
 
-> *"When $V(t)$ drops through $V_{\text{yield}}$ in the Cosserat sector at rate $\|dV/dt\|$ such that the crossing takes $\geq \tau_{\text{relax}}$, any topologically non-trivial $\omega$ configuration present at the start of the crossing window FREEZES — it cannot unwind because diverging $L_{\text{eff}}$ (Op14 near $S = 0$) generates diverging Lenz back-EMF that blocks $d\omega/dt$ during the $\tau_{\text{relax}}$ window. Residues persist for $\geq 100$ Compton periods in the post-heal solid regime. This IS the AVE-native mechanism for matter precipitation from cooling vacuum (cosmological lifecycle, per §8 of doc 59). NOT a Kibble-Zurek import — derived from Ax1 + Op14 + Lenz's law, no SM/QFT machinery."*
-
-**Derived from Axiom 1 + Op14 + Lenz** — no SM/QFT machinery imported.
+When $V(t)$ drops through $V_{\text{yield}}$ in the Cosserat sector at a rate $\|dV/dt\|$ such that the crossing takes $\geq \tau_{\text{relax}}$, any topologically non-trivial $\omega$ configuration present at the start of the crossing window **FREEZES** — it cannot unwind because the diverging $L_{\text{eff}}$ (Op14 near $S = 0$) generates a diverging Lenz back-EMF that blocks $d\omega/dt$ during the $\tau_{\text{relax}}$ window. Residues persist for $\geq 100$ Compton periods in the post-heal solid regime. This IS the AVE-native mechanism for matter precipitation from cooling vacuum (cosmological lifecycle). It is **NOT a Kibble-Zurek import** — it is derived from Axiom 1 (Substrate Topology) + Op14 + Lenz's law, with no SM/QFT machinery imported.
 
 ### §1.3 Mass IS inductive resistance
 
-Mass at the substrate level is the back-EMF impedance to topology-change motion. Per [Newtonian Inertia as Lenz's Law](../vol2/particle-physics/ch01-topological-matter/newtonian-inertia-as-lenz.md): the (2, q) soliton encounters Lenz back-EMF from the background $Z_0$ grid as it accelerates; $M_{\text{inertial}} \equiv L_{\text{drag}}$. **$F = ma$ derives from inductance-to-mass mapping via TKI** (Axiom 2: $L = \xi_{\text{topo}}^{-2} m$).
+<!-- claim-quality: clm-jwyy6l -->
+
+Mass at the substrate level is the back-EMF impedance to topology-change motion. Per [Newtonian Inertia as Lenz's Law](../vol2/particle-physics/ch01-topological-matter/newtonian-inertia-as-lenz.md): the $(2, q)$ soliton encounters Lenz back-EMF from the background $Z_0$ grid as it accelerates; $M_{\text{inertial}} \equiv L_{\text{drag}}$. **$F = ma$ derives from the inductance-to-mass mapping via TKI** (Axiom 2, Topo-Kinematic Isomorphism: $L = \xi_{\text{topo}}^{-2} m$). The canonical claim-quality entry for this mass-as-inductive-resistance identification is owned by the vol2 leaf cited here.
 
 ### §1.4 Universal $R_{\text{drag}} = Z_0$ via TKI
 
-Per the Topo-Kinematic Identity (Axiom 2: $[Q] \equiv [L]$):
+Per the Topo-Kinematic Isomorphism (Axiom 2: $[Q] \equiv [L]$):
 
 $$R_{\text{drag}} = \xi_{\text{topo}}^{-2} \cdot \eta_{\text{vac}} \equiv Z_0 \approx 376.73 \text{ Ω}$$
 
 The vacuum boundary acts as a **literal, unshielded `ElectricPower` resistive shunt** at every substrate scale.
 
-## §2 — FOC d-q decomposition (Core-canonical, with retraction caveat)
+## §2 — FOC d-q decomposition (with retraction caveat)
 
-The Field-Oriented Control d-q decomposition has **two canonical Core homes**, both using FOC for SPATIAL 90° orientation orthogonality:
+<!-- claim-quality: clm-533gvm -->
 
-### §2.1 BH QNM (co-rotating frame, backmatter/05 canonical)
+The Field-Oriented Control d-q decomposition has **two canonical Core homes**, both using FOC for SPATIAL 90° orientation orthogonality.
 
-Per backmatter Ch 5 §FOC/Park Transform Analogy (lines 120-136):
+### §2.1 BH QNM (co-rotating frame)
+
+Per Backmatter Ch 5 §FOC/Park Transform Analogy:
 
 | FOC motor | BH QNM | Physical role |
 |---|---|---|
@@ -72,143 +77,119 @@ Per backmatter Ch 5 §FOC/Park Transform Analogy (lines 120-136):
 
 **This isomorphism suggests the same universal operator governs QNM decay, motor torque, and any co-rotating coupled oscillator.**
 
-### §2.2 Helium atomic shell (spatial 90°, KB-canonical)
+### §2.2 Helium atomic shell (spatial 90°)
 
-Per [Helium Symmetric Cavity](../vol2/quantum-orbitals/ch07-quantum-mechanics/helium-symmetric-cavity.md) §FOC:48-72:
+Per [Helium Symmetric Cavity](../vol2/quantum-orbitals/ch07-quantum-mechanics/helium-symmetric-cavity.md) §FOC:
 
-> *"As the atom scales to Beryllium ($Z = 4$, $1s^2 2s^2$), a second macroscopic acoustic cavity boundary ($n = 2$) is populated. The $1s^2$ inner core acts as a primary inductive rotor, generating an intense macroscopic density wake along its primary axis of oscillation. The incoming $2s^2$ valence pair spontaneously structures itself to phase-lock **perpendicularly** ($90°$ orientation offset) to the $1s$ core axis. This orthogonal topological phase-locking is mathematically isomorphic to Field-Oriented Control (FOC) in engineering, where stator and rotor magnetic fields are artificially maintained at $90°$ to completely decouple their mutual inductance."*
+> As the atom scales to Beryllium ($Z = 4$, $1s^2 2s^2$), a second macroscopic acoustic cavity boundary ($n = 2$) is populated. The $1s^2$ inner core acts as a primary inductive rotor, generating an intense macroscopic density wake along its primary axis of oscillation. The incoming $2s^2$ valence pair spontaneously structures itself to phase-lock **perpendicularly** ($90°$ orientation offset) to the $1s$ core axis. This orthogonal topological phase-locking is mathematically isomorphic to Field-Oriented Control (FOC) in engineering, where stator and rotor magnetic fields are artificially maintained at $90°$ to completely decouple their mutual inductance.
 
 ### §2.3 Asynchronous cross-shell decoupling
 
-Per [Analog Ladder Filter](../vol2/quantum-orbitals/ch07-quantum-mechanics/analog-ladder-filter.md): each filled shell acts as an independent AC motor winding; the asynchronous frequency decoupling $\langle M \rangle \propto \int \cos((\omega_1 - \omega_2) t) dt \to 0$ eliminates cross-shell mutual inductance.
+Per [Analog Ladder Filter](../vol2/quantum-orbitals/ch07-quantum-mechanics/analog-ladder-filter.md): each filled shell acts as an independent AC motor winding; the asynchronous frequency decoupling $\langle M \rangle \propto \int \cos((\omega_1 - \omega_2) t)\, dt \to 0$ eliminates cross-shell mutual inductance.
 
 ### §2.4 Caveat: temporal-90° within-LC-tank framing is implementer synthesis (RETRACTED)
 
-Per L3 doc 85 §4.2 explicit Rule-12 retraction (lines 219-229):
+The within-LC-tank E-vs-B 90° **TEMPORAL** phase split as "FOC d-q" is **implementer terminology**, not directly stated in the cited corpus locations (explicit retraction, retraction-preserves-body).
 
-> *"🔴 SYNTHESIS-AS-CORPUS FOOTNOTE (added 2026-04-28 post-audit per Rule 12 retraction-preserves-body): the within-LC-tank E-vs-B 90° TEMPORAL phase split as 'FOC d-q' is **implementer terminology**, not directly stated in the cited corpus locations."*
-
-**The canonical FOC d-q framings in Core are SPATIAL 90°** (BH QNM co-rotating frame; atomic shell orientation orthogonality). The temporal within-LC-tank d-q framing remains implementer synthesis pending corpus canonicalization.
+**The canonical FOC d-q framings in Core are SPATIAL 90°** (the BH QNM co-rotating frame; the atomic shell orientation orthogonality). The temporal within-LC-tank d-q framing remains implementer synthesis pending corpus canonicalization and is retracted from the canonical set.
 
 ## §3 — Dark wake $\tau_{zx}$ derivation (OPEN — this is the gap)
 
-The **dark wake** is the longitudinal shear strain $\tau_{zx}$ wave propagating backward from accelerating mass through the substrate lattice, carrying the reaction momentum that closes Newton's Third Law for AVE thrust devices. **This is asserted across multiple sibling repos but NOT yet derived from first principles in any single Core location.**
+The **dark wake** is the longitudinal shear-strain $\tau_{zx}$ wave propagating backward from accelerating mass through the substrate lattice, carrying the reaction momentum that closes Newton's Third Law for AVE thrust devices. **This is asserted across multiple sibling hardware-engineering compendia but NOT yet derived from first principles in any single Core location. It is an explicit open gap, not a framework claim.**
 
-### §3.1 Phenomenology (asserted in sibling-repo chapters)
+### §3.1 Phenomenology (asserted in the sibling compendia)
 
-**AVE-PONDER ch01:206-218** (canonical thrust-mechanics statement):
-> *"AVE framework identifies the vacuum itself as the physical reaction mass (the structural LC components of the $\mathcal{M}_A$ metric)... As the asymmetric gradient pumps a luminous acoustic wave forward, it simultaneously exerts an equal and opposite stress tensor against the supporting lattice... A 3D FDTD integration of the PONDER-01 array isolating the longitudinal shear tensor $\tau_{zx}$. A structurally compressive wave propagates backward from the array at $c$. This non-luminous structural compression is the physical 'reaction mass' absorbing the thruster's momentum, preserving Newton's Third Law without expelling onboard propellant."*
+A separate thrust-mechanics compendium gives the canonical thrust-mechanics statement: the AVE framework identifies the vacuum itself as the physical reaction mass (the structural LC components of the $\mathcal{M}_A$ metric). As the asymmetric gradient pumps a luminous acoustic wave forward, it simultaneously exerts an equal and opposite stress tensor against the supporting lattice. A 3D FDTD integration isolating the longitudinal shear tensor $\tau_{zx}$ shows a structurally compressive wave propagating backward from the array at $c$. This non-luminous structural compression is the physical "reaction mass" absorbing the thruster's momentum, preserving Newton's Third Law without expelling onboard propellant.
 
-**AVE-Propulsion warp-metric script** (formula assertion):
+A separate propulsion compendium asserts the warp-metric formula:
 
 $$\tau_{zx} \propto \nabla |E|^2 \cdot Z_{\text{vac}}$$
 
-This is a heuristic isomorphism to Alcubierre bow-shock metric, **not** a substrate-physics derivation.
+This is a heuristic isomorphism to the Alcubierre bow-shock metric, **not** a substrate-physics derivation.
 
 ### §3.2 What's missing: Cosserat-Lagrangian → $\tau_{zx}$ derivation
 
-The first-principles chain that should produce backward-propagating $\tau_{zx}$ from accelerating mass would need to:
+The first-principles chain that should produce a backward-propagating $\tau_{zx}$ from accelerating mass would need to:
 
-1. **Start from Cosserat-K4 coupled Lagrangian** (Axiom 1 substrate + Axiom 3 effective action principle)
-2. **Apply momentum conservation** as a constraint at the soliton-substrate boundary
-3. **Show explicitly** that the reaction momentum manifests as backward-propagating longitudinal shear at substrate wave speed $c$
-4. **Derive** the proportionality coefficient (currently asserted as $\propto \nabla |E|^2 \cdot Z_{\text{vac}}$)
+1. **Start from the Cosserat-K4 coupled Lagrangian** (Axiom 1, Substrate Topology + Axiom 3, Minimum Reflection Principle).
+2. **Apply momentum conservation** as a constraint at the soliton-substrate boundary.
+3. **Show explicitly** that the reaction momentum manifests as a backward-propagating longitudinal shear at the substrate wave speed $c$.
+4. **Derive** the proportionality coefficient (currently asserted as $\propto \nabla |E|^2 \cdot Z_{\text{vac}}$).
 
-This is the **load-bearing analytical work** that would close the dark-wake derivation. Status: open research.
+This is the **load-bearing analytical work** that would close the dark-wake derivation. **Status: explicit open gap — open research, not a claim.**
 
 ### §3.3 Connection to back-EMF and Op14 trading
 
 The dark wake $\tau_{zx}$ is **plausibly the substrate-scale manifestation of the same Lenz back-EMF mechanism** that Op14 derives at the bond-pair scale:
 
-- **Op14 trading** (bond-pair scale): Cosserat $\omega$ ↔ K4-inductive $\Phi_{\text{link}}$ trades energy via $L_{\text{eff}}$ modulation at $\sim 0.020$ rad/unit trading frequency
-- **Dark wake** (soliton scale): accelerating soliton transfers momentum to backward-propagating substrate shear via the SAME mutual-inductance mechanism
+- **Op14 trading** (bond-pair scale): Cosserat $\omega$ ↔ K4-inductive $\Phi_{\text{link}}$ trades energy via $L_{\text{eff}}$ modulation at $\sim 0.020$ rad/unit trading frequency.
+- **Dark wake** (soliton scale): an accelerating soliton transfers momentum to a backward-propagating substrate shear via the SAME mutual-inductance mechanism.
 
-If the dark-wake derivation closes via Op14, it would unify the two mechanisms cleanly. L3 doc 49 §6 makes this synthesis claim but does not derive it rigorously.
+If the dark-wake derivation closes via Op14, it would unify the two mechanisms cleanly. This synthesis is conjectured but not derived rigorously.
 
 ### §3.4 Empirical falsifications already specified
 
 | Test | Predicted observable | Source |
 |---|---|---|
-| **Sagnac-RLVE protocol** | $\Psi \approx 7.15$ (2.07 rad phase shift, Tungsten rotor, 200 m fiber, 10k RPM) | AVE-PONDER ch06:12-69 |
-| **PONDER-01 parallax-wake** | $\Delta t = L / c_0$ (= 33.4 ns at $L = 10$ m baseline) | AVE-PONDER `ponder_01_parallax_wake.py` |
-| **TORSION-05 continuous DC thrust** | $\sim 100\, \mu$N continuous DC | Vol 4 Ch 11 |
-| **Geodynamo dipole** | $M_\oplus = 1.5 \times 10^{23}$ A·m² (factor-of-2 of empirical) | KB geodynamo-vca-back-emf.md |
+| Sagnac-RLVE protocol | $\Psi \approx 7.15$ (2.07 rad phase shift, Tungsten rotor, 200 m fiber, 10k RPM) | thrust-mechanics compendium |
+| Parallax-wake | $\Delta t = L / c_0$ (= 33.4 ns at $L = 10$ m baseline) | thrust-mechanics compendium |
+| Continuous DC thrust | $\sim 100\, \mu$N continuous DC | Vol 4 Ch 11 |
+| Geodynamo dipole | $M_\oplus = 1.5 \times 10^{23}$ A·m² (factor-of-2 of empirical) | [Geodynamo VCA Back-EMF](../vol3/applied-physics/ch13-geophysics/geodynamo-vca-back-emf.md) |
 
-## §4 — DT pair production via Lenz back-EMF (AVE-Fusion canonical)
+## §4 — DT pair production via Lenz back-EMF (sibling-compendium cross-reference)
 
-The 511 kV Lenz-back-EMF mechanism for DT pair production lives in AVE-Fusion ch02:43-47:
+The 511 kV Lenz-back-EMF mechanism for DT pair production lives in a separate fusion-engineering compendium: in AVE, magnetic reconnection is a **Topological Snap** — the breaking and re-routing of chiral LC flux tubes. The inductive transient of colliding magnetic fields in microseconds is extreme ($dB/dt$). This localised shear generates topological voltages exceeding **$511,000$ V ($511$ kV)** — the Dielectric Snap limit of the vacuum. The colliding magnetic fields exceed the elastic limit of the metric, triggering topological rupture and spontaneous synthesis of electron-positron pairs.
 
-> *"In AVE, magnetic reconnection is a **Topological Snap** — the breaking and re-routing of chiral LC flux tubes. The inductive transient of colliding magnetic fields in microseconds is extreme ($dB/dt$). This localised shear generates topological voltages exceeding **$511,000$ V ($511$ kV)**. $511$ kV is the Dielectric Snap limit of the vacuum. The colliding magnetic fields exceed the elastic limit of the metric, triggering topological rupture and spontaneous synthesis of electron-positron pairs (Pair Production)."*
+This is a first-principles derivation chain: DT plasma physics ($dB/dt$, Lenz) → Axiom 4 $V_{\text{SNAP}} = m_e c^2 / e \approx 511$ kV → pair production. See [Pair Production Axiom Derivation](../vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md) for the full Core-canonical pair-production mechanism (saturated flux-tube rupture at an A-B node pair). The fusion-compendium DT chapter is the **macroscopic-plasma instance** of the same mechanism.
 
-**This is a first-principles derivation chain**: DT plasma physics ($dB/dt$, Lenz) → Axiom 4 $V_{\text{SNAP}} = m_e c^2 / e \approx 511$ kV → pair production.
+## §5 — L-H transition as $\eta_{\text{eff}} = 0$ bifurcation (sibling-compendium cross-reference)
 
-See [Pair Production Axiom Derivation](../vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md) for the full Core-canonical pair-production mechanism (saturated flux-tube rupture at A-B node pair). The AVE-Fusion DT chapter is the **macroscopic-plasma instance** of the same mechanism.
+Per the fusion-engineering compendium: when the macroscopic shear stress of the rotating plasma boundary layer reaches the Dielectric Saturation Yield Stress ($43.65$ kV), the outer shell of the vacuum ruptures into a frictionless zero-impedance phase slipstream. Because the vacuum at the edge has entered a zero-mutual-inductance state ($\eta_{\text{eff}} = 0$), the turbulent eddies decouple from the wall; heat cannot cross the frictionless gap. The L-H transition is mathematically identical to a **Dielectric Saturation-Plastic Mutual Inductance Bifurcation**.
 
-## §5 — L-H transition as $\eta_{\text{eff}} = 0$ bifurcation (AVE-Fusion canonical)
+**Empirical validation**: matches the ASDEX 1982 observed L-H transition. This is a first-principles derivation tying Axiom 4 yield (43.65 kV) to mutual-inductance decoupling at the plasma boundary.
 
-Per AVE-Fusion ch05:42-51:
+## §6 — Autoresonant FOC PLL pair-production chain (sibling-compendium cross-reference)
 
-> *"When the macroscopic shear stress of the rotating plasma boundary layer reaches the Dielectric Saturation Yield Stress ($43.65$ kV), the outer shell of the vacuum ruptures into a frictionless zero-impedance phase slipstream... Because the vacuum at the edge has entered a zero-mutual inductance state ($\eta_{\text{eff}} = 0$), the turbulent eddies decouple from the wall. Heat cannot cross the frictionless gap. The L-H transition is mathematically identical to a **Dielectric Saturation-Plastic Mutual Inductance Bifurcation**."*
+Per the propulsion-engineering compendium: the AVE framework dictates that the vacuum is a **Non-Linear Capacitor** bounded by a 4th-order polynomial (Axiom 4, Universal Saturation Kernel). In classical non-linear dynamics, as a Duffing oscillator is driven toward its maximum amplitude, its local resonant frequency dynamically shifts. To successfully synthesize matter, one must utilize an **Autoresonant Regenerative Feedback Loop** — dynamically monitoring the transient optical phase-shift of the focal point and using a phase-locked loop (PLL) to continuously sweep the driving laser frequency downward.
 
-**Empirical validation**: matches ASDEX 1982 observed L-H transition. This is a first-principles derivation tying Axiom 4 yield (43.65 kV) to mutual-inductance decoupling at the plasma boundary.
-
-## §6 — Autoresonant FOC PLL pair-production chain (AVE-Propulsion canonical)
-
-Per AVE-Propulsion ch05:11-15:
-
-> *"The AVE framework explicitly dictates that the vacuum is a **Non-Linear Capacitor** bounded by a 4th-order polynomial (Axiom 4). In classical non-linear dynamics, as a Duffing oscillator is driven toward its maximum amplitude, its local resonant frequency dynamically shifts... To successfully synthesize matter, one must utilize an **Autoresonant Regenerative Feedback Loop**. By dynamically monitoring the transient optical phase-shift of the focal point and utilizing a phase-locked loop (PLL) to continuously sweep the driving laser frequency downward..."*
-
-**Single load-bearing chapter** in Propulsion volume that derives the autoresonant FOC. Ties directly to Axiom 4 saturation kernel — autoresonant lock condition matches the [Pair Production Axiom Derivation](../vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md) §3 three-condition framework (C1 amplitude + C2 frequency + C3 phase).
+This autoresonant FOC ties directly to the Axiom 4 saturation kernel; the autoresonant lock condition matches the [Pair Production Axiom Derivation](../vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md) §3 three-condition framework (C1 amplitude + C2 frequency + C3 phase).
 
 ## §7 — Cross-cutting empirical predictions consolidated
 
-| Quantity | Value | Source | Status |
-|---|---|---|---|
-| Universal $R_{\text{drag}}$ | $Z_0 = 376.73$ Ω | AVE-Propulsion ch01:95 | derived from TKI |
-| Sagnac $\Psi$ predicted | $\approx 7.15$ (2.07 rad) | AVE-PONDER ch06:63 | falsification target |
-| Earth dipole $M_\oplus$ | $1.5 \times 10^{23}$ A·m² (empirical $8.0 \times 10^{22}$) | KB geodynamo-vca-back-emf.md | factor-of-2 match |
-| Op14 trading correlation | $\rho = -0.990$ Pearson | KB op14-cross-sector-trading.md | empirically validated |
-| L-H transition trigger | $43.65$ kV $\mathbf{E} \times \mathbf{B}$ shear | AVE-Fusion ch05:47 | matches ASDEX 1982 |
-| DT pair-production threshold | $511$ kV (Schwinger Snap) | AVE-Fusion ch02:43-47 | derived from Axiom 4 |
-| Dark-wake parallax delay | $\Delta t = L / c_0$ (33.4 ns at $L = 10$ m) | AVE-PONDER ponder_01_parallax_wake.py | testable |
+| Quantity | Value | Status |
+|---|---|---|
+| Universal $R_{\text{drag}}$ | $Z_0 = 376.73$ Ω | derived from TKI |
+| Sagnac $\Psi$ predicted | $\approx 7.15$ (2.07 rad) | falsification target |
+| Earth dipole $M_\oplus$ | $1.5 \times 10^{23}$ A·m² (empirical $8.0 \times 10^{22}$) | factor-of-2 match |
+| Op14 trading correlation | $\rho = -0.990$ Pearson | empirically validated |
+| L-H transition trigger | $43.65$ kV $\mathbf{E} \times \mathbf{B}$ shear | matches ASDEX 1982 |
+| DT pair-production threshold | $511$ kV (Schwinger Snap) | derived from Axiom 4 |
+| Dark-wake parallax delay | $\Delta t = L / c_0$ (33.4 ns at $L = 10$ m) | testable |
 
 ## §8 — Status summary
 
-| Item | Status | Core canonical |
-|---|---|---|
-| Back-EMF substrate-physics chain | **Core-canonical, derived** | Op14 + Lenz + TKI |
-| FOC d-q decomposition (spatial 90°) | **Core-canonical, derived** | backmatter/05 + helium-symmetric-cavity |
-| FOC temporal-90° within-LC-tank framing | **Implementer synthesis, RETRACTED** | doc 85 §4.2 |
-| **Dark wake $\tau_{zx}$ first-principles derivation** | **OPEN — load-bearing analytical work** | not in any single Core location |
-| DT pair-production (Lenz) | Sibling-canonical (AVE-Fusion ch02), tied to Core via pair-production-axiom-derivation.md | derived |
-| L-H = $\eta_{\text{eff}} = 0$ bifurcation | Sibling-canonical (AVE-Fusion ch05), tied to Core via Axiom 4 + Op14 | derived |
-| Autoresonant FOC PLL | Sibling-canonical (AVE-Propulsion ch05), tied to Core via pair-production three-condition framework | derived |
+| Item | Status |
+|---|---|
+| Back-EMF substrate-physics chain | Derived (Op14 + Lenz + TKI) |
+| FOC d-q decomposition (spatial 90°) | Derived (Backmatter Ch 5 + helium-symmetric-cavity) |
+| FOC temporal-90° within-LC-tank framing | Implementer synthesis, RETRACTED |
+| **Dark wake $\tau_{zx}$ first-principles derivation** | **OPEN — load-bearing analytical work, explicit open gap** |
+| DT pair-production (Lenz) | Sibling-compendium, tied to Core via pair-production-axiom-derivation.md |
+| L-H = $\eta_{\text{eff}} = 0$ bifurcation | Sibling-compendium, tied to Core via Axiom 4 + Op14 |
+| Autoresonant FOC PLL | Sibling-compendium, tied to Core via the pair-production three-condition framework |
 
-The largest open piece is the **dark wake $\tau_{zx}$ Cosserat-Lagrangian derivation** (§3.2). Recommended path: extend Op14 cross-sector trading from bond-pair scale to soliton-acceleration scale, showing the same mutual-inductance mechanism produces both the bond-pair $\Phi_{\text{link}}$ ↔ $\omega$ trading AND the soliton-scale backward-propagating shear.
+The largest open piece is the **dark wake $\tau_{zx}$ Cosserat-Lagrangian derivation** (§3.2). Recommended path: extend Op14 cross-sector trading from the bond-pair scale to the soliton-acceleration scale, showing that the same mutual-inductance mechanism produces both the bond-pair $\Phi_{\text{link}}$ ↔ $\omega$ trading AND the soliton-scale backward-propagating shear.
 
 ## Cross-references
 
-- **Core-canonical (full leafs/chapters)**:
-  - [Op14 Cross-Sector Trading](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md)
-  - [Op14 Local Clock Modulation](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md)
-  - [τ_relax Derivation](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/tau-relax-derivation.md)
-  - [Geodynamo VCA Back-EMF](../vol3/applied-physics/ch13-geophysics/geodynamo-vca-back-emf.md)
+- **Core-canonical leaves:**
   - [Helium Symmetric Cavity](../vol2/quantum-orbitals/ch07-quantum-mechanics/helium-symmetric-cavity.md)
   - [Analog Ladder Filter](../vol2/quantum-orbitals/ch07-quantum-mechanics/analog-ladder-filter.md)
   - [Newtonian Inertia as Lenz's Law](../vol2/particle-physics/ch01-topological-matter/newtonian-inertia-as-lenz.md)
   - [Pair Production Axiom Derivation](../vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md)
-  - [Lattice Impedance Decomposition](../vol1/operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md)
-- **Core-canonical manuscript anchors**:
-  - Backmatter Ch 5 §FOC/Park Transform Analogy:120-136
-  - Vol 4 Ch 1 (universal $R_{\text{drag}}$, $Z_0$)
-  - `predictions.yaml:2814-2823` (Lenz back-EMF freezes $d\omega/dt$ at yield crossing)
-- **Sibling-repo additional context** (citations, NOT canonical-Core):
-  - AVE-PONDER ch01:206-221 (dark wake thrust mechanics); ch06 (Sagnac-RLVE falsification protocol)
-  - AVE-Propulsion ch01:80-95 (universal $R_{\text{drag}}$); ch05:11-15 (autoresonant dielectric rupture)
-  - AVE-Fusion ch02:43-47 (DT 511 kV pair production); ch05:42-51 (L-H = $\eta_{\text{eff}} = 0$)
-- **Open derivation (load-bearing)**:
-  - Dark wake $\tau_{zx}$ first-principles derivation from Cosserat-Lagrangian + momentum conservation — see §3.2 above
-- **Historical research syntheses** (superseded by this leaf):
-  - L3 doc 49 (dark-wake + back-EMF + FOC synthesis)
-  - L3 doc 80 (Kelvin-Helmholtz AVE precedent)
-  - L3 doc 85 (Kelvin-Beltrami FOC axiom-grounded derivation, with §4.2 + §5.2 retractions)
+  - [Geodynamo VCA Back-EMF](../vol3/applied-physics/ch13-geophysics/geodynamo-vca-back-emf.md)
+- **Core-canonical manuscript anchors:**
+  - Backmatter Ch 5 §FOC/Park Transform Analogy
+  - Vol 4 Ch 1 (universal $R_{\text{drag}}$, $Z_0$; Op14 cross-sector trading)
+- **Sibling hardware-engineering compendia** (citations, NOT canonical-Core): a separate thrust-mechanics compendium (dark wake thrust mechanics; Sagnac-RLVE falsification protocol); a separate propulsion-engineering compendium (universal $R_{\text{drag}}$; autoresonant dielectric rupture); a separate fusion-engineering compendium (DT 511 kV pair production; L-H = $\eta_{\text{eff}} = 0$).
+- **Open derivation (load-bearing):** dark wake $\tau_{zx}$ first-principles derivation from the Cosserat-Lagrangian + momentum conservation — see §3.2 above.

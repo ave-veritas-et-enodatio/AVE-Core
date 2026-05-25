@@ -200,7 +200,6 @@ def impedance_orbital_radii(M: float, a_star: float = 0.0, n_modes: int = 8) -> 
     """
     rs = schwarzschild_radius(M)
     r_ph = photon_sphere_radius(M)
-    # r_isco = isco_radius(M, a_star)  # bulk lint fixup pass
 
     # Fundamental wavelength: photon sphere circumference
     lambda_0 = 2.0 * np.pi * r_ph
@@ -270,8 +269,6 @@ def scale_invariance_table() -> list[dict[str, str]]:
     table : list of dicts   Each dict contains:
         'property', 'electron', 'black_hole', 'relation'
     """
-    # rs_sun = schwarzschild_radius(M_SUN)  # bulk lint fixup pass
-
     table = [
         {
             "property": "Confinement Boundary",

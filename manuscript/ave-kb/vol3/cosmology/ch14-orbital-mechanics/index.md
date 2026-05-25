@@ -1,5 +1,11 @@
 [↑ Cosmology](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-a71inj, clm-av2o4v, clm-qyn8t0]
+subtree-experiments: []
+-->
+
 # Ch.14: Macroscopic Orbital Mechanics
 
 Demonstrates scale invariance of the $1/d_{ij}$ mutual-impedance topology from nuclear binding to celestial mechanics. The Saturn Ring Integrator runs the same nuclear interaction engine at planetary scale, producing spontaneous radial impedance bands (Cassini gaps). Mercury's anomalous perihelion advance ($43''$/century) emerges from the asymmetric impedance gradient of the displaced vacuum medium via a $1/r^3$ tidal perturbation. Solar flares are modelled as semiconductor avalanche breakdown of a macroscopic LED topology, with the FWHM danger zone of $0.46$ years validated against NOAA GOES telemetry.

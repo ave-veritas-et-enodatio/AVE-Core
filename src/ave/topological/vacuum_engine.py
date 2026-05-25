@@ -117,12 +117,11 @@ References
 - AVE-PONDER/src/scripts/generate_ponder_01_spice_netlist.py (η_vac calibration K_0=0.208)
 """
 
-from __future__ import annotations
-
 import json
+from collections.abc import Callable
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any, Callable, Optional
+from typing import Any
 
 import numpy as np
 
@@ -229,8 +228,8 @@ class PulsedSource(Source):
         sigma_yz: float,
         t_center: float,
         t_sigma: float,
-        y_c: Optional[float] = None,
-        z_c: Optional[float] = None,
+        y_c: float | None = None,
+        z_c: float | None = None,
     ):
         self.x0 = int(x0)
         self.direction = tuple(direction)
@@ -295,9 +294,9 @@ class CWSource(Source):
         sigma_yz: float,
         t_ramp: float,
         t_sustain: float,
-        t_decay: Optional[float] = None,
-        y_c: Optional[float] = None,
-        z_c: Optional[float] = None,
+        t_decay: float | None = None,
+        y_c: float | None = None,
+        z_c: float | None = None,
     ):
         self.x0 = int(x0)
         self.direction = tuple(direction)
@@ -632,8 +631,8 @@ class TopologyObserver(Observer):
     def __init__(
         self,
         cadence: int = 5,
-        threshold_frac: Optional[float] = None,
-        threshold_fracs: Optional[list[float]] = None,
+        threshold_frac: float | None = None,
+        threshold_fracs: list[float] | None = None,
     ):
         super().__init__(cadence=cadence)
         if threshold_frac is None:
@@ -728,9 +727,9 @@ class AutoresonantCWSource(CWSource):
         sigma_yz: float,
         t_ramp: float,
         t_sustain: float,
-        t_decay: Optional[float] = None,
-        y_c: Optional[float] = None,
-        z_c: Optional[float] = None,
+        t_decay: float | None = None,
+        y_c: float | None = None,
+        z_c: float | None = None,
         K_drift: float = 0.5,
         probe_x_offset: int = 4,
     ):
@@ -909,9 +908,9 @@ class CosseratBeltramiSource(Source):
         sigma_yz: float,
         t_ramp: float,
         t_sustain: float,
-        t_decay: Optional[float] = None,
-        y_c: Optional[float] = None,
-        z_c: Optional[float] = None,
+        t_decay: float | None = None,
+        y_c: float | None = None,
+        z_c: float | None = None,
     ):
         if propagation_axis not in (0, 1, 2):
             raise ValueError(f"propagation_axis must be 0/1/2, got {propagation_axis}")
@@ -1083,9 +1082,9 @@ class SpatialDipoleCPSource(Source):
         sigma_yz: float,
         t_ramp: float,
         t_sustain: float,
-        t_decay: Optional[float] = None,
-        y_c: Optional[float] = None,
-        z_c: Optional[float] = None,
+        t_decay: float | None = None,
+        y_c: float | None = None,
+        z_c: float | None = None,
     ):
         if propagation_axis not in (0, 1, 2):
             raise ValueError(f"propagation_axis must be 0/1/2, got {propagation_axis}")
@@ -1252,8 +1251,8 @@ class PairNucleationGate(Observer):
         self,
         cadence: int = 1,
         saturation_frac: float = 0.95,
-        delta_lock_fraction: Optional[float] = None,
-        injection_amplitude: Optional[float] = None,
+        delta_lock_fraction: float | None = None,
+        injection_amplitude: float | None = None,
         phi_critical: float = 1.0,
     ):
         """
@@ -1293,7 +1292,6 @@ class PairNucleationGate(Observer):
         import jax.numpy as jnp
 
         from ave.topological.cosserat_field_3d import (
-            KAPPA_CHIRAL_ELECTRON,
             _beltrami_helicity,
             _compute_curvature,
         )
@@ -1368,7 +1366,7 @@ class PairNucleationGate(Observer):
         self,
         omega_node_at_A: float,
         drive_freqs: list[float],
-    ) -> Optional[float]:
+    ) -> float | None:
         """Return the drive frequency that satisfies C2, or None if none does."""
         for omega_drive in drive_freqs:
             delta_lock = self.delta_lock_fraction * omega_drive
@@ -1586,7 +1584,7 @@ class EngineConfig:
     I_omega: float = 1.0
     coupling_kappa: float = 1.0  # S1-D prefactor (C2 proxy for η_vac)
     axiom_4_enabled: bool = True
-    V_SNAP_override: Optional[float] = None  # override if using non-SI
+    V_SNAP_override: float | None = None  # override if using non-SI
     # Phase 4 — asymmetric μ/ε saturation (doc 54_ §6, VACUUM_ENGINE_MANUAL
     # §17 A14 r6 + plan file Phase 3.5 step 17). Default True enables the
     # axiom-native (S_μ, S_ε) split with chirality bias; False restores the
@@ -1747,7 +1745,7 @@ class VacuumEngine3D:
     # -----------------------------------------------------------------
     # Thermal initialization (per doc 47_)
     # -----------------------------------------------------------------
-    def initialize_thermal(self, T: float, seed: Optional[int] = None, thermalize_V: bool = False) -> None:
+    def initialize_thermal(self, T: float, seed: int | None = None, thermalize_V: bool = False) -> None:
         """Initialize (V_inc, u, ω, u_dot, ω_dot) per classical equipartition
         at temperature T. Units: T in m_e c² (so T=1 means kT = electron mass).
 

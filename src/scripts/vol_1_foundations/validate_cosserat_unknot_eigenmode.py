@@ -32,7 +32,6 @@ Distinct from validate_cosserat_electron_soliton.py:
 
 Per Rule 11 clean-falsification + A39 v2 dual-criterion + A40 multi-N.
 """
-from __future__ import annotations
 
 import sys
 import time
@@ -61,9 +60,7 @@ def run_unknot_validation(
         r_target = R_target
 
     solver = CosseratField3D(nx, nx, nx, dx=1.0, use_saturation=use_saturation)
-    solver.initialize_electron_unknot_sector(
-        R_target=R_target, r_target=r_target, amplitude_scale=amplitude_scale
-    )
+    solver.initialize_electron_unknot_sector(R_target=R_target, r_target=r_target, amplitude_scale=amplitude_scale)
 
     # t=0 measurements
     E_init = solver.total_energy()
@@ -130,8 +127,9 @@ def _extract_n_hat_along_loop(solver, R_loop: float, n_samples: int = 16) -> np.
     """Extract n_hat (Rodrigues projection of ω) at n_samples points equally
     spaced along the loop's central circle in real space. Returns array
     shape (n_samples, 3) — the unit n_hat vector at each sample."""
-    from ave.topological.cosserat_field_3d import _project_omega_to_nhat
     import jax.numpy as jnp
+
+    from ave.topological.cosserat_field_3d import _project_omega_to_nhat
 
     cx, cy, cz = (solver.nx - 1) / 2.0, (solver.ny - 1) / 2.0, (solver.nz - 1) / 2.0
     n_hat_full = np.asarray(_project_omega_to_nhat(jnp.asarray(solver.omega)))
@@ -154,7 +152,9 @@ def _extract_n_hat_along_loop(solver, R_loop: float, n_samples: int = 16) -> np.
 def print_run_summary(info: dict) -> None:
     print(f"\n--- {info['label']} (nx={info['nx']}) ---")
     print(f"  Seed (R, r):       ({info['init'][0]:.3f}, {info['init'][1]:.3f}) [horn torus = R = r]")
-    print(f"  t=0 obs (R, r, c): ({info['initial_obs'][0]:.3f}, {info['initial_obs'][1]:.3f}, c={info['initial_obs'][2]})")
+    print(
+        f"  t=0 obs (R, r, c): ({info['initial_obs'][0]:.3f}, {info['initial_obs'][1]:.3f}, c={info['initial_obs'][2]})"
+    )
     print(f"  t=0 Q_H:           {info['initial_obs'][3]:.3e}")
     print(f"  t=0 energy:        {info['initial_E']:.3e}")
     print(f"  Wall time:         {info['wall_s']:.1f}s")
@@ -210,25 +210,35 @@ def main():
     results = []
 
     # 32³ horn torus at lattice-resolved scale
-    results.append(run_unknot_validation(
-        nx=32, R_target=8.0,
-        label="32³ horn torus (R=r=8 cells)",
-        max_iter=500,
-    ))
+    results.append(
+        run_unknot_validation(
+            nx=32,
+            R_target=8.0,
+            label="32³ horn torus (R=r=8 cells)",
+            max_iter=500,
+        )
+    )
 
     # 48³ horn torus at same physical scale (A40 multi-N)
-    results.append(run_unknot_validation(
-        nx=48, R_target=8.0,
-        label="48³ horn torus (R=r=8 cells, multi-N)",
-        max_iter=500,
-    ))
+    results.append(
+        run_unknot_validation(
+            nx=48,
+            R_target=8.0,
+            label="48³ horn torus (R=r=8 cells, multi-N)",
+            max_iter=500,
+        )
+    )
 
     # Off-horn diagnostic (R ≠ r) — verify seeder works for non-horn-torus too
-    results.append(run_unknot_validation(
-        nx=32, R_target=10.0, r_target=4.0,
-        label="32³ standard torus (R=10, r=4) — non-canonical diagnostic",
-        max_iter=500,
-    ))
+    results.append(
+        run_unknot_validation(
+            nx=32,
+            R_target=10.0,
+            r_target=4.0,
+            label="32³ standard torus (R=10, r=4) — non-canonical diagnostic",
+            max_iter=500,
+        )
+    )
 
     for info in results:
         print_run_summary(info)
@@ -240,10 +250,12 @@ def main():
     print(f"{'config':<48} {'C1':<5} {'C2':<5} {'C3':<5} {'C4':<5} {'C5':<5} {'C6':<5}")
     for info in results:
         c = lambda b: "✓" if b else "✗"
-        print(f"{info['label']:<48} "
-              f"{c(info['C1_pass']):<5} {c(info['C2_pass']):<5} "
-              f"{c(info['C3_pass']):<5} {c(info['C4_pass']):<5} "
-              f"{c(info['C5_pass']):<5} {c(info['C6_pass']):<5}")
+        print(
+            f"{info['label']:<48} "
+            f"{c(info['C1_pass']):<5} {c(info['C2_pass']):<5} "
+            f"{c(info['C3_pass']):<5} {c(info['C4_pass']):<5} "
+            f"{c(info['C5_pass']):<5} {c(info['C6_pass']):<5}"
+        )
 
     print()
     print("=" * 76)
@@ -253,9 +265,9 @@ def main():
     # Strict pass criterion (per doc 102 §2.6): C1 + C2 + C3 + C5 + C6 must all pass
     # for layer-1 (real-space curve topology). C4 (r) is loose. C7 is diagnostic.
     strict_layer_1_passes = sum(
-        1 for info in results
-        if info["C1_pass"] and info["C2_pass"] and info["C3_pass"]
-        and info["C5_pass"] and info["C6_pass"]
+        1
+        for info in results
+        if info["C1_pass"] and info["C2_pass"] and info["C3_pass"] and info["C5_pass"] and info["C6_pass"]
     )
     print(f"  Strict Layer 1 PASS count: {strict_layer_1_passes} / {len(results)}")
     print(f"  (PASS = C1 ∧ C2 ∧ C3 ∧ C5 ∧ C6 — the unknot topology + localization +")

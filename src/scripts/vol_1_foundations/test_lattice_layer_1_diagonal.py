@@ -30,19 +30,18 @@ Outputs:
   - assets/lattice_layer1_diagonal_panels.png
   - results/lattice_layer1_diagonal.json
 """
-from __future__ import annotations
 
 import json
 from pathlib import Path
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 
 from ave.core.k4_tlm import K4Lattice3D
-
 
 PREREG = {
     "C-L1.2_v_diagonal_over_c_min": 0.85,
@@ -55,9 +54,9 @@ PREREG = {
 }
 
 
-def run_diagonal_dispersion(N: int = 96, n_steps: int = 240,
-                              lambda_cells: float = 10.0,
-                              amp_frac: float = 0.001) -> dict:
+def run_diagonal_dispersion(
+    N: int = 96, n_steps: int = 240, lambda_cells: float = 10.0, amp_frac: float = 0.001
+) -> dict:
     """Tilted-plane wave packet propagating along (1,1,1)/√3 direction.
 
     Source plane: cells satisfying x+y+z = s0 (perpendicular to (1,1,1)).
@@ -78,9 +77,9 @@ def run_diagonal_dispersion(N: int = 96, n_steps: int = 240,
     # For source plane: pick s0 ≈ N/2 (centered), thickness ±half_width
     # Reference planes at s_a = s0 + 30·√3 cells, s_b = s0 + 60·√3 cells (along (1,1,1)/√3)
     # s = x+y+z, in raw integer units, so s_a, s_b are integers
-    s0 = int(round(0.30 * (3 * N)))   # source slab at u ≈ 0.30·N·√3
-    s_a = s0 + 30                      # 30/√3 ≈ 17.3 cells along (1,1,1)/√3
-    s_b = s0 + 60                      # 60/√3 ≈ 34.6 cells along (1,1,1)/√3
+    s0 = int(round(0.30 * (3 * N)))  # source slab at u ≈ 0.30·N·√3
+    s_a = s0 + 30  # 30/√3 ≈ 17.3 cells along (1,1,1)/√3
+    s_b = s0 + 60  # 60/√3 ≈ 34.6 cells along (1,1,1)/√3
     src_thickness = 2
 
     # Indices of all lattice cells
@@ -97,9 +96,15 @@ def run_diagonal_dispersion(N: int = 96, n_steps: int = 240,
 
     # Port weights aligned with (1,1,1)/√3 forward direction
     direction = np.array([1.0, 1.0, 1.0]) / np.sqrt(3.0)
-    PORT_HAT = np.array([
-        [+1, +1, +1], [+1, -1, -1], [-1, +1, -1], [-1, -1, +1],
-    ], dtype=float) / np.sqrt(3.0)
+    PORT_HAT = np.array(
+        [
+            [+1, +1, +1],
+            [+1, -1, -1],
+            [-1, +1, -1],
+            [-1, -1, +1],
+        ],
+        dtype=float,
+    ) / np.sqrt(3.0)
     # forward port weights = max(0, -d̂·p̂) where d̂ is propagation direction
     # For propagation along (1,1,1)/√3, ports whose -p̂ component along (1,1,1) > 0
     # are the "forward" ports. -p̂_n · d̂ = -p̂_n · (1,1,1)/√3 = -(sum of p̂_n components)/√3
@@ -133,7 +138,7 @@ def run_diagonal_dispersion(N: int = 96, n_steps: int = 240,
 
     for step in range(1, n_steps + 1):
         t = step * dt
-        env = np.exp(-((t - t_center) / t_sigma) ** 2)
+        env = np.exp(-(((t - t_center) / t_sigma) ** 2))
         osc = np.sin(omega * (t - t_center))
         A_t = amp_frac * env * osc
         if abs(A_t) > 1e-30:
@@ -186,7 +191,9 @@ def run_diagonal_dispersion(N: int = 96, n_steps: int = 240,
         "n_steps": n_steps,
         "lambda_cells": lambda_cells,
         "amp_frac": amp_frac,
-        "s0": s0, "s_a": s_a, "s_b": s_b,
+        "s0": s0,
+        "s_a": s_a,
+        "s_b": s_b,
         "src_thickness": src_thickness,
         "t_a_s": float(t_a) if t_a else 0.0,
         "t_b_s": float(t_b) if t_b else 0.0,
@@ -207,13 +214,12 @@ def evaluate_prereg(result: dict) -> dict:
     eval_result["v_cardinal_over_c"] = PREREG["v_cardinal_over_c_phase_1"]
     eval_result["anisotropy_ratio"] = (
         eval_result["v_cardinal_over_c"] / eval_result["v_diagonal_over_c"]
-        if eval_result["v_diagonal_over_c"] > 0 else 0.0
+        if eval_result["v_diagonal_over_c"] > 0
+        else 0.0
     )
 
     eval_result["pass_C_L1_2"] = (
-        PREREG["C-L1.2_v_diagonal_over_c_min"]
-        <= result["v_diagonal_over_c"]
-        <= PREREG["C-L1.2_v_diagonal_over_c_max"]
+        PREREG["C-L1.2_v_diagonal_over_c_min"] <= result["v_diagonal_over_c"] <= PREREG["C-L1.2_v_diagonal_over_c_max"]
     )
     eval_result["pass_C_L1_3"] = (
         PREREG["C-L1.3_anisotropy_ratio_min"]
@@ -243,31 +249,26 @@ def render_panels(result: dict, eval_result: dict, out_png: str) -> None:
         plt.colorbar(im, ax=ax, fraction=0.04)
     ax.set_xlabel("s = x+y+z (diagonal coordinate)", color="#cccccc", fontsize=9)
     ax.set_ylabel("t (ns)", color="#cccccc", fontsize=9)
-    ax.set_title("Energy density along (1,1,1) projection",
-                 color="white", fontsize=10)
-    ax.legend(facecolor="#050510", edgecolor="#444",
-              labelcolor="#cccccc", fontsize=8)
+    ax.set_title("Energy density along (1,1,1) projection", color="white", fontsize=10)
+    ax.legend(facecolor="#050510", edgecolor="#444", labelcolor="#cccccc", fontsize=8)
     ax.tick_params(colors="#cccccc", labelsize=8)
 
     # Panel 1: peak arrival at s_a, s_b
     ax = fig.add_subplot(gs[0, 1])
     ax.set_facecolor("#050510")
     times_ns = np.asarray(result["times"]) * 1e9
-    ax.plot(times_ns, result["rho_a_history"], "-",
-            color="lime", lw=1.4, label=f"|V|² at s_a={result['s_a']}")
-    ax.plot(times_ns, result["rho_b_history"], "-",
-            color="orange", lw=1.4, label=f"|V|² at s_b={result['s_b']}")
+    ax.plot(times_ns, result["rho_a_history"], "-", color="lime", lw=1.4, label=f"|V|² at s_a={result['s_a']}")
+    ax.plot(times_ns, result["rho_b_history"], "-", color="orange", lw=1.4, label=f"|V|² at s_b={result['s_b']}")
     ax.axvline(result["t_a_s"] * 1e9, color="lime", ls=":", lw=1)
     ax.axvline(result["t_b_s"] * 1e9, color="orange", ls=":", lw=1)
     ax.set_xlabel("t (ns)", color="#cccccc", fontsize=9)
     ax.set_ylabel("|V|² at reference plane", color="#cccccc", fontsize=9)
     ax.set_title(
-        f"Peak-arrival times: t_a={result['t_a_s']*1e9:.2f}, "
-        f"t_b={result['t_b_s']*1e9:.2f} (ns)",
-        color="white", fontsize=10,
+        f"Peak-arrival times: t_a={result['t_a_s']*1e9:.2f}, " f"t_b={result['t_b_s']*1e9:.2f} (ns)",
+        color="white",
+        fontsize=10,
     )
-    ax.legend(facecolor="#050510", edgecolor="#444",
-              labelcolor="#cccccc", fontsize=8)
+    ax.legend(facecolor="#050510", edgecolor="#444", labelcolor="#cccccc", fontsize=8)
     ax.tick_params(colors="#cccccc", labelsize=8)
     ax.grid(alpha=0.2, color="#444")
 
@@ -281,17 +282,15 @@ def render_panels(result: dict, eval_result: dict, out_png: str) -> None:
     ax.axhline(np.sqrt(2.0), color="orange", ls="--", lw=1, label="√2")
     ax.axhline(1.0, color="green", ls="--", lw=1, label="c (target diag)")
     for bar, val in zip(bars, velocities):
-        ax.text(bar.get_x() + bar.get_width() / 2.0, val + 0.04,
-                f"{val:.4f}", ha="center", color="white", fontsize=10)
+        ax.text(bar.get_x() + bar.get_width() / 2.0, val + 0.04, f"{val:.4f}", ha="center", color="white", fontsize=10)
     ax.set_ylim(0, max(max(velocities) * 1.2, 1.7))
     ax.set_ylabel("v / c", color="#cccccc", fontsize=10)
     ax.set_title(
-        f"Layer 1 anisotropy: v_card/v_diag = "
-        f"{eval_result['anisotropy_ratio']:.4f}  vs  √2 = {np.sqrt(2.0):.4f}",
-        color="white", fontsize=10,
+        f"Layer 1 anisotropy: v_card/v_diag = " f"{eval_result['anisotropy_ratio']:.4f}  vs  √2 = {np.sqrt(2.0):.4f}",
+        color="white",
+        fontsize=10,
     )
-    ax.legend(facecolor="#050510", edgecolor="#444",
-              labelcolor="#cccccc", fontsize=9)
+    ax.legend(facecolor="#050510", edgecolor="#444", labelcolor="#cccccc", fontsize=9)
     ax.tick_params(colors="#cccccc", labelsize=8)
     ax.grid(alpha=0.2, color="#444", axis="y")
 
@@ -312,8 +311,7 @@ def render_panels(result: dict, eval_result: dict, out_png: str) -> None:
         "",
         f"Phase 1 cardinal v/c:       {eval_result['v_cardinal_over_c']:.4f}  (PASS)",
         "",
-        f"OVERALL Layer 1 emergence: "
-        f"{'✓ PASS (cardinal+diagonal)' if eval_result['all_pass'] else '✗ PARTIAL'}",
+        f"OVERALL Layer 1 emergence: " f"{'✓ PASS (cardinal+diagonal)' if eval_result['all_pass'] else '✗ PARTIAL'}",
         "",
         "Inputs: K4 4-port geometry + tilted-plane source perpendicular",
         "to (1,1,1)/√3. NO α/m_e/G/ℏ inputs in v/c extraction.",
@@ -326,13 +324,14 @@ def render_panels(result: dict, eval_result: dict, out_png: str) -> None:
             color = "#ffaaaa"
         else:
             color = "#cccccc"
-        ax.text(0.02, 0.95 - i * 0.05, line, transform=ax.transAxes,
-                color=color, fontsize=9, family="monospace")
+        ax.text(0.02, 0.95 - i * 0.05, line, transform=ax.transAxes, color=color, fontsize=9, family="monospace")
 
     fig.suptitle(
         "Layer 1 Emergence Phase 1.5 — Diagonal-Axis Velocity\n"
         "doc 108 §11.5 — tilted-source plane perpendicular to (1,1,1)/√3",
-        color="white", fontsize=12, fontweight="bold",
+        color="white",
+        fontsize=12,
+        fontweight="bold",
     )
     plt.savefig(out_png, dpi=110, bbox_inches="tight", facecolor=fig.get_facecolor())
     plt.close(fig)
@@ -361,24 +360,17 @@ def main() -> None:
     print(f"  anisotropy ratio = {anisotropy:.4f}  (target √2 = {np.sqrt(2.0):.4f})")
 
     print(f"\n── Pre-reg evaluation ──")
-    print(f"  C-L1.2 diagonal v/c ∈ [0.85, 1.15]:  "
-          f"{'PASS' if eval_result['pass_C_L1_2'] else 'FAIL'}")
-    print(f"  C-L1.3 anisotropy ∈ [1.30, 1.55]:    "
-          f"{'PASS' if eval_result['pass_C_L1_3'] else 'FAIL'}")
-    print(f"  Overall Layer 1 (cardinal+diagonal): "
-          f"{'PASS' if eval_result['all_pass'] else 'PARTIAL'}")
+    print(f"  C-L1.2 diagonal v/c ∈ [0.85, 1.15]:  " f"{'PASS' if eval_result['pass_C_L1_2'] else 'FAIL'}")
+    print(f"  C-L1.3 anisotropy ∈ [1.30, 1.55]:    " f"{'PASS' if eval_result['pass_C_L1_3'] else 'FAIL'}")
+    print(f"  Overall Layer 1 (cardinal+diagonal): " f"{'PASS' if eval_result['all_pass'] else 'PARTIAL'}")
 
     out_png = assets_dir / "lattice_layer1_diagonal_panels.png"
     render_panels(result, eval_result, str(out_png))
 
     out_json = results_dir / "lattice_layer1_diagonal.json"
-    result_serial = {
-        k: (v.tolist() if isinstance(v, np.ndarray) else v)
-        for k, v in result.items()
-    }
+    result_serial = {k: (v.tolist() if isinstance(v, np.ndarray) else v) for k, v in result.items()}
     with open(out_json, "w") as f:
-        json.dump({"prereg": PREREG, "eval": eval_result, "result": result_serial},
-                  f, indent=2, default=str)
+        json.dump({"prereg": PREREG, "eval": eval_result, "result": result_serial}, f, indent=2, default=str)
 
     print(f"\n  Outputs:")
     print(f"    {out_png}")

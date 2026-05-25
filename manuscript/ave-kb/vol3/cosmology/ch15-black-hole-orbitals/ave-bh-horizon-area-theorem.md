@@ -1,6 +1,9 @@
 [↑ Ch.15 Black Hole Orbitals](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from common/universal-saturation-kernel + vol3/condensed-matter/ch11 as canonical AVE area theorem + r_sat -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-law1ho]
+-->
 
 # AVE BH Horizon: $r_{\text{sat}} = 7GM/c^2$ + Area Theorem $\delta A \geq 0$ from Ax 1 + Ax 4
 

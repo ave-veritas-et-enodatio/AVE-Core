@@ -1,5 +1,9 @@
 [↑ Ch.12 Index](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-9sujp8]
+-->
 
 ## Autoresonant Rupture & Helicity Injection
 

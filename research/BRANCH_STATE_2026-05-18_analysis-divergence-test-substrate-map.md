@@ -234,7 +234,7 @@ Plus all FI-8 through FI-14 docs from the 2026-05-17 evening start.
   - [Op14 cross-sector trading](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md) — bond-pair ρ = -0.99 canonical
   - [two-engine architecture A-027](../manuscript/ave-kb/common/two-engine-architecture-a027.md) — engine architecture (Phase 1 c_eff fix applied)
   - [Vol 1 Ch 4 Continuum Electrodynamics](../manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex):46-77 — Master Equation canonical
-  - [Closure-roadmap §0.5](../manuscript/ave-kb/common/closure-roadmap.md) — FI 8-14 + REPO-ARCH 1-12 entries
+  - [Closure-roadmap §0.5](../manuscript/ave-kb/claim-quality-closure-roadmap.md) — FI 8-14 + REPO-ARCH 1-12 entries
 - Cross-repo:
   - AVE-HOPF branch `research/hopf-01-testing` commit `e59af13` — crib sheet REPO-ARCH-9 update
 

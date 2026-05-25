@@ -107,7 +107,7 @@ The anisotropy ratio σ⊥/σ∥ = 1.58 along CMB-dipole is below the "strong el
 - [`2026-05-17_C14-DAMA_amplitude_result.md`](2026-05-17_C14-DAMA_amplitude_result.md) — α-slew derivation source
 - [`manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md` §5](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md) — substrate-equilibrium velocity KB leaf
 - [`manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md`](../manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md) — DAMA + cosmic-velocity unified derivation
-- Output plot: `src/assets/sim_outputs/gaia_directional_analysis.png`
+- Output plot: `assets/sim_outputs/gaia_directional_analysis.png`
 
 ## Lane attribution
 

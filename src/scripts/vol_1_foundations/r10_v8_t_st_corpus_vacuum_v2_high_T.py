@@ -55,37 +55,37 @@ T < α/(4π) ≈ 5.8e-4 stability: T=1e-6 / 5.8e-4 = 1.7e-3 (well within stable)
 
 Same as T-ST v1: ~3 min wall clock.
 """
-from __future__ import annotations
 
 import json
 import sys
 import time
-from pathlib import Path
 from collections import Counter
+from pathlib import Path
 
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
+from ave.core.constants import ALPHA
 from ave.topological.vacuum_engine import (
-    VacuumEngine3D,
     SpatialDipoleCPSource,
+    VacuumEngine3D,
 )
 
-
-from ave.core.constants import ALPHA
 V_YIELD = float(np.sqrt(ALPHA))
 A2_OP14 = float(np.sqrt(2.0 * ALPHA))
 OMEGA_C = 1.0
 COMPTON_PERIOD = 2.0 * np.pi
 DT = 1.0 / np.sqrt(2.0)
 
-T_HIGH = 1e-6   # V_yield-threshold regime (auditor Flag 3)
+T_HIGH = 1e-6  # V_yield-threshold regime (auditor Flag 3)
 
 
 def setup_engine(N=48, PML=4, T=T_HIGH):
     engine = VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=T,
+        N=N,
+        pml=PML,
+        temperature=T,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -111,38 +111,37 @@ def setup_source():
 
 
 def compute_a2_field(V_inc, V_SNAP=1.0):
-    return np.sum(V_inc ** 2, axis=-1) / (V_SNAP ** 2)
+    return np.sum(V_inc**2, axis=-1) / (V_SNAP**2)
 
 
 def mask_interior(field, mask_active, pml):
     N = field.shape[0]
     out = field * mask_active.astype(float)
     out[:pml, :, :] = 0.0
-    out[N - pml:, :, :] = 0.0
+    out[N - pml :, :, :] = 0.0
     out[:, :pml, :] = 0.0
-    out[:, N - pml:, :] = 0.0
+    out[:, N - pml :, :] = 0.0
     out[:, :, :pml] = 0.0
-    out[:, :, N - pml:] = 0.0
+    out[:, :, N - pml :] = 0.0
     return out
 
 
 def saturation_stats(V_inc, mask_active, pml):
     """Count cells engaged in saturation (A² > √(2α)) and report stats."""
     N = V_inc.shape[0]
-    a2 = np.sum(V_inc ** 2, axis=-1)  # / V_SNAP² but V_SNAP=1
+    a2 = np.sum(V_inc**2, axis=-1)  # / V_SNAP² but V_SNAP=1
     a2_int = a2.copy()
     a2_int[~mask_active] = 0.0
     a2_int[:pml, :, :] = 0.0
-    a2_int[N - pml:, :, :] = 0.0
+    a2_int[N - pml :, :, :] = 0.0
     a2_int[:, :pml, :] = 0.0
-    a2_int[:, N - pml:, :] = 0.0
+    a2_int[:, N - pml :, :] = 0.0
     a2_int[:, :, :pml] = 0.0
-    a2_int[:, :, N - pml:] = 0.0
+    a2_int[:, :, N - pml :] = 0.0
 
     saturated = a2_int > A2_OP14
     n_saturated = int(np.sum(saturated))
-    interior_total = int(np.sum(mask_active.astype(int))
-                         - 6 * (N**2 * pml))   # approx interior count
+    interior_total = int(np.sum(mask_active.astype(int)) - 6 * (N**2 * pml))  # approx interior count
     frac_saturated = n_saturated / max(interior_total, 1)
 
     a2_rms = float(np.sqrt(np.mean(a2_int[a2_int > 0])))
@@ -180,8 +179,7 @@ def main():
     yc, zc = N // 2, N // 2
     init_stats = saturation_stats(engine.k4.V_inc, engine.k4.mask_active, PML)
     print(f"\n  Initial thermal IC saturation stats:")
-    print(f"    Cells in saturation (A² > {A2_OP14:.3f}): "
-          f"{init_stats['n_saturated_cells']}")
+    print(f"    Cells in saturation (A² > {A2_OP14:.3f}): " f"{init_stats['n_saturated_cells']}")
     print(f"    Fraction saturated: {init_stats['frac_saturated']:.4f}")
     print(f"    A²_RMS (interior, where active): {init_stats['a2_rms']:.4f}")
     print(f"    A²_max (interior): {init_stats['a2_max']:.4f}")
@@ -189,7 +187,7 @@ def main():
     source = setup_source()
     engine.add_source(source)
 
-    sat_traj = []      # (t, n_sat, frac_sat, a2_max, a2_rms)
+    sat_traj = []  # (t, n_sat, frac_sat, a2_max, a2_rms)
     a2_max_loc_traj = []
 
     capture_cadence = 5
@@ -206,21 +204,25 @@ def main():
             a2_int = mask_interior(a2_field, engine.k4.mask_active, PML)
             a2_max_idx = np.unravel_index(int(np.argmax(a2_int)), a2_int.shape)
 
-            sat_traj.append({
-                "t": float(t_now),
-                "n_saturated": stats["n_saturated_cells"],
-                "frac_saturated": stats["frac_saturated"],
-                "a2_max": stats["a2_max"],
-                "a2_rms": stats["a2_rms"],
-                "max_loc": [int(v) for v in a2_max_idx],
-            })
+            sat_traj.append(
+                {
+                    "t": float(t_now),
+                    "n_saturated": stats["n_saturated_cells"],
+                    "frac_saturated": stats["frac_saturated"],
+                    "a2_max": stats["a2_max"],
+                    "a2_rms": stats["a2_rms"],
+                    "max_loc": [int(v) for v in a2_max_idx],
+                }
+            )
 
             if step_i % (capture_cadence * 10) == 0:
                 t_p = t_now / COMPTON_PERIOD
-                print(f"    t={t_p:5.2f}P  n_sat={stats['n_saturated_cells']:>5}  "
-                      f"frac_sat={stats['frac_saturated']:.4f}  "
-                      f"A²_max={stats['a2_max']:.4f}  A²_rms={stats['a2_rms']:.4f}  "
-                      f"({time.time() - t_start:.0f}s)")
+                print(
+                    f"    t={t_p:5.2f}P  n_sat={stats['n_saturated_cells']:>5}  "
+                    f"frac_sat={stats['frac_saturated']:.4f}  "
+                    f"A²_max={stats['a2_max']:.4f}  A²_rms={stats['a2_rms']:.4f}  "
+                    f"({time.time() - t_start:.0f}s)"
+                )
 
     elapsed = time.time() - t_start
     print(f"\n  Engine evolution complete in {elapsed:.0f}s")
@@ -246,7 +248,7 @@ def main():
         c_op10 = int(engine.cos.extract_crossing_count())
     except Exception as exc:
         c_op10 = -1
-    topology_match = (c_op10 == 3)
+    topology_match = c_op10 == 3
     print(f"\n  PRIMARY (2) — Op10 c at end:")
     print(f"    extract_crossing_count = {c_op10}")
     print(f"    Topology match (c=3): {'PASS' if topology_match else 'FAIL'}")
@@ -256,12 +258,10 @@ def main():
     if sat_traj:
         sat_active_times = [s for s in sat_traj if s["n_saturated"] > 0]
         if sat_active_times:
-            print(f"    Times with saturation active: "
-                  f"{len(sat_active_times)}/{len(sat_traj)} captures")
+            print(f"    Times with saturation active: " f"{len(sat_active_times)}/{len(sat_traj)} captures")
             t_first_sat = sat_active_times[0]["t"] / COMPTON_PERIOD
             t_last_sat = sat_active_times[-1]["t"] / COMPTON_PERIOD
-            print(f"    First saturation at t={t_first_sat:.2f}P, "
-                  f"last at t={t_last_sat:.2f}P")
+            print(f"    First saturation at t={t_first_sat:.2f}P, " f"last at t={t_last_sat:.2f}P")
         else:
             print(f"    No saturation engaged at ANY capture across {len(sat_traj)} captures")
 
@@ -287,9 +287,13 @@ def main():
     out = {
         "test": "T-ST V_yield-threshold regime (T=1e-6)",
         "config": {
-            "N": N, "PML": PML, "T": T_HIGH,
+            "N": N,
+            "PML": PML,
+            "T": T_HIGH,
             "thermalize_V": True,
-            "amplitude_VSNAP": 0.10, "omega": OMEGA_C, "handedness": "RH",
+            "amplitude_VSNAP": 0.10,
+            "omega": OMEGA_C,
+            "handedness": "RH",
         },
         "thermal_ic_arithmetic": {
             "sigma_V_per_port_pred": sigma_V_per_port,

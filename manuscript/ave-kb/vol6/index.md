@@ -1,5 +1,14 @@
 [↑ AVE Knowledge Base](../entry-point.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-5965y1, clm-6tuqjh, clm-7tk051, clm-86gq2d, clm-8psuqe, clm-a95yx1, clm-f5ucdo, clm-f8k2um, clm-h8nmpu, clm-jqnzz7, clm-jy8h1x, clm-l416hl, clm-llqd1n, clm-lqanmt, clm-mlwm3h, clm-nk6c43, clm-o9xphr, clm-ome498, clm-qjwj12, clm-rw7jqo, clm-sd04x4, clm-sjixaw, clm-y7uvdc]
+subtree-experiments: []
+bootstrap: true
+-->
+
+> ⛔ **Bootstrap.** Leaves are canonical; this index and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this volume, load [`./claim-quality.md`](./claim-quality.md) and [`../claim-quality.md`](../claim-quality.md). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
+
 # Vol 6: Periodic Table of Knots
 
 > ↗ See also: [Axiom Definitions](../vol1/axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md) — Axioms 1-4 that constrain all mass-defect calculations
@@ -18,7 +27,7 @@ The Periodic Table of Knots derives the absolute 3D nucleonic geometry and nucle
 | Binding energy ceiling | $E_{\text{binding(max)}} = \alpha \cdot M_{\text{proton}} c^2 \approx 6.847$ MeV |
 | Breakdown voltage | $V_{BR} = 6\,\alpha\hbar c / D_{\text{intra}} \approx 3.631$ MeV |
 | Complete binding formula | $M_{\text{nucleus}} = N_\alpha M_\alpha - \sum K/r_{ij} + M \cdot \sum f_{pp}\,\alpha\hbar c/r_{ij}$ |
-| Mass defect accuracy | $0.00001\%$ (H-1) to $0.02739\%$ (Mg-24) across $Z=1$--$14$ |
+| Mass defect accuracy | $0.00001\%$ (H-1) to $0.02739\%$ (Mg-24) across $Z=1$–$14$ — *optimizer convergence tolerance on the per-nucleus fitted $R$, not ab-initio prediction error*; structural claim is one fitted scalar per nucleus (see [framework methodology](framework/computational-mass-defect/semiconductor-nuclear-analysis.md)) |
 | Derived P-Block IE Resolvers | Corrections A--D: hierarchical cascade, SIR boundary, Op10 junction, Polar Conjugate TIR ($Z=1$--$14$, $Z=31$--$36$; sub-$5\%$ to $Z=86$) |
 
 ## Derivations and Detail

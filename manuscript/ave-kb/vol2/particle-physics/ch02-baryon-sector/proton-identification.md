@@ -1,6 +1,10 @@
 [↑ Ch.2 — Baryon Sector](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol2 ch01 electron-identification + vol3 ch11 thermal-softening-skyrme + common full-derivation-chain as canonical proton identification -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-cmic3e]
+path-stable: "referenced from vol2 ch01 electron-identification + vol3 ch11 thermal-softening-skyrme + common full-derivation-chain as canonical proton identification"
+-->
 
 # Proton — Canonical Identification + First-Principles Axiom Audit
 

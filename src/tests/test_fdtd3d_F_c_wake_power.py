@@ -24,8 +24,6 @@ Run:
     pytest src/tests/test_fdtd3d_F_c_wake_power.py -v -s
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 
@@ -146,9 +144,7 @@ def test_F_dot_c_via_radiated_pulse():
     # Apply a brief J_x current pulse via direct E_x increment over a few
     # timesteps in a localized region. The increment dE/dt = -J/ε₀ for
     # an applied current J (Ampere's law). So adding dE_x per step = J_x·dt/ε₀.
-    source_region = (slice(N // 2 - 2, N // 2 + 2),
-                     slice(N // 2 - 2, N // 2 + 2),
-                     slice(N // 2 - 2, N // 2 + 2))
+    source_region = (slice(N // 2 - 2, N // 2 + 2), slice(N // 2 - 2, N // 2 + 2), slice(N // 2 - 2, N // 2 + 2))
     J_amp = 1e8  # A/m² (substantial current density)
     n_source_steps = 20  # duration of source pulse
     n_propagate_steps = 100  # propagation time after source off
@@ -193,8 +189,7 @@ def test_F_dot_c_via_radiated_pulse():
         # Looser threshold for transient-source case (mixed near-field +
         # far-field energy contributions)
         assert deviation < 1.0, (
-            f"E/|p| = {ratio:.4e} differs from c = {engine.c:.4e} by "
-            f"{deviation*100:.2f}% (> 100% threshold)"
+            f"E/|p| = {ratio:.4e} differs from c = {engine.c:.4e} by " f"{deviation*100:.2f}% (> 100% threshold)"
         )
     else:
         # If source produced symmetric radiation, net p_x ≈ 0

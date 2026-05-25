@@ -1,6 +1,10 @@
 [↑ Ch.1 Vacuum Circuit Analysis](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol1 ch3 thermal-lattice-noise + Op14 leafs as canonical tau_relax derivation -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-n3un96]
+path-stable: "referenced from vol1 ch3 thermal-lattice-noise + Op14 leafs as canonical tau_relax derivation"
+-->
 
 # $\tau_{\text{relax}} = \ell_{\text{node}}/c$: Minimum State-Change Time from K4 Lagrangian
 

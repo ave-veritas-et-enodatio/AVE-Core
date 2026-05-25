@@ -16,21 +16,23 @@ Master Equation FDTD engine, captures snapshots, and produces:
 
 All outputs land at assets/sim_outputs/.
 """
+
 import sys
 import time
 from pathlib import Path
 
-import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.gridspec import GridSpec
+import numpy as np
 from matplotlib.animation import FuncAnimation, PillowWriter
+from matplotlib.gridspec import GridSpec
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from ave.core.master_equation_fdtd import MasterEquationFDTD
 from ave.core.constants import ALPHA, ALPHA_COLD_INV
+from ave.core.master_equation_fdtd import MasterEquationFDTD
+from ave_path_util import SIM_OUTPUTS
 
 print("=" * 78)
 print("R10 v14 Visualization Suite — Master Equation FDTD breathing soliton")
@@ -56,9 +58,9 @@ SEED_R = 2.5
 
 N_STEPS = 5000
 SNAPSHOT_CADENCE = 25  # 200 snapshots total
-FRAMES_FOR_GIF = 100   # subsample for GIF (every other snapshot)
+FRAMES_FOR_GIF = 100  # subsample for GIF (every other snapshot)
 
-OUT = REPO_ROOT / "assets" / "sim_outputs"
+OUT = SIM_OUTPUTS
 OUT.mkdir(parents=True, exist_ok=True)
 
 print(f"Engine: N={N}, V_yield={V_YIELD}, c0={C0}, PML={PML}")
@@ -72,12 +74,19 @@ print()
 # =============================================================================
 print("Initializing engine + planting breathing-soliton seed...")
 engine = MasterEquationFDTD(
-    N=N, dx=DX, V_yield=V_YIELD, c0=C0,
-    pml_thickness=PML, A_cap=A_CAP, S_min=S_MIN,
+    N=N,
+    dx=DX,
+    V_yield=V_YIELD,
+    c0=C0,
+    pml_thickness=PML,
+    A_cap=A_CAP,
+    S_min=S_MIN,
 )
 engine.inject_localized_blob(
-    center=CENTER, radius=SEED_R,
-    amplitude=SEED_AMP * V_YIELD, profile=SEED_PROFILE,
+    center=CENTER,
+    radius=SEED_R,
+    amplitude=SEED_AMP * V_YIELD,
+    profile=SEED_PROFILE,
 )
 
 V_initial = engine.V.copy()
@@ -140,8 +149,7 @@ for step in range(1, N_STEPS + 1):
         snapshots_a_profile.append(A_prof)
         snapshots_a_max.append(float(np.max(np.abs(V_snap))) / V_YIELD)
         if step % (SNAPSHOT_CADENCE * 20) == 0:
-            print(f"  step={step:>4d}  V_peak={snapshots_v_peak[-1]:.4f}  "
-                  f"FWHM={snapshots_fwhm[-1]:.2f}")
+            print(f"  step={step:>4d}  V_peak={snapshots_v_peak[-1]:.4f}  " f"FWHM={snapshots_fwhm[-1]:.2f}")
 
 print(f"Captured {len(snapshots_V)} snapshots in {time.time() - t_start:.1f}s")
 print()
@@ -168,8 +176,7 @@ V_low = snapshots_V[low_idx]
 V_final = snapshots_V[-1]
 
 fig = plt.figure(figsize=(18, 12), facecolor="#0a0a0a")
-gs = GridSpec(3, 4, figure=fig, hspace=0.4, wspace=0.3,
-              height_ratios=[1.0, 1.0, 0.85])
+gs = GridSpec(3, 4, figure=fig, hspace=0.4, wspace=0.3, height_ratios=[1.0, 1.0, 0.85])
 
 # Panel A: 3D scatter of |V| at high-amplitude phase
 axA = fig.add_subplot(gs[0:2, 0:2], projection="3d")
@@ -180,15 +187,25 @@ vals = V_high[mask]
 sizes = 30 * (np.abs(vals) / np.abs(V_high).max()) ** 1.5
 colors = plt.cm.hot(np.abs(vals) / np.abs(V_high).max())
 axA.scatter(xs, ys, zs, c=colors, s=sizes, alpha=0.6, edgecolors="none")
-axA.scatter([CENTER[0]], [CENTER[1]], [CENTER[2]],
-            color="cyan", s=150, marker="*",
-            edgecolors="white", linewidth=1.5, label="Center")
+axA.scatter(
+    [CENTER[0]],
+    [CENTER[1]],
+    [CENTER[2]],
+    color="cyan",
+    s=150,
+    marker="*",
+    edgecolors="white",
+    linewidth=1.5,
+    label="Center",
+)
 axA.set_xlim(N // 2 - 8, N // 2 + 8)
 axA.set_ylim(N // 2 - 8, N // 2 + 8)
 axA.set_zlim(N // 2 - 8, N // 2 + 8)
-axA.set_title(f"The breathing soliton, high-amplitude phase\n"
-              f"|V| > {threshold:.2f}, V_peak = {v_peak_array[high_idx]:.3f}",
-              color="white", fontsize=11)
+axA.set_title(
+    f"The breathing soliton, high-amplitude phase\n" f"|V| > {threshold:.2f}, V_peak = {v_peak_array[high_idx]:.3f}",
+    color="white",
+    fontsize=11,
+)
 axA.set_facecolor("#0a0a0a")
 for axn in (axA.xaxis, axA.yaxis, axA.zaxis):
     axn.pane.set_facecolor("#0a0a0a")
@@ -199,9 +216,7 @@ axA.tick_params(colors="white", labelsize=8)
 axB = fig.add_subplot(gs[0, 2])
 slice_high = V_high[:, :, CENTER[2]]
 vmax = np.abs(V_initial).max() * 0.5
-im = axB.imshow(slice_high.T, origin="lower", cmap="RdBu_r",
-                extent=[0, N, 0, N], aspect="equal",
-                vmin=-vmax, vmax=vmax)
+im = axB.imshow(slice_high.T, origin="lower", cmap="RdBu_r", extent=[0, N, 0, N], aspect="equal", vmin=-vmax, vmax=vmax)
 axB.plot(CENTER[0] + 0.5, CENTER[1] + 0.5, "k*", ms=12, mec="white")
 axB.set_title(f"V(x,y) at z={CENTER[2]}, high phase\nt = {snapshots_t[high_idx]:.1f}")
 plt.colorbar(im, ax=axB, fraction=0.046)
@@ -209,9 +224,7 @@ plt.colorbar(im, ax=axB, fraction=0.046)
 # Panel C: equatorial slice at low phase
 axC = fig.add_subplot(gs[0, 3])
 slice_low = V_low[:, :, CENTER[2]]
-im = axC.imshow(slice_low.T, origin="lower", cmap="RdBu_r",
-                extent=[0, N, 0, N], aspect="equal",
-                vmin=-vmax, vmax=vmax)
+im = axC.imshow(slice_low.T, origin="lower", cmap="RdBu_r", extent=[0, N, 0, N], aspect="equal", vmin=-vmax, vmax=vmax)
 axC.plot(CENTER[0] + 0.5, CENTER[1] + 0.5, "k*", ms=12, mec="white")
 axC.set_title(f"V(x,y) at z={CENTER[2]}, low phase\nt = {snapshots_t[low_idx]:.1f}")
 plt.colorbar(im, ax=axC, fraction=0.046)
@@ -304,11 +317,17 @@ summary = (
     f"signature of the canonical AVE\n"
     f"electron at lattice resolution."
 )
-axI.text(0.05, 0.95, summary, transform=axI.transAxes,
-         fontsize=9, family="monospace", verticalalignment="top",
-         color="white",
-         bbox=dict(boxstyle="round,pad=0.5", facecolor="#181818",
-                   edgecolor="#404040"))
+axI.text(
+    0.05,
+    0.95,
+    summary,
+    transform=axI.transAxes,
+    fontsize=9,
+    family="monospace",
+    verticalalignment="top",
+    color="white",
+    bbox=dict(boxstyle="round,pad=0.5", facecolor="#181818", edgecolor="#404040"),
+)
 
 for ax in [axB, axC, axD, axE, axF, axG, axH]:
     ax.set_facecolor("#0f0f0f")
@@ -325,8 +344,7 @@ for ax in [axB, axC, axD, axE, axF, axG, axH]:
         for text in leg.get_texts():
             text.set_color("white")
 
-fig.suptitle("AVE Breathing Soliton on Master Equation FDTD — v14 Mode I",
-             color="white", fontsize=15, y=0.995)
+fig.suptitle("AVE Breathing Soliton on Master Equation FDTD — v14 Mode I", color="white", fontsize=15, y=0.995)
 
 hero_path = OUT / "v14_breathing_soliton_hero.png"
 plt.savefig(hero_path, dpi=140, facecolor="#0a0a0a", bbox_inches="tight")
@@ -340,10 +358,12 @@ plt.close(fig)
 print("Generating STILL 2: high-phase vs low-phase 3D comparison...")
 fig = plt.figure(figsize=(14, 7), facecolor="#0a0a0a")
 
-for idx, (V_state, phase_name, t_val) in enumerate([
-    (V_high, f"High phase  (V_peak = {v_peak_array[high_idx]:.3f})", snapshots_t[high_idx]),
-    (V_low, f"Low phase   (V_peak = {v_peak_array[low_idx]:.3f})", snapshots_t[low_idx]),
-]):
+for idx, (V_state, phase_name, t_val) in enumerate(
+    [
+        (V_high, f"High phase  (V_peak = {v_peak_array[high_idx]:.3f})", snapshots_t[high_idx]),
+        (V_low, f"Low phase   (V_peak = {v_peak_array[low_idx]:.3f})", snapshots_t[low_idx]),
+    ]
+):
     ax = fig.add_subplot(1, 2, idx + 1, projection="3d")
     threshold_local = 0.1 * np.abs(V_state).max()
     mask = np.abs(V_state) > threshold_local
@@ -354,8 +374,7 @@ for idx, (V_state, phase_name, t_val) in enumerate([
     colors = np.where(vals > 0, "red", "blue")
     alphas = np.minimum(np.abs(vals) / np.abs(V_state).max(), 1.0) * 0.7
     ax.scatter(xs, ys, zs, c=colors, s=sizes, alpha=0.5, edgecolors="none")
-    ax.scatter([CENTER[0]], [CENTER[1]], [CENTER[2]],
-                color="white", s=100, marker="*", edgecolors="cyan", linewidth=2)
+    ax.scatter([CENTER[0]], [CENTER[1]], [CENTER[2]], color="white", s=100, marker="*", edgecolors="cyan", linewidth=2)
     ax.set_xlim(N // 2 - 8, N // 2 + 8)
     ax.set_ylim(N // 2 - 8, N // 2 + 8)
     ax.set_zlim(N // 2 - 8, N // 2 + 8)
@@ -366,8 +385,7 @@ for idx, (V_state, phase_name, t_val) in enumerate([
         axn.pane.set_edgecolor("#333333")
     ax.tick_params(colors="white", labelsize=8)
 
-fig.suptitle("Breathing cycle extremes: high amplitude vs low amplitude phases",
-             color="white", fontsize=13, y=0.95)
+fig.suptitle("Breathing cycle extremes: high amplitude vs low amplitude phases", color="white", fontsize=13, y=0.95)
 
 phase_path = OUT / "v14_breathing_phase_comparison.png"
 plt.savefig(phase_path, dpi=140, facecolor="#0a0a0a", bbox_inches="tight")
@@ -388,14 +406,18 @@ fig, ax = plt.subplots(figsize=(8, 7), facecolor="#0a0a0a")
 ax.set_facecolor("#0f0f0f")
 v_abs_max = np.max([np.abs(s).max() for s in snapshots_V[::5]])
 
-im = ax.imshow(snapshots_V[0][:, :, CENTER[2]].T,
-               origin="lower", cmap="RdBu_r",
-               extent=[0, N, 0, N], aspect="equal",
-               vmin=-V_peak_init, vmax=V_peak_init,
-               animated=True)
+im = ax.imshow(
+    snapshots_V[0][:, :, CENTER[2]].T,
+    origin="lower",
+    cmap="RdBu_r",
+    extent=[0, N, 0, N],
+    aspect="equal",
+    vmin=-V_peak_init,
+    vmax=V_peak_init,
+    animated=True,
+)
 ax.plot(CENTER[0] + 0.5, CENTER[1] + 0.5, "k*", ms=12, mec="white")
-title = ax.set_title(f"V(x,y), z={CENTER[2]}, t={0.0:.1f}",
-                       color="white", fontsize=12)
+title = ax.set_title(f"V(x,y), z={CENTER[2]}, t={0.0:.1f}", color="white", fontsize=12)
 ax.tick_params(colors="white")
 plt.colorbar(im, ax=ax, fraction=0.046, label="V")
 for spine in ax.spines.values():
@@ -406,13 +428,11 @@ def update_2d(frame_idx):
     idx = gif_frames[frame_idx]
     V_state = snapshots_V[idx]
     im.set_array(V_state[:, :, CENTER[2]].T)
-    title.set_text(f"V(x,y), z={CENTER[2]}, t={snapshots_t[idx]:.1f}, "
-                   f"V_peak={np.abs(V_state).max():.3f}")
+    title.set_text(f"V(x,y), z={CENTER[2]}, t={snapshots_t[idx]:.1f}, " f"V_peak={np.abs(V_state).max():.3f}")
     return [im, title]
 
 
-anim_2d = FuncAnimation(fig, update_2d, frames=len(gif_frames),
-                          interval=80, blit=False)
+anim_2d = FuncAnimation(fig, update_2d, frames=len(gif_frames), interval=80, blit=False)
 anim_2d_path = OUT / "v14_breathing_slice_2d.gif"
 anim_2d.save(str(anim_2d_path), writer=PillowWriter(fps=15))
 print(f"  2D slice animation: {anim_2d_path}")
@@ -441,21 +461,22 @@ def update_3d(frame_idx):
         # Color by sign
         v_max = max(np.abs(vals).max(), 1e-10)
         sizes = 60 * (np.abs(vals) / v_max) ** 1.5
-        colors = ['red' if v > 0 else 'blue' for v in vals]
-        ax3d.scatter(xs, ys, zs, c=colors, s=sizes, alpha=0.5,
-                     edgecolors="none")
-    ax3d.scatter([CENTER[0]], [CENTER[1]], [CENTER[2]],
-                  color="white", s=120, marker="*",
-                  edgecolors="cyan", linewidth=2)
+        colors = ["red" if v > 0 else "blue" for v in vals]
+        ax3d.scatter(xs, ys, zs, c=colors, s=sizes, alpha=0.5, edgecolors="none")
+    ax3d.scatter(
+        [CENTER[0]], [CENTER[1]], [CENTER[2]], color="white", s=120, marker="*", edgecolors="cyan", linewidth=2
+    )
     ax3d.set_xlim(N // 2 - 8, N // 2 + 8)
     ax3d.set_ylim(N // 2 - 8, N // 2 + 8)
     ax3d.set_zlim(N // 2 - 8, N // 2 + 8)
     # Rotate camera
     azim = 30 + (frame_idx / len(gif_frames)) * 360
     ax3d.view_init(elev=20, azim=azim)
-    ax3d.set_title(f"AVE breathing soliton — t={snapshots_t[idx]:.1f}, "
-                   f"V_peak={np.abs(V_state).max():.3f}",
-                   color="white", fontsize=11)
+    ax3d.set_title(
+        f"AVE breathing soliton — t={snapshots_t[idx]:.1f}, " f"V_peak={np.abs(V_state).max():.3f}",
+        color="white",
+        fontsize=11,
+    )
     ax3d.set_facecolor("#0a0a0a")
     for axn in (ax3d.xaxis, ax3d.yaxis, ax3d.zaxis):
         axn.pane.set_facecolor("#0a0a0a")
@@ -464,8 +485,7 @@ def update_3d(frame_idx):
     return [ax3d]
 
 
-anim_3d = FuncAnimation(fig, update_3d, frames=len(gif_frames),
-                         interval=80, blit=False)
+anim_3d = FuncAnimation(fig, update_3d, frames=len(gif_frames), interval=80, blit=False)
 anim_3d_path = OUT / "v14_breathing_soliton_3d.gif"
 anim_3d.save(str(anim_3d_path), writer=PillowWriter(fps=15))
 print(f"  3D scatter animation: {anim_3d_path}")
@@ -479,10 +499,8 @@ print("Generating ANIMATION 3: radial profile A(r,t)...")
 fig, ax = plt.subplots(figsize=(10, 6), facecolor="#0a0a0a")
 ax.set_facecolor("#0f0f0f")
 
-line_init, = ax.plot(r_axis, snapshots_a_profile[0], "C0--", lw=1.5,
-                     alpha=0.5, label="Initial (t=0)")
-line_current, = ax.plot(r_axis, snapshots_a_profile[0], "C2-", lw=2.5,
-                          label="Current")
+(line_init,) = ax.plot(r_axis, snapshots_a_profile[0], "C0--", lw=1.5, alpha=0.5, label="Initial (t=0)")
+(line_current,) = ax.plot(r_axis, snapshots_a_profile[0], "C2-", lw=2.5, label="Current")
 ax.set_xlabel("r (cells from center)")
 ax.set_ylabel("|V|/V_yield = A(r)")
 ax.set_xlim(0, 10)
@@ -505,13 +523,11 @@ for text in leg.get_texts():
 def update_profile(frame_idx):
     idx = gif_frames[frame_idx]
     line_current.set_ydata(snapshots_a_profile[idx])
-    title.set_text(f"Radial profile A(r), t={snapshots_t[idx]:.1f}, "
-                   f"V_peak={snapshots_v_peak[idx]:.3f}")
+    title.set_text(f"Radial profile A(r), t={snapshots_t[idx]:.1f}, " f"V_peak={snapshots_v_peak[idx]:.3f}")
     return [line_current, title]
 
 
-anim_profile = FuncAnimation(fig, update_profile, frames=len(gif_frames),
-                               interval=80, blit=False)
+anim_profile = FuncAnimation(fig, update_profile, frames=len(gif_frames), interval=80, blit=False)
 anim_profile_path = OUT / "v14_breathing_radial_profile.gif"
 anim_profile.save(str(anim_profile_path), writer=PillowWriter(fps=15))
 print(f"  Radial profile animation: {anim_profile_path}")
@@ -535,7 +551,9 @@ print(f"    {anim_profile_path}")
 print()
 print(f"  Total frames per animation: {len(gif_frames)}")
 print(f"  Engine: Master Equation FDTD, sech A=0.85 R=2.5, 5000 steps")
-print(f"  V_peak oscillates: min={np.min(v_peak_array[len(v_peak_array)//4:]):.3f}, "
-      f"max={np.max(v_peak_array[len(v_peak_array)//4:]):.3f}, "
-      f"mean={np.mean(v_peak_array[len(v_peak_array)//4:]):.3f}")
+print(
+    f"  V_peak oscillates: min={np.min(v_peak_array[len(v_peak_array)//4:]):.3f}, "
+    f"max={np.max(v_peak_array[len(v_peak_array)//4:]):.3f}, "
+    f"mean={np.mean(v_peak_array[len(v_peak_array)//4:]):.3f}"
+)
 print("=" * 78)

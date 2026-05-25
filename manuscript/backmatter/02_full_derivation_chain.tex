@@ -239,11 +239,24 @@ $\epsilon_{eff} \to 0$:
 \label{sec:layer12}
 %======================================================================
 
-The fine-structure constant is \textit{derived}, not assumed. The derivation
-proceeds by equating two independently defined energy densities.
+\paragraph{Framing (consistency check, not derivation of $\alpha$).}
+This layer establishes a consistency relation between the QED Schwinger
+limit (taken as an external input here) and the AVE lattice's geometric
+packing fraction $p_c$. The numerical value of $\alpha$ itself is \emph{not}
+derived in this layer --- that derivation appears in Ch.~\ref{ch:alpha_golden_torus}
+(Golden Torus closure), surfaced as Layer 8 below. The identity
+$p_c = 8\pi\alpha$ that appears at the end of this layer is $\alpha$'s
+SI definition rearranged via $p_c$, as confirmed in the Closure
+section (Layer 8): the Layer 2 identity is a downstream algebraic
+consequence of the closure, not the closure mechanism. What this layer
+\emph{does} establish is that the AVE lattice's packing fraction sits
+at the EMT trace-reversal operating point $K = 2G$ when one matches the
+discrete fundamental mass-gap to the continuum QED vacuum-breakdown limit.
 
-\paragraph{Step 1: Schwinger Critical Energy Density.}
-The QED vacuum-breakdown limit bounds the maximum sustained energy density:
+\paragraph{Step 1: Schwinger Critical Energy Density (external QED input).}
+The QED vacuum-breakdown limit bounds the maximum sustained energy
+density. \emph{This expression is taken here as an external QED input};
+deriving it from the four AVE axioms is not attempted in this layer.
 \begin{equation}
     u_{sat}
     = \tfrac{1}{2}\,\epsilon_0 \!\left(\frac{m_e^2 c^3}{e\hbar}\right)^{\!2}
@@ -260,7 +273,7 @@ Bounding Limit~1 anchors the maximum single-node energy to $m_e c^2$
     \label{eq:Vnode}
 \end{equation}
 
-\paragraph{Step 3: Packing Fraction.}
+\paragraph{Step 3: Packing Fraction (consistency identity).}
 The geometric packing fraction is the ratio of the node volume to the
 cubed pitch ($\ell_{node}^3 = \hbar^3 / m_e^3 c^3$):
 \begin{equation}
@@ -269,11 +282,13 @@ cubed pitch ($\ell_{node}^3 = \hbar^3 / m_e^3 c^3$):
     = \frac{2\,e^2 \hbar^2}{\epsilon_0\,m_e^3 c^4}
       \cdot \frac{m_e^3 c^3}{\hbar^3}
     = \frac{2\,e^2}{\epsilon_0\,\hbar\,c}
-    = 8\pi\!\left(\frac{e^2}{4\pi\epsilon_0 \hbar c}\right)
+    \equiv 8\pi\!\left(\frac{e^2}{4\pi\epsilon_0 \hbar c}\right)
     = \boxed{8\pi\alpha}
     \label{eq:pc}
 \end{equation}
-Numerically: $p_c \approx 0.1834$. Equivalently:
+The final step is $\alpha$'s SI definition rearranged via $p_c$, not an
+independent determination of $\alpha$. Numerically: $p_c \approx 0.1834$.
+Equivalently, given $\alpha$ from Layer~8 (Ch.~\ref{ch:alpha_golden_torus}):
 \begin{equation}
     \alpha^{-1} = \frac{8\pi}{p_c} \approx 137.036
     \label{eq:alpha_inverse}
@@ -429,6 +444,15 @@ Its mass is set by Bounding Limit~1 (Eq.~Volume 2):
 $m_e = \hbar / (c\,\ell_{node}) \approx 0.511\;\text{MeV}$.
 
 \paragraph{Three Lepton Generations from Cosserat Mechanics.}
+
+\noindent\textbf{Methodology disclosure.} The lepton-generation derivation below uses three identifications that are \emph{matched} against observation rather than derived step-by-step from the four axioms:
+\begin{itemize}
+    \item The chiral LC lattice has three independent micropolar (Cosserat) coupling sectors $\to$ identified with three observed generations. The ``three sectors = three generations'' matching is a structural assumption consistent with Cosserat micropolar continuum mechanics; it is not derived from Axioms 1--4 alone.
+    \item The torsional coupling factor $\alpha\sqrt{3/7}$ (muon) is asserted: $\alpha$ is the dielectric compliance from Axiom 2, $\sqrt{3/7}$ is the PAT torsion-shear projection at $\nu_{vac} = 2/7$. The derivation chain from Cosserat micropolar theory through the unknot's torsional eigenmode to this specific factor is not presented in full.
+    \item The bending coupling factor $8\pi/\alpha = p_c/\alpha^2$ (tau) is similarly identified rather than derived from a step-by-step Cosserat calculation.
+\end{itemize}
+The PMNS sector below carries an analogous status: the three neutrino crossing numbers $c_1=5, c_2=7, c_3=9$ are identified by pattern (consecutive odd integers from the $(2,q)$ torus-knot ladder paired with three regime types), not derived from a unique axiomatic constraint that picks $\{5,7,9\}$ over alternatives. The framework's claim is that \emph{one consistent set of identifications} reproduces three lepton masses, three neutrino masses, and four PMNS angles within $\sim$1.2\% of measurement. The structural claim --- that three sectors with these matched factors suffice --- is falsifiable; the per-step derivation of the factors from axioms is the rigour gap. Same predicted/identified pattern as elsewhere in the framework: structure predicted, specific assignments matched, ensemble falsifiable.
+
 The chiral LC lattice is a micropolar (Cosserat) continuum with three
 independent elastic coupling sectors:
 \begin{enumerate}
@@ -503,12 +527,12 @@ threshold $\Delta c_{\text{crit}} = 3$:
 
     \item \textbf{CP phase} (K4 chirality structure):
     \begin{equation}
-        \delta_{CP} = \left(1 + \frac{1}{3} + \frac{1}{45}\right)\pi
+        \delta_{CP}^{PMNS} = \left(1 + \frac{1}{3} + \frac{1}{45}\right)\pi
         = \frac{61\pi}{45}
         \quad\text{(NuFIT: 1.36}\pi\text{, }\Delta = 0.3\%\text{)}
     \end{equation}
     Three terms: unknot half-turn ($\pi$), K4 bond chirality share ($\pi/3$),
-    junction coupling phase ($\pi/45$).
+    junction coupling phase ($\pi/45$). \textit{Notation:} $\delta_{CP}^{PMNS} \approx 4.26$~rad is the PMNS leptonic CP-violating phase. A \emph{different} CP phase $\delta_{CP}^{B} \approx 0.126$~rad appears in the baryon-asymmetry derivation (\S\ref{sec:baryon_asymmetry_derivation}); same symbol stem, different physics, $\sim\!34\times$ different magnitude. The two should not be conflated.
 \end{enumerate}
 
 %======================================================================
@@ -611,8 +635,8 @@ The strong-force string tension between confined quarks:
 \begin{equation}
     F_{conf}
     = 3\!\left(\frac{m_p}{m_e}\right)\alpha^{-1}\,T_{EM}
-    \approx 160{,}584\;\text{N}
-    \approx 1.002\;\text{GeV/fm}
+    \approx 160{,}037\;\text{N}
+    \approx 0.999\;\text{GeV/fm}
     \label{eq:confinement}
 \end{equation}
 
@@ -707,8 +731,8 @@ diameter $d = 1\,\ell_{node}$, self-avoidance at trefoil crossings
 $R - r = 1/2$, and the spin-1/2 half-cover of the standard Clifford torus
 $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ giving $R \cdot r = 1/4$ ---
 produce three independent equations that solve uniquely to the Golden Torus
-$(R, r) = (\varphi/2, (\varphi-1)/2)$. The holomorphic multipole
-decomposition at this geometry yields
+$(R, r) = (\varphi/2, (\varphi-1)/2)$. The multipole
+decomposition on $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ at this geometry yields
 \begin{equation}
     \alpha^{-1}_{\text{ideal}} = \Lambda_{\text{vol}} + \Lambda_{\text{surf}} + \Lambda_{\text{line}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363038
 \end{equation}
@@ -758,8 +782,9 @@ integer $\mathbf{1}$.
 \noindent
 \framebox[\textwidth]{%
 \parbox{0.95\textwidth}{\centering
-\textbf{Result:} The AVE framework is a closed, zero-parameter Topological
-Effective Field Theory. Physical parameters flow exclusively outward from
+\textbf{Result:} The AVE framework is a closed, structurally zero-parameter Topological
+Effective Field Theory (conditional on Layer~8 thermal closure of $\delta_{strain}$
+at $T_{CMB}$). Physical parameters flow exclusively outward from
 geometric bounding limits to macroscopic observables, without looping any
 output back into an unconstrained input.
 }}
@@ -903,7 +928,7 @@ Table~\ref{tab:sm_params} presents the complete accounting.
 9  & $m_t$ (top)      & Quark & \checkmark & $v/\sqrt{2}$ (EW saturation) & $0.8\%$ \\
 \midrule
 \multicolumn{6}{c}{\cellcolor[HTML]{EFEFEF}\textbf{Charged Lepton Masses (3)}} \\
-10 & $m_e$ (electron)  & Lepton & \checkmark & Unknot ground state: $\hbar/(c\,\ell_{node})$ & input \\
+10 & $m_e$ (electron)  & Lepton & $\circ$ & Unknot ground state: $\hbar/(c\,\ell_{node})$ — circular with $\ell_{node}$ at Layer~1; one of $\{m_e, \ell_{node}\}$ is the input scale, the other is computed. Layer~8 (Ch.~\ref{ch:alpha_golden_torus} Golden Torus) is the proposed zero-parameter closure. & input scale \\
 11 & $m_\mu$ (muon)    & Lepton & \checkmark & Cosserat torsion: $m_e/(\alpha\sqrt{3/7})$ & $1.24\%$ \\
 12 & $m_\tau$ (tau)     & Lepton & \checkmark & Cosserat bending: $m_e p_c/\alpha^2$ & $0.95\%$ \\
 \midrule
@@ -937,19 +962,14 @@ Table~\ref{tab:sm_params} presents the complete accounting.
 
 \vspace{0.5em}
 \noindent
-\textbf{Scorecard:}
+\textbf{Scorecard.} Counting honestly against the chain's own structure (``three empirically anchored bounding limits and four structural axioms''):
 \begin{itemize}
-    \item \textbf{Derived (\checkmark):} 26 of 26 --- $\alpha$, $\sin^2\theta_W$,
-          $\alpha_s$, 3 charged leptons, 3 neutrinos, 6 quarks, $v$, $m_H$,
-          4 CKM parameters, 4 PMNS parameters, and derived observables $G_F$, $\theta_{QCD}$.
-    \item \textbf{Structurally eliminated ($\varnothing$):} 1 --- $\theta_{QCD}$ (exact zero).
-    \item \textbf{Future targets ($\triangleright$):} 0 --- The Standard Model is complete.
+    \item \textbf{Input scale ($\circ$):} 1 --- $m_e$ (equivalently $\ell_{node}$, related by $\ell_{node} = \hbar/(m_e c)$). One of these is the empirical anchor; the other is computed. Layer~8 (Ch.~\ref{ch:alpha_golden_torus} Golden Torus) proposes a zero-parameter closure mechanism in which both emerge from the trefoil's S$_{11}$-min geometry; that closure rests on independent claims (the Ch.~\ref{ch:alpha_golden_torus} derivation of $\alpha = 4\pi^3+\pi^2+\pi$ and the CMB-thermal $\delta_{strain}$ correction) that are flagged separately.
+    \item \textbf{Derived from $\{m_e/\ell_{node}, \alpha, G\}$ + four axioms (\checkmark):} 25 of 26 --- $\sin^2\theta_W$, $\alpha_s$, $m_\mu$, $m_\tau$, 3 neutrino masses, 6 quarks, $v$, $m_H$, 4 CKM, 4 PMNS, plus derived observables $G_F$, $\theta_{QCD}$. ($\alpha$ is itself a Layer-8 derived quantity given the Golden Torus closure.)
+    \item \textbf{Structurally eliminated ($\varnothing$):} 1 --- $\theta_{QCD}$ (exact zero by topological CPT).
+    \item \textbf{Future targets ($\triangleright$):} 0.
 \end{itemize}
-\noindent
-Every derived quantity is computed by the physics engine at import time with
-zero curve-fitting or adjustable constants. The 15 remaining targets all
-have identified topological mechanisms; their quantitative resolution requires
-extending the torus knot eigenvalue solver to multi-crossing decomposition.
+\noindent\textbf{Honest framing of ``zero free parameters.''} The chain reduces 26 SM parameters to a 3-element bounding set $\{m_e, \alpha, G\}$ + four axioms, which is then claimed to close to zero parameters at Layer~8. The headline ``26 / 26 derived'' is correct \emph{conditional on Layer~8 closure holding}; without that closure, the count is ``25 of 26 expressed as functions of three bounding limits, of which one ($m_e$) is the input scale.'' The Layer-8 closure depends on (a) the Golden Torus cold-lattice $\alpha^{-1}_{ideal} = 4\pi^3+\pi^2+\pi$ derivation (Ch.~\ref{ch:alpha_golden_torus}) and (b) the thermal running $\alpha^{-1}(T)$: existence and sign predicted; the magnitude $\delta_{strain}$ at $T_{CMB}$ is one currently-fitted scalar (back-subtracted from CODATA), pending derivation from $G_{vac}$ + equipartition. See Ch.~\ref{ch:alpha_golden_torus} predicted/fitted disclosure. Every quantity marked $\checkmark$ is computed by the physics engine at import time with zero per-parameter curve-fitting; the input scale is calibrated once and propagated. The scope of the ``no curve-fitting'' claim is the SM-parameter table only; nuclear masses (Vol~6) are a separate one-fit-per-nucleus structural claim — see Vol~6 introduction methodology note.
 
 
 %======================================================================
@@ -1004,7 +1024,7 @@ $\sum m_\nu$  & $3\,m_e\alpha(m_e/M_W)$ & 54.1 meV & $<120$ meV & within \\
 \multicolumn{5}{c}{\cellcolor[HTML]{EFEFEF}\textbf{Layer 6: Baryons}}\\
 $\kappa_{FS}$ & $p_c/\alpha$ & $8\pi$ & --- & derived \\
 $m_p/m_e$     & Faddeev--Skyrme eigenvalue & 1836 & 1836.15 & $0.002\%$ \\
-$F_{conf}$    & $3(m_p/m_e)\alpha^{-1}T_{EM}$ & 1.002 GeV/fm & $\sim$1 GeV/fm & $\sim\!0.2\%$ \\
+$F_{conf}$    & $3(m_p/m_e)\alpha^{-1}T_{EM}$ & 0.999 GeV/fm & $\sim$1 GeV/fm & $\sim\!0.1\%$ \\
 
 \multicolumn{5}{c}{\cellcolor[HTML]{EFEFEF}\textbf{Layer 7: Cosmology}}\\
 $H_\infty$    & $28\pi m_e^3 cG/(\hbar^2\alpha^2)$ & 69.32 km/s/Mpc & 67--73 & in range \\
@@ -1016,7 +1036,7 @@ $\Delta > 0$ (YM mass gap) & Lattice Hamiltonian + confinement & $>0$ & --- & pr
 NS smoothness & Lattice regularization + $|u|\le c$ & global & --- & proven \\
 $\theta_{QCD}$ & Unique vacuum topology & $0$ & $<10^{-10}$ & exact \\
 $g_*$ & $7^3/4$ from $\nu_{vac}=2/7$ + K4 & 85.75 & SM: 106.75 & testable \\
-$\eta$ (baryon) & $\delta_{CP}\alpha_W^4 C_{sph}/g_*$ & $6.08\!\times\!10^{-10}$ & $6.1\!\times\!10^{-10}$ & $0.38\%$ \\
+$\eta$ (baryon) & $\delta_{CP}^{B}\alpha_W^4 C_{sph}/g_*$ & $6.08\!\times\!10^{-10}$ & $6.1\!\times\!10^{-10}$ & $0.38\%$ \\
 $\alpha_s$ & $\alpha^{3/7}$ (compliance projection) & 0.1214 & 0.1179 & $2.97\%$ \\
 $m_H$ & $v/\sqrt{N_{K4}} = v/2$ & 124417 MeV & 125100 MeV & $0.55\%$ \\
 \end{longtable}
@@ -1024,10 +1044,10 @@ $m_H$ & $v/\sqrt{N_{K4}} = v/2$ & 124417 MeV & 125100 MeV & $0.55\%$ \\
 
 \bigskip
 \noindent
-\textbf{Total empirical inputs:} 3 (each shown emergent in Layer~8).\\
-\textbf{Phenomenological curve fits:} 0.\\
+\textbf{Empirical inputs (bounding limits):} 3 --- $\{m_e, \alpha, G\}$. Each is \emph{claimed} emergent at Layer~8 (Ch.~\ref{ch:alpha_golden_torus} Golden Torus); the closure rests on the cold-lattice $\alpha^{-1}_{ideal} = 4\pi^3+\pi^2+\pi$ derivation, plus a thermal-running correction whose existence and sign are predicted but whose magnitude ($\delta_{strain}$ at $T_{CMB}$) is one currently-fitted scalar --- see Ch.~\ref{ch:alpha_golden_torus} predicted/fitted disclosure.\\
+\textbf{Phenomenological per-parameter curve fits within the SM table:} 0 (one input scale propagates; no per-row tuning). Vol~6 nuclear masses are out of scope of this scorecard --- see Vol~6 introduction for that methodology (one fitted scalar per nucleus, structurally disclosed).\\
 \textbf{Predictions within 5\% of measurement:} 38/38.\\
-\textbf{SM parameters derived or eliminated:} 26/26 (Table~\ref{tab:sm_params}).
+\textbf{SM parameters reduced to 3 bounding limits + 4 axioms:} 26 / 26 (with $\theta_{QCD}$ structurally eliminated; Table~\ref{tab:sm_params}). Whether this counts as ``zero free parameters'' depends on whether Layer~8 closure of $\{m_e, \alpha, G\}$ holds; conditional on Layer~8, yes.
 
 %======================================================================
 \section{Cross-Scale Verification}
@@ -1132,14 +1152,15 @@ $E \ge \Delta > 0$ (the mass gap).  Therefore $\theta = 0$ exactly.
 No axion needed.  (Vol.~III, absorbed cross-scale verification.)
 
 \paragraph{Baryon Asymmetry: $\eta = 6.08 \times 10^{-10}$.}
+\label{sec:baryon_asymmetry_derivation}
 The SRS/K4 lattice is chiral --- not superimposable on its mirror
-image.  The CP-violating phase is:
+image.  The CP-violating phase entering electroweak baryogenesis (distinct from the PMNS leptonic phase $\delta_{CP}^{PMNS}$ above) is:
 \begin{equation}
-    \delta_{CP} = \frac{\pi}{\kappa_{FS}} \approx 0.126
+    \delta_{CP}^{B} = \frac{\pi}{\kappa_{FS}} \approx 0.126
 \end{equation}
 The baryon-to-photon ratio follows from electroweak baryogenesis:
 \begin{equation}
-    \eta = \frac{\delta_{CP} \cdot \alpha_W^4 \cdot C_{sph}}{g_*}
+    \eta = \frac{\delta_{CP}^{B} \cdot \alpha_W^4 \cdot C_{sph}}{g_*}
     = \frac{(\pi/8\pi) \cdot (\alpha/(2/9))^4 \cdot (28/79)}{7^3/4}
     \approx 6.08 \times 10^{-10}
 \end{equation}

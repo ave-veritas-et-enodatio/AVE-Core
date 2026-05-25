@@ -34,18 +34,18 @@ SECONDARY:
 - Source: SpatialDipoleCPSource RH @ x0=8, ω=ω_C, A=0.10·V_SNAP, σ=4.0
 - 50 Compton periods
 """
-from __future__ import annotations
 
 import json
 import sys
 import time
 from pathlib import Path
+
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
-from ave.topological.vacuum_engine import VacuumEngine3D, SpatialDipoleCPSource
-
 from ave.core.constants import ALPHA
+from ave.topological.vacuum_engine import SpatialDipoleCPSource, VacuumEngine3D
+
 V_YIELD = float(np.sqrt(ALPHA))
 A2_OP14 = float(np.sqrt(2.0 * ALPHA))
 OMEGA_C = 1.0
@@ -68,7 +68,9 @@ def main():
 
     t_start = time.time()
     engine = VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=T_CUSP,
+        N=N,
+        pml=PML,
+        temperature=T_CUSP,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -78,9 +80,14 @@ def main():
     engine.initialize_thermal(T_CUSP, seed=42, thermalize_V=True)
 
     source = SpatialDipoleCPSource(
-        x0=8, propagation_axis=0, amplitude=0.10, omega=OMEGA_C,
-        handedness="RH", sigma_yz=4.0,
-        t_ramp=2.0 * COMPTON_PERIOD, t_sustain=2.0 * COMPTON_PERIOD,
+        x0=8,
+        propagation_axis=0,
+        amplitude=0.10,
+        omega=OMEGA_C,
+        handedness="RH",
+        sigma_yz=4.0,
+        t_ramp=2.0 * COMPTON_PERIOD,
+        t_sustain=2.0 * COMPTON_PERIOD,
         t_decay=2.0 * COMPTON_PERIOD,
     )
     engine.add_source(source)
@@ -90,26 +97,37 @@ def main():
         engine.step()
         if step_i % 5 == 0:
             t_now = step_i * DT
-            a2 = np.sum(engine.k4.V_inc ** 2, axis=-1)
+            a2 = np.sum(engine.k4.V_inc**2, axis=-1)
             mask = engine.k4.mask_active
             a2_int = a2 * mask.astype(float)
-            a2_int[:PML, :, :] = 0; a2_int[N-PML:, :, :] = 0
-            a2_int[:, :PML, :] = 0; a2_int[:, N-PML:, :] = 0
-            a2_int[:, :, :PML] = 0; a2_int[:, :, N-PML:] = 0
+            a2_int[:PML, :, :] = 0
+            a2_int[N - PML :, :, :] = 0
+            a2_int[:, :PML, :] = 0
+            a2_int[:, N - PML :, :] = 0
+            a2_int[:, :, :PML] = 0
+            a2_int[:, :, N - PML :] = 0
             n_sat = int(np.sum(a2_int > A2_OP14))
             interior_count = int(np.sum(mask)) - 6 * (N**2 * PML)
             frac_sat = n_sat / max(interior_count, 1)
             a2_max = float(a2_int.max())
             a2_mean = float(a2_int[a2_int > 0].mean()) if (a2_int > 0).any() else 0.0
-            sat_traj.append({
-                "t": float(t_now), "n_sat": n_sat, "frac_sat": frac_sat,
-                "a2_max": a2_max, "a2_mean": a2_mean,
-            })
+            sat_traj.append(
+                {
+                    "t": float(t_now),
+                    "n_sat": n_sat,
+                    "frac_sat": frac_sat,
+                    "a2_max": a2_max,
+                    "a2_mean": a2_mean,
+                }
+            )
             if step_i % 50 == 0:
                 t_p = t_now / COMPTON_PERIOD
-                print(f"    t={t_p:5.2f}P  n_sat={n_sat:>5}  frac={frac_sat:.3f}  "
-                      f"A²_max={a2_max:.3f}  A²_mean={a2_mean:.3f}  "
-                      f"({time.time() - t_start:.0f}s)", flush=True)
+                print(
+                    f"    t={t_p:5.2f}P  n_sat={n_sat:>5}  frac={frac_sat:.3f}  "
+                    f"A²_max={a2_max:.3f}  A²_mean={a2_mean:.3f}  "
+                    f"({time.time() - t_start:.0f}s)",
+                    flush=True,
+                )
 
     elapsed = time.time() - t_start
     print(f"\n  Engine evolution complete in {elapsed:.0f}s")
@@ -124,8 +142,7 @@ def main():
     print(f"\n  Max simultaneously-saturated cells: {max_n_sat}")
     print(f"  Max fraction saturated: {max_frac_sat:.4f}")
     print(f"  Op10 c = {c_op10}")
-    print(f"  H_self_trap (saturation+c=3): "
-          f"{'PASS' if max_n_sat > 0 and c_op10 == 3 else 'FAIL'}")
+    print(f"  H_self_trap (saturation+c=3): " f"{'PASS' if max_n_sat > 0 and c_op10 == 3 else 'FAIL'}")
 
     out = {
         "test": "T-ST Cusp (T=1.76e-5)",

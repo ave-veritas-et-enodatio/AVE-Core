@@ -22,7 +22,6 @@ References:
 - research/_archive/L3_electron_soliton/20_chirality_projection_sub_theorem.md
 - research/_archive/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md §17 A14 r6
 """
-from __future__ import annotations
 
 import jax.numpy as jnp
 import numpy as np
@@ -122,8 +121,13 @@ class TestSymmetricCaseAchromaticLens:
         V_sq = jnp.zeros((N, N, N), dtype=jnp.float64)
 
         S_mu, S_eps = _update_saturation_kernels(
-            u, omega, V_sq, dx=1.0, V_SNAP=1.0,
-            omega_yield=np.pi, epsilon_yield=1.0,
+            u,
+            omega,
+            V_sq,
+            dx=1.0,
+            V_SNAP=1.0,
+            omega_yield=np.pi,
+            epsilon_yield=1.0,
             kappa_chiral=KAPPA_CHIRAL_ELECTRON,
         )
         assert np.allclose(np.asarray(S_mu), 1.0, atol=1e-10)
@@ -143,14 +147,14 @@ class TestSymmetricCaseAchromaticLens:
         only K4 V (no Cosserat ω), only the electric sector gets loaded.)
         """
         engine = VacuumEngine3D.from_args(
-            N=6, pml=0, temperature=0.0,
+            N=6,
+            pml=0,
+            temperature=0.0,
             use_asymmetric_saturation=True,
         )
         A_idx = np.argwhere(engine.k4.mask_active)
         site = tuple(A_idx[0])
-        engine.k4.V_inc[site[0], site[1], site[2], 0] = (
-            engine.V_SNAP * np.sqrt(0.3)  # A²_K4 = 0.3
-        )
+        engine.k4.V_inc[site[0], site[1], site[2], 0] = engine.V_SNAP * np.sqrt(0.3)  # A²_K4 = 0.3
         engine._coupled._update_z_local_total()
         # At the poked site: A²_ε = 0.3 (from V), A²_μ = 0 (no ω).
         # S_μ = 1, S_ε = √0.7. Z_eff = √(S_μ/S_ε) = 1/S_ε^(1/2) = 0.7^(-1/4) ≈ 1.093.
@@ -190,8 +194,13 @@ class TestMeissnerAsymmetric:
         V_sq = np.zeros((N, N, N), dtype=np.float64)
 
         S_mu, S_eps = _update_saturation_kernels(
-            jnp.asarray(u), jnp.asarray(omega), jnp.asarray(V_sq),
-            dx=dx, V_SNAP=1.0, omega_yield=np.pi, epsilon_yield=1.0,
+            jnp.asarray(u),
+            jnp.asarray(omega),
+            jnp.asarray(V_sq),
+            dx=dx,
+            V_SNAP=1.0,
+            omega_yield=np.pi,
+            epsilon_yield=1.0,
             kappa_chiral=KAPPA_CHIRAL_ELECTRON,
         )
         S_mu_np = np.asarray(S_mu)
@@ -211,12 +220,11 @@ class TestMeissnerAsymmetric:
         S_mu_interior = S_mu_np[interior, interior, interior]
         S_eps_interior = S_eps_np[interior, interior, interior]
         assert S_mu_interior.mean() < S_eps_interior.mean(), (
-            f"RH helicity: mean S_μ = {S_mu_interior.mean():.4f} "
-            f"should be < mean S_ε = {S_eps_interior.mean():.4f}"
+            f"RH helicity: mean S_μ = {S_mu_interior.mean():.4f} " f"should be < mean S_ε = {S_eps_interior.mean():.4f}"
         )
-        assert S_eps_interior.mean() == pytest.approx(1.0, abs=1e-6), (
-            "With u=0, eps_sym should be zero → S_ε = 1 exactly"
-        )
+        assert S_eps_interior.mean() == pytest.approx(
+            1.0, abs=1e-6
+        ), "With u=0, eps_sym should be zero → S_ε = 1 exactly"
 
     def test_chirality_bias_reverses_for_lh_helicity(self):
         """Mirror test: LH ω field should produce the SAME |S_μ − S_ε| but
@@ -241,8 +249,13 @@ class TestMeissnerAsymmetric:
         V_sq = np.zeros((N, N, N), dtype=np.float64)
 
         S_mu_lh, _ = _update_saturation_kernels(
-            jnp.asarray(u), jnp.asarray(omega_lh), jnp.asarray(V_sq),
-            dx=dx, V_SNAP=1.0, omega_yield=np.pi, epsilon_yield=1.0,
+            jnp.asarray(u),
+            jnp.asarray(omega_lh),
+            jnp.asarray(V_sq),
+            dx=dx,
+            V_SNAP=1.0,
+            omega_yield=np.pi,
+            epsilon_yield=1.0,
             kappa_chiral=KAPPA_CHIRAL_ELECTRON,
         )
 
@@ -252,8 +265,13 @@ class TestMeissnerAsymmetric:
         omega_rh[..., 0] = amp * np.cos(k * z_idx)
         omega_rh[..., 1] = -amp * np.sin(k * z_idx)
         S_mu_rh, _ = _update_saturation_kernels(
-            jnp.asarray(u), jnp.asarray(omega_rh), jnp.asarray(V_sq),
-            dx=dx, V_SNAP=1.0, omega_yield=np.pi, epsilon_yield=1.0,
+            jnp.asarray(u),
+            jnp.asarray(omega_rh),
+            jnp.asarray(V_sq),
+            dx=dx,
+            V_SNAP=1.0,
+            omega_yield=np.pi,
+            epsilon_yield=1.0,
             kappa_chiral=KAPPA_CHIRAL_ELECTRON,
         )
 
@@ -275,14 +293,14 @@ class TestLegacyRegression:
     def test_legacy_path_computes_old_single_kernel_z(self):
         """With asymmetric=False + V poke: Z_eff/Z_0 = (1−A²)^(−1/4)."""
         engine = VacuumEngine3D.from_args(
-            N=6, pml=0, temperature=0.0,
+            N=6,
+            pml=0,
+            temperature=0.0,
             use_asymmetric_saturation=False,
         )
         A_idx = np.argwhere(engine.k4.mask_active)
         site = tuple(A_idx[0])
-        engine.k4.V_inc[site[0], site[1], site[2], 0] = (
-            engine.V_SNAP * np.sqrt(0.3)  # A²_K4 = 0.3
-        )
+        engine.k4.V_inc[site[0], site[1], site[2], 0] = engine.V_SNAP * np.sqrt(0.3)  # A²_K4 = 0.3
         engine._coupled._update_z_local_total()
         # Single-kernel: S = √(1 − 0.3), z = 1/√S = (1−0.3)^(−1/4) ≈ 1.094
         expected_z = 0.7 ** (-0.25)
@@ -299,8 +317,13 @@ class TestLegacyRegression:
         V_sq = V_sq.at[3, 3, 3].set(0.1)  # poke V²
 
         E_legacy = _coupling_energy_total(
-            u, omega, V_sq, V_SNAP=1.0, dx=1.0,
-            omega_yield=np.pi, epsilon_yield=1.0,
+            u,
+            omega,
+            V_sq,
+            V_SNAP=1.0,
+            dx=1.0,
+            omega_yield=np.pi,
+            epsilon_yield=1.0,
         )
         assert float(E_legacy) >= 0.0  # energy density ≥ 0
 
@@ -315,9 +338,7 @@ class TestEngineIntegration:
         """Phase 4 default: use_asymmetric_saturation = True."""
         engine = VacuumEngine3D.from_args(N=6, pml=0, temperature=0.0)
         assert engine._coupled.use_asymmetric_saturation is True
-        assert engine._coupled.kappa_chiral == pytest.approx(
-            KAPPA_CHIRAL_ELECTRON, abs=1e-15
-        )
+        assert engine._coupled.kappa_chiral == pytest.approx(KAPPA_CHIRAL_ELECTRON, abs=1e-15)
 
     def test_engine_vacuum_z_local_equals_unity(self):
         """Cold vacuum at t=0: Z_eff = Z_0 everywhere (no saturation)."""
@@ -340,7 +361,9 @@ class TestEngineIntegration:
     def test_engine_step_runs_under_legacy(self):
         """Legacy path (use_asymmetric_saturation=False) still works."""
         engine = VacuumEngine3D.from_args(
-            N=6, pml=0, temperature=0.0,
+            N=6,
+            pml=0,
+            temperature=0.0,
             use_asymmetric_saturation=False,
         )
         for _ in range(5):
@@ -413,8 +436,13 @@ class TestPhase4MeissnerMechanism:
         omega, u, V_sq, k = self._build_rh_beltrami_field(N, amp=amp, k_frac=1.0)
 
         S_mu, S_eps = _update_saturation_kernels(
-            jnp.asarray(u), jnp.asarray(omega), jnp.asarray(V_sq),
-            dx=1.0, V_SNAP=1.0, omega_yield=np.pi, epsilon_yield=1.0,
+            jnp.asarray(u),
+            jnp.asarray(omega),
+            jnp.asarray(V_sq),
+            dx=1.0,
+            V_SNAP=1.0,
+            omega_yield=np.pi,
+            epsilon_yield=1.0,
             kappa_chiral=KAPPA_CHIRAL_ELECTRON,
         )
         S_mu_np = np.asarray(S_mu)
@@ -430,13 +458,10 @@ class TestPhase4MeissnerMechanism:
             f"(continuum prediction is < 0.1; N={N} discretization gives ~0.22)"
         )
         # Electric sector preserved (no strain / no V drive)
-        assert min_S_eps > 0.9, (
-            f"Electric sector: min(S_ε) = {min_S_eps:.4f}; expected > 0.9"
-        )
+        assert min_S_eps > 0.9, f"Electric sector: min(S_ε) = {min_S_eps:.4f}; expected > 0.9"
         # Mechanism: S_μ substantially less than S_ε
         assert min_S_mu / min_S_eps < 0.35, (
-            f"Asymmetry ratio S_μ/S_ε = {min_S_mu/min_S_eps:.4f}; "
-            f"expected < 0.35 for clear Meissner-like collapse"
+            f"Asymmetry ratio S_μ/S_ε = {min_S_mu/min_S_eps:.4f}; " f"expected < 0.35 for clear Meissner-like collapse"
         )
 
     def test_z_eff_drops_substantially_under_rh_beltrami(self):
@@ -453,18 +478,20 @@ class TestPhase4MeissnerMechanism:
         omega, u, V_sq, k = self._build_rh_beltrami_field(N, amp=amp, k_frac=1.0)
 
         S_mu, S_eps = _update_saturation_kernels(
-            jnp.asarray(u), jnp.asarray(omega), jnp.asarray(V_sq),
-            dx=1.0, V_SNAP=1.0, omega_yield=np.pi, epsilon_yield=1.0,
+            jnp.asarray(u),
+            jnp.asarray(omega),
+            jnp.asarray(V_sq),
+            dx=1.0,
+            V_SNAP=1.0,
+            omega_yield=np.pi,
+            epsilon_yield=1.0,
             kappa_chiral=KAPPA_CHIRAL_ELECTRON,
         )
         S_mu_np = np.asarray(S_mu)
         S_eps_np = np.asarray(S_eps)
 
         interior = (slice(4, -4), slice(4, -4), slice(4, -4))
-        z_ratio = np.sqrt(
-            np.maximum(S_mu_np[interior], 1e-12)
-            / np.maximum(S_eps_np[interior], 1e-12)
-        )
+        z_ratio = np.sqrt(np.maximum(S_mu_np[interior], 1e-12) / np.maximum(S_eps_np[interior], 1e-12))
         min_z_ratio = float(z_ratio.min())
         assert min_z_ratio < 0.55, (
             f"Z_eff/Z_0 min = {min_z_ratio:.4f}; expected < 0.55 at N={N} "
@@ -472,8 +499,7 @@ class TestPhase4MeissnerMechanism:
         )
         # Sanity: Z drops below Z_0 (not above — excludes insulator regime)
         assert min_z_ratio < 1.0, (
-            f"Meissner regime: Z_eff should drop BELOW Z_0 under RH drive, "
-            f"got min z_ratio = {min_z_ratio:.4f}"
+            f"Meissner regime: Z_eff should drop BELOW Z_0 under RH drive, " f"got min z_ratio = {min_z_ratio:.4f}"
         )
 
     def test_lh_drive_does_not_produce_meissner(self):
@@ -498,8 +524,13 @@ class TestPhase4MeissnerMechanism:
         V_sq = np.zeros((N, N, N), dtype=np.float64)
 
         S_mu, S_eps = _update_saturation_kernels(
-            jnp.asarray(u), jnp.asarray(omega), jnp.asarray(V_sq),
-            dx=1.0, V_SNAP=1.0, omega_yield=np.pi, epsilon_yield=1.0,
+            jnp.asarray(u),
+            jnp.asarray(omega),
+            jnp.asarray(V_sq),
+            dx=1.0,
+            V_SNAP=1.0,
+            omega_yield=np.pi,
+            epsilon_yield=1.0,
             kappa_chiral=KAPPA_CHIRAL_ELECTRON,
         )
         # Under LH, (1 + κ·h) with h < 0 gives factor (1 - κ) < 1, so A²_μ slightly
@@ -515,8 +546,13 @@ class TestPhase4MeissnerMechanism:
         omega_rh[..., 0] = amp * np.cos(k * z_idx)
         omega_rh[..., 1] = -amp * np.sin(k * z_idx)
         S_mu_rh, _ = _update_saturation_kernels(
-            jnp.asarray(u), jnp.asarray(omega_rh), jnp.asarray(V_sq),
-            dx=1.0, V_SNAP=1.0, omega_yield=np.pi, epsilon_yield=1.0,
+            jnp.asarray(u),
+            jnp.asarray(omega_rh),
+            jnp.asarray(V_sq),
+            dx=1.0,
+            V_SNAP=1.0,
+            omega_yield=np.pi,
+            epsilon_yield=1.0,
             kappa_chiral=KAPPA_CHIRAL_ELECTRON,
         )
         min_S_mu_rh = float(np.asarray(S_mu_rh)[interior].min())
@@ -544,13 +580,21 @@ class TestG12AutoresonantVaractorForm:
         """Construct an engine + AutoresonantCWSource and poke V_inc at the
         probe site so that `_measure_probe_A_sq` returns A2_probe_value."""
         from ave.topological.vacuum_engine import AutoresonantCWSource
+
         engine = VacuumEngine3D.from_args(
-            N=16, pml=2, temperature=0.0, amplitude_convention="V_SNAP",
+            N=16,
+            pml=2,
+            temperature=0.0,
+            amplitude_convention="V_SNAP",
         )
         src = AutoresonantCWSource(
-            x0=4, direction=(1.0, 0.0, 0.0),
-            amplitude=0.5, omega=2.0 * np.pi / 3.5,
-            sigma_yz=2.0, t_ramp=1.0, t_sustain=1.0,
+            x0=4,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=0.5,
+            omega=2.0 * np.pi / 3.5,
+            sigma_yz=2.0,
+            t_ramp=1.0,
+            t_sustain=1.0,
         )
         engine.add_source(src)
         # Poke probe site so A²_probe = target (single-port V such that V² = target·V_SNAP²)
@@ -569,10 +613,9 @@ class TestG12AutoresonantVaractorForm:
         src.apply(engine, t=0.0)
         # First apply: _last_t was None so phase didn't advance; but
         # _omega_current was just updated.
-        expected = src._omega_0 * (0.7 ** 0.25)
+        expected = src._omega_0 * (0.7**0.25)
         assert src._omega_current == pytest.approx(expected, rel=1e-6), (
-            f"omega_current = {src._omega_current:.6f}; "
-            f"expected varactor = {expected:.6f}"
+            f"omega_current = {src._omega_current:.6f}; " f"expected varactor = {expected:.6f}"
         )
 
     def test_shift_factor_matches_varactor_at_near_saturation(self):
@@ -580,7 +623,7 @@ class TestG12AutoresonantVaractorForm:
         Linear-Taylor K_drift=0.5 would give 0.55 (only by coincidence close)."""
         engine, src = self._build_source_with_poked_probe(A2_probe_value=0.9)
         src.apply(engine, t=0.0)
-        expected = src._omega_0 * (0.1 ** 0.25)
+        expected = src._omega_0 * (0.1**0.25)
         assert src._omega_current == pytest.approx(expected, rel=1e-6)
 
     def test_shift_factor_floor_at_past_rupture(self):
@@ -589,9 +632,9 @@ class TestG12AutoresonantVaractorForm:
         src.apply(engine, t=0.0)
         # Clipped A² = 1 − 1e-12 → (1e-12)^(1/4) ≈ 1e-3, floor wins at 1e-3
         expected_floor = src._omega_0 * 1e-3
-        assert src._omega_current >= expected_floor * 0.99, (
-            f"omega_current = {src._omega_current}; expected ≥ floor ~{expected_floor}"
-        )
+        assert (
+            src._omega_current >= expected_floor * 0.99
+        ), f"omega_current = {src._omega_current}; expected ≥ floor ~{expected_floor}"
 
     def test_zero_probe_gives_unshifted_frequency(self):
         """At A²_probe = 0 (vacuum): shift factor = 1 → ω = ω_0."""
@@ -602,25 +645,36 @@ class TestG12AutoresonantVaractorForm:
     def test_k_drift_deprecation_warning(self):
         """Non-default K_drift emits DeprecationWarning."""
         from ave.topological.vacuum_engine import AutoresonantCWSource
+
         with pytest.warns(DeprecationWarning, match="K_drift is deprecated"):
             AutoresonantCWSource(
-                x0=4, direction=(1.0, 0.0, 0.0),
-                amplitude=0.5, omega=1.0, sigma_yz=2.0,
-                t_ramp=1.0, t_sustain=1.0,
+                x0=4,
+                direction=(1.0, 0.0, 0.0),
+                amplitude=0.5,
+                omega=1.0,
+                sigma_yz=2.0,
+                t_ramp=1.0,
+                t_sustain=1.0,
                 K_drift=1.0,  # non-default → warn
             )
 
     def test_default_k_drift_no_warning(self):
         """Default K_drift=0.5 (backward-compat value) does NOT warn."""
-        from ave.topological.vacuum_engine import AutoresonantCWSource
         import warnings
+
+        from ave.topological.vacuum_engine import AutoresonantCWSource
+
         with warnings.catch_warnings():
             warnings.simplefilter("error")  # any warning → error
             # This should succeed with no warning emitted
             AutoresonantCWSource(
-                x0=4, direction=(1.0, 0.0, 0.0),
-                amplitude=0.5, omega=1.0, sigma_yz=2.0,
-                t_ramp=1.0, t_sustain=1.0,
+                x0=4,
+                direction=(1.0, 0.0, 0.0),
+                amplitude=0.5,
+                omega=1.0,
+                sigma_yz=2.0,
+                t_ramp=1.0,
+                t_sustain=1.0,
             )
 
 
@@ -634,8 +688,13 @@ class TestReflectionDensityAsymmetric:
         omega = jnp.zeros((N, N, N, 3), dtype=jnp.float64)
         V_sq = jnp.zeros((N, N, N), dtype=jnp.float64)
         W = _reflection_density_asymmetric(
-            u, omega, V_sq, dx=1.0, V_SNAP=1.0,
-            omega_yield=np.pi, epsilon_yield=1.0,
+            u,
+            omega,
+            V_sq,
+            dx=1.0,
+            V_SNAP=1.0,
+            omega_yield=np.pi,
+            epsilon_yield=1.0,
             kappa_chiral=KAPPA_CHIRAL_ELECTRON,
         )
         assert np.allclose(np.asarray(W), 0.0, atol=1e-12)
@@ -647,9 +706,16 @@ class TestReflectionDensityAsymmetric:
         u = jnp.asarray(rng.normal(scale=0.05, size=(N, N, N, 3)))
         omega = jnp.asarray(rng.normal(scale=0.05, size=(N, N, N, 3)))
         V_sq = jnp.asarray(rng.uniform(0.0, 0.01, size=(N, N, N)))
-        W = np.asarray(_reflection_density_asymmetric(
-            u, omega, V_sq, dx=1.0, V_SNAP=1.0,
-            omega_yield=np.pi, epsilon_yield=1.0,
-            kappa_chiral=KAPPA_CHIRAL_ELECTRON,
-        ))
+        W = np.asarray(
+            _reflection_density_asymmetric(
+                u,
+                omega,
+                V_sq,
+                dx=1.0,
+                V_SNAP=1.0,
+                omega_yield=np.pi,
+                epsilon_yield=1.0,
+                kappa_chiral=KAPPA_CHIRAL_ELECTRON,
+            )
+        )
         assert np.all(W >= -1e-12), f"min W = {W.min():.3e}"

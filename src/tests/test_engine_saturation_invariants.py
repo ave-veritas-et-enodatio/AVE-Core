@@ -38,7 +38,6 @@ Reference:
   - fix commit 098d430 (Flag-5e-A)
   - research doc on test-design discipline (to be written)
 """
-from __future__ import annotations
 
 import numpy as np
 import pytest
@@ -69,28 +68,31 @@ class TestK4SaturationActivatesUnderEngineSource:
     def _run_stress_drive(self, use_memristive: bool) -> dict:
         """Run a small engine with stress autoresonant drive."""
         engine = VacuumEngine3D.from_args(
-            N=16, pml=3, temperature=0.0,
+            N=16,
+            pml=3,
+            temperature=0.0,
             use_memristive_saturation=use_memristive,
         )
         omega_drive = 2 * np.pi / 3.5
         period = 2 * np.pi / omega_drive
-        engine.add_source(AutoresonantCWSource(
-            x0=5, direction=(1.0, 0.0, 0.0),
-            amplitude=0.8,  # stress amp, above P_phase5 registered 0.5
-            omega=omega_drive,
-            sigma_yz=3.0,
-            t_ramp=2 * period,
-            t_sustain=10 * period,
-        ))
+        engine.add_source(
+            AutoresonantCWSource(
+                x0=5,
+                direction=(1.0, 0.0, 0.0),
+                amplitude=0.8,  # stress amp, above P_phase5 registered 0.5
+                omega=omega_drive,
+                sigma_yz=3.0,
+                t_ramp=2 * period,
+                t_sustain=10 * period,
+            )
+        )
         engine.run(n_steps=60)
         mask = engine.k4.mask_active
         return {
             "S_min": float(engine.k4.S_field[mask].min()),
             "z_max": float(engine.k4.z_local_field[mask].max()),
-            "A2_total_max": float(
-                max(np.sum(engine.k4.V_inc[mask] ** 2, axis=-1))
-                if mask.any() else 0.0
-            ) / (engine.V_SNAP ** 2),
+            "A2_total_max": float(max(np.sum(engine.k4.V_inc[mask] ** 2, axis=-1)) if mask.any() else 0.0)
+            / (engine.V_SNAP**2),
         }
 
     def test_s_field_drops_below_one_under_memristive(self):
@@ -160,16 +162,25 @@ class TestCosseratSaturationActivatesUnderDirectInjection:
         from ave.topological.vacuum_engine import PairNucleationGate
 
         engine = VacuumEngine3D.from_args(
-            N=16, pml=3, temperature=0.0,
+            N=16,
+            pml=3,
+            temperature=0.0,
             use_memristive_saturation=True,
         )
         omega_drive = 2 * np.pi / 3.5
         period = 2 * np.pi / omega_drive
-        engine.add_source(CosseratBeltramiSource(
-            x0=8, propagation_axis=0, amplitude=2.0,
-            omega=omega_drive, handedness="RH", sigma_yz=3.0,
-            t_ramp=2 * period, t_sustain=10 * period,
-        ))
+        engine.add_source(
+            CosseratBeltramiSource(
+                x0=8,
+                propagation_axis=0,
+                amplitude=2.0,
+                omega=omega_drive,
+                handedness="RH",
+                sigma_yz=3.0,
+                t_ramp=2 * period,
+                t_sustain=10 * period,
+            )
+        )
         gate = PairNucleationGate(cadence=2)
         engine.add_observer(gate)
         engine.run(n_steps=60)
@@ -205,7 +216,9 @@ class TestCoolThroughYieldUnderMemristive:
 
     def test_s_field_drops_during_drive_then_rises_after(self):
         engine = VacuumEngine3D.from_args(
-            N=16, pml=3, temperature=0.0,
+            N=16,
+            pml=3,
+            temperature=0.0,
             use_memristive_saturation=True,
         )
         omega_drive = 2 * np.pi / 3.5
@@ -213,13 +226,18 @@ class TestCoolThroughYieldUnderMemristive:
         t_ramp = 2 * period
         t_sustain = 8 * period
         # Source with abrupt cutoff to trigger cooling phase
-        engine.add_source(AutoresonantCWSource(
-            x0=5, direction=(1.0, 0.0, 0.0),
-            amplitude=0.8, omega=omega_drive,
-            sigma_yz=3.0,
-            t_ramp=t_ramp, t_sustain=t_sustain,
-            t_decay=period * 0.5,
-        ))
+        engine.add_source(
+            AutoresonantCWSource(
+                x0=5,
+                direction=(1.0, 0.0, 0.0),
+                amplitude=0.8,
+                omega=omega_drive,
+                sigma_yz=3.0,
+                t_ramp=t_ramp,
+                t_sustain=t_sustain,
+                t_decay=period * 0.5,
+            )
+        )
         drive_end = t_ramp + t_sustain
 
         # Sample S_field at mid-drive and late-cooling
@@ -248,8 +266,7 @@ class TestCoolThroughYieldUnderMemristive:
 
         # During drive: should show saturation (S < 0.9)
         assert S_drive_median < 0.9, (
-            f"S_field never saturated under drive — median S = "
-            f"{S_drive_median:.4f} during sustain phase."
+            f"S_field never saturated under drive — median S = " f"{S_drive_median:.4f} during sustain phase."
         )
         # After drive: should recover toward 1 (cool-through-yield)
         assert S_post_median > S_drive_median + 0.1, (

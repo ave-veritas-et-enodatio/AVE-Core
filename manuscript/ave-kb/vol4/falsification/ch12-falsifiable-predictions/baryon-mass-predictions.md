@@ -1,5 +1,9 @@
 [↑ Ch.12 Index](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-to41c7]
+-->
 
 ## Baryon Mass Predictions (Torus Knot Ladder)
 

@@ -84,7 +84,6 @@ N=16, PML=4 → active region 4..11).
 
 12 runs × 50P × ~14s ≈ 3 minutes total.
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -108,7 +107,9 @@ def run_cw_drive(omega_drive, drive_amplitude, n_periods=50, N=16, PML=4):
     N_STEPS = int(n_periods * COMPTON_PERIOD / DT)
 
     engine = VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=0.0,
+        N=N,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=False,
@@ -186,10 +187,10 @@ def main():
 
     # FFT bins to track per drive frequency
     fft_targets = {
-        1.5: [1.50, 3.00, 2.96, 4.50, 2.50],   # f₁=drive, f₂=2*drive, f₃=other peak,
-                                                # last two for noise-baseline ref
+        1.5: [1.50, 3.00, 2.96, 4.50, 2.50],  # f₁=drive, f₂=2*drive, f₃=other peak,
+        # last two for noise-baseline ref
         2.96: [2.96, 5.92, 1.50, 4.50, 3.50],  # f₁=drive, f₂=2*drive, f₃=other peak,
-                                                # last two for noise-baseline ref
+        # last two for noise-baseline ref
     }
 
     results = []
@@ -197,9 +198,11 @@ def main():
 
     for omega_drive in drive_freqs:
         print(f"\n  Drive frequency ω = {omega_drive:.3f}·ω_C")
-        print(f"  {'A':>10} {'lockin@drive':>14} {'FFT@'+str(fft_targets[omega_drive][0]):>11}"
-              f"  {'FFT@'+str(fft_targets[omega_drive][1]):>11}  {'FFT@'+str(fft_targets[omega_drive][2]):>11}"
-              f"  {'noise':>10}  {'A²':>9}")
+        print(
+            f"  {'A':>10} {'lockin@drive':>14} {'FFT@'+str(fft_targets[omega_drive][0]):>11}"
+            f"  {'FFT@'+str(fft_targets[omega_drive][1]):>11}  {'FFT@'+str(fft_targets[omega_drive][2]):>11}"
+            f"  {'noise':>10}  {'A²':>9}"
+        )
 
         for A in amplitudes:
             t0 = time.time()
@@ -226,9 +229,11 @@ def main():
             results.append(row)
 
             f_targets = fft_targets[omega_drive]
-            print(f"  {A:>10.1e} {lock_amp:>14.4e} {fft_at[f_targets[0]]:>11.4e}"
-                  f"  {fft_at[f_targets[1]]:>11.4e}  {fft_at[f_targets[2]]:>11.4e}"
-                  f"  {noise:>10.3e}  {A_sq:>9.2e}  ({elapsed:.1f}s)")
+            print(
+                f"  {A:>10.1e} {lock_amp:>14.4e} {fft_at[f_targets[0]]:>11.4e}"
+                f"  {fft_at[f_targets[1]]:>11.4e}  {fft_at[f_targets[2]]:>11.4e}"
+                f"  {noise:>10.3e}  {A_sq:>9.2e}  ({elapsed:.1f}s)"
+            )
 
     total_elapsed = time.time() - t_start
     print(f"\n  Total elapsed: {total_elapsed:.1f}s")
@@ -284,10 +289,8 @@ def main():
             print(f"    → H1 (independent modes): PASS")
         else:
             print(f"    → INCONCLUSIVE")
-            print(f"      slope_at_2drive = {slope_at_2drive:+.3f} "
-                  f"(H1 needs <1.5, H2 needs [1.7, 2.3])")
-            print(f"      amp_ratio = {ratio_3p0_over_noise:.2f} "
-                  f"(H1 needs <10×, H2 needs >10×)")
+            print(f"      slope_at_2drive = {slope_at_2drive:+.3f} " f"(H1 needs <1.5, H2 needs [1.7, 2.3])")
+            print(f"      amp_ratio = {ratio_3p0_over_noise:.2f} " f"(H1 needs <10×, H2 needs >10×)")
 
         verdict = {
             "slope_at_drive_1p5": slope_at_drive,

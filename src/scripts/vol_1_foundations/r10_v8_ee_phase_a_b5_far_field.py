@@ -22,7 +22,6 @@ enable_cosserat_self_terms=True, V_AMP=0.95, HELICAL_PITCH=1/(2π)).
 Memory-efficient: only time-averages of full-lattice fields are saved
 (no full trajectories).
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -34,9 +33,9 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).parent))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
-
 import r10_path_alpha_v8_corrected_measurements as v8
+
+from ave.topological.vacuum_engine import VacuumEngine3D
 
 
 def main():
@@ -46,27 +45,31 @@ def main():
     print("=" * 78, flush=True)
 
     nodes, bonds = v8.build_chair_ring(v8.CENTER)
-    a_0_per_node, centroid = v8.compute_a_0_at_ring_nodes(
-        nodes, v8.A_AMP_POL, v8.HELICAL_PITCH
-    )
+    a_0_per_node, centroid = v8.compute_a_0_at_ring_nodes(nodes, v8.A_AMP_POL, v8.HELICAL_PITCH)
 
     engine = VacuumEngine3D.from_args(
-        N=v8.N_LATTICE, pml=v8.PML, temperature=0.0,
+        N=v8.N_LATTICE,
+        pml=v8.PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
     )
     print("Applying v8 helical Beltrami IC (UNCHANGED)...", flush=True)
     v8.initialize_helical_beltrami_ic(
-        engine, nodes, bonds, a_0_per_node,
-        v8.K_BELTRAMI, v8.V_AMP, v8.PHI_AMP,
+        engine,
+        nodes,
+        bonds,
+        a_0_per_node,
+        v8.K_BELTRAMI,
+        v8.V_AMP,
+        v8.PHI_AMP,
     )
 
     N_STEPS = v8.N_RECORDING_STEPS
     sw_start = N_STEPS // 4
 
-    print(f"Recording {N_STEPS} steps; accumulating full-lattice DC fields after step {sw_start}...",
-          flush=True)
+    print(f"Recording {N_STEPS} steps; accumulating full-lattice DC fields after step {sw_start}...", flush=True)
 
     nx = engine.k4.nx
     # Accumulators for time-averaging during steady-state window
@@ -88,8 +91,7 @@ def main():
             n_avg_steps += 1
         if (time.time() - last) > 30.0:
             t_p = (i + 1) * v8.DT / v8.COMPTON_PERIOD
-            print(f"    step {i}/{N_STEPS}, t={t_p:.1f}P, elapsed {time.time()-t0:.1f}s",
-                  flush=True)
+            print(f"    step {i}/{N_STEPS}, t={t_p:.1f}P, elapsed {time.time()-t0:.1f}s", flush=True)
             last = time.time()
     elapsed = time.time() - t0
     print(f"  Recording done at {elapsed:.1f}s ({n_avg_steps} samples averaged)", flush=True)
@@ -104,9 +106,12 @@ def main():
     npz_path = out_dir / "r10_v8_ee_phase_a_b5_far_field_capture.npz"
     np.savez_compressed(
         npz_path,
-        V_inc_DC=V_inc_DC, V_ref_DC=V_ref_DC,
-        omega_DC=omega_DC, u_dot_DC=u_dot_DC,
-        centroid=centroid, nodes=np.array(nodes),
+        V_inc_DC=V_inc_DC,
+        V_ref_DC=V_ref_DC,
+        omega_DC=omega_DC,
+        u_dot_DC=u_dot_DC,
+        centroid=centroid,
+        nodes=np.array(nodes),
         n_avg_steps=np.array([n_avg_steps]),
     )
     print(f"Saved DC field capture to {npz_path.relative_to(Path.cwd())}", flush=True)
@@ -120,8 +125,7 @@ def main():
     print(f"  Active region: [{active_min}, {active_max})³ on lattice {nx}³")
 
     # Build E_DC vector at A-sites from V_total_DC = V_inc + V_ref via Moore-Penrose
-    PORT_DIRS = np.array([[1, 1, 1], [1, -1, -1], [-1, 1, -1], [-1, -1, 1]],
-                          dtype=np.float64) / np.sqrt(3.0)
+    PORT_DIRS = np.array([[1, 1, 1], [1, -1, -1], [-1, 1, -1], [-1, -1, 1]], dtype=np.float64) / np.sqrt(3.0)
     bond_length = np.sqrt(3.0)
 
     V_total_DC = V_inc_DC + V_ref_DC  # (nx, nx, nx, 4)
@@ -132,7 +136,7 @@ def main():
     for p in range(4):
         for axis in range(3):
             E_DC[..., axis] += PORT_DIRS[p, axis] * V_total_DC[..., p] / bond_length
-    E_DC *= (3.0 / 4.0)
+    E_DC *= 3.0 / 4.0
 
     B_DC = omega_DC.copy()  # Cosserat ω = B field per Vol 1 Ch 4:23
 
@@ -143,7 +147,9 @@ def main():
     # Distance from chair-ring centroid for each site
     cx, cy, cz = centroid
     ix, iy, iz = np.indices((nx, nx, nx))
-    dx = ix - cx; dy = iy - cy; dz = iz - cz
+    dx = ix - cx
+    dy = iy - cy
+    dz = iz - cz
     r = np.sqrt(dx**2 + dy**2 + dz**2)
 
     # ── A1: radial profile of |E_DC| ────────────────────────────────────
@@ -180,9 +186,9 @@ def main():
         log_r = np.log(r_valid)
         log_E = np.log(E_valid)
         slope, intercept = np.polyfit(log_r, log_E, 1)
-        E_fit = np.exp(intercept) * (r_valid ** slope)
-        ss_res = np.sum((log_E - np.log(E_fit))**2)
-        ss_tot = np.sum((log_E - log_E.mean())**2)
+        E_fit = np.exp(intercept) * (r_valid**slope)
+        ss_res = np.sum((log_E - np.log(E_fit)) ** 2)
+        ss_tot = np.sum((log_E - log_E.mean()) ** 2)
         r_squared = 1 - ss_res / max(ss_tot, 1e-30)
         print(f"\n  Power-law fit |E| = A · r^β:")
         print(f"    β (slope) = {slope:+.4f}  (Coulomb predicts -2.0 ± 0.3)")
@@ -241,7 +247,9 @@ def main():
         else:
             B_mean_per_shell.append(0.0)
             B_std_per_shell.append(0.0)
-        print(f"    {r_centers[len(B_mean_per_shell)-1]:.1f}   {B_mean_per_shell[-1]:.4e}   {B_std_per_shell[-1]:.4e}   {n_in_shell:5d}")
+        print(
+            f"    {r_centers[len(B_mean_per_shell)-1]:.1f}   {B_mean_per_shell[-1]:.4e}   {B_std_per_shell[-1]:.4e}   {n_in_shell:5d}"
+        )
 
     # Power-law fit on |B| vs r
     valid_B = [m > 1e-10 for m in B_mean_per_shell]
@@ -251,9 +259,9 @@ def main():
         log_r_B = np.log(r_valid_B)
         log_B = np.log(B_valid)
         slope_B, intercept_B = np.polyfit(log_r_B, log_B, 1)
-        B_fit = np.exp(intercept_B) * (r_valid_B ** slope_B)
-        ss_res_B = np.sum((log_B - np.log(B_fit))**2)
-        ss_tot_B = np.sum((log_B - log_B.mean())**2)
+        B_fit = np.exp(intercept_B) * (r_valid_B**slope_B)
+        ss_res_B = np.sum((log_B - np.log(B_fit)) ** 2)
+        ss_tot_B = np.sum((log_B - log_B.mean()) ** 2)
         r2_B = 1 - ss_res_B / max(ss_tot_B, 1e-30)
         print(f"\n    Power-law fit |B| = A · r^β:")
         print(f"      β = {slope_B:+.4f}  (Dipole predicts -3.0 ± 0.3)")
@@ -314,7 +322,7 @@ def main():
         c11_re = float(np.mean(E_at * Y11_re))
         c11_im = float(np.mean(E_at * Y11_im))
         # ℓ=2: quadrupole m=0
-        Y20 = np.sqrt(5 / (16 * np.pi)) * (3 * np.cos(th)**2 - 1)
+        Y20 = np.sqrt(5 / (16 * np.pi)) * (3 * np.cos(th) ** 2 - 1)
         c20 = float(np.mean(E_at * Y20))
         amp_l0 = abs(c00)
         amp_l1 = np.sqrt(c10**2 + c11_re**2 + c11_im**2)

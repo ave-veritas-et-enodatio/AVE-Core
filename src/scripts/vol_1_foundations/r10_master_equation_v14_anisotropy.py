@@ -26,19 +26,20 @@ Outputs:
   - v14_cubic_vs_spherical_compare.png: side-by-side field at high vs
     collapse, with cubic-axis vs diagonal-axis radial profile overlaid
 """
+
 import sys
 import time
 from pathlib import Path
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.gridspec import GridSpec
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from ave.core.master_equation_fdtd import MasterEquationFDTD
-
+from ave_path_util import sim_output
 
 print("=" * 78)
 print("R10 v14 Anisotropy — cubic emergence at collapse")
@@ -55,17 +56,23 @@ CENTER = (N // 2, N // 2, N // 2)
 N_STEPS = 1500
 SNAPSHOT_CADENCE = 5
 
-OUT = REPO_ROOT / "assets" / "sim_outputs"
-
 
 # Run engine + dense snapshots
 print(f"Running {N_STEPS} steps with dense capture every {SNAPSHOT_CADENCE}...")
 engine = MasterEquationFDTD(
-    N=N, dx=DX, V_yield=V_YIELD, c0=1.0,
-    pml_thickness=PML, A_cap=0.99, S_min=0.05,
+    N=N,
+    dx=DX,
+    V_yield=V_YIELD,
+    c0=1.0,
+    pml_thickness=PML,
+    A_cap=0.99,
+    S_min=0.05,
 )
 engine.inject_localized_blob(
-    center=CENTER, radius=2.5, amplitude=0.85, profile="sech",
+    center=CENTER,
+    radius=2.5,
+    amplitude=0.85,
+    profile="sech",
 )
 
 snapshots_V = [engine.V.copy()]
@@ -99,7 +106,7 @@ shell_dy = (jj - cy)[shell_mask] / r3d[shell_mask]
 shell_dz = (kk - cz)[shell_mask] / r3d[shell_mask]
 # Cubic harmonic measure: |x⁴+y⁴+z⁴| - (3/5)|r|⁴ — picks out cubic ±axis preference
 # Normalize: this is "cubic_harmonic" / |r|⁴ averaged
-cubic_kernel = shell_dx ** 4 + shell_dy ** 4 + shell_dz ** 4 - 0.6
+cubic_kernel = shell_dx**4 + shell_dy**4 + shell_dz**4 - 0.6
 # Normalize so isotropic distribution → mean = 0
 cubic_kernel -= cubic_kernel.mean()
 
@@ -107,8 +114,8 @@ V_peak_arr = []
 mean_shell_arr = []
 asphericity_arr = []
 cubicity_arr = []
-v_axis_arr = []   # |V| along cubic ±axes (avg)
-v_diag_arr = []   # |V| along diagonals (avg)
+v_axis_arr = []  # |V| along cubic ±axes (avg)
+v_diag_arr = []  # |V| along diagonals (avg)
 
 for V_snap in snapshots_V:
     V_peak_arr.append(float(np.abs(V_snap).max()))
@@ -127,8 +134,7 @@ for V_snap in snapshots_V:
 
     # Sample along cubic axes (±x, ±y, ±z directions at this radius)
     axis_samples = []
-    for sgn_x, sgn_y, sgn_z in [(1, 0, 0), (-1, 0, 0), (0, 1, 0),
-                                  (0, -1, 0), (0, 0, 1), (0, 0, -1)]:
+    for sgn_x, sgn_y, sgn_z in [(1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1)]:
         x = int(cx + sgn_x * ANALYSIS_RADIUS)
         y = int(cy + sgn_y * ANALYSIS_RADIUS)
         z = int(cz + sgn_z * ANALYSIS_RADIUS)
@@ -185,17 +191,18 @@ print()
 # =============================================================================
 print("Generating Figure 1: time series anisotropy vs V_peak...")
 fig = plt.figure(figsize=(15, 10), facecolor="#0a0a0a")
-gs = GridSpec(3, 2, figure=fig, hspace=0.4, wspace=0.3,
-              height_ratios=[1.0, 1.0, 0.85])
+gs = GridSpec(3, 2, figure=fig, hspace=0.4, wspace=0.3, height_ratios=[1.0, 1.0, 0.85])
 
 # Panel A: V_peak time series (the breather)
 axA = fig.add_subplot(gs[0, 0])
 axA.set_facecolor("#0f0f0f")
 axA.plot(snapshots_t, V_peak_arr, "C2-", lw=2, label="V_peak")
-axA.axvline(snapshots_t[high_idx], color="orange", ls="--", lw=1, alpha=0.7,
-             label=f"High phase (V={V_peak_arr[high_idx]:.3f})")
-axA.axvline(snapshots_t[low_idx], color="cyan", ls="--", lw=1, alpha=0.7,
-             label=f"Collapse (V={V_peak_arr[low_idx]:.3f})")
+axA.axvline(
+    snapshots_t[high_idx], color="orange", ls="--", lw=1, alpha=0.7, label=f"High phase (V={V_peak_arr[high_idx]:.3f})"
+)
+axA.axvline(
+    snapshots_t[low_idx], color="cyan", ls="--", lw=1, alpha=0.7, label=f"Collapse (V={V_peak_arr[low_idx]:.3f})"
+)
 axA.set_xlabel("t (lattice units)", color="white")
 axA.set_ylabel("V_peak", color="white")
 axA.set_title("Breathing oscillation", color="white", fontsize=12)
@@ -205,41 +212,35 @@ axA.grid(True, alpha=0.2)
 # Panel B: asphericity time series
 axB = fig.add_subplot(gs[0, 1])
 axB.set_facecolor("#0f0f0f")
-axB.plot(snapshots_t, asphericity_arr, "C3-", lw=2,
-         label=f"Asphericity at r={ANALYSIS_RADIUS}")
+axB.plot(snapshots_t, asphericity_arr, "C3-", lw=2, label=f"Asphericity at r={ANALYSIS_RADIUS}")
 axB.axvline(snapshots_t[high_idx], color="orange", ls="--", lw=1, alpha=0.7)
 axB.axvline(snapshots_t[low_idx], color="cyan", ls="--", lw=1, alpha=0.7)
 axB.set_xlabel("t (lattice units)", color="white")
 axB.set_ylabel("σ(|V|) / mean(|V|)", color="white")
-axB.set_title("Asphericity: deviation from spherical symmetry",
-              color="white", fontsize=12)
+axB.set_title("Asphericity: deviation from spherical symmetry", color="white", fontsize=12)
 axB.legend(loc="best", fontsize=8)
 axB.grid(True, alpha=0.2)
 
 # Panel C: axis/diagonal ratio (cubic anisotropy signature)
 axC = fig.add_subplot(gs[1, 0])
 axC.set_facecolor("#0f0f0f")
-axC.plot(snapshots_t, axis_to_diag_ratio, "C0-", lw=2,
-         label="|V|_axis / |V|_diag")
+axC.plot(snapshots_t, axis_to_diag_ratio, "C0-", lw=2, label="|V|_axis / |V|_diag")
 axC.axhline(1.0, color="white", ls=":", lw=1, label="Spherical (ratio=1)")
 axC.axvline(snapshots_t[high_idx], color="orange", ls="--", lw=1, alpha=0.7)
 axC.axvline(snapshots_t[low_idx], color="cyan", ls="--", lw=1, alpha=0.7)
 axC.set_xlabel("t (lattice units)", color="white")
 axC.set_ylabel("axis/diagonal |V| ratio", color="white")
-axC.set_title("Cubic axis preference (>1 = cubic, =1 = spherical)",
-              color="white", fontsize=12)
+axC.set_title("Cubic axis preference (>1 = cubic, =1 = spherical)", color="white", fontsize=12)
 axC.legend(loc="best", fontsize=8)
 axC.grid(True, alpha=0.2)
 
 # Panel D: scatter V_peak vs asphericity (anti-correlation)
 axD = fig.add_subplot(gs[1, 1])
 axD.set_facecolor("#0f0f0f")
-sc = axD.scatter(V_peak_arr, asphericity_arr,
-                  c=snapshots_t, cmap="plasma", s=20, alpha=0.7)
+sc = axD.scatter(V_peak_arr, asphericity_arr, c=snapshots_t, cmap="plasma", s=20, alpha=0.7)
 axD.set_xlabel("V_peak (breathing phase)", color="white")
 axD.set_ylabel("Asphericity at r={}".format(ANALYSIS_RADIUS), color="white")
-axD.set_title(f"V_peak ↔ asphericity (anti-corr = {corr:.3f})",
-              color="white", fontsize=12)
+axD.set_title(f"V_peak ↔ asphericity (anti-corr = {corr:.3f})", color="white", fontsize=12)
 plt.colorbar(sc, ax=axD, label="t").ax.tick_params(colors="white")
 axD.grid(True, alpha=0.2)
 
@@ -270,11 +271,17 @@ explanation = (
     f"There's ALSO some FDTD numerical anisotropy (the 7-point cubic Laplacian has cubic-axis preference) — but this\n"
     f"reinforces rather than fights the physics. The K4 substrate IS cubic; the FDTD discretization approximates it correctly.\n"
 )
-axE.text(0.01, 0.99, explanation, transform=axE.transAxes,
-         fontsize=9, family="monospace", verticalalignment="top",
-         color="white",
-         bbox=dict(boxstyle="round,pad=0.5", facecolor="#181818",
-                    edgecolor="#444"))
+axE.text(
+    0.01,
+    0.99,
+    explanation,
+    transform=axE.transAxes,
+    fontsize=9,
+    family="monospace",
+    verticalalignment="top",
+    color="white",
+    bbox=dict(boxstyle="round,pad=0.5", facecolor="#181818", edgecolor="#444"),
+)
 
 for ax in [axA, axB, axC, axD]:
     ax.tick_params(colors="white")
@@ -290,10 +297,11 @@ for ax in [axA, axB, axC, axD]:
         for text in leg.get_texts():
             text.set_color("white")
 
-fig.suptitle("Anisotropy analysis: K4 substrate's cubic symmetry emerges at collapse",
-             color="white", fontsize=14, y=0.995)
+fig.suptitle(
+    "Anisotropy analysis: K4 substrate's cubic symmetry emerges at collapse", color="white", fontsize=14, y=0.995
+)
 
-fig1_path = OUT / "v14_collapse_cubic_emergence.png"
+fig1_path = sim_output("v14_collapse_cubic_emergence.png")
 plt.savefig(fig1_path, dpi=150, facecolor="#0a0a0a", bbox_inches="tight")
 print(f"  {fig1_path}")
 plt.close(fig)
@@ -314,23 +322,43 @@ vmax = max(np.abs(V_high).max(), np.abs(V_low).max()) * 0.8
 # Panel A: |V| high phase, equatorial slice
 ax_a = fig.add_subplot(gs[0, 0])
 ax_a.set_facecolor("#0f0f0f")
-slice_high = np.abs(V_high[CENTER[0]-7:CENTER[0]+7, CENTER[1]-7:CENTER[1]+7, CENTER[2]])
-im_a = ax_a.imshow(slice_high.T, origin="lower", cmap="hot",
-                    extent=[CENTER[0]-7, CENTER[0]+7, CENTER[1]-7, CENTER[1]+7],
-                    aspect="equal", vmin=0, vmax=vmax)
-ax_a.plot(CENTER[0]+0.5, CENTER[1]+0.5, "c*", ms=18, mec="white")
+slice_high = np.abs(V_high[CENTER[0] - 7 : CENTER[0] + 7, CENTER[1] - 7 : CENTER[1] + 7, CENTER[2]])
+im_a = ax_a.imshow(
+    slice_high.T,
+    origin="lower",
+    cmap="hot",
+    extent=[CENTER[0] - 7, CENTER[0] + 7, CENTER[1] - 7, CENTER[1] + 7],
+    aspect="equal",
+    vmin=0,
+    vmax=vmax,
+)
+ax_a.plot(CENTER[0] + 0.5, CENTER[1] + 0.5, "c*", ms=18, mec="white")
 # Mark cubic axes and diagonals
-for sgn_x, sgn_y in [(1,0), (-1,0), (0,1), (0,-1)]:
-    ax_a.plot(CENTER[0]+0.5+sgn_x*ANALYSIS_RADIUS, CENTER[1]+0.5+sgn_y*ANALYSIS_RADIUS,
-              "o", color="yellow", ms=10, mec="black", mew=1, label="±axis" if sgn_x==1 and sgn_y==0 else "")
+for sgn_x, sgn_y in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+    ax_a.plot(
+        CENTER[0] + 0.5 + sgn_x * ANALYSIS_RADIUS,
+        CENTER[1] + 0.5 + sgn_y * ANALYSIS_RADIUS,
+        "o",
+        color="yellow",
+        ms=10,
+        mec="black",
+        mew=1,
+        label="±axis" if sgn_x == 1 and sgn_y == 0 else "",
+    )
 for sgn_x in [1, -1]:
     for sgn_y in [1, -1]:
         d = ANALYSIS_RADIUS / np.sqrt(2)
-        ax_a.plot(CENTER[0]+0.5+sgn_x*d, CENTER[1]+0.5+sgn_y*d,
-                  "s", color="cyan", ms=10, mec="black", mew=1,
-                  label="diagonal" if sgn_x==1 and sgn_y==1 else "")
-ax_a.set_title(f"HIGH PHASE: |V| equatorial slice\nV_peak={V_peak_arr[high_idx]:.3f}",
-                color="white", fontsize=11)
+        ax_a.plot(
+            CENTER[0] + 0.5 + sgn_x * d,
+            CENTER[1] + 0.5 + sgn_y * d,
+            "s",
+            color="cyan",
+            ms=10,
+            mec="black",
+            mew=1,
+            label="diagonal" if sgn_x == 1 and sgn_y == 1 else "",
+        )
+ax_a.set_title(f"HIGH PHASE: |V| equatorial slice\nV_peak={V_peak_arr[high_idx]:.3f}", color="white", fontsize=11)
 ax_a.set_xlabel("x", color="white")
 ax_a.set_ylabel("y", color="white")
 ax_a.tick_params(colors="white")
@@ -340,21 +368,38 @@ plt.colorbar(im_a, ax=ax_a, fraction=0.046)
 # Panel B: |V| collapse phase, equatorial slice
 ax_b = fig.add_subplot(gs[0, 1])
 ax_b.set_facecolor("#0f0f0f")
-slice_low = np.abs(V_low[CENTER[0]-7:CENTER[0]+7, CENTER[1]-7:CENTER[1]+7, CENTER[2]])
-im_b = ax_b.imshow(slice_low.T, origin="lower", cmap="hot",
-                    extent=[CENTER[0]-7, CENTER[0]+7, CENTER[1]-7, CENTER[1]+7],
-                    aspect="equal", vmin=0, vmax=vmax * 0.4)  # rescale colormap
-ax_b.plot(CENTER[0]+0.5, CENTER[1]+0.5, "c*", ms=18, mec="white")
-for sgn_x, sgn_y in [(1,0), (-1,0), (0,1), (0,-1)]:
-    ax_b.plot(CENTER[0]+0.5+sgn_x*ANALYSIS_RADIUS, CENTER[1]+0.5+sgn_y*ANALYSIS_RADIUS,
-              "o", color="yellow", ms=10, mec="black", mew=1)
+slice_low = np.abs(V_low[CENTER[0] - 7 : CENTER[0] + 7, CENTER[1] - 7 : CENTER[1] + 7, CENTER[2]])
+im_b = ax_b.imshow(
+    slice_low.T,
+    origin="lower",
+    cmap="hot",
+    extent=[CENTER[0] - 7, CENTER[0] + 7, CENTER[1] - 7, CENTER[1] + 7],
+    aspect="equal",
+    vmin=0,
+    vmax=vmax * 0.4,
+)  # rescale colormap
+ax_b.plot(CENTER[0] + 0.5, CENTER[1] + 0.5, "c*", ms=18, mec="white")
+for sgn_x, sgn_y in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+    ax_b.plot(
+        CENTER[0] + 0.5 + sgn_x * ANALYSIS_RADIUS,
+        CENTER[1] + 0.5 + sgn_y * ANALYSIS_RADIUS,
+        "o",
+        color="yellow",
+        ms=10,
+        mec="black",
+        mew=1,
+    )
 for sgn_x in [1, -1]:
     for sgn_y in [1, -1]:
         d = ANALYSIS_RADIUS / np.sqrt(2)
-        ax_b.plot(CENTER[0]+0.5+sgn_x*d, CENTER[1]+0.5+sgn_y*d,
-                  "s", color="cyan", ms=10, mec="black", mew=1)
-ax_b.set_title(f"COLLAPSE PHASE: |V| equatorial slice\nV_peak={V_peak_arr[low_idx]:.3f}\n(notice cubic structure)",
-                color="white", fontsize=11)
+        ax_b.plot(
+            CENTER[0] + 0.5 + sgn_x * d, CENTER[1] + 0.5 + sgn_y * d, "s", color="cyan", ms=10, mec="black", mew=1
+        )
+ax_b.set_title(
+    f"COLLAPSE PHASE: |V| equatorial slice\nV_peak={V_peak_arr[low_idx]:.3f}\n(notice cubic structure)",
+    color="white",
+    fontsize=11,
+)
 ax_b.set_xlabel("x", color="white")
 ax_b.set_ylabel("y", color="white")
 ax_b.tick_params(colors="white")
@@ -382,14 +427,11 @@ for r in r_samples:
     if 0 <= xd < N and 0 <= yd < N:
         v_diag_high.append(float(np.abs(V_high[xd, yd, CENTER[2]])))
         v_diag_low.append(float(np.abs(V_low[xd, yd, CENTER[2]])))
-ax_c.plot(r_samples[:len(v_axis_high)], v_axis_high, "C1o-", lw=2, ms=8,
-          label="High phase: +x axis")
-ax_c.plot(r_samples[:len(v_diag_high)], v_diag_high, "C0s--", lw=2, ms=8,
-          label="High phase: diagonal")
+ax_c.plot(r_samples[: len(v_axis_high)], v_axis_high, "C1o-", lw=2, ms=8, label="High phase: +x axis")
+ax_c.plot(r_samples[: len(v_diag_high)], v_diag_high, "C0s--", lw=2, ms=8, label="High phase: diagonal")
 ax_c.set_xlabel("r (cells from center)", color="white")
 ax_c.set_ylabel("|V|", color="white")
-ax_c.set_title("HIGH phase: axis vs diagonal profile",
-                color="white", fontsize=11)
+ax_c.set_title("HIGH phase: axis vs diagonal profile", color="white", fontsize=11)
 ax_c.legend(loc="best", fontsize=8)
 ax_c.grid(True, alpha=0.2)
 ax_c.tick_params(colors="white")
@@ -397,14 +439,11 @@ ax_c.tick_params(colors="white")
 # Panel D, E, F: collapse-phase analog
 ax_d = fig.add_subplot(gs[1, 2])
 ax_d.set_facecolor("#0f0f0f")
-ax_d.plot(r_samples[:len(v_axis_low)], v_axis_low, "C1o-", lw=2, ms=8,
-          label="Collapse: +x axis (cubic)")
-ax_d.plot(r_samples[:len(v_diag_low)], v_diag_low, "C0s--", lw=2, ms=8,
-          label="Collapse: diagonal")
+ax_d.plot(r_samples[: len(v_axis_low)], v_axis_low, "C1o-", lw=2, ms=8, label="Collapse: +x axis (cubic)")
+ax_d.plot(r_samples[: len(v_diag_low)], v_diag_low, "C0s--", lw=2, ms=8, label="Collapse: diagonal")
 ax_d.set_xlabel("r (cells from center)", color="white")
 ax_d.set_ylabel("|V|", color="white")
-ax_d.set_title("COLLAPSE phase: axis vs diagonal\n(cubic axes have visibly more amplitude)",
-                color="white", fontsize=11)
+ax_d.set_title("COLLAPSE phase: axis vs diagonal\n(cubic axes have visibly more amplitude)", color="white", fontsize=11)
 ax_d.legend(loc="best", fontsize=8)
 ax_d.grid(True, alpha=0.2)
 ax_d.tick_params(colors="white")
@@ -432,16 +471,26 @@ summary = (
     f"This is the K4 substrate's geometric signature becoming directly visible.\n"
     f"Consistent with K4-TLM bench validation's cardinal/diagonal velocity ratio √2.\n"
 )
-ax_e.text(0.01, 0.99, summary, transform=ax_e.transAxes,
-          fontsize=10, family="monospace", verticalalignment="top",
-          color="white",
-          bbox=dict(boxstyle="round,pad=0.5", facecolor="#181818",
-                     edgecolor="#444"))
+ax_e.text(
+    0.01,
+    0.99,
+    summary,
+    transform=ax_e.transAxes,
+    fontsize=10,
+    family="monospace",
+    verticalalignment="top",
+    color="white",
+    bbox=dict(boxstyle="round,pad=0.5", facecolor="#181818", edgecolor="#444"),
+)
 
-fig.suptitle("HIGH (spherical) vs COLLAPSE (cubic) — K4 substrate symmetry visible at low amplitude",
-             color="white", fontsize=13, y=0.995)
+fig.suptitle(
+    "HIGH (spherical) vs COLLAPSE (cubic) — K4 substrate symmetry visible at low amplitude",
+    color="white",
+    fontsize=13,
+    y=0.995,
+)
 
-fig2_path = OUT / "v14_cubic_vs_spherical_compare.png"
+fig2_path = sim_output("v14_cubic_vs_spherical_compare.png")
 plt.savefig(fig2_path, dpi=150, facecolor="#0a0a0a", bbox_inches="tight")
 print(f"  {fig2_path}")
 plt.close(fig)

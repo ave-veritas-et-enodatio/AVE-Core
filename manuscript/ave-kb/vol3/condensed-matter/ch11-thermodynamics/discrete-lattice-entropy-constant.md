@@ -1,6 +1,9 @@
 [↑ Ch.11 Thermodynamics](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from four-entropy-distinction + AVE BH horizon area theorem as canonical Flag 62-G closure -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-cfd5yf]
+-->
 
 # Discrete-Lattice $\hat S_{\text{horizon}} \approx 8.7 \, k_B$: Universal Constant Under Symmetric Saturation
 

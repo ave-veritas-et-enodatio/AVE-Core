@@ -1,6 +1,10 @@
 [↑ Ch.1 Vacuum Circuit Analysis](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol1 ch6 universal-operators + vol3 ch3 gravity + Theorem 3.1 Q-factor as canonical Op14 local-clock-modulation -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-1eg13f]
+path-stable: "referenced from vol1 ch6 universal-operators + vol3 ch3 gravity + Theorem 3.1 Q-factor as canonical Op14 local-clock-modulation"
+-->
 
 # Op14 Saturation Modulates Local Clock Rate
 
@@ -111,9 +115,9 @@ The Op14 local-clock mechanism is testable wherever local saturation can be modu
   - Vol 4 Ch 1 §sec:thixotropic-relaxation — Op14 dynamic impedance derivation
   - Vol 1 Ch 6 (universal operators) — Op14 in operator catalog
 - **KB cross-cutting:**
-  - [Lattice Impedance Decomposition](lattice-impedance-decomposition.md) — $Z_{\text{eff}}(r) = Z_0 / \sqrt{S}$ canonical
+  - [Lattice Impedance Decomposition](../../../vol1/operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md) — $Z_{\text{eff}}(r) = Z_0 / \sqrt{S}$ canonical
   - [Theorem 3.1 Q-factor](theorem-3-1-q-factor.md) — TIR-boundary leakage at Op14-modulated impedance
-  - [Universal Saturation-Kernel Catalog (A-034)](../../../common/universal-saturation-kernel-catalog.md) — Op14 as 21-instance kernel application
+  - [Universal Saturation-Kernel Catalog (A-034)](../../../common/universal-saturation-kernel-catalog.md) — Op14 as 26-instance kernel application
   - [Boundary Observables $\mathcal{M}, \mathcal{Q}, \mathcal{J}$](../../../common/boundary-observables-m-q-j.md) — substrate-observability rule using local-clock-frozen interior
   - [Substrate-Perspective Electron](../../../vol2/particle-physics/ch01-topological-matter/substrate-perspective-electron.md) — operational view of local-clock-slowing at canonical electron
   - [Photon Identification](../../../vol1/dynamics/ch4-continuum-electrodynamics/photon-identification.md) — free photon at sub-saturation has $\omega_{\text{local}} \approx \omega_{\text{global}}$ (Regime I); electron formation engages Op14 at $V_{\text{yield}}$

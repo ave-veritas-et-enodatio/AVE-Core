@@ -38,19 +38,21 @@ Mode III FAIL = bound state doesn't form even on direct Master Equation
 integration → framework requires axiom-level revision (Reading A/B
 from doc 92 §4).
 """
+
 import sys
 import time
 from pathlib import Path
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.gridspec import GridSpec
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from ave.core.master_equation_fdtd import MasterEquationFDTD
 from ave.core.constants import ALPHA, ALPHA_COLD_INV
+from ave.core.master_equation_fdtd import MasterEquationFDTD
+from ave_path_util import sim_output
 
 print("=" * 78)
 print("R10 v14 on Master Equation FDTD — Path B per doc 111 §6.1")
@@ -63,7 +65,7 @@ print()
 # =============================================================================
 # Configuration
 # =============================================================================
-N = 32                              # 3D lattice side (manageable; ~32k cells)
+N = 32  # 3D lattice side (manageable; ~32k cells)
 DX = 1.0
 V_YIELD = 1.0
 C0 = 1.0
@@ -90,8 +92,13 @@ print("TEST A — Linear Maxwell limit (A ≪ 1, S ≈ 1, c_eff ≈ c₀)")
 print("=" * 78)
 
 engine_A = MasterEquationFDTD(
-    N=N, dx=DX, V_yield=V_YIELD, c0=C0,
-    pml_thickness=PML, A_cap=A_CAP, S_min=S_MIN,
+    N=N,
+    dx=DX,
+    V_yield=V_YIELD,
+    c0=C0,
+    pml_thickness=PML,
+    A_cap=A_CAP,
+    S_min=S_MIN,
 )
 print(repr(engine_A))
 
@@ -153,15 +160,20 @@ print("TEST B — IM3 cubic sanity (A ~ 0.3, Regime I→II transition)")
 print("=" * 78)
 
 engine_B = MasterEquationFDTD(
-    N=N, dx=DX, V_yield=V_YIELD, c0=C0,
-    pml_thickness=PML, A_cap=A_CAP, S_min=S_MIN,
+    N=N,
+    dx=DX,
+    V_yield=V_YIELD,
+    c0=C0,
+    pml_thickness=PML,
+    A_cap=A_CAP,
+    S_min=S_MIN,
 )
 
 src_pos_B = (N // 2, N // 2, N // 2)
 probe_pos_B = (N // 2 + 4, N // 2, N // 2)  # 4 cells away
 
 # Two-tone drive
-f1 = 0.05 / engine_B.dt   # in time-unit frequency
+f1 = 0.05 / engine_B.dt  # in time-unit frequency
 f2 = 0.07 / engine_B.dt
 f_im3 = 2 * f1 - f2
 
@@ -175,19 +187,23 @@ print(f"  Sweep {len(amplitudes_B)} amplitudes × 1500 timesteps")
 n_steps_B = 1500
 for ai, amp in enumerate(amplitudes_B):
     engine = MasterEquationFDTD(
-        N=N, dx=DX, V_yield=V_YIELD, c0=C0,
-        pml_thickness=PML, A_cap=A_CAP, S_min=S_MIN,
+        N=N,
+        dx=DX,
+        V_yield=V_YIELD,
+        c0=C0,
+        pml_thickness=PML,
+        A_cap=A_CAP,
+        S_min=S_MIN,
     )
 
     def source(t, A=amp):
         return A * (np.cos(2 * np.pi * f1 * t) + np.cos(2 * np.pi * f2 * t))
 
-    probe_data = engine.run(n_steps_B, source_fn=source, source_pos=src_pos_B,
-                              probe_pos=probe_pos_B)
+    probe_data = engine.run(n_steps_B, source_fn=source, source_pos=src_pos_B, probe_pos=probe_pos_B)
 
     # FFT
     if probe_data is not None and len(probe_data) > 100:
-        steady = probe_data[n_steps_B // 4:]
+        steady = probe_data[n_steps_B // 4 :]
         spec = np.fft.rfft(steady - steady.mean())
         freqs = np.fft.rfftfreq(len(steady), d=engine.dt)
         idx_f1 = int(round(f1 * len(steady) * engine.dt))
@@ -231,15 +247,20 @@ print("TEST C — v14 single-cell bounded boundary on Master Equation FDTD")
 print("=" * 78)
 
 engine_C = MasterEquationFDTD(
-    N=N, dx=DX, V_yield=V_YIELD, c0=C0,
-    pml_thickness=PML, A_cap=A_CAP, S_min=S_MIN,
+    N=N,
+    dx=DX,
+    V_yield=V_YIELD,
+    c0=C0,
+    pml_thickness=PML,
+    A_cap=A_CAP,
+    S_min=S_MIN,
 )
 print(repr(engine_C))
 
 # Plant a localized high-V blob near saturation at center
 center = (N // 2, N // 2, N // 2)
 SEED_AMPLITUDE = 0.95 * V_YIELD  # near saturation
-SEED_RADIUS = 2.0                # localization scale (lattice cells)
+SEED_RADIUS = 2.0  # localization scale (lattice cells)
 
 print(f"  Center: {center}")
 print(f"  Seed amplitude: {SEED_AMPLITUDE} ({SEED_AMPLITUDE/V_YIELD*100:.0f}% of V_yield)")
@@ -247,8 +268,10 @@ print(f"  Seed radius: {SEED_RADIUS} cells")
 print(f"  Seed profile: sech(r/R) (canonical soliton shape)")
 
 engine_C.inject_localized_blob(
-    center=center, radius=SEED_RADIUS,
-    amplitude=SEED_AMPLITUDE, profile="sech",
+    center=center,
+    radius=SEED_RADIUS,
+    amplitude=SEED_AMPLITUDE,
+    profile="sech",
 )
 
 V_initial = engine_C.V.copy()
@@ -258,6 +281,7 @@ print(f"  Initial peak V at center: {V_center_initial:.4f}")
 print(f"  Initial peak A (strain) anywhere: {A_max_initial:.4f}")
 print(f"  Initial total energy: {engine_C.total_energy():.4f}")
 print()
+
 
 # Diagnostic functions
 def fwhm_3d(V):
@@ -272,7 +296,7 @@ def fwhm_3d(V):
     # FWHM diameter as (volume above half-max)^(1/3) scaled by sphere factor
     n_cells = above_half.sum()
     # Approximate as a sphere: V_sphere = (4/3)π·r³ → r = (3·V/(4π))^(1/3) → diameter = 2·r
-    radius = (3 * n_cells / (4 * np.pi)) ** (1.0/3.0)
+    radius = (3 * n_cells / (4 * np.pi)) ** (1.0 / 3.0)
     return 2.0 * radius
 
 
@@ -310,18 +334,16 @@ def q_factor_decomposition_C(engine_C, R_boundary):
     cx, cy, cz = center
     i, j, k = np.indices(engine_C.V.shape)
     r = np.sqrt((i - cx) ** 2 + (j - cy) ** 2 + (k - cz) ** 2)
-    V_sq = engine_C.V ** 2
+    V_sq = engine_C.V**2
     V_center = engine_C.V[center]
     if abs(V_center) < 1e-10:
         return 0.0, 0.0, 0.0
-    V_normalized = V_sq / (V_center ** 2)
+    V_normalized = V_sq / (V_center**2)
 
     volume_mask = r < R_boundary
     surface_mask = (r >= R_boundary - 0.5) & (r < R_boundary + 0.5)
     z_axis = (i - cx) ** 2 + (j - cy) ** 2
-    line_mask = ((np.abs(k - cz) < 1) &
-                 (np.sqrt(z_axis) >= R_boundary - 0.5) &
-                 (np.sqrt(z_axis) < R_boundary + 0.5))
+    line_mask = (np.abs(k - cz) < 1) & (np.sqrt(z_axis) >= R_boundary - 0.5) & (np.sqrt(z_axis) < R_boundary + 0.5)
 
     L_vol = float(np.sum(V_normalized[volume_mask]))
     L_surf = float(np.sum(V_normalized[surface_mask]))
@@ -334,9 +356,13 @@ N_STEPS_C = 2000
 LOG_CADENCE_C = 50
 
 history_C = {
-    "step": [], "t": [],
-    "V_center": [], "V_peak": [], "A_max": [],
-    "FWHM": [], "total_energy": [],
+    "step": [],
+    "t": [],
+    "V_center": [],
+    "V_peak": [],
+    "A_max": [],
+    "FWHM": [],
+    "total_energy": [],
 }
 
 history_C["step"].append(0)
@@ -361,11 +387,13 @@ for step in range(1, N_STEPS_C + 1):
         history_C["FWHM"].append(fwhm_3d(engine_C.V))
         history_C["total_energy"].append(engine_C.total_energy())
         if step % (LOG_CADENCE_C * 10) == 0 or step == LOG_CADENCE_C:
-            print(f"  step={step:>4d}  V_center={history_C['V_center'][-1]:.4f}  "
-                  f"V_peak={history_C['V_peak'][-1]:.4f}  "
-                  f"A_max={history_C['A_max'][-1]:.4f}  "
-                  f"FWHM={history_C['FWHM'][-1]:.2f}  "
-                  f"E={history_C['total_energy'][-1]:.3e}")
+            print(
+                f"  step={step:>4d}  V_center={history_C['V_center'][-1]:.4f}  "
+                f"V_peak={history_C['V_peak'][-1]:.4f}  "
+                f"A_max={history_C['A_max'][-1]:.4f}  "
+                f"FWHM={history_C['FWHM'][-1]:.2f}  "
+                f"E={history_C['total_energy'][-1]:.3e}"
+            )
 
 print(f"\nDynamics complete in {time.time() - t_start:.1f}s.")
 print()
@@ -480,12 +508,9 @@ print("=" * 78)
 # Visualization
 # =============================================================================
 print("\nGenerating visualization...")
-OUT = REPO_ROOT / "assets" / "sim_outputs"
-OUT.mkdir(parents=True, exist_ok=True)
 
 fig = plt.figure(figsize=(17, 11), facecolor="#0a0a0a")
-gs = GridSpec(3, 4, figure=fig, hspace=0.4, wspace=0.35,
-              height_ratios=[1.0, 1.0, 0.7])
+gs = GridSpec(3, 4, figure=fig, hspace=0.4, wspace=0.35, height_ratios=[1.0, 1.0, 0.7])
 
 # Panel A: Test A linear propagation
 axA = fig.add_subplot(gs[0, 0])
@@ -493,8 +518,7 @@ for pi, p in enumerate(V_at_probes):
     axA.plot(t_array_A, p, lw=1.5, label=f"+{(pi + 1) * 2} cells")
 axA.set_xlabel("t")
 axA.set_ylabel("V at probe")
-axA.set_title(f"Test A: Linear Maxwell ({'PASS' if test_A_pass else 'FAIL'})\n"
-              f"c_measured = {c_measured:.3f}")
+axA.set_title(f"Test A: Linear Maxwell ({'PASS' if test_A_pass else 'FAIL'})\n" f"c_measured = {c_measured:.3f}")
 axA.legend(loc="best", fontsize=8)
 axA.grid(True, alpha=0.2)
 
@@ -510,8 +534,7 @@ if np.any(im3_amps > 0):
             axB.loglog(amplitudes_B, v3, "C3:", lw=2, label="V³ (slope 3)")
 axB.set_xlabel("Drive amplitude")
 axB.set_ylabel("IM3 amplitude")
-axB.set_title(f"Test B: IM3 cubic ({'PASS' if test_B_pass else 'FAIL'})\n"
-              f"Slope = {slope_B:.3f}")
+axB.set_title(f"Test B: IM3 cubic ({'PASS' if test_B_pass else 'FAIL'})\n" f"Slope = {slope_B:.3f}")
 axB.legend(loc="best", fontsize=8)
 axB.grid(True, which="both", alpha=0.2)
 
@@ -519,8 +542,7 @@ axB.grid(True, which="both", alpha=0.2)
 axC = fig.add_subplot(gs[0, 2])
 axC.plot(history_C["t"], history_C["V_center"], "C2-", lw=2, label="V at center")
 axC.plot(history_C["t"], history_C["V_peak"], "C0-", lw=2, label="V peak anywhere")
-axC.axhline(V_center_initial * 0.5, color="C3", ls="--", lw=1,
-             label="50% threshold")
+axC.axhline(V_center_initial * 0.5, color="C3", ls="--", lw=1, label="50% threshold")
 axC.set_xlabel("t")
 axC.set_ylabel("V")
 axC.set_title(f"Test C Test 1: V persistence\n{'PASS' if test_C1_pass else 'FAIL'}")
@@ -541,8 +563,7 @@ axD.grid(True, alpha=0.2)
 # Panel E: |V| cross-section z=cz (initial)
 axE = fig.add_subplot(gs[1, 0])
 V_init_slice = V_initial[:, :, N // 2]
-im = axE.imshow(np.abs(V_init_slice).T, origin="lower", cmap="hot",
-                extent=[0, N, 0, N], aspect="equal")
+im = axE.imshow(np.abs(V_init_slice).T, origin="lower", cmap="hot", extent=[0, N, 0, N], aspect="equal")
 axE.plot(center[0] + 0.5, center[1] + 0.5, "c*", ms=15, markeredgecolor="white")
 axE.set_title(f"|V| INITIAL (z={N//2})")
 plt.colorbar(im, ax=axE, fraction=0.046)
@@ -550,9 +571,15 @@ plt.colorbar(im, ax=axE, fraction=0.046)
 # Panel F: |V| cross-section z=cz (final)
 axF = fig.add_subplot(gs[1, 1])
 V_final_slice = engine_C.V[:, :, N // 2]
-im = axF.imshow(np.abs(V_final_slice).T, origin="lower", cmap="hot",
-                extent=[0, N, 0, N], aspect="equal",
-                vmin=0, vmax=max(np.abs(V_initial).max(), 1e-10))
+im = axF.imshow(
+    np.abs(V_final_slice).T,
+    origin="lower",
+    cmap="hot",
+    extent=[0, N, 0, N],
+    aspect="equal",
+    vmin=0,
+    vmax=max(np.abs(V_initial).max(), 1e-10),
+)
 axF.plot(center[0] + 0.5, center[1] + 0.5, "c*", ms=15, markeredgecolor="white")
 axF.set_title(f"|V| FINAL (z={N//2})")
 plt.colorbar(im, ax=axF, fraction=0.046)
@@ -605,10 +632,17 @@ summary = (
     f"  Nonlinear kernel (Test B): {'matches K4-TLM bench (2.956)' if test_B_pass else 'kernel implementation off'}\n"
     f"  Bound-state hosting (Test C): {'autonomous' if n_C_pass == 4 else 'partial - engineering needed'}"
 )
-axI.text(0.02, 0.95, summary, transform=axI.transAxes,
-         fontsize=9, family="monospace", verticalalignment="top",
-         color="white",
-         bbox=dict(boxstyle="round,pad=0.5", facecolor="#181818", edgecolor="#404040"))
+axI.text(
+    0.02,
+    0.95,
+    summary,
+    transform=axI.transAxes,
+    fontsize=9,
+    family="monospace",
+    verticalalignment="top",
+    color="white",
+    bbox=dict(boxstyle="round,pad=0.5", facecolor="#181818", edgecolor="#404040"),
+)
 
 for ax in [axA, axB, axC, axD, axE, axF, axG, axH]:
     ax.set_facecolor("#0f0f0f")
@@ -625,16 +659,19 @@ for ax in [axA, axB, axC, axD, axE, axF, axG, axH]:
         for text in leg.get_texts():
             text.set_color("white")
 
-fig.suptitle(f"Master Equation FDTD — Path B validation + v14 bound state ({mode_C[:30]})",
-             color="white", fontsize=14, y=0.995)
+fig.suptitle(
+    f"Master Equation FDTD — Path B validation + v14 bound state ({mode_C[:30]})", color="white", fontsize=14, y=0.995
+)
 
-out_path = OUT / "r10_master_equation_v14_path_b.png"
+out_path = sim_output("r10_master_equation_v14_path_b.png")
 plt.savefig(out_path, dpi=140, facecolor="#0a0a0a", bbox_inches="tight")
 print(f"  Figure: {out_path}")
 print()
 print("=" * 78)
-print(f"FINAL: Test A {'PASS' if test_A_pass else 'FAIL'} | "
-      f"Test B {'PASS' if test_B_pass else 'FAIL'} | "
-      f"Test C {n_C_pass}/4")
+print(
+    f"FINAL: Test A {'PASS' if test_A_pass else 'FAIL'} | "
+    f"Test B {'PASS' if test_B_pass else 'FAIL'} | "
+    f"Test C {n_C_pass}/4"
+)
 print(f"MODE C: {mode_C}")
 print("=" * 78)

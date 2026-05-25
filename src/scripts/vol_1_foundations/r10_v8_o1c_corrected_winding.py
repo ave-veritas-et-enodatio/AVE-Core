@@ -34,12 +34,12 @@ modified during transient.
 
 Same as O.1b: N=48, PML=4, amp=0.1, R=8, r=4, 50P.
 """
-from __future__ import annotations
 
 import json
 import sys
 import time
 from pathlib import Path
+
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
@@ -48,18 +48,19 @@ from scripts.vol_1_foundations.tlm_electron_soliton_eigenmode import (
     initialize_2_3_voltage_ansatz,
 )
 
-
 COMPTON_PERIOD = 2.0 * np.pi
 DT = 1.0 / np.sqrt(2.0)
 
 
 # K4 tetrahedral port directions (from IC seeder)
-PORTS = np.array([
-    [+1.0, +1.0, +1.0],
-    [+1.0, -1.0, -1.0],
-    [-1.0, +1.0, -1.0],
-    [-1.0, -1.0, +1.0],
-]) / np.sqrt(3.0)
+PORTS = np.array(
+    [
+        [+1.0, +1.0, +1.0],
+        [+1.0, -1.0, -1.0],
+        [-1.0, +1.0, -1.0],
+        [-1.0, -1.0, +1.0],
+    ]
+) / np.sqrt(3.0)
 
 
 def chirality_weight_at(phi, psi, R, r, port_idx):
@@ -74,7 +75,7 @@ def chirality_weight_at(phi, psi, R, r, port_idx):
     t_x = 2.0 * dphi_x + 3.0 * dpsi_x
     t_y = 2.0 * dphi_y + 3.0 * dpsi_y
     t_z = 2.0 * dphi_z + 3.0 * dpsi_z
-    t_mag = np.sqrt(t_x ** 2 + t_y ** 2 + t_z ** 2 + 1e-12)
+    t_mag = np.sqrt(t_x**2 + t_y**2 + t_z**2 + 1e-12)
     t_hat = np.array([t_x, t_y, t_z]) / t_mag
     return float(np.dot(PORTS[port_idx], t_hat))
 
@@ -96,7 +97,9 @@ def sample_v_inc_at(V_inc_field, phi_array, psi_value, R, r, N):
         y_real = cy + (R + r * np.cos(psi_value)) * np.sin(phi)
         z_real = cz + r * np.sin(psi_value)
 
-        ix = int(round(x_real)); iy = int(round(y_real)); iz = int(round(z_real))
+        ix = int(round(x_real))
+        iy = int(round(y_real))
+        iz = int(round(z_real))
         ix = max(1, min(N - 2, ix))
         iy = max(1, min(N - 2, iy))
         iz = max(1, min(N - 2, iz))
@@ -116,8 +119,7 @@ def sample_v_inc_at(V_inc_field, phi_array, psi_value, R, r, N):
         re_norm.append(v0_norm)
         im_norm.append(v2_norm)
 
-    return (np.array(re_raw), np.array(im_raw),
-            np.array(re_norm), np.array(im_norm))
+    return (np.array(re_raw), np.array(im_raw), np.array(re_norm), np.array(im_norm))
 
 
 def sample_v_inc_poloidal(V_inc_field, psi_array, phi_value, R, r, N):
@@ -129,7 +131,9 @@ def sample_v_inc_poloidal(V_inc_field, psi_array, phi_value, R, r, N):
         x_real = cx + (R + r * np.cos(psi)) * np.cos(phi_value)
         y_real = cy + (R + r * np.cos(psi)) * np.sin(phi_value)
         z_real = cz + r * np.sin(psi)
-        ix = int(round(x_real)); iy = int(round(y_real)); iz = int(round(z_real))
+        ix = int(round(x_real))
+        iy = int(round(y_real))
+        iz = int(round(z_real))
         ix = max(1, min(N - 2, ix))
         iy = max(1, min(N - 2, iy))
         iz = max(1, min(N - 2, iz))
@@ -152,8 +156,7 @@ def winding_number(re_arr, im_arr):
     # Unwrap
     unwrapped = np.unwrap(angles)
     # Add closure
-    closure = np.angle(np.exp(1j * (np.arctan2(im_arr[0], re_arr[0])
-                                     - np.arctan2(im_arr[-1], re_arr[-1]))))
+    closure = np.angle(np.exp(1j * (np.arctan2(im_arr[0], re_arr[0]) - np.arctan2(im_arr[-1], re_arr[-1]))))
     total = (unwrapped[-1] - unwrapped[0]) + closure
     return total / (2.0 * np.pi)
 
@@ -173,7 +176,9 @@ def main():
 
     t_start = time.time()
     engine = VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=0.0,
+        N=N,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -182,7 +187,10 @@ def main():
     )
 
     initialize_2_3_voltage_ansatz(
-        engine.k4, R=R_torus, r=r_torus, amplitude=amp_ic,
+        engine.k4,
+        R=R_torus,
+        r=r_torus,
+        amplitude=amp_ic,
     )
 
     # Verify IC encodes (2,3) BEFORE evolution
@@ -193,19 +201,14 @@ def main():
 
     # Toroidal at psi = π/4
     psi_tor = np.pi / 4
-    re_raw_t0, im_raw_t0, re_norm_t0, im_norm_t0 = sample_v_inc_at(
-        engine.k4.V_inc, phis, psi_tor, R_torus, r_torus, N
-    )
+    re_raw_t0, im_raw_t0, re_norm_t0, im_norm_t0 = sample_v_inc_at(engine.k4.V_inc, phis, psi_tor, R_torus, r_torus, N)
     w_tor_raw_t0 = winding_number(re_raw_t0, im_raw_t0)
     w_tor_norm_t0 = winding_number(re_norm_t0, im_norm_t0)
-    print(f"    Toroidal @ ψ=π/4: raw={w_tor_raw_t0:.3f}, "
-          f"chirality-normalized={w_tor_norm_t0:.3f} (target 2)")
+    print(f"    Toroidal @ ψ=π/4: raw={w_tor_raw_t0:.3f}, " f"chirality-normalized={w_tor_norm_t0:.3f} (target 2)")
 
     # Poloidal at phi = 0 (slightly off to avoid x-axis singularity)
     phi_pol = 0.1
-    re_pol_t0, im_pol_t0 = sample_v_inc_poloidal(
-        engine.k4.V_inc, psis, phi_pol, R_torus, r_torus, N
-    )
+    re_pol_t0, im_pol_t0 = sample_v_inc_poloidal(engine.k4.V_inc, psis, phi_pol, R_torus, r_torus, N)
     w_pol_norm_t0 = winding_number(re_pol_t0, im_pol_t0)
     print(f"    Poloidal @ φ=0.1: chirality-normalized={w_pol_norm_t0:.3f} (target 3)")
 
@@ -216,17 +219,19 @@ def main():
         engine.step()
         if step_i % 50 == 0:
             t_p = step_i * DT / COMPTON_PERIOD
-            a2 = np.sum(engine.k4.V_inc ** 2, axis=-1)
+            a2 = np.sum(engine.k4.V_inc**2, axis=-1)
             mask = engine.k4.mask_active
             a2_int = a2 * mask.astype(float)
-            a2_int[:PML, :, :] = 0; a2_int[N-PML:, :, :] = 0
-            a2_int[:, :PML, :] = 0; a2_int[:, N-PML:, :] = 0
-            a2_int[:, :, :PML] = 0; a2_int[:, :, N-PML:] = 0
+            a2_int[:PML, :, :] = 0
+            a2_int[N - PML :, :, :] = 0
+            a2_int[:, :PML, :] = 0
+            a2_int[:, N - PML :, :] = 0
+            a2_int[:, :, :PML] = 0
+            a2_int[:, :, N - PML :] = 0
             e_total = float(a2_int.sum())
             energy_traj.append((t_p, e_total))
             if step_i % 100 == 0:
-                print(f"    t={t_p:5.2f}P  E={e_total:.3e}  "
-                      f"({time.time() - t_start:.0f}s)", flush=True)
+                print(f"    t={t_p:5.2f}P  E={e_total:.3e}  " f"({time.time() - t_start:.0f}s)", flush=True)
 
     elapsed = time.time() - t_start
     print(f"\n  Engine evolution complete in {elapsed:.0f}s")
@@ -240,13 +245,10 @@ def main():
     w_tor_raw_t50 = winding_number(re_raw_t50, im_raw_t50)
     w_tor_norm_t50 = winding_number(re_norm_t50, im_norm_t50)
 
-    re_pol_t50, im_pol_t50 = sample_v_inc_poloidal(
-        engine.k4.V_inc, psis, phi_pol, R_torus, r_torus, N
-    )
+    re_pol_t50, im_pol_t50 = sample_v_inc_poloidal(engine.k4.V_inc, psis, phi_pol, R_torus, r_torus, N)
     w_pol_norm_t50 = winding_number(re_pol_t50, im_pol_t50)
 
-    print(f"    Toroidal @ ψ=π/4: raw={w_tor_raw_t50:.3f}, "
-          f"chirality-normalized={w_tor_norm_t50:.3f} (target 2)")
+    print(f"    Toroidal @ ψ=π/4: raw={w_tor_raw_t50:.3f}, " f"chirality-normalized={w_tor_norm_t50:.3f} (target 2)")
     print(f"    Poloidal @ φ=0.1: chirality-normalized={w_pol_norm_t50:.3f} (target 3)")
 
     # Comparison summary
@@ -264,8 +266,7 @@ def main():
     print(f"\n  VERDICT")
     print(f"  Toroidal winding (target 2): {'PASS' if tor_pass else 'FAIL'}")
     print(f"  Poloidal winding (target 3): {'PASS' if pol_pass else 'FAIL'}")
-    print(f"  Engine sustains real-space (2,3) topology: "
-          f"{'PASS' if h_pass else 'FAIL'}")
+    print(f"  Engine sustains real-space (2,3) topology: " f"{'PASS' if h_pass else 'FAIL'}")
 
     # Energy retention
     if energy_traj:

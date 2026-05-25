@@ -1,12 +1,10 @@
-import glob
 import os
-import pathlib
 import re
 
-chapters_dir = (
-    f"{str(pathlib.Path(__file__).parent.parent.parent.parent.absolute())}/manuscript/vol_3_macroscopic/chapters/"
-)
-files = glob.glob(chapters_dir + "*.tex")
+from ave_path_util import manuscript_path
+
+chapters_dir = manuscript_path("vol_3_macroscopic", "chapters")
+files = [str(p) for p in chapters_dir.glob("*.tex")]
 
 for file in files:
     with open(file, "r") as f:

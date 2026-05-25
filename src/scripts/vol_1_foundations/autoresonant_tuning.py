@@ -21,51 +21,67 @@ Outputs:
     /tmp/autoresonant_tuning.png
     /tmp/autoresonant_tuning.npz
 """
-from __future__ import annotations
 
 import os
 import sys
+
 sys.path.insert(0, os.path.dirname(__file__))
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from ave.topological.vacuum_engine import (
-    VacuumEngine3D,
-    CWSource,
     AutoresonantCWSource,
+    CWSource,
     DarkWakeObserver,
     RegimeClassifierObserver,
     TopologyObserver,
+    VacuumEngine3D,
 )
 
 
-def run_one(K_drift: float, N: int = 32, n_steps: int = 150,
-            lambda_cells: float = 7.0, amplitude: float = 0.5,
-            temperature: float = 0.1) -> dict:
+def run_one(
+    K_drift: float,
+    N: int = 32,
+    n_steps: int = 150,
+    lambda_cells: float = 7.0,
+    amplitude: float = 0.5,
+    temperature: float = 0.1,
+) -> dict:
     """Single config: one autoresonant CW source at (x=8, +x̂)."""
     engine = VacuumEngine3D.from_args(
-        N=N, pml=5, temperature=temperature,
+        N=N,
+        pml=5,
+        temperature=temperature,
         amplitude_convention="V_SNAP",
     )
     omega_0 = 2.0 * np.pi * engine.k4.c / (lambda_cells * engine.k4.dx)
-    t_ramp = 5 * (2.0 * np.pi / omega_0)   # 5 periods ramp
+    t_ramp = 5 * (2.0 * np.pi / omega_0)  # 5 periods ramp
     t_sustain = 15 * (2.0 * np.pi / omega_0)
 
     if K_drift <= 0.0:
         # Fixed-f baseline — use regular CWSource
         src = CWSource(
-            x0=8, direction=(1.0, 0.0, 0.0),
-            amplitude=amplitude, omega=omega_0,
-            sigma_yz=3.0, t_ramp=t_ramp, t_sustain=t_sustain,
+            x0=8,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=amplitude,
+            omega=omega_0,
+            sigma_yz=3.0,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
         )
     else:
         src = AutoresonantCWSource(
-            x0=8, direction=(1.0, 0.0, 0.0),
-            amplitude=amplitude, omega=omega_0,
-            sigma_yz=3.0, t_ramp=t_ramp, t_sustain=t_sustain,
+            x0=8,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=amplitude,
+            omega=omega_0,
+            sigma_yz=3.0,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
             K_drift=K_drift,
         )
     engine.add_source(src)
@@ -121,15 +137,19 @@ def run_one(K_drift: float, N: int = 32, n_steps: int = 150,
 def run_sweep() -> list[dict]:
     K_drifts = [0.0, 0.1, 0.3, 0.5, 1.0, 2.0]
     results = []
-    print(f"{'K_drift':>8}  {'stable':>7}  {'ω_min/ω_0':>10}  {'max A²_k4':>10}  "
-          f"{'max A²_cos':>11}  {'max τ_zx':>10}  {'#cent':>5}")
+    print(
+        f"{'K_drift':>8}  {'stable':>7}  {'ω_min/ω_0':>10}  {'max A²_k4':>10}  "
+        f"{'max A²_cos':>11}  {'max τ_zx':>10}  {'#cent':>5}"
+    )
     for K in K_drifts:
         r = run_one(K)
         stable = (r["omega_min"] > 0) and (r["omega_max"] < 3 * r["omega_0"])
-        print(f"{K:>8.2f}  {'YES' if stable else 'NO':>7}  "
-              f"{r['omega_min']/r['omega_0']:>10.3f}  "
-              f"{r['max_A2_k4']:>10.3f}  {r['max_A2_cos']:>11.3f}  "
-              f"{r['max_tau_zx']:>10.3e}  {r['max_centroids']:>5d}")
+        print(
+            f"{K:>8.2f}  {'YES' if stable else 'NO':>7}  "
+            f"{r['omega_min']/r['omega_0']:>10.3f}  "
+            f"{r['max_A2_k4']:>10.3f}  {r['max_A2_cos']:>11.3f}  "
+            f"{r['max_tau_zx']:>10.3e}  {r['max_centroids']:>5d}"
+        )
         r["stable"] = stable
         results.append(r)
     return results
@@ -142,13 +162,13 @@ def render(results: list[dict], out: str) -> None:
     ax = axes[0, 0]
     for r in results:
         if r["K_drift"] > 0:
-            ax.plot(r["omega_history"] / r["omega_0"], lw=1.2,
-                    label=f"K_drift={r['K_drift']}")
+            ax.plot(r["omega_history"] / r["omega_0"], lw=1.2, label=f"K_drift={r['K_drift']}")
     ax.axhline(1.0, color="k", ls="--", lw=0.8, alpha=0.6)
     ax.set_xlabel("step")
     ax.set_ylabel("ω / ω_0")
     ax.set_title("Autoresonant frequency tracking")
-    ax.legend(fontsize=8); ax.grid(alpha=0.3)
+    ax.legend(fontsize=8)
+    ax.grid(alpha=0.3)
 
     # Panel 2: probe A² for each K_drift
     ax = axes[0, 1]
@@ -158,7 +178,8 @@ def render(results: list[dict], out: str) -> None:
     ax.set_ylabel("A²_probe (at probe plane)")
     ax.set_yscale("symlog", linthresh=1e-6)
     ax.set_title("Probe strain history")
-    ax.legend(fontsize=8); ax.grid(alpha=0.3)
+    ax.legend(fontsize=8)
+    ax.grid(alpha=0.3)
 
     # Panel 3: max_A²_total across K_drifts
     ax = axes[1, 0]
@@ -169,7 +190,8 @@ def render(results: list[dict], out: str) -> None:
     ax.set_xlabel("K_drift")
     ax.set_ylabel("peak A²")
     ax.set_title("Saturation response vs gain")
-    ax.legend(fontsize=8); ax.grid(alpha=0.3)
+    ax.legend(fontsize=8)
+    ax.grid(alpha=0.3)
 
     # Panel 4: max τ_zx across K_drifts
     ax = axes[1, 1]
@@ -188,6 +210,7 @@ def render(results: list[dict], out: str) -> None:
 
 if __name__ == "__main__":
     import json
+
     print("── Stage 4c: AutoresonantCWSource K_drift tuning ──\n")
     results = run_sweep()
     render(results, out="/tmp/autoresonant_tuning.png")
@@ -204,7 +227,8 @@ if __name__ == "__main__":
             "max_A2_tot": r["max_A2_tot"],
             "max_tau_zx": r["max_tau_zx"],
             "max_centroids": r["max_centroids"],
-        } for r in results
+        }
+        for r in results
     ]
     print("\n── Summary ──")
     print(json.dumps(summary, indent=2))

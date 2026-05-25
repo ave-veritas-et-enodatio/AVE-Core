@@ -15,13 +15,9 @@ Run:
     pytest src/tests/test_fdtd3d_cavity_e_b_correlation.py -v -s
 """
 
-from __future__ import annotations
-
 import numpy as np
-import pytest
 
 from ave.core.fdtd_3d import FDTD3DEngine
-
 
 # Lattice + sim params
 N = 32
@@ -72,12 +68,18 @@ def _run_cavity(engine, n_steps, seed_amplitude=1.0, sigma=3.0, apply_abc=True):
             engine.apply_mur_abc()
         else:
             # PEC walls: tangential E = 0 at boundaries
-            engine.Ex[:, 0, :] = 0; engine.Ex[:, -1, :] = 0
-            engine.Ex[:, :, 0] = 0; engine.Ex[:, :, -1] = 0
-            engine.Ey[0, :, :] = 0; engine.Ey[-1, :, :] = 0
-            engine.Ey[:, :, 0] = 0; engine.Ey[:, :, -1] = 0
-            engine.Ez[0, :, :] = 0; engine.Ez[-1, :, :] = 0
-            engine.Ez[:, 0, :] = 0; engine.Ez[:, -1, :] = 0
+            engine.Ex[:, 0, :] = 0
+            engine.Ex[:, -1, :] = 0
+            engine.Ex[:, :, 0] = 0
+            engine.Ex[:, :, -1] = 0
+            engine.Ey[0, :, :] = 0
+            engine.Ey[-1, :, :] = 0
+            engine.Ey[:, :, 0] = 0
+            engine.Ey[:, :, -1] = 0
+            engine.Ez[0, :, :] = 0
+            engine.Ez[-1, :, :] = 0
+            engine.Ez[:, 0, :] = 0
+            engine.Ez[:, -1, :] = 0
         E_sq_series.append(total_E_sq(engine))
         B_sq_series.append(total_B_sq(engine))
     return np.array(E_sq_series), np.array(B_sq_series)
@@ -86,7 +88,9 @@ def _run_cavity(engine, n_steps, seed_amplitude=1.0, sigma=3.0, apply_abc=True):
 def test_textbook_cavity_E_B_anticorrelation_PEC():
     """ρ(Σ|E|², Σ|B|²) ≈ -1 on closed PEC cavity (textbook EE result, no absorption)."""
     engine = FDTD3DEngine(
-        nx=N, ny=N, nz=N,
+        nx=N,
+        ny=N,
+        nz=N,
         dx=DX,
         linear_only=True,
         use_pml=False,
@@ -107,9 +111,7 @@ def test_textbook_cavity_E_B_anticorrelation_PEC():
     print(f"  Σ|E|² mean = {E_post.mean():.3e}, std = {E_post.std():.3e}")
     print(f"  Σ|B|² mean = {B_post.mean():.3e}, std = {B_post.std():.3e}")
 
-    assert rho <= RHO_THRESHOLD, (
-        f"PEC cavity ρ = {rho:.4f} not at textbook -1; expected ≤ {RHO_THRESHOLD}"
-    )
+    assert rho <= RHO_THRESHOLD, f"PEC cavity ρ = {rho:.4f} not at textbook -1; expected ≤ {RHO_THRESHOLD}"
 
 
 def test_E_B_anticorrelation_with_ABC():
@@ -119,7 +121,9 @@ def test_E_B_anticorrelation_with_ABC():
     correlation degrades from textbook -1. ρ ≈ -0.7 to -0.9 is expected.
     """
     engine = FDTD3DEngine(
-        nx=N, ny=N, nz=N,
+        nx=N,
+        ny=N,
+        nz=N,
         dx=DX,
         linear_only=True,
         use_pml=False,

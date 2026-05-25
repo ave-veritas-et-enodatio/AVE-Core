@@ -27,7 +27,7 @@ If z_0 is path-count-derived: 4 primary K4 + |T|·z_K4 secondary = 4 + 48 = 52, 
 
 Key prior findings from corpus-grep:
 - z_0 = 51.25 is currently EMT-inversion-given-α (per [`appendix_c_derived_numerology.tex:60-74`](../manuscript/backmatter/appendix_c_derived_numerology.tex:60))
-- First-principles derivation flagged as Sessions 19+ open ([`closure-roadmap.md:30`](../manuscript/ave-kb/common/closure-roadmap.md:30))
+- First-principles derivation flagged as Sessions 19+ open ([`closure-roadmap.md:30`](../manuscript/ave-kb/claim-quality-closure-roadmap.md:30))
 - Path C doc 129 uses FTG-EMT at z_0 input (doesn't derive z_0)
 - Vol 3 Ch 1 §3.2 asserts amorphous-network mechanism without explicit g(r)
 - |T| = 12 is K4 path-count multiplicity (4 B-neighbors × 3 other-A sublattices, per A-032)

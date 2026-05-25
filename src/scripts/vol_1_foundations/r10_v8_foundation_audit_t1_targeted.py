@@ -16,7 +16,6 @@ Candidate frequencies to evaluate (from Test 1 main + corpus):
 For each engine setting, find FFT magnitude in a small window (±0.05·ω_C)
 around each candidate. Compare magnitudes across settings.
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -28,7 +27,6 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
 from ave.topological.vacuum_engine import VacuumEngine3D
-
 
 CANDIDATE_OMEGAS = {
     "ω_TL = ω_C/√3": 1.0 / np.sqrt(3.0),
@@ -46,11 +44,12 @@ def run_pulse_targeted(N, v_pulse, enable_cos_self, label, n_periods=100):
     COMPTON_PERIOD = 2.0 * np.pi
     N_STEPS = int(n_periods * COMPTON_PERIOD / DT)
 
-    print(f"\n  [{label}] N={N}, PML={PML}, V_pulse={v_pulse}, cos_self={enable_cos_self}",
-          flush=True)
+    print(f"\n  [{label}] N={N}, PML={PML}, V_pulse={v_pulse}, cos_self={enable_cos_self}", flush=True)
 
     engine = VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=0.0,
+        N=N,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=enable_cos_self,
@@ -78,8 +77,7 @@ def run_pulse_targeted(N, v_pulse, enable_cos_self, label, n_periods=100):
     candidate_mags = {}
     print(f"    {'Candidate':<26} {'ω_target':>9} {'mag':>11}")
     for name, omega_target in CANDIDATE_OMEGAS.items():
-        mask = (omegas_per_freq >= omega_target - half_window) & \
-               (omegas_per_freq <= omega_target + half_window)
+        mask = (omegas_per_freq >= omega_target - half_window) & (omegas_per_freq <= omega_target + half_window)
         if mask.sum() == 0:
             mag = 0.0
         else:
@@ -88,9 +86,13 @@ def run_pulse_targeted(N, v_pulse, enable_cos_self, label, n_periods=100):
         print(f"    {name:<26} {omega_target:>9.4f} {mag:>11.4e}")
 
     return {
-        "label": label, "N": N, "PML": PML, "v_pulse": v_pulse,
+        "label": label,
+        "N": N,
+        "PML": PML,
+        "v_pulse": v_pulse,
         "enable_cosserat_self_terms": enable_cos_self,
-        "n_periods": n_periods, "elapsed_s": elapsed,
+        "n_periods": n_periods,
+        "elapsed_s": elapsed,
         "candidate_mags": candidate_mags,
         "v_traj_rms": float(np.sqrt(np.mean(v_traj**2))),
     }
@@ -106,16 +108,15 @@ def main():
 
     print("\n=== T1.1: Lattice-size scan ===")
     for N in [8, 16, 24]:
-        results.append(run_pulse_targeted(N=N, v_pulse=0.01, enable_cos_self=False,
-                                           label=f"N={N}, V=0.01, CosSelf=False"))
+        results.append(
+            run_pulse_targeted(N=N, v_pulse=0.01, enable_cos_self=False, label=f"N={N}, V=0.01, CosSelf=False")
+        )
 
     print("\n=== T1.3: Saturated amplitude ===")
-    results.append(run_pulse_targeted(N=16, v_pulse=0.95, enable_cos_self=False,
-                                       label="N=16, V=0.95, CosSelf=False"))
+    results.append(run_pulse_targeted(N=16, v_pulse=0.95, enable_cos_self=False, label="N=16, V=0.95, CosSelf=False"))
 
     print("\n=== T1.4: Cosserat self-terms enabled ===")
-    results.append(run_pulse_targeted(N=16, v_pulse=0.01, enable_cos_self=True,
-                                       label="N=16, V=0.01, CosSelf=True"))
+    results.append(run_pulse_targeted(N=16, v_pulse=0.01, enable_cos_self=True, label="N=16, V=0.01, CosSelf=True"))
 
     # Summary table: magnitude at each candidate ω across all settings
     print("\n" + "=" * 78, flush=True)
@@ -136,8 +137,7 @@ def main():
     # Identify dominant non-Nyquist candidate per setting
     print("\n  Dominant non-Nyquist candidate per setting:")
     for r in results:
-        non_nyq_mags = {n: r["candidate_mags"][n]["mag"] for n in CANDIDATE_OMEGAS
-                        if "Nyquist" not in n}
+        non_nyq_mags = {n: r["candidate_mags"][n]["mag"] for n in CANDIDATE_OMEGAS if "Nyquist" not in n}
         dominant = max(non_nyq_mags, key=non_nyq_mags.get)
         print(f"    {r['label']:<32} → {dominant} (mag {non_nyq_mags[dominant]:.3e})")
 
@@ -151,13 +151,17 @@ def main():
     if sorted_mags[0] > 0:
         ratio_max_min = sorted_mags[-1] / sorted_mags[0]
         print(f"    Max/Min ratio: {ratio_max_min:.2f}")
-        print(f"    Mean: {np.mean(sorted_mags):.3e}, Std/Mean: "
-              f"{np.std(sorted_mags)/np.mean(sorted_mags):.2f}")
+        print(f"    Mean: {np.mean(sorted_mags):.3e}, Std/Mean: " f"{np.std(sorted_mags)/np.mean(sorted_mags):.2f}")
 
     # Save
     out_path = Path(__file__).parent / "r10_v8_foundation_audit_t1_targeted_results.json"
-    out_path.write_text(json.dumps({"candidate_omegas": {k: float(v) for k, v in CANDIDATE_OMEGAS.items()},
-                                     "results": results}, indent=2, default=str))
+    out_path.write_text(
+        json.dumps(
+            {"candidate_omegas": {k: float(v) for k, v in CANDIDATE_OMEGAS.items()}, "results": results},
+            indent=2,
+            default=str,
+        )
+    )
     print(f"\nSaved {out_path.relative_to(Path.cwd())}")
 
 

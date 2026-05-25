@@ -25,35 +25,36 @@ Decision rule
 - H1-AMBIGUOUS:   Partial clustering; needs a follow-up |ω|² spatial
                   heatmap to resolve.
 """
-from __future__ import annotations
 
 import os
 import sys
+
 sys.path.insert(0, os.path.dirname(__file__))
 
 import time
 from dataclasses import dataclass, field
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from ave.topological.vacuum_engine import (
-    VacuumEngine3D,
     AutoresonantCWSource,
     DarkWakeObserver,
+    EnergyBudgetObserver,
     RegimeClassifierObserver,
     TopologyObserver,
-    EnergyBudgetObserver,
+    VacuumEngine3D,
 )
 
 
 @dataclass
 class RunConfigV3:
-    wavelength: float = 3.5           # v2 headline λ
-    amplitude: float = 0.5            # v2 headline amp (× V_SNAP)
-    temperature: float = 0.1          # v2 headline T (m_e c²)
+    wavelength: float = 3.5  # v2 headline λ
+    amplitude: float = 0.5  # v2 headline amp (× V_SNAP)
+    temperature: float = 0.1  # v2 headline T (m_e c²)
     N: int = 40
     pml: int = 5
     t_ramp_periods: float = 3.0
@@ -61,9 +62,7 @@ class RunConfigV3:
     n_outer_steps: int = 300
     record_cadence: int = 5
     K_drift: float = 0.5
-    thresholds: list[float] = field(
-        default_factory=lambda: [0.1, 0.2, 0.3, 0.5, 0.7]
-    )
+    thresholds: list[float] = field(default_factory=lambda: [0.1, 0.2, 0.3, 0.5, 0.7])
 
     @property
     def omega_carrier(self) -> float:
@@ -72,7 +71,8 @@ class RunConfigV3:
 
 def run_h1(cfg: RunConfigV3) -> dict:
     engine = VacuumEngine3D.from_args(
-        N=cfg.N, pml=cfg.pml,
+        N=cfg.N,
+        pml=cfg.pml,
         temperature=cfg.temperature,
         amplitude_convention="V_SNAP",
     )
@@ -82,18 +82,30 @@ def run_h1(cfg: RunConfigV3) -> dict:
     source_offset = cfg.pml + 3
 
     # Identical source pair to v2 (counter-propagating along x̂)
-    engine.add_source(AutoresonantCWSource(
-        x0=source_offset, direction=(1.0, 0.0, 0.0),
-        amplitude=cfg.amplitude, omega=cfg.omega_carrier,
-        sigma_yz=3.5, t_ramp=t_ramp, t_sustain=t_sustain,
-        K_drift=cfg.K_drift,
-    ))
-    engine.add_source(AutoresonantCWSource(
-        x0=cfg.N - source_offset, direction=(-1.0, 0.0, 0.0),
-        amplitude=cfg.amplitude, omega=cfg.omega_carrier,
-        sigma_yz=3.5, t_ramp=t_ramp, t_sustain=t_sustain,
-        K_drift=cfg.K_drift,
-    ))
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=source_offset,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=cfg.amplitude,
+            omega=cfg.omega_carrier,
+            sigma_yz=3.5,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            K_drift=cfg.K_drift,
+        )
+    )
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=cfg.N - source_offset,
+            direction=(-1.0, 0.0, 0.0),
+            amplitude=cfg.amplitude,
+            omega=cfg.omega_carrier,
+            sigma_yz=3.5,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            K_drift=cfg.K_drift,
+        )
+    )
 
     regime_obs = RegimeClassifierObserver(cadence=cfg.record_cadence)
     topo_obs = TopologyObserver(
@@ -129,12 +141,14 @@ def run_h1(cfg: RunConfigV3) -> dict:
         all_centroids = []
         for h in topo_hist:
             for c in h["per_threshold"][tf]["centroids"]:
-                all_centroids.append({
-                    "t": h["t"],
-                    "center": c["center"],
-                    "peak_mag_sq": c["peak_mag_sq"],
-                    "n_cells": c["n_cells"],
-                })
+                all_centroids.append(
+                    {
+                        "t": h["t"],
+                        "center": c["center"],
+                        "peak_mag_sq": c["peak_mag_sq"],
+                        "n_cells": c["n_cells"],
+                    }
+                )
         per_thr_summary[tf] = {
             "max_n_centroids": int(max_n),
             "final_n_centroids": int(final_n),
@@ -152,8 +166,7 @@ def run_h1(cfg: RunConfigV3) -> dict:
     print(f"  {'thr':>5}  {'max #cent':>10}  {'final #cent':>12}")
     for tf in cfg.thresholds:
         s = per_thr_summary[tf]
-        print(f"  {tf:>5.2f}  {s['max_n_centroids']:>10d}  "
-              f"{s['final_n_centroids']:>12d}")
+        print(f"  {tf:>5.2f}  {s['max_n_centroids']:>10d}  " f"{s['final_n_centroids']:>12d}")
     print(f"  verdict:       {verdict}")
 
     return {
@@ -178,7 +191,8 @@ def run_h1(cfg: RunConfigV3) -> dict:
 
 
 def adjudicate_h1(
-    per_thr: dict[float, dict], cfg: RunConfigV3,
+    per_thr: dict[float, dict],
+    cfg: RunConfigV3,
 ) -> str:
     """Classify result as H1-PAIR / H1-DISTRIBUTED / H1-AMBIGUOUS.
 
@@ -248,10 +262,13 @@ def render(result: dict, out: str = "/tmp/h1_threshold_summary.png") -> None:
     ax.axhline(2, color="#2a7", ls=":", lw=1.0, label="pair threshold (n=2)")
     ax.set_xlabel("threshold_frac")
     ax.set_ylabel("# centroids")
-    ax.set_title("Centroid count vs detection threshold\n"
-                 f"(λ={cfg['wavelength']}, T={cfg['temperature']}, "
-                 f"K_drift={cfg['K_drift']})")
-    ax.legend(fontsize=9); ax.grid(alpha=0.3)
+    ax.set_title(
+        "Centroid count vs detection threshold\n"
+        f"(λ={cfg['wavelength']}, T={cfg['temperature']}, "
+        f"K_drift={cfg['K_drift']})"
+    )
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.3)
     ax.set_xticks(thresholds)
 
     # Panel 2: spatial scatter at the LOWEST non-trivial threshold
@@ -261,21 +278,15 @@ def render(result: dict, out: str = "/tmp/h1_threshold_summary.png") -> None:
     for i, t in enumerate(thresholds):
         color = colormap(i / max(1, len(thresholds) - 1))
         xs = [c["center"][0] for c in per_thr[t]["all_centroids"]]
-        yzs = [
-            0.5 * (c["center"][1] + c["center"][2])
-            for c in per_thr[t]["all_centroids"]
-        ]
+        yzs = [0.5 * (c["center"][1] + c["center"][2]) for c in per_thr[t]["all_centroids"]]
         if xs:
-            ax.scatter(xs, yzs, s=18, color=color, alpha=0.55,
-                       label=f"thr={t:.2f} ({len(xs)} pts)")
-    ax.axvline(center_x, color="#2a7", ls="--", lw=1.2, alpha=0.7,
-               label=f"collision plane x={center_x:.0f}")
+            ax.scatter(xs, yzs, s=18, color=color, alpha=0.55, label=f"thr={t:.2f} ({len(xs)} pts)")
+    ax.axvline(center_x, color="#2a7", ls="--", lw=1.2, alpha=0.7, label=f"collision plane x={center_x:.0f}")
     ax.set_xlabel("centroid x (lattice cells)")
     ax.set_ylabel("(y + z) / 2")
     ax.set_xlim(0, N)
     ax.set_ylim(0, N)
-    ax.set_title(f"Spatial distribution of centroids across all recorded steps\n"
-                 f"verdict: {result['verdict']}")
+    ax.set_title(f"Spatial distribution of centroids across all recorded steps\n" f"verdict: {result['verdict']}")
     ax.legend(fontsize=7, loc="upper right")
     ax.grid(alpha=0.3)
 
@@ -294,6 +305,7 @@ def _save_result(result: dict, out: str) -> None:
     dicts cleanly; we store thresholds + aggregate arrays + a JSON blob
     for the full centroid records."""
     import json
+
     cfg = result["config"]
     thresholds = np.array(cfg["thresholds"], dtype=float)
     max_counts = np.array(
@@ -305,10 +317,7 @@ def _save_result(result: dict, out: str) -> None:
         dtype=int,
     )
     # Serialize the full centroid records as JSON (cheap; ~few kB)
-    full_records = {
-        str(t): result["per_threshold"][t]["all_centroids"]
-        for t in cfg["thresholds"]
-    }
+    full_records = {str(t): result["per_threshold"][t]["all_centroids"] for t in cfg["thresholds"]}
     np.savez(
         out,
         thresholds=thresholds,

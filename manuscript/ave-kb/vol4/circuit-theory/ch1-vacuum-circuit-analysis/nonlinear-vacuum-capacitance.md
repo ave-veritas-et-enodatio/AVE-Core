@@ -1,5 +1,9 @@
 [↑ Ch.1 Vacuum Circuit Analysis](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-8nkvwy, clm-vjv4zf]
+-->
 
 ## Constitutive Circuit Models for Vacuum Non-Linearities
 
@@ -9,6 +13,8 @@ Standard circuit simulators rely on ideal, linear RLC components. However, the p
 
 As defined by Axiom 4, the effective compliance (capacitance) of the spatial substrate is bounded by the dielectric saturation limit at $V_{yield} = \sqrt{\alpha}\, V_{snap} \approx 43.65$ kV. The constitutive equation follows directly from the saturation kernel applied to the electric sector:
 
+<!-- claim-quality: clm-vjv4zf -->
+<!-- claim-quality: clm-8nkvwy (Asymmetric saturation case: only $\varepsilon$ scales by $S$ → $C_{eff} \to \infty$, $Z_{asym} = Z_0/\sqrt{S} \to \infty$; this is the canonical statement of the asymmetric branch of the Universal Saturation Kernel) -->
 > **[Resultbox]** *Vacuum Varactor Constitutive Equation*
 >
 > $$

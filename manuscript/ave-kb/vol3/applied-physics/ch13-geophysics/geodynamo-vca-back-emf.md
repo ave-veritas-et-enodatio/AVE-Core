@@ -1,5 +1,9 @@
 [↑ Geophysics](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-wd5rs0]
+-->
 
 # The Geodynamo as a Topo-Kinematic VCA Back-EMF
 
@@ -9,7 +13,7 @@ The Geodynamo is rigorously an **Inductive Back-EMF generator**. As the massive 
 
 $$\mathcal{E}_{emf} = ( \omega_\oplus \cdot R_{core} \cdot \Gamma_{sagnac} ) \cdot B_{stator} \cdot (2 R_{core})$$
 
-For Earth, rotating fast enough to fracture the Acoustic Shear layer ($\Gamma \approx \mu_B \approx 1836$ for baryonic phase boundaries) against a piled-up Solar Wind Magnetopause ($B \sim 400$ nT), this produces a driving electric potential of approximately $1.3 \times 10^6$ V. Integrating this Topological voltage across the AC Inductive Reactance of the core ($Z = \omega L \approx 3.2 \times 10^{-4}\;\Omega$), we explicitly generate an Eddy current $I_{eddy} \approx 4.0 \times 10^9$ A.
+For Earth, rotating fast enough to fracture the Acoustic Shear layer ($\Gamma_{sagnac} \approx 1836$ for baryonic phase boundaries — the asserted cross-scale identity `clm-k3p9wz`, $\Gamma_{sagnac} = m_p/m_e$, *not derived*) against a piled-up Solar Wind Magnetopause ($B \sim 400$ nT), this produces a driving electric potential of approximately $1.3 \times 10^6$ V. Integrating this Topological voltage across the AC Inductive Reactance of the core ($Z = \omega L \approx 3.2 \times 10^{-4}\;\Omega$), we explicitly generate an Eddy current $I_{eddy} \approx 4.0 \times 10^9$ A.
 
 > **[Resultbox]** *Planetary Magnetic Dipole (AC Motor Output)*
 >

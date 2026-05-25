@@ -31,7 +31,6 @@ direction-agnostic.
 Run:
     python3 src/scripts/vol_3_macroscopic/c5_sdss_spin_orientation.py
 """
-from __future__ import annotations
 
 import gzip
 import json
@@ -40,7 +39,6 @@ import re
 import sys
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Optional
 
 import numpy as np
 
@@ -83,10 +81,10 @@ RESULTS_PATH = SCRIPT_DIR / "c5_sdss_spin_orientation_results.json"
 
 # Adjudication thresholds (per prereg sec 4):
 SIGMA_DECISIVE_AGAINST_ALIGNMENT_DEG = 2.46  # need sigma_LSS < this for 3sigma misalignment
-SIGMA_DECISIVE_FOR_ALIGNMENT_DEG = 9.25      # need sigma_LSS > this for 3sigma alignment
-SIGMA_MARGINAL_UPPER_DEG = 25.0              # above: D-sustained
-SIGMA_BRIEF_TARGET_DEG = 15.0                # brief's target precision
-CMB_LSS_PASS_THRESHOLD_DEG = 20.0            # frozen prereg alignment threshold
+SIGMA_DECISIVE_FOR_ALIGNMENT_DEG = 9.25  # need sigma_LSS > this for 3sigma alignment
+SIGMA_MARGINAL_UPPER_DEG = 25.0  # above: D-sustained
+SIGMA_BRIEF_TARGET_DEG = 15.0  # brief's target precision
+CMB_LSS_PASS_THRESHOLD_DEG = 20.0  # frozen prereg alignment threshold
 
 
 # ----------------------------------------------------------------------------
@@ -144,6 +142,7 @@ class GZ1Subset:
     unit vectors. `chirality` is +1 (clockwise) or -1 (anticlockwise) per
     Longo 2011 sign convention.
     """
+
     objids: np.ndarray
     ra_deg: np.ndarray
     dec_deg: np.ndarray
@@ -194,8 +193,7 @@ def load_gz1_catalog(
     print(f"Loading Galaxy Zoo 1 Table 2 from {path.name} ...")
     if not path.exists():
         raise FileNotFoundError(
-            f"GZ1 catalog not found at {path}. "
-            f"Re-download per data/sdss_dr17/README.md instructions."
+            f"GZ1 catalog not found at {path}. " f"Re-download per data/sdss_dr17/README.md instructions."
         )
     print(f"  File size: {path.stat().st_size / 1e6:.1f} MB (gzipped)")
     print(f"  Q-cuts: SPIRAL==1, NVOTE>={min_nvote}, |P_CW - P_ACW|>={delta_clear:.2f}")
@@ -259,8 +257,10 @@ def load_gz1_catalog(
     print(f"  After |P_CW-P_ACW|>={delta_clear:.2f} cut: {n_chirality_ok}")
 
     if n_chirality_ok < 5000:
-        print(f"  WARNING: only {n_chirality_ok} galaxies pass cuts; "
-              f"prereg sec 4.1 flagged < 5000 as documentation-worthy")
+        print(
+            f"  WARNING: only {n_chirality_ok} galaxies pass cuts; "
+            f"prereg sec 4.1 flagged < 5000 as documentation-worthy"
+        )
 
     objids = np.array(objids)
     ra_deg = np.array(ra_deg_l)
@@ -272,24 +272,30 @@ def load_gz1_catalog(
 
     # Convert ICRS (J2000) -> galactic via astropy
     print(f"  Transforming ICRS (J2000) -> galactic (l, b) via astropy...")
-    from astropy.coordinates import SkyCoord
     from astropy import units as u
+    from astropy.coordinates import SkyCoord
+
     coords_icrs = SkyCoord(ra_deg * u.deg, dec_deg * u.deg, frame="icrs")
     coords_gal = coords_icrs.galactic
     l_deg = np.array(coords_gal.l.deg)
     b_deg = np.array(coords_gal.b.deg)
 
-    n_hat = np.stack([
-        np.cos(np.radians(b_deg)) * np.cos(np.radians(l_deg)),
-        np.cos(np.radians(b_deg)) * np.sin(np.radians(l_deg)),
-        np.sin(np.radians(b_deg)),
-    ], axis=1)  # (N, 3)
+    n_hat = np.stack(
+        [
+            np.cos(np.radians(b_deg)) * np.cos(np.radians(l_deg)),
+            np.cos(np.radians(b_deg)) * np.sin(np.radians(l_deg)),
+            np.sin(np.radians(b_deg)),
+        ],
+        axis=1,
+    )  # (N, 3)
 
     monopole = float(np.mean(chirality))
     print(f"  Global monopole asymmetry (Sigma chi / N): {monopole:+.4f}")
     if abs(monopole) > 0.05:
-        print(f"  WARNING: monopole asymmetry exceeds prereg threshold |0.05|; "
-              f"flagging GZ1 bias as sub-finding (dipole fit is orthogonal to monopole)")
+        print(
+            f"  WARNING: monopole asymmetry exceeds prereg threshold |0.05|; "
+            f"flagging GZ1 bias as sub-finding (dipole fit is orthogonal to monopole)"
+        )
 
     return GZ1Subset(
         objids=objids,
@@ -338,8 +344,9 @@ def search_dipole_axis_healpix(
     """
     import healpy as hp
 
-    print(f"\nStage 1: coarse grid at NSIDE={nside_initial} "
-          f"({hp.nside2npix(nside_initial)} candidate directions)...")
+    print(
+        f"\nStage 1: coarse grid at NSIDE={nside_initial} " f"({hp.nside2npix(nside_initial)} candidate directions)..."
+    )
     npix_1 = hp.nside2npix(nside_initial)
     theta_1, phi_1 = hp.pix2ang(nside_initial, np.arange(npix_1))
     # HEALPix angles theta in [0, pi]; here we treat the HEALPix coordinate
@@ -347,18 +354,21 @@ def search_dipole_axis_healpix(
     # galactic (l, b); HEALPix pixels are in (theta, phi) where theta = 90-b
     # and phi = l (both in radians).
     # Vectorize Stage 1 entirely with NumPy:
-    pix_vecs = np.stack([
-        np.sin(theta_1) * np.cos(phi_1),
-        np.sin(theta_1) * np.sin(phi_1),
-        np.cos(theta_1),
-    ], axis=1)  # (Npix, 3)
+    pix_vecs = np.stack(
+        [
+            np.sin(theta_1) * np.cos(phi_1),
+            np.sin(theta_1) * np.sin(phi_1),
+            np.cos(theta_1),
+        ],
+        axis=1,
+    )  # (Npix, 3)
     # A(n_axis) = mean_i chi_i * (n_i . n_axis)
     # so we want each row of (subset.chirality * subset.n_hat).mean over galaxies dotted with each pix_vec.
     # Equivalent: (subset.chirality * subset.n_hat).T @ pix_vecs.T -> (3, Npix); then sum chirality column-wise.
     weighted_sum = subset.chirality[:, None] * subset.n_hat  # (N, 3)
     galaxy_dipole_vec = weighted_sum.mean(axis=0)  # (3,) = (1/N) Sum_i chi_i n_hat_i
     A_per_pix = pix_vecs @ galaxy_dipole_vec  # (Npix,) — vectorized A
-    A_squared_per_pix = A_per_pix ** 2
+    A_squared_per_pix = A_per_pix**2
     best_pix_1 = int(np.argmax(A_squared_per_pix))
     A_best_1 = float(A_per_pix[best_pix_1])
     print(f"  Stage 1 best: pix={best_pix_1}, |A|={abs(A_best_1):.5f}, A={A_best_1:+.5f}")
@@ -371,25 +381,30 @@ def search_dipole_axis_healpix(
     gd_mag = np.linalg.norm(galaxy_dipole_vec)
     n_analytic = galaxy_dipole_vec / gd_mag if gd_mag > 0 else np.array([0.0, 0.0, 1.0])
     A_analytic = float(np.dot(n_analytic, galaxy_dipole_vec))
-    print(f"  Analytic closed-form check: |galaxy_dipole_vec| = {gd_mag:.5f}, "
-          f"A_analytic = {A_analytic:.5f} (should match Stage 1 best |A|)")
+    print(
+        f"  Analytic closed-form check: |galaxy_dipole_vec| = {gd_mag:.5f}, "
+        f"A_analytic = {A_analytic:.5f} (should match Stage 1 best |A|)"
+    )
 
     # Stage 2: refined grid in neighborhood. Useful when the analytic best
     # is degenerate or there are multiple local maxima.
-    print(f"\nStage 2: refined grid at NSIDE={nside_refined} "
-          f"(over {refine_radius_deg:.1f}° cap around Stage 1 best)...")
-    best_vec_1 = pix_vecs[best_pix_1]
-    neighbor_pix = hp.query_disc(
-        nside_refined, best_vec_1, radius=math.radians(refine_radius_deg)
+    print(
+        f"\nStage 2: refined grid at NSIDE={nside_refined} "
+        f"(over {refine_radius_deg:.1f}° cap around Stage 1 best)..."
     )
+    best_vec_1 = pix_vecs[best_pix_1]
+    neighbor_pix = hp.query_disc(nside_refined, best_vec_1, radius=math.radians(refine_radius_deg))
     theta_n, phi_n = hp.pix2ang(nside_refined, neighbor_pix)
-    pix_vecs_2 = np.stack([
-        np.sin(theta_n) * np.cos(phi_n),
-        np.sin(theta_n) * np.sin(phi_n),
-        np.cos(theta_n),
-    ], axis=1)  # (M, 3)
+    pix_vecs_2 = np.stack(
+        [
+            np.sin(theta_n) * np.cos(phi_n),
+            np.sin(theta_n) * np.sin(phi_n),
+            np.cos(theta_n),
+        ],
+        axis=1,
+    )  # (M, 3)
     A_per_neighbor = pix_vecs_2 @ galaxy_dipole_vec
-    A_squared_per_neighbor = A_per_neighbor ** 2
+    A_squared_per_neighbor = A_per_neighbor**2
     best_idx_2 = int(np.argmax(A_squared_per_neighbor))
     best_pix_2 = int(neighbor_pix[best_idx_2])
     A_best_2 = float(A_per_neighbor[best_idx_2])
@@ -563,8 +578,7 @@ def randomization_null(
     n_at_or_above = int(np.sum(max_A_squared >= A_observed_squared))
     p_value = n_at_or_above / n_random
     print(f"  |A_observed|^2 = {A_observed_squared:.6e}")
-    print(f"  random |A_max|^2 mean = {np.mean(max_A_squared):.6e}, "
-          f"std = {np.std(max_A_squared):.6e}")
+    print(f"  random |A_max|^2 mean = {np.mean(max_A_squared):.6e}, " f"std = {np.std(max_A_squared):.6e}")
     print(f"  randomization p-value = {p_value:.6f} ({n_at_or_above}/{n_random})")
 
     # Z-score conversion (one-sided): A_observed > random null
@@ -613,10 +627,8 @@ def adjudicate(
     A_observed_magnitude: float,
 ) -> AdjudicationResult:
     """Adjudicate the outcome per pre-registered table (sec 4)."""
-    separation_deg = angular_separation_deg_undirected(
-        cmb_axis_l_deg, cmb_axis_b_deg, lss_axis_l_deg, lss_axis_b_deg
-    )
-    sigma_combined = math.sqrt(cmb_axis_sigma_deg ** 2 + sigma_lss ** 2)
+    separation_deg = angular_separation_deg_undirected(cmb_axis_l_deg, cmb_axis_b_deg, lss_axis_l_deg, lss_axis_b_deg)
+    sigma_combined = math.sqrt(cmb_axis_sigma_deg**2 + sigma_lss**2)
 
     # Significance against alignment (would need separation > 20° + 3sigma)
     # = (separation - 20°) / sigma_combined
@@ -756,8 +768,7 @@ def run_pipeline(
 
     sigma_canonical = max(sigma_hess["sigma_deg_68"], sigma_boot["sigma_deg_68"])
     print(f"\n  sigma_LSS canonical (max of A, B): {sigma_canonical:.3f}°")
-    print(f"  sigma_LSS Hessian / Bootstrap ratio: "
-          f"{sigma_hess['sigma_deg_68'] / sigma_boot['sigma_deg_68']:.3f}")
+    print(f"  sigma_LSS Hessian / Bootstrap ratio: " f"{sigma_hess['sigma_deg_68'] / sigma_boot['sigma_deg_68']:.3f}")
 
     A_squared = fit["A_magnitude"] ** 2
     if skip_randomization:
@@ -837,9 +848,9 @@ def main():
     print(f"  -> All four pass. Estimator is a forward-prediction.")
 
     pipelines = [
-        ("primary",         0.4, 10, False),  # canonical
-        ("robustness_0.2",  0.2, 10, False),  # looser clarity cut
-        ("robustness_0.6",  0.6, 10, False),  # tighter clarity cut
+        ("primary", 0.4, 10, False),  # canonical
+        ("robustness_0.2", 0.2, 10, False),  # looser clarity cut
+        ("robustness_0.6", 0.6, 10, False),  # tighter clarity cut
     ]
 
     results = {}
@@ -857,47 +868,66 @@ def main():
     p_lower = results["robustness_0.2"]
     p_higher = results["robustness_0.6"]
     sep_primary_lower = angular_separation_deg_undirected(
-        p_primary["dipole_fit"]["l_deg"], p_primary["dipole_fit"]["b_deg"],
-        p_lower["dipole_fit"]["l_deg"], p_lower["dipole_fit"]["b_deg"],
+        p_primary["dipole_fit"]["l_deg"],
+        p_primary["dipole_fit"]["b_deg"],
+        p_lower["dipole_fit"]["l_deg"],
+        p_lower["dipole_fit"]["b_deg"],
     )
     sep_primary_higher = angular_separation_deg_undirected(
-        p_primary["dipole_fit"]["l_deg"], p_primary["dipole_fit"]["b_deg"],
-        p_higher["dipole_fit"]["l_deg"], p_higher["dipole_fit"]["b_deg"],
+        p_primary["dipole_fit"]["l_deg"],
+        p_primary["dipole_fit"]["b_deg"],
+        p_higher["dipole_fit"]["l_deg"],
+        p_higher["dipole_fit"]["b_deg"],
     )
 
     cross_pipeline_consistency = {
         "primary_vs_robustness_0.2_separation_deg": sep_primary_lower,
         "primary_vs_robustness_0.6_separation_deg": sep_primary_higher,
         "within_1sigma_LSS": (
-            sep_primary_lower < p_primary["sigma_canonical_deg"] and
-            sep_primary_higher < p_primary["sigma_canonical_deg"]
+            sep_primary_lower < p_primary["sigma_canonical_deg"]
+            and sep_primary_higher < p_primary["sigma_canonical_deg"]
         ),
     }
     print(f"\nCross-pipeline consistency:")
     print(f"  primary vs robustness_0.2: {sep_primary_lower:.2f}°")
     print(f"  primary vs robustness_0.6: {sep_primary_higher:.2f}°")
-    print(f"  within primary's 1sigma_LSS = {p_primary['sigma_canonical_deg']:.2f}°: "
-          f"{cross_pipeline_consistency['within_1sigma_LSS']}")
+    print(
+        f"  within primary's 1sigma_LSS = {p_primary['sigma_canonical_deg']:.2f}°: "
+        f"{cross_pipeline_consistency['within_1sigma_LSS']}"
+    )
 
     # ---- Existing-corpus comparison vs Longo paper-pinned + corpus-pinned ----
-    longo_l_deg, longo_b_deg = 52.0, 68.5   # Longo 2011 published axis
+    longo_l_deg, longo_b_deg = 52.0, 68.5  # Longo 2011 published axis
     corpus_l_deg, corpus_b_deg = 32.0, 32.0  # corpus pin in cmb_axis_alignment_executable_observer.py:97-99
     sep_primary_vs_longo = angular_separation_deg_undirected(
-        p_primary["dipole_fit"]["l_deg"], p_primary["dipole_fit"]["b_deg"],
-        longo_l_deg, longo_b_deg,
+        p_primary["dipole_fit"]["l_deg"],
+        p_primary["dipole_fit"]["b_deg"],
+        longo_l_deg,
+        longo_b_deg,
     )
     sep_primary_vs_corpus = angular_separation_deg_undirected(
-        p_primary["dipole_fit"]["l_deg"], p_primary["dipole_fit"]["b_deg"],
-        corpus_l_deg, corpus_b_deg,
+        p_primary["dipole_fit"]["l_deg"],
+        p_primary["dipole_fit"]["b_deg"],
+        corpus_l_deg,
+        corpus_b_deg,
     )
     sep_longo_vs_corpus = angular_separation_deg_undirected(
-        longo_l_deg, longo_b_deg, corpus_l_deg, corpus_b_deg,
+        longo_l_deg,
+        longo_b_deg,
+        corpus_l_deg,
+        corpus_b_deg,
     )
     corpus_anomaly = {
-        "longo_2011_published": {"l_deg": longo_l_deg, "b_deg": longo_b_deg,
-                                  "source": "Longo 2011 Phys. Lett. B 699:224 sec 3, page 6 (galactic from equatorial (217°, 32°))"},
-        "ave_corpus_pinned":   {"l_deg": corpus_l_deg, "b_deg": corpus_b_deg,
-                                  "source": "cmb_axis_alignment_executable_observer.py:97-99"},
+        "longo_2011_published": {
+            "l_deg": longo_l_deg,
+            "b_deg": longo_b_deg,
+            "source": "Longo 2011 Phys. Lett. B 699:224 sec 3, page 6 (galactic from equatorial (217°, 32°))",
+        },
+        "ave_corpus_pinned": {
+            "l_deg": corpus_l_deg,
+            "b_deg": corpus_b_deg,
+            "source": "cmb_axis_alignment_executable_observer.py:97-99",
+        },
         "primary_vs_longo_separation_deg": sep_primary_vs_longo,
         "primary_vs_ave_corpus_separation_deg": sep_primary_vs_corpus,
         "longo_vs_ave_corpus_separation_deg": sep_longo_vs_corpus,
@@ -922,7 +952,9 @@ def main():
         "headline_rationale": p_primary["adjudication"]["rationale"],
         "headline_sigma_lss_deg": p_primary["sigma_canonical_deg"],
         "headline_cmb_lss_separation_deg": p_primary["adjudication"]["cmb_lss_separation_deg"],
-        "headline_significance_against_alignment_sigma": p_primary["adjudication"]["significance_against_alignment_sigma"],
+        "headline_significance_against_alignment_sigma": p_primary["adjudication"][
+            "significance_against_alignment_sigma"
+        ],
         "headline_significance_for_alignment_sigma": p_primary["adjudication"]["significance_for_alignment_sigma"],
     }
 
@@ -935,10 +967,14 @@ def main():
     print(f"  HEADLINE: outcome = {summary['headline_outcome']}")
     print(f"  primary sigma_LSS = {summary['headline_sigma_lss_deg']:.2f}°")
     print(f"  CMB-LSS separation = {summary['headline_cmb_lss_separation_deg']:.2f}°")
-    print(f"  significance vs alignment threshold = "
-          f"{summary['headline_significance_against_alignment_sigma']:+.2f}sigma")
-    print(f"  significance for alignment (separation/sigma_combined) = "
-          f"{summary['headline_significance_for_alignment_sigma']:.2f}sigma")
+    print(
+        f"  significance vs alignment threshold = "
+        f"{summary['headline_significance_against_alignment_sigma']:+.2f}sigma"
+    )
+    print(
+        f"  significance for alignment (separation/sigma_combined) = "
+        f"{summary['headline_significance_for_alignment_sigma']:.2f}sigma"
+    )
     print(f"{'='*70}")
     print(f"\nCorpus pin anomaly: {corpus_anomaly['anomaly_flag']}")
     print(f"  primary fit vs Longo 2011: {sep_primary_vs_longo:.2f}°")

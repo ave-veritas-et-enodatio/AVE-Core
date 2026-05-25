@@ -17,8 +17,6 @@ across 40 orders of magnitude in spatial scale:
 All structure from Z = √(μ/ε) impedance topology — zero free parameters.
 """
 
-import os
-
 import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 import numpy as np
@@ -32,10 +30,7 @@ from ave.solvers.orbital_resonance import (
     ringdown_frequency,
     schwarzschild_radius,
 )
-
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-OUTPUT_DIR = os.path.join(project_root, "assets", "sim_outputs")
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+from ave_path_util import sim_output
 
 plt.style.use("dark_background")
 
@@ -480,7 +475,7 @@ def main() -> None:
         y=1.02,
     )
 
-    out_path = os.path.join(OUTPUT_DIR, "cross_scale_triptych.png")
+    out_path = sim_output("cross_scale_triptych.png")
     plt.savefig(out_path, dpi=250, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close()
     print(f"\n[*] Saved: {out_path}")

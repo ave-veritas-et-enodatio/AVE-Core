@@ -1,5 +1,9 @@
 [↑ Aluminum (Z=13)](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-8psuqe]
+-->
 
 ## The Gradual Halo Separation Effect
 

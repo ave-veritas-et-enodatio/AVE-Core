@@ -1,23 +1,13 @@
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.colors import LinearSegmentedColormap
+
+from ave_path_util import sim_output
 
 # Aesthetic configuration
 plt.style.use("dark_background")
 COLOR_NODE = "#00ffff"
 COLOR_GRID = "#ff00ff"
-
-
-def _find_repo_root() -> str:
-    """Find the Git repository root directory."""
-    current_dir = os.path.abspath(os.path.dirname(__file__))
-    while current_dir != "/":
-        if os.path.isdir(os.path.join(current_dir, ".git")):
-            return current_dir
-        current_dir = os.path.dirname(current_dir)
-    return os.path.abspath(os.path.dirname(__file__))  # Fallback
 
 
 def plot_optical_metric() -> None:
@@ -98,11 +88,7 @@ def plot_optical_metric() -> None:
     plt.tight_layout()
 
     # Save Figure
-    OUTPUT_DIR = os.path.join(_find_repo_root(), "assets", "sim_outputs")
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
-
-    filename = "optical_refractive_gradient.png"
-    filepath = os.path.join(OUTPUT_DIR, filename)
+    filepath = sim_output("optical_refractive_gradient.png")
     plt.savefig(filepath, facecolor=fig.get_facecolor(), edgecolor="none", bbox_inches="tight")
     print(f"Saved figure to: {filepath}")
 

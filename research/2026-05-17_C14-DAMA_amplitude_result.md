@@ -180,7 +180,7 @@ DAMA is still PARTIAL closure (energy + modulation + cosmic-velocity prediction 
 
 - [`research/2026-05-17_C14-DAMA_amplitude_prereg.md`](2026-05-17_C14-DAMA_amplitude_prereg.md) — working hypothesis (refresh-rate framing, now superseded by α-slew framing)
 - [`manuscript/ave-kb/common/divergence-test-substrate-map.md`](../manuscript/ave-kb/common/divergence-test-substrate-map.md) — C14-DAMA-MATERIAL row (to be updated per proposed status above)
-- [`manuscript/ave-kb/common/closure-roadmap.md`](../manuscript/ave-kb/common/closure-roadmap.md) — §0.5 open scope-correction "DAMA amplitude formula" (to be updated)
+- [`manuscript/ave-kb/claim-quality-closure-roadmap.md`](../manuscript/ave-kb/claim-quality-closure-roadmap.md) — §0.5 open scope-correction "DAMA amplitude formula" (to be updated)
 - [`src/scripts/vol_2_subatomic/simulate_g2.py`](../src/scripts/vol_2_subatomic/simulate_g2.py) — canonical a_e = α/(2π) derivation chain (Axiom 4 + 1/π² geometric projection)
 - [`manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md`](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) — canonical Hoop Stress 2π projection for a_0 = cH_∞/(2π) (structural parallel for v_slew = αc/(2π))
 - [`manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/derived-mond-acceleration-scale.md`](../manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/derived-mond-acceleration-scale.md) — canonical a_0 derivation

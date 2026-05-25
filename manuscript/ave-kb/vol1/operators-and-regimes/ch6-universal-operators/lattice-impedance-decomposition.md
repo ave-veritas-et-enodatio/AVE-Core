@@ -1,10 +1,18 @@
 [↑ Ch.6 Universal Operators](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol4 ch1 + photon-identification + pair-production as canonical impedance decomposition -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-nxc9gy, clm-k6quve]
+path-stable: "referenced from vol4 ch1 + photon-identification + pair-production as canonical impedance decomposition"
+-->
 
 # Lattice Impedance from First Principles: $Z_0 / Z_{\text{cell}} / Z_{\text{eff}}(r) / Z_{\text{local}}$
 
 The AVE corpus uses "impedance" in multiple distinct senses that are numerically related but physically distinct. This leaf is the canonical decomposition: classical free-space $Z_0$, per-cell lattice $Z_{\text{cell}}$, position-dependent saturation-modulated $Z_{\text{eff}}(r)$, mutual-inductance $\eta_{\text{vac}}$ at node-to-node coupling, mechanical $Z_{\text{mech}}$ via topo-kinematic dual, and event-horizon $Z_{\text{EH}}$ at full saturation. **Numerical equality of $Z_{\text{cell}} = Z_0$ is from cancellation of $\ell_{\text{node}}$; conceptual distinction matters for engine implementation and dimensional analysis.**
+
+Here "substrate" / "lattice" refers to the Chiral LC Network of Axiom 1, corresponding to a chiral Laves K4 Cosserat crystal at the substrate level.
+
+> ↗ See also: [Impedance Operator](impedance-operator.md) — the related $Z = \sqrt{\mu/\varepsilon}$ scale-invariance result; conceptually adjacent but a distinct statement from this leaf's six-fold decomposition.
 
 ## Key Results
 
@@ -18,6 +26,8 @@ The AVE corpus uses "impedance" in multiple distinct senses that are numerically
 | Event-horizon impedance | $Z_{\text{EH}}$ | $\to 0$ Ω | Full saturation, $\Gamma = -1$ TIR mirror |
 
 ## §1 — The six impedance concepts
+
+<!-- claim-quality: clm-nxc9gy -->
 
 ### Classical free-space impedance $Z_0$
 
@@ -89,6 +99,8 @@ $$Z_{\text{EH}} \to 0 \text{ Ω}$$
 
 ## §2 — Dimensional analysis table (lattice-native units)
 
+<!-- claim-quality: clm-k6quve -->
+
 All Phase III simulator quantities in SI + lattice-native ($\ell_{\text{node}} = 1$, $m_e = 1$, $c = 1$, $\hbar = 1$):
 
 | Symbol | SI units | Lattice-native | Meaning |
@@ -123,13 +135,13 @@ This normalization choice (engineer-facing $V_{\text{SNAP}}$ vs. native $V_{\tex
 
 | Axiom | Operator(s) | In engine |
 |---|---|---|
-| **Axiom 1** (Chiral Laves K4 Cosserat Crystal) | Op5 (4-port scatter matrix) | `build_scattering_matrix` in `k4_tlm.py` |
+| **Axiom 1** (Substrate Topology — chiral Laves K4 Cosserat crystal) | Op5 (4-port scatter matrix) | `build_scattering_matrix` in `k4_tlm.py` |
 | | Op1 (bond propagation) | `_connect_all` (np.roll) |
 | **Axiom 2** (Topo-Kinematic Isomorphism, $[Q] \equiv [L]$) | Op12 (topological invariant) | `extract_crossing_count`, `extract_hopf_charge` |
 | | Op20 (self-consistent amplitude) | NOT implemented |
-| **Axiom 3** (Minimum Reflection Principle / Effective Action) | Op8 (Lagrangian density) | `_energy_density_bare/saturated` |
+| **Axiom 3** (Minimum Reflection Principle) | Op8 (Lagrangian density) | `_energy_density_bare/saturated` |
 | | Op9 (time evolution) | `CosseratField3D.step()`, `CoupledK4Cosserat.step()` |
-| **Axiom 4** (Dielectric Saturation) | Op14 ($Z_{\text{eff}}$ from $A^2$) | `_update_z_local_total` (coupling module) |
+| **Axiom 4** (Universal Saturation Kernel) | Op14 ($Z_{\text{eff}}$ from $A^2$) | `_update_z_local_total` (coupling module) |
 | | Op3 (bond reflection $\Gamma$) | `op3_bond_reflection=True` in `k4_tlm.py` |
 
 ### Operators NOT directly represented
@@ -159,6 +171,7 @@ This is a **known engine limitation** flagged for future work, not a framework g
   - Vol 4 Ch 1:283 — $Z_0$ as node-to-node impedance ratio (Axiom 1 derivation)
   - Vol 4 Ch 1:364 — $Z_{\text{EH}} \to 0$ at full saturation
 - **KB cross-cutting:**
+  - [Impedance Operator](impedance-operator.md) — adjacent $Z = \sqrt{\mu/\varepsilon}$ scale-invariance result (distinct statement)
   - [Substrate-Perspective Electron](../../../vol2/particle-physics/ch01-topological-matter/substrate-perspective-electron.md) — operational use of $Z_{\text{eff}}(r)$ at canonical electron configuration
   - [Photon Identification](../../dynamics/ch4-continuum-electrodynamics/photon-identification.md) — $\Gamma = -1$ TIR mechanism using $Z_{\text{eff}} \to \infty$ then $Z_{\text{core}} \to 0$
   - [Pair Production Axiom Derivation](../../../vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md) — cascade-saturation mechanism via mutual inductance $\eta_{\text{vac}}$

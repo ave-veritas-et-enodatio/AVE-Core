@@ -38,7 +38,6 @@ fixed paper-quoted inputs.
 Run:
     python3 src/scripts/vol_3_macroscopic/c5_shamir_2022_spin_orientation.py
 """
-from __future__ import annotations
 
 import json
 import math
@@ -173,8 +172,8 @@ def angular_separation_deg_undirected(l1: float, b1: float, l2: float, b2: float
 
 def equatorial_to_galactic(ra_deg: float, dec_deg: float) -> tuple[float, float]:
     """Equatorial (ICRS J2000) -> galactic (l, b) via astropy."""
-    from astropy.coordinates import SkyCoord
     from astropy import units as u
+    from astropy.coordinates import SkyCoord
 
     sc = SkyCoord(ra_deg * u.deg, dec_deg * u.deg, frame="icrs").galactic
     return float(sc.l.deg), float(sc.b.deg)
@@ -199,8 +198,8 @@ def asymmetric_ra_dec_box_to_galactic_sigma(
 
     Returns dict with sigma_68, samples, statistics.
     """
-    from astropy.coordinates import SkyCoord
     from astropy import units as u
+    from astropy.coordinates import SkyCoord
 
     # Convert center to galactic
     l_center, b_center = equatorial_to_galactic(ra_center, dec_center)
@@ -210,8 +209,9 @@ def asymmetric_ra_dec_box_to_galactic_sigma(
     dec_max_clip = min(89.999, dec_max)
 
     if dec_min_clip != dec_min or dec_max_clip != dec_max:
-        print(f"    NOTE: clipped Dec from [{dec_min:.1f}, {dec_max:.1f}] "
-              f"to [{dec_min_clip:.1f}, {dec_max_clip:.1f}]")
+        print(
+            f"    NOTE: clipped Dec from [{dec_min:.1f}, {dec_max:.1f}] " f"to [{dec_min_clip:.1f}, {dec_max_clip:.1f}]"
+        )
 
     # Generate uniform grid in (RA, Dec) inside the box
     ra_samples = np.linspace(ra_min, ra_max, n_samples_per_side)
@@ -227,10 +227,9 @@ def asymmetric_ra_dec_box_to_galactic_sigma(
     b_arr = np.array(sc.b.deg)
 
     # Great-circle separation from box-center for each sample
-    separations = np.array([
-        angular_separation_deg_undirected(l_center, b_center, l_i, b_i)
-        for l_i, b_i in zip(l_arr, b_arr)
-    ])
+    separations = np.array(
+        [angular_separation_deg_undirected(l_center, b_center, l_i, b_i) for l_i, b_i in zip(l_arr, b_arr)]
+    )
 
     sigma_68 = float(np.quantile(separations, 0.6827))
     sigma_max = float(np.max(separations))
@@ -287,9 +286,7 @@ def adjudicate_cross_catalog(
     D (CATALOG-MARGINAL): 1 <= sep/sigma_combined <= 2
     E (CATALOG-METHODOLOGY): handled outside this function
     """
-    separation = angular_separation_deg_undirected(
-        sdss_dr17_l, sdss_dr17_b, shamir_l, shamir_b
-    )
+    separation = angular_separation_deg_undirected(sdss_dr17_l, sdss_dr17_b, shamir_l, shamir_b)
     sigma_combined = math.sqrt(sigma_sdss_dr17**2 + sigma_shamir**2)
     sep_in_sigma = separation / sigma_combined
 
@@ -354,8 +351,10 @@ def main():
     print("=" * 70)
 
     print("\nForward-prediction discipline check (per prereg sec 3.4):")
-    print("  1. Shamir's axis dependent on AVE SDSS DR17 result? NO (Shamir 2022 published "
-          "2022-09; AVE C5 SDSS DR17 ran 2026-05-19; ~3.7 year independence).")
+    print(
+        "  1. Shamir's axis dependent on AVE SDSS DR17 result? NO (Shamir 2022 published "
+        "2022-09; AVE C5 SDSS DR17 ran 2026-05-19; ~3.7 year independence)."
+    )
     print("  2. Shamir's Q-cuts adjustable post-fit? NO (paper-pinned single analysis).")
     print("  3. Separation metric being minimized as objective? NO (direct calculation).")
     print("  4. Result depends on choice of comparison axis? NO (fixed inputs both sides).")
@@ -365,8 +364,7 @@ def main():
     print(f"\nLoading AVE SDSS DR17 reference from {SDSS_RESULTS_PATH.name}...")
     if not SDSS_RESULTS_PATH.exists():
         raise FileNotFoundError(
-            f"AVE SDSS DR17 result JSON not found at {SDSS_RESULTS_PATH}. "
-            f"Run c5_sdss_spin_orientation.py first."
+            f"AVE SDSS DR17 result JSON not found at {SDSS_RESULTS_PATH}. " f"Run c5_sdss_spin_orientation.py first."
         )
     with open(SDSS_RESULTS_PATH) as f:
         sdss_results = json.load(f)
@@ -374,34 +372,33 @@ def main():
     sdss_dr17_l = float(sdss_primary["dipole_fit"]["l_deg"])
     sdss_dr17_b = float(sdss_primary["dipole_fit"]["b_deg"])
     sdss_dr17_sigma = float(sdss_primary["sigma_canonical_deg"])
-    print(f"  AVE SDSS DR17 axis: (l, b) = ({sdss_dr17_l:.2f}, {sdss_dr17_b:.2f}), "
-          f"sigma = {sdss_dr17_sigma:.2f} deg")
+    print(
+        f"  AVE SDSS DR17 axis: (l, b) = ({sdss_dr17_l:.2f}, {sdss_dr17_b:.2f}), " f"sigma = {sdss_dr17_sigma:.2f} deg"
+    )
 
     # ---- Load CMB axis-of-evil ----
     print(f"\nLoading CMB axis-of-evil from {CMB_AXIS_RESULTS_PATH.name}...")
     if not CMB_AXIS_RESULTS_PATH.exists():
-        raise FileNotFoundError(
-            f"CMB axis JSON not found at {CMB_AXIS_RESULTS_PATH}."
-        )
+        raise FileNotFoundError(f"CMB axis JSON not found at {CMB_AXIS_RESULTS_PATH}.")
     with open(CMB_AXIS_RESULTS_PATH) as f:
         cmb_results = json.load(f)
     cmb_l = float(cmb_results["axis_of_evil_computation"]["l_deg"])
     cmb_b = float(cmb_results["axis_of_evil_computation"]["b_deg"])
     cmb_sigma = float(cmb_results["axis_of_evil_computation"]["sigma_deg"])
-    print(f"  CMB axis-of-evil:   (l, b) = ({cmb_l:.2f}, {cmb_b:.2f}), "
-          f"sigma = {cmb_sigma:.2f} deg")
+    print(f"  CMB axis-of-evil:   (l, b) = ({cmb_l:.2f}, {cmb_b:.2f}), " f"sigma = {cmb_sigma:.2f} deg")
 
     # ---- Convert Shamir's equatorial axes to galactic + derive sigma_galactic ----
-    print("\nConverting Shamir 2022 Table 3 equatorial axes -> galactic + "
-          "deriving sigma_galactic from asymmetric 1sigma boxes...")
+    print(
+        "\nConverting Shamir 2022 Table 3 equatorial axes -> galactic + "
+        "deriving sigma_galactic from asymmetric 1sigma boxes..."
+    )
     shamir_galactic = {}
     for survey, row in SHAMIR_2022_TABLE_3.items():
         print(f"\n  {survey}:")
         l_deg, b_deg = equatorial_to_galactic(row["ra_deg"], row["dec_deg"])
         l_canon, b_canon = canonicalize_axis_lb(l_deg, b_deg)
         print(f"    Eq:  (RA, Dec) = ({row['ra_deg']:.1f}, {row['dec_deg']:.1f})")
-        print(f"    Gal: (l, b)    = ({l_deg:.2f}, {b_deg:.2f}) "
-              f"-> canonical ({l_canon:.2f}, {b_canon:.2f})")
+        print(f"    Gal: (l, b)    = ({l_deg:.2f}, {b_deg:.2f}) " f"-> canonical ({l_canon:.2f}, {b_canon:.2f})")
         sigma_info = asymmetric_ra_dec_box_to_galactic_sigma(
             ra_center=row["ra_deg"],
             dec_center=row["dec_deg"],
@@ -449,14 +446,15 @@ def main():
         shamir_l=desi["galactic_l_deg"],
         shamir_b=desi["galactic_b_deg"],
     )
-    print(f"\n  Shamir DESI axis (galactic):  ({desi['galactic_l_deg']:.2f}, "
-          f"{desi['galactic_b_deg']:.2f})")
+    print(f"\n  Shamir DESI axis (galactic):  ({desi['galactic_l_deg']:.2f}, " f"{desi['galactic_b_deg']:.2f})")
     print(f"  Sigma_Shamir (68% containment): {desi['sigma_galactic_68_deg']:.2f} deg")
     print(f"  AVE SDSS DR17 axis (galactic):  ({sdss_dr17_l:.2f}, {sdss_dr17_b:.2f})")
     print(f"  Sigma_SDSS_DR17:                 {sdss_dr17_sigma:.2f} deg")
     print(f"  Sigma_combined:                  {adj_primary.sigma_combined_deg:.2f} deg")
-    print(f"  Separation:                      {adj_primary.separation_deg:.2f} deg "
-          f"= {adj_primary.separation_in_sigma:.2f} sigma_combined")
+    print(
+        f"  Separation:                      {adj_primary.separation_deg:.2f} deg "
+        f"= {adj_primary.separation_in_sigma:.2f} sigma_combined"
+    )
     print(f"\n  OUTCOME: {adj_primary.outcome}")
     print(f"  Rationale: {adj_primary.rationale}")
 
@@ -477,27 +475,32 @@ def main():
         )
         cross_survey_adjudications[survey] = asdict(adj)
         print(f"\n  Shamir {survey} vs AVE SDSS DR17:")
-        print(f"    Shamir axis (galactic): ({s['galactic_l_deg']:.2f}, "
-              f"{s['galactic_b_deg']:.2f}), sigma = {s['sigma_galactic_68_deg']:.2f} deg")
-        print(f"    Separation: {adj.separation_deg:.2f} deg = "
-              f"{adj.separation_in_sigma:.2f} sigma_combined -> Outcome {adj.outcome}")
+        print(
+            f"    Shamir axis (galactic): ({s['galactic_l_deg']:.2f}, "
+            f"{s['galactic_b_deg']:.2f}), sigma = {s['sigma_galactic_68_deg']:.2f} deg"
+        )
+        print(
+            f"    Separation: {adj.separation_deg:.2f} deg = "
+            f"{adj.separation_in_sigma:.2f} sigma_combined -> Outcome {adj.outcome}"
+        )
 
     # ---- Shamir DESI vs CMB axis-of-evil ----
     print("\n" + "=" * 70)
     print(" CROSS-OBSERVABLE: Shamir 2022 DESI Legacy vs CMB axis-of-evil (E1b)")
     print("=" * 70)
-    desi_vs_cmb_sep = angular_separation_deg_undirected(
-        desi["galactic_l_deg"], desi["galactic_b_deg"], cmb_l, cmb_b
-    )
-    sigma_combined_desi_cmb = math.sqrt(cmb_sigma**2 + desi["sigma_galactic_68_deg"]**2)
+    desi_vs_cmb_sep = angular_separation_deg_undirected(desi["galactic_l_deg"], desi["galactic_b_deg"], cmb_l, cmb_b)
+    sigma_combined_desi_cmb = math.sqrt(cmb_sigma**2 + desi["sigma_galactic_68_deg"] ** 2)
     sep_in_sigma_desi_cmb = desi_vs_cmb_sep / sigma_combined_desi_cmb
-    print(f"\n  Shamir DESI axis (galactic):       ({desi['galactic_l_deg']:.2f}, "
-          f"{desi['galactic_b_deg']:.2f}), sigma = {desi['sigma_galactic_68_deg']:.2f} deg")
-    print(f"  CMB axis-of-evil (galactic):       ({cmb_l:.2f}, {cmb_b:.2f}), "
-          f"sigma = {cmb_sigma:.2f} deg")
+    print(
+        f"\n  Shamir DESI axis (galactic):       ({desi['galactic_l_deg']:.2f}, "
+        f"{desi['galactic_b_deg']:.2f}), sigma = {desi['sigma_galactic_68_deg']:.2f} deg"
+    )
+    print(f"  CMB axis-of-evil (galactic):       ({cmb_l:.2f}, {cmb_b:.2f}), " f"sigma = {cmb_sigma:.2f} deg")
     print(f"  Sigma_combined:                    {sigma_combined_desi_cmb:.2f} deg")
-    print(f"  Separation:                        {desi_vs_cmb_sep:.2f} deg = "
-          f"{sep_in_sigma_desi_cmb:.2f} sigma_combined")
+    print(
+        f"  Separation:                        {desi_vs_cmb_sep:.2f} deg = "
+        f"{sep_in_sigma_desi_cmb:.2f} sigma_combined"
+    )
 
     # ---- Compare Shamir's SDSS row vs AVE's SDSS result ----
     print("\n" + "=" * 70)
@@ -506,20 +509,20 @@ def main():
     print("=" * 70)
     shamir_sdss = shamir_galactic["SDSS"]
     methodology_probe_sep = angular_separation_deg_undirected(
-        shamir_sdss["galactic_l_deg"], shamir_sdss["galactic_b_deg"],
-        sdss_dr17_l, sdss_dr17_b
+        shamir_sdss["galactic_l_deg"], shamir_sdss["galactic_b_deg"], sdss_dr17_l, sdss_dr17_b
     )
-    sigma_combined_sdss_methodology = math.sqrt(
-        sdss_dr17_sigma**2 + shamir_sdss["sigma_galactic_68_deg"]**2
-    )
+    sigma_combined_sdss_methodology = math.sqrt(sdss_dr17_sigma**2 + shamir_sdss["sigma_galactic_68_deg"] ** 2)
     methodology_probe_sigma = methodology_probe_sep / sigma_combined_sdss_methodology
-    print(f"\n  Shamir SDSS (Ganalyzer + DR8):    ({shamir_sdss['galactic_l_deg']:.2f}, "
-          f"{shamir_sdss['galactic_b_deg']:.2f}), sigma = "
-          f"{shamir_sdss['sigma_galactic_68_deg']:.2f} deg")
-    print(f"  AVE SDSS DR17 (GZ1 + Longo cos g): ({sdss_dr17_l:.2f}, {sdss_dr17_b:.2f}), "
-          f"sigma = {sdss_dr17_sigma:.2f} deg")
-    print(f"  Separation: {methodology_probe_sep:.2f} deg = "
-          f"{methodology_probe_sigma:.2f} sigma_combined")
+    print(
+        f"\n  Shamir SDSS (Ganalyzer + DR8):    ({shamir_sdss['galactic_l_deg']:.2f}, "
+        f"{shamir_sdss['galactic_b_deg']:.2f}), sigma = "
+        f"{shamir_sdss['sigma_galactic_68_deg']:.2f} deg"
+    )
+    print(
+        f"  AVE SDSS DR17 (GZ1 + Longo cos g): ({sdss_dr17_l:.2f}, {sdss_dr17_b:.2f}), "
+        f"sigma = {sdss_dr17_sigma:.2f} deg"
+    )
+    print(f"  Separation: {methodology_probe_sep:.2f} deg = " f"{methodology_probe_sigma:.2f} sigma_combined")
     print(f"  -> {'METHODOLOGY-CONSISTENT' if methodology_probe_sigma < 1.0 else 'METHODOLOGY-SYSTEMATIC SURFACE'}")
 
     # ---- Sigma sensitivity sub-analysis: Hessian / box-max ratio ----
@@ -589,8 +592,7 @@ def main():
             "sigma_combined_deg": sigma_combined_sdss_methodology,
             "separation_in_sigma_combined": methodology_probe_sigma,
             "verdict": (
-                "METHODOLOGY-CONSISTENT" if methodology_probe_sigma < 1.0
-                else "METHODOLOGY-SYSTEMATIC SURFACE"
+                "METHODOLOGY-CONSISTENT" if methodology_probe_sigma < 1.0 else "METHODOLOGY-SYSTEMATIC SURFACE"
             ),
             "interpretation": (
                 "Shamir's SDSS row uses Ganalyzer on SDSS DR8 imaging; AVE SDSS DR17 "
@@ -622,16 +624,21 @@ def main():
     print("=" * 70)
     print(f"  Primary outcome: {summary['headline_outcome']}")
     print(f"  Sigma_Shamir (DESI, galactic 68%): {summary['headline_sigma_shamir_deg']:.2f} deg")
-    print(f"  Shamir DESI axis (galactic): ({summary['headline_shamir_axis_galactic_l_deg']:.2f}, "
-          f"{summary['headline_shamir_axis_galactic_b_deg']:.2f})")
-    print(f"  Shamir DESI vs AVE SDSS DR17 separation: "
-          f"{summary['headline_separation_deg']:.2f} deg "
-          f"({summary['headline_separation_in_sigma']:.2f} sigma_combined)")
-    print(f"  Shamir DESI vs CMB axis-of-evil separation: "
-          f"{summary['headline_shamir_vs_cmb_separation_deg']:.2f} deg "
-          f"({summary['headline_shamir_vs_cmb_separation_in_sigma']:.2f} sigma_combined)")
-    print(f"  E2 (catalog-access) sub-finding active: "
-          f"{summary['e2_catalog_access_subfinding']['active']}")
+    print(
+        f"  Shamir DESI axis (galactic): ({summary['headline_shamir_axis_galactic_l_deg']:.2f}, "
+        f"{summary['headline_shamir_axis_galactic_b_deg']:.2f})"
+    )
+    print(
+        f"  Shamir DESI vs AVE SDSS DR17 separation: "
+        f"{summary['headline_separation_deg']:.2f} deg "
+        f"({summary['headline_separation_in_sigma']:.2f} sigma_combined)"
+    )
+    print(
+        f"  Shamir DESI vs CMB axis-of-evil separation: "
+        f"{summary['headline_shamir_vs_cmb_separation_deg']:.2f} deg "
+        f"({summary['headline_shamir_vs_cmb_separation_in_sigma']:.2f} sigma_combined)"
+    )
+    print(f"  E2 (catalog-access) sub-finding active: " f"{summary['e2_catalog_access_subfinding']['active']}")
     print("=" * 70)
 
 

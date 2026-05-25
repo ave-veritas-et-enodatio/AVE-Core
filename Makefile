@@ -16,27 +16,32 @@ SCRIPT_DIR = $(SOURCE_DIR)/scripts
 # Volume list — public volumes only (0–6)
 VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_macroscopic vol_4_engineering vol_5_biology vol_6_periodic_table
 
-.PHONY: all clean distclean verify test pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 setup
+.PHONY: all clean distclean verify verify-kb-metadata refresh-kb-metadata refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links framing-audit test pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 setup
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
 	@echo "--------------------------------------------------"
-	@echo "  make setup           : bootstrap project"
-	@echo "  make all             : Run verify, then compile all PDFs"
-	@echo "  make verify          : Run physics verification protocols (The Kernel Check)"
-	@echo "  make test            : Run unit tests (pytest)"
-	@echo "  make pdf             : Compile all 7 public volumes"
-	@echo "  make pdf_manuscript  : Compile manuscript volumes"
-	@echo "  make vol0            : Vol 0:  The Engineering Compendium"
-	@echo "  make vol1            : Vol I:  Foundations & Universal Operators"
-	@echo "  make vol2            : Vol II: The Subatomic Lattice"
-	@echo "  make vol3            : Vol III: The Macroscopic Continuum"
-	@echo "  make vol4            : Vol IV: Applied Impedance Engineering"
-	@echo "  make vol5            : Vol V:  Topological Biology"
-	@echo "  make vol6            : Vol VI: The Periodic Table"
-	@echo "  make figures         : Generate particle topology figure suite"
-	@echo "  make clean           : Remove auxiliary build artifacts (preserves PDFs)"
-	@echo "  make distclean       : Remove ALL build artifacts including PDFs"
+	@echo "  make setup                : bootstrap project"
+	@echo "  make all                  : Run verify, then compile all PDFs"
+	@echo "  make verify               : Run physics verification protocols (The Kernel Check) and kb claim id check"
+	@echo "  make refresh-kb-metadata  : Regenerate derived KB metadata (subtree-claims, solidity, claim index)"
+	@echo "  make kb-claim-stats       : Print claim-graph counts + solidity build-band distribution (read-only)"
+	@echo "  make verify-md-links      : Check Markdown link integrity + cited-id validity (inter-repo: warn)"
+	@echo "  make verify-inter-repo-links : Same, but broken inter-repo links also gate (inter-repo: error)"
+	@echo "  make framing-audit        : Scan corpus for reviewer-misread framing anti-patterns (advisory)"
+	@echo "  make test                 : Run unit tests (pytest)"
+	@echo "  make pdf                  : Compile all 7 public volumes"
+	@echo "  make pdf_manuscript       : Compile manuscript volumes"
+	@echo "  make vol0                 : Vol 0:  The Engineering Compendium"
+	@echo "  make vol1                 : Vol I:  Foundations & Universal Operators"
+	@echo "  make vol2                 : Vol II: The Subatomic Lattice"
+	@echo "  make vol3                 : Vol III: The Macroscopic Continuum"
+	@echo "  make vol4                 : Vol IV: Applied Impedance Engineering"
+	@echo "  make vol5                 : Vol V:  Topological Biology"
+	@echo "  make vol6                 : Vol VI: The Periodic Table"
+	@echo "  make figures              : Generate particle topology figure suite"
+	@echo "  make clean                : Remove auxiliary build artifacts (preserves PDFs)"
+	@echo "  make distclean            : Remove ALL build artifacts including PDFs"
 
 all: verify pdf
 
@@ -46,8 +51,8 @@ setup:
 # =============================================================================
 # 1. Physics Verification (The "Simulate to Verify" Protocol)
 # =============================================================================
-verify:
-	@echo "[Verify] Running DAG Anti-Cheat Scan..."
+verify: verify-kb-metadata verify-md-links
+	@echo "\n[Verify] Running DAG Anti-Cheat Scan..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_universe.py
 	@echo "\n[Verify] Running FDTD LC Network solvers..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_4_engineering/visualize_impedance_rupture.py
@@ -57,26 +62,62 @@ verify:
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/visualize_topological_bounds.py
 	@echo "\n[Verify] Running Ch 8 α closure: Clifford half-cover rigor..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_clifford_half_cover.py
+	@echo "\n[Verify] Running Ch 8 α closure: λ_line rigor..."
+	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_lambda_line.py
 	@echo "\n[Verify] Running Ch 8 α closure: ropelength → Golden Torus..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/ropelength_trefoil_golden_torus.py
 	@echo "\n[Verify] Running Ch 8 α closure: multipole decomposition..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/derive_alpha_from_golden_torus.py
 	@echo "\n[Verify] Running Vol 2 Ch 7 atomic IE manuscript-table reproducibility..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_atomic_ie_manuscript_table.py
-	@echo "\n[Verify] Running defense-context checker (warning-only)..."
-	-@$(PYTHON) $(SCRIPT_DIR)/defense_context_checker.py
-	@echo "\n[Verify] Running claim-graph validator..."
-	$(PYTHON) $(SCRIPT_DIR)/claim_graph_validator.py
+	@echo "\n[Verify] Running defense-context checker (critical-tier gate)..."
+	$(PYTHON) $(SCRIPT_DIR)/defense_context_checker.py --severity critical
+	@echo "\n[Verify] Running predictions-manifest validator..."
+	$(PYTHON) $(SCRIPT_DIR)/predictions_manifest_validator.py
 	@echo "\n=================================================="
 	@echo "[Verify] ALL PHYSICS PROTOCOLS PASSED."
 	@echo "=================================================="
+
+verify-kb-metadata:
+	@echo "Running KB claim-quality framework integrity check (read-only)..."
+	$(PYTHON) manuscript/ave-kb/tools/verify-kb-metadata.py
+
+refresh-kb-metadata:
+	@echo "Regenerating derived KB metadata fields (subtree-claims, ...)..."
+	$(PYTHON) manuscript/ave-kb/tools/refresh-kb-metadata.py
+
+refresh-predictions:
+	@echo "Regenerating derived predictions-manifest fields (axioms_used from claim DAG)..."
+	PYTHONPATH=$(SOURCE_DIR) $(PYTHON) $(SCRIPT_DIR)/predictions_manifest_refresh.py
+
+kb-claim-stats:
+	@echo "Claim-graph stats summary (counts + solidity build-band distribution, read-only)..."
+	PYTHONPATH=src $(PYTHON) -m ave.kb stats
+
+verify-md-links:
+	@echo "Checking Markdown link integrity + cited-id validity (inter-repo: warn)..."
+	$(PYTHON) manuscript/ave-kb/tools/verify-md-links.py --inter-repo warn
+
+verify-inter-repo-links:
+	@echo "Checking Markdown links incl. inter-repo as gating (inter-repo: error)..."
+	$(PYTHON) manuscript/ave-kb/tools/verify-md-links.py --inter-repo error
+
+framing-audit:
+	@echo "[Framing] Full defense-context anti-pattern scan (advisory; warn/info do not gate)..."
+	$(PYTHON) $(SCRIPT_DIR)/defense_context_checker.py
+
 
 # =============================================================================
 # 2. Unit Testing
 # =============================================================================
 test:
 	@echo "[Test] Running Unit Tests..."
-	$(PYTEST) $(SOURCE_DIR)
+	# Scope to the unit-test tree only. src/scripts/**/*_test.py are runnable
+	# analysis/forward-prediction DRIVERS (each has a __main__ block), not pytest
+	# tests; collecting them mis-runs driver functions as tests (and errors on
+	# non-fixture positional args like test_wave_speed(N, ...)). Drivers run
+	# standalone / via `make verify`, not here.
+	$(PYTEST) $(SOURCE_DIR)/tests
 
 # =============================================================================
 # 3. Manuscript Compilation

@@ -47,12 +47,12 @@ TERTIARY:
 - 50 Compton periods
 - Bond captures: 16 bonds around toroidal shell at psi=0 (varied phi)
 """
-from __future__ import annotations
 
 import json
 import sys
 import time
 from pathlib import Path
+
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
@@ -60,7 +60,6 @@ from ave.topological.vacuum_engine import VacuumEngine3D
 from scripts.vol_1_foundations.tlm_electron_soliton_eigenmode import (
     initialize_2_3_voltage_ansatz,
 )
-
 
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
 PHI_SQ = PHI * PHI
@@ -130,8 +129,7 @@ def spatial_winding_v_inc(V_inc_field, R_torus, n_samples=64):
     total_phase_change = unwrapped[-1] - unwrapped[0]
     # Add wrap-around to close loop
     last_to_first = vals_re[0] * vals_re[-1] + vals_im[0] * vals_im[-1]
-    closure = (np.arctan2(vals_im[0], vals_re[0])
-               - np.arctan2(vals_im[-1], vals_re[-1]))
+    closure = np.arctan2(vals_im[0], vals_re[0]) - np.arctan2(vals_im[-1], vals_re[-1])
     closure_unwrapped = np.angle(np.exp(1j * closure))
     total_phase_change += closure_unwrapped
 
@@ -149,7 +147,7 @@ def main():
     n_steps = int(50 * COMPTON_PERIOD / DT)
     R_torus = 8.0
     r_torus = 4.0
-    amp_ic = 0.1   # Down from O.1's 0.3 per Flag 1 (corpus-physical bulk)
+    amp_ic = 0.1  # Down from O.1's 0.3 per Flag 1 (corpus-physical bulk)
     n_bonds = 16
 
     print(f"\n  Lattice: N={N}, PML={PML}")
@@ -158,7 +156,9 @@ def main():
 
     t_start = time.time()
     engine = VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=0.0,
+        N=N,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -167,15 +167,21 @@ def main():
     )
 
     initialize_2_3_voltage_ansatz(
-        engine.k4, R=R_torus, r=r_torus, amplitude=amp_ic,
+        engine.k4,
+        R=R_torus,
+        r=r_torus,
+        amplitude=amp_ic,
     )
 
     # IC verification
-    init_a2 = np.sum(engine.k4.V_inc ** 2, axis=-1)
+    init_a2 = np.sum(engine.k4.V_inc**2, axis=-1)
     init_a2_int = init_a2 * engine.k4.mask_active.astype(float)
-    init_a2_int[:PML, :, :] = 0; init_a2_int[N-PML:, :, :] = 0
-    init_a2_int[:, :PML, :] = 0; init_a2_int[:, N-PML:, :] = 0
-    init_a2_int[:, :, :PML] = 0; init_a2_int[:, :, N-PML:] = 0
+    init_a2_int[:PML, :, :] = 0
+    init_a2_int[N - PML :, :, :] = 0
+    init_a2_int[:, :PML, :] = 0
+    init_a2_int[:, N - PML :, :] = 0
+    init_a2_int[:, :, :PML] = 0
+    init_a2_int[:, :, N - PML :] = 0
     print(f"\n  IC verification:")
     print(f"    A²_max(t=0): {init_a2_int.max():.4f}")
     print(f"    Total energy(t=0): {init_a2_int.sum():.4f}")
@@ -185,7 +191,7 @@ def main():
     bond_locs = shell_bond_locations(N, R_torus, r_torus, n_bonds=n_bonds)
 
     # Storage
-    bond_v_inc = np.zeros((n_bonds, n_steps, 4))   # n_bonds × time × 4 ports
+    bond_v_inc = np.zeros((n_bonds, n_steps, 4))  # n_bonds × time × 4 ports
     bond_v_ref = np.zeros((n_bonds, n_steps, 4))
 
     energy_traj = []
@@ -204,19 +210,25 @@ def main():
 
         if step_i % capture_cadence == 0:
             t_now = step_i * DT
-            a2 = np.sum(engine.k4.V_inc ** 2, axis=-1)
+            a2 = np.sum(engine.k4.V_inc**2, axis=-1)
             a2_int = a2 * engine.k4.mask_active.astype(float)
-            a2_int[:PML, :, :] = 0; a2_int[N-PML:, :, :] = 0
-            a2_int[:, :PML, :] = 0; a2_int[:, N-PML:, :] = 0
-            a2_int[:, :, :PML] = 0; a2_int[:, :, N-PML:] = 0
+            a2_int[:PML, :, :] = 0
+            a2_int[N - PML :, :, :] = 0
+            a2_int[:, :PML, :] = 0
+            a2_int[:, N - PML :, :] = 0
+            a2_int[:, :, :PML] = 0
+            a2_int[:, :, N - PML :] = 0
             energy_traj.append((t_now, float(a2_int.sum())))
             a2_max_traj.append((t_now, float(a2_int.max())))
 
             if step_i % 50 == 0:
                 t_p = t_now / COMPTON_PERIOD
-                print(f"    t={t_p:5.2f}P  E={a2_int.sum():.3e}  "
-                      f"A²_max={a2_int.max():.3f}  "
-                      f"({time.time() - t_start:.0f}s)", flush=True)
+                print(
+                    f"    t={t_p:5.2f}P  E={a2_int.sum():.3e}  "
+                    f"A²_max={a2_int.max():.3f}  "
+                    f"({time.time() - t_start:.0f}s)",
+                    flush=True,
+                )
 
     elapsed = time.time() - t_start
     print(f"\n  Engine evolution complete in {elapsed:.0f}s")
@@ -257,11 +269,9 @@ def main():
         mean_aspect = float(np.mean(aspects_p0))
         std_aspect = float(np.std(aspects_p0))
         print(f"\n  Port 0 aspect: mean = {mean_aspect:.3f}, std = {std_aspect:.3f}")
-        print(f"  Compared to φ² = {PHI_SQ:.3f}: "
-              f"|mean - φ²|/φ² = {abs(mean_aspect - PHI_SQ)/PHI_SQ * 100:.1f}%")
+        print(f"  Compared to φ² = {PHI_SQ:.3f}: " f"|mean - φ²|/φ² = {abs(mean_aspect - PHI_SQ)/PHI_SQ * 100:.1f}%")
         phase_space_match = abs(mean_aspect - PHI_SQ) <= 0.10 * PHI_SQ
-        print(f"  Phase-space match (R/r ≈ φ² ± 10%): "
-              f"{'PASS' if phase_space_match else 'FAIL'}")
+        print(f"  Phase-space match (R/r ≈ φ² ± 10%): " f"{'PASS' if phase_space_match else 'FAIL'}")
     else:
         phase_space_match = False
         mean_aspect = float("nan")
@@ -310,13 +320,10 @@ def main():
 
     out = {
         "test": "O.1b: V_inc topology measurement",
-        "config": {"N": N, "PML": PML, "R": R_torus, "r": r_torus,
-                   "amp_ic": amp_ic, "n_bonds": n_bonds},
+        "config": {"N": N, "PML": PML, "R": R_torus, "r": r_torus, "amp_ic": amp_ic, "n_bonds": n_bonds},
         "ic_verification": {"a2_max_t0": float(init_a2_int.max())},
         "measure_A_phase_space": {
-            "aspects_per_bond_port0": [
-                a[0] if not np.isinf(a[0]) else None for a in aspects_per_bond
-            ],
+            "aspects_per_bond_port0": [a[0] if not np.isinf(a[0]) else None for a in aspects_per_bond],
             "mean_aspect_port0": float(mean_aspect) if not np.isnan(mean_aspect) else None,
             "phi_squared_target": float(PHI_SQ),
             "phase_space_match": bool(phase_space_match),

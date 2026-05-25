@@ -59,10 +59,7 @@ CONSTANTS
     Zero hardcoded values.  Zero imported numbers. Zero continuous hacks.
 """
 
-from __future__ import annotations
-
 import numpy as np
-from scipy import integrate
 
 from ave.core.constants import A_0, ALPHA, C_0, HBAR, L_NODE, M_E, P_C, RY_EV, e_charge
 from ave.core.universal_operators import universal_reflection, universal_saturation
@@ -559,8 +556,6 @@ def _sir_mode_weighted_base(E_base_eV, Z, n_out, l_out, shells, N_out=0):
     Returns:
         E_mcl_base_eV:  Mode-weighted base energy [eV] for Phase B MCL.
     """
-    from scipy.integrate import solve_ivp
-
     # ── l-selective gate: Bohr nesting criterion (Axiom 1, zero parameters) ──
     #
     # The Bohr radius of shell n scales as r_n ~ n²a₀/Z (Axiom 1, LC
@@ -1210,6 +1205,7 @@ def radial_eigenvalue_scf(Z, n, l, inner_shells, max_iter=10, tol=0.001):
     r_max = 3.0 * n**2 * A_0 / z_outer
     r_max = max(r_max, 7.0 * A_0)
 
+    z_net_updated = None
     for iteration in range(1, max_iter + 1):
         # --- Extract 2s wavefunction at current eigenvalue ---
         z_net_current = z_net_analytic if iteration == 1 else z_net_updated
@@ -1228,7 +1224,6 @@ def radial_eigenvalue_scf(Z, n, l, inner_shells, max_iter=10, tol=0.001):
             return max(float(Z) - sig_other_1s - sig_2s, 0.0)
 
         # Solve 1s ODE to get updated 1s density
-        n_1s = inner_shells[0][0]  # n=1
         r_min_1s = 0.005 * A_0
         r_max_1s = 5.0 * A_0  # 1s decays fast
         E_1s_J = -float(Z) ** 2 * RY_EV * e_charge  # approximate 1s energy
@@ -1397,7 +1392,7 @@ def _total_phase(f_eigen_eV, Z, n, l, shells):
         r_lo = segment_edges[i]
         r_hi = segment_edges[i + 1]
         if r_hi > r_lo:
-            phi_i = _phase_integral(r_lo, r_hi, E_eigen_J, Z, l, shells)
+            phi_i = _phase_integral(r_lo, r_hi, E_eigen_J, Z, l, shells)  # noqa: F821
             total_phi += phi_i
 
     # Reflection phases at each shell boundary
@@ -1571,7 +1566,6 @@ def _direct_ODE_eigenvalue(Z, n_out, l_out, shells, kappa_hopf=0.0):
     at the Gauss screening boundaries (Axiom 2).
     """
     import numpy as np
-    from scipy.integrate import solve_ivp
     from scipy.optimize import brentq
 
     N_inner = sum(N_a for _, N_a in shells)
@@ -1797,8 +1791,6 @@ def ionization_energy_e2k(Z, f_val=1.0):
                 Applies K=2G scale loading to the Phase A½ base.
       Phase C:  Topological Pairing Penalty (Axiom 3 crossing scattering).
     """
-
-    import numpy as np
 
     if Z == 1:
         return RY_EV

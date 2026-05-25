@@ -25,12 +25,12 @@ the lattice values. Full field-level S11 minimization is the next-session
 task and requires differentiable field extractors OR a native field-Gamma
 formulation.
 """
+
 import numpy as np
-from scipy.optimize import minimize
 from scipy.integrate import quad
+from scipy.optimize import minimize
 
 from ave.topological.cosserat_field_3d import CosseratField3D
-
 
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
 ALPHA_COLD_INV = 4.0 * np.pi**3 + np.pi**2 + np.pi
@@ -40,7 +40,7 @@ GOLDEN_r = (PHI - 1.0) / 2.0
 
 def trefoil_speed_squared(t, R, r):
     """|dX/dt|² for the (2,3) torus knot ansatz."""
-    return 4.0 * (R + r * np.cos(3.0 * t))**2 + 9.0 * r**2
+    return 4.0 * (R + r * np.cos(3.0 * t)) ** 2 + 9.0 * r**2
 
 
 def trefoil_arc_length(R, r):
@@ -68,16 +68,14 @@ def extract_field_geometry(solver, target_R, target_r):
     return R_field * scale, r_field * scale, 1.0
 
 
-def composite_s11_free_energy(R, r,
-                               lambda_avoid=1e4,
-                               lambda_screen=1e4):
+def composite_s11_free_energy(R, r, lambda_avoid=1e4, lambda_screen=1e4):
     """
     Composite S11 free energy on the (2,3) trefoil (ropelength + constraints).
     Minimized parametrically by `ropelength_trefoil_golden_torus.py`.
     """
     L = trefoil_arc_length(R, r)
-    pen_avoid = lambda_avoid * ((R - r) - 0.5)**2
-    pen_screen = lambda_screen * (R * r - 0.25)**2
+    pen_avoid = lambda_avoid * ((R - r) - 0.5) ** 2
+    pen_screen = lambda_screen * (R * r - 0.25) ** 2
     return L + pen_avoid + pen_screen
 
 
@@ -111,12 +109,13 @@ def field_s11_objective(target_params, nx=48, verbose=False):
     if not np.isfinite(R_field) or not np.isfinite(r_field):
         return 1e10
     # Evaluate composite free energy in natural (d=1) units.
-    F = composite_s11_free_energy(R_field, r_field,
-                                   lambda_avoid=1e4, lambda_screen=1e4)
+    F = composite_s11_free_energy(R_field, r_field, lambda_avoid=1e4, lambda_screen=1e4)
     if verbose:
-        print(f"  (R_t, r_t) = ({R_target:.4f}, {r_target:.4f}) → "
-              f"field (R, r, d) = ({R_field:.4f}, {r_field:.4f}, {d_field:.4f})  "
-              f"F = {F:.4f}")
+        print(
+            f"  (R_t, r_t) = ({R_target:.4f}, {r_target:.4f}) → "
+            f"field (R, r, d) = ({R_field:.4f}, {r_field:.4f}, {d_field:.4f})  "
+            f"F = {F:.4f}"
+        )
     return F
 
 
@@ -138,8 +137,8 @@ def main():
             field_s11_objective,
             x0=np.array(initial_guess),
             args=(48, True),
-            method='Nelder-Mead',
-            options={'xatol': 1e-4, 'fatol': 1e-6, 'maxiter': 50},
+            method="Nelder-Mead",
+            options={"xatol": 1e-4, "fatol": 1e-6, "maxiter": 50},
         )
         R_found, r_found = result.x
         print(f"  Converged to:   R = {R_found:.6f}, r = {r_found:.6f}")

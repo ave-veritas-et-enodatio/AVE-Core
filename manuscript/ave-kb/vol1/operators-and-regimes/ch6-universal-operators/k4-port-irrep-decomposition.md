@@ -1,10 +1,16 @@
 [↑ Ch.6 Universal Operators](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from photon-identification + L3 closure synthesis as canonical K4 4-port irrep decomposition -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-j550uh, clm-9kd2t3]
+path-stable: "referenced from photon-identification + L3 closure synthesis as canonical K4 4-port irrep decomposition"
+-->
 
 # K4 4-Port Irrep Decomposition: $A_1 \oplus T_2$ + S-Matrix Eigenvalues
 
-The K4 4-port amplitude space decomposes under the tetrahedral group $T_d$ as $V_{\text{4-port}} = A_1 \oplus T_2$. The K4-TLM scattering matrix $S = (1/2)\mathbf{1} - I$ has eigenvalues $\{+1, -1, -1, -1\}$: the $+1$ eigenvector is the $A_1$ "common mode" (all ports equal); the $-1$ triplet spans $T_2$ (traceless). **This is the canonical group-theoretic foundation** for: photon identification (T₂-only Cosserat $\omega$ microrotation), photon-electron formation mechanism (A₁ dissipates via Gauss's law forbidding longitudinal EM; T₂ survives), $A_1$ vs $T_2$ propagation-speed split ($c\sqrt{2}$ vs $c$), and Cosserat sector mapping (A₁ ↔ translational $u$; T₂ ↔ microrotational $\omega$).
+The K4 4-port amplitude space decomposes under the tetrahedral group $T_d$ as $V_{\text{4-port}} = A_1 \oplus T_2$. The K4-TLM scattering matrix $S = (1/2)\mathbf{1} - I$ has eigenvalues $\{+1, -1, -1, -1\}$: the $+1$ eigenvector is the $A_1$ "common mode" (all ports equal); the $-1$ triplet spans $T_2$ (traceless). **This is the canonical group-theoretic foundation** for: photon identification ($T_2$-only Cosserat $\omega$ microrotation), photon-electron formation mechanism ($A_1$ dissipates via Gauss's law forbidding longitudinal EM; $T_2$ survives), $A_1$ vs $T_2$ propagation-speed split ($c\sqrt{2}$ vs $c$), and Cosserat sector mapping ($A_1 \leftrightarrow$ translational $u$; $T_2 \leftrightarrow$ microrotational $\omega$).
+
+Here "substrate" refers to the Chiral LC Network of Axiom 1, corresponding to a chiral Laves K4 Cosserat crystal at the substrate level.
 
 ## Key Results
 
@@ -23,6 +29,8 @@ The K4 4-port amplitude space decomposes under the tetrahedral group $T_d$ as $V
 | Physical origin of asymmetry | Gauss's law forbids longitudinal EM in vacuum: $\nabla \cdot \mathbf{E} = 0$ |
 
 ## §1 — Group-theoretic foundation
+
+<!-- claim-quality: clm-j550uh -->
 
 Under the tetrahedral point group $T_d$ (the symmetry of the four tetrahedral neighbors on K4), the 4-port amplitude space decomposes into irreducible representations as:
 
@@ -82,7 +90,11 @@ The $+1$ eigenvalue on $A_1$ means the bare scattering **preserves the $A_1$ mod
 
 Sum of eigenvalues $= 4.0$ at each step (trace of 4×4 correlation matrix = 4; sanity check passes). **The smallest eigenvalue is exactly zero, stable across time.** The port-space of the soliton lives in a 3D subspace of the nominal 4D port space — **exactly the $T_2$ subspace**, with $A_1$ fully dissipated.
 
+The $(2, 3)$ winding label here is the electron configuration's phase-space (Clifford-torus) winding; the electron's real-space body is the $0_1$ unknot soliton.
+
 ## §4 — How Op3 dissipation breaks the symmetry
+
+<!-- claim-quality: clm-9kd2t3 -->
 
 The bare K4-TLM with $S = (1/2)\mathbf{1} - I$ is unitary. $A_1$ would propagate forever, $T_2$ would reflect forever, no energy loss.
 
@@ -108,7 +120,7 @@ The two irreps propagate at different speeds on the K4 substrate:
 | $A_1$ (longitudinal) | $c \cdot \sqrt{2} = \sqrt{K_{\text{bulk}} / \rho}$ | Bulk modulus $K_{\text{bulk}}$ governs scalar compression |
 | $T_2$ (transverse photon) | $c = \sqrt{G / \rho}$ | Shear modulus $G$ governs transverse shear |
 
-The K4 magic-angle condition $K = 2G$ (Vol 1 Ch 2 macroscopic moduli) makes the substrate's $A_1$ and $T_2$ speeds related by $v_{A_1} / v_{T_2} = \sqrt{2}$ — the same $\sqrt{2}$ that shows up in cardinal-axis kinematics (see [photon-propagation-baseline](../../dynamics/ch4-continuum-electrodynamics/photon-propagation-baseline.md)).
+The K4 magic-angle condition $K = 2G$ (Vol 1 Ch 2 macroscopic moduli) makes the substrate's $A_1$ and $T_2$ speeds related by $v_{A_1} / v_{T_2} = \sqrt{2}$ — the same $\sqrt{2}$ that shows up in cardinal-axis kinematics (see [Photon Propagation Baseline](../../dynamics/ch4-continuum-electrodynamics/photon-propagation-baseline.md)).
 
 ## §7 — Cosserat sector mapping
 
@@ -123,7 +135,7 @@ This mass split is **exactly what's needed**: the photon ($T_2$) needs to be mas
 
 ## §8 — Implications
 
-1. **Photon identification:** $T_2$-only is the canonical AVE-native photon ([photon-identification](../../dynamics/ch4-continuum-electrodynamics/photon-identification.md)). $A_1$ dissipating is the Gauss's-law constraint enforced automatically by $T_d$ symmetry — NOT an additional postulate.
+1. **Photon identification:** $T_2$-only is the canonical AVE-native photon ([Photon Identification](../../dynamics/ch4-continuum-electrodynamics/photon-identification.md)). $A_1$ dissipating is the Gauss's-law constraint enforced automatically by $T_d$ symmetry — NOT an additional postulate.
 2. **Electron formation:** the canonical electron emerges when a $T_2$ photon at $\omega = \omega_C$ self-saturates at the bond LC tank. The $T_2$ → bound-state transition is the saturation engagement at $V \to V_{\text{yield}}$.
 3. **Universal kernel structure:** the same $T_d$ irrep machinery generalizes to other tetrahedrally-coordinated substrates (e.g., diamond lattices in solid-state physics). The K4-specific instance here is the AVE substrate's signature.
 4. **No imported QM:** all of this comes from $T_d$ symmetry on the K4 lattice + Maxwell-substrate consistency. **No need to import "transverse vs longitudinal" as a separate postulate** — it emerges from substrate-native group theory.

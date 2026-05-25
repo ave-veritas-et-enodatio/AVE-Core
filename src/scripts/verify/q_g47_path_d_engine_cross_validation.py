@@ -22,7 +22,6 @@ Purpose:
 Run:
     python src/scripts/verify/q_g47_path_d_engine_cross_validation.py
 """
-from __future__ import annotations
 
 import json
 import os
@@ -34,12 +33,12 @@ import numpy as np
 REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
+from ave.core.constants import ALPHA
 from ave.core.master_equation_fdtd import MasterEquationFDTD
 
-
-# Constants
-ALPHA_INV = 137.035999084
-ALPHA = 1.0 / ALPHA_INV
+# Constants — CODATA measured α (the experimental Q-factor reference the
+# bound-state Λ_total is validated against)
+ALPHA_INV = 1.0 / ALPHA
 P_STAR = 8 * np.pi * ALPHA  # 0.1834
 
 
@@ -91,6 +90,7 @@ def q_factor_integral(engine, center, max_r=10):
 # Test 1: Master Equation FDTD bound-state replication
 # ============================================================
 
+
 def run_master_equation_bound_state(N=24, n_steps=1500, A_peak=0.85, R=2.5):
     """Replicate v14 Mode I PASS at smaller grid for speed.
 
@@ -103,9 +103,14 @@ def run_master_equation_bound_state(N=24, n_steps=1500, A_peak=0.85, R=2.5):
     print("─" * 80)
 
     engine = MasterEquationFDTD(
-        N=N, dx=1.0, V_yield=1.0, c0=1.0,
-        cfl_safety=0.4, pml_thickness=4,
-        A_cap=0.99, S_min=0.05,
+        N=N,
+        dx=1.0,
+        V_yield=1.0,
+        c0=1.0,
+        cfl_safety=0.4,
+        pml_thickness=4,
+        A_cap=0.99,
+        S_min=0.05,
     )
     center = (N // 2, N // 2, N // 2)
     engine.V = make_sech_seed(N, center, A_peak, R)
@@ -130,7 +135,7 @@ def run_master_equation_bound_state(N=24, n_steps=1500, A_peak=0.85, R=2.5):
 
     Lambda_total = q_factor_integral(engine, center)
     v_peak_arr = np.array(v_peak_history)
-    v_peak_late = v_peak_arr[len(v_peak_arr) // 2:]
+    v_peak_late = v_peak_arr[len(v_peak_arr) // 2 :]
 
     results = {
         "v_peak_initial": float(v_peak_history[0]),
@@ -141,7 +146,7 @@ def run_master_equation_bound_state(N=24, n_steps=1500, A_peak=0.85, R=2.5):
         "v_peak_persistence_ratio": float(v_peak_late.mean() / v_peak_history[0]),
         "fwhm_initial": fwhm_history[0],
         "fwhm_final": fwhm_history[-1],
-        "fwhm_mean_late": float(np.mean(fwhm_history[len(fwhm_history) // 2:])),
+        "fwhm_mean_late": float(np.mean(fwhm_history[len(fwhm_history) // 2 :])),
         "Lambda_total": float(Lambda_total),
         "Q_factor_ratio_to_alpha_inv": float(Lambda_total / ALPHA_INV),
         "rel_err_to_alpha_inv": float(abs(Lambda_total - ALPHA_INV) / ALPHA_INV),
@@ -194,6 +199,7 @@ def run_master_equation_bound_state(N=24, n_steps=1500, A_peak=0.85, R=2.5):
 # Test 2: K4-TLM linear-regime check at low amplitude
 # ============================================================
 
+
 def run_k4_tlm_linear_check(N=24):
     """Check that K4-TLM matches Master Equation FDTD in the linear limit.
 
@@ -210,8 +216,7 @@ def run_k4_tlm_linear_check(N=24):
     print("─" * 80)
 
     # Master Equation FDTD: small-amplitude pulse
-    eng_me = MasterEquationFDTD(N=N, dx=1.0, V_yield=1.0, c0=1.0,
-                                 cfl_safety=0.4, pml_thickness=4)
+    eng_me = MasterEquationFDTD(N=N, dx=1.0, V_yield=1.0, c0=1.0, cfl_safety=0.4, pml_thickness=4)
     center = (N // 2, N // 2, N // 2)
     A_linear = 0.01  # well into linear regime
     eng_me.V = make_sech_seed(N, center, A_linear, 2.0)
@@ -258,6 +263,7 @@ def run_k4_tlm_linear_check(N=24):
 # ============================================================
 # Test 3: Operating-point cross-check
 # ============================================================
+
 
 def operating_point_cross_check(me_results):
     """Verify v14 Mode I bound state sits at the canonical K=2G regime.
@@ -331,7 +337,9 @@ def main():
     overall = me_pass and me_linear_pass and op_pass
 
     print(f"  Master Equation FDTD bound state Mode I: {'PASS' if me_pass else 'FAIL'}")
-    print(f"  Linear-regime mode-matching (c_eff = c_0): {'PASS' if me_linear_pass else 'FAIL'} ({k4_results['deviation_from_c0_pct']:.1f}% dev)")
+    print(
+        f"  Linear-regime mode-matching (c_eff = c_0): {'PASS' if me_linear_pass else 'FAIL'} ({k4_results['deviation_from_c0_pct']:.1f}% dev)"
+    )
     print(f"  Q-factor consistency (within 50% of α^-1): {'PASS' if op_pass else 'FAIL'}")
     print()
     print(f"  Overall two-engine cross-validation: {'PASS' if overall else 'PARTIAL/FAIL'}")

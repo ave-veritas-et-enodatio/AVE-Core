@@ -85,7 +85,7 @@ Rewrite bullet from "DAMA energy quantum E_substrate = α m_e c² ≈ 3.728 keV"
 - Pivot to genuinely-distinct claims: cross-crystal swap (Z-independence), CMB-velocity phase-lock (June peak), solid-vs-liquid (NaI positive + XENONnT null)
 - Honest scope: rate magnitude consistent with SM CXB photoabsorption at OOM; needs swap + phase-lock to discriminate
 
-### 3d. Closure-roadmap §0.5 entry walk-back ([`closure-roadmap.md:106`](../manuscript/ave-kb/common/closure-roadmap.md))
+### 3d. Closure-roadmap §0.5 entry walk-back ([`closure-roadmap.md:106`](../manuscript/ave-kb/claim-quality-closure-roadmap.md))
 
 Add new line:
 - **2026-05-17 night — 8th audit cycle on α-slew thread (DAMA energy-scale demotion)**: pre-derivation discrimination-check (agentId a070b9030be6eefd1) caught Moseley Ca Kα 1% coincidence + CXB ~10⁻⁷ events/s/kg anti-anchor + 22-α-power gap. **WALK-BACK**: energy-scale "CONFIRMED zero-parameter" demoted to "consistent-with-window AND with Ca Kα via Moseley; AVE-distinction is Z-INDEPENDENCE + CMB-velocity phase-lock + solid-vs-liquid (NaI positive + XENONnT null)". Foreword bullet rewritten. Source leaf §11 added with anti-anchor discussion. Q-factor derivation paused — needs anti-anchor framework in leaf first. Pattern continues: audit catches → walk-back → corpus discipline strengthens. 8 cycles total this session.
@@ -143,7 +143,7 @@ Q-factor closure is therefore re-scoped from "1-2 session single-parameter targe
 - **Source leaf**: [`manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md`](../manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md)
 - **Matrix row**: [`manuscript/ave-kb/common/divergence-test-substrate-map.md` C14-DAMA-MATERIAL](../manuscript/ave-kb/common/divergence-test-substrate-map.md)
 - **Foreword bullet**: [`manuscript/frontmatter/00_foreword.tex:137`](../manuscript/frontmatter/00_foreword.tex)
-- **Closure-roadmap entry**: [`manuscript/ave-kb/common/closure-roadmap.md:106`](../manuscript/ave-kb/common/closure-roadmap.md)
+- **Closure-roadmap entry**: [`manuscript/ave-kb/claim-quality-closure-roadmap.md:106`](../manuscript/ave-kb/claim-quality-closure-roadmap.md)
 - **Appendix-experiments entry**: [`manuscript/ave-kb/common/appendix-experiments.md:26`](../manuscript/ave-kb/common/appendix-experiments.md)
 
 ## §8 — Lane attribution

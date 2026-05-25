@@ -15,10 +15,15 @@ Phase 2 (next session): PyCBC/GWpy raw-strain ringdown fit for independent f_obs
 Run:
     python3 src/scripts/vol_3_macroscopic/ligo_ringdown_driver.py
 """
-from __future__ import annotations
 
 import math
+import sys
 from dataclasses import dataclass
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
+
+from ave.core.constants import C_0, M_SUN, G
 
 # AVE-canonical constants (cold lattice).
 NU_VAC = 2 / 7  # vacuum Poisson ratio (INVARIANT canonical, Vol 3 Ch 1)
@@ -30,13 +35,13 @@ OMEGA_R_M_G_COLD = ELL_MODE * (1 + NU_VAC) / X_SAT  # = 18/49
 # GR exact Schwarzschild ell=2, n=0 QNM eigenvalue (Leaver 1985)
 OMEGA_R_M_G_GR = 0.3737
 
-# Physical constants
-G_SI = 6.674e-11  # m^3 / (kg s^2)
-C_SI = 2.998e8  # m/s
-M_SUN_KG = 1.989e30  # kg
+# Physical constants (imported from canonical constants.py)
+G_SI = G  # m^3 / (kg s^2)
+C_SI = C_0  # m/s
+M_SUN_KG = M_SUN  # kg
 
 # Conversion: M (in solar masses) -> M (in seconds) via M_seconds = G*M / c^3
-T_SUN = G_SI * M_SUN_KG / (C_SI ** 3)  # ~ 4.92e-6 s/M_sun
+T_SUN = G_SI * M_SUN_KG / (C_SI**3)  # ~ 4.92e-6 s/M_sun
 
 
 @dataclass
@@ -270,9 +275,7 @@ def gr_kerr_qnm_omega_i_m_g(a_star: float) -> float:
     Linear interpolation over Berti+Cardoso+Will 2006 Leaver-method values.
     """
     if not 0.0 <= a_star <= 0.95:
-        raise ValueError(
-            f"a_star must be in [0.0, 0.95] (Berti table range), got {a_star}"
-        )
+        raise ValueError(f"a_star must be in [0.0, 0.95] (Berti table range), got {a_star}")
     for i in range(len(BERTI_KERR_QNM_OMEGA_I_TABLE) - 1):
         a_lo, w_lo = BERTI_KERR_QNM_OMEGA_I_TABLE[i]
         a_hi, w_hi = BERTI_KERR_QNM_OMEGA_I_TABLE[i + 1]
@@ -381,14 +384,11 @@ def verify_kb_table() -> int:
     print("=" * 100)
 
     avg_gr_vs_obs = sum(
-        100 * (gr_kerr_qnm_f_ring_hz(ev.m_final_msun, ev.a_star) - ev.f_kb_obs_hz)
-        / ev.f_kb_obs_hz
+        100 * (gr_kerr_qnm_f_ring_hz(ev.m_final_msun, ev.a_star) - ev.f_kb_obs_hz) / ev.f_kb_obs_hz
         for ev in LIGO_EVENTS
     ) / len(LIGO_EVENTS)
     avg_ave_vs_obs = sum(
-        100 * (ave_kerr_f_ring_hz(ev.m_final_msun, ev.a_star) - ev.f_kb_obs_hz)
-        / ev.f_kb_obs_hz
-        for ev in LIGO_EVENTS
+        100 * (ave_kerr_f_ring_hz(ev.m_final_msun, ev.a_star) - ev.f_kb_obs_hz) / ev.f_kb_obs_hz for ev in LIGO_EVENTS
     ) / len(LIGO_EVENTS)
 
     print(f"\nMean GR-QNM-vs-LIGO across 3 events: {avg_gr_vs_obs:+.2f}%")
@@ -433,14 +433,8 @@ def verify_kb_table() -> int:
 
     if abs(avg_v2_vs_obs) < 5.0:
         print("PHASE 3 FINDING — refined AVE Kerr formula PASSES at ~2% mean deviation.")
-        print(
-            f"  v1 simplified formula: {avg_ave_vs_obs:+.2f}% mean (10-18% per event)"
-            f" — OVER-PREDICTED"
-        )
-        print(
-            f"  v2 refined formula:    {avg_v2_vs_obs:+.2f}% mean (~2% per event)"
-            f" — WITHIN GR-class precision"
-        )
+        print(f"  v1 simplified formula: {avg_ave_vs_obs:+.2f}% mean (10-18% per event)" f" — OVER-PREDICTED")
+        print(f"  v2 refined formula:    {avg_v2_vs_obs:+.2f}% mean (~2% per event)" f" — WITHIN GR-class precision")
         print(f"  GR Kerr QNM reference: {avg_gr_vs_obs:+.2f}% mean (0.34% per event)")
         print()
         print("  Physical mechanism:")
@@ -481,10 +475,7 @@ def verify_kb_table() -> int:
             fail_count += 1
             if divergence_a is None:
                 divergence_a = a
-        print(
-            f"{a:>6.2f} {sweep['v2'][i]:>12.4f} {sweep['gr_qnm'][i]:>12.4f} "
-            f"{dev:>+11.2f}% {verdict:>14}"
-        )
+        print(f"{a:>6.2f} {sweep['v2'][i]:>12.4f} {sweep['gr_qnm'][i]:>12.4f} " f"{dev:>+11.2f}% {verdict:>14}")
     print()
     print(f"Spin range PASS (|dev| < 3%): {pass_count} of {len(sweep['a_star'])} samples")
     print(f"Spin range PARTIAL (|dev| 3-5%): {partial_count}")
@@ -495,19 +486,13 @@ def verify_kb_table() -> int:
         print("v2 PASSES across entire tested spin range")
     print()
     print("Extended LIGO events (higher-spin + intermediate-mass coverage):")
-    print(
-        f"{'Event':30} {'M':>8} {'a_*':>6} {'AVE-v2 (Hz)':>13} {'GR-QNM (Hz)':>13} "
-        f"{'v2-vs-GR':>12}"
-    )
+    print(f"{'Event':30} {'M':>8} {'a_*':>6} {'AVE-v2 (Hz)':>13} {'GR-QNM (Hz)':>13} " f"{'v2-vs-GR':>12}")
     print("-" * 100)
     for ev in LIGO_EVENTS_EXTENDED:
         f_v2 = ave_kerr_v2_f_ring_hz(ev.m_final_msun, ev.a_star)
         f_gr = gr_kerr_qnm_f_ring_hz(ev.m_final_msun, ev.a_star)
         dev = 100 * (f_v2 - f_gr) / f_gr
-        print(
-            f"{ev.name:30} {ev.m_final_msun:>8.1f} {ev.a_star:>6.2f} "
-            f"{f_v2:>13.2f} {f_gr:>13.2f} {dev:>+11.2f}%"
-        )
+        print(f"{ev.name:30} {ev.m_final_msun:>8.1f} {ev.a_star:>6.2f} " f"{f_v2:>13.2f} {f_gr:>13.2f} {dev:>+11.2f}%")
     print()
     print("Phase 4 outcome:")
     print(f"  Valid v2 spin range: a* < {divergence_a if divergence_a else 0.95}")
@@ -561,15 +546,9 @@ def verify_kb_table() -> int:
     print()
     if abs(avg_tau_v2_vs_obs) < 5.0:
         print("PHASE 5 FINDING — refined v2 τ PASSES at <5% mean deviation.")
-        print(
-            f"  v1 simplified τ: {avg_tau_v1_vs_obs:+.2f}% mean — UNDER-PREDICTED damping time"
-        )
-        print(
-            f"  v2 refined τ:    {avg_tau_v2_vs_obs:+.2f}% mean — WITHIN LIGO measurement precision"
-        )
-        print(
-            f"  GR Kerr QNM τ:   {avg_tau_gr_vs_obs:+.2f}% mean — comparable to v2"
-        )
+        print(f"  v1 simplified τ: {avg_tau_v1_vs_obs:+.2f}% mean — UNDER-PREDICTED damping time")
+        print(f"  v2 refined τ:    {avg_tau_v2_vs_obs:+.2f}% mean — WITHIN LIGO measurement precision")
+        print(f"  GR Kerr QNM τ:   {avg_tau_gr_vs_obs:+.2f}% mean — comparable to v2")
         print()
         print("  Physical mechanism:")
         print("  - K4 lattice impedance sets damping-rate Q (rigid Cosserat skeleton property)")

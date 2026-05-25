@@ -22,10 +22,11 @@ Compton periods, indicating a bound mode.
 Diagnostic readouts: total lattice energy vs time (conservation check),
 shell-averaged |V| vs time (localization check), and envelope geometry.
 """
-import numpy as np
-from ave.core.k4_tlm import K4Lattice3D
-from ave.core.constants import ALPHA, V_YIELD, V_SNAP
 
+import numpy as np
+
+from ave.core.constants import ALPHA, V_SNAP, V_YIELD
+from ave.core.k4_tlm import K4Lattice3D
 
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
 
@@ -112,9 +113,7 @@ def initialize_2_3_voltage_ansatz(
     # Attribute 2: phase — quadrature pattern across ports
     #   ports 0, 1 carry cos(theta); ports 2, 3 carry sin(theta)
     for p_idx, (px, py, pz) in enumerate(ports):
-        chirality_weight = inv_sqrt3 * (
-            px * t_hat_x + py * t_hat_y + pz * t_hat_z
-        )
+        chirality_weight = inv_sqrt3 * (px * t_hat_x + py * t_hat_y + pz * t_hat_z)
         if p_idx < 2:
             phase_pattern = cos_theta
         else:
@@ -207,9 +206,7 @@ def initialize_phi_link_2_3_ansatz(
     # This preserves the 90° phase relationship across the tetrahedral basis
     # that the Cosserat-side rotational LC has between θ and ω.
     for p_idx, (px, py, pz) in enumerate(ports):
-        chirality_weight = inv_sqrt3 * (
-            px * t_hat_x + py * t_hat_y + pz * t_hat_z
-        )
+        chirality_weight = inv_sqrt3 * (px * t_hat_x + py * t_hat_y + pz * t_hat_z)
         if p_idx < 2:
             phase_pattern = cos_theta
         else:
@@ -307,9 +304,7 @@ def initialize_quadrature_2_3_eigenmode(
     sin_theta = np.sin(theta_wind)
 
     for p_idx, (px, py, pz) in enumerate(ports):
-        chirality_weight = inv_sqrt3 * (
-            px * t_hat_x + py * t_hat_y + pz * t_hat_z
-        )
+        chirality_weight = inv_sqrt3 * (px * t_hat_x + py * t_hat_y + pz * t_hat_z)
         # Blend port-uniform (1.0) with chirality projection per `chirality` knob
         port_factor = (1.0 - chirality) * 1.0 + chirality * chirality_weight
         # 90° quadrature: V_inc = cos·factor, V_ref = sin·factor at every port
@@ -385,9 +380,7 @@ def _apply_2_3_ansatz_with_envelope(
     sin_theta = np.sin(theta_wind)
 
     for p_idx, (px, py, pz) in enumerate(ports):
-        chirality_weight = inv_sqrt3 * (
-            px * t_hat_x + py * t_hat_y + pz * t_hat_z
-        )
+        chirality_weight = inv_sqrt3 * (px * t_hat_x + py * t_hat_y + pz * t_hat_z)
         phase_pattern = cos_theta if p_idx < 2 else sin_theta
         lattice.V_inc[..., p_idx] = envelope * chirality_weight * phase_pattern
 
@@ -407,8 +400,10 @@ def initialize_2_3_voltage_ansatz_gaussian(
     profile changes. See `_apply_2_3_ansatz_with_envelope` for shared
     logic.
     """
+
     def envelope_fn(rho_tube, r_opt, amp):
-        return amp * np.pi * np.exp(-(rho_tube / r_opt) ** 2)
+        return amp * np.pi * np.exp(-((rho_tube / r_opt) ** 2))
+
     _apply_2_3_ansatz_with_envelope(lattice, R, r, amplitude, envelope_fn)
 
 
@@ -425,14 +420,14 @@ def initialize_2_3_voltage_ansatz_exponential(
     profile changes. See `_apply_2_3_ansatz_with_envelope` for shared
     logic.
     """
+
     def envelope_fn(rho_tube, r_opt, amp):
         return amp * np.pi * np.exp(-rho_tube / r_opt)
+
     _apply_2_3_ansatz_with_envelope(lattice, R, r, amplitude, envelope_fn)
 
 
-def shell_envelope(
-    V_magnitude: np.ndarray, cx: float, cy: float, cz: float
-) -> tuple[float, float]:
+def shell_envelope(V_magnitude: np.ndarray, cx: float, cy: float, cz: float) -> tuple[float, float]:
     """Extract (R_max, r_hwhm) from a scalar field magnitude via
     radial histogram at z = center. R_max is the major-axis bin with
     peak amplitude; r_hwhm is the FWHM/2 of the peak in the radial
@@ -491,8 +486,13 @@ def run_tlm_electron(
     mechanism to confine a (2,3) voltage pattern to Golden Torus geometry.
     """
     lattice = K4Lattice3D(
-        N, N, N, dx=1.0, pml_thickness=pml_thickness,
-        nonlinear=nonlinear, op3_bond_reflection=op3_bond_reflection,
+        N,
+        N,
+        N,
+        dx=1.0,
+        pml_thickness=pml_thickness,
+        nonlinear=nonlinear,
+        op3_bond_reflection=op3_bond_reflection,
     )
     initialize_2_3_voltage_ansatz(lattice, R=R, r=r, amplitude=amplitude)
 
@@ -549,7 +549,9 @@ def run_tlm_electron(
     R_rms, r_rms = shell_envelope(V_rms_field, cx, cy, cz)
 
     if verbose:
-        print(f"  Time-averaged ({rms_count} steps): (R_rms, r_rms) = ({R_rms:.3f}, {r_rms:.3f})  R/r = {R_rms/max(r_rms, 1e-9):.3f}")
+        print(
+            f"  Time-averaged ({rms_count} steps): (R_rms, r_rms) = ({R_rms:.3f}, {r_rms:.3f})  R/r = {R_rms/max(r_rms, 1e-9):.3f}"
+        )
 
     return {
         "steps": np.asarray(step_sampled),
@@ -640,8 +642,7 @@ def extract_crossing_count_tlm(lattice, R_major: float) -> int:
     return best_winding
 
 
-def _contour_winding(lattice, R_major: float, r_minor: float,
-                     direction: str, n_samples: int = 128) -> tuple:
+def _contour_winding(lattice, R_major: float, r_minor: float, direction: str, n_samples: int = 128) -> tuple:
     """Sample the V_inc phasor on a circular contour and return (signed_winding, amplitude_min_max_ratio).
 
     direction='poloidal': contour at fixed phi=0 sweeping psi (around minor circle).
@@ -659,13 +660,13 @@ def _contour_winding(lattice, R_major: float, r_minor: float,
     cy = (ny - 1) / 2.0
     cz = (nz - 1) / 2.0
 
-    if direction == 'poloidal':
+    if direction == "poloidal":
         # Fixed phi = 0 (xz-plane), sweep psi
         s = np.linspace(0.0, 2.0 * np.pi, n_samples, endpoint=False)
         dx_s = cx + (R_major + r_minor * np.cos(s))
         dy_s = cy + np.zeros_like(s)
         dz_s = cz + r_minor * np.sin(s)
-    elif direction == 'toroidal':
+    elif direction == "toroidal":
         # Fixed psi = 0 (outer equator at z=0), sweep phi
         s = np.linspace(0.0, 2.0 * np.pi, n_samples, endpoint=False)
         rho = R_major + r_minor  # outer equator
@@ -705,7 +706,7 @@ def _contour_winding(lattice, R_major: float, r_minor: float,
     # Phasor: ports {0,1} = cos, ports {2,3} = sin (quadrature from (2,3) init)
     ox = trilinear_sample(lattice.V_inc[..., 0] + lattice.V_inc[..., 1])
     oy = trilinear_sample(lattice.V_inc[..., 2] + lattice.V_inc[..., 3])
-    amp = np.sqrt(ox ** 2 + oy ** 2)
+    amp = np.sqrt(ox**2 + oy**2)
 
     if amp.max() <= 0:
         return 0.0, 0.0
@@ -759,8 +760,8 @@ def extract_chirality_measured(lattice, R_major: float) -> dict:
     best_p = (0.0, 0.0)  # (signed_winding, amp_ratio)
     best_q = (0.0, 0.0)
     for r_minor in np.linspace(1.0, max(3.0, R_major * 0.5), 8):
-        p_w, p_amp = _contour_winding(lattice, R_major, r_minor, 'toroidal')
-        q_w, q_amp = _contour_winding(lattice, R_major, r_minor, 'poloidal')
+        p_w, p_amp = _contour_winding(lattice, R_major, r_minor, "toroidal")
+        q_w, q_amp = _contour_winding(lattice, R_major, r_minor, "poloidal")
         if p_amp > best_p[1]:
             best_p = (p_w, p_amp)
         if q_amp > best_q[1]:
@@ -776,25 +777,23 @@ def extract_chirality_measured(lattice, R_major: float) -> dict:
     else:
         chi_measured = ALPHA * p_meas * q_meas / (p_meas + q_meas)
 
-    chi_error_rel = (abs(chi_measured - chi_target) / abs(chi_target)
-                     if chi_target != 0 else float('inf'))
+    chi_error_rel = abs(chi_measured - chi_target) / abs(chi_target) if chi_target != 0 else float("inf")
 
     return {
-        'p_measured': p_meas,
-        'q_measured': q_meas,
-        'chi_measured': chi_measured,
-        'chi_target': chi_target,
-        'chi_error_rel': chi_error_rel,
-        'amp_ratio_p': best_p[1],
-        'amp_ratio_q': best_q[1],
-        'valid': valid,
+        "p_measured": p_meas,
+        "q_measured": q_meas,
+        "chi_measured": chi_measured,
+        "chi_target": chi_target,
+        "chi_error_rel": chi_error_rel,
+        "amp_ratio_p": best_p[1],
+        "amp_ratio_q": best_q[1],
+        "valid": valid,
     }
 
 
-def convergence_check(alpha_inv: float, chi_measured: float,
-                      alpha_target: float = None,
-                      chi_target: float = None,
-                      tol: float = 0.015) -> dict:
+def convergence_check(
+    alpha_inv: float, chi_measured: float, alpha_target: float = None, chi_target: float = None, tol: float = 0.015
+) -> dict:
     """Two-target convergence check for the L3 electron Path C.
 
     Convergence requires BOTH:
@@ -806,21 +805,20 @@ def convergence_check(alpha_inv: float, chi_measured: float,
     """
     if alpha_target is None:
         from ave.core.constants import ALPHA_COLD_INV
+
         alpha_target = ALPHA_COLD_INV
     if chi_target is None:
         chi_target = ALPHA * 6.0 / 5.0
 
-    alpha_err = (abs(alpha_inv - alpha_target) / alpha_target
-                 if alpha_target != 0 else float('inf'))
-    chi_err = (abs(chi_measured - chi_target) / abs(chi_target)
-               if chi_target != 0 else float('inf'))
+    alpha_err = abs(alpha_inv - alpha_target) / alpha_target if alpha_target != 0 else float("inf")
+    chi_err = abs(chi_measured - chi_target) / abs(chi_target) if chi_target != 0 else float("inf")
 
     converged = (alpha_err < tol) and (chi_err < tol)
     return {
-        'converged': converged,
-        'alpha_err': alpha_err,
-        'chi_err': chi_err,
-        'tol': tol,
+        "converged": converged,
+        "alpha_err": alpha_err,
+        "chi_err": chi_err,
+        "tol": tol,
     }
 
 
@@ -895,27 +893,35 @@ def solve_eigenmode_self_consistent(
             print(f"  Seed (R, r) = ({R_k:.3f}, {r_k:.3f})")
 
         result = run_tlm_electron(
-            N=N, R=R_k, r=r_k,
-            n_steps=n_steps, sample_every=sample_every, amplitude=amplitude,
-            nonlinear=False, pml_thickness=0, op3_bond_reflection=True,
+            N=N,
+            R=R_k,
+            r=r_k,
+            n_steps=n_steps,
+            sample_every=sample_every,
+            amplitude=amplitude,
+            nonlinear=False,
+            pml_thickness=0,
+            op3_bond_reflection=True,
             rms_avg_last_n=max(50, n_steps // 3),
             verbose=False,
         )
-        R_new = float(result['R_rms'])
-        r_new = float(result['r_rms'])
+        R_new = float(result["R_rms"])
+        r_new = float(result["r_rms"])
         alpha = extract_alpha_inverse(R_new, r_new, c=3)
-        alpha_inv = alpha['alpha_inv'] if alpha['valid'] else float('nan')
+        alpha_inv = alpha["alpha_inv"] if alpha["valid"] else float("nan")
         history.append((R_new, r_new, alpha_inv))
 
         if R_k > 0 and r_k > 0:
             dR_rel = abs(R_new - R_k) / R_k
             dr_rel = abs(r_new - r_k) / r_k
         else:
-            dR_rel = dr_rel = float('inf')
+            dR_rel = dr_rel = float("inf")
 
         if verbose:
-            print(f"  Extracted (R, r) = ({R_new:.3f}, {r_new:.3f})  "
-                  f"R/r = {R_new / max(r_new, 1e-9):.3f}  α⁻¹ = {alpha_inv:.3f}")
+            print(
+                f"  Extracted (R, r) = ({R_new:.3f}, {r_new:.3f})  "
+                f"R/r = {R_new / max(r_new, 1e-9):.3f}  α⁻¹ = {alpha_inv:.3f}"
+            )
             print(f"  ΔR/R = {dR_rel:.2e}  Δr/r = {dr_rel:.2e}  (tol={tol:.0e})")
 
         if dR_rel < tol and dr_rel < tol:
@@ -989,65 +995,73 @@ def solve_eigenmode_dual_target(
     for outer_iter in range(1, max_outer_iter + 1):
         if verbose:
             print(f"\n=== Path C outer iter {outer_iter} ===")
-            print(f"  amp = {amp_k:.4e}  (R, r) = ({R_target:.2f}, {r_target:.3f}) "
-                  f"[held fixed]")
+            print(f"  amp = {amp_k:.4e}  (R, r) = ({R_target:.2f}, {r_target:.3f}) " f"[held fixed]")
 
         result = run_tlm_electron(
-            N=N, R=R_target, r=r_target,
-            n_steps=n_steps, sample_every=n_steps + 1,
+            N=N,
+            R=R_target,
+            r=r_target,
+            n_steps=n_steps,
+            sample_every=n_steps + 1,
             amplitude=amp_k,
-            nonlinear=False, pml_thickness=pml_thickness,
+            nonlinear=False,
+            pml_thickness=pml_thickness,
             op3_bond_reflection=True,
             rms_avg_last_n=max(50, n_steps // 3),
             verbose=False,
         )
-        R_rms = float(result['R_rms'])
-        r_rms = float(result['r_rms'])
-        lattice = result['lattice']
+        R_rms = float(result["R_rms"])
+        r_rms = float(result["r_rms"])
+        lattice = result["lattice"]
 
         alpha_dict = extract_alpha_inverse(R_rms, r_rms, c=3)
-        alpha_inv = alpha_dict['alpha_inv'] if alpha_dict['valid'] else float('nan')
+        alpha_inv = alpha_dict["alpha_inv"] if alpha_dict["valid"] else float("nan")
 
         chi_dict = extract_chirality_measured(lattice, R_major=R_rms or R_target)
-        chi_meas = chi_dict['chi_measured']
+        chi_meas = chi_dict["chi_measured"]
 
-        conv = convergence_check(alpha_inv, chi_meas,
-                                 alpha_target=alpha_target,
-                                 chi_target=chi_target,
-                                 tol=tol)
+        conv = convergence_check(alpha_inv, chi_meas, alpha_target=alpha_target, chi_target=chi_target, tol=tol)
 
-        history.append({
-            'iter': outer_iter,
-            'amp': amp_k,
-            'R_rms': R_rms, 'r_rms': r_rms,
-            'alpha_inv': alpha_inv,
-            'chi_measured': chi_meas,
-            'p_meas': chi_dict['p_measured'],
-            'q_meas': chi_dict['q_measured'],
-            'alpha_err': conv['alpha_err'],
-            'chi_err': conv['chi_err'],
-            'converged': conv['converged'],
-        })
+        history.append(
+            {
+                "iter": outer_iter,
+                "amp": amp_k,
+                "R_rms": R_rms,
+                "r_rms": r_rms,
+                "alpha_inv": alpha_inv,
+                "chi_measured": chi_meas,
+                "p_meas": chi_dict["p_measured"],
+                "q_meas": chi_dict["q_measured"],
+                "alpha_err": conv["alpha_err"],
+                "chi_err": conv["chi_err"],
+                "converged": conv["converged"],
+            }
+        )
 
         if verbose:
-            print(f"  Extracted: (R,r)=({R_rms:.3f}, {r_rms:.3f}) "
-                  f"α⁻¹={alpha_inv:.3f} ({conv['alpha_err']*100:.2f}% err)")
-            print(f"  Chirality: p={chi_dict['p_measured']:+.3f} "
-                  f"q={chi_dict['q_measured']:+.3f}  "
-                  f"χ_meas={chi_meas:+.4e}  χ_target={chi_target:+.4e} "
-                  f"({conv['chi_err']*100:.2f}% err)")
+            print(
+                f"  Extracted: (R,r)=({R_rms:.3f}, {r_rms:.3f}) "
+                f"α⁻¹={alpha_inv:.3f} ({conv['alpha_err']*100:.2f}% err)"
+            )
+            print(
+                f"  Chirality: p={chi_dict['p_measured']:+.3f} "
+                f"q={chi_dict['q_measured']:+.3f}  "
+                f"χ_meas={chi_meas:+.4e}  χ_target={chi_target:+.4e} "
+                f"({conv['chi_err']*100:.2f}% err)"
+            )
 
-        if conv['converged']:
+        if conv["converged"]:
             if verbose:
                 print(f"  → CONVERGED at iter {outer_iter}: both errors < {tol*100:.1f}%")
             return {
-                'converged': True,
-                'iterations': outer_iter,
-                'trajectory': history,
-                'final_amp': amp_k,
-                'final_R': R_rms, 'final_r': r_rms,
-                'final_alpha_inv': alpha_inv,
-                'final_chi': chi_meas,
+                "converged": True,
+                "iterations": outer_iter,
+                "trajectory": history,
+                "final_amp": amp_k,
+                "final_R": R_rms,
+                "final_r": r_rms,
+                "final_alpha_inv": alpha_inv,
+                "final_chi": chi_meas,
             }
 
         # Adjust amplitude. If alpha_inv is NaN or bad, shrink amp.
@@ -1055,7 +1069,7 @@ def solve_eigenmode_dual_target(
             amp_proposed = amp_k * 0.7
         else:
             ratio = alpha_target / alpha_inv
-            amp_proposed = amp_k * (ratio ** scale_exp)
+            amp_proposed = amp_k * (ratio**scale_exp)
 
         # Damping for stability
         amp_new = damping * amp_proposed + (1.0 - damping) * amp_k
@@ -1069,14 +1083,14 @@ def solve_eigenmode_dual_target(
     if verbose:
         print(f"  → NOT converged within {max_outer_iter} iterations.")
     return {
-        'converged': False,
-        'iterations': max_outer_iter,
-        'trajectory': history,
-        'final_amp': amp_k,
-        'final_R': history[-1]['R_rms'] if history else None,
-        'final_r': history[-1]['r_rms'] if history else None,
-        'final_alpha_inv': history[-1]['alpha_inv'] if history else None,
-        'final_chi': history[-1]['chi_measured'] if history else None,
+        "converged": False,
+        "iterations": max_outer_iter,
+        "trajectory": history,
+        "final_amp": amp_k,
+        "final_R": history[-1]["R_rms"] if history else None,
+        "final_r": history[-1]["r_rms"] if history else None,
+        "final_alpha_inv": history[-1]["alpha_inv"] if history else None,
+        "final_chi": history[-1]["chi_measured"] if history else None,
     }
 
 
@@ -1095,38 +1109,52 @@ def main():
     R_target = 24.0
     r_target = R_target / PHI_SQ
     amp = 0.9 * float(V_YIELD)
-    print(f"  Golden Torus target ({N_grid}³, periodic BCs): R = {R_target:.2f}, r = {r_target:.3f}, R/r = {PHI_SQ:.3f}")
+    print(
+        f"  Golden Torus target ({N_grid}³, periodic BCs): R = {R_target:.2f}, r = {r_target:.3f}, R/r = {PHI_SQ:.3f}"
+    )
     print(f"  V_YIELD = {float(V_YIELD):.3e} V; V_SNAP = {float(V_SNAP):.3e} V")
     print(f"  Initial amplitude = {amp:.3e} V  (= 0.9 × V_YIELD, at Regime II/III boundary)")
     print()
 
     print(f"--- Run 1: Golden Torus init, op3=True, periodic BCs ({N_grid}³) ---")
     result1 = run_tlm_electron(
-        N=N_grid, R=R_target, r=r_target,
-        n_steps=400, sample_every=50, amplitude=amp,
-        nonlinear=False, pml_thickness=0, op3_bond_reflection=True,
+        N=N_grid,
+        R=R_target,
+        r=r_target,
+        n_steps=400,
+        sample_every=50,
+        amplitude=amp,
+        nonlinear=False,
+        pml_thickness=0,
+        op3_bond_reflection=True,
     )
 
     print()
     print(f"--- Run 2: perturbed (R +30%, r -30%), op3=True, periodic BCs ---")
     result2 = run_tlm_electron(
-        N=N_grid, R=R_target * 1.3, r=r_target * 0.7,
-        n_steps=400, sample_every=50, amplitude=amp,
-        nonlinear=False, pml_thickness=0, op3_bond_reflection=True,
+        N=N_grid,
+        R=R_target * 1.3,
+        r=r_target * 0.7,
+        n_steps=400,
+        sample_every=50,
+        amplitude=amp,
+        nonlinear=False,
+        pml_thickness=0,
+        op3_bond_reflection=True,
     )
 
     print()
     print("--- Summary ---")
     ALPHA_TARGET = 4 * np.pi**3 + np.pi**2 + np.pi
     for idx, result in enumerate([result1, result2], start=1):
-        R_f = float(result['R'][-1])
-        r_f = float(result['r'][-1])
-        R_rms = float(result['R_rms'])
-        r_rms = float(result['r_rms'])
+        R_f = float(result["R"][-1])
+        r_f = float(result["r"][-1])
+        R_rms = float(result["R_rms"])
+        r_rms = float(result["r_rms"])
         ratio = R_f / max(r_f, 1e-6)
         ratio_rms = R_rms / max(r_rms, 1e-6)
-        E_var = (result['energy'].max() - result['energy'].min()) / result['energy'][0]
-        c_extracted = extract_crossing_count_tlm(result['lattice'], R_major=R_f)
+        E_var = (result["energy"].max() - result["energy"].min()) / result["energy"][0]
+        c_extracted = extract_crossing_count_tlm(result["lattice"], R_major=R_f)
         print(f"\n  Run {idx} final:")
         print(f"    Snapshot  (R, r) = ({R_f:.3f}, {r_f:.3f})  R/r = {ratio:.3f}")
         print(f"    Time-RMS  (R, r) = ({R_rms:.3f}, {r_rms:.3f})  R/r = {ratio_rms:.3f}  (target {PHI_SQ:.3f})")
@@ -1146,7 +1174,7 @@ def main():
             print(f"      Lambda_surf = {alpha['Lambda_surf']:.4f}  (at c=3 target π^2 = {np.pi**2:.4f})")
             print(f"      Lambda_line = {alpha['Lambda_line']:.4f}  (target π    = {np.pi:.4f})")
             print(f"    α⁻¹ (c-weighted) = {alpha['alpha_inv']:.4f}  (target 137.0363)")
-            err_pct = 100 * abs(alpha['alpha_inv'] - ALPHA_TARGET) / ALPHA_TARGET
+            err_pct = 100 * abs(alpha["alpha_inv"] - ALPHA_TARGET) / ALPHA_TARGET
             print(f"    Deviation from target: {err_pct:.2f}%")
         else:
             print(f"    α⁻¹: invalid (R <= r or r = 0)")
@@ -1166,8 +1194,15 @@ def main():
     ]:
         print(f"\n--- Self-consistent {sc_label} ---")
         sc = solve_eigenmode_self_consistent(
-            N=N_grid, R_seed=R_seed, r_seed=r_seed, amplitude=amp,
-            n_steps=300, sample_every=300, max_iter=6, tol=1e-3, verbose=True,
+            N=N_grid,
+            R_seed=R_seed,
+            r_seed=r_seed,
+            amplitude=amp,
+            n_steps=300,
+            sample_every=300,
+            max_iter=6,
+            tol=1e-3,
+            verbose=True,
         )
         print(f"\n  Trajectory:")
         for k, (Rk, rk, ak) in enumerate(sc["trajectory"]):

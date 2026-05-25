@@ -232,7 +232,7 @@ Per `_orchestration/README.md` orchestration discipline + the relevant skill eco
 ### Canonical experimental tracking
 - [Divergence Test Substrate Map (main matrix, 3 sub-matrices, 33 predictions)](../../manuscript/ave-kb/common/divergence-test-substrate-map.md)
 - [Unified Experiments Appendix](../../manuscript/ave-kb/common/appendix-experiments.md)
-- [Closure Roadmap §0.5 changelog](../../manuscript/ave-kb/common/closure-roadmap.md)
+- [Closure Roadmap §0.5 changelog](../../manuscript/ave-kb/claim-quality-closure-roadmap.md)
 
 ### Canonical framework structure (Phase 5 tie-back targets)
 - [A-034 Universal Saturation-Kernel Catalog (26 instances)](../../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md)

@@ -36,8 +36,6 @@ and avoid Regime III where the substrate phase-transitions (out of scope
 for FDTD on the scalar Master Equation).
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 

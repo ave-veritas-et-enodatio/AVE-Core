@@ -2,7 +2,7 @@
 
 **Date**: 2026-05-18
 **Target**: Derive individual values of ξ_K1, ξ_K2 prefactors from K4 unit-cell Cosserat-Lagrangian integration; verify against the canonical ratio ξ_K2/ξ_K1 = 12. Use C1-BH-RING Phase 5 empirically-anchored ν_vac=2/7 rigid/compliant partition as load-bearing input.
-**Parent**: [`closure-roadmap.md:30`](../manuscript/ave-kb/common/closure-roadmap.md:30) Tier 2 row Q-G47 Sessions 19+ "genuinely-open items"
+**Parent**: [`closure-roadmap.md:30`](../manuscript/ave-kb/claim-quality-closure-roadmap.md:30) Tier 2 row Q-G47 Sessions 19+ "genuinely-open items"
 **Branch**: `analysis/q-g47-sessions-19-prefactor-derivation`
 **Path 2 motivation**: from [`2026-05-18_cosserat-engine-q-preservation-result.md:103`](2026-05-18_cosserat-engine-q-preservation-result.md:103) — "Use C1's empirically-anchored ν_vac=2/7 rigid/compliant partition as the input to Sessions 19+ Q-G47 ξ_K1, ξ_K2 prefactor derivation."
 
@@ -34,7 +34,7 @@ Verified via ave-corpus-grep agent (returned ~3500 words, condensed below):
 - [x] **ξ_K1, ξ_K2 definitions**: [`q-g47-substrate-scale-cosserat-closure.md:42-49`](../manuscript/ave-kb/common/q-g47-substrate-scale-cosserat-closure.md:42) — (μ+κ) = ξ_K1·T_EM and (β+γ) = ξ_K2·T_EM·ℓ_node². Ratio = 12 locked. Individual values open per `:107-110`.
 - [x] **12-DOF closed-form eigenvalues**: [`research/_archive/L3_electron_soliton/128_q_g47_path_b_plus_cosserat_results.md:65-72`](../research/_archive/L3_electron_soliton/128_q_g47_path_b_plus_cosserat_results.md:65) — closed-form at K=2G operating point.
 - [x] **K4 primitive cell**: 4 nodes per primitive cell (`N_K4 = 4`), z = 4 nearest neighbors tetrahedral, I4_1 32 chiral space group per Axiom 1 canonical (Vol 1 Ch 1).
-- [x] **ν_vac = 2/7 rigid/compliant partition**: [`ave-merger-ringdown-eigenvalue.md:37`](../manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md:37) — canonical formula; [`closure-roadmap.md:117`](../manuscript/ave-kb/common/closure-roadmap.md:117) — Phase 3 v2 decomposition x_sat(a*) = 7·[ν_vac + (1-ν_vac)·r_ph+/3M] = 2 + 5·r_ph+/3M. Origin: K=2G isotropic-solid Poisson identity per `129:52`. Now ALSO empirically anchored via C1 Phase 5 (-0.47% mean τ).
+- [x] **ν_vac = 2/7 rigid/compliant partition**: [`ave-merger-ringdown-eigenvalue.md:37`](../manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md:37) — canonical formula; [`closure-roadmap.md:117`](../manuscript/ave-kb/claim-quality-closure-roadmap.md:117) — Phase 3 v2 decomposition x_sat(a*) = 7·[ν_vac + (1-ν_vac)·r_ph+/3M] = 2 + 5·r_ph+/3M. Origin: K=2G isotropic-solid Poisson identity per `129:52`. Now ALSO empirically anchored via C1 Phase 5 (-0.47% mean τ).
 - [x] **z_0 = 51.25 status**: currently EMT-inversion-given-α (circular), per [`appendix_c_derived_numerology.tex:60-74`](../manuscript/backmatter/appendix_c_derived_numerology.tex:60). First-principles geometric derivation deferred per `q-g47-substrate-scale-cosserat-closure.md:108-109` ("Layer 4 explicit α-consistency-not-emergence framing"). Geometric route: count secondary neighbors within 1.187·ℓ_node sphere in K4 lattice.
 - [x] **Q-G47 Sessions 1-18 history**: framework + substrate-level + path-verification done (Doc 124-131). Individual ξ_K1, ξ_K2 values explicitly deferred at Session 17:49 (per `124:59`) — "multi-week K4 lattice integration."
 - [x] **Existing scaffolding code**:
@@ -54,7 +54,7 @@ Verified via ave-corpus-grep agent (returned ~3500 words, condensed below):
 - [`q-g47-substrate-scale-cosserat-closure.md:42-110`](../manuscript/ave-kb/common/q-g47-substrate-scale-cosserat-closure.md:42) (definitions + open list)
 - [`128_q_g47_path_b_plus_cosserat_results.md:40-72`](../research/_archive/L3_electron_soliton/128_q_g47_path_b_plus_cosserat_results.md:40) (12-DOF closed-form eigenvalues at K=2G)
 - [`129_q_g47_path_c_emt_canonical_substrate.md`](../research/_archive/L3_electron_soliton/129_q_g47_path_c_emt_canonical_substrate.md) (FTG-EMT z_0=51.25)
-- [`ave-merger-ringdown-eigenvalue.md:37`](../manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md:37) + [`closure-roadmap.md:117`](../manuscript/ave-kb/common/closure-roadmap.md:117) (ν_vac=2/7 rigid/compliant)
+- [`ave-merger-ringdown-eigenvalue.md:37`](../manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md:37) + [`closure-roadmap.md:117`](../manuscript/ave-kb/claim-quality-closure-roadmap.md:117) (ν_vac=2/7 rigid/compliant)
 - [`vol_1_foundations/chapters/01_fundamental_axioms.tex`](../manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex) (Axiom 1 canonical K4 + K=2G operating point)
 
 **Derivation steps**:
@@ -104,7 +104,7 @@ Count secondary neighbors within 1.187·ℓ_node sphere in K4 lattice — geomet
 
 ## Section 4 — Discriminating Outcomes
 
-- **Outcome A (PASS, ~40% probability)**: ξ_K1 and ξ_K2 land at clean rational values consistent with ν_vac=2/7 family (likely ξ_K1 ∈ {1/7, 2/7, 1/4, 1/3}; ξ_K2 = 12·ξ_K1 trivially). Ratio = 12 reproduced exactly. **Action**: Promote to KB anchor in `q-g47-substrate-scale-cosserat-closure.md`; update [`closure-roadmap.md:30`](../manuscript/ave-kb/common/closure-roadmap.md:30) Tier 2 row to mark ξ_K1, ξ_K2 individual values CLOSED.
+- **Outcome A (PASS, ~40% probability)**: ξ_K1 and ξ_K2 land at clean rational values consistent with ν_vac=2/7 family (likely ξ_K1 ∈ {1/7, 2/7, 1/4, 1/3}; ξ_K2 = 12·ξ_K1 trivially). Ratio = 12 reproduced exactly. **Action**: Promote to KB anchor in `q-g47-substrate-scale-cosserat-closure.md`; update [`closure-roadmap.md:30`](../manuscript/ave-kb/claim-quality-closure-roadmap.md:30) Tier 2 row to mark ξ_K1, ξ_K2 individual values CLOSED.
 
 - **Outcome B (PARTIAL, ~30% probability)**: Step A-D works, but Step E gives non-rational values (e.g., ξ_K1 = 0.234..., ξ_K2 = 2.808...). Suggests one of: (i) missing constraint (e.g., additional K4 symmetry not yet incorporated); (ii) integration step requires more careful treatment of chiral coupling k_χ that I'm currently ignoring; (iii) ν_vac=2/7 partition needs sharper formulation for discrete bond constants. **Action**: Document the partial result; identify which step needs refinement; queue Session 20 work.
 
@@ -112,7 +112,7 @@ Count secondary neighbors within 1.187·ℓ_node sphere in K4 lattice — geomet
 
 - **Outcome D (DERIVATION INTRACTABLE, ~10% probability)**: K4 integration step requires symbolic-algebra tools beyond reach in 1-2 sessions. **Action**: Document the obstacle; scope what additional tooling (sympy, Mathematica equivalent, etc.) is needed; mark as multi-session.
 
-- **Outcome E (z_0 = 51.25 first-principles PASS, ~50% probability of partial success alongside any A/B outcome)**: neighbor counting reproduces 51.25 from K4 geometry directly. **Action**: Update [`closure-roadmap.md:30`](../manuscript/ave-kb/common/closure-roadmap.md:30) z_0 status to first-principles derived; remove "α-circularity" caveat.
+- **Outcome E (z_0 = 51.25 first-principles PASS, ~50% probability of partial success alongside any A/B outcome)**: neighbor counting reproduces 51.25 from K4 geometry directly. **Action**: Update [`closure-roadmap.md:30`](../manuscript/ave-kb/claim-quality-closure-roadmap.md:30) z_0 status to first-principles derived; remove "α-circularity" caveat.
 
 **Falsifier**: Outcome C (ratio inconsistency) at >10% deviation from 12 → ν_vac=2/7 partition does NOT apply to discrete bond constants the way C1 implies at continuum scale. Would require revisiting the v2 derivation logic in C1 (specifically: the rigid-fraction interpretation as "fraction of substrate K4-skeleton" may need narrower scope).
 

@@ -1,5 +1,11 @@
 [↑ Circuit Theory](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-1eg13f, clm-4r4jiy, clm-6t3p6x, clm-8nkvwy, clm-fgo20a, clm-i9l284, clm-kezk9z, clm-n3un96, clm-o2shcn, clm-p2tp9i, clm-p5cf3t, clm-pp3qwf, clm-rtdmsn, clm-u462e4, clm-v6ti0v, clm-vjv4zf]
+subtree-experiments: []
+-->
+
 # Ch.1 Vacuum Circuit Analysis
 
 The Vacuum Circuit Analysis (VCA) framework establishes a single, exact dimensional isomorphism between continuum spatial mechanics and electrical network theory via the Topological Conversion Constant $\xi_{topo} \equiv e/\ell_{node}$. From this mapping, all six rows of the circuit-mechanical translation table are derived, the non-linear constitutive models for extreme-field regimes are established, and the characteristic impedance $Z_0 = 376.73\;\Omega$ is shown to emerge from the discrete LC ladder of the lattice.
@@ -24,6 +30,8 @@ The Vacuum Circuit Analysis (VCA) framework establishes a single, exact dimensio
 | IM3 frequencies | $f_{IM3} = 2f_1 - f_2$ and $2f_2 - f_1$ |
 | IP3 | $V_{IP3} = \sqrt{4/3}\; V_{yield} \approx 50.4$ kV |
 | Particle confinement | $\Gamma = -1$ at saturated boundary ($Z_{core} \to 0\;\Omega$) |
+| [Q-G24 Newtonian-Limit Closure](relativistic-inductor-newtonian-limit.md) | Full $E = \gamma m_0 c^2$ relativistic dispersion from LC tank + virial equipartition + relativistic-inductor mapping; three independent Derrick-bypass mechanisms (lattice floor / Faddeev-Skyrme / bilateral chiral); no fit parameters |
+| [Q-G22 Strain Convention (Geometric vs Field-Ratio)](q-g22-strain-convention.md) | Clarification: corpus uses $A_{geom} = \ell_{node}/r$ ($\propto 1/r$, geometric confinement ratio) for kernel applications; IVIM bench uses $A_{field} = E\ell_{node}/V_{yield}$ ($\propto 1/r^2$, field ratio) for apparatus calculations; both internally consistent, different physical measures |
 
 ## Derivations and Detail
 

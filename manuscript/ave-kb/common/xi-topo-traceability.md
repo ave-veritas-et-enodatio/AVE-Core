@@ -1,7 +1,12 @@
 [↑ Common Index](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-sxn6eo, clm-hmiytz]
+-->
 
 # $\xi_{topo}$ Traceability Map
+<!-- claim-quality: clm-hmiytz -->
 
 The **Topological Conversion Constant** $\xi_{topo} \equiv e/\ell_{node} \approx 4.149 \times 10^{-7}$ C/m (Axiom 2) is the single bridge between the discrete vacuum lattice and all measurable physics. It appears in 51 files across 6 of 8 volumes, making it the most cross-referenced quantity in the AVE framework.
 
@@ -16,7 +21,7 @@ The corpus uses the **same Greek letter ξ in three distinct semantic scopes**. 
 |---|---|---|---|---|
 | **$\xi_{topo}$** | Axiom 2 conversion constant | $\approx 4.149 \times 10^{-7}$ C/m | Vol 1 Ch 1 + Ch 2 (canonical) | Electromechanical bridge: charge ↔ displacement |
 | **$\xi$** (no subscript) | Vol 3 Ch 1 Machian impedance integral | $\approx 3.455 \times 10^{38}$ (dimensionless) | `vol_3_macroscopic/chapters/01_gravity_and_yield.tex:97` | Cosmological boundary impedance: $\xi = 4\pi(R_H/\ell_{\text{node}})\alpha^{-2}$, converts $T_{EM}$ to Newton's $G$ via $G = c^4/(7\xi T_{EM})$ |
-| **$\xi_{K1}, \xi_{K2}$** | Substrate-scale Cosserat prefactors | O(1) dimensionless | Vol 1 Ch~\ref{ch:macroscopic_moduli} + Backmatter Ch~7 (A-034 catalog) | Substrate-scale axiom-level Cosserat moduli prefactors: $\mu + \kappa = \xi_{K1} T_{EM}$, $\beta + \gamma = \xi_{K2} T_{EM} \ell_{node}^2$; with $\xi_{K2}/\xi_{K1} = 12$ K4-symmetry-forced via $|T| = 12$ universality |
+| **$\xi_{K1}, \xi_{K2}$** | Substrate-scale Cosserat prefactors | O(1) dimensionless | Vol 1 Ch 2 (Macroscopic Moduli) + Backmatter Ch 7 (A-034 catalog) | Substrate-scale axiom-level Cosserat moduli prefactors: $\mu + \kappa = \xi_{K1} T_{EM}$, $\beta + \gamma = \xi_{K2} T_{EM} \ell_{node}^2$; with $\xi_{K2}/\xi_{K1} = 12$ K4-symmetry-forced via $|T| = 12$ universality |
 
 **Same letter ξ, three different scopes, three different magnitudes**. Each is canonical in its own domain. When reading any AVE document, identify which ξ is meant by:
 1. **Subscript**: $\xi_{topo}$ is unambiguously the conversion constant; $\xi_{K1}, \xi_{K2}$ are unambiguously the substrate Cosserat prefactors
@@ -81,9 +86,9 @@ The heaviest user — all VCA circuit engineering derives from $\xi_{topo}$:
 | [Relativistic Inductor](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor.md) | Mass-energy as inductance $L = \gamma m / \xi^2$ |
 | [Resonant LC Solitons](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md) | Particle formation as impedance-matched loops |
 | [Metric Levitation Limit](../vol4/falsification/ch11-experimental-bench-falsification/metric-levitation-limit.md) | $m_{max} = 1.846$ g from $\xi_{topo}$ force balance |
+| [CLEAVE-01](../vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md) | Bench test design using $\xi_{topo}$ thresholds |
 
 > **Note (REPO-ARCH-6 2026-05-17 night)**: V-Topo + Radius Scaling rows previously pointed at `vol4/advanced-applications/ch8-applied-fusion/` leaves. Those leaves migrated to AVE-Fusion private repo per `ave-ip-divide-discipline` skill (substrate-physics canonical at Axiom 4 `axiom-definitions.md` + `universal-saturation-kernel-catalog.md`; application content private).
-| [CLEAVE-01](../vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md) | Bench test design using $\xi_{topo}$ thresholds |
 
 ### Vol 5: Biology (2 files)
 
@@ -121,11 +126,12 @@ Like Vol 3, Vol 6 uses $\xi_{topo}$ implicitly through the nuclear mass-defect e
 | **Total** | **51** | |
 
 ## The Zero-Free-Parameter Chain
+<!-- claim-quality: clm-sxn6eo -->
 
 $$
-\ell_{node} \xrightarrow{\text{Axiom 1}} \alpha \xrightarrow{\text{Axiom 2}} \xi_{topo} = e/\ell_{node} \xrightarrow{\text{Translation}} \begin{cases} L = \xi^{-2} m & \text{(inductance)} \\ C = \xi^{2} \kappa & \text{(capacitance)} \\ Z = \xi^{-2} \eta & \text{(impedance)} \end{cases}
+\{m_e, \ell_{node}\} \xrightarrow[\text{Ch.8 Golden Torus}]{\text{Axioms 1--4 + }\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2} \alpha \xrightarrow{\text{Axiom 2}} \xi_{topo} = e/\ell_{node} \xrightarrow{\text{Translation}} \begin{cases} L = \xi^{-2} m & \text{(inductance)} \\ C = \xi^{2} \kappa & \text{(capacitance)} \\ Z = \xi^{-2} \eta & \text{(impedance)} \end{cases}
 $$
 
-Every measurable quantity in the AVE framework ultimately traces through this chain. No free parameters are introduced at any point.
+$\alpha$ is derived from the Golden Torus closure (Vol 1 Ch 8) — all four axioms plus the Clifford-torus geometric closure on $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$, not from Axiom 1 alone. $\xi_{topo}$ is then the Axiom 2 topo-kinematic conversion that bridges the discrete vacuum lattice to the macroscopic measurable kinematic quantities (mass $m$, mechanical compliance $\kappa$, kinematic impedance $\eta$). Every measurable quantity in the AVE framework ultimately traces through this chain (conditional on the thermal closure of $\delta_{strain}$ at $T_{CMB}$ — see `mathematical-closure.md`).
 
 ---

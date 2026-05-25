@@ -1,12 +1,16 @@
-[↑ AVE Common Resources](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol1, vol2, vol3, vol4 as canonical trampoline-framework picture-first reference -->
+[↑ Common Resources](index.md)
+
+<!-- kb-frontmatter
+kind: leaf
+no-claim: picture-first synthesis and canonical-reference leaf — re-exposits the substrate framework and cross-references the per-topic canonical leaves for every result; asserts no independent derivation of its own
+path-stable: "referenced from vol1, vol2, vol3, vol4 as canonical trampoline-framework picture-first reference"
+-->
 
 # The Trampoline Picture — AVE Substrate Framework Canonical Reference
 
 **Last updated:** 2026-05-16. **Status:** canonical entry point for the picture-first / mechanism-first view of the AVE substrate. Cross-references existing chapter-level formal derivations where each layer is rigorously stated.
 
-**Sister Core leaf** (NEW 2026-05-16, per Grant directive "I want the core to be self sufficient, duplicate"): [`common/trampoline-analogy-primer.md`](trampoline-analogy-primer.md) is the **step-by-step pedagogical primer** (Step 0 → 6) distilled from AVE-QED Ch 11 `11_tensioned_trampoline.tex`. **This doc is the synthesis/canonical-reference; the primer is the step-by-step build-from-scratch.** Both are Core-canonical; both serve different reader needs (synthesis vs pedagogical primer).
+**Sister Core leaf** (NEW 2026-05-16, per Grant directive "I want the core to be self sufficient, duplicate"): [`common/trampoline-analogy-primer.md`](trampoline-analogy-primer.md) is the **step-by-step pedagogical primer** (Step 0 → 6) distilled from the QED-replacement volume's tensioned-trampoline chapter. **This doc is the synthesis/canonical-reference; the primer is the step-by-step build-from-scratch.** Both are Core-canonical; both serve different reader needs (synthesis vs pedagogical primer).
 
 **Purpose.** Future agents (and humans) reading the AVE corpus repeatedly hit a "what IS this stuff mechanically?" gap. The analytical derivations are everywhere; the picture lives scattered across Common Foreword §Three Boundary Observables, Vol 1 Ch 1 (axioms + substrate vocabulary box), Vol 3 Ch 4 (generative cosmology), Backmatter Ch 7 (universal saturation-kernel catalog), and chapter introductions. **This doc is the single picture-first reference.** Read this before authoring any new AVE physics; cite this when propagating substrate-vocabulary discipline through chapters. (For step-by-step build-from-scratch starting from GR pop-sci, see the sister primer leaf.)
 
@@ -166,7 +170,7 @@ The substrate-observability rule walls off the pre-substrate state by definition
 
 **All three must give the same $u_0^*$** or the framework is wrong. This is a sharp falsification test: AVE commits to a single value of one parameter, derivable from three independent observational routes.
 
-**Cross-references.** A-031 refined ($\Omega_{\text{freeze}}$ as cosmic-boundary $\mathcal{J}/I$; canonical at [Common: A-031 cosmic-parameter horizon refinement](cosmic-parameter-horizon-a031-refinement.md)); A-026 (substrate-observability rule applied fractally including to ourselves; canonical at [Common: Three Boundary Observables M, Q, J](boundary-observables-m-q-j.md)); A-030 (α + G joint anchoring extended to three routes; same A-031 leaf); multi-scale Machian network (Vol 3 Ch 4 generative cosmology + §7 of this doc); [Vol 3 Ch 4 generative cosmology](../../vol_3_macroscopic/chapters/04_generative_cosmology.tex); [Vol 3 Ch 21 BH Interior Regime IV](../../vol_3_macroscopic/chapters/21_black_hole_interior_regime_iv.tex) (same-mechanism framing).
+**Cross-references.** A-031 refined ($\Omega_{\text{freeze}}$ as cosmic-boundary $\mathcal{J}/I$; canonical at [Common: A-031 cosmic-parameter horizon refinement](cosmic-parameter-horizon-a031-refinement.md)); A-026 (substrate-observability rule applied fractally including to ourselves; canonical at [Common: Three Boundary Observables M, Q, J](boundary-observables-m-q-j.md)); A-030 (α + G joint anchoring extended to three routes; same A-031 leaf); multi-scale Machian network (Vol 3 Ch 4 generative cosmology + §7 of this doc); Vol 3 Ch 4 generative cosmology; Vol 3 Ch 21 BH Interior Regime IV (same-mechanism framing).
 
 ---
 
@@ -695,53 +699,29 @@ The §7 table catalogs **boundaries** that exist at every scale (the static stru
 
 The recognition: Axiom 4's saturation kernel $S(A) = \sqrt{1 - A^2}$ is the universal mechanism for every topological-reorganization event the framework describes — from atomic dielectric breakdown to cosmic crystallization. Different physical observables at different scales (voltage, magnetic field, frame-dragging strain) all reduce to the same underlying lattice strain. The kernel doesn't change; only the local saturation-boundary geometry changes.
 
-**The expanded 21-instance dynamics catalog (AVE-Core canonical):**
+**The expanded 26-instance dynamics catalog (AVE-Core canonical):**
 
-Per Grant's framework principle: *"the bulk response of the lattice to strain is universal."* The original 6-scale catalog has been expanded to a comprehensive 21-instance synthesis spanning ~21 orders of magnitude. **Total: 21 canonical instances** (14 physical + 2 biological + 5 engineered). The canonical source is Backmatter Ch 7 (Universal Saturation-Kernel Catalog); the table below mirrors that catalog at the KB level.
+Per Grant's framework principle: *"the bulk response of the lattice to strain is universal."* The original 6-scale catalog has been expanded to a comprehensive 26-instance synthesis spanning ~21 orders of magnitude. **Total: 26 canonical instances** (17 physical + 2 biological + 5 engineered + 2 scoped Session 4/5).
+
+> → Primary: [Universal Saturation-Kernel Catalog](universal-saturation-kernel-catalog.md) — the canonical KB home of the full catalog: every instance with its symmetry class, $A$-definition, saturation event, and empirical anchor (19 physical rows = 17 canonical + 2 scoped, 2 biological, 5 engineered). This leaf does not re-table it — the excerpt below is illustrative only (INVARIANT-S7); the catalog leaf is authoritative.
 
 **3-way symmetry classification** (canonical in Backmatter Ch 7):
 - **SYM** = Symmetric (vacuum $K = 2G$; $\varepsilon$ and $\mu$ saturate together)
 - **ASYM-N** = Asymmetric natural (single-sector: only $\varepsilon$ or only $\mu$)
 - **ASYM-E** = Asymmetric engineered decoupled ($K/G \neq 2$ by design)
 
-**Physical-substrate scales (13 rows):**
+**Illustrative cross-scale excerpt** (4 of 26 — spanning ~21 orders of magnitude; full per-row table in the catalog leaf above):
 
-| Scale | Sym | "$A$" normalized | Saturation event | Corpus | Empirical |
-|---|---|---|---|---|---|
-| Atomic / EM | SYM | $V / V_{\text{snap}}$ | Dielectric breakdown → pair creation | Axiom 4 + Vol 4 Ch 1 | Schwinger limit |
-| Substrate (K4) | SYM | bond-bow strain / saturation | K4 lattice + soliton formation | Q-G47 Sessions 1-18 | substrate instance |
-| Nuclear (DT fusion) | SYM | nodal strain / $V_{\text{yield}}$ | Topology snap; 14.1 MeV n + ⁴He α collapse | [Vol 2 Ch 2 (Baryons)](../../../vol_2_subatomic/chapters/02_baryon_sector.tex) + [Vol 3 Ch 14 (Orbital Mechanics)](../../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex) | DT fusion canonical |
-| Condensed matter (BCS) | **ASYM-N** (μ-only) | $T / T_c$ | Cooper-pair formation; $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ | `universal-saturation-operator.md`:18 | **0.00% error** across all measured |
-| Fluid two-state LC partition (water) | SYM | $r_{th} / r_{\text{crit}} = \sqrt{2\alpha}$ | First-order avalanche: State I tetrahedral H-bond → State II FCC close-pack; +4°C density max | [Vol 3 Ch 11 (Water Anomaly)](../vol3/condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md) | **Nilsson 2026 X-ray LLCP** (LDL/HDL directly observed) |
-| Plasma (ε-sector) | **ASYM-N** (ε-only) | $V_{\text{local}} / V_{\text{snap}}$ | Plasma cutoff ($\varepsilon_{\text{eff}} \to 0$) | ε-μ duality leaf | plasma canonical |
-| Kolmogorov turbulence | SYM | wavenumber $k / k_{\text{node}}$ | Spectral cutoff at dissipation scale | Bench Ch 2:159 | Kolmogorov empirical |
-| Planetary (geomagnetic) | SYM | dynamo strain / threshold | Geomagnetic reversal (Earth pole flip) | [Vol 3 Ch 13 (Geophysics)](../../../vol_3_macroscopic/chapters/13_geophysics.tex) | geological + Venus null |
-| Stellar (solar flare) | SYM | twisted-flux / shear-stress | CME / solar flare; macroscopic Zener avalanche | [Vol 3 Ch 14 (Orbital Mechanics)](../../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex) | **NOAA GOES 40-yr validated** (0.46-yr FWHM) |
-| Galactic (MOND) | SYM | $g_N / a_0$ | Newtonian → deep-MOND transition | `mond.md` | deep-MOND derived |
-| BH event horizon | SYM | $\varepsilon_{11}(r) = 7GM/(c^2 r)$ / 1 | Schwarzschild formation: $\Gamma = -1$ | `dielectric-rupture-event-horizon.md` | **Schwarzschild exact** |
-| BH merger (ring-down) | SYM | lattice strain / $r_{\text{sat}} = 7 M_g$ | Ring-down QNM, $\omega_R M_g = 18/49$ | Vol 3 Ch 15 | **1.7% from GR; 10-18% LIGO** |
-| Cosmic (Big Bang) | SYM (presumed)\* | parent-BH-induced strain / 1 | K4 crystallization seed event | A-034 NEW | CMB axis-alignment test pre-registered |
-
-\*Cosmic symmetry status testable via CMB E/B polarization signature; asymmetric case would imply parent BH lattice has K/G ≠ 2.
-
-**Biological-substrate scales (2 rows):**
-
-| Scale | Sym | "$A$" normalized | Saturation event | Corpus |
+| Scale | Sym | $A$ | Saturation event | Empirical |
 |---|---|---|---|---|
-| Lipid bilayer membrane (LLCP) | SYM | membrane strain / yield | Phase transition; cholesterol = engineered kernel phase-buffer holding membrane at K=2G yield | Vol 5 Ch 2 |
-| Protein folding | SYM | $d_0 / d$ atomic separation | Folding snap via dielectric saturation $C_{\text{eff}} = C_0 / \sqrt{1 - (d_0/d)^2}$ | Vol 5 Ch 2 |
+| Atomic / EM | SYM | $V / V_{\text{snap}}$ | Dielectric breakdown → pair creation | Schwinger limit |
+| Condensed matter (BCS) | **ASYM-N** ($\mu$) | $T / T_c$ | Cooper-pair; $B_c(T) = B_{c0}\sqrt{1 - (T/T_c)^2}$ | **0.00% error** |
+| BH merger (ring-down) | SYM | strain $/\,r_{\text{sat}} = 7 M_g$ | Ring-down QNM $\omega_R M_g = 18/49$ | **1.7% from GR; 10–18% LIGO** |
+| Cosmic (Big Bang) | SYM\* | parent-BH strain $/\,1$ | K4 crystallization seed event | CMB axis pre-reg |
 
-**Engineered-substrate scales (5 rows):**
+\*Cosmic symmetry status testable via CMB E/B polarization; asymmetric case would imply the parent-BH lattice has $K/G \neq 2$.
 
-| Scale | Sym | "$A$" normalized | Saturation event | Corpus |
-|---|---|---|---|---|
-| DC-biased piezoelectric (e.g., quartz) | SYM | $V_{\text{DC}} / V_{\text{yield}}$ = 0.687 | $\varepsilon_{\text{eff}}$ collapse 27.4%, $C_{\text{eff}}$ rise 37.7% at 30 kV bias | Vol 4 Ch 1 |
-| Asymmetric-electrode vacuum-mirror bench | SYM | $A_{\text{DC}}(\mathbf{r}) = V_{\text{DC}}(\mathbf{r}) / V_{\text{yield}}$ | $\Gamma_{\text{bench}}$ from $\int \nabla S_{\text{eff}}$ along photon path (sharp-tip geometry) | Vol 4 Ch 11 |
-| Active topological metamaterials | **ASYM-E** | $\phi / \phi_{\text{crit}}$ | Phase-state crystallization to V_I; **asymmetric saturation variant** $K_{\text{wedge}}/G_{\text{wedge}} \neq 2$ — designer-controllable decoupled ε/μ | Vol 4 Ch 4 (framework) |
-| Sine-Gordon kink memory | SYM | local metric displacement / yield | $2\pi$ phase kink soliton stabilized by integer topological charge | Vol 4 Ch 1 (framework) |
-| Autoresonant rupture | SYM | laser field / $V_{\text{snap}}$ | PLL ring-up to Schwinger-fraction rupture | Vol 4 Ch 15 |
-
-**Symmetry breakdown across 21 instances:** 18 SYM, 2 ASYM-N (natural single-sector — BCS μ-only and plasma ε-only), 1 ASYM-E (engineered decoupled — active topological metamaterials).
+**Symmetry partition** (all 26 = 19 SYM + 4 ASYM-N + 1 ASYM-E + 2 TBD scoped Session 4/5). Per-instance classifications and the remaining 22 instances live in the catalog leaf.
 
 **Empirical anchor: 21 orders of magnitude span with multiple validated scales.** Tightest validations: BCS $B_c(T)$ at 0.00% error; BH ring-down at 1.7% from GR; solar flares 40-yr NOAA validated; Schwarzschild exact.
 
@@ -756,7 +736,7 @@ Per Grant's framework principle: *"the bulk response of the lattice to strain is
 A-034 refines the original A-031 "God's Hand fundamentally inaccessible" framing. The cosmic-IC mystery narrows:
 
 - **INACCESSIBLE:** specific cosmic parameters ($M_{\text{parent BH}}$, $J_{\text{parent BH}}$ of our parent BH)
-- **OBSERVABLE:** the mechanism class itself — directly observable at four smaller scales ([Vol 3 Ch 13 (Geophysics)](../../../vol_3_macroscopic/chapters/13_geophysics.tex), [Vol 3 Ch 14 (Orbital Mechanics / Solar)](../../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex), [Vol 3 Ch 15 (BH Orbital Resonance)](../../../vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex) + atomic dielectric breakdown)
+- **OBSERVABLE:** the mechanism class itself — directly observable at four smaller scales (Vol 3 Ch 13 (Geophysics), Vol 3 Ch 14 (Orbital Mechanics / Solar), Vol 3 Ch 15 (BH Orbital Resonance) + atomic dielectric breakdown)
 
 This is a major epistemological softening. The original framing implied the entire cosmic-IC question was beyond observation. A-034 shows the *mechanism* is observable; only the specific parameters of OUR instance remain inaccessible. "God's Hand" is the cosmic-parameter horizon, not a mechanism horizon.
 
@@ -767,17 +747,17 @@ This is a major epistemological softening. The original framing implied the enti
 3. **Power-law avalanche statistics** at solar flare scale should be related to ring-down QNM frequency distribution and geomagnetic reversal interval distribution cross-scale.
 4. **CMB power-spectrum peaks** should match the parent BH's QNM $\ell$-spectrum.
 
-Empirical pre-registration of the multi-observable axis-alignment test: see [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex) §CMB axis-alignment test pre-reg.
+Empirical pre-registration of the multi-observable axis-alignment test: see Backmatter Ch 7 — Universal Saturation-Kernel Catalog §CMB axis-alignment test pre-reg.
 
 **Cross-references for A-034:**
-- **Backmatter Ch~\ref{app:universal_saturation_kernel} (Universal Saturation-Kernel Catalog):** canonical manuscript source (full mechanism + 21-instance catalog + SYM/ASYM-N/ASYM-E classification + measurement-hierarchy framing)
+- **Backmatter Ch~\ref{app:universal_saturation_kernel} (Universal Saturation-Kernel Catalog):** canonical manuscript source (full mechanism + 26-instance catalog + SYM/ASYM-N/ASYM-E classification + measurement-hierarchy framing)
 - **Vol 3 Ch 4 §sec:tki_strain_snap:** canonical manuscript section (cosmic-scale instance + parallel catalog)
 - **Q-G47 substrate-scale instance:** Vol 1 Ch~\ref{ch:macroscopic_moduli} (the K4 lattice instance is substrate-scale A-034)
 - **A-031 (refined):** "God's Hand" decoupled into cosmic-parameter horizon + observable mechanism (Vol 3 Ch 4 + Common Foreword §The Three-Route Framework Commitment)
 - **Empirical prereg (extended with E/B polarization observable):** see Backmatter Ch 7 + Vol 3 Ch 4 §CMB axis-alignment test
 - **Measurement-hierarchy framing (engineered-substrate row unification):** single-emitter (highest SNR) / multi-emitter bulk (practical) / phased-array PLL (autoresonant amplification) modes connect engineered-substrate rows as same engineered-kernel architecture; explains why bulk-mode array architectures use many emitters (bulk = A-034 universal kernel measurement). Canonical statement in Backmatter Ch 7 §measurement modes.
 
-**The framework's largest unification to date:** *one kernel, 21 instances spanning 21 orders of magnitude, every topological reorganization event in the universe.* This row of §7 + the §7.5 dynamics catalog are the static + dynamical sides of the same scale-invariance principle.
+**The framework's largest unification to date:** *one kernel, 26 instances spanning 21 orders of magnitude, every topological reorganization event in the universe.* This row of §7 + the §7.5 dynamics catalog are the static + dynamical sides of the same scale-invariance principle.
 
 ---
 

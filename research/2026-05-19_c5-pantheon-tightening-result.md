@@ -266,7 +266,7 @@ Per `ave-walk-back` skill, the C5 row updates to "Marginal-D" do NOT close the r
 | `src/scripts/vol_3_macroscopic/c5_pantheon_bulk_flow_tightening_results.json` | NEW (commit `24456db`) | Result JSON |
 | `research/2026-05-19_c5-pantheon-tightening-result.md` | NEW (this commit) | Result doc |
 | `manuscript/ave-kb/common/divergence-test-substrate-map.md` | TO UPDATE | C5 row at lines 428/514/554 |
-| `manuscript/ave-kb/common/closure-roadmap.md` | TO UPDATE | C5 entry at line ~80 |
+| `manuscript/ave-kb/claim-quality-closure-roadmap.md` | TO UPDATE | C5 entry at line ~80 |
 | `_orchestration/section-e-cascade.md` | OUT OF SCOPE (orchestration session updates) | Phase E1b-prime → CLOSED |
 
 ---

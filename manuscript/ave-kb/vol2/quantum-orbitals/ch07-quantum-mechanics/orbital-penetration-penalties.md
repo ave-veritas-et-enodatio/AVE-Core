@@ -1,6 +1,11 @@
 [↑ Ch.7 Quantum Mechanics](index.md)
 <!-- leaf: verbatim -->
 
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-oltvwy]
+-->
+
 # Orbital Penetration Penalties (1/d ABCD Matrix)
 
 **Volume:** 2 (Subatomic Scale)

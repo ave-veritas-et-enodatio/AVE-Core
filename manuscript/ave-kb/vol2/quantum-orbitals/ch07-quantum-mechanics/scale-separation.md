@@ -1,13 +1,18 @@
 [↑ Ch. 7: Quantum Mechanics and Atomic Orbitals](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-oltvwy, clm-w6kk5y]
+-->
 
 ## Scale Separation: Knot Topology vs Orbital Geometry
+<!-- claim-quality: clm-w6kk5y -->
 
 Two solitons on the same shell interact through two physically distinct channels, set by the AVE axioms at two well-separated scales.
 
 ### Orbital Scale (Axiom 2)
 
-The nuclear Coulomb strain field creates a Fabry--Perot cavity of radius $R \approx n^2 a_0 / Z$ (hundreds of $\ell_{\text{node}}$). The charge of each soliton ($-e$) screens the nuclear charge seen by its partner. Gauss's law applied to the Hopf link geometry gives $\sigma_{\text{Hopf}} = 1/2$ per partner. This screening is **isotropic**---it depends on the linking number (Axiom 3) and the enclosed charge fraction, but *not* on the relative orbital plane orientation ($m_l$).
+The nuclear Coulomb strain field creates a Fabry--Perot cavity of radius $R \approx n^2 a_0 / Z$ (hundreds of $\ell_{\text{node}}$). The charge of each soliton ($-e$) screens the nuclear charge seen by its partner. Gauss's law applied to the Hopf link geometry gives $\sigma_{\text{Hopf}} = 1/2$ per partner. This screening is **isotropic**---it depends on the linking number (clm-dfaiwj, via Axiom 2) and the enclosed charge fraction, but *not* on the relative orbital plane orientation ($m_l$).
 
 ### Knot Scale (Axioms 1+3)
 
@@ -49,6 +54,7 @@ $$
 
 The $p$-shell coupling matrix is therefore a *weighted* graph (not $\mathrm{K}_6$), whose eigenvalues determine the mode spectrum.
 
+<!-- claim-quality: clm-oltvwy -->
 ### Hund's Rule Emergence
 
 Hund's first rule emerges naturally from the phase-locked orbital expansion of same-$m_l$ pairs. Half-filled $p$-shells (e.g. nitrogen, $2p^3$) have all electrons in *different* $m_l$ orbitals, meaning no two sit on the same ring. Their orbits remain at the baseline cavity radius $R_0$, giving tighter binding and higher Ionization Energy (IE). Adding the fourth electron (oxygen, $2p^4$) forces a same-$m_l$ pairing. Pauli exclusion (Axiom 3) forces them into a $\pi$ anti-phase, creating a mutual inductance bonding mode. The resulting composite has a lower frequency $\omega$, meaning its effective orbit *expands* to $R_{\text{eff}} = R_0 \sqrt{1+k}$. This expansion reduces the nuclear binding eigenvalue, natively lowering the IE for Oxygen relative to Nitrogen.

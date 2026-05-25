@@ -1,5 +1,11 @@
 [↑ Appendices](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-ghs75o, clm-nhlo1e, clm-salw2h]
+subtree-experiments: []
+-->
+
 # App B: Theoretical Stress Tests — Surviving Standard Disproofs
 
 When translating the vacuum into a discrete mechanical solid, the framework inherently invites several challenges from standard solid-state physics. If the vacuum acts as an elastic crystal, it must theoretically suffer from classical mechanical limitations. The AVE framework resolves these apparent paradoxes via its specific topological geometries and non-linear inductance.

@@ -20,7 +20,6 @@ feedback mechanism that bounds the saturation rectification.
 If V_DC stable across 700P → some feedback works (likely Op14)
 If V_DC drifts → no proper feedback, 200P snapshot was misleading
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -32,9 +31,9 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).parent))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
-
 import r10_path_alpha_v8_corrected_measurements as v8
+
+from ave.topological.vacuum_engine import VacuumEngine3D
 
 
 def main():
@@ -43,20 +42,25 @@ def main():
     print("=" * 78, flush=True)
 
     nodes, bonds = v8.build_chair_ring(v8.CENTER)
-    a_0_per_node, centroid = v8.compute_a_0_at_ring_nodes(
-        nodes, v8.A_AMP_POL, v8.HELICAL_PITCH
-    )
+    a_0_per_node, centroid = v8.compute_a_0_at_ring_nodes(nodes, v8.A_AMP_POL, v8.HELICAL_PITCH)
 
     engine = VacuumEngine3D.from_args(
-        N=v8.N_LATTICE, pml=v8.PML, temperature=0.0,
+        N=v8.N_LATTICE,
+        pml=v8.PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
     )
     print("Applying v8 helical Beltrami IC (UNCHANGED)...", flush=True)
     v8.initialize_helical_beltrami_ic(
-        engine, nodes, bonds, a_0_per_node,
-        v8.K_BELTRAMI, v8.V_AMP, v8.PHI_AMP,
+        engine,
+        nodes,
+        bonds,
+        a_0_per_node,
+        v8.K_BELTRAMI,
+        v8.V_AMP,
+        v8.PHI_AMP,
     )
 
     # 800P recording = 4× the v8 baseline window
@@ -78,8 +82,7 @@ def main():
             omega_ring[i, n_idx, :] = engine.cos.omega[ix, iy, iz, :]
         if (time.time() - last) > 60.0:
             t_p = (i + 1) * v8.DT / v8.COMPTON_PERIOD
-            print(f"    step {i}/{N_STEPS}, t={t_p:.1f}P, elapsed {time.time()-t0:.1f}s",
-                  flush=True)
+            print(f"    step {i}/{N_STEPS}, t={t_p:.1f}P, elapsed {time.time()-t0:.1f}s", flush=True)
             last = time.time()
     elapsed = time.time() - t0
     print(f"  Recording done at {elapsed:.1f}s", flush=True)
@@ -125,10 +128,18 @@ def main():
             slope = np.polyfit(np.arange(len(mags)), mags, 1)[0]
             mean_mag = mags.mean()
             relative_drift = slope / max(mean_mag, 1e-12)
-            drifts.append({"a_site": ring_idx, "slope_per_window": float(slope),
-                           "mean": float(mean_mag), "relative_drift": float(relative_drift)})
-            print(f"    A_{ring_idx}: slope = {slope:+.5f}/window  mean = {mean_mag:.5f}  "
-                  f"relative drift = {relative_drift*100:+.3f}% per 100P")
+            drifts.append(
+                {
+                    "a_site": ring_idx,
+                    "slope_per_window": float(slope),
+                    "mean": float(mean_mag),
+                    "relative_drift": float(relative_drift),
+                }
+            )
+            print(
+                f"    A_{ring_idx}: slope = {slope:+.5f}/window  mean = {mean_mag:.5f}  "
+                f"relative drift = {relative_drift*100:+.3f}% per 100P"
+            )
 
     # ω_DC drift at each ring node
     print()
@@ -153,17 +164,23 @@ def main():
     print(f"    Total drift over {n_windows*100}P: ~{max_relative_drift_pct * n_windows:+.2f}%")
 
     if max_relative_drift_pct < 1:
-        verdict = (f"STABLE: V_DC drift < 1% per 100P (~{max_relative_drift_pct*n_windows:+.1f}% "
-                   f"over {n_windows*100}P). Some feedback mechanism (likely Op14 z_local "
-                   f"per Q1) is bounding the saturation rectification, even without proper "
-                   f"Faraday-law BEMF.")
+        verdict = (
+            f"STABLE: V_DC drift < 1% per 100P (~{max_relative_drift_pct*n_windows:+.1f}% "
+            f"over {n_windows*100}P). Some feedback mechanism (likely Op14 z_local "
+            f"per Q1) is bounding the saturation rectification, even without proper "
+            f"Faraday-law BEMF."
+        )
     elif max_relative_drift_pct < 5:
-        verdict = (f"PARTIALLY DRIFTING: V_DC drift {max_relative_drift_pct:.1f}% per 100P. "
-                   f"Feedback is partial; equilibrium not fully reached at 200P recording.")
+        verdict = (
+            f"PARTIALLY DRIFTING: V_DC drift {max_relative_drift_pct:.1f}% per 100P. "
+            f"Feedback is partial; equilibrium not fully reached at 200P recording."
+        )
     else:
-        verdict = (f"DRIFTING: V_DC drift {max_relative_drift_pct:.1f}% per 100P. "
-                   f"No proper feedback; 200P snapshot was misleading; configuration is "
-                   f"slowly evolving.")
+        verdict = (
+            f"DRIFTING: V_DC drift {max_relative_drift_pct:.1f}% per 100P. "
+            f"No proper feedback; 200P snapshot was misleading; configuration is "
+            f"slowly evolving."
+        )
     print(f"\n  Verdict: {verdict}")
 
     out = {

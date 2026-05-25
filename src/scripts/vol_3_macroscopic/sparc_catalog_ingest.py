@@ -116,15 +116,17 @@ def parse_sparc_table1(path: Path) -> list[dict]:
                     continue
                 if l36 <= 0 and mhi <= 0:
                     continue
-                galaxies.append({
-                    "name": name,
-                    "distance_Mpc": distance,
-                    "L36_1e9_Lsun": l36,
-                    "Rdisk_kpc": rdisk,
-                    "MHI_1e9_Msun": mhi,
-                    "Vflat_kms": vflat,
-                    "Q": q,
-                })
+                galaxies.append(
+                    {
+                        "name": name,
+                        "distance_Mpc": distance,
+                        "L36_1e9_Lsun": l36,
+                        "Rdisk_kpc": rdisk,
+                        "MHI_1e9_Msun": mhi,
+                        "Vflat_kms": vflat,
+                        "Q": q,
+                    }
+                )
             except (ValueError, IndexError):
                 continue
     return galaxies
@@ -218,9 +220,11 @@ def main():
         subset = [r for r in valid if r["Q"] == q]
         if subset:
             subset_res = np.array([r["residual_fractional"] for r in subset])
-            print(f"Q={q}: n={len(subset):3d}  mean={np.mean(subset_res):+.3f}  "
-                  f"RMS={np.sqrt(np.mean(subset_res**2)):.3f}  "
-                  f"mean|res|={np.mean(np.abs(subset_res)):.3f}")
+            print(
+                f"Q={q}: n={len(subset):3d}  mean={np.mean(subset_res):+.3f}  "
+                f"RMS={np.sqrt(np.mean(subset_res**2)):.3f}  "
+                f"mean|res|={np.mean(np.abs(subset_res)):.3f}"
+            )
     print()
 
     # Compare to C13a row's benchmark
@@ -241,9 +245,11 @@ def main():
     print("-" * 80)
     sorted_valid = sorted(valid, key=lambda r: r["name"])
     for r in sorted_valid[:20]:
-        print(f"{r['name']:<12} {r['Q']:>2} {r['M_baryonic_1e9_Msun']:>8.2f} "
-              f"{r['Rdisk_kpc']:>6.2f} {r['Vflat_obs_kms']:>7.1f} "
-              f"{r['Vflat_AVE_kms']:>7.1f} {r['residual_fractional']:>+8.3f}")
+        print(
+            f"{r['name']:<12} {r['Q']:>2} {r['M_baryonic_1e9_Msun']:>8.2f} "
+            f"{r['Rdisk_kpc']:>6.2f} {r['Vflat_obs_kms']:>7.1f} "
+            f"{r['Vflat_AVE_kms']:>7.1f} {r['residual_fractional']:>+8.3f}"
+        )
     print(f"... ({len(sorted_valid)-20} more not shown)")
     print()
 

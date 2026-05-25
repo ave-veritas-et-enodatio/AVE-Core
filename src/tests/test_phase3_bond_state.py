@@ -33,7 +33,6 @@ src/scripts/vol_1_foundations/flux_tube_persistence.py, not in
 these unit tests. These smoke tests lock the accumulation arithmetic
 and observer plumbing.
 """
-from __future__ import annotations
 
 import numpy as np
 import pytest
@@ -87,9 +86,7 @@ class TestPhase3Accumulation:
         # Inject at an A-site
         lat.V_inc[0, 0, 0, 0] = 0.1
         lat._scatter_all()
-        assert np.all(lat.Phi_link == 0.0), (
-            "Scatter alone should not change Phi_link"
-        )
+        assert np.all(lat.Phi_link == 0.0), "Scatter alone should not change Phi_link"
 
     def test_connect_without_drive_keeps_phi_zero(self):
         """With V_inc = V_ref = 0 initially, a single step produces no flux."""
@@ -114,8 +111,7 @@ class TestPhase3Accumulation:
         # injected signal propagates and reflects
         assert magnitudes_over_time[0] >= 0.0
         assert magnitudes_over_time[-1] > magnitudes_over_time[0], (
-            f"Phi_link should grow under sustained drive; got "
-            f"{magnitudes_over_time}"
+            f"Phi_link should grow under sustained drive; got " f"{magnitudes_over_time}"
         )
 
     def test_phi_sign_follows_drive_sign(self):
@@ -139,8 +135,7 @@ class TestPhase3Accumulation:
             # Sum of products should be negative (opposite signs)
             agreement = np.mean(signs_plus * signs_minus)
             assert agreement < -0.5, (
-                f"Opposite drives should give opposite-sign Φ; "
-                f"got sign-correlation {agreement}"
+                f"Opposite drives should give opposite-sign Φ; " f"got sign-correlation {agreement}"
             )
 
 
@@ -152,9 +147,7 @@ class TestPhase3BondObserver:
 
     @pytest.fixture
     def engine(self):
-        return VacuumEngine3D.from_args(
-            N=8, pml=0, temperature=0.0, amplitude_convention="V_SNAP"
-        )
+        return VacuumEngine3D.from_args(N=8, pml=0, temperature=0.0, amplitude_convention="V_SNAP")
 
     def test_observer_on_empty_vacuum(self, engine):
         """At (V, u, ω) = 0, phi_abs_max = 0 and all bonds are unsaturated."""
@@ -179,9 +172,7 @@ class TestPhase3BondObserver:
 
     def test_observer_registers_and_runs(self):
         """BondObserver registered via add_observer records each step."""
-        engine = VacuumEngine3D.from_args(
-            N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP"
-        )
+        engine = VacuumEngine3D.from_args(N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP")
         obs = BondObserver(cadence=1)
         engine.add_observer(obs)
         engine.run(n_steps=3)
@@ -225,9 +216,7 @@ class TestPhase3BackwardsCompat:
 
     def test_bond_observer_with_regime_observer(self):
         """Both observers record consistently on a short run."""
-        engine = VacuumEngine3D.from_args(
-            N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP"
-        )
+        engine = VacuumEngine3D.from_args(N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP")
         regime_obs = RegimeClassifierObserver(cadence=1)
         bond_obs = BondObserver(cadence=1)
         engine.add_observer(regime_obs)
@@ -243,9 +232,7 @@ class TestPhase3BackwardsCompat:
 
     def test_bond_observer_with_all_other_observers(self):
         """Full observer stack including BondObserver runs without error."""
-        engine = VacuumEngine3D.from_args(
-            N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP"
-        )
+        engine = VacuumEngine3D.from_args(N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP")
         observers = [
             RegimeClassifierObserver(cadence=1),
             NodeResonanceObserver(cadence=1),
@@ -257,23 +244,17 @@ class TestPhase3BackwardsCompat:
             engine.add_observer(o)
         engine.run(n_steps=2)
         for o in observers:
-            assert len(o.history) == 2, (
-                f"{type(o).__name__} did not record 2 steps"
-            )
+            assert len(o.history) == 2, f"{type(o).__name__} did not record 2 steps"
 
     def test_existing_phi_link_state_persists_across_engine_steps(self):
         """Poke Phi_link, run one step with no drive, flux should remain
         (possibly modified by one step's accumulation from residual V_ref
         but at this scale negligible)."""
-        engine = VacuumEngine3D.from_args(
-            N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP"
-        )
+        engine = VacuumEngine3D.from_args(N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP")
         A_idx = np.argwhere(engine.k4.mask_A)
         site = tuple(A_idx[0])
         engine.k4.Phi_link[site[0], site[1], site[2], 1] = 1.5
         engine.run(n_steps=1)
         # With no drive, the bond voltage contribution is zero so flux
         # should be ~unchanged
-        assert engine.k4.Phi_link[site[0], site[1], site[2], 1] == pytest.approx(
-            1.5, abs=1e-10
-        )
+        assert engine.k4.Phi_link[site[0], site[1], site[2], 1] == pytest.approx(1.5, abs=1e-10)

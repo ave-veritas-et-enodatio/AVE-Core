@@ -6,7 +6,6 @@ low-frequency FFT leakage as dominant. Re-running the same engine setups
 with band-pass filter on FFT (skip ω < 0.5 and ω > 4 = exclude both
 low-f leakage and Nyquist artifact) to find the physical resonance.
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -27,11 +26,16 @@ def run_pulse_with_bandpass(N, v_pulse, enable_cos_self, label, n_periods=100):
     COMPTON_PERIOD = 2.0 * np.pi
     N_STEPS = int(n_periods * COMPTON_PERIOD / DT)
 
-    print(f"\n  [{label}] N={N}, PML={PML}, V_pulse={v_pulse}, "
-          f"cosserat_self={enable_cos_self}, recording {n_periods}P", flush=True)
+    print(
+        f"\n  [{label}] N={N}, PML={PML}, V_pulse={v_pulse}, "
+        f"cosserat_self={enable_cos_self}, recording {n_periods}P",
+        flush=True,
+    )
 
     engine = VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=0.0,
+        N=N,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=enable_cos_self,
@@ -61,8 +65,7 @@ def run_pulse_with_bandpass(N, v_pulse, enable_cos_self, label, n_periods=100):
 
     # Top 5 in band-pass
     top_idxs = np.argsort(spec_bp)[::-1][:5]
-    peaks = [(int(i), float(freqs[i]), float(spec[i]), float(omega_per_freq[i]))
-             for i in top_idxs]
+    peaks = [(int(i), float(freqs[i]), float(spec[i]), float(omega_per_freq[i])) for i in top_idxs]
 
     print(f"    elapsed {elapsed:.1f}s")
     print(f"    Top 5 BAND-PASS peaks (0.5 ≤ ω ≤ 4.0 ω_C):")
@@ -71,9 +74,12 @@ def run_pulse_with_bandpass(N, v_pulse, enable_cos_self, label, n_periods=100):
 
     return {
         "label": label,
-        "N": N, "PML": PML, "v_pulse": v_pulse,
+        "N": N,
+        "PML": PML,
+        "v_pulse": v_pulse,
         "enable_cosserat_self_terms": enable_cos_self,
-        "n_periods": n_periods, "elapsed_s": elapsed,
+        "n_periods": n_periods,
+        "elapsed_s": elapsed,
         "bandpass_top5_omega": [p[3] for p in peaks],
         "bandpass_top5_mag": [p[2] for p in peaks],
         "v_traj_max_abs": float(np.max(np.abs(v_traj))),
@@ -90,16 +96,13 @@ def main():
 
     print("\n=== T1.1: Lattice-size scan ===")
     for N in [8, 16, 24]:
-        results.append(run_pulse_with_bandpass(N=N, v_pulse=0.01, enable_cos_self=False,
-                                                label=f"T1.1 N={N}"))
+        results.append(run_pulse_with_bandpass(N=N, v_pulse=0.01, enable_cos_self=False, label=f"T1.1 N={N}"))
 
     print("\n=== T1.3: Saturated amplitude ===")
-    results.append(run_pulse_with_bandpass(N=16, v_pulse=0.95, enable_cos_self=False,
-                                            label="T1.3 V_pulse=0.95"))
+    results.append(run_pulse_with_bandpass(N=16, v_pulse=0.95, enable_cos_self=False, label="T1.3 V_pulse=0.95"))
 
     print("\n=== T1.4: Cosserat self-terms enabled ===")
-    results.append(run_pulse_with_bandpass(N=16, v_pulse=0.01, enable_cos_self=True,
-                                            label="T1.4 Cosserat ON"))
+    results.append(run_pulse_with_bandpass(N=16, v_pulse=0.01, enable_cos_self=True, label="T1.4 Cosserat ON"))
 
     # Summary
     print("\n" + "=" * 78, flush=True)
@@ -113,41 +116,50 @@ def main():
         omega = r["bandpass_top5_omega"][0]
         delta = (omega - omega_baseline) / omega_baseline * 100
         flag = " ★" if abs(delta) < 5 else " ⚠"
-        print(f"  {r['label']:<28} {r['N']:>3} {r['v_pulse']:>8.3f} {cos_str:>7} "
-              f"{omega:>8.4f} {delta:>+7.2f}%{flag}")
+        print(
+            f"  {r['label']:<28} {r['N']:>3} {r['v_pulse']:>8.3f} {cos_str:>7} " f"{omega:>8.4f} {delta:>+7.2f}%{flag}"
+        )
 
     print()
     print("Verdicts:")
 
-    if all(abs(r["bandpass_top5_omega"][0] - omega_baseline) / omega_baseline < 0.05
-           for r in results if r["v_pulse"] == 0.01 and not r["enable_cosserat_self_terms"]):
+    if all(
+        abs(r["bandpass_top5_omega"][0] - omega_baseline) / omega_baseline < 0.05
+        for r in results
+        if r["v_pulse"] == 0.01 and not r["enable_cosserat_self_terms"]
+    ):
         print("  T1.1 lattice scan: ω stays constant within 5% across N → substrate-intrinsic confirmed")
 
-    sat_omega = next((r["bandpass_top5_omega"][0] for r in results
-                       if r["label"].startswith("T1.3")), None)
+    sat_omega = next((r["bandpass_top5_omega"][0] for r in results if r["label"].startswith("T1.3")), None)
     if sat_omega is not None:
         delta = (sat_omega - omega_baseline) / omega_baseline * 100
         if abs(delta) < 5:
-            print(f"  T1.3 saturated: ω = {sat_omega:.3f} ({delta:+.1f}% from baseline) → "
-                  f"persists at saturation, confirms substrate-intrinsic regardless of regime")
+            print(
+                f"  T1.3 saturated: ω = {sat_omega:.3f} ({delta:+.1f}% from baseline) → "
+                f"persists at saturation, confirms substrate-intrinsic regardless of regime"
+            )
         else:
-            print(f"  T1.3 saturated: ω = {sat_omega:.3f} ({delta:+.1f}% from baseline) → "
-                  f"shifts at saturation; nonlinear regime modifies frequency")
+            print(
+                f"  T1.3 saturated: ω = {sat_omega:.3f} ({delta:+.1f}% from baseline) → "
+                f"shifts at saturation; nonlinear regime modifies frequency"
+            )
 
-    cos_omega = next((r["bandpass_top5_omega"][0] for r in results
-                       if r["label"].startswith("T1.4")), None)
+    cos_omega = next((r["bandpass_top5_omega"][0] for r in results if r["label"].startswith("T1.4")), None)
     if cos_omega is not None:
         delta = (cos_omega - omega_baseline) / omega_baseline * 100
         if abs(delta) < 5:
-            print(f"  T1.4 Cosserat ON: ω = {cos_omega:.3f} ({delta:+.1f}% from baseline) → "
-                  f"K4-Cosserat coupling does NOT distort substrate-intrinsic K4-TLM frequency")
+            print(
+                f"  T1.4 Cosserat ON: ω = {cos_omega:.3f} ({delta:+.1f}% from baseline) → "
+                f"K4-Cosserat coupling does NOT distort substrate-intrinsic K4-TLM frequency"
+            )
         else:
-            print(f"  T1.4 Cosserat ON: ω = {cos_omega:.3f} ({delta:+.1f}% from baseline) → "
-                  f"Cosserat coupling shifts the resonance; coupling matters")
+            print(
+                f"  T1.4 Cosserat ON: ω = {cos_omega:.3f} ({delta:+.1f}% from baseline) → "
+                f"Cosserat coupling shifts the resonance; coupling matters"
+            )
 
     out_path = Path(__file__).parent / "r10_v8_foundation_audit_t1_extensions_bandpass_results.json"
-    out_path.write_text(json.dumps({"baseline": "Test 1 main: ω=1.50",
-                                     "results": results}, indent=2, default=str))
+    out_path.write_text(json.dumps({"baseline": "Test 1 main: ω=1.50", "results": results}, indent=2, default=str))
     print(f"\nSaved {out_path.relative_to(Path.cwd())}")
 
 

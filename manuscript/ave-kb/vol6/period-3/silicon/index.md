@@ -1,5 +1,11 @@
 [↑ Period 3](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-7tk051, clm-f5ucdo, clm-f8k2um, clm-h8nmpu, clm-jy8h1x, clm-rw7jqo, clm-sd04x4, clm-y7uvdc]
+subtree-experiments: []
+-->
+
 # Silicon (Z=14)
 
 Silicon-28 ($Z=14$, $A=28$) is a perfect $7\alpha$ Pentagonal Bipyramid: 5 Alpha clusters in an equatorial ring at $72^\circ$ separation plus 2 polar caps, with 21 inter-alpha coupling pairs. It is the last stable element in the Small Signal regime ($V_R/V_{BR} = 0.050$, $M = 1$) and the richest coupling topology before the avalanche threshold. Its position at the Small Signal boundary is the topological origin of semiconductor behavior.

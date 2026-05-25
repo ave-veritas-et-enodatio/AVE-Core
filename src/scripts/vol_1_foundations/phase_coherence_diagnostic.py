@@ -47,7 +47,6 @@ Per-port aggregation is necessary because chirality-weighted seeds have
 zeros out under chirality=1.0). All winding extractions therefore
 operate on a single chosen port (defaulting to port 0).
 """
-from __future__ import annotations
 
 import sys
 import time
@@ -59,25 +58,22 @@ sys.path.insert(0, "/Users/grantlindblom/AVE-staging/AVE-Core/src/scripts/vol_1_
 
 from ave.topological.vacuum_engine import VacuumEngine3D
 
-
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
-PHI_SQ = PHI ** 2
+PHI_SQ = PHI**2
 
 
 def compute_total_k4_energy(engine: VacuumEngine3D) -> float:
     """E_k4 = Σ (V_inc² + V_ref²) over all active K4 sites and ports."""
     V_inc = np.asarray(engine.k4.V_inc)
     V_ref = np.asarray(engine.k4.V_ref)
-    return float(np.sum(V_inc ** 2 + V_ref ** 2))
+    return float(np.sum(V_inc**2 + V_ref**2))
 
 
 def compute_total_cos_energy(engine: VacuumEngine3D) -> float:
     return float(engine.cos.total_energy())
 
 
-def compute_phasor_angle_at_port(
-    engine: VacuumEngine3D, port: int = 0
-) -> np.ndarray:
+def compute_phasor_angle_at_port(engine: VacuumEngine3D, port: int = 0) -> np.ndarray:
     """Per-site phasor angle from one port: θ(x) = arctan2(V_ref[p], V_inc[p]).
 
     Returns angle in radians, shape (nx, ny, nz). Per-port avoids the
@@ -91,7 +87,9 @@ def compute_phasor_angle_at_port(
 
 def compute_winding_along_circle(
     engine: VacuumEngine3D,
-    cx: float, cy: float, cz: float,
+    cx: float,
+    cy: float,
+    cz: float,
     radius: float,
     plane: str,
     port: int = 0,
@@ -130,9 +128,7 @@ def compute_winding_along_circle(
     return int(np.round(np.sum(diffs) / (2.0 * np.pi)))
 
 
-def major_axis_winding(
-    engine: VacuumEngine3D, R_major: float, port: int = 0
-) -> int:
+def major_axis_winding(engine: VacuumEngine3D, R_major: float, port: int = 0) -> int:
     """Toroidal winding (around major axis): φ varies, ψ=0.
 
     Expected winding for (2,3) electron eigenmode: **2**.
@@ -143,13 +139,17 @@ def major_axis_winding(
     cy = (ny - 1) / 2.0
     cz = (nz - 1) / 2.0
     return compute_winding_along_circle(
-        engine, cx, cy, cz, radius=R_major, plane="xy", port=port,
+        engine,
+        cx,
+        cy,
+        cz,
+        radius=R_major,
+        plane="xy",
+        port=port,
     )
 
 
-def minor_axis_winding(
-    engine: VacuumEngine3D, R_major: float, r_minor: float, port: int = 0
-) -> int:
+def minor_axis_winding(engine: VacuumEngine3D, R_major: float, r_minor: float, port: int = 0) -> int:
     """Poloidal winding (around minor axis): ψ varies, φ=0.
 
     Expected winding for (2,3) electron eigenmode: **3**.
@@ -162,13 +162,17 @@ def minor_axis_winding(
     # Center the contour at (R_major, 0) in xz plane (φ=0)
     cx_contour = (nx - 1) / 2.0 + R_major
     return compute_winding_along_circle(
-        engine, cx_contour, cy, cz, radius=r_minor, plane="xz", port=port,
+        engine,
+        cx_contour,
+        cy,
+        cz,
+        radius=r_minor,
+        plane="xz",
+        port=port,
     )
 
 
-def compute_phasor_angular_velocity(
-    phasor_t0: np.ndarray, phasor_t1: np.ndarray, mask: np.ndarray
-) -> dict:
+def compute_phasor_angular_velocity(phasor_t0: np.ndarray, phasor_t1: np.ndarray, mask: np.ndarray) -> dict:
     """Per-site dθ/dt from two consecutive phasor-angle snapshots.
 
     Returns mean, std, and per-site values on the masked region.
@@ -186,9 +190,7 @@ def compute_phasor_angular_velocity(
     }
 
 
-def shell_mask(
-    engine: VacuumEngine3D, R_target: float, r_target: float, dr: float = 1.5
-) -> np.ndarray:
+def shell_mask(engine: VacuumEngine3D, R_target: float, r_target: float, dr: float = 1.5) -> np.ndarray:
     """Boolean mask of lattice cells within the soliton shell tube."""
     nx, ny, nz = engine.k4.nx, engine.k4.ny, engine.k4.nz
     cx = (nx - 1) / 2.0
@@ -197,7 +199,7 @@ def shell_mask(
     ii, jj, kk = np.meshgrid(np.arange(nx), np.arange(ny), np.arange(nz), indexing="ij")
     rho = np.sqrt((ii - cx) ** 2 + (jj - cy) ** 2)
     z_off = kk - cz
-    rho_tube = np.sqrt((rho - R_target) ** 2 + z_off ** 2)
+    rho_tube = np.sqrt((rho - R_target) ** 2 + z_off**2)
     return (rho_tube >= max(r_target - dr, 0.0)) & (rho_tube <= r_target + dr)
 
 
@@ -254,17 +256,13 @@ class PhaseCoherenceDiagnostic:
             cos_d = E_cos_arr - np.mean(E_cos_arr)
             k4_d = E_k4_arr - np.mean(E_k4_arr)
             denom = np.std(cos_d) * np.std(k4_d)
-            out["E_correlation"] = (
-                float(np.mean(cos_d * k4_d) / denom) if denom > 1e-30 else 0.0
-            )
+            out["E_correlation"] = float(np.mean(cos_d * k4_d) / denom) if denom > 1e-30 else 0.0
         else:
             out["E_total_cov"] = float("nan")
             out["E_correlation"] = float("nan")
         # Angular velocity from last two phasor snapshots on shell
         if len(self._phasor_history) >= 2:
-            av = compute_phasor_angular_velocity(
-                self._phasor_history[0], self._phasor_history[1], self.shell
-            )
+            av = compute_phasor_angular_velocity(self._phasor_history[0], self._phasor_history[1], self.shell)
             out["dtheta_dt_mean"] = av["mean"]
             out["dtheta_dt_std"] = av["std"]
         else:
@@ -272,9 +270,7 @@ class PhaseCoherenceDiagnostic:
             out["dtheta_dt_std"] = float("nan")
         # Phase-space winding along major and minor axis
         out["winding_major"] = major_axis_winding(self.engine, self.R_target, port=self.port)
-        out["winding_minor"] = minor_axis_winding(
-            self.engine, self.R_target, self.r_target, port=self.port
-        )
+        out["winding_minor"] = minor_axis_winding(self.engine, self.R_target, self.r_target, port=self.port)
         return out
 
 
@@ -297,19 +293,22 @@ def run_diagnostic_on_seed(
     print()
 
     engine = VacuumEngine3D.from_args(
-        N=N, pml=4, temperature=0.0,
+        N=N,
+        pml=4,
+        temperature=0.0,
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
     )
     seed_callable(engine, R, r)
 
-    diag = PhaseCoherenceDiagnostic(engine, R_target=R, r_target=r, window_size=8,
-                                    port_for_winding=port_for_winding)
+    diag = PhaseCoherenceDiagnostic(engine, R_target=R, r_target=r, window_size=8, port_for_winding=port_for_winding)
     diag.update()
 
-    print(f"  {'step':<5}{'c_cos':<6}{'w_maj':<7}{'w_min':<7}"
-          f"{'E_cos':<11}{'E_k4':<11}{'E_tot_cov':<11}"
-          f"{'corr':<8}{'dθ/dt mean':<12}{'dθ/dt std':<10}")
+    print(
+        f"  {'step':<5}{'c_cos':<6}{'w_maj':<7}{'w_min':<7}"
+        f"{'E_cos':<11}{'E_k4':<11}{'E_tot_cov':<11}"
+        f"{'corr':<8}{'dθ/dt mean':<12}{'dθ/dt std':<10}"
+    )
 
     t0 = time.time()
     for step in range(0, n_steps + 1):
@@ -327,9 +326,11 @@ def run_diagnostic_on_seed(
         dtm_str = f"{dt_m:+.4f}" if np.isfinite(dt_m) else "  nan "
         dts_str = f"{dt_s:.4f}" if np.isfinite(dt_s) else " nan "
 
-        print(f"  {step:<5}{c_cos:<6}{d['winding_major']:<7}{d['winding_minor']:<7}"
-              f"{d['E_cos']:<11.3e}{d['E_k4']:<11.3e}{cov_str:<11}"
-              f"{corr_str:<8}{dtm_str:<12}{dts_str:<10}")
+        print(
+            f"  {step:<5}{c_cos:<6}{d['winding_major']:<7}{d['winding_minor']:<7}"
+            f"{d['E_cos']:<11.3e}{d['E_k4']:<11.3e}{cov_str:<11}"
+            f"{corr_str:<8}{dtm_str:<12}{dts_str:<10}"
+        )
 
     elapsed = time.time() - t0
     print(f"\n  elapsed: {elapsed:.1f}s for {n_steps} steps")
@@ -338,7 +339,10 @@ def run_diagnostic_on_seed(
 def _path_b_seed(engine: VacuumEngine3D, R: float, r: float) -> None:
     cos_amp_scale = 0.3 / (np.sqrt(3.0) / 2.0)
     engine.cos.initialize_electron_2_3_sector(
-        R_target=R, r_target=r, use_hedgehog=True, amplitude_scale=cos_amp_scale,
+        R_target=R,
+        r_target=r,
+        use_hedgehog=True,
+        amplitude_scale=cos_amp_scale,
     )
 
 

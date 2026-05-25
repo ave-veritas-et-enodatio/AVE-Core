@@ -36,7 +36,6 @@ post-walk-back canonical framing.
 Run:
     PYTHONPATH=src python3 src/scripts/verify/muon_g2_fermilab_anchor.py
 """
-from __future__ import annotations
 
 import json
 import math
@@ -47,7 +46,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
 from ave.core.constants import ALPHA, M_E
 from ave.topological.cosserat import M_MU, M_MU_MEV
-
 
 # ============================================================
 # Fermilab data — pinned references
@@ -65,15 +63,15 @@ from ave.topological.cosserat import M_MU, M_MU_MEV
 #     measurement on the BMW SM baseline.
 
 FERMILAB_RUN1_RUN2_WORLD_AVG = 0.00116592055  # a_μ central value
-FERMILAB_RUN1_RUN2_UNCERTAINTY = 24e-11        # ±0.24 ppm
+FERMILAB_RUN1_RUN2_UNCERTAINTY = 24e-11  # ±0.24 ppm
 FERMILAB_PAPER_RUN12 = "PRL 131:161802 (2023)"
 
-FERMILAB_RUN3_TENSION_CENTRAL = 245e-11        # +245×10⁻¹¹ vs e+e- SM baseline
-FERMILAB_RUN3_TENSION_UNCERTAINTY = 56e-11     # ±56×10⁻¹¹ (combined Fermilab+SM_eeplus)
+FERMILAB_RUN3_TENSION_CENTRAL = 245e-11  # +245×10⁻¹¹ vs e+e- SM baseline
+FERMILAB_RUN3_TENSION_UNCERTAINTY = 56e-11  # ±56×10⁻¹¹ (combined Fermilab+SM_eeplus)
 FERMILAB_RUN3_REFERENCE = "Fermilab Muon g-2 result2023 + e+e- SM baseline (Theory Initiative 2020)"
 
-BMW_SM_BORSANYI_2021 = 116591954e-11           # a_μ_SM_BMW central value
-BMW_SM_BORSANYI_2021_UNCERTAINTY = 55e-11      # ±0.47 ppm
+BMW_SM_BORSANYI_2021 = 116591954e-11  # a_μ_SM_BMW central value
+BMW_SM_BORSANYI_2021_UNCERTAINTY = 55e-11  # ±0.47 ppm
 BMW_SM_PAPER = "Borsanyi+ 2021, Nature 593:51-55"
 
 
@@ -125,7 +123,7 @@ def compute_q_g27_prediction() -> dict:
 
     # Textbook QED 2-loop conversion: Δa^(2) = ΔC_2 × (α/π)²
     alpha_over_pi = ALPHA / math.pi
-    delta_a_mu_2_forward = delta_c_2_route_b * (alpha_over_pi ** 2)
+    delta_a_mu_2_forward = delta_c_2_route_b * (alpha_over_pi**2)
 
     return {
         "delta_cosserat": delta_cosserat,
@@ -133,7 +131,7 @@ def compute_q_g27_prediction() -> dict:
         "delta_mu_total": delta_mu_total,
         "delta_c_2_route_b": delta_c_2_route_b,
         "alpha_over_pi": alpha_over_pi,
-        "alpha_over_pi_squared": alpha_over_pi ** 2,
+        "alpha_over_pi_squared": alpha_over_pi**2,
         "delta_a_mu_2_forward_prediction": delta_a_mu_2_forward,
     }
 
@@ -180,9 +178,7 @@ def compare_to_fermilab_bmw_baseline(ave_prediction: float) -> dict:
     fermilab_vs_bmw_central = FERMILAB_RUN1_RUN2_WORLD_AVG - BMW_SM_BORSANYI_2021
 
     # Combined uncertainty: Fermilab measurement + BMW SM
-    combined_uncertainty = math.sqrt(
-        FERMILAB_RUN1_RUN2_UNCERTAINTY ** 2 + BMW_SM_BORSANYI_2021_UNCERTAINTY ** 2
-    )
+    combined_uncertainty = math.sqrt(FERMILAB_RUN1_RUN2_UNCERTAINTY**2 + BMW_SM_BORSANYI_2021_UNCERTAINTY**2)
 
     # Fermilab-vs-BMW σ-tension (BMW closes most of e+e- anomaly toward 0σ)
     fermilab_vs_bmw_sigma = fermilab_vs_bmw_central / combined_uncertainty
@@ -306,7 +302,9 @@ def main() -> int:
     print(f"    (α/π)² = {results['alpha_over_pi_squared']:.6e}")
     print(f"    Δa_μ^(2) [forward] = {results['delta_a_mu_2_forward_prediction']:.6e}")
     print(f"                      = {results['delta_a_mu_2_forward_prediction']*1e11:+.3f} × 10⁻¹¹")
-    print(f"                      = {results['delta_a_mu_2_forward_prediction']*1e11:+.0f} × 10⁻¹¹ (canonical narrative-rounded)")
+    print(
+        f"                      = {results['delta_a_mu_2_forward_prediction']*1e11:+.0f} × 10⁻¹¹ (canonical narrative-rounded)"
+    )
 
     # ============================================================
     # Parallel SM-baseline tension reporting
@@ -321,21 +319,33 @@ def main() -> int:
 
     print()
     print("--- Baseline 1: e+e- (Theory Initiative 2020) ---")
-    comp_eeplus = compare_to_fermilab_eeplus_baseline(results['delta_a_mu_2_forward_prediction'])
-    print(f"  Fermilab observed tension (e+e- baseline): +{comp_eeplus['fermilab_observed_tension']*1e11:.0f}({comp_eeplus['fermilab_observed_uncertainty']*1e11:.0f}) × 10⁻¹¹")
+    comp_eeplus = compare_to_fermilab_eeplus_baseline(results["delta_a_mu_2_forward_prediction"])
+    print(
+        f"  Fermilab observed tension (e+e- baseline): +{comp_eeplus['fermilab_observed_tension']*1e11:.0f}({comp_eeplus['fermilab_observed_uncertainty']*1e11:.0f}) × 10⁻¹¹"
+    )
     print(f"  Reference: {FERMILAB_RUN3_REFERENCE}")
     print(f"  AVE forward prediction:                    {comp_eeplus['ave_prediction']*1e11:+.3f} × 10⁻¹¹")
-    print(f"  Deviation (AVE - observed):                {comp_eeplus['deviation']*1e11:+.3f} × 10⁻¹¹  ({comp_eeplus['deviation_pct']:+.2f}%)")
-    print(f"  σ-tension:                                 {comp_eeplus['n_sigma']:+.3f}σ {comp_eeplus['tension_direction']}")
+    print(
+        f"  Deviation (AVE - observed):                {comp_eeplus['deviation']*1e11:+.3f} × 10⁻¹¹  ({comp_eeplus['deviation_pct']:+.2f}%)"
+    )
+    print(
+        f"  σ-tension:                                 {comp_eeplus['n_sigma']:+.3f}σ {comp_eeplus['tension_direction']}"
+    )
 
     print()
     print("--- Baseline 2: BMW lattice (Borsanyi+ 2021, Nature 593:51-55) ---")
-    comp_bmw = compare_to_fermilab_bmw_baseline(results['delta_a_mu_2_forward_prediction'])
-    print(f"  BMW lattice a_μ_SM:                        {BMW_SM_BORSANYI_2021:.11f} ± {BMW_SM_BORSANYI_2021_UNCERTAINTY:.0e}")
+    comp_bmw = compare_to_fermilab_bmw_baseline(results["delta_a_mu_2_forward_prediction"])
+    print(
+        f"  BMW lattice a_μ_SM:                        {BMW_SM_BORSANYI_2021:.11f} ± {BMW_SM_BORSANYI_2021_UNCERTAINTY:.0e}"
+    )
     print(f"  Reference: {BMW_SM_PAPER}")
-    print(f"  Fermilab-vs-BMW central tension:           {comp_bmw['fermilab_vs_bmw_central_tension']*1e11:+.1f}({comp_bmw['fermilab_vs_bmw_combined_uncertainty']*1e11:.0f}) × 10⁻¹¹  ({comp_bmw['fermilab_vs_bmw_sigma']:+.2f}σ, BMW closes most of e+e- anomaly)")
+    print(
+        f"  Fermilab-vs-BMW central tension:           {comp_bmw['fermilab_vs_bmw_central_tension']*1e11:+.1f}({comp_bmw['fermilab_vs_bmw_combined_uncertainty']*1e11:.0f}) × 10⁻¹¹  ({comp_bmw['fermilab_vs_bmw_sigma']:+.2f}σ, BMW closes most of e+e- anomaly)"
+    )
     print(f"  AVE forward prediction:                    {comp_bmw['ave_prediction']*1e11:+.3f} × 10⁻¹¹")
-    print(f"  Deviation (AVE - Fermilab_vs_BMW):         {comp_bmw['deviation']*1e11:+.3f} × 10⁻¹¹  ({comp_bmw['deviation_pct']:+.2f}%)")
+    print(
+        f"  Deviation (AVE - Fermilab_vs_BMW):         {comp_bmw['deviation']*1e11:+.3f} × 10⁻¹¹  ({comp_bmw['deviation_pct']:+.2f}%)"
+    )
     print(f"  σ-tension:                                 {comp_bmw['n_sigma']:+.3f}σ {comp_bmw['tension_direction']}")
 
     # ============================================================
@@ -346,7 +356,9 @@ def main() -> int:
     print("DUAL-BASELINE TENSION STRUCTURE (the finding)")
     print("=" * 95)
     print()
-    print(f"  AVE forward prediction +{results['delta_a_mu_2_forward_prediction']*1e11:.0f}×10⁻¹¹ from Q-G27 Cosserat saliency:")
+    print(
+        f"  AVE forward prediction +{results['delta_a_mu_2_forward_prediction']*1e11:.0f}×10⁻¹¹ from Q-G27 Cosserat saliency:"
+    )
     print(f"    • on e+e- baseline:  {comp_eeplus['n_sigma']:+.2f}σ ABOVE Fermilab observed tension")
     print(f"    • on BMW baseline:   {comp_bmw['n_sigma']:+.2f}σ DEEPER above Fermilab-vs-BMW central")
     print()
@@ -368,7 +380,7 @@ def main() -> int:
     print("=" * 95)
     print("OUTCOME ADJUDICATION (post-walk-back per prereg)")
     print("=" * 95)
-    outcome = adjudicate_outcome(comp_eeplus, comp_bmw, results['delta_a_mu_2_forward_prediction'])
+    outcome = adjudicate_outcome(comp_eeplus, comp_bmw, results["delta_a_mu_2_forward_prediction"])
     print()
     print(f"  Outcome: {outcome}")
     print()
@@ -383,8 +395,7 @@ def main() -> int:
             "m_mu_kg_ave": float(M_MU),
             "m_mu_mev_ave": float(M_MU_MEV),
         },
-        "ave_q_g27_forward_prediction": {k: float(v) if isinstance(v, (int, float)) else v
-                                          for k, v in results.items()},
+        "ave_q_g27_forward_prediction": {k: float(v) if isinstance(v, (int, float)) else v for k, v in results.items()},
         "fermilab": {
             "run12_world_avg_a_mu": FERMILAB_RUN1_RUN2_WORLD_AVG,
             "run12_uncertainty": FERMILAB_RUN1_RUN2_UNCERTAINTY,
@@ -398,10 +409,12 @@ def main() -> int:
             "a_mu_sm_bmw_uncertainty": BMW_SM_BORSANYI_2021_UNCERTAINTY,
             "reference": BMW_SM_PAPER,
         },
-        "comparison_eeplus_baseline": {k: float(v) if isinstance(v, (int, float, bool)) else v
-                                        for k, v in comp_eeplus.items()},
-        "comparison_bmw_baseline": {k: float(v) if isinstance(v, (int, float, bool)) else v
-                                     for k, v in comp_bmw.items()},
+        "comparison_eeplus_baseline": {
+            k: float(v) if isinstance(v, (int, float, bool)) else v for k, v in comp_eeplus.items()
+        },
+        "comparison_bmw_baseline": {
+            k: float(v) if isinstance(v, (int, float, bool)) else v for k, v in comp_bmw.items()
+        },
         "outcome": outcome,
         "dual_baseline_tension_structure": (
             f"AVE +502×10⁻¹¹ forward in {comp_eeplus['n_sigma']:+.2f}σ tension ABOVE e+e- baseline; "

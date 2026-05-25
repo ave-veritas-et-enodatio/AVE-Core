@@ -19,12 +19,11 @@ The classical electrostatic divergence is definitively capped by the topology
 of the vacuum.
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import ALPHA, C_0, EPSILON_0, L_NODE, M_E, T_EM, e_charge
+from ave_path_util import manuscript_path
 
 
 def run_electrostatic_resolution() -> None:
@@ -120,8 +119,7 @@ def run_electrostatic_resolution() -> None:
     plt.legend()
     plt.grid(True, alpha=0.3)
 
-    os.makedirs("manuscript/vol_2_subatomic/figures", exist_ok=True)
-    plot_path = "manuscript/vol_2_subatomic/figures/electrostatic_singularity_resolution.png"
+    plot_path = manuscript_path("vol_2_subatomic", "figures", "electrostatic_singularity_resolution.png")
     plt.savefig(plot_path, dpi=300, bbox_inches="tight")
     print(f"\nSaved divergence comparison plot to: {plot_path}")
     print("==================================================")

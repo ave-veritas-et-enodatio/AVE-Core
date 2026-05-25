@@ -1,14 +1,17 @@
 [↑ Common Resources](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from common/trampoline-framework.md + AVE-QED Ch 11 + ave-prereg Step 1.5 as Core-canonical pedagogical primer for the trampoline/spring analogy -->
+
+<!-- kb-frontmatter
+kind: leaf
+no-claim: self-scoped pedagogical primer — its own "IS / IS NOT" section states it is a visual anchor making no quantitative predictions; every physics result is a re-exposition with "→ Primary:" pointers
+-->
 
 # The Trampoline/Spring Analogy: Core Pedagogical Primer
 
-Per Grant directive 2026-05-16 ("I want the core to be self sufficient, duplicate"): this leaf is the Core-canonical pedagogical primer for the trampoline/spring analogy, distilled from AVE-QED Ch 11 `11_tensioned_trampoline.tex`. The analogy is the **picture-first mechanical visualization** of the AVE substrate, derived step-by-step from the reader's likely starting point (the GR pop-sci picture of gravity). **This is the primer the [ave-prereg skill Step 1.5](https://github.com/anthropics/claude-code/blob/main/skills/ave-prereg/SKILL.md) refers agents to when grounding new derivations.**
+Per Grant directive 2026-05-16 ("I want the core to be self sufficient, duplicate"): this leaf is the Core-canonical pedagogical primer for the trampoline/spring analogy, distilled from the QED-replacement volume's tensioned-trampoline chapter. The analogy is the **picture-first mechanical visualization** of the AVE substrate, derived step-by-step from the reader's likely starting point (the GR pop-sci picture of gravity). **This is the primer the ave-prereg skill Step 1.5 refers agents to when grounding new derivations.**
 
 **Sister Core leaf**: [`common/trampoline-framework.md`](trampoline-framework.md) is the canonical synthesis/cross-reference document with five-bullet picture + ground-up build + chapter cross-refs. **This leaf** is the step-by-step pedagogical primer (Step 0 → 6) that builds the picture from scratch. Both serve different reader needs; both are Core-canonical.
 
-> **Note on tone (per AVE-QED Ch 11 §2)**: this primer compares the AVE substrate visualization to the standard pop-science representation of GR's spacetime curvature (the "bowling ball on rubber sheet" picture). **This is a comparison of visualizations, not of theories.** General relativity as a mathematical formalism is well-defined and not under critique here; we contrast only the pedagogical pop-sci visualization that readers commonly carry into discussions of substrate physics.
+> **Note on tone**: this primer compares the AVE substrate visualization to the standard pop-science representation of GR's spacetime curvature (the "bowling ball on rubber sheet" picture). **This is a comparison of visualizations, not of theories.** General relativity as a mathematical formalism is well-defined and not under critique here; we contrast only the pedagogical pop-sci visualization that readers commonly carry into discussions of substrate physics.
 
 ---
 
@@ -49,7 +52,7 @@ The AVE substrate is a **discrete K4-bipartite tetrahedral lattice** with pitch 
 
 **The buckling direction sets chirality.** In an isotropic environment, the buckling direction would be chosen randomly. In AVE, the parent black-hole rotation imposes a **global directional bias** on the pre-geodesic plasma at the moment of K4 crystallization (cf. Q-G21, Q-G35). All bonds freeze in the same rotational buckling direction. **This is the substrate's frozen chirality.**
 
-**What this step adds**: 
+**What this step adds**:
 - Pre-tension (bonds carry stored elastic energy at rest)
 - Chirality (a direction set globally at genesis)
 - A candidate physical mechanism compatible with the $K = 2G$ operating point
@@ -79,7 +82,7 @@ So Step 2's primary-bond buckling picture is **necessary but not sufficient**; t
 
 **Falsifiable bonus**: if Q-G47 closes via the thermodynamic route, the latent heat released during Phase I crystallization ($U_{\text{random}} - U(r_d^*)$) gives the AVE-native CMB temperature derivation. Cross-reference cosmology "bottle in freezer" framework.
 
-**Status (canonical 2026-05-16 late evening, post Path B→D two-engine cross-validation):** The cooled-equilibrium interpretation is now canonically supported via [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-closure.md): the FTG-EMT operating point $p^* = 8\pi\alpha$ at $z_0 \approx 51.25$ corresponds to the substrate's K=2G operating point, verified to 0.003% (Path C) and independently confirmed via Master Equation FDTD breathing soliton (Path D, v14 Mode I PASS). The remaining "still open" piece is the individual $\xi_{K1}, \xi_{K2}$ prefactor derivation from K4 unit-cell Cosserat-Lagrangian integration (Sessions 19+; only the ratio $\xi_{K2}/\xi_{K1} = 12$ is currently fixed by $|T|$-orbit symmetry).
+**Status (canonical 2026-05-16 late evening, post Path B→D two-engine cross-validation):** The cooled-equilibrium interpretation is now canonically supported via [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-closure.md): the FTG-EMT operating point $p^* = 8\pi\alpha$ at $z_0 \approx 51.25$ corresponds to the substrate's $K=2G$ operating point, verified to 0.003% (Path C) and independently confirmed via Master Equation FDTD breathing soliton (Path D, v14 Mode I PASS). The remaining "still open" piece is the individual $\xi_{K1}, \xi_{K2}$ prefactor derivation from K4 unit-cell Cosserat-Lagrangian integration (Sessions 19+; only the ratio $\xi_{K2}/\xi_{K1} = 12$ is currently fixed by $|T|$-orbit symmetry).
 
 ---
 
@@ -101,8 +104,6 @@ $$p^* = \frac{10 z_0 - 12}{z_0(z_0 + 2)} = 8\pi\alpha$$
 
 The fine-structure constant $\alpha$ IS the trampoline weave density (up to a $8\pi$ geometric factor). When we say "$\alpha \approx 1/137$", we're saying "$1$ out of every $\sim 5.5$ available bond directions is occupied." α isn't a number floating around in QED — it's the substrate's bond density at the only viable operating point.
 
-> → Primary: [Vol 3 Ch 1:17-23 EMT operating point](../../../vol_3_macroscopic/chapters/01_gravity_and_yield.tex) — canonical $p^* = 8\pi\alpha$ derivation
->
 > ↗ See also: [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-closure.md) — $\chi_K = 12$ + magic-angle framework
 
 ---
@@ -131,11 +132,11 @@ The buckling direction set in Step 2 is **global**: all bonds in the K4 lattice 
 
 **What this step adds**: lattice-scale coherent chirality. The direction is inherited from the parent BH's rotational angular momentum (cf. Q-G35 chirality inheritance).
 
-**Empirical consequence: chiral coupling effects.** The HOPF-02a test (`AVE-HOPF/hardware/hopf_02_ASSEMBLY_GUIDE.md`) is the direct experimental probe: enantiomer pairs of torus-knot wire antennas should show frequency differences from this lattice chirality, at the predicted magnitude:
+**Empirical consequence: chiral coupling effects.** A direct experimental probe is the enantiomer-pair torus-knot wire-antenna test: enantiomer pairs of torus-knot wire antennas should show frequency differences from this lattice chirality, at the predicted magnitude:
 
 $$\Delta f / f = \alpha \cdot \frac{pq}{p + q}$$
 
-For electron $(2, 3)$: $\Delta f/f = 1.2\alpha \approx 8.76 \times 10^{-3}$ (AVE-HOPF birefringence prediction).
+For electron $(2, 3)$: $\Delta f/f = 1.2\alpha \approx 8.76 \times 10^{-3}$ (chiral-birefringence prediction).
 
 ---
 
@@ -320,13 +321,13 @@ The Virial sum at bond-pair LC tank saturation (Vol 4 Ch 1:175-184) splits energ
 
 ## Step 6.5: Bridge-Stands-Up Verification — does the trampoline self-consistently support what we built?
 
-We've established the trampoline's construction (Step 1–2.6): K4 lattice + over-bracing at $1.187 \cdot \ell_{\text{node}}$ + I4₁32 chirality + fabric density $p^* = 8\pi\alpha$. We've established what it does under load (Step 3–6): saturation kernel, $\Gamma = -1$ boundary, impedance gradients, 7-mode compliance.
+We've established the trampoline's construction (Step 1–2.6): K4 lattice + over-bracing at $1.187 \cdot \ell_{\text{node}}$ + $I4_1 32$ chirality + fabric density $p^* = 8\pi\alpha$. We've established what it does under load (Step 3–6): saturation kernel, $\Gamma = -1$ boundary, impedance gradients, 7-mode compliance.
 
 **Question**: how do we know the trampoline actually works at the $K = 2G$ operating point? The substrate construction has THREE distinct elastic responses that must SIMULTANEOUSLY balance to give the trace-reversal:
 
 1. **Cauchy baseline** ($f_{\text{Cauchy}}$): the primary K4 bonds alone give $K/G \approx 5/3$. This is the "trampoline fabric stiffness if you forget over-bracing and chirality."
 2. **Over-bracing factor** ($f_{\text{buckling}}$): the secondary links at $r_{\text{secondary}}/d = 1.187$ buckle when the fabric compresses. This buckling, combined with non-affine displacements, corrects $5/3 \to 2$. ("trampoline pre-tension from buckled over-braces")
-3. **Cosserat twist factor** ($f_{\text{Cosserat}}$): the chirality (I4₁32 handedness) couples microrotational sector to translational sector. When you compress, the fabric twists in a specific direction. ("trampoline chirality coupling")
+3. **Cosserat twist factor** ($f_{\text{Cosserat}}$): the chirality ($I4_1 32$ handedness) couples microrotational sector to translational sector. When you compress, the fabric twists in a specific direction. ("trampoline chirality coupling")
 
 All three must simultaneously equal 1 at the operating point for $K = 2G$ to actually hold.
 
@@ -340,7 +341,7 @@ The honest framework status: **Mode (a) at the substrate level, Mode (b) at the 
 
 ### Bridge-stands-up status (canonical 2026-05-16): TWO-ENGINE CONVERGENCE PASS
 
-Per A-027 two-engine architecture, the K=2G operating point is verified at BOTH engines via independent physical routes:
+Per A-027 two-engine architecture, the $K=2G$ operating point is verified at BOTH engines via independent physical routes:
 
 - **K4-TLM route (static, sub-saturation engine)**: the Feng-Thorpe-Garboczi EMT for the 3D amorphous central-force network with effective coordination $z_0 \approx 51.25$ yields the canonical formula
   $$p^* = \frac{10 z_0 - 12}{z_0(z_0 + 2)} = 8\pi\alpha \approx 0.1834$$
@@ -411,14 +412,14 @@ The corpus currently has two distinct justifications for $K = 2G$:
 
 ### Status: Q-G47 STRUCTURAL PASS via LC-cavity standing-wave reframe (2026-05-16)
 
-18 sessions of substrate-physics work landed (Sessions 1-18 in AVE-QED) + Path B→D verification arc (2026-05-16) deliver canonical closure. The structural verification PASSes via the LC-cavity standing-wave reframe AND via the two-engine cross-validation (K4-TLM FTG-EMT at p* = 8πα + Master Equation FDTD v14 Mode I).
+18 sessions of substrate-physics work landed (Sessions 1-18 in the QED-replacement volume) + Path B→D verification arc (2026-05-16) deliver canonical closure. The structural verification PASSes via the LC-cavity standing-wave reframe AND via the two-engine cross-validation (K4-TLM FTG-EMT at $p^* = 8\pi\alpha$ + Master Equation FDTD v14 Mode I).
 
 **Framework outcome**: the buckling picture's integration form converges to $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ structurally, with:
 - $4\pi^3$ from 3D Cosserat rotational integration × K4 4-bond topology
-- $\pi^2$ from Euler buckling mode shape  
+- $\pi^2$ from Euler buckling mode shape
 - $\pi$ from Cauchy axial integration
 
-**Magic-angle condition reframed (the bridge-stands-up check)**: at the K=2G operating point, three geometric factors ($f_{\text{Cauchy}}$, $f_{\text{buckling}}$, $f_{\text{Cosserat}}$) must simultaneously equal 1.
+**Magic-angle condition reframed (the bridge-stands-up check)**: at the $K=2G$ operating point, three geometric factors ($f_{\text{Cauchy}}$, $f_{\text{buckling}}$, $f_{\text{Cosserat}}$) must simultaneously equal 1.
 
 ### The LC-cavity standing-wave reframe (Grant 2026-05-16)
 
@@ -431,7 +432,7 @@ $$u_0^* = r_{\text{secondary}}/d - 1 = 0.187 = p_c = 8\pi\alpha$$
 All four quantities are **the same K4 substrate scale expressed at different levels**:
 - $r_{\text{secondary}}/d - 1 = 0.187$ — GEOMETRIC scale of the over-braced cavity
 - $u_0^* = 0.187$ — STORED REACTANCE AMPLITUDE of the standing wave in that cavity (NOT thermal noise; cavity-geometric)
-- $p^* = 8\pi\alpha \approx 0.183$ — BOND OCCUPATION FRACTION at K=2G operating point
+- $p^* = 8\pi\alpha \approx 0.183$ — BOND OCCUPATION FRACTION at $K=2G$ operating point
 - $\alpha$ — FINE-STRUCTURE CONSTANT = fabric weave density (up to $8\pi$)
 
 **Per Theorem 3.1 (Vol 4 Ch 1):** $\alpha^{-1}$ IS the Q-factor of the electron LC tank at the topological-defect TIR boundary. The substrate IS an LC resonant cavity, and $\alpha$ is its weave density / EM coupling / Q-factor — same geometric quantity expressed three ways.
@@ -440,11 +441,11 @@ All four quantities are **the same K4 substrate scale expressed at different lev
 
 **Picture A confirmed**: the four quantities above are ONE physical thing (the K4 substrate's standing-wave eigenmode amplitude) expressed at different levels. The magic-angle equation isn't a non-trivial constraint that the substrate must satisfy — it's the geometric identity that the cavity's eigenmode amplitude equals its over-bracing scale by construction.
 
-Sessions 19+ remaining rigorous work is now narrower: derive the individual $\xi_{K1}, \xi_{K2}$ prefactors from K4 unit-cell Cosserat-Lagrangian integration (currently only the ratio $\xi_{K2}/\xi_{K1} = 12$ is fixed). The two-engine canonical closure of K=2G itself is delivered (Path B→D, 2026-05-16); the remaining work is multi-week analytical refinement of substrate-tensor prefactors, not framework-blocking.
+Sessions 19+ remaining rigorous work is now narrower: derive the individual $\xi_{K1}, \xi_{K2}$ prefactors from K4 unit-cell Cosserat-Lagrangian integration (currently only the ratio $\xi_{K2}/\xi_{K1} = 12$ is fixed). The two-engine canonical closure of $K=2G$ itself is delivered (Path B→D, 2026-05-16); the remaining work is multi-week analytical refinement of substrate-tensor prefactors, not framework-blocking.
 
 ### Honest status (canonical 2026-05-16 late evening, post Path A→B→B+→C trilogy)
 
-**TWO-ENGINE CONVERGENCE PASS** (canonical AVE closure): the K=2G operating point at $p^* = 8\pi\alpha \approx 0.1834$ is verified at BOTH engines of the A-027 architecture via independent physical routes (see Step 6.5 above for full detail):
+**TWO-ENGINE CONVERGENCE PASS** (canonical AVE closure): the $K=2G$ operating point at $p^* = 8\pi\alpha \approx 0.1834$ is verified at BOTH engines of the A-027 architecture via independent physical routes (see Step 6.5 above for full detail):
 
 - **K4-TLM (sub-saturation)** — Feng-Thorpe-Garboczi EMT canonical formula $p^* = (10 z_0 - 12)/(z_0(z_0 + 2)) = 8\pi\alpha$ at $z_0 \approx 51.25$ verified to 0.003% precision (Vol 3 Ch 1 §3.2).
 - **Master Equation FDTD (bound-state)** — breathing-soliton bound state at Vol 1 Ch 8 Golden Torus geometry yields electron knot Q-factor $\alpha = 1/(4\pi^3 + \pi^2 + \pi)$; Axiom 4 definition $p_c \equiv 8\pi\alpha$ then gives the same operating point.
@@ -453,10 +454,10 @@ The LC-cavity standing-wave reframe (above) is the pedagogical PICTURE of what b
 
 **Two K4 scales (clarifying distinction; canonical per Vol 3 Ch 1 §3.2):**
 
-- **Primary K4 unit cell** ($z = 4$ tetrahedral coordination, Axiom 1 microscopic): mechanical eigenmode analyses operate here. The E-irrep soft shear eigenvalue at K=2G evaluates to $(4/3) k_s = 4/21 \approx 0.190$ for the Keating discretization of the continuous Cosserat field. This is the discrete K4 unit cell's intrinsic mechanical quantity.
-- **Amorphous secondary network** ($z_0 \approx 51.25$ effective): the FTG-EMT operates here. $p^* = 8\pi\alpha$ is the bond occupation fraction at K/G = 2. This is the canonical AVE substrate operating point.
+- **Primary K4 unit cell** ($z = 4$ tetrahedral coordination, Axiom 1 microscopic): mechanical eigenmode analyses operate here. The E-irrep soft shear eigenvalue at $K=2G$ evaluates to $(4/3) k_s = 4/21 \approx 0.190$ for the Keating discretization of the continuous Cosserat field. This is the discrete K4 unit cell's intrinsic mechanical quantity.
+- **Amorphous secondary network** ($z_0 \approx 51.25$ effective): the FTG-EMT operates here. $p^* = 8\pi\alpha$ is the bond occupation fraction at $K/G = 2$. This is the canonical AVE substrate operating point.
 
-These are physically connected (primary K4's over-bracing creates the amorphous secondary scaffolding per Vol 3 Ch 1 §3.2) but numerically distinct quantities (4/21 ≠ 8πα; the 3.86% proximity is coincidence between two K4-related small numbers, not an unresolved discrepancy). See [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-closure.md) for the full distinction.
+These are physically connected (primary K4's over-bracing creates the amorphous secondary scaffolding per Vol 3 Ch 1 §3.2) but numerically distinct quantities ($4/21 \neq 8\pi\alpha$; the 3.86% proximity is coincidence between two K4-related small numbers, not an unresolved discrepancy). See [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-closure.md) for the full distinction.
 
 ### CMB role (clarification per Grant plumber dialogue)
 
@@ -472,12 +473,12 @@ So the substrate's magic angle is **not** a thermal-noise quantity. It's the sta
 
 - A **pedagogical visual anchor** for the AVE substrate, with each step adding one structural feature on top of the GR pop-sci picture
 - A **consistent mechanical model** encoding all substrate features canonical in AVE (discreteness, pre-tension, chirality, saturation kernel, $\Gamma = -1$ horizon, Machian impedance gradients, 7-mode compliance)
-- The **picture-first artifact** that the [ave-prereg skill](https://github.com/anthropics/claude-code/blob/main/skills/ave-prereg/SKILL.md) Step 1.5 refers agents to when grounding new derivations
+- The **picture-first artifact** that the ave-prereg skill Step 1.5 refers agents to when grounding new derivations
 - **Sister to** [`common/trampoline-framework.md`](trampoline-framework.md) which is the synthesis/cross-reference version
 
 ### What this primer is NOT
 
-- A **replacement** for the analytical content of Vol 1 Ch 1, Vol 1 Ch 4, Vol 3 Ch 1, Backmatter Ch 7. The picture supports analysis; it does not replace it. The two-engine K=2G derivation is canonical in Vol 3 Ch 1 (K4-TLM/FTG-EMT route) and Vol 1 Ch 8 (Master Equation FDTD/electron knot route); this primer provides the pedagogical bridge between them.
+- A **replacement** for the analytical content of Vol 1 Ch 1, Vol 1 Ch 4, Vol 3 Ch 1, Backmatter Ch 7. The picture supports analysis; it does not replace it. The two-engine $K=2G$ derivation is canonical in Vol 3 Ch 1 (K4-TLM/FTG-EMT route) and Vol 1 Ch 8 (Master Equation FDTD/electron knot route); this primer provides the pedagogical bridge between them.
 - A **claim that GR-as-formalism is incorrect**. The contrast in Step 0 is to the pop-sci visualization, not to GR itself.
 - A **specific quantitative prediction of $\Delta G/G$ amplitude from cosmic chirality**: the framework predicts the $P_2(\cos\theta)$ angular profile sharply, but the amplitude depends on cosmic-formation parameters (parent BH spin, formation T) that are inaccessible per A-031 cosmic-parameter horizon. Bracketed predictions ($\alpha^N$ for $N \geq 2$) are honest; specific $\alpha^2$ or $\alpha^4$ claims are over-claims.
 - A **direct visualization of the cosmic-parameter horizon (A-031)**: the trampoline picture can show that the substrate is chiral and pre-tensioned; it can't directly show that the fabric is bounded by a $\Gamma = -1$ saturation surface that IS another BH from the parent universe's perspective. Pedagogical limit; full derivation in Vol 3 Ch 4 (generative cosmology) + A-031 refinement leaf.
@@ -500,7 +501,7 @@ Before any new AVE derivation, articulate the physical picture in mechanical/top
 ## Cross-references
 
 - **Sister Core leaf**: [`common/trampoline-framework.md`](trampoline-framework.md) — canonical synthesis with five-bullet picture + ground-up build + chapter-level cross-refs + status tracking
-- **AVE-QED canonical pedagogical chapter**: `AVE-QED/manuscript/vol_qed_replacement/chapters/11_tensioned_trampoline.tex` — the 1765-line source chapter this primer distills (includes TikZ figures, sub-section detail, side-by-side comparison table)
+- **Canonical pedagogical chapter**: the QED-replacement volume's tensioned-trampoline chapter — the 1765-line source chapter this primer distills (includes TikZ figures, sub-section detail, side-by-side comparison table)
 - **Canonical manuscript anchors**:
   - Vol 1 Ch 1 (Four Fundamental Axioms) — K4 substrate canonical
   - Vol 1 Ch 4 (Continuum Electrodynamics) — Master Equation + Cosserat micropolar tensor
@@ -508,7 +509,7 @@ Before any new AVE derivation, articulate the physical picture in mechanical/top
   - Vol 3 Ch 1 (Gravity and Yield) — $K = 2G$ canonical + Machian impedance integral
   - Vol 3 Ch 4 (Generative Cosmology) — Ω_freeze cosmic-spin freeze-in
   - Vol 3 Ch 21 (BH Interior Regime IV) — pre-geodesic plasma framing
-  - Backmatter Ch 7 (Universal Saturation-Kernel Catalog) — A-034 at 21 scales
+  - Backmatter Ch 7 (Universal Saturation-Kernel Catalog) — A-034 at 26 scales
 - **Cross-cutting KB leafs**:
   - [Boundary Observables $\mathcal{M}, \mathcal{Q}, \mathcal{J}$](boundary-observables-m-q-j.md) — substrate-observability rule
   - [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-closure.md) — $K = 2G$ derivation framework + Session log
@@ -517,7 +518,7 @@ Before any new AVE derivation, articulate the physical picture in mechanical/top
   - [AVE BH Horizon Area Theorem](../vol3/cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md) — Step 5 universal-horizon BH case
   - [Cosserat Mass-Gap](../vol1/axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md) — Step 6 7-mode compliance, massive mode
   - [K4 Rotation Group $T = A_4$](../vol1/axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md) — Step 3 chirality + group structure
-  - [Universal Saturation-Kernel Catalog (A-034)](universal-saturation-kernel-catalog.md) — Step 4 saturation kernel at 19 scales
+  - [Universal Saturation-Kernel Catalog (A-034)](universal-saturation-kernel-catalog.md) — Step 4 saturation kernel at 26 scales
 - **ave-prereg integration**:
   - Step 1.5 ("Articulate the physical picture in mechanical bullets") — references this primer
   - Step 2 ("Corpus-grep for prior work") — uses this primer's vocabulary as search terms

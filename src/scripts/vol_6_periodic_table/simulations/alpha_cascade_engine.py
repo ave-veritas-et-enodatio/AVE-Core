@@ -7,7 +7,7 @@ Nuclear binding as S₁₁ minimization of a coupled resonator network.
 Scope qualification on "zero empirical fits" claim:
   - K_MUTUAL, αℏc coupling forms ARE axiom-derived (Axiom 2)
   - C_j junction capacitance form IS axiom-derived (Axiom 4)
-  - HOWEVER: M_P_MEV_TARGET and M_N_MEV_TARGET imports at lines 41-42 are
+  - HOWEVER: M_P_MEV_CODATA and M_N_MEV_TARGET imports at lines 41-42 are
     empirical PDG nucleon rest masses, used as the starting RAW mass for
     the binding-energy subtraction. The script's binding-energy CALCULATION
     is axiom-derived but the rest-mass INPUTS are empirical PDG values.
@@ -58,7 +58,7 @@ from ave.core.constants import (
     HBAR,
     K_MUTUAL,
     M_N_MEV_TARGET,
-    M_P_MEV_TARGET,
+    M_P_MEV_CODATA,
     e_charge,
 )
 
@@ -76,7 +76,7 @@ ALPHA_HC = ALPHA * (HBAR * C_0 / e_charge) * 1e9  # MeV·fm
 
 # Proton / Neutron masses
 # Proton / Neutron masses — from physics engine
-M_P = M_P_MEV_TARGET  # MeV
+M_P = M_P_MEV_CODATA  # MeV
 M_N = M_N_MEV_TARGET  # MeV
 
 # Alpha cluster mass (4 nucleons − intra-alpha binding)

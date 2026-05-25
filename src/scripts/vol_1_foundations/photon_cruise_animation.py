@@ -19,22 +19,24 @@ AVE fidelity (all per Axiom 1 substrate, no SM/QED imports):
   - Amplitude ≪ V_YIELD — linear regime, no Axiom-4 engagement
   - Gaussian-modulated sinusoidal plane source — classical wave injection
 """
-from __future__ import annotations
 
-import numpy as np
 import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation, PillowWriter
-from matplotlib import colors as mcolors
+import numpy as np
 
+matplotlib.use("Agg")
 import os
 import sys
+
+import matplotlib.pyplot as plt
+from matplotlib import colors as mcolors
+from matplotlib.animation import FuncAnimation, PillowWriter
+
 sys.path.insert(0, os.path.dirname(__file__))
 
-from ave.core.k4_tlm import K4Lattice3D
-from ave.core.constants import C_0, V_SNAP
 from photon_propagation import PlaneSource, xy_slice
+
+from ave.core.constants import C_0, V_SNAP
+from ave.core.k4_tlm import K4Lattice3D
 
 
 def run(
@@ -106,20 +108,33 @@ def run(
     peak_xs_arr = np.asarray(peak_xs)
 
     summary = {
-        "N": N, "pml": pml, "source_x": source_x,
-        "lambda_cells": lambda_cells, "sigma_yz": sigma_yz,
+        "N": N,
+        "pml": pml,
+        "source_x": source_x,
+        "lambda_cells": lambda_cells,
+        "sigma_yz": sigma_yz,
         "t_sigma_periods": t_sigma_periods,
-        "omega_rad_s": omega, "period_s": period,
-        "dt_s": dt, "amp_volts": amp_volts, "amp_frac_vsnap": amp_frac,
-        "n_steps": n_steps, "steps_per_frame": steps_per_frame,
-        "fps": fps, "total_time_s": float(times_arr[-1]),
+        "omega_rad_s": omega,
+        "period_s": period,
+        "dt_s": dt,
+        "amp_volts": amp_volts,
+        "amp_frac_vsnap": amp_frac,
+        "n_steps": n_steps,
+        "steps_per_frame": steps_per_frame,
+        "fps": fps,
+        "total_time_s": float(times_arr[-1]),
         "source_center_s": float(src.t_center),
         "source_end_s": float(src.t_center + 3 * src.t_sigma),
     }
 
-    np.savez(out_npz, frames=frames_arr, x_profiles=x_profiles_arr,
-             times=times_arr, peak_xs=peak_xs_arr,
-             **{k: v for k, v in summary.items()})
+    np.savez(
+        out_npz,
+        frames=frames_arr,
+        x_profiles=x_profiles_arr,
+        times=times_arr,
+        peak_xs=peak_xs_arr,
+        **{k: v for k, v in summary.items()},
+    )
 
     _render(frames_arr, x_profiles_arr, times_arr, peak_xs_arr, summary, out_gif)
     return summary
@@ -135,9 +150,7 @@ def _render(
 ) -> None:
     N = summary["N"]
     source_x = summary["source_x"]
-    fig, (ax_im, ax_pr) = plt.subplots(
-        1, 2, figsize=(13, 5), gridspec_kw={"width_ratios": [1.3, 1]}
-    )
+    fig, (ax_im, ax_pr) = plt.subplots(1, 2, figsize=(13, 5), gridspec_kw={"width_ratios": [1.3, 1]})
     fig.patch.set_facecolor("#111")
     for ax in (ax_im, ax_pr):
         ax.set_facecolor("#1a1a1a")
@@ -149,7 +162,9 @@ def _render(
     vmax = max(frames.max(), 1e-30)
     vmin = max(vmax * 1e-4, 1e-30)
     im = ax_im.imshow(
-        frames[0].T, origin="lower", cmap="inferno",
+        frames[0].T,
+        origin="lower",
+        cmap="inferno",
         norm=mcolors.LogNorm(vmin=vmin, vmax=vmax),
         extent=[0, N, 0, N],
     )
@@ -178,15 +193,15 @@ def _render(
     (dot_pr,) = ax_pr.plot([], [], "o", color="yellow", markersize=7)
     ax_pr.grid(alpha=0.15, color="#666")
     c_ratio_text = ax_pr.text(
-        0.02, 0.95,
-        f"λ = {summary['lambda_cells']:.0f} cells   pulse σ_t = "
-        f"{summary['t_sigma_periods']:.1f} periods",
-        transform=ax_pr.transAxes, color="#ccc", fontsize=9, va="top"
+        0.02,
+        0.95,
+        f"λ = {summary['lambda_cells']:.0f} cells   pulse σ_t = " f"{summary['t_sigma_periods']:.1f} periods",
+        transform=ax_pr.transAxes,
+        color="#ccc",
+        fontsize=9,
+        va="top",
     )
-    t_text = ax_pr.text(
-        0.02, 0.88, "", transform=ax_pr.transAxes, color="yellow",
-        fontsize=10, va="top"
-    )
+    t_text = ax_pr.text(0.02, 0.88, "", transform=ax_pr.transAxes, color="yellow", fontsize=10, va="top")
 
     src_end_ns = summary["source_end_s"] * 1e9
 
@@ -201,8 +216,7 @@ def _render(
         t_text.set_text(f"peak at x = {peak_xs[i]:.0f}" if np.isfinite(peak_xs[i]) else "")
         return im, line_pr, dot_pr, title_im, t_text
 
-    anim = FuncAnimation(fig, update, frames=len(frames),
-                         interval=1000 / summary["fps"], blit=False)
+    anim = FuncAnimation(fig, update, frames=len(frames), interval=1000 / summary["fps"], blit=False)
     writer = PillowWriter(fps=summary["fps"])
     anim.save(out_path, writer=writer, savefig_kwargs={"facecolor": "#111"})
     plt.close(fig)
@@ -210,6 +224,7 @@ def _render(
 
 if __name__ == "__main__":
     import json
+
     summary = run()
     print(json.dumps(summary, indent=2))
     print(f"\nAnimation: /tmp/photon_cruise.gif  ({summary['fps']} fps)")

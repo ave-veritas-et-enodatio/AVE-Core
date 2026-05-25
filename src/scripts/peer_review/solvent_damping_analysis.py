@@ -36,6 +36,7 @@ import numpy as np
 
 from ave.core.constants import C_0, K_B, XI_TOPO, e_charge
 from ave.solvers.transmission_line import build_nodal_y_matrix, s11_from_y_matrix
+from ave_path_util import sim_output
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
@@ -429,7 +430,7 @@ fig.suptitle(
 )
 plt.tight_layout(rect=[0, 0, 1, 0.94])
 
-out_path = "src/assets/sim_outputs/solvent_damping_analysis.png"
+out_path = sim_output("solvent_damping_analysis.png")
 plt.savefig(out_path, dpi=200, bbox_inches="tight", facecolor=fig.get_facecolor())
 print(f"  → Saved: {out_path}")
 plt.close()

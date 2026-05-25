@@ -25,27 +25,29 @@ Outputs:
   - /tmp/phase3b_sweep.npz (raw data)
   - /tmp/phase3b_sweep.png (multi-panel visualization)
 """
-from __future__ import annotations
 
-import numpy as np
 import matplotlib
-matplotlib.use("Agg")   # headless
-import matplotlib.pyplot as plt
+import numpy as np
 
-from ave.core.k4_tlm import K4Lattice3D
-from ave.core.constants import V_SNAP, V_YIELD, ALPHA
+matplotlib.use("Agg")  # headless
+import matplotlib.pyplot as plt
 from tlm_electron_soliton_eigenmode import (
-    initialize_2_3_voltage_ansatz, shell_envelope, extract_alpha_inverse,
+    extract_alpha_inverse,
+    initialize_2_3_voltage_ansatz,
+    shell_envelope,
 )
+
+from ave.core.constants import ALPHA, V_SNAP, V_YIELD
+from ave.core.k4_tlm import K4Lattice3D
 
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
 ALPHA_INV_TARGET = 1.0 / ALPHA
 ALPHA_INV_PHOTON_EST = 184.7
 
 
-def run_at_strain(strain_target: float, N: int = 64, n_steps: int = 300,
-                  R: float = 16.0, r: float = 6.108,
-                  pml_thickness: int = 6) -> dict:
+def run_at_strain(
+    strain_target: float, N: int = 64, n_steps: int = 300, R: float = 16.0, r: float = 6.108, pml_thickness: int = 6
+) -> dict:
     """Run TLM at an amplitude scaled to hit strain_target = v_max/V_SNAP.
 
     Returns per-run diagnostics including Q-factor, T2 eigenvalues,
@@ -57,7 +59,10 @@ def run_at_strain(strain_target: float, N: int = 64, n_steps: int = 300,
     amplitude = strain_target * float(V_SNAP) / np.pi
 
     lattice = K4Lattice3D(
-        N, N, N, dx=1.0,
+        N,
+        N,
+        N,
+        dx=1.0,
         pml_thickness=pml_thickness,
         nonlinear=False,
         op3_bond_reflection=True,
@@ -68,8 +73,8 @@ def run_at_strain(strain_target: float, N: int = 64, n_steps: int = 300,
     cy = (lattice.ny - 1) / 2.0
     cz = (lattice.nz - 1) / 2.0
 
-    V_mag_init = np.sqrt(np.sum(lattice.V_inc ** 2, axis=-1))
-    energy_init = float(np.sum(V_mag_init ** 2))
+    V_mag_init = np.sqrt(np.sum(lattice.V_inc**2, axis=-1))
+    energy_init = float(np.sum(V_mag_init**2))
     energy_trace = [energy_init]
 
     # RMS accumulator over final 100 steps for shell-geometry extraction
@@ -86,11 +91,11 @@ def run_at_strain(strain_target: float, N: int = 64, n_steps: int = 300,
             rms_accumulator += V_phys_sq
             rms_count += 1
         # Track peak strain across the run
-        v_total = np.sqrt(np.sum(lattice.V_inc ** 2, axis=-1))
+        v_total = np.sqrt(np.sum(lattice.V_inc**2, axis=-1))
         max_strain_seen = max(max_strain_seen, float(v_total.max() / V_SNAP))
         if step % 50 == 0:
-            V_mag = np.sqrt(np.sum(lattice.V_inc ** 2, axis=-1))
-            energy_trace.append(float(np.sum(V_mag ** 2)))
+            V_mag = np.sqrt(np.sum(lattice.V_inc**2, axis=-1))
+            energy_trace.append(float(np.sum(V_mag**2)))
 
     energy_final = energy_trace[-1]
 
@@ -104,7 +109,7 @@ def run_at_strain(strain_target: float, N: int = 64, n_steps: int = 300,
 
     # T₂ eigenvalues: port correlation across shell sites
     mask_active = lattice.mask_A | lattice.mask_B
-    V_total_sq_final = np.sum(lattice.V_inc ** 2 + lattice.V_ref ** 2, axis=-1)
+    V_total_sq_final = np.sum(lattice.V_inc**2 + lattice.V_ref**2, axis=-1)
     V_total_sq_active = V_total_sq_final * mask_active
     peak = float(V_total_sq_active.max())
     shell_mask = (V_total_sq_active > 0.3 * peak) & mask_active
@@ -146,42 +151,44 @@ def main():
     print()
 
     strain_targets = [
-        1e-6,    # deep photon regime (previous run's scale)
-        1e-3,    # still Regime I, well below threshold
-        0.05,    # Regime I, approaching boundary
-        0.121,   # √(2α) — Regime I/II boundary
-        0.3,     # Regime II (yielding)
-        0.5,     # Regime II mid
-        0.866,   # √3/2 — Regime II/III boundary
-        0.95,    # Regime III (near rupture)
+        1e-6,  # deep photon regime (previous run's scale)
+        1e-3,  # still Regime I, well below threshold
+        0.05,  # Regime I, approaching boundary
+        0.121,  # √(2α) — Regime I/II boundary
+        0.3,  # Regime II (yielding)
+        0.5,  # Regime II mid
+        0.866,  # √3/2 — Regime II/III boundary
+        0.95,  # Regime III (near rupture)
     ]
 
     results = []
     for i, target in enumerate(strain_targets):
-        print(f"[{i+1}/{len(strain_targets)}] strain_target = {target:.3e} ...",
-              end=" ", flush=True)
+        print(f"[{i+1}/{len(strain_targets)}] strain_target = {target:.3e} ...", end=" ", flush=True)
         res = run_at_strain(target)
         results.append(res)
-        decay_pct = (res["energy_init"] - res["energy_final"]) \
-            / max(res["energy_init"], 1e-30) * 100
-        print(f"α⁻¹ = {res['alpha_inv']:7.2f}  "
-              f"strain_max = {res['max_strain']:.3e}  "
-              f"R/r = {res['R_rms']/max(res['r_rms'],1e-9):.3f}  "
-              f"decay = {decay_pct:5.1f}%")
+        decay_pct = (res["energy_init"] - res["energy_final"]) / max(res["energy_init"], 1e-30) * 100
+        print(
+            f"α⁻¹ = {res['alpha_inv']:7.2f}  "
+            f"strain_max = {res['max_strain']:.3e}  "
+            f"R/r = {res['R_rms']/max(res['r_rms'],1e-9):.3f}  "
+            f"decay = {decay_pct:5.1f}%"
+        )
 
     print()
     print("=" * 72)
-    print(f"{'target':>10s} {'strain':>10s} {'α⁻¹':>9s} {'R_rms':>7s} "
-          f"{'r_rms':>7s} {'R/r':>7s} {'decay %':>8s} {'λ_min':>9s}")
+    print(
+        f"{'target':>10s} {'strain':>10s} {'α⁻¹':>9s} {'R_rms':>7s} "
+        f"{'r_rms':>7s} {'R/r':>7s} {'decay %':>8s} {'λ_min':>9s}"
+    )
     for r in results:
-        decay = (r["energy_init"] - r["energy_final"]) \
-            / max(r["energy_init"], 1e-30) * 100
-        lam_min = r["eigvals_corr"][-1] if not np.isnan(r["eigvals_corr"][0]) \
-            else float("nan")
+        decay = (r["energy_init"] - r["energy_final"]) / max(r["energy_init"], 1e-30) * 100
+        lam_min = r["eigvals_corr"][-1] if not np.isnan(r["eigvals_corr"][0]) else float("nan")
         rr = r["R_rms"] / max(r["r_rms"], 1e-9)
-        print(f"{r['strain_target']:10.3e} {r['max_strain']:10.3e} "
-              f"{r['alpha_inv']:9.3f} {r['R_rms']:7.2f} {r['r_rms']:7.2f} "
-              f"{rr:7.3f} {decay:8.2f} {lam_min:9.4f}")
+        print(
+            f"{r['strain_target']:10.3e} {r['max_strain']:10.3e} "
+            f"{r['alpha_inv']:9.3f} {r['R_rms']:7.2f} {r['r_rms']:7.2f} "
+            f"{rr:7.3f} {decay:8.2f} {lam_min:9.4f}"
+        )
 
     # ------------------------------------------------------------------
     # Save raw data
@@ -209,16 +216,15 @@ def main():
     # Panel 1: α⁻¹ vs strain (THE main result)
     ax = axes[0, 0]
     ax.semilogx(strain_x, alpha_y, "ko-", markersize=8, linewidth=1.5)
-    ax.axhline(ALPHA_INV_TARGET, color="red", linestyle="--",
-               label=f"electron (α⁻¹ = {ALPHA_INV_TARGET})")
-    ax.axhline(ALPHA_INV_PHOTON_EST, color="blue", linestyle="--",
-               label=f"classical Hopfion (≈ {ALPHA_INV_PHOTON_EST})")
+    ax.axhline(ALPHA_INV_TARGET, color="red", linestyle="--", label=f"electron (α⁻¹ = {ALPHA_INV_TARGET})")
+    ax.axhline(
+        ALPHA_INV_PHOTON_EST, color="blue", linestyle="--", label=f"classical Hopfion (≈ {ALPHA_INV_PHOTON_EST})"
+    )
     ax.axvline(np.sqrt(2 * ALPHA), color="gray", alpha=0.4, linestyle=":")
     ax.axvline(np.sqrt(3) / 2, color="gray", alpha=0.4, linestyle=":")
     ax.set_xlabel("max strain A = max|V_inc|/V_SNAP")
     ax.set_ylabel("α⁻¹ (extracted)")
-    ax.set_title("Panel 1: Q-factor vs drive strain\n"
-                 "(THE test — does Q shift toward 137 under saturation?)")
+    ax.set_title("Panel 1: Q-factor vs drive strain\n" "(THE test — does Q shift toward 137 under saturation?)")
     ax.grid(True, alpha=0.3)
     ax.legend(loc="best", fontsize=8)
 
@@ -226,14 +232,12 @@ def main():
     ax = axes[0, 1]
     eigs = np.array([r["eigvals_corr"] for r in results])
     for i in range(4):
-        ax.semilogx(strain_x, eigs[:, i], "o-",
-                    label=f"λ_{i+1}", markersize=6)
+        ax.semilogx(strain_x, eigs[:, i], "o-", label=f"λ_{i+1}", markersize=6)
     ax.axvline(np.sqrt(2 * ALPHA), color="gray", alpha=0.4, linestyle=":")
     ax.axvline(np.sqrt(3) / 2, color="gray", alpha=0.4, linestyle=":")
     ax.set_xlabel("max strain A")
     ax.set_ylabel("port-correlation eigenvalue")
-    ax.set_title("Panel 2: Port-correlation spectrum\n"
-                 "(λ_4 → 0 = A₁ dissipated; three T₂ modes survive)")
+    ax.set_title("Panel 2: Port-correlation spectrum\n" "(λ_4 → 0 = A₁ dissipated; three T₂ modes survive)")
     ax.grid(True, alpha=0.3)
     ax.legend(loc="best", fontsize=8)
 
@@ -243,12 +247,9 @@ def main():
     r_y = np.array([r["r_rms"] for r in results])
     R_over_r = R_y / np.maximum(r_y, 1e-9)
     ax.semilogx(strain_x, R_over_r, "go-", markersize=8)
-    ax.axhline(PHI ** 2, color="red", linestyle="--",
-               label=f"φ² = {PHI**2:.3f} (Golden Torus)")
-    ax.axhline(2.27, color="blue", linestyle="--",
-               label="TLM photon ≈ 2.27")
-    ax.axhline(2.0, color="orange", linestyle="--",
-               label="full Clifford ≈ 2.0")
+    ax.axhline(PHI**2, color="red", linestyle="--", label=f"φ² = {PHI**2:.3f} (Golden Torus)")
+    ax.axhline(2.27, color="blue", linestyle="--", label="TLM photon ≈ 2.27")
+    ax.axhline(2.0, color="orange", linestyle="--", label="full Clifford ≈ 2.0")
     ax.axvline(np.sqrt(2 * ALPHA), color="gray", alpha=0.4, linestyle=":")
     ax.axvline(np.sqrt(3) / 2, color="gray", alpha=0.4, linestyle=":")
     ax.set_xlabel("max strain A")
@@ -259,20 +260,13 @@ def main():
 
     # Panel 4: energy decay %
     ax = axes[1, 0]
-    decay_y = np.array([
-        (r["energy_init"] - r["energy_final"])
-        / max(r["energy_init"], 1e-30) * 100
-        for r in results
-    ])
+    decay_y = np.array([(r["energy_init"] - r["energy_final"]) / max(r["energy_init"], 1e-30) * 100 for r in results])
     ax.semilogx(strain_x, decay_y, "mo-", markersize=8)
-    ax.axvline(np.sqrt(2 * ALPHA), color="gray", alpha=0.4, linestyle=":",
-               label="√(2α) = Regime II onset")
-    ax.axvline(np.sqrt(3) / 2, color="gray", alpha=0.4, linestyle=":",
-               label="√3/2 = Regime III")
+    ax.axvline(np.sqrt(2 * ALPHA), color="gray", alpha=0.4, linestyle=":", label="√(2α) = Regime II onset")
+    ax.axvline(np.sqrt(3) / 2, color="gray", alpha=0.4, linestyle=":", label="√3/2 = Regime III")
     ax.set_xlabel("max strain A")
     ax.set_ylabel("energy decay (%)")
-    ax.set_title("Panel 4: Energy decay\n"
-                 "(decreases → confined standing wave)")
+    ax.set_title("Panel 4: Energy decay\n" "(decreases → confined standing wave)")
     ax.grid(True, alpha=0.3)
     ax.legend(loc="best", fontsize=8)
 
@@ -282,9 +276,8 @@ def main():
     cmap = plt.cm.viridis
     for i, r in enumerate(results):
         norm_trace = r["energy_trace"] / max(r["energy_trace"][0], 1e-30)
-        t = np.arange(len(norm_trace)) * 50   # 50-step sample interval
-        ax.plot(t, norm_trace, color=cmap(i / max(n_traces - 1, 1)),
-                label=f"A = {r['max_strain']:.2e}", alpha=0.8)
+        t = np.arange(len(norm_trace)) * 50  # 50-step sample interval
+        ax.plot(t, norm_trace, color=cmap(i / max(n_traces - 1, 1)), label=f"A = {r['max_strain']:.2e}", alpha=0.8)
     ax.set_xlabel("simulation step")
     ax.set_ylabel("energy / energy(0)")
     ax.set_title("Panel 5: Energy traces by drive level")
@@ -304,27 +297,22 @@ def main():
     ]
     for r in results:
         summary_lines.append(
-            f"  A={r['max_strain']:7.2e}  α⁻¹={r['alpha_inv']:6.2f}  "
-            f"R/r={r['R_rms']/max(r['r_rms'], 1e-9):5.2f}"
+            f"  A={r['max_strain']:7.2e}  α⁻¹={r['alpha_inv']:6.2f}  " f"R/r={r['R_rms']/max(r['r_rms'], 1e-9):5.2f}"
         )
     summary_lines.append("")
     # Verdict
-    alpha_low = alpha_y[0]   # smallest strain
+    alpha_low = alpha_y[0]  # smallest strain
     alpha_high = alpha_y[-1]  # largest strain
     delta_alpha = alpha_high - alpha_low
     if abs(alpha_high - ALPHA_INV_TARGET) < 10:
         summary_lines.append("VERDICT: Q → 137 at high strain ✓")
     elif delta_alpha < 0 and abs(alpha_high - alpha_low) > 20:
-        summary_lines.append(f"VERDICT: Q shifts downward by "
-                             f"{abs(delta_alpha):.1f} — partial mechanism")
+        summary_lines.append(f"VERDICT: Q shifts downward by " f"{abs(delta_alpha):.1f} — partial mechanism")
     elif abs(delta_alpha) < 5:
-        summary_lines.append(
-            "VERDICT: Q stable across strain — mechanism not engaging")
+        summary_lines.append("VERDICT: Q stable across strain — mechanism not engaging")
     else:
-        summary_lines.append(
-            f"VERDICT: Q shifts by {delta_alpha:+.1f} — inspect further")
-    ax.text(0.05, 0.95, "\n".join(summary_lines),
-            transform=ax.transAxes, va="top", family="monospace", fontsize=8)
+        summary_lines.append(f"VERDICT: Q shifts by {delta_alpha:+.1f} — inspect further")
+    ax.text(0.05, 0.95, "\n".join(summary_lines), transform=ax.transAxes, va="top", family="monospace", fontsize=8)
 
     plt.tight_layout()
     out_png = "/tmp/phase3b_sweep.png"

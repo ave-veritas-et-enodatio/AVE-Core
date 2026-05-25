@@ -13,13 +13,9 @@ Run:
     pytest src/tests/test_cosserat_master_equation_op14.py -v -s
 """
 
-from __future__ import annotations
-
 import numpy as np
-import pytest
 
 from ave.core.cosserat_master_equation_fdtd import CosseratMasterEquationFDTD
-
 
 # Test parameters
 N = 20
@@ -92,12 +88,8 @@ def test_op14_pearson_bond_pair():
 
     # Co-located V + ω blob at center (maximize coupling overlap)
     center = (N // 2, N // 2, N // 2)
-    engine.inject_localized_blob(
-        center=center, radius=V_SEED_RADIUS, amplitude=V_SEED_AMPLITUDE, profile="sech"
-    )
-    engine.inject_cosserat_blob(
-        center=center, radius=OMEGA_SEED_RADIUS, amplitude=OMEGA_SEED_AMPLITUDE, profile="sech"
-    )
+    engine.inject_localized_blob(center=center, radius=V_SEED_RADIUS, amplitude=V_SEED_AMPLITUDE, profile="sech")
+    engine.inject_cosserat_blob(center=center, radius=OMEGA_SEED_RADIUS, amplitude=OMEGA_SEED_AMPLITUDE, profile="sech")
 
     print(f"\nEngine init: {engine}")
     print(f"V peak at seed: {engine.V[center]:.4f}")
@@ -160,9 +152,7 @@ def test_cosserat_responds_to_V():
     # Seed ω elsewhere
     engine.inject_cosserat_blob(center=(8, 8, 11), radius=2.0, amplitude=0.3, profile="sech")
     K_eff_initial = engine.cosserat_stiffness(engine.V)
-    assert K_eff_initial[8, 8, 8] > engine.K_omega_0, (
-        "K_eff at V-saturated region should exceed baseline"
-    )
+    assert K_eff_initial[8, 8, 8] > engine.K_omega_0, "K_eff at V-saturated region should exceed baseline"
     omega_initial = engine.omega.copy()
     # Run a few steps; ω should evolve under modulated K_eff
     for _ in range(50):

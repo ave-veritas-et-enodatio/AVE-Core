@@ -1,6 +1,9 @@
 [↑ Ch.11 Thermodynamics](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol3/cosmology/ch15-black-hole-orbitals + common/boundary-observables-m-q-j as canonical AVE BH entropy adjudication -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-4o0f0h]
+-->
 
 # Four Distinct Entropy Quantities at the BH Horizon
 

@@ -1,5 +1,17 @@
 [↑ Ch.9: Condensed Matter and Superconductivity](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-3dc9qt, clm-qky559]
+-->
+
+> **A-034 anchor (canonical 2026-05-15 evening; SCOPE RECLASSIFIED 2026-05-17 Foundation Item 4 per `consistency-vs-emergence` discipline trigger 5).** BCS $B_c(T)$ functional-form $\sqrt{1-(T/T_c)^2}$ is **algebraically identical** to AVE's Axiom-4 saturation kernel $S(A) = \sqrt{1-A^2}$ with $A = T/T_c$ (per body line 25 below). The "0.00% error" reported in the validation table is therefore **definitional-identity** (sharpest end of consistency-vs-emergence 4-class taxonomy), NOT a predictive forward emergence test: $B_{c0}$ and $T_c$ are per-material experimental inputs, not derived from substrate parameters. The per-material BCS recovery is structural functional-form agreement, not zero-parameter prediction.
+>
+> **What the AVE-distinct emergence claim actually is**: the SAME kernel $\sqrt{1-A^2}$ governs BH ring-down (1.7% from GR), NOAA-validated solar flares, cosmic K4 crystallization, and BCS B_c(T) — i.e., the cross-substrate UNIVERSALITY of the kernel form across the 26-instance Universal Saturation-Kernel Catalog. The emergence test is the cross-instance applicability, not the per-instance fit. A single-instance functional-form match (BCS alone) does not constitute emergence; the 26-instance universality across qualitatively distinct physical regimes does.
+>
+> **Open work for promoting per-material BCS to emergence-class**: derive $B_{c0}$ and $T_c$ from substrate parameters per material (lattice geometry + Cosserat coupling + Op14 saturation onset) — currently NOT derived; both are inputs. If derived independently and matched to experimental values, BCS recovery would promote from definitional-identity to emergence.
+>
+> KB synthesis: [`trampoline-framework.md §7.5`](../../../common/trampoline-framework.md).
 
 > **A-034 anchor (canonical 2026-05-15 evening; SCOPE RECLASSIFIED 2026-05-17 Foundation Item 4 per `consistency-vs-emergence` discipline trigger 5).** BCS $B_c(T)$ functional-form $\sqrt{1-(T/T_c)^2}$ is **algebraically identical** to AVE's Axiom-4 saturation kernel $S(A) = \sqrt{1-A^2}$ with $A = T/T_c$ (per body line 25 below). The "0.00% error" reported in the validation table is therefore **definitional-identity** (sharpest end of consistency-vs-emergence 4-class taxonomy), NOT a predictive forward emergence test: $B_{c0}$ and $T_c$ are per-material experimental inputs, not derived from substrate parameters. The per-material BCS recovery is structural functional-form agreement, not zero-parameter prediction.
 >
@@ -16,6 +28,8 @@
 The superconductor engine (`ave.plasma.superconductor`) validates the Axiom 4 isomorphism against experimental data for four materials.
 
 ### $B_c(T) = B_{c0} \cdot S(T/T_c)$: Exact Match
+<!-- claim-quality: clm-3dc9qt (the BCS critical field IS the Universal Saturation Kernel applied at thermal scaling — Axiom 4 manifestation, not a curve fit) -->
+<!-- claim-quality: clm-qky559 (universal saturation operator: BCS, type-I/II, London depth, coherence — same operator, four domains) -->
 
 The critical field formula is not merely *similar* to the saturation operator---it IS the operator. The engine function `critical_field(T, T_c, B_c0)` calls `saturation_factor(T, T_c)` directly. Validation across four materials at six temperatures each yields:
 

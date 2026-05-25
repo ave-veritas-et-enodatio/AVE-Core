@@ -22,30 +22,40 @@ Pre-registered outcomes:
 - D (INCONSISTENCY): 1.187 produces z_0 ≠ 51.25 → corpus chain error
 """
 
-from __future__ import annotations
-
 import math
+import sys
+from pathlib import Path
+
 import numpy as np
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
+
+from ave.core.constants import ALPHA  # noqa: F401  (FTG-EMT consistency check)
 
 # Canonical inputs (corpus)
 R_SECONDARY_OVER_D = 1.187  # Vol 3 Ch 1 §3.2 over-bracing canonical
 Z_0_TARGET = 51.25  # EMT-inversion-given-α canonical target
-ALPHA = 1.0 / 137.0360  # for FTG-EMT consistency check
+# ALPHA imported above (CODATA measured α, for FTG-EMT consistency check)
 NU_VAC = 2.0 / 7.0  # Sessions 19 anchor
 
 # K4 / Diamond unit cell — 8 atoms in conventional cubic cell
 # nearest-neighbor distance d = a·√3/4, so a = 4d/√3
 A_CUBIC = 4.0 / math.sqrt(3.0)
-K4_DIAMOND_BASIS = np.array([
-    [0, 0, 0],
-    [0.5, 0.5, 0],
-    [0.5, 0, 0.5],
-    [0, 0.5, 0.5],
-    [0.25, 0.25, 0.25],
-    [0.75, 0.75, 0.25],
-    [0.75, 0.25, 0.75],
-    [0.25, 0.75, 0.75],
-]) * A_CUBIC
+K4_DIAMOND_BASIS = (
+    np.array(
+        [
+            [0, 0, 0],
+            [0.5, 0.5, 0],
+            [0.5, 0, 0.5],
+            [0, 0.5, 0.5],
+            [0.25, 0.25, 0.25],
+            [0.75, 0.75, 0.25],
+            [0.75, 0.25, 0.75],
+            [0.25, 0.75, 0.75],
+        ]
+    )
+    * A_CUBIC
+)
 
 
 def build_supercell(n_tiles: int = 5) -> np.ndarray:
@@ -150,13 +160,13 @@ def model4_substrate_density_continuum(rho_per_d3: float, r_over_d: float = R_SE
 
     ρ_per_d3 = atoms per unit volume in units of (1/d)^3.
     """
-    vol = (4.0 / 3.0) * math.pi * (r_over_d ** 3)
+    vol = (4.0 / 3.0) * math.pi * (r_over_d**3)
     return rho_per_d3 * vol
 
 
 def model4_solve_rho_for_z0(z_0_target: float = Z_0_TARGET, r_over_d: float = R_SECONDARY_OVER_D) -> float:
     """Solve for ρ_substrate (per d³) such that continuum model gives z_0_target."""
-    vol = (4.0 / 3.0) * math.pi * (r_over_d ** 3)
+    vol = (4.0 / 3.0) * math.pi * (r_over_d**3)
     return z_0_target / vol
 
 
@@ -250,12 +260,12 @@ def main():
     print("\n" + "-" * 80)
     print("Model 4: Substrate-density continuum (ρ × V(r))")
     print("-" * 80)
-    vol = (4.0 / 3.0) * math.pi * R_SECONDARY_OVER_D ** 3
+    vol = (4.0 / 3.0) * math.pi * R_SECONDARY_OVER_D**3
     rho_natural = model4_solve_rho_for_z0(Z_0_TARGET, R_SECONDARY_OVER_D)
     print(f"  Volume(r=1.187·d) = (4/3)π·{R_SECONDARY_OVER_D}³ = {vol:.4f} d³")
     print(f"  ρ_substrate required for z_0=51.25: {rho_natural:.4f} atoms/d³")
     # Compare to K4 atom density
-    k4_atom_density = 8.0 / A_CUBIC ** 3  # 8 atoms per cubic cell of volume a³
+    k4_atom_density = 8.0 / A_CUBIC**3  # 8 atoms per cubic cell of volume a³
     print(f"  Compare K4 atom density: 8/a³ = 8/({A_CUBIC:.4f})³ = {k4_atom_density:.4f} atoms/d³")
     print(f"  Ratio ρ_required / ρ_K4 = {rho_natural / k4_atom_density:.4f}")
 
@@ -269,7 +279,9 @@ def main():
     print(f"\n  K4 shell structure (first 15 shells):")
     print(f"  {'distance/d':>10}  {'shell_count':>12}  {'cumulative':>12}")
     for shell in sweep["shell_structure"][:15]:
-        marker = "  ← target 51.25" if shell["cumulative"] >= 51 and shell["cumulative"] - shell["shell_count"] < 51 else ""
+        marker = (
+            "  ← target 51.25" if shell["cumulative"] >= 51 and shell["cumulative"] - shell["shell_count"] < 51 else ""
+        )
         print(f"  {shell['distance']:>10.4f}  {shell['shell_count']:>12}  {shell['cumulative']:>12}{marker}")
 
     # Summary
@@ -291,7 +303,7 @@ def main():
     print("  → Not first-principles; just an inverse-EMT in disguise")
 
     print("\nModel 5 (radius sweep): K4 crystalline reaches z=51 at much larger r")
-    r51 = sweep['r_giving_51_neighbors']
+    r51 = sweep["r_giving_51_neighbors"]
     print(f"  → r ≈ {r51:.3f}·d for 51 neighbors in crystalline K4")
     print(f"  → vs canonical r_secondary/d = 1.187 → MISMATCH of {(r51 - 1.187)/1.187*100:+.1f}%")
 

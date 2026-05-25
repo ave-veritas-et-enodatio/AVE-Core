@@ -22,7 +22,6 @@ Scope:
   free action guarantees PML behavior is sector-local; testing it in
   isolation is sufficient.
 """
-from __future__ import annotations
 
 import numpy as np
 import pytest
@@ -45,7 +44,7 @@ class TestCosPMLMaskStructure:
         N, pml = 12, 3
         cos = CosseratField3D(nx=N, ny=N, nz=N, pml_thickness=pml)
         # Interior region: pml <= i,j,k < N-pml
-        interior = cos.cos_pml_mask[pml:N-pml, pml:N-pml, pml:N-pml, 0]
+        interior = cos.cos_pml_mask[pml : N - pml, pml : N - pml, pml : N - pml, 0]
         assert np.all(interior == 1.0)
 
     def test_pml_mask_zero_at_edge(self):
@@ -63,10 +62,8 @@ class TestCosPMLMaskStructure:
         for d in range(pml):
             expected = 1.0 - ((pml - d) / pml) ** 2
             # Cell at (d, N//2, N//2): min distance to boundary is d (assuming d < N-1-d)
-            actual = cos.cos_pml_mask[d, N//2, N//2, 0]
-            assert actual == pytest.approx(expected, abs=1e-12), (
-                f"At d={d}: expected {expected}, got {actual}"
-            )
+            actual = cos.cos_pml_mask[d, N // 2, N // 2, 0]
+            assert actual == pytest.approx(expected, abs=1e-12), f"At d={d}: expected {expected}, got {actual}"
 
     def test_pml_mask_monotonic_from_edge_inward(self):
         """mask should increase monotonically from edge toward interior."""
@@ -74,9 +71,7 @@ class TestCosPMLMaskStructure:
         # Sample mask along x-axis at (i, N//2, N//2) from i=0 to i=pml
         axis_slice = cos.cos_pml_mask[:4, 5, 5, 0]
         diffs = np.diff(axis_slice)
-        assert np.all(diffs >= 0), (
-            f"Mask not monotonic along axis: {axis_slice}"
-        )
+        assert np.all(diffs >= 0), f"Mask not monotonic along axis: {axis_slice}"
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -145,14 +140,16 @@ class TestCosPMLInteriorConservation:
         np.testing.assert_allclose(
             cos_nopml.u_dot[deep_slice, deep_slice, deep_slice, :],
             cos_withpml.u_dot[deep_slice, deep_slice, deep_slice, :],
-            rtol=1e-12, atol=1e-14,
-            err_msg="Interior u_dot should match pml=0 baseline"
+            rtol=1e-12,
+            atol=1e-14,
+            err_msg="Interior u_dot should match pml=0 baseline",
         )
         np.testing.assert_allclose(
             cos_nopml.omega_dot[deep_slice, deep_slice, deep_slice, :],
             cos_withpml.omega_dot[deep_slice, deep_slice, deep_slice, :],
-            rtol=1e-12, atol=1e-14,
-            err_msg="Interior omega_dot should match pml=0 baseline"
+            rtol=1e-12,
+            atol=1e-14,
+            err_msg="Interior omega_dot should match pml=0 baseline",
         )
 
 
@@ -186,11 +183,8 @@ class TestCosPMLBoundaryDissipation:
         # Mask at d=2 from edge: 1 - ((3-2)/3)^2 = 1 - 1/9 = 8/9 ≈ 0.889
         expected_mask = 1.0 - ((3 - 2) / 3) ** 2
         actual_u_dot = cos.u_dot[pml_site[0], pml_site[1], pml_site[2], 0]
-        assert actual_u_dot == pytest.approx(
-            initial_u_dot * expected_mask, rel=1e-10
-        ), (
-            f"Expected u_dot = {initial_u_dot * expected_mask:.6f}, "
-            f"got {actual_u_dot:.6f}"
+        assert actual_u_dot == pytest.approx(initial_u_dot * expected_mask, rel=1e-10), (
+            f"Expected u_dot = {initial_u_dot * expected_mask:.6f}, " f"got {actual_u_dot:.6f}"
         )
 
     def test_pml_attenuation_profile_monotonic(self):
@@ -209,7 +203,7 @@ class TestCosPMLBoundaryDissipation:
         z = 0 if N // 2 % 2 != 0 else N // 2
         # Find an A-site row
         for y_try in [N // 2, N // 2 - 1, 0, 2]:
-            if (y_try % 2 == 0):
+            if y_try % 2 == 0:
                 y = y_try
                 z = y_try
                 break
@@ -217,11 +211,9 @@ class TestCosPMLBoundaryDissipation:
         sample = cos.u_dot[::2, y, z, 0]  # every-other (A-sites at even i)
         # Magnitude should be monotonic from edge inward across PML
         # (values at i=0, 2, 4, 6, ...) -- first pml/2 + 1 samples in PML
-        pml_samples = sample[:pml + 1]  # samples in or just past PML
+        pml_samples = sample[: pml + 1]  # samples in or just past PML
         diffs = np.diff(pml_samples)
-        assert np.all(diffs >= -1e-10), (
-            f"PML attenuation profile not monotonic: {pml_samples}"
-        )
+        assert np.all(diffs >= -1e-10), f"PML attenuation profile not monotonic: {pml_samples}"
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -242,16 +234,16 @@ class TestCosPMLSaturationComposition:
         cos = CosseratField3D(nx=N, ny=N, nz=N, pml_thickness=pml)
 
         np.testing.assert_array_equal(
-            k4.pml_mask, cos.cos_pml_mask,
-            err_msg="K4 and Cosserat PML masks must be bit-identical (Ax3 requirement)"
+            k4.pml_mask, cos.cos_pml_mask, err_msg="K4 and Cosserat PML masks must be bit-identical (Ax3 requirement)"
         )
 
     def test_saturation_kernels_unaffected_by_pml(self):
         """Op14 saturation depends on (u, omega) — NOT on kinetic fields. PML
         damps kinetic only. So a state with identical (u, omega) but different
         PML should produce identical saturation kernels."""
-        from ave.topological.cosserat_field_3d import _update_saturation_kernels
         import jax.numpy as jnp
+
+        from ave.topological.cosserat_field_3d import _update_saturation_kernels
 
         N = 8
         cos_nopml = CosseratField3D(nx=N, ny=N, nz=N, pml_thickness=0)
@@ -268,14 +260,22 @@ class TestCosPMLSaturationComposition:
         V_sq = np.zeros((N, N, N))  # no K4 contribution
 
         S_mu_a, S_eps_a = _update_saturation_kernels(
-            jnp.asarray(cos_nopml.u), jnp.asarray(cos_nopml.omega),
-            jnp.asarray(V_sq), cos_nopml.dx, 1.0,
-            cos_nopml.omega_yield, cos_nopml.epsilon_yield,
+            jnp.asarray(cos_nopml.u),
+            jnp.asarray(cos_nopml.omega),
+            jnp.asarray(V_sq),
+            cos_nopml.dx,
+            1.0,
+            cos_nopml.omega_yield,
+            cos_nopml.epsilon_yield,
         )
         S_mu_b, S_eps_b = _update_saturation_kernels(
-            jnp.asarray(cos_withpml.u), jnp.asarray(cos_withpml.omega),
-            jnp.asarray(V_sq), cos_withpml.dx, 1.0,
-            cos_withpml.omega_yield, cos_withpml.epsilon_yield,
+            jnp.asarray(cos_withpml.u),
+            jnp.asarray(cos_withpml.omega),
+            jnp.asarray(V_sq),
+            cos_withpml.dx,
+            1.0,
+            cos_withpml.omega_yield,
+            cos_withpml.epsilon_yield,
         )
 
         np.testing.assert_allclose(np.asarray(S_mu_a), np.asarray(S_mu_b), rtol=1e-14)
@@ -290,6 +290,7 @@ class TestCosPMLEngineIntegration:
 
     def test_cosserat_inherits_pml_from_coupled_engine(self):
         from ave.topological.vacuum_engine import VacuumEngine3D
+
         engine = VacuumEngine3D.from_args(N=8, pml=2, temperature=0.0)
         assert engine.cos.pml_thickness == 2
         # Cosserat PML mask should be non-trivial
@@ -297,6 +298,7 @@ class TestCosPMLEngineIntegration:
 
     def test_cosserat_pml_zero_when_engine_pml_zero(self):
         from ave.topological.vacuum_engine import VacuumEngine3D
+
         engine = VacuumEngine3D.from_args(N=8, pml=0, temperature=0.0)
         assert engine.cos.pml_thickness == 0
         assert np.all(engine.cos.cos_pml_mask == 1.0)
@@ -305,6 +307,7 @@ class TestCosPMLEngineIntegration:
         """End-to-end: engine steps with Cosserat PML active + K4 PML active,
         no NaN or inf anywhere after a handful of steps."""
         from ave.topological.vacuum_engine import VacuumEngine3D
+
         engine = VacuumEngine3D.from_args(N=12, pml=3, temperature=0.0)
         # Poke some initial Cosserat energy near boundary
         engine.cos.omega[1, 1, 1, 2] = 0.01

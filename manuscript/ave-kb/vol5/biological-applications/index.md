@@ -1,5 +1,13 @@
 [↑ Vol 5 — Topological Biology](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-8zwyl3]
+subtree-experiments: []
+-->
+
+> ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claim-quality.md`](../claim-quality.md) (volume scope) and [`../../claim-quality.md`](../../claim-quality.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
+
 # Biological Applications — Ch.6 Biophysics and Pharmacology Under AVE
 
 This chapter extends the AVE impedance framework from protein folding to tissue-scale biology and pharmacology. Each section formulates a hypothesis in AVE terms --- impedance decoupling, cavity eigenmodes, impedance bridges --- and identifies falsifiable predictions. No resultboxes; all content is hypothesis and prediction.

@@ -28,14 +28,14 @@ Usage:
     → writes both gifs to /tmp/
     → exits 0 unless simulation crashes
 """
-from __future__ import annotations
 
 import sys
 import time
 from dataclasses import dataclass
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
@@ -52,14 +52,14 @@ from ave.topological.vacuum_engine import (
 @dataclass
 class RunConfig:
     wavelength: float = 3.5
-    amplitude: float = 0.7           # V_SNAP units (STRESS, above P_phase5's 0.5)
+    amplitude: float = 0.7  # V_SNAP units (STRESS, above P_phase5's 0.5)
     temperature: float = 0.1
     N: int = 32
     pml: int = 3
     t_ramp_periods: float = 2.0
     t_sustain_periods: float = 12.0
     t_observe_post_drive_periods: float = 8.0
-    record_cadence: int = 2          # Frame every N steps
+    record_cadence: int = 2  # Frame every N steps
 
     @property
     def omega_carrier(self) -> float:
@@ -71,10 +71,7 @@ class RunConfig:
 
     @property
     def n_outer_steps(self) -> int:
-        total_time = (
-            self.t_ramp_periods + self.t_sustain_periods
-            + self.t_observe_post_drive_periods
-        ) * self.period
+        total_time = (self.t_ramp_periods + self.t_sustain_periods + self.t_observe_post_drive_periods) * self.period
         return int(total_time * np.sqrt(2.0)) + 1
 
     @property
@@ -107,8 +104,8 @@ def _compute_h_local_slice(omega_slice: np.ndarray, dx: float) -> np.ndarray:
 
     curl = np.stack([curl_x, curl_y, curl_z], axis=-1)
     w_dot_curl = np.sum(omega_slice * curl, axis=-1)
-    w_norm = np.sqrt(np.sum(omega_slice ** 2, axis=-1)) + 1e-12
-    c_norm = np.sqrt(np.sum(curl ** 2, axis=-1)) + 1e-12
+    w_norm = np.sqrt(np.sum(omega_slice**2, axis=-1)) + 1e-12
+    c_norm = np.sqrt(np.sum(curl**2, axis=-1)) + 1e-12
     h = w_dot_curl / (w_norm * c_norm)
     return np.clip(h, -1.0, 1.0)
 
@@ -125,7 +122,7 @@ def _compute_tau_zx_slice(engine, slice_axis=2, slice_idx=None) -> np.ndarray:
         slice_idx = engine.N // 2
 
     V_sq = _v_squared_per_site(engine.k4.V_inc)
-    A_sq = V_sq / (engine.V_SNAP ** 2)
+    A_sq = V_sq / (engine.V_SNAP**2)
     grad_A_sq = tetrahedral_gradient(A_sq) / engine.k4.dx
     grad_x = grad_A_sq[..., 0]  # propagation axis = 0
     z_local = engine.k4.z_local_field
@@ -144,7 +141,8 @@ def _compute_tau_zx_slice(engine, slice_axis=2, slice_idx=None) -> np.ndarray:
 
 def run_collision(cfg: RunConfig) -> dict:
     engine = VacuumEngine3D.from_args(
-        N=cfg.N, pml=cfg.pml,
+        N=cfg.N,
+        pml=cfg.pml,
         temperature=cfg.temperature,
         amplitude_convention="V_SNAP",
     )
@@ -153,18 +151,30 @@ def run_collision(cfg: RunConfig) -> dict:
     t_sustain = cfg.t_sustain_periods * period
     src_offset = cfg.pml + 3
 
-    engine.add_source(AutoresonantCWSource(
-        x0=src_offset, direction=(1.0, 0.0, 0.0),
-        amplitude=cfg.amplitude, omega=cfg.omega_carrier,
-        sigma_yz=3.0, t_ramp=t_ramp, t_sustain=t_sustain,
-        t_decay=period,
-    ))
-    engine.add_source(AutoresonantCWSource(
-        x0=cfg.N - src_offset, direction=(-1.0, 0.0, 0.0),
-        amplitude=cfg.amplitude, omega=cfg.omega_carrier,
-        sigma_yz=3.0, t_ramp=t_ramp, t_sustain=t_sustain,
-        t_decay=period,
-    ))
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=src_offset,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=cfg.amplitude,
+            omega=cfg.omega_carrier,
+            sigma_yz=3.0,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            t_decay=period,
+        )
+    )
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=cfg.N - src_offset,
+            direction=(-1.0, 0.0, 0.0),
+            amplitude=cfg.amplitude,
+            omega=cfg.omega_carrier,
+            sigma_yz=3.0,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            t_decay=period,
+        )
+    )
 
     gate = PairNucleationGate(cadence=cfg.record_cadence)
     regime_obs = RegimeClassifierObserver(cadence=cfg.record_cadence)
@@ -176,10 +186,10 @@ def run_collision(cfg: RunConfig) -> dict:
     dx = engine.cos.dx
 
     frame_times = []
-    frame_omega_sq = []      # |ω|² in the z-slice
-    frame_h_local = []       # h_local in the z-slice
-    frame_tau_zx = []        # τ_zx in the z-slice
-    frame_firings = []       # list of fired-bond keys so far at this frame
+    frame_omega_sq = []  # |ω|² in the z-slice
+    frame_h_local = []  # h_local in the z-slice
+    frame_tau_zx = []  # τ_zx in the z-slice
+    frame_firings = []  # list of fired-bond keys so far at this frame
     fired_so_far: list = []
 
     t0 = time.time()
@@ -190,7 +200,7 @@ def run_collision(cfg: RunConfig) -> dict:
 
         # Snapshot ω at z-slice
         omega_slice = np.asarray(engine.cos.omega[:, :, slice_idx, :]).copy()
-        omega_sq = np.sum(omega_slice ** 2, axis=-1)
+        omega_sq = np.sum(omega_slice**2, axis=-1)
         h_local = _compute_h_local_slice(omega_slice, dx)
         tau_slice = _compute_tau_zx_slice(engine, slice_axis=2, slice_idx=slice_idx)
 
@@ -206,7 +216,7 @@ def run_collision(cfg: RunConfig) -> dict:
         # Only keep firings whose z coordinate is within 1 cell of the slice
         # (so they'd be visible in this slice)
         visible_firings = []
-        for (Ai, Aj, Ak, port) in fired_so_far:
+        for Ai, Aj, Ak, port in fired_so_far:
             if abs(Ak - slice_idx) <= 1:
                 visible_firings.append((Ai, Aj, Ak, port))
         frame_firings.append(visible_firings.copy())
@@ -248,8 +258,12 @@ def make_pair_formation_gif(result: dict, out: str = "/tmp/phase5_pair_formation
     fig, axes = plt.subplots(1, 2, figsize=(14, 6))
 
     im1 = axes[0].imshow(
-        omega_sq_frames[0].T, origin="lower", cmap="hot",
-        vmin=0, vmax=omega_sq_max, aspect="equal",
+        omega_sq_frames[0].T,
+        origin="lower",
+        cmap="hot",
+        vmin=0,
+        vmax=omega_sq_max,
+        aspect="equal",
     )
     axes[0].set_title("|ω|² magnitude (Cosserat energy density)", fontsize=11)
     axes[0].set_xlabel("x (lattice cells)")
@@ -257,8 +271,12 @@ def make_pair_formation_gif(result: dict, out: str = "/tmp/phase5_pair_formation
     plt.colorbar(im1, ax=axes[0], fraction=0.046, pad=0.04)
 
     im2 = axes[1].imshow(
-        h_local_frames[0].T, origin="lower", cmap="RdBu_r",
-        vmin=-1.0, vmax=1.0, aspect="equal",
+        h_local_frames[0].T,
+        origin="lower",
+        cmap="RdBu_r",
+        vmin=-1.0,
+        vmax=1.0,
+        aspect="equal",
     )
     axes[1].set_title("h_local sign (chirality: blue=LH, red=RH)", fontsize=11)
     axes[1].set_xlabel("x (lattice cells)")
@@ -266,10 +284,12 @@ def make_pair_formation_gif(result: dict, out: str = "/tmp/phase5_pair_formation
     plt.colorbar(im2, ax=axes[1], fraction=0.046, pad=0.04)
 
     # Firing markers (empty initially)
-    fire_scatter_1 = axes[0].scatter([], [], marker="*", s=120, color="yellow",
-                                     edgecolor="black", linewidth=0.5, zorder=10)
-    fire_scatter_2 = axes[1].scatter([], [], marker="*", s=120, color="yellow",
-                                     edgecolor="black", linewidth=0.5, zorder=10)
+    fire_scatter_1 = axes[0].scatter(
+        [], [], marker="*", s=120, color="yellow", edgecolor="black", linewidth=0.5, zorder=10
+    )
+    fire_scatter_2 = axes[1].scatter(
+        [], [], marker="*", s=120, color="yellow", edgecolor="black", linewidth=0.5, zorder=10
+    )
 
     title_text = fig.suptitle("", fontsize=12)
 
@@ -328,11 +348,13 @@ def make_dark_wake_gif(result: dict, out: str = "/tmp/phase5_dark_wake.gif") -> 
     vmax = tau_abs_max if tau_abs_max > 1e-10 else 1e-10
     norm = TwoSlopeNorm(vmin=vmin, vcenter=0.0, vmax=vmax)
     im = ax.imshow(
-        tau_frames[0].T, origin="lower", cmap="PuOr", norm=norm,
+        tau_frames[0].T,
+        origin="lower",
+        cmap="PuOr",
+        norm=norm,
         aspect="equal",
     )
-    ax.set_title("τ_zx shear field — back-EMF dark wake (BEMF from K4 mutual inductance)",
-                 fontsize=11)
+    ax.set_title("τ_zx shear field — back-EMF dark wake (BEMF from K4 mutual inductance)", fontsize=11)
     ax.set_xlabel("x (lattice cells, propagation axis)")
     ax.set_ylabel("y (lattice cells)")
     plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04, label="τ_zx (signed shear)")
@@ -364,10 +386,14 @@ if __name__ == "__main__":
     cfg = RunConfig()
     print(f"Config: N={cfg.N}, pml={cfg.pml}, T={cfg.temperature}")
     print(f"        λ={cfg.wavelength}, amp={cfg.amplitude}·V_SNAP (STRESS)")
-    print(f"        Drive: ramp={cfg.t_ramp_periods}p, sustain={cfg.t_sustain_periods}p, "
-          f"post={cfg.t_observe_post_drive_periods}p")
-    print(f"        n_steps={cfg.n_outer_steps}, cadence={cfg.record_cadence} "
-          f"→ ~{cfg.n_outer_steps // cfg.record_cadence} frames")
+    print(
+        f"        Drive: ramp={cfg.t_ramp_periods}p, sustain={cfg.t_sustain_periods}p, "
+        f"post={cfg.t_observe_post_drive_periods}p"
+    )
+    print(
+        f"        n_steps={cfg.n_outer_steps}, cadence={cfg.record_cadence} "
+        f"→ ~{cfg.n_outer_steps // cfg.record_cadence} frames"
+    )
     print("(Expected runtime ~5-10 min at N=32)\n")
 
     result = run_collision(cfg)

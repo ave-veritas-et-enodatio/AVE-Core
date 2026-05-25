@@ -23,7 +23,7 @@ quantity from V_inc via TLM scatter+connect; it gets reset each
 engine.step() call (which we don't call during S11 relaxation —
 relaxation is gradient descent, not time-evolution).
 """
-from __future__ import annotations
+
 import sys
 
 import jax
@@ -33,30 +33,42 @@ import numpy as np
 sys.path.insert(0, "/Users/grantlindblom/AVE-staging/AVE-Core/src/scripts/vol_1_foundations")
 
 from ave.topological.cosserat_field_3d import (
-    _compute_strain, _compute_curvature, TETRA_OFFSETS,
+    TETRA_OFFSETS,
+    _compute_curvature,
+    _compute_strain,
 )
 from ave.topological.vacuum_engine import VacuumEngine3D
 
 
 @jax.jit
 def _coupled_a_sq(
-    u: jnp.ndarray, omega: jnp.ndarray, V_inc: jnp.ndarray,
-    dx: float, omega_yield: float, epsilon_yield: float, V_SNAP: float,
+    u: jnp.ndarray,
+    omega: jnp.ndarray,
+    V_inc: jnp.ndarray,
+    dx: float,
+    omega_yield: float,
+    epsilon_yield: float,
+    V_SNAP: float,
 ) -> jnp.ndarray:
     """A²_total(x) = V_sq/V_SNAP² + ε²/ε_yield² + κ²/ω_yield² per site."""
     eps = _compute_strain(u, omega, dx)
     kappa = _compute_curvature(omega, dx)
     eps_sq = jnp.sum(eps * eps, axis=(-1, -2))
     kappa_sq = jnp.sum(kappa * kappa, axis=(-1, -2))
-    A_sq_cos = eps_sq / (epsilon_yield ** 2) + kappa_sq / (omega_yield ** 2)
-    A_sq_k4 = jnp.sum(V_inc ** 2, axis=-1) / (V_SNAP ** 2)
+    A_sq_cos = eps_sq / (epsilon_yield**2) + kappa_sq / (omega_yield**2)
+    A_sq_k4 = jnp.sum(V_inc**2, axis=-1) / (V_SNAP**2)
     return A_sq_cos + A_sq_k4
 
 
 @jax.jit
 def _s11_density_coupled(
-    u: jnp.ndarray, omega: jnp.ndarray, V_inc: jnp.ndarray,
-    dx: float, omega_yield: float, epsilon_yield: float, V_SNAP: float,
+    u: jnp.ndarray,
+    omega: jnp.ndarray,
+    V_inc: jnp.ndarray,
+    dx: float,
+    omega_yield: float,
+    epsilon_yield: float,
+    V_SNAP: float,
 ) -> jnp.ndarray:
     """Σ_p |Γ_p|² per site (Op14+Op3 chain on coupled A²).
 
@@ -78,17 +90,20 @@ def _s11_density_coupled(
 
 @jax.jit
 def _total_s11_coupled(
-    u: jnp.ndarray, omega: jnp.ndarray, V_inc: jnp.ndarray,
-    mask_alive: jnp.ndarray, dx: float, omega_yield: float,
-    epsilon_yield: float, V_SNAP: float,
+    u: jnp.ndarray,
+    omega: jnp.ndarray,
+    V_inc: jnp.ndarray,
+    mask_alive: jnp.ndarray,
+    dx: float,
+    omega_yield: float,
+    epsilon_yield: float,
+    V_SNAP: float,
 ) -> jnp.ndarray:
     rho = _s11_density_coupled(u, omega, V_inc, dx, omega_yield, epsilon_yield, V_SNAP)
     return jnp.sum(rho * mask_alive.astype(rho.dtype))
 
 
-_val_and_grad_s11_coupled = jax.jit(
-    jax.value_and_grad(_total_s11_coupled, argnums=(0, 1, 2))
-)
+_val_and_grad_s11_coupled = jax.jit(jax.value_and_grad(_total_s11_coupled, argnums=(0, 1, 2)))
 
 
 def total_s11_coupled(engine: VacuumEngine3D) -> float:
@@ -96,13 +111,18 @@ def total_s11_coupled(engine: VacuumEngine3D) -> float:
     u_j = jnp.asarray(engine.cos.u)
     w_j = jnp.asarray(engine.cos.omega)
     V_j = jnp.asarray(engine.k4.V_inc)
-    return float(_total_s11_coupled(
-        u_j, w_j, V_j,
-        engine.cos._mask_alive_jax,
-        engine.cos.dx,
-        engine.cos.omega_yield, engine.cos.epsilon_yield,
-        float(engine.V_SNAP),
-    ))
+    return float(
+        _total_s11_coupled(
+            u_j,
+            w_j,
+            V_j,
+            engine.cos._mask_alive_jax,
+            engine.cos.dx,
+            engine.cos.omega_yield,
+            engine.cos.epsilon_yield,
+            float(engine.V_SNAP),
+        )
+    )
 
 
 def s11_gradient_coupled(
@@ -113,10 +133,13 @@ def s11_gradient_coupled(
     w_j = jnp.asarray(engine.cos.omega)
     V_j = jnp.asarray(engine.k4.V_inc)
     _, (dS_du, dS_dw, dS_dV) = _val_and_grad_s11_coupled(
-        u_j, w_j, V_j,
+        u_j,
+        w_j,
+        V_j,
         engine.cos._mask_alive_jax,
         engine.cos.dx,
-        engine.cos.omega_yield, engine.cos.epsilon_yield,
+        engine.cos.omega_yield,
+        engine.cos.epsilon_yield,
         float(engine.V_SNAP),
     )
     cos_mask = engine.cos._mask_alive_jax[..., None].astype(dS_du.dtype)
@@ -161,18 +184,25 @@ def relax_s11_coupled(
         E_cos = float(engine.cos.total_energy())
         E_k4 = float(np.sum(np.asarray(engine.k4.V_inc) ** 2))
         return {
-            "step": step, "S11": S11, "c_cos": c_cos,
-            "peak_omega": peak_omega, "peak_V": peak_V,
-            "E_cos": E_cos, "E_k4": E_k4, "lr": lr_now,
+            "step": step,
+            "S11": S11,
+            "c_cos": c_cos,
+            "peak_omega": peak_omega,
+            "peak_V": peak_V,
+            "E_cos": E_cos,
+            "E_k4": E_k4,
+            "lr": lr_now,
         }
 
     if track_every > 0:
         snap = _snapshot(0, S11_prev, lr)
         trajectory.append(snap)
         if verbose:
-            print(f"  step {0:5d}  S11={snap['S11']:.6e}  c={snap['c_cos']}  "
-                  f"|ω|={snap['peak_omega']:.3f}  |V|={snap['peak_V']:.4f}  "
-                  f"E_k4={snap['E_k4']:.3e}  lr={snap['lr']:.2e}")
+            print(
+                f"  step {0:5d}  S11={snap['S11']:.6e}  c={snap['c_cos']}  "
+                f"|ω|={snap['peak_omega']:.3f}  |V|={snap['peak_V']:.4f}  "
+                f"E_k4={snap['E_k4']:.3e}  lr={snap['lr']:.2e}"
+            )
 
     for step in range(max_iter):
         u_save = engine.cos.u.copy()
@@ -184,9 +214,7 @@ def relax_s11_coupled(
         engine.cos.omega = engine.cos.omega - lr * dS_dw
         engine.k4.V_inc = engine.k4.V_inc - lr * dS_dV
         engine.cos._zero_outside_alive()
-        engine.k4.V_inc = np.where(
-            engine.k4.mask_active[..., None], engine.k4.V_inc, 0.0
-        )
+        engine.k4.V_inc = np.where(engine.k4.mask_active[..., None], engine.k4.V_inc, 0.0)
 
         S11_new = total_s11_coupled(engine)
 
@@ -198,15 +226,20 @@ def relax_s11_coupled(
                 snap = _snapshot(step + 1, S11_new, lr)
                 trajectory.append(snap)
                 if verbose:
-                    print(f"  step {step+1:5d}  S11={snap['S11']:.6e}  c={snap['c_cos']}  "
-                          f"|ω|={snap['peak_omega']:.3f}  |V|={snap['peak_V']:.4f}  "
-                          f"E_k4={snap['E_k4']:.3e}  lr={snap['lr']:.2e}")
+                    print(
+                        f"  step {step+1:5d}  S11={snap['S11']:.6e}  c={snap['c_cos']}  "
+                        f"|ω|={snap['peak_omega']:.3f}  |V|={snap['peak_V']:.4f}  "
+                        f"E_k4={snap['E_k4']:.3e}  lr={snap['lr']:.2e}"
+                    )
 
             if step > 10 and rel_change < tol:
                 return {
-                    "iterations": step + 1, "final_s11": S11_new,
-                    "converged": True, "history": history,
-                    "trajectory": trajectory, "lr_final": lr,
+                    "iterations": step + 1,
+                    "final_s11": S11_new,
+                    "converged": True,
+                    "history": history,
+                    "trajectory": trajectory,
+                    "lr_final": lr,
                 }
             lr = min(lr * 1.1, 1.0)
             S11_prev = S11_new
@@ -218,25 +251,35 @@ def relax_s11_coupled(
             lr *= 0.5
             if lr < 1e-14:
                 return {
-                    "iterations": step + 1, "final_s11": S11_prev,
-                    "converged": False, "history": history,
-                    "trajectory": trajectory, "lr_final": lr,
+                    "iterations": step + 1,
+                    "final_s11": S11_prev,
+                    "converged": False,
+                    "history": history,
+                    "trajectory": trajectory,
+                    "lr_final": lr,
                     "note": "lr collapsed",
                 }
 
     return {
-        "iterations": max_iter, "final_s11": S11_prev,
-        "converged": False, "history": history,
-        "trajectory": trajectory, "lr_final": lr,
+        "iterations": max_iter,
+        "final_s11": S11_prev,
+        "converged": False,
+        "history": history,
+        "trajectory": trajectory,
+        "lr_final": lr,
     }
 
 
 # ─── Phase 5c driver ──────────────────────────────────────────────────────────
 
+
 def run_phase5c_validation(
-    N: int = 80, R: float = 20.0,
-    V_amp: float = 0.05, chirality: float = 1.0,
-    max_iter: int = 500, initial_lr: float = 1e-3,
+    N: int = 80,
+    R: float = 20.0,
+    V_amp: float = 0.05,
+    chirality: float = 1.0,
+    max_iter: int = 500,
+    initial_lr: float = 1e-3,
 ) -> dict:
     """Full Phase 5c validation: phase-quadrature seed → coupled S11 relax."""
     PHI_SQ = ((1 + np.sqrt(5)) / 2) ** 2
@@ -252,17 +295,27 @@ def run_phase5c_validation(
     print()
 
     engine = VacuumEngine3D.from_args(
-        N=N, pml=4, temperature=0.0,
+        N=N,
+        pml=4,
+        temperature=0.0,
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
     )
 
     from tlm_electron_soliton_eigenmode import initialize_quadrature_2_3_eigenmode
+
     initialize_quadrature_2_3_eigenmode(
-        engine.k4, R=R, r=r, amplitude=V_amp, chirality=chirality,
+        engine.k4,
+        R=R,
+        r=r,
+        amplitude=V_amp,
+        chirality=chirality,
     )
     engine.cos.initialize_electron_2_3_sector(
-        R_target=R, r_target=r, use_hedgehog=True, amplitude_scale=cos_amp,
+        R_target=R,
+        r_target=r,
+        use_hedgehog=True,
+        amplitude_scale=cos_amp,
     )
 
     print("  --- Initial state ---")
@@ -276,10 +329,15 @@ def run_phase5c_validation(
 
     print("  --- relax_s11_coupled ---")
     import time
+
     t0 = time.time()
     result = relax_s11_coupled(
-        engine, max_iter=max_iter, tol=1e-7,
-        initial_lr=initial_lr, verbose=True, track_every=25,
+        engine,
+        max_iter=max_iter,
+        tol=1e-7,
+        initial_lr=initial_lr,
+        verbose=True,
+        track_every=25,
     )
     elapsed = time.time() - t0
 
@@ -343,9 +401,14 @@ def _inverse_reparam(actual: np.ndarray, scale: float, eps: float = 1e-3) -> np.
 
 @jax.jit
 def _s11_coupled_reparam_objective(
-    u: jnp.ndarray, omega_p: jnp.ndarray, V_p: jnp.ndarray,
-    mask_alive: jnp.ndarray, dx: float,
-    omega_yield: float, epsilon_yield: float, V_SNAP: float,
+    u: jnp.ndarray,
+    omega_p: jnp.ndarray,
+    V_p: jnp.ndarray,
+    mask_alive: jnp.ndarray,
+    dx: float,
+    omega_yield: float,
+    epsilon_yield: float,
+    V_SNAP: float,
 ) -> jnp.ndarray:
     """|S₁₁|² coupled with ω, V tanh-reparameterized; u unconstrained."""
     omega = _reparam_omega(omega_p, omega_yield)
@@ -356,26 +419,39 @@ def _s11_coupled_reparam_objective(
 
 @jax.jit
 def _cosserat_energy_reparam_objective(
-    u: jnp.ndarray, omega_p: jnp.ndarray,
-    mask_alive: jnp.ndarray, dx: float,
-    G: float, G_c: float, gamma: float,
-    omega_yield: float, epsilon_yield: float,
-    k_op10: float, k_refl: float, k_hopf: float,
+    u: jnp.ndarray,
+    omega_p: jnp.ndarray,
+    mask_alive: jnp.ndarray,
+    dx: float,
+    G: float,
+    G_c: float,
+    gamma: float,
+    omega_yield: float,
+    epsilon_yield: float,
+    k_op10: float,
+    k_refl: float,
+    k_hopf: float,
 ) -> jnp.ndarray:
     """Cosserat energy with ω tanh-reparameterized; u unconstrained."""
     omega = _reparam_omega(omega_p, omega_yield)
     return _total_energy_saturated(
-        u, omega, mask_alive, dx, G, G_c, gamma,
-        omega_yield, epsilon_yield, k_op10, k_refl, k_hopf,
+        u,
+        omega,
+        mask_alive,
+        dx,
+        G,
+        G_c,
+        gamma,
+        omega_yield,
+        epsilon_yield,
+        k_op10,
+        k_refl,
+        k_hopf,
     )
 
 
-_val_and_grad_s11_reparam = jax.jit(
-    jax.value_and_grad(_s11_coupled_reparam_objective, argnums=(0, 1, 2))
-)
-_val_and_grad_energy_reparam = jax.jit(
-    jax.value_and_grad(_cosserat_energy_reparam_objective, argnums=(0, 1))
-)
+_val_and_grad_s11_reparam = jax.jit(jax.value_and_grad(_s11_coupled_reparam_objective, argnums=(0, 1, 2)))
+_val_and_grad_energy_reparam = jax.jit(jax.value_and_grad(_cosserat_energy_reparam_objective, argnums=(0, 1)))
 
 
 def _gather_reparam_state(engine: VacuumEngine3D) -> tuple:
@@ -389,7 +465,10 @@ def _gather_reparam_state(engine: VacuumEngine3D) -> tuple:
 
 
 def _scatter_reparam_state(
-    engine: VacuumEngine3D, u: np.ndarray, omega_param: np.ndarray, V_param: np.ndarray,
+    engine: VacuumEngine3D,
+    u: np.ndarray,
+    omega_param: np.ndarray,
+    V_param: np.ndarray,
 ) -> None:
     """Push (u_arr, ω_param, V_param) back to engine state via tanh forward."""
     engine.cos.u = u
@@ -431,33 +510,65 @@ def relax_with_reparam(
 
     def _eval(u_, omp_, vp_) -> float:
         if objective == "s11":
-            return float(_s11_coupled_reparam_objective(
-                jnp.asarray(u_), jnp.asarray(omp_), jnp.asarray(vp_),
-                cos_mask, dx, omega_yield, epsilon_yield, V_SNAP,
-            ))
+            return float(
+                _s11_coupled_reparam_objective(
+                    jnp.asarray(u_),
+                    jnp.asarray(omp_),
+                    jnp.asarray(vp_),
+                    cos_mask,
+                    dx,
+                    omega_yield,
+                    epsilon_yield,
+                    V_SNAP,
+                )
+            )
         else:
-            return float(_cosserat_energy_reparam_objective(
-                jnp.asarray(u_), jnp.asarray(omp_),
-                cos_mask, dx, engine.cos.G, engine.cos.G_c, engine.cos.gamma,
-                omega_yield, epsilon_yield,
-                engine.cos.k_op10, engine.cos.k_refl, engine.cos.k_hopf,
-            ))
+            return float(
+                _cosserat_energy_reparam_objective(
+                    jnp.asarray(u_),
+                    jnp.asarray(omp_),
+                    cos_mask,
+                    dx,
+                    engine.cos.G,
+                    engine.cos.G_c,
+                    engine.cos.gamma,
+                    omega_yield,
+                    epsilon_yield,
+                    engine.cos.k_op10,
+                    engine.cos.k_refl,
+                    engine.cos.k_hopf,
+                )
+            )
 
     def _grad(u_, omp_, vp_) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         if objective == "s11":
             _, (gu, gom, gv) = _val_and_grad_s11_reparam(
-                jnp.asarray(u_), jnp.asarray(omp_), jnp.asarray(vp_),
-                cos_mask, dx, omega_yield, epsilon_yield, V_SNAP,
+                jnp.asarray(u_),
+                jnp.asarray(omp_),
+                jnp.asarray(vp_),
+                cos_mask,
+                dx,
+                omega_yield,
+                epsilon_yield,
+                V_SNAP,
             )
             cos_m = cos_mask[..., None].astype(gu.dtype)
             k4_m = k4_mask[..., None].astype(gv.dtype)
             return np.asarray(gu * cos_m), np.asarray(gom * cos_m), np.asarray(gv * k4_m)
         else:
             _, (gu, gom) = _val_and_grad_energy_reparam(
-                jnp.asarray(u_), jnp.asarray(omp_),
-                cos_mask, dx, engine.cos.G, engine.cos.G_c, engine.cos.gamma,
-                omega_yield, epsilon_yield,
-                engine.cos.k_op10, engine.cos.k_refl, engine.cos.k_hopf,
+                jnp.asarray(u_),
+                jnp.asarray(omp_),
+                cos_mask,
+                dx,
+                engine.cos.G,
+                engine.cos.G_c,
+                engine.cos.gamma,
+                omega_yield,
+                epsilon_yield,
+                engine.cos.k_op10,
+                engine.cos.k_refl,
+                engine.cos.k_hopf,
             )
             cos_m = cos_mask[..., None].astype(gu.dtype)
             return np.asarray(gu * cos_m), np.asarray(gom * cos_m), np.zeros_like(vp_)
@@ -478,18 +589,25 @@ def relax_with_reparam(
         E_cos = float(engine.cos.total_energy())
         E_k4 = float(np.sum(np.asarray(engine.k4.V_inc) ** 2))
         return {
-            "step": step, "obj": obj, "c_cos": c_cos,
-            "peak_omega": peak_omega, "peak_V": peak_V,
-            "E_cos": E_cos, "E_k4": E_k4, "lr": lr_now,
+            "step": step,
+            "obj": obj,
+            "c_cos": c_cos,
+            "peak_omega": peak_omega,
+            "peak_V": peak_V,
+            "E_cos": E_cos,
+            "E_k4": E_k4,
+            "lr": lr_now,
         }
 
     if track_every > 0:
         snap = _snapshot(0, obj_prev, lr)
         trajectory.append(snap)
         if verbose:
-            print(f"  [{objective}] step {0:5d}  obj={snap['obj']:.6e}  "
-                  f"c={snap['c_cos']}  |ω|={snap['peak_omega']:.3f}  "
-                  f"|V|={snap['peak_V']:.4f}  lr={snap['lr']:.2e}")
+            print(
+                f"  [{objective}] step {0:5d}  obj={snap['obj']:.6e}  "
+                f"c={snap['c_cos']}  |ω|={snap['peak_omega']:.3f}  "
+                f"|V|={snap['peak_V']:.4f}  lr={snap['lr']:.2e}"
+            )
 
     for step in range(max_iter):
         u_save = u.copy()
@@ -512,16 +630,21 @@ def relax_with_reparam(
                 snap = _snapshot(step + 1, obj_new, lr)
                 trajectory.append(snap)
                 if verbose:
-                    print(f"  [{objective}] step {step+1:5d}  obj={snap['obj']:.6e}  "
-                          f"c={snap['c_cos']}  |ω|={snap['peak_omega']:.3f}  "
-                          f"|V|={snap['peak_V']:.4f}  lr={snap['lr']:.2e}")
+                    print(
+                        f"  [{objective}] step {step+1:5d}  obj={snap['obj']:.6e}  "
+                        f"c={snap['c_cos']}  |ω|={snap['peak_omega']:.3f}  "
+                        f"|V|={snap['peak_V']:.4f}  lr={snap['lr']:.2e}"
+                    )
 
             if step > 10 and rel_change < tol:
                 _scatter_reparam_state(engine, u, omega_p, V_p)
                 return {
-                    "iterations": step + 1, "final_obj": obj_new,
-                    "converged": True, "history": history,
-                    "trajectory": trajectory, "lr_final": lr,
+                    "iterations": step + 1,
+                    "final_obj": obj_new,
+                    "converged": True,
+                    "history": history,
+                    "trajectory": trajectory,
+                    "lr_final": lr,
                     "objective": objective,
                 }
             lr = min(lr * 1.1, 1.0)
@@ -535,25 +658,35 @@ def relax_with_reparam(
             if lr < 1e-14:
                 _scatter_reparam_state(engine, u, omega_p, V_p)
                 return {
-                    "iterations": step + 1, "final_obj": obj_prev,
-                    "converged": False, "history": history,
-                    "trajectory": trajectory, "lr_final": lr,
-                    "objective": objective, "note": "lr collapsed",
+                    "iterations": step + 1,
+                    "final_obj": obj_prev,
+                    "converged": False,
+                    "history": history,
+                    "trajectory": trajectory,
+                    "lr_final": lr,
+                    "objective": objective,
+                    "note": "lr collapsed",
                 }
 
     _scatter_reparam_state(engine, u, omega_p, V_p)
     return {
-        "iterations": max_iter, "final_obj": obj_prev,
-        "converged": False, "history": history,
-        "trajectory": trajectory, "lr_final": lr,
+        "iterations": max_iter,
+        "final_obj": obj_prev,
+        "converged": False,
+        "history": history,
+        "trajectory": trajectory,
+        "lr_final": lr,
         "objective": objective,
     }
 
 
 def run_phase5c_v2_dual_descent(
-    N: int = 80, R: float = 20.0,
-    V_amp: float = 0.05, chirality: float = 1.0,
-    max_iter: int = 500, initial_lr: float = 1e-3,
+    N: int = 80,
+    R: float = 20.0,
+    V_amp: float = 0.05,
+    chirality: float = 1.0,
+    max_iter: int = 500,
+    initial_lr: float = 1e-3,
 ) -> dict:
     """Phase 5c-v2 — dual descent (Cosserat-energy + S₁₁) from same seed.
 
@@ -579,28 +712,42 @@ def run_phase5c_v2_dual_descent(
 
     def build_engine() -> VacuumEngine3D:
         eng = VacuumEngine3D.from_args(
-            N=N, pml=4, temperature=0.0,
+            N=N,
+            pml=4,
+            temperature=0.0,
             disable_cosserat_lc_force=True,
             enable_cosserat_self_terms=True,
         )
         initialize_quadrature_2_3_eigenmode(
-            eng.k4, R=R, r=r, amplitude=V_amp, chirality=chirality,
+            eng.k4,
+            R=R,
+            r=r,
+            amplitude=V_amp,
+            chirality=chirality,
         )
         eng.cos.initialize_electron_2_3_sector(
-            R_target=R, r_target=r, use_hedgehog=True, amplitude_scale=cos_amp,
+            R_target=R,
+            r_target=r,
+            use_hedgehog=True,
+            amplitude_scale=cos_amp,
         )
         return eng
 
     import time
+
     results = {}
     for objective in ["energy", "s11"]:
         print(f"\n  --- Run: objective={objective!r} ---")
         engine = build_engine()
         t0 = time.time()
         result = relax_with_reparam(
-            engine, objective=objective,
-            max_iter=max_iter, tol=1e-9,
-            initial_lr=initial_lr, verbose=True, track_every=50,
+            engine,
+            objective=objective,
+            max_iter=max_iter,
+            tol=1e-9,
+            initial_lr=initial_lr,
+            verbose=True,
+            track_every=50,
         )
         elapsed = time.time() - t0
         # Final state diagnostics
@@ -608,14 +755,18 @@ def run_phase5c_v2_dual_descent(
         peak_omega = float(np.max(np.linalg.norm(engine.cos.omega, axis=-1)))
         peak_V = float(np.max(np.abs(engine.k4.V_inc)))
         E_cos = float(engine.cos.total_energy())
-        E_k4 = float(np.sum(engine.k4.V_inc ** 2))
+        E_k4 = float(np.sum(engine.k4.V_inc**2))
         R_found, r_found = engine.cos.extract_shell_radii()
         results[objective] = {
             **result,
             "elapsed": elapsed,
-            "final_c": c_cos, "final_peak_omega": peak_omega,
-            "final_peak_V": peak_V, "final_E_cos": E_cos, "final_E_k4": E_k4,
-            "final_R": float(R_found), "final_r": float(r_found),
+            "final_c": c_cos,
+            "final_peak_omega": peak_omega,
+            "final_peak_V": peak_V,
+            "final_E_cos": E_cos,
+            "final_E_k4": E_k4,
+            "final_R": float(R_found),
+            "final_r": float(r_found),
         }
         print(f"\n  --- {objective!r} final ---")
         print(f"  iters: {result['iterations']}/{max_iter}  converged={result['converged']}")
@@ -658,7 +809,8 @@ PEAK_OMEGA_SATURATION_ONSET = 0.3 * np.pi  # 0.9425 — bound-state peak per doc
 
 
 def _project_omega_to_saturation(
-    omega: np.ndarray, peak_target: float = PEAK_OMEGA_SATURATION_ONSET,
+    omega: np.ndarray,
+    peak_target: float = PEAK_OMEGA_SATURATION_ONSET,
 ) -> np.ndarray:
     """Rescale ω so peak |ω| = peak_target. Pins amplitude on saturation manifold."""
     peak = float(np.max(np.linalg.norm(omega, axis=-1)))
@@ -700,33 +852,65 @@ def relax_with_pin(
 
     def _eval(u_, omega_, V_) -> float:
         if objective == "s11":
-            return float(_total_s11_coupled(
-                jnp.asarray(u_), jnp.asarray(omega_), jnp.asarray(V_),
-                cos_mask, dx, omega_yield, epsilon_yield, V_SNAP,
-            ))
+            return float(
+                _total_s11_coupled(
+                    jnp.asarray(u_),
+                    jnp.asarray(omega_),
+                    jnp.asarray(V_),
+                    cos_mask,
+                    dx,
+                    omega_yield,
+                    epsilon_yield,
+                    V_SNAP,
+                )
+            )
         else:
-            return float(_total_energy_saturated(
-                jnp.asarray(u_), jnp.asarray(omega_),
-                cos_mask, dx, engine.cos.G, engine.cos.G_c, engine.cos.gamma,
-                omega_yield, epsilon_yield,
-                engine.cos.k_op10, engine.cos.k_refl, engine.cos.k_hopf,
-            ))
+            return float(
+                _total_energy_saturated(
+                    jnp.asarray(u_),
+                    jnp.asarray(omega_),
+                    cos_mask,
+                    dx,
+                    engine.cos.G,
+                    engine.cos.G_c,
+                    engine.cos.gamma,
+                    omega_yield,
+                    epsilon_yield,
+                    engine.cos.k_op10,
+                    engine.cos.k_refl,
+                    engine.cos.k_hopf,
+                )
+            )
 
     def _grad(u_, omega_, V_) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         if objective == "s11":
             _, (gu, gw, gv) = _val_and_grad_s11_coupled(
-                jnp.asarray(u_), jnp.asarray(omega_), jnp.asarray(V_),
-                cos_mask, dx, omega_yield, epsilon_yield, V_SNAP,
+                jnp.asarray(u_),
+                jnp.asarray(omega_),
+                jnp.asarray(V_),
+                cos_mask,
+                dx,
+                omega_yield,
+                epsilon_yield,
+                V_SNAP,
             )
             cm = cos_mask[..., None].astype(gu.dtype)
             km = k4_mask[..., None].astype(gv.dtype)
             return np.asarray(gu * cm), np.asarray(gw * cm), np.asarray(gv * km)
         else:
             _, (gu, gw) = _cos_val_and_grad(
-                jnp.asarray(u_), jnp.asarray(omega_),
-                cos_mask, dx, engine.cos.G, engine.cos.G_c, engine.cos.gamma,
-                omega_yield, epsilon_yield,
-                engine.cos.k_op10, engine.cos.k_refl, engine.cos.k_hopf,
+                jnp.asarray(u_),
+                jnp.asarray(omega_),
+                cos_mask,
+                dx,
+                engine.cos.G,
+                engine.cos.G_c,
+                engine.cos.gamma,
+                omega_yield,
+                epsilon_yield,
+                engine.cos.k_op10,
+                engine.cos.k_refl,
+                engine.cos.k_hopf,
             )
             cm = cos_mask[..., None].astype(gu.dtype)
             return np.asarray(gu * cm), np.asarray(gw * cm), np.zeros_like(V_)
@@ -757,20 +941,27 @@ def relax_with_pin(
         peak_omega = float(np.max(np.linalg.norm(omega, axis=-1)))
         peak_V = float(np.max(np.abs(V_inc)))
         E_cos = float(engine.cos.total_energy())
-        E_k4 = float(np.sum(V_inc ** 2))
+        E_k4 = float(np.sum(V_inc**2))
         return {
-            "step": step, "obj": obj, "c_cos": c_cos,
-            "peak_omega": peak_omega, "peak_V": peak_V,
-            "E_cos": E_cos, "E_k4": E_k4, "lr": lr_now,
+            "step": step,
+            "obj": obj,
+            "c_cos": c_cos,
+            "peak_omega": peak_omega,
+            "peak_V": peak_V,
+            "E_cos": E_cos,
+            "E_k4": E_k4,
+            "lr": lr_now,
         }
 
     if track_every > 0:
         snap = _snapshot(0, obj_prev, lr)
         trajectory.append(snap)
         if verbose:
-            print(f"  [{objective}-pin] step {0:5d}  obj={snap['obj']:.6e}  "
-                  f"c={snap['c_cos']}  |ω|={snap['peak_omega']:.4f}  "
-                  f"|V|={snap['peak_V']:.4f}  lr={snap['lr']:.2e}")
+            print(
+                f"  [{objective}-pin] step {0:5d}  obj={snap['obj']:.6e}  "
+                f"c={snap['c_cos']}  |ω|={snap['peak_omega']:.4f}  "
+                f"|V|={snap['peak_V']:.4f}  lr={snap['lr']:.2e}"
+            )
 
     for step in range(max_iter):
         gu, gw, gv = _grad(u, omega, V_inc)
@@ -796,18 +987,23 @@ def relax_with_pin(
                 snap = _snapshot(step + 1, obj_new, lr)
                 trajectory.append(snap)
                 if verbose:
-                    print(f"  [{objective}-pin] step {step+1:5d}  obj={snap['obj']:.6e}  "
-                          f"c={snap['c_cos']}  |ω|={snap['peak_omega']:.4f}  "
-                          f"|V|={snap['peak_V']:.4f}  lr={snap['lr']:.2e}")
+                    print(
+                        f"  [{objective}-pin] step {step+1:5d}  obj={snap['obj']:.6e}  "
+                        f"c={snap['c_cos']}  |ω|={snap['peak_omega']:.4f}  "
+                        f"|V|={snap['peak_V']:.4f}  lr={snap['lr']:.2e}"
+                    )
 
             if step > 10 and rel_change < tol:
                 engine.cos.u = u
                 engine.cos.omega = omega
                 engine.k4.V_inc = V_inc
                 return {
-                    "iterations": step + 1, "final_obj": obj_new,
-                    "converged": True, "history": history,
-                    "trajectory": trajectory, "lr_final": lr,
+                    "iterations": step + 1,
+                    "final_obj": obj_new,
+                    "converged": True,
+                    "history": history,
+                    "trajectory": trajectory,
+                    "lr_final": lr,
                     "objective": objective,
                 }
             lr = min(lr * 1.1, 1.0)
@@ -820,27 +1016,37 @@ def relax_with_pin(
                 engine.cos.omega = omega
                 engine.k4.V_inc = V_inc
                 return {
-                    "iterations": step + 1, "final_obj": obj_prev,
-                    "converged": False, "history": history,
-                    "trajectory": trajectory, "lr_final": lr,
-                    "objective": objective, "note": "lr collapsed",
+                    "iterations": step + 1,
+                    "final_obj": obj_prev,
+                    "converged": False,
+                    "history": history,
+                    "trajectory": trajectory,
+                    "lr_final": lr,
+                    "objective": objective,
+                    "note": "lr collapsed",
                 }
 
     engine.cos.u = u
     engine.cos.omega = omega
     engine.k4.V_inc = V_inc
     return {
-        "iterations": max_iter, "final_obj": obj_prev,
-        "converged": False, "history": history,
-        "trajectory": trajectory, "lr_final": lr,
+        "iterations": max_iter,
+        "final_obj": obj_prev,
+        "converged": False,
+        "history": history,
+        "trajectory": trajectory,
+        "lr_final": lr,
         "objective": objective,
     }
 
 
 def run_phase5c_v2v2_dual_descent_with_pin(
-    N: int = 80, R: float = 20.0,
-    V_amp: float = 0.05, chirality: float = 1.0,
-    max_iter: int = 500, initial_lr: float = 1e-3,
+    N: int = 80,
+    R: float = 20.0,
+    V_amp: float = 0.05,
+    chirality: float = 1.0,
+    max_iter: int = 500,
+    initial_lr: float = 1e-3,
 ) -> dict:
     """Phase 5c-v2-v2: dual descent with hard projection onto saturation manifold.
 
@@ -869,44 +1075,62 @@ def run_phase5c_v2v2_dual_descent_with_pin(
 
     def build_engine() -> VacuumEngine3D:
         eng = VacuumEngine3D.from_args(
-            N=N, pml=4, temperature=0.0,
+            N=N,
+            pml=4,
+            temperature=0.0,
             disable_cosserat_lc_force=True,
             enable_cosserat_self_terms=True,
         )
         initialize_quadrature_2_3_eigenmode(
-            eng.k4, R=R, r=r, amplitude=V_amp, chirality=chirality,
+            eng.k4,
+            R=R,
+            r=r,
+            amplitude=V_amp,
+            chirality=chirality,
         )
         eng.cos.initialize_electron_2_3_sector(
-            R_target=R, r_target=r, use_hedgehog=True, amplitude_scale=cos_amp,
+            R_target=R,
+            r_target=r,
+            use_hedgehog=True,
+            amplitude_scale=cos_amp,
         )
         return eng
 
     import time
+
     results = {}
     for objective in ["energy", "s11"]:
         print(f"\n  --- Run: objective={objective!r} ---")
         engine = build_engine()
         t0 = time.time()
         result = relax_with_pin(
-            engine, objective=objective,
+            engine,
+            objective=objective,
             peak_omega_target=PEAK_OMEGA_SATURATION_ONSET,
             V_clip=float(engine.V_SNAP),
-            max_iter=max_iter, tol=1e-9,
-            initial_lr=initial_lr, verbose=True, track_every=50,
+            max_iter=max_iter,
+            tol=1e-9,
+            initial_lr=initial_lr,
+            verbose=True,
+            track_every=50,
         )
         elapsed = time.time() - t0
         c_cos = int(engine.cos.extract_crossing_count())
         peak_omega = float(np.max(np.linalg.norm(engine.cos.omega, axis=-1)))
         peak_V = float(np.max(np.abs(engine.k4.V_inc)))
         E_cos = float(engine.cos.total_energy())
-        E_k4 = float(np.sum(engine.k4.V_inc ** 2))
+        E_k4 = float(np.sum(engine.k4.V_inc**2))
         R_found, r_found = engine.cos.extract_shell_radii()
         results[objective] = {
             **result,
             "elapsed": elapsed,
-            "final_c": c_cos, "final_peak_omega": peak_omega,
-            "final_peak_V": peak_V, "final_E_cos": E_cos, "final_E_k4": E_k4,
-            "final_R": float(R_found), "final_r": float(r_found),
+            "final_c": c_cos,
+            "final_peak_omega": peak_omega,
+            "final_peak_V": peak_V,
+            "final_E_cos": E_cos,
+            "final_E_k4": E_k4,
+            "final_R": float(R_found),
+            "final_r": float(r_found),
         }
         print(f"\n  --- {objective!r} final ---")
         print(f"  iters: {result['iterations']}/{max_iter}  converged={result['converged']}")
@@ -955,9 +1179,12 @@ if __name__ == "__main__" and len(sys.argv) > 1 and sys.argv[1] == "v2v2":
 
 
 def run_v3_x4b_linear_stability(
-    N: int = 80, R: float = 20.0,
-    V_amp: float = 0.05, chirality: float = 1.0,
-    n_iter: int = 30, perturb_amp: float = 0.01,
+    N: int = 80,
+    R: float = 20.0,
+    V_amp: float = 0.05,
+    chirality: float = 1.0,
+    n_iter: int = 30,
+    perturb_amp: float = 0.01,
     initial_lr: float = 1e-3,
 ) -> dict:
     """v3 (i) — linear-stability test of Golden Torus seed under coupled S₁₁.
@@ -993,23 +1220,31 @@ def run_v3_x4b_linear_stability(
 
     def build_engine() -> VacuumEngine3D:
         eng = VacuumEngine3D.from_args(
-            N=N, pml=4, temperature=0.0,
+            N=N,
+            pml=4,
+            temperature=0.0,
             disable_cosserat_lc_force=True,
             enable_cosserat_self_terms=True,
         )
         initialize_quadrature_2_3_eigenmode(
-            eng.k4, R=R, r=r, amplitude=V_amp, chirality=chirality,
+            eng.k4,
+            R=R,
+            r=r,
+            amplitude=V_amp,
+            chirality=chirality,
         )
         eng.cos.initialize_electron_2_3_sector(
-            R_target=R, r_target=r, use_hedgehog=True, amplitude_scale=cos_amp_scale,
+            R_target=R,
+            r_target=r,
+            use_hedgehog=True,
+            amplitude_scale=cos_amp_scale,
         )
         # Project ω onto saturation manifold so seed is exactly at peak|ω|=0.94
-        eng.cos.omega = _project_omega_to_saturation(
-            np.asarray(eng.cos.omega), PEAK_OMEGA_SATURATION_ONSET
-        )
+        eng.cos.omega = _project_omega_to_saturation(np.asarray(eng.cos.omega), PEAK_OMEGA_SATURATION_ONSET)
         return eng
 
     import time
+
     rng = np.random.default_rng(seed=42)
     results = {}
 
@@ -1022,32 +1257,38 @@ def run_v3_x4b_linear_stability(
         seed_c = int(engine.cos.extract_crossing_count())
         omega_scale = float(np.max(np.abs(seed_omega)))
         V_scale = float(np.max(np.abs(seed_V)))
-        print(f"  seed: (R, r) = ({float(seed_R):.3f}, {float(seed_r):.3f})  "
-              f"R/r = {float(seed_R)/max(float(seed_r),1e-9):.3f}  c = {seed_c}")
+        print(
+            f"  seed: (R, r) = ({float(seed_R):.3f}, {float(seed_r):.3f})  "
+            f"R/r = {float(seed_R)/max(float(seed_r),1e-9):.3f}  c = {seed_c}"
+        )
         print(f"  seed amplitudes: |ω|_max={omega_scale:.4f}, |V|_max={V_scale:.4f}")
 
         # Apply perturbation
         if perturb_amp > 0:
             engine.cos.omega = seed_omega + perturb_amp * omega_scale * rng.standard_normal(seed_omega.shape)
-            engine.cos.omega = _project_omega_to_saturation(
-                np.asarray(engine.cos.omega), PEAK_OMEGA_SATURATION_ONSET
-            )
+            engine.cos.omega = _project_omega_to_saturation(np.asarray(engine.cos.omega), PEAK_OMEGA_SATURATION_ONSET)
             engine.k4.V_inc = seed_V + perturb_amp * V_scale * rng.standard_normal(seed_V.shape)
             engine.k4.V_inc = np.where(engine.k4.mask_active[..., None], engine.k4.V_inc, 0.0)
-        post_perturb_delta = float(np.sqrt(
-            np.sum((np.asarray(engine.cos.omega) - seed_omega) ** 2)
-            + np.sum((np.asarray(engine.k4.V_inc) - seed_V) ** 2)
-        ))
+        post_perturb_delta = float(
+            np.sqrt(
+                np.sum((np.asarray(engine.cos.omega) - seed_omega) ** 2)
+                + np.sum((np.asarray(engine.k4.V_inc) - seed_V) ** 2)
+            )
+        )
         print(f"  ||δ_perturb|| = {post_perturb_delta:.4e} (initial perturbation magnitude)")
 
         # Run short relax_with_pin with track_every=1
         t0 = time.time()
         result = relax_with_pin(
-            engine, objective=objective,
+            engine,
+            objective=objective,
             peak_omega_target=PEAK_OMEGA_SATURATION_ONSET,
             V_clip=float(engine.V_SNAP),
-            max_iter=n_iter, tol=1e-15,  # tol low so iter-cap is the limiter
-            initial_lr=initial_lr, verbose=False, track_every=1,
+            max_iter=n_iter,
+            tol=1e-15,  # tol low so iter-cap is the limiter
+            initial_lr=initial_lr,
+            verbose=False,
+            track_every=1,
         )
         elapsed = time.time() - t0
 
@@ -1058,10 +1299,12 @@ def run_v3_x4b_linear_stability(
         # For now: compare final state to seed, infer from R/r drift trajectory.
 
         # Final state delta (computed from final engine)
-        final_delta = float(np.sqrt(
-            np.sum((np.asarray(engine.cos.omega) - seed_omega) ** 2)
-            + np.sum((np.asarray(engine.k4.V_inc) - seed_V) ** 2)
-        ))
+        final_delta = float(
+            np.sqrt(
+                np.sum((np.asarray(engine.cos.omega) - seed_omega) ** 2)
+                + np.sum((np.asarray(engine.k4.V_inc) - seed_V) ** 2)
+            )
+        )
         final_R, final_r = engine.cos.extract_shell_radii()
         final_c = int(engine.cos.extract_crossing_count())
 
@@ -1084,10 +1327,12 @@ def run_v3_x4b_linear_stability(
             "delta_initial": post_perturb_delta,
             "delta_final": final_delta,
             "delta_ratio": final_delta / max(post_perturb_delta, 1e-12),
-            "final_R": float(final_R), "final_r": float(final_r),
+            "final_R": float(final_R),
+            "final_r": float(final_r),
             "final_R_over_r": float(final_R) / max(float(final_r), 1e-9),
             "final_c": final_c,
-            "seed_R": float(seed_R), "seed_r": float(seed_r),
+            "seed_R": float(seed_R),
+            "seed_r": float(seed_r),
             "R_drift_pct": 100.0 * abs(float(final_R) - float(seed_R)) / max(float(seed_R), 1e-9),
             "r_drift_pct": 100.0 * abs(float(final_r) - float(seed_r)) / max(float(seed_r), 1e-9),
             "iters_run": result["iterations"],
@@ -1098,10 +1343,14 @@ def run_v3_x4b_linear_stability(
         print(f"  ||δ_final||    = {final_delta:.4e}")
         print(f"  ||δ_final||/||δ_initial|| = {final_delta/max(post_perturb_delta,1e-12):.3f}")
         print(f"  Growth rate (per iter, log scale): {growth_rate:+.4f}")
-        print(f"  R drift: {results[objective]['R_drift_pct']:.2f}%  "
-              f"(seed {float(seed_R):.2f} → {float(final_R):.2f})")
-        print(f"  r drift: {results[objective]['r_drift_pct']:.2f}%  "
-              f"(seed {float(seed_r):.2f} → {float(final_r):.2f})")
+        print(
+            f"  R drift: {results[objective]['R_drift_pct']:.2f}%  "
+            f"(seed {float(seed_R):.2f} → {float(final_R):.2f})"
+        )
+        print(
+            f"  r drift: {results[objective]['r_drift_pct']:.2f}%  "
+            f"(seed {float(seed_r):.2f} → {float(final_r):.2f})"
+        )
         print(f"  c_cos: {seed_c} → {final_c}")
         print(f"  ⟹ Linear-stability verdict: {verdict}")
 
@@ -1111,9 +1360,11 @@ def run_v3_x4b_linear_stability(
     print(f"  {'objective':<12}{'verdict':<12}{'growth':<10}{'R_drift':<10}{'r_drift':<10}{'c_final':<8}")
     for obj in ["energy", "s11"]:
         r_ = results[obj]
-        print(f"  {obj:<12}{r_['verdict']:<12}"
-              f"{r_['growth_rate']:<+10.4f}{r_['R_drift_pct']:<10.2f}"
-              f"{r_['r_drift_pct']:<10.2f}{r_['final_c']:<8}")
+        print(
+            f"  {obj:<12}{r_['verdict']:<12}"
+            f"{r_['growth_rate']:<+10.4f}{r_['R_drift_pct']:<10.2f}"
+            f"{r_['r_drift_pct']:<10.2f}{r_['final_c']:<8}"
+        )
 
     return results
 

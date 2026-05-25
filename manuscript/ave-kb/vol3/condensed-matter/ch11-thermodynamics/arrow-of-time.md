@@ -1,5 +1,9 @@
 [↑ Ch.11: Thermodynamics and The Arrow of Time](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-t05mvx]
+-->
 
 ---
 

@@ -13,14 +13,13 @@ Faddeev-Skyrme coupling.
 Output: assets/sim_outputs/torus_knot_baryon_spectrum.png
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.integrate import quad
 from scipy.optimize import minimize
 
 from ave.core.constants import KAPPA_FS, P_C
+from ave_path_util import sim_output
 
 # Electron mass in MeV
 M_E_MEV = 0.51099895
@@ -204,20 +203,9 @@ def run_spectrum() -> None:
     ax.grid(True, alpha=0.2)
 
     # Save
-    output_dir = os.path.join(os.path.dirname(__file__), "..", "assets", "sim_outputs")
-    os.makedirs(output_dir, exist_ok=True)
-    out_path = os.path.join(output_dir, "torus_knot_baryon_spectrum.png")
+    out_path = sim_output("torus_knot_baryon_spectrum.png")
     fig.savefig(out_path, dpi=200, bbox_inches="tight")
     print(f"  Figure saved: {out_path}")
-
-    # Also copy to manuscript assets
-    ms_assets = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "sim_outputs")
-    os.makedirs(ms_assets, exist_ok=True)
-    ms_path = os.path.join(ms_assets, "torus_knot_baryon_spectrum.png")
-    import shutil
-
-    shutil.copy2(out_path, ms_path)
-    print(f"  Copied to:    {ms_path}")
 
 
 if __name__ == "__main__":

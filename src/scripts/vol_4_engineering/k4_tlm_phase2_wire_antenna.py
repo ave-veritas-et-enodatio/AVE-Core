@@ -21,7 +21,6 @@ DAG Compliance:
 Vol 4 Ch. 13 — K4-TLM Wire Antenna Validation
 """
 
-import os
 import sys
 
 import matplotlib
@@ -32,6 +31,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 
 from ave.core.constants import ALPHA  # noqa: E402
 from ave.core.k4_tlm import K4Lattice2D  # noqa: E402
+from ave_path_util import manuscript_path  # noqa: E402
 
 
 def generate_loop_path(cx: int, cy: int, radius: int, n_points: int = 200) -> list[tuple[int, int]]:
@@ -418,9 +418,7 @@ def main() -> bool:
     plt.tight_layout(rect=[0, 0, 1, 0.96])
 
     # Save
-    output_dir = os.path.join(os.path.dirname(__file__), "..", "..", "..", "manuscript", "vol_4_engineering", "figures")
-    os.makedirs(output_dir, exist_ok=True)
-    output_path = os.path.join(output_dir, "k4_tlm_phase2_wire_antenna.png")
+    output_path = manuscript_path("vol_4_engineering", "figures", "k4_tlm_phase2_wire_antenna.png")
     plt.savefig(output_path, dpi=150, bbox_inches="tight")
     print(f"\n  Saved: {output_path}")
 

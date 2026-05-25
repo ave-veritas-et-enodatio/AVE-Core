@@ -26,10 +26,10 @@ Pre-registered outcomes:
   P_X2c: S11 doesn't converge / winding lost         →  mechanism still
          insufficient; Phase 1 Cosserat-Lagrangian full coupling needed
 """
-from __future__ import annotations
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -55,21 +55,20 @@ def run_cosserat_relax(
     print(f"  Creating CosseratField3D({N}, {N}, {N}, dx=1.0)")
     solver = CosseratField3D(N, N, N, dx=1.0, use_saturation=True)
 
-    print(f"  initialize_electron_2_3_sector(R={R_target:.2f}, "
-          f"r={r_target:.3f}, use_hedgehog={use_hedgehog})")
+    print(f"  initialize_electron_2_3_sector(R={R_target:.2f}, " f"r={r_target:.3f}, use_hedgehog={use_hedgehog})")
     solver.initialize_electron_2_3_sector(
-        R_target=R_target, r_target=r_target, use_hedgehog=use_hedgehog,
+        R_target=R_target,
+        r_target=r_target,
+        use_hedgehog=use_hedgehog,
     )
 
     # Initial diagnostics
     R0, r0 = solver.extract_shell_radii()
     c0 = solver.extract_crossing_count()
     S11_0 = solver.total_s11()
-    print(f"  Initial: (R, r) = ({R0:.3f}, {r0:.3f}), R/r = "
-          f"{R0/max(r0,1e-9):.3f}, c = {c0}, S11 = {S11_0:.4e}")
+    print(f"  Initial: (R, r) = ({R0:.3f}, {r0:.3f}), R/r = " f"{R0/max(r0,1e-9):.3f}, c = {c0}, S11 = {S11_0:.4e}")
 
-    print(f"  Running relax_s11(max_iter={max_iter}, tol={tol:.0e}, "
-          f"lr={initial_lr})")
+    print(f"  Running relax_s11(max_iter={max_iter}, tol={tol:.0e}, " f"lr={initial_lr})")
     result = solver.relax_s11(
         max_iter=max_iter,
         tol=tol,
@@ -124,8 +123,7 @@ def plot_results(results: list, out_path: str) -> None:
         ax.semilogy(hist, "b-", linewidth=1)
         ax.set_xlabel("gradient step")
         ax.set_ylabel("S11 (log)")
-        ax.set_title(f"{res['label']} — S11 minimization"
-                     f" [{'CONV' if res['converged'] else 'no conv'}]")
+        ax.set_title(f"{res['label']} — S11 minimization" f" [{'CONV' if res['converged'] else 'no conv'}]")
         ax.grid(alpha=0.3)
 
         # Panel 2: R/r trajectory
@@ -135,12 +133,9 @@ def plot_results(results: list, out_path: str) -> None:
             steps = [t["step"] for t in traj]
             ratios = [t["R"] / max(t["r"], 1e-9) for t in traj]
             ax.plot(steps, ratios, "go-", markersize=5)
-            ax.axhline(PHI**2, color="red", linestyle=":",
-                       label=f"φ² = {PHI**2:.3f}")
-            ax.axhline(2.27, color="blue", linestyle=":",
-                       label="2.27 (conv study)")
-            ax.axhline(2.0, color="orange", linestyle=":",
-                       label="2.0 (classical)")
+            ax.axhline(PHI**2, color="red", linestyle=":", label=f"φ² = {PHI**2:.3f}")
+            ax.axhline(2.27, color="blue", linestyle=":", label="2.27 (conv study)")
+            ax.axhline(2.0, color="orange", linestyle=":", label="2.0 (classical)")
         ax.set_xlabel("gradient step")
         ax.set_ylabel("R/r")
         ax.set_title(f"{res['label']} — (R, r) trajectory")
@@ -153,8 +148,7 @@ def plot_results(results: list, out_path: str) -> None:
             steps = [t["step"] for t in traj]
             cs = [t["c"] for t in traj]
             ax.plot(steps, cs, "ko-", markersize=5)
-            ax.axhline(3, color="red", linestyle=":",
-                       label="c=3 (electron target)")
+            ax.axhline(3, color="red", linestyle=":", label="c=3 (electron target)")
         ax.set_xlabel("gradient step")
         ax.set_ylabel("crossing count c")
         ax.set_title(f"{res['label']} — topology preservation")
@@ -162,8 +156,7 @@ def plot_results(results: list, out_path: str) -> None:
         ax.set_ylim(-0.5, 6)
         ax.legend(fontsize=8)
 
-    plt.suptitle("Phase 3b X2 — Cosserat field (u, ω) + S11 relaxation",
-                 y=1.00)
+    plt.suptitle("Phase 3b X2 — Cosserat field (u, ω) + S11 relaxation", y=1.00)
     plt.tight_layout()
     plt.savefig(out_path, dpi=110)
     plt.close(fig)
@@ -203,8 +196,7 @@ def main():
     print("=" * 72)
     print("X2 RESULTS (Cosserat + S11)")
     print("=" * 72)
-    print(f"{'label':>20} {'iter':>5} {'conv':>5} {'S11_final':>12} "
-          f"{'R':>6} {'r':>6} {'R/r':>7} {'c':>3}")
+    print(f"{'label':>20} {'iter':>5} {'conv':>5} {'S11_final':>12} " f"{'R':>6} {'r':>6} {'R/r':>7} {'c':>3}")
     for res in results:
         rr = res["R_final"] / max(res["r_final"], 1e-9)
         print(

@@ -23,12 +23,11 @@ frequency-sweep driver — deferred to an integration script per pattern of
 other Phase 5 predictions. This file pins the DYNAMICS; the peak is
 validated elsewhere.
 """
-from __future__ import annotations
 
 import numpy as np
 import pytest
 
-from ave.core.constants import TAU_RELAX_NATIVE, TAU_RELAX_SI, L_NODE, C_0, V_SNAP
+from ave.core.constants import C_0, L_NODE, TAU_RELAX_NATIVE, TAU_RELAX_SI, V_SNAP
 from ave.core.k4_tlm import K4Lattice3D
 from ave.topological.vacuum_engine import VacuumEngine3D
 
@@ -78,7 +77,10 @@ class TestMemristiveFlagDefault:
 
     def test_flag_plumbs_through_engine_kwarg(self):
         engine = VacuumEngine3D.from_args(
-            N=6, pml=2, temperature=0.0, use_memristive_saturation=True,
+            N=6,
+            pml=2,
+            temperature=0.0,
+            use_memristive_saturation=True,
         )
         assert engine.k4.use_memristive_saturation is True
 
@@ -93,16 +95,20 @@ class TestMemristiveFlagDefault:
         """At V=0, legacy and memristive Op14 give identical z_local_field
         (S_eq=1 everywhere; memristive ODE has no work to do)."""
         engine_legacy = VacuumEngine3D.from_args(
-            N=8, pml=2, temperature=0.0, use_memristive_saturation=False,
+            N=8,
+            pml=2,
+            temperature=0.0,
+            use_memristive_saturation=False,
         )
         engine_memristive = VacuumEngine3D.from_args(
-            N=8, pml=2, temperature=0.0, use_memristive_saturation=True,
+            N=8,
+            pml=2,
+            temperature=0.0,
+            use_memristive_saturation=True,
         )
         engine_legacy.run(n_steps=3)
         engine_memristive.run(n_steps=3)
-        np.testing.assert_array_equal(
-            engine_legacy.k4.z_local_field, engine_memristive.k4.z_local_field
-        )
+        np.testing.assert_array_equal(engine_legacy.k4.z_local_field, engine_memristive.k4.z_local_field)
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -118,7 +124,11 @@ class TestBackwardEulerDynamics:
         """Given a step input (strain jumps, holds constant), S(t) should
         relax to S_eq(strain) with characteristic time τ_relax."""
         lat = K4Lattice3D(
-            nx=8, ny=8, nz=8, nonlinear=False, op3_bond_reflection=True,
+            nx=8,
+            ny=8,
+            nz=8,
+            nonlinear=False,
+            op3_bond_reflection=True,
             use_memristive_saturation=True,
         )
         # Manually set strain via V_inc at one A-site (0,0,0 is A-site)
@@ -150,7 +160,10 @@ class TestBackwardEulerDynamics:
         """dt/τ = O(1) should NOT cause instability (implicit integrator).
         At 1000 steps with dt/τ ≈ 0.707, S_field should stay in [0,1]."""
         lat = K4Lattice3D(
-            nx=6, ny=6, nz=6, op3_bond_reflection=True,
+            nx=6,
+            ny=6,
+            nz=6,
+            op3_bond_reflection=True,
             use_memristive_saturation=True,
         )
         # Apply strong strain near saturation at one site
@@ -174,7 +187,10 @@ class TestFastLimitReduction:
         in one step. This is the fast-limit where memristive → legacy."""
         # K4 default dt ≈ 2.36e-9 s. Pass τ much smaller so dt/τ >> 1.
         lat = K4Lattice3D(
-            nx=6, ny=6, nz=6, use_memristive_saturation=True,
+            nx=6,
+            ny=6,
+            nz=6,
+            use_memristive_saturation=True,
             tau_relax=1e-15,  # dt/τ ≈ 2.36e6 — tracks S_eq instantly
         )
         lat.V_inc[0, 0, 0, 0] = np.sqrt(0.3) * V_SNAP  # A²=0.3, S_eq=√0.7≈0.837
@@ -194,7 +210,10 @@ class TestHysteresisLag:
         """Apply sinusoidal strain; measure (S(t) − S_eq(t)) and verify it's
         non-trivially non-zero (i.e., real lag)."""
         lat = K4Lattice3D(
-            nx=6, ny=6, nz=6, use_memristive_saturation=True,
+            nx=6,
+            ny=6,
+            nz=6,
+            use_memristive_saturation=True,
         )
         dt = lat.dt
         # Drive at ω·τ ≈ 1 (peak hysteresis regime). Since dt/τ = 1/√2,
@@ -217,9 +236,7 @@ class TestHysteresisLag:
 
         deviations = np.array(deviations)
         # Under hysteresis, S(t) - S_eq(t) oscillates — non-trivially non-zero
-        assert np.std(deviations) > 1e-4, (
-            "S(t) did not lag S_eq(t) meaningfully — hysteresis not present"
-        )
+        assert np.std(deviations) > 1e-4, "S(t) did not lag S_eq(t) meaningfully — hysteresis not present"
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -230,7 +247,10 @@ class TestEngineIntegration:
 
     def test_engine_runs_with_memristive_on(self):
         engine = VacuumEngine3D.from_args(
-            N=8, pml=2, temperature=0.0, use_memristive_saturation=True,
+            N=8,
+            pml=2,
+            temperature=0.0,
+            use_memristive_saturation=True,
         )
         # Drive a realistic strain. Post-Flag-5e-A: engine K4 uses engine.V_SNAP
         # (natural units by default), so we inject V in engine-native units.
@@ -249,7 +269,10 @@ class TestEngineIntegration:
         = 1.0 by default), so V_inc is set in engine-native units.
         """
         engine = VacuumEngine3D.from_args(
-            N=8, pml=2, temperature=0.0, use_memristive_saturation=True,
+            N=8,
+            pml=2,
+            temperature=0.0,
+            use_memristive_saturation=True,
         )
         # Drive at A = 0.5 in engine-native V_SNAP units → A² = 0.25
         drive_V = 0.5 * engine.V_SNAP
@@ -259,10 +282,6 @@ class TestEngineIntegration:
         # S_field at the driven site should have moved from 1 toward S_eq(0.5²)
         S_driven = engine.k4.S_field[2, 2, 2]
         S_eq_target = np.sqrt(1.0 - 0.25)  # ≈ 0.866
-        assert S_driven < 0.98, (
-            f"S_field didn't evolve — still {S_driven:.4f} (memristive off?)"
-        )
+        assert S_driven < 0.98, f"S_field didn't evolve — still {S_driven:.4f} (memristive off?)"
         # Should have moved toward S_eq (not overshot, not stuck at 1)
-        assert S_driven > S_eq_target - 0.2, (
-            f"S_driven={S_driven:.4f} too far from S_eq_target={S_eq_target:.4f}"
-        )
+        assert S_driven > S_eq_target - 0.2, f"S_driven={S_driven:.4f} too far from S_eq_target={S_eq_target:.4f}"

@@ -191,7 +191,7 @@ This dual-adjudication is structurally analogous to the SDSS DR17 result's "Marg
 - `research/2026-05-19_c5-shamir-2022-cross-catalog-result.md` — result doc + cross-catalog matrix
 - Updates (in scope):
   - `manuscript/ave-kb/common/divergence-test-substrate-map.md` C5 row(s) — add Shamir 2022 cross-catalog sub-finding
-  - `manuscript/ave-kb/common/closure-roadmap.md` — new entry for cross-catalog C5 sub-result
+  - `manuscript/ave-kb/claim-quality-closure-roadmap.md` — new entry for cross-catalog C5 sub-result
 
 Out of scope this session:
 - Modifying `cmb_axis_alignment_executable_observer.py` corpus pins (the (52, 68.5) Longo pin was previously walked back to the empirical (129, 79) per analysis/c5-corpus-pin-fix; that file is unchanged this session)

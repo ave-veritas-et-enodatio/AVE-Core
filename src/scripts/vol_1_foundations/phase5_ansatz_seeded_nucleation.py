@@ -37,7 +37,6 @@ Reference:
 - src/scripts/vol_1_foundations/phase5_pair_nucleation.py (pre-Round-6 driver — NO-FIRE)
 - research/_archive/L3_electron_soliton/67_lc_coupling_reciprocity_audit.md §17-§26 (F17-K arc)
 """
-from __future__ import annotations
 
 import sys
 import time
@@ -54,15 +53,17 @@ from ave.topological.vacuum_engine import (
     VacuumEngine3D,
 )
 
-
 PHI_CRITICAL = 1.0  # gate's default
 BELTRAMI_AMP = float(np.sqrt(2.0))  # gate's default — calibrated to m_e c² in natural units
-PORT_VECTORS = np.array([
-    [+1, +1, +1],
-    [+1, -1, -1],
-    [-1, +1, -1],
-    [-1, -1, +1],
-], dtype=float)
+PORT_VECTORS = np.array(
+    [
+        [+1, +1, +1],
+        [+1, -1, -1],
+        [-1, +1, -1],
+        [-1, -1, +1],
+    ],
+    dtype=float,
+)
 
 
 def find_central_bond(engine: VacuumEngine3D) -> tuple[tuple, int, tuple]:
@@ -89,8 +90,11 @@ def find_central_bond(engine: VacuumEngine3D) -> tuple[tuple, int, tuple]:
 
 def seed_beltrami_pair_ansatz(
     engine: VacuumEngine3D,
-    A_idx: tuple, port: int, B_idx: tuple,
-    amp: float = BELTRAMI_AMP, phi_critical: float = PHI_CRITICAL,
+    A_idx: tuple,
+    port: int,
+    B_idx: tuple,
+    amp: float = BELTRAMI_AMP,
+    phi_critical: float = PHI_CRITICAL,
 ) -> None:
     """Seed Beltrami-bound-pair ansatz matching gate's _inject_pair output.
 
@@ -110,7 +114,10 @@ def seed_beltrami_pair_ansatz(
 
 
 def measure_pair_state(
-    engine: VacuumEngine3D, A_idx: tuple, port: int, B_idx: tuple,
+    engine: VacuumEngine3D,
+    A_idx: tuple,
+    port: int,
+    B_idx: tuple,
 ) -> dict:
     """Snapshot diagnostics at the seeded bond."""
     omega_A = engine.cos.omega[A_idx[0], A_idx[1], A_idx[2], :]
@@ -160,7 +167,9 @@ def main(
     # Build engine with A28 + self-terms (per F17-K Round 6 default for any
     # coupled-engine work going forward — engine code unchanged but flags set)
     engine = VacuumEngine3D.from_args(
-        N=N, pml=pml, temperature=0.0,
+        N=N,
+        pml=pml,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -192,18 +201,30 @@ def main(
 
     # Drive: head-on autoresonant collision (same as registered Phase 5 config)
     src_offset = pml + 3
-    engine.add_source(AutoresonantCWSource(
-        x0=src_offset, direction=(1.0, 0.0, 0.0),
-        amplitude=amplitude, omega=omega_carrier,
-        sigma_yz=3.0, t_ramp=t_ramp, t_sustain=t_sustain,
-        t_decay=period,
-    ))
-    engine.add_source(AutoresonantCWSource(
-        x0=N - src_offset, direction=(-1.0, 0.0, 0.0),
-        amplitude=amplitude, omega=omega_carrier,
-        sigma_yz=3.0, t_ramp=t_ramp, t_sustain=t_sustain,
-        t_decay=period,
-    ))
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=src_offset,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=amplitude,
+            omega=omega_carrier,
+            sigma_yz=3.0,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            t_decay=period,
+        )
+    )
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=N - src_offset,
+            direction=(-1.0, 0.0, 0.0),
+            amplitude=amplitude,
+            omega=omega_carrier,
+            sigma_yz=3.0,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            t_decay=period,
+        )
+    )
 
     # Run + record per-step pair-state snapshots
     pair_trajectory: list[dict] = [state_seed]
@@ -258,12 +279,16 @@ def main(
         verdict = "AMBIGUOUS — between persistence thresholds"
 
     print(f"  Adjudication metrics:")
-    print(f"    |ω|_A   seed → drive-end → final = {state_seed['|ω|_A']:.3f} → "
-          f"{state_drive_end['|ω|_A']:.3f} ({omega_A_drive_ratio:.2f}×) → "
-          f"{state_final['|ω|_A']:.3f} ({omega_A_final_ratio:.2f}×)")
-    print(f"    Φ_link  seed → drive-end → final = {state_seed['Phi_link[A→B]']:+.3f} → "
-          f"{state_drive_end['Phi_link[A→B]']:+.3f} ({phi_drive_ratio:.2f}×) → "
-          f"{state_final['Phi_link[A→B]']:+.3f} ({phi_final_ratio:.2f}×)")
+    print(
+        f"    |ω|_A   seed → drive-end → final = {state_seed['|ω|_A']:.3f} → "
+        f"{state_drive_end['|ω|_A']:.3f} ({omega_A_drive_ratio:.2f}×) → "
+        f"{state_final['|ω|_A']:.3f} ({omega_A_final_ratio:.2f}×)"
+    )
+    print(
+        f"    Φ_link  seed → drive-end → final = {state_seed['Phi_link[A→B]']:+.3f} → "
+        f"{state_drive_end['Phi_link[A→B]']:+.3f} ({phi_drive_ratio:.2f}×) → "
+        f"{state_final['Phi_link[A→B]']:+.3f} ({phi_final_ratio:.2f}×)"
+    )
     print(f"    Other-bond firings during run: {other_firings} (cascade test)")
     print(f"    Final peak|ω|_global = {state_final['peak|ω|_global']:.3f}")
     print(f"    Final peak|V|_global = {state_final['peak|V|_global']:.3f}")
@@ -274,8 +299,12 @@ def main(
 
     return {
         "config": {
-            "N": N, "pml": pml, "amplitude": amplitude, "wavelength": wavelength,
-            "t_ramp_periods": t_ramp_periods, "t_sustain_periods": t_sustain_periods,
+            "N": N,
+            "pml": pml,
+            "amplitude": amplitude,
+            "wavelength": wavelength,
+            "t_ramp_periods": t_ramp_periods,
+            "t_sustain_periods": t_sustain_periods,
             "t_post_drive_periods": t_post_drive_periods,
         },
         "seeded_bond": {"A_idx": A_idx, "port": port, "B_idx": B_idx},

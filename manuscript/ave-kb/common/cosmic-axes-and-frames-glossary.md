@@ -1,6 +1,10 @@
 [↑ Common Resources](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol3, vol6 as canonical cosmic-direction definitions -->
+
+<!-- kb-frontmatter
+kind: leaf
+no-claim: glossary leaf defining cosmic-direction vocabulary (CMB rest frame, Sun velocity through ℳ_A, substrate-equilibrium velocity floor, Ω̂_freeze, parent-BH spin axis, CMB axis-of-evil, eight Ω̂_freeze projections) and anti-confusion clarifications; results values are referenced from canonical leaves (omega-freeze-cosmic-grain-cascade, mond-hoop-stress, preferred-frame-and-emergent-lorentz), not independently derived here
+path-stable: "referenced from vol3, vol6 as canonical cosmic-direction definitions"
+-->
 
 # Cosmic Axes and Frames Glossary
 
@@ -64,7 +68,7 @@ The direction of $\hat{\Omega}_{\text{freeze}}$ becomes the direction of bond bo
 
 ### Parent-BH spin axis $\hat{J}_{\text{parent}}$
 
-The parent-BH spin axis $\hat{J}_{\text{parent}}$ is identified with $\hat{\Omega}_{\text{freeze}}$ at the moment of K4 lattice genesis. Per [`04_generative_cosmology.tex:405-413`](../../vol_3_macroscopic/chapters/04_generative_cosmology.tex):
+The parent-BH spin axis $\hat{J}_{\text{parent}}$ is identified with $\hat{\Omega}_{\text{freeze}}$ at the moment of K4 lattice genesis. Per `04_generative_cosmology.tex:405-413`:
 
 > "A spinning black hole is not a floating blob in nothing — it sits in its own embedding lattice (the parent lattice) and imparts bulk strain on it via frame-dragging... Per Vol 3 Ch 21 we sit inside our parent BH's Schwarzschild radius (cosmic horizon $R_H$ = parent BH's $r_s$). The parent BH's spin imparts strain on the parent lattice; this strain extends inside its own event horizon (Kerr interior frame-dragging continues); the inside region is our universe's pre-crystallization phase (supercooled pre-geodesic plasma)."
 

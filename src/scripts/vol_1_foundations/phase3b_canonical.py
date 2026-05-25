@@ -31,29 +31,27 @@ convergence study — suggests spin-½ projection still needed);
 R/r = 2.0 (classical full-Clifford); still R/r ~3.5 (mechanism
 fundamentally incomplete).
 """
-from __future__ import annotations
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-
-from ave.core.constants import V_SNAP, ALPHA
 from phase3b_axiom_compliant import op6_iteration
 from tlm_electron_soliton_eigenmode import extract_alpha_inverse
 
+from ave.core.constants import ALPHA, V_SNAP
+
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
-SQRT3_OVER_2 = np.sqrt(3.0) / 2.0    # Regime II/III boundary per Axiom 4
+SQRT3_OVER_2 = np.sqrt(3.0) / 2.0  # Regime II/III boundary per Axiom 4
 ALPHA_INV_TARGET = 1.0 / ALPHA
 
 
 def main():
     print("=" * 72)
     print("PHASE 3b X1-prime — canonical hedgehog + nonlinear=True")
-    print("Amplitude: peak strain = √3/2 ≈ {:.4f} (Axiom 4 II/III boundary)"
-          .format(SQRT3_OVER_2))
-    print("Envelope: power-law hedgehog (AVE-canonical per "
-          "cosserat_field_3d:486-519)")
+    print("Amplitude: peak strain = √3/2 ≈ {:.4f} (Axiom 4 II/III boundary)".format(SQRT3_OVER_2))
+    print("Envelope: power-law hedgehog (AVE-canonical per " "cosserat_field_3d:486-519)")
     print("=" * 72)
 
     configs = [
@@ -66,15 +64,15 @@ def main():
         print(f"\n--- {label} ---")
         res = op6_iteration(
             envelope_name="hedgehog",
-            strain_target=SQRT3_OVER_2,     # Regime II/III boundary
+            strain_target=SQRT3_OVER_2,  # Regime II/III boundary
             N=N,
-            n_steps=200,                      # more steps at canonical A
+            n_steps=200,  # more steps at canonical A
             max_iter=max_iter,
             pml_thickness=0,
             tol=0.01,
-            nonlinear=True,                   # node-level Axiom 4
-            seed_R=N / 4.0,                   # scale seed to N
-            seed_r=(N / 4.0) / (PHI ** 2),    # seed at Golden Torus ratio
+            nonlinear=True,  # node-level Axiom 4
+            seed_R=N / 4.0,  # scale seed to N
+            seed_r=(N / 4.0) / (PHI**2),  # seed at Golden Torus ratio
         )
         res["label"] = label
         res["N"] = N
@@ -86,8 +84,7 @@ def main():
     print("X1-prime canonical results:")
     print("=" * 72)
     print(
-        f"{'label':>20} {'N':>4} {'conv':>5} {'iter':>5} "
-        f"{'R_final':>8} {'r_final':>8} {'R/r':>7} {'α⁻¹_geom':>10}"
+        f"{'label':>20} {'N':>4} {'conv':>5} {'iter':>5} " f"{'R_final':>8} {'r_final':>8} {'R/r':>7} {'α⁻¹_geom':>10}"
     )
     for res in results:
         alpha = extract_alpha_inverse(res["final_R"], res["final_r"], c=3)
@@ -124,8 +121,7 @@ def main():
         r_96 = results[1]["final_R"] / max(results[1]["final_r"], 1e-9)
         delta = r_96 - r_72
         print()
-        print(f"N-scaling: R/r(N=72)={r_72:.3f}, R/r(N=96)={r_96:.3f}, "
-              f"Δ={delta:+.3f}")
+        print(f"N-scaling: R/r(N=72)={r_72:.3f}, R/r(N=96)={r_96:.3f}, " f"Δ={delta:+.3f}")
         if abs(delta) < 0.05:
             print("  → N-invariant within 2% — robust attractor")
         else:
@@ -150,26 +146,20 @@ def main():
         rs = [t[2] for t in res["trajectory"]]
         ratio = [R / max(rr, 1e-9) for R, rr in zip(Rs, rs)]
         ax.plot(iters, ratio, "ko-", markersize=8, linewidth=2)
-        ax.axhline(PHI ** 2, color="red", linestyle=":",
-                   label=f"φ² = {PHI**2:.3f} (Ch 8 target)")
-        ax.axhline(2.27, color="blue", linestyle=":",
-                   label="2.27 (convergence study)")
-        ax.axhline(2.0, color="green", linestyle=":",
-                   label="2.0 (classical Clifford)")
+        ax.axhline(PHI**2, color="red", linestyle=":", label=f"φ² = {PHI**2:.3f} (Ch 8 target)")
+        ax.axhline(2.27, color="blue", linestyle=":", label="2.27 (convergence study)")
+        ax.axhline(2.0, color="green", linestyle=":", label="2.0 (classical Clifford)")
         ax.set_xlabel("Op6 iteration")
         ax.set_ylabel("R/r")
         ax.set_title(
-            f"{res['label']}  "
-            f"[{'CONV' if res['converged'] else 'no conv'} at iter "
-            f"{res['iterations']}]"
+            f"{res['label']}  " f"[{'CONV' if res['converged'] else 'no conv'} at iter " f"{res['iterations']}]"
         )
         ax.grid(alpha=0.3)
         ax.set_ylim(1.5, 4.5)
         ax.legend(fontsize=8)
 
     plt.suptitle(
-        "Phase 3b X1-prime — canonical hedgehog, nonlinear=True, "
-        f"A = √3/2 ≈ {SQRT3_OVER_2:.3f}",
+        "Phase 3b X1-prime — canonical hedgehog, nonlinear=True, " f"A = √3/2 ≈ {SQRT3_OVER_2:.3f}",
         y=1.02,
     )
     plt.tight_layout()

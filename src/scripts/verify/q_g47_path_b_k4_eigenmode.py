@@ -32,35 +32,44 @@ Output:
 Run:
     python src/scripts/verify/q_g47_path_b_k4_eigenmode.py
 """
-from __future__ import annotations
 
 import json
 import os
+import sys
+from dataclasses import asdict, dataclass
+from pathlib import Path
+
 import numpy as np
-from dataclasses import dataclass, asdict
 from scipy.linalg import eigh
 from scipy.optimize import brentq, minimize
 
-# Physical constants for comparison targets
-ALPHA_INV = 137.035999084
-ALPHA = 1.0 / ALPHA_INV
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
+
+from ave.core.constants import ALPHA
+
+# Physical constants for comparison targets (CODATA measured α, the
+# experimental reference these eigenmode quantities are compared against)
+ALPHA_INV = 1.0 / ALPHA
 
 # Target quantities (substrate-scale "0.187 candidates")
 TARGETS = {
-    "u_0_star_A029": 0.187,                        # A-029 magic angle
-    "p_star_8pi_alpha": 8 * np.pi * ALPHA,         # 0.18335 — fabric weave density
-    "r_sec_d_minus_1": 0.187,                      # over-bracing 1.187-1
-    "sqrt_1_over_42": np.sqrt(1.0 / 42),           # 0.1543 — naive K_0/G_0=5/3 chi_K=12
-    "sqrt_1_over_60": np.sqrt(1.0 / 60),           # 0.1291 — naive chi_G=0 case
-    "sqrt_1_over_28": np.sqrt(1.0 / 28),           # 0.1890 — K_0/G_0=14/9 case
+    "u_0_star_A029": 0.187,  # A-029 magic angle
+    "p_star_8pi_alpha": 8 * np.pi * ALPHA,  # 0.18335 — fabric weave density
+    "r_sec_d_minus_1": 0.187,  # over-bracing 1.187-1
+    "sqrt_1_over_42": np.sqrt(1.0 / 42),  # 0.1543 — naive K_0/G_0=5/3 chi_K=12
+    "sqrt_1_over_60": np.sqrt(1.0 / 60),  # 0.1291 — naive chi_G=0 case
+    "sqrt_1_over_28": np.sqrt(1.0 / 28),  # 0.1890 — K_0/G_0=14/9 case
 }
 
-K4_BOND_DIRECTIONS = np.array([
-    [+1, +1, +1],
-    [+1, -1, -1],
-    [-1, +1, -1],
-    [-1, -1, +1],
-], dtype=float) / np.sqrt(3.0)
+K4_BOND_DIRECTIONS = np.array(
+    [
+        [+1, +1, +1],
+        [+1, -1, -1],
+        [-1, +1, -1],
+        [-1, -1, +1],
+    ],
+    dtype=float,
+) / np.sqrt(3.0)
 
 
 @dataclass
@@ -112,8 +121,10 @@ def extract_K_G(bond: KeatingBond, eps: float = 0.01):
 # Path B Step 1: locate K=2G operating point
 # ============================================================
 
+
 def find_k_theta_for_K_2G() -> float:
     """Find k_θ/k_a such that K_relaxed = 2 G_relaxed."""
+
     def f(kt):
         bond = KeatingBond(k_a=1.0, k_theta=kt, d=1.0)
         K, G = extract_K_G(bond)
@@ -142,12 +153,15 @@ def find_k_theta_for_K_2G() -> float:
 # This is the natural "macro strain + internal sublattice relaxation" DOF set
 # for a Born-Huang K4 unit cell with Cosserat couple-stress.
 
+
 def x_to_strain_uint(x: np.ndarray):
-    eps = np.array([
-        [x[0], x[3], x[5]],
-        [x[3], x[1], x[4]],
-        [x[5], x[4], x[2]],
-    ])
+    eps = np.array(
+        [
+            [x[0], x[3], x[5]],
+            [x[3], x[1], x[4]],
+            [x[5], x[4], x[2]],
+        ]
+    )
     u_int = x[6:9].copy()
     return eps, u_int
 
@@ -167,19 +181,30 @@ def build_hessian_9x9(bond: KeatingBond, h: float = 1e-5) -> np.ndarray:
 
     # Diagonal: second derivatives
     for i in range(n):
-        xp = x0.copy(); xp[i] += h
-        xm = x0.copy(); xm[i] -= h
+        xp = x0.copy()
+        xp[i] += h
+        xm = x0.copy()
+        xm[i] -= h
         H[i, i] = (energy_x(xp, bond) - 2 * f0 + energy_x(xm, bond)) / h**2
 
     # Off-diagonal: mixed second derivatives
     for i in range(n):
         for j in range(i + 1, n):
-            xpp = x0.copy(); xpp[i] += h; xpp[j] += h
-            xpm = x0.copy(); xpm[i] += h; xpm[j] -= h
-            xmp = x0.copy(); xmp[i] -= h; xmp[j] += h
-            xmm = x0.copy(); xmm[i] -= h; xmm[j] -= h
-            H[i, j] = (energy_x(xpp, bond) - energy_x(xpm, bond)
-                       - energy_x(xmp, bond) + energy_x(xmm, bond)) / (4 * h**2)
+            xpp = x0.copy()
+            xpp[i] += h
+            xpp[j] += h
+            xpm = x0.copy()
+            xpm[i] += h
+            xpm[j] -= h
+            xmp = x0.copy()
+            xmp[i] -= h
+            xmp[j] += h
+            xmm = x0.copy()
+            xmm[i] -= h
+            xmm[j] -= h
+            H[i, j] = (energy_x(xpp, bond) - energy_x(xpm, bond) - energy_x(xmp, bond) + energy_x(xmm, bond)) / (
+                4 * h**2
+            )
             H[j, i] = H[i, j]
     return H
 
@@ -187,6 +212,7 @@ def build_hessian_9x9(bond: KeatingBond, h: float = 1e-5) -> np.ndarray:
 # ============================================================
 # Path B Step 3: eigendecomposition + channel projections
 # ============================================================
+
 
 def project_eigenvector(v: np.ndarray):
     """Decompose a 9-vector into K-channel (hydrostatic), G-channel
@@ -252,23 +278,25 @@ def candidate_quantities(eigvals, eigvecs):
                 current = [i]
         clusters.append(current)
 
-    cands["clusters"] = [
-        {"indices": c, "eigenvalue": float(eigvals[c[0]]), "degeneracy": len(c)}
-        for c in clusters
-    ]
+    cands["clusters"] = [{"indices": c, "eigenvalue": float(eigvals[c[0]]), "degeneracy": len(c)} for c in clusters]
 
     # Per-mode projections
     projections = []
     for i in range(n_modes):
         proj = project_eigenvector(eigvecs[:, i])
-        projections.append({
-            "index": i,
-            "eigenvalue": float(eigvals[i]),
-            "freq_ratio_sqrt": float(np.sqrt(max(eigvals[i], 0)) / np.sqrt(max(eigvals[0], 1e-12))) if eigvals[0] > 1e-12 else None,
-            **{k: (v if not isinstance(v, (list, np.ndarray)) else
-                   (v if isinstance(v, list) else v.tolist()))
-               for k, v in proj.items()},
-        })
+        projections.append(
+            {
+                "index": i,
+                "eigenvalue": float(eigvals[i]),
+                "freq_ratio_sqrt": (
+                    float(np.sqrt(max(eigvals[i], 0)) / np.sqrt(max(eigvals[0], 1e-12))) if eigvals[0] > 1e-12 else None
+                ),
+                **{
+                    k: (v if not isinstance(v, (list, np.ndarray)) else (v if isinstance(v, list) else v.tolist()))
+                    for k, v in proj.items()
+                },
+            }
+        )
 
     cands["modes"] = projections
 
@@ -296,6 +324,7 @@ def candidate_quantities(eigvals, eigvecs):
 # ============================================================
 # Path B Step 4: comparison report
 # ============================================================
+
 
 def compare_to_targets(value: float, name: str = "") -> str:
     """Return summary string of nearest-targets for a value."""
@@ -375,7 +404,9 @@ def main():
     print("  " + "-" * 70)
     for i in range(9):
         proj = project_eigenvector(eigvecs[:, i])
-        print(f"  {i:>3d} {eigvals[i]:>+11.5f} {proj['K_amp']:>9.4f} {proj['G_amp']:>9.4f} {proj['int_amp']:>9.4f} {proj['K_frac']:>8.4f} {proj['G_frac']:>8.4f} {proj['int_frac']:>8.4f}")
+        print(
+            f"  {i:>3d} {eigvals[i]:>+11.5f} {proj['K_amp']:>9.4f} {proj['G_amp']:>9.4f} {proj['int_amp']:>9.4f} {proj['K_frac']:>8.4f} {proj['G_frac']:>8.4f} {proj['int_frac']:>8.4f}"
+        )
     print()
 
     # ─── Step 4: candidate quantity extraction ─────────────────────
@@ -421,7 +452,7 @@ def main():
         print(f"\n  ω_i/ω_j (inverse) pairs:")
         for i, j, r in ratios[:10]:
             if r > 1:
-                cmp = compare_to_targets(1.0/r, f"omega_{i}/omega_{j}")
+                cmp = compare_to_targets(1.0 / r, f"omega_{i}/omega_{j}")
                 print(f"    ω_{i}/ω_{j} = {cmp}")
 
     # ─── Step 6: dump JSON ────────────────────────────────────────
@@ -436,7 +467,7 @@ def main():
             "K_relaxed": K_star,
             "G_relaxed": G_star,
             "K_over_G": K_star / G_star,
-            "poisson": (3*K_star - 2*G_star) / (2*(3*K_star + G_star)),
+            "poisson": (3 * K_star - 2 * G_star) / (2 * (3 * K_star + G_star)),
         },
         "targets": TARGETS,
         "eigenvalues": eigvals.tolist(),
@@ -458,10 +489,7 @@ def main():
         return o
 
     cache_native = to_native(cache)
-    out_path = os.path.join(
-        os.path.dirname(__file__),
-        "q_g47_path_b_k4_eigenmode_results.json"
-    )
+    out_path = os.path.join(os.path.dirname(__file__), "q_g47_path_b_k4_eigenmode_results.json")
     with open(out_path, "w") as f:
         json.dump(cache_native, f, indent=2)
     print(f"  Wrote: {out_path}")

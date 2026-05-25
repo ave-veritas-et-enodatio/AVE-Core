@@ -1,5 +1,9 @@
 [↑ Organic Circuitry](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-lm9b3j]
+-->
 
 ---
 

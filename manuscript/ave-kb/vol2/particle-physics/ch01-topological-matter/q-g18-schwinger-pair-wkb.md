@@ -1,5 +1,9 @@
 [↑ Ch.1 Topological Matter](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-lj4ok5]
+-->
 
 # Q-G18 Schwinger Pair Production: Saturation-Kernel WKB Structural Closure
 
@@ -66,9 +70,9 @@ The full prefactor matching at $\sim 1\%$ precision pending bound-state integrat
 ## Cross-references
 
 - **Canonical manuscript anchors:**
-  - [Vol 1 Ch 4 (Continuum Electrodynamics)](../../../../vol_1_foundations/chapters/04_continuum_electrodynamics.tex) — Master Equation with $V_{\text{yield}}$ kernel
-  - [Vol 4 Ch 1 (Vacuum Circuit Analysis)](../../../../vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex) — $V_{\text{snap}} = 511$ kV dielectric breakdown
-  - [Backmatter Ch 7 (Universal Saturation-Kernel Catalog)](../../../../backmatter/07_universal_saturation_kernel.tex) — A-034 atomic / EM scale entry
+  - Vol 1 Ch 4 (Continuum Electrodynamics) — Master Equation with $V_{\text{yield}}$ kernel
+  - Vol 4 Ch 1 (Vacuum Circuit Analysis) — $V_{\text{snap}} = 511$ kV dielectric breakdown
+  - Backmatter Ch 7 (Universal Saturation-Kernel Catalog) — A-034 atomic / EM scale entry
 - **Related KB leafs:**
   - [Electron Unknot](electron-unknot.md) — $C_{\text{eff}}(\Delta\phi)$ dynamic capacitive yielding; pair-creation mechanism context
   - [Regime Classification](regime-classification.md) — Axiom 4 Regime IV (ruptured plasma) at $A \to 1$

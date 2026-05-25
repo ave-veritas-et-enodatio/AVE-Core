@@ -1,5 +1,13 @@
 [↑ Vol 6: Periodic Table](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-a95yx1, clm-f5ucdo, clm-f8k2um, clm-h8nmpu, clm-rw7jqo, clm-sd04x4, clm-y7uvdc]
+subtree-experiments: []
+-->
+
+> ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claim-quality.md`](../claim-quality.md) (volume scope) and [`../../claim-quality.md`](../../claim-quality.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
+
 # Period 1: Hydrogen and Helium
 
 Period 1 contains the two simplest elements in the AVE topological framework: Hydrogen ($Z=1$), the irreducible single-nucleon primitive, and Helium ($Z=2$), the first perfectly symmetric closed topological shell (the Alpha particle). Together they establish the fundamental building blocks---the isolated LC tank and the polyphase resonant transformer---from which all heavier nuclear topologies are constructed.

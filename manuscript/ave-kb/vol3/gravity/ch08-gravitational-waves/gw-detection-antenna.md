@@ -1,6 +1,10 @@
 [↑ Ch.8 Gravitational Waves](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol3 as sec:gw_detection -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-07kd5v]
+path-stable: "referenced from vol3 as sec:gw_detection"
+-->
 
 ---
 

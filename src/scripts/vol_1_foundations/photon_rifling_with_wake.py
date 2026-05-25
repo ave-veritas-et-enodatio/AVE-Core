@@ -30,28 +30,26 @@ Outputs:
   - assets/photon_rifling_dark_wake_RH.gif
   - assets/photon_rifling_dark_wake_LH.gif
 """
-from __future__ import annotations
 
 from pathlib import Path
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
 from matplotlib.gridspec import GridSpec
 
+from ave.core.constants import EPSILON_0, MU_0, V_YIELD
 from ave.core.fdtd_3d import FDTD3DEngine
-from ave.core.constants import V_YIELD, MU_0, EPSILON_0
 
 
-def run_pulsed_saturation(handedness: str, nx=320, ny=64, nz=64, n_steps=800,
-                           amp_factor: float = 0.7):
+def run_pulsed_saturation(handedness: str, nx=320, ny=64, nz=64, n_steps=800, amp_factor: float = 0.7):
     """Long-domain Yee FDTD, NONLINEAR vacuum, soft Gaussian-windowed CP pulse.
     amp_factor=0.7: V_peak ≈ 0.7·V_yield → ε_eff/ε_0 = 0.71 at peak (significant
     saturation engagement) WITHOUT hitting V=V_yield singularity (ε_eff → 0)."""
-    eng = FDTD3DEngine(nx, ny, nz, dx=0.01, linear_only=False,  # ← nonlinear
-                       use_pml=True, pml_layers=10)
+    eng = FDTD3DEngine(nx, ny, nz, dx=0.01, linear_only=False, use_pml=True, pml_layers=10)  # ← nonlinear
     c = eng.c
     dt = eng.dt
     freq = 1.5e9
@@ -68,7 +66,7 @@ def run_pulsed_saturation(handedness: str, nx=320, ny=64, nz=64, n_steps=800,
     cy, cz = ny // 2, nz // 2
     j, k = np.indices((ny, nz), dtype=float)
     r2 = (j - cy) ** 2 + (k - cz) ** 2
-    profile = np.exp(-r2 / (2.0 * sigma_yz ** 2))
+    profile = np.exp(-r2 / (2.0 * sigma_yz**2))
 
     sign = +1.0 if handedness == "RH" else -1.0
 
@@ -77,7 +75,7 @@ def run_pulsed_saturation(handedness: str, nx=320, ny=64, nz=64, n_steps=800,
 
     for step in range(1, n_steps + 1):
         t = step * dt
-        env = np.exp(-((t - t_center) / t_sigma) ** 2)
+        env = np.exp(-(((t - t_center) / t_sigma) ** 2))
         if env > 1e-7:
             Ey_inj = env * amp_E * np.sin(omega * t)
             Ez_inj = env * amp_E * sign * np.cos(omega * t)
@@ -93,25 +91,32 @@ def run_pulsed_saturation(handedness: str, nx=320, ny=64, nz=64, n_steps=800,
             sat_arg = np.maximum(1.0 - (V_axis / V_YIELD) ** 2, 1e-6)
             eps_eff = EPSILON_0 * np.sqrt(sat_arg)
             z_eff = np.sqrt(MU_0 / eps_eff)
-            grad_E_sq = np.gradient(E_perp_axis ** 2, eng.dx)
+            grad_E_sq = np.gradient(E_perp_axis**2, eng.dx)
             tau_zx_axis = z_eff * grad_E_sq
 
-            frames.append({
-                "t": t,
-                "step": step,
-                "Ey_slice": np.array(eng.Ey[:, :, cz]),
-                "Ez_slice": np.array(eng.Ez[:, :, cz]),
-                "E_perp_axis": E_perp_axis,
-                "tau_zx_axis": tau_zx_axis,
-                "V_over_yield_axis": V_axis / V_YIELD,
-                "wavefront_x": wf,
-            })
+            frames.append(
+                {
+                    "t": t,
+                    "step": step,
+                    "Ey_slice": np.array(eng.Ey[:, :, cz]),
+                    "Ez_slice": np.array(eng.Ez[:, :, cz]),
+                    "E_perp_axis": E_perp_axis,
+                    "tau_zx_axis": tau_zx_axis,
+                    "V_over_yield_axis": V_axis / V_YIELD,
+                    "wavefront_x": wf,
+                }
+            )
 
-    print(f"  {handedness}: {len(frames)} frames; amp={amp_factor}·V_yield/dx; "
-          f"expected wavefront at step {n_steps}: x = {src_x + eng.c*n_steps*dt/eng.dx:.1f}")
+    print(
+        f"  {handedness}: {len(frames)} frames; amp={amp_factor}·V_yield/dx; "
+        f"expected wavefront at step {n_steps}: x = {src_x + eng.c*n_steps*dt/eng.dx:.1f}"
+    )
     return {
         "handedness": handedness,
-        "nx": nx, "ny": ny, "nz": nz, "src_x": src_x,
+        "nx": nx,
+        "ny": ny,
+        "nz": nz,
+        "src_x": src_x,
         "frames": frames,
         "lambda_cells": (c / freq) / eng.dx,
         "amp_factor": amp_factor,
@@ -158,14 +163,14 @@ def render_full_animation(result, out_gif):
         ax_ey.set_facecolor("#050510")
         Ey_s = f["Ey_slice"]
         vmax = np.percentile(np.abs(Ey_s), 99.0) or 1e-3
-        ax_ey.imshow(Ey_s.T, aspect="auto", cmap="seismic",
-                     vmin=-vmax, vmax=vmax, origin="lower")
+        ax_ey.imshow(Ey_s.T, aspect="auto", cmap="seismic", vmin=-vmax, vmax=vmax, origin="lower")
         ax_ey.axvline(src_x, color="cyan", lw=1, ls="--", alpha=0.6)
         wf = min(nx - 1, f["wavefront_x"])
         ax_ey.axvline(wf, color="yellow", lw=1, ls=":", alpha=0.7)
         ax_ey.set_title(
             f"E_y(x, y) at z=center  |  vmax_99 = {vmax:.2e}",
-            color="white", fontsize=10,
+            color="white",
+            fontsize=10,
         )
         ax_ey.set_xlabel("x (cells)", color="#cccccc", fontsize=9)
         ax_ey.set_ylabel("y (cells)", color="#cccccc", fontsize=9)
@@ -179,13 +184,13 @@ def render_full_animation(result, out_gif):
         threshold = 0.02 * e_max_s if e_max_s > 1e-30 else 1.0
         mask = E_perp_slice > threshold
         phase_masked = np.where(mask, phase_slice, np.nan)
-        ax_phase.imshow(phase_masked.T, aspect="auto", cmap="hsv",
-                        vmin=-np.pi, vmax=np.pi, origin="lower")
+        ax_phase.imshow(phase_masked.T, aspect="auto", cmap="hsv", vmin=-np.pi, vmax=np.pi, origin="lower")
         ax_phase.axvline(src_x, color="cyan", lw=1, ls="--", alpha=0.6)
         ax_phase.axvline(wf, color="yellow", lw=1, ls=":", alpha=0.7)
         ax_phase.set_title(
             "Phase = arctan2(E_z, E_y)  |  rifling = HSV color cycle",
-            color="white", fontsize=10,
+            color="white",
+            fontsize=10,
         )
         ax_phase.set_xlabel("x (cells)", color="#cccccc", fontsize=9)
         ax_phase.set_ylabel("y (cells)", color="#cccccc", fontsize=9)
@@ -195,22 +200,20 @@ def render_full_animation(result, out_gif):
         ax_wake.set_facecolor("#050510")
         tau = f["tau_zx_axis"]
         x_arr = np.arange(nx)
-        ax_wake.plot(x_arr, tau, "-", color="#ff77aa", lw=1.4,
-                     label="τ_zx = Z_eff · ∂|E|²/∂x")
+        ax_wake.plot(x_arr, tau, "-", color="#ff77aa", lw=1.4, label="τ_zx = Z_eff · ∂|E|²/∂x")
         ax_wake.axhline(0, color="#666", lw=0.6, alpha=0.5)
         ax_wake.axvline(src_x, color="cyan", lw=1, ls="--", alpha=0.6, label="source")
-        ax_wake.axvline(wf, color="yellow", lw=1, ls=":", alpha=0.7,
-                        label=f"c·t (x={wf:.0f})")
+        ax_wake.axvline(wf, color="yellow", lw=1, ls=":", alpha=0.7, label=f"c·t (x={wf:.0f})")
         ax_wake.set_xlim(0, nx)
         ax_wake.set_ylim(-tau_global_max * 1.1, tau_global_max * 1.1)
         ax_wake.set_xlabel("x (cells)", color="#cccccc", fontsize=9)
         ax_wake.set_ylabel("τ_zx (Z_eff · ∂|E|²/∂x)", color="#cccccc", fontsize=9)
         ax_wake.set_title(
             "Dark Wake — τ_zx longitudinal shear strain  |  Ax 4 saturation engaged",
-            color="white", fontsize=10,
+            color="white",
+            fontsize=10,
         )
-        ax_wake.legend(facecolor="#050510", edgecolor="#444",
-                       labelcolor="#cccccc", fontsize=8, loc="upper right")
+        ax_wake.legend(facecolor="#050510", edgecolor="#444", labelcolor="#cccccc", fontsize=8, loc="upper right")
         ax_wake.grid(alpha=0.2, color="#444")
 
         # ── BR: |E_perp| log scale + V/V_yield secondary axis (saturation)
@@ -218,11 +221,9 @@ def render_full_animation(result, out_gif):
         ax_axis.set_facecolor("#050510")
         E_perp_axis = f["E_perp_axis"]
         E_plot = np.where(E_perp_axis > 1e-30, E_perp_axis, 1e-30)
-        ax_axis.semilogy(x_arr, E_plot, "-", color="#ffaa44", lw=1.4,
-                         label="|E_⊥|")
+        ax_axis.semilogy(x_arr, E_plot, "-", color="#ffaa44", lw=1.4, label="|E_⊥|")
         ax_axis.axvline(src_x, color="cyan", lw=1, ls="--", alpha=0.6, label="src")
-        ax_axis.axvline(wf, color="yellow", lw=1, ls=":", alpha=0.7,
-                        label=f"c·t (x={wf:.0f})")
+        ax_axis.axvline(wf, color="yellow", lw=1, ls=":", alpha=0.7, label=f"c·t (x={wf:.0f})")
         ax_axis.set_xlim(0, nx)
         ax_axis.set_ylim(1.0, 1e8)
         ax_axis.set_xlabel("x (cells)", color="#cccccc", fontsize=9)
@@ -236,10 +237,16 @@ def render_full_animation(result, out_gif):
         # Guard NaN/Inf for axis limit
         finite_vy = v_over_y[np.isfinite(v_over_y)]
         sat_max = float(finite_vy.max()) if finite_vy.size > 0 else 1.0
-        ax_sat.plot(x_arr, np.where(np.isfinite(v_over_y), v_over_y, 0.0),
-                    "-", color="#aaff77", lw=1.0, alpha=0.8, label="V/V_yield")
-        ax_sat.axhline(1.0, color="red", lw=0.8, ls="--", alpha=0.6,
-                       label="yield onset")
+        ax_sat.plot(
+            x_arr,
+            np.where(np.isfinite(v_over_y), v_over_y, 0.0),
+            "-",
+            color="#aaff77",
+            lw=1.0,
+            alpha=0.8,
+            label="V/V_yield",
+        )
+        ax_sat.axhline(1.0, color="red", lw=0.8, ls="--", alpha=0.6, label="yield onset")
         ax_sat.set_ylim(0, max(2.0, sat_max * 1.1))
         ax_sat.set_ylabel("V / V_yield", color="#aaff77", fontsize=9)
         ax_sat.tick_params(axis="y", labelcolor="#aaff77", labelsize=8)
@@ -247,21 +254,30 @@ def render_full_animation(result, out_gif):
             s.set_color("#444")
         ax_axis.set_title(
             "|E_⊥| log scale + V/V_yield (saturation marker)",
-            color="white", fontsize=10,
+            color="white",
+            fontsize=10,
         )
         # combined legend
         lines1, labels1 = ax_axis.get_legend_handles_labels()
         lines2, labels2 = ax_sat.get_legend_handles_labels()
-        ax_axis.legend(lines1 + lines2, labels1 + labels2,
-                       facecolor="#050510", edgecolor="#444",
-                       labelcolor="#cccccc", fontsize=7, loc="upper right")
+        ax_axis.legend(
+            lines1 + lines2,
+            labels1 + labels2,
+            facecolor="#050510",
+            edgecolor="#444",
+            labelcolor="#cccccc",
+            fontsize=7,
+            loc="upper right",
+        )
         ax_axis.grid(alpha=0.2, color="#444")
 
         fig.suptitle(
             f"Rifled Photon ({handedness}) + Dark Wake — Yee Maxwell FDTD with Axiom 4 saturation\n"
             f"λ={result['lambda_cells']:.0f} cells, amp={result['amp_factor']:.1f}·V_yield/dx  |  "
             f"t = {f['t']*1e9:.2f} ns, step = {f['step']}/{result['frames'][-1]['step']}",
-            color="white", fontsize=12, fontweight="bold",
+            color="white",
+            fontsize=12,
+            fontweight="bold",
         )
         return ()
 

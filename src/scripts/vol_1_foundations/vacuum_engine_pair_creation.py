@@ -22,31 +22,31 @@ Outputs:
   /tmp/phase_iiib_sigma_omega.png      — σ(ω) curve (the key falsifiable prediction)
   /tmp/phase_iiib_sweep_log.txt        — per-run log
 """
-from __future__ import annotations
 
 import json
 import time
 from dataclasses import dataclass
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from ave.topological.vacuum_engine import (
-    VacuumEngine3D,
     CWSource,
+    EnergyBudgetObserver,
     RegimeClassifierObserver,
     TopologyObserver,
-    EnergyBudgetObserver,
+    VacuumEngine3D,
 )
 
 
 @dataclass
 class RunConfig:
-    wavelength: float    # cells
-    amplitude: float     # V_SNAP-units
-    temperature: float   # m_e c² units
+    wavelength: float  # cells
+    amplitude: float  # V_SNAP-units
+    temperature: float  # m_e c² units
     N: int = 48
     pml: int = 6
     t_ramp: float = 20.0
@@ -69,23 +69,36 @@ class RunConfig:
 def run_one_config(cfg: RunConfig) -> dict:
     """Run a single (λ, amp, T) configuration through the engine."""
     engine = VacuumEngine3D.from_args(
-        N=cfg.N, pml=cfg.pml,
+        N=cfg.N,
+        pml=cfg.pml,
         temperature=cfg.temperature,
         amplitude_convention="V_SNAP",
     )
 
     # Two CW sources, counter-propagating, matched amplitude
-    source_offset = 8   # cells from boundary
-    engine.add_source(CWSource(
-        x0=source_offset, direction=(1.0, 0.0, 0.0),
-        amplitude=cfg.amplitude, omega=cfg.omega_carrier,
-        sigma_yz=4.0, t_ramp=cfg.t_ramp, t_sustain=cfg.t_sustain,
-    ))
-    engine.add_source(CWSource(
-        x0=cfg.N - source_offset, direction=(-1.0, 0.0, 0.0),
-        amplitude=cfg.amplitude, omega=cfg.omega_carrier,
-        sigma_yz=4.0, t_ramp=cfg.t_ramp, t_sustain=cfg.t_sustain,
-    ))
+    source_offset = 8  # cells from boundary
+    engine.add_source(
+        CWSource(
+            x0=source_offset,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=cfg.amplitude,
+            omega=cfg.omega_carrier,
+            sigma_yz=4.0,
+            t_ramp=cfg.t_ramp,
+            t_sustain=cfg.t_sustain,
+        )
+    )
+    engine.add_source(
+        CWSource(
+            x0=cfg.N - source_offset,
+            direction=(-1.0, 0.0, 0.0),
+            amplitude=cfg.amplitude,
+            omega=cfg.omega_carrier,
+            sigma_yz=4.0,
+            t_ramp=cfg.t_ramp,
+            t_sustain=cfg.t_sustain,
+        )
+    )
 
     regime_obs = RegimeClassifierObserver(cadence=cfg.record_cadence)
     # threshold_frac=0.7 filters out thermal-noise peaks; only strong
@@ -159,15 +172,17 @@ def run_sweep() -> list[dict]:
     """
     wavelengths = [3.5, 5.0, 7.0, 10.0]
     amplitudes = [0.5, 0.7]
-    temperatures = [0.0, 0.1]   # m_e c² units — cold null + active regime
+    temperatures = [0.0, 0.1]  # m_e c² units — cold null + active regime
 
     results = []
     total = len(wavelengths) * len(amplitudes) * len(temperatures)
     run_idx = 0
     print(f"Phase III-B sweep: {total} configurations")
-    print(f"{'idx':>3} {'λ':>4} {'amp':>4} {'T':>8} {'ω·τ':>5} "
-          f"{'max A²_cos':>11} {'max A²_tot':>11} {'#cent':>5} "
-          f"{'verdict':>20} {'t_s':>6}")
+    print(
+        f"{'idx':>3} {'λ':>4} {'amp':>4} {'T':>8} {'ω·τ':>5} "
+        f"{'max A²_cos':>11} {'max A²_tot':>11} {'#cent':>5} "
+        f"{'verdict':>20} {'t_s':>6}"
+    )
 
     for T in temperatures:
         for amp in amplitudes:
@@ -176,10 +191,12 @@ def run_sweep() -> list[dict]:
                 cfg = RunConfig(wavelength=wl, amplitude=amp, temperature=T)
                 r = run_one_config(cfg)
                 results.append(r)
-                print(f"{run_idx:>3} {wl:>4} {amp:>4} {T:>8.2e} {cfg.omega_tau:>5.2f} "
-                      f"{r['max_A2_cos']:>11.3e} {r['max_A2_total']:>11.3e} "
-                      f"{r['max_centroids']:>5d} {r['verdict']:>20} "
-                      f"{r['elapsed_s']:>6.1f}")
+                print(
+                    f"{run_idx:>3} {wl:>4} {amp:>4} {T:>8.2e} {cfg.omega_tau:>5.2f} "
+                    f"{r['max_A2_cos']:>11.3e} {r['max_A2_total']:>11.3e} "
+                    f"{r['max_centroids']:>5d} {r['verdict']:>20} "
+                    f"{r['elapsed_s']:>6.1f}"
+                )
     return results
 
 
@@ -201,18 +218,31 @@ def render_summary(results: list[dict], out: str = "/tmp/phase_iiib_sweep_summar
             i = amps.index(r["config"]["amplitude"])
             j = wls.index(r["config"]["wavelength"])
             grid[i, j] = r["max_A2_cos"]
-        im = ax.imshow(grid, origin="lower", cmap="viridis", aspect="auto",
-                        extent=[wls[0] - 0.5, wls[-1] + 0.5,
-                                amps[0] - 0.05, amps[-1] + 0.05])
-        ax.set_xticks(wls); ax.set_yticks(amps)
-        ax.set_xlabel("λ (cells)"); ax.set_ylabel("amp (V_SNAP)")
+        im = ax.imshow(
+            grid,
+            origin="lower",
+            cmap="viridis",
+            aspect="auto",
+            extent=[wls[0] - 0.5, wls[-1] + 0.5, amps[0] - 0.05, amps[-1] + 0.05],
+        )
+        ax.set_xticks(wls)
+        ax.set_yticks(amps)
+        ax.set_xlabel("λ (cells)")
+        ax.set_ylabel("amp (V_SNAP)")
         ax.set_title(f"max A²_Cosserat  (T = {T:.2e} m_e c²)")
         plt.colorbar(im, ax=ax)
         # Annotate each cell
-        for (i, a) in enumerate(amps):
-            for (j, w) in enumerate(wls):
-                ax.text(w, a, f"{grid[i, j]:.1e}", ha="center", va="center",
-                        fontsize=7, color="white" if grid[i, j] < grid.max()/2 else "black")
+        for i, a in enumerate(amps):
+            for j, w in enumerate(wls):
+                ax.text(
+                    w,
+                    a,
+                    f"{grid[i, j]:.1e}",
+                    ha="center",
+                    va="center",
+                    fontsize=7,
+                    color="white" if grid[i, j] < grid.max() / 2 else "black",
+                )
 
     # σ(ω) plot at each amp, finite T
     ax = axes[1, 0]
@@ -224,20 +254,29 @@ def render_summary(results: list[dict], out: str = "/tmp/phase_iiib_sweep_summar
         sigmas = []
         for wl in wls:
             for r in results:
-                if (r["config"]["temperature"] == T_hot and
-                    r["config"]["amplitude"] == amp and
-                    r["config"]["wavelength"] == wl):
+                if (
+                    r["config"]["temperature"] == T_hot
+                    and r["config"]["amplitude"] == amp
+                    and r["config"]["wavelength"] == wl
+                ):
                     omega_taus.append(r["config"]["omega_tau"])
                     sigmas.append(r["max_A2_cos"])
                     break
-        ax.plot(omega_taus, sigmas, "o-", lw=1.4, label=f"amp = {amp:.2f}·V_SNAP",
-                color=plt.cm.plasma(a_idx / max(len(amps) - 1, 1)))
+        ax.plot(
+            omega_taus,
+            sigmas,
+            "o-",
+            lw=1.4,
+            label=f"amp = {amp:.2f}·V_SNAP",
+            color=plt.cm.plasma(a_idx / max(len(amps) - 1, 1)),
+        )
     ax.axvline(1.0, color="red", ls="--", lw=1, alpha=0.5, label="ω·τ_relax = 1")
     ax.set_xlabel("ω·τ_relax (natural units)")
     ax.set_ylabel("max A²_Cosserat (at T = %.1e m_ec²)" % T_hot)
     ax.set_yscale("log")
     ax.set_title("σ(ω): Cosserat response vs. photon frequency")
-    ax.legend(fontsize=9); ax.grid(alpha=0.3)
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.3)
 
     # Verdict matrix
     ax = axes[1, 1]
@@ -253,19 +292,23 @@ def render_summary(results: list[dict], out: str = "/tmp/phase_iiib_sweep_summar
         amp = r["config"]["amplitude"]
         color = verdict_colors.get(r["verdict"], "gray")
         # Plot as scatter: x = ω·τ, y = amp, color = verdict, size = T_idx
-        ax.scatter(r["config"]["omega_tau"], amp,
-                    color=color, s=200 if T_idx > 0 else 80, alpha=0.7,
-                    edgecolors="black", linewidths=0.5)
+        ax.scatter(
+            r["config"]["omega_tau"],
+            amp,
+            color=color,
+            s=200 if T_idx > 0 else 80,
+            alpha=0.7,
+            edgecolors="black",
+            linewidths=0.5,
+        )
     ax.axvline(1.0, color="red", ls="--", lw=1, alpha=0.5)
     ax.set_xlabel("ω·τ_relax")
     ax.set_ylabel("amplitude (V_SNAP)")
-    ax.set_title("Verdict matrix — green=pair, orange=partial, red=no-response\n"
-                  "small=cold, large=hot")
+    ax.set_title("Verdict matrix — green=pair, orange=partial, red=no-response\n" "small=cold, large=hot")
     ax.grid(alpha=0.3)
 
     plt.suptitle(
-        "Phase III-B — Two-photon pair creation sweep "
-        f"(4λ × 3amp × {len(temps)}T = {len(results)} configs)",
+        "Phase III-B — Two-photon pair creation sweep " f"(4λ × 3amp × {len(temps)}T = {len(results)} configs)",
         fontsize=12,
     )
     plt.tight_layout()
@@ -288,9 +331,11 @@ def render_sigma_omega(results: list[dict], out: str = "/tmp/phase_iiib_sigma_om
         cos_responses = []
         for wl in wls:
             for r in results:
-                if (r["config"]["temperature"] == T_hot and
-                    r["config"]["amplitude"] == amp and
-                    r["config"]["wavelength"] == wl):
+                if (
+                    r["config"]["temperature"] == T_hot
+                    and r["config"]["amplitude"] == amp
+                    and r["config"]["wavelength"] == wl
+                ):
                     omega_taus.append(r["config"]["omega_tau"])
                     cos_responses.append(r["max_A2_cos"])
                     break
@@ -299,13 +344,18 @@ def render_sigma_omega(results: list[dict], out: str = "/tmp/phase_iiib_sigma_om
             order = np.argsort(omega_taus)
             omega_taus = np.array(omega_taus)[order]
             cos_responses = np.array(cos_responses)[order]
-            ax.plot(omega_taus, cos_responses, "o-", lw=2.0, markersize=8,
-                    label=f"amp = {amp:.2f}·V_SNAP",
-                    color=plt.cm.plasma(a_idx / max(len(amps) - 1, 1)))
+            ax.plot(
+                omega_taus,
+                cos_responses,
+                "o-",
+                lw=2.0,
+                markersize=8,
+                label=f"amp = {amp:.2f}·V_SNAP",
+                color=plt.cm.plasma(a_idx / max(len(amps) - 1, 1)),
+            )
 
     # Mark τ_relax = 1 crossover
-    ax.axvline(1.0, color="red", ls="--", lw=1.5, alpha=0.7,
-                label="ω·τ_relax = 1 (cascade onset?)")
+    ax.axvline(1.0, color="red", ls="--", lw=1.5, alpha=0.7, label="ω·τ_relax = 1 (cascade onset?)")
 
     ax.set_xlabel(r"$\omega \cdot \tau_{relax}$  (natural units)", fontsize=11)
     ax.set_ylabel(r"max $A^2_{Cosserat}$  (proxy for pair-creation rate)", fontsize=11)
@@ -329,8 +379,7 @@ if __name__ == "__main__":
     results = run_sweep()
 
     # Save raw data
-    np.savez("/tmp/phase_iiib_sweep.npz",
-              results=np.array(results, dtype=object))
+    np.savez("/tmp/phase_iiib_sweep.npz", results=np.array(results, dtype=object))
 
     # Render plots
     render_summary(results)

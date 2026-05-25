@@ -1,5 +1,9 @@
 [↑ Ch.1 Vacuum Circuit Analysis](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-vjv4zf, clm-pp3qwf]
+-->
 
 ## Condensate IMD Spectroscopy: The Harmonic Fingerprint
 
@@ -9,6 +13,7 @@ By modelling the universe as a non-linear dielectric network, the AVE framework 
 
 Standard QED models the vacuum as a linear medium at low energies, predicting that photon-photon scattering occurs only via extraordinarily weak perturbative quantum fluctuations (Euler-Heisenberg, $\sigma \propto \alpha^4$). The AVE framework replaces this with a deterministic, classical non-linearity: the squared geometric saturation limit (Axiom 4) imposes a macroscopic varactor on the dielectric constant of the vacuum:
 
+<!-- claim-quality: clm-vjv4zf -->
 > **[Resultbox]** *Vacuum Varactor (Axiom 4)*
 >
 > $$
@@ -61,6 +66,7 @@ $$
 | 0.90 | 39.29 | $-20$ | Strong |
 
 ### QED Comparison
+<!-- claim-quality: clm-pp3qwf (this section is the canonical $E^4$ vs $E^2$ discriminator: AVE's cubic IM3 / quartic Taylor term vs the QED sextic Euler-Heisenberg loop scaling) -->
 
 The Euler-Heisenberg effective Lagrangian predicts light-by-light scattering with cross-section:
 

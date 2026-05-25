@@ -18,18 +18,16 @@ Title corrected 2026-05-17: "Simulator" → "Visualization" since no
 quantitative simulation is performed here.
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
+
+from ave_path_util import sim_output
 
 
 def simulate_electroweak_modes() -> None:
     print("==========================================================")
     print(" AVE ELECTROWEAK BOSON MODES (Z/W IMPEDANCE POLARIZATION)")
     print("==========================================================")
-
-    os.makedirs("assets/sim_outputs", exist_ok=True)
 
     fig = plt.figure(figsize=(14, 8), facecolor="#0B0F19")
     fig.patch.set_facecolor("#0B0F19")
@@ -151,7 +149,7 @@ def simulate_electroweak_modes() -> None:
     plt.tight_layout()
     plt.subplots_adjust(top=0.85)
 
-    output_path = "assets/sim_outputs/simulate_weak_boson_modes.png"
+    output_path = sim_output("simulate_weak_boson_modes.png")
     plt.savefig(output_path, dpi=300, bbox_inches="tight", facecolor="#0B0F19")
     print(f"Successfully saved Topo-Electric W/Z Boson visualization to {output_path}")
 

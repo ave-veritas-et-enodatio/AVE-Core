@@ -1,5 +1,11 @@
 [↑ Nuclear and Field Physics](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-c8q0z5, clm-knveh6, clm-q5izb7]
+subtree-experiments: []
+-->
+
 # Ch. 12: The Millennium Problems as Vacuum-Impedance Derivations
 
 Chapter 12 presents **framework-conditional engineering-physics derivations** of the seven Millennium Prize Problems, treating each paradox as what happens when continuous pure mathematics omits the discrete lattice floor ($\ell_{node}$) and the universal saturation bound ($A_{\text{yield}}$) of the physical vacuum. Under the four AVE axioms taken as physical hardware postulates, each paradox resolves cleanly — but these are **not Clay-rigorous proofs**. A ZFC-formal formalization remains open future work; the chapter itself carries the scope caveat at its opening, and this KB leaf should be read in the same ideal-circuit-vs-parasitics spirit that Vol 2 Ch 12 establishes.

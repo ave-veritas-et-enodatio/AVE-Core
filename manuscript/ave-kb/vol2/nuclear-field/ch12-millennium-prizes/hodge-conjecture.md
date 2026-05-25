@@ -1,9 +1,13 @@
 [↑ Ch. 12: Mathematical Limits and the Millennium Prizes](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-knveh6]
+-->
 
 ## The Hodge Conjecture
 
-> **Scope correction (2026-05-17 night, Foundation Item 14 audit per `ave-infinity-discipline` skill + `.agents/kb_audit/phase-5-millennium.md`)**: This derivation is **framework-conditional**, classification **(B)** per kb_audit phase-5 taxonomy. AVE's "phase matching quantizes winding numbers; irrational orbits decay" is a physical-analogy argument applied to algebraic-geometric statements (Hodge classes on non-singular complex algebraic varieties). The Clay problem is a statement about cohomology + Hodge structures + algebraic cycles; AVE's standing-wave-on-lattice reformulation is suggestive structural analogy, not an algebraic-geometric proof. **The lattice standing-wave construction is interesting AVE-internal physics; it should NOT be cited as proving the Hodge Conjecture.** See closure-roadmap §0.5 FI-14 entry + `ch12-millennium-prizes/index.md:5` for canonical scope framing.
+> **Scope correction (2026-05-17 night, Foundation Item 14 audit per `ave-infinity-discipline` skill + `.agents/kb_audit/phase-5-millennium.md`)**: This derivation is **framework-conditional**, classification **(B)** per kb_audit phase-5 taxonomy. AVE's "phase matching quantizes winding numbers; irrational orbits decay" is a physical-analogy argument applied to algebraic-geometric statements (Hodge classes on non-singular complex algebraic varieties). The Clay problem is a statement about cohomology + Hodge structures + algebraic cycles; AVE's standing-wave-on-lattice reformulation is suggestive structural analogy, not an algebraic-geometric proof. **The lattice standing-wave construction is interesting AVE-internal physics; it should NOT be cited as proving the Hodge Conjecture.** See `ch12-millennium-prizes/index.md:5` for canonical scope framing.
 
 ### The Mathematical Paradox (What Clay Asks)
 

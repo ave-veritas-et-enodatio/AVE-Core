@@ -1,6 +1,11 @@
 [↑ Ch.18 Universal Vacuum Cell](index.md)
 <!-- leaf: verbatim -->
 
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-vjv4zf]
+-->
+
 # SPICE Subcircuit Specification
 
 **Volume:** 4 (Applied Vacuum Engineering)

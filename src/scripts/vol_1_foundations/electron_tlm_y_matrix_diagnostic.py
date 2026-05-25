@@ -34,18 +34,18 @@ from ave.core.universal_operators import (
     universal_eigenvalue_target,
     universal_ymatrix_to_s,
 )
-
-# Import from the existing TLM script (run_tlm_electron) and Phase A
-# prototype (find_crossings).
-from scripts.vol_1_foundations.tlm_electron_soliton_eigenmode import (
-    run_tlm_electron,
-    extract_alpha_inverse,
-    PHI,
-)
 from scripts.vol_1_foundations.electron_y_matrix_prototype import (
     find_crossings,
     generate_torus_knot_path,
     knot_tangent,
+)
+
+# Import from the existing TLM script (run_tlm_electron) and Phase A
+# prototype (find_crossings).
+from scripts.vol_1_foundations.tlm_electron_soliton_eigenmode import (
+    PHI,
+    extract_alpha_inverse,
+    run_tlm_electron,
 )
 
 
@@ -128,9 +128,7 @@ def compute_lambda_min(Y):
     return float(universal_eigenvalue_target(S))
 
 
-def diagnose_amplitude_sweep(N=48, R_lat=12.0, r_lat=4.58, p=2, q=3,
-                             amplitudes=None, n_steps=200,
-                             pml_thickness=0):
+def diagnose_amplitude_sweep(N=48, R_lat=12.0, r_lat=4.58, p=2, q=3, amplitudes=None, n_steps=200, pml_thickness=0):
     """Sweep TLM amplitude, compute lambda_min and alpha^-1 at each."""
     if amplitudes is None:
         amplitudes = [0.05, 0.10, 0.20, 0.40, 0.60, 0.80, 0.95]
@@ -150,36 +148,45 @@ def diagnose_amplitude_sweep(N=48, R_lat=12.0, r_lat=4.58, p=2, q=3,
     cluster_radius = 5.0  # several cells
 
     crossings = find_crossings(
-        path, t_param, tangents,
+        path,
+        t_param,
+        tangents,
         xy_threshold=xy_thresh,
         z_separation_threshold=z_sep_thresh,
         path_separation_threshold=1.0,
         cluster_radius=cluster_radius,
     )
-    print(f"\nFound {len(crossings)} crossings at lattice scale "
-          f"(R_lat={R_lat}, r_lat={r_lat})")
+    print(f"\nFound {len(crossings)} crossings at lattice scale " f"(R_lat={R_lat}, r_lat={r_lat})")
     for k, (i, j, chi, d) in enumerate(crossings):
         mid = (path[i] + path[j]) / 2.0
-        print(f"  Crossing {k+1}: t=({t_param[i]:.3f}, {t_param[j]:.3f}) "
-              f"chi={chi:+.0f}  midpoint=({mid[0]:+.2f}, {mid[1]:+.2f}, {mid[2]:+.2f})")
+        print(
+            f"  Crossing {k+1}: t=({t_param[i]:.3f}, {t_param[j]:.3f}) "
+            f"chi={chi:+.0f}  midpoint=({mid[0]:+.2f}, {mid[1]:+.2f}, {mid[2]:+.2f})"
+        )
 
     if len(crossings) < 3:
         print(f"WARN: expected 3 crossings, found {len(crossings)}. Check thresholds.")
         return []
 
     # Sweep amplitudes
-    print(f"\n{'amp/V_SNAP':<14}{'R_rms':<10}{'r_rms':<10}{'R/r':<10}"
-          f"{'alpha_inv':<14}{'lambda_min':<14}{'Q_est':<10}")
+    print(
+        f"\n{'amp/V_SNAP':<14}{'R_rms':<10}{'r_rms':<10}{'R/r':<10}" f"{'alpha_inv':<14}{'lambda_min':<14}{'Q_est':<10}"
+    )
     print("-" * 82)
 
     results = []
     for amp in amplitudes:
         # Run TLM
         result = run_tlm_electron(
-            N=N, R=R_lat, r=r_lat, n_steps=n_steps,
-            amplitude=amp, pml_thickness=pml_thickness,
+            N=N,
+            R=R_lat,
+            r=r_lat,
+            n_steps=n_steps,
+            amplitude=amp,
+            pml_thickness=pml_thickness,
             sample_every=n_steps + 1,  # suppress per-step prints
-            verbose=False, op3_bond_reflection=True,
+            verbose=False,
+            op3_bond_reflection=True,
             rms_avg_last_n=max(50, n_steps // 3),
         )
         R_rms = result["R_rms"]
@@ -197,18 +204,22 @@ def diagnose_amplitude_sweep(N=48, R_lat=12.0, r_lat=4.58, p=2, q=3,
         lambda_min = compute_lambda_min(Y)
         Q_est = 1.0 / np.sqrt(lambda_min + 1e-30)
 
-        results.append({
-            "amp": amp,
-            "R_rms": R_rms,
-            "r_rms": r_rms,
-            "R_over_r": Rr_ratio,
-            "alpha_inv": alpha_inv,
-            "lambda_min": lambda_min,
-            "Q_est": Q_est,
-            "z_at_crossings": z_at,
-        })
-        print(f"{amp:<14.2f}{R_rms:<10.3f}{r_rms:<10.3f}{Rr_ratio:<10.3f}"
-              f"{alpha_inv:<14.3f}{lambda_min:<14.6e}{Q_est:<10.2f}")
+        results.append(
+            {
+                "amp": amp,
+                "R_rms": R_rms,
+                "r_rms": r_rms,
+                "R_over_r": Rr_ratio,
+                "alpha_inv": alpha_inv,
+                "lambda_min": lambda_min,
+                "Q_est": Q_est,
+                "z_at_crossings": z_at,
+            }
+        )
+        print(
+            f"{amp:<14.2f}{R_rms:<10.3f}{r_rms:<10.3f}{Rr_ratio:<10.3f}"
+            f"{alpha_inv:<14.3f}{lambda_min:<14.6e}{Q_est:<10.2f}"
+        )
 
     return results
 
@@ -223,7 +234,7 @@ def main():
 
     # Use lattice-scale (R, r) close to the 96^3 Golden-Torus-proportioned
     # geometry from earlier sessions: R/r ~ phi^2 = 2.618.
-    PHI_SQ = PHI ** 2  # ~ 2.618
+    PHI_SQ = PHI**2  # ~ 2.618
     R_lat = 12.0
     r_lat = R_lat / PHI_SQ  # = 4.583
 
@@ -251,14 +262,18 @@ def main():
     closest_alpha_idx = int(np.argmin(alpha_diffs))
     closest_alpha_result = results[closest_alpha_idx]
 
-    print(f"\nAmplitude with min lambda_min:    "
-          f"amp={min_result['amp']:.2f}  "
-          f"lambda_min={min_result['lambda_min']:.4e}  "
-          f"alpha^-1={min_result['alpha_inv']:.3f}")
-    print(f"Amplitude with alpha^-1 ~ 137:    "
-          f"amp={closest_alpha_result['amp']:.2f}  "
-          f"alpha^-1={closest_alpha_result['alpha_inv']:.3f}  "
-          f"lambda_min={closest_alpha_result['lambda_min']:.4e}")
+    print(
+        f"\nAmplitude with min lambda_min:    "
+        f"amp={min_result['amp']:.2f}  "
+        f"lambda_min={min_result['lambda_min']:.4e}  "
+        f"alpha^-1={min_result['alpha_inv']:.3f}"
+    )
+    print(
+        f"Amplitude with alpha^-1 ~ 137:    "
+        f"amp={closest_alpha_result['amp']:.2f}  "
+        f"alpha^-1={closest_alpha_result['alpha_inv']:.3f}  "
+        f"lambda_min={closest_alpha_result['lambda_min']:.4e}"
+    )
 
     if min_idx == closest_alpha_idx:
         print("\nPASS: lambda_min minimum coincides with alpha^-1 closest to 137.")

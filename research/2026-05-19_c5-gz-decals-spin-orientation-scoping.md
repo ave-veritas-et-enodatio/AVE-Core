@@ -54,7 +54,7 @@ The per-galaxy ±1 chirality label `chirality_i = +1 if P_CW > P_ACW else -1` is
 
 `grep -rln` across all 10 AVE-staging repos for "Walmsley", "DECaLS", "gz_decals", "GZ DECaLS", "Galaxy Zoo DECaLS":
 
-- AVE-Core only — `research/2026-05-19_c5-sdss-spin-orientation-result.md` §5.5 next-session-priorities (mentions GZ DECaLS as the proposed cross-catalog), `manuscript/ave-kb/common/closure-roadmap.md`, `manuscript/ave-kb/common/divergence-test-substrate-map.md`, `_orchestration/soliton-lattice-coupling-operator.md`.
+- AVE-Core only — `research/2026-05-19_c5-sdss-spin-orientation-result.md` §5.5 next-session-priorities (mentions GZ DECaLS as the proposed cross-catalog), `manuscript/ave-kb/claim-quality-closure-roadmap.md`, `manuscript/ave-kb/common/divergence-test-substrate-map.md`, `_orchestration/soliton-lattice-coupling-operator.md`.
 - All other AVE-staging repos: 0 hits.
 - No prior implementor work on Walmsley+2022 catalog. No prior chirality / spin-direction estimator code targeting DECaLS imaging anywhere in the workspace.
 
@@ -225,7 +225,7 @@ The brief's goal — independent imaging + classification methodology cross-vali
 
 ### 6.2 Closure-roadmap (no change this session)
 
-`manuscript/ave-kb/common/closure-roadmap.md` is UNCHANGED. The cross-catalog GZ DECaLS line item (if such existed) is now reclassified from "candidate cross-catalog validation" to "infeasible by methodology" — but no roadmap entry was added in the first place, so no walk-back is needed.
+`manuscript/ave-kb/claim-quality-closure-roadmap.md` is UNCHANGED. The cross-catalog GZ DECaLS line item (if such existed) is now reclassified from "candidate cross-catalog validation" to "infeasible by methodology" — but no roadmap entry was added in the first place, so no walk-back is needed.
 
 ### 6.3 Next-session priorities
 

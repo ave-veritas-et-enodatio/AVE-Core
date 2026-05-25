@@ -12,12 +12,11 @@ Panels:
 Output: manuscript/vol_1_foundations/regime_map.png
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.regime_map import R_LINEAR_MAX, R_NONLINEAR_MAX, R_YIELD_MAX
+from ave_path_util import manuscript_path
 
 
 def main() -> None:
@@ -157,8 +156,7 @@ def main() -> None:
     plt.tight_layout()
 
     # Save
-    out_dir = os.path.join(os.path.dirname(__file__), "..", "..", "manuscript", "vol_1_foundations")
-    out_path = os.path.join(out_dir, "regime_map.png")
+    out_path = manuscript_path("vol_1_foundations", "regime_map.png")
     fig.savefig(out_path, dpi=200, bbox_inches="tight")
     print(f"Saved: {out_path}")
 

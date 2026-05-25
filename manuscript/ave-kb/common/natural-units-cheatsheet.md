@@ -1,5 +1,9 @@
 [↑ Common Resources](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+no-claim: navigable cheat-sheet consolidating AVE natural-unit conventions + SI ↔ Native conversion table + cross-domain ξ_topo scaling powers; defers to upstream canonical sources (lattice-impedance-decomposition, xi-topo-traceability, src/ave/core/constants.py) for derivations
+-->
 
 # Universal Lattice Units — Cheat Sheet
 

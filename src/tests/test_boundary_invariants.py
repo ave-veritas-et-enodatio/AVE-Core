@@ -12,8 +12,6 @@ Verifies:
 L5 tracking: closes E-101 (engine module) when this test suite passes.
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 
@@ -24,7 +22,6 @@ from ave.core.boundary_invariants import (
     compute_M,
     compute_Q,
 )
-
 
 # Test parameters
 N = 32  # lattice size
@@ -74,7 +71,7 @@ def elongated_strain_field():
     X, Y, Z = np.meshgrid(coords, coords, coords, indexing="ij")
     # Anisotropic radius: elongated along z-axis (sigma_z = 6, sigma_xy = 2)
     r_aniso = np.sqrt((X / 2) ** 2 + (Y / 2) ** 2 + (Z / 6) ** 2) * DX
-    V[:] = 0.6 * np.exp(-r_aniso**2 / 2)
+    V[:] = 0.6 * np.exp(-(r_aniso**2) / 2)
     return V
 
 

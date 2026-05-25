@@ -37,15 +37,15 @@ from ave.core.universal_operators import (
     universal_ymatrix_to_s,
 )
 
-
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
-R_GT = PHI / 2.0           # Golden Torus major radius (in ell_node units)
-r_GT = (PHI - 1.0) / 2.0   # Golden Torus minor radius
+R_GT = PHI / 2.0  # Golden Torus major radius (in ell_node units)
+r_GT = (PHI - 1.0) / 2.0  # Golden Torus minor radius
 
 
 # ============================================================
 # Step 1: Generate (p,q) torus knot path
 # ============================================================
+
 
 def generate_torus_knot_path(p: int, q: int, R: float, r: float, n_points: int):
     """Parametrize (p,q) torus knot as N x 3 array of (x, y, z) points.
@@ -79,11 +79,16 @@ def knot_tangent(p: int, q: int, R: float, r: float, t: np.ndarray):
 # Step 2: Crossing-pair detector (the missing utility)
 # ============================================================
 
-def find_crossings(path: np.ndarray, t: np.ndarray, tangents: np.ndarray,
-                   xy_threshold: float = 0.05,
-                   z_separation_threshold: float = 0.1,
-                   path_separation_threshold: float = 1.0,
-                   cluster_radius: float = 0.4):
+
+def find_crossings(
+    path: np.ndarray,
+    t: np.ndarray,
+    tangents: np.ndarray,
+    xy_threshold: float = 0.05,
+    z_separation_threshold: float = 0.1,
+    path_separation_threshold: float = 1.0,
+    cluster_radius: float = 0.4,
+):
     """Find topological crossings of a closed 3D path, using projected
     (x,y) coincidence with z-separation as the crossing criterion.
 
@@ -117,9 +122,7 @@ def find_crossings(path: np.ndarray, t: np.ndarray, tangents: np.ndarray,
     t_diff = np.abs(t[:, None] - t[None, :])
     t_diff = np.minimum(t_diff, 2 * np.pi - t_diff)
 
-    mask = (xy_dist < xy_threshold) & \
-           (z_sep > z_separation_threshold) & \
-           (t_diff > path_separation_threshold)
+    mask = (xy_dist < xy_threshold) & (z_sep > z_separation_threshold) & (t_diff > path_separation_threshold)
     iu, ju = np.triu_indices(N, k=1)
     valid = mask[iu, ju]
     candidates = list(zip(iu[valid], ju[valid], xy_dist[iu[valid], ju[valid]]))
@@ -128,8 +131,7 @@ def find_crossings(path: np.ndarray, t: np.ndarray, tangents: np.ndarray,
         return []
 
     # Cluster by xy-midpoint
-    xy_midpoints = np.array([(path[i, :2] + path[j, :2]) / 2.0
-                             for i, j, _ in candidates])
+    xy_midpoints = np.array([(path[i, :2] + path[j, :2]) / 2.0 for i, j, _ in candidates])
 
     # Greedy clustering: sort by xy distance (smallest first), then cluster
     candidates_sorted = sorted(enumerate(candidates), key=lambda x: x[1][2])
@@ -137,8 +139,7 @@ def find_crossings(path: np.ndarray, t: np.ndarray, tangents: np.ndarray,
     cluster_reps = []
     for idx, (i, j, d) in candidates_sorted:
         m = xy_midpoints[idx]
-        in_cluster = any(np.linalg.norm(m - c) < cluster_radius
-                         for c in cluster_centers)
+        in_cluster = any(np.linalg.norm(m - c) < cluster_radius for c in cluster_centers)
         if not in_cluster:
             cluster_centers.append(m)
             cluster_reps.append((i, j, d))
@@ -161,6 +162,7 @@ def find_crossings(path: np.ndarray, t: np.ndarray, tangents: np.ndarray,
 # ============================================================
 # Step 3: Build chirality-signed Y-matrix
 # ============================================================
+
 
 def build_crossing_y_matrix(crossings: list, p: int, q: int):
     """Build N_crossings x N_crossings Y-matrix for a (p,q) torus knot.
@@ -200,6 +202,7 @@ def build_crossing_y_matrix(crossings: list, p: int, q: int):
 # Step 4: Compute lambda_min(S^dagger S) and Q-factor
 # ============================================================
 
+
 def compute_q_factor(Y: np.ndarray):
     """Compute lambda_min(S^dagger S) from Y-matrix and extract Q-factor.
 
@@ -221,6 +224,7 @@ def compute_q_factor(Y: np.ndarray):
 # Main: verify on (2,3) at Golden Torus
 # ============================================================
 
+
 def main():
     print("=" * 78)
     print("Phase A — Y-matrix prototype for (2,3) electron at Golden Torus")
@@ -240,26 +244,36 @@ def main():
     print("\n" + "-" * 78)
     print("Step 2: Find crossings")
     print("-" * 78)
-    crossings = find_crossings(path, t, tangents,
-                               xy_threshold=0.05,
-                               z_separation_threshold=0.1,
-                               path_separation_threshold=1.0,
-                               cluster_radius=0.4)
+    crossings = find_crossings(
+        path,
+        t,
+        tangents,
+        xy_threshold=0.05,
+        z_separation_threshold=0.1,
+        path_separation_threshold=1.0,
+        cluster_radius=0.4,
+    )
     print(f"Found {len(crossings)} crossings:")
     for k, (i, j, chi, d) in enumerate(crossings):
-        print(f"  Crossing {k+1}: t=({t[i]:.3f}, {t[j]:.3f}) "
-              f"chirality_sign={chi:+.0f} dist3D={d:.4f}  "
-              f"midpoint xy=({(path[i,0]+path[j,0])/2:+.3f}, "
-              f"{(path[i,1]+path[j,1])/2:+.3f})")
+        print(
+            f"  Crossing {k+1}: t=({t[i]:.3f}, {t[j]:.3f}) "
+            f"chirality_sign={chi:+.0f} dist3D={d:.4f}  "
+            f"midpoint xy=({(path[i,0]+path[j,0])/2:+.3f}, "
+            f"{(path[i,1]+path[j,1])/2:+.3f})"
+        )
 
     if len(crossings) == 0:
         print("\nWARN: no crossings at xy_threshold=0.05; relaxing...")
         for th in [0.1, 0.2, 0.3]:
-            crossings = find_crossings(path, t, tangents,
-                                       xy_threshold=th,
-                                       z_separation_threshold=0.1,
-                                       path_separation_threshold=1.0,
-                                       cluster_radius=0.4)
+            crossings = find_crossings(
+                path,
+                t,
+                tangents,
+                xy_threshold=th,
+                z_separation_threshold=0.1,
+                path_separation_threshold=1.0,
+                cluster_radius=0.4,
+            )
             print(f"  xy_threshold={th}: {len(crossings)} crossings")
             if len(crossings) >= 3:
                 break

@@ -19,13 +19,10 @@ Acceptance criteria (breathing-soliton appropriate, NOT strict stationary):
   - n_refractive at boundary measurably > 1.0  (saturation engaged)
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 
 from ave.core.master_equation_fdtd import MasterEquationFDTD
-
 
 # Test parameters — v14 canonical seed per doc 113 §3
 N = 24  # lattice size (small for fast test; v14 canonical uses N=24-32)
@@ -91,8 +88,7 @@ def v14_run_result():
 def test_v14_mode_i_v_peak_mean_above_threshold(v14_run_result):
     """V_peak mean > 0.2 → bound state persists (doesn't decay to zero)."""
     assert v14_run_result["v_peak_mean"] > 0.2, (
-        f"V_peak mean = {v14_run_result['v_peak_mean']:.4f}, "
-        "expected > 0.2 for persistent bound state."
+        f"V_peak mean = {v14_run_result['v_peak_mean']:.4f}, " "expected > 0.2 for persistent bound state."
     )
 
 
@@ -128,13 +124,9 @@ def test_v14_mode_i_saturation_engaged(v14_run_result):
 
 def test_v14_mode_i_doc_113_canonical_state():
     """Smoke test: engine instantiates with canonical v14 parameters."""
-    engine = MasterEquationFDTD(
-        N=N, dx=DX, V_yield=V_YIELD, c0=C0, cfl_safety=CFL_SAFETY, pml_thickness=PML_THICKNESS
-    )
+    engine = MasterEquationFDTD(N=N, dx=DX, V_yield=V_YIELD, c0=C0, cfl_safety=CFL_SAFETY, pml_thickness=PML_THICKNESS)
     assert engine.V.shape == (N, N, N), f"Unexpected shape: {engine.V.shape}"
     assert engine.dt > 0, "dt must be positive"
     # CFL condition: dt < dx / (c * sqrt(3)) for 3D leapfrog
     cfl_limit = DX / (C0 * np.sqrt(3.0))
-    assert engine.dt < cfl_limit, (
-        f"dt={engine.dt:.6f} violates CFL limit {cfl_limit:.6f}"
-    )
+    assert engine.dt < cfl_limit, f"dt={engine.dt:.6f} violates CFL limit {cfl_limit:.6f}"

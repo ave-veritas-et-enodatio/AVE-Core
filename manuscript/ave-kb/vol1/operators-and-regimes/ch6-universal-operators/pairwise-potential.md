@@ -1,6 +1,10 @@
 [↑ Ch.6 Universal Operators](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol1 as sec:universal_pairwise -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-gdd70j]
+path-stable: "referenced from vol1 as sec:universal_pairwise"
+-->
 
 ## Section 6.4: The Universal Pairwise Potential
 

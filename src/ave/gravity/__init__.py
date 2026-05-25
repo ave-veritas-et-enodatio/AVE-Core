@@ -12,12 +12,9 @@ Key results (Ch. 9):
   - Achromatic matching:      μ'/ε' scales symmetrically → Z₀ invariant
 """
 
-import warnings as _warnings
-
 from ave.axioms.scale_invariant import impedance as _impedance
-from ave.axioms.scale_invariant import reflection_coefficient as _reflection_coefficient
 from ave.axioms.scale_invariant import saturation_factor
-from ave.core.constants import C_0, EPSILON_0, MU_0, Z_0, G
+from ave.core.constants import C_0, EPSILON_0, MU_0, G
 
 
 def principal_radial_strain(mass_kg: float, radius_m: float) -> float:
@@ -278,41 +275,3 @@ def shear_modulus_factor(mass_kg: float, radius_m: float) -> float:
         Shear modulus ratio in [0, 1].
     """
     return gravitational_saturation_factor(mass_kg, radius_m)
-
-
-# ── Deprecated backward-compatible wrappers ──
-
-
-def radial_impedance(mass_kg: float, radius_m: float) -> float:
-    """
-    .. deprecated::
-        INCORRECT under Symmetric Gravity.  Z(r) = Z₀ always.
-        Use ``local_impedance(mass_kg, radius_m)`` instead.
-        Kept for backward compatibility only.
-    """
-    _warnings.warn(
-        "radial_impedance() is deprecated: Z = Z₀ everywhere under "
-        "Symmetric Gravity.  Use local_impedance() instead.",
-        DeprecationWarning,
-        stacklevel=2,
-    )
-    n = refractive_index(mass_kg, radius_m)
-    return Z_0 * n
-
-
-def radial_reflection_coefficient(mass_kg: float, radius_m: float) -> float:
-    """
-    .. deprecated::
-        INCORRECT under Symmetric Gravity.  Γ = 0 for gravity.
-        BH confinement is via lattice phase transition (G_shear → 0),
-        not impedance mismatch.
-        Kept for backward compatibility only.
-    """
-    _warnings.warn(
-        "radial_reflection_coefficient() is deprecated: Γ = 0 for gravity "
-        "under Symmetric Gravity.  BH confinement uses shear_modulus_factor().",
-        DeprecationWarning,
-        stacklevel=2,
-    )
-    Z_rad = Z_0 * refractive_index(mass_kg, radius_m)
-    return float(_reflection_coefficient(Z_0, Z_rad))

@@ -34,27 +34,26 @@ import sys
 
 from ave.solvers.radial_eigenvalue import ionization_energy_e2k
 
-
 # Manuscript validation table values (eV).
 # Source: manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/
 #         ionization-energy-validation.md
 # Computed against ionization_energy_e2k(Z) at parent-repo SHA 0401388
 # (2026-04-09 manuscript-add commit). Pinned here per A47 v11c discipline.
 MANUSCRIPT_IE_TABLE_eV = {
-    1:  13.606,
-    2:  24.370,
-    3:   5.525,
-    4:   9.280,
-    5:   8.065,
-    6:  11.406,
-    7:  14.465,
-    8:  13.618,
-    9:  17.194,
+    1: 13.606,
+    2: 24.370,
+    3: 5.525,
+    4: 9.280,
+    5: 8.065,
+    6: 11.406,
+    7: 14.465,
+    8: 13.618,
+    9: 17.194,
     10: 21.789,
-    11:  5.071,
-    12:  7.591,
-    13:  5.937,
-    14:  8.147,
+    11: 5.071,
+    12: 7.591,
+    13: 5.937,
+    14: 8.147,
 }
 
 # Tolerance per A47 v11c manuscript-vs-code drift discipline.
@@ -78,8 +77,7 @@ def verify():
     print(f"{'Z':>3} {'Element':<3} {'Table':>10} {'Code':>10} {'Gap%':>8} {'Status':<6}")
     print("-" * 50)
 
-    elements = ["H", "He", "Li", "Be", "B", "C", "N", "O", "F",
-                "Ne", "Na", "Mg", "Al", "Si"]
+    elements = ["H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne", "Na", "Mg", "Al", "Si"]
     failed = 0
     max_gap = 0.0
 
@@ -93,19 +91,22 @@ def verify():
         status = "✓" if gap <= TOLERANCE_FRAC else "✗ FAIL"
         if gap > TOLERANCE_FRAC:
             failed += 1
-        print(f"{Z:>3} {elements[Z-1]:<3} {table_val:>10.4f} "
-              f"{code_val:>10.4f} {gap*100:>+7.3f}% {status:<6}")
+        print(f"{Z:>3} {elements[Z-1]:<3} {table_val:>10.4f} " f"{code_val:>10.4f} {gap*100:>+7.3f}% {status:<6}")
 
     print("-" * 50)
     print()
 
     if failed == 0:
-        print(f"[Verify] PASS — all {len(MANUSCRIPT_IE_TABLE_eV)} elements "
-              f"within ±{TOLERANCE_FRAC*100:.1f}%, max gap {max_gap*100:.3f}%")
+        print(
+            f"[Verify] PASS — all {len(MANUSCRIPT_IE_TABLE_eV)} elements "
+            f"within ±{TOLERANCE_FRAC*100:.1f}%, max gap {max_gap*100:.3f}%"
+        )
         return 0
     else:
-        print(f"[Verify] FAIL — {failed}/{len(MANUSCRIPT_IE_TABLE_eV)} "
-              f"elements exceed ±{TOLERANCE_FRAC*100:.1f}% tolerance")
+        print(
+            f"[Verify] FAIL — {failed}/{len(MANUSCRIPT_IE_TABLE_eV)} "
+            f"elements exceed ±{TOLERANCE_FRAC*100:.1f}% tolerance"
+        )
         print()
         print("Drift detection: solver has diverged from manuscript-table state.")
         print("Per A47 v11d: any solver change replacing axiom-chain-anchored")

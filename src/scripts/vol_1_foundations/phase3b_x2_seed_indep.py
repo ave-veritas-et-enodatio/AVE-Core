@@ -22,10 +22,10 @@ Pre-registered outcomes:
                                                  energy-relaxation cross-check.
   - Mixed (some converge, some don't)         → inspect trajectories.
 """
-from __future__ import annotations
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -34,25 +34,27 @@ from ave.topological.cosserat_field_3d import CosseratField3D
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
 
 
-def run_seed(R_target: float, r_target: float, label: str,
-             N: int = 72, max_iter: int = 500) -> dict:
+def run_seed(R_target: float, r_target: float, label: str, N: int = 72, max_iter: int = 500) -> dict:
     """One Cosserat + S11 run from a specified (R, r) seed."""
-    print(f"\n--- seed {label}: R={R_target}, r={r_target:.3f}, "
-          f"R/r={R_target/r_target:.3f} ---")
+    print(f"\n--- seed {label}: R={R_target}, r={r_target:.3f}, " f"R/r={R_target/r_target:.3f} ---")
     solver = CosseratField3D(N, N, N, dx=1.0, use_saturation=True)
     solver.initialize_electron_2_3_sector(
-        R_target=R_target, r_target=r_target, use_hedgehog=True,
+        R_target=R_target,
+        r_target=r_target,
+        use_hedgehog=True,
     )
 
     R0, r0 = solver.extract_shell_radii()
     c0 = solver.extract_crossing_count()
     S11_0 = solver.total_s11()
-    print(f"  Initial: (R, r) = ({R0:.3f}, {r0:.3f}), R/r = "
-          f"{R0/max(r0,1e-9):.3f}, c = {c0}, S11 = {S11_0:.4e}")
+    print(f"  Initial: (R, r) = ({R0:.3f}, {r0:.3f}), R/r = " f"{R0/max(r0,1e-9):.3f}, c = {c0}, S11 = {S11_0:.4e}")
 
     result = solver.relax_s11(
-        max_iter=max_iter, tol=1e-8, initial_lr=0.01,
-        verbose=False, track_topology_every=50,
+        max_iter=max_iter,
+        tol=1e-8,
+        initial_lr=0.01,
+        verbose=False,
+        track_topology_every=50,
     )
 
     R_f, r_f = solver.extract_shell_radii()
@@ -60,11 +62,12 @@ def run_seed(R_target: float, r_target: float, label: str,
     ratio_f = R_f / max(r_f, 1e-9)
 
     converged_text = "✓ converged" if result["converged"] else "✗ no conv"
-    print(f"  Final:   (R, r) = ({R_f:.3f}, {r_f:.3f}), R/r = "
-          f"{ratio_f:.3f}, c = {c_f}, S11 = {result['final_s11']:.4e}  "
-          f"[{result['iterations']} iter, {converged_text}]")
-    print(f"  Drift:   R/r {R0/max(r0,1e-9):.3f} → {ratio_f:.3f}  "
-          f"Δ = {ratio_f - R0/max(r0,1e-9):+.3f}")
+    print(
+        f"  Final:   (R, r) = ({R_f:.3f}, {r_f:.3f}), R/r = "
+        f"{ratio_f:.3f}, c = {c_f}, S11 = {result['final_s11']:.4e}  "
+        f"[{result['iterations']} iter, {converged_text}]"
+    )
+    print(f"  Drift:   R/r {R0/max(r0,1e-9):.3f} → {ratio_f:.3f}  " f"Δ = {ratio_f - R0/max(r0,1e-9):+.3f}")
 
     result["label"] = label
     result["R_target"] = R_target
@@ -87,10 +90,10 @@ def main():
     # R is constant (= N/4 = 18); r varies to set R/r
     R_target = 18.0
     seeds = [
-        ("R/r=2.0 (classical)",   R_target, R_target / 2.0),
-        ("R/r=2.618 (φ²)",        R_target, R_target / (PHI**2)),
-        ("R/r=3.5 (K4 Gauss)",    R_target, R_target / 3.5),
-        ("R/r=4.0 (far)",         R_target, R_target / 4.0),
+        ("R/r=2.0 (classical)", R_target, R_target / 2.0),
+        ("R/r=2.618 (φ²)", R_target, R_target / (PHI**2)),
+        ("R/r=3.5 (K4 Gauss)", R_target, R_target / 3.5),
+        ("R/r=4.0 (far)", R_target, R_target / 4.0),
     ]
 
     results = []
@@ -103,8 +106,7 @@ def main():
     print("=" * 72)
     print("X2-prime seed-independence summary")
     print("=" * 72)
-    print(f"{'seed':>22} {'R/r_init':>9} {'R/r_final':>10} {'Δ R/r':>7} "
-          f"{'c_f':>4} {'S11_final':>12} {'iter':>5}")
+    print(f"{'seed':>22} {'R/r_init':>9} {'R/r_final':>10} {'Δ R/r':>7} " f"{'c_f':>4} {'S11_final':>12} {'iter':>5}")
     for res in results:
         ratio_init = res["R_seed_extracted"] / max(res["r_seed_extracted"], 1e-9)
         ratio_final = res["R_final"] / max(res["r_final"], 1e-9)
@@ -126,25 +128,38 @@ def main():
     max_dist = max(dists)
 
     if max_dist < 0.05:
-        verdict = ("P_BASIN: all seeds converged to R/r ≈ φ² within 5% — "
-                   "Golden Torus is a genuine basin of attraction. Phase 3b closes.")
+        verdict = (
+            "P_BASIN: all seeds converged to R/r ≈ φ² within 5% — "
+            "Golden Torus is a genuine basin of attraction. Phase 3b closes."
+        )
     elif spread < 0.05:
-        verdict = ("MERGED (not at φ²): all seeds converged to the same "
-                   f"R/r ≈ {np.mean(final_ratios):.3f}, which differs from φ² — "
-                   "Cosserat has a single attractor that is NOT Ch 8's Golden Torus.")
+        verdict = (
+            "MERGED (not at φ²): all seeds converged to the same "
+            f"R/r ≈ {np.mean(final_ratios):.3f}, which differs from φ² — "
+            "Cosserat has a single attractor that is NOT Ch 8's Golden Torus."
+        )
     elif all(dist < 0.10 for dist in dists[:1]):  # check classical seed specifically
-        verdict = ("Classical seed (2.0) close to φ² — partial basin toward φ² "
-                   "but other seeds retained their values (flat landscape).")
+        verdict = (
+            "Classical seed (2.0) close to φ² — partial basin toward φ² "
+            "but other seeds retained their values (flat landscape)."
+        )
     else:
-        seeds_staying = sum(1 for res in results
-                            if abs((res["R_final"]/max(res["r_final"],1e-9))
-                                   - (res["R_seed_extracted"]/max(res["r_seed_extracted"],1e-9)))
-                               / max(res["R_seed_extracted"]/max(res["r_seed_extracted"],1e-9), 1e-9)
-                               < 0.05)
+        seeds_staying = sum(
+            1
+            for res in results
+            if abs(
+                (res["R_final"] / max(res["r_final"], 1e-9))
+                - (res["R_seed_extracted"] / max(res["r_seed_extracted"], 1e-9))
+            )
+            / max(res["R_seed_extracted"] / max(res["r_seed_extracted"], 1e-9), 1e-9)
+            < 0.05
+        )
         if seeds_staying == len(results):
-            verdict = ("P_FLAT: each seed stayed near its initial R/r — "
-                       "S11 landscape is flat; every (2,3) hedgehog is a near-fixed-point. "
-                       "Ambiguous; need energy-minimization cross-check.")
+            verdict = (
+                "P_FLAT: each seed stayed near its initial R/r — "
+                "S11 landscape is flat; every (2,3) hedgehog is a near-fixed-point. "
+                "Ambiguous; need energy-minimization cross-check."
+            )
         else:
             verdict = "Mixed: inspect individual trajectories"
     print(f"  → {verdict}")
@@ -152,7 +167,15 @@ def main():
     # Save + plot
     save = {}
     for res in results:
-        tag = res["label"].replace(" ", "_").replace("(", "").replace(")", "").replace("/", "_").replace(".", "p").replace("=", "_")
+        tag = (
+            res["label"]
+            .replace(" ", "_")
+            .replace("(", "")
+            .replace(")", "")
+            .replace("/", "_")
+            .replace(".", "p")
+            .replace("=", "_")
+        )
         save[f"{tag}_s11_history"] = np.array(res["s11_history"])
         save[f"{tag}_R_final"] = np.array([res["R_final"]])
         save[f"{tag}_r_final"] = np.array([res["r_final"]])
@@ -175,10 +198,8 @@ def main():
             # First point is initial; recompute from stored initial
             ratios = [res["R_seed_extracted"] / max(res["r_seed_extracted"], 1e-9)]
             ratios += [t["R"] / max(t["r"], 1e-9) for t in traj]
-            ax.plot(steps, ratios, "o-", color=color,
-                    label=res["label"], markersize=5)
-    ax.axhline(PHI**2, color="red", linestyle="--", linewidth=2,
-               label=f"φ² = {PHI**2:.3f}")
+            ax.plot(steps, ratios, "o-", color=color, label=res["label"], markersize=5)
+    ax.axhline(PHI**2, color="red", linestyle="--", linewidth=2, label=f"φ² = {PHI**2:.3f}")
     ax.axhline(2.0, color="gray", linestyle=":", label="classical 2.0")
     ax.set_xlabel("S11 gradient step")
     ax.set_ylabel("R/r")

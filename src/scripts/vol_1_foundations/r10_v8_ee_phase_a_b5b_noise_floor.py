@@ -10,7 +10,6 @@ If B5b shows 1/r structure too: B5's 1/r decay is engine numerical
 noise pattern, not real far-field signal. If B5b is flat or random:
 B5's 1/r is real (chair-ring's displacement-current loop near-field).
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -22,9 +21,9 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).parent))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
-
 import r10_path_alpha_v8_corrected_measurements as v8
+
+from ave.topological.vacuum_engine import VacuumEngine3D
 
 
 def main():
@@ -36,7 +35,9 @@ def main():
     _, centroid = v8.compute_a_0_at_ring_nodes(nodes, v8.A_AMP_POL, v8.HELICAL_PITCH)
 
     engine = VacuumEngine3D.from_args(
-        N=v8.N_LATTICE, pml=v8.PML, temperature=0.0,
+        N=v8.N_LATTICE,
+        pml=v8.PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -66,8 +67,7 @@ def main():
             n_avg_steps += 1
         if (time.time() - last) > 30.0:
             t_p = (i + 1) * v8.DT / v8.COMPTON_PERIOD
-            print(f"    step {i}/{N_STEPS}, t={t_p:.1f}P, elapsed {time.time()-t0:.1f}s",
-                  flush=True)
+            print(f"    step {i}/{N_STEPS}, t={t_p:.1f}P, elapsed {time.time()-t0:.1f}s", flush=True)
             last = time.time()
     elapsed = time.time() - t0
     print(f"  Recording done at {elapsed:.1f}s", flush=True)
@@ -77,8 +77,7 @@ def main():
     omega_DC = omega_sum / n_avg_steps
 
     # E vector reconstruction (same Moore-Penrose as B5)
-    PORT_DIRS = np.array([[1, 1, 1], [1, -1, -1], [-1, 1, -1], [-1, -1, 1]],
-                          dtype=np.float64) / np.sqrt(3.0)
+    PORT_DIRS = np.array([[1, 1, 1], [1, -1, -1], [-1, 1, -1], [-1, -1, 1]], dtype=np.float64) / np.sqrt(3.0)
     bond_length = np.sqrt(3.0)
     V_total_DC = V_inc_DC + V_ref_DC
 
@@ -86,7 +85,7 @@ def main():
     for p in range(4):
         for axis in range(3):
             E_DC[..., axis] += PORT_DIRS[p, axis] * V_total_DC[..., p] / bond_length
-    E_DC *= (3.0 / 4.0)
+    E_DC *= 3.0 / 4.0
     B_DC = omega_DC.copy()
 
     PML = v8.PML
@@ -97,7 +96,9 @@ def main():
 
     cx, cy, cz = centroid
     ix, iy, iz = np.indices((nx, nx, nx))
-    dx = ix - cx; dy = iy - cy; dz = iz - cz
+    dx = ix - cx
+    dy = iy - cy
+    dz = iz - cz
     r = np.sqrt(dx**2 + dy**2 + dz**2)
 
     E_mag = np.linalg.norm(E_DC, axis=-1)
@@ -134,8 +135,10 @@ def main():
     for i, rc in enumerate(r_centers):
         ratio_E = b5_E[i] / max(E_floor[i], 1e-30)
         ratio_B = b5_B[i] / max(B_floor[i], 1e-30)
-        print(f"    {rc:.1f}   {b5_E[i]:.3e}   {E_floor[i]:.3e}   {ratio_E:6.1f}   "
-              f"{b5_B[i]:.3e}   {B_floor[i]:.3e}   {ratio_B:6.1f}")
+        print(
+            f"    {rc:.1f}   {b5_E[i]:.3e}   {E_floor[i]:.3e}   {ratio_E:6.1f}   "
+            f"{b5_B[i]:.3e}   {B_floor[i]:.3e}   {ratio_B:6.1f}"
+        )
 
     # Power-law fit on noise floor
     valid_E = [m > 1e-30 for m in E_floor]
@@ -165,14 +168,19 @@ def main():
         ratio_E_inner = b5_E[0] / E_floor[0]
         ratio_B_inner = b5_B[0] / B_floor[0]
         if ratio_E_inner > 5 and ratio_B_inner > 5:
-            verdict = ("REAL SIGNAL: B5 fields are >5× above noise floor. "
-                       "1/r structure is real loop-near-field signature, not engine noise.")
+            verdict = (
+                "REAL SIGNAL: B5 fields are >5× above noise floor. "
+                "1/r structure is real loop-near-field signature, not engine noise."
+            )
         elif ratio_E_inner > 2 or ratio_B_inner > 2:
-            verdict = ("MARGINAL SIGNAL: B5 fields are 2-5× above noise. Real signal "
-                       "above floor but precision limited.")
+            verdict = (
+                "MARGINAL SIGNAL: B5 fields are 2-5× above noise. Real signal " "above floor but precision limited."
+            )
         else:
-            verdict = ("AT NOISE FLOOR: B5 fields not significantly above engine "
-                       "numerical noise; 1/r structure may be noise pattern.")
+            verdict = (
+                "AT NOISE FLOOR: B5 fields not significantly above engine "
+                "numerical noise; 1/r structure may be noise pattern."
+            )
     else:
         verdict = "Indeterminate (zero values prevent ratio calculation)"
     print(f"  Verdict: {verdict}")
@@ -185,8 +193,8 @@ def main():
         "B_floor_per_shell": B_floor,
         "B5_main_E_per_shell": b5_E,
         "B5_main_B_per_shell": b5_B,
-        "E_signal_to_noise_per_shell": [b5_E[i]/max(E_floor[i],1e-30) for i in range(len(r_centers))],
-        "B_signal_to_noise_per_shell": [b5_B[i]/max(B_floor[i],1e-30) for i in range(len(r_centers))],
+        "E_signal_to_noise_per_shell": [b5_E[i] / max(E_floor[i], 1e-30) for i in range(len(r_centers))],
+        "B_signal_to_noise_per_shell": [b5_B[i] / max(B_floor[i], 1e-30) for i in range(len(r_centers))],
         "noise_floor_E_slope": float(slope_E) if slope_E is not None else None,
         "noise_floor_B_slope": float(slope_B) if slope_B is not None else None,
         "B5_main_E_slope": -1.10,

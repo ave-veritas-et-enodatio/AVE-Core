@@ -1,10 +1,18 @@
-[↑ Ch.3 Quantum Signal Dynamics](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol4/circuit-theory + vol3/cosmology as canonical thermal noise + T_V-rupt = 3.44 MK -->
+[↑ Ch.3 Quantum and Signal Dynamics](index.md)
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-viawy9, clm-f4urxy, clm-qimsgq, clm-rebdw1]
+path-stable: "referenced from vol4/circuit-theory + vol3/cosmology as canonical thermal noise + T_V-rupt = 3.44 MK"
+-->
 
 # Thermal Lattice Noise + AVE-Native Vacuum Rupture Temperature $T_{V\text{-rupt}}$
 
 The classical-equipartition derivation of thermal lattice noise on the K4 substrate yields **vacuum-substrate temperature thresholds** distinct from particle-plasma temperatures. The AVE-native vacuum rupture temperature $T_{V\text{-rupt}} \approx 3.44 \times 10^6$ K is the AVE-native analog of the Schwinger limit but stated as a **vacuum-substrate TEMPERATURE** rather than field strength — falsifiable: if any laboratory process succeeds in heating the vacuum itself (not just plasma) above 3.44 MK without spontaneous pair generation, AVE is falsified.
+
+Here "substrate" / "lattice" refers to the Chiral LC Network of Axiom 1, corresponding to a chiral Laves K4 Cosserat crystal at the substrate level.
+
+> ↗ See also: [Vacuum Nyquist Baseline](../../../vol3/condensed-matter/ch11-thermodynamics/vacuum-nyquist-baseline.md) — adjacent-but-distinct vacuum thermal-noise baseline in the Vol 3 condensed-matter context; this leaf's K4-substrate equipartition derivation is the Vol 1 dynamics-side companion.
 
 ## Key Results
 
@@ -45,6 +53,8 @@ In solar plasma, the particles are hot but they don't thermalize the vacuum subs
 
 ## §3 — Vacuum rupture temperature derivation
 
+<!-- claim-quality: clm-f4urxy -->
+
 The condition $\sigma_V = V_{\text{SNAP}}$ (vacuum thermally saturates one port's rupture) gives the upper bound for thermal $V$ equilibrium to coexist with stable vacuum:
 
 $$\frac{k_B T_{V\text{-rupt}}}{m_e c^2} = \frac{\alpha}{4\pi} \approx 5.805 \times 10^{-4}$$
@@ -60,6 +70,8 @@ $$\boxed{\, T_{V\text{-rupt}} \approx 3.44 \times 10^6 \text{ K} \,}$$
 **AVE-NATIVE PREDICTION** analogous to the Schwinger limit, but stated as a **vacuum-substrate TEMPERATURE** rather than field STRENGTH. **Falsifiable**: if any laboratory process succeeds in heating the VACUUM itself (not just plasma) above 3.44 MK without spontaneous pair generation, AVE is falsified.
 
 ## §4 — Cosserat rotational noise (the key one)
+
+<!-- claim-quality: clm-qimsgq -->
 
 The rotational Lagrangian has:
 - Kinetic: $\tfrac{1}{2} I_\omega |\dot\omega|^2$
@@ -91,6 +103,8 @@ $$\sigma_\omega \approx 0.17 \cdot \sqrt{k_B T} \text{ (natural units, for } G_c
 
 ## §5 — Cosserat translational noise (lattice-Nyquist cutoff)
 
+<!-- claim-quality: clm-rebdw1 -->
+
 The $u$ field is massless; its noise requires UV cutoff at $k_{\max} = \pi / \ell_{\text{node}}$:
 
 $$\langle u^2 \rangle_T = \frac{k_B T}{G} \cdot \frac{k_{\max}}{2\pi^2} = \frac{k_B T}{2\pi G \ell_{\text{node}}}$$
@@ -102,6 +116,8 @@ $$\sigma_u^2 = \langle u^2 \rangle_T = \frac{k_B T}{2\pi}, \quad \sigma_{\dot u}
 Both fields have the same characteristic scale $\sqrt{k_B T / (2\pi)}$ in natural units.
 
 ## §6 — K4 photon field $\langle V^2 \rangle_T$
+
+<!-- claim-quality: clm-viawy9 -->
 
 Each bond's capacitance $C_{\text{cell}} = \varepsilon_0 \ell_{\text{node}}$ gives classical Johnson-Nyquist noise:
 
@@ -133,19 +149,19 @@ def initialize_thermal(self, T: float):
     equipartition at T (in m_e c^2 units)."""
     if T <= 0:
         return  # cold vacuum is deterministic
-    
+
     # K4 photon (V_inc per port)
     sigma_V = np.sqrt(T * 4 * np.pi / ALPHA) * V_SNAP
     self.k4.V_inc = rng.standard_normal(...) * sigma_V * mask_active
-    
+
     # Cosserat rotation omega (massive, mass-gap m^2 = 4)
     mode_factor = np.pi - 2 * np.arctan(np.pi / 2)  # ~1.14
     sigma_omega = np.sqrt(T * mode_factor / (4 * np.pi**2 * self.cos.I_omega))
     self.cos.omega = rng.standard_normal(...) * sigma_omega * mask_alive
-    
+
     # Cosserat velocities (equipartition)
     self.cos.omega_dot = rng.standard_normal(...) * np.sqrt(T / self.cos.I_omega) * mask_alive
-    
+
     # Cosserat translation u (massless, Nyquist cutoff)
     sigma_u = np.sqrt(T / (2 * np.pi * self.cos.rho))
     self.cos.u = rng.standard_normal(...) * sigma_u * mask_alive
@@ -161,6 +177,7 @@ For Phase III-B "cold EM vacuum + warm matter-precursor" runs, `thermalize_V=Fal
   - `src/ave/core/constants.py:222` — $Z_0$, $V_{\text{SNAP}}$, $V_{\text{YIELD}}$
 - **KB cross-cutting:**
   - [Cosserat Mass-Gap](../../axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md) — $m^2 = 4 G_c / I_\omega$ used in $\sigma_\omega$ derivation
+  - [Vacuum Nyquist Baseline](../../../vol3/condensed-matter/ch11-thermodynamics/vacuum-nyquist-baseline.md) — adjacent vacuum thermal-noise baseline (Vol 3 condensed-matter)
   - [Universal Saturation-Kernel Catalog (A-034)](../../../common/universal-saturation-kernel-catalog.md) — $T_{V\text{-rupt}}$ as atomic-EM-scale row's temperature-side analog
   - [Lattice Impedance Decomposition](../../operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md) — $V_{\text{SNAP}}$ vs $V_{\text{YIELD}}$ normalization
   - [Pair Production Axiom Derivation](../../../vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md) — pair-creation engagement at $V \geq V_{\text{SNAP}}$

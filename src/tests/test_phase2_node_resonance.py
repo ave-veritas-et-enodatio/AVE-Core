@@ -26,7 +26,6 @@ Phase 2 convention (inherited from test_axiom_4_vacuum_varactor.py):
   - Each test method asserts against a numerically-derivable target
   - Docstrings cite axiom + manuscript file:line + engine file:line
 """
-from __future__ import annotations
 
 import numpy as np
 import pytest
@@ -47,9 +46,7 @@ class TestPhase2EmptyVacuum:
     @pytest.fixture
     def engine(self):
         # Small cold-vacuum engine; no drive, no thermal noise
-        return VacuumEngine3D.from_args(
-            N=8, pml=0, temperature=0.0, amplitude_convention="V_SNAP"
-        )
+        return VacuumEngine3D.from_args(N=8, pml=0, temperature=0.0, amplitude_convention="V_SNAP")
 
     def test_omega_ratio_max_is_unity_at_zero_strain(self, engine):
         """V=0, ε=0, κ=0 → A²_yield=0 → Ω_node/ω_0 = 1 (Vol 4 Ch 1:132)."""
@@ -84,12 +81,9 @@ class TestPhase2FunctionalForm:
 
     @pytest.fixture
     def engine(self):
-        return VacuumEngine3D.from_args(
-            N=8, pml=0, temperature=0.0, amplitude_convention="V_SNAP"
-        )
+        return VacuumEngine3D.from_args(N=8, pml=0, temperature=0.0, amplitude_convention="V_SNAP")
 
-    def _poke_single_site_to_a_yield(self, engine, A2_yield_target: float,
-                                      site=(4, 4, 4)) -> None:
+    def _poke_single_site_to_a_yield(self, engine, A2_yield_target: float, site=(4, 4, 4)) -> None:
         """Set V_inc at one active site so that A² = target.
 
         Under Vol 4 Ch 1:711 subatomic override (R4), the engine's
@@ -102,15 +96,21 @@ class TestPhase2FunctionalForm:
         engine.k4.V_inc[:] = 0.0
         engine.k4.V_inc[site[0], site[1], site[2], 0] = V
 
-    @pytest.mark.parametrize("A2_yield_target,expected_omega_ratio", [
-        (0.0, 1.0),                       # bare vacuum
-        (0.25, (0.75) ** 0.25),           # quarter yield
-        (0.5, (0.5) ** 0.25),             # half yield
-        (0.75, (0.25) ** 0.25),           # three-quarter yield
-        (0.9, (0.1) ** 0.25),             # near yield
-    ])
+    @pytest.mark.parametrize(
+        "A2_yield_target,expected_omega_ratio",
+        [
+            (0.0, 1.0),  # bare vacuum
+            (0.25, (0.75) ** 0.25),  # quarter yield
+            (0.5, (0.5) ** 0.25),  # half yield
+            (0.75, (0.25) ** 0.25),  # three-quarter yield
+            (0.9, (0.1) ** 0.25),  # near yield
+        ],
+    )
     def test_omega_ratio_matches_quartic_root(
-        self, engine, A2_yield_target, expected_omega_ratio,
+        self,
+        engine,
+        A2_yield_target,
+        expected_omega_ratio,
     ):
         """Ω_node/ω_0 = (1 - A²_yield)^(1/4) for A²_yield ∈ [0, 0.9]."""
         # Check the site is active before poking (ensures _v_squared picks it up)
@@ -128,16 +128,12 @@ class TestPhase2FunctionalForm:
 
         # The poked site should have omega_ratio = expected_omega_ratio;
         # it's the MIN across the lattice (all other sites are at ratio=1.0)
-        assert cap["omega_ratio_min"] == pytest.approx(
-            expected_omega_ratio, rel=5e-5
-        ), (
+        assert cap["omega_ratio_min"] == pytest.approx(expected_omega_ratio, rel=5e-5), (
             f"A²_yield={A2_yield_target}: expected ratio="
             f"{expected_omega_ratio:.6f}, got {cap['omega_ratio_min']:.6f}"
         )
         # And A²_yield_max should equal the target
-        assert cap["A2_yield_max"] == pytest.approx(
-            A2_yield_target, rel=5e-5
-        )
+        assert cap["A2_yield_max"] == pytest.approx(A2_yield_target, rel=5e-5)
 
     def test_saturation_at_yield(self, engine):
         """At A²_yield = 1 (i.e., V = V_yield), omega_ratio should be
@@ -165,9 +161,7 @@ class TestPhase2ObserverIntegration:
 
     def test_observer_registers_without_error(self):
         """add_observer accepts NodeResonanceObserver and runs on step."""
-        engine = VacuumEngine3D.from_args(
-            N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP"
-        )
+        engine = VacuumEngine3D.from_args(N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP")
         obs = NodeResonanceObserver(cadence=1)
         engine.add_observer(obs)
         # Small run; no sources, so ω_ratio stays at 1 everywhere
@@ -178,9 +172,7 @@ class TestPhase2ObserverIntegration:
 
     def test_cadence_parameter_honored(self):
         """Observer with cadence=2 records every other step."""
-        engine = VacuumEngine3D.from_args(
-            N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP"
-        )
+        engine = VacuumEngine3D.from_args(N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP")
         obs = NodeResonanceObserver(cadence=2)
         engine.add_observer(obs)
         engine.run(n_steps=4)
@@ -200,9 +192,7 @@ class TestPhase2PythagoreanCombination:
 
     def test_k4_and_cosserat_add_in_quadrature(self):
         """Equal K4 and Cosserat strain → A²_yield_total = sum."""
-        engine = VacuumEngine3D.from_args(
-            N=8, pml=0, temperature=0.0, amplitude_convention="V_SNAP"
-        )
+        engine = VacuumEngine3D.from_args(N=8, pml=0, temperature=0.0, amplitude_convention="V_SNAP")
         # Find an active A-site
         active_idx = np.argwhere(engine.k4.mask_active)
         assert len(active_idx) > 0
@@ -223,9 +213,7 @@ class TestPhase2PythagoreanCombination:
 
     def test_zero_k4_zero_cosserat_gives_zero_total(self):
         """Bare vacuum: both sectors contribute zero."""
-        engine = VacuumEngine3D.from_args(
-            N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP"
-        )
+        engine = VacuumEngine3D.from_args(N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP")
         obs = NodeResonanceObserver(cadence=1)
         cap = obs._capture(engine)
         assert cap["A2_yield_max"] == pytest.approx(0.0, abs=1e-12)

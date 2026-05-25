@@ -27,11 +27,9 @@ References:
   - K4 port directions per photon_propagation.py:99-105
   - FCC packing per ave.core.constants:N_PHI_PACK
 """
-from __future__ import annotations
 
 import numpy as np
 import pytest
-
 
 # =============================================================================
 # Layer 0 inputs — primitives derivable from K4 geometry alone
@@ -39,18 +37,22 @@ import pytest
 
 # K4 port unit vectors (normalized) — derivable from tetrahedral symmetry
 # (the four (±1, ±1, ±1) vectors with even number of minus signs)
-PORT_DIRECTIONS = np.array([
-    [+1, +1, +1],   # port 0
-    [+1, -1, -1],   # port 1
-    [-1, +1, -1],   # port 2
-    [-1, -1, +1],   # port 3
-], dtype=float)
+PORT_DIRECTIONS = np.array(
+    [
+        [+1, +1, +1],  # port 0
+        [+1, -1, -1],  # port 1
+        [-1, +1, -1],  # port 2
+        [-1, -1, +1],  # port 3
+    ],
+    dtype=float,
+)
 PORT_HAT = PORT_DIRECTIONS / np.sqrt(3.0)
 
 
 # =============================================================================
 # L0.1 — Tetrahedral angle emergence
 # =============================================================================
+
 
 class TestL0_TetrahedralAngle:
     """L0.1: tetrahedral angle θ_tet = arccos(-1/3) emerges from K4 port directions.
@@ -64,9 +66,7 @@ class TestL0_TetrahedralAngle:
         for i in range(4):
             for j in range(i + 1, 4):
                 cos_ij = np.dot(PORT_HAT[i], PORT_HAT[j])
-                assert abs(cos_ij - (-1.0 / 3.0)) < 1e-15, (
-                    f"Port {i}-{j}: cos = {cos_ij}, expected -1/3"
-                )
+                assert abs(cos_ij - (-1.0 / 3.0)) < 1e-15, f"Port {i}-{j}: cos = {cos_ij}, expected -1/3"
 
     def test_tetrahedral_angle_value(self):
         """θ_tet = arccos(-1/3) ≈ 109.4712°."""
@@ -79,6 +79,7 @@ class TestL0_TetrahedralAngle:
 # =============================================================================
 # L0.2 — FCC packing fraction emergence
 # =============================================================================
+
 
 class TestL0_FCCPackingFraction:
     """L0.2: FCC packing fraction φ = π√2/6 emerges from FCC geometry.
@@ -111,7 +112,7 @@ class TestL0_FCCPackingFraction:
         r = a * np.sqrt(2.0) / 4.0
         n_atoms = 4
         sphere_vol_total = n_atoms * (4.0 / 3.0) * np.pi * r**3
-        cell_vol = a ** 3
+        cell_vol = a**3
         phi = sphere_vol_total / cell_vol
         # Closed form: π√2/6
         expected = np.pi * np.sqrt(2.0) / 6.0
@@ -127,6 +128,7 @@ class TestL0_FCCPackingFraction:
         geometry alone.
         """
         from ave.core.constants import N_PHI_PACK
+
         expected = np.pi * np.sqrt(2.0) / 6.0
         assert abs(N_PHI_PACK - expected) < 1e-15
 
@@ -134,6 +136,7 @@ class TestL0_FCCPackingFraction:
 # =============================================================================
 # L0.3 — K4 connectivity emergence
 # =============================================================================
+
 
 class TestL0_K4Connectivity:
     """L0.3: K4 lattice has exactly 4 ports per node (tetrahedral coordination)."""
@@ -147,8 +150,7 @@ class TestL0_K4Connectivity:
         # Sum of unit vectors = 0 for regular tetrahedron
         sum_vectors = PORT_HAT.sum(axis=0)
         assert np.allclose(sum_vectors, 0.0, atol=1e-15), (
-            f"Port vectors should sum to zero (tetrahedral symmetry); "
-            f"got {sum_vectors}"
+            f"Port vectors should sum to zero (tetrahedral symmetry); " f"got {sum_vectors}"
         )
 
     def test_engine_lattice_4_ports(self):
@@ -157,6 +159,7 @@ class TestL0_K4Connectivity:
         Verify by examining V_inc shape: should be (nx, ny, nz, 4).
         """
         from ave.core.k4_tlm import K4Lattice3D
+
         lattice = K4Lattice3D(8, 8, 8, dx=1.0, nonlinear=False)
         assert lattice.V_inc.shape[-1] == 4
         assert lattice.V_ref.shape[-1] == 4
@@ -165,6 +168,7 @@ class TestL0_K4Connectivity:
 # =============================================================================
 # L0.4 — Bipartite sublattice emergence
 # =============================================================================
+
 
 class TestL0_BipartiteSublattice:
     """L0.4: K4-TLM bipartite sublattice — A and B nodes alternate parity.
@@ -178,12 +182,13 @@ class TestL0_BipartiteSublattice:
     def test_active_site_fraction_one_quarter(self):
         """In bipartite K4-TLM, active sites = 1/4 of total cells."""
         from ave.topological.cosserat_field_3d import CosseratField3D
+
         N = 16  # large enough for parity statistics
         cos = CosseratField3D(nx=N, ny=N, nz=N, dx=1.0)
         active_fraction = cos.mask_alive.sum() / cos.mask_alive.size
         # Expected: (N/2)³·2 / N³ = 2/8 = 1/4 in continuum limit
         # For finite N, exact count: even-parity-cube + odd-parity-cube = 2·(N/2)³
-        expected = 2 * (N // 2) ** 3 / N ** 3
+        expected = 2 * (N // 2) ** 3 / N**3
         assert abs(active_fraction - expected) < 1e-15
         # Numerical: 1/4 = 0.25 for even N
         assert abs(active_fraction - 0.25) < 1e-15
@@ -191,6 +196,7 @@ class TestL0_BipartiteSublattice:
     def test_mask_A_and_B_disjoint_and_complete(self):
         """K4 active mask = A ∪ B, A ∩ B = ∅."""
         from ave.topological.cosserat_field_3d import CosseratField3D
+
         cos = CosseratField3D(nx=8, ny=8, nz=8, dx=1.0)
         # Disjoint
         assert not (cos.mask_A & cos.mask_B).any()
@@ -201,6 +207,7 @@ class TestL0_BipartiteSublattice:
 # =============================================================================
 # Layer 0 emergence summary (smoke test)
 # =============================================================================
+
 
 class TestL0_EmergenceSummary:
     """Aggregate Layer 0 emergence verdict — all geometric primitives match."""

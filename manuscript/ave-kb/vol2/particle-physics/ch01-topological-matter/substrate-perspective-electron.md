@@ -1,6 +1,10 @@
 [↑ Ch.1 Topological Matter](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from L3 closure synthesis + photon-identification + photon-propagation-baseline as canonical substrate-perspective view -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-jupq56]
+path-stable: "referenced from L3 closure synthesis + photon-identification + photon-propagation-baseline as canonical substrate-perspective view"
+-->
 
 # What the Substrate "Sees" of the Canonical Electron
 

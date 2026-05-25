@@ -31,19 +31,20 @@ what each plotted quantity IS:
 Plus annotated legend explaining what each layer represents in different
 observation-frame projections (EE / ME / GR / QFT / substrate-native).
 """
+
 import sys
 import time
 from pathlib import Path
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.gridspec import GridSpec
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from ave.core.master_equation_fdtd import MasterEquationFDTD
-
+from ave_path_util import sim_output
 
 print("=" * 78)
 print("R10 v14 Field Primer — what the simulation shows")
@@ -65,18 +66,23 @@ ZOOM_HALF = 7
 ZOOM_LO = N // 2 - ZOOM_HALF
 ZOOM_HI = N // 2 + ZOOM_HALF
 
-OUT = REPO_ROOT / "assets" / "sim_outputs"
-
 
 # Run to high-phase timestep
 print(f"Running engine to high-phase moment (~step {N_STEPS_TO_HIGH_PHASE})...")
 engine = MasterEquationFDTD(
-    N=N, dx=DX, V_yield=V_YIELD, c0=1.0,
-    pml_thickness=PML, A_cap=0.99, S_min=0.05,
+    N=N,
+    dx=DX,
+    V_yield=V_YIELD,
+    c0=1.0,
+    pml_thickness=PML,
+    A_cap=0.99,
+    S_min=0.05,
 )
 engine.inject_localized_blob(
-    center=CENTER, radius=SEED_R,
-    amplitude=SEED_AMP * V_YIELD, profile="sech",
+    center=CENTER,
+    radius=SEED_R,
+    amplitude=SEED_AMP * V_YIELD,
+    profile="sech",
 )
 for _ in range(N_STEPS_TO_HIGH_PHASE):
     engine.step()
@@ -92,8 +98,8 @@ print()
 V_slice = V_state[ZOOM_LO:ZOOM_HI, ZOOM_LO:ZOOM_HI, CENTER[2]]
 A_slice = np.abs(V_slice) / V_YIELD
 A_clipped = np.minimum(A_slice, 0.99)
-S_slice = np.sqrt(np.maximum(1.0 - A_clipped ** 2, 0.05))
-n_slice = S_slice ** 0.25
+S_slice = np.sqrt(np.maximum(1.0 - A_clipped**2, 0.05))
+n_slice = S_slice**0.25
 
 
 # =============================================================================
@@ -102,8 +108,7 @@ n_slice = S_slice ** 0.25
 print("Generating 4-panel field primer figure...")
 
 fig = plt.figure(figsize=(15, 13), facecolor="#0a0a0a")
-gs = GridSpec(3, 2, figure=fig, hspace=0.35, wspace=0.25,
-              height_ratios=[1.0, 1.0, 0.5])
+gs = GridSpec(3, 2, figure=fig, hspace=0.35, wspace=0.25, height_ratios=[1.0, 1.0, 0.5])
 
 extent = [ZOOM_LO, ZOOM_HI, ZOOM_LO, ZOOM_HI]
 center_x = CENTER[0] + 0.5
@@ -113,13 +118,9 @@ center_y = CENTER[1] + 0.5
 ax1 = fig.add_subplot(gs[0, 0])
 ax1.set_facecolor("#0f0f0f")
 vmax_V = V_peak * 0.8
-im1 = ax1.imshow(V_slice.T, origin="lower", cmap="RdBu_r",
-                  extent=extent, aspect="equal",
-                  vmin=-vmax_V, vmax=vmax_V)
-ax1.plot(center_x, center_y, "*", color="cyan", ms=18,
-         markeredgecolor="white", markeredgewidth=1.5)
-ax1.set_title("Panel 1: V (substrate potential, signed)",
-              color="white", fontsize=13, pad=10)
+im1 = ax1.imshow(V_slice.T, origin="lower", cmap="RdBu_r", extent=extent, aspect="equal", vmin=-vmax_V, vmax=vmax_V)
+ax1.plot(center_x, center_y, "*", color="cyan", ms=18, markeredgecolor="white", markeredgewidth=1.5)
+ax1.set_title("Panel 1: V (substrate potential, signed)", color="white", fontsize=13, pad=10)
 ax1.set_xlabel("x (cells)", color="white")
 ax1.set_ylabel("y (cells)", color="white")
 ax1.tick_params(colors="white")
@@ -132,17 +133,11 @@ cbar1.ax.tick_params(colors="white")
 # Panel 2: A = |V|/V_yield (substrate strain ratio)
 ax2 = fig.add_subplot(gs[0, 1])
 ax2.set_facecolor("#0f0f0f")
-im2 = ax2.imshow(A_slice.T, origin="lower", cmap="viridis",
-                  extent=extent, aspect="equal",
-                  vmin=0, vmax=1.0)
-ax2.plot(center_x, center_y, "*", color="red", ms=18,
-         markeredgecolor="white", markeredgewidth=1.5)
+im2 = ax2.imshow(A_slice.T, origin="lower", cmap="viridis", extent=extent, aspect="equal", vmin=0, vmax=1.0)
+ax2.plot(center_x, center_y, "*", color="red", ms=18, markeredgecolor="white", markeredgewidth=1.5)
 # Contour at A=0.5 (transition zone)
-ax2.contour(A_slice.T, levels=[0.5, 0.9],
-             colors=["#ffcc40", "#ff4040"], linewidths=[1.5, 2.5],
-             extent=extent)
-ax2.set_title("Panel 2: A = |V|/V_yield (substrate strain ratio)",
-              color="white", fontsize=13, pad=10)
+ax2.contour(A_slice.T, levels=[0.5, 0.9], colors=["#ffcc40", "#ff4040"], linewidths=[1.5, 2.5], extent=extent)
+ax2.set_title("Panel 2: A = |V|/V_yield (substrate strain ratio)", color="white", fontsize=13, pad=10)
 ax2.set_xlabel("x (cells)", color="white")
 ax2.set_ylabel("y (cells)", color="white")
 ax2.tick_params(colors="white")
@@ -155,13 +150,9 @@ cbar2.ax.tick_params(colors="white")
 # Panel 3: S(A) = √(1-A²) (saturation kernel)
 ax3 = fig.add_subplot(gs[1, 0])
 ax3.set_facecolor("#0f0f0f")
-im3 = ax3.imshow(S_slice.T, origin="lower", cmap="plasma",
-                  extent=extent, aspect="equal",
-                  vmin=0.05, vmax=1.0)
-ax3.plot(center_x, center_y, "*", color="cyan", ms=18,
-         markeredgecolor="white", markeredgewidth=1.5)
-ax3.set_title("Panel 3: S(A) = √(1−A²)  (Axiom 4 saturation kernel)",
-              color="white", fontsize=13, pad=10)
+im3 = ax3.imshow(S_slice.T, origin="lower", cmap="plasma", extent=extent, aspect="equal", vmin=0.05, vmax=1.0)
+ax3.plot(center_x, center_y, "*", color="cyan", ms=18, markeredgecolor="white", markeredgewidth=1.5)
+ax3.set_title("Panel 3: S(A) = √(1−A²)  (Axiom 4 saturation kernel)", color="white", fontsize=13, pad=10)
 ax3.set_xlabel("x (cells)", color="white")
 ax3.set_ylabel("y (cells)", color="white")
 ax3.tick_params(colors="white")
@@ -174,13 +165,9 @@ cbar3.ax.tick_params(colors="white")
 # Panel 4: n(r) = S^(1/4) (substrate refractive index)
 ax4 = fig.add_subplot(gs[1, 1])
 ax4.set_facecolor("#0f0f0f")
-im4 = ax4.imshow(n_slice.T, origin="lower", cmap="magma",
-                  extent=extent, aspect="equal",
-                  vmin=0.5, vmax=1.0)
-ax4.plot(center_x, center_y, "*", color="cyan", ms=18,
-         markeredgecolor="white", markeredgewidth=1.5)
-ax4.set_title("Panel 4: n(r) = S(A)^(1/4)  (substrate refractive index)",
-              color="white", fontsize=13, pad=10)
+im4 = ax4.imshow(n_slice.T, origin="lower", cmap="magma", extent=extent, aspect="equal", vmin=0.5, vmax=1.0)
+ax4.plot(center_x, center_y, "*", color="cyan", ms=18, markeredgecolor="white", markeredgewidth=1.5)
+ax4.set_title("Panel 4: n(r) = S(A)^(1/4)  (substrate refractive index)", color="white", fontsize=13, pad=10)
 ax4.set_xlabel("x (cells)", color="white")
 ax4.set_ylabel("y (cells)", color="white")
 ax4.tick_params(colors="white")
@@ -221,19 +208,26 @@ explanation = (
     "\n"
     "This is the first time an AVE engine has autonomously hosted this bound state (per doc 113 Mode I PASS)."
 )
-ax5.text(0.01, 0.99, explanation, transform=ax5.transAxes,
-         fontsize=10, family="monospace", verticalalignment="top",
-         color="white",
-         bbox=dict(boxstyle="round,pad=0.5", facecolor="#181818",
-                    edgecolor="#444", alpha=0.95))
-
-fig.suptitle(
-    "Field primer: what the v14 visualization actually shows "
-    "(same instant, four physical lenses)",
-    color="white", fontsize=14, y=0.985
+ax5.text(
+    0.01,
+    0.99,
+    explanation,
+    transform=ax5.transAxes,
+    fontsize=10,
+    family="monospace",
+    verticalalignment="top",
+    color="white",
+    bbox=dict(boxstyle="round,pad=0.5", facecolor="#181818", edgecolor="#444", alpha=0.95),
 )
 
-primer_path = OUT / "v14_field_primer.png"
+fig.suptitle(
+    "Field primer: what the v14 visualization actually shows " "(same instant, four physical lenses)",
+    color="white",
+    fontsize=14,
+    y=0.985,
+)
+
+primer_path = sim_output("v14_field_primer.png")
 plt.savefig(primer_path, dpi=160, facecolor="#0a0a0a", bbox_inches="tight")
 print(f"  {primer_path}")
 plt.close(fig)

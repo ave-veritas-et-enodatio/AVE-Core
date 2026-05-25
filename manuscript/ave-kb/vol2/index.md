@@ -1,5 +1,14 @@
 [↑ AVE Knowledge Base](../entry-point.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-3i66gp, clm-4vwsjc, clm-5zuo7g, clm-67jn9o, clm-6kwzot, clm-7o8clt, clm-8c3yhs, clm-8niffj, clm-8zpicx, clm-ak97cb, clm-bh9p6s, clm-bqtasn, clm-c8q0z5, clm-cmic3e, clm-d5jhku, clm-d9ivj1, clm-dboxok, clm-e1pdfd, clm-ezai5b, clm-g6e3zw, clm-gfdplp, clm-gfs4j8, clm-ghs75o, clm-h9aqmt, clm-hb2xmj, clm-jkpfd4, clm-jupq56, clm-jwyy6l, clm-k6olj8, clm-ka5zdx, clm-knveh6, clm-lj4ok5, clm-mnb3lt, clm-mroghg, clm-nhlo1e, clm-o3q9ul, clm-oltvwy, clm-ou2jym, clm-oygz1i, clm-p7rfkb, clm-pf84ng, clm-q5izb7, clm-q8un7j, clm-qde5gn, clm-rji99i, clm-salw2h, clm-stgx1i, clm-uatcql, clm-v2sg8z, clm-w6kk5y, clm-xhdai6, clm-z73h6n]
+subtree-experiments: []
+bootstrap: true
+-->
+
+> ⛔ **Bootstrap.** Leaves are canonical; this index and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this volume, load [`./claim-quality.md`](./claim-quality.md) and [`../claim-quality.md`](../claim-quality.md). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
+
 # Vol 2 — The Subatomic Scale
 
 Volume 2 derives the properties of subatomic particles — fermion generations, baryon masses, neutrino oscillation parameters, quantum spin, and electroweak gauge structure — as topological standing-wave defects of the $\mathcal{M}_A$ LC condensate. Every mass, mixing angle, and coupling constant is computed from the framework's three calibration inputs ($m_e$, $\alpha$, $G$) plus the Poisson ratio $\nu_{vac} = 2/7$ and the packing fraction $p_c = 8\pi\alpha$, with zero Standard Model parameters.

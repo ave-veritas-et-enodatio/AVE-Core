@@ -20,11 +20,8 @@ Method:
   Step F: z_0 = 51.25 geometric derivation (count neighbors within 1.187·ℓ_node)
 """
 
-from __future__ import annotations
-
-import sympy as sp
 import numpy as np
-
+import sympy as sp
 
 # ============================================================
 # Canonical constants (corpus-anchored, no derivation here)
@@ -33,20 +30,20 @@ import numpy as np
 # C1 Phase 5 empirically-anchored rigid/compliant partition
 # Source: closure-roadmap.md:113-117 + ave-merger-ringdown-eigenvalue.md:37
 NU_VAC = sp.Rational(2, 7)  # rigid fraction (K4 lattice skeleton)
-RIGID_FRAC = NU_VAC          # 2/7
+RIGID_FRAC = NU_VAC  # 2/7
 COMPLIANT_FRAC = 1 - NU_VAC  # 5/7
 
 # K=2G operating point: discrete bond constants at K4 primitive cell
 # Source: q-g47-substrate-scale-cosserat-closure.md:38; Path B+ 128:65-72
 # At K=2G: k_a = 2·k_s (from λ_K = 2·λ_G discrete identity)
-K_S = sp.Rational(1, 7)   # transverse shear (Keating bond-bending)
-K_A = 2 * K_S             # longitudinal stretch (K=2G forces k_a = 2·k_s)
-K_BETA = sp.Integer(1)    # microrotational axial (Cosserat α-equivalent)
+K_S = sp.Rational(1, 7)  # transverse shear (Keating bond-bending)
+K_A = 2 * K_S  # longitudinal stretch (K=2G forces k_a = 2·k_s)
+K_BETA = sp.Integer(1)  # microrotational axial (Cosserat α-equivalent)
 K_GAMMA = sp.Rational(1, 7)  # microrotational transverse
 
 # Canonical 12-DOF eigenvalues at K=2G (from Path B+ closed-form)
-LAMBDA_K = sp.Rational(4, 3) * K_A          # bulk: (4/3)·k_a
-LAMBDA_G = sp.Rational(4, 3) * K_S          # shear: (4/3)·k_s
+LAMBDA_K = sp.Rational(4, 3) * K_A  # bulk: (4/3)·k_a
+LAMBDA_G = sp.Rational(4, 3) * K_S  # shear: (4/3)·k_s
 LAMBDA_PHI = sp.Rational(4, 3) * (K_BETA + 2 * K_GAMMA)  # Cosserat
 
 # Canonical Cosserat characteristic length (Session 17 self-consistency)
@@ -65,9 +62,9 @@ CHI_K = sp.Integer(6)  # = (ℓ_c/ℓ_node)²
 # where ε is the symmetric strain tensor and φ is the microrotation pseudovector.
 # Symbolic (μ, κ, β, γ) are continuous Cosserat moduli; we'll solve for these
 # in terms of ξ_K1, ξ_K2 below.
-mu, kappa, beta, gamma = sp.symbols('mu kappa beta gamma', positive=True)
-xi_K1, xi_K2 = sp.symbols('xi_K1 xi_K2', positive=True)
-T_EM, l_node = sp.symbols('T_EM l_node', positive=True)
+mu, kappa, beta, gamma = sp.symbols("mu kappa beta gamma", positive=True)
+xi_K1, xi_K2 = sp.symbols("xi_K1 xi_K2", positive=True)
+T_EM, l_node = sp.symbols("T_EM l_node", positive=True)
 
 
 # ============================================================
@@ -86,8 +83,8 @@ T_EM, l_node = sp.symbols('T_EM l_node', positive=True)
 #   E_cell = (1/2) (μ + κ) · ε² · V_cell + (1/2) (β + γ) · (∂φ)² · V_cell
 #
 # where ε² ~ (Δu/ℓ_node)² and (∂φ)² ~ (Δφ/ℓ_node)² for nearest-neighbor pairs.
-N_K4_NODES = sp.Integer(4)           # nodes per primitive cell
-Z_TETRAHEDRAL = sp.Integer(4)         # nearest neighbors per node
+N_K4_NODES = sp.Integer(4)  # nodes per primitive cell
+Z_TETRAHEDRAL = sp.Integer(4)  # nearest neighbors per node
 N_BONDS_PER_CELL = N_K4_NODES * Z_TETRAHEDRAL / 2  # = 8
 
 
@@ -255,16 +252,21 @@ def derive_z0_geometric(r_secondary_over_d=1.187):
     a = 4.0 / np.sqrt(3.0)
 
     # 8 atoms in conventional diamond unit cell
-    cubic_atoms = np.array([
-        [0, 0, 0],
-        [0.5, 0.5, 0],
-        [0.5, 0, 0.5],
-        [0, 0.5, 0.5],
-        [0.25, 0.25, 0.25],
-        [0.75, 0.75, 0.25],
-        [0.75, 0.25, 0.75],
-        [0.25, 0.75, 0.75],
-    ]) * a
+    cubic_atoms = (
+        np.array(
+            [
+                [0, 0, 0],
+                [0.5, 0.5, 0],
+                [0.5, 0, 0.5],
+                [0, 0.5, 0.5],
+                [0.25, 0.25, 0.25],
+                [0.75, 0.75, 0.25],
+                [0.75, 0.25, 0.75],
+                [0.25, 0.75, 0.75],
+            ]
+        )
+        * a
+    )
 
     # Tile a 7x7x7 supercell to ensure r_secondary=1.187·d is captured fully
     # (need at least 2 unit cells worth in each direction)
@@ -325,8 +327,7 @@ def main():
     print(f"    λ_φ = (4/3)·(k_β + 2·k_γ) = {LAMBDA_PHI} = {float(LAMBDA_PHI):.4f}")
     print(f"  ν_vac = {NU_VAC} (C1 Phase 5 empirically anchored: -0.47% mean τ)")
     print(f"  Cosserat characteristic length: ℓ_c/ℓ_node = √{CHI_K} = √6")
-    print(f"  K4 primitive cell: {N_K4_NODES} nodes, z={Z_TETRAHEDRAL}, "
-          f"N_bonds={N_BONDS_PER_CELL}")
+    print(f"  K4 primitive cell: {N_K4_NODES} nodes, z={Z_TETRAHEDRAL}, " f"N_bonds={N_BONDS_PER_CELL}")
     print(f"  Canonical ratio: ξ_K2/ξ_K1 = 12 (Session 17 self-consistency)")
 
     print("\n— Step A-C: CORRECTED v2 derivation (Session 17 audit, 2026-05-18) —")
@@ -339,8 +340,7 @@ def main():
     print(f"    G_0 = 8·k_s = 8·{K_S} = {G_0}")
     print(f"    K_0/G_0 = {sp.simplify(K_0/G_0)} (verify K=2G ✓)")
     print(f"    μ = G_0 = {G_0}")
-    print(f"    κ_Cosserat = K - (2/3)·μ = {K_0} - (2/3)·{G_0} = "
-          f"{sp.simplify(K_0 - sp.Rational(2,3)*G_0)}")
+    print(f"    κ_Cosserat = K - (2/3)·μ = {K_0} - (2/3)·{G_0} = " f"{sp.simplify(K_0 - sp.Rational(2,3)*G_0)}")
     print(f"    (μ + κ) = G_0 + (K_0 - (2/3)·G_0) = K_0 + (1/3)·G_0")
     print(f"           = {K_0} + (1/3)·{G_0}")
     print(f"           = {xi_K1_val}  (ξ_K1 = (μ+κ)/T_EM)")

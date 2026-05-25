@@ -1,5 +1,11 @@
 [↑ Particle Physics](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-67jn9o, clm-6kwzot, clm-bh9p6s, clm-cmic3e, clm-k6olj8, clm-mnb3lt]
+subtree-experiments: []
+-->
+
 # Ch.2 — The Baryon Sector: Confinement and Fractional Quarks
 
 The baryon sector derives baryonic matter from the $6^3_2$ Borromean linkage topology of three mutually entangled electromagnetic flux loops in the $\mathcal{M}_A$ condensate. The proton-to-electron mass ratio ($\approx 1836.15$) emerges as a zero-parameter eigenvalue of the non-linear Faddeev-Skyrme energy functional, and the entire baryon resonance spectrum follows from the $(2,q)$ torus knot ladder. Fractional quark charges arise via the Witten Effect on $\mathbb{Z}_3$ symmetric $\theta$-vacua, and the Hierarchy Problem is resolved algebraically through the Hierarchy Bridge.

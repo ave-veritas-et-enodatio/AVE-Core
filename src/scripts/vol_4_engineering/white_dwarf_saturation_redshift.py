@@ -24,10 +24,10 @@ OUTPUT:
 """
 
 import math
-import os
 
 # ── Engine imports ──
 from ave.core.constants import C_0, M_SUN, G
+from ave_path_util import sim_output
 
 # ═════════════════════════════════════════
 # White Dwarf Catalog (measured parameters)
@@ -290,9 +290,7 @@ def _generate_figure(results: list) -> None:
     for spine in ax.spines.values():
         spine.set_color("#333")
 
-    out_dir = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "sim_outputs")
-    os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, "white_dwarf_saturation_redshift.png")
+    out_path = sim_output("white_dwarf_saturation_redshift.png")
     plt.savefig(out_path, dpi=200, bbox_inches="tight", facecolor="#0A0A1A")
     plt.close()
     print(f"[*] Saved figure: {out_path}")

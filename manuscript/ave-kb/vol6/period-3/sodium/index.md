@@ -1,5 +1,11 @@
 [↑ Period 3](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-8psuqe, clm-f5ucdo, clm-f8k2um, clm-h8nmpu, clm-rw7jqo, clm-sd04x4, clm-y7uvdc]
+subtree-experiments: []
+-->
+
 # Sodium (Z=11)
 
 Sodium-23 ($Z=11$, $A=23$) is a $5\alpha + ^3\text{H}$ core-plus-halo structure: a Neon-20 Triangular Bipyramid core with a Tritium halo at $R_{\text{halo}} = 50.2d$. It is mono-isotopic ($100\%$ $^{23}$Na) and chemically the exact opposite of Fluorine-19 despite sharing the same structural template ($n\alpha + ^3\text{H}$). The difference is entirely determined by $R_{\text{halo}}$: $398d$ (Fluorine) vs $50d$ (Sodium).

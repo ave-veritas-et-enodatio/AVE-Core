@@ -1,5 +1,9 @@
 [↑ Ch.5 Dark Sector](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-u86caq]
+-->
 
 ## The Radial Acceleration Relation (RAR)
 

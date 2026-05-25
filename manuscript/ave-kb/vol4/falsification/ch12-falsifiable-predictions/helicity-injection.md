@@ -1,5 +1,9 @@
 [↑ Ch.12: Falsifiable Predictions](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-i02mhk]
+-->
 
 ## Electromagnetic Coupling to the Chiral LC Condensate (Helicity Injection)
 

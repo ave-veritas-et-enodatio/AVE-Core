@@ -53,7 +53,6 @@ References:
   - doc 30 §1.1 (port-space scatter matrix)
   - research/_archive/L3_electron_soliton/107_ave_axiom_compliant_rifled_photon.md
 """
-from __future__ import annotations
 
 import numpy as np
 import pytest
@@ -75,10 +74,10 @@ from ave.core.constants import (
     e_charge,
 )
 
-
 # =============================================================================
 # Layer 1: K4Lattice3D instance alignment
 # =============================================================================
+
 
 class TestK4LatticeAlignment:
     """K4Lattice3D instance respects constants module."""
@@ -86,14 +85,13 @@ class TestK4LatticeAlignment:
     @pytest.fixture
     def k4(self):
         from ave.core.k4_tlm import K4Lattice3D
+
         return K4Lattice3D(8, 8, 8, dx=1.0, nonlinear=False)
 
     def test_cfl_timestep_cardinal_axis(self, k4):
         """K4 CFL: dt = dx / (c·√2) per substrate's cardinal-axis kinematics."""
         expected_dt = k4.dx / (k4.c * np.sqrt(2.0))
-        assert abs(k4.dt - expected_dt) < 1e-15, (
-            f"K4 dt should be dx/(c√2) = {expected_dt}, got {k4.dt}"
-        )
+        assert abs(k4.dt - expected_dt) < 1e-15, f"K4 dt should be dx/(c√2) = {expected_dt}, got {k4.dt}"
 
     def test_v_snap_default(self, k4):
         """V_SNAP defaults to constants.V_SNAP."""
@@ -118,16 +116,20 @@ class TestK4LatticeAlignment:
 # Layer 1b: K4 port geometry + scatter matrix
 # =============================================================================
 
+
 class TestK4PortGeometry:
     """Port direction unit vectors and scatter matrix per doc 30 §1.1."""
 
     # The canonical K4 port direction vectors per photon_propagation.py:99-105
-    EXPECTED_PORT_VECS = np.array([
-        [+1, +1, +1],   # port 0
-        [+1, -1, -1],   # port 1
-        [-1, +1, -1],   # port 2
-        [-1, -1, +1],   # port 3
-    ], dtype=float)
+    EXPECTED_PORT_VECS = np.array(
+        [
+            [+1, +1, +1],  # port 0
+            [+1, -1, -1],  # port 1
+            [-1, +1, -1],  # port 2
+            [-1, -1, +1],  # port 3
+        ],
+        dtype=float,
+    )
 
     def test_port_unit_vectors_normalized(self):
         """Each port direction is a unit vector along (±1,±1,±1)/√3."""
@@ -142,9 +144,7 @@ class TestK4PortGeometry:
             for j in range(i + 1, 4):
                 cos_ij = np.dot(port_hat[i], port_hat[j])
                 # Tetrahedral angle: arccos(-1/3) ≈ 109.47°
-                assert abs(cos_ij - (-1.0 / 3.0)) < 1e-12, (
-                    f"Ports {i},{j} should have cos = -1/3, got {cos_ij}"
-                )
+                assert abs(cos_ij - (-1.0 / 3.0)) < 1e-12, f"Ports {i},{j} should have cos = -1/3, got {cos_ij}"
 
     def test_scatter_matrix_form(self):
         """K4 scatter matrix S = (1/2)·𝟙 - I per doc 30 §1.1."""
@@ -158,14 +158,13 @@ class TestK4PortGeometry:
         # +1 once (A₁), -1 thrice (T₂)
         assert abs(eigvals[3] - 1.0) < 1e-12, f"A₁ eigenvalue should be +1, got {eigvals[3]}"
         for k in range(3):
-            assert abs(eigvals[k] - (-1.0)) < 1e-12, (
-                f"T₂ eigenvalue should be -1, got {eigvals[k]}"
-            )
+            assert abs(eigvals[k] - (-1.0)) < 1e-12, f"T₂ eigenvalue should be -1, got {eigvals[k]}"
 
 
 # =============================================================================
 # Layer 2: CosseratField3D instance alignment
 # =============================================================================
+
 
 class TestCosseratAlignment:
     """CosseratField3D instance respects constants."""
@@ -173,6 +172,7 @@ class TestCosseratAlignment:
     @pytest.fixture
     def cos(self):
         from ave.topological.cosserat_field_3d import CosseratField3D
+
         return CosseratField3D(nx=8, ny=8, nz=8, dx=1.0)
 
     def test_omega_yield_default(self, cos):
@@ -198,14 +198,15 @@ class TestCosseratAlignment:
 # Layer 3: VacuumEngine3D coupled instance
 # =============================================================================
 
+
 class TestVacuumEngineCoupling:
     """VacuumEngine3D K4 + Cosserat sub-engines align."""
 
     @pytest.fixture
     def engine(self):
         from ave.topological.vacuum_engine import VacuumEngine3D
-        return VacuumEngine3D.from_args(N=8, pml=2, temperature=0.0,
-                                          amplitude_convention="V_SNAP")
+
+        return VacuumEngine3D.from_args(N=8, pml=2, temperature=0.0, amplitude_convention="V_SNAP")
 
     def test_subengines_share_dx(self, engine):
         """K4 and Cosserat use same lattice spacing."""
@@ -232,6 +233,7 @@ class TestVacuumEngineCoupling:
 # =============================================================================
 # Layer 4: Substrate fundamentals (corpus-formula cross-checks)
 # =============================================================================
+
 
 class TestSubstrateFundamentals:
     """Cross-check fundamental constants against corpus formulas verbatim."""
@@ -309,6 +311,7 @@ class TestSubstrateFundamentals:
 # Layer 5: Saturation kernel (Ax 4) numerical verification
 # =============================================================================
 
+
 class TestSaturationKernel:
     """Ax 4 saturation factor S(A) = √(1 − A²) numerical correctness."""
 
@@ -351,13 +354,13 @@ class TestSaturationKernel:
         """
         try:
             from ave.axioms.scale_invariant import saturation_factor as engine_sat
+
             for A in [0.0, 0.1, 0.25, 0.5, 0.7071, 0.9, 0.99]:
                 # With yield_limit=1.0, S(A) = √(1 − A²)
                 expected = float(np.sqrt(max(1.0 - A**2, 0.0)))
                 actual = float(engine_sat(A, yield_limit=1.0))
                 assert abs(actual - expected) < 1e-10, (
-                    f"Engine saturation_factor({A}, yield_limit=1.0) = {actual}, "
-                    f"expected {expected}"
+                    f"Engine saturation_factor({A}, yield_limit=1.0) = {actual}, " f"expected {expected}"
                 )
         except ImportError:
             pytest.skip("ave.axioms.scale_invariant not importable")
@@ -366,6 +369,7 @@ class TestSaturationKernel:
 # =============================================================================
 # Layer 6: Native units self-consistency (engine's natural-unit reference frame)
 # =============================================================================
+
 
 class TestNativeUnits:
     """Native units (ℓ_NODE = M_0 = C_0 = ℏ = 1) self-consistency."""

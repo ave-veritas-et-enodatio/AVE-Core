@@ -1,5 +1,9 @@
 [↑ Computational Mass Defect](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+no-claim: code listing / methodology pointer - no standalone claim
+-->
 
 ## The Python Simulator: EE-Based Thermodynamic Integration
 

@@ -39,19 +39,18 @@ Outputs:
   - assets/lattice_layer1_dispersion_panels.png
   - results/lattice_layer1_dispersion.json
 """
-from __future__ import annotations
 
 import json
 from pathlib import Path
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 
 from ave.core.k4_tlm import K4Lattice3D
-
 
 PREREG = {
     "C-L1.1_v_cardinal_over_c_min": 1.35,
@@ -62,9 +61,9 @@ PREREG = {
 }
 
 
-def run_cardinal_dispersion(N: int = 96, n_steps: int = 240,
-                              lambda_cells: float = 10.0,
-                              amp_frac: float = 0.001) -> dict:
+def run_cardinal_dispersion(
+    N: int = 96, n_steps: int = 240, lambda_cells: float = 10.0, amp_frac: float = 0.001
+) -> dict:
     """Plane-source wave packet along +x̂; measure peak-arrival velocity.
 
     This mirrors photon_propagation.py's run_validation() approach (per
@@ -97,9 +96,15 @@ def run_cardinal_dispersion(N: int = 96, n_steps: int = 240,
     # Forward-port weights (raw, no T₂ projection — measures the substrate
     # wavefront, not the photon T₂ mode specifically)
     direction = np.array([1.0, 0.0, 0.0])
-    PORT_HAT = np.array([
-        [+1, +1, +1], [+1, -1, -1], [-1, +1, -1], [-1, -1, +1],
-    ], dtype=float) / np.sqrt(3.0)
+    PORT_HAT = np.array(
+        [
+            [+1, +1, +1],
+            [+1, -1, -1],
+            [-1, +1, -1],
+            [-1, -1, +1],
+        ],
+        dtype=float,
+    ) / np.sqrt(3.0)
     port_w = np.maximum(0.0, -PORT_HAT @ direction)
     if port_w.sum() > 0:
         port_w = port_w / port_w.sum()
@@ -113,14 +118,12 @@ def run_cardinal_dispersion(N: int = 96, n_steps: int = 240,
     times: list[float] = []
 
     j_idx, k_idx = np.indices((N, N), dtype=float)
-    yz_profile = np.exp(
-        -((j_idx - cy) ** 2 + (k_idx - cz) ** 2) / (2.0 * sigma_yz ** 2)
-    )
+    yz_profile = np.exp(-((j_idx - cy) ** 2 + (k_idx - cz) ** 2) / (2.0 * sigma_yz**2))
     active_slice = lattice.mask_active[src_x]
 
     for step in range(1, n_steps + 1):
         t = step * dt
-        env = np.exp(-((t - t_center) / t_sigma) ** 2)
+        env = np.exp(-(((t - t_center) / t_sigma) ** 2))
         osc = np.sin(omega * (t - t_center))
         A_t = amp_frac * env * osc
         if abs(A_t) > 1e-30:
@@ -182,9 +185,7 @@ def evaluate_prereg(result: dict) -> dict:
 
     # C-L1.1: cardinal velocity emergence
     eval_result["pass_C_L1_1"] = (
-        PREREG["C-L1.1_v_cardinal_over_c_min"]
-        <= result["v_cardinal_over_c"]
-        <= PREREG["C-L1.1_v_cardinal_over_c_max"]
+        PREREG["C-L1.1_v_cardinal_over_c_min"] <= result["v_cardinal_over_c"] <= PREREG["C-L1.1_v_cardinal_over_c_max"]
     )
 
     # C-L1.2 + L1.3: deferred per A47 v18 honest scope
@@ -211,31 +212,30 @@ def render_panels(result: dict, eval_result: dict, out_png: str) -> None:
     ax.axvline(result["x_b"], color="orange", lw=1, ls=":", label=f"x_b={result['x_b']}")
     ax.set_xlabel("x (cells)", color="#cccccc", fontsize=9)
     ax.set_ylabel("t (ns)", color="#cccccc", fontsize=9)
-    ax.set_title("Energy density |V|² spacetime (cardinal axis +x̂)",
-                 color="white", fontsize=10)
+    ax.set_title("Energy density |V|² spacetime (cardinal axis +x̂)", color="white", fontsize=10)
     plt.colorbar(im, ax=ax, fraction=0.04)
-    ax.legend(facecolor="#050510", edgecolor="#444",
-              labelcolor="#cccccc", fontsize=8)
+    ax.legend(facecolor="#050510", edgecolor="#444", labelcolor="#cccccc", fontsize=8)
     ax.tick_params(colors="#cccccc", labelsize=8)
 
     # Panel 1: Peak arrival at x_a and x_b
     ax = fig.add_subplot(gs[0, 1])
     ax.set_facecolor("#050510")
-    ax.plot(np.array(times) * 1e9, result["rho_hist_a"], "-",
-            color="lime", lw=1.4, label=f"|V|² at x_a={result['x_a']}")
-    ax.plot(np.array(times) * 1e9, result["rho_hist_b"], "-",
-            color="orange", lw=1.4, label=f"|V|² at x_b={result['x_b']}")
+    ax.plot(
+        np.array(times) * 1e9, result["rho_hist_a"], "-", color="lime", lw=1.4, label=f"|V|² at x_a={result['x_a']}"
+    )
+    ax.plot(
+        np.array(times) * 1e9, result["rho_hist_b"], "-", color="orange", lw=1.4, label=f"|V|² at x_b={result['x_b']}"
+    )
     ax.axvline(result["t_a_s"] * 1e9, color="lime", ls=":", lw=1)
     ax.axvline(result["t_b_s"] * 1e9, color="orange", ls=":", lw=1)
     ax.set_xlabel("t (ns)", color="#cccccc", fontsize=9)
     ax.set_ylabel("|V|² at reference plane", color="#cccccc", fontsize=9)
     ax.set_title(
-        f"Peak-arrival times: t_a={result['t_a_s']*1e9:.2f} ns, "
-        f"t_b={result['t_b_s']*1e9:.2f} ns",
-        color="white", fontsize=10,
+        f"Peak-arrival times: t_a={result['t_a_s']*1e9:.2f} ns, " f"t_b={result['t_b_s']*1e9:.2f} ns",
+        color="white",
+        fontsize=10,
     )
-    ax.legend(facecolor="#050510", edgecolor="#444",
-              labelcolor="#cccccc", fontsize=8)
+    ax.legend(facecolor="#050510", edgecolor="#444", labelcolor="#cccccc", fontsize=8)
     ax.tick_params(colors="#cccccc", labelsize=8)
     ax.grid(alpha=0.2, color="#444")
 
@@ -244,8 +244,7 @@ def render_panels(result: dict, eval_result: dict, out_png: str) -> None:
     ax.set_facecolor("#050510")
     v = result["v_cardinal_over_c"]
     bar = ax.bar(["cardinal\n(+x̂)"], [v], color="#aaff77", edgecolor="white")
-    ax.axhline(np.sqrt(2.0), color="orange", ls="--", lw=1.5,
-               label=f"√2 target = {np.sqrt(2.0):.4f}")
+    ax.axhline(np.sqrt(2.0), color="orange", ls="--", lw=1.5, label=f"√2 target = {np.sqrt(2.0):.4f}")
     ax.axhline(1.0, color="green", ls=":", lw=1, label="c (continuum target)")
     ax.text(0, v + 0.04, f"{v:.4f}", ha="center", color="white", fontsize=12)
     ax.set_ylim(0, max(v * 1.2, 1.7))
@@ -254,10 +253,10 @@ def render_panels(result: dict, eval_result: dict, out_png: str) -> None:
         f"Cardinal-axis velocity emergence\n"
         f"v/c = {v:.4f}  vs  √2 = {np.sqrt(2.0):.4f}\n"
         f"{'✓ PASS C-L1.1' if eval_result['pass_C_L1_1'] else '✗ FAIL C-L1.1'}",
-        color="white", fontsize=10,
+        color="white",
+        fontsize=10,
     )
-    ax.legend(facecolor="#050510", edgecolor="#444",
-              labelcolor="#cccccc", fontsize=9)
+    ax.legend(facecolor="#050510", edgecolor="#444", labelcolor="#cccccc", fontsize=9)
     ax.tick_params(colors="#cccccc", labelsize=8)
     ax.grid(alpha=0.2, color="#444", axis="y")
 
@@ -281,8 +280,7 @@ def render_panels(result: dict, eval_result: dict, out_png: str) -> None:
         "",
         f"C-L1.3 (anisotropy ratio):      DEFERRED until C-L1.2 lands.",
         "",
-        f"OVERALL Phase 1 scope: "
-        f"{'✓ PASS' if eval_result['all_pass_at_phase_1_scope'] else '✗ FAIL'}",
+        f"OVERALL Phase 1 scope: " f"{'✓ PASS' if eval_result['all_pass_at_phase_1_scope'] else '✗ FAIL'}",
         "",
         "Inputs: K4 4-port geometry + raw-forward port weights only.",
         "NO CODATA inputs in v/c extraction (just dimensionless ratio",
@@ -297,13 +295,14 @@ def render_panels(result: dict, eval_result: dict, out_png: str) -> None:
             color = "#ffaa44"
         else:
             color = "#cccccc"
-        ax.text(0.02, 0.95 - i * 0.045, line, transform=ax.transAxes,
-                color=color, fontsize=9, family="monospace")
+        ax.text(0.02, 0.95 - i * 0.045, line, transform=ax.transAxes, color=color, fontsize=9, family="monospace")
 
     fig.suptitle(
         "Layer 1 Emergence (Phase 1): Cardinal-Axis Wavefront Velocity\n"
         "doc 108 §3 Layer 1 — K4 substrate anisotropy from geometry alone",
-        color="white", fontsize=12, fontweight="bold",
+        color="white",
+        fontsize=12,
+        fontweight="bold",
     )
     plt.savefig(out_png, dpi=110, bbox_inches="tight", facecolor=fig.get_facecolor())
     plt.close(fig)
@@ -328,13 +327,16 @@ def main() -> None:
     eval_result = evaluate_prereg(result)
 
     print(f"\n── Pre-reg evaluation ──")
-    print(f"  C-L1.1 (cardinal v/c ∈ [1.35, 1.50]): "
-          f"{'PASS' if eval_result['pass_C_L1_1'] else 'FAIL'}  "
-          f"(got {result['v_cardinal_over_c']:.4f})")
+    print(
+        f"  C-L1.1 (cardinal v/c ∈ [1.35, 1.50]): "
+        f"{'PASS' if eval_result['pass_C_L1_1'] else 'FAIL'}  "
+        f"(got {result['v_cardinal_over_c']:.4f})"
+    )
     print(f"  C-L1.2 (diagonal):                   INFRASTRUCTURE_PENDING")
     print(f"  C-L1.3 (anisotropy):                 DEFERRED")
-    print(f"  Overall Phase 1 scope:               "
-          f"{'PASS' if eval_result['all_pass_at_phase_1_scope'] else 'FAIL'}")
+    print(
+        f"  Overall Phase 1 scope:               " f"{'PASS' if eval_result['all_pass_at_phase_1_scope'] else 'FAIL'}"
+    )
 
     out_png = assets_dir / "lattice_layer1_dispersion_panels.png"
     render_panels(result, eval_result, str(out_png))
@@ -349,7 +351,9 @@ def main() -> None:
     with open(out_json, "w") as f:
         json.dump(
             {"prereg": PREREG, "eval": eval_result, "result": result_serial},
-            f, indent=2, default=str,
+            f,
+            indent=2,
+            default=str,
         )
 
     print(f"\n  Outputs:")

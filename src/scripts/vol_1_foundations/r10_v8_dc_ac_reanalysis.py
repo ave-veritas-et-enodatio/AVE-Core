@@ -25,7 +25,6 @@ Test: re-run the recording, compute ω_DC + ω_AC = ω - ω_DC, then measure
 
 Single T=0 run; thermal sweep deferred until the T=0 result lands.
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -37,10 +36,10 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).parent))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
-from ave.core.constants import V_SNAP, B_SNAP
-
 import r10_path_alpha_v8_corrected_measurements as v8
+
+from ave.core.constants import B_SNAP, V_SNAP
+from ave.topological.vacuum_engine import VacuumEngine3D
 
 
 def detrend_with_slope(traj):
@@ -68,12 +67,12 @@ def main():
     print("=" * 78, flush=True)
 
     nodes, bonds = v8.build_chair_ring(v8.CENTER)
-    a_0_per_node, centroid = v8.compute_a_0_at_ring_nodes(
-        nodes, v8.A_AMP_POL, v8.HELICAL_PITCH
-    )
+    a_0_per_node, centroid = v8.compute_a_0_at_ring_nodes(nodes, v8.A_AMP_POL, v8.HELICAL_PITCH)
 
     engine = VacuumEngine3D.from_args(
-        N=v8.N_LATTICE, pml=v8.PML, temperature=0.0,
+        N=v8.N_LATTICE,
+        pml=v8.PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -81,8 +80,13 @@ def main():
 
     print("Applying v8 helical Beltrami IC (UNCHANGED from v8)...", flush=True)
     v8.initialize_helical_beltrami_ic(
-        engine, nodes, bonds, a_0_per_node,
-        v8.K_BELTRAMI, v8.V_AMP, v8.PHI_AMP,
+        engine,
+        nodes,
+        bonds,
+        a_0_per_node,
+        v8.K_BELTRAMI,
+        v8.V_AMP,
+        v8.PHI_AMP,
     )
 
     nx = engine.k4.nx
@@ -105,9 +109,11 @@ def main():
         ring_loc_traj[i] = s["ring_localization"]
         if (time.time() - last) > 30.0:
             t_p = (i + 1) * v8.DT / v8.COMPTON_PERIOD
-            print(f"    step {i}/{N_STEPS}, t={t_p:.1f}P, A²_mean={s['A2_mean']:.3f}, "
-                  f"loc={s['ring_localization']:.3f}, elapsed {time.time()-t0:.1f}s",
-                  flush=True)
+            print(
+                f"    step {i}/{N_STEPS}, t={t_p:.1f}P, A²_mean={s['A2_mean']:.3f}, "
+                f"loc={s['ring_localization']:.3f}, elapsed {time.time()-t0:.1f}s",
+                flush=True,
+            )
             last = time.time()
     elapsed = time.time() - t0
     print(f"  Recording done at {elapsed:.1f}s", flush=True)
@@ -117,27 +123,26 @@ def main():
     phi_oscillating, phi_slope, _ = detrend_with_slope(phi_link_traj.astype(np.float64))
 
     # ω sector: time-mean = DC, residual = AC
-    omega_DC = omega_traj.mean(axis=0)              # (6, 3)
+    omega_DC = omega_traj.mean(axis=0)  # (6, 3)
     omega_AC_traj = omega_traj - omega_DC[None, :, :]  # (N_steps, 6, 3)
 
     # |ω_DC|, |ω_AC|_RMS per ring node
-    omega_DC_mag = np.linalg.norm(omega_DC, axis=1)                       # (6,)
-    omega_AC_mag_per_step = np.linalg.norm(omega_AC_traj, axis=2)          # (N_steps, 6)
-    omega_AC_RMS = np.sqrt((omega_AC_mag_per_step ** 2).mean(axis=0))      # (6,)
-    omega_full_mag_per_step = np.linalg.norm(omega_traj, axis=2)           # (N_steps, 6)
-    omega_full_RMS = np.sqrt((omega_full_mag_per_step ** 2).mean(axis=0))  # (6,)
+    omega_DC_mag = np.linalg.norm(omega_DC, axis=1)  # (6,)
+    omega_AC_mag_per_step = np.linalg.norm(omega_AC_traj, axis=2)  # (N_steps, 6)
+    omega_AC_RMS = np.sqrt((omega_AC_mag_per_step**2).mean(axis=0))  # (6,)
+    omega_full_mag_per_step = np.linalg.norm(omega_traj, axis=2)  # (N_steps, 6)
+    omega_full_RMS = np.sqrt((omega_full_mag_per_step**2).mean(axis=0))  # (6,)
 
     # Energy fractions: |ω_DC|² / |ω_full|²_RMS  vs  |ω_AC|²_RMS / |ω_full|²_RMS
     # By construction these sum to 1 because <ω_AC · ω_DC> = ω_DC · <ω_AC> = 0
-    omega_DC_energy_frac = (omega_DC_mag ** 2) / (omega_full_RMS ** 2)
-    omega_AC_energy_frac = (omega_AC_RMS ** 2) / (omega_full_RMS ** 2)
+    omega_DC_energy_frac = (omega_DC_mag**2) / (omega_full_RMS**2)
+    omega_AC_energy_frac = (omega_AC_RMS**2) / (omega_full_RMS**2)
 
     # V_DC per port from Phi_link slope. slope is per-step; V = dPhi/dt
     V_DC_per_port = phi_slope / v8.DT  # shape (nx, ny, nz, 4) in V_SNAP units (engine convention)
-    V_DC_at_ring_per_node = np.array([
-        np.sqrt(np.sum(V_DC_per_port[node[0], node[1], node[2], :] ** 2))
-        for node in nodes
-    ])
+    V_DC_at_ring_per_node = np.array(
+        [np.sqrt(np.sum(V_DC_per_port[node[0], node[1], node[2], :] ** 2)) for node in nodes]
+    )
     # In engine convention V_inc IS in V_SNAP units. So |V_DC|/V_SNAP is the dimensionless
     # ratio measuring saturation pinning of the capacitive sector.
     V_DC_over_V_SNAP_at_ring = V_DC_at_ring_per_node  # already engine-V_SNAP-natural per amplitude_convention
@@ -151,8 +156,13 @@ def main():
         sims_full = []
         for n_idx, node in enumerate(nodes):
             a_vec = v8.measure_a_vec_from_phi_link_oscillating(
-                phi_oscillating, node[0], node[1], node[2], i,
-                v8.PORT_OFFSETS_A, v8.N_LATTICE,
+                phi_oscillating,
+                node[0],
+                node[1],
+                node[2],
+                i,
+                v8.PORT_OFFSETS_A,
+                v8.N_LATTICE,
             )
             a_norm = np.linalg.norm(a_vec)
             for omega_vec, store in (
@@ -215,8 +225,8 @@ def main():
         "loop_flux_AC_steady_RMS": loop_flux_AC_steady_RMS,
         "loop_flux_AC_steady_peak": loop_flux_AC_steady_peak,
         # Beltrami tests — load-bearing
-        "cos_sim_full_steady": cos_sim_full_steady,   # reproduces v8's 0.515
-        "cos_sim_AC_steady": cos_sim_AC_steady,        # NEW: AC-decomposed
+        "cos_sim_full_steady": cos_sim_full_steady,  # reproduces v8's 0.515
+        "cos_sim_AC_steady": cos_sim_AC_steady,  # NEW: AC-decomposed
         # Sanity / state metrics
         "A2_mean_steady": A2_mean_steady,
         "ring_localization_steady": ring_loc_steady,

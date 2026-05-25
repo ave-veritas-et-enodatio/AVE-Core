@@ -1,6 +1,10 @@
 [↑ Ch.1 Topological Matter](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from L3 closure synthesis + electron-unknot + substrate-perspective-electron as canonical Cosserat seeder operationalization -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-gfdplp]
+path-stable: "referenced from L3 closure synthesis + electron-unknot + substrate-perspective-electron as canonical Cosserat seeder operationalization"
+-->
 
 # Bracket-Golden-Torus Electron-Unknot Cosserat Seeder
 

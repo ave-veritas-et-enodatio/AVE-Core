@@ -1,11 +1,15 @@
-[↑ Ch.2: Macroscopic Moduli](./index.md)
-<!-- leaf: verbatim -->
+[↑ Ch.2 Macroscopic Moduli](index.md)
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-gx1mpl]
+-->
 
 # A-029 Secondary Scale: Geometric Shared-B-Node Distance
 
 The K4 substrate's **secondary scale** $r_{\text{secondary}} \approx 1.187\,\ell_{\text{node}}$ is **not a free calibration parameter** — it is the geometric next-nearest-neighbor distance in the K4 lattice, set by the shared-B-node propagator structure. The over-bracing parameter $u_0^*$ that controls the magic-angle condition $K(u_0^*) = 2G(u_0^*)$ sits exactly at this distance.
 
-Per Grant adjudication 2026-05-15 evening ("springs are shared, how else would gravity project?"), this resolves decades of ambiguity about whether the secondary scale was a calibration input or a substrate-symmetry consequence. It is the latter.
+Per Grant adjudication 2026-05-15 evening ("springs are shared, how else would gravity project?"), this resolves long-standing ambiguity about whether the secondary scale was a calibration input or a substrate-symmetry consequence. It is the latter.
 
 ## The geometric derivation
 
@@ -32,7 +36,7 @@ forces the K4 lattice's bulk modulus equal to twice its shear modulus — the tr
 
 **Grant's framing:** "springs are shared, how else would gravity project?" The shared-B-node propagator is what makes gravity a non-local-but-causal effect in the K4 lattice — the impedance at one A-node affects all A-nodes reachable via shared-B-nodes (the secondary-scale neighborhood). Without shared-B-node propagation, there would be no mechanism for the substrate to project a coherent gravity response across distances $> \ell_{\text{node}}$.
 
-This is the substrate-scale origin of the **K=2G operating point**, which is what makes the substrate a trace-reversed Chiral LC Network supporting transverse-traceless EM and GR waves (canonical in [Vol 1 Ch 2 (Macroscopic Moduli)](../../../../vol_1_foundations/chapters/02_macroscopic_moduli.tex)).
+This is the substrate-scale origin of the **K=2G operating point**, which is what makes the substrate a trace-reversed Chiral LC Network supporting transverse-traceless EM and GR waves (canonical in Vol 1 Ch 2 Macroscopic Moduli).
 
 ## Connection to |T| = 12 universality
 
@@ -46,15 +50,15 @@ See [|T|=12 Universality (4 Routes)](../ch1-fundamental-axioms/tetrahedral-t-uni
 
 ## Status
 
-**Canonical** per Grant adjudication 2026-05-15 evening. The geometric derivation is straightforward from K4 graph + EMT packing fraction; the load-bearing claim is that **the number 1.187 is not free** — it is forced by Axiom 1 + Axiom 4 + standard amorphous-network packing geometry. Canonical manuscript source: [Vol 1 Ch 2 (Macroscopic Moduli)](../../../../vol_1_foundations/chapters/02_macroscopic_moduli.tex).
+**Canonical** per Grant adjudication 2026-05-15 evening. The geometric derivation is straightforward from K4 graph + EMT packing fraction; the load-bearing claim is that **the number 1.187 is not free** — it is forced by Axiom 1 + Axiom 4 + standard amorphous-network packing geometry. Canonical manuscript source: Vol 1 Ch 2 Macroscopic Moduli.
 
 ## Cross-references
 
 - **Canonical manuscript anchors:**
-  - [Vol 1 Ch 2 (Macroscopic Moduli)](../../../../vol_1_foundations/chapters/02_macroscopic_moduli.tex) — `r_{secondary} ≈ 1.187 ℓ_node`, over-bracing factor, $K=2G$ magic-angle
-  - [Vol 1 Ch 1 (Four Axioms)](../../../../vol_1_foundations/chapters/01_fundamental_axioms.tex) — Axiom 1 K4 graph topology
+  - Vol 1 Ch 2 (Macroscopic Moduli) — `r_{secondary} ≈ 1.187 ℓ_node`, over-bracing factor, $K=2G$ magic-angle
+  - Vol 1 Ch 1 (Four Axioms) — Axiom 1 K4 graph topology
 - **Related KB leafs:**
   - [|T|=12 Universality (4 Routes)](../ch1-fundamental-axioms/tetrahedral-t-universality.md) — A-029 is route #1
   - [Common: Q-G47 Substrate-Scale Cosserat Closure](../../../common/q-g47-substrate-scale-cosserat-closure.md) — magic-angle equation at $u_0^* \approx 0.187$
-  - [Continuous-Springs Reframing](./continuous-springs-reframing.md) — shared-B-node propagator is a property of the underlying continuous Cosserat field, sampled at the K4 Nyquist scale
-  - [Dielectric Snap Limit](./dielectric-snap-limit.md) — over-bracing factor canonical
+  - [Continuous-Springs Reframing](continuous-springs-reframing.md) — shared-B-node propagator is a property of the underlying continuous Cosserat field, sampled at the K4 Nyquist scale
+  - [Dielectric Snap Limit](dielectric-snap-limit.md) — over-bracing factor canonical

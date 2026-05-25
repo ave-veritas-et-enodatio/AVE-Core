@@ -1,13 +1,9 @@
-import os
-import pathlib
-
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.integrate import odeint
 
 from ave.core.constants import V_YIELD
-
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
+from ave_path_util import sim_output
 
 # Simulation Parameters for the Spacetime Vacuum Tank
 L_0 = 1e-3  # Baseline Inductance (1 mH)
@@ -187,10 +183,7 @@ def run_autoresonance_sim() -> None:
     plt.tight_layout()
 
     # Save output
-    project_root = pathlib.Path(str(pathlib.Path(__file__).parent.parent.parent.parent.absolute()))
-    outdir = project_root / "spice_manual" / "assets" / "sim_outputs"
-    os.makedirs(outdir, exist_ok=True)
-    target = outdir / "autoresonance_pll.png"
+    target = sim_output("autoresonance_pll.png")
 
     plt.savefig(target, dpi=150, facecolor="#0f0f0f")
     print(f"[*] Visualized Autoresonant PLL: {target}")

@@ -241,7 +241,7 @@ Auditor lane / Grant adjudicates between these options. This session surfaces th
 
 ### 5.2 Closure-roadmap entry
 
-New entry in `manuscript/ave-kb/common/closure-roadmap.md` documenting the σ_LSS tightening + Marginal-D outcome with the alignment-exclusion sub-finding.
+New entry in `manuscript/ave-kb/claim-quality-closure-roadmap.md` documenting the σ_LSS tightening + Marginal-D outcome with the alignment-exclusion sub-finding.
 
 ### 5.3 Ω_freeze 8-observable cascade
 

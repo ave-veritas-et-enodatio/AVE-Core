@@ -36,14 +36,14 @@ Reference:
   - research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md §3
   - manuscript/predictions.yaml::P_phase3_flux_tube
 """
-from __future__ import annotations
 
 import sys
 import time
 from dataclasses import dataclass
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -59,7 +59,7 @@ from ave.topological.vacuum_engine import (
 @dataclass
 class RunConfig:
     wavelength: float = 3.5
-    amplitude: float = 0.5           # in V_SNAP units
+    amplitude: float = 0.5  # in V_SNAP units
     temperature: float = 0.1
     N: int = 32
     pml: int = 4
@@ -78,18 +78,15 @@ class RunConfig:
     def n_outer_steps(self) -> int:
         # Total sim time covers ramp + sustain + post-drive observation
         period = 2.0 * np.pi / self.omega_carrier
-        total_time = (
-            self.t_ramp_periods
-            + self.t_sustain_periods
-            + self.t_observe_post_drive_periods
-        ) * period
+        total_time = (self.t_ramp_periods + self.t_sustain_periods + self.t_observe_post_drive_periods) * period
         # TLM dt in natural units is dx/(c·√2) = 1/√2; steps = total_time·√2
         return int(total_time * np.sqrt(2.0)) + 1
 
 
 def run_pulse_then_observe(cfg: RunConfig) -> dict:
     engine = VacuumEngine3D.from_args(
-        N=cfg.N, pml=cfg.pml,
+        N=cfg.N,
+        pml=cfg.pml,
         temperature=cfg.temperature,
         amplitude_convention="V_SNAP",
     )
@@ -100,20 +97,32 @@ def run_pulse_then_observe(cfg: RunConfig) -> dict:
 
     # CW sources that ramp up, sustain briefly, then decay to zero
     # (no sustain past the observation window)
-    engine.add_source(AutoresonantCWSource(
-        x0=src_offset, direction=(1.0, 0.0, 0.0),
-        amplitude=cfg.amplitude, omega=cfg.omega_carrier,
-        sigma_yz=3.0, t_ramp=t_ramp, t_sustain=t_sustain,
-        t_decay=period,  # 1-period decay at end of sustain
-        K_drift=cfg.K_drift,
-    ))
-    engine.add_source(AutoresonantCWSource(
-        x0=cfg.N - src_offset, direction=(-1.0, 0.0, 0.0),
-        amplitude=cfg.amplitude, omega=cfg.omega_carrier,
-        sigma_yz=3.0, t_ramp=t_ramp, t_sustain=t_sustain,
-        t_decay=period,
-        K_drift=cfg.K_drift,
-    ))
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=src_offset,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=cfg.amplitude,
+            omega=cfg.omega_carrier,
+            sigma_yz=3.0,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            t_decay=period,  # 1-period decay at end of sustain
+            K_drift=cfg.K_drift,
+        )
+    )
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=cfg.N - src_offset,
+            direction=(-1.0, 0.0, 0.0),
+            amplitude=cfg.amplitude,
+            omega=cfg.omega_carrier,
+            sigma_yz=3.0,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            t_decay=period,
+            K_drift=cfg.K_drift,
+        )
+    )
 
     regime_obs = RegimeClassifierObserver(cadence=cfg.record_cadence)
     bond_obs = BondObserver(cadence=cfg.record_cadence, saturation_frac=0.5)
@@ -217,48 +226,44 @@ def render(result: dict, out: str = "/tmp/phase3_flux_tube_persistence.png") -> 
 
     # Panel 1: collision region saturation evolution
     ax = axes[0, 0]
-    ax.plot(t_reg / period, A2_total_max, color="#c33", lw=1.2,
-            label="max A²_total (V_SNAP-norm)")
-    ax.axvline(drive_end / period, color="#2a7", ls="--", lw=1.0,
-               label="drive end")
+    ax.plot(t_reg / period, A2_total_max, color="#c33", lw=1.2, label="max A²_total (V_SNAP-norm)")
+    ax.axvline(drive_end / period, color="#2a7", ls="--", lw=1.0, label="drive end")
     ax.axhline(1.0, color="#888", ls=":", lw=0.8, label="A²_SNAP = 1")
     ax.set_xlabel("time (Compton periods)")
     ax.set_ylabel("max A²_total")
     ax.set_title("Collision region: max saturation vs time")
-    ax.legend(fontsize=9); ax.grid(alpha=0.3)
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.3)
 
     # Panel 2: max |Φ_link| across lattice
     ax = axes[0, 1]
     ax.plot(t_in_periods, phi_max, color="#333", lw=1.2)
-    ax.axvline(drive_end / period, color="#2a7", ls="--", lw=1.0,
-               label="drive end")
+    ax.axvline(drive_end / period, color="#2a7", ls="--", lw=1.0, label="drive end")
     ax.set_xlabel("time (Compton periods)")
     ax.set_ylabel("max |Φ_link|")
     ax.set_title("Lattice-wide peak flux linkage")
-    ax.legend(fontsize=9); ax.grid(alpha=0.3)
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.3)
 
     # Panel 3: saturated vs unsaturated RMS Φ_link
     ax = axes[1, 0]
-    ax.plot(t_in_periods, rms_sat, color="#c33", lw=1.5,
-            label="saturated-both-endpoints")
-    ax.plot(t_in_periods, rms_unsat, color="#47c", lw=1.5,
-            label="at least one unsaturated endpoint")
-    ax.axvline(drive_end / period, color="#2a7", ls="--", lw=1.0,
-               label="drive end")
+    ax.plot(t_in_periods, rms_sat, color="#c33", lw=1.5, label="saturated-both-endpoints")
+    ax.plot(t_in_periods, rms_unsat, color="#47c", lw=1.5, label="at least one unsaturated endpoint")
+    ax.axvline(drive_end / period, color="#2a7", ls="--", lw=1.0, label="drive end")
     ax.set_xlabel("time (Compton periods)")
     ax.set_ylabel("RMS |Φ_link|")
-    ax.set_title("Flux-linkage RMS partitioned by endpoint saturation\n"
-                 "(confinement signal: sat > unsat after drive end)")
-    ax.legend(fontsize=9); ax.grid(alpha=0.3)
+    ax.set_title(
+        "Flux-linkage RMS partitioned by endpoint saturation\n" "(confinement signal: sat > unsat after drive end)"
+    )
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.3)
 
     # Panel 4: saturated bond count vs ratio RMS_sat/RMS_unsat
     ax = axes[1, 1]
     ax2 = ax.twinx()
-    ax.plot(t_in_periods, n_sat, color="#a63", lw=1.2,
-            label="n_saturated_bonds")
+    ax.plot(t_in_periods, n_sat, color="#a63", lw=1.2, label="n_saturated_bonds")
     ratio = np.where(rms_unsat > 1e-15, rms_sat / rms_unsat, 0.0)
-    ax2.plot(t_in_periods, ratio, color="#333", lw=1.2,
-             label="RMS_sat / RMS_unsat")
+    ax2.plot(t_in_periods, ratio, color="#333", lw=1.2, label="RMS_sat / RMS_unsat")
     ax.axvline(drive_end / period, color="#2a7", ls="--", lw=1.0)
     ax.set_xlabel("time (Compton periods)")
     ax.set_ylabel("n saturated bonds", color="#a63")
@@ -267,8 +272,7 @@ def render(result: dict, out: str = "/tmp/phase3_flux_tube_persistence.png") -> 
     ax.grid(alpha=0.3)
 
     plt.suptitle(
-        f"Phase 3: Flux-tube persistence "
-        f"(λ={cfg.wavelength}, amp={cfg.amplitude}·V_SNAP, T={cfg.temperature})",
+        f"Phase 3: Flux-tube persistence " f"(λ={cfg.wavelength}, amp={cfg.amplitude}·V_SNAP, T={cfg.temperature})",
         fontsize=12,
     )
     plt.tight_layout()
@@ -286,12 +290,8 @@ def save_npz(result: dict, out: str = "/tmp/phase3_flux_tube_persistence.npz") -
         t=np.array([h["t"] for h in bond_hist]),
         phi_abs_max=np.array([h["phi_abs_max"] for h in bond_hist]),
         phi_rms=np.array([h["phi_rms"] for h in bond_hist]),
-        phi_at_saturated_bonds_rms=np.array(
-            [h["phi_at_saturated_bonds_rms"] for h in bond_hist]
-        ),
-        phi_at_unsaturated_bonds_rms=np.array(
-            [h["phi_at_unsaturated_bonds_rms"] for h in bond_hist]
-        ),
+        phi_at_saturated_bonds_rms=np.array([h["phi_at_saturated_bonds_rms"] for h in bond_hist]),
+        phi_at_unsaturated_bonds_rms=np.array([h["phi_at_unsaturated_bonds_rms"] for h in bond_hist]),
         n_saturated_bonds=np.array([h["n_saturated_bonds"] for h in bond_hist]),
     )
     print(f"Saved {out}")
@@ -300,8 +300,7 @@ def save_npz(result: dict, out: str = "/tmp/phase3_flux_tube_persistence.npz") -
 if __name__ == "__main__":
     print("── Phase 3 driver: flux-tube persistence ──\n")
     cfg = RunConfig()
-    print(f"Config: λ={cfg.wavelength}, T={cfg.temperature}, "
-          f"amp={cfg.amplitude}·V_SNAP, K_drift={cfg.K_drift}")
+    print(f"Config: λ={cfg.wavelength}, T={cfg.temperature}, " f"amp={cfg.amplitude}·V_SNAP, K_drift={cfg.K_drift}")
     print(f"N={cfg.N}, pml={cfg.pml}, n_steps={cfg.n_outer_steps}")
     print("(Expected runtime ~30-60 s)\n")
 
@@ -327,9 +326,7 @@ if __name__ == "__main__":
     # Interpret the half-life ratio
     half_ratio = 0.0
     if verdict["unsat_half_life_periods"] > 1e-6:
-        half_ratio = (
-            verdict["sat_half_life_periods"] / verdict["unsat_half_life_periods"]
-        )
+        half_ratio = verdict["sat_half_life_periods"] / verdict["unsat_half_life_periods"]
 
     print("\n── Flux-tube confinement signal ──")
     if half_ratio > 2.0:

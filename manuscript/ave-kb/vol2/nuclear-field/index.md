@@ -1,5 +1,13 @@
 [↑ Vol. 2: Subatomic Physics](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-4vwsjc, clm-c8q0z5, clm-g6e3zw, clm-gfs4j8, clm-knveh6, clm-mroghg, clm-q5izb7, clm-xhdai6]
+subtree-experiments: []
+-->
+
+> ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claim-quality.md`](../claim-quality.md) (volume scope) and [`../../claim-quality.md`](../../claim-quality.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
+
 # Nuclear and Field Physics
 
 This domain addresses the Planck scale, string theory, open problems in fundamental physics, and the Millennium Prize problems --- all reinterpreted through the AVE discrete LC lattice framework.

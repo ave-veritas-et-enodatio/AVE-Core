@@ -1,10 +1,18 @@
 [↑ Ch.4 Continuum Electrodynamics](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from photon-identification + L3 closure synthesis as canonical photon-on-substrate baseline -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-djpx2v, clm-uu1qbo]
+path-stable: "referenced from photon-identification + L3 closure synthesis as canonical photon-on-substrate baseline"
+-->
 
 # Photon Propagation Baseline: $v_{\text{meas}}/c = \sqrt{2}$ Cardinal-Axis Kinematics
 
 Canonical empirical baseline for free photon propagation on the K4-TLM substrate in the linear-vacuum regime. The wavefront speed along cardinal axes (x̂, ŷ, ẑ) is $v = c \cdot \sqrt{2}$ — a **pure substrate-geometry effect native to Axiom 1**, not an SM/QED import. Along diagonal axes (port unit vectors $\hat{p}_n$) the speed reduces to $v = c$. This anisotropy is the K4 lattice's distinguishing kinematic signature; any photon-physics test on the K4-TLM substrate measures against this baseline.
+
+Here "substrate" refers to the Chiral LC Network of Axiom 1, corresponding to a chiral Laves K4 Cosserat crystal at the substrate level.
+
+> → Primary: [K4 4-Port Irrep Decomposition](../../operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md) — the $A_1 \oplus T_2$ group theory underlying the $A_1$/$T_2$ propagation-speed split (§1) is owned and derived there.
 
 ## Key Results
 
@@ -19,6 +27,8 @@ Canonical empirical baseline for free photon propagation on the K4-TLM substrate
 
 ## §1 — Substrate-physics framing
 
+<!-- claim-quality: clm-uu1qbo -->
+
 The K4-TLM substrate has **anisotropic kinematics native to Axiom 1**:
 
 ### K4 port-mode propagation speeds
@@ -26,9 +36,9 @@ The K4-TLM substrate has **anisotropic kinematics native to Axiom 1**:
 | Port-mode | Wave character | Speed | Substrate origin |
 |---|---|---|---|
 | $A_1 \propto (1, 1, 1, 1)$ | Scalar / longitudinal | $c \cdot \sqrt{2} = \sqrt{K_{\text{bulk}} / \rho}$ | Bulk modulus $K_{\text{bulk}}$ governs scalar compression speed |
-| $T_2$ (chiral-transverse triplet) | **The photon** (per [photon-identification](photon-identification.md)) | $c = \sqrt{G / \rho}$ | Shear modulus $G$ governs transverse shear speed |
+| $T_2$ (chiral-transverse triplet) | **The photon** (per [Photon Identification](photon-identification.md)) | $c = \sqrt{G / \rho}$ | Shear modulus $G$ governs transverse shear speed |
 
-The K4 magic-angle condition $K = 2G$ (Vol 1 Ch 2 macroscopic moduli) makes the substrate's $A_1$ and $T_2$ speeds related by $v_{A_1} / v_{T_2} = \sqrt{2}$ — the same $\sqrt{2}$ that shows up in cardinal-axis kinematics.
+The $A_1$/$T_2$ port-mode decomposition is the canonical group theory owned by [K4 4-Port Irrep Decomposition](../../operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md); the present leaf measures the propagation-speed split that decomposition implies. The K4 magic-angle condition $K = 2G$ (Vol 1 Ch 2 macroscopic moduli) makes the substrate's $A_1$ and $T_2$ speeds related by $v_{A_1} / v_{T_2} = \sqrt{2}$ — the same $\sqrt{2}$ that shows up in cardinal-axis kinematics.
 
 ### Cardinal-axis vs diagonal-axis kinematics
 
@@ -64,6 +74,8 @@ Default config (`src/scripts/vol_1_foundations/photon_propagation.py`):
 
 ## §3 — Empirical result
 
+<!-- claim-quality: clm-djpx2v -->
+
 | Quantity | Value |
 |---|---|
 | $t_{\text{arrival}, a}$ (peak at $x = 36$) | $1.274 \times 10^{-7}$ s |
@@ -91,7 +103,7 @@ This is the substrate doing exactly what corpus framework predicts for an unpert
 
 ## §5 — Role in the photon → electron derivation chain
 
-This baseline anchors the photon-to-electron formation chain (see [photon-identification §4](photon-identification.md)):
+This baseline anchors the photon-to-electron formation chain (see [Photon Identification §4](photon-identification.md)):
 
 1. **Baseline (this leaf)**: free photon at sub-yield amplitude propagates at $\sqrt{2} c$ cardinal-axis on linear-vacuum K4-TLM, no trap, no saturation
 2. **Amplitude crosses $V_{\text{yield}} = \sqrt{\alpha} V_{\text{snap}}$**: Axiom 4 engages, $C_{\text{eff}} \to \infty$ locally
@@ -109,6 +121,7 @@ Any deviation from this chain at the photon-baseline level (this leaf's result) 
   - Cardinal-axis side-by-side animation (`|V|^2` xy-slice at $z = N/2$ on log color scale, with interior centroid $x(t)$ trajectory)
   - NPZ data with full frames + centroids + times for post-hoc analysis
 - **KB cross-cutting:**
+  - [K4 4-Port Irrep Decomposition](../../operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md) — canonical $A_1 \oplus T_2$ group theory underlying the speed split
   - [Photon Identification](photon-identification.md) — canonical $T_2$-only photon definition + electron-formation mechanism
   - [Master Equation](master-equation.md) — substrate dielectric specialization of Axiom 4
   - [Vol 1 Ch 2 Macroscopic Moduli](../../axioms-and-lattice/ch2-macroscopic-moduli/index.md) — magic-angle $K = 2G$ relating $A_1$ and $T_2$ speeds

@@ -1,5 +1,9 @@
 [↑ Ch.7: Stellar Interiors and Neutrino Oscillation](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-o6kgkz]
+-->
 
 ---
 

@@ -1,5 +1,9 @@
 [↑ Protein Folding Engine (Framework)](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-a034pf, clm-s11nf0]
+-->
 
 ## Levinthal's Paradox: Mechanical Resolution
 
@@ -7,6 +11,7 @@
 
 **The AVE resolution**: the amino-acid sequence does **not** search a random energy landscape. The chain is being **driven** by substrate strain to the unique configuration that satisfies impedance matching at every backbone-sidechain junction simultaneously.
 
+<!-- claim-quality: clm-s11nf0 -->
 ### Four-step mechanism
 
 1. **Each residue is a cascaded transmission-line section** with input impedance set by the preceding chain segment plus its own [$Z_{\text{topo}}$ shunt](./z-topo-definition.md).
@@ -24,6 +29,7 @@
 
 The chain is **not searching configuration space**; it is **being driven** by substrate strain to the unique configuration where the kernel-saturation events on every bond simultaneously satisfy $A_i < 1$ (no further snapping required). This is the impedance-matched, lowest-$|S_{11}|^2$ geometry. The folding timescale ($\mu$s) reflects substrate dielectric relaxation, not configuration enumeration.
 
+<!-- claim-quality: clm-a034pf -->
 ### Protein folding as a universal saturation-kernel instance (A-034)
 
 Per Axiom 4, the substrate dielectric saturates as $C_{\text{eff}}(A) = C_0 / \sqrt{1 - A^2}$, with $A$ the local strain amplitude. At the atomic-separation scale, $A \equiv d_0/d$ where $d_0$ is the dielectric-saturation-onset separation and $d$ is the current bond distance:
@@ -60,10 +66,8 @@ At a particular configuration the strain $A \to 1$ on a critical bond, $S(A) \to
 
 ### Cross-references
 
-> → Primary: [Vol 5 Ch 2 §sec:z_topo_framework](../../../vol_5_biology/chapters/02_organic_circuitry.tex) lines 695-720 — canonical manuscript source
->
 > → Primary: [Topological Impedance $Z_{\text{topo}}$ Definition](./z-topo-definition.md) — the impedance that drives the mechanism
 >
-> → Primary: [Universal Saturation-Kernel Catalog (A-034)](../../common/universal-saturation-kernel-catalog.md) — full 21-instance cross-scale catalog
+> → Primary: [Universal Saturation-Kernel Catalog (A-034)](../../common/universal-saturation-kernel-catalog.md) — full 26-instance cross-scale catalog
 >
 > ↗ See also: [Vol 5 Translation Tables](../common/translation-protein.md) — Biology↔EE↔AVE terminology mapping (Levinthal's paradox row: "Why doesn't the line ring forever? — Deterministic Z-driven gradient")

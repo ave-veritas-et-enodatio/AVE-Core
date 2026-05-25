@@ -18,27 +18,26 @@ Outputs:
   - assets/photon_chiral_yee_rifling_RH.gif (phase scatter)
   - LH variants
 """
-from __future__ import annotations
 
 from pathlib import Path
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation, PillowWriter
 from matplotlib import cm
+from matplotlib.animation import FuncAnimation, PillowWriter
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401  (registers projection)
 
-from ave.core.fdtd_3d import FDTD3DEngine
 from ave.core.constants import V_YIELD
+from ave.core.fdtd_3d import FDTD3DEngine
 
 
 def run_simulation(handedness: str, nx=160, ny=48, nz=48, n_steps=300):
     """Lighter version of photon_chiral_yee.run_chiral_propagation,
     keeping FULL Ey/Ez/Hy/Hz fields for every recorded frame."""
-    eng = FDTD3DEngine(nx, ny, nz, dx=0.01, linear_only=False,
-                       use_pml=True, pml_layers=8)
+    eng = FDTD3DEngine(nx, ny, nz, dx=0.01, linear_only=False, use_pml=True, pml_layers=8)
     c = eng.c
     dt = eng.dt
     freq = 1.5e9
@@ -51,8 +50,8 @@ def run_simulation(handedness: str, nx=160, ny=48, nz=48, n_steps=300):
     cy, cz = ny // 2, nz // 2
     j, k = np.indices((ny, nz), dtype=float)
     r2 = (j - cy) ** 2 + (k - cz) ** 2
-    profile = np.exp(-r2 / (2.0 * sigma_yz ** 2))
-    mask = (r2 <= R_helix ** 2).astype(float)
+    profile = np.exp(-r2 / (2.0 * sigma_yz**2))
+    mask = (r2 <= R_helix**2).astype(float)
 
     sign = +1.0 if handedness == "RH" else -1.0
 
@@ -67,19 +66,25 @@ def run_simulation(handedness: str, nx=160, ny=48, nz=48, n_steps=300):
         eng.Ez[src_x, :, :] = Ez_inj * profile * mask
         eng.step()
         if step % 6 == 0:
-            frames.append({
-                "t": t,
-                "step": step,
-                "Ey": np.array(eng.Ey),
-                "Ez": np.array(eng.Ez),
-                "Hy": np.array(eng.Hy),
-                "Hz": np.array(eng.Hz),
-            })
+            frames.append(
+                {
+                    "t": t,
+                    "step": step,
+                    "Ey": np.array(eng.Ey),
+                    "Ez": np.array(eng.Ez),
+                    "Hy": np.array(eng.Hy),
+                    "Hz": np.array(eng.Hz),
+                }
+            )
 
     return {
         "handedness": handedness,
-        "nx": nx, "ny": ny, "nz": nz, "src_x": src_x,
-        "frames": frames, "lambda_cells": (c / freq) / eng.dx,
+        "nx": nx,
+        "ny": ny,
+        "nz": nz,
+        "src_x": src_x,
+        "frames": frames,
+        "lambda_cells": (c / freq) / eng.dx,
     }
 
 
@@ -122,8 +127,8 @@ def render_helix_animation(result, out_gif):
         Hy_axis = f["Hy"][:, cy, cz]
         Hz_axis = f["Hz"][:, cy, cz]
 
-        E_mag = np.sqrt(Ey_axis ** 2 + Ez_axis ** 2)
-        H_mag = np.sqrt(Hy_axis ** 2 + Hz_axis ** 2)
+        E_mag = np.sqrt(Ey_axis**2 + Ez_axis**2)
+        H_mag = np.sqrt(Hy_axis**2 + Hz_axis**2)
 
         E_y_vis = cy + Ey_axis / e_max * scale
         E_z_vis = cz + Ez_axis / e_max * scale
@@ -140,7 +145,8 @@ def render_helix_animation(result, out_gif):
                 [E_y_vis[i], E_y_vis[i + 1]],
                 [E_z_vis[i], E_z_vis[i + 1]],
                 color=cm.inferno(c_val * 0.85 + 0.1),
-                lw=1.6, alpha=min(1.0, 0.3 + 0.7 * c_val),
+                lw=1.6,
+                alpha=min(1.0, 0.3 + 0.7 * c_val),
             )
 
         # H helix — cyan/blue
@@ -152,7 +158,8 @@ def render_helix_animation(result, out_gif):
                 [H_y_vis[i], H_y_vis[i + 1]],
                 [H_z_vis[i], H_z_vis[i + 1]],
                 color=cm.winter(c_val * 0.85 + 0.1),
-                lw=1.0, alpha=min(0.8, 0.2 + 0.6 * c_val),
+                lw=1.0,
+                alpha=min(0.8, 0.2 + 0.6 * c_val),
             )
 
         # Source plane marker
@@ -169,9 +176,10 @@ def render_helix_animation(result, out_gif):
             f"Rifled Photon ({handedness}) — t={f['t']*1e9:.2f} ns, "
             f"step={f['step']}, λ={result['lambda_cells']:.0f} cells\n"
             f"E (red/orange) and H (cyan/blue) helical streamlines along propagation axis",
-            color="#cccccc", fontsize=11,
+            color="#cccccc",
+            fontsize=11,
         )
-        return ax,
+        return (ax,)
 
     anim = FuncAnimation(fig, update, frames=len(frames), interval=80, blit=False)
     writer = PillowWriter(fps=12)
@@ -210,7 +218,7 @@ def render_rifling_scatter_animation(result, out_gif, threshold_frac=0.10):
         f = frames[frame_idx]
         Ey = f["Ey"]
         Ez = f["Ez"]
-        E_perp = np.sqrt(Ey ** 2 + Ez ** 2)
+        E_perp = np.sqrt(Ey**2 + Ez**2)
 
         # Phase angle θ = atan2(Ez, Ey) ∈ [-π, π]
         # For RH: phase advances counterclockwise as t increases at fixed x
@@ -220,8 +228,7 @@ def render_rifling_scatter_animation(result, out_gif, threshold_frac=0.10):
         mask = E_perp > threshold
 
         if not mask.any():
-            ax.text2D(0.5, 0.5, "no cells above threshold yet",
-                      transform=ax.transAxes, color="white", ha="center")
+            ax.text2D(0.5, 0.5, "no cells above threshold yet", transform=ax.transAxes, color="white", ha="center")
         else:
             xs, ys, zs = np.where(mask)
             phases = phase[xs, ys, zs]
@@ -234,11 +241,8 @@ def render_rifling_scatter_animation(result, out_gif, threshold_frac=0.10):
             ax.scatter(xs, ys, zs, c=colors, s=sizes, alpha=0.7, edgecolor="none")
 
         # Propagation axis indicator
-        ax.plot([0, nx], [ny // 2, ny // 2], [nz // 2, nz // 2],
-                "w--", lw=0.8, alpha=0.4)
-        ax.scatter([src_x], [ny // 2], [nz // 2],
-                   color="cyan", s=120, alpha=0.9, edgecolor="white",
-                   linewidths=1.5)
+        ax.plot([0, nx], [ny // 2, ny // 2], [nz // 2, nz // 2], "w--", lw=0.8, alpha=0.4)
+        ax.scatter([src_x], [ny // 2], [nz // 2], color="cyan", s=120, alpha=0.9, edgecolor="white", linewidths=1.5)
 
         ax.set_xlabel("X (propagation)", color="#cccccc", fontsize=9)
         ax.set_ylabel("Y", color="#cccccc", fontsize=9)
@@ -250,9 +254,10 @@ def render_rifling_scatter_animation(result, out_gif, threshold_frac=0.10):
         ax.set_title(
             f"Rifling — Photon ({handedness})  t={f['t']*1e9:.2f} ns, step={f['step']}\n"
             f"Color = cos(arctan2(Ez, Ey)) phase  →  spiral pattern reveals helicity",
-            color="#cccccc", fontsize=11,
+            color="#cccccc",
+            fontsize=11,
         )
-        return ax,
+        return (ax,)
 
     anim = FuncAnimation(fig, update, frames=len(frames), interval=80, blit=False)
     writer = PillowWriter(fps=12)

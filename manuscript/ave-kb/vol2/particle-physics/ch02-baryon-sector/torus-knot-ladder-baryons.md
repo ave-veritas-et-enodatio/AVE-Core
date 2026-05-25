@@ -1,6 +1,10 @@
 [↑ Ch.2 — Baryon Sector](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol2 as eq:torus_knot_ladder -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-k6olj8]
+path-stable: "referenced from vol2 as eq:torus_knot_ladder"
+-->
 
 ## The Baryon Resonance Spectrum: The Torus Knot Ladder
 
@@ -12,7 +16,7 @@ The cinquefoil confinement immediately generates a zero-parameter prediction of 
 > m(c) = \frac{\mathcal{I}_{scalar}(\kappa_{FS}/c)}{1 - \mathcal{V}_{total} \cdot p_c} + 1
 > $$
 
-No parameters are adjusted between states. The same $\kappa_{FS}$, $\mathcal{V}_{total} = 2.0$, and $p_c = 8\pi\alpha$ that derive the proton mass also predict the excited baryon resonances. **Refreshed against PDG 2024 + J^P consistency check (2026-05-18 driver run, [`baryon_ladder_pdg_2024_anchor.py`](../../../../src/scripts/verify/baryon_ladder_pdg_2024_anchor.py))**:
+No parameters are adjusted between states. The same $\kappa_{FS}$, $\mathcal{V}_{total} = 2.0$, and $p_c = 8\pi\alpha$ that derive the proton mass also predict the excited baryon resonances. **Refreshed against PDG 2024 + J^P consistency check (2026-05-18 driver run, [`baryon_ladder_pdg_2024_anchor.py`](../../../../../src/scripts/verify/baryon_ladder_pdg_2024_anchor.py))**:
 
 | Torus Knot | $c$ | Predicted (MeV) | PDG 2024 Resonance | PDG Mass (MeV) | Deviation | $J^P$ Check |
 |---|---|---|---|---|---|---|
@@ -36,6 +40,6 @@ Three features of this spectrum deserve emphasis:
 
 **3. The proton hit is the strongest at $-0.002\%$** ($938.254$ MeV predicted vs $938.272$ MeV PDG). Per the $(2,c)$ topological selection rules + Faddeev-Skyrme solver with NO calibrated parameters (substrate replaces standard Skyrme's $F_\pi$ + $e$ tunable constants with $\ell_{node} = \hbar/m_e c$ and $\kappa_{FS} = 8\pi$), this is a Class 4 emergence test per [`consistency-vs-emergence`](https://github.com/AVE-Skills): single empirical input ($m_e$) predicts baryon spectrum to part-per-50,000 precision at $c=5$.
 
-**Stale-framing correction (2026-05-18 walk-back)**: an earlier version of this leaf claimed "(2,9) hit is the strongest at 0.20%" referencing $\Delta(1620)$. PDG 2024 + driver verification ([`baryon_ladder_pdg_2024_anchor.py`](../../../../src/scripts/verify/baryon_ladder_pdg_2024_anchor.py)) gives $(2,9) \to \Delta(1600)$ at $+0.779\%$; the strongest hit is the **proton at $-0.002\%$**. The "$\Delta(1620)$" identification was inconsistent with the table's $\Delta(1600)$ row and used an outdated (2,9) prediction value (1617 MeV vs current 1582 MeV); both reconciled to $\Delta(1600)$ at the current formula output.
+**Stale-framing correction (2026-05-18 walk-back)**: an earlier version of this leaf claimed "(2,9) hit is the strongest at 0.20%" referencing $\Delta(1620)$. PDG 2024 + driver verification ([`baryon_ladder_pdg_2024_anchor.py`](../../../../../src/scripts/verify/baryon_ladder_pdg_2024_anchor.py)) gives $(2,9) \to \Delta(1600)$ at $+0.779\%$; the strongest hit is the **proton at $-0.002\%$**. The "$\Delta(1620)$" identification was inconsistent with the table's $\Delta(1600)$ row and used an outdated (2,9) prediction value (1617 MeV vs current 1582 MeV); both reconciled to $\Delta(1600)$ at the current formula output.
 
 ---

@@ -49,14 +49,12 @@ PRE-REGISTERED OUTCOMES (mapped to driver auto-classification):
 Run:
     python3 src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py
 """
-from __future__ import annotations
 
 import json
 import math
 import sys
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Optional
 
 import numpy as np
 
@@ -202,7 +200,7 @@ class AxisOfEvilResult:
     masking_note: str = ""
 
 
-def load_planck_smica_temperature(map_path: Path, mask_path: Optional[Path] = None):
+def load_planck_smica_temperature(map_path: Path, mask_path: Path | None = None):
     """Load Planck PR3 SMICA map's temperature column; optionally apply mask + mean-fill inpainting.
 
     The SMICA full-mission IQU file has TEMPERATURE, Q_STOKES, U_STOKES (and uncertainty)
@@ -282,9 +280,7 @@ def angular_momentum_dispersion(alm: np.ndarray, lmax: int, ell_range: tuple[int
     return total
 
 
-def search_preferred_axis(
-    alm: np.ndarray, lmax: int, ell_range: tuple[int, int], nside_grid: int
-) -> tuple[int, float]:
+def search_preferred_axis(alm: np.ndarray, lmax: int, ell_range: tuple[int, int], nside_grid: int) -> tuple[int, float]:
     """Grid search over HEALPix pixel directions for the maximum-dispersion axis.
 
     For each candidate pixel center, rotate alm so the pixel direction becomes +z,
@@ -324,7 +320,7 @@ def search_preferred_axis(
 
 def axis_of_evil_from_planck(
     map_path: Path,
-    mask_path: Optional[Path] = None,
+    mask_path: Path | None = None,
     nside_initial: int = 16,
     nside_refined: int = 64,
     lmax: int = 3,
@@ -350,8 +346,10 @@ def axis_of_evil_from_planck(
     print(f"\nStage 1: coarse grid search at NSIDE={nside_initial} ...")
     best_pix_initial, best_d_initial = search_preferred_axis(alm, lmax, ell_range, nside_initial)
     theta_initial, phi_initial = hp.pix2ang(nside_initial, best_pix_initial)
-    print(f"  Stage 1 best: theta={math.degrees(theta_initial):.2f} deg, "
-          f"phi={math.degrees(phi_initial):.2f} deg, dispersion={best_d_initial:.6f}")
+    print(
+        f"  Stage 1 best: theta={math.degrees(theta_initial):.2f} deg, "
+        f"phi={math.degrees(phi_initial):.2f} deg, dispersion={best_d_initial:.6f}"
+    )
 
     print(f"\nStage 2: refined grid at NSIDE={nside_refined} (local neighborhood) ...")
     pix_initial_neighbors = hp.query_disc(
@@ -407,8 +405,10 @@ def axis_of_evil_from_planck(
     v_l3 = hp.ang2vec(theta_l3, phi_l3)
     dot = float(np.dot(v_l2, v_l3))
     sep_23 = math.degrees(math.acos(max(-1.0, min(1.0, abs(dot)))))
-    print(f"  Angular separation ell=2 vs ell=3 axes: {sep_23:.2f} deg "
-          f"(small = strong axis-of-evil alignment in data)")
+    print(
+        f"  Angular separation ell=2 vs ell=3 axes: {sep_23:.2f} deg "
+        f"(small = strong axis-of-evil alignment in data)"
+    )
 
     # ---- Diagnostic: dispersion at corpus (l=174, b=-5) ----
     # Per closure-roadmap.md:100 + the 2026-05-17 audit, the (174, -5) value
@@ -421,8 +421,10 @@ def axis_of_evil_from_planck(
     rotator_corpus = hp.Rotator(rot=[lon_corpus, lat_corpus], deg=True)
     alm_corpus = rotator_corpus.rotate_alm(alm.copy())
     d_corpus = angular_momentum_dispersion(alm_corpus, lmax, ell_range)
-    print(f"  Dispersion at corpus (l={OMEGA_FREEZE_L_DEG}, b={OMEGA_FREEZE_B_DEG}): "
-          f"{d_corpus:.4f} (compare to data max {best_dispersion:.4f})")
+    print(
+        f"  Dispersion at corpus (l={OMEGA_FREEZE_L_DEG}, b={OMEGA_FREEZE_B_DEG}): "
+        f"{d_corpus:.4f} (compare to data max {best_dispersion:.4f})"
+    )
 
     return AxisOfEvilResult(
         l_deg=l_deg,
@@ -432,8 +434,7 @@ def axis_of_evil_from_planck(
         method=(
             "de Oliveira-Costa et al. 2004 max-angular-momentum-dispersion; "
             "two-stage HEALPix grid search; SMICA T-only"
-            + ("; Planck PR3 common mask + mean-fill inpainting"
-               if mask_info["applied"] else "; no masking applied")
+            + ("; Planck PR3 common mask + mean-fill inpainting" if mask_info["applied"] else "; no masking applied")
         ),
         map_file=map_path.name,
         nside_grid_initial=nside_initial,
@@ -454,7 +455,7 @@ def axis_of_evil_from_planck(
             f"{mask_info.get('inpainting_method', 'mean-fill')}."
             if mask_info["applied"]
             else "No masking applied; foreground residuals near galactic plane may bias "
-                 "the low-ell axis estimate. Re-run with mask if material."
+            "the low-ell axis estimate. Re-run with mask if material."
         ),
     )
 
@@ -495,8 +496,7 @@ def pairwise_alignment_matrix(observables: list[Observable]) -> dict:
             if i == j:
                 continue
             sep_ij = angular_separation_deg_undirected(
-                observables[i].l_deg, observables[i].b_deg,
-                observables[j].l_deg, observables[j].b_deg
+                observables[i].l_deg, observables[i].b_deg, observables[j].l_deg, observables[j].b_deg
             )
             sep_matrix[i, j] = sep_ij
             sigma_ij = math.sqrt(observables[i].sigma_deg ** 2 + observables[j].sigma_deg ** 2)
@@ -527,9 +527,7 @@ def pairwise_alignment_matrix(observables: list[Observable]) -> dict:
     }
 
 
-def degree_class_agreement_statistic(
-    observables: list[Observable], pairwise_matrix: dict
-) -> dict:
+def degree_class_agreement_statistic(observables: list[Observable], pairwise_matrix: dict) -> dict:
     """Compute degree-class agreement statistic vs uniform-prior null.
 
     Agreement statistic: fraction of unordered pairs (i<j) with separation < threshold.
@@ -576,9 +574,7 @@ def degree_class_agreement_statistic(
 # ----------------------------------------------------------------------------
 
 
-def adjudicate(
-    observables: list[Observable], pairwise: dict, agreement: dict
-) -> dict:
+def adjudicate(observables: list[Observable], pairwise: dict, agreement: dict) -> dict:
     """Map driver results to frozen prereg outcomes A+ / A / B / C / D / E."""
     sharpest = pairwise["sharpest_falsifier"]
     sharpest_violated = sharpest["violated"]
@@ -587,13 +583,13 @@ def adjudicate(
             "outcome": "C",
             "name": "NULL — sharpest single falsifier violated",
             "explanation": "CMB axis-of-evil vs Hubble flow misaligned > 20 deg at "
-                           "combined 3 sigma. Per closure-roadmap.md:35 + frozen prereg "
-                           "section 5, this is the load-bearing discriminator: A-034 "
-                           "cosmic-scale instance has failed. Catalog survives if "
-                           "the 20+ other A-034 instances hold.",
+            "combined 3 sigma. Per closure-roadmap.md:35 + frozen prereg "
+            "section 5, this is the load-bearing discriminator: A-034 "
+            "cosmic-scale instance has failed. Catalog survives if "
+            "the 20+ other A-034 instances hold.",
             "cascade_implication": "D4-A034 cosmic row RETIRES. C4 three-route Route 3 "
-                                   "stays DEFERRED on A-031 cosmic-parameter-horizon. "
-                                   "E2b (DM META closure) becomes natural alternative next session.",
+            "stays DEFERRED on A-031 cosmic-parameter-horizon. "
+            "E2b (DM META closure) becomes natural alternative next session.",
         }
 
     n_non_weak = agreement["total_pairs_non_weak"]
@@ -658,13 +654,8 @@ def adjudicate(
     #   (a) sharpest falsifier (CMB-vs-Hubble > 20 deg at 3 sigma) NOT violated
     #   (b) NO pair is aligned at strict central-value threshold (frac_pass = 0)
     #   (c) literature observable uncertainties are wide (>= 25 deg on at least 2 obs)
-    n_wide_sigma_obs = sum(1 for o in observables
-                            if o.sigma_deg >= 25.0 and o.confidence != "weak")
-    insufficient_to_discriminate = (
-        not sharpest_violated
-        and frac_pass == 0
-        and n_wide_sigma_obs >= 2
-    )
+    n_wide_sigma_obs = sum(1 for o in observables if o.sigma_deg >= 25.0 and o.confidence != "weak")
+    insufficient_to_discriminate = not sharpest_violated and frac_pass == 0 and n_wide_sigma_obs >= 2
     if insufficient_to_discriminate:
         return {
             "outcome": "D",
@@ -699,9 +690,7 @@ def adjudicate(
                 f"({p_null_pass:.2%}) but below pass criterion (50%). Marginal evidence; "
                 "could be statistical fluctuation."
             ),
-            "cascade_implication": (
-                "D4-A034 cosmic row holds with low-confidence flag. E1c deferred."
-            ),
+            "cascade_implication": ("D4-A034 cosmic row holds with low-confidence flag. E1c deferred."),
         }
 
     return {
@@ -726,7 +715,9 @@ def adjudicate(
 def main():
     print("=" * 80)
     print("C5-CMB-AXIS Executable Observer — Phase 2")
-    print("Frozen prereg: research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md")
+    print(
+        "Frozen prereg: research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md"
+    )
     print("Execution prereg: research/2026-05-19_c5-cmb-axis-executable-observer-prereg.md")
     print("=" * 80)
     print()
@@ -737,8 +728,8 @@ def main():
     if not mask_path.exists():
         mask_path = None
         print("INFO: Planck common-mask file not found locally; running without masking.")
-    observable_1: Optional[Observable] = None
-    aoe_result: Optional[AxisOfEvilResult] = None
+    observable_1: Observable | None = None
+    aoe_result: AxisOfEvilResult | None = None
     if smica_path.exists():
         try:
             aoe_result = axis_of_evil_from_planck(smica_path, mask_path=mask_path)
@@ -811,18 +802,28 @@ def main():
         print("\n" + "=" * 80)
         print("CMB axis diagnostics")
         print("=" * 80)
-        print(f"  Joint ell=2,3 axis: (l, b) = ({aoe_result.l_deg:.2f}, {aoe_result.b_deg:.2f}), "
-              f"d = {aoe_result.dispersion:.4f}")
-        print(f"  ell=2 only axis:    (l, b) = ({aoe_result.ell2_only_l_deg:.2f}, "
-              f"{aoe_result.ell2_only_b_deg:.2f}), d = {aoe_result.ell2_only_dispersion:.4f}")
-        print(f"  ell=3 only axis:    (l, b) = ({aoe_result.ell3_only_l_deg:.2f}, "
-              f"{aoe_result.ell3_only_b_deg:.2f}), d = {aoe_result.ell3_only_dispersion:.4f}")
-        print(f"  ell=2 vs ell=3 axis separation: {aoe_result.ell2_vs_ell3_axis_separation_deg:.2f} deg "
-              f"(small = strong intrinsic axis-of-evil alignment in data)")
-        print(f"  Dispersion at corpus ({OMEGA_FREEZE_L_DEG}, {OMEGA_FREEZE_B_DEG}): "
-              f"{aoe_result.corpus_174_neg5_dispersion:.4f} "
-              f"(vs data max {aoe_result.dispersion:.4f}, ratio "
-              f"{aoe_result.corpus_174_neg5_dispersion / aoe_result.dispersion:.1%}).")
+        print(
+            f"  Joint ell=2,3 axis: (l, b) = ({aoe_result.l_deg:.2f}, {aoe_result.b_deg:.2f}), "
+            f"d = {aoe_result.dispersion:.4f}"
+        )
+        print(
+            f"  ell=2 only axis:    (l, b) = ({aoe_result.ell2_only_l_deg:.2f}, "
+            f"{aoe_result.ell2_only_b_deg:.2f}), d = {aoe_result.ell2_only_dispersion:.4f}"
+        )
+        print(
+            f"  ell=3 only axis:    (l, b) = ({aoe_result.ell3_only_l_deg:.2f}, "
+            f"{aoe_result.ell3_only_b_deg:.2f}), d = {aoe_result.ell3_only_dispersion:.4f}"
+        )
+        print(
+            f"  ell=2 vs ell=3 axis separation: {aoe_result.ell2_vs_ell3_axis_separation_deg:.2f} deg "
+            f"(small = strong intrinsic axis-of-evil alignment in data)"
+        )
+        print(
+            f"  Dispersion at corpus ({OMEGA_FREEZE_L_DEG}, {OMEGA_FREEZE_B_DEG}): "
+            f"{aoe_result.corpus_174_neg5_dispersion:.4f} "
+            f"(vs data max {aoe_result.dispersion:.4f}, ratio "
+            f"{aoe_result.corpus_174_neg5_dispersion / aoe_result.dispersion:.1%})."
+        )
         print(f"  Corpus citation-gap finding: corpus value (174, -5) is NOT the data preferred axis.")
 
     print("\n" + "=" * 80)
@@ -830,8 +831,7 @@ def main():
     print("=" * 80)
     print(f"{'#':>2} {'Name':<60} {'l (deg)':>8} {'b (deg)':>8} {'sigma':>6} {'conf':<18}")
     for i, o in enumerate(observables):
-        print(f"{i+1:>2} {o.name[:60]:<60} {o.l_deg:>8.2f} {o.b_deg:>8.2f} "
-              f"{o.sigma_deg:>6.1f} {o.confidence:<18}")
+        print(f"{i+1:>2} {o.name[:60]:<60} {o.l_deg:>8.2f} {o.b_deg:>8.2f} " f"{o.sigma_deg:>6.1f} {o.confidence:<18}")
     print()
 
     # ---- Pairwise alignment matrix ----
@@ -864,14 +864,18 @@ def main():
     print("Degree-class agreement statistic vs uniform-prior null")
     print("=" * 80)
     print(f"Non-weak pairs: {agreement['total_pairs_non_weak']}")
-    print(f"Pairs within {agreement['pass_threshold_deg']:.0f} deg: "
-          f"{agreement['pairs_within_pass_threshold']} "
-          f"(fraction = {agreement['agreement_fraction_pass']:.2%}, "
-          f"null = {agreement['uniform_prior_null_probability_pass']:.2%})")
-    print(f"Pairs within {agreement['tight_threshold_deg']:.0f} deg: "
-          f"{agreement['pairs_within_tight_threshold']} "
-          f"(fraction = {agreement['agreement_fraction_tight']:.2%}, "
-          f"null = {agreement['uniform_prior_null_probability_tight']:.2%})")
+    print(
+        f"Pairs within {agreement['pass_threshold_deg']:.0f} deg: "
+        f"{agreement['pairs_within_pass_threshold']} "
+        f"(fraction = {agreement['agreement_fraction_pass']:.2%}, "
+        f"null = {agreement['uniform_prior_null_probability_pass']:.2%})"
+    )
+    print(
+        f"Pairs within {agreement['tight_threshold_deg']:.0f} deg: "
+        f"{agreement['pairs_within_tight_threshold']} "
+        f"(fraction = {agreement['agreement_fraction_tight']:.2%}, "
+        f"null = {agreement['uniform_prior_null_probability_tight']:.2%})"
+    )
     print()
 
     # ---- Adjudication ----

@@ -1,5 +1,9 @@
 [↑ Carbon (Z=6)](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-f5ucdo]
+-->
 
 ## Carbon (Z=6): The Subcritical 3-Alpha Ring
 

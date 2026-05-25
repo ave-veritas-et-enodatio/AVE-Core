@@ -40,22 +40,21 @@ SECONDARY:
 
 ~3 min wall clock at N=48.
 """
-from __future__ import annotations
 
 import json
 import sys
 import time
 from pathlib import Path
+
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
+from ave.core.constants import ALPHA
 from ave.topological.vacuum_engine import VacuumEngine3D
 from scripts.vol_1_foundations.tlm_electron_soliton_eigenmode import (
     initialize_2_3_voltage_ansatz,
 )
 
-
-from ave.core.constants import ALPHA
 V_YIELD = float(np.sqrt(ALPHA))
 A2_OP14 = float(np.sqrt(2.0 * ALPHA))
 OMEGA_C = 1.0
@@ -81,7 +80,9 @@ def main():
 
     t_start = time.time()
     engine = VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=0.0,
+        N=N,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -91,33 +92,39 @@ def main():
 
     # Apply (2,3) IC seeder
     initialize_2_3_voltage_ansatz(
-        engine.k4, R=R_torus, r=r_torus, amplitude=amp_ic,
+        engine.k4,
+        R=R_torus,
+        r=r_torus,
+        amplitude=amp_ic,
     )
 
     # Verify IC engaged
-    init_a2 = np.sum(engine.k4.V_inc ** 2, axis=-1)
+    init_a2 = np.sum(engine.k4.V_inc**2, axis=-1)
     init_a2_int = init_a2 * engine.k4.mask_active.astype(float)
-    init_a2_int[:PML, :, :] = 0; init_a2_int[N-PML:, :, :] = 0
-    init_a2_int[:, :PML, :] = 0; init_a2_int[:, N-PML:, :] = 0
-    init_a2_int[:, :, :PML] = 0; init_a2_int[:, :, N-PML:] = 0
+    init_a2_int[:PML, :, :] = 0
+    init_a2_int[N - PML :, :, :] = 0
+    init_a2_int[:, :PML, :] = 0
+    init_a2_int[:, N - PML :, :] = 0
+    init_a2_int[:, :, :PML] = 0
+    init_a2_int[:, :, N - PML :] = 0
     print(f"\n  IC verification:")
     print(f"    A²_max(t=0): {init_a2_int.max():.4f}")
     print(f"    A²_mean (active): {init_a2_int[init_a2_int>0].mean():.4f}")
     print(f"    Total energy(t=0): {init_a2_int.sum():.4f}")
 
     # Identify shell cells (within toroidal shell within tolerance)
-    cx_, cy_, cz_ = (N-1)/2, (N-1)/2, (N-1)/2
+    cx_, cy_, cz_ = (N - 1) / 2, (N - 1) / 2, (N - 1) / 2
     idx = np.indices((N, N, N))
-    xx, yy, zz = idx[0]-cx_, idx[1]-cy_, idx[2]-cz_
+    xx, yy, zz = idx[0] - cx_, idx[1] - cy_, idx[2] - cz_
     rho_xy = np.sqrt(xx**2 + yy**2 + 1e-12)
-    rho_tube = np.sqrt((rho_xy - R_torus)**2 + zz**2)
+    rho_tube = np.sqrt((rho_xy - R_torus) ** 2 + zz**2)
     shell_mask = (rho_tube < 1.5 * r_torus) & engine.k4.mask_active
 
     # Captures
     energy_total_traj = []
     energy_shell_traj = []
     a2_max_traj = []
-    cos_omega_max_traj = []   # Cosserat coupling check
+    cos_omega_max_traj = []  # Cosserat coupling check
 
     capture_cadence = 5
     print(f"\n  Running...", flush=True)
@@ -127,11 +134,14 @@ def main():
 
         if step_i % capture_cadence == 0:
             t_now = step_i * DT
-            a2 = np.sum(engine.k4.V_inc ** 2, axis=-1)
+            a2 = np.sum(engine.k4.V_inc**2, axis=-1)
             a2_int = a2 * engine.k4.mask_active.astype(float)
-            a2_int[:PML, :, :] = 0; a2_int[N-PML:, :, :] = 0
-            a2_int[:, :PML, :] = 0; a2_int[:, N-PML:, :] = 0
-            a2_int[:, :, :PML] = 0; a2_int[:, :, N-PML:] = 0
+            a2_int[:PML, :, :] = 0
+            a2_int[N - PML :, :, :] = 0
+            a2_int[:, :PML, :] = 0
+            a2_int[:, N - PML :, :] = 0
+            a2_int[:, :, :PML] = 0
+            a2_int[:, :, N - PML :] = 0
 
             e_total = float(a2_int.sum())
             e_shell = float(a2_int[shell_mask].sum())
@@ -146,10 +156,13 @@ def main():
             if step_i % 50 == 0:
                 t_p = t_now / COMPTON_PERIOD
                 shell_frac = e_shell / max(e_total, 1e-30)
-                print(f"    t={t_p:5.2f}P  E_total={e_total:.3e}  "
-                      f"E_shell={e_shell:.3e} ({shell_frac:.3f})  "
-                      f"A²_max={a2_max:.3f}  ω_max={omega_max:.3e}  "
-                      f"({time.time() - t_start:.0f}s)", flush=True)
+                print(
+                    f"    t={t_p:5.2f}P  E_total={e_total:.3e}  "
+                    f"E_shell={e_shell:.3e} ({shell_frac:.3f})  "
+                    f"A²_max={a2_max:.3f}  ω_max={omega_max:.3e}  "
+                    f"({time.time() - t_start:.0f}s)",
+                    flush=True,
+                )
 
     elapsed = time.time() - t_start
     print(f"\n  Engine evolution complete in {elapsed:.0f}s")

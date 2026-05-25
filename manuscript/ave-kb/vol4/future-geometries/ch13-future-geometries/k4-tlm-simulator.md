@@ -1,8 +1,13 @@
 [↑ Ch.13: Future Geometries](../index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol3 as sec:k4_tlm -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-wzezvt, clm-hd9bee]
+path-stable: "referenced from vol3 as sec:k4_tlm"
+-->
 
 ## K4-TLM: Native Lattice Dynamics Simulator (sub-saturation engine)
+<!-- claim-quality: clm-hd9bee -->
 
 > **Architecture context (canonical per A-027, 2026-05-16):** K4-TLM is the **sub-saturation engine** ($A \ll 1$; linear + weakly nonlinear up to $V_{\text{yield}}$ onset) of AVE's two-engine architecture. Bound-state regime ($A \to 1$, breathing-soliton solutions with $c_{\text{eff}}(V)$ wave-speed modulation) requires the **Master Equation FDTD** engine which implements the substrate's non-linear d'Alembertian directly. See [Two-Engine Architecture (A-027)](../../../common/two-engine-architecture-a027.md) for the canonical split + v14 Mode I PASS validation of the bound-state engine.
 >
@@ -64,6 +69,7 @@ Broadband Gaussian-pulse excitation of wire antennas on the 2D K4-TLM lattice pr
 
 The torus knot antennas resonate at frequencies *higher* than the simple $c/(2L)$ prediction, indicating that the knot topology introduces geometric shortcuts (self-coupling between overlapping wire segments) that shorten the effective electrical length. This is precisely the mechanism by which topological winding number couples to the lattice: the knot's self-linking creates internal impedance matching that shifts the fundamental mode.
 
+<!-- claim-quality: clm-wzezvt (validation that the K4-TLM lattice reproduces the HOPF-01 chiral-antenna prediction $\Delta f/f = \alpha \cdot pq/(p+q)$ — the simulator-side confirmation of the antenna-side result) -->
 Previously, simulations on artificial Cartesian lattices required phenomenological variables to test "achiral" physics. On the strict K4 Diamond geometry, the lattice is permanently bipartite and therefore natively chiral. By running the 3D simulation with a newly integrated non-reflective Continuous Sponge PML, the far-field wrap-around artifacts were eliminated. The measured macroscopic topological knot modes perfectly resolve matching the theoretical prediction $\Delta f/f = \alpha \cdot pq/(p+q)$ in the sub-saturation regime. The native lattice directly confirms the fundamental isomorphism of Axiom 2 without employing arbitrary mathematical $R(\theta)$ modifiers.
 
 > **Scope caveat (re α-emergence circularity, AVE-HOPF audit `vol_hopf/chapters/13_l3_chirality_review.tex:80`):** the chirality-asymmetry test above runs at sub-saturation where $\alpha$ is hardcoded into the substrate's chiral coupling. The simulator therefore does not provide *independent numerical verification of α-emergence* from substrate-only inputs — that requires the two-engine pair (K4-TLM + Master Equation FDTD non-linear d'Alembertian) running the bound-state α-emergence test on the post-refactor exposed coupling (per L3 doc 108 Phase 3). The test PASSes here as "the K4 substrate carries chirality natively in the sub-saturation regime"; it does NOT close to "α is derived from substrate dynamics" — that closure is upstream theoretical work pending the two-engine bound-state run.

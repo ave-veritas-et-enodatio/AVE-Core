@@ -1,5 +1,9 @@
 [↑ Ch.15 Black Hole Orbitals](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-c6k5om]
+-->
 
 ## Hawking Radiation as Spontaneous Emission
 

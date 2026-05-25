@@ -132,7 +132,7 @@ This is a SCOPE-REFINEMENT walk-back, applicable to the same file set as prior s
 2. **`manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md` §5** — update substrate-velocity scope to "LSR-class specifically; does NOT extend to GC-class populations per 2026-05-17 night test"
 3. **`manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md` §4.5 cross-volume motif** — stellar-scale row updates with LSR-class scope clarification
 4. **`manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md` §8** — update with LSR-class scope clarification
-5. **`manuscript/ave-kb/common/closure-roadmap.md` §0.5** — new entry for GC test outcome + scope narrowing
+5. **`manuscript/ave-kb/claim-quality-closure-roadmap.md` §0.5** — new entry for GC test outcome + scope narrowing
 6. **`manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/dm-mechanism-unification.md` §8 cross-limb prediction B** — substrate-equilibrium velocity prediction updated to "LSR-class scope; GC-class test outcome III"
 
 **Foreword (`manuscript/frontmatter/00_foreword.tex`)**: no change — DAMA bullet already at "active research consistency result"; this test doesn't promote, just refines scope.

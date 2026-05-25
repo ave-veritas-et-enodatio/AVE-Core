@@ -1,5 +1,9 @@
 [↑ Ch.1 Gravity and Yield](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-x19btt]
+-->
 
 ---
 

@@ -1,5 +1,11 @@
 [↑ Particle Physics](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-8c3yhs, clm-8zpicx, clm-ezai5b, clm-gfdplp, clm-h9aqmt, clm-hb2xmj, clm-jupq56, clm-jwyy6l, clm-k6olj8, clm-ka5zdx, clm-lj4ok5, clm-ou2jym, clm-oygz1i, clm-salw2h, clm-uatcql]
+subtree-experiments: []
+-->
+
 # Ch.1 — Topological Matter: Fermion Generations
 
 > ↗ See also: [Nuclear Coupling Constant $K$](../../../vol6/framework/computational-mass-defect/mutual-coupling-constant.md) — proton $(2,5)$ knot crossings scale the nuclear $\alpha\hbar c$ coupling

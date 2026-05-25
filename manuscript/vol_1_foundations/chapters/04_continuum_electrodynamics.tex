@@ -67,6 +67,8 @@ c_{eff}(V) = c_0 \left(1 - \left(\frac{V}{V_{yield}}\right)^2\right)^{-1/4}
 \end{equation}
 \end{resultbox}
 
+\paragraph{Domain of validity (EFT statement).} The direct substitution of $\varepsilon_{eff}(V)$ into the linear D'Alembert form is exact only in the leading-order long-wavelength EFT regime, where the field-gradient corrections that arise from $\nabla \cdot \mathbf{D} = \varepsilon_{eff}(V)\,\nabla \cdot \mathbf{E} + (\nabla \varepsilon_{eff})\cdot \mathbf{E} = 0$ are subdominant to the inertial term $\varepsilon_{eff}(V)\,\partial^2 V/\partial t^2$. This holds in the linear limit $V \ll V_{yield}$ (where $d\varepsilon_{eff}/dV \to 0$ and $\nabla \varepsilon_{eff} \to 0$). Particle confinement and standing-wave claims at $V \to V_{yield}$ depend on the dropped first-derivative gradient terms remaining negligible by symmetry at saturation; we use the leading-order form throughout this volume and flag the EFT caveat explicitly where downstream chapters invoke the master equation in the saturated regime. A higher-order correction including the $\nabla \varepsilon_{eff} \cdot \nabla V$ term is not derived here but is required for any quantitative claim that depends on the wave-equation form near $V_{yield}$ rather than on the saturation kernel $S$ alone.
+
 Note: the wave speed \emph{increases} as permittivity drops (thinner dielectric $\to$ faster propagation), while the measured capacitance \emph{diverges} ($C_{eff} = C_0/S \to \infty$). The resulting non-linear wave equation is the \textbf{Unifying AVE Master Equation}:
 \begin{resultbox}{The Unifying AVE Master Equation}
 \begin{equation}
@@ -79,7 +81,12 @@ Note: the wave speed \emph{increases} as permittivity drops (thinner dielectric 
 This single line of non-linear differential topology formally replaces the fragmented domains of the Standard Model and General Relativity:
 \begin{enumerate}
     \item \textbf{Classical Electromagnetism ($V \ll 43.65\text{ kV}$):} The square root term evaluates to 1. The equation reduces to the linear Maxwellian wave equation used in standard optics and RF engineering.
-    \item \textbf{Particle Assembly ($V \to 43.65\text{ kV}$):} The local permittivity collapses ($\varepsilon_{eff} \to 0$), forcing the impedance to drop to zero ($Z \to 0$). The accelerating wave continuously reflects off its own self-induced impedance boundary ($\Gamma \to -1$). This traps the wave into a stabilized topological knot (a Fermion), physically generating invariant rest mass without invoking the Higgs Mechanism.
+    \item \textbf{Particle Assembly ($V \to 43.65\text{ kV}$):} The non-linear regime divides into two distinct saturation symmetries (per Axiom~4 confinement theorem):
+    \begin{itemize}
+        \item \emph{Asymmetric (electric-only) saturation}, where only $\varepsilon_{eff} \to 0$ while $\mu_{eff}$ remains intact, drives $Z = \sqrt{\mu_0/\varepsilon_{eff}} \to \infty$ --- the medium becomes electromagnetically opaque (evanescent, no energy transport). This is the dielectric-rupture branch (electric breakdown).
+        \item \emph{Particle confinement} proceeds via the magnetic branch instead: at a torus-knot self-intersection the field $\mathbf{B}$ saturates $\mu_{eff}$ first, driving $Z = \sqrt{\mu_{eff}/\varepsilon_0} \to 0$ and $\Gamma \to -1$ (short-circuit). The accelerating wave reflects off its own self-induced impedance boundary, trapping into a stabilised topological knot (a Fermion) and physically generating invariant rest mass without invoking the Higgs Mechanism.
+    \end{itemize}
+    Both branches are governed by the same kernel $S(A) = \sqrt{1-(A/A_{yield})^2}$; they differ in which constitutive parameter saturates first. See LIVING\_REFERENCE Axiom~4 derived consequences for the symmetric vs asymmetric tables.
     \item \textbf{Gravity:} The trapped topological knot permanently strains the surrounding $\varepsilon_{eff}$ and $\mu_{eff}$ fields symmetrically ($n(r) = 1 + 2GM/rc^2$). This produces a continuous refractive gradient radially outward while preserving $Z_0$. Test photons propagating through this gradient refract toward the knot, executing the macroscopic acceleration attributed to gravity.
 \end{enumerate}
 
@@ -152,8 +159,7 @@ Dividing by the Voronoi geometric volume of a single spatial node ($V_{node} = p
 This is the macroscopic 3D shear modulus of the $\mathcal{M}_A$ condensate---the elastic
 resistance to transverse spatial deformation. It must not be confused with the
 1D \textbf{string tension modulus} $G_{string} = T_{EM}/\ell_{node} = m_e c^2 / \ell_{node}^2
-\approx 5.49 \times 10^{11}$~Pa, which governs individual edge stiffness but is $\sim 10^{12}\times$
-smaller than the collective continuum value. The Cauchy bulk modulus is fixed at
+\approx 5.49 \times 10^{11}$~N/m, which governs individual edge stiffness (line tension per unit length, distinct from the volumetric shear modulus $G_{vac}$ in Pa above). The Cauchy bulk modulus is fixed at
 $K_{vac} = 2G_{vac}$ (the Cauchy relation for the isotropic lattice).
 
 \subsection{Deriving the Kinematic Mutual Inductance of the Universe ($\nu_{kin}$)}
@@ -219,7 +225,9 @@ By evaluating the scalar volume summation of these topological knot crossings ($
 \end{equation}
 \end{resultbox}
 
-In regions of high gravitational shear (e.g., the spatial envelope surrounding a planetary body), the local magnetic field exceeds this structural saturation limit ($\tau > \tau_{yield}$). 
+\noindent\textbf{Notation.} $\mathcal{V}_{crossing}$ is the per-crossing topological halo volume (dimensionless, lattice units); the $6^3_2$ Borromean proton has six crossings, so the total topological halo volume is $\mathcal{V}_{total} = 6\,\mathcal{V}_{crossing} = 2.0$ (FEM-verified). Substituting $\rho_{bulk} = \xi_{topo}^2 \mu_0/(p_c \ell_{node}^2)$ and using $\mu_0 c^2 = 1/\varepsilon_0$ rewrites this in the equivalent compact electrostatic form $\tau_{yield} = e^2\,\mathcal{V}_{total}/(8\pi\varepsilon_0\,\ell_{node}^4)$ used in the appendices summary table; the two presentations differ only by factoring choice and yield identical $1.04\times 10^{22}$~Pa.
+
+In regions of high gravitational shear (e.g., the spatial envelope surrounding a planetary body), the local magnetic field exceeds this structural saturation limit ($\tau > \tau_{yield}$).
 
 This triggers a localized \textbf{Electrodynamic Phase-Transition}. The discrete, structurally frustrated LC loops physically saturate and continuously destructively interfere. Because this saturated continuum mathematically cannot support transverse inductive drag vectors, its effective mutual inductance is strictly annihilated ($\eta \to 0$). 
 

@@ -20,7 +20,6 @@ Engine config: pure K4-TLM (disable_cosserat_lc_force=True,
 enable_cosserat_self_terms=False) — bench test of the K4-TLM
 scatter+connect implementation alone.
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -51,7 +50,9 @@ def main():
     print()
 
     engine = VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=0.0,
+        N=N,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=False,
@@ -72,7 +73,7 @@ def main():
 
     # Active mask (exclude PML)
     active_mask = np.zeros((N, N, N), dtype=bool)
-    active_mask[PML:N-PML, PML:N-PML, PML:N-PML] = True
+    active_mask[PML : N - PML, PML : N - PML, PML : N - PML] = True
 
     # Track wave-front radius per step
     n_record = N_STEPS
@@ -103,7 +104,7 @@ def main():
         # Snapshot energy distribution
         if i in snapshot_steps:
             t_p = (i + 1) * DT / COMPTON_PERIOD
-            r_bins = np.arange(0, N//2 + 1)
+            r_bins = np.arange(0, N // 2 + 1)
             energy_per_shell = []
             for r_low in r_bins[:-1]:
                 shell_mask = (r_grid >= r_low) & (r_grid < r_low + 1) & active_mask
@@ -120,9 +121,12 @@ def main():
 
         if (time.time() - last) > 30.0:
             t_p = (i + 1) * DT / COMPTON_PERIOD
-            print(f"    step {i}/{n_record}, t={t_p:.1f}P, "
-                  f"front r={r_max:.2f}, max field={max_field_per_step[i]:.3e}, "
-                  f"elapsed {time.time()-t0:.1f}s", flush=True)
+            print(
+                f"    step {i}/{n_record}, t={t_p:.1f}P, "
+                f"front r={r_max:.2f}, max field={max_field_per_step[i]:.3e}, "
+                f"elapsed {time.time()-t0:.1f}s",
+                flush=True,
+            )
             last = time.time()
 
     elapsed = time.time() - t0
@@ -165,15 +169,20 @@ def main():
         elif abs(c_eff - 1.0) < 0.15:
             verdict = f"PARTIAL — engine c_eff = {c_eff:.4f}, ~10-15% off from c (possible discrete-substrate dispersion at short wavelengths)"
         else:
-            verdict = f"FAIL — engine c_eff = {c_eff:.4f}, substantial deviation from c (engine bug or numerical artifact)"
+            verdict = (
+                f"FAIL — engine c_eff = {c_eff:.4f}, substantial deviation from c (engine bug or numerical artifact)"
+            )
     else:
         verdict = "INSUFFICIENT DATA — fit window had too few points"
     print(f"  Verdict: {verdict}")
 
     out = {
         "test": "Foundation Audit Test 2: plane-wave dispersion (low amplitude)",
-        "N": N, "PML": PML, "v_pulse": v_pulse,
-        "n_periods": N_PERIODS, "n_steps": N_STEPS,
+        "N": N,
+        "PML": PML,
+        "v_pulse": v_pulse,
+        "n_periods": N_PERIODS,
+        "n_steps": N_STEPS,
         "elapsed_s": elapsed,
         "front_radius_per_step_first_50": front_radius[:50].tolist(),
         "front_radius_per_step_last_50": front_radius[-50:].tolist(),

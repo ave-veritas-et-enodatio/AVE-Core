@@ -23,37 +23,35 @@ Convergence taxonomy:
 
 Output: trajectory, final (R, r), final crossing count, convergence status.
 """
-from __future__ import annotations
 
 import sys
 from dataclasses import dataclass
 
-import numpy as np
 import jax.numpy as jnp
+import numpy as np
 
 from ave.core.constants import V_YIELD
-from ave.topological.vacuum_engine import VacuumEngine3D
 from ave.topological.cosserat_field_3d import _s11_density
+from ave.topological.vacuum_engine import VacuumEngine3D
 
 sys.path.insert(0, "/Users/grantlindblom/AVE-staging/AVE-Core/src/scripts/vol_1_foundations")
 from tlm_electron_soliton_eigenmode import (
+    extract_crossing_count_tlm,
     initialize_2_3_voltage_ansatz,
     initialize_phi_link_2_3_ansatz,
-    extract_crossing_count_tlm,
     shell_envelope,
 )
 
-
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
-PHI_SQ = PHI ** 2
+PHI_SQ = PHI**2
 
 
 @dataclass
 class CoupledEigenmodeResult:
     converged: bool
-    status: str               # "converged" | "diverged" | "topology_lost" | "max_iter_no_converge"
+    status: str  # "converged" | "diverged" | "topology_lost" | "max_iter_no_converge"
     iterations: int
-    trajectory: list          # list of (R, r, c, E, peak_omega) per outer iter
+    trajectory: list  # list of (R, r, c, E, peak_omega) per outer iter
     final_R: float
     final_r: float
     final_c: int
@@ -142,7 +140,9 @@ def _seed_both_sectors(
 
     if seed_mode == "mixed":
         engine.cos.initialize_electron_2_3_sector(
-            R_target=R, r_target=r, use_hedgehog=True,
+            R_target=R,
+            r_target=r,
+            use_hedgehog=True,
             amplitude_scale=cos_amp_scale,
         )
         initialize_2_3_voltage_ansatz(engine.k4, R=R, r=r, amplitude=k4_amplitude)
@@ -150,14 +150,18 @@ def _seed_both_sectors(
         # C-states only: K4 V_inc + Cosserat u, all L-states zero
         initialize_2_3_voltage_ansatz(engine.k4, R=R, r=r, amplitude=k4_amplitude)
         engine.cos.initialize_u_displacement_2_3_sector(
-            R_target=R, r_target=r, amplitude_scale=u_amp_scale,
+            R_target=R,
+            r_target=r,
+            amplitude_scale=u_amp_scale,
         )
         # Cosserat init zeros omega; K4 V_inc init doesn't touch Phi_link.
         # Both already zero from clean-state above. Confirmed consistent.
     elif seed_mode == "all_l":
         # L-states only: Cosserat ω + K4 Φ_link, all C-states zero
         engine.cos.initialize_electron_2_3_sector(
-            R_target=R, r_target=r, use_hedgehog=True,
+            R_target=R,
+            r_target=r,
+            use_hedgehog=True,
             amplitude_scale=cos_amp_scale,
         )
         initialize_phi_link_2_3_ansatz(engine.k4, R=R, r=r, amplitude=phi_link_amplitude)
@@ -166,12 +170,13 @@ def _seed_both_sectors(
     elif seed_mode == "path_b":
         # Path B: Cosserat ω only — no K4 seed.
         engine.cos.initialize_electron_2_3_sector(
-            R_target=R, r_target=r, use_hedgehog=True,
+            R_target=R,
+            r_target=r,
+            use_hedgehog=True,
             amplitude_scale=cos_amp_scale,
         )
     else:
-        raise ValueError(f"unknown seed_mode {seed_mode!r}; "
-                         f"must be 'mixed', 'all_c', 'all_l', or 'path_b'")
+        raise ValueError(f"unknown seed_mode {seed_mode!r}; " f"must be 'mixed', 'all_c', 'all_l', or 'path_b'")
 
 
 def _run_inner(
@@ -214,7 +219,7 @@ def _run_inner(
             break
         if step >= rms_start:
             mag = _compute_combined_magnitude(engine)
-            rms_accumulator += mag ** 2
+            rms_accumulator += mag**2
             rms_count += 1
 
     if rms_count > 0:
@@ -280,12 +285,18 @@ def solve_eigenmode_coupled_engine(
 
     for outer in range(1, max_iter + 1):
         engine = VacuumEngine3D.from_args(
-            N=N, pml=pml, temperature=0.0,
+            N=N,
+            pml=pml,
+            temperature=0.0,
             disable_cosserat_lc_force=disable_cosserat_lc_force,
             enable_cosserat_self_terms=enable_cosserat_self_terms,
         )
         _seed_both_sectors(
-            engine, R_k, r_k, cos_amp_scale, k4_amplitude,
+            engine,
+            R_k,
+            r_k,
+            cos_amp_scale,
+            k4_amplitude,
             seed_mode=seed_mode,
             u_amp_scale=u_amp_scale,
             phi_link_amplitude=phi_link_amplitude,
@@ -297,7 +308,10 @@ def solve_eigenmode_coupled_engine(
             print(f"  seed (R, r) = ({R_k:.3f}, {r_k:.3f})  E_seed = {E_seed:.3e}")
 
         diag, diverged = _run_inner(
-            engine, n_steps, E_seed, energy_explosion_factor,
+            engine,
+            n_steps,
+            E_seed,
+            energy_explosion_factor,
             rms_avg_last_n=min(30, n_steps),
             seed_mode=seed_mode,
         )
@@ -305,19 +319,26 @@ def solve_eigenmode_coupled_engine(
         trajectory.append((R_k, r_k, diag["c"], diag["E_final"], diag["peak_omega"]))
 
         if verbose:
-            print(f"  after {diag['n_steps_run']} steps: "
-                  f"R_rms={diag['R_rms']:.3f}  r_rms={diag['r_rms']:.3f}  "
-                  f"c={diag['c']}  E_max/E_seed={diag['E_max']/max(abs(E_seed),1e-30):.2e}  "
-                  f"peak|ω|={diag['peak_omega']:.3f}")
+            print(
+                f"  after {diag['n_steps_run']} steps: "
+                f"R_rms={diag['R_rms']:.3f}  r_rms={diag['r_rms']:.3f}  "
+                f"c={diag['c']}  E_max/E_seed={diag['E_max']/max(abs(E_seed),1e-30):.2e}  "
+                f"peak|ω|={diag['peak_omega']:.3f}"
+            )
 
         if diverged:
             if verbose:
                 print(f"  → DIVERGED (energy > {energy_explosion_factor}×seed) at step {diag['n_steps_run']}")
             return CoupledEigenmodeResult(
-                converged=False, status="diverged", iterations=outer,
+                converged=False,
+                status="diverged",
+                iterations=outer,
                 trajectory=trajectory,
-                final_R=R_k, final_r=r_k, final_c=diag["c"],
-                final_E=diag["E_final"], final_peak_omega=diag["peak_omega"],
+                final_R=R_k,
+                final_r=r_k,
+                final_c=diag["c"],
+                final_E=diag["E_final"],
+                final_peak_omega=diag["peak_omega"],
             )
 
         # Convergence check
@@ -333,17 +354,27 @@ def solve_eigenmode_coupled_engine(
         if dR_rel < tol and dr_rel < tol:
             if diag["c"] == 3:
                 return CoupledEigenmodeResult(
-                    converged=True, status="converged", iterations=outer,
+                    converged=True,
+                    status="converged",
+                    iterations=outer,
                     trajectory=trajectory,
-                    final_R=diag["R_rms"], final_r=diag["r_rms"], final_c=diag["c"],
-                    final_E=diag["E_final"], final_peak_omega=diag["peak_omega"],
+                    final_R=diag["R_rms"],
+                    final_r=diag["r_rms"],
+                    final_c=diag["c"],
+                    final_E=diag["E_final"],
+                    final_peak_omega=diag["peak_omega"],
                 )
             else:
                 return CoupledEigenmodeResult(
-                    converged=False, status="topology_lost", iterations=outer,
+                    converged=False,
+                    status="topology_lost",
+                    iterations=outer,
                     trajectory=trajectory,
-                    final_R=diag["R_rms"], final_r=diag["r_rms"], final_c=diag["c"],
-                    final_E=diag["E_final"], final_peak_omega=diag["peak_omega"],
+                    final_R=diag["R_rms"],
+                    final_r=diag["r_rms"],
+                    final_c=diag["c"],
+                    final_E=diag["E_final"],
+                    final_peak_omega=diag["peak_omega"],
                 )
 
         # Feedback
@@ -354,16 +385,25 @@ def solve_eigenmode_coupled_engine(
             if verbose:
                 print(f"  → Geometry collapsed (R={R_k:.2f}, r={r_k:.2f}), aborting")
             return CoupledEigenmodeResult(
-                converged=False, status="geometry_collapsed", iterations=outer,
+                converged=False,
+                status="geometry_collapsed",
+                iterations=outer,
                 trajectory=trajectory,
-                final_R=R_k, final_r=r_k, final_c=diag["c"],
-                final_E=diag["E_final"], final_peak_omega=diag["peak_omega"],
+                final_R=R_k,
+                final_r=r_k,
+                final_c=diag["c"],
+                final_E=diag["E_final"],
+                final_peak_omega=diag["peak_omega"],
             )
 
     return CoupledEigenmodeResult(
-        converged=False, status="max_iter_no_converge", iterations=max_iter,
+        converged=False,
+        status="max_iter_no_converge",
+        iterations=max_iter,
         trajectory=trajectory,
-        final_R=R_k, final_r=r_k, final_c=trajectory[-1][2] if trajectory else 0,
+        final_R=R_k,
+        final_r=r_k,
+        final_c=trajectory[-1][2] if trajectory else 0,
         final_E=trajectory[-1][3] if trajectory else 0.0,
         final_peak_omega=trajectory[-1][4] if trajectory else 0.0,
     )
@@ -382,9 +422,12 @@ if __name__ == "__main__":
         print(f"  Run: seed_mode = {mode!r}, Golden Torus seed, N=48")
         print(f"{'=' * 78}")
         result = solve_eigenmode_coupled_engine(
-            N=48, R_seed=12.0,
+            N=48,
+            R_seed=12.0,
             seed_mode=mode,
-            n_steps=50, max_iter=4, tol=5e-2,
+            n_steps=50,
+            max_iter=4,
+            tol=5e-2,
             verbose=True,
         )
         summary.append((mode, result))
@@ -393,9 +436,11 @@ if __name__ == "__main__":
         print(f"  status:       {result.status}")
         print(f"  converged:    {result.converged}")
         print(f"  iterations:   {result.iterations}")
-        print(f"  final (R, r): ({result.final_R:.3f}, {result.final_r:.3f})  "
-              f"R/r = {result.final_R / max(result.final_r, 1e-9):.3f}  "
-              f"(target φ² = {PHI_SQ:.3f})")
+        print(
+            f"  final (R, r): ({result.final_R:.3f}, {result.final_r:.3f})  "
+            f"R/r = {result.final_R / max(result.final_r, 1e-9):.3f}  "
+            f"(target φ² = {PHI_SQ:.3f})"
+        )
         print(f"  final c:      {result.final_c}  (target 3)")
         print(f"  final E:      {result.final_E:.3e}")
         print(f"  final |ω|:    {result.final_peak_omega:.3f}")
@@ -411,4 +456,6 @@ if __name__ == "__main__":
     print(f"  {'mode':<10} {'status':<24} {'iters':<7} {'R/r':<8} {'c':<3} {'E_final':<12} {'|ω|':<8}")
     for mode, r in summary:
         ratio = r.final_R / max(r.final_r, 1e-9)
-        print(f"  {mode:<10} {r.status:<24} {r.iterations:<7} {ratio:<8.3f} {r.final_c:<3} {r.final_E:<12.2e} {r.final_peak_omega:<8.3f}")
+        print(
+            f"  {mode:<10} {r.status:<24} {r.iterations:<7} {ratio:<8.3f} {r.final_c:<3} {r.final_E:<12.2e} {r.final_peak_omega:<8.3f}"
+        )

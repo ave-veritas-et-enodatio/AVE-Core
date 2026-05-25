@@ -42,21 +42,21 @@ Helicity here is defined by the K4-TLM port arithmetic (k4_tlm.py
 observable on Axiom 1, not a spin-angular-momentum operator. Amplitude
 is ≪ V_YIELD → linear vacuum regime (Axiom 4 off).
 """
-from __future__ import annotations
 
 import os
 import sys
+
 sys.path.insert(0, os.path.dirname(__file__))
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-
-from ave.core.k4_tlm import K4Lattice3D
-from ave.core.constants import C_0, V_SNAP
-
 from photon_propagation import T2_LINEAR_A, T2_LINEAR_B, T2_LINEAR_C
+
+from ave.core.constants import C_0, V_SNAP
+from ave.core.k4_tlm import K4Lattice3D
 
 
 class CircularChiralSource:
@@ -103,12 +103,12 @@ class CircularChiralSource:
             return self._yz_profile_cache[2]
         j, k = np.indices((ny, nz), dtype=float)
         r2 = (j - self.y_c) ** 2 + (k - self.z_c) ** 2
-        profile = np.exp(-r2 / (2.0 * self.sigma_yz ** 2))
+        profile = np.exp(-r2 / (2.0 * self.sigma_yz**2))
         self._yz_profile_cache = (ny, nz, profile)
         return profile
 
     def apply(self, lattice: K4Lattice3D, t: float) -> None:
-        env = np.exp(-((t - self.t_center) ** 2) / (2.0 * self.t_sigma ** 2))
+        env = np.exp(-((t - self.t_center) ** 2) / (2.0 * self.t_sigma**2))
         if abs(env) < 1e-30:
             return
         phase = self.omega * (t - self.t_center)
@@ -121,10 +121,7 @@ class CircularChiralSource:
             # The port pattern ROTATES at ω, producing sustained non-zero
             # helicity when averaged over a cycle.  The sin-modulated factor
             # ensures the pulse amplitude is zero at t=t_center (no DC).
-            port_w = (
-                T2_LINEAR_B * np.sin(phase)
-                + self.helicity_sign * T2_LINEAR_C * np.cos(phase)
-            )
+            port_w = T2_LINEAR_B * np.sin(phase) + self.helicity_sign * T2_LINEAR_C * np.cos(phase)
         amp = self.amplitude * env
         yz = self._yz_profile(lattice.ny, lattice.nz)
         active = lattice.mask_active[self.x0].astype(float)
@@ -203,9 +200,7 @@ def run_one_polarization(
                 iy = np.arange(N, dtype=float)
                 weight = down.sum(axis=0)
                 y_mean = (weight * iy).sum() / weight.sum()
-                sigma_y = np.sqrt(
-                    (weight * (iy - y_mean) ** 2).sum() / weight.sum()
-                )
+                sigma_y = np.sqrt((weight * (iy - y_mean) ** 2).sum() / weight.sum())
             else:
                 sigma_y = np.nan
             history["t"].append(t_now)
@@ -249,9 +244,11 @@ def main() -> None:
         print(f"Running: {label}  (helicity_sign = {sign})")
         res = run_one_polarization(helicity_sign=sign)
         results.append(res)
-        peak_h_signed = res["total_helicity_signed"][
-            np.argmax(np.abs(res["total_helicity_signed"]))
-        ] if len(res["total_helicity_signed"]) > 0 else 0.0
+        peak_h_signed = (
+            res["total_helicity_signed"][np.argmax(np.abs(res["total_helicity_signed"]))]
+            if len(res["total_helicity_signed"]) > 0
+            else 0.0
+        )
         peak_h_abs = res["total_helicity_abs"].max()
         E_plane_peak = res["energy_at_reference"].max()
         print(
@@ -292,10 +289,7 @@ def main() -> None:
         ax.plot(res["t"] * 1e9, res["energy_at_reference"], label=label, lw=1.4)
     ax.set_xlabel("t (ns)")
     ax.set_ylabel(f"|V|² at x = {ref_plane} (reference plane)")
-    ax.set_title(
-        f"Transmitted energy at reference plane x={ref_plane}\n"
-        "(higher = better vacuum matching)"
-    )
+    ax.set_title(f"Transmitted energy at reference plane x={ref_plane}\n" "(higher = better vacuum matching)")
     ax.grid(alpha=0.3)
     ax.legend()
 
@@ -321,9 +315,14 @@ def main() -> None:
         **{
             f"{prefix}_{key}": res[key]
             for prefix, res in zip(["lin", "rh", "lh"], results)
-            for key in ["t", "total_energy", "total_helicity_signed",
-                        "total_helicity_abs", "energy_at_reference",
-                        "sigma_y"]
+            for key in [
+                "t",
+                "total_energy",
+                "total_helicity_signed",
+                "total_helicity_abs",
+                "energy_at_reference",
+                "sigma_y",
+            ]
         },
     )
     print(f"Saved raw data to {out_npz}")
@@ -352,13 +351,14 @@ def main() -> None:
     print(f"\nRH/LH asymmetry (energy throughput): {asymmetry*100:+.2f}%")
     if abs(asymmetry) > 0.03:
         winner = "RH" if asymmetry > 0 else "LH"
-        print(f"  → K4 vacuum preferentially transmits {winner} helicity "
-              f"(chirally matched).")
+        print(f"  → K4 vacuum preferentially transmits {winner} helicity " f"(chirally matched).")
     else:
-        print("  → K4 vacuum transmits RH and LH symmetrically at this "
-              "wavelength/amplitude (not chirally selective on empty "
-              "linear vacuum; chirality selection likely arises in the "
-              "Axiom-4-engaged regime or at the soliton shell).")
+        print(
+            "  → K4 vacuum transmits RH and LH symmetrically at this "
+            "wavelength/amplitude (not chirally selective on empty "
+            "linear vacuum; chirality selection likely arises in the "
+            "Axiom-4-engaged regime or at the soliton shell)."
+        )
 
 
 if __name__ == "__main__":

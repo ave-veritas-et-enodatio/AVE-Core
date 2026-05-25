@@ -15,15 +15,14 @@ This script is intentionally self-contained — no dependencies on engine module
 to avoid coupling the canonical reference visuals to engine internal state.
 """
 
-from __future__ import annotations
-
 import math
-from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import Circle, FancyArrowPatch
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+
+from ave_path_util import SIM_OUTPUTS
 
 # Use embedded TeX for math rendering; falls back gracefully on systems without
 plt.rcParams.update(
@@ -38,7 +37,7 @@ plt.rcParams.update(
     }
 )
 
-OUTDIR = Path("assets/sim_outputs/trampoline_framework")
+OUTDIR = SIM_OUTPUTS / "trampoline_framework"
 OUTDIR.mkdir(parents=True, exist_ok=True)
 
 
@@ -144,10 +143,14 @@ def fig_01_k4_lattice():
 
     # Add legend-style text box
     legend_text = (
-        r"$p_0 = (+,+,+)/\sqrt{3}$" "\n"
-        r"$p_1 = (+,-,-)/\sqrt{3}$" "\n"
-        r"$p_2 = (-,+,-)/\sqrt{3}$" "\n"
-        r"$p_3 = (-,-,+)/\sqrt{3}$" "\n\n"
+        r"$p_0 = (+,+,+)/\sqrt{3}$"
+        "\n"
+        r"$p_1 = (+,-,-)/\sqrt{3}$"
+        "\n"
+        r"$p_2 = (-,+,-)/\sqrt{3}$"
+        "\n"
+        r"$p_3 = (-,-,+)/\sqrt{3}$"
+        "\n\n"
         "B-node ports = $-p_i$\n"
         "(reciprocity)"
     )
@@ -191,8 +194,26 @@ def fig_02_three_storage_modes():
     ax_3d.quiver(0, 0, 0, arrow_len, 0, 0, color="#1f77b4", arrow_length_ratio=0.06, linewidth=2.5)
     ax_3d.quiver(0, 0, 0, 0, arrow_len, 0, color="#d62728", arrow_length_ratio=0.06, linewidth=2.5)
     ax_3d.quiver(0, 0, 0, 0, 0, arrow_len, color="#2ca02c", arrow_length_ratio=0.06, linewidth=2.5)
-    ax_3d.text(arrow_len * 1.08, 0, 0, r"$\varepsilon$" + "\n(electric)", color="#1f77b4", fontsize=12, fontweight="bold", ha="center")
-    ax_3d.text(0, arrow_len * 1.08, 0.05, r"$\kappa$" + "\n(magnetic)", color="#d62728", fontsize=12, fontweight="bold", ha="center")
+    ax_3d.text(
+        arrow_len * 1.08,
+        0,
+        0,
+        r"$\varepsilon$" + "\n(electric)",
+        color="#1f77b4",
+        fontsize=12,
+        fontweight="bold",
+        ha="center",
+    )
+    ax_3d.text(
+        0,
+        arrow_len * 1.08,
+        0.05,
+        r"$\kappa$" + "\n(magnetic)",
+        color="#d62728",
+        fontsize=12,
+        fontweight="bold",
+        ha="center",
+    )
     ax_3d.text(0, 0, arrow_len * 1.08, r"$V$ (potential)", color="#2ca02c", fontsize=12, fontweight="bold", ha="center")
 
     # State vector A
@@ -299,8 +320,7 @@ def fig_02_three_storage_modes():
     ax_2d.set_xlabel(r"strain amplitude $|A|$", fontsize=11)
     ax_2d.set_ylabel(r"free capacity $S(A)$", fontsize=11)
     ax_2d.set_title(
-        "Geometric identity (radial slice)\n"
-        r"$S(A) = $ distance from state $\mathbf{A}$ to surface $A=1$",
+        "Geometric identity (radial slice)\n" r"$S(A) = $ distance from state $\mathbf{A}$ to surface $A=1$",
         pad=12,
     )
     ax_2d.grid(True, alpha=0.3)
@@ -317,7 +337,7 @@ def fig_03_saturation_kernel():
     fig, ax1 = plt.subplots(figsize=(11, 6.5))
     A = np.linspace(0, 0.999, 1000)
     S = np.sqrt(1 - A**2)
-    n_eff = 1.0 / S ** 0.5  # n_eff = 1/sqrt(S) = (1-A²)^(-1/4)
+    n_eff = 1.0 / S**0.5  # n_eff = 1/sqrt(S) = (1-A²)^(-1/4)
 
     ax1.plot(A, S, color="#1f77b4", linewidth=3.0, label=r"$S(A) = \sqrt{1 - A^2}$ (free capacity)")
     ax1.set_xlabel("Strain amplitude $A$", fontsize=12)
@@ -328,7 +348,14 @@ def fig_03_saturation_kernel():
     ax1.grid(True, alpha=0.3)
 
     ax2 = ax1.twinx()
-    ax2.plot(A, n_eff, color="#d62728", linewidth=2.5, linestyle="--", label=r"$n_{\rm eff}(A) = 1/\sqrt{S}$ (refractive index)")
+    ax2.plot(
+        A,
+        n_eff,
+        color="#d62728",
+        linewidth=2.5,
+        linestyle="--",
+        label=r"$n_{\rm eff}(A) = 1/\sqrt{S}$ (refractive index)",
+    )
     ax2.set_ylabel(r"$n_{\rm eff}(A)$ (local refractive index)", color="#d62728", fontsize=12)
     ax2.tick_params(axis="y", labelcolor="#d62728")
     ax2.set_ylim(0.9, 10)
@@ -410,6 +437,7 @@ def fig_04_trampoline_analogy():
 
     # Trampoline ring (oval)
     from matplotlib.patches import Ellipse, FancyBboxPatch
+
     ring = Ellipse((0, 0), 2.5, 1.6, fill=False, edgecolor="black", linewidth=2)
     ax_left.add_patch(ring)
 
@@ -428,10 +456,7 @@ def fig_04_trampoline_analogy():
         y0 = 0.55 * np.sin(angle)
         x1 = 0.42 * np.cos(angle)
         y1 = 0.42 * np.sin(angle)
-        ax_left.annotate(
-            "", xy=(x1, y1), xytext=(x0, y0),
-            arrowprops=dict(arrowstyle="->", color="#1f77b4", lw=1.5)
-        )
+        ax_left.annotate("", xy=(x1, y1), xytext=(x0, y0), arrowprops=dict(arrowstyle="->", color="#1f77b4", lw=1.5))
 
     ax_left.set_title("Real-world trampoline", fontsize=14, pad=12)
 
@@ -501,7 +526,9 @@ def fig_04_trampoline_analogy():
                 )
 
     # Three invariants labels around the boundary
-    ax_right.text(0, 0, r"$\Omega$" "\n(interior\ninvisible)", fontsize=10, ha="center", va="center", color="#777", zorder=4)
+    ax_right.text(
+        0, 0, r"$\Omega$" "\n(interior\ninvisible)", fontsize=10, ha="center", va="center", color="#777", zorder=4
+    )
 
     # M, Q, J labels
     ax_right.annotate(
@@ -574,9 +601,12 @@ def fig_05_boundary_invariants():
 
     # Wave ripples in the substrate (concentric arcs to suggest propagating waves)
     from matplotlib.patches import Arc, Wedge
+
     for r in [1.2, 1.4, 1.6, 1.8]:
         for a_start, a_end in [(0, 50), (130, 230), (310, 360)]:
-            arc = Arc((0, 0), 2 * r, 2 * r, angle=0, theta1=a_start, theta2=a_end, color="#aaaaff", linewidth=0.8, alpha=0.6)
+            arc = Arc(
+                (0, 0), 2 * r, 2 * r, angle=0, theta1=a_start, theta2=a_end, color="#aaaaff", linewidth=0.8, alpha=0.6
+            )
             ax.add_patch(arc)
 
     # Boundary envelope (annular region near r = 0.72)
@@ -593,7 +623,10 @@ def fig_05_boundary_invariants():
     for theta in np.linspace(2 * np.pi, 0, 200):
         envelope_inner_pts.append((0.65 * np.cos(theta), 0.65 * np.sin(theta)))
     from matplotlib.patches import Polygon
-    envelope_poly = Polygon(envelope_outer_pts + envelope_inner_pts, facecolor="#fdd", alpha=0.7, edgecolor="none", zorder=3)
+
+    envelope_poly = Polygon(
+        envelope_outer_pts + envelope_inner_pts, facecolor="#fdd", alpha=0.7, edgecolor="none", zorder=3
+    )
     ax.add_patch(envelope_poly)
 
     # Interior (invisible to substrate)
@@ -622,16 +655,25 @@ def fig_05_boundary_invariants():
 
     # Three invariants pulled out to side as labels with values
     invariants_text = (
-        r"$\partial\Omega$ three observables:" "\n\n"
-        r"$\mathcal{M} = \int_\Omega (n(r) - 1)\, dV$" "\n"
-        "    (integrated strain integral)" "\n"
-        "    → mass-equivalent" "\n\n"
-        r"$\mathcal{Q} = \mathrm{Link}(\partial\Omega, F_{\rm substrate}) \in \mathbb{Z}$" "\n"
-        "    (boundary linking number)" "\n"
-        "    → charge-equivalent" "\n\n"
-        r"$\mathcal{J} = \mathrm{Wind}(\partial\Omega) \in \frac{1}{2}\mathbb{Z}$" "\n"
+        r"$\partial\Omega$ three observables:"
+        "\n\n"
+        r"$\mathcal{M} = \int_\Omega (n(r) - 1)\, dV$"
+        "\n"
+        "    (integrated strain integral)"
+        "\n"
+        "    → mass-equivalent"
+        "\n\n"
+        r"$\mathcal{Q} = \mathrm{Link}(\partial\Omega, F_{\rm substrate}) \in \mathbb{Z}$"
+        "\n"
+        "    (boundary linking number)"
+        "\n"
+        "    → charge-equivalent"
+        "\n\n"
+        r"$\mathcal{J} = \mathrm{Wind}(\partial\Omega) \in \frac{1}{2}\mathbb{Z}$"
+        "\n"
         "    (boundary winding number,\n"
-        "    half-integer per SU(2) double-cover)" "\n"
+        "    half-integer per SU(2) double-cover)"
+        "\n"
         "    → spin-equivalent"
     )
     ax.text(

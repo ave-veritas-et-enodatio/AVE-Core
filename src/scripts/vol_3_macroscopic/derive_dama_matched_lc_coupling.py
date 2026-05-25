@@ -26,8 +26,6 @@ Script purpose:
 Lane: implementer; analysis script (no engine modifications).
 """
 
-from __future__ import annotations
-
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -52,7 +50,6 @@ from ave.core.constants import (
     Z_RADIATION,
     e_charge,
 )
-
 
 # ---------- Canonical AVE quantities (now from constants.py) ----------
 
@@ -89,9 +86,7 @@ N_E_PER_KG = N_MOL_PER_KG * Z_AVG_NAI  # ~2.57e26 electrons/kg
 # DAMA/LIBRA Phase-2 observed rate (single-hit, 2-6 keV window)
 RATE_DAMA_CPD_KG_KEV = 0.0103  # canonical DAMA/LIBRA Phase-2 number
 DAMA_WINDOW_KEV = 4.0  # 2-6 keV width
-RATE_DAMA_PER_S_PER_KG = (
-    RATE_DAMA_CPD_KG_KEV * DAMA_WINDOW_KEV / 86400.0
-)  # ~4.77e-7 events/s/kg
+RATE_DAMA_PER_S_PER_KG = RATE_DAMA_CPD_KG_KEV * DAMA_WINDOW_KEV / 86400.0  # ~4.77e-7 events/s/kg
 
 
 # ---------- Step 1: Required per-cycle matched-coupling efficiency ----------
@@ -345,37 +340,17 @@ def cross_detector_predictions() -> None:
 
     print()
     print("Key falsifiers:")
-    print(
-        "- COSINE-100 should see ~94% DAMA rate/kg at κ_quality = 1 → observed << → low κ"
-    )
-    print(
-        "- ANAIS-112 should see ~60% DAMA rate/kg at κ_quality = 1 → observed << → low κ"
-    )
-    print(
-        "- Sapphire-9.7 should see ~9% DAMA rate/kg at line position 3.728 keV (Z-INDEPENDENT)"
-    )
-    print(
-        "- Germanium-9.7 should see ~97% DAMA rate/kg at line position 3.728 keV (Z-INDEPENDENT)"
-    )
-    print(
-        "- A Sapphire-2.64-kg single crystal would have N_single matched to DAMA NaI 9.7 kg"
-    )
-    print(
-        "  → predicted ~1.15× DAMA rate/kg at line 3.728 keV — CLEAN Z-INDEPENDENCE TEST"
-    )
-    print(
-        "    (the 1.15× reflects N_e(Sapphire)/N_e(NaI) electron-density ratio,"
-    )
-    print(
-        "     the ONLY mass/Z-dependent factor remaining when N_single is matched)"
-    )
+    print("- COSINE-100 should see ~94% DAMA rate/kg at κ_quality = 1 → observed << → low κ")
+    print("- ANAIS-112 should see ~60% DAMA rate/kg at κ_quality = 1 → observed << → low κ")
+    print("- Sapphire-9.7 should see ~9% DAMA rate/kg at line position 3.728 keV (Z-INDEPENDENT)")
+    print("- Germanium-9.7 should see ~97% DAMA rate/kg at line position 3.728 keV (Z-INDEPENDENT)")
+    print("- A Sapphire-2.64-kg single crystal would have N_single matched to DAMA NaI 9.7 kg")
+    print("  → predicted ~1.15× DAMA rate/kg at line 3.728 keV — CLEAN Z-INDEPENDENCE TEST")
+    print("    (the 1.15× reflects N_e(Sapphire)/N_e(NaI) electron-density ratio,")
+    print("     the ONLY mass/Z-dependent factor remaining when N_single is matched)")
     print()
-    print(
-        "The Z-INDEPENDENCE claim is the cleanest discriminator vs Moseley Kα (which"
-    )
-    print(
-        "would predict zero rate in Ca-free crystals at 3.728 keV). Cross-crystal swap"
-    )
+    print("The Z-INDEPENDENCE claim is the cleanest discriminator vs Moseley Kα (which")
+    print("would predict zero rate in Ca-free crystals at 3.728 keV). Cross-crystal swap")
     print("with matched N_single isolates the AVE-distinct prediction from κ_quality.")
     print()
 
@@ -435,9 +410,7 @@ def main() -> int:
     for c in candidates_scored:
         if c.value > 0:
             ratio = c.value / required_eps
-            ratio_str = (
-                f"{ratio:.2e}" if (ratio > 1e-4 and ratio < 1e4) else f"10^{math.log10(ratio):.1f}"
-            )
+            ratio_str = f"{ratio:.2e}" if (ratio > 1e-4 and ratio < 1e4) else f"10^{math.log10(ratio):.1f}"
             print(f"{c.name:<28} {c.value:<14.4e} {ratio_str:<14}  {c.rationale[:60]}")
     print()
 
@@ -455,17 +428,11 @@ def main() -> int:
     print()
 
     if 0.1 < best.value / required_eps < 10:
-        print(
-            "STATUS: BEST candidate lands within factor 10 of required — STRUCTURAL FORM PLAUSIBLE."
-        )
+        print("STATUS: BEST candidate lands within factor 10 of required — STRUCTURAL FORM PLAUSIBLE.")
     elif 0.01 < best.value / required_eps < 100:
-        print(
-            "STATUS: BEST candidate lands within factor 100 of required — STRUCTURAL FORM SUGGESTIVE."
-        )
+        print("STATUS: BEST candidate lands within factor 100 of required — STRUCTURAL FORM SUGGESTIVE.")
     else:
-        print(
-            "STATUS: BEST candidate misses required by >factor 100 — STRUCTURAL FORM NOT FOUND."
-        )
+        print("STATUS: BEST candidate misses required by >factor 100 — STRUCTURAL FORM NOT FOUND.")
     print()
 
     print("HONEST GAP STATEMENT:")

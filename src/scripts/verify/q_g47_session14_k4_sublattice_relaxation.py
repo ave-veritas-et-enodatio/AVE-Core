@@ -24,19 +24,20 @@ Run:
     python src/scripts/verify/q_g47_session14_k4_sublattice_relaxation.py
 """
 
-from __future__ import annotations
-
-import numpy as np
 from dataclasses import dataclass
 
+import numpy as np
 
 # K4 bond directions (canonical tetrahedral)
-K4_BOND_DIRECTIONS = np.array([
-    [+1, +1, +1],
-    [+1, -1, -1],
-    [-1, +1, -1],
-    [-1, -1, +1],
-], dtype=float) / np.sqrt(3.0)
+K4_BOND_DIRECTIONS = np.array(
+    [
+        [+1, +1, +1],
+        [+1, -1, -1],
+        [-1, +1, -1],
+        [-1, -1, +1],
+    ],
+    dtype=float,
+) / np.sqrt(3.0)
 
 
 @dataclass
@@ -46,6 +47,7 @@ class CentralForceBond:
     k_a only; no shear, no couple. This is the bond model that should
     reproduce the canonical Cauchy K/G = 5/3 ratio for diamond/K4.
     """
+
     k_a: float = 1.0
     d: float = 1.0
 
@@ -65,6 +67,7 @@ class CentralForceBond:
 # Under macroscopic strain ε (3×3 symmetric tensor), apply affine
 # displacement u(r) = ε · r to all atoms, plus an internal A-B relative
 # displacement u_int (3-vector).
+
 
 def affine_displacement(strain_3x3: np.ndarray, position: np.ndarray) -> np.ndarray:
     """Apply affine deformation u(r) = ε·r."""
@@ -113,13 +116,14 @@ def relaxed_modulus(strain_3x3: np.ndarray, bond: CentralForceBond) -> float:
     def obj(u_int):
         return unit_cell_energy(strain_3x3, u_int, bond)
 
-    res = minimize(obj, x0=np.zeros(3), method='BFGS', tol=1e-14)
+    res = minimize(obj, x0=np.zeros(3), method="BFGS", tol=1e-14)
     return res.fun, res.x
 
 
 # ----------------------------------------------------------------------
 # Extract K and G with sublattice relaxation
 # ----------------------------------------------------------------------
+
 
 def extract_K_eff_relaxed(bond: CentralForceBond, eps: float = 0.01) -> float:
     """Bulk modulus via uniform isotropic strain ε_ij = (ε/3)·δ_ij.
@@ -158,6 +162,7 @@ def extract_G_eff_relaxed(bond: CentralForceBond, eps: float = 0.01) -> float:
 # ----------------------------------------------------------------------
 # Main: compute Cauchy K/G with and without sublattice relaxation
 # ----------------------------------------------------------------------
+
 
 def main():
     print("=" * 72)
@@ -204,7 +209,7 @@ def main():
     print()
 
     print("=" * 72)
-    if abs(K_relaxed / G_relaxed - 5/3) < 0.05:
+    if abs(K_relaxed / G_relaxed - 5 / 3) < 0.05:
         print("✓ SUCCESS: Cauchy K/G = 5/3 RECOVERED after sublattice relaxation.")
         print("  Session 12's K/G = 3 was the rigid-sublattice value.")
         print("  Session 13 diagnosis confirmed: Born–Huang internal-strain fix works.")

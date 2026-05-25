@@ -1,5 +1,9 @@
 [↑ Ch.4 Generative Cosmology](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-9fnieq]
+-->
 
 ## Early Galaxy Accretion (The JWST Paradox)
 

@@ -22,21 +22,20 @@ Outputs:
   - assets/cosserat_beltrami_isolated_panels.png
   - results/cosserat_beltrami_isolated.json
 """
-from __future__ import annotations
 
 import json
 import sys
 from pathlib import Path
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
 
-from ave.topological.vacuum_engine import VacuumEngine3D, CosseratBeltramiSource
 from ave.topological.helicity_observer import HelicityObserver
-
+from ave.topological.vacuum_engine import CosseratBeltramiSource, VacuumEngine3D
 
 PREREG = {
     "C-C1_amplitude_match_tolerance": 0.01,
@@ -52,7 +51,10 @@ PREREG = {
 def run_isolated(handedness: str, N: int = 48, n_steps: int = 200) -> dict:
     """Run CosseratBeltramiSource for n_steps, record ω fields + h_local."""
     engine = VacuumEngine3D.from_args(
-        N=N, pml=6, temperature=0.0, amplitude_convention="V_SNAP",
+        N=N,
+        pml=6,
+        temperature=0.0,
+        amplitude_convention="V_SNAP",
     )
     omega_drive = 2.0 * np.pi / 3.5  # Phase III-B canonical λ
     amplitude = 1.75  # near saturation onset per docstring sizing
@@ -153,11 +155,10 @@ def evaluate_prereg(rh: dict, lh: dict) -> dict:
     if ay > 0 and az > 0:
         try:
             from scipy.signal import hilbert
+
             ph_y = np.angle(hilbert(wy_s / ay))
             ph_z = np.angle(hilbert(wz_s / az))
-            phase_offset = np.degrees(
-                np.angle(np.exp(1j * np.mean(ph_z - ph_y)))
-            )
+            phase_offset = np.degrees(np.angle(np.exp(1j * np.mean(ph_z - ph_y))))
             phase_offset_abs = float(abs(phase_offset))
         except ImportError:
             phase_offset_abs = float("nan")
@@ -165,13 +166,9 @@ def evaluate_prereg(rh: dict, lh: dict) -> dict:
         phase_offset_abs = float("nan")
     pass_C_C2 = (
         not np.isnan(phase_offset_abs)
-        and PREREG["C-C2_phase_offset_deg_min"]
-        <= phase_offset_abs
-        <= PREREG["C-C2_phase_offset_deg_max"]
+        and PREREG["C-C2_phase_offset_deg_min"] <= phase_offset_abs <= PREREG["C-C2_phase_offset_deg_max"]
     )
-    eval_result["C_C2_phase_offset_deg_abs"] = (
-        float(phase_offset_abs) if not np.isnan(phase_offset_abs) else None
-    )
+    eval_result["C_C2_phase_offset_deg_abs"] = float(phase_offset_abs) if not np.isnan(phase_offset_abs) else None
     eval_result["pass_C_C2"] = bool(pass_C_C2)
 
     # C-C3: helicity h_local at source slab
@@ -183,10 +180,7 @@ def evaluate_prereg(rh: dict, lh: dict) -> dict:
         h_lh_at_src = float(lh_sustain_h["h_axis"][10])
         rh_h_err = abs(h_rh_at_src - PREREG["C-C3_h_local_target_RH"])
         lh_h_err = abs(h_lh_at_src - PREREG["C-C3_h_local_target_LH"])
-        pass_C_C3 = (
-            rh_h_err < PREREG["C-C3_h_local_tolerance"] * 2
-            and lh_h_err < PREREG["C-C3_h_local_tolerance"] * 2
-        )
+        pass_C_C3 = rh_h_err < PREREG["C-C3_h_local_tolerance"] * 2 and lh_h_err < PREREG["C-C3_h_local_tolerance"] * 2
         eval_result["C_C3_h_local_RH"] = h_rh_at_src
         eval_result["C_C3_h_local_LH"] = h_lh_at_src
         eval_result["C_C3_h_local_RH_err"] = float(rh_h_err)
@@ -257,10 +251,7 @@ def render_panels(rh: dict, lh: dict, eval_result: dict, out_png: str) -> None:
     ax.axhline(rh["src_x"], color="gray", ls="--", lw=0.5, label=f"src x={rh['src_x']}")
     ax.set_xlabel("t (nat units)")
     ax.set_ylabel("|ω|-weighted centroid_x (cells)")
-    ax.set_title(
-        "C-C4: |ω| centroid drift\n"
-        f"RH drift = {eval_result['C_C4_centroid_drift_cells']:.2f} cells"
-    )
+    ax.set_title("C-C4: |ω| centroid drift\n" f"RH drift = {eval_result['C_C4_centroid_drift_cells']:.2f} cells")
     ax.legend()
     ax.grid(alpha=0.3)
 
@@ -322,9 +313,10 @@ def main() -> None:
             h["h_axis"] = h["h_axis"].tolist()
     with open(out_json, "w") as f:
         json.dump(
-            {"prereg": PREREG, "eval": eval_result,
-             "rh_summary": rh_serial, "lh_summary": lh_serial},
-            f, indent=2, default=str,
+            {"prereg": PREREG, "eval": eval_result, "rh_summary": rh_serial, "lh_summary": lh_serial},
+            f,
+            indent=2,
+            default=str,
         )
 
     print(f"\n  Outputs:")

@@ -27,6 +27,7 @@ import numpy as np
 
 from ave.core.constants import D_PROTON
 from ave.solvers.topology_optimizer import TopologicalOptimizer
+from ave_path_util import sim_output
 
 # Illustrative crucible geometry (NOT physical reaction chamber)
 R_CRUCIBLE = 150.0 * D_PROTON
@@ -135,7 +136,7 @@ def run_stage_1_helium() -> None:
         t2.flatten(),
         A_NUCLEONS,
         title="Stage 1: Vacuum-to-Helium Alpha Synthesis ($N=4$)",
-        filename="assets/sim_outputs/alchemist_forge_stage1_He.png",
+        filename=sim_output("alchemist_forge_stage1_He.png"),
     )
 
 
@@ -207,7 +208,7 @@ def run_stage_2_oxygen() -> None:
         t2.flatten(),
         A_NUCLEONS,
         title="Stage 2: Helium-to-Oxygen Hierarchical Synthesis ($N_{He}=4$)",
-        filename="assets/sim_outputs/alchemist_forge_stage2_O16.png",
+        filename=sim_output("alchemist_forge_stage2_O16.png"),
     )
 
 

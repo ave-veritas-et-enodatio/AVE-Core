@@ -30,27 +30,26 @@ Outputs:
   - assets/dark_wake_chiral_panels.png
   - results/dark_wake_chiral_validation.json
 """
-from __future__ import annotations
 
 import json
 import sys
 from pathlib import Path
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
 
 from ave.core.constants import ALPHA
+from ave.topological.helicity_observer import HelicityObserver
 from ave.topological.vacuum_engine import (
-    VacuumEngine3D,
     CosseratBeltramiSource,
     DarkWakeObserver,
     RegimeClassifierObserver,
+    VacuumEngine3D,
 )
-from ave.topological.helicity_observer import HelicityObserver
-
 
 PREREG = {
     "C-D1_h_local_target_RH": +1.0,
@@ -66,7 +65,10 @@ PREREG = {
 def run_chiral_k4tlm(handedness: str, N: int = 48, n_outer_steps: int = 150) -> dict:
     """Run VacuumEngine3D with CosseratBeltramiSource + observers."""
     engine = VacuumEngine3D.from_args(
-        N=N, pml=8, temperature=0.0, amplitude_convention="V_SNAP",
+        N=N,
+        pml=8,
+        temperature=0.0,
+        amplitude_convention="V_SNAP",
     )
     omega_drive = 2.0 * np.pi / 3.5  # Phase III-B canonical λ
     amplitude = 1.75
@@ -241,7 +243,9 @@ def render_panels(rh: dict, lh: dict, eval_result: dict, out_png: str) -> None:
         ax.axvline(rh["src_x"], color="gray", ls="--", lw=0.5)
     ax.set_xlabel("x (cells)")
     ax.set_ylabel("h_local")
-    ax.set_title(f"Helicity along x\nh_RH(src)={eval_result.get('C_D1_h_RH', 'N/A')}, h_LH(src)={eval_result.get('C_D1_h_LH', 'N/A')}")
+    ax.set_title(
+        f"Helicity along x\nh_RH(src)={eval_result.get('C_D1_h_RH', 'N/A')}, h_LH(src)={eval_result.get('C_D1_h_LH', 'N/A')}"
+    )
     ax.legend()
     ax.grid(alpha=0.3)
 
@@ -261,9 +265,9 @@ def render_panels(rh: dict, lh: dict, eval_result: dict, out_png: str) -> None:
     ax.grid(alpha=0.3)
 
     plt.suptitle(
-        f"Path A — K4-TLM dark wake chiral validation (N={rh['N']}, "
-        f"λ_drive=3.5, amp={rh['amplitude_seeded']})",
-        fontsize=12, fontweight="bold",
+        f"Path A — K4-TLM dark wake chiral validation (N={rh['N']}, " f"λ_drive=3.5, amp={rh['amplitude_seeded']})",
+        fontsize=12,
+        fontweight="bold",
     )
     plt.tight_layout()
     plt.savefig(out_png, dpi=110, bbox_inches="tight")
@@ -311,9 +315,10 @@ def main() -> None:
                     entry[k] = v.tolist()
     with open(out_json, "w") as f:
         json.dump(
-            {"prereg": PREREG, "eval": eval_result,
-             "rh_summary": rh_serial, "lh_summary": lh_serial},
-            f, indent=2, default=str,
+            {"prereg": PREREG, "eval": eval_result, "rh_summary": rh_serial, "lh_summary": lh_serial},
+            f,
+            indent=2,
+            default=str,
         )
 
     print(f"\n  Outputs:")

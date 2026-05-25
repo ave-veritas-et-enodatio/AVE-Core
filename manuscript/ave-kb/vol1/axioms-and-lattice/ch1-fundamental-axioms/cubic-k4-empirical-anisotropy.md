@@ -1,6 +1,10 @@
 [↑ Ch.1 Fundamental Axioms](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from L3 closure synthesis + K4 rotation group + photon-propagation-baseline as canonical K4 cubic-anisotropy empirical signature -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-u1o2lo]
+path-stable: "referenced from L3 closure synthesis + K4 rotation group + photon-propagation-baseline as canonical K4 cubic-anisotropy empirical signature"
+-->
 
 # Cubic K4 Anisotropy at Saturation Collapse: Empirically Observable Substrate Symmetry
 

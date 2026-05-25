@@ -1,30 +1,15 @@
 # Applied Vacuum Engineering — Knowledge Base
 
-The AVE framework models the physical vacuum as a discrete amorphous LC resonant condensate ($\mathcal{M}_A$) governed by four topological axioms. All physical observables — particle masses, coupling constants, chemical bond energies, cosmological parameters, and neural scaling laws — are derived as deterministic geometric eigenvalues of the underlying transmission-line network, from three canonical hardware scales ($\ell_{node}$, $\alpha$, $G$). All three scales are themselves derived: $\alpha$ from the S₁₁-minimum Golden Torus geometry of the electron unknot $0_1$ (real-space topology) with (2,3) phase-space Clifford-torus winding (Vol 1 Ch 8), $\ell_{node}$ from Nyquist resolution of the smallest stable soliton, $G$ from the Machian boundary (Axiom 3). The framework is **structurally zero-parameter (conditional on thermal closure)**: $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363038$ (cold), bridged to CODATA $137.035999$ by one currently-fitted thermal scalar $\delta_{\text{strain}} \approx 2.225 \times 10^{-6}$ at $T_{\text{CMB}}$ pending first-principles derivation from $G_{\text{vac}}$ + equipartition. See [Common: A-031 refined cosmic-parameter horizon](common/cosmic-parameter-horizon-a031-refinement.md) for the **one-cosmological-parameter** ($\Omega_{\text{freeze}}$) + **three-route framework commitment** ($\alpha + G + \mathcal{J}_{\text{cosmic}}$ all converging on the same $u_0^*$ or framework falsified).
+<!-- kb-frontmatter
+kind: entry-point
+subtree-claims: [clm-07kd5v, clm-0ktpcn, clm-0vxzfu, clm-15nwqy, clm-1eg13f, clm-1klgo2, clm-219e8j, clm-239tr4, clm-2dwzib, clm-2e9j97, clm-395gps, clm-3bwhad, clm-3dc9qt, clm-3i66gp, clm-3ii690, clm-3kmt3p, clm-3kzmt9, clm-3npynp, clm-3zz0f6, clm-48g5qf, clm-4jy0t8, clm-4mmwb6, clm-4o0f0h, clm-4r4jiy, clm-4vwsjc, clm-527k22, clm-533gvm, clm-5965y1, clm-5em8fx, clm-5fu303, clm-5s5b0d, clm-5xon03, clm-5zuo7g, clm-67jn9o, clm-6kwzot, clm-6mvtsf, clm-6t3p6x, clm-6tuqjh, clm-7o8clt, clm-7pvh9i, clm-7tk051, clm-7tynm2, clm-7zuwtm, clm-82dxbj, clm-86gq2d, clm-8c3yhs, clm-8ep2b4, clm-8niffj, clm-8nkvwy, clm-8psuqe, clm-8zpicx, clm-8zwyl3, clm-91adfe, clm-9fnieq, clm-9gh0a1, clm-9kd2t3, clm-9s9apq, clm-9sujp8, clm-a034pf, clm-a3rby3, clm-a71inj, clm-a7cbqq, clm-a95yx1, clm-ak97cb, clm-av2o4v, clm-b27pnp, clm-b2anl4, clm-b9eura, clm-baoa36, clm-bh9p6s, clm-bjceop, clm-bqtasn, clm-br3bcv, clm-c54kdd, clm-c6k5om, clm-c8q0z5, clm-cbwd77, clm-ce8dg1, clm-cfd5yf, clm-cltls0, clm-cmic3e, clm-crbl60, clm-cul4it, clm-cwjd8t, clm-d5jhku, clm-d9ivj1, clm-dboxok, clm-dfaiwj, clm-dhvhwi, clm-djpx2v, clm-dsb560, clm-dxdsvt, clm-e1pdfd, clm-eaiqj1, clm-efo113, clm-enjq28, clm-exjfai, clm-ezai5b, clm-f0jwtk, clm-f4osd7, clm-f4urxy, clm-f5ucdo, clm-f8k2um, clm-fgo20a, clm-fh6w3y, clm-fndptx, clm-fr3mos, clm-fy05jc, clm-g0mkne, clm-g6e3zw, clm-gdd70j, clm-gfdplp, clm-gfs4j8, clm-ghs75o, clm-gr8d63, clm-gv1wu4, clm-gw2wgc, clm-gx1mpl, clm-gz7ryg, clm-h3acr9, clm-h55fy1, clm-h8nmpu, clm-h9aqmt, clm-hb2xmj, clm-hd9bee, clm-hk81zp, clm-hmiytz, clm-huhz7r, clm-hvvvop, clm-i02mhk, clm-i4p11y, clm-i9l284, clm-ibfyda, clm-io8hft, clm-iouqn9, clm-ir8h78, clm-iz3svl, clm-j20lz8, clm-j550uh, clm-j9l3ww, clm-jkpfd4, clm-jpfbm6, clm-jqnzz7, clm-jupq56, clm-jwyy6l, clm-jy8h1x, clm-jz0xaw, clm-k3p9wz, clm-k6olj8, clm-k6quve, clm-k9up5c, clm-ka5zdx, clm-kezk9z, clm-kl1ern, clm-knveh6, clm-l416hl, clm-l4o7hv, clm-law1ho, clm-ldmvwi, clm-lj4ok5, clm-llqd1n, clm-lm9b3j, clm-lqanmt, clm-lv3uw1, clm-m3z5ux, clm-m7qd0w, clm-mlwm3h, clm-mnb3lt, clm-mroghg, clm-n3un96, clm-nhlo1e, clm-nk6c43, clm-nq2kcc, clm-nu1ir7, clm-nxc9gy, clm-nxfmh0, clm-o2shcn, clm-o3q9ul, clm-o6kgkz, clm-o9xphr, clm-ofys5v, clm-oilm45, clm-oiw6cb, clm-oltvwy, clm-om0rtq, clm-ome498, clm-ou2jym, clm-oygz1i, clm-p12mem, clm-p2tp9i, clm-p5cf3t, clm-p7rfkb, clm-pav5m3, clm-pe8lpx, clm-pf84ng, clm-pfocn6, clm-ph2uux, clm-pp3qwf, clm-q39qct, clm-q4c615, clm-q5izb7, clm-q8un7j, clm-qagkgy, clm-qde5gn, clm-qimsgq, clm-qjwj12, clm-qky559, clm-qsgl7d, clm-qwmnhn, clm-qx9bb8, clm-qyn8t0, clm-r6uef4, clm-rd9cjm, clm-rebdw1, clm-refjr6, clm-rg7cls, clm-rji99i, clm-rkisb8, clm-rppigm, clm-rtdmsn, clm-rtgmg5, clm-rw7jqo, clm-s11nf0, clm-s3i0lw, clm-s4n33u, clm-salw2h, clm-sd04x4, clm-sjixaw, clm-sjjvhf, clm-stgx1i, clm-sxn6eo, clm-sysqaf, clm-t05mvx, clm-t1okz0, clm-t5ybqw, clm-to41c7, clm-trgqtf, clm-tt8j0v, clm-u1o2lo, clm-u462e4, clm-u4vmgk, clm-u86caq, clm-uatcql, clm-ui3m8a, clm-unk0bd, clm-uowffm, clm-usflef, clm-utnwkc, clm-uu1qbo, clm-uu6dl5, clm-v2sg8z, clm-v6ti0v, clm-viawy9, clm-vjv4zf, clm-vnp57s, clm-w6kk5y, clm-wd5rs0, clm-wx5324, clm-wzezvt, clm-x19btt, clm-x5z09x, clm-xhdai6, clm-xy252u, clm-y7uvdc, clm-y9old1, clm-yawl6z, clm-yc7fgm, clm-ydksh6, clm-yiyyi3, clm-yr6tu4, clm-ys0xl1, clm-yyhczl, clm-z73h6n, clm-ze4clw, clm-zfqd9v, clm-zgllr2, clm-zi6t1e, clm-zsqh87, clm-zt0pd1, clm-zuf7g1, clm-zw6mut]
+subtree-experiments: [exp-0n5p16, exp-1ddtr0, exp-1up5ww, exp-6kwkx7, exp-71uhr0, exp-742kv5, exp-7jekc6, exp-ct4cts, exp-onqclb, exp-po1a0v, exp-rth12t, exp-v6nzcq]
+bootstrap: true
+-->
 
-> **⚡ A-034 Canonical Unification (2026-05-15 evening): Universal
-> Saturation-Kernel Strain-Snap Mechanism.** Axiom 4's saturation kernel
-> $S(A) = \sqrt{1-A^2}$ governs every topological-reorganization event
-> at every scale — 21 canonical instances spanning 21 orders of magnitude.
-> Per Grant 2026-05-15: *"the bulk response of the lattice to strain is
-> universal."* Empirical anchors: BCS $B_c(T)$ at 0.00% error; BH merger
-> ring-down at 1.7% from GR; NOAA-validated 40-yr solar flare statistics;
-> Schwarzschild radius exact. **Canonical manuscript source:**
-> [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../backmatter/07_universal_saturation_kernel.tex)
-> (21-instance catalog + 3-way SYM/ASYM-N/ASYM-E classification +
-> measurement-hierarchy framing). KB synthesis: [common/trampoline-framework §7.5](common/trampoline-framework.md);
-> Vol 3 Ch 4 §sec:tki_strain_snap for cosmic-scale derivation.
+> ⛔ **Bootstrap.** Leaves are canonical; the volume indexes and this entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about AVE results, load [`./claim-quality.md`](./claim-quality.md) (cross-cutting) and the relevant per-volume sidecar: [vol1](./vol1/claim-quality.md), [vol2](./vol2/claim-quality.md), [vol3](./vol3/claim-quality.md), [vol4](./vol4/claim-quality.md), [vol5](./vol5/claim-quality.md), [vol6](./vol6/claim-quality.md), [common](./common/claim-quality.md). Treat the summary text below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
 
-> **⚡ Q-G47 K=2G Two-Engine Cross-Validation PASS (2026-05-16 late evening):**
-> The substrate K=2G operating point at $p^* = 8\pi\alpha \approx 0.1834$
-> is canonical-verified at BOTH engines of the A-027 two-engine architecture
-> via independent physical routes: K4-TLM sub-saturation engine (FTG-EMT
-> amorphous network with $z_0 \approx 51.25$ gives $p^* = (10z_0 - 12)/(z_0(z_0+2)) = 8\pi\alpha$
-> to 0.003%) AND Master Equation FDTD bound-state engine (breathing soliton
-> v14 Mode I PASS at Vol 1 Ch 8 Golden Torus → electron knot Q-factor → $\alpha = 1/(4\pi^3+\pi^2+\pi)$).
-> Both routes land on identical canonical value via different mechanisms.
-> **KB synthesis:** [common/q-g47-substrate-scale-cosserat-closure](common/q-g47-substrate-scale-cosserat-closure.md) +
-> [common/two-engine-architecture-a027](common/two-engine-architecture-a027.md).
+The AVE framework models the physical vacuum as a discrete amorphous LC resonant condensate ($\mathcal{M}_A$) governed by four topological axioms. All physical observables — particle masses, coupling constants, chemical bond energies, cosmological parameters, and neural scaling laws — are derived as deterministic geometric eigenvalues of the underlying transmission-line network, from three canonical hardware scales ($\ell_{node}$, $\alpha$, $G$). All three scales are themselves derived: $\alpha$ from the S₁₁-minimum Golden Torus geometry of the trefoil electron soliton (Vol 1 Ch 8), $\ell_{node}$ from Nyquist resolution of the smallest stable soliton, $G$ from the Machian boundary condition (a derived consequence of Axioms 1 + 4). The framework is **structurally zero-parameter (conditional on thermal closure)**: $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363038$ (cold), with one currently-fitted thermal scalar $\delta_{strain}$ at $T_{CMB}$ bridging the cold-lattice asymptote to CODATA $137.035999$ pending first-principles derivation from $G_{vac}$ + equipartition. See `mathematical-closure.md` for the full closure status.
 
 ---
 
@@ -80,7 +65,7 @@ Gravity, relativity, condensed matter, and cosmology as impedance-matching regim
 
 ### [Vol 4: Applied Vacuum Engineering](vol4/index.md)
 
-Engineering translation of AVE theory into falsifiable hardware. Establishes the Vacuum Circuit Analysis (VCA) framework via $\xi_{topo} \equiv e/\ell_{node}$. Derives chiral antenna selection rules, ponderomotive thruster predictions, substrate-physics SPICE verification suite (leaky-cavity decay, autoresonant breakdown, Sagnac inductive drag, EE bench saturation kernel, AVE_VACUUM_CELL universal subcircuit), and the K4-TLM Diamond lattice simulator (sub-saturation engine). (Application-specific engineering — SMES, fusion, quantum computing, antimatter, active metamaterials, optical caustic, silicon design engine, HOPF-01 antenna engineering, PONDER-01 cascaded stack — migrated to private app repos per REPO-ARCH-1 through REPO-ARCH-11, 2026-05-17 night; substrate-physics anchors remain canonical in core.)
+Engineering translation of AVE theory into falsifiable hardware. Establishes the Vacuum Circuit Analysis (VCA) framework via $\xi_{topo} \equiv e/\ell_{node}$. Derives chiral antenna selection rules, ponderomotive thruster predictions, topological SMES, metric-catalyzed fusion, and a complete SPICE simulation suite.
 
 **Key results:** HOPF-01 $\Delta f/f = \alpha\cdot pq/(p+q)$ (zero free parameters); PONDER-05 469 μN thrust; K4-TLM unitary to machine epsilon; Universal `AVE_VACUUM_CELL` SPICE subcircuit
 
@@ -88,8 +73,8 @@ Engineering translation of AVE theory into falsifiable hardware. Establishes the
 |---|---|
 | [Circuit Theory](vol4/circuit-theory/index.md) | Topo-kinematic identity; nonlinear constitutive models; IMD spectroscopy; chiral thrust |
 | [Falsification](vol4/falsification/index.md) | Complete experimental programme: Sagnac-RLVE, tabletop projects, dielectric plateau |
-| [Future Geometries](vol4/future-geometries/index.md) | CEM method mapping; K4-TLM Diamond lattice (sub-saturation engine); PML boundaries. *(HOPF-01 chiral antenna engineering migrated to AVE-HOPF per REPO-ARCH-9.)* |
-| [Simulation](vol4/simulation/index.md) | SPICE netlists: particle decay, autoresonant PLL, Sagnac inductive drag, EE bench. *(PONDER-01 cascaded stack migrated to AVE-PONDER per REPO-ARCH-8.)* |
+| [Future Geometries](vol4/future-geometries/index.md) | High-Q chiral antenna; CEM method mapping; K4-TLM Diamond lattice; PML boundaries |
+| [Simulation](vol4/simulation/index.md) | SPICE netlists: particle decay, autoresonant PLL, Sagnac inductive drag, hardware netlists |
 
 ---
 
@@ -136,7 +121,7 @@ The hardware validation, declarative topology compilation (atopile), and physica
 
 **Key results:** $V_{snap} = m_e c^2/e \approx 511$ kV; $V_{yield} = \sqrt{\alpha} \cdot V_{snap} \approx 43.65$ kV; soliton density $\rho_{kink} \approx 4.34 \times 10^{20}$ knots/mm²; $P_{drag} \approx 19.8$ W
 
-> ↗ **KB Boundary:** Hardened hardware implementations and VCA layout specifications are held in a separate hardware engineering compendium.
+> ↗ **KB Boundary:** Hardened hardware implementations and VCA layout specifications are explored in the experimental `ave-veritas-et-enodatio/AVE-APU` repository.
 
 ---
 

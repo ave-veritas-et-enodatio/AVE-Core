@@ -47,8 +47,6 @@ References:
   kinetic terms that share the bond LC tank's inductive side")
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.core.master_equation_fdtd import MasterEquationFDTD
@@ -188,15 +186,10 @@ class CosseratMasterEquationFDTD(MasterEquationFDTD):
             # I_ω·ω̈ = K_eff·∇²ω - 2κω - α(V)·I_ω·V̇
             # → ω̈ = (K_eff/I_ω)·∇²ω - (2κ/I_ω)·ω - α(V)·V̇
             omega_accel = (
-                (K_eff / self.I_omega) * L_omega
-                - (2.0 * self.kappa_0 / self.I_omega) * self.omega
-                - alpha * V_dot
+                (K_eff / self.I_omega) * L_omega - (2.0 * self.kappa_0 / self.I_omega) * self.omega - alpha * V_dot
             )
         else:
-            omega_accel = (
-                (K_eff / self.I_omega) * L_omega
-                - (2.0 * self.kappa_0 / self.I_omega) * self.omega
-            )
+            omega_accel = (K_eff / self.I_omega) * L_omega - (2.0 * self.kappa_0 / self.I_omega) * self.omega
         omega_new = 2.0 * self.omega - self.omega_prev + (self.dt**2) * omega_accel
         omega_new *= self.damping  # same PML for ω
 

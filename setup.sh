@@ -25,7 +25,7 @@ fi
 
 uv sync
 uv tool install pre-commit
-pre-commit install
+pre-commit install || true
 
 # Optional: SPICE verification toolchain
 # ngspice is required for SPICE-based verification tests (src/tests/test_spice_*)

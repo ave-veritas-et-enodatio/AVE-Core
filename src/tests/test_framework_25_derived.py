@@ -47,23 +47,22 @@ References:
   - PDG 2024 + CODATA 2018 reference values
   - doc 108 §11 calibration-input reframing
 """
-from __future__ import annotations
 
 import numpy as np
 import pytest
 
 from ave.core import constants as C
 from ave.core.constants import (
-    ALPHA,
     A_0,
+    ALPHA,
+    ALPHA_S,
     C_0,
     HBAR,
     L_NODE,
     M_E,
-    M_PROTON,
+    M_HIGGS_MEV,
     M_W_MEV,
     M_Z_MEV,
-    M_HIGGS_MEV,
     P_C,
     RY_EV,
     SIN2_THETA_W,
@@ -71,32 +70,30 @@ from ave.core.constants import (
     V_YIELD,
     Z_0,
     Z_COORDINATION,
-    ALPHA_S,
     e_charge,
-    HIGGS_VEV_MEV,
 )
-
 
 # CODATA / PDG reference values (experimental targets, NOT inputs to AVE)
 PDG = {
     "alpha_inv": 137.035999084,
-    "rydberg_eV": 13.6056931230,           # CODATA 2018
-    "bohr_radius_m": 5.29177210903e-11,    # CODATA 2018
-    "Z_0_ohm": 376.730313668,              # exact since 2019 SI
-    "M_W_MeV": 80369.2,                    # PDG 2024
-    "M_Z_MeV": 91187.6,                    # PDG 2024
-    "M_Higgs_MeV": 125_100.0,              # PDG 2024
-    "sin2_theta_W_PDG_onshell": 0.22337,   # PDG on-shell
-    "alpha_s_M_Z": 0.1180,                 # PDG running α_s at M_Z
-    "m_tau_MeV": 1776.93,                  # PDG 2024
-    "proton_electron_ratio": 1836.15267343, # CODATA 2018
-    "proton_radius_fm": 0.8409,            # CODATA 2018 (rms charge radius)
+    "rydberg_eV": 13.6056931230,  # CODATA 2018
+    "bohr_radius_m": 5.29177210903e-11,  # CODATA 2018
+    "Z_0_ohm": 376.730313668,  # exact since 2019 SI
+    "M_W_MeV": 80369.2,  # PDG 2024
+    "M_Z_MeV": 91187.6,  # PDG 2024
+    "M_Higgs_MeV": 125_100.0,  # PDG 2024
+    "sin2_theta_W_PDG_onshell": 0.22337,  # PDG on-shell
+    "alpha_s_M_Z": 0.1180,  # PDG running α_s at M_Z
+    "m_tau_MeV": 1776.93,  # PDG 2024
+    "proton_electron_ratio": 1836.15267343,  # CODATA 2018
+    "proton_radius_fm": 0.8409,  # CODATA 2018 (rms charge radius)
 }
 
 
 # =============================================================================
 # Group 1: EM / atomic derivations (high precision targets)
 # =============================================================================
+
 
 class TestGroup1_EMAtomic:
     """EM + atomic-physics quantities derived from (ℓ_node, α, G)."""
@@ -134,6 +131,7 @@ class TestGroup1_EMAtomic:
 # Group 2: Substrate fundamentals (definitional + EMT)
 # =============================================================================
 
+
 class TestGroup2_SubstrateFundamentals:
     """p_c, z_0 from EMT trace-reversal at K/G = 2."""
 
@@ -142,7 +140,7 @@ class TestGroup2_SubstrateFundamentals:
         observed = P_C
         target = 8.0 * np.pi * ALPHA
         rel_err = abs(observed - target) / target
-        assert rel_err < 1e-15, f"p_c definitional"
+        assert rel_err < 1e-15, "p_c definitional"
 
     def test_z_coordination(self):
         """z_0 ≈ 51.25 from EMT quadratic at K/G = 2."""
@@ -171,6 +169,7 @@ class TestGroup2_SubstrateFundamentals:
 # =============================================================================
 # Group 3: Electroweak boson masses
 # =============================================================================
+
 
 class TestGroup3_ElectroweakBosons:
     """W, Z, Higgs derived from (m_e, α, p_c, ν_vac=2/7)."""
@@ -211,6 +210,7 @@ class TestGroup3_ElectroweakBosons:
 # Group 4: QCD + lepton derivations
 # =============================================================================
 
+
 class TestGroup4_QCDLeptons:
     """Strong coupling + tau lepton from α + ν_vac."""
 
@@ -235,6 +235,7 @@ class TestGroup4_QCDLeptons:
 # =============================================================================
 # Group 5: Hadronic + nuclear derivations
 # =============================================================================
+
 
 class TestGroup5_HadronicNuclear:
     """Proton mass ratio + charge radius from K4 + saturation."""
@@ -262,6 +263,7 @@ class TestGroup5_HadronicNuclear:
 # Group 6: Calibration inputs themselves (sanity checks)
 # =============================================================================
 
+
 class TestGroup6_CalibrationInputs:
     """The 3 calibration inputs (ℓ_node, α, G) themselves."""
 
@@ -287,6 +289,7 @@ class TestGroup6_CalibrationInputs:
 # Aggregate framework consistency report
 # =============================================================================
 
+
 class TestFrameworkConsistencySummary:
     """Aggregate test — count pass/fail rate against framework's '25 derived' claim."""
 
@@ -294,11 +297,30 @@ class TestFrameworkConsistencySummary:
         """Smoke test: framework claims 25+ derived quantities; module has many."""
         # Just verify a substantive count of derived constants exist
         derived_names = [
-            "P_C", "Z_COORDINATION", "RY_EV", "A_0", "Z_0", "V_YIELD",
-            "M_W_MEV", "M_Z_MEV", "M_HIGGS_MEV", "SIN2_THETA_W", "ALPHA_S",
-            "L_NODE", "T_EM", "V_SNAP", "E_YIELD_KINETIC",
-            "PROTON_ELECTRON_RATIO", "D_PROTON", "ETA_EQ", "P_RIGIDITY",
-            "G_F", "HIGGS_VEV_MEV", "K_MUTUAL", "RHO_BULK", "G_VAC",
+            "P_C",
+            "Z_COORDINATION",
+            "RY_EV",
+            "A_0",
+            "Z_0",
+            "V_YIELD",
+            "M_W_MEV",
+            "M_Z_MEV",
+            "M_HIGGS_MEV",
+            "SIN2_THETA_W",
+            "ALPHA_S",
+            "L_NODE",
+            "T_EM",
+            "V_SNAP",
+            "E_YIELD_KINETIC",
+            "PROTON_ELECTRON_RATIO",
+            "D_PROTON",
+            "ETA_EQ",
+            "P_RIGIDITY",
+            "G_F",
+            "HIGGS_VEV_MEV",
+            "K_MUTUAL",
+            "RHO_BULK",
+            "G_VAC",
         ]
         for name in derived_names:
             assert hasattr(C, name), f"Framework claims {name} but constants module missing it"

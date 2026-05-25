@@ -1,5 +1,11 @@
 [↑ Particle Physics](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-5zuo7g, clm-8niffj, clm-bqtasn, clm-p7rfkb, clm-q8un7j, clm-rji99i, clm-stgx1i, clm-v2sg8z]
+subtree-experiments: []
+-->
+
 # Ch.6 — The Subatomic Scale: Electroweak and Higgs Sectors
 
 The Higgs Mechanism is subsumed into the native dielectric breakdown of the $376.73\ \Omega$ LC network. The $W$ and $Z$ boson pole masses are derived as geometric macroscopic evanescent cutoffs. The three-generation charged lepton spectrum ($e$, $\mu$, $\tau$) follows from sequential quantized Cosserat (torsional/bending) excitations of the baseline $0_1$ electron unknot. Schwinger's anomalous magnetic moment ($a_e = \alpha/2\pi$) is derived from the on-site capacitive displacement strain.

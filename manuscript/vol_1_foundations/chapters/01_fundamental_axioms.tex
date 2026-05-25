@@ -12,7 +12,7 @@
 \end{objectivebox}
 
 \section{The Calibration of the Effective Cutoff Scales}
-In the construction of any macroscopic field theory, the mathematical formalism must be bounded by specific characteristic scales that define the emergence of its continuous degrees of freedom. To construct a mathematically closed, deterministic medium without the parameter bloat of the Standard Model, the AVE framework anchors its continuous mechanics to exactly three fundamental emergent hardware constraints --- all three now derived from first principles (the canonical presentation below treats them as ``inputs'' for pedagogical layering; Ch.~\ref{ch:alpha_golden_torus} closes $\alpha$ via the Golden Torus, $\ell_{node}$ follows from Nyquist resolution of the smallest stable soliton, and $G$ follows from the Machian boundary in Axiom~3).
+In the construction of any macroscopic field theory, the mathematical formalism must be bounded by specific characteristic scales that define the emergence of its continuous degrees of freedom. To construct a mathematically closed, deterministic medium without the parameter bloat of the Standard Model, the AVE framework anchors its continuous mechanics to exactly three fundamental emergent hardware constraints --- all three now derived from first principles (the canonical presentation below treats them as ``inputs'' for pedagogical layering; Ch.~\ref{ch:alpha_golden_torus} closes $\alpha$ via the Golden Torus, $\ell_{node}$ follows from Nyquist resolution of the smallest stable soliton, and $G$ follows from the Machian boundary, a derived consequence of Axioms~1 and~4).
 
 \begin{enumerate}
     \item \textbf{The Electromagnetic Coherence Length ($\ell_{node}$):} The effective spatial granularity is defined of the vacuum by anchoring its absolute high-frequency cutoff exclusively to the fundamental dimensionless integer $\mathbf{1}$. The electron mass is not an independent input: it is the ground-state energy of the simplest topological defect on the lattice---the \textbf{unknot} (a single closed flux tube loop at minimum ropelength $= 2\pi$). The loop has circumference $\ell_{node}$ and tube radius $\ell_{node}/(2\pi)$, giving mass $m_e = T_{EM} \cdot \ell_{node}/c^2 = \hbar/(\ell_{node} \cdot c)$. In localized reference frames, $\ell_{node}$ therefore evaluates dynamically as the kinematic scale of the electron ($\ell_{node} \equiv \hbar / m_e c$). 
@@ -46,55 +46,36 @@ If the lattice acoustic tension attempts to compress the knot ropelength tighter
 \end{figure}
 
 \section{The Four Fundamental Axioms}
-To construct the macroscopic continuous dynamics of the vacuum, the AVE Effective Field Theory rests on exactly four topological structural constraints.
+\label{sec:four_axioms}
+The macroscopic continuous dynamics of the vacuum rest on exactly four canonical structural axioms. The authoritative statements live in \texttt{common\_equations/eq\_axiom\_[1-4].tex} (included verbatim in the foreword of every volume); they are reproduced here for in-chapter pedagogical layering. The numerical calibration constants ($\ell_{node}$, $Z_0$, $\alpha$, $\xi_{topo}$, $V_{snap}$, $V_{yield}$, $G$) are \emph{derived} from these axioms --- they are not themselves axioms; their definitions and axiom attributions live in \texttt{eq\_calibration\_constants.tex} and \texttt{eq\_gravity\_derived.tex}.
 
 \begin{enumerate}
-    \item \textbf{The Substrate Topology (Chiral Laves K4 Cosserat Crystal):} The physical vacuum IS a \textbf{chiral Laves K4 Cosserat crystal} $\mathcal{M}_A$ --- a 3D crystallized substrate of nodes at pitch $\ell_{node}$, governed by the right-handed $I4_1 32$ chiral space group, with 4-fold K4 nearest-neighbor connectivity at each node. Each node is \textbf{micropolar} (Cosserat-type), carrying \textbf{six intrinsic degrees of freedom} per node: three \textbf{translational} (capacitive coupling $\varepsilon_0$, identified with the electric field) and three \textbf{microrotational} (inductive coupling $\mu_0$, identified with the magnetic field). \textbf{The Cosserat microrotational DOF IS the substrate-native origin of intrinsic spin}: macroscopic angular momentum, the EM magnetic field $B$, and QM electron spin are three projections of the same per-node rotational coordinate. Spin is not added to the framework; it is what the rotational DOF is when the substrate is excited as a topological soliton. The intrinsic translation $\leftrightarrow$ E, rotation $\leftrightarrow$ B coupling makes every node a native LC oscillator: the substrate is structurally a Cosserat micropolar crystal AND a discrete LC resonant network, the same structural reality described in mechanical and electromagnetic terms. In the macroscopic continuum limit, the lattice is a \textbf{Trace-Reversed Chiral LC Network} supporting intrinsic spin and trace-free transverse EM wave propagation. \textbf{Two macroscopic substrate phases:} (i) crystallized phase (observable universe, Regimes I--III: K4 crystal supports EM wave propagation + topological matter); (ii) ruptured plasma phase (Regime IV: K4 topology destroyed; BH-interior + pre-genesis cosmology). The two are connected by Axiom 4's saturation kernel; see Glossary §1.6 for the canonical lattice/crystal/phases distinctions. Classical mechanics and network dynamics are macroscopic effective theories of the substrate's bulk dynamics, not fundamental physical primitives. Legacy short name: \textit{Chiral Laves K4 Crystal} (Cosserat character bundled into the meaning rather than the name).
+    \item \textbf{Axiom 1 --- Substrate Topology (Chiral Laves K4 Cosserat Crystal).} The physical vacuum \emph{is} a chiral Laves K4 Cosserat crystal $\mathcal{M}_A$ --- a 3D crystallised substrate of micropolar nodes at pitch $\ell_{node}$, governed by the right-handed $I4_1 32$ chiral space group with 4-fold K4 nearest-neighbour connectivity. Each node carries six intrinsic degrees of freedom: three \textbf{translational} (capacitive coupling $\varepsilon_0$, identified with the electric field) and three \textbf{microrotational} (inductive coupling $\mu_0$, identified with the magnetic field). The Cosserat microrotational DOF \emph{is} the substrate-native origin of intrinsic spin --- macroscopic angular momentum, the EM magnetic field, and QM electron spin are three projections of the same per-node rotational coordinate. In the macroscopic continuum limit the lattice is evaluated as a \textbf{Trace-Reversed Chiral LC Network} supporting trace-free transverse EM wave propagation. Classical mechanics and network dynamics are \textit{macroscopic effective theories} of the substrate's bulk behaviour, not fundamental primitives. (Legacy short names: \emph{Chiral Laves K4 Crystal}, \emph{LC Network}.)
 
-    \item \textbf{The Topo-Kinematic Isomorphism:} Charge $q$ is a discrete geometric dislocation in the $\mathcal{M}_A$ network. The Burgers vector of this dislocation IS the lattice pitch $\ell_{node}$, so the fundamental dimension of charge is identical to length ($[Q] \equiv [L]$). The macroscopic scaling is the Topological Conversion Constant:
+    \item \textbf{Axiom 2 --- Topo-Kinematic Isomorphism.} Charge $q$ is a discrete geometric dislocation (a localised phase twist) within $\mathcal{M}_A$. The Burgers vector of the dislocation is the lattice pitch $\ell_{node}$, so the fundamental dimension of charge is identical to length, $[Q] \equiv [L]$, with macroscopic scaling given by the Topological Conversion Constant:
     \begin{resultbox}{Topological Conversion Constant}
     \begin{equation}
         \xi_{topo} \equiv \frac{e}{\ell_{node}} \quad \text{[Coulombs / Meter]}
     \end{equation}
     \end{resultbox}
-    \textbf{Charge quantization} follows directly: dislocation Burgers vectors must respect the K4 lattice, so charge is quantized in integer multiples of $e$. \textbf{Charge sign} is the handedness of the dislocation in the substrate's chiral $I4_1 32$ structure --- particles and antiparticles are the two parity-related Burgers vectors permitted by the lattice geometry. \textbf{Fractional charges (Witten effect):} the $\mathbb{Z}_3$ symmetry of Borromean three-strand topology splits a unit dislocation into three linked sub-dislocations carrying $\pm 1/3\, e$ and $\pm 2/3\, e$ --- the substrate-native origin of quark fractional charges. Topologically-stable solitons of this dislocation field are particles: the $(2,3)$ torus knot is the electron (whose Q-factor at the Golden Torus geometry derives $\alpha = 1/137.036$, Ch~\ref{ch:alpha_golden_torus}), $(2,5)$ cinquefoil the proton, and the $(2,q)$ family generates the baryon ladder (Vol 2 Ch 2). \textit{Namespace caveat: $\xi_{topo}$ here is distinct from Vol 3 Ch~\ref{ch:gravity_and_yield}'s Machian $\xi \sim 10^{38}$ and the substrate-scale Cosserat prefactors $\xi_{K1}, \xi_{K2}$ defined in Vol 1 Ch~\ref{ch:macroscopic_moduli}. See Glossary §1.5.}
+    Charge quantisation (dislocation Burgers vectors must respect the K4 lattice), charge sign (dislocation handedness in the chiral $I4_1 32$ structure), and fractional quark charges (the $\mathbb{Z}_3$ Borromean split into $\pm\tfrac{1}{3}e$ and $\pm\tfrac{2}{3}e$, the Witten effect) all follow directly. \emph{Notation warning:} $\xi_{topo}$ is distinct from the dimensionless Machian hierarchy coupling $\xi$ (eq.~\texttt{eq\_gravity\_derived.tex}). Both quantities share a Greek letter; they are not the same object.
 
-    \item \textbf{The Minimum Reflection Principle:} The substrate, in its continuum limit, evolves to minimize the boundary reflection $|\Gamma|^2$ at every internal impedance boundary; equivalently, it extremizes the macroscopic substrate action $S_{AVE}$. The axiom name follows the substrate-observable quantity (per the substrate-observability rule, $\Gamma$ and the three integrated boundary invariants $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ are the externally-measurable boundary quantities; the interior Lagrangian density is not directly observable). Two mathematically equivalent forms of this principle are co-canonical.
-    \begin{resultbox}{Variational Form (theoretical-physics-natural)}
-    The dynamics are encoded entirely in the per-node electromagnetic vector potential $\mathbf{A}_n$:
+    \item \textbf{Axiom 3 --- Minimum Reflection Principle.} The substrate, in its continuum limit, evolves to extremise the macroscopic action $S_{AVE}$. Two mathematically equivalent forms are co-canonical. The \textbf{variational form} encodes the dynamics in the per-node vector potential $\mathbf{A}_n$:
+    \begin{resultbox}{Macroscopic Hardware Action}
     \begin{equation}
-        \mathcal{L}_{node} = \frac{1}{2}\epsilon_0 |\partial_t \mathbf{A}_n|^2 - \frac{1}{2\mu_0} |\nabla \times \mathbf{A}_n|^2,\qquad
-        S_{AVE} = \int \mathcal{L}_{node}\, d^4x
-    \end{equation}
-    \end{resultbox}
-    \begin{resultbox}{Boundary Form (substrate-native, engineering-natural)}
-    The substrate minimizes the reflection coefficient at every internal impedance boundary:
-    \begin{equation}
-        \min |\Gamma|^2 \quad \text{at every } \partial\Omega,\qquad
-        \Gamma = \frac{Z_2 - Z_1}{Z_2 + Z_1}
+        \mathcal{L}_{node} = \tfrac{1}{2}\varepsilon_0\,|\partial_t \mathbf{A}_n|^2 - \tfrac{1}{2\mu_0}\,|\nabla \times \mathbf{A}_n|^2
     \end{equation}
     Equivalent names: \textit{minimum-$|\Gamma|^2$ principle}, \textit{minimum boundary reflection}, \textit{least reflected action}, \textit{impedance-match principle}, \textit{Effective Action Principle} (legacy variational-dialect name; $S_{11}$ minimization is the EE-projection-specific form).
     \end{resultbox}
-    The variational form is the standard Maxwell Lagrangian (in vector-potential form), recovered as the substrate's effective action in the linear regime ($A \ll A_{yield}$). Under finite strain, $\varepsilon_0$ and $\mu_0$ become nonlinear functions of local strain via Axiom 4's saturation kernel ($\varepsilon_{eff} = \varepsilon_0\, S(A)$, $\mu_{eff} = \mu_0\, S(A)$). The boundary form is substrate-native because only $\Gamma$ (and the three integrated boundary invariants $\mathcal{M}, \mathcal{Q}, \mathcal{J}$) is externally observable at any boundary --- $\mathcal{L}_{node}$ is an interior volumetric quantity, not directly measurable (substrate-observability rule, formalized in the Common Foreword $\S$``Three Boundary Observables''). The two forms describe the same physics from different starting points: the Euler--Lagrange equations of $\mathcal{L}_{node}$ enforce continuity of $E$ and $B$ at boundaries, which is exactly the condition that minimizes $|\Gamma|^2$. Energy conservation, Lorentz invariance, and U(1) gauge symmetry follow as Noether consequences of $\mathcal{L}_{node}$'s symmetry structure.
-    
-    \item \textbf{Universal Saturation Kernel:} The substrate's bulk response to local strain $A$ (any normalized perturbation amplitude, regardless of physical dialect) is a universal quarter-arc kernel:
-    \begin{resultbox}{The Universal Saturation Kernel (Axiom 4)}
+    The \textbf{boundary form} states that the substrate minimises the reflection coefficient $|\Gamma|^2$ at every internal impedance boundary $\partial\Omega$. The two are equivalent: the Euler--Lagrange equations of $\mathcal{L}_{node}$ enforce continuity of $E$ and $B$ at boundaries, which is exactly the condition that minimises $|\Gamma|^2$. The axiom is named for the externally-observable quantity it extremises (the boundary reflection $|\Gamma|^2$), not the interior Lagrangian density. (Legacy name: \emph{Effective Action Principle}.)
+
+    \item \textbf{Axiom 4 --- Universal Saturation Kernel.} The substrate's bulk response to local strain $A$ (normalised to the bandwidth limit $A_{yield}$) is the universal quarter-arc yield kernel:
+    \begin{resultbox}{Universal Saturation Kernel}
     \begin{equation}
-        \boxed{S(A) = \sqrt{1 - A^2}}, \qquad A \in [0, 1]
+        S(A) = \sqrt{1 - (A/A_{yield})^2}, \qquad A \in [0,\,A_{yield}]
     \end{equation}
     \end{resultbox}
-    $A$ is the local strain normalized to the substrate's bandwidth limit (the value at which $S \to 0$). The kernel is dialect-independent: $A$ is voltage/$V_{snap}$ for dielectric strain, $T/T_c$ for thermal strain in a superconducting pair condensate, $r_s/r$ for gravitational strain at a horizon boundary, $\Omega/\Omega_{break}$ for rotational shear in a stellar plasma. \emph{The functional form is the same in every case.} The vertical tangent at $A = 1$ makes saturation impulsive at every scale: when $S(A) \to 0$ locally, the substrate cannot continue linear response and \emph{must reorganize topologically}. This is the universal mechanism behind the substrate's full nonlinear repertoire.
-
-    \textbf{Empirical evidence that the kernel is universal (A-034, canonical 2026-05-15 evening, per Grant: \emph{``the bulk response of the lattice to strain is universal''}).} 19 canonical instances span 21 orders of magnitude, with four cross-scale empirical anchors at \textbf{zero free parameters} (the same $\sqrt{1-A^2}$ function, no per-domain refit):
-    \begin{itemize}
-        \item Condensed matter: BCS $B_c(T) = B_{c0} S(T/T_c)$ at \textbf{0.00\% error} across all measured Type-I/II superconductors (Ch~9 of Vol 3 derives this directly from the kernel above with no BCS-specific machinery)
-        \item Gravitational: BH event horizon at $\varepsilon_{11}(r) = 1$ matches Schwarzschild $r_s = 2GM/c^2$ \textbf{exactly}; merger ring-down QNM $\omega_R M_g = 18/49$ at \textbf{1.7\% from GR exact}, matches three LIGO events (Ch~15 of Vol 3)
-        \item Stellar / geophysical: solar CME / flare onset, NOAA GOES 40-yr empirical validation; geomagnetic reversal Brunhes--Matuyama dynamics (Vol 3 Ch~13, Ch~14)
-        \item Atomic: dielectric breakdown at $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$ kV (this chapter; the dielectric specialization derived below is the bench-accessible scale of the universal kernel)
-    \end{itemize}
-    Additional catalog instances span nuclear (DT fusion topology snap), galactic (MOND $g_N/a_0$), cosmic (K4 crystallization at lattice genesis, Vol 3 Ch~4 \S\ref{sec:tki_strain_snap}), biological (membrane LLCP gel--fluid transition), and engineered (Marx-generator dielectric cascade, autoresonant rupture). See Backmatter Ch~\ref{app:universal_saturation_kernel} for the full catalog with 3-way symmetry classification (SYM / ASYM-N / ASYM-E) and measurement-hierarchy framing (single-emitter / multi-emitter bulk / phased-array PLL).
-
-    \textbf{Dielectric specialization (this chapter's scope).} At atomic / bench scale, $A = \Delta\phi/\alpha$ (the local phase strain normalized to the fine-structure compliance bound $\alpha$). The effective capacitance is then $C_{eff} = C_0/S(A) = C_0/\sqrt{1 - (\Delta\phi/\alpha)^2}$, which aligns with the $E^4$ energy density scaling of the Euler--Heisenberg QED Lagrangian and the $\chi^{(3)}$ displacement of the optical Kerr effect, and prevents the $E^6$ divergence of higher-order polynomial approximations. Standard Born--Infeld nonlinear electrodynamics is the QED dialect of the same kernel.
+    At $A = 0$, $S = 1$ (linear Maxwell recovered); at $A \to A_{yield}$, $S \to 0$ with vertical tangent --- the substrate can no longer sustain a linear response and \emph{must reorganise topologically}. The same kernel governs topological-reorganisation events at every scale (the cross-scale A-034 catalogue: dielectric breakdown, BCS $B_c(T)$, BH ring-down, K4 crystallisation at lattice genesis). It is the squared yield limit ($n=2$) of a non-linear Born-Infeld dielectric: the constitutive permittivity collapses as $\varepsilon_{eff} = \varepsilon_0\,S$ while the energy-absorbing differential capacitance diverges as $C_{eff}(\Delta\phi) = C_0/\sqrt{1 - (\Delta\phi/\alpha)^2} = C_0/S$ --- dual measures of the same structure.
 \end{enumerate}
 
 \subsection*{Substrate-native vocabulary (canonical)}
@@ -301,12 +282,14 @@ This explicit two-step numerical engine enforces local gauge invariance and ener
 \toprule
 \textbf{Quantity} & \textbf{AVE Value} & \textbf{CODATA} & \textbf{Derivation Source} \\
 \midrule
-$\ell_{node} = \hbar/m_e c$ & $3.862 \times 10^{-13}$ m & $3.862 \times 10^{-13}$ m & Axiom 1 (unknot) \\
-$\alpha = p_c/8\pi$ & $1/137.036$ & $1/137.036$ & Axiom 4 (EMT $K=2G$) \\
-$\xi_{topo} = e/\ell_{node}$ & $4.149 \times 10^{-7}$ C/m & --- & Axiom 2 ($[Q]\equiv[L]$) \\
-$V_{snap} = m_e c^2/e$ & 511.0 kV & 511.0 kV & Axiom 4 (dielectric limit) \\
-$Z_0 = \mu_0 c$ & 376.73 $\Omega$ & 376.73 $\Omega$ & Axiom 1 ($\sqrt{\mu_0/\epsilon_0}$) \\
-$G$ & $6.674 \times 10^{-11}$ & $6.674 \times 10^{-11}$ & Machian dilution \\
+$\ell_{node} = \hbar/m_e c$ & $3.862 \times 10^{-13}$ m & $3.862 \times 10^{-13}$ m & Calibration constant (Axiom 1) \\
+$Z_0 = \sqrt{\mu_0/\epsilon_0}$ & 376.73 $\Omega$ & 376.73 $\Omega$ & Calibration constant (Axiom 1) \\
+$\alpha$ & $1/137.036$ & $1/137.036$ & Calibration constant (Axiom 4, EMT $K{=}2G$); derived in Ch.~\ref{ch:alpha_golden_torus} \\
+$V_{yield} = \sqrt{\alpha}\,V_{snap}$ & 43.65 kV & 43.65 kV & Calibration constant (Axiom 4 saturation threshold) \\
+$\xi_{topo} = e/\ell_{node}$ & $4.149 \times 10^{-7}$ C/m & --- & Calibration constant (Axiom 2, $[Q]\equiv[L]$) \\
+$V_{snap} = m_e c^2/e$ & 511.0 kV & 511.0 kV & Calibration constant (Axiom 4 dielectric snap) \\
+$G = \hbar c/(7\xi\,m_e^2)$ & $6.674 \times 10^{-11}$ & $6.674 \times 10^{-11}$ & Derived (Ax 1 + Ax 4, Machian equilibrium); $\xi \approx 8.15{\times}10^{43}$ \\
+$S(A) = \sqrt{1-(A/A_{yield})^2}$ & --- & --- & Axiom 4 (Universal Saturation Kernel) \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -314,14 +297,14 @@ $G$ & $6.674 \times 10^{-11}$ & $6.674 \times 10^{-11}$ & Machian dilution \\
 \section*{Chapter Summary}
 \begin{itemize}
     \item The macroscopic structure of the vacuum is bounded by three hardware limits: the geometric node pitch ($\ell_{node}$), the non-linear porosity threshold ($\alpha$), and the global thermodynamic stretch tension ($G$).
-    \item Four explicit axioms fully describe the network: (1) The LC Chiral network substrate, (2) the Topo-Kinematic Isomorphism defining charge as geometric length ($e/\ell_{node}$), (3) the Effective Hardware Action representing standard QED, and (4) the Universal Saturation Kernel $S(A) = \sqrt{1 - A^2}$ governing every topological-reorganization event at every scale (A-034; dielectric breakdown is one specialization of 19 catalog instances).
+    \item Four canonical axioms fully describe the network: (1) Substrate Topology --- the vacuum is a chiral Laves K4 Cosserat crystal; (2) Topo-Kinematic Isomorphism --- charge is a geometric dislocation, $[Q] \equiv [L]$; (3) Minimum Reflection Principle --- the substrate extremises $S_{AVE}$, equivalently minimises boundary $|\Gamma|^2$; and (4) Universal Saturation Kernel --- $S(A) = \sqrt{1-(A/A_{yield})^2}$. The calibration constants ($Z_0$, $\ell_{node}$, $\alpha$, $V_{yield}$, $G$) are \emph{derived} from these axioms, not axioms themselves.
     \item Standard quantum artifacts like the Planck length are mathematical mirages created by applying the $10^{45}$-fold diluted macroscopic $G$ to single-node localized regions. Un-shielding the lattice tension collapses the Planck scale precisely onto the electron Compton radius.
 \end{itemize}
 
 \begin{summarybox}
 \begin{itemize}
-    \item Four axioms define the vacuum: (1) LC network substrate, (2) topo-kinematic isomorphism ($[Q] \equiv [L]$), (3) minimisation of the hardware action $S_{\text{AVE}}$, (4) the universal saturation kernel $S(A) = \sqrt{1 - A^2}$ governing every topological-reorganization event at every scale --- dielectric breakdown is one specialization of 19 cross-scale instances (A-034, 21 orders of magnitude, four empirical anchors at zero free parameters).
-    \item The fine-structure constant $\alpha \equiv p_c / 8\pi$ emerges as the geometric EMT compliance bound, and the Planck length collapses to the topological electron unknot $\ell_{\text{node}} = \hbar / m_e c$.
+    \item Four canonical axioms define the vacuum: (1) Substrate Topology --- a chiral Laves K4 Cosserat crystal; (2) Topo-Kinematic Isomorphism --- $[Q] \equiv [L]$, $\xi_{topo} = e/\ell_{node}$; (3) Minimum Reflection Principle --- extremal $S_{AVE}$ / minimum boundary $|\Gamma|^2$; (4) Universal Saturation Kernel --- $S(A) = \sqrt{1-(A/A_{yield})^2}$. The numerical scales ($Z_0$, $\ell_{node}$, $\alpha$, $V_{yield}$, $G$) are derived calibration constants.
+    \item The fine-structure constant $\alpha$ is derived from the Golden Torus closure (Ch.~\ref{ch:alpha_golden_torus}); the relation $\alpha \equiv p_c / 8\pi$ is the corresponding consistency identity at the geometric EMT compliance bound (Ch.~\ref{ch:macroscopic_moduli}), and the Planck length collapses to the topological electron unknot $\ell_{\text{node}} = \hbar / m_e c$.
     \item Discrete numerical execution uses a Kirchhoff finite-difference solver whose update rules follow directly from the axioms.
 \end{itemize}
 \end{summarybox}

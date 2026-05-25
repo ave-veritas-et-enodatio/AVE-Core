@@ -1,5 +1,9 @@
 [↑ App B: Theoretical Stress Tests](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-salw2h]
+-->
 
 ## The Spin-1/2 Paradox
 
@@ -7,6 +11,6 @@
 
 **The Resolution:** If the electron were modeled as a microscopic point-defect (a missing node), the framework would indeed fail. However, the AVE framework defines the electron as an extended, macroscopic **$0_1$ Unknot** (a closed, continuous topological flux tube loop). In topological mathematics, an extended knotted line defect embedded in an $SO(3)$ manifold exhibits $SU(2)$ spinor behaviour through the generation of a **Finkelstein-Misner Kink** (also known as the Dirac Belt Trick). The continuous geometric extension of the topological loop provides a double-cover over the $SO(3)$ background, reproducing Spin-1/2 quantum statistics without violating macroscopic solid-state geometry.
 
-**Substrate-native origin:** The Cosserat microrotational DOF per node (Axiom 1, three rotational coordinates alongside the three translational ones) IS the substrate-native origin of intrinsic spin. Macroscopic angular momentum, the EM magnetic field $B$, and QM electron spin are three projections of the same per-node rotational coordinate. The Finkelstein-Misner / Dirac-belt-trick mechanism on the extended $0_1$ unknot defect picks up the spinor double-cover automatically from the SU(2)→SO(3) 2-to-1 group structure; no separate "spin postulate" is added. Spin is what the rotational DOF IS when the substrate is excited as a topological soliton.
+> **Substrate-native origin:** The Cosserat microrotational DOF per node (Axiom 1, three rotational coordinates alongside the three translational ones) IS the substrate-native origin of intrinsic spin. Macroscopic angular momentum, the EM magnetic field $B$, and QM electron spin are three projections of the same per-node rotational coordinate. The Finkelstein-Misner / Dirac-belt-trick mechanism on the extended $0_1$ unknot defect picks up the spinor double-cover automatically from the SU(2)→SO(3) 2-to-1 group structure; no separate "spin postulate" is added. Spin is what the rotational DOF IS when the substrate is excited as a topological soliton.
 
 ---

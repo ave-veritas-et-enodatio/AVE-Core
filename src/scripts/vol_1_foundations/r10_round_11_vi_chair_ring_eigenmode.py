@@ -33,7 +33,6 @@ beyond 1-step → use Dirichlet boundary (A = 0 at all 2-step neighbors).
 Per doc 89 §7.4 + auditor 2026-04-29: this is Stride 3 analytical work; v9 IC
 construction follows from the eigenvector output. NO engine run in this script.
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -72,10 +71,7 @@ def k4_neighbors(pos):
     For B-site: ports point in -PORT_OFFSETS_A directions
     """
     sign = +1 if is_a_site(pos) else -1
-    return [
-        (i, tuple(int(c + sign * o) for c, o in zip(pos, PORT_OFFSETS_A[i])))
-        for i in range(4)
-    ]
+    return [(i, tuple(int(c + sign * o) for c, o in zip(pos, PORT_OFFSETS_A[i]))) for i in range(4)]
 
 
 def port_direction(pos, port_idx):
@@ -87,12 +83,12 @@ def port_direction(pos, port_idx):
 def build_chair_ring():
     """6-node chair-ring at origin (centered for clean coordinates)."""
     return [
-        (0, 0, 0),     # n=0 A
-        (1, 1, 1),     # n=1 B
-        (0, 2, 2),     # n=2 A
-        (-1, 3, 1),    # n=3 B
-        (-2, 2, 0),    # n=4 A
-        (-1, 1, -1),   # n=5 B
+        (0, 0, 0),  # n=0 A
+        (1, 1, 1),  # n=1 B
+        (0, 2, 2),  # n=2 A
+        (-1, 3, 1),  # n=3 B
+        (-2, 2, 0),  # n=4 A
+        (-1, 1, -1),  # n=5 B
     ]
 
 
@@ -154,11 +150,13 @@ def build_curl_matrix(node_list, node_index, n_ring):
 
             # Cross product matrix [e_i ×]
             ex, ey, ez = e_i
-            cross_mat = np.array([
-                [0, -ez, ey],
-                [ez, 0, -ex],
-                [-ey, ex, 0],
-            ])
+            cross_mat = np.array(
+                [
+                    [0, -ez, ey],
+                    [ez, 0, -ex],
+                    [-ey, ex, 0],
+                ]
+            )
 
             # Coefficient: (3/4) × (1/bond_length)
             coef = (3.0 / 4.0) / BOND_LENGTH
@@ -199,12 +197,14 @@ def find_chair_ring_modes(eigenvalues, eigenvectors, n_ring, ring_indices):
         # Beltrami amplitude at ring nodes
         ring_a_avg = np.mean([np.linalg.norm(v[i]) for i in ring_indices])
 
-        mode_data.append({
-            "index": m,
-            "eigenvalue": complex(eigenvalues[m]),
-            "ring_localization": ring_loc,
-            "ring_amplitude_mean": float(ring_a_avg),
-        })
+        mode_data.append(
+            {
+                "index": m,
+                "eigenvalue": complex(eigenvalues[m]),
+                "ring_localization": ring_loc,
+                "ring_amplitude_mean": float(ring_a_avg),
+            }
+        )
 
     return sorted(mode_data, key=lambda x: -x["ring_localization"])
 
@@ -274,10 +274,12 @@ def main():
     print()
     print("Top 10 modes by chair-ring localization:")
     for mode in mode_data[:10]:
-        print(f"  λ = {mode['eigenvalue'].real:+.4f}{mode['eigenvalue'].imag:+.4f}j  "
-              f"|λ| = {abs(mode['eigenvalue']):.4f}  "
-              f"ring_loc = {mode['ring_localization']:.4f}  "
-              f"ring_amp = {mode['ring_amplitude_mean']:.4f}")
+        print(
+            f"  λ = {mode['eigenvalue'].real:+.4f}{mode['eigenvalue'].imag:+.4f}j  "
+            f"|λ| = {abs(mode['eigenvalue']):.4f}  "
+            f"ring_loc = {mode['ring_localization']:.4f}  "
+            f"ring_amp = {mode['ring_amplitude_mean']:.4f}"
+        )
 
     # Compare to continuum prediction
     k_continuum_11 = np.sqrt(4 * np.pi**2 + 1)  # (1,1) Beltrami at R=1, r=1/(2π)
@@ -288,10 +290,12 @@ def main():
     print(f"Discrete eigenvalues to compare (|λ| should be in 1/bond_length units):")
     print(f"  bond_length = √3, so to convert from 1/bond_length to 1/ℓ_node, multiply by √3:")
     for mode in mode_data[:5]:
-        k_disc = abs(mode['eigenvalue'])
+        k_disc = abs(mode["eigenvalue"])
         k_disc_lnode = k_disc * SQRT_3
-        print(f"  Mode |λ| = {k_disc:.4f} → k in 1/ℓ_node = {k_disc_lnode:.4f}  "
-              f"(continuum (1,1): {k_continuum_11:.4f})")
+        print(
+            f"  Mode |λ| = {k_disc:.4f} → k in 1/ℓ_node = {k_disc_lnode:.4f}  "
+            f"(continuum (1,1): {k_continuum_11:.4f})"
+        )
 
     # Extract dominant ring-localized eigenvector for v9 IC construction
     print()
@@ -304,26 +308,30 @@ def main():
     # Need to find the column in eigenvectors matrix; search by eigenvalue match
     top_eigvec_idx = None
     for col in range(len(eigenvalues)):
-        if (abs(eigenvalues[col] - complex(top_mode["eigenvalue"])) < 1e-10):
+        if abs(eigenvalues[col] - complex(top_mode["eigenvalue"])) < 1e-10:
             v = eigenvectors[:, col].reshape(n_total, 3)
             ring_e = sum(np.sum(np.abs(v[i]) ** 2) for i in range(n_ring))
             total_e = np.sum(np.abs(v) ** 2)
-            if abs(ring_e/total_e - top_mode["ring_localization"]) < 1e-6:
+            if abs(ring_e / total_e - top_mode["ring_localization"]) < 1e-6:
                 top_eigvec_idx = col
                 break
     if top_eigvec_idx is None:
         top_eigvec_idx = 0
 
     top_eigvec = eigenvectors[:, top_eigvec_idx].reshape(n_total, 3)
-    print(f"  Top ring-localized mode: λ = {eigenvalues[top_eigvec_idx]:.4f}, "
-          f"ring_loc = {top_mode['ring_localization']:.4f}")
+    print(
+        f"  Top ring-localized mode: λ = {eigenvalues[top_eigvec_idx]:.4f}, "
+        f"ring_loc = {top_mode['ring_localization']:.4f}"
+    )
     print()
     print(f"  Eigenvector A_0 at ring nodes (real part):")
     for i in range(n_ring):
         a = top_eigvec[i].real
         mag = np.linalg.norm(a)
-        print(f"    n={i} ({'A' if is_a_site(node_list[i]) else 'B'}) {node_list[i]}: "
-              f"A_0 = ({a[0]:+.4f}, {a[1]:+.4f}, {a[2]:+.4f}), |A_0| = {mag:.4f}")
+        print(
+            f"    n={i} ({'A' if is_a_site(node_list[i]) else 'B'}) {node_list[i]}: "
+            f"A_0 = ({a[0]:+.4f}, {a[1]:+.4f}, {a[2]:+.4f}), |A_0| = {mag:.4f}"
+        )
     print()
     print(f"  Eigenvector A_0 at out-of-ring 1-step neighbors (real part):")
     for i in range(n_ring, n_total):
@@ -372,12 +380,12 @@ def main():
         ],
         "top_10_chair_ring_localized_modes": [
             {
-                "eigenvalue_real": float(mode['eigenvalue'].real),
-                "eigenvalue_imag": float(mode['eigenvalue'].imag),
-                "magnitude": float(abs(mode['eigenvalue'])),
-                "ring_localization": float(mode['ring_localization']),
-                "ring_amplitude_mean": float(mode['ring_amplitude_mean']),
-                "k_in_lnode_units": float(abs(mode['eigenvalue']) * SQRT_3),
+                "eigenvalue_real": float(mode["eigenvalue"].real),
+                "eigenvalue_imag": float(mode["eigenvalue"].imag),
+                "magnitude": float(abs(mode["eigenvalue"])),
+                "ring_localization": float(mode["ring_localization"]),
+                "ring_amplitude_mean": float(mode["ring_amplitude_mean"]),
+                "k_in_lnode_units": float(abs(mode["eigenvalue"]) * SQRT_3),
             }
             for mode in mode_data[:10]
         ],
@@ -385,15 +393,21 @@ def main():
             "eigenvalue": float(eigenvalues[top_eigvec_idx].real),
             "ring_localization": float(top_mode["ring_localization"]),
             "A_0_at_ring_nodes": [
-                {"index": i, "position": list(node_list[i]),
-                 "A_0": top_eigvec[i].real.tolist(),
-                 "magnitude": float(np.linalg.norm(top_eigvec[i].real))}
+                {
+                    "index": i,
+                    "position": list(node_list[i]),
+                    "A_0": top_eigvec[i].real.tolist(),
+                    "magnitude": float(np.linalg.norm(top_eigvec[i].real)),
+                }
                 for i in range(n_ring)
             ],
             "A_0_at_out_of_ring_nodes": [
-                {"index": i, "position": list(node_list[i]),
-                 "A_0": top_eigvec[i].real.tolist(),
-                 "magnitude": float(np.linalg.norm(top_eigvec[i].real))}
+                {
+                    "index": i,
+                    "position": list(node_list[i]),
+                    "A_0": top_eigvec[i].real.tolist(),
+                    "magnitude": float(np.linalg.norm(top_eigvec[i].real)),
+                }
                 for i in range(n_ring, n_total)
             ],
             "mean_ring_amplitude": float(np.mean(ring_amps)),

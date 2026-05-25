@@ -46,11 +46,11 @@ canonical Schwinger anomalous-moment chain at `simulate_g2.py`.
 import csv
 from pathlib import Path
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 from ave.core.constants import ALPHA, C_0
-
+from ave_path_util import sim_output
 
 # AVE prediction (zero-parameter, canonical)
 V_SUBSTRATE_MS = ALPHA * C_0 / (2 * np.pi)
@@ -65,20 +65,24 @@ SUN_CMB_B_DEG = 48.0
 
 _l = np.radians(SUN_CMB_L_DEG)
 _b = np.radians(SUN_CMB_B_DEG)
-SUN_CMB_VEC_GAL = np.array([
-    SUN_CMB_MAG_KMS * np.cos(_b) * np.cos(_l),
-    SUN_CMB_MAG_KMS * np.cos(_b) * np.sin(_l),
-    SUN_CMB_MAG_KMS * np.sin(_b),
-])
+SUN_CMB_VEC_GAL = np.array(
+    [
+        SUN_CMB_MAG_KMS * np.cos(_b) * np.cos(_l),
+        SUN_CMB_MAG_KMS * np.cos(_b) * np.sin(_l),
+        SUN_CMB_MAG_KMS * np.sin(_b),
+    ]
+)
 
 
 # IAU J2000 equatorial-to-galactic rotation matrix (standard)
 # Transforms an equatorial-Cartesian vector to galactic-Cartesian.
-R_EQ_TO_GAL = np.array([
-    [-0.054876, -0.873437, -0.483835],
-    [+0.494109, -0.444830, +0.746982],
-    [-0.867666, -0.198076, +0.455984],
-])
+R_EQ_TO_GAL = np.array(
+    [
+        [-0.054876, -0.873437, -0.483835],
+        [+0.494109, -0.444830, +0.746982],
+        [-0.867666, -0.198076, +0.455984],
+    ]
+)
 
 
 def parse_gaia_csv(path: Path) -> list[dict]:
@@ -88,16 +92,18 @@ def parse_gaia_csv(path: Path) -> list[dict]:
         reader = csv.DictReader(f)
         for row in reader:
             try:
-                stars.append({
-                    "ra": float(row["ra"]),
-                    "dec": float(row["dec"]),
-                    "parallax": float(row["parallax"]),
-                    "pmra": float(row["pmra"]),
-                    "pmdec": float(row["pmdec"]),
-                    "radial_velocity": float(row["radial_velocity"]),
-                    "bp_rp": float(row["bp_rp"]),
-                    "phot_g_mean_mag": float(row["phot_g_mean_mag"]),
-                })
+                stars.append(
+                    {
+                        "ra": float(row["ra"]),
+                        "dec": float(row["dec"]),
+                        "parallax": float(row["parallax"]),
+                        "pmra": float(row["pmra"]),
+                        "pmdec": float(row["pmdec"]),
+                        "radial_velocity": float(row["radial_velocity"]),
+                        "bp_rp": float(row["bp_rp"]),
+                        "phot_g_mean_mag": float(row["phot_g_mean_mag"]),
+                    }
+                )
             except (ValueError, KeyError):
                 continue
     return stars
@@ -161,10 +167,14 @@ def main() -> None:
     print(f"AVE prediction: v_substrate = αc/(2π) = {V_SUBSTRATE_KMS:.3f} km/s")
     print(f"               (pure α + c; canonical AVE substrate equilibrium velocity)")
     print()
-    print(f"Sun's CMB velocity (Planck 2018 input): "
-          f"{SUN_CMB_MAG_KMS} km/s toward (l,b)=({SUN_CMB_L_DEG}°, {SUN_CMB_B_DEG}°)")
-    print(f"   In galactic Cartesian: ({SUN_CMB_VEC_GAL[0]:.1f}, "
-          f"{SUN_CMB_VEC_GAL[1]:.1f}, {SUN_CMB_VEC_GAL[2]:.1f}) km/s")
+    print(
+        f"Sun's CMB velocity (Planck 2018 input): "
+        f"{SUN_CMB_MAG_KMS} km/s toward (l,b)=({SUN_CMB_L_DEG}°, {SUN_CMB_B_DEG}°)"
+    )
+    print(
+        f"   In galactic Cartesian: ({SUN_CMB_VEC_GAL[0]:.1f}, "
+        f"{SUN_CMB_VEC_GAL[1]:.1f}, {SUN_CMB_VEC_GAL[2]:.1f}) km/s"
+    )
     print()
 
     # Load Gaia data
@@ -200,16 +210,22 @@ def main() -> None:
 
     # Test vs AVE prediction
     print(f"AVE prediction: {V_SUBSTRATE_KMS:.2f} km/s")
-    print(f"Median deviation: {np.median(v_cmb_clean) - V_SUBSTRATE_KMS:+.2f} km/s "
-          f"({(np.median(v_cmb_clean) - V_SUBSTRATE_KMS)/V_SUBSTRATE_KMS*100:+.2f}%)")
-    print(f"Mean deviation:   {np.mean(v_cmb_clean) - V_SUBSTRATE_KMS:+.2f} km/s "
-          f"({(np.mean(v_cmb_clean) - V_SUBSTRATE_KMS)/V_SUBSTRATE_KMS*100:+.2f}%)")
+    print(
+        f"Median deviation: {np.median(v_cmb_clean) - V_SUBSTRATE_KMS:+.2f} km/s "
+        f"({(np.median(v_cmb_clean) - V_SUBSTRATE_KMS)/V_SUBSTRATE_KMS*100:+.2f}%)"
+    )
+    print(
+        f"Mean deviation:   {np.mean(v_cmb_clean) - V_SUBSTRATE_KMS:+.2f} km/s "
+        f"({(np.mean(v_cmb_clean) - V_SUBSTRATE_KMS)/V_SUBSTRATE_KMS*100:+.2f}%)"
+    )
 
     # Mode estimate via histogram bin
     hist, bin_edges = np.histogram(v_cmb_clean, bins=100, range=(0, 800))
     mode_bin_center = (bin_edges[np.argmax(hist)] + bin_edges[np.argmax(hist) + 1]) / 2
-    print(f"Mode (histogram peak): {mode_bin_center:.2f} km/s "
-          f"({(mode_bin_center - V_SUBSTRATE_KMS)/V_SUBSTRATE_KMS*100:+.2f}%)")
+    print(
+        f"Mode (histogram peak): {mode_bin_center:.2f} km/s "
+        f"({(mode_bin_center - V_SUBSTRATE_KMS)/V_SUBSTRATE_KMS*100:+.2f}%)"
+    )
     print()
 
     # Pre-registered outcome categorization
@@ -230,12 +246,21 @@ def main() -> None:
 
     # Full distribution
     ax1.hist(v_cmb_clean, bins=100, range=(0, 800), color="steelblue", alpha=0.7, edgecolor="black")
-    ax1.axvline(V_SUBSTRATE_KMS, color="red", linestyle="--", linewidth=2,
-                label=f"AVE prediction: αc/(2π) = {V_SUBSTRATE_KMS:.1f} km/s")
-    ax1.axvline(SUN_CMB_MAG_KMS, color="green", linestyle=":", linewidth=2,
-                label=f"Sun CMB velocity: 370 km/s")
-    ax1.axvline(np.median(v_cmb_clean), color="orange", linestyle="-", linewidth=2,
-                label=f"Sample median: {np.median(v_cmb_clean):.1f} km/s")
+    ax1.axvline(
+        V_SUBSTRATE_KMS,
+        color="red",
+        linestyle="--",
+        linewidth=2,
+        label=f"AVE prediction: αc/(2π) = {V_SUBSTRATE_KMS:.1f} km/s",
+    )
+    ax1.axvline(SUN_CMB_MAG_KMS, color="green", linestyle=":", linewidth=2, label=f"Sun CMB velocity: 370 km/s")
+    ax1.axvline(
+        np.median(v_cmb_clean),
+        color="orange",
+        linestyle="-",
+        linewidth=2,
+        label=f"Sample median: {np.median(v_cmb_clean):.1f} km/s",
+    )
     ax1.set_xlabel("|v_CMB| (km/s)", fontsize=12)
     ax1.set_ylabel("# stars", fontsize=12)
     ax1.set_title(f"Gaia DR3 nearby G/K dwarfs (N={len(v_cmb_clean)}) — CMB-frame velocity")
@@ -244,12 +269,17 @@ def main() -> None:
 
     # Zoom into 200-600 km/s
     ax2.hist(v_cmb_clean, bins=80, range=(200, 600), color="steelblue", alpha=0.7, edgecolor="black")
-    ax2.axvline(V_SUBSTRATE_KMS, color="red", linestyle="--", linewidth=2,
-                label=f"αc/(2π) = {V_SUBSTRATE_KMS:.1f} km/s")
-    ax2.axvline(SUN_CMB_MAG_KMS, color="green", linestyle=":", linewidth=2,
-                label=f"Sun: 370 km/s")
-    ax2.axvline(np.median(v_cmb_clean), color="orange", linestyle="-", linewidth=2,
-                label=f"Median: {np.median(v_cmb_clean):.1f}")
+    ax2.axvline(
+        V_SUBSTRATE_KMS, color="red", linestyle="--", linewidth=2, label=f"αc/(2π) = {V_SUBSTRATE_KMS:.1f} km/s"
+    )
+    ax2.axvline(SUN_CMB_MAG_KMS, color="green", linestyle=":", linewidth=2, label=f"Sun: 370 km/s")
+    ax2.axvline(
+        np.median(v_cmb_clean),
+        color="orange",
+        linestyle="-",
+        linewidth=2,
+        label=f"Median: {np.median(v_cmb_clean):.1f}",
+    )
     ax2.set_xlabel("|v_CMB| (km/s)", fontsize=12)
     ax2.set_ylabel("# stars", fontsize=12)
     ax2.set_title(f"Zoom: 200-600 km/s range")
@@ -257,8 +287,7 @@ def main() -> None:
     ax2.grid(alpha=0.3)
 
     plt.tight_layout()
-    out_path = Path(__file__).parent.parent.parent / "assets" / "sim_outputs" / "gaia_substrate_equilibrium_test.png"
-    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path = sim_output("gaia_substrate_equilibrium_test.png")
     plt.savefig(out_path, dpi=150, bbox_inches="tight")
     print(f"Saved distribution plot to {out_path}")
 

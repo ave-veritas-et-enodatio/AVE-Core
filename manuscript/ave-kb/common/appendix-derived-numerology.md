@@ -1,9 +1,13 @@
 [↑ Common](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-zi6t1e]
+-->
 
 # Appendix C: Derived Hardware Numerology
 
-The AVE framework operates under the strictest formulation of first-principles physics. The entire universal manifold is defined by three canonical hardware scales ($\ell_{node}$, $\alpha$, and $G$), all three of which are derived from first principles: $\alpha$ from the S₁₁-minimum Golden Torus geometry of the electron's $0_1$ unknot soliton with $(2,3)$ phase-space Clifford-torus winding pattern (Vol 1 Ch 8), $\ell_{node}$ from the Nyquist resolution of the smallest topologically stable soliton, and $G$ from the Machian boundary condition (Axiom 3). Every subsequent physical constraint is analytically traceable back to these derived scales plus the four axioms, without empirical curve-fitting.
+The AVE framework operates under the strictest formulation of first-principles physics. The entire universal manifold is defined by three canonical hardware scales ($\ell_{node}$, $\alpha$, and $G$), all three of which are derived from first principles: $\alpha$ from the S₁₁-minimum Golden Torus geometry of the electron's $0_1$ unknot soliton with $(2,3)$ phase-space Clifford-torus winding pattern (Vol 1 Ch 8), $\ell_{node}$ from the Nyquist resolution of the smallest topologically stable soliton, and $G$ from the Machian boundary condition (a derived consequence of Axioms 1 and 4). Every subsequent physical constraint is analytically traceable back to these derived scales plus the four axioms, without empirical curve-fitting.
 
 This appendix derives the hardware numerology appearing throughout Volume 9, verifying their exact theoretical limits against the continuous LC tensor solver and the declarative compilation traces.
 
@@ -15,10 +19,10 @@ This appendix derives the hardware numerology appearing throughout Volume 9, ver
 | $V_{snap}$ | $m_e c^2/e \approx 510{,}999$ V | Axiom 4 | Dielectric rupture voltage; node fracture limit |
 | $V_{yield}$ | $\sqrt{\alpha} \cdot V_{snap} \approx 43{,}653$ V | Axiom 4 + $\alpha$ | Kinetic yield point; onset of non-linear lattice yielding |
 | $\phi_{yield}$ | $\arcsin(\sqrt{3}/2) = \pi/3 \approx 1.047$ rad | Axiom 1 (sp³) | Geometric strain yield; kink packing limit |
-| $\nu_{vac}$ | $2/7 \approx 0.2857$ | Axiom 1 (Machian symmetry) | Trace-reversed Poisson ratio; refractive lensing operator |
-| $z_0$ | $\approx 51.25$ | Axiom 4 ($\alpha \equiv p_c/8\pi$) | Effective coordination number from Feng-Thorpe-Garboczi EMT |
-| $n_{3D}$ | $38/21 \approx 1.8095$ | Axiom 4 + Axiom 3 ($\nu_{vac}$) | Macroscopic Avalanche Exponent; turbulent energy flux amplification exponent |
-| $C_K$ | $4/3 \approx 1.333$ | Axiom 3 (S-matrix) | Universal Kolmogorov Constant; inertial subrange turbulence spectrum multiplier |
+| $\nu_{vac}$ | $2/7 \approx 0.2857$ | Axiom 1 LC + $K=2G$ at Axiom 2's $\alpha$ | Trace-reversed Poisson ratio; refractive lensing operator |
+| $z_0$ | $\approx 51.25$ | Axiom 1 LC + Axiom 2 ($\alpha \equiv p_c/8\pi$) | Effective coordination number from Feng-Thorpe-Garboczi EMT |
+| $n_{3D}$ | $38/21 \approx 1.8095$ | Axiom 4 + Axiom 1/2 ($\nu_{vac}$) | Macroscopic Avalanche Exponent; turbulent energy flux amplification exponent |
+| $C_K$ | $4/3 \approx 1.333$ | Axiom 1 LC mechanism (S-matrix) | Universal Kolmogorov Constant; inertial subrange turbulence spectrum multiplier |
 
 ## Hardware-Specific Derived Numbers
 
@@ -55,7 +59,7 @@ $$
 n_{3D} = 2 \left(1 - \frac{\nu_{\mathrm{vac}}}{3}\right) = 2\left(1 - \frac{2/7}{3}\right) = \frac{38}{21} \approx 1.8095
 $$
 
-**Axiom trace:** Axiom 4 ($\mathcal{S}^2 + r^2 = 1$) → Avalanche $M = 1/\mathcal{S}^2 \rightarrow n=2$ → Axiom 3 ($\nu_{vac}=2/7$) → $n_{3D} = 38/21$.
+**Axiom trace:** Axiom 4 ($\mathcal{S}^2 + r^2 = 1$) → Avalanche $M = 1/\mathcal{S}^2 \rightarrow n=2$ → Axiom 1 LC mechanism + Axiom 2 ($K=2G$ at $\alpha$) gives $\nu_{vac}=2/7$ → $n_{3D} = 38/21$.
 
 ## The Kolmogorov Constant ($C_K$)
 
@@ -71,6 +75,6 @@ $$
 C_K = \frac{1}{\eta} = \frac{4}{3} \approx 1.333
 $$
 
-**Axiom trace:** Axiom 3 (S-matrix for uniform isotropic lattice intersections) → cascade efficiency $\eta = 3/4 \rightarrow C_K = 4/3$.
+**Axiom trace:** Axiom 1 LC mechanism (S-matrix for uniform isotropic lattice intersections) → cascade efficiency $\eta = 3/4 \rightarrow C_K = 4/3$.
 
 > ↗ **KB Boundary:** Application of these constants to the full APU (axiomatic processing unit) architecture is held in a separate hardware engineering compendium.

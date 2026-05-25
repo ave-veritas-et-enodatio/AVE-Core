@@ -1,5 +1,10 @@
 [↑ App F: Universal Solver Toolchain](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-d9ivj1]
+-->
+
 <!-- PATH-STABLE: sec:kerr_q_correction, eq:kerr_q, eq:r_omega -->
 
 ## Kerr Q Correction: Co-Rotating Frame Decomposition

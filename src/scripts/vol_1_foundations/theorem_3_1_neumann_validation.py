@@ -30,9 +30,9 @@ import numpy as np
 
 # Constants (natural units: mu_0 = 1, ell_node = 1)
 PHI = (1 + np.sqrt(5)) / 2.0
-R_GT = PHI / 2.0            # Golden Torus major radius
-r_GT = (PHI - 1) / 2.0      # Golden Torus minor radius
-d_tube = 1.0                # Nyquist tube thickness (one lattice pitch)
+R_GT = PHI / 2.0  # Golden Torus major radius
+r_GT = (PHI - 1) / 2.0  # Golden Torus minor radius
+d_tube = 1.0  # Nyquist tube thickness (one lattice pitch)
 
 
 def knot_path(t, p=2, q=3, R=R_GT, r=r_GT):
@@ -71,20 +71,20 @@ def full_neumann_integral(N=4000, p=2, q=3, R=R_GT, r=r_GT, d=d_tube):
 
     # Pairwise displacements and distances
     r_ij = positions[:, None, :] - positions[None, :, :]  # (N, N, 3)
-    dist = np.linalg.norm(r_ij, axis=-1)                   # (N, N)
-    dist_reg = np.maximum(dist, d)                         # regularize
+    dist = np.linalg.norm(r_ij, axis=-1)  # (N, N)
+    dist_reg = np.maximum(dist, d)  # regularize
 
     # Pairwise tangent dot products
-    dot_ij = np.einsum('ik,jk->ij', tangents, tangents)    # (N, N)
+    dot_ij = np.einsum("ik,jk->ij", tangents, tangents)  # (N, N)
 
     # Neumann integrand
-    integrand = dot_ij / dist_reg                          # (N, N)
+    integrand = dot_ij / dist_reg  # (N, N)
 
     # Exclude diagonal (self-term is handled by regularization)
     np.fill_diagonal(integrand, 0.0)
 
     # Integrate
-    M_total = integrand.sum() * (dt ** 2) / (4 * np.pi)
+    M_total = integrand.sum() * (dt**2) / (4 * np.pi)
 
     return M_total, positions, tangents, dist
 
@@ -108,15 +108,15 @@ def decompose_by_path_separation(N=4000, t_crossing_threshold=0.5):
     r_ij = positions[:, None, :] - positions[None, :, :]
     dist = np.linalg.norm(r_ij, axis=-1)
     dist_reg = np.maximum(dist, d_tube)
-    dot_ij = np.einsum('ik,jk->ij', tangents, tangents)
+    dot_ij = np.einsum("ik,jk->ij", tangents, tangents)
     integrand = dot_ij / dist_reg
     np.fill_diagonal(integrand, 0.0)
 
     near_mask = t_diff < t_crossing_threshold
     far_mask = ~near_mask
 
-    near_contribution = integrand[near_mask].sum() * (dt ** 2) / (4 * np.pi)
-    far_contribution = integrand[far_mask].sum() * (dt ** 2) / (4 * np.pi)
+    near_contribution = integrand[near_mask].sum() * (dt**2) / (4 * np.pi)
+    far_contribution = integrand[far_mask].sum() * (dt**2) / (4 * np.pi)
 
     return near_contribution, far_contribution, t, positions, dist
 
@@ -149,17 +149,17 @@ def find_crossings(t, positions, dist, N_expected=3):
 
 
 def main():
-    print("="*70)
+    print("=" * 70)
     print("Theorem 3.1 Neumann-integral validation")
     print(f"(p, q) = (2, 3) torus knot at Golden Torus")
     print(f"R = phi/2 = {R_GT:.6f}, r = (phi-1)/2 = {r_GT:.6f}, d = {d_tube}")
     print(f"R*r = {R_GT * r_GT:.6f} (expected 1/4 = 0.25)")
     print(f"R-r = {R_GT - r_GT:.6f} (expected 1/2 = 0.5)")
-    print("="*70)
+    print("=" * 70)
 
     # Ch 8 predictions
-    lambda_vol_ch8 = 4 * np.pi ** 3
-    lambda_surf_ch8 = np.pi ** 2
+    lambda_vol_ch8 = 4 * np.pi**3
+    lambda_surf_ch8 = np.pi**2
     lambda_line_ch8 = np.pi
     alpha_inv_ch8 = lambda_vol_ch8 + lambda_surf_ch8 + lambda_line_ch8
     print(f"\nCh 8 predictions:")
@@ -176,8 +176,7 @@ def main():
     print(f"  (continuum, classical Neumann, regularized at |r|=d=1)")
 
     # Near/far decomposition
-    near, far, t, _, _ = decompose_by_path_separation(N=N_sample,
-                                                      t_crossing_threshold=0.5)
+    near, far, t, _, _ = decompose_by_path_separation(N=N_sample, t_crossing_threshold=0.5)
     print(f"\nNear-path (|t_i - t_j| < 0.5): M_near = {near:.4f}")
     print(f"Far-path  (|t_i - t_j| > 0.5): M_far  = {far:.4f}")
     print(f"Sum check: {near + far:.4f} vs {M_total:.4f}")
@@ -186,23 +185,27 @@ def main():
     crossings = find_crossings(t, positions, dist)
     print(f"\nFound {len(crossings)} crossings:")
     for i, j in crossings:
-        print(f"  Crossing at t=({t[i]:.3f}, {t[j]:.3f})  r=({positions[i,0]:.3f}, {positions[i,1]:.3f}, {positions[i,2]:.3f})  dist={dist[i,j]:.3f}")
+        print(
+            f"  Crossing at t=({t[i]:.3f}, {t[j]:.3f})  r=({positions[i,0]:.3f}, {positions[i,1]:.3f}, {positions[i,2]:.3f})  dist={dist[i,j]:.3f}"
+        )
 
     # Try different thresholds for near/far split
     print(f"\nSensitivity to split threshold:")
     for thresh in [0.2, 0.5, 1.0, 1.5, 2.0, 3.0]:
-        near_t, far_t, _, _, _ = decompose_by_path_separation(
-            N=N_sample, t_crossing_threshold=thresh
+        near_t, far_t, _, _, _ = decompose_by_path_separation(N=N_sample, t_crossing_threshold=thresh)
+        print(
+            f"  thresh = {thresh:.1f}: near = {near_t:.4f}, far = {far_t:.4f}, "
+            f"ratio far / pi^2 = {far_t / np.pi**2:.4f}"
         )
-        print(f"  thresh = {thresh:.1f}: near = {near_t:.4f}, far = {far_t:.4f}, "
-              f"ratio far / pi^2 = {far_t / np.pi**2:.4f}")
 
-    print("\n" + "="*70)
+    print("\n" + "=" * 70)
     print("PRE-REGISTERED COMPARISON")
-    print("="*70)
+    print("=" * 70)
     print(f"Target: Lambda_surf = pi^2 = {lambda_surf_ch8:.4f}")
-    print(f"Candidate: far-path Neumann contribution (thresh=1.0) "
-          f"approx = {decompose_by_path_separation(N_sample, 1.0)[1]:.4f}")
+    print(
+        f"Candidate: far-path Neumann contribution (thresh=1.0) "
+        f"approx = {decompose_by_path_separation(N_sample, 1.0)[1]:.4f}"
+    )
 
 
 if __name__ == "__main__":

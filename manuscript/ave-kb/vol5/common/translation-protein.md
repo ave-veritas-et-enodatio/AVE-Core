@@ -1,5 +1,9 @@
 [↑ Vol 5 Translation Tables](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-r6uef4]
+-->
 
 ---
 

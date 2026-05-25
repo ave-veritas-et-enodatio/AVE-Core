@@ -21,7 +21,6 @@ empirical input; all baryon masses emerge from FS solver at integer c.
 Run:
     PYTHONPATH=src python3 src/scripts/verify/baryon_ladder_pdg_2024_anchor.py
 """
-from __future__ import annotations
 
 import json
 import math
@@ -41,7 +40,6 @@ from ave.core.constants import (
     _compute_i_scalar_dynamic,
     e_charge,
 )
-
 
 # ============================================================
 # PDG 2024 baryon table — pinned per matrix:557 task
@@ -208,17 +206,13 @@ def avert_mass_mev(c: int) -> float:
 # ============================================================
 # Matching protocol with J^P consistency
 # ============================================================
-def find_best_match(
-    pred_mev: float, c: int, pdg_table: list[dict]
-) -> tuple[dict | None, float, bool]:
+def find_best_match(pred_mev: float, c: int, pdg_table: list[dict]) -> tuple[dict | None, float, bool]:
     """Find best PDG match with J^P consistency check.
 
     Returns (best_match_entry, error_pct, jp_consistent).
     best_match_entry is None if no candidate passes J^P consistency.
     """
-    candidates_jp_ok = [
-        entry for entry in pdg_table if is_jp_consistent(c, entry["JP"])
-    ]
+    candidates_jp_ok = [entry for entry in pdg_table if is_jp_consistent(c, entry["JP"])]
     if not candidates_jp_ok:
         return None, float("inf"), False
 
@@ -228,9 +222,7 @@ def find_best_match(
     return best, error_pct, True
 
 
-def find_nearest_match_no_jp(
-    pred_mev: float, pdg_table: list[dict]
-) -> tuple[dict, float]:
+def find_nearest_match_no_jp(pred_mev: float, pdg_table: list[dict]) -> tuple[dict, float]:
     """Find nearest PDG match by mass alone (no J^P check) — for null hypothesis comparison."""
     best = min(pdg_table, key=lambda e: abs(e["mass_mev"] - pred_mev))
     error_pct = 100 * (pred_mev - best["mass_mev"]) / best["mass_mev"]
@@ -276,9 +268,7 @@ def main() -> int:
     print(f"  α = {ALPHA:.10g} (CODATA via ave.core.constants)")
     print(f"  m_e = {M_E:.6e} kg")
     print()
-    print(
-        "Class 4 (emergence test) per consistency-vs-emergence taxonomy:"
-    )
+    print("Class 4 (emergence test) per consistency-vs-emergence taxonomy:")
     print("  m_e is the ONLY empirical input. Per-state masses derive from")
     print("  FS solver at integer c with NO baryon-specific tuning.")
     print()
@@ -312,14 +302,16 @@ def main() -> int:
                 f"{nearest['mass_mev']:>11.3f}  {err_nearest:>+8.3f}%  "
                 f"{nearest['JP']:>8}  {'NO':>5}  {nearest['status']:>6}"
             )
-            results["retrospective"].append({
-                "c": c,
-                "ave_mev": pred,
-                "best_match": None,
-                "nearest_mass_only": nearest["name"],
-                "nearest_err_pct": err_nearest,
-                "jp_consistent": False,
-            })
+            results["retrospective"].append(
+                {
+                    "c": c,
+                    "ave_mev": pred,
+                    "best_match": None,
+                    "nearest_mass_only": nearest["name"],
+                    "nearest_err_pct": err_nearest,
+                    "jp_consistent": False,
+                }
+            )
             continue
 
         if jp_ok:
@@ -334,18 +326,20 @@ def main() -> int:
             f" {err_pct:>+8.3f}%  {best['JP']:>8}  {'YES' if jp_ok else 'NO':>5}  "
             f"{best['status']:>6}"
         )
-        results["retrospective"].append({
-            "c": c,
-            "ave_mev": pred,
-            "best_match": best["name"],
-            "pdg_mass_mev": best["mass_mev"],
-            "pdg_uncertainty_mev": best["uncertainty_mev"],
-            "err_pct": err_pct,
-            "jp": best["JP"],
-            "jp_consistent": jp_ok,
-            "pdg_status": best["status"],
-            "pdg_section": best["pdg_section"],
-        })
+        results["retrospective"].append(
+            {
+                "c": c,
+                "ave_mev": pred,
+                "best_match": best["name"],
+                "pdg_mass_mev": best["mass_mev"],
+                "pdg_uncertainty_mev": best["uncertainty_mev"],
+                "err_pct": err_pct,
+                "jp": best["JP"],
+                "jp_consistent": jp_ok,
+                "pdg_status": best["status"],
+                "pdg_section": best["pdg_section"],
+            }
+        )
 
     # ===== Forward predictions (c=17, 19, 21) =====
     forward_c_values = [17, 19, 21]
@@ -371,14 +365,16 @@ def main() -> int:
                 f"{nearest['mass_mev']:>11.3f}  {err_nearest:>+8.3f}%  "
                 f"{nearest['JP']:>8}  {'NO':>5}  {nearest['status']:>6}"
             )
-            results["forward"].append({
-                "c": c,
-                "ave_mev": pred,
-                "best_match": None,
-                "nearest_mass_only": nearest["name"],
-                "nearest_err_pct": err_nearest,
-                "jp_consistent": False,
-            })
+            results["forward"].append(
+                {
+                    "c": c,
+                    "ave_mev": pred,
+                    "best_match": None,
+                    "nearest_mass_only": nearest["name"],
+                    "nearest_err_pct": err_nearest,
+                    "jp_consistent": False,
+                }
+            )
             continue
 
         print(
@@ -386,17 +382,19 @@ def main() -> int:
             f" {err_pct:>+8.3f}%  {best['JP']:>8}  {'YES' if jp_ok else 'NO':>5}  "
             f"{best['status']:>6}"
         )
-        results["forward"].append({
-            "c": c,
-            "ave_mev": pred,
-            "best_match": best["name"],
-            "pdg_mass_mev": best["mass_mev"],
-            "pdg_uncertainty_mev": best["uncertainty_mev"],
-            "err_pct": err_pct,
-            "jp": best["JP"],
-            "jp_consistent": jp_ok,
-            "pdg_status": best["status"],
-        })
+        results["forward"].append(
+            {
+                "c": c,
+                "ave_mev": pred,
+                "best_match": best["name"],
+                "pdg_mass_mev": best["mass_mev"],
+                "pdg_uncertainty_mev": best["uncertainty_mev"],
+                "err_pct": err_pct,
+                "jp": best["JP"],
+                "jp_consistent": jp_ok,
+                "pdg_status": best["status"],
+            }
+        )
 
     # ===== Null hypothesis comparison =====
     print()
@@ -408,38 +406,25 @@ def main() -> int:
     expected_random_hits_3pct = null_rate_3pct * 6  # 6 retrospective predictions
     expected_random_hits_1pct = null_rate_1pct * 6
     print(f"  Random nearest-mass hit probability (3% threshold): {null_rate_3pct:.3f}")
-    print(
-        f"  Random nearest-mass hit probability (1% threshold): {null_rate_1pct:.3f}"
-    )
+    print(f"  Random nearest-mass hit probability (1% threshold): {null_rate_1pct:.3f}")
     print(
         f"  Expected random hits in 6 predictions: "
         f"{expected_random_hits_3pct:.2f} (3%), {expected_random_hits_1pct:.2f} (1%)"
     )
     print(f"  Observed AVE retrospective <3% matches: {matches_within_3pct} of 6")
     print(f"  Observed AVE retrospective <1% matches: {matches_within_1pct} of 6")
-    print(
-        f"  Excess over random at 3%: "
-        f"{matches_within_3pct - expected_random_hits_3pct:+.2f}"
-    )
-    print(
-        f"  Excess over random at 1%: "
-        f"{matches_within_1pct - expected_random_hits_1pct:+.2f}"
-    )
+    print(f"  Excess over random at 3%: " f"{matches_within_3pct - expected_random_hits_3pct:+.2f}")
+    print(f"  Excess over random at 1%: " f"{matches_within_1pct - expected_random_hits_1pct:+.2f}")
     print()
     print(f"  J^P-consistent matches: {jp_consistent_count} of 6 retrospective")
-    print(
-        f"  (J^P discrimination removes post-hoc-fit risk; "
-        f"see ave-discrimination-check D3)"
-    )
+    print(f"  (J^P discrimination removes post-hoc-fit risk; " f"see ave-discrimination-check D3)")
 
     # ===== Summary =====
     print()
     print("=" * 95)
     print("OUTCOME ASSESSMENT")
     print("=" * 95)
-    print(
-        f"  Retrospective matches with J^P consistency: {jp_consistent_count}/6"
-    )
+    print(f"  Retrospective matches with J^P consistency: {jp_consistent_count}/6")
     print(f"  Matches within 3%: {matches_within_3pct}/6")
     print(f"  Matches within 1%: {matches_within_1pct}/6")
 

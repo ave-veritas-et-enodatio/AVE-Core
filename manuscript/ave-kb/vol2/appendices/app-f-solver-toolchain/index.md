@@ -1,5 +1,11 @@
 [↑ Appendices](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-ak97cb, clm-d5jhku, clm-d9ivj1, clm-dboxok, clm-k6olj8, clm-oltvwy]
+subtree-experiments: []
+-->
+
 # App F: Universal Solver Toolchain
 
 The AVE framework reduces every bounded physical system --- from quark confinement to galactic rotation --- to a single paradigm: an impedance cavity at a regime boundary. This appendix documents the systematic procedure for extracting eigenvalues, quality factors, and datasheet parameters from any AVE domain.

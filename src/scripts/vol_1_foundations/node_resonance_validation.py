@@ -40,23 +40,23 @@ Reference:
   - manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:127-142
   - manuscript/predictions.yaml::P_phase2_omega
 """
-from __future__ import annotations
 
 import sys
 import time
 from dataclasses import dataclass
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from ave.topological.vacuum_engine import (
-    VacuumEngine3D,
     AutoresonantCWSource,
-    RegimeClassifierObserver,
     NodeResonanceObserver,
+    RegimeClassifierObserver,
     TopologyObserver,
+    VacuumEngine3D,
 )
 
 
@@ -88,7 +88,8 @@ def run_v2_headline_with_node_resonance(cfg: RunConfig) -> dict:
     """Run v2 headline config with NodeResonanceObserver attached;
     return observer history plus engine metadata."""
     engine = VacuumEngine3D.from_args(
-        N=cfg.N, pml=cfg.pml,
+        N=cfg.N,
+        pml=cfg.pml,
         temperature=cfg.temperature,
         amplitude_convention="V_SNAP",
     )
@@ -97,18 +98,30 @@ def run_v2_headline_with_node_resonance(cfg: RunConfig) -> dict:
     t_sustain = cfg.t_sustain_periods * period
     src_offset = cfg.pml + 3
 
-    engine.add_source(AutoresonantCWSource(
-        x0=src_offset, direction=(1.0, 0.0, 0.0),
-        amplitude=cfg.amplitude, omega=cfg.omega_carrier,
-        sigma_yz=3.5, t_ramp=t_ramp, t_sustain=t_sustain,
-        K_drift=cfg.K_drift,
-    ))
-    engine.add_source(AutoresonantCWSource(
-        x0=cfg.N - src_offset, direction=(-1.0, 0.0, 0.0),
-        amplitude=cfg.amplitude, omega=cfg.omega_carrier,
-        sigma_yz=3.5, t_ramp=t_ramp, t_sustain=t_sustain,
-        K_drift=cfg.K_drift,
-    ))
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=src_offset,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=cfg.amplitude,
+            omega=cfg.omega_carrier,
+            sigma_yz=3.5,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            K_drift=cfg.K_drift,
+        )
+    )
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=cfg.N - src_offset,
+            direction=(-1.0, 0.0, 0.0),
+            amplitude=cfg.amplitude,
+            omega=cfg.omega_carrier,
+            sigma_yz=3.5,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            K_drift=cfg.K_drift,
+        )
+    )
 
     regime_obs = RegimeClassifierObserver(cadence=cfg.record_cadence)
     node_obs = NodeResonanceObserver(cadence=cfg.record_cadence)
@@ -203,18 +216,18 @@ def render(result: dict, out: str = "/tmp/phase2_node_resonance.png") -> None:
     ax = axes[0]
     A2_curve = np.linspace(0.0, 0.99, 200)
     omega_curve = closed_form_omega_ratio(A2_curve)
-    ax.plot(A2_curve, omega_curve, "-", color="#333", lw=1.5,
-            label="(1 − A²_yield)^(1/4) closed form")
-    ax.scatter(A2_max, omega_min, s=20, color="#c33", alpha=0.6,
-               edgecolors="none",
-               label="engine (max-A² site per step)")
-    ax.axvline(0.5, color="#888", ls=":", lw=0.8,
-               label="P_phase2_omega test edge (A²_yield=0.5)")
+    ax.plot(A2_curve, omega_curve, "-", color="#333", lw=1.5, label="(1 − A²_yield)^(1/4) closed form")
+    ax.scatter(
+        A2_max, omega_min, s=20, color="#c33", alpha=0.6, edgecolors="none", label="engine (max-A² site per step)"
+    )
+    ax.axvline(0.5, color="#888", ls=":", lw=0.8, label="P_phase2_omega test edge (A²_yield=0.5)")
     ax.set_xlabel("A²_yield (most-saturated site)")
     ax.set_ylabel("Ω_node / ω_0")
     ax.set_title("Closed form vs engine")
-    ax.legend(fontsize=9); ax.grid(alpha=0.3)
-    ax.set_xlim(0, 1.0); ax.set_ylim(0, 1.05)
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.3)
+    ax.set_xlim(0, 1.0)
+    ax.set_ylim(0, 1.05)
 
     # Panel 2: time series of A²_yield and omega_ratio at most-sat site
     ax = axes[1]
@@ -240,29 +253,37 @@ def render(result: dict, out: str = "/tmp/phase2_node_resonance.png") -> None:
     A2_axis = np.linspace(0.0, 0.99, 200)
     varactor = closed_form_omega_ratio(A2_axis)
     linear_approx = np.clip(1.0 - cfg.K_drift * A2_axis, 1e-3, 1.0)
-    ax.plot(A2_axis, varactor, "-", color="#333", lw=1.5,
-            label="varactor: (1−A²_yield)^(1/4)")
-    ax.plot(A2_axis, linear_approx, "--", color="#c33", lw=1.5,
-            label=f"AutoresonantCWSource: 1 − K_drift·A²  (K={cfg.K_drift})")
+    ax.plot(A2_axis, varactor, "-", color="#333", lw=1.5, label="varactor: (1−A²_yield)^(1/4)")
+    ax.plot(
+        A2_axis,
+        linear_approx,
+        "--",
+        color="#c33",
+        lw=1.5,
+        label=f"AutoresonantCWSource: 1 − K_drift·A²  (K={cfg.K_drift})",
+    )
     ax.axvline(1.0, color="#888", ls=":", lw=0.8, label="yield (A²_yield = 1)")
     # Annotate the error at a mid-range A²_yield
     A2_check = 0.5
-    err = abs(closed_form_omega_ratio(np.array([A2_check]))[0]
-              - (1.0 - cfg.K_drift * A2_check))
-    ax.annotate(f"|Δ| at A²=0.5 ≈ {err:.3f}",
-                xy=(0.5, 0.5), xytext=(0.55, 0.4),
-                fontsize=9, color="#c33",
-                arrowprops=dict(arrowstyle="->", color="#c33", lw=0.8))
+    err = abs(closed_form_omega_ratio(np.array([A2_check]))[0] - (1.0 - cfg.K_drift * A2_check))
+    ax.annotate(
+        f"|Δ| at A²=0.5 ≈ {err:.3f}",
+        xy=(0.5, 0.5),
+        xytext=(0.55, 0.4),
+        fontsize=9,
+        color="#c33",
+        arrowprops=dict(arrowstyle="->", color="#c33", lw=0.8),
+    )
     ax.set_xlabel("A²_yield")
     ax.set_ylabel("ω_ratio")
-    ax.set_title("Source linear-Taylor vs full varactor\n"
-                 "(Phase 5 decision: upgrade source for tight lock?)")
-    ax.legend(fontsize=9); ax.grid(alpha=0.3)
-    ax.set_xlim(0, 1.05); ax.set_ylim(0, 1.05)
+    ax.set_title("Source linear-Taylor vs full varactor\n" "(Phase 5 decision: upgrade source for tight lock?)")
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.3)
+    ax.set_xlim(0, 1.05)
+    ax.set_ylim(0, 1.05)
 
     plt.suptitle(
-        f"Phase 2 validation: NodeResonanceObserver on v2 headline "
-        f"(P_phase2_omega)",
+        f"Phase 2 validation: NodeResonanceObserver on v2 headline " f"(P_phase2_omega)",
         fontsize=12,
     )
     plt.tight_layout()
@@ -291,9 +312,11 @@ def save_npz(result: dict, out: str = "/tmp/phase2_node_resonance.npz") -> None:
 if __name__ == "__main__":
     print("── Phase 2 validation: NodeResonanceObserver on v2 headline ──\n")
     cfg = RunConfig()
-    print(f"Config: λ={cfg.wavelength}, T={cfg.temperature}, "
-          f"amp={cfg.amplitude}·V_SNAP, K_drift={cfg.K_drift}, "
-          f"N={cfg.N}, n_steps={cfg.n_outer_steps}")
+    print(
+        f"Config: λ={cfg.wavelength}, T={cfg.temperature}, "
+        f"amp={cfg.amplitude}·V_SNAP, K_drift={cfg.K_drift}, "
+        f"N={cfg.N}, n_steps={cfg.n_outer_steps}"
+    )
     print("(Expected runtime ~90-120 s)\n")
 
     result = run_v2_headline_with_node_resonance(cfg)
@@ -303,8 +326,10 @@ if __name__ == "__main__":
     print(f"Records:                    {verdict['n_records']}")
     print(f"NaN count:                  {verdict['nan_count']}")
     print(f"omega_min ≤ omega_max:      {verdict['omega_ordering_ok']}")
-    print(f"Internally consistent:      {verdict['internally_consistent']} "
-          f"(err={verdict['internal_consistency_err']:.2e})")
+    print(
+        f"Internally consistent:      {verdict['internally_consistent']} "
+        f"(err={verdict['internal_consistency_err']:.2e})"
+    )
     print(f"Max A²_yield reached:       {verdict['A2_yield_max_reached']:.4f}")
     print(f"Mean A²_yield peak:         {verdict['A2_yield_mean_max_reached']:.4f}")
     print(f"Min Ω_node/ω_0 reached:     {verdict['omega_ratio_min_reached']:.4f}")
@@ -319,8 +344,7 @@ if __name__ == "__main__":
     # falsification lives in later phases (Phase 4 asymmetric saturation
     # and Phase 6 autoresonant-vs-fixed-f).
     if verdict["verdict"] == "OBSERVER-BROKEN":
-        print("\n✗ Observer produced inconsistent data — check "
-              "NodeResonanceObserver._capture.")
+        print("\n✗ Observer produced inconsistent data — check " "NodeResonanceObserver._capture.")
         sys.exit(1)
     if verdict["verdict"] == "SIM-STATIC":
         print("\n⚠ Simulation did not evolve — check source config.")

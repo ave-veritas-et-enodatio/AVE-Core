@@ -1,5 +1,9 @@
 [↑ Ch.1 — Topological Matter](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-ka5zdx]
+-->
 
 ## Mass-Closure Theorem: $mc^2 = E_{\text{reactive}}$
 

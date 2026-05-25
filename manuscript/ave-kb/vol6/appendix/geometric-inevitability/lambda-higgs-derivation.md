@@ -1,5 +1,10 @@
 [↑ Geometric Inevitability](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-ome498]
+-->
+
 <!-- PATH-STABLE: sec:lambda_higgs_derivation -->
 
 ## $\lambda_H = 1/8$: Higgs Quartic Coupling
@@ -10,7 +15,7 @@
 >
 > **(2) $\lambda_H = 1/(2 N_{K4})$ derivation is NOT independent of $g_* = 7^3/N_{K4}$ derivation** (per `ave-independence-check` trigger 2 broadened): both use the SAME axiomatic constant $N_{K4} = 4$ (K4 unit-cell vertices, Axiom 1). They are ONE axiom manifesting in two places via derived identities, NOT two independent confirmations. When citing $\lambda_H$ + $g_*$ jointly in evidence lists, count as ONE evidence line. This is the Foundation Item 4 gravitational-redshift pattern (one underlying constant appearing as if it were two independent confirmations).
 >
-> See closure-roadmap §0.5 Foundation Item 7 entry. *Body below preserved per Rule 12.*
+> *Body below preserved per Rule 12.*
 
 The Standard Model Higgs quartic self-coupling $\lambda$ is measured as $\approx 0.129$. AVE derives it from the K4 unit cell topology.
 

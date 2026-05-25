@@ -26,7 +26,6 @@ The HWHM-based extract_shell_radii (line 1435) reports R/r=3.0 at the GT seed.
 This driver tests whether the HWHM convention shifts the apparent r relative to
 a fitted Lorentzian half-width.
 """
-from __future__ import annotations
 
 import sys
 import time
@@ -38,12 +37,12 @@ from scipy.optimize import curve_fit
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from ave.topological.cosserat_field_3d import CosseratField3D
-from validate_cosserat_electron_soliton import golden_torus_grid_coords, R_GOLDEN_GRID
+from validate_cosserat_electron_soliton import R_GOLDEN_GRID, golden_torus_grid_coords
 
+from ave.topological.cosserat_field_3d import CosseratField3D
 
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
-PHI_SQ = PHI ** 2
+PHI_SQ = PHI**2
 
 
 def lorentzian(rho: np.ndarray, peak: float, R_fit: float, r_fit: float, baseline: float) -> np.ndarray:
@@ -51,14 +50,14 @@ def lorentzian(rho: np.ndarray, peak: float, R_fit: float, r_fit: float, baselin
 
 
 def build_amplitude_profile(solver: CosseratField3D) -> tuple[np.ndarray, np.ndarray]:
-    omega_mag = np.sqrt(np.sum(solver.omega ** 2, axis=-1))
+    omega_mag = np.sqrt(np.sum(solver.omega**2, axis=-1))
     cx, cy, cz = (solver.nx - 1) / 2.0, (solver.ny - 1) / 2.0, (solver.nz - 1) / 2.0
     kz = int(round(cz))
 
     slice_z = omega_mag[:, :, kz]
     xs = solver._i[:, :, kz] - cx
     ys = solver._j[:, :, kz] - cy
-    rho = np.sqrt(xs ** 2 + ys ** 2)
+    rho = np.sqrt(xs**2 + ys**2)
 
     rho_flat = rho.flatten()
     mag_flat = slice_z.flatten()
@@ -86,7 +85,7 @@ def fit_lorentzian(centers: np.ndarray, profile: np.ndarray, R_seed: float, r_se
         peak_fit, R_fit, r_fit, base_fit = popt
         sigma = np.sqrt(np.diag(pcov))
         residuals = profile - lorentzian(centers, *popt)
-        rss = float(np.sum(residuals ** 2))
+        rss = float(np.sum(residuals**2))
         tss = float(np.sum((profile - profile.mean()) ** 2))
         r_squared = 1.0 - rss / max(tss, 1e-20)
         return {
@@ -103,8 +102,9 @@ def fit_lorentzian(centers: np.ndarray, profile: np.ndarray, R_seed: float, r_se
         return {"ok": False, "error": str(e)}
 
 
-def run_lorentzian_test(nx: int, R_target: float, r_target: float, label: str,
-                        max_iter: int = 1500, lr: float = 1e-2) -> dict:
+def run_lorentzian_test(
+    nx: int, R_target: float, r_target: float, label: str, max_iter: int = 1500, lr: float = 1e-2
+) -> dict:
     print(f"\n--- {label} (nx={nx}) ---")
     print(f"  Target (seed):     R={R_target:.4f}, r={r_target:.4f}")
 
@@ -117,8 +117,10 @@ def run_lorentzian_test(nx: int, R_target: float, r_target: float, label: str,
 
     print(f"  t=0 HWHM extract:  R={R_obs0:.4f}, r={r_obs0:.4f}")
     if fit0["ok"]:
-        print(f"  t=0 Lorentz fit:   R={fit0['R_fit']:.4f} ± {fit0['R_sigma']:.4f}, "
-              f"r={fit0['r_fit']:.4f} ± {fit0['r_sigma']:.4f}, R²={fit0['r_squared']:.4f}")
+        print(
+            f"  t=0 Lorentz fit:   R={fit0['R_fit']:.4f} ± {fit0['R_sigma']:.4f}, "
+            f"r={fit0['r_fit']:.4f} ± {fit0['r_sigma']:.4f}, R²={fit0['r_squared']:.4f}"
+        )
     else:
         print(f"  t=0 Lorentz fit FAILED: {fit0['error']}")
 
@@ -133,10 +135,12 @@ def run_lorentzian_test(nx: int, R_target: float, r_target: float, label: str,
 
     print(f"  t=relax HWHM:      R={R_obs1:.4f}, r={r_obs1:.4f}")
     if fit1["ok"]:
-        print(f"  t=relax Lorentz:   R={fit1['R_fit']:.4f} ± {fit1['R_sigma']:.4f}, "
-              f"r={fit1['r_fit']:.4f} ± {fit1['r_sigma']:.4f}, R²={fit1['r_squared']:.4f}")
-        R_dev = abs(fit1['R_fit'] - R_target) / R_target * 100
-        r_dev = abs(fit1['r_fit'] - r_target) / r_target * 100
+        print(
+            f"  t=relax Lorentz:   R={fit1['R_fit']:.4f} ± {fit1['R_sigma']:.4f}, "
+            f"r={fit1['r_fit']:.4f} ± {fit1['r_sigma']:.4f}, R²={fit1['r_squared']:.4f}"
+        )
+        R_dev = abs(fit1["R_fit"] - R_target) / R_target * 100
+        r_dev = abs(fit1["r_fit"] - r_target) / r_target * 100
         print(f"  R deviation:       {R_dev:.2f}%  (5% threshold)")
         print(f"  r deviation:       {r_dev:.2f}%  (5% threshold)")
         scaffold_ok = R_dev < 5.0 and r_dev < 5.0
@@ -181,14 +185,22 @@ def main():
     print(f"Reference Golden Torus (grid): R={R_GT:.4f}, r={r_GT:.4f}, R/r={PHI_SQ:.4f}")
 
     results = []
-    results.append(run_lorentzian_test(
-        nx=32, R_target=R_GT, r_target=r_GT,
-        label="32³ Golden Torus seed",
-    ))
-    results.append(run_lorentzian_test(
-        nx=32, R_target=R_GT * 1.3, r_target=r_GT * 0.7,
-        label="32³ perturbed seed (R+30%, r-30%)",
-    ))
+    results.append(
+        run_lorentzian_test(
+            nx=32,
+            R_target=R_GT,
+            r_target=r_GT,
+            label="32³ Golden Torus seed",
+        )
+    )
+    results.append(
+        run_lorentzian_test(
+            nx=32,
+            R_target=R_GT * 1.3,
+            r_target=r_GT * 0.7,
+            label="32³ perturbed seed (R+30%, r-30%)",
+        )
+    )
 
     print()
     print("=" * 72)

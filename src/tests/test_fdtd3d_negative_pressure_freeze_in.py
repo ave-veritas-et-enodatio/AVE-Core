@@ -30,8 +30,6 @@ Run:
     pytest src/tests/test_fdtd3d_negative_pressure_freeze_in.py -v -s
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 from scipy.ndimage import gaussian_filter
@@ -152,35 +150,43 @@ def test_negative_pressure_freeze_in():
     PROBE_EVERY = 40
     TAU_EXPANSION = N_STEPS * 1.54e-11 / 2  # half the run drops V_yield linearly
 
-    print(f"\n=== Phase 3f.3.3: Stretch-Driven Substrate Freeze-In ===")
+    print("\n=== Phase 3f.3.3: Stretch-Driven Substrate Freeze-In ===")
     print(f"N={N}, dx={DX}, V_yield_0={V_YIELD_0}, amplitude={AMPLITUDE:.3e}")
     print(f"N_steps={N_STEPS}, tau_expansion={TAU_EXPANSION:.3e}s")
 
     # Run 1: Constant V_yield baseline (no stretch)
-    print(f"\n--- Run 1: Constant V_yield (no stretch) ---")
-    engine_const = FDTD3DEngine(nx=N, ny=N, nz=N, dx=DX, linear_only=False,
-                                  use_pml=False, v_yield=V_YIELD_0)
+    print("\n--- Run 1: Constant V_yield (no stretch) ---")
+    engine_const = FDTD3DEngine(nx=N, ny=N, nz=N, dx=DX, linear_only=False, use_pml=False, v_yield=V_YIELD_0)
     _seed_smooth_noise(engine_const, AMPLITUDE, sigma_smooth=3.0, seed=42)
-    print(f"  Initial: E_total={_total_energy(engine_const):.3e}J, "
-          f"helicity={_total_helicity(engine_const):.3e}, "
-          f"coherence={_spatial_coherence(engine_const):.3f}")
-    const_v_yield_fn = lambda t: V_YIELD_0  # constant
+    print(
+        f"  Initial: E_total={_total_energy(engine_const):.3e}J, "
+        f"helicity={_total_helicity(engine_const):.3e}, "
+        f"coherence={_spatial_coherence(engine_const):.3f}"
+    )
+
+    def const_v_yield_fn(t):
+        return V_YIELD_0  # constant
+
     result_const = _run_with_v_yield_schedule(engine_const, N_STEPS, const_v_yield_fn, PROBE_EVERY)
 
     # Run 2: Varying V_yield (cosmic stretch simulation)
-    print(f"\n--- Run 2: Varying V_yield (cosmic stretch) ---")
-    engine_stretch = FDTD3DEngine(nx=N, ny=N, nz=N, dx=DX, linear_only=False,
-                                    use_pml=False, v_yield=V_YIELD_0)
+    print("\n--- Run 2: Varying V_yield (cosmic stretch) ---")
+    engine_stretch = FDTD3DEngine(nx=N, ny=N, nz=N, dx=DX, linear_only=False, use_pml=False, v_yield=V_YIELD_0)
     _seed_smooth_noise(engine_stretch, AMPLITUDE, sigma_smooth=3.0, seed=42)
-    print(f"  Initial: E_total={_total_energy(engine_stretch):.3e}J, "
-          f"helicity={_total_helicity(engine_stretch):.3e}, "
-          f"coherence={_spatial_coherence(engine_stretch):.3f}")
+    print(
+        f"  Initial: E_total={_total_energy(engine_stretch):.3e}J, "
+        f"helicity={_total_helicity(engine_stretch):.3e}, "
+        f"coherence={_spatial_coherence(engine_stretch):.3f}"
+    )
+
     # Linear decrease: V_yield drops from V_YIELD_0 to 0.3·V_YIELD_0 over τ_expansion
-    stretch_v_yield_fn = lambda t: V_YIELD_0 * max(0.3, 1.0 - 0.7 * t / TAU_EXPANSION)
+    def stretch_v_yield_fn(t):
+        return V_YIELD_0 * max(0.3, 1.0 - 0.7 * t / TAU_EXPANSION)
+
     result_stretch = _run_with_v_yield_schedule(engine_stretch, N_STEPS, stretch_v_yield_fn, PROBE_EVERY)
 
     # Compare results
-    print(f"\n=== Comparison (constant baseline vs stretch) ===")
+    print("\n=== Comparison (constant baseline vs stretch) ===")
 
     E_const_initial = result_const["energy"][1]
     E_const_final = result_const["energy"][-1]
@@ -195,24 +201,26 @@ def test_negative_pressure_freeze_in():
     c_const_final = result_const["coherence"][-1]
     c_stretch_final = result_stretch["coherence"][-1]
 
-    print(f"  Constant V_yield:")
+    print("  Constant V_yield:")
     print(f"    Energy retention:   {E_const_final/E_const_initial:.3f}")
-    print(f"    Helicity retention: {h_const_final/h_const_initial if h_const_initial>1e-30 else 'NaN':.3f}")
+    print(f"    Helicity retention: {h_const_final/h_const_initial if h_const_initial > 1e-30 else 'NaN':.3f}")
     print(f"    Final coherence:    {c_const_final:.3f}")
     print(f"    Max strain ratio:   {engine_const.max_strain_ratio:.4f}")
 
-    print(f"  Varying V_yield (stretch):")
+    print("  Varying V_yield (stretch):")
     print(f"    Energy retention:   {E_stretch_final/E_stretch_initial:.3f}")
-    print(f"    Helicity retention: {h_stretch_final/h_stretch_initial if h_stretch_initial>1e-30 else 'NaN':.3f}")
+    print(f"    Helicity retention: {h_stretch_final/h_stretch_initial if h_stretch_initial > 1e-30 else 'NaN':.3f}")
     print(f"    Final coherence:    {c_stretch_final:.3f}")
     print(f"    Max strain ratio:   {engine_stretch.max_strain_ratio:.4f}")
     print(f"    V_yield path: {result_stretch['v_yield'][0]:.1f} → {result_stretch['v_yield'][-1]:.1f}")
 
     # Discriminator metrics
-    E_diff_ratio = (E_stretch_final / E_stretch_initial) / (E_const_final / E_const_initial) if E_const_final > 0 else float("nan")
+    E_diff_ratio = (
+        (E_stretch_final / E_stretch_initial) / (E_const_final / E_const_initial) if E_const_final > 0 else float("nan")
+    )
     c_diff_ratio = c_stretch_final / c_const_final if c_const_final > 0 else float("nan")
 
-    print(f"\n  Stretch/Constant ratios:")
+    print("\n  Stretch/Constant ratios:")
     print(f"    Energy retention:   {E_diff_ratio:.3f}  (>1 = stretch persists more)")
     print(f"    Spatial coherence:  {c_diff_ratio:.3f}  (>1 = stretch more clumped)")
 

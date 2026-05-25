@@ -1,11 +1,17 @@
 [↑ Vol 6: Framework](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-llqd1n]
+-->
 
 ## Macroscopic Mass Defect Summary
 
-> **This leaf is the load-bearing binding-energy emergence test surface for the Platonic geometric construction in the geometric-inevitability appendix** (per Foundation Item 8 CG-4 reverse cross-reference 2026-05-17 night). The Platonic-progression table at [`appendix/geometric-inevitability/platonic-progression.md`](../appendix/geometric-inevitability/platonic-progression.md) reports GEOMETRIC RESIDUAL of cluster positions vs assumed Platonic-solid coordinates (definitional fit-residual, structurally zero by solver construction). The Platonic-progression construction's physics-prediction validation lives HERE: the 13-nucleus table below validates AVE topological masses against CODATA experimental masses at 0.005-0.027% error across H-1, He-4, Li-7, C-12, B-11, N-14, O-16, F-19, Ne-20, Na-23, Mg-24, Al-27, Si-28. This IS the Class D emergence test the Platonic-progression leaf's geometric residual is sometimes mistaken for. The framework's nuclear binding-energy emergence claim is corpus-canonical here. See closure-roadmap §0.5 Foundation Items 7 + 8 entries.
+> **This leaf is the load-bearing binding-energy emergence test surface for the Platonic geometric construction in the geometric-inevitability appendix** (per Foundation Item 8 CG-4 reverse cross-reference 2026-05-17 night). The Platonic-progression table at [`appendix/geometric-inevitability/platonic-progression.md`](../appendix/geometric-inevitability/platonic-progression.md) reports GEOMETRIC RESIDUAL of cluster positions vs assumed Platonic-solid coordinates (definitional fit-residual, structurally zero by solver construction). The Platonic-progression construction's physics-prediction validation lives HERE: the 13-nucleus table below validates AVE topological masses against CODATA experimental masses at 0.005-0.027% error across H-1, He-4, Li-7, C-12, B-11, N-14, O-16, F-19, Ne-20, Na-23, Mg-24, Al-27, Si-28. This IS the Class D emergence test the Platonic-progression leaf's geometric residual is sometimes mistaken for. The framework's nuclear binding-energy emergence claim is corpus-canonical here.
 
 The Topological network maps strictly to empirical observables without hidden variables by calculating overlapping geometry using a simple $1/d_{ij}$ summation. As elements grow progressively more complex, the physical geometry perfectly yields the standard CODATA mass metrics.
+
+> **Methodology qualifier (per [`semiconductor-nuclear-analysis.md`](computational-mass-defect/semiconductor-nuclear-analysis.md)):** within the $(Z,A)$-forced cluster topology, the inter-alpha distance $R$ is the **single fitted scalar adjusted per nucleus** so the pairwise summation reproduces the CODATA mass. The errors below reflect the optimizer's convergence tolerance on $R$, **not** independent ab-initio mass-prediction errors. The structural claim is that *one* fitted scalar per nucleus suffices (vs $\sim 5$ parameters per nucleus in shell or liquid-drop models), and that the cluster topology itself is axiom-derived. See the canonical fit-vs-predict split at the head of [Vol 6](../index.md).
 
 | **Element** | **Z** | **A** | **Empirical (MeV)** | **Topological (MeV)** | **Error (%)** |
 |---|---|---|---|---|---|

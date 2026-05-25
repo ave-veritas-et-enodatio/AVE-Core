@@ -78,25 +78,23 @@ Per-capture (every 10 steps) summaries:
 - 5 axial lines × 96 cells × 4 ports × 444 steps × 8B = 13 MB time-series
 - Total compute estimate: ~25-40 min
 """
-from __future__ import annotations
 
 import json
 import sys
 import time
-from pathlib import Path
 from collections import Counter
+from pathlib import Path
 
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
+from ave.core.constants import ALPHA
 from ave.topological.vacuum_engine import (
-    VacuumEngine3D,
     SpatialDipoleCPSource,
+    VacuumEngine3D,
 )
 
-
-from ave.core.constants import ALPHA
 V_YIELD = float(np.sqrt(ALPHA))
 A2_YIELD = ALPHA
 A2_OP14 = float(np.sqrt(2.0 * ALPHA))
@@ -107,7 +105,9 @@ DT = 1.0 / np.sqrt(2.0)
 
 def setup_engine(N=96, PML=8):
     return VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=0.0,
+        N=N,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -131,23 +131,23 @@ def setup_source():
 
 
 def compute_a2_field(V_inc, V_SNAP=1.0):
-    return np.sum(V_inc ** 2, axis=-1) / (V_SNAP ** 2)
+    return np.sum(V_inc**2, axis=-1) / (V_SNAP**2)
 
 
 def mask_interior(field, mask_active, pml):
     N = field.shape[0]
     out = field * mask_active.astype(float)
     out[:pml, :, :] = 0.0
-    out[N - pml:, :, :] = 0.0
+    out[N - pml :, :, :] = 0.0
     out[:, :pml, :] = 0.0
-    out[:, N - pml:, :] = 0.0
+    out[:, N - pml :, :] = 0.0
     out[:, :, :pml] = 0.0
-    out[:, :, N - pml:] = 0.0
+    out[:, :, N - pml :] = 0.0
     return out
 
 
 def compute_centroid(V_inc, mask_active, pml):
-    energy = mask_interior(np.sum(V_inc ** 2, axis=-1), mask_active, pml)
+    energy = mask_interior(np.sum(V_inc**2, axis=-1), mask_active, pml)
     total = float(np.sum(energy))
     if total < 1e-30:
         return float("nan"), 0.0
@@ -158,7 +158,7 @@ def compute_centroid(V_inc, mask_active, pml):
 
 
 def compute_front(V_inc, mask_active, pml, frac=0.5):
-    energy = mask_interior(np.sum(V_inc ** 2, axis=-1), mask_active, pml)
+    energy = mask_interior(np.sum(V_inc**2, axis=-1), mask_active, pml)
     marg = np.sum(energy, axis=(1, 2))
     if marg.max() < 1e-30:
         return float("nan")
@@ -206,11 +206,11 @@ def main():
 
     yc, zc = N // 2, N // 2
     sample_lines = [
-        ("center",    yc,     zc),
-        ("y_plus",    yc + 2, zc),
-        ("y_minus",   yc - 2, zc),
-        ("z_plus",    yc,     zc + 2),
-        ("z_minus",   yc,     zc - 2),
+        ("center", yc, zc),
+        ("y_plus", yc + 2, zc),
+        ("y_minus", yc - 2, zc),
+        ("z_plus", yc, zc + 2),
+        ("z_minus", yc, zc - 2),
     ]
     # axial_v_inc[line_idx, step, x, port]
     axial_v_inc = np.zeros((len(sample_lines), n_steps, N, 4))
@@ -252,24 +252,28 @@ def main():
             max_a2_traj.append((t_now, max_a2))
             max_a2_loc.append(max_a2_idx)
 
-            captures.append({
-                "t": float(t_now),
-                "step": int(step_i),
-                "centroid_x": cx,
-                "front_x": front_x,
-                "total_energy": total_e,
-                "a2_at_centroid": a2_at_centroid,
-                "max_a2_interior": max_a2,
-                "max_a2_loc": [int(v) for v in max_a2_idx],
-            })
+            captures.append(
+                {
+                    "t": float(t_now),
+                    "step": int(step_i),
+                    "centroid_x": cx,
+                    "front_x": front_x,
+                    "total_energy": total_e,
+                    "a2_at_centroid": a2_at_centroid,
+                    "max_a2_interior": max_a2,
+                    "max_a2_loc": [int(v) for v in max_a2_idx],
+                }
+            )
 
             if step_i % (capture_cadence * 5) == 0:
                 t_p = t_now / COMPTON_PERIOD
                 elapsed = time.time() - t_start
-                print(f"    t={t_p:5.2f}P  cx={cx if not np.isnan(cx) else 0:6.2f}  "
-                      f"front_x={front_x if not np.isnan(front_x) else 0:6.2f}  "
-                      f"max_A²={max_a2:.4f} @ {tuple(max_a2_idx)}  "
-                      f"({elapsed:.0f}s)")
+                print(
+                    f"    t={t_p:5.2f}P  cx={cx if not np.isnan(cx) else 0:6.2f}  "
+                    f"front_x={front_x if not np.isnan(front_x) else 0:6.2f}  "
+                    f"max_A²={max_a2:.4f} @ {tuple(max_a2_idx)}  "
+                    f"({elapsed:.0f}s)"
+                )
 
     total_elapsed = time.time() - t_start
     print(f"\n  Engine evolution complete in {total_elapsed:.0f}s")
@@ -287,43 +291,35 @@ def main():
         print("\n  No post-shutoff captures.")
         return
 
-    cell_counter = Counter(tuple(loc) for loc in
-                           [c["max_a2_loc"] for c in second_half])
+    cell_counter = Counter(tuple(loc) for loc in [c["max_a2_loc"] for c in second_half])
     trap_cell, trap_count = cell_counter.most_common(1)[0]
     trap_x, trap_y, trap_z = trap_cell
 
-    print(f"\n  Trap candidate cell: ({trap_x}, {trap_y}, {trap_z}) "
-          f"({trap_count}/{len(second_half)} post-shutoff captures)")
+    print(
+        f"\n  Trap candidate cell: ({trap_x}, {trap_y}, {trap_z}) "
+        f"({trap_count}/{len(second_half)} post-shutoff captures)"
+    )
 
     # Saturation
-    a2_at_trap_2nd_half = [c["max_a2_interior"] for c in second_half
-                           if tuple(c["max_a2_loc"]) == trap_cell]
+    a2_at_trap_2nd_half = [c["max_a2_interior"] for c in second_half if tuple(c["max_a2_loc"]) == trap_cell]
     a2_trap_max = float(max(a2_at_trap_2nd_half)) if a2_at_trap_2nd_half else 0.0
     a2_trap_mean = float(np.mean(a2_at_trap_2nd_half)) if a2_at_trap_2nd_half else 0.0
     saturation_engaged = a2_trap_max > A2_OP14
     print(f"  A² at trap (post-shutoff): max={a2_trap_max:.4f}, mean={a2_trap_mean:.4f}")
-    print(f"  Saturation engagement (A² > {A2_OP14:.4f}): "
-          f"{'YES' if saturation_engaged else 'NO'}")
+    print(f"  Saturation engagement (A² > {A2_OP14:.4f}): " f"{'YES' if saturation_engaged else 'NO'}")
 
     # Find which sample line is closest to trap
-    line_dists = [
-        ((trap_y - ly) ** 2 + (trap_z - lz) ** 2, li, name)
-        for li, (name, ly, lz) in enumerate(sample_lines)
-    ]
+    line_dists = [((trap_y - ly) ** 2 + (trap_z - lz) ** 2, li, name) for li, (name, ly, lz) in enumerate(sample_lines)]
     line_dists.sort()
     closest_dist, closest_li, closest_name = line_dists[0]
-    print(f"  Closest sample line to trap: '{closest_name}' "
-          f"(d²={closest_dist})")
+    print(f"  Closest sample line to trap: '{closest_name}' " f"(d²={closest_dist})")
 
     # FFT at trap on closest sample line, port 0
     post_shutoff_start = int(25.0 * COMPTON_PERIOD / DT)
     if post_shutoff_start < n_steps and closest_dist <= 8:
         v_at_trap = axial_v_inc[closest_li, post_shutoff_start:, trap_x, 0]
         v_ref_at_trap = axial_v_ref[closest_li, post_shutoff_start:, trap_x, 0]
-        fft_targets = [
-            OMEGA_C * (1.0 - 2 * ALPHA), OMEGA_C, OMEGA_C * (1.0 + 2 * ALPHA),
-            1.5, 2.96, 0.5
-        ]
+        fft_targets = [OMEGA_C * (1.0 - 2 * ALPHA), OMEGA_C, OMEGA_C * (1.0 + 2 * ALPHA), 1.5, 2.96, 0.5]
         fft_at_trap = fft_at(v_at_trap, DT, fft_targets)
         if any(fft_at_trap.values()):
             peak_freq = max(fft_at_trap, key=fft_at_trap.get)
@@ -346,8 +342,9 @@ def main():
         for f, a in fft_at_trap.items():
             flag = " ★" if a == peak_amp else ""
             print(f"    f = {f:.4f}: amp = {a:.3e}{flag}")
-        print(f"    Peak at f = {peak_freq:.4f}, |ω - ω_C| = "
-              f"{abs(peak_freq - OMEGA_C):.4f} (criterion {ALPHA:.4f})")
+        print(
+            f"    Peak at f = {peak_freq:.4f}, |ω - ω_C| = " f"{abs(peak_freq - OMEGA_C):.4f} (criterion {ALPHA:.4f})"
+        )
         print(f"    Frequency match: {'PASS' if freq_match else 'FAIL'}")
     else:
         print(f"    Trap not on sampled lines (closest d²={closest_dist}); FFT skipped.")
@@ -358,7 +355,7 @@ def main():
     except Exception as exc:
         print(f"  Op10 failed: {exc}")
         c_op10 = -1
-    topology_match = (c_op10 == 3)
+    topology_match = c_op10 == 3
     print(f"\n  TOPOLOGY criterion (c=3 via Op10):")
     print(f"    extract_crossing_count = {c_op10}")
     print(f"    Topology match (c=3): {'PASS' if topology_match else 'FAIL'}")
@@ -373,8 +370,10 @@ def main():
         late_mask = ts > 15.0 * COMPTON_PERIOD
         if free_mask.sum() > 3:
             v_free = float(np.polyfit(ts[free_mask], xs[free_mask], 1)[0])
-            print(f"    Free-prop v_g (t<4P): {v_free:.3f} cells/time-unit "
-                  f"(predicted ≈ 0.7 from dispersion check at low amp)")
+            print(
+                f"    Free-prop v_g (t<4P): {v_free:.3f} cells/time-unit "
+                f"(predicted ≈ 0.7 from dispersion check at low amp)"
+            )
         if late_mask.sum() > 3:
             v_late = float(np.polyfit(ts[late_mask], xs[late_mask], 1)[0])
             print(f"    Late v_g (t>15P): {v_late:.3f} (predicted ≈ 0 if trapped)")
@@ -395,17 +394,17 @@ def main():
     print(f"\n  WAKE SIGNATURE:")
     mid_step = n_steps // 4
     if mid_step + 5 < n_steps:
-        v_now = axial_v_inc[0, mid_step, :, 0]   # center line, port 0
+        v_now = axial_v_inc[0, mid_step, :, 0]  # center line, port 0
         v_next = axial_v_inc[0, mid_step + 5, :, 0]
         dv_dt = (v_next - v_now) / (5 * DT)
-        v_sq = v_now ** 2
+        v_sq = v_now**2
         if v_sq.max() > 1e-20:
             front_idx = int(np.where(v_sq > 0.1 * v_sq.max())[0][-1])
             wavelength_cells = int(round(2 * np.pi))
             trail_idx = max(front_idx - wavelength_cells, PML)
             sign_front = float(np.sign(dv_dt[front_idx]))
             sign_trail = float(np.sign(dv_dt[trail_idx]))
-            opposite_signs = (sign_front * sign_trail < 0)
+            opposite_signs = sign_front * sign_trail < 0
             print(f"    front_x={front_idx} dV/dt={sign_front:+.0f}")
             print(f"    trail_x={trail_idx} dV/dt={sign_trail:+.0f}")
             print(f"    Opposite-sign wake: {'YES' if opposite_signs else 'NO'}")
@@ -427,12 +426,10 @@ def main():
         if opposite_signs:
             print(f"  → Wake signature PRESENT: BEMF reframe IS engine mechanism.")
         else:
-            print(f"  → Wake signature ABSENT: corpus-physics-correct, "
-                  f"engine substitutes Op14.")
+            print(f"  → Wake signature ABSENT: corpus-physics-correct, " f"engine substitutes Op14.")
     else:
         if saturation_engaged:
-            print(f"  → Saturation engaged but trap criteria unmet — "
-                  f"characterize-as-itself per Rule 10.")
+            print(f"  → Saturation engaged but trap criteria unmet — " f"characterize-as-itself per Rule 10.")
         else:
             print(f"  → Saturation still didn't engage. Source needs more amplitude/focus.")
 
@@ -440,9 +437,14 @@ def main():
     out = {
         "test": "T-ST v2: Photon Self-Trap at Saturation-Engaged Regime",
         "config": {
-            "N": N, "PML": PML, "n_periods": n_periods,
-            "amplitude_VSNAP": 0.50, "omega": OMEGA_C, "handedness": "RH",
-            "x0": 16, "sigma_yz": 2.0,
+            "N": N,
+            "PML": PML,
+            "n_periods": n_periods,
+            "amplitude_VSNAP": 0.50,
+            "omega": OMEGA_C,
+            "handedness": "RH",
+            "x0": 16,
+            "sigma_yz": 2.0,
         },
         "criteria": {
             "frequency_match": bool(freq_match),
@@ -461,10 +463,8 @@ def main():
             "wake_opposite_signs": bool(opposite_signs),
         },
         "captures": captures,
-        "centroid_trajectory": [[float(t), float(x) if not np.isnan(x) else None]
-                                for t, x in centroid_traj],
-        "front_trajectory": [[float(t), float(x) if not np.isnan(x) else None]
-                             for t, x in front_traj],
+        "centroid_trajectory": [[float(t), float(x) if not np.isnan(x) else None] for t, x in centroid_traj],
+        "front_trajectory": [[float(t), float(x) if not np.isnan(x) else None] for t, x in front_traj],
         "max_a2_trajectory": [[float(t), float(a)] for t, a in max_a2_traj],
         "elapsed_total_s": total_elapsed,
     }
@@ -480,7 +480,10 @@ def main():
         axial_omega=axial_omega,
         sample_lines_yz=np.array([(ly, lz) for _, ly, lz in sample_lines]),
         sample_line_names=np.array([name for name, _, _ in sample_lines]),
-        dt=DT, N=N, PML=PML, n_steps=n_steps,
+        dt=DT,
+        N=N,
+        PML=PML,
+        n_steps=n_steps,
     )
     print(f"Saved {npz_path.relative_to(Path.cwd())}")
 

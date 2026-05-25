@@ -35,7 +35,6 @@ Per doc 86 §7.6 + doc 87 §3.4 gate decision: Mode I → Phase 1 Direction 3'.2
 closes; Mode II/III → Round 11 secondary candidates ((i) finer-than-K4
 substrate, (ii) multi-loop, (iii) topology variant).
 """
-from __future__ import annotations
 
 import argparse
 import json
@@ -48,7 +47,6 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
 from ave.topological.vacuum_engine import VacuumEngine3D
-
 
 # ─── Constants ─────────────────────────────────────────────────────────────
 
@@ -175,7 +173,9 @@ def initialize_v9_ic(engine, node_list, eigenmode_data, sat_amp_target):
     scale = np.sqrt(sat_amp_target) / max_ring_amp
 
     print(f"  V_inc scaling factor: {scale:.4f}")
-    print(f"  Max ring |A_0| × scale = {max_ring_amp * scale:.4f} (target √{sat_amp_target} ≈ {np.sqrt(sat_amp_target):.4f})")
+    print(
+        f"  Max ring |A_0| × scale = {max_ring_amp * scale:.4f} (target √{sat_amp_target} ≈ {np.sqrt(sat_amp_target):.4f})"
+    )
 
     # For each of the 18 nodes, project scaled A_0 onto each of the 4 K4 ports
     # V_inc[node, port] = (scaled A_0(node)) · port_dir
@@ -226,7 +226,7 @@ def measure_v9_state(engine, ring_node_positions):
     for node in ring_node_positions:
         ix, iy, iz = node
         V_sq = float(np.sum(engine.k4.V_inc[ix, iy, iz, :] ** 2))
-        A2_per_node.append(V_sq / (V_SNAP ** 2))
+        A2_per_node.append(V_sq / (V_SNAP**2))
 
     ring_energy = 0.0
     for node in ring_node_positions:
@@ -279,8 +279,10 @@ def main():
     print("Loading Stride 3 eigenmode data...")
     eigenmode_data = load_eigenmode_data()
     eigvec_data = eigenmode_data["top_ring_localized_eigenvector"]
-    print(f"  Top ring-localized mode: λ = {eigvec_data['eigenvalue']:.4f}, "
-          f"ring_loc = {eigvec_data['ring_localization']:.4f}")
+    print(
+        f"  Top ring-localized mode: λ = {eigvec_data['eigenvalue']:.4f}, "
+        f"ring_loc = {eigvec_data['ring_localization']:.4f}"
+    )
     print(f"  k in 1/ℓ_node units = {eigvec_data['eigenvalue'] * SQRT_3:.4f}")
     print(f"  Helical pitch λ_helix ≈ {TWO_PI / (eigvec_data['eigenvalue'] * SQRT_3):.4f} ℓ_node")
     print()
@@ -293,7 +295,9 @@ def main():
 
     # Engine setup (T=0 baseline)
     engine = VacuumEngine3D.from_args(
-        N=N_LATTICE, pml=PML, temperature=0.0,
+        N=N_LATTICE,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -344,9 +348,11 @@ def main():
                 saturation_lost = True
 
         if (time.time() - last) > 30.0:
-            print(f"    [progress] step {i}/{N_RECORDING_STEPS}, t={t_p:.1f}P, "
-                  f"A²_mean={s['A2_mean']:.3f}, loc={s['ring_localization']:.3f}, "
-                  f"elapsed {time.time()-t0:.1f}s")
+            print(
+                f"    [progress] step {i}/{N_RECORDING_STEPS}, t={t_p:.1f}P, "
+                f"A²_mean={s['A2_mean']:.3f}, loc={s['ring_localization']:.3f}, "
+                f"elapsed {time.time()-t0:.1f}s"
+            )
             last = time.time()
     elapsed = time.time() - t0
     print(f"  Recording done at {elapsed:.1f}s")
@@ -422,8 +428,9 @@ def main():
         a_curr = a0_ring_vecs[n_idx]
         a_next = a0_ring_vecs[(n_idx + 1) % 6]
         a_avg = 0.5 * (a_curr + a_next)
-        bond_tangent_3d = (np.array(ring_node_positions[(n_idx + 1) % 6]) -
-                          np.array(ring_node_positions[n_idx])).astype(float)
+        bond_tangent_3d = (
+            np.array(ring_node_positions[(n_idx + 1) % 6]) - np.array(ring_node_positions[n_idx])
+        ).astype(float)
         bond_tangent_3d /= np.linalg.norm(bond_tangent_3d)
         target_loop_flux += np.dot(a_avg, bond_tangent_3d) * BOND_LENGTH
     target_loop_flux = abs(target_loop_flux)
@@ -443,8 +450,10 @@ def main():
     print("=" * 78)
     print(f"  Persistence (A²_mean ≥ {A2_MEAN_THRESHOLD}): {persistence_periods:.1f} P  (≥ {PERSISTENCE_PERIODS} P)")
     print(f"  Beltrami |cos_sim| steady: {cos_sim_steady:.4f}  (≥ {BELTRAMI_PARALLELISM_THRESHOLD})")
-    print(f"  Loop flux ∮A·dl RMS / peak: {loop_flux_rms_steady:.4f} / {loop_flux_peak_steady:.4f}  "
-          f"(target {target_loop_flux:.4f} ± {LOOP_FLUX_TOLERANCE*100:.0f}%)")
+    print(
+        f"  Loop flux ∮A·dl RMS / peak: {loop_flux_rms_steady:.4f} / {loop_flux_peak_steady:.4f}  "
+        f"(target {target_loop_flux:.4f} ± {LOOP_FLUX_TOLERANCE*100:.0f}%)"
+    )
     print(f"  Ring localization steady: {ring_loc_steady:.4f}  (≥ {RING_LOCALIZATION_THRESHOLD})")
     print(f"  A²_mean steady: {A2_mean_steady:.4f}")
     print()
@@ -484,9 +493,9 @@ def main():
             "n_nodes_seeded": len(node_list),
             "scale_factor": float(scale),
             "saturation_amp_target": SATURATION_AMP_TARGET,
-            "k_eigenvalue_natural": eigvec_data['eigenvalue'],
-            "k_in_lnode_units": float(eigvec_data['eigenvalue'] * SQRT_3),
-            "ring_localization_eigenmode": eigvec_data['ring_localization'],
+            "k_eigenvalue_natural": eigvec_data["eigenvalue"],
+            "k_in_lnode_units": float(eigvec_data["eigenvalue"] * SQRT_3),
+            "ring_localization_eigenmode": eigvec_data["ring_localization"],
         },
         "thresholds": {
             "persistence_periods": PERSISTENCE_PERIODS,

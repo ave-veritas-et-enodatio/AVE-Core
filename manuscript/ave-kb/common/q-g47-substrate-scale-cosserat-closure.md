@@ -1,6 +1,10 @@
 [↑ Common Resources](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol1 ch2 macroscopic-moduli + ch1 axioms as canonical Q-G47 substrate-scale closure reference -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-iouqn9, clm-qwmnhn, clm-bjceop]
+path-stable: "referenced from vol1 ch2 macroscopic-moduli + ch1 axioms as canonical Q-G47 substrate-scale closure reference"
+-->
 
 # Q-G47 Substrate-Scale Cosserat Closure (Sessions 1–18)
 
@@ -10,11 +14,12 @@ The Q-G47 question — "what fixes the K4 lattice's magic-angle operating point 
 
 2. **Substrate-level (Sessions 9–18):** Cosserat $\mu_c$ dimensional resolution; $\gamma_{\text{canonical}}$ self-consistency; $\chi_G = 3$ from the $T_t$ translational triplet; numerical K4 scaffold; $|T| = 12$ universality via four independent routes; sublattice relaxation + Keating bond-bending stabilization (Cosserat couple-stress JUSTIFIED); continuous-field recasting at axiom level ("the springs are actually continuous"); $\xi_{K2}/\xi_{K1} = 12$ self-consistency.
 
-**Session 18 reframing (per A-034 canonicalization):** Q-G47 substrate-scale work is **the substrate-scale instance** of the universal saturation-kernel mechanism (A-034), not a standalone derivation. The numerical results (Sessions 9–17) are unchanged; their physical interpretation now connects to cross-scale empirical validation (BCS, BH ring-down, solar flares, cosmic crystallization). See [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex).
+**Session 18 reframing (per A-034 canonicalization):** Q-G47 substrate-scale work is **the substrate-scale instance** of the universal saturation-kernel mechanism (A-034), not a standalone derivation. The numerical results (Sessions 9–17) are unchanged; their physical interpretation now connects to cross-scale empirical validation (BCS, BH ring-down, solar flares, cosmic crystallization).
 
 ## The magic-angle condition
+<!-- claim-quality: clm-iouqn9 -->
 
-The K4 lattice's bulk modulus $K(u_0)$ and shear modulus $G(u_0)$ are functions of the over-bracing parameter $u_0$ (the dimensionless ratio of secondary-link length to primary-bond length). At the magic-angle operating point:
+The K4 lattice's bulk modulus $K(u_0)$ and shear modulus $G(u_0)$ are functions of the over-bracing parameter $u_0$ (the dimensionless ratio of secondary-link length to primary-bond length). At the magic-angle operating point, the bulk and shear moduli lock:
 
 $$
 K(u_0^*) = 2\, G(u_0^*), \qquad u_0^* \approx 0.187
@@ -25,6 +30,7 @@ This is the **trace-reversal identity** required by General Relativity for trans
 The vacuum Poisson ratio $\nu_{\text{vac}} = 2/7$ (load-bearing for electroweak mixing, $\sin^2\theta_W = 2/9$, and many other downstream results) follows from $K = 2G$ via the standard isotropic-solid relation.
 
 ## $|T| = 12$ universality: four independent routes converge
+<!-- claim-quality: clm-qwmnhn -->
 
 The proper tetrahedral rotation group $T$ has order $|T| = 12$. This number appears in K4 physics through **four independent routes**, all converging on 12:
 
@@ -38,6 +44,7 @@ The proper tetrahedral rotation group $T$ has order $|T| = 12$. This number appe
 **Four independent calculations converge on the same integer.** This is strong evidence that $\chi_K = 12$ is structurally forced by K4 symmetry rather than a calibration coincidence. The universality replaces "12 as a fit parameter" with "12 as the tetrahedral rotation group order."
 
 ## Substrate-scale Cosserat prefactors $\xi_{K1}, \xi_{K2}$
+<!-- claim-quality: clm-bjceop -->
 
 The substrate's continuous Cosserat micropolar field has constitutive constants $(\mu, \kappa, \beta, \gamma)$ at the axiom level. Q-G47 Sessions 16–17 closed the dimensional framework:
 
@@ -60,13 +67,13 @@ See [xi-topo-traceability.md](xi-topo-traceability.md) for the full three-way na
 
 A key Sessions 16–17 insight: **the K4 lattice's "bonds" are not physical springs** between point-mass nodes. The substrate is a continuous Cosserat micropolar field at the axiom level; the discrete K4 representation is a *discretization* of the continuous field, with $\ell_{\text{node}}$ setting the Nyquist cutoff for the continuous-stress field's spatial bandwidth.
 
-Discrete-bond calculations (e.g., the Sessions 12–15 numerical K4 scaffold) are useful sanity-check approximations of the continuous-field physics, not independent regimes. The `K = 4 k_a + 8 k_s`-style results from discrete sweeps map onto the continuous Cosserat constitutive tensor via the `χ_K = (ℓ_c/d)²` identification (Session 9).
+Discrete-bond calculations (e.g., the Sessions 12–15 numerical K4 scaffold) are useful sanity-check approximations of the continuous-field physics, not independent regimes. The $K = 4 k_a + 8 k_s$-style results from discrete sweeps map onto the continuous Cosserat constitutive tensor via the $\chi_K = (\ell_c/d)^2$ identification (Session 9).
 
 This reframing eliminates a class of "discrete vs continuous" framing confusions: the substrate is continuous; K4 is the discretization sampling that continuum.
 
 ## A-034 substrate-scale instance interpretation
 
-Per Session 18, the Q-G47 substrate-scale work is one of the 21 instances in the A-034 Universal Saturation-Kernel Strain-Snap Mechanism catalog:
+Per Session 18, the Q-G47 substrate-scale work is one of the 26 instances in the A-034 Universal Saturation-Kernel Strain-Snap Mechanism catalog:
 
 | Q-G47 Result | A-034 Reading |
 |---|---|
@@ -88,21 +95,14 @@ The empirical validation of A-034 at four other scales (BCS $B_c(T) = B_{c0}\sqr
 - Axiom-level $\xi_{K2}/\xi_{K1} = 12$ self-consistency
 - A-034 substrate-scale instance reframing
 
-**Two-engine convergence on $p^* = 8\pi\alpha$ (canonical 2026-05-16):**
-
-The K=2G operating point of the AVE substrate is now verified at both engines of the A-027 two-engine architecture, via independent physical routes:
-
-- **K4-TLM route (sub-saturation engine):** the Feng-Thorpe-Garboczi EMT for the 3D amorphous central-force network at effective coordination $z_0 \approx 51.25$ gives $p^* = (10 z_0 - 12)/(z_0(z_0 + 2)) = 8\pi\alpha \approx 0.18340$ at the K/G = 2 crossing point. Verified numerically to 0.003% (within the rounding of $z_0$ to "51.25"; exact $z_0 = 51.2482$ from inversion of the EMT quadratic given $p^* = 8\pi\alpha$).
-- **Master Equation FDTD route (bound-state engine):** the breathing-soliton bound state at the Vol 1 Ch 8 Golden Torus geometry yields the electron knot Q-factor $\alpha = 1/(4\pi^3 + \pi^2 + \pi)$; Axiom 4's definition $p_c \equiv 8\pi\alpha$ then gives the same operating point.
-
-Both routes land on the identical canonical value via different physical mechanisms — this is the two-engine consistency that A-027 architecture requires. See [Two-Engine Architecture (A-027)](two-engine-architecture-a027.md) for the engine split + cross-validation pattern.
+**Two-engine convergence on $p^* = 8\pi\alpha$ (canonical 2026-05-16):** the substrate's $K = 2G$ operating point is verified at both engines of the A-027 two-engine architecture via independent physical routes — see [Two-Engine Architecture (A-027)](two-engine-architecture-a027.md) for the canonical statement of this convergence (rehomed 2026-05-20: clm-gr8d63 now lives at two-engine-architecture-a027.md).
 
 **Two K4 scales (clarifying distinction):**
 
 The Q-G47 substrate-scale closure operates at two different K4 scales, which should not be conflated:
 
-1. **Primary K4 unit cell** ($z = 4$ tetrahedral coordination): the canonical Axiom 1 microscopic structure, with Cosserat micropolar 6 DOFs per node. Direct discrete-K4 mechanical analyses (e.g., Sessions 12–15 numerical scaffold; sub-saturation Cosserat eigenvalue spectrum) operate at this scale. Mechanical eigenvalues at K=2G in this primary unit cell are O(1) lattice quantities (e.g., the E-irrep soft shear eigenvalue at $(4/3)k_s$ for the Keating discretization of the continuous Cosserat field).
-2. **Amorphous secondary network** ($z_0 \approx 51.25$ effective coordination): the emergent mesoscopic structure created by over-bracing (secondary spatial links out to $1.187 \cdot \ell_{\text{node}}$, per Vol 3 Ch 1 §3.2). The FTG-EMT operates at this scale, with $p^* = 8\pi\alpha$ being the bond occupation fraction at K/G = 2.
+1. **Primary K4 unit cell** ($z = 4$ tetrahedral coordination): the canonical Axiom 1 microscopic structure, with Cosserat micropolar 6 DOFs per node. Direct discrete-K4 mechanical analyses (e.g., Sessions 12–15 numerical scaffold; sub-saturation Cosserat eigenvalue spectrum) operate at this scale. Mechanical eigenvalues at $K=2G$ in this primary unit cell are O(1) lattice quantities (e.g., the E-irrep soft shear eigenvalue at $(4/3)k_s$ for the Keating discretization of the continuous Cosserat field).
+2. **Amorphous secondary network** ($z_0 \approx 51.25$ effective coordination): the emergent mesoscopic structure created by over-bracing (secondary spatial links out to $1.187 \cdot \ell_{\text{node}}$, per Vol 3 Ch 1 §3.2). The Feng-Thorpe-Garboczi EMT operates at this scale, with $p^* = 8\pi\alpha$ being the bond occupation fraction at $K/G = 2$.
 
 The connection per Vol 3 Ch 1 §3.2: primary K4's over-bracing creates the geometric scaffolding for the amorphous $z_0 = 51.25$ coordination, which then supports the canonical $p^* = 8\pi\alpha$ operating point. The two scales are physically connected but numerically distinct (different operating-point quantities, different units).
 
@@ -114,12 +114,12 @@ The connection per Vol 3 Ch 1 §3.2: primary K4's over-bracing creates the geome
 ## Cross-references
 
 - **Canonical manuscript anchors:**
-  - [Vol 1 Ch 2 (Macroscopic Moduli)](../../vol_1_foundations/chapters/02_macroscopic_moduli.tex) — substrate Cosserat moduli + over-bracing framework
-  - [Vol 1 Ch 1 (Four Axioms)](../../vol_1_foundations/chapters/01_fundamental_axioms.tex) — Axiom 1 Chiral Laves K4 Cosserat Crystal canonical
-  - [Backmatter Ch 7 (Universal Saturation-Kernel Catalog)](../../backmatter/07_universal_saturation_kernel.tex) — A-034 21-instance catalog including substrate-scale K4 instance
+  - Vol 1 Ch 2 (Macroscopic Moduli) — substrate Cosserat moduli + over-bracing framework
+  - Vol 1 Ch 1 (Four Axioms) — Axiom 1 Chiral Laves K4 Cosserat Crystal canonical
+  - Backmatter Ch 7 (Universal Saturation-Kernel Catalog) — A-034 26-instance catalog including substrate-scale K4 instance
 - **KB cross-cutting:**
-  - [closure-roadmap.md](closure-roadmap.md) — Q-G47 Sessions 6–18 status row
   - [xi-topo-traceability.md](xi-topo-traceability.md) — $\xi_{K1}, \xi_{K2}$ vs Machian $\xi$ vs $\xi_{\text{topo}}$ namespace
   - [trampoline-framework.md](trampoline-framework.md) §1–§4 — continuous Cosserat substrate picture
 - **Related leafs:**
+  - [Two-Engine Architecture (A-027)](two-engine-architecture-a027.md) — engine split + two-engine convergence on $p^* = 8\pi\alpha$
   - [Three Boundary Observables: M, Q, J](boundary-observables-m-q-j.md) — substrate-observability rule applied at the K4 substrate scale

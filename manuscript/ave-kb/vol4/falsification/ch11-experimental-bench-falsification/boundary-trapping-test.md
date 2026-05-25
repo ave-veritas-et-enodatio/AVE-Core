@@ -1,6 +1,10 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol3 as sec:boundary_trapping -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-h55fy1]
+path-stable: "referenced from vol3 as sec:boundary_trapping"
+-->
 
 ## Protocol 10: Orbital Detritus and Boundary Trapping
 

@@ -30,20 +30,22 @@ References:
 Usage:
   python k4tlm_dispersion_analytical.py
 """
-from __future__ import annotations
 
-import sys
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
 
-PORTS = np.array([
-    [+1, +1, +1],
-    [+1, -1, -1],
-    [-1, +1, -1],
-    [-1, -1, +1],
-], dtype=int)
+PORTS = np.array(
+    [
+        [+1, +1, +1],
+        [+1, -1, -1],
+        [-1, +1, -1],
+        [-1, -1, +1],
+    ],
+    dtype=int,
+)
 
 # Universal scatter at z=1: S_pq = 0.5 - δ_pq
 S_UNIFORM = 0.5 * np.ones((4, 4)) - np.eye(4)
@@ -52,6 +54,7 @@ S_UNIFORM = 0.5 * np.ones((4, 4)) - np.eye(4)
 TARGET_PHASE_OMEGA_C = 1.0 / np.sqrt(2.0)  # ω_C·dt = 1/√2 ≈ 0.7071 rad
 OBSERVED_CLUSTER_PHASE = 0.71574  # GT_corpus closest mode phase (doc 74_ §2)
 from ave.core.constants import ALPHA
+
 PASS_TOL = ALPHA * TARGET_PHASE_OMEGA_C  # ≈ 0.00516 rad
 
 
@@ -90,7 +93,7 @@ def collect_dispersion(N: int = 32) -> tuple[np.ndarray, np.ndarray]:
         T = T_at_k(k)
         eigvals = np.linalg.eigvals(T)  # 4 complex eigenvalues
         phases = np.angle(eigvals)  # in [-π, π]
-        all_phases[4 * i: 4 * (i + 1)] = phases
+        all_phases[4 * i : 4 * (i + 1)] = phases
     return all_phases, np.array(ks)
 
 
@@ -119,10 +122,14 @@ def main() -> dict:
     cluster_window = 0.01  # rad
     near_target = np.abs(phases - TARGET_PHASE_OMEGA_C) < cluster_window
     near_observed = np.abs(phases - OBSERVED_CLUSTER_PHASE) < cluster_window
-    print(f"  Modes within ±{cluster_window} rad of target ω_C·dt = {TARGET_PHASE_OMEGA_C:.4f}: "
-          f"{near_target.sum()} of {len(phases)}")
-    print(f"  Modes within ±{cluster_window} rad of observed cluster {OBSERVED_CLUSTER_PHASE:.4f}: "
-          f"{near_observed.sum()} of {len(phases)}")
+    print(
+        f"  Modes within ±{cluster_window} rad of target ω_C·dt = {TARGET_PHASE_OMEGA_C:.4f}: "
+        f"{near_target.sum()} of {len(phases)}"
+    )
+    print(
+        f"  Modes within ±{cluster_window} rad of observed cluster {OBSERVED_CLUSTER_PHASE:.4f}: "
+        f"{near_observed.sum()} of {len(phases)}"
+    )
     print()
 
     # Mode density histogram
@@ -155,8 +162,10 @@ def main() -> dict:
     print(f"  Nearest analytical mode to target ω_C·dt = {TARGET_PHASE_OMEGA_C:.6f}:")
     print(f"    phase = {nearest_target_phase:.10f} rad")
     print(f"    diff  = {nearest_target_diff:.6e} rad ({100*nearest_target_diff/TARGET_PHASE_OMEGA_C:.4f}%)")
-    print(f"    PASS tolerance: |diff| < {PASS_TOL:.6e}; ",
-          "PASS" if nearest_target_diff < PASS_TOL else "FAIL (no analytical mode at ω_C·dt)")
+    print(
+        f"    PASS tolerance: |diff| < {PASS_TOL:.6e}; ",
+        "PASS" if nearest_target_diff < PASS_TOL else "FAIL (no analytical mode at ω_C·dt)",
+    )
     print()
     print(f"  Nearest analytical mode to observed cluster {OBSERVED_CLUSTER_PHASE:.6f}:")
     print(f"    phase = {nearest_observed_phase:.10f} rad")

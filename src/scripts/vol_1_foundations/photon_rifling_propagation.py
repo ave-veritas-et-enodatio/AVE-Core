@@ -19,26 +19,27 @@ Outputs:
   - assets/photon_rifling_axis_RH.gif (3D helical streamlines)
   - assets/photon_rifling_axis_LH.gif
 """
-from __future__ import annotations
 
 from pathlib import Path
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation, PillowWriter
 from matplotlib import cm
+from matplotlib.animation import FuncAnimation, PillowWriter
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 
-from ave.core.fdtd_3d import FDTD3DEngine
 from ave.core.constants import V_YIELD
+from ave.core.fdtd_3d import FDTD3DEngine
 
 
 def run_pulsed_cp(handedness: str, nx=160, ny=48, nz=48, n_steps=350):
     """Soft Gaussian-windowed CP pulse, additive injection."""
-    eng = FDTD3DEngine(nx, ny, nz, dx=0.01, linear_only=True,  # linear for clean propagation
-                       use_pml=True, pml_layers=8)
+    eng = FDTD3DEngine(
+        nx, ny, nz, dx=0.01, linear_only=True, use_pml=True, pml_layers=8  # linear for clean propagation
+    )
     c = eng.c
     dt = eng.dt
     freq = 1.5e9
@@ -58,13 +59,13 @@ def run_pulsed_cp(handedness: str, nx=160, ny=48, nz=48, n_steps=350):
     cy, cz = ny // 2, nz // 2
     j, k = np.indices((ny, nz), dtype=float)
     r2 = (j - cy) ** 2 + (k - cz) ** 2
-    profile = np.exp(-r2 / (2.0 * sigma_yz ** 2))
+    profile = np.exp(-r2 / (2.0 * sigma_yz**2))
     sign = +1.0 if handedness == "RH" else -1.0
 
     frames = []
     for step in range(1, n_steps + 1):
         t = step * dt
-        env = np.exp(-((t - t_center) / t_sigma) ** 2)
+        env = np.exp(-(((t - t_center) / t_sigma) ** 2))
         if env > 1e-6:
             Ey_inj = env * amp_E * np.sin(omega * t)
             Ez_inj = env * amp_E * sign * np.cos(omega * t)
@@ -73,21 +74,29 @@ def run_pulsed_cp(handedness: str, nx=160, ny=48, nz=48, n_steps=350):
             eng.Ez[src_x, :, :] += Ez_inj * profile
         eng.step()
         if step % 6 == 0:
-            frames.append({
-                "t": t,
-                "step": step,
-                "Ey": np.array(eng.Ey),
-                "Ez": np.array(eng.Ez),
-                "wavefront_x": src_x + eng.c * t / eng.dx,
-            })
+            frames.append(
+                {
+                    "t": t,
+                    "step": step,
+                    "Ey": np.array(eng.Ey),
+                    "Ez": np.array(eng.Ez),
+                    "wavefront_x": src_x + eng.c * t / eng.dx,
+                }
+            )
 
-    print(f"  {handedness}: dt={dt:.3e} s, expected wavefront at step {n_steps}: x = {src_x + eng.c*n_steps*dt/eng.dx:.1f}")
+    print(
+        f"  {handedness}: dt={dt:.3e} s, expected wavefront at step {n_steps}: x = {src_x + eng.c*n_steps*dt/eng.dx:.1f}"
+    )
     return {
         "handedness": handedness,
-        "nx": nx, "ny": ny, "nz": nz, "src_x": src_x,
+        "nx": nx,
+        "ny": ny,
+        "nz": nz,
+        "src_x": src_x,
         "frames": frames,
         "lambda_cells": (c / freq) / eng.dx,
-        "c": c, "dt": dt,
+        "c": c,
+        "dt": dt,
     }
 
 
@@ -112,11 +121,11 @@ def render_rifling_scatter(result, out_gif):
 
         f = frames[frame_idx]
         Ey, Ez = f["Ey"], f["Ez"]
-        E_perp = np.sqrt(Ey ** 2 + Ez ** 2)
+        E_perp = np.sqrt(Ey**2 + Ez**2)
         # Per-frame normalization — wavefront amplitude varies with distance
         e_max = E_perp.max()
         if e_max < 1e-30:
-            return ax,
+            return (ax,)
 
         # Adaptive threshold: lower for later frames so far-field shows
         threshold = 0.05 * e_max
@@ -138,12 +147,10 @@ def render_rifling_scatter(result, out_gif):
 
         # Propagation axis indicator
         ax.plot([0, nx], [cy, cy], [cz, cz], "w:", lw=0.6, alpha=0.4)
-        ax.scatter([src_x], [cy], [cz], color="cyan", s=140, alpha=0.9,
-                   edgecolor="white", linewidths=1.5)
+        ax.scatter([src_x], [cy], [cz], color="cyan", s=140, alpha=0.9, edgecolor="white", linewidths=1.5)
         # Expected wavefront marker
         wf = min(nx - 1, f["wavefront_x"])
-        ax.scatter([wf], [cy], [cz], color="yellow", s=80, alpha=0.7,
-                   edgecolor="orange", linewidths=1.0, marker="^")
+        ax.scatter([wf], [cy], [cz], color="yellow", s=80, alpha=0.7, edgecolor="orange", linewidths=1.0, marker="^")
 
         ax.set_xlabel("X (propagation, cells)", color="#cccccc", fontsize=9)
         ax.set_ylabel("Y", color="#cccccc", fontsize=9)
@@ -157,9 +164,10 @@ def render_rifling_scatter(result, out_gif):
             f"step={f['step']}, λ={result['lambda_cells']:.0f} cells\n"
             f"Cyan △ = source, Yellow ▲ = wavefront at c·t  |  "
             f"Color = cos(arctan2(Ez,Ey))  |  per-frame norm",
-            color="#cccccc", fontsize=10,
+            color="#cccccc",
+            fontsize=10,
         )
-        return ax,
+        return (ax,)
 
     anim = FuncAnimation(fig, update, frames=len(frames), interval=70, blit=False)
     writer = PillowWriter(fps=14)
@@ -193,7 +201,7 @@ def render_axis_helix(result, out_gif):
         f = frames[frame_idx]
         Ey_axis = f["Ey"][:, cy, cz]
         Ez_axis = f["Ez"][:, cy, cz]
-        E_mag = np.sqrt(Ey_axis ** 2 + Ez_axis ** 2)
+        E_mag = np.sqrt(Ey_axis**2 + Ez_axis**2)
         e_max = max(E_mag.max(), 1e-30)
 
         E_y_vis = cy + Ey_axis / e_max * scale
@@ -209,15 +217,14 @@ def render_axis_helix(result, out_gif):
                 [E_y_vis[i], E_y_vis[i + 1]],
                 [E_z_vis[i], E_z_vis[i + 1]],
                 color=cm.inferno(c_val * 0.85 + 0.1),
-                lw=2.0, alpha=min(1.0, 0.4 + 0.6 * c_val),
+                lw=2.0,
+                alpha=min(1.0, 0.4 + 0.6 * c_val),
             )
 
         # Source + wavefront markers
-        ax.scatter([src_x], [cy], [cz], color="cyan", s=120, alpha=0.9,
-                   edgecolor="white")
+        ax.scatter([src_x], [cy], [cz], color="cyan", s=120, alpha=0.9, edgecolor="white")
         wf = min(nx - 1, f["wavefront_x"])
-        ax.scatter([wf], [cy], [cz], color="yellow", s=70, alpha=0.7,
-                   marker="^", edgecolor="orange")
+        ax.scatter([wf], [cy], [cz], color="yellow", s=70, alpha=0.7, marker="^", edgecolor="orange")
 
         ax.set_xlabel("X (propagation, cells)", color="#888", fontsize=9)
         ax.set_ylabel("Y (E_y / scaled)", color="#888", fontsize=9)
@@ -230,9 +237,10 @@ def render_axis_helix(result, out_gif):
             f"E-field Helix ({handedness}) — t={f['t']*1e9:.2f} ns, "
             f"step={f['step']}, λ={result['lambda_cells']:.0f} cells\n"
             f"Cyan = source, Yellow ▲ = wavefront at c·t  |  per-frame normalized E",
-            color="#cccccc", fontsize=11,
+            color="#cccccc",
+            fontsize=11,
         )
-        return ax,
+        return (ax,)
 
     anim = FuncAnimation(fig, update, frames=len(frames), interval=70, blit=False)
     writer = PillowWriter(fps=14)

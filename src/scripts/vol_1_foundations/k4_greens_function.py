@@ -32,12 +32,15 @@ from scipy.sparse.linalg import spsolve
 # Tetrahedral offsets from A->B (source node A: offsets have even
 # number of minus signs; B->A has odd). But with the parity-on-sum
 # convention the 4 neighbors of any node (A or B) are at:
-PORTS = np.array([
-    [+1, +1, +1],
-    [+1, -1, -1],
-    [-1, +1, -1],
-    [-1, -1, +1],
-], dtype=int)
+PORTS = np.array(
+    [
+        [+1, +1, +1],
+        [+1, -1, -1],
+        [-1, +1, -1],
+        [-1, -1, +1],
+    ],
+    dtype=int,
+)
 
 
 def build_lattice(N):
@@ -110,7 +113,8 @@ def compute_greens(N, source=(0, 0, 0)):
     # Then explicitly remove any residual constant-mode contamination.
     eps = 1e-4
     from scipy.sparse import eye as sparse_eye
-    L_reg = L + eps * sparse_eye(n_total, format='csr')
+
+    L_reg = L + eps * sparse_eye(n_total, format="csr")
 
     G_flat = spsolve(L_reg, delta)
     # Project out the kernel (constant) mode to recover the pseudoinverse solution:
@@ -150,20 +154,20 @@ def main():
 
     # Displacements relevant for Golden Torus scale (1-3 units)
     short_dispers = [
-        (1, 1, 1),   # bond, |r| = sqrt(3), B-site (if origin is A)
+        (1, 1, 1),  # bond, |r| = sqrt(3), B-site (if origin is A)
         (1, -1, -1),
         (-1, 1, -1),
         (-1, -1, 1),
-        (2, 0, 0),   # 2-step, A-site (if origin A)
+        (2, 0, 0),  # 2-step, A-site (if origin A)
         (0, 2, 0),
         (0, 0, 2),
         (1, 1, -1),  # NOT valid (3 non-tetrahedral)  -- wait, it has parity 1, so is a B
-        (2, 2, 0),   # A
-        (3, 1, 1),   # B via second-nearest
-        (4, 0, 0),   # A
-        (5, 1, 1),   # B
-        (6, 0, 0),   # A
-        (8, 0, 0),   # A
+        (2, 2, 0),  # A
+        (3, 1, 1),  # B via second-nearest
+        (4, 0, 0),  # A
+        (5, 1, 1),  # B
+        (6, 0, 0),  # A
+        (8, 0, 0),  # A
         (10, 0, 0),  # A
     ]
 
@@ -173,12 +177,14 @@ def main():
             r = np.sqrt(dx**2 + dy**2 + dz**2)
             parity = (dx + dy + dz) % 2  # 0 if same-sublattice, 1 if cross
             val = G[x, y, z]
-            continuum = 1.0 / (4 * np.pi * r) if r > 0 else float('inf')
-            kappa = val / continuum if continuum > 0 else float('nan')
-            parity_label = 'A' if parity == 0 else 'B'
-            print(f"({dx:3d}, {dy:3d}, {dz:3d})      "
-                  f"{r:.3f}   {parity_label:<7} "
-                  f"{val:+.6f}  {continuum:+.6f}  {kappa:+.4f}")
+            continuum = 1.0 / (4 * np.pi * r) if r > 0 else float("inf")
+            kappa = val / continuum if continuum > 0 else float("nan")
+            parity_label = "A" if parity == 0 else "B"
+            print(
+                f"({dx:3d}, {dy:3d}, {dz:3d})      "
+                f"{r:.3f}   {parity_label:<7} "
+                f"{val:+.6f}  {continuum:+.6f}  {kappa:+.4f}"
+            )
 
     print(f"\n=== Convergence to continuum at larger distances ===")
     for r_x in [2, 4, 6, 8, 10, 12, 14, 16]:
@@ -187,8 +193,7 @@ def main():
             val = G[x, source[1], source[2]]
             continuum = 1.0 / (4 * np.pi * r_x)
             kappa = val / continuum
-            print(f"r = {r_x:3d}:  G = {val:+.6f}  continuum = {continuum:+.6f}  "
-                  f"kappa = {kappa:+.4f}")
+            print(f"r = {r_x:3d}:  G = {val:+.6f}  continuum = {continuum:+.6f}  " f"kappa = {kappa:+.4f}")
 
     # ── Specific Golden-Torus-relevant distances ──
     print(f"\n=== Golden-Torus crossing distance (d=1 in bond units = sqrt(3) Cartesian) ===")

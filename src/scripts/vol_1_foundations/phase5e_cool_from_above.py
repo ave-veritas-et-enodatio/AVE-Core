@@ -59,14 +59,14 @@ Reference:
   - commit 03cb9d5 (Cosserat PML)
   - commit 49917ff (Memristive Op14 K4)
 """
-from __future__ import annotations
 
 import sys
 import time
 from dataclasses import dataclass
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -82,13 +82,13 @@ from ave.topological.vacuum_engine import (
 @dataclass
 class RunConfig:
     wavelength: float = 3.5
-    amplitude: float = 0.9                 # Stress config, above P_phase5 0.5
-    temperature: float = 0.1               # Thermal noise background
-    N: int = 32                            # Bigger than Phase 5's N=24
-    pml: int = 4                           # Cosserat PML activates automatically
+    amplitude: float = 0.9  # Stress config, above P_phase5 0.5
+    temperature: float = 0.1  # Thermal noise background
+    N: int = 32  # Bigger than Phase 5's N=24
+    pml: int = 4  # Cosserat PML activates automatically
     t_ramp_periods: float = 2.0
-    t_sustain_periods: float = 13.0        # Drive phase
-    t_cooling_periods: float = 20.0        # Cool-through-yield phase
+    t_sustain_periods: float = 13.0  # Drive phase
+    t_cooling_periods: float = 20.0  # Cool-through-yield phase
     record_cadence: int = 2
 
     @property
@@ -101,9 +101,7 @@ class RunConfig:
 
     @property
     def n_outer_steps(self) -> int:
-        total_time = (
-            self.t_ramp_periods + self.t_sustain_periods + self.t_cooling_periods
-        ) * self.period
+        total_time = (self.t_ramp_periods + self.t_sustain_periods + self.t_cooling_periods) * self.period
         return int(total_time * np.sqrt(2.0)) + 1
 
     @property
@@ -113,10 +111,11 @@ class RunConfig:
 
 def run_cool_from_above(cfg: RunConfig) -> dict:
     engine = VacuumEngine3D.from_args(
-        N=cfg.N, pml=cfg.pml,
+        N=cfg.N,
+        pml=cfg.pml,
         temperature=cfg.temperature,
         amplitude_convention="V_SNAP",
-        use_memristive_saturation=True,    # Phase 5.6 — stabilizes sustained drive
+        use_memristive_saturation=True,  # Phase 5.6 — stabilizes sustained drive
     )
     period = cfg.period
     t_ramp = cfg.t_ramp_periods * period
@@ -124,18 +123,30 @@ def run_cool_from_above(cfg: RunConfig) -> dict:
     src_offset = cfg.pml + 3
 
     # Head-on collision — identical to Phase 5 driver
-    engine.add_source(AutoresonantCWSource(
-        x0=src_offset, direction=(1.0, 0.0, 0.0),
-        amplitude=cfg.amplitude, omega=cfg.omega_carrier,
-        sigma_yz=3.0, t_ramp=t_ramp, t_sustain=t_sustain,
-        t_decay=period * 0.5,              # Faster decay — abrupt cooling
-    ))
-    engine.add_source(AutoresonantCWSource(
-        x0=cfg.N - src_offset, direction=(-1.0, 0.0, 0.0),
-        amplitude=cfg.amplitude, omega=cfg.omega_carrier,
-        sigma_yz=3.0, t_ramp=t_ramp, t_sustain=t_sustain,
-        t_decay=period * 0.5,
-    ))
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=src_offset,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=cfg.amplitude,
+            omega=cfg.omega_carrier,
+            sigma_yz=3.0,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            t_decay=period * 0.5,  # Faster decay — abrupt cooling
+        )
+    )
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=cfg.N - src_offset,
+            direction=(-1.0, 0.0, 0.0),
+            amplitude=cfg.amplitude,
+            omega=cfg.omega_carrier,
+            sigma_yz=3.0,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            t_decay=period * 0.5,
+        )
+    )
 
     gate = PairNucleationGate(cadence=cfg.record_cadence)
     regime_obs = RegimeClassifierObserver(cadence=cfg.record_cadence)
@@ -145,8 +156,8 @@ def run_cool_from_above(cfg: RunConfig) -> dict:
     engine.add_observer(node_obs)
 
     # Track firings vs time, segmented by phase
-    phase_A_firings = 0      # During drive
-    phase_B_firings = 0      # During cooling
+    phase_A_firings = 0  # During drive
+    phase_B_firings = 0  # During cooling
 
     # Also track S_field evolution (memristive state) AND Cosserat A²_μ
     # (the gate's actual C1 input — step 5a diagnostic)
@@ -160,23 +171,27 @@ def run_cool_from_above(cfg: RunConfig) -> dict:
 
         # Capture S_field + A²_μ snapshot at lower cadence
         if engine.step_count % S_field_cadence == 0:
-            S_field_history.append({
-                "t": engine.time,
-                "S_min": float(engine.k4.S_field[engine.k4.mask_active].min()),
-                "S_mean": float(engine.k4.S_field[engine.k4.mask_active].mean()),
-            })
+            S_field_history.append(
+                {
+                    "t": engine.time,
+                    "S_min": float(engine.k4.S_field[engine.k4.mask_active].min()),
+                    "S_mean": float(engine.k4.S_field[engine.k4.mask_active].mean()),
+                }
+            )
             # Compute Cosserat A²_μ directly — what the gate actually checks
             A2_mu_field = gate._compute_A2_mu(engine)
             # Mask to active Cosserat sites for statistics
             active = engine.cos.mask_alive
             if active.any():
                 A2_mu_active = A2_mu_field[active]
-                A2_mu_history.append({
-                    "t": engine.time,
-                    "A2_mu_max": float(A2_mu_active.max()),
-                    "A2_mu_mean": float(A2_mu_active.mean()),
-                    "n_above_c1": int((A2_mu_active >= 0.95).sum()),
-                })
+                A2_mu_history.append(
+                    {
+                        "t": engine.time,
+                        "A2_mu_max": float(A2_mu_active.max()),
+                        "A2_mu_mean": float(A2_mu_active.mean()),
+                        "n_above_c1": int((A2_mu_active >= 0.95).sum()),
+                    }
+                )
 
     elapsed = time.time() - t0
 
@@ -217,10 +232,8 @@ def adjudicate(result: dict) -> dict:
 
     # Cooling progress: S_field at end vs during drive
     if S_hist and len(S_hist) > 5:
-        S_during_drive = np.median([h["S_min"] for h in S_hist
-                                     if h["t"] < result["drive_end_time"]])
-        S_after_drive = np.median([h["S_min"] for h in S_hist
-                                    if h["t"] >= result["drive_end_time"]])
+        S_during_drive = np.median([h["S_min"] for h in S_hist if h["t"] < result["drive_end_time"]])
+        S_after_drive = np.median([h["S_min"] for h in S_hist if h["t"] >= result["drive_end_time"]])
         # Cooling happened if S rose (de-saturation) post-drive
         cooled_through_yield = S_after_drive > S_during_drive + 0.05
     else:
@@ -275,9 +288,9 @@ def render(result: dict, out: str = "/tmp/phase5e_cool_from_above.png") -> None:
     ax.axhline(1.0, color="#444", ls="-", lw=0.6)
     ax.set_xlabel("time (Compton periods)")
     ax.set_ylabel("max A²_total")
-    ax.set_title("C1 behavior under drive then cool\n"
-                 "(memristive K4 should stabilize amp=0.9)")
-    ax.legend(fontsize=9); ax.grid(alpha=0.3)
+    ax.set_title("C1 behavior under drive then cool\n" "(memristive K4 should stabilize amp=0.9)")
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.3)
 
     # Panel 2: S_field (memristive saturation state)
     ax = axes[0, 1]
@@ -288,7 +301,8 @@ def render(result: dict, out: str = "/tmp/phase5e_cool_from_above.png") -> None:
     ax.set_xlabel("time (Compton periods)")
     ax.set_ylabel("S_field value")
     ax.set_title("Memristive S(t) evolution\n(post-drive rise = cooling back to unsat)")
-    ax.legend(fontsize=9); ax.grid(alpha=0.3)
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.3)
     ax.set_ylim(-0.05, 1.1)
 
     # Panel 3: gate firings
@@ -298,12 +312,12 @@ def render(result: dict, out: str = "/tmp/phase5e_cool_from_above.png") -> None:
         ax.bar(t_gate, n_fired, width=0.5, color="#c33", alpha=0.5, label="per step")
     ax.axvline(drive_end / period, color="#2a7", ls="--", lw=1.0)
     ax.axvspan(0, drive_end / period, color="#fde", alpha=0.3, label="drive")
-    ax.axvspan(drive_end / period, t_gate[-1] if t_gate.size else 1,
-               color="#def", alpha=0.3, label="cooling")
+    ax.axvspan(drive_end / period, t_gate[-1] if t_gate.size else 1, color="#def", alpha=0.3, label="cooling")
     ax.set_xlabel("time (Compton periods)")
     ax.set_ylabel("pair nucleations")
     ax.set_title("Gate firings (Phase A vs B)")
-    ax.legend(fontsize=9); ax.grid(alpha=0.3)
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.3)
 
     # Panel 4: Ω_node resonance tracking
     ax = axes[1, 1]
@@ -315,7 +329,8 @@ def render(result: dict, out: str = "/tmp/phase5e_cool_from_above.png") -> None:
     ax.set_xlabel("time (Compton periods)")
     ax.set_ylabel("Ω_node/ω_0 (min)")
     ax.set_title("Duffing softening\n(min across lattice)")
-    ax.legend(fontsize=9); ax.grid(alpha=0.3)
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.3)
 
     plt.suptitle(
         f"Phase 5e cool-from-above (N={cfg.N}, amp={cfg.amplitude}·V_SNAP, memristive K4 + Cosserat PML)",
@@ -364,10 +379,10 @@ if __name__ == "__main__":
     print("── Diagnostic summary ──")
     print(f"Max A²_total ever:      {verdict['max_A2_ever']:.4f}  (> 1.0 = saturated)")
     print(f"Min S_field ever:       {verdict['S_min_ever']:.4f}  (< 0.5 = near rupture)")
-    if verdict['S_during_drive'] is not None:
+    if verdict["S_during_drive"] is not None:
         print(f"S_min during drive:     {verdict['S_during_drive']:.4f}")
         print(f"S_min after drive:      {verdict['S_after_drive']:.4f}")
-        delta = verdict['S_after_drive'] - verdict['S_during_drive']
+        delta = verdict["S_after_drive"] - verdict["S_during_drive"]
         trend = "↑ cooled" if delta > 0.01 else "→ no change" if abs(delta) < 0.01 else "↓ got more saturated?!"
         print(f"                        Δ = {delta:+.4f}  [{trend}]")
     print(f"Cooled through yield:   {verdict['cooled_through_yield']}")
@@ -400,20 +415,22 @@ if __name__ == "__main__":
     render(result)
 
     print("\n── Interpretation ──")
-    if verdict['max_A2_ever'] > 1.5:
+    if verdict["max_A2_ever"] > 1.5:
         print(f"⚠ A²_total reached {verdict['max_A2_ever']:.2f} — even with memristive K4, dynamics")
         print(f"  exceeded the saturation regime. Check for divergence or if engine went supercritical.")
-    elif verdict['max_A2_ever'] < 0.8:
+    elif verdict["max_A2_ever"] < 0.8:
         print(f"⚠ Max A² only {verdict['max_A2_ever']:.3f} — didn't reach saturation.")
         print(f"  Cool-from-above mechanism can't be tested if system never entered slipstream.")
         print(f"  Try higher amp or larger N.")
     else:
         print(f"✓ Max A²={verdict['max_A2_ever']:.3f} — reached saturation regime.")
 
-    if verdict['phase_A_firings'] > 0 or verdict['phase_B_firings'] > 0:
-        print(f"✓ Gate fired — {verdict['phase_A_firings']} during drive, "
-              f"{verdict['phase_B_firings']} during cooling.")
-        if verdict['phase_B_firings'] > 0:
+    if verdict["phase_A_firings"] > 0 or verdict["phase_B_firings"] > 0:
+        print(
+            f"✓ Gate fired — {verdict['phase_A_firings']} during drive, "
+            f"{verdict['phase_B_firings']} during cooling."
+        )
+        if verdict["phase_B_firings"] > 0:
             print("  ★ PHASE B FIRINGS observed — cool-from-above mechanism produced pair(s)!")
             print("    This is the first empirical evidence for doc 59_'s yield-heal BEMF mechanism.")
     else:
@@ -421,7 +438,7 @@ if __name__ == "__main__":
         print("  1. C1 threshold (A²_μ ≥ 0.95) not reached despite saturated state")
         print("  2. C2 (autoresonant lock) doesn't engage when drive is off")
         print("  3. Memristive K4 lag prevents quick C1 satisfaction")
-        if verdict['cooled_through_yield']:
+        if verdict["cooled_through_yield"]:
             print("  - Cooling DID happen (S_field recovered toward 1)")
             print("  - But gate mechanism may not trigger during cooling without active drive")
 

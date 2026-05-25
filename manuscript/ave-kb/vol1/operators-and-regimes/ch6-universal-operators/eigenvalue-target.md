@@ -1,6 +1,10 @@
 [↑ Ch.6 Universal Operators](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol1 as sec:universal_eigenvalue -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-gdd70j]
+path-stable: "referenced from vol1 as sec:universal_eigenvalue"
+-->
 
 ## Section 6.6: The Universal Eigenvalue Target
 

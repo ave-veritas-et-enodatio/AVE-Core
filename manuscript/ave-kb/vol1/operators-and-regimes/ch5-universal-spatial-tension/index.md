@@ -1,5 +1,11 @@
 [↑ Operators and Regimes](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-nu1ir7, clm-unk0bd, clm-zw6mut]
+subtree-experiments: []
+-->
+
 # Ch.5: Universal Spatial Tension ($M \propto 1/r$)
 
 The scale-invariant $1/r$ topological tension unifies subatomic lepton mass and atomic nuclear binding. Inductive mass is generated directly from geometric vacuum compliance ($K = \hbar/c$). The three lepton generations arise from three Cosserat geometric coupling boundaries (translation, torsion, curvature). The FDTD Yee lattice replaces probabilistic virtual particle exchange with deterministic continuous Maxwellian tensor updates.

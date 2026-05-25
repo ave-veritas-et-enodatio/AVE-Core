@@ -1,7 +1,12 @@
 [↑ Ch.6 — Electroweak and Higgs](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-p7rfkb, clm-q8un7j]
+-->
 
 ## The W and Z Boson Masses
+<!-- claim-quality: clm-q8un7j -->
 
 ### Derivation of $M_W$
 
@@ -29,7 +34,7 @@ Each factor has a first-principles geometric origin:
 
 1. $\pi$ --- spherical geometry of the $1/r^2$ integral
 2. $\alpha^2$ --- two-vertex coupling (Axiom 4 dielectric $\times 2$)
-3. $p_c = 8\pi\alpha$ --- packing fraction (Axiom 4: Saturation)
+3. $p_c = 8\pi\alpha$ --- packing fraction (clm-9s9apq, via Axiom 4: Saturation)
 4. $\sqrt{3/7}$ --- torsion-shear projection from the PAT and $\nu = 2/7$
 5. $2\pi$ --- ring topology of the unknot (Axiom 1)
 
@@ -67,6 +72,7 @@ $$
 This defines the evanescent decay length of the Cosserat (torsional) sector of the lattice.
 
 ## W and Z Bosons as Dielectric Plasma Arcs
+<!-- claim-quality: clm-p7rfkb -->
 
 The Weak Nuclear Force is allegedly mediated by massive W ($\sim 80 \text{ GeV}$) and Z ($\sim 91 \text{ GeV}$) bosons. Because they are so massive, Heisenberg's Uncertainty Principle restricts their existence to vanishingly tiny fractions of a second, necessitating their classification as "virtual" mediators during Beta Decay.
 

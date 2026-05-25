@@ -30,7 +30,8 @@ This script is preserved for historical reference. DO NOT cite its result
 ORIGINAL HEADER (superseded):
 -----------------------------
 
-CORPUS-CANONICAL per [Vol 2 Ch 6 §6.2 lines 429-457](manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex#L429):
+CORPUS-CANONICAL per [Vol 2 Ch 6 §6.2 lines 429-457]
+(manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex#L429):
 
   "C_2^Lattice = S_11[ Y_K4(ν_vac) ] ≈ -0.0094"
 

@@ -1,5 +1,9 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-yr6tu4]
+-->
 
 ## Protocol 11: Sagnac-Parallax (Galactic Wind Vectoring) — AVE predicts NULL, corroborated by Brillet–Hall + Wolf
 

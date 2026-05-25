@@ -34,10 +34,7 @@ Run:
     pytest src/tests/test_fdtd3d_electron_torus_knot_seed.py -v -s
 """
 
-from __future__ import annotations
-
 import numpy as np
-import pytest
 
 from ave.core.fdtd_3d import FDTD3DEngine
 
@@ -99,7 +96,9 @@ def _build_random_direction_baseline(engine, R, r, amplitude, knot_thickness=2.0
     cx, cy, cz = (nx - 1) / 2.0, (ny - 1) / 2.0, (nz - 1) / 2.0
 
     i, j, k = np.indices((nx, ny, nz))
-    x = i - cx; y = j - cy; z = k - cz
+    x = i - cx
+    y = j - cy
+    z = k - cz
     rho_xy = np.sqrt(x**2 + y**2 + 1e-12)
     rho_tube = np.sqrt((rho_xy - R) ** 2 + z**2 + 1e-12)
     envelope = amplitude / (1.0 + (rho_tube / knot_thickness) ** 2)
@@ -142,7 +141,7 @@ def test_electron_torus_knot_vs_random_baseline():
     PROBE_EVERY = 20
 
     # Run 1: (2,3) torus knot seed (electron-like)
-    print(f"\n=== Run 1: (2,3) torus knot seed (electron-like) ===")
+    print("\n=== Run 1: (2,3) torus knot seed (electron-like) ===")
     engine_knot = FDTD3DEngine(nx=N, ny=N, nz=N, dx=DX, linear_only=False, use_pml=False)
     _build_torus_knot_E_seed(engine_knot, R, r, AMPLITUDE, p=2, q=3, knot_thickness=2.0)
     print(f"  Seed peak |E| = {np.sqrt(engine_knot.Ex**2+engine_knot.Ey**2+engine_knot.Ez**2).max():.3e} V/m")
@@ -150,7 +149,7 @@ def test_electron_torus_knot_vs_random_baseline():
     t_knot, peak_knot, total_knot = _run_and_probe_amplitude(engine_knot, N_STEPS, PROBE_EVERY)
 
     # Run 2: Random-direction baseline (same envelope, no topology)
-    print(f"\n=== Run 2: Random-direction baseline (no topology) ===")
+    print("\n=== Run 2: Random-direction baseline (no topology) ===")
     engine_random = FDTD3DEngine(nx=N, ny=N, nz=N, dx=DX, linear_only=False, use_pml=False)
     _build_random_direction_baseline(engine_random, R, r, AMPLITUDE, knot_thickness=2.0)
     print(f"  Seed peak |E| = {np.sqrt(engine_random.Ex**2+engine_random.Ey**2+engine_random.Ez**2).max():.3e} V/m")
@@ -198,8 +197,7 @@ def test_engine_runs_with_knot_seed():
     """Smoke test: engine runs cleanly with (2,3) torus knot initial condition."""
     N = 32
     engine = FDTD3DEngine(nx=N, ny=N, nz=N, dx=0.01, linear_only=False, use_pml=False)
-    _build_torus_knot_E_seed(engine, R=6.0, r=2.0, amplitude=0.5 * 43650.0 / 0.01,
-                              p=2, q=3, knot_thickness=2.0)
+    _build_torus_knot_E_seed(engine, R=6.0, r=2.0, amplitude=0.5 * 43650.0 / 0.01, p=2, q=3, knot_thickness=2.0)
     peak_before = np.sqrt(engine.Ex**2 + engine.Ey**2 + engine.Ez**2).max()
 
     # Run a few steps

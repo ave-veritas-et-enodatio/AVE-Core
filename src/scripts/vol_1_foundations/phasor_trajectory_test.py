@@ -20,12 +20,11 @@ This script reuses the TLM machinery in
 tlm_electron_soliton_eigenmode.py and adds per-step per-bond recording
 at four A-sublattice sites on the toroidal equator.
 """
-from __future__ import annotations
 
 import numpy as np
+from tlm_electron_soliton_eigenmode import initialize_2_3_voltage_ansatz
 
 from ave.core.k4_tlm import K4Lattice3D
-from tlm_electron_soliton_eigenmode import initialize_2_3_voltage_ansatz
 
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
 
@@ -53,14 +52,17 @@ def principal_axes(trajectory_xy: np.ndarray) -> tuple[float, float, float]:
 
 def run_phasor_test(
     N: int = 64,
-    R: float = 16.0,      # 0.25 * N — matches existing conv. study scaling
-    r: float = 6.108,     # R / φ² — Golden Torus aspect seeded in real space
+    R: float = 16.0,  # 0.25 * N — matches existing conv. study scaling
+    r: float = 6.108,  # R / φ² — Golden Torus aspect seeded in real space
     n_steps: int = 400,
     amplitude: float = 0.5,
     pml_thickness: int = 6,
 ) -> dict:
     lattice = K4Lattice3D(
-        N, N, N, dx=1.0,
+        N,
+        N,
+        N,
+        dx=1.0,
         pml_thickness=pml_thickness,
         nonlinear=False,
         op3_bond_reflection=True,
@@ -74,10 +76,10 @@ def run_phasor_test(
     # Four probe sites around the toroidal equator at radius R,
     # each snapped to the nearest A-sublattice node.
     probe_targets = [
-        (cx + R, cy,     cz),   # +x equator
-        (cx,     cy + R, cz),   # +y equator
-        (cx - R, cy,     cz),   # -x equator
-        (cx,     cy - R, cz),   # -y equator
+        (cx + R, cy, cz),  # +x equator
+        (cx, cy + R, cz),  # +y equator
+        (cx - R, cy, cz),  # -x equator
+        (cx, cy - R, cz),  # -y equator
     ]
     probes = [find_nearest_A_site(lattice, t) for t in probe_targets]
 
@@ -94,15 +96,13 @@ def run_phasor_test(
         for idx, (i, j, k) in enumerate(probes):
             V_inc_series[idx, step, :] = lattice.V_inc[i, j, k, :]
             V_ref_series[idx, step, :] = lattice.V_ref[i, j, k, :]
-        energy_trace[step] = float(
-            np.sum(lattice.V_inc ** 2) + np.sum(lattice.V_ref ** 2)
-        )
+        energy_trace[step] = float(np.sum(lattice.V_inc**2) + np.sum(lattice.V_ref**2))
 
     return {
         "probes": probes,
         "probe_targets": probe_targets,
-        "V_inc": V_inc_series,       # shape (n_probes, n_steps, 4)
-        "V_ref": V_ref_series,       # shape (n_probes, n_steps, 4)
+        "V_inc": V_inc_series,  # shape (n_probes, n_steps, 4)
+        "V_ref": V_ref_series,  # shape (n_probes, n_steps, 4)
         "energy_trace": energy_trace,
         "R_real": R,
         "r_real": r,
@@ -129,14 +129,17 @@ def main():
     print()
     print("Probe sites (A-sublattice):")
     for i, (target, probe) in enumerate(zip(result["probe_targets"], result["probes"])):
-        print(f"  Probe {i}: target ≈ {tuple(round(t, 1) for t in target)}, "
-              f"snapped to {tuple(int(x) for x in probe)}")
+        print(
+            f"  Probe {i}: target ≈ {tuple(round(t, 1) for t in target)}, " f"snapped to {tuple(int(x) for x in probe)}"
+        )
     print()
 
     # Discard initial transient (first 20% of steps)
     transient_cutoff = result["n_steps"] // 5
-    print(f"Discarding first {transient_cutoff} steps as transient; "
-          f"analyzing steps {transient_cutoff}..{result['n_steps']}")
+    print(
+        f"Discarding first {transient_cutoff} steps as transient; "
+        f"analyzing steps {transient_cutoff}..{result['n_steps']}"
+    )
     print()
 
     # Three candidate phase-space decompositions, analyzed in turn.
@@ -147,23 +150,29 @@ def main():
     #  D3: (V_phys_port0, V_phys_port2) — physical-voltage quadrature
     #                                      where V_phys = V_inc + V_ref
     decompositions = [
-        ("D1 (V_inc, V_ref) same port",
-         lambda r, i: np.column_stack([r["V_inc"][i, transient_cutoff:, 0],
-                                       r["V_ref"][i, transient_cutoff:, 0]])),
-        ("D2 (V_inc_p0, V_inc_p2) quadrature",
-         lambda r, i: np.column_stack([r["V_inc"][i, transient_cutoff:, 0],
-                                       r["V_inc"][i, transient_cutoff:, 2]])),
-        ("D3 (V_phys_p0, V_phys_p2) voltage quadrature",
-         lambda r, i: np.column_stack([
-             r["V_inc"][i, transient_cutoff:, 0] + r["V_ref"][i, transient_cutoff:, 0],
-             r["V_inc"][i, transient_cutoff:, 2] + r["V_ref"][i, transient_cutoff:, 2]])),
+        (
+            "D1 (V_inc, V_ref) same port",
+            lambda r, i: np.column_stack([r["V_inc"][i, transient_cutoff:, 0], r["V_ref"][i, transient_cutoff:, 0]]),
+        ),
+        (
+            "D2 (V_inc_p0, V_inc_p2) quadrature",
+            lambda r, i: np.column_stack([r["V_inc"][i, transient_cutoff:, 0], r["V_inc"][i, transient_cutoff:, 2]]),
+        ),
+        (
+            "D3 (V_phys_p0, V_phys_p2) voltage quadrature",
+            lambda r, i: np.column_stack(
+                [
+                    r["V_inc"][i, transient_cutoff:, 0] + r["V_ref"][i, transient_cutoff:, 0],
+                    r["V_inc"][i, transient_cutoff:, 2] + r["V_ref"][i, transient_cutoff:, 2],
+                ]
+            ),
+        ),
     ]
 
     all_ratios = {}
     for label, extractor in decompositions:
         print(f"Decomposition {label}:")
-        print(f"{'probe':>5s} {'x_rms':>12s} {'y_rms':>12s} "
-              f"{'semi_major':>11s} {'semi_minor':>11s} {'ratio':>8s}")
+        print(f"{'probe':>5s} {'x_rms':>12s} {'y_rms':>12s} " f"{'semi_major':>11s} {'semi_minor':>11s} {'ratio':>8s}")
         ratios = []
         for i in range(len(result["probes"])):
             traj = extractor(result, i)
@@ -171,10 +180,8 @@ def main():
             ratios.append(rat)
             x_rms = np.sqrt(np.mean(traj[:, 0] ** 2))
             y_rms = np.sqrt(np.mean(traj[:, 1] ** 2))
-            print(f"{i:5d} {x_rms:12.4e} {y_rms:12.4e} "
-                  f"{smaj:11.4e} {smin:11.4e} {rat:8.3f}")
-        print(f"  mean ratio = {np.mean(ratios):.3f}, "
-              f"range = [{min(ratios):.3f}, {max(ratios):.3f}]")
+            print(f"{i:5d} {x_rms:12.4e} {y_rms:12.4e} " f"{smaj:11.4e} {smin:11.4e} {rat:8.3f}")
+        print(f"  mean ratio = {np.mean(ratios):.3f}, " f"range = [{min(ratios):.3f}, {max(ratios):.3f}]")
         all_ratios[label] = ratios
         print()
 
@@ -194,7 +201,7 @@ def main():
     print("VERDICTS per decomposition:")
     for label, ratios in all_ratios.items():
         mean_ratio = float(np.mean(ratios))
-        if abs(mean_ratio - PHI ** 2) < 0.2:
+        if abs(mean_ratio - PHI**2) < 0.2:
             verdict = f"(A) Phase-space Golden Torus: ≈ φ² = {PHI**2:.3f}"
         elif abs(mean_ratio - 2.0) < 0.15:
             verdict = "(B) Classical (2,3) / full Clifford ≈ 2.0"

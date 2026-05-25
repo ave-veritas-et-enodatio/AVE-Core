@@ -11,22 +11,23 @@ Covers:
 
 Reference: research/_archive/L3_electron_soliton/08_, 09_.
 """
+
 import numpy as np
 
 from ave.topological.cosserat_field_3d import (
     CosseratField3D,
+    _hopf_density,
+    _op10_density,
+    _project_omega_to_nhat,
+    _reflection_density,
     adjoint_tetrahedral_divergence,
     tetrahedral_gradient,
-    _project_omega_to_nhat,
-    _op10_density,
-    _reflection_density,
-    _hopf_density,
 )
-
 
 # ------------------------------------------------------------------
 # Gradient operator
 # ------------------------------------------------------------------
+
 
 def test_tetrahedral_gradient_on_linear_field_reproduces_slope():
     """For V_i(r) = c_i + a_ij r_j, d_j V_i = a_ij exactly (interior sites)."""
@@ -64,6 +65,7 @@ def test_tetrahedral_gradient_on_constant_is_zero():
 # Grid setup
 # ------------------------------------------------------------------
 
+
 def test_grid_has_half_alive_nodes_approximately():
     """A + B sublattices each take 1/8 of lattice sites; total alive = 1/4."""
     solver = CosseratField3D(16, 16, 16)
@@ -80,6 +82,7 @@ def test_type_a_and_b_are_disjoint():
 # ------------------------------------------------------------------
 # Initial field ansatz
 # ------------------------------------------------------------------
+
 
 def test_initial_field_is_localized_near_target_radius():
     solver = CosseratField3D(32, 32, 32)
@@ -100,6 +103,7 @@ def test_initial_field_u_is_zero():
 # ------------------------------------------------------------------
 # Kinematic tensors
 # ------------------------------------------------------------------
+
 
 def test_strain_tensor_picks_up_antisymmetric_microrotation():
     """With u = 0, strain epsilon_ij = -eps_ijk omega_k. Verify sign/shape."""
@@ -125,6 +129,7 @@ def test_curvature_tensor_has_correct_shape():
 # Energy functional
 # ------------------------------------------------------------------
 
+
 def test_energy_is_finite_and_nonnegative():
     solver = CosseratField3D(24, 24, 24)
     solver.initialize_electron_2_3_sector(R_target=5.0, r_target=2.0)
@@ -143,6 +148,7 @@ def test_energy_is_zero_on_vacuum():
 # ------------------------------------------------------------------
 # Diagnostics run without error on initial state
 # ------------------------------------------------------------------
+
 
 def test_diagnostics_run_on_initial_state():
     solver = CosseratField3D(32, 32, 32)
@@ -165,6 +171,7 @@ def test_diagnostics_run_on_initial_state():
 # ------------------------------------------------------------------
 # Adjoint gradient operator — discrete integration-by-parts identity
 # ------------------------------------------------------------------
+
 
 def test_adjoint_satisfies_integration_by_parts():
     """
@@ -190,6 +197,7 @@ def test_adjoint_satisfies_integration_by_parts():
 # Energy gradient — consistency with finite-difference
 # ------------------------------------------------------------------
 
+
 def test_energy_gradient_matches_finite_difference():
     """
     Compare analytical energy_gradient against a finite-difference estimator
@@ -205,7 +213,7 @@ def test_energy_gradient_matches_finite_difference():
     omega_mag = np.sqrt(np.sum(solver.omega**2, axis=-1))
     candidates = np.argwhere(solver.mask_A & (omega_mag > 0.1))
     assert len(candidates) > 0
-    probe_sites = candidates[::max(1, len(candidates) // 4)][:3]
+    probe_sites = candidates[:: max(1, len(candidates) // 4)][:3]
 
     h = 1e-5
     for site in probe_sites:
@@ -230,6 +238,7 @@ def test_energy_gradient_matches_finite_difference():
 # Gradient descent — monotonic energy decrease
 # ------------------------------------------------------------------
 
+
 def test_saturated_gradient_matches_finite_difference_under_activation():
     """
     Strict FD agreement test at sites where saturation is strongly active
@@ -247,10 +256,7 @@ def test_saturated_gradient_matches_finite_difference_under_activation():
     kappa = solver.compute_curvature()
     kappa_mag = np.sqrt(np.sum(kappa**2, axis=(-1, -2)))
     # Find alive sites in the strongly-saturated regime.
-    active_mask = (
-        solver.mask_alive
-        & (kappa_mag > 0.3 * solver.omega_yield)
-    )
+    active_mask = solver.mask_alive & (kappa_mag > 0.3 * solver.omega_yield)
     candidates = np.argwhere(active_mask)
     assert len(candidates) > 10
 
@@ -294,6 +300,7 @@ def test_relax_step_decreases_energy():
 # ------------------------------------------------------------------
 # Op10 continuum term — Rodrigues projection and density
 # ------------------------------------------------------------------
+
 
 def test_rodrigues_projection_on_zero_omega_gives_z_hat():
     """omega = 0 everywhere => n_hat = (0, 0, 1) (reference direction)."""
@@ -393,14 +400,13 @@ def test_op10_contributes_to_total_energy():
 # Reflection term (Op9 via Op2 + Op14 + Op3) — chain at the field scale
 # ------------------------------------------------------------------
 
+
 def test_reflection_density_zero_on_vacuum():
     """u = omega = 0 => A = 0 => S = 1 => grad S = 0 => reflection = 0."""
     n = 8
     u = np.zeros((n, n, n, 3))
     omega = np.zeros((n, n, n, 3))
-    W_refl = np.asarray(
-        _reflection_density(u, omega, dx=1.0, omega_yield=np.pi, epsilon_yield=1.0)
-    )
+    W_refl = np.asarray(_reflection_density(u, omega, dx=1.0, omega_yield=np.pi, epsilon_yield=1.0))
     np.testing.assert_allclose(W_refl, 0.0, atol=1e-12)
 
 
@@ -411,7 +417,9 @@ def test_reflection_density_nonzero_on_2_3_ansatz():
     solver.initialize_electron_2_3_sector(R_target=6.0, r_target=2.0)
     W_refl = np.asarray(
         _reflection_density(
-            solver.u, solver.omega, dx=solver.dx,
+            solver.u,
+            solver.omega,
+            dx=solver.dx,
             omega_yield=solver.omega_yield,
             epsilon_yield=solver.epsilon_yield,
         )
@@ -434,14 +442,18 @@ def test_reflection_density_grows_near_yield():
 
     W_small = np.asarray(
         _reflection_density(
-            solver_small.u, solver_small.omega, dx=1.0,
+            solver_small.u,
+            solver_small.omega,
+            dx=1.0,
             omega_yield=solver_small.omega_yield,
             epsilon_yield=solver_small.epsilon_yield,
         )
     )
     W_large = np.asarray(
         _reflection_density(
-            solver_large.u, solver_large.omega, dx=1.0,
+            solver_large.u,
+            solver_large.omega,
+            dx=1.0,
             omega_yield=solver_large.omega_yield,
             epsilon_yield=solver_large.epsilon_yield,
         )
@@ -545,6 +557,7 @@ def test_reflection_gradient_matches_finite_difference():
 #                               Rodrigues projection of ω
 # Per research/_archive/L3_electron_soliton/102_ §2.6 pre-registered binary criteria.
 # ------------------------------------------------------------------
+
 
 def test_unknot_seeder_omega_is_loop_tangent():
     """ω should point along ê_φ everywhere (perpendicular to ê_ρ in xy-plane,

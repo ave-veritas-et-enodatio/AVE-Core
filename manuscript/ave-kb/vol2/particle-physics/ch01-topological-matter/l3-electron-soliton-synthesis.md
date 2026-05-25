@@ -1,6 +1,10 @@
 [↑ Ch.1 Topological Matter](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from Vol 1 Ch 8 + Vol 2 Ch 4 spin-gyroscopic + Vol 4 Ch 1 relativistic-inductor as L3 electron-soliton closure synthesis -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-8zpicx]
+path-stable: "referenced from Vol 1 Ch 8 + Vol 2 Ch 4 spin-gyroscopic + Vol 4 Ch 1 relativistic-inductor as L3 electron-soliton closure synthesis"
+-->
 
 # L3 Electron-Soliton Closure Synthesis: $(2,q)$ Particle Family
 
@@ -239,7 +243,7 @@ The v5.1 partial-positive (Meissner mechanism chirality at 100% CCW per path α 
 | Spin ↔ gyroscopic precession isomorphism | [Spin-Gyroscopic Isomorphism](spin-gyroscopic-isomorphism.md) |
 | Antimatter as mirror-image lemniscate | [Chirality and Antimatter](chirality-and-antimatter.md) |
 | $(2, q)$ torus knot tabulated family | [Torus Knot Ladder](torus-knot-ladder.md) |
-| Universal saturation kernel ($S(r) = \sqrt{1 - r^2}$) | [A-034 Universal Saturation Kernel](../../../backmatter/07_universal_saturation_kernel.tex) + [trampoline-framework §7.5](../../../common/trampoline-framework.md) |
+| Universal saturation kernel ($S(r) = \sqrt{1 - r^2}$) | [trampoline-framework §7.5](../../../common/trampoline-framework.md) |
 
 ---
 

@@ -1,6 +1,9 @@
 [↑ Ch.5: Galactic Rotation from Axiom 4](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from common/divergence-test-substrate-map.md C13c row as the formal unification leaf -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-tt8j0v]
+-->
 
 # DM-Mechanism Unification — Substrate-Shared, Operator-Distinct
 
@@ -32,7 +35,7 @@ The unifying picture is the K4 Cosserat substrate — but the three operators (s
 
 ## §2 — Limb (i): η_eff saturation kernel → galactic rotation
 
-**Canonical derivation**: [`vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md`](../../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) §4.5 derives the MOND acceleration scale via Unruh-Hawking Hoop Stress projection. [`derived-mond-acceleration-scale.md`](derived-mond-acceleration-scale.md) gives the resultbox; [`effective-galactic-acceleration-mond.md`](effective-galactic-acceleration-mond.md) gives the saturated-kernel formula.
+**Canonical derivation**: [`vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) §4.5 derives the MOND acceleration scale via Unruh-Hawking Hoop Stress projection. [`derived-mond-acceleration-scale.md`](derived-mond-acceleration-scale.md) gives the resultbox; [`effective-galactic-acceleration-mond.md`](effective-galactic-acceleration-mond.md) gives the saturated-kernel formula.
 
 **Key result**:
 
@@ -48,7 +51,7 @@ $$g_{eff} = g_N + \sqrt{g_N a_0}\,\sqrt{1 - g_N/a_0}$$
 
 ## §3 — Limb (ii): Ponderomotive substrate-strain halos → bullet cluster
 
-**Canonical derivation**: [`vol1/dynamics/ch4-continuum-electrodynamics/bullet-cluster.md`](../../vol1/dynamics/ch4-continuum-electrodynamics/bullet-cluster.md) (rewritten 2026-05-17 per Grant adjudication (γ)). Each cluster's baryonic mass generates an inhomogeneous substrate-strain halo via Axiom 2 (TKI: charge as geometric dislocation) + Axiom 4 (saturation). The halo extends well beyond the gas distribution and co-moves with the stellar source mass.
+**Canonical derivation**: [`vol1/dynamics/ch4-continuum-electrodynamics/bullet-cluster.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/bullet-cluster.md) (rewritten 2026-05-17 per Grant adjudication (γ)). Each cluster's baryonic mass generates an inhomogeneous substrate-strain halo via Axiom 2 (TKI: charge as geometric dislocation) + Axiom 4 (saturation). The halo extends well beyond the gas distribution and co-moves with the stellar source mass.
 
 **Mechanism**:
 - Halo strain amplitude scales with baryonic mass via Ax2 TKI coupling
@@ -64,13 +67,13 @@ $$g_{eff} = g_N + \sqrt{g_N a_0}\,\sqrt{1 - g_N/a_0}$$
 
 ## §4 — Limb (iii): α-slew parametric coupling → DAMA atomic-scale detection
 
-**Canonical derivation**: [`vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md) (cycle-12 canonical, 2026-05-17 night). Substrate's vacuum varactor (Ax4) at sub-yield operating point oscillates at α-slew refresh rate $\nu_{slew} = (\alpha/2\pi)\omega_{Compton}$. Parametric coupling kernel into N-coherent-site crystal gives detection efficiency:
+**Canonical derivation**: [`vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md`](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md) (cycle-12 canonical, 2026-05-17 night). Substrate's vacuum varactor (Ax4) at sub-yield operating point oscillates at α-slew refresh rate $\nu_{slew} = (\alpha/2\pi)\omega_{Compton}$. Parametric coupling kernel into N-coherent-site crystal gives detection efficiency:
 
 $$\varepsilon_{det} = \frac{4\pi \cdot \kappa_{quality}}{N_{single}^2}$$
 
 where 4π inherits from Theorem 3.1' spinor-cycle averaging ($Z_{radiation} = Z_0/(4\pi)$), 1/N² derives from Dicke amplitude × matched-cycle synchronization, and $\kappa_{quality}$ is the Q·δ regenerative envelope.
 
-**The α-slew rate itself is a Hoop Stress 2π projection** per [`mond-hoop-stress.md` §4.5](../../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md):
+**The α-slew rate itself is a Hoop Stress 2π projection** per [`mond-hoop-stress.md` §4.5](../../../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md):
 
 $$\nu_{slew} = \frac{\alpha \cdot \omega_{Compton}}{2\pi}$$
 
@@ -100,7 +103,7 @@ Axiom 3 (Minimum Reflection Principle) participates in limb (iii) (matched-imped
 
 ### §5.2 — Hoop Stress 2π projection sub-family (limbs i + iii)
 
-Per [`mond-hoop-stress.md` §4.5 cross-volume motif](../../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) (named explicitly 2026-05-17): the recurring pattern is "substrate bulk drift $c \times \epsilon$ projected through the 2π Hoop Stress geometric factor onto closed topological loops."
+Per [`mond-hoop-stress.md` §4.5 cross-volume motif](../../../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) (named explicitly 2026-05-17): the recurring pattern is "substrate bulk drift $c \times \epsilon$ projected through the 2π Hoop Stress geometric factor onto closed topological loops."
 
 | Scale | Formula | Small parameter | Result |
 |---|---|---|---|
@@ -111,7 +114,7 @@ Per [`mond-hoop-stress.md` §4.5 cross-volume motif](../../vol1/dynamics/ch4-con
 
 Three (or four, counting the substrate-equilibrium velocity prediction) AVE predictions share the same Hoop Stress 2π projection structure. Limb (i) is the cosmic instance; limb (iii) is the substrate instance.
 
-**🟡 PARTIAL GROUNDING (Tier-3 #10 Step 4, 2026-05-17 night; walked back post external reviewer A#1)**: the 2π factor is EXACT **at substrate scale** via the knot-theoretic Ideal Ropelength of the electron $0_1$ unknot (= 2π per Cantarella+Kusner+Sullivan 2002, *Invent. Math.* 150:257-286 + cited in [`vol3/gravity/ch01-gravity-yield/leaky-cavity-decay.md:12`](../../vol3/gravity/ch01-gravity-yield/leaky-cavity-decay.md) + [`kinetic-yield-threshold.md:22`](../../vol3/gravity/ch01-gravity-yield/kinetic-yield-threshold.md)). **Cosmic-scale 2π rigor remains OPEN**: derived via Unruh-Hawking in [`mond-hoop-stress.md §4.5`](../../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md), NOT via explicit Hoop-Stress-as-closed-loop-integration on de Sitter horizon; Step 5 pending. Cross-scale "same mechanism" claim WALKED BACK: unknot Ropelength = 2π is knot-theory topological invariant; great-circle = 2π is Euclidean geometry — structurally distinct mechanisms yielding the same number. **Per `ave-independence-check` retroactive**: only 2 INDEPENDENT instances of motif (cosmic $a_0$ + substrate $\nu_{slew}$); $v_{substrate}$ is derived from $\nu_{slew} \times \ell_{node}$; DAMA quantum $E_{slew} = h \times \nu_{slew}$ has 2π cancel via $h = 2\pi\hbar$ identity — not an instance of motif at all. Full updated chain at [`research/2026-05-17_hoop-stress-2pi-step-4-result.md`](../../../../research/2026-05-17_hoop-stress-2pi-step-4-result.md) §5.1.
+**🟡 PARTIAL GROUNDING (Tier-3 #10 Step 4, 2026-05-17 night; walked back post external reviewer A#1)**: the 2π factor is EXACT **at substrate scale** via the knot-theoretic Ideal Ropelength of the electron $0_1$ unknot (= 2π per Cantarella+Kusner+Sullivan 2002, *Invent. Math.* 150:257-286 + cited in [`vol3/gravity/ch01-gravity-yield/leaky-cavity-decay.md:12`](../../gravity/ch01-gravity-yield/leaky-cavity-decay.md) + [`kinetic-yield-threshold.md:22`](../../gravity/ch01-gravity-yield/kinetic-yield-threshold.md)). **Cosmic-scale 2π rigor remains OPEN**: derived via Unruh-Hawking in [`mond-hoop-stress.md §4.5`](../../../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md), NOT via explicit Hoop-Stress-as-closed-loop-integration on de Sitter horizon; Step 5 pending. Cross-scale "same mechanism" claim WALKED BACK: unknot Ropelength = 2π is knot-theory topological invariant; great-circle = 2π is Euclidean geometry — structurally distinct mechanisms yielding the same number. **Per `ave-independence-check` retroactive**: only 2 INDEPENDENT instances of motif (cosmic $a_0$ + substrate $\nu_{slew}$); $v_{substrate}$ is derived from $\nu_{slew} \times \ell_{node}$; DAMA quantum $E_{slew} = h \times \nu_{slew}$ has 2π cancel via $h = 2\pi\hbar$ identity — not an instance of motif at all. Full updated chain at [`research/2026-05-17_hoop-stress-2pi-step-4-result.md`](../../../../../research/2026-05-17_hoop-stress-2pi-step-4-result.md) §5.1.
 
 ### §5.3 — Ponderomotive sub-family (limb ii)
 
@@ -132,7 +135,7 @@ This is the honest unification:
 
 ## §6 — What this leaf CLOSES (per matrix C13c META row)
 
-The C13c row at [`common/divergence-test-substrate-map.md`](../../common/divergence-test-substrate-map.md) tracked "formal unification leaf still TBD" with status "PARTIAL-PASS via empirical anchors on two limbs." This leaf:
+The C13c row at [`common/divergence-test-substrate-map.md`](../../../common/divergence-test-substrate-map.md) tracked "formal unification leaf still TBD" with status "PARTIAL-PASS via empirical anchors on two limbs." This leaf:
 
 - **Documents the substrate-shared foundation** (Ax1 K4 + Ax4 Op2 across all three limbs)
 - **Names the Hoop Stress 2π sub-family** (limbs i + iii) per cross-volume motif at `mond-hoop-stress.md §4.5`
@@ -159,7 +162,7 @@ Three operator instances; three distinct empirical anchor classes; one shared su
 Per [`cosmological-constant-closure.md`](cosmological-constant-closure.md): $\rho_\Lambda = 9.03 \times 10^{-27}$ kg/m³ derivable from $H_\infty$ which appears in $a_0 = cH_\infty/(2\pi)$. Within $\times 1.54$ of Planck-2018 observed; largest single quantitative improvement on QED in fundamental physics. This is a CONSEQUENCE of limb (i)'s Hoop Stress derivation extending to the cosmological-constant problem.
 
 **Cross-limb prediction B — Substrate-equilibrium velocity (LSR-class scope only per GC test 2026-05-17 night Outcome III)**:
-$v_{substrate} = \alpha c/(2\pi) \approx 348$ km/s **specifically for LSR-class local-region kinematics** (Sun + nearby thin-disk stars within ~150 pc). Shares Hoop Stress 2π structure with limbs (i) + (iii). Gaia DR3 thin-disk magnitude anchor at 375 km/s (9% above prediction at LSR scope); FLOOR interpretation falsified by halo stars; **GC test 2026-05-17 night Outcome III** ([`research/2026-05-17_substrate_equilibrium_velocity_GLOBULAR_CLUSTER_result.md`](../../../../research/2026-05-17_substrate_equilibrium_velocity_GLOBULAR_CLUSTER_result.md)) confirms substrate-velocity prediction does NOT extend to GC-class populations (median 564 km/s, cosmic-flow dominated). Prediction now scoped to LSR-class only; not a universal "decoupled-population" floor.
+$v_{substrate} = \alpha c/(2\pi) \approx 348$ km/s **specifically for LSR-class local-region kinematics** (Sun + nearby thin-disk stars within ~150 pc). Shares Hoop Stress 2π structure with limbs (i) + (iii). Gaia DR3 thin-disk magnitude anchor at 375 km/s (9% above prediction at LSR scope); FLOOR interpretation falsified by halo stars; **GC test 2026-05-17 night Outcome III** ([`research/2026-05-17_substrate_equilibrium_velocity_GLOBULAR_CLUSTER_result.md`](../../../../../research/2026-05-17_substrate_equilibrium_velocity_GLOBULAR_CLUSTER_result.md)) confirms substrate-velocity prediction does NOT extend to GC-class populations (median 564 km/s, cosmic-flow dominated). Prediction now scoped to LSR-class only; not a universal "decoupled-population" floor.
 
 **Cross-limb prediction C — η_eff drag connects galactic rotation (i) to ponderomotive halos (ii)**:
 The Ax4 saturation kernel that produces $\eta_{eff}$ at galactic scale (limb i) is the same Ax4 kernel that produces the ponderomotive substrate-strain halo at cluster scale (limb ii). Quantitative cross-validation: derive bullet cluster halo magnitude from same substrate parameters that give MOND $a_0$. Pending derivation work.
@@ -186,36 +189,35 @@ The parametric coupling kernel canonical at substrate scale (limb iii) should ma
 ## §10 — Cross-references
 
 **Substrate foundation (shared by all three limbs)**:
-- [Vol 1 Ch 1 Axiom 1 (K4 Cosserat substrate)](../../../vol1/axioms-and-lattice/ch1-axioms-and-lattice/index.md)
-- [Vol 1 Ch 1 Axiom 4 (dielectric saturation)](../../../vol1/axioms-and-lattice/ch1-axioms-and-lattice/index.md)
-- [Op2 Saturation Kernel](../../common/operators.md) — $S = \sqrt{1-r^2}$
-- [Vacuum Varactor C_eff(V)](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md)
+- [Vol 1 Ch 1 Axiom 1 (K4 Cosserat substrate)](../../../vol1/axioms-and-lattice/ch1-fundamental-axioms/index.md)
+- [Vol 1 Ch 1 Axiom 4 (dielectric saturation)](../../../vol1/axioms-and-lattice/ch1-fundamental-axioms/index.md)
+- [Op2 Saturation Kernel](../../../common/operators.md) — $S = \sqrt{1-r^2}$
+- [Vacuum Varactor C_eff(V)](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md)
 
 **Limb (i) canonical chain**:
-- [MOND Hoop Stress derivation](../../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) — §4.5 cosmic Hoop Stress 2π projection
+- [MOND Hoop Stress derivation](../../../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) — §4.5 cosmic Hoop Stress 2π projection
 - [Derived MOND Acceleration Scale](derived-mond-acceleration-scale.md) — $a_0$ resultbox
 - [Effective Galactic Acceleration](effective-galactic-acceleration-mond.md) — saturated kernel formula
 - [Multi-Galaxy Validation](multi-galaxy-validation.md) — SPARC 135-galaxy CONFIRMED 11.5% Q=1
 - [Cosmological Constant Closure](cosmological-constant-closure.md) — $\rho_\Lambda$ derivable from $H_\infty$
 
 **Limb (ii) canonical chain**:
-- [Bullet Cluster (Vol 1 Ch 4)](../../vol1/dynamics/ch4-continuum-electrodynamics/bullet-cluster.md) — rewritten 2026-05-17 per Grant (γ) adjudication
-- [Gordon Optical Metric (Vol 3 Ch 3)](../../vol3/gravity/ch03-macroscopic-relativity/gordon-optical-metric.md)
-- [Einstein Lensing Deflection (Vol 3 Ch 3)](../../vol3/gravity/ch03-macroscopic-relativity/einstein-lensing-deflection.md)
+- [Bullet Cluster (Vol 1 Ch 4)](../../../vol1/dynamics/ch4-continuum-electrodynamics/bullet-cluster.md) — rewritten 2026-05-17 per Grant (γ) adjudication
+- [Gordon Optical Metric (Vol 3 Ch 3)](../../gravity/ch03-macroscopic-relativity/gordon-optical-metric.md)
+- [Einstein Lensing Deflection (Vol 3 Ch 3)](../../gravity/ch03-macroscopic-relativity/einstein-lensing-deflection.md)
 - AVE-PONDER manuscript chapters — same physics at lab scale (cross-repo)
 
 **Limb (iii) canonical chain**:
-- [Parametric Coupling Kernel](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md) — cycle-12 canonical leaf
+- [Parametric Coupling Kernel](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md) — cycle-12 canonical leaf
 - [DAMA α-Slew Derivation](dama-alpha-slew-derivation.md) — energy scale + reactive-power framing
 - [DAMA Matched-LC-Coupling](dama-matched-lc-coupling.md) — §13 bulk-EE-level form (cycle-12)
-- [Theorem 3.1' Q-Factor](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) — Z_radiation = Z_0/(4π) inheritance
+- [Theorem 3.1' Q-Factor](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) — Z_radiation = Z_0/(4π) inheritance
 
 **Hoop Stress 2π motif**:
-- [MOND Hoop Stress §4.5 cross-volume substrate motif](../../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) — canonical naming 2026-05-17
+- [MOND Hoop Stress §4.5 cross-volume substrate motif](../../../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) — canonical naming 2026-05-17
 
-**Matrix row + closure-roadmap**:
-- [Matrix C13c row](../../common/divergence-test-substrate-map.md) — META row tracking this unification
-- [closure-roadmap §0.5](../../common/closure-roadmap.md) — 12th-cycle entry references this leaf landing
+**Matrix row**:
+- [Matrix C13c row](../../../common/divergence-test-substrate-map.md) — META row tracking this unification
 
 **Research provenance**:
 - [`research/2026-05-17_C13b_bullet_cluster_prereg.md`](../../../../../research/2026-05-17_C13b_bullet_cluster_prereg.md) — full Grant adjudication on bullet cluster operator

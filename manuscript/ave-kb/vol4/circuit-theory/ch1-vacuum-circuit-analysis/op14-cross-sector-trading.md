@@ -1,6 +1,10 @@
 [↑ Ch.1 Vacuum Circuit Analysis](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from Op14 local-clock + L3 closure synthesis as canonical Op14 cross-sector trading mechanism -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-p2tp9i]
+path-stable: "referenced from Op14 local-clock + L3 closure synthesis as canonical Op14 cross-sector trading mechanism"
+-->
 
 # Op14 Cross-Sector Trading: K4-Inductive ↔ Cosserat Energy Exchange ($\rho = -0.990$)
 

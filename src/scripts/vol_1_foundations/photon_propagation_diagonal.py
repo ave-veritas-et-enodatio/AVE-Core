@@ -12,17 +12,16 @@ prediction: v_meas/c ≈ 1.0 along the diagonal.
 This complements `photon_propagation.py` (cardinal +x̂, v=√2·c) to
 characterize the K4 substrate's anisotropic kinematics fully.
 """
-from __future__ import annotations
 
-import numpy as np
 import sys
 from pathlib import Path
+
+import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from photon_propagation import run_validation
-
 
 if __name__ == "__main__":
     print("─" * 72)
@@ -35,9 +34,10 @@ if __name__ == "__main__":
     # diagonal run via inlined code.
 
     import numpy as np
-    from ave.core.k4_tlm import K4Lattice3D
+    from photon_propagation import PlaneSource, packet_centroid_interior, xy_slice
+
     from ave.core.constants import C_0, V_SNAP
-    from photon_propagation import PlaneSource, xy_slice, packet_centroid_interior
+    from ave.core.k4_tlm import K4Lattice3D
 
     N = 96
     pml = 8
@@ -63,9 +63,14 @@ if __name__ == "__main__":
     diag_dir = (inv_sqrt3, inv_sqrt3, inv_sqrt3)
 
     src = PlaneSource(
-        x0=source_x, y_c=(N - 1) / 2.0, z_c=(N - 1) / 2.0,
-        direction=diag_dir, sigma_yz=sigma_yz,
-        omega=omega, t_center=t_center, t_sigma=t_sigma,
+        x0=source_x,
+        y_c=(N - 1) / 2.0,
+        z_c=(N - 1) / 2.0,
+        direction=diag_dir,
+        sigma_yz=sigma_yz,
+        omega=omega,
+        t_center=t_center,
+        t_sigma=t_sigma,
         amplitude=amp_volts,
     )
 

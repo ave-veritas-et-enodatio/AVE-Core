@@ -46,25 +46,26 @@ Cross-references:
   - K4-TLM bench validation: engine-flag canonical (op3=True, V_SNAP=1.0)
     held in separate bench engineering compendium
 """
+
 import sys
 import time
 from pathlib import Path
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.gridspec import GridSpec
 
 # Make the AVE-Core src importable
 REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
-from ave.core.constants import ALPHA, ALPHA_COLD_INV
-
 # Canonical-source compliance check (per ave-canonical-source skill)
 import ave.core.constants as _avc
-assert _avc.__file__.endswith("ave/core/constants.py"), \
-    "ave.core.constants is not the AVE-Core canonical source"
+from ave.core.constants import ALPHA, ALPHA_COLD_INV
+from ave.topological.vacuum_engine import VacuumEngine3D
+from ave_path_util import sim_output
+
+assert _avc.__file__.endswith("ave/core/constants.py"), "ave.core.constants is not the AVE-Core canonical source"
 
 print("=" * 78)
 print("R10 Path-α v14 — Single-Cell Bounded-Boundary Test")
@@ -79,11 +80,11 @@ print()
 # =============================================================================
 # Configuration (frozen pre-execution + variants for Mode II/III diagnosis)
 # =============================================================================
-N = 17                         # lattice side (odd → center on cell at (8,8,8))
-PML = 4                        # PML thickness
-CENTER = (N // 2, N // 2, N // 2)   # (8,8,8) all-even, mask_A, active
-N_STEPS = 2000                 # ~2 Compton periods at dt = 1/√2 (natural units)
-LOG_CADENCE = 50               # observable logging cadence
+N = 17  # lattice side (odd → center on cell at (8,8,8))
+PML = 4  # PML thickness
+CENTER = (N // 2, N // 2, N // 2)  # (8,8,8) all-even, mask_A, active
+N_STEPS = 2000  # ~2 Compton periods at dt = 1/√2 (natural units)
+LOG_CADENCE = 50  # observable logging cadence
 
 # v14a (original pre-reg): single-cell V_inc plant + Cosserat unknot, no drive
 # v14b (variant): shell-envelope V_inc plant at boundary radius, A ≈ 0.95 (kernel-engaging)
@@ -93,33 +94,33 @@ VARIANT = "v14d"  # v14a single-cell, v14b shell, v14c driven, v14d Cosserat-onl
 
 if VARIANT == "v14a":
     V_INC_AMPLITUDE = 0.6
-    SHELL_R = None             # single-cell plant
+    SHELL_R = None  # single-cell plant
     SUSTAINED_DRIVE = False
 elif VARIANT == "v14b":
-    V_INC_AMPLITUDE = 0.95     # close to A=1 for kernel-engaging Op3 γ ≈ 0.28
-    SHELL_R = 2                # plant V_inc on a sphere of radius 2 cells (boundary envelope)
+    V_INC_AMPLITUDE = 0.95  # close to A=1 for kernel-engaging Op3 γ ≈ 0.28
+    SHELL_R = 2  # plant V_inc on a sphere of radius 2 cells (boundary envelope)
     SUSTAINED_DRIVE = False
 elif VARIANT == "v14c":
     V_INC_AMPLITUDE = 0.95
     SHELL_R = 2
     SUSTAINED_DRIVE = True
-    DRIVE_OMEGA = 1.0          # natural-unit Compton-flavored frequency
+    DRIVE_OMEGA = 1.0  # natural-unit Compton-flavored frequency
 elif VARIANT == "v14d":
     # Cosserat-only seed: let the unknot hedgehog source its own K4 V_inc
     # through the engine's ω→z_local→V coupling. This is the canonical
     # "free electron in vacuum" picture — no external V_inc plant required.
-    V_INC_AMPLITUDE = 0.0      # no K4 plant; Cosserat sources it
+    V_INC_AMPLITUDE = 0.0  # no K4 plant; Cosserat sources it
     SHELL_R = None
     SUSTAINED_DRIVE = False
 
-COSSERAT_R = 2.0               # Cosserat unknot horn-torus radius (lattice cells)
-COSSERAT_AMP_SCALE = 0.35      # bound-state operating amplitude per Path B Round 6
+COSSERAT_R = 2.0  # Cosserat unknot horn-torus radius (lattice cells)
+COSSERAT_AMP_SCALE = 0.35  # bound-state operating amplitude per Path B Round 6
 
 # Acceptance thresholds
-THRESH_BOUNDARY_PERSIST = 0.5    # |V_inc|_shell / initial at t > 1000
-THRESH_WINDING_PERSIST = 0.5     # peak |ω| at horn-torus / initial
-THRESH_GRADIENT_TOL = 0.15       # ±15% match to n(r) shape
-THRESH_Q_FACTOR_TOL = 0.05       # ±5% match to α⁻¹
+THRESH_BOUNDARY_PERSIST = 0.5  # |V_inc|_shell / initial at t > 1000
+THRESH_WINDING_PERSIST = 0.5  # peak |ω| at horn-torus / initial
+THRESH_GRADIENT_TOL = 0.15  # ±15% match to n(r) shape
+THRESH_Q_FACTOR_TOL = 0.05  # ±5% match to α⁻¹
 
 print("CONFIGURATION (frozen pre-execution per doc 109 §14):")
 print(f"  N                   = {N}")
@@ -137,16 +138,22 @@ print()
 # =============================================================================
 print("Building engine (V_SNAP=1.0 natural units; op3_bond_reflection=True internal)...")
 engine = VacuumEngine3D.from_args(
-    N=N, pml=PML, temperature=0.0,
+    N=N,
+    pml=PML,
+    temperature=0.0,
     amplitude_convention="V_SNAP",
 )
 print(f"  V_SNAP = {engine.V_SNAP}  (1.0 = natural units, kernel engages at A≥0.01)")
 print(f"  k4 dx = {engine.k4.dx}, k4 dt = {engine.k4.dt:.6f}")
 print(f"  k4 active sites count = {int(engine.k4.mask_active.sum())}")
-print(f"  Center cell ({CENTER[0]},{CENTER[1]},{CENTER[2]}) is "
-      f"{'active' if engine.k4.mask_active[CENTER] else 'INACTIVE'}")
-print(f"  Center is "
-      f"{'A-site (mask_A)' if engine.k4.mask_A[CENTER] else 'B-site (mask_B)' if engine.k4.mask_B[CENTER] else 'inactive'}")
+print(
+    f"  Center cell ({CENTER[0]},{CENTER[1]},{CENTER[2]}) is "
+    f"{'active' if engine.k4.mask_active[CENTER] else 'INACTIVE'}"
+)
+print(
+    f"  Center is "
+    f"{'A-site (mask_A)' if engine.k4.mask_A[CENTER] else 'B-site (mask_B)' if engine.k4.mask_B[CENTER] else 'inactive'}"
+)
 assert engine.k4.mask_active[CENTER], "Center cell must be K4-active"
 print()
 
@@ -155,12 +162,12 @@ print()
 # Plant the bounded boundary
 # =============================================================================
 print(f"Planting bounded boundary (variant {VARIANT}):")
-amp_per_port = V_INC_AMPLITUDE / 2.0   # √4 = 2 normalization
+amp_per_port = V_INC_AMPLITUDE / 2.0  # √4 = 2 normalization
 
 if V_INC_AMPLITUDE == 0.0:
     # v14d: no K4 plant — Cosserat hedgehog will source V_inc through coupling
     print(f"  V_INC_AMPLITUDE = 0: NO K4 plant. Cosserat hedgehog sources V_inc via ω→z_local→V coupling.")
-    shell_cells = [CENTER]   # for diagnostic comparison
+    shell_cells = [CENTER]  # for diagnostic comparison
 elif SHELL_R is None:
     # v14a: single-cell plant at center
     print(f"  Single-cell V_inc plant at {CENTER}, all 4 ports, amplitude {V_INC_AMPLITUDE}")
@@ -183,7 +190,7 @@ else:
     shell_mask = (r >= SHELL_R - 0.5) & (r < SHELL_R + 0.5) & engine.k4.mask_active
     shell_cells = list(zip(*np.where(shell_mask)))
     print(f"    Shell active cells: {len(shell_cells)}")
-    for (i, j, k) in shell_cells:
+    for i, j, k in shell_cells:
         # Distribute amplitude isotropically across all 4 ports
         for port in range(4):
             engine.k4.V_inc[i, j, k, port] = amp_per_port
@@ -192,8 +199,10 @@ else:
             engine.k4.V_ref[i, j, k, port] = amp_per_port * np.cos(port_phase)
 
 # Plant Cosserat unknot at center cell
-print(f"  Step 3: Cosserat unknot hedgehog at R={COSSERAT_R}, r={COSSERAT_R} "
-      f"(horn-torus default), amplitude_scale={COSSERAT_AMP_SCALE}")
+print(
+    f"  Step 3: Cosserat unknot hedgehog at R={COSSERAT_R}, r={COSSERAT_R} "
+    f"(horn-torus default), amplitude_scale={COSSERAT_AMP_SCALE}"
+)
 engine.cos.initialize_electron_unknot_sector(
     R_target=COSSERAT_R,
     r_target=COSSERAT_R,
@@ -203,9 +212,7 @@ engine.cos.initialize_electron_unknot_sector(
 # Initial observable snapshot
 V_inc_initial = engine.k4.V_inc.copy()
 omega_initial = engine.cos.omega.copy()
-v_inc_peak_initial = np.sqrt(
-    np.sum(engine.k4.V_inc[CENTER[0], CENTER[1], CENTER[2]] ** 2)
-)
+v_inc_peak_initial = np.sqrt(np.sum(engine.k4.V_inc[CENTER[0], CENTER[1], CENTER[2]] ** 2))
 omega_peak_initial = float(np.max(np.linalg.norm(omega_initial, axis=-1)))
 
 print(f"  Initial |V_inc| at center: {v_inc_peak_initial:.4f}")
@@ -221,7 +228,7 @@ def boundary_persistence(engine):
     if SHELL_R is None:
         return float(np.sqrt(np.sum(engine.k4.V_inc[CENTER[0], CENTER[1], CENTER[2]] ** 2)))
     # For shell envelope: max |V_inc| anywhere in shell
-    v_inc_norm = np.sqrt(np.sum(engine.k4.V_inc ** 2, axis=-1))
+    v_inc_norm = np.sqrt(np.sum(engine.k4.V_inc**2, axis=-1))
     return float(max(v_inc_norm[i, j, k] for (i, j, k) in shell_cells))
 
 
@@ -237,8 +244,8 @@ def cosserat_winding_at_horn(engine, R=COSSERAT_R, tol=0.5):
     y = np.arange(N) - cy
     z = np.arange(N) - cz
     X, Y, Z = np.meshgrid(x, y, z, indexing="ij")
-    rho_xy = np.sqrt(X ** 2 + Y ** 2)
-    rho_tube = np.sqrt((rho_xy - R) ** 2 + Z ** 2)
+    rho_xy = np.sqrt(X**2 + Y**2)
+    rho_tube = np.sqrt((rho_xy - R) ** 2 + Z**2)
     shell = rho_tube < tol  # thin shell around horn torus
     if shell.sum() == 0:
         return 0.0
@@ -258,7 +265,7 @@ def impedance_radial_profile(engine, max_r=5):
     y = np.arange(N) - cy
     z = np.arange(N) - cz
     X, Y, Z = np.meshgrid(x, y, z, indexing="ij")
-    r = np.sqrt(X ** 2 + Y ** 2 + Z ** 2)
+    r = np.sqrt(X**2 + Y**2 + Z**2)
     r_arr = np.arange(1, max_r + 1)
     z_arr = np.zeros_like(r_arr, dtype=float)
     for i, r_val in enumerate(r_arr):
@@ -286,8 +293,8 @@ def q_factor_integral(engine, R_volume=COSSERAT_R):
     y = np.arange(N) - cy
     z = np.arange(N) - cz
     X, Y, Z = np.meshgrid(x, y, z, indexing="ij")
-    r = np.sqrt(X ** 2 + Y ** 2 + Z ** 2)
-    v_inc_norm = np.sqrt(np.sum(engine.k4.V_inc ** 2, axis=-1))
+    r = np.sqrt(X**2 + Y**2 + Z**2)
+    v_inc_norm = np.sqrt(np.sum(engine.k4.V_inc**2, axis=-1))
     v_center = v_inc_norm[CENTER]
     if v_center < 1e-10:
         return 0.0, 0.0, 0.0
@@ -302,8 +309,12 @@ def q_factor_integral(engine, R_volume=COSSERAT_R):
     Lambda_surf = float(np.sum(v_normalized[surface_mask] ** 2))
 
     # Line integral on the equatorial circle at the boundary radius (z=cz, r=R)
-    line_mask = (np.abs(Z) < 1) & (np.sqrt(X**2 + Y**2) >= R_volume - 0.5) & \
-                (np.sqrt(X**2 + Y**2) < R_volume + 0.5) & engine.k4.mask_active
+    line_mask = (
+        (np.abs(Z) < 1)
+        & (np.sqrt(X**2 + Y**2) >= R_volume - 0.5)
+        & (np.sqrt(X**2 + Y**2) < R_volume + 0.5)
+        & engine.k4.mask_active
+    )
     Lambda_line = float(np.sum(v_normalized[line_mask] ** 2))
 
     return Lambda_vol, Lambda_surf, Lambda_line
@@ -317,9 +328,14 @@ print(f"Running dynamics: {N_STEPS} steps, log every {LOG_CADENCE} steps")
 print("=" * 78)
 
 history = {
-    "step": [], "t": [],
-    "v_inc_center": [], "omega_peak": [], "omega_at_horn": [],
-    "total_energy": [], "v_inc_total_norm": [], "omega_total_norm": [],
+    "step": [],
+    "t": [],
+    "v_inc_center": [],
+    "omega_peak": [],
+    "omega_at_horn": [],
+    "total_energy": [],
+    "v_inc_total_norm": [],
+    "omega_total_norm": [],
 }
 
 t_start = time.time()
@@ -338,7 +354,7 @@ for step in range(1, N_STEPS + 1):
     # Sustained drive (v14c only): re-inject V_inc at shell each step to maintain boundary
     if SUSTAINED_DRIVE and SHELL_R is not None:
         drive_envelope = np.cos(DRIVE_OMEGA * step * engine.k4.dt)
-        for (i, j, k) in shell_cells:
+        for i, j, k in shell_cells:
             for port in range(4):
                 # Sustain V_inc on each port at amplitude × envelope (modulated)
                 engine.k4.V_inc[i, j, k, port] = amp_per_port * (0.7 + 0.3 * drive_envelope)
@@ -354,10 +370,12 @@ for step in range(1, N_STEPS + 1):
         history["omega_total_norm"].append(float(np.linalg.norm(engine.cos.omega)))
         # Quick progress print every 10 logs
         if step % (LOG_CADENCE * 10) == 0 or step == LOG_CADENCE:
-            print(f"  step={step:>4d}  "
-                  f"|V_inc|_center={history['v_inc_center'][-1]:.4f}  "
-                  f"|ω|_peak={history['omega_peak'][-1]:.4f}  "
-                  f"E_total={history['total_energy'][-1]:.3e}")
+            print(
+                f"  step={step:>4d}  "
+                f"|V_inc|_center={history['v_inc_center'][-1]:.4f}  "
+                f"|ω|_peak={history['omega_peak'][-1]:.4f}  "
+                f"E_total={history['total_energy'][-1]:.3e}"
+            )
 
 print(f"\nDynamics complete in {time.time() - t_start:.1f}s.")
 print()
@@ -461,17 +479,19 @@ print("=" * 78)
 # =============================================================================
 print("\nGenerating visualization...")
 
-OUT = REPO_ROOT / "assets" / "sim_outputs"
-OUT.mkdir(parents=True, exist_ok=True)
-
 fig = plt.figure(figsize=(16, 11), facecolor="#0a0a0a")
 gs = GridSpec(3, 3, figure=fig, hspace=0.35, wspace=0.3)
 
 # Panel 1: Time series — boundary persistence
 ax1 = fig.add_subplot(gs[0, 0])
 ax1.plot(history["t"], history["v_inc_center"], "C2-", lw=2, label="|V_inc|_center")
-ax1.axhline(THRESH_BOUNDARY_PERSIST * v_inc_initial, color="C3", ls="--",
-            lw=1, label=f"PASS threshold ({THRESH_BOUNDARY_PERSIST}× initial)")
+ax1.axhline(
+    THRESH_BOUNDARY_PERSIST * v_inc_initial,
+    color="C3",
+    ls="--",
+    lw=1,
+    label=f"PASS threshold ({THRESH_BOUNDARY_PERSIST}× initial)",
+)
 ax1.set_xlabel("t (lattice units)")
 ax1.set_ylabel("|V_inc| at center")
 ax1.set_title(f"Test 1: Boundary persistence — {'PASS' if test1_pass else 'FAIL'}")
@@ -481,10 +501,14 @@ ax1.legend(loc="best", fontsize=8, framealpha=0.8)
 # Panel 2: Time series — Cosserat winding
 ax2 = fig.add_subplot(gs[0, 1])
 ax2.plot(history["t"], history["omega_peak"], "C0-", lw=2, label="|ω|_peak")
-ax2.plot(history["t"], history["omega_at_horn"], "C4-", lw=1.5,
-         label=f"|ω|_horn (R={COSSERAT_R})")
-ax2.axhline(THRESH_WINDING_PERSIST * omega_initial_val, color="C3", ls="--",
-            lw=1, label=f"PASS threshold ({THRESH_WINDING_PERSIST}× initial)")
+ax2.plot(history["t"], history["omega_at_horn"], "C4-", lw=1.5, label=f"|ω|_horn (R={COSSERAT_R})")
+ax2.axhline(
+    THRESH_WINDING_PERSIST * omega_initial_val,
+    color="C3",
+    ls="--",
+    lw=1,
+    label=f"PASS threshold ({THRESH_WINDING_PERSIST}× initial)",
+)
 ax2.set_xlabel("t (lattice units)")
 ax2.set_ylabel("|ω|")
 ax2.set_title(f"Test 2: Winding persistence — {'PASS' if test2_pass else 'FAIL'}")
@@ -503,12 +527,10 @@ ax3.grid(True, alpha=0.2)
 
 # Panel 4: Final V_inc cross-section (z=cz plane)
 ax4 = fig.add_subplot(gs[1, 0])
-v_inc_norm = np.sqrt(np.sum(engine.k4.V_inc ** 2, axis=-1))
+v_inc_norm = np.sqrt(np.sum(engine.k4.V_inc**2, axis=-1))
 v_slice = v_inc_norm[:, :, CENTER[2]]
-im = ax4.imshow(v_slice.T, origin="lower", cmap="hot",
-                extent=[0, N, 0, N], aspect="equal")
-ax4.plot(CENTER[0] + 0.5, CENTER[1] + 0.5, "c*", ms=15,
-         markeredgecolor="white", label="Center cell")
+im = ax4.imshow(v_slice.T, origin="lower", cmap="hot", extent=[0, N, 0, N], aspect="equal")
+ax4.plot(CENTER[0] + 0.5, CENTER[1] + 0.5, "c*", ms=15, markeredgecolor="white", label="Center cell")
 ax4.set_xlabel("x")
 ax4.set_ylabel("y")
 ax4.set_title(f"Final |V_inc| (z={CENTER[2]} slice)")
@@ -519,10 +541,8 @@ ax4.legend(loc="upper right", fontsize=8)
 ax5 = fig.add_subplot(gs[1, 1])
 omega_norm = np.linalg.norm(engine.cos.omega, axis=-1)
 omega_slice = omega_norm[:, :, CENTER[2]]
-im = ax5.imshow(omega_slice.T, origin="lower", cmap="viridis",
-                extent=[0, N, 0, N], aspect="equal")
-ax5.plot(CENTER[0] + 0.5, CENTER[1] + 0.5, "r*", ms=15,
-         markeredgecolor="white", label="Center cell")
+im = ax5.imshow(omega_slice.T, origin="lower", cmap="viridis", extent=[0, N, 0, N], aspect="equal")
+ax5.plot(CENTER[0] + 0.5, CENTER[1] + 0.5, "r*", ms=15, markeredgecolor="white", label="Center cell")
 ax5.set_xlabel("x")
 ax5.set_ylabel("y")
 ax5.set_title(f"Final |ω| (z={CENTER[2]} slice)")
@@ -546,7 +566,7 @@ ax6.legend(loc="best", fontsize=8, framealpha=0.8)
 ax7 = fig.add_subplot(gs[2, 0])
 categories = ["Λ_vol\n(4π³)", "Λ_surf\n(π²)", "Λ_line\n(π)", "Total\n(α⁻¹)"]
 measured = [Lambda_vol, Lambda_surf, Lambda_line, q_total]
-targets = [4 * np.pi ** 3, np.pi ** 2, np.pi, q_target]
+targets = [4 * np.pi**3, np.pi**2, np.pi, q_target]
 x_pos = np.arange(len(categories))
 width = 0.35
 ax7.bar(x_pos - width / 2, measured, width, label="Measured", color="C2", alpha=0.85)
@@ -566,8 +586,15 @@ v_inc_ports = engine.k4.V_inc[CENTER[0], CENTER[1], CENTER[2]]
 v_ref_ports = engine.k4.V_ref[CENTER[0], CENTER[1], CENTER[2]]
 colors = ["C0", "C1", "C2", "C3"]
 for port in range(4):
-    ax8.plot(v_inc_ports[port], v_ref_ports[port], "o", color=colors[port],
-             ms=12, label=f"Port {port}", markeredgecolor="white")
+    ax8.plot(
+        v_inc_ports[port],
+        v_ref_ports[port],
+        "o",
+        color=colors[port],
+        ms=12,
+        label=f"Port {port}",
+        markeredgecolor="white",
+    )
 ax8.axhline(0, color="white", ls=":", lw=0.5, alpha=0.3)
 ax8.axvline(0, color="white", ls=":", lw=0.5, alpha=0.3)
 ax8.set_xlabel("V_inc")
@@ -598,11 +625,17 @@ summary_text = (
     f"  MODE: {mode}\n"
     f"  Passed: {n_pass} / 4"
 )
-ax9.text(0.05, 0.95, summary_text, transform=ax9.transAxes,
-         fontsize=9, family="monospace", verticalalignment="top",
-         color="white",
-         bbox=dict(boxstyle="round,pad=0.5",
-                   facecolor="#202020", edgecolor="#404040"))
+ax9.text(
+    0.05,
+    0.95,
+    summary_text,
+    transform=ax9.transAxes,
+    fontsize=9,
+    family="monospace",
+    verticalalignment="top",
+    color="white",
+    bbox=dict(boxstyle="round,pad=0.5", facecolor="#202020", edgecolor="#404040"),
+)
 
 # Style all axes
 for ax in [ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8]:
@@ -622,10 +655,12 @@ for ax in [ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8]:
 
 fig.suptitle(
     f"R10 Path-α v14 — Single-Cell Bounded-Boundary Test (Mode {mode.split('—')[0].strip()})",
-    color="white", fontsize=15, y=0.98,
+    color="white",
+    fontsize=15,
+    y=0.98,
 )
 
-out_path = OUT / f"r10_path_alpha_{VARIANT}_single_cell_boundary.png"
+out_path = sim_output(f"r10_path_alpha_{VARIANT}_single_cell_boundary.png")
 plt.savefig(out_path, dpi=140, facecolor="#0a0a0a", bbox_inches="tight")
 print(f"  Figure: {out_path}")
 print()

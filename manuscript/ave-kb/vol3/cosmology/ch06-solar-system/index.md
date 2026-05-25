@@ -1,5 +1,11 @@
 [↑ Cosmology](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-3kmt3p]
+subtree-experiments: []
+-->
+
 # Ch.6: Solar System Impedance
 
 Applies the impedance framework to solar system boundaries, interstellar objects, orbital resonances, and planetary magnetospheres. The heliospheric impedance profile, the Oort Cloud as a saturation boundary ($r_{sat} \approx 7{,}400$ AU), Kirkwood gaps as cavity modes ($<0.3\%$ error), and planetary magnetopause standoff distances are all derived from the same impedance operators used at galactic and subatomic scales. 'Oumuamua's anomalous acceleration matches solar radiation pressure at 91% with zero free parameters.

@@ -14,12 +14,12 @@ individual c_0 or c_2 zero-crossings.
 
 Same configuration as O.1b/O.1c: N=48, amp=0.1, R=8, r=4.
 """
-from __future__ import annotations
 
 import json
 import sys
 import time
 from pathlib import Path
+
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
@@ -28,16 +28,17 @@ from scripts.vol_1_foundations.tlm_electron_soliton_eigenmode import (
     initialize_2_3_voltage_ansatz,
 )
 
-
 COMPTON_PERIOD = 2.0 * np.pi
 DT = 1.0 / np.sqrt(2.0)
 
-PORTS = np.array([
-    [+1.0, +1.0, +1.0],
-    [+1.0, -1.0, -1.0],
-    [-1.0, +1.0, -1.0],
-    [-1.0, -1.0, +1.0],
-]) / np.sqrt(3.0)
+PORTS = np.array(
+    [
+        [+1.0, +1.0, +1.0],
+        [+1.0, -1.0, -1.0],
+        [-1.0, +1.0, -1.0],
+        [-1.0, -1.0, +1.0],
+    ]
+) / np.sqrt(3.0)
 
 
 def chirality_weight_at(phi, psi, R, r, port_idx):
@@ -56,8 +57,7 @@ def chirality_weight_at(phi, psi, R, r, port_idx):
     return float(np.dot(PORTS[port_idx], t_hat))
 
 
-def winding_via_multiplicative(V_inc_field, R, r, N,
-                                psi_value, phi_array, port_pair=(0, 2)):
+def winding_via_multiplicative(V_inc_field, R, r, N, psi_value, phi_array, port_pair=(0, 2)):
     """A47 v5 corrected: phase = arctan2(V[p2]·c_0, V[p0]·c_2)."""
     cx, cy, cz = (N - 1) / 2.0, (N - 1) / 2.0, (N - 1) / 2.0
     p0, p2 = port_pair
@@ -87,14 +87,12 @@ def winding_via_multiplicative(V_inc_field, R, r, N,
     im = np.array(im_vals)
     angles = np.arctan2(im, re)
     unwrapped = np.unwrap(angles)
-    closure = np.angle(np.exp(1j * (np.arctan2(im[0], re[0])
-                                     - np.arctan2(im[-1], re[-1]))))
+    closure = np.angle(np.exp(1j * (np.arctan2(im[0], re[0]) - np.arctan2(im[-1], re[-1]))))
     total = (unwrapped[-1] - unwrapped[0]) + closure
     return total / (2.0 * np.pi), np.array(c0_vals), np.array(c2_vals)
 
 
-def winding_poloidal_multiplicative(V_inc_field, R, r, N,
-                                     phi_value, psi_array, port_pair=(0, 2)):
+def winding_poloidal_multiplicative(V_inc_field, R, r, N, phi_value, psi_array, port_pair=(0, 2)):
     """Poloidal winding via multiplicative extraction."""
     cx, cy, cz = (N - 1) / 2.0, (N - 1) / 2.0, (N - 1) / 2.0
     p0, p2 = port_pair
@@ -119,8 +117,7 @@ def winding_poloidal_multiplicative(V_inc_field, R, r, N,
     im = np.array(im_vals)
     angles = np.arctan2(im, re)
     unwrapped = np.unwrap(angles)
-    closure = np.angle(np.exp(1j * (np.arctan2(im[0], re[0])
-                                     - np.arctan2(im[-1], re[-1]))))
+    closure = np.angle(np.exp(1j * (np.arctan2(im[0], re[0]) - np.arctan2(im[-1], re[-1]))))
     total = (unwrapped[-1] - unwrapped[0]) + closure
     return total / (2.0 * np.pi)
 
@@ -138,7 +135,9 @@ def main():
 
     t_start = time.time()
     engine = VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=0.0,
+        N=N,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -152,18 +151,18 @@ def main():
 
     # IC verification
     print(f"\n  Pre-evolution windings (multiplicative extraction):")
-    w_tor_ic, c0_ic, c2_ic = winding_via_multiplicative(
-        engine.k4.V_inc, R, r, N, np.pi / 4, phis
-    )
-    w_pol_ic = winding_poloidal_multiplicative(
-        engine.k4.V_inc, R, r, N, 0.1, psis
-    )
+    w_tor_ic, c0_ic, c2_ic = winding_via_multiplicative(engine.k4.V_inc, R, r, N, np.pi / 4, phis)
+    w_pol_ic = winding_poloidal_multiplicative(engine.k4.V_inc, R, r, N, 0.1, psis)
     print(f"    Toroidal @ ψ=π/4: {w_tor_ic:.3f} (target 2)")
     print(f"    Poloidal @ φ=0.1: {w_pol_ic:.3f} (target 3)")
-    print(f"    c_0 range: [{c0_ic.min():.3f}, {c0_ic.max():.3f}], "
-          f"# sign-changes: {(np.diff(np.sign(c0_ic)) != 0).sum()}")
-    print(f"    c_2 range: [{c2_ic.min():.3f}, {c2_ic.max():.3f}], "
-          f"# sign-changes: {(np.diff(np.sign(c2_ic)) != 0).sum()}")
+    print(
+        f"    c_0 range: [{c0_ic.min():.3f}, {c0_ic.max():.3f}], "
+        f"# sign-changes: {(np.diff(np.sign(c0_ic)) != 0).sum()}"
+    )
+    print(
+        f"    c_2 range: [{c2_ic.min():.3f}, {c2_ic.max():.3f}], "
+        f"# sign-changes: {(np.diff(np.sign(c2_ic)) != 0).sum()}"
+    )
 
     # Run
     print(f"\n  Running {n_steps} steps...", flush=True)
@@ -178,28 +177,20 @@ def main():
 
     # Post-evolution
     print(f"\n  Post-evolution windings (multiplicative extraction):")
-    w_tor_50P, _, _ = winding_via_multiplicative(
-        engine.k4.V_inc, R, r, N, np.pi / 4, phis
-    )
-    w_pol_50P = winding_poloidal_multiplicative(
-        engine.k4.V_inc, R, r, N, 0.1, psis
-    )
+    w_tor_50P, _, _ = winding_via_multiplicative(engine.k4.V_inc, R, r, N, np.pi / 4, phis)
+    w_pol_50P = winding_poloidal_multiplicative(engine.k4.V_inc, R, r, N, 0.1, psis)
     print(f"    Toroidal @ ψ=π/4: {w_tor_50P:.3f} (target 2)")
     print(f"    Poloidal @ φ=0.1: {w_pol_50P:.3f} (target 3)")
 
     # Cross-check at additional psi values
     print(f"\n  Cross-check toroidal at multiple ψ values (final state):")
     for psi_test in [np.pi / 6, np.pi / 4, np.pi / 3, np.pi / 2, 2 * np.pi / 3]:
-        w, _, _ = winding_via_multiplicative(
-            engine.k4.V_inc, R, r, N, psi_test, phis
-        )
+        w, _, _ = winding_via_multiplicative(engine.k4.V_inc, R, r, N, psi_test, phis)
         print(f"    ψ={psi_test:.3f} ({psi_test/np.pi:.2f}π): toroidal = {w:.3f}")
 
     print(f"\n  Cross-check poloidal at multiple φ values (final state):")
     for phi_test in [0.1, np.pi / 4, np.pi / 2, np.pi, 3 * np.pi / 2]:
-        w = winding_poloidal_multiplicative(
-            engine.k4.V_inc, R, r, N, phi_test, psis
-        )
+        w = winding_poloidal_multiplicative(engine.k4.V_inc, R, r, N, phi_test, psis)
         print(f"    φ={phi_test:.3f} ({phi_test/np.pi:.2f}π): poloidal = {w:.3f}")
 
     # Verdict

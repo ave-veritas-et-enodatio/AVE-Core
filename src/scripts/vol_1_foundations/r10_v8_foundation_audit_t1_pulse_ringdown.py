@@ -27,7 +27,6 @@ Decision criteria:
   - Compare to predicted candidate frequencies
   - Establish baseline "the substrate naturally rings at f_X when pulsed"
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -60,7 +59,9 @@ def main():
 
     # Engine: pure K4-TLM, no Cosserat coupling distorting the test
     engine = VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=0.0,
+        N=N,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=False,
@@ -85,8 +86,7 @@ def main():
         v_traj[i] = engine.k4.V_inc[center[0], center[1], center[2], 0]
         if (time.time() - last) > 30.0:
             t_p = (i + 1) * DT / COMPTON_PERIOD
-            print(f"    step {i}/{N_STEPS}, t={t_p:.1f}P, elapsed {time.time()-t0:.1f}s",
-                  flush=True)
+            print(f"    step {i}/{N_STEPS}, t={t_p:.1f}P, elapsed {time.time()-t0:.1f}s", flush=True)
             last = time.time()
     elapsed = time.time() - t0
     print(f"  Recording done at {elapsed:.1f}s", flush=True)

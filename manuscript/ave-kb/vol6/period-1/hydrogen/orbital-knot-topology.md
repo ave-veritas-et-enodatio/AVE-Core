@@ -1,7 +1,12 @@
 [↑ Hydrogen (Z=1)](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-a95yx1, clm-y7uvdc]
+-->
 
 ## Orbital Knot Topology
+<!-- claim-quality: clm-a95yx1 (Bohr radius / Rydberg / de Broglie quantization derivations from $l_{node}$ and $\alpha$) -->
 
 ### The Topological Hydrogen Atom (Protium)
 
@@ -46,6 +51,8 @@ n = \frac{2\pi a_0}{\lambda_e} = \frac{2\pi (l_{node} / \alpha_{geom})}{2\pi\hba
 $$
 
 The electron is not a smeared cloud of probability. It is a highly localized, deterministic knot that physically bites its own topological tail in phase every single orbit. It is a mathematically perfect LC standing wave in the continuous $\mathcal{M}_A$ fluid.
+
+<!-- claim-quality: clm-y7uvdc (per-element soliton placement: single trefoil on $n=1$ harmonic) -->
 
 [Figure: hydrogen_1_topology.png — see manuscript/vol_6_periodic_table/figures/]
 

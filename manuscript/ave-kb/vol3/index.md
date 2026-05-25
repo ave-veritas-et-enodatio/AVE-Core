@@ -1,5 +1,14 @@
 [↑ AVE Knowledge Base](../entry-point.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-07kd5v, clm-1klgo2, clm-2e9j97, clm-395gps, clm-3dc9qt, clm-3ii690, clm-3kmt3p, clm-3zz0f6, clm-48g5qf, clm-4o0f0h, clm-5em8fx, clm-8nkvwy, clm-91adfe, clm-9fnieq, clm-a71inj, clm-av2o4v, clm-b27pnp, clm-c6k5om, clm-cfd5yf, clm-cul4it, clm-eaiqj1, clm-hk81zp, clm-ir8h78, clm-jpfbm6, clm-law1ho, clm-nxfmh0, clm-o6kgkz, clm-qky559, clm-qyn8t0, clm-rd9cjm, clm-refjr6, clm-s4n33u, clm-t05mvx, clm-tt8j0v, clm-u86caq, clm-uu6dl5, clm-wd5rs0, clm-wx5324, clm-x19btt, clm-y9old1, clm-zsqh87]
+subtree-experiments: []
+bootstrap: true
+-->
+
+> ⛔ **Bootstrap.** Leaves are canonical; this index and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this volume, load [`./claim-quality.md`](./claim-quality.md) and [`../claim-quality.md`](../claim-quality.md). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
+
 # Vol 3: Macroscopic Physics
 
 Macroscopic phenomena derived from the $\mathcal{M}_A$ LC vacuum network: gravity, general relativity, the optical metric, gravitational waves, superconductivity, material properties, thermodynamics, stellar interiors, ideal gas law, and geophysics. All domains use the same impedance operators (reflection coefficient, saturation, mode coupling) applied at macroscopic scales.
@@ -11,7 +20,7 @@ Macroscopic phenomena derived from the $\mathcal{M}_A$ LC vacuum network: gravit
 | Vacuum Poisson Ratio | $\nu_{vac} = 2/7$ [Gravity](./gravity/ch01-gravity-yield/vacuum-poisson-ratio.md) |
 | 1/7 Isotropic Impedance Projection | Isotropic Projection $= \frac{1}{7}\epsilon_{11}$ [Gravity](./gravity/ch01-gravity-yield/one-seventh-impedance-projection.md) |
 | Gravitational Coupling Constant | $G = \hbar c / (7\xi m_{e}^{2})$ [Gravity](./gravity/ch01-gravity-yield/gravitational-coupling-constant.md) |
-| Asymptotic Hubble Constant | $H_{\infty} = 28\pi m_{e}^{3}cG / (\hbar^{2}\alpha^{2})$; $H_\infty \approx 69.32$ km/s/Mpc [Gravity](./gravity/ch01-gravity-yield/asymptotic-hubble-constant.md) |
+| Asymptotic Hubble Constant | $H_{\infty} = 28\pi m_{e}^{3}cG / (\hbar^{2}\alpha^{2})$; $H_\infty \approx 69.32$ km/s/Mpc — *geometric self-consistency proof, not independent prediction* (the Machian coupling $\xi$ embeds $R_H \equiv c/H_\infty$ in $G$; see [lattice-genesis-hubble-tension](./cosmology/ch04-generative-cosmology/lattice-genesis-hubble-tension.md) and `claim-quality.md`) [Gravity](./gravity/ch01-gravity-yield/asymptotic-hubble-constant.md) |
 | Planck Mass | $m_{P} = m_{e}\sqrt{7\xi}$ [Gravity](./gravity/ch01-gravity-yield/planck-mass.md) |
 | Kinetic Yield Threshold | $E_k = \sqrt{\alpha}\cdot m_e c^2 \approx 43.65$ keV [Gravity](./gravity/ch01-gravity-yield/kinetic-yield-threshold.md) |
 | Refractive Index of Gravity | $n(r) = 1 + 2GM/(c^2 r)$ [Gravity](./gravity/ch03-macroscopic-relativity/refractive-index-of-gravity.md) |

@@ -39,23 +39,23 @@ AVE fidelity (no SM/QED leakage)
   · Op3 bond reflection uses Γ = (Z_B − Z_A)/(Z_B + Z_A) with
     Z_eff = Z_0/√(1 − A²)^(1/2) per Op14.
 """
-from __future__ import annotations
 
 import os
 import sys
+
 sys.path.insert(0, os.path.dirname(__file__))
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation, PillowWriter
 from matplotlib import colors as mcolors
-
-from ave.core.k4_tlm import K4Lattice3D
-from ave.core.constants import C_0, V_SNAP
-
+from matplotlib.animation import FuncAnimation, PillowWriter
 from photon_propagation import PlaneSource, xy_slice
+
+from ave.core.constants import C_0, V_SNAP
+from ave.core.k4_tlm import K4Lattice3D
 
 
 def _run_single(
@@ -72,7 +72,9 @@ def _run_single(
     steps_per_frame: int,
 ) -> dict:
     lattice = K4Lattice3D(
-        N, N, N,
+        N,
+        N,
+        N,
         dx=1.0,
         nonlinear=nonlinear,
         pml_thickness=pml,
@@ -100,7 +102,7 @@ def _run_single(
 
     z_slice = N // 2
     rho_frames: list[np.ndarray] = []
-    A2_frames: list[np.ndarray] = []   # local A² saturation field (z=N/2 slice)
+    A2_frames: list[np.ndarray] = []  # local A² saturation field (z=N/2 slice)
     times: list[float] = []
 
     for step in range(n_steps + 1):
@@ -113,7 +115,7 @@ def _run_single(
             rho_xy = xy_slice(lattice, z_slice).copy()
             rho_frames.append(rho_xy)
             # Local A² on same slice: A = |V_inc|_total / V_SNAP
-            v_tot = np.sqrt(np.sum(lattice.V_inc ** 2, axis=-1))
+            v_tot = np.sqrt(np.sum(lattice.V_inc**2, axis=-1))
             A2 = (v_tot / float(V_SNAP)) ** 2
             A2_frames.append(A2[:, :, z_slice].copy())
             times.append(lattice.timestep * dt)
@@ -138,8 +140,8 @@ def run(
     N: int = 96,
     pml: int = 8,
     lambda_cells: float = 14.0,
-    sigma_yz: float = 5.0,        # tighter focus → higher local A² at crest
-    t_sigma_periods: float = 1.2, # longer pulse → higher accumulated amplitude
+    sigma_yz: float = 5.0,  # tighter focus → higher local A² at crest
+    t_sigma_periods: float = 1.2,  # longer pulse → higher accumulated amplitude
     amp_frac_low: float = 0.01,
     # Very aggressive: amp near V_SNAP to overcome dispersion.  At the
     # source plane local A exceeds 1; we want the downstream packet
@@ -153,23 +155,43 @@ def run(
 ) -> dict:
     print(f"Running linear (amp_frac = {amp_frac_low})…")
     lin = _run_single(
-        amp_frac=amp_frac_low, nonlinear=False, op3=False,
-        N=N, pml=pml, lambda_cells=lambda_cells, sigma_yz=sigma_yz,
-        t_sigma_periods=t_sigma_periods, source_x=source_x,
-        n_steps=n_steps, steps_per_frame=steps_per_frame,
+        amp_frac=amp_frac_low,
+        nonlinear=False,
+        op3=False,
+        N=N,
+        pml=pml,
+        lambda_cells=lambda_cells,
+        sigma_yz=sigma_yz,
+        t_sigma_periods=t_sigma_periods,
+        source_x=source_x,
+        n_steps=n_steps,
+        steps_per_frame=steps_per_frame,
     )
     print(f"Running saturation (amp_frac = {amp_frac_high}, nonlinear+op3 ON)…")
     sat = _run_single(
-        amp_frac=amp_frac_high, nonlinear=True, op3=True,
-        N=N, pml=pml, lambda_cells=lambda_cells, sigma_yz=sigma_yz,
-        t_sigma_periods=t_sigma_periods, source_x=source_x,
-        n_steps=n_steps, steps_per_frame=steps_per_frame,
+        amp_frac=amp_frac_high,
+        nonlinear=True,
+        op3=True,
+        N=N,
+        pml=pml,
+        lambda_cells=lambda_cells,
+        sigma_yz=sigma_yz,
+        t_sigma_periods=t_sigma_periods,
+        source_x=source_x,
+        n_steps=n_steps,
+        steps_per_frame=steps_per_frame,
     )
 
-    np.savez(out_npz,
-             rho_lin=lin["rho"], rho_sat=sat["rho"],
-             A2_lin=lin["A2"], A2_sat=sat["A2"],
-             t=lin["t"], amp_lin=lin["amp_volts"], amp_sat=sat["amp_volts"])
+    np.savez(
+        out_npz,
+        rho_lin=lin["rho"],
+        rho_sat=sat["rho"],
+        A2_lin=lin["A2"],
+        A2_sat=sat["A2"],
+        t=lin["t"],
+        amp_lin=lin["amp_volts"],
+        amp_sat=sat["amp_volts"],
+    )
 
     _render(lin, sat, N, pml, source_x, amp_frac_low, amp_frac_high, out_gif)
 
@@ -184,8 +206,14 @@ def run(
 
 
 def _render(
-    lin: dict, sat: dict, N: int, pml: int, source_x: int,
-    amp_frac_low: float, amp_frac_high: float, out_path: str,
+    lin: dict,
+    sat: dict,
+    N: int,
+    pml: int,
+    source_x: int,
+    amp_frac_low: float,
+    amp_frac_high: float,
+    out_path: str,
 ) -> None:
     fig = plt.figure(figsize=(13, 9))
     fig.patch.set_facecolor("#111")
@@ -208,22 +236,28 @@ def _render(
     vmax_sat = max(sat["rho"].max(), 1e-30)
     vmin_sat = max(vmax_sat * 1e-4, 1e-30)
     im_lin = ax_lin.imshow(
-        lin["rho"][0].T, origin="lower", cmap="inferno",
+        lin["rho"][0].T,
+        origin="lower",
+        cmap="inferno",
         norm=mcolors.LogNorm(vmin=vmin_lin, vmax=vmax_lin),
     )
     im_sat = ax_sat.imshow(
-        sat["rho"][0].T, origin="lower", cmap="inferno",
+        sat["rho"][0].T,
+        origin="lower",
+        cmap="inferno",
         norm=mcolors.LogNorm(vmin=vmin_sat, vmax=vmax_sat),
     )
     ax_lin.axvline(source_x, color="cyan", ls="--", lw=0.6, alpha=0.6)
     ax_sat.axvline(source_x, color="cyan", ls="--", lw=0.6, alpha=0.6)
     ax_lin.set_title(
         f"LINEAR   amp = {amp_frac_low:.2f}·V_SNAP   (Regime I)",
-        color="#eee", fontsize=10,
+        color="#eee",
+        fontsize=10,
     )
     ax_sat.set_title(
         f"SATURATED   amp = {amp_frac_high:.2f}·V_SNAP   (Regime II)",
-        color="#f90", fontsize=10,
+        color="#f90",
+        fontsize=10,
     )
     for ax in (ax_lin, ax_sat):
         ax.set_xlabel("x (cells)", color="#ccc")
@@ -232,14 +266,17 @@ def _render(
     # A² field for the saturation case (linear scale, 0 to 1.2)
     vmax_A2 = max(sat["A2"].max() * 1.1, 0.15)
     im_A2 = ax_A2.imshow(
-        sat["A2"][0].T, origin="lower", cmap="viridis",
-        vmin=0, vmax=vmax_A2,
+        sat["A2"][0].T,
+        origin="lower",
+        cmap="viridis",
+        vmin=0,
+        vmax=vmax_A2,
     )
     ax_A2.axvline(source_x, color="cyan", ls="--", lw=0.6, alpha=0.6)
     ax_A2.set_title(
-        "Saturation amplitude A² = |V_inc|²/V_SNAP²\n"
-        "(A²→1 = Axiom 4 rupture)",
-        color="#eee", fontsize=9,
+        "Saturation amplitude A² = |V_inc|²/V_SNAP²\n" "(A²→1 = Axiom 4 rupture)",
+        color="#eee",
+        fontsize=9,
     )
     ax_A2.set_xlabel("x (cells)", color="#ccc")
     ax_A2.set_ylabel("y (cells)", color="#ccc")
@@ -248,20 +285,15 @@ def _render(
     x_axis = np.arange(N)
     ax_prof.set_yscale("log")
     # compute x profiles
-    prof_lin = lin["rho"].sum(axis=2)     # (frames, x)
+    prof_lin = lin["rho"].sum(axis=2)  # (frames, x)
     prof_sat = sat["rho"].sum(axis=2)
-    ax_prof.set_ylim(max(prof_lin.max(), prof_sat.max()) * 1e-4,
-                     max(prof_lin.max(), prof_sat.max()) * 2)
+    ax_prof.set_ylim(max(prof_lin.max(), prof_sat.max()) * 1e-4, max(prof_lin.max(), prof_sat.max()) * 2)
     ax_prof.set_xlim(0, N)
     ax_prof.axvline(source_x, color="cyan", ls="--", lw=0.6, alpha=0.6)
     ax_prof.axvspan(0, pml, color="#444", alpha=0.3)
     ax_prof.axvspan(N - pml, N, color="#444", alpha=0.3)
-    (line_lin,) = ax_prof.plot(
-        x_axis, prof_lin[0], color="#7af", lw=1.4, label="linear"
-    )
-    (line_sat,) = ax_prof.plot(
-        x_axis, prof_sat[0], color="#f90", lw=1.4, label="saturated"
-    )
+    (line_lin,) = ax_prof.plot(x_axis, prof_lin[0], color="#7af", lw=1.4, label="linear")
+    (line_sat,) = ax_prof.plot(x_axis, prof_sat[0], color="#f90", lw=1.4, label="saturated")
     ax_prof.legend(loc="upper right", fontsize=9)
     ax_prof.set_xlabel("x (cells)", color="#ccc")
     ax_prof.set_ylabel("Σ|V|² (z=N/2 slice)", color="#ccc")
@@ -270,7 +302,9 @@ def _render(
 
     # Suptitle
     suptitle = fig.suptitle(
-        "", color="#eee", fontsize=13,
+        "",
+        color="#eee",
+        fontsize=13,
     )
 
     def update(i):
@@ -282,13 +316,11 @@ def _render(
         t_ns = lin["t"][i] * 1e9
         max_A2 = sat["A2"][i].max()
         suptitle.set_text(
-            f"Phase C2 — photon in linear vs saturation regime    "
-            f"t = {t_ns:6.1f} ns    max A² (sat) = {max_A2:.3f}"
+            f"Phase C2 — photon in linear vs saturation regime    " f"t = {t_ns:6.1f} ns    max A² (sat) = {max_A2:.3f}"
         )
         return im_lin, im_sat, im_A2, line_lin, line_sat, suptitle
 
-    anim = FuncAnimation(fig, update, frames=len(lin["t"]),
-                         interval=100, blit=False)
+    anim = FuncAnimation(fig, update, frames=len(lin["t"]), interval=100, blit=False)
     writer = PillowWriter(fps=10)
     anim.save(out_path, writer=writer, savefig_kwargs={"facecolor": "#111"})
     plt.close(fig)
@@ -296,12 +328,13 @@ def _render(
 
 if __name__ == "__main__":
     import json
+
     summary = run()
     print(json.dumps(summary, indent=2))
     print(f"\nAnimation: /tmp/photon_saturation.gif")
     print(f"  max A² linear   = {summary['max_A2_lin']:.3e}")
     print(f"  max A² saturated = {summary['max_A2_sat']:.3e}")
-    thresh = np.sqrt(2.0 * (1 / 137.036))    # √(2α), Regime I edge
+    thresh = np.sqrt(2.0 * (1 / 137.036))  # √(2α), Regime I edge
     print(f"  Regime thresholds: √(2α) = {thresh:.3f},  √3/2 = {np.sqrt(3)/2:.3f}")
     if summary["max_A2_sat"] > thresh:
         print(f"  ✓ Saturation run IS in Regime II (A² > √(2α) = {thresh:.3f})")

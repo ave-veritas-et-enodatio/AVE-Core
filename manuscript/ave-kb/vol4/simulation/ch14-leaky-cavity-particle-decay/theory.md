@@ -1,5 +1,9 @@
 [↑ Ch.14: Leaky Cavity Particle Decay](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-c54kdd]
+-->
 
 ## The Breakdown Voltage of the Vacuum
 

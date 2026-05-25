@@ -12,7 +12,6 @@ Per doc 96 §6 follow-ups to Test 1's substrate-intrinsic 1.50·ω_C finding:
 T1.2 (DT scaling) deferred — would require dx overriding which is more
 intrusive; covered partially by T1.1's N-scan since DT is computed from dx.
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -32,11 +31,16 @@ def run_pulse_ringdown(N, v_pulse, enable_cos_self, label, n_periods=50):
     COMPTON_PERIOD = 2.0 * np.pi
     N_STEPS = int(n_periods * COMPTON_PERIOD / DT)
 
-    print(f"\n  [{label}] N={N}, PML={PML}, V_pulse={v_pulse}, "
-          f"cosserat_self={enable_cos_self}, recording {n_periods}P", flush=True)
+    print(
+        f"\n  [{label}] N={N}, PML={PML}, V_pulse={v_pulse}, "
+        f"cosserat_self={enable_cos_self}, recording {n_periods}P",
+        flush=True,
+    )
 
     engine = VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=0.0,
+        N=N,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=enable_cos_self,
@@ -63,8 +67,7 @@ def run_pulse_ringdown(N, v_pulse, enable_cos_self, label, n_periods=50):
     physical_mask = freqs < nyquist_cutoff
     spec_phys = spec * physical_mask
     top_idxs = np.argsort(spec_phys)[::-1][:5]
-    peaks = [(int(i), float(freqs[i]), float(spec[i]), 2 * np.pi * float(freqs[i]))
-             for i in top_idxs]
+    peaks = [(int(i), float(freqs[i]), float(spec[i]), 2 * np.pi * float(freqs[i])) for i in top_idxs]
 
     print(f"    elapsed {elapsed:.1f}s")
     print(f"    Top 5 non-Nyquist peaks (idx, f, mag, ω/ω_C):")
@@ -100,18 +103,15 @@ def main():
     # T1.1 — Lattice-size scan
     print("\n=== T1.1: Lattice-size scan ===")
     for N in [8, 16, 24]:
-        results.append(run_pulse_ringdown(N=N, v_pulse=0.01, enable_cos_self=False,
-                                          label=f"T1.1 N={N}"))
+        results.append(run_pulse_ringdown(N=N, v_pulse=0.01, enable_cos_self=False, label=f"T1.1 N={N}"))
 
     # T1.3 — Saturated amplitude
     print("\n=== T1.3: Saturated amplitude ===")
-    results.append(run_pulse_ringdown(N=16, v_pulse=0.95, enable_cos_self=False,
-                                      label="T1.3 V_pulse=0.95 (saturated)"))
+    results.append(run_pulse_ringdown(N=16, v_pulse=0.95, enable_cos_self=False, label="T1.3 V_pulse=0.95 (saturated)"))
 
     # T1.4 — Cosserat self-terms enabled
     print("\n=== T1.4: Cosserat self-terms enabled ===")
-    results.append(run_pulse_ringdown(N=16, v_pulse=0.01, enable_cos_self=True,
-                                      label="T1.4 Cosserat self-terms ON"))
+    results.append(run_pulse_ringdown(N=16, v_pulse=0.01, enable_cos_self=True, label="T1.4 Cosserat self-terms ON"))
 
     # Summary
     print("\n" + "=" * 78, flush=True)
@@ -144,8 +144,7 @@ def main():
         print(f"    {r['label']:<40} ω={omega:.4f}  Δ={delta_pct:+.2f}%{flag}")
 
     out_path = Path(__file__).parent / "r10_v8_foundation_audit_t1_extensions_results.json"
-    out_path.write_text(json.dumps({"baseline": "Test 1 main: ω=1.50",
-                                     "results": results}, indent=2, default=str))
+    out_path.write_text(json.dumps({"baseline": "Test 1 main: ω=1.50", "results": results}, indent=2, default=str))
     print(f"\nSaved {out_path.relative_to(Path.cwd())}")
 
 

@@ -1,6 +1,11 @@
 [↑ Ch.14: Sonoluminescence](index.md)
 <!-- leaf: verbatim -->
 
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-91adfe]
+-->
+
 # Sonoluminescence: Saturated Rayleigh-Plesset Derivation
 
 **Volume:** 3 (Macroscopic Physics)

@@ -43,21 +43,20 @@ Outputs:
   - assets/photon_chiral_yee_panels.png  (4-panel summary)
   - results/photon_chiral_yee.json       (pre-reg evaluation, both handedness)
 """
-from __future__ import annotations
 
 import json
 import sys
 from pathlib import Path
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
 
+from ave.core.constants import C_0, EPSILON_0, MU_0, V_YIELD
 from ave.core.fdtd_3d import FDTD3DEngine
-from ave.core.constants import C_0, V_YIELD, MU_0, EPSILON_0
-
 
 PREREG = {
     "C-P1_CP_amplitude_ratio_min": 0.95,
@@ -78,8 +77,8 @@ def run_chiral_propagation(
     nx: int = 200,
     ny: int = 60,
     nz: int = 60,
-    dx: float = 0.01,         # 1 cm/cell
-    freq: float = 1.5e9,      # 1.5 GHz → λ ≈ 20 cm = 20 cells
+    dx: float = 0.01,  # 1 cm/cell
+    freq: float = 1.5e9,  # 1.5 GHz → λ ≈ 20 cm = 20 cells
     src_x: int = 15,
     sigma_yz_cells: float = 4.0,
     amp_frac_yield: float = 0.05,
@@ -109,8 +108,13 @@ def run_chiral_propagation(
         raise ValueError(f"handedness must be RH or LH, got {handedness!r}")
 
     eng = FDTD3DEngine(
-        nx, ny, nz, dx=dx, linear_only=linear_only,
-        use_pml=True, pml_layers=8,
+        nx,
+        ny,
+        nz,
+        dx=dx,
+        linear_only=linear_only,
+        use_pml=True,
+        pml_layers=8,
     )
     c = eng.c
     dt = eng.dt
@@ -130,9 +134,9 @@ def run_chiral_propagation(
     cy, cz = ny // 2, nz // 2
     j, k = np.indices((ny, nz), dtype=float)
     r2 = (j - cy) ** 2 + (k - cz) ** 2
-    profile = np.exp(-r2 / (2.0 * sigma_yz_cells ** 2))
+    profile = np.exp(-r2 / (2.0 * sigma_yz_cells**2))
     # Hard mask: only inject within R_helix
-    profile_mask = (r2 <= R_helix_cells ** 2).astype(float)
+    profile_mask = (r2 <= R_helix_cells**2).astype(float)
 
     # Handedness sign: RH = +1 (counterclockwise looking +x̂), LH = -1
     sign = +1.0 if handedness == "RH" else -1.0
@@ -187,7 +191,7 @@ def run_chiral_propagation(
 
         if step % record_cadence == 0:
             # |E|² along propagation axis
-            e_sq_3d = eng.Ex ** 2 + eng.Ey ** 2 + eng.Ez ** 2
+            e_sq_3d = eng.Ex**2 + eng.Ey**2 + eng.Ez**2
             e_sq_axis = e_sq_3d[:, cy, cz].copy()
             e_sq_axis_history.append(e_sq_axis)
 
@@ -217,8 +221,11 @@ def run_chiral_propagation(
 
     return {
         "handedness": handedness,
-        "nx": nx, "ny": ny, "nz": nz,
-        "dx": dx, "freq_Hz": freq,
+        "nx": nx,
+        "ny": ny,
+        "nz": nz,
+        "dx": dx,
+        "freq_Hz": freq,
         "lambda_cells": float(lambda_cells),
         "n_steps": n_steps,
         "src_x": src_x,
@@ -232,7 +239,8 @@ def run_chiral_propagation(
         "e_sq_axis_history": np.stack(e_sq_axis_history, axis=0),
         "tau_zx_axis_history": np.stack(tau_zx_axis_history, axis=0),
         "frames": np.stack(frames, axis=0),
-        "cy": cy, "cz": cz,
+        "cy": cy,
+        "cz": cz,
     }
 
 
@@ -261,6 +269,7 @@ def evaluate_prereg(rh: dict, lh: dict) -> dict:
         # Compute phase offset via Hilbert transform (analytic signal)
         try:
             from scipy.signal import hilbert
+
             analytic = hilbert(ey_norm)
             inst_phase_y = np.angle(analytic)
             analytic_z = hilbert(ez_norm)
@@ -272,16 +281,9 @@ def evaluate_prereg(rh: dict, lh: dict) -> dict:
     else:
         phase_offset_deg = float("nan")
 
-    pass_C_P1 = (
-        PREREG["C-P1_CP_amplitude_ratio_min"]
-        <= cp_amp_ratio
-        <= PREREG["C-P1_CP_amplitude_ratio_max"]
-        and (
-            np.isnan(phase_offset_deg)
-            or PREREG["C-P1_CP_phase_offset_deg_min"]
-            <= phase_offset_deg
-            <= PREREG["C-P1_CP_phase_offset_deg_max"]
-        )
+    pass_C_P1 = PREREG["C-P1_CP_amplitude_ratio_min"] <= cp_amp_ratio <= PREREG["C-P1_CP_amplitude_ratio_max"] and (
+        np.isnan(phase_offset_deg)
+        or PREREG["C-P1_CP_phase_offset_deg_min"] <= phase_offset_deg <= PREREG["C-P1_CP_phase_offset_deg_max"]
     )
 
     # C-P2: forward propagation velocity from peak arrival at two reference planes
@@ -306,11 +308,7 @@ def evaluate_prereg(rh: dict, lh: dict) -> dict:
     else:
         c_ratio_forward = 0.0
 
-    pass_C_P2 = (
-        PREREG["C-P2_v_forward_over_c_min"]
-        <= c_ratio_forward
-        <= PREREG["C-P2_v_forward_over_c_max"]
-    )
+    pass_C_P2 = PREREG["C-P2_v_forward_over_c_min"] <= c_ratio_forward <= PREREG["C-P2_v_forward_over_c_max"]
 
     # C-P3: dark wake at x just behind source (x = src_x - 5)
     tau_hist = rh["tau_zx_axis_history"]  # (n_frames, nx)
@@ -323,9 +321,7 @@ def evaluate_prereg(rh: dict, lh: dict) -> dict:
     tau_lh = lh["tau_zx_axis_history"]
     rh_max = float(np.abs(tau_hist).max())
     lh_max = float(np.abs(tau_lh).max())
-    asym_frac = (
-        abs(rh_max - lh_max) / max(rh_max, lh_max, 1e-30)
-    )
+    asym_frac = abs(rh_max - lh_max) / max(rh_max, lh_max, 1e-30)
     pass_C_P4 = asym_frac > PREREG["C-P4_chirality_asymmetry_min_frac"]
 
     # C-P5: long-distance propagation — |E|² at x = 0.5·nx
@@ -339,9 +335,7 @@ def evaluate_prereg(rh: dict, lh: dict) -> dict:
     pml_x = pml + 2
     tau_at_pml_max = float(np.abs(tau_hist[:, pml_x]).max())
     tau_interior_peak = float(np.abs(tau_hist).max())
-    pml_reflection_frac = (
-        tau_at_pml_max / tau_interior_peak if tau_interior_peak > 0 else 0.0
-    )
+    pml_reflection_frac = tau_at_pml_max / tau_interior_peak if tau_interior_peak > 0 else 0.0
     pass_C_P6 = pml_reflection_frac < PREREG["C-P6_PML_reflection_max_frac_of_peak"]
 
     return {
@@ -382,10 +376,7 @@ def render_panels(rh: dict, lh: dict, eval_result: dict, out_png: str) -> None:
     tau_h = rh["tau_zx_axis_history"]
     tau_lim = float(np.abs(tau_h).max())
     extent = [0, rh["nx"], rh["times"][-1] * 1e9, 0]
-    im2 = ax.imshow(
-        tau_h, aspect="auto", cmap="seismic",
-        vmin=-tau_lim, vmax=tau_lim, extent=extent
-    )
+    im2 = ax.imshow(tau_h, aspect="auto", cmap="seismic", vmin=-tau_lim, vmax=tau_lim, extent=extent)
     ax.axvline(rh["src_x"], color="black", lw=1, ls="--", label=f"src x={rh['src_x']}")
     ax.set_xlabel("x (cells, propagation axis)")
     ax.set_ylabel("t (ns)")
@@ -405,14 +396,18 @@ def render_panels(rh: dict, lh: dict, eval_result: dict, out_png: str) -> None:
     ax.plot(
         ey_h[sustain_start : sustain_start + n_show],
         ez_h[sustain_start : sustain_start + n_show],
-        "b-", lw=0.6, label="RH"
+        "b-",
+        lw=0.6,
+        label="RH",
     )
     ey_lh = np.asarray(lh["Ey_src_history"])
     ez_lh = np.asarray(lh["Ez_src_history"])
     ax.plot(
         ey_lh[sustain_start : sustain_start + n_show],
         ez_lh[sustain_start : sustain_start + n_show],
-        "r-", lw=0.6, label="LH"
+        "r-",
+        lw=0.6,
+        label="LH",
     )
     ax.set_xlabel("Ey_src")
     ax.set_ylabel("Ez_src")
@@ -420,8 +415,8 @@ def render_panels(rh: dict, lh: dict, eval_result: dict, out_png: str) -> None:
         f"Source CP trajectory (sustain phase)\n"
         f"amp ratio = {eval_result['C_P1_cp_amp_ratio']:.3f}, "
         f"phase_offset = {eval_result['C_P1_phase_offset_deg']:.1f}°"
-        if eval_result['C_P1_phase_offset_deg'] is not None else
-        f"amp ratio = {eval_result['C_P1_cp_amp_ratio']:.3f}"
+        if eval_result["C_P1_phase_offset_deg"] is not None
+        else f"amp ratio = {eval_result['C_P1_cp_amp_ratio']:.3f}"
     )
     ax.set_aspect("equal")
     ax.grid(alpha=0.3)
@@ -436,9 +431,7 @@ def render_panels(rh: dict, lh: dict, eval_result: dict, out_png: str) -> None:
     ax.plot(times_ns, lh_tau_max_t, "r-", lw=1.4, label="LH max |τ_zx|")
     ax.set_xlabel("t (ns)")
     ax.set_ylabel("max |τ_zx| over x")
-    ax.set_title(
-        f"Chirality asymmetry: |Δτ| / max(τ) = {eval_result['C_P4_chirality_asymmetry_frac']*100:.2f}%"
-    )
+    ax.set_title(f"Chirality asymmetry: |Δτ| / max(τ) = {eval_result['C_P4_chirality_asymmetry_frac']*100:.2f}%")
     ax.legend(fontsize=9)
     ax.grid(alpha=0.3)
 
@@ -446,7 +439,8 @@ def render_panels(rh: dict, lh: dict, eval_result: dict, out_png: str) -> None:
         f"Path B — Yee Maxwell FDTD chiral photon (N={rh['nx']}×{rh['ny']}×{rh['nz']}, "
         f"λ={rh['lambda_cells']:.1f} cells, "
         f"linear_only={rh['linear_only']}, amp_frac_yield={rh['amp_frac_yield']})",
-        fontsize=12, fontweight="bold",
+        fontsize=12,
+        fontweight="bold",
     )
     plt.tight_layout()
     plt.savefig(out_png, dpi=110, bbox_inches="tight")
@@ -464,10 +458,7 @@ def render_animation(result: dict, out_gif: str, max_frames: int = 80) -> None:
     vmax = -vmin
 
     fig, ax = plt.subplots(figsize=(10, 4))
-    im = ax.imshow(
-        frames_use[0].T, aspect="auto", cmap="seismic",
-        vmin=vmin, vmax=vmax, origin="lower"
-    )
+    im = ax.imshow(frames_use[0].T, aspect="auto", cmap="seismic", vmin=vmin, vmax=vmax, origin="lower")
     ax.axvline(result["src_x"], color="cyan", lw=1, ls="--")
     ax.set_xlabel("x (cells, propagation)")
     ax.set_ylabel("y (cells, transverse)")
@@ -476,9 +467,7 @@ def render_animation(result: dict, out_gif: str, max_frames: int = 80) -> None:
 
     def update(i):
         im.set_data(frames_use[i].T)
-        title.set_text(
-            f"Ey[:, :, cz] — {result['handedness']} (frame {i*stride}/{n_frames})"
-        )
+        title.set_text(f"Ey[:, :, cz] — {result['handedness']} (frame {i*stride}/{n_frames})")
         return im, title
 
     anim = FuncAnimation(fig, update, frames=len(frames_use), interval=80, blit=False)
@@ -524,14 +513,14 @@ def main() -> None:
 
     out_json = results_dir / "photon_chiral_yee.json"
     # Strip non-serializable arrays before saving
-    rh_serial = {k: v for k, v in rh.items()
-                 if not isinstance(v, np.ndarray)}
-    lh_serial = {k: v for k, v in lh.items()
-                 if not isinstance(v, np.ndarray)}
+    rh_serial = {k: v for k, v in rh.items() if not isinstance(v, np.ndarray)}
+    lh_serial = {k: v for k, v in lh.items() if not isinstance(v, np.ndarray)}
     with open(out_json, "w") as f:
         json.dump(
             {"prereg": PREREG, "eval": eval_result, "rh_summary": rh_serial, "lh_summary": lh_serial},
-            f, indent=2, default=str,
+            f,
+            indent=2,
+            default=str,
         )
 
     print(f"\n  Outputs:")

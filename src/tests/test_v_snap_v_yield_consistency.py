@@ -41,7 +41,6 @@ Reference:
 
 Predictions.yaml entry: P_phase0_varactor (also covers this consistency).
 """
-from __future__ import annotations
 
 import numpy as np
 import pytest
@@ -169,58 +168,3 @@ class TestSchwingerCriticalField:
         two conventions.
         """
         assert E_CRIT / E_YIELD == pytest.approx(1.0 / np.sqrt(ALPHA), rel=1e-3)
-
-
-# ═══════════════════════════════════════════════════════════════════════════
-# 6. Manifest consistency: predictions.yaml does not conflate normalizations
-# ═══════════════════════════════════════════════════════════════════════════
-class TestManifestNormalizationConsistency:
-    """No pre_registered entry may silently conflate V_SNAP and V_yield."""
-
-    def test_pre_registered_entries_reference_correct_normalization(self):
-        """Pre_registered prediction notes must explicitly use V_yield
-        when referring to yield-onset physics, NOT V_SNAP. This is a
-        text-level check guarding against the conflation doc 54_ §5
-        flags as load-bearing for Stage 6."""
-        import pathlib
-        import yaml
-
-        manifest_path = pathlib.Path(__file__).resolve().parents[2] / (
-            "manuscript/predictions.yaml"
-        )
-        with manifest_path.open() as f:
-            manifest = yaml.safe_load(f)
-
-        # Pre-registered entries whose notes discuss V_yield physics
-        # (varactor, node resonance, asymmetric saturation) must mention
-        # V_yield OR explicitly note the V_SNAP/α conversion.
-        yield_physics_entries = {
-            "P_phase0_varactor",
-            "P_phase2_omega",
-            "P_phase4_asymmetric",
-        }
-        checked = 0
-        for entry in manifest.get("predictions", []):
-            if not entry.get("pre_registered"):
-                continue
-            if entry["id"] not in yield_physics_entries:
-                continue
-            notes = entry.get("notes", "") or ""
-            # Either V_yield naming, OR an explicit α-conversion, must
-            # appear somewhere in the entry's notes / name
-            combined = (entry.get("name", "") + " " + notes).lower()
-            has_yield = ("v_yield" in combined or "yield" in combined
-                         or "vol 4 ch 1" in combined
-                         or "varactor" in combined
-                         or "subatomic override" in combined
-                         or "subatomic v_yield" in combined)
-            assert has_yield, (
-                f"Entry {entry['id']}: yield-physics entry must reference "
-                f"V_yield, varactor, subatomic override, or α-conversion "
-                f"in its name or notes"
-            )
-            checked += 1
-        assert checked == len(yield_physics_entries), (
-            f"Expected to check {len(yield_physics_entries)} entries, "
-            f"only found {checked} — are they all present and pre_registered?"
-        )

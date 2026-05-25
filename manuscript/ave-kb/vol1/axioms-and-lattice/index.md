@@ -1,8 +1,16 @@
 [↑ Vol 1: Foundations](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-15nwqy, clm-219e8j, clm-2dwzib, clm-3kzmt9, clm-4mmwb6, clm-5xon03, clm-7pvh9i, clm-9gh0a1, clm-9s9apq, clm-dfaiwj, clm-dhvhwi, clm-g0mkne, clm-gx1mpl, clm-jz0xaw, clm-q39qct, clm-rkisb8, clm-u1o2lo, clm-unk0bd, clm-ys0xl1]
+subtree-experiments: []
+-->
+
+> ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claim-quality.md`](../claim-quality.md) (volume scope) and [`../../claim-quality.md`](../../claim-quality.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
+
 # Axioms and Lattice
 
-The AVE framework rests on four topological axioms defining the vacuum as a non-linear electromagnetic LC resonant network ($\mathcal{M}_A$), with three emergent hardware constraints ($\ell_{node}$, $\alpha$, $G$). The macroscopic moduli of this micropolar continuum are derived from the topo-kinematic isomorphism ($[Q] \equiv [L]$), and the fine-structure constant emerges as the geometric packing fraction where the bulk-to-shear modulus ratio satisfies the trace-reversal identity.
+The AVE framework rests on four topological axioms defining the vacuum as a non-linear electromagnetic LC resonant network ($\mathcal{M}_A$), with three emergent hardware constraints ($\ell_{node}$, $\alpha$, $G$). The macroscopic moduli of this micropolar continuum are derived from the topo-kinematic isomorphism ($[Q] \equiv [L]$). The geometric packing fraction $p_c = 8\pi\alpha$ is established here as a *consistency relation* between the QED Schwinger limit and $\alpha$'s SI definition; $\alpha$'s numerical value is derived from first principles in [Ch.8 (Golden Torus closure)](../ch8-alpha-golden-torus.md), and Ch.2 then shows the resulting $p_c$ sits at the bulk-to-shear trace-reversal operating point ($K = 2G$).
 
 ## Key Results
 

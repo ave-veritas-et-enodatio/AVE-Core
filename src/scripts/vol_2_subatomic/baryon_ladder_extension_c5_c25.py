@@ -30,23 +30,24 @@ For canonical J^P-consistency-checked PDG 2024 verification, use:
   src/scripts/verify/baryon_ladder_pdg_2024_anchor.py
 which pins PDG row IDs + applies J^P discriminator (6/6 pass).
 """
-from __future__ import annotations
 
 import json
-from pathlib import Path
 import sys
+from pathlib import Path
 
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
 from ave.core.constants import (
-    M_E, C_0, e_charge,
-    V_TOROIDAL_HALO, P_C,
     BARYON_LADDER,
+    C_0,
+    M_E,
+    P_C,
+    V_TOROIDAL_HALO,
     _compute_i_scalar_dynamic,
+    e_charge,
 )
-
 
 _KG_TO_MEV: float = C_0**2 / (e_charge * 1e6)
 
@@ -63,7 +64,7 @@ PDG_CANDIDATES_HIGH_MASS = [
     (2700, "N(2700)", "13/2+", "**"),
     (2750, "Δ(2750)", "13/2-", "**"),
     (2950, "Δ(2950)", "15/2+", "**"),
-    (3000, "N(3000)", "?", "*"),     # speculative
+    (3000, "N(3000)", "?", "*"),  # speculative
 ]
 
 
@@ -77,8 +78,7 @@ def main():
     print("\n  Current production ladder (constants.py BARYON_LADDER):")
     print(f"  {'c':>3} {'i_scalar':>14} {'ratio':>14} {'mass (MeV)':>14}")
     for c, data in sorted(BARYON_LADDER.items(), key=lambda x: int(x[0])):
-        print(f"  {c:>3} {data['i_scalar']:>14.4f} {data['ratio']:>14.4f} "
-              f"{data['mass_mev']:>14.4f}")
+        print(f"  {c:>3} {data['i_scalar']:>14.4f} {data['ratio']:>14.4f} " f"{data['mass_mev']:>14.4f}")
 
     # Extend to c=15-25
     extended_c_values = [15, 17, 19, 21, 23, 25]
@@ -91,6 +91,7 @@ def main():
     for c in [5, 7, 9, 11, 13] + extended_c_values:
         if c == 5:
             from ave.core.constants import I_SCALAR_1D
+
             i_scalar = I_SCALAR_1D
         else:
             i_scalar = _compute_i_scalar_dynamic(crossing_number=c)
@@ -98,9 +99,9 @@ def main():
         ratio = x_core + 1.0
         mass_mev = ratio * M_E * _KG_TO_MEV
         extended_ladder[c] = {
-            'i_scalar': float(i_scalar),
-            'ratio': float(ratio),
-            'mass_mev': float(mass_mev),
+            "i_scalar": float(i_scalar),
+            "ratio": float(ratio),
+            "mass_mev": float(mass_mev),
         }
         marker = " (extension)" if c in extended_c_values else ""
         print(f"  {c:>3} {i_scalar:>14.4f} {ratio:>14.4f} {mass_mev:>14.4f}{marker}")
@@ -108,26 +109,26 @@ def main():
     # Cross-check: existing ladder reproducible
     print("\n  Reproducibility check vs production BARYON_LADDER:")
     for c in [5, 7, 9, 11, 13]:
-        existing_mass = BARYON_LADDER[c]['mass_mev']
-        new_mass = extended_ladder[c]['mass_mev']
+        existing_mass = BARYON_LADDER[c]["mass_mev"]
+        new_mass = extended_ladder[c]["mass_mev"]
         diff = abs(new_mass - existing_mass)
         diff_pct = diff / existing_mass * 100
         status = "✓ MATCH" if diff_pct < 0.0001 else f"✗ DRIFT ({diff_pct:.4e}%)"
-        print(f"    c={c}: production={existing_mass:.4f}, "
-              f"new={new_mass:.4f} {status}")
+        print(f"    c={c}: production={existing_mass:.4f}, " f"new={new_mass:.4f} {status}")
 
     # Map predicted masses to PDG candidates
     print("\n  PDG candidate matching for extended c values:")
-    print(f"  {'c':>3} {'predicted (MeV)':>16} {'closest PDG':>20} "
-          f"{'PDG mass':>10} {'error %':>10} {'match status':>20}")
+    print(
+        f"  {'c':>3} {'predicted (MeV)':>16} {'closest PDG':>20} "
+        f"{'PDG mass':>10} {'error %':>10} {'match status':>20}"
+    )
 
     matches = []
     for c in extended_c_values:
-        pred_mass = extended_ladder[c]['mass_mev']
+        pred_mass = extended_ladder[c]["mass_mev"]
 
         # Find nearest PDG candidate
-        closest = min(PDG_CANDIDATES_HIGH_MASS,
-                       key=lambda r: abs(r[0] - pred_mass))
+        closest = min(PDG_CANDIDATES_HIGH_MASS, key=lambda r: abs(r[0] - pred_mass))
         pdg_mass, pdg_name, jp, stars = closest
         error_pct = (pred_mass - pdg_mass) / pdg_mass * 100
 
@@ -138,19 +139,20 @@ def main():
         else:
             status = "WEAK"
 
-        matches.append({
-            "c": c,
-            "predicted_mass_mev": pred_mass,
-            "closest_pdg_name": pdg_name,
-            "closest_pdg_mass_mev": pdg_mass,
-            "error_pct": error_pct,
-            "match_status": status,
-            "pdg_jp": jp,
-            "pdg_stars": stars,
-        })
+        matches.append(
+            {
+                "c": c,
+                "predicted_mass_mev": pred_mass,
+                "closest_pdg_name": pdg_name,
+                "closest_pdg_mass_mev": pdg_mass,
+                "error_pct": error_pct,
+                "match_status": status,
+                "pdg_jp": jp,
+                "pdg_stars": stars,
+            }
+        )
 
-        print(f"  {c:>3} {pred_mass:>16.2f} {pdg_name:>20} "
-              f"{pdg_mass:>10} {error_pct:>+10.2f} {status:>20}")
+        print(f"  {c:>3} {pred_mass:>16.2f} {pdg_name:>20} " f"{pdg_mass:>10} {error_pct:>+10.2f} {status:>20}")
 
     # Summary statistics
     print("\n  EXTENSION SUMMARY:")

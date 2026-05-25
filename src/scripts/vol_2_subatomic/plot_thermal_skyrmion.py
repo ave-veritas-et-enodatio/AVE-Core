@@ -10,12 +10,11 @@ inside the energy functional itself.
 Output: assets/sim_outputs/thermal_skyrmion_comparison.png
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import C_0, HBAR, KAPPA_FS, KAPPA_FS_COLD, M_E
+from ave_path_util import sim_output
 
 L_NODE = HBAR / (M_E * C_0)
 
@@ -111,14 +110,7 @@ ax2.grid(True, alpha=0.15, color="#30363d")
 fig.suptitle(r"Grüneisen Thermal Correction: $\delta_{th} = 1/(14\pi^2)$", fontsize=16, color="white", y=1.02)
 plt.tight_layout()
 
-output_path = os.path.join(
-    os.path.dirname(__file__),
-    "..",
-    "..",
-    "assets",
-    "sim_outputs",
-    "thermal_skyrmion_comparison.png",
-)
+output_path = sim_output("thermal_skyrmion_comparison.png")
 plt.savefig(output_path, dpi=200, facecolor=fig.get_facecolor(), bbox_inches="tight")
 plt.close()
 print(f"Saved: {output_path}")

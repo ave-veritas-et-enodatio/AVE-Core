@@ -1,6 +1,10 @@
 [↑ Common Resources](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol1,vol2,vol3,vol4,vol5 as app:translation_matrix -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-yawl6z]
+path-stable: "referenced from vol1,vol2,vol3,vol4,vol5 as app:translation_matrix"
+-->
 
 # The Interdisciplinary Translation Matrix
 
@@ -80,9 +84,9 @@ See .agents/handoffs/TAU_YIELD_DERIVATION_AUDIT.md. Do not re-add without a deri
 - **Effective Coupling:** $\kappa_{eff} = \kappa_{FS}(1-\delta_{th}) \approx 24.951$
 - **Proton Rest Mass (Geometric Eigenvalue):** $m_p = \frac{\mathcal{I}_{scalar}}{1 - (\mathcal{V}_{total} \cdot p_c)} + 1.0 \approx \mathbf{1836\ m_e}$ (0.002% from CODATA)
 - **Mutual Inductance at Crossing:** $M/L = \exp(-d^2/(4\sigma^2)) = 1/\sqrt{2}$ (exact, $d = \ell_{node}/2$, $\sigma = \ell_{node}/(2\sqrt{2\ln 2})$)
-- **Saturation Threshold (Derived):** $\rho_{threshold} = 1 + \sigma/4 = 1 + \ell_{node}/(8\sqrt{2\ln 2}) \approx 1.1062$ (zero-parameter)
+- **Saturation Threshold (closed-form, conditional on Gaussian flux-tube ansatz):** $\rho_{threshold} = 1 + \sigma/4 = 1 + \ell_{node}/(8\sqrt{2\ln 2}) \approx 1.1062$ (no fitted parameters; profile derivation pending — see [Outstanding Rigour Gaps](mathematical-closure.md))
 - **Toroidal Halo Volume (FEM Verified):** $\mathcal{V}_{total} = 2.0$ at derived threshold (FEM: $2.001 \pm 0.003$, Richardson $N\to\infty$)
-- **Macroscopic Strong Force:** $F_{confinement} = 3 \left(\frac{m_p}{m_e}\right) \alpha^{-1} T_{EM} \approx \mathbf{160{,}584\text{ N}} \ (\approx 1.002\text{ GeV/fm})$
+- **Macroscopic Strong Force:** $F_{confinement} = 3 \left(\frac{m_p}{m_e}\right) \alpha^{-1} T_{EM} \approx \mathbf{160{,}037\text{ N}} \ (\approx 0.999\text{ GeV/fm})$
 - **Witten Effect Fractional Charge (Quarks):** $q_{eff} = n + \frac{\theta}{2\pi}e \implies \pm \frac{1}{3}e, \pm \frac{2}{3}e$
 - **Vacuum Poisson's Ratio (Trace-Reversed Bound):** $\nu_{vac} \equiv \frac{2}{7}$
 - **Weak Mixing Angle (Acoustic Mode Ratio):** $\frac{m_W}{m_Z} = \frac{1}{\sqrt{1+\nu_{vac}}} = \frac{\sqrt{7}}{3} \approx \mathbf{0.8819}$

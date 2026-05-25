@@ -33,7 +33,7 @@ Target empirical value: DAMA ~0.0103 cpd/kg/keV at 2-6 keV (single-hit).
 Confirmed audit-trail leaves explicitly mark this as TBD:
 - [`multi-galaxy-validation.md:41`](manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/multi-galaxy-validation.md): "the amplitude formula itself is NOT derived in the corpus."
 - [`divergence-test-substrate-map.md:443`](manuscript/ave-kb/common/divergence-test-substrate-map.md) C14 row: "**no explicit amplitude formula — TBD pin**"
-- [`closure-roadmap.md:96`](manuscript/ave-kb/common/closure-roadmap.md): "**DAMA amplitude formula** (C14 row): crystal-density ratios $\kappa = \rho_{crystal}/\rho_{bulk}$ computable but observable-amplitude prediction unfinished."
+- [`closure-roadmap.md:96`](manuscript/ave-kb/claim-quality-closure-roadmap.md): "**DAMA amplitude formula** (C14 row): crystal-density ratios $\kappa = \rho_{crystal}/\rho_{bulk}$ computable but observable-amplitude prediction unfinished."
 - DAMA empirical value 0.0103 cpd/kg/keV does not appear anywhere in corpus.
 
 The 2026-05-16 audit retired the C13-VLBI-DARK forward-prediction claim and simultaneously demoted DAMA C14 to TBD-pin descriptive-only. **Reopening this is reopening an already-honestly-flagged gap, not new corpus work.**
@@ -116,7 +116,7 @@ If Grant's physics judgment on Q1 + Q2 produces an AVE-distinct prediction that 
 
 ## Cross-references
 
-- [`closure-roadmap.md`](manuscript/ave-kb/common/closure-roadmap.md) §0.5 open scope-correction items
+- [`closure-roadmap.md`](manuscript/ave-kb/claim-quality-closure-roadmap.md) §0.5 open scope-correction items
 - [`divergence-test-substrate-map.md`](manuscript/ave-kb/common/divergence-test-substrate-map.md) C13c (META) + C14 (DAMA) rows
 - [`preferred-frame-and-emergent-lorentz.md`](manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md) (CMB-frame lattice identification)
 - [`bullet-cluster.md`](manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/bullet-cluster.md) (transverse-shear framing)

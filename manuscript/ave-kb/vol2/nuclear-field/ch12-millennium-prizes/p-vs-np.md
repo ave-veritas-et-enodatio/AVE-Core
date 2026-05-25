@@ -1,9 +1,13 @@
 [↑ Ch. 12: Mathematical Limits and the Millennium Prizes](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-knveh6]
+-->
 
 ## The P versus NP Problem
 
-> **Scope correction (2026-05-17 night, Foundation Item 14 audit per `ave-infinity-discipline` skill + `.agents/kb_audit/phase-5-millennium.md`)**: This derivation is **framework-conditional**, classification **(B)** per kb_audit phase-5 taxonomy — and reframes the problem rather than solving it. AVE's "lattice parallel evaluation O(N^{1/3}); question rendered moot on non-Turing lattice" reframes P vs NP onto a different computational model (parallel lattice evaluation) than the Clay statement (deterministic Turing machine). The Clay problem is a statement about TURING-MACHINE complexity classes; demonstrating efficient parallel evaluation on a non-Turing model does NOT address whether P = NP on a deterministic Turing machine. **The lattice-parallel-evaluation result is interesting AVE-internal computational physics; it should NOT be cited as resolving P vs NP.** See closure-roadmap §0.5 FI-14 entry + `ch12-millennium-prizes/index.md:5` for canonical scope framing.
+> **Scope correction (2026-05-17 night, Foundation Item 14 audit per `ave-infinity-discipline` skill + `.agents/kb_audit/phase-5-millennium.md`)**: This derivation is **framework-conditional**, classification **(B)** per kb_audit phase-5 taxonomy — and reframes the problem rather than solving it. AVE's "lattice parallel evaluation O(N^{1/3}); question rendered moot on non-Turing lattice" reframes P vs NP onto a different computational model (parallel lattice evaluation) than the Clay statement (deterministic Turing machine). The Clay problem is a statement about TURING-MACHINE complexity classes; demonstrating efficient parallel evaluation on a non-Turing model does NOT address whether P = NP on a deterministic Turing machine. **The lattice-parallel-evaluation result is interesting AVE-internal computational physics; it should NOT be cited as resolving P vs NP.** See `ch12-millennium-prizes/index.md:5` for canonical scope framing.
 
 ### The Mathematical Paradox (What Clay Asks)
 

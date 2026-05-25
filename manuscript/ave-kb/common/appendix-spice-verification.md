@@ -1,6 +1,10 @@
 [↑ Common Resources](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol4 as app:spice_verification -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-pfocn6]
+path-stable: "referenced from vol4 as app:spice_verification"
+-->
 
 # Appendix: SPICE Verification Manual
 

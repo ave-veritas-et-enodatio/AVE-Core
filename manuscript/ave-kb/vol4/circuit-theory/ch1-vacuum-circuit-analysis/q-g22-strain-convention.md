@@ -1,5 +1,9 @@
 [↑ Ch.1 Vacuum Circuit Analysis](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-4r4jiy]
+-->
 
 # Q-G22 Strain Convention: Topological-Geometric vs Coulomb-Field Ratio
 
@@ -53,9 +57,9 @@ The IVIM (asymmetric-electrode vacuum-mirror bench, Vol 4 Ch 11 + Vol 4 Ch 15) u
 ## Cross-references
 
 - **Canonical manuscript anchors:**
-  - [Vol 2 Ch 6 (Electroweak)](../../../../vol_2_subatomic/chapters/06_electroweak_and_higgs.tex) lines 402–404 — $(V_{\text{peak}}/V_{\text{snap}})^2 = 4\pi\alpha$ identity
-  - [Vol 2 Ch 7 (Quantum Mechanics and Orbitals)](../../../../vol_2_subatomic/chapters/07_quantum_mechanics_and_orbitals.tex) lines 923–924, 1205–1206 — explicit distinction
-  - [Vol 4 Ch 11 (Experimental Falsification)](../../../../vol_4_engineering/chapters/11_experimental_falsification.tex) — IVIM bench uses field-ratio convention
+  - Vol 2 Ch 6 (Electroweak) lines 402–404 — $(V_{\text{peak}}/V_{\text{snap}})^2 = 4\pi\alpha$ identity
+  - Vol 2 Ch 7 (Quantum Mechanics and Orbitals) lines 923–924, 1205–1206 — explicit distinction
+  - Vol 4 Ch 11 (Experimental Falsification) — IVIM bench uses field-ratio convention
 - **Related KB leafs:**
   - [Topological Kinematics](topological-kinematics.md) — VCA dimensional isomorphism
   - [Nonlinear Vacuum Capacitance](nonlinear-vacuum-capacitance.md) — $C_{\text{eff}}(V) = C_0/\sqrt{1-(V/V_{\text{yield}})^2}$ uses geometric-ratio convention

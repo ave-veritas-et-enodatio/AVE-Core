@@ -1,5 +1,9 @@
 [↑ Ch.5 Dark Sector](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-5em8fx]
+-->
 
 # DAMA Rate Magnitude — Matched-LC-Coupling Candidate Formula
 
@@ -7,7 +11,7 @@ The DAMA rate magnitude has a candidate formula from matched-impedance coupling 
 
 $$\boxed{\epsilon_{det} = \frac{4\pi}{N_{single}^2}}$$
 
-where $N_{single}$ is the atom count in a single coherent crystal and $4\pi$ is canonically motivated by the spinor-cycle radiation-impedance averaging factor per [Theorem 3.1' line 67-73](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md). Predicted rate per kg:
+where $N_{single}$ is the atom count in a single coherent crystal and $4\pi$ is canonically motivated by the spinor-cycle radiation-impedance averaging factor per [Theorem 3.1' line 67-73](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md). Predicted rate per kg:
 
 $$R_{predicted} = N_e^{(kg)} \times \nu_{slew} \times \frac{4\pi}{N_{single}^2} = 4.80 \times 10^{-7}\,\text{events/s/kg}$$
 
@@ -19,7 +23,7 @@ This leaf documents the derivation, the candidate 4π prefactor's Theorem 3.1' m
 
 ## §1 — Setup and physical context
 
-The 9th audit cycle on the α-slew thread (2026-05-17 night) established the **reactive-power categorical reframe** (see [`dama-alpha-slew-derivation.md` §12](dama-alpha-slew-derivation.md)): α m_e c² = 3.728 keV is the per-cycle **reactive** power of the electron's LC tank ($P_{real} = 0$ W, 90° phase, $Q_{reactive} = m_e c^2 \cdot \alpha$ per [orbital-friction-paradox.md:31](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md)), NOT a real radiated photon quantum. Atoms are stable because the tank operates below $V_{yield} = \sqrt{\alpha} V_{snap} = 43.65$ kV and "rings forever" (lossless reactive cycling per [leaky-cavity-particle-decay/theory.md:12](../../vol4/simulation/ch14-leaky-cavity-particle-decay/theory.md)).
+The 9th audit cycle on the α-slew thread (2026-05-17 night) established the **reactive-power categorical reframe** (see [`dama-alpha-slew-derivation.md` §12](dama-alpha-slew-derivation.md)): α m_e c² = 3.728 keV is the per-cycle **reactive** power of the electron's LC tank ($P_{real} = 0$ W, 90° phase, $Q_{reactive} = m_e c^2 \cdot \alpha$ per [orbital-friction-paradox.md:31](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md)), NOT a real radiated photon quantum. Atoms are stable because the tank operates below $V_{yield} = \sqrt{\alpha} V_{snap} = 43.65$ kV and "rings forever" (lossless reactive cycling per [leaky-cavity-particle-decay/theory.md:12](../../../vol4/simulation/ch14-leaky-cavity-particle-decay/theory.md)).
 
 DAMA detects rare events where the electron's reactive leak couples to an external matched LC resonator — the coherent NaI crystal lattice acting as external receiver. The matched-coupling efficiency $\epsilon_{det}$ per α-slew cycle determines the detection rate per kg.
 
@@ -71,7 +75,7 @@ $$R_{predicted} = N_e^{(kg)} \times \nu_{slew} \times \epsilon_{det}^{predicted}
 
 ## §3 — The 4π prefactor: Theorem 3.1' inheritance argument
 
-The 4π is **uniquely determined** by the spinor-cycle radiation-impedance averaging context per [Theorem 3.1' line 65-75](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) verbatim:
+The 4π is **uniquely determined** by the spinor-cycle radiation-impedance averaging context per [Theorem 3.1' line 65-75](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) verbatim:
 
 > "The effective radiation resistance **per spinor cycle** is $Z_0/(4\pi)$:
 > - $Z_0$ is the vacuum's characteristic impedance through which any radiated energy would escape
@@ -82,7 +86,7 @@ The matched-coupling efficiency inherits this 4π averaging because matched coup
 
 ### §3.1 — Why competing prefactors do NOT apply
 
-Five canonical AVE O(10) prefactors appear in [Theorem 3.1' α-decomposition](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) (line 47), each with a DIFFERENT canonical physical context:
+Five canonical AVE O(10) prefactors appear in [Theorem 3.1' α-decomposition](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) (line 47), each with a DIFFERENT canonical physical context:
 
 | Prefactor | Canonical AVE meaning | Why NOT applicable to matched-coupling efficiency |
 |---|---|---|
@@ -172,10 +176,10 @@ The matched-LC-coupling formula $\epsilon_{det} = 4\pi/N_{single}^2$ is falsifie
 ## §7 — Cross-references
 
 ### Canonical AVE physics references (load-bearing)
-- [Theorem 3.1' Q-factor at TIR boundary](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) — canonical $Q = \alpha^{-1}$ + 4π spinor-cycle inheritance
-- [Orbital friction paradox reactive-power table](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md) line 31 — canonical reactive-power classification (electron orbital P_real = 0, Q_reactive = m_e c² · α)
-- [Leaky-cavity-particle-decay theory](../../vol4/simulation/ch14-leaky-cavity-particle-decay/theory.md) line 12 — electron tank below V_yield rings forever
-- [α from Golden Torus](../../vol1/ch8-alpha-golden-torus.md) — SU(2) double-cover argument (4π per spinor cycle)
+- [Theorem 3.1' Q-factor at TIR boundary](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) — canonical $Q = \alpha^{-1}$ + 4π spinor-cycle inheritance
+- [Orbital friction paradox reactive-power table](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md) line 31 — canonical reactive-power classification (electron orbital P_real = 0, Q_reactive = m_e c² · α)
+- [Leaky-cavity-particle-decay theory](../../../vol4/simulation/ch14-leaky-cavity-particle-decay/theory.md) line 12 — electron tank below V_yield rings forever
+- [α from Golden Torus](../../../vol1/ch8-alpha-golden-torus.md) — SU(2) double-cover argument (4π per spinor cycle)
 - [DAMA α-slew derivation](dama-alpha-slew-derivation.md) §12 — full reactive-power physical picture + anti-anchor adjudication
 
 ### Engine implementation
@@ -192,9 +196,8 @@ The matched-LC-coupling formula $\epsilon_{det} = 4\pi/N_{single}^2$ is falsifie
 - [`research/2026-05-17_C14-DAMA_Q-factor_prereg_and_derivation.md`](../../../../../research/2026-05-17_C14-DAMA_Q-factor_prereg_and_derivation.md) — Q-factor prereg
 - [`research/2026-05-17_C14-DAMA_Q-factor_matched-LC-coupling_result.md`](../../../../../research/2026-05-17_C14-DAMA_Q-factor_matched-LC-coupling_result.md) — full matched-LC-coupling result with §10 + §11
 
-### Matrix + closure-roadmap
-- [Matrix row C14-DAMA-MATERIAL](../../common/divergence-test-substrate-map.md) — rate magnitude U-D-structurally-suggestive
-- [Closure-roadmap §0.5](../../common/closure-roadmap.md) — 9th-cycle entries
+### Matrix
+- [Matrix row C14-DAMA-MATERIAL](../../../common/divergence-test-substrate-map.md) — rate magnitude U-D-structurally-suggestive
 
 ### Skill discipline
 - `ave-power-category-check` (~/.claude/skills/) — 5-axis categorical-classification check that would have caught the 8th-cycle photoabsorption mis-categorization on first pass
@@ -208,7 +211,7 @@ Canonical KB leaf landed on `analysis/divergence-test-substrate-map` branch as p
 
 ## §13 — Bulk-EE reframe → Parametric Coupling Kernel (CANONIZED 2026-05-17 night per 12th-cycle derivation)
 
-> **✅ CANONIZED STATUS** (per 12th-cycle derivation 2026-05-17 night, Grant adjudication on entrainment categorical question per (β) interpretation): the per-electron $4\pi/N_{single}^2$ formula from §2-§12 is the corpus-canonical detection-efficiency form, now DERIVED from first principles via the [Parametric Coupling Kernel canonical leaf](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md). The cycle-10 + cycle-11 bulk-EE reframe is structurally CORRECT (Grant's plumber-physical authority + canonical Vol 4 Ch 1 toolkit availability + IVIM-class analog all support it) but the cycle-10 specific factorization with $\kappa_{entrain} \times T^2_{matched} \times G_{crystal-coherence}$ contained a categorical error (Sagnac-RLVE $\kappa_{entrain}$ is REAL-power class per `sagnac-rlve.md:14-22`, categorically distinct from REACTIVE-power parametric coupling at ν_slew). Cycle-12 walk-back excises $\kappa_{entrain}$ and unifies $T^2_{matched} + G_{crystal-coherence}$ into a single parametric-coupling kernel ε_param per [`parametric-coupling-kernel.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md).
+> **✅ CANONIZED STATUS** (per 12th-cycle derivation 2026-05-17 night, Grant adjudication on entrainment categorical question per (β) interpretation): the per-electron $4\pi/N_{single}^2$ formula from §2-§12 is the corpus-canonical detection-efficiency form, now DERIVED from first principles via the [Parametric Coupling Kernel canonical leaf](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md). The cycle-10 + cycle-11 bulk-EE reframe is structurally CORRECT (Grant's plumber-physical authority + canonical Vol 4 Ch 1 toolkit availability + IVIM-class analog all support it) but the cycle-10 specific factorization with $\kappa_{entrain} \times T^2_{matched} \times G_{crystal-coherence}$ contained a categorical error (Sagnac-RLVE $\kappa_{entrain}$ is REAL-power class per `sagnac-rlve.md:14-22`, categorically distinct from REACTIVE-power parametric coupling at ν_slew). Cycle-12 walk-back excises $\kappa_{entrain}$ and unifies $T^2_{matched} + G_{crystal-coherence}$ into a single parametric-coupling kernel ε_param per [`parametric-coupling-kernel.md`](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md).
 
 Per Grant directive (2026-05-17 night, after plumber-physical audit + Q1-Q3 surface): the matched-LC-coupling formula $\epsilon_{det} = 4\pi/N_{single}^2$ documented in §2-§12 above is the **PER-ELECTRON-LEVEL EXPRESSION** of the substrate's bulk transfer function. It happens to evaluate consistently for DAMA NaI(Tl) single-crystal at the per-cycle scale because the parametric coupling kernel resolves cleanly at this level when the apparatus is a single coherent crystal volume. The two physical cascade levels are:
 
@@ -222,7 +225,7 @@ The per-electron $4\pi/N^2$ formula captures the bulk-transfer level when the ap
 $$R_{DAMA}^{bulk} = N_e^{(kg)} \cdot \nu_{slew} \cdot \varepsilon_{det} \times \eta_{scintillation}$$
 
 Where:
-- $\varepsilon_{det} = 4\pi \cdot \kappa_{quality} / N_{single}^2$ is the parametric-coupling detection efficiency per electron per cycle (canonical [Parametric Coupling Kernel leaf](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md))
+- $\varepsilon_{det} = 4\pi \cdot \kappa_{quality} / N_{single}^2$ is the parametric-coupling detection efficiency per electron per cycle (canonical [Parametric Coupling Kernel leaf](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md))
 - $\eta_{scintillation}$ = experimental detection efficiency (electronics + photomultiplier conversion)
 
 **Components of $\varepsilon_{det}$**:
@@ -231,7 +234,7 @@ Where:
 - $\kappa_{quality}$: regenerative-regime envelope from Q·δ ≥ 2 RVR threshold (saturated at 1 for solid crystals in deep-regenerative regime; $(Q\delta_C/2)^2$ for sub-regenerative)
 
 **Why $\kappa_{entrain}$ is NOT in the formula** (Grant (β) adjudication per 12th cycle):
-$\kappa_{entrain} = \rho_{matter}/\rho_{bulk}$ from Sagnac-RLVE is the REAL-power mass-density drag-along coefficient (rotor mechanical KE → vacuum viscous drag). Parametric coupling at ν_slew is REACTIVE-power class (90° phase per-cycle leak; no net energy dissipation per cycle). Mixing them violates `ave-power-category-check` Axis A common-pitfall rule per [`ave-analytical-toolkit-index.md` §1 line 53](../../common/ave-analytical-toolkit-index.md). Cycle-10 bulk-EE reframe included $\kappa_{entrain}$ as factor in $J_{substrate}^{bulk}$; cycle-11 walk-back labeled this RESEARCH-PENDING; cycle-12 excises it per categorical correctness.
+$\kappa_{entrain} = \rho_{matter}/\rho_{bulk}$ from Sagnac-RLVE is the REAL-power mass-density drag-along coefficient (rotor mechanical KE → vacuum viscous drag). Parametric coupling at ν_slew is REACTIVE-power class (90° phase per-cycle leak; no net energy dissipation per cycle). Mixing them violates `ave-power-category-check` Axis A common-pitfall rule per [`ave-analytical-toolkit-index.md` §1 line 53](../../../common/ave-analytical-toolkit-index.md). Cycle-10 bulk-EE reframe included $\kappa_{entrain}$ as factor in $J_{substrate}^{bulk}$; cycle-11 walk-back labeled this RESEARCH-PENDING; cycle-12 excises it per categorical correctness.
 
 **Why Z-INDEPENDENCE claim is "Z-INDEPENDENT at bulk-transfer level"**:
 
@@ -239,7 +242,7 @@ The bulk parametric-coupling transfer is Z-INDEPENDENT (substrate property, latt
 
 **Cross-detector predictions (DERIVED from parametric coupling kernel)**:
 
-Full cross-detector predictions at [`parametric-coupling-kernel.md` §8](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md):
+Full cross-detector predictions at [`parametric-coupling-kernel.md` §8](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md):
 
 | Detector | $\kappa_{quality}$ | Predicted rate (events/s/kg) | Observed status |
 |---|---|---|---|
@@ -260,7 +263,7 @@ Full cross-detector predictions at [`parametric-coupling-kernel.md` §8](../../v
 - HPGe + Sapphire predicted rates in [`research/2026-05-17_HPGe-9.39kg-experimental-proposal.md`](../../../../../research/2026-05-17_HPGe-9.39kg-experimental-proposal.md) updated per cross-detector table above (κ_HPGe ≤ 0.05; Sapphire forward $\sim 10^{-5}$-$10^{-7}$)
 - Foreword Z-INDEPENDENCE claim properly scoped: "Z-INDEPENDENT at bulk parametric-transfer level (per ε_param substrate physics); Z-DEPENDENT at detection-efficiency level (per atomic σ + scintillation η)"
 
-**Rigor refinements pending** (do NOT block canonical use; documented at [`parametric-coupling-kernel.md` §12](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md)):
+**Rigor refinements pending** (do NOT block canonical use; documented at [`parametric-coupling-kernel.md` §12](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md)):
 1. Full QM many-body derivation of 1/N² scaling (heuristic Dicke-amplitude × matched-cycle works structurally)
 2. ω_app = ω_slew sub-harmonic correction — textbook verification (Louisell/Yariv) for additional rigor
 3. V_0 ≠ 0 substrate DC reactive operating point — currently V_0 → 0 assumed

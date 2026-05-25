@@ -17,14 +17,14 @@ Outputs:
   - assets/photon_chiral_comparison.png  (side-by-side 6-panel)
   - results/photon_chiral_comparison_summary.json
 """
-from __future__ import annotations
 
 import json
 import sys
 from pathlib import Path
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -75,15 +75,20 @@ def main() -> None:
     yee_amp_ratio = yee_eval.get("C_P1_cp_amp_ratio", 1.0)
     ax = axes[0, 0]
     ax.text(
-        0.5, 0.55,
-        f"Yee Maxwell CP source\n\n"
-        f"amp ratio Ey/Ez = {yee_amp_ratio:.4f}\n"
-        f"phase offset = {yee_phase:.2f}°"
-        if yee_phase else f"amp ratio Ey/Ez = {yee_amp_ratio:.4f}",
-        ha="center", va="center", transform=ax.transAxes, fontsize=11,
-        bbox=dict(boxstyle="round,pad=0.5",
-                  facecolor="#cce" if yee_eval.get("pass_C_P1") else "#fcc",
-                  edgecolor="black"),
+        0.5,
+        0.55,
+        (
+            f"Yee Maxwell CP source\n\n" f"amp ratio Ey/Ez = {yee_amp_ratio:.4f}\n" f"phase offset = {yee_phase:.2f}°"
+            if yee_phase
+            else f"amp ratio Ey/Ez = {yee_amp_ratio:.4f}"
+        ),
+        ha="center",
+        va="center",
+        transform=ax.transAxes,
+        fontsize=11,
+        bbox=dict(
+            boxstyle="round,pad=0.5", facecolor="#cce" if yee_eval.get("pass_C_P1") else "#fcc", edgecolor="black"
+        ),
     )
     ax.set_title("Path B — CP source verification (Yee)", fontweight="bold")
     ax.set_xticks([])
@@ -93,15 +98,20 @@ def main() -> None:
     k4_amp_err = k4_eval.get("C_C1_amplitude_relative_error", 0.0)
     ax = axes[0, 1]
     ax.text(
-        0.5, 0.55,
-        f"K4-TLM Cosserat ω injection\n\n"
-        f"amp rel err = {k4_amp_err:.3e}\n"
-        f"phase offset = {k4_phase:.2f}°"
-        if k4_phase else f"amp rel err = {k4_amp_err:.3e}",
-        ha="center", va="center", transform=ax.transAxes, fontsize=11,
-        bbox=dict(boxstyle="round,pad=0.5",
-                  facecolor="#cce" if k4_eval.get("pass_C_C1") else "#fcc",
-                  edgecolor="black"),
+        0.5,
+        0.55,
+        (
+            f"K4-TLM Cosserat ω injection\n\n" f"amp rel err = {k4_amp_err:.3e}\n" f"phase offset = {k4_phase:.2f}°"
+            if k4_phase
+            else f"amp rel err = {k4_amp_err:.3e}"
+        ),
+        ha="center",
+        va="center",
+        transform=ax.transAxes,
+        fontsize=11,
+        bbox=dict(
+            boxstyle="round,pad=0.5", facecolor="#cce" if k4_eval.get("pass_C_C1") else "#fcc", edgecolor="black"
+        ),
     )
     ax.set_title("Path A — Cosserat ω injection (K4-TLM)", fontweight="bold")
     ax.set_xticks([])
@@ -115,14 +125,17 @@ def main() -> None:
     ax.axhline(np.sqrt(2.0), color="orange", ls="--", lw=1, label="√2·c (K4 cardinal-axis)")
     ax.set_ylabel("v_forward / c")
     ax.set_title(
-        f"Path B forward propagation: {yee_v:.3f}·c\n"
-        f"(NOTE: peak-arrival on sustained source unreliable)",
+        f"Path B forward propagation: {yee_v:.3f}·c\n" f"(NOTE: peak-arrival on sustained source unreliable)",
     )
     ax.legend(fontsize=9)
     ax.grid(alpha=0.3, axis="y")
     ax.text(
-        0.5, 0.95, f"PASS={'✓' if yee_eval.get('pass_C_P2') else '✗'}",
-        ha="center", va="top", transform=ax.transAxes,
+        0.5,
+        0.95,
+        f"PASS={'✓' if yee_eval.get('pass_C_P2') else '✗'}",
+        ha="center",
+        va="top",
+        transform=ax.transAxes,
         bbox=dict(boxstyle="round", facecolor="#cfc" if yee_eval.get("pass_C_P2") else "#fcc"),
     )
 
@@ -132,14 +145,17 @@ def main() -> None:
     ax.axhline(5.0, color="red", ls="--", lw=1, label="C-D2 threshold (5 cells)")
     ax.set_ylabel("centroid drift (cells)")
     ax.set_title(
-        f"Path A forward propagation: drift = {k4_drift:.2f} cells\n"
-        f"(per Phase A.1 finding: K4 cardinal v=√2·c)"
+        f"Path A forward propagation: drift = {k4_drift:.2f} cells\n" f"(per Phase A.1 finding: K4 cardinal v=√2·c)"
     )
     ax.legend(fontsize=9)
     ax.grid(alpha=0.3, axis="y")
     ax.text(
-        0.5, 0.95, f"PASS={'✓' if k4_eval.get('pass_C_D2') else '✗'}",
-        ha="center", va="top", transform=ax.transAxes,
+        0.5,
+        0.95,
+        f"PASS={'✓' if k4_eval.get('pass_C_D2') else '✗'}",
+        ha="center",
+        va="top",
+        transform=ax.transAxes,
         bbox=dict(boxstyle="round", facecolor="#cfc" if k4_eval.get("pass_C_D2") else "#fcc"),
     )
 
@@ -147,15 +163,13 @@ def main() -> None:
     ax = axes[2, 0]
     yee_asym = yee_eval.get("C_P4_chirality_asymmetry_frac", 0.0) * 100
     k4_asym = k4_eval.get("C_D6_chirality_asymmetry", 0.0) * 100
-    ax.bar(["Yee\n(Path B)", "K4-TLM\n(Path A)"], [yee_asym, k4_asym],
-           color=["#47c", "#c47"], edgecolor="black")
+    ax.bar(["Yee\n(Path B)", "K4-TLM\n(Path A)"], [yee_asym, k4_asym], color=["#47c", "#c47"], edgecolor="black")
     ax.axhline(5.0, color="red", ls="--", lw=1, label="C-P4/C-D6 threshold (5%)")
     ax.set_ylabel("|RH−LH| / max  [%]")
     ax.set_title("Chirality asymmetry RH vs LH")
     ax.legend(fontsize=9)
     ax.grid(alpha=0.3, axis="y")
-    for x, y, p in zip([0, 1], [yee_asym, k4_asym],
-                       [yee_eval.get('pass_C_P4'), k4_eval.get('pass_C_D6')]):
+    for x, y, p in zip([0, 1], [yee_asym, k4_asym], [yee_eval.get("pass_C_P4"), k4_eval.get("pass_C_D6")]):
         ax.text(x, y + 0.5, f"{'✓' if p else '✗'}", ha="center", fontsize=14, fontweight="bold")
 
     ax = axes[2, 1]
@@ -169,7 +183,8 @@ def main() -> None:
     else:
         rh_lh_k4 = "—"
     ax.text(
-        0.5, 0.55,
+        0.5,
+        0.55,
         f"Dark wake max amplitude\n\n"
         f"Path B Yee:  {yee_wake:.3e} (Z_eff·∂|E|²/∂x units)\n"
         f"Path A K4:   RH={k4_wake_rh:.3e}, LH={k4_wake_lh:.3e}\n"
@@ -177,7 +192,10 @@ def main() -> None:
         f"NOTE: different units (Yee uses E-field SI, K4-TLM\n"
         f"uses V_inc engine-natural). Direct comparison is\n"
         f"qualitative — both show non-zero wake.",
-        ha="center", va="center", transform=ax.transAxes, fontsize=10,
+        ha="center",
+        va="center",
+        transform=ax.transAxes,
+        fontsize=10,
         bbox=dict(boxstyle="round,pad=0.5", facecolor="#eef", edgecolor="black"),
     )
     ax.set_title("Dark wake observation — both substrates")
@@ -187,7 +205,8 @@ def main() -> None:
     plt.suptitle(
         "Path C — Cross-Substrate Comparison: rifled photon + dark wake\n"
         "Yee Maxwell FDTD (Path B) vs K4-TLM CosseratBeltrami (Path A)",
-        fontsize=12, fontweight="bold",
+        fontsize=12,
+        fontweight="bold",
     )
     plt.tight_layout()
 

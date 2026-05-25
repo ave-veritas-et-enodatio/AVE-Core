@@ -17,7 +17,6 @@ Predictions:
   - If linear Maxwell: c_eff = 1.0 (natural units) within ~few percent
   - Discrete K4-TLM may show small dispersion at short wavelengths
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -47,7 +46,9 @@ def main():
     print(f"  Recording {N_STEPS} steps ({N_PERIODS}P)")
 
     engine = VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=0.0,
+        N=N,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=False,
@@ -63,9 +64,9 @@ def main():
 
     # Pre-compute distance grid
     ix, iy, iz = np.indices((N, N, N))
-    r_grid = np.sqrt((ix - center[0])**2 + (iy - center[1])**2 + (iz - center[2])**2)
+    r_grid = np.sqrt((ix - center[0]) ** 2 + (iy - center[1]) ** 2 + (iz - center[2]) ** 2)
     active_mask = np.zeros((N, N, N), dtype=bool)
-    active_mask[PML:N-PML, PML:N-PML, PML:N-PML] = True
+    active_mask[PML : N - PML, PML : N - PML, PML : N - PML] = True
 
     # Concentric shells (active-region only)
     shell_radii = [1.0, 2.0, 3.0, 5.0, 7.0, 9.0, 11.0]
@@ -90,8 +91,7 @@ def main():
 
         if (time.time() - last) > 30.0:
             t_p = (i + 1) * DT / COMPTON_PERIOD
-            print(f"    step {i}/{N_STEPS}, t={t_p:.1f}P, elapsed {time.time()-t0:.1f}s",
-                  flush=True)
+            print(f"    step {i}/{N_STEPS}, t={t_p:.1f}P, elapsed {time.time()-t0:.1f}s", flush=True)
             last = time.time()
     elapsed = time.time() - t0
     print(f"  Recording done at {elapsed:.1f}s")
@@ -114,8 +114,10 @@ def main():
             arrival_step = -1
         arrival_time = arrival_step * DT
         arrivals.append((arrival_step, arrival_time, max_energy))
-        print(f"    r={r:.1f}: arrival at step {arrival_step} (t={arrival_time:.3f} natural), "
-              f"max energy={max_energy:.4e}")
+        print(
+            f"    r={r:.1f}: arrival at step {arrival_step} (t={arrival_time:.3f} natural), "
+            f"max energy={max_energy:.4e}"
+        )
 
     # Linear fit: c_eff = (r_n - r_1) / (t_n - t_1)
     valid = [(r, a[1]) for r, a in zip(shell_radii, arrivals) if a is not None and a[0] > 0]
@@ -148,13 +150,21 @@ def main():
 
     out = {
         "test": "Foundation Audit Test 2 v2: dispersion (corrected metric)",
-        "N": N, "PML": PML, "v_pulse": v_pulse,
-        "n_periods": N_PERIODS, "n_steps": N_STEPS,
+        "N": N,
+        "PML": PML,
+        "v_pulse": v_pulse,
+        "n_periods": N_PERIODS,
+        "n_steps": N_STEPS,
         "elapsed_s": elapsed,
         "shell_radii": shell_radii,
-        "shell_arrivals": [{"r": r, "step": a[0], "time": a[1], "max_energy": a[2]}
-                            if a else {"r": r, "step": None, "time": None, "max_energy": None}
-                            for r, a in zip(shell_radii, arrivals)],
+        "shell_arrivals": [
+            (
+                {"r": r, "step": a[0], "time": a[1], "max_energy": a[2]}
+                if a
+                else {"r": r, "step": None, "time": None, "max_energy": None}
+            )
+            for r, a in zip(shell_radii, arrivals)
+        ],
         "c_eff_fit": float(c_eff) if c_eff is not None else None,
         "deviation_from_c_pct": float((c_eff - 1.0) * 100) if c_eff is not None else None,
         "verdict": verdict,

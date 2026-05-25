@@ -1,5 +1,9 @@
 [↑ Ch.1 — Topological Matter](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-hb2xmj]
+-->
 
 ## Chirality and Antimatter Disintegration
 

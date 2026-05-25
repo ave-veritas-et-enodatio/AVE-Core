@@ -48,17 +48,17 @@ import numpy as np
 
 from ave.core.constants import ALPHA_COLD_INV
 
-
 # Golden Torus parameters (Ch 8)
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
-R_GT = PHI / 2.0               # major radius
-r_GT = (PHI - 1.0) / 2.0       # minor radius
-d_NYQ = 1.0                    # Nyquist tube thickness (one ell_node)
+R_GT = PHI / 2.0  # major radius
+r_GT = (PHI - 1.0) / 2.0  # minor radius
+d_NYQ = 1.0  # Nyquist tube thickness (one ell_node)
 
 
 # ============================================================
 # MODE 1: VOLUMETRIC (3-torus phase space with spin-1/2 double-cover)
 # ============================================================
+
 
 def volumetric_cell_count(R, r, n_mc=1_000_000, rng=None):
     """Count standing-wave cells in the electron's phase-space volume.
@@ -129,6 +129,7 @@ def volumetric_cell_count(R, r, n_mc=1_000_000, rng=None):
 # MODE 2: SURFACE (Clifford torus half-cover)
 # ============================================================
 
+
 def surface_cell_count(R, r, n_mc=1_000_000, rng=None):
     """Count cells on the Clifford-torus screening surface.
 
@@ -170,6 +171,7 @@ def surface_cell_count(R, r, n_mc=1_000_000, rng=None):
 # MODE 3: LINE (Nyquist core flux moment)
 # ============================================================
 
+
 def line_cell_count(d, n_mc=1_000_000, rng=None):
     """Count cells on the Nyquist core flux-moment line.
 
@@ -195,6 +197,7 @@ def line_cell_count(d, n_mc=1_000_000, rng=None):
 # VERIFICATION
 # ============================================================
 
+
 def main():
     print("=" * 72)
     print("Op21 Multi-Mode Q Rigorization — direct cell-count verification")
@@ -211,32 +214,41 @@ def main():
     ell_line = line_cell_count(d_NYQ, n_mc=n_mc)
 
     # Expected values (Ch 8)
-    expected_vol = 16.0 * np.pi ** 3 * R_GT * r_GT    # = 4*pi^3
-    expected_surf = 4.0 * np.pi ** 2 * R_GT * r_GT    # = pi^2
-    expected_line = np.pi * d_NYQ                      # = pi
+    expected_vol = 16.0 * np.pi**3 * R_GT * r_GT  # = 4*pi^3
+    expected_surf = 4.0 * np.pi**2 * R_GT * r_GT  # = pi^2
+    expected_line = np.pi * d_NYQ  # = pi
 
     print("\nMode-by-mode cell counts (Q_i = ell_i):")
-    print(f"  Volumetric: ell_vol  = {ell_vol:.6f}  "
-          f"(expected {expected_vol:.6f} = 4*pi^3)  "
-          f"[err: {abs(ell_vol - expected_vol)/expected_vol * 100:.4f}%]")
-    print(f"  Surface:    ell_surf = {ell_surf:.6f}  "
-          f"(expected {expected_surf:.6f} = pi^2)    "
-          f"[err: {abs(ell_surf - expected_surf)/expected_surf * 100:.4f}%]")
-    print(f"  Line:       ell_line = {ell_line:.6f}  "
-          f"(expected {expected_line:.6f} = pi)       "
-          f"[err: {abs(ell_line - expected_line)/expected_line * 100:.4f}%]")
+    print(
+        f"  Volumetric: ell_vol  = {ell_vol:.6f}  "
+        f"(expected {expected_vol:.6f} = 4*pi^3)  "
+        f"[err: {abs(ell_vol - expected_vol)/expected_vol * 100:.4f}%]"
+    )
+    print(
+        f"  Surface:    ell_surf = {ell_surf:.6f}  "
+        f"(expected {expected_surf:.6f} = pi^2)    "
+        f"[err: {abs(ell_surf - expected_surf)/expected_surf * 100:.4f}%]"
+    )
+    print(
+        f"  Line:       ell_line = {ell_line:.6f}  "
+        f"(expected {expected_line:.6f} = pi)       "
+        f"[err: {abs(ell_line - expected_line)/expected_line * 100:.4f}%]"
+    )
 
     Q_total = ell_vol + ell_surf + ell_line
     print(f"\nSum Q_total = ell_vol + ell_surf + ell_line = {Q_total:.6f}")
     print(f"Expected:   ALPHA_COLD_INV                     = {ALPHA_COLD_INV:.6f}")
-    print(f"Difference:                                      "
-          f"{abs(Q_total - ALPHA_COLD_INV):.3e} "
-          f"({abs(Q_total - ALPHA_COLD_INV) / ALPHA_COLD_INV * 100:.5f}%)")
+    print(
+        f"Difference:                                      "
+        f"{abs(Q_total - ALPHA_COLD_INV):.3e} "
+        f"({abs(Q_total - ALPHA_COLD_INV) / ALPHA_COLD_INV * 100:.5f}%)"
+    )
 
     print("\n" + "=" * 72)
     print("DERIVATION LOGIC")
     print("=" * 72)
-    print("""
+    print(
+        """
 Op21 original: Q = ell where ell = wavelength count around a 1D
   circumference at saturation boundary. Physical argument: each
   wavelength releases 1/ell of energy per cycle.
@@ -263,7 +275,8 @@ For the electron at Golden Torus, three modes contribute, summing to:
 This is Op21 directly, generalized to multi-dimensional modes at
 Nyquist, with the cell-count identity (mode-count = natural geometric
 measure) providing the concrete formula for each mode's ell_i.
-""")
+"""
+    )
 
     # Pass/fail check
     tol = 0.01  # 1% tolerance per mode

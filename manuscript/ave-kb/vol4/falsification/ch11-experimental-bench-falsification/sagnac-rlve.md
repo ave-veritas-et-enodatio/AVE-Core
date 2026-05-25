@@ -1,5 +1,13 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+exp-id: exp-rth12t
+status: pending
+strengthens:
+  - clm-qx9bb8: 1.0
+path-stable: "canonical Sagnac-RLVE experiment leaf; referenced from the by-methodology ch11-experimental-bench/sagnac-rlve.md duplicate + matrix A2-SAGNAC"
+-->
 
 ## The Ultimate Kill-Switch: The Sagnac-RLVE
 

@@ -1,6 +1,10 @@
 [↑ Common Resources](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol1, vol3, vol4, vol5 + universal-saturation-kernel-catalog.md as canonical temporal-axis regime classifier -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-f0jwtk]
+path-stable: "referenced from vol1, vol3, vol4, vol5 + universal-saturation-kernel-catalog.md as canonical temporal-axis regime classifier"
+-->
 
 # Temporal Saturation Regime Classifier
 
@@ -69,7 +73,7 @@ The trichotomy is justified empirically: classical-physics field theories all co
 
 ### 3. Semiconductor physics (EXTENSION — canonical in `four-regimes.md` Small-Signal/Large-Signal/Avalanche/Breakdown analog; this table adds AVE-temporal projection)
 
-Per [`four-regimes.md`](../vol1/operators-and-regimes/ch7-regime-map/four-regimes.md) §Semiconductor Device Analogy (Regime I = Small-Signal, II = Large-Signal, III = Avalanche $M \geq 2$, IV = Breakdown $M \to \infty$) + [`semiconductor-regime-chemistry.md`](../vol6/framework/chemistry-translation/semiconductor-regime-chemistry.md) (Miller exponent + nuclear $V_R/V_{BR}$ classification) + [`AVE-APU/manuscript/vol_1_axiomatic_components/chapters/05_geometric_triodes.tex`](../../../../AVE-APU/manuscript/vol_1_axiomatic_components/chapters/05_geometric_triodes.tex) (MOSFET = Geometric Triode) + [`02_vca_translation_matrix.tex:145`](../../../../AVE-APU/manuscript/vol_1_axiomatic_components/chapters/02_vca_translation_matrix.tex) (P-N junction) + [`solar-flares-led-avalanche.md`](../vol3/cosmology/ch14-orbital-mechanics/solar-flares-led-avalanche.md) (macroscopic Zener):
+Per [`four-regimes.md`](../vol1/operators-and-regimes/ch7-regime-map/four-regimes.md) §Semiconductor Device Analogy (Regime I = Small-Signal, II = Large-Signal, III = Avalanche $M \geq 2$, IV = Breakdown $M \to \infty$) + [`semiconductor-regime-chemistry.md`](../vol6/framework/chemistry-translation/semiconductor-regime-chemistry.md) (Miller exponent + nuclear $V_R/V_{BR}$ classification) + `AVE-APU/manuscript/vol_1_axiomatic_components/chapters/05_geometric_triodes.tex` (MOSFET = Geometric Triode) + `02_vca_translation_matrix.tex:145` (P-N junction) + [`solar-flares-led-avalanche.md`](../vol3/cosmology/ch14-orbital-mechanics/solar-flares-led-avalanche.md) (macroscopic Zener):
 
 | Semiconductor regime | Op14 analogue | AVE temporal regime |
 |---|---|---|
@@ -338,7 +342,6 @@ All three axes are orthogonal classifiers. A complete characterization of a syst
 ### Cross-disciplinary translation infrastructure (this leaf is the temporal companion)
 - [Translation Tables Index (7 disciplines)](translation-tables/index.md) — concept-by-concept mappings: Circuit/EE, QM, Particle Physics, Gravity, Cosmology, Condensed Matter, Biology
 - [Chemistry Translation Guide](../vol6/framework/chemistry-translation/index.md) — Lewis dots / VSEPR / quantum-vs-topological shells / semiconductor-regime chemistry (Miller multiplication + nuclear $V_R/V_{BR}$ classification)
-- [VCA Translation Matrix (full chapter, AVE-APU)](../../../../AVE-APU/manuscript/vol_1_axiomatic_components/chapters/02_vca_translation_matrix.tex) — electrical engineering ↔ AVE-VCA full chapter
 - [AVE Analytical Toolkit Index (9 problem classes)](ave-analytical-toolkit-index.md) — Coupling/Resonance/Saturation/Time-domain/Power/Mode/Boundary/Network/Numerical problem-class taxonomy with `ave-analytical-tool-selection` skill
 - [Trampoline / Spring Analogy Primer](trampoline-analogy-primer.md) — pedagogical GR → AVE primer (Step 0-6)
 - [Appendices Overview (Translation Matrix Index)](appendices-overview.md) — multi-volume translation-matrix registry
@@ -351,18 +354,12 @@ All three axes are orthogonal classifiers. A complete characterization of a syst
 - [Lipid bilayer phase buffering](../vol5/molecular-foundations/organic-circuitry/membrane-phase-buffering.md) — cholesterol as engineered phase buffer
 - [Transmon decoherence](../vol3/condensed-matter/ch11-thermodynamics/transmon-decoherence.md) — Ohmic damping formalism
 
-### Sibling-repo cross-references
-- [AVE-APU Geometric Triodes (MOSFET / P-N / Zener canonical)](../../../../AVE-APU/manuscript/vol_1_axiomatic_components/chapters/05_geometric_triodes.tex)
-- [AVE-APU VCA Translation Matrix (P-N junction → Zener avalanche)](../../../../AVE-APU/manuscript/vol_1_axiomatic_components/chapters/02_vca_translation_matrix.tex)
-- [AVE-QED Casimir + pair production](../../../../AVE-QED/manuscript/vol_qed_replacement/chapters/02_casimir.tex)
-- [AVE-Metamaterials Casimir cavities (mechanical high-pass)](../../../../AVE-Metamaterials/manuscript/vol_1_active_metamaterials/chapters/06_casimir_cavities.tex)
-
 ### Master catalog
 - [A-034 Universal Saturation-Kernel Catalog](universal-saturation-kernel-catalog.md) — 26-instance cross-scale catalog; this leaf's temporal-regime column is a companion classifier
 
 ### Adjudication queue
-- [_orchestration/index.md substantive item 1](../../../../_orchestration/index.md) — methodology-systematic Ganalyzer vs Longo: resolved-by-implication via bulk-vs-individual regime sampling per §Methodology-systematic implications above
-- [_orchestration/index.md substantive item 3](../../../../_orchestration/index.md) — lossless-dynamics framing axis: this leaf IS the encoding
+- [_orchestration/index.md substantive item 1](../../../_orchestration/index.md) — methodology-systematic Ganalyzer vs Longo: resolved-by-implication via bulk-vs-individual regime sampling per §Methodology-systematic implications above
+- [_orchestration/index.md substantive item 3](../../../_orchestration/index.md) — lossless-dynamics framing axis: this leaf IS the encoding
 
 ### Open follow-up work (corpus gaps surfaced by this leaf)
 - Tunnel diode / IGBT / BJT (semiconductor sub-categories)

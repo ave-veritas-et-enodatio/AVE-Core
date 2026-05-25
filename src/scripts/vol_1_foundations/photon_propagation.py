@@ -81,27 +81,29 @@ No SM/QED leakage
   a full plane — a compromise between cleanest +x̂ propagation and
   finite lattice size.
 """
-from __future__ import annotations
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
 
-from ave.core.k4_tlm import K4Lattice3D
 from ave.core.constants import C_0, V_SNAP
-
+from ave.core.k4_tlm import K4Lattice3D
 
 # ─────────────────────────────────────────────────────────────────────
 # Port geometry (A→B direction vectors; unit form for port projections)
 # ─────────────────────────────────────────────────────────────────────
-PORT_VECS = np.array([
-    [+1, +1, +1],   # port 0
-    [+1, -1, -1],   # port 1
-    [-1, +1, -1],   # port 2
-    [-1, -1, +1],   # port 3
-], dtype=float)
+PORT_VECS = np.array(
+    [
+        [+1, +1, +1],  # port 0
+        [+1, -1, -1],  # port 1
+        [-1, +1, -1],  # port 2
+        [-1, -1, +1],  # port 3
+    ],
+    dtype=float,
+)
 PORT_HAT = PORT_VECS / np.sqrt(3.0)
 
 
@@ -126,9 +128,7 @@ T2_LINEAR_B = np.array([+1, -1, +1, -1], dtype=float) / 2.0
 T2_LINEAR_C = np.array([+1, -1, -1, +1], dtype=float) / 2.0
 
 
-def forward_port_weights(
-    direction: tuple[float, float, float], project_T2: bool = True
-) -> np.ndarray:
+def forward_port_weights(direction: tuple[float, float, float], project_T2: bool = True) -> np.ndarray:
     """
     AVE-native photon port pattern for propagation in +d̂.
 
@@ -161,7 +161,7 @@ def forward_port_weights(
     d = d / np.linalg.norm(d)
     w = np.maximum(0.0, -PORT_HAT @ d)
     if project_T2:
-        w = w - w.mean()   # project onto T₂ (orthogonal to A₁ = (1,1,1,1))
+        w = w - w.mean()  # project onto T₂ (orthogonal to A₁ = (1,1,1,1))
         # Normalise so √(Σw²) = 1  → unit T₂ amplitude
         norm = np.sqrt((w * w).sum())
         if norm > 0:
@@ -221,18 +221,18 @@ class PlaneSource:
             return self._yz_profile_cache[2]
         j, k = np.indices((ny, nz), dtype=float)
         r2 = (j - self.y_c) ** 2 + (k - self.z_c) ** 2
-        profile = np.exp(-r2 / (2.0 * self.sigma_yz ** 2))
+        profile = np.exp(-r2 / (2.0 * self.sigma_yz**2))
         self._yz_profile_cache = (ny, nz, profile)
         return profile
 
     def apply(self, lattice: K4Lattice3D, t: float) -> None:
-        env = np.exp(-((t - self.t_center) ** 2) / (2.0 * self.t_sigma ** 2))
+        env = np.exp(-((t - self.t_center) ** 2) / (2.0 * self.t_sigma**2))
         osc = np.sin(self.omega * (t - self.t_center))
         A_t = self.amplitude * env * osc
         if abs(A_t) < 1e-30:
             return
         yz = self._yz_profile(lattice.ny, lattice.nz)
-        active_slice = lattice.mask_active[self.x0]   # (ny, nz)
+        active_slice = lattice.mask_active[self.x0]  # (ny, nz)
         injection = A_t * yz * active_slice.astype(float)
         # T₂-projected weights can be negative (Σw=0); apply to all ports.
         # Phase III Prereq 2: accumulate injected energy for H-drift accounting.
@@ -241,7 +241,7 @@ class PlaneSource:
             if self.port_w[n] != 0:
                 contribution = self.port_w[n] * injection
                 lattice.V_inc[self.x0, :, :, n] += contribution
-                per_step_energy += float(np.sum(contribution ** 2))
+                per_step_energy += float(np.sum(contribution**2))
         self.cumulative_energy_injected += per_step_energy
         self._n_apply_calls += 1
 
@@ -249,9 +249,7 @@ class PlaneSource:
 # ─────────────────────────────────────────────────────────────────────
 # Diagnostics
 # ─────────────────────────────────────────────────────────────────────
-def packet_centroid_interior(
-    lattice: K4Lattice3D, x_min: int, x_max: int
-) -> tuple[float, float, float]:
+def packet_centroid_interior(lattice: K4Lattice3D, x_min: int, x_max: int) -> tuple[float, float, float]:
     """
     (centroid x̄, peak x position, total energy) in x ∈ [x_min, x_max).
     (Excluding the source plane and PML regions.)
@@ -282,9 +280,9 @@ def run_validation(
     pml: int = 8,
     lambda_cells: float = 10.0,
     sigma_yz: float = 8.0,
-    t_sigma_periods: float = 0.75,   # short pulse: FWHM ~ 1.5 periods, ~6 periods wide total
+    t_sigma_periods: float = 0.75,  # short pulse: FWHM ~ 1.5 periods, ~6 periods wide total
     amp_frac: float = 0.01,
-    source_x: int = 16,              # just inside the -x PML
+    source_x: int = 16,  # just inside the -x PML
     n_steps: int = 240,
     steps_per_frame: int = 3,
     out_gif: str = "/tmp/photon_propagation_test.gif",
@@ -301,11 +299,11 @@ def run_validation(
     #   one step advances physical time by dt, phase by ω dt
     #   we want ω/c = 2π/λ → ω = 2π c / (lambda_cells · dx)
     omega = 2.0 * np.pi * c / (lambda_cells * dx)
-    period = 2.0 * np.pi / omega        # seconds
-    steps_per_period = period / dt      # dimensionless
+    period = 2.0 * np.pi / omega  # seconds
+    steps_per_period = period / dt  # dimensionless
 
     t_sigma = t_sigma_periods * period
-    t_center = 3.0 * t_sigma            # pulse effectively off by t = 6·t_sigma (early in the run)
+    t_center = 3.0 * t_sigma  # pulse effectively off by t = 6·t_sigma (early in the run)
 
     amp_volts = amp_frac * float(V_SNAP)
 
@@ -328,7 +326,7 @@ def run_validation(
     times: list[float] = [0.0]
 
     for step in range(1, n_steps + 1):
-        t_pre = step * dt          # source applied at the start of the step
+        t_pre = step * dt  # source applied at the start of the step
         src.apply(lattice, t_pre)
         lattice.step()
         if step % steps_per_frame == 0:
@@ -346,7 +344,7 @@ def run_validation(
     # Define "arrival at plane x" as the first frame where the slab
     # |V|²(x=x_plane, y, z, summed) exceeds 10% of its own lifetime maximum.
     source_end = src.t_center + 3 * src.t_sigma
-    x_a, x_b = source_x + 20, source_x + 60   # 36 and 76 for default config
+    x_a, x_b = source_x + 20, source_x + 60  # 36 and 76 for default config
     # Build per-frame amplitude history at each plane:
     rho_hist_a = np.array([frames_arr[i, x_a, :].sum() for i in range(len(frames_arr))])
     rho_hist_b = np.array([frames_arr[i, x_b, :].sum() for i in range(len(frames_arr))])
@@ -385,7 +383,8 @@ def run_validation(
         "total_time_s": float(times_arr[-1]),
         "source_center_s": float(src.t_center),
         "source_end_s": float(source_end),
-        "x_a": x_a, "x_b": x_b,
+        "x_a": x_a,
+        "x_b": x_b,
         "t_arrival_a_s": t_a if t_a is not None else 0.0,
         "t_arrival_b_s": t_b if t_b is not None else 0.0,
         "v_meas_mps": float(v_meas),
@@ -412,9 +411,7 @@ def _render_gif(
     out_path: str,
 ) -> None:
     """Side-by-side: |V|² xy-slice (log) + interior centroid x(t)."""
-    fig, (ax_im, ax_tr) = plt.subplots(
-        1, 2, figsize=(12, 5), gridspec_kw={"width_ratios": [1.3, 1]}
-    )
+    fig, (ax_im, ax_tr) = plt.subplots(1, 2, figsize=(12, 5), gridspec_kw={"width_ratios": [1.3, 1]})
 
     vmax = max(frames.max(), 1e-30)
     vmin = max(vmax * 1e-4, 1e-30)
@@ -437,13 +434,15 @@ def _render_gif(
     src_end_ps = summary["source_end_s"] * 1e12
     ax_tr.axvline(src_end_ps, color="cyan", lw=0.8, alpha=0.6, linestyle="--", label="source off")
     (line_tr,) = ax_tr.plot(
-        [t_ps[0]], [centroids[0, 1]], "r-o", lw=1.8, markersize=3,
+        [t_ps[0]],
+        [centroids[0, 1]],
+        "r-o",
+        lw=1.8,
+        markersize=3,
     )
     ax_tr.set_xlabel("time (ps)")
     ax_tr.set_ylabel("x position (cells)")
-    ax_tr.set_title(
-        f"v/c = {summary['c_ratio']:.3f}   λ = {summary['lambda_cells']:.0f} cells"
-    )
+    ax_tr.set_title(f"v/c = {summary['c_ratio']:.3f}   λ = {summary['lambda_cells']:.0f} cells")
     ax_tr.set_xlim(0, t_ps[-1] * 1.05)
     y_valid = centroids[:, 1][np.isfinite(centroids[:, 1])]
     if len(y_valid) > 0:
@@ -453,18 +452,11 @@ def _render_gif(
 
     def update(frame_idx):
         im.set_data(frames[frame_idx].T)
-        title_im.set_text(
-            f"step {frame_idx * summary['steps_per_frame']}, "
-            f"t = {times[frame_idx] * 1e12:.2f} ps"
-        )
-        line_tr.set_data(
-            t_ps[: frame_idx + 1], centroids[: frame_idx + 1, 1]
-        )
+        title_im.set_text(f"step {frame_idx * summary['steps_per_frame']}, " f"t = {times[frame_idx] * 1e12:.2f} ps")
+        line_tr.set_data(t_ps[: frame_idx + 1], centroids[: frame_idx + 1, 1])
         return im, title_im, line_tr
 
-    anim = FuncAnimation(
-        fig, update, frames=len(frames), interval=1000 / 15, blit=False
-    )
+    anim = FuncAnimation(fig, update, frames=len(frames), interval=1000 / 15, blit=False)
     writer = PillowWriter(fps=15)
     anim.save(out_path, writer=writer)
     plt.close(fig)
@@ -490,7 +482,4 @@ if __name__ == "__main__":
             f"Relative error {rel*100:.1f}% exceeds ±{tol*100:.0f}%."
         )
         sys.exit(1)
-    print(
-        f"\n✓  Phase A infrastructure validated. "
-        f"v/c = {summary['c_ratio']:.3f} ≈ √2 (K4 cardinal-axis)."
-    )
+    print(f"\n✓  Phase A infrastructure validated. " f"v/c = {summary['c_ratio']:.3f} ≈ √2 (K4 cardinal-axis).")

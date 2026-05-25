@@ -19,7 +19,6 @@ References:
 - src/ave/core/k4_tlm.py:348-426 _connect_all (C connect operator structure)
 - src/ave/topological/cosserat_field_3d.py energy_gradient (Cos-block HVP)
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -27,14 +26,13 @@ import time
 from pathlib import Path
 
 import numpy as np
-from scipy.sparse import lil_matrix, csr_matrix, csc_matrix, diags
-from scipy.sparse.linalg import eigs, eigsh, LinearOperator
+from scipy.sparse import csc_matrix, csr_matrix, diags, lil_matrix
+from scipy.sparse.linalg import LinearOperator, eigs, eigsh
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
 from ave.core.k4_tlm import build_scattering_matrix
-
+from ave.topological.vacuum_engine import VacuumEngine3D
 
 # ─── Pre-registered constants (frozen per doc 73_ §2-§5) ─────────────────────
 
@@ -44,12 +42,13 @@ A26_AMP_SCALE = 0.3 / (np.sqrt(3.0) / 2.0)
 GT_PEAK_OMEGA = 0.3 * np.pi
 
 from ave.core.constants import ALPHA
-OMEGA_COMPTON = 1.0
-DT = 1.0 / np.sqrt(2.0)        # K4-TLM timestep dt = dx/(c·√2) per k4_tlm.py:144
-TARGET_PHASE = OMEGA_COMPTON * DT      # ≈ 0.7071 rad — V-block target eigenvalue phase
-TARGET_LAMBDA_COS = OMEGA_COMPTON ** 2  # = 1.0 — Cos-block target eigenvalue
 
-PHASE_TOL_V = ALPHA * TARGET_PHASE      # ≈ 0.00516 rad for V-block PASS
+OMEGA_COMPTON = 1.0
+DT = 1.0 / np.sqrt(2.0)  # K4-TLM timestep dt = dx/(c·√2) per k4_tlm.py:144
+TARGET_PHASE = OMEGA_COMPTON * DT  # ≈ 0.7071 rad — V-block target eigenvalue phase
+TARGET_LAMBDA_COS = OMEGA_COMPTON**2  # = 1.0 — Cos-block target eigenvalue
+
+PHASE_TOL_V = ALPHA * TARGET_PHASE  # ≈ 0.00516 rad for V-block PASS
 LAMBDA_TOL_COS = ALPHA * OMEGA_COMPTON  # ≈ 0.00731 for Cos-block PASS (on √λ)
 
 A26_GUARD_LOW = 0.85 * GT_PEAK_OMEGA
@@ -59,19 +58,24 @@ N_LATTICE = 32
 PML = 4
 R_ANCHOR = 10.0
 EIGENMODES_V = 20
-EIGENMODES_COS = 100   # bumped from 20: K_cos has ~9-dim null space (rigid u/ω modes); need wider span to reach ω_C² level
+EIGENMODES_COS = (
+    100  # bumped from 20: K_cos has ~9-dim null space (rigid u/ω modes); need wider span to reach ω_C² level
+)
 NULL_SKIP_THRESH = 1e-6  # eigenvalues below this treated as null-space artifacts
 
 F17K_COS_RATIO = 3.40
 F17K_S11_RATIO = 1.03
 
 # K4-TLM tetrahedral port offsets (A→B). B→A is exact negative.
-PORTS = np.array([
-    [+1, +1, +1],
-    [+1, -1, -1],
-    [-1, +1, -1],
-    [-1, -1, +1],
-], dtype=int)
+PORTS = np.array(
+    [
+        [+1, +1, +1],
+        [+1, -1, -1],
+        [-1, +1, -1],
+        [-1, -1, +1],
+    ],
+    dtype=int,
+)
 
 OUTPUT_JSON = Path(__file__).parent / "r7_k4tlm_scattering_lctank_results.json"
 
@@ -81,7 +85,9 @@ OUTPUT_JSON = Path(__file__).parent / "r7_k4tlm_scattering_lctank_results.json"
 
 def build_engine() -> VacuumEngine3D:
     return VacuumEngine3D.from_args(
-        N=N_LATTICE, pml=PML, temperature=0.0,
+        N=N_LATTICE,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -90,7 +96,9 @@ def build_engine() -> VacuumEngine3D:
 
 def seed_2_3_hedgehog(engine, R, r):
     engine.cos.initialize_electron_2_3_sector(
-        R_target=R, r_target=r, use_hedgehog=True,
+        R_target=R,
+        r_target=r,
+        use_hedgehog=True,
         amplitude_scale=A26_AMP_SCALE,
     )
 
@@ -109,9 +117,7 @@ def a26_guard(engine, seed_name):
     peak = float(np.linalg.norm(np.asarray(engine.cos.omega), axis=-1).max())
     if seed_name.startswith("GT") or seed_name.startswith("F17K"):
         if not (A26_GUARD_LOW <= peak <= A26_GUARD_HIGH):
-            raise AssertionError(
-                f"A26 GUARD FAILED for '{seed_name}': peak |ω|={peak:.4f}"
-            )
+            raise AssertionError(f"A26 GUARD FAILED for '{seed_name}': peak |ω|={peak:.4f}")
     return peak
 
 
@@ -122,7 +128,7 @@ def compute_z_local_field(engine):
     """Op14 z_local from Cosserat A² at V=0 seed."""
     omega = np.asarray(engine.cos.omega)
     omega_yield = engine.cos.omega_yield
-    A_sq = np.sum(omega ** 2, axis=-1) / (omega_yield ** 2)
+    A_sq = np.sum(omega**2, axis=-1) / (omega_yield**2)
     A_sq_clipped = np.minimum(A_sq, 1.0 - 1e-6)
     S = np.sqrt(1.0 - A_sq_clipped)
     return 1.0 / np.maximum(np.sqrt(S), 1e-6)
@@ -223,8 +229,7 @@ def eigsolve_V_block(engine, k=EIGENMODES_V):
     try:
         # eigs is general (not symmetric); shift-invert with sigma for unitary T.
         # For T unitary, eigenvalues lie on unit circle.
-        eigvals, eigvecs = eigs(T, k=k, sigma=sigma, which='LM',
-                                tol=1e-6, maxiter=2000)
+        eigvals, eigvecs = eigs(T, k=k, sigma=sigma, which="LM", tol=1e-6, maxiter=2000)
         print(f"      V-block eigsolve: {time.time() - t1:.1f}s, {len(eigvals)} eigenvalues")
     except Exception as e:
         print(f"      V-block eigsolve ERROR: {e}")
@@ -283,10 +288,12 @@ def build_M_cos(engine):
     rho = engine.cos.rho
     I_omega = engine.cos.I_omega
     n_per_field = engine.cos.u.size
-    diag = np.concatenate([
-        rho * np.ones(n_per_field),
-        I_omega * np.ones(n_per_field),
-    ])
+    diag = np.concatenate(
+        [
+            rho * np.ones(n_per_field),
+            I_omega * np.ones(n_per_field),
+        ]
+    )
     return diags(diag).tocsr()
 
 
@@ -308,25 +315,29 @@ def eigsolve_Cos_block(engine, k=EIGENMODES_COS):
     # modes which may still include a candidate near ω_C if the bound state has
     # large positive eigenvalue.
     for mode_try, tol_try, maxiter_try in [
-        ('SA', 1e-3, 5000),
-        ('LM', 1e-3, 5000),
+        ("SA", 1e-3, 5000),
+        ("LM", 1e-3, 5000),
     ]:
         try:
             eigvals, eigvecs = eigsh(
-                K_op, M=M, k=k,
-                which=mode_try, tol=tol_try, maxiter=maxiter_try,
+                K_op,
+                M=M,
+                k=k,
+                which=mode_try,
+                tol=tol_try,
+                maxiter=maxiter_try,
             )
             eigsolve_mode = mode_try
-            print(f"      Cos-block eigsolve: {time.time() - t0:.1f}s, "
-                  f"{len(eigvals)} eigenvalues (mode={mode_try})")
+            print(
+                f"      Cos-block eigsolve: {time.time() - t0:.1f}s, " f"{len(eigvals)} eigenvalues (mode={mode_try})"
+            )
             break
         except Exception as e:
             print(f"      Cos-block eigsolve ({mode_try}) ERROR: {e}")
             continue
 
     if eigvals is None:
-        return {"eigvals": None, "eigvecs": None, "mode": None,
-                "error": "Both SA and LM modes failed to converge"}
+        return {"eigvals": None, "eigvecs": None, "mode": None, "error": "Both SA and LM modes failed to converge"}
 
     idx = np.argsort(eigvals)
     return {
@@ -417,9 +428,7 @@ def run_seed(name, R, r, gt_family):
     cos_c_eigvec = -1
     if Cos_close and Cos_result["eigvecs"] is not None:
         try:
-            cos_c_eigvec = crossing_count_cos_eigvec(
-                Cos_result["eigvecs"][:, Cos_idx], engine
-            )
+            cos_c_eigvec = crossing_count_cos_eigvec(Cos_result["eigvecs"][:, Cos_idx], engine)
         except Exception as e:
             print(f"    crossing-count error: {e}")
 
@@ -431,7 +440,8 @@ def run_seed(name, R, r, gt_family):
 
     return {
         "seed_name": name,
-        "R": R, "r": r,
+        "R": R,
+        "r": r,
         "gt_family": gt_family,
         "peak_omega_seed": peak,
         "V_block": {
@@ -470,8 +480,7 @@ def adjudicate(results):
     elif F17K_cos_pass or F17K_s11_pass:
         mode = "II"
         reading = (
-            f"Engine basin at F17-K endpoint, NOT corpus GT. "
-            f"F17K_cos={F17K_cos_pass}, F17K_s11={F17K_s11_pass}."
+            f"Engine basin at F17-K endpoint, NOT corpus GT. " f"F17K_cos={F17K_cos_pass}, F17K_s11={F17K_s11_pass}."
         )
     else:
         mode = "III"
@@ -504,10 +513,10 @@ def main():
     print(f"  Cos-block target: λ = ω_C² = {TARGET_LAMBDA_COS}, tol {LAMBDA_TOL_COS:.4e} on √λ")
 
     seed_specs = [
-        ("GT_corpus",          R_ANCHOR, R_ANCHOR / PHI_SQ,         True),
-        ("F17K_cos_endpoint",  R_ANCHOR, R_ANCHOR / F17K_COS_RATIO, True),
-        ("F17K_s11_endpoint",  R_ANCHOR, R_ANCHOR / F17K_S11_RATIO, True),
-        ("vacuum_control",     0.0,      0.0,                        False),
+        ("GT_corpus", R_ANCHOR, R_ANCHOR / PHI_SQ, True),
+        ("F17K_cos_endpoint", R_ANCHOR, R_ANCHOR / F17K_COS_RATIO, True),
+        ("F17K_s11_endpoint", R_ANCHOR, R_ANCHOR / F17K_S11_RATIO, True),
+        ("vacuum_control", 0.0, 0.0, False),
     ]
 
     results = {}
@@ -520,14 +529,18 @@ def main():
             break
         except Exception as e:
             import traceback
-            results[name] = {"seed_name": name, "fatal_error": str(e),
-                            "traceback": traceback.format_exc()}
+
+            results[name] = {"seed_name": name, "fatal_error": str(e), "traceback": traceback.format_exc()}
             print(f"  ERROR in {name}: {e}")
 
     print("\n" + "=" * 78, flush=True)
     print("  Three-mode falsification adjudication")
     print("=" * 78, flush=True)
-    adj = adjudicate(results) if all("eigenmode_found_at_omega_C" in r for r in results.values()) else {"mode": "INCOMPLETE"}
+    adj = (
+        adjudicate(results)
+        if all("eigenmode_found_at_omega_C" in r for r in results.values())
+        else {"mode": "INCOMPLETE"}
+    )
     print(f"  MODE: {adj.get('mode', '?')}")
     print(f"  Reading: {adj.get('reading', 'incomplete')}")
 
@@ -535,10 +548,14 @@ def main():
         "pre_registration": "P_phase6_k4tlm_scattering_lctank",
         "doc": "research/_archive/L3_electron_soliton/73_discrete_k4_tlm_lctank_operator.md",
         "constants": {
-            "N_LATTICE": N_LATTICE, "R_ANCHOR": R_ANCHOR,
-            "OMEGA_COMPTON": OMEGA_COMPTON, "DT": DT,
-            "TARGET_PHASE": TARGET_PHASE, "PHASE_TOL_V": PHASE_TOL_V,
-            "TARGET_LAMBDA_COS": TARGET_LAMBDA_COS, "LAMBDA_TOL_COS": LAMBDA_TOL_COS,
+            "N_LATTICE": N_LATTICE,
+            "R_ANCHOR": R_ANCHOR,
+            "OMEGA_COMPTON": OMEGA_COMPTON,
+            "DT": DT,
+            "TARGET_PHASE": TARGET_PHASE,
+            "PHASE_TOL_V": PHASE_TOL_V,
+            "TARGET_LAMBDA_COS": TARGET_LAMBDA_COS,
+            "LAMBDA_TOL_COS": LAMBDA_TOL_COS,
             "ALPHA": ALPHA,
         },
         "results": results,

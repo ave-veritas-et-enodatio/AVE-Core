@@ -1,14 +1,19 @@
 [↑ Ch.4 Continuum Electrodynamics](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-527k22]
+-->
 
 ## Section 4.6: The Bullet Cluster: Ponderomotive Halos + Einstein Lensing (no exotic DM, no TT shockwave)
 
-> **Scope correction (2026-05-17 audit):** Prior leaf framed the bullet cluster offset as a propagating Transverse-Traceless (TT) Tensor Shockwave $h_\perp$ on the Gordon optical metric. Audit (corpus-grep across 10 repos + Grant physical-intuition adjudication 2026-05-17 evening) found that framing was over-parameterized: it invoked a propagating wave mechanism (with implicit sub-luminal $v_T$ requirement that contradicts the canonical $v_T = c$ from `photon-propagation-baseline.md:16` + 2 other loci) when the actual mechanism is much simpler. The corrected framing — **ponderomotive-class substrate-strain halos + standard Einstein lensing through the Gordon optical metric** — uses only existing Vol 1 Ch 4 + Vol 3 Ch 3 physics, with no additional propagation physics required. The Vol 3 Ch 5 $\eta_{eff}$ halo superposition is the canonical AVE mechanism; the prior TT-shockwave language is retired. Full prereg + audit at [`research/2026-05-17_C13b_bullet_cluster_prereg.md`](../../../../research/2026-05-17_C13b_bullet_cluster_prereg.md).
+> **Scope correction (2026-05-17 audit):** Prior leaf framed the bullet cluster offset as a propagating Transverse-Traceless (TT) Tensor Shockwave $h_\perp$ on the Gordon optical metric. Audit (corpus-grep across 10 repos + Grant physical-intuition adjudication 2026-05-17 evening) found that framing was over-parameterized: it invoked a propagating wave mechanism (with implicit sub-luminal $v_T$ requirement that contradicts the canonical $v_T = c$ from `photon-propagation-baseline.md:16` + 2 other loci) when the actual mechanism is much simpler. The corrected framing — **ponderomotive-class substrate-strain halos + standard Einstein lensing through the Gordon optical metric** — uses only existing Vol 1 Ch 4 + Vol 3 Ch 3 physics, with no additional propagation physics required. The Vol 3 Ch 5 $\eta_{eff}$ halo superposition is the canonical AVE mechanism; the prior TT-shockwave language is retired. Full prereg + audit at [`research/2026-05-17_C13b_bullet_cluster_prereg.md`](../../../../../research/2026-05-17_C13b_bullet_cluster_prereg.md).
 >
-> **Session-start ave-prereg invocation closure (2026-05-17 night Foundation Item 8 CG-9 reverse cross-reference):** this leaf canonizes the bullet-cluster offset distance derivation that was requested as an ave-prereg invocation at session start ("bullet-cluster offset distance derivation — derive spatial offset between baryonic matter and lensing peak (~25 arcsec) from TT-tensor shockwave on Gordon optical metric"). The session-start framing was retained-then-walked-back per the audit above; the corrected ponderomotive-halo framing is what landed in this canonical leaf. Foundation Items 4 + 5 closure-roadmap entries previously listed "bullet-cluster derivation" as remaining queued physics — those entries are amended per Foundation Item 8 CG-9 to mark this as DONE. See closure-roadmap §0.5 Foundation Items 4 + 5 + 8 entries.
+> **Session-start ave-prereg invocation closure (2026-05-17 night Foundation Item 8 CG-9 reverse cross-reference):** this leaf canonizes the bullet-cluster offset distance derivation that was requested as an ave-prereg invocation at session start ("bullet-cluster offset distance derivation — derive spatial offset between baryonic matter and lensing peak (~25 arcsec) from TT-tensor shockwave on Gordon optical metric"). The session-start framing was retained-then-walked-back per the audit above; the corrected ponderomotive-halo framing is what landed in this canonical leaf. Foundation Items 4 + 5 previously listed "bullet-cluster derivation" as remaining queued physics — those entries are amended per Foundation Item 8 CG-9 to mark this as DONE.
 
 The "Bullet Cluster" (1E 0657-558) is frequently cited as evidence for particulate Dark Matter because the gravitational lensing centre is spatially offset (~150 kpc projected, ~25 arcsec at z = 0.30) from the visible baryonic gas peak. Standard theory interprets this as proof that dark matter consists of collisionless WIMP particles that passed through the collision unimpeded while baryonic gas was stopped collisionally.
 
+<!-- claim-quality: clm-527k22 -->
 ### AVE mechanism: ponderomotive halos co-move with stars; gas decouples; lensing tracks halos
 
 The AVE framework explains the offset using **only standard Vol 1 Ch 4 substrate-strain physics + Vol 3 Ch 3 Gordon optical metric lensing**, with no exotic particles and no propagating shockwave:
@@ -56,7 +61,7 @@ Both AVE (ponderomotive-halo framing) and WIMP DM predict the same QUALITATIVE b
 
 For over 20 years, the DAMA/LIBRA experiment in Italy has detected a persistent annual sinusoidal modulation in their Dark Matter detectors, peaking in June. However, large-scale liquid detectors (XENONnT, LUX) have found no evidence of this signal, reaching the "Neutrino Floor" sensitivity limit. Standard interpretations classify the DAMA result as a systematic artefact.
 
-**AVE refresh-rate interpretation** (canonical 2026-05-17 evening per Grant adjudication; full prereg at [`research/2026-05-17_C14-DAMA_amplitude_prereg.md`](../../../../research/2026-05-17_C14-DAMA_amplitude_prereg.md)):
+**AVE refresh-rate interpretation** (canonical 2026-05-17 evening per Grant adjudication; full prereg at [`research/2026-05-17_C14-DAMA_amplitude_prereg.md`](../../../../../research/2026-05-17_C14-DAMA_amplitude_prereg.md)):
 
 DAMA is a high-Q acoustic interferometer measuring Earth's local refresh-rate modulation in the K4 discrete substrate. K4 lattice has spatial pitch $\ell_{node} \approx 3.86 \times 10^{-13}$ m + intrinsic LC refresh rate per node. Earth moves through the lattice at $v_{wind} = 370$ km/s (CMB-rest frame per Q-G24), encountering lattice nodes at local rate $\sim v_{wind}/\ell_{node} \approx 9.6 \times 10^{17}$ Hz per unit perpendicular area. Annual orbital ±15 km/s modulates this rate by ~4%; a coherent crystal lattice (NaI) acts as a long-baseline interferometer (atomic spacing spans ~770 lattice nodes per atom-pair) and detects the rate modulation. Liquid Xe has no coherent baseline → no detection.
 
@@ -64,12 +69,12 @@ Same DAMA experimental data, same XENONnT null — different (cleaner) substrate
 
 ### Cross-references
 
-- [`research/2026-05-17_C13b_bullet_cluster_prereg.md`](../../../../research/2026-05-17_C13b_bullet_cluster_prereg.md) — full audit + Grant adjudication
-- [`research/2026-05-17_C14-DAMA_amplitude_prereg.md`](../../../../research/2026-05-17_C14-DAMA_amplitude_prereg.md) — DAMA refresh-rate working hypothesis
+- [`research/2026-05-17_C13b_bullet_cluster_prereg.md`](../../../../../research/2026-05-17_C13b_bullet_cluster_prereg.md) — full audit + Grant adjudication
+- [`research/2026-05-17_C14-DAMA_amplitude_prereg.md`](../../../../../research/2026-05-17_C14-DAMA_amplitude_prereg.md) — DAMA refresh-rate working hypothesis
 - [`gordon-optical-metric.md`](../../../vol3/gravity/ch03-macroscopic-relativity/gordon-optical-metric.md) — canonical Gordon optical metric for AVE lensing
 - [`einstein-lensing-deflection.md`](../../../vol3/gravity/ch03-macroscopic-relativity/einstein-lensing-deflection.md) — Einstein deflection $\delta = 4GM/bc^2$ from Gordon metric
 - [`transverse-refractive-index.md`](../../../vol3/gravity/ch03-macroscopic-relativity/transverse-refractive-index.md) — $n_\perp = 1 - h_\perp$ formula
-- [`../../../common/preferred-frame-and-emergent-lorentz.md`](../preferred-frame-and-emergent-lorentz.md) — K4 lattice rest frame = CMB rest frame; Earth velocity ~370 km/s
+- [`../../../common/preferred-frame-and-emergent-lorentz.md`](preferred-frame-and-emergent-lorentz.md) — K4 lattice rest frame = CMB rest frame; Earth velocity ~370 km/s
 - AVE-PONDER manuscript chapters — same ponderomotive-halo physics at lab scale
 
 ---

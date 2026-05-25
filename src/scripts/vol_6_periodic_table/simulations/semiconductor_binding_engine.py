@@ -87,7 +87,7 @@ from ave.core.constants import (
     K_MUTUAL,
     L_NODE,
     M_N_MEV_TARGET,
-    M_P_MEV_TARGET,
+    M_P_MEV_CODATA,
     PROTON_ELECTRON_RATIO,
     e_charge,
 )
@@ -97,7 +97,7 @@ from ave.core.constants import (
 # =============================================================================
 
 # Masses [MeV] — from physics engine
-M_P = M_P_MEV_TARGET
+M_P = M_P_MEV_CODATA
 M_N = M_N_MEV_TARGET
 M_E_AVE = 0.511  # Electron (Axiom 1 anchor)
 

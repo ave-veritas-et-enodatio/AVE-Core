@@ -1,5 +1,9 @@
 [↑ Organic Circuitry](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+no-claim: notational framework / pure structural definition
+-->
 
 ---
 

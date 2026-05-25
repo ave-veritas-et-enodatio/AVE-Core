@@ -1,5 +1,9 @@
 [↑ App B: Theoretical Stress Tests](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-ghs75o]
+-->
 
 ## The Peierls-Nabarro Friction Paradox
 

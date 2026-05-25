@@ -1,5 +1,11 @@
 [↑ Period 2](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-8psuqe, clm-f5ucdo, clm-f8k2um, clm-h8nmpu, clm-rw7jqo, clm-sd04x4, clm-y7uvdc]
+subtree-experiments: []
+-->
+
 # Fluorine (Z=9)
 
 Fluorine-19 ($4\alpha + ^3\text{H}$) is the most extreme core-plus-halo nucleus in the periodic table. The Oxygen-16 tetrahedral core at $33d$ binds a Tritium halo at $R_{halo} = 398.478d$---a $335$ fm lever arm that constitutes the quantitative mechanical definition of electronegativity in the AVE framework. The mono-isotopic character ($100\%$ $^{19}F$) is a direct consequence of both core and halo being individually stable only in this exact configuration.

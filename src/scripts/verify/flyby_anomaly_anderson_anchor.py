@@ -26,8 +26,6 @@ Per ave-driver-script-honesty four-discriminator:
   4. Silent-overclaim: report ALL 6 spacecraft individually; NO aggregate match rate
 """
 
-from __future__ import annotations
-
 import json
 import math
 import os
@@ -80,8 +78,10 @@ ANDERSON_2008_FLYBYS: list[FlybyEvent] = [
         name="Galileo I",
         date="1990-12-08",
         V_inf_km_s=8.949,
-        alpha_in_deg=266.76, delta_in_deg=+12.52,  # verified per arXiv:0803.1370
-        alpha_out_deg=219.97, delta_out_deg=+34.15,
+        alpha_in_deg=266.76,
+        delta_in_deg=+12.52,  # verified per arXiv:0803.1370
+        alpha_out_deg=219.97,
+        delta_out_deg=+34.15,
         observed_dV_mm_s=3.92,
         observed_sigma_mm_s=0.08,  # verified per arXiv:0803.1370 (was 0.30 from memory)
     ),
@@ -89,8 +89,10 @@ ANDERSON_2008_FLYBYS: list[FlybyEvent] = [
         name="Galileo II",
         date="1992-12-08",
         V_inf_km_s=8.877,
-        alpha_in_deg=219.35, delta_in_deg=-34.26,  # verified sign flip per arXiv:0803.1370
-        alpha_out_deg=174.35, delta_out_deg=-4.87,  # verified sign flip per arXiv:0803.1370
+        alpha_in_deg=219.35,
+        delta_in_deg=-34.26,  # verified sign flip per arXiv:0803.1370
+        alpha_out_deg=174.35,
+        delta_out_deg=-4.87,  # verified sign flip per arXiv:0803.1370
         observed_dV_mm_s=-4.6,
         observed_sigma_mm_s=1.0,
     ),
@@ -98,8 +100,10 @@ ANDERSON_2008_FLYBYS: list[FlybyEvent] = [
         name="NEAR",
         date="1998-01-23",
         V_inf_km_s=6.851,
-        alpha_in_deg=261.17, delta_in_deg=-20.76,
-        alpha_out_deg=183.49, delta_out_deg=-71.96,  # verified sign flip per arXiv:0803.1370
+        alpha_in_deg=261.17,
+        delta_in_deg=-20.76,
+        alpha_out_deg=183.49,
+        delta_out_deg=-71.96,  # verified sign flip per arXiv:0803.1370
         observed_dV_mm_s=13.46,
         observed_sigma_mm_s=0.13,
         notes="Largest published flyby anomaly; corpus '13.4 mm/s' candidate match.",
@@ -108,8 +112,10 @@ ANDERSON_2008_FLYBYS: list[FlybyEvent] = [
         name="Cassini",
         date="1999-08-18",
         V_inf_km_s=16.010,
-        alpha_in_deg=334.31, delta_in_deg=-12.92,
-        alpha_out_deg=352.54, delta_out_deg=-4.99,
+        alpha_in_deg=334.31,
+        delta_in_deg=-12.92,
+        alpha_out_deg=352.54,
+        delta_out_deg=-4.99,
         observed_dV_mm_s=-2.0,
         observed_sigma_mm_s=1.0,
     ),
@@ -117,8 +123,10 @@ ANDERSON_2008_FLYBYS: list[FlybyEvent] = [
         name="Rosetta I",
         date="2005-03-04",
         V_inf_km_s=3.863,
-        alpha_in_deg=346.12, delta_in_deg=-2.81,
-        alpha_out_deg=246.51, delta_out_deg=-34.29,
+        alpha_in_deg=346.12,
+        delta_in_deg=-2.81,
+        alpha_out_deg=246.51,
+        delta_out_deg=-34.29,
         observed_dV_mm_s=1.82,
         observed_sigma_mm_s=0.05,
     ),
@@ -126,8 +134,10 @@ ANDERSON_2008_FLYBYS: list[FlybyEvent] = [
         name="MESSENGER",
         date="2005-08-02",
         V_inf_km_s=4.056,
-        alpha_in_deg=292.61, delta_in_deg=+31.44,
-        alpha_out_deg=227.17, delta_out_deg=-31.92,
+        alpha_in_deg=292.61,
+        delta_in_deg=+31.44,
+        alpha_out_deg=227.17,
+        delta_out_deg=-31.92,
         observed_dV_mm_s=0.02,
         observed_sigma_mm_s=0.01,
         notes="Adams 2008 + Acedo 2017 both characterize as outlier of simple Anderson empirical fit.",
@@ -136,9 +146,7 @@ ANDERSON_2008_FLYBYS: list[FlybyEvent] = [
 
 
 # ─── AVE formula evaluations (4 convention variants) ────────────────────
-def predict_dV_AVE_cos_product(
-    V_inf_m_s: float, alpha_deg: float, delta_deg: float
-) -> float:
+def predict_dV_AVE_cos_product(V_inf_m_s: float, alpha_deg: float, delta_deg: float) -> float:
     """Corpus literal: ΔV = V_∞ · 2(U_⊕/C_0) · cos(α_geo)·cos(δ_geo).
 
     Returns ΔV in m/s.
@@ -148,9 +156,7 @@ def predict_dV_AVE_cos_product(
     return V_inf_m_s * coupling * cos_factor
 
 
-def predict_dV_Anderson_empirical(
-    V_inf_m_s: float, delta_in_deg: float, delta_out_deg: float
-) -> float:
+def predict_dV_Anderson_empirical(V_inf_m_s: float, delta_in_deg: float, delta_out_deg: float) -> float:
     """Anderson 2008 empirical: ΔV = V_∞ · 2(U_⊕/C_0) · (cos δ_in − cos δ_out).
 
     Same dimensional structure as AVE formula but with the geometric factor
@@ -175,11 +181,14 @@ def evaluate_flyby(fb: FlybyEvent) -> dict:
     # Convention B: cos(α_out)·cos(δ_out)
     dV_B = predict_dV_AVE_cos_product(V_inf, fb.alpha_out_deg, fb.delta_out_deg) * 1000.0
     # Convention C: cos((α_in+α_out)/2)·cos((δ_in+δ_out)/2)
-    dV_C = predict_dV_AVE_cos_product(
-        V_inf,
-        (fb.alpha_in_deg + fb.alpha_out_deg) / 2.0,
-        (fb.delta_in_deg + fb.delta_out_deg) / 2.0,
-    ) * 1000.0
+    dV_C = (
+        predict_dV_AVE_cos_product(
+            V_inf,
+            (fb.alpha_in_deg + fb.alpha_out_deg) / 2.0,
+            (fb.delta_in_deg + fb.delta_out_deg) / 2.0,
+        )
+        * 1000.0
+    )
     # Convention D: Anderson empirical (cos δ_in - cos δ_out)
     dV_D = predict_dV_Anderson_empirical(V_inf, fb.delta_in_deg, fb.delta_out_deg) * 1000.0
 
@@ -244,7 +253,9 @@ def run() -> dict:
 
     print(f"\n{'='*105}")
     print(f"{'Spacecraft':<14} {'V_∞':>8} {'Obs ΔV':>14} {'Conv-A':>15} {'Conv-B':>15} {'Conv-C':>15} {'Conv-D':>15}")
-    print(f"{'':14} {'(km/s)':>8} {'(mm/s)':>14} {'(mm/s, σ)':>15} {'(mm/s, σ)':>15} {'(mm/s, σ)':>15} {'(mm/s, σ)':>15}")
+    print(
+        f"{'':14} {'(km/s)':>8} {'(mm/s)':>14} {'(mm/s, σ)':>15} {'(mm/s, σ)':>15} {'(mm/s, σ)':>15} {'(mm/s, σ)':>15}"
+    )
     print(f"{'='*105}")
 
     results = []
@@ -276,10 +287,18 @@ def run() -> dict:
 
     print("=" * 105)
     print(f"\nMATCH SUMMARY (6 spacecraft):")
-    print(f"  Convention A (cos(α_in)·cos(δ_in)):       {convention_match_counts['A']}/6 within 1σ, {convention_within_2sigma['A']}/6 within 2σ")
-    print(f"  Convention B (cos(α_out)·cos(δ_out)):     {convention_match_counts['B']}/6 within 1σ, {convention_within_2sigma['B']}/6 within 2σ")
-    print(f"  Convention C (cos(mean(α))·cos(mean(δ))): {convention_match_counts['C']}/6 within 1σ, {convention_within_2sigma['C']}/6 within 2σ")
-    print(f"  Convention D (Anderson cos δ_in-cos δ_out): {convention_match_counts['D']}/6 within 1σ, {convention_within_2sigma['D']}/6 within 2σ")
+    print(
+        f"  Convention A (cos(α_in)·cos(δ_in)):       {convention_match_counts['A']}/6 within 1σ, {convention_within_2sigma['A']}/6 within 2σ"
+    )
+    print(
+        f"  Convention B (cos(α_out)·cos(δ_out)):     {convention_match_counts['B']}/6 within 1σ, {convention_within_2sigma['B']}/6 within 2σ"
+    )
+    print(
+        f"  Convention C (cos(mean(α))·cos(mean(δ))): {convention_match_counts['C']}/6 within 1σ, {convention_within_2sigma['C']}/6 within 2σ"
+    )
+    print(
+        f"  Convention D (Anderson cos δ_in-cos δ_out): {convention_match_counts['D']}/6 within 1σ, {convention_within_2sigma['D']}/6 within 2σ"
+    )
 
     # Corpus claim cross-check: "13.4 mm/s without fitting"
     print(f"\n{'='*105}")
@@ -289,11 +308,17 @@ def run() -> dict:
     print(f"Corpus (flyby-anomaly-sagnac-operator.md:22): 'intrinsically outputs ΔV ≈ 13.4 mm/s without fitting'")
     print(f"NEAR observed: +13.46 ± 0.13 mm/s (highest published flyby anomaly)")
     print(f"NEAR predictions:")
-    print(f"  AVE formula Convention D (Anderson empirical): {near['convention_D_Anderson_empirical']['dV_mm_s']:+.3f} mm/s")
+    print(
+        f"  AVE formula Convention D (Anderson empirical): {near['convention_D_Anderson_empirical']['dV_mm_s']:+.3f} mm/s"
+    )
     print(f"    → matches NEAR observed to {near['convention_D_Anderson_empirical']['sigma']:+.2f}σ")
     print(f"  Required cos·cos for AVE formula to give NEAR observed: {near['cos_factor_required']:+.4f}")
-    print(f"  Anderson empirical (cos δ_in - cos δ_out) for NEAR: {math.cos(math.radians(-20.76)) - math.cos(math.radians(71.96)):+.4f}")
-    print(f"  ← match between required and Anderson empirical = AVE notation 'cos(α)cos(δ)' is structurally the Anderson empirical form for NEAR")
+    print(
+        f"  Anderson empirical (cos δ_in - cos δ_out) for NEAR: {math.cos(math.radians(-20.76)) - math.cos(math.radians(71.96)):+.4f}"
+    )
+    print(
+        f"  ← match between required and Anderson empirical = AVE notation 'cos(α)cos(δ)' is structurally the Anderson empirical form for NEAR"
+    )
 
     # Outcome classification per prereg Section 3c
     print(f"\n{'='*105}")

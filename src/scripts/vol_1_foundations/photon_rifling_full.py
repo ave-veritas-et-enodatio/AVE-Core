@@ -27,27 +27,26 @@ Outputs:
   - assets/photon_rifling_full_RH.gif (~5MB, 100 frames)
   - assets/photon_rifling_full_LH.gif
 """
-from __future__ import annotations
 
 from pathlib import Path
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib import cm
 from matplotlib.animation import FuncAnimation, PillowWriter
 from matplotlib.gridspec import GridSpec
-from matplotlib import cm
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 
-from ave.core.fdtd_3d import FDTD3DEngine
 from ave.core.constants import V_YIELD
+from ave.core.fdtd_3d import FDTD3DEngine
 
 
 def run_pulsed_long(handedness: str, nx=320, ny=64, nz=64, n_steps=800):
     """Long-domain Yee FDTD with soft Gaussian-windowed CP pulse."""
-    eng = FDTD3DEngine(nx, ny, nz, dx=0.01, linear_only=True,
-                       use_pml=True, pml_layers=10)
+    eng = FDTD3DEngine(nx, ny, nz, dx=0.01, linear_only=True, use_pml=True, pml_layers=10)
     c = eng.c
     dt = eng.dt
     freq = 1.5e9
@@ -65,7 +64,7 @@ def run_pulsed_long(handedness: str, nx=320, ny=64, nz=64, n_steps=800):
     cy, cz = ny // 2, nz // 2
     j, k = np.indices((ny, nz), dtype=float)
     r2 = (j - cy) ** 2 + (k - cz) ** 2
-    profile = np.exp(-r2 / (2.0 * sigma_yz ** 2))
+    profile = np.exp(-r2 / (2.0 * sigma_yz**2))
 
     sign = +1.0 if handedness == "RH" else -1.0
 
@@ -75,7 +74,7 @@ def run_pulsed_long(handedness: str, nx=320, ny=64, nz=64, n_steps=800):
 
     for step in range(1, n_steps + 1):
         t = step * dt
-        env = np.exp(-((t - t_center) / t_sigma) ** 2)
+        env = np.exp(-(((t - t_center) / t_sigma) ** 2))
         if env > 1e-7:
             Ey_inj = env * amp_E * np.sin(omega * t)
             Ez_inj = env * amp_E * sign * np.cos(omega * t)
@@ -84,22 +83,30 @@ def run_pulsed_long(handedness: str, nx=320, ny=64, nz=64, n_steps=800):
         eng.step()
         if step % record_cadence == 0:
             wf = src_x + eng.c * t / eng.dx
-            frames.append({
-                "t": t,
-                "step": step,
-                "Ey": np.array(eng.Ey),
-                "Ez": np.array(eng.Ez),
-                "wavefront_x": wf,
-            })
+            frames.append(
+                {
+                    "t": t,
+                    "step": step,
+                    "Ey": np.array(eng.Ey),
+                    "Ez": np.array(eng.Ez),
+                    "wavefront_x": wf,
+                }
+            )
 
-    print(f"  {handedness}: {len(frames)} frames, expected wavefront at "
-          f"step {n_steps}: x = {src_x + eng.c*n_steps*dt/eng.dx:.1f}")
+    print(
+        f"  {handedness}: {len(frames)} frames, expected wavefront at "
+        f"step {n_steps}: x = {src_x + eng.c*n_steps*dt/eng.dx:.1f}"
+    )
     return {
         "handedness": handedness,
-        "nx": nx, "ny": ny, "nz": nz, "src_x": src_x,
+        "nx": nx,
+        "ny": ny,
+        "nz": nz,
+        "src_x": src_x,
         "frames": frames,
         "lambda_cells": (c / freq) / eng.dx,
-        "c": c, "dt": dt,
+        "c": c,
+        "dt": dt,
     }
 
 
@@ -138,8 +145,12 @@ def render_full_animation(result, out_gif):
         if vmax < 1e-30:
             vmax = 1e-3
         ax_ey.imshow(
-            slice_ey.T, aspect="auto", cmap="seismic",
-            vmin=-vmax, vmax=vmax, origin="lower",
+            slice_ey.T,
+            aspect="auto",
+            cmap="seismic",
+            vmin=-vmax,
+            vmax=vmax,
+            origin="lower",
         )
         # Source + wavefront markers
         ax_ey.axvline(src_x, color="cyan", lw=1, ls="--", alpha=0.6)
@@ -147,7 +158,8 @@ def render_full_animation(result, out_gif):
         ax_ey.axvline(wf, color="yellow", lw=1, ls=":", alpha=0.7)
         ax_ey.set_title(
             f"E_y(x, y) at z=center  |  vmax_99th = {vmax:.2e}",
-            color="white", fontsize=10,
+            color="white",
+            fontsize=10,
         )
         ax_ey.set_xlabel("x (propagation, cells)", color="#cccccc", fontsize=9)
         ax_ey.set_ylabel("y (transverse)", color="#cccccc", fontsize=9)
@@ -164,14 +176,19 @@ def render_full_animation(result, out_gif):
         # Render phase only where amplitude is significant
         phase_masked = np.where(mask, phase_slice, np.nan)
         ax_phase.imshow(
-            phase_masked.T, aspect="auto", cmap="hsv",
-            vmin=-np.pi, vmax=np.pi, origin="lower",
+            phase_masked.T,
+            aspect="auto",
+            cmap="hsv",
+            vmin=-np.pi,
+            vmax=np.pi,
+            origin="lower",
         )
         ax_phase.axvline(src_x, color="cyan", lw=1, ls="--", alpha=0.6)
         ax_phase.axvline(wf, color="yellow", lw=1, ls=":", alpha=0.7)
         ax_phase.set_title(
             f"Phase = arctan2(E_z, E_y) at z=center  |  rifling visible as color cycle",
-            color="white", fontsize=10,
+            color="white",
+            fontsize=10,
         )
         ax_phase.set_xlabel("x (propagation, cells)", color="#cccccc", fontsize=9)
         ax_phase.set_ylabel("y (transverse)", color="#cccccc", fontsize=9)
@@ -182,7 +199,7 @@ def render_full_animation(result, out_gif):
         ax_3d.xaxis.pane.fill = False
         ax_3d.yaxis.pane.fill = False
         ax_3d.zaxis.pane.fill = False
-        E_perp = np.sqrt(Ey ** 2 + Ez ** 2)
+        E_perp = np.sqrt(Ey**2 + Ez**2)
         e_max = E_perp.max()
         if e_max > 1e-30:
             # Use percentile-style threshold for far-field visibility
@@ -200,10 +217,8 @@ def render_full_animation(result, out_gif):
                 colors_alpha = np.column_stack([colors[:, :3], alphas])
                 ax_3d.scatter(xs, ys, zs, c=colors_alpha, s=sizes, edgecolor="none")
         ax_3d.plot([0, nx], [cy, cy], [cz, cz], "w:", lw=0.6, alpha=0.4)
-        ax_3d.scatter([src_x], [cy], [cz], color="cyan", s=110,
-                      alpha=0.9, edgecolor="white", linewidths=1.5)
-        ax_3d.scatter([wf], [cy], [cz], color="yellow", s=80,
-                      alpha=0.7, marker="^", edgecolor="orange", linewidths=1.0)
+        ax_3d.scatter([src_x], [cy], [cz], color="cyan", s=110, alpha=0.9, edgecolor="white", linewidths=1.5)
+        ax_3d.scatter([wf], [cy], [cz], color="yellow", s=80, alpha=0.7, marker="^", edgecolor="orange", linewidths=1.0)
         ax_3d.set_xlabel("X", color="#cccccc", fontsize=9)
         ax_3d.set_ylabel("Y", color="#cccccc", fontsize=9)
         ax_3d.set_zlabel("Z", color="#cccccc", fontsize=9)
@@ -213,7 +228,8 @@ def render_full_animation(result, out_gif):
         ax_3d.set_zlim(0, nz)
         ax_3d.set_title(
             f"3D rifling scatter — color = cos(arctan2(E_z, E_y))",
-            color="#cccccc", fontsize=10,
+            color="#cccccc",
+            fontsize=10,
         )
 
         # ── Panel BR: 1D |E_perp| along central axis, LOG SCALE
@@ -224,28 +240,27 @@ def render_full_animation(result, out_gif):
         # Log scale to show 5+ orders of magnitude
         E_plot = np.where(E_perp_axis > 1e-30, E_perp_axis, 1e-30)
         ax_axis.semilogy(x_arr, E_plot, "-", color="#ffaa44", lw=1.4)
-        ax_axis.axvline(src_x, color="cyan", lw=1, ls="--",
-                        alpha=0.6, label="source")
-        ax_axis.axvline(wf, color="yellow", lw=1, ls=":",
-                        alpha=0.8, label=f"c·t (x={wf:.0f})")
+        ax_axis.axvline(src_x, color="cyan", lw=1, ls="--", alpha=0.6, label="source")
+        ax_axis.axvline(wf, color="yellow", lw=1, ls=":", alpha=0.8, label=f"c·t (x={wf:.0f})")
         ax_axis.set_xlim(0, nx)
         ax_axis.set_ylim(1e-2, 1e6)
         ax_axis.set_xlabel("x (propagation, cells)", color="#cccccc", fontsize=9)
         ax_axis.set_ylabel("|E_perp| [V/m, log scale]", color="#cccccc", fontsize=9)
         ax_axis.set_title(
-            f"|E_⊥| along central axis (log scale)  —  "
-            f"propagation at c verified",
-            color="white", fontsize=10,
+            f"|E_⊥| along central axis (log scale)  —  " f"propagation at c verified",
+            color="white",
+            fontsize=10,
         )
-        ax_axis.legend(facecolor="#050510", edgecolor="#444",
-                       labelcolor="#cccccc", fontsize=8, loc="upper right")
+        ax_axis.legend(facecolor="#050510", edgecolor="#444", labelcolor="#cccccc", fontsize=8, loc="upper right")
         ax_axis.grid(alpha=0.2, color="#444")
 
         # Suptitle
         fig.suptitle(
             f"Rifled Photon ({handedness}) — Yee Maxwell FDTD, λ={result['lambda_cells']:.0f} cells, "
             f"linear vacuum  |  t = {f['t']*1e9:.2f} ns, step = {f['step']}/{result['frames'][-1]['step']}",
-            color="white", fontsize=12, fontweight="bold",
+            color="white",
+            fontsize=12,
+            fontweight="bold",
         )
         return ()
 

@@ -98,8 +98,11 @@ def print_yang_mills_block() -> dict:
 
     print()
     print(f"  Cluster decomposition length ξ = {xi_m:.3e} m " f"(= κ_FS/3 × ℓ_node, DERIVED MAGIC NUMBER)")
-    proven = proof["MASS_GAP_PROVEN"]
-    print(f"\n  OVERALL: {_tick(proven)} MASS GAP PROVEN  |  Δ = m_e c² = {m_e_c2_MeV:.4f} MeV")
+    consistent = proof["MASS_GAP_AXIOM_CONSISTENT"]
+    print(
+        f"\n  OVERALL: {_tick(consistent)} MASS GAP AXIOM-CONSISTENT  "
+        f"|  Δ = m_e c² = {m_e_c2_MeV:.4f} MeV (calibration input)"
+    )
     print()
     return proof
 

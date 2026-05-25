@@ -29,14 +29,12 @@ chi-squared.
 Run:
     python3 src/scripts/vol_3_macroscopic/c5_pantheon_bulk_flow_tightening.py
 """
-from __future__ import annotations
 
 import json
 import math
 import sys
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Optional
 
 import numpy as np
 
@@ -148,6 +146,7 @@ class PantheonSubset:
     `mu_err`. The full inv_cov is the load-bearing object: the chi^2 uses
     inv_cov, not (1/mu_err)^2 squared residuals.
     """
+
     cids: np.ndarray
     z: np.ndarray  # one of z_hd / z_cmb / z_helio / z_hel_plus_vpec
     z_helio: np.ndarray
@@ -161,13 +160,11 @@ class PantheonSubset:
     l_deg: np.ndarray
     b_deg: np.ndarray
     n_hat: np.ndarray  # (N, 3) unit vectors
-    inv_cov: Optional[np.ndarray] = None  # (N, N) inverse STAT+SYS covariance
-    selection_indices: Optional[np.ndarray] = None  # row indices in original catalog
+    inv_cov: np.ndarray | None = None  # (N, N) inverse STAT+SYS covariance
+    selection_indices: np.ndarray | None = None  # row indices in original catalog
 
 
-def load_pantheon_covariance(
-    cov_path: Path, n_expected: int = 1701
-) -> Optional[np.ndarray]:
+def load_pantheon_covariance(cov_path: Path, n_expected: int = 1701) -> np.ndarray | None:
     """Load the Pantheon+SH0ES STAT+SYS covariance matrix.
 
     File format (per Pantheon+SH0ES data release):
@@ -232,8 +229,7 @@ def load_pantheon_subset(
     """
     valid_pipelines = ("zHD", "zCMB", "zHEL", "zHEL_plus_VPEC")
     if redshift_pipeline not in valid_pipelines:
-        raise ValueError(f"Unknown redshift_pipeline {redshift_pipeline!r}; "
-                         f"valid: {valid_pipelines}")
+        raise ValueError(f"Unknown redshift_pipeline {redshift_pipeline!r}; " f"valid: {valid_pipelines}")
 
     print(f"Loading Pantheon+SH0ES catalog from {path.name} ...")
     print(f"  z-cut < {z_cut} (using {redshift_pipeline}); calibrators excluded")
@@ -242,8 +238,7 @@ def load_pantheon_subset(
         header = f.readline().split()
 
     col_idx = {name: i for i, name in enumerate(header)}
-    required = ("CID", "zCMB", "zHEL", "zHD", "m_b_corr", "m_b_corr_err_DIAG",
-                "RA", "DEC", "IS_CALIBRATOR", "VPEC")
+    required = ("CID", "zCMB", "zHEL", "zHD", "m_b_corr", "m_b_corr_err_DIAG", "RA", "DEC", "IS_CALIBRATOR", "VPEC")
     for r in required:
         if r not in col_idx:
             raise KeyError(f"Pantheon+ column {r!r} missing; have {list(col_idx)}")
@@ -264,7 +259,7 @@ def load_pantheon_subset(
             cid = r[col_idx["CID"]]
             zCMB = float(r[col_idx["zCMB"]])
             zHEL = float(r[col_idx["zHEL"]])
-            zHD  = float(r[col_idx["zHD"]])
+            zHD = float(r[col_idx["zHD"]])
             vpec = float(r[col_idx["VPEC"]])
             m = float(r[col_idx["m_b_corr"]])
             me = float(r[col_idx["m_b_corr_err_DIAG"]])
@@ -322,8 +317,10 @@ def load_pantheon_subset(
         & np.isfinite(m_b)
         & np.isfinite(m_b_err)
         & (m_b_err > 0)
-        & (ras > -360) & (ras < 720)
-        & (decs > -91) & (decs < 91)
+        & (ras > -360)
+        & (ras < 720)
+        & (decs > -91)
+        & (decs < 91)
     )
 
     sel = sel & (z_helio > 0) & (z_hd > 0)
@@ -334,19 +331,23 @@ def load_pantheon_subset(
         print(f"  WARNING: only {n_sel} SNe pass cuts; pre-reg flagged < 500 as concerning")
 
     # Convert RA/DEC (ICRS) -> galactic (l, b) via astropy
-    from astropy.coordinates import SkyCoord
     from astropy import units as u
+    from astropy.coordinates import SkyCoord
+
     coords_icrs = SkyCoord(ras[sel] * u.deg, decs[sel] * u.deg, frame="icrs")
     coords_gal = coords_icrs.galactic
     l_deg_arr = np.array(coords_gal.l.deg)
     b_deg_arr = np.array(coords_gal.b.deg)
 
     # Unit vectors in galactic Cartesian
-    n_hat = np.stack([
-        np.cos(np.radians(b_deg_arr)) * np.cos(np.radians(l_deg_arr)),
-        np.cos(np.radians(b_deg_arr)) * np.sin(np.radians(l_deg_arr)),
-        np.sin(np.radians(b_deg_arr)),
-    ], axis=1)  # (N, 3)
+    n_hat = np.stack(
+        [
+            np.cos(np.radians(b_deg_arr)) * np.cos(np.radians(l_deg_arr)),
+            np.cos(np.radians(b_deg_arr)) * np.sin(np.radians(l_deg_arr)),
+            np.sin(np.radians(b_deg_arr)),
+        ],
+        axis=1,
+    )  # (N, 3)
 
     # Distance modulus: mu = m_b_corr - M (M absorbed as nuisance offset)
     # We do NOT subtract a fixed M; instead the M-offset is solved as a free
@@ -371,8 +372,10 @@ def load_pantheon_subset(
                 print(f"  inverse STAT+SYS sub-covariance computed for N={n_sel} SNe")
                 # Sanity: should reduce to diag(1/sigma_DIAG^2) approximately when off-diag terms small
                 diag_inv_check = float(np.mean(np.diag(inv_cov) * mu_err_sel**2))
-                print(f"  diag(inv_cov) * mu_err_DIAG^2 mean = {diag_inv_check:.3f} "
-                      f"(1.0 would mean diag-only; smaller = more weight transferred to off-diag)")
+                print(
+                    f"  diag(inv_cov) * mu_err_DIAG^2 mean = {diag_inv_check:.3f} "
+                    f"(1.0 would mean diag-only; smaller = more weight transferred to off-diag)"
+                )
             except np.linalg.LinAlgError as e:
                 print(f"  ERROR: covariance inversion failed: {e}; falling back to diagonal")
                 inv_cov = None
@@ -519,9 +522,7 @@ def fit_bulk_flow(
     }
 
 
-def _numerical_hessian(
-    func, x0, args, eps=None
-):
+def _numerical_hessian(func, x0, args, eps=None):
     """Two-sided numerical Hessian via central differences.
 
     eps : per-parameter step. If None, uses sqrt(machine eps) * |x_i|.
@@ -539,12 +540,21 @@ def _numerical_hessian(
     f0 = func(x0, *args)
     for i in range(n):
         for j in range(i, n):
-            xpp = x0.copy(); xpp[i] += eps[i]; xpp[j] += eps[j]
-            xpm = x0.copy(); xpm[i] += eps[i]; xpm[j] -= eps[j]
-            xmp = x0.copy(); xmp[i] -= eps[i]; xmp[j] += eps[j]
-            xmm = x0.copy(); xmm[i] -= eps[i]; xmm[j] -= eps[j]
-            H[i, j] = (func(xpp, *args) - func(xpm, *args)
-                       - func(xmp, *args) + func(xmm, *args)) / (4 * eps[i] * eps[j])
+            xpp = x0.copy()
+            xpp[i] += eps[i]
+            xpp[j] += eps[j]
+            xpm = x0.copy()
+            xpm[i] += eps[i]
+            xpm[j] -= eps[j]
+            xmp = x0.copy()
+            xmp[i] -= eps[i]
+            xmp[j] += eps[j]
+            xmm = x0.copy()
+            xmm[i] -= eps[i]
+            xmm[j] -= eps[j]
+            H[i, j] = (func(xpp, *args) - func(xpm, *args) - func(xmp, *args) + func(xmm, *args)) / (
+                4 * eps[i] * eps[j]
+            )
             H[j, i] = H[i, j]
     return H
 
@@ -563,8 +573,7 @@ def sigma_hubble_hessian_mc(
     N(u_best, Sigma_u) and convert each draw to angular direction
     (l, b); sigma_Hubble = great-circle 68% containment radius.
     """
-    u_best = np.array([fit_result["u_best"][0], fit_result["u_best"][1],
-                       fit_result["u_best"][2], fit_result["M_best"]])
+    u_best = np.array([fit_result["u_best"][0], fit_result["u_best"][1], fit_result["u_best"][2], fit_result["M_best"]])
 
     H = _numerical_hessian(chi2_bulk_flow, u_best, args=(subset, h0_km_s_mpc))
     # chi2 = -2 ln L (with Gaussian errors); Fisher = 0.5 * H_chi2
@@ -575,8 +584,10 @@ def sigma_hubble_hessian_mc(
     # Eigenvalue inspection
     eigvals = np.linalg.eigvalsh(cov_u)
     if np.any(eigvals <= 0):
-        print(f"    WARNING: Hessian-derived cov is not positive definite; "
-              f"eigvals = {eigvals.tolist()}. Hessian-MC sigma may be unreliable.")
+        print(
+            f"    WARNING: Hessian-derived cov is not positive definite; "
+            f"eigvals = {eigvals.tolist()}. Hessian-MC sigma may be unreliable."
+        )
 
     print(f"    cov_u eigenvalues (km/s)^2: {eigvals.tolist()}")
 
@@ -654,6 +665,7 @@ def sigma_hubble_bootstrap(
         )
         # Warm-start from main fit (much faster + more stable)
         from scipy.optimize import minimize
+
         u_init = np.concatenate([u_best, [fit_result["M_best"]]])
         r = minimize(
             chi2_bulk_flow,
@@ -741,7 +753,9 @@ def run_pipeline(
     print("=" * 80)
 
     subset = load_pantheon_subset(
-        PANTHEON_PATH, z_cut=0.1, redshift_pipeline=redshift_field,
+        PANTHEON_PATH,
+        z_cut=0.1,
+        redshift_pipeline=redshift_field,
         cov_path=PANTHEON_COV_PATH if use_full_covariance else None,
         use_full_covariance=use_full_covariance,
     )
@@ -755,19 +769,16 @@ def run_pipeline(
     l_raw, b_raw = cartesian_to_galactic(u_b)
     l_canon, b_canon = canonicalize_axis_lb(l_raw, b_raw)
 
-    print(f"\n  best-fit direction (axis-canonicalized 0<=l<180): "
-          f"(l, b) = ({l_canon:.2f}°, {b_canon:.2f}°)")
+    print(f"\n  best-fit direction (axis-canonicalized 0<=l<180): " f"(l, b) = ({l_canon:.2f}°, {b_canon:.2f}°)")
     print(f"  |u| = {magnitude:.1f} km/s")
 
     # sigma from Hessian + bootstrap
     print(f"\n  computing sigma_Hubble via Hessian MC...")
-    hessian = sigma_hubble_hessian_mc(fit_result, subset, h0_km_s_mpc,
-                                       rng_seed=rng_seed_hessian)
+    hessian = sigma_hubble_hessian_mc(fit_result, subset, h0_km_s_mpc, rng_seed=rng_seed_hessian)
     print(f"    Hessian-MC sigma_68 = {hessian['sigma_deg_68']:.2f}°")
 
     print(f"\n  computing sigma_Hubble via block bootstrap...")
-    boot = sigma_hubble_bootstrap(subset, h0_km_s_mpc, fit_result,
-                                   rng_seed=rng_seed_boot)
+    boot = sigma_hubble_bootstrap(subset, h0_km_s_mpc, fit_result, rng_seed=rng_seed_boot)
     print(f"    Bootstrap sigma_68 = {boot['sigma_deg_68']:.2f}°")
 
     sigma_canon = max(hessian["sigma_deg_68"], boot["sigma_deg_68"])
@@ -817,17 +828,15 @@ def load_e1b_cmb_axis() -> dict:
     }
 
 
-def cmb_hubble_comparison(
-    pipeline_result: BulkFlowPipelineResult, cmb_axis: dict
-) -> dict:
+def cmb_hubble_comparison(pipeline_result: BulkFlowPipelineResult, cmb_axis: dict) -> dict:
     """Compute CMB-vs-Hubble angular separation in sigma units."""
     sep = angular_separation_deg_undirected(
-        cmb_axis["l_deg"], cmb_axis["b_deg"],
-        pipeline_result.l_deg, pipeline_result.b_deg,
+        cmb_axis["l_deg"],
+        cmb_axis["b_deg"],
+        pipeline_result.l_deg,
+        pipeline_result.b_deg,
     )
-    sigma_combined = math.sqrt(
-        cmb_axis["sigma_deg"] ** 2 + pipeline_result.sigma_hubble_canonical_deg ** 2
-    )
+    sigma_combined = math.sqrt(cmb_axis["sigma_deg"] ** 2 + pipeline_result.sigma_hubble_canonical_deg**2)
     sigma_separation_vs_pass = (sep - CMB_AXIS_PASS_THRESHOLD_DEG) / sigma_combined
     # Decisive against alignment: separation > 20 deg at > 3 sigma
     decisive_against_alignment = sigma_separation_vs_pass > 3.0
@@ -858,12 +867,8 @@ def adjudicate(
     sigma_h = primary.sigma_hubble_canonical_deg
 
     # Sub-analysis consistency: 1-sigma overlap?
-    sub_to_primary_sep = angular_separation_deg_undirected(
-        primary.l_deg, primary.b_deg, sub.l_deg, sub.b_deg
-    )
-    combined_subprimary_sigma = math.sqrt(
-        primary.sigma_hubble_canonical_deg ** 2 + sub.sigma_hubble_canonical_deg ** 2
-    )
+    sub_to_primary_sep = angular_separation_deg_undirected(primary.l_deg, primary.b_deg, sub.l_deg, sub.b_deg)
+    combined_subprimary_sigma = math.sqrt(primary.sigma_hubble_canonical_deg**2 + sub.sigma_hubble_canonical_deg**2)
     sub_primary_consistent_1sigma = sub_to_primary_sep < combined_subprimary_sigma
 
     # Magnitude consistency check
@@ -884,10 +889,7 @@ def adjudicate(
         if primary_chi2_per_dof < 0.6 or primary_chi2_per_dof > 1.6:
             return {
                 "outcome": "E",
-                "name": (
-                    "METHODOLOGY SURFACE — chi2/dof outside [0.6, 1.6] "
-                    "indicates error mis-specification"
-                ),
+                "name": ("METHODOLOGY SURFACE — chi2/dof outside [0.6, 1.6] " "indicates error mis-specification"),
                 "reason": (
                     f"Primary fit chi2/dof = {primary_chi2_per_dof:.3f} outside "
                     f"the [0.6, 1.6] band. With the full STAT+SYS covariance "
@@ -920,8 +922,7 @@ def adjudicate(
         }
 
     # Outcome A: PASS (tension, decisive against alignment)
-    if (sigma_h < SIGMA_BRIEF_TARGET_DEG
-            and primary_cmp["decisive_against_alignment_3sigma"]):
+    if sigma_h < SIGMA_BRIEF_TARGET_DEG and primary_cmp["decisive_against_alignment_3sigma"]:
         return {
             "outcome": "A",
             "name": "PASS (CMB-Hubble misaligned >3σ)",
@@ -945,8 +946,7 @@ def adjudicate(
         }
 
     # Outcome C: NULL (alignment, decisive for alignment)
-    if (sigma_h < SIGMA_BRIEF_TARGET_DEG
-            and primary_cmp["decisive_for_alignment_3sigma"]):
+    if sigma_h < SIGMA_BRIEF_TARGET_DEG and primary_cmp["decisive_for_alignment_3sigma"]:
         return {
             "outcome": "C",
             "name": "NULL (CMB-Hubble aligned <3σ)",
@@ -966,10 +966,11 @@ def adjudicate(
         }
 
     # Marginal-D: tightened but not decisive
-    if (SIGMA_BRIEF_TARGET_DEG <= sigma_h < SIGMA_INSUFFICIENT_DEG
-            or (sigma_h < SIGMA_BRIEF_TARGET_DEG
-                and not primary_cmp["decisive_against_alignment_3sigma"]
-                and not primary_cmp["decisive_for_alignment_3sigma"])):
+    if SIGMA_BRIEF_TARGET_DEG <= sigma_h < SIGMA_INSUFFICIENT_DEG or (
+        sigma_h < SIGMA_BRIEF_TARGET_DEG
+        and not primary_cmp["decisive_against_alignment_3sigma"]
+        and not primary_cmp["decisive_for_alignment_3sigma"]
+    ):
         return {
             "outcome": "Marginal-D",
             "name": "DATA INSUFFICIENT (improved, not decisive)",
@@ -1034,9 +1035,7 @@ def _check_cmb_dipole_recovery(
     PLANCK_DIPOLE_L = 264.02
     PLANCK_DIPOLE_B = 48.25
     PLANCK_DIPOLE_V = 369.82
-    sep_to_planck = angular_separation_deg_undirected(
-        l_delta, b_delta, PLANCK_DIPOLE_L, PLANCK_DIPOLE_B
-    )
+    sep_to_planck = angular_separation_deg_undirected(l_delta, b_delta, PLANCK_DIPOLE_L, PLANCK_DIPOLE_B)
     return {
         "implied_solar_motion_km_s": delta_u.tolist(),
         "implied_solar_motion_magnitude_km_s": delta_mag,
@@ -1044,8 +1043,7 @@ def _check_cmb_dipole_recovery(
         "planck_2020_cmb_dipole_l_b_v": (PLANCK_DIPOLE_L, PLANCK_DIPOLE_B, PLANCK_DIPOLE_V),
         "separation_implied_vs_planck_deg": sep_to_planck,
         "magnitude_ratio_implied_over_planck": delta_mag / PLANCK_DIPOLE_V,
-        "passes_dipole_recovery_check": (sep_to_planck < 5.0
-                                          and 0.9 < (delta_mag / PLANCK_DIPOLE_V) < 1.1),
+        "passes_dipole_recovery_check": (sep_to_planck < 5.0 and 0.9 < (delta_mag / PLANCK_DIPOLE_V) < 1.1),
     }
 
 
@@ -1081,8 +1079,7 @@ def main():
 
     cmb_axis = load_e1b_cmb_axis()
     print(f"\nE1b empirical CMB axis (loaded post-fit, NOT seen by fit):")
-    print(f"  (l = {cmb_axis['l_deg']:.2f}°, b = {cmb_axis['b_deg']:.2f}°), "
-          f"sigma = {cmb_axis['sigma_deg']:.2f}°")
+    print(f"  (l = {cmb_axis['l_deg']:.2f}°, b = {cmb_axis['b_deg']:.2f}°), " f"sigma = {cmb_axis['sigma_deg']:.2f}°")
 
     # ---- Primary pipeline: zHD (CMB-rest-frame + 2M++ VPEC) ----
     # Per prereg §3.6: "standard Pantheon+ pipeline (heliocentric ->
@@ -1136,15 +1133,21 @@ def main():
     print("=" * 80)
     print("CMB axis comparison")
     print("=" * 80)
-    print(f"  Reference CMB axis (E1b): (l={cmb_axis['l_deg']:.2f}°, b={cmb_axis['b_deg']:.2f}°), "
-          f"sigma_CMB = {cmb_axis['sigma_deg']:.2f}°")
+    print(
+        f"  Reference CMB axis (E1b): (l={cmb_axis['l_deg']:.2f}°, b={cmb_axis['b_deg']:.2f}°), "
+        f"sigma_CMB = {cmb_axis['sigma_deg']:.2f}°"
+    )
     print(f"\nPrimary (zCMB): Hubble axis (l={primary.l_deg:.2f}°, b={primary.b_deg:.2f}°)")
     print(f"   |u| = {primary.magnitude_km_s:.1f} km/s")
-    print(f"   sigma_Hubble = {primary.sigma_hubble_canonical_deg:.2f}° "
-          f"(Hessian {primary.sigma_hubble_hessian_deg:.2f}, "
-          f"Bootstrap {primary.sigma_hubble_bootstrap_deg:.2f})")
-    print(f"   CMB-Hubble separation = {primary_cmp['separation_deg']:.2f}° "
-          f"at {primary_cmp['sigma_separation_vs_pass_threshold']:+.2f}σ above 20° threshold")
+    print(
+        f"   sigma_Hubble = {primary.sigma_hubble_canonical_deg:.2f}° "
+        f"(Hessian {primary.sigma_hubble_hessian_deg:.2f}, "
+        f"Bootstrap {primary.sigma_hubble_bootstrap_deg:.2f})"
+    )
+    print(
+        f"   CMB-Hubble separation = {primary_cmp['separation_deg']:.2f}° "
+        f"at {primary_cmp['sigma_separation_vs_pass_threshold']:+.2f}σ above 20° threshold"
+    )
     print(f"   Decisive against alignment (3σ)? {primary_cmp['decisive_against_alignment_3sigma']}")
     print(f"   Decisive FOR alignment (3σ)? {primary_cmp['decisive_for_alignment_3sigma']}")
 
@@ -1153,19 +1156,20 @@ def main():
     print(f"   sigma_Hubble = {sub.sigma_hubble_canonical_deg:.2f}°")
     print(f"   CMB-Hubble separation = {sub_cmp['separation_deg']:.2f}°")
 
-    sub_to_primary_sep = angular_separation_deg_undirected(
-        primary.l_deg, primary.b_deg, sub.l_deg, sub.b_deg
-    )
+    sub_to_primary_sep = angular_separation_deg_undirected(primary.l_deg, primary.b_deg, sub.l_deg, sub.b_deg)
     print(f"\n  Sub-primary axis separation = {sub_to_primary_sep:.2f}°")
-    print(f"  Sub-primary sigma sum = "
-          f"{math.sqrt(primary.sigma_hubble_canonical_deg**2 + sub.sigma_hubble_canonical_deg**2):.2f}°")
-    print(f"  Consistent at 1σ overlap? "
-          f"{sub_to_primary_sep < math.sqrt(primary.sigma_hubble_canonical_deg**2 + sub.sigma_hubble_canonical_deg**2)}")
+    print(
+        f"  Sub-primary sigma sum = "
+        f"{math.sqrt(primary.sigma_hubble_canonical_deg**2 + sub.sigma_hubble_canonical_deg**2):.2f}°"
+    )
+    print(
+        f"  Consistent at 1σ overlap? "
+        f"{sub_to_primary_sep < math.sqrt(primary.sigma_hubble_canonical_deg**2 + sub.sigma_hubble_canonical_deg**2)}"
+    )
 
     # ---- Adjudicate ----
     primary_chi2_per_dof = primary.chi2 / primary.dof
-    verdict = adjudicate(primary, sub, primary_cmp, sub_cmp,
-                          primary_chi2_per_dof=primary_chi2_per_dof)
+    verdict = adjudicate(primary, sub, primary_cmp, sub_cmp, primary_chi2_per_dof=primary_chi2_per_dof)
     print()
     print("=" * 80)
     print(f"OUTCOME: {verdict['outcome']}")
@@ -1207,9 +1211,7 @@ def main():
         "primary_chi2_per_dof": primary_chi2_per_dof,
         "primary_used_full_covariance": primary.used_full_covariance,
         "verdict": verdict,
-        "cross_check_dipole_recovery": _check_cmb_dipole_recovery(
-            diagnostic_zCMB, diagnostic_zHEL
-        ),
+        "cross_check_dipole_recovery": _check_cmb_dipole_recovery(diagnostic_zCMB, diagnostic_zHEL),
     }
     with open(RESULTS_PATH, "w") as f:
         json.dump(results, f, indent=2, default=str)

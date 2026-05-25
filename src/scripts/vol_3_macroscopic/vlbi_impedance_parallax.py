@@ -16,7 +16,7 @@ computes Shapiro, not any AVE-distinct DM observable). The C13-VLBI-DARK matrix
 row that depended on this driver was retired/split 2026-05-16; the actual derived
 AVE DM observables live in simulate_galactic_rotation_curve.py (a_0 + saturation
 kernel) and simulate_bullet_cluster_fdtd.py (TT shockwave + a_0). See:
-- manuscript/ave-kb/common/closure-roadmap.md §0.5 scope-correction changelog
+- manuscript/ave-kb/claim-quality-closure-roadmap.md §0.5 scope-correction changelog
 - manuscript/ave-kb/common/divergence-test-substrate-map.md rows C13a/C13b/C13c
 
 The DAMA section below computes the crystal-density ratio kappa = rho_crystal /
@@ -50,7 +50,9 @@ def simulate_vlbi_and_dama_parallax() -> None:
     L_path = 2 * R_jupiter
     delay_s = (L_path * delta_n_jup) / C_0
     print(f"Shapiro Delay (Δt, GR/AVE identical): {delay_s * 1e6:.4f} μs")
-    print("=> No AVE-distinct prediction at this order. Existing VLBI confirmations of GR Shapiro corroborate AVE = GR identity by construction.")
+    print(
+        "=> No AVE-distinct prediction at this order. Existing VLBI confirmations of GR Shapiro corroborate AVE = GR identity by construction."
+    )
 
     # 2. DAMA crystal-density ratios — descriptive only, no amplitude derivation
     print("\n[2. DAMA crystal-density ratios — descriptive only]")

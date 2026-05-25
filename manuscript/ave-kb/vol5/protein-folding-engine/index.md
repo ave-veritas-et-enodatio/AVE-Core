@@ -1,5 +1,11 @@
 [↑ Vol 5: Topological Biology](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-a034pf, clm-rg7cls, clm-s11nf0, clm-zt0pd1]
+subtree-experiments: []
+-->
+
 # Protein Folding Engine — Framework (IP-Clean)
 
 This subdomain holds the substrate-physics framework for protein folding as derived in Vol 5 Ch 2 §sec:z_topo_framework. **It contains the framework derivation only** — the per-amino-acid quantitative implementation, the cascaded ABCD-matrix folding solver, multiplexed basis-state initialization, and the Op2 topological-crossing correction are held in the AVE-Protein engineering compendium for IP reasons (per Vol 5 Ch 2:681,722 explicit statement).
@@ -46,10 +52,8 @@ These are AVE-Protein-canonical (engineering compendium scope), not Core-canonic
 
 ## Cross-references
 
-> → Primary: [Vol 5 Ch 2 §"Topological Impedance and the Levinthal Resolution (Framework)"](../../../vol_5_biology/chapters/02_organic_circuitry.tex) — canonical manuscript source (lines 678-770)
->
 > → Primary: [Molecular Foundations](../molecular-foundations/index.md) — Vol 5 Ch 1-2 atomic translation layer that supplies $\xi_{\text{topo}}$, atomic mass→inductance, bond stiffness→capacitance, H-bond Op4, etc.
 >
-> → Primary: [Universal Saturation-Kernel Catalog (A-034)](../../common/universal-saturation-kernel-catalog.md) — protein folding is row "Protein folding" in the 21-instance biological-substrate-scales subcatalog
+> → Primary: [Universal Saturation-Kernel Catalog (A-034)](../../common/universal-saturation-kernel-catalog.md) — protein folding is row "Protein folding" in the 26-instance biological-substrate-scales subcatalog
 >
 > ↗ See also: [Vol 5 Translation Tables](../common/index.md) — Biology↔EE↔AVE mapping tables; [translation-protein.md](../common/translation-protein.md) for protein-folding terminology mapping; [translation-protein-solver.md](../common/translation-protein-solver.md) for solver-domain mapping

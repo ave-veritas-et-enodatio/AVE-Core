@@ -13,14 +13,13 @@ Grant adjudication reframing. Same scope-correction (this is static-halo-
 superposition + Einstein-lensing physics, not propagating TT-shockwave).
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import PillowWriter
 
 from ave.core.constants import M_SUN, G
 from ave.regime_3_saturated.galactic_rotation import A0_LATTICE, ave_saturation_acceleration
+from ave_path_util import sim_output
 
 
 def animate_2d_bullet_cluster() -> None:
@@ -136,8 +135,7 @@ def animate_2d_bullet_cluster() -> None:
 
     print("Beginning 2D Slice Animation Render Loop...")
     writer = PillowWriter(fps=fps)
-    output_path = os.path.join(os.path.dirname(__file__), "../../../assets/sim_outputs/bullet_2d_rotation.gif")
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    output_path = sim_output("bullet_2d_rotation.gif")
 
     with writer.saving(fig, output_path, dpi=120):  # Moderate DPI for crisp view, keeping payload low
         for i in range(FRAMES):

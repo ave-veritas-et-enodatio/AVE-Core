@@ -17,10 +17,10 @@ The script runs the dual-run protocol at 64³ (where topology is preserved
 per earlier finding), extracts the three ratios, and reports deviations
 from Ch 8 targets.
 """
+
 import numpy as np
 
 from ave.topological.cosserat_field_3d import CosseratField3D
-
 
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
 ALPHA_COLD_INV = 4 * np.pi**3 + np.pi**2 + np.pi
@@ -55,7 +55,7 @@ def extract_ch8_ratios(solver: CosseratField3D) -> dict:
     c = solver.extract_crossing_count()
 
     # The three Ch 8 ratios:
-    ratio_sa = (R - r) / d if d > 1e-9 else float("inf")      # target 1/2
+    ratio_sa = (R - r) / d if d > 1e-9 else float("inf")  # target 1/2
     ratio_scr = R * r / (d * d) if d > 1e-9 else float("inf")  # target 1/4
     Q_grid = solver.extract_quality_factor()
     # Q in natural units (rescaled by 1/d²):
@@ -73,15 +73,21 @@ def extract_ch8_ratios(solver: CosseratField3D) -> dict:
     }
 
 
-def run_single(nx: int, R_init: float, r_init: float, label: str,
-               max_iter: int = 500, lr: float = 0.01,
-               k_op10: float = 0.0, k_refl: float = 0.0, k_hopf: float = 0.0) -> dict:
+def run_single(
+    nx: int,
+    R_init: float,
+    r_init: float,
+    label: str,
+    max_iter: int = 500,
+    lr: float = 0.01,
+    k_op10: float = 0.0,
+    k_refl: float = 0.0,
+    k_hopf: float = 0.0,
+) -> dict:
     solver = CosseratField3D(nx, nx, nx, dx=1.0, use_saturation=True)
     # Use the AVE-canonical power-law hedgehog ansatz (research/L3/13_ amendment),
     # not the Gaussian (SM/QED leakage in my original init).
-    solver.initialize_electron_2_3_sector(
-        R_target=R_init, r_target=r_init, use_hedgehog=True
-    )
+    solver.initialize_electron_2_3_sector(R_target=R_init, r_target=r_init, use_hedgehog=True)
     solver.k_op10 = k_op10
     solver.k_refl = k_refl
     solver.k_hopf = k_hopf
@@ -120,8 +126,8 @@ def print_report(info: dict) -> None:
         ("ratio_screening", 0.25),
         ("Q_natural", ALPHA_COLD_INV),
     ]:
-        init_v = info['initial_ratios'][key]
-        final_v = info['final_ratios'][key]
+        init_v = info["initial_ratios"][key]
+        final_v = info["final_ratios"][key]
         init_str = f"{init_v:.4f}" if isinstance(init_v, float) else f"{init_v}"
         final_str = f"{final_v:.4f}" if isinstance(final_v, float) else f"{final_v}"
         target_str = "—" if target is None else (f"{target:.4f}" if isinstance(target, float) else f"{target}")
@@ -152,7 +158,9 @@ def main():
         r_init=r_exact,
         label="Run 1: initialize at exact Golden Torus",
         max_iter=500,
-        k_op10=1.0, k_refl=0.0, k_hopf=0.0,
+        k_op10=1.0,
+        k_refl=0.0,
+        k_hopf=0.0,
     )
     print_report(info1)
 
@@ -163,7 +171,9 @@ def main():
         r_init=r_exact * 0.7,
         label="Run 2: perturbed off-Golden (R +30%, r -30%)",
         max_iter=500,
-        k_op10=1.0, k_refl=0.0, k_hopf=0.0,
+        k_op10=1.0,
+        k_refl=0.0,
+        k_hopf=0.0,
     )
     print_report(info2)
 
@@ -178,11 +188,11 @@ def main():
     print()
 
     for info in (info1, info2):
-        f = info['final_ratios']
-        sa_err = abs(f['ratio_self_avoidance'] - 0.5)
-        scr_err = abs(f['ratio_screening'] - 0.25)
-        Q_err = abs(f['Q_natural'] - ALPHA_COLD_INV)
-        c_ok = (f['c'] == 3)
+        f = info["final_ratios"]
+        sa_err = abs(f["ratio_self_avoidance"] - 0.5)
+        scr_err = abs(f["ratio_screening"] - 0.25)
+        Q_err = abs(f["Q_natural"] - ALPHA_COLD_INV)
+        c_ok = f["c"] == 3
         sa_ok = sa_err < 1e-3
         scr_ok = scr_err < 1e-3
         Q_ok = Q_err < 1e-3

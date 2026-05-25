@@ -22,22 +22,19 @@ main()). Any scale-dependence of pass/fail would itself be a Round 6 axiom-
 layer flag caught here — if N=48 fails but N=96 would pass, that's physics
 information not a test artifact.
 """
-from __future__ import annotations
 
 import numpy as np
 import pytest
 
 from ave.core.constants import V_YIELD
 from scripts.vol_1_foundations.tlm_electron_soliton_eigenmode import (
-    extract_alpha_inverse,
     extract_crossing_count_tlm,
     run_tlm_electron,
     solve_eigenmode_self_consistent,
 )
 
-
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
-PHI_SQ = PHI ** 2                            # Golden Torus R/r target ≈ 2.618
+PHI_SQ = PHI**2  # Golden Torus R/r target ≈ 2.618
 ALPHA_TARGET = 4 * np.pi**3 + np.pi**2 + np.pi  # α⁻¹ = 137.0363 per Vol 1 Ch 8
 
 
@@ -81,9 +78,15 @@ L3_CLOSURE_XFAIL = pytest.mark.xfail(
 def golden_torus_run() -> dict:
     """Single closed-system TLM run with Golden Torus seed."""
     return run_tlm_electron(
-        N=N_GRID, R=R_TARGET, r=R_OVER_PHI_SQ,
-        n_steps=N_STEPS, sample_every=50, amplitude=AMP,
-        nonlinear=False, pml_thickness=0, op3_bond_reflection=True,
+        N=N_GRID,
+        R=R_TARGET,
+        r=R_OVER_PHI_SQ,
+        n_steps=N_STEPS,
+        sample_every=50,
+        amplitude=AMP,
+        nonlinear=False,
+        pml_thickness=0,
+        op3_bond_reflection=True,
         verbose=False,
     )
 
@@ -92,9 +95,15 @@ def golden_torus_run() -> dict:
 def perturbed_run() -> dict:
     """Closed-system TLM run with perturbed seed (R+30%, r-30%)."""
     return run_tlm_electron(
-        N=N_GRID, R=R_TARGET * 1.3, r=R_OVER_PHI_SQ * 0.7,
-        n_steps=N_STEPS, sample_every=50, amplitude=AMP,
-        nonlinear=False, pml_thickness=0, op3_bond_reflection=True,
+        N=N_GRID,
+        R=R_TARGET * 1.3,
+        r=R_OVER_PHI_SQ * 0.7,
+        n_steps=N_STEPS,
+        sample_every=50,
+        amplitude=AMP,
+        nonlinear=False,
+        pml_thickness=0,
+        op3_bond_reflection=True,
         verbose=False,
     )
 
@@ -103,8 +112,15 @@ def perturbed_run() -> dict:
 def op6_from_golden_torus() -> dict:
     """Op6 self-consistency from Golden Torus seed."""
     return solve_eigenmode_self_consistent(
-        N=N_GRID, R_seed=R_TARGET, r_seed=R_OVER_PHI_SQ, amplitude=AMP,
-        n_steps=300, sample_every=300, max_iter=6, tol=1e-3, verbose=False,
+        N=N_GRID,
+        R_seed=R_TARGET,
+        r_seed=R_OVER_PHI_SQ,
+        amplitude=AMP,
+        n_steps=300,
+        sample_every=300,
+        max_iter=6,
+        tol=1e-3,
+        verbose=False,
     )
 
 
@@ -112,9 +128,15 @@ def op6_from_golden_torus() -> dict:
 def op6_from_perturbed() -> dict:
     """Op6 self-consistency from perturbed seed."""
     return solve_eigenmode_self_consistent(
-        N=N_GRID, R_seed=R_TARGET * 1.3, r_seed=R_OVER_PHI_SQ * 0.7,
+        N=N_GRID,
+        R_seed=R_TARGET * 1.3,
+        r_seed=R_OVER_PHI_SQ * 0.7,
         amplitude=AMP,
-        n_steps=300, sample_every=300, max_iter=6, tol=1e-3, verbose=False,
+        n_steps=300,
+        sample_every=300,
+        max_iter=6,
+        tol=1e-3,
+        verbose=False,
     )
 
 
@@ -167,9 +189,7 @@ class TestEnergyConservation:
     def test_perturbed_seed_conserves_energy(self, perturbed_run):
         energy = perturbed_run["energy"]
         E_var = (energy.max() - energy.min()) / energy[0]
-        assert E_var < 0.005, (
-            f"Perturbed seed: ΔE/E₀ = {E_var * 100:.3f}%, expected < 0.5%."
-        )
+        assert E_var < 0.005, f"Perturbed seed: ΔE/E₀ = {E_var * 100:.3f}%, expected < 0.5%."
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -221,8 +241,7 @@ class TestAlphaFromDynamicalEigenmode:
     def test_alpha_from_golden_torus_seed(self, op6_from_golden_torus):
         alpha_inv = op6_from_golden_torus["final_alpha_inv"]
         assert alpha_inv is not None and np.isfinite(alpha_inv), (
-            f"GT-seed: α⁻¹ = {alpha_inv} — invalid extraction (likely R ≤ r "
-            f"or r = 0 at converged geometry)."
+            f"GT-seed: α⁻¹ = {alpha_inv} — invalid extraction (likely R ≤ r " f"or r = 0 at converged geometry)."
         )
         rel = abs(alpha_inv - ALPHA_TARGET) / ALPHA_TARGET
         assert rel < 0.02, (
@@ -234,11 +253,10 @@ class TestAlphaFromDynamicalEigenmode:
     @L3_CLOSURE_XFAIL
     def test_alpha_from_perturbed_seed(self, op6_from_perturbed):
         alpha_inv = op6_from_perturbed["final_alpha_inv"]
-        assert alpha_inv is not None and np.isfinite(alpha_inv), (
-            f"Perturbed seed: α⁻¹ = {alpha_inv} — invalid extraction."
-        )
+        assert alpha_inv is not None and np.isfinite(
+            alpha_inv
+        ), f"Perturbed seed: α⁻¹ = {alpha_inv} — invalid extraction."
         rel = abs(alpha_inv - ALPHA_TARGET) / ALPHA_TARGET
         assert rel < 0.02, (
-            f"Perturbed seed: α⁻¹ = {alpha_inv:.4f}, target "
-            f"{ALPHA_TARGET:.4f}, deviation {rel * 100:.2f}% > 2%."
+            f"Perturbed seed: α⁻¹ = {alpha_inv:.4f}, target " f"{ALPHA_TARGET:.4f}, deviation {rel * 100:.2f}% > 2%."
         )

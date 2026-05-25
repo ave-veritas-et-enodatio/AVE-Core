@@ -25,7 +25,6 @@ References:
 - vacuum_engine.py::SpatialDipoleCPSource for the implementation
 - CWSource for envelope + port-weight conventions (reused)
 """
-from __future__ import annotations
 
 import numpy as np
 import pytest
@@ -42,32 +41,54 @@ from ave.topological.vacuum_engine import (
 class TestConstruction:
     def test_rh_constructs(self):
         src = SpatialDipoleCPSource(
-            x0=4, propagation_axis=0, amplitude=0.5, omega=1.0,
-            handedness="RH", sigma_yz=2.0, t_ramp=1.0, t_sustain=10.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=0.5,
+            omega=1.0,
+            handedness="RH",
+            sigma_yz=2.0,
+            t_ramp=1.0,
+            t_sustain=10.0,
         )
         assert src._eps_hand == +1
 
     def test_lh_constructs(self):
         src = SpatialDipoleCPSource(
-            x0=4, propagation_axis=0, amplitude=0.5, omega=1.0,
-            handedness="LH", sigma_yz=2.0, t_ramp=1.0, t_sustain=10.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=0.5,
+            omega=1.0,
+            handedness="LH",
+            sigma_yz=2.0,
+            t_ramp=1.0,
+            t_sustain=10.0,
         )
         assert src._eps_hand == -1
 
     def test_invalid_handedness_rejected(self):
         with pytest.raises(ValueError, match="handedness"):
             SpatialDipoleCPSource(
-                x0=4, propagation_axis=0, amplitude=0.5, omega=1.0,
-                handedness="elliptical", sigma_yz=2.0,
-                t_ramp=1.0, t_sustain=10.0,
+                x0=4,
+                propagation_axis=0,
+                amplitude=0.5,
+                omega=1.0,
+                handedness="elliptical",
+                sigma_yz=2.0,
+                t_ramp=1.0,
+                t_sustain=10.0,
             )
 
     def test_invalid_propagation_axis_rejected(self):
         with pytest.raises(ValueError, match="propagation_axis"):
             SpatialDipoleCPSource(
-                x0=4, propagation_axis=-1, amplitude=0.5, omega=1.0,
-                handedness="RH", sigma_yz=2.0,
-                t_ramp=1.0, t_sustain=10.0,
+                x0=4,
+                propagation_axis=-1,
+                amplitude=0.5,
+                omega=1.0,
+                handedness="RH",
+                sigma_yz=2.0,
+                t_ramp=1.0,
+                t_sustain=10.0,
             )
 
 
@@ -83,8 +104,14 @@ class TestDipoleAntisymmetry:
         """Engine with source applied at t=0 (cos=1, sin=0 → pure y-dipole)."""
         engine = VacuumEngine3D.from_args(N=12, pml=2, temperature=0.0)
         src = SpatialDipoleCPSource(
-            x0=4, propagation_axis=0, amplitude=0.5, omega=1.0,
-            handedness="RH", sigma_yz=2.0, t_ramp=0.0, t_sustain=100.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=0.5,
+            omega=1.0,
+            handedness="RH",
+            sigma_yz=2.0,
+            t_ramp=0.0,
+            t_sustain=100.0,
         )
         src.apply(engine, t=0.0)
         return engine, src
@@ -95,7 +122,6 @@ class TestDipoleAntisymmetry:
         engine, src = engine_after_apply
         N = engine.N
         yc = (N - 1) / 2.0  # = 5.5 for N=12
-        zc = (N - 1) / 2.0
         # At integer-nearest to center: y=5, z=5 (profile peak per Gaussian)
         # But the CENTER is at 5.5 — integer sites don't perfectly match.
         # Instead verify that symmetric pairs (y_c - Δ, z) and (y_c + Δ, z)
@@ -126,12 +152,24 @@ class TestDipoleAntisymmetry:
         amp = 0.5
 
         src_rh = SpatialDipoleCPSource(
-            x0=4, propagation_axis=0, amplitude=amp, omega=carrier,
-            handedness="RH", sigma_yz=2.0, t_ramp=0.0, t_sustain=100.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=amp,
+            omega=carrier,
+            handedness="RH",
+            sigma_yz=2.0,
+            t_ramp=0.0,
+            t_sustain=100.0,
         )
         src_lh = SpatialDipoleCPSource(
-            x0=4, propagation_axis=0, amplitude=amp, omega=carrier,
-            handedness="LH", sigma_yz=2.0, t_ramp=0.0, t_sustain=100.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=amp,
+            omega=carrier,
+            handedness="LH",
+            sigma_yz=2.0,
+            t_ramp=0.0,
+            t_sustain=100.0,
         )
         src_rh.apply(engine_rh, t)
         src_lh.apply(engine_lh, t)
@@ -140,9 +178,9 @@ class TestDipoleAntisymmetry:
         V_rh = engine_rh.k4.V_inc[4].sum(axis=-1)  # (N, N)
         V_lh = engine_lh.k4.V_inc[4].sum(axis=-1)
         # RH and LH should differ by sign of the sin·z-dipole term
-        assert np.allclose(V_rh, -V_lh, atol=1e-10), (
-            "RH and LH at ωt=π/2 should be exact sign-flips (cos=0, only z-dipole)"
-        )
+        assert np.allclose(
+            V_rh, -V_lh, atol=1e-10
+        ), "RH and LH at ωt=π/2 should be exact sign-flips (cos=0, only z-dipole)"
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -152,8 +190,14 @@ class TestEnvelopeAndMask:
     def test_envelope_zero_before_ramp(self):
         engine = VacuumEngine3D.from_args(N=10, pml=1, temperature=0.0)
         src = SpatialDipoleCPSource(
-            x0=3, propagation_axis=0, amplitude=0.5, omega=1.0,
-            handedness="RH", sigma_yz=2.0, t_ramp=5.0, t_sustain=10.0,
+            x0=3,
+            propagation_axis=0,
+            amplitude=0.5,
+            omega=1.0,
+            handedness="RH",
+            sigma_yz=2.0,
+            t_ramp=5.0,
+            t_sustain=10.0,
         )
         src.apply(engine, t=-1.0)
         assert np.all(engine.k4.V_inc == 0.0)
@@ -164,8 +208,14 @@ class TestEnvelopeAndMask:
         # Pre-seed some V_inc value
         engine.k4.V_inc[5, 5, 5, 0] = 0.3
         src = SpatialDipoleCPSource(
-            x0=3, propagation_axis=0, amplitude=0.5, omega=1.0,
-            handedness="RH", sigma_yz=2.0, t_ramp=0.0, t_sustain=100.0,
+            x0=3,
+            propagation_axis=0,
+            amplitude=0.5,
+            omega=1.0,
+            handedness="RH",
+            sigma_yz=2.0,
+            t_ramp=0.0,
+            t_sustain=100.0,
         )
         src.apply(engine, t=0.0)
         # The pre-existing V_inc at (5,5,5) is NOT at the source plane (x=3),
@@ -176,18 +226,21 @@ class TestEnvelopeAndMask:
         """V_inc at inactive sites (bipartite mask + PML) stays zero."""
         engine = VacuumEngine3D.from_args(N=12, pml=2, temperature=0.0)
         src = SpatialDipoleCPSource(
-            x0=4, propagation_axis=0, amplitude=0.5, omega=1.0,
-            handedness="RH", sigma_yz=4.0,  # wide enough to hit PML
-            t_ramp=0.0, t_sustain=100.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=0.5,
+            omega=1.0,
+            handedness="RH",
+            sigma_yz=4.0,  # wide enough to hit PML
+            t_ramp=0.0,
+            t_sustain=100.0,
         )
         src.apply(engine, t=0.0)
         # Inactive sites at source plane should stay at 0
         inactive = ~engine.k4.mask_active[src.x0]
         V_slab = engine.k4.V_inc[src.x0]
         for port in range(4):
-            assert np.all(V_slab[..., port][inactive] == 0.0), (
-                f"Port {port}: V at inactive sites must be 0"
-            )
+            assert np.all(V_slab[..., port][inactive] == 0.0), f"Port {port}: V at inactive sites must be 0"
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -197,8 +250,14 @@ class TestEngineIntegration:
     def test_rh_drive_runs_without_blowup(self):
         engine = VacuumEngine3D.from_args(N=12, pml=2, temperature=0.0)
         src = SpatialDipoleCPSource(
-            x0=4, propagation_axis=0, amplitude=0.3, omega=2.0 * np.pi / 4.0,
-            handedness="RH", sigma_yz=2.0, t_ramp=2.0, t_sustain=20.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=0.3,
+            omega=2.0 * np.pi / 4.0,
+            handedness="RH",
+            sigma_yz=2.0,
+            t_ramp=2.0,
+            t_sustain=20.0,
         )
         engine.add_source(src)
         for _ in range(10):
@@ -210,8 +269,14 @@ class TestEngineIntegration:
     def test_lh_drive_runs_without_blowup(self):
         engine = VacuumEngine3D.from_args(N=12, pml=2, temperature=0.0)
         src = SpatialDipoleCPSource(
-            x0=4, propagation_axis=0, amplitude=0.3, omega=2.0 * np.pi / 4.0,
-            handedness="LH", sigma_yz=2.0, t_ramp=2.0, t_sustain=20.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=0.3,
+            omega=2.0 * np.pi / 4.0,
+            handedness="LH",
+            sigma_yz=2.0,
+            t_ramp=2.0,
+            t_sustain=20.0,
         )
         engine.add_source(src)
         for _ in range(10):
@@ -221,17 +286,21 @@ class TestEngineIntegration:
     def test_rh_drive_produces_nonzero_V_inc(self):
         engine = VacuumEngine3D.from_args(N=12, pml=2, temperature=0.0)
         src = SpatialDipoleCPSource(
-            x0=4, propagation_axis=0, amplitude=0.5, omega=1.0,
-            handedness="RH", sigma_yz=2.0, t_ramp=0.0, t_sustain=100.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=0.5,
+            omega=1.0,
+            handedness="RH",
+            sigma_yz=2.0,
+            t_ramp=0.0,
+            t_sustain=100.0,
         )
         engine.add_source(src)
         for _ in range(3):
             engine.step()
-        V_mag_sq = np.sum(engine.k4.V_inc ** 2, axis=-1)
+        V_mag_sq = np.sum(engine.k4.V_inc**2, axis=-1)
         max_V_mag_sq = float(V_mag_sq.max())
-        assert max_V_mag_sq > 0.001, (
-            f"Max |V|² = {max_V_mag_sq:.4e}; expected non-trivial drive"
-        )
+        assert max_V_mag_sq > 0.001, f"Max |V|² = {max_V_mag_sq:.4e}; expected non-trivial drive"
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -247,12 +316,24 @@ class TestHandednessDiscrimination:
         eng_rh_t0 = VacuumEngine3D.from_args(N=N, pml=2, temperature=0.0)
         eng_lh_t0 = VacuumEngine3D.from_args(N=N, pml=2, temperature=0.0)
         src_rh_t0 = SpatialDipoleCPSource(
-            x0=4, propagation_axis=0, amplitude=0.5, omega=1.0,
-            handedness="RH", sigma_yz=2.0, t_ramp=0.0, t_sustain=100.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=0.5,
+            omega=1.0,
+            handedness="RH",
+            sigma_yz=2.0,
+            t_ramp=0.0,
+            t_sustain=100.0,
         )
         src_lh_t0 = SpatialDipoleCPSource(
-            x0=4, propagation_axis=0, amplitude=0.5, omega=1.0,
-            handedness="LH", sigma_yz=2.0, t_ramp=0.0, t_sustain=100.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=0.5,
+            omega=1.0,
+            handedness="LH",
+            sigma_yz=2.0,
+            t_ramp=0.0,
+            t_sustain=100.0,
         )
         src_rh_t0.apply(eng_rh_t0, t=0.0)
         src_lh_t0.apply(eng_lh_t0, t=0.0)
@@ -264,23 +345,33 @@ class TestHandednessDiscrimination:
         eng_rh = VacuumEngine3D.from_args(N=N, pml=2, temperature=0.0)
         eng_lh = VacuumEngine3D.from_args(N=N, pml=2, temperature=0.0)
         src_rh = SpatialDipoleCPSource(
-            x0=4, propagation_axis=0, amplitude=0.5, omega=1.0,
-            handedness="RH", sigma_yz=2.0, t_ramp=0.0, t_sustain=100.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=0.5,
+            omega=1.0,
+            handedness="RH",
+            sigma_yz=2.0,
+            t_ramp=0.0,
+            t_sustain=100.0,
         )
         src_lh = SpatialDipoleCPSource(
-            x0=4, propagation_axis=0, amplitude=0.5, omega=1.0,
-            handedness="LH", sigma_yz=2.0, t_ramp=0.0, t_sustain=100.0,
+            x0=4,
+            propagation_axis=0,
+            amplitude=0.5,
+            omega=1.0,
+            handedness="LH",
+            sigma_yz=2.0,
+            t_ramp=0.0,
+            t_sustain=100.0,
         )
         src_rh.apply(eng_rh, t=t_quarter)
         src_lh.apply(eng_lh, t=t_quarter)
         # At t=π/4: RH and LH differ (half-cos-y-dipole common, half-sin-z-dipole opposite)
-        assert not np.allclose(eng_rh.k4.V_inc, eng_lh.k4.V_inc, atol=1e-10), (
-            "RH and LH at ωt=π/4 must differ (sin-z-dipole term has opposite sign)"
-        )
+        assert not np.allclose(
+            eng_rh.k4.V_inc, eng_lh.k4.V_inc, atol=1e-10
+        ), "RH and LH at ωt=π/4 must differ (sin-z-dipole term has opposite sign)"
         # Symmetric decomposition: (RH + LH)/2 should equal cos-term only (no sin contribution)
         # = the t=0 pattern scaled by cos(π/4)
         avg = (eng_rh.k4.V_inc + eng_lh.k4.V_inc) / 2.0
         expected_cos = eng_rh_t0.k4.V_inc * np.cos(t_quarter)
-        assert np.allclose(avg, expected_cos, atol=1e-10), (
-            "Average of RH + LH at ωt=π/4 should be cos·y-dipole only"
-        )
+        assert np.allclose(avg, expected_cos, atol=1e-10), "Average of RH + LH at ωt=π/4 should be cos·y-dipole only"

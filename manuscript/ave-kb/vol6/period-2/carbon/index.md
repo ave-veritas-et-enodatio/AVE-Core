@@ -1,5 +1,11 @@
 [↑ Period 2](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-f5ucdo, clm-f8k2um, clm-h8nmpu, clm-rw7jqo, clm-sd04x4, clm-y7uvdc]
+subtree-experiments: []
+-->
+
 # Carbon (Z=6)
 
 Carbon-12 is the lightest element solved by the full semiconductor binding engine. Its three Alpha particles ($3\alpha$) form an equilateral ring at $R_{ring} \approx 56.554d$, creating a vast central void that maps to a 3-Phase Delta-Wye Transformer. The semiconductor engine reproduces the CODATA mass to $0.000\,000\%$ error at $V_R/V_{BR} = 0.019$ (Small Signal, $M = 1.000$). The open ring topology with four geometric vertices governs catenation and diamond lattice formation.

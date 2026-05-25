@@ -20,10 +20,7 @@ Run:
     pytest src/tests/test_fdtd3d_moving_pulse_wake.py -v -s
 """
 
-from __future__ import annotations
-
 import numpy as np
-import pytest
 
 from ave.core.fdtd_3d import FDTD3DEngine
 
@@ -60,7 +57,7 @@ def _run_steps(engine, n_steps, apply_abc=True, probe_positions=None):
         if apply_abc:
             engine.apply_mur_abc()
         times.append(step * engine.dt)
-        for pos in (probe_positions or []):
+        for pos in probe_positions or []:
             probe_data[pos]["Ez"].append(float(engine.Ez[pos]))
             H_mag = np.sqrt(engine.Hx[pos] ** 2 + engine.Hy[pos] ** 2 + engine.Hz[pos] ** 2)
             probe_data[pos]["H_mag"].append(float(H_mag))
@@ -94,8 +91,7 @@ def test_wake_signature_at_trailing_position():
     print(f"  Trailing probe: {trailing_pos}, leading probe: {leading_pos}")
 
     N_STEPS = 200
-    result = _run_steps(engine, N_STEPS, apply_abc=True,
-                        probe_positions=[trailing_pos, leading_pos])
+    result = _run_steps(engine, N_STEPS, apply_abc=True, probe_positions=[trailing_pos, leading_pos])
 
     trailing_Ez = result["probes"][trailing_pos]["Ez"]
     leading_Ez = result["probes"][leading_pos]["Ez"]
@@ -166,9 +162,9 @@ def test_pulse_propagation_speed():
     # At minimum: peak arrival times should be monotonically increasing with distance
     valid_arrivals = [t for t in arrival_times_ns if not np.isnan(t)]
     if len(valid_arrivals) >= 2:
-        assert valid_arrivals == sorted(valid_arrivals), (
-            f"Pulse arrival times not monotonic with distance: {valid_arrivals}"
-        )
+        assert valid_arrivals == sorted(
+            valid_arrivals
+        ), f"Pulse arrival times not monotonic with distance: {valid_arrivals}"
 
 
 def test_wake_propagates_at_c0():
@@ -187,8 +183,10 @@ def test_wake_propagates_at_c0():
     # Probe at two trailing-edge positions (behind the seed in -x)
     # The wake propagates BACKWARD from the soliton's trailing edge at c
     # For a pulse moving in +x, the "wake" is the leftward-traveling component
-    probes_back = [(center[0] - 4, center[1], center[2]),
-                   (center[0] - 12, center[1], center[2]) if center[0] > 12 else (4, center[1], center[2])]
+    probes_back = [
+        (center[0] - 4, center[1], center[2]),
+        (center[0] - 12, center[1], center[2]) if center[0] > 12 else (4, center[1], center[2]),
+    ]
 
     print(f"\nWake propagation test: N={N}, dx={DX}, dt={engine.dt:.3e}")
     print(f"  Seed at {center}, trailing probes at {probes_back}")

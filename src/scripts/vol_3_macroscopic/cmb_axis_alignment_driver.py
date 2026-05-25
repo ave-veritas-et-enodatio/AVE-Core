@@ -22,7 +22,6 @@ re-derive each axis independently from raw data.
 Run:
     python3 src/scripts/vol_3_macroscopic/cmb_axis_alignment_driver.py
 """
-from __future__ import annotations
 
 import math
 from dataclasses import dataclass
@@ -173,9 +172,7 @@ def report_alignments_vs_omega_freeze() -> None:
     print(f"Fail threshold: angular separation > {FAIL_THRESHOLD_DEG} deg")
     print(f"Between: AMBIGUOUS (within combined observational error margins)\n")
 
-    print(
-        f"{'Axis':55} {'(l, b) deg':>20} {'sep vs Omega':>14} {'Verdict':>12} {'Confidence':>15}"
-    )
+    print(f"{'Axis':55} {'(l, b) deg':>20} {'sep vs Omega':>14} {'Verdict':>12} {'Confidence':>15}")
     print("-" * 130)
 
     pass_count = 0
@@ -198,14 +195,10 @@ def report_alignments_vs_omega_freeze() -> None:
         elif "pinned" in axis.confidence:
             pinned_count += 1
         coord = f"({axis.l_deg:6.1f}, {axis.b_deg:5.1f})"
-        print(
-            f"{axis.name:55} {coord:>20} {sep:>10.2f} deg {marker} {verdict:>8} {axis.confidence:>15}"
-        )
+        print(f"{axis.name:55} {coord:>20} {sep:>10.2f} deg {marker} {verdict:>8} {axis.confidence:>15}")
 
     print("\n" + "-" * 130)
-    print(
-        f"Summary: {pass_count} PASS  |  {ambiguous_count} AMBIGUOUS  |  {fail_count} FAIL"
-    )
+    print(f"Summary: {pass_count} PASS  |  {ambiguous_count} AMBIGUOUS  |  {fail_count} FAIL")
     print(f"Citation pin status: {pinned_count} pinned  |  {tbd_count} TBD-pin-source")
 
 
@@ -241,82 +234,38 @@ def report_phase1_assessment() -> None:
     print("Phase 1 honest assessment")
     print("=" * 95 + "\n")
 
-    print(
-        "Phase 1 uses LITERATURE-BEST-GUESS axis values; many are disputed or have"
-    )
+    print("Phase 1 uses LITERATURE-BEST-GUESS axis values; many are disputed or have")
     print("multiple competing published values depending on statistic + data cut.")
     print()
     print("Specific Phase-2 TBDs to resolve via raw-data re-analysis:")
     print()
-    print(
-        "  1. CMB axis-of-evil — AVE prereg cites (l=174, b=-5); Land+Magueijo 2005"
-    )
-    print(
-        "     reports (l=237, b=63). The 90-deg discrepancy reflects different"
-    )
-    print(
-        "     statistics (multipole moment alignment vs quadrupole-octupole)."
-    )
+    print("  1. CMB axis-of-evil — AVE prereg cites (l=174, b=-5); Land+Magueijo 2005")
+    print("     reports (l=237, b=63). The 90-deg discrepancy reflects different")
+    print("     statistics (multipole moment alignment vs quadrupole-octupole).")
     print("     Phase 2: refit Planck PR3 maps with documented statistic choice.")
     print()
-    print(
-        "  2. Hubble flow dipole — Watkins+ 2009 gives (l=295, b=14); Pantheon+ analyses"
-    )
-    print(
-        "     differ by 30+ deg. No consensus value."
-    )
-    print(
-        "     Phase 2: refit Pantheon+ supernova catalog directly."
-    )
+    print("  2. Hubble flow dipole — Watkins+ 2009 gives (l=295, b=14); Pantheon+ analyses")
+    print("     differ by 30+ deg. No consensus value.")
+    print("     Phase 2: refit Pantheon+ supernova catalog directly.")
     print()
-    print(
-        "  3. LSS galaxy rotation chirality — Longo 2011 claims (l=145, b=-65)"
-    )
-    print(
-        "     using SDSS DR7; replications mostly null; methodology contested."
-    )
-    print(
-        "     Phase 2: independent SDSS DR17 analysis; if null, Observable 3 must be"
-    )
-    print(
-        "     dropped from the 4-axis test."
-    )
+    print("  3. LSS galaxy rotation chirality — Longo 2011 claims (l=145, b=-65)")
+    print("     using SDSS DR7; replications mostly null; methodology contested.")
+    print("     Phase 2: independent SDSS DR17 analysis; if null, Observable 3 must be")
+    print("     dropped from the 4-axis test.")
     print()
-    print(
-        "  4. Matter asymmetry — loosely-defined observable per prereg notes;"
-    )
-    print(
-        "     no clean axis exists in literature. Phase 2 may need to define a"
-    )
-    print(
-        "     specific observable (e.g., positron/electron ratio direction at"
-    )
-    print(
-        "     supernova remnants) before this axis becomes testable."
-    )
+    print("  4. Matter asymmetry — loosely-defined observable per prereg notes;")
+    print("     no clean axis exists in literature. Phase 2 may need to define a")
+    print("     specific observable (e.g., positron/electron ratio direction at")
+    print("     supernova remnants) before this axis becomes testable.")
     print()
-    print(
-        "Phase 1 OUTPUT: the alignment matrix above is suggestive but not definitive."
-    )
-    print(
-        "The 7 observables don't mutually align in any obvious way using the"
-    )
-    print(
-        "literature-best-guess values. Whether this rules out the framework or"
-    )
-    print(
-        "simply reflects axis-citation ambiguity requires Phase 2 raw-data re-analysis."
-    )
+    print("Phase 1 OUTPUT: the alignment matrix above is suggestive but not definitive.")
+    print("The 7 observables don't mutually align in any obvious way using the")
+    print("literature-best-guess values. Whether this rules out the framework or")
+    print("simply reflects axis-citation ambiguity requires Phase 2 raw-data re-analysis.")
     print()
-    print(
-        "OPERATIONAL RECOMMENDATION: install healpy + astropy; fetch Planck PR3 maps;"
-    )
-    print(
-        "implement explicit-statistic-choice quadrupole-octupole alignment fit; pin"
-    )
-    print(
-        "Observable 1 axis to a single statistic before proceeding to Observable 2-6."
-    )
+    print("OPERATIONAL RECOMMENDATION: install healpy + astropy; fetch Planck PR3 maps;")
+    print("implement explicit-statistic-choice quadrupole-octupole alignment fit; pin")
+    print("Observable 1 axis to a single statistic before proceeding to Observable 2-6.")
 
 
 def main() -> int:

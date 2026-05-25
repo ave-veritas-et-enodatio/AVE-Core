@@ -40,10 +40,10 @@ AVE FINDING (Phase I, for S4 adjudication):
 
 All runs use `use_saturation=False` (Axiom 4 off — linear regime).
 """
-from __future__ import annotations
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -56,8 +56,7 @@ from ave.topological.cosserat_field_3d import CosseratField3D
 def _linear_solver(N: int, G_c: float, gamma: float, rho: float = 1.0, I_omega: float = 1.0) -> CosseratField3D:
     """Linear-only Cosserat: Cauchy + (optional) micropolar + curvature.
     Op10, Hopf, reflection, and saturation all off."""
-    s = CosseratField3D(nx=N, ny=N, nz=N, dx=1.0, use_saturation=False,
-                        rho=rho, I_omega=I_omega)
+    s = CosseratField3D(nx=N, ny=N, nz=N, dx=1.0, use_saturation=False, rho=rho, I_omega=I_omega)
     s.G = 1.0
     s.G_c = G_c
     s.gamma = gamma
@@ -81,15 +80,23 @@ def _packet_centroid_axis(field: np.ndarray, mask: np.ndarray, axis_component: i
 # T1 — propagation tests
 # ─────────────────────────────────────────────────────────────────
 def test_wave_speed(
-    N: int, G_c: float, gamma: float,
-    wavelength: float = 12.0, sigma: float = 3.0,
-    n_steps: int = 200, record_every: int = 5,
+    N: int,
+    G_c: float,
+    gamma: float,
+    wavelength: float = 12.0,
+    sigma: float = 3.0,
+    n_steps: int = 200,
+    record_every: int = 5,
 ) -> dict:
     s = _linear_solver(N=N, G_c=G_c, gamma=gamma)
     x0 = N // 4
     s.initialize_gaussian_wavepacket_omega(
-        center=(x0, N // 2, N // 2), sigma=sigma, direction=(1.0, 0.0, 0.0),
-        wavelength=wavelength, amplitude=1e-3, axis=2,
+        center=(x0, N // 2, N // 2),
+        sigma=sigma,
+        direction=(1.0, 0.0, 0.0),
+        wavelength=wavelength,
+        amplitude=1e-3,
+        axis=2,
     )
 
     mask = s.mask_alive
@@ -118,13 +125,16 @@ def test_wave_speed(
     # Gapped dispersion: ω² = c²k² + m² with m² = 2·G_c/I_ω (natural units here)
     k_wave = 2.0 * np.pi / wavelength
     m_sq = 4.0 * G_c / s.I_omega
-    v_g_theory = (c_R_theory ** 2 * k_wave) / np.sqrt(c_R_theory ** 2 * k_wave ** 2 + m_sq)
+    v_g_theory = (c_R_theory**2 * k_wave) / np.sqrt(c_R_theory**2 * k_wave**2 + m_sq)
     H_drift = float(np.abs(Hs_a / max(Hs_a[0], 1e-30) - 1).max())
 
     return {
-        "G_c": G_c, "gamma": gamma,
-        "wavelength": wavelength, "sigma": sigma,
-        "N": N, "n_steps": n_steps,
+        "G_c": G_c,
+        "gamma": gamma,
+        "wavelength": wavelength,
+        "sigma": sigma,
+        "N": N,
+        "n_steps": n_steps,
         "cfl_dt": s.cfl_dt,
         "c_R_theory_continuum": float(c_R_theory),
         "v_g_theory_gapped": float(v_g_theory),
@@ -156,11 +166,12 @@ def test_mass_gap_oscillation(N: int = 32, G_c: float = 1.0, n_steps: int = 150)
     s.u_dot = np.zeros_like(s.u_dot)
     s.omega_dot = np.zeros_like(s.omega_dot)
 
-    omega_history: list[float] = []   # average ω_z over alive sites
+    omega_history: list[float] = []  # average ω_z over alive sites
     times: list[float] = []
     H_history: list[float] = []
 
     n_alive = int(s.mask_alive.sum())
+
     def avg_omega_z():
         return float(s.omega[..., 2].sum() / max(n_alive, 1))
 
@@ -182,6 +193,7 @@ def test_mass_gap_oscillation(N: int = 32, G_c: float = 1.0, n_steps: int = 150)
     # force. Since the micropolar term is quadratic in ω, the equilibrium IS
     # ω = 0, so we expect sinusoidal oscillation about 0.
     from scipy.signal import find_peaks
+
     peaks, _ = find_peaks(omega_a, height=0.5 * A0)
     if len(peaks) >= 2:
         period_meas = float(np.mean(np.diff(times_a[peaks])))
@@ -220,22 +232,33 @@ def test_mass_gap_oscillation(N: int = 32, G_c: float = 1.0, n_steps: int = 150)
 # Plotting
 # ─────────────────────────────────────────────────────────────────
 def render_plots(
-    t1a: dict, t1b: dict, t2: dict,
+    t1a: dict,
+    t1b: dict,
+    t2: dict,
     out_path: str = "/tmp/cosserat_wave_test.png",
 ) -> None:
     fig, axes = plt.subplots(2, 2, figsize=(13, 9))
 
     # Top-left: T1a (G_c=0, gapless)
     ax = axes[0, 0]
-    ax.plot(t1a["times"], t1a["centroids"], "o-", ms=3, lw=1.3, color="#2a7",
-            label="centroid x")
+    ax.plot(t1a["times"], t1a["centroids"], "o-", ms=3, lw=1.3, color="#2a7", label="centroid x")
     t = t1a["times"]
-    ax.plot(t, t1a["centroids"][0] + t1a["c_R_theory_continuum"] * t,
-            "--", lw=1, color="#666",
-            label=f"c_R continuum = {t1a['c_R_theory_continuum']:.2f}")
-    ax.plot(t, t1a["centroids"][0] + t1a["v_g_theory_gapped"] * t,
-            ":", lw=1, color="#f90",
-            label=f"v_g gapped = {t1a['v_g_theory_gapped']:.3f}")
+    ax.plot(
+        t,
+        t1a["centroids"][0] + t1a["c_R_theory_continuum"] * t,
+        "--",
+        lw=1,
+        color="#666",
+        label=f"c_R continuum = {t1a['c_R_theory_continuum']:.2f}",
+    )
+    ax.plot(
+        t,
+        t1a["centroids"][0] + t1a["v_g_theory_gapped"] * t,
+        ":",
+        lw=1,
+        color="#f90",
+        label=f"v_g gapped = {t1a['v_g_theory_gapped']:.3f}",
+    )
     ax.set_xlabel("t (natural units)")
     ax.set_ylabel("packet centroid x (cells)")
     ax.set_title(
@@ -247,12 +270,16 @@ def render_plots(
 
     # Top-right: T1b (G_c=1, gapped)
     ax = axes[0, 1]
-    ax.plot(t1b["times"], t1b["centroids"], "o-", ms=3, lw=1.3, color="#c33",
-            label="centroid x")
+    ax.plot(t1b["times"], t1b["centroids"], "o-", ms=3, lw=1.3, color="#c33", label="centroid x")
     t = t1b["times"]
-    ax.plot(t, t1b["centroids"][0] + t1b["v_g_theory_gapped"] * t,
-            ":", lw=1, color="#f90",
-            label=f"v_g gapped = {t1b['v_g_theory_gapped']:.3f}")
+    ax.plot(
+        t,
+        t1b["centroids"][0] + t1b["v_g_theory_gapped"] * t,
+        ":",
+        lw=1,
+        color="#f90",
+        label=f"v_g gapped = {t1b['v_g_theory_gapped']:.3f}",
+    )
     ax.set_xlabel("t")
     ax.set_ylabel("packet centroid x (cells)")
     ax.set_title(
@@ -264,13 +291,13 @@ def render_plots(
 
     # Bottom-left: T2 mass-gap oscillation
     ax = axes[1, 0]
-    ax.plot(t2["times"], t2["omega_avg_history"] / t2["A0"], "-", lw=1.5, color="#47c",
-            label="⟨ω_z⟩ / A₀")
+    ax.plot(t2["times"], t2["omega_avg_history"] / t2["A0"], "-", lw=1.5, color="#47c", label="⟨ω_z⟩ / A₀")
     ax.axhline(0, color="#666", ls="--", lw=0.5)
     # Overlay theoretical sinusoid
     omega_th = np.cos(t2["omega_mass_theory"] * t2["times"])
-    ax.plot(t2["times"], omega_th, "--", lw=1.0, color="#f90",
-            label=f"cos(√(2G_c/I_ω)·t)  T = {t2['period_theory']:.2f}")
+    ax.plot(
+        t2["times"], omega_th, "--", lw=1.0, color="#f90", label=f"cos(√(2G_c/I_ω)·t)  T = {t2['period_theory']:.2f}"
+    )
     ax.set_xlabel("t")
     ax.set_ylabel("⟨ω_z⟩ / A₀")
     ax.set_title(
@@ -283,14 +310,12 @@ def render_plots(
 
     # Bottom-right: Hamiltonian conservation across all 3 tests
     ax = axes[1, 1]
-    for res, lbl, col in [(t1a, "T1a gapless", "#2a7"),
-                          (t1b, "T1b gapped", "#c33"),
-                          (t2, "T2 mass-gap", "#47c")]:
+    for res, lbl, col in [(t1a, "T1a gapless", "#2a7"), (t1b, "T1b gapped", "#c33"), (t2, "T2 mass-gap", "#47c")]:
         t = res["times"]
         H = res["H_history"]
-        ax.plot(t, H / max(abs(H[0]), 1e-30) - 1.0,
-                lw=1.2, label=f"{lbl}  |ΔH/H|max = {res['H_drift_max']:.2e}",
-                color=col)
+        ax.plot(
+            t, H / max(abs(H[0]), 1e-30) - 1.0, lw=1.2, label=f"{lbl}  |ΔH/H|max = {res['H_drift_max']:.2e}", color=col
+        )
     ax.axhline(0, color="#666", ls="--", lw=0.5)
     ax.set_xlabel("t")
     ax.set_ylabel("ΔH / H₀")
@@ -339,12 +364,14 @@ if __name__ == "__main__":
     render_plots(t1a, t1b, t2)
 
     summary = {
-        "T1a_G_c": t1a["G_c"], "T1a_v_measured": t1a["v_measured"],
+        "T1a_G_c": t1a["G_c"],
+        "T1a_v_measured": t1a["v_measured"],
         "T1a_c_R_theory": t1a["c_R_theory_continuum"],
         "T1a_v_over_c_R": t1a["v_over_c_R"],
         "T1a_v_over_v_g_gapped": t1a["v_over_v_g_theory"],
         "T1a_H_drift_max": t1a["H_drift_max"],
-        "T1b_G_c": t1b["G_c"], "T1b_v_measured": t1b["v_measured"],
+        "T1b_G_c": t1b["G_c"],
+        "T1b_v_measured": t1b["v_measured"],
         "T1b_v_g_theory": t1b["v_g_theory_gapped"],
         "T1b_v_over_v_g_gapped": t1b["v_over_v_g_theory"],
         "T1b_H_drift_max": t1b["H_drift_max"],

@@ -23,7 +23,6 @@ Reuses build_T_operator + helpers from r7_k4tlm_scattering_lctank.py.
 Per Rule 10 "data first, methodology after": this topology check is post-run
 methodology development based on empirical N=64 result. Not a new pre-reg.
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -39,11 +38,20 @@ from ave.topological.vacuum_engine import VacuumEngine3D
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from r7_k4tlm_scattering_lctank import (
-    PHI_SQ, A26_AMP_SCALE, GT_PEAK_OMEGA, ALPHA, OMEGA_COMPTON,
-    DT, TARGET_PHASE, PHASE_TOL_V,
-    A26_GUARD_LOW, A26_GUARD_HIGH,
-    seed_2_3_hedgehog, a26_guard,
-    build_T_operator, get_active_sites,
+    A26_AMP_SCALE,
+    A26_GUARD_HIGH,
+    A26_GUARD_LOW,
+    ALPHA,
+    DT,
+    GT_PEAK_OMEGA,
+    OMEGA_COMPTON,
+    PHASE_TOL_V,
+    PHI_SQ,
+    TARGET_PHASE,
+    a26_guard,
+    build_T_operator,
+    get_active_sites,
+    seed_2_3_hedgehog,
 )
 
 N_LATTICE = 64
@@ -102,7 +110,9 @@ def main():
     print()
 
     engine = VacuumEngine3D.from_args(
-        N=N_LATTICE, pml=PML, temperature=0.0,
+        N=N_LATTICE,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -121,7 +131,7 @@ def main():
     sigma = complex(np.cos(TARGET_PHASE), np.sin(TARGET_PHASE))
     print(f"  Eigsolve at sigma=exp(i·{TARGET_PHASE:.4f}), k=10...", flush=True)
     t1 = time.time()
-    eigvals, eigvecs = eigs(T, k=10, sigma=sigma, which='LM', tol=1e-6, maxiter=2000)
+    eigvals, eigvecs = eigs(T, k=10, sigma=sigma, which="LM", tol=1e-6, maxiter=2000)
     print(f"    Eigsolve: {time.time() - t1:.1f}s, {len(eigvals)} eigenvalues")
     print()
 
@@ -134,8 +144,7 @@ def main():
 
     print(f"  Closest eigenvalue at phase {closest_phase:.6f} rad")
     print(f"    gap to ω_C·dt: {closest_gap:.4e} rad ({100*closest_gap/TARGET_PHASE:.4f}%)")
-    print(f"    PASS tolerance: {PHASE_TOL_V:.4e}; "
-          f"{'PASS' if closest_gap < PHASE_TOL_V else 'FAIL'}")
+    print(f"    PASS tolerance: {PHASE_TOL_V:.4e}; " f"{'PASS' if closest_gap < PHASE_TOL_V else 'FAIL'}")
     print()
 
     # Compute shell localization on the closest eigvec
@@ -153,22 +162,28 @@ def main():
     print()
 
     # Topology adjudication
-    sf = loc['shell_fraction']
+    sf = loc["shell_fraction"]
     print("=" * 78, flush=True)
     print("  Topology adjudication")
     print("=" * 78, flush=True)
     if sf > 0.50:
-        verdict = (f"STRONG SHELL LOCALIZATION (fraction {sf:.3f} > 0.50): "
-                   "eigvec concentrated at (2,3) shell. Consistent with bound-state "
-                   "interpretation. Mode I candidate framing supported.")
+        verdict = (
+            f"STRONG SHELL LOCALIZATION (fraction {sf:.3f} > 0.50): "
+            "eigvec concentrated at (2,3) shell. Consistent with bound-state "
+            "interpretation. Mode I candidate framing supported."
+        )
     elif sf > 0.10:
-        verdict = (f"PARTIAL LOCALIZATION (fraction {sf:.3f}): ambiguous. "
-                   "Could be hybrid bulk-shell mode. Mode I candidate framing "
-                   "neither confirmed nor falsified by topology alone.")
+        verdict = (
+            f"PARTIAL LOCALIZATION (fraction {sf:.3f}): ambiguous. "
+            "Could be hybrid bulk-shell mode. Mode I candidate framing "
+            "neither confirmed nor falsified by topology alone."
+        )
     else:
-        verdict = (f"WEAK SHELL LOCALIZATION (fraction {sf:.3f} < 0.10): "
-                   "eigvec is spread uniformly across lattice (bulk mode). "
-                   "NOT a (2,3) bound state. Mode I candidate framing collapses.")
+        verdict = (
+            f"WEAK SHELL LOCALIZATION (fraction {sf:.3f} < 0.10): "
+            "eigvec is spread uniformly across lattice (bulk mode). "
+            "NOT a (2,3) bound state. Mode I candidate framing collapses."
+        )
     print(f"  {verdict}")
     print()
 
@@ -178,19 +193,23 @@ def main():
     # Bulk-uniform expectation: shell_fraction ≈ 1509/262K = 0.6%
     print(f"  Reference: bulk-uniform expectation ≈ shell_volume/lattice_volume")
     print(f"             ≈ 4π²·R·r / N³ ≈ {4*np.pi**2*R_TARGET*R_MINOR / N_LATTICE**3:.4f}")
-    print(f"  Observed shell fraction is {sf:.4f} — "
-          f"{sf / (4*np.pi**2*R_TARGET*R_MINOR / N_LATTICE**3):.1f}× bulk-uniform expectation")
+    print(
+        f"  Observed shell fraction is {sf:.4f} — "
+        f"{sf / (4*np.pi**2*R_TARGET*R_MINOR / N_LATTICE**3):.1f}× bulk-uniform expectation"
+    )
 
     payload = {
         "context": "doc 74_ §7.1 concern #1 — V-block N=64 GT_corpus topology check",
-        "N": N_LATTICE, "R_anchor": R_TARGET, "r_minor": R_MINOR,
+        "N": N_LATTICE,
+        "R_anchor": R_TARGET,
+        "r_minor": R_MINOR,
         "closest_eigenvalue_phase": closest_phase,
         "gap_to_omega_C_dt": closest_gap,
         "PASS_at_frequency_only": closest_gap < PHASE_TOL_V,
         "shell_fraction": sf,
-        "shell_energy": loc['shell_energy'],
-        "bulk_energy": loc['bulk_energy'],
-        "total_energy": loc['total_energy'],
+        "shell_energy": loc["shell_energy"],
+        "bulk_energy": loc["bulk_energy"],
+        "total_energy": loc["total_energy"],
         "bulk_uniform_expectation": float(4 * np.pi**2 * R_TARGET * R_MINOR / N_LATTICE**3),
         "localization_factor_vs_bulk": float(sf / (4 * np.pi**2 * R_TARGET * R_MINOR / N_LATTICE**3)),
         "verdict": verdict,

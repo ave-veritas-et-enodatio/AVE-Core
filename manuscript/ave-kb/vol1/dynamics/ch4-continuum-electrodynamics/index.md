@@ -1,5 +1,11 @@
 [↑ Dynamics](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-3npynp, clm-527k22, clm-8ep2b4, clm-ce8dg1, clm-crbl60, clm-djpx2v, clm-efo113, clm-fr3mos, clm-i4p11y, clm-lv3uw1, clm-m3z5ux, clm-usflef, clm-utnwkc, clm-uu1qbo, clm-xy252u, clm-yr6tu4]
+subtree-experiments: []
+-->
+
 # Ch.4: Continuum Electrodynamics and The Dark Sector
 
 The non-linear AVE master equation unifies expanding cosmology and electromagnetism by replacing constant $\varepsilon_0$ with field-dependent $\varepsilon_{eff}(V)$. Three analytical operating regimes are defined (linear acoustic, non-linear tensor, dielectric rupture). The MOND $a_0$ boundary is derived from the 1D Hoop Stress projection of the 3D expanding Hubble horizon, and dark matter is identified as unbroken kinematic mutual inductance of the spatial network.
@@ -33,7 +39,7 @@ The non-linear AVE master equation unifies expanding cosmology and electromagnet
 | [Bullet Cluster](./bullet-cluster.md) | Refractive tensor shockwaves, DAMA/LIBRA vs XENONnT resolution |
 | [Photon Identification (T₂-only Cosserat ω)](./photon-identification.md) | Canonical AVE-native photon: K4 4-port = $A_1 \oplus T_2$, $A_1$ dissipates monotonically, $T_2$ survives as photon; single-sector (microrotation $\omega$, $u = 0$); electron = photon + Axiom 4 TIR confinement at $V_{\text{yield}} = \sqrt{\alpha} V_{\text{snap}}$; Compton frequency as dynamical threshold for three regimes (transparent / bound / Compton-scatter) |
 | [Photon Propagation Baseline ($v/c = \sqrt{2}$)](./photon-propagation-baseline.md) | Canonical empirical baseline: free photon on K4-TLM linear vacuum propagates at $v = c\sqrt{2}$ cardinal-axis (pure substrate-geometry, native Axiom 1); $v = c$ diagonal-axis; substrate-perspective verification of $T_2$-only, no-saturation, linear regime |
-| [Breathing Soliton v14 Mode I PASS](./breathing-soliton-v14-mode-i.md) | Master Equation FDTD hosts breathing soliton at 4/4 acceptance criteria: $V_{\text{peak}}$ mean $= 0.250$, FWHM stable, $\Delta n = 0.0111$ measurable, Q-factor $102.8$ vs $137$; validates boundary-envelope reformulation at dynamic engine level; three-level boundary distinction |
+| [Breathing Soliton v14 Mode-I PASS](./breathing-soliton-v14-mode-i.md) | Master Equation FDTD hosts breathing soliton at 4/4 acceptance criteria: $V_{\text{peak}}$ mean $= 0.250$, FWHM stable, $\Delta n = 0.0111$ measurable, Q-factor $102.8$ vs $137$; validates boundary-envelope reformulation at dynamic engine level; three-level boundary distinction |
 | [Preferred Frame + Emergent Lorentz from K4 Cubic Symmetry](./preferred-frame-and-emergent-lorentz.md) | K4 lattice rest frame = CMB rest frame; Earth moves through it at 370 km/s; cubic-symmetry ($Fd\bar{3}m$) suppresses observable anisotropy to $(q\ell_{node})^4 \sim 10^{-22}$ at optical scales; strict Lorentz invariance at observable wavelengths is EMERGENT not axiomatic; classifies Sagnac/preferred-frame matrix tests (A2 rotor-local works, C17 optical-wavelength predicts NULL, C7 Trans-Planckian survives as forward prediction) |
 
 > Primary: [MOND Hoop Stress](./mond-hoop-stress.md) — path-stable leaf referenced from vol6 as `sec:galactic_saturation` and `eq:H_infinity`

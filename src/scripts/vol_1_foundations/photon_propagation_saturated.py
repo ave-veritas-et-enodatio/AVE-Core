@@ -37,24 +37,25 @@ Per Rule 14 substrate-derives + Rule 11 clean-falsification:
     photon-helical-confinement → electron-formation chain has missing physics
   - Either result is informative; pre-registered criteria adjudicate
 """
-from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
-import json
+
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
+from photon_propagation import PlaneSource, packet_centroid_interior, xy_slice
 
+from ave.core.constants import ALPHA, C_0, V_SNAP
 from ave.core.k4_tlm import K4Lattice3D
-from ave.core.constants import C_0, V_SNAP, ALPHA
-from photon_propagation import PlaneSource, xy_slice, packet_centroid_interior
 
 
 def run_saturation_test(
@@ -63,7 +64,7 @@ def run_saturation_test(
     lambda_cells: float = 10.0,
     sigma_yz: float = 8.0,
     t_sigma_periods: float = 0.75,
-    amp_frac: float = 0.35,           # cusp: ~√(2α) ≈ 0.349
+    amp_frac: float = 0.35,  # cusp: ~√(2α) ≈ 0.349
     source_x: int = 16,
     n_steps: int = 240,
     steps_per_frame: int = 3,
@@ -84,9 +85,14 @@ def run_saturation_test(
     cusp_A2 = float(np.sqrt(2.0 * ALPHA))
 
     src = PlaneSource(
-        x0=source_x, y_c=(N - 1) / 2.0, z_c=(N - 1) / 2.0,
-        direction=(1.0, 0.0, 0.0), sigma_yz=sigma_yz,
-        omega=omega, t_center=t_center, t_sigma=t_sigma,
+        x0=source_x,
+        y_c=(N - 1) / 2.0,
+        z_c=(N - 1) / 2.0,
+        direction=(1.0, 0.0, 0.0),
+        sigma_yz=sigma_yz,
+        omega=omega,
+        t_center=t_center,
+        t_sigma=t_sigma,
         amplitude=amp_volts,
     )
 
@@ -102,7 +108,7 @@ def run_saturation_test(
         lattice.step()
 
         # Track A² = |V_inc|²/V_SNAP² peak — does saturation engage?
-        a2_local = np.sum(lattice.V_inc ** 2, axis=-1) / float(V_SNAP) ** 2
+        a2_local = np.sum(lattice.V_inc**2, axis=-1) / float(V_SNAP) ** 2
         a2_max_step = float(a2_local.max())
 
         if step % steps_per_frame == 0:
@@ -158,7 +164,9 @@ def run_saturation_test(
     C4_pass = a2_max_arr.max() >= cusp_A2  # saturation cusp actually engaged
 
     summary = {
-        "N": N, "pml": pml, "source_x": source_x,
+        "N": N,
+        "pml": pml,
+        "source_x": source_x,
         "amp_frac_vsnap": amp_frac,
         "amp_volts": amp_volts,
         "cusp_A2": cusp_A2,
@@ -171,8 +179,10 @@ def run_saturation_test(
         "x_centroid_final": x_centroid_final,
         "x_centroid_displacement": x_centroid_displacement,
         "x_sigma_final": x_sigma_final,
-        "C1_pass": bool(C1_pass), "C2_pass": bool(C2_pass),
-        "C3_pass": bool(C3_pass), "C4_pass": bool(C4_pass),
+        "C1_pass": bool(C1_pass),
+        "C2_pass": bool(C2_pass),
+        "C3_pass": bool(C3_pass),
+        "C4_pass": bool(C4_pass),
         "all_criteria_pass": bool(C1_pass and C2_pass and C3_pass and C4_pass),
     }
 
@@ -191,21 +201,22 @@ def run_saturation_test(
 
 def _render_gif(frames, centroids, times, a2_max, summary, out_path):
     """Three-panel animation: |V|² xy-slice + centroid x(t) + A²_max(t) saturation tracking."""
-    fig, (ax_im, ax_tr, ax_sat) = plt.subplots(
-        1, 3, figsize=(18, 5),
-        gridspec_kw={"width_ratios": [1.4, 1, 1]}
-    )
+    fig, (ax_im, ax_tr, ax_sat) = plt.subplots(1, 3, figsize=(18, 5), gridspec_kw={"width_ratios": [1.4, 1, 1]})
 
     vmax = max(frames.max(), 1e-30)
     vmin = max(vmax * 1e-4, 1e-30)
     im = ax_im.imshow(
-        frames[0].T, origin="lower", cmap="inferno",
+        frames[0].T,
+        origin="lower",
+        cmap="inferno",
         norm=matplotlib.colors.LogNorm(vmin=vmin, vmax=vmax),
     )
     ax_im.set_xlabel("x (lattice cells)")
     ax_im.set_ylabel("y (lattice cells)")
     ax_im.axvline(summary["source_x"], color="cyan", lw=0.8, alpha=0.5, linestyle="--")
-    title_im = ax_im.set_title(f"|V|² (z=N/2)  amp_frac = {summary['amp_frac_vsnap']:.2f} (cusp={summary['cusp_A2']:.3f})")
+    title_im = ax_im.set_title(
+        f"|V|² (z=N/2)  amp_frac = {summary['amp_frac_vsnap']:.2f} (cusp={summary['cusp_A2']:.3f})"
+    )
     plt.colorbar(im, ax=ax_im, fraction=0.046, pad=0.04, label="|V|²")
 
     ax_tr.set_xlim(times.min(), times.max())
@@ -213,7 +224,7 @@ def _render_gif(frames, centroids, times, a2_max, summary, out_path):
     ax_tr.set_xlabel("t (s)")
     ax_tr.set_ylabel("centroid x (cells)")
     ax_tr.axhline(summary["source_x"], color="cyan", lw=0.6, alpha=0.5, linestyle="--", label="source")
-    line_tr, = ax_tr.plot([], [], color="orange", lw=1.5)
+    (line_tr,) = ax_tr.plot([], [], color="orange", lw=1.5)
     ax_tr.set_title("Interior centroid x(t)")
     ax_tr.legend(loc="upper left", fontsize=8)
 
@@ -221,8 +232,10 @@ def _render_gif(frames, centroids, times, a2_max, summary, out_path):
     ax_sat.set_ylim(0, max(a2_max.max() * 1.2, summary["cusp_A2"] * 1.2))
     ax_sat.set_xlabel("t (s)")
     ax_sat.set_ylabel("max A²_local")
-    ax_sat.axhline(summary["cusp_A2"], color="red", lw=0.8, linestyle="--", label=f"cusp √(2α)={summary['cusp_A2']:.3f}")
-    line_sat, = ax_sat.plot([], [], color="purple", lw=1.5)
+    ax_sat.axhline(
+        summary["cusp_A2"], color="red", lw=0.8, linestyle="--", label=f"cusp √(2α)={summary['cusp_A2']:.3f}"
+    )
+    (line_sat,) = ax_sat.plot([], [], color="purple", lw=1.5)
     ax_sat.set_title("Saturation engagement")
     ax_sat.legend(loc="upper right", fontsize=8)
 
@@ -259,8 +272,16 @@ if __name__ == "__main__":
     )
     print(json.dumps(summary, indent=2))
     print("\nPre-registered binary criteria:")
-    print(f"  C1 (retention ≥ 0.80):       {'✓' if summary['C1_pass'] else '✗'}  ({summary['energy_retention_post_source']:.3f})")
+    print(
+        f"  C1 (retention ≥ 0.80):       {'✓' if summary['C1_pass'] else '✗'}  ({summary['energy_retention_post_source']:.3f})"
+    )
     print(f"  C2 (σ_x < 25 cells):         {'✓' if summary['C2_pass'] else '✗'}  ({summary['x_sigma_final']:.2f})")
-    print(f"  C3 (|displacement| < 30):    {'✓' if summary['C3_pass'] else '✗'}  ({summary['x_centroid_displacement']:.2f})")
-    print(f"  C4 (saturation cusp engages): {'✓' if summary['C4_pass'] else '✗'}  (max A²={summary['a2_max_peak']:.4f}, cusp={summary['cusp_A2']:.3f})")
-    print(f"  ALL PASS: {'✓ TOPOLOGICAL TRAP DETECTED' if summary['all_criteria_pass'] else '✗ no trap; substrate disperses like baseline'}")
+    print(
+        f"  C3 (|displacement| < 30):    {'✓' if summary['C3_pass'] else '✗'}  ({summary['x_centroid_displacement']:.2f})"
+    )
+    print(
+        f"  C4 (saturation cusp engages): {'✓' if summary['C4_pass'] else '✗'}  (max A²={summary['a2_max_peak']:.4f}, cusp={summary['cusp_A2']:.3f})"
+    )
+    print(
+        f"  ALL PASS: {'✓ TOPOLOGICAL TRAP DETECTED' if summary['all_criteria_pass'] else '✗ no trap; substrate disperses like baseline'}"
+    )

@@ -15,7 +15,6 @@ dominates wall time (especially at N=512: 134M voxels).
 Output: assets/sim_outputs/borromean_fem_convergence.png
 """
 
-import os
 from functools import partial
 
 import jax.numpy as jnp
@@ -25,6 +24,8 @@ from jax import jit
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
+
+from ave_path_util import sim_output  # noqa: E402
 
 
 @partial(jit, static_argnums=(1,))
@@ -216,14 +217,7 @@ def run_convergence_study() -> tuple[float, float]:
     )
     plt.tight_layout()
 
-    output_path = os.path.join(
-        os.path.dirname(__file__),
-        "..",
-        "..",
-        "assets",
-        "sim_outputs",
-        "borromean_fem_convergence.png",
-    )
+    output_path = sim_output("borromean_fem_convergence.png")
     plt.savefig(output_path, dpi=200, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close()
     print(f"\nSaved: {output_path}")

@@ -1,5 +1,11 @@
 [↑ Period 2](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-8psuqe, clm-f5ucdo, clm-f8k2um, clm-h8nmpu, clm-rw7jqo, clm-sd04x4, clm-y7uvdc]
+subtree-experiments: []
+-->
+
 # Neon (Z=10)
 
 Neon-20 ($5\alpha$) is the second noble gas and the first element with a fully 3D alpha-cluster geometry: a Triangular Bipyramid at $R_{bipyramid} = 81.181d$. The $398d \to 81d$ structural collapse from Fluorine quantitatively explains the Halogen-to-Noble-Gas transition. The semiconductor engine solves $0.000\,000\%$ error at $V_R/V_{BR} = 0.032$ (Small Signal). Neon's chapter also addresses the curve-fitting critique by demonstrating that derived distances ($33d \to 351d \to 81d$) predict chemical behavior.

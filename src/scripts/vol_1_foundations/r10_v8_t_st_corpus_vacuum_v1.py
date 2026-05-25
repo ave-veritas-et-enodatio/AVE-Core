@@ -48,25 +48,23 @@ T = 4.6e-10 (m_e c² units) ≈ kT_CMB / (m_e c²)
 
 Same as T-ST v1: ~3 min wall clock. Thermal IC adds <1s overhead.
 """
-from __future__ import annotations
 
 import json
 import sys
 import time
-from pathlib import Path
 from collections import Counter
+from pathlib import Path
 
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
+from ave.core.constants import ALPHA
 from ave.topological.vacuum_engine import (
-    VacuumEngine3D,
     SpatialDipoleCPSource,
+    VacuumEngine3D,
 )
 
-
-from ave.core.constants import ALPHA
 V_YIELD = float(np.sqrt(ALPHA))
 A2_OP14 = float(np.sqrt(2.0 * ALPHA))
 OMEGA_C = 1.0
@@ -79,7 +77,9 @@ T_CMB_ENGINE_UNITS = 4.6e-10  # kT_CMB / (m_e c²)
 def setup_engine(N=48, PML=4, T=T_CMB_ENGINE_UNITS):
     """A28-corrected coupled engine with corpus CMB temperature."""
     engine = VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=T,
+        N=N,
+        pml=PML,
+        temperature=T,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -106,23 +106,23 @@ def setup_source():
 
 
 def compute_a2_field(V_inc, V_SNAP=1.0):
-    return np.sum(V_inc ** 2, axis=-1) / (V_SNAP ** 2)
+    return np.sum(V_inc**2, axis=-1) / (V_SNAP**2)
 
 
 def mask_interior(field, mask_active, pml):
     N = field.shape[0]
     out = field * mask_active.astype(float)
     out[:pml, :, :] = 0.0
-    out[N - pml:, :, :] = 0.0
+    out[N - pml :, :, :] = 0.0
     out[:, :pml, :] = 0.0
-    out[:, N - pml:, :] = 0.0
+    out[:, N - pml :, :] = 0.0
     out[:, :, :pml] = 0.0
-    out[:, :, N - pml:] = 0.0
+    out[:, :, N - pml :] = 0.0
     return out
 
 
 def compute_centroid(V_inc, mask_active, pml):
-    energy = mask_interior(np.sum(V_inc ** 2, axis=-1), mask_active, pml)
+    energy = mask_interior(np.sum(V_inc**2, axis=-1), mask_active, pml)
     total = float(np.sum(energy))
     if total < 1e-30:
         return float("nan"), 0.0
@@ -151,17 +151,17 @@ def baseline_stats(field, mask_active, pml):
     N = field.shape[0]
     interior_mask = mask_active.copy()
     interior_mask[:pml, :, :] = False
-    interior_mask[N - pml:, :, :] = False
+    interior_mask[N - pml :, :, :] = False
     interior_mask[:, :pml, :] = False
-    interior_mask[:, N - pml:, :] = False
+    interior_mask[:, N - pml :, :] = False
     interior_mask[:, :, :pml] = False
-    interior_mask[:, :, N - pml:] = False
+    interior_mask[:, :, N - pml :] = False
 
     # Sum over port axis if present
     if field.ndim == 4:
-        f_sq = np.sum(field ** 2, axis=-1)
+        f_sq = np.sum(field**2, axis=-1)
     else:
-        f_sq = field ** 2
+        f_sq = field**2
 
     f_sq_interior = f_sq[interior_mask]
     if len(f_sq_interior) == 0:
@@ -184,7 +184,7 @@ def main():
 
     # Verify thermal IC parameters
     sigma_V_pred = float(np.sqrt(4.0 * np.pi * T_CMB_ENGINE_UNITS / ALPHA))
-    sigma_omega_pred = float(np.sqrt(T_CMB_ENGINE_UNITS * 1.14 / (4.0 * np.pi ** 2)))
+    sigma_omega_pred = float(np.sqrt(T_CMB_ENGINE_UNITS * 1.14 / (4.0 * np.pi**2)))
     print(f"\n  Predicted thermal σ_V = {sigma_V_pred:.3e} V_SNAP")
     print(f"  Predicted thermal σ_ω = {sigma_omega_pred:.3e}")
     print(f"  V_yield (saturation onset) = {V_YIELD:.3e}")
@@ -196,8 +196,7 @@ def main():
     # Verify IC actually thermalized V-sector
     yc, zc = N // 2, N // 2
     rms_V_ic, max_V_ic = baseline_stats(engine.k4.V_inc, engine.k4.mask_active, PML)
-    rms_omega_ic, max_omega_ic = baseline_stats(engine.cos.omega,
-                                                  engine.cos.mask_alive, PML)
+    rms_omega_ic, max_omega_ic = baseline_stats(engine.cos.omega, engine.cos.mask_alive, PML)
     print(f"\n  Thermal IC verification (interior, PML excluded):")
     print(f"    V_inc: RMS = {rms_V_ic:.3e}, max = {max_V_ic:.3e}")
     print(f"    omega: RMS = {rms_omega_ic:.3e}, max = {max_omega_ic:.3e}")
@@ -214,7 +213,7 @@ def main():
     captures = []
     centroid_traj = []
     max_a2_traj = []
-    rms_v_traj = []           # NEW: track baseline decay
+    rms_v_traj = []  # NEW: track baseline decay
     rms_omega_traj = []
     capture_cadence = 5
 
@@ -244,22 +243,26 @@ def main():
             rms_v_traj.append((t_now, rms_V))
             rms_omega_traj.append((t_now, rms_om))
 
-            captures.append({
-                "t": float(t_now),
-                "centroid_x": cx,
-                "total_energy": total_e,
-                "max_a2_interior": max_a2,
-                "max_a2_loc": [int(v) for v in max_a2_idx],
-                "rms_v_interior": rms_V,
-                "rms_omega_interior": rms_om,
-            })
+            captures.append(
+                {
+                    "t": float(t_now),
+                    "centroid_x": cx,
+                    "total_energy": total_e,
+                    "max_a2_interior": max_a2,
+                    "max_a2_loc": [int(v) for v in max_a2_idx],
+                    "rms_v_interior": rms_V,
+                    "rms_omega_interior": rms_om,
+                }
+            )
 
             if step_i % (capture_cadence * 10) == 0:
                 t_p = t_now / COMPTON_PERIOD
-                print(f"    t={t_p:5.2f}P  cx={cx if not np.isnan(cx) else 0:6.2f}  "
-                      f"max_A²={max_a2:.4f} @ {tuple(max_a2_idx)}  "
-                      f"rms_V={rms_V:.3e}  rms_ω={rms_om:.3e}  "
-                      f"({time.time() - t_start:.0f}s)")
+                print(
+                    f"    t={t_p:5.2f}P  cx={cx if not np.isnan(cx) else 0:6.2f}  "
+                    f"max_A²={max_a2:.4f} @ {tuple(max_a2_idx)}  "
+                    f"rms_V={rms_V:.3e}  rms_ω={rms_om:.3e}  "
+                    f"({time.time() - t_start:.0f}s)"
+                )
 
     elapsed = time.time() - t_start
     print(f"\n  Engine evolution complete in {elapsed:.0f}s")
@@ -273,20 +276,19 @@ def main():
 
     # (a)/(c)/(d): trap formation criteria — same suite as T-ST v1
     second_half = [c for c in captures if c["t"] > 6.0 * COMPTON_PERIOD]
-    cell_counter = Counter(tuple(loc) for loc in
-                           [c["max_a2_loc"] for c in second_half])
-    trap_cell, trap_count = cell_counter.most_common(1)[0] if second_half else ((0,0,0), 0)
+    cell_counter = Counter(tuple(loc) for loc in [c["max_a2_loc"] for c in second_half])
+    trap_cell, trap_count = cell_counter.most_common(1)[0] if second_half else ((0, 0, 0), 0)
     trap_x, trap_y, trap_z = trap_cell
 
-    a2_at_trap_2nd_half = [c["max_a2_interior"] for c in second_half
-                           if tuple(c["max_a2_loc"]) == trap_cell]
+    a2_at_trap_2nd_half = [c["max_a2_interior"] for c in second_half if tuple(c["max_a2_loc"]) == trap_cell]
     a2_trap_max = float(max(a2_at_trap_2nd_half)) if a2_at_trap_2nd_half else 0.0
     saturation_engaged = a2_trap_max > A2_OP14
 
-    print(f"\n  Trap candidate: ({trap_x}, {trap_y}, {trap_z}) "
-          f"({trap_count}/{len(second_half)} post-shutoff)")
-    print(f"  Saturation engaged: {'YES' if saturation_engaged else 'NO'} "
-          f"(A²_trap_max = {a2_trap_max:.4f} vs threshold {A2_OP14:.4f})")
+    print(f"\n  Trap candidate: ({trap_x}, {trap_y}, {trap_z}) " f"({trap_count}/{len(second_half)} post-shutoff)")
+    print(
+        f"  Saturation engaged: {'YES' if saturation_engaged else 'NO'} "
+        f"(A²_trap_max = {a2_trap_max:.4f} vs threshold {A2_OP14:.4f})"
+    )
 
     try:
         c_op10 = int(engine.cos.extract_crossing_count())
@@ -308,14 +310,12 @@ def main():
         print(f"    RMS V_inc (interior):")
         print(f"      Initial thermal IC: {rms_V_ic:.3e}")
         print(f"      At t=7P (post-source): {rms_v_first:.3e}")
-        print(f"      At t={post_shutoff_caps[-1]['t']/COMPTON_PERIOD:.1f}P: "
-              f"{rms_v_last:.3e}")
+        print(f"      At t={post_shutoff_caps[-1]['t']/COMPTON_PERIOD:.1f}P: " f"{rms_v_last:.3e}")
         print(f"      Retention vs IC: {rms_v_last/max(rms_V_ic,1e-30):.3e}")
         print(f"    RMS ω (interior):")
         print(f"      Initial thermal IC: {rms_omega_ic:.3e}")
         print(f"      At t=7P: {rms_om_first:.3e}")
-        print(f"      At t={post_shutoff_caps[-1]['t']/COMPTON_PERIOD:.1f}P: "
-              f"{rms_om_last:.3e}")
+        print(f"      At t={post_shutoff_caps[-1]['t']/COMPTON_PERIOD:.1f}P: " f"{rms_om_last:.3e}")
         print(f"      Retention vs IC: {rms_om_last/max(rms_omega_ic,1e-30):.3e}")
 
     # Velocity profile
@@ -345,9 +345,13 @@ def main():
     out = {
         "test": "T-ST in Corpus Vacuum (Step 1: Thermal IC)",
         "config": {
-            "N": N, "PML": PML, "T": T_CMB_ENGINE_UNITS,
+            "N": N,
+            "PML": PML,
+            "T": T_CMB_ENGINE_UNITS,
             "thermalize_V": True,
-            "amplitude_VSNAP": 0.10, "omega": OMEGA_C, "handedness": "RH",
+            "amplitude_VSNAP": 0.10,
+            "omega": OMEGA_C,
+            "handedness": "RH",
         },
         "thermal_ic": {
             "predicted_sigma_V": sigma_V_pred,

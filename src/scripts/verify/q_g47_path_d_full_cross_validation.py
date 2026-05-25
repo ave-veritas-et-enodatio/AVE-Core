@@ -19,7 +19,6 @@ Per Grant 2026-05-16 late evening: "A" (= full Path D this session).
 Run:
     python src/scripts/verify/q_g47_path_d_full_cross_validation.py
 """
-from __future__ import annotations
 
 import json
 import os
@@ -32,15 +31,12 @@ import numpy as np
 REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
+from ave.core.constants import ALPHA_COLD_INV  # 4π³ + π² + π ≈ 137.0363
+from ave.core.constants import PHI  # Golden ratio ≈ 1.6180 (canonical per 2026-05-18 prereg)
+from ave.core.constants import R_GOLDEN_TORUS  # φ/2 ≈ 0.8090
+from ave.core.constants import R_GOLDEN_TORUS_MINOR  # (φ-1)/2 ≈ 0.3090
+from ave.core.constants import RR_GOLDEN_TORUS  # R·r = 1/4 (algebraic identity)
 from ave.core.master_equation_fdtd import MasterEquationFDTD
-from ave.core.constants import (
-    ALPHA_COLD_INV,  # 4π³ + π² + π ≈ 137.0363
-    PHI,             # Golden ratio ≈ 1.6180 (canonical per 2026-05-18 prereg)
-    R_GOLDEN_TORUS,           # φ/2 ≈ 0.8090
-    R_GOLDEN_TORUS_MINOR,     # (φ-1)/2 ≈ 0.3090
-    RR_GOLDEN_TORUS,          # R·r = 1/4 (algebraic identity)
-)
-
 
 # Constants
 ALPHA_INV = ALPHA_COLD_INV  # canonical AVE value per Theorem 3.1
@@ -92,18 +88,16 @@ def q_factor_decomposition(V_field, center, R_boundary):
     cx, cy, cz = center
     i, j, k = np.indices(V_field.shape)
     r = np.sqrt((i - cx) ** 2 + (j - cy) ** 2 + (k - cz) ** 2)
-    V_sq = V_field ** 2
+    V_sq = V_field**2
     V_max = float(np.max(np.abs(V_field)))
     if V_max < 1e-10:
         return 0.0, 0.0, 0.0
-    V_normalized = V_sq / (V_max ** 2)
+    V_normalized = V_sq / (V_max**2)
 
     volume_mask = r < R_boundary
     surface_mask = (r >= R_boundary - 0.5) & (r < R_boundary + 0.5)
     z_axis = (i - cx) ** 2 + (j - cy) ** 2
-    line_mask = ((np.abs(k - cz) < 1) &
-                 (np.sqrt(z_axis) >= R_boundary - 0.5) &
-                 (np.sqrt(z_axis) < R_boundary + 0.5))
+    line_mask = (np.abs(k - cz) < 1) & (np.sqrt(z_axis) >= R_boundary - 0.5) & (np.sqrt(z_axis) < R_boundary + 0.5)
 
     L_vol = float(np.sum(V_normalized[volume_mask]))
     L_surf = float(np.sum(V_normalized[surface_mask]))
@@ -151,11 +145,11 @@ def find_density_peaks(V_field, pml_thickness, K=8, min_separation=2.0):
     (centroid is the empty hole); sample at energy-density peaks instead.
     """
     N = V_field.shape[0]
-    V_sq = V_field ** 2
+    V_sq = V_field**2
     pml_mask = np.zeros_like(V_sq, dtype=bool)
-    pml_mask[pml_thickness:N - pml_thickness,
-             pml_thickness:N - pml_thickness,
-             pml_thickness:N - pml_thickness] = True
+    pml_mask[
+        pml_thickness : N - pml_thickness, pml_thickness : N - pml_thickness, pml_thickness : N - pml_thickness
+    ] = True
     V_sq_masked = np.where(pml_mask, V_sq, 0.0)
     flat_idx = np.argsort(V_sq_masked.ravel())[::-1]
     coords = np.array(np.unravel_index(flat_idx, V_sq.shape)).T
@@ -202,8 +196,8 @@ def analyze_phasor_trajectory_pca(v_inc, v_ref):
     chunk_size = max(len(v_inc) // chunks, 1)
     chunk_R_values = []
     for i in range(chunks):
-        seg_inc = v_inc[i * chunk_size:(i + 1) * chunk_size]
-        seg_ref = v_ref[i * chunk_size:(i + 1) * chunk_size]
+        seg_inc = v_inc[i * chunk_size : (i + 1) * chunk_size]
+        seg_ref = v_ref[i * chunk_size : (i + 1) * chunk_size]
         if len(seg_inc) < 3:
             continue
         seg_pts = np.column_stack([seg_inc, seg_ref])
@@ -211,9 +205,8 @@ def analyze_phasor_trajectory_pca(v_inc, v_ref):
     if chunk_R_values:
         R_drift = float(np.std(chunk_R_values) / max(np.mean(chunk_R_values), 1e-30))
     else:
-        R_drift = float('inf')
-    return {"R": R, "r": r, "is_closed": bool(R_drift < 0.20),
-            "amplitude_drift": R_drift}
+        R_drift = float("inf")
+    return {"R": R, "r": r, "is_closed": bool(R_drift < 0.20), "amplitude_drift": R_drift}
 
 
 def fft_multi_mode_check(V_time_series, dt_sample):
@@ -234,8 +227,7 @@ def fft_multi_mode_check(V_time_series, dt_sample):
     return top_peaks
 
 
-def golden_torus_geometry_check(engine, center, n_window_steps=2000,
-                                  K_peaks=8, pml_thickness=4):
+def golden_torus_geometry_check(engine, center, n_window_steps=2000, K_peaks=8, pml_thickness=4):
     """Interpretation G test — measure effective (R, r) Clifford-torus phase-space
     coordinates of breathing-soliton bound state via radial Riemann-invariant
     projection + Lissajous PCA, with FFT multi-mode check as primary topology
@@ -245,12 +237,10 @@ def golden_torus_geometry_check(engine, center, n_window_steps=2000,
     """
     # Canonical-source verification block (ave-canonical-source skill Step 4)
     import ave.core.constants as _avc
-    assert _avc.__file__.endswith("ave/core/constants.py"), \
-        "ave.core.constants is not canonical AVE-Core source"
-    assert abs(_avc.PHI ** 2 - _avc.PHI - 1.0) < 1e-15, \
-        "PHI canonical identity φ² = φ + 1 failed"
-    assert abs(_avc.RR_GOLDEN_TORUS - 0.25) < 1e-14, \
-        f"RR_GOLDEN_TORUS = {_avc.RR_GOLDEN_TORUS} ≠ 1/4"
+
+    assert _avc.__file__.endswith("ave/core/constants.py"), "ave.core.constants is not canonical AVE-Core source"
+    assert abs(_avc.PHI**2 - _avc.PHI - 1.0) < 1e-15, "PHI canonical identity φ² = φ + 1 failed"
+    assert abs(_avc.RR_GOLDEN_TORUS - 0.25) < 1e-14, f"RR_GOLDEN_TORUS = {_avc.RR_GOLDEN_TORUS} ≠ 1/4"
 
     print()
     print("─" * 80)
@@ -258,18 +248,18 @@ def golden_torus_geometry_check(engine, center, n_window_steps=2000,
     print("Per research/2026-05-18_q-g47-interpretation-g-prereg.md")
     print("─" * 80)
 
-    peaks = find_density_peaks(engine.V, pml_thickness, K=K_peaks,
-                                min_separation=2.0)
+    peaks = find_density_peaks(engine.V, pml_thickness, K=K_peaks, min_separation=2.0)
     if len(peaks) < K_peaks:
         K_peaks = len(peaks)
         print(f"  Reduced K_peaks to {K_peaks} (fewer well-separated peaks found)")
 
-    print(f"  Sampling at top-{K_peaks} energy-density peaks "
-          f"(PML-excluded buffer={pml_thickness}, min_sep=2.0):")
+    print(f"  Sampling at top-{K_peaks} energy-density peaks " f"(PML-excluded buffer={pml_thickness}, min_sep=2.0):")
     for k, p in enumerate(peaks):
         r_from_c = float(np.linalg.norm(np.array(p) - np.array(center)))
-        print(f"    peak {k}: cell ({p[0]:2d},{p[1]:2d},{p[2]:2d})  "
-              f"r_from_center={r_from_c:5.2f}  V²={engine.V[p[0], p[1], p[2]] ** 2:.4e}")
+        print(
+            f"    peak {k}: cell ({p[0]:2d},{p[1]:2d},{p[2]:2d})  "
+            f"r_from_center={r_from_c:5.2f}  V²={engine.V[p[0], p[1], p[2]] ** 2:.4e}"
+        )
 
     n_records = n_window_steps
     V_history = np.zeros((n_records, K_peaks))
@@ -286,7 +276,7 @@ def golden_torus_geometry_check(engine, center, n_window_steps=2000,
     elapsed = time.time() - t0
 
     dt_sample = (times[1] - times[0]) if len(times) > 1 else 0.4
-    A2_local_per_peak = np.mean(V_history ** 2, axis=0)
+    A2_local_per_peak = np.mean(V_history**2, axis=0)
 
     # Radial Riemann-invariant projection (TLM-style; Z_0 = 1 natural units)
     # Outward-traveling component carries +∂V/∂r contribution
@@ -296,8 +286,7 @@ def golden_torus_geometry_check(engine, center, n_window_steps=2000,
     # Per-peak PCA + FFT
     per_peak = []
     for k in range(K_peaks):
-        pca = analyze_phasor_trajectory_pca(V_inc_history[:, k],
-                                              V_ref_history[:, k])
+        pca = analyze_phasor_trajectory_pca(V_inc_history[:, k], V_ref_history[:, k])
         fft_peaks = fft_multi_mode_check(V_history[:, k], dt_sample)
         per_peak.append({"pca": pca, "fft": fft_peaks})
 
@@ -324,52 +313,56 @@ def golden_torus_geometry_check(engine, center, n_window_steps=2000,
             for f, _ in secondary:
                 freq_ratios_to_dominant.append(f / f0 if f > f0 else f0 / f)
 
-    median_freq_ratio = float(np.median(freq_ratios_to_dominant)) \
-                         if freq_ratios_to_dominant else None
+    median_freq_ratio = float(np.median(freq_ratios_to_dominant)) if freq_ratios_to_dominant else None
 
     # Classification per prereg §4
-    R_over_r_target = PHI ** 2  # ≈ 2.618 (scale-invariant ratio)
+    R_over_r_target = PHI**2  # ≈ 2.618 (scale-invariant ratio)
     R_over_r_dev_pct = 100.0 * abs(R_over_r_meas - R_over_r_target) / R_over_r_target
 
     # Outcome D: sub-resolution (any peak with R_meas ≈ 0)
     outcome_D = bool((R_per_peak < 1e-8).any())
     # Outcome B: most peaks have collapsed Lissajous (R/r >> φ²)
     R_over_r_per_peak = R_per_peak / np.maximum(r_per_peak, 1e-30)
-    degenerate_count = int(((R_over_r_per_peak > 10.0 * R_over_r_target) |
-                            (r_per_peak < 1e-8)).sum())
+    degenerate_count = int(((R_over_r_per_peak > 10.0 * R_over_r_target) | (r_per_peak < 1e-8)).sum())
     outcome_B = bool((degenerate_count > K_peaks // 2) and not outcome_D)
     # Outcome C: ratio within 10% of φ² AND multi-mode structure present
-    outcome_C = bool((R_over_r_dev_pct < 10.0)
-                     and (n_multi_mode_peaks > K_peaks // 2)
-                     and not outcome_B and not outcome_D)
+    outcome_C = bool(
+        (R_over_r_dev_pct < 10.0) and (n_multi_mode_peaks > K_peaks // 2) and not outcome_B and not outcome_D
+    )
     # Outcome A: finite Lissajous, far from Golden Torus
     outcome_A = bool(not (outcome_B or outcome_C or outcome_D))
 
     if outcome_D:
         outcome_label = "D — sub-resolution (sampling falsification)"
     elif outcome_B:
-        outcome_label = ("B — degenerate Lissajous (single-mode breathing OR "
-                         "sub-saturation regime; (2,3) topology NOT realized)")
+        outcome_label = (
+            "B — degenerate Lissajous (single-mode breathing OR " "sub-saturation regime; (2,3) topology NOT realized)"
+        )
     elif outcome_C:
-        outcome_label = ("C — Golden Torus realized (Theorem 3.1' bridge holds; "
-                         "50% Λ-gap is NOT geometric) — NOTE: positive C from "
-                         "scalar EMT engine without chiral coupling warrants "
-                         "K4-TLM native cross-validation before promotion")
+        outcome_label = (
+            "C — Golden Torus realized (Theorem 3.1' bridge holds; "
+            "50% Λ-gap is NOT geometric) — NOTE: positive C from "
+            "scalar EMT engine without chiral coupling warrants "
+            "K4-TLM native cross-validation before promotion"
+        )
     else:
-        outcome_label = ("A — finite Lissajous, geometry NOT realized "
-                         "(Interpretation G confirmed; 50% Λ-gap is geometric mismatch)")
+        outcome_label = (
+            "A — finite Lissajous, geometry NOT realized "
+            "(Interpretation G confirmed; 50% Λ-gap is geometric mismatch)"
+        )
 
-    print(f"\n  Recording window: {n_window_steps} steps, runtime {elapsed:.1f}s, "
-          f"dt_sample={dt_sample:.4f}")
+    print(f"\n  Recording window: {n_window_steps} steps, runtime {elapsed:.1f}s, " f"dt_sample={dt_sample:.4f}")
     print(f"  Per-peak measurements:")
     for k in range(K_peaks):
         fft = per_peak[k]["fft"]
         f0 = fft[0][0] if fft else 0
-        print(f"    peak {k}: R={R_per_peak[k]:.6f}  r={r_per_peak[k]:.6f}  "
-              f"R/r={R_over_r_per_peak[k]:6.2f}  "
-              f"closed={closed_per_peak[k]!s:5s}  "
-              f"A²_local={A2_local_per_peak[k]:.4f}  "
-              f"f_dominant={f0:.4f}")
+        print(
+            f"    peak {k}: R={R_per_peak[k]:.6f}  r={r_per_peak[k]:.6f}  "
+            f"R/r={R_over_r_per_peak[k]:6.2f}  "
+            f"closed={closed_per_peak[k]!s:5s}  "
+            f"A²_local={A2_local_per_peak[k]:.4f}  "
+            f"f_dominant={f0:.4f}"
+        )
     print()
     print(f"  Aggregate (mean across {K_peaks} peaks):")
     print(f"    R_meas      = {R_meas:.6f}  (target R_GOLDEN_TORUS       = {R_GOLDEN_TORUS:.6f})")
@@ -377,13 +370,16 @@ def golden_torus_geometry_check(engine, center, n_window_steps=2000,
     print(f"    R · r_meas  = {Rr_meas:.6e}  (target RR_GOLDEN_TORUS      = {RR_GOLDEN_TORUS:.6f})")
     print(f"    R / r_meas  = {R_over_r_meas:8.4f}  (target φ²                   = {R_over_r_target:.4f})")
     print(f"    Deviation from φ² target: {R_over_r_dev_pct:.1f}%")
-    print(f"    Multi-mode peaks (>1 spectral peak within 20 dB): "
-          f"{n_multi_mode_peaks} / {K_peaks}")
+    print(f"    Multi-mode peaks (>1 spectral peak within 20 dB): " f"{n_multi_mode_peaks} / {K_peaks}")
     if median_freq_ratio is not None:
-        print(f"    Median secondary/dominant frequency ratio: {median_freq_ratio:.3f}  "
-              f"(target 1.5 for (2,3) torus knot)")
-    print(f"    Mean A²_local across peaks: {A2_local_per_peak.mean():.4f}  "
-          f"(< 0.5 ≈ sub-saturation; > 0.9 ≈ TIR cavity)")
+        print(
+            f"    Median secondary/dominant frequency ratio: {median_freq_ratio:.3f}  "
+            f"(target 1.5 for (2,3) torus knot)"
+        )
+    print(
+        f"    Mean A²_local across peaks: {A2_local_per_peak.mean():.4f}  "
+        f"(< 0.5 ≈ sub-saturation; > 0.9 ≈ TIR cavity)"
+    )
     print(f"    Closed-curve peaks: {int(closed_per_peak.sum())} / {K_peaks}")
     print()
     print(f"  OUTCOME: {outcome_label}")
@@ -418,6 +414,7 @@ def golden_torus_geometry_check(engine, center, n_window_steps=2000,
 # Test 1: Master Equation FDTD bound state at v14 canonical scope
 # ============================================================
 
+
 def run_v14_canonical(N=32, n_steps=5000, A_peak=0.85, R=2.5):
     """Replicate doc 113 v14 v2 Mode I PASS exactly."""
     print("─" * 80)
@@ -426,9 +423,14 @@ def run_v14_canonical(N=32, n_steps=5000, A_peak=0.85, R=2.5):
     print("─" * 80)
 
     engine = MasterEquationFDTD(
-        N=N, dx=1.0, V_yield=1.0, c0=1.0,
-        cfl_safety=0.4, pml_thickness=4,
-        A_cap=0.99, S_min=0.05,
+        N=N,
+        dx=1.0,
+        V_yield=1.0,
+        c0=1.0,
+        cfl_safety=0.4,
+        pml_thickness=4,
+        A_cap=0.99,
+        S_min=0.05,
     )
     center = (N // 2, N // 2, N // 2)
     engine.V = make_sech_seed(N, center, A_peak, R)
@@ -459,7 +461,7 @@ def run_v14_canonical(N=32, n_steps=5000, A_peak=0.85, R=2.5):
     Lambda_total = L_vol + L_surf + L_line
 
     v_peak_arr = np.array(v_peak_history)
-    v_peak_late = v_peak_arr[len(v_peak_arr) // 2:]
+    v_peak_late = v_peak_arr[len(v_peak_arr) // 2 :]
 
     results = {
         "v_peak_initial": float(v_peak_history[0]),
@@ -468,7 +470,7 @@ def run_v14_canonical(N=32, n_steps=5000, A_peak=0.85, R=2.5):
         "v_peak_persistence_ratio": float(v_peak_late.mean() / v_peak_history[0]),
         "fwhm_initial": fwhm_history[0],
         "fwhm_final": fwhm_history[-1],
-        "fwhm_mean_late": float(np.mean(fwhm_history[len(fwhm_history) // 2:])),
+        "fwhm_mean_late": float(np.mean(fwhm_history[len(fwhm_history) // 2 :])),
         "L_vol": float(L_vol),
         "L_surf": float(L_surf),
         "L_line": float(L_line),
@@ -511,9 +513,15 @@ def run_v14_canonical(N=32, n_steps=5000, A_peak=0.85, R=2.5):
     test_2_pass = 0.4 < results["fwhm_mean_late"] / results["fwhm_initial"] < 4.0
     test_4_pass = results["rel_err_to_alpha_inv"] < 0.5
     print(f"\n  Mode I criteria:")
-    print(f"    Test 1 (V_peak persistence): {'PASS' if test_1_pass else 'FAIL'} ({results['v_peak_persistence_ratio']:.3f})")
-    print(f"    Test 2 (FWHM stable):       {'PASS' if test_2_pass else 'FAIL'} ({results['fwhm_mean_late']/results['fwhm_initial']:.2f}×)")
-    print(f"    Test 4 (Q within 50%):      {'PASS' if test_4_pass else 'FAIL'} (rel_err {results['rel_err_to_alpha_inv']:.3f})")
+    print(
+        f"    Test 1 (V_peak persistence): {'PASS' if test_1_pass else 'FAIL'} ({results['v_peak_persistence_ratio']:.3f})"
+    )
+    print(
+        f"    Test 2 (FWHM stable):       {'PASS' if test_2_pass else 'FAIL'} ({results['fwhm_mean_late']/results['fwhm_initial']:.2f}×)"
+    )
+    print(
+        f"    Test 4 (Q within 50%):      {'PASS' if test_4_pass else 'FAIL'} (rel_err {results['rel_err_to_alpha_inv']:.3f})"
+    )
     mode_i_pass = test_1_pass and test_2_pass and test_4_pass
     print(f"    Mode I overall:             {'PASS' if mode_i_pass else 'FAIL'}")
 
@@ -525,7 +533,10 @@ def run_v14_canonical(N=32, n_steps=5000, A_peak=0.85, R=2.5):
     # Interpretation G geometry verification — runs n_window additional steps
     # on the settled bound state, then extracts (R, r) phase-space coordinates.
     interp_g_results = golden_torus_geometry_check(
-        engine, center, n_window_steps=2000, K_peaks=8,
+        engine,
+        center,
+        n_window_steps=2000,
+        K_peaks=8,
         pml_thickness=4,
     )
     results.update(interp_g_results)
@@ -536,6 +547,7 @@ def run_v14_canonical(N=32, n_steps=5000, A_peak=0.85, R=2.5):
 # ============================================================
 # Test 2: Linear-regime wave-packet group velocity test (PROPER)
 # ============================================================
+
 
 def run_wave_packet_test(N=32, A_amplitude=0.01, R_pulse=1.0, n_steps=200):
     """Linear-regime c_eff via LEADING-EDGE wavefront tracking.
@@ -549,9 +561,14 @@ def run_wave_packet_test(N=32, A_amplitude=0.01, R_pulse=1.0, n_steps=200):
     c_eff = inverse slope of arrival_time vs radius (linear fit).
     """
     engine = MasterEquationFDTD(
-        N=N, dx=1.0, V_yield=1.0, c0=1.0,
-        cfl_safety=0.4, pml_thickness=4,
-        A_cap=0.99, S_min=0.05,
+        N=N,
+        dx=1.0,
+        V_yield=1.0,
+        c0=1.0,
+        cfl_safety=0.4,
+        pml_thickness=4,
+        A_cap=0.99,
+        S_min=0.05,
     )
     center = (N // 2, N // 2, N // 2)
     engine.V = make_gaussian_pulse(N, center, A_amplitude, R_pulse)
@@ -632,7 +649,7 @@ def run_linear_amplitude_sweep():
         print(f"  {A:>12.4f} {result['c_eff_measured']:>10.4f} {result['deviation_from_c0_pct']:>14.2f}%")
 
     # Amplitude-independence check: c_eff variance across amplitudes
-    c_effs = np.array([r['c_eff_measured'] for r in results_per_A])
+    c_effs = np.array([r["c_eff_measured"] for r in results_per_A])
     c_eff_std = float(np.std(c_effs))
     c_eff_mean = float(np.mean(c_effs))
     amplitude_independence = c_eff_std / c_eff_mean if c_eff_mean > 0 else 1.0
@@ -651,8 +668,8 @@ def run_linear_amplitude_sweep():
     print(f"\n  Load-bearing finding: amplitude-independence CONFIRMED to {amplitude_independence*100:.4f}%")
 
     return {
-        "amplitudes_tested": [r['A_amplitude'] for r in results_per_A],
-        "c_eff_measured": [r['c_eff_measured'] for r in results_per_A],
+        "amplitudes_tested": [r["A_amplitude"] for r in results_per_A],
+        "c_eff_measured": [r["c_eff_measured"] for r in results_per_A],
         "c_eff_mean": float(c_eff_mean),
         "c_eff_std": float(c_eff_std),
         "amplitude_independence_ratio": float(amplitude_independence),
@@ -666,6 +683,7 @@ def run_linear_amplitude_sweep():
 # ============================================================
 # Test 3: Engine-boundary mode-matching (analytical)
 # ============================================================
+
 
 def engine_boundary_analytical():
     """Document the analytical engine-boundary mode-matching.

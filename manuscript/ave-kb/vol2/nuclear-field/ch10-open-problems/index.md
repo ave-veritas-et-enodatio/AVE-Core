@@ -1,5 +1,11 @@
 [↑ Nuclear and Field Physics](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-4vwsjc, clm-gfs4j8, clm-mroghg, clm-xhdai6]
+subtree-experiments: []
+-->
+
 # Ch. 10: Three Open Problems from Lattice Topology
 
 Chapter 10 resolves the Strong CP problem, derives the cosmological baryon asymmetry from lattice chirality, predicts the asymptotic Hubble rate within the tension band, and presents a testable prediction for electroweak degrees of freedom.

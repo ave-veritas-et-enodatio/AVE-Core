@@ -14,7 +14,6 @@ Three Φ_B estimators compared:
   (iii) triangle-midpoint Simpson:   split hex into 6 triangles from centroid;
                                       Simpson rule with vertex+centroid
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -42,10 +41,10 @@ def main():
     nodes = cap["nodes"]
     centroid = cap["centroid"]
     interior_pts = cap["interior_pts"]
-    omega_ring = cap["omega"]               # (N, 6, 3)
+    omega_ring = cap["omega"]  # (N, 6, 3)
     omega_interior = cap["interior_omega"]  # (N, n_interior, 3)
-    v_inc = cap["v_inc"]                     # (N, 6, 4)
-    v_ref = cap["v_ref"]                     # (N, 6, 4)
+    v_inc = cap["v_inc"]  # (N, 6, 4)
+    v_ref = cap["v_ref"]  # (N, 6, 4)
 
     # bonds wasn't saved to npz (list of dicts); reconstruct from v8.build_chair_ring
     _, bonds = v8.build_chair_ring(v8.CENTER)
@@ -60,7 +59,7 @@ def main():
     n_hat = np.cross(edge1, edge2)
     n_hat = n_hat / np.linalg.norm(n_hat)
     R_ring = float(np.linalg.norm(edge1))
-    hex_area = (3.0 * np.sqrt(3.0) / 2.0) * R_ring ** 2
+    hex_area = (3.0 * np.sqrt(3.0) / 2.0) * R_ring**2
     print(f"  Loop normal n̂: {n_hat.tolist()}")
     print(f"  Ring radius (lnode units): {R_ring:.4f}")
     print(f"  Hexagon area: {hex_area:.4f} ℓ_node²")
@@ -84,11 +83,11 @@ def main():
     loop_V_DC = float(loop_V_traj[sw_start:].mean())
 
     # Three Φ_B estimators
-    omega_normal_ring = omega_ring @ n_hat                 # (N, 6)
-    omega_normal_interior = omega_interior @ n_hat          # (N, n_interior)
+    omega_normal_ring = omega_ring @ n_hat  # (N, 6)
+    omega_normal_interior = omega_interior @ n_hat  # (N, n_interior)
 
-    Phi_B_i = (omega_normal_ring.mean(axis=1)) * hex_area                # ring-only
-    Phi_B_ii = (omega_normal_interior[:, 0]) * hex_area                  # centroid-only
+    Phi_B_i = (omega_normal_ring.mean(axis=1)) * hex_area  # ring-only
+    Phi_B_ii = (omega_normal_interior[:, 0]) * hex_area  # centroid-only
     # Triangle-midpoint Simpson: each of 6 triangles has 1/6 of hex_area
     # Simpson rule on each triangle: (1/3)·(f_v1 + f_centroid + f_v2) × area_tri
     # (3-point average for triangle)
@@ -99,7 +98,7 @@ def main():
         accum = 0.0
         for k in range(6):
             v1 = omega_normal_ring[i, k]
-            v2 = omega_normal_ring[i, (k+1) % 6]
+            v2 = omega_normal_ring[i, (k + 1) % 6]
             accum += (v1 + v2 + omega_c) / 3.0 * area_tri
         Phi_B_iii[i] = accum
 
@@ -136,9 +135,15 @@ def main():
     print(f"  ∮V·dl steady DC: {loop_V_DC:+.4e}")
     print(f"  Faraday expects dΦ_B/dt = {expected:+.4e}")
     print()
-    print(f"  Φ_B estimator (i)   ring-only:        dΦ_B/dt = {dPhiB_dt_i:+.4e}, residual = {res_i:+.4e} ({pct_i:.2f}% of ∮V·dl)")
-    print(f"  Φ_B estimator (ii)  centroid-only:    dΦ_B/dt = {dPhiB_dt_ii:+.4e}, residual = {res_ii:+.4e} ({pct_ii:.2f}% of ∮V·dl)")
-    print(f"  Φ_B estimator (iii) Simpson 6-tri:    dPhi_B/dt = {dPhiB_dt_iii:+.4e}, residual = {res_iii:+.4e} ({pct_iii:.2f}% of ∮V·dl)")
+    print(
+        f"  Φ_B estimator (i)   ring-only:        dΦ_B/dt = {dPhiB_dt_i:+.4e}, residual = {res_i:+.4e} ({pct_i:.2f}% of ∮V·dl)"
+    )
+    print(
+        f"  Φ_B estimator (ii)  centroid-only:    dΦ_B/dt = {dPhiB_dt_ii:+.4e}, residual = {res_ii:+.4e} ({pct_ii:.2f}% of ∮V·dl)"
+    )
+    print(
+        f"  Φ_B estimator (iii) Simpson 6-tri:    dPhi_B/dt = {dPhiB_dt_iii:+.4e}, residual = {res_iii:+.4e} ({pct_iii:.2f}% of ∮V·dl)"
+    )
 
     # Verdict
     min_pct = min(pct_i, pct_ii, pct_iii)
@@ -169,13 +174,19 @@ def main():
         "centroid_omega_normal_mean": centroid_norm_mean,
         "ratio_centroid_to_ring": centroid_norm_mean / max(abs(ring_norm_mean), 1e-15),
         "estimator_i_ring_only": {
-            "dPhi_B_dt": dPhiB_dt_i, "residual": res_i, "pct_of_loop_V": pct_i,
+            "dPhi_B_dt": dPhiB_dt_i,
+            "residual": res_i,
+            "pct_of_loop_V": pct_i,
         },
         "estimator_ii_centroid_only": {
-            "dPhi_B_dt": dPhiB_dt_ii, "residual": res_ii, "pct_of_loop_V": pct_ii,
+            "dPhi_B_dt": dPhiB_dt_ii,
+            "residual": res_ii,
+            "pct_of_loop_V": pct_ii,
         },
         "estimator_iii_simpson_6tri": {
-            "dPhi_B_dt": dPhiB_dt_iii, "residual": res_iii, "pct_of_loop_V": pct_iii,
+            "dPhi_B_dt": dPhiB_dt_iii,
+            "residual": res_iii,
+            "pct_of_loop_V": pct_iii,
         },
         "verdict": verdict,
     }

@@ -53,12 +53,12 @@ without the spatial phase quadrature pattern needed for the multi-bond
 - Run: 50 Compton periods
 - Sample 5 shell-mode cells (matching O.1e for direct comparison)
 """
-from __future__ import annotations
 
 import json
 import sys
 import time
 from pathlib import Path
+
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
@@ -66,7 +66,6 @@ from ave.topological.vacuum_engine import VacuumEngine3D
 from scripts.vol_1_foundations.tlm_electron_soliton_eigenmode import (
     initialize_quadrature_2_3_eigenmode,
 )
-
 
 COMPTON_PERIOD = 2.0 * np.pi
 DT = 1.0 / np.sqrt(2.0)
@@ -83,11 +82,13 @@ def main():
     N, PML = 48, 4
     n_steps = int(50 * COMPTON_PERIOD / DT)
     R, r = 8.0, 4.0
-    amp = 0.05   # default per quadrature seeder; sub-yield
+    amp = 0.05  # default per quadrature seeder; sub-yield
 
     t_start = time.time()
     engine = VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=0.0,
+        N=N,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -95,13 +96,17 @@ def main():
         axiom_4_enabled=True,
     )
     initialize_quadrature_2_3_eigenmode(
-        engine.k4, R=R, r=r, amplitude=amp, chirality=1.0,
+        engine.k4,
+        R=R,
+        r=r,
+        amplitude=amp,
+        chirality=1.0,
     )
 
     # IC verification — both V_inc and V_ref nonzero
     init_v_inc = engine.k4.V_inc.copy()
     init_v_ref = engine.k4.V_ref.copy()
-    init_a2 = np.sum(init_v_inc ** 2 + init_v_ref ** 2, axis=-1)
+    init_a2 = np.sum(init_v_inc**2 + init_v_ref**2, axis=-1)
     init_a2_max = float(init_a2.max())
     rms_v_inc = float(np.sqrt(np.mean(init_v_inc[engine.k4.mask_active] ** 2)))
     rms_v_ref = float(np.sqrt(np.mean(init_v_ref[engine.k4.mask_active] ** 2)))
@@ -115,13 +120,18 @@ def main():
     cx, cy, cz = (N - 1) // 2, (N - 1) // 2, (N - 1) // 2
     sample_points = []
     for phi_n, psi_n in [
-        (0.0, 0.0), (np.pi/2, 0.0), (np.pi, np.pi/2),
-        (3*np.pi/2, np.pi), (np.pi/4, np.pi/4),
+        (0.0, 0.0),
+        (np.pi / 2, 0.0),
+        (np.pi, np.pi / 2),
+        (3 * np.pi / 2, np.pi),
+        (np.pi / 4, np.pi / 4),
     ]:
         x = int(round(cx + (R + r * np.cos(psi_n)) * np.cos(phi_n)))
         y = int(round(cy + (R + r * np.cos(psi_n)) * np.sin(phi_n)))
         z = int(round(cz + r * np.sin(psi_n)))
-        x = max(1, min(N - 2, x)); y = max(1, min(N - 2, y)); z = max(1, min(N - 2, z))
+        x = max(1, min(N - 2, x))
+        y = max(1, min(N - 2, y))
+        z = max(1, min(N - 2, z))
         sample_points.append((phi_n, psi_n, x, y, z))
 
     print(f"\n  Sample cells:", *[f"({x},{y},{z})" for _, _, x, y, z in sample_points])
@@ -139,12 +149,15 @@ def main():
             v_ref_traj[si, step_i] = engine.k4.V_ref[x, y, z, :]
         if step_i % 50 == 0:
             t_p = step_i * DT / COMPTON_PERIOD
-            a2 = np.sum(engine.k4.V_inc ** 2, axis=-1)
+            a2 = np.sum(engine.k4.V_inc**2, axis=-1)
             mask = engine.k4.mask_active
             a2_int = a2 * mask.astype(float)
-            a2_int[:PML, :, :] = 0; a2_int[N-PML:, :, :] = 0
-            a2_int[:, :PML, :] = 0; a2_int[:, N-PML:, :] = 0
-            a2_int[:, :, :PML] = 0; a2_int[:, :, N-PML:] = 0
+            a2_int[:PML, :, :] = 0
+            a2_int[N - PML :, :, :] = 0
+            a2_int[:, :PML, :] = 0
+            a2_int[:, N - PML :, :] = 0
+            a2_int[:, :, :PML] = 0
+            a2_int[:, :, N - PML :] = 0
             e_total = float(a2_int.sum())
             energy_traj.append((t_p, e_total))
             if step_i % 100 == 0:
@@ -156,10 +169,10 @@ def main():
     # PRIMARY (1): FFT post-transient
     transient_steps = int(11.0 * COMPTON_PERIOD / DT)
     target_freqs = [
-        ('ω_C', 1.0),
-        ('1.5·ω_C', 1.5),
-        ('2.96·ω_C', 2.96),
-        ('DC', 0.0),
+        ("ω_C", 1.0),
+        ("1.5·ω_C", 1.5),
+        ("2.96·ω_C", 2.96),
+        ("DC", 0.0),
     ]
 
     print(f"\n  PRIMARY (1) — FFT V_inc[port=0] post-transient:")
@@ -186,10 +199,14 @@ def main():
         for a in target_amps:
             print(f" {a:>10.3e}", end="")
         print()
-        fft_per_cell.append({
-            "cell": [x, y, z], "peak_omega": peak_omega, "peak_amp": peak_amp,
-            "target_amps": dict(zip([n for n, _ in target_freqs], target_amps)),
-        })
+        fft_per_cell.append(
+            {
+                "cell": [x, y, z],
+                "peak_omega": peak_omega,
+                "peak_amp": peak_amp,
+                "target_amps": dict(zip([n for n, _ in target_freqs], target_amps)),
+            }
+        )
 
     # PRIMARY (2): phase-space (V_inc, V_ref) trajectory at first cell
     # PCA aspect to estimate R/r in phase-space per doc 28 §5.1
@@ -225,8 +242,11 @@ def main():
 
     # Verdict
     median_peak = float(np.median([r["peak_omega"] for r in fft_per_cell]))
-    median_aspect = float(np.median([a for a in aspects_per_cell if not np.isinf(a)])) \
-        if any(not np.isinf(a) for a in aspects_per_cell) else float("inf")
+    median_aspect = (
+        float(np.median([a for a in aspects_per_cell if not np.isinf(a)]))
+        if any(not np.isinf(a) for a in aspects_per_cell)
+        else float("inf")
+    )
 
     print(f"\n  VERDICT")
     if abs(median_peak - 1.0) < 0.05:
@@ -243,14 +263,15 @@ def main():
     print(f"  Frequency: median peak ω = {median_peak:.4f} → {freq_verdict}")
     if not np.isinf(median_aspect):
         aspect_match = abs(median_aspect - PHI_SQ) <= 0.10 * PHI_SQ
-        print(f"  Topology: median R/r aspect = {median_aspect:.3f} (target φ²={PHI_SQ:.3f}): "
-              f"{'PASS' if aspect_match else 'FAIL'}")
+        print(
+            f"  Topology: median R/r aspect = {median_aspect:.3f} (target φ²={PHI_SQ:.3f}): "
+            f"{'PASS' if aspect_match else 'FAIL'}"
+        )
 
     out = {
         "test": "O.1f: quadrature eigenmode IC",
         "config": {"N": N, "amp": amp, "R": R, "r": r, "chirality": 1.0},
-        "ic_verification": {"v_inc_rms": rms_v_inc, "v_ref_rms": rms_v_ref,
-                            "a2_max_t0": init_a2_max},
+        "ic_verification": {"v_inc_rms": rms_v_inc, "v_ref_rms": rms_v_ref, "a2_max_t0": init_a2_max},
         "fft_per_cell": fft_per_cell,
         "phase_space_aspects": aspects_per_cell,
         "median_peak_omega": median_peak,

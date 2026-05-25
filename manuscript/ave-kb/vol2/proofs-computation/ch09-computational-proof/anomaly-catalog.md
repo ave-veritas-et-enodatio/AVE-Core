@@ -1,5 +1,9 @@
 [↑ Ch. 9: Computational Proof and Anomaly Catalog](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+no-claim: research agenda / future work — no falsifiable claim asserted
+-->
 
 ## Anomaly Catalog: Proposed Tests
 

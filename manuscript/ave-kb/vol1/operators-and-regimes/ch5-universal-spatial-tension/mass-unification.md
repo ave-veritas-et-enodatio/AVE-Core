@@ -1,5 +1,9 @@
 [↑ Ch.5 Universal Spatial Tension](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-zw6mut]
+-->
 
 ## Section 5.1: The Unification of Mass
 

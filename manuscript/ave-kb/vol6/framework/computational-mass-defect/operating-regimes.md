@@ -1,6 +1,10 @@
 [↑ Computational Mass Defect](../index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol6 as sec:operating_regimes -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-jy8h1x]
+path-stable: "referenced from vol6 as sec:operating_regimes"
+-->
 
 ## Linear vs Non-Linear Operating Regimes
 

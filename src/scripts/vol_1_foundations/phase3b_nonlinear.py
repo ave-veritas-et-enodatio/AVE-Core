@@ -17,20 +17,23 @@ Pre-registered expectations (from §9.5 of 32_phase3b_axiom_compliant_redesign.m
 
 Results appended to 32_phase3b_axiom_compliant_redesign.md §10 after run.
 """
-from __future__ import annotations
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-from ave.core.constants import V_SNAP, ALPHA
-
 # Reuse the §8 machinery — only the nonlinear flag differs
 from phase3b_axiom_compliant import (
-    op6_iteration, ENVELOPES, plot_convergence_grid, plot_seed_independence,
+    ENVELOPES,
+    op6_iteration,
+    plot_convergence_grid,
+    plot_seed_independence,
 )
 from tlm_electron_soliton_eigenmode import extract_alpha_inverse
+
+from ave.core.constants import ALPHA, V_SNAP
 
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
 ALPHA_INV_TARGET = 1.0 / ALPHA
@@ -39,8 +42,7 @@ ALPHA_INV_TARGET = 1.0 / ALPHA
 def main():
     print("=" * 72)
     print("PHASE 3b X1 — nonlinear=True (node-level Axiom 4 saturation)")
-    print("Pre-registered in research/_archive/L3_electron_soliton/"
-          "32_phase3b_axiom_compliant_redesign.md §9.5")
+    print("Pre-registered in research/_archive/L3_electron_soliton/" "32_phase3b_axiom_compliant_redesign.md §9.5")
     print("=" * 72)
 
     envelopes = list(ENVELOPES.keys())
@@ -49,18 +51,15 @@ def main():
     n_steps = 150
     max_iter = 3
 
-    print(f"\nGrid: {len(envelopes)} envelopes × {len(amplitudes)} amplitudes"
-          f" × up to {max_iter} Op6 iterations")
-    print(f"Lattice: N={N}, pml=0 (periodic), op3_bond_reflection=True,"
-          f" nonlinear=True")
+    print(f"\nGrid: {len(envelopes)} envelopes × {len(amplitudes)} amplitudes" f" × up to {max_iter} Op6 iterations")
+    print(f"Lattice: N={N}, pml=0 (periodic), op3_bond_reflection=True," f" nonlinear=True")
     print(f"Inner: {n_steps} TLM steps per iteration")
     print(f"Baseline (nonlinear=False) attractor from §8: R/r ≈ 3.4-3.7")
 
     results = []
     for env in envelopes:
         for amp in amplitudes:
-            print(f"\n--- envelope={env}, strain_target={amp}, "
-                  f"nonlinear=True ---")
+            print(f"\n--- envelope={env}, strain_target={amp}, " f"nonlinear=True ---")
             res = op6_iteration(
                 envelope_name=env,
                 strain_target=amp,
@@ -128,14 +127,12 @@ def main():
         ratio_x1 = res["final_R"] / max(res["final_r"], 1e-9)
         ratio_baseline = baseline_Rr.get(amp, {}).get(env, float("nan"))
         delta = ratio_x1 - ratio_baseline
-        print(f"  {env:>12} A={amp}:  baseline={ratio_baseline:.3f}  "
-              f"X1={ratio_x1:.3f}  Δ={delta:+.3f}")
+        print(f"  {env:>12} A={amp}:  baseline={ratio_baseline:.3f}  " f"X1={ratio_x1:.3f}  Δ={delta:+.3f}")
 
     # Verdict per pre-registered predictions
     print()
     print("Pre-registered prediction evaluation:")
-    converged_ratios = [r["final_R"] / max(r["final_r"], 1e-9)
-                        for r in results if r["converged"]]
+    converged_ratios = [r["final_R"] / max(r["final_r"], 1e-9) for r in results if r["converged"]]
     all_final_ratios = [r["final_R"] / max(r["final_r"], 1e-9) for r in results]
     any_golden = any(2.5 < rr < 2.7 for rr in all_final_ratios)
     any_classical = any(1.85 < rr < 2.15 for rr in all_final_ratios)

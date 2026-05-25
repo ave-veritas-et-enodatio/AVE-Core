@@ -17,7 +17,6 @@ to .npz, then executes Phase A1–A7 analyses on the saved trajectories:
 
 Total wall: ~270s capture + ~30s analyses.
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -29,13 +28,13 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).parent))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
-from ave.core.constants import V_SNAP, B_SNAP, MU_0, EPSILON_0, C_0, L_NODE, Z_0
-
 import r10_path_alpha_v8_corrected_measurements as v8
 
+from ave.core.constants import B_SNAP, C_0, EPSILON_0, L_NODE, MU_0, V_SNAP, Z_0
+from ave.topological.vacuum_engine import VacuumEngine3D
 
 # ─── Capture stage ───────────────────────────────────────────────────────────
+
 
 def capture_ring_trajectories():
     print("=" * 78, flush=True)
@@ -43,20 +42,25 @@ def capture_ring_trajectories():
     print("=" * 78, flush=True)
 
     nodes, bonds = v8.build_chair_ring(v8.CENTER)
-    a_0_per_node, centroid = v8.compute_a_0_at_ring_nodes(
-        nodes, v8.A_AMP_POL, v8.HELICAL_PITCH
-    )
+    a_0_per_node, centroid = v8.compute_a_0_at_ring_nodes(nodes, v8.A_AMP_POL, v8.HELICAL_PITCH)
 
     engine = VacuumEngine3D.from_args(
-        N=v8.N_LATTICE, pml=v8.PML, temperature=0.0,
+        N=v8.N_LATTICE,
+        pml=v8.PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
     )
     print("Applying v8 helical Beltrami IC...", flush=True)
     v8.initialize_helical_beltrami_ic(
-        engine, nodes, bonds, a_0_per_node,
-        v8.K_BELTRAMI, v8.V_AMP, v8.PHI_AMP,
+        engine,
+        nodes,
+        bonds,
+        a_0_per_node,
+        v8.K_BELTRAMI,
+        v8.V_AMP,
+        v8.PHI_AMP,
     )
 
     N_STEPS = v8.N_RECORDING_STEPS
@@ -72,9 +76,11 @@ def capture_ring_trajectories():
 
     # Centroid point + a few interior points for Faraday Φ_B integration
     cx, cy, cz = v8.CENTER
-    centroid_int = (int(round(cx + (centroid[0] - cx))),
-                    int(round(cy + (centroid[1] - cy))),
-                    int(round(cz + (centroid[2] - cz))))
+    centroid_int = (
+        int(round(cx + (centroid[0] - cx))),
+        int(round(cy + (centroid[1] - cy))),
+        int(round(cz + (centroid[2] - cz))),
+    )
     interior_pts = [centroid_int]
     interior_omega = np.zeros((N_STEPS, len(interior_pts), 3), dtype=np.float32)
 
@@ -94,8 +100,7 @@ def capture_ring_trajectories():
             interior_omega[i, p_idx, :] = engine.cos.omega[pt[0], pt[1], pt[2], :]
         if (time.time() - last) > 30.0:
             t_p = (i + 1) * v8.DT / v8.COMPTON_PERIOD
-            print(f"    step {i}/{N_STEPS}, t={t_p:.1f}P, elapsed {time.time()-t0:.1f}s",
-                  flush=True)
+            print(f"    step {i}/{N_STEPS}, t={t_p:.1f}P, elapsed {time.time()-t0:.1f}s", flush=True)
             last = time.time()
     elapsed = time.time() - t0
     print(f"  Recording done at {elapsed:.1f}s", flush=True)
@@ -121,6 +126,7 @@ def capture_ring_trajectories():
 
 
 # ─── Phase A analyses ────────────────────────────────────────────────────────
+
 
 def analysis_a1_fft(cap, results):
     """A1 — FFT of V_inc, V_ref, ω, ω_dot at ring node 0."""
@@ -213,7 +219,7 @@ def analysis_a2_faraday(cap, results):
 
     # Hexagonal area: (3√3/2) × R² where R = ring radius
     R_ring = float(np.linalg.norm(edge1))
-    area_enclosed = (3.0 * np.sqrt(3.0) / 2.0) * R_ring ** 2
+    area_enclosed = (3.0 * np.sqrt(3.0) / 2.0) * R_ring**2
 
     # ⟨ω·n̂⟩ per step averaged over 6 ring nodes
     omega_normal_t = (cap["omega"] @ n_hat).mean(axis=1)  # shape (N_steps,)
@@ -279,8 +285,8 @@ def analysis_a4_power_split(cap, results):
     v_inc = cap["v_inc"][sw_start:]  # shape (N_post, 6, 4)
     v_ref = cap["v_ref"][sw_start:]
 
-    v_inc_sq = (v_inc ** 2).mean(axis=0)  # shape (6, 4)
-    v_ref_sq = (v_ref ** 2).mean(axis=0)
+    v_inc_sq = (v_inc**2).mean(axis=0)  # shape (6, 4)
+    v_ref_sq = (v_ref**2).mean(axis=0)
     real_power_signature = v_inc_sq - v_ref_sq  # (V_inc² - V_ref²)/Z₀ ∝ this
     relative = real_power_signature / np.maximum(v_inc_sq + v_ref_sq, 1e-30)
 
@@ -357,14 +363,12 @@ def analysis_a6_bh_lissajous(cap, results):
     # Loop area via shoelace formula on (phi_0_detrended, omega_0) within one period
     omega_window = omega_0[:period_steps]
     phi_window = phi_0_detrended[:period_steps]
-    area_oneperiod = 0.5 * abs(
-        np.sum(phi_window[:-1] * omega_window[1:] - phi_window[1:] * omega_window[:-1])
-    )
+    area_oneperiod = 0.5 * abs(np.sum(phi_window[:-1] * omega_window[1:] - phi_window[1:] * omega_window[:-1]))
 
     out = {
         "phi_link_n0_drift_rate_per_t": float(phi_slope),
-        "phi_link_n0_detrended_RMS": float(np.sqrt((phi_0_detrended ** 2).mean())),
-        "omega_n0_RMS": float(np.sqrt((omega_0 ** 2).mean())),
+        "phi_link_n0_detrended_RMS": float(np.sqrt((phi_0_detrended**2).mean())),
+        "omega_n0_RMS": float(np.sqrt((omega_0**2).mean())),
         "period_steps_used": int(period_steps),
         "BH_loop_area_oneperiod": float(area_oneperiod),
         "interpretation": (
@@ -425,6 +429,7 @@ def analysis_a7_coupled_modes(results, nodes, bonds):
 
 # ─── Main orchestrator ───────────────────────────────────────────────────────
 
+
 def main():
     out_dir = Path(__file__).parent
     capture_npz = out_dir / "r10_v8_ee_phase_a_capture.npz"
@@ -434,20 +439,22 @@ def main():
     capture, nodes, bonds, centroid = capture_ring_trajectories()
 
     # Save .npz (capture only — analyses go to JSON)
-    npz_save = {
-        k: v for k, v in capture.items()
-        if isinstance(v, np.ndarray) or isinstance(v, (int, float))
-    }
+    npz_save = {k: v for k, v in capture.items() if isinstance(v, np.ndarray) or isinstance(v, (int, float))}
     # Convert nodes / interior_pts / centroid which may be ndarray
     np.savez_compressed(
         capture_npz,
-        v_inc=capture["v_inc"], v_ref=capture["v_ref"],
-        phi_link=capture["phi_link"], omega=capture["omega"],
-        omega_dot=capture["omega_dot"], u_dot=capture["u_dot"],
+        v_inc=capture["v_inc"],
+        v_ref=capture["v_ref"],
+        phi_link=capture["phi_link"],
+        omega=capture["omega"],
+        omega_dot=capture["omega_dot"],
+        u_dot=capture["u_dot"],
         interior_omega=capture["interior_omega"],
-        nodes=capture["nodes"], interior_pts=capture["interior_pts"],
+        nodes=capture["nodes"],
+        interior_pts=capture["interior_pts"],
         centroid=capture["centroid"],
-        DT=np.array([v8.DT]), n_steps=np.array([v8.N_RECORDING_STEPS]),
+        DT=np.array([v8.DT]),
+        n_steps=np.array([v8.N_RECORDING_STEPS]),
     )
     print(f"Saved capture .npz to {capture_npz.relative_to(Path.cwd())}", flush=True)
 
@@ -507,7 +514,9 @@ def main():
     print(f"    L_bond:        {a3['L_bond_H']:.4e} H")
     print(f"    C_bond:        {a3['C_bond_F']:.4e} F")
     print(f"    Z_bond:        {a3['Z_bond_ohm']:.4f} Ω  (Z_0 = {a3['Z_0_ohm']:.4f}, equal: {a3['Z_bond_equals_Z_0']})")
-    print(f"    ω_LC / ω_C:    {a3['omega_LC_over_omega_C']:.4f}  (expected 1/√3 = {a3['expected_one_over_sqrt3']:.4f})")
+    print(
+        f"    ω_LC / ω_C:    {a3['omega_LC_over_omega_C']:.4f}  (expected 1/√3 = {a3['expected_one_over_sqrt3']:.4f})"
+    )
 
     print(f"\n  A4 — Real vs reactive power per port:")
     print(f"    max |⟨V_inc²⟩-⟨V_ref²⟩|/(⟨V_inc²⟩+⟨V_ref²⟩): {a4['max_abs_relative_real_power']:.4e}")

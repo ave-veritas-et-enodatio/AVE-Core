@@ -1,5 +1,11 @@
 [↑ Gravity](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-07kd5v, clm-8nkvwy, clm-rd9cjm, clm-y9old1]
+subtree-experiments: []
+-->
+
 # Ch.2: General Relativity and Gravitational Waves
 
 Maps Einstein's Field Equation onto the variable-impedance LC medium. The Stress-Energy Tensor $T_{\mu\nu}$ is identified as classical electromagnetic energy density; the metric tensor $g_{\mu\nu}$ is isomorphic to the macroscopic impedance parameters $(\varepsilon_{eff}, \mu_{eff})$. Symmetric scaling of both constitutive parameters preserves $Z_0$ everywhere. Gravitational lensing, frame-dragging, and Kerr shadow geometry are derived from the impedance manifold. The K4-TLM Diamond lattice simulator cross-validates lensing natively.

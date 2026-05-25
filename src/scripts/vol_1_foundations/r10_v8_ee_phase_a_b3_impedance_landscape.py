@@ -24,7 +24,6 @@ Tests:
   T3 — does ⟨P_port⟩ time-averaged confirm the §6 real-vs-reactive
        asymmetry as ℓ=2 antinode imprint?
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -36,9 +35,9 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).parent))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
-
 import r10_path_alpha_v8_corrected_measurements as v8
+
+from ave.topological.vacuum_engine import VacuumEngine3D
 
 
 def main():
@@ -47,20 +46,25 @@ def main():
     print("=" * 78, flush=True)
 
     nodes, bonds = v8.build_chair_ring(v8.CENTER)
-    a_0_per_node, centroid = v8.compute_a_0_at_ring_nodes(
-        nodes, v8.A_AMP_POL, v8.HELICAL_PITCH
-    )
+    a_0_per_node, centroid = v8.compute_a_0_at_ring_nodes(nodes, v8.A_AMP_POL, v8.HELICAL_PITCH)
 
     engine = VacuumEngine3D.from_args(
-        N=v8.N_LATTICE, pml=v8.PML, temperature=0.0,
+        N=v8.N_LATTICE,
+        pml=v8.PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
     )
     print("Applying v8 helical Beltrami IC (UNCHANGED)...", flush=True)
     v8.initialize_helical_beltrami_ic(
-        engine, nodes, bonds, a_0_per_node,
-        v8.K_BELTRAMI, v8.V_AMP, v8.PHI_AMP,
+        engine,
+        nodes,
+        bonds,
+        a_0_per_node,
+        v8.K_BELTRAMI,
+        v8.V_AMP,
+        v8.PHI_AMP,
     )
 
     N_STEPS = v8.N_RECORDING_STEPS
@@ -85,8 +89,7 @@ def main():
             z_local[i, n_idx] = engine.k4.z_local_field[ix, iy, iz]
         if (time.time() - last) > 30.0:
             t_p = (i + 1) * v8.DT / v8.COMPTON_PERIOD
-            print(f"    step {i}/{N_STEPS}, t={t_p:.1f}P, elapsed {time.time()-t0:.1f}s",
-                  flush=True)
+            print(f"    step {i}/{N_STEPS}, t={t_p:.1f}P, elapsed {time.time()-t0:.1f}s", flush=True)
             last = time.time()
     elapsed = time.time() - t0
     print(f"  Recording done at {elapsed:.1f}s", flush=True)
@@ -95,7 +98,7 @@ def main():
     print(f"Steady-state window: steps [{sw_start}, {N_STEPS})")
 
     # ── T1: S_field per ring node ──────────────────────────────────────────
-    s_mean_per_node = s_field[sw_start:].mean(axis=0)         # (6,)
+    s_mean_per_node = s_field[sw_start:].mean(axis=0)  # (6,)
     s_std_per_node = s_field[sw_start:].std(axis=0)
     print()
     print("  T1 — Saturation factor S(A) per ring node (steady-state):")
@@ -140,7 +143,7 @@ def main():
     # ── T3: per-port real power flux ⟨V_inc² - V_ref²⟩ ─────────────────────
     v_inc_sq = (v_inc[sw_start:] ** 2).mean(axis=0)  # (6, 4)
     v_ref_sq = (v_ref[sw_start:] ** 2).mean(axis=0)
-    real_power = v_inc_sq - v_ref_sq                  # (6, 4) - per-port net flux
+    real_power = v_inc_sq - v_ref_sq  # (6, 4) - per-port net flux
     real_power_rel = real_power / np.maximum(v_inc_sq + v_ref_sq, 1e-30)
 
     print()
@@ -177,10 +180,13 @@ def main():
                 "ell": ell,
                 "cos_coeff": float(np.sum(s_mean_per_node * np.cos(ell * azimuth)) / 6.0),
                 "sin_coeff": float(np.sum(s_mean_per_node * np.sin(ell * azimuth)) / 6.0),
-                "amplitude": float(np.sqrt(
-                    (np.sum(s_mean_per_node * np.cos(ell * azimuth)) / 6.0) ** 2
-                    + (np.sum(s_mean_per_node * np.sin(ell * azimuth)) / 6.0) ** 2
-                ) * (1 if ell == 0 else 2)),
+                "amplitude": float(
+                    np.sqrt(
+                        (np.sum(s_mean_per_node * np.cos(ell * azimuth)) / 6.0) ** 2
+                        + (np.sum(s_mean_per_node * np.sin(ell * azimuth)) / 6.0) ** 2
+                    )
+                    * (1 if ell == 0 else 2)
+                ),
             }
             for ell in range(4)
         ],
@@ -195,10 +201,13 @@ def main():
                 "ell": ell,
                 "cos_coeff": float(np.sum(real_power_per_node * np.cos(ell * azimuth)) / 6.0),
                 "sin_coeff": float(np.sum(real_power_per_node * np.sin(ell * azimuth)) / 6.0),
-                "amplitude": float(np.sqrt(
-                    (np.sum(real_power_per_node * np.cos(ell * azimuth)) / 6.0) ** 2
-                    + (np.sum(real_power_per_node * np.sin(ell * azimuth)) / 6.0) ** 2
-                ) * (1 if ell == 0 else 2)),
+                "amplitude": float(
+                    np.sqrt(
+                        (np.sum(real_power_per_node * np.cos(ell * azimuth)) / 6.0) ** 2
+                        + (np.sum(real_power_per_node * np.sin(ell * azimuth)) / 6.0) ** 2
+                    )
+                    * (1 if ell == 0 else 2)
+                ),
             }
             for ell in range(4)
         ],

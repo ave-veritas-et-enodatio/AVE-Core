@@ -21,25 +21,26 @@ Output:
 
 Expected runtime: ~90s × 20 seeds ≈ 30 min.
 """
-from __future__ import annotations
 
 import os
 import sys
+
 sys.path.insert(0, os.path.dirname(__file__))
 
 import time
 from dataclasses import dataclass
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from ave.topological.vacuum_engine import (
-    VacuumEngine3D,
     AutoresonantCWSource,
-    RegimeClassifierObserver,
     DarkWakeObserver,
+    RegimeClassifierObserver,
+    VacuumEngine3D,
 )
 
 
@@ -65,7 +66,8 @@ def run_one_seed(cfg: V2HeadlineConfig, seed: int) -> dict:
     """Run the v2 headline config with an explicit RNG seed."""
     # Construct engine (auto-calls initialize_thermal(T, seed=None)).
     engine = VacuumEngine3D.from_args(
-        N=cfg.N, pml=cfg.pml,
+        N=cfg.N,
+        pml=cfg.pml,
         temperature=cfg.temperature,
         amplitude_convention="V_SNAP",
     )
@@ -77,18 +79,30 @@ def run_one_seed(cfg: V2HeadlineConfig, seed: int) -> dict:
     t_sustain = cfg.t_sustain_periods * period
     src_offset = cfg.pml + 3
 
-    engine.add_source(AutoresonantCWSource(
-        x0=src_offset, direction=(1.0, 0.0, 0.0),
-        amplitude=cfg.amplitude, omega=cfg.omega_carrier,
-        sigma_yz=3.5, t_ramp=t_ramp, t_sustain=t_sustain,
-        K_drift=cfg.K_drift,
-    ))
-    engine.add_source(AutoresonantCWSource(
-        x0=cfg.N - src_offset, direction=(-1.0, 0.0, 0.0),
-        amplitude=cfg.amplitude, omega=cfg.omega_carrier,
-        sigma_yz=3.5, t_ramp=t_ramp, t_sustain=t_sustain,
-        K_drift=cfg.K_drift,
-    ))
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=src_offset,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=cfg.amplitude,
+            omega=cfg.omega_carrier,
+            sigma_yz=3.5,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            K_drift=cfg.K_drift,
+        )
+    )
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=cfg.N - src_offset,
+            direction=(-1.0, 0.0, 0.0),
+            amplitude=cfg.amplitude,
+            omega=cfg.omega_carrier,
+            sigma_yz=3.5,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            K_drift=cfg.K_drift,
+        )
+    )
 
     regime_obs = RegimeClassifierObserver(cadence=cfg.record_cadence)
     wake_obs = DarkWakeObserver(cadence=cfg.record_cadence, propagation_axis=0)
@@ -127,25 +141,27 @@ def render(results: list[dict], out: str = "/tmp/v2_reproducibility_sweep.png") 
     ax.scatter(seeds, A2_cos, s=30, color="#c33", alpha=0.8)
     ax.axhline(1.009, color="#47c", ls="--", lw=1.2, label="v2 headline (1.009)")
     ax.axhline(1.0, color="#888", ls=":", lw=0.8, label="rupture boundary (A²=1)")
-    ax.axhline(float(np.median(A2_cos)), color="#2a7", ls="-", lw=1.0,
-               label=f"this-run median ({np.median(A2_cos):.3f})")
+    ax.axhline(
+        float(np.median(A2_cos)), color="#2a7", ls="-", lw=1.0, label=f"this-run median ({np.median(A2_cos):.3f})"
+    )
     ax.set_xlabel("seed")
     ax.set_ylabel("max A²_cos")
     ax.set_title("Max A²_cos per seed (v2 headline)")
-    ax.legend(fontsize=9); ax.grid(alpha=0.3)
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.3)
 
     # Panel 2: histogram
     ax = axes[1]
     ax.hist(A2_cos, bins=15, color="#47c", edgecolor="black", alpha=0.8)
     ax.axvline(1.009, color="#c33", ls="--", lw=1.5, label="v2 headline (1.009)")
-    ax.axvline(float(np.median(A2_cos)), color="#2a7", ls="-", lw=1.2,
-               label=f"median ({np.median(A2_cos):.3f})")
+    ax.axvline(float(np.median(A2_cos)), color="#2a7", ls="-", lw=1.2, label=f"median ({np.median(A2_cos):.3f})")
     q25, q75 = np.percentile(A2_cos, [25, 75])
     ax.axvspan(q25, q75, color="#2a7", alpha=0.15, label=f"IQR [{q25:.3f}, {q75:.3f}]")
     ax.set_xlabel("max A²_cos")
     ax.set_ylabel("count")
     ax.set_title(f"Distribution across {len(results)} seeds")
-    ax.legend(fontsize=9); ax.grid(alpha=0.3)
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.3)
 
     plt.suptitle(
         f"Phase 3.5.A.0 — v2 headline reproducibility sweep",
@@ -190,8 +206,10 @@ def adjudicate(results: list[dict]) -> dict:
 if __name__ == "__main__":
     print("── v2 headline reproducibility seed sweep ──\n")
     cfg = V2HeadlineConfig()
-    print(f"Config: λ={cfg.wavelength}, T={cfg.temperature}, amp={cfg.amplitude}·V_SNAP, "
-          f"K_drift={cfg.K_drift}, N={cfg.N}, n_steps={cfg.n_outer_steps}")
+    print(
+        f"Config: λ={cfg.wavelength}, T={cfg.temperature}, amp={cfg.amplitude}·V_SNAP, "
+        f"K_drift={cfg.K_drift}, N={cfg.N}, n_steps={cfg.n_outer_steps}"
+    )
 
     n_seeds = int(os.environ.get("N_SEEDS", "20"))
     print(f"Running {n_seeds} seeds (expected ~{90 * n_seeds / 60:.0f} min)\n")
@@ -201,18 +219,22 @@ if __name__ == "__main__":
     for seed in range(n_seeds):
         r = run_one_seed(cfg, seed)
         results.append(r)
-        print(f"  seed {seed:>2d}: max A²_cos = {r['max_A2_cos']:.4f}  "
-              f"(max A²_k4 = {r['max_A2_k4']:.3f}, elapsed {r['elapsed_s']:.1f}s)")
+        print(
+            f"  seed {seed:>2d}: max A²_cos = {r['max_A2_cos']:.4f}  "
+            f"(max A²_k4 = {r['max_A2_k4']:.3f}, elapsed {r['elapsed_s']:.1f}s)"
+        )
     total = time.time() - t0
     print(f"\nTotal elapsed: {total:.1f}s ({total/60:.1f} min)\n")
 
     # Save raw
-    np.savez("/tmp/v2_reproducibility_sweep.npz",
-             seeds=np.array([r["seed"] for r in results]),
-             max_A2_cos=np.array([r["max_A2_cos"] for r in results]),
-             max_A2_k4=np.array([r["max_A2_k4"] for r in results]),
-             max_A2_total=np.array([r["max_A2_total"] for r in results]),
-             max_tau_zx=np.array([r["max_tau_zx"] for r in results]))
+    np.savez(
+        "/tmp/v2_reproducibility_sweep.npz",
+        seeds=np.array([r["seed"] for r in results]),
+        max_A2_cos=np.array([r["max_A2_cos"] for r in results]),
+        max_A2_k4=np.array([r["max_A2_k4"] for r in results]),
+        max_A2_total=np.array([r["max_A2_total"] for r in results]),
+        max_tau_zx=np.array([r["max_tau_zx"] for r in results]),
+    )
     print("Saved /tmp/v2_reproducibility_sweep.npz")
 
     render(results)

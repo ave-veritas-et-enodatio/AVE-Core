@@ -14,12 +14,11 @@ spherical wavefront expansion and the proper function of the Absorbing
 Boundary Conditions (ABCs).
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.fdtd_3d import FDTD3DEngine
+from ave_path_util import sim_output
 
 
 def test_fdtd_dipole() -> None:
@@ -83,9 +82,7 @@ def test_fdtd_dipole() -> None:
     plt.tight_layout()
 
     # Export
-    out_dir = os.path.join(os.path.dirname(__file__), "..", "assets", "sim_outputs")
-    os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, "test_fdtd_empirical_dipole.png")
+    out_path = sim_output("test_fdtd_empirical_dipole.png")
 
     plt.savefig(out_path, dpi=300, bbox_inches="tight")
     plt.close()

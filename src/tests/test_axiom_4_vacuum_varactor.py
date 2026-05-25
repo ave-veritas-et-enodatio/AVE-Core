@@ -31,7 +31,6 @@ Reference:
 
 Predictions.yaml entry: P_phase0_varactor.
 """
-from __future__ import annotations
 
 import numpy as np
 import pytest
@@ -39,11 +38,11 @@ import pytest
 from ave.axioms.scale_invariant import saturation_factor
 from ave.core.constants import ALPHA, V_SNAP, V_YIELD
 
-
 # ───────────────────────────────────────────────────────────────────────────
 # Closed-form Axiom-4 references (duplicated here deliberately so the test
 # pins the FORM, not just that the engine agrees with itself).
 # ───────────────────────────────────────────────────────────────────────────
+
 
 def _closed_form_S(V: float, V_yield_: float = V_YIELD) -> float:
     """S(V) = √(1-(V/V_yield)²) per Vol 4 Ch 1:132."""
@@ -73,15 +72,11 @@ class TestAxiom4SaturationKernel:
 
     def test_s_at_half_yield(self):
         """V = V_yield/2 → S = √(3/4) = √3/2 ≈ 0.866 (Axiom 4)."""
-        assert _closed_form_S(V_YIELD / 2.0) == pytest.approx(
-            np.sqrt(3.0) / 2.0, rel=1e-12
-        )
+        assert _closed_form_S(V_YIELD / 2.0) == pytest.approx(np.sqrt(3.0) / 2.0, rel=1e-12)
 
     def test_s_at_yield_over_sqrt2(self):
         """V = V_yield/√2 → S = √(1/2) ≈ 0.707 (Axiom 4)."""
-        assert _closed_form_S(V_YIELD / np.sqrt(2.0)) == pytest.approx(
-            1.0 / np.sqrt(2.0), rel=1e-12
-        )
+        assert _closed_form_S(V_YIELD / np.sqrt(2.0)) == pytest.approx(1.0 / np.sqrt(2.0), rel=1e-12)
 
     def test_s_approaches_zero_near_yield(self):
         """V → V_yield → S → 0 (Axiom 4; Regime IV boundary per Vol 4 Ch 1:132)."""
@@ -95,9 +90,7 @@ class TestAxiom4SaturationKernel:
 
     def test_s_is_even(self):
         """S(-V) = S(V) (quadratic dependence per Axiom 4)."""
-        assert _closed_form_S(0.5 * V_YIELD) == pytest.approx(
-            _closed_form_S(-0.5 * V_YIELD), rel=1e-12
-        )
+        assert _closed_form_S(0.5 * V_YIELD) == pytest.approx(_closed_form_S(-0.5 * V_YIELD), rel=1e-12)
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -125,9 +118,9 @@ class TestAxiom4VacuumVaractor:
         table_rows = [(0.10, 1.005), (0.50, 1.155), (0.90, 2.294)]
         for r, expected in table_rows:
             ratio = _closed_form_C_ratio(r * V_YIELD)
-            assert ratio == pytest.approx(expected, rel=5e-4), (
-                f"r={r}: expected C_eff/C_0 = {expected}, got {ratio:.4f}"
-            )
+            assert ratio == pytest.approx(
+                expected, rel=5e-4
+            ), f"r={r}: expected C_eff/C_0 = {expected}, got {ratio:.4f}"
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -159,10 +152,7 @@ class TestAxiom4VaractorTaylorExpansion:
             taylor = self._taylor_to_4th(r)
             rel_err = abs(closed - taylor) / closed
             # 4th-order truncation error is O(r⁶); at r=0.2, that's ~6e-5
-            assert rel_err < 2e-4, (
-                f"r={r}: closed={closed:.6f}, taylor-4={taylor:.6f}, "
-                f"rel_err={rel_err:.2e}"
-            )
+            assert rel_err < 2e-4, f"r={r}: closed={closed:.6f}, taylor-4={taylor:.6f}, " f"rel_err={rel_err:.2e}"
 
     def test_euler_heisenberg_correspondence(self):
         """At V << V_yield the leading correction is quadratic, matching
@@ -192,17 +182,13 @@ class TestAxiom4NodeResonanceSoftening:
     def test_omega_at_half_yield(self):
         """V = V_yield/2 → Ω_node/ω_0 = (3/4)^(1/4) ≈ 0.931."""
         expected = (3.0 / 4.0) ** 0.25
-        assert _closed_form_omega_ratio(V_YIELD / 2.0) == pytest.approx(
-            expected, rel=1e-12
-        )
+        assert _closed_form_omega_ratio(V_YIELD / 2.0) == pytest.approx(expected, rel=1e-12)
         assert expected == pytest.approx(0.9306, abs=1e-4)
 
     def test_omega_at_yield_over_sqrt2(self):
         """V = V_yield/√2 → Ω_node/ω_0 = (1/2)^(1/4) ≈ 0.841."""
-        expected = 0.5 ** 0.25
-        assert _closed_form_omega_ratio(V_YIELD / np.sqrt(2.0)) == pytest.approx(
-            expected, rel=1e-12
-        )
+        expected = 0.5**0.25
+        assert _closed_form_omega_ratio(V_YIELD / np.sqrt(2.0)) == pytest.approx(expected, rel=1e-12)
         assert expected == pytest.approx(0.8409, abs=1e-4)
 
     def test_omega_crashes_near_yield(self):

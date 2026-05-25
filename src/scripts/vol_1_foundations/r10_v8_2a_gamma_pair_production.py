@@ -54,20 +54,19 @@ After propagation/dispersion: peak likely lower (T-ST v2 saw factor ~6 reduction
 
 ~3 min wall clock at N=48.
 """
-from __future__ import annotations
 
 import json
 import sys
 import time
-from pathlib import Path
 from collections import Counter
+from pathlib import Path
+
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
-from ave.topological.vacuum_engine import VacuumEngine3D, SpatialDipoleCPSource
-
-
 from ave.core.constants import ALPHA
+from ave.topological.vacuum_engine import SpatialDipoleCPSource, VacuumEngine3D
+
 V_YIELD = float(np.sqrt(ALPHA))
 A2_OP14 = float(np.sqrt(2.0 * ALPHA))
 OMEGA_C = 1.0
@@ -80,9 +79,12 @@ def find_two_peaks(a2_field, mask_active, pml, separation_min=4):
     """Find top-2 spatially-separated A² peaks (PML excluded)."""
     N = a2_field.shape[0]
     a2_int = a2_field * mask_active.astype(float)
-    a2_int[:pml, :, :] = 0; a2_int[N-pml:, :, :] = 0
-    a2_int[:, :pml, :] = 0; a2_int[:, N-pml:, :] = 0
-    a2_int[:, :, :pml] = 0; a2_int[:, :, N-pml:] = 0
+    a2_int[:pml, :, :] = 0
+    a2_int[N - pml :, :, :] = 0
+    a2_int[:, :pml, :] = 0
+    a2_int[:, N - pml :, :] = 0
+    a2_int[:, :, :pml] = 0
+    a2_int[:, :, N - pml :] = 0
 
     flat = a2_int.flatten()
     sorted_idx = np.argsort(flat)[::-1]
@@ -92,7 +94,7 @@ def find_two_peaks(a2_field, mask_active, pml, separation_min=4):
     peak2 = None
     for si in sorted_idx[1:200]:
         cand = np.unravel_index(si, a2_int.shape)
-        d = np.sqrt(sum((p1 - p2)**2 for p1, p2 in zip(peak1, cand)))
+        d = np.sqrt(sum((p1 - p2) ** 2 for p1, p2 in zip(peak1, cand)))
         if d >= separation_min:
             peak2 = cand
             break
@@ -114,7 +116,9 @@ def main():
 
     t_start = time.time()
     engine = VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=0.0,
+        N=N,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -123,9 +127,14 @@ def main():
     )
 
     source = SpatialDipoleCPSource(
-        x0=8, propagation_axis=0, amplitude=0.5, omega=OMEGA_GAMMA,
-        handedness="RH", sigma_yz=2.0,
-        t_ramp=2.0 * COMPTON_PERIOD, t_sustain=2.0 * COMPTON_PERIOD,
+        x0=8,
+        propagation_axis=0,
+        amplitude=0.5,
+        omega=OMEGA_GAMMA,
+        handedness="RH",
+        sigma_yz=2.0,
+        t_ramp=2.0 * COMPTON_PERIOD,
+        t_sustain=2.0 * COMPTON_PERIOD,
         t_decay=2.0 * COMPTON_PERIOD,
     )
     engine.add_source(source)
@@ -147,34 +156,48 @@ def main():
 
         if step_i % capture_cadence == 0:
             t_now = step_i * DT
-            a2 = np.sum(engine.k4.V_inc ** 2, axis=-1)
+            a2 = np.sum(engine.k4.V_inc**2, axis=-1)
             mask = engine.k4.mask_active
 
             peak1, peak2, a2_p1, a2_p2 = find_two_peaks(a2, mask, PML)
-            n_sat = int(np.sum((a2 * mask.astype(float)
-                                * (np.indices(a2.shape)[0] >= PML)
-                                * (np.indices(a2.shape)[0] < N-PML)
-                                * (np.indices(a2.shape)[1] >= PML)
-                                * (np.indices(a2.shape)[1] < N-PML)
-                                * (np.indices(a2.shape)[2] >= PML)
-                                * (np.indices(a2.shape)[2] < N-PML)
-                               ) > A2_OP14))
+            n_sat = int(
+                np.sum(
+                    (
+                        a2
+                        * mask.astype(float)
+                        * (np.indices(a2.shape)[0] >= PML)
+                        * (np.indices(a2.shape)[0] < N - PML)
+                        * (np.indices(a2.shape)[1] >= PML)
+                        * (np.indices(a2.shape)[1] < N - PML)
+                        * (np.indices(a2.shape)[2] >= PML)
+                        * (np.indices(a2.shape)[2] < N - PML)
+                    )
+                    > A2_OP14
+                )
+            )
 
-            sat_traj.append({
-                "t": float(t_now), "n_sat": n_sat,
-                "peak1": [int(v) for v in peak1], "a2_peak1": a2_p1,
-                "peak2": [int(v) for v in peak2] if peak2 else None,
-                "a2_peak2": a2_p2,
-            })
+            sat_traj.append(
+                {
+                    "t": float(t_now),
+                    "n_sat": n_sat,
+                    "peak1": [int(v) for v in peak1],
+                    "a2_peak1": a2_p1,
+                    "peak2": [int(v) for v in peak2] if peak2 else None,
+                    "a2_peak2": a2_p2,
+                }
+            )
             peak_loc_traj.append((peak1, peak2))
 
             if step_i % 50 == 0:
                 t_p = t_now / COMPTON_PERIOD
                 p2_str = f"{peak2}" if peak2 else "—"
-                print(f"    t={t_p:5.2f}P  n_sat={n_sat:>4}  "
-                      f"peak1={peak1} A²={a2_p1:.3f}  "
-                      f"peak2={p2_str} A²={a2_p2:.3f}  "
-                      f"({time.time() - t_start:.0f}s)", flush=True)
+                print(
+                    f"    t={t_p:5.2f}P  n_sat={n_sat:>4}  "
+                    f"peak1={peak1} A²={a2_p1:.3f}  "
+                    f"peak2={p2_str} A²={a2_p2:.3f}  "
+                    f"({time.time() - t_start:.0f}s)",
+                    flush=True,
+                )
 
     elapsed = time.time() - t_start
     print(f"\n  Engine evolution complete in {elapsed:.0f}s")
@@ -184,20 +207,17 @@ def main():
     print("=" * 78)
 
     # Did saturation engage at 2 separate sites at any time?
-    paired_engagement = [s for s in sat_traj
-                         if s["peak2"] is not None
-                         and s["a2_peak1"] > A2_OP14
-                         and s["a2_peak2"] > A2_OP14]
+    paired_engagement = [
+        s for s in sat_traj if s["peak2"] is not None and s["a2_peak1"] > A2_OP14 and s["a2_peak2"] > A2_OP14
+    ]
     print(f"\n  PRIMARY (1) — Two-region saturation engagement:")
-    print(f"    Captures with both peaks above A²_op14: "
-          f"{len(paired_engagement)}/{len(sat_traj)}")
+    print(f"    Captures with both peaks above A²_op14: " f"{len(paired_engagement)}/{len(sat_traj)}")
     if paired_engagement:
         first_pair = paired_engagement[0]
         print(f"    First two-region engagement at t={first_pair['t']/COMPTON_PERIOD:.2f}P")
         print(f"    Peak1={first_pair['peak1']} A²={first_pair['a2_peak1']:.3f}")
         print(f"    Peak2={first_pair['peak2']} A²={first_pair['a2_peak2']:.3f}")
-        sep = np.sqrt(sum((p1 - p2)**2 for p1, p2 in
-                          zip(first_pair['peak1'], first_pair['peak2'])))
+        sep = np.sqrt(sum((p1 - p2) ** 2 for p1, p2 in zip(first_pair["peak1"], first_pair["peak2"])))
         print(f"    Separation: {sep:.2f} cells")
 
     # Op10 at end
@@ -210,29 +230,30 @@ def main():
     # Persistent post-pulse engagement
     second_half = [s for s in sat_traj if s["t"] > 6.0 * COMPTON_PERIOD]
     persistent = [s for s in second_half if s["a2_peak1"] > A2_OP14]
-    print(f"\n  Post-pulse persistence: {len(persistent)}/{len(second_half)} "
-          f"captures with peak1 > A²_op14")
+    print(f"\n  Post-pulse persistence: {len(persistent)}/{len(second_half)} " f"captures with peak1 > A²_op14")
 
     # Verdict
     h_pass = len(paired_engagement) > 0 and (c_op10 == 3 or c_op10 == 6)
     # c=6 might indicate two paired (2,3) of opposite chirality
-    print(f"\n  Pair-production candidate (saturation@2 sites + topology): "
-          f"{'PASS' if h_pass else 'FAIL'}")
+    print(f"\n  Pair-production candidate (saturation@2 sites + topology): " f"{'PASS' if h_pass else 'FAIL'}")
 
     out = {
         "test": "2.A: Gamma-photon pair production",
-        "config": {"N": N, "PML": PML, "omega": OMEGA_GAMMA,
-                   "amplitude": 0.5, "sigma_yz": 2.0},
+        "config": {"N": N, "PML": PML, "omega": OMEGA_GAMMA, "amplitude": 0.5, "sigma_yz": 2.0},
         "primary": {
             "two_region_engagement_captures": len(paired_engagement),
-            "first_pair_time_P": (paired_engagement[0]["t"]/COMPTON_PERIOD
-                                   if paired_engagement else None),
+            "first_pair_time_P": (paired_engagement[0]["t"] / COMPTON_PERIOD if paired_engagement else None),
             "c_op10": int(c_op10),
         },
         "saturation_trajectory_summary": [
-            {"t": s["t"], "n_sat": s["n_sat"],
-             "peak1": s["peak1"], "a2_peak1": s["a2_peak1"],
-             "peak2": s["peak2"], "a2_peak2": s["a2_peak2"]}
+            {
+                "t": s["t"],
+                "n_sat": s["n_sat"],
+                "peak1": s["peak1"],
+                "a2_peak1": s["a2_peak1"],
+                "peak2": s["peak2"],
+                "a2_peak2": s["a2_peak2"],
+            }
             for s in sat_traj
         ],
         "elapsed_total_s": float(elapsed),

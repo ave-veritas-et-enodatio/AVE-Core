@@ -38,20 +38,22 @@ All 7 modes excited:
 
 Adjudication criteria per doc 109 §14.7 (unchanged).
 """
+
 import sys
 import time
 from pathlib import Path
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.gridspec import GridSpec
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
 from ave.core.constants import ALPHA, ALPHA_COLD_INV
+from ave.topological.vacuum_engine import VacuumEngine3D
+from ave_path_util import sim_output
 
 print("=" * 78)
 print("R10 Path-α v14e — Seven-Mode Bounded-Boundary Test")
@@ -70,12 +72,12 @@ CENTER = (N // 2, N // 2, N // 2)
 N_STEPS = 2000
 LOG_CADENCE = 50
 
-HORN_R = 2.0                   # horn-torus radius (lattice cells, lattice-resolved)
-UNKNOT_AMP_OMEGA = 0.35        # bound-state ω amplitude per Path B Round 6
-UNKNOT_AMP_U = 0.35            # matching u amplitude for LC coherence
-BULK_SPIN_AMP = 0.15           # ω_z component (bubble bulk-spin around z-axis)
-BREATHING_AMP = 0.4            # K4 V_inc common-mode (breathing) at boundary cells
-PHASE_WINDING_AMP = 0.2        # K4 V_ref port-asymmetry (2,3) pattern
+HORN_R = 2.0  # horn-torus radius (lattice cells, lattice-resolved)
+UNKNOT_AMP_OMEGA = 0.35  # bound-state ω amplitude per Path B Round 6
+UNKNOT_AMP_U = 0.35  # matching u amplitude for LC coherence
+BULK_SPIN_AMP = 0.15  # ω_z component (bubble bulk-spin around z-axis)
+BREATHING_AMP = 0.4  # K4 V_inc common-mode (breathing) at boundary cells
+PHASE_WINDING_AMP = 0.2  # K4 V_ref port-asymmetry (2,3) pattern
 
 # Acceptance thresholds (unchanged from §14.7)
 THRESH_BOUNDARY_PERSIST = 0.5
@@ -98,7 +100,9 @@ print()
 # Engine setup
 # =============================================================================
 engine = VacuumEngine3D.from_args(
-    N=N, pml=PML, temperature=0.0,
+    N=N,
+    pml=PML,
+    temperature=0.0,
     amplitude_convention="V_SNAP",
 )
 print(f"Engine: V_SNAP={engine.V_SNAP}, k4 dt = {engine.k4.dt:.6f}, op3=True")
@@ -120,9 +124,9 @@ x = i_grid - cx
 y = j_grid - cy
 z = k_grid - cz
 
-rho_xy = np.sqrt(x ** 2 + y ** 2)
+rho_xy = np.sqrt(x**2 + y**2)
 # Distance to the unknot loop (circle of radius HORN_R in z=cz plane)
-rho_tube = np.sqrt((rho_xy - HORN_R) ** 2 + z ** 2)
+rho_tube = np.sqrt((rho_xy - HORN_R) ** 2 + z**2)
 phi = np.arctan2(y, x)
 
 # AVE-canonical hedgehog envelope: π/(1 + (ρ/r_opt)²)
@@ -165,7 +169,7 @@ print(f"    Boundary shell active cells: {len(shell_cells)}")
 
 # Common-mode (breathing): equal V_inc on all 4 ports
 # Plus port-asymmetry: V_ref with (2,3) phase-space winding pattern
-for (i, j, k) in shell_cells:
+for i, j, k in shell_cells:
     for port in range(4):
         # Breathing (common-mode) — same amplitude on all 4 ports
         engine.k4.V_inc[i, j, k, port] = BREATHING_AMP / 2.0
@@ -182,7 +186,7 @@ V_ref_seed = engine.k4.V_ref.copy()
 # Initial observable values
 omega_norm_seed = np.linalg.norm(omega_seed, axis=-1)
 u_norm_seed = np.linalg.norm(u_seed, axis=-1)
-v_inc_norm_seed = np.sqrt(np.sum(V_inc_seed ** 2, axis=-1))
+v_inc_norm_seed = np.sqrt(np.sum(V_inc_seed**2, axis=-1))
 
 omega_peak_initial = float(np.max(omega_norm_seed))
 u_peak_initial = float(np.max(u_norm_seed))
@@ -201,7 +205,7 @@ print()
 # =============================================================================
 def boundary_persistence(engine):
     """Mean |V_inc| over the boundary shell cells."""
-    v_norm = np.sqrt(np.sum(engine.k4.V_inc ** 2, axis=-1))
+    v_norm = np.sqrt(np.sum(engine.k4.V_inc**2, axis=-1))
     return float(np.mean([v_norm[c] for c in shell_cells]))
 
 
@@ -219,8 +223,8 @@ def cosserat_winding_at_horn(engine, R=HORN_R, tol=0.7):
     y_ = np.arange(N) - cy_
     z_ = np.arange(N) - cz_
     X, Y, Z = np.meshgrid(x_, y_, z_, indexing="ij")
-    rho_xy_ = np.sqrt(X ** 2 + Y ** 2)
-    rho_tube_ = np.sqrt((rho_xy_ - R) ** 2 + Z ** 2)
+    rho_xy_ = np.sqrt(X**2 + Y**2)
+    rho_tube_ = np.sqrt((rho_xy_ - R) ** 2 + Z**2)
     shell = rho_tube_ < tol
     if shell.sum() == 0:
         return 0.0
@@ -235,7 +239,7 @@ def impedance_profile(engine, max_r=5):
     y_ = np.arange(N) - cy_
     z_ = np.arange(N) - cz_
     X, Y, Z = np.meshgrid(x_, y_, z_, indexing="ij")
-    r = np.sqrt(X ** 2 + Y ** 2 + Z ** 2)
+    r = np.sqrt(X**2 + Y**2 + Z**2)
     r_arr = np.arange(1, max_r + 1)
     z_arr = np.zeros_like(r_arr, dtype=float)
     for i, r_val in enumerate(r_arr):
@@ -253,11 +257,11 @@ def q_factor_decomposition(engine, R_volume=HORN_R):
     y_ = np.arange(N) - cy_
     z_ = np.arange(N) - cz_
     X, Y, Z = np.meshgrid(x_, y_, z_, indexing="ij")
-    r = np.sqrt(X ** 2 + Y ** 2 + Z ** 2)
+    r = np.sqrt(X**2 + Y**2 + Z**2)
     # Use combined |V_inc|² + |ω|² (the total 7-mode energy density)
-    v_inc_norm = np.sqrt(np.sum(engine.k4.V_inc ** 2, axis=-1))
+    v_inc_norm = np.sqrt(np.sum(engine.k4.V_inc**2, axis=-1))
     omega_norm = np.linalg.norm(engine.cos.omega, axis=-1)
-    energy_density = v_inc_norm ** 2 + omega_norm ** 2
+    energy_density = v_inc_norm**2 + omega_norm**2
 
     e_center = energy_density[CENTER]
     if e_center < 1e-10:
@@ -267,8 +271,12 @@ def q_factor_decomposition(engine, R_volume=HORN_R):
 
     volume_mask = (r < R_volume) & engine.k4.mask_active
     surface_mask = (r >= R_volume - 0.5) & (r < R_volume + 0.5) & engine.k4.mask_active
-    line_mask = (np.abs(Z) < 1) & (np.sqrt(X**2 + Y**2) >= R_volume - 0.5) & \
-                (np.sqrt(X**2 + Y**2) < R_volume + 0.5) & engine.k4.mask_active
+    line_mask = (
+        (np.abs(Z) < 1)
+        & (np.sqrt(X**2 + Y**2) >= R_volume - 0.5)
+        & (np.sqrt(X**2 + Y**2) < R_volume + 0.5)
+        & engine.k4.mask_active
+    )
 
     L_vol = float(np.sum(e_normalized[volume_mask]))
     L_surf = float(np.sum(e_normalized[surface_mask]))
@@ -284,8 +292,12 @@ print(f"Running dynamics: {N_STEPS} steps, log every {LOG_CADENCE}")
 print("=" * 78)
 
 history = {
-    "step": [], "t": [],
-    "v_inc_shell": [], "omega_peak": [], "u_peak": [], "omega_at_horn": [],
+    "step": [],
+    "t": [],
+    "v_inc_shell": [],
+    "omega_peak": [],
+    "u_peak": [],
+    "omega_at_horn": [],
     "total_energy": [],
 }
 
@@ -309,11 +321,13 @@ for step in range(1, N_STEPS + 1):
         history["omega_at_horn"].append(cosserat_winding_at_horn(engine))
         history["total_energy"].append(float(engine.k4.total_energy()))
         if step % (LOG_CADENCE * 10) == 0 or step == LOG_CADENCE:
-            print(f"  step={step:>4d}  "
-                  f"V_inc_shell={history['v_inc_shell'][-1]:.4f}  "
-                  f"|ω|_peak={history['omega_peak'][-1]:.4f}  "
-                  f"|u|_peak={history['u_peak'][-1]:.4f}  "
-                  f"E={history['total_energy'][-1]:.3e}")
+            print(
+                f"  step={step:>4d}  "
+                f"V_inc_shell={history['v_inc_shell'][-1]:.4f}  "
+                f"|ω|_peak={history['omega_peak'][-1]:.4f}  "
+                f"|u|_peak={history['u_peak'][-1]:.4f}  "
+                f"E={history['total_energy'][-1]:.3e}"
+            )
 print(f"\nDynamics complete in {time.time() - t_start:.1f}s.")
 print()
 
@@ -400,21 +414,22 @@ print("=" * 78)
 # =============================================================================
 # Visualization
 # =============================================================================
-OUT = REPO_ROOT / "assets" / "sim_outputs"
-OUT.mkdir(parents=True, exist_ok=True)
-
 fig = plt.figure(figsize=(17, 11), facecolor="#0a0a0a")
-gs = GridSpec(3, 4, figure=fig, hspace=0.4, wspace=0.35,
-              height_ratios=[1.0, 1.0, 0.6])
+gs = GridSpec(3, 4, figure=fig, hspace=0.4, wspace=0.35, height_ratios=[1.0, 1.0, 0.6])
 
 # Panel A: time series — all three persistence metrics
 ax1 = fig.add_subplot(gs[0, 0])
-ax1.plot(history["t"], np.array(history["v_inc_shell"]) / max(history["v_inc_shell"][0], 1e-10),
-         "C2-", lw=2, label="V_inc shell")
-ax1.plot(history["t"], np.array(history["omega_peak"]) / max(history["omega_peak"][0], 1e-10),
-         "C0-", lw=2, label="|ω| peak")
-ax1.plot(history["t"], np.array(history["u_peak"]) / max(history["u_peak"][0], 1e-10),
-         "C3-", lw=2, label="|u| peak")
+ax1.plot(
+    history["t"],
+    np.array(history["v_inc_shell"]) / max(history["v_inc_shell"][0], 1e-10),
+    "C2-",
+    lw=2,
+    label="V_inc shell",
+)
+ax1.plot(
+    history["t"], np.array(history["omega_peak"]) / max(history["omega_peak"][0], 1e-10), "C0-", lw=2, label="|ω| peak"
+)
+ax1.plot(history["t"], np.array(history["u_peak"]) / max(history["u_peak"][0], 1e-10), "C3-", lw=2, label="|u| peak")
 ax1.axhline(0.5, color="white", ls="--", lw=1, alpha=0.5, label="50% threshold")
 ax1.set_xlabel("t (lattice units)")
 ax1.set_ylabel("Relative magnitude")
@@ -440,11 +455,11 @@ uy = omega_seed[..., 1][omega_mask]
 uz = omega_seed[..., 2][omega_mask]
 mag = omega_norm_seed[omega_mask]
 colors = plt.cm.plasma(mag / max(omega_peak_initial, 1e-10))
-ax3.quiver(xs, ys, zs, ux, uy, uz, length=0.7, normalize=True,
-           colors=colors, arrow_length_ratio=0.3, linewidth=1.0)
-ax3.scatter([cx], [cy], [cz], color="cyan", s=80, marker="*",
-            edgecolor="white", linewidth=1.5)
-ax3.set_xlim(2, N - 2); ax3.set_ylim(2, N - 2); ax3.set_zlim(2, N - 2)
+ax3.quiver(xs, ys, zs, ux, uy, uz, length=0.7, normalize=True, colors=colors, arrow_length_ratio=0.3, linewidth=1.0)
+ax3.scatter([cx], [cy], [cz], color="cyan", s=80, marker="*", edgecolor="white", linewidth=1.5)
+ax3.set_xlim(2, N - 2)
+ax3.set_ylim(2, N - 2)
+ax3.set_zlim(2, N - 2)
 ax3.set_title("Cosserat ω SEED\n(3 rotational modes)", color="white", fontsize=10)
 ax3.set_facecolor("#0f0f0f")
 for axn in (ax3.xaxis, ax3.yaxis, ax3.zaxis):
@@ -462,11 +477,11 @@ uy2 = u_seed[..., 1][u_mask]
 uz2 = u_seed[..., 2][u_mask]
 mag2 = u_norm_seed[u_mask]
 colors2 = plt.cm.viridis(mag2 / max(u_peak_initial, 1e-10))
-ax4.quiver(xs, ys, zs, ux2, uy2, uz2, length=0.7, normalize=True,
-           colors=colors2, arrow_length_ratio=0.3, linewidth=1.0)
-ax4.scatter([cx], [cy], [cz], color="orange", s=80, marker="*",
-            edgecolor="white", linewidth=1.5)
-ax4.set_xlim(2, N - 2); ax4.set_ylim(2, N - 2); ax4.set_zlim(2, N - 2)
+ax4.quiver(xs, ys, zs, ux2, uy2, uz2, length=0.7, normalize=True, colors=colors2, arrow_length_ratio=0.3, linewidth=1.0)
+ax4.scatter([cx], [cy], [cz], color="orange", s=80, marker="*", edgecolor="white", linewidth=1.5)
+ax4.set_xlim(2, N - 2)
+ax4.set_ylim(2, N - 2)
+ax4.set_zlim(2, N - 2)
 ax4.set_title("Cosserat u SEED\n(3 translational modes)", color="white", fontsize=10)
 ax4.set_facecolor("#0f0f0f")
 for axn in (ax4.xaxis, ax4.yaxis, ax4.zaxis):
@@ -476,10 +491,9 @@ ax4.tick_params(colors="white", labelsize=7)
 
 # Panel E: |V_inc| final slice
 ax5 = fig.add_subplot(gs[1, 0])
-v_inc_final = np.sqrt(np.sum(engine.k4.V_inc ** 2, axis=-1))
+v_inc_final = np.sqrt(np.sum(engine.k4.V_inc**2, axis=-1))
 v_slice = v_inc_final[:, :, cz]
-im = ax5.imshow(v_slice.T, origin="lower", cmap="hot",
-                extent=[0, N, 0, N], aspect="equal")
+im = ax5.imshow(v_slice.T, origin="lower", cmap="hot", extent=[0, N, 0, N], aspect="equal")
 ax5.plot(cx + 0.5, cy + 0.5, "c*", ms=15, markeredgecolor="white")
 ax5.set_title(f"|V_inc| final (z={cz})")
 plt.colorbar(im, ax=ax5, fraction=0.046)
@@ -488,8 +502,7 @@ plt.colorbar(im, ax=ax5, fraction=0.046)
 ax6 = fig.add_subplot(gs[1, 1])
 omega_final = np.linalg.norm(engine.cos.omega, axis=-1)
 omega_slice = omega_final[:, :, cz]
-im = ax6.imshow(omega_slice.T, origin="lower", cmap="viridis",
-                extent=[0, N, 0, N], aspect="equal")
+im = ax6.imshow(omega_slice.T, origin="lower", cmap="viridis", extent=[0, N, 0, N], aspect="equal")
 ax6.plot(cx + 0.5, cy + 0.5, "c*", ms=15, markeredgecolor="white")
 ax6.set_title(f"|ω| final (z={cz})")
 plt.colorbar(im, ax=ax6, fraction=0.046)
@@ -498,7 +511,7 @@ plt.colorbar(im, ax=ax6, fraction=0.046)
 ax7 = fig.add_subplot(gs[1, 2])
 categories = ["Λ_vol\n→ 𝓜", "Λ_surf\n→ 𝓙", "Λ_line\n→ 𝓠"]
 measured = [L_vol, L_surf, L_line]
-canonical = [4 * np.pi ** 3, np.pi ** 2, np.pi]
+canonical = [4 * np.pi**3, np.pi**2, np.pi]
 x_pos = np.arange(len(categories))
 ax7.bar(x_pos - 0.2, measured, 0.4, label="Final", color="C0", edgecolor="white")
 ax7.bar(x_pos + 0.2, canonical, 0.4, label="Canonical", color="C3", edgecolor="white")
@@ -535,10 +548,17 @@ summary = (
     f"  MODE: {mode}\n"
     f"  Net 7-mode seed: ω hedgehog (tangent + bulk-spin ω_z) + u hedgehog (tangent) + V_inc breathing common-mode + (2,3) V_ref"
 )
-ax9.text(0.02, 0.95, summary, transform=ax9.transAxes,
-         fontsize=9, family="monospace", verticalalignment="top",
-         color="white",
-         bbox=dict(boxstyle="round,pad=0.5", facecolor="#181818", edgecolor="#404040"))
+ax9.text(
+    0.02,
+    0.95,
+    summary,
+    transform=ax9.transAxes,
+    fontsize=9,
+    family="monospace",
+    verticalalignment="top",
+    color="white",
+    bbox=dict(boxstyle="round,pad=0.5", facecolor="#181818", edgecolor="#404040"),
+)
 
 for ax in [ax1, ax2, ax5, ax6, ax7, ax8]:
     ax.set_facecolor("#0f0f0f")
@@ -555,9 +575,8 @@ for ax in [ax1, ax2, ax5, ax6, ax7, ax8]:
         for text in leg.get_texts():
             text.set_color("white")
 
-fig.suptitle(f"v14e Seven-Mode Bounded-Boundary Test — {mode}",
-             color="white", fontsize=14, y=0.995)
-out_path = OUT / "r10_path_alpha_v14e_seven_mode.png"
+fig.suptitle(f"v14e Seven-Mode Bounded-Boundary Test — {mode}", color="white", fontsize=14, y=0.995)
+out_path = sim_output("r10_path_alpha_v14e_seven_mode.png")
 plt.savefig(out_path, dpi=140, facecolor="#0a0a0a", bbox_inches="tight")
 print(f"\nFigure: {out_path}")
 print()

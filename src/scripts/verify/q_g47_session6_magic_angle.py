@@ -14,8 +14,6 @@ Run:
     python src/scripts/verify/q_g47_session6_magic_angle.py
 """
 
-from __future__ import annotations
-
 import numpy as np
 from scipy.optimize import brentq
 
@@ -136,7 +134,9 @@ def sensitivity_sweep():
             g_at = G_of_u0(u0_star, beta_G=beta_G, chi_G=chi_G, g_G_form=g_G_form)
             kg_ratio = k_at / g_at
             kg_ratio_str = f"{kg_ratio:.4f}"
-        print(f"{beta_K:>6.2f} {beta_G:>6.2f} {chi_K:>6.2f} {chi_G:>6.2f} {g_K_form:>10} {g_G_form:>10} {u0_str:>10} {kg_ratio_str:>13}")
+        print(
+            f"{beta_K:>6.2f} {beta_G:>6.2f} {chi_K:>6.2f} {chi_G:>6.2f} {g_K_form:>10} {g_G_form:>10} {u0_str:>10} {kg_ratio_str:>13}"
+        )
 
     print("=" * 70)
     print()

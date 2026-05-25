@@ -1,5 +1,9 @@
 [↑ Protein Folding Engine (Framework)](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-zt0pd1]
+-->
 
 ## Topological Impedance $Z_{\text{topo}}$: Framework Definition
 
@@ -36,7 +40,7 @@ The split $Z_{\text{topo}} = R + jX$ decomposes:
 
 ### Why "no empirical fits"
 
-Every $L$ and $C$ comes from atomic mass and bond force constants already derived from substrate axioms in [Vol 5 Ch 2 Organic Circuitry](../../../vol_5_biology/chapters/02_organic_circuitry.tex). Specifically:
+Every $L$ and $C$ comes from atomic mass and bond force constants already derived from substrate axioms in Vol 5 Ch 2 Organic Circuitry. Specifically:
 - $L = m/\xi_{\text{topo}}^2$ (Axiom 2 TKI: mass-to-inductance via electromechanical transduction constant; see [Electromechanical Transduction Constant](../molecular-foundations/organic-circuitry/electromechanical-transduction-constant.md))
 - $C = \xi_{\text{topo}}^2/k_{\text{bond}}$ (Axiom 4 dielectric: stiffness-to-capacitance; see [Bond Stiffness to Capacitance](../molecular-foundations/organic-circuitry/bond-stiffness-to-capacitance.md))
 - $k_{\text{bond}}$ derived from Fabry-Pérot bond eigenvalues (see [First-Principles Bond Force Constants](../molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md))
@@ -45,8 +49,6 @@ The $Z_{\text{topo}}$ definition therefore inherits the zero-empirical-fit chain
 
 ### Cross-references
 
-> → Primary: [Vol 5 Ch 2 §sec:z_topo_framework](../../../vol_5_biology/chapters/02_organic_circuitry.tex) lines 684-693 — canonical manuscript source
->
 > → Primary: [Levinthal's Paradox: Mechanical Resolution](./levinthal-mechanical-resolution.md) — how $Z_{\text{topo}}$ drives the folding mechanism
 >
 > ↗ See also: [Electromechanical Transduction Constant](../molecular-foundations/organic-circuitry/electromechanical-transduction-constant.md) — derivation of $\xi_{\text{topo}}$ that goes into $L_R, C_R$

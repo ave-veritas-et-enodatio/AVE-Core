@@ -32,19 +32,21 @@ even if the engine doesn't persist it. The visual gives Grant the empirical
 artifact requested: the most fundamental AVE soliton as the engine encodes
 it, with honest annotation of Mode III dynamics.
 """
+
 import sys
 from pathlib import Path
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.gridspec import GridSpec
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
 from ave.core.constants import ALPHA, ALPHA_COLD_INV
+from ave.topological.vacuum_engine import VacuumEngine3D
+from ave_path_util import sim_output
 
 print("=" * 78)
 print("R10 Path-α v14 — Soliton Visualizer (seed-focused)")
@@ -59,7 +61,9 @@ COSSERAT_AMP_SCALE = 0.35
 V_INC_AMPLITUDE = 0.6
 
 engine = VacuumEngine3D.from_args(
-    N=N, pml=PML, temperature=0.0,
+    N=N,
+    pml=PML,
+    temperature=0.0,
     amplitude_convention="V_SNAP",
 )
 print(f"Engine: N={N}, V_SNAP={engine.V_SNAP}, op3_bond_reflection=True (internal)")
@@ -72,7 +76,8 @@ for port in range(4):
     engine.k4.V_ref[CENTER[0], CENTER[1], CENTER[2], port] = amp_per_port * np.cos(port_phase)
 
 engine.cos.initialize_electron_unknot_sector(
-    R_target=COSSERAT_R, r_target=COSSERAT_R,
+    R_target=COSSERAT_R,
+    r_target=COSSERAT_R,
     amplitude_scale=COSSERAT_AMP_SCALE,
 )
 
@@ -82,6 +87,7 @@ V_ref_seed = engine.k4.V_ref.copy()
 omega_seed = engine.cos.omega.copy()
 omega_norm_seed = np.linalg.norm(omega_seed, axis=-1)
 
+
 # Compute Q-factor integral on the SEED (the canonical soliton structure)
 def q_factor_seed(V_inc, V_ref, omega_norm, R_volume=COSSERAT_R):
     cx, cy, cz = CENTER
@@ -89,13 +95,13 @@ def q_factor_seed(V_inc, V_ref, omega_norm, R_volume=COSSERAT_R):
     y = np.arange(N) - cy
     z = np.arange(N) - cz
     X, Y, Z = np.meshgrid(x, y, z, indexing="ij")
-    r = np.sqrt(X ** 2 + Y ** 2 + Z ** 2)
+    r = np.sqrt(X**2 + Y**2 + Z**2)
     # Use omega-magnitude as the relevant integral density on the SEED
-    omega_norm_2 = omega_norm ** 2
+    omega_norm_2 = omega_norm**2
     omega_center = omega_norm[CENTER]
     if omega_center < 1e-10:
         return 0.0, 0.0, 0.0, 0.0
-    omega_normalized = omega_norm_2 / omega_center ** 2
+    omega_normalized = omega_norm_2 / omega_center**2
 
     volume_mask = (r < R_volume) & engine.k4.mask_active
     Lambda_vol = float(np.sum(omega_normalized[volume_mask]))
@@ -103,16 +109,18 @@ def q_factor_seed(V_inc, V_ref, omega_norm, R_volume=COSSERAT_R):
     surface_mask = (r >= R_volume - 0.5) & (r < R_volume + 0.5) & engine.k4.mask_active
     Lambda_surf = float(np.sum(omega_normalized[surface_mask]))
 
-    line_mask = (np.abs(Z) < 1) & (np.sqrt(X**2 + Y**2) >= R_volume - 0.5) & \
-                (np.sqrt(X**2 + Y**2) < R_volume + 0.5) & engine.k4.mask_active
+    line_mask = (
+        (np.abs(Z) < 1)
+        & (np.sqrt(X**2 + Y**2) >= R_volume - 0.5)
+        & (np.sqrt(X**2 + Y**2) < R_volume + 0.5)
+        & engine.k4.mask_active
+    )
     Lambda_line = float(np.sum(omega_normalized[line_mask]))
 
     return Lambda_vol, Lambda_surf, Lambda_line, omega_center
 
 
-Lambda_vol, Lambda_surf, Lambda_line, omega_peak = q_factor_seed(
-    V_inc_seed, V_ref_seed, omega_norm_seed
-)
+Lambda_vol, Lambda_surf, Lambda_line, omega_peak = q_factor_seed(V_inc_seed, V_ref_seed, omega_norm_seed)
 print(f"Seed Λ_vol  = {Lambda_vol:.4f} (canonical 4π³ = {4*np.pi**3:.4f})")
 print(f"Seed Λ_surf = {Lambda_surf:.4f} (canonical π² = {np.pi**2:.4f})")
 print(f"Seed Λ_line = {Lambda_line:.4f} (canonical π = {np.pi:.4f})")
@@ -123,12 +131,8 @@ print()
 # =============================================================================
 # Build figure
 # =============================================================================
-OUT = REPO_ROOT / "assets" / "sim_outputs"
-OUT.mkdir(parents=True, exist_ok=True)
-
 fig = plt.figure(figsize=(17, 12), facecolor="#0a0a0a")
-gs = GridSpec(3, 4, figure=fig, hspace=0.4, wspace=0.35,
-              height_ratios=[1.0, 1.0, 0.7])
+gs = GridSpec(3, 4, figure=fig, hspace=0.4, wspace=0.35, height_ratios=[1.0, 1.0, 0.7])
 
 # ─── Panel A: 3D Cosserat ω hedgehog ───────────────────────────────────────
 ax3d = fig.add_subplot(gs[0:2, 0:2], projection="3d")
@@ -144,15 +148,31 @@ mag = omega_norm_seed[mask]
 # Color by magnitude
 colors = plt.cm.plasma(mag / omega_peak)
 ax3d.quiver(
-    xs, ys, zs, ux, uy, uz,
-    length=0.8, normalize=True, colors=colors,
-    arrow_length_ratio=0.3, linewidth=1.5,
+    xs,
+    ys,
+    zs,
+    ux,
+    uy,
+    uz,
+    length=0.8,
+    normalize=True,
+    colors=colors,
+    arrow_length_ratio=0.3,
+    linewidth=1.5,
 )
 
 # Mark the center
-ax3d.scatter([CENTER[0]], [CENTER[1]], [CENTER[2]],
-             color="cyan", s=100, marker="*", edgecolor="white",
-             linewidth=2, label="Center cell")
+ax3d.scatter(
+    [CENTER[0]],
+    [CENTER[1]],
+    [CENTER[2]],
+    color="cyan",
+    s=100,
+    marker="*",
+    edgecolor="white",
+    linewidth=2,
+    label="Center cell",
+)
 
 # Draw the horn-torus reference loop (unknot at R = ℓ_node/(2π) scaled to R=2 lattice cells)
 theta = np.linspace(0, 2 * np.pi, 100)
@@ -168,9 +188,9 @@ ax3d.set_zlabel("z")
 ax3d.set_xlim(2, 14)
 ax3d.set_ylim(2, 14)
 ax3d.set_zlim(2, 14)
-ax3d.set_title("The Most Fundamental AVE Soliton:\n"
-               "Cosserat ω-field unknot 0₁ at horn torus",
-               color="white", fontsize=12, pad=12)
+ax3d.set_title(
+    "The Most Fundamental AVE Soliton:\n" "Cosserat ω-field unknot 0₁ at horn torus", color="white", fontsize=12, pad=12
+)
 ax3d.legend(loc="upper right", fontsize=9)
 ax3d.set_facecolor("#0f0f0f")
 ax3d.tick_params(colors="white", labelsize=8)
@@ -188,15 +208,18 @@ ax3d.zaxis.pane.set_edgecolor("#333333")
 # ─── Panel B: |ω| slice through z = center ─────────────────────────────────
 ax_b = fig.add_subplot(gs[0, 2])
 omega_slice = omega_norm_seed[:, :, CENTER[2]]
-im = ax_b.imshow(omega_slice.T, origin="lower", cmap="viridis",
-                 extent=[0, N, 0, N], aspect="equal")
-ax_b.plot(CENTER[0] + 0.5, CENTER[1] + 0.5, "c*", ms=15,
-          markeredgecolor="white", label="Center")
+im = ax_b.imshow(omega_slice.T, origin="lower", cmap="viridis", extent=[0, N, 0, N], aspect="equal")
+ax_b.plot(CENTER[0] + 0.5, CENTER[1] + 0.5, "c*", ms=15, markeredgecolor="white", label="Center")
 # Draw horn-torus equator
 circle_theta = np.linspace(0, 2 * np.pi, 100)
-ax_b.plot(CENTER[0] + 0.5 + COSSERAT_R * np.cos(circle_theta),
-          CENTER[1] + 0.5 + COSSERAT_R * np.sin(circle_theta),
-          "cyan", lw=2, alpha=0.7, label=f"Loop R={COSSERAT_R}")
+ax_b.plot(
+    CENTER[0] + 0.5 + COSSERAT_R * np.cos(circle_theta),
+    CENTER[1] + 0.5 + COSSERAT_R * np.sin(circle_theta),
+    "cyan",
+    lw=2,
+    alpha=0.7,
+    label=f"Loop R={COSSERAT_R}",
+)
 ax_b.set_xlabel("x")
 ax_b.set_ylabel("y")
 ax_b.set_title(f"|ω| equatorial slice (z={CENTER[2]})")
@@ -206,10 +229,8 @@ ax_b.legend(loc="upper right", fontsize=8)
 # ─── Panel C: |ω| slice through x = center (orthogonal view) ───────────────
 ax_c = fig.add_subplot(gs[0, 3])
 omega_slice_yz = omega_norm_seed[CENTER[0], :, :]
-im = ax_c.imshow(omega_slice_yz.T, origin="lower", cmap="viridis",
-                 extent=[0, N, 0, N], aspect="equal")
-ax_c.plot(CENTER[1] + 0.5, CENTER[2] + 0.5, "c*", ms=15,
-          markeredgecolor="white", label="Center")
+im = ax_c.imshow(omega_slice_yz.T, origin="lower", cmap="viridis", extent=[0, N, 0, N], aspect="equal")
+ax_c.plot(CENTER[1] + 0.5, CENTER[2] + 0.5, "c*", ms=15, markeredgecolor="white", label="Center")
 ax_c.set_xlabel("y")
 ax_c.set_ylabel("z")
 ax_c.set_title(f"|ω| orthogonal slice (x={CENTER[0]})")
@@ -222,16 +243,23 @@ v_inc_center = V_inc_seed[CENTER[0], CENTER[1], CENTER[2]]
 v_ref_center = V_ref_seed[CENTER[0], CENTER[1], CENTER[2]]
 colors = ["C0", "C1", "C2", "C3"]
 for port in range(4):
-    ax_d.plot(v_inc_center[port], v_ref_center[port], "o", color=colors[port],
-              ms=15, label=f"Port {port}", markeredgecolor="white", linewidth=2)
+    ax_d.plot(
+        v_inc_center[port],
+        v_ref_center[port],
+        "o",
+        color=colors[port],
+        ms=15,
+        label=f"Port {port}",
+        markeredgecolor="white",
+        linewidth=2,
+    )
 ax_d.axhline(0, color="white", ls=":", lw=0.5, alpha=0.3)
 ax_d.axvline(0, color="white", ls=":", lw=0.5, alpha=0.3)
 # Draw the Clifford-torus (2,3) winding curve
 t = np.linspace(0, 2 * np.pi, 500)
 clifford_x = 0.3 * np.cos(2 * t)
 clifford_y = 0.3 * np.sin(3 * t)
-ax_d.plot(clifford_x, clifford_y, "cyan", lw=1.5, alpha=0.5,
-          label="(2,3) Clifford ref")
+ax_d.plot(clifford_x, clifford_y, "cyan", lw=1.5, alpha=0.5, label="(2,3) Clifford ref")
 ax_d.set_xlabel("V_inc")
 ax_d.set_ylabel("V_ref")
 ax_d.set_title("Phase-space (V_inc, V_ref) at center\n(2,3) Clifford torus winding seed")
@@ -244,18 +272,15 @@ ax_d.set_aspect("equal")
 ax_e = fig.add_subplot(gs[1, 3])
 categories = ["Λ_vol\n→ 𝓜", "Λ_surf\n→ 𝓙", "Λ_line\n→ 𝓠"]
 measured = [Lambda_vol, Lambda_surf, Lambda_line]
-canonical = [4 * np.pi ** 3, np.pi ** 2, np.pi]
+canonical = [4 * np.pi**3, np.pi**2, np.pi]
 x_pos = np.arange(len(categories))
 width = 0.35
-ax_e.bar(x_pos - width / 2, measured, width, label="Seed (engine)",
-         color="C0", alpha=0.85, edgecolor="white")
-ax_e.bar(x_pos + width / 2, canonical, width, label="Canonical α⁻¹ decomp",
-         color="C3", alpha=0.85, edgecolor="white")
+ax_e.bar(x_pos - width / 2, measured, width, label="Seed (engine)", color="C0", alpha=0.85, edgecolor="white")
+ax_e.bar(x_pos + width / 2, canonical, width, label="Canonical α⁻¹ decomp", color="C3", alpha=0.85, edgecolor="white")
 ax_e.set_xticks(x_pos)
 ax_e.set_xticklabels(categories, fontsize=9)
 ax_e.set_ylabel("Magnitude")
-ax_e.set_title("Q-factor decomposition α⁻¹ = 4π³ + π² + π\n"
-               "(seed soliton on engine vs canonical)")
+ax_e.set_title("Q-factor decomposition α⁻¹ = 4π³ + π² + π\n" "(seed soliton on engine vs canonical)")
 ax_e.set_yscale("log")
 ax_e.legend(loc="best", fontsize=8)
 ax_e.grid(True, axis="y", alpha=0.2)
@@ -265,7 +290,9 @@ ax_f = fig.add_subplot(gs[2, :])
 ax_f.axis("off")
 summary = (
     "Seed structure (T=0): canonical electron unknot per L3 doc 101 §10 three-layer canonical\n"
-    "  Layer 1 (real-space): 0₁ unknot at horn torus R = r = ℓ_node/(2π); engine R=" + str(COSSERAT_R) + " lattice-resolved\n"
+    "  Layer 1 (real-space): 0₁ unknot at horn torus R = r = ℓ_node/(2π); engine R="
+    + str(COSSERAT_R)
+    + " lattice-resolved\n"
     "  Layer 2 (field bundle): SU(2) double-cover via SO(3)→SU(2) Rodrigues projection of ω-field\n"
     "  Layer 3 (phase-space): (2,3) Clifford-torus winding in (V_inc, V_ref) at center cell — planted via 4-port phase pattern\n\n"
     "Substrate-observable boundary invariants (Q1 names locked 2026-05-14 evening, Grant confirmed):\n"
@@ -282,11 +309,17 @@ summary = (
     "bound-state dynamics. Doc 92 Reading A (Ax 1 revision) or Reading B (continuum FDTD substrate) remain candidate framework moves;\n"
     "doc 109 §13 substrate-observability rule remains canonical for external claims."
 )
-ax_f.text(0.02, 0.95, summary, transform=ax_f.transAxes,
-          fontsize=9, family="monospace", verticalalignment="top",
-          color="white",
-          bbox=dict(boxstyle="round,pad=0.5",
-                    facecolor="#181818", edgecolor="#404040"))
+ax_f.text(
+    0.02,
+    0.95,
+    summary,
+    transform=ax_f.transAxes,
+    fontsize=9,
+    family="monospace",
+    verticalalignment="top",
+    color="white",
+    bbox=dict(boxstyle="round,pad=0.5", facecolor="#181818", edgecolor="#404040"),
+)
 
 # Style 2D axes
 for ax in [ax_b, ax_c, ax_d, ax_e]:
@@ -306,10 +339,12 @@ for ax in [ax_b, ax_c, ax_d, ax_e]:
 
 fig.suptitle(
     "The Most Fundamental AVE Soliton — Cosserat Unknot Seed on K4-TLM (Mode III dynamics)",
-    color="white", fontsize=14, y=0.995,
+    color="white",
+    fontsize=14,
+    y=0.995,
 )
 
-out_path = OUT / "r10_path_alpha_v14_soliton_seed.png"
+out_path = sim_output("r10_path_alpha_v14_soliton_seed.png")
 plt.savefig(out_path, dpi=140, facecolor="#0a0a0a", bbox_inches="tight")
 print(f"Figure: {out_path}")
 print()

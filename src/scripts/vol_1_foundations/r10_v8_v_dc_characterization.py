@@ -22,7 +22,6 @@ Plus: V_DC in local Frenet frame (tangent, radial, binormal) at each
 A-site to detect Möbius-wrap signature (180° rotation per ring
 traversal) vs Hopf-wrap (360°) vs no wrap.
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -34,10 +33,10 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).parent))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
-from ave.core.constants import V_SNAP
-
 import r10_path_alpha_v8_corrected_measurements as v8
+
+from ave.core.constants import V_SNAP
+from ave.topological.vacuum_engine import VacuumEngine3D
 
 
 def detrend_with_slope(traj):
@@ -64,24 +63,29 @@ def main():
     print("=" * 78, flush=True)
 
     nodes, bonds = v8.build_chair_ring(v8.CENTER)
-    a_0_per_node, centroid = v8.compute_a_0_at_ring_nodes(
-        nodes, v8.A_AMP_POL, v8.HELICAL_PITCH
-    )
+    a_0_per_node, centroid = v8.compute_a_0_at_ring_nodes(nodes, v8.A_AMP_POL, v8.HELICAL_PITCH)
 
     # Identify A-sites (even-parity lattice positions per K4 bipartite convention)
     a_site_ring_idxs = [i for i, n in enumerate(nodes) if all(c % 2 == 0 for c in n)]
     print(f"A-site ring indices: {a_site_ring_idxs}")
 
     engine = VacuumEngine3D.from_args(
-        N=v8.N_LATTICE, pml=v8.PML, temperature=0.0,
+        N=v8.N_LATTICE,
+        pml=v8.PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
     )
     print("Applying v8 helical Beltrami IC...", flush=True)
     v8.initialize_helical_beltrami_ic(
-        engine, nodes, bonds, a_0_per_node,
-        v8.K_BELTRAMI, v8.V_AMP, v8.PHI_AMP,
+        engine,
+        nodes,
+        bonds,
+        a_0_per_node,
+        v8.K_BELTRAMI,
+        v8.V_AMP,
+        v8.PHI_AMP,
     )
 
     nx = engine.k4.nx
@@ -95,8 +99,7 @@ def main():
         phi_link_traj[i] = engine.k4.Phi_link.astype(np.float32)
         if (time.time() - last) > 30.0:
             t_p = (i + 1) * v8.DT / v8.COMPTON_PERIOD
-            print(f"    step {i}/{N_STEPS}, t={t_p:.1f}P, elapsed {time.time()-t0:.1f}s",
-                  flush=True)
+            print(f"    step {i}/{N_STEPS}, t={t_p:.1f}P, elapsed {time.time()-t0:.1f}s", flush=True)
             last = time.time()
     elapsed = time.time() - t0
     print(f"  Recording done at {elapsed:.1f}s", flush=True)
@@ -120,7 +123,7 @@ def main():
         for p in range(4):
             v_dc_vec += v_dc_4ports[p] * port_dirs_normalized[p]
         # Standard Moore-Penrose: ×(3/4)
-        v_dc_vec *= (3.0 / 4.0)
+        v_dc_vec *= 3.0 / 4.0
 
         # Frenet frame at this ring node
         tangent, radial, binormal = v8.ring_frame_at_node(nodes, ring_idx, centroid)
@@ -142,7 +145,7 @@ def main():
             "V_DC_per_port": v_dc_4ports.tolist(),
             "V_DC_vector_lattice": v_dc_vec.tolist(),
             "V_DC_magnitude_vec": float(np.linalg.norm(v_dc_vec)),
-            "V_DC_magnitude_4port_rms": float(np.sqrt(np.sum(v_dc_4ports ** 2))),
+            "V_DC_magnitude_4port_rms": float(np.sqrt(np.sum(v_dc_4ports**2))),
             "Frenet_tangent": tangent.tolist(),
             "Frenet_radial": radial.tolist(),
             "Frenet_binormal": binormal.tolist(),
@@ -164,12 +167,15 @@ def main():
         dot = float(np.dot(v_a, v_b))
         cos_angle = dot / max(norm_a * norm_b, 1e-15)
         angle_deg = float(np.degrees(np.arccos(np.clip(cos_angle, -1.0, 1.0))))
-        a_site_pairs.append({
-            "ring_idx_a": a, "ring_idx_b": b,
-            "V_DC_dot": dot,
-            "V_DC_cos_angle": cos_angle,
-            "V_DC_angle_deg": angle_deg,
-        })
+        a_site_pairs.append(
+            {
+                "ring_idx_a": a,
+                "ring_idx_b": b,
+                "V_DC_dot": dot,
+                "V_DC_cos_angle": cos_angle,
+                "V_DC_angle_deg": angle_deg,
+            }
+        )
 
     # ── ∮V_DC·dl per-bond decomposition ──────────────────────────────────────
     per_bond_contribution = []
@@ -183,14 +189,16 @@ def main():
         sign = float(np.sign(np.dot(a_to_b, traversal)))
         contrib = sign * V_DC_per_port[ix, iy, iz, port]
         loop_V_DC_total += contrib
-        per_bond_contribution.append({
-            "ring_idx": bnd["ring_idx"],
-            "a_site": list(bnd["a_site"]),
-            "port": port,
-            "traversal_sign": sign,
-            "V_DC_along_port": float(V_DC_per_port[ix, iy, iz, port]),
-            "contribution": float(contrib),
-        })
+        per_bond_contribution.append(
+            {
+                "ring_idx": bnd["ring_idx"],
+                "a_site": list(bnd["a_site"]),
+                "port": port,
+                "traversal_sign": sign,
+                "V_DC_along_port": float(V_DC_per_port[ix, iy, iz, port]),
+                "contribution": float(contrib),
+            }
+        )
 
     # Reverse-traversal sanity check (should give -loop_V_DC_total)
     loop_V_DC_reverse = -loop_V_DC_total
@@ -214,31 +222,37 @@ def main():
         d = a_site_data[ring_idx]
         print(f"\n  Ring node {ring_idx} @ {d['node_position']}")
         print(f"    V_DC per port: {[f'{x:+.4e}' for x in d['V_DC_per_port']]}")
-        print(f"    V_DC vector (lattice):  ({d['V_DC_vector_lattice'][0]:+.4e}, "
-              f"{d['V_DC_vector_lattice'][1]:+.4e}, {d['V_DC_vector_lattice'][2]:+.4e})")
-        print(f"    |V_DC| (vec / 4port-rms): {d['V_DC_magnitude_vec']:.4e} / "
-              f"{d['V_DC_magnitude_4port_rms']:.4e}")
-        print(f"    V_DC in Frenet (T, R, B): "
-              f"({d['V_DC_in_Frenet']['tangent']:+.4e}, "
-              f"{d['V_DC_in_Frenet']['radial']:+.4e}, "
-              f"{d['V_DC_in_Frenet']['binormal']:+.4e})")
-        print(f"    Bond-port index: {d['bond_port_index']}, "
-              f"V_DC along bond: {d['V_DC_along_bond']:+.4e}")
+        print(
+            f"    V_DC vector (lattice):  ({d['V_DC_vector_lattice'][0]:+.4e}, "
+            f"{d['V_DC_vector_lattice'][1]:+.4e}, {d['V_DC_vector_lattice'][2]:+.4e})"
+        )
+        print(f"    |V_DC| (vec / 4port-rms): {d['V_DC_magnitude_vec']:.4e} / " f"{d['V_DC_magnitude_4port_rms']:.4e}")
+        print(
+            f"    V_DC in Frenet (T, R, B): "
+            f"({d['V_DC_in_Frenet']['tangent']:+.4e}, "
+            f"{d['V_DC_in_Frenet']['radial']:+.4e}, "
+            f"{d['V_DC_in_Frenet']['binormal']:+.4e})"
+        )
+        print(f"    Bond-port index: {d['bond_port_index']}, " f"V_DC along bond: {d['V_DC_along_bond']:+.4e}")
 
     print()
     print("  Adjacent A-site V_DC correlations:")
     for pair in a_site_pairs:
-        print(f"    A_{pair['ring_idx_a']} ↔ A_{pair['ring_idx_b']}: "
-              f"dot={pair['V_DC_dot']:+.4e}, "
-              f"cos={pair['V_DC_cos_angle']:+.4f}, "
-              f"angle={pair['V_DC_angle_deg']:.1f}°")
+        print(
+            f"    A_{pair['ring_idx_a']} ↔ A_{pair['ring_idx_b']}: "
+            f"dot={pair['V_DC_dot']:+.4e}, "
+            f"cos={pair['V_DC_cos_angle']:+.4f}, "
+            f"angle={pair['V_DC_angle_deg']:.1f}°"
+        )
 
     print()
     print("  ∮V_DC·dl per-bond decomposition:")
     for c in per_bond_contribution:
-        print(f"    bond {c['ring_idx']}: a_site={c['a_site']}, port={c['port']}, "
-              f"sign={c['traversal_sign']:+.0f}, V_DC[port]={c['V_DC_along_port']:+.4e}, "
-              f"contrib={c['contribution']:+.4e}")
+        print(
+            f"    bond {c['ring_idx']}: a_site={c['a_site']}, port={c['port']}, "
+            f"sign={c['traversal_sign']:+.0f}, V_DC[port]={c['V_DC_along_port']:+.4e}, "
+            f"contrib={c['contribution']:+.4e}"
+        )
     print(f"  Σ ∮V_DC·dl forward:  {loop_V_DC_total:+.4e}")
     print(f"  Σ ∮V_DC·dl reverse:  {loop_V_DC_reverse:+.4e}  (should be -forward)")
     print(f"  2/π reference:       {2/np.pi:.4f}")
@@ -262,7 +276,7 @@ def main():
         "loop_V_DC_forward": loop_V_DC_total,
         "loop_V_DC_reverse": loop_V_DC_reverse,
         "two_over_pi_reference": float(2 / np.pi),
-        "match_to_2_over_pi_pct": float(abs(loop_V_DC_total - 2/np.pi) / (2/np.pi) * 100),
+        "match_to_2_over_pi_pct": float(abs(loop_V_DC_total - 2 / np.pi) / (2 / np.pi) * 100),
         "mag_pattern_vec": mag_pattern,
         "mag_pattern_4port_rms": mag_pattern_4port,
         "sym_score_0_vs_4": sym_score_0_vs_4,

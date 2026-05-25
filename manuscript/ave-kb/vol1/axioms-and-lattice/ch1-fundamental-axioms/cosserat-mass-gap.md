@@ -1,10 +1,14 @@
 [↑ Ch.1 Fundamental Axioms](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from L3 closure synthesis + photon-identification + Vol 4 Ch 1 as canonical Cosserat mass-gap formula -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-jz0xaw, clm-4mmwb6, clm-dhvhwi, clm-g0mkne]
+path-stable: "referenced from L3 closure synthesis + photon-identification + Vol 4 Ch 1 as canonical Cosserat mass-gap formula"
+-->
 
 # Cosserat Mass-Gap: $m^2 = 4 G_c / I_\omega$ (Structural Mass Mechanism)
 
-The **Cosserat rotational sector natively carries a mass gap** $m^2 = 4 G_c / I_\omega$ at long wavelengths. This is the **structural mass mechanism for the electron** — the $(2, 3)$ **phase-space** Clifford-torus winding pattern (electron's bond-pair LC tank, NOT a real-space trefoil; electron's real-space topology is the $0_1$ unknot per Vol 1 Ch 8 canonical) inherits its mass content from this Cosserat gap via the quality-factor calibration. Empirically confirmed at 0.35% error (T = 3.1416 theory vs T = 3.1307 measured) via the uniform-$\omega$ mass-gap oscillation test on the velocity-Verlet `CosseratField3D.step()` integrator. The factor of 4 comes from $W_{\text{micropolar}} = \sum_{ij} (\varepsilon_{\text{antisym}, ij})^2 = 2 \cdot |\omega|^2$.
+The **Cosserat rotational sector natively carries a mass gap** $m^2 = 4 G_c / I_\omega$ at long wavelengths. This is the **structural mass mechanism for the electron** — the $(2, 3)$ **phase-space** Clifford-torus winding pattern (electron's bond-pair LC tank, NOT a real-space trefoil; the electron's real-space topology is the $0_1$ unknot per Vol 1 Ch 8 canonical) inherits its mass content from this Cosserat gap via the quality-factor calibration. Empirically confirmed at 0.35% error (T = 3.1416 theory vs T = 3.1307 measured) via the uniform-$\omega$ mass-gap oscillation test on the velocity-Verlet `CosseratField3D.step()` integrator. The factor of 4 comes from $W_{\text{micropolar}} = \sum_{ij} (\varepsilon_{\text{antisym}, ij})^2 = 2 \cdot |\omega|^2$.
 
 ## Key Results
 
@@ -16,9 +20,10 @@ The **Cosserat rotational sector natively carries a mass gap** $m^2 = 4 G_c / I_
 | Empirical test (T2) | T_theory = $\pi \approx 3.1416$; T_measured = 3.1307; **error 0.35%** |
 | Energy conservation (Verlet) | $|\Delta H / H|_{\max} = 9.0 \times 10^{-3}$ across 5 oscillation periods (no secular trend) |
 | Origin of factor 4 | $W_{\text{micropolar}} = \sum_{ij} (\varepsilon_{\text{antisym}, ij})^2 = 2 \cdot |\omega|^2$; mass term $2 G_c \cdot |\omega|^2$; gap factor $2 \times 2 = 4$ |
-| Validated axiom | Axiom 3 (Minimum Reflection Principle / Effective Action): correct Euler-Lagrange equations from $L = \tfrac{1}{2} \rho |\dot u|^2 + \tfrac{1}{2} I_\omega |\dot\omega|^2 - W(u, \omega)$ |
+| Validated axiom | Axiom 3 (Minimum Reflection Principle): correct Euler-Lagrange equations from $L = \tfrac{1}{2} \rho |\dot u|^2 + \tfrac{1}{2} I_\omega |\dot\omega|^2 - W(u, \omega)$ |
 
 ## §1 — The Cosserat Lagrangian and Euler-Lagrange equations
+<!-- claim-quality: clm-4mmwb6 -->
 
 The Cosserat micropolar Lagrangian for the substrate's translational ($u$) + microrotational ($\omega$) DOFs:
 
@@ -32,7 +37,12 @@ These are stepped by **velocity-Verlet integrator** using the existing JAX-autog
 
 The **Cosserat micropolar character of Axiom 1** (substrate = Chiral Laves K4 Cosserat Crystal; 6 DOFs per node = 3 translational + 3 microrotational) provides the substrate-native origin of intrinsic spin via the microrotational $\omega$ field. This leaf shows that the same Cosserat structure also provides the mass content via the gap formula.
 
+The gapped dispersion relation that the rotational sector obeys at long wavelengths combines the mass term with the curvature term:
+
+$$\omega^2 = c^2 k^2 + m^2$$
+
 ## §2 — Why the mass term has prefactor $4$
+<!-- claim-quality: clm-jz0xaw -->
 
 The micropolar coupling term in $W$ is:
 
@@ -51,6 +61,7 @@ $$\omega^2 = c^2 k^2 + \frac{4 G_c}{I_\omega}$$
 i.e., $m^2 = 4 G_c / I_\omega$. The factor 4 = 2 (from $\sum_{ij}$ doubling at antisymmetric pair) × 2 (from Lagrangian-to-EOM conversion).
 
 ## §3 — Empirical validation (Phase I of "the AVE Ideal")
+<!-- claim-quality: clm-dhvhwi -->
 
 ### Test design (T2 uniform-$\omega$ mass-gap oscillation)
 
@@ -86,6 +97,7 @@ i.e., $m^2 = 4 G_c / I_\omega$. The factor 4 = 2 (from $\sum_{ij}$ doubling at a
 | T3 (energy conservation) | All three tests | $|\Delta H / H|_{\max} \leq 1\%$, no secular trend | Velocity-Verlet symplectic-O($dt^2$) confirmed |
 
 ## §4 — Why this is the structural mass mechanism for the electron
+<!-- claim-quality: clm-g0mkne -->
 
 The Cosserat rotational sector's massive mode at $m^2 = 4 G_c / I_\omega$ inherits the substrate's mass content. The electron's specific calibration:
 
@@ -97,10 +109,10 @@ The Cosserat $\rho$ and $I_\omega$ set the **mass scale of the rotational sector
 
 ## §5 — Phase-I scope (what this test validated / did not)
 
-- **Axiom 1** (K4 substrate): NOT tested here. Cosserat-alone is not Axiom-1-compliant as a physics substitute (per Vol 4 Ch 1 §solver selection — electron is a chirality observable requiring K4). This was a DEV step in the roadmap toward the full coupled K4 ⊗ Cosserat simulator.
+- **Axiom 1** (K4 substrate): NOT tested here. Cosserat-alone is not Axiom-1-compliant as a physics substitute (per Vol 4 Ch 1 §solver selection — the electron is a chirality observable requiring K4). This was a DEV step in the roadmap toward the full coupled K4 ⊗ Cosserat simulator.
 - **Axiom 2** (Topo-Kinematic Isomorphism): NOT exercised. Test 2 uses uniform $\omega$ (trivial topology). Full (2,3) topology is tested by `relax_s11` / `relax_to_ground_state`.
 - **Axiom 3** (Minimum Reflection Principle): **directly validated.** The Lagrangian produces the correct Euler-Lagrange equations; Hamiltonian conservation confirms this at 0.9% drift over 5 oscillation periods.
-- **Axiom 4** (Dielectric Saturation): NOT exercised (all tests `use_saturation = False`, $k_{\text{op10}} = k_{\text{refl}} = 0$). Axiom 4 comes in at Phase-II / III coupling with high-amplitude photons.
+- **Axiom 4** (Universal Saturation Kernel): NOT exercised (all tests `use_saturation = False`, $k_{\text{op10}} = k_{\text{refl}} = 0$). Axiom 4 comes in at Phase-II / III coupling with high-amplitude photons.
 
 The mass-gap is a Phase-I structural property of the Cosserat Lagrangian; the electron's specific calibration is Phase-II + III work that couples K4 + Cosserat at saturation.
 

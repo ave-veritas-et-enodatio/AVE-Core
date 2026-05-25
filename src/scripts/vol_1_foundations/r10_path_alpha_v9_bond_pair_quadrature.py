@@ -35,7 +35,6 @@ A-021 pre-flight grep applied: no prior bond-pair-quadrature drivers exist;
 r9_path_alpha_bond_pair_phasor.py is the closest template (V_inc-only at
 bond-cluster) which this driver supersedes per A47 v7 quadrature requirement.
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -47,9 +46,9 @@ from scipy.signal import hilbert
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
 from tlm_electron_soliton_eigenmode import initialize_quadrature_2_3_eigenmode
 
+from ave.topological.vacuum_engine import VacuumEngine3D
 
 # ─── Bond-pair-scale constants ────────────────────────────────────────────
 
@@ -58,9 +57,9 @@ PHI_SQ = PHI * PHI
 
 N_LATTICE = 16
 PML = 4
-R_ANCHOR = 2.0                # bond-pair scale (vs r9's R=10 bond-cluster)
-R_MINOR = R_ANCHOR / PHI_SQ   # ≈ 0.764
-AMPLITUDE = 0.05              # sub-yield (V_yield ≈ 0.0854)
+R_ANCHOR = 2.0  # bond-pair scale (vs r9's R=10 bond-cluster)
+R_MINOR = R_ANCHOR / PHI_SQ  # ≈ 0.764
+AMPLITUDE = 0.05  # sub-yield (V_yield ≈ 0.0854)
 
 OMEGA_C = 1.0
 COMPTON_PERIOD = 2.0 * np.pi / OMEGA_C
@@ -177,8 +176,7 @@ def adjudicate_per_cluster(cluster_phasors):
             try:
                 a_inc = hilbert(V_inc_traj - V_inc_traj.mean())
                 a_ref = hilbert(V_ref_traj - V_ref_traj.mean())
-                phase_diff = np.angle(a_ref / np.maximum(np.abs(a_inc), 1e-12) /
-                                      np.exp(1j * np.angle(a_inc)))
+                phase_diff = np.angle(a_ref / np.maximum(np.abs(a_inc), 1e-12) / np.exp(1j * np.angle(a_inc)))
                 chirality_signs.append(float(np.mean(np.sin(phase_diff))))
             except Exception:
                 continue
@@ -249,12 +247,12 @@ def main():
         engine.step()
         # Accumulate per-cell |V_inc|²+|V_ref|² across active mask, port 0
         active = engine.k4.mask_active
-        amp_sq = (engine.k4.V_inc[..., 0]**2 + engine.k4.V_ref[..., 0]**2) * active
+        amp_sq = (engine.k4.V_inc[..., 0] ** 2 + engine.k4.V_ref[..., 0] ** 2) * active
         accumulated_amp_sq += amp_sq
 
     # Find top-K saturated cells (excluding PML)
     interior_mask = np.zeros_like(accumulated_amp_sq, dtype=bool)
-    interior_mask[PML:N_LATTICE-PML, PML:N_LATTICE-PML, PML:N_LATTICE-PML] = True
+    interior_mask[PML : N_LATTICE - PML, PML : N_LATTICE - PML, PML : N_LATTICE - PML] = True
     masked_amp_sq = np.where(interior_mask, accumulated_amp_sq, -np.inf)
     flat = masked_amp_sq.flatten()
     top_indices = np.argpartition(flat, -TOP_K_CANDIDATES)[-TOP_K_CANDIDATES:]
@@ -318,11 +316,15 @@ def main():
         print(f"\nCluster '{name}' (n_pairs={info['n_pairs']}):")
         print(f"  Mode: {info['mode']}")
         if info.get("ratio") is not None:
-            print(f"  R_phase/r_phase = {info['ratio']:.3f} (target φ² = {info['phi_sq_target']:.3f}, "
-                  f"gap {info['ratio_gap_pct']:.1f}%)")
+            print(
+                f"  R_phase/r_phase = {info['ratio']:.3f} (target φ² = {info['phi_sq_target']:.3f}, "
+                f"gap {info['ratio_gap_pct']:.1f}%)"
+            )
             print(f"  C1 (R/r=φ² ±5%): {'PASS' if info['c1_pass'] else 'FAIL'}")
-        print(f"  CCW consensus: {info.get('ccw_consensus_frac', 0)*100:.1f}%, "
-              f"CW consensus: {info.get('cw_consensus_frac', 0)*100:.1f}%")
+        print(
+            f"  CCW consensus: {info.get('ccw_consensus_frac', 0)*100:.1f}%, "
+            f"CW consensus: {info.get('cw_consensus_frac', 0)*100:.1f}%"
+        )
         print(f"  C2 (≥75% chirality): {'PASS' if info.get('c2_pass') else 'FAIL'}")
 
     # Write results
@@ -333,8 +335,7 @@ def main():
         "amplitude": AMPLITUDE,
         "ic_seeder": "initialize_quadrature_2_3_eigenmode",
         "n_bond_pairs": len(bond_pairs),
-        "bond_pairs": [{"A": list(bp["A"]), "B": list(bp["B"]),
-                        "offset": list(bp["offset"])} for bp in bond_pairs],
+        "bond_pairs": [{"A": list(bp["A"]), "B": list(bp["B"]), "offset": list(bp["offset"])} for bp in bond_pairs],
         "adjudication": adj,
     }
     OUTPUT_JSON.write_text(json.dumps(result, indent=2, default=str))

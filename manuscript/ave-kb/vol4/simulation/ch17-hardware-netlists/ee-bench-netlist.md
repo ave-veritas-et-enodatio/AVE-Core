@@ -1,5 +1,9 @@
 [↑ Ch.17: Hardware Netlists](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-vjv4zf]
+-->
 
 ## The EE Bench: Dielectric Yield Plateau
 

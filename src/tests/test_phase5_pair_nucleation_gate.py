@@ -31,7 +31,6 @@ Reference:
   - manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:189-203
     (Bingham plastic / TVS Zener / Slipstream)
 """
-from __future__ import annotations
 
 import numpy as np
 import pytest
@@ -77,12 +76,15 @@ class TestPhase5Construction:
 
     def test_port_vectors_are_tetrahedral(self):
         """Class constant must match K4 p0..p3 tetrahedral layout."""
-        expected = np.array([
-            [+1, +1, +1],
-            [+1, -1, -1],
-            [-1, +1, -1],
-            [-1, -1, +1],
-        ], dtype=float)
+        expected = np.array(
+            [
+                [+1, +1, +1],
+                [+1, -1, -1],
+                [-1, +1, -1],
+                [-1, -1, +1],
+            ],
+            dtype=float,
+        )
         np.testing.assert_array_equal(PairNucleationGate._PORT_VECTORS, expected)
 
     def test_custom_overrides_respected(self):
@@ -110,7 +112,10 @@ class TestPhase5IdleConditions:
     @pytest.fixture
     def cold_engine(self):
         return VacuumEngine3D.from_args(
-            N=8, pml=0, temperature=0.0, amplitude_convention="V_SNAP",
+            N=8,
+            pml=0,
+            temperature=0.0,
+            amplitude_convention="V_SNAP",
         )
 
     def test_no_firing_on_cold_vacuum_with_no_source(self, cold_engine):
@@ -128,11 +133,13 @@ class TestPhase5IdleConditions:
         # Force all sites to full saturation
         N = cold_engine.N
         monkeypatch.setattr(
-            gate, "_compute_A2_mu",
+            gate,
+            "_compute_A2_mu",
             lambda eng: np.ones((N, N, N), dtype=float),
         )
         monkeypatch.setattr(
-            gate, "_compute_Omega_node",
+            gate,
+            "_compute_Omega_node",
             lambda eng: np.ones((N, N, N), dtype=float),
         )
         cap = gate._capture(cold_engine)
@@ -142,9 +149,13 @@ class TestPhase5IdleConditions:
     def test_no_firing_with_drive_but_empty_field(self, cold_engine):
         """Source registered, A²_μ = 0 everywhere → C1 fails → no firing."""
         src = AutoresonantCWSource(
-            x0=3, direction=(1.0, 0.0, 0.0),
-            amplitude=0.01, omega=2.0 * np.pi / 3.5,
-            sigma_yz=2.0, t_ramp=1.0, t_sustain=1.0,
+            x0=3,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=0.01,
+            omega=2.0 * np.pi / 3.5,
+            sigma_yz=2.0,
+            t_ramp=1.0,
+            t_sustain=1.0,
         )
         cold_engine.add_source(src)
         gate = PairNucleationGate(cadence=1)
@@ -163,12 +174,19 @@ class TestPhase5GateLogic:
     @pytest.fixture
     def engine_with_source(self):
         engine = VacuumEngine3D.from_args(
-            N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP",
+            N=6,
+            pml=0,
+            temperature=0.0,
+            amplitude_convention="V_SNAP",
         )
         src = AutoresonantCWSource(
-            x0=3, direction=(1.0, 0.0, 0.0),
-            amplitude=0.01, omega=2.0 * np.pi / 3.5,
-            sigma_yz=2.0, t_ramp=1.0, t_sustain=1.0,
+            x0=3,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=0.01,
+            omega=2.0 * np.pi / 3.5,
+            sigma_yz=2.0,
+            t_ramp=1.0,
+            t_sustain=1.0,
         )
         engine.add_source(src)
         return engine, src
@@ -178,7 +196,9 @@ class TestPhase5GateLogic:
         monkeypatch.setattr(gate, "_compute_Omega_node", lambda eng: omega_node_field)
 
     def test_c1_fails_single_endpoint_unsaturated(
-        self, engine_with_source, monkeypatch,
+        self,
+        engine_with_source,
+        monkeypatch,
     ):
         """A-site saturated, B-site unsaturated → no firing."""
         engine, src = engine_with_source
@@ -200,7 +220,9 @@ class TestPhase5GateLogic:
         assert gate._total_firings == 0
 
     def test_c2_fails_drive_far_from_node_resonance(
-        self, engine_with_source, monkeypatch,
+        self,
+        engine_with_source,
+        monkeypatch,
     ):
         """Both endpoints saturated but drive freq far outside δ_lock."""
         engine, src = engine_with_source
@@ -217,7 +239,9 @@ class TestPhase5GateLogic:
         assert gate._total_firings == 0
 
     def test_c1_and_c2_both_met_fires(
-        self, engine_with_source, monkeypatch,
+        self,
+        engine_with_source,
+        monkeypatch,
     ):
         """Both endpoints saturated + Ω_node locked to drive → gate fires."""
         engine, src = engine_with_source
@@ -234,7 +258,9 @@ class TestPhase5GateLogic:
         assert cap["gate_active"] is True
 
     def test_delta_lock_edge_just_inside(
-        self, engine_with_source, monkeypatch,
+        self,
+        engine_with_source,
+        monkeypatch,
     ):
         """Ω_node = ω·(1 + 0.5·α) is inside δ_lock = α·ω → fires."""
         engine, src = engine_with_source
@@ -250,7 +276,9 @@ class TestPhase5GateLogic:
         assert cap["n_fired_this_step"] >= 1
 
     def test_delta_lock_edge_just_outside(
-        self, engine_with_source, monkeypatch,
+        self,
+        engine_with_source,
+        monkeypatch,
     ):
         """Ω_node = ω·(1 + 2·α) is outside δ_lock = α·ω → no fire."""
         engine, src = engine_with_source
@@ -273,12 +301,19 @@ class TestPhase5RefirePrevention:
 
     def test_bond_fires_exactly_once_across_repeated_captures(self, monkeypatch):
         engine = VacuumEngine3D.from_args(
-            N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP",
+            N=6,
+            pml=0,
+            temperature=0.0,
+            amplitude_convention="V_SNAP",
         )
         src = AutoresonantCWSource(
-            x0=3, direction=(1.0, 0.0, 0.0),
-            amplitude=0.01, omega=2.0 * np.pi / 3.5,
-            sigma_yz=2.0, t_ramp=1.0, t_sustain=1.0,
+            x0=3,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=0.01,
+            omega=2.0 * np.pi / 3.5,
+            sigma_yz=2.0,
+            t_ramp=1.0,
+            t_sustain=1.0,
         )
         engine.add_source(src)
         gate = PairNucleationGate(cadence=1)
@@ -288,7 +323,7 @@ class TestPhase5RefirePrevention:
         monkeypatch.setattr(gate, "_compute_A2_mu", lambda eng: A2)
         monkeypatch.setattr(gate, "_compute_Omega_node", lambda eng: Omega_node)
 
-        cap1 = gate._capture(engine)
+        gate._capture(engine)
         first_firings = gate._total_firings
         assert first_firings >= 1
 
@@ -307,7 +342,10 @@ class TestPhase5InjectionProfile:
     @pytest.fixture
     def engine(self):
         return VacuumEngine3D.from_args(
-            N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP",
+            N=6,
+            pml=0,
+            temperature=0.0,
+            amplitude_convention="V_SNAP",
         )
 
     def test_omega_lh_at_A_rh_at_B(self, engine):
@@ -366,24 +404,23 @@ class TestPhase5InjectionProfile:
         gate = PairNucleationGate(phi_critical=1.0)
         # Scan bonds until we find one on each port index
         seen = {}
-        for (A_idx, port, B_idx) in gate._candidate_bonds(engine):
+        for A_idx, port, B_idx in gate._candidate_bonds(engine):
             if port not in seen:
                 # Use a fresh copy of engine per port to avoid state bleed
                 eng_fresh = VacuumEngine3D.from_args(
-                    N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP",
+                    N=6,
+                    pml=0,
+                    temperature=0.0,
+                    amplitude_convention="V_SNAP",
                 )
                 g = PairNucleationGate(phi_critical=1.0)
                 g._inject_pair(eng_fresh, A_idx, port, B_idx)
-                seen[port] = eng_fresh.k4.Phi_link[
-                    A_idx[0], A_idx[1], A_idx[2], port
-                ]
+                seen[port] = eng_fresh.k4.Phi_link[A_idx[0], A_idx[1], A_idx[2], port]
                 if len(seen) == 4:
                     break
         for port, phi_val in seen.items():
             expected_sign = +1.0 if (port % 2 == 0) else -1.0
-            assert np.sign(phi_val) == expected_sign, (
-                f"Port {port}: expected sign {expected_sign}, got Φ={phi_val}"
-            )
+            assert np.sign(phi_val) == expected_sign, f"Port {port}: expected sign {expected_sign}, got Φ={phi_val}"
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -396,7 +433,10 @@ class TestPhase5CandidateBonds:
     @pytest.fixture
     def engine(self):
         return VacuumEngine3D.from_args(
-            N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP",
+            N=6,
+            pml=0,
+            temperature=0.0,
+            amplitude_convention="V_SNAP",
         )
 
     def test_all_bonds_have_A_on_mask_A(self, engine):
@@ -404,17 +444,13 @@ class TestPhase5CandidateBonds:
         bonds = gate._candidate_bonds(engine)
         assert len(bonds) > 0
         for A_idx, port, B_idx in bonds:
-            assert engine.k4.mask_A[A_idx], (
-                f"A_idx={A_idx} not on mask_A"
-            )
+            assert engine.k4.mask_A[A_idx], f"A_idx={A_idx} not on mask_A"
 
     def test_all_bonds_have_B_on_mask_B(self, engine):
         gate = PairNucleationGate()
         bonds = gate._candidate_bonds(engine)
         for A_idx, port, B_idx in bonds:
-            assert engine.k4.mask_B[B_idx], (
-                f"B_idx={B_idx} not on mask_B"
-            )
+            assert engine.k4.mask_B[B_idx], f"B_idx={B_idx} not on mask_B"
 
     def test_B_equals_A_plus_port_vector(self, engine):
         gate = PairNucleationGate()
@@ -439,27 +475,35 @@ class TestPhase5DriveFrequencies:
 
     def test_empty_when_no_sources(self):
         engine = VacuumEngine3D.from_args(
-            N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP",
+            N=6,
+            pml=0,
+            temperature=0.0,
+            amplitude_convention="V_SNAP",
         )
         gate = PairNucleationGate()
         assert gate._drive_frequencies(engine) == []
 
     def test_returns_autoresonant_omega_current(self):
         engine = VacuumEngine3D.from_args(
-            N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP",
+            N=6,
+            pml=0,
+            temperature=0.0,
+            amplitude_convention="V_SNAP",
         )
         src = AutoresonantCWSource(
-            x0=3, direction=(1.0, 0.0, 0.0),
-            amplitude=0.01, omega=2.0 * np.pi / 3.5,
-            sigma_yz=2.0, t_ramp=1.0, t_sustain=1.0,
+            x0=3,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=0.01,
+            omega=2.0 * np.pi / 3.5,
+            sigma_yz=2.0,
+            t_ramp=1.0,
+            t_sustain=1.0,
         )
         engine.add_source(src)
         gate = PairNucleationGate()
         freqs = gate._drive_frequencies(engine)
         assert len(freqs) == 1
-        assert freqs[0] == pytest.approx(
-            float(src._omega_current or src.omega), rel=1e-10
-        )
+        assert freqs[0] == pytest.approx(float(src._omega_current or src.omega), rel=1e-10)
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -471,7 +515,10 @@ class TestPhase5EngineIntegration:
 
     def test_gate_registers_and_runs_on_cold_vacuum(self):
         engine = VacuumEngine3D.from_args(
-            N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP",
+            N=6,
+            pml=0,
+            temperature=0.0,
+            amplitude_convention="V_SNAP",
         )
         gate = PairNucleationGate(cadence=1)
         engine.add_observer(gate)
@@ -484,7 +531,10 @@ class TestPhase5EngineIntegration:
     def test_no_nan_or_inf_post_injection(self):
         """After firing, the engine state must remain finite."""
         engine = VacuumEngine3D.from_args(
-            N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP",
+            N=6,
+            pml=0,
+            temperature=0.0,
+            amplitude_convention="V_SNAP",
         )
         gate = PairNucleationGate()
         A_idx, port, B_idx = gate._candidate_bonds(engine)[0]
@@ -496,7 +546,10 @@ class TestPhase5EngineIntegration:
     def test_engine_can_step_after_injection(self):
         """Engine must advance one step post-injection without errors."""
         engine = VacuumEngine3D.from_args(
-            N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP",
+            N=6,
+            pml=0,
+            temperature=0.0,
+            amplitude_convention="V_SNAP",
         )
         gate = PairNucleationGate()
         A_idx, port, B_idx = gate._candidate_bonds(engine)[0]
@@ -516,32 +569,38 @@ class TestPhase5CaptureContract:
 
     def test_idle_capture_has_required_keys(self):
         engine = VacuumEngine3D.from_args(
-            N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP",
+            N=6,
+            pml=0,
+            temperature=0.0,
+            amplitude_convention="V_SNAP",
         )
         gate = PairNucleationGate()
         cap = gate._capture(engine)
-        for key in ("t", "n_nucleated_total", "n_fired_this_step",
-                    "fired_bonds", "gate_active"):
+        for key in ("t", "n_nucleated_total", "n_fired_this_step", "fired_bonds", "gate_active"):
             assert key in cap, f"capture missing key: {key}"
 
     def test_active_capture_has_required_keys(self, monkeypatch):
         engine = VacuumEngine3D.from_args(
-            N=6, pml=0, temperature=0.0, amplitude_convention="V_SNAP",
+            N=6,
+            pml=0,
+            temperature=0.0,
+            amplitude_convention="V_SNAP",
         )
         src = AutoresonantCWSource(
-            x0=3, direction=(1.0, 0.0, 0.0),
-            amplitude=0.01, omega=2.0 * np.pi / 3.5,
-            sigma_yz=2.0, t_ramp=1.0, t_sustain=1.0,
+            x0=3,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=0.01,
+            omega=2.0 * np.pi / 3.5,
+            sigma_yz=2.0,
+            t_ramp=1.0,
+            t_sustain=1.0,
         )
         engine.add_source(src)
         gate = PairNucleationGate()
         N = engine.N
-        monkeypatch.setattr(gate, "_compute_A2_mu",
-                            lambda eng: np.ones((N, N, N)))
-        monkeypatch.setattr(gate, "_compute_Omega_node",
-                            lambda eng: np.full((N, N, N), float(src.omega)))
+        monkeypatch.setattr(gate, "_compute_A2_mu", lambda eng: np.ones((N, N, N)))
+        monkeypatch.setattr(gate, "_compute_Omega_node", lambda eng: np.full((N, N, N), float(src.omega)))
         cap = gate._capture(engine)
-        for key in ("t", "n_nucleated_total", "n_fired_this_step",
-                    "fired_bonds", "gate_active"):
+        for key in ("t", "n_nucleated_total", "n_fired_this_step", "fired_bonds", "gate_active"):
             assert key in cap
         assert cap["gate_active"] is True

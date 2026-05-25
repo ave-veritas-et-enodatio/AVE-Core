@@ -30,17 +30,19 @@ Run:
     python src/scripts/verify/q_g47_session15_k4_cosserat_stabilized.py
 """
 
-from __future__ import annotations
-
-import numpy as np
 from dataclasses import dataclass
 
-K4_BOND_DIRECTIONS = np.array([
-    [+1, +1, +1],
-    [+1, -1, -1],
-    [-1, +1, -1],
-    [-1, -1, +1],
-], dtype=float) / np.sqrt(3.0)
+import numpy as np
+
+K4_BOND_DIRECTIONS = np.array(
+    [
+        [+1, +1, +1],
+        [+1, -1, -1],
+        [-1, +1, -1],
+        [-1, -1, +1],
+    ],
+    dtype=float,
+) / np.sqrt(3.0)
 
 
 @dataclass
@@ -55,9 +57,10 @@ class KeatingBond:
     consistent. Treat k_θ as a free parameter; k_a as the canonical bond
     stretching stiffness.
     """
-    k_a: float = 1.0      # axial Hookean [N/m]
+
+    k_a: float = 1.0  # axial Hookean [N/m]
     k_theta: float = 1.0  # bond-bending [N·m/rad²], divided by d² in energy
-    d: float = 1.0        # bond length [m]
+    d: float = 1.0  # bond length [m]
 
     def energy(self, n_hat: np.ndarray, delta_u: np.ndarray) -> float:
         n = n_hat / np.linalg.norm(n_hat)
@@ -83,10 +86,11 @@ def unit_cell_energy_keating(
 
 def relaxed_energy_keating(strain_3x3: np.ndarray, bond: KeatingBond):
     from scipy.optimize import minimize
+
     res = minimize(
         lambda u: unit_cell_energy_keating(strain_3x3, u, bond),
         x0=np.zeros(3),
-        method='BFGS',
+        method="BFGS",
         tol=1e-14,
     )
     return res.fun, res.x
@@ -120,17 +124,19 @@ def main():
     print()
     print("Question 1: does k_θ > 0 stabilize G > 0 under sublattice relaxation?")
     print()
-    print(f"{'k_a':>6} {'k_θ':>6} {'K_rigid':>10} {'K_relaxed':>11} {'G_rigid':>10} {'G_relaxed':>11} {'K/G relaxed':>13}")
+    print(
+        f"{'k_a':>6} {'k_θ':>6} {'K_rigid':>10} {'K_relaxed':>11} {'G_rigid':>10} {'G_relaxed':>11} {'K/G relaxed':>13}"
+    )
     print("-" * 75)
 
     test_bonds = [
-        (1.0, 0.0),    # central-force only (Session 14 baseline)
-        (1.0, 0.1),    # tiny bending
-        (1.0, 0.5),    # half-strength bending
-        (1.0, 1.0),    # canonical isotropic (matches Session 12 k_a=k_s=1)
-        (1.0, 2.0),    # strong bending
-        (1.0, 5.0),    # very strong bending
-        (1.0, 10.0),   # bending-dominated
+        (1.0, 0.0),  # central-force only (Session 14 baseline)
+        (1.0, 0.1),  # tiny bending
+        (1.0, 0.5),  # half-strength bending
+        (1.0, 1.0),  # canonical isotropic (matches Session 12 k_a=k_s=1)
+        (1.0, 2.0),  # strong bending
+        (1.0, 5.0),  # very strong bending
+        (1.0, 10.0),  # bending-dominated
     ]
 
     K_relaxed_list, G_relaxed_list = [], []
@@ -146,14 +152,14 @@ def main():
     print("Question 2: what k_θ/k_a ratio gives Cauchy K/G = 5/3?")
 
     # Sweep k_theta/k_a to find K/G = 5/3
-    target = 5/3
+    target = 5 / 3
     print(f"{'k_θ/k_a':>10} {'K/G relaxed':>15}")
     print("-" * 30)
     for k_theta in np.linspace(0.0, 3.0, 16):
         bond = KeatingBond(k_a=1.0, k_theta=k_theta, d=1.0)
         _, K_rel, _, G_rel = extract_KG_relaxed(bond)
-        ratio = K_rel/G_rel if G_rel > 1e-10 else float('inf')
-        marker = " ← Cauchy 5/3" if abs(ratio - 5/3) < 0.05 else ""
+        ratio = K_rel / G_rel if G_rel > 1e-10 else float("inf")
+        marker = " ← Cauchy 5/3" if abs(ratio - 5 / 3) < 0.05 else ""
         print(f"{k_theta:>10.4f} {ratio:>15.4f}{marker}")
 
     print()

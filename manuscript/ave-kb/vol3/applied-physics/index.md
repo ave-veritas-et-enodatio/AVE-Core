@@ -1,5 +1,13 @@
 [↑ Vol 3: Macroscopic Physics](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-91adfe, clm-cul4it, clm-o6kgkz, clm-wd5rs0, clm-zsqh87]
+subtree-experiments: []
+-->
+
+> ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claim-quality.md`](../claim-quality.md) (volume scope) and [`../../claim-quality.md`](../../claim-quality.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
+
 # Applied Physics
 
 AVE applied to three observational domains: stellar interiors and neutrino oscillation, the ideal gas law as LC energy balance, and geophysics via the universal FDTD seismic engine. Each domain uses the same impedance operators (reflection coefficient, saturation, mode coupling) that govern particle physics and cosmology, applied to domain-specific material parameters.

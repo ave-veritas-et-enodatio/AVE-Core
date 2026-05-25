@@ -1,5 +1,11 @@
 [↑ Proofs and Computation](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-dboxok]
+subtree-experiments: []
+-->
+
 # Ch. 11: The Standard Model Overdrive
 
 Chapter 11 demonstrates computational supremacy of the Universal Topological Optimisation Engine by applying a single $O(N^2)$ impedance-minimising gradient descent — unmodified — to two of modern physics' most computationally demanding grand challenge problems: heavy nuclear assembly and first-principles protein folding.

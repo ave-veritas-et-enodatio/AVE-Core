@@ -1,5 +1,11 @@
 [↑ Nuclear and Field Physics](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-g6e3zw]
+subtree-experiments: []
+-->
+
 # Ch. 8: The Planck Scale and String Theory
 
 Chapter 8 resolves the string theory dimensionality crisis by providing the 3D continuous non-linear LC metric that stabilizes 1D flux tubes without requiring unobservable extra dimensions, and derives the empirical string tension and Regge slope from the baseline electron unknot.

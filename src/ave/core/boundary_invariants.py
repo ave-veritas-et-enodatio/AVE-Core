@@ -61,10 +61,7 @@ Cross-references:
     (cosmic-scale application)
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass
-from typing import Optional
 
 import numpy as np
 
@@ -90,7 +87,7 @@ class BoundaryInvariants:
     M: float
     Q: float
     J: float
-    M_unit_normalized: Optional[float] = None
+    M_unit_normalized: float | None = None
 
     def __repr__(self) -> str:
         return (
@@ -243,7 +240,6 @@ def compute_J(V: np.ndarray, dx: float, V_yield: float = 1.0) -> float:
     rx = coords_x - com_x
     ry = coords_y - com_y
     rz = coords_z - com_z
-    r2 = rx**2 + ry**2 + rz**2
 
     # Asymmetry proxy: max anisotropy in the moment-of-inertia eigenvalues
     Ixx = float((A * (ry**2 + rz**2)).sum() / A_total)
@@ -275,7 +271,7 @@ def compute_all_invariants(
     V_yield: float = 1.0,
     A_cap: float = 0.99,
     threshold_factor: float = 0.5,
-    l_node: Optional[float] = None,
+    l_node: float | None = None,
 ) -> BoundaryInvariants:
     """Compute all three substrate invariants for the given field.
 

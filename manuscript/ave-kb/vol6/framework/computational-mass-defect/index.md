@@ -1,5 +1,11 @@
 [↑ Vol 6: Framework](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-5965y1, clm-6tuqjh, clm-86gq2d, clm-jy8h1x, clm-llqd1n, clm-lqanmt, clm-nk6c43, clm-o9xphr, clm-qjwj12]
+subtree-experiments: []
+-->
+
 # Computational Mass Defect via Mutual Impedance
 
 A fundamental challenge in standard continuous vacuum theories is calculating the total integrated strain (and therefore the total energy or mass) of complex overlapping geometrical fields. Because the AVE framework defines the vacuum as a discrete $LC$ network, established Electrical Engineering network theory is leveraged to compute nuclear masses via mutual impedance summation with zero empirical parameters.

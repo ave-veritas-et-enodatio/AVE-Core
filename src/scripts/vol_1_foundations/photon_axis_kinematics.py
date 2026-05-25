@@ -43,15 +43,15 @@ Outputs:
   - assets/photon_axis_kinematics.png    (4-panel summary)
   - results/photon_axis_kinematics.json  (pre-reg evaluation)
 """
-from __future__ import annotations
 
 import json
 import os
 import sys
 from pathlib import Path
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -61,7 +61,6 @@ from photon_propagation import PlaneSource, forward_port_weights, xy_slice  # no
 
 from ave.core.constants import C_0, V_SNAP  # noqa: E402
 from ave.core.k4_tlm import K4Lattice3D  # noqa: E402
-
 
 # Pre-registered acceptance criteria (verbatim, per A47 v11b discipline).
 # Edits here must include a corresponding retraction note per Rule 12.
@@ -205,17 +204,13 @@ def test_a1_t2_projection() -> dict:
     print("A.1 — T₂ projection cardinal-axis control test (+x̂)")
     print("=" * 72)
 
-    r_with = measure_wavefront_velocity(
-        direction=(1.0, 0.0, 0.0), project_T2=True
-    )
+    r_with = measure_wavefront_velocity(direction=(1.0, 0.0, 0.0), project_T2=True)
     print(
         f"  T₂=True  (default): v/c = {r_with['c_ratio']:.4f}, "
         f"port_w = {r_with['port_w']}, Σw = {r_with['port_w_sum']:+.6f}"
     )
 
-    r_without = measure_wavefront_velocity(
-        direction=(1.0, 0.0, 0.0), project_T2=False
-    )
+    r_without = measure_wavefront_velocity(direction=(1.0, 0.0, 0.0), project_T2=False)
     print(
         f"  T₂=False (raw):     v/c = {r_without['c_ratio']:.4f}, "
         f"port_w = {r_without['port_w']}, Σw = {r_without['port_w_sum']:+.6f}"
@@ -224,16 +219,8 @@ def test_a1_t2_projection() -> dict:
     # Pre-reg evaluation
     c_with = r_with["c_ratio"]
     c_without = r_without["c_ratio"]
-    pass_C_A1a = (
-        PREREG["C-A1a_T2_projected_v_over_c_min"]
-        <= c_with
-        <= PREREG["C-A1a_T2_projected_v_over_c_max"]
-    )
-    pass_C_A1b = (
-        PREREG["C-A1b_no_projection_v_over_c_min"]
-        <= c_without
-        <= PREREG["C-A1b_no_projection_v_over_c_max"]
-    )
+    pass_C_A1a = PREREG["C-A1a_T2_projected_v_over_c_min"] <= c_with <= PREREG["C-A1a_T2_projected_v_over_c_max"]
+    pass_C_A1b = PREREG["C-A1b_no_projection_v_over_c_min"] <= c_without <= PREREG["C-A1b_no_projection_v_over_c_max"]
 
     # Decision tree per plan
     decision = "INCONCLUSIVE"
@@ -247,9 +234,11 @@ def test_a1_t2_projection() -> dict:
         decision = "BOTH_FAIL_FURTHER_INVESTIGATION_NEEDED"
 
     print(f"\n  C-A1a (T₂=True ∈ [0.95, 1.05]):   {'PASS' if pass_C_A1a else 'FAIL'}  (got {c_with:.4f})")
-    print(f"  C-A1b (T₂=False ∈ [{PREREG['C-A1b_no_projection_v_over_c_min']:.3f}, "
-          f"{PREREG['C-A1b_no_projection_v_over_c_max']:.3f}]): "
-          f"{'PASS' if pass_C_A1b else 'FAIL'}  (got {c_without:.4f})")
+    print(
+        f"  C-A1b (T₂=False ∈ [{PREREG['C-A1b_no_projection_v_over_c_min']:.3f}, "
+        f"{PREREG['C-A1b_no_projection_v_over_c_max']:.3f}]): "
+        f"{'PASS' if pass_C_A1b else 'FAIL'}  (got {c_without:.4f})"
+    )
     print(f"  Decision: {decision}")
 
     return {
@@ -280,15 +269,9 @@ def test_a2_diagonal() -> dict:
     # If v_diagonal = c (per docstring), measured v_x = c / √3 ≈ 0.577 c.
     # That's a different measurement convention than A.1 — flag explicitly.
 
-    r = measure_wavefront_velocity(
-        direction=direction, project_T2=True, n_steps=300
-    )
-    print(
-        f"  direction = (1,1,1)/√3 (port 0): measured v_x/c = {r['c_ratio']:.4f}"
-    )
-    print(
-        f"  port_w = {r['port_w']}, Σw = {r['port_w_sum']:+.6f}"
-    )
+    r = measure_wavefront_velocity(direction=direction, project_T2=True, n_steps=300)
+    print(f"  direction = (1,1,1)/√3 (port 0): measured v_x/c = {r['c_ratio']:.4f}")
+    print(f"  port_w = {r['port_w']}, Σw = {r['port_w_sum']:+.6f}")
     # Naive diagonal: measured v_x = v_diagonal · (1/√3); if v_diagonal = c, v_x ≈ 0.577
     # If v_diagonal = √2·c, v_x ≈ 0.816
     expected_v_x_if_diagonal_at_c = 1.0 / np.sqrt(3.0)
@@ -311,15 +294,9 @@ def test_a2_diagonal() -> dict:
     )
     print(f"  Note: {note}")
 
-    pass_C_A2_at_c = (
-        0.95 * expected_v_x_if_diagonal_at_c
-        <= r["c_ratio"]
-        <= 1.05 * expected_v_x_if_diagonal_at_c
-    )
+    pass_C_A2_at_c = 0.95 * expected_v_x_if_diagonal_at_c <= r["c_ratio"] <= 1.05 * expected_v_x_if_diagonal_at_c
     pass_C_A2_at_sqrt2c = (
-        0.95 * expected_v_x_if_diagonal_at_sqrt2c
-        <= r["c_ratio"]
-        <= 1.05 * expected_v_x_if_diagonal_at_sqrt2c
+        0.95 * expected_v_x_if_diagonal_at_sqrt2c <= r["c_ratio"] <= 1.05 * expected_v_x_if_diagonal_at_sqrt2c
     )
 
     return {
@@ -462,17 +439,11 @@ def render_summary_panel(results: dict, out_png: str) -> None:
     ax.axhline(1.0, color="green", ls="--", lw=1, label="c (T₂ photon expected)")
     ax.axhline(np.sqrt(2.0), color="orange", ls="--", lw=1, label="√2·c (A₁ longitudinal)")
     ax.set_ylabel("v_meas / c")
-    ax.set_title(
-        f"A.1 — T₂ projection control\n"
-        f"Decision: {results['a1']['decision']}"
-    )
+    ax.set_title(f"A.1 — T₂ projection control\n" f"Decision: {results['a1']['decision']}")
     ax.legend(fontsize=9)
     ax.grid(alpha=0.3, axis="y")
     for bar, val in zip(bars, values):
-        ax.text(
-            bar.get_x() + bar.get_width() / 2.0, val + 0.02, f"{val:.3f}",
-            ha="center", fontsize=10
-        )
+        ax.text(bar.get_x() + bar.get_width() / 2.0, val + 0.02, f"{val:.3f}", ha="center", fontsize=10)
 
     # A.2 panel: diagonal-axis v_x vs predictions
     ax = axes[0, 1]
@@ -480,71 +451,73 @@ def render_summary_panel(results: dict, out_png: str) -> None:
     ax.bar(
         ["measured\nv_x/c"],
         [a2["result"]["c_ratio"]],
-        color="#228833", edgecolor="black",
+        color="#228833",
+        edgecolor="black",
     )
     ax.axhline(
-        a2["expected_v_x_if_diagonal_at_c"], color="green", ls="--",
-        label=f"v_diag=c → v_x = {a2['expected_v_x_if_diagonal_at_c']:.3f}"
+        a2["expected_v_x_if_diagonal_at_c"],
+        color="green",
+        ls="--",
+        label=f"v_diag=c → v_x = {a2['expected_v_x_if_diagonal_at_c']:.3f}",
     )
     ax.axhline(
-        a2["expected_v_x_if_diagonal_at_sqrt2c"], color="orange", ls="--",
-        label=f"v_diag=√2·c → v_x = {a2['expected_v_x_if_diagonal_at_sqrt2c']:.3f}"
+        a2["expected_v_x_if_diagonal_at_sqrt2c"],
+        color="orange",
+        ls="--",
+        label=f"v_diag=√2·c → v_x = {a2['expected_v_x_if_diagonal_at_sqrt2c']:.3f}",
     )
     ax.set_ylabel("v_x / c (projected)")
-    ax.set_title(
-        f"A.2 — Diagonal direction (1,1,1)/√3\n"
-        f"port_w = {a2['result']['port_w']}"
-    )
+    ax.set_title(f"A.2 — Diagonal direction (1,1,1)/√3\n" f"port_w = {a2['result']['port_w']}")
     ax.legend(fontsize=9)
     ax.grid(alpha=0.3, axis="y")
     ax.text(
-        0.5, 0.95,
+        0.5,
+        0.95,
         f"Note: +x̂ source plane;\nmeasures v_x not v_diagonal directly",
-        ha="center", va="top", transform=ax.transAxes, fontsize=8,
-        style="italic"
+        ha="center",
+        va="top",
+        transform=ax.transAxes,
+        fontsize=8,
+        style="italic",
     )
 
     # A.3 panel: energy drift
     ax = axes[1, 0]
     a3 = results["a3"]
     ax.bar(
-        ["E_drift"], [a3["E_drift"]],
+        ["E_drift"],
+        [a3["E_drift"]],
         color="#aa3377" if not a3["pass_C_A3"] else "#228833",
         edgecolor="black",
     )
-    ax.axhline(
-        PREREG["C-A3_energy_conservation_max_drift"], color="red", ls="--",
-        label="C-A3 threshold (1e-4)"
-    )
+    ax.axhline(PREREG["C-A3_energy_conservation_max_drift"], color="red", ls="--", label="C-A3 threshold (1e-4)")
     ax.set_yscale("log")
     ax.set_ylabel("(E_max − E_min) / E_max")
-    ax.set_title(
-        f"A.3 — Energy conservation\n"
-        f"{'PASS' if a3['pass_C_A3'] else 'FAIL'}: drift = {a3['E_drift']:.3e}"
-    )
+    ax.set_title(f"A.3 — Energy conservation\n" f"{'PASS' if a3['pass_C_A3'] else 'FAIL'}: drift = {a3['E_drift']:.3e}")
     ax.legend(fontsize=9)
     ax.grid(alpha=0.3, axis="y", which="both")
 
     # A.4 panel: deferred
     ax = axes[1, 1]
     ax.text(
-        0.5, 0.5,
+        0.5,
+        0.5,
         "A.4 — DEFERRED\n\n"
         "Op14 reflection coefficient test\n"
         "requires Z-step infrastructure\n"
         "(follow-up driver).\n\n"
         "Not blocking Phase A → B → C → D.",
-        ha="center", va="center", transform=ax.transAxes, fontsize=11,
+        ha="center",
+        va="center",
+        transform=ax.transAxes,
+        fontsize=11,
         bbox=dict(boxstyle="round,pad=0.5", facecolor="#eeeeee", edgecolor="black"),
     )
     ax.set_xticks([])
     ax.set_yticks([])
     ax.set_title("A.4 — Op14 reflection")
 
-    plt.suptitle(
-        "Phase A — Substrate-Physics Ground Truth (photon_axis_kinematics.py)",
-        fontsize=13, fontweight="bold"
-    )
+    plt.suptitle("Phase A — Substrate-Physics Ground Truth (photon_axis_kinematics.py)", fontsize=13, fontweight="bold")
     plt.tight_layout()
     plt.savefig(out_png, dpi=110, bbox_inches="tight")
     plt.close(fig)
@@ -583,27 +556,12 @@ def main() -> None:
     print("PHASE A SUMMARY")
     print("=" * 72)
     print(f"  A.1 decision:    {a1['decision']}")
-    print(
-        f"    C-A1a (T₂=True → c):    "
-        f"{'PASS' if a1['pass_C_A1a'] else 'FAIL'}"
-    )
-    print(
-        f"    C-A1b (T₂=False → √2c): "
-        f"{'PASS' if a1['pass_C_A1b'] else 'FAIL'}"
-    )
+    print(f"    C-A1a (T₂=True → c):    " f"{'PASS' if a1['pass_C_A1a'] else 'FAIL'}")
+    print(f"    C-A1b (T₂=False → √2c): " f"{'PASS' if a1['pass_C_A1b'] else 'FAIL'}")
     print(f"  A.2 v_x measurements:")
-    print(
-        f"    consistent with v_diag = c    (v_x ≈ 0.577): "
-        f"{'PASS' if a2['pass_C_A2_at_c'] else 'FAIL'}"
-    )
-    print(
-        f"    consistent with v_diag = √2c  (v_x ≈ 0.816): "
-        f"{'PASS' if a2['pass_C_A2_at_sqrt2c'] else 'FAIL'}"
-    )
-    print(
-        f"  A.3 energy drift:  {a3['E_drift']:.3e}  "
-        f"({'PASS' if a3['pass_C_A3'] else 'FAIL'})"
-    )
+    print(f"    consistent with v_diag = c    (v_x ≈ 0.577): " f"{'PASS' if a2['pass_C_A2_at_c'] else 'FAIL'}")
+    print(f"    consistent with v_diag = √2c  (v_x ≈ 0.816): " f"{'PASS' if a2['pass_C_A2_at_sqrt2c'] else 'FAIL'}")
+    print(f"  A.3 energy drift:  {a3['E_drift']:.3e}  " f"({'PASS' if a3['pass_C_A3'] else 'FAIL'})")
     print(f"  A.4 status:        DEFERRED")
     print()
     print(f"  Outputs:")

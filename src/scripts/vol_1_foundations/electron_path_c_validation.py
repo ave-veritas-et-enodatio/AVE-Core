@@ -23,28 +23,26 @@ Falsification logged in prediction tracker
 
 import numpy as np
 
-from ave.core.constants import V_YIELD, V_SNAP, ALPHA, ALPHA_COLD_INV
+from ave.core.constants import ALPHA, ALPHA_COLD_INV, V_SNAP, V_YIELD
 from scripts.vol_1_foundations.tlm_electron_soliton_eigenmode import (
     PHI,
     solve_eigenmode_dual_target,
 )
 
 
-def run_path_c(N: int, label: str, max_outer_iter: int = 12,
-               n_steps: int = 200, pml_thickness: int = 0):
+def run_path_c(N: int, label: str, max_outer_iter: int = 12, n_steps: int = 200, pml_thickness: int = 0):
     """Run Path C dual-target convergence loop at lattice size N."""
     print()
     print("=" * 78)
     print(f"  Path C — L3 dual-target convergence at {N}³ ({label})")
     print("=" * 78)
 
-    PHI_SQ = PHI ** 2  # ~ 2.618
+    PHI_SQ = PHI**2  # ~ 2.618
     R_target = N / 4.0  # ~ N/4 lattice cells
     r_target = R_target / PHI_SQ
     amp_init = 0.5 * float(V_YIELD)
 
-    print(f"  Geometry (held fixed): R = {R_target:.2f}, r = {r_target:.3f}, "
-          f"R/r = {PHI_SQ:.4f} (Golden Torus)")
+    print(f"  Geometry (held fixed): R = {R_target:.2f}, r = {r_target:.3f}, " f"R/r = {PHI_SQ:.4f} (Golden Torus)")
     print(f"  Initial amplitude: {amp_init:.3e} V (= 0.5 × V_YIELD)")
     print(f"  Targets: α⁻¹ → {ALPHA_COLD_INV:.4f}, χ → {ALPHA*6/5:.4e}")
     print(f"  Tolerance: 1.5% on both (per pre-registered prediction)")
@@ -68,22 +66,18 @@ def run_path_c(N: int, label: str, max_outer_iter: int = 12,
     print("=" * 78)
     print(f"  Path C result at {N}³:")
     print("=" * 78)
-    if result['converged']:
+    if result["converged"]:
         print(f"  CONVERGED at iter {result['iterations']}/{max_outer_iter}")
         print(f"  Final amp:    {result['final_amp']:.4e}")
         print(f"  Final (R, r): ({result['final_R']:.3f}, {result['final_r']:.3f})")
-        print(f"  Final α⁻¹:    {result['final_alpha_inv']:.3f} "
-              f"(target {ALPHA_COLD_INV:.3f})")
-        print(f"  Final χ:      {result['final_chi']:.4e} "
-              f"(target {ALPHA*6/5:.4e})")
+        print(f"  Final α⁻¹:    {result['final_alpha_inv']:.3f} " f"(target {ALPHA_COLD_INV:.3f})")
+        print(f"  Final χ:      {result['final_chi']:.4e} " f"(target {ALPHA*6/5:.4e})")
     else:
         print(f"  NOT converged within {max_outer_iter} iterations.")
-        traj = result['trajectory']
+        traj = result["trajectory"]
         if traj:
-            print(f"  Best α⁻¹ across trajectory: "
-                  f"{min(abs(h['alpha_err']) for h in traj)*100:.2f}% off target")
-            print(f"  Best χ:                     "
-                  f"{min(abs(h['chi_err']) for h in traj)*100:.2f}% off target")
+            print(f"  Best α⁻¹ across trajectory: " f"{min(abs(h['alpha_err']) for h in traj)*100:.2f}% off target")
+            print(f"  Best χ:                     " f"{min(abs(h['chi_err']) for h in traj)*100:.2f}% off target")
 
     return result
 
@@ -100,25 +94,21 @@ def main():
     print("  Single-body bound-state objective (no Y-matrix; per §18 audit).")
 
     # Quick convergence test at 48³
-    result_48 = run_path_c(N=48, label="quick test", max_outer_iter=8,
-                           n_steps=150)
+    result_48 = run_path_c(N=48, label="quick test", max_outer_iter=8, n_steps=150)
 
     # Definitive run at 96³ only if 48³ shows progress
-    if result_48['converged']:
+    if result_48["converged"]:
         print("\n48³ converged — proceeding to 96³ for definitive number...")
-        result_96 = run_path_c(N=96, label="definitive", max_outer_iter=12,
-                               n_steps=200)
+        result_96 = run_path_c(N=96, label="definitive", max_outer_iter=12, n_steps=200)
     else:
         # Check if 48³ at least made progress (errors trending down)
-        traj = result_48.get('trajectory', [])
+        traj = result_48.get("trajectory", [])
         if len(traj) >= 3:
-            alpha_errs = [h['alpha_err'] for h in traj]
+            alpha_errs = [h["alpha_err"] for h in traj]
             making_progress = alpha_errs[-1] < alpha_errs[0] * 0.5
             if making_progress:
-                print("\n48³ making progress but not converged in 8 iters — "
-                      "trying 96³ with more iterations...")
-                result_96 = run_path_c(N=96, label="definitive (more iters)",
-                                       max_outer_iter=20, n_steps=200)
+                print("\n48³ making progress but not converged in 8 iters — " "trying 96³ with more iterations...")
+                result_96 = run_path_c(N=96, label="definitive (more iters)", max_outer_iter=20, n_steps=200)
             else:
                 print("\n48³ not making clear progress.")
                 print("Documenting for falsification log; not running 96³.")

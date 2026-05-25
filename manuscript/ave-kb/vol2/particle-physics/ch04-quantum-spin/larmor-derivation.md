@@ -1,5 +1,9 @@
 [↑ Ch.4 — Quantum Spin](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-salw2h]
+-->
 
 ## The Larmor Derivation via Topological Gyroscopes
 

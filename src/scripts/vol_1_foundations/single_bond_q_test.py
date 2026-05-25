@@ -30,18 +30,27 @@ chain (m_e from unknot ropelength + Vol 4 Ch 1 LC tank + doc 16_/17_ Q-factor)
 is numerically self-consistent at the simplest level. Q = 137 then follows
 algebraically from the corpus formula.
 """
-from __future__ import annotations
+
 import sys
 import time
+
 import numpy as np
 
 sys.path.insert(0, "/Users/grantlindblom/AVE-staging/AVE-Core/src")
 
-from ave.core.k4_tlm import K4Lattice3D
 from ave.core.constants import (
-    C_0 as C_SI, M_E as M_E_SI,
-    ALPHA, Z_0, L_NODE as ELL_NODE, HBAR,
+    ALPHA,
 )
+from ave.core.constants import C_0 as C_SI
+from ave.core.constants import (
+    HBAR,
+)
+from ave.core.constants import L_NODE as ELL_NODE
+from ave.core.constants import M_E as M_E_SI
+from ave.core.constants import (
+    Z_0,
+)
+from ave.core.k4_tlm import K4Lattice3D
 
 
 def find_ab_bond_center(lattice: K4Lattice3D) -> tuple[tuple, tuple, int]:
@@ -77,10 +86,13 @@ def main(N: int = 8, n_steps: int = 200, V_amp: float = 0.05) -> None:
 
     # Engine natural units: pass V_SNAP=1.0; dx=1 (= ℓ_node convention)
     lattice = K4Lattice3D(
-        nx=N, ny=N, nz=N, dx=1.0,
-        pml_thickness=0,         # no PML — closed lattice, lossless
+        nx=N,
+        ny=N,
+        nz=N,
+        dx=1.0,
+        pml_thickness=0,  # no PML — closed lattice, lossless
         op3_bond_reflection=False,  # linear regime, no Op3 yet
-        V_SNAP=1.0,              # natural units
+        V_SNAP=1.0,  # natural units
     )
 
     # Engine timestep, derived: dt = dx/(c·√2) — c is SI C_0 in K4Lattice3D
@@ -115,7 +127,7 @@ def main(N: int = 8, n_steps: int = 200, V_amp: float = 0.05) -> None:
     V_ref_A[0] = float(lattice.V_ref[A][port])
     V_inc_B[0] = float(lattice.V_inc[B][port])
     V_ref_B[0] = float(lattice.V_ref[B][port])
-    energy_lattice[0] = float(np.sum(lattice.V_inc ** 2 + lattice.V_ref ** 2))
+    energy_lattice[0] = float(np.sum(lattice.V_inc**2 + lattice.V_ref**2))
 
     for step in range(1, n_steps + 1):
         lattice.step()
@@ -123,7 +135,7 @@ def main(N: int = 8, n_steps: int = 200, V_amp: float = 0.05) -> None:
         V_ref_A[step] = float(lattice.V_ref[A][port])
         V_inc_B[step] = float(lattice.V_inc[B][port])
         V_ref_B[step] = float(lattice.V_ref[B][port])
-        energy_lattice[step] = float(np.sum(lattice.V_inc ** 2 + lattice.V_ref ** 2))
+        energy_lattice[step] = float(np.sum(lattice.V_inc**2 + lattice.V_ref**2))
 
     elapsed = time.time() - t0
     print(f"  Elapsed: {elapsed:.2f}s")
@@ -170,7 +182,7 @@ def main(N: int = 8, n_steps: int = 200, V_amp: float = 0.05) -> None:
 
     # SI-units interpretation
     omega_measured_SI = omega_dt / lattice.dt  # rad/s in SI
-    omega_compton_SI = M_E_SI * C_SI ** 2 / HBAR  # ℏ in SI
+    omega_compton_SI = M_E_SI * C_SI**2 / HBAR  # ℏ in SI
     print()
     print(f"  SI-units cross-check:")
     print(f"    ω_measured     = {omega_measured_SI:.4e} rad/s")
@@ -195,8 +207,10 @@ def main(N: int = 8, n_steps: int = 200, V_amp: float = 0.05) -> None:
     print(f"    {'step':<6}{'V_inc[A]':<14}{'V_ref[A]':<14}{'V_inc[B]':<14}{'V_ref[B]':<14}{'E_total':<14}")
     for step in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 18, 25, 50, 100, 150, n_steps]:
         if step <= n_steps:
-            print(f"    {step:<6}{V_inc_A[step]:<+14.4e}{V_ref_A[step]:<+14.4e}"
-                  f"{V_inc_B[step]:<+14.4e}{V_ref_B[step]:<+14.4e}{energy_lattice[step]:<14.4e}")
+            print(
+                f"    {step:<6}{V_inc_A[step]:<+14.4e}{V_ref_A[step]:<+14.4e}"
+                f"{V_inc_B[step]:<+14.4e}{V_ref_B[step]:<+14.4e}{energy_lattice[step]:<14.4e}"
+            )
 
 
 if __name__ == "__main__":

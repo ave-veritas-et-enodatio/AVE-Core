@@ -34,66 +34,73 @@ NOT a single-resolution match. NOT a Y-matrix. NOT a chirality extraction.
 Just convergence of α⁻¹.
 """
 
-import numpy as np
 import time
 
-from ave.core.constants import V_YIELD, ALPHA_COLD_INV
+import numpy as np
+
+from ave.core.constants import ALPHA_COLD_INV, V_YIELD
 from scripts.vol_1_foundations.tlm_electron_soliton_eigenmode import (
     PHI,
-    run_tlm_electron,
     extract_alpha_inverse,
+    run_tlm_electron,
 )
 
 
-def run_at_resolution(N: int, n_steps: int = 200, amp_frac: float = 0.5,
-                      verbose: bool = True) -> dict:
+def run_at_resolution(N: int, n_steps: int = 200, amp_frac: float = 0.5, verbose: bool = True) -> dict:
     """Run TLM at lattice resolution N with Golden-Torus-proportioned geometry."""
-    PHI_SQ = PHI ** 2
-    R_target = N / 4.0           # ~quarter of lattice
+    PHI_SQ = PHI**2
+    R_target = N / 4.0  # ~quarter of lattice
     r_target = R_target / PHI_SQ  # Golden-Torus proportions
     amp = amp_frac * float(V_YIELD)
 
     if verbose:
         print(f"\n--- N = {N}³ ---")
-        print(f"  R_target = {R_target:.3f}, r_target = {r_target:.3f}, "
-              f"R/r = {PHI_SQ:.4f}")
+        print(f"  R_target = {R_target:.3f}, r_target = {r_target:.3f}, " f"R/r = {PHI_SQ:.4f}")
         print(f"  Amplitude = {amp:.3e} ({amp_frac:.2f} × V_YIELD)")
         print(f"  n_steps = {n_steps}")
 
     t0 = time.time()
     result = run_tlm_electron(
-        N=N, R=R_target, r=r_target, n_steps=n_steps,
-        amplitude=amp, pml_thickness=0,
+        N=N,
+        R=R_target,
+        r=r_target,
+        n_steps=n_steps,
+        amplitude=amp,
+        pml_thickness=0,
         sample_every=n_steps + 1,  # suppress per-step output
-        verbose=False, op3_bond_reflection=True,
+        verbose=False,
+        op3_bond_reflection=True,
         rms_avg_last_n=max(50, n_steps // 3),
     )
     elapsed = time.time() - t0
 
-    R_rms = result['R_rms']
-    r_rms = result['r_rms']
+    R_rms = result["R_rms"]
+    r_rms = result["r_rms"]
     Rr_ratio = R_rms / max(r_rms, 1e-9)
     alpha_dict = extract_alpha_inverse(R_rms, r_rms, c=3)
-    alpha_inv = alpha_dict['alpha_inv'] if alpha_dict['valid'] else float('nan')
+    alpha_inv = alpha_dict["alpha_inv"] if alpha_dict["valid"] else float("nan")
     R_norm = R_rms / N  # geometry normalized to lattice (should converge to phi/2)
 
     if verbose:
         print(f"  Elapsed: {elapsed:.1f}s")
-        print(f"  Extracted: R_rms={R_rms:.3f}, r_rms={r_rms:.3f}, "
-              f"R/r={Rr_ratio:.4f}")
-        print(f"  α⁻¹ = {alpha_inv:.4f} "
-              f"(target {ALPHA_COLD_INV:.4f}, "
-              f"err = {abs(alpha_inv - ALPHA_COLD_INV)/ALPHA_COLD_INV*100:.2f}%)")
+        print(f"  Extracted: R_rms={R_rms:.3f}, r_rms={r_rms:.3f}, " f"R/r={Rr_ratio:.4f}")
+        print(
+            f"  α⁻¹ = {alpha_inv:.4f} "
+            f"(target {ALPHA_COLD_INV:.4f}, "
+            f"err = {abs(alpha_inv - ALPHA_COLD_INV)/ALPHA_COLD_INV*100:.2f}%)"
+        )
 
     return {
-        'N': N,
-        'R_target': R_target, 'r_target': r_target,
-        'R_rms': R_rms, 'r_rms': r_rms,
-        'R_over_r': Rr_ratio,
-        'R_norm': R_norm,
-        'alpha_inv': alpha_inv,
-        'amp': amp,
-        'elapsed': elapsed,
+        "N": N,
+        "R_target": R_target,
+        "r_target": r_target,
+        "R_rms": R_rms,
+        "r_rms": r_rms,
+        "R_over_r": Rr_ratio,
+        "R_norm": R_norm,
+        "alpha_inv": alpha_inv,
+        "amp": amp,
+        "elapsed": elapsed,
     }
 
 
@@ -107,7 +114,7 @@ def linear_extrapolate(N_list, alpha_list):
     # Drop NaNs
     mask = ~np.isnan(y)
     if mask.sum() < 2:
-        return float('nan'), float('nan'), 0.0
+        return float("nan"), float("nan"), 0.0
     x_clean = x[mask]
     y_clean = y[mask]
     # Linear fit y = A + B*x
@@ -133,27 +140,30 @@ def main():
 
     results = []
     for N in N_values:
-        res = run_at_resolution(N=N, n_steps=n_steps_per_N[N], amp_frac=0.5,
-                                verbose=True)
+        res = run_at_resolution(N=N, n_steps=n_steps_per_N[N], amp_frac=0.5, verbose=True)
         results.append(res)
 
     # Tabulate
     print("\n" + "=" * 78)
     print("CONVERGENCE TABLE")
     print("=" * 78)
-    print(f"{'N':<6}{'1/N':<10}{'R_rms':<10}{'r_rms':<10}{'R/r':<10}"
-          f"{'R/N':<10}{'α⁻¹':<14}{'err %':<10}")
+    print(f"{'N':<6}{'1/N':<10}{'R_rms':<10}{'r_rms':<10}{'R/r':<10}" f"{'R/N':<10}{'α⁻¹':<14}{'err %':<10}")
     print("-" * 78)
     for r in results:
-        err_pct = (abs(r['alpha_inv'] - ALPHA_COLD_INV) / ALPHA_COLD_INV * 100
-                   if not np.isnan(r['alpha_inv']) else float('nan'))
-        print(f"{r['N']:<6}{1.0/r['N']:<10.4f}{r['R_rms']:<10.3f}"
-              f"{r['r_rms']:<10.3f}{r['R_over_r']:<10.4f}"
-              f"{r['R_norm']:<10.4f}{r['alpha_inv']:<14.4f}{err_pct:<10.2f}")
+        err_pct = (
+            abs(r["alpha_inv"] - ALPHA_COLD_INV) / ALPHA_COLD_INV * 100
+            if not np.isnan(r["alpha_inv"])
+            else float("nan")
+        )
+        print(
+            f"{r['N']:<6}{1.0/r['N']:<10.4f}{r['R_rms']:<10.3f}"
+            f"{r['r_rms']:<10.3f}{r['R_over_r']:<10.4f}"
+            f"{r['R_norm']:<10.4f}{r['alpha_inv']:<14.4f}{err_pct:<10.2f}"
+        )
 
     # Continuum-limit extrapolation
-    N_list = [r['N'] for r in results]
-    alpha_list = [r['alpha_inv'] for r in results]
+    N_list = [r["N"] for r in results]
+    alpha_list = [r["alpha_inv"] for r in results]
     A, B, r_sq = linear_extrapolate(N_list, alpha_list)
 
     print("\n" + "=" * 78)
@@ -163,14 +173,13 @@ def main():
     print(f"  B (coefficient of 1/N)     = {B:.4f}")
     print(f"  R² (fit quality)           = {r_sq:.4f}")
     print(f"  Target α⁻¹                 = {ALPHA_COLD_INV:.4f}")
-    extrap_err = (abs(A - ALPHA_COLD_INV) / ALPHA_COLD_INV * 100
-                  if not np.isnan(A) else float('nan'))
+    extrap_err = abs(A - ALPHA_COLD_INV) / ALPHA_COLD_INV * 100 if not np.isnan(A) else float("nan")
     print(f"  |A − target| / target      = {extrap_err:.2f}%")
 
     # R/r convergence
-    Rr_list = [r['R_over_r'] for r in results]
+    Rr_list = [r["R_over_r"] for r in results]
     A_Rr, B_Rr, r_sq_Rr = linear_extrapolate(N_list, Rr_list)
-    PHI_SQ = PHI ** 2
+    PHI_SQ = PHI**2
     extrap_Rr_err = abs(A_Rr - PHI_SQ) / PHI_SQ * 100
     print(f"\n  R/r convergence:")
     print(f"    A (1/N → 0)              = {A_Rr:.4f}")
@@ -186,8 +195,7 @@ def main():
         print("  Discrete-lattice TLM is consistent with continuum-limit theorem.")
     elif not np.isnan(A) and r_sq > 0.9:
         print(f"  CLEAN TREND BUT WRONG VALUE: α⁻¹ → {A:.3f}, target {ALPHA_COLD_INV:.3f}")
-        print(f"  Trend is clean (R² = {r_sq:.3f}) but extrapolation misses by "
-              f"{extrap_err:.1f}%.")
+        print(f"  Trend is clean (R² = {r_sq:.3f}) but extrapolation misses by " f"{extrap_err:.1f}%.")
         print("  Suggests systematic discrete-lattice correction OR theorem gap.")
     else:
         print(f"  NO CLEAN CONVERGENCE: A = {A:.3f}, R² = {r_sq:.3f}")
@@ -200,8 +208,7 @@ def main():
     print("=" * 78)
     for r in results:
         print(f"  N={r['N']}: α⁻¹ = {r['alpha_inv']:.3f}, R/r = {r['R_over_r']:.3f}")
-    print(f"  Extrapolation 1/N → 0: α⁻¹ → {A:.3f}, R/r → {A_Rr:.4f} "
-          f"(target φ² = {PHI_SQ:.4f})")
+    print(f"  Extrapolation 1/N → 0: α⁻¹ → {A:.3f}, R/r → {A_Rr:.4f} " f"(target φ² = {PHI_SQ:.4f})")
 
 
 if __name__ == "__main__":

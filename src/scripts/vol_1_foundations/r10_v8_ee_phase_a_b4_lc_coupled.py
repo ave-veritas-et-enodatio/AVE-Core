@@ -26,7 +26,6 @@ Tests:
        uniform with one antinode, vs ℓ=2 quadrupole with 2 antinodes)?
   T5 — does ∮V·dl + dΦ_B/dt = 0 (Faraday's law restored)?
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -38,9 +37,9 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).parent))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
-
 import r10_path_alpha_v8_corrected_measurements as v8
+
+from ave.topological.vacuum_engine import VacuumEngine3D
 
 
 def main():
@@ -50,29 +49,30 @@ def main():
     print("=" * 78, flush=True)
 
     nodes, bonds = v8.build_chair_ring(v8.CENTER)
-    a_0_per_node, centroid = v8.compute_a_0_at_ring_nodes(
-        nodes, v8.A_AMP_POL, v8.HELICAL_PITCH
-    )
+    a_0_per_node, centroid = v8.compute_a_0_at_ring_nodes(nodes, v8.A_AMP_POL, v8.HELICAL_PITCH)
 
     engine = VacuumEngine3D.from_args(
-        N=v8.N_LATTICE, pml=v8.PML, temperature=0.0,
+        N=v8.N_LATTICE,
+        pml=v8.PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=False,  # ← THE KEY CHANGE
         enable_cosserat_self_terms=True,
     )
 
-    print("Applying v8 helical Beltrami IC (UNCHANGED IC; only engine config changes)...",
-          flush=True)
+    print("Applying v8 helical Beltrami IC (UNCHANGED IC; only engine config changes)...", flush=True)
     v8.initialize_helical_beltrami_ic(
-        engine, nodes, bonds, a_0_per_node,
-        v8.K_BELTRAMI, v8.V_AMP, v8.PHI_AMP,
+        engine,
+        nodes,
+        bonds,
+        a_0_per_node,
+        v8.K_BELTRAMI,
+        v8.V_AMP,
+        v8.PHI_AMP,
     )
 
-    omega_per_node_ic = np.array([engine.cos.omega[n[0], n[1], n[2], :].copy()
-                                   for n in nodes])
-    beltrami_ic_cos_sims = v8.beltrami_eigenvector_sanity_check(
-        a_0_per_node, omega_per_node_ic, v8.K_BELTRAMI
-    )
+    omega_per_node_ic = np.array([engine.cos.omega[n[0], n[1], n[2], :].copy() for n in nodes])
+    beltrami_ic_cos_sims = v8.beltrami_eigenvector_sanity_check(a_0_per_node, omega_per_node_ic, v8.K_BELTRAMI)
     print(f"  Beltrami IC sanity (ω vs k·A_0): {[f'{c:+.4f}' for c in beltrami_ic_cos_sims]}")
 
     # Pre-flight: 1-step smoke test
@@ -92,14 +92,21 @@ def main():
     # Re-initialize for clean recording
     print("Re-initializing for clean recording...", flush=True)
     engine = VacuumEngine3D.from_args(
-        N=v8.N_LATTICE, pml=v8.PML, temperature=0.0,
+        N=v8.N_LATTICE,
+        pml=v8.PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=False,
         enable_cosserat_self_terms=True,
     )
     v8.initialize_helical_beltrami_ic(
-        engine, nodes, bonds, a_0_per_node,
-        v8.K_BELTRAMI, v8.V_AMP, v8.PHI_AMP,
+        engine,
+        nodes,
+        bonds,
+        a_0_per_node,
+        v8.K_BELTRAMI,
+        v8.V_AMP,
+        v8.PHI_AMP,
     )
 
     N_STEPS = v8.N_RECORDING_STEPS
@@ -142,9 +149,11 @@ def main():
 
         if (time.time() - last) > 30.0:
             t_p = (i + 1) * v8.DT / v8.COMPTON_PERIOD
-            print(f"    step {i}/{N_STEPS}, t={t_p:.1f}P, A²={s_v8['A2_mean']:.3f}, "
-                  f"loc={s_v8['ring_localization']:.3f}, elapsed {time.time()-t0:.1f}s",
-                  flush=True)
+            print(
+                f"    step {i}/{N_STEPS}, t={t_p:.1f}P, A²={s_v8['A2_mean']:.3f}, "
+                f"loc={s_v8['ring_localization']:.3f}, elapsed {time.time()-t0:.1f}s",
+                flush=True,
+            )
             last = time.time()
     elapsed = time.time() - t0
     print(f"  Recording done at {elapsed:.1f}s", flush=True)
@@ -189,21 +198,17 @@ def main():
         t_mean = t.mean()
         t_var = ((t - t_mean) ** 2).sum()
         mean = traj.mean(axis=0)
-        slope_num = ((t.reshape((-1,) + (1,)*(traj.ndim - 1)) - t_mean)
-                     * (traj - mean[None, ...])).sum(axis=0)
+        slope_num = ((t.reshape((-1,) + (1,) * (traj.ndim - 1)) - t_mean) * (traj - mean[None, ...])).sum(axis=0)
         slope = slope_num / t_var
         intercept = mean - slope * t_mean
-        return traj - intercept[None, ...] - slope[None, ...] * t.reshape(
-            (-1,) + (1,)*(traj.ndim - 1)
-        )
+        return traj - intercept[None, ...] - slope[None, ...] * t.reshape((-1,) + (1,) * (traj.ndim - 1))
 
     phi_oscillating = detrend(phi_link.astype(np.float64))
     omega_DC = omega.mean(axis=0)
     omega_AC = omega - omega_DC[None, :, :]
 
     # A vector reconstruction from ring-node phi_oscillating (4-port → 3D Moore-Penrose)
-    PORT_DIRS = np.array([[1, 1, 1], [1, -1, -1], [-1, 1, -1], [-1, -1, 1]],
-                          dtype=np.float64) / np.sqrt(3.0)
+    PORT_DIRS = np.array([[1, 1, 1], [1, -1, -1], [-1, 1, -1], [-1, -1, 1]], dtype=np.float64) / np.sqrt(3.0)
     bond_length_lnode = np.sqrt(3.0)
 
     cos_sim_AC = np.zeros(N_STEPS)
@@ -213,7 +218,7 @@ def main():
             a_vec = np.zeros(3, dtype=np.float64)
             for p in range(4):
                 a_vec += PORT_DIRS[p] * phi_oscillating[i, n_idx, p] / bond_length_lnode
-            a_vec *= (3.0 / 4.0)  # Moore-Penrose
+            a_vec *= 3.0 / 4.0  # Moore-Penrose
             b_vec = omega_AC[i, n_idx, :].astype(np.float64)
             a_norm, b_norm = np.linalg.norm(a_vec), np.linalg.norm(b_vec)
             if a_norm < 1e-12 or b_norm < 1e-12:
@@ -275,7 +280,7 @@ def main():
     n_hat = np.cross(edge1, edge2)
     n_hat = n_hat / np.linalg.norm(n_hat)
     R_ring = float(np.linalg.norm(edge1))
-    hex_area = (3.0 * np.sqrt(3.0) / 2.0) * R_ring ** 2
+    hex_area = (3.0 * np.sqrt(3.0) / 2.0) * R_ring**2
 
     omega_normal_ring = omega @ n_hat
     omega_normal_int = interior_omega @ n_hat
@@ -286,7 +291,7 @@ def main():
         accum = 0.0
         for k in range(6):
             v1 = omega_normal_ring[i, k]
-            v2 = omega_normal_ring[i, (k+1) % 6]
+            v2 = omega_normal_ring[i, (k + 1) % 6]
             accum += (v1 + v2 + omega_c) / 3.0 * area_tri
         Phi_B_t[i] = accum
 

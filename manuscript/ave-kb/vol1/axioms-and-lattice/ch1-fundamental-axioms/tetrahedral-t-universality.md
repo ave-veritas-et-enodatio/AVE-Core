@@ -1,5 +1,9 @@
-[↑ Ch.1: The Four Fundamental Axioms and Network Architecture](./index.md)
-<!-- leaf: verbatim -->
+[↑ Ch.1 Fundamental Axioms](index.md)
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-15nwqy]
+-->
 
 # $|T| = 12$ Universality: Four Independent Routes Converge
 
@@ -24,7 +28,7 @@ This is part of the broader **substrate-symmetry-forced framework reduction**: m
 
 ## Connection to Axiom 1 + Q-G47
 
-The four routes are not independent assertions; they are four windows into the same K4 symmetry structure that Axiom 1 (Chiral Laves K4 Cosserat Crystal) declares:
+The four routes are not independent assertions; they are four windows into the same K4 symmetry structure that Axiom 1 (Substrate Topology — chiral Laves K4 Cosserat crystal) declares:
 
 - **Route 1** (coordination) follows from the K4 graph topology stipulated by Axiom 1
 - **Route 2** (Cosserat dimensional) follows from Axiom 1's micropolar (Cosserat-type) per-node structure
@@ -35,15 +39,15 @@ The four-route convergence is therefore expected — but the four-way independen
 
 ## Status
 
-**Structural-hypothesis.** The four-route convergence is verified; rigorous Session 19+ derivation of $\xi_{K1}, \xi_{K2}$ individually from K4 unit-cell Cosserat-Lagrangian integration is pending (multi-week analytical work, per [closure-roadmap §12.5 Open-Derivation Queue](../../../common/closure-roadmap.md)). If that derivation explicitly recovers $\xi_{K2}/\xi_{K1} = 12$, route 4 is rigorously closed and the four-route convergence becomes a four-route theorem.
+**Structural-hypothesis.** The four-route convergence is verified; rigorous Session 19+ derivation of $\xi_{K1}, \xi_{K2}$ individually from K4 unit-cell Cosserat-Lagrangian integration is pending (multi-week analytical work). If that derivation explicitly recovers $\xi_{K2}/\xi_{K1} = 12$, route 4 is rigorously closed and the four-route convergence becomes a four-route theorem.
 
 ## Cross-references
 
 - **Canonical manuscript anchors:**
-  - [Vol 1 Ch 1 (Four Fundamental Axioms)](../../../../vol_1_foundations/chapters/01_fundamental_axioms.tex) — Axiom 1 Chiral Laves K4 Cosserat Crystal
-  - [Vol 1 Ch 2 (Macroscopic Moduli)](../../../../vol_1_foundations/chapters/02_macroscopic_moduli.tex) — substrate Cosserat moduli + over-bracing framework
-  - [Backmatter Ch 7 (Universal Saturation-Kernel Catalog)](../../../../backmatter/07_universal_saturation_kernel.tex) — substrate-scale K4 instance of A-034
+  - Vol 1 Ch 1 (Four Fundamental Axioms) — Axiom 1 chiral Laves K4 Cosserat crystal
+  - Vol 1 Ch 2 (Macroscopic Moduli) — substrate Cosserat moduli + over-bracing framework
+  - Backmatter Ch 7 (Universal Saturation-Kernel Catalog) — substrate-scale K4 instance of A-034
 - **Related KB leafs:**
   - [Common: Q-G47 Substrate-Scale Cosserat Closure](../../../common/q-g47-substrate-scale-cosserat-closure.md) — full magic-angle context + all four routes derived in working sessions
   - [Common: xi-topo-traceability](../../../common/xi-topo-traceability.md) — $\xi_{K1}, \xi_{K2}$ namespace de-collision from Machian $\xi$ and Axiom 2's $\xi_{\text{topo}}$
-  - [Axiom Definitions](./axiom-definitions.md) — Axiom 1 canonical statement
+  - [Axiom Definitions](axiom-definitions.md) — Axiom 1 canonical statement

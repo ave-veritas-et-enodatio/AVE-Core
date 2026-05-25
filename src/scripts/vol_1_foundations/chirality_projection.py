@@ -95,8 +95,8 @@ def main():
 
     # Hopf-coil chirality framework table 1 values (from 03_hopf_01_chiral_verification.tex:72-82)
     hopf_table = [
-        (2, 3),    # trefoil
-        (2, 5),    # cinquefoil
+        (2, 3),  # trefoil
+        (2, 5),  # cinquefoil
         (3, 5),
         (3, 7),
         (3, 11),
@@ -105,8 +105,7 @@ def main():
     print("\n" + "-" * 78)
     print("Verification against Hopf-coil chirality framework table 1")
     print("-" * 78)
-    print(f"{'(p,q)':<10}{'pq/(p+q)':<15}{'chi_direct':<18}"
-          f"{'chi_parallel':<18}{'match':<8}")
+    print(f"{'(p,q)':<10}{'pq/(p+q)':<15}{'chi_direct':<18}" f"{'chi_parallel':<18}{'match':<8}")
     print("-" * 78)
 
     all_match = True
@@ -116,8 +115,7 @@ def main():
         chi_parallel = chirality_parallel_impedance(p, q)
         match = abs(chi_direct - chi_parallel) / chi_direct < 1e-12
         all_match = all_match and match
-        print(f"({p},{q})     {hm:<15.6f}{chi_direct:<18.6e}"
-              f"{chi_parallel:<18.6e}{'PASS' if match else 'FAIL':<8}")
+        print(f"({p},{q})     {hm:<15.6f}{chi_direct:<18.6e}" f"{chi_parallel:<18.6e}{'PASS' if match else 'FAIL':<8}")
 
     print("\n" + "-" * 78)
     print("Sanity limits")
@@ -145,16 +143,13 @@ def main():
         chi_pq = chirality_direct(p, q)
         chi_qp = chirality_direct(q, p)
         match = abs(chi_pq - chi_qp) / chi_pq < 1e-14
-        print(f"  chi({p},{q}) = {chi_pq:.6e}  "
-              f"chi({q},{p}) = {chi_qp:.6e}  "
-              f"{'PASS' if match else 'FAIL'}")
+        print(f"  chi({p},{q}) = {chi_pq:.6e}  " f"chi({q},{p}) = {chi_qp:.6e}  " f"{'PASS' if match else 'FAIL'}")
 
     # Connection to other topological invariants
     print("\n" + "-" * 78)
     print("Connection to related topological invariants (per Hopf-coil chirality framework)")
     print("-" * 78)
-    print(f"{'(p,q)':<10}{'Q_H=pq':<12}{'SL=pq-p-q':<15}{'c=min(p(q-1),q(p-1))':<25}"
-          f"{'pq/(p+q)':<12}")
+    print(f"{'(p,q)':<10}{'Q_H=pq':<12}{'SL=pq-p-q':<15}{'c=min(p(q-1),q(p-1))':<25}" f"{'pq/(p+q)':<12}")
     print("-" * 78)
     for p, q in hopf_table + [(2, 2), (1, 1)]:
         Q_H = p * q
@@ -170,8 +165,7 @@ def main():
     chi_e = chirality_direct(2, 3)
     print(f"chi_electron = alpha * 6/5 = {chi_e:.8e}")
     print(f"             = {chi_e * 1e3:.6f} * 10^-3")
-    print(f"             = {100 * chi_e / ALPHA:.4f}% of alpha "
-          f"(> 100% because pq/(p+q)=1.2 > 1)")
+    print(f"             = {100 * chi_e / ALPHA:.4f}% of alpha " f"(> 100% because pq/(p+q)=1.2 > 1)")
     print(f"\nHopf-coil chirality framework prediction: Delta_f/f_std = chi_electron")
     print(f"  for f_std = 1 GHz: Delta_f = {chi_e * 1e9:.3f} Hz")
     print(f"  for f_std = 8 GHz: Delta_f = {chi_e * 8e9:.3f} Hz (X-band test)")
@@ -181,8 +175,10 @@ def main():
     print("PATH A (PARALLEL-CHANNEL) DERIVATION VERDICT")
     print("=" * 78)
     if all_match:
-        print("PASS: direct formula and parallel-impedance combination agree "
-              "to 1e-12 for all (p,q) in Hopf-coil chirality framework table.")
+        print(
+            "PASS: direct formula and parallel-impedance combination agree "
+            "to 1e-12 for all (p,q) in Hopf-coil chirality framework table."
+        )
         print("")
         print("Physical interpretation confirmed:")
         print("  - Each winding direction (toroidal p, poloidal q) is an")

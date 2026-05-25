@@ -1,5 +1,9 @@
 [↑ Ch.11: Thermodynamics and The Arrow of Time](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-jpfbm6]
+-->
 
 ---
 
@@ -25,7 +29,7 @@ The macroscopic fluid properties were historically approximated by a generalized
 
 Rather than a smooth, arbitrary curve, the fluid's topological network splinters in a **first-order discontinuous avalanche** at melting ($T_m = 279.5$ K, derived as the proton transfer eigenmode of the O--H$\cdots$O bridge), followed by a macroscopic geometric collapse bounded unconditionally by the Axiom 4 topological strain threshold $r_{\text{crit}}$.
 
-> → Primary: [Melting Eigenmode](../../../vol7/condensed-matter/ch4-phase-transitions/s03-melting-eigenmode.md) — sec:melting_eigenmode; Vol. VII, Ch. 11: the melting temperature derivation as proton transfer eigenmode of the O--H$\cdots$O bridge lives there.
+> → Primary: Melting Eigenmode (forthcoming) — sec:melting_eigenmode; Vol. VII, Ch. 11: the melting temperature derivation as proton transfer eigenmode of the O--H$\cdots$O bridge lives there.
 
 Using purely the derived H-bond Void space energy ($0.2158$ eV), the lattice $r_{\text{crit}}$ bounds the structural fluid exactly at $+29.4\,^{\circ}\text{C}$. The $+4\,^{\circ}\text{C}$ density peak emerges exclusively as a statistical property of the non-linear 3D cooperative topological grid within this domain. Because infinite 3D structural melting grids (e.g., Ising/Cluster Variation arrays) are computationally NP-Hard, no single 1D generalized polynomial can mechanically yield $3.98\,^{\circ}\text{C}$ out-of-the-box without explicit numerical cluster simulation iterations or empirical parameter "fudging".
 
@@ -34,6 +38,12 @@ Furthermore, the macroscopic fluid Dielectric Constant---normally plotted strict
 **Engine implementation.** The physics engine formally enforces this non-linear LC transition boundary in `regime_1_linear/hexagonal_lattice.py`. The factory replaces generalized scalar distributions with an explicit geometric lattice yield tensor that structurally snaps to $0$ strictly at the Axiom 4 limit ($\approx 30\,^{\circ}$C). Code path: `CooperativeHexagonalLattice.evaluate_structural_fraction(T)`.
 
 **Empirical Calibration (The 2026 X-Ray Validation).** This non-linear transition directly maps to the physical Liquid-Liquid Critical Point (LLCP) observed in supercooled water. Recent sub-femtosecond X-ray laser measurements \cite{nilsson2026llcp} empirically intercepted water structurally splitting into two disjoint macroscopic geometries at bridging boundaries. Under the AVE structural lens, their "Low-Density Liquid" (LDL) equates flawlessly to the expanded tetrahedral phase ($V_I$) aligned with the vacuum void fraction, while their "High-Density Liquid" (HDL) captures the collapse into uniform random-close-packing ($V_{II}$). Their observed rapid, unstable structural fluctuations near the critical threshold perfectly corroborate the mathematical limits of the cooperative lattice yield. It confirms that the $+4\,^{\circ}\text{C}$ density maximum is fundamentally a supercritical statistical average of this dual-geometric struggle, exactly as derived.
+
+## Cross-scale instance: cosmic K4 crystallization (Ω_freeze)
+
+The two-state LC partition + Axiom-4 yield boundary ($r_{\text{crit}} = \sqrt{2\alpha}$) is a general mechanism class: any substrate undergoing a first-order structural phase transition under applied stress is in this class. Per Grant's 2026-05-16 framing, Ω_freeze (cosmic K4 crystallization into the I4₁32 ordered chiral ground state under cosmic angular momentum) is a cosmic-scale instance of the same mechanism class — same Axiom-4 yield boundary, same √(1-A²) kernel. The specific cosmic-scale Landau formalism + materials-science analog (ferromagnetic Curie field-cooling vs chiral nematic alignment vs multiferroic ME vs spin-glass freezing) is open derivation work.
+
+> ↗ See also: [Ω_freeze Cosmic-Grain Cascade](../../../common/omega-freeze-cosmic-grain-cascade.md) §6 — full open-derivation-work statement; correspondence table + analog choice tracked there as canonical destination
 
 ---
 

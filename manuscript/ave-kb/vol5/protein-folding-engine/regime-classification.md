@@ -1,5 +1,9 @@
 [↑ Protein Folding Engine (Framework)](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-rg7cls]
+-->
 
 ## Regime Classification of Biological Length Scales
 
@@ -25,8 +29,6 @@ This is what justifies the "no configuration search" framing: the non-linear phy
 
 ### Cross-references
 
-> → Primary: [Vol 5 Ch 2 §sec:z_topo_framework](../../../vol_5_biology/chapters/02_organic_circuitry.tex) lines 725-741 — canonical manuscript source (regime table)
->
 > → Primary: [Levinthal's Paradox: Mechanical Resolution](./levinthal-mechanical-resolution.md) — how regime classification enables the folding mechanism
 >
 > → Primary: [Universal Saturation-Kernel Catalog (A-034)](../../common/universal-saturation-kernel-catalog.md) — covalent-bond Regime II yield is the A-034 protein-folding instance

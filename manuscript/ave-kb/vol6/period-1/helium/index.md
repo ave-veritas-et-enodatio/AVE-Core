@@ -1,5 +1,11 @@
 [↑ Period 1](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-f5ucdo, clm-f8k2um, clm-h8nmpu, clm-rw7jqo, clm-sd04x4, clm-y7uvdc]
+subtree-experiments: []
+-->
+
 # Helium (Z=2)
 
 Helium-4 (the Alpha particle) forms the first perfectly symmetrical closed topological knot shell. Two $6^3_2$ protons and two neutrons interlock into a tetrahedral macro-knot that minimizes external geometric strain. This geometry acts as a polyphase resonant transformer with astronomical $Q$-factor ($Q > 19$), defining chemical inertness (Noble Gas). Helium-4 is the irreducible reference material for the semiconductor binding engine---its intra-alpha binding energy defines $V_{BR}$.

@@ -175,7 +175,7 @@ So $\sigma_{\text{Hubble}} > 24.9°$ leaves alignment possible at 3σ. Between 1
 
 Updates (in scope):
 - `manuscript/ave-kb/common/divergence-test-substrate-map.md` lines 428, 514, 554 — C5 row state
-- `manuscript/ave-kb/common/closure-roadmap.md` line ~80 — C5 entry
+- `manuscript/ave-kb/claim-quality-closure-roadmap.md` line ~80 — C5 entry
 - `_orchestration/section-e-cascade.md` Phase E1b-prime section — CLOSED status + outcome summary
 
 ---

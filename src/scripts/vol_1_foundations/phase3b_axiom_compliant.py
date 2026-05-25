@@ -20,21 +20,22 @@ Outputs
   /tmp/phase3b_convergence_traces.png    — 3×3 grid of R_k, r_k per iter
   /tmp/phase3b_seed_independence.png     — cross-envelope at each amplitude
 """
-from __future__ import annotations
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-
-from ave.core.k4_tlm import K4Lattice3D
-from ave.core.constants import V_SNAP, ALPHA
 from tlm_electron_soliton_eigenmode import (
+    extract_alpha_inverse,
     initialize_2_3_voltage_ansatz,
-    initialize_2_3_voltage_ansatz_gaussian,
     initialize_2_3_voltage_ansatz_exponential,
-    shell_envelope, extract_alpha_inverse,
+    initialize_2_3_voltage_ansatz_gaussian,
+    shell_envelope,
 )
+
+from ave.core.constants import ALPHA, V_SNAP
+from ave.core.k4_tlm import K4Lattice3D
 
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
 ALPHA_INV_TARGET = 1.0 / ALPHA
@@ -56,8 +57,8 @@ def op6_iteration(
     pml_thickness: int = 0,
     tol: float = 0.01,
     seed_R: float = 18.0,
-    seed_r: float = 6.87,   # seed R/r = φ²
-    nonlinear: bool = False,   # node-level Axiom 4 saturation
+    seed_r: float = 6.87,  # seed R/r = φ²
+    nonlinear: bool = False,  # node-level Axiom 4 saturation
 ) -> dict:
     """One Op6 self-consistency loop with a specified envelope.
 
@@ -75,13 +76,16 @@ def op6_iteration(
 
     R_k = seed_R
     r_k = seed_r
-    trajectory = [(0, R_k, r_k)]   # (iter, R, r)
+    trajectory = [(0, R_k, r_k)]  # (iter, R, r)
     R_rms_history = []
     energy_history = []
 
     for it in range(1, max_iter + 1):
         lattice = K4Lattice3D(
-            N, N, N, dx=1.0,
+            N,
+            N,
+            N,
+            dx=1.0,
             pml_thickness=pml_thickness,
             nonlinear=nonlinear,
             op3_bond_reflection=True,
@@ -96,18 +100,16 @@ def op6_iteration(
         rms_count = 0
         rms_start = max(1, n_steps - 80 + 1)
 
-        energy_init = float(np.sum(lattice.V_inc ** 2) +
-                            np.sum(lattice.V_ref ** 2))
+        energy_init = float(np.sum(lattice.V_inc**2) + np.sum(lattice.V_ref**2))
 
         for step in range(1, n_steps + 1):
             lattice.step()
             if step >= rms_start:
                 V_phys = lattice.V_inc + lattice.V_ref
-                rms_accum += np.sum(V_phys ** 2, axis=-1)
+                rms_accum += np.sum(V_phys**2, axis=-1)
                 rms_count += 1
 
-        energy_final = float(np.sum(lattice.V_inc ** 2) +
-                             np.sum(lattice.V_ref ** 2))
+        energy_final = float(np.sum(lattice.V_inc**2) + np.sum(lattice.V_ref**2))
         V_rms = np.sqrt(rms_accum / max(rms_count, 1))
         R_new, r_new = shell_envelope(V_rms, cx, cy, cz)
 
@@ -160,9 +162,7 @@ def plot_convergence_grid(results, out_path):
     envs = list(ENVELOPES.keys())
     amps = sorted({r["strain_target"] for r in results})
 
-    fig, axes = plt.subplots(len(envs), len(amps),
-                             figsize=(4.5 * len(amps), 3.5 * len(envs)),
-                             sharey=True)
+    fig, axes = plt.subplots(len(envs), len(amps), figsize=(4.5 * len(amps), 3.5 * len(envs)), sharey=True)
     if len(envs) == 1:
         axes = np.array([axes])
     if len(amps) == 1:
@@ -171,8 +171,7 @@ def plot_convergence_grid(results, out_path):
     for i, env in enumerate(envs):
         for j, amp in enumerate(amps):
             ax = axes[i, j]
-            hit = [r for r in results
-                   if r["envelope"] == env and r["strain_target"] == amp]
+            hit = [r for r in results if r["envelope"] == env and r["strain_target"] == amp]
             if hit:
                 res = hit[0]
                 iters = [t[0] for t in res["trajectory"]]
@@ -180,8 +179,7 @@ def plot_convergence_grid(results, out_path):
                 r_vals = [t[2] for t in res["trajectory"]]
                 ratio = [R / max(rr, 1e-9) for R, rr in zip(R_vals, r_vals)]
                 ax.plot(iters, ratio, "o-", markersize=7, linewidth=1.5)
-                ax.axhline(PHI ** 2, color="red", linestyle=":", alpha=0.6,
-                           label=f"φ²={PHI**2:.3f}")
+                ax.axhline(PHI**2, color="red", linestyle=":", alpha=0.6, label=f"φ²={PHI**2:.3f}")
                 status = "CONV" if res["converged"] else "no conv"
                 ax.set_title(
                     f"{env}, A_target={amp}  [{status} at iter {res['iterations']}]",
@@ -195,8 +193,7 @@ def plot_convergence_grid(results, out_path):
             if i == 0 and j == 0:
                 ax.legend(fontsize=7, loc="best")
 
-    plt.suptitle("Phase 3b axiom-compliant — Op6 convergence per (envelope, amplitude)",
-                 y=1.00)
+    plt.suptitle("Phase 3b axiom-compliant — Op6 convergence per (envelope, amplitude)", y=1.00)
     plt.tight_layout()
     plt.savefig(out_path, dpi=110)
     plt.close(fig)
@@ -206,8 +203,7 @@ def plot_seed_independence(results, out_path):
     """One panel per amplitude; three envelope trajectories overlaid.
     If the three overlap and converge, seed-independence is met."""
     amps = sorted({r["strain_target"] for r in results})
-    fig, axes = plt.subplots(1, len(amps),
-                             figsize=(5 * len(amps), 4.5), sharey=True)
+    fig, axes = plt.subplots(1, len(amps), figsize=(5 * len(amps), 4.5), sharey=True)
     if len(amps) == 1:
         axes = [axes]
 
@@ -215,18 +211,15 @@ def plot_seed_independence(results, out_path):
     for j, amp in enumerate(amps):
         ax = axes[j]
         for env in ENVELOPES.keys():
-            hit = [r for r in results
-                   if r["envelope"] == env and r["strain_target"] == amp]
+            hit = [r for r in results if r["envelope"] == env and r["strain_target"] == amp]
             if hit:
                 res = hit[0]
                 iters = [t[0] for t in res["trajectory"]]
                 R_vals = [t[1] for t in res["trajectory"]]
                 r_vals = [t[2] for t in res["trajectory"]]
                 ratio = [R / max(rr, 1e-9) for R, rr in zip(R_vals, r_vals)]
-                ax.plot(iters, ratio, "o-", color=colors[env],
-                        label=env, markersize=7, linewidth=1.5)
-        ax.axhline(PHI ** 2, color="red", linestyle=":", alpha=0.6,
-                   label=f"φ²={PHI**2:.3f}")
+                ax.plot(iters, ratio, "o-", color=colors[env], label=env, markersize=7, linewidth=1.5)
+        ax.axhline(PHI**2, color="red", linestyle=":", alpha=0.6, label=f"φ²={PHI**2:.3f}")
         ax.set_title(f"A_target = {amp}")
         ax.set_xlabel("Op6 iteration")
         if j == 0:
@@ -235,8 +228,7 @@ def plot_seed_independence(results, out_path):
         ax.set_ylim(1.5, 5.5)
         ax.legend(fontsize=8)
 
-    plt.suptitle("Seed-independence test — three envelopes at each amplitude",
-                 y=1.02)
+    plt.suptitle("Seed-independence test — three envelopes at each amplitude", y=1.02)
     plt.tight_layout()
     plt.savefig(out_path, dpi=110)
     plt.close(fig)
@@ -245,8 +237,7 @@ def plot_seed_independence(results, out_path):
 def main():
     print("=" * 72)
     print("PHASE 3b AXIOM-COMPLIANT REDESIGN")
-    print("Pre-registered in research/_archive/L3_electron_soliton/"
-          "32_phase3b_axiom_compliant_redesign.md")
+    print("Pre-registered in research/_archive/L3_electron_soliton/" "32_phase3b_axiom_compliant_redesign.md")
     print("=" * 72)
 
     envelopes = list(ENVELOPES.keys())
@@ -255,8 +246,7 @@ def main():
     n_steps = 150
     max_iter = 3
 
-    print(f"\nGrid: {len(envelopes)} envelopes × {len(amplitudes)} amplitudes"
-          f" × up to {max_iter} Op6 iterations")
+    print(f"\nGrid: {len(envelopes)} envelopes × {len(amplitudes)} amplitudes" f" × up to {max_iter} Op6 iterations")
     print(f"Lattice: N={N}, pml=0 (periodic), op3_bond_reflection=True")
     print(f"Inner: {n_steps} TLM steps per iteration")
     print(f"Seed: Golden Torus (R=18, r=6.87, R/r=φ²)")
@@ -326,8 +316,7 @@ def main():
     any_converged = any(r["converged"] for r in results)
     same_point_at_any_amp = False
     for amp in amplitudes:
-        at_amp = [r for r in results if r["strain_target"] == amp
-                  and r["converged"]]
+        at_amp = [r for r in results if r["strain_target"] == amp and r["converged"]]
         if len(at_amp) == 3:
             R_final = [r["final_R"] for r in at_amp]
             r_final = [r["final_r"] for r in at_amp]

@@ -29,15 +29,21 @@ Why this matters (vs Path B+):
 Run:
     python src/scripts/verify/q_g47_path_c_emt_canonical.py
 """
-from __future__ import annotations
 
 import json
 import os
+import sys
+from pathlib import Path
+
 import numpy as np
 from scipy.optimize import brentq
 
-ALPHA_INV = 137.035999084
-ALPHA = 1.0 / ALPHA_INV
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
+
+from ave.core.constants import ALPHA
+
+# CODATA measured α (the empirical input to the p* = 8πα → z_0 inversion chain)
+ALPHA_INV = 1.0 / ALPHA
 P_STAR_TARGET = 8 * np.pi * ALPHA  # 0.18340
 
 # Axiom-trace per backmatter/appendix_c_derived_numerology.tex:74:
@@ -47,6 +53,7 @@ P_STAR_TARGET = 8 * np.pi * ALPHA  # 0.18340
 # ============================================================
 # Vol 3 Ch 1:20 canonical formula
 # ============================================================
+
 
 def p_star_formula(z_0: float) -> float:
     """Canonical AVE formula for p* at K/G = 2 in FTG-EMT.
@@ -89,7 +96,7 @@ def solve_z_0_for_p_star(p_star: float):
 # diverges as p → p_G is consistent.
 
 
-def K_over_G_simple(p, z_0, K0_over_G0=5/3):
+def K_over_G_simple(p, z_0, K0_over_G0=5 / 3):
     """Simple two-threshold ansatz for K/G(p).
 
     K/G(p) = (K_0/G_0) · (z_0·p - 2)/(z_0·p - 6) · (z_0 - 6)/(z_0 - 2)
@@ -207,8 +214,7 @@ def main():
     print()
     print(f"  {'p':>10} {'p / p_G':>10} {'K/G':>14} {'note':>30}")
     print("  " + "-" * 70)
-    for p in [p_G * 1.01, p_G * 1.1, p_G * 1.5, P_STAR_TARGET,
-              p_G * 2.0, p_G * 3.0, 0.5, 0.75, 1.0]:
+    for p in [p_G * 1.01, p_G * 1.1, p_G * 1.5, P_STAR_TARGET, p_G * 2.0, p_G * 3.0, 0.5, 0.75, 1.0]:
         kg = K_over_G_FTG_canonical(p, z_0)
         note = ""
         if abs(p - P_STAR_TARGET) < 1e-6:
@@ -280,18 +286,15 @@ def main():
         "p_at_K_over_G_2": find_p_at_K_over_G_target(51.25, 2.0, K_over_G_FTG_canonical),
         "kg_curve": [
             {"p": float(p), "K_over_G": float(K_over_G_FTG_canonical(p, 51.25))}
-            for p in np.linspace(6/51.25 * 1.01, 1.0, 100)
+            for p in np.linspace(6 / 51.25 * 1.01, 1.0, 100)
         ],
         "path_b_plus_comparison": {
             "discrete_K4_4_over_21": 4 / 21,
             "amorphous_FTG_8pi_alpha": P_STAR_TARGET,
-            "gap_fraction": abs(4/21 - P_STAR_TARGET) / P_STAR_TARGET,
+            "gap_fraction": abs(4 / 21 - P_STAR_TARGET) / P_STAR_TARGET,
         },
     }
-    out_path = os.path.join(
-        os.path.dirname(__file__),
-        "q_g47_path_c_emt_canonical_results.json"
-    )
+    out_path = os.path.join(os.path.dirname(__file__), "q_g47_path_c_emt_canonical_results.json")
     with open(out_path, "w") as f:
         json.dump(cache, f, indent=2)
     print(f"  Wrote: {out_path}")

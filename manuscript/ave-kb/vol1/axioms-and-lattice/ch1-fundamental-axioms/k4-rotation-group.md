@@ -1,10 +1,14 @@
 [↑ Ch.1 Fundamental Axioms](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from spin-half-paradox + |T|=12 universality + L3 closure synthesis as canonical K4 rotation group derivation -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-ys0xl1, clm-7pvh9i, clm-rkisb8]
+path-stable: "referenced from spin-half-paradox + |T|=12 universality + L3 closure synthesis as canonical K4 rotation group derivation"
+-->
 
 # K4 Rotation Group $T = A_4$: Faithful Representation on 4-Port Basis
 
-Step 1 derivation of the **K4 lattice's full rotation symmetry**: the action of 3D rotations on the K4 tetrahedral port basis $\{p_0, p_1, p_2, p_3\}$ is a **faithful representation of the tetrahedral rotation group $T = A_4$** (order 12). With reflections, the full symmetry is $T_d = S_4$ (order 24). The double cover of $T = A_4$ is the binary tetrahedral group $2T \subset SU(2)$, order 24 — the K4-native source of spin-½ in the AVE framework via Finkelstein–Misner mechanism. Cosserat constitutive reflections in $T_d \setminus T$ swap A↔B sublattices.
+Step 1 derivation of the **K4 lattice's full rotation symmetry**: the action of 3D rotations on the K4 tetrahedral port basis $\{p_0, p_1, p_2, p_3\}$ is a **faithful representation of the tetrahedral rotation group $T = A_4$** (order 12). With reflections, the full symmetry is $T_d = S_4$ (order 24). The double cover of $T = A_4$ is the binary tetrahedral group $2T \subset SU(2)$, order 24 — the K4-native source of spin-½ in the AVE framework via the Finkelstein–Misner mechanism. Cosserat constitutive reflections in $T_d \setminus T$ swap A↔B sublattices.
 
 ## Key Results
 
@@ -38,6 +42,7 @@ These four vectors:
 Verification of the dot product (e.g., $p_0 \cdot p_1 = 1 - 1 - 1 = -1$) gives the standard tetrahedral angle.
 
 ## §2 — The tetrahedral rotation group $T = A_4$
+<!-- claim-quality: clm-ys0xl1 -->
 
 The symmetry group of a regular tetrahedron under **rotations only** is the **tetrahedral group $T$**, isomorphic to the alternating group $A_4$ (even permutations of 4 elements), order $|T| = 12$.
 
@@ -47,7 +52,7 @@ The symmetry group of a regular tetrahedron under **rotations only** is the **te
 |---|---|---|---|
 | $\{e\}$ | 1 | 1 | Identity |
 | $C_3$ | 3 | 8 | Rotations by $\pm 120°$ about each of the 4 vertex axes (4 axes × 2 directions = 8) |
-| $C_2$ | 2 | 3 | Rotations by $180°$ about each of the 3 face-midpoint axes |
+| $C_2$ | 2 | 3 | Rotations by $180°$ about each of the 3 edge-midpoint axes |
 
 Total: $1 + 8 + 3 = 12 = |A_4|$ ✓
 
@@ -109,6 +114,7 @@ The 12 explicit permutations above are all distinct and form a closed group unde
 **Falsification check passed.** K4 has tetrahedral rotation symmetry exactly as claimed. The action is $T = A_4$.
 
 ## §5 — Beyond pure rotations: the bipartite A↔B action
+<!-- claim-quality: clm-7pvh9i -->
 
 The K4 diamond lattice is **BIPARTITE** with sublattices A and B. Under the rotations of $T = A_4$, A-sites map to A-sites and B-sites map to B-sites (the rotation preserves the bipartite structure when applied about a vertex of the bipartite cell).
 
@@ -117,6 +123,7 @@ However, AVE Cosserat constitutive relations involve **REFLECTIONS that swap A �
 **Implication:** if we restrict to rotations only ($T = A_4$), A and B sublattices are preserved separately. To get an A↔B SWAP (needed for the bipartite-spinor argument leading to spin-½), we need to include reflections (full $T_d = S_4$) or some other physical mechanism.
 
 ## §6 — The double cover $2T \subset SU(2)$
+<!-- claim-quality: clm-rkisb8 -->
 
 The double cover of $A_4$ is the **binary tetrahedral group $2T$**, order 24. This sits inside $SU(2)$ as a discrete subgroup.
 

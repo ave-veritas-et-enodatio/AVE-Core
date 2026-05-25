@@ -22,7 +22,6 @@ Two control runs at 100P each (~135s wall × 2 = ~5 min total):
   Run 1: V_AMP = 0.5, HELICAL_PITCH = 1/(2π)  — V_AMP scan
   Run 2: V_AMP = 0.95, HELICAL_PITCH = 0       — HELICAL_PITCH scan
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -34,9 +33,9 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).parent))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
-
 import r10_path_alpha_v8_corrected_measurements as v8
+
+from ave.topological.vacuum_engine import VacuumEngine3D
 
 
 def detrend_with_slope(traj):
@@ -59,14 +58,21 @@ def run_control(v_amp, helical_pitch, n_periods, label):
     a_0_per_node, centroid = v8.compute_a_0_at_ring_nodes(nodes, v_amp, helical_pitch)
 
     engine = VacuumEngine3D.from_args(
-        N=v8.N_LATTICE, pml=v8.PML, temperature=0.0,
+        N=v8.N_LATTICE,
+        pml=v8.PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
     )
     v8.initialize_helical_beltrami_ic(
-        engine, nodes, bonds, a_0_per_node,
-        v8.K_BELTRAMI, v_amp, v_amp,  # V_AMP and PHI_AMP both = v_amp
+        engine,
+        nodes,
+        bonds,
+        a_0_per_node,
+        v8.K_BELTRAMI,
+        v_amp,
+        v_amp,  # V_AMP and PHI_AMP both = v_amp
     )
 
     nx = engine.k4.nx
@@ -99,13 +105,15 @@ def run_control(v_amp, helical_pitch, n_periods, label):
         sign = float(np.sign(np.dot(a_to_b, traversal)))
         v_dc_at_port = float(V_DC_per_port[ix, iy, iz, port])
         contrib = sign * v_dc_at_port
-        contribs.append({
-            "ring_idx": bnd["ring_idx"],
-            "a_site": list(bnd["a_site"]),
-            "port": port,
-            "V_DC_at_port": v_dc_at_port,
-            "contribution": contrib,
-        })
+        contribs.append(
+            {
+                "ring_idx": bnd["ring_idx"],
+                "a_site": list(bnd["a_site"]),
+                "port": port,
+                "V_DC_at_port": v_dc_at_port,
+                "contribution": contrib,
+            }
+        )
 
     # Identify "contributing" bonds (|contribution| > 1% of V_AMP)
     threshold = max(0.01 * v_amp, 1e-5)
@@ -121,30 +129,38 @@ def run_control(v_amp, helical_pitch, n_periods, label):
     # Hypothesis predictions
     pred_substrate_per_bond = v_amp / 6.0
     pred_IC_per_bond = v_amp * helical_pitch  # IC propagation
-    pred_substrate_loop = 4.0 * v_amp / 6.0    # 4 contributing × V_AMP/6
+    pred_substrate_loop = 4.0 * v_amp / 6.0  # 4 contributing × V_AMP/6
     pred_IC_loop = 4.0 * v_amp * helical_pitch
 
     pct_off_substrate = abs(per_bond_avg - pred_substrate_per_bond) / max(pred_substrate_per_bond, 1e-15) * 100
-    pct_off_IC = abs(per_bond_avg - pred_IC_per_bond) / max(pred_IC_per_bond, 1e-15) * 100 if pred_IC_per_bond > 1e-15 else float("inf")
+    pct_off_IC = (
+        abs(per_bond_avg - pred_IC_per_bond) / max(pred_IC_per_bond, 1e-15) * 100
+        if pred_IC_per_bond > 1e-15
+        else float("inf")
+    )
 
     print()
     print(f"  Per-bond contributions ({len(contribs)} bonds):")
     for c in contribs:
         flag = "  *" if abs(c["contribution"]) > threshold else "   "
-        print(f"  {flag} bond {c['ring_idx']} (a={c['a_site']}, port={c['port']}): "
-              f"contrib={c['contribution']:+.4e}")
+        print(
+            f"  {flag} bond {c['ring_idx']} (a={c['a_site']}, port={c['port']}): " f"contrib={c['contribution']:+.4e}"
+        )
     print(f"  Contributing bonds: {len(contributing)} / 6")
     print(f"  Mean |per-bond contribution|: {per_bond_avg:.4e}")
     print(f"  Σ ∮V_DC·dl: {loop_total:+.4e}")
     print()
-    print(f"  Hypothesis A (substrate-native V_AMP/6):  pred {pred_substrate_per_bond:.4e}, "
-          f"obs {per_bond_avg:.4e}, off {pct_off_substrate:.2f}%")
+    print(
+        f"  Hypothesis A (substrate-native V_AMP/6):  pred {pred_substrate_per_bond:.4e}, "
+        f"obs {per_bond_avg:.4e}, off {pct_off_substrate:.2f}%"
+    )
     if pred_IC_per_bond > 1e-15:
-        print(f"  Hypothesis B (IC V_AMP × HELICAL_PITCH):  pred {pred_IC_per_bond:.4e}, "
-              f"obs {per_bond_avg:.4e}, off {pct_off_IC:.2f}%")
+        print(
+            f"  Hypothesis B (IC V_AMP × HELICAL_PITCH):  pred {pred_IC_per_bond:.4e}, "
+            f"obs {per_bond_avg:.4e}, off {pct_off_IC:.2f}%"
+        )
     else:
-        print(f"  Hypothesis B (IC V_AMP × HELICAL_PITCH):  pred 0 (HELICAL_PITCH = 0), "
-              f"obs {per_bond_avg:.4e}")
+        print(f"  Hypothesis B (IC V_AMP × HELICAL_PITCH):  pred 0 (HELICAL_PITCH = 0), " f"obs {per_bond_avg:.4e}")
     print()
 
     return {
@@ -171,26 +187,34 @@ def main():
     runs = []
 
     # Run 1: V_AMP scan — half V_AMP, original HELICAL_PITCH
-    runs.append(run_control(
-        v_amp=0.5, helical_pitch=1.0 / (2.0 * np.pi),
-        n_periods=n_periods,
-        label="Run 1: V_AMP=0.5, HELICAL_PITCH=1/(2π) (V_AMP scan)",
-    ))
+    runs.append(
+        run_control(
+            v_amp=0.5,
+            helical_pitch=1.0 / (2.0 * np.pi),
+            n_periods=n_periods,
+            label="Run 1: V_AMP=0.5, HELICAL_PITCH=1/(2π) (V_AMP scan)",
+        )
+    )
 
     # Run 2: HELICAL_PITCH scan — original V_AMP, zero HELICAL_PITCH
-    runs.append(run_control(
-        v_amp=0.95, helical_pitch=0.0,
-        n_periods=n_periods,
-        label="Run 2: V_AMP=0.95, HELICAL_PITCH=0 (HELICAL_PITCH scan)",
-    ))
+    runs.append(
+        run_control(
+            v_amp=0.95,
+            helical_pitch=0.0,
+            n_periods=n_periods,
+            label="Run 2: V_AMP=0.95, HELICAL_PITCH=0 (HELICAL_PITCH scan)",
+        )
+    )
 
     # ── Cross-run summary ────────────────────────────────────────────────────
     print()
     print("=" * 78, flush=True)
     print("  Cross-run summary")
     print("=" * 78, flush=True)
-    print(f"  {'V_AMP':>6} {'PITCH':>8} {'mean|contrib|':>14} {'V_AMP/6 pred':>14} "
-          f"{'off %':>7} {'V_AMP×PITCH pred':>17} {'off %':>9}")
+    print(
+        f"  {'V_AMP':>6} {'PITCH':>8} {'mean|contrib|':>14} {'V_AMP/6 pred':>14} "
+        f"{'off %':>7} {'V_AMP×PITCH pred':>17} {'off %':>9}"
+    )
     # Existing baseline from prior 200P run for context
     baseline = {
         "label": "Baseline (200P, prior run)",
@@ -201,7 +225,8 @@ def main():
     }
     all_rows = [baseline] + runs
     for r in all_rows:
-        v_amp = r["V_AMP"]; pitch = r["HELICAL_PITCH"]
+        v_amp = r["V_AMP"]
+        pitch = r["HELICAL_PITCH"]
         per_bond = r["per_bond_mean_abs"]
         sub = v_amp / 6.0
         ic = v_amp * pitch
@@ -209,8 +234,10 @@ def main():
         ic_off = abs(per_bond - ic) / max(ic, 1e-15) * 100 if ic > 1e-15 else float("inf")
         ic_str = f"{ic:.5f}" if ic > 1e-15 else "(IC=0)"
         ic_off_str = f"{ic_off:.2f}" if ic > 1e-15 else "—"
-        print(f"  {v_amp:>6.3f} {pitch:>8.5f} {per_bond:>14.5e} {sub:>14.5f} "
-              f"{sub_off:>7.2f} {ic_str:>17} {ic_off_str:>9}")
+        print(
+            f"  {v_amp:>6.3f} {pitch:>8.5f} {per_bond:>14.5e} {sub:>14.5f} "
+            f"{sub_off:>7.2f} {ic_str:>17} {ic_off_str:>9}"
+        )
     print()
     print("Verdict logic:")
     print("  - If V_AMP/6 holds across all 3 rows (off < 2%): substrate-native confirmed")

@@ -1,6 +1,9 @@
 [↑ Ch.4 Generative Cosmology](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from Op14 canonical chain (operators.md:44 + frame-dragging-impedance-convolution.md + op14-local-clock-modulation.md + op14-cross-sector-trading.md) as canonical Op14 cosmic-horizon-scale profile -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-48g5qf]
+-->
 
 # Op14 Cosmic-Horizon Saturation Profile: $Z_{\text{eff}}(r \to R_H)$ During Ongoing Crystallisation
 
@@ -143,7 +146,7 @@ Per the existing canonical leaf's open-work statement:
 > 2. *Crystallization rate $\Gamma_{\text{cryst}}$ derivation — what fraction of vacuum crystallizes per unit time? Corpus claims $\Gamma = 3H\rho_{\text{latent}}$ but doesn't derive $\Gamma$ from substrate.*
 > 3. *Verification that Friedmann route and latent-heat route give the same number — internal-consistency check.*
 
-The Op14 cosmic-horizon profile provides the **substrate-side substrate-physics anchor** for (2): local-clock-freezing at horizon is the substrate-native mechanism. (1) and (3) remain open — this leaf does not close them. Per `closure-roadmap.md:38` Tier 3 "Chain B' independent G derivation (substrate-local thermodynamics)" entry: still OPEN; this leaf advances the structural anchor without converting the operating-point projection to an emergence-class derivation.
+The Op14 cosmic-horizon profile provides the **substrate-side substrate-physics anchor** for (2): local-clock-freezing at horizon is the substrate-native mechanism. (1) and (3) remain open — this leaf does not close them. The Chain B' independent G derivation (substrate-local thermodynamics) remains OPEN; this leaf advances the structural anchor without converting the operating-point projection to an emergence-class derivation.
 
 ## Cross-references
 
@@ -160,8 +163,8 @@ The Op14 cosmic-horizon profile provides the **substrate-side substrate-physics 
 - **Substrate-observability anchors:**
   - [Boundary Observables $\mathcal{M}, \mathcal{Q}, \mathcal{J}$](../../../common/boundary-observables-m-q-j.md) — $\Gamma = -1$ saturation surface canonical structure at every scale; cosmic-horizon row at line 40
   - [$\Omega_{\text{freeze}}$ Cosmic-Grain Cascade](../../../common/omega-freeze-cosmic-grain-cascade.md) — three-route framework + Class E operating-point projection canonical
-  - [Universal Saturation-Kernel Catalog (A-034)](../../../common/universal-saturation-kernel-catalog.md) — 21-instance kernel; Row 14 cosmic K4 crystallisation + ASYM-N(ε) cosmic companion (Phase 3 addition)
+  - [Universal Saturation-Kernel Catalog (A-034)](../../../common/universal-saturation-kernel-catalog.md) — 26-instance kernel; Row 14 cosmic K4 crystallisation + ASYM-N(ε) cosmic companion (Phase 3 addition)
 - **Pre-test physics anchors:**
-  - Grant adjudications 2026-05-19 EOD at [`_orchestration/theoretical/cosmic-epsilon-de-projection-scoping.md:9-17`](../../../../_orchestration/theoretical/cosmic-epsilon-de-projection-scoping.md) — Q1 dynamic / Q2 cosmic-horizon profile is deliverable / Q3 γ composite
+  - Grant adjudications 2026-05-19 EOD at [`_orchestration/theoretical/cosmic-epsilon-de-projection-scoping.md:9-17`](../../../../../_orchestration/theoretical/cosmic-epsilon-de-projection-scoping.md) — Q1 dynamic / Q2 cosmic-horizon profile is deliverable / Q3 γ composite
 - **Research-tier projection-chain trace:**
-  - [`research/2026-05-19_cosmic-epsilon-de-projection-mechanism.md`](../../../../research/2026-05-19_cosmic-epsilon-de-projection-mechanism.md) — 6-component projection chain using this leaf as Component 5
+  - [`research/2026-05-19_cosmic-epsilon-de-projection-mechanism.md`](../../../../../research/2026-05-19_cosmic-epsilon-de-projection-mechanism.md) — 6-component projection chain using this leaf as Component 5

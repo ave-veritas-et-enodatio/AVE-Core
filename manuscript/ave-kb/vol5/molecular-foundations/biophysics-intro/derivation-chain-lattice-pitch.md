@@ -1,5 +1,9 @@
 [↑ Biophysics Introduction](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-br3bcv]
+-->
 
 ---
 

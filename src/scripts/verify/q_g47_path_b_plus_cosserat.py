@@ -34,17 +34,23 @@ or 0.1834.
 Run:
     python src/scripts/verify/q_g47_path_b_plus_cosserat.py
 """
-from __future__ import annotations
 
 import json
 import os
-import numpy as np
+import sys
 from dataclasses import dataclass
+from pathlib import Path
+
+import numpy as np
 from scipy.linalg import eigh
 from scipy.optimize import brentq
 
-ALPHA_INV = 137.035999084
-ALPHA = 1.0 / ALPHA_INV
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
+
+from ave.core.constants import ALPHA
+
+# CODATA measured α (experimental reference for the eigenmode comparison targets)
+ALPHA_INV = 1.0 / ALPHA
 
 TARGETS = {
     "u_0_star_A029": 0.187,
@@ -54,12 +60,15 @@ TARGETS = {
     "sqrt_1_over_42": np.sqrt(1 / 42),
 }
 
-K4_BOND_DIRECTIONS = np.array([
-    [+1, +1, +1],
-    [+1, -1, -1],
-    [-1, +1, -1],
-    [-1, -1, +1],
-], dtype=float) / np.sqrt(3.0)
+K4_BOND_DIRECTIONS = np.array(
+    [
+        [+1, +1, +1],
+        [+1, -1, -1],
+        [-1, +1, -1],
+        [-1, -1, +1],
+    ],
+    dtype=float,
+) / np.sqrt(3.0)
 
 
 @dataclass
@@ -77,11 +86,12 @@ class CosseratBond:
     pushing translationally along Δu generates a torque ∝ Δφ × n̂.
     Sign convention: positive k_χ = right-handed coupling (matches I4₁32).
     """
-    k_a: float = 1.0       # translational axial [Cauchy]
-    k_s: float = 1.0 / 7   # translational transverse [Keating bond-bending]
-    k_beta: float = 1.0    # microrotational axial [Cosserat α-equivalent]
+
+    k_a: float = 1.0  # translational axial [Cauchy]
+    k_s: float = 1.0 / 7  # translational transverse [Keating bond-bending]
+    k_beta: float = 1.0  # microrotational axial [Cosserat α-equivalent]
     k_gamma: float = 1.0 / 7  # microrotational transverse [Cosserat (β+γ)/d²]
-    k_chi: float = 0.0     # chiral coupling [right-handed I4₁32, varies]
+    k_chi: float = 0.0  # chiral coupling [right-handed I4₁32, varies]
     d: float = 1.0
 
     def energy(self, n_hat, du, dphi):
@@ -124,11 +134,13 @@ class CosseratBond:
 
 
 def x_to_strain_uint(x: np.ndarray):
-    eps = np.array([
-        [x[0], x[3], x[5]],
-        [x[3], x[1], x[4]],
-        [x[5], x[4], x[2]],
-    ])
+    eps = np.array(
+        [
+            [x[0], x[3], x[5]],
+            [x[3], x[1], x[4]],
+            [x[5], x[4], x[2]],
+        ]
+    )
     u_int = x[6:9].copy()
     phi_int = x[9:12].copy()
     return eps, u_int, phi_int
@@ -156,17 +168,28 @@ def build_hessian_12x12(bond: CosseratBond, h: float = 1e-5) -> np.ndarray:
     x0 = np.zeros(n)
     f0 = energy_x(x0, bond)
     for i in range(n):
-        xp = x0.copy(); xp[i] += h
-        xm = x0.copy(); xm[i] -= h
+        xp = x0.copy()
+        xp[i] += h
+        xm = x0.copy()
+        xm[i] -= h
         H[i, i] = (energy_x(xp, bond) - 2 * f0 + energy_x(xm, bond)) / h**2
     for i in range(n):
         for j in range(i + 1, n):
-            xpp = x0.copy(); xpp[i] += h; xpp[j] += h
-            xpm = x0.copy(); xpm[i] += h; xpm[j] -= h
-            xmp = x0.copy(); xmp[i] -= h; xmp[j] += h
-            xmm = x0.copy(); xmm[i] -= h; xmm[j] -= h
-            H[i, j] = (energy_x(xpp, bond) - energy_x(xpm, bond)
-                       - energy_x(xmp, bond) + energy_x(xmm, bond)) / (4 * h**2)
+            xpp = x0.copy()
+            xpp[i] += h
+            xpp[j] += h
+            xpm = x0.copy()
+            xpm[i] += h
+            xpm[j] -= h
+            xmp = x0.copy()
+            xmp[i] -= h
+            xmp[j] += h
+            xmm = x0.copy()
+            xmm[i] -= h
+            xmm[j] -= h
+            H[i, j] = (energy_x(xpp, bond) - energy_x(xpm, bond) - energy_x(xmp, bond) + energy_x(xmm, bond)) / (
+                4 * h**2
+            )
             H[j, i] = H[i, j]
     return 0.5 * (H + H.T)
 
@@ -185,7 +208,7 @@ def project_eigenvector_12(v: np.ndarray):
     D5 = np.sqrt(2.0) * eps_xz
 
     K_amp = abs(trace)
-    G_E_amp = np.sqrt(D1**2 + D2**2)      # E-irrep deviatoric
+    G_E_amp = np.sqrt(D1**2 + D2**2)  # E-irrep deviatoric
     G_T2_amp = np.sqrt(D3**2 + D4**2 + D5**2)  # T₂-irrep deviatoric
     u_amp = float(np.linalg.norm(u_int))
     phi_amp = float(np.linalg.norm(phi_int))
@@ -233,7 +256,7 @@ def run_chirality_sweep():
     print("-" * 70)
 
     for k_chi in [0.0, 0.01, 0.05, 0.1, 0.2, 0.5, 1.0]:
-        bond = CosseratBond(k_a=1.0, k_s=1/7, k_beta=1/7, k_gamma=1/7, k_chi=k_chi)
+        bond = CosseratBond(k_a=1.0, k_s=1 / 7, k_beta=1 / 7, k_gamma=1 / 7, k_chi=k_chi)
         H = build_hessian_12x12(bond)
         eigvals, _ = eigh(H, np.eye(12))
         # cluster
@@ -243,7 +266,8 @@ def run_chirality_sweep():
             if abs(eigvals[i] - eigvals[cur[-1]]) < 1e-4:
                 cur.append(i)
             else:
-                clusters.append(len(cur)); cur = [i]
+                clusters.append(len(cur))
+                cur = [i]
         clusters.append(len(cur))
         soft = eigvals[0] if eigvals[0] > 1e-8 else (eigvals[3] if len(eigvals) > 3 else 0)
         print(f"  {k_chi:>10.4f} {soft:>15.6f} {str(clusters):>20s} {4/21:>12.6f}")
@@ -264,7 +288,7 @@ def main():
     print("Test 1: Non-chiral limit (k_χ=0) — does the soft shear stay at 4/21?")
     print("─" * 80)
     print("  Bond: k_a=1, k_s=1/7, k_β=1, k_γ=1/7, k_χ=0")
-    bond_0 = CosseratBond(k_a=1.0, k_s=1/7, k_beta=1.0, k_gamma=1/7, k_chi=0.0)
+    bond_0 = CosseratBond(k_a=1.0, k_s=1 / 7, k_beta=1.0, k_gamma=1 / 7, k_chi=0.0)
     H = build_hessian_12x12(bond_0)
     print(f"  Hessian symmetric: {np.abs(H - H.T).max():.2e}")
     eigvals, eigvecs = eigh(H, np.eye(12))
@@ -276,24 +300,28 @@ def main():
     print(f"  {'i':>3} {'λ':>10} {'K':>6} {'G_E':>6} {'G_T2':>6} {'u_int':>6} {'φ_int':>6}")
     for i in range(12):
         proj = project_eigenvector_12(eigvecs[:, i])
-        print(f"  {i:>3d} {eigvals[i]:>+10.5f}"
-              f" {proj['K_frac']:>6.3f} {proj['G_E_frac']:>6.3f}"
-              f" {proj['G_T2_frac']:>6.3f} {proj['u_frac']:>6.3f}"
-              f" {proj['phi_frac']:>6.3f}")
+        print(
+            f"  {i:>3d} {eigvals[i]:>+10.5f}"
+            f" {proj['K_frac']:>6.3f} {proj['G_E_frac']:>6.3f}"
+            f" {proj['G_T2_frac']:>6.3f} {proj['u_frac']:>6.3f}"
+            f" {proj['phi_frac']:>6.3f}"
+        )
 
     print(f"\n  KEY: does E-irrep soft shear (λ = 4/21) survive?")
     for i in range(12):
         proj = project_eigenvector_12(eigvecs[:, i])
-        if proj['G_E_frac'] > 0.9:  # E-dominated mode
-            print(f"    Mode {i}: λ = {eigvals[i]:.6f} | E_frac = {proj['G_E_frac']:.3f}"
-                  f" | φ_frac = {proj['phi_frac']:.3f} | cf 4/21 = {4/21:.6f}")
+        if proj["G_E_frac"] > 0.9:  # E-dominated mode
+            print(
+                f"    Mode {i}: λ = {eigvals[i]:.6f} | E_frac = {proj['G_E_frac']:.3f}"
+                f" | φ_frac = {proj['phi_frac']:.3f} | cf 4/21 = {4/21:.6f}"
+            )
 
     # ─── Test 2: with chirality ────────────────────────────────────
     print()
     print("─" * 80)
     print("Test 2: With chirality (k_χ=0.1) — does mixing change E-mode?")
     print("─" * 80)
-    bond_chi = CosseratBond(k_a=1.0, k_s=1/7, k_beta=1.0, k_gamma=1/7, k_chi=0.1)
+    bond_chi = CosseratBond(k_a=1.0, k_s=1 / 7, k_beta=1.0, k_gamma=1 / 7, k_chi=0.1)
     H = build_hessian_12x12(bond_chi)
     eigvals_chi, eigvecs_chi = eigh(H, np.eye(12))
 
@@ -304,9 +332,11 @@ def main():
     print(f"\n  KEY: E-mode shifted by chirality?")
     for i in range(12):
         proj = project_eigenvector_12(eigvecs_chi[:, i])
-        if proj['G_E_frac'] > 0.3:  # any E content
-            print(f"    Mode {i}: λ = {eigvals_chi[i]:.6f} | E_frac = {proj['G_E_frac']:.3f}"
-                  f" | φ_frac = {proj['phi_frac']:.3f}")
+        if proj["G_E_frac"] > 0.3:  # any E content
+            print(
+                f"    Mode {i}: λ = {eigvals_chi[i]:.6f} | E_frac = {proj['G_E_frac']:.3f}"
+                f" | φ_frac = {proj['phi_frac']:.3f}"
+            )
 
     # ─── Test 3: full chirality sweep ────────────────────────────
     run_chirality_sweep()
@@ -336,10 +366,7 @@ def main():
             return [to_native(x) for x in o]
         return o
 
-    out_path = os.path.join(
-        os.path.dirname(__file__),
-        "q_g47_path_b_plus_cosserat_results.json"
-    )
+    out_path = os.path.join(os.path.dirname(__file__), "q_g47_path_b_plus_cosserat_results.json")
     with open(out_path, "w") as f:
         json.dump(to_native(cache), f, indent=2)
     print(f"\n  Wrote: {out_path}")

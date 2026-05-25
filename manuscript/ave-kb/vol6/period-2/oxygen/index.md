@@ -1,5 +1,11 @@
 [↑ Period 2](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-f5ucdo, clm-f8k2um, clm-h8nmpu, clm-rw7jqo, clm-sd04x4, clm-y7uvdc]
+subtree-experiments: []
+-->
+
 # Oxygen (Z=8)
 
 Oxygen-16 is a perfectly symmetric Tetrahedron of Tetrahedrons: four Alpha particles ($4\alpha$) at $R_{tet} = 33.393d$, the smallest inter-alpha distance of any multi-alpha element. The semiconductor engine reproduces the CODATA mass of $14\,895.080$ MeV to $0.000\,000\%$ error at $V_R/V_{BR} = 0.030$ (Small Signal, $M = 1.000$). This tetrahedral cage topology produces the deep potential wells that power combustion and cellular respiration.

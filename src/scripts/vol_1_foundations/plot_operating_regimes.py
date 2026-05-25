@@ -48,8 +48,9 @@ def create_phase_diagram() -> None:
         lw=2,
         label="Ideal Hookean (Classical Physics)",
     )
-    ax.plot(strain, stress_actual, "-", color="#00ffcc", lw=4,
-            label="Illustrative cubic-stiffening (NOT Axiom 4 kernel)")
+    ax.plot(
+        strain, stress_actual, "-", color="#00ffcc", lw=4, label="Illustrative cubic-stiffening (NOT Axiom 4 kernel)"
+    )
 
     # Fill regimes
     ax.axvspan(0, 0.4, alpha=0.2, color="#0044ff")

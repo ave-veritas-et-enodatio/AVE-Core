@@ -25,7 +25,6 @@ References:
     - doc 74_ §3 (bottom-100 SA-mode result, mode III with caveat)
     - r7_k4tlm_scattering_lctank.py (original driver with SA-mode Cos-block)
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -34,12 +33,11 @@ from pathlib import Path
 
 import numpy as np
 from scipy.sparse import diags
-from scipy.sparse.linalg import eigsh, gmres, LinearOperator
+from scipy.sparse.linalg import LinearOperator, eigsh, gmres
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
 from ave.topological.vacuum_engine import VacuumEngine3D
-
 
 # Constants per frozen pred (doc 73_ §3, doc 74_ §1)
 PHI = 0.5 * (1.0 + np.sqrt(5.0))
@@ -47,8 +45,9 @@ PHI_SQ = PHI * PHI
 A26_AMP_SCALE = 0.3 / (np.sqrt(3.0) / 2.0)
 GT_PEAK_OMEGA = 0.3 * np.pi
 from ave.core.constants import ALPHA
+
 OMEGA_COMPTON = 1.0
-SIGMA_TARGET = OMEGA_COMPTON ** 2  # = 1.0
+SIGMA_TARGET = OMEGA_COMPTON**2  # = 1.0
 LAMBDA_TOL_COS = ALPHA * OMEGA_COMPTON  # ≈ 0.00731 on √λ
 A26_GUARD_LOW = 0.85 * GT_PEAK_OMEGA
 A26_GUARD_HIGH = 1.15 * GT_PEAK_OMEGA
@@ -61,7 +60,9 @@ OUTPUT_JSON = Path(__file__).parent / "r7_cos_block_shift_invert_results.json"
 
 def build_engine(N=32, pml=4):
     return VacuumEngine3D.from_args(
-        N=N, pml=pml, temperature=0.0,
+        N=N,
+        pml=pml,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -70,7 +71,10 @@ def build_engine(N=32, pml=4):
 
 def seed_2_3_hedgehog(engine, R, r):
     engine.cos.initialize_electron_2_3_sector(
-        R_target=R, r_target=r, use_hedgehog=True, amplitude_scale=A26_AMP_SCALE,
+        R_target=R,
+        r_target=r,
+        use_hedgehog=True,
+        amplitude_scale=A26_AMP_SCALE,
     )
 
 
@@ -157,10 +161,11 @@ def build_shift_invert_OPinv(K_op, M_diag, sigma, gmres_tol=1e-5, gmres_maxiter=
         call_count[0] += 1
         # callback to count inner iterations
         iter_count = [0]
+
         def cb(_):
             iter_count[0] += 1
-        x, info = gmres(shifted_op, v, rtol=gmres_tol, maxiter=gmres_maxiter,
-                        callback=cb, callback_type='legacy')
+
+        x, info = gmres(shifted_op, v, rtol=gmres_tol, maxiter=gmres_maxiter, callback=cb, callback_type="legacy")
         gmres_iter_total[0] += iter_count[0]
         if verbose and call_count[0] % 10 == 0:
             print(f"      OPinv calls: {call_count[0]}, total inner GMRES iters: {gmres_iter_total[0]}")
@@ -173,9 +178,9 @@ def build_shift_invert_OPinv(K_op, M_diag, sigma, gmres_tol=1e-5, gmres_maxiter=
     return opinv
 
 
-def eigsolve_Cos_block_shift_invert(engine, k=20, sigma=SIGMA_TARGET,
-                                     gmres_tol=1e-3, gmres_maxiter=300,
-                                     eigsh_tol=1e-4, eigsh_maxiter=300):
+def eigsolve_Cos_block_shift_invert(
+    engine, k=20, sigma=SIGMA_TARGET, gmres_tol=1e-3, gmres_maxiter=300, eigsh_tol=1e-4, eigsh_maxiter=300
+):
     """Eigsolve K_cos at sigma=σ via shift-invert with inner GMRES OPinv."""
     print(f"    Building K_cos LinearOperator (FD HVP)...", flush=True)
     K_op = build_K_cos_op(engine)
@@ -189,16 +194,23 @@ def eigsolve_Cos_block_shift_invert(engine, k=20, sigma=SIGMA_TARGET,
     t0 = time.time()
     try:
         eigvals, eigvecs = eigsh(
-            K_op, M=M_op, k=k,
-            sigma=sigma, OPinv=OPinv, which='LM',
-            tol=eigsh_tol, maxiter=eigsh_maxiter,
+            K_op,
+            M=M_op,
+            k=k,
+            sigma=sigma,
+            OPinv=OPinv,
+            which="LM",
+            tol=eigsh_tol,
+            maxiter=eigsh_maxiter,
         )
         elapsed = time.time() - t0
         stats = OPinv._gmres_stats
-        print(f"      Cos-block shift-invert: {elapsed:.1f}s, "
-              f"{len(eigvals)} eigenvalues, "
-              f"OPinv calls={stats['call_count'][0]}, "
-              f"total GMRES iters={stats['iter_total'][0]}")
+        print(
+            f"      Cos-block shift-invert: {elapsed:.1f}s, "
+            f"{len(eigvals)} eigenvalues, "
+            f"OPinv calls={stats['call_count'][0]}, "
+            f"total GMRES iters={stats['iter_total'][0]}"
+        )
     except Exception as e:
         elapsed = time.time() - t0
         print(f"      Cos-block shift-invert ERROR after {elapsed:.1f}s: {e}")
@@ -209,8 +221,8 @@ def eigsolve_Cos_block_shift_invert(engine, k=20, sigma=SIGMA_TARGET,
         "eigvals": eigvals[idx],
         "eigvecs": eigvecs[:, idx],
         "elapsed": elapsed,
-        "gmres_call_count": stats['call_count'][0],
-        "gmres_iter_total": stats['iter_total'][0],
+        "gmres_call_count": stats["call_count"][0],
+        "gmres_iter_total": stats["iter_total"][0],
         "error": None,
     }
 
@@ -245,14 +257,17 @@ def run_seed(name, R, r, gt_family, N=32, pml=4, k=20):
         return {"seed_name": name, "error": res["error"], "elapsed": res["elapsed"]}
 
     close, idx, rel = check_at_compton(res["eigvals"])
-    print(f"    Closest positive eigenvalue: λ={res['eigvals'][idx] if idx>=0 else 'NA'}, "
-          f"√λ rel_diff to ω_C = {rel:.4e}, PASS={close}")
+    print(
+        f"    Closest positive eigenvalue: λ={res['eigvals'][idx] if idx>=0 else 'NA'}, "
+        f"√λ rel_diff to ω_C = {rel:.4e}, PASS={close}"
+    )
     print(f"    Smallest 5 positive: {[float(v) for v in res['eigvals'][res['eigvals']>0][:5]]}")
     print(f"    Largest 5 positive: {[float(v) for v in res['eigvals'][res['eigvals']>0][-5:]]}")
 
     return {
         "seed_name": name,
-        "R": R, "r": r,
+        "R": R,
+        "r": r,
         "gt_family": gt_family,
         "peak_omega_seed": peak,
         "eigvals": res["eigvals"].tolist(),
@@ -279,10 +294,10 @@ def main(N=32, smoke=False):
         seeds = [("GT_corpus", R_anchor, R_anchor / PHI_SQ, True)]
     else:
         seeds = [
-            ("GT_corpus",          R_anchor, R_anchor / PHI_SQ,         True),
-            ("F17K_cos_endpoint",  R_anchor, R_anchor / F17K_COS_RATIO, True),
-            ("F17K_s11_endpoint",  R_anchor, R_anchor / F17K_S11_RATIO, True),
-            ("vacuum_control",     0.0,      0.0,                        False),
+            ("GT_corpus", R_anchor, R_anchor / PHI_SQ, True),
+            ("F17K_cos_endpoint", R_anchor, R_anchor / F17K_COS_RATIO, True),
+            ("F17K_s11_endpoint", R_anchor, R_anchor / F17K_S11_RATIO, True),
+            ("vacuum_control", 0.0, 0.0, False),
         ]
 
     results = {}
@@ -291,8 +306,8 @@ def main(N=32, smoke=False):
             results[name] = run_seed(name, R, r, fam, N=N, pml=pml)
         except Exception as e:
             import traceback
-            results[name] = {"seed_name": name, "fatal_error": str(e),
-                            "traceback": traceback.format_exc()}
+
+            results[name] = {"seed_name": name, "fatal_error": str(e), "traceback": traceback.format_exc()}
             print(f"  ERROR in {name}: {e}")
             if smoke:
                 break

@@ -1,5 +1,11 @@
 [↑ Period 2](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-f5ucdo, clm-f8k2um, clm-h8nmpu, clm-rw7jqo, clm-sd04x4, clm-y7uvdc]
+subtree-experiments: []
+-->
+
 # Lithium (Z=3)
 
 Lithium-7 is the lightest nucleus in the core-plus-halo binding regime: a tightly bound Alpha particle ($^4He$) primary core with a loosely coupled 3-nucleon secondary shell at $R_{outer} \approx 9.72d$. The vast spatial separation between core and halo maps to an Air-Core Transformer with low coupling coefficient, yielding a low $Q$-factor ($\approx 2.85$) and extreme chemical reactivity.

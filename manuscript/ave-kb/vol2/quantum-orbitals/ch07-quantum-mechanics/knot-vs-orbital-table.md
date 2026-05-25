@@ -1,5 +1,9 @@
 [↑ Ch. 7: Quantum Mechanics and Atomic Orbitals](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-oltvwy]
+-->
 
 ## Table: Knot Topology vs Orbital Geometry --- Scale Separation
 

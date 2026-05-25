@@ -21,15 +21,14 @@ match data, NOT a pre-registered corpus-derived formula. Strengthens mass-only
 claims to mass+J-pattern but doesn't promote to "corpus-derived prediction"
 without algebraic-topology derivation work (estimated 1-2 days separately).
 """
-from __future__ import annotations
 
 import json
-from pathlib import Path
 import sys
+from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
-from ave.core.constants import BARYON_LADDER, M_E, C_0, e_charge
+from ave.core.constants import BARYON_LADDER, C_0, M_E, e_charge
 
 _KG_TO_MEV: float = C_0**2 / (e_charge * 1e6)
 
@@ -37,14 +36,14 @@ _KG_TO_MEV: float = C_0**2 / (e_charge * 1e6)
 # Matched PDG states with verified J^P from PDG 2024
 # [c, predicted_mass_MeV, pdg_name, pdg_mass, pdg_jp, pdg_status]
 MATCHES = [
-    (5,  938.254, "proton",   938.272, "1/2+",  "****"),
-    (7,  1261.0,  "Δ(1232)",  1232,    "3/2+",  "****"),
-    (9,  1582.2,  "Δ(1620)",  1620,    "1/2-",  "****"),   # corpus identification
-    (11, 1894.9,  "Δ(1950)",  1950,    "7/2+",  "****"),
-    (13, 2194.6,  "N(2250)",  2250,    "9/2-",  "****"),   # per BARYON_LADDER docstring
-    (15, 2478.0,  "Δ(2420)",  2420,    "11/2+", "****"),
-    (17, 2741.8,  "Δ(2750)",  2750,    "13/2-", "**"),
-    (19, 2983.1,  "Δ(2950)",  2950,    "15/2+", "**"),
+    (5, 938.254, "proton", 938.272, "1/2+", "****"),
+    (7, 1261.0, "Δ(1232)", 1232, "3/2+", "****"),
+    (9, 1582.2, "Δ(1620)", 1620, "1/2-", "****"),  # corpus identification
+    (11, 1894.9, "Δ(1950)", 1950, "7/2+", "****"),
+    (13, 2194.6, "N(2250)", 2250, "9/2-", "****"),  # per BARYON_LADDER docstring
+    (15, 2478.0, "Δ(2420)", 2420, "11/2+", "****"),
+    (17, 2741.8, "Δ(2750)", 2750, "13/2-", "**"),
+    (19, 2983.1, "Δ(2950)", 2950, "15/2+", "**"),
 ]
 
 # Forward predictions (c=21,23,25)
@@ -80,8 +79,10 @@ def main():
     print(f"  Empirical fit pattern (this script, post-hoc): J = (c-4)/2")
     print()
 
-    print(f"  {'c':>3} {'predicted (MeV)':>16} {'PDG state':>12} {'PDG J^P':>10} "
-          f"{'fit J':>8} {'J match':>10} {'parity match (vs +)':>22}")
+    print(
+        f"  {'c':>3} {'predicted (MeV)':>16} {'PDG state':>12} {'PDG J^P':>10} "
+        f"{'fit J':>8} {'J match':>10} {'parity match (vs +)':>22}"
+    )
 
     j_match_count = 0
     parity_match_count_pos = 0
@@ -93,9 +94,9 @@ def main():
         pred_j_num, pred_j_den = predicted_j_from_pattern(c)
         (obs_j_num, obs_j_den), obs_parity = parse_pdg_jp(pdg_jp)
 
-        j_match = (pred_j_num == obs_j_num and pred_j_den == obs_j_den)
+        j_match = pred_j_num == obs_j_num and pred_j_den == obs_j_den
         # The corpus pattern doesn't predict parity explicitly; tracking + as default
-        parity_match = (obs_parity == "+")
+        parity_match = obs_parity == "+"
         full_match = j_match and parity_match
 
         if j_match:
@@ -109,51 +110,56 @@ def main():
         j_status = "✓" if j_match else "✗"
         p_status = "✓" if parity_match else "✗"
 
-        print(f"  {c:>3} {pred_mass:>16.1f} {name:>12} {pdg_jp:>10} "
-              f"{fit_j_str:>8} {j_status:>10} {p_status:>22}")
+        print(f"  {c:>3} {pred_mass:>16.1f} {name:>12} {pdg_jp:>10} " f"{fit_j_str:>8} {j_status:>10} {p_status:>22}")
 
-        detailed.append({
-            "c": c,
-            "predicted_mass_mev": pred_mass,
-            "pdg_state": name,
-            "pdg_mass_mev": pdg_mass,
-            "pdg_jp": pdg_jp,
-            "pdg_status": status,
-            "fit_j": f"{pred_j_num}/{pred_j_den}",
-            "j_match": bool(j_match),
-            "parity_observed": obs_parity,
-            "parity_assumed_positive_match": bool(parity_match),
-            "full_jp_match": bool(full_match),
-        })
+        detailed.append(
+            {
+                "c": c,
+                "predicted_mass_mev": pred_mass,
+                "pdg_state": name,
+                "pdg_mass_mev": pdg_mass,
+                "pdg_jp": pdg_jp,
+                "pdg_status": status,
+                "fit_j": f"{pred_j_num}/{pred_j_den}",
+                "j_match": bool(j_match),
+                "parity_observed": obs_parity,
+                "parity_assumed_positive_match": bool(parity_match),
+                "full_jp_match": bool(full_match),
+            }
+        )
 
     print(f"\n  J pattern match rate: {j_match_count}/{total} = {j_match_count/total*100:.1f}%")
-    print(f"  Parity-positive match rate: {parity_match_count_pos}/{total} = "
-          f"{parity_match_count_pos/total*100:.1f}%")
-    print(f"  Full J^P (J + positive parity) match: {full_jp_match_count}/{total} = "
-          f"{full_jp_match_count/total*100:.1f}%")
+    print(
+        f"  Parity-positive match rate: {parity_match_count_pos}/{total} = " f"{parity_match_count_pos/total*100:.1f}%"
+    )
+    print(
+        f"  Full J^P (J + positive parity) match: {full_jp_match_count}/{total} = "
+        f"{full_jp_match_count/total*100:.1f}%"
+    )
 
     # Forward predictions
     print(f"\n  FORWARD PREDICTIONS (c=21, 23, 25 — falsifiable):")
-    print(f"  {'c':>3} {'predicted (MeV)':>16} {'predicted J':>12} "
-          f"{'predicted parity':>20} {'falsifiable test':>40}")
+    print(
+        f"  {'c':>3} {'predicted (MeV)':>16} {'predicted J':>12} " f"{'predicted parity':>20} {'falsifiable test':>40}"
+    )
     forward_predictions = []
     for c, pred_mass in FORWARD:
         fit_num, fit_den = predicted_j_from_pattern(c)
         # Parity prediction: pattern alternates somewhat; default to + per the
         # observed positive-parity dominance in established matches
         pred_parity = "+"
-        falsifiable = (
-            f"if exists at {pred_mass:.0f} MeV with J={fit_num}/{fit_den}{pred_parity}"
+        falsifiable = f"if exists at {pred_mass:.0f} MeV with J={fit_num}/{fit_den}{pred_parity}"
+        print(f"  {c:>3} {pred_mass:>16.1f} {fit_num}/{fit_den:>12} " f"{pred_parity:>20} {falsifiable:>40}")
+        forward_predictions.append(
+            {
+                "c": c,
+                "predicted_mass_mev": pred_mass,
+                "predicted_j_numerator": fit_num,
+                "predicted_j_denominator": fit_den,
+                "predicted_parity_assumed": pred_parity,
+                "falsifiable_signature": falsifiable,
+            }
         )
-        print(f"  {c:>3} {pred_mass:>16.1f} {fit_num}/{fit_den:>12} "
-              f"{pred_parity:>20} {falsifiable:>40}")
-        forward_predictions.append({
-            "c": c, "predicted_mass_mev": pred_mass,
-            "predicted_j_numerator": fit_num,
-            "predicted_j_denominator": fit_den,
-            "predicted_parity_assumed": pred_parity,
-            "falsifiable_signature": falsifiable,
-        })
 
     # Verdict
     print(f"\n  VERDICT")

@@ -1,5 +1,11 @@
 [↑ Period 3](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-7tk051, clm-f5ucdo, clm-f8k2um, clm-h8nmpu, clm-jy8h1x, clm-rw7jqo, clm-sd04x4, clm-y7uvdc]
+subtree-experiments: []
+-->
+
 # Magnesium (Z=12)
 
 Magnesium-24 ($Z=12$, $A=24$) is a perfect $6\alpha$ Octahedron: 6 Alpha clusters at the Cartesian poles ($\pm X, \pm Y, \pm Z$) with 15 inter-alpha coupling pairs. It is the lightest structural metal with a fully closed alpha-cluster core ($N=Z=12$) and exhibits the highest 3D rotational symmetry of any element in the $p$-block. The semiconductor engine solves $R_{\text{oct}} = 78.0\,d$ with $0.000\,0\%$ error.

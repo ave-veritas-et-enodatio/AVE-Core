@@ -21,7 +21,6 @@ Discriminates:
   (c) If Cosserat ON shifts the mode spectrum: K4↔Cosserat coupling at
       saturation contributes to mode selection
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -33,7 +32,6 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
 from ave.topological.vacuum_engine import VacuumEngine3D
-
 
 CANDIDATE_OMEGAS = {
     "ω_TL = ω_C/√3": 1.0 / np.sqrt(3.0),
@@ -51,11 +49,12 @@ def run_pulse_targeted(N, v_pulse, enable_cos_self, label, n_periods=100):
     COMPTON_PERIOD = 2.0 * np.pi
     N_STEPS = int(n_periods * COMPTON_PERIOD / DT)
 
-    print(f"\n  [{label}] N={N}, PML={PML}, V_pulse={v_pulse}, cos_self={enable_cos_self}",
-          flush=True)
+    print(f"\n  [{label}] N={N}, PML={PML}, V_pulse={v_pulse}, cos_self={enable_cos_self}", flush=True)
 
     engine = VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=0.0,
+        N=N,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=enable_cos_self,
@@ -82,16 +81,19 @@ def run_pulse_targeted(N, v_pulse, enable_cos_self, label, n_periods=100):
     candidate_mags = {}
     print(f"    {'Candidate':<22} {'ω_target':>9} {'mag':>11}")
     for name, omega_target in CANDIDATE_OMEGAS.items():
-        mask = (omegas_per_freq >= omega_target - half_window) & \
-               (omegas_per_freq <= omega_target + half_window)
+        mask = (omegas_per_freq >= omega_target - half_window) & (omegas_per_freq <= omega_target + half_window)
         mag = float(spec[mask].max()) if mask.sum() > 0 else 0.0
         candidate_mags[name] = {"omega_target": float(omega_target), "mag": mag}
         print(f"    {name:<22} {omega_target:>9.4f} {mag:>11.4e}")
 
     return {
-        "label": label, "N": N, "PML": PML, "v_pulse": v_pulse,
+        "label": label,
+        "N": N,
+        "PML": PML,
+        "v_pulse": v_pulse,
         "enable_cosserat_self_terms": enable_cos_self,
-        "n_periods": n_periods, "elapsed_s": elapsed,
+        "n_periods": n_periods,
+        "elapsed_s": elapsed,
         "candidate_mags": candidate_mags,
         "v_traj_rms": float(np.sqrt(np.mean(v_traj**2))),
     }
@@ -105,12 +107,10 @@ def main():
     results = []
 
     print("\n=== N=24 saturated, Cosserat OFF (bare K4-TLM at chair-ring lattice/amplitude) ===")
-    results.append(run_pulse_targeted(N=24, v_pulse=0.95, enable_cos_self=False,
-                                       label="N=24 V=0.95 CosSelf=False"))
+    results.append(run_pulse_targeted(N=24, v_pulse=0.95, enable_cos_self=False, label="N=24 V=0.95 CosSelf=False"))
 
     print("\n=== N=24 saturated, Cosserat ON ===")
-    results.append(run_pulse_targeted(N=24, v_pulse=0.95, enable_cos_self=True,
-                                       label="N=24 V=0.95 CosSelf=True"))
+    results.append(run_pulse_targeted(N=24, v_pulse=0.95, enable_cos_self=True, label="N=24 V=0.95 CosSelf=True"))
 
     # Combined comparison table — pull in prior data
     prior_results_path = Path(__file__).parent / "r10_v8_foundation_audit_t1_targeted_results.json"
@@ -140,26 +140,22 @@ def main():
     # Identify dominant non-Nyquist for the new N=24 sat results
     print("\n  Dominant non-Nyquist candidate for new N=24 saturated runs:")
     for r in results:
-        non_nyq = {n: r["candidate_mags"][n]["mag"] for n in CANDIDATE_OMEGAS
-                    if "Nyquist" not in n}
+        non_nyq = {n: r["candidate_mags"][n]["mag"] for n in CANDIDATE_OMEGAS if "Nyquist" not in n}
         dominant = max(non_nyq, key=non_nyq.get)
         sorted_vals = sorted(non_nyq.values(), reverse=True)
         ratio = sorted_vals[0] / sorted_vals[1] if sorted_vals[1] > 0 else float("inf")
-        print(f"    {r['label']}: dominant = {dominant} (mag {non_nyq[dominant]:.3e}, "
-              f"ratio to 2nd = {ratio:.2f})")
+        print(f"    {r['label']}: dominant = {dominant} (mag {non_nyq[dominant]:.3e}, " f"ratio to 2nd = {ratio:.2f})")
 
     # Discriminator: compare N=24 sat vs N=16 sat (saturation broadening) and vs N=24 lin (lattice mode)
     print("\n  Discriminator analysis:")
     n24_sat_off = next((r for r in results if r["label"] == "N=24 V=0.95 CosSelf=False"), None)
-    n16_sat = next((r for r in prior_results
-                     if r["label"] == "N=16, V=0.95, CosSelf=False"), None)
-    n24_lin = next((r for r in prior_results
-                     if r["label"] == "N=24, V=0.01, CosSelf=False"), None)
+    n16_sat = next((r for r in prior_results if r["label"] == "N=16, V=0.95, CosSelf=False"), None)
+    n24_lin = next((r for r in prior_results if r["label"] == "N=24, V=0.01, CosSelf=False"), None)
     if n24_sat_off and n16_sat and n24_lin:
         # Ratio of 1.5·ω_C peak to ω_TL peak — high ratio = 1.5 dominant; low ratio = ω_TL dominant
         def ratio_15_to_TL(r):
-            return (r["candidate_mags"]["1.5·ω_C"]["mag"] /
-                    max(r["candidate_mags"]["ω_TL = ω_C/√3"]["mag"], 1e-30))
+            return r["candidate_mags"]["1.5·ω_C"]["mag"] / max(r["candidate_mags"]["ω_TL = ω_C/√3"]["mag"], 1e-30)
+
         r_n24_sat = ratio_15_to_TL(n24_sat_off)
         r_n16_sat = ratio_15_to_TL(n16_sat)
         r_n24_lin = ratio_15_to_TL(n24_lin)
@@ -195,8 +191,7 @@ def main():
             print(f"    {name:<22} {off:>11.4e} {on:>11.4e} {ratio:>8.3f}{flag}")
 
     out_path = Path(__file__).parent / "r10_v8_foundation_audit_t1_n24_saturated_results.json"
-    out_path.write_text(json.dumps({"new_results": results,
-                                     "prior_results": prior_results}, indent=2, default=str))
+    out_path.write_text(json.dumps({"new_results": results, "prior_results": prior_results}, indent=2, default=str))
     print(f"\nSaved {out_path.relative_to(Path.cwd())}")
 
 

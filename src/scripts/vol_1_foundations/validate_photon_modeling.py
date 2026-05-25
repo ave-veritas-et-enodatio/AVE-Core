@@ -26,26 +26,25 @@ Outputs:
   - assets/photon_modeling_validation_panels.png
   - results/photon_modeling_validation.json
 """
-from __future__ import annotations
 
 import json
 import sys
 from pathlib import Path
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 
-from ave.core.constants import V_YIELD, ALPHA
+from ave.core.constants import ALPHA, V_YIELD
+from ave.topological.helicity_observer import HelicityObserver
 from ave.topological.vacuum_engine import (
-    VacuumEngine3D,
     CosseratBeltramiSource,
     RegimeClassifierObserver,
+    VacuumEngine3D,
 )
-from ave.topological.helicity_observer import HelicityObserver
-
 
 PREREG = {
     # Property 1: Purely transverse
@@ -54,7 +53,7 @@ PREREG = {
     # Property 2: Microrotation sector only
     "P2_u_max_absolute_threshold_frac_of_omega_max": 0.05,
     # Property 3: No saturation, linear regime
-    "P3a_A2_max_threshold": 0.5 * ALPHA,         # ≈ 0.00365 (factor-of-4 below √(2α) ≈ 0.121 cusp)
+    "P3a_A2_max_threshold": 0.5 * ALPHA,  # ≈ 0.00365 (factor-of-4 below √(2α) ≈ 0.121 cusp)
     "P3b_energy_drift_steady_state_max": 1.0e-3,
     # Stability + propagation
     "S1_omega_finite_required": True,
@@ -65,9 +64,7 @@ PREREG = {
 }
 
 
-def run_photon_validation(handedness: str, N: int = 48,
-                            n_outer_steps: int = 200,
-                            amp_factor: float = 0.10):
+def run_photon_validation(handedness: str, N: int = 48, n_outer_steps: int = 200, amp_factor: float = 0.10):
     """Run VacuumEngine3D with CosseratBeltramiSource at sub-yield amplitude.
 
     Per doc 30 §3.1 property 3 ("Δφ ≪ α, linear regime"), amp_factor=0.10
@@ -78,7 +75,10 @@ def run_photon_validation(handedness: str, N: int = 48,
         raise ValueError(f"handedness must be RH or LH, got {handedness!r}")
 
     engine = VacuumEngine3D.from_args(
-        N=N, pml=6, temperature=0.0, amplitude_convention="V_SNAP",
+        N=N,
+        pml=6,
+        temperature=0.0,
+        amplitude_convention="V_SNAP",
     )
     omega_drive = 2.0 * np.pi / 3.5  # canonical λ; not strictly ω_C but in similar regime
     amplitude = amp_factor * np.pi  # 10% of yield-equivalent for Cosserat ω
@@ -115,51 +115,47 @@ def run_photon_validation(handedness: str, N: int = 48,
 
             # Property 1: A₁ vs T₂ decomposition of K4 port-space
             # A₁ basis = (1,1,1,1)/2 (averaging across ports)
-            A1_amp = (V_inc.sum(axis=-1) / 2.0)  # (N, N, N) scalar field
+            A1_amp = V_inc.sum(axis=-1) / 2.0  # (N, N, N) scalar field
             # T₂ amplitudes = port deviations from mean
             V_inc_mean = V_inc.mean(axis=-1, keepdims=True)
             T2_components = V_inc - V_inc_mean  # (N, N, N, 4)
-            T2_amp = np.sqrt((T2_components ** 2).sum(axis=-1))  # (N, N, N)
+            T2_amp = np.sqrt((T2_components**2).sum(axis=-1))  # (N, N, N)
 
             A1_max = float(np.abs(A1_amp).max())
             T2_max = float(T2_amp.max())
 
             # Cosserat ω vs u amplitudes
-            omega_mag = np.sqrt((omega ** 2).sum(axis=-1))
-            u_mag = np.sqrt((u ** 2).sum(axis=-1))
+            omega_mag = np.sqrt((omega**2).sum(axis=-1))
+            u_mag = np.sqrt((u**2).sum(axis=-1))
             omega_max = float(omega_mag.max())
             u_max = float(u_mag.max())
 
             # |ω|-weighted centroid along propagation axis
             x_indices = np.arange(N)
             x_weights = omega_mag.sum(axis=(1, 2))
-            centroid_x = (
-                float((x_weights * x_indices).sum() / x_weights.sum())
-                if x_weights.sum() > 0 else 0.0
-            )
+            centroid_x = float((x_weights * x_indices).sum() / x_weights.sum()) if x_weights.sum() > 0 else 0.0
 
             # Total energy diagnostic — sum of squared field amplitudes
-            E_total = float((omega_mag ** 2).sum() + (u_mag ** 2).sum())
+            E_total = float((omega_mag**2).sum() + (u_mag**2).sum())
 
             # Finiteness check
-            all_finite = bool(
-                np.all(np.isfinite(omega)) and np.all(np.isfinite(u))
-                and np.all(np.isfinite(V_inc))
-            )
+            all_finite = bool(np.all(np.isfinite(omega)) and np.all(np.isfinite(u)) and np.all(np.isfinite(V_inc)))
 
-            frames.append({
-                "step": step,
-                "t": engine.outer_t if hasattr(engine, "outer_t") else step,
-                "A1_max": A1_max,
-                "T2_max": T2_max,
-                "A1_over_T2": A1_max / max(T2_max, 1e-30),
-                "omega_max": omega_max,
-                "u_max": u_max,
-                "u_over_omega": u_max / max(omega_max, 1e-30),
-                "centroid_x": centroid_x,
-                "E_total": E_total,
-                "all_finite": all_finite,
-            })
+            frames.append(
+                {
+                    "step": step,
+                    "t": engine.outer_t if hasattr(engine, "outer_t") else step,
+                    "A1_max": A1_max,
+                    "T2_max": T2_max,
+                    "A1_over_T2": A1_max / max(T2_max, 1e-30),
+                    "omega_max": omega_max,
+                    "u_max": u_max,
+                    "u_over_omega": u_max / max(omega_max, 1e-30),
+                    "centroid_x": centroid_x,
+                    "E_total": E_total,
+                    "all_finite": all_finite,
+                }
+            )
 
     return {
         "handedness": handedness,
@@ -199,17 +195,12 @@ def evaluate_prereg(rh: dict, lh: dict) -> dict:
     # P2 absolute threshold: u_max < 5% of omega_max
     u_max_max = max(f["u_max"] for f in sustain)
     omega_max_max = max(f["omega_max"] for f in sustain)
-    p2_u_threshold = (
-        u_max_max < PREREG["P2_u_max_absolute_threshold_frac_of_omega_max"] * omega_max_max
-    )
+    p2_u_threshold = u_max_max < PREREG["P2_u_max_absolute_threshold_frac_of_omega_max"] * omega_max_max
     pass_P2 = bool(p2_u_threshold)
 
     # P3a: A²_max stays below 0.5·α threshold (linear regime)
     if rh["regime_history"]:
-        a2_max_history = [
-            (h.get("max_A2_total") or h.get("max_A2_k4") or 0.0)
-            for h in rh["regime_history"]
-        ]
+        a2_max_history = [(h.get("max_A2_total") or h.get("max_A2_k4") or 0.0) for h in rh["regime_history"]]
         sustain_idx_start = len(a2_max_history) // 4
         sustain_idx_end = 3 * len(a2_max_history) // 4
         a2_max_sustain = max(a2_max_history[sustain_idx_start:sustain_idx_end])
@@ -279,9 +270,7 @@ def evaluate_prereg(rh: dict, lh: dict) -> dict:
     result["pass_doc30_property_2"] = pass_P2
     result["pass_doc30_property_3"] = pass_P3a and pass_P3b
     result["pass_all_doc30_properties"] = (
-        result["pass_doc30_property_1"]
-        and result["pass_doc30_property_2"]
-        and result["pass_doc30_property_3"]
+        result["pass_doc30_property_1"] and result["pass_doc30_property_2"] and result["pass_doc30_property_3"]
     )
     return result
 
@@ -308,8 +297,13 @@ def render_panels(rh: dict, lh: dict, eval_result: dict, out_png: str) -> None:
         if lh["frames"]:
             a1_t2_lh = [f["A1_over_T2"] for f in lh["frames"]]
             ax.plot(t, a1_t2_lh, "-", color="#aaff77", lw=1.3, label="LH")
-        ax.axhline(PREREG["P1_A1_over_T2_amplitude_ratio_max"], color="red",
-                   ls="--", lw=1, label=f"P1 threshold ({PREREG['P1_A1_over_T2_amplitude_ratio_max']})")
+        ax.axhline(
+            PREREG["P1_A1_over_T2_amplitude_ratio_max"],
+            color="red",
+            ls="--",
+            lw=1,
+            label=f"P1 threshold ({PREREG['P1_A1_over_T2_amplitude_ratio_max']})",
+        )
         ax.set_yscale("log")
     ax.set_xlabel("step", color="#cccccc", fontsize=9)
     ax.set_ylabel("A₁ / T₂", color="#cccccc", fontsize=9)
@@ -317,7 +311,8 @@ def render_panels(rh: dict, lh: dict, eval_result: dict, out_png: str) -> None:
         f"Property 1: A₁ (longitudinal) / T₂ (transverse)  "
         f"max = {eval_result['P1_A1_over_T2_max_observed']:.3e}  "
         f"{'PASS' if eval_result['pass_P1_A1_T2'] else 'FAIL'}",
-        color="white", fontsize=10,
+        color="white",
+        fontsize=10,
     )
     ax.legend(facecolor="#050510", edgecolor="#444", labelcolor="#cccccc", fontsize=8)
     ax.grid(alpha=0.2, color="#444")
@@ -330,8 +325,13 @@ def render_panels(rh: dict, lh: dict, eval_result: dict, out_png: str) -> None:
         if lh["frames"]:
             u_omega_lh = [f["u_over_omega"] for f in lh["frames"]]
             ax.plot(t, u_omega_lh, "-", color="#aaff77", lw=1.3, label="LH")
-        ax.axhline(PREREG["P1_u_over_omega_amplitude_ratio_max"], color="red",
-                   ls="--", lw=1, label=f"threshold ({PREREG['P1_u_over_omega_amplitude_ratio_max']})")
+        ax.axhline(
+            PREREG["P1_u_over_omega_amplitude_ratio_max"],
+            color="red",
+            ls="--",
+            lw=1,
+            label=f"threshold ({PREREG['P1_u_over_omega_amplitude_ratio_max']})",
+        )
         ax.set_yscale("log")
     ax.set_xlabel("step", color="#cccccc", fontsize=9)
     ax.set_ylabel("u_max / ω_max", color="#cccccc", fontsize=9)
@@ -339,7 +339,8 @@ def render_panels(rh: dict, lh: dict, eval_result: dict, out_png: str) -> None:
         f"Property 2: Cosserat u (translation) / ω (rotation)  "
         f"max = {eval_result['P1_u_over_omega_max_observed']:.3e}  "
         f"{'PASS' if eval_result['pass_P1_u_omega'] else 'FAIL'}",
-        color="white", fontsize=10,
+        color="white",
+        fontsize=10,
     )
     ax.legend(facecolor="#050510", edgecolor="#444", labelcolor="#cccccc", fontsize=8)
     ax.grid(alpha=0.2, color="#444")
@@ -348,13 +349,16 @@ def render_panels(rh: dict, lh: dict, eval_result: dict, out_png: str) -> None:
     ax = axes[2]
     if rh["regime_history"]:
         a2_t = [h["t"] for h in rh["regime_history"]]
-        a2_v = [(h.get("max_A2_total") or h.get("max_A2_k4") or 0.0)
-                for h in rh["regime_history"]]
+        a2_v = [(h.get("max_A2_total") or h.get("max_A2_k4") or 0.0) for h in rh["regime_history"]]
         ax.plot(a2_t, a2_v, "-", color="#ffaa44", lw=1.3, label="A²_max (RH)")
-        ax.axhline(PREREG["P3a_A2_max_threshold"], color="red", ls="--", lw=1,
-                   label=f"P3a threshold ({PREREG['P3a_A2_max_threshold']:.4f})")
-        ax.axhline(np.sqrt(2 * ALPHA), color="orange", ls=":", lw=1,
-                   label=f"√(2α) cusp ({np.sqrt(2*ALPHA):.4f})")
+        ax.axhline(
+            PREREG["P3a_A2_max_threshold"],
+            color="red",
+            ls="--",
+            lw=1,
+            label=f"P3a threshold ({PREREG['P3a_A2_max_threshold']:.4f})",
+        )
+        ax.axhline(np.sqrt(2 * ALPHA), color="orange", ls=":", lw=1, label=f"√(2α) cusp ({np.sqrt(2*ALPHA):.4f})")
         ax.set_yscale("log")
     ax.set_xlabel("t (nat units)", color="#cccccc", fontsize=9)
     ax.set_ylabel("A²_max", color="#cccccc", fontsize=9)
@@ -362,7 +366,8 @@ def render_panels(rh: dict, lh: dict, eval_result: dict, out_png: str) -> None:
         f"Property 3a: A²_max < α/2 (linear regime)  "
         f"observed = {eval_result['P3a_A2_max_observed']:.3e}  "
         f"{'PASS' if eval_result['pass_P3a'] else 'FAIL'}",
-        color="white", fontsize=10,
+        color="white",
+        fontsize=10,
     )
     ax.legend(facecolor="#050510", edgecolor="#444", labelcolor="#cccccc", fontsize=7)
     ax.grid(alpha=0.2, color="#444")
@@ -378,7 +383,8 @@ def render_panels(rh: dict, lh: dict, eval_result: dict, out_png: str) -> None:
         f"Property 3b: Energy in linear regime  "
         f"sustain drift = {eval_result['P3b_energy_drift_observed']:.3e}  "
         f"{'PASS' if eval_result['pass_P3b'] else 'FAIL'}",
-        color="white", fontsize=10,
+        color="white",
+        fontsize=10,
     )
     ax.legend(facecolor="#050510", edgecolor="#444", labelcolor="#cccccc", fontsize=8)
     ax.grid(alpha=0.2, color="#444")
@@ -391,14 +397,14 @@ def render_panels(rh: dict, lh: dict, eval_result: dict, out_png: str) -> None:
         if lh["frames"]:
             cx_lh = [f["centroid_x"] for f in lh["frames"]]
             ax.plot(t, cx_lh, "-", color="#aaff77", lw=1.3, label="centroid_x (LH)")
-        ax.axhline(rh["src_x"], color="cyan", ls=":", lw=0.8,
-                   label=f"src x={rh['src_x']}")
+        ax.axhline(rh["src_x"], color="cyan", ls=":", lw=0.8, label=f"src x={rh['src_x']}")
     ax.set_xlabel("step", color="#cccccc", fontsize=9)
     ax.set_ylabel("|ω|-weighted centroid_x (cells)", color="#cccccc", fontsize=9)
     ax.set_title(
         f"S2: ω propagation — drift = {eval_result['S2_centroid_drift_observed']:.2f} cells  "
         f"{'PASS' if eval_result['pass_S2_propagation'] else 'FAIL'}",
-        color="white", fontsize=10,
+        color="white",
+        fontsize=10,
     )
     ax.legend(facecolor="#050510", edgecolor="#444", labelcolor="#cccccc", fontsize=8)
     ax.grid(alpha=0.2, color="#444")
@@ -422,7 +428,8 @@ def render_panels(rh: dict, lh: dict, eval_result: dict, out_png: str) -> None:
         f"S3: helicity sign  "
         f"h_RH(src)={eval_result['S3_h_RH_at_src']:.3f}, h_LH(src)={eval_result['S3_h_LH_at_src']:.3f}  "
         f"{'PASS' if eval_result['pass_S3_handedness'] else 'FAIL'}",
-        color="white", fontsize=10,
+        color="white",
+        fontsize=10,
     )
     ax.legend(facecolor="#050510", edgecolor="#444", labelcolor="#cccccc", fontsize=8)
     ax.grid(alpha=0.2, color="#444")
@@ -433,7 +440,9 @@ def render_panels(rh: dict, lh: dict, eval_result: dict, out_png: str) -> None:
         f"Validate Photon Modeling — VacuumEngine3D + CosseratBeltramiSource (sub-yield)\n"
         f"doc 30 properties: P1 transverse + P2 microrotation-only + P3 linear regime  |  "
         f"Overall: {'✓ PASS' if overall_pass else '✗ FAIL'}",
-        color="white", fontsize=12, fontweight="bold",
+        color="white",
+        fontsize=12,
+        fontweight="bold",
     )
     plt.savefig(out_png, dpi=110, bbox_inches="tight", facecolor=fig.get_facecolor())
     plt.close(fig)
@@ -479,9 +488,10 @@ def main() -> None:
                     entry[k] = v.tolist()
     with open(out_json, "w") as f:
         json.dump(
-            {"prereg": PREREG, "eval": eval_result,
-             "rh_summary": rh_serial, "lh_summary": lh_serial},
-            f, indent=2, default=str,
+            {"prereg": PREREG, "eval": eval_result, "rh_summary": rh_serial, "lh_summary": lh_serial},
+            f,
+            indent=2,
+            default=str,
         )
 
     print(f"\n  Outputs:")

@@ -21,8 +21,6 @@ Outcome categories:
 - TECHNICAL BLOCKER (~5%): engine NaN at some R per Phase 3f.3.3 CFL issue
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 
@@ -61,10 +59,7 @@ def extract_decay_time(signal: np.ndarray, dt: float) -> float:
     """
     env = np.abs(signal)
     window_size = max(5, len(env) // 50)
-    env_smooth = np.array([
-        np.max(env[max(0, i - window_size): i + window_size + 1])
-        for i in range(len(env))
-    ])
+    env_smooth = np.array([np.max(env[max(0, i - window_size) : i + window_size + 1]) for i in range(len(env))])
 
     skip_lo = len(env_smooth) // 5
     skip_hi = len(env_smooth) - len(env_smooth) // 10
@@ -161,8 +156,7 @@ def test_q_preservation_cavity_radius_sweep():
 
     # Diagnose outcome category
     valid_Q = [q for q in Q_values if not np.isnan(q) and q != float("inf")]
-    valid_omega_R = [w for w, q in zip(omega_R_values, Q_values)
-                     if not np.isnan(q) and q != float("inf")]
+    valid_omega_R = [w for w, q in zip(omega_R_values, Q_values) if not np.isnan(q) and q != float("inf")]
 
     if nan_radii:
         print(f"\n[TECHNICAL BLOCKER — Outcome D] Engine NaN at radii: {nan_radii}")
@@ -181,8 +175,7 @@ def test_q_preservation_cavity_radius_sweep():
 
     # Also check ω_R scaling vs R (expect ω_R ∝ 1/R if cavity mode geometry-set)
     omega_R_arr = np.array(valid_omega_R)
-    R_arr = np.array([R for R, q in zip(radii, Q_values)
-                      if not np.isnan(q) and q != float("inf")])
+    R_arr = np.array([R for R, q in zip(radii, Q_values) if not np.isnan(q) and q != float("inf")])
     # Fit omega_R · R = constant test
     omega_R_times_R = omega_R_arr * R_arr
     omega_R_R_variation = (np.max(omega_R_times_R) - np.min(omega_R_times_R)) / np.mean(omega_R_times_R)

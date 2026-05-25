@@ -57,11 +57,11 @@ OUTCOMES (pre-registered):
 import csv
 from pathlib import Path
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 from ave.core.constants import ALPHA, C_0
-
+from ave_path_util import sim_output
 
 # AVE prediction
 V_SUBSTRATE_MS = ALPHA * C_0 / (2 * np.pi)
@@ -97,11 +97,13 @@ CUBIC_AXES = [
 
 
 # IAU J2000 equatorial-to-galactic rotation matrix
-R_EQ_TO_GAL = np.array([
-    [-0.054876, -0.873437, -0.483835],
-    [+0.494109, -0.444830, +0.746982],
-    [-0.867666, -0.198076, +0.455984],
-])
+R_EQ_TO_GAL = np.array(
+    [
+        [-0.054876, -0.873437, -0.483835],
+        [+0.494109, -0.444830, +0.746982],
+        [-0.867666, -0.198076, +0.455984],
+    ]
+)
 
 
 def parse_gaia_csv(path: Path) -> list[dict]:
@@ -110,10 +112,19 @@ def parse_gaia_csv(path: Path) -> list[dict]:
         reader = csv.DictReader(f)
         for row in reader:
             try:
-                stars.append({k: float(row[k]) for k in [
-                    "ra", "dec", "parallax", "pmra", "pmdec",
-                    "radial_velocity",
-                ]})
+                stars.append(
+                    {
+                        k: float(row[k])
+                        for k in [
+                            "ra",
+                            "dec",
+                            "parallax",
+                            "pmra",
+                            "pmdec",
+                            "radial_velocity",
+                        ]
+                    }
+                )
             except (ValueError, KeyError):
                 continue
     return stars
@@ -129,11 +140,13 @@ def heliocentric_velocity_galactic(star: dict) -> np.ndarray:
     v_r = star["radial_velocity"]
 
     cra, sra, cde, sde = np.cos(ra), np.sin(ra), np.cos(dec), np.sin(dec)
-    v_eq = np.array([
-        v_r * cde * cra - v_alpha * sra - v_delta * sde * cra,
-        v_r * cde * sra + v_alpha * cra - v_delta * sde * sra,
-        v_r * sde + v_delta * cde,
-    ])
+    v_eq = np.array(
+        [
+            v_r * cde * cra - v_alpha * sra - v_delta * sde * cra,
+            v_r * cde * sra + v_alpha * cra - v_delta * sde * sra,
+            v_r * sde + v_delta * cde,
+        ]
+    )
     return R_EQ_TO_GAL @ v_eq
 
 
@@ -257,7 +270,9 @@ def main() -> None:
         outcome = "C-other — cluster aligned with neither preferred axis (puzzle)"
     print(f"  {outcome}")
     print()
-    print(f"Cluster mean direction in galactic (l, b): ({np.degrees(np.arctan2(v_mean_dir[1], v_mean_dir[0])) % 360:.1f}°, {np.degrees(np.arcsin(v_mean_dir[2])):.1f}°)")
+    print(
+        f"Cluster mean direction in galactic (l, b): ({np.degrees(np.arctan2(v_mean_dir[1], v_mean_dir[0])) % 360:.1f}°, {np.degrees(np.arcsin(v_mean_dir[2])):.1f}°)"
+    )
     print(f"CMB-dipole direction in galactic (l, b):   (264.0°, 48.0°)")
     print()
 
@@ -268,14 +283,24 @@ def main() -> None:
     v_thin_dirs = v_thin / np.linalg.norm(v_thin, axis=1, keepdims=True)
     angles_to_cmb = np.array([angle_between(d, CMB_DIPOLE_DIR) for d in v_thin_dirs])
     angles_to_gal = np.array([angle_between(d, GAL_ROTATION_DIR) for d in v_thin_dirs])
-    axes[0].hist(angles_to_cmb, bins=60, range=(0, 180), alpha=0.6, color="red",
-                 label=f"vs CMB-dipole (mean: {np.mean(angles_to_cmb):.1f}°)")
-    axes[0].hist(angles_to_gal, bins=60, range=(0, 180), alpha=0.6, color="blue",
-                 label=f"vs galactic-rotation (mean: {np.mean(angles_to_gal):.1f}°)")
-    axes[0].axvline(angle_cmb, color="red", linestyle="--",
-                    label=f"Cluster mean vs CMB-dipole: {angle_cmb:.1f}°")
-    axes[0].axvline(angle_gal, color="blue", linestyle="--",
-                    label=f"Cluster mean vs galactic-rot: {angle_gal:.1f}°")
+    axes[0].hist(
+        angles_to_cmb,
+        bins=60,
+        range=(0, 180),
+        alpha=0.6,
+        color="red",
+        label=f"vs CMB-dipole (mean: {np.mean(angles_to_cmb):.1f}°)",
+    )
+    axes[0].hist(
+        angles_to_gal,
+        bins=60,
+        range=(0, 180),
+        alpha=0.6,
+        color="blue",
+        label=f"vs galactic-rotation (mean: {np.mean(angles_to_gal):.1f}°)",
+    )
+    axes[0].axvline(angle_cmb, color="red", linestyle="--", label=f"Cluster mean vs CMB-dipole: {angle_cmb:.1f}°")
+    axes[0].axvline(angle_gal, color="blue", linestyle="--", label=f"Cluster mean vs galactic-rot: {angle_gal:.1f}°")
     axes[0].set_xlabel("Angle from reference axis (degrees)", fontsize=11)
     axes[0].set_ylabel("# thin-disk stars", fontsize=11)
     axes[0].set_title(f"Per-star velocity direction distribution (N={len(v_thin)})")
@@ -293,10 +318,20 @@ def main() -> None:
     v_e1 = v_thin @ e1
     v_e2 = v_thin @ e2
     axes[1].scatter(v_e1, v_e2, s=1, alpha=0.3, color="steelblue")
-    axes[1].axvline(V_SUBSTRATE_KMS, color="red", linestyle="--", linewidth=2,
-                    label=f"αc/(2π) FLOOR projected on CMB-dipole: {V_SUBSTRATE_KMS:.1f} km/s")
-    axes[1].axvline(np.mean(v_e1), color="orange", linestyle="-", linewidth=2,
-                    label=f"Cluster mean ∥ CMB-dipole: {np.mean(v_e1):.1f} km/s")
+    axes[1].axvline(
+        V_SUBSTRATE_KMS,
+        color="red",
+        linestyle="--",
+        linewidth=2,
+        label=f"αc/(2π) FLOOR projected on CMB-dipole: {V_SUBSTRATE_KMS:.1f} km/s",
+    )
+    axes[1].axvline(
+        np.mean(v_e1),
+        color="orange",
+        linestyle="-",
+        linewidth=2,
+        label=f"Cluster mean ∥ CMB-dipole: {np.mean(v_e1):.1f} km/s",
+    )
     axes[1].axhline(0.0, color="gray", linestyle=":", alpha=0.5)
     axes[1].set_xlabel("v ∥ CMB-dipole direction (km/s)", fontsize=11)
     axes[1].set_ylabel("v perpendicular (in galactic-rotation projection) (km/s)", fontsize=11)
@@ -306,8 +341,7 @@ def main() -> None:
     axes[1].set_aspect("equal")
 
     plt.tight_layout()
-    out_path = Path(__file__).parent.parent.parent / "assets" / "sim_outputs" / "gaia_directional_analysis.png"
-    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path = sim_output("gaia_directional_analysis.png")
     plt.savefig(out_path, dpi=150, bbox_inches="tight")
     print(f"Saved directional analysis plot to {out_path}")
 

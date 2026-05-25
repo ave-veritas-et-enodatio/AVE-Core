@@ -19,14 +19,21 @@ If these all wire up to the SI experimental values (m_e, e, c, ℏ), the
 bootstrap chain is calibration-clean. If anything is off by a factor,
 that's a load-bearing finding for any further numerical claim.
 """
-from __future__ import annotations
+
 import sys
 
 sys.path.insert(0, "/Users/grantlindblom/AVE-staging/AVE-Core/src")
 
 import numpy as np
+
 from ave.core.constants import (
-    C_0, M_E, e_charge, HBAR, ALPHA, Z_0, L_NODE,
+    ALPHA,
+    C_0,
+    HBAR,
+    L_NODE,
+    M_E,
+    Z_0,
+    e_charge,
 )
 
 
@@ -53,7 +60,7 @@ def main() -> None:
     L_e = (L_NODE / e_charge) ** 2 * M_E  # = ξ_topo⁻² · m_e
     print(f"    L_e     = ξ_topo⁻²·m_e = (ℓ_node/e)²·m_e = {L_e:.6e} H")
 
-    omega_compton = M_E * C_0 ** 2 / HBAR
+    omega_compton = M_E * C_0**2 / HBAR
     print(f"    ω_C     = m_e·c²/ℏ = {omega_compton:.6e} rad/s")
 
     R_TIR = Z_0 / (4 * np.pi)
@@ -62,7 +69,7 @@ def main() -> None:
     # ─── Identity check: ω_C · L_e =? ℏ/e² ───────────────────────────────
     print("\n  Identity check: ω_C·L_e vs ℏ/e² (doc 16_)")
     omega_L = omega_compton * L_e
-    h_over_e2 = HBAR / e_charge ** 2
+    h_over_e2 = HBAR / e_charge**2
     print(f"    ω_C · L_e        = {omega_L:.6e} Ω")
     print(f"    ℏ/e²             = {h_over_e2:.6e} Ω (Klitzing/2π)")
     print(f"    Ratio            = {omega_L / h_over_e2:.6f}  (expect 1.0 if formulas consistent)")
@@ -81,14 +88,14 @@ def main() -> None:
 
     # ─── Z_0 cross-check via α definition ────────────────────────────────
     print("\n  Cross-check: α = e²·Z_0 / (4π·ℏ)")
-    alpha_from_Z0 = e_charge ** 2 * Z_0 / (4 * np.pi * HBAR)
+    alpha_from_Z0 = e_charge**2 * Z_0 / (4 * np.pi * HBAR)
     print(f"    α (computed) = e²·Z_0/(4π·ℏ) = {alpha_from_Z0:.6e}")
     print(f"    α (constant) = {ALPHA:.6e}")
     print(f"    Ratio        = {alpha_from_Z0 / ALPHA:.6f}")
 
     # ─── C_e extraction via ω = 1/√(LC) ──────────────────────────────────
     print("\n  Bond capacitance C_e (via ω = 1/√(L_e·C_e)):")
-    C_e_from_omega = 1.0 / (omega_compton ** 2 * L_e)
+    C_e_from_omega = 1.0 / (omega_compton**2 * L_e)
     print(f"    C_e          = 1/(ω_C²·L_e) = {C_e_from_omega:.6e} F")
 
     # Cross-check: C_e should equal ε_0·ℓ_node²/ℓ_node = ε_0·ℓ_node up to
@@ -96,8 +103,7 @@ def main() -> None:
     epsilon_0 = 1.0 / (Z_0 * C_0)
     C_e_geometric = epsilon_0 * L_NODE
     print(f"    ε_0·ℓ_node   = {C_e_geometric:.6e} F  (parallel-plate approx)")
-    print(f"    Ratio        = {C_e_from_omega / C_e_geometric:.4f}  "
-          f"(expect ~1 up to π factors per Vol 4 Ch 1)")
+    print(f"    Ratio        = {C_e_from_omega / C_e_geometric:.4f}  " f"(expect ~1 up to π factors per Vol 4 Ch 1)")
 
     # ─── Summary ─────────────────────────────────────────────────────────
     print("\n" + "=" * 78)
@@ -109,10 +115,12 @@ def main() -> None:
         verdict = "PASS (numerical precision)"
     else:
         verdict = "FAIL"
-    print(f"  Identity  ω·L_e = ℏ/e²   : {'✓' if relative_error_1 < 1e-6 else '✗'} "
-          f"(rel_err={relative_error_1:.2e})")
-    print(f"  Identity  Q     = 1/α    : {'✓' if relative_error_2 < 1e-6 else '✗'} "
-          f"(rel_err={relative_error_2:.2e})")
+    print(
+        f"  Identity  ω·L_e = ℏ/e²   : {'✓' if relative_error_1 < 1e-6 else '✗'} " f"(rel_err={relative_error_1:.2e})"
+    )
+    print(
+        f"  Identity  Q     = 1/α    : {'✓' if relative_error_2 < 1e-6 else '✗'} " f"(rel_err={relative_error_2:.2e})"
+    )
     print(f"  Verdict: {verdict}")
 
     print(f"\n  Bootstrap-chain calibration: {verdict}")

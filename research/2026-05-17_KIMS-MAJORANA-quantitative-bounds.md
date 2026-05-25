@@ -161,7 +161,7 @@ What CHANGES:
 1. **`manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md` §8** cross-detector predictions table — refined KIMS + MAJORANA bounds
 2. **`manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/dama-matched-lc-coupling.md` §13** cross-detector table — refined bounds
 3. **`manuscript/ave-kb/common/divergence-test-substrate-map.md` C14 row** — add KIMS+MAJORANA refinement entry
-4. **`manuscript/ave-kb/common/closure-roadmap.md` §0.5** — new entry for KIMS+MAJORANA quantitative refinement
+4. **`manuscript/ave-kb/claim-quality-closure-roadmap.md` §0.5** — new entry for KIMS+MAJORANA quantitative refinement
 5. **`research/2026-05-17_HPGe-9.39kg-experimental-proposal.md` §0** banner — note that κ_HPGe upper limit is now tighter; HPGe single-detector predicted rate is correspondingly lower
 
 ## §7 — Honest scope summary

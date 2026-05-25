@@ -27,12 +27,12 @@ Bonus diagnostic: ω at substrate-mode candidates (1.5, 2.96) vs at ω_C.
 Compare amplitudes — confirms substrate mode dominates over corpus
 electron candidate.
 """
-from __future__ import annotations
 
 import json
 import sys
 import time
 from pathlib import Path
+
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
@@ -40,7 +40,6 @@ from ave.topological.vacuum_engine import VacuumEngine3D
 from scripts.vol_1_foundations.tlm_electron_soliton_eigenmode import (
     initialize_2_3_voltage_ansatz,
 )
-
 
 COMPTON_PERIOD = 2.0 * np.pi
 DT = 1.0 / np.sqrt(2.0)
@@ -58,7 +57,9 @@ def main():
 
     t_start = time.time()
     engine = VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=0.0,
+        N=N,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -71,11 +72,11 @@ def main():
     cx, cy, cz = (N - 1) // 2, (N - 1) // 2, (N - 1) // 2
     sample_points = []
     for phi_n, psi_n in [
-        (0.0, 0.0),         # Equatorial east
-        (np.pi/2, 0.0),     # Equatorial north
-        (np.pi, np.pi/2),   # Top of west
-        (3*np.pi/2, np.pi), # Bottom of south (psi=π puts it on inner edge)
-        (np.pi/4, np.pi/4), # Diagonal
+        (0.0, 0.0),  # Equatorial east
+        (np.pi / 2, 0.0),  # Equatorial north
+        (np.pi, np.pi / 2),  # Top of west
+        (3 * np.pi / 2, np.pi),  # Bottom of south (psi=π puts it on inner edge)
+        (np.pi / 4, np.pi / 4),  # Diagonal
     ]:
         x = int(round(cx + (R + r * np.cos(psi_n)) * np.cos(phi_n)))
         y = int(round(cy + (R + r * np.cos(psi_n)) * np.sin(phi_n)))
@@ -91,7 +92,7 @@ def main():
 
     # Time series storage
     n_samples = len(sample_points)
-    v_inc_traj = np.zeros((n_samples, n_steps, 4))   # 5 cells × n_steps × 4 ports
+    v_inc_traj = np.zeros((n_samples, n_steps, 4))  # 5 cells × n_steps × 4 ports
 
     print(f"\n  Running {n_steps} steps...", flush=True)
     for step_i in range(n_steps):
@@ -109,12 +110,12 @@ def main():
     transient_steps = int(11.0 * COMPTON_PERIOD / DT)
     n_post = n_steps - transient_steps
     target_freqs = [
-        ('ω_C/2 (subharmonic)', 0.5),
-        ('ω_C', 1.0),
-        ('1.5·ω_C (substrate ℓ=2)', 1.5),
-        ('2·ω_C', 2.0),
-        ('2.96·ω_C (substrate ℓ=5)', 2.96),
-        ('3·ω_C', 3.0),
+        ("ω_C/2 (subharmonic)", 0.5),
+        ("ω_C", 1.0),
+        ("1.5·ω_C (substrate ℓ=2)", 1.5),
+        ("2·ω_C", 2.0),
+        ("2.96·ω_C (substrate ℓ=5)", 2.96),
+        ("3·ω_C", 3.0),
     ]
 
     print(f"\n  FFT analysis (post-transient window, t > 11P):")
@@ -122,7 +123,7 @@ def main():
 
     fft_results_per_cell = []
     for si, (phi_n, psi_n, x, y, z) in enumerate(sample_points):
-        v_traj_post = v_inc_traj[si, transient_steps:, 0]   # port 0
+        v_traj_post = v_inc_traj[si, transient_steps:, 0]  # port 0
         n = len(v_traj_post)
         fft_vals = np.fft.rfft(v_traj_post)
         freqs_omega = np.fft.rfftfreq(n, d=DT) * 2.0 * np.pi
@@ -146,14 +147,16 @@ def main():
             flag = " ★" if amp_at == peak_amp else ""
             print(f"    {name:>30} {omega_act:>12.4f} {amp_at:>12.4e}{flag}")
 
-        fft_results_per_cell.append({
-            "cell": [x, y, z],
-            "phi": float(phi_n),
-            "psi": float(psi_n),
-            "peak_omega": peak_omega,
-            "peak_amplitude": peak_amp,
-            "amplitude_at_target_freqs": {name: a for name, (_, a) in target_amps.items()},
-        })
+        fft_results_per_cell.append(
+            {
+                "cell": [x, y, z],
+                "phi": float(phi_n),
+                "psi": float(psi_n),
+                "peak_omega": peak_omega,
+                "peak_amplitude": peak_amp,
+                "amplitude_at_target_freqs": {name: a for name, (_, a) in target_amps.items()},
+            }
+        )
 
     # Cross-cell consensus
     print(f"\n  CROSS-CELL CONSENSUS:")
@@ -161,8 +164,7 @@ def main():
     peaks_arr = np.array(peaks)
     median_peak = float(np.median(peaks_arr))
     range_peak = float(peaks_arr.max() - peaks_arr.min())
-    print(f"    Peak ω across {n_samples} cells: median = {median_peak:.4f}, "
-          f"range = {range_peak:.4f}")
+    print(f"    Peak ω across {n_samples} cells: median = {median_peak:.4f}, " f"range = {range_peak:.4f}")
     print(f"    Compare to candidates:")
     print(f"      ω_C = 1.0: |median - 1.0| = {abs(median_peak - 1.0):.4f}")
     print(f"      1.5·ω_C = 1.5: |median - 1.5| = {abs(median_peak - 1.5):.4f}")

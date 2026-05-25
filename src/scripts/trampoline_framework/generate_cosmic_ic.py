@@ -12,13 +12,11 @@ Run from repo root:
   uv run --no-sync python src/scripts/trampoline_framework/generate_cosmic_ic.py
 """
 
-from __future__ import annotations
-
-from pathlib import Path
-
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import Circle, FancyArrowPatch, Polygon, Wedge
+
+from ave_path_util import SIM_OUTPUTS
 
 plt.rcParams.update(
     {
@@ -32,7 +30,7 @@ plt.rcParams.update(
     }
 )
 
-OUTDIR = Path("assets/sim_outputs/trampoline_framework")
+OUTDIR = SIM_OUTPUTS / "trampoline_framework"
 OUTDIR.mkdir(parents=True, exist_ok=True)
 
 
@@ -58,8 +56,17 @@ def fig_07_cosmic_ic():
         r = rng.uniform(2.5, 3.3)
         x = r * np.cos(angle)
         y = r * np.sin(angle)
-        ax.text(x, y, "?", fontsize=rng.choice([10, 12, 14, 16]), color="#aaa", alpha=0.5,
-                ha="center", va="center", style="italic")
+        ax.text(
+            x,
+            y,
+            "?",
+            fontsize=rng.choice([10, 12, 14, 16]),
+            color="#aaa",
+            alpha=0.5,
+            ha="center",
+            va="center",
+            style="italic",
+        )
 
     # Cosmic boundary (Γ=-1 wall)
     cosmic_boundary = Circle((0, 0), 2.3, fill=False, edgecolor="red", linewidth=3.5, linestyle="-", zorder=5)
@@ -68,7 +75,9 @@ def fig_07_cosmic_ic():
     # Boundary envelope shading (annular)
     envelope_outer_pts = [(2.3 * np.cos(t), 2.3 * np.sin(t)) for t in np.linspace(0, 2 * np.pi, 100)]
     envelope_inner_pts = [(2.15 * np.cos(t), 2.15 * np.sin(t)) for t in np.linspace(2 * np.pi, 0, 100)]
-    envelope_poly = Polygon(envelope_outer_pts + envelope_inner_pts, facecolor="#fdd", alpha=0.6, edgecolor="none", zorder=4)
+    envelope_poly = Polygon(
+        envelope_outer_pts + envelope_inner_pts, facecolor="#fdd", alpha=0.6, edgecolor="none", zorder=4
+    )
     ax.add_patch(envelope_poly)
 
     # Inside: the observable universe (substrate region with stars / galaxies as dots)
@@ -97,8 +106,13 @@ def fig_07_cosmic_ic():
         ty = np.cos(angle)
         x1 = x0 + 0.25 * tx
         y1 = y0 + 0.25 * ty
-        ax.annotate("", xy=(x1, y1), xytext=(x0, y0),
-                    arrowprops=dict(arrowstyle="->", color="#ff66aa", lw=2.2, alpha=0.9), zorder=10)
+        ax.annotate(
+            "",
+            xy=(x1, y1),
+            xytext=(x0, y0),
+            arrowprops=dict(arrowstyle="->", color="#ff66aa", lw=2.2, alpha=0.9),
+            zorder=10,
+        )
 
     # Earth / observer marker in the interior
     obs_x, obs_y = 0.45, -0.25
@@ -109,7 +123,8 @@ def fig_07_cosmic_ic():
 
     # Cosmic boundary label
     ax.annotate(
-        r"Cosmic $\Gamma = -1$ boundary $\partial\Omega$" "\n"
+        r"Cosmic $\Gamma = -1$ boundary $\partial\Omega$"
+        "\n"
         r"$R_H \sim 10^{26}\,$m (parent BH's Schwarzschild radius)",
         xy=(0, 2.3),
         xytext=(0, 2.95),
@@ -145,8 +160,10 @@ def fig_07_cosmic_ic():
 
     # 𝒥 (angular momentum) — load-bearing for IC
     ax.annotate(
-        r"$\mathcal{J}_{\text{cosmic}} = \Omega_{\text{freeze}} \cdot I_{\text{cosmic}}$" "\n"
-        r"(boundary winding / spin)" "\n"
+        r"$\mathcal{J}_{\text{cosmic}} = \Omega_{\text{freeze}} \cdot I_{\text{cosmic}}$"
+        "\n"
+        r"(boundary winding / spin)"
+        "\n"
         r"$\to \Omega_{\text{freeze}}$ — the IC",
         xy=(0, -2.30),
         xytext=(0, -2.85),
@@ -173,9 +190,12 @@ def fig_07_cosmic_ic():
 
     # Three observational routes annotation (inside)
     routes_text = (
-        "Three observational routes to $u_0^*$:" "\n\n"
-        r"1. Electromagnetic — $\alpha$ to 12 dec." "\n"
-        r"2. Gravitational — $G$ to ~4 dec." "\n"
+        "Three observational routes to $u_0^*$:"
+        "\n\n"
+        r"1. Electromagnetic — $\alpha$ to 12 dec."
+        "\n"
+        r"2. Gravitational — $G$ to ~4 dec."
+        "\n"
         r"3. Cosmological — $\mathcal{J}_{\text{cosmic}}$ via CMB/LSS"
         "\n\n"
         "All three MUST give same $u_0^*$\n"

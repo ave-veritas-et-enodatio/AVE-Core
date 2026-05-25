@@ -33,12 +33,9 @@ Run:
     python src/scripts/verify/q_g47_session12_k4_cosserat_lattice.py
 """
 
-from __future__ import annotations
+from dataclasses import dataclass
 
 import numpy as np
-from dataclasses import dataclass
-from typing import Tuple
-
 
 # ----------------------------------------------------------------------
 # K4 GEOMETRY
@@ -47,12 +44,17 @@ from typing import Tuple
 # Four bond direction unit vectors for tetrahedral K4 (canonical, per
 # AVE-Core/src/ave/core/k4_tlm.py:210).
 # Each A-node has 4 neighbors at +d·n̂_i where n̂_i is one of these four.
-K4_BOND_DIRECTIONS = np.array([
-    [+1, +1, +1],
-    [+1, -1, -1],
-    [-1, +1, -1],
-    [-1, -1, +1],
-], dtype=float) / np.sqrt(3.0)  # normalized to unit vectors
+K4_BOND_DIRECTIONS = np.array(
+    [
+        [+1, +1, +1],
+        [+1, -1, -1],
+        [-1, +1, -1],
+        [-1, -1, +1],
+    ],
+    dtype=float,
+) / np.sqrt(
+    3.0
+)  # normalized to unit vectors
 
 
 def k4_secondary_paths():
@@ -85,6 +87,7 @@ def k4_secondary_paths():
 # COSSERAT MICROPOLAR BOND MODEL
 # ----------------------------------------------------------------------
 
+
 @dataclass
 class CosseratRodBond:
     """
@@ -99,11 +102,12 @@ class CosseratRodBond:
     Canonical normalization (Session 9 §4.2): n_eff = 1, so
       c_twist = c_bend = k_axial · d²
     """
-    k_axial: float = 1.0       # N/m
-    k_shear: float = 1.0       # N/m (isotropic: = k_axial)
-    c_twist: float = 1.0       # N·m·rad⁻¹·d²
-    c_bend: float = 1.0        # N·m·rad⁻¹·d² (isotropic: = c_twist)
-    d: float = 1.0             # bond length [m]
+
+    k_axial: float = 1.0  # N/m
+    k_shear: float = 1.0  # N/m (isotropic: = k_axial)
+    c_twist: float = 1.0  # N·m·rad⁻¹·d²
+    c_bend: float = 1.0  # N·m·rad⁻¹·d² (isotropic: = c_twist)
+    d: float = 1.0  # bond length [m]
 
     def stiffness_matrix(self, n_hat: np.ndarray) -> np.ndarray:
         """
@@ -128,27 +132,33 @@ class CosseratRodBond:
 
         # Translation block (6×6)
         K_trans_block = self.k_axial * T + self.k_shear * S
-        K_trans = np.block([
-            [+K_trans_block, -K_trans_block],
-            [-K_trans_block, +K_trans_block],
-        ])
+        K_trans = np.block(
+            [
+                [+K_trans_block, -K_trans_block],
+                [-K_trans_block, +K_trans_block],
+            ]
+        )
 
         # Rotation block (6×6)
         K_rot_block = self.c_twist * T + self.c_bend * S
-        K_rot = np.block([
-            [+K_rot_block, -K_rot_block],
-            [-K_rot_block, +K_rot_block],
-        ])
+        K_rot = np.block(
+            [
+                [+K_rot_block, -K_rot_block],
+                [-K_rot_block, +K_rot_block],
+            ]
+        )
 
         # Cross-coupling (translation × rotation through bond's bending moment arm)
         # For each end, a moment from the bond's bending generates a force perpendicular to n̂
         # cross_block ~ (c_bend/d) × [n̂×]
         cross_d = self.c_bend / self.d
-        N_cross = cross_d * np.array([
-            [    0, -n[2],  n[1]],
-            [ n[2],     0, -n[0]],
-            [-n[1],  n[0],     0],
-        ])
+        N_cross = cross_d * np.array(
+            [
+                [0, -n[2], n[1]],
+                [n[2], 0, -n[0]],
+                [-n[1], n[0], 0],
+            ]
+        )
         # Antisymmetric coupling: F_A from φ_B - φ_A
         # u_A from φ_A,φ_B: u_A coupling to (φ_A+φ_B)/2 via N_cross effectively
         # Build the full 12×12: rows = (u_A, φ_A, u_B, φ_B), cols = same
@@ -174,6 +184,7 @@ class CosseratRodBond:
 # ----------------------------------------------------------------------
 # UNIT CELL: 2-site K4 (1 A + 1 B), 4 bonds outgoing from A
 # ----------------------------------------------------------------------
+
 
 def build_unit_cell_stiffness(bond_params: CosseratRodBond, u_0: float = 0.0) -> np.ndarray:
     """
@@ -219,6 +230,7 @@ def build_unit_cell_stiffness(bond_params: CosseratRodBond, u_0: float = 0.0) ->
 # EFFECTIVE MODULI EXTRACTION
 # ----------------------------------------------------------------------
 
+
 def extract_K_eff(K_lattice: np.ndarray) -> float:
     """
     Extract the bulk modulus K_eff from the unit-cell stiffness matrix.
@@ -230,7 +242,7 @@ def extract_K_eff(K_lattice: np.ndarray) -> float:
     # Volumetric mode: u_B - u_A ∝ n̂_i · ε (for uniform isotropic strain)
     # Apply: u_A = 0, u_B = ε · (d/sqrt(3)) · (1,1,1) (isotropic radial)
     eps = 0.01  # small strain
-    d = 1.0     # bond length
+    d = 1.0  # bond length
 
     u_A = np.zeros(3)
     phi_A = np.zeros(3)
@@ -270,6 +282,7 @@ def extract_G_eff(K_lattice: np.ndarray) -> float:
 # MAIN: K(u_0), G(u_0) sweep
 # ----------------------------------------------------------------------
 
+
 def main():
     print("=" * 70)
     print("Q-G47 Session 12: K4 Cosserat lattice — numerical first-pass")
@@ -283,8 +296,11 @@ def main():
     # Count secondary paths
     paths = k4_secondary_paths()
     print(f"K4 secondary A→B→A' paths: {len(paths)} (expect 12 per A-032)")
-    print(f"  → χ_K geometric prediction: {len(paths)} ✓" if len(paths) == 12 else
-          f"  → MISMATCH with A-032 (expected 12)")
+    print(
+        f"  → χ_K geometric prediction: {len(paths)} ✓"
+        if len(paths) == 12
+        else f"  → MISMATCH with A-032 (expected 12)"
+    )
     print()
 
     # Canonical isotropic Cosserat-rod bond model
@@ -335,8 +351,8 @@ def main():
     G_0 = G_arr[0]
     # Fit K(u_0)/K_0 - 1 = χ_K · u_0²
     nonzero = u_0_values > 0
-    chi_K_fit = np.mean((K_arr[nonzero] / K_0 - 1.0) / u_0_values[nonzero]**2)
-    chi_G_fit = np.mean((G_arr[nonzero] / G_0 - 1.0) / u_0_values[nonzero]**2)
+    chi_K_fit = np.mean((K_arr[nonzero] / K_0 - 1.0) / u_0_values[nonzero] ** 2)
+    chi_G_fit = np.mean((G_arr[nonzero] / G_0 - 1.0) / u_0_values[nonzero] ** 2)
     print(f"  χ_K (fit): {chi_K_fit:.4f}    target (A-032): 12")
     print(f"  χ_G (fit): {chi_G_fit:.4f}    target (Session 11): 3")
     print(f"  Ratio χ_K/χ_G (fit): {chi_K_fit/chi_G_fit:.4f}  target: 12/3 = 4")

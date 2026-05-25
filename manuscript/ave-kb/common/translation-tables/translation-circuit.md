@@ -1,5 +1,9 @@
 [↑ Translation Tables](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-fy05jc]
+-->
 
 # Topo-Kinematic Circuit Identity
 

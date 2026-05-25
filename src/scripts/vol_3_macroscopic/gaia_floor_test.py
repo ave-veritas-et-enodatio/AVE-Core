@@ -39,32 +39,36 @@ Per ave-driver-script-honesty discipline.
 import csv
 from pathlib import Path
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 from ave.core.constants import ALPHA, C_0
-
+from ave_path_util import sim_output
 
 V_SUBSTRATE_KMS = ALPHA * C_0 / (2 * np.pi) / 1000.0
 
 # Sun's CMB velocity (Planck 2018)
 SUN_CMB_MAG_KMS = 370.0
 _l, _b = np.radians(264.0), np.radians(48.0)
-SUN_CMB_VEC_GAL = SUN_CMB_MAG_KMS * np.array([
-    np.cos(_b) * np.cos(_l),
-    np.cos(_b) * np.sin(_l),
-    np.sin(_b),
-])
+SUN_CMB_VEC_GAL = SUN_CMB_MAG_KMS * np.array(
+    [
+        np.cos(_b) * np.cos(_l),
+        np.cos(_b) * np.sin(_l),
+        np.sin(_b),
+    ]
+)
 
 # Sun's LSR motion (Schönrich+ 2010): (U,V,W) = (11.1, 12.24, 7.25) km/s
 SUN_LSR_UVW = np.array([11.1, 12.24, 7.25])
 
 # IAU J2000 equatorial → galactic rotation matrix
-R_EQ_TO_GAL = np.array([
-    [-0.054876, -0.873437, -0.483835],
-    [+0.494109, -0.444830, +0.746982],
-    [-0.867666, -0.198076, +0.455984],
-])
+R_EQ_TO_GAL = np.array(
+    [
+        [-0.054876, -0.873437, -0.483835],
+        [+0.494109, -0.444830, +0.746982],
+        [-0.867666, -0.198076, +0.455984],
+    ]
+)
 
 
 def parse_gaia_csv(path: Path) -> list[dict]:
@@ -73,9 +77,19 @@ def parse_gaia_csv(path: Path) -> list[dict]:
         reader = csv.DictReader(f)
         for row in reader:
             try:
-                stars.append({k: float(row[k]) for k in [
-                    "ra", "dec", "parallax", "pmra", "pmdec", "radial_velocity",
-                ]})
+                stars.append(
+                    {
+                        k: float(row[k])
+                        for k in [
+                            "ra",
+                            "dec",
+                            "parallax",
+                            "pmra",
+                            "pmdec",
+                            "radial_velocity",
+                        ]
+                    }
+                )
             except (ValueError, KeyError):
                 continue
     return stars
@@ -88,11 +102,13 @@ def heliocentric_velocity_galactic(s: dict) -> np.ndarray:
     v_delta = 4.740470463e-3 * s["pmdec"] * d_pc
     v_r = s["radial_velocity"]
     cra, sra, cde, sde = np.cos(ra), np.sin(ra), np.cos(dec), np.sin(dec)
-    v_eq = np.array([
-        v_r * cde * cra - v_alpha * sra - v_delta * sde * cra,
-        v_r * cde * sra + v_alpha * cra - v_delta * sde * sra,
-        v_r * sde + v_delta * cde,
-    ])
+    v_eq = np.array(
+        [
+            v_r * cde * cra - v_alpha * sra - v_delta * sde * cra,
+            v_r * cde * sra + v_alpha * cra - v_delta * sde * sra,
+            v_r * sde + v_delta * cde,
+        ]
+    )
     return R_EQ_TO_GAL @ v_eq
 
 
@@ -128,11 +144,11 @@ def main() -> None:
 
     # Toomre-diagram velocity bins
     bins = [
-        ("Thin disk  (|v_LSR|<30)",       0,     30),
-        ("Thick disk (30<|v_LSR|<70)",    30,    70),
-        ("Thick disk (70<|v_LSR|<100)",   70,    100),
-        ("Halo       (100<|v_LSR|<200)",  100,   200),
-        ("Extreme halo (|v_LSR|>200)",    200,   1e9),
+        ("Thin disk  (|v_LSR|<30)", 0, 30),
+        ("Thick disk (30<|v_LSR|<70)", 30, 70),
+        ("Thick disk (70<|v_LSR|<100)", 70, 100),
+        ("Halo       (100<|v_LSR|<200)", 100, 200),
+        ("Extreme halo (|v_LSR|>200)", 200, 1e9),
     ]
 
     print(f"{'Bin':35s} {'N':>6s} {'median |v_CMB|':>15s} {'mean':>8s} {'σ':>8s} {'Δ vs floor':>12s}")
@@ -197,15 +213,15 @@ def main() -> None:
     bin_medians = [r[4] for r in bin_results]
     bin_stds = [r[6] for r in bin_results]
     bin_ns = [r[3] for r in bin_results]
-    axes[0].errorbar(bin_centers, bin_medians, yerr=bin_stds, fmt="o-", markersize=10,
-                     capsize=5, color="steelblue", linewidth=2)
-    axes[0].axhline(V_SUBSTRATE_KMS, color="red", linestyle="--", linewidth=2,
-                    label=f"αc/(2π) FLOOR = {V_SUBSTRATE_KMS:.1f} km/s")
-    axes[0].axhline(370, color="green", linestyle=":", linewidth=2,
-                    label=f"Sun (370 km/s)")
+    axes[0].errorbar(
+        bin_centers, bin_medians, yerr=bin_stds, fmt="o-", markersize=10, capsize=5, color="steelblue", linewidth=2
+    )
+    axes[0].axhline(
+        V_SUBSTRATE_KMS, color="red", linestyle="--", linewidth=2, label=f"αc/(2π) FLOOR = {V_SUBSTRATE_KMS:.1f} km/s"
+    )
+    axes[0].axhline(370, color="green", linestyle=":", linewidth=2, label=f"Sun (370 km/s)")
     for x, y, n in zip(bin_centers, bin_medians, bin_ns):
-        axes[0].annotate(f"N={n}", (x, y), textcoords="offset points",
-                         xytext=(8, 6), fontsize=9)
+        axes[0].annotate(f"N={n}", (x, y), textcoords="offset points", xytext=(8, 6), fontsize=9)
     axes[0].set_xlabel("Toomre |v_LSR| bin center (km/s)", fontsize=11)
     axes[0].set_ylabel("Median |v_CMB| (km/s) ± σ", fontsize=11)
     axes[0].set_title("Floor test: |v_CMB| stratified by Toomre dynamical class")
@@ -217,11 +233,17 @@ def main() -> None:
     for (label, lo, hi, n, med, mean, std, _), color in zip(bin_results, colors):
         bin_mask = (v_lsr >= lo) & (v_lsr < hi)
         v_cmb_bin = v_cmb[bin_mask]
-        axes[1].hist(v_cmb_bin, bins=60, range=(200, 700), histtype="step",
-                     color=color, linewidth=2,
-                     label=f"{label} (N={n}, median={med:.0f})", density=True)
-    axes[1].axvline(V_SUBSTRATE_KMS, color="red", linestyle="--", linewidth=2,
-                    label=f"αc/(2π) = {V_SUBSTRATE_KMS:.1f}")
+        axes[1].hist(
+            v_cmb_bin,
+            bins=60,
+            range=(200, 700),
+            histtype="step",
+            color=color,
+            linewidth=2,
+            label=f"{label} (N={n}, median={med:.0f})",
+            density=True,
+        )
+    axes[1].axvline(V_SUBSTRATE_KMS, color="red", linestyle="--", linewidth=2, label=f"αc/(2π) = {V_SUBSTRATE_KMS:.1f}")
     axes[1].set_xlabel("|v_CMB| (km/s)", fontsize=11)
     axes[1].set_ylabel("Density", fontsize=11)
     axes[1].set_title("Histograms by Toomre bin (normalized)")
@@ -229,8 +251,7 @@ def main() -> None:
     axes[1].grid(alpha=0.3)
 
     plt.tight_layout()
-    out_path = Path(__file__).parent.parent.parent / "assets" / "sim_outputs" / "gaia_floor_test.png"
-    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path = sim_output("gaia_floor_test.png")
     plt.savefig(out_path, dpi=150, bbox_inches="tight")
     print(f"\nSaved floor test plot to {out_path}")
 

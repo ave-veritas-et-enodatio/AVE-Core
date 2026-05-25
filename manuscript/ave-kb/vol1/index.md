@@ -1,8 +1,17 @@
 [↑ AVE Knowledge Base](../entry-point.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-0ktpcn, clm-15nwqy, clm-219e8j, clm-2dwzib, clm-3kzmt9, clm-3npynp, clm-3zz0f6, clm-4mmwb6, clm-527k22, clm-5xon03, clm-7pvh9i, clm-7zuwtm, clm-82dxbj, clm-8ep2b4, clm-9gh0a1, clm-9kd2t3, clm-9s9apq, clm-b2anl4, clm-b9eura, clm-ce8dg1, clm-crbl60, clm-dfaiwj, clm-dhvhwi, clm-djpx2v, clm-efo113, clm-f4urxy, clm-fr3mos, clm-g0mkne, clm-gdd70j, clm-gx1mpl, clm-i4p11y, clm-j550uh, clm-jz0xaw, clm-k6quve, clm-ldmvwi, clm-lv3uw1, clm-m3z5ux, clm-nq2kcc, clm-nu1ir7, clm-nxc9gy, clm-ph2uux, clm-q39qct, clm-qimsgq, clm-rebdw1, clm-rkisb8, clm-rtgmg5, clm-t1okz0, clm-u1o2lo, clm-unk0bd, clm-usflef, clm-utnwkc, clm-uu1qbo, clm-viawy9, clm-xy252u, clm-yc7fgm, clm-yiyyi3, clm-yr6tu4, clm-ys0xl1, clm-zuf7g1, clm-zw6mut]
+subtree-experiments: []
+bootstrap: true
+-->
+
+> ⛔ **Bootstrap.** Leaves are canonical; this index and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this volume, load [`./claim-quality.md`](./claim-quality.md) and [`../claim-quality.md`](../claim-quality.md). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
+
 # Vol 1: Foundations
 
-The AVE framework models the physical vacuum as a discrete amorphous LC resonant condensate ($\mathcal{M}_A$), bounded by four topological axioms and three canonical hardware scales ($\ell_{node}$, $\alpha$, $G$). All three scales are now derived from first principles: $\alpha$ from the S₁₁-minimum Golden Torus geometry of the electron's $0_1$ unknot soliton with $(2,3)$ phase-space Clifford-torus winding pattern (Ch.8), $\ell_{node}$ from Nyquist resolution of the smallest stable soliton, $G$ from the Machian boundary (Axiom 3). From this zero-parameter Effective Field Theory, all macroscopic continuum moduli, quantum formalism, and cosmological dynamics are derived via Transmission Line Mathematics (TLM) and non-linear dielectric saturation.
+The AVE framework models the physical vacuum as a discrete amorphous LC resonant condensate ($\mathcal{M}_A$), bounded by four topological axioms and three canonical hardware scales ($\ell_{node}$, $\alpha$, $G$). Two of three scales are now derived from first principles: $\alpha$ from the S₁₁-minimum Golden Torus geometry of the electron's $0_1$ unknot soliton with $(2,3)$ phase-space Clifford-torus winding pattern (Ch.8), and $\ell_{node}$ from Nyquist resolution of the smallest stable soliton. $G$ is **Bounding Limit 3** (CODATA input) joint-constrained with $\{H_\infty, \hat{\Omega}_{\text{freeze}}, \alpha\}$ at substrate operating point $u_0^* \approx 0.187$ — a **Class E operating-point projection** per `consistency-vs-emergence` v1.1 (Grant canonized 2026-05-19 EOD; see [Zero-Parameter Universe](./axioms-and-lattice/ch1-fundamental-axioms/zero-parameter-universe.md) + [Full Derivation Chain](../common/full-derivation-chain.md)); a closed-form substrate-local Chain B' derivation of $G$ is open work. From this **structurally** zero-parameter Effective Field Theory (closed-form $G$ closure pending), all macroscopic continuum moduli, quantum formalism, and cosmological dynamics are derived via Transmission Line Mathematics (TLM) and non-linear dielectric saturation.
 
 ## Key Results
 

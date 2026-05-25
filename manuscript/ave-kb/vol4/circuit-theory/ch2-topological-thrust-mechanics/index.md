@@ -1,5 +1,11 @@
 [↑ Circuit Theory](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-0vxzfu, clm-7tynm2, clm-trgqtf]
+subtree-experiments: []
+-->
+
 # Ch.2 Topological Thrust Mechanics
 
 This chapter establishes the operating regimes of the vacuum dielectric under applied electric field, quantifies the field thresholds separating them, and derives the chiral acoustic rectification thrust mechanism from first principles. Laboratory-scale devices operate in Regime I (linear vacuum); thrust arises not from bulk $\varepsilon$-saturation but from localised nonlinear rectification at resonant field-enhancement sites, coherently amplified by a phased array architecture.

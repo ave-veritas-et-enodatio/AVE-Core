@@ -31,19 +31,21 @@ Outputs:
                                             photon→electron visual)
   /tmp/phase3b_eigenmode.npz             — raw data
 """
-from __future__ import annotations
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
-
-from ave.core.k4_tlm import K4Lattice3D
-from ave.core.constants import V_SNAP, V_YIELD, ALPHA
 from tlm_electron_soliton_eigenmode import (
-    initialize_2_3_voltage_ansatz, shell_envelope, extract_alpha_inverse,
+    extract_alpha_inverse,
+    initialize_2_3_voltage_ansatz,
+    shell_envelope,
 )
+
+from ave.core.constants import ALPHA, V_SNAP, V_YIELD
+from ave.core.k4_tlm import K4Lattice3D
 
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
 ALPHA_INV_TARGET = 1.0 / ALPHA
@@ -54,10 +56,15 @@ SNAPSHOT_STEPS = (100, 300, 500)
 FRAME_INTERVAL = 10
 
 
-def run_timeresolved(strain_target: float, label: str,
-                     N: int = 64, n_steps: int = 600,
-                     R_seed: float = 16.0, r_seed: float = 6.108,
-                     pml_thickness: int = 6) -> dict:
+def run_timeresolved(
+    strain_target: float,
+    label: str,
+    N: int = 64,
+    n_steps: int = 600,
+    R_seed: float = 16.0,
+    r_seed: float = 6.108,
+    pml_thickness: int = 6,
+) -> dict:
     """Run TLM recording shell geometry and α⁻¹ at every step.
 
     Parameters derived per 31_phase3b_simulation_setup.md:
@@ -70,13 +77,19 @@ def run_timeresolved(strain_target: float, label: str,
     amplitude = strain_target * float(V_SNAP) / np.pi
 
     lattice = K4Lattice3D(
-        N, N, N, dx=1.0,
+        N,
+        N,
+        N,
+        dx=1.0,
         pml_thickness=pml_thickness,
         nonlinear=False,
         op3_bond_reflection=True,
     )
     initialize_2_3_voltage_ansatz(
-        lattice, R=R_seed, r=r_seed, amplitude=amplitude,
+        lattice,
+        R=R_seed,
+        r=r_seed,
+        amplitude=amplitude,
     )
 
     cx = (lattice.nx - 1) / 2.0
@@ -92,17 +105,17 @@ def run_timeresolved(strain_target: float, label: str,
 
     snapshots = {}
     # Animation frames: xy-slice of |V|^2 recorded every FRAME_INTERVAL steps
-    xy_frames = []    # list of (step, 2D-array)
+    xy_frames = []  # list of (step, 2D-array)
 
-    V_sq_init = np.sum(lattice.V_inc ** 2, axis=-1)
-    energy_init = float(np.sum(V_sq_init) + np.sum(lattice.V_ref ** 2))
+    V_sq_init = np.sum(lattice.V_inc**2, axis=-1)
+    energy_init = float(np.sum(V_sq_init) + np.sum(lattice.V_ref**2))
 
     cz_int = int(cz)
 
     for step in range(n_steps):
         lattice.step()
 
-        V_mag = np.sqrt(np.sum(lattice.V_inc ** 2, axis=-1))
+        V_mag = np.sqrt(np.sum(lattice.V_inc**2, axis=-1))
         R_s, r_s = shell_envelope(V_mag, cx, cy, cz)
         alpha = extract_alpha_inverse(R_s, r_s, c=3)
         alpha_inv = alpha["alpha_inv"] if alpha["valid"] else float("nan")
@@ -110,9 +123,8 @@ def run_timeresolved(strain_target: float, label: str,
         R_t[step] = R_s
         r_t[step] = r_s
         alpha_inv_t[step] = alpha_inv
-        energy_t[step] = float(np.sum(lattice.V_inc ** 2) +
-                               np.sum(lattice.V_ref ** 2))
-        v_total = np.sqrt(np.sum(lattice.V_inc ** 2, axis=-1))
+        energy_t[step] = float(np.sum(lattice.V_inc**2) + np.sum(lattice.V_ref**2))
+        v_total = np.sqrt(np.sum(lattice.V_inc**2, axis=-1))
         strain_max_t[step] = float(v_total.max() / V_SNAP)
 
         # GIF frame: xy-slice at z=center every FRAME_INTERVAL
@@ -142,7 +154,9 @@ def run_timeresolved(strain_target: float, label: str,
         "strain_max_t": strain_max_t,
         "snapshots": snapshots,
         "xy_frames": xy_frames,
-        "cx": cx, "cy": cy, "cz": cz,
+        "cx": cx,
+        "cy": cy,
+        "cz": cz,
     }
 
 
@@ -189,15 +203,13 @@ def plot_timeseries(results: list, out_path: str) -> None:
         ax.plot(t, res["alpha_inv_t"], alpha=0.7, label=label)
 
         ax = axes[1, 0]
-        ax.plot(t, res["energy_t"] / res["energy_init"],
-                alpha=0.7, label=label)
+        ax.plot(t, res["energy_t"] / res["energy_init"], alpha=0.7, label=label)
 
         ax = axes[1, 1]
         ax.plot(t, res["strain_max_t"], alpha=0.7, label=label)
 
     ax = axes[0, 0]
-    ax.axhline(PHI ** 2, color="red", linestyle=":",
-               label=f"φ² = {PHI**2:.3f} (Golden Torus)")
+    ax.axhline(PHI**2, color="red", linestyle=":", label=f"φ² = {PHI**2:.3f} (Golden Torus)")
     ax.set_ylabel("R/r (shell aspect)")
     ax.set_xlabel("simulation step")
     ax.set_title("R/r vs time — eigenmode if plateau; transient if drift")
@@ -206,8 +218,7 @@ def plot_timeseries(results: list, out_path: str) -> None:
     ax.legend(fontsize=8)
 
     ax = axes[0, 1]
-    ax.axhline(ALPHA_INV_TARGET, color="red", linestyle=":",
-               label=f"electron α⁻¹ = {ALPHA_INV_TARGET}")
+    ax.axhline(ALPHA_INV_TARGET, color="red", linestyle=":", label=f"electron α⁻¹ = {ALPHA_INV_TARGET}")
     ax.set_ylabel("α⁻¹")
     ax.set_xlabel("simulation step")
     ax.set_title("α⁻¹ vs time")
@@ -223,18 +234,15 @@ def plot_timeseries(results: list, out_path: str) -> None:
     ax.legend(fontsize=8)
 
     ax = axes[1, 1]
-    ax.axhline(np.sqrt(2 * ALPHA), color="gray", linestyle=":",
-               label="√(2α) Regime II onset")
-    ax.axhline(np.sqrt(3) / 2, color="gray", linestyle="--",
-               label="√3/2 Regime III")
+    ax.axhline(np.sqrt(2 * ALPHA), color="gray", linestyle=":", label="√(2α) Regime II onset")
+    ax.axhline(np.sqrt(3) / 2, color="gray", linestyle="--", label="√3/2 Regime III")
     ax.set_ylabel("max strain A = max|V_inc|/V_SNAP")
     ax.set_xlabel("simulation step")
     ax.set_title("Peak strain vs time — does saturation regime hold?")
     ax.grid(alpha=0.3)
     ax.legend(fontsize=8)
 
-    plt.suptitle("Phase 3b — eigenmode verification (time-resolved)",
-                 fontsize=13, y=0.99)
+    plt.suptitle("Phase 3b — eigenmode verification (time-resolved)", fontsize=13, y=0.99)
     plt.tight_layout()
     plt.savefig(out_path, dpi=110)
     plt.close()
@@ -259,10 +267,14 @@ def plot_spatial_snapshots(results: list, out_path: str) -> None:
         snap = res["snapshots"].get(snap_step)
         if snap is None:
             for col in range(3):
-                axes[row_idx, col].text(0.5, 0.5,
+                axes[row_idx, col].text(
+                    0.5,
+                    0.5,
                     f"no snapshot at step {snap_step}",
                     transform=axes[row_idx, col].transAxes,
-                    ha="center", va="center")
+                    ha="center",
+                    va="center",
+                )
             continue
 
         V_inc = snap["V_inc"]
@@ -271,7 +283,7 @@ def plot_spatial_snapshots(results: list, out_path: str) -> None:
         cy_i = int(res["cy"])
         cz_i = int(res["cz"])
 
-        V_mag = np.sqrt(np.sum(V_inc ** 2, axis=-1))
+        V_mag = np.sqrt(np.sum(V_inc**2, axis=-1))
 
         # Pull the late-time R/r for titling
         R_late = float(np.nanmean(res["R_t"][-40:]))
@@ -279,41 +291,48 @@ def plot_spatial_snapshots(results: list, out_path: str) -> None:
         ratio_late = R_late / max(r_late, 1e-9)
         alpha_late = float(np.nanmean(res["alpha_inv_t"][-40:]))
 
-        row_title = (f"{res['label']} | strain A≈{res['strain_target']:.2f} | "
-                     f"R/r={ratio_late:.2f}  α⁻¹={alpha_late:.1f}")
+        row_title = (
+            f"{res['label']} | strain A≈{res['strain_target']:.2f} | " f"R/r={ratio_late:.2f}  α⁻¹={alpha_late:.1f}"
+        )
 
         # --- Column 1: xy slice at z = center (toroidal cross-section) ---
         ax = axes[row_idx, 0]
         xy_slice = V_mag[:, :, cz_i]
-        im = ax.imshow(xy_slice.T, origin="lower", cmap="inferno",
-                       extent=[0, res["N"], 0, res["N"]])
-        ax.set_xlabel("x"); ax.set_ylabel("y")
-        ax.set_title(f"{row_title}\nxy at z={cz_i} (toroidal)",
-                     fontsize=9)
+        im = ax.imshow(xy_slice.T, origin="lower", cmap="inferno", extent=[0, res["N"], 0, res["N"]])
+        ax.set_xlabel("x")
+        ax.set_ylabel("y")
+        ax.set_title(f"{row_title}\nxy at z={cz_i} (toroidal)", fontsize=9)
         plt.colorbar(im, ax=ax, shrink=0.7)
         # Circle at R_late on this slice
         theta_c = np.linspace(0, 2 * np.pi, 120)
-        ax.plot(cx_i + R_late * np.cos(theta_c),
-                cy_i + R_late * np.sin(theta_c),
-                color="cyan", lw=1, alpha=0.7, ls=":")
+        ax.plot(cx_i + R_late * np.cos(theta_c), cy_i + R_late * np.sin(theta_c), color="cyan", lw=1, alpha=0.7, ls=":")
 
         # --- Column 2: xz slice at y = center (polar cross-section) ---
         ax = axes[row_idx, 1]
         xz_slice = V_mag[:, cy_i, :]
-        im = ax.imshow(xz_slice.T, origin="lower", cmap="inferno",
-                       extent=[0, res["N"], 0, res["N"]])
-        ax.set_xlabel("x"); ax.set_ylabel("z")
-        ax.set_title(f"xz at y={cy_i} (polar) — "
-                     f"shell cross-sections", fontsize=9)
+        im = ax.imshow(xz_slice.T, origin="lower", cmap="inferno", extent=[0, res["N"], 0, res["N"]])
+        ax.set_xlabel("x")
+        ax.set_ylabel("z")
+        ax.set_title(f"xz at y={cy_i} (polar) — " f"shell cross-sections", fontsize=9)
         plt.colorbar(im, ax=ax, shrink=0.7)
         # Shell circles at ±R on the x-axis (poloidal minor circles)
         theta_c = np.linspace(0, 2 * np.pi, 120)
-        ax.plot(cx_i + R_late + r_late * np.cos(theta_c),
-                cz_i + r_late * np.sin(theta_c),
-                color="cyan", lw=1, alpha=0.7, ls=":")
-        ax.plot(cx_i - R_late + r_late * np.cos(theta_c),
-                cz_i + r_late * np.sin(theta_c),
-                color="cyan", lw=1, alpha=0.7, ls=":")
+        ax.plot(
+            cx_i + R_late + r_late * np.cos(theta_c),
+            cz_i + r_late * np.sin(theta_c),
+            color="cyan",
+            lw=1,
+            alpha=0.7,
+            ls=":",
+        )
+        ax.plot(
+            cx_i - R_late + r_late * np.cos(theta_c),
+            cz_i + r_late * np.sin(theta_c),
+            color="cyan",
+            lw=1,
+            alpha=0.7,
+            ls=":",
+        )
 
         # --- Column 3: phase on the shell (arg c) ---
         ax = axes[row_idx, 2]
@@ -330,22 +349,19 @@ def plot_spatial_snapshots(results: list, out_path: str) -> None:
             R_peak_probe = float(np.median(rho))
             psi_pol = np.arctan2(zs - cz_i, rho - R_peak_probe)
             ph = phase[xs, ys, zs]
-            sc = ax.scatter(phi_tor, psi_pol, c=ph,
-                            cmap="hsv", s=12, alpha=0.8,
-                            vmin=-np.pi, vmax=np.pi)
+            sc = ax.scatter(phi_tor, psi_pol, c=ph, cmap="hsv", s=12, alpha=0.8, vmin=-np.pi, vmax=np.pi)
             ax.set_xlim(-np.pi, np.pi)
             ax.set_ylim(-np.pi, np.pi)
             plt.colorbar(sc, ax=ax, shrink=0.7, label="arg(V[p0] + i·V[p2])")
         ax.set_xlabel(r"toroidal angle $\phi$")
         ax.set_ylabel(r"poloidal angle $\psi$")
-        ax.set_title(
-            f"(2,3) winding: phase on shell\n"
-            f"target: θ = 2φ + 3ψ  |  snap step {snap_step}", fontsize=9)
+        ax.set_title(f"(2,3) winding: phase on shell\n" f"target: θ = 2φ + 3ψ  |  snap step {snap_step}", fontsize=9)
 
     plt.suptitle(
         "Photon → electron transformation — what the K4 lattice actually "
         "does as drive amplitude crosses Axiom-4 saturation",
-        fontsize=13, y=1.00,
+        fontsize=13,
+        y=1.00,
     )
     plt.tight_layout()
     plt.savefig(out_path, dpi=110)
@@ -383,8 +399,12 @@ def plot_animation(results: list, out_path: str, fps: int = 8) -> None:
     for idx, (res, ax) in enumerate(zip(results, axes)):
         frame0 = res["xy_frames"][0][1]
         im = ax.imshow(
-            frame0.T, origin="lower", cmap="inferno",
-            extent=[0, N, 0, N], vmin=0, vmax=vmax_per_run[idx],
+            frame0.T,
+            origin="lower",
+            cmap="inferno",
+            extent=[0, N, 0, N],
+            vmin=0,
+            vmax=vmax_per_run[idx],
         )
         imshow_handles.append(im)
         ax.set_title(
@@ -395,16 +415,23 @@ def plot_animation(results: list, out_path: str, fps: int = 8) -> None:
         ax.set_ylabel("y")
         # Text annotation showing step + R/r + α⁻¹ updated per frame
         txt = ax.text(
-            0.02, 0.98, "", transform=ax.transAxes, va="top", ha="left",
-            color="white", fontsize=9, family="monospace",
+            0.02,
+            0.98,
+            "",
+            transform=ax.transAxes,
+            va="top",
+            ha="left",
+            color="white",
+            fontsize=9,
+            family="monospace",
             bbox={"facecolor": "black", "alpha": 0.5, "pad": 3},
         )
         text_handles.append(txt)
 
     plt.suptitle(
-        "K4-TLM soliton evolution: photon (left) → electron (middle) "
-        "→ over-compressed (right)",
-        fontsize=12, y=1.02,
+        "K4-TLM soliton evolution: photon (left) → electron (middle) " "→ over-compressed (right)",
+        fontsize=12,
+        y=1.02,
     )
     plt.tight_layout()
 
@@ -419,17 +446,17 @@ def plot_animation(results: list, out_path: str, fps: int = 8) -> None:
             r_s = res["r_t"][s]
             a_s = res["alpha_inv_t"][s]
             ratio = R_s / max(r_s, 1e-9)
-            text_handles[idx].set_text(
-                f"step {step_i:>3d}\n"
-                f"R/r = {ratio:5.2f}\n"
-                f"α⁻¹ = {a_s:6.1f}"
-            )
+            text_handles[idx].set_text(f"step {step_i:>3d}\n" f"R/r = {ratio:5.2f}\n" f"α⁻¹ = {a_s:6.1f}")
             artists.append(imshow_handles[idx])
             artists.append(text_handles[idx])
         return artists
 
     anim = FuncAnimation(
-        fig, update, frames=n_frames, interval=1000 // fps, blit=False,
+        fig,
+        update,
+        frames=n_frames,
+        interval=1000 // fps,
+        blit=False,
     )
     writer = PillowWriter(fps=fps)
     anim.save(out_path, writer=writer, dpi=90)
@@ -439,8 +466,7 @@ def plot_animation(results: list, out_path: str, fps: int = 8) -> None:
 def main():
     print("=" * 72)
     print("PHASE 3b EIGENMODE VERIFICATION + PHOTON→ELECTRON VISUAL")
-    print("Per simulation setup: research/_archive/L3_electron_soliton/"
-          "31_phase3b_simulation_setup.md")
+    print("Per simulation setup: research/_archive/L3_electron_soliton/" "31_phase3b_simulation_setup.md")
     print("=" * 72)
 
     # Note: these are strain_TARGET values. Mapping to achieved strain
@@ -462,19 +488,15 @@ def main():
     for i, (label, strain, pml) in enumerate(runs):
         print(f"\n[{i+1}/{len(runs)}] {label}")
         print(f"  strain_target = {strain}, pml = {pml}, n_steps = 600")
-        res = run_timeresolved(strain_target=strain, label=label,
-                               pml_thickness=pml, n_steps=600)
+        res = run_timeresolved(strain_target=strain, label=label, pml_thickness=pml, n_steps=600)
         results.append(res)
 
         # Summary
         ratio_t = res["R_t"] / np.maximum(res["r_t"], 1e-9)
         print(f"  achieved max strain: {res['strain_max_t'].max():.3e}")
-        print(f"  R/r (late-window avg): "
-              f"{float(np.nanmean(ratio_t[-40:])):.3f}")
-        print(f"  α⁻¹ (late-window avg): "
-              f"{float(np.nanmean(res['alpha_inv_t'][-40:])):.2f}")
-        print(f"  energy final/init: "
-              f"{res['energy_t'][-1] / res['energy_init']:.3f}")
+        print(f"  R/r (late-window avg): " f"{float(np.nanmean(ratio_t[-40:])):.3f}")
+        print(f"  α⁻¹ (late-window avg): " f"{float(np.nanmean(res['alpha_inv_t'][-40:])):.2f}")
+        print(f"  energy final/init: " f"{res['energy_t'][-1] / res['energy_init']:.3f}")
         print(f"  eigenmode diagnostic:")
         print(f"    {classify_eigenmode(res)}")
 

@@ -1,5 +1,9 @@
 [↑ Ch.13: Geophysics: Seismic Waves](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-zsqh87]
+-->
 
 ---
 

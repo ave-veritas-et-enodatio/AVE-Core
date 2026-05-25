@@ -1,5 +1,9 @@
 [↑ Biological Applications](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-8zwyl3]
+-->
 
 # Red Light Therapy as Impedance-Matched Photon Absorption
 

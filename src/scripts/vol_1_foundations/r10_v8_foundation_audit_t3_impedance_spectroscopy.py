@@ -26,7 +26,6 @@ Test design:
     (post-25P transient)
   - Plot |V_inc|²_steady vs ω → resonance map
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -47,7 +46,9 @@ def run_cw_drive(omega_drive, n_periods=50, N=16, PML=4, drive_amplitude=0.001):
     N_STEPS = int(n_periods * COMPTON_PERIOD / DT)
 
     engine = VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=0.0,
+        N=N,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=False,
@@ -106,8 +107,7 @@ def main():
     print("=" * 78, flush=True)
 
     # Drive frequencies to sweep (ω in ω_C units)
-    drive_freqs = [0.3, 0.5, 0.577, 0.7, 0.9, 1.0, 1.2, 1.4, 1.5,
-                   1.6, 1.7, 1.81, 2.0, 2.5, 2.96, 3.5, 4.0]
+    drive_freqs = [0.3, 0.5, 0.577, 0.7, 0.9, 1.0, 1.2, 1.4, 1.5, 1.6, 1.7, 1.81, 2.0, 2.5, 2.96, 3.5, 4.0]
 
     print(f"  Sweeping {len(drive_freqs)} drive frequencies")
     print(f"  Each drive: 50 Compton periods (~14s each)")
@@ -119,9 +119,11 @@ def main():
         t0 = time.time()
         r = run_cw_drive(omega_drive=ω, n_periods=50)
         elapsed = time.time() - t0
-        print(f"    ω={ω:.3f}: lockin amp={r['amplitude_at_drive_freq']:.3e}, "
-              f"phase={np.degrees(r['phase_at_drive_freq']):+.1f}°, "
-              f"steady RMS={r['v_rms_steady']:.3e}  ({elapsed:.1f}s)")
+        print(
+            f"    ω={ω:.3f}: lockin amp={r['amplitude_at_drive_freq']:.3e}, "
+            f"phase={np.degrees(r['phase_at_drive_freq']):+.1f}°, "
+            f"steady RMS={r['v_rms_steady']:.3e}  ({elapsed:.1f}s)"
+        )
         results.append(r)
 
     total_elapsed = time.time() - t_start
@@ -142,19 +144,17 @@ def main():
     print()
     print("  Local maxima in response amplitude (resonances):")
     for i in range(1, len(amps) - 1):
-        if amps[i] > amps[i-1] and amps[i] > amps[i+1]:
+        if amps[i] > amps[i - 1] and amps[i] > amps[i + 1]:
             print(f"    ω={omegas[i]:.3f}: amplitude={amps[i]:.4e}")
 
     # Compare to T1 findings
     print()
     print("  Comparison to T1 pulse-ringdown candidate frequencies:")
-    candidates = {"ω_TL=0.577": 0.577, "ω_C=1.0": 1.0, "1.5·ω_C": 1.5,
-                  "π/√3=1.81": 1.81, "2.96·ω_C": 2.96}
+    candidates = {"ω_TL=0.577": 0.577, "ω_C=1.0": 1.0, "1.5·ω_C": 1.5, "π/√3=1.81": 1.81, "2.96·ω_C": 2.96}
     for name, ω_target in candidates.items():
         # Find nearest drive frequency
         nearest_idx = np.argmin([abs(o - ω_target) for o in omegas])
-        print(f"    {name}: drive ω={omegas[nearest_idx]:.3f}, "
-              f"amp={amps[nearest_idx]:.4e}")
+        print(f"    {name}: drive ω={omegas[nearest_idx]:.3f}, " f"amp={amps[nearest_idx]:.4e}")
 
     out = {
         "test": "Foundation Audit Test 3: Impedance Spectroscopy",

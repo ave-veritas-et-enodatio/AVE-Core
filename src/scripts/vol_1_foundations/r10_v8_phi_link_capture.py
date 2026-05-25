@@ -47,7 +47,6 @@ sector that's never been read.
 
 Same as T-ST v1: ~3-5 min wall clock. One added array.
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -58,13 +57,12 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
+from ave.core.constants import ALPHA
 from ave.topological.vacuum_engine import (
-    VacuumEngine3D,
     SpatialDipoleCPSource,
+    VacuumEngine3D,
 )
 
-
-from ave.core.constants import ALPHA
 OMEGA_C = 1.0
 COMPTON_PERIOD = 2.0 * np.pi
 DT = 1.0 / np.sqrt(2.0)
@@ -72,7 +70,9 @@ DT = 1.0 / np.sqrt(2.0)
 
 def setup_engine(N=48, PML=4):
     return VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=0.0,
+        N=N,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -136,7 +136,7 @@ def main():
     axial_v_inc = np.zeros((n_steps, N, 4))
     axial_v_ref = np.zeros((n_steps, N, 4))
     axial_omega = np.zeros((n_steps, N, 3))
-    axial_phi_link = np.zeros((n_steps, N, 4))   # NEW
+    axial_phi_link = np.zeros((n_steps, N, 4))  # NEW
 
     # Energy budget over time
     energy_v_inc = np.zeros(n_steps)
@@ -151,34 +151,45 @@ def main():
         axial_v_inc[step_i] = engine.k4.V_inc[:, yc, zc, :]
         axial_v_ref[step_i] = engine.k4.V_ref[:, yc, zc, :]
         axial_omega[step_i] = engine.cos.omega[:, yc, zc, :]
-        axial_phi_link[step_i] = engine.k4.Phi_link[:, yc, zc, :]    # NEW
+        axial_phi_link[step_i] = engine.k4.Phi_link[:, yc, zc, :]  # NEW
 
         # Total energy in each sector (interior only, PML excluded)
         mask = engine.k4.mask_active
-        v_sq = np.sum(engine.k4.V_inc ** 2, axis=-1) * mask.astype(float)
-        v_sq[:PML, :, :] = 0.0; v_sq[N - PML:, :, :] = 0.0
-        v_sq[:, :PML, :] = 0.0; v_sq[:, N - PML:, :] = 0.0
-        v_sq[:, :, :PML] = 0.0; v_sq[:, :, N - PML:] = 0.0
+        v_sq = np.sum(engine.k4.V_inc**2, axis=-1) * mask.astype(float)
+        v_sq[:PML, :, :] = 0.0
+        v_sq[N - PML :, :, :] = 0.0
+        v_sq[:, :PML, :] = 0.0
+        v_sq[:, N - PML :, :] = 0.0
+        v_sq[:, :, :PML] = 0.0
+        v_sq[:, :, N - PML :] = 0.0
         energy_v_inc[step_i] = float(np.sum(v_sq))
 
-        phi_sq = np.sum(engine.k4.Phi_link ** 2, axis=-1) * mask.astype(float)
-        phi_sq[:PML, :, :] = 0.0; phi_sq[N - PML:, :, :] = 0.0
-        phi_sq[:, :PML, :] = 0.0; phi_sq[:, N - PML:, :] = 0.0
-        phi_sq[:, :, :PML] = 0.0; phi_sq[:, :, N - PML:] = 0.0
+        phi_sq = np.sum(engine.k4.Phi_link**2, axis=-1) * mask.astype(float)
+        phi_sq[:PML, :, :] = 0.0
+        phi_sq[N - PML :, :, :] = 0.0
+        phi_sq[:, :PML, :] = 0.0
+        phi_sq[:, N - PML :, :] = 0.0
+        phi_sq[:, :, :PML] = 0.0
+        phi_sq[:, :, N - PML :] = 0.0
         energy_phi_link[step_i] = float(np.sum(phi_sq))
 
-        omega_sq = np.sum(engine.cos.omega ** 2, axis=-1)
-        omega_sq[:PML, :, :] = 0.0; omega_sq[N - PML:, :, :] = 0.0
-        omega_sq[:, :PML, :] = 0.0; omega_sq[:, N - PML:, :] = 0.0
-        omega_sq[:, :, :PML] = 0.0; omega_sq[:, :, N - PML:] = 0.0
+        omega_sq = np.sum(engine.cos.omega**2, axis=-1)
+        omega_sq[:PML, :, :] = 0.0
+        omega_sq[N - PML :, :, :] = 0.0
+        omega_sq[:, :PML, :] = 0.0
+        omega_sq[:, N - PML :, :] = 0.0
+        omega_sq[:, :, :PML] = 0.0
+        omega_sq[:, :, N - PML :] = 0.0
         energy_omega[step_i] = float(np.sum(omega_sq))
 
         if step_i % 50 == 0:
             t_p = step_i * DT / COMPTON_PERIOD
-            print(f"    t={t_p:5.2f}P  E_V_inc={energy_v_inc[step_i]:.3e}  "
-                  f"E_Phi_link={energy_phi_link[step_i]:.3e}  "
-                  f"E_omega={energy_omega[step_i]:.3e}  "
-                  f"({time.time() - t_start:.0f}s)")
+            print(
+                f"    t={t_p:5.2f}P  E_V_inc={energy_v_inc[step_i]:.3e}  "
+                f"E_Phi_link={energy_phi_link[step_i]:.3e}  "
+                f"E_omega={energy_omega[step_i]:.3e}  "
+                f"({time.time() - t_start:.0f}s)"
+            )
 
     elapsed = time.time() - t_start
     print(f"\n  Engine evolution complete in {elapsed:.0f}s")
@@ -200,8 +211,7 @@ def main():
             ep = energy_phi_link[step_idx]
             eo = energy_omega[step_idx]
             ratio = ep / max(ev, 1e-30)
-            print(f"  {t_p_target:>9.1f}P {ev:>15.3e} {ep:>15.3e} {eo:>15.3e}  "
-                  f"{ratio:>8.3f}")
+            print(f"  {t_p_target:>9.1f}P {ev:>15.3e} {ep:>15.3e} {eo:>15.3e}  " f"{ratio:>8.3f}")
 
     # Phi_link decay vs V_inc decay
     e_v_first = energy_v_inc[max(int(7.0 * COMPTON_PERIOD / DT), 0)]
@@ -223,38 +233,28 @@ def main():
     post_shutoff_start = int(25.0 * COMPTON_PERIOD / DT)
     if post_shutoff_start < n_steps:
         # |Phi_link|² summed over ports + averaged over post-shutoff window
-        phi_sq_axial = np.mean(np.sum(axial_phi_link[post_shutoff_start:] ** 2,
-                                       axis=-1), axis=0)
-        v_sq_axial = np.mean(np.sum(axial_v_inc[post_shutoff_start:] ** 2,
-                                     axis=-1), axis=0)
+        phi_sq_axial = np.mean(np.sum(axial_phi_link[post_shutoff_start:] ** 2, axis=-1), axis=0)
+        v_sq_axial = np.mean(np.sum(axial_v_inc[post_shutoff_start:] ** 2, axis=-1), axis=0)
 
         peak_phi_x = int(np.argmax(phi_sq_axial))
         peak_v_x = int(np.argmax(v_sq_axial))
-        print(f"      Phi_link spatial peak at x={peak_phi_x} "
-              f"(amp²={phi_sq_axial[peak_phi_x]:.3e})")
-        print(f"      V_inc spatial peak at x={peak_v_x} "
-              f"(amp²={v_sq_axial[peak_v_x]:.3e})")
+        print(f"      Phi_link spatial peak at x={peak_phi_x} " f"(amp²={phi_sq_axial[peak_phi_x]:.3e})")
+        print(f"      V_inc spatial peak at x={peak_v_x} " f"(amp²={v_sq_axial[peak_v_x]:.3e})")
 
         # FFT at peak Phi_link cell
         if phi_sq_axial[peak_phi_x] > 1e-20:
             phi_traj = axial_phi_link[post_shutoff_start:, peak_phi_x, 0]
             v_traj = axial_v_inc[post_shutoff_start:, peak_phi_x, 0]
-            target_freqs = [
-                OMEGA_C * (1.0 - 2 * ALPHA), OMEGA_C, OMEGA_C * (1.0 + 2 * ALPHA),
-                1.5, 2.96, 0.5, 0.577
-            ]
-            print(f"\n  (d) FFT at Phi_link peak cell x={peak_phi_x} "
-                  f"(post-shutoff window):")
+            target_freqs = [OMEGA_C * (1.0 - 2 * ALPHA), OMEGA_C, OMEGA_C * (1.0 + 2 * ALPHA), 1.5, 2.96, 0.5, 0.577]
+            print(f"\n  (d) FFT at Phi_link peak cell x={peak_phi_x} " f"(post-shutoff window):")
             phi_fft = fft_at(phi_traj, DT, target_freqs)
             v_fft = fft_at(v_traj, DT, target_freqs)
-            print(f"      {'f':>10} {'V_inc amp':>15} {'Phi_link amp':>15}  "
-                  f"{'Phi/V ratio':>12}")
+            print(f"      {'f':>10} {'V_inc amp':>15} {'Phi_link amp':>15}  " f"{'Phi/V ratio':>12}")
             for f in target_freqs:
                 v_amp = v_fft[f]
                 p_amp = phi_fft[f]
                 r = p_amp / max(v_amp, 1e-30)
-                print(f"      {f:>10.4f} {v_amp:>15.3e} {p_amp:>15.3e}  "
-                      f"{r:>12.3f}")
+                print(f"      {f:>10.4f} {v_amp:>15.3e} {p_amp:>15.3e}  " f"{r:>12.3f}")
 
             phi_peak_freq = max(phi_fft, key=phi_fft.get) if any(phi_fft.values()) else None
             v_peak_freq = max(v_fft, key=v_fft.get) if any(v_fft.values()) else None
@@ -277,8 +277,7 @@ def main():
         print(f"  → Phi_link sector carries SUBSTANTIAL energy at trap regime")
         print(f"    (Phi/V ratio at t=7P: {e_p_first/max(e_v_first, 1e-30):.3f})")
     elif e_p_first > 0:
-        print(f"  → Phi_link sector active but minor "
-              f"(Phi/V at t=7P: {e_p_first/max(e_v_first, 1e-30):.3f})")
+        print(f"  → Phi_link sector active but minor " f"(Phi/V at t=7P: {e_p_first/max(e_v_first, 1e-30):.3f})")
     else:
         print(f"  → Phi_link sector negligible at this regime.")
 
@@ -332,7 +331,10 @@ def main():
         energy_v_inc=energy_v_inc,
         energy_phi_link=energy_phi_link,
         energy_omega=energy_omega,
-        dt=DT, N=N, PML=PML, n_steps=n_steps,
+        dt=DT,
+        N=N,
+        PML=PML,
+        n_steps=n_steps,
     )
     print(f"Saved {npz_path.relative_to(Path.cwd())}")
 

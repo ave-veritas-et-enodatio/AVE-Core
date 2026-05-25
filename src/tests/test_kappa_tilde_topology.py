@@ -24,15 +24,14 @@ References:
   - doc 20_ Sub-Theorem 3.1.1 (κ_chiral derivation per Ax 2)
   - doc 108 §11.5 emergence-test framework
 """
-from __future__ import annotations
 
 import pytest
 
 from ave.core.constants import ALPHA
 from ave.topological.cosserat_field_3d import (
     KAPPA_CHIRAL_ELECTRON,
-    KAPPA_TILDE_ELECTRON,
     KAPPA_TILDE_BELTRAMI_11,
+    KAPPA_TILDE_ELECTRON,
     kappa_chiral_from_topology,
     kappa_tilde_torus,
 )
@@ -81,22 +80,16 @@ class TestKappaChiralFromTopology:
 
     def test_electron_full_coupling(self):
         """kappa_chiral_from_topology(2, 3) = 1.2 × ALPHA."""
-        assert kappa_chiral_from_topology(2, 3) == pytest.approx(
-            1.2 * ALPHA, abs=1e-15
-        )
+        assert kappa_chiral_from_topology(2, 3) == pytest.approx(1.2 * ALPHA, abs=1e-15)
 
     def test_alpha_explicitly_passed(self):
         """Custom α can be passed (for emergence test scenarios)."""
         custom_alpha = 0.01  # arbitrary
-        assert kappa_chiral_from_topology(2, 3, alpha=custom_alpha) == pytest.approx(
-            1.2 * custom_alpha, abs=1e-15
-        )
+        assert kappa_chiral_from_topology(2, 3, alpha=custom_alpha) == pytest.approx(1.2 * custom_alpha, abs=1e-15)
 
     def test_alpha_default_is_codata_alpha(self):
         """Default α is constants.ALPHA."""
-        assert kappa_chiral_from_topology(2, 3) == kappa_chiral_from_topology(
-            2, 3, alpha=ALPHA
-        )
+        assert kappa_chiral_from_topology(2, 3) == kappa_chiral_from_topology(2, 3, alpha=ALPHA)
 
 
 class TestRefactorConsistency:
@@ -108,9 +101,7 @@ class TestRefactorConsistency:
 
     def test_kappa_chiral_electron_from_helper(self):
         """KAPPA_CHIRAL_ELECTRON == kappa_chiral_from_topology(2, 3) — round-trip."""
-        assert KAPPA_CHIRAL_ELECTRON == pytest.approx(
-            kappa_chiral_from_topology(2, 3), abs=1e-15
-        )
+        assert KAPPA_CHIRAL_ELECTRON == pytest.approx(kappa_chiral_from_topology(2, 3), abs=1e-15)
 
     def test_kappa_chiral_decomposes(self):
         """KAPPA_CHIRAL_ELECTRON = ALPHA × KAPPA_TILDE_ELECTRON exactly."""

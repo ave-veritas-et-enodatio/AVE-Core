@@ -1,13 +1,9 @@
-import os
-import pathlib
-
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.integrate import odeint
 
 from ave.core.constants import V_YIELD
-
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
+from ave_path_util import sim_output
 
 # Simulation Parameters
 L = 1e-3  # Inductance (1 mH)
@@ -152,10 +148,7 @@ def run_leaky_cavity_sim() -> None:
     plt.tight_layout()
 
     # Save output
-    project_root = pathlib.Path(str(pathlib.Path(__file__).parent.parent.parent.parent.absolute()))
-    outdir = project_root / "spice_manual" / "assets" / "sim_outputs"
-    os.makedirs(outdir, exist_ok=True)
-    target = outdir / "leaky_cavity_decay.png"
+    target = sim_output("leaky_cavity_decay.png")
 
     plt.savefig(target, dpi=150, facecolor="#0f0f0f")
     print(f"[*] Visualized Leaky Cavity Decay: {target}")

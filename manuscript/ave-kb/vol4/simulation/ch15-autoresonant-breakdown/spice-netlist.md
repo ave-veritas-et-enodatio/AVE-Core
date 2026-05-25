@@ -1,5 +1,9 @@
 [↑ Ch.15: Autoresonant Breakdown](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-9sujp8]
+-->
 
 ## SPICE Netlist: Autoresonance (pll_breakdown.cir)
 

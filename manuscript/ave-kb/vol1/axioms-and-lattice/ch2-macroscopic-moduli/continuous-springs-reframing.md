@@ -1,5 +1,9 @@
-[↑ Ch.2: Macroscopic Moduli](./index.md)
-<!-- leaf: verbatim -->
+[↑ Ch.2 Macroscopic Moduli](index.md)
+
+<!-- kb-frontmatter
+kind: leaf
+no-claim: pedagogical reframing leaf — recasts the discrete K4 lattice as a Nyquist discretization of a continuous Cosserat field; the quantitative content it touches is owned by other leaves (tetrahedral-t-universality, q-g47, xi-topo-traceability)
+-->
 
 # Discrete K4 Lattice as Discretization of Continuous Cosserat Field
 
@@ -64,8 +68,8 @@ This reframing was load-bearing for Q-G47 Sessions 16–17 closure (continuous-f
 ## Cross-references
 
 - **Canonical manuscript anchors:**
-  - [Vol 1 Ch 2 (Macroscopic Moduli)](../../../../vol_1_foundations/chapters/02_macroscopic_moduli.tex) — substrate Cosserat moduli + over-bracing framework
-  - [Vol 1 Ch 1 (Four Axioms)](../../../../vol_1_foundations/chapters/01_fundamental_axioms.tex) — Axiom 1 Chiral Laves K4 Cosserat Crystal (canonical substrate-vocabulary)
+  - Vol 1 Ch 2 (Macroscopic Moduli) — substrate Cosserat moduli + over-bracing framework
+  - Vol 1 Ch 1 (Four Axioms) — Axiom 1 chiral Laves K4 Cosserat crystal (canonical substrate-vocabulary)
 - **Related KB leafs:**
   - [Common: Q-G47 Substrate-Scale Cosserat Closure](../../../common/q-g47-substrate-scale-cosserat-closure.md) — full substrate-scale closure with continuous-field reframing context
   - [|T|=12 Universality](../ch1-fundamental-axioms/tetrahedral-t-universality.md) — four independent routes; route 2 (Cosserat dimensional) explicitly uses the $\ell_c$ continuous quantity

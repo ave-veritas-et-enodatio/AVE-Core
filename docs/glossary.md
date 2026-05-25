@@ -122,7 +122,7 @@ All three must give the same $u_0^*$ or the single-cosmological-parameter framew
 
 ### Canonical entry points (read these first for AVE physics)
 - **Picture-first framework:** [`manuscript/ave-kb/common/trampoline-framework.md`](../manuscript/ave-kb/common/trampoline-framework.md) — single canonical picture-first reference
-- **Closure path planning:** [`manuscript/ave-kb/common/closure-roadmap.md`](../manuscript/ave-kb/common/closure-roadmap.md) — living planning artifact
+- **Closure path planning:** [`manuscript/ave-kb/claim-quality-closure-roadmap.md`](../manuscript/ave-kb/claim-quality-closure-roadmap.md) — living planning artifact
 
 ### Canonical manuscript anchors (substrate vocabulary + boundary invariants)
 - **Common Foreword §Three Boundary Observables** — canonical $\mathcal{M}$, $\mathcal{Q}$, $\mathcal{J}$ definitions + substrate-observability rule

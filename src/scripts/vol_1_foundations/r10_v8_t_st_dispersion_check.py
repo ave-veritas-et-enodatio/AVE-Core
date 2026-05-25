@@ -45,7 +45,6 @@ Goal: report v_g at low amplitude, compare to T-ST's v_g at high amplitude.
 Same engine evolution cost as T-ST: ~185s wall clock + minimal post-process.
 Total: ~3-4 min.
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -57,10 +56,9 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
 from ave.topological.vacuum_engine import (
-    VacuumEngine3D,
     SpatialDipoleCPSource,
+    VacuumEngine3D,
 )
-
 
 OMEGA_C = 1.0
 COMPTON_PERIOD = 2.0 * np.pi
@@ -70,7 +68,9 @@ DT = 1.0 / np.sqrt(2.0)
 def setup_engine(N=48, PML=4):
     """A28-corrected coupled engine (matches T-ST)."""
     return VacuumEngine3D.from_args(
-        N=N, pml=PML, temperature=0.0,
+        N=N,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -97,13 +97,13 @@ def setup_source(amplitude):
 def compute_centroid_along_axis(V_inc, mask_active, pml=4):
     """Energy-weighted centroid along x (PML excluded)."""
     N = V_inc.shape[0]
-    energy = np.sum(V_inc ** 2, axis=-1) * mask_active.astype(float)
+    energy = np.sum(V_inc**2, axis=-1) * mask_active.astype(float)
     energy[:pml, :, :] = 0.0
-    energy[N - pml:, :, :] = 0.0
+    energy[N - pml :, :, :] = 0.0
     energy[:, :pml, :] = 0.0
-    energy[:, N - pml:, :] = 0.0
+    energy[:, N - pml :, :] = 0.0
     energy[:, :, :pml] = 0.0
-    energy[:, :, N - pml:] = 0.0
+    energy[:, :, N - pml :] = 0.0
     total = float(np.sum(energy))
     if total < 1e-30:
         return float("nan"), 0.0
@@ -116,13 +116,13 @@ def compute_centroid_along_axis(V_inc, mask_active, pml=4):
 def compute_front_along_axis(V_inc, mask_active, pml=4, frac=0.5):
     """Leading edge along x: rightmost cell with E(x) > frac·E_max."""
     N = V_inc.shape[0]
-    energy = np.sum(V_inc ** 2, axis=-1) * mask_active.astype(float)
+    energy = np.sum(V_inc**2, axis=-1) * mask_active.astype(float)
     energy[:pml, :, :] = 0.0
-    energy[N - pml:, :, :] = 0.0
+    energy[N - pml :, :, :] = 0.0
     energy[:, :pml, :] = 0.0
-    energy[:, N - pml:, :] = 0.0
+    energy[:, N - pml :, :] = 0.0
     energy[:, :, :pml] = 0.0
-    energy[:, :, N - pml:] = 0.0
+    energy[:, :, N - pml :] = 0.0
     marg = np.sum(energy, axis=(1, 2))
     if marg.max() < 1e-30:
         return float("nan")
@@ -153,11 +153,11 @@ def run_at_amplitude(amplitude, N=48, PML=4, n_periods=50, capture_cadence=5):
             mask = engine.k4.mask_active
             cx, total_e = compute_centroid_along_axis(V_inc, mask, pml=PML)
             front_x = compute_front_along_axis(V_inc, mask, pml=PML)
-            a2 = np.sum(V_inc ** 2, axis=-1) / (engine.V_SNAP ** 2)
+            a2 = np.sum(V_inc**2, axis=-1) / (engine.V_SNAP**2)
             a2_int = a2.copy()
             a2_int[~mask] = 0.0
             a2_int[:PML, :, :] = 0.0
-            a2_int[N - PML:, :, :] = 0.0
+            a2_int[N - PML :, :, :] = 0.0
             max_a2 = float(a2_int.max())
             centroid_traj.append((t_now, cx))
             front_traj.append((t_now, front_x))
@@ -196,26 +196,21 @@ def main():
 
     # Fit velocity in free-propagation regime (before front hits PML)
     # T-ST showed front reached PML at ~11P; restrict fit to t < 8P for safety
-    v_free_low, n_pts_low = fit_velocity(centroid_traj, 0.5 * COMPTON_PERIOD,
-                                          8.0 * COMPTON_PERIOD)
-    v_front_low, n_pts_front = fit_velocity(front_traj, 0.5 * COMPTON_PERIOD,
-                                             8.0 * COMPTON_PERIOD)
+    v_free_low, n_pts_low = fit_velocity(centroid_traj, 0.5 * COMPTON_PERIOD, 8.0 * COMPTON_PERIOD)
+    v_front_low, n_pts_front = fit_velocity(front_traj, 0.5 * COMPTON_PERIOD, 8.0 * COMPTON_PERIOD)
 
     # Peak A² should be ~A² of input (≈ 1e-6) — confirms linear regime
     max_a2_overall = max(a2 for _, a2 in max_a2_traj)
 
     print()
     print(f"  Velocity diagnostic (centroid fit over 0.5P–8P):")
-    print(f"    v_g (centroid)  = {v_free_low:.3f} cells/time-unit "
-          f"({n_pts_low} fit points)")
-    print(f"    v_g (front)     = {v_front_low:.3f} cells/time-unit "
-          f"({n_pts_front} fit points)")
+    print(f"    v_g (centroid)  = {v_free_low:.3f} cells/time-unit " f"({n_pts_low} fit points)")
+    print(f"    v_g (front)     = {v_front_low:.3f} cells/time-unit " f"({n_pts_front} fit points)")
     print(f"    Predicted free  = {np.sqrt(2):.3f} (Cartesian-axis K4-TLM)")
-    print(f"  Peak A² across run = {max_a2_overall:.2e} "
-          f"(confirms linear regime: predicted ≈ {A_LOW**2:.2e})")
+    print(f"  Peak A² across run = {max_a2_overall:.2e} " f"(confirms linear regime: predicted ≈ {A_LOW**2:.2e})")
 
     # Comparison to T-ST result
-    v_tst_high = 0.364   # from T-ST run at A=0.10
+    v_tst_high = 0.364  # from T-ST run at A=0.10
     print(f"\n  Comparison to T-ST (A=0.10):")
     print(f"    T-ST v_g (high amp)   = {v_tst_high:.3f}")
     print(f"    T-ST v_g (this, low)  = {v_free_low:.3f}")
@@ -256,18 +251,20 @@ def main():
     out = {
         "test": "T-ST Dispersion Cross-Check",
         "config": {
-            "N": 48, "PML": 4, "n_periods": 50,
-            "amplitude_VSNAP": A_LOW, "omega": OMEGA_C, "handedness": "RH",
+            "N": 48,
+            "PML": 4,
+            "n_periods": 50,
+            "amplitude_VSNAP": A_LOW,
+            "omega": OMEGA_C,
+            "handedness": "RH",
         },
         "v_centroid_low_amp": float(v_free_low) if not np.isnan(v_free_low) else None,
         "v_front_low_amp": float(v_front_low) if not np.isnan(v_front_low) else None,
         "v_predicted_sqrt2": float(np.sqrt(2)),
         "v_centroid_T_ST_high_amp": v_tst_high,
         "max_a2_across_run": float(max_a2_overall),
-        "centroid_trajectory": [[float(t), float(x) if not np.isnan(x) else None]
-                                for t, x in centroid_traj],
-        "front_trajectory": [[float(t), float(x) if not np.isnan(x) else None]
-                             for t, x in front_traj],
+        "centroid_trajectory": [[float(t), float(x) if not np.isnan(x) else None] for t, x in centroid_traj],
+        "front_trajectory": [[float(t), float(x) if not np.isnan(x) else None] for t, x in front_traj],
         "elapsed_total_s": float(elapsed),
     }
     out_path = Path(__file__).parent / "r10_v8_t_st_dispersion_check_results.json"

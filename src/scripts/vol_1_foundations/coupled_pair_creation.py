@@ -30,24 +30,25 @@ AVE compliance
   S5 = B  unified leapfrog
   S6 = A  Q measured globally AND per-centroid
 """
-from __future__ import annotations
 
 import os
 import sys
+
 sys.path.insert(0, os.path.dirname(__file__))
 
 import json
-import numpy as np
+
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation, PillowWriter
 from matplotlib import colors as mcolors
-
-from ave.topological.k4_cosserat_coupling import CoupledK4Cosserat
-
+from matplotlib.animation import FuncAnimation, PillowWriter
 from photon_propagation import PlaneSource
 from saturation_heatmap import saturation_fields
+
+from ave.topological.k4_cosserat_coupling import CoupledK4Cosserat
 
 
 def run_single(
@@ -57,10 +58,10 @@ def run_single(
     lambda_cells: float = 6.0,
     sigma_yz: float = 5.0,
     V_SNAP: float = 1.0,
-    source_offset: int = 10,        # source_x = source_offset and N - source_offset
+    source_offset: int = 10,  # source_x = source_offset and N - source_offset
     n_outer_steps: int = 400,
     record_every: int = 5,
-    vacuum_noise_amplitude: float = 0.01,   # ⟨|ω|²⟩₀ seed (AVE vacuum zero-point)
+    vacuum_noise_amplitude: float = 0.01,  # ⟨|ω|²⟩₀ seed (AVE vacuum zero-point)
     noise_seed: int = 42,
 ) -> dict:
     """One two-photon collision run at the given amplitude.
@@ -93,20 +94,28 @@ def run_single(
     # the pulse center time. Travel time = (N/2 − source_offset) · dx / c.
     x_mid = N / 2
     travel = (x_mid - source_offset) * sim.k4.dx / sim.k4.c
-    t_center_target = travel + 2.0 * period     # some delay for smooth ramp-up
+    t_center_target = travel + 2.0 * period  # some delay for smooth ramp-up
 
     src_left = PlaneSource(
-        x0=source_offset, y_c=(N - 1) / 2.0, z_c=(N - 1) / 2.0,
-        direction=(1.0, 0.0, 0.0), sigma_yz=sigma_yz,
+        x0=source_offset,
+        y_c=(N - 1) / 2.0,
+        z_c=(N - 1) / 2.0,
+        direction=(1.0, 0.0, 0.0),
+        sigma_yz=sigma_yz,
         omega=omega_carrier,
-        t_center=t_center_target, t_sigma=0.5 * period,
+        t_center=t_center_target,
+        t_sigma=0.5 * period,
         amplitude=amp,
     )
     src_right = PlaneSource(
-        x0=N - source_offset, y_c=(N - 1) / 2.0, z_c=(N - 1) / 2.0,
-        direction=(-1.0, 0.0, 0.0), sigma_yz=sigma_yz,
+        x0=N - source_offset,
+        y_c=(N - 1) / 2.0,
+        z_c=(N - 1) / 2.0,
+        direction=(-1.0, 0.0, 0.0),
+        sigma_yz=sigma_yz,
         omega=omega_carrier,
-        t_center=t_center_target, t_sigma=0.5 * period,
+        t_center=t_center_target,
+        t_sigma=0.5 * period,
         amplitude=amp,
     )
 
@@ -131,14 +140,16 @@ def run_single(
 
             if step % (record_every * 2) == 0:
                 fields = saturation_fields(sim)
-                heatmap_frames.append({
-                    "t": sim.time,
-                    "A_sq_k4_slice": fields["A_sq_k4"][:, :, N // 2].copy(),
-                    "A_sq_cos_slice": fields["A_sq_cos"][:, :, N // 2].copy(),
-                    "A_sq_total_slice": fields["A_sq_total"][:, :, N // 2].copy(),
-                    "omega_mag_slice": np.sqrt(np.sum(sim.cos.omega[:, :, N//2, :]**2, axis=-1)).copy(),
-                    "n_centroids": len(snap["centroids"]),
-                })
+                heatmap_frames.append(
+                    {
+                        "t": sim.time,
+                        "A_sq_k4_slice": fields["A_sq_k4"][:, :, N // 2].copy(),
+                        "A_sq_cos_slice": fields["A_sq_cos"][:, :, N // 2].copy(),
+                        "A_sq_total_slice": fields["A_sq_total"][:, :, N // 2].copy(),
+                        "omega_mag_slice": np.sqrt(np.sum(sim.cos.omega[:, :, N // 2, :] ** 2, axis=-1)).copy(),
+                        "n_centroids": len(snap["centroids"]),
+                    }
+                )
 
     # ── Verdict ──
     max_A_sq_cos = max(h["max_A_sq_cos"] for h in history)
@@ -162,7 +173,9 @@ def run_single(
     print(f"    → VERDICT: {verdict}")
 
     return {
-        "amp": amp, "N": N, "n_outer_steps": n_outer_steps,
+        "amp": amp,
+        "N": N,
+        "n_outer_steps": n_outer_steps,
         "history": history,
         "heatmap_frames": heatmap_frames,
         "max_A_sq_total": max_A_sq_total,
@@ -181,44 +194,56 @@ def render_summary(results: list[dict], out: str) -> None:
     ax = axes[0, 0]
     for r, c in zip(results, colors):
         t = np.array([h["t"] for h in r["history"]])
-        ax.plot(t, [h["max_A_sq_total"] for h in r["history"]], "-",
-                color=c, lw=1.4, label=f"amp={r['amp']:.2f}: {r['verdict']}")
+        ax.plot(
+            t,
+            [h["max_A_sq_total"] for h in r["history"]],
+            "-",
+            color=c,
+            lw=1.4,
+            label=f"amp={r['amp']:.2f}: {r['verdict']}",
+        )
     ax.axhline(1.0, color="red", lw=0.8, ls=":", label="A²=1 (TIR)")
     ax.axhline(0.75, color="orange", lw=0.6, ls=":")
-    ax.set_yscale("log"); ax.set_xlabel("t"); ax.set_ylabel("max A²_total")
+    ax.set_yscale("log")
+    ax.set_xlabel("t")
+    ax.set_ylabel("max A²_total")
     ax.set_title("Collision A² evolution (all amps)")
-    ax.legend(fontsize=8); ax.grid(alpha=0.3)
+    ax.legend(fontsize=8)
+    ax.grid(alpha=0.3)
 
     ax = axes[0, 1]
     for r, c in zip(results, colors):
         t = np.array([h["t"] for h in r["history"]])
-        ax.plot(t, [h["max_A_sq_cos"] for h in r["history"]], "-",
-                color=c, lw=1.4, label=f"amp={r['amp']:.2f}")
+        ax.plot(t, [h["max_A_sq_cos"] for h in r["history"]], "-", color=c, lw=1.4, label=f"amp={r['amp']:.2f}")
     ax.axhline(0.5, color="green", lw=0.6, ls=":", label="P_IIIb-pair threshold")
     ax.set_yscale("symlog", linthresh=1e-8)
-    ax.set_xlabel("t"); ax.set_ylabel("max A²_Cosserat")
+    ax.set_xlabel("t")
+    ax.set_ylabel("max A²_Cosserat")
     ax.set_title("Cosserat response")
-    ax.legend(fontsize=8); ax.grid(alpha=0.3)
+    ax.legend(fontsize=8)
+    ax.grid(alpha=0.3)
 
     ax = axes[1, 0]
     for r, c in zip(results, colors):
         t = np.array([h["t"] for h in r["history"]])
-        ax.plot(t, [len(h["centroids"]) for h in r["history"]], "-",
-                color=c, lw=1.4, label=f"amp={r['amp']:.2f}")
+        ax.plot(t, [len(h["centroids"]) for h in r["history"]], "-", color=c, lw=1.4, label=f"amp={r['amp']:.2f}")
     ax.axhline(2, color="green", lw=0.8, ls="--", label="pair threshold")
-    ax.set_xlabel("t"); ax.set_ylabel("# soliton centroids")
+    ax.set_xlabel("t")
+    ax.set_ylabel("# soliton centroids")
     ax.set_title("Detected soliton count")
-    ax.legend(fontsize=8); ax.grid(alpha=0.3)
+    ax.legend(fontsize=8)
+    ax.grid(alpha=0.3)
 
     ax = axes[1, 1]
     for r, c in zip(results, colors):
         t = np.array([h["t"] for h in r["history"]])
-        ax.plot(t, [h["Q_hopf"] for h in r["history"]], "-",
-                color=c, lw=1.4, label=f"amp={r['amp']:.2f}")
+        ax.plot(t, [h["Q_hopf"] for h in r["history"]], "-", color=c, lw=1.4, label=f"amp={r['amp']:.2f}")
     ax.axhline(0, color="#666", lw=0.5)
-    ax.set_xlabel("t"); ax.set_ylabel("Q_H (global)")
+    ax.set_xlabel("t")
+    ax.set_ylabel("Q_H (global)")
     ax.set_title("Global topological charge")
-    ax.legend(fontsize=8); ax.grid(alpha=0.3)
+    ax.legend(fontsize=8)
+    ax.grid(alpha=0.3)
 
     plt.suptitle("Phase III-B: Two-Photon Collision → Pair Creation (amplitude sweep)", fontsize=12)
     plt.tight_layout()
@@ -246,20 +271,25 @@ def render_animation(result: dict, out: str, fps: int = 10) -> None:
     for v in (vmax_k4, vmax_cos, vmax_tot, vmax_om):
         v = max(v, 1e-4)
 
-    im_k4 = axes[0, 0].imshow(frames[0]["A_sq_k4_slice"].T, origin="lower",
-                                cmap="inferno", vmin=0, vmax=max(vmax_k4, 1e-4))
-    im_cos = axes[0, 1].imshow(frames[0]["A_sq_cos_slice"].T, origin="lower",
-                                 cmap="viridis", vmin=0, vmax=max(vmax_cos, 1e-4))
-    im_tot = axes[1, 0].imshow(frames[0]["A_sq_total_slice"].T, origin="lower",
-                                 cmap="magma", vmin=0, vmax=max(vmax_tot, 1e-4))
-    im_om = axes[1, 1].imshow(frames[0]["omega_mag_slice"].T, origin="lower",
-                                cmap="plasma", vmin=0, vmax=max(vmax_om, 1e-4))
+    im_k4 = axes[0, 0].imshow(
+        frames[0]["A_sq_k4_slice"].T, origin="lower", cmap="inferno", vmin=0, vmax=max(vmax_k4, 1e-4)
+    )
+    im_cos = axes[0, 1].imshow(
+        frames[0]["A_sq_cos_slice"].T, origin="lower", cmap="viridis", vmin=0, vmax=max(vmax_cos, 1e-4)
+    )
+    im_tot = axes[1, 0].imshow(
+        frames[0]["A_sq_total_slice"].T, origin="lower", cmap="magma", vmin=0, vmax=max(vmax_tot, 1e-4)
+    )
+    im_om = axes[1, 1].imshow(
+        frames[0]["omega_mag_slice"].T, origin="lower", cmap="plasma", vmin=0, vmax=max(vmax_om, 1e-4)
+    )
     axes[0, 0].set_title("A²_K4 (two photons)", color="#eee")
     axes[0, 1].set_title("A²_Cos (rotational)", color="#eee")
     axes[1, 0].set_title("A²_total (TIR when → 1)", color="#eee")
     axes[1, 1].set_title("|ω| (soliton structure)", color="#eee")
     for ax in axes.ravel():
-        ax.set_xlabel("x", color="#ccc"); ax.set_ylabel("y", color="#ccc")
+        ax.set_xlabel("x", color="#ccc")
+        ax.set_ylabel("y", color="#ccc")
     suptitle = fig.suptitle("", color="#eee", fontsize=12)
 
     def update(i):
@@ -269,8 +299,7 @@ def render_animation(result: dict, out: str, fps: int = 10) -> None:
         im_tot.set_data(f["A_sq_total_slice"].T)
         im_om.set_data(f["omega_mag_slice"].T)
         suptitle.set_text(
-            f"Phase III-B (amp={result['amp']:.2f}·V_SNAP) — t = {f['t']:.3f}  "
-            f"#centroids = {f['n_centroids']}"
+            f"Phase III-B (amp={result['amp']:.2f}·V_SNAP) — t = {f['t']:.3f}  " f"#centroids = {f['n_centroids']}"
         )
         return im_k4, im_cos, im_tot, im_om, suptitle
 
@@ -288,8 +317,7 @@ if __name__ == "__main__":
     # Quick-pass: N=48, 200 steps, 2 amps to verify vacuum-noise seed
     # unlocks the bootstrapping. If it does, rerun at N=64 production.
     for amp in [0.7, 0.95]:
-        r = run_single(amp=amp, N=48, n_outer_steps=200,
-                       vacuum_noise_amplitude=0.01)
+        r = run_single(amp=amp, N=48, n_outer_steps=200, vacuum_noise_amplitude=0.01)
         results.append(r)
 
     render_summary(results, out="/tmp/phase_iiib_summary.png")
@@ -298,6 +326,8 @@ if __name__ == "__main__":
 
     print("\n── Phase III-B Overall Summary ──")
     for r in results:
-        print(f"  amp={r['amp']:.2f}: {r['verdict']}   "
-              f"max_A²_cos={r['max_A_sq_cos']:.3e}, "
-              f"peak #centroids={r['max_n_centroids']}")
+        print(
+            f"  amp={r['amp']:.2f}: {r['verdict']}   "
+            f"max_A²_cos={r['max_A_sq_cos']:.3e}, "
+            f"peak #centroids={r['max_n_centroids']}"
+        )

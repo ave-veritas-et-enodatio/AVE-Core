@@ -17,37 +17,38 @@ The three regime thresholds from constants.py / Vol 4 Ch 1:
     √3/2  ≈ 0.866  — Regime II → III transition boundary
     1.0             — Rupture / TIR limit (Axiom 4)
 """
-from __future__ import annotations
 
-from typing import Optional
-
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib import colors as mcolors
 
-from ave.core.constants import V_SNAP as _V_SNAP_CONST, ALPHA
+from ave.core.constants import ALPHA
+from ave.core.constants import V_SNAP as _V_SNAP_CONST
 from ave.topological.k4_cosserat_coupling import (
     CoupledK4Cosserat,
-    _v_squared_per_site,
     _cosserat_A_squared,
+    _v_squared_per_site,
 )
 
-
 # Regime thresholds (Axiom-4, Regime I/II/III from Vol 4 Ch 1)
-A2_REGIME_I_II = 2.0 * ALPHA          # ≈ 0.0146   (√(2α) in A, but A² here)
-A2_REGIME_II_III = 3.0 / 4.0          # = 0.75     ((√3/2)² = 3/4)
-A2_RUPTURE = 1.0                      # rupture limit
+A2_REGIME_I_II = 2.0 * ALPHA  # ≈ 0.0146   (√(2α) in A, but A² here)
+A2_REGIME_II_III = 3.0 / 4.0  # = 0.75     ((√3/2)² = 3/4)
+A2_RUPTURE = 1.0  # rupture limit
 
 
 def saturation_fields(sim: CoupledK4Cosserat) -> dict:
     """Return (A²_K4, A²_Cosserat, A²_total) full 3D fields."""
     V_sq = _v_squared_per_site(sim.k4.V_inc)
-    A_sq_k4 = V_sq / (sim.V_SNAP ** 2)
+    A_sq_k4 = V_sq / (sim.V_SNAP**2)
     A_sq_cos = _cosserat_A_squared(
-        sim.cos.u, sim.cos.omega, sim.cos.dx,
-        sim.cos.omega_yield, sim.cos.epsilon_yield,
+        sim.cos.u,
+        sim.cos.omega,
+        sim.cos.dx,
+        sim.cos.omega_yield,
+        sim.cos.epsilon_yield,
     )
     A_sq_total = A_sq_k4 + A_sq_cos
     return {
@@ -60,7 +61,7 @@ def saturation_fields(sim: CoupledK4Cosserat) -> dict:
 def render_heatmap(
     sim: CoupledK4Cosserat,
     out_path: str = "/tmp/saturation_heatmap.png",
-    z_slice: Optional[int] = None,
+    z_slice: int | None = None,
     title_suffix: str = "",
 ) -> dict:
     """Render a 3-panel heatmap of the saturation fields at a z-slice.
@@ -109,7 +110,8 @@ def render_heatmap(
         f"Regime-III (A²>3/4): {regime_report['cells_rg_III']:d} cells   "
         f"Rupture (A²>1): {regime_report['cells_rupture']:d} cells   "
         f"max A²_total = {regime_report['max_A_sq_total']:.3f}",
-        color="#eee", fontsize=11,
+        color="#eee",
+        fontsize=11,
     )
     plt.tight_layout()
     plt.savefig(out_path, dpi=110, facecolor="#111")
@@ -136,7 +138,6 @@ def _regime_summary(fields: dict, mask_active: np.ndarray) -> dict:
 if __name__ == "__main__":
     # Quick self-test: empty sim → all zeros
     sim = CoupledK4Cosserat(N=32, pml=4)
-    fields = render_heatmap(sim, out_path="/tmp/saturation_heatmap_test.png",
-                            title_suffix="(empty sim)")
+    fields = render_heatmap(sim, out_path="/tmp/saturation_heatmap_test.png", title_suffix="(empty sim)")
     print(f"Empty sim regime report: {fields['regime_report']}")
     print(f"Saved /tmp/saturation_heatmap_test.png")

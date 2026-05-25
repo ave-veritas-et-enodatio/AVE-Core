@@ -333,7 +333,7 @@ Every file:line citation in this doc verified at `analysis/h-infinity-downstream
 - `manuscript/ave-kb/common/boundary-observables-m-q-j.md` (§"Same mechanism at all scales" lines 31-40) — verified verbatim
 - `manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md:46-58` (§3 Eight testable observables) — verified verbatim post-Phase-1 edit
 - `manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md` §"Cross-volume substrate motif" (lines 43-71) — verified verbatim post-Phase-2 edit
-- `manuscript/ave-kb/common/closure-roadmap.md:162` (Foundation Item 13 ν_vac cascade entry) — verified verbatim
+- `manuscript/ave-kb/claim-quality-closure-roadmap.md:162` (Foundation Item 13 ν_vac cascade entry) — verified verbatim
 - `manuscript/ave-kb/common/mathematical-closure.md:94-112` (§A-034 saturation-kernel anchors) — verified verbatim
 - `manuscript/predictions.yaml` P02/P03/P04/P05/P06/P07/P23/P29_32/P43/P47 + P_A034_* entries — verified verbatim
 - skills repo commit `470f1ec` (consistency-vs-emergence v1.1 canonization) — verified via `git -C ~/.claude/skills log -1 -- consistency-vs-emergence/SKILL.md`

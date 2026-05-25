@@ -45,15 +45,15 @@ Reference:
   - manuscript/predictions.yaml::P_phase5_nucleation
   - Kelvin 1867 "On Vortex Atoms" (topological protection)
 """
-from __future__ import annotations
 
 import argparse
 import sys
 import time
 from dataclasses import dataclass
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -69,7 +69,7 @@ from ave.topological.vacuum_engine import (
 @dataclass
 class RunConfig:
     wavelength: float = 3.5
-    amplitude: float = 0.5           # V_SNAP units (P_phase5 registration)
+    amplitude: float = 0.5  # V_SNAP units (P_phase5 registration)
     temperature: float = 0.1
     N: int = 24
     pml: int = 4
@@ -89,11 +89,7 @@ class RunConfig:
 
     @property
     def n_outer_steps(self) -> int:
-        total_time = (
-            self.t_ramp_periods
-            + self.t_sustain_periods
-            + self.t_observe_post_drive_periods
-        ) * self.period
+        total_time = (self.t_ramp_periods + self.t_sustain_periods + self.t_observe_post_drive_periods) * self.period
         return int(total_time * np.sqrt(2.0)) + 1
 
     @property
@@ -104,7 +100,8 @@ class RunConfig:
 
 def run_collision(cfg: RunConfig) -> dict:
     engine = VacuumEngine3D.from_args(
-        N=cfg.N, pml=cfg.pml,
+        N=cfg.N,
+        pml=cfg.pml,
         temperature=cfg.temperature,
         amplitude_convention="V_SNAP",
     )
@@ -114,18 +111,30 @@ def run_collision(cfg: RunConfig) -> dict:
     src_offset = cfg.pml + 3
 
     # Head-on autoresonant CW pair, decay=1 period
-    engine.add_source(AutoresonantCWSource(
-        x0=src_offset, direction=(1.0, 0.0, 0.0),
-        amplitude=cfg.amplitude, omega=cfg.omega_carrier,
-        sigma_yz=3.0, t_ramp=t_ramp, t_sustain=t_sustain,
-        t_decay=period,
-    ))
-    engine.add_source(AutoresonantCWSource(
-        x0=cfg.N - src_offset, direction=(-1.0, 0.0, 0.0),
-        amplitude=cfg.amplitude, omega=cfg.omega_carrier,
-        sigma_yz=3.0, t_ramp=t_ramp, t_sustain=t_sustain,
-        t_decay=period,
-    ))
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=src_offset,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=cfg.amplitude,
+            omega=cfg.omega_carrier,
+            sigma_yz=3.0,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            t_decay=period,
+        )
+    )
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=cfg.N - src_offset,
+            direction=(-1.0, 0.0, 0.0),
+            amplitude=cfg.amplitude,
+            omega=cfg.omega_carrier,
+            sigma_yz=3.0,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            t_decay=period,
+        )
+    )
 
     gate = PairNucleationGate(cadence=cfg.record_cadence)
     regime_obs = RegimeClassifierObserver(cadence=cfg.record_cadence)
@@ -152,9 +161,7 @@ def run_collision(cfg: RunConfig) -> dict:
                     Ai, Aj, Ak, port = key
                     p = PairNucleationGate._PORT_VECTORS[port].astype(int)
                     fired_site_list.append((Ai, Aj, Ak))
-                    fired_site_list.append(
-                        (Ai + p[0], Aj + p[1], Ak + p[2])
-                    )
+                    fired_site_list.append((Ai + p[0], Aj + p[1], Ak + p[2]))
         # Record |ω|² at each known fired site
         row = []
         for site in fired_site_list:
@@ -194,9 +201,7 @@ def adjudicate(result: dict) -> dict:
     # First firing time
     fired_mask = n_fired > 0
     first_fire_t = float(t_gate[fired_mask][0]) if fired_mask.any() else None
-    first_fire_periods = (
-        first_fire_t / period if first_fire_t is not None else None
-    )
+    first_fire_periods = first_fire_t / period if first_fire_t is not None else None
 
     # Max firing rate (pairs per period)
     # Bin firings into 1-period windows post-ramp
@@ -215,9 +220,7 @@ def adjudicate(result: dict) -> dict:
     # Max A²_μ achieved anywhere (via regime observer's A²_total as a proxy
     # in symmetric-saturation; Phase 4 asymmetric's A²_μ isn't exposed on
     # RegimeClassifier, so we use A²_total as a floor)
-    max_A2 = float(np.max(
-        [h["max_A2_total"] for h in regime_hist]
-    )) if regime_hist else 0.0
+    max_A2 = float(np.max([h["max_A2_total"] for h in regime_hist])) if regime_hist else 0.0
 
     # Persistence: for each fired site, |ω|² trajectory post-drive
     fired_sites = result["fired_site_list"]
@@ -249,14 +252,10 @@ def adjudicate(result: dict) -> dict:
                 below = np.where(post_w2 < half)[0]
                 if below.size == 0:
                     # Never decayed below half during observation
-                    persistence_periods = (
-                        float(post_times[-1] - drive_end) / period
-                    )
+                    persistence_periods = float(post_times[-1] - drive_end) / period
                 else:
                     first_below = below[0]
-                    persistence_periods = (
-                        float(post_times[first_below] - drive_end) / period
-                    )
+                    persistence_periods = float(post_times[first_below] - drive_end) / period
 
     # Verdict logic (P_phase5 registration)
     registered_window_periods = 50.0
@@ -315,7 +314,8 @@ def render(result: dict, out: str = "/tmp/phase5_pair_nucleation.png") -> None:
     ax.set_xlabel("time (Compton periods)")
     ax.set_ylabel("max A²_total")
     ax.set_title("C1 approach: max saturation vs time")
-    ax.legend(fontsize=9); ax.grid(alpha=0.3)
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.3)
 
     # Panel 2: omega_ratio_min (C2 approach — Duffing softening)
     ax = axes[0, 1]
@@ -325,7 +325,8 @@ def render(result: dict, out: str = "/tmp/phase5_pair_nucleation.png") -> None:
     ax.set_xlabel("time (Compton periods)")
     ax.set_ylabel("Ω_node/ω_0  (min across lattice)")
     ax.set_title("C2 approach: Duffing softening at hottest site")
-    ax.legend(fontsize=9); ax.grid(alpha=0.3)
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.3)
 
     # Panel 3: gate firings
     ax = axes[1, 0]
@@ -335,7 +336,8 @@ def render(result: dict, out: str = "/tmp/phase5_pair_nucleation.png") -> None:
     ax.set_xlabel("time (Compton periods)")
     ax.set_ylabel("pair nucleations")
     ax.set_title("PairNucleationGate firings")
-    ax.legend(fontsize=9); ax.grid(alpha=0.3)
+    ax.legend(fontsize=9)
+    ax.grid(alpha=0.3)
 
     # Panel 4: |ω|² at first fired injection site (persistence)
     ax = axes[1, 1]
@@ -350,16 +352,23 @@ def render(result: dict, out: str = "/tmp/phase5_pair_nucleation.png") -> None:
             traj_t.append(t_gate[step_idx])
             traj_w.append(row[0])
         ax.plot(traj_t, traj_w, color="#a63", lw=1.2)
-        ax.axvline(drive_end / period, color="#2a7", ls="--", lw=1.0,
-                   label="drive end")
+        ax.axvline(drive_end / period, color="#2a7", ls="--", lw=1.0, label="drive end")
         ax.axhline(2.0, color="#888", ls=":", lw=0.8, label="|ω|²=2 (injection)")
         ax.set_xlabel("time (Compton periods)")
         ax.set_ylabel("|ω|² at first-fired A-site")
         ax.set_title("Beltrami persistence (Kelvin discrete-lattice test)")
-        ax.legend(fontsize=9); ax.grid(alpha=0.3)
+        ax.legend(fontsize=9)
+        ax.grid(alpha=0.3)
     else:
-        ax.text(0.5, 0.5, "No firings recorded\n(nothing to track for persistence)",
-                ha="center", va="center", transform=ax.transAxes, fontsize=11)
+        ax.text(
+            0.5,
+            0.5,
+            "No firings recorded\n(nothing to track for persistence)",
+            ha="center",
+            va="center",
+            transform=ax.transAxes,
+            fontsize=11,
+        )
         ax.set_title("Beltrami persistence (no data)")
 
     plt.suptitle(
@@ -382,22 +391,17 @@ def save_npz(result: dict, out: str = "/tmp/phase5_pair_nucleation.npz") -> None
         t_gate=np.array([h["t"] for h in gate_hist]),
         n_fired=np.array([h["n_fired_this_step"] for h in gate_hist]),
         n_nucleated_total=np.array([h["n_nucleated_total"] for h in gate_hist]),
-        max_A2_total=np.array(
-            [h["max_A2_total"] for h in result["regime_history"]]
-        ),
-        omega_ratio_min=np.array(
-            [h["omega_ratio_min"] for h in result["node_history"]]
-        ),
+        max_A2_total=np.array([h["max_A2_total"] for h in result["regime_history"]]),
+        omega_ratio_min=np.array([h["omega_ratio_min"] for h in result["node_history"]]),
     )
     print(f"Saved {out}")
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="Phase 5 pair-nucleation driver"
-    )
+    parser = argparse.ArgumentParser(description="Phase 5 pair-nucleation driver")
     parser.add_argument(
-        "--stress", action="store_true",
+        "--stress",
+        action="store_true",
         help=(
             "Stress config: amp=0.8·V_SNAP (above registered spec) to verify "
             "end-to-end gate firing + Beltrami persistence. Not for P_phase5 "
@@ -412,12 +416,13 @@ if __name__ == "__main__":
         cfg.amplitude = 0.8
         print("[STRESS MODE] amp=0.8·V_SNAP (above P_phase5 registration);")
         print("              verifying gate firing + persistence end-to-end.\n")
-    print(f"Config: λ={cfg.wavelength}, T={cfg.temperature}, "
-          f"amp={cfg.amplitude}·V_SNAP")
+    print(f"Config: λ={cfg.wavelength}, T={cfg.temperature}, " f"amp={cfg.amplitude}·V_SNAP")
     print(f"N={cfg.N}, pml={cfg.pml}, n_steps={cfg.n_outer_steps}")
-    print(f"Drive envelope: ramp={cfg.t_ramp_periods}p, "
-          f"sustain={cfg.t_sustain_periods}p, "
-          f"post={cfg.t_observe_post_drive_periods}p")
+    print(
+        f"Drive envelope: ramp={cfg.t_ramp_periods}p, "
+        f"sustain={cfg.t_sustain_periods}p, "
+        f"post={cfg.t_observe_post_drive_periods}p"
+    )
     print("(Expected runtime ~3-5 min)\n")
 
     result = run_collision(cfg)

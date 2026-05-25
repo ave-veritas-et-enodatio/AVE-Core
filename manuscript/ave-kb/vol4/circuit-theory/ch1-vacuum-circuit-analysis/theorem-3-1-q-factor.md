@@ -1,6 +1,10 @@
 [↑ Ch.1 Vacuum Circuit Analysis](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol1/ch8-alpha-golden-torus + common/boundary-observables-m-q-j as canonical Q-factor reframe -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-rtdmsn]
+path-stable: "referenced from vol1/ch8-alpha-golden-torus + common/boundary-observables-m-q-j as canonical Q-factor reframe"
+-->
 
 # Theorem 3.1' — Electron Q-Factor from LC Tank at TIR Boundary
 

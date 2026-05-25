@@ -55,7 +55,7 @@ The h-infinity-framing-forward epic classified H_∞ as Class C consistency chec
 - `manuscript/ave-kb/common/full-derivation-chain.md` (Layer 8)
 - `manuscript/backmatter/02_full_derivation_chain.tex` (LaTeX mirror)
 - `manuscript/frontmatter/00_foreword.tex` (Common Foreword UV-Completion section)
-- `manuscript/ave-kb/common/closure-roadmap.md` entry (annotate the framing-forward entry with the Class E refinement)
+- `manuscript/ave-kb/claim-quality-closure-roadmap.md` entry (annotate the framing-forward entry with the Class E refinement)
 
 For each: the Class C "consistency check" framing should be EXTENDED (not replaced) with the Class E joint-constraint framing. Class C is true (G is CODATA-input → SI substitution recovers H_∞); Class E is ALSO true and STRONGER (the joint constraint on {G, H_∞, Ω_freeze, α} via u_0* is the framework's real testable content). The honest framing is "Class E operating-point projection (which includes Class C consistency-check sub-structure)."
 

@@ -6,29 +6,12 @@
 # 2026-05-17 to match what the code actually produces (stipulated illustrative plot,
 # not derivation).
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
+from ave_path_util import sim_output
+
 plt.style.use("dark_background")
-
-
-# --- Standard AVE output directory ---
-def _find_repo_root() -> str:
-    d = os.path.dirname(os.path.abspath(__file__))
-    while d != os.path.dirname(d):
-        if os.path.exists(os.path.join(d, "pyproject.toml")):
-            return d
-        d = os.path.dirname(d)
-    return os.path.dirname(os.path.abspath(__file__))
-
-
-OUTPUT_DIR = os.path.join(_find_repo_root(), "assets", "sim_outputs")
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-# --- End standard output directory ---
-if not os.path.exists(OUTPUT_DIR):
-    os.makedirs(OUTPUT_DIR)
 
 
 def simulate_confinement() -> None:
@@ -91,7 +74,7 @@ def simulate_confinement() -> None:
         bbox=dict(boxstyle="round", facecolor="#111122", alpha=0.8, edgecolor="#ff00aa"),
     )
 
-    output_path = os.path.join(OUTPUT_DIR, "photon_helical_spin.png")
+    output_path = sim_output("photon_helical_spin.png")
     plt.tight_layout()
     plt.savefig(output_path, dpi=300, facecolor=fig.get_facecolor(), bbox_inches="tight")
     print(f"Saved Helical Confinement simulation to: {output_path}")

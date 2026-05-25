@@ -23,24 +23,26 @@ References:
   - Warp-metric tensor simulation framework (separate propulsion compendium)
   - doc 49_ §2 (unified mechanism picture)
 """
-from __future__ import annotations
 
 import os
 import sys
+
 sys.path.insert(0, os.path.dirname(__file__))
 
 import json
-import numpy as np
+
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
 
 from ave.topological.vacuum_engine import (
-    VacuumEngine3D,
-    PulsedSource,
     DarkWakeObserver,
+    PulsedSource,
     RegimeClassifierObserver,
+    VacuumEngine3D,
 )
 
 
@@ -56,7 +58,9 @@ def run_validation(
 ) -> dict:
     """Launch a single pulsed photon, record dark wake evolution."""
     engine = VacuumEngine3D.from_args(
-        N=N, pml=pml, temperature=0.0,
+        N=N,
+        pml=pml,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
     )
 
@@ -64,13 +68,17 @@ def run_validation(
     period = 2.0 * np.pi / omega_carrier
     t_center = 2.0 * t_sigma_periods * period
 
-    engine.add_source(PulsedSource(
-        x0=source_x, direction=(1.0, 0.0, 0.0),
-        amplitude=amplitude, omega=omega_carrier,
-        sigma_yz=4.0,
-        t_center=t_center,
-        t_sigma=t_sigma_periods * period,
-    ))
+    engine.add_source(
+        PulsedSource(
+            x0=source_x,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=amplitude,
+            omega=omega_carrier,
+            sigma_yz=4.0,
+            t_center=t_center,
+            t_sigma=t_sigma_periods * period,
+        )
+    )
 
     wake_obs = DarkWakeObserver(cadence=record_cadence, propagation_axis=0)
     regime_obs = RegimeClassifierObserver(cadence=record_cadence)
@@ -90,7 +98,7 @@ def run_validation(
     max_tau_zx_over_time = [h["max_tau_zx"] for h in wake_history]
     wake_peaks_x = [h["wake_peak_x"] for h in wake_history]
     times = [h["t"] for h in wake_history]
-    max_V_sq_over_time = [h["max_A2_k4"] * engine.V_SNAP ** 2 for h in regime_history]
+    max_V_sq_over_time = [h["max_A2_k4"] * engine.V_SNAP**2 for h in regime_history]
 
     return {
         "engine_N": N,
@@ -161,7 +169,9 @@ def analyze_and_plot(result: dict, out_png: str, out_gif: str) -> dict:
     # Heatmap: τ_zx slab over time
     ax = axes[1, 0]
     im = ax.imshow(
-        tau_slabs.T, origin="lower", cmap="inferno",
+        tau_slabs.T,
+        origin="lower",
+        cmap="inferno",
         aspect="auto",
         extent=[times[0], times[-1], 0, tau_slabs.shape[1]],
     )
@@ -186,8 +196,7 @@ def analyze_and_plot(result: dict, out_png: str, out_gif: str) -> dict:
 
     verdict_str = "PASS" if wake_ever_formed else "FAIL"
     plt.suptitle(
-        f"Dark-wake diagnostic validation — Stage 4b\n"
-        f"max |τ_zx| = {max_tau.max():.3e}   verdict: {verdict_str}",
+        f"Dark-wake diagnostic validation — Stage 4b\n" f"max |τ_zx| = {max_tau.max():.3e}   verdict: {verdict_str}",
         fontsize=12,
     )
     plt.tight_layout()

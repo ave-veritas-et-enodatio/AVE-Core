@@ -5,7 +5,8 @@ equipartition variances exist in the suite. This file closes that gap
 (~1 day effort per Grant's own manual note: "highest-leverage non-
 Grant-adjudication item").
 
-Pins the Maxwell-Boltzmann variances per [doc 47_ §2](../../research/_archive/L3_electron_soliton/47_thermal_lattice_noise.md)
+Pins the Maxwell-Boltzmann variances per
+[doc 47_ §2](../../research/_archive/L3_electron_soliton/47_thermal_lattice_noise.md)
 and [VacuumEngine3D.initialize_thermal](../ave/topological/vacuum_engine.py):
 
     σ_V per port = √(4π·T/α) · V_SNAP       (ONLY if thermalize_V=True)
@@ -24,7 +25,8 @@ Sample-size discipline: for N=16 lattice, ~2·(N/2)³ ≈ 2048 active sites
 estimate is σ/√(2·n_sample) ≈ 0.9%, so 5% tolerance is safe.
 
 Tests also validate:
-- T=0 gives deterministic zero fields (C1 — [46_ §2.1](../../research/_archive/L3_electron_soliton/46_vacuum_engine_scope.md))
+- T=0 gives deterministic zero fields
+  (C1 — [46_ §2.1](../../research/_archive/L3_electron_soliton/46_vacuum_engine_scope.md))
 - Default thermalize_V=False leaves V_inc = 0 even for hot Cosserat
 - Seed reproducibility
 - σ ∝ √T scaling across multiple temperatures
@@ -36,7 +38,6 @@ References:
 - src/ave/topological/vacuum_engine.py ::VacuumEngine3D.initialize_thermal
 - VACUUM_ENGINE_MANUAL §17 A10 (audit item closed by this file)
 """
-from __future__ import annotations
 
 import numpy as np
 import pytest
@@ -44,11 +45,10 @@ import pytest
 from ave.core.constants import ALPHA
 from ave.topological.vacuum_engine import VacuumEngine3D
 
-
 # Pre-computed theoretical constants
 MODE_INT = np.pi - 2.0 * np.arctan(np.pi / 2.0)  # ≈ 1.1338
-T_STABLE_V = ALPHA / (4.0 * np.pi) * 0.5          # Stay well below rupture
-T_HOT_COS = 0.1                                    # Cosserat-only hot regime (per Phase III-B)
+T_STABLE_V = ALPHA / (4.0 * np.pi) * 0.5  # Stay well below rupture
+T_HOT_COS = 0.1  # Cosserat-only hot regime (per Phase III-B)
 
 
 def _active_samples(field: np.ndarray, mask: np.ndarray) -> np.ndarray:
@@ -62,7 +62,7 @@ def _active_samples(field: np.ndarray, mask: np.ndarray) -> np.ndarray:
 
 def _theoretical_sigma_omega(T: float, I_omega: float = 1.0) -> float:
     """σ_ω = √(T · mode_int / (4π²·I_ω))"""
-    return float(np.sqrt(T * MODE_INT / (4.0 * np.pi ** 2 * I_omega)))
+    return float(np.sqrt(T * MODE_INT / (4.0 * np.pi**2 * I_omega)))
 
 
 def _theoretical_sigma_omega_dot(T: float, I_omega: float = 1.0) -> float:
@@ -144,7 +144,9 @@ class TestCosseratEquipartition:
     def hot_engine(self):
         """Engine at T=0.1 with fixed seed for reproducibility."""
         engine = VacuumEngine3D.from_args(
-            N=16, pml=2, temperature=T_HOT_COS,
+            N=16,
+            pml=2,
+            temperature=T_HOT_COS,
             amplitude_convention="V_SNAP",
         )
         # Fresh re-init with deterministic seed for test stability
@@ -189,9 +191,7 @@ class TestCosseratEquipartition:
         sigma = float(samples.std())
         stderr = sigma / np.sqrt(len(samples))
         # Accept within 4σ stderr (one-off test; 4σ gives ~99.99% passage rate)
-        assert abs(mean) < 4.0 * stderr, (
-            f"⟨ω⟩ = {mean:.6e}, stderr = {stderr:.6e}, ratio = {mean/stderr:.2f}σ"
-        )
+        assert abs(mean) < 4.0 * stderr, f"⟨ω⟩ = {mean:.6e}, stderr = {stderr:.6e}, ratio = {mean/stderr:.2f}σ"
 
     def test_u_mean_near_zero(self, hot_engine):
         samples = _active_samples(hot_engine.cos.u, hot_engine.cos.mask_alive)
@@ -219,7 +219,9 @@ class TestVEquipartitionStableRegime:
         """σ_V per port = √(4π·T/α) · V_SNAP at T < α/(4π)."""
         T = T_STABLE_V  # = α/(4π)/2 — comfortably below rupture
         engine = VacuumEngine3D.from_args(
-            N=16, pml=2, temperature=0.0,  # Will re-init below
+            N=16,
+            pml=2,
+            temperature=0.0,  # Will re-init below
             amplitude_convention="V_SNAP",
         )
         engine.initialize_thermal(T, seed=777, thermalize_V=True)
@@ -229,9 +231,9 @@ class TestVEquipartitionStableRegime:
         # V_SNAP = 1 in natural units (engine default), so σ_V natural = √(4π·T/α)
         sigma_empirical = float(V_samples.std())
         sigma_theory = _theoretical_sigma_V(T) * engine.V_SNAP
-        assert sigma_empirical == pytest.approx(sigma_theory, rel=0.05), (
-            f"σ_V empirical = {sigma_empirical:.5e}, theory = {sigma_theory:.5e}"
-        )
+        assert sigma_empirical == pytest.approx(
+            sigma_theory, rel=0.05
+        ), f"σ_V empirical = {sigma_empirical:.5e}, theory = {sigma_theory:.5e}"
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -272,9 +274,7 @@ class TestSeedReproducibility:
         theory = _theoretical_sigma_omega(T)
         # Each individual σ within 5% of theory (per Cosserat class tests)
         max_rel_err = float(np.max(np.abs(sigmas_omega / theory - 1.0)))
-        assert max_rel_err < 0.05, (
-            f"Seed ensemble σ_ω values = {sigmas_omega}, theory = {theory}"
-        )
+        assert max_rel_err < 0.05, f"Seed ensemble σ_ω values = {sigmas_omega}, theory = {theory}"
 
 
 class TestSqrtTScaling:
@@ -295,9 +295,9 @@ class TestSqrtTScaling:
         avg_ratio = float(np.mean(ratios))
         # Theory: ratio = √(T_ref / T_scaled) = √4 = 2
         expected = np.sqrt(T_ref / T_scaled)
-        assert avg_ratio == pytest.approx(expected, rel=0.05), (
-            f"σ_ref/σ_scaled ratio = {avg_ratio:.3f}, expected {expected:.3f}"
-        )
+        assert avg_ratio == pytest.approx(
+            expected, rel=0.05
+        ), f"σ_ref/σ_scaled ratio = {avg_ratio:.3f}, expected {expected:.3f}"
 
     def test_sigma_u_scales_as_sqrt_T(self):
         T_ref = 0.2
@@ -328,9 +328,9 @@ class TestModuliScaling:
         eng_heavy.initialize_thermal(T, seed=1111)
         s_default = float(_active_samples(eng_default.cos.u, eng_default.cos.mask_alive).std())
         s_heavy = float(_active_samples(eng_heavy.cos.u, eng_heavy.cos.mask_alive).std())
-        assert s_default / s_heavy == pytest.approx(np.sqrt(2.0), rel=0.05), (
-            f"σ_u(ρ=1)/σ_u(ρ=2) = {s_default/s_heavy:.3f}, expected √2 = {np.sqrt(2.0):.3f}"
-        )
+        assert s_default / s_heavy == pytest.approx(
+            np.sqrt(2.0), rel=0.05
+        ), f"σ_u(ρ=1)/σ_u(ρ=2) = {s_default/s_heavy:.3f}, expected √2 = {np.sqrt(2.0):.3f}"
 
     def test_sigma_omega_inversely_scales_with_I_omega(self):
         """σ_ω = √(T·1.14 / (4π²·I_ω)); doubling I_ω → σ_ω by 1/√2."""

@@ -49,7 +49,6 @@ redesign. NO IC modifications. NO additional adjudication criteria.
 Per doc 86 §7.6 Round 11 trigger: if v8 doesn't land Mode I (4/4 PASS),
 auto-fire Round 11 framework reframe (no v9 IC tweak path).
 """
-from __future__ import annotations
 
 import argparse
 import json
@@ -63,7 +62,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
 from ave.core.constants import ALPHA
 from ave.topological.vacuum_engine import VacuumEngine3D
-
 
 # ─── Constants (UNCHANGED from v7) ─────────────────────────────────────────
 
@@ -112,8 +110,12 @@ def build_chair_ring(center):
     """6-node hexagonal chair-ring + 6 bonds at lattice center (UNCHANGED from v7)."""
     cx, cy, cz = center
     nodes = [
-        (cx, cy, cz), (cx + 1, cy + 1, cz + 1), (cx, cy + 2, cz + 2),
-        (cx - 1, cy + 3, cz + 1), (cx - 2, cy + 2, cz), (cx - 1, cy + 1, cz - 1),
+        (cx, cy, cz),
+        (cx + 1, cy + 1, cz + 1),
+        (cx, cy + 2, cz + 2),
+        (cx - 1, cy + 3, cz + 1),
+        (cx - 2, cy + 2, cz),
+        (cx - 1, cy + 1, cz - 1),
     ]
     bonds = []
     for n in range(6):
@@ -128,12 +130,18 @@ def build_chair_ring(center):
         port_idx = next(p for p, po in enumerate(PORT_OFFSETS_A) if np.array_equal(offset, po))
         traversal_dir = (np.array(node_next) - np.array(node_curr)).astype(float)
         traversal_dir /= np.linalg.norm(traversal_dir)
-        bonds.append({
-            "ring_idx": n, "node_curr": list(node_curr), "node_next": list(node_next),
-            "a_site": list(a_site), "b_site": list(b_site), "port": port_idx,
-            "a_to_b_offset": offset.tolist(),
-            "traversal_direction": traversal_dir.tolist(),
-        })
+        bonds.append(
+            {
+                "ring_idx": n,
+                "node_curr": list(node_curr),
+                "node_next": list(node_next),
+                "a_site": list(a_site),
+                "b_site": list(b_site),
+                "port": port_idx,
+                "a_to_b_offset": offset.tolist(),
+                "traversal_direction": traversal_dir.tolist(),
+            }
+        )
     return nodes, bonds
 
 
@@ -272,7 +280,7 @@ def measure_ring_state_v8(engine, nodes):
     for node in nodes:
         ix, iy, iz = node
         V_sq = float(np.sum(engine.k4.V_inc[ix, iy, iz, :] ** 2))
-        A2_per_node.append(V_sq / (V_SNAP ** 2))
+        A2_per_node.append(V_sq / (V_SNAP**2))
 
     ring_energy = 0.0
     for node in nodes:
@@ -319,7 +327,9 @@ def run_v8(temperature=0.0, label="T0"):
     a_0_per_node, centroid = compute_a_0_at_ring_nodes(nodes, A_AMP_POL, HELICAL_PITCH)
 
     engine = VacuumEngine3D.from_args(
-        N=N_LATTICE, pml=PML, temperature=temperature,
+        N=N_LATTICE,
+        pml=PML,
+        temperature=temperature,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -368,9 +378,12 @@ def run_v8(temperature=0.0, label="T0"):
                 saturation_lost = True
 
         if (time.time() - last) > 30.0:
-            print(f"    [progress] step {i}/{N_RECORDING_STEPS}, t={t_p:.1f}P, "
-                  f"A²_mean={s['A2_mean']:.3f}, loc={s['ring_localization']:.3f}, "
-                  f"elapsed {time.time()-t0:.1f}s", flush=True)
+            print(
+                f"    [progress] step {i}/{N_RECORDING_STEPS}, t={t_p:.1f}P, "
+                f"A²_mean={s['A2_mean']:.3f}, loc={s['ring_localization']:.3f}, "
+                f"elapsed {time.time()-t0:.1f}s",
+                flush=True,
+            )
             last = time.time()
     elapsed_recording = time.time() - t0
     print(f"  Recording done at {elapsed_recording:.1f}s", flush=True)
@@ -390,8 +403,7 @@ def run_v8(temperature=0.0, label="T0"):
         cos_sims = []
         for n_idx, node in enumerate(nodes):
             a_vec = measure_a_vec_from_phi_link_oscillating(
-                phi_oscillating, node[0], node[1], node[2], i,
-                PORT_OFFSETS_A, N_LATTICE
+                phi_oscillating, node[0], node[1], node[2], i, PORT_OFFSETS_A, N_LATTICE
             )
             b_vec = omega_traj_per_node[i, n_idx, :].astype(np.float64)
             a_norm, b_norm = np.linalg.norm(a_vec), np.linalg.norm(b_vec)
@@ -416,7 +428,9 @@ def run_v8(temperature=0.0, label="T0"):
     print("=" * 78, flush=True)
     print(f"  Persistence (A²_mean ≥ {A2_MEAN_THRESHOLD}): {persistence_periods:.1f} P")
     print(f"  Beltrami |cos_sim(A_oscillating, ω)| steady: {cos_sim_steady:.4f}  (≥ {BELTRAMI_PARALLELISM_THRESHOLD})")
-    print(f"  Loop flux ∮A·dl RMS steady: {loop_flux_steady_rms:.4f}  (target {LOOP_FLUX_TARGET:.4f} ± {LOOP_FLUX_TOLERANCE*100:.0f}%)")
+    print(
+        f"  Loop flux ∮A·dl RMS steady: {loop_flux_steady_rms:.4f}  (target {LOOP_FLUX_TARGET:.4f} ± {LOOP_FLUX_TOLERANCE*100:.0f}%)"
+    )
     print(f"  Loop flux peak |∮A·dl| steady: {loop_flux_steady_peak:.4f}")
     print(f"  Ring localization steady: {ring_loc_steady:.4f}  (≥ {RING_LOCALIZATION_THRESHOLD})")
     print()
@@ -481,8 +495,7 @@ def run_v8(temperature=0.0, label="T0"):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--t-sweep", action="store_true",
-                        help="Run T sweep at T = {0, 1e-3, 1e-2, 1e-1}·T_V-rupt")
+    parser.add_argument("--t-sweep", action="store_true", help="Run T sweep at T = {0, 1e-3, 1e-2, 1e-1}·T_V-rupt")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     args = parser.parse_args()
 
@@ -497,11 +510,10 @@ def main():
     results.append(r0)
 
     if args.t_sweep:
-        substantive_pass = (
-            r0["mode"] == "I"
-            or (r0["mode"] in ["I", "II"]
-                and r0["criteria_pass"]["persistence"]
-                and r0["criteria_pass"]["ring_localization"])
+        substantive_pass = r0["mode"] == "I" or (
+            r0["mode"] in ["I", "II"]
+            and r0["criteria_pass"]["persistence"]
+            and r0["criteria_pass"]["ring_localization"]
         )
         if substantive_pass:
             print("\n" + "=" * 78)
@@ -519,12 +531,14 @@ def main():
     print("  SYNTHESIS ACROSS ALL RUNS")
     print("=" * 78)
     for r in results:
-        print(f"  {r['label']}: Mode {r['mode']} — "
-              f"persist={r['results']['persistence_periods']:.1f}P, "
-              f"beltrami={r['results']['beltrami_cos_sim_steady']:.3f}, "
-              f"flux_RMS={r['results']['loop_flux_steady_rms']:.3f}, "
-              f"flux_peak={r['results']['loop_flux_steady_peak']:.3f}, "
-              f"loc={r['results']['ring_localization_steady']:.3f}")
+        print(
+            f"  {r['label']}: Mode {r['mode']} — "
+            f"persist={r['results']['persistence_periods']:.1f}P, "
+            f"beltrami={r['results']['beltrami_cos_sim_steady']:.3f}, "
+            f"flux_RMS={r['results']['loop_flux_steady_rms']:.3f}, "
+            f"flux_peak={r['results']['loop_flux_steady_peak']:.3f}, "
+            f"loc={r['results']['ring_localization_steady']:.3f}"
+        )
     print()
 
     payload = {
@@ -533,7 +547,9 @@ def main():
         "lattice": {"N": N_LATTICE, "pml": PML, "center": list(CENTER)},
         "recording_periods": RECORDING_END_P,
         "ic_amplitudes": {
-            "a_amp_pol": A_AMP_POL, "helical_pitch": HELICAL_PITCH, "k_beltrami": K_BELTRAMI,
+            "a_amp_pol": A_AMP_POL,
+            "helical_pitch": HELICAL_PITCH,
+            "k_beltrami": K_BELTRAMI,
         },
         "thresholds": {
             "persistence_periods": PERSISTENCE_PERIODS,

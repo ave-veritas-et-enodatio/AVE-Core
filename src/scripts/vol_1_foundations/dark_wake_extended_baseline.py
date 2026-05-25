@@ -19,7 +19,6 @@ Outputs:
   - assets/dark_wake_extended_baseline.gif
   - results/dark_wake_extended_baseline.json
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -29,8 +28,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from dark_wake_validation import run_validation, analyze_and_plot  # noqa: E402
-
+from dark_wake_validation import analyze_and_plot, run_validation  # noqa: E402
 
 PREREG = {
     "C-B1_max_tau_zx_min": 0.0,
@@ -86,14 +84,16 @@ def main() -> None:
     print("── Pre-reg evaluation ──")
     pass_C_B1 = summary["max_tau_zx"] > PREREG["C-B1_max_tau_zx_min"]
     pass_C_B3 = summary["pearson_V2_tau"] > PREREG["C-B3_pearson_min"]
-    pass_C_B4 = (
-        PREREG["C-B4_v_wake_min_over_c"]
-        <= v_wake_over_c
-        <= PREREG["C-B4_v_wake_max_over_c"]
+    pass_C_B4 = PREREG["C-B4_v_wake_min_over_c"] <= v_wake_over_c <= PREREG["C-B4_v_wake_max_over_c"]
+    print(
+        f"  C-B1 (max τ_zx > 0):                  {'PASS' if pass_C_B1 else 'FAIL'}  (got {summary['max_tau_zx']:.4f})"
     )
-    print(f"  C-B1 (max τ_zx > 0):                  {'PASS' if pass_C_B1 else 'FAIL'}  (got {summary['max_tau_zx']:.4f})")
-    print(f"  C-B3 (Pearson r(V², τ) > 0.7):         {'PASS' if pass_C_B3 else 'FAIL'}  (got {summary['pearson_V2_tau']:.4f})")
-    print(f"  C-B4 (v_wake/c ∈ [-1.1, -0.9]):       {'PASS' if pass_C_B4 else 'FAIL'}  (got v_wake = {summary['late_wake_velocity']:.4f}, v_wake/c_eng = {v_wake_over_c:.4f})")
+    print(
+        f"  C-B3 (Pearson r(V², τ) > 0.7):         {'PASS' if pass_C_B3 else 'FAIL'}  (got {summary['pearson_V2_tau']:.4f})"
+    )
+    print(
+        f"  C-B4 (v_wake/c ∈ [-1.1, -0.9]):       {'PASS' if pass_C_B4 else 'FAIL'}  (got v_wake = {summary['late_wake_velocity']:.4f}, v_wake/c_eng = {v_wake_over_c:.4f})"
+    )
     print(f"  C-B2/C-B5/C-B6: visual confirmation in GIF; tau_slabs in JSON")
 
     out = {

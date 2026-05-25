@@ -1,5 +1,9 @@
 [↑ Ch.1 VCA](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-u462e4]
+-->
 
 # Computational Solver Selection
 
@@ -46,5 +50,5 @@ Both solvers support:
 Both engines default to $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$ kV (macroscopic onset). Override with `v_yield=V_SNAP` for subatomic simulations.
 
 ## Source
-- [01_vacuum_circuit_analysis.tex](../../../../../vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex) §7 (Solver Selection)
+- Vol 4 Ch 1 (Vacuum Circuit Analysis) §7 (Solver Selection)
 - Engine: `ave.core.fdtd_3d`, `ave.core.fdtd_3d_jax`, `ave.core.k4_tlm`

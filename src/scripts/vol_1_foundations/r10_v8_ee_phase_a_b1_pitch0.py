@@ -7,7 +7,6 @@ artifact). HELICAL_PITCH=0 zeroes the IC's toroidal component while
 keeping V_AMP = 0.95 unchanged. If FFT still shows 1.5·ω_C dominant,
 substrate-forced. If shifts, helical-IC-driven.
 """
-from __future__ import annotations
 
 import json
 import sys
@@ -19,9 +18,9 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).parent))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
-
 import r10_path_alpha_v8_corrected_measurements as v8
+
+from ave.topological.vacuum_engine import VacuumEngine3D
 
 
 def main():
@@ -32,19 +31,28 @@ def main():
 
     nodes, bonds = v8.build_chair_ring(v8.CENTER)
     a_0_per_node, _ = v8.compute_a_0_at_ring_nodes(
-        nodes, v8.A_AMP_POL, helical_pitch=0.0,  # ← key change
+        nodes,
+        v8.A_AMP_POL,
+        helical_pitch=0.0,  # ← key change
     )
 
     engine = VacuumEngine3D.from_args(
-        N=v8.N_LATTICE, pml=v8.PML, temperature=0.0,
+        N=v8.N_LATTICE,
+        pml=v8.PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
     )
     print("Applying v8 helical Beltrami IC with HELICAL_PITCH=0...", flush=True)
     v8.initialize_helical_beltrami_ic(
-        engine, nodes, bonds, a_0_per_node,
-        v8.K_BELTRAMI, v8.V_AMP, v8.PHI_AMP,
+        engine,
+        nodes,
+        bonds,
+        a_0_per_node,
+        v8.K_BELTRAMI,
+        v8.V_AMP,
+        v8.PHI_AMP,
     )
 
     N_STEPS = v8.N_RECORDING_STEPS
@@ -62,8 +70,7 @@ def main():
             omega[i, n_idx, :] = engine.cos.omega[ix, iy, iz, :]
         if (time.time() - last) > 30.0:
             t_p = (i + 1) * v8.DT / v8.COMPTON_PERIOD
-            print(f"    step {i}/{N_STEPS}, t={t_p:.1f}P, elapsed {time.time()-t0:.1f}s",
-                  flush=True)
+            print(f"    step {i}/{N_STEPS}, t={t_p:.1f}P, elapsed {time.time()-t0:.1f}s", flush=True)
             last = time.time()
     elapsed = time.time() - t0
     print(f"  Recording done at {elapsed:.1f}s", flush=True)

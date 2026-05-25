@@ -22,13 +22,13 @@ is scale-free — extracted Q scales predictably with dx — so the
 physics claim is validated by the dimensionless ratios, and Q is
 reported for completeness.
 """
+
 import numpy as np
 
 from ave.topological.cosserat_field_3d import CosseratField3D
 
-
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
-R_GOLDEN_GRID = 8.0   # grid-cell units; corresponds to ~phi/2 when dx = phi/(2 * R_grid)
+R_GOLDEN_GRID = 8.0  # grid-cell units; corresponds to ~phi/2 when dx = phi/(2 * R_grid)
 R_OVER_R_TARGET = PHI**2  # = phi/(phi-1) — expected (R/r) ratio
 
 
@@ -84,7 +84,9 @@ def print_run_summary(info: dict) -> None:
     label = info["label"]
     print(f"\n--- {label} ---")
     print(f"  Initial (R, r) target:  ({info['init'][0]:.3f}, {info['init'][1]:.3f})")
-    print(f"  Initial (R, r, c) obs:  ({info['initial_observed'][0]:.3f}, {info['initial_observed'][1]:.3f}, c={info['initial_observed'][2]})")
+    print(
+        f"  Initial (R, r, c) obs:  ({info['initial_observed'][0]:.3f}, {info['initial_observed'][1]:.3f}, c={info['initial_observed'][2]})"
+    )
     print(f"  Initial energy:         {info['initial_E']:.6e}")
     print(f"  Iterations:             {info['iterations']}")
     print(f"  Converged:              {info['converged']}")
@@ -92,8 +94,8 @@ def print_run_summary(info: dict) -> None:
     print(f"  Final (R, r):           ({info['final_R']:.3f}, {info['final_r']:.3f})")
     print(f"  Final c:                {info['final_c']}")
     print(f"  Final Q (grid units):   {info['final_Q']:.3f}")
-    if info['final_r'] > 1e-6:
-        ratio = info['final_R'] / info['final_r']
+    if info["final_r"] > 1e-6:
+        ratio = info["final_R"] / info["final_r"]
         print(f"  R/r ratio:              {ratio:.4f}   (target phi^2 = {PHI**2:.4f})")
 
 
@@ -140,9 +142,9 @@ def main():
     print("=" * 72)
 
     for info in (info_exact, info_perturbed):
-        ratio = info['final_R'] / max(info['final_r'], 1e-9)
+        ratio = info["final_R"] / max(info["final_r"], 1e-9)
         ratio_error = abs(ratio - PHI**2) / PHI**2
-        c_match = (info['final_c'] == 3)
+        c_match = info["final_c"] == 3
         print(f"  {info['label']}:")
         print(f"    R/r:           {ratio:.4f}   (target {PHI**2:.4f}, rel err {ratio_error*100:.1f}%)")
         print(f"    c preserved?   {c_match}   (target 3, got {info['final_c']})")

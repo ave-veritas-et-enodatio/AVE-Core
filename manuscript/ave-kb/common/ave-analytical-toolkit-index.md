@@ -1,6 +1,10 @@
 [↑ Common Resources](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from ~/.claude/skills/ave-analytical-tool-selection as the canonical analytical-tool catalog -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-h3acr9]
+path-stable: "referenced from ~/.claude/skills/ave-analytical-tool-selection as the canonical analytical-tool catalog"
+-->
 
 # AVE Analytical Toolkit Index
 
@@ -90,13 +94,13 @@ The 9 recognized analytical-problem classes (any AVE derivation that maps to ≥
 
 | Tool | Formula | Canonical source | When to use |
 |---|---|---|---|
-| **Op2 Saturation Kernel** | S(A, A_c) = √(1 - (A/A_c)²) (Born-Infeld n=2) | [`operators.md` Op2 line 32](operators.md) + [`universal-saturation-kernel-catalog.md`](universal-saturation-kernel-catalog.md) (21 scale instances) | Any saturation-driven nonlinearity; Axiom 4 |
+| **Op2 Saturation Kernel** | S(A, A_c) = √(1 - (A/A_c)²) (Born-Infeld n=2) | [`operators.md` Op2 line 32](operators.md) + [`universal-saturation-kernel-catalog.md`](universal-saturation-kernel-catalog.md) (26 scale instances) | Any saturation-driven nonlinearity; Axiom 4 |
 | **Op22 Avalanche Factor** | M = 1/S² = 1/(1 - r²) | [`operators.md` Op22 line 52](operators.md) | Cascading metric yield post-saturation |
 | **V_yield Limit** | V_yield = √α × V_snap = √α × m_e c²/e ≈ 43.65 kV | [`vol1/dynamics/ch4-continuum-electrodynamics/magnetic-saturation.md` line 13](../vol1/dynamics/ch4-continuum-electrodynamics/magnetic-saturation.md) | Macroscopic saturation rupture voltage |
 | **B_snap** | B_snap = √(2μ₀ m_e c² / ℓ_node³) ≈ 1.89e9 T | [`src/ave/core/constants.py:345`](../../../src/ave/core/constants.py) | Magnetic saturation rupture field |
 | **TVS Transition** | η_eff = 0 for V ≥ V_yield (zero-impedance slipstream) | [`vol4/circuit-theory/ch1-vacuum-circuit-analysis/tvs-transition.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/tvs-transition.md) | Solid-to-slipstream phase transition; impedance collapse |
 | **Q-G22 Strain Convention** | A_geom = ℓ_node/r vs A_field = Eℓ_node/V_yield | [`vol4/circuit-theory/ch1-vacuum-circuit-analysis/q-g22-strain-convention.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/q-g22-strain-convention.md) | Kernel applications vs apparatus calculations — DIFFERENT measures |
-| **Saturation kernel catalog (21 instances)** | 21 cross-scale Op2 applications | [`universal-saturation-kernel-catalog.md`](universal-saturation-kernel-catalog.md) | Cross-scale anchor for any new saturation derivation |
+| **Saturation kernel catalog (26 instances)** | 26 cross-scale Op2 applications | [`universal-saturation-kernel-catalog.md`](universal-saturation-kernel-catalog.md) | Cross-scale anchor for any new saturation derivation |
 
 **Worked examples**:
 - BCS superconducting B_c(T): Op2 at 0.00% empirical error (saturation-kernel-catalog.md)
@@ -162,7 +166,7 @@ The 9 recognized analytical-problem classes (any AVE derivation that maps to ≥
 |---|---|---|---|
 | **Z₀ derivation discrete LC ladder** | Z_cell = √(μ₀/ε₀) = Z₀ (scale invariant) | [`vol4/circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md) | Substrate's characteristic impedance; scale-invariant base |
 | **Op13 D'Alembertian** | □² with local saturated c_eff per Op16 | [`operators.md` Op13 line 43](operators.md) | Generalized wave-equation operator; substrate-native PDE |
-| **Op16 Universal Wave Speed** | c_shear = c₀ √S (Axiom 4 saturation modifies) | [`operators.md` Op16 line 46](operators.md) + [`axiom-homologation.md` §208](axiom-homologation.md) | Wave speed in saturation regime; gravitational analog |
+| **Op16 Universal Wave Speed** | c_shear = c₀ √S (Axiom 4 saturation modifies) | [`operators.md` Op16 line 46](operators.md) | Wave speed in saturation regime; gravitational analog |
 | **Op11 + Op12 Curl/Div** | discrete Yee-lattice form on K4 | [`operators.md` Op11-Op12 line 41-42](operators.md) | Substrate-native vector calculus on K4 graph |
 | **Op19 Refractive Index** | n(r) = 1 + ν_vac ε₁₁; ν_vac = 2/7 | [`operators.md` Op19 line 49](operators.md) | Gravity as refractive-index variation |
 | **Resonant LC Solitons** | particles as LC tanks; Virial | [`resonant-lc-solitons.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md) | Soliton-as-eigenmode framing |

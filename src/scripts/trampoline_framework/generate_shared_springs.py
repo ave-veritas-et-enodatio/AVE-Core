@@ -10,14 +10,13 @@ Run from repo root:
   uv run --no-sync python src/scripts/trampoline_framework/generate_shared_springs.py
 """
 
-from __future__ import annotations
-
 import math
-from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import Arc, Circle, FancyArrowPatch
+
+from ave_path_util import SIM_OUTPUTS
 
 plt.rcParams.update(
     {
@@ -31,7 +30,7 @@ plt.rcParams.update(
     }
 )
 
-OUTDIR = Path("assets/sim_outputs/trampoline_framework")
+OUTDIR = SIM_OUTPUTS / "trampoline_framework"
 OUTDIR.mkdir(parents=True, exist_ok=True)
 
 
@@ -71,13 +70,16 @@ def panel_a(ax):
     )
 
     # Shade the "cell" lightly
-    ax.fill([0, b_positions[0][0], b_positions[1][0], b_positions[2][0], b_positions[3][0]],
-            [0, b_positions[0][1], b_positions[1][1], b_positions[2][1], b_positions[3][1]],
-            color="#1f77b4", alpha=0.06, zorder=1)
+    ax.fill(
+        [0, b_positions[0][0], b_positions[1][0], b_positions[2][0], b_positions[3][0]],
+        [0, b_positions[0][1], b_positions[1][1], b_positions[2][1], b_positions[3][1]],
+        color="#1f77b4",
+        alpha=0.06,
+        zorder=1,
+    )
 
     ax.set_title(
-        "(A) One cell = one node + 4 primary bonds\n"
-        "Each bond also belongs to the B-neighbor's cell",
+        "(A) One cell = one node + 4 primary bonds\n" "Each bond also belongs to the B-neighbor's cell",
         fontsize=11,
         pad=10,
     )
@@ -112,14 +114,21 @@ def panel_b(ax):
     arc_x = b_shared[0] + 1.5 * np.cos(theta)
     arc_y = b_shared[1] + 0.3 * np.sin(theta) + 0.0
     # Better: simple dashed straight line A1-A2 with annotation
-    ax.plot([a1_pos[0], a2_pos[0]], [a1_pos[1], a2_pos[1]], color="#d62728", linewidth=2.0, linestyle="--", alpha=0.7, zorder=4)
+    ax.plot(
+        [a1_pos[0], a2_pos[0]],
+        [a1_pos[1], a2_pos[1]],
+        color="#d62728",
+        linewidth=2.0,
+        linestyle="--",
+        alpha=0.7,
+        zorder=4,
+    )
 
     # Distance annotation for A1-A2
     ax.text(
         0,
         -0.30,
-        r"effective coupling distance $\approx 1.187\,d$"
-        "\n(geometric A₁→B→A₂ path)",
+        r"effective coupling distance $\approx 1.187\,d$" "\n(geometric A₁→B→A₂ path)",
         ha="center",
         fontsize=10,
         color="#d62728",
@@ -151,7 +160,7 @@ def panel_b(ax):
 
     ax.set_title(
         "(B) Two A-nodes share a B-neighbor → coupled through $\\omega_B$\n"
-        "No separate \"secondary spring\" — shared-B-node IS the coupling",
+        'No separate "secondary spring" — shared-B-node IS the coupling',
         fontsize=11,
         pad=10,
     )

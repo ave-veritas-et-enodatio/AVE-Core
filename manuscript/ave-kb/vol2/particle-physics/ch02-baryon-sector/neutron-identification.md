@@ -1,6 +1,10 @@
 [↑ Ch.2 — Baryon Sector](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from common/full-derivation-chain + vol6/period-1/hydrogen + vol4/falsification/ch11 as canonical neutron identification -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-6kwzot]
+path-stable: "referenced from common/full-derivation-chain + vol6/period-1/hydrogen + vol4/falsification/ch11 as canonical neutron identification"
+-->
 
 # Neutron — Canonical Identification + First-Principles Axiom Audit
 

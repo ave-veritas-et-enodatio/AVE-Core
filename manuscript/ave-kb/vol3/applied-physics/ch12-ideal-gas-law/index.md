@@ -1,5 +1,11 @@
 [↑ Applied Physics](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-cul4it]
+subtree-experiments: []
+-->
+
 # Ch.12: The Ideal Gas Law and Fluid Pressure
 
 The Ideal Gas Law derived as an LC energy balance equation: pressure is ponderomotive radiation pressure from topological nodes on cavity boundaries, temperature is RMS transverse grid noise, and $R = N_A k_B$ is a structural theorem recovered at STP to $< 0.001\%$ error with no free parameters.

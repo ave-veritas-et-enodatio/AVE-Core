@@ -1,5 +1,9 @@
 [↑ Ch.12: Falsifiable Predictions](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-to41c7]
+-->
 
 ## The Torus Knot Ladder: Baryon Resonance Mass Predictions
 
@@ -20,7 +24,7 @@ The AVE framework's Torus Knot Ladder (Chapter 6, Section 6.4) generates a zero-
 | $(2,13)$ | 13 | 2194.636 | $N(2190)$ | 2100 ± 50 | $+4.506\%$ | $7/2^-$ ✓ |
 | $(2,15)$ | 15 | 2477.968 | $\Delta(2420)$ | 2400 ± 100 | $+3.249\%$ | $11/2^+$ ✓ |
 
-**Precision summary (PDG 2024 anchored, C8 PDG 2024 anchor commit `55b3317`)**: 6/6 retrospective $J^P$-consistent with $(2,c)$ torus-knot winding allowed values; **4 of 6 retrospective within 3%, ALL 6 within 5%**. **Proton match at $-0.002\%$ is the strongest individual match in the framework** (200× more precise than corpus's prior "+0.00%" precision-rounding framing). Set by 1 input (CODATA $m_e$) + 1 topological integer (cinquefoil $c=5$) + 1 halo invariant (Borromean $V=2$). Per [`ave-discrimination-check`](file:///Users/grantlindblom/.claude/skills/ave-discrimination-check/SKILL.md) D3: random nearest-mass matching cannot pass $J^P$ filter at 6/6 retrospective rate.
+**Precision summary (PDG 2024 anchored, C8 PDG 2024 anchor commit `55b3317`)**: 6/6 retrospective $J^P$-consistent with $(2,c)$ torus-knot winding allowed values; **4 of 6 retrospective within 3%, ALL 6 within 5%**. **Proton match at $-0.002\%$ is the strongest individual match in the framework** (200× more precise than corpus's prior "+0.00%" precision-rounding framing). Set by 1 input (CODATA $m_e$) + 1 topological integer (cinquefoil $c=5$) + 1 halo invariant (Borromean $V=2$). Per `ave-discrimination-check` D3: random nearest-mass matching cannot pass $J^P$ filter at 6/6 retrospective rate.
 
 ### Forward predictions (PDG 2024 anchored)
 
@@ -57,11 +61,11 @@ The $(2,q)$ winding count is INTERNAL to each N-class: leptons stay at $(2,3)$ +
 - [Vol 4 alt anchor](baryon-mass-predictions.md) — convention-realigned alt presentation
 - [C8-BARYON-LADDER matrix row](../../../common/divergence-test-substrate-map.md) — Matrix 1 Predictions row PROMOTED FULL CLOSURE
 - [Driver `baryon_ladder_pdg_2024_anchor.py`](../../../../../src/scripts/verify/baryon_ladder_pdg_2024_anchor.py) + [results JSON](../../../../../src/scripts/verify/baryon_ladder_pdg_2024_anchor_results.json)
-- [Closure-roadmap §0.5 2026-05-18 C8 entry](../../../common/closure-roadmap.md)
-- [Foreword "Third positive load-bearing empirical confirmation at scale"](../../../../frontmatter/00_foreword.tex) line 115 (per 2026-05-18 promotion)
+- Closure-roadmap §0.5 2026-05-18 C8 entry
+- Foreword "Third positive load-bearing empirical confirmation at scale" line 115 (per 2026-05-18 promotion)
 
 ### Status (2026-05-20)
 
-**FULL PASS at PDG 2024 anchor scale** per C8-BARYON-LADDER cherry-pick. Strongest individual empirical match in framework. Cross-scale corroboration via A1-HOPF chiral antenna ($(2,q)$ family at EE scale) and C3-MUON-DELTA Fermilab g-2 anchor ($(2,3)$+Cosserat lepton family) pending — see [`_orchestration/experimental/a1-hopf/exp-a1-hopf.md`](../../../../_orchestration/experimental/a1-hopf/exp-a1-hopf.md) sub-epic for EE-scale corroboration plan.
+**FULL PASS at PDG 2024 anchor scale** per C8-BARYON-LADDER cherry-pick. Strongest individual empirical match in framework. Cross-scale corroboration via A1-HOPF chiral antenna ($(2,q)$ family at EE scale) and C3-MUON-DELTA Fermilab g-2 anchor ($(2,3)$+Cosserat lepton family) pending — see [`_orchestration/experimental/a1-hopf/exp-a1-hopf.md`](../../../../../_orchestration/experimental/a1-hopf/exp-a1-hopf.md) sub-epic for EE-scale corroboration plan.
 
 ---
