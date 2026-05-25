@@ -760,7 +760,7 @@ predictions:
     name: "α invariance under gravity"
     type: derived_prediction
     derivation_label: "sec:galactic_saturation"
-    axioms_used: [3, 4]
+    axioms_used: [1, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |

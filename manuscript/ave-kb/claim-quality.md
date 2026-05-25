@@ -154,6 +154,7 @@ The Machian boundary sets $G = \hbar c / (7\xi \cdot m_e^2)$ (a derived conseque
 ### Quality
 - confidence: 0.85
 - depends-on:
+  - Axiom 1 (Machian boundary $G = \hbar c/(7\xi \cdot m_e^2)$ — a derived consequence of Axioms 1 + 4)
   - Axiom 3 (Minimum Reflection Principle — $n(r) = 1 + 2GM/c^2 r$ is the temporal component of the symmetric-gravity refractive index)
   - clm-8nkvwy — Symmetric vs Asymmetric Saturation (solidity 0.85) [the cancellation argument depends on the symmetric case]
 - solidity: 0.85 (ok to build on) [= min(0.85, 0.85)]
