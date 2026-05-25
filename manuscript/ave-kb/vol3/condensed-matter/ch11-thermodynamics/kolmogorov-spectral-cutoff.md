@@ -6,6 +6,11 @@ kind: leaf
 claims: [clm-hk81zp]
 -->
 
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-hk81zp]
+-->
+
 # Kolmogorov Spectral Cutoff
 
 **Volume:** 3 (Macroscopic Physics)

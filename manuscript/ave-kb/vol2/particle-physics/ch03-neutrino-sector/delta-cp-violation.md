@@ -48,6 +48,13 @@ Each term has a distinct physical origin:
 > - **σ-tension framing** (per Foundation Item 7 discipline): all four predictions land **within 1σ** of NuFIT 5.2 best-fit ± band — qualitatively distinct from the 3.5σ α_s tension flagged in FI-7. The 1.0% deviation on sin²θ_13 is within the experimental 1σ uncertainty (0.022 + 0.00067 = 0.02267 > AVE 0.02222).
 > - **Forward-prediction load-bearing**: inverted mass hierarchy is a categorical falsifier independent of c_1=5 derivation status (1/c² scaling forces m_1 > m_2 > m_3 for any c_1 < c_2 < c_3). **JUNO mass-ordering result (~2026-2028 timeframe)** will adjudicate; if JUNO confirms NORMAL hierarchy at >3σ, neutrino sector framework dies cleanly.
 
+> **Scope correction (2026-05-17 night, Foundation Item 13 audit)**: The original framing — "all four PMNS parameters derive from three inputs (c_1=5, c_3=9, ν_vac=2/7, K4 connectivity=3); maximum deviation 1.0%; no curve fitting" — was MIXED honest:
+>
+> - **Honest**: ν_vac=2/7 cross-volume substrate-anchored (~14 distinct uses across Vols 2/3/5/6 verified); K4 connectivity=3 = Axiom 1 + trefoil c_trefoil=3 structural identity (per [`chiral-screening.md:20`](chiral-screening.md)); δ_CP three components from disparate physics (NOT post-hoc summed); +2/45 vs +1/45 from principled parallel-admittance counting; mass hierarchy ratio 3% from 1/c² torsional coupling (zero additional parameters).
+> - **Underspecified**: c_1=5 starting value of mode-space ladder is NOT derived from substrate primitives in any canonical leaf grep'd. Δc=2 spacing IS derived from ν_vac=2/7 ([`pmns-eigenvalues.md:23`](pmns-eigenvalues.md)); absolute starting value is not. Without c_1=5 derivation, $\sin^2\theta_{13}$ reclassifies from Class D emergence to Class C consistency check (c_1·c_3=45 chosen-not-derived). Other 3 predictions cross-validate from same input (3:1 structural compression preserved).
+> - **σ-tension framing** (per Foundation Item 7 discipline): all four predictions land **within 1σ** of NuFIT 5.2 best-fit ± band — qualitatively distinct from the 3.5σ α_s tension flagged in FI-7. The 1.0% deviation on sin²θ_13 is within the experimental 1σ uncertainty (0.022 + 0.00067 = 0.02267 > AVE 0.02222).
+> - **Forward-prediction load-bearing**: inverted mass hierarchy is a categorical falsifier independent of c_1=5 derivation status (1/c² scaling forces m_1 > m_2 > m_3 for any c_1 < c_2 < c_3). **JUNO mass-ordering result (~2026-2028 timeframe)** will adjudicate; if JUNO confirms NORMAL hierarchy at >3σ, neutrino sector framework dies cleanly.
+
 The derived PMNS matrix is **unitary** to machine precision ($|U^\dagger U - I| < 10^{-16}$), with Jarlskog invariant $J \approx -0.030$.
 
 ### Neutrino Mass Hierarchy from Crossing Numbers

@@ -6,6 +6,11 @@ kind: leaf
 claims: [clm-salw2h]
 -->
 
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-salw2h]
+-->
+
 # Spin ↔ Gyroscopic Precession Isomorphism
 
 **Volume:** 2 (Subatomic Scale)

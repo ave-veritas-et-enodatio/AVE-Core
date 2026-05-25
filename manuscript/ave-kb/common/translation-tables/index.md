@@ -18,6 +18,8 @@ Domain-specific translation tables mapping established physics disciplines to th
 
 > ↗ See also: [Temporal Saturation Regime Classifier](../temporal-saturation-regime-classifier.md) — companion leaf adding the orthogonal temporal axis (lossless / cyclic / lossy) on top of the per-discipline concept mappings here. Each translation table maps WHICH concepts translate between AVE and the discipline; the temporal classifier adds HOW systems evolve through saturation regimes over their observation window. Together they form the full cross-disciplinary translation infrastructure.
 
+> ↗ See also: [Temporal Saturation Regime Classifier](../temporal-saturation-regime-classifier.md) — companion leaf adding the orthogonal temporal axis (lossless / cyclic / lossy) on top of the per-discipline concept mappings here. Each translation table maps WHICH concepts translate between AVE and the discipline; the temporal classifier adds HOW systems evolve through saturation regimes over their observation window. Together they form the full cross-disciplinary translation infrastructure.
+
 ## Contents
 
 | Document | Contents |

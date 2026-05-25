@@ -6,6 +6,11 @@ kind: leaf
 claims: [clm-oltvwy]
 -->
 
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-oltvwy]
+-->
+
 # Orbital Penetration Penalties (1/d ABCD Matrix)
 
 **Volume:** 2 (Subatomic Scale)

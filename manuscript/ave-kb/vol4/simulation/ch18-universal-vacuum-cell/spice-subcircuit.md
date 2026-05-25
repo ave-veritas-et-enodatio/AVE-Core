@@ -6,6 +6,11 @@ kind: leaf
 claims: [clm-vjv4zf]
 -->
 
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-vjv4zf]
+-->
+
 # SPICE Subcircuit Specification
 
 **Volume:** 4 (Applied Vacuum Engineering)
