@@ -24,8 +24,6 @@ Run from the repository root::
 ARCHIVAL — one-shot tool, executed 2026-05-15; retained for reference.
 """
 
-from __future__ import annotations
-
 import argparse
 import os
 import re

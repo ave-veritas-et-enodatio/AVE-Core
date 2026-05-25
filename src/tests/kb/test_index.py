@@ -16,8 +16,6 @@ Run via stdlib unittest::
 or, equivalently from the repo root, ``python -m unittest discover -s src``.
 """
 
-from __future__ import annotations
-
 import json
 import os
 import subprocess

@@ -40,8 +40,6 @@ False-positive avoidance:
     before resolving (the codebase cites locations as `path/file.md:42`).
 """
 
-from __future__ import annotations
-
 import argparse
 import json
 import logging

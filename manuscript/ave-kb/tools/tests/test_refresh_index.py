@@ -22,8 +22,6 @@ Tests are fully independent of live KB state. Nothing here reads, writes, or
 asserts on ``manuscript/ave-kb/`` proper.
 """
 
-from __future__ import annotations
-
 import hashlib
 import importlib.util
 import json

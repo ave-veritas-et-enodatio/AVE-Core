@@ -12,8 +12,6 @@ Typical use::
     idx.depends_on("0ktpcn")
 """
 
-from __future__ import annotations
-
 from .index import (
     CitationEdge,
     Claim,

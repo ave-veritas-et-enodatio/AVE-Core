@@ -503,7 +503,7 @@ The bullet-cluster lensing-baryon spatial offset is explained as **ponderomotive
   - Derive the three-Cosserat-sectors-to-three-lepton-generations identification (translation/torsion/curvature-twist) from the four axioms (currently a structural identification with sector-specific coupling factors $\alpha\sqrt{3/7}$ and $8\pi/\alpha$ that are asserted, not derived)
   - Reduce the lepton-mass deviations (muon $+1.24\%$, tau $-0.95\%$) by carrying higher-order corrections in the Cosserat sector chain
   - Strengthen Golden Torus α Derivation (`clm-0ktpcn`); α appears in both muon and tau sector factors
-  - Resolve body-topology conflict (`clm-trf3bd` vs `clm-unk0bd`) at author level. The current leaves' "ground-state unknot" formulation is load-bearing here; under a trefoil resolution, both the lepton mass formula and the Cosserat-sector hierarchy need rederivation.
+  - Resolve body-topology conflict (`clm-8c3yhs` trefoil vs `clm-unk0bd` unknot) at author level. The current leaves' "ground-state unknot" formulation is load-bearing here; under a trefoil resolution, both the lepton mass formula and the Cosserat-sector hierarchy need rederivation.
   - Add a separate claim-quality entry for the proton mass derivation; it feeds the Vol 6 nuclear methodology and the Vol 1 Neon-20 application as an unscored upstream input
 
 ---

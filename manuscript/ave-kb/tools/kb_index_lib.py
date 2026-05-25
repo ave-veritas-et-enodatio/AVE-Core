@@ -12,8 +12,6 @@ Stdlib only. No timestamps, no environment-dependent paths in emitted records.
 Same canonical input -> byte-identical output.
 """
 
-from __future__ import annotations
-
 import json
 import posixpath
 import re
@@ -49,9 +47,9 @@ class _PendingFraction:
     beneficiary to pending.
     """
 
-    _instance: _PendingFraction | None = None
+    _instance: "_PendingFraction | None" = None
 
-    def __new__(cls) -> _PendingFraction:
+    def __new__(cls) -> "_PendingFraction":
         if cls._instance is None:
             cls._instance = super().__new__(cls)
         return cls._instance

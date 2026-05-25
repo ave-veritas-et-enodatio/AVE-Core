@@ -24,8 +24,6 @@ Run from the tools dir::
     python -m unittest tests.test_leaf_references
 """
 
-from __future__ import annotations
-
 import subprocess
 import sys
 import tempfile

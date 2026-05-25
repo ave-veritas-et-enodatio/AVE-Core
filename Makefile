@@ -96,7 +96,7 @@ verify-md-links:
 
 verify-inter-repo-links:
 	@echo "Checking Markdown links incl. inter-repo as gating (inter-repo: error)..."
-	$(PYTHON) tools/verify-md-links.py --inter-repo error
+	$(PYTHON) manuscript/ave-kb/tools/verify-md-links.py --inter-repo error
 
 framing-audit:
 	@echo "[Framing] Full defense-context anti-pattern scan (advisory; warn/info do not gate)..."
