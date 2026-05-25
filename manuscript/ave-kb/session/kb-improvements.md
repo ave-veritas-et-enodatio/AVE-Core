@@ -23,3 +23,8 @@ The now-deprecated `axiom-homologation.md` (`session/`) called for unifying the 
 - Relocation candidates: Op14 (`clm-1eg13f`), Theorem 3.1′ (`clm-rtdmsn`), parametric-coupling kernel (`clm-6t3p6x`), `clm-v6ti0v`, `clm-p2tp9i`. **Verify each target's *own* dependency feet are axioms/common/vol1 only before moving** — a target that itself rests on vol4-specific content cannot move to vol1 cleanly (would create a *new* forward edge) and must be split or held.
 - Keep applied content in vol4: chiral thrust (`clm-7tynm2`) and the bench/device/fusion/autoresonant chapters.
 - On landing, drop the vol3→vol4 forward-edge exceptions (tagged `[vol3→vol4 exception, D11]` in their `depends-on` rationales) — they become ordinary backward edges to the relocated claims.
+
+### D12. Tooling Fixes
+- Move `src/ave/kb/` to `manuscript/ave-kb/tools/kb-cmd/` - all kb tooling belongs together
+- replace all read_bytes()/write_bytes() with utf-8 format read_text()/write_text() in ave-kb/tools and test code
+  - NB: this will require some test fixup since some of the tests use b"som-str" comparison values
