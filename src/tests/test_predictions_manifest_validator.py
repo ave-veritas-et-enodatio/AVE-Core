@@ -13,6 +13,7 @@ from scripts.predictions_manifest_validator import (
     ALLOWED_TYPES,
     MANIFEST_PATH,
     REPO_ROOT,
+    check_bridge,
     check_engine,
     check_labels,
     check_living_reference_parity,
@@ -20,6 +21,7 @@ from scripts.predictions_manifest_validator import (
     check_schema,
     collect_constants_symbols,
     collect_manuscript_labels,
+    collect_spine_nodes,
     extract_living_reference_prediction_rows,
     load_manifest,
     run,
@@ -228,6 +230,66 @@ class TestEngine:
             ]
         )
         assert check_engine(m, constants={}) == []
+
+
+# ───────────────────────────────────────────────────────────────────────────
+# check_bridge — manifest as one-directional consumer of the claim DAG
+# ───────────────────────────────────────────────────────────────────────────
+class TestBridge:
+    # A synthetic spine: one claim node, one experiment node.
+    NODES = {"clm-aaaaaa": "claim", "exp-bbbbbb": "experiment"}
+
+    def test_valid_clm_bridge_no_findings(self) -> None:
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa"}])
+        assert check_bridge(m, spine_nodes=self.NODES) == []
+
+    def test_valid_exp_bridge_no_findings(self) -> None:
+        m = _manifest([{"id": "P01", "exp": "exp-bbbbbb"}])
+        assert check_bridge(m, spine_nodes=self.NODES) == []
+
+    def test_dangling_bridge_is_critical(self) -> None:
+        m = _manifest([{"id": "P01", "clm": "clm-zzzzzz"}])
+        findings = check_bridge(m, spine_nodes=self.NODES)
+        assert len(findings) == 1
+        assert findings[0].severity == "critical"
+        assert "does not resolve" in findings[0].message
+
+    def test_malformed_bridge_is_critical(self) -> None:
+        m = _manifest([{"id": "P01", "clm": "clm-BAD"}])
+        findings = check_bridge(m, spine_nodes=self.NODES)
+        assert len(findings) == 1
+        assert findings[0].severity == "critical"
+        assert "malformed" in findings[0].message
+
+    def test_type_mismatch_is_critical(self) -> None:
+        # `clm:` field pointing at an id that the index registers as an
+        # experiment node — resolves, but wrong node_type.
+        nodes = {"clm-aaaaaa": "experiment"}
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa"}])
+        findings = check_bridge(m, spine_nodes=nodes)
+        assert len(findings) == 1
+        assert findings[0].severity == "critical"
+        assert "expected 'claim'" in findings[0].message
+
+    def test_unbridged_entries_aggregate_to_one_warn(self) -> None:
+        m = _manifest([{"id": "P01"}, {"id": "P02"}, {"id": "P03", "clm": "clm-aaaaaa"}])
+        findings = check_bridge(m, spine_nodes=self.NODES)
+        assert len(findings) == 1
+        assert findings[0].severity == "warn"
+        assert findings[0].details["unbridged"] == ["P01", "P02"]
+
+    def test_missing_index_warns_not_crashes(self) -> None:
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa"}])
+        findings = check_bridge(m, spine_nodes={})
+        assert len(findings) == 1
+        assert findings[0].severity == "warn"
+
+    def test_live_index_loads_real_nodes(self) -> None:
+        nodes = collect_spine_nodes()
+        assert len(nodes) > 0
+        assert "claim" in set(nodes.values())
+        # every id is a known spine prefix
+        assert all(nid.split("-", 1)[0] in {"clm", "exp", "sup", "axiom", "INVARIANT"} for nid in nodes)
 
 
 # ───────────────────────────────────────────────────────────────────────────

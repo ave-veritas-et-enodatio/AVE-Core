@@ -17,7 +17,12 @@ validator catches STRUCTURAL inconsistencies:
                         cross-volume refs resolve via the backmatter)
   3. Engine agreement — every constants_py_symbol exists and its live
                         numeric value agrees with predicted_value to rtol=1e-5
-  4. Public parity    — every row in the README master table maps to a
+  4. DAG bridge       — every `clm:`/`exp:` bridge resolves to a real node of
+                        the matching type in the KB claim DAG (.index); the
+                        manifest is a one-directional consumer of the spine,
+                        not a parallel id system (INVARIANT-S11). Unbridged
+                        entries warn (pending migration); broken bridges fail.
+  5. Public parity    — every row in the README master table maps to a
                         manifest entry (no undocumented public claims)
 
 Exit codes:
@@ -50,6 +55,23 @@ MANIFEST_PATH = REPO_ROOT / "manuscript" / "predictions.yaml"
 CONSTANTS_PY = REPO_ROOT / "src" / "ave" / "core" / "constants.py"
 README_PATH = REPO_ROOT / "README.md"
 LIVING_REFERENCE_PATH = REPO_ROOT / "LIVING_REFERENCE.md"
+# The KB claim-DAG node index (INVARIANT-S8/S9/S10/S11). The manifest is a
+# one-directional reference *consumer* of this graph: an entry bridges INTO
+# the spine by `clm:`/`exp:` id, exactly like the closure-roadmap's inline
+# annotations. Nothing flows back into the KB — discovery of "which
+# predictions cite clm-X" is by grepping this manifest, never a KB reverse edge.
+KB_CLAIMS_INDEX = REPO_ROOT / "manuscript" / "ave-kb" / ".index" / "claims.jsonl"
+
+# A manifest entry's bridge into the claim DAG. `clm:` points at a clm- claim
+# node; `exp:` points at an exp- experiment node. The bridged id is the
+# prediction's identity in the knowledge graph; the entry's own `id:` (the
+# P-number) remains its stable public catalog label (README / LIVING_REF rows).
+BRIDGE_FIELDS = {"clm": "claim", "exp": "experiment"}
+# id-shape guards (parallel to INVARIANT-S8/S9 greppable forms)
+_BRIDGE_ID_RE = {
+    "clm": re.compile(r"^clm-[a-z0-9]{6}$"),
+    "exp": re.compile(r"^exp-[a-z0-9]{6}$"),
+}
 
 ALLOWED_TYPES = {
     "derived_prediction",
@@ -83,7 +105,7 @@ PRE_REGISTERED_REQUIRED_FIELDS = {
 # ───────────────────────────────────────────────────────────────────────────
 @dataclass
 class Finding:
-    check: str  # "schema" | "label" | "engine" | "parity"
+    check: str  # "schema" | "label" | "engine" | "bridge" | "parity"
     severity: str  # "critical" | "warn" | "info"
     entry_id: str | None
     message: str
@@ -143,6 +165,33 @@ def collect_constants_symbols(path: Path = CONSTANTS_PY) -> dict[str, float]:
         if isinstance(v, (int, float)) and not isinstance(v, bool):
             values[name] = float(v)
     return values
+
+
+def collect_spine_nodes(path: Path = KB_CLAIMS_INDEX) -> dict[str, str]:
+    """
+    Read the KB claim-DAG node index and return {node_id: node_type} for every
+    node (claim / experiment / support / axiom / invariant). Stdlib `json`
+    only — the manifest reads the KB as an external graph; it never imports the
+    KB tooling. A missing/unbuilt index returns an empty map (the bridge check
+    degrades to a warning rather than crashing).
+    """
+    nodes: dict[str, str] = {}
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError:
+        return nodes
+    for line in text.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            rec = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        nid = rec.get("id")
+        if nid:
+            nodes[nid] = rec.get("node_type", "")
+    return nodes
 
 
 def _extract_prediction_table_rows(
@@ -441,6 +490,115 @@ def check_engine(
     return findings
 
 
+def check_bridge(
+    manifest: dict,
+    spine_nodes: dict[str, str] | None = None,
+) -> list[Finding]:
+    """
+    The manifest is a one-directional consumer of the KB claim DAG: each entry
+    may bridge INTO the spine via `clm:` (→ a claim node) and/or `exp:` (→ an
+    experiment node). This check enforces that every bridge present is:
+      - well-formed (`clm-`/`exp-` + 6 lowercase-alphanumerics), and
+      - resolves to a real node of the matching node_type in the KB index.
+
+    A *missing* bridge is a WARN, not a critical failure: the corpus is being
+    bridged incrementally, and an unbridged prediction is a known-incomplete
+    state, not a structural error. (Flip to critical once the bridge is
+    corpus-complete.) A *present-but-broken* bridge IS critical — a dangling or
+    mistyped id is exactly the silent-rot failure the spine exists to prevent.
+    """
+    findings: list[Finding] = []
+    if spine_nodes is None:
+        spine_nodes = collect_spine_nodes()
+
+    if not spine_nodes:
+        return [
+            Finding(
+                check="bridge",
+                severity="warn",
+                entry_id=None,
+                message=(
+                    f"KB claim index not found or empty at {KB_CLAIMS_INDEX} — "
+                    f"cannot resolve manifest→DAG bridges. Run "
+                    f"`make refresh-kb-metadata` to build it."
+                ),
+            )
+        ]
+
+    unbridged: list[str] = []
+    for entry in manifest.get("predictions", []):
+        eid = entry.get("id", "<missing-id>")
+        bridges_present = [f for f in BRIDGE_FIELDS if entry.get(f)]
+
+        if not bridges_present:
+            unbridged.append(eid)
+            continue
+
+        for fieldname in bridges_present:
+            expected_type = BRIDGE_FIELDS[fieldname]
+            bridge_id = entry.get(fieldname)
+            if not _BRIDGE_ID_RE[fieldname].match(str(bridge_id)):
+                findings.append(
+                    Finding(
+                        check="bridge",
+                        severity="critical",
+                        entry_id=eid,
+                        message=(
+                            f"{fieldname} bridge '{bridge_id}' is malformed "
+                            f"(expected {fieldname}-<6 lowercase-alphanumerics>)"
+                        ),
+                        details={"field": fieldname, "bridge": bridge_id},
+                    )
+                )
+                continue
+            actual_type = spine_nodes.get(bridge_id)
+            if actual_type is None:
+                findings.append(
+                    Finding(
+                        check="bridge",
+                        severity="critical",
+                        entry_id=eid,
+                        message=(f"{fieldname} bridge '{bridge_id}' does not resolve to any node in the KB claim DAG"),
+                        details={"field": fieldname, "bridge": bridge_id},
+                    )
+                )
+            elif actual_type != expected_type:
+                findings.append(
+                    Finding(
+                        check="bridge",
+                        severity="critical",
+                        entry_id=eid,
+                        message=(
+                            f"{fieldname} bridge '{bridge_id}' resolves to a "
+                            f"'{actual_type}' node, expected '{expected_type}'"
+                        ),
+                        details={
+                            "field": fieldname,
+                            "bridge": bridge_id,
+                            "actual_type": actual_type,
+                            "expected_type": expected_type,
+                        },
+                    )
+                )
+
+    if unbridged:
+        findings.append(
+            Finding(
+                check="bridge",
+                severity="warn",
+                entry_id=None,
+                message=(
+                    f"{len(unbridged)} of {len(manifest.get('predictions', []))} "
+                    f"entries are unbridged (no `clm:`/`exp:` into the claim DAG) "
+                    f"— pending migration"
+                ),
+                details={"unbridged": unbridged},
+            )
+        )
+
+    return findings
+
+
 def check_readme_parity(manifest: dict) -> list[Finding]:
     """
     Every row in the README Master Prediction Table maps to a manifest
@@ -578,6 +736,7 @@ ALL_CHECKS = {
     "schema": check_schema,
     "label": check_labels,
     "engine": check_engine,
+    "bridge": check_bridge,
     "parity": check_readme_parity,
     "lr_parity": check_living_reference_parity,
 }
@@ -600,13 +759,13 @@ def run(
 
 def format_text(findings: list[Finding], n_entries: int) -> str:
     if not findings:
-        return f"[claim-graph] {n_entries} manifest entries; " "all structural checks pass."
+        return f"[predictions] {n_entries} manifest entries; " "all structural checks pass."
 
     by_sev: dict[str, int] = {}
     for f in findings:
         by_sev[f.severity] = by_sev.get(f.severity, 0) + 1
 
-    out = [f"[claim-graph] {n_entries} manifest entries; {len(findings)} findings."]
+    out = [f"[predictions] {n_entries} manifest entries; {len(findings)} findings."]
     for sev in ("critical", "warn", "info"):
         if sev in by_sev:
             out.append(f"  {sev.upper():<8} {by_sev[sev]}")
@@ -675,12 +834,12 @@ def main(argv: list[str] | None = None) -> int:
         manifest = load_manifest(args.manifest)
     except FileNotFoundError:
         print(
-            f"[claim-graph] Manifest not found: {args.manifest}",
+            f"[predictions] Manifest not found: {args.manifest}",
             file=sys.stderr,
         )
         return 2
     except yaml.YAMLError as e:
-        print(f"[claim-graph] Manifest parse error: {e}", file=sys.stderr)
+        print(f"[predictions] Manifest parse error: {e}", file=sys.stderr)
         return 2
 
     n_entries = len(manifest.get("predictions", []))
@@ -688,7 +847,7 @@ def main(argv: list[str] | None = None) -> int:
     try:
         findings = run(args.manifest, checks=args.check)
     except Exception as e:
-        print(f"[claim-graph] Error during validation: {e}", file=sys.stderr)
+        print(f"[predictions] Error during validation: {e}", file=sys.stderr)
         return 2
 
     if args.json:
