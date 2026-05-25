@@ -88,6 +88,10 @@ import kb_index_lib
 
 KB = Path("manuscript/ave-kb")
 
+# Single-source the user-facing remediation hint so the refresh-target name is
+# not duplicated across the several refresh-fixable failure reports below.
+REFRESH_HINT = "make refresh-kb-metadata"
+
 # Documented JSONL files emitted by the index pipeline (short names).
 INDEX_FILES = (
     "claims",
@@ -1429,7 +1433,7 @@ def main(argv: list[str] | None = None) -> int:
             )
         for cid, got, want in sol_jsonl_drift:
             print(f"  {cid}: claims.jsonl — {got}, {want}")
-        print("  → Run `make refresh-kb-metadata` to regenerate solidity.")
+        print(f"  → Run `{REFRESH_HINT}` to regenerate solidity.")
 
     if leaf_ref_drift:
         has_failures = True
@@ -1444,16 +1448,15 @@ def main(argv: list[str] | None = None) -> int:
             print(f"    + {want.strip()}")
         print(
             "  → The `> **Leaf references:**` footer is a derived field; do not "
-            "hand-edit it. Run `make refresh-kb-metadata` to regenerate."
+            f"hand-edit it. Run `{REFRESH_HINT}` to regenerate."
         )
 
     if has_failures:
         if refresh_fixable:
             print(
                 "\n[claim-quality] FAIL — some failures are derivation-only "
-                "(subtree drift, missing index frontmatter). Try "
-                "`make refresh-kb-metadata` first; if anything remains, "
-                "those are real defects."
+                f"(subtree drift, missing index frontmatter). Try `{REFRESH_HINT}` "
+                "first; if anything remains, those are real defects."
             )
         else:
             print("\n[claim-quality] FAIL — fix the above and re-run.")

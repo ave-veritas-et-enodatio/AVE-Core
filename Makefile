@@ -14,10 +14,16 @@ SOURCE_DIR = src
 SCRIPT_DIR = $(SOURCE_DIR)/scripts
 KB_TOOLS_DIR = manuscript/ave-kb/tools
 
+# KB-metadata target names: single-sourced because they are also referenced as
+# user-facing remediation hints in the Python tools ("run `make <name>`").
+# Used as the rule target, in .PHONY, and in help so a rename touches one line.
+KB_REFRESH = refresh-kb-metadata
+KB_VERIFY = verify-kb-metadata
+
 # Volume list — public volumes only (0–6)
 VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_macroscopic vol_4_engineering vol_5_biology vol_6_periodic_table
 
-.PHONY: all clean distclean verify verify-kb-metadata refresh-kb-metadata refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links framing-audit test test-tools pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 setup
+.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links framing-audit test test-tools pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 setup
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -25,7 +31,7 @@ help:
 	@echo "  make setup                : bootstrap project"
 	@echo "  make all                  : Run verify, then compile all PDFs"
 	@echo "  make verify               : Run physics verification protocols (The Kernel Check) and kb claim id check"
-	@echo "  make refresh-kb-metadata  : Regenerate derived KB metadata (subtree-claims, solidity, claim index)"
+	@echo "  make $(KB_REFRESH)  : Regenerate derived KB metadata (subtree-claims, solidity, claim index)"
 	@echo "  make kb-claim-stats       : Print claim-graph counts + solidity build-band distribution (read-only)"
 	@echo "  make verify-md-links      : Check Markdown link integrity + cited-id validity (inter-repo: warn)"
 	@echo "  make verify-inter-repo-links : Same, but broken inter-repo links also gate (inter-repo: error)"
@@ -53,7 +59,7 @@ setup:
 # =============================================================================
 # 1. Physics Verification (The "Simulate to Verify" Protocol)
 # =============================================================================
-verify: verify-kb-metadata verify-md-links
+verify: $(KB_VERIFY) verify-md-links
 	@echo "\n[Verify] Running DAG Anti-Cheat Scan..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_universe.py
 	@echo "\n[Verify] Running FDTD LC Network solvers..."
@@ -80,11 +86,11 @@ verify: verify-kb-metadata verify-md-links
 	@echo "[Verify] ALL PHYSICS PROTOCOLS PASSED."
 	@echo "=================================================="
 
-verify-kb-metadata:
+$(KB_VERIFY):
 	@echo "Running KB claim-quality framework integrity check (read-only)..."
 	PYTHONPATH=$(KB_TOOLS_DIR) $(PYTHON) $(KB_TOOLS_DIR)/verify-kb-metadata.py
 
-refresh-kb-metadata:
+$(KB_REFRESH):
 	@echo "Regenerating derived KB metadata fields (subtree-claims, ...)..."
 	PYTHONPATH=$(KB_TOOLS_DIR) $(PYTHON) $(KB_TOOLS_DIR)/refresh-kb-metadata.py
 
