@@ -634,13 +634,15 @@ class TestJsonlIo(unittest.TestCase):
             p2 = Path(tmp) / "second.jsonl"
             lib.write_jsonl(p1, records)
             lib.write_jsonl(p2, records)
-            self.assertEqual(p1.read_bytes(), p2.read_bytes())
+            self.assertEqual(
+                p1.read_text(encoding="utf-8"), p2.read_text(encoding="utf-8")
+            )
 
     def test_empty_records_writes_empty_file(self):
         with tempfile.TemporaryDirectory() as tmp:
             p = Path(tmp) / "empty.jsonl"
             lib.write_jsonl(p, [])
-            self.assertEqual(p.read_bytes(), b"")
+            self.assertEqual(p.read_text(encoding="utf-8"), "")
             self.assertEqual(lib.read_jsonl(p), [])
 
     def test_malformed_jsonl_raises(self):
@@ -1152,7 +1154,7 @@ class TestSupportSolidity(unittest.TestCase):
         self.assertEqual(supports[0]["fraction"], lib.PENDING_LITERAL)
         self.assertIsNone(depends[0]["fraction"])
         # And the serialized line distinguishes them: "*pending*" vs null.
-        blob = lib.serialize_records(edges).decode("utf-8")
+        blob = lib.serialize_records(edges)
         self.assertIn('"fraction": "*pending*"', blob)
         self.assertIn('"fraction": null', blob)
 

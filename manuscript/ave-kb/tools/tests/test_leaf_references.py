@@ -332,11 +332,11 @@ class TestRefreshGeneration(unittest.TestCase):
         )
 
     def test_idempotent(self):
-        before = self.register.read_bytes()
+        before = self.register.read_text(encoding="utf-8")
         result = _run(_REFRESH, self.kb)
         self.assertEqual(result.returncode, 0)
         self.assertEqual(
-            self.register.read_bytes(),
+            self.register.read_text(encoding="utf-8"),
             before,
             "leaf-references footer not idempotent across refresh runs",
         )

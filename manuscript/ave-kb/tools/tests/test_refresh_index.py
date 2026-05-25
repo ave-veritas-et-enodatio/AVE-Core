@@ -66,6 +66,7 @@ def _materialize_fixture(parent: Path) -> Path:
 
 
 def _hash_file(path: Path) -> str:
+    # raw-byte hashing (content-addressed) — tolerated byte op per the text-I/O rule
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
@@ -140,22 +141,21 @@ class TestRefreshIndexJsonlEmission(unittest.TestCase):
         for name in _INDEX_FILES:
             with self.subTest(name=name):
                 path = self.index_dir / name
-                raw = path.read_bytes()
+                text = path.read_text(encoding="utf-8")
                 # Empty file is acceptable per write_jsonl semantics, but we
                 # expect every file in this fixture to be non-empty.
-                self.assertTrue(raw, f"{name} is empty")
+                self.assertTrue(text, f"{name} is empty")
                 # File ends with exactly one trailing newline.
                 self.assertEqual(
-                    raw[-1:],
-                    b"\n",
+                    text[-1:],
+                    "\n",
                     f"{name} does not end with a newline",
                 )
                 self.assertNotEqual(
-                    raw[-2:],
-                    b"\n\n",
+                    text[-2:],
+                    "\n\n",
                     f"{name} has multiple trailing newlines",
                 )
-                text = raw.decode("utf-8")
                 for lineno, line in enumerate(text.split("\n"), start=1):
                     if lineno == len(text.split("\n")):
                         # Last element is empty string from terminal "\n".

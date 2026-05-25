@@ -2359,13 +2359,13 @@ def build_all_records(state: KbState) -> dict[str, list[dict]]:
 # ---------------------------------------------------------------------------
 
 
-def serialize_records(records: list[dict]) -> bytes:
-    """Serialize records to canonical JSONL bytes.
+def serialize_records(records: list[dict]) -> str:
+    """Serialize records to canonical JSONL text.
 
     Each line is ``json.dumps(rec, ensure_ascii=False, separators=(', ', ': '))``.
     Keys appear in the dict's insertion order (Python 3.7+), so callers must
     construct records with keys in the documented order. The result has one
-    trailing ``\\n`` for non-empty inputs and is empty bytes for ``[]``.
+    trailing ``\\n`` for non-empty inputs and is the empty string for ``[]``.
     """
     lines = [
         json.dumps(rec, ensure_ascii=False, separators=(", ", ": "))
@@ -2374,16 +2374,16 @@ def serialize_records(records: list[dict]) -> bytes:
     body = "\n".join(lines)
     if body:
         body += "\n"
-    return body.encode("utf-8")
+    return body
 
 
 def write_jsonl(path: Path, records: list[dict]) -> None:
     """Write records as JSONL, one object per line, single trailing newline.
 
     Thin wrapper around :func:`serialize_records` that writes the canonical
-    bytes to ``path``.
+    text to ``path`` as UTF-8.
     """
-    path.write_bytes(serialize_records(records))
+    path.write_text(serialize_records(records), encoding="utf-8")
 
 
 def read_jsonl(path: Path) -> list[dict]:

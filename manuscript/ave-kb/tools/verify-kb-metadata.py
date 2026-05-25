@@ -475,17 +475,16 @@ def check_index_well_formed(index_dir: Path):
         if not path.exists():
             missing.append(short)
             continue
-        raw = path.read_bytes()
-        if not raw:
+        text = path.read_text(encoding="utf-8")
+        if not text:
             # An empty file is well-formed per write_jsonl semantics, but
             # for the real KB every file is non-empty; if it is empty we
             # treat that as a freshness defect, caught by check_index_fresh.
             continue
-        if not raw.endswith(b"\n"):
+        if not text.endswith("\n"):
             eof_defects.append((short, "missing final newline"))
-        elif raw.endswith(b"\n\n"):
+        elif text.endswith("\n\n"):
             eof_defects.append((short, "multiple trailing newlines"))
-        text = raw.decode("utf-8", errors="replace")
         for lineno, line in enumerate(text.split("\n"), start=1):
             # Last element after a trailing newline is the empty string;
             # don't treat it as a malformed record.
@@ -522,12 +521,12 @@ def check_index_fresh(index_dir: Path):
         path = index_dir / f"{short}.jsonl"
         if not path.exists():
             continue
-        expected_bytes = kb_index_lib.serialize_records(expected[short])
-        actual_bytes = path.read_bytes()
-        if actual_bytes == expected_bytes:
+        expected_text = kb_index_lib.serialize_records(expected[short])
+        actual_text = path.read_text(encoding="utf-8")
+        if actual_text == expected_text:
             continue
         expected_count = len(expected[short])
-        actual_count = sum(1 for ln in actual_bytes.decode("utf-8", errors="replace").split("\n") if ln)
+        actual_count = sum(1 for ln in actual_text.split("\n") if ln)
         drift.append((short, expected_count, actual_count))
     return drift, expected
 
