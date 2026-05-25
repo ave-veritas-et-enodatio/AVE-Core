@@ -83,6 +83,13 @@ _EXP_ID_RE = re.compile(r"\b(exp-[a-z0-9]{6})\b")
 # Support-ID pattern (INVARIANT-S10): `sup-` prefix plus 6 lowercase
 # alphanumeric chars. Exact, like the claim- and exp-id patterns.
 _SUP_ID_RE = re.compile(r"\b(sup-[a-z0-9]{6})\b")
+# Canonical pattern for ANY spine node id (clm- / exp- / sup-), the full
+# greppable id grammar of INVARIANT-S8/S9/S10. Public so other tools (e.g.
+# verify-md-links, which scans prose for cited ids) consume one source of
+# truth for the id shape rather than re-encoding it. Note `_ANY_ID_RE` above
+# is deliberately clm|exp only (frontmatter id-list values never hold sup-);
+# this one spans all three node prefixes.
+ANY_NODE_ID_RE = re.compile(r"\b((?:clm|exp|sup)-[a-z0-9]{6})\b")
 # A `strengthens:` block pair line: `clm-<id>: <strength>` (strength a float
 # in [0,1]). Indented under the `strengthens:` frontmatter key.
 _STRENGTHENS_PAIR_RE = re.compile(

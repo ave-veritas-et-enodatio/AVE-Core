@@ -38,6 +38,14 @@ def _repo_root() -> Path:
 
 
 REPO_ROOT = _repo_root()
+# The build-band SLUGS are produced by the pipeline (kb_index_lib.derive_build_band)
+# but the query side (ave.kb.index.BUILD_BANDS) hard-codes them to map slug->label.
+# Import the pipeline so a cross-tree consistency test can pin the two together.
+_TOOLS_DIR = REPO_ROOT / "manuscript" / "ave-kb" / "tools"
+if str(_TOOLS_DIR) not in sys.path:
+    sys.path.insert(0, str(_TOOLS_DIR))
+import kb_index_lib  # noqa: E402
+
 INDEX_DIR = REPO_ROOT / "manuscript" / "ave-kb" / ".index"
 # Stable, committed mini-index fixture (see module docstring). The query and
 # CLI suites assert exact values of THIS fixture, which never drifts.
@@ -447,6 +455,29 @@ class TestCli(unittest.TestCase):
     def test_weak_points_max_solidity(self) -> None:
         proc = self._run("weak-points", "--max-solidity", "0.5")
         self.assertEqual(proc.returncode, 0)
+
+
+class TestCrossTreeBandConsistency(unittest.TestCase):
+    """The build-band SLUGS are owned by the pipeline (kb_index_lib) but
+    hard-coded again in the query side (ave.kb.index.BUILD_BANDS) to map
+    slug->label. That coupling was documented-but-unenforced; this pins it so a
+    rename on either side fails loudly instead of silently breaking band
+    filtering.
+    """
+
+    def test_query_side_slugs_match_pipeline_outputs(self) -> None:
+        query_slugs = {slug for slug, _ in kb_index.BUILD_BANDS}
+        # Every slug derive_build_band can emit, sampled across all bands
+        # (None -> "unknown", plus one point in each numeric band and the
+        # boundaries). The pipeline is the source of truth for the slug set.
+        sample = [None, -0.1, 0.0, 0.19, 0.20, 0.44, 0.45, 0.64, 0.65, 0.84, 0.85, 1.0]
+        pipeline_slugs = {kb_index_lib.derive_build_band(s) for s in sample}
+        self.assertEqual(
+            query_slugs,
+            pipeline_slugs,
+            "ave.kb.index.BUILD_BANDS slugs drifted from kb_index_lib.derive_build_band; "
+            "the two slug sets must stay identical (band filtering depends on it).",
+        )
 
 
 if __name__ == "__main__":
