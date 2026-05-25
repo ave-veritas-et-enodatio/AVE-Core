@@ -32,9 +32,8 @@ from pathlib import Path
 
 _THIS_DIR = Path(__file__).resolve().parent
 _TOOLS_DIR = _THIS_DIR.parent
-if str(_TOOLS_DIR) not in sys.path:
-    sys.path.insert(0, str(_TOOLS_DIR))
 
+# kb_index_lib resolves via PYTHONPATH (set by the test-tools make target).
 import kb_index_lib as lib  # noqa: E402
 
 _REFRESH = _TOOLS_DIR / "refresh-kb-metadata.py"

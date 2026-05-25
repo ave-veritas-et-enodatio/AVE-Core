@@ -1,13 +1,9 @@
 """Unit tests for ``kb_index_lib`` against a synthetic fixture KB.
 
-Run from the repo root (``manuscript`` path is hyphenated, so the dotted
-module form needs ``manuscript/ave-kb/tools`` on ``sys.path`` rather than
-``manuscript.ave-kb.tools.tests``)::
-
-    cd /Users/benn/projects/AVE-Umbrella/AVE-Core/manuscript/ave-kb/tools
-    python -m unittest tests.test_kb_index_lib
-
-Or, equivalently from the repo root::
+Run via the ``test-tools`` make target, which sets
+``PYTHONPATH=manuscript/ave-kb/tools`` so the sibling ``kb_index_lib``
+resolves (the ``ave-kb`` path segment is hyphenated, so a dotted
+``manuscript.ave-kb.tools`` import form is not available)::
 
     PYTHONPATH=manuscript/ave-kb/tools python -m unittest tests.test_kb_index_lib
 
@@ -21,17 +17,13 @@ file in the fixture or the live KB.
 """
 
 import json
-import sys
 import tempfile
 import unittest
 from pathlib import Path
 
-# Make the tools dir importable regardless of how the test is invoked.
 _THIS_DIR = Path(__file__).resolve().parent
-_TOOLS_DIR = _THIS_DIR.parent
-if str(_TOOLS_DIR) not in sys.path:
-    sys.path.insert(0, str(_TOOLS_DIR))
 
+# kb_index_lib resolves via PYTHONPATH (set by the test-tools make target).
 import kb_index_lib as lib  # noqa: E402
 
 # The synthetic fixture KB — the stable graph behavioral tests run against.

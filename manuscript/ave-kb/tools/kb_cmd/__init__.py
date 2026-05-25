@@ -7,7 +7,7 @@ question-shaped lookups via :class:`Index`.
 
 Typical use::
 
-    from ave.kb import load
+    from kb_cmd import load
     idx = load()
     idx.depends_on("0ktpcn")
 """

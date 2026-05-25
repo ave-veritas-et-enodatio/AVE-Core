@@ -12,11 +12,12 @@ SRC_DIR = manuscript
 
 SOURCE_DIR = src
 SCRIPT_DIR = $(SOURCE_DIR)/scripts
+KB_TOOLS_DIR = manuscript/ave-kb/tools
 
 # Volume list — public volumes only (0–6)
 VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_macroscopic vol_4_engineering vol_5_biology vol_6_periodic_table
 
-.PHONY: all clean distclean verify verify-kb-metadata refresh-kb-metadata refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links framing-audit test pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 setup
+.PHONY: all clean distclean verify verify-kb-metadata refresh-kb-metadata refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links framing-audit test test-tools pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 setup
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -29,7 +30,8 @@ help:
 	@echo "  make verify-md-links      : Check Markdown link integrity + cited-id validity (inter-repo: warn)"
 	@echo "  make verify-inter-repo-links : Same, but broken inter-repo links also gate (inter-repo: error)"
 	@echo "  make framing-audit        : Scan corpus for reviewer-misread framing anti-patterns (advisory)"
-	@echo "  make test                 : Run unit tests (pytest)"
+	@echo "  make test                 : Run unit tests (src/tests + kb tools tests)"
+	@echo "  make test-tools           : Run KB tooling tests only (manuscript/ave-kb/tools/tests)"
 	@echo "  make pdf                  : Compile all 7 public volumes"
 	@echo "  make pdf_manuscript       : Compile manuscript volumes"
 	@echo "  make vol0                 : Vol 0:  The Engineering Compendium"
@@ -80,11 +82,11 @@ verify: verify-kb-metadata verify-md-links
 
 verify-kb-metadata:
 	@echo "Running KB claim-quality framework integrity check (read-only)..."
-	$(PYTHON) manuscript/ave-kb/tools/verify-kb-metadata.py
+	PYTHONPATH=$(KB_TOOLS_DIR) $(PYTHON) $(KB_TOOLS_DIR)/verify-kb-metadata.py
 
 refresh-kb-metadata:
 	@echo "Regenerating derived KB metadata fields (subtree-claims, ...)..."
-	$(PYTHON) manuscript/ave-kb/tools/refresh-kb-metadata.py
+	PYTHONPATH=$(KB_TOOLS_DIR) $(PYTHON) $(KB_TOOLS_DIR)/refresh-kb-metadata.py
 
 refresh-predictions:
 	@echo "Regenerating derived predictions-manifest fields (axioms_used from claim DAG)..."
@@ -92,15 +94,15 @@ refresh-predictions:
 
 kb-claim-stats:
 	@echo "Claim-graph stats summary (counts + solidity build-band distribution, read-only)..."
-	PYTHONPATH=src $(PYTHON) -m ave.kb stats
+	PYTHONPATH=$(KB_TOOLS_DIR) $(PYTHON) -m kb_cmd stats
 
 verify-md-links:
 	@echo "Checking Markdown link integrity + cited-id validity (inter-repo: warn)..."
-	$(PYTHON) manuscript/ave-kb/tools/verify-md-links.py --inter-repo warn
+	PYTHONPATH=$(KB_TOOLS_DIR) $(PYTHON) $(KB_TOOLS_DIR)/verify-md-links.py --inter-repo warn
 
 verify-inter-repo-links:
 	@echo "Checking Markdown links incl. inter-repo as gating (inter-repo: error)..."
-	$(PYTHON) manuscript/ave-kb/tools/verify-md-links.py --inter-repo error
+	PYTHONPATH=$(KB_TOOLS_DIR) $(PYTHON) $(KB_TOOLS_DIR)/verify-md-links.py --inter-repo error
 
 framing-audit:
 	@echo "[Framing] Full defense-context anti-pattern scan (advisory; warn/info do not gate)..."
@@ -110,7 +112,7 @@ framing-audit:
 # =============================================================================
 # 2. Unit Testing
 # =============================================================================
-test:
+test: test-tools
 	@echo "[Test] Running Unit Tests..."
 	# Scope to the unit-test tree only. src/scripts/**/*_test.py are runnable
 	# analysis/forward-prediction DRIVERS (each has a __main__ block), not pytest
@@ -118,6 +120,13 @@ test:
 	# non-fixture positional args like test_wave_speed(N, ...)). Drivers run
 	# standalone / via `make verify`, not here.
 	$(PYTEST) $(SOURCE_DIR)/tests
+
+test-tools:
+	@echo "[Test] Running KB tools tests..."
+	# The kb tooling tree (kb_cmd query CLI, kb_index_lib, refresh/verify scripts)
+	# lives under $(KB_TOOLS_DIR), outside src/. PYTHONPATH makes kb_cmd +
+	# kb_index_lib importable as siblings (no sys.path manipulation in the code).
+	PYTHONPATH=$(KB_TOOLS_DIR) $(PYTEST) $(KB_TOOLS_DIR)/tests
 
 # =============================================================================
 # 3. Manuscript Compilation

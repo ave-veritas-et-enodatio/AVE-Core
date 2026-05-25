@@ -1,4 +1,4 @@
-"""Module entry point so ``python -m ave.kb <args>`` works."""
+"""Module entry point so ``python -m kb_cmd <args>`` works."""
 
 import sys
 

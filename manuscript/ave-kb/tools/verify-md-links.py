@@ -50,11 +50,9 @@ from pathlib import Path
 
 # Share the canonical spine-id grammar with the rest of the tools tree rather
 # than re-encoding it here (kb_index_lib is the single source of truth for the
-# clm-/exp-/sup- id shape). kb_index_lib lives alongside this script.
-_TOOLS_DIR = Path(__file__).resolve().parent
-if str(_TOOLS_DIR) not in sys.path:
-    sys.path.insert(0, str(_TOOLS_DIR))
-import kb_index_lib  # noqa: E402
+# clm-/exp-/sup- id shape). kb_index_lib lives alongside this script and
+# resolves via PYTHONPATH (set by the make target that runs this tool).
+import kb_index_lib
 
 logger = logging.getLogger("verify-md-links")
 

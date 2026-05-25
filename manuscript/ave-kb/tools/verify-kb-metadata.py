@@ -83,12 +83,8 @@ import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
-# Make the sibling kb_index_lib importable regardless of invocation cwd.
-_TOOLS_DIR = Path(__file__).resolve().parent
-if str(_TOOLS_DIR) not in sys.path:
-    sys.path.insert(0, str(_TOOLS_DIR))
-
-import kb_index_lib  # noqa: E402
+# Sibling kb_index_lib resolves via PYTHONPATH (set by the make target).
+import kb_index_lib
 
 KB = Path("manuscript/ave-kb")
 
