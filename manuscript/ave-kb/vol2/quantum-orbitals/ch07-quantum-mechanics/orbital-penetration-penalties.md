@@ -1,4 +1,10 @@
 [↑ Ch.7 Quantum Mechanics](index.md)
+<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-oltvwy]
+-->
 
 <!-- kb-frontmatter
 kind: leaf

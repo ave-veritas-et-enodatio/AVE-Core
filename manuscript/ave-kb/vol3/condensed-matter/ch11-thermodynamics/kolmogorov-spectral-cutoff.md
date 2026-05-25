@@ -1,4 +1,10 @@
 [↑ Ch.11 Thermodynamics](index.md)
+<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-hk81zp]
+-->
 
 <!-- kb-frontmatter
 kind: leaf

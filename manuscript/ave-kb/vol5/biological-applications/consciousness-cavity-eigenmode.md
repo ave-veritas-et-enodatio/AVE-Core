@@ -54,6 +54,6 @@ This yields a strong prediction: "mind uploading" creates a *twin*, not a migrat
 3. Transcranial alternating current stimulation (tACS) at the cortical cavity mode frequency should lower the consciousness threshold during light anaesthesia by externally pumping the standing wave.
 4. The $Q$-factor of the cortical cavity mode (measurable via EEG spectral width of the dominant oscillation) should correlate with subjective "clarity" of conscious experience, testable via simultaneous EEG and phenomenological self-report.
 
-> ↗ See also: anesthesia hypothesis from the neural TL perspective — Ch.5 of the protein-folding engine, maintained in the separate private `AVE-Protein` repository (cross-repo reference; not surfaced here).
+> ↗ See also: [Anesthesia as Impedance Mismatch](../../../../../AVE-Tangents/AVE-Neurology/canonical-pending/anesthesia-ch5.md) — Ch.5 anesthesia hypothesis from the neural TL perspective. Currently incubating at AVE-Neurology `canonical-pending/` pending re-canonicalization to Vol 5 biological-applications; original archive leaf restored 2026-05-23 from Applied-Vacuum-Engineering archive after the neurology-corpus audit found this cross-reference was broken (the leaf was never carried forward to AVE-Core during the original migration). Promotion gating tracked at [AVE-Tangents/AVE-Neurology/_orchestration/promotions-tracker.md](../../../../../AVE-Tangents/AVE-Neurology/_orchestration/promotions-tracker.md).
 
 ---

@@ -37,5 +37,6 @@ Catalogues the complete set of experimentally falsifiable signatures of the AVE 
 | [Zero-Parameter Derivations](zero-parameter-derivations.md) | $\sqrt{\alpha}$ yield, fusion/levitation limits, LHC/LIGO paradox resolution |
 | [A-034 Measurement Hierarchy (SNR Scaling)](measurement-hierarchy-snr.md) | Three bench architectures access same A-034 universal kernel: single-emitter (SNR ∝ V), bulk-response (SNR ∝ √N · V), phased-array PLL (SNR ∝ exp(N·log Q) near rupture). Explains why most operational AVE benches use many emitters — bulk-response is the natural-SNR regime for kernel measurement |
 | [Advanced Falsification Protocols](advanced-protocols.md) | Achromatic lens, boundary trapping, vacuum mirror, Sagnac-parallax, GEO impedance |
+| [A-034 Measurement Hierarchy (SNR Scaling)](measurement-hierarchy-snr.md) | Three bench architectures access same A-034 universal kernel: single-emitter (SNR ∝ V), bulk-response (SNR ∝ √N · V), phased-array PLL (SNR ∝ exp(N·log Q) near rupture). Explains why most operational AVE benches use many emitters — bulk-response is the natural-SNR regime for kernel measurement |
 
 ---

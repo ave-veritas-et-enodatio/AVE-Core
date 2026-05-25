@@ -1,4 +1,10 @@
 [↑ Ch.18 Universal Vacuum Cell](index.md)
+<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-vjv4zf]
+-->
 
 <!-- kb-frontmatter
 kind: leaf

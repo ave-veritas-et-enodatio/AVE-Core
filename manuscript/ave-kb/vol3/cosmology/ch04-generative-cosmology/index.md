@@ -35,6 +35,7 @@ Derives the Hubble constant as the LC crystallisation rate of the $\mathcal{M}_A
 | [JWST Constraint Equation](jwst-constraint-equation.md) | Exponential inductive accretion, JWST empirical constraint, $\tau_{ind}$ derivation |
 | [Mutual Inductive Accretion Time Constant](mutual-inductive-accretion-time-constant.md) | Resultbox: $\tau_{ind} \approx 65.1$ Myr |
 | [Black Holes and Impedance Mismatch](black-holes-impedance-mismatch.md) | Dielectric saturation, lattice phase transition, information loss |
+| [Op14 Cosmic-Horizon Saturation Profile](op14-cosmic-horizon-profile.md) | $Z_{\text{eff}}(r \to R_H)$ during ongoing crystallisation; cosmic-scale (c)-operator-application of canonical Op14 (Vol 1 Ch 6 §1.13); local-clock-freezing at cosmic horizon, asymmetric ε/μ form, dynamic-vs-frozen distinction from BH event horizon |
 | [Remaining Ch.4 Results](remaining-ch04-results.md) | GAP stub: no additional source content |
 
 NOTE: summarybox and exercisebox environments are not extracted as leaves.

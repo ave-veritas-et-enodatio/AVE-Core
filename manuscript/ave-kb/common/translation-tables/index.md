@@ -12,7 +12,11 @@ subtree-experiments: []
 
 Domain-specific translation tables mapping established physics disciplines to their AVE equivalents. Each table is defined once here and referenced from the relevant volume chapters. Every row in every table is derived from the four structural axioms and three bounding limits of the $\mathcal{M}_A$ framework.
 
-> **Navigation note:** This index is a navigation pointer to six domain-specific translation tables. Key results are in the destination leaves; this node carries no original results.
+> **Navigation note:** This index is a navigation pointer to seven domain-specific translation tables. Key results are in the destination leaves; this node carries no original results.
+
+> ↗ See also: [Temporal Saturation Regime Classifier](../temporal-saturation-regime-classifier.md) — companion leaf adding the orthogonal temporal axis (lossless / cyclic / lossy) on top of the per-discipline concept mappings here. Each translation table maps WHICH concepts translate between AVE and the discipline; the temporal classifier adds HOW systems evolve through saturation regimes over their observation window. Together they form the full cross-disciplinary translation infrastructure.
+
+> ↗ See also: [Temporal Saturation Regime Classifier](../temporal-saturation-regime-classifier.md) — companion leaf adding the orthogonal temporal axis (lossless / cyclic / lossy) on top of the per-discipline concept mappings here. Each translation table maps WHICH concepts translate between AVE and the discipline; the temporal classifier adds HOW systems evolve through saturation regimes over their observation window. Together they form the full cross-disciplinary translation infrastructure.
 
 > ↗ See also: [Temporal Saturation Regime Classifier](../temporal-saturation-regime-classifier.md) — companion leaf adding the orthogonal temporal axis (lossless / cyclic / lossy) on top of the per-discipline concept mappings here. Each translation table maps WHICH concepts translate between AVE and the discipline; the temporal classifier adds HOW systems evolve through saturation regimes over their observation window. Together they form the full cross-disciplinary translation infrastructure.
 
