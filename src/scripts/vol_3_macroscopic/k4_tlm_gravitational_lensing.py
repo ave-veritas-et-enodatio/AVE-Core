@@ -32,7 +32,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.colors import PowerNorm  # noqa: E402
 
 from ave.core.k4_tlm import K4Lattice2D, build_k4_scattering_matrix  # noqa: E402
-from scripts._output import SIM_OUTPUTS  # noqa: E402
+from ave_path_util import SIM_OUTPUTS  # noqa: E402
 
 
 def apply_lens_2d(lattice: "K4Lattice2D", cx: float, cy: float, n0: float, r_core: float) -> None:

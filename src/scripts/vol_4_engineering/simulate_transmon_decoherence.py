@@ -27,7 +27,7 @@ PHYSICS MODEL (Option C — Boundary-Impedance Thermalization):
 import matplotlib.pyplot as plt
 import numpy as np
 
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # ── Simulation Parameters ────────────────────────────────────────────────────
 N = 200  # Number of LC nodes in the 1D junction

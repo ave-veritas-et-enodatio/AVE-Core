@@ -15,7 +15,7 @@ separating the 2s and 2p energies without any statistical Born-rule interpretati
 import matplotlib.pyplot as plt
 
 from ave.solvers.radial_eigenvalue import radial_eigenvalue_abcd
-from scripts._output import SIM_OUTPUTS
+from ave_path_util import SIM_OUTPUTS
 
 OUT = SIM_OUTPUTS
 OUT.mkdir(parents=True, exist_ok=True)

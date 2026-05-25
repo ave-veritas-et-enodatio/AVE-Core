@@ -29,7 +29,7 @@ Title softened 2026-05-17: "benchtop falsification" → "high-field falsificatio
 import matplotlib.pyplot as plt
 import numpy as np
 
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 
 def simulate_ee_bench_plateau() -> None:

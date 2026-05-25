@@ -22,7 +22,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
 from ave.core.constants import ALPHA, D_PROTON, HBAR_C_MEV_FM, K_MUTUAL, M_N_MEV_TARGET, M_P_MEV_AVE  # noqa: E402
-from scripts._output import sim_output  # noqa: E402
+from ave_path_util import sim_output  # noqa: E402
 
 # ═════════════════════════════════════════════════════════════════
 # CODATA Nuclear Mass Table (selected stable isotopes, Z=1-118)

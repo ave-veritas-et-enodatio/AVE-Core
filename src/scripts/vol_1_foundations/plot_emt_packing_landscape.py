@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import P_C
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # ─── EMT model ───
 # For a 3D amorphous central-force network (Feng-Thorpe-Garboczi),

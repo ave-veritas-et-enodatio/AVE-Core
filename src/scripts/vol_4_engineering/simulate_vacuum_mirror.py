@@ -4,7 +4,7 @@ import numpy as np
 from ave.axioms.scale_invariant import epsilon_eff
 from ave.axioms.scale_invariant import impedance as _impedance
 from ave.core.constants import V_YIELD, Z_0
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 
 def calculate_effective_permittivity(V_applied: np.ndarray) -> np.ndarray:

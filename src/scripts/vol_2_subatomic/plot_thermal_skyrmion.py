@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import C_0, HBAR, KAPPA_FS, KAPPA_FS_COLD, M_E
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 L_NODE = HBAR / (M_E * C_0)
 

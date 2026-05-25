@@ -4,7 +4,7 @@
 # govern the fundamental discrete limits of causality in the universe.
 import matplotlib.pyplot as plt
 
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 plt.style.use("dark_background")
 

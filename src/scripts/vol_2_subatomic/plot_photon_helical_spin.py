@@ -13,7 +13,7 @@ the M_A LC nodes structurally guarantees absolute charge containment.
 import matplotlib.pyplot as plt
 import numpy as np
 
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 
 def generate_photon_helical_spin() -> None:

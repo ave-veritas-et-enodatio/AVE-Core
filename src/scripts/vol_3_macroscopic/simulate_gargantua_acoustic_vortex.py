@@ -26,7 +26,7 @@ DAG Compliance:
 Vol 3 Ch. 2 — Optical-Mechanical Acoustic Vortex (Kerr Metric)
 """
 
-import os
+import shutil
 import time
 
 import matplotlib
@@ -35,7 +35,7 @@ import numpy as np
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
-from scripts._output import sim_output  # noqa: E402
+from ave_path_util import manuscript_path, sim_output  # noqa: E402
 
 
 # ─────────────────────────────────────────────────────────────
@@ -401,11 +401,7 @@ def render_gargantua() -> None:
     plt.close()
 
     # Copy to manuscript
-    ms_dir = os.path.join(os.path.dirname(__file__), "..", "..", "manuscript", "vol_3_macroscopic", "figures")
-    os.makedirs(ms_dir, exist_ok=True)
-    import shutil
-
-    shutil.copy2(out_path, os.path.join(ms_dir, "gargantua_acoustic_vortex.png"))
+    shutil.copy2(out_path, manuscript_path("vol_3_macroscopic", "figures", "gargantua_acoustic_vortex.png"))
 
     print(f"\n  Saved: {out_path}")
     print("  Copied to manuscript figures")

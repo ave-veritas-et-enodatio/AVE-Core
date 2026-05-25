@@ -33,7 +33,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
 from ave.core.constants import H_INFINITY
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # Megaparsec in km, for converting H_∞ from SI [s⁻¹] to astronomical [km/s/Mpc].
 # 1 Mpc = 3.0856775814913673e22 m = 3.0856775814913673e19 km (IAU 2015).

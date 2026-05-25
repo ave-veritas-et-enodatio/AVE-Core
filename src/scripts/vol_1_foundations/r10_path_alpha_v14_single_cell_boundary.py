@@ -63,7 +63,7 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 import ave.core.constants as _avc
 from ave.core.constants import ALPHA, ALPHA_COLD_INV
 from ave.topological.vacuum_engine import VacuumEngine3D
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 assert _avc.__file__.endswith("ave/core/constants.py"), "ave.core.constants is not the AVE-Core canonical source"
 

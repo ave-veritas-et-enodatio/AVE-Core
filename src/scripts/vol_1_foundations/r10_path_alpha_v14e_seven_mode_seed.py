@@ -53,7 +53,7 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from ave.core.constants import ALPHA, ALPHA_COLD_INV
 from ave.topological.vacuum_engine import VacuumEngine3D
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 print("=" * 78)
 print("R10 Path-α v14e — Seven-Mode Bounded-Boundary Test")

@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 
 def simulate_orbital_ac_power() -> None:

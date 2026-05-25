@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from vol_3_macroscopic.simulate_saturn_rings import simulate_rings
 
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 
 def analyze_ring_impedance() -> None:

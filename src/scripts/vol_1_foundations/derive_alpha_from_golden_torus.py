@@ -20,7 +20,7 @@ Reference: manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex
 import numpy as np
 
 from ave.core.constants import ALPHA, ALPHA_COLD_INV, DELTA_STRAIN
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # ═══════════════════════════════════════════════════════════════════════════
 # Pure-numeric module-level constants (safe to import)

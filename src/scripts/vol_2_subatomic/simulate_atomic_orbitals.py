@@ -5,7 +5,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from scripts._output import sim_output
+from ave_path_util import sim_output
 from scripts.vol_2_subatomic.solve_orbital_eigenmodes import OrbitalODE
 
 plt.style.use("dark_background")

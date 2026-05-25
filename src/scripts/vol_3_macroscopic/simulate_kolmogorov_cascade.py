@@ -18,7 +18,7 @@ from ave.regime_3_saturated.kolmogorov_cutoff import (
     lattice_nyquist_wavenumber,
     spectral_cascade_demo,
 )
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 
 def build_visualization() -> None:

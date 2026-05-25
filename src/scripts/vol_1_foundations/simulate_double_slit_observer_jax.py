@@ -38,7 +38,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.gridspec import GridSpec  # noqa: E402
 
-from scripts._output import SIM_OUTPUTS  # noqa: E402
+from ave_path_util import SIM_OUTPUTS  # noqa: E402
 
 OUT_DIR = SIM_OUTPUTS
 OUT_DIR.mkdir(parents=True, exist_ok=True)

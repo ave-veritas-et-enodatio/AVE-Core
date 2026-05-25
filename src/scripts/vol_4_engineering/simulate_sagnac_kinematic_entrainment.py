@@ -30,7 +30,7 @@ import numpy as np
 # Fundamental Topological Values
 # -----------------------------------------------------------------
 from ave.core.constants import ALPHA, C_0, G
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # Astrophysical Constants
 M_EARTH = 5.972e24  # kg

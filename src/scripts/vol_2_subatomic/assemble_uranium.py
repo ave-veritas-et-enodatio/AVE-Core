@@ -30,7 +30,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.solvers.topology_optimizer import TopologicalOptimizer
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # Uranium-235 parameters
 Z = 92  # Protons

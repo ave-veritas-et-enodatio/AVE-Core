@@ -25,7 +25,7 @@ from jax import jit
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
-from scripts._output import sim_output  # noqa: E402
+from ave_path_util import sim_output  # noqa: E402
 
 
 @partial(jit, static_argnums=(1,))

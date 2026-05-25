@@ -36,7 +36,7 @@ import numpy as np
 
 from ave.core.constants import C_0, K_B, XI_TOPO, e_charge
 from ave.solvers.transmission_line import build_nodal_y_matrix, s11_from_y_matrix
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402

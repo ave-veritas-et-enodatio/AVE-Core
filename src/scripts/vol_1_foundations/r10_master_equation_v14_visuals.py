@@ -32,7 +32,7 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from ave.core.constants import ALPHA, ALPHA_COLD_INV
 from ave.core.master_equation_fdtd import MasterEquationFDTD
-from scripts._output import SIM_OUTPUTS
+from ave_path_util import SIM_OUTPUTS
 
 print("=" * 78)
 print("R10 v14 Visualization Suite — Master Equation FDTD breathing soliton")

@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.solvers.fdtd_lc_network import FDTDLattice1D
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 
 def run_simulation() -> None:

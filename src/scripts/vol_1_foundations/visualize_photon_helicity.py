@@ -35,7 +35,7 @@ import matplotlib.cm as cm  # noqa: E402
 import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.animation import FuncAnimation, PillowWriter  # noqa: E402
 
-from scripts._output import sim_output  # noqa: E402
+from ave_path_util import sim_output  # noqa: E402
 
 try:
     from ave.core.fdtd_3d_jax import FDTD3DEngineJAX as FDTD3DEngine

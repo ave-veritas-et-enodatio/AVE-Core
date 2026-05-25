@@ -46,7 +46,7 @@ from ave.core.constants import (
     e_charge,
 )
 from ave.core.universal_operators import universal_saturation
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402

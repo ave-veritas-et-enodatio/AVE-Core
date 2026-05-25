@@ -24,7 +24,7 @@ the empirical power-law distribution observed by astrophysicists.
 import matplotlib.pyplot as plt
 import numpy as np
 
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # Simulation Parameters: Macroscopic Diode (The Sun)
 YEARS_TO_SIMULATE = 50.0  # Covering multiple 11-year solar cycles

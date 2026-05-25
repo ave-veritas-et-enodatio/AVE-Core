@@ -25,7 +25,7 @@ import numpy as np
 
 # AVE Engine — for context on the macroscopic yield limit
 from ave.core.constants import AVALANCHE_N_3D
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # ── PHENOMENOLOGICAL PARAMETERS ──────────────────────────────────────────
 # These are phenomenological fits to the Shockley diode + avalanche model.

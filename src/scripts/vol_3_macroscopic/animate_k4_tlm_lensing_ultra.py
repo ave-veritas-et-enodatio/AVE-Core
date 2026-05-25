@@ -6,8 +6,6 @@ Length: 20 seconds, 60 FPS (1200 frames).
 Expanded lattice size to support the longer photon transit.
 """
 
-import os
-
 import matplotlib
 import numpy as np
 
@@ -18,6 +16,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.colors import PowerNorm  # noqa: E402
 
 from ave.core.k4_tlm import K4Lattice2D, build_k4_scattering_matrix  # noqa: E402
+from ave_path_util import manuscript_path  # noqa: E402
 
 
 def apply_lens_2d(lattice: "K4Lattice2D", cx: float, cy: float, n0: float, r_core: float) -> None:
@@ -121,18 +120,7 @@ def main() -> None:
     width = (width // 2) * 2
     height = (height // 2) * 2
 
-    out_mp4 = os.path.abspath(
-        os.path.join(
-            os.path.dirname(__file__),
-            "..",
-            "..",
-            "..",
-            "manuscript",
-            "vol_3_macroscopic",
-            "figures",
-            "k4_tlm_gravitational_lensing_halvres.mp4",
-        )
-    )
+    out_mp4 = str(manuscript_path("vol_3_macroscopic", "figures", "k4_tlm_gravitational_lensing_halvres.mp4"))
     print(f"\nStreaming directly to FFmpeg at {FPS} fps...")
     print(f"Output Path: {out_mp4}")
 

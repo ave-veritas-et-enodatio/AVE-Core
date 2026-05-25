@@ -52,7 +52,7 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 from skimage import measure
 
 from ave.core.master_equation_fdtd import MasterEquationFDTD
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 print("=" * 78)
 print("R10 v14 Visualization v2 — Lattice / PML / Soliton hierarchy")

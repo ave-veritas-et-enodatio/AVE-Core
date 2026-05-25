@@ -75,7 +75,7 @@ from ave.core.constants import (  # noqa: E402
     SIN2_THETA_W,
     e_charge,
 )
-from scripts._output import sim_output  # noqa: E402
+from ave_path_util import sim_output  # noqa: E402
 
 # ══════════════════════════════════════════════════════════════════════════════
 # PDG EXPERIMENTAL VALUES (for comparison)

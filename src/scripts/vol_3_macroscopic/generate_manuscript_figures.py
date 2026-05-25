@@ -19,15 +19,11 @@ Recommended cleanup (future): replace hardcoded `agm_values` list with
 on-the-fly engine call to `compute_macroscopic_strain` per body.
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import C_0, G
-
-OUTPUT_DIR = "manuscript/vol_3_macroscopic/figures"
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+from ave_path_util import manuscript_path
 
 
 def generate_solar_spin_tensors() -> None:
@@ -62,7 +58,7 @@ def generate_solar_spin_tensors() -> None:
         )
 
     plt.tight_layout()
-    plt.savefig(os.path.join(OUTPUT_DIR, "fig_solar_spin_tensors.png"), dpi=300)
+    plt.savefig(manuscript_path("vol_3_macroscopic", "figures", "fig_solar_spin_tensors.png"), dpi=300)
     plt.close()
 
 
@@ -99,7 +95,7 @@ def generate_hulse_taylor_phase_slip() -> None:
     plt.grid(True, which="both", ls="-", alpha=0.2)
     plt.legend()
     plt.tight_layout()
-    plt.savefig(os.path.join(OUTPUT_DIR, "fig_hulse_taylor_phase_slip.png"), dpi=300)
+    plt.savefig(manuscript_path("vol_3_macroscopic", "figures", "fig_hulse_taylor_phase_slip.png"), dpi=300)
     plt.close()
 
 
@@ -154,7 +150,7 @@ def generate_galactic_flattening() -> None:
     plt.legend()
 
     plt.tight_layout()
-    plt.savefig(os.path.join(OUTPUT_DIR, "fig_galactic_flattening.png"), dpi=300)
+    plt.savefig(manuscript_path("vol_3_macroscopic", "figures", "fig_galactic_flattening.png"), dpi=300)
     plt.close()
 
 

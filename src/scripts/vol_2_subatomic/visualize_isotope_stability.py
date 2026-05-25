@@ -25,7 +25,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.solvers.topology_optimizer import TopologicalOptimizer
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 M_P = 1.00727
 M_N = 1.00866

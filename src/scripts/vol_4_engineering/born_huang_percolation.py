@@ -20,7 +20,7 @@ transition, at the unique point where ν = 2/7.
 import matplotlib.pyplot as plt
 import numpy as np
 
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 
 def emt_moduli(p: np.ndarray, z0: float) -> tuple[np.ndarray, np.ndarray]:

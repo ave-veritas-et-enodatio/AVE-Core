@@ -40,7 +40,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import ALPHA, C_0, L_NODE, M_E, e_charge
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 
 def simulate_birefringence_e4() -> None:

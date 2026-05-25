@@ -43,7 +43,7 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from ave.core.constants import ALPHA, ALPHA_COLD_INV
 from ave.core.master_equation_fdtd import MasterEquationFDTD
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 print("=" * 78)
 print("R10 v14 v2 — Master Equation FDTD multi-profile + revised criteria")

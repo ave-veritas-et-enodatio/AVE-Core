@@ -44,7 +44,7 @@ from scipy.special import sph_harm
 
 from ave.core.constants import ALPHA, C_0, EPSILON_0, HBAR, L_NODE, M_E, M_PROTON, MU_0, e_charge
 from ave.core.universal_operators import universal_impedance
-from scripts._output import SIM_OUTPUTS
+from ave_path_util import SIM_OUTPUTS
 
 matplotlib.use("Agg")
 import matplotlib.animation as animation  # noqa: E402

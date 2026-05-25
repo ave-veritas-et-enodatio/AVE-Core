@@ -10,7 +10,7 @@ Output: assets/sim_outputs/hubble_tension_position.png
 import matplotlib.pyplot as plt
 
 from ave.core.constants import H_INFINITY
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # Convert H_inf to km/s/Mpc
 H_inf_kms = H_INFINITY * 3.0857e22 / 1e3

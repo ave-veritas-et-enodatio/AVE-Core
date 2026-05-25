@@ -27,7 +27,7 @@ import math
 
 # ── Engine imports ──
 from ave.core.constants import C_0, M_SUN, G
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # ═════════════════════════════════════════
 # White Dwarf Catalog (measured parameters)

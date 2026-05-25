@@ -58,7 +58,7 @@ from scipy.optimize import minimize_scalar
 # All constants from the physics engine — ZERO free parameters
 # ═══════════════════════════════════════════════════════════
 from ave.core.constants import ALPHA, C_0, HBAR, L_NODE, M_E, e_charge
-from scripts._output import SIM_OUTPUTS
+from ave_path_util import SIM_OUTPUTS
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402

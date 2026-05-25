@@ -39,7 +39,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from ave.core.master_equation_fdtd import MasterEquationFDTD
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 print("=" * 78)
 print("R10 v14 Anisotropy — cubic emergence at collapse")

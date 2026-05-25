@@ -3,7 +3,7 @@ import numpy as np
 from scipy.integrate import solve_ivp
 from scipy.signal.windows import blackmanharris
 
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 
 def simulate_condensate_imd_spectroscopy() -> None:

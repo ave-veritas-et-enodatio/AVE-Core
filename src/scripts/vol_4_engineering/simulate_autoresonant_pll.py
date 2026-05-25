@@ -3,7 +3,7 @@ import numpy as np
 from scipy.integrate import odeint
 
 from ave.core.constants import V_YIELD
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # Simulation Parameters for the Spacetime Vacuum Tank
 L_0 = 1e-3  # Baseline Inductance (1 mH)

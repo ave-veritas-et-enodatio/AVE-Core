@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import Circle, FancyArrowPatch, Polygon, Wedge
 
-from scripts._output import SIM_OUTPUTS
+from ave_path_util import SIM_OUTPUTS
 
 plt.rcParams.update(
     {

@@ -27,7 +27,7 @@ import numpy as np
 
 from ave.core.constants import D_PROTON
 from ave.solvers.topology_optimizer import TopologicalOptimizer
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # Illustrative crucible geometry (NOT physical reaction chamber)
 R_CRUCIBLE = 150.0 * D_PROTON

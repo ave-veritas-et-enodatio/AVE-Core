@@ -30,7 +30,7 @@ from ave.solvers.orbital_resonance import (
     ringdown_frequency,
     schwarzschild_radius,
 )
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 plt.style.use("dark_background")
 

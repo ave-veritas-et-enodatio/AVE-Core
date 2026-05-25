@@ -31,7 +31,7 @@ import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import numpy as np
 
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # FDTD Grid
 GRID_SIZE = 300

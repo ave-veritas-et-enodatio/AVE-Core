@@ -3,7 +3,7 @@ import numpy as np
 from scipy.integrate import odeint
 
 from ave.core.constants import V_YIELD
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # Simulation Parameters
 L = 1e-3  # Inductance (1 mH)

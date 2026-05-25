@@ -29,7 +29,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.spatial.distance import cdist
 
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # JAX GPU acceleration (graceful fallback to numpy)
 try:

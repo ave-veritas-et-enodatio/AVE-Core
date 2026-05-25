@@ -32,7 +32,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import ALPHA, C_0, HBAR, L_NODE, M_E, G
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 
 def derive_vacuum_energy() -> float:

@@ -23,7 +23,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import C_0, HBAR
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # Target AVE Signal Amplitude (Estimate from Lead vs. Aluminum 1-meter RLG at 1000 RPM)
 # The density difference generates a microscopic but steady phase offset.

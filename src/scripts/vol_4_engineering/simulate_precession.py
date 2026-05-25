@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.integrate import solve_ivp
 
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # Constants (Normalized for aesthetic visual scaling)
 G_M = 1.0  # Standard 1/r^2 mass displacement constant

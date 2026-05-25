@@ -26,7 +26,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
 from ave.core.constants import EPSILON_0, K_B, M_E, V_YIELD, e_charge  # noqa: E402
-from scripts._output import sim_output  # noqa: E402
+from ave_path_util import sim_output  # noqa: E402
 
 # ═════════════════════════════════════════════════════════════════
 # EXPERIMENTAL PARAMETERS

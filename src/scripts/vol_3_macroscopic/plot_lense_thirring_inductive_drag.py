@@ -12,7 +12,7 @@ The induced angular velocity decays as 1/r^2, matching the GR prediction.
 import matplotlib.pyplot as plt
 import numpy as np
 
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 
 def generate_lense_thirring_figure() -> None:

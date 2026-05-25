@@ -18,6 +18,7 @@ import numpy as np
 from ave.core.constants import K_B
 from ave.regime_1_linear.fluids_factory import WaterMolecule
 from ave.regime_3_saturated.cavitation_collapse import AxiomaticRayleighPlesset, PayloadConfig
+from ave_path_util import manuscript_path
 
 
 def compute_flash_temperature(R_min: float, P_max: float, R_0: float, payload: PayloadConfig) -> float:
@@ -145,8 +146,8 @@ def generate_manuscript_figures() -> None:
     plt.ylabel("Bubble Radius (μm)", fontsize=12)
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
-    plt.savefig("vol3_sonoluminescence_collapse.pdf")
-    plt.savefig("vol3_sonoluminescence_collapse.png", dpi=300)
+    plt.savefig(manuscript_path("vol_3_macroscopic", "figures", "vol3_sonoluminescence_collapse.pdf"))
+    plt.savefig(manuscript_path("vol_3_macroscopic", "figures", "vol3_sonoluminescence_collapse.png"), dpi=300)
     plt.close()
 
     # ---- FIGURE 2: Tabletop Relativity (Effective Mass Divergence) ----
@@ -171,8 +172,8 @@ def generate_manuscript_figures() -> None:
         fontweight="bold",
     )
     plt.tight_layout()
-    plt.savefig("vol3_tabletop_relativity_lorentz.pdf")
-    plt.savefig("vol3_tabletop_relativity_lorentz.png", dpi=300)
+    plt.savefig(manuscript_path("vol_3_macroscopic", "figures", "vol3_tabletop_relativity_lorentz.pdf"))
+    plt.savefig(manuscript_path("vol_3_macroscopic", "figures", "vol3_tabletop_relativity_lorentz.png"), dpi=300)
     plt.close()
 
     print("Figures saved: vol3_sonoluminescence_collapse.pdf, vol3_tabletop_relativity_lorentz.pdf")

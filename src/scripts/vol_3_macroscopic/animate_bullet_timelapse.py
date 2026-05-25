@@ -15,7 +15,7 @@ from matplotlib.animation import PillowWriter
 
 from ave.core.constants import M_SUN, G
 from ave.regime_3_saturated.galactic_rotation import A0_LATTICE, ave_saturation_acceleration
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 
 def animate_bullet_cluster() -> None:

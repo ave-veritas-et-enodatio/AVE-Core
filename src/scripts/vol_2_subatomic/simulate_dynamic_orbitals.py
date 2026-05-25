@@ -42,7 +42,7 @@ import numpy as np
 
 from ave.core.constants import ALPHA, C_0, EPSILON_0, L_NODE, M_E, M_PROTON, MU_0, V_SNAP, Z_0
 from ave.core.universal_operators import universal_impedance, universal_reflection, universal_saturation
-from scripts._output import SIM_OUTPUTS
+from ave_path_util import SIM_OUTPUTS
 
 matplotlib.use("Agg")
 import matplotlib.animation as animation  # noqa: E402

@@ -6,7 +6,7 @@ from ave.topological.tensors import (
     compute_toroidal_halo_volume,
     witten_effect_fractionalization,
 )
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 
 def visualize_baryon_bounds() -> None:

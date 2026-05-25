@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.integrate import solve_ivp
 
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # Physical parameters (normalized for visual clarity)
 GAMMA = 1.0  # Gyromagnetic ratio

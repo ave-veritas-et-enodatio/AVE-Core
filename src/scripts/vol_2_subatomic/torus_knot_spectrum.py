@@ -19,7 +19,7 @@ from scipy.integrate import quad
 from scipy.optimize import minimize
 
 from ave.core.constants import KAPPA_FS, P_C
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # Electron mass in MeV
 M_E_MEV = 0.51099895

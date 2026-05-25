@@ -40,14 +40,10 @@ load-bearing — the visualizations serve the manuscript's illustrative
 purpose adequately as-is, with the honest-scope acknowledgment.
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Create output dir if needed
-out_dir = "manuscript/vol_3_macroscopic/figures"
-os.makedirs(out_dir, exist_ok=True)
+from ave_path_util import manuscript_path
 
 
 # -----------------------------------------------------
@@ -98,7 +94,7 @@ def plot_flyby() -> None:
     ax.grid(alpha=0.3)
 
     plt.tight_layout()
-    plt.savefig(os.path.join(out_dir, "flyby_monte_carlo.png"), dpi=300)
+    plt.savefig(manuscript_path("vol_3_macroscopic", "figures", "flyby_monte_carlo.png"), dpi=300)
     plt.close()
 
 
@@ -141,7 +137,7 @@ def plot_geodynamo() -> None:
     ax.text(2, 1e10, r"$R_{Fe}$ limited (Solid)", ha="center", fontsize=9, color="red")
 
     plt.tight_layout()
-    plt.savefig(os.path.join(out_dir, "vca_dynamo_comparison.png"), dpi=300)
+    plt.savefig(manuscript_path("vol_3_macroscopic", "figures", "vca_dynamo_comparison.png"), dpi=300)
     plt.close()
 
 
@@ -186,7 +182,7 @@ def plot_lunar_heating() -> None:
     )
 
     plt.tight_layout()
-    plt.savefig(os.path.join(out_dir, "lunar_inductive_heating.png"), dpi=300)
+    plt.savefig(manuscript_path("vol_3_macroscopic", "figures", "lunar_inductive_heating.png"), dpi=300)
     plt.close()
 
 

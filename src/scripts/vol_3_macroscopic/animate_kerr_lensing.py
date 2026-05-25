@@ -6,8 +6,6 @@ Simulates a photon wavepacket propagating through a Kerr black hole
 using the native K4-TLM frame-dragging metric implementation.
 """
 
-import os
-
 import matplotlib
 import numpy as np
 
@@ -15,6 +13,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
 from ave.core.k4_tlm import K4Lattice2D, build_scattering_matrix  # noqa: E402
+from ave_path_util import manuscript_path  # noqa: E402
 
 
 def apply_kerr_vortex_2d(lattice: "K4Lattice2D", cx: float, cy: float, n0: float, r_core: float, v_spin: float) -> None:
@@ -162,9 +161,7 @@ def main() -> bool:
         fontweight="bold",
     )
 
-    out_dir = os.path.join(os.path.dirname(__file__), "..", "..", "manuscript", "vol_3_macroscopic", "figures")
-    os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, "kerr_lensing_asymmetry.png")
+    out_path = manuscript_path("vol_3_macroscopic", "figures", "kerr_lensing_asymmetry.png")
     plt.savefig(out_path, dpi=150, bbox_inches="tight")
     plt.close()
 

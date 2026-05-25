@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.integrate import odeint
 
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # Simulation Parameters for the Spacetime Vacuum Ring
 N_NODES = 50  # Number of LC nodes in the continuous ring

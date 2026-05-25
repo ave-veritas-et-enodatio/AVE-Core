@@ -25,7 +25,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.animation import FuncAnimation  # noqa: E402
 from matplotlib.colors import PowerNorm  # noqa: E402
 
-from scripts._output import sim_output  # noqa: E402
+from ave_path_util import sim_output  # noqa: E402
 
 
 def main() -> None:

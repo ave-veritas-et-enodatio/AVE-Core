@@ -43,7 +43,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import ALPHA, C_0
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 V_SUBSTRATE_KMS = ALPHA * C_0 / (2 * np.pi) / 1000.0
 

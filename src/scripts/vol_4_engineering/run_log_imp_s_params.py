@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import Z_0
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 
 def simulate_log_scale_s_parameters() -> None:

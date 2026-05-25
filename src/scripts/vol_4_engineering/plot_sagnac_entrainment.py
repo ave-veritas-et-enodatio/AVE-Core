@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import C_0
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 
 def generate_sagnac_sweeps() -> None:

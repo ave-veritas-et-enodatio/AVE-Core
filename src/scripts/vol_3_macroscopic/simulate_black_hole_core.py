@@ -46,7 +46,7 @@ from ave.gravity import (  # noqa: E402
     schwarzschild_radius,
     shear_modulus_factor,
 )
-from scripts._output import sim_output  # noqa: E402
+from ave_path_util import sim_output  # noqa: E402
 
 # ══════════════════════════════════════════════════════════════════════════════
 # SOLAR MASS AND KNOWN BH DATA

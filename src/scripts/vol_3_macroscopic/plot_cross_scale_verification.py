@@ -9,7 +9,7 @@ Output: assets/sim_outputs/cross_scale_verification.png
 
 import matplotlib.pyplot as plt
 
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # Domain data: (name, log10(scale_m), agreement, color)
 domains = [

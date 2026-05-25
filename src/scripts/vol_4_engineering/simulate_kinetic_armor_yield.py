@@ -30,7 +30,7 @@ import numpy as np
 from ave.core.constants import (
     N_PHI_PACK as PHI_LIMIT,  # Axiom 1: V_I Solid (Kepler Conjecture Rigid Hexagonal FCC/HCP packing limit)
 )
-from scripts._output import sim_output
+from ave_path_util import sim_output
 
 # --- Canonical packing-fraction constants ---
 PHI_AMBIENT = 0.6402  # V_II Fluid (Random Close Packing for uncompressed macroscopic polymer LC)
