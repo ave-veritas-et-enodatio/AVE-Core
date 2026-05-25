@@ -26,8 +26,6 @@ Test: re-run the recording, compute ω_DC + ω_AC = ω - ω_DC, then measure
 Single T=0 run; thermal sweep deferred until the T=0 result lands.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

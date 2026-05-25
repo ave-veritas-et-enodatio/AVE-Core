@@ -20,8 +20,6 @@ Run:
     python src/scripts/verify/q_g47_path_d_full_cross_validation.py
 """
 
-from __future__ import annotations
-
 import json
 import os
 import sys

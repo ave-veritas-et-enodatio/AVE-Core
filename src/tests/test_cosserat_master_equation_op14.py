@@ -13,8 +13,6 @@ Run:
     pytest src/tests/test_cosserat_master_equation_op14.py -v -s
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.core.cosserat_master_equation_fdtd import CosseratMasterEquationFDTD

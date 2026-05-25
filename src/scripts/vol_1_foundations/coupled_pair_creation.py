@@ -31,8 +31,6 @@ AVE compliance
   S6 = A  Q measured globally AND per-centroid
 """
 
-from __future__ import annotations
-
 import os
 import sys
 

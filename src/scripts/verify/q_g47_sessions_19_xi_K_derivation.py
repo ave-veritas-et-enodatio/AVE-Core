@@ -20,8 +20,6 @@ Method:
   Step F: z_0 = 51.25 geometric derivation (count neighbors within 1.187·ℓ_node)
 """
 
-from __future__ import annotations
-
 import numpy as np
 import sympy as sp
 

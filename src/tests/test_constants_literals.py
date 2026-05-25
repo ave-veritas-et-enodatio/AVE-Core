@@ -16,8 +16,6 @@ will fail.  The remediation is to re-run the helpers in
 ``ave.core.constants`` to the new values.
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 

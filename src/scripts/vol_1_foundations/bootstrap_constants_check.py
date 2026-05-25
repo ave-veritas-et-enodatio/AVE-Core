@@ -20,8 +20,6 @@ bootstrap chain is calibration-clean. If anything is off by a factor,
 that's a load-bearing finding for any further numerical claim.
 """
 
-from __future__ import annotations
-
 import sys
 
 sys.path.insert(0, "/Users/grantlindblom/AVE-staging/AVE-Core/src")

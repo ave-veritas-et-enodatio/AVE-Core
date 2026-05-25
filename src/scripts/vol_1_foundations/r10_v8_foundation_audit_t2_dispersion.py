@@ -21,8 +21,6 @@ enable_cosserat_self_terms=False) — bench test of the K4-TLM
 scatter+connect implementation alone.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

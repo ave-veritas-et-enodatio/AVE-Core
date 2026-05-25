@@ -48,8 +48,6 @@ sector that's never been read.
 Same as T-ST v1: ~3-5 min wall clock. One added array.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

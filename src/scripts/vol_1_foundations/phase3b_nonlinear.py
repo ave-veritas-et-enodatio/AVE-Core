@@ -18,8 +18,6 @@ Pre-registered expectations (from §9.5 of 32_phase3b_axiom_compliant_redesign.m
 Results appended to 32_phase3b_axiom_compliant_redesign.md §10 after run.
 """
 
-from __future__ import annotations
-
 import matplotlib
 import numpy as np
 

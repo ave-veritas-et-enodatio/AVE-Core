@@ -48,8 +48,6 @@ zeros out under chirality=1.0). All winding extractions therefore
 operate on a single chosen port (defaulting to port 0).
 """
 
-from __future__ import annotations
-
 import sys
 import time
 from collections import deque

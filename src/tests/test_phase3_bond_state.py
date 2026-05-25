@@ -34,8 +34,6 @@ these unit tests. These smoke tests lock the accumulation arithmetic
 and observer plumbing.
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 

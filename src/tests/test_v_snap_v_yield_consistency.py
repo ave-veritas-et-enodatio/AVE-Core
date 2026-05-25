@@ -42,8 +42,6 @@ Reference:
 Predictions.yaml entry: P_phase0_varactor (also covers this consistency).
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 

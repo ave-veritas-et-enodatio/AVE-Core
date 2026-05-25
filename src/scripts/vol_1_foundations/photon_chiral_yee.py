@@ -44,8 +44,6 @@ Outputs:
   - results/photon_chiral_yee.json       (pre-reg evaluation, both handedness)
 """
 
-from __future__ import annotations
-
 import json
 import sys
 from pathlib import Path

@@ -39,8 +39,6 @@ References:
 - VACUUM_ENGINE_MANUAL §17 A10 (audit item closed by this file)
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 

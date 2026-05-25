@@ -29,8 +29,6 @@ Adjudication categories per pred:
   Mode III: open / chaotic trajectory OR simple ellipse (single-frequency)
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

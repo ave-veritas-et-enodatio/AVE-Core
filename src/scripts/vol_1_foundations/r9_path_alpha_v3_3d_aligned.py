@@ -34,8 +34,6 @@ Per-cluster Mode I if ANY of (a) / (b-x) / (b-y) / (b-z) / (c) passes
 C1 (R/r = φ² ± 5% on median) AND C2 (chirality ≥ 75%).
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

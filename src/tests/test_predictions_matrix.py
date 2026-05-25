@@ -21,8 +21,6 @@ Reference:
   - src/scripts/claim_graph_validator.py REPO_ROOT
 """
 
-from __future__ import annotations
-
 import re
 
 import pytest

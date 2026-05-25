@@ -7,8 +7,6 @@ with band-pass filter on FFT (skip ω < 0.5 and ω > 4 = exclude both
 low-f leakage and Nyquist artifact) to find the physical resonance.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

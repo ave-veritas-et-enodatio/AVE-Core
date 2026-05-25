@@ -22,8 +22,6 @@ Pre-registered outcomes:
 - D (INCONSISTENCY): 1.187 produces z_0 ≠ 51.25 → corpus chain error
 """
 
-from __future__ import annotations
-
 import math
 import sys
 from pathlib import Path

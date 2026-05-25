@@ -21,8 +21,6 @@ Run:
     pytest src/tests/test_fdtd3d_cosmic_cooling_freeze_in.py -v -s
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 

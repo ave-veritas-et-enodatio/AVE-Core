@@ -31,8 +31,6 @@ References:
 - STAGE6_V4_HANDOFF.md §9 G-11 option (c)
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 

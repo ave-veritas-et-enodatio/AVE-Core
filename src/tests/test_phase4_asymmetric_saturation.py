@@ -23,8 +23,6 @@ References:
 - research/_archive/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md §17 A14 r6
 """
 
-from __future__ import annotations
-
 import jax.numpy as jnp
 import numpy as np
 import pytest

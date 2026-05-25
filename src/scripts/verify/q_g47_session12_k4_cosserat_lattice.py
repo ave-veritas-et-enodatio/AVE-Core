@@ -33,10 +33,7 @@ Run:
     python src/scripts/verify/q_g47_session12_k4_cosserat_lattice.py
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass
-from typing import Tuple
 
 import numpy as np
 

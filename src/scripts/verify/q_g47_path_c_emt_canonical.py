@@ -30,8 +30,6 @@ Run:
     python src/scripts/verify/q_g47_path_c_emt_canonical.py
 """
 
-from __future__ import annotations
-
 import json
 import os
 import sys

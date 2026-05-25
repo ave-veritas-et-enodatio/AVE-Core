@@ -43,8 +43,6 @@ Per ave-driver-script-honesty discipline + full 6-skill pre-derivation stack
 per Grant directive "full skills ahead" 2026-05-17 night.
 """
 
-from __future__ import annotations
-
 from pathlib import Path
 
 import matplotlib.pyplot as plt

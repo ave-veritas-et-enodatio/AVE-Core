@@ -50,8 +50,6 @@ Per doc 86 §7.6 Round 11 trigger: if v8 doesn't land Mode I (4/4 PASS),
 auto-fire Round 11 framework reframe (no v9 IC tweak path).
 """
 
-from __future__ import annotations
-
 import argparse
 import json
 import sys

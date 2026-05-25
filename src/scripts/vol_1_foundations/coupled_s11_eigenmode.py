@@ -24,8 +24,6 @@ engine.step() call (which we don't call during S11 relaxation —
 relaxation is gradient descent, not time-evolution).
 """
 
-from __future__ import annotations
-
 import sys
 
 import jax

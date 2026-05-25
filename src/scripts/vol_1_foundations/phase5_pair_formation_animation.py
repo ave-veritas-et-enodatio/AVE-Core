@@ -28,7 +28,6 @@ Usage:
     → writes both gifs to /tmp/
     → exits 0 unless simulation crashes
 """
-from __future__ import annotations
 
 import sys
 import time

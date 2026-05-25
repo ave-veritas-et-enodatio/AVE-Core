@@ -34,8 +34,6 @@ References:
     - manuscript/vol_1_foundations/chapters/07_regime_map.tex:12,:33,:53
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 

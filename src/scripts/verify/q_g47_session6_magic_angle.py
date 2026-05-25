@@ -14,8 +14,6 @@ Run:
     python src/scripts/verify/q_g47_session6_magic_angle.py
 """
 
-from __future__ import annotations
-
 import numpy as np
 from scipy.optimize import brentq
 

@@ -28,8 +28,6 @@ candidate (i-a) test. NOT a v9 IC tweak. Test is analytical only — NO engine
 run, just eigenvalue computation at increasing subgraph sizes.
 """
 
-from __future__ import annotations
-
 import json
 from pathlib import Path
 

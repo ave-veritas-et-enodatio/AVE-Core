@@ -22,8 +22,6 @@ claims to mass+J-pattern but doesn't promote to "corpus-derived prediction"
 without algebraic-topology derivation work (estimated 1-2 days separately).
 """
 
-from __future__ import annotations
-
 import json
 import sys
 from pathlib import Path

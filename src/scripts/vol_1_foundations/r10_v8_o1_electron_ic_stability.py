@@ -41,8 +41,6 @@ SECONDARY:
 ~3 min wall clock at N=48.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

@@ -19,8 +19,6 @@ Dual-criterion (per cluster):
   C2: chirality consensus ≥ 75% via mean(sin(Δφ_Hilbert))
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

@@ -32,8 +32,6 @@ Run:
     python3 src/scripts/vol_3_macroscopic/c5_sdss_spin_orientation.py
 """
 
-from __future__ import annotations
-
 import gzip
 import json
 import math
@@ -41,7 +39,6 @@ import re
 import sys
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Optional
 
 import numpy as np
 

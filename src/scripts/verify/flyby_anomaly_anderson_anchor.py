@@ -26,8 +26,6 @@ Per ave-driver-script-honesty four-discriminator:
   4. Silent-overclaim: report ALL 6 spacecraft individually; NO aggregate match rate
 """
 
-from __future__ import annotations
-
 import json
 import math
 import os

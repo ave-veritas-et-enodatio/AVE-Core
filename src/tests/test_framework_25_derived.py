@@ -48,8 +48,6 @@ References:
   - doc 108 §11 calibration-input reframing
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 

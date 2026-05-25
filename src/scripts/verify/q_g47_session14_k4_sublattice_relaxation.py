@@ -24,8 +24,6 @@ Run:
     python src/scripts/verify/q_g47_session14_k4_sublattice_relaxation.py
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass
 
 import numpy as np

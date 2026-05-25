@@ -54,8 +54,6 @@ References:
   - research/_archive/L3_electron_soliton/107_ave_axiom_compliant_rifled_photon.md
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 

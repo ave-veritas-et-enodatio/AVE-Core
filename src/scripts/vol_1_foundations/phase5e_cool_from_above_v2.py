@@ -31,8 +31,6 @@ Usage:
     → writes /tmp/phase5e_cool_from_above_v2.npz
 """
 
-from __future__ import annotations
-
 import sys
 import time
 from dataclasses import dataclass

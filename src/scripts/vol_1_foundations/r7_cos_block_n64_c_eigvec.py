@@ -21,8 +21,6 @@ Four-mode adjudication (per pred body):
                    (Cosserat sector empty at corpus GT in both axes)
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

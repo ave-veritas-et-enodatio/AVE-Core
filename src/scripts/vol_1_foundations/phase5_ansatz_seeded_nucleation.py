@@ -38,8 +38,6 @@ Reference:
 - research/_archive/L3_electron_soliton/67_lc_coupling_reciprocity_audit.md §17-§26 (F17-K arc)
 """
 
-from __future__ import annotations
-
 import sys
 import time
 

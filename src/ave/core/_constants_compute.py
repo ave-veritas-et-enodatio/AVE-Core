@@ -19,8 +19,6 @@ will fail and the literals in ``constants.py`` must be updated to match the
 new computation.
 """
 
-from __future__ import annotations
-
 from ave.core.constants import (
     C_0,
     CROSSING_NUMBER_PROTON,

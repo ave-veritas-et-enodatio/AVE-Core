@@ -26,8 +26,6 @@ Decision rule
                   heatmap to resolve.
 """
 
-from __future__ import annotations
-
 import os
 import sys
 

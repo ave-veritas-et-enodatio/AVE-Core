@@ -49,8 +49,6 @@ T = 4.6e-10 (m_e c² units) ≈ kT_CMB / (m_e c²)
 Same as T-ST v1: ~3 min wall clock. Thermal IC adds <1s overhead.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

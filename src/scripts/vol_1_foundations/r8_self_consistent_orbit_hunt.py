@@ -51,8 +51,6 @@ ADJUDICATION (4-mode):
                     decays; warrants longer-time investigation
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

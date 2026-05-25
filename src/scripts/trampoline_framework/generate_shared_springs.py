@@ -10,8 +10,6 @@ Run from repo root:
   uv run --no-sync python src/scripts/trampoline_framework/generate_shared_springs.py
 """
 
-from __future__ import annotations
-
 import math
 from pathlib import Path
 

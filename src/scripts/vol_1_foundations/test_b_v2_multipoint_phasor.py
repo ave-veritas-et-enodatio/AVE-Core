@@ -36,8 +36,6 @@ Three-mode adjudication:
                       (2, 3) winding at this drive)
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

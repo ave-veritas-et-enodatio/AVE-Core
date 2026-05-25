@@ -56,8 +56,6 @@ POST-EXTRACTION DECISION (Phase 2, NOT in this run):
   Each branch implies different Round 8+ next move.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

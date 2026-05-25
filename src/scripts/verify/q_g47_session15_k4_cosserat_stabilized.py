@@ -30,8 +30,6 @@ Run:
     python src/scripts/verify/q_g47_session15_k4_cosserat_stabilized.py
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass
 
 import numpy as np

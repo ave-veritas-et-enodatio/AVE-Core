@@ -24,8 +24,6 @@ Convergence taxonomy:
 Output: trajectory, final (R, r), final crossing count, convergence status.
 """
 
-from __future__ import annotations
-
 import sys
 from dataclasses import dataclass
 

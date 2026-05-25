@@ -32,8 +32,6 @@ Reference:
 Predictions.yaml entry: P_phase0_varactor.
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 

@@ -23,8 +23,6 @@ Run:
     python3 src/scripts/vol_3_macroscopic/cmb_axis_alignment_driver.py
 """
 
-from __future__ import annotations
-
 import math
 from dataclasses import dataclass
 

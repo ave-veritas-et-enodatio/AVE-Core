@@ -35,8 +35,6 @@ References:
 - src/ave/topological/cosserat_field_3d.py:1228-1284 (TDI step implementation)
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

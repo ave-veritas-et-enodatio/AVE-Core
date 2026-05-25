@@ -46,8 +46,6 @@ A-034 cross-refs: `manuscript/backmatter/07_universal_saturation_kernel.tex`
 |T|=12 universality + ξ_K1, ξ_K2 namespace).
 """
 
-from __future__ import annotations
-
 import jax
 
 jax.config.update("jax_enable_x64", True)

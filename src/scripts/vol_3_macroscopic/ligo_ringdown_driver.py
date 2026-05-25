@@ -16,8 +16,6 @@ Run:
     python3 src/scripts/vol_3_macroscopic/ligo_ringdown_driver.py
 """
 
-from __future__ import annotations
-
 import math
 import sys
 from dataclasses import dataclass

@@ -56,8 +56,6 @@ T < α/(4π) ≈ 5.8e-4 stability: T=1e-6 / 5.8e-4 = 1.7e-3 (well within stable)
 Same as T-ST v1: ~3 min wall clock.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

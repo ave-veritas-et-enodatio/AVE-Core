@@ -51,8 +51,6 @@ See: `manuscript/ave-kb/common/q-g47-substrate-scale-cosserat-closure.md`
 catalog with substrate-scale K4 instance).
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.core.constants import C_0

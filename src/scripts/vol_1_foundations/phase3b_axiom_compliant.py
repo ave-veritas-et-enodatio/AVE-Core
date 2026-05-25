@@ -21,8 +21,6 @@ Outputs
   /tmp/phase3b_seed_independence.png     — cross-envelope at each amplitude
 """
 
-from __future__ import annotations
-
 import matplotlib
 import numpy as np
 

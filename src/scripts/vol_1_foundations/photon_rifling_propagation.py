@@ -20,8 +20,6 @@ Outputs:
   - assets/photon_rifling_axis_LH.gif
 """
 
-from __future__ import annotations
-
 from pathlib import Path
 
 import matplotlib

@@ -84,8 +84,6 @@ OUTCOME SPACE (informational, not pre-committed):
     sector-asymmetry empirical finding; Move 9 design adjusts.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

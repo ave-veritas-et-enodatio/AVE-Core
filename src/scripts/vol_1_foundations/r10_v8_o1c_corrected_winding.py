@@ -35,8 +35,6 @@ modified during transient.
 Same as O.1b: N=48, PML=4, amp=0.1, R=8, r=4, 50P.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

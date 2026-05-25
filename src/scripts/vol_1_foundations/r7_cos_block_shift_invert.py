@@ -26,8 +26,6 @@ References:
     - r7_k4tlm_scattering_lctank.py (original driver with SA-mode Cos-block)
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

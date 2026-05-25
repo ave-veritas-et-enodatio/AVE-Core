@@ -21,8 +21,6 @@ If V_DC stable across 700P → some feedback works (likely Op14)
 If V_DC drifts → no proper feedback, 200P snapshot was misleading
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

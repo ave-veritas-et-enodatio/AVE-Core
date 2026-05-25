@@ -39,8 +39,6 @@ Run:
     python3 src/scripts/vol_3_macroscopic/c5_shamir_2022_spin_orientation.py
 """
 
-from __future__ import annotations
-
 import json
 import math
 import sys

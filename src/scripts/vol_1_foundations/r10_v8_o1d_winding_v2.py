@@ -15,8 +15,6 @@ individual c_0 or c_2 zero-crossings.
 Same configuration as O.1b/O.1c: N=48, amp=0.1, R=8, r=4.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

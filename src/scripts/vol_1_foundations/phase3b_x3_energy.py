@@ -23,8 +23,6 @@ Outputs:
   /tmp/phase3b_x3_energy.png    — figure
 """
 
-from __future__ import annotations
-
 import jax.numpy as jnp
 import matplotlib
 import numpy as np

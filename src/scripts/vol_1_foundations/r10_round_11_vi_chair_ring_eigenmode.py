@@ -34,8 +34,6 @@ Per doc 89 §7.4 + auditor 2026-04-29: this is Stride 3 analytical work; v9 IC
 construction follows from the eigenvector output. NO engine run in this script.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 from pathlib import Path

@@ -90,8 +90,6 @@ INITIAL CONDITION CHOICE (path a — standing-wave IC):
   Mode III variants: at least one FAIL; failure pattern names what's wrong.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

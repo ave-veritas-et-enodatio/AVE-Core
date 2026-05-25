@@ -22,8 +22,6 @@ Output:
 Expected runtime: ~90s × 20 seeds ≈ 30 min.
 """
 
-from __future__ import annotations
-
 import os
 import sys
 

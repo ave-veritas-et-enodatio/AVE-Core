@@ -21,8 +21,6 @@ If verification passes, the cached state is usable for downstream Phase 1
 observer reruns: load → attach observers → run recording window.
 """
 
-from __future__ import annotations
-
 import sys
 import time
 from pathlib import Path

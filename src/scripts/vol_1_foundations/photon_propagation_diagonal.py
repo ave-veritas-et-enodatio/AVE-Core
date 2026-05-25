@@ -13,8 +13,6 @@ This complements `photon_propagation.py` (cardinal +x̂, v=√2·c) to
 characterize the K4 substrate's anisotropic kinematics fully.
 """
 
-from __future__ import annotations
-
 import sys
 from pathlib import Path
 

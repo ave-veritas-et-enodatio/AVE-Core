@@ -26,8 +26,6 @@ References:
 - CWSource for envelope + port-weight conventions (reused)
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 

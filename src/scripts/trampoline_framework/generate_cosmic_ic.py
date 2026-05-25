@@ -12,8 +12,6 @@ Run from repo root:
   uv run --no-sync python src/scripts/trampoline_framework/generate_cosmic_ic.py
 """
 
-from __future__ import annotations
-
 from pathlib import Path
 
 import matplotlib.pyplot as plt

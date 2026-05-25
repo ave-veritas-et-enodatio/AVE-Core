@@ -27,8 +27,6 @@ Tests:
   T5 — does ∮V·dl + dΦ_B/dt = 0 (Faraday's law restored)?
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

@@ -50,14 +50,11 @@ Run:
     python3 src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py
 """
 
-from __future__ import annotations
-
 import json
 import math
 import sys
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Optional
 
 import numpy as np
 
@@ -203,7 +200,7 @@ class AxisOfEvilResult:
     masking_note: str = ""
 
 
-def load_planck_smica_temperature(map_path: Path, mask_path: Optional[Path] = None):
+def load_planck_smica_temperature(map_path: Path, mask_path: Path | None = None):
     """Load Planck PR3 SMICA map's temperature column; optionally apply mask + mean-fill inpainting.
 
     The SMICA full-mission IQU file has TEMPERATURE, Q_STOKES, U_STOKES (and uncertainty)
@@ -323,7 +320,7 @@ def search_preferred_axis(alm: np.ndarray, lmax: int, ell_range: tuple[int, int]
 
 def axis_of_evil_from_planck(
     map_path: Path,
-    mask_path: Optional[Path] = None,
+    mask_path: Path | None = None,
     nside_initial: int = 16,
     nside_refined: int = 64,
     lmax: int = 3,
@@ -731,8 +728,8 @@ def main():
     if not mask_path.exists():
         mask_path = None
         print("INFO: Planck common-mask file not found locally; running without masking.")
-    observable_1: Optional[Observable] = None
-    aoe_result: Optional[AxisOfEvilResult] = None
+    observable_1: Observable | None = None
+    aoe_result: AxisOfEvilResult | None = None
     if smica_path.exists():
         try:
             aoe_result = axis_of_evil_from_planck(smica_path, mask_path=mask_path)

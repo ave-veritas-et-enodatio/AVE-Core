@@ -28,8 +28,6 @@ Decision criteria:
   - Establish baseline "the substrate naturally rings at f_X when pulsed"
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

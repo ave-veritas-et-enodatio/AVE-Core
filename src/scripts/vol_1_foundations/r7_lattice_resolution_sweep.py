@@ -22,8 +22,6 @@ Falsification:
   - (b) fails: cluster shifts >1%; methodology issue
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

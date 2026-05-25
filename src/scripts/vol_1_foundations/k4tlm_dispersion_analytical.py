@@ -31,8 +31,6 @@ Usage:
   python k4tlm_dispersion_analytical.py
 """
 
-from __future__ import annotations
-
 import json
 import sys
 from pathlib import Path

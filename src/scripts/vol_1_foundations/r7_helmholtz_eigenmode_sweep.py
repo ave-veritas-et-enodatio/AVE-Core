@@ -40,8 +40,6 @@ References:
 - src/ave/topological/k4_cosserat_coupling.py:_update_z_local_total (Op14 z formula)
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

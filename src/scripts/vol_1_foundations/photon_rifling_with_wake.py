@@ -31,8 +31,6 @@ Outputs:
   - assets/photon_rifling_dark_wake_LH.gif
 """
 
-from __future__ import annotations
-
 from pathlib import Path
 
 import matplotlib

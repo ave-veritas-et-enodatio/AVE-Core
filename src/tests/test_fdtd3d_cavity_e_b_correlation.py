@@ -15,8 +15,6 @@ Run:
     pytest src/tests/test_fdtd3d_cavity_e_b_correlation.py -v -s
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.core.fdtd_3d import FDTD3DEngine

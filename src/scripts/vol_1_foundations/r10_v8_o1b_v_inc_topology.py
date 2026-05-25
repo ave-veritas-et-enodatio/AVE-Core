@@ -48,8 +48,6 @@ TERTIARY:
 - Bond captures: 16 bonds around toroidal shell at psi=0 (varied phi)
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

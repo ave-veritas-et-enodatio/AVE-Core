@@ -26,8 +26,6 @@ Outputs:
   - /tmp/phase3b_sweep.png (multi-panel visualization)
 """
 
-from __future__ import annotations
-
 import matplotlib
 import numpy as np
 

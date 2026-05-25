@@ -33,8 +33,6 @@ Distinct from validate_cosserat_electron_soliton.py:
 Per Rule 11 clean-falsification + A39 v2 dual-criterion + A40 multi-N.
 """
 
-from __future__ import annotations
-
 import sys
 import time
 from pathlib import Path

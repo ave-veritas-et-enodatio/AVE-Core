@@ -36,8 +36,6 @@ r9_path_alpha_bond_pair_phasor.py is the closest template (V_inc-only at
 bond-cluster) which this driver supersedes per A47 v7 quadrature requirement.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 from pathlib import Path

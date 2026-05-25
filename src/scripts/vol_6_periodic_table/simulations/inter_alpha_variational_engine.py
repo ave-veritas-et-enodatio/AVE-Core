@@ -30,8 +30,6 @@ All physics derived from AVE Axioms 1-4 (no empirical tuning):
     Axiom 4 -> saturation kernel C_sat(D_intra/r)
 """
 
-from __future__ import annotations
-
 import math
 import os
 import time

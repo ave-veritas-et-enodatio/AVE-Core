@@ -15,8 +15,6 @@ This script is intentionally self-contained — no dependencies on engine module
 to avoid coupling the canonical reference visuals to engine internal state.
 """
 
-from __future__ import annotations
-
 import math
 from pathlib import Path
 

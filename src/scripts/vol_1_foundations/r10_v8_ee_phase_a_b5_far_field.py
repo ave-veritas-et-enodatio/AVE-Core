@@ -23,8 +23,6 @@ Memory-efficient: only time-averages of full-lattice fields are saved
 (no full trajectories).
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time
