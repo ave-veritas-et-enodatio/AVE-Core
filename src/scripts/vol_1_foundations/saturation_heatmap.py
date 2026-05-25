@@ -18,10 +18,6 @@ The three regime thresholds from constants.py / Vol 4 Ch 1:
     1.0             — Rupture / TIR limit (Axiom 4)
 """
 
-from __future__ import annotations
-
-from typing import Optional
-
 import matplotlib
 import numpy as np
 
@@ -65,7 +61,7 @@ def saturation_fields(sim: CoupledK4Cosserat) -> dict:
 def render_heatmap(
     sim: CoupledK4Cosserat,
     out_path: str = "/tmp/saturation_heatmap.png",
-    z_slice: Optional[int] = None,
+    z_slice: int | None = None,
     title_suffix: str = "",
 ) -> dict:
     """Render a 3-panel heatmap of the saturation fields at a z-slice.

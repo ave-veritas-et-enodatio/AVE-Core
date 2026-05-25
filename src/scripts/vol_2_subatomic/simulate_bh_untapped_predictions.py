@@ -16,8 +16,6 @@ without free parameters:
 All constants from ave.core.constants — zero free parameters.
 """
 
-import os
-
 import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 import numpy as np
@@ -33,10 +31,7 @@ from ave.solvers.orbital_resonance import (
     ringdown_frequency,
     ringdown_Q_and_decay,
 )
-
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-OUTPUT_DIR = os.path.join(project_root, "assets", "sim_outputs")
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+from ave_path_util import sim_output
 
 plt.style.use("dark_background")
 
@@ -335,7 +330,7 @@ def main() -> None:
         y=1.02,
     )
 
-    out_path = os.path.join(OUTPUT_DIR, "bh_untapped_predictions.png")
+    out_path = sim_output("bh_untapped_predictions.png")
     plt.savefig(out_path, dpi=250, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close()
     print(f"\n[*] Saved figure: {out_path}")

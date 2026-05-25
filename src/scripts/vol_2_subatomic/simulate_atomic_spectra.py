@@ -24,8 +24,6 @@ Usage:
     python src/scripts/vol_2_subatomic/simulate_atomic_spectra.py
 """
 
-import os
-
 import matplotlib
 import numpy as np
 
@@ -34,6 +32,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.gridspec import GridSpec  # noqa: E402
 
 from ave.core.constants import ALPHA, C_0, HBAR, L_NODE, M_E, e_charge  # noqa: E402
+from ave_path_util import sim_output  # noqa: E402
 
 # ══════════════════════════════════════════════════════════════════════════════
 # DERIVED CONSTANTS (from engine primitives)
@@ -325,9 +324,7 @@ def run_simulation() -> None:
 
     plt.tight_layout(rect=[0, 0, 1, 0.93])
 
-    out_dir = os.path.join(os.path.dirname(__file__), "..", "assets", "sim_outputs")
-    os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, "atomic_spectra_cavity.png")
+    out_path = sim_output("atomic_spectra_cavity.png")
     plt.savefig(out_path, dpi=200, facecolor=C_BG, bbox_inches="tight")
     print(f"\n  ✓ Plot saved → {out_path}")
     print("\n  ═══ ATOMIC SPECTRA DERIVATION COMPLETE ═══")

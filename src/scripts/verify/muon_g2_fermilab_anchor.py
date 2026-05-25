@@ -37,8 +37,6 @@ Run:
     PYTHONPATH=src python3 src/scripts/verify/muon_g2_fermilab_anchor.py
 """
 
-from __future__ import annotations
-
 import json
 import math
 import sys

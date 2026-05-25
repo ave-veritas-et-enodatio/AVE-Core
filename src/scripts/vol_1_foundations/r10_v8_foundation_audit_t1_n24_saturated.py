@@ -22,8 +22,6 @@ Discriminates:
       saturation contributes to mode selection
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

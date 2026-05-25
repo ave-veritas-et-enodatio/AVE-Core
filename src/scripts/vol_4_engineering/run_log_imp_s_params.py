@@ -1,24 +1,8 @@
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import Z_0
-
-
-# --- Standard AVE output directory ---
-def _find_repo_root() -> str:
-    d = os.path.dirname(os.path.abspath(__file__))
-    while d != os.path.dirname(d):
-        if os.path.exists(os.path.join(d, "pyproject.toml")):
-            return d
-        d = os.path.dirname(d)
-    return os.path.dirname(os.path.abspath(__file__))
-
-
-OUTPUT_DIR = os.path.join(_find_repo_root(), "assets", "sim_outputs")
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-# --- End standard output directory ---
+from ave_path_util import sim_output
 
 
 def simulate_log_scale_s_parameters() -> None:
@@ -121,7 +105,7 @@ def simulate_log_scale_s_parameters() -> None:
 
     plt.tight_layout()
     plt.savefig(
-        os.path.join(OUTPUT_DIR, "log_impedance_s_parameters.png"),
+        sim_output("log_impedance_s_parameters.png"),
         facecolor=fig.get_facecolor(),
         bbox_inches="tight",
     )

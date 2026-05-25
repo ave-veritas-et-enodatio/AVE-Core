@@ -20,8 +20,6 @@ Outputs:
   - results/dark_wake_extended_baseline.json
 """
 
-from __future__ import annotations
-
 import json
 import sys
 from pathlib import Path

@@ -43,6 +43,7 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from ave.core.constants import ALPHA, ALPHA_COLD_INV
 from ave.core.master_equation_fdtd import MasterEquationFDTD
+from ave_path_util import sim_output
 
 print("=" * 78)
 print("R10 v14 v2 — Master Equation FDTD multi-profile + revised criteria")
@@ -317,8 +318,6 @@ print(f"\nMODE: {mode}")
 # Visualization (focus on BEST profile)
 # =============================================================================
 print("\nGenerating visualization for best profile...")
-OUT = REPO_ROOT / "assets" / "sim_outputs"
-OUT.mkdir(parents=True, exist_ok=True)
 
 fig = plt.figure(figsize=(17, 11), facecolor="#0a0a0a")
 gs = GridSpec(3, 4, figure=fig, hspace=0.4, wspace=0.35, height_ratios=[1.0, 1.0, 0.7])
@@ -480,7 +479,7 @@ for ax in [axA, axB, axC, axD, axE, axF, axG, axH]:
             text.set_color("white")
 
 fig.suptitle(f"R10 v14 v2 — Multi-Profile Bound State Test ({mode[:30]})", color="white", fontsize=14, y=0.995)
-out_path = OUT / "r10_master_equation_v14_v2.png"
+out_path = sim_output("r10_master_equation_v14_v2.png")
 plt.savefig(out_path, dpi=140, facecolor="#0a0a0a", bbox_inches="tight")
 print(f"  Figure: {out_path}")
 print()

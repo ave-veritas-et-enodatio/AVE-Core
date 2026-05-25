@@ -24,8 +24,6 @@ Run:
     pytest src/tests/test_fdtd3d_F_c_wake_power.py -v -s
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 

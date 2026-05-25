@@ -22,8 +22,6 @@ Run:
     PYTHONPATH=src python3 src/scripts/verify/baryon_ladder_pdg_2024_anchor.py
 """
 
-from __future__ import annotations
-
 import json
 import math
 import sys

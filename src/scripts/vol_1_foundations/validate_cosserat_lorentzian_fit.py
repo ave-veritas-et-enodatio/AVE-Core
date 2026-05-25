@@ -27,8 +27,6 @@ This driver tests whether the HWHM convention shifts the apparent r relative to
 a fitted Lorentzian half-width.
 """
 
-from __future__ import annotations
-
 import sys
 import time
 from pathlib import Path

@@ -25,16 +25,13 @@ Quantitative validation against NNDC nuclear-structure data is a separate
 Docstring corrected 2026-05-17.
 """
 
-import os
-import pathlib
-
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.solvers.topology_optimizer import TopologicalOptimizer
+from ave_path_util import sim_output
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 # Uranium-235 parameters
 Z = 92  # Protons
 A = 235  # Total Nucleons
@@ -127,9 +124,7 @@ def assemble_heavy_nucleus_dynamic() -> None:
     # Animate every frame
     anim = animation.FuncAnimation(fig, update, frames=len(history), interval=40, blit=False)
 
-    outdir = project_root / "assets" / "sim_outputs"
-    os.makedirs(outdir, exist_ok=True)
-    target = outdir / "uranium_235_assembly_dynamic.gif"
+    target = sim_output("uranium_235_assembly_dynamic.gif")
 
     anim.save(target, writer="pillow", fps=25)
     print(f"[*] Visualized Dynamic U-235 Assembly: {target}")

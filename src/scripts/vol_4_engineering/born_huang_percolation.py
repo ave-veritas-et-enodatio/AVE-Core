@@ -17,10 +17,10 @@ The vacuum is a rigid solid operating 56.7% above the fluid-solid
 transition, at the unique point where ν = 2/7.
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
+
+from ave_path_util import sim_output
 
 
 def emt_moduli(p: np.ndarray, z0: float) -> tuple[np.ndarray, np.ndarray]:
@@ -207,14 +207,7 @@ def run_analysis() -> None:
     )
     plt.tight_layout()
 
-    output_path = os.path.join(
-        os.path.dirname(__file__),
-        "..",
-        "assets",
-        "sim_outputs",
-        "rigidity_percolation_kg_convergence.png",
-    )
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    output_path = sim_output("rigidity_percolation_kg_convergence.png")
     plt.savefig(output_path, dpi=200, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close()
     print(f"\nSaved: {output_path}")

@@ -32,19 +32,18 @@ Scope corrected 2026-05-17.
 """
 
 import os
-from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
 
 # Import derived constants from the AVE physics engine
 from ave.core.constants import ALPHA, C_0, D_PROTON, HBAR, K_MUTUAL, M_E, M_N_MEV_TARGET, M_P_MEV_CODATA, e_charge
+from ave_path_util import manuscript_path
 
 # Custom Modules
 # Ensure local module resolution
 from .spice_exporter import generate_spice_netlist
 
-PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
 # Fundamental Constants (MeV domain)
 # ME_MEV imported from physics engine for cross-validation
 ME_MEV = M_E * C_0**2 / e_charge * 1e-6  # Convert kg → MeV
@@ -874,9 +873,7 @@ def generate_summary_table(results: list[dict], output_file: str) -> None:
 
 if __name__ == "__main__":
     # Resolve output path relative to repo root (this script lives at scripts/periodic_table/simulations/)
-    out_dir = PROJECT_ROOT / "manuscript/vol_6_periodic_table/simulations/outputs"
-    out_dir.mkdir(exist_ok=True)
-    OUT_DIR = str(out_dir)
+    OUT_DIR = str(manuscript_path("vol_6_periodic_table", "simulations", "outputs"))
 
     results = []
 
@@ -917,6 +914,5 @@ if __name__ == "__main__":
     si28_mass = (27.976926535 - (14 * 0.00054858)) * 931.494102
     results.append(create_element_report("Silicon-28", 14, 28, si28_mass, OUT_DIR))
 
-    summary_path = os.path.join(os.path.dirname(os.path.dirname(OUT_DIR)), "chapters", "00_summary_table.tex")
-    os.makedirs(os.path.dirname(summary_path), exist_ok=True)
+    summary_path = str(manuscript_path("vol_6_periodic_table", "chapters", "00_summary_table.tex"))
     generate_summary_table(results, summary_path)

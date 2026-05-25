@@ -23,9 +23,6 @@ integrated against substrate density. That work is queued.
 Docstring corrected 2026-05-17.
 """
 
-import os
-from pathlib import Path
-
 import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 import numpy as np
@@ -33,6 +30,7 @@ import numpy as np
 from ave.core.constants import (
     N_PHI_PACK as PHI_LIMIT,  # Axiom 1: V_I Solid (Kepler Conjecture Rigid Hexagonal FCC/HCP packing limit)
 )
+from ave_path_util import sim_output
 
 # --- Canonical packing-fraction constants ---
 PHI_AMBIENT = 0.6402  # V_II Fluid (Random Close Packing for uncompressed macroscopic polymer LC)
@@ -191,9 +189,7 @@ def plot_kinetic_armor_reaction(history_p: list, history_phi: list, history_Z: l
     plt.gcf().patch.set_facecolor("black")
 
     # Save Output Asset
-    out_dir = Path(os.path.dirname(__file__)) / ".." / ".." / ".." / "assets" / "sim_outputs"
-    out_dir.mkdir(parents=True, exist_ok=True)
-    out_path = out_dir / "kinetic_armor_reflection.png"
+    out_path = sim_output("kinetic_armor_reflection.png")
     plt.savefig(out_path, dpi=300, facecolor="black")
     print(f"Asset successfully rendered to: {out_path}")
 

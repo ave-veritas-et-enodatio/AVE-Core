@@ -1,4 +1,4 @@
-"""Self-test for tools/verify-md-links.py.
+"""Self-test for manuscript/ave-kb/tools/verify-md-links.py.
 
 Runs the checker against the fixture pair under tools/tests/fixtures/ and
 asserts the exact finding set: a good link resolves, a broken intra link, a
@@ -7,8 +7,6 @@ unknown-id citation is flagged while the literal placeholder is not.
 
 Run directly (`python tools/tests/test_verify_md_links.py`) or via pytest.
 """
-
-from __future__ import annotations
 
 import importlib.util
 import sys

@@ -49,8 +49,6 @@ Usage:
     python src/scripts/vol_2_subatomic/simulate_electroweak_unification.py
 """
 
-import os
-
 import matplotlib
 import numpy as np
 
@@ -77,6 +75,7 @@ from ave.core.constants import (  # noqa: E402
     SIN2_THETA_W,
     e_charge,
 )
+from ave_path_util import sim_output  # noqa: E402
 
 # ══════════════════════════════════════════════════════════════════════════════
 # PDG EXPERIMENTAL VALUES (for comparison)
@@ -535,9 +534,7 @@ def run_derivation() -> None:
     plt.tight_layout(rect=[0, 0, 1, 0.93])
 
     # Use standard output directory
-    out_dir = os.path.join(os.path.dirname(__file__), "..", "assets", "sim_outputs")
-    os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, "electroweak_unification.png")
+    out_path = sim_output("electroweak_unification.png")
     plt.savefig(out_path, dpi=200, facecolor=C_BG, bbox_inches="tight")
     print(f"\n  ✓ Plot saved → {out_path}")
 

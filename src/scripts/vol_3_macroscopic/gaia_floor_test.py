@@ -43,6 +43,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import ALPHA, C_0
+from ave_path_util import sim_output
 
 V_SUBSTRATE_KMS = ALPHA * C_0 / (2 * np.pi) / 1000.0
 
@@ -250,8 +251,7 @@ def main() -> None:
     axes[1].grid(alpha=0.3)
 
     plt.tight_layout()
-    out_path = Path(__file__).parent.parent.parent / "assets" / "sim_outputs" / "gaia_floor_test.png"
-    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path = sim_output("gaia_floor_test.png")
     plt.savefig(out_path, dpi=150, bbox_inches="tight")
     print(f"\nSaved floor test plot to {out_path}")
 

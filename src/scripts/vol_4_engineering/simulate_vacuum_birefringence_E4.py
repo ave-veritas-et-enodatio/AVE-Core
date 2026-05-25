@@ -36,14 +36,11 @@ strictly proportionally to E^2" — corrected to clarify that the AVE-distinct
 claim is the COEFFICIENT/ONSET, not the existence of an E^4 term.
 """
 
-import pathlib
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import ALPHA, C_0, L_NODE, M_E, e_charge
-
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
+from ave_path_util import sim_output
 
 
 def simulate_birefringence_e4() -> None:
@@ -133,8 +130,7 @@ def simulate_birefringence_e4() -> None:
 
     ax.legend(loc="upper left", fontsize=11)
 
-    outdir = project_root / "assets" / "sim_outputs"
-    target = outdir / "vacuum_birefringence_E4.png"
+    target = sim_output("vacuum_birefringence_E4.png")
     plt.savefig(target, dpi=300)
     print(f"[*] Visualized E^4 Vacuum Birefringence Signature: {target}")
 

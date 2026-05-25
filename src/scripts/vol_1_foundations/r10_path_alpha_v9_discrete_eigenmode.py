@@ -36,8 +36,6 @@ closes; Mode II/III → Round 11 secondary candidates ((i) finer-than-K4
 substrate, (ii) multi-loop, (iii) topology variant).
 """
 
-from __future__ import annotations
-
 import argparse
 import json
 import sys

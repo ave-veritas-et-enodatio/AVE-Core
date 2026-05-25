@@ -24,8 +24,6 @@ Per Rule 10 "data first, methodology after": this topology check is post-run
 methodology development based on empirical N=64 result. Not a new pre-reg.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

@@ -1,40 +1,8 @@
-"""Photon-Tail Propagating IC — path (b) follow-up to path (a) Mode III.
+"""Photon-Tail Dual Seed — corpus electron test at engine-representable scale.
 
-Per `P_phase6_photon_tail_propagating_ic` (frozen at this commit).
+Per `P_phase6_photon_tail_dual_seed` (frozen at this commit).
 
-PATH (B) DIFFERENCE FROM PATH (A):
-  Path (a) ran with both fields seeded at peak displacement, ZERO initial
-  velocities (standing-wave IC). Returned Mode III 0/4 with sector
-  asymmetry (Cosserat 4.3% retention, K4 66%) — the standing-wave
-  neighborhood doesn't contain the photon-tail attractor's basin.
-
-  Path (b) seeds the Cosserat ω with NON-ZERO initial omega_dot consistent
-  with photon-traveling along the loop tangent at speed c. For a (2,3)
-  pattern omega = envelope·(cos(θ), sin(θ), 0) propagating at frequency
-  ω_loop = 2π·c/L_loop, the time derivative at t=0 is:
-      omega_dot[..., 0] = +ω_loop · omega[..., 1]
-      omega_dot[..., 1] = -ω_loop · omega[..., 0]
-      omega_dot[..., 2] = 0
-  This corresponds to omega rotating in (x, y) plane at rate ω_loop —
-  which IS propagation of the (2,3) pattern along the loop arc parameter
-  since theta = 2φ + 3ψ varies along the loop's parametric path.
-
-  K4 V_inc seed is unchanged from path (a) (corpus (2,3) chiral phasor
-  ansatz on ports 0-3). V_ref starts at 0 (forward-traveling default).
-  K4 dynamics evolve V_ref naturally via scatter+connect.
-
-C4 INFORMATIONAL PER A57:
-  At (R=4, r=1.5) on N=64 lattice, the (2,3) poloidal feature size
-  2π·r/3 ≈ 3.14 cells is right at Nyquist boundary. Op10 aliases c=3
-  to c=2 at t=0 — sub-Nyquist topology seed. Per A57 (sub-Nyquist
-  topology-seed caveat from doc 75_ §10.6), C4 cannot meaningfully
-  test "c=3 maintained" when c starts at 2. C4 is demoted to
-  INFORMATIONAL in this pre-reg; Mode I = 3/3 of C1/C2/C3 PASS.
-  c(t) trajectory is also tracked diagnostically — if c climbs from
-  2 to 3 during evolution, that's a positive signal independent of
-  C4's strict criterion.
-
-CONTEXT (carried forward from path (a) / doc 75_ §10):
+CONTEXT:
   Per Grant's photon-tail framing: a self-trapped photon catching its own
   tail in a (2,3) torus-knot loop IS the electron. R7+R8 (~30 commits)
   seeded only the Cosserat (B-field) half via initialize_electron_2_3_sector
@@ -89,8 +57,6 @@ INITIAL CONDITION CHOICE (path a — standing-wave IC):
   Mode I (corpus electron at engine scale): all 4 PASS.
   Mode III variants: at least one FAIL; failure pattern names what's wrong.
 """
-
-from __future__ import annotations
 
 import json
 import sys
@@ -148,17 +114,7 @@ PORT_VECTORS = np.array(
     dtype=float,
 ) / np.sqrt(3.0)
 
-OUTPUT_JSON = Path(__file__).parent / "r8_photon_tail_propagating_ic_results.json"
-
-# Photon loop frequency at (R=4, r=1.5): L_loop ≈ 2π·√(4R²+9r²) ≈ 55 cells
-# ω_loop = 2π·c/L_loop ≈ 0.114 rad/(natural-time-unit)
-# This is the natural propagation rate for a photon along the (2,3) loop
-# at speed c=1 in engine natural units.
-LOOP_LENGTH_CELLS = 2 * np.pi * np.sqrt(4 * R_LOOP**2 + 9 * R_MINOR**2)
-OMEGA_LOOP = 2 * np.pi / LOOP_LENGTH_CELLS  # photon-loop frequency
-
-# c(t) trajectory tracker: sample c every K periods during recording window
-C_TRACK_PERIOD_INTERVAL = 10.0  # sample c every 10 Compton periods
+OUTPUT_JSON = Path(__file__).parent / "r8_photon_tail_dual_seed_results.json"
 
 
 def build_engine():
@@ -174,23 +130,8 @@ def build_engine():
 
 def seed_dual_field(engine):
     """Seed BOTH K4 V_inc (E-field) and Cosserat ω (B-field) with corpus
-    (2,3) topology at (R_LOOP, R_MINOR). PROPAGATING IC for path (b):
-    omega_dot is set so the (2,3) pattern propagates along the loop at
-    rate ω_loop = 2π·c/L_loop.
-
-    For omega(x, t=0) = envelope·(cos(θ), sin(θ), 0), propagation of the
-    (2,3) pattern along the loop arc s at speed c gives
-    omega(x, t) = envelope·(cos(θ - ω_loop·t), sin(θ - ω_loop·t), 0).
-    Time derivative at t=0:
-        omega_dot[..., 0] = +ω_loop · omega[..., 1]
-        omega_dot[..., 1] = -ω_loop · omega[..., 0]
-        omega_dot[..., 2] = 0
-    This is omega rotating in (x, y) plane at rate ω_loop — equivalent to
-    the (2,3) pattern (with θ = 2φ + 3ψ) translating along the loop.
-
-    K4 V_inc is unchanged from path (a) (existing initialize_2_3_voltage_ansatz).
-    V_ref starts at 0 (forward-traveling default for K4-TLM).
-    """
+    (2,3) topology at (R_LOOP, R_MINOR). Standing-wave initial conditions
+    (no initial velocities)."""
     engine.cos.initialize_electron_2_3_sector(
         R_target=R_LOOP,
         r_target=R_MINOR,
@@ -203,17 +144,6 @@ def seed_dual_field(engine):
         r=R_MINOR,
         amplitude=V_AMP_INIT,
     )
-
-    # PROPAGATING IC: set omega_dot for forward propagation along loop
-    omega_arr = np.asarray(engine.cos.omega)
-    omega_dot_new = np.zeros_like(omega_arr)
-    omega_dot_new[..., 0] = +OMEGA_LOOP * omega_arr[..., 1]
-    omega_dot_new[..., 1] = -OMEGA_LOOP * omega_arr[..., 0]
-    omega_dot_new[..., 2] = 0.0
-    # Preserve mask_alive
-    mask_alive = np.asarray(engine.cos.mask_alive)
-    omega_dot_new *= mask_alive[..., None]
-    engine.cos.omega_dot = omega_dot_new
 
 
 def loop_path_samples(n_samples=N_LOOP_NODES):
@@ -301,18 +231,15 @@ def fit_ellipse_pca(v_inc_series, v_ref_series):
 
 def main():
     print("=" * 78, flush=True)
-    print(f"  Photon-Tail Propagating IC Test (path b)")
-    print(f"  P_phase6_photon_tail_propagating_ic (3/3 + C4 informational)")
+    print(f"  Photon-Tail Dual Seed Test")
+    print(f"  P_phase6_photon_tail_dual_seed (4-criterion adjudication)")
     print("=" * 78, flush=True)
     print(f"  Lattice N={N_LATTICE}, PML={PML}, active region {N_LATTICE - 2*PML}^3 cells")
     print(f"  Loop: R={R_LOOP}, r={R_MINOR} (R/r = {R_LOOP/R_MINOR:.3f}, corpus φ² = {PHI_SQ:.3f})")
-    print(f"  Loop length L = {LOOP_LENGTH_CELLS:.2f} cells; ω_loop = 2π·c/L = {OMEGA_LOOP:.4f}")
     print(f"  Seeds: V_inc amplitude={V_AMP_INIT}, A26 ω amplitude scale = {A26_AMP_SCALE:.4f}")
-    print(f"  Propagating IC: omega_dot set per ω_loop-rotation in (x,y) plane")
-    print(f"  Evolution: {N_PERIODS_TOTAL} Compton periods, no drive")
+    print(f"  Evolution: {N_PERIODS_TOTAL} Compton periods, no drive (standing-wave IC)")
     print(f"  Recording window: t∈[{T_RECORD_START_PERIOD}, {N_PERIODS_TOTAL}]P")
-    print(f"  Loop sampling: {N_LOOP_NODES} nodes; c(t) tracked every {C_TRACK_PERIOD_INTERVAL}P")
-    print(f"  Adjudication: Mode I = 3/3 of C1/C2/C3 PASS (C4 informational per A57)")
+    print(f"  Loop sampling: {N_LOOP_NODES} nodes")
     print()
 
     engine = build_engine()
@@ -345,35 +272,11 @@ def main():
     T_cos_series = []
     V_cos_series = []
 
-    # c(t) tracker — sample c throughout entire run (not just recording window)
-    c_track_steps = sorted(
-        {int(p * COMPTON_PERIOD / DT) for p in np.arange(0, N_PERIODS_TOTAL + 1, C_TRACK_PERIOD_INTERVAL)}
-    )
-    c_track_steps = [s for s in c_track_steps if 0 < s <= N_STEPS]
-    c_trajectory = []  # list of (step, t_period, c, peak_omega)
-
-    print(
-        f"  Running {N_STEPS} steps (recording from step {STEP_RECORD_START}, "
-        f"c sampled at {len(c_track_steps)} timesteps throughout)..."
-    )
+    print(f"  Running {N_STEPS} steps (recording from step {STEP_RECORD_START})...")
     t0 = time.time()
     last_progress = t0
     for step in range(1, N_STEPS + 1):
         engine.step()
-
-        # c(t) trajectory — sample throughout run (not just recording window)
-        if step in c_track_steps:
-            c_now = int(engine.cos.extract_crossing_count())
-            peak_omega_now = float(np.linalg.norm(np.asarray(engine.cos.omega), axis=-1).max())
-            c_trajectory.append(
-                {
-                    "step": int(step),
-                    "t_period": float(step * DT / COMPTON_PERIOD),
-                    "c": c_now,
-                    "peak_omega": peak_omega_now,
-                }
-            )
-
         if step >= STEP_RECORD_START:
             times.append(float(step * DT / COMPTON_PERIOD))
 
@@ -491,63 +394,40 @@ def main():
     print(f"    {'PASS' if topology_match else 'FAIL'}")
     print()
 
-    # ─── c(t) trajectory diagnostic ─────────────────────────────────────────────
-    print("=" * 78, flush=True)
-    print(f"  c(t) trajectory (informational, supplements C4 per A57):")
-    for c_pt in c_trajectory:
-        print(f"    t={c_pt['t_period']:6.1f}P: c = {c_pt['c']}, peak |ω| = {c_pt['peak_omega']:.4f}")
-    c_max_post_t10 = max(
-        (cp["c"] for cp in c_trajectory if cp["t_period"] >= 10.0),
-        default=-1,
-    )
-    c_climbed_to_3 = c_max_post_t10 >= 3
-    print(f"  c reached 3 at any t≥10P: {c_climbed_to_3}")
-    print()
-
-    # ─── Final adjudication (per A57: C4 informational, Mode I = 3/3 of C1/C2/C3) ─
-    # Load-bearing criteria for Mode I
-    load_bearing = {
+    # ─── Final adjudication ─────────────────────────────────────────────────────
+    pass_flags = {
         "C1_ellipse_aspect": aspect_phi_match,
         "C2_spatial_winding": winding_match,
         "C3_lc_reactance": lc_reactance_match,
+        "C4_topology": topology_match,
     }
-    informational = {
-        "C4_topology_strict": topology_match,
-        "c_climbed_to_3_during_evolution": c_climbed_to_3,
-    }
-    load_bearing_pass_count = sum(load_bearing.values())
+    pass_count = sum(pass_flags.values())
 
     print("=" * 78, flush=True)
     print("  Adjudication")
     print("=" * 78, flush=True)
-    print(f"  Load-bearing PASS count: {load_bearing_pass_count}/3 (Mode I requires 3/3)")
-    print(f"  Per criterion (load-bearing): {load_bearing}")
-    print(f"  Informational: {informational}")
+    print(f"  PASS count: {pass_count}/4")
+    print(f"  Per criterion: {pass_flags}")
     print()
 
-    if load_bearing_pass_count == 3:
+    if pass_count == 4:
         mode = "I"
         verdict = (
-            f"MODE I — All 3 load-bearing criteria (C1/C2/C3) PASS. "
-            f"Photon-tail propagating IC produces corpus-electron signature "
-            f"at engine-representable scale (R={R_LOOP}, r={R_MINOR}). "
-            f"C4 (topology strict): {topology_match}. c climbed to 3 "
-            f"during evolution: {c_climbed_to_3}. Path (b) validates the "
-            f"photon-tail framework — Round 7+8 closes with positive "
-            f"empirical result."
+            f"MODE I — All 4 criteria PASS. Photon-tail dual seed produces "
+            f"corpus-electron signature at engine-representable scale "
+            f"(R={R_LOOP}, r={R_MINOR}). The corpus electron exists in the "
+            f"engine via the propagating-loop framework. Round 7+8 closes "
+            f"with positive empirical result."
         )
     else:
-        failed_load_bearing = [k for k, v in load_bearing.items() if not v]
-        mode = f"III ({', '.join(failed_load_bearing)} FAIL)"
+        failed = [k for k, v in pass_flags.items() if not v]
+        mode = f"III ({', '.join(failed)} FAIL)"
         verdict = (
-            f"MODE III — {load_bearing_pass_count}/3 load-bearing criteria PASS. "
-            f"Failed: {failed_load_bearing}. Even with propagating IC at "
-            f"engine-representable scale, photon-tail framework doesn't "
-            f"produce corpus-electron signature. Per pre-reg threshold: "
-            f"photon-tail branch closes; Round 8 closes with cumulative "
-            f"empirical statement that engine doesn't host corpus electron "
-            f"at any tested configuration accessible to N=64. Round 9 "
-            f"(if exists) escalates to N=128+ or reframes corpus prediction."
+            f"MODE III — {pass_count}/4 criteria PASS. Failed: {failed}. "
+            f"Engine doesn't host corpus electron at this scale via "
+            f"standing-wave dual-seed photon-tail. Specific failures suggest "
+            f"which axis is broken. Path (b) propagating-IC test may be "
+            f"warranted before declaring photon-tail framing falsified."
         )
     print(f"  Mode: {mode}")
     print(f"  {verdict}")
@@ -555,10 +435,8 @@ def main():
 
     # ─── Save payload ─────────────────────────────────────────────────────────
     payload = {
-        "pre_registration": "P_phase6_photon_tail_propagating_ic",
-        "test": "Photon-tail propagating IC test (path b), 3/3 + C4 informational per A57",
-        "omega_loop_natural": OMEGA_LOOP,
-        "loop_length_cells": LOOP_LENGTH_CELLS,
+        "pre_registration": "P_phase6_photon_tail_dual_seed",
+        "test": "Photon-tail dual seed test, standing-wave IC (path a), 4-criterion adjudication",
         "N": N_LATTICE,
         "PML": PML,
         "R_loop": R_LOOP,
@@ -598,16 +476,12 @@ def main():
             "target_range": list(LC_REACTANCE_RANGE),
             "pass": lc_reactance_match,
         },
-        "C4_topology_INFORMATIONAL": {
+        "C4_topology": {
             "c_final": final_c,
             "target": 3,
             "pass": topology_match,
-            "note": "C4 demoted to informational per A57 (sub-Nyquist topology seed at R=4, r=1.5 makes c=3 unsatisfiable from t=0). Mode I = 3/3 of C1/C2/C3.",
         },
-        "c_trajectory": c_trajectory,
-        "c_climbed_to_3_during_evolution": c_climbed_to_3,
-        "load_bearing_pass_count": load_bearing_pass_count,
-        "load_bearing_total": 3,
+        "pass_count": pass_count,
         "mode": mode,
         "verdict": verdict,
     }

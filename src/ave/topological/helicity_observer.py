@@ -20,8 +20,6 @@ References:
   - doc 54 §6 (asymmetric μ/ε saturation, h_local role)
 """
 
-from __future__ import annotations
-
 from typing import Any
 
 import numpy as np

@@ -23,8 +23,6 @@ Pre-registered outcomes:
   - Mixed (some converge, some don't)         → inspect trajectories.
 """
 
-from __future__ import annotations
-
 import matplotlib
 import numpy as np
 

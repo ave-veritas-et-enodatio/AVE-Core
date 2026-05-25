@@ -50,8 +50,6 @@ NO PASS/FAIL on overall test (this is a frozen-extraction-scope diagnostic
 per A48 discipline). Result IS the c(amplitude) curve.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

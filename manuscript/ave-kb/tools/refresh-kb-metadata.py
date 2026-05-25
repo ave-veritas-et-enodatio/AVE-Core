@@ -21,8 +21,6 @@ This script does NOT verify; it ONLY refreshes. Run ``make verify-kb-metadata``
 afterward to confirm the result is internally consistent.
 """
 
-from __future__ import annotations
-
 import argparse
 import json
 import os

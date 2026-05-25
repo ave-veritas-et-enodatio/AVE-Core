@@ -82,8 +82,6 @@ No SM/QED leakage
   finite lattice size.
 """
 
-from __future__ import annotations
-
 import matplotlib
 import numpy as np
 

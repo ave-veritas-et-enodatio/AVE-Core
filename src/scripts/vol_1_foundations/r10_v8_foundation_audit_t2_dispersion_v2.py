@@ -18,8 +18,6 @@ Predictions:
   - Discrete K4-TLM may show small dispersion at short wavelengths
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

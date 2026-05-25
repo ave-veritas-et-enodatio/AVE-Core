@@ -19,8 +19,6 @@ Acceptance criteria (breathing-soliton appropriate, NOT strict stationary):
   - n_refractive at boundary measurably > 1.0  (saturation engaged)
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 

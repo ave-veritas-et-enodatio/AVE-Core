@@ -29,8 +29,6 @@ References:
   - phase5_ansatz_seeded_nucleation.py (commit ede4008 — Beltrami baseline)
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

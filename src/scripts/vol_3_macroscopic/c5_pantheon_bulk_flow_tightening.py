@@ -30,14 +30,11 @@ Run:
     python3 src/scripts/vol_3_macroscopic/c5_pantheon_bulk_flow_tightening.py
 """
 
-from __future__ import annotations
-
 import json
 import math
 import sys
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Optional
 
 import numpy as np
 
@@ -163,11 +160,11 @@ class PantheonSubset:
     l_deg: np.ndarray
     b_deg: np.ndarray
     n_hat: np.ndarray  # (N, 3) unit vectors
-    inv_cov: Optional[np.ndarray] = None  # (N, N) inverse STAT+SYS covariance
-    selection_indices: Optional[np.ndarray] = None  # row indices in original catalog
+    inv_cov: np.ndarray | None = None  # (N, N) inverse STAT+SYS covariance
+    selection_indices: np.ndarray | None = None  # row indices in original catalog
 
 
-def load_pantheon_covariance(cov_path: Path, n_expected: int = 1701) -> Optional[np.ndarray]:
+def load_pantheon_covariance(cov_path: Path, n_expected: int = 1701) -> np.ndarray | None:
     """Load the Pantheon+SH0ES STAT+SYS covariance matrix.
 
     File format (per Pantheon+SH0ES data release):

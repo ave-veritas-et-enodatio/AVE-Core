@@ -79,8 +79,6 @@ Per-capture (every 10 steps) summaries:
 - Total compute estimate: ~25-40 min
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

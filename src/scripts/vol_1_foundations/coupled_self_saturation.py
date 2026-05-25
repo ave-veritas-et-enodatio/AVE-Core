@@ -26,8 +26,6 @@ AVE compliance
   S6 = A  Q measured (via extract_hopf_charge), not enforced
 """
 
-from __future__ import annotations
-
 import os
 import sys
 

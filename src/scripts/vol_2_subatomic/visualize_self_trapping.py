@@ -20,8 +20,6 @@ Usage:
     python src/scripts/vol_2_subatomic/visualize_self_trapping.py
 """
 
-import os
-
 import matplotlib
 import numpy as np
 
@@ -29,6 +27,8 @@ matplotlib.use("Agg")
 import matplotlib.cm as cm  # noqa: E402
 import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.animation import FuncAnimation, PillowWriter  # noqa: E402
+
+from ave_path_util import sim_output  # noqa: E402
 
 # ====================================================================
 # Parameters
@@ -311,9 +311,7 @@ def main() -> None:
     print(f"  Rendering {TOTAL_FRAMES} frames...")
     ani = FuncAnimation(fig, update, frames=TOTAL_FRAMES, blit=False)
 
-    out_dir = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "sim_outputs")
-    os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, "photon_electron_transition.gif")
+    out_path = sim_output("photon_electron_transition.gif")
 
     ani.save(out_path, writer=PillowWriter(fps=10), dpi=120)
     plt.close(fig)

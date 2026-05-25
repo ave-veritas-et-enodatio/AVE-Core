@@ -26,13 +26,10 @@ The Experiment (high-field, NOT benchtop):
 Title softened 2026-05-17: "benchtop falsification" → "high-field falsification".
 """
 
-import os
-import pathlib
-
 import matplotlib.pyplot as plt
 import numpy as np
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
+from ave_path_util import sim_output
 
 
 def simulate_ee_bench_plateau() -> None:
@@ -166,9 +163,7 @@ def simulate_ee_bench_plateau() -> None:
 
     plt.tight_layout()
 
-    outdir = project_root / "assets" / "sim_outputs"
-    os.makedirs(outdir, exist_ok=True)
-    target = outdir / "ee_bench_saturation_prediction.png"
+    target = sim_output("ee_bench_saturation_prediction.png")
     plt.savefig(target, dpi=300)
     print(f"[*] Visualized EE Bench Falsification Limits: {target}")
 

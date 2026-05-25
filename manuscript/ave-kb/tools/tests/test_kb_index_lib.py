@@ -20,8 +20,6 @@ by ``make verify-kb-metadata``; nothing in this module reads or asserts on
 file in the fixture or the live KB.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import tempfile

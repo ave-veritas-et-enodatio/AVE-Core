@@ -1011,7 +1011,9 @@ The tetrahedral rotation group order $|T| = 12$ appears in K4 physics via four i
 
 ### Quality
 - confidence: 0.55
-- solidity: 0.55 (use as input only, don't build deeper)
+- depends-on:
+  - Axiom 1 (Substrate Topology — $\chi_K = 12$ is structurally forced by the K4 tetrahedral symmetry of the substrate)
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.55, 1.00)]
 - rationale: The four routes converging on 12 is a convergence/plausibility argument explicitly framed as "strong evidence," not a single first-principles proof; |T|=12 (proper tetrahedral rotation group order) is exact, and route 1 (4 B-neighbors × 3 sublattices) is a clean count, but route 2 ((ℓ_c/d)²×2) presupposes ℓ_c/d=√6 and the bilateral factor, route 3 (f_Cosserat(u₀*)=1) is asserted, and route 4 is itself the self-consistency result of clm-bjceop — so the routes are not all manifestly independent and some are partly post-hoc identifications of the integer 12.
 - strengthen-by:
   - Demonstrate independence: show routes 2, 3, 4 do not all secretly trace back to the same K4 symmetry input (route 4 ξ_K2/ξ_K1=12 and route 2 (ℓ_c/d)²×2 with ℓ_c/d=√6 look related, since √6²×2=12)

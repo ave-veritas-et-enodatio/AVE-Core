@@ -25,8 +25,6 @@ Tests:
        asymmetry as ℓ=2 antinode imprint?
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

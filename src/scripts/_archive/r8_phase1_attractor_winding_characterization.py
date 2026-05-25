@@ -77,8 +77,6 @@ FROZEN EXTRACTIONS (4):
 NO PASS/FAIL ADJUDICATION. Result IS the characterization.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

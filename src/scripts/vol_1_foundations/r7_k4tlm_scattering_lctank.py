@@ -20,8 +20,6 @@ References:
 - src/ave/topological/cosserat_field_3d.py energy_gradient (Cos-block HVP)
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

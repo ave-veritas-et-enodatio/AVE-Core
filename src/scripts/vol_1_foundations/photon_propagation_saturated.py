@@ -38,8 +38,6 @@ Per Rule 14 substrate-derives + Rule 11 clean-falsification:
   - Either result is informative; pre-registered criteria adjudicate
 """
 
-from __future__ import annotations
-
 import json
 import sys
 from pathlib import Path

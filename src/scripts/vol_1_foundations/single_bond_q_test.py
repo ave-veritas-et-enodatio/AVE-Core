@@ -31,8 +31,6 @@ is numerically self-consistent at the simplest level. Q = 137 then follows
 algebraically from the corpus formula.
 """
 
-from __future__ import annotations
-
 import sys
 import time
 

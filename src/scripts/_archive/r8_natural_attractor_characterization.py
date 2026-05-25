@@ -61,8 +61,6 @@ DIAGNOSTIC SUB-CRITERIA (informational):
   - (2,3) Lissajous spectral signature (3/2 harmonic ratio)
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

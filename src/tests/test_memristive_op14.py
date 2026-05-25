@@ -24,8 +24,6 @@ other Phase 5 predictions. This file pins the DYNAMICS; the peak is
 validated elsewhere.
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 

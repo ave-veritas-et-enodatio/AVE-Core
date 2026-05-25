@@ -32,8 +32,6 @@ R/r = 2.0 (classical full-Clifford); still R/r ~3.5 (mechanism
 fundamentally incomplete).
 """
 
-from __future__ import annotations
-
 import matplotlib
 import numpy as np
 

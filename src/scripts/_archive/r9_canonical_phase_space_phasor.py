@@ -15,8 +15,6 @@ Dual-criterion adjudication:
   C2 (load-bearing): chirality consensus ≥ 75% across top-K bonds
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

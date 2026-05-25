@@ -41,6 +41,7 @@ from scipy.integrate import solve_ivp
 
 from ave.core.constants import C_0, G
 from ave.core.universal_operators import universal_saturation
+from ave_path_util import manuscript_path
 
 
 class AxiomaticBlackHoleCollapse:
@@ -192,9 +193,10 @@ if __name__ == "__main__":
 
     plt.tight_layout()
     # Save for LaTeX manuscript
+    out_path = manuscript_path("vol_3_macroscopic", "chapters", "bh_topological_halt.pdf")
     plt.savefig(
-        "manuscript/vol_3_macroscopic/chapters/bh_topological_halt.pdf",
+        out_path,
         dpi=300,
         bbox_inches="tight",
     )
-    print("Saved plot to: manuscript/vol_3_macroscopic/chapters/bh_topological_halt.pdf")
+    print(f"Saved plot to: {out_path}")

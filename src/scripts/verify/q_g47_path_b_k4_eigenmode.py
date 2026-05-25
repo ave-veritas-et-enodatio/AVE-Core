@@ -33,8 +33,6 @@ Run:
     python src/scripts/verify/q_g47_path_b_k4_eigenmode.py
 """
 
-from __future__ import annotations
-
 import json
 import os
 import sys

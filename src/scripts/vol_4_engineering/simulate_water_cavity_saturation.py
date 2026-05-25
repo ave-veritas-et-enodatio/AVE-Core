@@ -1,5 +1,3 @@
-import pathlib
-
 """
 Modeling Acoustic Cavity Sonoluminescence (Axiom 4 Vacuum Saturation)
 
@@ -31,6 +29,7 @@ import numpy as np
 from scipy.integrate import solve_ivp
 
 from ave.core.constants import EPSILON_0, L_NODE, V_YIELD
+from ave_path_util import manuscript_path
 
 # ---------------------------------------------------------
 # Cavity & Fluid Parameters
@@ -165,8 +164,7 @@ axes[2].grid(color="#333333", linestyle="--")
 
 plt.tight_layout()
 plt.savefig(
-    str(pathlib.Path(__file__).parent.parent.parent.parent.absolute())
-    + "/manuscript/vol_4_engineering/figures/sonoluminescence_challenge.png",
+    manuscript_path("vol_4_engineering", "figures", "sonoluminescence_challenge.png"),
     dpi=150,
 )
 print(f"Simulation completed. Exact peak V_topo reached at focal scalar: {np.nanmax(V_topo_focal)/1e3:.2f} kV")

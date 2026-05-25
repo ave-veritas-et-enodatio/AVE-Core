@@ -46,8 +46,6 @@ Same engine evolution cost as T-ST: ~185s wall clock + minimal post-process.
 Total: ~3-4 min.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

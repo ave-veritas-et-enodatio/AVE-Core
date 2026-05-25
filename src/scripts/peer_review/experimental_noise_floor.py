@@ -26,6 +26,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
 from ave.core.constants import EPSILON_0, K_B, M_E, V_YIELD, e_charge  # noqa: E402
+from ave_path_util import sim_output  # noqa: E402
 
 # ═════════════════════════════════════════════════════════════════
 # EXPERIMENTAL PARAMETERS
@@ -445,7 +446,7 @@ fig.suptitle(
 )
 plt.tight_layout(rect=[0, 0, 1, 0.94])
 
-out_path = "src/assets/sim_outputs/experimental_noise_floor_analysis.png"
+out_path = sim_output("experimental_noise_floor_analysis.png")
 plt.savefig(out_path, dpi=200, bbox_inches="tight", facecolor=fig.get_facecolor())
 print(f"  → Saved: {out_path}")
 plt.close()

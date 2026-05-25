@@ -18,8 +18,6 @@ on ``manuscript/ave-kb/`` proper; the live KB's "does it currently pass"
 status is covered by ``make verify-kb-metadata``.
 """
 
-from __future__ import annotations
-
 import json
 import re
 import shutil

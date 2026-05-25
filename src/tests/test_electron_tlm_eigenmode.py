@@ -23,8 +23,6 @@ layer flag caught here — if N=48 fails but N=96 would pass, that's physics
 information not a test artifact.
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 

@@ -18,6 +18,7 @@ import subprocess  # noqa: E402
 import matplotlib.pyplot as plt  # noqa: E402
 
 from ave.core.k4_tlm import K4Lattice2D, build_scattering_matrix  # noqa: E402
+from ave_path_util import sim_output  # noqa: E402
 
 
 def apply_lens_2d(lattice: "K4Lattice2D", cx: float, cy: float, n0: float, r_core: float) -> None:
@@ -144,16 +145,7 @@ def main() -> None:
             if frame_idx % 50 == 0:
                 print(f"Rendered {frame_idx} frames...")
 
-    out_mp4 = os.path.abspath(
-        os.path.join(
-            os.path.dirname(__file__),
-            "..",
-            "..",
-            "assets",
-            "sim_outputs",
-            "k4_tlm_gravitational_lensing_10s.mp4",
-        )
-    )
+    out_mp4 = str(sim_output("k4_tlm_gravitational_lensing_10s.mp4"))
     print("\nCompiling frames to MP4 at 30 fps using ffmpeg...")
     cmd = [
         "ffmpeg",

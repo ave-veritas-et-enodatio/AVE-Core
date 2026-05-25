@@ -28,8 +28,6 @@ Adjudication criteria (all 4 required for Mode I):
    dissolved into bulk)
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

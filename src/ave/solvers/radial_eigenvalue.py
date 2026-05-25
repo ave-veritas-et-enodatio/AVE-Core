@@ -59,8 +59,6 @@ CONSTANTS
     Zero hardcoded values.  Zero imported numbers. Zero continuous hacks.
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.core.constants import A_0, ALPHA, C_0, HBAR, L_NODE, M_E, P_C, RY_EV, e_charge

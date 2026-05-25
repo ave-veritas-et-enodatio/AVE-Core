@@ -24,15 +24,12 @@ the actual derived curve against JWST empirical data points.
 Docstring corrected 2026-05-17.
 """
 
-import os
-import pathlib
-
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.spatial.distance import cdist
 
-project_root = pathlib.Path(__file__).parent.parent.absolute()
+from ave_path_util import sim_output
 
 # JAX GPU acceleration (graceful fallback to numpy)
 try:
@@ -195,9 +192,7 @@ def run_comparative_accretion() -> None:
 
     anim = animation.FuncAnimation(fig, update, frames=FRAMES, interval=40, blit=True)
 
-    outdir = project_root / "assets" / "sim_outputs"
-    os.makedirs(outdir, exist_ok=True)
-    target = outdir / "jwst_accretion_comparison.gif"
+    target = sim_output("jwst_accretion_comparison.gif")
 
     anim.save(target, writer="pillow", fps=25)
     print(f"[*] Visualized Cosmological Accretion: {target}")

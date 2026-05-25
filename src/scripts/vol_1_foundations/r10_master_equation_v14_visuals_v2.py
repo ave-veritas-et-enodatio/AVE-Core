@@ -52,6 +52,7 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 from skimage import measure
 
 from ave.core.master_equation_fdtd import MasterEquationFDTD
+from ave_path_util import sim_output
 
 print("=" * 78)
 print("R10 v14 Visualization v2 — Lattice / PML / Soliton hierarchy")
@@ -78,9 +79,6 @@ SEED_R = 2.5
 N_STEPS = 5000
 SNAPSHOT_CADENCE = 25
 FRAMES_FOR_GIF = 80
-
-OUT = REPO_ROOT / "assets" / "sim_outputs"
-OUT.mkdir(parents=True, exist_ok=True)
 
 
 # =============================================================================
@@ -264,7 +262,7 @@ for axn in (ax.xaxis, ax.yaxis, ax.zaxis):
 ax.tick_params(colors="white", labelsize=8)
 ax.view_init(elev=18, azim=42)
 
-still1_path = OUT / "v14_lattice_pml_soliton_hierarchy.png"
+still1_path = sim_output("v14_lattice_pml_soliton_hierarchy.png")
 plt.savefig(still1_path, dpi=160, facecolor="#0a0a0a", bbox_inches="tight")
 print(f"  {still1_path}")
 plt.close(fig)
@@ -414,7 +412,7 @@ cbar = plt.colorbar(im, ax=ax, fraction=0.040, label="V (substrate potential)")
 cbar.ax.yaxis.label.set_color("white")
 cbar.ax.tick_params(colors="white")
 
-still2_path = OUT / "v14_equatorial_three_boundaries.png"
+still2_path = sim_output("v14_equatorial_three_boundaries.png")
 plt.savefig(still2_path, dpi=160, facecolor="#0a0a0a", bbox_inches="tight")
 print(f"  {still2_path}")
 plt.close(fig)
@@ -490,7 +488,7 @@ def update_3d_iso(frame_idx):
 
 print(f"  Animating {len(gif_frames)} frames (each ~1.5s of marching-cubes)...")
 anim = FuncAnimation(fig, update_3d_iso, frames=len(gif_frames), interval=100, blit=False)
-anim_path = OUT / "v14_breathing_with_lattice.gif"
+anim_path = sim_output("v14_breathing_with_lattice.gif")
 anim.save(str(anim_path), writer=PillowWriter(fps=12))
 print(f"  {anim_path}")
 plt.close(fig)
@@ -581,7 +579,7 @@ cbar = plt.colorbar(im, ax=ax, fraction=0.04, label="V")
 cbar.ax.yaxis.label.set_color("white")
 cbar.ax.tick_params(colors="white")
 
-anim2_path = OUT / "v14_breathing_equatorial_annotated.gif"
+anim2_path = sim_output("v14_breathing_equatorial_annotated.gif")
 anim2.save(str(anim2_path), writer=PillowWriter(fps=15))
 print(f"  {anim2_path}")
 plt.close(fig)

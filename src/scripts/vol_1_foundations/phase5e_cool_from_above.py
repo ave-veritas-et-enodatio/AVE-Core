@@ -60,8 +60,6 @@ Reference:
   - commit 49917ff (Memristive Op14 K4)
 """
 
-from __future__ import annotations
-
 import sys
 import time
 from dataclasses import dataclass

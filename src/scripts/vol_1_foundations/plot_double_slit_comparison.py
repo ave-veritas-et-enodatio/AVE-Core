@@ -1,7 +1,7 @@
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
+
+from ave_path_util import sim_output
 
 
 def create_comparison() -> None:
@@ -155,9 +155,7 @@ def create_comparison() -> None:
 
     plt.tight_layout()
 
-    out_dir = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "sim_outputs")
-    os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, "double_slit_sm_vs_ave.png")
+    out_path = sim_output("double_slit_sm_vs_ave.png")
     plt.savefig(out_path, dpi=400, bbox_inches="tight", facecolor=fig.get_facecolor())
     print(f"Saved: {out_path}")
 

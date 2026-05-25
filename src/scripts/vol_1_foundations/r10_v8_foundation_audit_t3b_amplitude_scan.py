@@ -85,8 +85,6 @@ N=16, PML=4 → active region 4..11).
 12 runs × 50P × ~14s ≈ 3 minutes total.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

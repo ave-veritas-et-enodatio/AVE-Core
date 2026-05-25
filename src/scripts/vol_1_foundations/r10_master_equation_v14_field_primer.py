@@ -44,6 +44,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from ave.core.master_equation_fdtd import MasterEquationFDTD
+from ave_path_util import sim_output
 
 print("=" * 78)
 print("R10 v14 Field Primer — what the simulation shows")
@@ -64,8 +65,6 @@ N_STEPS_TO_HIGH_PHASE = 1175  # from v14 v2 run, this was the high-phase timeste
 ZOOM_HALF = 7
 ZOOM_LO = N // 2 - ZOOM_HALF
 ZOOM_HI = N // 2 + ZOOM_HALF
-
-OUT = REPO_ROOT / "assets" / "sim_outputs"
 
 
 # Run to high-phase timestep
@@ -228,7 +227,7 @@ fig.suptitle(
     y=0.985,
 )
 
-primer_path = OUT / "v14_field_primer.png"
+primer_path = sim_output("v14_field_primer.png")
 plt.savefig(primer_path, dpi=160, facecolor="#0a0a0a", bbox_inches="tight")
 print(f"  {primer_path}")
 plt.close(fig)

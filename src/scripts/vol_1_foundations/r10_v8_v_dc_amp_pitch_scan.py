@@ -23,8 +23,6 @@ Two control runs at 100P each (~135s wall × 2 = ~5 min total):
   Run 2: V_AMP = 0.95, HELICAL_PITCH = 0       — HELICAL_PITCH scan
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

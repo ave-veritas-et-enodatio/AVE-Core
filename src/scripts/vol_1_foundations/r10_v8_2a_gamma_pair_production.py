@@ -55,8 +55,6 @@ After propagation/dispersion: peak likely lower (T-ST v2 saw factor ~6 reduction
 ~3 min wall clock at N=48.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

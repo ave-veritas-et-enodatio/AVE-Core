@@ -5,14 +5,11 @@ Analyzes the outputs of the N-Body simulator to prove the emergence
 of macroscopic topological band gaps (analogous to electron shells).
 """
 
-import os
-import pathlib
-
 import matplotlib.pyplot as plt
 import numpy as np
 from vol_3_macroscopic.simulate_saturn_rings import simulate_rings
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
+from ave_path_util import sim_output
 
 
 def analyze_ring_impedance() -> None:
@@ -48,9 +45,7 @@ def analyze_ring_impedance() -> None:
     axes[1].set_xlabel("Radial Distance from Saturn ($r$)", color="white")
     axes[1].set_ylabel("Node Count", color="white")
 
-    outdir = project_root / "assets" / "sim_outputs"
-    os.makedirs(outdir, exist_ok=True)
-    target = outdir / "saturn_ring_impedance_distribution.png"
+    target = sim_output("saturn_ring_impedance_distribution.png")
 
     plt.tight_layout()
     plt.savefig(target, dpi=200, facecolor=fig.get_facecolor(), bbox_inches="tight")

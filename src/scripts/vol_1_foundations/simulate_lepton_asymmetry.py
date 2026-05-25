@@ -26,12 +26,11 @@ overclaim; corrected 2026-05-17 to "candidate identity, NOT closed
 baryogenesis derivation".
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import ALPHA
+from ave_path_util import sim_output
 
 # Ensure local ave package is in path
 
@@ -117,8 +116,7 @@ def visualize_chiral_evanescence() -> None:
     plt.legend()
     plt.grid(True, alpha=0.3)
 
-    output_path = os.path.join(os.path.dirname(__file__), "../assets/sim_outputs/simulate_lepton_asymmetry.png")
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    output_path = sim_output("simulate_lepton_asymmetry.png")
     plt.savefig(output_path, dpi=300)
     print(f"\nSaved Chiral Phase Splitting visualization to {output_path}")
 

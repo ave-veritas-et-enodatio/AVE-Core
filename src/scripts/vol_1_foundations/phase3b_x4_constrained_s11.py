@@ -18,8 +18,6 @@ Per 34_x4_constrained_s11.md, three tests:
 Output: /tmp/phase3b_x4.{npz,png}, /tmp/phase3b_x4_log.txt
 """
 
-from __future__ import annotations
-
 import jax.numpy as jnp
 import matplotlib
 import numpy as np

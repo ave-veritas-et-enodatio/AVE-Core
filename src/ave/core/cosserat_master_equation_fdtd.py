@@ -47,8 +47,6 @@ References:
   kinetic terms that share the bond LC tank's inductive side")
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.core.master_equation_fdtd import MasterEquationFDTD

@@ -12,13 +12,11 @@ Run from repo root:
   uv run --no-sync python src/scripts/trampoline_framework/generate_cosmic_ic.py
 """
 
-from __future__ import annotations
-
-from pathlib import Path
-
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import Circle, FancyArrowPatch, Polygon, Wedge
+
+from ave_path_util import SIM_OUTPUTS
 
 plt.rcParams.update(
     {
@@ -32,7 +30,7 @@ plt.rcParams.update(
     }
 )
 
-OUTDIR = Path("assets/sim_outputs/trampoline_framework")
+OUTDIR = SIM_OUTPUTS / "trampoline_framework"
 OUTDIR.mkdir(parents=True, exist_ok=True)
 
 

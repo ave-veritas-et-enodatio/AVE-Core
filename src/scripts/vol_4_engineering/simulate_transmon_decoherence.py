@@ -24,11 +24,10 @@ PHYSICS MODEL (Option C — Boundary-Impedance Thermalization):
     guaranteed to lie in [0, 1] by Cauchy-Schwarz.
 """
 
-import os
-from pathlib import Path
-
 import matplotlib.pyplot as plt
 import numpy as np
+
+from ave_path_util import sim_output
 
 # ── Simulation Parameters ────────────────────────────────────────────────────
 N = 200  # Number of LC nodes in the 1D junction
@@ -173,10 +172,6 @@ def generate_plot(time: list[int], coherence: list[float], out_path: str) -> Non
 
 
 if __name__ == "__main__":
-    PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
-    out_dir = PROJECT_ROOT / "assets" / "sim_outputs"
-    os.makedirs(out_dir, exist_ok=True)
-
     print("Simulating 1D Transmon Decoherence (Boundary-Impedance Model)...")
     t, c = simulate_transmon_decoherence()
-    generate_plot(t, c, out_dir / "transmon_decoherence_plot.png")
+    generate_plot(t, c, sim_output("transmon_decoherence_plot.png"))

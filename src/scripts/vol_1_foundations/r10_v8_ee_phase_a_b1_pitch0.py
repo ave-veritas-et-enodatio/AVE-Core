@@ -8,8 +8,6 @@ keeping V_AMP = 0.95 unchanged. If FFT still shows 1.5·ω_C dominant,
 substrate-forced. If shifts, helical-IC-driven.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

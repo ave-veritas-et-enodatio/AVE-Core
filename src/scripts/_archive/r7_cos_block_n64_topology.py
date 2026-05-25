@@ -18,8 +18,6 @@ Wall time: ~1-3 hr at N=64 GT_corpus single-seed. If Mode I confirms,
 expand to F17K endpoints + vacuum_control in follow-up.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

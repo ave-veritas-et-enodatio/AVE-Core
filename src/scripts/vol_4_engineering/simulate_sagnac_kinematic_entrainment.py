@@ -23,8 +23,6 @@ This script numerically sweeps all 5 non-ideal constraints to prove that the Sag
 Effect is fundamentally density, electromagnetic, and gravity dependent.
 """
 
-import pathlib
-
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -32,8 +30,8 @@ import numpy as np
 # Fundamental Topological Values
 # -----------------------------------------------------------------
 from ave.core.constants import ALPHA, C_0, G
+from ave_path_util import sim_output
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 # Astrophysical Constants
 M_EARTH = 5.972e24  # kg
 R_EARTH = 6371000.0  # meters
@@ -209,8 +207,7 @@ def run_sensitivity_sweeps() -> None:
     plt.tight_layout()
     plt.subplots_adjust(top=0.9)
 
-    outdir = project_root / "assets" / "sim_outputs"
-    target = outdir / "sagnac_kinematic_entrainment.png"
+    target = sim_output("sagnac_kinematic_entrainment.png")
     plt.savefig(target, dpi=300)
     print(f"[*] Visually updated 5-Panel EE Sweeps: {target}")
 

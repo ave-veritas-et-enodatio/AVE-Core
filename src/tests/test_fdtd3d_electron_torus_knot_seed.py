@@ -34,8 +34,6 @@ Run:
     pytest src/tests/test_fdtd3d_electron_torus_knot_seed.py -v -s
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.core.fdtd_3d import FDTD3DEngine

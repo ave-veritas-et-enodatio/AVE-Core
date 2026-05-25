@@ -41,8 +41,6 @@ AVE FINDING (Phase I, for S4 adjudication):
 All runs use `use_saturation=False` (Axiom 4 off — linear regime).
 """
 
-from __future__ import annotations
-
 import matplotlib
 import numpy as np
 

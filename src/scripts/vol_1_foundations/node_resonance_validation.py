@@ -41,8 +41,6 @@ Reference:
   - manuscript/predictions.yaml::P_phase2_omega
 """
 
-from __future__ import annotations
-
 import sys
 import time
 from dataclasses import dataclass

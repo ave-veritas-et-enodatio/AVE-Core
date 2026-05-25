@@ -40,8 +40,6 @@ Outputs:
   - results/lattice_layer1_dispersion.json
 """
 
-from __future__ import annotations
-
 import json
 from pathlib import Path
 

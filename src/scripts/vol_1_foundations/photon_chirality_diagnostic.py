@@ -43,8 +43,6 @@ observable on Axiom 1, not a spin-angular-momentum operator. Amplitude
 is ≪ V_YIELD → linear vacuum regime (Axiom 4 off).
 """
 
-from __future__ import annotations
-
 import os
 import sys
 

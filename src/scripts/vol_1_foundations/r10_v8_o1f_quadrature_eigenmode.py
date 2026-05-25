@@ -54,8 +54,6 @@ without the spatial phase quadrature pattern needed for the multi-bond
 - Sample 5 shell-mode cells (matching O.1e for direct comparison)
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

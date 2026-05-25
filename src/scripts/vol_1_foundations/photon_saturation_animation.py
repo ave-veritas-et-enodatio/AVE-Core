@@ -40,8 +40,6 @@ AVE fidelity (no SM/QED leakage)
     Z_eff = Z_0/√(1 − A²)^(1/2) per Op14.
 """
 
-from __future__ import annotations
-
 import os
 import sys
 

@@ -9,14 +9,13 @@ cluster kinematics — does NOT compute propagating wave dynamics or any
 FDTD-class field evolution.
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import PillowWriter
 
 from ave.core.constants import M_SUN, G
 from ave.regime_3_saturated.galactic_rotation import A0_LATTICE, ave_saturation_acceleration
+from ave_path_util import sim_output
 
 
 def animate_bullet_cluster() -> None:
@@ -61,8 +60,7 @@ def animate_bullet_cluster() -> None:
 
     print(f"Executing 30s High-Fidelity Physics Render ({FRAMES} Frames)...")
     writer = PillowWriter(fps=FPS)
-    output_path = os.path.join(os.path.dirname(__file__), "../../../assets/sim_outputs/bullet_timelapse.gif")
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    output_path = sim_output("bullet_timelapse.gif")
 
     with writer.saving(fig, output_path, dpi=120):
         for i in range(FRAMES):

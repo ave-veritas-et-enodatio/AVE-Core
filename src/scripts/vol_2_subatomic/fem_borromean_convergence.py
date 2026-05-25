@@ -22,10 +22,10 @@ Richardson extrapolation gives the N→∞ limit.
 Output: assets/sim_outputs/borromean_fem_convergence.png
 """
 
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
+
+from ave_path_util import sim_output
 
 
 def gaussian_tube_density(
@@ -279,14 +279,7 @@ def run_convergence_study() -> tuple[float, float]:
     )
     plt.tight_layout()
 
-    output_path = os.path.join(
-        os.path.dirname(__file__),
-        "..",
-        "..",
-        "assets",
-        "sim_outputs",
-        "borromean_fem_convergence.png",
-    )
+    output_path = sim_output("borromean_fem_convergence.png")
     plt.savefig(output_path, dpi=200, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close()
     print(f"\nSaved: {output_path}")

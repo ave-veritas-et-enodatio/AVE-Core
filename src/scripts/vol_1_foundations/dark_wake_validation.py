@@ -24,8 +24,6 @@ References:
   - doc 49_ §2 (unified mechanism picture)
 """
 
-from __future__ import annotations
-
 import os
 import sys
 

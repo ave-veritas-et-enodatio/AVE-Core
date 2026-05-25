@@ -52,10 +52,6 @@ Usage:
     sim.total_topological_charge()
 """
 
-from __future__ import annotations
-
-from typing import Optional
-
 import jax
 import jax.numpy as jnp
 import numpy as np
@@ -207,7 +203,7 @@ class CoupledK4Cosserat:
         rho: float = 1.0,
         I_omega: float = 1.0,
         *,
-        V_SNAP: Optional[float] = None,
+        V_SNAP: float | None = None,
         cfl_safety: float = 0.3,
         use_asymmetric_saturation: bool = True,
         kappa_chiral: float = KAPPA_CHIRAL_ELECTRON,

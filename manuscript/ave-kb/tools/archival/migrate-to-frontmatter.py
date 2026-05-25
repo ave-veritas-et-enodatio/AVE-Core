@@ -26,8 +26,6 @@ will touch them. The script never invents a leaf marker, never drops an
 unrecognized HTML comment, and never re-migrates an already-migrated file.
 """
 
-from __future__ import annotations
-
 import argparse
 import os
 import re

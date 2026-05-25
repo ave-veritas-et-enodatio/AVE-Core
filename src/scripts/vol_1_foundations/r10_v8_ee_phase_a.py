@@ -18,8 +18,6 @@ to .npz, then executes Phase A1–A7 analyses on the saved trajectories:
 Total wall: ~270s capture + ~30s analyses.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

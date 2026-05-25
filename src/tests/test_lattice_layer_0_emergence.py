@@ -28,8 +28,6 @@ References:
   - FCC packing per ave.core.constants:N_PHI_PACK
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 

@@ -23,8 +23,6 @@ Outputs:
   /tmp/phase_iiib_sweep_log.txt        — per-run log
 """
 
-from __future__ import annotations
-
 import json
 import time
 from dataclasses import dataclass

@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 """
-Claim Graph Validator — verifies the structured claim graph in
-manuscript/predictions.yaml against the manuscript and physics engine.
+Predictions Manifest Validator — verifies the structured prediction manifest
+in manuscript/predictions.yaml against the manuscript and physics engine.
+
+(Validates the public PREDICTION manifest — the P-numbered Master Prediction
+Table rows — NOT the ave-kb clm-/exp-/sup- claim DAG, which is a separate
+graph validated by the ave-kb metadata-spine tooling.)
 
 This is the Tier-2 rigor upgrade (see session handoff). Where the
 defense_context_checker catches FRAMING anti-patterns via regex, this
@@ -13,7 +17,12 @@ validator catches STRUCTURAL inconsistencies:
                         cross-volume refs resolve via the backmatter)
   3. Engine agreement — every constants_py_symbol exists and its live
                         numeric value agrees with predicted_value to rtol=1e-5
-  4. Public parity    — every row in the README master table maps to a
+  4. DAG bridge       — every `clm:`/`exp:` bridge resolves to a real node of
+                        the matching type in the KB claim DAG (.index); the
+                        manifest is a one-directional consumer of the spine,
+                        not a parallel id system (INVARIANT-S11). Unbridged
+                        entries warn (pending migration); broken bridges fail.
+  5. Public parity    — every row in the README master table maps to a
                         manifest entry (no undocumented public claims)
 
 Exit codes:
@@ -22,10 +31,10 @@ Exit codes:
   2 — script error (missing manifest, bad YAML, etc.)
 
 Usage:
-  python src/scripts/claim_graph_validator.py                 # full run
-  python src/scripts/claim_graph_validator.py --json          # machine output
-  python src/scripts/claim_graph_validator.py --warn-only     # exit 0 on failures
-  python src/scripts/claim_graph_validator.py --check label   # one check
+  python src/scripts/predictions_manifest_validator.py                 # full run
+  python src/scripts/predictions_manifest_validator.py --json          # machine output
+  python src/scripts/predictions_manifest_validator.py --warn-only     # exit 0 on failures
+  python src/scripts/predictions_manifest_validator.py --check label   # one check
 
 Reference: docs/framing_and_presentation.md (Tier 2 proposal),
            manuscript/predictions.yaml (the manifest).
@@ -46,6 +55,23 @@ MANIFEST_PATH = REPO_ROOT / "manuscript" / "predictions.yaml"
 CONSTANTS_PY = REPO_ROOT / "src" / "ave" / "core" / "constants.py"
 README_PATH = REPO_ROOT / "README.md"
 LIVING_REFERENCE_PATH = REPO_ROOT / "LIVING_REFERENCE.md"
+# The KB claim-DAG node index (INVARIANT-S8/S9/S10/S11). The manifest is a
+# one-directional reference *consumer* of this graph: an entry bridges INTO
+# the spine by `clm:`/`exp:` id, exactly like the closure-roadmap's inline
+# annotations. Nothing flows back into the KB — discovery of "which
+# predictions cite clm-X" is by grepping this manifest, never a KB reverse edge.
+KB_CLAIMS_INDEX = REPO_ROOT / "manuscript" / "ave-kb" / ".index" / "claims.jsonl"
+
+# A manifest entry's bridge into the claim DAG. `clm:` points at a clm- claim
+# node; `exp:` points at an exp- experiment node. The bridged id is the
+# prediction's identity in the knowledge graph; the entry's own `id:` (the
+# P-number) remains its stable public catalog label (README / LIVING_REF rows).
+BRIDGE_FIELDS = {"clm": "claim", "exp": "experiment"}
+# id-shape guards (parallel to INVARIANT-S8/S9 greppable forms)
+_BRIDGE_ID_RE = {
+    "clm": re.compile(r"^clm-[a-z0-9]{6}$"),
+    "exp": re.compile(r"^exp-[a-z0-9]{6}$"),
+}
 
 ALLOWED_TYPES = {
     "derived_prediction",
@@ -55,6 +81,12 @@ ALLOWED_TYPES = {
     "operating_point_projection",  # Class E per `consistency-vs-emergence` v1.1
     "engineering_limit",
 }
+
+# Manifest entry-id (public catalog label) shape. Accepts the shipped forms
+# `P01`, a range `P11_12`, and the evolved-category form `P_A034_solar_flare`
+# / `P_phase5_*`. (Transplanted from the retired test_predictions_matrix.py,
+# widened from its pre_registered-only `^P_…` to cover all entries.)
+ID_RE = re.compile(r"^P(?:[0-9]+(?:_[0-9]+)?|_[A-Za-z0-9_]+)$")
 
 REQUIRED_FIELDS = {"id", "name", "type", "derivation_label"}
 
@@ -79,7 +111,7 @@ PRE_REGISTERED_REQUIRED_FIELDS = {
 # ───────────────────────────────────────────────────────────────────────────
 @dataclass
 class Finding:
-    check: str  # "schema" | "label" | "engine" | "parity"
+    check: str  # "schema" | "label" | "engine" | "bridge" | "axioms" | "parity"
     severity: str  # "critical" | "warn" | "info"
     entry_id: str | None
     message: str
@@ -139,6 +171,89 @@ def collect_constants_symbols(path: Path = CONSTANTS_PY) -> dict[str, float]:
         if isinstance(v, (int, float)) and not isinstance(v, bool):
             values[name] = float(v)
     return values
+
+
+def collect_spine_nodes(path: Path = KB_CLAIMS_INDEX) -> dict[str, str]:
+    """
+    Read the KB claim-DAG node index and return {node_id: node_type} for every
+    node (claim / experiment / support / axiom / invariant). Stdlib `json`
+    only — the manifest reads the KB as an external graph; it never imports the
+    KB tooling. A missing/unbuilt index returns an empty map (the bridge check
+    degrades to a warning rather than crashing).
+    """
+    nodes: dict[str, str] = {}
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError:
+        return nodes
+    for line in text.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            rec = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        nid = rec.get("id")
+        if nid:
+            nodes[nid] = rec.get("node_type", "")
+    return nodes
+
+
+KB_DEPENDS_INDEX = REPO_ROOT / "manuscript" / "ave-kb" / ".index" / "depends-on.jsonl"
+
+
+def collect_dependency_edges(path: Path = KB_DEPENDS_INDEX) -> dict[str, set[str]]:
+    """Read the KB depends-on index and return adjacency {source: {targets}}
+    for `relation: depends` edges only (not strengthens / supports). Stdlib
+    `json`. Missing index → empty map.
+    """
+    adj: dict[str, set[str]] = {}
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError:
+        return adj
+    for line in text.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            e = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if e.get("relation") == "depends":
+            adj.setdefault(e["source"], set()).add(e["target"])
+    return adj
+
+
+def derive_axioms_used(clm_id: str, adjacency: dict[str, set[str]] | None = None) -> list[int]:
+    """Derive a claim's axiom basis by walking its transitive `depends_on`
+    cone and collecting every `axiom-N` node reached, returned as a sorted
+    list of ints. This is the single source for both the refresh-writer (which
+    writes `axioms_used` into bridged manifest entries) and the `check_axioms`
+    drift-gate — they must agree, so they share this one function.
+
+    Note: this is a *source-grounded lower bound* — it returns only the axioms
+    the claim DAG explicitly chains to. It tightens as more `clm->axiom` edges
+    are wired (each grounded in a claim's own cited axiom basis).
+    """
+    if adjacency is None:
+        adjacency = collect_dependency_edges()
+    seen: set[str] = set()
+    stack = [clm_id]
+    axioms: set[int] = set()
+    while stack:
+        node = stack.pop()
+        for target in adjacency.get(node, ()):
+            if target.startswith("axiom-"):
+                try:
+                    axioms.add(int(target.split("-", 1)[1]))
+                except ValueError:
+                    pass
+            elif target not in seen:
+                seen.add(target)
+                stack.append(target)
+    return sorted(axioms)
 
 
 def _extract_prediction_table_rows(
@@ -246,6 +361,17 @@ def check_schema(manifest: dict) -> list[Finding]:
                     severity="critical",
                     entry_id=eid,
                     message=(f"Invalid type '{type_val}'. Allowed: {sorted(ALLOWED_TYPES)}"),
+                )
+            )
+
+        # ID shape (public catalog label must be a well-formed P-token)
+        if "id" in entry and not ID_RE.match(str(eid)):
+            findings.append(
+                Finding(
+                    check="schema",
+                    severity="critical",
+                    entry_id=eid,
+                    message=(f"Entry id '{eid}' is not a well-formed P-token (expected P01 / P11_12 / P_<category>)"),
                 )
             )
 
@@ -437,6 +563,164 @@ def check_engine(
     return findings
 
 
+def check_bridge(
+    manifest: dict,
+    spine_nodes: dict[str, str] | None = None,
+) -> list[Finding]:
+    """
+    The manifest is a one-directional consumer of the KB claim DAG: each entry
+    may bridge INTO the spine via `clm:` (→ a claim node) and/or `exp:` (→ an
+    experiment node). This check enforces that every bridge present is:
+      - well-formed (`clm-`/`exp-` + 6 lowercase-alphanumerics), and
+      - resolves to a real node of the matching node_type in the KB index.
+
+    A *missing* bridge is a WARN, not a critical failure: the corpus is being
+    bridged incrementally, and an unbridged prediction is a known-incomplete
+    state, not a structural error. (Flip to critical once the bridge is
+    corpus-complete.) A *present-but-broken* bridge IS critical — a dangling or
+    mistyped id is exactly the silent-rot failure the spine exists to prevent.
+    """
+    findings: list[Finding] = []
+    if spine_nodes is None:
+        spine_nodes = collect_spine_nodes()
+
+    if not spine_nodes:
+        return [
+            Finding(
+                check="bridge",
+                severity="warn",
+                entry_id=None,
+                message=(
+                    f"KB claim index not found or empty at {KB_CLAIMS_INDEX} — "
+                    f"cannot resolve manifest→DAG bridges. Run "
+                    f"`make refresh-kb-metadata` to build it."
+                ),
+            )
+        ]
+
+    unbridged: list[str] = []
+    for entry in manifest.get("predictions", []):
+        eid = entry.get("id", "<missing-id>")
+        bridges_present = [f for f in BRIDGE_FIELDS if entry.get(f)]
+
+        if not bridges_present:
+            unbridged.append(eid)
+            continue
+
+        for fieldname in bridges_present:
+            expected_type = BRIDGE_FIELDS[fieldname]
+            bridge_id = entry.get(fieldname)
+            if not _BRIDGE_ID_RE[fieldname].match(str(bridge_id)):
+                findings.append(
+                    Finding(
+                        check="bridge",
+                        severity="critical",
+                        entry_id=eid,
+                        message=(
+                            f"{fieldname} bridge '{bridge_id}' is malformed "
+                            f"(expected {fieldname}-<6 lowercase-alphanumerics>)"
+                        ),
+                        details={"field": fieldname, "bridge": bridge_id},
+                    )
+                )
+                continue
+            actual_type = spine_nodes.get(bridge_id)
+            if actual_type is None:
+                findings.append(
+                    Finding(
+                        check="bridge",
+                        severity="critical",
+                        entry_id=eid,
+                        message=(f"{fieldname} bridge '{bridge_id}' does not resolve to any node in the KB claim DAG"),
+                        details={"field": fieldname, "bridge": bridge_id},
+                    )
+                )
+            elif actual_type != expected_type:
+                findings.append(
+                    Finding(
+                        check="bridge",
+                        severity="critical",
+                        entry_id=eid,
+                        message=(
+                            f"{fieldname} bridge '{bridge_id}' resolves to a "
+                            f"'{actual_type}' node, expected '{expected_type}'"
+                        ),
+                        details={
+                            "field": fieldname,
+                            "bridge": bridge_id,
+                            "actual_type": actual_type,
+                            "expected_type": expected_type,
+                        },
+                    )
+                )
+
+    if unbridged:
+        findings.append(
+            Finding(
+                check="bridge",
+                severity="warn",
+                entry_id=None,
+                message=(
+                    f"{len(unbridged)} of {len(manifest.get('predictions', []))} "
+                    f"entries are unbridged (no `clm:`/`exp:` into the claim DAG) "
+                    f"— pending migration"
+                ),
+                details={"unbridged": unbridged},
+            )
+        )
+
+    return findings
+
+
+def check_axioms(
+    manifest: dict,
+    adjacency: dict[str, set[str]] | None = None,
+) -> list[Finding]:
+    """`axioms_used` is a DERIVED field for bridged entries: it must equal the
+    sorted axiom cone of the entry's `clm:` bridge (see derive_axioms_used).
+    `predictions_manifest_refresh.py` writes it; this gate fails if the stored
+    value drifts from the recomputed one (refresh-fixable, like the KB's
+    subtree-claims / solidity derived fields).
+
+    Only bridged entries are gated — an unbridged entry (no clm/exp) has no DAG
+    cone to derive from, so its `axioms_used` stays hand-authored and untouched.
+    """
+    findings: list[Finding] = []
+    if adjacency is None:
+        adjacency = collect_dependency_edges()
+    if not adjacency:
+        return [
+            Finding(
+                check="axioms",
+                severity="warn",
+                entry_id=None,
+                message=(f"KB depends-on index not found/empty at {KB_DEPENDS_INDEX} — cannot derive axioms_used"),
+            )
+        ]
+    for entry in manifest.get("predictions", []):
+        clm = entry.get("clm")
+        if not clm:
+            continue  # unbridged: axioms_used stays hand-authored
+        eid = entry.get("id", "<missing-id>")
+        derived = derive_axioms_used(clm, adjacency)
+        stored = entry.get("axioms_used")
+        stored_sorted = sorted(stored) if isinstance(stored, list) else stored
+        if stored_sorted != derived:
+            findings.append(
+                Finding(
+                    check="axioms",
+                    severity="critical",
+                    entry_id=eid,
+                    message=(
+                        f"axioms_used {stored} drifts from the derived cone of "
+                        f"{clm} = {derived} (run predictions_manifest_refresh.py)"
+                    ),
+                    details={"clm": clm, "stored": stored, "derived": derived},
+                )
+            )
+    return findings
+
+
 def check_readme_parity(manifest: dict) -> list[Finding]:
     """
     Every row in the README Master Prediction Table maps to a manifest
@@ -574,6 +858,8 @@ ALL_CHECKS = {
     "schema": check_schema,
     "label": check_labels,
     "engine": check_engine,
+    "bridge": check_bridge,
+    "axioms": check_axioms,
     "parity": check_readme_parity,
     "lr_parity": check_living_reference_parity,
 }
@@ -596,13 +882,13 @@ def run(
 
 def format_text(findings: list[Finding], n_entries: int) -> str:
     if not findings:
-        return f"[claim-graph] {n_entries} manifest entries; " "all structural checks pass."
+        return f"[predictions] {n_entries} manifest entries; " "all structural checks pass."
 
     by_sev: dict[str, int] = {}
     for f in findings:
         by_sev[f.severity] = by_sev.get(f.severity, 0) + 1
 
-    out = [f"[claim-graph] {n_entries} manifest entries; {len(findings)} findings."]
+    out = [f"[predictions] {n_entries} manifest entries; {len(findings)} findings."]
     for sev in ("critical", "warn", "info"):
         if sev in by_sev:
             out.append(f"  {sev.upper():<8} {by_sev[sev]}")
@@ -642,7 +928,7 @@ def format_json(findings: list[Finding], n_entries: int) -> str:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Validate the AVE claim graph (manuscript/predictions.yaml).")
+    parser = argparse.ArgumentParser(description="Validate the AVE predictions manifest (manuscript/predictions.yaml).")
     parser.add_argument(
         "--manifest",
         type=Path,
@@ -671,12 +957,12 @@ def main(argv: list[str] | None = None) -> int:
         manifest = load_manifest(args.manifest)
     except FileNotFoundError:
         print(
-            f"[claim-graph] Manifest not found: {args.manifest}",
+            f"[predictions] Manifest not found: {args.manifest}",
             file=sys.stderr,
         )
         return 2
     except yaml.YAMLError as e:
-        print(f"[claim-graph] Manifest parse error: {e}", file=sys.stderr)
+        print(f"[predictions] Manifest parse error: {e}", file=sys.stderr)
         return 2
 
     n_entries = len(manifest.get("predictions", []))
@@ -684,7 +970,7 @@ def main(argv: list[str] | None = None) -> int:
     try:
         findings = run(args.manifest, checks=args.check)
     except Exception as e:
-        print(f"[claim-graph] Error during validation: {e}", file=sys.stderr)
+        print(f"[predictions] Error during validation: {e}", file=sys.stderr)
         return 2
 
     if args.json:

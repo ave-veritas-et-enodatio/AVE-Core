@@ -39,8 +39,6 @@ Reference:
   - research doc on test-design discipline (to be written)
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 

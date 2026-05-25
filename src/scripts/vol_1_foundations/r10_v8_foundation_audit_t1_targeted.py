@@ -17,8 +17,6 @@ For each engine setting, find FFT magnitude in a small window (±0.05·ω_C)
 around each candidate. Compare magnitudes across settings.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

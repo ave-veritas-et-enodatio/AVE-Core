@@ -13,8 +13,6 @@ T1.2 (DT scaling) deferred — would require dx overriding which is more
 intrusive; covered partially by T1.1's N-scan since DT is computed from dx.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

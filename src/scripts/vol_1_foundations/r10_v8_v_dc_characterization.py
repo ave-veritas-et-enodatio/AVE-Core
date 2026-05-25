@@ -23,8 +23,6 @@ A-site to detect Möbius-wrap signature (180° rotation per ring
 traversal) vs Hopf-wrap (360°) vs no wrap.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

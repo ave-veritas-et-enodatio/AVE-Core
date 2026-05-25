@@ -7,15 +7,11 @@ In AVE, alpha is defined as the geometric packing fraction limit (alpha = p_c / 
 of a 3D amorphous Chiral LC network transitioning from a fluid to a shear-bearing solid.
 """
 
-import os
-import pathlib
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import ALPHA
-
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
+from ave_path_util import sim_output
 
 
 def simulate_percolation_threshold() -> None:
@@ -88,13 +84,7 @@ def simulate_percolation_threshold() -> None:
     ax.grid(True, alpha=0.2)
 
     # Save the output
-    output_path = os.path.abspath(
-        os.path.join(
-            os.path.dirname(__file__),
-            "../../assets/sim_outputs/rigidity_percolation_kg_convergence.png",
-        )
-    )
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    output_path = sim_output("rigidity_percolation_kg_convergence.png")
     plt.savefig(output_path, dpi=300, facecolor=fig.get_facecolor())
 
     print(f"Saved analytical percolation plot to {output_path}")

@@ -32,8 +32,6 @@ Outputs:
   /tmp/phase3b_eigenmode.npz             — raw data
 """
 
-from __future__ import annotations
-
 import matplotlib
 import numpy as np
 

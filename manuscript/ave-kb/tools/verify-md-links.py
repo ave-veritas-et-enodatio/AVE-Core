@@ -40,8 +40,6 @@ False-positive avoidance:
     before resolving (the codebase cites locations as `path/file.md:42`).
 """
 
-from __future__ import annotations
-
 import argparse
 import json
 import logging
@@ -49,6 +47,14 @@ import re
 import sys
 from dataclasses import dataclass
 from pathlib import Path
+
+# Share the canonical spine-id grammar with the rest of the tools tree rather
+# than re-encoding it here (kb_index_lib is the single source of truth for the
+# clm-/exp-/sup- id shape). kb_index_lib lives alongside this script.
+_TOOLS_DIR = Path(__file__).resolve().parent
+if str(_TOOLS_DIR) not in sys.path:
+    sys.path.insert(0, str(_TOOLS_DIR))
+import kb_index_lib  # noqa: E402
 
 logger = logging.getLogger("verify-md-links")
 
@@ -120,7 +126,8 @@ _SCHEME_RE = re.compile(r"^(?:[a-z][a-z0-9+.\-]*:)?//|^(?:https?|mailto):", re.I
 _LINK_RE = re.compile(r"\[[^\]]*\]\(\s*([^)\s]+)\s*\)")
 
 # Hashed id citation. `xxxxxx` literal placeholders are excluded downstream.
-_ID_RE = re.compile(r"\b((?:clm|exp|sup)-[a-z0-9]{6})\b")
+# Pattern is single-sourced from kb_index_lib (see import above).
+_ID_RE = kb_index_lib.ANY_NODE_ID_RE
 _ID_PLACEHOLDERS = {"clm-xxxxxx", "exp-xxxxxx", "sup-xxxxxx"}
 
 

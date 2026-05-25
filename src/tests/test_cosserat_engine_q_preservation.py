@@ -21,8 +21,6 @@ Outcome categories:
 - TECHNICAL BLOCKER (~5%): engine NaN at some R per Phase 3f.3.3 CFL issue
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 

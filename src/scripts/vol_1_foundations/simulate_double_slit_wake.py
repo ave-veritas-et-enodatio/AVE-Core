@@ -3,29 +3,12 @@
 # generating real macroscopic interference gradients.
 # Rigorously enforces strict continuum mechanics PDE solvers, including
 # Absorbing Boundary Conditions (ABCs) to prevent non-physical tank reflections.
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 
+from ave_path_util import sim_output
+
 plt.style.use("dark_background")
-
-
-# --- Standard AVE output directory ---
-def _find_repo_root() -> str:
-    d = os.path.dirname(os.path.abspath(__file__))
-    while d != os.path.dirname(d):
-        if os.path.exists(os.path.join(d, "pyproject.toml")):
-            return d
-        d = os.path.dirname(d)
-    return os.path.dirname(os.path.abspath(__file__))
-
-
-OUTPUT_DIR = os.path.join(_find_repo_root(), "assets", "sim_outputs")
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-# --- End standard output directory ---
-if not os.path.exists(OUTPUT_DIR):
-    os.makedirs(OUTPUT_DIR)
 
 # --- High-Resolution PDE Parameters ---
 NX, NY = 600, 400
@@ -207,7 +190,7 @@ def generate_scientific_visuals() -> None:
         label="Time-Averaged Wave Density", size=14, weight="bold", color="white"
     )
 
-    output_path = os.path.join(OUTPUT_DIR, "photon_double_slit.png")
+    output_path = sim_output("photon_double_slit.png")
     plt.tight_layout()
     plt.savefig(output_path, dpi=300, facecolor=fig.get_facecolor(), bbox_inches="tight")
     print(f"Saved formal macroscopic double-slit derivation to: {output_path}")

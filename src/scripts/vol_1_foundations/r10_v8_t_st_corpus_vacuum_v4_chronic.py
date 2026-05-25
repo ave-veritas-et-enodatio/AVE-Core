@@ -20,8 +20,6 @@ docstring's stability bound (T < α/(4π) ≈ 5.8e-4 to keep σ_V < V_SNAP).
 Same Configuration as cusp/CMB tests except T.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

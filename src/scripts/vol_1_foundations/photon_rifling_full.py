@@ -28,8 +28,6 @@ Outputs:
   - assets/photon_rifling_full_LH.gif
 """
 
-from __future__ import annotations
-
 from pathlib import Path
 
 import matplotlib

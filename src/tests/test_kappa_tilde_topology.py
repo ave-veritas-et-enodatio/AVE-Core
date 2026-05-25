@@ -25,8 +25,6 @@ References:
   - doc 108 §11.5 emergence-test framework
 """
 
-from __future__ import annotations
-
 import pytest
 
 from ave.core.constants import ALPHA

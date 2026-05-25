@@ -61,6 +61,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import ALPHA, C_0
+from ave_path_util import sim_output
 
 # AVE prediction
 V_SUBSTRATE_MS = ALPHA * C_0 / (2 * np.pi)
@@ -340,8 +341,7 @@ def main() -> None:
     axes[1].set_aspect("equal")
 
     plt.tight_layout()
-    out_path = Path(__file__).parent.parent.parent / "assets" / "sim_outputs" / "gaia_directional_analysis.png"
-    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path = sim_output("gaia_directional_analysis.png")
     plt.savefig(out_path, dpi=150, bbox_inches="tight")
     print(f"Saved directional analysis plot to {out_path}")
 

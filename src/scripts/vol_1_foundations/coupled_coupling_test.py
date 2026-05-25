@@ -33,8 +33,6 @@ AVE compliance notes (plan §"Axiom compliance map"):
   - V_SNAP = default CODATA (4.66e5 V ~ electron rest mass scale).
 """
 
-from __future__ import annotations
-
 import os
 import sys
 

@@ -15,8 +15,6 @@ Three Φ_B estimators compared:
                                       Simpson rule with vertex+centroid
 """
 
-from __future__ import annotations
-
 import json
 import sys
 from pathlib import Path

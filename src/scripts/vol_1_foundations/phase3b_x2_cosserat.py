@@ -27,8 +27,6 @@ Pre-registered outcomes:
          insufficient; Phase 1 Cosserat-Lagrangian full coupling needed
 """
 
-from __future__ import annotations
-
 import matplotlib
 import numpy as np
 

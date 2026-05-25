@@ -20,8 +20,6 @@ AVE fidelity (all per Axiom 1 substrate, no SM/QED imports):
   - Gaussian-modulated sinusoidal plane source — classical wave injection
 """
 
-from __future__ import annotations
-
 import matplotlib
 import numpy as np
 

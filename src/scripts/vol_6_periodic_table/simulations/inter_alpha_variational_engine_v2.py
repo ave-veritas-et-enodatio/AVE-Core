@@ -45,8 +45,6 @@ Reuses v1 helpers where possible (topology constructors, Y_0 prescription
 machinery, Newton-Raphson scaffold, JAX gradient infrastructure).
 """
 
-from __future__ import annotations
-
 import math
 import os
 import time

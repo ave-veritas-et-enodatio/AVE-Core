@@ -33,6 +33,8 @@ import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.gridspec import GridSpec  # noqa: E402
 from scipy.ndimage import gaussian_filter1d  # noqa: E402
 
+from ave_path_util import SIM_OUTPUTS  # noqa: E402
+
 # JAX GPU acceleration (graceful fallback to numpy)
 try:
     import jax
@@ -44,8 +46,8 @@ try:
 except ImportError:
     _HAS_JAX = False
 
-OUT_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "sim_outputs")
-os.makedirs(OUT_DIR, exist_ok=True)
+OUT_DIR = SIM_OUTPUTS
+OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def run_fdtd_slit(

@@ -39,6 +39,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from ave.core.master_equation_fdtd import MasterEquationFDTD
+from ave_path_util import sim_output
 
 print("=" * 78)
 print("R10 v14 Anisotropy — cubic emergence at collapse")
@@ -54,8 +55,6 @@ PML = 4
 CENTER = (N // 2, N // 2, N // 2)
 N_STEPS = 1500
 SNAPSHOT_CADENCE = 5
-
-OUT = REPO_ROOT / "assets" / "sim_outputs"
 
 
 # Run engine + dense snapshots
@@ -302,7 +301,7 @@ fig.suptitle(
     "Anisotropy analysis: K4 substrate's cubic symmetry emerges at collapse", color="white", fontsize=14, y=0.995
 )
 
-fig1_path = OUT / "v14_collapse_cubic_emergence.png"
+fig1_path = sim_output("v14_collapse_cubic_emergence.png")
 plt.savefig(fig1_path, dpi=150, facecolor="#0a0a0a", bbox_inches="tight")
 print(f"  {fig1_path}")
 plt.close(fig)
@@ -491,7 +490,7 @@ fig.suptitle(
     y=0.995,
 )
 
-fig2_path = OUT / "v14_cubic_vs_spherical_compare.png"
+fig2_path = sim_output("v14_cubic_vs_spherical_compare.png")
 plt.savefig(fig2_path, dpi=150, facecolor="#0a0a0a", bbox_inches="tight")
 print(f"  {fig2_path}")
 plt.close(fig)

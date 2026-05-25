@@ -1,25 +1,30 @@
 """
-Unit tests for the claim-graph validator.
+Unit tests for the predictions-manifest validator.
 
 Covers each of the 4 structural checks (schema, label, engine, parity) with
 both happy-path and failure fixtures, plus an end-to-end assertion that the
 live manifest has zero critical findings (its quality gate for CI).
 
-Reference: src/scripts/claim_graph_validator.py,
+Reference: src/scripts/predictions_manifest_validator.py,
            manuscript/predictions.yaml
 """
 
-from scripts.claim_graph_validator import (
+from scripts.predictions_manifest_validator import (
     ALLOWED_TYPES,
     MANIFEST_PATH,
     REPO_ROOT,
+    check_axioms,
+    check_bridge,
     check_engine,
     check_labels,
     check_living_reference_parity,
     check_readme_parity,
     check_schema,
     collect_constants_symbols,
+    collect_dependency_edges,
     collect_manuscript_labels,
+    collect_spine_nodes,
+    derive_axioms_used,
     extract_living_reference_prediction_rows,
     load_manifest,
     run,
@@ -90,6 +95,19 @@ class TestSchema:
         )
         findings = [f for f in check_schema(m) if "Duplicate" in f.message]
         assert len(findings) == 1
+
+    def test_well_formed_ids_pass(self) -> None:
+        # P01 (shipped), P11_12 (range), P_A034_x (evolved category) all valid.
+        for good in ("P01", "P11_12", "P_A034_solar_flare", "P_phase5_x"):
+            m = _manifest([{"id": good, "name": "x", "type": "identity", "derivation_label": "ch:x"}])
+            assert [f for f in check_schema(m) if "well-formed P-token" in f.message] == []
+
+    def test_malformed_id_fires(self) -> None:
+        for bad in ("X01", "01", "p01", "P-01"):
+            m = _manifest([{"id": bad, "name": "x", "type": "identity", "derivation_label": "ch:x"}])
+            findings = [f for f in check_schema(m) if "well-formed P-token" in f.message]
+            assert len(findings) == 1, f"{bad!r} should be flagged"
+            assert findings[0].severity == "critical"
 
 
 # ───────────────────────────────────────────────────────────────────────────
@@ -228,6 +246,121 @@ class TestEngine:
             ]
         )
         assert check_engine(m, constants={}) == []
+
+
+# ───────────────────────────────────────────────────────────────────────────
+# check_bridge — manifest as one-directional consumer of the claim DAG
+# ───────────────────────────────────────────────────────────────────────────
+class TestBridge:
+    # A synthetic spine: one claim node, one experiment node.
+    NODES = {"clm-aaaaaa": "claim", "exp-bbbbbb": "experiment"}
+
+    def test_valid_clm_bridge_no_findings(self) -> None:
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa"}])
+        assert check_bridge(m, spine_nodes=self.NODES) == []
+
+    def test_valid_exp_bridge_no_findings(self) -> None:
+        m = _manifest([{"id": "P01", "exp": "exp-bbbbbb"}])
+        assert check_bridge(m, spine_nodes=self.NODES) == []
+
+    def test_dangling_bridge_is_critical(self) -> None:
+        m = _manifest([{"id": "P01", "clm": "clm-zzzzzz"}])
+        findings = check_bridge(m, spine_nodes=self.NODES)
+        assert len(findings) == 1
+        assert findings[0].severity == "critical"
+        assert "does not resolve" in findings[0].message
+
+    def test_malformed_bridge_is_critical(self) -> None:
+        m = _manifest([{"id": "P01", "clm": "clm-BAD"}])
+        findings = check_bridge(m, spine_nodes=self.NODES)
+        assert len(findings) == 1
+        assert findings[0].severity == "critical"
+        assert "malformed" in findings[0].message
+
+    def test_type_mismatch_is_critical(self) -> None:
+        # `clm:` field pointing at an id that the index registers as an
+        # experiment node — resolves, but wrong node_type.
+        nodes = {"clm-aaaaaa": "experiment"}
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa"}])
+        findings = check_bridge(m, spine_nodes=nodes)
+        assert len(findings) == 1
+        assert findings[0].severity == "critical"
+        assert "expected 'claim'" in findings[0].message
+
+    def test_unbridged_entries_aggregate_to_one_warn(self) -> None:
+        m = _manifest([{"id": "P01"}, {"id": "P02"}, {"id": "P03", "clm": "clm-aaaaaa"}])
+        findings = check_bridge(m, spine_nodes=self.NODES)
+        assert len(findings) == 1
+        assert findings[0].severity == "warn"
+        assert findings[0].details["unbridged"] == ["P01", "P02"]
+
+    def test_missing_index_warns_not_crashes(self) -> None:
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa"}])
+        findings = check_bridge(m, spine_nodes={})
+        assert len(findings) == 1
+        assert findings[0].severity == "warn"
+
+    def test_live_index_loads_real_nodes(self) -> None:
+        nodes = collect_spine_nodes()
+        assert len(nodes) > 0
+        assert "claim" in set(nodes.values())
+        # every id is a known spine prefix
+        assert all(nid.split("-", 1)[0] in {"clm", "exp", "sup", "axiom", "INVARIANT"} for nid in nodes)
+
+
+# ───────────────────────────────────────────────────────────────────────────
+# derive_axioms_used + check_axioms (axioms_used is a derived field)
+# ───────────────────────────────────────────────────────────────────────────
+class TestAxioms:
+    # Synthetic DAG: clm-aaaaaa -> clm-bbbbbb -> axiom-2 ; clm-aaaaaa -> axiom-1
+    ADJ = {
+        "clm-aaaaaa": {"clm-bbbbbb", "axiom-1"},
+        "clm-bbbbbb": {"axiom-2"},
+    }
+
+    def test_derive_transitive_cone(self) -> None:
+        # Reaches axiom-1 directly and axiom-2 transitively via clm-bbbbbb.
+        assert derive_axioms_used("clm-aaaaaa", self.ADJ) == [1, 2]
+        assert derive_axioms_used("clm-bbbbbb", self.ADJ) == [2]
+
+    def test_derive_no_axioms(self) -> None:
+        assert derive_axioms_used("clm-zzzzzz", self.ADJ) == []
+
+    def test_derive_is_cycle_safe(self) -> None:
+        adj = {"clm-a": {"clm-b"}, "clm-b": {"clm-a", "axiom-3"}}
+        assert derive_axioms_used("clm-a", adj) == [3]
+
+    def test_check_axioms_match_no_finding(self) -> None:
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "axioms_used": [1, 2]}])
+        assert check_axioms(m, adjacency=self.ADJ) == []
+
+    def test_check_axioms_unsorted_stored_still_matches(self) -> None:
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "axioms_used": [2, 1]}])
+        assert check_axioms(m, adjacency=self.ADJ) == []
+
+    def test_check_axioms_drift_is_critical(self) -> None:
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "axioms_used": [1, 2, 4]}])
+        findings = check_axioms(m, adjacency=self.ADJ)
+        assert len(findings) == 1
+        assert findings[0].severity == "critical"
+        assert "drifts" in findings[0].message
+
+    def test_check_axioms_skips_unbridged(self) -> None:
+        # No clm: -> axioms_used stays hand-authored, not gated.
+        m = _manifest([{"id": "P10", "axioms_used": [1, 2, 3]}])
+        assert check_axioms(m, adjacency=self.ADJ) == []
+
+    def test_check_axioms_missing_index_warns(self) -> None:
+        m = _manifest([{"id": "P01", "clm": "clm-aaaaaa", "axioms_used": [1, 2]}])
+        findings = check_axioms(m, adjacency={})
+        assert len(findings) == 1
+        assert findings[0].severity == "warn"
+
+    def test_live_dependency_index_loads(self) -> None:
+        adj = collect_dependency_edges()
+        assert len(adj) > 0
+        # at least one claim depends directly on an axiom node
+        assert any(any(t.startswith("axiom-") for t in tgts) for tgts in adj.values())
 
 
 # ───────────────────────────────────────────────────────────────────────────

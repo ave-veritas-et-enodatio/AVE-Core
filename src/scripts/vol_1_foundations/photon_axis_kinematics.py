@@ -44,8 +44,6 @@ Outputs:
   - results/photon_axis_kinematics.json  (pre-reg evaluation)
 """
 
-from __future__ import annotations
-
 import json
 import os
 import sys

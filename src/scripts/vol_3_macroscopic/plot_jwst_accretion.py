@@ -1,23 +1,13 @@
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
+
+from ave_path_util import sim_output
 
 # Aesthetic configuration
 plt.style.use("dark_background")
 COLOR_AVE = "#00ffff"  # Cyan for AVE
 COLOR_LCDM = "#ff00ff"  # Magenta for Lambda-CDM
 COLOR_DATA = "#ffff00"  # Yellow for JWST data points
-
-
-def _find_repo_root() -> str:
-    """Find the Git repository root directory."""
-    current_dir = os.path.abspath(os.path.dirname(__file__))
-    while current_dir != "/":
-        if os.path.isdir(os.path.join(current_dir, ".git")):
-            return current_dir
-        current_dir = os.path.dirname(current_dir)
-    return os.path.abspath(os.path.dirname(__file__))  # Fallback
 
 
 def plot_jwst_accretion() -> None:
@@ -117,11 +107,7 @@ def plot_jwst_accretion() -> None:
     plt.tight_layout()
 
     # Save Figure
-    OUTPUT_DIR = os.path.join(_find_repo_root(), "assets", "sim_outputs")
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
-
-    filename = "jwst_exponential_accretion.png"
-    filepath = os.path.join(OUTPUT_DIR, filename)
+    filepath = sim_output("jwst_exponential_accretion.png")
     plt.savefig(filepath, facecolor=fig.get_facecolor(), edgecolor="none", bbox_inches="tight")
     print(f"Saved figure to: {filepath}")
 

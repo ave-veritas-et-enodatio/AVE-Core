@@ -35,8 +35,6 @@ Outputs printed to stdout; raw data saved to /tmp for optional
 plotting downstream.
 """
 
-from __future__ import annotations
-
 import numpy as np
 from tlm_electron_soliton_eigenmode import initialize_2_3_voltage_ansatz
 

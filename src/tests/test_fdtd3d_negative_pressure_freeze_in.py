@@ -30,8 +30,6 @@ Run:
     pytest src/tests/test_fdtd3d_negative_pressure_freeze_in.py -v -s
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 from scipy.ndimage import gaussian_filter

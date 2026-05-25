@@ -1,6 +1,6 @@
-"""Test B v2 — multi-spatial-point phasor envelope on single A-B bond.
+"""Test B v3 — multi-spatial-point phasor envelope on single A-B bond.
 
-Per `P_phase5_bond_scale_phasor_v2_multipoint` (frozen at this commit) +
+Per `P_phase5_bond_scale_phasor_v3_satsweep` (frozen at this commit) +
 audit catch on commit 53c2ce9 + doc 26_ §1-§3 careful re-read:
 
     ψ(s, t) = V_0 · A(s) · exp(i (ωt + θ(s)))
@@ -16,7 +16,7 @@ These are SPATIAL averages over s, not temporal at one s. At fixed s,
 Test B v1 + retry sampled one (cell, port) → one circle → R/r = 19
 is amp-invariant (linear-regime ellipse aspect).
 
-Test B v2 samples 8 spatial points spanning the local A-B bond cluster:
+Test B v3 samples 8 spatial points spanning the local A-B bond cluster:
   - 4 ports of A = (14, 14, 14)
   - 4 ports of B = (15, 15, 15)
 
@@ -35,8 +35,6 @@ Three-mode adjudication:
                       spatial structure to extract; bond doesn't host
                       (2, 3) winding at this drive)
 """
-
-from __future__ import annotations
 
 import json
 import sys
@@ -60,7 +58,7 @@ OMEGA_C = 1.0
 WAVELENGTH_CARRIER = 2.0 * np.pi / OMEGA_C  # ≈ 6.28 cells
 
 # Match v1-retry drive amplitude for direct comparison; saturation-onset regime
-DRIVE_AMP = 0.5
+DRIVE_AMP = 0.85  # 0.85·V_SNAP — A² ≈ 0.72, past Op14 saturation onset
 
 T_RAMP_PERIODS = 5.0
 T_SUSTAIN_PERIODS = 50.0
@@ -81,7 +79,7 @@ PORT_VECTORS = np.array(
     dtype=float,
 )
 
-OUTPUT_JSON = Path(__file__).parent / "test_b_v2_multipoint_phasor_results.json"
+OUTPUT_JSON = Path(__file__).parent / "test_b_v3_multipoint_phasor_satsweep_results.json"
 
 
 def find_central_bond(engine):
@@ -175,8 +173,8 @@ def analyze_spatial_envelope(v_inc_all, v_ref_all, transient_steps):
 
 def main():
     print("=" * 78, flush=True)
-    print(f"  Test B v2 — multi-spatial-point bond phasor envelope")
-    print(f"  P_phase5_bond_scale_phasor_v2_multipoint")
+    print(f"  Test B v3 — multi-spatial-point bond phasor envelope")
+    print(f"  P_phase5_bond_scale_phasor_v3_satsweep")
     print(f"  Per audit catch on commit 53c2ce9 + doc 26_ §1-§3 spatial reading")
     print("=" * 78, flush=True)
     print(f"  Lattice: N={N_LATTICE}, pml={PML}")
@@ -288,8 +286,8 @@ def main():
     print()
 
     payload = {
-        "pre_registration": "P_phase5_bond_scale_phasor_v2_multipoint",
-        "test": "Test B v2 per audit + doc 26_ §1-§3 spatial reading",
+        "pre_registration": "P_phase5_bond_scale_phasor_v3_satsweep",
+        "test": "Test B v3 per audit + doc 26_ §1-§3 spatial reading",
         "N": N_LATTICE,
         "drive_amp": DRIVE_AMP,
         "drive_omega": OMEGA_C,

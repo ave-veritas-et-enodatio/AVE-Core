@@ -21,15 +21,12 @@ narrative; quantitative fissility prediction is a separate (open) work item.
 Docstring corrected 2026-05-17.
 """
 
-import os
-import pathlib
-
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.solvers.topology_optimizer import TopologicalOptimizer
+from ave_path_util import sim_output
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 M_P = 1.00727
 M_N = 1.00866
 Z = 92  # Uranium protons
@@ -124,9 +121,7 @@ def assemble_isotopes() -> None:
 
     plt.tight_layout()
 
-    outdir = project_root / "assets" / "sim_outputs"
-    os.makedirs(outdir, exist_ok=True)
-    target = outdir / "isotope_stability_variance.png"
+    target = sim_output("isotope_stability_variance.png")
     plt.savefig(target, dpi=300, facecolor="#0f0f0f")
     print(f"[*] Visualized Isotope Topologies: {target}")
 

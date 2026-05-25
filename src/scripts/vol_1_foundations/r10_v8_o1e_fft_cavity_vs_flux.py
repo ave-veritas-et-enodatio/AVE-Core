@@ -28,8 +28,6 @@ Compare amplitudes — confirms substrate mode dominates over corpus
 electron candidate.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

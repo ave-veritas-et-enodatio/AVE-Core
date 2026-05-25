@@ -103,8 +103,6 @@ physics, engine substitutes Op14 reflection."
 - Run time estimate: ~60-90 min wall clock
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

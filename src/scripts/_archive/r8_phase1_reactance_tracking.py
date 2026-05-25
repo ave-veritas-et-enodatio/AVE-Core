@@ -1,27 +1,7 @@
-"""Move 11b — reactance tracking with PML-filtered cells, full time series,
-drive verification, and Pearson cross-correlation matrix between sectors.
+"""Move 11 / Phase 1 reactance — time-resolved C-state vs L-state tracking
+on the Move 5 static fixed point (PRE-MOVE-9 PRECONDITION per E-068).
 
-Per `P_phase1_attractor_reactance_tracking_v2` (frozen at this commit).
-
-THREE FIXES TO MOVE 11 (per audit on Move 11 result):
-  Fix 1 (PML filter): Move 11's top-5 |ω|² cells were ALL at lattice
-    boundary (j=0/31, i=0/31), where PML mask attenuates dynamics
-    (|ω| std=0, |ω̇|=0). Move 11b filters to interior only
-    (PML+1 ≤ i,j,k ≤ N-PML-2).
-
-  Fix 2 (full time series + drive verification):
-    Save T_cos(t), V_cos(t), Σ|V_inc|²(t), Σ|V_ref|²(t),
-    Σ|Φ_link|²(t) full series for downstream diagnostics post-hoc.
-    Assert len(engine.sources)==0 → Diag 1 (rules out trivial cause
-    of accidentally-active drive).
-
-  Fix 3 (Pearson cross-correlation matrix between sectors):
-    H_cos(t) vs Σ|V_inc|²(t) → V-sector ↔ Cosserat trading?
-    H_cos(t) vs Σ|Φ_link|²(t) → K4-inductive ↔ Cosserat trading?
-    If H_cos drift anti-correlated with K4 quantity, Op14 is doing
-    its job (energy traded between sectors); H_total approximately
-    conserved despite H_cos alone drifting (Diag 3).
-    If uncorrelated, real conservation violation — Diag 4 / E-069.
+Per `P_phase1_attractor_reactance_tracking` (frozen at this commit).
 
 CONTEXT (per doc 74_ §15 + audit on §14):
   Move 7+7b energy partition was a SNAPSHOT at t=200P (V:T = 85:15).
@@ -104,8 +84,6 @@ OUTCOME SPACE (informational, not pre-committed):
     sector-asymmetry empirical finding; Move 9 design adjusts.
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time
@@ -153,7 +131,7 @@ PORT_VECTORS = np.array(
     dtype=int,
 )
 
-OUTPUT_JSON = Path(__file__).parent / "r8_phase1_reactance_tracking_v2_results.json"
+OUTPUT_JSON = Path(__file__).parent / "r8_phase1_reactance_tracking_results.json"
 
 
 def build_engine():
@@ -182,37 +160,19 @@ def seed_corpus_2_3_joint(engine):
     )
 
 
-def make_interior_mask(shape, pml):
-    """Boolean mask: True for cells in [pml+1, N-pml-2] in each axis (PML excluded)."""
-    nx, ny, nz = shape[:3]
-    i, j, k = np.indices((nx, ny, nz))
-    return (
-        (i >= pml + 1)
-        & (i <= nx - pml - 2)
-        & (j >= pml + 1)
-        & (j <= ny - pml - 2)
-        & (k >= pml + 1)
-        & (k <= nz - pml - 2)
-    )
-
-
-def select_top_omega_cells(omega_field, k=5, pml=PML):
-    """Pick top-k cells by |ω|² density INTERIOR ONLY (PML-excluded)."""
+def select_top_omega_cells(omega_field, k=5):
+    """Pick top-k cells by |ω|² density at end-state."""
     omega_density = np.sum(omega_field**2, axis=-1)
-    interior = make_interior_mask(omega_density.shape, pml)
-    masked = np.where(interior, omega_density, -np.inf)
-    flat = masked.flatten()
+    flat = omega_density.flatten()
     top_idx = np.argpartition(flat, -k)[-k:]
     top_idx = top_idx[np.argsort(flat[top_idx])[::-1]]
-    return [tuple(int(c) for c in np.unravel_index(idx, omega_density.shape)) for idx in top_idx]
+    return [tuple(np.unravel_index(idx, omega_density.shape)) for idx in top_idx]
 
 
-def select_top_vinc_bonds(v_inc_field, k=5, pml=PML):
-    """Pick top-k (cell, port) bonds by V_inc² INTERIOR ONLY (PML-excluded)."""
-    interior_3d = make_interior_mask(v_inc_field.shape, pml)
-    interior_4d = np.broadcast_to(interior_3d[..., None], v_inc_field.shape)
-    masked = np.where(interior_4d, v_inc_field**2, -np.inf)
-    flat = masked.reshape(-1)
+def select_top_vinc_bonds(v_inc_field, k=5):
+    """Pick top-k (cell, port) bonds by V_inc² at end-state."""
+    nx = v_inc_field.shape[0]
+    flat = (v_inc_field**2).reshape(-1)
     top_idx = np.argpartition(flat, -k)[-k:]
     top_idx = top_idx[np.argsort(flat[top_idx])[::-1]]
     bonds = []
@@ -225,30 +185,19 @@ def select_top_vinc_bonds(v_inc_field, k=5, pml=PML):
 
 def main():
     print("=" * 78, flush=True)
-    print(f"  Move 11b — reactance with PML-filtered cells, drive verify,")
-    print(f"  full time series, Pearson cross-correlation matrix")
-    print(f"  P_phase1_attractor_reactance_tracking_v2")
+    print(f"  Move 11 / Phase 1 reactance — time-resolved C-state vs L-state")
+    print(f"  P_phase1_attractor_reactance_tracking (frozen extraction)")
+    print(f"  PRE-MOVE-9 PRECONDITION per audit tracker E-068")
     print("=" * 78, flush=True)
     print(f"  Lattice N={N_LATTICE}, deterministic Move 5 reproduction")
     print(f"  Recording window: t∈[{T_RECORD_START_PERIOD}, {N_PERIODS_TOTAL}]P")
     print(f"  Top-{N_TOP_CELLS} |ω|² cells + top-{N_TOP_BONDS} |V_inc|² bonds")
     print()
 
-    # Pass 1: run to t=200P, identify top INTERIOR cells/bonds from end-state
-    print(f"  Pass 1: run to t={N_PERIODS_TOTAL}P to identify top interior " f"cells/bonds (PML-filtered)…")
+    # Pass 1: run to t=200P, identify top cells/bonds from end-state
+    print(f"  Pass 1: run to t={N_PERIODS_TOTAL}P to identify top cells/bonds…")
     engine = build_engine()
     seed_corpus_2_3_joint(engine)
-
-    # ─── Diag 1: drive verification ──────────────────────────────────────────
-    n_sources = len(engine.sources) if hasattr(engine, "sources") else 0
-    drive_active = n_sources > 0
-    print(f"  Diag 1 (drive verify): engine.sources count = {n_sources}, " f"drive_active = {drive_active}")
-    if drive_active:
-        print(f"    !!! WARNING: drive is active. Move 5/11 should have NO source. " f"Sources: {engine.sources}")
-    else:
-        print(f"    OK: no drive registered. H drift cannot be from accidental drive.")
-    print()
-
     t0 = time.time()
     last_progress = t0
     for step in range(1, N_STEPS + 1):
@@ -439,48 +388,6 @@ def main():
         )
     print()
 
-    # ─── Diag 3: Pearson cross-correlation matrix across sectors ────────────
-    print(f"  Diag 3 (Pearson cross-correlation matrix between sector quantities):")
-    sum_vinc_arr = np.array(sum_vinc_sq_series)
-    sum_vref_arr = np.array(sum_vref_sq_series)
-    sum_phi_arr = np.array(sum_philink_sq_series)
-
-    sectors = {
-        "T_cos": T_arr,
-        "V_cos": V_arr,
-        "H_cos": H_arr,
-        "Σ|V_inc|²": sum_vinc_arr,
-        "Σ|V_ref|²": sum_vref_arr,
-        "Σ|Φ_link|²": sum_phi_arr,
-    }
-    pearson_matrix = {}
-    for n1, s1 in sectors.items():
-        pearson_matrix[n1] = {}
-        for n2, s2 in sectors.items():
-            if s1.std() > 1e-15 and s2.std() > 1e-15:
-                pearson_matrix[n1][n2] = float(np.corrcoef(s1, s2)[0, 1])
-            else:
-                pearson_matrix[n1][n2] = None
-    # Print upper triangle for readability
-    names = list(sectors.keys())
-    print(f"    {'':<14} " + " ".join(f"{n:>10s}" for n in names))
-    for i, n1 in enumerate(names):
-        row = f"    {n1:<14}"
-        for j, n2 in enumerate(names):
-            val = pearson_matrix[n1][n2]
-            if val is None:
-                row += f" {'(flat)':>10s}"
-            elif j < i:
-                row += f" {'':>10s}"
-            else:
-                row += f" {val:>+10.3f}"
-        print(row)
-    print(f"  Reading guide:")
-    print(f"    Op14 trading (sectors trade energy): H_cos vs Σ|V_inc|² or Σ|Φ_link|² ≈ -1")
-    print(f"    Real H_total drift: all H_cos ↔ K4 cross-correlations ≈ 0")
-    print(f"    Coherent radiation/source: cross-correlations ≈ +1 (everything growing together)")
-    print()
-
     # ─── (4) FFT of each time series ─────────────────────────────────────────
     def top_fft_freqs(signal, dt, n_top=3):
         s = np.asarray(signal) - np.mean(signal)
@@ -520,28 +427,14 @@ def main():
 
     # Save full payload
     payload = {
-        "pre_registration": "P_phase1_attractor_reactance_tracking_v2",
-        "test": "Move 11b — PML-filtered cells, full time series, drive verify, Pearson matrix",
+        "pre_registration": "P_phase1_attractor_reactance_tracking",
+        "test": "Move 11 / Phase 1 reactance — C-state vs L-state time series",
         "N": N_LATTICE,
-        "PML": PML,
         "n_record_samples": len(times),
         "elapsed_p1": elapsed_p1,
         "elapsed_p2": elapsed_p2,
-        "diag_1_drive_verification": {
-            "n_sources_at_engine_build": n_sources,
-            "drive_active": drive_active,
-        },
-        "top_omega_cells_INTERIOR_ONLY": [list(c) for c in top_omega_cells],
-        "top_vinc_bonds_INTERIOR_ONLY": [{"cell": list(c), "port": p} for (c, p) in top_vinc_bonds],
-        "pearson_cross_correlation_matrix": pearson_matrix,
-        "full_time_series": {
-            "times_periods": list(times),
-            "T_cos": list(T_cos_series),
-            "V_cos": list(V_cos_series),
-            "sum_vinc_sq": list(sum_vinc_sq_series),
-            "sum_vref_sq": list(sum_vref_sq_series),
-            "sum_philink_sq": list(sum_philink_sq_series),
-        },
+        "top_omega_cells": [list(c) for c in top_omega_cells],
+        "top_vinc_bonds": [{"cell": list(c), "port": p} for (c, p) in top_vinc_bonds],
         "global_energy_stats": {
             "T_cos": {
                 "mean": float(T_arr.mean()),

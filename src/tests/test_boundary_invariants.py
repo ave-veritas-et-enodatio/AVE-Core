@@ -12,8 +12,6 @@ Verifies:
 L5 tracking: closes E-101 (engine module) when this test suite passes.
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 

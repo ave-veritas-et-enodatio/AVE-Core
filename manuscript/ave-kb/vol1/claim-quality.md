@@ -29,7 +29,9 @@ The electron's intrinsic body in physical 3D space is a $0_1$ unknot — a singl
 
 ### Quality
 - confidence: 0.45
-- solidity: 0.45 (use as input only, don't build deeper)
+- depends-on:
+  - Axiom 1 (Substrate Topology — the electron body is a $0_1$-unknot flux-tube in the K4 substrate at the $\ell_{node}$ scale)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.45, 1.00)]
 - rationale: The 0_1-unknot real-space body + (2,3) phase-space winding is the canonical post-2026-05-17 position and the mass relation m_e = ℏ/(c·ℓ_node) is dimensionally clean, but the entry's own Non-Claims flag the load-bearing structural elements as not established: real-space topological protection is absent (the unknot is trivially knotted), phase-space-winding-as-protection is "not yet rigorously established," the spin-1/2/photon-720° compatibility is "a final determination deferred," and the (2,3) winding numbers are asserted not derived. A claim whose own caveats mark its protection mechanism and a key compatibility question as open should not exceed ~0.5.
 - strengthen-by:
   - Derive the (2,3) phase-space winding from a uniqueness argument (why not (4,3), (5,2), etc.).
@@ -503,7 +505,7 @@ The bullet-cluster lensing-baryon spatial offset is explained as **ponderomotive
   - Derive the three-Cosserat-sectors-to-three-lepton-generations identification (translation/torsion/curvature-twist) from the four axioms (currently a structural identification with sector-specific coupling factors $\alpha\sqrt{3/7}$ and $8\pi/\alpha$ that are asserted, not derived)
   - Reduce the lepton-mass deviations (muon $+1.24\%$, tau $-0.95\%$) by carrying higher-order corrections in the Cosserat sector chain
   - Strengthen Golden Torus α Derivation (`clm-0ktpcn`); α appears in both muon and tau sector factors
-  - Resolve body-topology conflict (`clm-trf3bd` vs `clm-unk0bd`) at author level. The current leaves' "ground-state unknot" formulation is load-bearing here; under a trefoil resolution, both the lepton mass formula and the Cosserat-sector hierarchy need rederivation.
+  - Resolve body-topology conflict (`clm-8c3yhs` trefoil vs `clm-unk0bd` unknot) at author level. The current leaves' "ground-state unknot" formulation is load-bearing here; under a trefoil resolution, both the lepton mass formula and the Cosserat-sector hierarchy need rederivation.
   - Add a separate claim-quality entry for the proton mass derivation; it feeds the Vol 6 nuclear methodology and the Vol 1 Neon-20 application as an unscored upstream input
 
 ---
@@ -525,7 +527,9 @@ The eight Ch.6 universal operators are the engine-level shared code paths. Bound
 
 ### Quality
 - confidence: 0.80
-- solidity: 0.80 (ok to build on, see caveats)
+- depends-on:
+  - Axiom 4 (Universal Saturation Kernel — the S saturation operator and the impedance/reflection algebra are built on the saturation kernel)
+- solidity: 0.80 (ok to build on, see caveats) [= min(0.80, 1.00)]
 - rationale: The eight universal operators (Z, S, Γ, U, Y→S, λ_min, FFT, Γ_pack) are framework-level constructs derived from Axiom 4's saturation kernel and from impedance/reflection algebra; the cross-scale identity is **structural** (same code path called by every domain), not predictive at any single scale. The claim-quality entry correctly self-bounds — operator identity claims do not certify per-domain numerical agreement, which is the responsibility of each per-domain leaf. This separation of concerns is exactly right; the entry's only caveat is that summaries which list cross-domain $\Gamma$ values as "AVE predicts" are misreading the structural-identity claim. No entry-level scored dependencies — operators are framework-level.
 - strengthen-by:
   - none entry-local — per-domain numerical validations live in their own claim-quality entries; this entry's claim is just the operator-reuse structural identity, which is correctly bounded
@@ -636,7 +640,9 @@ The Ch.7.2 domain catalog tabulates $r$ values across EM, gravitational, BCS, ma
 
 ### Quality
 - confidence: 0.85
-- solidity: 0.85 (ok to build on)
+- depends-on:
+  - Axiom 1 (Substrate Topology — the no-go argument forces the chiral micropolar/Cosserat substrate of the K4 vacuum)
+- solidity: 0.85 (ok to build on) [= min(0.85, 1.00)]
 - rationale: A clean structural / no-go argument grounded in standard continuum mechanics: a classical Cauchy elastic solid satisfying MacCullagh's transverse-wave condition ($\lambda = -\mu$) requires $K = -\mu/3 < 0$, which is unphysical. The claim-quality entry correctly bounds this as a no-go argument that *rules out* a Cauchy substrate — it does not claim to uniquely identify the AVE substrate as micropolar (the chiral SRS specifics come from K4 packing / EMT, separately disclosed). No entry-level scored dependencies — pure classical continuum mechanics + Axiom 1's transverse-wave constraint.
 - strengthen-by:
   - none — the no-go argument is correctly self-bounded; further pin-down of "the substrate must be chiral SRS specifically" lives in EMT (`clm-9s9apq`) and Vacuum Bulk Mass Density (`clm-crbl60`) entries
@@ -658,7 +664,9 @@ The Ch.7.2 domain catalog tabulates $r$ values across EM, gravitational, BCS, ma
 
 ### Quality
 - confidence: 0.80
-- solidity: 0.80 (ok to build on, see caveats)
+- depends-on:
+  - Axiom 2 (Topo-Kinematic Isomorphism — charge as a discrete geometric dislocation, $[Q] \equiv [L]$ at scaling $\xi_{topo}$)
+- solidity: 0.80 (ok to build on, see caveats) [= min(0.80, 1.00)]
 - rationale: $\xi_{topo} = e/\ell_{node}$ is direct from Axiom 2's topo-kinematic isomorphism mechanism; the SI-dimensional table (V↔F, I↔v, Z↔kinematic impedance, L↔m, C↔1/k, μ_0↔linear density, ε_0↔inverse tension) follows from this single identification by dimensional algebra. The claim-quality entry correctly self-bounds: this is a **dimensional isomorphism**, not an operational claim that charge becomes length at the engineering scale. The cross-volume reuse (Vol 2 atomic mappings, Vol 4 circuit engineering, Vol 5 biology mass/stiffness translations) is structural. INVARIANT-C2 carries the same bound at project-wide invariant level. No entry-level scored dependencies — Axiom 2's mechanism is framework-input.
 - strengthen-by:
   - none entry-local — the isomorphism is correctly self-bounded as a dimensional identity given Axiom 2's mechanism

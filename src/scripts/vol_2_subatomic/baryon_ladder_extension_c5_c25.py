@@ -31,8 +31,6 @@ For canonical J^P-consistency-checked PDG 2024 verification, use:
 which pins PDG row IDs + applies J^P discriminator (6/6 pass).
 """
 
-from __future__ import annotations
-
 import json
 import sys
 from pathlib import Path

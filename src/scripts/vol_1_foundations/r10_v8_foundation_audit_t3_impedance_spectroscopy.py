@@ -27,8 +27,6 @@ Test design:
   - Plot |V_inc|²_steady vs ω → resonance map
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time

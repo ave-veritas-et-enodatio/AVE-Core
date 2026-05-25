@@ -33,8 +33,6 @@ Configuration (8 configs = 4λ × 1amp × 2T, same amp=0.5 as v1's best):
   K_drift = 0.5 (default from Stage 4c tuning)
 """
 
-from __future__ import annotations
-
 import os
 import sys
 

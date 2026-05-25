@@ -23,13 +23,10 @@ Satellite vs. Topological Solar Weather" — corrected to clarify the fetch
 is synthesized, not real.
 """
 
-import os
-import pathlib
-
 import matplotlib.pyplot as plt
 import numpy as np
 
-project_root = pathlib.Path(__file__).parent.parent.absolute()
+from ave_path_util import sim_output
 
 
 def simulate_empirical_noaa_overlay() -> None:
@@ -150,9 +147,7 @@ def simulate_empirical_noaa_overlay() -> None:
 
     plt.tight_layout()
 
-    outdir = project_root / "assets" / "sim_outputs"
-    os.makedirs(outdir, exist_ok=True)
-    target = outdir / "noaa_goes_empirical_validation.png"
+    target = sim_output("noaa_goes_empirical_validation.png")
     plt.savefig(target, dpi=300)
     print(f"[*] Visualized NOAA GOES Empirical Validation: {target}")
 

@@ -27,8 +27,6 @@ Phase 2 convention (inherited from test_axiom_4_vacuum_varactor.py):
   - Docstrings cite axiom + manuscript file:line + engine file:line
 """
 
-from __future__ import annotations
-
 import numpy as np
 import pytest
 

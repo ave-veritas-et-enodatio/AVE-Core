@@ -6,8 +6,6 @@ item per line for list-returning commands; ``show`` prints a key/value block.
 output can be piped to ``jq``.
 """
 
-from __future__ import annotations
-
 import argparse
 import dataclasses
 import json

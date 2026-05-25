@@ -48,8 +48,6 @@ is implementer terminology; §5.2 R/r=2π is two-source synthesis from Vol 1 Ch
 = √3·ℓ_node). Helical pitch ratio configurable; default 1/(2π) continuum value.
 """
 
-from __future__ import annotations
-
 import argparse
 import json
 import sys

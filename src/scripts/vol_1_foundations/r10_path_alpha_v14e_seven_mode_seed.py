@@ -53,6 +53,7 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from ave.core.constants import ALPHA, ALPHA_COLD_INV
 from ave.topological.vacuum_engine import VacuumEngine3D
+from ave_path_util import sim_output
 
 print("=" * 78)
 print("R10 Path-α v14e — Seven-Mode Bounded-Boundary Test")
@@ -413,9 +414,6 @@ print("=" * 78)
 # =============================================================================
 # Visualization
 # =============================================================================
-OUT = REPO_ROOT / "assets" / "sim_outputs"
-OUT.mkdir(parents=True, exist_ok=True)
-
 fig = plt.figure(figsize=(17, 11), facecolor="#0a0a0a")
 gs = GridSpec(3, 4, figure=fig, hspace=0.4, wspace=0.35, height_ratios=[1.0, 1.0, 0.6])
 
@@ -578,7 +576,7 @@ for ax in [ax1, ax2, ax5, ax6, ax7, ax8]:
             text.set_color("white")
 
 fig.suptitle(f"v14e Seven-Mode Bounded-Boundary Test — {mode}", color="white", fontsize=14, y=0.995)
-out_path = OUT / "r10_path_alpha_v14e_seven_mode.png"
+out_path = sim_output("r10_path_alpha_v14e_seven_mode.png")
 plt.savefig(out_path, dpi=140, facecolor="#0a0a0a", bbox_inches="tight")
 print(f"\nFigure: {out_path}")
 print()

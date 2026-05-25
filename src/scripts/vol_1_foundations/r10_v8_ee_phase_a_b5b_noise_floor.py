@@ -11,8 +11,6 @@ noise pattern, not real far-field signal. If B5b is flat or random:
 B5's 1/r is real (chair-ring's displacement-current loop near-field).
 """
 
-from __future__ import annotations
-
 import json
 import sys
 import time
