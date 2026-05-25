@@ -122,7 +122,9 @@ The Universal Saturation Kernel $S(A) = \sqrt{1 - (A/A_{yield})^2}$ (Axiom 4) is
 
 ### Quality
 - confidence: 0.85
-- solidity: 0.85 (ok to build on)
+- depends-on:
+  - Axiom 4 (Universal Saturation Kernel — the case identification applies the saturation kernel to ε and μ)
+- solidity: 0.85 (ok to build on) [= min(0.85, 1.00)]
 - rationale: Two symmetry cases derived by applying Axiom 4's saturation kernel to ε and μ separately or together. The Z, $c_{EM}$, $c_{shear}$ formulas in each case are direct impedance algebra given the kernel. The boundary correctly disambiguates the cases (most importantly: $Z_{sym} = Z_0$ invariant — perfect absorber, NOT opaque) and explicitly bounds Pitfall #5 (the $\Delta\alpha/\alpha$-from-gravity contamination is a misreading of symmetric cancellation). No entry-level scored dependencies — the case identification is structural over Axiom 4 (framework input).
 - strengthen-by:
   - none entry-local — Axiom 4 is framework input; the symmetric/asymmetric case identification is structural and the disambiguation is correctly bounded
@@ -152,6 +154,7 @@ The Machian boundary sets $G = \hbar c / (7\xi \cdot m_e^2)$ (a derived conseque
 ### Quality
 - confidence: 0.85
 - depends-on:
+  - Axiom 3 (Minimum Reflection Principle — $n(r) = 1 + 2GM/c^2 r$ is the temporal component of the symmetric-gravity refractive index)
   - clm-8nkvwy — Symmetric vs Asymmetric Saturation (solidity 0.85) [the cancellation argument depends on the symmetric case]
 - solidity: 0.85 (ok to build on) [= min(0.85, 0.85)]
 - rationale: Direct algebraic consequence of Axiom 3 + the symmetric saturation case: under symmetric saturation, $\varepsilon$ and $c$ both carry the same $n \cdot S$ factor, which cancels in $\alpha = e^2/(4\pi\varepsilon_0\hbar c)$, giving $\Delta\alpha/\alpha = 0$ exactly. The lattice decomposition ($n_{temporal} = 1 + (2/7)\varepsilon_{11}$ governing redshift/clock-rate; $n_{spatial} = 1 + (9/7)\varepsilon_{11}$ governing light deflection; Axiom 3's $n(r) = 1 + 2GM/c^2 r$ as the temporal component) is structurally derived. Pitfall #5 contamination warning is properly disclosed.
@@ -181,7 +184,9 @@ Master Prediction Table entry #43: BCS $B_c(T)$ at 0.00% match, marked ✅. The 
 
 ### Quality
 - confidence: 0.85
-- solidity: 0.85 (ok to build on)
+- depends-on:
+  - Axiom 4 (Universal Saturation Kernel — $B_c(T) = B_{c,0} \cdot S(T/T_c)$ is the saturation kernel at thermal scaling)
+- solidity: 0.85 (ok to build on) [= min(0.85, 1.00)]
 - rationale: $B_c(T) = B_{c,0} \cdot S(T/T_c)$ is direct application of the Axiom 4 saturation kernel at thermal scaling — the same operator at a different scale, by construction (axiom manifestation, category ii). The 0.00% match for Al, Pb, Nb, MgB$_2$ is structural agreement, not a curve fit. $B_{c,0}$ is correctly disclosed as material-specific input, not AVE-derived. Boundary correctly bounds the entry as instance-of-Pitfall #5-meta-tripwire (any "0.00% / Exact" cell needs per-row classification before being treated as evidence). No entry-level scored dependencies — Axiom 4 is framework input.
 - strengthen-by:
   - none entry-local — entry is correctly bounded as axiom manifestation, not a derived prediction; $B_{c,0}$ honestly disclosed as material-specific input
