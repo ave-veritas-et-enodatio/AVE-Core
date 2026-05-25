@@ -82,6 +82,12 @@ ALLOWED_TYPES = {
     "engineering_limit",
 }
 
+# Manifest entry-id (public catalog label) shape. Accepts the shipped forms
+# `P01`, a range `P11_12`, and the evolved-category form `P_A034_solar_flare`
+# / `P_phase5_*`. (Transplanted from the retired test_predictions_matrix.py,
+# widened from its pre_registered-only `^P_…` to cover all entries.)
+ID_RE = re.compile(r"^P(?:[0-9]+(?:_[0-9]+)?|_[A-Za-z0-9_]+)$")
+
 REQUIRED_FIELDS = {"id", "name", "type", "derivation_label"}
 
 # Entries flagged `pre_registered: true` are forward-looking predictions whose
@@ -299,6 +305,17 @@ def check_schema(manifest: dict) -> list[Finding]:
                     severity="critical",
                     entry_id=eid,
                     message=(f"Invalid type '{type_val}'. Allowed: {sorted(ALLOWED_TYPES)}"),
+                )
+            )
+
+        # ID shape (public catalog label must be a well-formed P-token)
+        if "id" in entry and not ID_RE.match(str(eid)):
+            findings.append(
+                Finding(
+                    check="schema",
+                    severity="critical",
+                    entry_id=eid,
+                    message=(f"Entry id '{eid}' is not a well-formed P-token (expected P01 / P11_12 / P_<category>)"),
                 )
             )
 

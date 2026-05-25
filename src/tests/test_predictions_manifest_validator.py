@@ -93,6 +93,19 @@ class TestSchema:
         findings = [f for f in check_schema(m) if "Duplicate" in f.message]
         assert len(findings) == 1
 
+    def test_well_formed_ids_pass(self) -> None:
+        # P01 (shipped), P11_12 (range), P_A034_x (evolved category) all valid.
+        for good in ("P01", "P11_12", "P_A034_solar_flare", "P_phase5_x"):
+            m = _manifest([{"id": good, "name": "x", "type": "identity", "derivation_label": "ch:x"}])
+            assert [f for f in check_schema(m) if "well-formed P-token" in f.message] == []
+
+    def test_malformed_id_fires(self) -> None:
+        for bad in ("X01", "01", "p01", "P-01"):
+            m = _manifest([{"id": bad, "name": "x", "type": "identity", "derivation_label": "ch:x"}])
+            findings = [f for f in check_schema(m) if "well-formed P-token" in f.message]
+            assert len(findings) == 1, f"{bad!r} should be flagged"
+            assert findings[0].severity == "critical"
+
 
 # ───────────────────────────────────────────────────────────────────────────
 # check_labels
