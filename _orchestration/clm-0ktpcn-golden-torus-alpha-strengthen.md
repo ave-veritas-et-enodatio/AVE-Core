@@ -1,9 +1,10 @@
 # Epic: clm-0ktpcn Golden Torus α Strengthening
 
-**Status**: PHASE 0 (corpus survey + pre-registration)
+**Status**: PHASE 1 COMPLETE (sub-item 2 FM chain promotion landed at `226241cd` + `audit/2026-05-25_clm-0ktpcn-phase-1-fm-chain-promotion`)
 **Target claim**: `clm-0ktpcn` — Golden Torus α Derivation (Three-Regime Closure)
 **Branch**: `analysis/golden-torus-alpha-strengthen` off `main` @ `c655526b`
 **Workstream started**: 2026-05-25
+**Phase 1 completed**: 2026-05-25 — 8 claims propagated 0.45 → 0.50 via depends-on cascade after closing sub-item 2 (FM chain promotion)
 
 ## Why this workstream
 
@@ -43,14 +44,15 @@ These three jointly fix the Golden Torus geometry $(R, r, d)$ uniquely; from whi
 | Phase | Goal | Status |
 |---|---|---|
 | **0a** | Orchestration epic doc + corpus-grep survey (ave-prereg) | ✓ COMPLETE 2026-05-25 |
-| **0b** | Workstream-level pre-registration doc | IN PROGRESS |
-| **0c** | Grant plumber-physical adjudication (which sub-item to tackle first + mechanism intuition) | PENDING |
-| **1** | Selected sub-item derivation | PENDING (gated on 0c) |
-| **2** | KB leaf update + claim-quality entry update + solidity score recalculation | PENDING |
-| **3** | Sub-agent audit (ave-auditor) on derivation rigor | PENDING |
-| **4** | Cascade propagation to dependent leaves (if claim re-classified) | PENDING |
-| **5** | Closure-roadmap §0.5 entry (if walk-back) or §0 dashboard update (if strengthen) | PENDING |
-| **6** | Commit + audit tag + PR to main | PENDING |
+| **0b** | Workstream-level pre-registration doc | ✓ COMPLETE 2026-05-25 |
+| **0c** | Grant plumber-physical adjudication (which sub-item to tackle first + mechanism intuition) | ✓ COMPLETE 2026-05-25 — sub-item 2 selected |
+| **1** | Sub-item 2 (FM chain promotion) — new leaf finkelstein-misner-spin-half-derivation.md drafted + cross-refs + clm-unk0bd confidence bump | ✓ COMPLETE 2026-05-25 (`226241cd`) |
+| **2** | KB leaf update + claim-quality entry update + solidity score recalculation | ✓ COMPLETE 2026-05-25 — 8 claims propagated 0.45 → 0.50 |
+| **3** | Sub-agent audit (ave-auditor) on derivation rigor | ✓ COMPLETE 2026-05-25 — GO-WITH-AMENDMENTS; all 4 amendments applied before commit |
+| **4** | Cascade propagation to dependent leaves (if claim re-classified) | ✓ COMPLETE 2026-05-25 — auto-cascaded via depends-on graph |
+| **5** | Closure-roadmap §0.5 entry (if walk-back) or §0 dashboard update (if strengthen) | PENDING (post-push deliverable) |
+| **6** | Commit + audit tag + push to remote | ✓ COMMIT + TAG 2026-05-25; push pending Grant adjudication |
+| **2+** | Sub-items 1/3/4 (remaining 3 of 4 strengthen-by items on clm-unk0bd) | PENDING (Grant adjudication on which next) |
 
 ## Phase 0a corpus-grep findings (2026-05-25)
 
