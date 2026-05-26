@@ -3,6 +3,16 @@
 **Date**: 2026-05-26
 **Workstream**: Phase 2-A of clm-zuf7g1-strengthen (Born-rule master-equation-derivation-path)
 **Branch**: `analysis/clm-ldmvwi-master-eq-stochastic-derivation` @ `1b68147a` (post Phase 2-A.2)
+
+> **Vocabulary-discipline notice (added 2026-05-26 post-PR-merge)**:
+>
+> This research-tier doc was composed before `ave-discipline-translate` v1.1 trigger 6 (substrate-native prose-vocabulary discipline) landed. The prose body uses standard-physics stochastics / measurement-process vocabulary (click rate, threshold crossing, first-passage, Rice's formula, Wald mean-rate, photodetection, |V_s|²) as primary load-bearing description language; v1.1 trigger 6 mandates substrate-native vocabulary as primary with standard-physics names as parenthetical translation references.
+>
+> The physics result is correct as derived — the discipline notice is about prose framing, not derivation correctness. Type B walk-back classification (mechanism re-scope, not retirement) per `ave-walk-back` v1.1.
+>
+> **Substrate-native vocabulary lookup**: see [`manuscript/ave-kb/common/translation-tables/translation-stochastics.md`](../manuscript/ave-kb/common/translation-tables/translation-stochastics.md) — particular relevance: first-passage / Rice's formula / Wald mean-rate rows (this doc DERIVES both canonical AVE-native threshold-crossing-rate forms at substrate boundary). Also [`translation-qm.md`](../manuscript/ave-kb/common/translation-tables/translation-qm.md) Section B for click-rate ↔ boundary-Joule extraction-event rate. Future Phase 2-A.5-style canonical-leaf integration workstream may produce a full substrate-native rewrite of this doc.
+>
+> **Discipline anchor**: `ave-discipline-translate` v1.1 trigger 6.
 **Pre-reg**: [`2026-05-26_clm-ldmvwi-master-eq-stochastic-derivation-prereg.md`](./2026-05-26_clm-ldmvwi-master-eq-stochastic-derivation-prereg.md) §4.3
 **Previous phase result**: [`2026-05-26_clm-ldmvwi-phase-2a-2-stochastic-master-eq-result.md`](./2026-05-26_clm-ldmvwi-phase-2a-2-stochastic-master-eq-result.md) (Step A1+A2 stochastic master eq + extracted-energy process)
 **Verdict**: **PASS** on AC-A3.1, AC-A3.2, AC-A3.3 (all 3 acceptance criteria for Phase 2-A.3)

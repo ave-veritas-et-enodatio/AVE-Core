@@ -3,6 +3,16 @@
 **Date**: 2026-05-26
 **Workstream**: Phase 2-A of clm-zuf7g1-strengthen (Born-rule master-equation-derivation-path)
 **Branch**: `analysis/clm-ldmvwi-master-eq-stochastic-derivation` @ `e80080e6` (post Phase 2-A.1 prereg)
+
+> **Vocabulary-discipline notice (added 2026-05-26 post-PR-merge)**:
+>
+> This research-tier doc was composed before `ave-discipline-translate` v1.1 trigger 6 (substrate-native prose-vocabulary discipline) landed. The prose body uses standard-physics stochastics / measurement-process vocabulary (Langevin equation, Gaussian noise, FDT, Markovian, white noise, Wick's theorem) as primary load-bearing description language; v1.1 trigger 6 mandates substrate-native vocabulary as primary with standard-physics names as parenthetical translation references.
+>
+> The physics result is correct as derived — the discipline notice is about prose framing, not derivation correctness. Type B walk-back classification (mechanism re-scope, not retirement) per `ave-walk-back` v1.1.
+>
+> **Substrate-native vocabulary lookup**: see [`manuscript/ave-kb/common/translation-tables/translation-stochastics.md`](../manuscript/ave-kb/common/translation-tables/translation-stochastics.md) — particular relevance: Langevin row (this doc DERIVES the canonical AVE-native form: stochastic substrate-amplitude evolution equation at boundary lattice site), FDT row (boundary-impedance thermalization), white-noise row (Markovian substrate-amplitude fluctuations). Future Phase 2-A.5-style canonical-leaf integration workstream may produce a full substrate-native rewrite of this doc; the Langevin canonical-leaf promotion is the highest-leverage follow-on.
+>
+> **Discipline anchor**: `ave-discipline-translate` v1.1 trigger 6.
 **Pre-reg**: [`2026-05-26_clm-ldmvwi-master-eq-stochastic-derivation-prereg.md`](./2026-05-26_clm-ldmvwi-master-eq-stochastic-derivation-prereg.md) §4.2
 **Verdict**: **PASS** on AC-A1.1, AC-A1.2, AC-A2.1, AC-A2.2 (all 4 acceptance criteria for Phase 2-A.2) — initial draft auditor pass returned HOLD with 4 amendments (Findings 1+2+4+6); all 4 applied per Grant adjudication 2026-05-26 + reflected in §2.2 (damping convention note), §2.3 (one-sided FDT convention reconciliation), §3.3 (signal/noise physical-independence statement), §3.4 (V↔∂tA derivation via AVE Lagrangian).
 
