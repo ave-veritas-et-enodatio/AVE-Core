@@ -1,6 +1,7 @@
 # Epic: clm-zuf7g1 Phase-Locked Topological Thread + Bell + Born-Rule Strengthening
 
-**Status**: **PHASE 2-A COMPLETE** (master-equation-derivation-path of Born-rule click-probability scaling closed end-to-end via 5-session arc; workstream returns to clm-zuf7g1-strengthen Phase 1+2 closed; remaining work = Phase 3+ on the lossless-LC-resonator strengthen-by item is the next solidity-lift lever, separate workstream)
+**Status**: **PHASE 3a CLOSED — WALK-BACK** (Z₀ substrate-mechanism derivation does NOT close Class 2 emergence on numerical-value sub-axis; Class 2 on scale-invariance sub-axis + Class B on numerical-value + Class 4 observable; no solidity lift; Q-LCR-1 + Q-LCR-2 surfaced for Grant adjudication; strengthen-by item REFRAMED not retired; step 7 + Q = ∞ deferred to Phase 3b)
+**Phase 3a closed**: 2026-05-26 — branch `analysis/clm-zuf7g1-phase-3a-Z0-derivation`. Pre-reg + result doc landed in `research/`; clm-zuf7g1 entry rationale appended; no Predictions matrix row affected; no cascade walk-back. See Phase 3a execution log below.
 **Phase 1 closed**: 2026-05-26 — FM chain-promotion landed via PR #37 `audit/2026-05-26_clm-zuf7g1-phase-1-fm-chain-promotion`. Confidence 0.60 → 0.65, solidity unchanged 0.55 (clm-ldmvwi was dep-cap at that time).
 **Phase 2 closed**: 2026-05-26 — Phase 2-A master-equation-derivation-path workstream (5 sessions: A.1 prereg + A.2 stochastic master eq + A.3 threshold-crossing first-passage + A.4 p=2 uniqueness + A.5 KB integration + cascade). clm-ldmvwi confidence 0.55 → 0.65; cascade lifted clm-zuf7g1 + clm-unk0bd + clm-5xon03 all 0.55 → 0.65 (= own confidence ceiling). clm-0ktpcn stays at 0.55 (own confidence cap from sum-decomposition orthogonality gap; separate strengthen workstream).
 **Phase 2 branch**: `analysis/clm-ldmvwi-master-eq-stochastic-derivation` off main @ post-PR-37-merge; 5 commits + 5 audit tags pushed
@@ -51,9 +52,9 @@ The cascade math: this workstream lifts the 12-claim cone behind clm-unk0bd; clm
 | 0b | Workstream-level pre-registration doc | DEFERRED — Phase 1 was small enough for inline skills compliance check (no separate prereg needed) |
 | **1** | **Wire clm-zuf7g1 → clm-salw2h depends-on edge (closes items 3+4 via single edge)** | **✓ COMPLETE 2026-05-26** (this commit) — confidence 0.60 → 0.65, solidity unchanged at 0.55 (clm-ldmvwi remains dep-cap) |
 | **2** | **Strengthen clm-ldmvwi (Born Rule from Ohmic Measurement) — the dominant solidity bottleneck** | **✓ COMPLETE 2026-05-26** via Phase 2-A 5-session arc. PR #38 merged. clm-ldmvwi 0.55 → 0.65. Cascade lifted clm-zuf7g1 + clm-unk0bd + clm-5xon03 each from 0.55 → 0.65. Result docs: A.1 prereg + A.2 stochastic master eq + A.3 threshold-crossing + A.4 p=2 uniqueness + A.5 KB integration. Master-equation-derivation-path closed end-to-end (□V → stochastic master eq via FDT → Joule extraction → cumulant-truncated Gaussian V_η → Rice/Wald first-passage at threshold → click rate ∝ |V_s|² ∝ |∂_t A|² ≡ Born rule p=2 uniqueness via three convergent arguments). |
-| **3a** | **Derive lossless-LC-resonator structural identification — Z₀ ≈ 377 Ω from substrate impedance, Q = ∞ from topological dissipationless invariant** (item 2 of strengthen-by; sub-step a — Z₀ derivation) | **PRE-REG DRAFTED — implementor brief ready** (see Phase 3a section below) |
-| 3b | Derive Q = ∞ topological dissipationless invariant for phase-locked thread | OPEN — likely follows 3a closure |
-| 3c | Re-integrate Z₀ + Q derivations into `phase-locked-topological-thread.md` + clm-zuf7g1 KB anchor; bump confidence 0.65 → 0.70 if closure clean | OPEN — KB integration sub-phase |
+| **3a** | **Derive lossless-LC-resonator structural identification — Z₀ ≈ 377 Ω from substrate impedance** (item 2 of strengthen-by; sub-step a — Z₀ derivation only) | **✓ CLOSED 2026-05-26 — WALK-BACK** (dual-axis classification: Class 2 emergence on scale-invariance sub-axis + Class B manifestation on numerical-value sub-axis + Class 4 observable consistency). NO solidity lift (clm-zuf7g1 stays at 0.65/0.65). Strengthen-by item REFRAMED (not retired) to surface Q-LCR-1 + Q-LCR-2 + Phase 3b RESCOPE-path step 7 as separate items. Result doc: [`research/2026-05-26_clm-zuf7g1-phase-3a-Z0-derivation-result.md`](../research/2026-05-26_clm-zuf7g1-phase-3a-Z0-derivation-result.md). See Phase 3a execution log below for full audit trail. |
+| 3b | Derive Q = ∞ topological dissipationless invariant for phase-locked thread + close step 7 (topological-thread mode inherits substrate-impedance Z by lattice-eigenvalue continuity) | OPEN — Phase 3a result-doc §3 recommends sequencing step-7 closure alongside Q = ∞ derivation since both involve substrate-mode-spectrum arguments |
+| 3c | Re-integrate Z₀ + Q derivations into `phase-locked-topological-thread.md` + clm-zuf7g1 KB anchor; bump confidence 0.65 → 0.70 if closure clean | OPEN — KB integration sub-phase. NOTE: Phase 3a WALK-BACK means Z₀ component will be a Class B + Class 2 + Class 4 compound classification, not a Class 2 emergence — confidence bump path depends on Q-LCR-1 + Q-LCR-2 Grant adjudication and Phase 3b closure |
 | 4 | (closed by Phase 1 — clm-salw2h IS the separate claim-quality entry, now scored in the chain) | ✓ COMPLETE 2026-05-26 (folded into Phase 1) |
 
 ## Phase 1 execution log (2026-05-26)
@@ -162,6 +163,57 @@ For Phase 3a to land as a genuine substrate-mechanism derivation (not a translat
 ### Honest closure probability
 
 ~60% probability of clean Class-2 substrate-mechanism closure. Risk: the Z₀ derivation reduces to continuum-limit substrate-dispersion-matching the standard "Maxwell vacuum impedance" value (Class 4 substrate-agnostic consistency), in which case the leaf-completion still happens but no solidity bump. Walk-back path is clean (Type B demotion, no cascade impact).
+
+## Phase 3a execution log (2026-05-26)
+
+**Outcome**: **WALK-BACK** (pre-registered ≥ 60% probability path; corpus pre-survey actually drove this to ≥ 80%).
+
+**What I found in corpus pre-survey** (before deriving):
+
+1. A canonical Z₀ derivation leaf already exists at [`manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md) (clm-i9l284 + clm-kezk9z). The chain stipulates $L_{\text{cell}} = \mu_0 \ell_{\text{node}}$ and $C_{\text{cell}} = \epsilon_0 \ell_{\text{node}}$, applies transmission-line characteristic-impedance formula, gets $Z_0 = \sqrt{\mu_0/\epsilon_0}$ with lattice pitch cancelling.
+
+2. The corpus already canonically classifies $Z_0 = \sqrt{\mu_0/\epsilon_0}$ as **Class A identity**, per [`manuscript/ave-kb/vol4/claim-quality.md`](../manuscript/ave-kb/vol4/claim-quality.md) clm-kezk9z line 104: *"Per Master Prediction Table classification, $Z_0 = \sqrt{\mu_0/\varepsilon_0}$ is a category (i) identity — definitionally true (the 0.00% in row #2 of the prediction table is not a fit)."* Rationale at line 118: *"the leaf is honest that the $Z_0$ identity carries zero predictive content."*
+
+3. The [`manuscript/ave-kb/vol1/operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md`](../manuscript/ave-kb/vol1/operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md) leaf (clm-nxc9gy + clm-k6quve) explicitly states: *"Numerical equality of $Z_{\text{cell}} = Z_0$ is from cancellation of $\ell_{\text{node}}$; conceptual distinction matters for engine implementation and dimensional analysis."* And the clm-k6quve table has rows $L_{\text{cell}} = \mu_0 \cdot \ell_{\text{node}}$ marked "depends on μ₀ choice" and $C_{\text{cell}} = \epsilon_0 \cdot \ell_{\text{node}}$ marked "depends on ε₀ choice" — the in-corpus acknowledgment that the per-bond lumped elements are SI-input-dependent.
+
+4. `src/ave/core/constants.py` lines 79-80 confirm μ₀ and ε₀ are SI engineering inputs; line 81 defines `Z_0 = np.sqrt(MU_0 / EPSILON_0)` — engine canonical-source is honest about the substitution.
+
+5. Corpus-wide grep for substrate-mechanism derivation of μ₀ or ε₀ (independent of SI) returned no canonical leaf. `lc-electrodynamics.md` treats μ₀ as input ("Because the vacuum inductance per unit length is μ₀..."). Vol 1 Ch 1 axiom-definitions says Z₀ is "derived from these axioms" but the only derivation in corpus is the per-bond-lumped-element chain that takes μ₀ and ε₀ as inputs.
+
+**Master-equation-derivation-path tracing** (per `consistency-vs-emergence` v1.2 Step 7):
+
+| Step | Status |
+|---|---|
+| 1: Ax 1 chiral Laves K4 Cosserat crystal | Derived-from-master-eq |
+| 2: $L_{\text{cell}} = \mu_0 \ell_{\text{node}}, C_{\text{cell}} = \epsilon_0 \ell_{\text{node}}$ | **Requires-additional-postulate** (μ₀ and ε₀ as SI inputs) |
+| 3: $Z_{\text{bond}} = \sqrt{L_{\text{cell}}/C_{\text{cell}}}$ formula | Definitional-given-prior-steps |
+| 4: Substitute → $\sqrt{\mu_0/\epsilon_0}$; pitch cancels | Definitional-given-prior-steps |
+| 5: Value 376.73 Ω | Definitional-given-prior-steps (value comes from SI μ₀ and ε₀) |
+| 6: Scale-invariance under pitch | **Derived-from-master-eq** (Class 2 substrate-mechanism emergence on scale-invariance sub-axis) |
+| 7: Thread mode inherits Z by lattice-continuity | **Asserted-without-tracing** (deferred to Phase 3b RESCOPE-path) |
+
+**Compound classification result**: Class B substrate-mechanism manifestation (on numerical-value sub-axis) + Class 2 substrate-mechanism emergence (on scale-invariance sub-axis) + Class 4 observable consistency.
+
+**Discipline-hygiene check**: per Rule 11 (honest closure), the WALK-BACK adjudication is the right call when a single mechanism (step 2 = requires-additional-postulate) explains the failure to close Class 2 on the numerical-value sub-axis. Per Rule 12 (substitution-not-retraction), Q-LCR-1 + Q-LCR-2 are surfaced as separate framework-extension questions for Grant adjudication, NOT used to refill the Phase 3a slot with a rescue derivation.
+
+**Walk-back propagation** (per `ave-walk-back` v1.1 Type B):
+- Pre-reg + result doc landed in `research/`
+- clm-zuf7g1 entry rationale appended with Phase 3a annotation
+- clm-zuf7g1 strengthen-by item REFRAMED (not retired): item becomes Q-LCR-1 + Q-LCR-2 + step-7-closure deferred-to-3b
+- NO confidence/solidity bump (clm-zuf7g1 stays at 0.65/0.65)
+- NO edits to `phase-locked-topological-thread.md` line 27 (structurally correct as-is; constructive identification not falsified, just classified honestly)
+- NO Predictions matrix row affected
+- NO cascade walk-back required (downstream dependents at 0.65 unchanged)
+
+**Surfaced for Grant adjudication**:
+
+- **Q-LCR-1**: is the substrate-impedance Z₀ numerical value 376.73 Ω derivable as substrate-mechanism emergence from Ax 1 + Ax 2 K4-TLM lattice parameters, or is it definitionally fixed by the μ₀/ε₀ canonical-source link to standard continuum-electrodynamics values?
+
+- **Q-LCR-2**: does the corpus need a separate workstream that derives μ₀ and ε₀ themselves from K4-TLM substrate primitives BEFORE Z₀ can earn Class 2 substrate-mechanism emergence on the numerical-value sub-axis? (Three candidate paths sketched in result-doc §4.)
+
+**Auditor pass**: GO (pending — auditor invocation queued before push).
+
+**Skills firing record**: `ave-prereg` ✓ / `ave-canonical-leaf-pull` ✓ / `ave-canonical-source` ✓ / `verify-before-cite` ✓ continuous / `consistency-vs-emergence` v1.2 ✓ (dual-axis + master-equation-derivation-path traced) / `phase-space-coordinate-check` ✓ (impedance-plane vs real-space coordinates kept separate) / `substrate-native-check` ✓ / `ave-analytical-tool-selection` ✓ (transmission-line characteristic-impedance formula) / `ave-discipline-translate` v1.1 trigger 6 ✓ continuous (substrate-impedance Z₀ primary; "Maxwell vacuum impedance" parenthetical) / `ave-discrimination-check` ✓ (all three discriminator questions explicitly failed) / `ave-evidence-framing-discipline` ✓ (compound classification framing) / `ave-walk-back` v1.1 Type B ✓ / Rule 11 honest closure ✓ / Rule 12 substitution-not-retraction ✓.
 
 ## Skills compliance check (TBD on session kickoff)
 

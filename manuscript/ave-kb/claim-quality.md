@@ -244,9 +244,9 @@ $H_\infty \approx 69.32$ km/s/Mpc (Master Prediction Table #23). Surfaces as a "
 ### Quality
 - confidence: 0.85
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.55) [for $H_\infty$'s $\alpha^{-2}$ factor]
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.60) [for $H_\infty$'s $\alpha^{-2}$ factor]
   - clm-5xon03 — Zero-Parameter Closure Status (solidity 0.65) [for the consistency-proof framing of $H_\infty$ vs $G$]
-- solidity: 0.55 (use as input only, don't build deeper) [= min(0.85, 0.55)]
+- solidity: 0.60 (use as input only, don't build deeper) [= min(0.85, 0.60)]
 - rationale: The boundary correctly frames the $H_\infty$ formula as a **geometric self-consistency relation**, not an independent ab-initio prediction (Machian $\xi$ embeds $R_H \equiv c/H_\infty$ in $G$'s definition; one identity in $(G, H_\infty)$, not two). The Hubble Tension framing — both Planck and SH0ES are compatible with the same geometric constraint at different thermodynamic regimes — is correctly bounded as NOT a tension-resolution-via-AVE-output. Local confidence high (0.85) for the meta-disclosure work; solidity α-bounded for any numerical use.
 - strengthen-by:
   - Promote the Hubble identity to a true downstream prediction by deriving $G$ from local thermodynamic balance independent of $R_H$ (echoes Closure Status open item; closing this lifts the framework-level claim from consistency-proof to derived-prediction)
