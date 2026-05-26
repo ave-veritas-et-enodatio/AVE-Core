@@ -1,6 +1,8 @@
 # Epic: clm-zuf7g1 Phase-Locked Topological Thread + Bell + Born-Rule Strengthening
 
-**Status**: PHASE 1 COMPLETE (FM chain-promotion landed 2026-05-26; commit + audit tag pending push)
+**Status**: PHASE 2-A OPEN (workstream-level prereg landing; Path 2-A confirmed by Grant 2026-05-26 after Poisson + stochastic-substrate corpus survey + master-equation-derivation-path discipline upgrade)
+**Phase 1 closed**: 2026-05-26 — FM chain-promotion landed via PR #37 `audit/2026-05-26_clm-zuf7g1-phase-1-fm-chain-promotion`. Confidence 0.60 → 0.65, solidity unchanged 0.55 (clm-ldmvwi remains dep-cap).
+**Phase 2 branch**: `analysis/clm-ldmvwi-master-eq-stochastic-derivation` off main @ post-PR-37-merge
 **Target claim**: `clm-zuf7g1` — Phase-Locked Entanglement Thread (Bell correlation + topological-protection empirical demonstration)
 **Current state**: confidence 0.60, solidity 0.55, 1 dependent (clm-unk0bd as of 2026-05-25 Phase 2 sub-item 4)
 **Origin**: surfaced as the new solidity-cap on clm-unk0bd post Phase 2 sub-items 3+4 closure. Identified in `_orchestration/clm-0ktpcn-golden-torus-alpha-strengthen.md` Phase 2 sub-item 4 commit (`a01cf6c2`).
@@ -47,7 +49,7 @@ The cascade math: this workstream lifts the 12-claim cone behind clm-unk0bd; clm
 | 0a | Orchestration epic doc | ✓ COMPLETE 2026-05-25 (this doc, registered alongside the Golden Torus close-out PR #36) |
 | 0b | Workstream-level pre-registration doc | DEFERRED — Phase 1 was small enough for inline skills compliance check (no separate prereg needed) |
 | **1** | **Wire clm-zuf7g1 → clm-salw2h depends-on edge (closes items 3+4 via single edge)** | **✓ COMPLETE 2026-05-26** (this commit) — confidence 0.60 → 0.65, solidity unchanged at 0.55 (clm-ldmvwi remains dep-cap) |
-| 2 | Strengthen clm-ldmvwi (Born Rule from Ohmic Measurement) — the dominant solidity bottleneck | OPEN — needs its own scoping. **This is the bottleneck**: lifting clm-ldmvwi from 0.55 → 0.70 would lift clm-zuf7g1 solidity 0.55 → 0.65, cascade through clm-unk0bd to the 12-claim cone behind it. |
+| **2** | **Strengthen clm-ldmvwi (Born Rule from Ohmic Measurement) — the dominant solidity bottleneck** | **OPEN — workstream-level prereg landed 2026-05-26**: Path 2-A confirmed (attempt full stochastic-master-equation derivation of click-probability scaling) per master-equation-derivation-path-tracing discipline upgrade. Pre-reg at [`research/2026-05-26_clm-ldmvwi-master-eq-stochastic-derivation-prereg.md`](../research/2026-05-26_clm-ldmvwi-master-eq-stochastic-derivation-prereg.md). 5 sub-phases (2-A.1 prereg + 2-A.2 stochastic master eq + 2-A.3 threshold-crossing + 2-A.4 Poisson scaling + uniqueness + 2-A.5 KB integration). Branch: `analysis/clm-ldmvwi-master-eq-stochastic-derivation`. ~50% probability of full closure per honest pre-survey estimate. |
 | 3 | Derive lossless-LC-resonator structural identification (item 2 of strengthen-by) | OPEN — likely multi-session |
 | 4 | (closed by Phase 1 — clm-salw2h IS the separate claim-quality entry, now scored in the chain) | ✓ COMPLETE 2026-05-26 (folded into Phase 1) |
 
