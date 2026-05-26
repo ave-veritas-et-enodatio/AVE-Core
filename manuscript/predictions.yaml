@@ -58,7 +58,7 @@ predictions:
     observed_value: 137.035999
     observed_source: "CODATA 2022"
     error_percent: 0.000222
-    axioms_used: [1, 2, 4]
+    axioms_used: [1, 2, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -111,7 +111,7 @@ predictions:
     observed_value: 80379.0
     observed_source: "CODATA 2022"
     error_percent: 0.57
-    axioms_used: [1, 2, 4]
+    axioms_used: [1, 2, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: "m_e / (8πα³√(3/7)) — torsional ring self-energy with chirality mismatch."
@@ -127,7 +127,7 @@ predictions:
     observed_value: 91188.0
     observed_source: "CODATA 2022"
     error_percent: 0.62
-    axioms_used: [1, 2, 4]
+    axioms_used: [1, 2, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: "M_Z = M_W · 3/√7 — PAT pole-mass ratio."
@@ -250,7 +250,7 @@ predictions:
     observed_value: 938.272
     observed_source: "CODATA 2022"
     error_percent: 0.002
-    axioms_used: [1, 2, 4]
+    axioms_used: [1, 2, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -282,7 +282,7 @@ predictions:
     observed_value: 1232.0
     observed_source: "PDG 2022"
     error_percent: 2.35
-    axioms_used: [1, 2, 4]
+    axioms_used: [1, 2, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -306,7 +306,7 @@ predictions:
     type: derived_prediction
     derivation_label: "ch:electroweak_higgs"
     error_percent: 0.66
-    axioms_used: [1, 2, 4]
+    axioms_used: [1, 2, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -607,7 +607,7 @@ predictions:
     type: derived_prediction
     derivation_label: "ch:orbital_mechanics"
     error_percent: 1.6
-    axioms_used: [1, 2, 4]
+    axioms_used: [1, 2, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -778,7 +778,7 @@ predictions:
     name: "BH interior, Regime IV"
     type: derived_prediction
     derivation_label: "ch:bh_interior"
-    axioms_used: [1, 2, 4]
+    axioms_used: [1, 2, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
