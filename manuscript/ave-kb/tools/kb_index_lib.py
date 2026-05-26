@@ -376,7 +376,7 @@ def parse_framework_nodes(kb_root: Path = KB_ROOT_DEFAULT) -> list[FrameworkNode
     claude_md = kb_root / "CLAUDE.md"
     if not claude_md.is_file():
         return []
-    lines = claude_md.read_text().splitlines()
+    lines = claude_md.read_text(encoding="utf-8").splitlines()
 
     nodes: list[FrameworkNode] = []
     s2_anchor: str | None = None
@@ -711,7 +711,7 @@ def parse_claim_quality_file(
     ``None`` = silent). When ``known_ids`` is ``None``, no filtering occurs
     and the function preserves the pre-filter behavior.
     """
-    raw = path.read_text()
+    raw = path.read_text(encoding="utf-8")
     scrubbed = _strip_code_fences(raw)
     lines = scrubbed.splitlines()
     canonical_rel = _posix_relative(path, kb_root)
@@ -892,7 +892,7 @@ def parse_support_quality_entries(
     depends-on targets exactly as for a claim entry; a ``clm-``-shaped target
     outside the set is dropped with a diagnostic.
     """
-    raw = path.read_text()
+    raw = path.read_text(encoding="utf-8")
     scrubbed = _strip_code_fences(raw)
     lines = scrubbed.splitlines()
     canonical_rel = _posix_relative(path, kb_root)
@@ -1011,7 +1011,7 @@ def parse_leaf(path: Path, kb_root: Path) -> LeafRecord | None:
     Returns None if the file has no frontmatter or its kind is not
     ``leaf``/``leaf-as-index``.
     """
-    text = path.read_text()
+    text = path.read_text(encoding="utf-8")
     fm = parse_frontmatter(text)
     if not fm:
         return None
@@ -1099,7 +1099,7 @@ def parse_experiment_leaf(path: Path, kb_root: Path) -> list[ExperimentNode]:
     also reference other experiments), any ``exp-id`` is malformed, or any
     block's ``status`` is outside ``{run, pending}``.
     """
-    text = path.read_text()
+    text = path.read_text(encoding="utf-8")
     m = _FRONTMATTER_RE.search(text)
     if not m:
         return []
@@ -1222,7 +1222,7 @@ def parse_support_leaf(path: Path, kb_root: Path) -> list[SupportNode]:
     Raises :class:`SupportLeafError` for a malformed ``sup-id``, a malformed
     ``supports:`` claim id, or an on-point fraction outside ``(0, 1]``.
     """
-    text = path.read_text()
+    text = path.read_text(encoding="utf-8")
     m = _FRONTMATTER_RE.search(text)
     if not m:
         return []
@@ -1300,7 +1300,7 @@ def parse_support_leaf(path: Path, kb_root: Path) -> list[SupportNode]:
 
 def _parse_index(path: Path, kb_root: Path) -> IndexRecord | None:
     """Parse an ``index`` or ``entry-point`` kind file."""
-    text = path.read_text()
+    text = path.read_text(encoding="utf-8")
     fm = parse_frontmatter(text)
     if not fm:
         return None
@@ -1330,7 +1330,7 @@ def collect_known_claim_ids(kb_root: Path = KB_ROOT_DEFAULT) -> set[str]:
     for cq in sorted(kb_root.rglob("claim-quality.md")):
         if any(part in EXCLUDE_DIRS for part in cq.relative_to(kb_root).parts[:-1]):
             continue
-        scrubbed = _strip_code_fences(cq.read_text())
+        scrubbed = _strip_code_fences(cq.read_text(encoding="utf-8"))
         for line in scrubbed.splitlines():
             m = _CANONICAL_ID_RE.match(line.strip())
             if m:

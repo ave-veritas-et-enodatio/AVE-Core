@@ -381,7 +381,7 @@ class TestRefreshSolidityWriteBack(unittest.TestCase):
             line = refresh._solidity_line(
                 entry.confidence, sol[entry.id], min_dep
             )
-            text = (self.kb_root / entry.canonical_path).read_text()
+            text = (self.kb_root / entry.canonical_path).read_text(encoding="utf-8")
             # The canonical line must appear verbatim on disk (refresh ran).
             self.assertIn(
                 line, text, f"{entry.id}: canonical solidity line not on disk"

@@ -168,7 +168,7 @@ def collect_files() -> list[tuple[Path, dict | None]]:
             if not f.endswith(".md") or f in EXCLUDE_NAMES:
                 continue
             p = Path(root) / f
-            text = p.read_text()
+            text = p.read_text(encoding="utf-8")
             out.append((p, parse_frontmatter(text)))
     return out
 
@@ -178,7 +178,7 @@ def collect_canonical_ids() -> list[tuple[str, str]]:
     for p in KB.rglob("claim-quality.md"):
         if any(part in EXCLUDE_DIRS for part in p.relative_to(KB).parts[:-1]):
             continue
-        scrubbed = strip_code_fences(p.read_text())
+        scrubbed = strip_code_fences(p.read_text(encoding="utf-8"))
         for m in CANONICAL_ID.findall(scrubbed):
             out.append((m, str(p.relative_to(KB))))
     return out
@@ -209,7 +209,7 @@ def check_quality_block_integrity():
         # Scrub fenced code blocks so the preamble's format-example snippet
         # (a fenced `### Quality` / `<!-- id: clm-xxxxxx -->`) is not parsed
         # as a real claim section.
-        lines = strip_code_fences(p.read_text()).splitlines()
+        lines = strip_code_fences(p.read_text(encoding="utf-8")).splitlines()
 
         # Split into `---`-delimited sections, tracking 1-based start lines.
         # A bare `---` line is a section separator.
@@ -296,7 +296,7 @@ def check_tier2_coverage(files: list[tuple[Path, dict | None]]):
         ids = fm.get("claims", [])
         if len(ids) < 2:
             continue
-        text = p.read_text()
+        text = p.read_text(encoding="utf-8")
         # Scrub the frontmatter block so its own claims line doesn't count
         scrubbed = FRONTMATTER_BLOCK.sub("", text)
         markers = TIER2_INLINE.findall(scrubbed)
@@ -870,7 +870,7 @@ def check_leaf_references_fresh(state) -> list[tuple[str, str, str, str]]:
         if any(part in EXCLUDE_DIRS for part in p.relative_to(KB).parts[:-1]):
             continue
         register_rel = p.relative_to(KB).as_posix()
-        scrubbed = strip_code_fences(p.read_text()).splitlines()
+        scrubbed = strip_code_fences(p.read_text(encoding="utf-8")).splitlines()
 
         # Locate every (id_line, node_id, quality_line) entry region.
         id_lines: list[tuple[int, str]] = []

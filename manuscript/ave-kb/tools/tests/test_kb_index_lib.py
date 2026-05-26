@@ -1239,7 +1239,7 @@ class TestSupportPendingFractionParse(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             leaf = root / "leaf.md"
-            leaf.write_text(text)
+            leaf.write_text(text, encoding="utf-8")
             return lib.parse_support_leaf(leaf, root)
 
     def test_pending_fraction_parses_as_sentinel(self):

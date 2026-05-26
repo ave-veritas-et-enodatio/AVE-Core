@@ -149,7 +149,7 @@ def collect_leaves() -> dict[Path, list[str]]:
             if not f.endswith(".md") or f in EXCLUDE_NAMES:
                 continue
             p = Path(root) / f
-            text = p.read_text()
+            text = p.read_text(encoding="utf-8")
             fm = parse_frontmatter(text)
             if not fm:
                 continue
@@ -294,7 +294,7 @@ def _rewrite_claim_quality_solidity(
     ``files_changed`` is 0 or 1 and the change lists hold ``(claim_id, old,
     new)`` tuples for reporting.
     """
-    text = path.read_text()
+    text = path.read_text(encoding="utf-8")
     had_final_newline = text.endswith("\n")
     lines = text.split("\n")
     if had_final_newline:
@@ -365,7 +365,7 @@ def _rewrite_claim_quality_solidity(
     if had_final_newline:
         new_text += "\n"
     if new_text != text:
-        path.write_text(new_text)
+        path.write_text(new_text, encoding="utf-8")
         return 1, solidity_changes, annotation_changes
     return 0, solidity_changes, annotation_changes
 
@@ -426,7 +426,7 @@ def _rewrite_claim_quality_leaf_references(
     Returns ``(files_changed, footer_changes)`` where ``files_changed`` is 0 or
     1 and ``footer_changes`` holds ``(node_id, old, new)`` tuples for reporting.
     """
-    text = path.read_text()
+    text = path.read_text(encoding="utf-8")
     had_final_newline = text.endswith("\n")
     lines = text.split("\n")
     if had_final_newline:
@@ -465,7 +465,7 @@ def _rewrite_claim_quality_leaf_references(
     if had_final_newline:
         new_text += "\n"
     if new_text != text:
-        path.write_text(new_text)
+        path.write_text(new_text, encoding="utf-8")
         return 1, footer_changes
     return 0, footer_changes
 
@@ -644,7 +644,7 @@ def main(argv: list[str] | None = None) -> int:
             if f != "index.md":
                 continue
             p = Path(root) / f
-            text = p.read_text()
+            text = p.read_text(encoding="utf-8")
             fm = parse_frontmatter(text)
             if not fm:
                 skipped += 1
@@ -671,13 +671,13 @@ def main(argv: list[str] | None = None) -> int:
             new_text = replace_subtree_claims(text, sorted_ids)
             new_text = replace_subtree_experiments(new_text, exp_ids)
             if new_text != text:
-                p.write_text(new_text)
+                p.write_text(new_text, encoding="utf-8")
                 updated += 1
 
     # Update entry-point.md
     ep = KB / "entry-point.md"
     if ep.exists():
-        text = ep.read_text()
+        text = ep.read_text(encoding="utf-8")
         fm = parse_frontmatter(text)
         if fm and fm.get("kind") == "entry-point":
             all_ids = set()
@@ -689,7 +689,7 @@ def main(argv: list[str] | None = None) -> int:
             new_text = replace_subtree_claims(text, sorted_ids)
             new_text = replace_subtree_experiments(new_text, exp_ids)
             if new_text != text:
-                ep.write_text(new_text)
+                ep.write_text(new_text, encoding="utf-8")
                 updated += 1
 
     print(f"[refresh] Updated {updated} subtree-claims field(s).")
