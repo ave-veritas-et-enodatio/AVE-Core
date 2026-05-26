@@ -3,7 +3,7 @@
 <!-- kb-frontmatter
 kind: leaf
 claims: [clm-salw2h]
-path-stable: "referenced from spin-half-paradox + k4-rotation-group + ch8-alpha-golden-torus regime (c) + spin-gyroscopic-isomorphism as canonical FM-on-K4 explicit derivation host"
+path-stable: "referenced from spin-half-paradox + k4-rotation-group + ch8-alpha-golden-torus regime (c) + spin-gyroscopic-isomorphism as canonical FM-on-K4 explicit derivation host; depends-on from clm-unk0bd (Phase 2 sub-item 3, 2026-05-25) + clm-zuf7g1 (Phase 1 clm-zuf7g1-strengthen workstream, 2026-05-26 — supplies the spin-1/2 Möbius half-angle coupling for the Bell-correlation derivation)"
 -->
 
 # Finkelstein-Misner Spin-½ Derivation on the K4 Substrate

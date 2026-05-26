@@ -1,6 +1,6 @@
 # Epic: clm-zuf7g1 Phase-Locked Topological Thread + Bell + Born-Rule Strengthening
 
-**Status**: QUEUED — pre-prereg stub. No driver, no run, no commits yet.
+**Status**: PHASE 1 COMPLETE (FM chain-promotion landed 2026-05-26; commit + audit tag pending push)
 **Target claim**: `clm-zuf7g1` — Phase-Locked Entanglement Thread (Bell correlation + topological-protection empirical demonstration)
 **Current state**: confidence 0.60, solidity 0.55, 1 dependent (clm-unk0bd as of 2026-05-25 Phase 2 sub-item 4)
 **Origin**: surfaced as the new solidity-cap on clm-unk0bd post Phase 2 sub-items 3+4 closure. Identified in `_orchestration/clm-0ktpcn-golden-torus-alpha-strengthen.md` Phase 2 sub-item 4 commit (`a01cf6c2`).
@@ -40,16 +40,46 @@ So lifting clm-zuf7g1 from 0.55 → 0.70 lifts clm-unk0bd from 0.55 → 0.65 (ma
 
 The cascade math: this workstream lifts the 12-claim cone behind clm-unk0bd; clm-0ktpcn requires both this workstream + its own confidence-bump workstream.
 
-## Phase plan (TBD on session kickoff)
+## Phase plan
 
 | Phase | Goal | Status |
 |---|---|---|
-| 0a | Orchestration epic doc + corpus-grep survey (ave-prereg) | PENDING — replace this stub with full plan |
-| 0b | Workstream-level pre-registration doc | PENDING |
-| 1 | Wire clm-zuf7g1 → clm-salw2h depends-on edge (partial closure of item 3 above; chain-promotion only, no new physics) | LOW-RISK — could land first session |
-| 2 | Strengthen clm-ldmvwi (Born Rule from Ohmic Measurement) — the dominant solidity bottleneck | OPEN — needs its own scoping |
-| 3 | Derive lossless-LC-resonator structural identification (item 2) | OPEN — likely multi-session |
-| 4 | Add separate claim-quality entry for Möbius coupling (item 4) | LOW-RISK — bookkeeping |
+| 0a | Orchestration epic doc | ✓ COMPLETE 2026-05-25 (this doc, registered alongside the Golden Torus close-out PR #36) |
+| 0b | Workstream-level pre-registration doc | DEFERRED — Phase 1 was small enough for inline skills compliance check (no separate prereg needed) |
+| **1** | **Wire clm-zuf7g1 → clm-salw2h depends-on edge (closes items 3+4 via single edge)** | **✓ COMPLETE 2026-05-26** (this commit) — confidence 0.60 → 0.65, solidity unchanged at 0.55 (clm-ldmvwi remains dep-cap) |
+| 2 | Strengthen clm-ldmvwi (Born Rule from Ohmic Measurement) — the dominant solidity bottleneck | OPEN — needs its own scoping. **This is the bottleneck**: lifting clm-ldmvwi from 0.55 → 0.70 would lift clm-zuf7g1 solidity 0.55 → 0.65, cascade through clm-unk0bd to the 12-claim cone behind it. |
+| 3 | Derive lossless-LC-resonator structural identification (item 2 of strengthen-by) | OPEN — likely multi-session |
+| 4 | (closed by Phase 1 — clm-salw2h IS the separate claim-quality entry, now scored in the chain) | ✓ COMPLETE 2026-05-26 (folded into Phase 1) |
+
+## Phase 1 execution log (2026-05-26)
+
+**Skills compliance check** fired at task start:
+- `ave-prereg` ✓ — focused corpus survey (cycle-check across depends-on graph before wiring)
+- `ave-canonical-leaf-pull` ✓ — read clm-zuf7g1 + clm-salw2h current state; verified clm-salw2h's depends-on cone (axiom-1, INVARIANT-S2, clm-h9aqmt) has no back-path to clm-zuf7g1
+- `verify-before-cite` ✓ continuous — every file:line citation grep-verified
+- `consistency-vs-emergence` ✓ — Class 1 consistency (chain-promotion via depends-on edge, not new derivation)
+- `ave-discipline-translate` NOT firing — verified via `translation-qm.md` row 7 ("Spin / Unknot chirality / two orientations of the unknot twist ±1/2") that "Möbius half-angle coupling" terminology refers to the AVE-native form being consumed, NOT a QM-formalism import. Decision documented in clm-zuf7g1 rationale.
+- `ave-independence-check` ✓ — verified that the depends-on edge expresses a load-bearing semantic equivalence: clm-zuf7g1's "spin-1/2 Möbius half-angle coupling" Bell-correlation ingredient ≡ clm-salw2h's SU(2) → SO(3) double-cover via FM kink mechanism. Verbatim corpus anchor at `phase-locked-topological-thread.md` §3.5 ("The Möbius-strip topology of the chiral labyrinth requires 720° for a complete cycle, producing a physical half-angle coupling") + cross-validation against `finkelstein-misner-spin-half-derivation.md` §2 + §3. Auditor independently confirmed.
+- `phase-space-coordinate-check` ✓ — FM derivation lives in real-space coordinates (per its §9); phase-locked-topological-thread §3.5 also lives in real-space (detector axis on K4 lattice). Same coordinate system, no muddle.
+- `ave-evidence-framing-discipline` ✓ — semantic-equivalence claim made explicit in rationale; the +0.05/closure convention named explicitly (not asserted-arbitrary); solidity-vs-confidence dep-gate explanation clarified.
+- `ave-handoff-canonical-locale` ✓ — epic doc lands in `_orchestration/`, not `~/.claude/plans/`.
+
+**Auditor pass** (ave-auditor): COMMIT. Verified semantic equivalence of Möbius half-angle ↔ FM SU(2)→SO(3) double cover; confirmed no DAG cycle; confirmed strengthen-by item closures honest; confirmed solidity-vs-confidence framing accurate. One informational FLAG (stale "confidence 0.60" reference in clm-unk0bd's rationale post-bump) — addressed in pre-commit hygiene pass.
+
+**Discipline-hygiene pre-commit pass** (Grant directive after Path B-prime self-audit lesson): caught and fixed the stale clm-unk0bd reference (auditor's Finding 9) + explicitly documented ave-discipline-translate non-firing decision and ave-independence-check semantic-equivalence verification in the clm-zuf7g1 rationale itself (audit trail in-doc, not just commit-message). Caught one additional inaccuracy in my own draft (clm-salw2h confidence was 0.80 not 0.70 — fixed).
+
+**Edits landed**:
+1. `manuscript/ave-kb/vol1/claim-quality.md` clm-zuf7g1 — added depends-on clm-salw2h with semantic-equivalence annotation; removed strengthen-by items 3+4; updated rationale with audit-trail documentation; confidence 0.60 → 0.65
+2. `manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md` frontmatter — path-stable updated to reflect new inbound depends-on edge
+3. `manuscript/ave-kb/vol1/claim-quality.md` clm-unk0bd rationale — discipline-hygiene fix: stale "despite confidence 0.60" → "despite confidence 0.65 [bumped 2026-05-26 Phase 1...]"
+
+**Refresh + verify pipeline**: PASS — 692 files / 281 entries / 685 depends-on edges (+1) / 628 strengthen-by (-2) / 0 failures.
+
+## Phase 2 priority (the actual solidity-bottleneck)
+
+Phase 1 lifts clm-zuf7g1's confidence ceiling but NOT solidity (clm-ldmvwi at 0.55 caps). **The actual cascade-lifting move is strengthening clm-ldmvwi (Born Rule from Ohmic Measurement Work)** — its solidity directly caps clm-zuf7g1's solidity, which directly caps clm-unk0bd's solidity, which feeds the 12-claim downstream cone.
+
+clm-ldmvwi's own strengthen-by items will be the scoping question for a Phase 2 workstream session.
 
 ## Skills compliance check (TBD on session kickoff)
 
