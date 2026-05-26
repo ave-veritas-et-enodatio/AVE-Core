@@ -26,6 +26,8 @@ claims: [clm-3zz0f6, clm-5xon03, clm-0ktpcn, clm-unk0bd]
 
 The electron is the $0_1$ **unknot** in real space — the simplest closed flux-tube loop with no real-space crossings. The "(2,3) trefoil" that appears throughout this derivation refers to the **phase-space Clifford-torus winding pattern** of the electron's bond-pair LC tank (2 windings on the d-axis, 3 windings on the q-axis), NOT a real-space trefoil knot. The trefoil lives in phase space; the soliton lives in real space.
 
+> → Primary: [$(2,3)$ Torus-Knot Uniqueness](../vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md) — derivation of why $(2,3)$ specifically (vs $(4,3)$, $(5,2)$, etc.) is forced as the electron's phase-space winding: coprimality $\gcd(p,q)=1$ for single-component-knot vs link + both windings $\geq 2$ for non-trivial knotting + minimality (smallest such pair is $(2,3)$, crossing number $c=3$) + electron-is-lightest-non-trivial-lepton. The Phase 2 sub-item 1 (2026-05-25) wiring of this Primary cross-ref closes the prior "(2,3) winding asserted, not derived" caveat on clm-unk0bd and clm-0ktpcn (see [vol1/claim-quality.md](./claim-quality.md)).
+
 ## Derivation Summary (Three-Regime Rigor)
 
 Following the PMNS angle derivation pattern ([Vol 2 Ch 3 §Step 2](../vol2/particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md)) — which rigorously produces three mixing-angle values by identifying three distinct physical regimes — the electron unknot's phase-space (2,3) winding pattern on the Clifford torus partitions into three geometric regimes, each producing one independent equation in the unknowns $(R, r, d)$:
@@ -35,7 +37,7 @@ Following the PMNS angle derivation pattern ([Vol 2 Ch 3 §Step 2](../vol2/parti
 <!-- claim-quality: clm-unk0bd -->
 | **(a) Nyquist** | Discrete lattice sampling cutoff (Axiom 1); smallest stable soliton (the $0_1$ unknot with $(2,3)$ phase-space winding) | $d = 1\,\ell_{\text{node}}$ |
 | **(b) Crossings** | Transverse self-avoidance at topologically-marked phase-space crossings (Axiom 2 dielectric rupture) | $2(R-r) = d \Rightarrow R - r = 1/2$ |
-| **(c) Screening** | Spin-1/2 half-cover of the standard Clifford torus $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ via the AVE-native $SU(2) \to SO(3)$ 2-to-1 cover | $(2\pi R)(2\pi r) = \pi^2 \Rightarrow R \cdot r = 1/4$ |
+| **(c) Screening** | Spin-1/2 half-cover of the standard Clifford torus $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ via the AVE-native $SU(2) \to SO(3)$ 2-to-1 cover (explicit K4-native derivation of the half-cover at [finkelstein-misner-spin-half-derivation](../vol2/particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md)) | $(2\pi R)(2\pi r) = \pi^2 \Rightarrow R \cdot r = 1/4$ |
 
 **Rigor for regime (c) — AVE-native SU(2) half-cover provenance.** The standard Clifford torus $(z_1, z_2) = (r_1 e^{i\theta_1}, r_2 e^{i\theta_2})$ at $r_1 = r_2 = 1/\sqrt{2}$ on $S^3$ has total surface area $A_{\text{standard}} = 2\pi^2$ (theorem of complex geometry on $S^3$). The electron's spin-1/2 structure implies only half of the Clifford torus corresponds to physically distinct observables (the other half is the spin-conjugate image). Therefore $\Lambda_{\text{surf}} = \tfrac{1}{2} A_{\text{standard}} = \pi^2$, exact and forced by topology.
 

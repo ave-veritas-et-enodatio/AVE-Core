@@ -537,6 +537,7 @@
 {"claim_id": "clm-s3i0lw", "leaf_path": "common/divergence-test-substrate-map.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-s4n33u", "leaf_path": "vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-salw2h", "leaf_path": "vol2/appendices/app-b-paradoxes/spin-half-paradox.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-salw2h", "leaf_path": "vol2/particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-salw2h", "leaf_path": "vol2/particle-physics/ch01-topological-matter/spin-gyroscopic-isomorphism.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-salw2h", "leaf_path": "vol2/particle-physics/ch04-quantum-spin/larmor-derivation.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-salw2h", "leaf_path": "vol2/particle-physics/ch04-quantum-spin/spin-as-precession.md", "leaf_kind": "leaf", "tier2_marked": false}
