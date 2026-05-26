@@ -1,8 +1,9 @@
 # Epic: clm-zuf7g1 Phase-Locked Topological Thread + Bell + Born-Rule Strengthening
 
-**Status**: PHASE 2-A OPEN (workstream-level prereg landing; Path 2-A confirmed by Grant 2026-05-26 after Poisson + stochastic-substrate corpus survey + master-equation-derivation-path discipline upgrade)
-**Phase 1 closed**: 2026-05-26 — FM chain-promotion landed via PR #37 `audit/2026-05-26_clm-zuf7g1-phase-1-fm-chain-promotion`. Confidence 0.60 → 0.65, solidity unchanged 0.55 (clm-ldmvwi remains dep-cap).
-**Phase 2 branch**: `analysis/clm-ldmvwi-master-eq-stochastic-derivation` off main @ post-PR-37-merge
+**Status**: **PHASE 2-A COMPLETE** (master-equation-derivation-path of Born-rule click-probability scaling closed end-to-end via 5-session arc; workstream returns to clm-zuf7g1-strengthen Phase 1+2 closed; remaining work = Phase 3+ on the lossless-LC-resonator strengthen-by item is the next solidity-lift lever, separate workstream)
+**Phase 1 closed**: 2026-05-26 — FM chain-promotion landed via PR #37 `audit/2026-05-26_clm-zuf7g1-phase-1-fm-chain-promotion`. Confidence 0.60 → 0.65, solidity unchanged 0.55 (clm-ldmvwi was dep-cap at that time).
+**Phase 2 closed**: 2026-05-26 — Phase 2-A master-equation-derivation-path workstream (5 sessions: A.1 prereg + A.2 stochastic master eq + A.3 threshold-crossing first-passage + A.4 p=2 uniqueness + A.5 KB integration + cascade). clm-ldmvwi confidence 0.55 → 0.65; cascade lifted clm-zuf7g1 + clm-unk0bd + clm-5xon03 all 0.55 → 0.65 (= own confidence ceiling). clm-0ktpcn stays at 0.55 (own confidence cap from sum-decomposition orthogonality gap; separate strengthen workstream).
+**Phase 2 branch**: `analysis/clm-ldmvwi-master-eq-stochastic-derivation` off main @ post-PR-37-merge; 5 commits + 5 audit tags pushed
 **Target claim**: `clm-zuf7g1` — Phase-Locked Entanglement Thread (Bell correlation + topological-protection empirical demonstration)
 **Current state**: confidence 0.60, solidity 0.55, 1 dependent (clm-unk0bd as of 2026-05-25 Phase 2 sub-item 4)
 **Origin**: surfaced as the new solidity-cap on clm-unk0bd post Phase 2 sub-items 3+4 closure. Identified in `_orchestration/clm-0ktpcn-golden-torus-alpha-strengthen.md` Phase 2 sub-item 4 commit (`a01cf6c2`).

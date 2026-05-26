@@ -33,4 +33,31 @@ In a stochastic thermal substrate, the probability that the extracted work trigg
 
 **The Born Rule** represents the deterministic thermodynamic equation for momentum extraction from a wave-bearing lattice by a thresholded Ohmic load. Placing a detector at Slit B irreversibly thermalizes the spatial pressure wave (decoherence), permanently attenuating the interference gradients.
 
+### Master-Equation-Derivation-Path (closed 2026-05-26 — Phase 2-A workstream)
+
+The Born-rule click-probability scaling above is **derived end-to-end from the master vacuum equation** via a 7-step substrate-physics chain. The previously-asserted step ("click probability ∝ extracted work as thermal-substrate stochastic property") is now closed by explicit derivation; clm-ldmvwi's load-bearing rigor gap is resolved.
+
+**Full derivation chain**:
+
+| Step | Content | Canonical source |
+|---|---|---|
+| 1 | Master vacuum equation (linear regime $\Box V = 0$) | [master-equation.md](../ch4-continuum-electrodynamics/master-equation.md) |
+| 2 | FDT-derived Langevin forcing at detector boundary (Nyquist literal-not-analogy on substrate impedance) | Vol 3 Ch 11 §FDT/Nyquist lines 75-138 + KB mirror [transmon-decoherence.md](../../../vol3/condensed-matter/ch11-thermodynamics/transmon-decoherence.md) |
+| 3 | Stochastic master vacuum equation: $\Box V + 2\gamma_n\delta^3(x-x_n)\partial_t V = f_n(t)\delta^3(x-x_n)$ with $\langle f_n(t) f_n(t')\rangle = 2 k_B T Z_{det}\delta(t-t')$ | A.2 §2.4 [result doc](../../../../../research/2026-05-26_clm-ldmvwi-phase-2a-2-stochastic-master-eq-result.md) |
+| 4 | Extracted-energy process $W(t; x_n) = \int_0^t V(x_n,t')^2/Z_{det}\, dt'$ + signal/noise decomposition | A.2 §3.2-§3.3 |
+| 5 | V↔$\partial_t \mathbf{A}$ identification via AVE-canonical Lagrangian $\mathcal{L}_{AVE} = \tfrac{1}{2}\varepsilon_0\|\partial_t \mathbf{A}\|^2 - \tfrac{1}{2\mu_0}\|\nabla\times\mathbf{A}\|^2$ | A.2 §3.4 + canonical Lagrangian at [index.md:17](./index.md) (clm-yiyyi3) |
+| 6 | Gaussian $V_\eta$ via FDT + CLT on independent boundary-node thermal contributions | A.3 §2.1 [result doc](../../../../../research/2026-05-26_clm-ldmvwi-phase-2a-3-threshold-crossing-result.md) |
+| 7 | Threshold-crossing first-passage analysis (Rice's formula for voltage-threshold detectors + Wald mean-rate for energy-bucket detectors); Markovian → Poissonian via FDT white-noise structure → $\lambda_{signal}(x_n,t) \propto |V_s|^2 \propto |\partial_t \mathbf{A}(x_n,t)|^2$ | A.3 §3.4 + §3.6 |
+| Uniqueness | $p=2$ uniquely selected via three convergent arguments: cumulant truncation under Joule extraction + dimensional analysis on substrate scales + counterfactual elimination ($p=1$ contradicts Ohmic; $p=3,4$ contradict $\mathcal{L}_{AVE}$ quadratic kinetic; fractional contradicts Markovian FDT) | A.4 §3 [result doc](../../../../../research/2026-05-26_clm-ldmvwi-phase-2a-4-uniqueness-result.md) |
+
+**Key result**: The $|\partial_t \mathbf{A}|^2$ click-probability scaling is **not asserted as a thermal-substrate stochastic property** — it is **derived end-to-end from substrate physics** (master vacuum equation + Axiom 1 Ohmic boundary + Vol 3 Ch 11 FDT + AVE Lagrangian + standard probability theory). **No Born rule input anywhere in the chain.**
+
+**Classification per consistency-vs-emergence-UPGRADED discipline (Grant 2026-05-26)**:
+- **Class 2 substrate-mechanism emergence**: full derivation-path traces to master vacuum equation
+- **Class 4 observable consistency**: replicates standard QM Born-rule scaling exactly in canonical photodetection regime — no experimentally distinguishable corrections in current measurement precision
+
+**Scope qualifier**: derivation applies to **AC signals or sign-symmetric signal ensembles** (the canonical Born-rule photodetection regime — oscillating EM fields from photon sources). DC/sign-asymmetric signals retain a linear-in-$V_s$ contribution; the $|V_s|^2$ scaling is sub-leading in that regime.
+
+**Forward-prediction candidates** (flagged for downstream-epic seeding, NOT load-bearing for this leaf's current solidity): (1) non-linear-regime corrections at $V \to V_{yield}$; (2) nanoscale CLT failure regime (single-photon avalanche detectors, transmon qubits — candidate AVE-distinct prediction for nanoscale-detector regime); (3) non-Markovian Poisson violation under detector memory effects.
+
 ---
