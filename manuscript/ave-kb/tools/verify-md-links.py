@@ -81,6 +81,7 @@ def _contains_run(parts: tuple[str, ...], run: tuple[str, ...]) -> bool:
     """True if `run` appears as a consecutive subsequence of `parts`."""
     return any(parts[i : i + len(run)] == run for i in range(len(parts) - len(run) + 1))
 
+
 # Top-level entries that constitute "inside AVE-Core" for intra/inter split.
 # A resolved path that is not under the repo root is inter-repo by definition;
 # this set is informational and not used as a gate (the gate is repo-root

@@ -16,7 +16,7 @@ import json
 import posixpath
 import re
 import sys
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path, PurePosixPath
 from typing import TextIO

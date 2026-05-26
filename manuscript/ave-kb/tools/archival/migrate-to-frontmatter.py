@@ -311,7 +311,7 @@ def main() -> int:
     print(f"  defects:          {counts['defect']}")
 
     if defects:
-        print(f"\nDefects (must be fixed by hand before migration):")
+        print("\nDefects (must be fixed by hand before migration):")
         for path, reason in defects:
             print(f"  {path}: {reason}")
 

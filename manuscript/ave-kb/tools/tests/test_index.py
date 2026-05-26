@@ -38,7 +38,7 @@ REPO_ROOT = _repo_root()
 # The build-band SLUGS are produced by the pipeline (kb_index_lib.derive_build_band)
 # but the query side (kb_cmd.index.BUILD_BANDS) hard-codes them to map slug->label.
 # Both resolve as siblings on PYTHONPATH (set by the test-tools make target).
-import kb_index_lib
+import kb_index_lib  # noqa: E402
 
 INDEX_DIR = REPO_ROOT / "manuscript" / "ave-kb" / ".index"
 # Stable, committed mini-index fixture (see module docstring). The query and

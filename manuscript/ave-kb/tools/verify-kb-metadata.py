@@ -961,8 +961,6 @@ def check_solidity_fresh(state, index_dir: Path):
     except kb_index_lib.SolidityCycleError:
         return [], [], []
 
-    by_id = {e.id: e for e in state.claim_entries}
-
     line_drift: list[tuple[str, str, str]] = []
     annotation_drift: list[tuple[str, str, str, str]] = []
 
