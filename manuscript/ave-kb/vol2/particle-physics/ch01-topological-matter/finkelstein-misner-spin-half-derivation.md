@@ -110,6 +110,48 @@ The Cosserat microrotational DOF per K4 node (Axiom 1, three rotational coordina
 
 The FM mechanism above shows **how** the per-node rotational DOF, when integrated across the extended $0_1$ unknot defect, picks up the $4\pi$ double-cover that distinguishes spin-½ from integer-spin. The Cosserat character provides the local rotational DOF; the extended-defect topology provides the global $SU(2) \to SO(3)$ 2-to-1 cover.
 
+## §6.5 Why photons do NOT inherit the 4π closure
+
+A natural concern: if the K4 substrate's Cosserat micro-rotational DOF is the substrate-native origin of spin and the $4\pi$ double-cover is a property of that DOF on extended defects, would open transverse EM waves (photons) propagating on the same K4 substrate also inherit the $4\pi$ closure? Empirically, photons exhibit $2\pi$ closure (standard SO(3) behavior). If the AVE framework forced photons to carry $4\pi$, it would be falsified at the lab bench.
+
+**The resolution is structural**: the $4\pi$ double-cover applies **only to closed extended defects**, not to open propagating waves. Photons are open propagating waves. Therefore photons cannot carry $4\pi$ closure even in principle.
+
+### §6.5.1 The extended-defect requirement is load-bearing
+
+Per [spin-half-paradox.md:12](../../appendices/app-b-paradoxes/spin-half-paradox.md) verbatim:
+
+> "If the electron were modeled as a microscopic point-defect (a missing node), the framework would indeed fail. However, the AVE framework defines the electron as an extended, macroscopic $0_1$ Unknot (a closed, continuous topological flux tube loop). **In topological mathematics, an extended knotted line defect embedded in an $SO(3)$ manifold exhibits $SU(2)$ spinor behaviour through the generation of a Finkelstein-Misner Kink**. The continuous geometric extension of the topological loop provides a double-cover over the $SO(3)$ background, reproducing Spin-1/2 quantum statistics without violating macroscopic solid-state geometry."
+
+And §2.1 above (FM mechanism, verbatim): *"extended objects connected to their environment have a 2-to-1 cover of the $SO(3)$ rotation group. $2\pi$ gives a topologically distinct state; $4\pi$ returns to the original. Standard differential topology, no quantum mechanics required."*
+
+The mechanism explicitly requires the object to be (i) **extended** (has body, not a point) and (ii) **closed** (loop topology, has the "twist that propagates around the body" property of the belt trick). Open EM waves satisfy neither condition: they are propagating disturbances of the Cosserat ω-field, not extended defects, not closed loops in SO(3). The FM theorem simply does not apply to them.
+
+### §6.5.2 The Hopf-fibration projection argument (per L3 doc 06)
+
+A second independent argument addresses the same question via projection-level analysis. Per `research/_archive/L3_electron_soliton/06_winding_index_projection.md` (Phase 1 winding-index projection, 2026-04-20), the full AVE description of an electron lives at Level 1 of a 5-level chain:
+
+| Level | Object | Carries $(w_1, w_2) = (2,3)$? |
+|---|---|---|
+| 0 | Cosserat $\boldsymbol{\omega}(\mathbf{r}) \in \mathbb{R}^3$ field | yes (full SU(2) information) |
+| 1 | $U(\mathbf{r}) \in SU(2)$ via $U = \exp(i\boldsymbol{\sigma}\cdot\boldsymbol{\omega}/2)$ | yes (full SU(2) information) |
+| 2 | $\hat{\mathbf{n}}(\mathbf{r}) \in S^2$ via Hopf fibration $SU(2) \to S^2$ | **$w_1=2$ survives, $w_2=3$ DROPPED (lives in U(1) fibre)** |
+| 3 | EM polarization $\mathbf{E}(\mathbf{r},t)$ via $\hat{\mathbf{n}} \leftrightarrow$ E-direction | no (already lost at Level 2) |
+| 4 | Photon-wavefront path in $\mathbb{R}^3$ | no |
+
+The Hopf fibration $SU(2) \to S^2$ has $U(1)$ fibre. The U(1) fibre phase is precisely what carries the $4\pi$ closure: a $2\pi$ SO(3) rotation lifts to the central element $-I \in SU(2)$ (a sign flip in the U(1) phase), and only $4\pi$ returns to $+I$. **Photons live at Level 3 (E-field polarization $\in S^2$), having already been projected through the Hopf fibration from Level 1 to Level 2. The U(1) fibre phase — and with it the $4\pi$ closure — was dropped at the projection step.** What photons see is the $S^2$-level $w_1=2$ winding (which under standard SO(3) closes at $2\pi$), not the SU(2)-level fibre that distinguishes $2\pi$ from $4\pi$.
+
+This is fully consistent with the §6.5.1 extended-defect argument: photons are non-closed propagating modes that exist at the SO(3) projection level, where the SU(2) double-cover information has been integrated out. The two arguments are different lenses on the same structural fact.
+
+### §6.5.3 Net result
+
+Open transverse EM waves (photons) on the K4 substrate close at $2\pi$, not $4\pi$. The substrate's $4\pi$ structure is a property of closed extended defects (electrons + other torus-knot solitons), not of propagating modes. The empirical fact that photons do NOT exhibit $4\pi$ closure is consistent with — not in tension with — the FM-on-extended-unknot derivation in this leaf.
+
+**Scope clarification, not retraction**: the Möbius / $720°$ structure is canonical for the electron's chiral $K_4$ extended-defect topology (see [`phase-locked-topological-thread.md:112`](../../../vol1/dynamics/ch3-quantum-signal-dynamics/phase-locked-topological-thread.md), clm-zuf7g1: *"Spin-1/2 as Möbius topology (Axiom 1). The electron unknot ($0_1$) is a Beltrami standing wave on the chiral $K_4$ graph."*). What was loosely phrased — that the $K_4$ substrate-as-a-whole carries the $4\pi$ structure, with the implication that every wave on it would inherit $4\pi$ — is the framing this section corrects. The $4\pi$ lives on the extended-unknot defect's topology in $SO(3)$, not on bulk propagation modes; photons are not extended-unknot defects; therefore photons do not inherit $4\pi$.
+
+**Scope note on the projection-chain argument (§6.5.2)**: the Hopf-fibration argument imported from L3 doc 06 uses the $(w_1, w_2)$ winding-pair framing. Per doc 06's own amendment (2026-04-20), the corpus-cleaner framing for ELECTRON identification uses the scalar crossing count $c$ (electron $c = 3$, photon trajectory $c = 0$; see [`07_universal_operator_invariants.md`](../../../../../research/_archive/L3_electron_soliton/07_universal_operator_invariants.md)). For the SPECIFIC question here — does an open EM wave inherit $4\pi$ — the projection-level argument stands regardless of which invariant convention is used: $4\pi$ closure is carried by the U(1) fibre of $SU(2)$, photons exist at the Hopf-projected $S^2$ level, U(1) information is dropped at the projection step. The doc 06 amendment doesn't supersede the §6.5.2 conclusion, only the (w_1, w_2)-vs-scalar-c framing convention.
+
+**This closes sub-item 3 of clm-0ktpcn's strengthen-by list.** No new claim id introduced; the result is a corollary of clm-salw2h's existing scope (FM derivation establishes WHERE the $4\pi$ lives, and equally WHERE it doesn't).
+
 ## §7 The 4π is physical, not an SI unit artifact
 
 A prior concern: the $4\pi$ in $R_{TIR} = Z_0/(4\pi)$ of [theorem-3-1-q-factor.md](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) Theorem 3.1 v2 might be a SI-vs-Gaussian unit convention factor, not physical content (since SI uses $4\pi\varepsilon_0 = 1/k_C$ for Coulomb).
@@ -125,9 +167,9 @@ For honest scope-correction:
 - **Does NOT** provide a discrete-lattice computation of the Finkelstein-Misner kink on K4 — would require full extended-defect simulation, not currently in the K4-TLM or Master Equation FDTD engines. Numerical anchor is via the gyroscopic-isomorphism (single-particle in external field), not via direct lattice simulation of the FM kink itself.
 - **Does NOT** demonstrate dynamical stability of the FM kink under K4-lattice perturbation. The gyroscopic-isomorphism numerical anchor (§4) is single-particle in continuum (Pauli ODE under RF field), not a discrete K4-lattice evolution of the extended unknot defect under finite perturbation. Engine-level FM-kink simulation on the K4 lattice would require full extended-defect dynamics (not currently in K4-TLM or Master Equation FDTD); flagged as open work for a future Phase.
 - **Does NOT** derive the specific Pauli matrix algebra from K4 geometry — the gyroscopic-isomorphism shows Pauli is equivalent to classical Lenz's-law cross-product dynamics, but it doesn't *derive* the matrix form from substrate primitives.
-- **Does NOT** address the (2,3) phase-space winding selection mechanism — that is sub-item 1 of clm-0ktpcn's strengthen-by list (separate work).
-- **Does NOT** address the photon-720° compatibility question — that is sub-item 3 of clm-0ktpcn's strengthen-by list (separate work, partial derivation at L3 doc 06).
-- **Does NOT** address the topological-protection question (real-space-trivially-knotted vs phase-space-winding-as-protection) — that is sub-item 4 of clm-0ktpcn's strengthen-by list (separate work, real green-field).
+- **Does NOT** address the (2,3) phase-space winding selection mechanism here — that is closed via cross-ref to [torus-knot-uniqueness.md](torus-knot-uniqueness.md) (clm-8c3yhs), the canonical home of the coprimality + minimality argument; clm-unk0bd's depends-on graph wires this in (2026-05-25 Phase 2 sub-item 1).
+- **PREVIOUSLY DID NOT, NOW DOES address the photon-720° compatibility question** — see §6.5 above. Closes sub-item 3 of clm-0ktpcn's strengthen-by list via the FM extended-defect requirement + Hopf-fibration projection argument (2026-05-25 Phase 2 sub-item 3).
+- **Does NOT** address the topological-protection question (real-space-trivially-knotted vs phase-space-winding-as-protection) — that is closed in the protection-mechanism leaf [phase-locked-topological-thread.md](../../../vol1/dynamics/ch3-quantum-signal-dynamics/phase-locked-topological-thread.md) (clm-zuf7g1), which provides the K4-TLM empirical demonstration that the (2,3) phase-space winding is protected against continuous deformations below the Schwinger pair-creation threshold; clm-unk0bd's depends-on graph wires this in (2026-05-25 Phase 2 sub-item 4).
 
 ## §9 Coordinate-system discipline
 

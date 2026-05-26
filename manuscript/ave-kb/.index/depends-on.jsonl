@@ -586,6 +586,8 @@
 {"source": "clm-ui3m8a", "target": "axiom-2", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "$\\xi_{topo}=e/\\ell_{node}$", "fraction": null}
 {"source": "clm-unk0bd", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Substrate Topology — the electron body is a $0_1$-unknot flux-tube in the K4 substrate at the $\\ell_{node}$ scale", "fraction": null}
 {"source": "clm-unk0bd", "target": "clm-8c3yhs", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-unk0bd", "target": "clm-salw2h", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-unk0bd", "target": "clm-zuf7g1", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-uowffm", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "A", "fraction": null}
 {"source": "clm-uowffm", "target": "clm-j9l3ww", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-utnwkc", "target": "clm-usflef", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the breathing-appropriate criterion 1 used in the 4/4 adjudication", "fraction": null}
