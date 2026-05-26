@@ -28,7 +28,7 @@
   - `clm-m3z5ux` (Vol 1 $H_\infty$ / MOND derivation, solidity X)
   - `clm-mroghg` (Vol 2 $H_\infty$ framing, solidity X)
   - `clm-9s9apq` (Vol 1 $p_c = 8\pi\alpha$ packing relation, solidity X)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.70, 0.50)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
 - rationale: The resultbox states $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2)$, but the leaf itself frames this as a **geometric consistency proof** — $G$ and $H_\infty$ are "the same geometric limit evaluated from different topological reference frames," not an ab-initio prediction of $H_0$. The Machian coupling embeds $R_H \equiv c/H_\infty$ in the definition of $G$, so rearranging to "compute" $H_\infty$ is structurally circular. The algebra closes cleanly; the disclosed circularity (an unbroken open dependency on a $G$ that is not independently derived) pins the band below a clean derivation.
 - strengthen-by:
   - Derive $G$ from a local thermodynamic balance independent of $R_H$ (the leaf's named open problem), converting the consistency proof into a true downstream prediction.
@@ -59,7 +59,7 @@
   - Axiom 4 (Universal Saturation Kernel — radial strain $\varepsilon_{11}$)
   - `clm-iouqn9` (common: K4 magic-angle $\nu_{vac} = 2/7$, solidity X)
   - `clm-9s9apq` (Vol 1 EMT $p_c = 8\pi\alpha$, solidity X)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.90, 0.50)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.90, 0.55)]
 - rationale: $n(r) = 1 + (2/7)(7GM/c^2r) = 1 + 2GM/c^2r$ is clean algebra once $\nu_{vac} = 2/7$ (trace-reversal, EMT-verified in the companion leaf) and the radial strain $\varepsilon_{11} = 7GM/c^2r$ are in hand. The temporal/spatial split (deflection couples to $1 + (9/7)\varepsilon_{11}$) is disclosed and consistent. The $c_{max}$ "warp baseline" extrapolation to $\Phi\to0$ is explicitly flagged interpretive and does not load-bear on the core refractive identity. Solar deflection is a category-(iii) consistency check, not novelty.
 - strengthen-by:
   - Derive $\varepsilon_{11} = 7GM/c^2r$ (the factor-7 Machian stress boundary $T_{max} = c^4/7G$) from primitives within this leaf rather than importing it.
@@ -90,7 +90,7 @@
   - Axiom 4 (Universal Saturation Kernel — symmetric scaling of $\mu,\varepsilon$)
   - `clm-gdd70j` (Vol 1 universal operators $Z,S,\Gamma$, solidity X)
   - `clm-rd9cjm` (Vol 3 refractive index $n(r)$, solidity X)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.90, 0.50)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.90, 0.55)]
 - rationale: $Z(r) = \sqrt{\mu_0 n/\varepsilon_0 n} \equiv Z_0$ is an exact algebraic identity given symmetric scaling, so $\Gamma = 0$ across any gradient follows immediately. The leaf is honest that "Symmetric Scaling" is a **derived consequence of Axiom 3**, not a fifth axiom. The regime table (GW150914/170817/pulsar saturation ratios) is order-of-magnitude but the lossless-propagation conclusion is a clean consequence. Band held just below 1.0 because the per-source $V_{GW}/V_{snap}$ values are stated, not derived in this leaf.
 - strengthen-by:
   - Derive the per-source saturation ratios from source parameters within the leaf rather than tabulating them.
@@ -122,7 +122,7 @@
   - `clm-iouqn9` (common: $\nu_{vac} = 2/7$, solidity X)
   - `clm-rd9cjm` (Vol 3 refractive index / radial strain, solidity X)
   - `clm-07kd5v` (Vol 3 symmetric impedance $Z = Z_0$, solidity X)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.70, 0.50)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
 - rationale: The confinement mechanism ($G_{shear}\to0$, $c_g\to0$ at $r_{sat} = 7GM/c^2$) follows cleanly from $\varepsilon_{11}(r_{sat}) = 1$ plus the symmetric-impedance result ($\Gamma = 0$). The electron-vs-BH contrast (knot $\Gamma=-1$ vs hole phase-transition) is structural and internally consistent. Band sits at disclosed-bound rather than clean-derivation because the interior is explicitly **observationally inaccessible** — the claim is structural (a phase transition exists), and the saturation picture it rests on is an imported/asserted regime rather than a closed interior solution.
 - strengthen-by:
   - Provide a worked interior solution (even schematic) showing $G_{shear}(r)\to0$ continuously across $r_{sat}$.
@@ -151,7 +151,7 @@
   - Axiom 4 (Universal Saturation Kernel — $\varepsilon_{11}(r_{sat}) = 1$)
   - `clm-iouqn9` (common: $\nu_{vac} = 2/7$, solidity X)
   - `clm-rd9cjm` (Vol 3 radial strain / refractive index, solidity X)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.90, 0.50)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.90, 0.55)]
 - rationale: The compactness bound $R > 7GM/c^2 \Leftrightarrow 2GM/c^2R < 2/7$ is direct algebra from $\varepsilon_{11}(R) = 1$ and $\nu_{vac} = 2/7$; the comparison to Buchdahl ($8/9$) is exact. The NS test case (1.4 $M_\odot$ at 10 km → $\varepsilon_{11} = 1.46$) is illustrative and the leaf is careful to call it "what the AVE bound implies," not a validated EOS. Clean derivation; the $2/7$ recurrence is flagged interpretive (not extra evidence).
 - strengthen-by:
   - Derive the factor-7 ($T_{max} = c^4/7G$) within the leaf rather than carrying it from the strain definition.
@@ -181,7 +181,7 @@
   - `clm-iouqn9` (common: $\nu_{vac} = 2/7$, solidity X)
   - `clm-rd9cjm` (Vol 3 radial strain, solidity X)
   - `clm-x19btt` (Vol 3 compactness limit / $r_{sat}$, solidity X)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.80, 0.50)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.80, 0.55)]
 - rationale: The Schwarzschild $\ell=2$ eigenvalue $18/49 \approx 0.3673$ closes end-to-end from three axiom-grounded steps ($r_{sat} = 7M_g$, $r_{eff} = 49M_g/9$ via Poisson, $\omega_R = \ell c/r_{eff}$) with zero free parameters — a genuine 1.7%-error category-(iv) derived prediction. Band held below 0.9 because the Kerr extension rests on a **disclosed phenomenological** photon-sphere shift + Cosserat back-reaction fit (v2, refined post-hoc against LIGO), and $Q = \ell$ disagrees with GR overtone structure for $\ell > 2$. The Schwarzschild core is clean; the spinning-remnant comparisons (10–18% pre-Kerr-correction) are the disclosed weak edge.
 - strengthen-by:
   - Derive the Kerr $x_{sat}(a_*)$ photon-sphere/Cosserat back-reaction form from primitives rather than fitting the rigid/compliant split.
@@ -211,7 +211,7 @@
   - Axiom 4 (Universal Saturation Kernel — FDT at the phase boundary)
   - `clm-x19btt` (Vol 3 compactness / $r_{sat}$, solidity X)
   - `clm-ir8h78` (Vol 3 BH interior phase transition, solidity X)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.50)]
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.55)]
 - rationale: The leaf reproduces the standard $T_H = \hbar c^3/(8\pi GMk_B)$ but the AVE mechanism is asserted via a proportionality $P_{transmitted}\propto\partial_r S|_{r_{sat}}$ with no worked spectral shape and the standard formula imported, not derived. This is a category-(iii) consistency check at the formula level; the FDT/Nyquist reinterpretation is the new (interpretive) content. The unbridged step (rate-to-temperature with the standard coefficient assumed) and absence of a derived spectrum pin it at substantive-open-dependency.
 - strengthen-by:
   - Derive the $T_H$ prefactor $\hbar c^3/(8\pi Gk_B)$ from $\partial_r S$ at $r_{sat}$ rather than quoting the standard result.
@@ -242,7 +242,7 @@
   - Axiom 4 (Universal Saturation Kernel — saturation operator $S$)
   - `clm-wx5324` (Vol 3 $H_\infty$, solidity X)
   - `clm-m3z5ux` (Vol 1 $H_\infty$ / MOND, solidity X)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.70, 0.50)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
 - rationale: $a_0 = cH_\infty/(2\pi)$ is a clean parameter-free derivation and the 10.7% deficit vs empirical $1.2\times10^{-10}$ is honestly reported (not a small-parameter result). The galactic form is the Axiom-4 saturation operator with $g_N$ as amplitude. Band sits at disclosed-bound because $a_0$ inherits the disclosed import of $H_\infty$ (itself a consistency proof, see clm-wx5324) and the multi-galaxy table errors range 3–17% — the derivation closes but rests on a disclosed approximation. Regime-gating (zero drag at $g_N\gg a_0$) is correctly stated.
 - strengthen-by:
   - Derive the $2\pi$ Hoop-Stress projection factor from primitives within the leaf.
@@ -270,7 +270,7 @@
   - Axiom 3 (Minimum Reflection Principle — Ponderomotive Equivalence pathway)
   - `clm-rd9cjm` (Vol 3 scalar refractive index $n_{scalar}$, solidity X)
   - `clm-iouqn9` (common: $\nu_{vac} = 2/7$ Poisson, solidity X)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.70, 0.50)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
 - rationale: $\Delta\phi = 6\pi GM/c^2a(1-e^2)$ reproduces the GR value (43"/century) exactly — a category-(iii) consistency check. The leaf's own Grant-adjudication scope-notes (Foundation Items 4–6, preserved verbatim) disclose the chain honestly: the $1/r^3$ tidal term was initially GR-PPN-taken-as-input (Item 4), then shown substrate-native at leading PPN-1 via the Ponderomotive Equivalence pathway with the "3" coefficient recovered exactly (Item 5). The recovery closes but rests on the disclosed reduction to PPN-1 order; the AVE-distinct chirality correction is explicitly bracketed across 4 OOM and walked back (Item 6).
 - strengthen-by:
   - Close the chirality-amplitude bracket ($\alpha^1\to\alpha^4$) by resolving the cosmic chirality fraction $f_R$, or scope the AVE-distinct test out of single-binary periastron.
@@ -297,7 +297,7 @@
 - depends-on:
   - `clm-u86caq` (Vol 3 MOND $a_0$ — Oort boundary, solidity X)
   - `clm-gdd70j` (Vol 1 universal operators $Z,S,\Gamma$ — reflection coefficient, solidity X)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.60, 0.50)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.60, 0.55)]
 - rationale: Mixed-bag entry. Oort inner edge $r = \sqrt{GM_\odot/a_0} \approx 7400$ AU is a clean one-line formula but inherits the disclosed 10.7% $a_0$ deficit and lands only "within" (not on) the observed Hills range. Kirkwood $a_{gap} = a_J(q/p)^{2/3}$ reproduces all five gaps to <0.3% but is the standard mean-motion-resonance result reinterpreted (category-(iii)). Magnetopause uses standard pressure balance with errors 8.7%/11.8% (not sub-percent, correctly flagged). Each sub-result closes cleanly but uses empirical inputs / standard forms — disclosed-bound, averaged down for the heterogeneity.
 - strengthen-by:
   - Derive the Kirkwood cavity-mode reinterpretation as distinguishable from classical MMR (currently a relabeling).
@@ -550,7 +550,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
   - Axiom 2 (Topo-Kinematic Isomorphism — $\ell_{node} = \hbar/m_ec$ scale)
   - Axiom 3 (Minimum Reflection Principle — definition of $G$)
   - `clm-wx5324` (Vol 3 $H_\infty$ — same Machian-coupling geometric limit, solidity X)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(1.00, 0.50)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(1.00, 0.55)]
 - rationale: $G = c^4/(7\xi T_{EM})$ with $T_{EM} = m_ec^2/\ell_{node}$ and $\ell_{node} = \hbar/m_ec$ gives $G = \hbar c/(7\xi m_e^2)$, hence $\alpha_G = Gm_e^2/\hbar c = 1/(7\xi)$ and $m_P = m_e\sqrt{7\xi}$ — these are **pure algebraic identities by substitution** into the AVE definition of $G$, carrying zero predictive content (the leaf states this explicitly: "not independent predictions… both sides match because $\xi$ was defined to make this hold"). Definitional; no observation could falsify the substitution itself. Classification: identity.
 - strengthen-by:
   - (Not applicable to local rigor — an identity is maximal at 1.0. Predictive content would require an independent derivation of $\xi$ or $G$, which is a separate claim.)
@@ -601,7 +601,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 - depends-on:
   - Axiom 4 (Universal Saturation Kernel — latent-heat / crystallisation regime)
   - `clm-wx5324` (Vol 3 $H_\infty$ / crystallisation rate, solidity X)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.70, 0.50)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
 - rationale: $w_{vac} = -1 - \rho_{latent}/\rho_{vac}$ follows from a first-law argument (latent heat $\rho_{latent}dV$ expelled while funding new-volume internal energy → strictly negative total pressure), and positive $\rho_{latent}$ then guarantees $w < -1$ cleanly. Band held at disclosed-bound because the leaf gives **no numerical $w$** to compare against the $w\approx-1\pm0.05$ data, and "forbids Big Rip" / the CMB asymptotic-attractor floor are interpretive consequences, not quantitative bounds on $w(t)$. The sign argument closes; the magnitude and Big-Rip claims rest on the disclosed latent-heat picture.
 - strengthen-by:
   - Derive $\rho_{latent}/\rho_{vac}$ numerically (from crystallisation energetics) to give a falsifiable $w$ value.
@@ -630,7 +630,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
   - Axiom 4 (Universal Saturation Kernel — $\mu_{eff},\varepsilon_{eff}\to0$ at $r_s$)
   - `clm-07kd5v` (Vol 3 symmetric impedance $Z = Z_0$, solidity X)
   - `clm-rd9cjm` (Vol 3 refractive index $n(r)$, solidity X)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.70, 0.50)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
 - rationale: This is explicitly an **ontological reinterpretation** ($T_{\mu\nu}\equiv U_{\mu\nu}$ LC energy density; $g_{\mu\nu}\leftrightarrow\varepsilon_{eff},\mu_{eff}$), NOT a derivation of the Einstein equation ab initio nor modified field equations — the leaf states this. The mapping is internally consistent and the apparent "$Z=Z_0$ invariant" vs "$Z\to0$ at horizon" tension is explicitly surfaced and reconciled (transverse impedance invariant while constitutive $\mu,\varepsilon$ collapse). The reinterpretation closes as a consistent identification; band at disclosed-bound because it imports the standard EFE rather than deriving it.
 - strengthen-by:
   - Derive (even schematically) the EFE from the LC Lagrangian rather than mapping onto the existing equation.
@@ -851,7 +851,7 @@ Under the corpus symmetric-saturation picture ($\Gamma_{\text{continuum}} = 0$ a
   - `clm-07kd5v` (Vol 3 symmetric impedance $Z = Z_0$, solidity X)
   - `clm-rd9cjm` (Vol 3 refractive index $n(r)$ — used in §3 expansion, solidity X)
   - `clm-x19btt` (Vol 3 $r_{sat} = 7GM/c^2$ saturation radius, solidity X)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.50)]
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.55)]
 - rationale: The cancellation argument is structurally clean — per-cell $|\Gamma|^2\sim(\ell_{node}/r_{sat})^2$ against $N_{cells}\sim(r_{sat}/\ell_{node})^2$ leaves an $O(1)$ product $4\pi\log2\,k_B\approx8.7\,k_B$. But §4 explicitly labels the per-cell $|\Gamma|^2$ a "pragmatic dimensional estimate" / "leading dimensional correction," and §9 discloses that a rigorous WKB calculation hits a near-horizon coordinate singularity, leaving the numerical prefactor and possible log corrections open. The order-of-magnitude and mass-independence are robust; the numerical constant is a leading-order dimensional estimate, not a closed derivation — substantive acknowledged open step.
 - strengthen-by:
   - Complete the near-horizon WKB calculation with a coordinate regulator to fix the prefactor and confirm/exclude log corrections.
@@ -882,7 +882,7 @@ AVE distinguishes four physically distinct entropy quantities at a BH horizon �
   - `clm-07kd5v` (Vol 3 symmetric impedance $Z = Z_0$, solidity X)
   - `clm-x19btt` (Vol 3 $r_{sat}$ / compactness-limit saturation radius, solidity X)
   - `clm-ze4clw` (common: M,Q,J boundary observables, solidity X)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.70, 0.50)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
 - rationale: The four-way distinction is laid out cleanly and the AVE-native $\hat S_{geo} = k_BA\log2/\ell_{node}^2$ follows from a $|\Gamma|^2 = 1/2$ frustrated-bond beam-splitter (a 50/50 split = one bit/cell), with the Machian dilution ratio $\hat S_{geo}/S_{BH} = 4\log2/(7\xi)\approx2.8\times10^{-44}$ being clean algebra. The leaf is exemplary in disclosing that the standard $S_{BH}$ recovery requires **imported Boltzmann equipartition that AVE rejects**, that $S_v$ is a factor-of-4 off, that $S_\mu$ is informal, and that the first law is violated by $\sim10^{-44}$ on AVE-native quantities. Disclosed-bound: the distinction and $\hat S_{geo}$ close; the $|\Gamma|^2=1/2$ value is an assigned interface eigenmode, not independently derived.
 - strengthen-by:
   - Derive $|\Gamma|^2 = 1/2$ at the frustrated A-B bond from the chirality-mismatch impedance rather than asserting the symmetric beam-splitter value.
@@ -1071,7 +1071,7 @@ Axiom-first derivation of the AVE-native BH horizon at $r_{\text{sat}} = 7GM/c^2
   - Axiom 4 (Universal Saturation Kernel — $\varepsilon_{11}(r_{sat}) = 1$)
   - `clm-iouqn9` (common: $\nu_{vac} = 2/7$ / factor 7 Poisson projection, solidity X)
   - `clm-x19btt` (Vol 3 compactness limit / Buchdahl derivation, solidity X)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.90, 0.50)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.90, 0.55)]
 - rationale: $r_{sat} = 7GM/c^2$ from $\varepsilon_{11}(r_{sat}) = 1$ with the factor $7 = 1/\nu_{vac}$, and the area theorem $\delta A = 392\pi G^2 M\delta M/c^4 \geq 0$ both close cleanly from Axiom 4 (saturation boundary $\propto M$) plus mass-energy conservation — no energy conditions needed, deriving *why* the horizon grows. $dE = dM c^2$ is itself a disclosed Ax2 identity. The leaf honestly scopes the falsifier (preserved Grant 2026-05-16 audit marker): the EHT-shadow falsifier was retracted because $r_{sat}$ is a shear/matter boundary, photon-geometric observables are silent. Clean derivation; the only disclosed gap (entropy/first-law pillar) is correctly delegated to the four-entropy leaf and not claimed here.
 - strengthen-by:
   - Pursue the surviving matter/shear falsifiers (inner-disk Fe-Kα edge vs ISCO, GW echoes) to give the $3.5\,r_s$ prediction an empirical test.

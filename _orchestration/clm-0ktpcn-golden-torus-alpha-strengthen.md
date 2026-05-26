@@ -1,10 +1,11 @@
 # Epic: clm-0ktpcn Golden Torus α Strengthening
 
-**Status**: PHASE 1 COMPLETE (sub-item 2 FM chain promotion landed at `226241cd` + `audit/2026-05-25_clm-0ktpcn-phase-1-fm-chain-promotion`)
+**Status**: PHASE 2 SUB-ITEM 1 COMPLETE (chain promotion + Option β downstream wirings landed)
 **Target claim**: `clm-0ktpcn` — Golden Torus α Derivation (Three-Regime Closure)
 **Branch**: `analysis/golden-torus-alpha-strengthen` off `main` @ `c655526b`
 **Workstream started**: 2026-05-25
-**Phase 1 completed**: 2026-05-25 — 8 claims propagated 0.45 → 0.50 via depends-on cascade after closing sub-item 2 (FM chain promotion)
+**Phase 1 completed**: 2026-05-25 — 8 claims propagated 0.45 → 0.50 via depends-on cascade after closing sub-item 2 (FM chain promotion); commit `226241cd` + tag `audit/2026-05-25_clm-0ktpcn-phase-1-fm-chain-promotion`
+**Phase 2 sub-item 1 completed**: 2026-05-25 — (2,3) torus-knot uniqueness derivation bridged into clm-unk0bd + clm-0ktpcn depends-on cone via Path A1+tweak chain promotion (no new leaf; canonical home is `torus-knot-uniqueness.md` / clm-8c3yhs). Confidence bumps clm-unk0bd 0.50 → 0.55, clm-0ktpcn 0.50 → 0.55. Option β follow-on wired 4 downstream claims (clm-jupq56, clm-mnb3lt, clm-k6olj8, clm-cmic3e) into the (2,3)-uniqueness depends-on cone for graph symmetry; clm-to41c7 NOT wired per Grant Option-1 adjudication (preserves 0.85 solidity — the structural-convention dependency is not strong enough to cap a flagship forward-prediction claim). 12-claim cascade through depends-on graph; verify PASS on 692 files / 281 claims / 682 depends-on edges.
 
 ## Why this workstream
 
@@ -52,7 +53,39 @@ These three jointly fix the Golden Torus geometry $(R, r, d)$ uniquely; from whi
 | **4** | Cascade propagation to dependent leaves (if claim re-classified) | ✓ COMPLETE 2026-05-25 — auto-cascaded via depends-on graph |
 | **5** | Closure-roadmap §0.5 entry (if walk-back) or §0 dashboard update (if strengthen) | PENDING (post-push deliverable) |
 | **6** | Commit + audit tag + push to remote | ✓ COMMIT + TAG 2026-05-25; push pending Grant adjudication |
-| **2+** | Sub-items 1/3/4 (remaining 3 of 4 strengthen-by items on clm-unk0bd) | PENDING (Grant adjudication on which next) |
+| **2+** | Sub-items 1/3/4 (remaining 3 of 4 strengthen-by items on clm-unk0bd) | sub-item 1 ((2,3) uniqueness) ✓ COMPLETE 2026-05-25 via Path A1+tweak chain promotion + Option β downstream wirings; sub-items 3 (photon-720°) + 4 (protection mechanism) remain PENDING |
+
+## Phase 2 sub-item 1 — (2,3) uniqueness chain promotion (2026-05-25)
+
+**Path chosen**: A1+tweak (pure chain promotion + one content tweak; no new leaf). Existing `vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md` (clm-8c3yhs, confidence 0.70) already contained the substantive derivation (§1-9: enumeration table + coprimality + both-windings-≥2 + minimality + electron-is-lightest premise). The structural fix was the missing depends-on edges into clm-unk0bd + clm-0ktpcn, not a new leaf — file-churn discipline applied (CONVENTIONS.md INVARIANT-S7: leaves are canonical, don't multiply files).
+
+**Skills compliance check fired before edits**: ave-prereg ✓, pre-test-physics-check ✓, ave-handoff-canonical-locale ✓, verify-before-cite ✓ (rescued corpus-grep agent miss of 2026-05-18 prime-N work via direct git-log on analysis/integration), ave-canonical-leaf-pull ✓ (enumerated 5 prior leaves), consistency-vs-emergence ✓ (Class 2 axiom-manifestation), phase-space-coordinate-check ✓ (3 coordinate systems separated: real-space 0_1 unknot ≠ phase-space (2,3) Clifford-torus ≠ (p,q) charge-counting label), ave-independence-check ✓ (3 premises non-circular with clm-0ktpcn: coprimality, minimality, electron-is-lightest), ave-discipline-translate explicitly NOT firing (no classical-physics borrowed framing).
+
+**Edits landed**:
+
+1. `manuscript/ave-kb/vol1/claim-quality.md` clm-unk0bd — added depends-on clm-8c3yhs; removed resolved strengthen-by item; updated rationale; confidence 0.50 → 0.55.
+2. `manuscript/ave-kb/vol1/claim-quality.md` clm-0ktpcn — added direct depends-on clm-8c3yhs (the (2,3) winding is load-bearing in regimes (b) self-avoidance AND (c) half-cover, so direct edge beyond transitive-via-clm-unk0bd is semantically appropriate); removed resolved strengthen-by item; updated rationale; confidence 0.50 → 0.55.
+3. `manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md` — added INVARIANT-F1 `> → Primary:` cross-ref to torus-knot-uniqueness.md right after the "Topological identity of the electron" header where (2,3) is first declared in the chapter.
+4. `manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md` — added self-aware "Bridging role of this leaf" callout in header documenting it is canonical home for the (2,3) uniqueness derivation that clm-unk0bd + clm-0ktpcn depend on; updated path-stable frontmatter to reflect the 2026-05-25 Phase 2 sub-item 1 wiring.
+
+**Auditor review** (ave-auditor): "COMMIT WITH MINOR AMENDMENT." 8 findings — 6 PASS, 2 WARN (non-blocking). Both warnings addressed in Option β follow-on (4 downstream wirings) or queued for separate workstream (Q2 stale narrative-tail breadcrumb cleanup on cascaded entries from prior sessions).
+
+**Option β downstream wirings** (Grant Q1 adjudication):
+
+5. `manuscript/ave-kb/vol2/claim-quality.md` clm-jupq56 (substrate-perspective-electron) — added depends-on clm-8c3yhs (K4-phasor Layer 3 IS the (2,3) phase-space winding; genuine content-load dependency).
+6. `manuscript/ave-kb/vol2/claim-quality.md` clm-mnb3lt (proton mass eigenvalue) — added depends-on clm-8c3yhs (the (2,5) cinquefoil assignment rests on the (2,q_odd) ladder starting at (2,3); structural-convention dependency; no solidity impact — clm-mnb3lt already at 0.55).
+7. `manuscript/ave-kb/vol2/claim-quality.md` clm-k6olj8 (torus knot baryon ladder) — added depends-on clm-8c3yhs (auditor's primary downstream target; (2,q_odd) family math rests on same coprimality + minimality foundation).
+8. `manuscript/ave-kb/vol2/claim-quality.md` clm-cmic3e (proton-identification) — added depends-on clm-8c3yhs ((2,5) "next after electron's (2,3)" structural framing).
+
+**clm-to41c7 NOT wired (Grant Option-1 adjudication)**: Torus Knot Baryon Forward Predictions (2,17/19/21), confidence 0.85, solidity 0.85. Wiring would have capped solidity at min(0.85, 0.70) = 0.70 — a real epistemic drop. Decision: the (2,17/19/21) MeV predictions' physical math doesn't load on (2,3) being the electron specifically — it loads on (2,q_odd) coprimality (the q-ladder math). This is a *structural-convention* reference to (2,3) as ladder starting point, not a *content* dependency. depends-on graph is binary; flagship forward-prediction claim should not be capped by a structural-convention dependency. Solidity 0.85 preserved.
+
+**Refresh + verify pipeline**: 12-claim solidity cascade through depends-on graph (clm-unk0bd, clm-0ktpcn, clm-5xon03, clm-2dwzib, clm-3kzmt9, clm-8ep2b4, clm-zw6mut, clm-b2anl4, clm-82dxbj, clm-ibfyda, clm-m7qd0w, clm-zi6t1e all bumped 0.50 → 0.55). `make verify-kb-metadata` PASS on 692 files / 281 canonical entries / 682 depends-on edges (+4 new edges from Option β) / 0 failures.
+
+**Queued follow-ons**:
+- Sub-item 3: Photon-720° compatibility determination ("deferred to post-porting review").
+- Sub-item 4: Topological-protection mechanism (real-space-trivial vs phase-space-winding-as-protection).
+- Q2 cleanup: stale narrative-tail breadcrumbs on cascaded entries (clm-5xon03 "drops to 0.28", clm-3kzmt9 "0.50 to 0.25", clm-zw6mut "solidity 0.40", clm-b2anl4 "from 0.41 to 0.31") — leftovers from prior sessions, now inconsistent with current 0.55 solidity lines. Separate maintenance commit.
+- Path B framing extension (Grant insight 2026-05-25): "photon → (2,3)-mode propagation on K4 → closure at saturation → electron" framing may bypass Faddeev-Skyrme variational analysis for Path B. Maps to AVE-canonical pair-production-axiom-derivation.md + mass-closure-theorem.md + electron-identification.md "self-trapped photon" canonical identity at high fidelity. Novel piece: whether K4 transverse EM modes are ALREADY (p,q)-classified in the linear regime (vs only emerging at closure). Worth a future single-leaf "K4 transverse-mode classification → (2,q) closure mapping" workstream, separate prereg. Banked as queued framework-extension candidate.
 
 ## Phase 0a corpus-grep findings (2026-05-25)
 

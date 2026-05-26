@@ -60,7 +60,8 @@
   - INVARIANT-S2 / Axiom 4 (gradient saturation inside the Faddeev-Skyrme integrand)
   - clm-9s9apq (packing fraction $p_c=8\pi\alpha$; vol1)
   - clm-h9aqmt (electron unknot / $m_e$ baseline for the $+1$ integer-twist mass)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.70, 0.50)]
+  - clm-8c3yhs ($(2,3)$ torus-knot uniqueness — the $(2,q_{odd})$ ladder structure tabulated in this leaf rests on the same coprimality + minimality knot-theoretic foundation that selects $(2,3)$ as the smallest non-trivial coprime torus knot; the ladder's starting point at $q=3$ is structurally downstream of clm-8c3yhs)
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
 - rationale: The self-consistent eigenvalue $x=\mathcal{I}_{scalar}/(1-\mathcal{V}_{total}p_c)+1$ closes algebraically and the FEM convergence to $\mathcal{V}_{total}=2.0$ is binding. The band is pinned by two disclosed dependencies the leaf states explicitly: $\mathcal{I}_{scalar}\approx1162$ is a numerical solver output (not closed-form), and the $\rho_{threshold}=1.1062$ / $\mathcal{V}_{total}$ derivation is closed-form only *conditional on a Gaussian flux-tube ansatz* (Axiom 1 fixes the FWHM but not the profile — an acknowledged outstanding rigour gap). Disclosed methodology bound.
 - strengthen-by:
   - Derive the flux-tube radial profile from Axiom 4 LC dynamics (or substitute the algebraic $\sqrt{1-r^2}$ kernel) and re-evaluate $\rho_{threshold}$, closing the Gaussian-ansatz gap.
@@ -89,7 +90,8 @@
   - INVARIANT-S2 / Axiom 4 (gradient saturation in the eigenvalue functional)
   - clm-9s9apq (packing fraction $p_c=8\pi\alpha$; vol1)
   - clm-mnb3lt (proton-mass eigenvalue method, $c=5$ anchor and shared $\kappa_{FS}$, $\mathcal{V}_{total}$, $p_c$)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.60, 0.50)]
+  - clm-8c3yhs ($(2,3)$ torus-knot uniqueness — the $(2,q_{odd})$ ladder enumerated in this leaf rests on the same coprimality + both-windings-$\geq 2$ + minimality argument; the ladder starts at $(2,3)$ and excludes $(2,4)$, $(2,6)$, etc. because those are not single-component knots, exactly the coprimality requirement clm-8c3yhs derives)
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.60, 0.55)]
 - rationale: The same closed-form eigenvalue $m(c)$ is applied across the odd-$c$ ladder with no parameters re-tuned between states, which is the load-bearing structural claim. But agreement is a $\sim2\%$ band against PDG $\Delta$/N resonances (proton row is by-construction $0.00\%$), and the "best hit" framing is one row, not a global accuracy claim. Inherits clm-mnb3lt's Gaussian-ansatz and numerical-$\mathcal{I}_{scalar}$ bounds. Disclosed-bound consistency family rather than a precision derivation.
 - strengthen-by:
   - Report the full per-row error distribution and state-assignment provenance so the headline is not read off one best hit.
@@ -144,7 +146,7 @@
   - INVARIANT-S2 / Axiom 4 ($\alpha^2$ two-vertex dielectric coupling)
   - clm-9s9apq (packing fraction $p_c=8\pi\alpha$; vol1)
   - clm-5zuo7g (on-shell mixing ratio $M_W/M_Z=\sqrt{7}/3$ used for $M_Z$)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.70, 0.50)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
 - rationale: The $M_W=m_e/(\alpha^2 p_c\sqrt{3/7})$ factor-chain is given a first-principles origin for each factor ($\pi$ spherical, $2\pi$ ring, $\alpha^2$ two-vertex, $p_c$ packing, $\sqrt{3/7}$ PAT) and closes to a number ($-0.57\%$ on $M_W$, $-0.62\%$ on $M_Z$). The $\alpha^2$-as-two-vertex identification and the torsional permittivity decomposition are asserted (motivated by analogy to Coulomb self-energy), and the chain rests on disclosed imports ($p_c$, $\sqrt{3/7}$, the $m_e$ baseline). Disclosed methodology bound.
 - strengthen-by:
   - Derive the torsional permittivity ratio $\varepsilon_T/\mu=\pi\alpha^2 p_c\sqrt{3/7}$ from the Cosserat constitutive law rather than assembling it factor-by-factor by analogy.
@@ -258,7 +260,7 @@
   - INVARIANT-S2 / Axiom 1 (torus-knot crossing-number flavor splitting; $1/c^2$ torsional coupling)
   - INVARIANT-S2 / Axiom 4 (dielectric coupling $\alpha$ between Cosserat sectors)
   - clm-q8un7j (W-boson scale $M_W$ entering $m_\nu=m_e\,\alpha\,(m_e/M_W)$)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.55, 0.50)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.55, 0.55)]
 - rationale: The suppression form $m_\nu=m_e\,\alpha\,(m_e/M_W)\approx0.024$ eV is a closed formula once $M_W$ is in hand, and the $\Delta m^2$-ratio agreement ($\sim3\%$) follows from $m_i\propto1/c_i^2$. But the factor identification ($\alpha$ = inter-sector dielectric coupling, $m_e/M_W$ = translational/torsional energy ratio) is asserted as physical-meaning labels, per-eigenstate values are inferred from baryon pairing (not measured), and the $\sum m_\nu$ comparison is a cosmological upper bound (consistency, not validation). The inverted-hierarchy commitment is the falsifiable load-bearing content.
 - strengthen-by:
   - Derive the $\alpha\,(m_e/M_W)$ suppression factor from the Cosserat inter-sector coupling rather than labeling it.
@@ -354,7 +356,7 @@
   - INVARIANT-S2 / Axiom 4 (same-shell chiral coupling $J_{shell}$ via Op4)
   - INVARIANT-N3 (Op4 potential well; coupled-line even/odd-mode formalism)
   - clm-9s9apq (packing fraction $p_c$ in $J_{1s^2}=(1+p_c)/2$; vol1)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.50)]
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.55)]
 - rationale: The two-screening-physics distinction (integer Gauss cross-shell vs chiral $J_{shell}$ same-shell) and the He bonding-mode result ($-0.88\%$) are clean. But the leaf explicitly states "Be and B remain open: the corrections are applied outside the phase integral, violating the action principle," and the complete-phase-integral architecture (E2k) is presented as in-progress, not yet validated end-to-end for $Z\ge5$. The same-shell coupled-microstrip formalism is asserted by cross-scale isomorphism with no independent atomic-scale validation past the Hopf-pair Be result. Substantive open dependency the leaf acknowledges.
 - strengthen-by:
   - Complete and validate the E2k action-consistent same-shell treatment for B and beyond.
@@ -545,7 +547,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - INVARIANT-S2 / Axiom 4 (UV regulator; Faddeev-Skyrme 3D stabilization)
   - clm-h9aqmt (unknot inductive energy $\to T_{AVE}=m_e^2c^3/\hbar$)
   - clm-mnb3lt (baryon mass-stiffening $m_p/m_e$ for $\alpha'_{baryon}$)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.65, 0.50)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.65, 0.55)]
 - rationale: $T_{AVE}=m_e^2c^3/\hbar\approx0.212$ N is clean dimensional algebra from the unknot tension, and $\alpha'=1/(2\pi T)$ is the standard Nambu-Goto relation — dimensionally exact. But the result is explicitly $17\%$ off the empirical hadronic $\alpha'\approx0.9$ GeV$^{-2}$ (order-of-magnitude, not precision), the $\alpha'_{baryon}$ match is "within an order of magnitude," and equating the fundamental EM string tension to the hadronic Regge slope is an asserted identification. Disclosed-bound: clean algebra, disclosed accuracy gap, asserted EM$\leftrightarrow$hadronic mapping.
 - strengthen-by:
   - Account for the $17\%$ gap (e.g. derive the EM$\to$hadronic correction) rather than reporting it as order-of-magnitude consistency.
@@ -760,7 +762,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - INVARIANT-S2 / Axiom 1 (flux-tube minimum thickness $\ell_{node}$; $K_4$ tetrahedral Borromean braid)
   - INVARIANT-S2 / Axiom 3 (Machian closure expression for $G=c^4\ell_{node}/(7\xi m_ec^2)$)
   - clm-mnb3lt (proton mass / $m_p/m_e$ in the mass-stiffening factor)
-- solidity: 0.40 (do not build on, rework needed) [= min(0.40, 0.50)]
+- solidity: 0.40 (do not build on, rework needed) [= min(0.40, 0.55)]
 - rationale: The He-4 strain consistency check ($\Delta x=E_{bond}/T_{nuc}\approx1.93$ fm, $\approx0.50\%$ strain) is a clean calculation, but it uses the asserted scaling $T_{nuc}=T_{EM}(m_p/m_e)$ (the leaf calls this "a key observation in the computational audit," not a closed derivation) and the empirical 28.3 MeV binding energy as input. The Hierarchy Bridge is explicitly algebraic substitution of two framework choices ($G$ via Axiom 3, $T_{nuc}$ via the assertion), disclosed as not an independent $G$ derivation; neutron decay is structural with no $\tau_n$ derived. Asserted-with-consistency-checks.
 - strengthen-by:
   - Derive $T_{nuc}=T_{EM}(m_p/m_e)$ (rule out nearby functional forms) rather than asserting the mass-stiffening scaling.
@@ -926,7 +928,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - INVARIANT-N3 (shared impedance-operator chain)
   - clm-dboxok (operator chain on nuclear + protein)
   - clm-d9ivj1 (regime-boundary eigenvalue method shared across the domain modules)
-- solidity: 0.40 (do not build on, rework needed) [= min(0.40, 0.50)]
+- solidity: 0.40 (do not build on, rework needed) [= min(0.40, 0.55)]
 - rationale: This leaf is an aggregation/routing table: 13 domain rows whose canonical derivations and caveats live in other vol2/3/4/5 chapters. The verifiable load-bearing fact is the *software* identity — one `scale_invariant.py` imported by 13 modules, test-checked to give identical results across scales — but the per-row physical predictions (5%–10% to "exact" regime checks) are not derived here, and "exact" rows are regime/identity checks, not sub-percent waveform matches. As a derivation the leaf asserts agreement and points elsewhere. Aggregation index.
 - strengthen-by:
   - Replace the summary table with per-row links to the canonical derivation + its own confidence, so the headline cannot be read as uniform sub-percent.
@@ -981,7 +983,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - clm-mroghg (Hubble framing)
   - clm-dboxok (universal energy functional)
   - clm-oygz1i (topological mass functional)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.50)]
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.55)]
 - rationale: Explicitly a derivation-summary catalog that introduces no new derivation — every equation is the load-bearing content of another vol2 entry, and the catalog faithfully carries forward those entries' caveats verbatim (including the proton-mass Gaussian-ansatz "conditional" flag and the `mathematical-closure.md` rigour-gap pointer). Its local rigor is the rigor of a faithful, caveat-preserving aggregation, not of an independent derivation. Pinned mid-band as a non-source summary.
 - strengthen-by:
   - Add per-entry confidence annotations so a consumer reading the catalog sees each result's actual band, not just the headline list.
@@ -1009,7 +1011,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 - depends-on:
   - INVARIANT-S2 / Axiom 1 (Poisson-disk hard-sphere genesis; $K=2G$ trace-reversed micropolar state)
   - clm-9s9apq (analytic QED packing fraction $p_c\approx0.1834$ the genesis targets; vol1)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.50)]
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.55)]
 - rationale: An engine-specification leaf. The Poisson-disk genesis $\to p_c\approx0.17$–$0.18$ is presented as a simulation/analytical *agreement* (the simulation reproduces the analytic $p_c$ given the right exclusion radius — not a derivation of $p_c$ from genesis dynamics). The $C_{ratio}=(p_{cauchy}/p_c)^{1/3}\approx1.187$ over-bracing relation is clean algebra but uses the simulation-reported $p_{cauchy}\approx0.3068$, and the $k_{couple}$ thresholds are simulation-reported, not analytically derived. Engine spec with computationally-supported, partly-asserted constants.
 - strengthen-by:
   - Derive the $k_{couple}$ Cauchy$\to$trace-reversed transition thresholds analytically rather than reading them off simulation.
@@ -1041,7 +1043,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - INVARIANT-S2 / Axiom 1 (micropolar $K=2G$ continuum; lattice pitch $a\equiv\ell_{node}$)
   - INVARIANT-S2 / Axiom 4 (Nyquist band-limit; saturation cap)
   - clm-mnb3lt ($\kappa_{FS}=8\pi$ tying the Vakulenko-Kapitanski constant)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.50)]
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.55)]
 - rationale: Engine-specification leaf mixing clean algebraic identities with imported/asserted choices. Solid pieces: the exact discrete commutator $[\hat x,\hat p_{discrete}]=i\hbar\sqrt{1-(ap/\hbar)^2}$ (correct finite-difference algebra), the flux-basis dimensional-exactness argument, and the standard micropolar constitutive law. Asserted/imported pieces: the Vakulenko-Kapitanski bound $M_{rest}\ge C_{VK}|Q_H|^{3/4}$ with $C_{VK}$ tied to $\kappa_{FS}$ (adopted, not independently derived) and the AQUAL $a_0=cH_\infty/(2\pi)$ identification. Engineering discipline, partly identity-grounded.
 - strengthen-by:
   - Derive $C_{VK}$ from substrate primitives independent of the proton-mass calibration.
@@ -1075,7 +1077,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - INVARIANT-S2 / Axiom 4 (saturation boundary $\varepsilon_{11}=1$; lattice phase transition $G\to0$)
   - $\nu_{vac}=2/7$ (Poisson correction $r_{eff}=r_{sat}/(1+\nu_{vac})$)
   - clm-mnb3lt (proton/pion eigenvalue uses $\mathcal{I}_{baryon}\approx1836$ from proton mass)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.70, 0.50)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
 - rationale: The universal closed form $\omega\cdot r_{char}=\ell(1+\nu_{vac})/x_{sat}$ produces the Schwarzschild QNM $18/49=0.367$ vs GR $0.3737$ (1.7%) via a clean 5-step chain — a consistency check reproducing the GR ringdown through an alternative (saturation-boundary) value problem. The disclosed imports are the factor-7 Machian boundary and the asserted $Q=\ell$ (the leaf states $Q=\ell$ is consistent with observed quality factors but not shown to be the unique resolution); per-domain errors range $0.1\%$ to $\sim40\%$ (extremal Kerr). Disclosed methodology bound.
 - strengthen-by:
   - Derive $Q=\ell$ as the unique consequence of the perfect-reflector saturation boundary rather than a consistent identification.
@@ -1295,6 +1297,7 @@ The substrate-perspective operational view of the canonical electron: what each 
 - depends-on:
   - INVARIANT-S2 / Axiom 1 (per-node K4 + Cosserat observables)
   - clm-uatcql (canonical electron this leaf views from the substrate side)
+  - clm-8c3yhs ($(2,3)$ torus-knot uniqueness — the K4-phasor Layer 3 in this leaf's substrate view IS the $(2,3)$ phase-space winding on the Clifford torus; derivation lives at `vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md`)
 - solidity: 0.35 (do not build on, rework needed) [= min(0.35, 0.70)]
 - rationale: An operational/interpretive reframing: what each lattice node locally experiences at the canonical electron configuration (high-$A^2$ region, self-formed TIR wall, topological circulation, B-flux, Op14 refractive tail, K4-Cosserat coupling). The six substrate observables are asserted to compose into the macroscopic electron observables, but the leaf "introduces no new derivation beyond" the electron-identification leaf — it is a perspective, not a derivation. Low local rigor as a standalone derivation.
 - strengthen-by:
@@ -1351,7 +1354,7 @@ AVE-native canonical identification of the neutron as $6_2^3 \cup 0_1$ (the prot
   - clm-mnb3lt (proton $6^3_2$ / $m_p$ that the neutron composite builds on)
   - clm-uatcql (threaded electron $0_1$ identification)
   - clm-cmic3e (proton canonical identification the neutron composite incorporates)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.50)]
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.55)]
 - rationale: A rigorous, self-critical audit: the composite topology $n=6^3_2\cup0_1$ and charge neutrality are clean axiom-derived, but the leaf explicitly flags TWO load-bearing derivation gaps — the mass split $m_n-m_p\approx1.293$ MeV is mechanism-named (elastic-expansion tension) but NOT derived from a Faddeev-Skyrme calculation, and the lifetime $\tau_n\approx880$ s mechanism is named but the rate is NOT derived. Magnetic moment and charge radius are structural-only. Substantive acknowledged open dependencies on the two main quantitative observables.
 - strengthen-by:
   - Derive the 1.293 MeV mass split as $E_{FS}(6^3_2\cup0_1)-E_{FS}(6^3_2)$ from the threaded-knot Faddeev-Skyrme energy.
@@ -1379,7 +1382,8 @@ AVE-native canonical identification of the proton, structured to parallel the el
   - clm-mnb3lt (the $m_p/m_e=1836.12$ eigenvalue this leaf audits input-by-input)
   - clm-67jn9o (Witten-effect fractional quark charges)
   - clm-9s9apq (packing fraction $p_c$; vol1)
-- solidity: 0.50 (use as input only, don't build deeper) [= min(0.70, 0.50)]
+  - clm-8c3yhs ($(2,3)$ torus-knot uniqueness — the proton's $(2,5)$ cinquefoil assignment is "the next stable entry after the electron's $(2,3)$" on the $(2,q_{odd})$ ladder, which rests on the coprimality + minimality argument that anchors $(2,3)$ as the lightest non-trivial coprime torus knot)
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
 - rationale: A rigorous per-input audit of the flagship $m_p/m_e=1836.12$ (0.002%, zero fit parameters): $\kappa_{FS}=8\pi$, $c_5=5$, $\mathcal{V}_{total}=2.0$ (FEM-verified), $p_c=8\pi\alpha$, and the $+1.0$ charge twist are each traced to axioms. The audit is honest that $\mathcal{I}_{scalar}\approx1162$ is a computational input flagged for solver verification, and it inherits the Gaussian-ansatz bound of clm-mnb3lt. Consistent with the clm-mnb3lt band — disclosed methodology bound.
 - strengthen-by:
   - Verify the 1D Faddeev-Skyrme solver implementation has no tunable parameter and document the $\mathcal{I}_{scalar}$ convergence.
@@ -1462,7 +1466,7 @@ AVE forward-predicts a topological/Cosserat second-order effect contributing to 
   - INVARIANT-S2 / Axiom 4 (Cosserat torsional excitation; $\sqrt{3/7}$ PAT torsion-shear projection)
   - clm-v2sg8z (Q-G19α electron Petermann closure this parallels / builds on)
   - clm-rji99i (shared $\sqrt{3/7}$ mechanism that also gives $m_\mu$)
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.45, 0.50)]
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.45, 0.55)]
 - rationale: A zero-fit forward prediction $\delta^\mu_{Cosserat}=-\alpha\sqrt{3/7}/(2\pi)$ reusing the same $\sqrt{3/7}$ PAT projection that yields $m_\mu$ at 1.24% — a clean structural assembly. But the Cosserat-saliency identification (one torsion quantum adds exactly this $\delta$) is asserted/structural, the textbook-QED conversion gives $\Delta a_\mu^{(2)}=+502\times10^{-11}$ which is currently in **4.6$\sigma$ tension** with Fermilab on the e+e- baseline (BMW-baseline-conditional, so not refuted), and a prior $+247$ value was a walked-back factor-2 error. Asserted-structural with disclosed experimental tension.
 - strengthen-by:
   - Resolve the e+e- vs BMW baseline ambiguity and state the prediction against the adjudicated SM baseline.

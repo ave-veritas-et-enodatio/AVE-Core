@@ -3,10 +3,12 @@
 <!-- kb-frontmatter
 kind: leaf
 claims: [clm-8c3yhs]
-path-stable: "referenced from L3 closure synthesis + vol1 ch8 + torus-knot-ladder as canonical (2,3)-uniqueness derivation"
+path-stable: "referenced from L3 closure synthesis + vol1 ch8 + torus-knot-ladder as canonical (2,3)-uniqueness derivation; depends-on from clm-unk0bd + clm-0ktpcn wired 2026-05-25 Phase 2 sub-item 1"
 -->
 
 # $(2, 3)$ Torus-Knot Uniqueness: Why the Electron Is the Trefoil
+
+> **Bridging role of this leaf.** This is the canonical KB home of the $(2,3)$ uniqueness derivation. Two Vol 1 claims depend on it directly: **clm-unk0bd** (Electron Body Topology — supplies the $(2,3)$ phase-space winding for the $0_1$ unknot identification) and **clm-0ktpcn** (Golden Torus α Derivation — uses $(2,3)$ in regime (b) self-avoidance and regime (c) half-cover). The Vol 1 Ch 8 α derivation declares the $(2,3)$ winding at its "Topological identity of the electron" header; the derivation of WHY $(2,3)$ (vs $(4,3)$, $(5,2)$, etc.) lives here, not there. Cross-refs wired 2026-05-25 (Phase 2 sub-item 1).
 
 Derivation of why the electron's phase-space topology is specifically $(2, 3)$, not $(1, 1)$, $(2, 5)$, $(3, 5)$, or any other torus-knot winding. **$(2, 3)$ is uniquely the smallest non-trivial coprime torus knot**, with the lowest crossing number ($c = 3$) of any non-trivial knot. Coprimality is required for a connected single-component knot (not a link). Both windings $\geq 2$ is required for non-trivial winding in both directions. The electron, as the lightest stable lepton with non-trivial topology, **must be $(2, 3)$** — it's the only assignment consistent with "electron = lightest stable non-trivial topological soliton."
 

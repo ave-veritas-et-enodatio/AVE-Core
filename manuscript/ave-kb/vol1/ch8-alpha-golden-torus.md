@@ -26,6 +26,8 @@ claims: [clm-3zz0f6, clm-5xon03, clm-0ktpcn, clm-unk0bd]
 
 The electron is the $0_1$ **unknot** in real space — the simplest closed flux-tube loop with no real-space crossings. The "(2,3) trefoil" that appears throughout this derivation refers to the **phase-space Clifford-torus winding pattern** of the electron's bond-pair LC tank (2 windings on the d-axis, 3 windings on the q-axis), NOT a real-space trefoil knot. The trefoil lives in phase space; the soliton lives in real space.
 
+> → Primary: [$(2,3)$ Torus-Knot Uniqueness](../vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md) — derivation of why $(2,3)$ specifically (vs $(4,3)$, $(5,2)$, etc.) is forced as the electron's phase-space winding: coprimality $\gcd(p,q)=1$ for single-component-knot vs link + both windings $\geq 2$ for non-trivial knotting + minimality (smallest such pair is $(2,3)$, crossing number $c=3$) + electron-is-lightest-non-trivial-lepton. The Phase 2 sub-item 1 (2026-05-25) wiring of this Primary cross-ref closes the prior "(2,3) winding asserted, not derived" caveat on clm-unk0bd and clm-0ktpcn (see [vol1/claim-quality.md](./claim-quality.md)).
+
 ## Derivation Summary (Three-Regime Rigor)
 
 Following the PMNS angle derivation pattern ([Vol 2 Ch 3 §Step 2](../vol2/particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md)) — which rigorously produces three mixing-angle values by identifying three distinct physical regimes — the electron unknot's phase-space (2,3) winding pattern on the Clifford torus partitions into three geometric regimes, each producing one independent equation in the unknowns $(R, r, d)$:
