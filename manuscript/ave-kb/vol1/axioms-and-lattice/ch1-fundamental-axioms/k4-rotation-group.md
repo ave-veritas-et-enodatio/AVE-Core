@@ -135,7 +135,7 @@ For each element of $A_4$, there are two preimages in $2T$ differing by the cent
 
 **For spin-½ to be DERIVED from K4** (not imported from QM), physical fields on the K4 lattice must transform under $2T$ rather than $T$. This is provided by the Finkelstein–Misner mechanism on the extended $0_1$ unknot defect embedded in the SO(3) manifold — the substrate-native source of spin-½ via the $K_4 \to A_4 \to 2T \subset SU(2)$ chain.
 
-See [spin-half-paradox](../../../vol2/appendices/app-b-paradoxes/spin-half-paradox.md) for the full spin-½ derivation chain.
+See [finkelstein-misner-spin-half-derivation](../../../vol2/particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md) for the **explicit K4-native derivation** (extended-unknot mechanism + gyroscopic-isomorphism numerical anchor at $10^{-8}$ + K4-native-vs-imported decomposition), and [spin-half-paradox](../../../vol2/appendices/app-b-paradoxes/spin-half-paradox.md) for the high-level resolution-position summary.
 
 ## §7 — Cross-volume implications
 

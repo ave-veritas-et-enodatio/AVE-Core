@@ -540,9 +540,8 @@
 {"claim_id": "clm-ui3m8a", "item_idx": 0, "text": "Recompute the YBCO phased-array prediction against the canonical $V_{yield}=43.65$ kV (not 60 kV) and re-derive the per-node grip force.", "mentioned_ids": []}
 {"claim_id": "clm-ui3m8a", "item_idx": 1, "text": "Demonstrate the array-extensivity bypass of the 1.846 g cap (currently asserted, not shown).", "mentioned_ids": []}
 {"claim_id": "clm-unk0bd", "item_idx": 0, "text": "Derive the (2,3) phase-space winding from a uniqueness argument (why not (4,3), (5,2), etc.).", "mentioned_ids": []}
-{"claim_id": "clm-unk0bd", "item_idx": 1, "text": "Spell out the Finkelstein–Misner spin-1/2 derivation from the K4 → A4 → 2T ⊂ SU(2) chain explicitly in the leaves.", "mentioned_ids": []}
-{"claim_id": "clm-unk0bd", "item_idx": 2, "text": "Settle the photon-720° compatibility determination flagged for post-porting review.", "mentioned_ids": []}
-{"claim_id": "clm-unk0bd", "item_idx": 3, "text": "Establish whether (2,3) phase-space winding gives genuine topological protection, or whether electron stability is purely energetic.", "mentioned_ids": []}
+{"claim_id": "clm-unk0bd", "item_idx": 1, "text": "Settle the photon-720° compatibility determination flagged for post-porting review.", "mentioned_ids": []}
+{"claim_id": "clm-unk0bd", "item_idx": 2, "text": "Establish whether (2,3) phase-space winding gives genuine topological protection, or whether electron stability is purely energetic.", "mentioned_ids": []}
 {"claim_id": "clm-uowffm", "item_idx": 0, "text": "Re-derive or cite-by-clm-id the $n_\\text{coop}=9$ K4 mode count from a Vol 3 leaf so it is leaf-traceable within the dependency graph.", "mentioned_ids": []}
 {"claim_id": "clm-uowffm", "item_idx": 1, "text": "Validate $T_c$ against a measured pure-bilayer transition temperature rather than the water density anomaly, removing the interpretive-target caveat.", "mentioned_ids": []}
 {"claim_id": "clm-usflef", "item_idx": 0, "text": "Justify the specific 0.2× threshold quantitatively (e.g. tie it to the breather V_min/V_max envelope ratio rather than asserting it)", "mentioned_ids": []}
