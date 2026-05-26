@@ -98,12 +98,12 @@ The current state asserts this identification constructively — the phase-locke
 ### What I expect (forward pre-registration, per ave-prereg discipline)
 
 Z₀ ≈ 377 Ω will derive directly from the substrate's intrinsic impedance via the canonical AVE chain:
-- Ax 1 (TLM lattice impedance): bond impedance Z_bond defined by node-capacitance / inductance ratio
-- Ax 2 (ν_vac = 2/7 lattice-DOF ratio): geometric prefactor in the bond → continuum impedance map
-- Continuum limit yields Z₀ = √(μ₀/ε₀) as the IMPEDANCE eigenvalue of the K4-TLM substrate in transverse propagation
-- The phase-locked thread (chiral labyrinth on the unknot, per `phase-locked-topological-thread.md`) is a topologically-trapped MODE on this substrate; its characteristic impedance MATCHES Z₀ by lattice-continuity (the thread is a bound state of the same substrate that propagates Z₀ transverse waves)
+- Ax 1 (K4-TLM bond impedance): per-bond impedance Z_bond defined by node-capacitance / bond-inductance ratio at the lattice level
+- Ax 2 (ν_vac = 2/7 lattice-DOF ratio): geometric prefactor in the per-bond → continuum-limit impedance map
+- Continuum limit yields Z₀ = √(μ₀/ε₀) as the substrate-impedance eigenvalue of the K4-TLM lattice in transverse-mode propagation
+- The phase-locked thread (chiral labyrinth on the unknot, per `phase-locked-topological-thread.md`) is a topologically-trapped mode on this substrate; its characteristic impedance equals the substrate's transverse-mode impedance Z₀ by lattice-continuity (the trapped mode lives on the same substrate that propagates Z₀ transverse modes, so its mode-impedance is fixed by the substrate's lattice-eigenvalue structure rather than by tuned external coupling)
 
-If this is the right chain, the derivation is ~Class 2 emergence (the topological-thread mode's Z = Z₀ ≈ 377 Ω because it's the substrate-impedance of the lattice it lives on) — NOT Class 4 consistency (which would be: "we computed Z and got 377 Ω, matches Maxwell").
+If this is the right chain, the derivation is ~Class 2 substrate-mechanism emergence (the topological-thread mode's Z equals the substrate-impedance Z₀ ≈ 377 Ω because the thread is a bound substrate-mode on the K4-TLM lattice whose continuum-limit eigenvalue IS Z₀) — NOT Class 4 consistency (which would be: "we computed Z and got 377 Ω, matches the standard continuum-electrodynamics value"; the standard community calls this matching "Maxwell's vacuum impedance match").
 
 ### Pre-survey — what already exists in corpus
 
@@ -117,51 +117,51 @@ grep -rn "characteristic impedance" manuscript/ave-kb/ research/
 ```
 
 Likely already-canonical anchors:
-- `manuscript/ave-kb/vol1/axiom-1-impedance.md` (if exists; check) — TLM bond impedance
-- `manuscript/ave-kb/vol4/circuit-theory/` — vacuum circuit analysis chapters
-- `manuscript/ave-kb/common/translation-tables/translation-circuit.md` — EE-side translation of Z₀
-- `src/ave/core/constants.py` — Z₀ definitely canonical here (search for `Z_0` / `Z_vac`)
+- `manuscript/ave-kb/vol1/axiom-1-impedance.md` (if exists; check) — K4-TLM per-bond impedance
+- `manuscript/ave-kb/vol4/circuit-theory/` — substrate-circuit analysis chapters (the standard community calls this "vacuum circuit analysis")
+- `manuscript/ave-kb/common/translation-tables/translation-circuit.md` — translation row for substrate-impedance Z₀ to its standard electrical-engineering name "vacuum impedance"
+- `src/ave/core/constants.py` — Z₀ canonical here (search for `Z_0` / `Z_vac`)
 - `manuscript/ave-kb/vol1/dynamics/ch3-quantum-signal-dynamics/phase-locked-topological-thread.md` — current home of the constructive identification
 
 If the chain Ax1+Ax2 → continuum-impedance → topologically-bound-mode-of-substrate already exists end-to-end, Phase 3a is a leaf-wire (analogous to Phase 1's clm-zuf7g1 → clm-salw2h chain-promotion). If gaps exist (most likely: the "bound topological mode inherits substrate impedance by lattice-continuity" step), Phase 3a derives that step.
 
 ### What would discriminate (per ave-discrimination-check)
 
-For Phase 3a to land as a genuine derivation (not a translation-table identification):
+For Phase 3a to land as a genuine substrate-mechanism derivation (not a translation-table identification of substrate Z₀ with its standard-physics name "vacuum impedance"):
 
-1. **The derivation must NOT bottom out at "Z₀ = √(μ₀/ε₀) by definition of Z₀"** — that's circular; Z₀'s canonical definition IS √(μ₀/ε₀). The derivation must produce 377 Ω from the substrate's K4-TLM lattice parameters (capacitance per node, inductance per bond, lattice spacing) which independently fix Z₀.
-2. **The topological-thread mode's Z must come from SUBSTRATE structure**, not from a separate impedance-matching argument. I.e., the thread is on the same substrate that supports Z₀ transverse waves; its mode-impedance is Z₀ by lattice-eigenvalue, not by a tuned coupling.
-3. **The classification under consistency-vs-emergence must be Class 2** (substrate-mechanism emergence) — explicit derivation-path tracing required per the v1.2 discipline upgrade. If the derivation reduces to "Maxwell gives 377 Ω and AVE matches Maxwell at continuum limit," reclassify as Class 4 consistency and lower the expected solidity-lift accordingly.
+1. **The derivation must NOT bottom out at "Z₀ = √(μ₀/ε₀) by definition"** — that's circular; the standard-physics definition of "vacuum impedance" IS √(μ₀/ε₀). The derivation must produce the 377 Ω value from the substrate's K4-TLM lattice parameters (capacitance per node, inductance per bond, lattice spacing) which independently fix Z₀ from substrate-mechanical primitives.
+2. **The topological-thread mode's characteristic impedance must come from substrate-eigenvalue structure**, not from a separately-tuned impedance-matching argument. I.e., the thread lives on the same K4-TLM substrate that supports Z₀ transverse modes; its mode-impedance equals Z₀ by lattice-continuity at the eigenvalue level, not by tuned external coupling.
+3. **The classification under consistency-vs-emergence v1.2 must be Class 2** (substrate-mechanism emergence) — explicit master-equation-derivation-path tracing required per the v1.2 discipline upgrade. If the derivation reduces to "continuum-limit substrate dispersion produces 377 Ω which the standard community calls the Maxwell vacuum impedance," reclassify as Class 4 substrate-agnostic-consistency and lower the expected solidity-lift accordingly.
 
 ### Adjudication criteria (PASS / WALK-BACK / RESCOPE)
 
-- **PASS**: Z₀ derivation is Class 2 substrate-emergence end-to-end, no circularity, KB integration clean. Solidity-lift target: clm-zuf7g1 0.65 → 0.70.
-- **WALK-BACK**: derivation bottoms out in Class 4 consistency; document honestly, no solidity lift, refine Phase 3 scope (Q-LCR-1: is Z₀ derivable as substrate-emergence, or is it definitionally fixed by μ₀/ε₀ canonical-source link?).
-- **RESCOPE**: gap is in step "topological-thread mode inherits substrate Z by lattice-continuity" rather than in Z₀ itself. Spin out as separate Phase 3a-mode workstream; Z₀-from-Ax1+Ax2 lands as a leaf-completion.
+- **PASS**: Z₀ derivation is Class 2 substrate-mechanism emergence end-to-end, no circularity, KB integration clean. Solidity-lift target: clm-zuf7g1 0.65 → 0.70.
+- **WALK-BACK**: derivation bottoms out in Class 4 substrate-agnostic consistency; document honestly, no solidity lift, refine Phase 3 scope (Q-LCR-1: is the substrate-impedance Z₀ derivable as substrate-mechanism emergence from Ax 1 + Ax 2 lattice parameters, or is it definitionally fixed by the μ₀/ε₀ canonical-source link to the standard continuum-electrodynamics value?).
+- **RESCOPE**: gap is in the step "topological-thread mode inherits substrate Z by lattice-continuity" rather than in Z₀ derivation itself. Spin out as separate Phase 3a-mode workstream; Z₀-from-Ax1+Ax2 lands as a leaf-completion.
 
 ### Skills expected to fire (implementor checklist)
 
 - `ave-prereg` — corpus-grep as above
-- `ave-canonical-leaf-pull` — pull Z₀ leaves + phase-locked-thread leaf + any circuit-theory chapter
-- `ave-canonical-source` — Z₀ canonical home in `src/ave/core/constants.py`; never hard-code 377
-- `ave-analytical-tool-selection` — impedance / boundary problem class; check `ave-analytical-toolkit-index.md` for Op-level tools (likely Op4 boundary-impedance + Op17 mode-matching)
-- `ave-discipline-translate` — check `translation-circuit.md` row for Z₀; confirm AVE-native form (not borrowed EE)
+- `ave-canonical-leaf-pull` — pull substrate-impedance leaves + phase-locked-thread leaf + any substrate-circuit-theory chapter
+- `ave-canonical-source` — substrate-impedance Z₀ canonical home in `src/ave/core/constants.py`; never hard-code 377
+- `ave-analytical-tool-selection` — substrate-impedance / boundary-impedance problem class; check `ave-analytical-toolkit-index.md` for Op-level tools (likely Op4 boundary-impedance + Op17 mode-matching)
+- `ave-discipline-translate` v1.1 — check `translation-circuit.md` row for substrate-impedance Z₀ ↔ standard-physics "vacuum impedance" mapping; trigger 6 fires continuously during prose composition (substrate-native vocabulary mandatory; "Maxwell vacuum impedance" appears only as parenthetical translation reference to substrate-impedance Z₀)
 - `substrate-native-check` — K4-TLM lattice structure walk before deriving
-- `consistency-vs-emergence` v1.2 — explicit Class-2 vs Class-4 classification with master-equation-derivation-path tracing
-- `phase-space-coordinate-check` — Z₀ lives in impedance-plane (V/I phasor); topological thread lives in real-space lattice; need to keep coordinates clean
-- `ave-evidence-framing-discipline` — "derives" vs "identifies" vs "consistent-with" precision in result framing
-- `ave-discrimination-check` — discriminate Class 2 emergence from Class 4 consistency BEFORE asserting solidity lift
+- `consistency-vs-emergence` v1.2 — explicit Class-2 substrate-mechanism vs Class-4 substrate-agnostic-consistency classification with master-equation-derivation-path tracing
+- `phase-space-coordinate-check` — substrate-impedance Z₀ lives in impedance-plane (V/I phasor coordinates); topological thread lives in real-space lattice coordinates; need to keep coordinate systems clean
+- `ave-evidence-framing-discipline` — "derives from substrate primitives" vs "identifies with standard-physics name" vs "consistent-with continuum-limit value" precision in result framing
+- `ave-discrimination-check` — discriminate Class 2 substrate-mechanism emergence from Class 4 substrate-agnostic consistency BEFORE asserting solidity lift
 
 ### Branch + spawn protocol
 
 - **Branch**: `analysis/clm-zuf7g1-phase-3a-Z0-derivation` off `main` @ post-PR-38-merge
 - **Spawn**: orchestration session uses `Agent` tool with `isolation: "worktree"` so the implementor sub-agent works in a temporary worktree (separate working dir, same `.git`) — prevents working-tree branch leak (per CLAUDE.md "Pre-commit discipline" section)
 - **Sub-agent type**: `ave-implementer` (full discipline: prereg + driver + result doc + auditor + skills compliance check)
-- **Sequencing**: parallel-safe with other Phase 3+ epic spawns (clm-0ktpcn + nanoscale-CLT). No depends-on conflicts between these workstreams.
+- **Sequencing**: parallel-safe with other Phase 3+ epic spawns (clm-0ktpcn + ax4-saturation-narrow-aperture-amplitude-shape — formerly nanoscale-CLT, renamed 2026-05-26 per substrate-native vocabulary discipline). No depends-on conflicts between these workstreams.
 
 ### Honest closure probability
 
-~60% probability of clean Class-2 closure. Risk: the Z₀ derivation reduces to Maxwell-matching at continuum limit (Class 4 consistency), in which case the leaf-completion still happens but no solidity bump. Walk-back path is clean (Type B demotion, no cascade impact).
+~60% probability of clean Class-2 substrate-mechanism closure. Risk: the Z₀ derivation reduces to continuum-limit substrate-dispersion-matching the standard "Maxwell vacuum impedance" value (Class 4 substrate-agnostic consistency), in which case the leaf-completion still happens but no solidity bump. Walk-back path is clean (Type B demotion, no cascade impact).
 
 ## Skills compliance check (TBD on session kickoff)
 

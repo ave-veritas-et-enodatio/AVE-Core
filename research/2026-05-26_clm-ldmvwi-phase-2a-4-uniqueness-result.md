@@ -3,6 +3,18 @@
 **Date**: 2026-05-26
 **Workstream**: Phase 2-A of clm-zuf7g1-strengthen (Born-rule master-equation-derivation-path)
 **Branch**: `analysis/clm-ldmvwi-master-eq-stochastic-derivation` @ `bd1d2abb` (post Phase 2-A.3)
+
+> **Vocabulary-discipline notice (added 2026-05-26 post-PR-merge)**:
+>
+> **This is the doc that surfaced `ave-discipline-translate` v1.1 trigger 6** during the 2026-05-26 Q-NCLT-1 adjudication session. The "non-Gaussian corrections from CLT failure" passage at line 146 (now-renamed to Ax 4 saturation-induced narrow-aperture amplitude-shape epic) was composed in standard-physics stochastics vocabulary as primary load-bearing prose, occluding the substrate-distinct vs substrate-agnostic distinction. Grant intervention: *"really pull away from the standard model and qed language and reframe this under AVE native vocab"*. The reframe surfaced that the AVE-distinct piece is Ax 4 saturation, NOT central-aggregation incompleteness — the standard-physics framing had collapsed both into one mis-shaped composite.
+>
+> The prose body of this doc remains in pre-v1.1 vocabulary (Born rule p=2, Gaussian noise, Wick's theorem, cumulant truncation, CLT, FDT, photodetector, |ψ|²). The physics result is correct as derived — the discipline notice is about prose framing, not derivation correctness. Type B walk-back classification (mechanism re-scope, not retirement) per `ave-walk-back` v1.1.
+>
+> **Substrate-native vocabulary lookup**: see [`manuscript/ave-kb/common/translation-tables/translation-stochastics.md`](../manuscript/ave-kb/common/translation-tables/translation-stochastics.md) — particularly relevant rows: Wick's theorem ↔ quadratic-Lagrangian moment factorization (§3.1 invokes); Gaussian noise ↔ quadratic-Lagrangian-shape amplitude statistics (§3.1); cumulant expansion ↔ substrate amplitude correlator decomposition (§3.1); CLT ↔ substrate-agnostic central-aggregation across N lattice sites (line 146); Edgeworth pre-asymptote ↔ aperture-incompleteness factor 1/√N (epic `ax4-saturation-narrow-aperture-amplitude-shape.md`). Also [`translation-qm.md`](../manuscript/ave-kb/common/translation-tables/translation-qm.md) Section B for Born rule p=2 ↔ quadratic-in-amplitude boundary-Joule extraction-rate scaling.
+>
+> **Discipline anchor**: `ave-discipline-translate` v1.1 trigger 6 — this very doc IS the in-session validation case for the v1.1 amendment (see v1.1 in-session-validation section + skill failure mode FM-5).
+>
+> **Forward-prediction surfaced by reframe**: the line-144 + line-146 "latent forward-prediction" flags, when read through v1.1 trigger 6 substrate-native vocabulary, surfaced the substrate-distinct prediction in [`_orchestration/ax4-saturation-narrow-aperture-amplitude-shape.md`](../_orchestration/ax4-saturation-narrow-aperture-amplitude-shape.md). The reframe is not merely cosmetic — it surfaced new physics content (Ax 4 saturation × narrow-aperture combined prediction is Class 2 substrate-mechanism; small-N CLT failure alone is Class 4 substrate-agnostic-consistency).
 **Pre-reg**: [`2026-05-26_clm-ldmvwi-master-eq-stochastic-derivation-prereg.md`](./2026-05-26_clm-ldmvwi-master-eq-stochastic-derivation-prereg.md) §4.4
 **Previous phase results**: [A.2](./2026-05-26_clm-ldmvwi-phase-2a-2-stochastic-master-eq-result.md) (stochastic master eq + W(t)) + [A.3](./2026-05-26_clm-ldmvwi-phase-2a-3-threshold-crossing-result.md) (threshold-crossing first-passage; $\lambda \propto |V_s|^2$)
 **Verdict**: **PASS** on AC-A5.1, AC-A5.2, AC-A5.3 (the three uniqueness/counterfactual/independence criteria); AC-A4.1, AC-A4.2 were addressed in A.3 §3.2 + §3.4

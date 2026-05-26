@@ -155,7 +155,7 @@ The KB claim-quality caveat contradicts the canonical leaf's status marker. **Fl
 ## Phase 3 plan — clm-0ktpcn own-confidence strengthening (2026-05-26 forward)
 
 **Context update (post-Phase 2-A close 2026-05-26)**: cascade math from `clm-zuf7g1-strengthen.md` confirms:
-- Phase 2-A closed (Born rule master-equation-derivation-path) → cascade lifted clm-zuf7g1 + clm-unk0bd + clm-5xon03 from 0.55 → 0.65
+- Phase 2-A closed (master-equation-derivation-path of quadratic-in-amplitude boundary-Joule extraction-rate scaling; the standard community calls this "Born rule p=2") → cascade lifted clm-zuf7g1 + clm-unk0bd + clm-5xon03 from 0.55 → 0.65
 - **clm-0ktpcn stays at solidity 0.55** because its own confidence is still 0.55 (the dep-gate is no longer the cap; clm-0ktpcn's own confidence is now the cap)
 - Therefore: the next solidity-lift lever on clm-0ktpcn is **strengthening clm-0ktpcn's own confidence**, not lifting a dependency
 
@@ -246,7 +246,7 @@ If the symmetry decomposition doesn't go through cleanly → walk back the "orth
 - `ave-prereg` — corpus-grep as above
 - `ave-canonical-leaf-pull` — ch8 + Schur + group-theory + multipole leaves
 - `ave-analytical-tool-selection` — Mode class (irreducible-rep decomposition); check `ave-analytical-toolkit-index.md`
-- `ave-discipline-translate` — Schur orthogonality is QM-canonical; check `translation-qm.md` for AVE-native form (probably "decomposition into eigenspaces of the substrate symmetry group acting on the (2,3) Clifford-torus mode space")
+- `ave-discipline-translate` v1.1 — Schur orthogonality is a compact-group representation-theory theorem (substrate-applicable to any compact symmetry group acting on the substrate mode space); the substrate-native framing is "decomposition into orthogonal eigenspaces of the substrate's tetrahedral/octahedral symmetry group acting on the (2,3) Clifford-torus mode space". The standard-physics community uses Schur orthogonality in QM representation-theory contexts; check `translation-qm.md` to confirm the substrate-native usage doesn't conflict with canonical translations. Trigger 6 fires during prose composition; substrate-native vocabulary mandatory throughout
 - `substrate-native-check` — symmetry group must come from K4-TLM substrate structure, not imported from particle-physics convention
 - `consistency-vs-emergence` v1.2 — explicit Class 2 vs Class 4 classification; orthogonality derivation IS Class 2 if symmetry group emerges from substrate, Class 4 if imported
 - `phase-space-coordinate-check` — group acts on (2,3) phase-space mode space, not real-space; coordinate distinction critical

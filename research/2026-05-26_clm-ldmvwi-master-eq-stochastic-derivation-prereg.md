@@ -3,6 +3,16 @@
 **Date**: 2026-05-26
 **Workstream**: Phase 2 of clm-zuf7g1-strengthen (which is itself Phase 2 of clm-0ktpcn-strengthen cascade unlock)
 **Branch**: `analysis/clm-ldmvwi-master-eq-stochastic-derivation` off `main` @ `cc4cb19c` (post PR #37 merge)
+
+> **Vocabulary-discipline notice (added 2026-05-26 post-PR-merge)**:
+>
+> This research-tier doc was composed before `ave-discipline-translate` v1.1 trigger 6 (substrate-native prose-vocabulary discipline) landed. The prose body uses standard-physics stochastics / measurement-process vocabulary (Born rule, CLT, Gaussian noise, FDT, Wick's theorem, photodetector) as primary load-bearing description language; v1.1 trigger 6 mandates substrate-native vocabulary as primary with standard-physics names as parenthetical translation references.
+>
+> The physics result is correct as derived — the discipline notice is about prose framing, not derivation correctness. Type B walk-back classification (mechanism re-scope, not retirement) per `ave-walk-back` v1.1.
+>
+> **Substrate-native vocabulary lookup**: see [`manuscript/ave-kb/common/translation-tables/translation-stochastics.md`](../manuscript/ave-kb/common/translation-tables/translation-stochastics.md) (FDT, CLT, Gaussian, Wick, Langevin, cumulants), [`manuscript/ave-kb/common/translation-tables/translation-qm.md`](../manuscript/ave-kb/common/translation-tables/translation-qm.md) Section B (Born rule, click rate, |ψ|² measurement, detector efficiency), and [`manuscript/ave-kb/common/translation-tables/translation-instrumentation.md`](../manuscript/ave-kb/common/translation-tables/translation-instrumentation.md) (detector architectures). Future Phase 2-A.5-style canonical-leaf integration workstream may produce a full substrate-native rewrite of this doc.
+>
+> **Discipline anchor**: `ave-discipline-translate` v1.1 trigger 6 (this workstream is the in-session validation case for the v1.1 amendment).
 **Author lane**: orchestration session
 **Status**: PRE-RUN — frozen at draft for record; the 5 sub-phases below are workstream-level, each with its own per-session acceptance criteria
 
