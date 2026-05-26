@@ -152,6 +152,142 @@ The KB claim-quality caveat contradicts the canonical leaf's status marker. **Fl
 - Pre-reg (Phase 0 deliverable): `research/2026-05-25_clm-0ktpcn-golden-torus-alpha-strengthen-prereg.md` (PENDING)
 - Closure-roadmap status-dashboard row: PENDING addition
 
+## Phase 3 plan — clm-0ktpcn own-confidence strengthening (2026-05-26 forward)
+
+**Context update (post-Phase 2-A close 2026-05-26)**: cascade math from `clm-zuf7g1-strengthen.md` confirms:
+- Phase 2-A closed (Born rule master-equation-derivation-path) → cascade lifted clm-zuf7g1 + clm-unk0bd + clm-5xon03 from 0.55 → 0.65
+- **clm-0ktpcn stays at solidity 0.55** because its own confidence is still 0.55 (the dep-gate is no longer the cap; clm-0ktpcn's own confidence is now the cap)
+- Therefore: the next solidity-lift lever on clm-0ktpcn is **strengthening clm-0ktpcn's own confidence**, not lifting a dependency
+
+This is a different shape of workstream than Phases 1+2 (which were chain-promotions via clm-unk0bd). Phase 3 attacks clm-0ktpcn's own strengthen-by list directly.
+
+### clm-0ktpcn's own strengthen-by list (per `claim-quality.md` clm-0ktpcn block)
+
+Per the canonical 2026-05-25 entry, clm-0ktpcn's own 4-item list (DIFFERENT from clm-unk0bd's list addressed in Phases 1+2):
+
+1. **Sum-decomposition orthogonality** — the multipole sum that yields $4\pi^3 + \pi^2 + \pi$ assumes orthogonal contributions from the three regimes (Nyquist + crossings + screening). Currently asserted; needs Schur orthogonality demonstration or analogous orthogonal-basis argument.
+2. **A1 prose reframe** — the chapter's "derivation" prose blends derivation-from-axioms with reverse-engineering-from-CODATA. Reframe the chapter prose to clearly separate Class 2 axiom-manifestation steps from Class 4 consistency checks (per `consistency-vs-emergence` v1.2 master-equation-derivation-path discipline).
+3. **δ_strain magnitude derivation** — the saturation strain δ_strain that appears in the three-regime closure as a substrate-physics parameter is asserted at order-of-magnitude rather than derived from Ax 4 (saturation kernel) parameters. Multi-step derivation: K4 lattice spacing × saturation-onset amplitude ratio → δ_strain.
+4. **Q2 cleanup** — stale narrative-tail breadcrumbs on cascaded claim-quality entries (clm-5xon03 "drops to 0.28", clm-3kzmt9 "0.50 to 0.25", clm-zw6mut "solidity 0.40", clm-b2anl4 "from 0.41 to 0.31") — leftovers from prior sessions inconsistent with current 0.55/0.65 lines. Pure hygiene, no derivation.
+
+### Phase 3 sub-phase plan
+
+| Sub-phase | Goal | Status | Spawn shape |
+|---|---|---|---|
+| **3-Q2** | **Pre-clean stale narrative breadcrumbs on 4 cascaded claim-quality entries (no derivation; hygiene only)** | OPEN — fastest closure, parallel-safe with 3-A1 / 3-A2 | Single implementor; ~30-min hygiene pass; no auditor needed |
+| **3-A1** | **Prose reframe of ch8 chapter to separate Class 2 axiom-manifestation steps from Class 4 consistency checks** per consistency-vs-emergence v1.2 master-equation-derivation-path discipline | OPEN — likely combinable with 3-Q2 (same files, similar mechanical-edit shape) | Combined implementor with 3-Q2 (sub-agent A) recommended for batching |
+| **3-A2** | **Attempt Schur orthogonality argument for the sum-decomposition** — if orthogonality is genuinely Schur-derivable, this lifts confidence 0.55 → 0.65; if not, walk back the "sum is orthogonal" framing | OPEN — green-field derivation; high-uncertainty closure | Standalone implementor (sub-agent B); needs ave-prereg corpus survey + ave-canonical-leaf-pull + auditor pass |
+| **3-A3** | **δ_strain magnitude derivation from Ax 4 saturation kernel parameters** — independent of 3-A2 result | OPEN — deferred to Phase 4 unless 3-A2 walks back and we need a different lift lever | Future workstream |
+
+### Phase 3a-A1+Q2 combined brief (implementor sub-agent A)
+
+**Scope**: prose reframe of `manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md` to apply consistency-vs-emergence v1.2 discipline (separate Class 2 axiom-manifestation from Class 4 consistency at the prose level), PLUS Q2 hygiene cleanup of stale narrative-tail breadcrumbs on 4 cascaded claim-quality entries.
+
+**Why combined**: both are mechanical-edit shape (no derivation), both touch claim-quality.md, both benefit from one auditor pass at end. Estimated combined effort ~2 hours; parallel-safe with 3-A2 spawn.
+
+**Files in scope**:
+- `manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md` — chapter prose reframe (3-A1 main work)
+- `manuscript/ave-kb/vol1/claim-quality.md` — 4 entries (clm-5xon03 / clm-3kzmt9 / clm-zw6mut / clm-b2anl4) breadcrumb cleanup (3-Q2)
+- `manuscript/ave-kb/vol1/claim-quality.md` — clm-0ktpcn strengthen-by list update (remove 3-A1 + 3-Q2 items as closed)
+
+**Expected confidence lift**: 0.55 → 0.60 (prose-reframe alone, no derivation). Pairs with 3-A2 success (orthogonality argument) to potentially lift further to 0.65.
+
+**Skills expected to fire**:
+- `consistency-vs-emergence` v1.2 — the DRIVING skill; the reframe IS application of the v1.2 derivation-path-tracing discipline
+- `verify-before-cite` — every file:line citation grep-verified
+- `ave-evidence-framing-discipline` — "derived" vs "matches" vs "consistent-with" precision (this is the main editorial task)
+- `ave-canonical-leaf-pull` — pull ch8 + Nyquist + crossings + screening leaves before reframing
+- `ave-directory-enumeration-discipline` — accurate counts on entries cleaned
+- `ave-walk-back` v1.1 Type E — likely fires for any value-amendment caught mid-reframe
+
+**Auditor pass**: ave-auditor after edits; confirm reframe doesn't accidentally walk back the (R,r,d) derivation itself; confirm Q2 cleanups don't break any other cross-references.
+
+**Branch**: `analysis/clm-0ktpcn-phase-3-A1-Q2-prose-reframe` off `main` @ post-PR-38-merge.
+
+### Phase 3a-A2 brief (implementor sub-agent B — standalone, parallel-safe)
+
+**Scope**: attempt Schur orthogonality (or alternative orthogonal-basis argument) for the three-regime sum-decomposition (Nyquist + crossings + screening contributing additively, orthogonally, to $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$).
+
+**Why a standalone implementor**: this is genuine derivation work, not mechanical reframe. Either Schur orthogonality goes through (closing the gap, lifting confidence) or it doesn't (walk-back). The result drives the Phase 3 confidence lift independent of 3-A1+Q2.
+
+**Pre-survey corpus-grep targets (mandatory before deriving)**:
+
+```bash
+grep -rn "Schur\|orthogonal.*decomposition\|multipole.*sum\|4 pi\^3\|4π³\|three.*regime" \
+  manuscript/ave-kb/vol1/ research/_archive/L3_electron_soliton/
+grep -rn "orthogonality\|orthogonal basis\|Peter-Weyl" manuscript/ave-kb/ research/
+```
+
+Likely already-canonical anchors:
+- `manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md` — sum decomposition lives here
+- `research/_archive/L3_electron_soliton/` — possibly some L3 doc has a prior orthogonality attempt
+- Group-theory leaves (if any) — SU(2) representation theory has Schur orthogonality as canonical theorem
+
+**What I expect (forward pre-registration)**:
+
+The three regimes correspond to distinct symmetry sectors of the phase-space (2,3) Clifford-torus mode space:
+- Regime (a) Nyquist — lattice-cutoff sector (Ax 1 discrete spacing)
+- Regime (b) Crossings — self-avoidance sector (Ax 2 ν_vac geometric prefactor)
+- Regime (c) Screening — half-cover topological sector (Ax 3 spinor structure / SU(2)→SO(3))
+
+If these correspond to orthogonal irreducible representations of the relevant symmetry group (likely the substrate's tetrahedral or octahedral symmetry group acting on the (2,3) torus mode space), Schur orthogonality applies AT THE GROUP-THEORY LEVEL, not as an ad-hoc orthogonality assumption.
+
+If yes → derivation closure, confidence 0.55 → 0.65 (+0.05 for 3-A1 prose reframe, +0.05 for 3-A2 orthogonality derivation).
+
+If the symmetry decomposition doesn't go through cleanly → walk back the "orthogonal sum" framing in chapter prose; reframe as "additive at leading order with documented sub-leading corrections", confidence stays at 0.55 (or drops to 0.50 if the walk-back exposes a load-bearing assumption).
+
+**Adjudication criteria (PASS / WALK-BACK / RESCOPE)**:
+
+- **PASS**: Schur orthogonality (or alternative orthogonal-basis argument) derives the sum-decomposition rigorously. Confidence lift 0.55 → 0.60 (3-A2 alone) or 0.55 → 0.65 (paired with 3-A1).
+- **WALK-BACK**: orthogonality not derivable; reframe as additive-at-leading-order; document honestly. No solidity lift. Trigger ave-walk-back Type D (mechanism re-scope) propagation.
+- **RESCOPE**: derivation gets stuck on a sub-problem (e.g., the symmetry group acting on (2,3) torus mode space isn't fully canonical in the AVE corpus). Spin off a sub-prereg to identify the symmetry group, then return to orthogonality.
+
+**Skills expected to fire**:
+- `ave-prereg` — corpus-grep as above
+- `ave-canonical-leaf-pull` — ch8 + Schur + group-theory + multipole leaves
+- `ave-analytical-tool-selection` — Mode class (irreducible-rep decomposition); check `ave-analytical-toolkit-index.md`
+- `ave-discipline-translate` — Schur orthogonality is QM-canonical; check `translation-qm.md` for AVE-native form (probably "decomposition into eigenspaces of the substrate symmetry group acting on the (2,3) Clifford-torus mode space")
+- `substrate-native-check` — symmetry group must come from K4-TLM substrate structure, not imported from particle-physics convention
+- `consistency-vs-emergence` v1.2 — explicit Class 2 vs Class 4 classification; orthogonality derivation IS Class 2 if symmetry group emerges from substrate, Class 4 if imported
+- `phase-space-coordinate-check` — group acts on (2,3) phase-space mode space, not real-space; coordinate distinction critical
+- `ave-independence-check` — three regimes claimed as INDEPENDENT contributions; verify via Schur (or document non-independence honestly)
+- `ave-evidence-framing-discipline` — "derived" vs "asserted" precision
+- `ave-walk-back` v1.1 Type E — likely fires for any value-amendment caught mid-derivation
+- `ave-discrimination-check` — SM-counterfactual + interpretive-alternatives before asserting "AVE-native derivation"
+
+**Branch**: `analysis/clm-0ktpcn-phase-3-A2-schur-orthogonality` off `main` @ post-PR-38-merge.
+
+### Honest closure-probability estimate
+
+- 3-A1+Q2 combined: ~85% probability of clean closure (mechanical work; main risk is the auditor catching prose-precision gaps that need ave-walk-back Type E sweeps)
+- 3-A2 standalone: ~40% probability of Schur closure; ~60% probability of walk-back with honest reframe (still a valuable outcome — corpus gets more honest)
+
+Combined Phase 3 expected confidence lift: 0.55 → 0.60-0.65 (probability-weighted).
+
+### Spawn protocol (orchestration session)
+
+Per CLAUDE.md "Pre-commit discipline" + "Spawning implementors via the Agent tool":
+
+```python
+# Sub-agent A (3-A1+Q2 combined) — spawn in worktree
+Agent(
+    description="clm-0ktpcn Phase 3-A1+Q2 implementor",
+    subagent_type="ave-implementer",
+    isolation="worktree",  # CRITICAL: prevents branch-state leak into orchestration tree
+    prompt="<full brief from Phase 3a-A1+Q2 section>"
+)
+
+# Sub-agent B (3-A2 Schur) — spawn in worktree, parallel
+Agent(
+    description="clm-0ktpcn Phase 3-A2 Schur orthogonality implementor",
+    subagent_type="ave-implementer",
+    isolation="worktree",
+    prompt="<full brief from Phase 3a-A2 section>"
+)
+```
+
+Both sub-agents push their branches but do NOT merge (per session-conventions). Orchestration session does `--no-ff` merge with audit-tag + branch-cleanup pattern.
+
 ## Failure-mode awareness
 
 This workstream involves derivation work on the highest-leverage shaky claim. Failure modes to watch:

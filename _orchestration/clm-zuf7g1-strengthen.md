@@ -50,8 +50,10 @@ The cascade math: this workstream lifts the 12-claim cone behind clm-unk0bd; clm
 | 0a | Orchestration epic doc | ✓ COMPLETE 2026-05-25 (this doc, registered alongside the Golden Torus close-out PR #36) |
 | 0b | Workstream-level pre-registration doc | DEFERRED — Phase 1 was small enough for inline skills compliance check (no separate prereg needed) |
 | **1** | **Wire clm-zuf7g1 → clm-salw2h depends-on edge (closes items 3+4 via single edge)** | **✓ COMPLETE 2026-05-26** (this commit) — confidence 0.60 → 0.65, solidity unchanged at 0.55 (clm-ldmvwi remains dep-cap) |
-| **2** | **Strengthen clm-ldmvwi (Born Rule from Ohmic Measurement) — the dominant solidity bottleneck** | **OPEN — workstream-level prereg landed 2026-05-26**: Path 2-A confirmed (attempt full stochastic-master-equation derivation of click-probability scaling) per master-equation-derivation-path-tracing discipline upgrade. Pre-reg at [`research/2026-05-26_clm-ldmvwi-master-eq-stochastic-derivation-prereg.md`](../research/2026-05-26_clm-ldmvwi-master-eq-stochastic-derivation-prereg.md). 5 sub-phases (2-A.1 prereg + 2-A.2 stochastic master eq + 2-A.3 threshold-crossing + 2-A.4 Poisson scaling + uniqueness + 2-A.5 KB integration). Branch: `analysis/clm-ldmvwi-master-eq-stochastic-derivation`. ~50% probability of full closure per honest pre-survey estimate. |
-| 3 | Derive lossless-LC-resonator structural identification (item 2 of strengthen-by) | OPEN — likely multi-session |
+| **2** | **Strengthen clm-ldmvwi (Born Rule from Ohmic Measurement) — the dominant solidity bottleneck** | **✓ COMPLETE 2026-05-26** via Phase 2-A 5-session arc. PR #38 merged. clm-ldmvwi 0.55 → 0.65. Cascade lifted clm-zuf7g1 + clm-unk0bd + clm-5xon03 each from 0.55 → 0.65. Result docs: A.1 prereg + A.2 stochastic master eq + A.3 threshold-crossing + A.4 p=2 uniqueness + A.5 KB integration. Master-equation-derivation-path closed end-to-end (□V → stochastic master eq via FDT → Joule extraction → cumulant-truncated Gaussian V_η → Rice/Wald first-passage at threshold → click rate ∝ |V_s|² ∝ |∂_t A|² ≡ Born rule p=2 uniqueness via three convergent arguments). |
+| **3a** | **Derive lossless-LC-resonator structural identification — Z₀ ≈ 377 Ω from substrate impedance, Q = ∞ from topological dissipationless invariant** (item 2 of strengthen-by; sub-step a — Z₀ derivation) | **PRE-REG DRAFTED — implementor brief ready** (see Phase 3a section below) |
+| 3b | Derive Q = ∞ topological dissipationless invariant for phase-locked thread | OPEN — likely follows 3a closure |
+| 3c | Re-integrate Z₀ + Q derivations into `phase-locked-topological-thread.md` + clm-zuf7g1 KB anchor; bump confidence 0.65 → 0.70 if closure clean | OPEN — KB integration sub-phase |
 | 4 | (closed by Phase 1 — clm-salw2h IS the separate claim-quality entry, now scored in the chain) | ✓ COMPLETE 2026-05-26 (folded into Phase 1) |
 
 ## Phase 1 execution log (2026-05-26)
@@ -78,11 +80,88 @@ The cascade math: this workstream lifts the 12-claim cone behind clm-unk0bd; clm
 
 **Refresh + verify pipeline**: PASS — 692 files / 281 entries / 685 depends-on edges (+1) / 628 strengthen-by (-2) / 0 failures.
 
-## Phase 2 priority (the actual solidity-bottleneck)
+## Phase 2 priority (the actual solidity-bottleneck) — CLOSED
 
-Phase 1 lifts clm-zuf7g1's confidence ceiling but NOT solidity (clm-ldmvwi at 0.55 caps). **The actual cascade-lifting move is strengthening clm-ldmvwi (Born Rule from Ohmic Measurement Work)** — its solidity directly caps clm-zuf7g1's solidity, which directly caps clm-unk0bd's solidity, which feeds the 12-claim downstream cone.
+Phase 1 lifted clm-zuf7g1's confidence ceiling but NOT solidity (clm-ldmvwi at 0.55 capped). **The actual cascade-lifting move was strengthening clm-ldmvwi (Born Rule from Ohmic Measurement Work)** — its solidity directly capped clm-zuf7g1's solidity, which directly caps clm-unk0bd's solidity, which feeds the 12-claim downstream cone.
 
-clm-ldmvwi's own strengthen-by items will be the scoping question for a Phase 2 workstream session.
+Closed end-to-end via Phase 2-A workstream (PR #38 merged 2026-05-26). clm-ldmvwi now at 0.65, dep-cap lifted, clm-zuf7g1 solidity now 0.65 (own confidence ceiling, not dep-gated).
+
+## Phase 3a prereg — lossless-LC-resonator Z₀ structural identification
+
+**Implementor brief** (ready for parallel spawn next session). See "Spawn protocol" at bottom for the isolation: "worktree" pattern.
+
+### Target claim
+`clm-zuf7g1`'s outstanding strengthen-by item 2: **"Derive the structural identification 'phase-locked topological thread = lossless short-short LC resonator with $Z_0 \approx 377\,\Omega$, $Q = \infty$' from first principles."**
+
+The current state asserts this identification constructively — the phase-locked thread is described as having LC-resonator structure with vacuum impedance Z₀ = √(μ₀/ε₀) ≈ 377 Ω, with Q = ∞ inherited from topological-protection. Phase 3a derives the Z₀ identification rigorously from substrate axioms; Phase 3b handles Q = ∞.
+
+### What I expect (forward pre-registration, per ave-prereg discipline)
+
+Z₀ ≈ 377 Ω will derive directly from the substrate's intrinsic impedance via the canonical AVE chain:
+- Ax 1 (TLM lattice impedance): bond impedance Z_bond defined by node-capacitance / inductance ratio
+- Ax 2 (ν_vac = 2/7 lattice-DOF ratio): geometric prefactor in the bond → continuum impedance map
+- Continuum limit yields Z₀ = √(μ₀/ε₀) as the IMPEDANCE eigenvalue of the K4-TLM substrate in transverse propagation
+- The phase-locked thread (chiral labyrinth on the unknot, per `phase-locked-topological-thread.md`) is a topologically-trapped MODE on this substrate; its characteristic impedance MATCHES Z₀ by lattice-continuity (the thread is a bound state of the same substrate that propagates Z₀ transverse waves)
+
+If this is the right chain, the derivation is ~Class 2 emergence (the topological-thread mode's Z = Z₀ ≈ 377 Ω because it's the substrate-impedance of the lattice it lives on) — NOT Class 4 consistency (which would be: "we computed Z and got 377 Ω, matches Maxwell").
+
+### Pre-survey — what already exists in corpus
+
+Pre-implementor corpus-grep targets (mandatory before deriving):
+
+```bash
+grep -rn "Z_0\|Z₀\|377.*Ohm\|sqrt.*mu_0.*epsilon_0\|impedance.*vacuum\|substrate impedance" \
+  manuscript/ave-kb/vol1/ manuscript/ave-kb/vol4/ src/ave/core/
+grep -rn "phase-locked.*resonator\|lossless.*LC\|short-short LC" manuscript/ave-kb/
+grep -rn "characteristic impedance" manuscript/ave-kb/ research/
+```
+
+Likely already-canonical anchors:
+- `manuscript/ave-kb/vol1/axiom-1-impedance.md` (if exists; check) — TLM bond impedance
+- `manuscript/ave-kb/vol4/circuit-theory/` — vacuum circuit analysis chapters
+- `manuscript/ave-kb/common/translation-tables/translation-circuit.md` — EE-side translation of Z₀
+- `src/ave/core/constants.py` — Z₀ definitely canonical here (search for `Z_0` / `Z_vac`)
+- `manuscript/ave-kb/vol1/dynamics/ch3-quantum-signal-dynamics/phase-locked-topological-thread.md` — current home of the constructive identification
+
+If the chain Ax1+Ax2 → continuum-impedance → topologically-bound-mode-of-substrate already exists end-to-end, Phase 3a is a leaf-wire (analogous to Phase 1's clm-zuf7g1 → clm-salw2h chain-promotion). If gaps exist (most likely: the "bound topological mode inherits substrate impedance by lattice-continuity" step), Phase 3a derives that step.
+
+### What would discriminate (per ave-discrimination-check)
+
+For Phase 3a to land as a genuine derivation (not a translation-table identification):
+
+1. **The derivation must NOT bottom out at "Z₀ = √(μ₀/ε₀) by definition of Z₀"** — that's circular; Z₀'s canonical definition IS √(μ₀/ε₀). The derivation must produce 377 Ω from the substrate's K4-TLM lattice parameters (capacitance per node, inductance per bond, lattice spacing) which independently fix Z₀.
+2. **The topological-thread mode's Z must come from SUBSTRATE structure**, not from a separate impedance-matching argument. I.e., the thread is on the same substrate that supports Z₀ transverse waves; its mode-impedance is Z₀ by lattice-eigenvalue, not by a tuned coupling.
+3. **The classification under consistency-vs-emergence must be Class 2** (substrate-mechanism emergence) — explicit derivation-path tracing required per the v1.2 discipline upgrade. If the derivation reduces to "Maxwell gives 377 Ω and AVE matches Maxwell at continuum limit," reclassify as Class 4 consistency and lower the expected solidity-lift accordingly.
+
+### Adjudication criteria (PASS / WALK-BACK / RESCOPE)
+
+- **PASS**: Z₀ derivation is Class 2 substrate-emergence end-to-end, no circularity, KB integration clean. Solidity-lift target: clm-zuf7g1 0.65 → 0.70.
+- **WALK-BACK**: derivation bottoms out in Class 4 consistency; document honestly, no solidity lift, refine Phase 3 scope (Q-LCR-1: is Z₀ derivable as substrate-emergence, or is it definitionally fixed by μ₀/ε₀ canonical-source link?).
+- **RESCOPE**: gap is in step "topological-thread mode inherits substrate Z by lattice-continuity" rather than in Z₀ itself. Spin out as separate Phase 3a-mode workstream; Z₀-from-Ax1+Ax2 lands as a leaf-completion.
+
+### Skills expected to fire (implementor checklist)
+
+- `ave-prereg` — corpus-grep as above
+- `ave-canonical-leaf-pull` — pull Z₀ leaves + phase-locked-thread leaf + any circuit-theory chapter
+- `ave-canonical-source` — Z₀ canonical home in `src/ave/core/constants.py`; never hard-code 377
+- `ave-analytical-tool-selection` — impedance / boundary problem class; check `ave-analytical-toolkit-index.md` for Op-level tools (likely Op4 boundary-impedance + Op17 mode-matching)
+- `ave-discipline-translate` — check `translation-circuit.md` row for Z₀; confirm AVE-native form (not borrowed EE)
+- `substrate-native-check` — K4-TLM lattice structure walk before deriving
+- `consistency-vs-emergence` v1.2 — explicit Class-2 vs Class-4 classification with master-equation-derivation-path tracing
+- `phase-space-coordinate-check` — Z₀ lives in impedance-plane (V/I phasor); topological thread lives in real-space lattice; need to keep coordinates clean
+- `ave-evidence-framing-discipline` — "derives" vs "identifies" vs "consistent-with" precision in result framing
+- `ave-discrimination-check` — discriminate Class 2 emergence from Class 4 consistency BEFORE asserting solidity lift
+
+### Branch + spawn protocol
+
+- **Branch**: `analysis/clm-zuf7g1-phase-3a-Z0-derivation` off `main` @ post-PR-38-merge
+- **Spawn**: orchestration session uses `Agent` tool with `isolation: "worktree"` so the implementor sub-agent works in a temporary worktree (separate working dir, same `.git`) — prevents working-tree branch leak (per CLAUDE.md "Pre-commit discipline" section)
+- **Sub-agent type**: `ave-implementer` (full discipline: prereg + driver + result doc + auditor + skills compliance check)
+- **Sequencing**: parallel-safe with other Phase 3+ epic spawns (clm-0ktpcn + nanoscale-CLT). No depends-on conflicts between these workstreams.
+
+### Honest closure probability
+
+~60% probability of clean Class-2 closure. Risk: the Z₀ derivation reduces to Maxwell-matching at continuum limit (Class 4 consistency), in which case the leaf-completion still happens but no solidity bump. Walk-back path is clean (Type B demotion, no cascade impact).
 
 ## Skills compliance check (TBD on session kickoff)
 
