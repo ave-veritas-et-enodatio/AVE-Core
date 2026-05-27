@@ -122,6 +122,27 @@ f5bedc20 hygiene(verify-md-links): fix 4 pre-existing broken inter-repo links
 
 (plus PR #43 pending Grant merge: `7c850a1f` + `ca7eb78a` on `analysis/path-b-prime-k4-dispersion-pq`)
 
+## v1.3 Trigger 17 adversarial probe result (post-handoff-draft, 2026-05-27)
+
+**Verdict**: probe ATTACKER SUCCEEDED on structural argument; **specific corpus example invalidated by orchestration verification**.
+
+**Probe primary finding**: claimed the Phase 2-NA Op17 0.707-peak substrate-matched-impedance interpretation lives ONLY in `_orchestration/ax4-saturation-narrow-aperture-amplitude-shape.md:339-369` (epic doc) and NOT at `parametric-coupling-kernel.md` — therefore Trigger 17 broadens VOCABULARY axis but not CORPUS-REGION axis, requiring v1.4 amendment with corpus-region enumeration sub-condition.
+
+**Orchestration verification (2026-05-27 EOD)**: `grep -n "§14.9\|Op17\|0.707" manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md` returns 10+ hits including explicit §14.9 at line 589 titled "Substrate-mechanical identification of $a^{(2D)}_{peak} = 1/\sqrt{2}$ as canonical Op17 matched-impedance condition (2026-05-27)." The Op17 0.707-peak interpretation IS canonically propagated to the KB via commit `ba406d65` (the (G) propagation work landed §14.9 alongside the epic doc update). The probe's claim "does NOT appear at parametric-coupling-kernel.md" is FACTUALLY INCORRECT.
+
+**Structural argument independent merit**: even with the specific example invalidated, the underlying structural argument (vocabulary enumeration axis vs corpus-region enumeration axis are orthogonal; Trigger 17 only broadens one) may have merit if there exist OTHER epic-doc-stranded canonical interpretations that haven't been KB-propagated. This is not falsified by the §14.9 verification; just the probe's specific example was wrong.
+
+**Probe secondary finding (Probe direction 6 — temporal drift)**: substrate-native vocabulary itself migrates ("Cosserat-SU(2) Level 1" 2026-04 → "K4-bond-pair LC-tank phase-space" 2026-05). Trigger 17 pre-survey at month N using current substrate-native vocabulary may miss canonical content named in substrate-native vocabulary current at month N-6 and never re-tagged. Lower urgency; possibly separate skill family `ave-vocabulary-migration-discipline`.
+
+**Recommendation post-verification**:
+
+- **v1.4 amendment with corpus-region enumeration sub-condition**: DO NOT proceed on the probe's specific example (factually wrong); HOLD pending a future probe (instance 8 in 30-60 days) that re-tests the structural argument with a fresh corpus example IF one exists at that time.
+- **Probe directions 2-5 under-stressed**: probe #8 (recommended for 2026-07) should focus on two-wedge-contradiction case + cross-repo vocabulary translation (the AVE-PONDER intra-repo "Vacuum Varactor" vs "Metric varactor" pluralism the probe touched but didn't develop).
+- **Future-compacted-self ACTION**: log probe result + invalidation at `_audit-log/adversarial/ave-canonical-leaf-pull-trigger-17-2026-05-27.md` (canonical audit log location). Schedule probe #8 for 2026-07-27 per standing 90-day cadence; framing should include the structural argument as the load-bearing probe direction, not the specific Op17 example.
+- **Trigger 17 v1.3 stays in effect unchanged**. 7-instance pattern remains well-confirmed; the failed probe is itself evidence the discipline is working (the canonical content IS in the KB; the probe didn't find it via its own grep ironically).
+
+**Meta-observation**: this adversarial probe surfaced a corpus-state-current INVALIDATION via orchestration verification — exactly the right shape of probe failure. The probe's structural argument has independent merit; the specific example was wrong; the verification + invalidation IS the discipline working as designed. Next probe in 60-90 days; no immediate amendment needed.
+
 ## How to resume
 
 Future orchestration session:
