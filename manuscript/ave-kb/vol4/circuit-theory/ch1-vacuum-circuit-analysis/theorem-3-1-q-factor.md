@@ -66,6 +66,8 @@ $$\omega \cdot L_e \cdot (4\pi / Z_0) = Q_{\text{vol}} + Q_{\text{surf}} + Q_{\t
 
 The identification $Q_i = \Lambda_i$ holds because in natural units ($Z_0 = 1$, $\ell_{\text{node}} = 1$), the impedance-per-dimensionless-volume scaling factor is unity, so **geometric dimensionless volumes ARE dimensionless reactances**.
 
+> → Primary: [Op21 Multi-Mode Mode-Counting at the $\Gamma = -1$ Saturation/TIR Boundary](op21-multi-mode-mode-counting.md) — the substrate-mechanism derivation of $Q_i = \Lambda_i$ from Ax 1 (Nyquist cell size in lattice-natural units) + Ax 1 substrate Nyquist-resolving-floor (one mode per cell at boundary) + Step 4 $Q_{\text{mode},\ell=1} = 1$ per Nyquist-resolved confined mode. The natural-unit convention is operationally simpler but the substrate-mechanism content holds in any unit system; closure of the strengthen-by item at `vol4/claim-quality.md` clm-rtdmsn (Phase 3-A4, 2026-05-27).
+
 ## Physical interpretation of the $R = Z_0/(4\pi)$ boundary
 
 Vol 4 Ch 1:423-467 describes the saturation boundary as Total Internal Reflection: $Z_{\text{core}} \to 0$ drives $\Gamma = -1$ (perfect short), confining the LC oscillation.
@@ -100,7 +102,9 @@ The three regimes (vol / surf / line) of the $\alpha^{-1}$ decomposition corresp
 
 ## Op21 multi-mode generalization
 
-The Q-factor decomposition generalizes via Op21 multi-mode form: at the saturation boundary, each mode with $\ell$ wavelengths around a 1D circumference releases $\sim 1/\ell$ of energy per cycle, giving $Q = \ell$ per mode. The Golden Torus at the Nyquist mode-count identity (single-cell-per-natural-unit) makes the mode counts equal the geometric measures: 1D mode (circumference $L$) → cell-count $L$; 2D mode → cell-count area; 3D mode → cell-count volume. The three-$\Lambda$ sum is exactly the Op21 multi-mode generalization at Golden Torus geometry.
+The Q-factor decomposition generalizes via Op21 multi-mode form: at the saturation boundary, each mode with $\ell$ wavelengths around a 1D circumference releases $\sim 1/\ell$ of energy per cycle, giving $Q = \ell$ per mode. The Golden Torus at the Nyquist mode-count identity (single-cell-per-natural-unit) makes the mode counts equal the geometric measures: 1D mode (cross-section perimeter, $\pi \cdot d$) → cell-count $\pi$ at Nyquist-quantized $d = 1$; 2D mode (Clifford-torus half-cover) → cell-count $\pi^2$ at $R \cdot r = 1/4$; 3D mode (phase volume with spinor-temporal $4\pi$ closure) → cell-count $4\pi^3$. The three-$\Lambda$ sum is exactly the Op21 multi-mode generalization at Golden Torus geometry.
+
+> → Primary: [Op21 Multi-Mode Mode-Counting at the $\Gamma = -1$ Saturation/TIR Boundary](op21-multi-mode-mode-counting.md) — fully-derived substrate-mechanism leaf (Phase 3-A4, 2026-05-27). Promotes this paragraph to canonical-leaf rigor: five-step substrate-mechanism chain (Ax 1 Nyquist cell size → Ax 3 + Ax 4 forcing $\Gamma = -1$ TIR boundary → per-cycle leak fraction $1/\ell$ → $Q_{\text{mode},\ell} = \ell$ → Nyquist-cell-count = mode-count = dimensionless geometric measure) + Step 5.5 codimensional Nyquist-cell-category independence. Resolves the dual-identification at [`operators.md:61`](../../../common/operators.md) as Op21-foundational + BCS-Cooper-pair-phase-transition-specialization. Includes substrate-mechanical reason that $\Lambda_{\text{line}} = \pi$ (substrate Ampère 1-cycle around tube cross-section perimeter at Nyquist-quantized $d = 1$), NOT $\pi\varphi = 2\pi R$ (Clifford-torus major-loop perimeter).
 
 ## Falsification status
 
