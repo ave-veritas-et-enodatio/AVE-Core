@@ -1,6 +1,8 @@
 # Epic STUB: Ax 4 Saturation Amplitude-Shape Signature at Narrow Boundary Apertures
 
-**Status**: **Q-AX4-NA-1 ADJUDICATED GO 2026-05-26** (Grant greenlight after substrate-mechanical analysis surfaced the κ₃ = 0 even-kernel symmetry refinement). Q-AX4-NA-2 + Q-AX4-NA-3 still pending Grant adjudication (the V/A_c pumping question — how do real boundary-extraction architectures actually reach substrate-saturation operating amplitude — is the open intuition gap surfaced by my dimensional check that V_RMS/A_c ≈ 2×10⁻⁹ at standard lab conditions vs ~0.1 required for Ax 4 effects). Phase 0c sub-epic scoped below.
+**Status**: **Q-AX4-NA-1 + Q-AX4-NA-2 BOTH ADJUDICATED GO 2026-05-26** (Q-AX4-NA-1 via substrate-mechanical κ_3 = 0 refinement at V_DC = 0 equilibrium; Q-AX4-NA-2 via Grant Socratic prompt surfacing the canonical varactor framing already in the corpus). Q-AX4-NA-3 (substrate correlation length) deferred to Phase 0c implementor. Phase 0c sub-epic scoped below with narrower scope per varactor canon already-derived material.
+
+**Type B walk-back applied 2026-05-26 post Phase 3-A2 PR #40 merge**: the κ_3 = 0 substrate-mechanical refinement (above) is correct ONLY at V_DC = 0 equilibrium. Under DC bias V_DC ≠ 0 (the experimentally-accessible regime per canonical varactor framing — see What's actually canonical below), the per-site amplitude distribution P(δV) around the biased operating point is asymmetric (kernel S(V) is symmetric around V = 0 not around V_DC), so κ_3 ≠ 0 in the experimentally-relevant regime. The original epic-brief framing ("scales as 1/√N for the leading irreducible third-order shape correction; 1/N for the fourth-order") was right about the existence of κ_3 content in the operationally-relevant regime; my zero-bias-symmetry-argument walk-back to "kurtosis only" was over-strict. Per `ave-walk-back` v1.1 Type B mechanism re-scope (same physics, refined framing).
 **Origin**: surfaced as a candidate forward-prediction during Phase 2-A.4 (uniqueness of quadratic-in-amplitude boundary-Joule extraction rate scaling) on 2026-05-26. The central-aggregation step across N independent boundary lattice sites was load-bearing for the assumption that aperture-aggregate substrate amplitude statistics follow the quadratic-Lagrangian shape; at narrow apertures (small N) with Ax 4 saturation active at each site, the per-site substrate-pinned amplitude-shape survives the aggregation and propagates to a substrate-distinct correction to the aperture-aggregate boundary-Joule extraction rate.
 **Lineage**: parked from PR #38 merge follow-up planning queue (one of 3 forward-prediction candidate downstream-epic seeds)
 **Reframe history (2026-05-26)**: prior version was framed as "nanoscale CLT failure" using standard-physics vocabulary (Born rule, Gaussian noise, FDT, CLT, photodetector) as primary load-bearing prose. Grant intervention triggered `ave-discipline-translate` v1.1 trigger 6 (prose-vocabulary-substitution check). Rewritten in substrate-native vocabulary; the AVE-distinct piece is the Ax 4 saturation-induced per-site amplitude-shape, NOT the small-N aggregation step (which is substrate-agnostic statistics).
@@ -20,11 +22,29 @@ In the substrate-saturation regime at a narrow boundary aperture, the aperture-a
 - **Ax 4 saturation depth at each boundary site** — substrate-distinct: scales as (V_n / A_c)² to leading order. Set by how close the substrate amplitude at each boundary site is operating to the Ax 4 constitutive limit.
 - **Aperture-incompleteness factor** — substrate-agnostic: scales as 1/N for the fourth-order irreducible amplitude correlator (the dominant surviving content per substrate-mechanical symmetry analysis — see below). Set by how few independent substrate lattice sites the aperture spans.
 
-**Substrate-mechanical refinement (2026-05-26 from Q-AX4-NA-1 adjudication)**: the Ax 4 saturation kernel $S(A) = \sqrt{1-(A/A_c)^2}$ is even in amplitude — $S(V) = S(-V)$. The substrate-mechanics is invariant under amplitude-sign reversal at a single boundary lattice site. Therefore the per-site amplitude-shape function $P(V)$ is also even by reflection symmetry. **All odd-order substrate-pinned irreducible amplitude correlators vanish identically**: $\kappa_3 = \kappa_5 = \ldots = 0$ exact (the standard community calls $\kappa_3$ the "skewness").
+**Substrate-mechanical refinement (2026-05-26 from Q-AX4-NA-1 adjudication, WALKED-BACK 2026-05-26 post Q-AX4-NA-2 varactor reframe)**: the Ax 4 saturation kernel $S(A) = \sqrt{1-(A/A_c)^2}$ is even in amplitude — $S(V) = S(-V)$. At **zero DC bias** ($V_{DC} = 0$, the substrate equilibrium operating point), this means the per-site amplitude-shape function $P(V)$ is even by reflection symmetry, and all odd-order substrate-pinned irreducible amplitude correlators vanish identically: $\kappa_3 = \kappa_5 = \ldots = 0$ exact at zero bias.
 
-This means the prior epic-brief framing ("scales as 1/√N for the leading irreducible third-order shape correction; 1/N for the fourth-order") was wrong in the substrate-mechanical specifics. The third-order content is identically zero by Ax 4 even-kernel symmetry; only the fourth-order correlator survives. Slower aperture-aggregate scaling (1/N instead of 1/√N), but cleanly substrate-pinned and harder to wash out via statistical aggregation than the prior framing suggested. The aperture-aggregate observable signature is **kurtosis excess** scaling as $(\sigma_V / A_c)^2 / N$ at leading order — measurable in histogram-fourth-moment statistics, NOT in third-moment skewness.
+**Walk-back applied 2026-05-26 post Q-AX4-NA-2 varactor canonical framing**: this zero-bias symmetry argument does NOT extend to the experimentally-accessible regime. Per canonical varactor framing (KB CLAUDE.md INVARIANT-S2 + PONDER-05 at $V_{DC}/V_{yield} = 0.687$ + parametric-coupling-kernel.md cycle-12 canonical derivation), the substrate at a boundary-extraction architecture is operated at a DC-biased operating point $V_{DC} \neq 0$ loaded along the Ax 4 kernel (the canonical varactor mechanism — DC bias on a semiconductor varactor). The fluctuations $\delta V = V - V_{DC}$ around the biased operating point see an asymmetric stiffness landscape because the kernel is symmetric around $V = 0$, NOT around $V = V_{DC}$. The per-site amplitude-shape $P(\delta V)$ is asymmetric → **$\kappa_3 \neq 0$ under DC bias** (the experimentally-relevant regime).
 
-The product (V/A_c)² × 1/N (leading kurtosis correction) carries the substrate-pinned content via the first factor; the second factor is a visibility filter (any framework with N independent boundary contributions would predict the same 1/N suppression).
+**Operationally-relevant prediction (V_DC ≠ 0 regime)**: the aperture-aggregate observable signature includes both $\kappa_3$ (scaling as $1/\sqrt{N}$ — the larger / earlier-emerging signature) AND $\kappa_4$ (scaling as $1/N$). The original epic-brief framing ("scales as 1/√N for the leading irreducible third-order shape correction; 1/N for the fourth-order") was right about the existence of $\kappa_3$ content in the operationally-relevant DC-biased regime; the intervening "kurtosis only" refinement applied a zero-bias symmetry argument to a regime where DC bias breaks the symmetry. The prediction is skewness + kurtosis combined, observable in histogram statistics at narrow boundary apertures operated under DC bias.
+
+The product $(V/A_c)^2 \times 1/\sqrt{N}$ (leading skewness correction under DC bias) carries the substrate-pinned content via the first factor; the second factor is a visibility filter (any framework with N independent boundary contributions would predict the same $1/\sqrt{N}$ suppression).
+
+## What's actually canonical — the varactor framing already in the corpus
+
+Q-AX4-NA-2 closure path was substantively answered by canonical AVE corpus content I missed in my initial dimensional check. The substrate-mechanical translation of "DC bias near breakdown" / "reverse-bias near saturation" is canonical:
+
+- **KB CLAUDE.md INVARIANT-S2**: "each LC tank carries a saturation-amplitude state $A$ — its operating point along the Axiom 4 kernel. Small-signal transverse propagation through a region at operating point $A_0$ sees modulated effective parameters $\varepsilon_{eff} = \varepsilon_0 S(A_0)$, $\mu_{eff} = \mu_0 S(A_0)$, $C_{eff} = C_0/S(A_0)$ — the same varactor-bias mechanism producing refractive-index gradients across all scales. ... analogous to DC bias on a semiconductor varactor."
+- **PONDER-05 canonical bench-scale falsifier** (per INVARIANT-S2): DC-biased quartz at $V_{DC}/V_{yield} = 0.687$ — substrate operating point at 68.7% of saturation onset. This is the canonical empirical demonstration that substrate operating-point loading is achievable AND testable.
+- **Vol 4 Circuit Theory chapter** ([`vol4/circuit-theory/index.md:31`](../manuscript/ave-kb/vol4/circuit-theory/index.md)): "nonlinear constitutive models (varactor, relativistic inductor, TVS); $Z_0$ from discrete LC ladder; IMD spectroscopy; ... operating regimes; V_YIELD/V_SNAP threshold guide."
+- **[`vol4/claim-quality.md:74`](../manuscript/ave-kb/vol4/claim-quality.md)**: "The vacuum behaves as a metric varactor: capacitance diverges as $V \to V_{yield}$."
+- **Canonical parametric-coupling leaf**: [`vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md) (cycle-12 canonical, 2026-05-17 night). Substrate vacuum varactor (Ax4) at sub-yield operating point oscillates at α-slew refresh rate — derives $\delta C = e^2/(2 m_e c^2) = \alpha m_e c^2/(2 V_{yield}^2)$, $\delta C/C_0 = 4.57\%$ — clean canonical form. This leaf IS the substrate-mechanical machinery for the DC-biased operating point that Phase 0c will extend.
+- **Vol 3 dm-mechanism-unification.md (cycle-12 canonical)**: "Substrate's vacuum varactor (Ax4) at sub-yield operating point oscillates at α-slew refresh rate" — explicit substrate-mechanical canonical statement.
+- **Open strengthen-by item explicitly flagged**: [`dama-matched-lc-coupling.md:269`](../manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/dama-matched-lc-coupling.md): "V_0 ≠ 0 substrate DC reactive operating point — currently V_0 → 0 assumed." The corpus explicitly flags V_DC ≠ 0 as the load-bearing regime AND as an open enhancement item.
+
+**Initial dimensional-check failure**: my Q-AX4-NA-2 analysis used $V_{RMS} / A_c \approx 2 \times 10^{-9}$ at standard lab conditions to conclude "substrate operating extremely far from saturation." This was the wrong comparison. $V_{RMS}$ is the small-signal thermal-fluctuation amplitude around the DC operating point, NOT the operating point itself. The operating point $V_{DC}$ is set by external bias and routinely reaches 0.5-0.9 × $A_c$ in real lab devices (PONDER-05 at 0.687 is canonical evidence). The four candidate substrate-mechanical mechanisms I enumerated (reverse-bias DC pre-loading / geometric concentration / phase-coherent buildup / Cosserat-rotational DOF channel) collapse to one canonical answer: **DC bias loads the substrate operating point along the Ax 4 kernel via the canonical varactor mechanism**. Geometric concentration, phase-coherent buildup, Cosserat-rotational coupling are sub-mechanisms or alternative manifestations of the same operating-point loading.
+
+**Discipline-extension lesson surfaced (2026-05-26)**: framing Q-AX4-NA-2 in standard-physics vocabulary ("how does substrate amplitude reach saturation?") rather than substrate-native vocabulary ("how is the substrate operating point loaded?") caused me to miss canonical varactor framing entirely during pre-survey. Same pattern as the Phase 3-A2 implementor enumerating 4 Schur-route attempts before identifying Op21 mode-counting as the existing canonical path. **Vocabulary-broadened corpus-grep discipline** — grep for substrate-native concept names (varactor / operating point / Ax 4 / kernel / parametric / vacuum-varactor) IN ADDITION TO standard-physics names (saturation / breakdown / pumping) — closes this discoverability gap. Candidate amendment to `ave-canonical-leaf-pull` discipline (extend trigger 16 or add new trigger 17): pre-survey-time grep must enumerate BOTH substrate-native AND standard-physics vocabulary clusters explicitly before declaring corpus survey complete.
 
 ## What standard physics says
 
@@ -71,13 +91,22 @@ This could either come up as a sub-question to Q-AX4-NA-2 or as a separate Phase
 
 ## Pre-survey corpus-grep targets (mandatory before any derivation begins)
 
+**Vocabulary-broadened-grep discipline (per 2026-05-26 Q-AX4-NA-2 + Phase 3-A2 Op21 lesson)**: pre-survey MUST grep substrate-native concept names AND standard-physics names. Default search wedge that misses one class of vocabulary surfaces canonical content too late (or not at all). Targets below cover BOTH.
+
 ```bash
-# Ax 4 saturation kernel + amplitude-shape derivations
+# Ax 4 saturation kernel + amplitude-shape derivations (standard-physics wedge)
 grep -rn "saturation kernel\|S(A)\|A_c\|saturation onset\|amplitude.*shape\|sqrt.*1.*A.*A_c" \
   manuscript/ave-kb/ research/ src/ave/
 grep -rn "Axiom 4\|Ax 4\|axiom.*4" manuscript/ave-kb/
 
-# Substrate per-site amplitude statistics + single-site dynamics
+# Substrate-native VARACTOR wedge — REQUIRED per Q-AX4-NA-2 canonical answer
+grep -rn "varactor\|operating point\|DC bias\|V_DC\|sub-yield\|sub_yield\|metric varactor\|vacuum varactor" \
+  manuscript/ave-kb/ research/ src/ave/
+grep -rn "parametric.coupling.kernel\|parametric kernel\|alpha-slew\|α-slew\|nu_slew\|ν_slew" \
+  manuscript/ave-kb/ research/
+grep -rn "PONDER-05\|V_DC.*V_yield\|0.687\|DC.biased.quartz" manuscript/ave-kb/ research/
+
+# Substrate per-site amplitude statistics + single-site dynamics (standard-physics wedge)
 grep -rn "Langevin\|stochastic master\|per-site amplitude\|boundary.*node.*amplitude" \
   manuscript/ave-kb/ research/
 grep -rn "Vol 3 Ch 11\|vol3.*ch11\|substrate.*thermal.*amplitude\|fluctuation.dissipation" \
@@ -87,12 +116,16 @@ grep -rn "Vol 3 Ch 11\|vol3.*ch11\|substrate.*thermal.*amplitude\|fluctuation.di
 grep -rn "boundary aperture\|aperture.*width\|narrow.*aperture\|N.*independent" \
   manuscript/ave-kb/ research/
 
-# Substrate correlation length
+# Substrate correlation length (Q-AX4-NA-3)
 grep -rn "correlation length\|substrate.*correlation\|coupling length\|K4.*correlation" \
   manuscript/ave-kb/
 
-# Prior work on amplitude-shape signatures
+# Prior work on amplitude-shape signatures (standard-physics wedge)
 grep -rn "amplitude-shape\|amplitude statistics\|higher.*correlator\|irreducible.*third\|irreducible.*fourth" \
+  manuscript/ave-kb/ research/
+
+# Substrate-native EFFECTIVE-PARAMETER wedge (per INVARIANT-S2 specialization)
+grep -rn "C_eff\|epsilon_eff\|mu_eff\|c_eff\|effective capacitance\|effective permittivity" \
   manuscript/ave-kb/ research/
 ```
 
@@ -102,17 +135,21 @@ Required pulls before pre-reg:
 - The Phase 2-A.2 result doc ([`research/2026-05-26_clm-ldmvwi-phase-2a-2-stochastic-master-eq-result.md`](../research/2026-05-26_clm-ldmvwi-phase-2a-2-stochastic-master-eq-result.md)) — verify the per-site substrate-thermal-amplitude / boundary-impedance equilibrium relation is canonical
 - Vol 3 Ch 11 substrate-thermal-amplitude / boundary-impedance scaffold leaf — canonical home of the substrate-amplitude / boundary-impedance equilibrium relation in AVE-Core
 - Ax 4 saturation kernel canonical leaf (likely `axiom-definitions.md` line 34 per `ave-discipline-translate` skill reference)
+- **[`manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md)** (cycle-12 canonical) — **substrate-vacuum-varactor at sub-yield operating point treatment; the substrate-mechanical machinery Phase 0c extends**. Already derives $\delta C = e^2/(2 m_e c^2) = \alpha m_e c^2/(2 V_{yield}^2)$, $\delta C/C_0 = 4.57\%$ small-signal modulation amplitude — Phase 0c extends to the full per-site amplitude-shape $P(\delta V)$ around $V_{DC}$
+- **[`manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/dama-matched-lc-coupling.md:269`](../manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/dama-matched-lc-coupling.md)** — explicitly open strengthen-by item "V_0 ≠ 0 substrate DC reactive operating point — currently V_0 → 0 assumed." Phase 0c partially closes this item (single-site amplitude-shape under V_DC bias)
+- **KB CLAUDE.md INVARIANT-S2 Ax 4 specialization paragraph** ($C_{eff} = C_0/S$, varactor-bias-mechanism, PONDER-05) — substrate-mechanical canonical statement of the operating-point loading mechanism
 
-## Phase plan (Q-AX4-NA-1 closed GO; Q-AX4-NA-2 + Q-AX4-NA-3 pending)
+## Phase plan (Q-AX4-NA-1 + Q-AX4-NA-2 BOTH closed GO; Q-AX4-NA-3 deferred to Phase 0c)
 
 | Phase | Goal | Status |
 |---|---|---|
-| 0a | Adjudicate Q-AX4-NA-1 (Ax 4 chain to per-site amplitude-shape derivable from canonical primitives) | **✓ CLOSED 2026-05-26 — GO** with refined plan: chain is Class 2 substrate-mechanism emergence end-to-end with a well-defined derivation gap at single-site Ax-4-modified substrate-amplitude evolution. Substrate-mechanical analysis surfaced κ₃ = 0 by even-kernel symmetry (kurtosis-only prediction, not skewness+kurtosis). |
-| 0b | Adjudicate Q-AX4-NA-2 (boundary-extraction architecture × V/A_c pumping mechanism) + Q-AX4-NA-3 (substrate correlation length) | **PENDING — needs Grant** (V/A_c pumping question is the live open intuition gap; 4 candidate mechanisms enumerated above; Grant power-electronics intuition needed to discriminate) |
-| **0c** | **Phase 0c sub-epic** (committed per Q-AX4-NA-1 GO): derive per-site substrate-amplitude steady-state shape function $P(V)$ under Ax-4-modified single-site bond-LC dynamics. Substrate-amplitude probability-density evolution treatment with saturating effective capacitance $C_{eff}(V) = C_0/S(V/A_c)$. Output: closed-form $P(V)$ at moderate $V/A_c$ + the substrate-mechanical mechanism by which the even-kernel symmetry produces $\kappa_3 = 0$ exact + the leading $\kappa_4$ form as function of $V/A_c$ | **READY TO SCOPE** (~1-2 implementor sessions; well-defined substrate-mechanical sub-problem; not gated on Q-AX4-NA-2 because the derivation is independent of experimental accessibility) |
-| 1 | Derive $\kappa_4(V_n, A_c)$ explicitly from Phase 0c $P(V)$ — leading irreducible fourth-order substrate amplitude correlator as function of substrate operating state | DEFERRED until Phase 0c lands |
-| 2 | Compute aperture-aggregate kurtosis-excess signature as function of (V/A_c, N); identify the substrate-saturation × narrow-aperture operating threshold for visible signature (gated on Q-AX4-NA-2 + Q-AX4-NA-3 closure for the substrate-architecture mapping) | DEFERRED |
-| 3 | KB integration if Class 2 substrate-mechanism emergence confirmed at Phase 2; reframe scope honestly if derivation closure is partial | DEFERRED |
+| 0a | Adjudicate Q-AX4-NA-1 (Ax 4 chain to per-site amplitude-shape derivable from canonical primitives) | **✓ CLOSED 2026-05-26 — GO** with refined plan: chain is Class 2 substrate-mechanism emergence end-to-end. Initial substrate-mechanical analysis surfaced κ₃ = 0 by even-kernel symmetry at V_DC = 0 — Type B walk-back 2026-05-26 post Q-AX4-NA-2 reframe: κ_3 ≠ 0 under V_DC ≠ 0 (the experimentally-relevant DC-biased regime per canonical varactor framing). |
+| 0b | Adjudicate Q-AX4-NA-2 (boundary-extraction architecture × V/A_c pumping mechanism) | **✓ CLOSED 2026-05-26 — GO** via Grant Socratic prompt surfacing canonical varactor framing (KB CLAUDE.md INVARIANT-S2 + PONDER-05 at V_DC/V_yield = 0.687 + parametric-coupling-kernel.md cycle-12). The 4 candidate mechanisms collapse to one canonical: DC bias loads operating point along Ax 4 kernel via the canonical varactor mechanism. |
+| 0b.3 | Adjudicate Q-AX4-NA-3 (substrate correlation length under DC bias) | **DEFERRED to Phase 0c implementor** — the substrate-correlation-length question becomes part of the Phase 0c P(δV) derivation (correlation length under DC bias is non-trivial and is naturally computed alongside P(δV) from the same substrate-mechanical machinery) |
+| **0c** | **Phase 0c sub-epic** (Q-AX4-NA-1 + Q-AX4-NA-2 GO): **EXTEND** the existing canonical parametric-coupling-kernel.md substrate-vacuum-varactor treatment (cycle-12, 2026-05-17 night, derives δC = 4.57% small-signal modulation amplitude) to derive the full per-site substrate-amplitude steady-state shape function $P(\delta V)$ around DC-biased operating point $V_{DC}$. Output: closed-form $P(\delta V)$ at moderate $V_{DC}/A_c$ + explicit $\kappa_3(V_{DC}, A_c)$ + $\kappa_4(V_{DC}, A_c)$ + substrate correlation length under DC bias. Phase 0c also closes the dama-matched-lc-coupling.md:269 "V_0 ≠ 0 substrate DC reactive operating point" open strengthen-by item (partial closure). | **READY TO SCOPE** (~1 implementor session per varactor-canon-already-derived material; narrower than original scope because most substrate-mechanical machinery exists in parametric-coupling-kernel.md) |
+| 1 | Derive $\kappa_3(V_{DC}, A_c)$ + $\kappa_4(V_{DC}, A_c)$ explicitly from Phase 0c $P(\delta V)$ — leading irreducible third-order AND fourth-order substrate amplitude correlators as functions of DC-biased operating state | FOLDED INTO PHASE 0c (per scope reduction) |
+| 2 | Compute aperture-aggregate skewness ($\kappa_3 \times 1/\sqrt{N}$) + kurtosis-excess ($\kappa_4 \times 1/N$) combined signature as function of $(V_{DC}/A_c, N)$; identify the substrate-saturation × narrow-aperture operating threshold for visible signature; map to candidate boundary-extraction architectures (SPAD / TES / SNSPD per [`translation-instrumentation.md`](../manuscript/ave-kb/common/translation-tables/translation-instrumentation.md) Category II) | DEFERRED until Phase 0c lands |
+| 3 | KB integration if Class 2 substrate-mechanism emergence confirmed at Phase 2 (canonical leaf for the DC-biased per-site amplitude-shape derivation extending parametric-coupling-kernel.md); reframe scope honestly if derivation closure is partial | DEFERRED |
 | 4 | Add to divergence-test substrate map as a new forward-prediction row (if Phase 3 lands clean) | DEFERRED |
 
 ## If both Q-AX4-NA-1 and Q-AX4-NA-2 land as GO
