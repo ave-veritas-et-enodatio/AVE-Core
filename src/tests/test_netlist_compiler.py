@@ -26,7 +26,7 @@ class TestLibPath:
         assert p.exists(), f"Universal cell library not found: {p}"
 
     def test_lib_contains_subcircuit(self) -> None:
-        content = lib_path().read_text()
+        content = lib_path().read_text(encoding="utf-8")
         assert ".subckt AVE_VACUUM_CELL " in content
         assert ".subckt AVE_VACUUM_CELL_LINEAR " in content
         assert ".subckt AVE_EE_BENCH " in content
@@ -138,7 +138,7 @@ class TestWriteNetlist:
         netlist = compile_ee_bench_dc_sweep()
         out = write_netlist(netlist, tmp_path / "test.cir")
         assert out.exists()
-        content = out.read_text()
+        content = out.read_text(encoding="utf-8")
         assert content == netlist
 
     def test_creates_parent_dirs(self, tmp_path: Path) -> None:
