@@ -1,3 +1,4 @@
+{"claim_id": "clm-009nkt", "leaf_path": "vol1/ch8-alpha-golden-torus.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-07kd5v", "leaf_path": "vol3/gravity/ch02-general-relativity/einstein-field-equation.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-07kd5v", "leaf_path": "vol3/gravity/ch08-gravitational-waves/fabry-perot-phase-shift.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-07kd5v", "leaf_path": "vol3/gravity/ch08-gravitational-waves/gw-detection-antenna.md", "leaf_kind": "leaf", "tier2_marked": false}
@@ -137,6 +138,7 @@
 {"claim_id": "clm-ak97cb", "leaf_path": "vol2/proofs-computation/ch09-computational-proof/precision-policy.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-ak97cb", "leaf_path": "vol2/quantum-orbitals/ch07-quantum-mechanics/ode-verification.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-ak97cb", "leaf_path": "vol2/quantum-orbitals/ch07-quantum-mechanics/qm-ave-translation.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-at7x0y", "leaf_path": "vol3/gravity/ch20-white-dwarf-predictions/white-dwarf-gravitational-predictions.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-av2o4v", "leaf_path": "vol3/cosmology/ch14-orbital-mechanics/lunar-inductive-heating.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-b27pnp", "leaf_path": "vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-b2anl4", "leaf_path": "vol1/operators-and-regimes/ch7-regime-map/domain-catalog.md", "leaf_kind": "leaf", "tier2_marked": true}
@@ -364,6 +366,7 @@
 {"claim_id": "clm-m3z5ux", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/dark-sector.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-m3z5ux", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-m7qd0w", "leaf_path": "common/solver-toolchain.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-mi6ils", "leaf_path": "vol3/gravity/ch20-white-dwarf-predictions/white-dwarf-gravitational-predictions.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-mlwm3h", "leaf_path": "vol6/appendix/geometric-inevitability/conclusion-death-of-numerology.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-mlwm3h", "leaf_path": "vol6/appendix/geometric-inevitability/fibonacci-packing-proxy.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-mlwm3h", "leaf_path": "vol6/appendix/geometric-inevitability/golden-ratio-min-impedance.md", "leaf_kind": "leaf", "tier2_marked": false}
@@ -673,6 +676,7 @@
 {"claim_id": "clm-yyhczl", "leaf_path": "vol5/molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-z73h6n", "leaf_path": "vol2/proofs-computation/ch09-computational-proof/computational-graph.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-ze4clw", "leaf_path": "common/boundary-observables-m-q-j.md", "leaf_kind": "leaf", "tier2_marked": true}
+{"claim_id": "clm-zf8eah", "leaf_path": "vol3/gravity/ch02-general-relativity/double-deflection.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-zfqd9v", "leaf_path": "common/two-engine-architecture-a027.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-zgllr2", "leaf_path": "common/two-engine-architecture-a027.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-zi6t1e", "leaf_path": "common/appendix-derived-numerology.md", "leaf_kind": "leaf", "tier2_marked": false}
