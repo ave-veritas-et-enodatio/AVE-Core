@@ -474,3 +474,114 @@ At room T + PONDER-05 canonical operating point ($a = 0.687$): per-site $\kappa_
 **Canonical leaf landed 2026-05-17 night per 12th-cycle on α-slew thread.** Full derivation chain at Steps 1-9 work docs. Pre-derivation discipline: full 6-skill stack invoked (ave-prereg + ave-canonical-leaf-pull + ave-analytical-tool-selection + ave-power-category-check + ave-discrimination-check + ave-canonical-source). Outcome A confirmed: leading-order chain closes; XENONnT null falls out as derived consequence; framework structurally unified (single ε_param kernel replaces prior T²_matched + G_crystal-coherence two-mechanism factorization).
 
 **§13 extension landed 2026-05-26 per Phase 0c of ax4-saturation-narrow-aperture-amplitude-shape epic** (Q-AX4-NA-1 + Q-AX4-NA-2 BOTH GO 2026-05-26). Closes parametric-coupling-kernel.md §12 V_0 ≠ 0 open item PARTIALLY (single-site $P(\delta V)$ under $V_{DC}$ landed; aperture-aggregate Phase 2 still pending). Closes dama-matched-lc-coupling.md:269 strengthen-by item PARTIALLY (same single-site scope). Two Type E walk-backs from prereg expectations honestly documented (linear-vs-cubic $\kappa_3$ scaling; shrinking-vs-diverging $\ell_{corr}$).
+
+## §14 — Aperture-aggregate amplitude-shape under DC bias with metric-lensing convolution (Phase 2-NA extension, 2026-05-26)
+
+**Phase 2-NA extension** of §13 single-site per-site amplitude-shape to the **aperture-aggregate observable signature** at narrow boundary apertures with explicit Op14/Op16 metric-lensing convolution against detector frequency response. Per [`research/2026-05-26_ax4-saturation-phase-2-na-aperture-aggregate-result.md`](../../../../../research/2026-05-26_ax4-saturation-phase-2-na-aperture-aggregate-result.md) (Phase 2-NA sub-saturation regime sub-epic of [`_orchestration/ax4-saturation-narrow-aperture-amplitude-shape.md`](../../../../../_orchestration/ax4-saturation-narrow-aperture-amplitude-shape.md)). Phase 2-LLCP (substrate critical-point regime) is a separate sub-epic.
+
+### §14.1 Aperture-aggregate central-aggregation across N independent substrate sites
+
+For an aperture spanning $N$ independent substrate lattice sites at the K4-TLM bond-LC decorrelation length $\ell_{corr}$, cumulant additivity over independent sums (substrate-agnostic mathematical-tool axis) gives:
+
+$$\frac{\kappa_3^{(aperture)}}{\sigma_{aperture}^3} = \frac{1}{\sqrt{N}} \cdot \frac{\kappa_3^{(per-site)}}{\sigma_{per-site}^3}, \qquad \frac{\kappa_4^{(aperture)}}{\sigma_{aperture}^4} = \frac{1}{N} \cdot \frac{\kappa_4^{(per-site)}}{\sigma_{per-site}^4}$$
+
+— the substrate-agnostic Edgeworth pre-asymptote (standard-community name: "central-limit-theorem pre-asymptote" or "Edgeworth expansion"; substrate-native canonical at [`translation-stochastics.md`](../../../common/translation-tables/translation-stochastics.md) Edgeworth row).
+
+### §14.2 Geometric N under DC bias × aperture dimensionality
+
+For a $d$-dimensional aperture of characteristic linear size $W$, substituting §13.5 substrate correlation length $\ell_{corr}(V_{DC}) = \ell_{corr}(0) \cdot S_0^{3/2}$:
+
+$$N_{geometric}(V_{DC}; W, d) = \left(\frac{W}{\ell_{corr}(V_{DC})}\right)^d = N_0 \cdot S_0^{-3d/2}$$
+
+— N **grows** at fixed $W$ as $V_{DC} \to V_y$ (correlation length shrinks → more independent sites in same aperture width). Typical boundary-extraction architectures present a 2D boundary-surface aperture; **$d = 2$ is the load-bearing geometry**.
+
+### §14.3 Combined sub-saturation $V_{DC}$-dependence (geometric-only, pre-metric-lensing)
+
+> **[Resultbox]** *Aperture-aggregate skewness + kurtosis-excess under DC bias (geometric-only sub-saturation regime)*
+>
+> $$\boxed{\frac{\kappa_3^{(aperture, geo)}}{\sigma_{aperture}^3} = \frac{-3 a \eta_T}{\sqrt{N_0}} \cdot S_0^{(3d-2)/4}}$$
+>
+> $$\boxed{\frac{\kappa_4^{(aperture, geo)}}{\sigma_{aperture}^4} = \frac{-3 (1 + 4 a^2) \eta_T^2}{N_0} \cdot S_0^{(3d - 2)/2}}$$
+>
+> **Peak operating point**: $\boxed{a^{(d)}_{peak} = \sqrt{\dfrac{4}{3d + 2}}}$
+>
+> | $d$ | $a^{(d)}_{peak}$ | Notes |
+> |---|---|---|
+> | 1 | 0.894 | 1D aperture; peak near yield |
+> | **2** | **0.707** | **load-bearing 2D boundary-aperture geometry** |
+> | 3 | 0.603 | 3D bulk aperture |
+
+**Substrate-mechanical reason for dimensionality dependence**: competition between per-site skewness growth (linear in $a$ from $U'''(V_{DC}) \propto V_{DC}$) and N-growth-with-bias suppression (faster in higher-dimensional volumes because $N \propto S_0^{-3d/2}$). At higher dimensionality, the central-aggregation suppression dominates earlier — peak shifts to lower $V_{DC}$.
+
+### §14.4 Metric-lensing convolution against detector frequency response (the substrate-distinct lift)
+
+Per Op14 + Op16 canonical: $c_{eff}(V_{DC}) = c_0 \sqrt{S_0}$ + $Z_{eff}(V_{DC}) = Z_0/\sqrt{S_0}$ + $\omega_{local}(V_{DC}) = \omega_{global} \sqrt{S_0}$. Substrate noise spectrum (Vol 3 Ch 11 nyquist-noise-fdt.md clm-eaiqj1 canonical) shifts down by $\sqrt{S_0}$ under DC bias; detector frequency response $H(\omega)$ is architecture-fixed.
+
+The **effective $N_{detector}$** seen by a detector is geometric N filtered by detector frequency-domain visibility:
+
+$$N_{detector}(V_{DC}; W, d, H) = N_{geometric}(V_{DC}; W, d) \cdot \mathcal{F}(\Delta\omega_{det}, \omega_{det}; V_{DC})$$
+
+where $\mathcal{F}$ is the **frequency-domain visibility factor**:
+
+$$\mathcal{F}(\Delta\omega_{det}, \omega_{det}; V_{DC}) = \frac{\int_0^\infty |H(\omega)|^2 \mathcal{D}_{substrate}(\omega; V_{DC}) \, d\omega}{\int_0^\infty \mathcal{D}_{substrate}(\omega; V_{DC}) \, d\omega}$$
+
+**Three detector-architecture cases**:
+
+| Case | Description | $\mathcal{F}$ behavior | Aperture-aggregate effect |
+|---|---|---|---|
+| **A** | Broadband detector ($\Delta\omega_{det} \gtrsim \omega_{max}$) | $\mathcal{F} \approx 1$ | Recovers §14.3 geometric-only result |
+| **B** | Narrowband detector mistuned (fixed $\omega_{det}$ at zero-bias substrate-mode) | $\mathcal{F}(V_{DC}) < 1$; falls as bias is applied | **ENHANCES** observability (reduces effective N → weaker 1/√N suppression) |
+| **C** | Narrowband detector tuned for loaded operating point ($\omega_{det}(V_{DC}) = \omega_0 \sqrt{S_0}$) | $\mathcal{F} \approx 1$ | Recovers §14.3 geometric-only result; **PONDER-05-class precision-impedance bench operates here by design** |
+
+**$\mathcal{F}$ is the substrate-distinct lift over generic CLT-pre-asymptote treatments**: standard varactor-noise theory at arbitrary $C(V)$ has no substrate-state-dependent wave speed and cannot generate $\mathcal{F}$ frequency-shift under bias. Standard treatments reproduce the §14.1 1/√N central-aggregation but not the §14.4 frequency-domain visibility.
+
+### §14.5 PONDER-05 canonical operating point at $a^{(2D)}_{peak}$ — operational near-optimality
+
+The PONDER-05 canonical bench-scale operating point is $V_{DC}/V_{yield} = 0.687$ (per INVARIANT-S2 + [`measurement-hierarchy-snr.md`](../../falsification/ch11-experimental-bench/measurement-hierarchy-snr.md):66). The load-bearing 2D-aperture aperture-aggregate skewness peak sits at $a^{(2D)}_{peak} = 1/\sqrt{2} = 0.707$.
+
+**Operational closeness**: $|0.687 - 0.707|/0.707 = 2.8\%$. **PONDER-05 operates within 3% of the substrate-saturation × narrow-aperture aperture-aggregate skewness peak for 2D boundary-aperture geometry**. The PONDER-05 canonical operating point — chosen for entirely different reasons (canonical 27.4% $\varepsilon_{eff}$ collapse + 469 μN thrust per universal-saturation-kernel-catalog.md) — sits at the operational near-optimum for the substrate-saturation × narrow-aperture amplitude-shape observable. The Phase 2-NA prediction is testable at the existing PONDER-05 bench geometry without re-design.
+
+PONDER-05 architecture is **Case C** (matched-impedance differential-resonator topology co-designed with operating-point loading) — $\mathcal{F} \approx 1$.
+
+### §14.6 Headline predictions at PONDER-05 operating point
+
+At $a = 0.687$, $d = 2$, $\mathcal{F} = 1$ (Case C), room T:
+
+| $N_0$ | $|\kappa_3^{(apt)}|/\sigma_{apt}^3$ | $N_{events}$ for 3σ detection of $\kappa_3$ |
+|---|---|---|
+| 4 | $5.97 \times 10^{-4}$ | $\sim 1.5 \times 10^8$ |
+| 10 | $3.77 \times 10^{-4}$ | $\sim 3.8 \times 10^8$ |
+| 100 | $1.19 \times 10^{-4}$ | $\sim 3.8 \times 10^9$ |
+
+(Using sample-skewness standard error $\sqrt{6/N_{events}}$; 3σ detection requires $N_{events} \geq 54/K_3^2$.)
+
+**Operational feasibility**: at $\sim 10^7$ events/s amplitude-statistics readout rate, $N_0 \sim 10$ campaign requires $\sim 10$-$100$ s acquisition. **PONDER-05 aperture-aggregate skewness $\sim 4 \times 10^{-4}$ is a falsifiable Phase 2-NA prediction at the room-T precision-impedance bench, requiring $\sim 4 \times 10^8$ histogram-statistics events**.
+
+**Aperture-aggregate kurtosis at $N_0 = 10$**: $|\kappa_4^{(apt)}|/\sigma_{apt}^4 \approx 2.9 \times 10^{-7}$, requiring $\sim 2.6 \times 10^{15}$ events for 3σ detection — **operationally inaccessible at room T** (~3 years acquisition). Skewness is the load-bearing observable.
+
+### §14.7 Mapping to candidate boundary-extraction architectures
+
+Per [`translation-instrumentation.md`](../../../common/translation-tables/translation-instrumentation.md) Category I/II/III:
+
+| Category | Architecture | $N$ regime | $\mathcal{F}$ regime | Aperture-aggregate observability |
+|---|---|---|---|---|
+| I | Photodiode / PMT / CCD / bolometer | $N \gg 10^9$ | Case A (broadband) | washed out (large N suppression); NOT a candidate |
+| II | APD / SPAD / TES / SNSPD (event-based) | $N \sim 10^3$-$10^6$ | architecture-dependent | candidate IF analog amplitude-statistics readout + sub-μm aperture; STRUCTURAL caveats |
+| II | **PONDER-05-class precision-impedance bench** | **$N \sim 10$-$100$** | **Case C (matched-impedance)** | **LOAD-BEARING empirical-engagement architecture**; falsifiable at canonical 0.687 operating point |
+| III | Superconducting qubit / transmon / SQUID | (coupled bidirectional) | N/A | NOT applicable (not one-way Joule extractor) |
+
+### §14.8 Classification + open work
+
+**`consistency-vs-emergence` v1.2 classification**: **Class 2 substrate-mechanism emergence** on substance axis (Ax 4 kernel form via Phase 0c per-site cumulants + Op14/Op16 metric-lensing convolution via $\mathcal{F}$ frequency-domain visibility factor + Phase 0c correlation length shrinkage via dimensionality-dependent peak); **Class 4 substrate-agnostic-consistency** on mathematical-tool axis (central-aggregation 1/√N + 1/N + cumulant additivity over independent sums + closed-form optimization of $a(1-a^2)^{(3d-2)/8}$).
+
+**One Type E walk-back documented** in result doc §7:
+1. Peak operating point is dimensionality-dependent ($a^{(d)}_{peak} = \sqrt{4/(3d+2)}$; prereg expected uniform $1/\sqrt{2}$). The substrate-mechanical mechanism — competition between $a$-linear per-site growth and N-growth-with-bias via correlation length shrinkage — is unchanged.
+
+**Open follow-on items** (not blocking canonical use of §14):
+- **Phase 2-LLCP sub-epic** (separate critical-point regime): substrate-mechanical treatment of avalanche multiplication as substrate operating AT the LLCP analog (canonical via [`vol3/condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md`](../../../vol3/condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md)). Phase 14 sub-saturation framework does NOT apply at the critical point.
+- **Phase 3 KB integration**: add Phase 2-NA aperture-aggregate prediction as new row B7-PONDER-05-EXT in [`divergence-test-substrate-map.md`](../../../common/divergence-test-substrate-map.md) — extension of B7-PONDER-05 with histogram-statistics readout layer.
+- **Detector-architecture-specific $\mathcal{F}$ derivations**: PONDER-05 architecture-specific $\mathcal{F}$ from `AVE-PONDER` sibling repo; SPAD/APD/SNSPD architecture-specific derivations for non-PONDER-05 empirical-engagement paths (Phase 4 follow-on).
+
+---
+
+**§14 extension landed 2026-05-26 per Phase 2-NA of ax4-saturation-narrow-aperture-amplitude-shape epic** (sub-saturation regime sub-epic; sister Phase 2-LLCP critical-point regime sub-epic scoped separately). Builds on §13 Phase 0c canonical + Op14/Op16 metric-lensing canonical + Vol 3 Ch 11 nyquist-noise-fdt.md (clm-eaiqj1) canonical + translation-instrumentation.md Category II taxonomy. One Type E walk-back from prereg expectation honestly documented (dimensionality-dependent peak). Further partial closure of dama-matched-lc-coupling.md:269 strengthen-by item (aperture-aggregate single-site → aperture-aggregate prediction scope).
