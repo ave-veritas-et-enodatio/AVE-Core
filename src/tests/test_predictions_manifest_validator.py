@@ -287,11 +287,13 @@ class TestBridge:
         assert findings[0].severity == "critical"
         assert "expected 'claim'" in findings[0].message
 
-    def test_unbridged_entries_aggregate_to_one_warn(self) -> None:
+    def test_unbridged_entries_aggregate_to_one_critical(self) -> None:
+        # Bridge is corpus-complete (D14): an unbridged entry is now a hard
+        # failure, not a pending-migration warning (INVARIANT-S11).
         m = _manifest([{"id": "P01"}, {"id": "P02"}, {"id": "P03", "clm": "clm-aaaaaa"}])
         findings = check_bridge(m, spine_nodes=self.NODES)
         assert len(findings) == 1
-        assert findings[0].severity == "warn"
+        assert findings[0].severity == "critical"
         assert findings[0].details["unbridged"] == ["P01", "P02"]
 
     def test_missing_index_warns_not_crashes(self) -> None:
