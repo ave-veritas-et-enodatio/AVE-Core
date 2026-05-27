@@ -97,6 +97,31 @@ The framework's "zero free parameters" headline rests on a layered closure that 
   - (Speculative future workstream) Identify a canonical substrate Hilbert space on which T = A_4 acts with irrep decomposition A + E + T (dims 1 + 2 + 3 matching codimensional ordering); if such a substrate Hilbert space can be identified and the (R, r, d)-fixed substrate kernel decomposes onto its irreps, Schur orthogonality WOULD close the additive assembly at the Class 2 axiom-manifestation level. This is a substantive future workstream, not a near-term tweak — Phase 3-A2 establishes it as the most promising structural-match candidate, NOT as a closure path.
 ---
 
+## Vacuum Strain Coefficient $\delta_{\text{strain}}$ (CMB Thermal Running of $\alpha^{-1}$)
+<!-- id: clm-009nkt -->
+
+- $\delta_{\text{strain}} = 1 - \alpha^{-1}_{\text{exp}}/\alpha^{-1}_{\text{ideal}} = 1 - 137.035999/137.0363038 \approx 2.225 \times 10^{-6}$
+- _Specific Claims_
+  - The cold-lattice asymptote $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363038$ (substrate-derived; see clm-0ktpcn) is the $T \to 0$ limit; the measured CODATA value $137.035999$ sits below it by the fractional vacuum strain coefficient $\delta_{\text{strain}}$, attributed to CMB thermal expansion of the substrate's spatial metric at $T_{\text{CMB}} \approx 2.725$ K.
+  - **Predicted (axiom-derived):** the *existence* of a positive thermal running of $\alpha^{-1}$ below the asymptote at any $T > 0$; the *sign* (substrate softens / expands at higher $T$); the falsifiable claim that $\alpha^{-1}$ decreases further in regions of higher local thermal energy (collider cores, early universe).
+  - **Fitted (one scalar at $T_{\text{CMB}}$):** the numerical magnitude $\delta_{\text{strain}} \approx 2.225 \times 10^{-6}$, computed by back-subtraction from CODATA, $\delta_{\text{strain}} \equiv 1 - \alpha^{-1}_{\text{CODATA}}/\alpha^{-1}_{\text{ideal}}$, definitional given the engine's `DELTA_STRAIN = 1 - (1/ALPHA)/ALPHA_COLD_INV` (`src/ave/core/constants.py`).
+  - **Tested:** that *one* thermal scalar suffices to bridge the cold-lattice asymptote to CODATA; multi-temperature $\alpha$ measurements (collider cores, primordial-nucleosynthesis $\alpha$, ultracold cavity experiments) test the same one-scalar structural claim at different $T$.
+- _Specific Non-Claims and Caveats_
+  - Does NOT claim the *magnitude* is derived: it is one back-subtracted scalar (a Class A identity at the back-substitution step), not yet a derivation of $\delta_{\text{strain}}$ from $T_{\text{CMB}}$ + a lattice elastic modulus. The narrative attribution to spatial-metric thermal expansion is consistent with the predicted sign but is not a magnitude derivation.
+  - This is the **third distinct thermal running of $\alpha$** in AVE and must not be conflated with (a) standard QED vacuum polarization (different mechanism, different scale, above the $e^+e^-$ threshold), nor (b) the proton Skyrme thermal correction $\delta_{th} = 1/(14\pi^2) \approx 7.21 \times 10^{-3}$ at the $10^{13}$ K proton core (different temperature regime, different quantity — the Faddeev-Skyrme coupling $\kappa_{FS}$, not $\alpha$ directly).
+
+> **Leaf references:** [ch8-alpha-golden-torus](./ch8-alpha-golden-torus.md).
+
+### Quality
+- confidence: 0.45
+- depends-on:
+  - clm-0ktpcn — Golden Torus α Derivation [the cold-lattice asymptote $\alpha^{-1}_{\text{ideal}} = 4\pi^3+\pi^2+\pi$ this residual is measured against]
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.45, 0.60)]
+- rationale: definitional-identity (the magnitude). The sign and existence of a positive thermal running of $\alpha^{-1}$ below the cold-lattice asymptote are axiom-derived (substrate thermal expansion); the magnitude $\delta_{\text{strain}} \approx 2.225 \times 10^{-6}$ is FITTED — one scalar back-subtracted from CODATA, definitional given the engine constant `DELTA_STRAIN`. It is NOT yet derived from $T_{\text{CMB}}$ + the lattice bulk modulus. Distinct from QED vacuum polarization and from the proton Skyrme thermal correction $\delta_{th} = 1/(14\pi^2)$. Confidence 0.45 set by the applied-mathematician pass.
+- strengthen-by:
+  - Derive the $\delta_{\text{strain}}$ magnitude from $T_{\text{CMB}}$ + the lattice bulk modulus $G_{\text{vac}}$ (first-principles equipartition energy at $T_{\text{CMB}}$ against the vacuum elastic modulus), replacing the one-scalar back-subtraction. This is the SAME open gap as clm-0ktpcn's existing strengthen-by item "Derive δ_strain magnitude at T_CMB to close the cold-lattice → CODATA bridge rather than back-subtracting it".
+---
+
 ## EMT $p_c = 8\pi\alpha$ — Consistency Relation, NOT α Derivation
 <!-- id: clm-9s9apq -->
 

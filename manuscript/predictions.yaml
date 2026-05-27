@@ -185,6 +185,7 @@ predictions:
       (line 38).
 
   - id: P47
+    clm: clm-009nkt
     name: "α thermal running (δ_strain)"
     type: derived_prediction
     derivation_label: "sec:alpha_thermal_running"
@@ -194,7 +195,7 @@ predictions:
     observed_value: 2.22344133782304e-06
     observed_source: "Derived: 1 − (1/ALPHA)/ALPHA_COLD_INV"
     error_percent: 0.0
-    axioms_used: [1, 2, 4]
+    axioms_used: [1, 2, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -446,11 +447,12 @@ predictions:
   # full axiom lineage are future work (v2 expansion).
 
   - id: P10
+    clm: clm-zf8eah
     name: "Solar light deflection"
     type: consistency_check
     derivation_label: "sec:double_deflection"
     error_percent: 0.03
-    axioms_used: [1, 2, 3]
+    axioms_used: [1, 2, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
@@ -741,6 +743,7 @@ predictions:
       minimal load-bearing set for this entry.
 
   - id: P41
+    clm: clm-at7x0y
     name: "WD redshift (Sirius B)"
     type: consistency_check
     derivation_label: "ch:white_dwarf_predictions"

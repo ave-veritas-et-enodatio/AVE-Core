@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [clm-07kd5v, clm-1klgo2, clm-3zz0f6, clm-8nkvwy, clm-ir8h78, clm-rd9cjm, clm-wx5324, clm-x19btt, clm-y9old1]
+subtree-claims: [clm-07kd5v, clm-1klgo2, clm-3zz0f6, clm-8nkvwy, clm-at7x0y, clm-ir8h78, clm-mi6ils, clm-rd9cjm, clm-wx5324, clm-x19btt, clm-y9old1, clm-zf8eah]
 subtree-experiments: []
 -->
 
@@ -45,5 +45,6 @@ Macroscopic gravity derived from the $\mathcal{M}_A$ LC network. The trace-rever
 | [Ch.2: General Relativity and Gravitational Waves](./ch02-general-relativity/index.md) | EFE as LC energy density, symmetric gravity impedance, refractive index gradient, frame-dragging, K4-TLM lensing validation, translation tables |
 | [Ch.3: Macroscopic Relativity: The Optical Metric](./ch03-macroscopic-relativity/index.md) | Gordon metric, ponderomotive equivalence, refractive index derivation, achromatic matching, Einstein lensing, dielectric rupture, gravitomagnetism |
 | [Ch.8: Gravitational Waves](./ch08-gravitational-waves/index.md) | Impedance modulation propagation, lossless linear regime, Fabry--Perot detection, SQL, saturation ratio |
+| [Ch.20: White Dwarf Gravitational Predictions](./ch20-white-dwarf-predictions/index.md) | Saturation-corrected gravitational redshift (Sirius B), standing shear-wave eigenfrequencies in the LIGO band |
 
 ---

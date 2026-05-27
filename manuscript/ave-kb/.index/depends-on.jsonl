@@ -1,3 +1,4 @@
+{"source": "clm-009nkt", "target": "clm-0ktpcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "the cold-lattice asymptote $\\alpha^{-1}_{\\text{ideal}} = 4\\pi^3+\\pi^2+\\pi$ this residual is measured against", "fraction": null}
 {"source": "clm-07kd5v", "target": "axiom-3", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Minimum Reflection Principle", "fraction": null}
 {"source": "clm-07kd5v", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Universal Saturation Kernel — symmetric scaling of $\\mu,\\varepsilon$", "fraction": null}
 {"source": "clm-07kd5v", "target": "clm-gdd70j", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
@@ -146,6 +147,8 @@
 {"source": "clm-ak97cb", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "cavity saturation boundary $r_{sat}=a_0=\\ell_{node}/\\alpha$; standing-wave radii", "fraction": null}
 {"source": "clm-ak97cb", "target": "axiom-2", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Gauss cross-shell screening", "fraction": null}
 {"source": "clm-ak97cb", "target": "clm-oltvwy", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-at7x0y", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "\\varepsilon_{11}", "fraction": null}
+{"source": "clm-at7x0y", "target": "clm-rd9cjm", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-av2o4v", "target": "clm-a71inj", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-av2o4v", "target": "clm-k3p9wz", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-b27pnp", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Universal Saturation Kernel — saturation back-reaction on the LC tank", "fraction": null}
@@ -404,6 +407,7 @@
 {"source": "clm-m3z5ux", "target": "clm-5xon03", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "consistency-proof framing of H_∞", "fraction": null}
 {"source": "clm-m3z5ux", "target": "clm-crbl60", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "G_vac/ρ_bulk for the v_longitudinal = √2 c bulk-compression speed", "fraction": null}
 {"source": "clm-m7qd0w", "target": "clm-0ktpcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.6, "strength": null, "context": "α appears in BH $r_{eff} = r_{sat}/(1+\\nu_{vac})$, pion via $m_p$, etc.", "fraction": null}
+{"source": "clm-mi6ils", "target": "clm-rd9cjm", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-mlwm3h", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Thomson-problem minimum-impedance packing on $S^2$", "fraction": null}
 {"source": "clm-mlwm3h", "target": "clm-llqd1n", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-mnb3lt", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "gradient saturation inside the Faddeev-Skyrme integrand", "fraction": null}
@@ -661,6 +665,7 @@
 {"source": "clm-z73h6n", "target": "clm-d9ivj1", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-z73h6n", "target": "clm-dboxok", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-ze4clw", "target": "clm-ofys5v", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies that the Γ=−1 boundary exposes only integrated boundary observables", "fraction": null}
+{"source": "clm-zf8eah", "target": "clm-rd9cjm", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-zfqd9v", "target": "clm-zgllr2", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the engine split this localization claim partitions across", "fraction": null}
 {"source": "clm-zi6t1e", "target": "clm-0ktpcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.6, "strength": null, "context": "α-dependent constants throughout: $V_{yield}$, $p_c$, etc.", "fraction": null}
 {"source": "clm-zsqh87", "target": "axiom-3", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Minimum Reflection Principle — reflection-coefficient operator", "fraction": null}
