@@ -179,7 +179,7 @@ def main():
         "T_dim": int(T.shape[0]),
         "T_nnz": int(T.nnz),
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"\n  Results: {OUTPUT_JSON}")
     return payload
 

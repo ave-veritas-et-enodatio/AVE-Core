@@ -7,7 +7,7 @@ chapters_dir = manuscript_path("vol_3_macroscopic", "chapters")
 files = [str(p) for p in chapters_dir.glob("*.tex")]
 
 for file in files:
-    with open(file, "r") as f:
+    with open(file, "r", encoding="utf-8") as f:
         content = f.read()
 
     # Replace \section*{Chapter Summary} with \begin{summarybox}
@@ -28,6 +28,6 @@ for file in files:
         replacement2 = r"\\begin{exercisebox}\n\\begin{enumerate}\g<1>\\end{enumerate}\n\\end{exercisebox}"
         content = re.sub(pattern2, replacement2, content, flags=re.DOTALL)
 
-        with open(file, "w") as f:
+        with open(file, "w", encoding="utf-8") as f:
             f.write(content)
         print(f"Wrapped boxes in {os.path.basename(file)}")

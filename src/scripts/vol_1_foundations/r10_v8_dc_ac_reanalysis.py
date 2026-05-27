@@ -275,7 +275,7 @@ def main():
     }
 
     out_path = Path(__file__).parent / "r10_v8_dc_ac_reanalysis_results.json"
-    out_path.write_text(json.dumps(out, indent=2, default=str))
+    out_path.write_text(json.dumps(out, indent=2, default=str), encoding="utf-8")
     print(f"Saved {out_path.relative_to(Path.cwd())}")
 
 

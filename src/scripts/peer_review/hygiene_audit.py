@@ -35,7 +35,7 @@ def find_tex_files(vol_dir: Path) -> list[Path]:
 
 def extract_labels_and_refs(tex_file: Path) -> dict[str, Any]:
     """Extract all \\label{} and \\ref{} from a .tex file."""
-    content = tex_file.read_text(errors="replace")
+    content = tex_file.read_text(errors="replace", encoding="utf-8")
     lines = content.split("\n")
 
     labels = {}  # key -> (file, line)
@@ -60,7 +60,7 @@ def extract_labels_and_refs(tex_file: Path) -> dict[str, Any]:
 
 def check_nomenclature(tex_file: Path) -> list[Any]:
     """Check for inconsistent variable naming patterns."""
-    content = tex_file.read_text(errors="replace")
+    content = tex_file.read_text(errors="replace", encoding="utf-8")
     issues = []
 
     # Check for known nomenclature inconsistencies

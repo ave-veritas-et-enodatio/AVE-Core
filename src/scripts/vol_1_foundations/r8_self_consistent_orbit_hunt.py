@@ -50,6 +50,7 @@ ADJUDICATION (4-mode):
                   → marginally stable; topology preserved but amplitude
                     decays; warrants longer-time investigation
 """
+
 from __future__ import annotations
 
 import json
@@ -62,9 +63,9 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
 from tlm_electron_soliton_eigenmode import initialize_2_3_voltage_ansatz
 
+from ave.topological.vacuum_engine import VacuumEngine3D
 
 # ─── Constants per pred ───────────────────────────────────────────────────────
 
@@ -75,14 +76,14 @@ PHI_SQ = PHI * PHI
 N_LATTICE = 32
 PML = 4
 R_ANCHOR = 10.0
-R_MINOR = R_ANCHOR / PHI_SQ                      # ≈ 3.82
+R_MINOR = R_ANCHOR / PHI_SQ  # ≈ 3.82
 
 # Seeds (corpus GT geometry)
-A26_AMP_SCALE = 0.3 / (np.sqrt(3.0) / 2.0)       # peak |ω| = 0.3π
+A26_AMP_SCALE = 0.3 / (np.sqrt(3.0) / 2.0)  # peak |ω| = 0.3π
 GT_PEAK_OMEGA = 0.3 * np.pi
 A26_GUARD_LOW = 0.85 * GT_PEAK_OMEGA
 A26_GUARD_HIGH = 1.15 * GT_PEAK_OMEGA
-V_AMP_INIT = 0.14                                # peak v_total ≈ 0.5·V_SNAP, mid Regime II
+V_AMP_INIT = 0.14  # peak v_total ≈ 0.5·V_SNAP, mid Regime II
 
 # Topology target (corpus-canonical via Op10, Doc 07_)
 TOPOLOGY_TARGET_C = 3
@@ -106,7 +107,9 @@ OUTPUT_JSON = Path(__file__).parent / "r8_self_consistent_orbit_hunt_results.jso
 
 def build_engine():
     return VacuumEngine3D.from_args(
-        N=N_LATTICE, pml=PML, temperature=0.0,
+        N=N_LATTICE,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -117,12 +120,17 @@ def seed_corpus_2_3_joint(engine):
     """Seed both V_inc and ω with corpus (2,3) ansatz at corpus GT."""
     # ω sector: corpus (2,3) hedgehog at A26-canonical 0.3π peak
     engine.cos.initialize_electron_2_3_sector(
-        R_target=R_ANCHOR, r_target=R_MINOR,
-        use_hedgehog=True, amplitude_scale=A26_AMP_SCALE,
+        R_target=R_ANCHOR,
+        r_target=R_MINOR,
+        use_hedgehog=True,
+        amplitude_scale=A26_AMP_SCALE,
     )
     # V_inc sector: corpus (2,3) chiral-phasor voltage ansatz
     initialize_2_3_voltage_ansatz(
-        engine.k4, R=R_ANCHOR, r=R_MINOR, amplitude=V_AMP_INIT,
+        engine.k4,
+        R=R_ANCHOR,
+        r=R_MINOR,
+        amplitude=V_AMP_INIT,
     )
 
 
@@ -130,8 +138,7 @@ def a26_guard_omega(engine):
     peak = float(np.linalg.norm(np.asarray(engine.cos.omega), axis=-1).max())
     if not (A26_GUARD_LOW <= peak <= A26_GUARD_HIGH):
         raise AssertionError(
-            f"A26 guard FAILED: peak |ω|={peak:.4f} not in "
-            f"[{A26_GUARD_LOW:.4f}, {A26_GUARD_HIGH:.4f}]"
+            f"A26 guard FAILED: peak |ω|={peak:.4f} not in " f"[{A26_GUARD_LOW:.4f}, {A26_GUARD_HIGH:.4f}]"
         )
     return peak
 
@@ -143,7 +150,7 @@ def measure_state(engine):
 
     peak_omega = float(np.linalg.norm(omega, axis=-1).max())
     peak_vinc = float(np.linalg.norm(v_inc, axis=-1).max())
-    v_total_peak = float(np.sqrt(np.sum(v_inc ** 2, axis=-1)).max())
+    v_total_peak = float(np.sqrt(np.sum(v_inc**2, axis=-1)).max())
 
     c = int(engine.cos.extract_crossing_count())
 
@@ -154,7 +161,7 @@ def measure_state(engine):
     rho_xy = np.sqrt((i - cx) ** 2 + (j - cx) ** 2)
     rho_tube = np.sqrt((rho_xy - R_ANCHOR) ** 2 + (k - cx) ** 2)
     shell_mask = rho_tube < (1.5 * R_MINOR)
-    omega_energy = np.sum(omega ** 2, axis=-1)
+    omega_energy = np.sum(omega**2, axis=-1)
     e_shell = float(omega_energy[shell_mask].sum())
     e_total = float(omega_energy.sum())
     shell_frac = e_shell / max(e_total, 1e-30)
@@ -178,8 +185,10 @@ def main():
     print(f"  Seed ω: peak {GT_PEAK_OMEGA:.4f} via A26 scale {A26_AMP_SCALE:.4f}")
     print(f"  Seed V_inc: amp={V_AMP_INIT} → peak v_total ~0.5·V_SNAP (Regime II)")
     print(f"  Evolution: {N_PERIODS_TOTAL} Compton periods, NO external drive")
-    print(f"  Adjudication thresholds: I ≥ {PERSISTENCE_MODE_I}, II/III ≥ "
-          f"{PERSISTENCE_MODE_II_III}, c target = {TOPOLOGY_TARGET_C}")
+    print(
+        f"  Adjudication thresholds: I ≥ {PERSISTENCE_MODE_I}, II/III ≥ "
+        f"{PERSISTENCE_MODE_II_III}, c target = {TOPOLOGY_TARGET_C}"
+    )
     print()
 
     engine = build_engine()
@@ -188,9 +197,11 @@ def main():
     print(f"  A26 guard OK (peak |ω|_0 = {omega_peak_init:.4f})")
 
     initial_state = measure_state(engine)
-    print(f"  Initial: peak |ω|={initial_state['peak_omega']:.4f}, "
-          f"peak v_total={initial_state['v_total_peak']:.4f}, "
-          f"c={initial_state['c']}, shell_frac={initial_state['shell_frac']:.4f}")
+    print(
+        f"  Initial: peak |ω|={initial_state['peak_omega']:.4f}, "
+        f"peak v_total={initial_state['v_total_peak']:.4f}, "
+        f"c={initial_state['c']}, shell_frac={initial_state['shell_frac']:.4f}"
+    )
     print()
 
     samples = [{"t_period": 0.0, "step": 0, **initial_state}]
@@ -205,17 +216,19 @@ def main():
             t_period = step * DT / COMPTON_PERIOD
             state = measure_state(engine)
             samples.append({"t_period": float(t_period), "step": int(step), **state})
-            print(f"    t={t_period:6.1f} P  step={step:5d}  "
-                  f"peak |ω|={state['peak_omega']:.4f}  "
-                  f"peak v_total={state['v_total_peak']:.4f}  "
-                  f"c={state['c']}  shell_frac={state['shell_frac']:.4f}",
-                  flush=True)
+            print(
+                f"    t={t_period:6.1f} P  step={step:5d}  "
+                f"peak |ω|={state['peak_omega']:.4f}  "
+                f"peak v_total={state['v_total_peak']:.4f}  "
+                f"c={state['c']}  shell_frac={state['shell_frac']:.4f}",
+                flush=True,
+            )
             last_progress = time.time()
         elif (time.time() - last_progress) > 30.0:
             t_period = step * DT / COMPTON_PERIOD
-            print(f"    [progress] t={t_period:6.1f} P  step={step:5d}  "
-                  f"elapsed {time.time() - t0:.1f}s",
-                  flush=True)
+            print(
+                f"    [progress] t={t_period:6.1f} P  step={step:5d}  " f"elapsed {time.time() - t0:.1f}s", flush=True
+            )
             last_progress = time.time()
     elapsed = time.time() - t0
     print(f"  Elapsed: {elapsed:.1f}s")
@@ -223,17 +236,19 @@ def main():
 
     # ─── Adjudication ─────────────────────────────────────────────────────────
     final_state = samples[-1]
-    persistence = final_state['peak_omega'] / max(omega_peak_init, 1e-30)
+    persistence = final_state["peak_omega"] / max(omega_peak_init, 1e-30)
 
-    post_transient_samples = [s for s in samples if s['t_period'] >= 10.0]
-    c_post_transient = [s['c'] for s in post_transient_samples]
+    post_transient_samples = [s for s in samples if s["t_period"] >= 10.0]
+    c_post_transient = [s["c"] for s in post_transient_samples]
     topology_preserved = all(c == TOPOLOGY_TARGET_C for c in c_post_transient)
 
     print("=" * 78, flush=True)
     print("  Adjudication")
     print("=" * 78, flush=True)
-    print(f"  Persistence: peak |ω|(t={final_state['t_period']:.0f}P) / peak |ω|(t=0) "
-          f"= {final_state['peak_omega']:.4f} / {omega_peak_init:.4f} = {persistence:.4f}")
+    print(
+        f"  Persistence: peak |ω|(t={final_state['t_period']:.0f}P) / peak |ω|(t=0) "
+        f"= {final_state['peak_omega']:.4f} / {omega_peak_init:.4f} = {persistence:.4f}"
+    )
     print(f"  Topology (c at t≥10P): {c_post_transient}")
     print(f"  c=3 preserved: {topology_preserved}")
     print()
@@ -320,7 +335,7 @@ def main():
         "mode": mode,
         "verdict": verdict,
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"  Result: {OUTPUT_JSON}")
     return payload
 

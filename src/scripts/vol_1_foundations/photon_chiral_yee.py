@@ -515,7 +515,7 @@ def main() -> None:
     # Strip non-serializable arrays before saving
     rh_serial = {k: v for k, v in rh.items() if not isinstance(v, np.ndarray)}
     lh_serial = {k: v for k, v in lh.items() if not isinstance(v, np.ndarray)}
-    with open(out_json, "w") as f:
+    with open(out_json, "w", encoding="utf-8") as f:
         json.dump(
             {"prereg": PREREG, "eval": eval_result, "rh_summary": rh_serial, "lh_summary": lh_serial},
             f,

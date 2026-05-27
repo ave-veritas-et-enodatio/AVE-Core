@@ -259,7 +259,7 @@ def main():
         "elapsed_total_s": float(elapsed),
     }
     out_path = Path(__file__).parent / "r10_v8_2a_gamma_pair_production_results.json"
-    out_path.write_text(json.dumps(out, indent=2, default=str))
+    out_path.write_text(json.dumps(out, indent=2, default=str), encoding="utf-8")
     print(f"\nSaved {out_path.relative_to(Path.cwd())}")
 
 

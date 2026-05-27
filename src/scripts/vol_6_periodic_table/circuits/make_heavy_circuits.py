@@ -423,7 +423,7 @@ for name, tex in circuits.items():
     tex_path = os.path.join(OUTDIR, f"{name}.tex")
     pdf_path = os.path.join(OUTDIR, f"{name}.pdf")
 
-    with open(tex_path, "w") as f:
+    with open(tex_path, "w", encoding="utf-8") as f:
         f.write(tex)
     print(f"Wrote {tex_path}")
 

@@ -369,7 +369,7 @@ def main() -> None:
 
     out_json = results_dir / "lattice_layer1_diagonal.json"
     result_serial = {k: (v.tolist() if isinstance(v, np.ndarray) else v) for k, v in result.items()}
-    with open(out_json, "w") as f:
+    with open(out_json, "w", encoding="utf-8") as f:
         json.dump({"prereg": PREREG, "eval": eval_result, "result": result_serial}, f, indent=2, default=str)
 
     print(f"\n  Outputs:")

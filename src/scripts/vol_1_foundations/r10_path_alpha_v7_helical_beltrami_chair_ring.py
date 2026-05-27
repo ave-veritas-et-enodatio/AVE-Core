@@ -47,6 +47,7 @@ is implementer terminology; §5.2 R/r=2π is two-source synthesis from Vol 1 Ch
 1:18 + Ch 1:32. Discrete chair-ring R differs from continuum (chair bond length
 = √3·ℓ_node). Helical pitch ratio configurable; default 1/(2π) continuum value.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -61,7 +62,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
 from ave.core.constants import ALPHA
 from ave.topological.vacuum_engine import VacuumEngine3D
-
 
 # ─── Constants ─────────────────────────────────────────────────────────────
 
@@ -78,7 +78,7 @@ N_RECORDING_STEPS = int(RECORDING_END_P * COMPTON_PERIOD / DT)
 
 # K4 port offsets (A's perspective; B's port-i offset = -A's port-i)
 PORT_OFFSETS_A = [
-    np.array([1, 1, 1]),    # port 0
+    np.array([1, 1, 1]),  # port 0
     np.array([1, -1, -1]),  # port 1
     np.array([-1, 1, -1]),  # port 2
     np.array([-1, -1, 1]),  # port 3
@@ -87,7 +87,7 @@ SQRT_3 = np.sqrt(3.0)
 TWO_PI = 2.0 * np.pi
 
 # IC amplitudes (V_SNAP units; engine V_SNAP = 1 in natural units)
-A_AMP_POL = 0.95           # poloidal A amplitude (dominant, ~84% of total energy)
+A_AMP_POL = 0.95  # poloidal A amplitude (dominant, ~84% of total energy)
 HELICAL_PITCH = 1.0 / TWO_PI  # |A_tor|/|A_pol| per (1,1) Beltrami at corpus aspect R/r=2π
 # A_AMP_TOR = A_AMP_POL · HELICAL_PITCH (computed below)
 
@@ -96,14 +96,14 @@ K_BELTRAMI = OMEGA_C / 1.0  # natural units c=1
 
 # Adjudication thresholds
 PERSISTENCE_PERIODS = 100.0
-A2_MEAN_THRESHOLD = 0.5            # CORRECTED from v6 (was A²_min) per doc 85 §7.3
+A2_MEAN_THRESHOLD = 0.5  # CORRECTED from v6 (was A²_min) per doc 85 §7.3
 BELTRAMI_PARALLELISM_THRESHOLD = 0.8
-LOOP_FLUX_TARGET = TWO_PI          # Stokes ∮A·dl ≈ 2π in V_SNAP-natural units
-LOOP_FLUX_TOLERANCE = 0.20         # ±20% (relaxed from doc 85 §7.4 0.10 due to discrete-K4 normalization uncertainty)
+LOOP_FLUX_TARGET = TWO_PI  # Stokes ∮A·dl ≈ 2π in V_SNAP-natural units
+LOOP_FLUX_TOLERANCE = 0.20  # ±20% (relaxed from doc 85 §7.4 0.10 due to discrete-K4 normalization uncertainty)
 RING_LOCALIZATION_THRESHOLD = 0.5
 
 # Beltrami pre-evolution sanity check
-BELTRAMI_IC_THRESHOLD = 0.95       # cos_sim(ω, A_0) ≥ 0.95 at IC by construction
+BELTRAMI_IC_THRESHOLD = 0.95  # cos_sim(ω, A_0) ≥ 0.95 at IC by construction
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_OUTPUT = Path(__file__).parent / "r10_path_alpha_v7_helical_beltrami_chair_ring_results.json"
@@ -139,16 +139,18 @@ def build_chair_ring(center):
             raise RuntimeError(f"No A-port matches offset {offset.tolist()}")
         traversal_dir = (np.array(node_next) - np.array(node_curr)).astype(float)
         traversal_dir /= np.linalg.norm(traversal_dir)
-        bonds.append({
-            "ring_idx": n,
-            "node_curr": list(node_curr),
-            "node_next": list(node_next),
-            "a_site": list(a_site),
-            "b_site": list(b_site),
-            "port": port_idx,
-            "a_to_b_offset": offset.tolist(),
-            "traversal_direction": traversal_dir.tolist(),
-        })
+        bonds.append(
+            {
+                "ring_idx": n,
+                "node_curr": list(node_curr),
+                "node_next": list(node_next),
+                "a_site": list(a_site),
+                "b_site": list(b_site),
+                "port": port_idx,
+                "a_to_b_offset": offset.tolist(),
+                "traversal_direction": traversal_dir.tolist(),
+            }
+        )
     return nodes, bonds
 
 
@@ -198,8 +200,7 @@ def compute_a_0_at_ring_nodes(nodes, a_amp_pol, helical_pitch):
     return np.array(a_0_per_node), frames, centroid
 
 
-def initialize_helical_beltrami_ic(engine, nodes, bonds, a_0_per_node, k_beltrami,
-                                    v_amp=0.95, phi_amp=0.95):
+def initialize_helical_beltrami_ic(engine, nodes, bonds, a_0_per_node, k_beltrami, v_amp=0.95, phi_amp=0.95):
     """Hybrid v6-style IC + helical Cosserat ω parallel to A_0.
 
     REVISED 2026-04-28 after Phase A IC empirical failure: Phase A (V_inc=0,
@@ -291,10 +292,7 @@ def phi_link_smoke_test(engine, nodes):
     # Sanity: V_inc should now be NON-zero (engine evolved), Phi_link should have
     # changed slightly (accumulated more from one step's V_avg·dt)
     v_inc_changed = any(abs(v) > 1e-12 for v in post_state["V_inc"])
-    phi_changed = any(
-        abs(post_state["Phi_link"][i] - pre_state["Phi_link"][i]) > 1e-12
-        for i in range(4)
-    )
+    phi_changed = any(abs(post_state["Phi_link"][i] - pre_state["Phi_link"][i]) > 1e-12 for i in range(4))
     return {
         "pre": pre_state,
         "post": post_state,
@@ -338,7 +336,7 @@ def measure_ring_state_v7(engine, nodes, bonds):
     for node in nodes:
         ix, iy, iz = node
         V_sq = float(np.sum(engine.k4.V_inc[ix, iy, iz, :] ** 2))
-        A2_per_node.append(V_sq / (V_SNAP ** 2))
+        A2_per_node.append(V_sq / (V_SNAP**2))
 
     # Beltrami parallelism: A_vec from Phi_link (NOT V_inc) — doc 85 §7.1 correction
     cos_sim_per_node = []
@@ -410,9 +408,7 @@ def run_v7(temperature=0.0, helical_pitch=HELICAL_PITCH, label="T0"):
     print("=" * 78, flush=True)
 
     nodes, bonds = build_chair_ring(CENTER)
-    a_0_per_node, frames, centroid = compute_a_0_at_ring_nodes(
-        nodes, A_AMP_POL, helical_pitch
-    )
+    a_0_per_node, frames, centroid = compute_a_0_at_ring_nodes(nodes, A_AMP_POL, helical_pitch)
     print(f"Chair-ring centroid: {centroid.tolist()}")
     print(f"|A_0_pol| amplitude: {A_AMP_POL}")
     print(f"|A_0_tor| amplitude: {A_AMP_POL * helical_pitch:.4f}")
@@ -420,7 +416,9 @@ def run_v7(temperature=0.0, helical_pitch=HELICAL_PITCH, label="T0"):
     print()
 
     engine = VacuumEngine3D.from_args(
-        N=N_LATTICE, pml=PML, temperature=temperature,
+        N=N_LATTICE,
+        pml=PML,
+        temperature=temperature,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -434,14 +432,9 @@ def run_v7(temperature=0.0, helical_pitch=HELICAL_PITCH, label="T0"):
     initialize_helical_beltrami_ic(engine, nodes, bonds, a_0_per_node, K_BELTRAMI)
 
     # Pre-evolution Beltrami eigenvector sanity check
-    omega_per_node = np.array([
-        engine.cos.omega[node[0], node[1], node[2], :].copy() for node in nodes
-    ])
-    beltrami_ic_cos_sims = beltrami_eigenvector_sanity_check(
-        a_0_per_node, omega_per_node, K_BELTRAMI
-    )
-    print(f"  Beltrami IC sanity: cos_sim(ω, k·A_0) per node = "
-          f"{[f'{c:+.3f}' for c in beltrami_ic_cos_sims]}")
+    omega_per_node = np.array([engine.cos.omega[node[0], node[1], node[2], :].copy() for node in nodes])
+    beltrami_ic_cos_sims = beltrami_eigenvector_sanity_check(a_0_per_node, omega_per_node, K_BELTRAMI)
+    print(f"  Beltrami IC sanity: cos_sim(ω, k·A_0) per node = " f"{[f'{c:+.3f}' for c in beltrami_ic_cos_sims]}")
     print(f"  (Threshold ≥ {BELTRAMI_IC_THRESHOLD}; ≈ 1.0 expected by construction)")
     beltrami_ic_pass = all(c >= BELTRAMI_IC_THRESHOLD for c in beltrami_ic_cos_sims)
     if not beltrami_ic_pass:
@@ -497,10 +490,13 @@ def run_v7(temperature=0.0, helical_pitch=HELICAL_PITCH, label="T0"):
                 saturation_lost = True
 
         if (time.time() - last) > 30.0:
-            print(f"    [progress] step {i}/{n_recording_steps}, t={t_p:.1f}P, "
-                  f"A²_mean={s['A2_mean']:.3f}, cos_sim={s['cos_sim_abs_mean']:.3f}, "
-                  f"flux={s['loop_flux']:+.3f}, loc={s['ring_localization']:.3f}, "
-                  f"elapsed {time.time()-t0:.1f}s", flush=True)
+            print(
+                f"    [progress] step {i}/{n_recording_steps}, t={t_p:.1f}P, "
+                f"A²_mean={s['A2_mean']:.3f}, cos_sim={s['cos_sim_abs_mean']:.3f}, "
+                f"flux={s['loop_flux']:+.3f}, loc={s['ring_localization']:.3f}, "
+                f"elapsed {time.time()-t0:.1f}s",
+                flush=True,
+            )
             last = time.time()
     elapsed = time.time() - t0
     print(f"  Recording done at {elapsed:.1f}s", flush=True)
@@ -516,23 +512,25 @@ def run_v7(temperature=0.0, helical_pitch=HELICAL_PITCH, label="T0"):
     print("=" * 78, flush=True)
     print(f"  Adjudication  [{label}]")
     print("=" * 78, flush=True)
-    print(f"  Persistence (A²_mean ≥ {A2_MEAN_THRESHOLD}): {persistence_periods:.1f} P  "
-          f"(threshold ≥ {PERSISTENCE_PERIODS} P)")
-    print(f"  Beltrami |cos_sim(A_from_Phi_link, ω)| steady: {cos_sim_steady:.4f}  "
-          f"(threshold ≥ {BELTRAMI_PARALLELISM_THRESHOLD})")
-    print(f"  Loop flux ∮A·dl steady: {loop_flux_steady:+.4f}  "
-          f"(target {LOOP_FLUX_TARGET:.4f} ± {LOOP_FLUX_TOLERANCE * 100:.0f}%)")
-    print(f"  Ring localization steady: {ring_loc_steady:.4f}  "
-          f"(threshold ≥ {RING_LOCALIZATION_THRESHOLD})")
+    print(
+        f"  Persistence (A²_mean ≥ {A2_MEAN_THRESHOLD}): {persistence_periods:.1f} P  "
+        f"(threshold ≥ {PERSISTENCE_PERIODS} P)"
+    )
+    print(
+        f"  Beltrami |cos_sim(A_from_Phi_link, ω)| steady: {cos_sim_steady:.4f}  "
+        f"(threshold ≥ {BELTRAMI_PARALLELISM_THRESHOLD})"
+    )
+    print(
+        f"  Loop flux ∮A·dl steady: {loop_flux_steady:+.4f}  "
+        f"(target {LOOP_FLUX_TARGET:.4f} ± {LOOP_FLUX_TOLERANCE * 100:.0f}%)"
+    )
+    print(f"  Ring localization steady: {ring_loc_steady:.4f}  " f"(threshold ≥ {RING_LOCALIZATION_THRESHOLD})")
     print(f"  A²_mean steady: {A2_mean_steady:.4f}")
     print()
 
     persistence_pass = persistence_periods >= PERSISTENCE_PERIODS
     beltrami_pass = cos_sim_steady >= BELTRAMI_PARALLELISM_THRESHOLD
-    flux_pass = (
-        abs(abs(loop_flux_steady) - LOOP_FLUX_TARGET) / LOOP_FLUX_TARGET
-        < LOOP_FLUX_TOLERANCE
-    )
+    flux_pass = abs(abs(loop_flux_steady) - LOOP_FLUX_TARGET) / LOOP_FLUX_TARGET < LOOP_FLUX_TOLERANCE
     loc_pass = ring_loc_steady >= RING_LOCALIZATION_THRESHOLD
 
     n_pass = sum([persistence_pass, beltrami_pass, flux_pass, loc_pass])
@@ -599,8 +597,9 @@ def run_v7(temperature=0.0, helical_pitch=HELICAL_PITCH, label="T0"):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--t-sweep", action="store_true",
-                        help="Run T sweep at T = {0, 1e-3, 1e-2, 1e-1}·T_V-rupt after T=0 baseline")
+    parser.add_argument(
+        "--t-sweep", action="store_true", help="Run T sweep at T = {0, 1e-3, 1e-2, 1e-1}·T_V-rupt after T=0 baseline"
+    )
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     args = parser.parse_args()
 
@@ -622,16 +621,15 @@ def main():
         # Mode II is acceptable for T sweep when persistence + localization PASS
         # (the substantive trapping criteria); Beltrami / flux measurement-method issues
         # are independent of thermal robustness question
-        substantive_pass = (
-            r0["mode"] == "I"
-            or (r0["mode"] == "II"
-                and r0["criteria_pass"]["persistence"]
-                and r0["criteria_pass"]["ring_localization"])
+        substantive_pass = r0["mode"] == "I" or (
+            r0["mode"] == "II" and r0["criteria_pass"]["persistence"] and r0["criteria_pass"]["ring_localization"]
         )
         if substantive_pass:
             print("\n" + "=" * 78)
-            print(f"  T=0 Mode {r0['mode']} with persistence+localization PASS — "
-                  f"proceeding with T sweep at {{1e-3, 1e-2, 1e-1}}·T_V-rupt")
+            print(
+                f"  T=0 Mode {r0['mode']} with persistence+localization PASS — "
+                f"proceeding with T sweep at {{1e-3, 1e-2, 1e-1}}·T_V-rupt"
+            )
             print("=" * 78 + "\n")
             for t_factor in [1e-3, 1e-2, 1e-1]:
                 t_value = t_factor * T_V_RUPT
@@ -639,19 +637,23 @@ def main():
                 rt = run_v7(temperature=t_value, label=label)
                 results.append(rt)
         else:
-            print(f"\nT=0 returned Mode {r0['mode']} without persistence+localization — "
-                  f"skipping T sweep (thermal robustness only meaningful if T=0 trapping holds)")
+            print(
+                f"\nT=0 returned Mode {r0['mode']} without persistence+localization — "
+                f"skipping T sweep (thermal robustness only meaningful if T=0 trapping holds)"
+            )
 
     # Synthesize across all runs
     print("\n" + "=" * 78)
     print("  SYNTHESIS ACROSS ALL RUNS")
     print("=" * 78)
     for r in results:
-        print(f"  {r['label']}: Mode {r['mode']} — "
-              f"persist={r['results']['persistence_periods']:.1f}P, "
-              f"beltrami={r['results']['beltrami_cos_sim_steady']:.3f}, "
-              f"flux={r['results']['loop_flux_steady']:+.3f}, "
-              f"loc={r['results']['ring_localization_steady']:.3f}")
+        print(
+            f"  {r['label']}: Mode {r['mode']} — "
+            f"persist={r['results']['persistence_periods']:.1f}P, "
+            f"beltrami={r['results']['beltrami_cos_sim_steady']:.3f}, "
+            f"flux={r['results']['loop_flux_steady']:+.3f}, "
+            f"loc={r['results']['ring_localization_steady']:.3f}"
+        )
     print()
 
     payload = {
@@ -676,7 +678,7 @@ def main():
         "T_V_rupt_natural_units": T_V_RUPT,
         "runs": results,
     }
-    args.output.write_text(json.dumps(payload, indent=2, default=str))
+    args.output.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"  Result: {args.output.relative_to(REPO_ROOT) if args.output.is_relative_to(REPO_ROOT) else args.output}")
     return payload
 

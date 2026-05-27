@@ -910,7 +910,7 @@ def main():
         "degree_class_agreement": agreement,
         "verdict": verdict,
     }
-    with open(RESULTS_PATH, "w") as f:
+    with open(RESULTS_PATH, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2)
     print(f"Results written to: {RESULTS_PATH}")
     return results

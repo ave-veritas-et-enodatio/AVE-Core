@@ -311,7 +311,7 @@ def main() -> None:
     for h in lh_serial.get("h_history", []):
         if isinstance(h.get("h_axis"), np.ndarray):
             h["h_axis"] = h["h_axis"].tolist()
-    with open(out_json, "w") as f:
+    with open(out_json, "w", encoding="utf-8") as f:
         json.dump(
             {"prereg": PREREG, "eval": eval_result, "rh_summary": rh_serial, "lh_summary": lh_serial},
             f,

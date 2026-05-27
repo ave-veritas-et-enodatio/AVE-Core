@@ -39,6 +39,7 @@ References:
 - src/ave/topological/cosserat_field_3d.py (energy_gradient via JAX autograd)
 - src/ave/topological/k4_cosserat_coupling.py:_update_z_local_total (Op14 z formula)
 """
+
 from __future__ import annotations
 
 import json
@@ -47,30 +48,30 @@ import time
 from pathlib import Path
 
 import numpy as np
-from scipy.sparse import lil_matrix, csr_matrix, diags
-from scipy.sparse.linalg import eigsh, LinearOperator
+from scipy.sparse import csr_matrix, diags, lil_matrix
+from scipy.sparse.linalg import LinearOperator, eigsh
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
 from ave.topological.vacuum_engine import VacuumEngine3D
 
-
 # ─── Pre-registered constants (per doc 72_ §3.1, frozen at commit 675141e) ────
 
 PHI = 0.5 * (1.0 + np.sqrt(5.0))
-PHI_SQ = PHI * PHI                          # ≈ 2.618
+PHI_SQ = PHI * PHI  # ≈ 2.618
 A26_AMP_SCALE = 0.3 / (np.sqrt(3.0) / 2.0)  # ≈ 0.3464 (recovers 0.3π peak from √3/2·π canonical)
-GT_PEAK_OMEGA = 0.3 * np.pi                 # ≈ 0.9425
+GT_PEAK_OMEGA = 0.3 * np.pi  # ≈ 0.9425
 
 from ave.core.constants import ALPHA
-OMEGA_COMPTON = 1.0                         # native units (ℓ_node = 1, c = 1, ℏ = 1, m_e = 1)
-LAMBDA_TARGET = OMEGA_COMPTON ** 2          # = 1.0
+
+OMEGA_COMPTON = 1.0  # native units (ℓ_node = 1, c = 1, ℏ = 1, m_e = 1)
+LAMBDA_TARGET = OMEGA_COMPTON**2  # = 1.0
 
 # Tolerances per pred
 EIGENMODE_FREQ_TOL = ALPHA * OMEGA_COMPTON  # |√λ - ω_C| < α·ω_C
-Q_TARGET = 1.0 / ALPHA                      # ≈ 137.036
-Q_TOL_REL = 0.05                             # ±5%
-SHAPE_CORR_INFORMATIONAL_THRESH = 0.60      # Q4 two-tier: informational, not PASS
+Q_TARGET = 1.0 / ALPHA  # ≈ 137.036
+Q_TOL_REL = 0.05  # ±5%
+SHAPE_CORR_INFORMATIONAL_THRESH = 0.60  # Q4 two-tier: informational, not PASS
 
 A26_GUARD_LOW = 0.85 * GT_PEAK_OMEGA
 A26_GUARD_HIGH = 1.15 * GT_PEAK_OMEGA
@@ -79,11 +80,11 @@ A26_GUARD_HIGH = 1.15 * GT_PEAK_OMEGA
 N_LATTICE = 32
 PML = 4
 R_ANCHOR = 10.0
-EIGENMODES_PER_BLOCK = 10                   # k=10 in eigsh, find 10 modes near sigma
+EIGENMODES_PER_BLOCK = 10  # k=10 in eigsh, find 10 modes near sigma
 
 # F17-K v2-v2 endpoint ratios per pred
-F17K_COS_RATIO = 3.40                       # Cosserat-energy descent endpoint
-F17K_S11_RATIO = 1.03                       # Coupled-S₁₁ descent endpoint
+F17K_COS_RATIO = 3.40  # Cosserat-energy descent endpoint
+F17K_S11_RATIO = 1.03  # Coupled-S₁₁ descent endpoint
 
 OUTPUT_JSON = Path(__file__).parent / "r7_helmholtz_eigenmode_sweep_results.json"
 
@@ -94,17 +95,21 @@ OUTPUT_JSON = Path(__file__).parent / "r7_helmholtz_eigenmode_sweep_results.json
 def build_engine() -> VacuumEngine3D:
     """A28 + Cosserat self-terms enabled. Post-Round-6 default."""
     return VacuumEngine3D.from_args(
-        N=N_LATTICE, pml=PML, temperature=0.0,
+        N=N_LATTICE,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
-        disable_cosserat_lc_force=True,    # A28
-        enable_cosserat_self_terms=True,   # Cosserat self-terms restored under A28
+        disable_cosserat_lc_force=True,  # A28
+        enable_cosserat_self_terms=True,  # Cosserat self-terms restored under A28
     )
 
 
 def seed_2_3_hedgehog(engine: VacuumEngine3D, R: float, r: float) -> None:
     """A26-corrected (2,3) hedgehog at given (R, r). V=0 implicit."""
     engine.cos.initialize_electron_2_3_sector(
-        R_target=R, r_target=r, use_hedgehog=True,
+        R_target=R,
+        r_target=r,
+        use_hedgehog=True,
         amplitude_scale=A26_AMP_SCALE,
     )
 
@@ -148,7 +153,7 @@ def compute_z_local_field(engine: VacuumEngine3D) -> np.ndarray:
     """
     omega = np.asarray(engine.cos.omega)
     omega_yield = engine.cos.omega_yield
-    A_sq = np.sum(omega ** 2, axis=-1) / (omega_yield ** 2)
+    A_sq = np.sum(omega**2, axis=-1) / (omega_yield**2)
     A_sq_clipped = np.minimum(A_sq, 1.0 - 1e-6)
     S = np.sqrt(1.0 - A_sq_clipped)
     z_local = 1.0 / np.maximum(np.sqrt(S), 1e-6)  # = (1 - A²)^(-1/4)
@@ -173,12 +178,15 @@ def build_K_V(engine: VacuumEngine3D) -> csr_matrix:
     z_local = compute_z_local_field(engine).flatten()  # shape (N³,)
 
     # K4 tetrahedral bonds per k4_greens_function.py
-    PORTS = np.array([
-        [+1, +1, +1],
-        [+1, -1, -1],
-        [-1, +1, -1],
-        [-1, -1, +1],
-    ], dtype=int)
+    PORTS = np.array(
+        [
+            [+1, +1, +1],
+            [+1, -1, -1],
+            [-1, +1, -1],
+            [-1, -1, +1],
+        ],
+        dtype=int,
+    )
 
     L = lil_matrix((n_total, n_total), dtype=float)
     indices = np.arange(n_total).reshape(N, N, N)
@@ -255,13 +263,17 @@ def eigsolve_V_block(engine: VacuumEngine3D, k: int = EIGENMODES_PER_BLOCK) -> d
     Find k smallest eigenvalues; check after if any lies near ω_C² = 1.
     """
     from scipy.sparse import eye as sp_eye
+
     K_V = build_K_V(engine)
-    M_V = sp_eye(K_V.shape[0], format='csr')
+    M_V = sp_eye(K_V.shape[0], format="csr")
     try:
         eigvals, eigvecs = eigsh(
-            K_V, M=M_V, k=k,
-            which='SM',  # smallest magnitude — no shift-invert
-            tol=1e-6, maxiter=10000,
+            K_V,
+            M=M_V,
+            k=k,
+            which="SM",  # smallest magnitude — no shift-invert
+            tol=1e-6,
+            maxiter=10000,
         )
     except Exception as e:
         return {"eigvals": None, "eigvecs": None, "error": str(e)}
@@ -287,9 +299,12 @@ def eigsolve_omega_block(engine: VacuumEngine3D, k: int = EIGENMODES_PER_BLOCK) 
     M_op = diags(I_omega * np.ones(n_omega)).tocsr()
     try:
         eigvals, eigvecs = eigsh(
-            K_omega_op, M=M_op, k=k,
-            which='SA',  # smallest algebraic — no shift-invert needed for LinearOperator
-            tol=1e-5, maxiter=2000,
+            K_omega_op,
+            M=M_op,
+            k=k,
+            which="SA",  # smallest algebraic — no shift-invert needed for LinearOperator
+            tol=1e-5,
+            maxiter=2000,
         )
     except Exception as e:
         return {"eigvals": None, "eigvecs": None, "error": str(e)}
@@ -322,8 +337,9 @@ def check_omega_compton(eigvals: np.ndarray) -> tuple[bool, int, float]:
     return is_close, idx_orig, rel_diff
 
 
-def compute_Q_factor_from_eigvec(eigvec: np.ndarray, eigval: float, sector: str,
-                                  engine: VacuumEngine3D) -> float | None:
+def compute_Q_factor_from_eigvec(
+    eigvec: np.ndarray, eigval: float, sector: str, engine: VacuumEngine3D
+) -> float | None:
     """Q-factor from boundary impedance — informational at V=0 seed.
 
     For V-block: Q ≈ k / (2·imag(k_complex)) but eigsh returns real eigenvalues
@@ -380,15 +396,19 @@ def run_seed(name: str, R: float, r: float, gt_family: bool) -> dict:
     print(f"    Building K_V (sparse weighted K4 Laplacian)...", flush=True)
     t_kv = time.time()
     V_result = eigsolve_V_block(engine, k=EIGENMODES_PER_BLOCK)
-    print(f"      V-block eigsolve: {time.time() - t_kv:.1f}s, "
-          f"{'ok' if V_result['error'] is None else 'ERROR: ' + V_result['error']}")
+    print(
+        f"      V-block eigsolve: {time.time() - t_kv:.1f}s, "
+        f"{'ok' if V_result['error'] is None else 'ERROR: ' + V_result['error']}"
+    )
 
     # ω-block eigsolve
     print(f"    Building K_ω (FD HVP LinearOperator)...", flush=True)
     t_kw = time.time()
     omega_result = eigsolve_omega_block(engine, k=EIGENMODES_PER_BLOCK)
-    print(f"      ω-block eigsolve: {time.time() - t_kw:.1f}s, "
-          f"{'ok' if omega_result['error'] is None else 'ERROR: ' + omega_result['error']}")
+    print(
+        f"      ω-block eigsolve: {time.time() - t_kw:.1f}s, "
+        f"{'ok' if omega_result['error'] is None else 'ERROR: ' + omega_result['error']}"
+    )
 
     # Check ω_Compton hits per block
     V_close, V_idx, V_diff = check_omega_compton(V_result["eigvals"])
@@ -400,22 +420,23 @@ def run_seed(name: str, R: float, r: float, gt_family: bool) -> dict:
     omega_c_eigvec = -1
     if omega_close and omega_result["eigvecs"] is not None:
         try:
-            omega_c_eigvec = crossing_count_v_eigvec(
-                omega_result["eigvecs"][:, omega_idx], "omega", engine
-            )
+            omega_c_eigvec = crossing_count_v_eigvec(omega_result["eigvecs"][:, omega_idx], "omega", engine)
         except Exception as e:
             print(f"    crossing-count error: {e}")
 
     elapsed = time.time() - t0
-    print(f"    Eigenmode-at-ω_Compton: V_close={V_close} (rel_diff={V_diff:.4e}), "
-          f"ω_close={omega_close} (rel_diff={omega_diff:.4e})")
+    print(
+        f"    Eigenmode-at-ω_Compton: V_close={V_close} (rel_diff={V_diff:.4e}), "
+        f"ω_close={omega_close} (rel_diff={omega_diff:.4e})"
+    )
     if omega_close:
         print(f"      ω-block c_eigvec = {omega_c_eigvec} (target=3)")
     print(f"    Total seed time: {elapsed:.1f}s")
 
     return {
         "seed_name": name,
-        "R": R, "r": r,
+        "R": R,
+        "r": r,
         "gt_family": gt_family,
         "peak_omega_seed": peak,
         "V_block": {
@@ -491,10 +512,10 @@ def main() -> dict:
     print()
 
     seed_specs = [
-        ("GT_corpus",          R_ANCHOR, R_ANCHOR / PHI_SQ,        True),
-        ("F17K_cos_endpoint",  R_ANCHOR, R_ANCHOR / F17K_COS_RATIO, True),
-        ("F17K_s11_endpoint",  R_ANCHOR, R_ANCHOR / F17K_S11_RATIO, True),
-        ("vacuum_control",     0.0,      0.0,                       False),
+        ("GT_corpus", R_ANCHOR, R_ANCHOR / PHI_SQ, True),
+        ("F17K_cos_endpoint", R_ANCHOR, R_ANCHOR / F17K_COS_RATIO, True),
+        ("F17K_s11_endpoint", R_ANCHOR, R_ANCHOR / F17K_S11_RATIO, True),
+        ("vacuum_control", 0.0, 0.0, False),
     ]
 
     results: dict[str, dict] = {}
@@ -507,6 +528,7 @@ def main() -> dict:
             break
         except Exception as e:
             import traceback
+
             results[name] = {
                 "seed_name": name,
                 "fatal_error": str(e),
@@ -522,8 +544,10 @@ def main() -> dict:
         print(f"  MODE: {adj['mode']}")
         print(f"  Reading: {adj['reading']}")
         if adj["negative_control_failure"]:
-            print(f"  WARN: vacuum_control returned eigenmode at ω_C — "
-                  f"sparse Helmholtz operator may have assembly bug.")
+            print(
+                f"  WARN: vacuum_control returned eigenmode at ω_C — "
+                f"sparse Helmholtz operator may have assembly bug."
+            )
     else:
         adj = {"mode": "INCOMPLETE", "reading": "Some seeds errored; no falsification adjudication possible."}
         print(f"  MODE: INCOMPLETE (some seeds errored)")
@@ -533,9 +557,12 @@ def main() -> dict:
         "doc": "research/_archive/L3_electron_soliton/72_vacuum_impedance_design_space.md",
         "commit_frozen_at": "675141e",
         "constants": {
-            "N_LATTICE": N_LATTICE, "R_ANCHOR": R_ANCHOR,
-            "OMEGA_COMPTON": OMEGA_COMPTON, "LAMBDA_TARGET": LAMBDA_TARGET,
-            "ALPHA": ALPHA, "EIGENMODE_FREQ_TOL": EIGENMODE_FREQ_TOL,
+            "N_LATTICE": N_LATTICE,
+            "R_ANCHOR": R_ANCHOR,
+            "OMEGA_COMPTON": OMEGA_COMPTON,
+            "LAMBDA_TARGET": LAMBDA_TARGET,
+            "ALPHA": ALPHA,
+            "EIGENMODE_FREQ_TOL": EIGENMODE_FREQ_TOL,
             "Q_TARGET": Q_TARGET,
             "engineering_approximations": [
                 "K_V via weighted K4 graph Laplacian (one V per site, not per port) — k4_greens_function.py pattern",
@@ -547,7 +574,7 @@ def main() -> dict:
         "results": results,
         "adjudication": adj,
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"\n  Results: {OUTPUT_JSON}")
     return payload
 

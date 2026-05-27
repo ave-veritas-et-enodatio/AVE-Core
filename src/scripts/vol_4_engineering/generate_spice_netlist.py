@@ -20,7 +20,7 @@ def generate() -> None:
     spice_block = generate_ave_diode_subcircuit(junction, model_name="AVE_DIODE_SI")
 
     output_path = os.path.join(os.path.dirname(__file__), "ave_topo_diode.cir")
-    with open(output_path, "w") as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         f.write(spice_block)
 
     print(f"Successfully generated SPICE layout at: {output_path}")

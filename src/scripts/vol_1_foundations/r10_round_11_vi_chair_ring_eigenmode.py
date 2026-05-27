@@ -415,7 +415,7 @@ def main():
             "amplitude_ratio_ring_over_out": float(np.mean(ring_amps) / max(np.mean(out_ring_amps), 1e-12)),
         },
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print()
     print(f"Results saved: {OUTPUT_JSON.relative_to(REPO_ROOT)}")
     return payload

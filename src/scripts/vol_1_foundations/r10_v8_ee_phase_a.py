@@ -538,7 +538,7 @@ def main():
     print(f"\n  A7 — Coupled-mode eigenvalues:")
     print(f"    Mode frequencies (natural units, ω_C=1): {[f'{f:.4f}' for f in a7['mode_frequencies_natural']]}")
 
-    results_json.write_text(json.dumps(results, indent=2, default=str))
+    results_json.write_text(json.dumps(results, indent=2, default=str), encoding="utf-8")
     print(f"\nSaved results JSON to {results_json.relative_to(Path.cwd())}")
 
 

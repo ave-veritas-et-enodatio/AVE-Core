@@ -358,7 +358,7 @@ def run() -> dict:
         "convention_within_2sigma": convention_within_2sigma,
         "outcome_classification": outcome,
     }
-    with open(out_path, "w") as f:
+    with open(out_path, "w", encoding="utf-8") as f:
         json.dump(out, f, indent=2)
     print(f"\nResults JSON: {out_path}")
 

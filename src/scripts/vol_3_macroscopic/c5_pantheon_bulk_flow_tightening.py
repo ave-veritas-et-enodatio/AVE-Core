@@ -177,7 +177,7 @@ def load_pantheon_covariance(cov_path: Path, n_expected: int = 1701) -> np.ndarr
         print(f"  WARNING: covariance file {cov_path.name} not found at {cov_path}")
         return None
     print(f"  loading STAT+SYS covariance matrix from {cov_path.name} ({cov_path.stat().st_size / 1e6:.1f} MB)...")
-    with open(cov_path) as f:
+    with open(cov_path, encoding="utf-8") as f:
         n = int(f.readline().strip())
         if n != n_expected:
             print(f"  WARNING: covariance N={n} != expected {n_expected}; using anyway")
@@ -234,7 +234,7 @@ def load_pantheon_subset(
     print(f"Loading Pantheon+SH0ES catalog from {path.name} ...")
     print(f"  z-cut < {z_cut} (using {redshift_pipeline}); calibrators excluded")
 
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         header = f.readline().split()
 
     col_idx = {name: i for i, name in enumerate(header)}
@@ -244,7 +244,7 @@ def load_pantheon_subset(
             raise KeyError(f"Pantheon+ column {r!r} missing; have {list(col_idx)}")
 
     rows = []
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         f.readline()  # skip header
         for line in f:
             rows.append(line.split())
@@ -817,7 +817,7 @@ def run_pipeline(
 
 def load_e1b_cmb_axis() -> dict:
     """Read E1b empirical CMB axis-of-evil from results JSON."""
-    with open(CMB_AXIS_RESULTS_PATH) as f:
+    with open(CMB_AXIS_RESULTS_PATH, encoding="utf-8") as f:
         d = json.load(f)
     aoe = d["axis_of_evil_computation"]
     return {
@@ -1213,7 +1213,7 @@ def main():
         "verdict": verdict,
         "cross_check_dipole_recovery": _check_cmb_dipole_recovery(diagnostic_zCMB, diagnostic_zHEL),
     }
-    with open(RESULTS_PATH, "w") as f:
+    with open(RESULTS_PATH, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, default=str)
     print(f"\nResults JSON: {RESULTS_PATH}")
     return results

@@ -44,9 +44,9 @@ def main() -> None:
         print(f"  ERROR: {k4_json} not found. Run dark_wake_chiral_validation.py first.")
         return
 
-    with open(yee_json) as f:
+    with open(yee_json, encoding="utf-8") as f:
         yee = json.load(f)
-    with open(k4_json) as f:
+    with open(k4_json, encoding="utf-8") as f:
         k4 = json.load(f)
 
     print("=" * 72)
@@ -229,7 +229,7 @@ def main() -> None:
         ],
     }
     out_json = results_dir / "photon_chiral_comparison_summary.json"
-    with open(out_json, "w") as f:
+    with open(out_json, "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2, default=str)
 
     print(f"\n  Outputs:")

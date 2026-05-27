@@ -548,7 +548,7 @@ def main() -> None:
 
     render_summary_panel(results, str(out_png))
 
-    with open(out_json, "w") as f:
+    with open(out_json, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, default=str)
 
     print()

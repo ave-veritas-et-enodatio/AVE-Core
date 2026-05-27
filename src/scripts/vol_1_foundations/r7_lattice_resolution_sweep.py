@@ -21,6 +21,7 @@ Falsification:
   - (a) fails: gap closes; N=32 Mode III is finite-N artifact
   - (b) fails: cluster shifts >1%; methodology issue
 """
+
 from __future__ import annotations
 
 import json
@@ -38,11 +39,20 @@ from ave.topological.vacuum_engine import VacuumEngine3D
 # Import build_T_operator + helpers from main R7.1 driver
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from r7_k4tlm_scattering_lctank import (
-    PHI, PHI_SQ, A26_AMP_SCALE, GT_PEAK_OMEGA, ALPHA, OMEGA_COMPTON,
-    DT, TARGET_PHASE, PHASE_TOL_V,
-    A26_GUARD_LOW, A26_GUARD_HIGH,
-    seed_2_3_hedgehog, a26_guard,
+    A26_AMP_SCALE,
+    A26_GUARD_HIGH,
+    A26_GUARD_LOW,
+    ALPHA,
+    DT,
+    GT_PEAK_OMEGA,
+    OMEGA_COMPTON,
+    PHASE_TOL_V,
+    PHI,
+    PHI_SQ,
+    TARGET_PHASE,
+    a26_guard,
     build_T_operator,
+    seed_2_3_hedgehog,
 )
 
 # Per-pred frozen constants
@@ -69,7 +79,9 @@ def main():
     print()
 
     engine = VacuumEngine3D.from_args(
-        N=N_RESOLUTION_NEW, pml=PML_NEW, temperature=0.0,
+        N=N_RESOLUTION_NEW,
+        pml=PML_NEW,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -77,7 +89,9 @@ def main():
 
     R = R_ANCHOR_NEW
     r = R_ANCHOR_NEW / PHI_SQ
-    print(f"  Seed: GT_corpus at (R={R}, r={r:.4f}); N={N_RESOLUTION_NEW} active sites = 2·(N/2)³ = {2*(N_RESOLUTION_NEW//2)**3}")
+    print(
+        f"  Seed: GT_corpus at (R={R}, r={r:.4f}); N={N_RESOLUTION_NEW} active sites = 2·(N/2)³ = {2*(N_RESOLUTION_NEW//2)**3}"
+    )
     seed_2_3_hedgehog(engine, R, r)
     peak = a26_guard(engine, "GT_corpus")
     print(f"  A26 guard OK (peak |ω|={peak:.4f})")
@@ -94,8 +108,12 @@ def main():
     t1 = time.time()
     try:
         eigvals, eigvecs = eigs(
-            T, k=EIGENMODES_NEW, sigma=sigma, which='LM',
-            tol=1e-6, maxiter=2000,
+            T,
+            k=EIGENMODES_NEW,
+            sigma=sigma,
+            which="LM",
+            tol=1e-6,
+            maxiter=2000,
         )
         elapsed = time.time() - t1
         print(f"    V-block eigsolve: {elapsed:.1f}s, {len(eigvals)} eigenvalues")
@@ -163,7 +181,7 @@ def main():
         "T_dim": int(T.shape[0]),
         "T_nnz": int(T.nnz),
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"\n  Results: {OUTPUT_JSON}")
     return payload
 

@@ -227,5 +227,5 @@ def main() -> dict:
 if __name__ == "__main__":
     result = main()
     out_path = Path(__file__).parent / "k4tlm_dispersion_analytical_result.json"
-    out_path.write_text(json.dumps(result, indent=2, default=str))
+    out_path.write_text(json.dumps(result, indent=2, default=str), encoding="utf-8")
     print(f"\n  Result written to {out_path}")

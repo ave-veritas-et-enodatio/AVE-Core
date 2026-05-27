@@ -55,6 +55,7 @@ ADJUDICATION CATEGORIES (per pre-reg):
 - Mode III: ratios differ unpredictably across all 4 ports → IC or
   sampling-specific
 """
+
 from __future__ import annotations
 
 import json
@@ -69,7 +70,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from ave.topological.vacuum_engine import VacuumEngine3D
-
 
 # ─── Constants (matching path α v3 + Move 5) ──────────────────────────────
 
@@ -92,18 +92,18 @@ N_RECORDING_STEPS = int((RECORDING_END_P_ABSOLUTE - SELECTION_END_P) * COMPTON_P
 
 # K4 tetrahedral port offsets (per k4_tlm.py:84-86)
 PORT_OFFSETS = [
-    (1, 1, 1),     # port 0 — RH (paired with port 2)
-    (1, -1, -1),   # port 1 — LH (paired with port 3)
-    (-1, 1, -1),   # port 2 — RH
-    (-1, -1, 1),   # port 3 — LH
+    (1, 1, 1),  # port 0 — RH (paired with port 2)
+    (1, -1, -1),  # port 1 — LH (paired with port 3)
+    (-1, 1, -1),  # port 2 — RH
+    (-1, -1, 1),  # port 3 — LH
 ]
 PORT_CHIRALITY = ["RH", "LH", "RH", "LH"]  # per k4_tlm.py:524
 SQRT_3 = np.sqrt(3.0)
 
 # Adjudication thresholds (per pre-reg)
-RATIO_CONSISTENCY_THRESHOLD = 0.10   # within 10% relative variation = "consistent"
-RATIO_DIVERGENCE_THRESHOLD = 0.20    # >20% RH-vs-LH = "divergent"
-PHI_SQ_TOL = 0.05                    # for legacy φ² comparison
+RATIO_CONSISTENCY_THRESHOLD = 0.10  # within 10% relative variation = "consistent"
+RATIO_DIVERGENCE_THRESHOLD = 0.20  # >20% RH-vs-LH = "divergent"
+PHI_SQ_TOL = 0.05  # for legacy φ² comparison
 CHIRALITY_CONSISTENCY_THRESHOLD = 0.75
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
@@ -157,7 +157,7 @@ def chirality_hilbert(x_traj, y_traj):
 
 def make_interior_mask(nx, pml):
     mask = np.zeros((nx, nx, nx), dtype=bool)
-    mask[pml:nx - pml, pml:nx - pml, pml:nx - pml] = True
+    mask[pml : nx - pml, pml : nx - pml, pml : nx - pml] = True
     return mask
 
 
@@ -179,15 +179,17 @@ def find_top_bond_per_port(engine, interior_mask):
         cell_b = (cell_a[0] + offset[0], cell_a[1] + offset[1], cell_a[2] + offset[2])
         b_hat = (offset[0] / SQRT_3, offset[1] / SQRT_3, offset[2] / SQRT_3)
 
-        bonds.append({
-            "port": port_idx,
-            "chirality_label": PORT_CHIRALITY[port_idx],
-            "cell_a": list(cell_a),
-            "cell_b": list(cell_b),
-            "offset": list(offset),
-            "b_hat": list(b_hat),
-            "v_inc_sq_at_a": float(v_sq_interior[cell_a]),
-        })
+        bonds.append(
+            {
+                "port": port_idx,
+                "chirality_label": PORT_CHIRALITY[port_idx],
+                "cell_a": list(cell_a),
+                "cell_b": list(cell_b),
+                "offset": list(offset),
+                "b_hat": list(b_hat),
+                "v_inc_sq_at_a": float(v_sq_interior[cell_a]),
+            }
+        )
     return bonds
 
 
@@ -198,10 +200,8 @@ def main():
     print("=" * 78, flush=True)
     print(f"  Cached state: {CACHED_STATE_PATH.relative_to(REPO_ROOT)}")
     print(f"  Lattice: N={N_LATTICE}, PML={PML}")
-    print(f"  Recording: {SELECTION_END_P} → {RECORDING_END_P_ABSOLUTE} P "
-          f"({N_RECORDING_STEPS} steps, ~5 min wall)")
-    print(f"  Bond-pair selection: top |V_inc[port_i]|² per port "
-          f"(4 bonds, 1 per port direction)")
+    print(f"  Recording: {SELECTION_END_P} → {RECORDING_END_P_ABSOLUTE} P " f"({N_RECORDING_STEPS} steps, ~5 min wall)")
+    print(f"  Bond-pair selection: top |V_inc[port_i]|² per port " f"(4 bonds, 1 per port direction)")
     print()
     print(f"  K4 port chirality (per k4_tlm.py:524):")
     for p in range(4):
@@ -213,15 +213,13 @@ def main():
     print("Phase 1 — Load Move 5 cached state at t=15P", flush=True)
     if not CACHED_STATE_PATH.exists():
         raise RuntimeError(
-            f"Cached state not found at {CACHED_STATE_PATH}. "
-            f"Run r10_save_move5_state.py first to regenerate."
+            f"Cached state not found at {CACHED_STATE_PATH}. " f"Run r10_save_move5_state.py first to regenerate."
         )
     engine = VacuumEngine3D.load(CACHED_STATE_PATH)
     print(f"  Loaded engine at t={engine.time:.4f}, N={engine.N}")
     omega_peak_at_load = float(np.linalg.norm(engine.cos.omega, axis=-1).max())
     v_inc_l2 = float(np.linalg.norm(engine.k4.V_inc))
-    print(f"  Loaded state: peak |ω|={omega_peak_at_load:.4f}, "
-          f"||V_inc||_2={v_inc_l2:.4e}")
+    print(f"  Loaded state: peak |ω|={omega_peak_at_load:.4f}, " f"||V_inc||_2={v_inc_l2:.4e}")
     print()
 
     # ─── Phase 2: select 1 bond per port at top |V_inc[port]|² ────────────
@@ -229,14 +227,19 @@ def main():
     interior_mask = make_interior_mask(engine.k4.nx, PML)
     bonds = find_top_bond_per_port(engine, interior_mask)
     for bond in bonds:
-        print(f"  port {bond['port']} ({bond['chirality_label']}): "
-              f"cell_a={tuple(bond['cell_a'])}, cell_b={tuple(bond['cell_b'])}, "
-              f"|V_inc|²={bond['v_inc_sq_at_a']:.4e}", flush=True)
+        print(
+            f"  port {bond['port']} ({bond['chirality_label']}): "
+            f"cell_a={tuple(bond['cell_a'])}, cell_b={tuple(bond['cell_b'])}, "
+            f"|V_inc|²={bond['v_inc_sq_at_a']:.4e}",
+            flush=True,
+        )
     print()
 
     # ─── Phase 3: recording window ─────────────────────────────────────────
-    print(f"Phase 3 — Recording {N_RECORDING_STEPS} steps "
-          f"(t={SELECTION_END_P}P → {RECORDING_END_P_ABSOLUTE}P)...", flush=True)
+    print(
+        f"Phase 3 — Recording {N_RECORDING_STEPS} steps " f"(t={SELECTION_END_P}P → {RECORDING_END_P_ABSOLUTE}P)...",
+        flush=True,
+    )
     n_bonds = len(bonds)
     phi_link_traj = np.zeros((N_RECORDING_STEPS, n_bonds))
     omega_xyz_traj = np.zeros((N_RECORDING_STEPS, n_bonds, 3))
@@ -254,8 +257,10 @@ def main():
             omega_xyz_traj[i, k, :] = omega[ix, iy, iz]
         if (time.time() - last) > 30.0:
             t_period = (i + N_RECORDING_STEPS * 0) * DT / COMPTON_PERIOD + SELECTION_END_P
-            print(f"    [progress] step {i}/{N_RECORDING_STEPS}, "
-                  f"t≈{t_period:.1f}P, elapsed {time.time()-t0:.1f}s", flush=True)
+            print(
+                f"    [progress] step {i}/{N_RECORDING_STEPS}, " f"t≈{t_period:.1f}P, elapsed {time.time()-t0:.1f}s",
+                flush=True,
+            )
             last = time.time()
     elapsed_recording = time.time() - t0
     print(f"  Recording done at {elapsed_recording:.1f}s", flush=True)
@@ -274,32 +279,28 @@ def main():
         omega_mag = np.linalg.norm(omega_k, axis=1)
         R_mag, r_mag = fit_ellipse_pca_2d(phi_link_traj[:, k], omega_mag)
         R_over_r_mag = R_mag / max(r_mag, 1e-30)
-        mean_sin_mag, std_sin_mag, chirality_sign_mag = chirality_hilbert(
-            phi_link_traj[:, k], omega_mag
-        )
-        chir_label_mag = ("CCW" if chirality_sign_mag > 0
-                          else "CW" if chirality_sign_mag < 0 else "AMBIG")
+        mean_sin_mag, std_sin_mag, chirality_sign_mag = chirality_hilbert(phi_link_traj[:, k], omega_mag)
+        chir_label_mag = "CCW" if chirality_sign_mag > 0 else "CW" if chirality_sign_mag < 0 else "AMBIG"
 
-        bond_results.append({
-            **bond,
-            "eigvals_sorted": [e0, e1, e2],
-            "axis_lengths": [a0, a1, a2],
-            "planarity_e0_over_e2": planarity,
-            "aspect_e2_over_e1": aspect_e2_e1,
-            "ratio_e2_e1_e0": [e2 / max(e0, 1e-30), e1 / max(e0, 1e-30), 1.0],
-            "phi_omega_mag_R_over_r": R_over_r_mag,
-            "phi_omega_mag_chirality_sign": chirality_sign_mag,
-            "phi_omega_mag_chirality_label": chir_label_mag,
-            "phi_omega_mag_mean_sin": mean_sin_mag,
-        })
+        bond_results.append(
+            {
+                **bond,
+                "eigvals_sorted": [e0, e1, e2],
+                "axis_lengths": [a0, a1, a2],
+                "planarity_e0_over_e2": planarity,
+                "aspect_e2_over_e1": aspect_e2_e1,
+                "ratio_e2_e1_e0": [e2 / max(e0, 1e-30), e1 / max(e0, 1e-30), 1.0],
+                "phi_omega_mag_R_over_r": R_over_r_mag,
+                "phi_omega_mag_chirality_sign": chirality_sign_mag,
+                "phi_omega_mag_chirality_label": chir_label_mag,
+                "phi_omega_mag_mean_sin": mean_sin_mag,
+            }
+        )
         print(f"  port {bond['port']} ({bond['chirality_label']}):")
         print(f"    eigvals e0:e1:e2 = {e0:.5f} : {e1:.5f} : {e2:.5f}")
-        print(f"    ratio e2/e0 : e1/e0 : 1 = "
-              f"{e2/max(e0,1e-30):.3f} : {e1/max(e0,1e-30):.3f} : 1.000")
-        print(f"    planarity (e0/e2) = {planarity:.4f}, "
-              f"aspect (e2/e1) = {aspect_e2_e1:.4f}")
-        print(f"    (Φ_link, |ω|) chirality: {chir_label_mag} "
-              f"(mean_sin={mean_sin_mag:+.4f})")
+        print(f"    ratio e2/e0 : e1/e0 : 1 = " f"{e2/max(e0,1e-30):.3f} : {e1/max(e0,1e-30):.3f} : 1.000")
+        print(f"    planarity (e0/e2) = {planarity:.4f}, " f"aspect (e2/e1) = {aspect_e2_e1:.4f}")
+        print(f"    (Φ_link, |ω|) chirality: {chir_label_mag} " f"(mean_sin={mean_sin_mag:+.4f})")
         print()
 
     # ─── Phase 5: cross-port comparison ────────────────────────────────────
@@ -402,12 +403,13 @@ def main():
 
     print(f"  Aspect e2/e1 per port: {[f'{a:.4f}' for a in aspects]}")
     print(f"  Planarity per port:   {[f'{p:.4f}' for p in planarities]}")
-    print(f"  Cross-port aspect spread: {aspect_relative_spread:.1%} "
-          f"(< {RATIO_CONSISTENCY_THRESHOLD:.0%} = consistent)")
+    print(
+        f"  Cross-port aspect spread: {aspect_relative_spread:.1%} "
+        f"(< {RATIO_CONSISTENCY_THRESHOLD:.0%} = consistent)"
+    )
     print(f"  RH mean aspect: {aspect_rh_mean:.4f} ± {aspect_rh_std:.4f}")
     print(f"  LH mean aspect: {aspect_lh_mean:.4f} ± {aspect_lh_std:.4f}")
-    print(f"  RH/LH aspect divergence: {rh_lh_aspect_diff:.1%} "
-          f"(> {RATIO_DIVERGENCE_THRESHOLD:.0%} = divergent)")
+    print(f"  RH/LH aspect divergence: {rh_lh_aspect_diff:.1%} " f"(> {RATIO_DIVERGENCE_THRESHOLD:.0%} = divergent)")
     print(f"  Chirality counts: {n_ccw} CCW + {n_cw} CW + {n_ambig} AMBIG (of 4)")
     print(f"  RH chirality: {rh_n_ccw} CCW + {rh_n_cw} CW (of 2)")
     print(f"  LH chirality: {lh_n_ccw} CCW + {lh_n_cw} CW (of 2)")
@@ -461,7 +463,7 @@ def main():
         "mode": mode,
         "verdict": verdict,
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"  Result: {OUTPUT_JSON.relative_to(REPO_ROOT)}")
     return payload
 

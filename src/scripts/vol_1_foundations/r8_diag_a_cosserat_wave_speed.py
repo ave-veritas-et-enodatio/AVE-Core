@@ -49,6 +49,7 @@ REUSED INFRASTRUCTURE:
 NO PASS/FAIL on overall test (this is a frozen-extraction-scope diagnostic
 per A48 discipline). Result IS the c(amplitude) curve.
 """
+
 from __future__ import annotations
 
 import json
@@ -62,7 +63,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from ave.topological.cosserat_field_3d import CosseratField3D
-
 
 # ─── Constants per pred ───────────────────────────────────────────────────────
 
@@ -79,13 +79,14 @@ RECORD_EVERY = 5
 # Practical sweep: A ∈ [0.01, 2.0] covers linear → mild saturation
 AMPLITUDES = [0.01, 0.1, 0.5, 1.0, 2.0]
 
-ADJUDICATION_TOL = 0.05   # ±5%
+ADJUDICATION_TOL = 0.05  # ±5%
 
 OUTPUT_JSON = Path(__file__).parent / "r8_diag_a_cosserat_wave_speed_results.json"
 
 
-def _saturated_solver(N: int, G_c: float = 0.0, gamma: float = 1.0,
-                      rho: float = 1.0, I_omega: float = 1.0) -> CosseratField3D:
+def _saturated_solver(
+    N: int, G_c: float = 0.0, gamma: float = 1.0, rho: float = 1.0, I_omega: float = 1.0
+) -> CosseratField3D:
     """Cosserat-only solver with use_saturation=True (Diag A target).
 
     For Diag A we focus on the gapless rotational sector (G_c = 0) so
@@ -93,9 +94,13 @@ def _saturated_solver(N: int, G_c: float = 0.0, gamma: float = 1.0,
     Topology terms off; only Cauchy + curvature + saturation active.
     """
     s = CosseratField3D(
-        nx=N, ny=N, nz=N, dx=1.0,
-        use_saturation=True,           # Diag A: saturation ON
-        rho=rho, I_omega=I_omega,
+        nx=N,
+        ny=N,
+        nz=N,
+        dx=1.0,
+        use_saturation=True,  # Diag A: saturation ON
+        rho=rho,
+        I_omega=I_omega,
     )
     s.G = 1.0
     s.G_c = G_c
@@ -117,10 +122,16 @@ def _packet_centroid_axis(field: np.ndarray, mask: np.ndarray, axis_component: i
     return float((rho * ix).sum() / total)
 
 
-def measure_wave_speed(amplitude: float, N: int = N_LATTICE,
-                       wavelength: float = WAVELENGTH, sigma: float = SIGMA,
-                       n_steps: int = N_STEPS, record_every: int = RECORD_EVERY,
-                       G_c: float = 0.0, gamma: float = 1.0) -> dict:
+def measure_wave_speed(
+    amplitude: float,
+    N: int = N_LATTICE,
+    wavelength: float = WAVELENGTH,
+    sigma: float = SIGMA,
+    n_steps: int = N_STEPS,
+    record_every: int = RECORD_EVERY,
+    G_c: float = 0.0,
+    gamma: float = 1.0,
+) -> dict:
     """Run a Cosserat-only rotational wavepacket at given amplitude;
     measure propagation speed via centroid tracking.
 
@@ -131,9 +142,12 @@ def measure_wave_speed(amplitude: float, N: int = N_LATTICE,
     s = _saturated_solver(N=N, G_c=G_c, gamma=gamma)
     x0 = N // 4
     s.initialize_gaussian_wavepacket_omega(
-        center=(x0, N // 2, N // 2), sigma=sigma,
-        direction=(1.0, 0.0, 0.0), wavelength=wavelength,
-        amplitude=amplitude, axis=2,
+        center=(x0, N // 2, N // 2),
+        sigma=sigma,
+        direction=(1.0, 0.0, 0.0),
+        wavelength=wavelength,
+        amplitude=amplitude,
+        axis=2,
     )
 
     mask = s.mask_alive
@@ -164,7 +178,7 @@ def measure_wave_speed(amplitude: float, N: int = N_LATTICE,
     else:
         v_meas = float("nan")
 
-    c_R_theory_continuum = float(np.sqrt(gamma / s.I_omega))   # = 1.0
+    c_R_theory_continuum = float(np.sqrt(gamma / s.I_omega))  # = 1.0
     H_drift = float(np.abs(Hs_a / max(Hs_a[0], 1e-30) - 1).max()) if Hs_a[0] != 0 else float("inf")
 
     return {
@@ -200,7 +214,7 @@ def adjudicate(results: list[dict]) -> tuple[str, str]:
 
     amps = np.array([r["amplitude"] for r in valid])
     c_vals = np.array([r["v_measured"] for r in valid])
-    c_low = c_vals[0]   # smallest amplitude is reference (linear regime)
+    c_low = c_vals[0]  # smallest amplitude is reference (linear regime)
     c_normalized = c_vals / c_low
 
     # Adjudication ranges
@@ -221,8 +235,7 @@ def adjudicate(results: list[dict]) -> tuple[str, str]:
         # Fit log(c/c_0) vs log(S_eff) where S_eff = (1 - A²·effective)^(1/2)
         # Simpler: check if c is monotonically decreasing
         is_monotonic_decreasing = all(
-            c_normalized[i] >= c_normalized[i + 1] - ADJUDICATION_TOL
-            for i in range(len(c_normalized) - 1)
+            c_normalized[i] >= c_normalized[i + 1] - ADJUDICATION_TOL for i in range(len(c_normalized) - 1)
         )
         if is_monotonic_decreasing:
             mode = "II"
@@ -249,11 +262,9 @@ def main():
     print(f"  Diag A — Cosserat wave-speed amplitude dependence")
     print(f"  P_ax5_cosserat_wave_speed_amplitude_dependence (frozen extraction)")
     print("=" * 78, flush=True)
-    print(f"  Lattice N={N_LATTICE}, wavelength={WAVELENGTH}, sigma={SIGMA}, "
-          f"n_steps={N_STEPS}")
+    print(f"  Lattice N={N_LATTICE}, wavelength={WAVELENGTH}, sigma={SIGMA}, " f"n_steps={N_STEPS}")
     print(f"  Amplitudes: {AMPLITUDES}")
-    print(f"  G_c=0 (gapless rotational), gamma=1, ρ=1, I_ω=1, "
-          f"use_saturation=True")
+    print(f"  G_c=0 (gapless rotational), gamma=1, ρ=1, I_ω=1, " f"use_saturation=True")
     print(f"  Tolerance: ±{ADJUDICATION_TOL:.2%} for amplitude-invariance")
     print()
 
@@ -277,8 +288,7 @@ def main():
         amp = r["amplitude"]
         c_v = r["v_measured"]
         if np.isfinite(c_v):
-            print(f"    amp={amp:6.3f}: v_measured={c_v:.6f}, "
-                  f"v/c_R_theory={c_v/1.0:.4f}")
+            print(f"    amp={amp:6.3f}: v_measured={c_v:.6f}, " f"v/c_R_theory={c_v/1.0:.4f}")
         else:
             print(f"    amp={amp:6.3f}: v_measured=nan (no clean fit)")
     print()
@@ -293,8 +303,7 @@ def main():
 
     payload = {
         "pre_registration": "P_ax5_cosserat_wave_speed_amplitude_dependence",
-        "test": "Diag A — Cosserat wave-speed amplitude dependence "
-                "(pre-fix detection)",
+        "test": "Diag A — Cosserat wave-speed amplitude dependence " "(pre-fix detection)",
         "N": N_LATTICE,
         "wavelength": WAVELENGTH,
         "sigma": SIGMA,
@@ -306,7 +315,7 @@ def main():
         "adjudication_tolerance": ADJUDICATION_TOL,
         "verdict": verdict,
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"  Result: {OUTPUT_JSON}")
     return payload
 

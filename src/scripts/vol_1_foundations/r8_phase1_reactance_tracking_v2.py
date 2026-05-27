@@ -103,6 +103,7 @@ OUTCOME SPACE (informational, not pre-committed):
   - Mixed signals (some sectors reactive, others static) →
     sector-asymmetry empirical finding; Move 9 design adjusts.
 """
+
 from __future__ import annotations
 
 import json
@@ -115,9 +116,9 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
 from tlm_electron_soliton_eigenmode import initialize_2_3_voltage_ansatz
 
+from ave.topological.vacuum_engine import VacuumEngine3D
 
 # ─── Constants (match Move 5+7+7b+10 for deterministic reproduction) ─────────
 
@@ -142,19 +143,24 @@ STEP_RECORD_START = int(T_RECORD_START_PERIOD * COMPTON_PERIOD / DT)
 N_TOP_CELLS = 5
 N_TOP_BONDS = 5
 
-PORT_VECTORS = np.array([
-    [+1, +1, +1],
-    [+1, -1, -1],
-    [-1, +1, -1],
-    [-1, -1, +1],
-], dtype=int)
+PORT_VECTORS = np.array(
+    [
+        [+1, +1, +1],
+        [+1, -1, -1],
+        [-1, +1, -1],
+        [-1, -1, +1],
+    ],
+    dtype=int,
+)
 
 OUTPUT_JSON = Path(__file__).parent / "r8_phase1_reactance_tracking_v2_results.json"
 
 
 def build_engine():
     return VacuumEngine3D.from_args(
-        N=N_LATTICE, pml=PML, temperature=0.0,
+        N=N_LATTICE,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -163,11 +169,16 @@ def build_engine():
 
 def seed_corpus_2_3_joint(engine):
     engine.cos.initialize_electron_2_3_sector(
-        R_target=R_ANCHOR, r_target=R_MINOR,
-        use_hedgehog=True, amplitude_scale=A26_AMP_SCALE,
+        R_target=R_ANCHOR,
+        r_target=R_MINOR,
+        use_hedgehog=True,
+        amplitude_scale=A26_AMP_SCALE,
     )
     initialize_2_3_voltage_ansatz(
-        engine.k4, R=R_ANCHOR, r=R_MINOR, amplitude=V_AMP_INIT,
+        engine.k4,
+        R=R_ANCHOR,
+        r=R_MINOR,
+        amplitude=V_AMP_INIT,
     )
 
 
@@ -175,28 +186,32 @@ def make_interior_mask(shape, pml):
     """Boolean mask: True for cells in [pml+1, N-pml-2] in each axis (PML excluded)."""
     nx, ny, nz = shape[:3]
     i, j, k = np.indices((nx, ny, nz))
-    return ((i >= pml + 1) & (i <= nx - pml - 2) &
-            (j >= pml + 1) & (j <= ny - pml - 2) &
-            (k >= pml + 1) & (k <= nz - pml - 2))
+    return (
+        (i >= pml + 1)
+        & (i <= nx - pml - 2)
+        & (j >= pml + 1)
+        & (j <= ny - pml - 2)
+        & (k >= pml + 1)
+        & (k <= nz - pml - 2)
+    )
 
 
 def select_top_omega_cells(omega_field, k=5, pml=PML):
     """Pick top-k cells by |ω|² density INTERIOR ONLY (PML-excluded)."""
-    omega_density = np.sum(omega_field ** 2, axis=-1)
+    omega_density = np.sum(omega_field**2, axis=-1)
     interior = make_interior_mask(omega_density.shape, pml)
     masked = np.where(interior, omega_density, -np.inf)
     flat = masked.flatten()
     top_idx = np.argpartition(flat, -k)[-k:]
     top_idx = top_idx[np.argsort(flat[top_idx])[::-1]]
-    return [tuple(int(c) for c in np.unravel_index(idx, omega_density.shape))
-            for idx in top_idx]
+    return [tuple(int(c) for c in np.unravel_index(idx, omega_density.shape)) for idx in top_idx]
 
 
 def select_top_vinc_bonds(v_inc_field, k=5, pml=PML):
     """Pick top-k (cell, port) bonds by V_inc² INTERIOR ONLY (PML-excluded)."""
     interior_3d = make_interior_mask(v_inc_field.shape, pml)
     interior_4d = np.broadcast_to(interior_3d[..., None], v_inc_field.shape)
-    masked = np.where(interior_4d, v_inc_field ** 2, -np.inf)
+    masked = np.where(interior_4d, v_inc_field**2, -np.inf)
     flat = masked.reshape(-1)
     top_idx = np.argpartition(flat, -k)[-k:]
     top_idx = top_idx[np.argsort(flat[top_idx])[::-1]]
@@ -220,19 +235,16 @@ def main():
     print()
 
     # Pass 1: run to t=200P, identify top INTERIOR cells/bonds from end-state
-    print(f"  Pass 1: run to t={N_PERIODS_TOTAL}P to identify top interior "
-          f"cells/bonds (PML-filtered)…")
+    print(f"  Pass 1: run to t={N_PERIODS_TOTAL}P to identify top interior " f"cells/bonds (PML-filtered)…")
     engine = build_engine()
     seed_corpus_2_3_joint(engine)
 
     # ─── Diag 1: drive verification ──────────────────────────────────────────
     n_sources = len(engine.sources) if hasattr(engine, "sources") else 0
     drive_active = n_sources > 0
-    print(f"  Diag 1 (drive verify): engine.sources count = {n_sources}, "
-          f"drive_active = {drive_active}")
+    print(f"  Diag 1 (drive verify): engine.sources count = {n_sources}, " f"drive_active = {drive_active}")
     if drive_active:
-        print(f"    !!! WARNING: drive is active. Move 5/11 should have NO source. "
-              f"Sources: {engine.sources}")
+        print(f"    !!! WARNING: drive is active. Move 5/11 should have NO source. " f"Sources: {engine.sources}")
     else:
         print(f"    OK: no drive registered. H drift cannot be from accidental drive.")
     print()
@@ -243,8 +255,7 @@ def main():
         engine.step()
         if (time.time() - last_progress) > 30.0:
             t_p = step * DT / COMPTON_PERIOD
-            print(f"    [P1] step {step}, t={t_p:.1f}P, "
-                  f"elapsed {time.time() - t0:.1f}s", flush=True)
+            print(f"    [P1] step {step}, t={t_p:.1f}P, " f"elapsed {time.time() - t0:.1f}s", flush=True)
             last_progress = time.time()
     elapsed_p1 = time.time() - t0
 
@@ -288,21 +299,16 @@ def main():
             v_ref = np.asarray(engine.k4.V_ref)
             phi_link = np.asarray(engine.k4.Phi_link)
             mask_active = np.asarray(engine.k4.mask_active)
-            sum_vinc_sq_series.append(
-                float(np.sum((v_inc * mask_active[..., None]) ** 2)))
-            sum_vref_sq_series.append(
-                float(np.sum((v_ref * mask_active[..., None]) ** 2)))
-            sum_philink_sq_series.append(
-                float(np.sum((phi_link * np.asarray(engine.k4.mask_A)[..., None]) ** 2)))
+            sum_vinc_sq_series.append(float(np.sum((v_inc * mask_active[..., None]) ** 2)))
+            sum_vref_sq_series.append(float(np.sum((v_ref * mask_active[..., None]) ** 2)))
+            sum_philink_sq_series.append(float(np.sum((phi_link * np.asarray(engine.k4.mask_A)[..., None]) ** 2)))
 
             # Cosserat per-cell C-state and L-state
             omega = np.asarray(engine.cos.omega)
             omega_dot = np.asarray(engine.cos.omega_dot)
             for ci, cell in enumerate(top_omega_cells):
-                omega_per_cell[ci].append(
-                    float(np.linalg.norm(omega[cell[0], cell[1], cell[2], :])))
-                omegadot_per_cell[ci].append(
-                    float(np.linalg.norm(omega_dot[cell[0], cell[1], cell[2], :])))
+                omega_per_cell[ci].append(float(np.linalg.norm(omega[cell[0], cell[1], cell[2], :])))
+                omegadot_per_cell[ci].append(float(np.linalg.norm(omega_dot[cell[0], cell[1], cell[2], :])))
 
             # K4 per-bond C-state (V_avg) and L-state (Φ_link)
             for bi, (cell, port) in enumerate(top_vinc_bonds):
@@ -313,22 +319,22 @@ def main():
                 # PORT_VECTORS gives A-site→B-site direction; B-site→A is opposite.
                 mask_A = np.asarray(engine.k4.mask_A)
                 if mask_A[cell]:
-                    shift = -PORT_VECTORS[port]      # roll to bring B's val to A
+                    shift = -PORT_VECTORS[port]  # roll to bring B's val to A
                 else:
-                    shift = +PORT_VECTORS[port]      # roll to bring A's val to B
+                    shift = +PORT_VECTORS[port]  # roll to bring A's val to B
                 # neighbor cell index
-                nc = ((cell[0] + shift[0]) % N_LATTICE,
-                      (cell[1] + shift[1]) % N_LATTICE,
-                      (cell[2] + shift[2]) % N_LATTICE)
-                v_avg = 0.5 * (v_ref[cell[0], cell[1], cell[2], port] +
-                               v_ref[nc[0], nc[1], nc[2], port])
+                nc = (
+                    (cell[0] + shift[0]) % N_LATTICE,
+                    (cell[1] + shift[1]) % N_LATTICE,
+                    (cell[2] + shift[2]) % N_LATTICE,
+                )
+                v_avg = 0.5 * (v_ref[cell[0], cell[1], cell[2], port] + v_ref[nc[0], nc[1], nc[2], port])
                 vavg_per_bond[bi].append(float(v_avg))
                 philink_per_bond[bi].append(float(phi_link[cell[0], cell[1], cell[2], port]))
 
         if (time.time() - last_progress) > 30.0:
             t_p = step * DT / COMPTON_PERIOD
-            print(f"    [P2] step {step}, t={t_p:.1f}P, "
-                  f"elapsed {time.time() - t0:.1f}s", flush=True)
+            print(f"    [P2] step {step}, t={t_p:.1f}P, " f"elapsed {time.time() - t0:.1f}s", flush=True)
             last_progress = time.time()
     elapsed_p2 = time.time() - t0
     print(f"  Pass 2 complete: {elapsed_p2:.1f}s, recorded {len(times)} samples")
@@ -340,25 +346,31 @@ def main():
     H_arr = T_arr + V_arr
 
     # ─── (1) Global energy time series stats ─────────────────────────────────
-    print(f"  (1) GLOBAL ENERGY TIME SERIES over t∈[{T_RECORD_START_PERIOD}, "
-          f"{N_PERIODS_TOTAL}]P  ({len(times_arr)} samples):")
-    print(f"    T_cos:     mean={T_arr.mean():.4e}, std={T_arr.std():.4e}, "
-          f"range=[{T_arr.min():.4e}, {T_arr.max():.4e}]")
-    print(f"    V_cos:     mean={V_arr.mean():.4e}, std={V_arr.std():.4e}, "
-          f"range=[{V_arr.min():.4e}, {V_arr.max():.4e}]")
-    print(f"    H_cos:     mean={H_arr.mean():.4e}, std={H_arr.std():.4e}, "
-          f"range=[{H_arr.min():.4e}, {H_arr.max():.4e}]")
-    print(f"    H std/mean (energy conservation): "
-          f"{H_arr.std()/max(abs(H_arr.mean()), 1e-30):.4e}")
-    print(f"    T:V time-averaged ratio: "
-          f"{T_arr.mean()/max(V_arr.mean(), 1e-30):.4f}  "
-          f"(snapshot at t=200P was 8.18/47.48 = 0.172)")
-    print(f"    Σ|V_inc|²: mean={np.mean(sum_vinc_sq_series):.4e}, "
-          f"std={np.std(sum_vinc_sq_series):.4e}")
-    print(f"    Σ|V_ref|²: mean={np.mean(sum_vref_sq_series):.4e}, "
-          f"std={np.std(sum_vref_sq_series):.4e}")
-    print(f"    Σ|Φ_link|²: mean={np.mean(sum_philink_sq_series):.4e}, "
-          f"std={np.std(sum_philink_sq_series):.4e}")
+    print(
+        f"  (1) GLOBAL ENERGY TIME SERIES over t∈[{T_RECORD_START_PERIOD}, "
+        f"{N_PERIODS_TOTAL}]P  ({len(times_arr)} samples):"
+    )
+    print(
+        f"    T_cos:     mean={T_arr.mean():.4e}, std={T_arr.std():.4e}, "
+        f"range=[{T_arr.min():.4e}, {T_arr.max():.4e}]"
+    )
+    print(
+        f"    V_cos:     mean={V_arr.mean():.4e}, std={V_arr.std():.4e}, "
+        f"range=[{V_arr.min():.4e}, {V_arr.max():.4e}]"
+    )
+    print(
+        f"    H_cos:     mean={H_arr.mean():.4e}, std={H_arr.std():.4e}, "
+        f"range=[{H_arr.min():.4e}, {H_arr.max():.4e}]"
+    )
+    print(f"    H std/mean (energy conservation): " f"{H_arr.std()/max(abs(H_arr.mean()), 1e-30):.4e}")
+    print(
+        f"    T:V time-averaged ratio: "
+        f"{T_arr.mean()/max(V_arr.mean(), 1e-30):.4f}  "
+        f"(snapshot at t=200P was 8.18/47.48 = 0.172)"
+    )
+    print(f"    Σ|V_inc|²: mean={np.mean(sum_vinc_sq_series):.4e}, " f"std={np.std(sum_vinc_sq_series):.4e}")
+    print(f"    Σ|V_ref|²: mean={np.mean(sum_vref_sq_series):.4e}, " f"std={np.std(sum_vref_sq_series):.4e}")
+    print(f"    Σ|Φ_link|²: mean={np.mean(sum_philink_sq_series):.4e}, " f"std={np.std(sum_philink_sq_series):.4e}")
     print()
 
     # ─── (5) Anti-correlation T vs V ─────────────────────────────────────────
@@ -381,17 +393,21 @@ def main():
             rho_om = float(np.corrcoef(om_arr, omdot_arr)[0, 1])
         else:
             rho_om = None
-        cosserat_phase_records.append({
-            "cell": list(cell),
-            "omega_mean": float(om_arr.mean()),
-            "omega_std": float(om_arr.std()),
-            "omegadot_mean": float(omdot_arr.mean()),
-            "omegadot_std": float(omdot_arr.std()),
-            "pearson_omega_omegadot": rho_om,
-        })
-        print(f"    cell {cell}: |ω| mean={om_arr.mean():.4e} std={om_arr.std():.4e}, "
-              f"|ω̇| mean={omdot_arr.mean():.4e} std={omdot_arr.std():.4e}, "
-              f"ρ(|ω|,|ω̇|)={rho_om}")
+        cosserat_phase_records.append(
+            {
+                "cell": list(cell),
+                "omega_mean": float(om_arr.mean()),
+                "omega_std": float(om_arr.std()),
+                "omegadot_mean": float(omdot_arr.mean()),
+                "omegadot_std": float(omdot_arr.std()),
+                "pearson_omega_omegadot": rho_om,
+            }
+        )
+        print(
+            f"    cell {cell}: |ω| mean={om_arr.mean():.4e} std={om_arr.std():.4e}, "
+            f"|ω̇| mean={omdot_arr.mean():.4e} std={omdot_arr.std():.4e}, "
+            f"ρ(|ω|,|ω̇|)={rho_om}"
+        )
     print()
 
     # ─── (2) K4 LC-pair phase per top-|V_inc|² bond ──────────────────────────
@@ -404,18 +420,23 @@ def main():
             rho_vphi = float(np.corrcoef(v_arr, phi_arr)[0, 1])
         else:
             rho_vphi = None
-        k4_phase_records.append({
-            "cell": list(cell), "port": port,
-            "vavg_mean": float(v_arr.mean()),
-            "vavg_std": float(v_arr.std()),
-            "philink_mean": float(phi_arr.mean()),
-            "philink_std": float(phi_arr.std()),
-            "pearson_vavg_philink": rho_vphi,
-        })
-        print(f"    bond ({cell}, port={port}): "
-              f"V_avg mean={v_arr.mean():.4e} std={v_arr.std():.4e}, "
-              f"Φ_link mean={phi_arr.mean():.4e} std={phi_arr.std():.4e}, "
-              f"ρ(V_avg,Φ)={rho_vphi}")
+        k4_phase_records.append(
+            {
+                "cell": list(cell),
+                "port": port,
+                "vavg_mean": float(v_arr.mean()),
+                "vavg_std": float(v_arr.std()),
+                "philink_mean": float(phi_arr.mean()),
+                "philink_std": float(phi_arr.std()),
+                "pearson_vavg_philink": rho_vphi,
+            }
+        )
+        print(
+            f"    bond ({cell}, port={port}): "
+            f"V_avg mean={v_arr.mean():.4e} std={v_arr.std():.4e}, "
+            f"Φ_link mean={phi_arr.mean():.4e} std={phi_arr.std():.4e}, "
+            f"ρ(V_avg,Φ)={rho_vphi}"
+        )
     print()
 
     # ─── Diag 3: Pearson cross-correlation matrix across sectors ────────────
@@ -425,12 +446,12 @@ def main():
     sum_phi_arr = np.array(sum_philink_sq_series)
 
     sectors = {
-        "T_cos":         T_arr,
-        "V_cos":         V_arr,
-        "H_cos":         H_arr,
-        "Σ|V_inc|²":     sum_vinc_arr,
-        "Σ|V_ref|²":     sum_vref_arr,
-        "Σ|Φ_link|²":    sum_phi_arr,
+        "T_cos": T_arr,
+        "V_cos": V_arr,
+        "H_cos": H_arr,
+        "Σ|V_inc|²": sum_vinc_arr,
+        "Σ|V_ref|²": sum_vref_arr,
+        "Σ|Φ_link|²": sum_phi_arr,
     }
     pearson_matrix = {}
     for n1, s1 in sectors.items():
@@ -522,27 +543,39 @@ def main():
             "sum_philink_sq": list(sum_philink_sq_series),
         },
         "global_energy_stats": {
-            "T_cos": {"mean": float(T_arr.mean()), "std": float(T_arr.std()),
-                      "min": float(T_arr.min()), "max": float(T_arr.max())},
-            "V_cos": {"mean": float(V_arr.mean()), "std": float(V_arr.std()),
-                      "min": float(V_arr.min()), "max": float(V_arr.max())},
-            "H_cos": {"mean": float(H_arr.mean()), "std": float(H_arr.std()),
-                      "min": float(H_arr.min()), "max": float(H_arr.max())},
+            "T_cos": {
+                "mean": float(T_arr.mean()),
+                "std": float(T_arr.std()),
+                "min": float(T_arr.min()),
+                "max": float(T_arr.max()),
+            },
+            "V_cos": {
+                "mean": float(V_arr.mean()),
+                "std": float(V_arr.std()),
+                "min": float(V_arr.min()),
+                "max": float(V_arr.max()),
+            },
+            "H_cos": {
+                "mean": float(H_arr.mean()),
+                "std": float(H_arr.std()),
+                "min": float(H_arr.min()),
+                "max": float(H_arr.max()),
+            },
             "H_relative_drift": float(H_arr.std() / max(abs(H_arr.mean()), 1e-30)),
             "T_to_V_ratio": float(T_arr.mean() / max(V_arr.mean(), 1e-30)),
-            "sum_vinc_sq": {"mean": float(np.mean(sum_vinc_sq_series)),
-                            "std": float(np.std(sum_vinc_sq_series))},
-            "sum_vref_sq": {"mean": float(np.mean(sum_vref_sq_series)),
-                            "std": float(np.std(sum_vref_sq_series))},
-            "sum_philink_sq": {"mean": float(np.mean(sum_philink_sq_series)),
-                               "std": float(np.std(sum_philink_sq_series))},
+            "sum_vinc_sq": {"mean": float(np.mean(sum_vinc_sq_series)), "std": float(np.std(sum_vinc_sq_series))},
+            "sum_vref_sq": {"mean": float(np.mean(sum_vref_sq_series)), "std": float(np.std(sum_vref_sq_series))},
+            "sum_philink_sq": {
+                "mean": float(np.mean(sum_philink_sq_series)),
+                "std": float(np.std(sum_philink_sq_series)),
+            },
         },
         "anticorrelation_T_V": rho_TV,
         "cosserat_phase_per_cell": cosserat_phase_records,
         "k4_phase_per_bond": k4_phase_records,
         "fft_top_freqs": fft_records,
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"  Result: {OUTPUT_JSON}")
     return payload
 

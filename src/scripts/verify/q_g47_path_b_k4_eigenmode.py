@@ -490,7 +490,7 @@ def main():
 
     cache_native = to_native(cache)
     out_path = os.path.join(os.path.dirname(__file__), "q_g47_path_b_k4_eigenmode_results.json")
-    with open(out_path, "w") as f:
+    with open(out_path, "w", encoding="utf-8") as f:
         json.dump(cache_native, f, indent=2)
     print(f"  Wrote: {out_path}")
     print()

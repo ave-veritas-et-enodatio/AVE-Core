@@ -367,7 +367,7 @@ def main():
         return o
 
     out_path = os.path.join(os.path.dirname(__file__), "q_g47_path_b_plus_cosserat_results.json")
-    with open(out_path, "w") as f:
+    with open(out_path, "w", encoding="utf-8") as f:
         json.dump(to_native(cache), f, indent=2)
     print(f"\n  Wrote: {out_path}")
     print()
