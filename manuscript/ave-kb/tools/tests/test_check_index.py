@@ -29,8 +29,7 @@ from pathlib import Path
 
 _THIS_DIR = Path(__file__).resolve().parent
 _TOOLS_DIR = _THIS_DIR.parent
-if str(_TOOLS_DIR) not in sys.path:
-    sys.path.insert(0, str(_TOOLS_DIR))
+# kb_index_lib resolves via PYTHONPATH (set by the test-tools make target).
 
 _FIXTURE_SRC = _THIS_DIR / "fixtures" / "mini-kb"
 _CHECK_SCRIPT = _TOOLS_DIR / "verify-kb-metadata.py"
@@ -86,11 +85,11 @@ class TestCheckIndex(unittest.TestCase):
         cls.kb_root = _materialize_fixture(Path(cls._tmp.name))
         cls.index_dir = cls.kb_root / ".index"
 
-    def _backup_index_file(self, name: str) -> bytes:
-        return (self.index_dir / name).read_bytes()
+    def _backup_index_file(self, name: str) -> str:
+        return (self.index_dir / name).read_text(encoding="utf-8")
 
-    def _restore_index_file(self, name: str, content: bytes) -> None:
-        (self.index_dir / name).write_bytes(content)
+    def _restore_index_file(self, name: str, content: str) -> None:
+        (self.index_dir / name).write_text(content, encoding="utf-8")
 
     def test_index_line_reports_node_type_breakdown(self):
         """The [index] summary reports a claims / invariants / axioms breakdown.
@@ -123,7 +122,7 @@ class TestCheckIndex(unittest.TestCase):
 
             # Inject an edge to a real INVARIANT node but mislabel its kind.
             dep_path = tmp_index / "depends-on.jsonl"
-            existing = dep_path.read_bytes().decode("utf-8")
+            existing = dep_path.read_text(encoding="utf-8")
             first_source = existing.split("\n")[0].split('"source": "')[1].split('"')[0]
             extra = (
                 '{"source": "' + first_source + '", "target": "INVARIANT-S2"'
@@ -131,7 +130,7 @@ class TestCheckIndex(unittest.TestCase):
                 ', "target_solidity_recorded": null, "strength": null'
                 ', "context": null}\n'
             )
-            dep_path.write_bytes(existing.encode("utf-8") + extra.encode("utf-8"))
+            dep_path.write_text(existing + extra, encoding="utf-8")
 
             result = _run_checker(
                 self.kb_root, ["--index-dir", str(tmp_index)]
@@ -145,11 +144,10 @@ class TestCheckIndex(unittest.TestCase):
         name = "cites.jsonl"
         original = self._backup_index_file(name)
         try:
-            text = original.decode("utf-8")
-            lines = [ln for ln in text.split("\n") if ln]
+            lines = [ln for ln in original.split("\n") if ln]
             # Drop the first line (the fixture has too few rows for 5).
             truncated = "\n".join(lines[1:]) + "\n"
-            (self.index_dir / name).write_bytes(truncated.encode("utf-8"))
+            (self.index_dir / name).write_text(truncated, encoding="utf-8")
 
             result = _run_checker(self.kb_root)
             self.assertNotEqual(result.returncode, 0)
@@ -179,7 +177,7 @@ class TestCheckIndex(unittest.TestCase):
         name = "claims.jsonl"
         original = self._backup_index_file(name)
         try:
-            (self.index_dir / name).write_bytes(original + b"not-a-json\n")
+            (self.index_dir / name).write_text(original + "not-a-json\n", encoding="utf-8")
             result = _run_checker(self.kb_root)
             self.assertNotEqual(result.returncode, 0)
             output = result.stdout.lower()
@@ -215,7 +213,7 @@ class TestCheckIndex(unittest.TestCase):
             # that does not appear in claims.jsonl.
             dep_path = tmp_index / "depends-on.jsonl"
             orphan_target = "clm-zzz999"
-            existing = dep_path.read_bytes().decode("utf-8")
+            existing = dep_path.read_text(encoding="utf-8")
             # Pick a real source id (first edge's source); appending keeps
             # the file parseable even if sort order is broken.
             first_source = (existing.split("\n")[0].split('"source": "')[1].split('"')[0])
@@ -223,7 +221,7 @@ class TestCheckIndex(unittest.TestCase):
                 '{"source": "' + first_source + '", "target": "' + orphan_target
                 + '", "target_solidity_recorded": null, "context": null}\n'
             )
-            dep_path.write_bytes(existing.encode("utf-8") + extra.encode("utf-8"))
+            dep_path.write_text(existing + extra, encoding="utf-8")
 
             result = _run_checker(
                 self.kb_root, ["--index-dir", str(tmp_index)]
@@ -241,25 +239,24 @@ class TestCheckIndex(unittest.TestCase):
         refresh-fixable freshness failure, then restores the file.
         """
         cq = self.kb_root / "common" / "claim-quality.md"
-        original = cq.read_bytes()
+        original = cq.read_text(encoding="utf-8")
         try:
-            text = original.decode("utf-8")
-            m = re.search(r"^- solidity: (0\.\d+) \(", text, flags=re.MULTILINE)
+            m = re.search(r"^- solidity: (0\.\d+) \(", original, flags=re.MULTILINE)
             self.assertIsNotNone(m, "no `- solidity: 0.NN (` line in fixture")
             current = float(m.group(1))
             # A value clearly distinct from the real one — far enough that the
             # 2-dp freshness comparison cannot treat it as equal.
             wrong = "0.99" if current < 0.50 else "0.01"
-            stale = text[: m.start(1)] + wrong + text[m.end(1) :]
-            self.assertNotEqual(stale, text)
-            cq.write_bytes(stale.encode("utf-8"))
+            stale = original[: m.start(1)] + wrong + original[m.end(1) :]
+            self.assertNotEqual(stale, original)
+            cq.write_text(stale, encoding="utf-8")
 
             result = _run_checker(self.kb_root)
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("solidity freshness", result.stdout)
             self.assertIn("make refresh-kb-metadata", result.stdout)
         finally:
-            cq.write_bytes(original)
+            cq.write_text(original, encoding="utf-8")
 
     def test_check_detects_stale_depends_on_annotation(self):
         """A wrong (solidity X) annotation fails the freshness check.
@@ -268,22 +265,21 @@ class TestCheckIndex(unittest.TestCase):
         0.NN)`` depends-on annotation in the fixture's root register.
         """
         cq = self.kb_root / "claim-quality.md"
-        original = cq.read_bytes()
+        original = cq.read_text(encoding="utf-8")
         try:
-            text = original.decode("utf-8")
-            m = re.search(r"\(solidity (0\.\d+)\)", text)
+            m = re.search(r"\(solidity (0\.\d+)\)", original)
             self.assertIsNotNone(m, "no numeric (solidity 0.NN) annotation in fixture")
             current = float(m.group(1))
             wrong = "0.99" if current < 0.50 else "0.01"
-            stale = text[: m.start(1)] + wrong + text[m.end(1) :]
-            self.assertNotEqual(stale, text)
-            cq.write_bytes(stale.encode("utf-8"))
+            stale = original[: m.start(1)] + wrong + original[m.end(1) :]
+            self.assertNotEqual(stale, original)
+            cq.write_text(stale, encoding="utf-8")
 
             result = _run_checker(self.kb_root)
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("solidity freshness", result.stdout)
         finally:
-            cq.write_bytes(original)
+            cq.write_text(original, encoding="utf-8")
 
     def test_solidity_cycle_check_function(self):
         """check_solidity_cycle reports cycle members on a cyclic graph.
@@ -423,11 +419,11 @@ class TestQualityBlockIntegrity(unittest.TestCase):
             kb = _materialize_fixture(Path(tmp))
             cq = kb / "claim-quality.md"
             orphan = (
-                b"\n\n---\n\n### Quality\n- confidence: *pending*\n"
-                b"- solidity: *pending*\n- rationale: *pending*\n"
-                b"- strengthen-by:\n  - *pending*\n"
+                "\n\n---\n\n### Quality\n- confidence: *pending*\n"
+                "- solidity: *pending*\n- rationale: *pending*\n"
+                "- strengthen-by:\n  - *pending*\n"
             )
-            cq.write_bytes(cq.read_bytes() + orphan)
+            cq.write_text(cq.read_text(encoding="utf-8") + orphan, encoding="utf-8")
             result = _run_checker(kb)
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("orphan/malformed", result.stdout)
@@ -581,12 +577,14 @@ class TestExperimentEndToEnd(unittest.TestCase):
     def test_refresh_is_deterministic(self):
         """A second refresh writes byte-identical index files (idempotent)."""
         before = {
-            p.name: p.read_bytes() for p in sorted(self.index_dir.glob("*.jsonl"))
+            p.name: p.read_text(encoding="utf-8")
+            for p in sorted(self.index_dir.glob("*.jsonl"))
         }
         result = _run_refresh(self.kb_root)
         self.assertEqual(result.returncode, 0, result.stderr)
         after = {
-            p.name: p.read_bytes() for p in sorted(self.index_dir.glob("*.jsonl"))
+            p.name: p.read_text(encoding="utf-8")
+            for p in sorted(self.index_dir.glob("*.jsonl"))
         }
         self.assertEqual(before, after)
 
@@ -1101,12 +1099,14 @@ class TestSupportEndToEnd(unittest.TestCase):
 
     def test_refresh_is_deterministic(self):
         before = {
-            p.name: p.read_bytes() for p in sorted(self.index_dir.glob("*.jsonl"))
+            p.name: p.read_text(encoding="utf-8")
+            for p in sorted(self.index_dir.glob("*.jsonl"))
         }
         result = _run_refresh(self.kb_root)
         self.assertEqual(result.returncode, 0, result.stderr)
         after = {
-            p.name: p.read_bytes() for p in sorted(self.index_dir.glob("*.jsonl"))
+            p.name: p.read_text(encoding="utf-8")
+            for p in sorted(self.index_dir.glob("*.jsonl"))
         }
         self.assertEqual(before, after)
 
@@ -1195,7 +1195,7 @@ class TestSupportRejection(unittest.TestCase):
                     '"target_solidity_recorded": null, "strength": null, '
                     '"context": null, "fraction": 1.0}\n'
                 )
-                dep.write_bytes(dep.read_bytes() + extra.encode("utf-8"))
+                dep.write_text(dep.read_text(encoding="utf-8") + extra, encoding="utf-8")
                 result = _run_checker(kb, ["--index-dir", str(tmp_index)])
                 self.assertNotEqual(result.returncode, 0)
                 self.assertIn("referential-integrity", result.stdout)
@@ -1221,7 +1221,7 @@ class TestSupportRejection(unittest.TestCase):
                     '"target_solidity_recorded": null, "strength": null, '
                     '"context": null, "fraction": 1.5}\n'
                 )
-                dep.write_bytes(dep.read_bytes() + extra.encode("utf-8"))
+                dep.write_text(dep.read_text(encoding="utf-8") + extra, encoding="utf-8")
                 result = _run_checker(kb, ["--index-dir", str(tmp_index)])
                 self.assertNotEqual(result.returncode, 0)
                 self.assertIn("referential-integrity", result.stdout)

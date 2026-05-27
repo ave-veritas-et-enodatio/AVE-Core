@@ -50,11 +50,9 @@ from pathlib import Path
 
 # Share the canonical spine-id grammar with the rest of the tools tree rather
 # than re-encoding it here (kb_index_lib is the single source of truth for the
-# clm-/exp-/sup- id shape). kb_index_lib lives alongside this script.
-_TOOLS_DIR = Path(__file__).resolve().parent
-if str(_TOOLS_DIR) not in sys.path:
-    sys.path.insert(0, str(_TOOLS_DIR))
-import kb_index_lib  # noqa: E402
+# clm-/exp-/sup- id shape). kb_index_lib lives alongside this script and
+# resolves via PYTHONPATH (set by the make target that runs this tool).
+import kb_index_lib
 
 logger = logging.getLogger("verify-md-links")
 
@@ -82,6 +80,7 @@ SKIP_SEGMENT_RUNS: tuple[tuple[str, ...], ...] = (
 def _contains_run(parts: tuple[str, ...], run: tuple[str, ...]) -> bool:
     """True if `run` appears as a consecutive subsequence of `parts`."""
     return any(parts[i : i + len(run)] == run for i in range(len(parts) - len(run) + 1))
+
 
 # Top-level entries that constitute "inside AVE-Core" for intra/inter split.
 # A resolved path that is not under the repo root is inter-repo by definition;

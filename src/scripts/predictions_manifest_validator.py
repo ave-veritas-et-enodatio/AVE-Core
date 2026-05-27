@@ -21,7 +21,8 @@ validator catches STRUCTURAL inconsistencies:
                         the matching type in the KB claim DAG (.index); the
                         manifest is a one-directional consumer of the spine,
                         not a parallel id system (INVARIANT-S11). Unbridged
-                        entries warn (pending migration); broken bridges fail.
+                        entries fail (bridge is corpus-complete); broken
+                        bridges fail.
   5. Public parity    — every row in the README master table maps to a
                         manifest entry (no undocumented public claims)
 
@@ -574,11 +575,12 @@ def check_bridge(
       - well-formed (`clm-`/`exp-` + 6 lowercase-alphanumerics), and
       - resolves to a real node of the matching node_type in the KB index.
 
-    A *missing* bridge is a WARN, not a critical failure: the corpus is being
-    bridged incrementally, and an unbridged prediction is a known-incomplete
-    state, not a structural error. (Flip to critical once the bridge is
-    corpus-complete.) A *present-but-broken* bridge IS critical — a dangling or
-    mistyped id is exactly the silent-rot failure the spine exists to prevent.
+    A *missing* bridge is CRITICAL: as of the corpus-complete bridge (all
+    entries bridged), an unbridged prediction is a structural error — it would
+    re-open the parallel-id-space that INVARIANT-S11 closes (a prediction that
+    references KB knowledge without resolving into the claim DAG). A
+    *present-but-broken* bridge is likewise critical — a dangling or mistyped id
+    is exactly the silent-rot failure the spine exists to prevent.
     """
     findings: list[Finding] = []
     if spine_nodes is None:
@@ -658,12 +660,12 @@ def check_bridge(
         findings.append(
             Finding(
                 check="bridge",
-                severity="warn",
+                severity="critical",
                 entry_id=None,
                 message=(
                     f"{len(unbridged)} of {len(manifest.get('predictions', []))} "
                     f"entries are unbridged (no `clm:`/`exp:` into the claim DAG) "
-                    f"— pending migration"
+                    f"— every prediction must resolve into the spine (INVARIANT-S11)"
                 ),
                 details={"unbridged": unbridged},
             )

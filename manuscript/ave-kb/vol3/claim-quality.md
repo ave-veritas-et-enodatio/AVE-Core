@@ -1078,3 +1078,79 @@ Axiom-first derivation of the AVE-native BH horizon at $r_{\text{sat}} = 7GM/c^2
   - Carry the $\nu_{vac} = 2/7$ → factor-7 projection as an in-leaf derivation rather than referencing the Buchdahl-bound leaf.
 
 ---
+
+## The Double Deflection — Light Bends Twice as Much as Matter
+<!-- id: clm-zf8eah -->
+
+- $\delta_{\text{light}}/\delta_{\text{matter}} = (n_\perp - 1)/(n_{\text{scalar}} - 1) = (2/7)/(1/7) = 2$; $\delta_{\text{light}} = 4GM/(bc^2)$ (Einstein), $\delta_{\text{matter}} = 2GM/(bc^2)$ (Soldner), with $\chi_{vol} = 7GM/(c^2 r)$
+- _Specific Claims_
+  - Matter (an isotropic 3D volumetric massive wave packet) couples to the *scalar* bulk strain via the $1/7$ volumetric projection: $n_{\text{scalar}} = 1 + (1/7)\chi_{vol}$.
+  - Light (a purely transverse Cosserat shear wave) is mechanically blind to the bulk and couples to the transverse cross-sectional strain via the Poisson ratio: $n_\perp = 1 + \nu_{vac}\chi_{vol} = 1 + (2/7)\chi_{vol}$.
+  - The deflection is linear in the projection coefficient in the eikonal limit; since $2/7$ is exactly double $1/7$, the photon refracts through a gradient exactly twice as severe, giving the Einstein $4GM/(bc^2)$ vs the Soldner $2GM/(bc^2)$ — Sun grazing $\to 1.75''$.
+  - The GR "factor of 2" is reframed as the transverse:isotropic Poisson ratio of a $K = 2G$ trace-reversed Cosserat solid, not a curved-4-manifold signature nor null-geodesic geometry.
+- _Specific Non-Claims and Caveats_
+  - This is a **consistency check** (category iii): AVE reproduces the standard Einstein deflection via mechanical Poisson projection, not an independent novel prediction beyond GR.
+  - The coupling-selection step — that a massive packet couples only to the scalar $1/7$ bulk while the photon, mechanically blind to bulk, couples only to the $2/7$ transverse sector — is asserted by **mechanical analogy**, not derived from a wave-equation projection. This is the one soft joint in the derivation.
+
+> **Leaf references:** [double-deflection](./gravity/ch02-general-relativity/double-deflection.md).
+
+### Quality
+- confidence: 0.78
+- depends-on:
+  - `clm-rd9cjm` (Vol 3 refractive index of gravity / $\nu_{vac} = 2/7$ trace-reversal / $1$-$7$ impedance projection cluster, solidity X)
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.78, 0.55)]
+- rationale: consistency-check. The arithmetic $\delta_{\text{light}}/\delta_{\text{matter}} = (2/7)/(1/7) = 2$ is clean once the two projection coefficients are in hand, and reproduces both the Soldner and Einstein deflections plus the $1.75''$ solar value. The single soft joint is the coupling-selection step (massive packet → scalar $1/7$ bulk only; photon → transverse $2/7$ sector only), asserted by mechanical analogy rather than derived from a wave-equation projection. Confidence 0.78 set by the applied-mathematician pass.
+- strengthen-by:
+  - Derive the coupling selection (matter→scalar-bulk, light→transverse-shear) from a wave-equation projection of the massive vs massless dispersion onto the Cosserat strain tensor, replacing the mechanical-analogy assertion.
+
+---
+
+## White Dwarf Gravitational Redshift — Saturation Correction
+<!-- id: clm-at7x0y -->
+
+- $z_{\text{AVE}} = 1/(\sqrt{1 - 2GM/c^2R}\cdot S(\varepsilon_{11})) - 1$, $S(\varepsilon_{11}) = \sqrt{1 - \varepsilon_{11}^2}$, $\varepsilon_{11} = 7GM/c^2R = 7\phi$; $\delta z = z_{\text{AVE}} - z_{\text{GR}} \approx z_{\text{GR}}\cdot\varepsilon_{11}^2/2 = 49\phi^2/2$ = $12.25\times$ the PPN $2\phi^2$ term
+- _Specific Claims_
+  - The AVE gravitational redshift carries an Axiom-4 saturation factor $S(\varepsilon_{11}) = \sqrt{1 - \varepsilon_{11}^2}$ beyond the Schwarzschild term; the correction over GR scales as $49\phi^2/2$, 12.25 times larger than the standard PPN second-order $2\phi^2$ correction, due to the Machian stress boundary $T_{\max} = c^4/(7G)$ ($\varepsilon_{11} = 7\phi$).
+  - For Sirius B: $v_{\text{obs}} = 80.65 \pm 0.77$ km/s, $v_{\text{GR}} = 77.75$ km/s, $v_{\text{AVE}} = 77.80$ km/s; the AVE correction is $\sim 0.05$ km/s, in the correct (upward) direction.
+- _Specific Non-Claims and Caveats_
+  - **Not currently discriminating.** The $\sim 0.05$ km/s AVE correction is far below the $2.9$ km/s observed$-$GR residual, which is dominated by the 3–5% mass-radius relation uncertainty, not by missing physics. The prediction is correct-direction but not yet a test that distinguishes AVE from GR at current M-R precision.
+  - The shear-eigenmode prediction (clm-mi6ils) modifies only $g_{rr}$ (spatial metric), not $g_{00}$ (temporal); standing shear waves do NOT contribute to spectral redshift.
+
+> **Leaf references:** [white-dwarf-gravitational-predictions](./gravity/ch20-white-dwarf-predictions/white-dwarf-gravitational-predictions.md).
+
+### Quality
+- confidence: 0.52
+- depends-on:
+  - Axiom 4 (Universal Saturation Kernel — saturation factor $S(\varepsilon_{11}) = \sqrt{1 - \varepsilon_{11}^2}$ on the redshift)
+  - `clm-rd9cjm` (Vol 3 $\nu_{vac} = 2/7$ → $\varepsilon_{11} = 7\phi$ Machian stress boundary, solidity X)
+- solidity: 0.52 (use as input only, don't build deeper) [= min(0.52, 0.55)]
+- rationale: emergence-test. The redshift formula $z_{\text{AVE}} = 1/(\sqrt{1-2GM/c^2R}\cdot S) - 1$ follows cleanly from the Axiom-4 saturation factor applied to the Schwarzschild term, and the $12.25\times$ amplification over the PPN $2\phi^2$ correction is a clean consequence of $\varepsilon_{11} = 7\phi$. The caveat is empirical, not derivational: the $\sim 0.05$ km/s correction is far below the $2.9$ km/s residual (dominated by 3–5% M-R uncertainty), so the prediction is correct-direction but not currently discriminating. Confidence 0.52 set by the applied-mathematician pass.
+- strengthen-by:
+  - Tighten the white-dwarf mass-radius constraints (e.g. improved JWST M-R) so the $\sim 0.05$ km/s saturation correction rises above the measurement residual and becomes a discriminating AVE-vs-GR test.
+
+---
+
+## White Dwarf Standing Shear-Wave Eigenfrequencies
+<!-- id: clm-mi6ils -->
+
+- WD surface = shear reflector ($\Gamma \approx -1$); $r_{\text{eff}} = R/(1 + \nu_{vac}) = 7R/9$; $f_\ell = \ell c/(2\pi r_{\text{eff}})$, $Q = \ell$; $\ell = 2$ modes $\sim 13$–$21$ Hz (LIGO band) for the five named white dwarfs
+- _Specific Claims_
+  - The WD interior is evanescent for shear perturbations (plasma frequency $\omega_p \gg$ any GW frequency), so the surface acts as a near-perfect shear reflector ($\Gamma \approx -1$); the effective cavity radius is $r_{\text{eff}} = R/(1 + \nu_{vac}) = 7R/9$ with $\nu_{vac} = 2/7$.
+  - Eigenfrequencies $f_\ell = \ell c/(2\pi r_{\text{eff}})$ with quality factor $Q = \ell$; the $\ell = 2$ modes land at $\sim 13$–$21$ Hz (Sirius B 21.15, 40 Eridani B 13.63, Procyon B 14.27, Stein 2051 B 15.34, GD 358 13.94 Hz) — the LIGO / Einstein Telescope band.
+  - These standing shear modes modify $g_{rr}$ (spatial metric) only; their observational signature is gravitational-wave ringdown, not spectral line shift. They are a different mode family from interior g-modes/p-modes of ZZ Ceti asteroseismology.
+- _Specific Non-Claims and Caveats_
+  - The Schwarzschild-BH QNM cross-check ($\omega M_{\text{geom}} = 0.3673$ vs GR exact $0.3737$, 1.7%) is a **cross-regime consistency check using a DIFFERENT boundary radius** ($r_{\text{sat}} = 7GM/c^2$, not the WD surface $R$). It validates the *formula's shape*, NOT the WD-boundary choice — it must not be presented as corroboration of the WD eigenfrequency prediction.
+  - No prediction-manifest bridge: the shear-eigenmode result is not currently a manifest prediction entry (the WD redshift, clm-at7x0y, is the P41 bridge target).
+
+> **Leaf references:** [white-dwarf-gravitational-predictions](./gravity/ch20-white-dwarf-predictions/white-dwarf-gravitational-predictions.md).
+
+### Quality
+- confidence: 0.50
+- depends-on:
+  - `clm-rd9cjm` (Vol 3 $\nu_{vac} = 2/7$ → $r_{\text{eff}} = 7R/9$, solidity X)
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.55)]
+- rationale: emergence-test. The eigenfrequency chain (surface shear reflector $\Gamma \approx -1$ from evanescent degenerate interior → $r_{\text{eff}} = R/(1+\nu_{vac}) = 7R/9$ → $f_\ell = \ell c/(2\pi r_{\text{eff}})$) closes cleanly and lands the $\ell=2$ modes in the LIGO band for all five named WDs. The honest caveat: the BH-QNM 1.7% cross-check uses a DIFFERENT boundary radius ($r_{\text{sat}} = 7GM/c^2$ vs the WD surface $R$) — it validates the formula's shape, not the WD-boundary choice, and must not be read as corroboration of the WD prediction. Confidence 0.50 set by the applied-mathematician pass.
+- strengthen-by:
+  - Validate the WD-surface boundary choice directly (e.g. against a WD-merger ringdown observation), independent of the BH-QNM shape cross-check, to convert the LIGO-band prediction into a tested result.
+
+---

@@ -28,12 +28,8 @@ import re
 import sys
 from pathlib import Path
 
-# Make the sibling kb_index_lib importable regardless of invocation cwd.
-_TOOLS_DIR = Path(__file__).resolve().parent
-if str(_TOOLS_DIR) not in sys.path:
-    sys.path.insert(0, str(_TOOLS_DIR))
-
-import kb_index_lib  # noqa: E402
+# Sibling kb_index_lib resolves via PYTHONPATH (set by the make target).
+import kb_index_lib
 
 KB = Path("manuscript/ave-kb")
 INDEX_DIR = KB / ".index"
@@ -153,7 +149,7 @@ def collect_leaves() -> dict[Path, list[str]]:
             if not f.endswith(".md") or f in EXCLUDE_NAMES:
                 continue
             p = Path(root) / f
-            text = p.read_text()
+            text = p.read_text(encoding="utf-8")
             fm = parse_frontmatter(text)
             if not fm:
                 continue
@@ -298,7 +294,7 @@ def _rewrite_claim_quality_solidity(
     ``files_changed`` is 0 or 1 and the change lists hold ``(claim_id, old,
     new)`` tuples for reporting.
     """
-    text = path.read_text()
+    text = path.read_text(encoding="utf-8")
     had_final_newline = text.endswith("\n")
     lines = text.split("\n")
     if had_final_newline:
@@ -369,7 +365,7 @@ def _rewrite_claim_quality_solidity(
     if had_final_newline:
         new_text += "\n"
     if new_text != text:
-        path.write_text(new_text)
+        path.write_text(new_text, encoding="utf-8")
         return 1, solidity_changes, annotation_changes
     return 0, solidity_changes, annotation_changes
 
@@ -430,7 +426,7 @@ def _rewrite_claim_quality_leaf_references(
     Returns ``(files_changed, footer_changes)`` where ``files_changed`` is 0 or
     1 and ``footer_changes`` holds ``(node_id, old, new)`` tuples for reporting.
     """
-    text = path.read_text()
+    text = path.read_text(encoding="utf-8")
     had_final_newline = text.endswith("\n")
     lines = text.split("\n")
     if had_final_newline:
@@ -469,7 +465,7 @@ def _rewrite_claim_quality_leaf_references(
     if had_final_newline:
         new_text += "\n"
     if new_text != text:
-        path.write_text(new_text)
+        path.write_text(new_text, encoding="utf-8")
         return 1, footer_changes
     return 0, footer_changes
 
@@ -586,13 +582,15 @@ def _emit_jsonl_indexes() -> tuple[int, int]:
         body = "\n".join(lines)
         if body:
             body += "\n"
-        new_bytes = body.encode("utf-8")
-        if out_path.exists() and out_path.read_bytes() == new_bytes:
+        if (
+            out_path.exists()
+            and out_path.read_text(encoding="utf-8") == body
+        ):
             unchanged += 1
             continue
         # Atomic rewrite: write to sibling temp file, then rename.
         tmp_path = out_path.with_suffix(out_path.suffix + ".tmp")
-        tmp_path.write_bytes(new_bytes)
+        tmp_path.write_text(body, encoding="utf-8")
         os.replace(tmp_path, out_path)
         written += 1
     return written, unchanged
@@ -646,7 +644,7 @@ def main(argv: list[str] | None = None) -> int:
             if f != "index.md":
                 continue
             p = Path(root) / f
-            text = p.read_text()
+            text = p.read_text(encoding="utf-8")
             fm = parse_frontmatter(text)
             if not fm:
                 skipped += 1
@@ -673,13 +671,13 @@ def main(argv: list[str] | None = None) -> int:
             new_text = replace_subtree_claims(text, sorted_ids)
             new_text = replace_subtree_experiments(new_text, exp_ids)
             if new_text != text:
-                p.write_text(new_text)
+                p.write_text(new_text, encoding="utf-8")
                 updated += 1
 
     # Update entry-point.md
     ep = KB / "entry-point.md"
     if ep.exists():
-        text = ep.read_text()
+        text = ep.read_text(encoding="utf-8")
         fm = parse_frontmatter(text)
         if fm and fm.get("kind") == "entry-point":
             all_ids = set()
@@ -691,7 +689,7 @@ def main(argv: list[str] | None = None) -> int:
             new_text = replace_subtree_claims(text, sorted_ids)
             new_text = replace_subtree_experiments(new_text, exp_ids)
             if new_text != text:
-                ep.write_text(new_text)
+                ep.write_text(new_text, encoding="utf-8")
                 updated += 1
 
     print(f"[refresh] Updated {updated} subtree-claims field(s).")
@@ -741,7 +739,11 @@ def main(argv: list[str] | None = None) -> int:
     # Phase 2: emit derived JSONL index files. The frontmatter writes above
     # are already on disk, so discover_kb here picks up the just-written
     # subtree-claims values when materializing subtree-aggregates.jsonl.
-    written, unchanged = _emit_jsonl_indexes()
+    try:
+        written, unchanged = _emit_jsonl_indexes()
+    except kb_index_lib.FrameworkNodeParseError as exc:
+        print(f"\nFAIL: {exc}", file=sys.stderr)
+        return 1
     print(
         f"[refresh-index] Wrote {written} file(s) under "
         f"{INDEX_DIR.as_posix()}/ ({unchanged} unchanged)."

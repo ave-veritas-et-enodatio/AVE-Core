@@ -32,12 +32,10 @@ import tempfile
 import unittest
 from pathlib import Path
 
-# Make the sibling tools dir importable.
 _THIS_DIR = Path(__file__).resolve().parent
 _TOOLS_DIR = _THIS_DIR.parent
-if str(_TOOLS_DIR) not in sys.path:
-    sys.path.insert(0, str(_TOOLS_DIR))
 
+# kb_index_lib resolves via PYTHONPATH (set by the test-tools make target).
 import kb_index_lib as lib  # noqa: E402
 
 _FIXTURE_SRC = _THIS_DIR / "fixtures" / "mini-kb"
@@ -68,6 +66,7 @@ def _materialize_fixture(parent: Path) -> Path:
 
 
 def _hash_file(path: Path) -> str:
+    # raw-byte hashing (content-addressed) — tolerated byte op per the text-I/O rule
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
@@ -142,22 +141,21 @@ class TestRefreshIndexJsonlEmission(unittest.TestCase):
         for name in _INDEX_FILES:
             with self.subTest(name=name):
                 path = self.index_dir / name
-                raw = path.read_bytes()
+                text = path.read_text(encoding="utf-8")
                 # Empty file is acceptable per write_jsonl semantics, but we
                 # expect every file in this fixture to be non-empty.
-                self.assertTrue(raw, f"{name} is empty")
+                self.assertTrue(text, f"{name} is empty")
                 # File ends with exactly one trailing newline.
                 self.assertEqual(
-                    raw[-1:],
-                    b"\n",
+                    text[-1:],
+                    "\n",
                     f"{name} does not end with a newline",
                 )
                 self.assertNotEqual(
-                    raw[-2:],
-                    b"\n\n",
+                    text[-2:],
+                    "\n\n",
                     f"{name} has multiple trailing newlines",
                 )
-                text = raw.decode("utf-8")
                 for lineno, line in enumerate(text.split("\n"), start=1):
                     if lineno == len(text.split("\n")):
                         # Last element is empty string from terminal "\n".
@@ -383,7 +381,7 @@ class TestRefreshSolidityWriteBack(unittest.TestCase):
             line = refresh._solidity_line(
                 entry.confidence, sol[entry.id], min_dep
             )
-            text = (self.kb_root / entry.canonical_path).read_text()
+            text = (self.kb_root / entry.canonical_path).read_text(encoding="utf-8")
             # The canonical line must appear verbatim on disk (refresh ran).
             self.assertIn(
                 line, text, f"{entry.id}: canonical solidity line not on disk"

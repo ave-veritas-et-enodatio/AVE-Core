@@ -1,4 +1,4 @@
-"""Thin CLI wrapper around :mod:`ave.kb.index`.
+"""Thin CLI wrapper around :mod:`kb_cmd.index`.
 
 Subcommand surface mirrors ``SCHEMA.md`` §"CLI surface". Text output is one
 item per line for list-returning commands; ``show`` prints a key/value block.

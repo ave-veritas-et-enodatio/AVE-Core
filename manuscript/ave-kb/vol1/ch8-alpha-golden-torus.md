@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [clm-3zz0f6, clm-5xon03, clm-0ktpcn, clm-unk0bd]
+claims: [clm-3zz0f6, clm-5xon03, clm-0ktpcn, clm-unk0bd, clm-009nkt]
 -->
 
 # Ch.8: Zero-Parameter Closure — $\alpha$ from the Golden Torus
@@ -151,8 +151,9 @@ The substrate-derived cold-lattice asymptote sits at:
 
 The standard-physics-community-measured value is $\alpha^{-1}_{\text{CODATA}} = 137.035999$. This sits below the substrate-derived cold-lattice asymptote by a fractional amount identified as the **vacuum strain coefficient** $\delta_{\text{strain}}$:
 
+<!-- claim-quality: clm-009nkt -->
 $$
-\delta_{\text{strain}} = 1 - \frac{137.035999}{137.036304} \approx 2.225 \times 10^{-6}
+\delta_{\text{strain}} = 1 - \frac{\alpha^{-1}_{\text{exp}}}{\alpha^{-1}_{\text{ideal}}} = 1 - \frac{137.035999}{137.0363038} \approx 2.225 \times 10^{-6}
 $$
 
 Substrate-mechanism content: this is the thermal expansion of the substrate's spatial metric at the current cosmological epoch ($T_{\text{CMB}} \approx 2.725$ K), bridging the substrate's $T \to 0$ asymptote to the measured value at finite $T$.
