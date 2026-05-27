@@ -427,7 +427,7 @@ where $T_{eff}$ is set by boundary-impedance thermalization (vacuum Nyquist base
 
 ### §13.4 Substrate amplitude correlator decomposition
 
-Define dimensionless substrate-thermal-energy ratio $\eta_T \equiv \sqrt{k_B T_{eff}/(C_0 V_y^2)}$ (canonical $\sim 10^{-6}$ at room T, $C_0 \sim \epsilon_0 \ell_{node}$, $V_y = 43.65$ kV per INVARIANT-C1).
+Define dimensionless substrate-thermal-energy ratio $\eta_T \equiv \sqrt{k_B T_{eff}/(C_0 V_y^2)}$. Canonical arithmetic at room T with $C_0 = \epsilon_0 \ell_{node}$ (per §2 above; $\ell_{node} = \hbar/(m_e c)$, canonical L_NODE = $3.86 \times 10^{-13}$ m in `src/ave/core/constants.py`) and $V_y = 43.65$ kV (INVARIANT-C1): $C_0 \approx 3.42 \times 10^{-24}$ F → $C_0 V_y^2 \approx 6.5 \times 10^{-15}$ J. Independent cross-check via energy-budget identity at §2 line 54-56: $\tfrac{1}{2} C_0 V_{pump}^2 = \alpha m_e c^2$ at canonical $V_{pump}/V_y = 0.428$ → $C_0 V_y^2/2 \approx 3.3 \times 10^{-15}$ J ✓. With $k_B T = 4.14 \times 10^{-21}$ J at T = 300 K: $\boxed{\eta_T \approx 8 \times 10^{-4}}$ at canonical room-T parameters (corrected 2026-05-26 per auditor Finding 1 on PR #41 — prior estimate of $\sim 10^{-6}$ was off by ~2.7 OOMs; substrate-mechanical scaling-direction reasoning is unchanged, only the numerical magnitude is corrected).
 
 > **[Resultbox]** *Substrate amplitude correlator decomposition under DC bias*
 >
@@ -455,7 +455,7 @@ The substrate-distinct aperture-aggregate observable signature (per Edgeworth pr
 
 $$\kappa_3^{(aperture)}/\sigma^3 \sim \frac{-3 a \eta_T \cdot S_0^{1/4}}{\sqrt{W/\ell_{corr}(0)}}, \qquad \kappa_4^{(aperture)}/\sigma^4 \sim \frac{-3 (1 + 4 a^2) \eta_T^2}{S_0 \cdot N}$$
 
-At room T + PONDER-05 canonical operating point ($a = 0.687$): aperture-aggregate skewness $\sim 10^{-6}$ at $W \sim 10 \ell_{corr}(0)$. Observability requires either cryogenic regime (enhanced $\eta_T$ via reduced effective $C_0 V_y^2$) or accumulating massive statistics. Phase 2 work scopes the engineering question explicitly.
+At room T + PONDER-05 canonical operating point ($a = 0.687$): per-site $\kappa_3/\sigma^3 \approx 3 \cdot 0.687 \cdot (8 \times 10^{-4}) \cdot 1.17 \approx 1.9 \times 10^{-3}$ (using $\eta_T \approx 8 \times 10^{-4}$ at canonical $C_0 = \epsilon_0 \ell_{node}$, $V_y = 43.65$ kV per §13.4 canonical-arithmetic chain). Aperture-aggregate skewness $\sim 5 \times 10^{-4}$ at $W \sim 10 \ell_{corr}(0)$, $N \sim 10$ independent sites. Room-T narrow-aperture observation is **plausible** at corrected magnitude — required event count for 3σ skewness detection is $N_{events} \sim 9/(\kappa_3/\sigma^3)^2 \sim 3 \times 10^7$ events, feasible in modest campaigns on existing SPAD/TES/SNSPD architectures per [`../../../common/translation-tables/translation-instrumentation.md`](../../../common/translation-tables/translation-instrumentation.md) Category II. Phase 2 work scopes the experimental architecture explicitly. (Magnitude corrected 2026-05-26 per auditor Finding 1 on PR #41; prior $\sim 10^{-6}$ estimate was downstream of an arithmetic error on $C_0 V_y^2$ at canonical $C_0 = \epsilon_0 \ell_{node}$.)
 
 ### §13.7 Classification + open work
 

@@ -173,7 +173,19 @@ $$\boxed{\kappa_3(V_{DC}) = -\frac{[3 C_0 a/(V_y S_0^5)]}{[C_0/S_0^3]^3}\, (k_B 
 
 ### §3.4.3 Dimensionless skewness $\kappa_3/\sigma^3$
 
-Define the substrate-thermal-energy ratio $\eta_T \equiv \sqrt{k_B T_{eff}/(C_0 V_y^2)}$ (dimensionless; the substrate-thermal-energy scale relative to the substrate-yield-scale reactive energy $C_0 V_y^2$). At standard lab T = 300 K with canonical $C_0 \sim \epsilon_0 \ell_{node}$, $V_y = 43.65$ kV: $C_0 V_y^2 \sim 10^{-9}$ J $\sim 10^{10}$ eV; $k_B T \sim 0.026$ eV; so $\eta_T \sim 1.6 \times 10^{-6}$ — exceptionally small (this is the substrate-mechanical reason the linear-regime treatment in Phase 2-A.2 holds with overwhelming margin at room temperature).
+Define the substrate-thermal-energy ratio $\eta_T \equiv \sqrt{k_B T_{eff}/(C_0 V_y^2)}$ (dimensionless; the substrate-thermal-energy scale relative to the substrate-yield-scale reactive energy $C_0 V_y^2$).
+
+**Canonical-arithmetic chain for $C_0 V_y^2$ at standard lab T = 300 K** (corrected 2026-05-26 per auditor Finding 1 on PR #41 — supersedes prior $\sim 10^{-9}$ J estimate that was off by ~2.7 OOMs):
+
+Per [`parametric-coupling-kernel.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md):58 the canonical per-node substrate capacitance is $C_0 = \epsilon_0 \cdot \ell_{node}$ with $\ell_{node} = \hbar/(m_e c)$ (canonical L_NODE in [`src/ave/core/constants.py`](../src/ave/core/constants.py):194, value $3.8616 \times 10^{-13}$ m). Numerically: $C_0 = (8.854 \times 10^{-12}\,\mathrm{F/m}) \cdot (3.862 \times 10^{-13}\,\mathrm{m}) = 3.42 \times 10^{-24}$ F. With $V_y = 43{,}650$ V (INVARIANT-C1): $C_0 V_y^2 = (3.42 \times 10^{-24}) \cdot (4.365 \times 10^4)^2 \approx 6.5 \times 10^{-15}$ J.
+
+**Cross-check via energy-budget identity** (parametric-coupling-kernel.md:54-56): $\tfrac{1}{2} C_0 V_{pump}^2 = \alpha m_e c^2 = (1/137.036) \cdot 8.187 \times 10^{-14}\,\mathrm{J} = 5.97 \times 10^{-16}$ J. At canonical $V_{pump}/V_y = 0.428$ (parametric-coupling-kernel.md:60): $C_0 V_y^2 = 2 \cdot 5.97 \times 10^{-16}/(0.428)^2 = 6.5 \times 10^{-15}$ J. Two independent canonical chains agree.
+
+At T = 300 K: $k_B T = 1.381 \times 10^{-23} \cdot 300 = 4.14 \times 10^{-21}$ J. Then:
+
+$$\eta_T = \sqrt{4.14 \times 10^{-21} / 6.5 \times 10^{-15}} = \sqrt{6.4 \times 10^{-7}} \approx 8 \times 10^{-4}$$
+
+This is small (the linear-regime treatment of Phase 2-A.2 holds with comfortable margin at room T — $\eta_T \ll 1$) but **NOT** the $\sim 10^{-6}$ that the prior estimate suggested. The corrected magnitude $\eta_T \sim 8 \times 10^{-4}$ at canonical $C_0 = \epsilon_0 \ell_{node}$, $V_y = 43.65$ kV, T = 300 K is the load-bearing value for all downstream observability scoping in §6 + §8.
 
 $\sigma^3 = (k_B T_{eff} S_0^3/C_0)^{3/2} = (k_B T_{eff})^{3/2} S_0^{9/2}/C_0^{3/2}$
 
@@ -191,7 +203,7 @@ $$\kappa_3/\sigma^3 = -3 a \eta_T \cdot S_0^{-1/2}$$
 
 **Walk-back classification**: `ave-walk-back` v1.1 **Type E** (value-amendment; mechanism unchanged). Same substrate-mechanism — Ax 4 kernel-modified reactive landscape, broken reflection symmetry around $V_{DC}$, asymmetric per-site amplitude-shape — but quantitative scaling expectation amended honestly: cubic → linear at leading order in $a$, multiplied by the dimensionless substrate-thermal-energy ratio $\eta_T$ (which is tiny at room T).
 
-**Implications for Phase 2 aperture-aggregate prediction**: the aperture-aggregate skewness scales as $\kappa_3/\sigma^3 \cdot 1/\sqrt{N}$ per Edgeworth pre-asymptote (substrate-agnostic central-aggregation; CLT correction term). With $\kappa_3/\sigma^3 \sim 3 a \eta_T \sim 10^{-6}$ at room T and moderate bias, the per-site signature is exceptionally small unless ($\eta_T$ is enhanced via cryogenic operating regime where $C_0$ is reduced) or (the operating point is held at high $a$ with finite-bandwidth substrate-thermal-energy enhancement). Phase 2 honest scoping: the room-T per-site skewness is ~10⁻⁶ — at $N = 4-10$ aperture, the aperture-aggregate skewness is ~10⁻⁶ × $1/\sqrt{N}$ ~ $3 \times 10^{-7}$. Observability requires either operating at low effective $C_0$ (substrate-engineering question — what real boundary architectures have $C_0$ much smaller than the per-substrate-site canonical $\epsilon_0 \ell_{node}$?) or accumulating massive statistics. **Honest finding**: the cubic-scaling expectation in the epic brief had implicit dimensional reasoning that needs revisiting; the linear scaling means observability is harder than initially anticipated by 2 orders of magnitude.
+**Implications for Phase 2 aperture-aggregate prediction** (corrected per §3.4.3 canonical-arithmetic chain): the aperture-aggregate skewness scales as $\kappa_3/\sigma^3 \cdot 1/\sqrt{N}$ per Edgeworth pre-asymptote (substrate-agnostic central-aggregation; CLT correction term). With $\eta_T \sim 8 \times 10^{-4}$ at canonical $C_0 = \epsilon_0 \ell_{node}$, $V_y = 43.65$ kV, room T, and $S_0^{-1/2} \approx 1.17$ at PONDER-05 canonical operating point $a = 0.687$: per-site $\kappa_3/\sigma^3 \approx 3 \cdot 0.687 \cdot 8 \times 10^{-4} \cdot 1.17 \approx 1.6 \times 10^{-3}$. At $N = 4-10$ aperture: aperture-aggregate skewness $\sim 1.6 \times 10^{-3}/\sqrt{N} \sim (5-8) \times 10^{-4}$. **Phase 2 reframed scoping**: room-T narrow-aperture observation is now **plausible at $\sim 10^{-3}$ per-site signature**; aperture-aggregate $\sim 10^{-4}$ for $N \sim 10$. This is in measurable histogram-statistics range for SPAD / TES / SNSPD narrow-aperture single-event extractors per [`translation-instrumentation.md`](../manuscript/ave-kb/common/translation-tables/translation-instrumentation.md) Category II — many fewer events required than the prior $10^{-6}$ estimate suggested. **Honest finding**: the cubic-scaling expectation in the epic brief was off in scaling direction (linear, not cubic); the numerical magnitude under the corrected canonical-arithmetic chain is $\sim 10^{-3}$ at room T (NOT $\sim 10^{-6}$ as the prior misestimate of $\eta_T$ suggested). The substrate-mechanical scaling direction (Type E walk-back on $\kappa_3$ cubic→linear) is preserved; only the numerical magnitude is corrected.
 
 ### §3.4.4 Kurtosis $\kappa_4$ (fourth cumulant — substrate amplitude correlator decomposition fourth coefficient)
 
@@ -205,7 +217,7 @@ Substituting:
 
 $$\kappa_4(V_{DC}) = -\frac{3 [1 + 4 a^2] (k_B T_{eff})^3 S_0^5}{C_0^3 V_y^2} + \text{cubic-squared cross-term}$$
 
-The cubic-squared cross-term at leading order in $a$ goes as $\sim a^2 (k_B T_{eff})^4/C_0^4 V_y^2 \cdot S_0^{-2}$, which is suppressed by an extra factor of $\eta_T^2 \sim 10^{-12}$ at room T — negligible compared to the direct quartic-term contribution at first significant figure. So at leading order:
+The cubic-squared cross-term at leading order in $a$ goes as $\sim a^2 (k_B T_{eff})^4/C_0^4 V_y^2 \cdot S_0^{-2}$, which is suppressed by an extra factor of $\eta_T^2 \approx 6 \times 10^{-7}$ at room T (corrected per §3.4.3 canonical-arithmetic chain; prior estimate of $10^{-12}$ was downstream of the $\eta_T \sim 10^{-6}$ magnitude error) — still small relative to the direct quartic-term contribution but no longer negligible at all significant figures. The direct quartic term remains the dominant contribution to $\kappa_4$ at leading order:
 
 $$\boxed{\kappa_4(V_{DC}) \approx -\frac{3 [1 + 4 a^2] (k_B T_{eff})^3 S_0^5}{C_0^3 V_y^2}}$$
 
@@ -332,13 +344,13 @@ The SPECIFIC kernel form $S(A) = \sqrt{1 - A^2}$ (Ax 4 Universal Saturation Kern
 
 **Prereg expectation (§3.4 of prereg, §4 AC-0c.3)**: $\kappa_3/\sigma^3 \sim (V_{DC}/A_c)^3$ at leading order.
 
-**Derived form (§3.4.3 of this result)**: $\kappa_3/\sigma^3 = -3 a \eta_T \cdot S_0^{-1/2}$ — **linear in $a$ at small bias**, multiplied by the dimensionless substrate-thermal-energy ratio $\eta_T = \sqrt{k_B T_{eff}/(C_0 V_y^2)} \sim 10^{-6}$ at room T.
+**Derived form (§3.4.3 of this result)**: $\kappa_3/\sigma^3 = -3 a \eta_T \cdot S_0^{-1/2}$ — **linear in $a$ at small bias**, multiplied by the dimensionless substrate-thermal-energy ratio $\eta_T = \sqrt{k_B T_{eff}/(C_0 V_y^2)} \approx 8 \times 10^{-4}$ at canonical $C_0 = \epsilon_0 \ell_{node}$, $V_y = 43.65$ kV, T = 300 K (per §3.4.3 canonical-arithmetic chain; corrected 2026-05-26 — prior estimate of $\sim 10^{-6}$ was off by ~2.7 OOMs).
 
 **Substrate-mechanical reason**: $U'''(V_{DC}) \propto V_{DC}$ (linear in DC bias) — this matches the prereg-expectation source. But the dimensionless skewness divides by $\sigma^3 \propto (k_B T_{eff})^{3/2}$, NOT by $V_y^3$, so the dimensionless-bias dependence is linear. The prereg expectation implicitly assumed normalization by $V_y$ which would have given cubic; the actual substrate-thermal-energy-normalized form gives linear.
 
 **Walk-back type**: **Type E** (value-amendment; mechanism unchanged). Same substrate-mechanism — Ax 4 kernel + broken-reflection-symmetry + asymmetric per-site amplitude-shape; same canonical primitives. Quantitative scaling expectation amended honestly.
 
-**Propagation**: epic doc Phase 0c "Order-of-magnitude" expectation flag amended. Phase 2 aperture-aggregate observability estimate is 2 OOMs harder than the brief anticipated (per-site skewness ~10⁻⁶ at room T instead of much larger).
+**Propagation**: epic doc Phase 0c "Order-of-magnitude" expectation flag amended. Per the §3.4.3 canonical-arithmetic correction (2026-05-26 auditor Finding 1), per-site $\kappa_3/\sigma^3 \approx 1.6 \times 10^{-3}$ at PONDER-05 canonical operating point — well within measurable histogram-statistics range for narrow-aperture SPAD/TES/SNSPD architectures. Phase 2 aperture-aggregate observability remains **scaling-direction-corrected** (linear, not cubic) but **magnitude is plausible at room-T** without cryogenic infrastructure.
 
 ### Walk-back #2: $\ell_{corr}(V_{DC})$ functional form — $1/S$ (diverging) → $S^{3/2}$ (shrinking)
 
@@ -387,14 +399,15 @@ $$\kappa_3^{(\text{aperture})}/\sigma^3 \sim \frac{-3 a \eta_T \cdot S_0^{1/4}}{
 
 The kernel-correction-factor on aperture-aggregate skewness is $S_0^{1/4}$ — mild (decreases by factor of 0.84 at $a = 0.687$, the PONDER-05 canonical operating point; decreases by factor of 0.56 at $a = 0.95$).
 
-**Honest observability assessment for Phase 2**:
-- Per-site skewness factor: $3 a \eta_T \sim 3 \cdot 0.687 \cdot 1.6 \times 10^{-6} \sim 3 \times 10^{-6}$ at PONDER-05 operating point at room T
-- Aperture-aggregate skewness at $W \sim 10 \ell_{node}$, $a = 0.687$: $\sim 3 \times 10^{-6} \cdot S_0^{1/4}/\sqrt{10} \sim 10^{-6}$
-- Aperture-aggregate kurtosis-excess at same parameters: $\sim 3 (1 + 4 \cdot 0.687^2) \eta_T^2/(S_0 \cdot 10) \sim 10^{-12}$
+**Honest observability assessment for Phase 2** (corrected per §3.4.3 canonical-arithmetic chain; auditor Finding 1 on PR #41 — supersedes prior $\sim 10^{-6}$ scoping):
+- Per-site skewness factor: $3 a \eta_T \approx 3 \cdot 0.687 \cdot 8 \times 10^{-4} \approx 1.6 \times 10^{-3}$ at PONDER-05 operating point ($a = 0.687$) at room T
+- Per-site $\kappa_3/\sigma^3$ including $S_0^{-1/2}$ factor: $1.6 \times 10^{-3} \cdot 1.17 \approx 1.9 \times 10^{-3}$
+- Aperture-aggregate skewness at $W \sim 10 \ell_{corr}(0)$, $a = 0.687$: $\sim 1.9 \times 10^{-3} \cdot S_0^{1/4}/\sqrt{10} \approx 5.5 \times 10^{-4}$
+- Aperture-aggregate kurtosis-excess at same parameters: $\sim 3 (1 + 4 \cdot 0.687^2) \eta_T^2/(S_0 \cdot 10) \approx 7.6 \times 10^{-7}$ (still small but $10^5$× the prior misestimate)
 
-Both signatures are tiny at room T. Observability requires either cryogenic regime (much smaller $C_0 \cdot V_y^2$ effective thermal-energy ratio could be enhanced by orders of magnitude — substrate-engineering question for Phase 2), or accumulating massive statistics (10¹² events for $\sim 10^{-6}$ skewness 3σ detection).
+Both signatures sit at observable-with-modest-statistics range at room T. **Required event counts for 3σ skewness detection** scale as $N_{events} \sim 9/(\kappa_3/\sigma^3)^2$ (standard sample-skewness variance $\approx 6/N$ for Gaussian under-null). At aperture-aggregate $\sim 5.5 \times 10^{-4}$: $N_{events} \sim 9/(5.5 \times 10^{-4})^2 \approx 3 \times 10^7$ events — feasible in a multi-week run on existing SPAD/TES/SNSPD platforms per [`translation-instrumentation.md`](../manuscript/ave-kb/common/translation-tables/translation-instrumentation.md) Category II.
 
-**Phase 2 verdict (pre-empted by Phase 0c finding)**: the room-temperature lab-scale narrow-aperture observability is **structurally limited** to ~10⁻⁶ skewness corrections — testable in principle but requires very large event counts. The brighter signature would be cryogenic operation OR substrate-engineering of $C_0$ effective lattice scale.
+**Phase 2 verdict (pre-empted by Phase 0c finding, corrected magnitude per auditor Finding 1)**: the room-temperature lab-scale narrow-aperture observability is **plausible at the corrected magnitude $\sim 10^{-3}$ per-site / $\sim 10^{-4}$ aperture-aggregate** — testable in modest event-count campaigns without cryogenic infrastructure. The reframed Phase 2 scoping question is no longer "park / cryogenic / substrate-engineering, given $\sim 10^{-6}$ structurally limited" but rather "what is the right room-T narrow-aperture experimental architecture to capture $\sim 10^{-4}$ skewness with $\sim 3 \times 10^7$ events?" — a substantially more attractive empirical question.
 
 ### Phase 3 (KB integration)
 
