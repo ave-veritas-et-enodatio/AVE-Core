@@ -23,4 +23,6 @@ The relationship $Q = \ell$ is the macroscopic gravitational-scale manifestation
 
 The physical mechanism is the same at both scales: each additional topological winding adds one unit of confinement. At the particle scale, the phase must wind through $c$ crossings, partitioning the coupling energy equally among them (`faddeev_skyrme.solve_scalar_trace`). At the gravitational scale, $\ell$ wavelengths fit around the cavity, each releasing $\sim 1/\ell$ of the mode energy per cycle via curvature radiation.
 
+> → Primary: [Op21 Multi-Mode Mode-Counting at the $\Gamma = -1$ Saturation/TIR Boundary](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op21-multi-mode-mode-counting.md) — substrate-foundational Op21 form (Phase 3-A4, 2026-05-27): $Q = \ell$ per Nyquist-cell-resolved confined mode at substrate $\Gamma = -1$ saturation boundary is the cross-scale-canonical substrate mechanism this knot-mode isomorphism instantiates at both particle scale (crossing number $c$) and gravitational scale (mode number $\ell$). Same per-cycle leak fraction $1/\ell$ at both substrate scales — substrate-mechanism content of "each additional topological winding adds one unit of confinement" is the substrate Nyquist-cell-count = mode-count = dimensionless geometric measure identity.
+
 ---
