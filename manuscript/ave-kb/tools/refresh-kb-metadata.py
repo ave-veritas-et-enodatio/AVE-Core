@@ -739,7 +739,11 @@ def main(argv: list[str] | None = None) -> int:
     # Phase 2: emit derived JSONL index files. The frontmatter writes above
     # are already on disk, so discover_kb here picks up the just-written
     # subtree-claims values when materializing subtree-aggregates.jsonl.
-    written, unchanged = _emit_jsonl_indexes()
+    try:
+        written, unchanged = _emit_jsonl_indexes()
+    except kb_index_lib.FrameworkNodeParseError as exc:
+        print(f"\nFAIL: {exc}", file=sys.stderr)
+        return 1
     print(
         f"[refresh-index] Wrote {written} file(s) under "
         f"{INDEX_DIR.as_posix()}/ ({unchanged} unchanged)."
