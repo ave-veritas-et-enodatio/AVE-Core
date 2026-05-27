@@ -1,6 +1,6 @@
 # Epic STUB: Ax 4 Saturation Amplitude-Shape Signature at Narrow Boundary Apertures
 
-**Status**: STUB — substrate-native reframe of the prior `nanoscale-clt-failure-forward-prediction.md` framing (2026-05-26 rename). Pre-prereg framing only; awaiting Grant adjudication on Q-AX4-NA-1 + Q-AX4-NA-2 before scoping.
+**Status**: **Q-AX4-NA-1 ADJUDICATED GO 2026-05-26** (Grant greenlight after substrate-mechanical analysis surfaced the κ₃ = 0 even-kernel symmetry refinement). Q-AX4-NA-2 + Q-AX4-NA-3 still pending Grant adjudication (the V/A_c pumping question — how do real boundary-extraction architectures actually reach substrate-saturation operating amplitude — is the open intuition gap surfaced by my dimensional check that V_RMS/A_c ≈ 2×10⁻⁹ at standard lab conditions vs ~0.1 required for Ax 4 effects). Phase 0c sub-epic scoped below.
 **Origin**: surfaced as a candidate forward-prediction during Phase 2-A.4 (uniqueness of quadratic-in-amplitude boundary-Joule extraction rate scaling) on 2026-05-26. The central-aggregation step across N independent boundary lattice sites was load-bearing for the assumption that aperture-aggregate substrate amplitude statistics follow the quadratic-Lagrangian shape; at narrow apertures (small N) with Ax 4 saturation active at each site, the per-site substrate-pinned amplitude-shape survives the aggregation and propagates to a substrate-distinct correction to the aperture-aggregate boundary-Joule extraction rate.
 **Lineage**: parked from PR #38 merge follow-up planning queue (one of 3 forward-prediction candidate downstream-epic seeds)
 **Reframe history (2026-05-26)**: prior version was framed as "nanoscale CLT failure" using standard-physics vocabulary (Born rule, Gaussian noise, FDT, CLT, photodetector) as primary load-bearing prose. Grant intervention triggered `ave-discipline-translate` v1.1 trigger 6 (prose-vocabulary-substitution check). Rewritten in substrate-native vocabulary; the AVE-distinct piece is the Ax 4 saturation-induced per-site amplitude-shape, NOT the small-N aggregation step (which is substrate-agnostic statistics).
@@ -18,9 +18,13 @@ Across the boundary aperture, the aperture-aggregate amplitude is the sum of N i
 In the substrate-saturation regime at a narrow boundary aperture, the aperture-aggregate boundary-Joule extraction rate carries a substrate-pinned correction to pure quadratic-in-signal-amplitude scaling. The correction is the product of two factors:
 
 - **Ax 4 saturation depth at each boundary site** — substrate-distinct: scales as (V_n / A_c)² to leading order. Set by how close the substrate amplitude at each boundary site is operating to the Ax 4 constitutive limit.
-- **Aperture-incompleteness factor** — substrate-agnostic: scales as 1/√N for the leading irreducible third-order shape correction, 1/N for the fourth-order. Set by how few independent substrate lattice sites the aperture spans.
+- **Aperture-incompleteness factor** — substrate-agnostic: scales as 1/N for the fourth-order irreducible amplitude correlator (the dominant surviving content per substrate-mechanical symmetry analysis — see below). Set by how few independent substrate lattice sites the aperture spans.
 
-The product (V/A_c)² × 1/√N (leading) carries the substrate-pinned content via the first factor; the second factor is a visibility filter (any framework with N independent boundary contributions would predict the same 1/√N suppression).
+**Substrate-mechanical refinement (2026-05-26 from Q-AX4-NA-1 adjudication)**: the Ax 4 saturation kernel $S(A) = \sqrt{1-(A/A_c)^2}$ is even in amplitude — $S(V) = S(-V)$. The substrate-mechanics is invariant under amplitude-sign reversal at a single boundary lattice site. Therefore the per-site amplitude-shape function $P(V)$ is also even by reflection symmetry. **All odd-order substrate-pinned irreducible amplitude correlators vanish identically**: $\kappa_3 = \kappa_5 = \ldots = 0$ exact (the standard community calls $\kappa_3$ the "skewness").
+
+This means the prior epic-brief framing ("scales as 1/√N for the leading irreducible third-order shape correction; 1/N for the fourth-order") was wrong in the substrate-mechanical specifics. The third-order content is identically zero by Ax 4 even-kernel symmetry; only the fourth-order correlator survives. Slower aperture-aggregate scaling (1/N instead of 1/√N), but cleanly substrate-pinned and harder to wash out via statistical aggregation than the prior framing suggested. The aperture-aggregate observable signature is **kurtosis excess** scaling as $(\sigma_V / A_c)^2 / N$ at leading order — measurable in histogram-fourth-moment statistics, NOT in third-moment skewness.
+
+The product (V/A_c)² × 1/N (leading kurtosis correction) carries the substrate-pinned content via the first factor; the second factor is a visibility filter (any framework with N independent boundary contributions would predict the same 1/N suppression).
 
 ## What standard physics says
 
@@ -50,6 +54,14 @@ Even if Q-AX4-NA-1 closes cleanly, the prediction requires both substrate condit
 **Question**: are there boundary-extraction architectures in lab use that hit both regimes simultaneously? Substrate-architecturally: narrow-aperture single-event histogram-statistics extractors operating in the threshold-triggered saturation regime. The standard-physics-community lists single-photon avalanche detectors + transition-edge sensors + superconducting nanowire single-photon detectors as the candidates; whether any of these substrate-architecturally span few-enough independent lattice sites in the saturation regime is a literature + corpus survey question.
 
 **Adjudication needed**: your read on whether the (substrate-saturation × narrow-aperture) operating regime is achievable in any existing boundary-extraction architecture, or whether the prediction is structurally inaccessible to current experimental geometry. If structurally inaccessible, this is still a Class 2 substrate-emergence prediction (Q-AX4-NA-1 result determines that), but its empirical falsifiability gates on future detector technology.
+
+**V/A_c pumping sub-question (raised 2026-05-26 by dimensional check)**: at standard lab conditions (300 K substrate temperature, $Z_{det}$ ≈ 377 Ω, 1 GHz bandwidth) the substrate-thermal amplitude excitation gives $V_{RMS}$ ≈ 80 μV. With $A_c = V_{yield}$ ≈ 43.65 kV per INVARIANT-C1, $V_{RMS} / A_c$ ≈ $2 \times 10^{-9}$ — substrate is operating extremely far from saturation onset at standard conditions. For Ax 4 to produce order-unity per-site amplitude-shape modification, V at the boundary site must reach ~$10^{-1}$ of $A_c$ ≈ 4 kV — 9 orders of magnitude above ambient substrate-thermal alone. Four candidate substrate-mechanical mechanisms by which real boundary-extraction architectures might pump V up to the operating regime (none currently corpus-canonical; require Grant intuition):
+1. **Reverse-bias DC pre-loading**: strong DC electric field at a junction pre-loads local substrate operating point to a finite fraction of $A_c$; substrate-thermal + signal fluctuations happen on top of DC offset
+2. **Geometric concentration**: substrate amplitude in the avalanche-multiplication region is focused to small volume → high local amplitude density even if total energy modest
+3. **Phase-coherent buildup**: substrate-mode energy from cascading carriers in the avalanche builds coherently at the boundary, raising effective amplitude beyond single-quantum energy alone
+4. **Cosserat-rotational DOF channel**: $A_c$ may differ along Cosserat micro-rotational axes vs translational axes; some architectures (spin-polarized, magnetically sensitive) couple to Cosserat sector more strongly, where saturation onset is lower
+
+Q-AX4-NA-2 closure depends on Grant's adjudication on which (or which combination) of these mechanisms is the right substrate-mechanical translation of "reverse-bias near breakdown" / "avalanche multiplication" / "Geiger mode" in standard-physics device-construction vocabulary.
 
 ### Q-AX4-NA-3 (sub-question to Q-AX4-NA-2) — substrate correlation length
 
@@ -91,16 +103,16 @@ Required pulls before pre-reg:
 - Vol 3 Ch 11 substrate-thermal-amplitude / boundary-impedance scaffold leaf — canonical home of the substrate-amplitude / boundary-impedance equilibrium relation in AVE-Core
 - Ax 4 saturation kernel canonical leaf (likely `axiom-definitions.md` line 34 per `ave-discipline-translate` skill reference)
 
-## Phase plan (TENTATIVE — locked only after Q-AX4-NA-1 + Q-AX4-NA-2 adjudication)
+## Phase plan (Q-AX4-NA-1 closed GO; Q-AX4-NA-2 + Q-AX4-NA-3 pending)
 
 | Phase | Goal | Status |
 |---|---|---|
-| 0a | Adjudicate Q-AX4-NA-1 (Ax 4 chain to per-site amplitude-shape derivable from canonical primitives) | **PENDING — needs Grant** |
-| 0b | Adjudicate Q-AX4-NA-2 (boundary-extraction architecture × substrate-correlation-length realizes the regime) | **PENDING — needs Grant** |
-| 0c | Pre-reg writing (only after 0a + 0b both PASS) | DEFERRED |
-| 1 | Derive κ₃(V_n, A_c) and κ₄(V_n, A_c) — leading irreducible third-order and fourth-order substrate amplitude correlators from single-site nonlinear-substrate dynamics | DEFERRED |
-| 2 | Compute aperture-aggregate amplitude-shape signature as function of (V/A_c, N); identify the substrate-saturation × narrow-aperture operating threshold for visible signature | DEFERRED |
-| 3 | KB integration if Class 2 substrate-mechanism emergence confirmed; reframe scope honestly if derivation closure is partial | DEFERRED |
+| 0a | Adjudicate Q-AX4-NA-1 (Ax 4 chain to per-site amplitude-shape derivable from canonical primitives) | **✓ CLOSED 2026-05-26 — GO** with refined plan: chain is Class 2 substrate-mechanism emergence end-to-end with a well-defined derivation gap at single-site Ax-4-modified substrate-amplitude evolution. Substrate-mechanical analysis surfaced κ₃ = 0 by even-kernel symmetry (kurtosis-only prediction, not skewness+kurtosis). |
+| 0b | Adjudicate Q-AX4-NA-2 (boundary-extraction architecture × V/A_c pumping mechanism) + Q-AX4-NA-3 (substrate correlation length) | **PENDING — needs Grant** (V/A_c pumping question is the live open intuition gap; 4 candidate mechanisms enumerated above; Grant power-electronics intuition needed to discriminate) |
+| **0c** | **Phase 0c sub-epic** (committed per Q-AX4-NA-1 GO): derive per-site substrate-amplitude steady-state shape function $P(V)$ under Ax-4-modified single-site bond-LC dynamics. Substrate-amplitude probability-density evolution treatment with saturating effective capacitance $C_{eff}(V) = C_0/S(V/A_c)$. Output: closed-form $P(V)$ at moderate $V/A_c$ + the substrate-mechanical mechanism by which the even-kernel symmetry produces $\kappa_3 = 0$ exact + the leading $\kappa_4$ form as function of $V/A_c$ | **READY TO SCOPE** (~1-2 implementor sessions; well-defined substrate-mechanical sub-problem; not gated on Q-AX4-NA-2 because the derivation is independent of experimental accessibility) |
+| 1 | Derive $\kappa_4(V_n, A_c)$ explicitly from Phase 0c $P(V)$ — leading irreducible fourth-order substrate amplitude correlator as function of substrate operating state | DEFERRED until Phase 0c lands |
+| 2 | Compute aperture-aggregate kurtosis-excess signature as function of (V/A_c, N); identify the substrate-saturation × narrow-aperture operating threshold for visible signature (gated on Q-AX4-NA-2 + Q-AX4-NA-3 closure for the substrate-architecture mapping) | DEFERRED |
+| 3 | KB integration if Class 2 substrate-mechanism emergence confirmed at Phase 2; reframe scope honestly if derivation closure is partial | DEFERRED |
 | 4 | Add to divergence-test substrate map as a new forward-prediction row (if Phase 3 lands clean) | DEFERRED |
 
 ## If both Q-AX4-NA-1 and Q-AX4-NA-2 land as GO
