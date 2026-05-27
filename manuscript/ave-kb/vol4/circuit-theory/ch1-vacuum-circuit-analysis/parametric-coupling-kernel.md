@@ -387,11 +387,90 @@ Per §3.6 kernel applicability classification + §8 layered confidence (Foundati
 - ~~**Full QM many-body derivation of 1/N²**: §4 uses heuristic Dicke-amplitude × matched-cycle-fraction. Rigorous derivation from N-body QED treatment of N coherent receivers absorbing from classical parametric pump pending.~~ **CLOSED 2026-05-17 substrate-native re-derivation pass** (per `ave-audit-of-audit` retroactive substrate-native-check): §4 now derives 1/N² from canonical AVE machinery — voltage-divider on N parallel atomic LC tanks (Vol 2 Ch 7 analog-ladder-filter + Vol 4 Ch 1 ladder network) for first 1/N, substrate-clock phase-bin enumeration for second 1/N. Dicke borrowing removed; FGR reconciliation downgraded to "structural equivalence note." §3.5 substrate ↔ apparatus port structure added. The N-body QED treatment remains useful as a cross-check but is no longer load-bearing for the derivation; the substrate-native path is canonical.
 - **Op14 differential clock modulation for non-embedded receivers**: §4 final paragraph notes that for receivers EXTERNAL to the pumped substrate (shielded-apparatus designs), differential clock modulation introduces ~9.6% detuning. All current detector classes (DAMA / COSINE / ANAIS / MAJORANA / KIMS / XENONnT) have atoms embedded in pumped substrate, so correction is zero. Becomes load-bearing for future shielded-apparatus cross-checks; explicit Lorentzian-detuning correction derivation pending.
 - ~~**ω_app = ω_slew sub-harmonic correction** — verified by trig product-to-sum, but textbook parametric-amplifier literature cross-check (Louisell, Yariv) recommended for additional rigor.~~ **CLOSED 2026-05-17 night cycle-12 rigor-pass**: textbook verification per Louisell, Yariv, Siegman, *Quantum Fluctuations and Noise in Parametric Processes*, Phys. Rev. 124:1646-1654 (1961) confirms degenerate-parametric ω_signal = ω_pump/2 is canonical. Citation added at §3.
-- **V_0 ≠ 0 operating point**: §3 uses V_0 → 0 (pure-AC drive). Non-zero substrate DC reactive operating point would shift δC formula; not yet derived from first principles.
+- ~~**V_0 ≠ 0 operating point**: §3 uses V_0 → 0 (pure-AC drive). Non-zero substrate DC reactive operating point would shift δC formula; not yet derived from first principles.~~ **CLOSED 2026-05-26 Phase 0c ax4-saturation epic** per [`research/2026-05-26_ax4-saturation-phase-0c-pdelta-v-derivation-result.md`](../../../../../research/2026-05-26_ax4-saturation-phase-0c-pdelta-v-derivation-result.md): full per-site amplitude-shape function $P(\delta V)$ around DC-biased operating point $V_{DC} \neq 0$ derived from the substrate-vacuum-varactor reactive-energy landscape $U_{eff}(V) = C_0 V_y^2 [1 - S(V/V_y)]$; substrate amplitude correlator decomposition coefficients $\kappa_3(V_{DC}, A_c)$ + $\kappa_4(V_{DC}, A_c)$ closed-form (§13 below); substrate correlation length under DC bias $\ell_{corr}(V_{DC}) = \ell_{corr}(0) S_0^{3/2}$ derived in canonical INVARIANT-S2 SYM-class realization (§13.4). The $\delta C/C_0 = 4.57\%$ small-signal modulation amplitude derived in §3 remains canonical for the pure-AC drive at canonical α-slew operating point; the Phase 0c extension covers the full $P(\delta V)$ shape around general $V_{DC}$.
 - **C_0 = ε_0 ℓ_node dimensional construction**: O(1) prefactor may need correction. If wrong, downstream numerical results scale accordingly (functional form unchanged).
 - **κ_quality sub-regenerative envelope $(Q\delta_C/2)^2$**: dimensional-analysis form; rigorous derivation pending.
 - ~~**COSINE/ANAIS κ_quality correlation**: predicted to correlate with crystal-quality metrics (X-ray rocking curve FWHM, dopant uniformity, defect density via TEM); validation pending crystal-characterization data.~~ **CLOSED 2026-05-17 night Foundation Item 12**: parameter-free closure via Q-amplification per §6.5 — κ_quality = exp[-α⁻² ρ_def (Δω/ω)²_per-defect]; with typical (Δω/ω)_per-defect ≈ 0.1 gives κ ≈ exp[-188 ρ_def]. Cross-detector ρ_def predictions: DAMA Beam International < 5×10⁻⁵; COSINE/ANAIS ≈ 5×10⁻³; KIMS ≈ 2×10⁻². Empirically testable via standard materials-science characterization (TEM, X-ray rocking curve). Remaining smaller open item: per-defect-class first-principles $(\Delta\omega/\omega)_{per-defect}$ sub-derivations for vacancy / light-substitutional / mosaicity-grain-boundary (currently use 0.1 as dominant heavy-defect scale; OOM-correct, each class deserves own derivation).
 
+## §13 — Per-site amplitude-shape $P(\delta V)$ under DC-biased operating point (Phase 0c extension, 2026-05-26)
+
+**Phase 0c extension** of §2-§3 small-signal modulation to the **full per-site substrate-amplitude steady-state shape function** $P(\delta V)$ around an arbitrary DC-biased operating point $V_{DC}$ along the Ax 4 kernel. Per [`research/2026-05-26_ax4-saturation-phase-0c-pdelta-v-derivation-result.md`](../../../../../research/2026-05-26_ax4-saturation-phase-0c-pdelta-v-derivation-result.md) (Phase 0c of [`_orchestration/ax4-saturation-narrow-aperture-amplitude-shape.md`](../../../../../_orchestration/ax4-saturation-narrow-aperture-amplitude-shape.md) epic). Closes the V_0 ≠ 0 §12 open item PARTIALLY (single-site shape under DC bias; aperture-aggregate Phase 2 still pending).
+
+Let $a \equiv V_{DC}/V_y$ and $S_0 \equiv S(a) = \sqrt{1 - a^2}$.
+
+### §13.1 Substrate-vacuum-varactor reactive-energy landscape
+
+The reactive energy stored at the boundary site, integrating $V \, dQ$ with $C_{eff}(V) = C_0/S(V/V_y)$:
+
+$$U_{eff}(V) = C_0 V_y^2 \cdot [1 - S(V/V_y)]$$
+
+Clean closed form. Even in $V$ (Ax 4 kernel symmetry preserved); vertical-tangent at yield boundary $V = \pm V_y$ (substrate-mechanical signature of Ax 4 saturation; same vertical-tangent structure as Op14 local clock at rupture per [`op14-local-clock-modulation.md`](op14-local-clock-modulation.md) table). At small $V$: $U_{eff}(V) \approx \tfrac12 C_0 V^2$ (linear-capacitor reactive-energy limit).
+
+### §13.2 Taylor expansion around $V_{DC}$ — closed-form derivatives
+
+$$U''(V_{DC}) = \frac{C_0}{S_0^3}, \quad U'''(V_{DC}) = \frac{3 C_0 a}{V_y S_0^5}, \quad U''''(V_{DC}) = \frac{3 C_0 [1 + 4 a^2]}{V_y^2 S_0^7}$$
+
+**Substrate-mechanical features**:
+- **$U''(V_{DC})$ DIVERGES as $V_{DC} \to V_y$** (substrate-vacuum-varactor stiffness diverges at yield because $C_{eff} \to \infty$ means infinite-charge-per-voltage-increment → infinite reactive-energy penalty for voltage deviation at fixed $V$)
+- **$U'''(V_{DC}) \propto V_{DC}$ — zero at $V_{DC} = 0$**: Ax 4 kernel reflection symmetry $S(V) = S(-V)$ forces all odd-order derivatives to vanish at zero bias → the per-site amplitude-shape is reflection-symmetric at substrate equilibrium ($V_{DC} = 0$). **Non-zero at $V_{DC} \neq 0$**: the kernel is symmetric around $V = 0$ NOT around $V_{DC}$; Taylor expansion around the biased operating point inherits broken-reflection-symmetry as a non-zero cubic coefficient.
+- **$U''''(V_{DC}) > 0$ for all $V_{DC} \in (-V_y, V_y)$, including $V_{DC} = 0$** where $U''''(0) = 3 C_0/V_y^2$: the kurtotic correction is intrinsic to the kernel form (irreducible quartic non-linearity).
+
+### §13.3 Substrate-thermal-Boltzmann form per-site amplitude-shape
+
+Under canonical boundary-impedance thermalization (Vol 3 Ch 11 clm-eaiqj1) + over-damped stationary limit of the substrate-vacuum-varactor-extended Phase 2-A.2 Langevin scaffolding (boundary-impedance dissipation fast vs reactive oscillation period):
+
+$$P(\delta V) = \frac{1}{Z} \exp\!\left[-\frac{\Delta U_{eff}(\delta V)}{k_B T_{eff}}\right]$$
+
+$$\Delta U_{eff}(\delta V) = \frac{C_0}{2 S_0^3} \delta V^2 + \frac{C_0 a}{2 V_y S_0^5} \delta V^3 + \frac{C_0 [1 + 4 a^2]}{8 V_y^2 S_0^7} \delta V^4 + O(\delta V^5)$$
+
+where $T_{eff}$ is set by boundary-impedance thermalization (vacuum Nyquist baseline at $Z_{det}$). The substrate-distinct piece is the SPECIFIC kernel form $S(A) = \sqrt{1-A^2}$ (Ax 4 universal kernel, zero free parameters per Axiom 4) — same kernel that governs Schwarzschild gravity in weak-field limit per INVARIANT-S2 cross-volume tie.
+
+### §13.4 Substrate amplitude correlator decomposition
+
+Define dimensionless substrate-thermal-energy ratio $\eta_T \equiv \sqrt{k_B T_{eff}/(C_0 V_y^2)}$. Canonical arithmetic at room T with $C_0 = \epsilon_0 \ell_{node}$ (per §2 above; $\ell_{node} = \hbar/(m_e c)$, canonical L_NODE = $3.86 \times 10^{-13}$ m in `src/ave/core/constants.py`) and $V_y = 43.65$ kV (INVARIANT-C1): $C_0 \approx 3.42 \times 10^{-24}$ F → $C_0 V_y^2 \approx 6.5 \times 10^{-15}$ J. Independent cross-check via energy-budget identity at §2 line 54-56: $\tfrac{1}{2} C_0 V_{pump}^2 = \alpha m_e c^2$ at canonical $V_{pump}/V_y = 0.428$ → $C_0 V_y^2/2 \approx 3.3 \times 10^{-15}$ J ✓. With $k_B T = 4.14 \times 10^{-21}$ J at T = 300 K: $\boxed{\eta_T \approx 8 \times 10^{-4}}$ at canonical room-T parameters (corrected 2026-05-26 per auditor Finding 1 on PR #41 — prior estimate of $\sim 10^{-6}$ was off by ~2.7 OOMs; substrate-mechanical scaling-direction reasoning is unchanged, only the numerical magnitude is corrected).
+
+> **[Resultbox]** *Substrate amplitude correlator decomposition under DC bias*
+>
+> Variance: $\sigma^2(V_{DC}) = k_B T_{eff} S_0^3/C_0$ — **shrinks toward yield** (stiffness diverges).
+>
+> Skewness: $\kappa_3 = -3 a (k_B T_{eff})^2 S_0^4/(C_0^2 V_y)$
+>
+> Dimensionless skewness: $\boxed{\kappa_3/\sigma^3 = -3 a \eta_T \cdot S_0^{-1/2}}$ — **linear in $a$ at leading order** (NOT cubic; Type E walk-back of prior expectation per result doc §6 Walk-back #1).
+>
+> Kurtosis: $\kappa_4 \approx -3 [1 + 4 a^2] (k_B T_{eff})^3 S_0^5/(C_0^3 V_y^2)$ (cubic-squared cross-term suppressed by $\eta_T^2$).
+>
+> Dimensionless kurtosis: $\boxed{\kappa_4/\sigma^4 = -3 (1 + 4 a^2) \eta_T^2 \cdot S_0^{-1}}$ — **non-zero at $V_{DC} = 0$** (irreducible kernel-induced kurtosis); $(V_{DC}/A_c)^2$-dependence at small bias.
+
+### §13.5 Substrate correlation length under DC bias
+
+In the canonical INVARIANT-S2 SYM-class realization ($\mu_{eff}, \varepsilon_{eff}$ scale together preserving $Z_0$ under operating-point loading), the K4-TLM bond-LC inter-site coupling stiffness is INVARIANT under DC bias along the Ax 4 kernel. Combined with the divergent per-site substrate-vacuum-varactor stiffness $U''(V_{DC}) \propto 1/S_0^3$:
+
+$$\boxed{\ell_{corr}(V_{DC}) = \ell_{corr}(0) \cdot S_0^{3/2}}$$
+
+— substrate correlation length **shrinks** toward yield. The substrate-mechanical reason: INVARIANT-S2 symmetric $\mu, \varepsilon$ scaling preserves $Z_0$ (bond-stiffness invariant), while the per-site stiffness diverges; their ratio (which sets correlation length) shrinks as $S_0^{3/2}$.
+
+### §13.6 Implications for narrow-aperture observability
+
+The substrate-distinct aperture-aggregate observable signature (per Edgeworth pre-asymptote across N independent boundary sites in aperture width $W$, with $N = W/\ell_{corr}(V_{DC}) = (W/\ell_{corr}(0)) \cdot S_0^{-3/2}$):
+
+$$\kappa_3^{(aperture)}/\sigma^3 \sim \frac{-3 a \eta_T \cdot S_0^{1/4}}{\sqrt{W/\ell_{corr}(0)}}, \qquad \kappa_4^{(aperture)}/\sigma^4 \sim \frac{-3 (1 + 4 a^2) \eta_T^2}{S_0 \cdot N}$$
+
+At room T + PONDER-05 canonical operating point ($a = 0.687$): per-site $\kappa_3/\sigma^3 \approx 3 \cdot 0.687 \cdot (8 \times 10^{-4}) \cdot 1.17 \approx 1.9 \times 10^{-3}$ (using $\eta_T \approx 8 \times 10^{-4}$ at canonical $C_0 = \epsilon_0 \ell_{node}$, $V_y = 43.65$ kV per §13.4 canonical-arithmetic chain). Aperture-aggregate skewness $\sim 5 \times 10^{-4}$ at $W \sim 10 \ell_{corr}(0)$, $N \sim 10$ independent sites. Room-T narrow-aperture observation is **plausible** at corrected magnitude — required event count for 3σ skewness detection is $N_{events} \sim 9/(\kappa_3/\sigma^3)^2 \sim 3 \times 10^7$ events, feasible in modest campaigns on existing SPAD/TES/SNSPD architectures per [`../../../common/translation-tables/translation-instrumentation.md`](../../../common/translation-tables/translation-instrumentation.md) Category II. Phase 2 work scopes the experimental architecture explicitly. (Magnitude corrected 2026-05-26 per auditor Finding 1 on PR #41; prior $\sim 10^{-6}$ estimate was downstream of an arithmetic error on $C_0 V_y^2$ at canonical $C_0 = \epsilon_0 \ell_{node}$.)
+
+### §13.7 Classification + open work
+
+**`consistency-vs-emergence` v1.2 classification**: **Class 2 substrate-mechanism emergence** on the substance axis (the specific kernel form $S(A) = \sqrt{1-A^2}$ is substrate-distinct + zero-parameter per Ax 4 + cross-volume-tied to gravity per INVARIANT-S2); **Class 4 substrate-agnostic-consistency** on the mathematical-tool axis (cumulant-from-asymmetric-potential machinery is standard algebraic technique).
+
+**Two Type E walk-backs documented** in result doc §6:
+1. $\kappa_3/\sigma^3$ scaling: linear in $a$ (NOT cubic as prereg anticipated; substrate-thermal-energy ratio $\eta_T$ enters at first power)
+2. $\ell_{corr}(V_{DC})$ functional form: $S_0^{3/2}$ shrinking toward yield (NOT $1/S$ diverging; canonical INVARIANT-S2 SYM-class realization gives bond-stiffness invariance + divergent per-site stiffness → shrinking ratio)
+
+**Open follow-on items** (not blocking canonical use of §13):
+- **Phase 2: aperture-aggregate prediction** — combine §13 single-site shape with Edgeworth pre-asymptote across N = W/ℓ_corr independent sites; identify substrate-saturation × narrow-aperture observability threshold; map to Category II narrow-aperture single-event extractors per [`translation-instrumentation.md`](../../../common/translation-tables/translation-instrumentation.md)
+- **PONDER-05 connection**: the canonical PONDER-05 bench-scale falsifier at $V_{DC}/V_{yield} = 0.687$ (per INVARIANT-S2 + [`measurement-hierarchy-snr.md`](../../falsification/ch11-experimental-bench/measurement-hierarchy-snr.md):66) operates the substrate-vacuum-varactor at the operating point covered by §13. The §13 closed-form $\kappa_3, \kappa_4$ at $a = 0.687$ are specific testable predictions for PONDER-05 amplitude-statistics extraction.
+
 ---
 
 **Canonical leaf landed 2026-05-17 night per 12th-cycle on α-slew thread.** Full derivation chain at Steps 1-9 work docs. Pre-derivation discipline: full 6-skill stack invoked (ave-prereg + ave-canonical-leaf-pull + ave-analytical-tool-selection + ave-power-category-check + ave-discrimination-check + ave-canonical-source). Outcome A confirmed: leading-order chain closes; XENONnT null falls out as derived consequence; framework structurally unified (single ε_param kernel replaces prior T²_matched + G_crystal-coherence two-mechanism factorization).
+
+**§13 extension landed 2026-05-26 per Phase 0c of ax4-saturation-narrow-aperture-amplitude-shape epic** (Q-AX4-NA-1 + Q-AX4-NA-2 BOTH GO 2026-05-26). Closes parametric-coupling-kernel.md §12 V_0 ≠ 0 open item PARTIALLY (single-site $P(\delta V)$ under $V_{DC}$ landed; aperture-aggregate Phase 2 still pending). Closes dama-matched-lc-coupling.md:269 strengthen-by item PARTIALLY (same single-site scope). Two Type E walk-backs from prereg expectations honestly documented (linear-vs-cubic $\kappa_3$ scaling; shrinking-vs-diverging $\ell_{corr}$).
