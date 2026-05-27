@@ -360,6 +360,22 @@ def parse_frontmatter(text: str) -> dict | None:
 # ---------------------------------------------------------------------------
 
 
+class FrameworkNodeParseError(ValueError):
+    """Edges reference framework nodes (axiom-N / INVARIANT-*) that did not
+    parse out of ``CLAUDE.md``.
+
+    Raised by :func:`build_all_records` when the assembled depends-on edges
+    target framework nodes that are absent from the rebuilt ``claims.jsonl``
+    node set. The usual cause is a transient ``CLAUDE.md`` state where the
+    INVARIANT-S2 axiom bullets or ``### INVARIANT-*`` headings don't match the
+    parser (e.g. indented, reflowed, or carrying merge-conflict markers mid
+    hand-merge): :func:`parse_framework_nodes` then silently yields fewer
+    framework nodes, and a naive write would emit an index whose edges dangle.
+    Failing loudly here prevents the silent drop (the downstream symptom is a
+    flood of cryptic referential-integrity orphans in ``make verify-kb-metadata``).
+    """
+
+
 def parse_framework_nodes(kb_root: Path = KB_ROOT_DEFAULT) -> list[FrameworkNode]:
     """Parse invariant and axiom nodes from ``manuscript/ave-kb/CLAUDE.md``.
 
@@ -2342,11 +2358,56 @@ def build_subtree_aggregate_records(state: KbState) -> list[dict]:
     return rows
 
 
+def _assert_framework_node_coverage(
+    claims_records: list[dict], depends_on_records: list[dict]
+) -> None:
+    """Fail loudly if any depends-on edge targets a framework node that is not
+    present in the rebuilt claims records.
+
+    Guards the silent-drop failure mode: if ``parse_framework_nodes`` yields
+    fewer axiom/invariant nodes than the claim graph references (a malformed
+    ``CLAUDE.md`` state), the index would be written with dangling edges. We
+    catch it at build time with an actionable message instead.
+    """
+    present = {
+        r["id"] for r in claims_records if r["node_type"] in ("axiom", "invariant")
+    }
+    referenced = {
+        e["target"]
+        for e in depends_on_records
+        if e.get("target_kind") in ("axiom", "invariant")
+    }
+    missing = sorted(referenced - present)
+    if not missing:
+        return
+    n_axioms = sum(1 for r in claims_records if r["node_type"] == "axiom")
+    n_invariants = sum(1 for r in claims_records if r["node_type"] == "invariant")
+    raise FrameworkNodeParseError(
+        f"{len(missing)} depends-on edge target(s) reference framework nodes "
+        f"absent from the rebuilt index: {', '.join(missing)}.\n"
+        f"parse_framework_nodes() yielded {n_axioms} axiom + {n_invariants} "
+        f"invariant node(s) from manuscript/ave-kb/CLAUDE.md.\n"
+        f"This is the silent framework-node drop (issue #28): the CLAUDE.md "
+        f"INVARIANT-S2 axiom bullets and/or '### INVARIANT-*' headings did not "
+        f"parse. Axiom bullets must match '- Axiom N: **Title** — ...' at "
+        f"line start (no leading indent, no merge-conflict markers); invariants "
+        f"need '### INVARIANT-XNN: <title>' headings. Fix CLAUDE.md and re-run "
+        f"(refresh aborted before writing a dangling index)."
+    )
+
+
 def build_all_records(state: KbState) -> dict[str, list[dict]]:
-    """Return every JSONL file's records keyed by short file name."""
+    """Return every JSONL file's records keyed by short file name.
+
+    Raises :class:`FrameworkNodeParseError` if the assembled edges reference
+    framework nodes that did not parse from ``CLAUDE.md`` (issue #28 guard).
+    """
+    claims = build_claims_records(state)
+    depends_on = build_depends_on_records(state)
+    _assert_framework_node_coverage(claims, depends_on)
     return {
-        "claims": build_claims_records(state),
-        "depends-on": build_depends_on_records(state),
+        "claims": claims,
+        "depends-on": depends_on,
         "strengthen-by": build_strengthen_by_records(state),
         "supported-by": build_supported_by_records(state),
         "cites": build_cites_records(state),
@@ -2437,6 +2498,7 @@ __all__ = [
     "compute_support_solidity",
     "min_dependency_solidity",
     "SolidityCycleError",
+    "FrameworkNodeParseError",
     "build_claims_records",
     "build_depends_on_records",
     "build_strengthen_by_records",
