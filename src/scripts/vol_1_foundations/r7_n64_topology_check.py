@@ -214,7 +214,7 @@ def main():
         "localization_factor_vs_bulk": float(sf / (4 * np.pi**2 * R_TARGET * R_MINOR / N_LATTICE**3)),
         "verdict": verdict,
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"\n  Result: {OUTPUT_JSON}")
     return payload
 

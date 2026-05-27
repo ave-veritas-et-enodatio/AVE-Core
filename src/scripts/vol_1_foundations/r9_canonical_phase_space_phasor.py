@@ -14,6 +14,7 @@ Dual-criterion adjudication:
   C1 (load-bearing): median R_phase/r_phase across top-K bonds = φ² ± 5%
   C2 (load-bearing): chirality consensus ≥ 75% across top-K bonds
 """
+
 from __future__ import annotations
 
 import json
@@ -26,9 +27,9 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
 from tlm_electron_soliton_eigenmode import initialize_2_3_voltage_ansatz
 
+from ave.topological.vacuum_engine import VacuumEngine3D
 
 # ─── Constants per pred (matching Move 5 exactly for engine setup) ────────────
 
@@ -56,9 +57,9 @@ DT = 1.0 / np.sqrt(2.0)
 N_STEPS_TOTAL = int(N_PERIODS_TOTAL * COMPTON_PERIOD / DT) + 1
 
 # Phase-space sampling windows (NEW vs Move 5)
-PRE_EVOLVE_END_P = 40.0          # no sampling, just evolve through transient
-SELECTION_END_P = 50.0           # selection window: [40, 50] P
-RECORDING_END_P = 200.0          # recording window: [50, 200] P, 150 Compton periods
+PRE_EVOLVE_END_P = 40.0  # no sampling, just evolve through transient
+SELECTION_END_P = 50.0  # selection window: [40, 50] P
+RECORDING_END_P = 200.0  # recording window: [50, 200] P, 150 Compton periods
 
 PRE_EVOLVE_END_STEP = int(PRE_EVOLVE_END_P * COMPTON_PERIOD / DT)
 SELECTION_END_STEP = int(SELECTION_END_P * COMPTON_PERIOD / DT)
@@ -81,7 +82,9 @@ OUTPUT_JSON = Path(__file__).parent / "r9_canonical_phase_space_phasor_results.j
 
 def build_engine():
     return VacuumEngine3D.from_args(
-        N=N_LATTICE, pml=PML, temperature=0.0,
+        N=N_LATTICE,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -90,17 +93,22 @@ def build_engine():
 
 def seed_corpus_2_3_joint(engine):
     engine.cos.initialize_electron_2_3_sector(
-        R_target=R_ANCHOR, r_target=R_MINOR,
-        use_hedgehog=True, amplitude_scale=A26_AMP_SCALE,
+        R_target=R_ANCHOR,
+        r_target=R_MINOR,
+        use_hedgehog=True,
+        amplitude_scale=A26_AMP_SCALE,
     )
     initialize_2_3_voltage_ansatz(
-        engine.k4, R=R_ANCHOR, r=R_MINOR, amplitude=V_AMP_INIT,
+        engine.k4,
+        R=R_ANCHOR,
+        r=R_MINOR,
+        amplitude=V_AMP_INIT,
     )
 
 
 def make_interior_mask(nx, pml):
     mask = np.zeros((nx, nx, nx), dtype=bool)
-    mask[pml:nx - pml, pml:nx - pml, pml:nx - pml] = True
+    mask[pml : nx - pml, pml : nx - pml, pml : nx - pml] = True
     return mask
 
 
@@ -140,16 +148,17 @@ def main():
     print("=" * 78, flush=True)
     print(f"  Lattice: N={N_LATTICE}, PML={PML} (interior {N_LATTICE - 2*PML}^3)")
     print(f"  Corpus GT: R={R_ANCHOR}, r={R_MINOR:.4f} (R/φ²)")
-    print(f"  Seed: peak |ω|={GT_PEAK_OMEGA:.4f} (A26 scale {A26_AMP_SCALE:.4f}); "
-          f"V_amp={V_AMP_INIT}")
-    print(f"  Evolution: {N_PERIODS_TOTAL} Compton periods ({N_STEPS_TOTAL} steps "
-          f"at dt={DT:.4f})")
-    print(f"  Pre-evolve: t ∈ [0, {PRE_EVOLVE_END_P}] P "
-          f"(steps 0..{PRE_EVOLVE_END_STEP-1})")
-    print(f"  Selection: t ∈ [{PRE_EVOLVE_END_P}, {SELECTION_END_P}] P "
-          f"({N_SELECTION_STEPS} steps; accumulate |V_inc[port {SAMPLE_PORT}]|²)")
-    print(f"  Recording: t ∈ [{SELECTION_END_P}, {RECORDING_END_P}] P "
-          f"({N_RECORDING_STEPS} steps; capture V_inc, V_ref at top-{TOP_K_BONDS} bonds)")
+    print(f"  Seed: peak |ω|={GT_PEAK_OMEGA:.4f} (A26 scale {A26_AMP_SCALE:.4f}); " f"V_amp={V_AMP_INIT}")
+    print(f"  Evolution: {N_PERIODS_TOTAL} Compton periods ({N_STEPS_TOTAL} steps " f"at dt={DT:.4f})")
+    print(f"  Pre-evolve: t ∈ [0, {PRE_EVOLVE_END_P}] P " f"(steps 0..{PRE_EVOLVE_END_STEP-1})")
+    print(
+        f"  Selection: t ∈ [{PRE_EVOLVE_END_P}, {SELECTION_END_P}] P "
+        f"({N_SELECTION_STEPS} steps; accumulate |V_inc[port {SAMPLE_PORT}]|²)"
+    )
+    print(
+        f"  Recording: t ∈ [{SELECTION_END_P}, {RECORDING_END_P}] P "
+        f"({N_RECORDING_STEPS} steps; capture V_inc, V_ref at top-{TOP_K_BONDS} bonds)"
+    )
     print(f"  C1 (load-bearing): median R/r = φ²={PHI_SQ:.4f} ± {PHI_SQ_TOL:.0%}")
     print(f"  C2 (load-bearing): chirality consensus ≥ {CHIRALITY_CONSISTENCY_THRESHOLD:.0%}")
     print()
@@ -160,8 +169,7 @@ def main():
     omega_init = np.asarray(engine.cos.omega)
     omega_peak_init = float(np.linalg.norm(omega_init, axis=-1).max())
     assert A26_GUARD_LOW <= omega_peak_init <= A26_GUARD_HIGH, (
-        f"A26 guard FAILED: peak |ω|={omega_peak_init:.4f} not in "
-        f"[{A26_GUARD_LOW:.4f}, {A26_GUARD_HIGH:.4f}]"
+        f"A26 guard FAILED: peak |ω|={omega_peak_init:.4f} not in " f"[{A26_GUARD_LOW:.4f}, {A26_GUARD_HIGH:.4f}]"
     )
     print(f"  Initial peak |ω| = {omega_peak_init:.4f} (A26 guard OK)")
 
@@ -173,8 +181,7 @@ def main():
         engine.step()
         if (time.time() - last_progress) > 30.0:
             t_period = step * DT / COMPTON_PERIOD
-            print(f"    [progress] t={t_period:6.1f} P  step={step:5d}  "
-                  f"elapsed {time.time()-t0:.1f}s", flush=True)
+            print(f"    [progress] t={t_period:6.1f} P  step={step:5d}  " f"elapsed {time.time()-t0:.1f}s", flush=True)
             last_progress = time.time()
     print(f"    pre-evolve done at {time.time()-t0:.1f}s", flush=True)
 
@@ -189,8 +196,11 @@ def main():
         v_inc_sq_accum += v_inc[..., SAMPLE_PORT] ** 2
         if (time.time() - last_progress) > 30.0:
             t_period = (PRE_EVOLVE_END_STEP + i) * DT / COMPTON_PERIOD
-            print(f"    [progress] t={t_period:6.1f} P  step={PRE_EVOLVE_END_STEP+i:5d}  "
-                  f"elapsed {time.time()-t0:.1f}s", flush=True)
+            print(
+                f"    [progress] t={t_period:6.1f} P  step={PRE_EVOLVE_END_STEP+i:5d}  "
+                f"elapsed {time.time()-t0:.1f}s",
+                flush=True,
+            )
             last_progress = time.time()
 
     v_inc_mean_sq = v_inc_sq_accum / N_SELECTION_STEPS
@@ -203,14 +213,15 @@ def main():
     for idx in sorted_idx:
         ix, iy, iz = np.unravel_index(idx, v_inc_mean_sq_interior.shape)
         top_cells.append((int(ix), int(iy), int(iz)))
-        print(f"    Top-{len(top_cells)} cell: ({ix},{iy},{iz})  "
-              f"|V_inc[port {SAMPLE_PORT}]|²={v_inc_mean_sq_interior[ix,iy,iz]:.4e}",
-              flush=True)
+        print(
+            f"    Top-{len(top_cells)} cell: ({ix},{iy},{iz})  "
+            f"|V_inc[port {SAMPLE_PORT}]|²={v_inc_mean_sq_interior[ix,iy,iz]:.4e}",
+            flush=True,
+        )
     print(f"    selection done at {time.time()-t0:.1f}s", flush=True)
 
     # ─── Phase 3: recording window (per-step trajectory capture) ────────────────
-    print(f"  Recording window: capturing V_inc, V_ref at top-{TOP_K_BONDS} bonds...",
-          flush=True)
+    print(f"  Recording window: capturing V_inc, V_ref at top-{TOP_K_BONDS} bonds...", flush=True)
     v_inc_traj = np.zeros((N_RECORDING_STEPS, TOP_K_BONDS))
     v_ref_traj = np.zeros((N_RECORDING_STEPS, TOP_K_BONDS))
 
@@ -223,8 +234,11 @@ def main():
             v_ref_traj[i, k] = v_ref[ix, iy, iz, SAMPLE_PORT]
         if (time.time() - last_progress) > 30.0:
             t_period = (SELECTION_END_STEP + i) * DT / COMPTON_PERIOD
-            print(f"    [progress] t={t_period:6.1f} P  step={SELECTION_END_STEP+i:5d}  "
-                  f"elapsed {time.time()-t0:.1f}s", flush=True)
+            print(
+                f"    [progress] t={t_period:6.1f} P  step={SELECTION_END_STEP+i:5d}  "
+                f"elapsed {time.time()-t0:.1f}s",
+                flush=True,
+            )
             last_progress = time.time()
 
     elapsed_total = time.time() - t0
@@ -240,24 +254,27 @@ def main():
     for k in range(TOP_K_BONDS):
         R_phase, r_phase = fit_ellipse_pca(v_inc_traj[:, k], v_ref_traj[:, k])
         R_over_r = R_phase / max(r_phase, 1e-30)
-        cross_mean, cross_std, chirality_sign = chirality_direction(
-            v_inc_traj[:, k], v_ref_traj[:, k])
+        cross_mean, cross_std, chirality_sign = chirality_direction(v_inc_traj[:, k], v_ref_traj[:, k])
         chir_label = "CCW" if chirality_sign > 0 else "CW" if chirality_sign < 0 else "AMBIG"
-        bond_results.append({
-            "cell": list(top_cells[k]),
-            "port": SAMPLE_PORT,
-            "R_phase": R_phase,
-            "r_phase": r_phase,
-            "R_over_r": R_over_r,
-            "chirality_cross_mean": cross_mean,
-            "chirality_cross_std": cross_std,
-            "chirality_sign": chirality_sign,
-            "chirality_label": chir_label,
-        })
-        print(f"  Bond {k}: cell={top_cells[k]}  R/r={R_over_r:8.4f}  "
-              f"chirality={chir_label} (cross_mean={cross_mean:+.3e}, "
-              f"std/|mean|={cross_std/max(abs(cross_mean), 1e-30):.2f})",
-              flush=True)
+        bond_results.append(
+            {
+                "cell": list(top_cells[k]),
+                "port": SAMPLE_PORT,
+                "R_phase": R_phase,
+                "r_phase": r_phase,
+                "R_over_r": R_over_r,
+                "chirality_cross_mean": cross_mean,
+                "chirality_cross_std": cross_std,
+                "chirality_sign": chirality_sign,
+                "chirality_label": chir_label,
+            }
+        )
+        print(
+            f"  Bond {k}: cell={top_cells[k]}  R/r={R_over_r:8.4f}  "
+            f"chirality={chir_label} (cross_mean={cross_mean:+.3e}, "
+            f"std/|mean|={cross_std/max(abs(cross_mean), 1e-30):.2f})",
+            flush=True,
+        )
 
     # ─── Phase 5: dual-criterion adjudication ──────────────────────────────────
     R_over_r_values = [b["R_over_r"] for b in bond_results]
@@ -322,14 +339,17 @@ def main():
     print("=" * 78, flush=True)
     print("  Dual-criterion adjudication")
     print("=" * 78, flush=True)
-    print(f"  Median R_phase/r_phase = {median_R_over_r:.4f}  "
-          f"(target φ²={PHI_SQ:.4f} ± {PHI_SQ_TOL:.0%}) → C1 "
-          f"{'PASS' if c1_pass else 'FAIL'}")
-    print(f"  Chirality consensus = {consensus_fraction:.0%} ({consensus_direction})  "
-          f"(threshold {CHIRALITY_CONSISTENCY_THRESHOLD:.0%}) → C2 "
-          f"{'PASS' if c2_pass else 'FAIL'}")
-    print(f"  Persistence = {persistence:.0%}  (Move 5 attractor alive: "
-          f"{'YES' if persistence_ok else 'NO'})")
+    print(
+        f"  Median R_phase/r_phase = {median_R_over_r:.4f}  "
+        f"(target φ²={PHI_SQ:.4f} ± {PHI_SQ_TOL:.0%}) → C1 "
+        f"{'PASS' if c1_pass else 'FAIL'}"
+    )
+    print(
+        f"  Chirality consensus = {consensus_fraction:.0%} ({consensus_direction})  "
+        f"(threshold {CHIRALITY_CONSISTENCY_THRESHOLD:.0%}) → C2 "
+        f"{'PASS' if c2_pass else 'FAIL'}"
+    )
+    print(f"  Persistence = {persistence:.0%}  (Move 5 attractor alive: " f"{'YES' if persistence_ok else 'NO'})")
     print()
     print(f"  Mode: {mode}")
     print(f"  Verdict: {verdict}")
@@ -370,7 +390,7 @@ def main():
         "mode": mode,
         "verdict": verdict,
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"  Result: {OUTPUT_JSON}")
     return payload
 

@@ -28,6 +28,7 @@ References:
   - doc 70_ §7.6 (Round 7 Stage 2 candidate scope)
   - phase5_ansatz_seeded_nucleation.py (commit ede4008 — Beltrami baseline)
 """
+
 from __future__ import annotations
 
 import json
@@ -40,10 +41,12 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
 from ave.topological.vacuum_engine import (
-    AutoresonantCWSource, NodeResonanceObserver,
-    PairNucleationGate, RegimeClassifierObserver, VacuumEngine3D,
+    AutoresonantCWSource,
+    NodeResonanceObserver,
+    PairNucleationGate,
+    RegimeClassifierObserver,
+    VacuumEngine3D,
 )
-
 
 # ─── Pre-registered constants (frozen) ────────────────────────────────────────
 
@@ -53,16 +56,19 @@ A26_AMP_SCALE = 0.3 / (np.sqrt(3.0) / 2.0)
 GT_PEAK_OMEGA = 0.3 * np.pi  # ≈ 0.9425
 
 # R7.2 dual-criterion PASS (per pred body)
-PERSIST_FRAC_THRESH = 0.5     # peak |ω| ≥ 0.5·seed for ≥ 10 Compton periods
-PERSIST_PERIODS_REQ = 10      # at least 10 Compton periods post-drive
-TOPOLOGY_TARGET_C = 3         # (2,3) winding number preserved throughout
+PERSIST_FRAC_THRESH = 0.5  # peak |ω| ≥ 0.5·seed for ≥ 10 Compton periods
+PERSIST_PERIODS_REQ = 10  # at least 10 Compton periods post-drive
+TOPOLOGY_TARGET_C = 3  # (2,3) winding number preserved throughout
 
-PORT_VECTORS = np.array([
-    [+1, +1, +1],
-    [+1, -1, -1],
-    [-1, +1, -1],
-    [-1, -1, +1],
-], dtype=float)
+PORT_VECTORS = np.array(
+    [
+        [+1, +1, +1],
+        [+1, -1, -1],
+        [-1, +1, -1],
+        [-1, -1, +1],
+    ],
+    dtype=float,
+)
 
 OUTPUT_JSON = Path(__file__).parent / "phase5_topological_pair_injection_results.json"
 
@@ -95,8 +101,12 @@ def find_central_bond(engine):
 
 
 def seed_2_3_torus_knot_at_bond(
-    engine, A_idx, port, B_idx,
-    R_target=4.0, r_target=4.0/PHI_SQ,
+    engine,
+    A_idx,
+    port,
+    B_idx,
+    R_target=4.0,
+    r_target=4.0 / PHI_SQ,
 ):
     """Seed (2,3) torus-knot ansatz at BOTH endpoints A, B.
 
@@ -128,7 +138,7 @@ def seed_2_3_torus_knot_at_bond(
     phi_A = np.arctan2(y_A, x_A)
     psi_A = np.arctan2(z_A, rho_xy_A - R_target)
     envelope_A = A26_AMP_SCALE * (np.sqrt(3.0) / 2.0) * np.pi / (1.0 + (rho_tube_A / r_target) ** 2)
-    theta_A = 2.0 * phi_A + 3.0 * psi_A   # (2,3) winding
+    theta_A = 2.0 * phi_A + 3.0 * psi_A  # (2,3) winding
     omega_A = np.zeros((N, N, N, 3))
     omega_A[..., 0] = envelope_A * np.cos(theta_A)
     omega_A[..., 1] = envelope_A * np.sin(theta_A)
@@ -178,8 +188,13 @@ def measure_state(engine, A_idx, B_idx):
 
 
 def main(
-    N=24, pml=4, amplitude=0.5, wavelength=3.5,
-    t_ramp_periods=3.0, t_sustain_periods=15.0, t_post_drive_periods=15.0,
+    N=24,
+    pml=4,
+    amplitude=0.5,
+    wavelength=3.5,
+    t_ramp_periods=3.0,
+    t_sustain_periods=15.0,
+    t_post_drive_periods=15.0,
     record_cadence=2,
 ):
     print("=" * 78, flush=True)
@@ -205,7 +220,9 @@ def main(
     n_outer_steps = int(total_time * np.sqrt(2.0)) + 1
 
     engine = VacuumEngine3D.from_args(
-        N=N, pml=pml, temperature=0.0,
+        N=N,
+        pml=pml,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -232,16 +249,30 @@ def main(
 
     # Drive: head-on autoresonant collision
     src_offset = pml + 3
-    engine.add_source(AutoresonantCWSource(
-        x0=src_offset, direction=(1.0, 0.0, 0.0),
-        amplitude=amplitude, omega=omega_carrier,
-        sigma_yz=3.0, t_ramp=t_ramp, t_sustain=t_sustain, t_decay=period,
-    ))
-    engine.add_source(AutoresonantCWSource(
-        x0=N - src_offset, direction=(-1.0, 0.0, 0.0),
-        amplitude=amplitude, omega=omega_carrier,
-        sigma_yz=3.0, t_ramp=t_ramp, t_sustain=t_sustain, t_decay=period,
-    ))
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=src_offset,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=amplitude,
+            omega=omega_carrier,
+            sigma_yz=3.0,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            t_decay=period,
+        )
+    )
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=N - src_offset,
+            direction=(-1.0, 0.0, 0.0),
+            amplitude=amplitude,
+            omega=omega_carrier,
+            sigma_yz=3.0,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            t_decay=period,
+        )
+    )
 
     # Run
     trajectory = [state_seed]
@@ -257,22 +288,22 @@ def main(
 
     # Adjudication: dual criterion
     drive_end_step = int(drive_end_time * np.sqrt(2.0))
-    omega_seed = state_seed['|ω|_A']
+    omega_seed = state_seed["|ω|_A"]
     threshold_omega = PERSIST_FRAC_THRESH * omega_seed
 
     # Find post-drive trajectory and check persistence
-    post_drive = [s for s in trajectory if s['step'] >= drive_end_step]
+    post_drive = [s for s in trajectory if s["step"] >= drive_end_step]
     n_post = len(post_drive)
 
     # Frequency persistence: peak |ω|_A AND |ω|_B ≥ threshold throughout post-drive
-    omega_A_post = [s['|ω|_A'] for s in post_drive]
-    omega_B_post = [s['|ω|_B'] for s in post_drive]
+    omega_A_post = [s["|ω|_A"] for s in post_drive]
+    omega_B_post = [s["|ω|_B"] for s in post_drive]
     freq_pass_A = all(om >= threshold_omega for om in omega_A_post)
     freq_pass_B = all(om >= threshold_omega for om in omega_B_post)
 
     # Compton periods covered in post-drive
     if n_post > 1:
-        post_drive_duration = post_drive[-1]['t'] - post_drive[0]['t']
+        post_drive_duration = post_drive[-1]["t"] - post_drive[0]["t"]
         compton_periods_covered = post_drive_duration / period
     else:
         compton_periods_covered = 0.0
@@ -281,7 +312,7 @@ def main(
     frequency_pass = bool(freq_pass_A and freq_pass_B and period_check)
 
     # Topology preservation: c_cos = 3 throughout drive + post-drive
-    c_values = [s['c_cos_global'] for s in trajectory]
+    c_values = [s["c_cos_global"] for s in trajectory]
     topology_preserved = all(c == TOPOLOGY_TARGET_C for c in c_values)
     min_c = min(c_values) if c_values else None
     max_c = max(c_values) if c_values else None
@@ -291,10 +322,14 @@ def main(
     print("  R7.2 dual-criterion adjudication")
     print("=" * 78, flush=True)
     print(f"  Compton periods covered post-drive: {compton_periods_covered:.2f} (req ≥ {PERSIST_PERIODS_REQ})")
-    print(f"  |ω|_A post-drive: min={min(omega_A_post) if omega_A_post else 0:.4f}, "
-          f"threshold={threshold_omega:.4f}, all-above={freq_pass_A}")
-    print(f"  |ω|_B post-drive: min={min(omega_B_post) if omega_B_post else 0:.4f}, "
-          f"threshold={threshold_omega:.4f}, all-above={freq_pass_B}")
+    print(
+        f"  |ω|_A post-drive: min={min(omega_A_post) if omega_A_post else 0:.4f}, "
+        f"threshold={threshold_omega:.4f}, all-above={freq_pass_A}"
+    )
+    print(
+        f"  |ω|_B post-drive: min={min(omega_B_post) if omega_B_post else 0:.4f}, "
+        f"threshold={threshold_omega:.4f}, all-above={freq_pass_B}"
+    )
     print(f"  Frequency persistence: {'PASS' if frequency_pass else 'FAIL'}")
     print()
     print(f"  c_cos trajectory: min={min_c}, max={max_c}, end={c_at_end}, target={TOPOLOGY_TARGET_C}")
@@ -303,23 +338,29 @@ def main(
 
     if frequency_pass and topology_preserved:
         mode = "I"
-        verdict = ("MODE I — G-13 contingency works. Topologically-richer (2,3) torus-knot "
-                   "ansatz persists where Beltrami didn't. Both frequency and topology "
-                   "preserved post-drive. Canonical pair-nucleation mechanism: (2,3) torus-knot "
-                   "injection profile.")
+        verdict = (
+            "MODE I — G-13 contingency works. Topologically-richer (2,3) torus-knot "
+            "ansatz persists where Beltrami didn't. Both frequency and topology "
+            "preserved post-drive. Canonical pair-nucleation mechanism: (2,3) torus-knot "
+            "injection profile."
+        )
     elif frequency_pass and not topology_preserved:
         mode = "II"
-        verdict = ("MODE II — Frequency persistence PASS but topology preservation FAIL. "
-                   f"c_cos drifted from {TOPOLOGY_TARGET_C} (min={min_c}, max={max_c}). "
-                   "Cosserat self-dynamics preserves magnitude pattern but not winding. "
-                   "Round 8 question: what additional dynamics needed to preserve topology?")
+        verdict = (
+            "MODE II — Frequency persistence PASS but topology preservation FAIL. "
+            f"c_cos drifted from {TOPOLOGY_TARGET_C} (min={min_c}, max={max_c}). "
+            "Cosserat self-dynamics preserves magnitude pattern but not winding. "
+            "Round 8 question: what additional dynamics needed to preserve topology?"
+        )
     else:
         mode = "III"
-        verdict = ("MODE III — Frequency dissolves at same timescale as Beltrami "
-                   "(case b'). Topologically-richer ansatz also dissolves. Coupling-depth "
-                   "issue, not injection-profile issue. Same physics as F17-K (2,3) electron "
-                   "Cosserat dissolution at step ~11. The bound state requires more than "
-                   "topological richness in the injection profile.")
+        verdict = (
+            "MODE III — Frequency dissolves at same timescale as Beltrami "
+            "(case b'). Topologically-richer ansatz also dissolves. Coupling-depth "
+            "issue, not injection-profile issue. Same physics as F17-K (2,3) electron "
+            "Cosserat dissolution at step ~11. The bound state requires more than "
+            "topological richness in the injection profile."
+        )
     print(f"  {verdict}")
     print()
 
@@ -345,7 +386,7 @@ def main(
         "trajectory_length": len(trajectory),
         "elapsed_seconds": elapsed,
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"  Result: {OUTPUT_JSON}")
     return payload
 

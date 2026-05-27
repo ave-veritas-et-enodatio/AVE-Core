@@ -60,6 +60,7 @@ DIAGNOSTIC SUB-CRITERIA (informational):
   - Dominant FFT frequency in peak |ω|(t) (= ω_C if corpus standing-wave)
   - (2,3) Lissajous spectral signature (3/2 harmonic ratio)
 """
+
 from __future__ import annotations
 
 import json
@@ -72,9 +73,9 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
 from tlm_electron_soliton_eigenmode import initialize_2_3_voltage_ansatz
 
+from ave.topological.vacuum_engine import VacuumEngine3D
 
 # ─── Constants (match Move 5 pred exactly for deterministic reproduction) ────
 
@@ -84,7 +85,7 @@ PHI_SQ = PHI * PHI
 N_LATTICE = 32
 PML = 4
 R_ANCHOR = 10.0
-R_MINOR = R_ANCHOR / PHI_SQ                      # ≈ 3.82
+R_MINOR = R_ANCHOR / PHI_SQ  # ≈ 3.82
 
 A26_AMP_SCALE = 0.3 / (np.sqrt(3.0) / 2.0)
 GT_PEAK_OMEGA = 0.3 * np.pi
@@ -112,14 +113,16 @@ SHELL_FRAC_OPT_THRESH = 0.4
 # Shell-fit search ranges
 R_SEARCH_VALUES = np.linspace(2.0, 14.0, 25)
 R_MINOR_SEARCH_VALUES = np.linspace(0.5, 6.0, 23)
-SHELL_BAND_WIDTH = 1.0   # half-width of the shell band in lattice cells
+SHELL_BAND_WIDTH = 1.0  # half-width of the shell band in lattice cells
 
 OUTPUT_JSON = Path(__file__).parent / "r8_natural_attractor_characterization_results.json"
 
 
 def build_engine():
     return VacuumEngine3D.from_args(
-        N=N_LATTICE, pml=PML, temperature=0.0,
+        N=N_LATTICE,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -128,11 +131,16 @@ def build_engine():
 
 def seed_corpus_2_3_joint(engine):
     engine.cos.initialize_electron_2_3_sector(
-        R_target=R_ANCHOR, r_target=R_MINOR,
-        use_hedgehog=True, amplitude_scale=A26_AMP_SCALE,
+        R_target=R_ANCHOR,
+        r_target=R_MINOR,
+        use_hedgehog=True,
+        amplitude_scale=A26_AMP_SCALE,
     )
     initialize_2_3_voltage_ansatz(
-        engine.k4, R=R_ANCHOR, r=R_MINOR, amplitude=V_AMP_INIT,
+        engine.k4,
+        R=R_ANCHOR,
+        r=R_MINOR,
+        amplitude=V_AMP_INIT,
     )
 
 
@@ -155,7 +163,7 @@ def fit_natural_shell(omega_field):
     cx = (nx - 1) / 2.0
     center = (cx, cx, cx)
 
-    omega_energy = np.sum(omega_field ** 2, axis=-1)
+    omega_energy = np.sum(omega_field**2, axis=-1)
 
     # Search over R only first (the "tube" half-width is implicit via
     # SHELL_BAND_WIDTH). r_minor influences spatial extent but for a
@@ -167,7 +175,10 @@ def fit_natural_shell(omega_field):
     for R_test in R_SEARCH_VALUES:
         for r_test in R_MINOR_SEARCH_VALUES:
             frac, _ = shell_localized_fraction(
-                omega_energy, R_test, r_test, center,
+                omega_energy,
+                R_test,
+                r_test,
+                center,
                 band=max(SHELL_BAND_WIDTH, 0.5 * r_test),
             )
             fit_grid.append({"R": float(R_test), "r": float(r_test), "frac": float(frac)})
@@ -205,7 +216,7 @@ def measure_global_stats(engine):
     v_inc = np.asarray(engine.k4.V_inc)
     peak_omega = float(np.linalg.norm(omega, axis=-1).max())
     peak_vinc_norm = float(np.linalg.norm(v_inc, axis=-1).max())
-    v_total_peak = float(np.sqrt(np.sum(v_inc ** 2, axis=-1)).max())
+    v_total_peak = float(np.sqrt(np.sum(v_inc**2, axis=-1)).max())
     c = int(engine.cos.extract_crossing_count())
     return peak_omega, peak_vinc_norm, v_total_peak, c
 
@@ -216,19 +227,20 @@ def main():
     print(f"  P_phase6_natural_attractor_characterization")
     print("=" * 78, flush=True)
     print(f"  Lattice: N={N_LATTICE}, pml={PML}")
-    print(f"  Reproducing Move 5 dynamics (corpus seed); recording from "
-          f"t={T_RECORD_START_PERIOD}P → {N_PERIODS_TOTAL}P")
+    print(
+        f"  Reproducing Move 5 dynamics (corpus seed); recording from "
+        f"t={T_RECORD_START_PERIOD}P → {N_PERIODS_TOTAL}P"
+    )
     print(f"  Snapshots at t = {SNAPSHOT_PERIODS} Compton periods")
     print(f"  Shell-fit search: R ∈ [2, 14], r ∈ [0.5, 6]")
-    print(f"  Adjudication: Mode I if R_relaxed/r_relaxed = "
-          f"{R_OVER_R_TARGET:.4f} ± {R_OVER_R_TOL}")
+    print(f"  Adjudication: Mode I if R_relaxed/r_relaxed = " f"{R_OVER_R_TARGET:.4f} ± {R_OVER_R_TOL}")
     print()
 
     engine = build_engine()
     seed_corpus_2_3_joint(engine)
 
     # ─── Run + record ─────────────────────────────────────────────────────────
-    snapshots = {}    # step → {"omega": np.array, "v_inc": np.array}
+    snapshots = {}  # step → {"omega": np.array, "v_inc": np.array}
     stats_stream = []  # per-step (peak_omega, peak_vinc, c)
 
     print(f"  Running {N_STEPS} steps...")
@@ -238,25 +250,24 @@ def main():
         engine.step()
         if step >= STEP_RECORD_START:
             peak_om, peak_vi, v_tot, c = measure_global_stats(engine)
-            stats_stream.append({
-                "step": int(step),
-                "t_period": float(step * DT / COMPTON_PERIOD),
-                "peak_omega": peak_om,
-                "peak_vinc": peak_vi,
-                "v_total_peak": v_tot,
-                "c": c,
-            })
+            stats_stream.append(
+                {
+                    "step": int(step),
+                    "t_period": float(step * DT / COMPTON_PERIOD),
+                    "peak_omega": peak_om,
+                    "peak_vinc": peak_vi,
+                    "v_total_peak": v_tot,
+                    "c": c,
+                }
+            )
         if step in SNAPSHOT_STEPS:
             snapshots[step] = {
                 "omega": np.asarray(engine.cos.omega).copy(),
                 "v_inc": np.asarray(engine.k4.V_inc).copy(),
             }
-            print(f"    snapshot at step {step} (t={step*DT/COMPTON_PERIOD:.1f}P)",
-                  flush=True)
+            print(f"    snapshot at step {step} (t={step*DT/COMPTON_PERIOD:.1f}P)", flush=True)
         if (time.time() - last_progress) > 30.0:
-            print(f"    [progress] step {step}, "
-                  f"elapsed {time.time() - t0:.1f}s",
-                  flush=True)
+            print(f"    [progress] step {step}, " f"elapsed {time.time() - t0:.1f}s", flush=True)
             last_progress = time.time()
     elapsed = time.time() - t0
     print(f"  Run complete: {elapsed:.1f}s")
@@ -268,22 +279,26 @@ def main():
     final_step = max(SNAPSHOT_STEPS)
     omega_final = snapshots[final_step]["omega"]
     v_inc_final = snapshots[final_step]["v_inc"]
-    omega_energy_final = np.sum(omega_final ** 2, axis=-1)
+    omega_energy_final = np.sum(omega_final**2, axis=-1)
 
     R_opt, r_opt, shell_frac_opt, center, fit_grid = fit_natural_shell(omega_final)
     R_over_r_geometry = R_opt / max(r_opt, 1e-30)
     print(f"  (a) GEOMETRY — t={final_step*DT/COMPTON_PERIOD:.1f}P shell fit:")
     print(f"      R_opt = {R_opt:.4f}, r_opt = {r_opt:.4f}")
-    print(f"      R_opt / r_opt = {R_over_r_geometry:.4f}  "
-          f"(corpus φ² = {R_OVER_R_TARGET:.4f})")
-    print(f"      shell_frac_opt = {shell_frac_opt:.4f}  "
-          f"(threshold for well-defined shell = {SHELL_FRAC_OPT_THRESH})")
+    print(f"      R_opt / r_opt = {R_over_r_geometry:.4f}  " f"(corpus φ² = {R_OVER_R_TARGET:.4f})")
+    print(
+        f"      shell_frac_opt = {shell_frac_opt:.4f}  " f"(threshold for well-defined shell = {SHELL_FRAC_OPT_THRESH})"
+    )
     print()
 
     # (b) PHASOR — sample V_inc at top cells on the relaxed shell across
     #     all 3 snapshots, compute spatial R_phase/r_phase per doc 26_ §3
     sample_cells = select_shell_sampling_points(
-        omega_energy_final, R_opt, r_opt, center, n_points=8,
+        omega_energy_final,
+        R_opt,
+        r_opt,
+        center,
+        n_points=8,
     )
 
     rho_per_cell = []
@@ -310,8 +325,7 @@ def main():
     print(f"      Sampled cells (top {len(sample_cells)} on relaxed shell): {cell_labels}")
     print(f"      Per-cell ρ_i: {[f'{r:.4f}' for r in rho_per_cell]}")
     print(f"      R_spatial = {R_spatial:.4f}, r_spatial = {r_spatial:.4f}")
-    print(f"      R/r phasor = {R_over_r_phasor:.4f}  "
-          f"(corpus φ² = {R_OVER_R_TARGET:.4f}, rel_std = {rel_std:.4f})")
+    print(f"      R/r phasor = {R_over_r_phasor:.4f}  " f"(corpus φ² = {R_OVER_R_TARGET:.4f}, rel_std = {rel_std:.4f})")
     print()
 
     # (c) SPECTRUM — FFT of peak |ω|(t) over recording window
@@ -345,10 +359,8 @@ def main():
         vinc_peaks_natural = [(2 * np.pi * f, p) for f, p in vinc_peaks]
 
         print(f"  (c) SPECTRUM — FFT over t={T_RECORD_START_PERIOD}P→{N_PERIODS_TOTAL}P:")
-        print(f"      peak |ω|(t): top freqs (natural-units ω) = "
-              f"{[f'{w:.4f}' for w, _ in omega_peaks_natural]}")
-        print(f"      peak |V_inc|(t): top freqs (natural-units ω) = "
-              f"{[f'{w:.4f}' for w, _ in vinc_peaks_natural]}")
+        print(f"      peak |ω|(t): top freqs (natural-units ω) = " f"{[f'{w:.4f}' for w, _ in omega_peaks_natural]}")
+        print(f"      peak |V_inc|(t): top freqs (natural-units ω) = " f"{[f'{w:.4f}' for w, _ in vinc_peaks_natural]}")
         print()
     else:
         omega_peaks_natural = vinc_peaks_natural = []
@@ -438,7 +450,7 @@ def main():
         "mode": mode,
         "verdict": verdict,
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"  Result: {OUTPUT_JSON}")
     return payload
 

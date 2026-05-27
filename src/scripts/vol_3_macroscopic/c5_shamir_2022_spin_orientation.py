@@ -366,7 +366,7 @@ def main():
         raise FileNotFoundError(
             f"AVE SDSS DR17 result JSON not found at {SDSS_RESULTS_PATH}. " f"Run c5_sdss_spin_orientation.py first."
         )
-    with open(SDSS_RESULTS_PATH) as f:
+    with open(SDSS_RESULTS_PATH, encoding="utf-8") as f:
         sdss_results = json.load(f)
     sdss_primary = sdss_results["pipelines"]["primary"]
     sdss_dr17_l = float(sdss_primary["dipole_fit"]["l_deg"])
@@ -380,7 +380,7 @@ def main():
     print(f"\nLoading CMB axis-of-evil from {CMB_AXIS_RESULTS_PATH.name}...")
     if not CMB_AXIS_RESULTS_PATH.exists():
         raise FileNotFoundError(f"CMB axis JSON not found at {CMB_AXIS_RESULTS_PATH}.")
-    with open(CMB_AXIS_RESULTS_PATH) as f:
+    with open(CMB_AXIS_RESULTS_PATH, encoding="utf-8") as f:
         cmb_results = json.load(f)
     cmb_l = float(cmb_results["axis_of_evil_computation"]["l_deg"])
     cmb_b = float(cmb_results["axis_of_evil_computation"]["b_deg"])
@@ -615,7 +615,7 @@ def main():
     }
 
     print(f"\nWriting full results to {RESULTS_PATH.name}...")
-    with open(RESULTS_PATH, "w") as f:
+    with open(RESULTS_PATH, "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2)
     print(f"  Results JSON written ({RESULTS_PATH.stat().st_size / 1e3:.1f} KB)")
 

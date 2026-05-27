@@ -20,6 +20,7 @@ Four-mode adjudication (per pred body):
     Mode III-both: freq FAIL AND c_eigvec ≠ 3
                    (Cosserat sector empty at corpus GT in both axes)
 """
+
 from __future__ import annotations
 
 import json
@@ -37,11 +38,20 @@ from ave.topological.vacuum_engine import VacuumEngine3D
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from r7_cos_block_shift_invert import (
-    PHI_SQ, A26_AMP_SCALE, GT_PEAK_OMEGA, ALPHA, OMEGA_COMPTON,
-    SIGMA_TARGET, LAMBDA_TOL_COS,
-    A26_GUARD_LOW, A26_GUARD_HIGH,
-    seed_2_3_hedgehog, a26_guard,
-    build_K_cos_op, build_M_cos_diagonal, build_shift_invert_OPinv,
+    A26_AMP_SCALE,
+    A26_GUARD_HIGH,
+    A26_GUARD_LOW,
+    ALPHA,
+    GT_PEAK_OMEGA,
+    LAMBDA_TOL_COS,
+    OMEGA_COMPTON,
+    PHI_SQ,
+    SIGMA_TARGET,
+    a26_guard,
+    build_K_cos_op,
+    build_M_cos_diagonal,
+    build_shift_invert_OPinv,
+    seed_2_3_hedgehog,
 )
 
 N_LATTICE = 64
@@ -50,7 +60,7 @@ R_ANCHOR = 10.0
 R_MINOR = R_ANCHOR / PHI_SQ
 
 # Corpus-canonical topology criterion (per Doc 07_ + Op10)
-TOPOLOGY_TARGET_C = 3   # (2,3) electron eigenmode crossing-count
+TOPOLOGY_TARGET_C = 3  # (2,3) electron eigenmode crossing-count
 
 EIGENMODES = 20
 GMRES_TOL = 1e-3
@@ -63,7 +73,9 @@ OUTPUT_JSON = Path(__file__).parent / "r7_cos_block_n64_c_eigvec_results.json"
 
 def build_engine():
     return VacuumEngine3D.from_args(
-        N=N_LATTICE, pml=PML, temperature=0.0,
+        N=N_LATTICE,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -118,15 +130,22 @@ def main():
     print(f"  Eigsolve Cos-block at σ={SIGMA_TARGET}, k={EIGENMODES}...", flush=True)
     t0 = time.time()
     eigvals, eigvecs = eigsh(
-        K_op, M=M_op, k=EIGENMODES,
-        sigma=SIGMA_TARGET, OPinv=OPinv, which='LM',
-        tol=EIGSH_TOL, maxiter=EIGSH_MAXITER,
+        K_op,
+        M=M_op,
+        k=EIGENMODES,
+        sigma=SIGMA_TARGET,
+        OPinv=OPinv,
+        which="LM",
+        tol=EIGSH_TOL,
+        maxiter=EIGSH_MAXITER,
     )
     elapsed = time.time() - t0
     stats = OPinv._gmres_stats
-    print(f"    Eigsolve: {elapsed:.1f}s, {len(eigvals)} eigenvalues, "
-          f"OPinv calls={stats['call_count'][0]}, "
-          f"total inner GMRES iters={stats['iter_total'][0]}")
+    print(
+        f"    Eigsolve: {elapsed:.1f}s, {len(eigvals)} eigenvalues, "
+        f"OPinv calls={stats['call_count'][0]}, "
+        f"total inner GMRES iters={stats['iter_total'][0]}"
+    )
 
     # Sort
     idx_sort = np.argsort(eigvals)
@@ -158,7 +177,7 @@ def main():
     print(f"  Computing c_eigvec via extract_crossing_count on ω-component...", flush=True)
     eigvec = eigvecs[:, idx_orig]
     c_eigvec = crossing_count_on_omega_eigvec(eigvec, engine)
-    topo_pass = (c_eigvec == TOPOLOGY_TARGET_C)
+    topo_pass = c_eigvec == TOPOLOGY_TARGET_C
     print(f"    c_eigvec = {c_eigvec} (target = {TOPOLOGY_TARGET_C})")
     print(f"    Topology criterion: {'PASS' if topo_pass else 'FAIL'}")
     print()
@@ -178,8 +197,7 @@ def main():
                 c_j = crossing_count_on_omega_eigvec(eigvecs[:, idx_j], engine)
             except Exception as e:
                 c_j = -1
-            print(f"    [{j}] λ={lam_j:.4f} √λ={sqrt_lam_j:.4f} "
-                  f"rel_diff={100*rel_diff_j:.4f}% c_eigvec={c_j}")
+            print(f"    [{j}] λ={lam_j:.4f} √λ={sqrt_lam_j:.4f} " f"rel_diff={100*rel_diff_j:.4f}% c_eigvec={c_j}")
     print()
 
     # FOUR-CATEGORY ADJUDICATION per pred
@@ -235,8 +253,8 @@ def main():
         "r_minor": R_MINOR,
         "GT_corpus_peak_omega_seed": peak,
         "elapsed_seconds": elapsed,
-        "gmres_call_count": stats['call_count'][0],
-        "gmres_iter_total": stats['iter_total'][0],
+        "gmres_call_count": stats["call_count"][0],
+        "gmres_iter_total": stats["iter_total"][0],
         "eigvals": eigvals.tolist(),
         "closest_eigenvalue": closest_lam,
         "closest_sqrt_lam": closest_sqrt_lam,
@@ -247,7 +265,7 @@ def main():
         "mode": mode,
         "verdict": verdict,
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"  Result: {OUTPUT_JSON}")
     return payload
 

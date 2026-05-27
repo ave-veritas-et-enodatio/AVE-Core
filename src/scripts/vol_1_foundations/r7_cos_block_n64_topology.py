@@ -17,6 +17,7 @@ Cost: shift-invert + GMRES at N=64 dim 1.5M; topology extraction is ms.
 Wall time: ~1-3 hr at N=64 GT_corpus single-seed. If Mode I confirms,
 expand to F17K endpoints + vacuum_control in follow-up.
 """
+
 from __future__ import annotations
 
 import json
@@ -26,7 +27,7 @@ from pathlib import Path
 
 import numpy as np
 from scipy.sparse import diags
-from scipy.sparse.linalg import eigsh, gmres, LinearOperator
+from scipy.sparse.linalg import LinearOperator, eigsh, gmres
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
@@ -34,11 +35,20 @@ from ave.topological.vacuum_engine import VacuumEngine3D
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from r7_cos_block_shift_invert import (
-    PHI_SQ, A26_AMP_SCALE, GT_PEAK_OMEGA, ALPHA, OMEGA_COMPTON,
-    SIGMA_TARGET, LAMBDA_TOL_COS,
-    A26_GUARD_LOW, A26_GUARD_HIGH,
-    seed_2_3_hedgehog, a26_guard,
-    build_K_cos_op, build_M_cos_diagonal, build_shift_invert_OPinv,
+    A26_AMP_SCALE,
+    A26_GUARD_HIGH,
+    A26_GUARD_LOW,
+    ALPHA,
+    GT_PEAK_OMEGA,
+    LAMBDA_TOL_COS,
+    OMEGA_COMPTON,
+    PHI_SQ,
+    SIGMA_TARGET,
+    a26_guard,
+    build_K_cos_op,
+    build_M_cos_diagonal,
+    build_shift_invert_OPinv,
+    seed_2_3_hedgehog,
 )
 
 N_LATTICE = 64
@@ -61,7 +71,9 @@ OUTPUT_JSON = Path(__file__).parent / "r7_cos_block_n64_topology_results.json"
 
 def build_engine(N=N_LATTICE, pml=PML):
     return VacuumEngine3D.from_args(
-        N=N, pml=pml, temperature=0.0,
+        N=N,
+        pml=pml,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -81,7 +93,7 @@ def cos_block_shell_localization(eigvec, engine, R_anchor, r_minor):
     omega_field = omega_part.reshape(N, N, N, 3)
 
     # Per-site |ω|² density
-    omega_density = np.sum(omega_field ** 2, axis=-1)  # shape (N, N, N)
+    omega_density = np.sum(omega_field**2, axis=-1)  # shape (N, N, N)
 
     cx, cy, cz = (N - 1) / 2.0, (N - 1) / 2.0, (N - 1) / 2.0
 
@@ -139,15 +151,22 @@ def main():
     t0 = time.time()
     try:
         eigvals, eigvecs = eigsh(
-            K_op, M=M_op, k=EIGENMODES,
-            sigma=SIGMA_TARGET, OPinv=OPinv, which='LM',
-            tol=EIGSH_TOL, maxiter=EIGSH_MAXITER,
+            K_op,
+            M=M_op,
+            k=EIGENMODES,
+            sigma=SIGMA_TARGET,
+            OPinv=OPinv,
+            which="LM",
+            tol=EIGSH_TOL,
+            maxiter=EIGSH_MAXITER,
         )
         elapsed = time.time() - t0
         stats = OPinv._gmres_stats
-        print(f"    Eigsolve: {elapsed:.1f}s, {len(eigvals)} eigenvalues, "
-              f"OPinv calls={stats['call_count'][0]}, "
-              f"total inner GMRES iters={stats['iter_total'][0]}")
+        print(
+            f"    Eigsolve: {elapsed:.1f}s, {len(eigvals)} eigenvalues, "
+            f"OPinv calls={stats['call_count'][0]}, "
+            f"total inner GMRES iters={stats['iter_total'][0]}"
+        )
     except Exception as e:
         elapsed = time.time() - t0
         print(f"    Eigsolve ERROR after {elapsed:.1f}s: {e}")
@@ -176,8 +195,9 @@ def main():
     print()
     print(f"  Closest positive eigenvalue: λ={closest_lam:.6f}, √λ={closest_sqrt_lam:.6f}")
     print(f"    rel_diff to ω_C: {closest_rel_diff:.4e} ({100*closest_rel_diff:.4f}%)")
-    print(f"    Frequency criterion: {'PASS' if freq_pass else 'FAIL'} "
-          f"(tolerance α = {ALPHA:.4e} = {100*ALPHA:.4f}%)")
+    print(
+        f"    Frequency criterion: {'PASS' if freq_pass else 'FAIL'} " f"(tolerance α = {ALPHA:.4e} = {100*ALPHA:.4f}%)"
+    )
     print()
 
     # Topology check on closest eigvec
@@ -251,8 +271,8 @@ def main():
         "r_minor": R_MINOR,
         "GT_corpus_peak_omega_seed": peak,
         "elapsed_seconds": elapsed,
-        "gmres_call_count": stats['call_count'][0],
-        "gmres_iter_total": stats['iter_total'][0],
+        "gmres_call_count": stats["call_count"][0],
+        "gmres_iter_total": stats["iter_total"][0],
         "eigvals": eigvals.tolist(),
         "closest_eigenvalue": closest_lam,
         "closest_sqrt_lam": closest_sqrt_lam,
@@ -262,7 +282,7 @@ def main():
         "mode": mode,
         "verdict": verdict,
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"  Result: {OUTPUT_JSON}")
     return payload
 

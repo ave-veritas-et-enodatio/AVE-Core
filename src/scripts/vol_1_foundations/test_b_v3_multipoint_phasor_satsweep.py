@@ -35,6 +35,7 @@ Three-mode adjudication:
                       spatial structure to extract; bond doesn't host
                       (2, 3) winding at this drive)
 """
+
 from __future__ import annotations
 
 import json
@@ -46,7 +47,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
-from ave.topological.vacuum_engine import VacuumEngine3D, AutoresonantCWSource
+from ave.topological.vacuum_engine import AutoresonantCWSource, VacuumEngine3D
 
 # ─── Constants per pred ───────────────────────────────────────────────────────
 
@@ -59,7 +60,7 @@ OMEGA_C = 1.0
 WAVELENGTH_CARRIER = 2.0 * np.pi / OMEGA_C  # ≈ 6.28 cells
 
 # Match v1-retry drive amplitude for direct comparison; saturation-onset regime
-DRIVE_AMP = 0.85         # 0.85·V_SNAP — A² ≈ 0.72, past Op14 saturation onset
+DRIVE_AMP = 0.85  # 0.85·V_SNAP — A² ≈ 0.72, past Op14 saturation onset
 
 T_RAMP_PERIODS = 5.0
 T_SUSTAIN_PERIODS = 50.0
@@ -70,12 +71,15 @@ R_OVER_R_TARGET = PHI_SQ
 R_OVER_R_TOL = 0.10
 SPATIAL_UNIFORM_THRESH = 0.05  # r/R below this ⇒ Mode III-spatial
 
-PORT_VECTORS = np.array([
-    [+1, +1, +1],
-    [+1, -1, -1],
-    [-1, +1, -1],
-    [-1, -1, +1],
-], dtype=float)
+PORT_VECTORS = np.array(
+    [
+        [+1, +1, +1],
+        [+1, -1, -1],
+        [-1, +1, -1],
+        [-1, -1, +1],
+    ],
+    dtype=float,
+)
 
 OUTPUT_JSON = Path(__file__).parent / "test_b_v3_multipoint_phasor_satsweep_results.json"
 
@@ -112,28 +116,18 @@ def extract_multipoint_phasor(engine, A_idx, B_idx, n_steps, transient_steps):
     """
     v_inc_all = np.zeros((n_steps, 8), dtype=np.float64)
     v_ref_all = np.zeros((n_steps, 8), dtype=np.float64)
-    port_labels = (
-        [("A", p) for p in range(4)] + [("B", p) for p in range(4)]
-    )
+    port_labels = [("A", p) for p in range(4)] + [("B", p) for p in range(4)]
 
     for step in range(n_steps):
         engine.step()
         # A-side: 4 ports
         for p in range(4):
-            v_inc_all[step, p] = float(
-                engine.k4.V_inc[A_idx[0], A_idx[1], A_idx[2], p]
-            )
-            v_ref_all[step, p] = float(
-                engine.k4.V_ref[A_idx[0], A_idx[1], A_idx[2], p]
-            )
+            v_inc_all[step, p] = float(engine.k4.V_inc[A_idx[0], A_idx[1], A_idx[2], p])
+            v_ref_all[step, p] = float(engine.k4.V_ref[A_idx[0], A_idx[1], A_idx[2], p])
         # B-side: 4 ports (offset by 4 in the array)
         for p in range(4):
-            v_inc_all[step, 4 + p] = float(
-                engine.k4.V_inc[B_idx[0], B_idx[1], B_idx[2], p]
-            )
-            v_ref_all[step, 4 + p] = float(
-                engine.k4.V_ref[B_idx[0], B_idx[1], B_idx[2], p]
-            )
+            v_inc_all[step, 4 + p] = float(engine.k4.V_inc[B_idx[0], B_idx[1], B_idx[2], p])
+            v_ref_all[step, 4 + p] = float(engine.k4.V_ref[B_idx[0], B_idx[1], B_idx[2], p])
 
     return v_inc_all, v_ref_all, port_labels
 
@@ -152,9 +146,7 @@ def analyze_spatial_envelope(v_inc_all, v_ref_all, transient_steps):
     v_ref_steady = v_ref_all[transient_steps:]
 
     # Per-port time-averaged amplitude
-    rho_per_port = np.sqrt(
-        (v_inc_steady ** 2).mean(axis=0) + (v_ref_steady ** 2).mean(axis=0)
-    )
+    rho_per_port = np.sqrt((v_inc_steady**2).mean(axis=0) + (v_ref_steady**2).mean(axis=0))
     # rho_per_port has shape (8,)
 
     R_spatial = float(np.mean(rho_per_port))
@@ -188,10 +180,8 @@ def main():
     print(f"  Per audit catch on commit 53c2ce9 + doc 26_ §1-§3 spatial reading")
     print("=" * 78, flush=True)
     print(f"  Lattice: N={N_LATTICE}, pml={PML}")
-    print(f"  Drive: ω_C = {OMEGA_C}, λ = {WAVELENGTH_CARRIER:.4f} cells, "
-          f"amp = {DRIVE_AMP}·V_SNAP")
-    print(f"  Periods: ramp {T_RAMP_PERIODS} + sustain {T_SUSTAIN_PERIODS} + "
-          f"decay {T_DECAY_PERIODS}")
+    print(f"  Drive: ω_C = {OMEGA_C}, λ = {WAVELENGTH_CARRIER:.4f} cells, " f"amp = {DRIVE_AMP}·V_SNAP")
+    print(f"  Periods: ramp {T_RAMP_PERIODS} + sustain {T_SUSTAIN_PERIODS} + " f"decay {T_DECAY_PERIODS}")
     print(f"  Spatial samples: 4 ports of A + 4 ports of B = 8 points")
     print(f"  Pred PASS: R_spatial/r_spatial = {R_OVER_R_TARGET:.4f} ± {R_OVER_R_TOL}")
     print()
@@ -205,7 +195,9 @@ def main():
     transient_steps = int((t_ramp + 10.0 * period) * np.sqrt(2.0))
 
     engine = VacuumEngine3D.from_args(
-        N=N_LATTICE, pml=PML, temperature=0.0,
+        N=N_LATTICE,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -214,17 +206,27 @@ def main():
     print(f"  Bond: A={A_idx}, port_AB={port_AB}, B={B_idx}")
 
     src_offset = PML + 3
-    engine.add_source(AutoresonantCWSource(
-        x0=src_offset, direction=(1.0, 0.0, 0.0),
-        amplitude=DRIVE_AMP, omega=OMEGA_C,
-        sigma_yz=3.0, t_ramp=t_ramp, t_sustain=t_sustain,
-        t_decay=t_decay,
-    ))
+    engine.add_source(
+        AutoresonantCWSource(
+            x0=src_offset,
+            direction=(1.0, 0.0, 0.0),
+            amplitude=DRIVE_AMP,
+            omega=OMEGA_C,
+            sigma_yz=3.0,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            t_decay=t_decay,
+        )
+    )
 
     print(f"  Running {n_steps} steps ({total_time:.2f} natural-time-units)...")
     t0 = time.time()
     v_inc_all, v_ref_all, port_labels = extract_multipoint_phasor(
-        engine, A_idx, B_idx, n_steps, transient_steps,
+        engine,
+        A_idx,
+        B_idx,
+        n_steps,
+        transient_steps,
     )
     elapsed = time.time() - t0
     print(f"  Elapsed: {elapsed:.1f}s, recorded {n_steps} samples × 8 ports")
@@ -240,16 +242,15 @@ def main():
     print(f"  R_spatial = ⟨ρ⟩ = {analysis['R_spatial']:.6f}")
     print(f"  r_spatial = std(ρ) = {analysis['r_spatial']:.6f}")
     print(f"  R/r spatial = {analysis['R_over_r_spatial']:.4f}")
-    print(f"  rel_std r/R = {analysis['rel_std']:.6f} "
-          f"(uniform threshold = {SPATIAL_UNIFORM_THRESH})")
+    print(f"  rel_std r/R = {analysis['rel_std']:.6f} " f"(uniform threshold = {SPATIAL_UNIFORM_THRESH})")
     print()
 
-    R_over_r_pass = abs(analysis['R_over_r_spatial'] - R_OVER_R_TARGET) <= R_OVER_R_TOL
+    R_over_r_pass = abs(analysis["R_over_r_spatial"] - R_OVER_R_TARGET) <= R_OVER_R_TOL
 
     print("=" * 78, flush=True)
     print("  Adjudication")
     print("=" * 78, flush=True)
-    if analysis['spatially_uniform']:
+    if analysis["spatially_uniform"]:
         mode = "III-spatial"
         verdict = (
             f"MODE III-spatial — Spatial envelope is essentially uniform "
@@ -315,7 +316,7 @@ def main():
         "mode": mode,
         "verdict": verdict,
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"  Result: {OUTPUT_JSON}")
     return payload
 

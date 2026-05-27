@@ -142,13 +142,13 @@ tex_be9 = r"""\documentclass[tikz,border=15pt]{standalone}
 \end{document}
 """
 
-with open("circuit_h1.tex", "w") as f:
+with open("circuit_h1.tex", "w", encoding="utf-8") as f:
     f.write(tex_h1)
-with open("circuit_he4.tex", "w") as f:
+with open("circuit_he4.tex", "w", encoding="utf-8") as f:
     f.write(tex_he4)
-with open("circuit_li7.tex", "w") as f:
+with open("circuit_li7.tex", "w", encoding="utf-8") as f:
     f.write(tex_li7)
-with open("circuit_be9.tex", "w") as f:
+with open("circuit_be9.tex", "w", encoding="utf-8") as f:
     f.write(tex_be9)
 
 files = ["circuit_h1", "circuit_he4", "circuit_li7", "circuit_be9"]

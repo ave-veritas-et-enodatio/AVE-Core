@@ -241,9 +241,7 @@ def run_pq_dispersion_one(
     amp_si = amp_frac * V_YIELD
 
     # (p,q) seed spatial phase pattern — substrate-native chiral winding
-    seed_profile = build_pq_seed_profile(
-        N, N, N, p, q, lambda_cells, src_x, lattice.mask_active
-    )
+    seed_profile = build_pq_seed_profile(N, N, N, p, q, lambda_cells, src_x, lattice.mask_active)
 
     # Forward-port weights (+x̂ propagation direction)
     direction = np.array([1.0, 0.0, 0.0])
@@ -380,9 +378,7 @@ def evaluate_M2_ordering(stable_results: List[PQRunResult]) -> Tuple[bool, dict]
     }
 
 
-def evaluate_M3_unknot_null(
-    unknot_results: List[PQRunResult], baseline_omega: float
-) -> Tuple[bool, dict]:
+def evaluate_M3_unknot_null(unknot_results: List[PQRunResult], baseline_omega: float) -> Tuple[bool, dict]:
     """M3: (1,q) unknot bands must show <1% separation from baseline T₂ continuum."""
     if baseline_omega <= 0:
         return False, {"reason": "baseline omega <= 0"}
@@ -401,9 +397,7 @@ def evaluate_M3_unknot_null(
     }
 
 
-def evaluate_M4_link_null(
-    link_results: List[PQRunResult], knot_23_amp: float
-) -> Tuple[bool, dict]:
+def evaluate_M4_link_null(link_results: List[PQRunResult], knot_23_amp: float) -> Tuple[bool, dict]:
     """M4: gcd>1 link pairs must show <10% amplitude of (2,3) knot baseline."""
     if knot_23_amp <= 0:
         return False, {"reason": "(2,3) baseline amplitude <= 0"}
@@ -437,12 +431,8 @@ def evaluate_M5_alpha_independence(
     default_omega = knot_23_default.omega_peak_dimensionless
     if default_omega <= 0:
         return False, {"reason": "default (2,3) omega <= 0"}
-    scales_and_omegas = [
-        (scale, r.omega_peak_dimensionless) for scale, r in knot_23_perturbed
-    ]
-    relative_drift = max(
-        abs(o - default_omega) / max(default_omega, 1e-30) for _, o in scales_and_omegas
-    )
+    scales_and_omegas = [(scale, r.omega_peak_dimensionless) for scale, r in knot_23_perturbed]
+    relative_drift = max(abs(o - default_omega) / max(default_omega, 1e-30) for _, o in scales_and_omegas)
     # SUBSTRATE-NATIVE expectation: drift should be ~0 (≪20%), since (p,q)
     # lives in seed geometric phase, not in kappa_tilde amplitude scale.
     # α-tautology signature: drift scales ~linearly with kappa_scale (~20%).
@@ -452,9 +442,7 @@ def evaluate_M5_alpha_independence(
         "default_omega": float(default_omega),
         "perturbed": [{"kappa_scale": s, "omega_peak": float(o)} for s, o in scales_and_omegas],
         "max_relative_drift": float(relative_drift),
-        "interpretation": (
-            "substrate-native (geometric) if drift ≪ 20%; α-tautology if drift ~ 20%"
-        ),
+        "interpretation": ("substrate-native (geometric) if drift ≪ 20%; α-tautology if drift ~ 20%"),
     }
 
 
@@ -519,15 +507,12 @@ def main() -> None:
     print()
 
     all_results: List[PQRunResult] = []
-    for (p, q) in ALL_PQ:
+    for p, q in ALL_PQ:
         cls = topology_class(p, q)
         kappa = kappa_tilde_torus(p, q)
         print(f"  ▶ Running (p,q)=({p},{q}) [{cls}, κ̃={kappa:.4f}] ...", end=" ", flush=True)
         result = run_pq_dispersion_one(p, q)
-        print(
-            f"ω_peak/ω_carrier={result.omega_peak_dimensionless:.4f}  "
-            f"|FFT_peak|={result.spectral_amplitude:.3e}"
-        )
+        print(f"ω_peak/ω_carrier={result.omega_peak_dimensionless:.4f}  " f"|FFT_peak|={result.spectral_amplitude:.3e}")
         all_results.append(result)
 
     # M5 perturbation runs for (2,3)
@@ -561,14 +546,10 @@ def main() -> None:
         else (False, {"reason": "no (2,3) baseline"})
     )
     M5_pass, M5_detail = (
-        evaluate_M5_alpha_independence(knot_23, m5_perturbed)
-        if knot_23
-        else (False, {"reason": "no (2,3) baseline"})
+        evaluate_M5_alpha_independence(knot_23, m5_perturbed) if knot_23 else (False, {"reason": "no (2,3) baseline"})
     )
 
-    outcome_label, outcome_text = classify_outcome(
-        M1_pass, M2_pass, M3_pass, M4_pass, M5_pass
-    )
+    outcome_label, outcome_text = classify_outcome(M1_pass, M2_pass, M3_pass, M4_pass, M5_pass)
 
     print("\n" + "=" * 78)
     print("PREREG M1-M5 EVALUATION (frozen thresholds, not adjusted)")
@@ -627,7 +608,7 @@ def main() -> None:
         },
         "outcome": {"label": outcome_label, "text": outcome_text},
     }
-    with open(out_json, "w") as f:
+    with open(out_json, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2, default=str)
     print(f"\n  Result JSON: {out_json}")
 
@@ -698,9 +679,7 @@ def render_panels(
     knot_23 = next((r for r in knot_results if r.p == 2 and r.q == 3), None)
     if knot_23:
         scales = [s for s, _ in m5_perturbed] + [1.0]
-        omegas_perturb = [r.omega_peak_dimensionless for _, r in m5_perturbed] + [
-            knot_23.omega_peak_dimensionless
-        ]
+        omegas_perturb = [r.omega_peak_dimensionless for _, r in m5_perturbed] + [knot_23.omega_peak_dimensionless]
         order = np.argsort(scales)
         scales_s = [scales[i] for i in order]
         omegas_s = [omegas_perturb[i] for i in order]

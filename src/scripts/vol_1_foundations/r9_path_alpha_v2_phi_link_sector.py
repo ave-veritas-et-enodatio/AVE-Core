@@ -24,6 +24,7 @@ Dual-criterion (per cluster):
   C1: R_phase/r_phase = φ² ± 5% on (Φ_link, ω_axial) ellipse
   C2: chirality consensus ≥ 75% via Hilbert mean(sin(Δφ))
 """
+
 from __future__ import annotations
 
 import json
@@ -38,9 +39,9 @@ from scipy.signal import hilbert
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
 from tlm_electron_soliton_eigenmode import initialize_2_3_voltage_ansatz
 
+from ave.topological.vacuum_engine import VacuumEngine3D
 
 # ─── Constants (matching Move 5 + path α v1 exactly for engine setup) ──────
 
@@ -63,9 +64,9 @@ COMPTON_PERIOD = 2.0 * np.pi / OMEGA_C
 DT = 1.0 / np.sqrt(2.0)
 
 # ─── Path α v2 specific (NEW vs v1) ──────────────────────────────────────────
-PRE_EVOLVE_END_P = 10.0          # transient settle (same as v1)
-SELECTION_END_P = 15.0           # 5 P selection window (same as v1)
-RECORDING_END_P = 200.0          # 185 P recording (~3-4 trading periods at 0.020 rad/unit)
+PRE_EVOLVE_END_P = 10.0  # transient settle (same as v1)
+SELECTION_END_P = 15.0  # 5 P selection window (same as v1)
+RECORDING_END_P = 200.0  # 185 P recording (~3-4 trading periods at 0.020 rad/unit)
 
 PRE_EVOLVE_END_STEP = int(PRE_EVOLVE_END_P * COMPTON_PERIOD / DT)
 SELECTION_END_STEP = int(SELECTION_END_P * COMPTON_PERIOD / DT)
@@ -94,7 +95,9 @@ OUTPUT_JSON = Path(__file__).parent / "r9_path_alpha_v2_phi_link_sector_results.
 
 def build_engine():
     return VacuumEngine3D.from_args(
-        N=N_LATTICE, pml=PML, temperature=0.0,
+        N=N_LATTICE,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -103,17 +106,22 @@ def build_engine():
 
 def seed_corpus_2_3_joint(engine):
     engine.cos.initialize_electron_2_3_sector(
-        R_target=R_ANCHOR, r_target=R_MINOR,
-        use_hedgehog=True, amplitude_scale=A26_AMP_SCALE,
+        R_target=R_ANCHOR,
+        r_target=R_MINOR,
+        use_hedgehog=True,
+        amplitude_scale=A26_AMP_SCALE,
     )
     initialize_2_3_voltage_ansatz(
-        engine.k4, R=R_ANCHOR, r=R_MINOR, amplitude=V_AMP_INIT,
+        engine.k4,
+        R=R_ANCHOR,
+        r=R_MINOR,
+        amplitude=V_AMP_INIT,
     )
 
 
 def make_interior_mask(nx, pml):
     mask = np.zeros((nx, nx, nx), dtype=bool)
-    mask[pml:nx - pml, pml:nx - pml, pml:nx - pml] = True
+    mask[pml : nx - pml, pml : nx - pml, pml : nx - pml] = True
     return mask
 
 
@@ -159,12 +167,14 @@ def find_bond_pairs(top_cells_list, top_cells_set):
             if cell_b in top_cells_set and cell_b not in used_cells:
                 # Compute bond direction unit vector b_hat = offset / sqrt(3)
                 b_hat = (offset[0] / SQRT_3, offset[1] / SQRT_3, offset[2] / SQRT_3)
-                bond_pairs.append({
-                    "cell_a": list(cell_a),
-                    "port": port_idx,
-                    "cell_b": list(cell_b),
-                    "b_hat": list(b_hat),
-                })
+                bond_pairs.append(
+                    {
+                        "cell_a": list(cell_a),
+                        "port": port_idx,
+                        "cell_b": list(cell_b),
+                        "b_hat": list(b_hat),
+                    }
+                )
                 used_cells.add(cell_a)
                 used_cells.add(cell_b)
                 break
@@ -188,10 +198,8 @@ def main():
     print(f"  Lattice: N={N_LATTICE}, PML={PML} (interior {N_LATTICE - 2*PML}^3)")
     print(f"  Corpus GT: R={R_ANCHOR}, r={R_MINOR:.4f}")
     print(f"  Pre-evolve: t ∈ [0, {PRE_EVOLVE_END_P}] P")
-    print(f"  Selection: t ∈ [{PRE_EVOLVE_END_P}, {SELECTION_END_P}] P "
-          f"({N_SELECTION_STEPS} steps)")
-    print(f"  Recording: t ∈ [{SELECTION_END_P}, {RECORDING_END_P}] P "
-          f"({N_RECORDING_STEPS} steps)")
+    print(f"  Selection: t ∈ [{PRE_EVOLVE_END_P}, {SELECTION_END_P}] P " f"({N_SELECTION_STEPS} steps)")
+    print(f"  Recording: t ∈ [{SELECTION_END_P}, {RECORDING_END_P}] P " f"({N_RECORDING_STEPS} steps)")
     print(f"  Sampler: (Φ_link[A_bond, port], ω_axial = ω · b_hat)")
     print(f"  Dual-criterion (per cluster):")
     print(f"    C1: R/r = φ²={PHI_SQ:.4f} ± {PHI_SQ_TOL:.0%}")
@@ -237,8 +245,7 @@ def main():
     v_inc_mean_sq_interior = v_inc_mean_sq.copy()
     v_inc_mean_sq_interior[~interior_mask] = 0.0
 
-    flat_idx = np.argpartition(v_inc_mean_sq_interior.ravel(),
-                                -TOP_K_CANDIDATES)[-TOP_K_CANDIDATES:]
+    flat_idx = np.argpartition(v_inc_mean_sq_interior.ravel(), -TOP_K_CANDIDATES)[-TOP_K_CANDIDATES:]
     sorted_idx = flat_idx[np.argsort(-v_inc_mean_sq_interior.ravel()[flat_idx])]
     top_cells_list = []
     top_cells_set = set()
@@ -257,16 +264,17 @@ def main():
     print(f"  Identified {n_pairs} K4 bond-pairs:")
     for k, bp in enumerate(bond_pairs):
         offset = PORT_OFFSETS[bp["port"]]
-        print(f"    [{k}] A={tuple(bp['cell_a'])} port {bp['port']} → "
-              f"B={tuple(bp['cell_b'])} (offset {offset}, b_hat={[f'{x:.3f}' for x in bp['b_hat']]})",
-              flush=True)
+        print(
+            f"    [{k}] A={tuple(bp['cell_a'])} port {bp['port']} → "
+            f"B={tuple(bp['cell_b'])} (offset {offset}, b_hat={[f'{x:.3f}' for x in bp['b_hat']]})",
+            flush=True,
+        )
 
     if n_pairs == 0:
         raise RuntimeError("No K4 bond-pairs found — abort")
 
     # ─── Phase 3: recording window (Φ_link + ω_axial trajectory) ────────────────
-    print(f"  Recording window: capturing (Φ_link, ω_axial) at {n_pairs} bond-pairs...",
-          flush=True)
+    print(f"  Recording window: capturing (Φ_link, ω_axial) at {n_pairs} bond-pairs...", flush=True)
     phi_link_traj = np.zeros((N_RECORDING_STEPS, n_pairs))
     omega_axial_traj = np.zeros((N_RECORDING_STEPS, n_pairs))
 
@@ -281,13 +289,13 @@ def main():
             phi_link_traj[i, k] = phi_link[ix, iy, iz, port]
             # ω_axial = ω · b_hat (signed projection onto bond direction)
             omega_vec = omega[ix, iy, iz]
-            omega_axial_traj[i, k] = (
-                omega_vec[0] * b_hat[0] + omega_vec[1] * b_hat[1] + omega_vec[2] * b_hat[2]
-            )
+            omega_axial_traj[i, k] = omega_vec[0] * b_hat[0] + omega_vec[1] * b_hat[1] + omega_vec[2] * b_hat[2]
         if (time.time() - last_progress) > 30.0:
             t_period = (SELECTION_END_STEP + i) * DT / COMPTON_PERIOD
-            print(f"    [progress] t={t_period:6.1f} P  step {i}/{N_RECORDING_STEPS}  "
-                  f"elapsed {time.time()-t0:.1f}s", flush=True)
+            print(
+                f"    [progress] t={t_period:6.1f} P  step {i}/{N_RECORDING_STEPS}  " f"elapsed {time.time()-t0:.1f}s",
+                flush=True,
+            )
             last_progress = time.time()
 
     elapsed_total = time.time() - t0
@@ -303,27 +311,30 @@ def main():
     for k in range(n_pairs):
         R_phase, r_phase = fit_ellipse_pca(phi_link_traj[:, k], omega_axial_traj[:, k])
         R_over_r = R_phase / max(r_phase, 1e-30)
-        mean_sin, std_sin, chirality_sign = chirality_hilbert(
-            phi_link_traj[:, k], omega_axial_traj[:, k]
-        )
+        mean_sin, std_sin, chirality_sign = chirality_hilbert(phi_link_traj[:, k], omega_axial_traj[:, k])
         chir_label = "CCW" if chirality_sign > 0 else "CW" if chirality_sign < 0 else "AMBIG"
-        bond_results.append({
-            **bond_pairs[k],
-            "R_phase": R_phase,
-            "r_phase": r_phase,
-            "R_over_r": R_over_r,
-            "phi_link_amplitude_std": float(np.std(phi_link_traj[:, k])),
-            "omega_axial_amplitude_std": float(np.std(omega_axial_traj[:, k])),
-            "chirality_mean_sin_dphi": mean_sin,
-            "chirality_std_sin_dphi": std_sin,
-            "chirality_sign": chirality_sign,
-            "chirality_label": chir_label,
-        })
-        print(f"  [{k}] {tuple(bond_pairs[k]['cell_a'])} → "
-              f"{tuple(bond_pairs[k]['cell_b'])}  "
-              f"R/r={R_over_r:8.4f}  chirality={chir_label} "
-              f"(σ_Φ={np.std(phi_link_traj[:, k]):.3e}, "
-              f"σ_ω={np.std(omega_axial_traj[:, k]):.3e})", flush=True)
+        bond_results.append(
+            {
+                **bond_pairs[k],
+                "R_phase": R_phase,
+                "r_phase": r_phase,
+                "R_over_r": R_over_r,
+                "phi_link_amplitude_std": float(np.std(phi_link_traj[:, k])),
+                "omega_axial_amplitude_std": float(np.std(omega_axial_traj[:, k])),
+                "chirality_mean_sin_dphi": mean_sin,
+                "chirality_std_sin_dphi": std_sin,
+                "chirality_sign": chirality_sign,
+                "chirality_label": chir_label,
+            }
+        )
+        print(
+            f"  [{k}] {tuple(bond_pairs[k]['cell_a'])} → "
+            f"{tuple(bond_pairs[k]['cell_b'])}  "
+            f"R/r={R_over_r:8.4f}  chirality={chir_label} "
+            f"(σ_Φ={np.std(phi_link_traj[:, k]):.3e}, "
+            f"σ_ω={np.std(omega_axial_traj[:, k]):.3e})",
+            flush=True,
+        )
 
     # ─── Phase 5: per-cluster + global adjudication ──────────────────────────
     lattice_center = (engine.k4.nx - 1) / 2.0
@@ -346,13 +357,16 @@ def main():
             "median_R_over_r": cluster_median_R_over_r,
             "consensus_fraction": consensus_fraction,
             "consensus_direction": consensus_dir,
-            "n_ccw": n_ccw, "n_cw": n_cw,
-            "c1_pass": c1_pass, "c2_pass": c2_pass,
+            "n_ccw": n_ccw,
+            "n_cw": n_cw,
+            "c1_pass": c1_pass,
+            "c2_pass": c2_pass,
             "bond_indices": bp_indices,
         }
 
-    cluster_dirs = [a["consensus_direction"] for a in cluster_adjudication.values()
-                    if a["consensus_direction"] in ("CCW", "CW")]
+    cluster_dirs = [
+        a["consensus_direction"] for a in cluster_adjudication.values() if a["consensus_direction"] in ("CCW", "CW")
+    ]
     cross_cluster_consistent = (len(set(cluster_dirs)) == 1) if cluster_dirs else False
 
     omega_final = np.asarray(engine.cos.omega)
@@ -374,19 +388,13 @@ def main():
         )
     elif all_c1_pass and not all_c2_pass:
         mode = "II-chirality"
-        verdict = (
-            f"MODE II-chirality — R/r=φ² but chirality inconsistent in trading channel."
-        )
+        verdict = f"MODE II-chirality — R/r=φ² but chirality inconsistent in trading channel."
     elif not all_c1_pass and all_c2_pass:
         mode = "II-aspect"
-        verdict = (
-            f"MODE II-aspect — chirality consistent but R/r ≠ φ² in trading channel."
-        )
+        verdict = f"MODE II-aspect — chirality consistent but R/r ≠ φ² in trading channel."
     elif any(a["c1_pass"] for a in cluster_adjudication.values()) != all_c1_pass:
         mode = "III-asymmetric"
-        verdict = (
-            f"MODE III-asymmetric — clusters diverge in trading channel."
-        )
+        verdict = f"MODE III-asymmetric — clusters diverge in trading channel."
     else:
         mode = "III"
         verdict = (
@@ -396,10 +404,7 @@ def main():
         )
 
     if not persistence_ok:
-        verdict += (
-            f" CAVEAT: peak |ω| persistence {persistence:.0%} below "
-            f"{PERSISTENCE_GUARD:.0%} threshold."
-        )
+        verdict += f" CAVEAT: peak |ω| persistence {persistence:.0%} below " f"{PERSISTENCE_GUARD:.0%} threshold."
 
     print()
     print("=" * 78, flush=True)
@@ -407,11 +412,15 @@ def main():
     print("=" * 78, flush=True)
     for cluster_key, adj in cluster_adjudication.items():
         print(f"  Cluster {cluster_key} ({adj['n_bonds']} bonds):")
-        print(f"    median R/r = {adj['median_R_over_r']:.4f} (target {PHI_SQ:.4f}±5%) → "
-              f"C1 {'PASS' if adj['c1_pass'] else 'FAIL'}")
-        print(f"    chirality = {max(adj['n_ccw'], adj['n_cw'])} of {adj['n_bonds']} "
-              f"({adj['consensus_fraction']:.0%}) {adj['consensus_direction']} → "
-              f"C2 {'PASS' if adj['c2_pass'] else 'FAIL'}")
+        print(
+            f"    median R/r = {adj['median_R_over_r']:.4f} (target {PHI_SQ:.4f}±5%) → "
+            f"C1 {'PASS' if adj['c1_pass'] else 'FAIL'}"
+        )
+        print(
+            f"    chirality = {max(adj['n_ccw'], adj['n_cw'])} of {adj['n_bonds']} "
+            f"({adj['consensus_fraction']:.0%}) {adj['consensus_direction']} → "
+            f"C2 {'PASS' if adj['c2_pass'] else 'FAIL'}"
+        )
     print(f"  Cross-cluster chirality consistent: {cross_cluster_consistent}")
     print(f"  Persistence: {persistence:.0%}")
     print()
@@ -453,7 +462,7 @@ def main():
         "mode": mode,
         "verdict": verdict,
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"  Result: {OUTPUT_JSON}")
     return payload
 

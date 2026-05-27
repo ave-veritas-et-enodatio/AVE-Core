@@ -24,8 +24,7 @@ The now-deprecated `axiom-homologation.md` (`session/`) called for unifying the 
 - Keep applied content in vol4: chiral thrust (`clm-7tynm2`) and the bench/device/fusion/autoresonant chapters.
 - On landing, drop the vol3→vol4 forward-edge exceptions (tagged `[vol3→vol4 exception, D11]` in their `depends-on` rationales) — they become ordinary backward edges to the relocated claims.
 
-### D15. Pin `encoding="utf-8"` on text I/O across `src/` (separate-concern residual)
-The `manuscript/ave-kb/tools/` portion is **done** (2026-05-26): 42 sites pinned (D15.1) and flake8 coverage extended to the tools tree (D15.2) so the gap can't silently re-accrete. **Open residual:** the same unpinned-default-encoding pattern almost certainly exists across `src/` (the earlier code-quality pass did annotations + sys.path removal + flake8 but did NOT pin encodings). Scoped out deliberately as a separate concern (2026-05-26 — "leave src/ alone"). Note: flake8 does NOT catch unpinned encoding, so a dedicated grep gate is the verifier here: `grep -rn 'read_text()\|write_text(\|open(' src --include='*.py' | grep -v encoding=` (call-aware multiline check needed for the true count). Mechanical; worker+verifier when picked up.
-
-<!-- D13 (distill P47/P10/P41 → leaves + bridge) and D14 (flip bridge check warn→critical) completed 2026-05-27; removed per "completed items are removed — git history holds them." -->
+<!-- Completed, removed per "completed items are removed — git history holds them":
+     D13 (distill P47/P10/P41 → leaves + bridge) + D14 (flip bridge check warn→critical), 2026-05-27;
+     D15 (pin encoding="utf-8" on all text I/O — tools tree D15.1/D15.2, then the full src/ sweep), 2026-05-27. -->
 

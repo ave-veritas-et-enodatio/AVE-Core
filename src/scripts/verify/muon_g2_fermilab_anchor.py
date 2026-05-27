@@ -436,7 +436,7 @@ def main() -> int:
     }
 
     out_path = Path(__file__).parent / "muon_g2_fermilab_anchor_results.json"
-    with open(out_path, "w") as f:
+    with open(out_path, "w", encoding="utf-8") as f:
         json.dump(json_results, f, indent=2, default=str)
     print(f"Results JSON: {out_path}")
 
