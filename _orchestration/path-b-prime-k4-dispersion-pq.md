@@ -75,3 +75,54 @@ The trampoline-primer's bubble-wand pinch-off (Step 4.5) IS the mechanical closu
 ## Status note
 
 If Q-PBP-1 returns negative (no Hopf-bundle structure on $I4_132$), this epic doc + the parked prereg can be archived to `_orchestration/_archive/` with a "FRAMEWORK-EXTENSION ABANDONED, FALLS BACK TO PATH B" header. Path B (Faddeev-Skyrme variational) remains the canonical route to deriving the lightest-coprime selection from energy-ordering.
+
+## Phase execution log
+
+### Phase 1 (LANDED 2026-05-27 implementor session) — pre-execution architectural audit + driver scaffold
+
+**Branch**: `analysis/path-b-prime-k4-dispersion-pq` off `main` @ `c29e3595`
+**Implementor**: ave-implementer agent, worktree `.claude/worktrees/agent-a40c2fabbf16a60fb/`
+**Result doc**: [`research/2026-05-27_path-b-prime-k4-dispersion-pq-classification-result.md`](../research/2026-05-27_path-b-prime-k4-dispersion-pq-classification-result.md)
+**Driver**: [`src/scripts/vol_1_foundations/test_lattice_pq_dispersion_classification.py`](../src/scripts/vol_1_foundations/test_lattice_pq_dispersion_classification.py)
+
+**Deliverables landed:**
+- Substrate-native (K4 + Cosserat + Ax 1 + Hopf-bundle) walk per `substrate-native-check`
+- 3-coordinate phase-space audit (K4 Bloch + Clifford-torus $(\theta_1, \theta_2)$ winding + K4 port irrep) per `phase-space-coordinate-check`
+- Class 2 (substrate-mechanism emergence on A) / Class 4 (substrate-agnostic-consistency on D) classification per `consistency-vs-emergence` v1.2
+- Step 3.5 canonical-primitive dimensional analysis (ALPHA/V_YIELD/V_SNAP/L_NODE) confirming M1-M5 metrics well-formed at operating point per `ave-prereg` v1.1
+- Vocabulary-broadened pre-survey grep (both standard wedge + substrate-native wedge) per `ave-canonical-leaf-pull` v1.3 Trigger 17
+- Driver scaffolded canonical-source-compliant + no hardcoded literals per `ave-driver-script-honesty`
+- 12 (p,q) modes enumerated; FFT extraction with PML-filtered interior recording per A-Rule-10 corollary
+- M5 α-independence test via kappa_scale = {0.8, 1.0, 1.2} perturbation on (2,3); discriminates substrate-geometric vs amplitude-tautology
+
+**Load-bearing pre-execution findings (affect outcome interpretation regardless of run):**
+
+1. **K4Lattice3D engine carries no `kappa_tilde` / `kappa_chiral` parameter at any layer**. Verified by grep on `src/ave/core/k4_tlm.py`: only 2 hits on `kappa|tilde|chiral`, both descriptive. The 4-port scattering matrix is symmetric in all ports; chirality lives in the bipartite-graph + tetrahedral-port-vector topology, NOT in any scattering coefficient. This SETTLES Q-PBP-2 design: feeding `kappa_tilde_torus(p,q)` as source amplitude would be Q-PBP-2 tautology. The driver therefore injects (p,q) via SEED GEOMETRIC PHASE PATTERN only (substrate-native projection of Clifford-torus $(\theta_1, \theta_2)$ → real-space transverse polar $(\phi, r)$ at source plane).
+2. **L3 doc 06 §2 places (p,q) at Level 1 (Cosserat SU(2))**; K4-TLM port-space is BELOW Level 1 in the projection chain. The Path B-prime extension claim (linear-regime K4-TLM port-space carries (p,q) classification) is operating BELOW the level where the canonical corpus places the Hopf-bundle structure. Architectural priors UPDATE outcome probabilities: outcome C lifted to ~50-65%, outcome A dropped to ~15-25%, before any empirical run.
+
+**Phase 2 (empirical M1-M5 measurement) EXECUTION-BLOCKED in implementor sandbox:**
+
+The driver was scaffolded end-to-end and is canonical-ready but the python interpreter is policy-blocked in the implementor sandbox. Per Rule 10 (empirical-driver discipline) + Rule 11 (honest closure), the verdict is PARTIAL — pre-execution audit complete, empirical measurement pending Grant manual execution. Surface for Grant's orchestration session:
+
+```bash
+# From repo root, with venv active:
+PYTHONPATH=src .venv/bin/python3 src/scripts/vol_1_foundations/test_lattice_pq_dispersion_classification.py
+```
+
+Expected runtime: ~10-30 min. Outputs land at `results/lattice_pq_dispersion_classification.json` + `assets/lattice_pq_dispersion_panels.png`. Post-run, the result doc gets Rule-12-style amendment to §4 with verdict + outcome label.
+
+**Q-PBP-2/3/4/5 adjudication outcomes (in-test):**
+
+- **Q-PBP-2 (methodology)**: surfaced load-bearingly. PARTIALLY ANSWERED by architectural audit — kappa_tilde-as-amplitude IS tautology; substrate-native (p,q) injection must live in seed geometric phase pattern. M5 perturbation discriminates substrate-native from amplitude-coupled.
+- **Q-PBP-3 (scope)**: surfaced load-bearingly. L3 doc 06 placement of (p,q) at Cosserat Level 1 means a C-outcome falsifies the PATH-B-PRIME EXTENSION (linear-regime K4-TLM-port-space-only carrying (p,q)) but NOT the foundational Hopf-on-substrate (Q-PBP-1 GO survives). C-outcome path-forward: fall back to Path B (Faddeev-Skyrme at Cosserat-SU(2) level).
+- **Q-PBP-4 (sequencing)**: RESOLVED VIA DESIGN. Driver doesn't consume kappa_tilde as scattering input, so the AVE-HOPF crib-sheet:25 α-tautology concern is structurally bypassed. No k4_tlm.py refactor needed.
+- **Q-PBP-5 (commit)**: applies post-run. Phase 1 lands on branch as PARTIAL closure with surfaced blocker; Phase 2 amendment gets audit-tagged based on outcome.
+
+**Commit messages (this session):**
+
+- `c<sha-1>`: research(path-b-prime): Phase 1 result doc + driver scaffold; empirical execution Grant-pending (Rule 10 sandbox blocker)
+- `c<sha-2>`: orch(path-b-prime): epic doc Phase 1 execution log
+
+### Phase 2 (PENDING Grant) — empirical M1-M5 measurement
+
+Trigger: Grant manual execution of the driver. Outcome lands as Rule-12 amendment to the result doc + audit tag on branch tip.
