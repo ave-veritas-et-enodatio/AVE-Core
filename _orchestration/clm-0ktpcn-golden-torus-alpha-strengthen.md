@@ -176,8 +176,10 @@ Per the canonical 2026-05-25 entry, clm-0ktpcn's own 4-item list (DIFFERENT from
 |---|---|---|---|
 | **3-Q2** | **Pre-clean stale narrative breadcrumbs on 4 cascaded claim-quality entries (no derivation; hygiene only)** | OPEN — fastest closure, parallel-safe with 3-A1 / 3-A2 | Single implementor; ~30-min hygiene pass; no auditor needed |
 | **3-A1** | **Prose reframe of ch8 chapter to separate Class 2 axiom-manifestation steps from Class 4 consistency checks** per consistency-vs-emergence v1.2 master-equation-derivation-path discipline | OPEN — likely combinable with 3-Q2 (same files, similar mechanical-edit shape) | Combined implementor with 3-Q2 (sub-agent A) recommended for batching |
-| **3-A2** | **Attempt Schur orthogonality argument for the sum-decomposition** — if orthogonality is genuinely Schur-derivable, this lifts confidence 0.55 → 0.65; if not, walk back the "sum is orthogonal" framing | OPEN — green-field derivation; high-uncertainty closure | Standalone implementor (sub-agent B); needs ave-prereg corpus survey + ave-canonical-leaf-pull + auditor pass |
+| **3-A2** | **Attempt Schur orthogonality argument for the sum-decomposition** — if orthogonality is genuinely Schur-derivable, this lifts confidence 0.55 → 0.65; if not, walk back the "sum is orthogonal" framing | ✓ CLOSED 2026-05-26 — WALK-BACK with structural reframe; confidence STAYS at 0.60; substrate-mechanism path identified (Op21 multi-mode mode-counting at Γ=-1 saturation boundary); strengthen-by item REFORMULATED from Schur to Op21-formalization. Branch `analysis/clm-0ktpcn-phase-3-A2-schur-orthogonality` pushed; PR pending orchestration session. See §"Phase 3-A2 execution log (2026-05-26)" below | Standalone implementor (sub-agent B) per epic brief; spawned 2026-05-26 |
 | **3-A3** | **δ_strain magnitude derivation from Ax 4 saturation kernel parameters** — independent of 3-A2 result | OPEN — deferred to Phase 4 unless 3-A2 walks back and we need a different lift lever | Future workstream |
+| **3-A4 (NEW, surfaced by Phase 3-A2)** | **Promote Op21 multi-mode generalization from paragraph-level statement (`theorem-3-1-q-factor.md` §Op21) to fully-derived canonical leaf** — formalize Nyquist-cell-count additivity at Γ=-1 saturation boundary as substrate-mechanism path for three-Λ assembly, with step-by-step trace to Ax 1 + Ax 3 + codimensional mode-category independence | OPEN — this is the actual remaining open derivation step on clm-0ktpcn after Phase 3-A2 WALK-BACK closure | Future workstream; could be standalone implementor |
+| **3-A5 (NEW, surfaced by Phase 3-A2 — speculative)** | **Identify canonical substrate Hilbert space on which T = A_4 acts with irrep decomposition A + E + T (dims 1+2+3)** — if such a substrate Hilbert space can be identified and the (R, r, d)-fixed substrate kernel decomposes onto its irreps, Schur orthogonality WOULD close the additive assembly at Class 2 axiom-manifestation level | OPEN — substantive future workstream, NOT a near-term tweak; Phase 3-A2 surfaces this as the most promising structural-match candidate among the explored alternatives | Future workstream; requires substantive group-theory + substrate-Hilbert-space work |
 
 ### Phase 3a-A1+Q2 combined brief (implementor sub-agent A)
 
@@ -263,6 +265,44 @@ If the symmetry decomposition doesn't go through cleanly → walk back the "orth
 - 3-A2 standalone: ~40% probability of Schur closure; ~60% probability of walk-back with honest reframe (still a valuable outcome — corpus gets more honest)
 
 Combined Phase 3 expected confidence lift: 0.55 → 0.60-0.65 (probability-weighted).
+
+### Phase 3-A2 execution log (2026-05-26)
+
+**Branch**: `analysis/clm-0ktpcn-phase-3-A2-schur-orthogonality` off `main` @ `453c335e`
+
+**Verdict**: **WALK-BACK with structural reframe**. The Schur-orthogonality-strict hypothesis is NOT the load-bearing theorem; the substrate-mechanism path is Op21 multi-mode mode-counting at the $\Gamma = -1$ saturation boundary, canonical (paragraph-level) at `theorem-3-1-q-factor.md` §"Op21 multi-mode generalization". Outcome lands in the ~60% pre-registered walk-back probability band.
+
+**Commits**:
+
+1. `3de0b411` — `research(clm-0ktpcn): Phase 3-A2 pre-registration — Schur orthogonality attempt for sum-decomposition` (266 lines; 12 corpus anchors identified; 4 routes pre-registered)
+2. `21aa99ae` — `research(clm-0ktpcn): Phase 3-A2 result — WALK-BACK with structural reframe (Schur not achievable, Op21 mode-counting IS the substrate path)` (265 lines; full route-by-route walkthrough + honest classification + discrimination check + independence check + phase-space-coordinate check + self-audit checklist)
+3. `6217411b` — `kb+research(clm-0ktpcn): Phase 3-A2 WALK-BACK closure — Op21 mode-counting reframe of additive-assembly framing` (chapter prose reframe at 3 sites in ch8-alpha-golden-torus.md + clm-0ktpcn rationale append + strengthen-by reformulation + auto-regenerated index)
+4. (this commit) — `orch(clm-0ktpcn): Phase 3-A2 execution log + epic doc update`
+
+**Key findings**:
+
+1. **Schur orthogonality (specific theorem-anchor named in original strengthen-by item) is NOT achievable** as a Class 2 substrate-mechanism step. The canonical substrate group action ($T_d$ on $V_{\text{4-port}}$ per `k4-port-irrep-decomposition.md`) gives 2 irreps ($A_1 \oplus T_2$, dims $1 + 3 = 4$), not three irreps matching the $1 + 2 + 3$ codimensional ordering of $\Lambda_{\text{line}}, \Lambda_{\text{surf}}, \Lambda_{\text{vol}}$. No canonical substrate Hilbert space carrying a three-irrep decomposition was found in the corpus survey.
+
+2. **Op21 multi-mode mode-counting at the $\Gamma = -1$ saturation boundary IS the substrate-mechanism path**. The substrate-mechanism content traces to Ax 1 (Nyquist cell size in natural units) + Ax 3 (saturation TIR mode-leak fraction $1/\ell$) + codimensional mode-category independence (volume cells, surface cells, line cells are mutually exclusive Nyquist-cell categories). This is **already canonical** at `theorem-3-1-q-factor.md` §"Op21 multi-mode generalization" — Phase 3-A2's contribution is recognizing this as the load-bearing theorem-anchor and cross-citing it from `ch8-alpha-golden-torus.md`.
+
+3. **The $(R \cdot r)$-collinearity issue is reframed**: $\Lambda_{\text{vol}} / \Lambda_{\text{surf}} = 4\pi$ IS the spinor-temporal phase factor (substrate SU(2) double-cover per ch8 line 105), consistent with substrate-mechanism mode-category independence even where $(R, r)$ parameter-space collinearity holds. The strengthen-by item's "nested supports defeat domain-disjointness" objection is partially correct (point-set supports are nested) but overstated — mode categories at the saturation boundary are mutually exclusive Nyquist-cell categories even where point-set supports are nested.
+
+4. **Confidence STAYS at 0.60**. No derivation-rigor improvement because the substrate-mechanism path was already canonical (Op21 multi-mode generalization), just under-cited from ch8 before this commit. The strengthen-by item is reformulated from "Schur orthogonality" to "promote Op21 multi-mode generalization to fully-derived canonical leaf" — same physics, accurate theorem-anchor.
+
+**Newly-opened workstreams** (queued, not in Phase 3-A2 scope):
+
+- **Phase 3-A4**: Promote Op21 multi-mode generalization from paragraph-level statement to fully-derived canonical leaf (the actual remaining open derivation step replacing the Schur framing).
+- **Phase 3-A5** (speculative): Identify canonical substrate Hilbert space on which $T = A_4$ acts with irreps $A + E + T$ (dims $1 + 2 + 3$ matching codimensional ordering). If such a Hilbert space exists and the (R, r, d)-fixed substrate kernel decomposes onto its irreps, Schur orthogonality WOULD close at Class 2. This is a substantive future workstream, not a near-term tweak — Phase 3-A2 establishes it as the most promising structural-match candidate.
+
+**Pollution check**: pre-commit `git diff --cached --stat` scope-screening was run for each of the three commits during Phase 3-A2 execution. No out-of-scope files committed. Worktree-isolation discipline maintained (all file edits in `/Users/grantlindblom/AVE-staging/AVE-Core/.claude/worktrees/agent-ac6b94f2cbade9ce4/`, no edits at parent path `/Users/grantlindblom/AVE-staging/AVE-Core/`).
+
+**Verify pipeline (pre-push)**:
+- `make refresh-kb-metadata`: 0 leaf-claim / solidity changes; 1 .index regeneration (strengthen-by 2→3 items)
+- `make verify-kb-metadata`: PASS (694 files, 281 canonical entries)
+- `make verify-md-links`: my new docs link-clean; only pre-existing broken links in older research docs remain
+- `make verify`: ALL PHYSICS PROTOCOLS PASSED (predictions WARN unrelated, 3 unbridged manifest entries pending separate migration)
+
+**Self-audit verdict**: PASS. Honest closure per Rule 11; substitution-not-retraction per Rule 12; all skill firings documented; cross-agent pollution check passed. Push branch ready for orchestration session PR open.
 
 ### Spawn protocol (orchestration session)
 
