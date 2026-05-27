@@ -41,7 +41,7 @@ Lattice-natural units throughout ($\ell_{node} = c = \hbar = m_e = 1$, $Z_0 = 1$
 
 ### §2.1 — Step 1: Ax 1 Nyquist cell size as substrate-native cardinality unit
 
-Per Ax 1 (Substrate Topology, [INVARIANT-S2](../../../CLAUDE.md)), the substrate is a 3D chiral Laves K4 Cosserat crystal with discrete cell size $\ell_{node}$ (canonical at [`lattice-impedance-decomposition.md` §2](../../../vol1/operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md) + [`src/ave/core/constants.py:194`](../../../../src/ave/core/constants.py)). In lattice-natural units, $\ell_{node} = 1$ by definition — the substrate's natural cardinality unit.
+Per Ax 1 (Substrate Topology, [INVARIANT-S2](../../../CLAUDE.md)), the substrate is a 3D chiral Laves K4 Cosserat crystal with discrete cell size $\ell_{node}$ (canonical at [`lattice-impedance-decomposition.md` §2](../../../vol1/operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md) + [`src/ave/core/constants.py:194`](../../../../../src/ave/core/constants.py)). In lattice-natural units, $\ell_{node} = 1$ by definition — the substrate's natural cardinality unit.
 
 The substrate's discrete cell-counting IS the substrate-native cardinality measure for any sub-manifold of the lattice. For a sub-manifold $\Sigma_k$ of geometric codimension $k$:
 
@@ -136,7 +136,7 @@ The natural-unit choice operationally simplifies the expressions but does not pr
 
 The three codimensional sub-manifolds of the Clifford-torus embedding are **mutually exclusive partitions of substrate Nyquist cells at the saturation boundary**. A Nyquist cell on the codim-1 sub-manifold (tube cross-section perimeter) is NOT also a cell on the codim-2 sub-manifold (Clifford-torus surface); they live in different sub-manifolds with non-overlapping support points.
 
-Modes confined to different codimensional sub-manifolds therefore add WITHOUT cross-terms — this is the substrate-mechanism content of codimensional independence (replacing the Schur-orthogonality framing that Phase 3-A2 falsified per [`research/2026-05-26_clm-0ktpcn-phase-3-A2-schur-orthogonality-result.md`](../../../../research/2026-05-26_clm-0ktpcn-phase-3-A2-schur-orthogonality-result.md)).
+Modes confined to different codimensional sub-manifolds therefore add WITHOUT cross-terms — this is the substrate-mechanism content of codimensional independence (replacing the Schur-orthogonality framing that Phase 3-A2 falsified per [`research/2026-05-26_clm-0ktpcn-phase-3-A2-schur-orthogonality-result.md`](../../../../../research/2026-05-26_clm-0ktpcn-phase-3-A2-schur-orthogonality-result.md)).
 
 **Reconciliation of $(R \cdot r)$-collinearity**: the geometric measures $\Lambda_{\text{vol}}$ and $\Lambda_{\text{surf}}$ share the $(R \cdot r)$ parametric factor (so the $(R, r, d) \to \Lambda$ map has 2D image, not 3D). Mode-category independence at the saturation boundary is a STATEMENT ABOUT WHICH SUBSTRATE CELLS CARRY WHICH MODES — not a statement about the dimensionality of the parameter map. The cells in the codim-2 sub-manifold are mutually exclusive with cells in the codim-3 sub-manifold even when their dimensionless geometric measures both scale with $R \cdot r$ parametrically. The substrate-mechanism mode-category independence holds; the parameter-space collinearity is a separate (and consistent) statement.
 
@@ -186,7 +186,7 @@ The substrate Op21 multi-mode form derives the three-Λ assembly end-to-end from
 
 ## §5 — Op21 dual-identification reconciliation (Op21-foundational + BCS-specialization)
 
-The [`common/operators.md:61`](../../../common/operators.md) Op21 row primary formula is $Q \sim 1/\ln(Z_1/Z_0)$ (the Vol 1 Ch 6 §1.21 canonical-source formula at [`manuscript/vol_1_foundations/chapters/06_universal_operators.tex:349`](../../../../manuscript/vol_1_foundations/chapters/06_universal_operators.tex)). The canonical-source operator name is **"Quality Factor Phase Transition"** — naming the substrate phase-transition mechanism, NOT "Bardeen mapping" (which is a KB-level annotation in `operators.md:61`).
+The [`common/operators.md:61`](../../../common/operators.md) Op21 row primary formula is $Q \sim 1/\ln(Z_1/Z_0)$ (the Vol 1 Ch 6 §1.21 canonical-source formula at [`manuscript/vol_1_foundations/chapters/06_universal_operators.tex:349`](../../../../../manuscript/vol_1_foundations/chapters/06_universal_operators.tex)). The canonical-source operator name is **"Quality Factor Phase Transition"** — naming the substrate phase-transition mechanism, NOT "Bardeen mapping" (which is a KB-level annotation in `operators.md:61`).
 
 **The substrate-foundational Op21 form is $Q = \ell$ at the $\Gamma = -1$ saturation/TIR boundary** (§§1-4 above). Cross-scale canonical fires at four distinct substrate scales:
 
@@ -233,16 +233,16 @@ The two operators are substrate-mechanical complementary: Op17 = open-boundary e
 
 ### §6.4 — Upstream canonical content (Phase 3-A4 inputs)
 
-- **Ax 1 Nyquist cell size**: [`src/ave/core/constants.py:194`](../../../../src/ave/core/constants.py) `L_NODE` + INVARIANT-S2 (Ax 1)
+- **Ax 1 Nyquist cell size**: [`src/ave/core/constants.py:194`](../../../../../src/ave/core/constants.py) `L_NODE` + INVARIANT-S2 (Ax 1)
 - **Ax 3 + Ax 4 saturation kernel → $\Gamma = -1$**: [`electron-identification.md:24`](../../../vol2/particle-physics/ch01-topological-matter/electron-identification.md) + [`theorem-3-1-q-factor.md:71-79`](theorem-3-1-q-factor.md)
 - **Clifford-torus codimensional embedding**: [`ch8-alpha-golden-torus.md:97-108`](../../../vol1/ch8-alpha-golden-torus.md) + [`boundary-observables-m-q-j.md`](../../../common/boundary-observables-m-q-j.md)
 - **Golden Torus geometry $(R, r, d)$**: [`ch8-alpha-golden-torus.md:31-93`](../../../vol1/ch8-alpha-golden-torus.md) (three-substrate-regime derivation)
 
 ### §6.5 — Phase 3-A4 closure provenance
 
-- **Pre-registration**: [`research/2026-05-27_clm-0ktpcn-phase-3-A4-op21-formalization-prereg.md`](../../../../research/2026-05-27_clm-0ktpcn-phase-3-A4-op21-formalization-prereg.md)
-- **Result document**: [`research/2026-05-27_clm-0ktpcn-phase-3-A4-op21-formalization-result.md`](../../../../research/2026-05-27_clm-0ktpcn-phase-3-A4-op21-formalization-result.md)
-- **Phase 3-A2 antecedent (Schur orthogonality WALK-BACK with Op21 mode-counting structural reframe)**: [`research/2026-05-26_clm-0ktpcn-phase-3-A2-schur-orthogonality-result.md`](../../../../research/2026-05-26_clm-0ktpcn-phase-3-A2-schur-orthogonality-result.md)
+- **Pre-registration**: [`research/2026-05-27_clm-0ktpcn-phase-3-A4-op21-formalization-prereg.md`](../../../../../research/2026-05-27_clm-0ktpcn-phase-3-A4-op21-formalization-prereg.md)
+- **Result document**: [`research/2026-05-27_clm-0ktpcn-phase-3-A4-op21-formalization-result.md`](../../../../../research/2026-05-27_clm-0ktpcn-phase-3-A4-op21-formalization-result.md)
+- **Phase 3-A2 antecedent (Schur orthogonality WALK-BACK with Op21 mode-counting structural reframe)**: [`research/2026-05-26_clm-0ktpcn-phase-3-A2-schur-orthogonality-result.md`](../../../../../research/2026-05-26_clm-0ktpcn-phase-3-A2-schur-orthogonality-result.md)
 
 ## §7 — Classification per consistency-vs-emergence v1.2
 
