@@ -115,7 +115,20 @@ Hardware numerology derivations (including $n_{3D}$, $C_K$, $z_0$, $\nu_{vac}$) 
 
 ---
 
-### Volume 9: Axiomatic Processing Unit (Experimental Repository)
+### [Vol 9: The Vacuum Datasheet](vol9/index.md)
+
+Engineering-datasheet-format synthesis of the natural vacuum substrate $\mathcal{M}_A$. Consolidates canonical content from Vols 1–6 into the section ordering engineers expect (General Description → Absolute Maximum Ratings → Pin/Port Configuration → DC/AC Electrical → Temperature → Saturation → Breakdown → Mechanical → Magnetic/Microrotational → Topological → Cosmological → Application Examples → Phase Diagrams → Falsification Tests → Cross-Volume Reference Index). Vol 9 is a **synthesis volume**: no chapter contains a primary substrate-physics derivation; every spec table cites the canonical leaf in Vols 1–6 where the derivation lives. Per Grant 2026-05-28 directive: the substrate is **natural**; engineering practice empirically measures its limits; AVE substrate-physics derives the substrate-mechanism behind each measurable parameter; this volume documents all three in one canonical reference.
+
+**Key results:** datasheet-format spec tables for every substrate primitive in Chs 2–12; cross-chapter integration of $\alpha = 1/(4\pi^3 + \pi^2 + \pi + \delta_{strain})$, Schwarzschild reduction as SYM-class gradient-index TL, $W/Z$ masses as transformer-leakage cutoff, Born rule $p = 2$ as substrate boundary-Joule extraction (Ch.13); full Regime I–IV phase diagrams (Ch.14); cosmic + bench falsification programme (Ch.15); auto-aggregated parameter → canonical-source index (Ch.16)
+
+| Domain | Contents |
+|---|---|
+| [Vol 9 KB tree](vol9/index.md) | Per-chapter index stubs at `vol9/ch1-general-description/` through `vol9/ch16-cross-volume-reference/`; routes Vol 9 datasheet entries to canonical leaves in Vols 0–6 |
+| [Vol 9 claim-quality](vol9/claim-quality.md) | Thin Vol-9-scoped claim-quality register (Vol 9 is synthesis-not-derivation) |
+
+---
+
+### Companion Repository: AVE-APU
 
 The hardware validation, declarative topology compilation (atopile), and physical APU post-CMOS processor specifications are explored in an experimental repository.
 
