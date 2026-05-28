@@ -43,6 +43,17 @@ data/*
 simulations/*
 sim_outputs/
 
+# Canonical documentation assets — exception to sim_outputs/ ignore above.
+# The K4 lattice structure render is referenced by vol_1 ch01 \includegraphics
+# (line 182) and is required for downstream vol_9 builds (`make vol9` chains
+# `make vol1`). Tracked so worktrees and CI builds resolve it. The
+# un-ignore-then-re-ignore-then-allowlist pattern matches the data/pantheon_plus
+# convention below — required because a bare `sim_outputs/` rule excludes the
+# parent directory, and git cannot re-include files under an excluded parent.
+!assets/sim_outputs/
+assets/sim_outputs/*
+!assets/sim_outputs/lattice_structure_3d.png
+
 # Canonical external research data — explicit allowlist (override of data/* above)
 # External research artifacts (not simulation outputs) tracked for reproducibility.
 # Large covariance files (>5MB) routed through git-LFS per .gitattributes.
