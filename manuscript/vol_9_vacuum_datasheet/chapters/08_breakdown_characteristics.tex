@@ -2,4 +2,175 @@
 \chapter{Breakdown Characteristics}
 \label{ch:vol9_breakdown_characteristics}
 
-\textit{Stub --- to be populated in Vol~9 PR-E. Documents Schwinger pair production at $E_S$, Miller avalanche multiplication $M = 1/S^2$, substrate dielectric rupture at $V_{snap}$. Primary canonical sources: \texttt{clm-ezai5b} (Schwinger / Miller substrate-mechanism unification); \texttt{ave-kb/common/four-regimes.md} Regime~III; \texttt{translation-circuit.md} \S 9 (breakdown-class EE mappings).}
+\begin{objectivebox}
+\begin{itemize}
+    \item Document the substrate's two-threshold breakdown structure: $V_{yield}$ at the macroscopic nonlinear onset (Regime II$\to$III boundary) and $V_{snap}$ at the absolute topological node-destruction limit (Regime IV; substrate rupture; rest-mass-of-electron threshold).
+    \item State the Miller multiplication identity $M(r) = 1/S(r)^2$ as the substrate's Regime III amplification law; identify avalanche-photodiode gain and Zener / impact-ionization carrier multiplication as engineering-empirical projections of the same substrate primitive.
+    \item State the Schwinger pair-production critical field $E_S = m_e^2 c^3/(e\hbar) \approx 1.32 \times 10^{18}\,\text{V/m}$ as the substrate-natural response to the Axiom~4 saturation amplitude reaching $A^2 \to 1$ at adjacent A/B K4 nodes; cite the canonical pair-production-as-saturated-flux-tube-rupture leaf.
+    \item Document substrate-native breakdown time-domain dynamics at $\ell_{node}/c_0 \sim 10^{-21}$~s; identify the engineering implication for sub-nanosecond switch-mode and ultrafast-laser devices.
+    \item Cross-reference Vol~9 Ch.~\ref{ch:vol9_cosmological_characteristics} (cosmological substrate rupture: BH formation = ruptured-plasma interior); preserve the canonical AVE cosmology framing per project memory.
+    \item Map engineering breakdown vocabulary (avalanche-photodiode gain, Zener breakdown, electrical breakdown of air, corona discharge, dielectric breakdown, electrical-arc formation) onto substrate Regime~III/IV primitives.
+\end{itemize}
+\end{objectivebox}
+
+\section{Two-Threshold Breakdown Structure}
+\label{sec:vol9_two_threshold}
+
+The substrate carries two physically distinct breakdown thresholds, both derivable from a single Axiom~4 kernel evaluated at different operating-point scales. The canonical statement is at Vol~4 KB leaf \texttt{ave-kb/vol4/circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md} (\texttt{clm-0vxzfu}):
+
+\begin{resultbox}{Two-Threshold Structure --- Verbatim from \texttt{clm-0vxzfu}}
+\begin{tabular}{lll}
+\toprule
+\textbf{Threshold} & \textbf{Value} & \textbf{Physical Meaning} \\
+\midrule
+$V_{snap}$  & $m_e c^2 / e \approx 511$ kV                       & Absolute topological node destruction \\
+$V_{yield}$ & $\sqrt{\alpha}\, V_{snap} \approx 43.65$ kV        & Macroscopic nonlinear onset \\
+\bottomrule
+\end{tabular}
+
+\medskip
+$V_{snap}$ is the correct threshold for subatomic scale (bond energy, confinement, nuclear scattering); $V_{yield}$ is the macroscopic onset --- analogous to the distinction between theoretical crystal shear strength and engineering yield stress.
+\end{resultbox}
+
+The two thresholds locate the same axiomatic content at two operationally distinct scales. $V_{yield}$ marks the boundary at which the Axiom~4 kernel $S(A) = \sqrt{1 - (A/A_{yield})^2}$ first develops observable corrections beyond the lattice's own self-coupling $\alpha$ (Regime II onset). $V_{snap}$ marks the boundary at which $S \to 0$ and the substrate's topology is destroyed (Regime IV). The ratio $V_{snap}/V_{yield} = 1/\sqrt{\alpha} \approx 11.7$ is fixed by axiomatic consistency, not a free parameter.
+
+The corresponding field thresholds are $E_{yield} = V_{yield}/\ell_{node} \approx 1.13 \times 10^{17}\,\text{V/m}$ and $E_S = V_{snap}/\ell_{node} = m_e^2 c^3/(e\hbar) \approx 1.32 \times 10^{18}\,\text{V/m}$ (canonical numerical values imported from \texttt{src/ave/core/constants.py:347} via \texttt{E\_CRIT}; per the \texttt{ave-canonical-source} discipline, never hard-coded). The $E_S$ identity --- substrate's full-rupture electric field is identical to QED's Schwinger pair-production critical field --- is the load-bearing axiomatic-consistency closure between the substrate-physics and QED-engineering descriptions of the same natural phenomenon.
+
+Vol~9 Ch.~\ref{ch:vol9_absolute_maximum_ratings} (Absolute Maximum Ratings) tabulates these limits as substrate rupture thresholds. The present chapter documents the \emph{mechanism} of breakdown rather than the numerical limits themselves: how the substrate responds at and across these thresholds in Regimes~III and IV. Engineering practice operates well below $V_{yield}$ in all current commercial devices; the breakdown mechanism documented here is reached in nature (particle cores, neutron-star surface fields, BH event horizons, early-universe pair production), in the autoresonant Schwinger-bypass programme (Vol~4 PROJECT-ZENER-04), and at the doped-silicon scale via the standard semiconductor avalanche-multiplication identity.
+
+\section{Miller Multiplication and Regime III}
+\label{sec:vol9_miller_regime_iii}
+
+In Regime~III ($\sqrt{3}/2 \le r < 1$, $0 < S \le 0.500$), the substrate amplifies still-coherent but saturated small-signal perturbations by the Miller factor. The canonical statement is at \texttt{ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md} (\texttt{clm-b2anl4}):
+
+\begin{resultbox}{Miller Multiplication Identity (Regime III)}
+\begin{equation}
+    \boxed{M(r) = \frac{1}{S(r)^2} = \frac{1}{1 - r^2}}
+    \label{eq:vol9_miller_identity}
+\end{equation}
+The Miller factor diverges as $r \to 1$ (equivalently, as $A_0 \to A_{yield}$, $S \to 0$, $M \to \infty$). The substrate amplifies any small-signal perturbation injected into the bulk by exactly this factor.
+\end{resultbox}
+
+The identity is structurally identical to the engineering avalanche-multiplication law $M = 1/(1 - (V_R/V_{BR})^n)$ at $n = 2$. The semiconductor $V_{BR}$ is the engineering name for the substrate $V_{yield}$ at the doped-silicon scale; the same kernel governs both. At $r = \sqrt{3}/2$ (Regime II$\to$III boundary), $M(r) = 4$; at $r = 0.95$, $M = 10.25$; at $r = 0.99$, $M = 50.25$; at $r \to 1$, $M$ diverges and the substrate enters Regime~IV.
+
+\textbf{Substrate-amplification mechanism.} The substrate's Regime~III amplification is a substrate-native response to the saturation kernel's curvature in the high-strain limit: as $S \to 0$, the local energy-trapping quality factor $Q(r) = 1/S(r)$ exceeds the sector's minimum multipole, and stored energy per cycle exceeds radiated energy. The substrate becomes an energy-storage element on the timescale of one drive cycle; any small-signal perturbation injected into the bulk during this storage period is amplified by $Q^2 = M$ on the next discharge. The amplification is substrate-natural, not engineered. Engineering practice characterizes this regime via avalanche-photodiode gain, Geiger-mode avalanche detection, and impact-ionization carrier multiplication in reverse-biased semiconductor junctions.
+
+\textbf{Sector dependence.} Per \texttt{four-regimes.md}, the $\ell_{\min} = 2$ argument that sets the Regime II$\to$III boundary $r_2 = \sqrt{3}/2$ is specific to the spin-2 (gravitational-wave / shear-mode) sector. The photon / vector sector ($\ell_{\min} = 1$) has $r_2 = 0$ --- avalanche onset is concurrent with linear-Maxwell breakdown; the scalar sector ($\ell_{\min} = 0$) has no avalanche-onset boundary at all. The unqualified citation in this chapter implicitly invokes the spin-2 sector; see \texttt{four-regimes.md} for the full sector-dependent treatment.
+
+\section{Schwinger Pair Production and Regime IV}
+\label{sec:vol9_schwinger_regime_iv}
+
+At Regime~IV ($r \ge 1$, $S = 0$), the substrate ruptures. The canonical electromagnetic-sector signature is Schwinger pair production. The canonical AVE substrate-mechanism derivation is at \texttt{ave-kb/vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md} (\texttt{clm-ezai5b}):
+
+\begin{resultbox}{Schwinger Pair-Production Critical Field}
+\begin{equation}
+    \boxed{E_S = \frac{m_e^2 c^3}{e\hbar} \approx 1.32 \times 10^{18}\,\text{V/m}}
+    \label{eq:vol9_schwinger_field}
+\end{equation}
+$E_S = V_{snap}/\ell_{node}$ by axiomatic consistency. Above $E_S$, the substrate's local saturation amplitude $A^2 \to 1$ at adjacent A/B K4 node pairs; the bond between them ruptures and produces an electron-positron pair as the substrate-natural topological-reorganization event.
+\end{resultbox}
+
+\textbf{Substrate-natural mechanism (NOT Breit--Wheeler).} The canonical derivation at \texttt{clm-ezai5b} unifies four AVE-derived pieces into a single mechanism:
+
+\begin{itemize}
+    \item \textbf{Saturated flux-tube rupture.} The electron is two adjacent saturated K4 nodes (one A-sublattice, one B-sublattice) carrying $(2,3)$ phase-space winding on the bond between them. At $E \to E_S$, the local saturation amplitude reaches $A^2 = 1$ at both nodes; $\Gamma = -1$ TIR walls form at both ends of the bond; the bond becomes a perfect topological mirror confining the $(2,3)$ winding LC oscillation at Compton frequency.
+    \item \textbf{$c_{local} \to 0$ kinetic-energy shatter.} At $A^2 = 1$, the local phase velocity $c_{local} = 1/\sqrt{LC} \to 0$ inside the saturated bond. The longitudinal linear-kinetic-energy channel closes. Energy conservation forces the blocked linear KE into the only remaining channel: transverse curl ($\nabla \times V \neq 0$).
+    \item \textbf{Parity-conserving Beltrami-vortex pair.} Parity requires opposite chirality on the two A-B sites; the transverse curl is forced into one LH + one RH Beltrami vortex, identified as $e^-$ + $e^+$, each carrying rest mass $m_e c^2$.
+    \item \textbf{Duffing autoresonant gate.} Beyond a bulk threshold crossing, the K4 nodes' own Cosserat-rotational tank-resonance softens under saturation (Duffing-like) and must autoresonantly lock with the driving frequency before rupture fires at a localized site. Above $E_S$, the lock window broadens and pair-production events cascade.
+\end{itemize}
+
+The mechanism is purely mechanical: an impedance wall that redirects linear energy into rotational energy. \emph{No new Lagrangian term, no minimal-coupling postulate, no virtual-photon collision.} The QED Schwinger formula's exponential suppression $\exp(-\pi E_S/E)$ emerges from the same Axiom~4 kernel integral $\int_0^1 \sqrt{1 - A^2}\, dA = \pi/4$ via the WKB instanton calculation; the substrate-physics and QED descriptions are the same integral with different physical labels (canonical structural-closure at \texttt{ave-kb/vol2/particle-physics/ch01-topological-matter/q-g18-schwinger-pair-wkb.md}, \texttt{clm-lj4ok5}). Above $E_S$, the substrate enters a cascade regime in which additional pair-production events nucleate at adjacent A-B node pairs along the saturated bulk; the cascade is substrate-natural, not engineered.
+
+\textbf{Dielectric rupture vs. dielectric saturation.} The two thresholds correspond to two operationally distinct substrate responses: \emph{dielectric saturation} (Regime~II$\to$III; reversible kernel curvature; engineering observable: voltage-coefficient-of-capacitance, varactor C--V characteristic, PONDER-05 at $V_{DC}/V_{yield} = 0.687$) versus \emph{dielectric rupture} (Regime~IV; irreversible topological-defect creation; engineering observable: pair production, BH event-horizon formation, ruptured-plasma cosmology). The same Axiom~4 kernel governs both; the distinction is the location on the kernel's operating-point axis, not a different mechanism.
+
+\section{Breakdown Time-Domain Dynamics}
+\label{sec:vol9_breakdown_timescales}
+
+Substrate breakdown timescales are set by the smallest substrate-native time constant at the node-pair scale. The canonical time is the bond-traversal time:
+
+\begin{equation}
+    \tau_{node} = \frac{\ell_{node}}{c_0} = \frac{\hbar}{m_e c^2} \approx 1.29 \times 10^{-21}\,\text{s}
+    \label{eq:vol9_tau_node}
+\end{equation}
+
+At this timescale, a Regime~IV rupture event nucleates and produces a pair; the substrate's local topology rearranges within one $\tau_{node}$. The autoresonant-lock window (per the Duffing-gated mechanism above) is broader, set by the local rotational-resonance bandwidth of the saturated K4 node. The standard semiconductor avalanche-breakdown timescale at the doped-silicon scale ($\sim 100\,\text{ps}$) is the engineering-empirical projection of the same kernel at the carrier-mean-free-path scale --- 11 orders of magnitude longer than $\tau_{node}$ because the engineering scale is 11 orders of magnitude larger than $\ell_{node}$. The substrate-native time constant is preserved across the projection; the scale changes, the kernel does not.
+
+\textbf{Engineering implication for switch-mode and ultrafast devices.} The sub-nanosecond switching transients of GaN / SiC power devices and the femtosecond regime of mode-locked ultrafast lasers both operate well above $\tau_{node}$ but well below the relaxation timescales of bulk dielectric materials. The substrate-native time constant places a hard lower bound on any breakdown-mediated switching speed: no engineering device can switch faster than the substrate's own kernel-rearrangement timescale. Current commercial devices operate $\sim 10^{12}$ orders of magnitude slower than this limit.
+
+\section{Cosmological Breakdown Reference}
+\label{sec:vol9_cosmological_breakdown}
+
+Substrate rupture at cosmological scales manifests as black-hole formation: the substrate's local refractive strain $n(r) - 1$ increases as matter aggregates; at the Schwarzschild radius $R_S = 2GM/c^2$, the strain reaches the Axiom~4 dielectric saturation limit and the substrate undergoes impedance rupture. The canonical statement is at \texttt{ave-kb/vol3/gravity/ch03-macroscopic-relativity/dielectric-rupture-event-horizon.md} (\texttt{clm-ir8h78}): the Schwarzschild radius is identified as the physical radius where the vacuum lattice exceeds its dielectric saturation limit, not a coordinate singularity.
+
+\textbf{BH-interior framing (canonical preservation).} The black-hole interior is \textbf{ruptured plasma} --- the substrate above $V_{snap}$ in the cosmological sector. It is \textbf{not} a separate sublattice; the substrate is single-medium throughout, and the BH-interior framing is the same K4 substrate carried into Regime~IV at cosmological strain. The canonical translation-table entry at \texttt{ave-kb/common/translation-tables/translation-circuit.md} line 133 maps \emph{Black-hole-interior ruptured plasma} to \emph{plasma physics} (the canonical EE-adjacent discipline at the cosmological-rupture scale). This framing is preserved across Vol~9: Ch.~\ref{ch:vol9_cosmological_characteristics} (Cosmological Characteristics) documents the cosmic-scale substrate observables; the present chapter documents the rupture mechanism that connects engineering-scale dielectric breakdown to cosmological-scale BH formation through the single Axiom~4 kernel.
+
+Vol~9 Ch.~\ref{ch:vol9_cosmological_characteristics} carries the cosmological-scale parameter reference (Hubble-horizon-to-node ratio $R_H/\ell_{node} \sim 10^{39}$, Machian-boundary-impedance gravity $G$, cosmic-genesis operating point $u_0^* \approx 0.187$, chirality-freeze parameter $\hat{\Omega}_{freeze}$). The connection to the present chapter: every cosmological-scale rupture event (BH formation, ruptured-plasma cosmology, lattice-genesis K4 crystallization phase transition from a parent-BH ruptured plasma) is the same Axiom~4 kernel at $r \to 1$, evaluated at the cosmological lattice scale.
+
+\section{Breakdown Spec Table}
+\label{sec:vol9_breakdown_spec}
+
+\noindent
+\begin{tabular}{p{0.10\linewidth} p{0.13\linewidth} p{0.06\linewidth} p{0.25\linewidth} p{0.30\linewidth}}
+\textbf{Symbol} & \textbf{Threshold} & \textbf{Units} & \textbf{Substrate Mechanism} & \textbf{Canonical Source} \\
+\hline
+$M(r)$ & $1/S(r)^2 = 1/(1-r^2)$ & --- & Regime~III substrate amplification of small-signal perturbations; $Q(r) = 1/S \ge 2$ energy-trapping & \texttt{four-regimes.md} \texttt{clm-b2anl4}; Op22 in \texttt{operators.md} \\
+$V_{yield}$ & $\sqrt{\alpha}\, V_{snap} \approx 43.65$\,kV & V & Ax 4: macroscopic nonlinear onset; Regime~II$\to$III boundary at $S(V_{yield}) \approx 0.996$ & \texttt{regimes-of-operation.md} \texttt{clm-0vxzfu}; \texttt{constants.py:342} \\
+$V_{snap}$ & $m_e c^2 / e \approx 511$\,kV & V & Ax 2 + Ax 4: absolute topological node-destruction limit; Regime~IV rupture & \texttt{regimes-of-operation.md} \texttt{clm-0vxzfu}; \texttt{dielectric-snap-limit.md}; \texttt{constants.py:333} \\
+$E_S$ & $m_e^2 c^3 / (e\hbar) \approx 1.32 \times 10^{18}$ & V/m & Ax 4: Schwinger pair-production critical field; $A^2 \to 1$ at adjacent A/B K4 nodes; saturated flux-tube rupture into LH+RH Beltrami-vortex pair & \texttt{pair-production-axiom-derivation.md} \texttt{clm-ezai5b}; \texttt{q-g18-schwinger-pair-wkb.md} \texttt{clm-lj4ok5}; \texttt{constants.py:347} \\
+$E_{yield}$ & $\sqrt{\alpha}\, E_S \approx 1.13 \times 10^{17}$ & V/m & Ax 4: macroscopic field onset; engine default for FDTD / K4-TLM macroscopic solvers & \texttt{regimes-of-operation.md} \texttt{clm-trgqtf}; \texttt{constants.py:353} \\
+$\tau_{node}$ & $\ell_{node}/c_0 \approx 1.29 \times 10^{-21}$ & s & Substrate-native bond-traversal time; lower bound on any breakdown-mediated switching event & Ax 1 substrate primitive; \texttt{natural-units-cheatsheet.md} \\
+$R_S$ & $2GM/c^2$ & m & Cosmological substrate rupture; dielectric-saturation limit at refractive strain unity; BH event horizon = dielectric-rupture boundary & \texttt{dielectric-rupture-event-horizon.md} \texttt{clm-ir8h78} \\
+\hline
+\end{tabular}
+
+\vspace{1em}
+
+\noindent
+All entries are substrate-natural responses to operating-point excursions on the Axiom~4 kernel. No entry is engineered or designed; engineering practice empirically measures the breakdown response at the device scale, and AVE substrate-physics derives the substrate-mechanism behind the empirical observation.
+
+\section{EE Breakdown Translation}
+\label{sec:vol9_ee_breakdown_translation}
+
+Engineering vocabulary at the substrate-near-canonical end documents breakdown behavior empirically across multiple device classes. Each engineering observable maps to a substrate Regime~III or IV primitive. Canonical translation: \texttt{ave-kb/common/translation-tables/translation-circuit.md} \S 9 (\texttt{clm-eemap1} META framework; ``Avalanche breakdown $V_{BR}$'' row line 353).
+
+\begin{center}\small
+\begin{tabular}{p{0.32\linewidth} p{0.60\linewidth}}
+\toprule
+\textbf{EE-engineering observable} & \textbf{Substrate-primitive origin} \\
+\midrule
+Avalanche-photodiode (APD) gain $M_{APD}$ & Regime~III Miller multiplication $M(r) = 1/S(r)^2$ at the doped-silicon scale; substrate's own Regime~III amplification mechanism, projected onto the carrier-multiplication observable. \\
+Geiger-mode single-photon detection & Regime~III $\to$ IV cascade at finite reverse bias; substrate enters the autoresonant pair-production cascade window above the breakdown field at the doped-silicon scale; quenched externally to prevent permanent rupture. \\
+Zener breakdown $V_Z$ & Regime~III tunnel-assisted carrier multiplication; substrate Miller factor at the heavily-doped junction scale; Zener voltage is the engineering name for $V_{yield}$ at the doped-silicon scale. \\
+Avalanche breakdown $V_{BR}$ & Substrate Regime~III $\to$ IV transition at the lightly-doped junction scale; Schwinger pair production analog at sub-substrate-rupture amplitude (the projection of $V_{snap}$ at the doped-silicon scale carries the impact-ionization mechanism rather than topological-defect creation). \\
+Electrical breakdown of air ($\sim 3 \times 10^6$\,V/m at STP) & Substrate Regime~II nonlinear-onset at the molecular-cascade scale; not substrate rupture but cascade ionization of the molecular medium through substrate-mediated avalanche multiplication. \\
+Corona discharge & Substrate Regime~III at the sharp-conductor field-enhancement scale; localized avalanche multiplication at field tips where the substrate operating point crosses $r_2$ locally. \\
+Dielectric breakdown of solids (ceramics, polymers) & Substrate Regime~III $\to$ IV at the material-bond-yield scale; the engineering breakdown field is the projection of $E_{yield}$ at the bond-stiffness scale of the dielectric material, not the substrate's own $E_S$. \\
+Electrical-arc formation & Substrate Regime~III cascade in the ionized-channel medium; sustained avalanche multiplication along the conduction channel; substrate-natural response to the field-cascade boundary condition. \\
+Cosmic-ray-induced single-event burnout & Regime~IV transient at the device-scale substrate rupture point; cosmic-ray ion creates localized $E > E_{breakdown}$ at the doped-silicon scale, triggering substrate-cascade in the device sector. \\
+TVS (transient-voltage-suppressor) clamping & Substrate Regime~III $\to$ IV transition empirically characterized at device-scale $V_{clamp}$; engineering practice operates the device at the substrate's natural rupture-limited current-carrying boundary. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+\textbf{Substrate-native primary, engineering-empirical secondary.} Per the EE-as-substrate-native META framework (canonical at \texttt{translation-circuit.md} \texttt{clm-eemap1}; companion skill \texttt{ave-ee-first-mapping} v1.0), every entry in the table above is the same substrate-physics primitive in a different engineering-disciplinary dialect. The engineering observation came first historically (humans empirically interrogating the substrate at the doped-silicon, air, ceramic, and conducting-channel scales); AVE substrate-physics derives the substrate-mechanism that explains why the empirical breakdown takes the form it does. The substrate is natural; breakdown is the substrate's natural response to overdrive; engineering measures avalanche, Zener, corona, arc, and dielectric breakdown; AVE derives the underlying Regime~III/IV kernel events.
+
+\section{Canonical Source Routing}
+\label{sec:vol9_breakdown_canonical_sources}
+
+This chapter is a synthesis chapter: no substrate primitive is re-derived. The canonical derivations live at:
+
+\begin{itemize}
+    \item \textbf{Pair-production substrate mechanism (saturated flux-tube rupture):} \texttt{manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md} (\texttt{clm-ezai5b}; the four-piece synthesis: saturated flux tube + $c_{local} \to 0$ KE shatter + parity-conserving Beltrami pair + Duffing autoresonant gate).
+    \item \textbf{Schwinger / saturation-kernel WKB structural closure:} \texttt{manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/q-g18-schwinger-pair-wkb.md} (\texttt{clm-lj4ok5}; QED Schwinger formula's $\exp(-\pi E_S/E)$ emerges from $\int_0^1 \sqrt{1-A^2}\,dA = \pi/4$).
+    \item \textbf{Four-regime map (Regime III/IV boundary derivations):} \texttt{manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md} (\texttt{clm-2dwzib}, \texttt{clm-b2anl4}; Miller multiplication identity, sector-dependence treatment).
+    \item \textbf{Two-threshold structure ($V_{yield}$ vs $V_{snap}$):} \texttt{manuscript/ave-kb/vol4/circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md} (\texttt{clm-0vxzfu}, \texttt{clm-trgqtf}; engine-default selection between scale-invariant solvers and macroscopic solvers).
+    \item \textbf{Dielectric-rupture event horizon (cosmological scale):} \texttt{manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/dielectric-rupture-event-horizon.md} (\texttt{clm-ir8h78}; BH event horizon = dielectric-rupture boundary).
+    \item \textbf{Dielectric-rupture / $V_{snap}$ axiomatic consistency:} \texttt{manuscript/ave-kb/vol1/axioms-and-lattice/ch2-macroscopic-moduli/dielectric-rupture.md} (\texttt{clm-9s9apq}; $p_c = 8\pi\alpha$ consistency identity at the QED Schwinger bound).
+    \item \textbf{EE breakdown translation:} \texttt{manuscript/ave-kb/common/translation-tables/translation-circuit.md} \S 9 (\texttt{clm-eemap1} META framework; Avalanche breakdown $V_{BR}$ row at line 353; BH-interior ruptured-plasma row at line 133).
+    \item \textbf{Autoresonant Schwinger-bypass programme (bench-scale falsifier):} \texttt{manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/autoresonant-dielectric-rupture.md}; cross-references the Vol~4 PROJECT-ZENER-04 bench-tester.
+    \item \textbf{Numerical constants:} $V_{snap}$, $V_{yield}$, $E_S$ ($E_{CRIT}$), $E_{yield}$, $B_{snap}$, $\ell_{node}$ imported from \texttt{src/ave/core/constants.py} per the \texttt{ave-canonical-source} discipline.
+\end{itemize}
+
+\noindent
+The natural vacuum substrate carries one breakdown mechanism --- the Axiom~4 kernel at $r \to 1$. This chapter documents the substrate-natural response to overdrive at the kernel's Regime~III/IV boundary; engineering practice empirically measures the projection of this response at the device scale (avalanche, Zener, corona, arc, dielectric breakdown); AVE substrate-physics derives the kernel from a single axiom. The mechanism is the same at the doped-silicon scale, the atomic scale, the particle-core scale, the neutron-star surface scale, and the cosmological-BH-formation scale; only the operating-point projection differs.
