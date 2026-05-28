@@ -182,6 +182,39 @@ The seven domain translation tables (circuit, QM, particle physics, gravity, cos
 
 ---
 
+## EE-as-Substrate-Native META Framework — Class B Consolidation of Sub-Claims
+<!-- id: clm-eemap1 -->
+
+The Circuit/EE translation leaf §2-§8 expands the minimal §1 $\xi_{topo}$ identity into a META framework whose load-bearing claim is: **the AVE vacuum K4 LC substrate is itself an electrical network at minimal-DOF, and EE vocabulary is the closest-to-canonical substrate-native language humans have.** Other classical frameworks (fluid dynamics, chemistry, statistical mechanics, QFT, GR) ADD degrees of freedom on top of the EE base; EE captures the substrate at minimal-DOF.
+
+- _Specific Claims_
+  - Axiom 1 (INVARIANT-S2) verbatim places intrinsic LC oscillators at each K4 node and models the continuum as a Trace-Reversed Chiral LC Network. The substrate's six DOF per node decompose as three translational (E-field origin, capacitive storage) + three microrotational (B-field origin, inductive flywheel) — structural origin of $\mathbf{E}$ and $\mathbf{B}$ as conjugate substrate primitives.
+  - Substrate-primitive ↔ EE-component mapping table (§4) carries 30+ entries spanning K4 node LC, bond transmission-line topology, capacitor/inductor sector identification, Cosserat couple-stress as transformer mutual-inductance gradient, Cosserat rotation-sector mass-gap as transformer cutoff / ferrite Curie threshold, $S(A)$ as varactor C-vs-V, Schwinger pair production as Miller avalanche, $(p, q)$ topological winding as toroidal transformer windings, SU(2)→SO(3) as 2:1 galvanic-isolation winding ratio, Machian $G$ as distributed-TL input impedance at Hubble horizon, $\delta_{strain}$ at $T_{CMB}$ as TCC of substrate dielectric with Cosserat-Curie-frozen $\mu$.
+  - Cosserat distinction (§5): in classical fluid dynamics, vorticity $\omega = \nabla \times \mathbf{v}$ is *derived* from the velocity field; in the Cosserat micropolar substrate per Ax 1, microrotation is an *independent primary DOF*. This is the structural substrate-physics reason fluid dynamics misses the substrate's rotational sector at material points.
+  - Means-test corpus (§6): 22 validated cross-checks across atomic / circuit / cosmology / gauge-boson / topology / saturation / cosmic / detector domains; replicates correctly via EE first-principles AND via independent substrate-primitive derivation. Includes one work-in-progress entry (Q-DELTA-MAP-1 $\delta_{strain}$ TCC derivation 2026-05-28).
+  - Failure-mode probes (§7): 5 honest probe candidates where EE alone does not natively derive load-bearing content — pure-geometry constants ($\pi^2$, $4\pi^3$); K4 lattice topology selection; substrate axiom selection; quantum-measurement collapse metaphysics; $(p, q)$ integer selection. In every case, the content EE does not derive is geometric / topological / axiom-selection — not a substrate-physics phenomenon where EE predicts the wrong numerical value.
+- _Specific Non-Claims and Caveats_
+  - Does NOT claim NEW substrate-mechanism content beyond canonical axioms. The META framework consolidates already-canonical sub-claims (Ax 1 LC-network, Ax 4 saturation kernel, Cosserat micropolar, INVARIANT-S2 SYM/ASYM scaling, Theorem 3.1 Q-factor, Op14/Op16/Op17/Op21/Op22, $(2, 3)$ knot uniqueness, gauge-boson-mass $l_c$, $\delta_{strain}$ TCC, omega-freeze, cosmological-constant closure) into a coherent framing. The consolidation lifts discoverability + means-test discipline; it does not add new physics.
+  - Does NOT promote to Class 2 emergence. Per `consistency-vs-emergence` v1.3 Step 8c (canonical-source-ceiling-stays-Class-B): a META framework that consolidates already-canonical content stays at Class B substrate-mechanism manifestation. A Class 2 lift would require new substrate-mechanism content beyond canonical axioms, which this work does not provide.
+  - Does NOT claim EE is all-covering. The §7 failure-mode probes explicitly enumerate where EE alone does not natively derive content (geometric / topological / axiom-selection). EE provides cross-check once that content is fixed by independent substrate arguments; it does not replace those arguments.
+  - Does NOT claim the 22-case means-test corpus is comprehensive across all substrate-physics domains. The probe candidates flagged in the companion skill's adversarial-probe section (muon/tau lepton-sector beyond electron; neutrino sector; strong-force / QCD sector; cosmological inflation / dark sector beyond $\Lambda$; substrate-microbiology applications) are domains where the EE mapping has NOT YET been validated; they are candidates for means-test corpus extension, not validated cross-checks.
+  - The Q-DELTA-MAP-1 work-in-progress entry (#15 in §6) is explicitly flagged ⚠ order-of-magnitude with substrate-statistical-mechanics computation of $\eta_\varepsilon$ pending. Its inclusion in the means-test corpus is as canonical prototype case for the META-framework formalization origin, not as a closed validated cross-check.
+
+> **Leaf references:** [translation-circuit](./translation-tables/translation-circuit.md).
+
+### Quality
+- confidence: 0.70
+- depends-on:
+  - clm-fy05jc — Translation Tables — Notation Mappings, Not Physical Equivalences (the minimal §1 $\xi_{topo}$ identity that the META framework expands)
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 0.85)]
+- rationale: Class B substrate-mechanism manifestation per `consistency-vs-emergence` v1.3 Step 8c — consolidates 20+ already-canonical sub-claims (Ax 1 LC-network, Ax 4 saturation kernel, Cosserat micropolar, Theorem 3.1 Q-factor, Op14/Op16/Op17/Op21/Op22, $(2, 3)$ knot uniqueness, gauge-boson $l_c$, $\delta_{strain}$ TCC, omega-freeze, $\rho_\Lambda$) into a coherent framework whose load-bearing assertion is the substrate-electrical-network identity at Ax 1+2. The 22-case means-test corpus replicates via EE first-principles + independent substrate-primitive derivation; the 5 honest failure-mode probes correctly bound the framework (geometric / topological / axiom-selection content EE does not derive). The companion agent-discipline skill `~/.claude/skills/ave-ee-first-mapping/` v1.0 carries fire-time procedure; this leaf is the authoritative canonical-content source. Confidence 0.70 reflects (a) Class B classification (consolidation-not-emergence), (b) the means-test corpus contains one ⚠ work-in-progress entry (Q-DELTA-MAP-1 $\delta_{strain}$), (c) the probe-extension candidates in the companion skill flag domains where the EE mapping has not yet been validated (muon/tau, neutrino, QCD, cosmological inflation, substrate-microbiology). Local link strength is high; the framework consolidates content already canonical in the cited sub-leaves. The 0.85 dep-floor from clm-fy05jc minimum-link gates above 0.70 own-confidence, so solidity = 0.70.
+- strengthen-by:
+  - Close the Q-DELTA-MAP-1 $\delta_{strain}$ TCC computation via substrate-statistical-mechanics derivation of $\eta_\varepsilon$ at $T_{CMB}$ (the one work-in-progress entry in the §6 means-test corpus)
+  - Extend the means-test corpus to additional domains (muon/tau lepton sector beyond electron; neutrino sector; strong-force / QCD sector; cosmological inflation / dark sector beyond $\rho_\Lambda$; substrate-microbiology applications) — each new validated cross-check strengthens the META framework's empirical anchoring
+  - Promote any §7 failure-mode probe to a derived substrate-mechanism claim if substrate-topology / geometric / axiom-selection arguments close one of them at substrate-axiom rigor (would lift the framework's domain of EE-native applicability)
+
+---
+
 ## $\xi_{topo}$ Traceability — Conversion Constant, Not Free Parameter
 <!-- id: clm-hmiytz -->
 

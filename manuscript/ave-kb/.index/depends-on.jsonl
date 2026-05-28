@@ -232,6 +232,7 @@
 {"source": "clm-e1pdfd", "target": "clm-oygz1i", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-e1pdfd", "target": "clm-q8un7j", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-eaiqj1", "target": "clm-gdd70j", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-eemap1", "target": "clm-fy05jc", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-enjq28", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "FCC packing $P_C$ projected by the trace-reversal complement", "fraction": null}
 {"source": "clm-enjq28", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "the $\\nu_\\text{vac} = 2/7$ trace-reversal / compliance-mode lineage", "fraction": null}
 {"source": "clm-exjfai", "target": "clm-jwyy6l", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "the L_eff↔inductive-impedance identification the freeze mechanism rides on", "fraction": null}

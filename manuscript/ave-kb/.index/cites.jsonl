@@ -198,6 +198,7 @@
 {"claim_id": "clm-eaiqj1", "leaf_path": "vol3/condensed-matter/ch11-thermodynamics/nyquist-noise-fdt.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-eaiqj1", "leaf_path": "vol3/condensed-matter/ch11-thermodynamics/transmon-decoherence.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-eaiqj1", "leaf_path": "vol3/condensed-matter/ch11-thermodynamics/vacuum-nyquist-baseline.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-eemap1", "leaf_path": "common/translation-tables/translation-circuit.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-efo113", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-enjq28", "leaf_path": "vol5/common/translation-protein-solver.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-exjfai", "leaf_path": "common/dark-wake-bemf-foc-synthesis.md", "leaf_kind": "leaf", "tier2_marked": true}
@@ -239,7 +240,7 @@
 {"claim_id": "clm-fndptx", "leaf_path": "common/omega-freeze-cosmic-grain-cascade.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-fr3mos", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/photon-identification.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-fy05jc", "leaf_path": "common/translation-tables/translation-biology.md", "leaf_kind": "leaf", "tier2_marked": false}
-{"claim_id": "clm-fy05jc", "leaf_path": "common/translation-tables/translation-circuit.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-fy05jc", "leaf_path": "common/translation-tables/translation-circuit.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-fy05jc", "leaf_path": "common/translation-tables/translation-condensed-matter.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-fy05jc", "leaf_path": "common/translation-tables/translation-cosmology.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-fy05jc", "leaf_path": "common/translation-tables/translation-gravity.md", "leaf_kind": "leaf", "tier2_marked": false}

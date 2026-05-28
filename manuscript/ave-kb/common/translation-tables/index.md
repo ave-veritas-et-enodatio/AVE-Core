@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [clm-fy05jc]
+subtree-claims: [clm-eemap1, clm-fy05jc]
 subtree-experiments: []
 -->
 
@@ -24,7 +24,7 @@ Domain-specific translation tables mapping established physics disciplines to th
 
 | Document | Contents |
 |---|---|
-| [Circuit/EE Translation](translation-circuit.md) | Topo-kinematic circuit identity: electrical ↔ mechanical mappings via $\xi_{topo} = e/\ell_{node}$ |
+| [Circuit/EE Translation](translation-circuit.md) | Topo-kinematic circuit identity (§1, $\xi_{topo} = e/\ell_{node}$ electrical ↔ mechanical) + **EE-as-substrate-native META framework** (§2-§8): emergent-framework hierarchy (EE at base, fluid/atomic/QFT/GR as higher-DOF emergent), 30+ row substrate-primitive ↔ EE-component mapping (LC tank, transmission line, varactor for $S(A)$, transformer windings for $(p, q)$, Miller avalanche for Schwinger, distributed-TL for Machian $G$, TCC for $\delta_{strain}$), EE-vs-fluid-dynamics substrate-distance comparison (Cosserat microrotation INDEPENDENT vs fluid vorticity DERIVED), 22-case means-test corpus, 5 honest failure-mode probes (geometric / topological / axiom-selection content EE does not derive). Class B substrate-mechanism manifestation. Companion: `~/.claude/skills/ave-ee-first-mapping/` v1.0 (agent discipline). |
 | [Quantum Mechanics Translation](translation-qm.md) | Standard QM ↔ AVE equivalences: wavefunctions as cavity modes, Coulomb potential as impedance coupling, electron as $0_1$ unknot |
 | [Particle Physics Translation](translation-particle-physics.md) | Standard Model ↔ AVE: particles as topological defects, forces as impedance gradients, generation structure from Cosserat sectors |
 | [Gravity Translation](translation-gravity.md) | General Relativity ↔ AVE: gravity as dielectric refraction, metric tensor as variable $\varepsilon_{eff}, \mu_{eff}$, dark matter as Regime I vacuum drag |
