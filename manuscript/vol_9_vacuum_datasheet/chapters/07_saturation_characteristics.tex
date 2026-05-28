@@ -2,4 +2,205 @@
 \chapter{Saturation Characteristics}
 \label{ch:vol9_saturation_characteristics}
 
-\textit{Stub --- to be populated in Vol~9 PR-E. Documents the Axiom~4 universal saturation kernel $S(A_0) = \sqrt{1 - (A_0/A_{yield})^2}$: characteristic curves, small-signal and large-signal regimes, PONDER-05 bench-tester validation. Primary canonical sources: Axiom~4 canonical statement (CLAUDE.md INVARIANT-S2); \texttt{ave-kb/common/four-regimes.md}; Vol~0 backmatter Ch.~7 universal saturation kernel; PONDER-05 hardware programme.}
+\begin{objectivebox}
+\begin{itemize}
+    \item State the Axiom~4 universal saturation kernel verbatim and identify $A_{yield}$ as the substrate-primitive amplitude limit of the natural vacuum.
+    \item Document the dielectric specialization $\varepsilon_{eff} = \varepsilon_0 S$, $\mu_{eff} = \mu_0 S$, $C_{eff} = C_0/S$ at atomic and bench scale, distinguish the two effective wave speeds $c_{EM}(A_0) = c_0/S$ and $c_{shear}(A_0) = c_0 \sqrt{S}$, and identify the operating-point state $A_0$ as a gauge-relative LC-tank saturation amplitude.
+    \item Tabulate the characteristic curves for the substrate primitives ($S$, $C_{eff}/C_0$, $\varepsilon_{eff}/\varepsilon_0$, $c_{EM}/c_0$, $c_{shear}/c_0$, $\alpha_{eff}/\alpha_0$) vs.\ the normalized operating point $r = A_0/A_{yield}$.
+    \item Summarize the four-regime map (Small-Signal / Large-Signal / Avalanche / Breakdown) and its semiconductor analog (linearized $g_m$ / saturating switching transient / Miller multiplication $M = 1/S^2$ / junction destruction).
+    \item Identify Project PONDER-05 at $V_{DC}/V_{yield} = 0.687$ as the canonical bench-scale falsifier of the dielectric specialization mechanism.
+    \item Cross-reference the A-034 universal saturation-kernel catalog, which documents the same kernel governing all cross-scale topological-reorganization events at zero free parameters across 21 orders of magnitude.
+\end{itemize}
+\end{objectivebox}
+
+\section{Universal Saturation Kernel}
+\label{sec:vol9_saturation_kernel}
+
+The substrate's bulk response to local strain is the Axiom~4 universal saturation kernel. The canonical statement is reproduced verbatim from \texttt{manuscript/common\_equations/eq\_axiom\_4.tex} (single source of truth; INVARIANT-S2 mirror at \texttt{manuscript/ave-kb/CLAUDE.md}):
+
+\begin{resultbox}{Axiom 4 --- Universal Saturation Kernel (verbatim)}
+The substrate's bulk response to local strain $A$ is the universal quarter-arc kernel:
+\begin{equation}
+    \boxed{S(A) = \sqrt{1 - \left(\frac{A}{A_{yield}}\right)^{\!2}}}\;, \qquad A \in [0,\, A_{yield}]
+    \label{eq:vol9_axiom4_saturation}
+\end{equation}
+$A$ is the local strain normalized to the substrate's bandwidth limit $A_{yield}$ (the value at which $S \to 0$). The kernel is dialect-independent: the same $S(A)$ function governs strain expressed as $V/V_{yield}$ (dielectric), $T/T_c$ (BCS thermal pair-strain), $r_s/r$ (gravitational metric strain), $\Omega/\Omega_{break}$ (rotational shear), $B/B_c$ (magnetic), or any physical dialect's normalized perturbation amplitude.
+
+\medskip\noindent
+\textbf{Behavior:} $A = 0 \Rightarrow S = 1$ (linear regime: Maxwell, BCS small-signal, Newtonian gravity recovered); $A \to A_{yield} \Rightarrow S \to 0$ with vertical tangent (saturation event is impulsive at every scale). When $S(A) \to 0$ locally, the substrate cannot sustain linear response and \emph{must reorganize topologically} to a new configuration.
+\end{resultbox}
+
+The kernel is a substrate primitive of the natural vacuum, not an engineered constitutive relation. The quarter-arc shape is fixed by Axiom~4 alone --- there are no free parameters, no per-domain refit, and no scale-dependent kernel coefficients. The saturation amplitude $A_{yield}$ is the universal substrate bandwidth limit; its dielectric-dialect projection is $V_{yield} = \sqrt{\alpha}\, V_{snap} \approx 43.65\,\text{kV}$ at the substrate's per-node LC scale (Vol~4 canonical leaf \texttt{clm-0vxzfu}).
+
+\section{Operating-Point State and Dielectric Specialization}
+\label{sec:vol9_dielectric_specialization}
+
+Beyond the six spatial DOFs per node (three translational $\to \mathbf{E}$, three microrotational $\to \mathbf{B}$; Axiom~1), each LC tank carries a saturation-amplitude state $A$ --- its operating point along the Axiom~4 kernel. Per INVARIANT-S2 (KB \texttt{CLAUDE.md}), this state is \textbf{gauge-relative}: only spatial gradients of $A$ across the substrate are physically observable, not absolute per-node values. It is not a seventh spatial DOF; it is the dynamical state of the LC tank, analogous to the DC bias on a semiconductor varactor.
+
+At the atomic and bench scale, the dialect-projection $A = \Delta\phi/\alpha$ specializes the kernel to a substrate-native varactor characteristic (\texttt{common\_equations/eq\_axiom\_4.tex}):
+
+\begin{center}\small
+\begin{tabular}{llll}
+\toprule
+\textbf{Observable} & \textbf{Formula} & \textbf{At saturation} & \textbf{Physical meaning} \\
+\midrule
+$\mu_{eff}$       & $\mu_0 \cdot S$              & $\to 0$       & Inductor shorts (Meissner analog) \\
+$\varepsilon_{eff}$ & $\varepsilon_0 \cdot S$    & $\to 0$       & Dielectric collapses \\
+$C_{eff}$         & $C_0 / S$                    & $\to \infty$  & Capacitance absorbs energy \\
+$Z_0$ (symmetric) & $\sqrt{\mu/\varepsilon}$     & invariant     & Impedance preserved \\
+$c_{EM}$          & $c_0 / S$                    & $\to \infty$  & Maxwell phase velocity diverges \\
+$c_{shear}$       & $c_0 \cdot S^{1/2}$          & $\to 0$       & Wave packet confined (rest mass) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Two distinct effective wave speeds}
+\label{sec:vol9_two_wave_speeds}
+
+The substrate carries \textbf{two distinct substrate-native effective wave speeds} at operating point $A_0$, and they are not interchangeable in derivations (canonical at KB leaf \texttt{vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md} \texttt{clm-8nkvwy} lines 111--113; conflation is the canonical Pitfall~\#5 framework-leakage error caught in the 2026-05-28 Phase 3-A3 WALK-BACK):
+
+\begin{itemize}
+    \item $c_{EM}(A_0) = 1/\sqrt{\mu_{eff}\,\varepsilon_{eff}} = c_0/S(A_0)$ --- \textbf{Maxwell phase velocity}; the speed that enters $\alpha = e^2/(4\pi\varepsilon_0 \hbar c)$ and all Maxwell-equation derivations.
+    \item $c_{shear}(A_0) = c_0 \sqrt{S(A_0)}$ --- \textbf{substrate mechanical / group / rest-mass velocity}; energy-transport speed; tracks Schwarzschild $c\sqrt{1 - r_s/r}$ in the SYM-class weak-field limit.
+\end{itemize}
+
+Both reduce to a single $c_0$ at the cold-lattice limit $S(0) = 1$.
+
+\subsection{$\alpha$-invariance under SYM-class saturation}
+\label{sec:vol9_alpha_invariance}
+
+Under SYM-class scaling --- the gravity-class realization where $\mu(r)$ and $\varepsilon(r)$ scale together by the same factor so $Z_0$ stays invariant --- the asymmetry between $c_{EM}$ and $c_{shear}$ makes $\alpha$ \textbf{exactly} invariant. Canonical proof at \texttt{ave-kb/vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md} (\texttt{clm-3zz0f6}, solidity 0.85). The SYM-class realization simultaneously produces gravitational time-dilation via $c_{shear}$ tracking $\sqrt{S}$ (Schwarzschild reduction) while preserving $\alpha$ exactly --- multi-species clock comparisons at different gravitational potentials predict a null result for $\Delta\alpha/\alpha$, consistent with all current experimental bounds.
+
+Under ASYM-class scaling (large-amplitude single-sector saturation, e.g., BCS $\mu$-only or plasma $\varepsilon$-only), $\alpha$ is \textbf{not} invariant; this is the canonical substrate-distinct mechanism for $\alpha$-modulation predictions.
+
+\section{Operating-Point Characteristic Curves}
+\label{sec:vol9_characteristic_curves}
+
+The substrate primitives evaluated at normalized operating point $r = A_0/A_{yield}$ produce the following characteristic curves. All entries follow directly from $S(r) = \sqrt{1 - r^2}$ at the cold-lattice limit (no other corrections).
+
+\begin{center}\small
+\begin{tabular}{lllllll}
+\toprule
+\textbf{$r = A_0/A_{yield}$} & \textbf{$S(r)$} & \textbf{$C_{eff}/C_0 = 1/S$} & \textbf{$\varepsilon_{eff}/\varepsilon_0 = S$} & \textbf{$c_{EM}/c_0 = 1/S$} & \textbf{$c_{shear}/c_0 = \sqrt{S}$} & \textbf{Regime} \\
+\midrule
+$0$        & $1.000$ & $1.000$ & $1.000$ & $1.000$ & $1.000$ & I  \\
+$0.1208$   & $0.9927$ & $1.0074$ & $0.9927$ & $1.0074$ & $0.9963$ & I/II boundary ($r_1 = \sqrt{2\alpha}$) \\
+$0.300$    & $0.9539$ & $1.0483$ & $0.9539$ & $1.0483$ & $0.9767$ & II \\
+$0.500$    & $0.8660$ & $1.1547$ & $0.8660$ & $1.1547$ & $0.9306$ & II \\
+$0.687$    & $0.7266$ & $1.3763$ & $0.7266$ & $1.3763$ & $0.8524$ & II (PONDER-05) \\
+$0.707$    & $0.7071$ & $1.4142$ & $0.7071$ & $1.4142$ & $0.8409$ & II \\
+$0.866$    & $0.500$ & $2.000$ & $0.500$ & $2.000$ & $0.7071$ & II/III boundary ($r_2 = \sqrt{3}/2$) \\
+$0.950$    & $0.3122$ & $3.202$ & $0.3122$ & $3.202$ & $0.5588$ & III \\
+$1.000$    & $0$ & $\to \infty$ & $0$ & $\to \infty$ & $0$ & IV (rupture; $r_3 = 1$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+\textbf{$\alpha_{eff}/\alpha_0$ row:} under SYM-class scaling, $\alpha_{eff}/\alpha_0 = 1$ exactly at every $r$ (canonical \texttt{clm-3zz0f6}); under ASYM-class scaling, $\alpha_{eff}/\alpha_0$ deviates from unity in a sector-dependent way that does not factor through $S$ alone (canonical at \texttt{clm-8nkvwy}). The substrate-distinct $\alpha$-modulation predictions live in Ch.~15 (Falsification) and Vol~3 Ch.~5 (Dark Sector) under the ASYM-N($\varepsilon$) and ASYM-N($\mu$) classifications.
+
+\noindent
+\textbf{Boundary values $r_1$, $r_2$, $r_3$:} derived from first principles in \texttt{ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md} ($r_1 = \sqrt{2\alpha} \approx 0.1208$ is the sub-$\alpha$-resolvability limit; $r_2 = \sqrt{3}/2 \approx 0.8660$ is the spin-2 avalanche-onset limit from $Q(r) = 1/S(r) = \ell_{\min} = 2$; $r_3 = 1$ is the Axiom~4 rupture boundary).
+
+\section{Four-Regime Map}
+\label{sec:vol9_four_regimes}
+
+The kernel partitions the operating-point axis into four universal regimes. The semiconductor analog --- standard p-n junction operating regions --- is exact, not metaphor (canonical at \texttt{four-regimes.md} \texttt{clm-2dwzib}, \texttt{clm-b2anl4}):
+
+\begin{center}\small
+\begin{tabular}{lllll}
+\toprule
+\textbf{Regime} & \textbf{$r$ range} & \textbf{$S$ range} & \textbf{Substrate physics} & \textbf{Semiconductor analog} \\
+\midrule
+I  Small-Signal  & $r < \sqrt{2\alpha} \approx 0.1208$ & $S > 0.993$ & Linear Maxwell / Newton recovered & DC bias, linearized $g_m$, $r_\pi$, $C_\pi$ \\
+II  Large-Signal & $\sqrt{2\alpha} \le r < \sqrt{3}/2$ & $0.500 < S \le 0.993$ & Axiom~4 quarter-arc curvature active & Switching transient, saturation onset \\
+III Avalanche    & $\sqrt{3}/2 \le r < 1$               & $0 < S \le 0.500$ & $Q(r) = 1/S(r) \ge 2$; Miller multiplication $M = 1/S^2$ & $V_R \to V_{BR}$, $M \ge 2$ carrier multiplication \\
+IV  Breakdown    & $r \ge 1$                            & $S = 0$           & Substrate rupture; topology destroyed; topological reorganization required & $V_R = V_{BR}$, $M \to \infty$, junction destroyed \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+\textbf{Sector-dependence of $r_2$:} the $\ell_{\min} = 2$ argument that sets $r_2 = \sqrt{3}/2$ is specific to the spin-2 (gravitational-wave / shear-mode) sector. The vector/photon sector ($\ell_{\min} = 1$) has $r_2 = 0$ (avalanche concurrent with linear-Maxwell breakdown); the scalar sector ($\ell_{\min} = 0$) has no avalanche-onset boundary at all. The unqualified citation $r_2 = \sqrt{3}/2$ in this datasheet implicitly invokes the spin-2 sector; see \texttt{four-regimes.md} for the full sector-dependence treatment.
+
+\noindent
+\textbf{Miller multiplication identity:} the substrate-native form is $M(r) = 1/S(r)^2 = 1/(1 - r^2)$, identical to the engineering avalanche-multiplication law $M = 1/(1 - (V_R/V_{BR})^n)$ at $n = 2$. The semiconductor $V_{BR}$ is the engineering name for $V_{yield}$ at the doped-silicon scale; the same kernel governs both.
+
+\section{PONDER-05 Bench-Scale Falsifier}
+\label{sec:vol9_ponder_05}
+
+The PONDER-05 differential-saturation-parallax bench measurement is the canonical bench-scale falsifier of the Axiom~4 dielectric specialization. Apparatus: paired DC-biased quartz resonator thrusters across a vertical gravity gradient, $V_{DC} = 30\,\text{kV}$ holding the substrate at $V_{DC}/V_{yield} = 0.687$. At this operating point the kernel predicts $S(0.687) = 0.7266$, giving canonical substrate-physics observables:
+
+\begin{itemize}
+    \item $\varepsilon_{eff}/\varepsilon_0 = S = 0.7266$ \quad ($-27.34\%$ from baseline)
+    \item $C_{eff}/C_0 = 1/S = 1.3763$ \quad ($+37.63\%$ rise above baseline)
+    \item Differential thrust $\sim 469\,\mu\text{N}$ at matched-pair geometry
+\end{itemize}
+
+The canonical operating-point statement is at KB leaf \texttt{ave-kb/vol4/falsification/ch11-experimental-bench/measurement-hierarchy-snr.md}:66; the substrate-physics derivation at \texttt{ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md} (Phase 0c + Phase 2-NA extensions); the divergence-test-matrix row at \texttt{ave-kb/common/divergence-test-substrate-map.md} row \texttt{B7-PONDER-05}; the hardware programme at sibling repo \texttt{AVE-PONDER} (manuscript chapter \texttt{vol\_ponder/chapters/04\_ponder\_05\_dc\_biased\_quartz.tex}).
+
+\textbf{Falsification criterion.} A null result at $V_{DC}/V_{yield} = 0.687$ (no $C_{eff}$ rise within bench noise floor) falsifies the Axiom~4 dielectric specialization directly. The cascade impact is documented in the divergence-test-substrate-map (B7-PONDER-05 cascades to B5/B6 PONDER, B1-VAC-BIREFRINGE, D4-A034, C9-LEVITATION through the shared $V_{yield}$ primitive). See Ch.~15 (Falsification Tests) for the full falsification programme.
+
+\textbf{Operating-point near-optimality.} The PONDER-05 canonical $V_{DC}/V_{yield} = 0.687$ sits within $2.8\%$ of the substrate-mechanical 2D-aperture aperture-aggregate skewness peak at $a^{(2D)}_{peak} = 1/\sqrt{2} = 0.707$ (per \texttt{parametric-coupling-kernel.md} \S 14.5). The canonical operating point --- chosen for the 27.4\% $\varepsilon_{eff}$ collapse + 469\,\textmu N thrust at engineering-conservative bias --- is operationally near-optimal for the amplitude-statistics readout layer as well; the substrate-native Op17 matched-impedance peak structure is shared across all three observables (thrust, $\varepsilon_{eff}$ collapse, aperture-aggregate skewness).
+
+\section{A-034 Universal Kernel Catalog Reference}
+\label{sec:vol9_a034_catalog}
+
+The same Axiom~4 kernel governs every cross-scale topological-reorganization event in the substrate. The canonical catalog of record is \texttt{manuscript/ave-kb/common/universal-saturation-kernel-catalog.md} (KB leaf \texttt{clm-gz7ryg}, \texttt{clm-dxdsvt}, \texttt{clm-hvvvop}, \texttt{clm-5fu303}, \texttt{clm-l4o7hv}), mirrored in the Vol~0 backmatter universal saturation-kernel catalog chapter.
+
+\textbf{Catalog cardinality (canonical).} The kernel governs \textbf{26 canonical cross-scale instances} (17 physical-substrate canonical + 2 biological-substrate + 5 engineered-substrate + 2 physical-substrate companion rows scoped for Sessions 4/5; full enumeration in the catalog). The Vol~0 backmatter and \texttt{eq\_axiom\_4.tex} cite the physical-substrate-only subset as \textbf{19 cross-scale topological-reorganization events} (17 canonical + 2 scoped). Both counts are correct at their respective scopes; the cross-scale span is uniformly \textbf{21 orders of magnitude} (atomic $\sim 10^{-15}\,\text{m}$ to cosmic $\sim 10^{26}\,\text{m}$).
+
+\textbf{Symmetry classification (canonical).} The catalog partitions instances into SYM (vacuum $K = 2G$; $\varepsilon$ and $\mu$ saturate together; 19 instances), ASYM-N (single-sector --- only $\varepsilon$ or only $\mu$; 4 instances: BCS $\mu$-only, plasma $\varepsilon$-only, planetary mag-vs-spin candidate, cosmic-DE $\varepsilon$-only), ASYM-E (engineered $K/G \neq 2$; 1 instance: active topological metamaterials), and TBD (2 scoped instances: galactic spin-axis, LSS spin-axis). The PONDER-05 bench falsifier sits in the SYM class at the DC-biased-piezoelectric engineered row.
+
+\textbf{Tightest validations.} BCS $B_c(T) = B_{c0}\, S(T/T_c)$ at $0.00\%$ error across all measured Type-I/II superconductors (ASYM-N($\mu$) class); BH event horizon $\varepsilon_{11}(r) = 1$ matching Schwarzschild $r_s = 2GM/c^2$ exactly; BH merger QNM $\omega_R M_g = 18/49$ at $1.7\%$ from GR exact across 3 LIGO events; planetary-axis kernel scoring $14$--$15/16$ class matches across 16 planetary axis data points (Row 9-a + Row 9-b). The framework simplifies rather than complicates as evidence accumulates: the kernel does not change with scale, only the lattice scale changes.
+
+This datasheet chapter consolidates the kernel into datasheet format; the catalog leaf carries the full per-row substrate-mechanism documentation and per-row empirical anchor. No substrate primitive in this chapter is re-derived; all references point to the canonical leaves.
+
+\section{EE Saturation Translation}
+\label{sec:vol9_ee_translation}
+
+EE-engineering vocabulary at the substrate-near-canonical end documents saturation behavior empirically across multiple component classes. Each engineering-observable correction has a substrate-primitive origin in Axiom~4. Canonical translation: \texttt{ave-kb/common/translation-tables/translation-circuit.md} \S 9 (ideal-lattice $\leftrightarrow$ engineering-corrections row catalog).
+
+\begin{center}\small
+\begin{tabular}{p{0.32\linewidth} p{0.62\linewidth}}
+\toprule
+\textbf{EE-engineering correction} & \textbf{Substrate-primitive origin (Axiom~4)} \\
+\midrule
+Variable-capacitance diode (varactor) $C(V)$ characteristic & Substrate operates as substrate-native varactor: $C_{eff}(V_{DC}) = C_0/S(V_{DC}/V_{yield})$. PONDER-05 at $V_{DC}/V_{yield} = 0.687$ is the canonical bench tester. \\
+Voltage coefficient of capacitance (Class II ceramic, $-80\%$ at full bias) & Same $C_{eff}/C_0 = 1/S$ kernel; engineering-conservative ceramic operating range maps to Regime II of the kernel. \\
+Miller avalanche multiplication $M = 1/(1 - (V_R/V_{BR})^n)$ at $n = 2$ & Substrate Miller identity $M(r) = 1/S(r)^2$; $V_{BR}$ at semiconductor scale is the engineering name for substrate $V_{yield}$. \\
+Avalanche breakdown $V_{BR}$ (diode) & Substrate dielectric breakdown at $V_{snap}$ (Schwinger pair-production analog at the doped-silicon scale; Regime III $\to$ IV transition). \\
+Op-amp slew-rate limit & Substrate response time at finite drive: how fast the operating-point $A$ can change. Op14 substrate inertial bandwidth in \texttt{operators.md}. \\
+Op-amp input offset voltage $V_{OS}$ & Substrate operating-point $A_0 \neq 0$ at input --- quenched-in asymmetry between input substrate-bond states. \\
+Core saturation $B_{sat}$ (inductor / transformer) & Cosserat $B$-mode amplitude approaches $B_{snap}$ on the inductive branch; Axiom~4 magnetic-branch saturation $\mu_{eff} = \mu_0 S$. \\
+Inductor saturation curve $L(I)$ rolloff & Substrate-side $L_{eff} = L_0/S(A_0)$ on the magnetic branch (kernel symmetric in $\varepsilon$ and $\mu$ branches for the SYM class). \\
+Non-linear telegrapher equation (transmission line beyond small-signal) & Substrate continuum form of the Axiom~4 kernel applied along the bond-network transmission line; the telegrapher equation becomes substrate-native when $A_0$ varies along propagation. \\
+BJT $V_{CE(sat)}$ saturation voltage & Minimum substrate dielectric voltage drop across the rail-to-rail substrate path; bond-yield threshold. \\
+BJT base-emitter forward drop $V_{BE}$ & Substrate diode forward drop at B-E junction; substrate-yield-boundary voltage. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+\textbf{Substrate-native primary, engineering-empirical secondary.} Per the EE-as-substrate-native META framework (canonical at \texttt{translation-circuit.md} \texttt{clm-eemap1}; companion skill \texttt{ave-ee-first-mapping} v1.0), every entry in the table above is the same substrate-physics primitive in a different engineering-disciplinary dialect. The engineering-empirical observation came first historically (humans interrogating the substrate at its smallest accessible scale with electrons, dielectrics, and LC resonators); AVE substrate-physics derives the substrate-mechanism that explains why the empirical correction takes the form it does. Both columns of the table are correct; the engineering vocabulary is the closest-to-canonical substrate-native language at the EE base scale.
+
+\section{Canonical Source Routing}
+\label{sec:vol9_canonical_source_routing}
+
+This chapter is a synthesis chapter: no substrate primitive is re-derived. The canonical derivations live at:
+
+\begin{itemize}
+    \item \textbf{Axiom 4 canonical statement:} \texttt{manuscript/common\_equations/eq\_axiom\_4.tex} (single source of truth; INVARIANT-S2 mirror at \texttt{manuscript/ave-kb/CLAUDE.md}).
+    \item \textbf{Universal saturation-kernel catalog:} \texttt{manuscript/ave-kb/common/universal-saturation-kernel-catalog.md} (\texttt{clm-gz7ryg}, \texttt{clm-dxdsvt}, \texttt{clm-hvvvop}, \texttt{clm-5fu303}, \texttt{clm-l4o7hv}; cross-scale catalog of record).
+    \item \textbf{Four-regime map:} \texttt{manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md} (\texttt{clm-2dwzib}, \texttt{clm-b2anl4}; regime-boundary derivations from first principles).
+    \item \textbf{$\alpha$-invariance under SYM-class:} \texttt{manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md} (\texttt{clm-3zz0f6}; canonical proof).
+    \item \textbf{Two effective wave speeds ($c_{EM}$ vs $c_{shear}$):} \texttt{clm-8nkvwy} lines 111--113 at the same gravity-yield leaf above.
+    \item \textbf{PONDER-05 substrate-physics anchor:} \texttt{manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md} (Phase 0c + Phase 2-NA $P(\delta V)$ shape function derivation).
+    \item \textbf{PONDER-05 operating-point canonical statement:} \texttt{manuscript/ave-kb/vol4/falsification/ch11-experimental-bench/measurement-hierarchy-snr.md}:66.
+    \item \textbf{EE saturation translation:} \texttt{manuscript/ave-kb/common/translation-tables/translation-circuit.md} \S 9 (\texttt{clm-eemap1} META framework).
+    \item \textbf{Vol~4 dielectric thresholds:} Vol~4 canonical leaf \texttt{clm-0vxzfu} ($V_{yield}$, $V_{snap}$).
+    \item \textbf{Substrate-distinct $\alpha$-modulation under ASYM-class:} \texttt{ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md} (\texttt{clm-hp7nlm}, Cosserat-rotation-sector mass-gap thermal-mode-population ASYM mechanism).
+\end{itemize}
+
+\noindent
+The natural vacuum substrate carries one saturation mechanism; this chapter documents its measurable characteristic curves; AVE substrate-physics derives the kernel from Axiom~4 alone; engineering practice empirically measures its dielectric, magnetic, semiconductor, and avalanche specializations at the corresponding component scales.
