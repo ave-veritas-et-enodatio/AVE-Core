@@ -1,0 +1,69 @@
+\documentclass[11pt, letterpaper, openright]{book}
+
+% --- Shared Preamble (packages, layout, header/footer) ---
+\input{../structure/preamble.tex}
+
+% --- Graphics Path (book-specific) ---
+\graphicspath{{figures/}{../figures/}{../../assets/}{../../assets/figures/}{../../assets/sim_outputs/}{../../assets/derivations/}{../../assets/archive/}{chapters/}}
+
+% --- Shared Commands & Box Styles ---
+\input{../structure/commands.tex}
+
+% --- Cross-Volume References (xr-hyper) ---
+% Vol 9 is a SYNTHESIS volume that cross-references canonical derivations in
+% Vol 1 (foundations / axioms), Vol 3 (macroscopic continuum / cosmology),
+% Vol 4 (engineering / falsification programme), and Vol 0 (backmatter
+% appendices including the universal saturation kernel). Every Vol 9 spec
+% table cites the canonical derivation; xr-hyper makes those refs resolve
+% across the volume set. \IfFileExists guards permit standalone single-vol
+% builds (refs degrade to "??" rather than erroring).
+\usepackage{xr-hyper}
+\IfFileExists{../../build/aux/vol_1_foundations.aux}{%
+    \externaldocument{../../build/aux/vol_1_foundations}%
+}{%
+    \typeout{[xr-hyper] vol_1_foundations.aux not found — cross-vol refs will be unresolved. Run `make vol1` first.}%
+}
+\IfFileExists{../../build/aux/vol_3_macroscopic.aux}{%
+    \externaldocument{../../build/aux/vol_3_macroscopic}%
+}{%
+    \typeout{[xr-hyper] vol_3_macroscopic.aux not found — Vol 3 chapter refs (e.g. sec:tki_strain_snap) will be unresolved. Run `make vol3` first.}%
+}
+\IfFileExists{../../build/aux/vol_4_engineering.aux}{%
+    \externaldocument{../../build/aux/vol_4_engineering}%
+}{%
+    \typeout{[xr-hyper] vol_4_engineering.aux not found — Vol 4 refs will be unresolved. Run `make vol4` first.}%
+}
+\IfFileExists{../../build/aux/vol_0_engineering_compendium.aux}{%
+    \externaldocument{../../build/aux/vol_0_engineering_compendium}%
+}{%
+    \typeout{[xr-hyper] vol_0_engineering_compendium.aux not found — Vol 0 backmatter refs (e.g. app:universal_saturation_kernel) will be unresolved. Run `make vol0` first.}%
+}
+
+% =========================================
+% DOCUMENT STRUCTURE
+% =========================================
+
+\begin{document}
+
+% --- FRONT MATTER ---
+\frontmatter
+
+\input{frontmatter/00_title.tex}
+\input{../frontmatter/00_foreword.tex}
+
+\tableofcontents
+
+% --- MAIN MATTER ---
+\mainmatter
+
+% Reset chapter counter to start at 1
+\setcounter{chapter}{0}
+
+\input{chapters/_manifest.tex}
+
+% --- BIBLIOGRAPHY ---
+\backmatter
+\bibliographystyle{unsrt}
+\bibliography{../bibliography}
+
+\end{document}

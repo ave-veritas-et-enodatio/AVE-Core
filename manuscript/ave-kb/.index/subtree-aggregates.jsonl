@@ -104,3 +104,20 @@
 {"node_path": "vol6/period-3/magnesium/index.md", "node_kind": "index", "subtree_claims": ["clm-7tk051", "clm-f5ucdo", "clm-f8k2um", "clm-h8nmpu", "clm-jy8h1x", "clm-rw7jqo", "clm-sd04x4", "clm-y7uvdc"], "subtree_experiments": []}
 {"node_path": "vol6/period-3/silicon/index.md", "node_kind": "index", "subtree_claims": ["clm-7tk051", "clm-f5ucdo", "clm-f8k2um", "clm-h8nmpu", "clm-jy8h1x", "clm-rw7jqo", "clm-sd04x4", "clm-y7uvdc"], "subtree_experiments": []}
 {"node_path": "vol6/period-3/sodium/index.md", "node_kind": "index", "subtree_claims": ["clm-8psuqe", "clm-f5ucdo", "clm-f8k2um", "clm-h8nmpu", "clm-rw7jqo", "clm-sd04x4", "clm-y7uvdc"], "subtree_experiments": []}
+{"node_path": "vol9/ch1-general-description/index.md", "node_kind": "index", "subtree_claims": [], "subtree_experiments": []}
+{"node_path": "vol9/ch10-magnetic-microrotational-characteristics/index.md", "node_kind": "index", "subtree_claims": [], "subtree_experiments": []}
+{"node_path": "vol9/ch11-topological-characteristics/index.md", "node_kind": "index", "subtree_claims": [], "subtree_experiments": []}
+{"node_path": "vol9/ch12-cosmological-characteristics/index.md", "node_kind": "index", "subtree_claims": [], "subtree_experiments": []}
+{"node_path": "vol9/ch13-application-examples/index.md", "node_kind": "index", "subtree_claims": [], "subtree_experiments": []}
+{"node_path": "vol9/ch14-phase-diagrams/index.md", "node_kind": "index", "subtree_claims": [], "subtree_experiments": []}
+{"node_path": "vol9/ch15-falsification-tests/index.md", "node_kind": "index", "subtree_claims": [], "subtree_experiments": []}
+{"node_path": "vol9/ch16-cross-volume-reference/index.md", "node_kind": "index", "subtree_claims": [], "subtree_experiments": []}
+{"node_path": "vol9/ch2-absolute-maximum-ratings/index.md", "node_kind": "index", "subtree_claims": [], "subtree_experiments": []}
+{"node_path": "vol9/ch3-pin-port-configuration/index.md", "node_kind": "index", "subtree_claims": [], "subtree_experiments": []}
+{"node_path": "vol9/ch4-dc-electrical-characteristics/index.md", "node_kind": "index", "subtree_claims": [], "subtree_experiments": []}
+{"node_path": "vol9/ch5-ac-electrical-characteristics/index.md", "node_kind": "index", "subtree_claims": [], "subtree_experiments": []}
+{"node_path": "vol9/ch6-temperature-characteristics/index.md", "node_kind": "index", "subtree_claims": [], "subtree_experiments": []}
+{"node_path": "vol9/ch7-saturation-characteristics/index.md", "node_kind": "index", "subtree_claims": [], "subtree_experiments": []}
+{"node_path": "vol9/ch8-breakdown-characteristics/index.md", "node_kind": "index", "subtree_claims": [], "subtree_experiments": []}
+{"node_path": "vol9/ch9-mechanical-characteristics/index.md", "node_kind": "index", "subtree_claims": [], "subtree_experiments": []}
+{"node_path": "vol9/index.md", "node_kind": "index", "subtree_claims": [], "subtree_experiments": []}
