@@ -51,14 +51,25 @@ Every AVE result is backed by a **claim-quality entry** recording how trustworth
 
 **Three node types, two solidity branches.** A leaf is a container that may host `clm` (claims), `exp` (physical experiments that *strengthen* claims), and `sup` (non-physical analytical supports that lift them). `solidity = max(derivation_solidity, experimental_solidity)`: the **derivation branch** is `min(confidence, dependency solidities)` — the **weakest link** in the claim's dependency cone (not a product down the chain; refactor-invariant), raised by any `sup-` support (dep-gated); the **experimental branch** is the strength of any *run* `exp-` strengthening the claim. The `solidity` you read already includes both — but **provenance matters for derivation work**: a claim solid via its *derivation* can be built on deeper; one solid **only** via an `exp-` (weak derivation, strong experiment) supports a conclusion yet does NOT license building a new derivation on it. When surfacing quality for a derivation/research effort, say *which branch* carries the solidity and point at the supporting `exp-`/`sup-` nodes (the evidence, and the lever for strengthening). `*pending*` refines accordingly: a run `exp-` can float a pending-derivation claim to solid; a `*pending*` `sup-` never poisons an otherwise-sound claim.
 
-**Query it through the index — don't grep.** The claim graph is materialized under `manuscript/ave-kb/.index/`. Use the `ave-kb` CLI — run `PYTHONPATH=src python -m ave.kb <cmd>` from the repo root:
+**Query it through the CLI — don't grep, and don't hand-read the index.** The claim graph is materialized under `manuscript/ave-kb/.index/`, but the `solidity` values are *computed* by the query tool; reading the JSONL yourself reintroduces exactly the inference drift the tool exists to prevent. Run the `kb_cmd` CLI from the repo root:
 
-- `show <clm-id>` — solidity, build-status, and rationale for one claim
+```bash
+PYTHONPATH=manuscript/ave-kb/tools python -m kb_cmd <command> [args]
+# equivalently:  cd manuscript/ave-kb/tools && python -m kb_cmd <command> [args]
+```
+
+Commands:
+- `show <id>` — solidity, build-status, confidence, rationale for one node (claim / experiment / support / invariant / axiom)
 - `deps <clm-id>` / `deps -i <clm-id>` — what it rests on / what rests on it
 - `solidity-below <threshold>` — shaky claims
 - `weak-points` — highest-leverage rework targets (shaky *and* load-bearing)
+- `gated-on <clm-id>` — claims whose strengthen-by items mention this claim
+- `cited-by <clm-id>` — leaves citing this claim
+- `subtree <path>` — claim ids under a KB path (`""` or `.` for entry-point)
+- `stats` — counts summary
+- append `--json` to any command for machine-readable output
 
-If the CLI is unavailable, read `manuscript/ave-kb/.index/claims.jsonl` directly (line-oriented JSON) or the claim-quality.md entry.
+If the CLI errors, fix the invocation (or report it) — do **not** bypass it by parsing the index or inferring solidity by hand. The authored inputs (`confidence`, rationale) live in the relevant `claim-quality.md`; the derived `solidity` / `build_status` come only from the tool.
 
 **Build-status by solidity band:**
 
