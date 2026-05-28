@@ -1,4 +1,5 @@
 {"source": "clm-009nkt", "target": "clm-0ktpcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "the cold-lattice asymptote $\\alpha^{-1}_{\\text{ideal}} = 4\\pi^3+\\pi^2+\\pi$ this residual is measured against", "fraction": null}
+{"source": "clm-009nkt", "target": "clm-hp7nlm", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "the substrate-mechanism identification closing Q-DELTA-MAP-1 at mechanism-class identification level; this entry is the observable identity, clm-hp7nlm is the substrate-mechanism leaf", "fraction": null}
 {"source": "clm-07kd5v", "target": "axiom-3", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Minimum Reflection Principle", "fraction": null}
 {"source": "clm-07kd5v", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Universal Saturation Kernel — symmetric scaling of $\\mu,\\varepsilon$", "fraction": null}
 {"source": "clm-07kd5v", "target": "clm-gdd70j", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
@@ -306,6 +307,9 @@
 {"source": "clm-hk81zp", "target": "axiom-3", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Minimum Reflection Principle", "fraction": null}
 {"source": "clm-hk81zp", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Universal Saturation Kernel — spectral envelope $S$", "fraction": null}
 {"source": "clm-hk81zp", "target": "clm-iouqn9", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-hp7nlm", "target": "clm-3zz0f6", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-hp7nlm", "target": "clm-5zuo7g", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-hp7nlm", "target": "clm-8nkvwy", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-huhz7r", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "vacuum impedance $Z_0 \\approx 376.73\\,\\Omega$ as the carboxyl termination", "fraction": null}
 {"source": "clm-huhz7r", "target": "clm-lm9b3j", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-hvvvop", "target": "clm-dxdsvt", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the instance set being partitioned", "fraction": null}
