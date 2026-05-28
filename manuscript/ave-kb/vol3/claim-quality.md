@@ -932,7 +932,7 @@ From the corpus-derived $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2)$ applied th
   - $\sim 10^{122}$ improvement over QED's naive ZPE prediction.
   - Derived from canonical corpus inputs with no $\rho_\Lambda$-specific fit parameter.
 - _Specific Non-Claims and Caveats_
-  - Carries the framework-wide $\delta_{\text{strain}} \approx 2.225\times 10^{-6}$ CMB thermal-running residual, currently empirically calibrated at $T_{\text{CMB}}$ pending substrate-physics derivation gated on **Q-DELTA-MAP-1** substrate-saturation-class adjudication (see [`research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md`](../../research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md) §3), inherited via $\alpha$ closure.
+  - Carries the framework-wide $\delta_{\text{strain}} \approx 2.225\times 10^{-6}$ CMB thermal-running residual, currently empirically calibrated at $T_{\text{CMB}}$ pending substrate-physics derivation gated on **Q-DELTA-MAP-1** substrate-saturation-class adjudication (see [`research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md`](../../../research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md) §3), inherited via $\alpha$ closure.
   - Downstream of the open $G$/$H_\infty$ Machian closure (Class E joint constraint), not a fully first-principles single-observable prediction.
 
 > **Leaf references:** [cosmological-constant-closure](./cosmology/ch05-dark-sector/cosmological-constant-closure.md).
