@@ -205,7 +205,7 @@ The original prereg §6 Class 2/4 emergence expectation was conditional on the O
 
 The three-Λ sum is a SUBSTRATE-DERIVED PREDICTION; the numerical match to CODATA (within $\delta_{strain}$) is the empirical consistency check.
 
-**Substrate-distinct claim status**: Class 2 substrate-mechanism emergence is the AVE-distinct interpretation. SM/QED has no analog of Op21 multi-mode mode-counting at a TIR boundary; the cross-scale canonical reach (electron + BH ringdown + universal procedure) is substrate-specific.
+**Substrate-distinct claim status**: Class B substrate-mechanism manifestation is the AVE-distinct interpretation (AMENDED 2026-05-27 post-PR-#47-auditor; the prior Class 2 substrate-mechanism emergence framing was walked back to match ch8-alpha-golden-torus.md:148 self-classification — the Clifford-torus codimensional embedding remains canonical input from upstream leaves rather than re-derived from K4 substrate primitives, so the additive-assembly substrate-mechanism axis is at Class B rigor, not Class 2). SM/QED has no analog of Op21 multi-mode mode-counting at a TIR boundary; the cross-scale canonical reach (electron + BH ringdown + universal procedure) is substrate-specific. The substrate-distinctness argument stands; only the classification label is amended.
 
 ## §6 — Independence check (ave-independence-check)
 
@@ -325,7 +325,7 @@ Per `ave-audit` discipline (implementor self-audit before commit):
 | `ave-walk-back` v1.1 Type B fired for `operators.md:61` annotation amendment | ✓ §3 closing paragraph + §5 below names the amendment scope |
 | No tracked files contain external-context refs (investors, funds, interviews, etc.) | ✓ pure substrate physics |
 | `consistency-vs-emergence` v1.2 master-equation-derivation-path traced step-by-step | ✓ §2 Steps 1-5.5 + §4 dual-axis classification |
-| Honest closure per Rule 11 (not forcing closure where the derivation doesn't close) | ✓ §8 PASS criteria met cleanly; §11 below names what is NOT closed |
+| Honest closure per Rule 11 (not forcing closure where the derivation doesn't close) | ✓ §8 PARTIAL criteria met (PASS verdict walked back per PR #47+#48 amendment; see §8 amendment block); §11 below names what is NOT closed |
 
 **What is closed by Phase 3-A4 (AMENDED)**:
 - clm-0ktpcn strengthen-by item (PARTIAL closure): "Promote the Op21 multi-mode generalization [...] to a fully-derived canonical leaf" (per `vol1/claim-quality.md:95`) — formalization-rigor closure delivered at Class B substrate-mechanism manifestation level; full Class 2 axiom-manifestation lift remains open (requires K4-substrate-primitive derivation of Clifford-torus codimensional embedding)
