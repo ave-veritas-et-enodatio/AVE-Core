@@ -17,7 +17,7 @@ Cross-volume reference material shared across all AVE volumes. Contains the unif
 
 | Result | Location |
 |---|---|
-| Complete derivation chain: 4 axioms + Golden Torus $\alpha$ derivation → 8 derivation layers → **structurally zero-parameter, conditional on thermal closure of $\delta_{strain}$ at $T_{CMB}$** (one currently-fitted scalar pending substrate-physics derivation gated on **Q-DELTA-MAP-1** substrate-saturation-class adjudication) | [Full Derivation Chain](full-derivation-chain.md) |
+| Complete derivation chain: 4 axioms + Golden Torus $\alpha$ derivation → 8 derivation layers → **structurally zero-parameter, conditional on quantitative thermal closure of $\delta_{strain}$ at $T_{CMB}$** (one currently-fitted scalar; substrate-mechanism class identified as Cosserat-rotation-sector mass-gap thermal-mode-population ASYM at clm-hp7nlm; remaining open: **Q-DELTA-MAP-1-quant**) | [Full Derivation Chain](full-derivation-chain.md) |
 | Automated diagnostic confirms strict geometric closure (DAG proof + back-edge analysis; structurally zero-parameter modulo the $\delta_{strain}$ scalar) | [Mathematical Closure](mathematical-closure.md) |
 | Universal regime-boundary eigenvalue method applies across BH QNM, nuclear, protein, and semiconductor domains | [Solver Toolchain](solver-toolchain.md) |
 | Unified experimental index: hardware benchmarks, astronomical tests, biophysical proposals (all volumes) | [Unified Experiments Appendix](appendix-experiments.md) |
