@@ -2,4 +2,256 @@
 \chapter{Falsification Tests}
 \label{ch:vol9_falsification_tests}
 
-\textit{Stub --- to be populated in Vol~9 PR-I. Documents the substrate-physics falsification programme: right-handed-neutrino kill-switch (jointly falsifies weak-force mechanism AND $\delta_{strain}$ via shared $\gamma_c$), PONDER-05 dielectric-saturation bench-tester, quasar $\alpha$-variation, Sagnac-RLVE, HOPF-01 chiral antenna, CLEAVE-01, etc. Primary canonical sources: Vol~4 Ch.~11 experimental falsification; \texttt{delta-strain-cosmic-tcc.md} forward predictions; \texttt{ave-kb/vol4/falsification/}.}
+\begin{objectivebox}
+\begin{itemize}
+    \item Document the substrate's falsification programme: every load-bearing substrate-physics claim in this datasheet is tied to at least one bench-falsifiable or observational kill-switch. The substrate is natural; the framework is falsifiable; the datasheet documents both.
+    \item Catalogue the canonical bench-scale kill-switches (PONDER-05 dielectric saturation; HOPF-01 chiral antenna; Sagnac-RLVE rotational mutual-inductance; CLEAVE-01 femto-Coulomb electrometer) and the null-result observational tests (quasar $\alpha$-variation; Schwinger pair production at terrestrial $E$; static-Sagnac galactic-wind anisotropy; cosmic-chirality axis alignment).
+    \item State the right-handed neutrino kill-switch as the load-bearing JOINT falsifier of the weak force AND the cosmic-temperature $\delta_{strain}$ mechanism via the shared Cosserat couple-stress modulus $\gamma_c$.
+    \item State the three-route $u_0^*$ falsifiability commitment: electromagnetic ($\alpha$), gravitational ($G$), and cosmological ($\hat{\Omega}_{freeze}$) routes must all give the same magic-angle operating point, or the single-cosmological-parameter framework is falsified (Ch.~\ref{ch:vol9_cosmological_characteristics}).
+    \item Establish the evidence-framing discipline: status entries use ``not yet observed'' / ``current bounds consistent with prediction'' / ``pending bench measurement'' --- the substrate is what it is; pre-bench predictions are not ``validated'' until physical measurement against the predicted regime.
+    \item Route each falsification entry to its canonical leaf in the cross-volume falsification index (\texttt{ave-kb/common/appendix-experiments.md}; INVARIANT-S3 Unified Index of Experimental Falsifications).
+\end{itemize}
+\end{objectivebox}
+
+\section{Substrate Falsification Programme}
+\label{sec:vol9_falsification_programme}
+
+The substrate documented in this datasheet is the natural vacuum medium $\mathcal{M}_A$. It exists; it does what it does; engineering observation accesses its behaviour; AVE substrate-physics derives the substrate-mechanism behind each measurable observable. This chapter records the inverse map: the substrate-physics predictions that, if observation contradicts them at the predicted regime, falsify the framework that derives them. The framework is falsifiable; the substrate is not.
+
+Per the canonical epistemological framing (\texttt{ave-kb/vol4/falsification/ch11-experimental-bench/epistemology-kill-switches.md}, \texttt{clm-om0rtq}; mirrored at \texttt{ch11-experimental-bench-falsification/epistemology-of-falsification.md}): the framework is constructed as a one-parameter effective field theory anchored at the substrate's single intrinsic scale $\ell_{node}$ and the single cosmological initial-data parameter $\hat{\Omega}_{freeze}$ (Ch.~\ref{ch:vol9_cosmological_characteristics}). All masses, forces, and cosmological constants are algebraically interlocked; altering any single output breaks the chain. Each falsification entry in this chapter therefore stands alone --- a single decisive observation at the predicted regime, contradicting the predicted result, falsifies the entire substrate model with no possibility of parameter adjustment.
+
+The substrate-natural framing carries through every entry below: kill-switches are not engineered or designed; they are substrate-predicted null-or-observed transitions that engineering protocols can interrogate. Where the substrate's prediction is a null (e.g.\ quasar $\alpha$-variation under SYM-class gravitational potential, static-Sagnac galactic-wind anisotropy), engineering practice has already characterized the relevant observable to high precision and the null bounds corroborate the prediction. Where the substrate's prediction is a positive observation at a yet-unprobed regime (e.g.\ PONDER-05 dielectric saturation at $V_{DC}/V_{yield} = 0.687$, HOPF-01 chiral $S_{11}$ shift across torus-knot topologies), the bench apparatus exists or is in fabrication and the measurement is pending.
+
+\section{Bench-Scale Kill-Switches}
+\label{sec:vol9_bench_kill_switches}
+
+\subsection{PONDER-05 dielectric saturation (Ax 4 small-signal modulation)}
+\label{subsec:vol9_ponder_05_falsifier}
+
+\textbf{Substrate prediction.} At a DC bias holding the substrate's local LC-tank operating point at $V_{DC}/V_{yield} = 0.687$, the Ax 4 universal saturation kernel evaluates to $S(0.687) = 0.7266$. Per the canonical dielectric specialization (Ch.~\ref{ch:vol9_saturation_characteristics}~$\S$\ref{sec:vol9_dielectric_specialization}; canonical leaf \texttt{ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md}), the substrate predicts:
+
+\begin{itemize}
+    \item $\varepsilon_{eff}/\varepsilon_0 = S = 0.7266$ ($-27.34\%$ from cold-lattice baseline)
+    \item $C_{eff}/C_0 = 1/S = 1.3763$ ($+37.63\%$ rise above cold-lattice)
+    \item Differential thrust $\sim 469\,\mu\text{N}$ at the canonical matched-pair geometry
+\end{itemize}
+
+\textbf{Apparatus.} Paired DC-biased quartz resonator thrusters across a vertical gravity gradient at $V_{DC} = 30\,\text{kV}$ (canonical operating-point statement at \texttt{ave-kb/vol4/falsification/ch11-experimental-bench/measurement-hierarchy-snr.md}:66). Sibling-repo hardware programme at \texttt{AVE-PONDER} (manuscript chapter \texttt{vol\_ponder/chapters/04\_ponder\_05\_dc\_biased\_quartz.tex}).
+
+\textbf{Kill-switch condition.} A null result at the canonical operating point --- $\Delta C_{eff}/C_0$ below bench noise floor with no $\varepsilon_{eff}$ collapse at $V_{DC}/V_{yield} = 0.687$ --- falsifies the Ax 4 dielectric specialization directly. The cascade impact propagates through the divergence-test-substrate-map row \texttt{B7-PONDER-05} to other dielectric-specialization derivations (B5/B6 PONDER, B1-VAC-BIREFRINGE, D4-A034, C9-LEVITATION) through the shared $V_{yield}$ primitive.
+
+\textbf{Current status.} Bench fabrication in progress; measurement pending. The operating-point selection sits within $2.8\%$ of the substrate-mechanical 2D-aperture skewness peak at $a^{(2D)}_{peak} = 1/\sqrt{2} = 0.707$, near-optimal for the amplitude-statistics readout layer (Ch.~\ref{ch:vol9_saturation_characteristics}~$\S$\ref{sec:vol9_ponder_05}).
+
+\textbf{Canonical source.} \texttt{ave-kb/vol4/falsification/ch11-experimental-bench-falsification/open-source-hardware.md} (open-source PCBA build guide); \texttt{ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md} (substrate-physics derivation); divergence-test-substrate-map row B7-PONDER-05.
+
+\subsection{HOPF-01 chiral antenna ($S_{11}$ torus-knot resonance shift)}
+\label{subsec:vol9_hopf_01}
+
+\textbf{Substrate prediction.} The substrate K4 lattice carries right-handed $I4_1 32$ chiral space group (Axiom 1; CLAUDE.md INVARIANT-S2) and supports $(p,q)$ torus-knot solitons (Ch.~\ref{ch:vol9_topological_characteristics}). A chiral antenna with $(p,q)$ winding excites a substrate-native chiral resonance. The canonical prediction is an anomalous $S_{11}$ frequency shift scaling as
+
+\begin{equation}
+    \frac{\Delta f}{f} = \alpha \cdot \frac{pq}{p+q}
+    \label{eq:vol9_hopf01_shift}
+\end{equation}
+
+across five torus-knot topologies (canonical at \texttt{ave-kb/vol4/falsification/ch11-experimental-bench-falsification/open-source-hardware.md}, \texttt{clm-wzezvt}).
+
+\textbf{Apparatus.} 160$\times$120 mm two-layer FR-4 PCB with 24 AWG enameled magnet wire threaded through silkscreen-guided holes to form five 3D torus knots --- $(2,3)$ trefoil, $(2,5)$ cinquefoil, $(3,5)$, $(3,7)$, $(3,11)$ --- plus a zero-topology meander control antenna. Six edge-launch SMA connectors. Calibrated VNA (SOL calibration) in air and in mineral oil ($\varepsilon_r \approx 2.1$). The companion polarization-matching observable is helicity-injection chiral coupling (canonical at the matched-coupling leaf).
+
+\textbf{Kill-switch condition.} Plot $\Delta f/f$ versus $pq/(p+q)$. Linear through the origin with slope $\alpha$ and substrate-independent: substrate's $(p,q)$ chiral-resonance mechanism survives this measurement. Zero, random, or substrate-dependent slope: falsifies the chiral-resonance mechanism at this bench scale.
+
+\textbf{Current status.} Hardware in hand; partial torus-knot stitching underway. The original HOPF-01 pilot board carries a classical multi-antenna mutual-coupling confound between adjacent antennas on the shared fixture (canonical at \texttt{ch11-experimental-bench-falsification/project-hopf-02.md}); HOPF-02 introduces per-board scored breakaway to eliminate the confound. Sibling-repo programme at \texttt{AVE-HOPF}.
+
+\textbf{Canonical source.} \texttt{ave-kb/vol4/falsification/ch11-experimental-bench-falsification/open-source-hardware.md} (\texttt{clm-wzezvt}); divergence-test-substrate-map row A1-HOPF.
+
+\subsection{Sagnac-RLVE (rotational lattice mutual-inductance)}
+\label{subsec:vol9_sagnac_rlve}
+
+\textbf{Substrate prediction.} A rotating high-density physical mass adjacent to a Sagnac fiber-optic loop drives a substrate-native mutual-inductance coupling. The induced drift velocity scales with the rotor's mass-density ratio to the bulk substrate $\rho_{bulk} \approx 7.9 \times 10^6\,\text{kg}/\text{m}^3$:
+
+\begin{equation}
+    \kappa_{entrain} = \frac{\rho_{rotor}}{\rho_{bulk}}, \qquad v_{network} = v_{tan} \cdot \kappa_{entrain}.
+\end{equation}
+
+For a Tungsten rotor ($\rho_W = 19{,}300\,\text{kg}/\text{m}^3$) at $10{,}000$ RPM (tangential $v_{tan} \approx 157\,\text{m/s}$), $\kappa_{entrain} \approx 2.44 \times 10^{-3}$ and $v_{network} \approx 0.38\,\text{m/s}$. The Sagnac fiber loop amplifies through the optical-lever-arm geometry to a substrate-predicted phase shift $\Delta\phi \approx 2.07$ radians at 1550 nm with a 200 m fiber coil.
+
+\textbf{Apparatus.} Tabletop Sagnac fiber-optic loop ($1550\,\text{nm}$ telecom diode; 50/50 SMF-28 splitter; 200 m SMF-28 ultra fiber coil; InGaAs PIN photodetector) with paired 15 cm rotors (Tungsten and Aluminium) spinning at $10{,}000$ RPM. Total BOM under \$2{,}000 (canonical at \texttt{ave-kb/vol4/falsification/ch11-experimental-bench-falsification/sagnac-rlve.md}).
+
+\textbf{Kill-switch condition.} The mass-density-ratio scaling produces a paired-rotor Metric Mutual Inductance Ratio $\Psi_{W/Al} = \rho_W/\rho_{Al} = 7.15$. Standard GR Lense-Thirring frame-drag is purely geometric and mass-density-independent, predicting $\Psi = 1$ (or $\sim 10^{-20}$ rad in absolute magnitude --- effectively null at this scale). Observation of $\Psi = 1$ on the paired-rotor comparison falsifies the substrate mutual-inductance coupling decisively; observation of a $\Psi \approx 7.15$ ratio is the substrate-predicted positive result. The kill-switch is verbatim from canonical: \emph{``decisively and permanently falsified''} if $\Psi = 1$ (divergence-test-substrate-map row A2-SAGNAC).
+
+\textbf{Scope note (per A2 audit 2026-05-16).} The Sagnac-RLVE rotational-mutual-inductance test is NOT a preferred-frame test --- the mechanism is rotor-local, independent of which frame bulk $\mathcal{M}_A$ is at rest in. The separate static-Sagnac galactic-wind anisotropy test (Protocol 11) is a different observable; see $\S$\ref{subsec:vol9_static_sagnac_null}.
+
+\textbf{Current status.} Bench fab package exists at paper stage in the PONDER sibling-repo; measurement pending. Tabletop BOM ready for build.
+
+\textbf{Canonical source.} \texttt{ave-kb/vol4/falsification/ch11-experimental-bench-falsification/sagnac-rlve.md} (\texttt{exp-rth12t}, status pending; strengthens \texttt{clm-qx9bb8}); divergence-test-substrate-map row A2-SAGNAC.
+
+\subsection{CLEAVE-01 femto-Coulomb electrometer ($\xi_{topo}$ kill-switch)}
+\label{subsec:vol9_cleave_01}
+
+\textbf{Substrate prediction.} Per Axiom 2 (Topo-Kinematic Isomorphism), electrical charge is identical to physical macroscopic spatial displacement via the canonical electromechanical transduction constant $\xi_{topo} = e/\ell_{node} \approx 4.149 \times 10^{-7}\,\text{C/m}$ (CLAUDE.md INVARIANT-C2). Mechanically separating two uncharged plates by displacement $x$ generates topological charge $Q = \xi_{topo} \cdot x$. At $x = 1\,\mu\text{m}$ displacement, the substrate predicts $Q = 0.415\,\text{pC}$ and a voltage readout $V = Q/C \approx 41.5\,\text{mV}$ on the canonical $10\,\text{pF}$ parasitic input capacitance.
+
+\textbf{Apparatus.} PCBA with ultra-low-bias-current electrometer (e.g.\ Analog Devices ADA4530-1, 20 fA bias current) connected to a floating copper plate in a vacuum chamber. Commercial PZT linear actuator steps the gap exactly $1.0\,\mu\text{m}$ in under $100\,\text{ms}$ via high-precision DAC. Guard rings and Teflon standoffs eliminate parasitic leakage.
+
+\textbf{Kill-switch condition.} A reading of $0.0\,\text{mV}$ on the oscilloscope step falsifies the Axiom 2 topo-kinematic-isomorphism identity directly. The substrate-distinct discriminator versus standard piezoelectric ($d_{31}$) and triboelectric mechanisms: the $\xi_{topo} \cdot x$ contribution scales linearly with displacement and is dielectric-independent. Standard EE predicts $Q$ to vary with dielectric; substrate predicts the $\xi_{topo} \cdot x$ component invariant.
+
+\textbf{Cascade impact.} CLEAVE-01 carries the largest single-row cascade in the divergence-test-substrate-map (canonical at \texttt{ch11-experimental-bench-falsification/project-cleave-01.md}). Falsification of $\xi_{topo}$ propagates through six downstream rows (B4-PROTEIN Ramachandran enforcement, C9-LEVITATION $m_{max}$, C16-TORSION-05 thrust, B5-PONDER-01 thrust, B6-PONDER-02 microwave bistatic, plus the Ax 2 derivation chain).
+
+\textbf{Current status.} KiCad design + bench specification in progress; measurement pending. Sub-epic at \texttt{\_orchestration/experimental/c15-cleave-01/}.
+
+\textbf{Canonical source.} \texttt{ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md} (\texttt{clm-ydksh6}, \texttt{exp-742kv5} status pending).
+
+\section{Right-Handed Neutrino Joint Kill-Switch}
+\label{sec:vol9_neutrino_kill_switch}
+
+The substrate's load-bearing joint-constraint falsifier. The same Cosserat couple-stress modulus $\gamma_c$ underlies BOTH the weak-force range AND the B-mode mass-gap that drives the cosmic-temperature $\delta_{strain}$ mechanism (Ch.~\ref{ch:vol9_temperature_characteristics}~$\S$\ref{subsec:vol9_joint_constraint}; canonical at \texttt{ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md}, \texttt{clm-hp7nlm}).
+
+\textbf{Substrate prediction.} The weak-force range $l_c = \sqrt{\gamma_c/G_{vac}} \approx 10^{-18}\,\text{m}$ is the canonical Cosserat-characteristic length (\texttt{ave-kb/vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md}:39). The same $\gamma_c$ sets the B-mode mass-gap $\omega_m^2 = 4 G_c/I_\omega$ ($\hbar\omega_m \sim 1\,\text{MeV}$; canonical at \texttt{ave-kb/common/trampoline-framework.md}:188), which at $T_{CMB}$ produces the asymmetric thermal-mode population mechanism behind $\delta_{strain} \approx 2.225 \times 10^{-6}$. The framework structurally relies on the chiral LC bandgap: only left-handed neutrinos exist as stable, freely propagating states in the substrate; right-handed neutrinos are excluded by the $\tfrac{1}{3}\,G_{vac}$ microrotational boundary condition (canonical at \texttt{ave-kb/vol4/falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md}, \texttt{clm-gw2wgc}).
+
+\textbf{Kill-switch condition.} The experimental detection of a stable, freely propagating right-handed neutrino permanently falsifies the $\tfrac{1}{3}\,G_{vac}$ microrotational boundary condition of the vacuum, geometrically destroying the derivation of the weak force AND simultaneously falsifying the $\delta_{strain}$ Cosserat-Curie mechanism via the shared $\gamma_c$ primitive. Independent measurement of either constrains both.
+
+\textbf{Current status.} Right-handed neutrino: not yet observed at any current laboratory or astrophysical bound; the prediction --- that one will not be observed --- is consistent with all current experimental constraints. The $\delta_{strain}$ joint observable: $\eta_\varepsilon \approx 4.45 \times 10^{-6}$ at $T_{CMB}$ is back-substituted from CODATA $\alpha^{-1}$; the substrate-mechanism class is identified (Class B, PARTIAL band, solidity $\sim 0.55$); the quantitative substrate-statistical-mechanics derivation is open (Q-DELTA-MAP-1-quant; Ch.~\ref{ch:vol9_temperature_characteristics}~$\S$\ref{sec:vol9_temperature_open}).
+
+\textbf{Forward-prediction handle.} Cosmic-temperature $\alpha$-drift forward prediction: substrate $\alpha$ drifts roughly linearly with cosmic $T$ for $T_{CMB} \ll T \ll T_{B-gap} \sim 10^{10}\,\text{K}$ (\texttt{clm-hp7nlm} $\S$6). Quasar absorption-line $\Delta\alpha/\alpha$ measurements at higher redshift access this regime through cosmological temperature variation; see $\S$\ref{subsec:vol9_quasar_alpha_null}.
+
+\textbf{Canonical source.} \texttt{ave-kb/vol4/falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md} (\texttt{clm-gw2wgc}); \texttt{ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md} (\texttt{clm-hp7nlm}); \texttt{gauge-boson-masses.md}:39.
+
+\section{Null-Result Tests}
+\label{sec:vol9_null_result_tests}
+
+\subsection{Quasar $\alpha$-variation under SYM-class gravitational potential}
+\label{subsec:vol9_quasar_alpha_null}
+
+\textbf{Substrate prediction (null at SYM-class).} Per the canonical SYM-class $\alpha$-invariance proof (\texttt{ave-kb/vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md}, \texttt{clm-3zz0f6}, solidity 0.85; CLAUDE.md INVARIANT-S2): under SYM-class scaling --- the gravity-class realization where $\mu(r)$ and $\varepsilon(r)$ scale together by the same factor so $Z_0$ stays invariant --- the asymmetry between $c_{EM} = c_0/S$ (Maxwell phase velocity) and $c_{shear} = c_0\sqrt{S}$ (substrate group / rest-mass velocity) makes $\alpha$ exactly invariant. Multi-species clock comparisons at different gravitational potentials predict a null result for $\Delta\alpha/\alpha$.
+
+\textbf{Kill-switch condition.} A non-null $\Delta\alpha/\alpha$ observation in a clean SYM-class gravitational potential, attributable to substrate scaling rather than ASYM-class loading or systematic, falsifies the SYM $\alpha$-invariance proof and the underlying two-effective-wave-speed structure (Ch.~\ref{ch:vol9_saturation_characteristics}~$\S$\ref{sec:vol9_alpha_invariance}). A null observation is consistent with the substrate-predicted exact invariance.
+
+\textbf{Forward-prediction handle (ASYM regime).} The substrate IS predicted to drift in $\alpha$ at finite cosmic temperature via the Cosserat-Curie thermal-mode-population ASYM mechanism (Ch.~\ref{ch:vol9_temperature_characteristics}; \texttt{clm-hp7nlm}). The forward prediction is that $\alpha$ scales roughly linearly with cosmic $T$ for $T_{CMB} \ll T \ll T_{B-gap}$. Quasar absorption-line $\Delta\alpha/\alpha$ measurements at higher redshift access this thermal regime; current bounds $\sim 10^{-5}$ on $\Delta\alpha/\alpha$ are consistent with the substrate-predicted scaling at the back-subtracted $\eta_\varepsilon \approx 4.45 \times 10^{-6}$. Quantitative derivation closure pending Q-DELTA-MAP-1-quant.
+
+\textbf{Current status.} All current quasar $\alpha$-variation bounds are consistent with the SYM-class null prediction at clean gravitational-potential comparison. The ASYM-class cosmic-temperature-scaling forward prediction is unfalsified at current precision; promotion of \texttt{clm-009nkt} above the 0.60 emergence threshold requires both the quantitative substrate-statistical-mechanics derivation (Q-DELTA-MAP-1-quant) and a higher-redshift $\Delta\alpha/\alpha$ measurement at the predicted thermal scaling.
+
+\textbf{Canonical source.} \texttt{ave-kb/vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md} (\texttt{clm-3zz0f6}); \texttt{delta-strain-cosmic-tcc.md} (\texttt{clm-hp7nlm}) for the ASYM-class forward prediction.
+
+\subsection{Schwinger pair production at $E_S$ (terrestrial-$E$ null)}
+\label{subsec:vol9_schwinger_terrestrial_null}
+
+\textbf{Substrate prediction.} The substrate ruptures at $E_S = m_e^2 c^3/(e\hbar) \approx 1.32 \times 10^{18}\,\text{V/m}$, producing electron-positron pairs via the saturated-flux-tube-rupture mechanism (Ch.~\ref{ch:vol9_breakdown_characteristics}~$\S$\ref{sec:vol9_schwinger_regime_iv}; canonical leaf \texttt{ave-kb/vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md}, \texttt{clm-ezai5b}). The substrate's local saturation amplitude reaches $A^2 \to 1$ at adjacent A/B K4 node pairs only at $E \to E_S$.
+
+\textbf{Kill-switch condition.} Currently accessible terrestrial laboratory electric fields are $E \ll E_S$. At these fields, the substrate's saturation amplitude is $A_0/A_{yield} \ll 1$ and the kernel sits at $S(A_0) \approx 1$: the substrate is in the deep linear regime and the canonical prediction is no pair production. Observation of pair production at terrestrial $E$ where the substrate predicts $A_0 \ll 1$ would falsify the saturated-flux-tube-rupture mechanism. The substrate prediction at currently accessible terrestrial $E$ is a null; this null is consistent with all current bounds.
+
+\textbf{Status framing.} Pair production at the substrate-predicted $E_S$ is not directly observed at terrestrial fields because terrestrial $E$ is inaccessibly far below the predicted threshold --- not because the substrate's prediction at $E_S$ has been tested and observed null. The canonical framing: \emph{predicted at $E_S$; terrestrial $E$ inaccessible; null at current $E$}. The autoresonant-Schwinger-bypass programme (PROJECT-ZENER-04; \texttt{ave-kb/vol4/falsification/ch12-falsifiable-predictions/autoresonant-dielectric-rupture.md}) is the canonical bench-scale path to access the Regime III $\to$ IV transition without requiring full $E_S$ amplitude. PROJECT-ZENER-04 itself is at paper stage.
+
+\textbf{Companion kill-switch (vacuum birefringence $E^4$ vs $E^2$).} Standard QED via the Euler-Heisenberg Lagrangian predicts a vacuum refractive index shift $\propto E^2$. AVE predicts $\propto E^4$ via the 4th-order substrate non-linearity bounded by Ax 4 (canonical at \texttt{ave-kb/vol4/falsification/ch11-experimental-bench/epistemology-kill-switches.md}, \texttt{clm-pp3qwf}). High-intensity laser interferometry at fields approaching $E_S$ accesses the slope discriminator: $E^2$ scaling falsifies AVE; $E^4$ scaling falsifies QED at this observable. Neither slope is currently resolved at high-intensity laser facilities; status pending.
+
+\textbf{Canonical source.} \texttt{pair-production-axiom-derivation.md} (\texttt{clm-ezai5b}); \texttt{q-g18-schwinger-pair-wkb.md} (\texttt{clm-lj4ok5}); \texttt{epistemology-kill-switches.md} (\texttt{clm-pp3qwf}) for the birefringence companion.
+
+\subsection{Static-Sagnac galactic-wind anisotropy (Protocol 11 corroborative null)}
+\label{subsec:vol9_static_sagnac_null}
+
+\textbf{Substrate prediction.} A horizontal static-Sagnac loop sweeping through the bulk 370 km/s Earth-CMB galactic-wind velocity would naively register a phase shift from optical anisotropy. The substrate predicts this is null at observable precision, doubly killed by its own physics (canonical at \texttt{divergence-test-substrate-map.md} row C17 + cohesive narrative at \texttt{vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md}):
+
+\begin{itemize}
+    \item Closed-loop Sagnac integral of uniform 370 km/s wind $= 0$ (basic geometric integration).
+    \item Any open-loop Fizeau drift is cubic-symmetry-suppressed by $(q\ell_{node})^4 \sim 10^{-22}$ at optical wavelengths per the K4 chiral space group.
+\end{itemize}
+
+Effective substrate prediction: $\delta\phi \sim 10^{-22}\, \phi_{naive}$ --- effectively null at any observable precision.
+
+\textbf{Kill-switch condition.} Observation of a non-null galactic-wind static-Sagnac signal at $\delta c/c \gtrsim 10^{-22}$ falsifies the cubic-symmetry suppression at optical wavelengths. Note that AVE and standard relativity agree on the null at all currently observable precision; distinguishing the two requires a Trans-Planckian probe (the GRB-dispersion test; see $\S$\ref{subsec:vol9_grb_dispersion}).
+
+\textbf{Current status.} Brillet--Hall (1979) static-Sagnac null bounds $\Delta c/c < 5 \times 10^{-9}$, Wolf et al.~(2003--2010) $\Delta c/c < 10^{-17}$, and modern optical-cavity bounds $\Delta c/c < 10^{-18}$ are all null and consistent with the substrate's predicted $\sim 10^{-22}$ suppression. No new fabrication is required; existing data corroborates.
+
+\textbf{Canonical source.} \texttt{ave-kb/vol4/falsification/ch11-experimental-bench-falsification/sagnac-parallax.md} (rewritten 2026-05-16 audit); cohesive narrative at \texttt{preferred-frame-and-emergent-lorentz.md}; divergence-test-substrate-map row C17-PROTOCOL-11-SAGNAC-WIND.
+
+\subsection{GRB photon dispersion (Trans-Planckian discriminator)}
+\label{subsec:vol9_grb_dispersion}
+
+\textbf{Substrate prediction.} The substrate carries photons as purely transverse, massless topological link-variables. Photons are immune to spatial inertia and propagate without lattice dispersion at all sub-Trans-Planckian energies; the topological decoupling theorem (canonical at \texttt{epistemology-of-falsification.md}, \texttt{clm-gw2wgc}) excludes energy-dependent arrival-time delays from the substrate K4 lattice structure at observable energies.
+
+\textbf{Kill-switch condition.} Ultra-high-energy gamma-ray-burst observations that definitively show a strict energy-dependent arrival-time delay (lattice dispersion) at Trans-Planckian energies falsify the topological decoupling theorem. The bound is approached by current $\gamma$-ray observatories; no such delay has been observed at currently accessible energies. Continued null observation at increasingly stringent bounds corroborates; a clear positive observation falsifies.
+
+\textbf{Current status.} No energy-dependent GRB arrival-time delay observed at current bounds. The prediction is unfalsified.
+
+\textbf{Canonical source.} \texttt{ave-kb/vol4/falsification/ch12-falsifiable-predictions/binary-kill-switches.md} (\texttt{clm-gw2wgc}); \texttt{ave-kb/vol4/falsification/ch11-experimental-bench/epistemology-kill-switches.md}.
+
+\subsection{Cosmic chirality axis (multi-channel alignment)}
+\label{subsec:vol9_cosmic_chirality_null}
+
+\textbf{Substrate prediction.} The substrate's right-handed $I4_1 32$ chiral space group and its global chirality direction are set at lattice genesis by the cosmological initial-data parameter $\hat{\Omega}_{freeze}$ (Ch.~\ref{ch:vol9_cosmological_characteristics}; canonical at \texttt{ave-kb/common/omega-freeze-cosmic-grain-cascade.md}, \texttt{clm-dsb560}, \texttt{clm-pe8lpx}). The cosmological initial-data parameter projects onto eight separable observational channels:
+
+\begin{enumerate}
+    \item CMB axis-of-evil (Planck PR3 SMICA, empirical pin at $(l, b) = (60.28^\circ, 50.48^\circ)$ galactic).
+    \item Hubble flow anisotropy (Pantheon+ supernova compilation).
+    \item Large-scale-structure spin direction (SDSS galaxy spin axes).
+    \item Matter asymmetry direction.
+    \item E/B polarization decoupling (Planck PR3 + BICEP/Keck + LiteBIRD).
+    \item Orbital-plane alignment (Solar system ecliptic + binary stars Gaia DR3 + galactic disks + LIGO/Virgo binary inspirals).
+    \item $G$ anisotropy via tensor extension ($\Delta G/G \sim \alpha^N$ for $N \geq 2$; CODATA $G$ dataset re-analysis along $\hat{\Omega}_{freeze}$ axis).
+    \item CMB QNM matching (parent-BH quasi-normal-mode spectrum match in low-$\ell$ multipoles).
+\end{enumerate}
+
+\textbf{Kill-switch condition.} All eight observational channels must be mutually consistent with a single $\hat{\Omega}_{freeze}$ axis at observational precision. Detection of mutually inconsistent axes across the eight channels, or detection of a null preferred axis (isotropic distribution) on the channels where the substrate predicts alignment, falsifies the single-cosmological-parameter framework. The substrate-predicted axis is the CMB-axis-of-evil direction at the Planck PR3 SMICA pin.
+
+\textbf{Current status.} CMB axis-of-evil at $(l, b) = (60.28^\circ, 50.48^\circ)$ has intrinsic dispersion of $88\%$ of the theoretical maximum at the Planck PR3 SMICA empirical pin (2026-05-19). Cross-channel alignment work is at the pre-registered multi-axis-test stage; quantitative re-analysis at the empirically-pinned axis is pending across channels 2--8. The Observable 7 $G$-anisotropy amplitude has structural closure for the angular profile $P_2(\cos\theta)$ but the suppression order $\alpha^N$ is only conjecturally bracketed (most plausibly $N = 2$ giving $\sim 4.4 \times 10^{-5}$) and is not yet derived from substrate first principles.
+
+\textbf{Canonical source.} \texttt{ave-kb/common/omega-freeze-cosmic-grain-cascade.md} (\texttt{clm-dsb560}, \texttt{clm-a7cbqq}, \texttt{clm-pe8lpx}, \texttt{clm-fndptx}); Vol 3 Ch 4 generative cosmology.
+
+\section{Three-Route $u_0^*$ Falsifiability}
+\label{sec:vol9_three_route_falsifiability}
+
+The framework's sharpest empirical commitment (Ch.~\ref{ch:vol9_cosmological_characteristics}~$\S$\ref{subsec:vol9_cosmo_three_routes}; canonical at \texttt{src/ave/core/constants.py} preamble lines 18--24 + \texttt{omega-freeze-cosmic-grain-cascade.md} $\S$1, \texttt{clm-dsb560}). The substrate carries one cosmological degree of freedom: the magic-angle operating point $u_0^* \approx 0.187$ at lattice genesis. Three independent observational routes access $u_0^*$:
+
+\begin{itemize}
+    \item \textbf{Route 1 --- Electromagnetic.} CODATA $\alpha$ to 12 decimals ($\alpha^{-1} = 137.035999084$) $\to$ $u_0^*$ via the Golden-Torus closure (Vol 1 Ch 8) and the Q-factor closure of Theorem 3.1 (Vol 4 Ch 1).
+    \item \textbf{Route 2 --- Gravitational.} CODATA $G$ to $\sim 4$ decimals $\to$ $u_0^*$ via the Machian impedance integral $G = c^4/(7\xi T_{EM}(u_0^*))$ with $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$.
+    \item \textbf{Route 3 --- Cosmological.} $\mathcal{J}_{cosmic}$ via CMB / LSS anomaly measurements $\to$ $u_0^*$ via $\hat{\Omega}_{freeze} = \mathcal{J}_{cosmic}/I_{cosmic}$ and the freeze-in relation $u_0 = \rho|\hat{\Omega}_{freeze}|^2 r_{node}^2/(2 K_0)$.
+\end{itemize}
+
+\textbf{Falsification condition (verbatim from \texttt{clm-dsb560}).} All three routes must give the same $u_0^*$ at the relevant precision, or the single-cosmological-parameter framework is falsified.
+
+\textbf{Discrimination structure.} This is the canonical Class E operating-point projection per \texttt{consistency-vs-emergence} v1.3: substrate has ONE degree of freedom; N observables ($\alpha$, $G$, $H_\infty$, $\hat{\Omega}_{freeze}$, $\mathcal{J}_{cosmic}$, MOND $a_0$, $\ldots$) project onto N separable measurable channels, joint-constrained. Falsification of any one channel kills the operating point and therefore the entire substrate model. Conversely, joint convergence of the three routes at the same $u_0^*$ is one operating-point fit across three independent observable classes; no single-class fit could reproduce the joint convergence by parameter tuning.
+
+\textbf{Current status.} Routes 1 and 2 converge at $u_0^* \approx 0.187$ within the precisions of CODATA $\alpha$ and CODATA $G$. Route 3 has structural closure at the lattice-genesis mechanism, with the empirical pin of $\hat{\Omega}_{freeze}$ at the Planck PR3 SMICA axis-of-evil direction $(l, b) = (60.28^\circ, 50.48^\circ)$; quantitative $u_0^*$ extraction from $\mathcal{J}_{cosmic}/I_{cosmic}$ is pending the cosmic-moment-of-inertia integration over the substrate mass distribution within $R_H$. No route currently disagrees at observational precision; framework remains unfalsified.
+
+\textbf{Canonical source.} \texttt{src/ave/core/constants.py} header preamble; \texttt{omega-freeze-cosmic-grain-cascade.md} (\texttt{clm-dsb560}); Common Foreword $\S$``three-route framework commitment''; this datasheet Ch.~\ref{ch:vol9_cosmological_characteristics}.
+
+\section{Falsification Spec Table}
+\label{sec:vol9_falsification_spec_table}
+
+\begin{footnotesize}
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}p{0.13\linewidth} p{0.18\linewidth} p{0.20\linewidth} p{0.18\linewidth} p{0.10\linewidth} p{0.14\linewidth}@{}}
+\hline
+\textbf{Test} & \textbf{Apparatus} & \textbf{Prediction} & \textbf{Kill-Switch Condition} & \textbf{Status} & \textbf{Canonical Source} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Test} & \textbf{Apparatus} & \textbf{Prediction} & \textbf{Kill-Switch Condition} & \textbf{Status} & \textbf{Canonical Source} \\
+\hline
+\endhead
+PONDER-05 dielectric saturation & Paired DC-biased quartz at $V_{DC}/V_{yield} = 0.687$ & $C_{eff}/C_0 = 1.376$; $\varepsilon_{eff}/\varepsilon_0 = 0.727$; differential thrust $\sim 469\,\mu\text{N}$ & Null $C_{eff}$ rise at operating point falsifies Ax 4 dielectric specialization & Bench fab in progress; measurement pending & \texttt{parametric-coupling-kernel.md}; \texttt{measurement-hierarchy-snr.md}:66; B7-PONDER-05 \\
+HOPF-01 chiral antenna & 5 torus-knot wire antennas on FR-4 PCB; VNA $S_{11}$ & $\Delta f/f = \alpha\, pq/(p+q)$ linear through origin; substrate-independent slope $\alpha$ & Zero / random / substrate-dependent slope falsifies chiral $(p,q)$ resonance & Hardware in hand; partial knot stitching underway; HOPF-02 mitigation in fab & \texttt{open-source-hardware.md} (\texttt{clm-wzezvt}); A1-HOPF \\
+Sagnac-RLVE & Tabletop Sagnac fiber loop + paired W/Al rotors at 10k RPM & $\Psi_{W/Al} = \rho_W/\rho_{Al} = 7.15$; $\Delta\phi \approx 2.07$ rad on W rotor & $\Psi = 1$ (mass-density-independent) decisively falsifies substrate mutual-inductance coupling & Tabletop BOM ready; measurement pending & \texttt{sagnac-rlve.md} (\texttt{exp-rth12t}, \texttt{clm-qx9bb8}); A2-SAGNAC \\
+CLEAVE-01 $\xi_{topo}$ & PCBA electrometer + PZT $1\,\mu\text{m}$ gap step, vacuum chamber & $Q = \xi_{topo}\,x = 0.415\,\text{pC}$; $V = 41.5\,\text{mV}$ on $10\,\text{pF}$ parasitic & $V = 0.0\,\text{mV}$ falsifies Ax 2 topo-kinematic isomorphism & KiCad design + bench spec in progress & \texttt{project-cleave-01.md} (\texttt{clm-ydksh6}, \texttt{exp-742kv5}) \\
+Right-handed neutrino & High-precision neutrino detection (existing facilities + future) & No stable right-handed neutrino propagates freely & Detection of stable RH neutrino jointly falsifies weak force AND $\delta_{strain}$ via shared $\gamma_c$ & Not yet observed at current bounds; consistent with prediction & \texttt{epistemology-of-falsification.md} (\texttt{clm-gw2wgc}); \texttt{delta-strain-cosmic-tcc.md} (\texttt{clm-hp7nlm}) \\
+Quasar $\alpha$-variation (SYM-class) & Multi-species clock comparison at differential gravitational potential (quasar absorption-line spectroscopy) & $\Delta\alpha/\alpha = 0$ exactly under SYM-class scaling & Non-null $\Delta\alpha/\alpha$ attributable to SYM-class gravitational scaling falsifies $\alpha$-invariance & Current bounds $\sim 10^{-5}$ consistent with null prediction & \texttt{alpha-invariance-symmetric-gravity.md} (\texttt{clm-3zz0f6}) \\
+Schwinger pair production & High-intensity laser facilities; ultra-strong-field $E$ access & Pair production at $E \to E_S = 1.32 \times 10^{18}\,\text{V/m}$; null at terrestrial $E \ll E_S$ & Pair production observed at $E$ where substrate predicts $A_0 \ll 1$ falsifies saturated-flux-tube-rupture mechanism & Predicted at $E_S$; terrestrial $E$ inaccessible; null at currently accessible $E$ & \texttt{pair-production-axiom-derivation.md} (\texttt{clm-ezai5b}); \texttt{q-g18-schwinger-pair-wkb.md} (\texttt{clm-lj4ok5}) \\
+Vacuum birefringence ($E^4$ vs $E^2$) & Ultra-high-intensity laser interferometry near $E_S$ & AVE: $\Delta n \propto E^4$; QED Euler-Heisenberg: $\Delta n \propto E^2$ & $E^2$ slope falsifies AVE; $E^4$ slope falsifies QED at this observable & Slope not yet resolved at current bounds & \texttt{epistemology-kill-switches.md} (\texttt{clm-pp3qwf}) \\
+Static-Sagnac galactic wind & Existing static-Sagnac and optical-cavity data (Brillet--Hall, Wolf, modern cavity) & $\delta\phi \sim 10^{-22}\,\phi_{naive}$ (cubic-symmetry-suppressed) --- null at any observable precision & Non-null galactic-wind signal at $\delta c/c \gtrsim 10^{-22}$ falsifies cubic-symmetry suppression & Existing bounds at $10^{-9}$ to $10^{-18}$ all null; corroborative & \texttt{sagnac-parallax.md}; \texttt{preferred-frame-and-emergent-lorentz.md}; C17 \\
+GRB photon dispersion & Ultra-high-energy gamma-ray-burst telescopes & No energy-dependent arrival-time delay at sub-Trans-Planckian $E$ & Strict energy-dependent dispersion observation falsifies topological decoupling theorem & Not yet observed at current bounds; consistent with prediction & \texttt{binary-kill-switches.md}; \texttt{epistemology-kill-switches.md} (\texttt{clm-gw2wgc}) \\
+Cosmic chirality axis (8-channel) & Planck PR3 + Pantheon+ + SDSS + Gaia + LIGO/Virgo + LiteBIRD + CODATA $G$ + CMB QNM & 8 independent observables mutually aligned with single $\hat{\Omega}_{freeze}$ axis at $(l, b) = (60.28^\circ, 50.48^\circ)$ & Mutual inconsistency across channels, or null preferred axis on aligned channels, falsifies single-cosmological-parameter framework & CMB axis empirically pinned 2026-05-19; cross-channel quantitative re-analysis pending & \texttt{omega-freeze-cosmic-grain-cascade.md} (\texttt{clm-dsb560}, \texttt{clm-pe8lpx}, \texttt{clm-fndptx}) \\
+Three-route $u_0^*$ convergence & EM ($\alpha$), gravitational ($G$), cosmological ($\hat{\Omega}_{freeze}$) data routes & All three routes converge on $u_0^* \approx 0.187$ at relevant precision & Disagreement across the three routes at constrained precision falsifies single-cosmological-parameter framework & Routes 1, 2 converge at CODATA precision; Route 3 quantitative pending & \texttt{constants.py} preamble; \texttt{omega-freeze-cosmic-grain-cascade.md} (\texttt{clm-dsb560}) \\
+\hline
+\end{longtable}
+\end{footnotesize}
+
+\noindent
+\textbf{Status vocabulary.} ``Not yet observed'' --- the substrate-predicted observable has not been detected at any current bound; the prediction is unfalsified. ``Current bounds consistent with prediction'' --- existing measurements at the observable axis return results within the substrate-predicted range (typically null where the substrate predicts null). ``Pending bench measurement'' --- the apparatus is in fabrication or paper-stage; first measurement has not occurred. ``Predicted at $E_S$; terrestrial $E$ inaccessible'' --- the substrate's positive prediction applies at field strengths not currently reachable; observation at currently reachable $E$ is the predicted null. No status entry in this chapter reads ``validated'' or ``confirmed''; pre-bench predictions are not validated until physical measurement at the predicted regime.
+
+\section{Cross-Volume Falsification Index}
+\label{sec:vol9_cross_volume_index}
+
+The canonical cross-volume falsification index lives at \texttt{manuscript/ave-kb/common/appendix-experiments.md} (INVARIANT-S3 Unified Index of Experimental Falsifications; \texttt{clm-t5ybqw}). The appendix is the canonical narrative catalog of all AVE experimental falsifications organized by Volume; the companion operational tracking layer at \texttt{ave-kb/common/divergence-test-substrate-map.md} provides per-experiment falsification logic (axiom impact + severity codes F/M/C/N), lifecycle status (pre-reg / design / built / outcome / tester), and execution details across three keyed-by-ID tracking matrices (33 rows total: A1-HOPF, A2-SAGNAC, B1-VAC-BIREFRINGE, B7-PONDER-05, C13a-GAL-ROT, C14-DAMA, C15-CLEAVE-01, C17-PROTOCOL-11-SAGNAC-WIND, D4-A034, $\ldots$, D5-HTS-MEISSNER).
+
+Per-project bench-design leaves with BOM specifications live under \texttt{ave-kb/vol4/falsification/ch11-experimental-bench-falsification/}. Per-volume falsifications anchored in non-Vol-4 corpus (e.g.\ Vol 2 gravitational parallax interferometry, Vol 3 SPARC galactic rotation, Vol 5 chiral FRET parallax, Vol 7 HTS detector) cross-link through the appendix index.
+
+This chapter consolidates the falsification programme for the natural vacuum substrate documented in this datasheet. Each substrate observable specified in Chapters 2--13 carries at least one corresponding entry in the appendix index. The substrate is natural; the framework that derives the substrate's behaviour is falsifiable; the appendix is the cross-volume canonical home for the inverse map between substrate-physics predictions and the empirical regimes that would contradict them.
