@@ -666,7 +666,7 @@ flowchart TD
 ```mermaid
 flowchart TD
     GTOR["Golden Torus Geometry<br/>Vol 1 Ch 8<br/>R = φ/2, r = (φ-1)/2, d = 1<br/>Λ_vol = 4π³ + Λ_surf = π² + Λ_line = π"]
-    DELTA["δ_strain ≈ 2.225e-6<br/>thermal bridge<br/>(currently fitted, pending<br/>first-principles derivation)"]
+    DELTA["δ_strain ≈ 2.225e-6<br/>thermal bridge<br/>(currently fitted, pending<br/>Q-DELTA-MAP-1 substrate<br/>saturation-class adjudication)"]
     ALPHA(("α = 1/(4π³+π²+π)<br/>≈ 137.0363038 (cold)<br/>→ CODATA 137.035999"))
 
     GTOR --> ALPHA
