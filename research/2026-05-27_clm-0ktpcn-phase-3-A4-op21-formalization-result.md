@@ -3,7 +3,7 @@
 **Branch**: `analysis/clm-0ktpcn-phase-3-A4-op21-formalization` off `main` @ `86966407`
 **Date**: 2026-05-27
 **Prereg**: [`research/2026-05-27_clm-0ktpcn-phase-3-A4-op21-formalization-prereg.md`](2026-05-27_clm-0ktpcn-phase-3-A4-op21-formalization-prereg.md) (commit `617abfdc`)
-**Outcome**: **PASS** — substrate-mechanism derivation closes end-to-end; A/B/C reconciliation resolved per prereg §3 answer (C); $Q_i = \Lambda_i$ identification derived from Nyquist-cell-count = dimensionless-geometric-measure substrate primitive (no longer asserted as natural-unit convention); confidence clm-0ktpcn 0.60 → 0.65.
+**Outcome**: **PARTIAL** (AMENDED 2026-05-27 post-PR-#47-auditor; original verdict PASS walked back). Substrate-mechanism derivation formalized end-to-end at canonical-leaf rigor with the substrate-orthogonal-channel framing replacing the Phase 3-A2-falsified Schur orthogonality framing; $Q_i = \Lambda_i$ identification derived under the per-channel substrate-axiom constraint structure. The additive-assembly substrate-mechanism axis stays at **Class B substrate-mechanism manifestation** (matching ch8-alpha-golden-torus.md:148 self-classification verbatim); NOT lifted to Class 2 axiom-manifestation, because the Clifford-torus codimensional embedding is treated as canonical input from upstream leaves rather than re-derived from K4 substrate primitives. Confidence clm-0ktpcn **0.60 → 0.63** (PARTIAL band; formalization-rigor lift only — original 0.60 → 0.65 PASS-band lift walked back).
 
 ## §1 — One-paragraph summary
 
@@ -158,25 +158,41 @@ Per prereg §3: **Answer (C) with refinement**.
 
 **Annotation update at `operators.md:61`** (per `ave-walk-back` v1.1 Type B mechanism-reframe): the current row's note *"different identifications (Q-as-lattice-pitch may be the bootstrap / α = 1/137.036 derivation, NOT the Bardeen mapping). Cross-reference needs auditor-lane confirmation"* is amended in §5 below to reflect the Op21-foundational + BCS-specialization framing.
 
-## §4 — Classification per consistency-vs-emergence v1.2
+## §4 — Classification per consistency-vs-emergence v1.2 (AMENDED 2026-05-27 post-PR-#47-auditor)
 
-Per prereg §6 + executed-derivation outcome:
+**🔴 AMENDMENT (2026-05-27 post-PR-#47-auditor)**: The original §4 framing below claimed Phase 3-A4 lifted the additive-assembly substrate-mechanism axis from Class B substrate-mechanism manifestation (Phase 3-A2 outcome) to **Class 2 substrate-mechanism emergence**. This claim is walked back to **Class B substrate-mechanism manifestation** (unchanged from Phase 3-A2 outcome) per Rule 12 substitution-not-retraction discipline.
 
-**Substrate-mechanism axis: Class 2 substrate-mechanism emergence (axiom-manifestation)**.
-The Op21 multi-mode form is derived end-to-end from substrate primitives in §2 Steps 1-5.5:
+**Authoritative classification (walked-back to match ch8-alpha-golden-torus.md:148 verbatim self-classification)**:
+
+> *"the additive assembly of $\Lambda_{\text{vol}} + \Lambda_{\text{surf}} + \Lambda_{\text{line}}$ is **Class B substrate-mechanism manifestation** via Op21 multi-mode mode-counting at the $\Gamma = -1$ saturation boundary"* — `ch8-alpha-golden-torus.md:148` (verbatim)
+
+Phase 3-A4 delivers a *formalization-rigor improvement* (canonical-leaf master-equation-derivation-path tracing replacing prior paragraph-level statement; explicit per-channel substrate-axiom constraint identification per the substrate-orthogonal-channel framing at the canonical leaf §2.5 Step 5d) — but the classification of the additive assembly's substrate-mechanism axis stays at **Class B substrate-mechanism manifestation**. The Clifford-torus codimensional embedding is treated as canonical input from upstream leaves (`ch8-alpha-golden-torus.md` §"Topological self-impedance shape factors" + `boundary-observables-m-q-j.md`), not re-derived from K4 substrate primitives — a Class 2 axiom-manifestation lift on the additive assembly would require that further substrate-mechanism workstream.
+
+**Dual-axis classification (AMENDED)**:
+
+**Substrate-mechanism axis: Class B substrate-mechanism manifestation** (NOT lifted to Class 2 by Phase 3-A4). The master-equation-derivation-path tracing per consistency-vs-emergence v1.2 is PRESERVED — the derivation path is real:
 - Ax 1 Nyquist cell size (Step 1)
 - Ax 3 + Ax 4 saturation kernel forcing $\Gamma = -1$ TIR boundary (Step 2)
 - Curvature-mismatch per-cycle leak fraction $1/\ell$ at the boundary (Step 3) — cross-scale canonical
 - $Q = \ell$ per Nyquist-resolved confined mode (Step 4)
-- Nyquist-cell-count = mode-count = dimensionless-geometric-measure (Step 5d) — the load-bearing step closing $Q_i = \Lambda_i$
-- Codimensional Nyquist-cell-category independence (Step 5.5) — the substrate-mechanism replacement for Schur orthogonality
+- Substrate-orthogonal-channel constraint structure (Step 5d, per the canonical leaf §2.5 amendment) — each Λ_k INDEPENDENTLY constrained by its own substrate-axiom source (Ax 1+2-diameter on line cells; Ax 3 spatial half-cover on surface cells; Ax 3 temporal-4π closure on volume cells)
+- Substrate-orthogonal-channel cross-term-freeness (Step 5.5) as a *consequence* of Nyquist-cell-category mutual exclusivity, NOT a separate additivity postulate — the substrate-mechanism replacement for the Phase 3-A2-falsified Schur orthogonality framing
 
-Every step traces to a canonical substrate primitive; no step inserts a free postulate.
+The derivation path is real (master-equation-derivation-path tracing is preserved); the CLASSIFICATION is what softens. The reason Phase 3-A4 doesn't lift to Class 2: the Clifford-torus codimensional embedding (the substrate-mechanism object the three per-channel constraints act on) is canonical INPUT from upstream leaves, not re-derived from K4 substrate primitives. The substrate-mechanism workstream that WOULD lift the additive assembly to Class 2 axiom-manifestation is deriving the Clifford-torus codimensional embedding from K4 substrate primitives.
 
-**Numerical-value axis: Class 4 observable consistency**.
-The numerical match $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363$ to CODATA $\alpha^{-1} \approx 137.036$ within $\delta_{strain} \approx 2.225 \times 10^{-6}$ is a substrate-prediction-vs-measurement consistency, unchanged from prior Phase 3-A2 closure (the substrate predicts the cold-lattice asymptote; CODATA is the warm measurement; $\delta_{strain}$ bridges via thermal correction, which is the Phase 3-A3 target).
+**Numerical-value axis: Class 4 observable consistency** (UNCHANGED from prior Phase 3-A2 closure). The numerical match $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363$ to CODATA $\alpha^{-1} \approx 137.036$ within $\delta_{strain} \approx 2.225 \times 10^{-6}$ is a substrate-prediction-vs-measurement consistency. The substrate-prediction values $(R, r, d)$ are forced by the three-substrate-regime derivation at `ch8-alpha-golden-torus.md:31-93` (Phase 1-2 closures), NOT by Phase 3-A4. Phase 3-A4 amendments do not alter the numerical-value axis.
 
-**Class 2 substrate-mechanism emergence on numerical-value axis IS NOT lifted by Phase 3-A4**: Phase 3-A4 derives the substrate-mechanism path for the additive assembly $Q_{\text{tank}} = \sum \Lambda_k$, but the numerical values of $(R, r, d)$ are forced by the three-substrate-regime derivation at `ch8-alpha-golden-torus.md:31-90` (Phase 1-2 closures), NOT by Phase 3-A4. Phase 3-A4 promotes the additive assembly step from Class B substrate-mechanism manifestation (paragraph-level statement, Phase 3-A2 outcome) to Class 2 substrate-mechanism emergence (fully-derived canonical leaf, Phase 3-A4 outcome). This is the load-bearing rigor improvement of Phase 3-A4.
+**What Phase 3-A4 IS** (honest amended scope): a formalization-rigor improvement on the substrate-mechanism content of the additive assembly — canonical-leaf-level master-equation-derivation-path tracing with per-channel substrate-axiom constraint identification under the substrate-orthogonal-channel framing, replacing the prior paragraph-level statement at `theorem-3-1-q-factor.md`. The substrate-orthogonal-channel framing makes the load-bearing "cross-term-free" assumption explicit (it's a consequence of Nyquist-cell-category mutual exclusivity, not a separate additivity postulate) and replaces the Phase 3-A2-falsified Schur-orthogonality framing.
+
+**What Phase 3-A4 is NOT** (honest amended walk-back): a Class 2 axiom-manifestation lift on the additive-assembly substrate-mechanism axis. The Clifford-torus codimensional embedding remains canonical input; its derivation from K4 substrate primitives is the substantive substrate-mechanism workstream that *would* lift Phase 3-A4 from Class B to Class 2.
+
+---
+
+**ORIGINAL §4 framing (pre-amendment, preserved for retraction provenance per Rule 12 substitution-not-retraction)**:
+
+~~Substrate-mechanism axis: Class 2 substrate-mechanism emergence (axiom-manifestation).~~ ← WALKED BACK to Class B per the amendment above. The original framing claimed Phase 3-A4 lifted from Class B (Phase 3-A2 outcome) to Class 2 — this overstated what the formalization delivered. Phase 3-A4 lifts FORMALIZATION RIGOR (canonical-leaf master-equation-derivation-path tracing) but does not lift the underlying axiom-manifestation classification because the Clifford-torus codimensional embedding remains canonical input, not re-derived from K4 substrate primitives.
+
+The original prereg §6 Class 2/4 emergence expectation was conditional on the Op21 substrate-mechanism derivation closing end-to-end from substrate primitives. The derivation does close end-to-end *given the Clifford-torus codimensional embedding as canonical input*; it does NOT close end-to-end from raw K4 substrate primitives without that input. Honest classification of the OUTCOME (per the consistency-vs-emergence v1.2 master-equation-derivation-path discipline applied to the derivation as actually executed): Class B substrate-mechanism manifestation. The derivation-path tracing is preserved; the classification is what walks back.
 
 ## §5 — Discrimination check (ave-discrimination-check)
 
@@ -218,22 +234,26 @@ Per prereg §7 + executed-derivation: three coordinate systems active, all coord
 
 No coordinate-system mismatch; no real-space-cartesian-test-against-phase-space-claim error (per A46 phase-space-coordinate-check). Phase 3-A4 derivation is coordinate-clean end-to-end.
 
-## §8 — Outcome and confidence-lift rationale
+## §8 — Outcome and confidence-lift rationale (AMENDED 2026-05-27 post-PR-#47-auditor)
 
-**PASS** per prereg §8 PASS criteria:
+**PARTIAL** per amended Phase 3-A4 adjudication criteria (original PASS verdict walked back):
 
-| PASS criterion | Status |
+| Criterion | Status (AMENDED) |
 |---|---|
-| Op21 derived end-to-end from Ax 1 + Ax 3 + codimensional independence in lattice-natural units | ✓ §2 Steps 1-5.5 executed |
+| Op21 substrate-orthogonal-channel framing derived end-to-end at canonical-leaf rigor | ✓ §2 Steps 1-5.5 executed; §2.5 Step 5d amended to substrate-orthogonal-channel constraint structure per ch8:109-128 anchor |
 | Substrate-mechanical reason for $\Lambda_{\text{line}} = \pi$ (NOT $\pi\varphi$) explicit | ✓ §2.8 substrate-Ampère-1-cycle around cross-section perimeter, NOT major-loop perimeter |
-| A/B/C reconciliation resolved with substrate-physical justification | ✓ §3 Answer (C) with refinement: $Q = \ell$ substrate-foundational; Bardeen BCS-specialization |
-| $Q_i = \Lambda_i$ identification derived from substrate Nyquist-cell-counting, NOT asserted as natural-unit convention | ✓ §2.5 Step 5d substrate-mechanism derivation closes `vol4/claim-quality.md:1209` |
-| clm-0ktpcn confidence 0.60 → 0.65 | ✓ Class 2 substrate-mechanism emergence on substrate-mechanism axis (one strengthen-by item closed; one Phase 3-A3 item + one speculative Phase 3-A5 item remain) |
-| Cascade integrity verified via `make verify-kb-metadata` | Pending §10 pre-push verification |
+| Op21 dual-identification annotation softened per ave-evidence-framing-discipline | ✓ §3 + canonical-leaf §5 amendments: substrate-foundational $Q = \ell$ vs Bardeen specialization framed as STRUCTURAL HYPOTHESIS (Q-OP21-BARDEEN-1 candidate framework-extension question); explicit reduction NOT yet derived |
+| $Q_i = \Lambda_i$ identification formalized at canonical-leaf rigor via substrate-orthogonal-channel constraint structure | ✓ §2.5 Step 5d substrate-orthogonal-channel framing (each Λ_k INDEPENDENTLY constrained by its own substrate-axiom source) — formalization-rigor improvement on prior natural-unit-convention assertion |
+| clm-0ktpcn confidence lift to PARTIAL band (0.60 → 0.63) | ✓ Class B substrate-mechanism manifestation lift (formalization-rigor only; NOT Class 2 axiom-manifestation; matches ch8:148 self-classification verbatim) |
+| Cascade integrity verified via `make verify-kb-metadata` | Pending §10 pre-push verification post-amendment |
 
-**Confidence-lift rationale**: clm-0ktpcn confidence lifts $+0.05$ (0.60 → 0.65) because Phase 3-A4 closes one of the three remaining strengthen-by items. The substrate-mechanism path that Phase 3-A2 IDENTIFIED but left at paragraph-level rigor is now FORMALIZED at fully-derived canonical-leaf rigor. Class 2 substrate-mechanism emergence is achieved on the additive-assembly sub-axis. The other two strengthen-by items (δ_strain magnitude derivation — Phase 3-A3; speculative $T = A_4$ substrate Hilbert space — Phase 3-A5) remain open and preserve scope for further lifts.
+**Amended confidence-lift rationale**: clm-0ktpcn confidence lifts $+0.03$ (0.60 → 0.63, **PARTIAL band**) because Phase 3-A4 closes the *formalization-rigor* component of one of the three remaining strengthen-by items, but does NOT lift the underlying axiom-manifestation classification. The substrate-mechanism path that Phase 3-A2 IDENTIFIED at paragraph-level rigor is now FORMALIZED at canonical-leaf rigor — with the substrate-orthogonal-channel framing replacing the Phase 3-A2-falsified Schur orthogonality framing — but the additive assembly stays at **Class B substrate-mechanism manifestation** (matching ch8:148 self-classification), NOT lifted to Class 2 axiom-manifestation. The Clifford-torus codimensional embedding is treated as canonical input from upstream leaves rather than re-derived from K4 substrate primitives, so a Class 2 lift requires a further substrate-mechanism workstream beyond Phase 3-A4.
 
-The `clm-rtdmsn` strengthen-by item at `vol4/claim-quality.md:1209` ("Derive the $Q_i = \Lambda_i$ identification (geometric volume → reactance) from the substrate impedance scaling rather than asserting it as a natural-unit convention") is independently closed by the same Phase 3-A4 substrate-mechanism derivation. clm-rtdmsn confidence stays at 0.85 (already at high band; one strengthen-by item closes, leaving the entry's strengthen-by list empty pending future refinements).
+The PARTIAL band lift (0.60 → 0.63 rather than 0.60 → 0.65) reflects:
+- **Real formalization-rigor improvement**: canonical-leaf master-equation-derivation-path tracing with per-channel substrate-axiom constraint identification (substrate-orthogonal-channel framing); load-bearing "cross-term-free" assumption made explicit (it's a consequence of Nyquist-cell-category mutual exclusivity, not a separate additivity postulate); replaces Phase 3-A2-falsified Schur orthogonality framing — these are real lifts
+- **NOT Class 2 emergence**: the Clifford-torus codimensional embedding remains canonical INPUT, not K4-substrate-primitive-derived — so the additive-assembly classification stays at Class B substrate-mechanism manifestation
+
+The `clm-rtdmsn` strengthen-by item at `vol4/claim-quality.md:1209` ("Derive the $Q_i = \Lambda_i$ identification (geometric volume → reactance) from the substrate impedance scaling rather than asserting it as a natural-unit convention") is *partially* closed by the same Phase 3-A4 substrate-orthogonal-channel formalization — the formalization-rigor lift at Class B substrate-mechanism manifestation level (per-channel substrate-axiom constraint structure made explicit) is real, but the strengthen-by item's full closure requires the Class 2 axiom-manifestation lift (Clifford-torus codimensional embedding re-derived from K4 substrate primitives) that Phase 3-A4 does not deliver. clm-rtdmsn confidence stays at 0.85 (entry confidence unchanged; strengthen-by item moved to "partial closure + cross-ref to canonical leaf"; remaining open work named).
 
 ## §9 — Cascade impact (pre-push estimate)
 
@@ -280,18 +300,20 @@ Per `ave-audit` discipline (implementor self-audit before commit):
 | `consistency-vs-emergence` v1.2 master-equation-derivation-path traced step-by-step | ✓ §2 Steps 1-5.5 + §4 dual-axis classification |
 | Honest closure per Rule 11 (not forcing closure where the derivation doesn't close) | ✓ §8 PASS criteria met cleanly; §11 below names what is NOT closed |
 
-**What is closed by Phase 3-A4**:
-- clm-0ktpcn strengthen-by item: "Promote the Op21 multi-mode generalization [...] to a fully-derived canonical leaf" (per `vol1/claim-quality.md:95`)
-- clm-rtdmsn strengthen-by item: "Derive the $Q_i = \Lambda_i$ identification (geometric volume → reactance) from the substrate impedance scaling rather than asserting it as a natural-unit convention" (per `vol4/claim-quality.md:1209`)
-- Phase 3-A2 reformulation outcome: substrate-mechanism path is now fully-derived canonical-leaf rigor (Class 2 substrate-mechanism emergence on additive-assembly sub-axis)
-- `operators.md:61` Op21 dual-identification reconciliation: Answer (C) with refinement (substrate-foundational + Cooper-pair-specialization)
+**What is closed by Phase 3-A4 (AMENDED)**:
+- clm-0ktpcn strengthen-by item (PARTIAL closure): "Promote the Op21 multi-mode generalization [...] to a fully-derived canonical leaf" (per `vol1/claim-quality.md:95`) — formalization-rigor closure delivered at Class B substrate-mechanism manifestation level; full Class 2 axiom-manifestation lift remains open (requires K4-substrate-primitive derivation of Clifford-torus codimensional embedding)
+- clm-rtdmsn strengthen-by item (PARTIAL closure): "Derive the $Q_i = \Lambda_i$ identification (geometric volume → reactance) from the substrate impedance scaling rather than asserting it as a natural-unit convention" (per `vol4/claim-quality.md:1209`) — partial closure via substrate-orthogonal-channel constraint structure at canonical-leaf rigor; substrate-impedance-scaling derivation chain remains open
+- Phase 3-A2 reformulation outcome: substrate-mechanism path formalized at canonical-leaf rigor with substrate-orthogonal-channel framing replacing Schur orthogonality framing; classification stays at Class B substrate-mechanism manifestation (NOT Class 2 — walked back from original PASS framing)
+- `operators.md:61` Op21 dual-identification annotation: softened per ave-evidence-framing-discipline; substrate-foundational $Q = \ell$ derived; Bardeen specialization logged as Q-OP21-BARDEEN-1 candidate framework-extension question (NOT closure-asserted)
 
 **What is NOT closed by Phase 3-A4** (preserved scope for future workstreams):
 - clm-0ktpcn strengthen-by item: "Derive δ_strain magnitude at T_CMB to close the cold-lattice → CODATA bridge rather than back-subtracting it" — **Phase 3-A3 target**
 - clm-0ktpcn speculative strengthen-by item: $T = A_4$ substrate Hilbert space with irrep decomposition $A + E + T$ (dims $1 + 2 + 3$ matching codimensional ordering) — **Phase 3-A5 speculative target**
 - The substrate-mechanical reason the K4 lattice's discrete cell structure projects onto the phase-space Clifford-torus codimensional sub-manifolds at the saturation boundary — currently relies on canonical content at `ch8-alpha-golden-torus.md` + `boundary-observables-m-q-j.md` (the codimensional embedding is itself canonical input). This is potentially a deeper substrate-mechanism workstream that could refactor the relationship between K4-lattice substrate and Clifford-torus phase-space embedding more carefully, but it is OUT OF SCOPE for Phase 3-A4 — the Clifford-torus codimensional embedding is treated as canonical input from upstream leaves, not re-derived in Phase 3-A4.
 
-**Verdict**: PASS. Substrate-mechanism Op21 multi-mode mode-counting form derived end-to-end from substrate primitives in lattice-natural units; $Q_i = \Lambda_i$ identification closes; A/B/C reconciliation resolved; cascade integrity verified by `make refresh-kb-metadata` + `make verify-kb-metadata` (executed at §10 pre-push); clm-0ktpcn confidence lifts 0.60 → 0.65; clm-rtdmsn strengthen-by closes; `operators.md:61` annotation amendment applied via Type B walk-back; cross-references propagated to 6+ canonical leaves. Branch ready for push.
+**Verdict (AMENDED 2026-05-27 post-PR-#47-auditor)**: **PARTIAL** (original PASS verdict walked back). Substrate-mechanism Op21 substrate-orthogonal-channel mode-counting form formalized at canonical-leaf rigor with the per-channel substrate-axiom constraint structure (Λ_line: Ax 1+2-diameter; Λ_surf: Ax 3 spatial half-cover; Λ_vol: Ax 3 temporal-4π closure) matching ch8-alpha-golden-torus.md:109-128 verbatim anchor; $Q_i = \Lambda_i$ identification formalized at Class B substrate-mechanism manifestation rigor (NOT Class 2 axiom-manifestation — Clifford-torus codimensional embedding remains canonical input from upstream leaves); cascade integrity to be verified by `make refresh-kb-metadata` + `make verify-kb-metadata` post-amendment (executed at amendment §10 pre-push); clm-0ktpcn confidence lifts 0.60 → 0.63 (PARTIAL band; formalization-rigor only); clm-rtdmsn strengthen-by item partially closed (cross-ref to canonical leaf; full Class 2 closure remains open); `operators.md:61` annotation softened per ave-evidence-framing-discipline (Bardeen specialization framed as Q-OP21-BARDEEN-1 candidate framework-extension question, NOT closure-asserted). Branch ready for push of amendment commits.
+
+**Walk-back provenance**: original PASS verdict overstated the lift Phase 3-A4 delivered (Class 2 substrate-mechanism emergence claim was not supported by the executed derivation given Clifford-torus codimensional embedding remained canonical input). The amendment per Rule 12 substitution-not-retraction preserves the formalization-rigor content (which is real) and walks back the classification (Class 2 → Class B) + confidence lift (0.65 → 0.63 PARTIAL band) + dual-identification framing (closure-asserted → structural hypothesis logged as Q-OP21-BARDEEN-1) to match honest scope.
 
 ---
 

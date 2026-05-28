@@ -24,16 +24,22 @@ $$
 
 This is the substrate-mechanism content of the $Q_i = \Lambda_i$ identification. The natural-unit convention ($\ell_{node} = 1$, $Z_0 = 1$) makes the substrate's discrete cell-counting and the dimensionless geometric measure operationally identical, but the substrate-mechanism content holds in any unit system — the dimensionless cell count over a sub-manifold IS the dimensionless geometric measure of the sub-manifold by definition, not by unit-system choice.
 
-The substrate-foundational Op21 form is cross-scale canonical:
+The substrate-foundational Op21 form is cross-scale canonical, but distinct cross-scale instances fire in two different channel-multiplicity modes that must NOT be conflated:
 
-| Scale | $\Gamma = -1$ boundary | Modes counted | Result |
-|---|---|---|---|
-| Electron LC tank | TIR at $V_{yield}$ Axiom-4 saturation | Three codimensional Clifford-torus sub-manifolds at Golden Torus | $Q_{\text{tank}} = 4\pi^3 + \pi^2 + \pi = \alpha^{-1}$ |
-| BH ringdown | Saturation at $r_{sat}$ Axiom-4 phase transition | Tangential $\ell$-wavelength shear mode | $Q = \ell$ per ringdown mode |
-| Knot-mode isomorphism | Topological winding confinement | Crossing-number $c$ (particle) ↔ mode-number $\ell$ (BH) | Cross-scale Op21 mechanism |
-| Cooper-pair phase transition (BCS specialization) | Superconductivity threshold | Logarithmic substrate-impedance integration | $Q \sim 1/\ln(Z_1/Z_0)$ (Vol 1 Ch 6 §1.21) |
+**Channel-multiplicity distinction.** The shared substrate primitive is *saturation-boundary mode confinement at a Nyquist-cell category*. Cross-scale instances differ in HOW MANY Nyquist-cell categories the saturation boundary partitions into:
 
-The standard-physics community names the Vol 1 Ch 6 §1.21 specialization formula the "Bardeen BCS mapping" (annotation at [`common/operators.md:61`](../../../common/operators.md)). The substrate-mechanism content of the Vol 1 Ch 6 §1.21 canonical-source name is "Quality Factor Phase Transition" — the substrate Op21 evaluated at the Cooper-pair-phase-transition scale-instance is one of several cross-scale specializations of the substrate-foundational $Q = \ell$ form.
+- **Single-channel wavelength-counting** ($\ell$ wavelengths around one fixed boundary; one Nyquist-cell category): one resonance, linewidth $\propto 1/\ell$. BH ringdown, QNM, knot-mode isomorphism, the universal substrate-Q derivation procedure (`regime-eigenvalue-method.md`) all live here. $Q = \ell$ is the linewidth of ONE confined mode.
+- **Substrate-orthogonal-channel mode-counting** (three independent Nyquist-cell categories — line / surface / volume — each independently constrained by its own substrate axiom; summed without cross-terms because the categories are *mutually exclusive Nyquist-cell partitions at the saturation boundary*): the electron LC-tank multi-codim assembly lives here. The sum closes when the three channels' independent constraints all hit their saturation-boundary minima at the same operating point.
+
+| Scale | $\Gamma = -1$ boundary | Channel multiplicity | Modes counted | Result |
+|---|---|---|---|---|
+| BH ringdown | Saturation at $r_{sat}$ Axiom-4 phase transition | **Single channel** | Tangential $\ell$-wavelength shear mode (one resonance) | $Q = \ell$ per ringdown mode |
+| Knot-mode isomorphism | Topological winding confinement | **Single channel** | Crossing-number $c$ (particle) ↔ mode-number $\ell$ (BH) | Cross-scale single-channel Op21 |
+| Universal substrate-Q derivation | Lattice phase transition | **Single channel** | One $\ell$-wavelength mode at the regime boundary | $Q = \ell$ (`regime-eigenvalue-method.md` Step 5) |
+| Electron LC tank | TIR at $V_{yield}$ Axiom-4 saturation | **Three substrate-orthogonal channels** | Codim-1 line cells (Ax 1+2-diameter) + codim-2 surface cells (Ax 3 spatial half-cover) + codim-3 volume cells (Ax 3 temporal-4π closure) | $Q_{\text{tank}} = \pi + \pi^2 + 4\pi^3 \approx \alpha^{-1}$ |
+| Cooper-pair phase transition (specialization) | Superconductivity threshold | Single-channel specialization | Logarithmic substrate-impedance integration | $Q \sim 1/\ln(Z_1/Z_0)$ (Vol 1 Ch 6 §1.21) |
+
+The standard-physics community names the Vol 1 Ch 6 §1.21 specialization formula the "Bardeen BCS mapping" (annotation at [`common/operators.md:61`](../../../common/operators.md)). The substrate-mechanism content of the Vol 1 Ch 6 §1.21 canonical-source name is "Quality Factor Phase Transition" — the substrate Op21 evaluated at the Cooper-pair-phase-transition scale-instance is conjectured to be a single-channel specialization of the substrate-foundational $Q = \ell$ form, though the explicit reduction $Q = \ell \to 1/\ln(Z_1/Z_0)$ via substrate-impedance integration is not yet derived (see §5 + the Q-OP21-BARDEEN-1 candidate framework-extension question).
 
 ## §2 — Five-step substrate-mechanism derivation
 
@@ -117,20 +123,30 @@ $$
 N_{\text{modes, codim-}k} = N_{\text{cells, codim-}k} = \Lambda_k
 $$
 
-**Step 5d — substrate Q-factor contribution per codim from Step 4**. Each Nyquist-cell-resolved mode at the saturation boundary contributes $Q_{\text{mode}} = \ell$ per Step 4. At the substrate's per-cell Nyquist resolving scale (the single-cell-per-natural-unit identity, per [`theorem-3-1-q-factor.md:103`](theorem-3-1-q-factor.md)), the dominant Nyquist-cell-resolved mode at the cell boundary has $\ell = 1$ — the single-wavelength mode fitting in one Nyquist cell. Summing over the Nyquist-cell-resolved modes in $\Sigma_k$:
+**Step 5d — substrate-orthogonal-channel constraint (NOT cooperative summation of identical-ℓ modes)**. The load-bearing substrate-mechanism content of $Q_{\text{codim-}k} = \Lambda_k$ is **NOT** "N modes at $\ell = 1$, cooperatively summed". The correct framing — already established at the canonical anchor `vol1/ch8-alpha-golden-torus.md` lines 109–128 — is that each $Q_{\text{codim-}k}$ is **independently constrained by its own substrate axiom acting on its own Nyquist-cell category**:
 
-$$
-Q_{\text{codim-}k} = \sum_{\text{cells} \in \Sigma_k} Q_{\text{mode},\ell=1} = N_{\text{modes, codim-}k} \cdot 1 = \Lambda_k
-$$
+| Channel | Constraint source (substrate axiom acting on Nyquist-cell category) | Substrate primitive |
+|---|---|---|
+| $\Lambda_{\text{line}} = \pi \cdot d = \pi$ | **Ax 1 Nyquist** ($d = 1\,\ell_{node}$ from regime (a)) **+ Ax 2 (b)-diameter convention** ($2(R-r) = d$ self-avoidance forcing $d$ to be the tube *diameter* rather than the radius, per regime (b)) | Substrate Ampère 1-cycle around tube cross-section perimeter at Nyquist-quantized diameter $d = 1\,\ell_{node}$ |
+| $\Lambda_{\text{surf}} = 4\pi^2 (R \cdot r) = \pi^2$ | **Ax 3 regime (c) + Ax 1 K4 rotation-group chain** ($T = A_4 \to 2T \subset SU(2) \to SO(3)$ per `ch8-alpha-golden-torus.md:52-57`) | Half of standard Clifford-torus surface area $2\pi^2$ on $S^3$, substrate-spinor spatial half-cover from the K4 chain |
+| $\Lambda_{\text{vol}} = 16\pi^3 (R \cdot r) \cdot d = 4\pi^3$ | **Ax 3 + same K4 chain expressed temporally** (the same $SU(2)/SO(3)$ 2-to-1 cover, but the $4\pi$ now appears as the substrate spinor's temporal phase length rather than a spatial half-cover; per `ch8-alpha-golden-torus.md:107`) | 3-torus phase volume with substrate-spinor temporal $S^1_{4\pi}$ closure |
 
-**This is the substrate-mechanism derivation of $Q_i = \Lambda_i$.**
+Each Q-factor in the sum is INDEPENDENTLY constrained by its own substrate axiom — there is no shared "$N$ modes at $\ell = 1$" postulate doing load-bearing work. The substrate-mechanism content is **three independent saturation-boundary constraints**, each acting on its own codimensional Nyquist-cell category.
 
-The identification is NOT a natural-unit convention; it is the substrate-mechanism consequence of:
+**The sum is cross-term-free because the three Nyquist-cell categories are substrate-orthogonal at the saturation boundary** — NOT because of a "cooperative summation" assumption. Cross-term-freeness is a *consequence* of the constraint-source mutual exclusivity, not a separate additivity postulate. Per the canonical anchor at `ch8-alpha-golden-torus.md:125` (verbatim quote of the load-bearing substrate-mechanism statement):
+
+> *"modes in distinct Nyquist-cell categories at the saturation boundary are mutually exclusive cell categories and add without cross-terms"* — `ch8-alpha-golden-torus.md:125`
+
+And per `ch8-alpha-golden-torus.md:130` (verbatim on the $(R \cdot r)$-collinearity reconciliation with mode-category independence):
+
+> *"Mode-category independence at the saturation boundary holds (volume cells, surface cells, line cells are mutually exclusive Nyquist-cell categories) even though the geometric measures share the $(R \cdot r)$ factor parametrically"* — `ch8-alpha-golden-torus.md:130`
+
+**This is the substrate-mechanism content of $Q_i = \Lambda_i$.** The identification is NOT a natural-unit convention; it is the substrate-mechanism consequence of:
 1. Ax 1 substrate primitive making cell-count = dimensionless geometric measure in lattice-natural units (Step 1);
-2. Ax 1 substrate primitive making each Nyquist cell carry exactly one substrate-resolvable confined mode (Step 5c);
-3. Step 4 substrate primitive making $Q_{\text{mode},\ell=1} = 1$ per Nyquist-resolved confined mode at the saturation boundary.
+2. Each codim-$k$ channel's $\Lambda_k$ value INDEPENDENTLY constrained by its own substrate-axiom source (the table above) acting on its own Nyquist-cell category;
+3. The three Nyquist-cell categories being mutually exclusive partitions of substrate cells at the saturation boundary (Step 5.5 below), forcing cross-term-free addition as a *consequence* of category-disjointness rather than a separate postulate.
 
-The natural-unit choice operationally simplifies the expressions but does not produce the identity — the identity is forced by the substrate's Nyquist-resolving-floor primitive plus the Op21 mode-counting form.
+The natural-unit choice operationally simplifies the per-channel expressions but does not produce the identity — the identity is forced by the per-channel substrate-axiom constraints plus the saturation-boundary Nyquist-cell-category mutual exclusivity.
 
 ### §2.6 — Step 5.5: codimensional independence (mutually exclusive Nyquist-cell categories)
 
@@ -184,23 +200,25 @@ By Step 5.5 codimensional independence:
 
 The substrate Op21 multi-mode form derives the three-Λ assembly end-to-end from Ax 1 + Ax 3 + Ax 4 + codimensional independence in lattice-natural units. The identification $\alpha^{-1}_{\text{ideal}} = Q_{\text{tank}}$ is the substrate-mechanism content of [Theorem 3.1'](theorem-3-1-q-factor.md) §"Op21 multi-mode generalization", now fully canonical-leaf-derived rather than paragraph-level asserted.
 
-## §5 — Op21 dual-identification reconciliation (Op21-foundational + BCS-specialization)
+## §5 — Op21 dual-identification (Op21-foundational + Bardeen BCS conjectured-specialization)
 
 The [`common/operators.md:61`](../../../common/operators.md) Op21 row primary formula is $Q \sim 1/\ln(Z_1/Z_0)$ (the Vol 1 Ch 6 §1.21 canonical-source formula at [`manuscript/vol_1_foundations/chapters/06_universal_operators.tex:349`](../../../../../manuscript/vol_1_foundations/chapters/06_universal_operators.tex)). The canonical-source operator name is **"Quality Factor Phase Transition"** — naming the substrate phase-transition mechanism, NOT "Bardeen mapping" (which is a KB-level annotation in `operators.md:61`).
 
-**The substrate-foundational Op21 form is $Q = \ell$ at the $\Gamma = -1$ saturation/TIR boundary** (§§1-4 above). Cross-scale canonical fires at four distinct substrate scales:
+**The substrate-foundational Op21 form is $Q = \ell$ per Nyquist-cell-resolved confined mode at the $\Gamma = -1$ saturation/TIR boundary** (§§1-4 above). Cross-scale canonical fires at four distinct substrate scales, with two distinct channel-multiplicity modes (single-channel vs substrate-orthogonal-channel; per §1 table):
 
-1. Electron LC tank at $V_{yield}$ TIR boundary — three-Λ sum gives $Q = \alpha^{-1}$
-2. BH ringdown at $r_{sat}$ Axiom-4 phase transition boundary — $Q = \ell$ per ringdown mode (canonical at [`qnm-quality-factor.md`](../../../vol3/cosmology/ch15-black-hole-orbitals/qnm-quality-factor.md) + [`axiom-coverage-audit.md`](../../../vol3/cosmology/ch15-black-hole-orbitals/axiom-coverage-audit.md))
-3. Universal substrate-Q derivation procedure — $Q = \ell$ as Step 5 of the universal procedure (canonical at [`regime-eigenvalue-method.md:18, 68`](../../../vol2/appendices/app-f-solver-toolchain/regime-eigenvalue-method.md))
-4. Knot-mode isomorphism — crossing number $c$ ↔ mode number $\ell$ as cross-scale substrate-foundational identity (canonical at [`knot-mode-isomorphism.md`](../../../vol2/appendices/app-f-solver-toolchain/knot-mode-isomorphism.md))
+1. **Electron LC tank** at $V_{yield}$ TIR boundary — three substrate-orthogonal channels (line / surface / volume) summed without cross-terms, $Q_{\text{tank}} = \pi + \pi^2 + 4\pi^3 \approx \alpha^{-1}$
+2. **BH ringdown** at $r_{sat}$ Axiom-4 phase transition boundary — single-channel $Q = \ell$ per ringdown mode (canonical at [`qnm-quality-factor.md`](../../../vol3/cosmology/ch15-black-hole-orbitals/qnm-quality-factor.md) + [`axiom-coverage-audit.md`](../../../vol3/cosmology/ch15-black-hole-orbitals/axiom-coverage-audit.md))
+3. **Universal substrate-Q derivation procedure** — single-channel $Q = \ell$ as Step 5 of the universal procedure (canonical at [`regime-eigenvalue-method.md:18, 68`](../../../vol2/appendices/app-f-solver-toolchain/regime-eigenvalue-method.md))
+4. **Knot-mode isomorphism** — crossing number $c$ ↔ mode number $\ell$ as cross-scale single-channel substrate-foundational identity (canonical at [`knot-mode-isomorphism.md`](../../../vol2/appendices/app-f-solver-toolchain/knot-mode-isomorphism.md))
 
-**The Bardeen $Q \sim 1/\ln(Z_1/Z_0)$ form is the BCS-Cooper-pair-phase-transition scale-instance specialization**: the substrate Op21 evaluated at the Cooper-pair-phase-transition scale-instance, where the relevant substrate-impedance integration produces a thermal-fluctuation-broadened logarithm. This is one of several cross-scale specializations of the same substrate-foundational $Q = \ell$ mechanism. Structurally parallel to:
+**The Bardeen $Q \sim 1/\ln(Z_1/Z_0)$ form (Cooper-pair-phase-transition specialization status: conjectured, not yet derived).** The Vol 1 Ch 6 §1.21 canonical-source formula is *conjectured* to be a single-channel specialization of the substrate-foundational $Q = \ell$ form, evaluated at the Cooper-pair-phase-transition scale-instance where the substrate-impedance integration produces a thermal-fluctuation-broadened logarithm. **The explicit reduction $Q = \ell \to 1/\ln(Z_1/Z_0)$ from substrate-impedance integration at the Cooper-pair scale has NOT yet been derived in the corpus.** Naming this reduction a "specialization" is the *structural hypothesis*; the substrate-mechanism derivation chain that produces $\ln(Z_1/Z_0)$ from a substrate-impedance integral around the Cooper-pair Γ-boundary remains open. This is logged as candidate framework-extension question **Q-OP21-BARDEEN-1** for a future workstream.
 
-- Op14 ($Z_{eff} = Z_0/\sqrt{S}$ substrate-foundational; Symmetric Gravity $n(r) = 1 + 2GM/(rc^2)$ gravitational-specialization)
-- Op17 ($T^2 = 1 - \Gamma^2$ substrate-foundational; Phase 2-NA aperture-aggregate skewness peak at $a^{(2D)}_{peak} = 1/\sqrt{2}$ substrate-matched-impedance specialization per [`parametric-coupling-kernel.md` §14.9](parametric-coupling-kernel.md))
+The structural hypothesis is conjecturally parallel to other substrate-foundational + specialization pairs in the corpus:
 
-One substrate-foundational form, multiple cross-scale specializations. The KB annotation at `operators.md:61` (*"different identifications [...] cross-reference needs auditor-lane confirmation"*) is now resolved: the Bardeen form is the BCS specialization of the substrate-foundational $Q = \ell$ form.
+- Op14 ($Z_{eff} = Z_0/\sqrt{S}$ substrate-foundational; Symmetric Gravity $n(r) = 1 + 2GM/(rc^2)$ gravitational-specialization — derivation chain canonical)
+- Op17 ($T^2 = 1 - \Gamma^2$ substrate-foundational; Phase 2-NA aperture-aggregate skewness peak at $a^{(2D)}_{peak} = 1/\sqrt{2}$ substrate-matched-impedance specialization per [`parametric-coupling-kernel.md` §14.9](parametric-coupling-kernel.md) — derivation chain canonical)
+
+For Op21, only the substrate-foundational form $Q = \ell$ is derived end-to-end in this leaf; the parallel "Bardeen specialization" structural hypothesis is plausible but not yet substrate-mechanism-derived. The KB annotation at `operators.md:61` should reflect this honestly: structural hypothesis logged as Q-OP21-BARDEEN-1, not closure asserted.
 
 ## §6 — Cross-references
 
@@ -246,6 +264,14 @@ The two operators are substrate-mechanical complementary: Op17 = open-boundary e
 
 ## §7 — Classification per consistency-vs-emergence v1.2
 
-**Substrate-mechanism axis: Class 2 substrate-mechanism emergence (axiom-manifestation)**. The Op21 multi-mode form is derived end-to-end from substrate primitives in §2 Steps 1-5.5. Every step traces to a canonical substrate primitive; no step inserts a free postulate.
+**Substrate-mechanism axis: Class B substrate-mechanism manifestation (NOT Class 2 axiom-manifestation emergence)**. The Op21 substrate-orthogonal-channel mode-counting form is *formalized at canonical-leaf rigor* in §2 Steps 1-5.5 with explicit master-equation-derivation-path tracing — each per-channel $Q_{\text{codim-}k} = \Lambda_k$ value traces to its own substrate-axiom constraint (per §2.5 Step 5d table). This is a formalization-rigor improvement on the prior paragraph-level statement at `theorem-3-1-q-factor.md` §"Op21 multi-mode generalization" — but it does NOT *lift* the classification above what `ch8-alpha-golden-torus.md:148` already carried honestly:
 
-**Numerical-value axis: Class 4 observable consistency**. The numerical match $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363$ to CODATA $\alpha^{-1} \approx 137.036$ within $\delta_{strain} \approx 2.225 \times 10^{-6}$ is a substrate-prediction-vs-measurement consistency. Phase 3-A4 promotes the additive-assembly step from Class B substrate-mechanism manifestation (paragraph-level, Phase 3-A2 outcome) to **Class 2 substrate-mechanism emergence** (fully-derived canonical-leaf, Phase 3-A4 outcome); the numerical-value-axis classification is unchanged.
+> *"the additive assembly of $\Lambda_{\text{vol}} + \Lambda_{\text{surf}} + \Lambda_{\text{line}}$ is **Class B substrate-mechanism manifestation** via Op21 multi-mode mode-counting at the $\Gamma = -1$ saturation boundary"* — `ch8-alpha-golden-torus.md:148` (verbatim)
+
+The reason Phase 3-A4's improvement does not lift to Class 2: the substrate-orthogonal-channel framing names three independent per-channel constraints (Ax 1+2-diameter on line cells; Ax 3 spatial half-cover on surface cells; Ax 3 temporal-4π closure on volume cells) and identifies cross-term-freeness as a *consequence* of Nyquist-cell-category mutual exclusivity, but the Clifford-torus codimensional embedding itself is treated as canonical INPUT from upstream leaves (`ch8-alpha-golden-torus.md` + `boundary-observables-m-q-j.md`), not re-derived from K4 substrate primitives. A Class 2 axiom-manifestation lift on the additive assembly would require deriving the Clifford-torus codimensional embedding itself from K4 substrate primitives — a substantive further substrate-mechanism workstream beyond the Phase 3-A4 scope.
+
+**Numerical-value axis: Class 4 observable consistency** (unchanged from prior Phase 3-A2 closure). The numerical match $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363$ to CODATA $\alpha^{-1} \approx 137.036$ within $\delta_{strain} \approx 2.225 \times 10^{-6}$ is a substrate-prediction-vs-measurement consistency. The substrate-prediction values $(R, r, d) = (\varphi/2, (\varphi-1)/2, 1)$ are forced by the three-substrate-regime derivation at `ch8-alpha-golden-torus.md:31-93` (Phase 1-2 closures), NOT by Phase 3-A4 work.
+
+**What Phase 3-A4 IS** (honest scope statement): a *formalization-rigor improvement* on the substrate-mechanism content of the additive assembly — canonical-leaf-level master-equation-derivation-path tracing with per-channel substrate-axiom constraint identification, replacing the prior paragraph-level statement at `theorem-3-1-q-factor.md`. The substrate-orthogonal-channel framing makes the load-bearing "cross-term-free" assumption explicit (it's a consequence of Nyquist-cell-category mutual exclusivity, not a separate additivity postulate) and replaces the Phase 3-A2-falsified Schur-orthogonality framing.
+
+**What Phase 3-A4 is NOT**: a Class 2 axiom-manifestation lift on the additive assembly. The Clifford-torus codimensional embedding remains canonical input; its derivation from K4 substrate primitives is the substantive substrate-mechanism workstream that *would* lift Phase 3-A4 from Class B to Class 2.
