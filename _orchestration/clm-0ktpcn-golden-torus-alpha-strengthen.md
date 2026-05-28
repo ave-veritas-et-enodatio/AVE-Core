@@ -178,7 +178,7 @@ Per the canonical 2026-05-25 entry, clm-0ktpcn's own 4-item list (DIFFERENT from
 | **3-A1** | **Prose reframe of ch8 chapter to separate Class 2 axiom-manifestation steps from Class 4 consistency checks** per consistency-vs-emergence v1.2 master-equation-derivation-path discipline | OPEN — likely combinable with 3-Q2 (same files, similar mechanical-edit shape) | Combined implementor with 3-Q2 (sub-agent A) recommended for batching |
 | **3-A2** | **Attempt Schur orthogonality argument for the sum-decomposition** — if orthogonality is genuinely Schur-derivable, this lifts confidence 0.55 → 0.65; if not, walk back the "sum is orthogonal" framing | ✓ CLOSED 2026-05-26 — WALK-BACK with structural reframe; confidence STAYS at 0.60; substrate-mechanism path identified (Op21 multi-mode mode-counting at Γ=-1 saturation boundary); strengthen-by item REFORMULATED from Schur to Op21-formalization. Branch `analysis/clm-0ktpcn-phase-3-A2-schur-orthogonality` pushed; PR pending orchestration session. See §"Phase 3-A2 execution log (2026-05-26)" below | Standalone implementor (sub-agent B) per epic brief; spawned 2026-05-26 |
 | **3-A3** | **δ_strain magnitude derivation from Ax 4 saturation kernel parameters** — independent of 3-A2 result | OPEN — deferred to Phase 4 unless 3-A2 walks back and we need a different lift lever | Future workstream |
-| **3-A4 (NEW, surfaced by Phase 3-A2)** | **Promote Op21 multi-mode generalization from paragraph-level statement (`theorem-3-1-q-factor.md` §Op21) to fully-derived canonical leaf** — formalize Nyquist-cell-count additivity at Γ=-1 saturation boundary as substrate-mechanism path for three-Λ assembly, with step-by-step trace to Ax 1 + Ax 3 + codimensional mode-category independence | OPEN — this is the actual remaining open derivation step on clm-0ktpcn after Phase 3-A2 WALK-BACK closure | Future workstream; could be standalone implementor |
+| **3-A4 (NEW, surfaced by Phase 3-A2)** | **Promote Op21 multi-mode generalization from paragraph-level statement (`theorem-3-1-q-factor.md` §Op21) to fully-derived canonical leaf** — formalize Nyquist-cell-count additivity at Γ=-1 saturation boundary as substrate-mechanism path for three-Λ assembly, with step-by-step trace to Ax 1 + Ax 3 + codimensional mode-category independence | ✓ CLOSED 2026-05-27 (PARTIAL; AMENDED per PR #47+#48). Confidence 0.60→0.63. Class B substrate-mechanism manifestation (NOT Class 2 emergence). Op21 canonical leaf at `manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/op21-multi-mode-mode-counting.md`. New strengthen-by item logged: substrate-mechanism derivation of Clifford-torus codimensional embedding from K4 primitives (Class 2 closure path). See execution log below. | Standalone implementor (agent `a4fd7c2b1662594c7`) PR #47; amendment cycle (agent `a73c734b503c29026`) PR #48; sweep-audit (agent `ae611c4e1eeace9e4`); propagation cleanup (this agent, current PR) |
 | **3-A5 (NEW, surfaced by Phase 3-A2 — speculative)** | **Identify canonical substrate Hilbert space on which T = A_4 acts with irrep decomposition A + E + T (dims 1+2+3)** — if such a substrate Hilbert space can be identified and the (R, r, d)-fixed substrate kernel decomposes onto its irreps, Schur orthogonality WOULD close the additive assembly at Class 2 axiom-manifestation level | OPEN — substantive future workstream, NOT a near-term tweak; Phase 3-A2 surfaces this as the most promising structural-match candidate among the explored alternatives | Future workstream; requires substantive group-theory + substrate-Hilbert-space work |
 
 ### Phase 3a-A1+Q2 combined brief (implementor sub-agent A)
@@ -303,6 +303,67 @@ Combined Phase 3 expected confidence lift: 0.55 → 0.60-0.65 (probability-weigh
 - `make verify`: ALL PHYSICS PROTOCOLS PASSED (predictions WARN unrelated, 3 unbridged manifest entries pending separate migration)
 
 **Self-audit verdict**: PASS. Honest closure per Rule 11; substitution-not-retraction per Rule 12; all skill firings documented; cross-agent pollution check passed. Push branch ready for orchestration session PR open.
+
+### Phase 3-A4 execution log (2026-05-27)
+
+**Branch**: `analysis/clm-0ktpcn-phase-3-A4-op21-formalization` off `main` @ `86966407` (PR #47); amendment cycle on same branch (PR #48); propagation cleanup on `analysis/phase-3-a4-walkback-propagation-cleanup` off `main` @ `2c7ea1a1` (this PR).
+
+**Verdict**: ✓ CLOSED (PARTIAL; AMENDED). Confidence 0.60 → 0.63 (PARTIAL band; formalization-rigor only, NOT Class 2 emergence). Op21 canonical leaf landed at `manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/op21-multi-mode-mode-counting.md`. Outcome lands in the ~25% PARTIAL band of the prereg honest-closure-probability framing (original implementor's PASS-band verdict was overstated; PR #47 ave-auditor walk-back caught it).
+
+**Original implementor cycle** (agent `a4fd7c2b1662594c7`, PR #47):
+
+1. `617abfdc` — `research(clm-0ktpcn): Phase 3-A4 pre-registration — Op21 multi-mode mode-counting formalization` (frozen prereg; ave-prereg corpus-survey + ave-canonical-leaf-pull v1.3 pre-survey wedges + consistency-vs-emergence v1.2 master-equation-derivation-path discipline; PASS criteria at 0.60 → 0.65)
+2. `ed3294d9` — `kb(vol4): Op21 multi-mode mode-counting canonical leaf landed` + cross-refs from `theorem-3-1-q-factor.md` + `operators.md` + `ch8-alpha-golden-torus.md` + `qnm-quality-factor.md` + `regime-eigenvalue-method.md` + `knot-mode-isomorphism.md` + `axiom-coverage-audit.md`
+3. `d0419f1c` — `research(clm-0ktpcn): Phase 3-A4 result + clm-0ktpcn entry update — Class 2 substrate-mechanism emergence verdict (PASS, 0.60 → 0.65)`
+
+**Auditor pass** (PR #47 review, 3 findings axes):
+
+1. **Class 2 emergence overstated**: the Class 2 axiom-manifestation verdict was not supported by the executed derivation given Clifford-torus codimensional embedding was treated as canonical input rather than re-derived from K4 substrate primitives. ch8-alpha-golden-torus.md:148 self-classifies the additive assembly as Class B substrate-mechanism manifestation (the canonical ceiling); the result-doc Class 2 verdict promoted beyond canonical ceiling.
+2. **Bardeen reduction closure-asserted**: §3 line 86 "structurally parallel to Op14 / Op17 / Op19" framing implied the explicit reduction $Q = \ell \to 1/\ln(Z_1/Z_0)$ was derived; the executed derivation only conjectured the Cooper-pair-phase-transition specialization without deriving the reduction. operators.md:61 dual-identification annotation needed softening per ave-evidence-framing-discipline.
+3. **Confidence lift 0.65 overshot**: 0.65 corresponds to a Class 2 lift that wasn't delivered; 0.63 PARTIAL band matches the formalization-rigor lift actually delivered.
+
+**Grant adjudication reframe** ("what constrains each Q-factor?"): surfaced the ch8:109-128 substrate-orthogonal-channel framing as the canonical anchor — each $\Lambda_k$ INDEPENDENTLY constrained by its own substrate-axiom source ($\Lambda_{\text{line}}$ by Ax 1 Nyquist + Ax 2 (b)-diameter; $\Lambda_{\text{surf}}$ by Ax 3 spatial half-cover via K4 rotation-group chain $T = A_4 \to 2T \subset SU(2) \to SO(3)$; $\Lambda_{\text{vol}}$ by Ax 3 + same K4 chain expressed temporally — substrate-spinor temporal-4π closure). Replaces the prereg's Schur-orthogonality-style framing (already walked back in Phase 3-A2).
+
+**Amendment cycle** (agent `a73c734b503c29026`, PR #48):
+
+4. `32b97aba` — `amend(clm-0ktpcn): Phase 3-A4 amendment cycle per Rule 12 substitution-not-retraction` — result-doc §4 + §8 amendment blocks added (preserving §2-5 derivation body verbatim); operators.md:61 softened to "$Q = \ell$ (substrate-foundational, derived); $Q \sim 1/\ln(Z_1/Z_0)$ (Cooper-pair-phase-transition specialization, conjectured-not-derived)"; clm-0ktpcn entry confidence 0.65 → 0.63; canonical leaf §5 amended (substrate-orthogonal-channel framing; Bardeen specialization framed as Q-OP21-BARDEEN-1 candidate framework-extension question).
+
+**Re-audit** (PR #48 review): confirmed prior 3 findings CLOSED. New finding: ave-walk-back v1.1 propagation appears incomplete — sweep audit recommended.
+
+**Sweep audit** (agent `ae611c4e1eeace9e4`): surfaced 18 propagation gaps post-PR-#48:
+- 1 LOAD-BEARING (result-doc §9 cascade-arithmetic still under PASS verdict numbers)
+- 14 stale-prose findings (vol1/claim-quality.md narrative rationales + result-doc Class 2 / PASS references + toolkit-index row + prereg in-body references)
+- 2 frozen-snapshot session-handoff hits (exempt per Grant Q2 — journal-entry context-of-the-time, not knowledge claims)
+- 1 prereg amendment header missing (Q1 Grant-approved scope)
+
+**This propagation cleanup PR** (`analysis/phase-3-a4-walkback-propagation-cleanup`):
+
+5. `21854440` — P1 result.md §9 cascade-arithmetic Rule 12 correction (LOAD-BEARING; preserved original §9 body verbatim, added 🔴 corrected-arithmetic block with per-dependent kb_cmd-verified post-amendment solidities)
+6. `44160051` — P2a vol1/claim-quality.md narrative-rationale 0.55→0.63 scrub (5 sites: clm-2dwzib, clm-3kzmt9, clm-8ep2b4 min-formula update, clm-b2anl4, clm-82dxbj; clm-zuf7g1 line 387 PRESERVED HISTORICAL CONTEXT per Q1 condition since solidity cleared the cap to 0.65)
+7. `859bfb13` — P2b result.md §5 Class 2→Class B + §11 PASS→PARTIAL classification scrub
+8. `a95c7551` — P2c toolkit-index.md:75 row alignment with operators.md:61 post-amendment text + canonical leaf cross-link
+9. `de4f62de` — P3 prereg 🔴 post-execution amendment header per Q1 Grant adjudication (Rule 12 substitution-not-retraction; preserved prereg body verbatim)
+10. (this commit) — P4a Phase 3-A4 row update + P4b execution log
+
+**Verify pipeline (pre-push)**:
+- `make refresh-kb-metadata`: idempotent on second run; 1 .index regeneration captured P2a narrative-rationale changes (rationale prose materialized in claims.jsonl per INVARIANT-S8)
+- `make verify-kb-metadata`: PASS (see commit messages)
+- `make verify-md-links`: link-clean for all updated docs; pre-existing broken links in older research docs not blocking
+- `make verify`: ALL PHYSICS PROTOCOLS PASSED
+
+**Key discipline gaps surfaced**:
+
+1. **ave-walk-back v1.1 propagation incomplete** at PR #48: the amendment cycle correctly applied Rule 12 to the load-bearing files (result-doc §4 + §8 amendment blocks, operators.md:61 annotation, clm-0ktpcn entry) but missed 18 downstream propagation sites. Per sweep-audit finding: the walk-back skill needs an exhaustive-propagation-retry mechanism that enumerates ALL sites carrying the pre-walk-back value (via grep patterns surfaced from the walk-back diff) and verifies each is either updated, preserved-as-historical-context (Q1-condition), or frozen-snapshot-exempt (Q2-condition).
+2. **NEW candidate skill `feedback-preserve-canonical-framing`** (per memory entry just landed): preventive check for Class B / Class 2 / Class 4 classification promotion beyond canonical ch8:148 ceiling. The original implementor's PR #47 PASS verdict introduced a classification promotion (Class B → Class 2) that wasn't supported by the executed derivation; the auditor caught it post-hoc. A pre-fire check at the result-doc writing time would catch the same issue earlier.
+
+**Newly-opened workstreams** (queued post-Phase-3-A4 closure):
+
+- **Phase 3-A4-rev** (potential future workstream): substrate-mechanism derivation of Clifford-torus codimensional embedding from K4 substrate primitives (Class 2 closure path for the additive-assembly substrate-mechanism axis). This would lift clm-0ktpcn from Class B substrate-mechanism manifestation to Class 2 axiom-manifestation, confidence 0.63 → 0.65+. Substantive future workstream; requires substantive substrate-Hilbert-space + topological-codim-embedding work. Pre-survey did not surface this derivation in corpus; this is plausibly a real corpus gap.
+- **Q-OP21-BARDEEN-1** (framework-extension question, surfaced 2026-05-27 PR #48): is the explicit reduction $Q = \ell \to 1/\ln(Z_1/Z_0)$ via substrate-impedance integration at the Cooper-pair Γ-boundary derivable from substrate primitives, or is it a parameterization that requires an external thermal-fluctuation input? Grant adjudication needed before a Phase scoped.
+
+**Pollution check**: pre-commit `git diff --cached --stat` scope-screening was run for each of the 6 cleanup commits in this PR. No out-of-scope files committed. Worktree-isolation discipline maintained throughout.
+
+**Self-audit verdict**: PASS. Honest closure per Rule 11 (the PR #47 PASS verdict was walked back rather than rescued); substitution-not-retraction per Rule 12 (prereg body preserved + 🔴 amendment headers added; result-doc §9 original body preserved + 🔴 corrected-arithmetic block added); ave-walk-back v1.1 exhaustive-propagation-retry executed via this cleanup; all skill firings documented per commit message; cross-agent pollution check passed.
 
 ### Spawn protocol (orchestration session)
 

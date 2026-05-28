@@ -205,7 +205,7 @@ The original prereg §6 Class 2/4 emergence expectation was conditional on the O
 
 The three-Λ sum is a SUBSTRATE-DERIVED PREDICTION; the numerical match to CODATA (within $\delta_{strain}$) is the empirical consistency check.
 
-**Substrate-distinct claim status**: Class 2 substrate-mechanism emergence is the AVE-distinct interpretation. SM/QED has no analog of Op21 multi-mode mode-counting at a TIR boundary; the cross-scale canonical reach (electron + BH ringdown + universal procedure) is substrate-specific.
+**Substrate-distinct claim status**: Class B substrate-mechanism manifestation is the AVE-distinct interpretation (AMENDED 2026-05-27 post-PR-#47-auditor; the prior Class 2 substrate-mechanism emergence framing was walked back to match ch8-alpha-golden-torus.md:148 self-classification — the Clifford-torus codimensional embedding remains canonical input from upstream leaves rather than re-derived from K4 substrate primitives, so the additive-assembly substrate-mechanism axis is at Class B rigor, not Class 2). SM/QED has no analog of Op21 multi-mode mode-counting at a TIR boundary; the cross-scale canonical reach (electron + BH ringdown + universal procedure) is substrate-specific. The substrate-distinctness argument stands; only the classification label is amended.
 
 ## §6 — Independence check (ave-independence-check)
 
@@ -257,6 +257,33 @@ The `clm-rtdmsn` strengthen-by item at `vol4/claim-quality.md:1209` ("Derive the
 
 ## §9 — Cascade impact (pre-push estimate)
 
+> 🔴 **CORRECTED ARITHMETIC 2026-05-27 post-PR-#48 amendment cycle + 2026-05-27 propagation cleanup (Rule 12 substitution-not-retraction)**
+>
+> The §9 cascade math below was originally written assuming the **PASS verdict** (0.60 → 0.65 lift). Per the PR #47 ave-auditor walk-back + PR #48 amendment cycle (both merged on main as of 2026-05-28), the verdict is **PARTIAL** with the actual lift **0.60 → 0.63**. The original §9 body is preserved verbatim below for the historical pre-amendment record; the corrected cascade arithmetic supersedes it.
+>
+> **Corrected dep-cap ceiling**: clm-0ktpcn solidity is now **0.63** (= min(0.63 confidence, 0.63 derivation-solidity); the 0.65 dep upper-ceiling no longer binds because own-confidence dropped to 0.63 per the PARTIAL band lift). Dependents currently dep-capped by clm-0ktpcn cascade through `min(own confidence, 0.63)`.
+>
+> **Corrected per-dependent post-amendment solidities** (verified via `kb_cmd show <id> --json | jq '.solidity'` against `manuscript/ave-kb/.index/claims.jsonl` post-refresh; cross-link to `vol1/claim-quality.md` post-amendment dep-cap entries):
+>
+> - **clm-unk0bd** (Electron Body Topology, confidence 0.65): solidity **0.65** (own ceiling; no clm-0ktpcn dep-cap on this entry — independent)
+> - **clm-2dwzib** ($V_{snap}$ vs $V_{yield}$, confidence 0.95): solidity **0.63** (= min(0.95, 0.63), dep-capped by clm-0ktpcn; original §9 projected 0.65)
+> - **clm-3kzmt9** (ξ vs ξ_topo, confidence 0.90): solidity **0.63** (= min(0.90, 0.63), dep-capped by clm-0ktpcn; original §9 grouped into "Q2 hygiene family" lifting to min(own, 0.65) = 0.65)
+> - **clm-8ep2b4** (clm-8ep2b4 Master-Eq EFT scope claim, confidence 0.50): solidity **0.50** (own-confidence-capped; the local confidence 0.50 < 0.63 dep-cap, so own ceiling binds — UNCHANGED by the amendment)
+> - **clm-zw6mut** (Universal Spatial Tension Mass Scaling, confidence 0.60): solidity **0.60** (own-confidence-capped; 0.60 < 0.63 dep-cap, so own ceiling binds — UNCHANGED by the amendment)
+> - **clm-82dxbj** (Domain Catalog Operating-Point Examples, confidence 0.70): solidity **0.63** (= min(0.70, 0.63), dep-capped transitively via clm-b2anl4 → clm-0ktpcn)
+> - **clm-b2anl4** (Four-Regime Map, confidence 0.75): solidity **0.63** (= min(0.75, 0.63), dep-capped by clm-0ktpcn via $r_1 = \sqrt{2\alpha}$)
+> - **clm-5xon03** (Zero-Parameter Closure Status, confidence 0.70): solidity **0.65** (no longer dep-capped by clm-0ktpcn at 0.63 — cleared the cap; own-derivation-solidity 0.65 binds)
+> - **clm-9s9apq** (EMT $p_c = 8\pi\alpha$, confidence 0.85): solidity **0.63** (= min(0.85, 0.63), dep-capped by clm-0ktpcn)
+> - **clm-009nkt** (δ_strain, confidence 0.45): solidity **0.45** (own-confidence-capped; UNCHANGED)
+>
+> **Pattern**: dependents with own confidence $\geq 0.63$ land at solidity **0.63** (the new dep-cap from clm-0ktpcn); those with own confidence $< 0.63$ stay at their own ceiling (clm-8ep2b4 at 0.50, clm-zw6mut at 0.60, clm-009nkt at 0.45). The original §9 projection of "0.65 cap for own-confidence $\geq 0.65$" is superseded by the 0.63 cap.
+>
+> **Index regeneration provenance**: solidity values above verified via `make refresh-kb-metadata` + spot-check `kb_cmd show <id> --json | jq '.solidity'` against `manuscript/ave-kb/.index/claims.jsonl` (per CLAUDE.md INVARIANT-S8 line 161 — Benn's PR #49 `kb_cmd`-path-fix documented this query interface as canonical).
+
+---
+
+**Original §9 body (preserved verbatim per Rule 12 substitution-not-retraction — written under PASS verdict, superseded by amendment block above)**:
+
 clm-0ktpcn solidity is currently $\min(0.60, 0.65) = 0.60$. Post-lift, solidity becomes $\min(0.65, 0.65) = 0.65$. The 21+ dependents whose solidity is currently dep-capped by clm-0ktpcn at 0.60 will lift to $\min(\text{own confidence}, 0.65)$ — those with own confidence $\geq 0.65$ lift to 0.65; those below stay at their own ceiling.
 
 Per the Phase 3-A2 cascade analysis (`clm-0ktpcn-golden-torus-alpha-strengthen.md` §"Phase 3 plan"):
@@ -298,7 +325,7 @@ Per `ave-audit` discipline (implementor self-audit before commit):
 | `ave-walk-back` v1.1 Type B fired for `operators.md:61` annotation amendment | ✓ §3 closing paragraph + §5 below names the amendment scope |
 | No tracked files contain external-context refs (investors, funds, interviews, etc.) | ✓ pure substrate physics |
 | `consistency-vs-emergence` v1.2 master-equation-derivation-path traced step-by-step | ✓ §2 Steps 1-5.5 + §4 dual-axis classification |
-| Honest closure per Rule 11 (not forcing closure where the derivation doesn't close) | ✓ §8 PASS criteria met cleanly; §11 below names what is NOT closed |
+| Honest closure per Rule 11 (not forcing closure where the derivation doesn't close) | ✓ §8 PARTIAL criteria met (PASS verdict walked back per PR #47+#48 amendment; see §8 amendment block); §11 below names what is NOT closed |
 
 **What is closed by Phase 3-A4 (AMENDED)**:
 - clm-0ktpcn strengthen-by item (PARTIAL closure): "Promote the Op21 multi-mode generalization [...] to a fully-derived canonical leaf" (per `vol1/claim-quality.md:95`) — formalization-rigor closure delivered at Class B substrate-mechanism manifestation level; full Class 2 axiom-manifestation lift remains open (requires K4-substrate-primitive derivation of Clifford-torus codimensional embedding)

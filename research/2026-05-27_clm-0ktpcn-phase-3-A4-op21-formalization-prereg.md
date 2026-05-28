@@ -1,5 +1,20 @@
 # Phase 3-A4 Pre-Registration — Op21 Multi-Mode Mode-Counting Formalization
 
+> 🔴 **PRE-REGISTRATION FROZEN; POST-EXECUTION AMENDMENT NOTICE (Rule 12 substitution-not-retraction)**
+>
+> This pre-registration was frozen 2026-05-27 prior to derivation execution. Per Rule 12 substitution-not-retraction, the prereg body is preserved verbatim as the pre-execution intent record. **The result doc + amendment cycle's outcomes supersede prereg-stated PASS criteria where they differ.**
+>
+> **Key amendments post-execution** (per PR #47 ave-auditor findings + PR #48 amendment cycle, both merged on main as of 2026-05-28):
+>
+> - **§3 line 86** "structurally parallel to Op14 / Op17 / Op19" Bardeen reduction closure asserted → AMENDED: conjectured Cooper-pair-phase-transition specialization; explicit reduction $Q = \ell \to 1/\ln(Z_1/Z_0)$ NOT yet derived; Q-OP21-BARDEEN-1 candidate framework-extension question (see result doc §3 + §5 + `operators.md:61` post-amendment).
+> - **§6 line 215, 219** "Class 2 substrate-mechanism emergence / axiom-manifestation" → AMENDED: Class B substrate-mechanism manifestation matching ch8:148 self-classification (see result doc §4 + §8 amendment blocks). Phase 3-A4 formalized substrate-mechanism content already canonical in ch8:109-128; did NOT add new substrate primitives beyond canonical ceiling.
+> - **§6 line 299** "Class 2 substrate-mechanism + Class 4 observable consistency dual-axis classification" → AMENDED: Class B substrate-mechanism manifestation + Class 4 observable consistency (master-equation-derivation-path tracing preserved).
+> - **PASS criteria → PARTIAL band**: confidence lift 0.60 → 0.63 (not 0.65 as prereg projected); see result doc §8 amended verdict.
+>
+> **Why frozen**: pre-registration is the substrate-physics-discipline analog of a pre-trial protocol; the frozen body documents pre-execution hypotheses + criteria for trust + reproducibility. Header amendments cite walk-back without rewriting frozen body.
+>
+> **See**: result doc §8 amended verdict + §9 cascade-arithmetic 🔴 corrected-arithmetic block + this cleanup PR (`analysis/phase-3-a4-walkback-propagation-cleanup`).
+
 **Workstream**: clm-0ktpcn Golden Torus α Strengthening, Phase 3-A4
 **Branch**: `analysis/clm-0ktpcn-phase-3-A4-op21-formalization` off `main` @ `86966407`
 **Date**: 2026-05-27
