@@ -276,8 +276,8 @@ This explicit two-step numerical engine enforces local gauge invariance and ener
 
 \subsection*{Master Constants Derivation Pipeline}
 \begin{center}
-\small
 \renewcommand{\arraystretch}{1.2}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{lccl}
 \toprule
 \textbf{Quantity} & \textbf{AVE Value} & \textbf{CODATA} & \textbf{Derivation Source} \\
@@ -291,7 +291,8 @@ $V_{snap} = m_e c^2/e$ & 511.0 kV & 511.0 kV & Calibration constant (Axiom 4 die
 $G = \hbar c/(7\xi\,m_e^2)$ & $6.674 \times 10^{-11}$ & $6.674 \times 10^{-11}$ & Derived (Ax 1 + Ax 4, Machian equilibrium); $\xi \approx 8.15{\times}10^{43}$ \\
 $S(A) = \sqrt{1-(A/A_{yield})^2}$ & --- & --- & Axiom 4 (Universal Saturation Kernel) \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{center}
 
 \section*{Chapter Summary}

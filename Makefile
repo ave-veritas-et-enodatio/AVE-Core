@@ -1,5 +1,5 @@
 # Applied Vacuum Engineering (AVE-Core) — Master Build System
-# Public release — Volumes 0–6
+# Public release — Volumes 0–6 + Vol 9 Datasheet
 
 PYTHON ?= ./.venv/bin/python
 PYTEST ?= ./.venv/bin/pytest
@@ -20,10 +20,10 @@ KB_TOOLS_DIR = manuscript/ave-kb/tools
 KB_REFRESH = refresh-kb-metadata
 KB_VERIFY = verify-kb-metadata
 
-# Volume list — public volumes only (0–6)
-VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_macroscopic vol_4_engineering vol_5_biology vol_6_periodic_table
+# Volume list — public volumes (0–6) + Vol 9 datasheet (synthesis volume)
+VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_macroscopic vol_4_engineering vol_5_biology vol_6_periodic_table vol_9_vacuum_datasheet
 
-.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links framing-audit test test-tools pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 setup
+.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links framing-audit test test-tools pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -38,7 +38,7 @@ help:
 	@echo "  make framing-audit        : Scan corpus for reviewer-misread framing anti-patterns (advisory)"
 	@echo "  make test                 : Run unit tests (src/tests + kb tools tests)"
 	@echo "  make test-tools           : Run KB tooling tests only (manuscript/ave-kb/tools/tests)"
-	@echo "  make pdf                  : Compile all 7 public volumes"
+	@echo "  make pdf                  : Compile all 8 public volumes (Vols 0-6 + Vol 9 Datasheet)"
 	@echo "  make pdf_manuscript       : Compile manuscript volumes"
 	@echo "  make vol0                 : Vol 0:  The Engineering Compendium"
 	@echo "  make vol1                 : Vol I:  Foundations & Universal Operators"
@@ -47,6 +47,7 @@ help:
 	@echo "  make vol4                 : Vol IV: Applied Impedance Engineering"
 	@echo "  make vol5                 : Vol V:  Topological Biology"
 	@echo "  make vol6                 : Vol VI: The Periodic Table"
+	@echo "  make vol9                 : Vol IX: The Vacuum Datasheet (synthesis volume)"
 	@echo "  make figures              : Generate particle topology figure suite"
 	@echo "  make clean                : Remove auxiliary build artifacts (preserves PDFs)"
 	@echo "  make distclean            : Remove ALL build artifacts including PDFs"
@@ -158,7 +159,7 @@ endef
 pdf: pdf_manuscript
 
 pdf_manuscript:
-	@echo "[Build] Compiling Volumes 0–VI (two-pass for cross-volume xr-hyper resolution)..."
+	@echo "[Build] Compiling Volumes 0–VI + Vol IX (two-pass for cross-volume xr-hyper resolution)..."
 	@echo "[Build] === Pass 1 (collect aux files) ==="
 	@for dir in $(VOLUMES); do \
 		$(MAKE) --no-print-directory _compile_vol VOL=$$dir; \
@@ -167,7 +168,7 @@ pdf_manuscript:
 	@for dir in $(VOLUMES); do \
 		$(MAKE) --no-print-directory _compile_vol VOL=$$dir; \
 	done
-	@echo "[Build] All 7 volume PDFs generated in $(OUT_DIR)/"
+	@echo "[Build] All 8 volume PDFs generated in $(OUT_DIR)/"
 
 _compile_vol:
 	$(call COMPILE_VOL,$(VOL))
@@ -203,6 +204,10 @@ vol5: vol1 vol3 vol0
 
 vol6: vol1 vol3 vol0
 	$(call COMPILE_VOL,vol_6_periodic_table)
+
+# Vol 9: The Vacuum Datasheet (synthesis volume; cross-references Vols 1/3/4/0)
+vol9: vol1 vol3 vol4 vol0
+	$(call COMPILE_VOL,vol_9_vacuum_datasheet)
 
 # =============================================================================
 # 4. Figure Generation
