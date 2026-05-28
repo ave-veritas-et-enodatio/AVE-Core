@@ -59,12 +59,14 @@ assets/sim_outputs/*
 !assets/sim_outputs/autoresonance_pll.png
 !assets/sim_outputs/ave_gup_resolution.png
 !assets/sim_outputs/bh_orbital_resonance.png
+!assets/sim_outputs/bh_untapped_predictions.png
 !assets/sim_outputs/birefringence_killswitch.png
 !assets/sim_outputs/bjt_geometric_beta_surface.png
 !assets/sim_outputs/bullet_annotated_stills.png
 !assets/sim_outputs/casimir_acoustic_filtering.png
 !assets/sim_outputs/casimir_superconductor.png
 !assets/sim_outputs/condensate_transmission_line.png
+!assets/sim_outputs/cross_scale_triptych.png
 !assets/sim_outputs/cryogenic_rigidity_falsification.png
 !assets/sim_outputs/dielectric_avalanche.png
 !assets/sim_outputs/double_slit_decoherence.png
@@ -79,6 +81,9 @@ assets/sim_outputs/*
 !assets/sim_outputs/hopf_01_sensitivity_analysis.png
 !assets/sim_outputs/ideal_gas_compressed_static.pdf
 !assets/sim_outputs/jwst_exponential_accretion.png
+!assets/sim_outputs/k4_tlm_phase1_validation.png
+!assets/sim_outputs/k4_tlm_phase2_wire_antenna.png
+!assets/sim_outputs/k4_tlm_phase3_4_3d_antenna.png
 !assets/sim_outputs/kolmogorov_spectral_cutoff.png
 !assets/sim_outputs/leaky_cavity_decay.png
 !assets/sim_outputs/lense_thirring_inductive_drag.png
@@ -86,6 +91,7 @@ assets/sim_outputs/*
 !assets/sim_outputs/magnesium_24_magnetism.png
 !assets/sim_outputs/meissner_gear_train.png
 !assets/sim_outputs/noaa_goes_empirical_validation.png
+!assets/sim_outputs/optical_caustic_resolution.png
 !assets/sim_outputs/optical_refractive_gradient.png
 !assets/sim_outputs/rigidity_percolation_kg_convergence.png
 !assets/sim_outputs/sagnac_inductive_drag.png
