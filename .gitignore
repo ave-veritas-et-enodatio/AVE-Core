@@ -43,16 +43,69 @@ data/*
 simulations/*
 sim_outputs/
 
-# Canonical documentation assets — exception to sim_outputs/ ignore above.
-# The K4 lattice structure render is referenced by vol_1 ch01 \includegraphics
-# (line 182) and is required for downstream vol_9 builds (`make vol9` chains
-# `make vol1`). Tracked so worktrees and CI builds resolve it. The
-# un-ignore-then-re-ignore-then-allowlist pattern matches the data/pantheon_plus
-# convention below — required because a bare `sim_outputs/` rule excludes the
-# parent directory, and git cannot re-include files under an excluded parent.
+# Canonical documentation assets — exceptions to sim_outputs/ ignore above.
+# These assets are referenced by \includegraphics{} calls in the public
+# manuscript volumes (vol_0 / vol_1 / vol_3 / vol_4 — the make vol9 dep chain)
+# and are required for downstream builds to resolve from clean worktrees.
+# The un-ignore-then-re-ignore-then-allowlist pattern matches the
+# data/pantheon_plus convention below — required because a bare `sim_outputs/`
+# rule excludes the parent directory, and git cannot re-include files under an
+# excluded parent. Maintained as an explicit allowlist of named documentation
+# assets; new simulation outputs remain ignored by default.
 !assets/sim_outputs/
 assets/sim_outputs/*
 !assets/sim_outputs/lattice_structure_3d.png
+!assets/sim_outputs/aluminum_27_magnetism.png
+!assets/sim_outputs/autoresonance_pll.png
+!assets/sim_outputs/ave_gup_resolution.png
+!assets/sim_outputs/bh_orbital_resonance.png
+!assets/sim_outputs/birefringence_killswitch.png
+!assets/sim_outputs/bjt_geometric_beta_surface.png
+!assets/sim_outputs/bullet_annotated_stills.png
+!assets/sim_outputs/casimir_acoustic_filtering.png
+!assets/sim_outputs/casimir_superconductor.png
+!assets/sim_outputs/condensate_transmission_line.png
+!assets/sim_outputs/cryogenic_rigidity_falsification.png
+!assets/sim_outputs/dielectric_avalanche.png
+!assets/sim_outputs/double_slit_decoherence.png
+!assets/sim_outputs/double_slit_sm_vs_ave.png
+!assets/sim_outputs/ee_bench_plateau_prediction.png
+!assets/sim_outputs/ee_pcba_bench_protocols.png
+!assets/sim_outputs/emt_packing_landscape.png
+!assets/sim_outputs/entropy_dissipation_final.pdf
+!assets/sim_outputs/fdtd_continuous_yee_mesh.pdf
+!assets/sim_outputs/gargantua_acoustic_vortex.png
+!assets/sim_outputs/gravity_lensing_proof.png
+!assets/sim_outputs/hopf_01_sensitivity_analysis.png
+!assets/sim_outputs/ideal_gas_compressed_static.pdf
+!assets/sim_outputs/jwst_exponential_accretion.png
+!assets/sim_outputs/kolmogorov_spectral_cutoff.png
+!assets/sim_outputs/leaky_cavity_decay.png
+!assets/sim_outputs/lense_thirring_inductive_drag.png
+!assets/sim_outputs/log_impedance_s_parameters.png
+!assets/sim_outputs/magnesium_24_magnetism.png
+!assets/sim_outputs/meissner_gear_train.png
+!assets/sim_outputs/noaa_goes_empirical_validation.png
+!assets/sim_outputs/optical_refractive_gradient.png
+!assets/sim_outputs/rigidity_percolation_kg_convergence.png
+!assets/sim_outputs/sagnac_inductive_drag.png
+!assets/sim_outputs/saturn_ring_impedance_distribution.png
+!assets/sim_outputs/saturn_rings_evolution.png
+!assets/sim_outputs/simulate_black_hole_core.png
+!assets/sim_outputs/simulate_cosmological_equilibrium.png
+!assets/sim_outputs/solar_flare_topology_frame.png
+!assets/sim_outputs/solar_weather_iv_calculator.png
+!assets/sim_outputs/spice_zener_override_comparison.png
+!assets/sim_outputs/superconductivity_phase_lock.pdf
+!assets/sim_outputs/the_grand_audit_dashboard.png
+!assets/sim_outputs/topological_precession_rosette.png
+!assets/sim_outputs/topological_qubit_plot.png
+!assets/sim_outputs/transmon_decoherence_plot.png
+!assets/sim_outputs/trefoil_alpha_qfactor.png
+!assets/sim_outputs/unruh_hawking_hoop_stress.png
+!assets/sim_outputs/vacuum_birefringence_E4.png
+!assets/sim_outputs/vacuum_dielectric_saturation.png
+!assets/sim_outputs/vacuum_mirror_sensitivities.png
 
 # Canonical external research data — explicit allowlist (override of data/* above)
 # External research artifacts (not simulation outputs) tracked for reproducibility.
