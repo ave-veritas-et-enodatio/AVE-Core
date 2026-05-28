@@ -20,8 +20,9 @@
 \usepackage{amsmath, amssymb, amsfonts}
 \usepackage{amsthm}
 \usepackage{mathtools}
-\usepackage{siunitx} 
-\usepackage{bm} 
+\usepackage{siunitx}
+\usepackage{gensymb}  % \degree, \celsius, \perthousand for plain-text use (foreword + non-math context)
+\usepackage{bm}
 
 % --- Graphics & Floats ---
 \usepackage{graphicx}
@@ -36,7 +37,23 @@
 \usepackage[table,xcdraw]{xcolor}
 
 % --- Navigation & Linking ---
-\usepackage[hidelinks]{hyperref} 
+\usepackage[hidelinks]{hyperref}
+
+% --- Line-breaking discipline ---
+% \sloppy permits TeX to stretch interword glue to avoid Overfull \hbox
+% on narrative paragraphs with long inline \texttt{paths} (research/file.md
+% references, src/scripts/ paths, KB cross-refs). Without this, the
+% post-build margin gate at src/scripts/check_latex_margins.py:6
+% trips on cosmetic narrative-only overruns even though the PDF renders.
+% Affects line spacing slightly; preferred over inserting \allowbreak /
+% \path{} at every long-texttt site.
+\sloppy
+% \emergencystretch gives TeX additional flexibility when \sloppy alone is
+% insufficient: pdfTeX can stretch by this amount per line if needed to
+% avoid overfull boxes, before resorting to overrun. 3em is reasonable for
+% narrative paragraphs with many \texttt{} run-ins; quality-gate threshold
+% in check_latex_margins.py governs final cosmetic acceptability.
+\setlength{\emergencystretch}{5em} 
 \usepackage{tocloft}
 
 % Custom abstract environment for book class
