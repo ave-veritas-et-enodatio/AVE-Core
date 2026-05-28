@@ -666,7 +666,7 @@ flowchart TD
 ```mermaid
 flowchart TD
     GTOR["Golden Torus Geometry<br/>Vol 1 Ch 8<br/>R = φ/2, r = (φ-1)/2, d = 1<br/>Λ_vol = 4π³ + Λ_surf = π² + Λ_line = π"]
-    DELTA["δ_strain ≈ 2.225e-6<br/>thermal bridge<br/>(currently fitted, pending<br/>first-principles derivation)"]
+    DELTA["δ_strain ≈ 2.225e-6<br/>thermal bridge<br/>(currently fitted, pending<br/>Q-DELTA-MAP-1 substrate<br/>saturation-class adjudication)"]
     ALPHA(("α = 1/(4π³+π²+π)<br/>≈ 137.0363038 (cold)<br/>→ CODATA 137.035999"))
 
     GTOR --> ALPHA
@@ -717,7 +717,7 @@ flowchart TD
 - **Orange (light)** — V_yield = √α · V_snap intermediate node (saturation-chain entry point)
 - **Salmon** — thermal bridge δ_strain (open derivation, currently fitted)
 
-**Open formal-rigor item:** δ_strain ≈ 2.225e-6 is the single thermal scalar still pending first-principles derivation (per Vol 1 Ch 8 closure status). Bridges cold-lattice α^{-1} = 137.0363038 to CODATA 137.035999. The framework is **structurally zero-parameter conditional on thermal closure** — if δ_strain derives cleanly from G_vac + equipartition, AVE has true zero free parameters.
+**Open formal-rigor item:** δ_strain ≈ 2.225e-6 is the single thermal scalar still pending substrate-physics derivation (per Vol 1 Ch 8 closure status). Bridges cold-lattice α^{-1} = 137.0363038 to CODATA 137.035999. The framework is **structurally zero-parameter conditional on thermal closure** — if δ_strain derives cleanly from the substrate-mechanism class identified by **Q-DELTA-MAP-1** adjudication (saturation-class adjudication for low-amplitude electromagnetic thermal-bath loading; three candidate paths P1/P2/P3 per [`research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md`](../../../research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md) §3), AVE has true zero free parameters.
 
 **Open formal-rigor item #2:** ropelength-minimality uniqueness of the Clifford-torus embedding (Phase-1 classical-topology question per foreword line 37). Single open piece for α's formal-rigor closure.
 
