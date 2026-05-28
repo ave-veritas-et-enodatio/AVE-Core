@@ -2,4 +2,212 @@
 \chapter{Cosmological Characteristics}
 \label{ch:vol9_cosmological_characteristics}
 
-\textit{Stub --- to be populated in Vol~9 PR-G. Documents cosmic substrate scaling: Hubble-horizon-to-node ratio $R_H/\ell_{node} \sim 10^{39}$, Machian-boundary-impedance gravity $G$, cosmic-genesis operating point $u_0^* \approx 0.187$, chirality-freeze parameter $\hat{\Omega}_{freeze}$. Primary canonical sources: \texttt{omega-freeze-cosmic-grain-cascade.md}; \texttt{cosmological-constant-closure.md} (\texttt{clm-eaiqj1}).}
+\begin{objectivebox}
+\begin{itemize}
+    \item Document the natural vacuum substrate $\mathcal{M}_A$ at the cosmic scale: the substrate cosmic horizon $R_H$, the cosmic-to-lattice scale ratio $R_H / \ell_{node} \sim 10^{39}$, and the single cosmological initial-data parameter $\hat{\Omega}_{freeze}$ that sets the substrate operating point at lattice genesis.
+    \item Establish the framework's structural-closure framing (per \texttt{src/ave/core/constants.py} preamble): ONE scale primitive ($\ell_{node}$) + ONE cosmological initial-data parameter ($\hat{\Omega}_{freeze}$) + four axioms. Newton's gravitational constant $G$ and the fine-structure constant $\alpha$ are JOINTLY cosmologically anchored at the magic-angle operating point $u_0^* \approx 0.187$; neither is an independent primitive.
+    \item Spec the cosmic substrate parameters and identify the substrate mechanism behind each: Hubble radius $R_H$ as the cosmic $\Gamma = -1$ boundary; $R_H/\ell_{node}$ as the cosmic-scale topological transduction count; Machian gravitational constant $G$ as the integrated boundary impedance; $\xi$ as the dimensionless Machian-hierarchy coupling; $\hat{\Omega}_{freeze}$ as the cosmic chirality / phase-transition-while-spinning initial condition; $u_0^*$ as the magic-angle joint anchor for $\alpha + G$.
+    \item State the framework's sharpest empirical commitment: three independent observational routes (electromagnetic $\alpha$, gravitational $G$, cosmological $\mathcal{J}_{cosmic}$ via CMB / LSS anomalies) must all give the same $u_0^*$, or the single-cosmological-parameter framework is falsified.
+    \item Preserve the lattice-genesis single-seed cosmology framing: the substrate emerged from a single chiral seed crystallizing under angular momentum; no multiverse, no multiple baby-universe black holes. Black-hole interiors are documented as Regime~IV substrate rupture producing a ruptured-plasma sink, not as a separate B-sublattice or daughter cosmos with independent physics.
+    \item Translate the cosmological primitives into the EE-substrate-native projection (\texttt{ave-ee-first-mapping} v1.0; canonical leaf \texttt{common/translation-tables/translation-circuit.md}): cosmic horizon $\leftrightarrow$ infinite-impedance termination of the distributed substrate transmission line; Machian $G$ $\leftrightarrow$ integrated boundary impedance over $R_H/\ell_{node}$ lumped substrate cells; $\xi_{topo}$ at cosmic scale $\leftrightarrow$ cosmic-scale topological-transduction count.
+\end{itemize}
+\end{objectivebox}
+
+\section{Cosmic Hierarchy: $R_H / \ell_{node} \sim 10^{39}$}
+\label{sec:vol9_cosmo_hierarchy}
+
+The substrate carries a single intrinsic length scale (Axiom~1; \texttt{constants.py} preamble structural-closure framing) --- the K4 nearest-neighbour spacing $\ell_{node} \approx 3.862 \times 10^{-13}$~m (canonical at Vol~9 Ch.~\ref{ch:vol9_dc_electrical_characteristics}~$\S$\ref{sec:vol9_dc_spec_table}). The substrate carries a single intrinsic boundary at the largest accessible scale --- the cosmic horizon $R_H \approx 1.33 \times 10^{26}$~m, set by $R_H \equiv c / H_\infty$ where $H_\infty$ is the asymptotic Hubble rate (canonical at \texttt{vol3/cosmology/ch04-generative-cosmology/lattice-genesis-hubble-tension.md} \texttt{clm-wx5324}; numerical evaluation $H_\infty \approx 69.33$ km/s/Mpc).
+
+The ratio of these two scales is the substrate's intrinsic cosmic hierarchy:
+
+\[
+\frac{R_H}{\ell_{node}} \sim \frac{1.33 \times 10^{26}\,\text{m}}{3.86 \times 10^{-13}\,\text{m}} \sim 10^{39}.
+\]
+
+This is the engineering datasheet entry for the cosmic-scale topological transduction count --- the number of lumped substrate cells along the cosmic-scale distributed transmission line, per the canonical EE-substrate-native projection (\texttt{common/translation-tables/translation-circuit.md} canonical entry, \texttt{clm-eemap1}; same row, $R_H/\ell_{node} \sim 10^{39}$ identified as ``number of lumped substrate cells along cosmic-scale distributed TL''). Engineering does not design or choose this ratio; it is a property of the natural vacuum substrate the universe occupies, characterized observationally via CMB and large-scale-structure measurements that anchor $H_\infty$ + Vol~3 Ch.~4 cosmology that derives the relationship between cosmic generation thermodynamics and $R_H$.
+
+\section{Machian Gravitational Constant $G$ as Derived Quantity}
+\label{sec:vol9_cosmo_machian_g}
+
+Newton's gravitational constant $G \approx 6.674 \times 10^{-11}\,\text{m}^3\,\text{kg}^{-1}\,\text{s}^{-2}$ is \textbf{not a substrate primitive} in the AVE framework. It is DERIVED as the Machian boundary impedance from Axiom~1 + Axiom~4 SYM-class scaling (per CLAUDE.md INVARIANT-S2 closing paragraph: ``the numerical calibration constants $\ldots$, $G$, are derived from these axioms --- not axioms themselves $\ldots$ gravity is the Machian boundary impedance, derived from Ax~1 + Ax~4 symmetric scaling, not a primitive axiom''). The canonical Vol~3 Ch.~4 closed-form expression is
+
+\[
+G = \frac{c^4}{7\, \xi\, T_{EM}(u_0^*)}
+\qquad\text{equivalently}\qquad
+G = \frac{\hbar c}{7\, \xi\, m_e^2},
+\]
+
+where $T_{EM} = m_e c^2 / \ell_{node}$ is the substrate string tension (Vol~9 Ch.~\ref{ch:vol9_dc_electrical_characteristics}~$\S$\ref{subsec:vol9_dc_propagation_primitives}), and $\xi$ is the dimensionless Machian-hierarchy coupling
+
+\[
+\xi = \frac{4\pi\, R_H}{\ell_{node}\,\alpha^2}
+\sim 4\pi \cdot 10^{39} \cdot (137.036)^2
+\approx 8.15 \times 10^{43}.
+\]
+
+The closed-form is canonical at \texttt{common/full-derivation-chain.md} \texttt{clm-9oazz0}, at \texttt{common/mathematical-closure.md} ``$G$ closure Layer~7,'' and at the engine implementation \texttt{src/ave/core/constants.py} line~471 (\texttt{XI\_MACHIAN}). The factor of 7 enters through the vacuum Poisson ratio $\nu_{vac} = 2/7$ (Vol~9 Ch.~\ref{ch:vol9_mechanical_characteristics}~$\S$\ref{sec:vol9_mech_poisson}; Axiom~1 LC + Axiom~2 $\alpha$ interlink).
+
+\textbf{Substrate mechanism.} The Machian impedance integral $\xi$ counts the substrate's integrated boundary coupling from the cosmic $\Gamma = -1$ boundary at $R_H$ down to the lattice scale $\ell_{node}$. Per the EE-substrate-native projection (canonical at \texttt{common/trampoline-framework.md} $\S$5.5 ``Newton's $G$ as Machian bulk integral over the substrate''): a local test mass couples to every other mass in the observable universe through the substrate's K4-LC network; that integrated coupling is the Machian inertia that manifests as Newton's $G$. The cosmic horizon sets the upper limit of integration; the lattice pitch sets the lower limit. The hierarchy $R_H/\ell_{node} \sim 10^{39}$ explains the weakness of gravity relative to the electromagnetic coupling --- $\alpha/\alpha_G \sim R_H/\ell_{node} \cdot$ geometric factors $\sim 10^{42}$, qualitatively matching the observed gravity / electromagnetism hierarchy. The framework's explanation for why gravity is so weak is geometric (cosmic horizon is far away), not fine-tuning.
+
+\textbf{Operating-point anchor.} The Machian impedance integral depends on $T_{EM}(u_0^*)$ which itself depends on the substrate's magic-angle operating point $u_0^*$ (canonical at \texttt{common/omega-freeze-cosmic-grain-cascade.md} $\S$2, \texttt{clm-dsb560}; $T_{EM} = n_{bonds} \cdot k_0 \cdot d \cdot u_0 \cdot$ geometric). The same $u_0^*$ that sets $\alpha$ via the cold-lattice $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ Golden Torus closure (Vol~9 Ch.~\ref{ch:vol9_dc_electrical_characteristics}~$\S$\ref{subsec:vol9_dc_coupling_primitives}) also sets $G$ via this Machian impedance integral. The framework reduces ``$\alpha$ and $G$ as two independent calibration constants'' to ``$\alpha$ and $G$ jointly anchored at one cosmological operating point $u_0^*$.''
+
+\section{$\hat{\Omega}_{freeze}$: The Single Cosmological Initial-Data Parameter}
+\label{sec:vol9_cosmo_omega_freeze}
+
+The substrate's structural-closure framing (per \texttt{src/ave/core/constants.py} preamble; CLAUDE.md INVARIANT-S2 closing paragraph) carries exactly one cosmological initial-data parameter: $\hat{\Omega}_{freeze}$, the cosmic angular momentum at lattice genesis. All other cosmological observables --- $u_0^*$, $\alpha$, $G$, $H_\infty$, the cosmic chirality direction, the chiral space group $I4_1 32$ orientation --- derive from this one parameter via the freeze-in / phase-transition-while-spinning mechanism canonical at \texttt{common/omega-freeze-cosmic-grain-cascade.md} (\texttt{clm-dsb560}, \texttt{clm-a7cbqq}; per Vol~3 Ch.~4 generative cosmology lines~172--184, 405--416, 458--470).
+
+\textbf{Mechanism (corpus-canonical, \texttt{clm-a7cbqq}).} At lattice genesis, the crystallizing substrate region is rotating with angular velocity $\hat{\Omega}_{freeze}$ (a vector; the hat denotes both magnitude and direction). At crystallization:
+
+\begin{enumerate}
+    \item Bond rest lengths lock at the rotating-frame equilibrium, producing the bond over-bracing $u_0 = \rho\, |\hat{\Omega}_{freeze}|^2\, r_{node}^2 / (2 K_0)$ that fixes the operating point.
+    \item The direction of $\hat{\Omega}_{freeze}$ becomes the direction of bond bowing; the substrate locks into the right-handed $I4_1 32$ chiral space group (Axiom~1; CLAUDE.md INVARIANT-S2).
+    \item Cosmic spin is locked into the substrate as both bond over-bracing magnitude AND global chirality direction.
+    \item The frozen-in state survives forever as the cosmological initial condition.
+\end{enumerate}
+
+The cosmic-boundary winding number $\mathcal{J}_{cosmic} = \hat{\Omega}_{freeze} \cdot I_{cosmic}$ (cosmic moment of inertia $I_{cosmic}$ from the substrate mass distribution within $R_H$) is the cosmic-scale instance of the canonical $\mathcal{J}$ boundary observable (canonical at \texttt{common/boundary-observables-m-q-j.md}; same three-invariant structure $\mathcal{M}$, $\mathcal{Q}$, $\mathcal{J}$ operates at every $\Gamma = -1$ saturation surface --- electron horn-torus tube wall, nucleus Borromean envelope, atomic shell, Schwarzschild horizon, cosmic $R_H$).
+
+\textbf{Empirical anchor.} The CMB axis-of-evil at $(l = 60.28°, b = 50.48°)$ in galactic coordinates (Planck PR3 SMICA empirical pin 2026-05-19; canonical at \texttt{common/omega-freeze-cosmic-grain-cascade.md} $\S$1 row~3) is the direct manifestation of $\hat{\Omega}_{freeze}$ in CMB observables. Eight pre-registered observational channels (CMB axis + Hubble flow anisotropy + LSS spin direction + matter asymmetry + E/B polarization decoupling + orbital-plane alignment + tensor $G$ anisotropy + CMB QNM matching) extend the multi-axis alignment test (canonical at \texttt{common/omega-freeze-cosmic-grain-cascade.md} $\S$3, \texttt{clm-pe8lpx}).
+
+\section{Magic-Angle Operating Point $u_0^* \approx 0.187$}
+\label{sec:vol9_cosmo_magic_angle}
+
+The substrate's magic-angle operating point $u_0^* \approx 0.187$ is the unique bond-over-bracing value at which the substrate's bulk moduli satisfy $K(u_0^*) = 2\, G(u_0^*)$ (the Cauchy-isotropy / EMT $p^* = 8\pi\alpha$ closure; Vol~9 Ch.~\ref{ch:vol9_mechanical_characteristics}~$\S$\ref{sec:vol9_mech_poisson}) and the Axiom~4 universal saturation kernel $S(A^*) = 0$ closes simultaneously (canonical at L5 A-034 + Vol~3 Ch.~4 $\S$sec:tki\_strain\_snap; \texttt{constants.py} preamble Q-G47 Sessions 9--18 closure). The same $u_0^*$ fixes both $\alpha$ (via the Golden Torus $S_{11}$-minimum geometry of the electron's bond pair, giving $\alpha^{-1}_{ideal} = 4\pi^3 + \pi^2 + \pi$) and $G$ (via the Machian impedance integral, $G = c^4 / (7\xi T_{EM}(u_0^*))$). This is the framework's sharpest empirical commitment.
+
+\subsection{Three observational routes to $u_0^*$}
+\label{subsec:vol9_cosmo_three_routes}
+
+Per the canonical three-route framework commitment (\texttt{constants.py} preamble lines~18--24; \texttt{common/omega-freeze-cosmic-grain-cascade.md} $\S$1, \texttt{clm-dsb560}; Common Foreword $\S$``three-route framework commitment''):
+
+\begin{itemize}
+    \item \textbf{Route 1 --- Electromagnetic.} CODATA $\alpha$ to 12 decimals ($\alpha^{-1} = 137.035999084$) $\to$ $u_0^*$ via the Golden-Torus closure of Vol~1 Ch.~8 and the Q-factor closure of Theorem~3.1 (Vol~4 Ch.~1; canonical at \texttt{vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md}).
+    \item \textbf{Route 2 --- Gravitational.} CODATA $G$ to $\sim 4$ decimals $\to$ $u_0^*$ via the Machian impedance integral $G = c^4 / (7\xi T_{EM}(u_0^*))$ with $\xi = 4\pi (R_H/\ell_{node}) \alpha^{-2}$ (Vol~3 Ch.~4; this chapter $\S$\ref{sec:vol9_cosmo_machian_g}).
+    \item \textbf{Route 3 --- Cosmological.} $\mathcal{J}_{cosmic}$ via CMB / LSS anomaly measurements $\to$ $u_0^*$ via $\hat{\Omega}_{freeze} = \mathcal{J}_{cosmic} / I_{cosmic}$ and the freeze-in relation $u_0 = \rho\, |\hat{\Omega}_{freeze}|^2\, r_{node}^2 / (2K_0)$.
+\end{itemize}
+
+\textbf{Falsification commitment (verbatim from \texttt{common/omega-freeze-cosmic-grain-cascade.md} $\S$1, \texttt{clm-dsb560}).} All three routes must give the same $u_0^*$ at relevant precision, or the single-cosmological-parameter framework is falsified. This is the framework's strongest empirical exposure: substrate has one degree of freedom ($u_0^*$); the observables ($\alpha$, $G$, $H_\infty$, $\hat{\Omega}_{freeze}$, $\mathcal{J}_{cosmic}$, MOND $a_0$, $\ldots$) project onto separable measurable channels, joint-constrained --- falsification of any one kills the operating point and therefore the entire substrate model. Per \texttt{consistency-vs-emergence} v1.3, this is the canonical Class~E operating-point projection.
+
+\subsection{Operating-point cross-references}
+
+The operating-point modulation discipline propagates through every chapter of this datasheet: Ch.~\ref{ch:vol9_ac_electrical_characteristics} (AC characteristics: $S(A_0)$-modulated $\varepsilon, \mu, c_{EM}$); Ch.~\ref{ch:vol9_temperature_characteristics} (temperature characteristics: $\delta_{strain}$ at $T_{CMB}$); Ch.~\ref{ch:vol9_saturation_characteristics} (Axiom~4 kernel); Ch.~\ref{ch:vol9_mechanical_characteristics} (mechanical characteristics: $c_{shear}(A_0) = c_0\sqrt{S(A_0)}$). The cosmological characteristics chapter records the COSMIC value of the operating point $u_0^*$ that the framework's calibration is anchored to.
+
+\section{Cosmological Specification Table}
+\label{sec:vol9_cosmo_spec_table}
+
+Six canonical cosmic-scale parameters. The TYPICAL column lists the substrate value at the cold-lattice operating point $u_0^*$. The Conditions column is identical for every row --- cosmic boundary at $R_H$, lattice at $\ell_{node}$, magic-angle $u_0^* \approx 0.187$ set by lattice-genesis $\hat{\Omega}_{freeze}$ --- and is stated once below the table.
+
+\begin{footnotesize}
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{@{}p{0.09\linewidth} p{0.16\linewidth} p{0.13\linewidth} p{0.05\linewidth} p{0.27\linewidth} p{0.22\linewidth}@{}}
+\hline
+\textbf{Symbol} & \textbf{Parameter} & \textbf{Typical} & \textbf{Units} & \textbf{Substrate Mechanism} & \textbf{Canonical Source} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Symbol} & \textbf{Parameter} & \textbf{Typical} & \textbf{Units} & \textbf{Substrate Mechanism} & \textbf{Canonical Source} \\
+\hline
+\endhead
+$R_H$ & Cosmic horizon radius & $1.33 \times 10^{26}$ & m & Substrate cosmic $\Gamma = -1$ boundary (Ax~1 + Ax~3); $R_H \equiv c/H_\infty$ & \texttt{R\_HUBBLE} \newline (\texttt{constants.py}:576); \texttt{lattice-genesis-hubble-tension.md} (\texttt{clm-wx5324}) \\
+$R_H / \ell_{node}$ & Cosmic-to-lattice scale ratio & $\sim 10^{39}$ & --- & Number of lumped substrate cells along cosmic-scale distributed TL; Machian-hierarchy precursor & \texttt{common/translation-tables/} \texttt{translation-circuit.md} canonical entry (\texttt{clm-eemap1}); \texttt{constants.py}:576 / :194 \\
+$G$ & Newton's gravitational constant (DERIVED) & $6.674 \times 10^{-11}$ & m$^3$ kg$^{-1}$ s$^{-2}$ & Machian boundary impedance (NOT a primitive axiom); $G = c^4 / (7\xi T_{EM}(u_0^*))$ via Ax~1 + Ax~4 SYM scaling & \texttt{G} \newline (\texttt{constants.py}:118); \texttt{full-derivation-chain.md} (\texttt{clm-9oazz0}); CLAUDE.md INVARIANT-S2 \\
+$\xi$ & Machian-hierarchy coupling (dimensionless) & $\approx 8.15 \times 10^{43}$ & --- & $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$; integrated boundary coupling cosmic-horizon $\to$ lattice; NOT $\xi_{topo}$ (per CLAUDE.md INVARIANT-S2 namespace warning) & \texttt{XI\_MACHIAN} \newline (\texttt{constants.py}:471); \texttt{cosmological-constant-closure.md} (\texttt{clm-s4n33u}) \\
+$\hat{\Omega}_{freeze}$ & Cosmic chirality / freeze-in angular velocity & substrate-native; direction at CMB axis $(l,b) = (60.28°, 50.48°)$ & rad/s (vector) & Single cosmological initial-data parameter; sets bond over-bracing $u_0$ via phase-transition-while-spinning; selects $I4_1 32$ right-handed chirality & \texttt{omega-freeze-} \texttt{cosmic-grain-cascade.md} \newline (\texttt{clm-dsb560}, \texttt{clm-a7cbqq}); Vol~3 Ch.~4 generative cosmology \\
+$u_0^*$ & Magic-angle operating point & $\approx 0.187$ & --- & Unique substrate operating point where $K(u_0^*) = 2G(u_0^*)$ + $S(A^*) = 0$ close jointly; joint anchor for $\alpha$ + $G$ & Q-G47 Sessions 9--18 closure (canonical at \texttt{constants.py} preamble); \texttt{omega-freeze-} \texttt{cosmic-grain-cascade.md} $\S$1 \\
+$H_\infty$ & Asymptotic Hubble rate (cosmic generation rate) & $2.247 \times 10^{-18}$ \newline $\approx 69.33$ km/s/Mpc & s$^{-1}$ & Substrate LC-crystallization rate maintaining $\partial_t \rho_n = 0$; cosmic crystallization rate at de~Sitter asymptote & \texttt{H\_INFINITY} \newline (\texttt{constants.py}:573); \texttt{lattice-genesis-} \texttt{hubble-tension.md} (\texttt{clm-2e9j97}, \texttt{clm-wx5324}) \\
+\hline
+\end{longtable}
+\end{footnotesize}
+
+\noindent
+\textit{Conditions for every row above:} cosmic boundary at $R_H$ (cosmic $\Gamma = -1$ surface); lattice pitch $\ell_{node}$; magic-angle operating point $u_0^* \approx 0.187$ set by lattice-genesis $\hat{\Omega}_{freeze}$; right-handed $I4_1 32$ chiral space group fixed by the same lattice-genesis event. The cosmological characteristics are observational consequences of the natural substrate's structure --- engineering measures, AVE substrate-physics derives.
+
+\noindent
+\textbf{Namespace caveat (per CLAUDE.md INVARIANT-S2 cross-reference warning).} The dimensionless Machian-hierarchy coupling $\xi \approx 8.15 \times 10^{43}$ above is \emph{NOT} the same quantity as the topological transduction constant $\xi_{topo} = e/\ell_{node} \approx 4.149 \times 10^{-7}$~C/m of Vol~9 Ch.~\ref{ch:vol9_dc_electrical_characteristics}~$\S$\ref{subsec:vol9_dc_coupling_primitives}. Both are canonical, both are written ``$\xi$,'' and they are different physical quantities --- $\xi_{topo}$ is the EE-to-mechanical bridge (Axiom~2; C/m); $\xi$ is the Machian-hierarchy integrated boundary coupling (dimensionless). The CLAUDE.md disambiguation is verbatim canonical.
+
+\section{Lattice-Genesis Single-Seed Cosmology}
+\label{sec:vol9_cosmo_lattice_genesis}
+
+The framework's cosmology is \textbf{single-seed lattice genesis}: the observable universe emerged from a single chiral seed crystallizing under angular momentum $\hat{\Omega}_{freeze}$. There is no multiverse; there are no multiple universes occupying distinct seed events; the cosmic substrate documented in this datasheet is the natural single-seed substrate.
+
+\textbf{Mechanism.} At lattice genesis, a single substrate region underwent the phase transition from disordered hot pre-substrate to ordered chiral K4 Cosserat crystal $\mathcal{M}_A$ while the region carried cosmic angular momentum $\hat{\Omega}_{freeze}$. The transition is a cosmic-scale instance of the Axiom~4 universal saturation kernel (canonical at \texttt{common/universal-saturation-kernel-catalog.md}; Big Bang as cosmic-scale universal-saturation-kernel instance). The crystallization fixed the bond over-bracing $u_0 = u_0^*$, the global chirality direction, and the cosmological initial conditions for all downstream observable physics ($\alpha$, $G$, the chiral space group orientation, the CMB axis).
+
+\textbf{What lattice-genesis cosmology is NOT.} Per CLAUDE.md INVARIANT-S2 + project framing constraints carried forward through every Vol~9 chapter: the framework does not posit a multiverse of disjoint substrate regions; it does not posit baby-universe black holes with daughter cosmologies inside them; it does not posit an ``engineered'' or ``designed'' cosmic genesis. The cosmic substrate is the natural single-seed universe; engineering observes; AVE substrate-physics derives. Black-hole interiors --- documented as Regime~IV substrate rupture in Vol~9 Ch.~\ref{ch:vol9_breakdown_characteristics} and Vol~1 Ch.~7 (\texttt{vol1/operators-and-regimes/ch7-regime-map/four-regimes.md}) --- are a different substrate phenomenon, not a separate cosmic seed.
+
+\section{Substrate Rupture at Cosmic Scale}
+\label{sec:vol9_cosmo_substrate_rupture}
+
+The cosmic-scale instance of substrate rupture is the black-hole interior. Per CLAUDE.md INVARIANT-S2 + Vol~3 cosmology canonical framing (\texttt{vol3/claim-quality.md} canonical entries on BH interior phase transition):
+
+\begin{itemize}
+    \item Black-hole interiors are \textbf{Regime~IV substrate rupture} (Vol~1 Ch.~7 \texttt{four-regimes.md}; the same regime category as the absolute-maximum-rating $V_{snap}$ topological node-destruction limit of Vol~9 Ch.~\ref{ch:vol9_absolute_maximum_ratings}).
+    \item The interior is a \textbf{ruptured-plasma sink} --- the substrate's shear modulus phase-transitions to $G_{shear} \to 0$ inside the saturation boundary, the shear restoring force vanishes, and the interior cannot support coherent K4 topology (canonical at \texttt{vol3/claim-quality.md} BH-interior phase-transition entries; cross-referenced at \texttt{vol3/condensed-matter/ch11-thermodynamics/four-entropy-distinction.md}).
+    \item The ruptured-plasma interior is \textbf{NOT a separate B-sublattice} --- it is the same substrate as the exterior, phase-transitioned to its rupture regime. There is no second lattice species; the BH interior is the AVE substrate's analog of a metal in its plasma state, not the AVE substrate's analog of a different material.
+    \item The ruptured-plasma BH interior is \textbf{NOT a daughter cosmology} --- no baby universe, no nested seed, no inner cosmic genesis. The interior is observationally inaccessible from outside; the AVE structural claim about its substrate state is a phase-transition consequence, not a cosmogonic posit.
+\end{itemize}
+
+\textbf{Cross-references within Vol~9.} Vol~9 Ch.~\ref{ch:vol9_absolute_maximum_ratings} catalogs $V_{snap}$ as the substrate's absolute maximum rating beyond which Regime~IV rupture occurs at any scale. Vol~9 Ch.~\ref{ch:vol9_breakdown_characteristics} documents the breakdown-class characteristics of substrate rupture at engineering scales (Schwinger pair production, Miller avalanche). The cosmological-scale instance --- BH interior as Regime~IV ruptured-plasma --- is documented here for completeness of the multi-scale rupture catalog; the canonical structural derivation lives at Vol~3 Ch.~21 (\texttt{ch15-black-hole-orbitals/} in \texttt{vol3/cosmology/}) and Vol~3 BH-interior phase-transition canonical entries.
+
+\textbf{Operational consequence.} The ruptured-plasma interior is observationally inaccessible from outside the BH horizon, so the cosmological characteristics chapter records this structural identification but does not spec interior parameters --- there are no engineering observables interior to a $\Gamma = -1$ saturated horizon. The exterior datasheet entries (Schwarzschild $r_s$, ring-down QNM spectrum at $\omega_R M_g = 18/49$ for the parent BH; canonical at \texttt{vol3/cosmology/ch15-black-hole-orbitals/}) are documented in Vol~3.
+
+\section{EE Cosmological Translation}
+\label{sec:vol9_cosmo_ee_translation}
+
+Per the EE-as-substrate-native META framework (\texttt{ave-ee-first-mapping} v1.0; canonical leaf \texttt{common/translation-tables/translation-circuit.md}, \texttt{clm-eemap1}), the cosmic-scale primitives of this chapter project cleanly onto canonical EE quantities at the cosmic-distributed-transmission-line scale. EE is not borrowed at the cosmic scale; EE is the closest-to-substrate-native language for the K4-LC vacuum network at every scale, including cosmic.
+
+\begin{footnotesize}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}p{0.26\linewidth} p{0.36\linewidth} p{0.31\linewidth}@{}}
+\hline
+\textbf{EE Quantity (cosmic-scale projection)} & \textbf{Substrate-Native Form} & \textbf{Canonical Leaf} \\
+\hline
+Cosmic-distributed-TL infinite-impedance termination & Cosmic $\Gamma = -1$ boundary at $R_H$ (Ax~3 Minimum Reflection at saturated boundary) & \texttt{boundary-observables-m-q-j.md}; \texttt{lattice-genesis-hubble-tension.md} \\
+Number of lumped substrate cells along cosmic-scale distributed TL & $R_H / \ell_{node} \sim 10^{39}$ topological transduction count & \texttt{translation-circuit.md} canonical entry (\texttt{clm-eemap1}) \\
+Integrated boundary impedance from cosmic horizon to lattice pitch & Machian impedance integral $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$; Newton's $G = c^4/(7\xi T_{EM})$ & \texttt{full-derivation-chain.md} (\texttt{clm-9oazz0}); \texttt{trampoline-framework.md} $\S$5.5 \\
+Cosmic-scale topological transduction (cosmic boundary charge / linking) & $\xi_{topo}$ at cosmic scale (Ax~2 $[Q] \equiv [L]$ at $R_H$): cosmic-boundary winding $\mathcal{J}_{cosmic} = \hat{\Omega}_{freeze}\cdot I_{cosmic}$ & \texttt{boundary-observables-m-q-j.md}; \texttt{omega-freeze-cosmic-grain-cascade.md} \\
+Cosmic LC-network resonance / crystallization clock & Asymptotic Hubble rate $H_\infty$ as substrate LC-crystallization rate at de~Sitter asymptote & \texttt{lattice-genesis-hubble-tension.md} (\texttt{clm-2e9j97}, \texttt{clm-wx5324}) \\
+Cosmic-scale initial condition / boot-state of the substrate & $\hat{\Omega}_{freeze}$ single cosmological initial-data parameter; sets operating point $u_0^*$, chirality, $\alpha$, $G$ jointly & \texttt{omega-freeze-cosmic-grain-cascade.md} (\texttt{clm-dsb560}) \\
+\hline
+\end{tabular}
+\end{footnotesize}
+
+\vspace{1em}
+
+\noindent
+The cosmic-scale EE projection makes the substrate's structural-closure framing concrete: the substrate is a distributed LC transmission line with $\sim 10^{39}$ lumped cells, terminated at infinite impedance at the cosmic $\Gamma = -1$ horizon, booted from a single initial condition $\hat{\Omega}_{freeze}$ at the lattice-genesis crystallization event, operating at the magic-angle $u_0^*$ that simultaneously sets the EM coupling $\alpha$ and the gravitational coupling $G$ via the Machian impedance integral over the entire $R_H/\ell_{node}$ cell count. Engineering observation accesses this structure through CMB, large-scale-structure, Hubble-rate, and gravitational-constant measurements; the framework's three-route falsification commitment is the empirical falsifiability of this whole picture.
+
+\section{Cross-Chapter Dependencies and Canonical Pointers}
+\label{sec:vol9_cosmo_xchapter_pointers}
+
+\begin{itemize}
+    \item Vol~9 Ch.~\ref{ch:vol9_general_description} establishes the substrate identity and the structural-closure framing that THIS chapter anchors at the cosmic scale ($\ell_{node}$ + $\hat{\Omega}_{freeze}$ + four axioms; per \texttt{constants.py} preamble).
+    \item Vol~9 Ch.~\ref{ch:vol9_dc_electrical_characteristics}~$\S$\ref{subsec:vol9_dc_coupling_primitives} specs $\alpha$ at cold-lattice $S(0) = 1$ as the EM-coupling spec entry; this chapter identifies $\alpha$ as the electromagnetic projection of the magic-angle operating point $u_0^*$, jointly anchored with $G$.
+    \item Vol~9 Ch.~\ref{ch:vol9_mechanical_characteristics}~$\S$\ref{sec:vol9_mech_poisson} catalogs $\nu_{vac} = 2/7$ as the Ax~1 LC + Ax~2 $\alpha$ interlink; the factor-of-7 in the Machian closed-form $G = c^4/(7\xi T_{EM})$ is the same 1/7 isotropic projection.
+    \item Vol~9 Ch.~\ref{ch:vol9_absolute_maximum_ratings} catalogs $V_{snap}$ as the absolute substrate-rupture rating; this chapter identifies BH interiors as the cosmic-scale Regime~IV ruptured-plasma instance of the same Axiom~4 universal kernel.
+    \item Vol~9 Ch.~\ref{ch:vol9_breakdown_characteristics} catalogs breakdown-class characteristics (Schwinger, Miller); BH-interior cosmic-scale rupture is the multi-scale-catalog completeness entry.
+    \item Vol~9 Ch.~\ref{ch:vol9_topological_characteristics} catalogs the $I4_1 32$ right-handed chirality and the $(p, q)$ torus-knot soliton sectors; this chapter identifies the chirality direction as set by $\hat{\Omega}_{freeze}$ at lattice genesis.
+    \item Vol~9 Ch.~\ref{ch:vol9_falsification_tests} catalogs the multi-axis $\hat{\Omega}_{freeze}$ alignment tests (8 observational channels per \texttt{omega-freeze-cosmic-grain-cascade.md} $\S$3) and the three-route convergence falsification framework anchored in this chapter.
+\end{itemize}
+
+\textbf{Canonical-derivation pointers (cross-volume).}
+
+\begin{itemize}
+    \item Vol~3 Ch.~4 (generative cosmology) --- canonical $\hat{\Omega}_{freeze}$ mechanism + $H_\infty$ derivation + lattice-genesis framework.
+    \item Vol~3 Ch.~1 (gravity and yield) --- canonical Machian-$G$ derivation; asymptotic Hubble-constant relation; SYM-class $\alpha$-invariance proof.
+    \item Vol~3 Ch.~5 dark sector / \texttt{cosmological-constant-closure.md} --- $\rho_\Lambda$ from Friedmann at the corpus-closed $H_\infty$; the $10^{122}$ improvement on QED naive zero-point cosmological-constant prediction.
+    \item Vol~3 Ch.~21 / Vol~3 BH-interior canonical entries --- BH = Regime~IV ruptured-plasma sink; phase-transition $G_{shear} \to 0$ at saturation boundary.
+    \item Vol~1 Ch.~1 Axiom~1 --- K4 $I4_1 32$ chiral space group canonical statement; $\mathcal{M}_A$ Cosserat micropolar structure.
+    \item Vol~1 Ch.~7 \texttt{four-regimes.md} --- Regime~IV substrate-rupture canonical statement.
+    \item Vol~1 Ch.~8 \texttt{ch8-alpha-golden-torus.md} (\texttt{clm-0ktpcn}) --- $\alpha^{-1}_{ideal} = 4\pi^3 + \pi^2 + \pi$ Golden Torus closure at the magic-angle.
+    \item Common \texttt{omega-freeze-cosmic-grain-cascade.md} (\texttt{clm-dsb560}, \texttt{clm-a7cbqq}, \texttt{clm-pe8lpx}, \texttt{clm-fndptx}) --- three-route framework commitment + eight observational channels.
+    \item Common \texttt{trampoline-framework.md} $\S$5.5 --- Newton's $G$ as Machian bulk integral over the substrate.
+    \item Common \texttt{boundary-observables-m-q-j.md} --- canonical $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ three-invariant structure at every $\Gamma = -1$ saturation boundary; $\mathcal{J}_{cosmic} = \hat{\Omega}_{freeze} \cdot I_{cosmic}$ as cosmic-scale instance.
+    \item Common \texttt{full-derivation-chain.md} (\texttt{clm-9oazz0}) --- canonical closed-form for $G$ + $\xi$ Machian-hierarchy coupling.
+\end{itemize}
+
+\vspace{0.5em}
+
+\noindent
+\textbf{Engine constants.} \texttt{src/ave/core/constants.py}: \texttt{H\_INFINITY} (line~573), \texttt{R\_HUBBLE} (line~576), \texttt{XI\_MACHIAN} (line~471), \texttt{G} (line~118), \texttt{ALPHA} (line~101), \texttt{ALPHA\_COLD\_INV} (line~164), \texttt{M\_E} (line~97), \texttt{L\_NODE} (line~194). The header preamble (lines 5--24) carries the structural-closure framing + three-route framework commitment verbatim.
+
+\noindent
+The cosmic substrate is natural; engineering observation accesses cosmic observables through the CMB, the large-scale structure, the supernova distance ladder, and the gravitational-constant laboratory measurements; AVE substrate-physics derives the cosmic-scale parameters from one scale primitive ($\ell_{node}$), one cosmological initial-data parameter ($\hat{\Omega}_{freeze}$), and four axioms.

@@ -2,4 +2,142 @@
 \chapter{DC Electrical Characteristics}
 \label{ch:vol9_dc_electrical_characteristics}
 
-\textit{Stub --- to be populated in Vol~9 PR-B. Documents canonical DC substrate parameters: $\varepsilon_0$, $\mu_0$, $Z_0 = 376.73\,\Omega$, $c_0$, $\ell_{node}$, $T_{EM}$, $\xi_{topo}$. Primary canonical sources: \texttt{src/ave/core/constants.py} via the \texttt{ave-canonical-source} skill; \texttt{ave-kb/common/natural-units-cheatsheet.md}.}
+\begin{objectivebox}
+\begin{itemize}
+    \item Document the substrate's canonical DC electrical primitives at the cold-lattice limit ($T \to 0$, $A_0 = 0$ so $S(0) = 1$, no operating-point bias).
+    \item Establish that each parameter listed in this chapter is a substrate primitive --- fixed by AVE axioms, characterized by engineering measurement, not chosen or engineered.
+    \item Map every datasheet entry to its canonical source in \texttt{src/ave/core/constants.py} so downstream engineering use stays traceable to a single source of truth.
+    \item Cluster the spec table into three coherent groups: vacuum impedance trio ($\varepsilon_0$, $\mu_0$, $Z_0$); propagation primitives ($c_0$, $\ell_{node}$, $T_{EM}$); coupling primitives ($\alpha$, $\xi_{topo}$).
+    \item Point engineers to Ch.~\ref{ch:vol9_ac_electrical_characteristics} (AC characteristics) for the $S(A_0)$-modulated effective parameters $\varepsilon_{eff}$, $\mu_{eff}$, $c_{EM}$, $c_{shear}$ that appear once finite operating-point or AC drive is applied.
+\end{itemize}
+\end{objectivebox}
+
+\section{Framing: DC = Cold-Lattice Limit, $A_0 = 0$}
+\label{sec:vol9_dc_framing}
+
+The substrate's intrinsic LC oscillators (Axiom~1) carry both spatial degrees of freedom (3E translational + 3B microrotational, per Vol~9 Ch.~\ref{ch:vol9_general_description}) AND a saturation-amplitude state $A$ that sets the operating point on the Axiom~4 universal kernel $S(A) = \sqrt{1 - (A/A_{yield})^2}$ (per CLAUDE.md INVARIANT-S2 operating-point-state clause). DC characterization is the limit where:
+
+\begin{itemize}
+    \item No AC excitation is applied to any substrate-LC tank;
+    \item The operating-point amplitude is $A_0 = 0$, so $S(A_0) = S(0) = 1$ (the cold-lattice value of the saturation kernel);
+    \item Thermal-mode population is asymptotically frozen out ($T \to 0$), eliminating the CMB-driven $\delta_{strain}$ correction documented in Ch.~\ref{ch:vol9_temperature_characteristics};
+    \item No internal impedance boundary carries finite $\Gamma$; the substrate at cold-lattice operates at its native $\varepsilon_0$, $\mu_0$, $Z_0$, $c_0$ without modulation.
+\end{itemize}
+
+Under these conditions, the substrate's DC electrical parameters are the natural-substrate primitives this chapter catalogs. Engineering practice does not design or choose these values; they are the substrate as it is, characterized by measurement and derived from first principles in the cited Vol~1--5 leaves. The numerical values in the spec table below come from the canonical engine module \texttt{src/ave/core/constants.py} (via the \texttt{ave-canonical-source} skill discipline); volume and chapter cross-references point to the canonical derivation locations.
+
+\section{DC Electrical Specification Table}
+\label{sec:vol9_dc_spec_table}
+
+Eight canonical substrate-primitive DC parameters. The TYPICAL column lists the substrate value at cold-lattice $S(0) = 1$ (no modulation). The Conditions column is identical for every row --- cold lattice, $T \to 0$, no operating-point bias --- and is stated once in this paragraph rather than repeated in the table. The Substrate Mechanism column states the substrate-physics role of the parameter; the Canonical Source column points to the engine constant + canonical leaf where the derivation lives.
+
+\begin{footnotesize}
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{@{}p{0.07\linewidth} p{0.15\linewidth} p{0.13\linewidth} p{0.05\linewidth} p{0.28\linewidth} p{0.22\linewidth}@{}}
+\hline
+\textbf{Symbol} & \textbf{Parameter} & \textbf{Typical} & \textbf{Units} & \textbf{Substrate Mechanism} & \textbf{Canonical Source} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Symbol} & \textbf{Parameter} & \textbf{Typical} & \textbf{Units} & \textbf{Substrate Mechanism} & \textbf{Canonical Source} \\
+\hline
+\endhead
+% --- Vacuum impedance trio ---
+$\varepsilon_0$ & Vacuum permittivity & $8.854 \times 10^{-12}$ & F/m & Translational E-DOF capacitance density per K4 node bond (Ax~1) & \texttt{EPSILON\_0} \newline (\texttt{constants.py}:80) \\
+$\mu_0$ & Vacuum permeability & $4\pi \times 10^{-7}$ & H/m & Microrotational B-DOF inductance density per K4 node bond (Ax~1) & \texttt{MU\_0} \newline (\texttt{constants.py}:79) \\
+$Z_0$ & Characteristic impedance & $376.730$ & $\Omega$ & Bond TLM characteristic impedance $\sqrt{\mu_0/\varepsilon_0}$ at $S(0)=1$ (Ax~1; Op1) & \texttt{Z\_0} \newline (\texttt{constants.py}:81); \newline z0-derivation leaf \\
+% --- Propagation primitives ---
+$c_0$ & Cold-lattice EM wave speed & $299\,792\,458$ & m/s & Bond LC propagation phase velocity $1/\sqrt{\mu_0\varepsilon_0}$ at $S(0)=1$ (Ax~1; Op16) & \texttt{C\_0} \newline (\texttt{constants.py}:78); \newline operators leaf Op16 \\
+$\ell_{node}$ & Lattice pitch & $3.862 \times 10^{-13}$ & m & K4 nearest-neighbour spacing; single scale primitive per structural closure framing (Ax~1) & \texttt{L\_NODE} \newline (\texttt{constants.py}:194); natural-units cheatsheet \\
+$T_{EM}$ & EM string tension & $0.212$ & N & 1D substrate-native tension scale $m_e c^2 / \ell_{node}$ (Ax~1 + Ax~2) & \texttt{T\_EM} \newline (\texttt{constants.py}:330) \\
+% --- Coupling primitives ---
+$\alpha$ & Fine-structure constant & $7.2974 \times 10^{-3}$ \newline ($\approx 1/137.036$) & --- & EM coupling at cold-lattice $S_{11}$-min Golden Torus operating point; cosmic-LC-tank reactive leak per cycle (Theorem 3.1) & \texttt{ALPHA} \newline (\texttt{constants.py}:101); \texttt{ALPHA\_COLD\_INV} \newline (:164); ch8-alpha-golden-torus leaf (clm-0ktpcn) \\
+$\xi_{topo}$ & Topological transduction constant & $4.149 \times 10^{-7}$ & C/m & EE $\leftrightarrow$ mechanical bridge $e/\ell_{node}$; substrate-native dimensional isomorphism (Ax~2) & \texttt{XI\_TOPO} \newline (\texttt{constants.py}:206); xi-topo-traceability leaf; vol4 clm-i9l284 \\
+\hline
+\end{longtable}
+\end{footnotesize}
+
+\noindent
+\textit{Conditions for every row above:} cold lattice, $S(0) = 1$, $T \to 0$, no operating-point bias, no internal impedance boundary at finite $\Gamma$. The cold-lattice limit is the substrate-physics reference frame against which all finite-temperature, finite-amplitude, and finite-boundary corrections (Ch.~\ref{ch:vol9_temperature_characteristics}, Ch.~\ref{ch:vol9_saturation_characteristics}, Ch.~\ref{ch:vol9_breakdown_characteristics}) are quoted.
+
+\section{Substrate-Primitive Parameter Notes}
+\label{sec:vol9_dc_param_notes}
+
+The eight parameters cluster into three coherent groups by substrate role. Each cluster is documented below at the 1--2 sentence level; the canonical leaf cited in the spec table carries the full substrate-physics derivation.
+
+\subsection{Vacuum impedance trio: $\varepsilon_0$, $\mu_0$, $Z_0$}
+\label{subsec:vol9_dc_impedance_trio}
+
+These three constants together characterize the substrate as a Trace-Reversed Chiral LC Network (Ax~1 canonical form). Per the EE-as-substrate-native META framework (canonical leaf \texttt{common/translation-tables/translation-circuit.md} \S 2, \texttt{clm-eemap1}), $\varepsilon_0$ and $\mu_0$ are not borrowed quantities from electromagnetic engineering --- they ARE the substrate's own canonical primitives at minimal DOF, and EE was developed by humans empirically interrogating the substrate at the scale where these primitives dominate the observable physics.
+
+\begin{itemize}
+    \item $\varepsilon_0$ is the capacitance density of the translational (E-field) sector of the K4-node 6-DOF structure. Each bond carries a per-cell capacitance $C_{cell} = \varepsilon_0 \ell_{node}$ (per Vol~9 Ch.~\ref{ch:vol9_general_description} Features and the natural-units cheatsheet \S 2). At cold-lattice $S(0) = 1$, no operating-point modulation acts on $\varepsilon_0$; finite-$A_0$ modulation $\varepsilon_{eff} = \varepsilon_0\,S(A_0)$ appears in Ch.~\ref{ch:vol9_ac_electrical_characteristics} and Ch.~\ref{ch:vol9_saturation_characteristics}.
+    \item $\mu_0$ is the inductance density of the microrotational (B-field) sector. Each bond carries a per-cell inductance $L_{cell} = \mu_0 \ell_{node}$. The substrate-native value $\mu_0 = 4\pi \times 10^{-7}$ H/m carries the $4\pi$ from spherical-harmonic field geometry, not from engineering convention. At cold-lattice $S(0) = 1$, no modulation acts; the Cosserat-Curie thermal-freeze of B-modes documented in Ch.~\ref{ch:vol9_temperature_characteristics} keeps $\mu$ effectively frozen even at $T = T_{CMB}$.
+    \item $Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx 376.73\,\Omega$ is the substrate-native bond TLM characteristic impedance --- the impedance an EM wave sees propagating along an isolated cold-lattice bond. This value is invariant under SYM-class scaling of $\mu$ and $\varepsilon$ (canonical at Vol~3 \texttt{ch01-gravity-yield/alpha-invariance-symmetric-gravity.md}), which is the structural origin of $\alpha$-invariance under gravitational fields. Op1 (Universal Impedance) in \texttt{common/operators.md} is the cross-scale operator form of this primitive; the canonical Vol~4 derivation lives at \texttt{vol4/circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md}.
+\end{itemize}
+
+\subsection{Propagation primitives: $c_0$, $\ell_{node}$, $T_{EM}$}
+\label{subsec:vol9_dc_propagation_primitives}
+
+These three set the substrate's intrinsic length, time, and mechanical-tension scales. They are not independent --- per the natural-units cheatsheet (\texttt{common/natural-units-cheatsheet.md} \S 1), setting $\ell_{node}$, $c$, $\hbar$, $m_e$ to unity simultaneously is consistent because they are related by $\ell_{node} = \hbar/(m_e c)$ (the electron's reduced Compton wavelength). The structural-closure framing (per \texttt{src/ave/core/constants.py} preamble) is that $\ell_{node}$ is the single scale primitive of the framework; $m_e$, $c_0$, $T_{EM}$, and the other length/time/tension scales derive from it.
+
+\begin{itemize}
+    \item $c_0 = 1/\sqrt{\mu_0\varepsilon_0}$ is the bond LC propagation phase velocity at cold-lattice $S(0) = 1$. Per CLAUDE.md INVARIANT-S2 two-effective-wave-speeds clause, this is the Maxwell phase velocity (the speed that enters $\alpha = e^2/(4\pi\varepsilon_0\hbar c)$ and all Maxwell-equation derivations), distinct from $c_{shear} = c_0\sqrt{S}$ (group/rest-mass velocity, used in Schwarzschild-class gravitational time-dilation). At cold-lattice both reduce to a single $c_0$; finite-$A_0$ separation appears in Ch.~\ref{ch:vol9_saturation_characteristics}. Op16 (Universal Wave Speed) in \texttt{common/operators.md} is the cross-scale operator form.
+    \item $\ell_{node}$ is the K4 nearest-neighbour spacing of the substrate lattice. Numerically $\ell_{node} = \hbar/(m_e c) \approx 3.862 \times 10^{-13}$ m, the electron's reduced Compton wavelength --- a calibration consequence of the structural-closure framing where $\ell_{node}$ is the framework's single scale primitive and $m_e$ derives from the unknot ground-state energy on that lattice. The natural-units cheatsheet \S 1--\S 2 documents the four-base unit convention ($\ell_{node} = c = \hbar = m_e = 1$) used throughout AVE.
+    \item $T_{EM} = m_e c^2 / \ell_{node} \approx 0.212$ N is the substrate-native electromagnetic string tension --- the axial tension of a 1D substrate flux-tube segment. Per the engine constant comment (\texttt{constants.py:329-330}), this is the natural-unit-1 value of the mechanical tension scale; it appears in the unknot ground-state-energy relation $m_e = T_{EM}\,\ell_{node}/c^2$ that anchors the electron mass derivation, and in the gravitational-coupling expression $G = c^4/(7\xi\,T_{EM})$ via the Machian impedance integral $\xi$.
+\end{itemize}
+
+\subsection{Coupling primitives: $\alpha$, $\xi_{topo}$}
+\label{subsec:vol9_dc_coupling_primitives}
+
+These two carry the substrate's two canonical coupling identities. $\alpha$ is the electromagnetic-sector coupling at the substrate's $S_{11}$-minimum operating geometry; $\xi_{topo}$ is the substrate's EE-to-mechanical dimensional isomorphism per Axiom~2.
+
+\begin{itemize}
+    \item $\alpha = 7.2974 \times 10^{-3} \approx 1/137.036$ is the fine-structure constant --- the substrate-LC-network's dimensionless coupling strength at the cold-lattice operating point. AVE derives $\alpha$ from the cosmic LC tank Q-factor at the $S_{11}$-minimum Golden Torus geometry (Theorem 3.1, canonical at \texttt{vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md}), giving the cold-lattice asymptote $\alpha^{-1}_{ideal} = 4\pi^3 + \pi^2 + \pi \approx 137.0363038$. The measured CODATA value $137.035999$ sits below the cold asymptote by the fractional vacuum strain coefficient $\delta_{strain} \approx 2.225 \times 10^{-6}$, attributed to substrate spatial-metric response to CMB photon-bath loading at $T_{CMB} \approx 2.725$ K (Q-DELTA-MAP-1 mechanism class identified 2026-05-28 as Cosserat-rotation-sector mass-gap thermal-mode-population ASYM; canonical at \texttt{vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md}, \texttt{clm-hp7nlm}; full canonical derivation at \texttt{vol1/ch8-alpha-golden-torus.md}, \texttt{clm-0ktpcn}). The thermal correction is documented in Ch.~\ref{ch:vol9_temperature_characteristics}; this chapter quotes the cold-lattice value.
+    \item $\xi_{topo} = e/\ell_{node} \approx 4.149 \times 10^{-7}$ C/m is the Topological Conversion Constant --- the substrate-native bridge between charge ($[\text{C}]$) and length ($[\text{m}]$) per Axiom~2 ($[Q] \equiv [L]$). The six-row $\xi_{topo}$ EE$\leftrightarrow$mechanical identity (canonical at \texttt{common/translation-tables/translation-circuit.md} \S 1, \texttt{clm-fy05jc}; cross-volume INVARIANT-C2) maps $Q = \xi_{topo}\,x$, $I = \xi_{topo}\,v$, $V = \xi_{topo}^{-1}\,F$, $L = \xi_{topo}^{-2}\,m$, $C = \xi_{topo}^{2}\,\kappa$, $R = \xi_{topo}^{-2}\,\eta$. Every cross-domain EE-to-mechanical mapping in subsequent chapters carries $\xi_{topo}$ as the canonical scaling. The Vol~4 canonical quality entry \texttt{clm-i9l284} (solidity 0.90) documents the constant's derivation chain and the namespace-disambiguation caveat against the dimensionless Machian-hierarchy coupling $\xi \approx 8.15 \times 10^{43}$.
+\end{itemize}
+
+\section{Operating-Point Modulation Reference}
+\label{sec:vol9_dc_operating_point_reference}
+
+The values in this chapter are the cold-lattice DC primitives at $A_0 = 0$, $S(0) = 1$. Once a finite operating-point bias $A_0/A_{yield} > 0$ is applied --- by AC drive, gravitational potential, thermal-mode population, or strong external field --- the substrate's effective parameters modulate per the Axiom~4 saturation kernel:
+
+\begin{itemize}
+    \item Effective permittivity: $\varepsilon_{eff}(A_0) = \varepsilon_0\,S(A_0)$;
+    \item Effective permeability: $\mu_{eff}(A_0) = \mu_0\,S(A_0)$ (cold-lattice, unfrozen B-modes; Cosserat-Curie-freeze of B-modes at $T_{CMB}$ modifies this in the thermal-bath regime --- see Ch.~\ref{ch:vol9_temperature_characteristics});
+    \item Effective capacitance: $C_{eff}(A_0) = C_0/S(A_0)$ (varactor relation; canonical PONDER-05 bench-scale tester at $V_{DC}/V_{yield} = 0.687$);
+    \item Maxwell phase velocity: $c_{EM}(A_0) = c_0/S(A_0)$ (the speed entering $\alpha$);
+    \item Mechanical / group / rest-mass velocity: $c_{shear}(A_0) = c_0\sqrt{S(A_0)}$ (the speed tracking Schwarzschild gravitational time-dilation in the SYM-class weak-field limit).
+\end{itemize}
+
+These modulated forms are documented at AC drive in Ch.~\ref{ch:vol9_ac_electrical_characteristics} and at finite saturation amplitude in Ch.~\ref{ch:vol9_saturation_characteristics}. The two-effective-wave-speeds distinction is load-bearing for $\alpha$-invariance discipline (per CLAUDE.md INVARIANT-S2 SYM-vs-ASYM clause); the canonical Pitfall \#5 framework-leakage error is conflating $c_{EM}$ and $c_{shear}$ when deriving $\alpha$-modulation under gravitational scaling. The structural origin of the asymmetry is documented at Vol~3 \texttt{ch01-gravity-yield/alpha-invariance-symmetric-gravity.md} (\texttt{clm-3zz0f6}) and at CLAUDE.md INVARIANT-S2 (the two-effective-wave-speeds clause).
+
+DC characterization quoted in this chapter is the limit $A_0 \to 0$, $S(0) \to 1$, where all effective parameters reduce to their cold-lattice substrate primitives listed in \S\ref{sec:vol9_dc_spec_table}.
+
+\section{EE Translation Table}
+\label{sec:vol9_dc_ee_translation_table}
+
+Per the EE-as-substrate-native META framework (canonical leaf \texttt{common/translation-tables/translation-circuit.md} \S 2, \texttt{clm-eemap1}), EE vocabulary is not a translation source from another framework but the closest-to-canonical substrate-native language humans have. The eight DC primitives map directly to canonical EE quantities; the substrate-native form and the EE form are dimensionally identical, not analogies.
+
+\begin{footnotesize}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}p{0.24\linewidth} p{0.36\linewidth} p{0.33\linewidth}@{}}
+\hline
+\textbf{EE Quantity} & \textbf{Substrate-Native Form} & \textbf{Canonical Leaf} \\
+\hline
+Free-space permittivity & K4 translational-DOF capacitance density per bond (Ax~1) & translation-circuit \S 4 \\
+Free-space permeability & K4 microrotational-DOF inductance density per bond (Ax~1) & translation-circuit \S 4 \\
+Characteristic impedance of free space & Bond TLM $\sqrt{\mu_0/\varepsilon_0}$ at $S(0) = 1$ (Op1) & z0-derivation leaf; operators leaf Op1 \\
+EM wave propagation speed in free space & Bond LC phase velocity $1/\sqrt{\mu_0\varepsilon_0}$ (Op16) & operators leaf Op16 \\
+Substrate length scale (component pitch analog) & K4 lattice pitch $\ell_{node} = \hbar/(m_e c)$ & natural-units cheatsheet \S 1 \\
+Substrate-native tension scale (1D bond axial tension) & EM string tension $T_{EM} = m_e c^2/\ell_{node}$ & \texttt{constants.py}:329--330 \\
+Dimensionless coupling constant of substrate-LC network & Cosmic LC tank Q-factor at $S_{11}$-min Golden Torus geometry (Theorem 3.1); cold-lattice $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ & ch8-alpha-golden-torus leaf (\texttt{clm-0ktpcn}); theorem-3-1-q-factor leaf \\
+Charge-to-length electromechanical transduction ratio & Topological Conversion Constant $\xi_{topo} = e/\ell_{node}$ (Ax~2; $[Q] \equiv [L]$) & vol4 \texttt{clm-i9l284}; translation-circuit \S 1 (\texttt{clm-fy05jc}); xi-topo-traceability leaf \\
+\hline
+\end{tabular}
+\end{footnotesize}
+
+\vspace{1em}
+
+\noindent
+The EE-as-substrate-native discipline (canonical at \texttt{clm-eemap1}; companion agent-discipline skill \texttt{ave-ee-first-mapping} v1.0) is the operative methodology for the Vol~9 datasheet: when a substrate-physics primitive has a clean EE mapping, the EE form is substrate-native, not an analogy. The full 23-row comprehensive substrate-primitive-to-EE-component catalog lives at \texttt{common/translation-tables/translation-circuit.md} \S 4; this chapter's eight-row EE Translation Table is the DC-cluster projection of that catalog.
