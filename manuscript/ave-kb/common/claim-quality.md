@@ -60,8 +60,8 @@ The full derivation chain document is a single long appendix presenting Layers 0
 ### Quality
 - confidence: 0.65
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.65) [α appears at multiple layers; α-bottleneck cascades through chain]
-- solidity: 0.65 (ok to build on, see caveats) [= min(0.65, 0.65)]
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.63) [α appears at multiple layers; α-bottleneck cascades through chain]
+- solidity: 0.63 (use as input only, don't build deeper) [= min(0.65, 0.63)]
 - rationale: The chain documentation is honest and well-structured — forward DAG verified acyclic; Layer 2 $p_c = 8\pi\alpha$ correctly disclosed as algebraic-not-derivation; Layer 5 lepton spectrum carries an explicit Methodology disclosure (Cosserat sectors → generations identification, $\alpha\sqrt{3/7}$ muon coupling, $8\pi/\alpha$ tau coupling, PMNS $\{c_1, c_2, c_3\} = \{5,7,9\}$ pattern-identified). The substantive open elements (Layer 5 sector identifications matched-not-derived; PMNS pattern-identified) hold local confidence at 0.65. Solidity is heavily α-bounded because α appears in many later-layer formulas. Note: $\delta_{CP}^B \neq \delta_{CP}^{PMNS}$ — the leaf correctly disambiguates the symbol-stem collision.
 - strengthen-by:
   - Strengthen Golden Torus α Derivation (`clm-0ktpcn`); α propagates through Layer 4+ formulas
@@ -145,8 +145,8 @@ The Regime-Boundary Eigenvalue Method is presented as a five-step universal proc
 ### Quality
 - confidence: 0.65
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.65) [α appears in BH $r_{eff} = r_{sat}/(1+\nu_{vac})$, pion via $m_p$, etc.]
-- solidity: 0.65 (ok to build on, see caveats) [= min(0.65, 0.65)]
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.63) [α appears in BH $r_{eff} = r_{sat}/(1+\nu_{vac})$, pion via $m_p$, etc.]
+- solidity: 0.63 (use as input only, don't build deeper) [= min(0.65, 0.63)]
 - rationale: The five-step procedure (identify $\varepsilon_{11}$ → locate $r_{sat}$ → apply $\nu_{vac}$ Poisson → eigenfrequency $\omega = \ell c/r_{eff}$ → $Q = \ell$) is structurally consistent across BH QNM (1.7% error), pion mass (0.9% conditional on $m_p$), protein backbone (0.1% conditional on measured $v_{backbone}$ — the sub-derivation gives $-5.2\%$). The boundary correctly self-bounds: cross-domain table is operator-reuse evidence, not independent per-domain validation. The Schwarzschild Poisson-correction form $r_{eff} = r_{sat}/(1+\nu_{vac})$ is asserted as one of several valid 3D projections; this is the substantive open element. Local confidence held at 0.65. Solidity α-bounded.
 - strengthen-by:
   - Derive the Schwarzschild Poisson-projection form $r_{eff} = r_{sat}/(1+\nu_{vac})$ from a unique axiomatic constraint (currently asserted as "transverse Poisson coupling for 3D"; alternatives $r_{sat}\sqrt{1+\nu}$, $r_{sat}(1+\nu)$ not ruled out)
@@ -231,8 +231,8 @@ The Derived Hardware Numerology appendix (Appendix C) tabulates ~16 hardware con
 ### Quality
 - confidence: 0.70
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.65) [α-dependent constants throughout: $V_{yield}$, $p_c$, etc.]
-- solidity: 0.65 (ok to build on, see caveats) [= min(0.70, 0.65)]
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.63) [α-dependent constants throughout: $V_{yield}$, $p_c$, etc.]
+- solidity: 0.63 (use as input only, don't build deeper) [= min(0.70, 0.63)]
 - rationale: Each tabulated constant carries an explicit axiom-trace column. The $z_0 \approx 51.25$ effective-coordination-number derivation is sound (Feng-Thorpe-Garboczi EMT quadratic at $K=2G$). The FDTD numerical-damping factor is **explicitly excluded** as a numerical-stability artifact — this is the model for honest numerology. The $n_{3D} = 38/21 \approx 1.8095$ avalanche exponent is within $\sim 0.5\%$ of the empirical solar-flare value (single empirical figure, not a precision dataset match — correctly disclosed). The $C_K = 4/3$ Kolmogorov constant matches the classical empirical value structurally. Solidity α-bounded because many constants depend on α numerically.
 - strengthen-by:
   - Strengthen Golden Torus α Derivation (`clm-0ktpcn`); $V_{yield}$, $p_c$, and several other constants inherit α numerically
@@ -399,7 +399,7 @@ The substrate's $K = 2G$ operating point, $p^* = 8\pi\alpha \approx 0.18340$, is
 - depends-on:
   - clm-0ktpcn — Golden Torus α Derivation [both convergence routes bottleneck on α]
   - clm-zgllr2 — Two-Engine Architecture [supplies the two engines whose convergence is the claim]
-- solidity: 0.60 (use as input only, don't build deeper) [= min(0.60, 0.65)]
+- solidity: 0.60 (use as input only, don't build deeper) [= min(0.60, 0.63)]
 - rationale: Correctly self-classified as a multi-model consistency check, not a determination of α — p*=8πα is α's definition (p_c≡8πα) rearranged, the FDTD route grounds in the Golden Torus α, and the K4-TLM route obtains z₀≈51.25 by inverting the EMT quadratic GIVEN p*=8πα; as a consistency check the two routes landing on the identical value via static-elastic vs dynamic-soliton mechanisms is a clean demonstration, but it carries no independent predictive content for α and the z₀ inversion is circular if read as a determination.
 - strengthen-by:
   - Derive z₀≈51.25 from first-principles K4 amorphous-network geometry (flagged still-open) so the K4-TLM route stops depending on inverting the EMT quadratic given α
@@ -631,7 +631,7 @@ The Vol 1 Ch 8 fine-structure-constant formula $\alpha^{-1} = 4\pi^3 + \pi^2 + \
 - confidence: 0.45
 - depends-on:
   - clm-0ktpcn — Golden Torus α Derivation [owns the geometric closure of α⁻¹=4π³+π²+π that this entry reads dimensionally]
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.45, 0.65)]
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.45, 0.63)]
 - rationale: Explicitly a boundary-integral dimensional READING of α⁻¹=4π³+π²+π, not a re-derivation — the entry says so. The reading is suggestive (3D→M, 2D→J, 1D→Q, one π per integration dimension), but its central support — orthogonality of the Λ-decomposition — is conceded open, and the R·r=1/4 normalization that makes Λ_vol=4π³ is inherited from clm-0ktpcn, so the local content is a plausible mapping with a flagged unproven structural assumption.
 - strengthen-by:
   - Establish functional orthogonality of Λ_vol/Λ_surf/Λ_line (currently the open structural element)
