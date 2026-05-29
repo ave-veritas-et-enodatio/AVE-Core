@@ -8,7 +8,7 @@ subtree-experiments: []
 
 # Ch.1: The Four Fundamental Axioms and Network Architecture
 
-The four fundamental axioms define the vacuum as an electromagnetic LC resonant network ($\mathcal{M}_A$) with a topo-kinematic charge-length isomorphism, an effective hardware action principle, and non-linear dielectric saturation bounded by the fine-structure constant. Three emergent hardware constraints ($\ell_{node}$, $\alpha$, $G$) are shown to be derivable from topology, reducing the framework to zero free parameters.
+The four fundamental axioms define the vacuum as an electromagnetic LC resonant network ($\mathcal{M}_A$) with a topo-kinematic charge-length isomorphism, an effective hardware action principle, and non-linear dielectric saturation bounded by the fine-structure constant. Three emergent hardware constraints ($\ell_{node}$, $\alpha$, $G$) are shown to be derivable from topology, reducing the framework to zero free parameters (zero-parameter contingent on the open embedding-selection item — not the half-cover chain; see [`../../ch8-alpha-golden-torus.md`](../../ch8-alpha-golden-torus.md) §"Remaining open formal-rigor sub-item (THE gating item)").
 
 ## Key Results
 
