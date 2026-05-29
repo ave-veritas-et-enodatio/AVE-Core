@@ -39,10 +39,10 @@ ch8-alpha-golden-torus.md` steps 1-4); the unproven piece is
 embedding-selection, not the half-cover postulate in isolation. Until that
 embedding-selection step is closed from the classical axioms alone, ALPHA
 is operationally the one calibration input and alpha^-1 = 4*pi^3 + pi^2 + pi
-is a Class-4 consistency check. See `src/ave/core/constants.py:94/:101/:105`
-for the reconciled "ONE SCALE + GATED CONSTANTS" framing and
-`manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md` §"Remaining open
-formal-rigor sub-item" for the canonical gating anchor.
+is a Class-4 consistency check. See `src/ave/core/constants.py` §ONE SCALE
++ GATED CONSTANTS header / ALPHA declaration / NOTE ON alpha block for the
+reconciled framing, and `manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md`
+§"Remaining open formal-rigor sub-item" for the canonical gating anchor.
 
 Before adding any numeric literal or constant import, ask:
 - Is this derivable from {M_E, ALPHA, G} and SI electromagnetic definitions?
