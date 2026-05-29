@@ -8,6 +8,8 @@ claims: [clm-3zz0f6, clm-5xon03, clm-0ktpcn, clm-unk0bd]
 # Ch.8: Zero-Parameter Closure — $\alpha$ from the Golden Torus
 <!-- claim-quality: clm-0ktpcn -->
 
+> **⚠️ Gating note (2026-05-28).** AVE's zero-parameter closure is **contingent on one open formal step**: that ropelength-minimality uniquely selects the canonical Clifford-torus embedding fixing $R \cdot r = 1/4$ (the spin-½ half-cover). This step is *conjectured* substrate-derived via the K4 → 2T ⊂ SU(2) → SO(3) chain but is **not yet proven from the classical axioms alone** — it is the [§"Remaining open formal-rigor sub-item"](#derivation-summary-three-regime-rigor) below, **THE gating item** for the whole closure. Until it is closed, $\alpha$ functions as the framework's one calibration input and the $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ match is a Class-4 geometric *consistency check*, not a completed first-principles derivation. The "Zero-Parameter Closure" title and §"Mathematical Closure" framing below should be read as contingent on this item throughout.
+
 **Source:** `manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex`
 
 **Scripts:**
@@ -45,7 +47,7 @@ Following the PMNS angle derivation pattern ([Vol 2 Ch 3 §Step 2](../vol2/parti
 3. Spin-1/2 emerges from the **Finkelstein–Misner / Dirac-belt-trick mechanism** on the extended $0_1$ unknot defect embedded in the SO(3) manifold (see [spin-half-paradox](../vol2/appendices/app-b-paradoxes/spin-half-paradox.md))
 4. The $\pi^2$ half-cover area is the **automatic** group-theoretic consequence of the 2-to-1 cover, not a separate quantum postulate
 
-**Remaining open formal-rigor sub-item:** prove that ropelength-minimality on K4 uniquely selects the canonical Clifford-torus embedding $r_1 = r_2 = 1/\sqrt{2}$ (Phase-1 classical-topology question). This is the **single open piece** for the α derivation's formal-rigor closure; the half-cover itself is AVE-native and resolved.
+**Remaining open formal-rigor sub-item (THE gating item for zero-parameter closure):** prove that ropelength-minimality on K4 uniquely selects the canonical Clifford-torus embedding $r_1 = r_2 = 1/\sqrt{2}$ (Phase-1 classical-topology question). This is the **single open piece** for the α derivation's formal-rigor closure; the half-cover itself is AVE-native and resolved. **Until this item is proven from the classical axioms alone, the framework's "zero-parameter" / "structural closure" framing (this chapter's title, §"Mathematical Closure", `constants.py`, the Full Derivation Chain Layer 8, and the backmatter) is contingent on it** — $\alpha$ operationally remains the one calibration input and the $4\pi^3 + \pi^2 + \pi$ match is a Class-4 geometric consistency check. This is the canonical anchor every gated "zero-parameter" claim in the corpus points back to.
 
 **Solving (b) ∧ (c):** substitute $r = R - 1/2$ into $R \cdot r = 1/4$:
 $$
@@ -136,7 +138,7 @@ This is distinct from the proton thermal softening $\delta_{th} = 1/(14\pi^2) \a
 Axiom 1 calibrates $\ell_{\text{node}}$ to the ground-state rest-mass of the smallest topologically stable soliton (the electron as the $0_1$ unknot with $(2,3)$ phase-space Clifford-torus winding). Because the electron is the absolute structural failure mode of the lattice, its geometric packing Q-factor (137.036) *physically becomes* the macroscopic non-linear saturation limit for the rest of the universe. This is why $\alpha$ serves identically as the dielectric saturation bound in Axiom 4.
 
 **Closure status (honest).** The framework reduces 26 Standard Model parameters to a 3-element bounding set $\{m_e, \alpha, G\}$ + four axioms. The "zero free parameters" claim depends on Layer 8 closure of those three, which itself rests on:
-- (a) the Golden Torus $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi$ derivation above at the cold-lattice asymptote (the three regimes are independently grounded; the sum decomposition relies on identifying $\Lambda_{\text{vol}}$, $\Lambda_{\text{surf}}$, $\Lambda_{\text{line}}$ as the three orthogonal contributions);
+- (a) the Golden Torus $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi$ derivation above at the cold-lattice asymptote (the three regimes are independently grounded *except* for regime (c)'s load-bearing **open embedding-selection step** — that ropelength-minimality uniquely selects the canonical Clifford-torus embedding fixing $R \cdot r = 1/4$, the gating item flagged above; the sum decomposition relies on identifying $\Lambda_{\text{vol}}$, $\Lambda_{\text{surf}}$, $\Lambda_{\text{line}}$ as the three orthogonal contributions);
 - (b) the thermal running $\alpha^{-1}(T) = \alpha^{-1}_{\text{ideal}}(1 - \delta_{strain}(T))$: the existence and sign are predicted (positive $\delta_{strain}$ at $T > 0$); the magnitude at $T_{\text{CMB}}$ is currently one fitted scalar (back-subtracted from CODATA — see status disclosure above);
 - (c) one of $\{m_e, \ell_{node}\}$ being computable from the other via the unknot ground state (the electron's ground-state body is the $0_1$ unknot — see §Topological identity of the electron above). The other of $\{m_e, \ell_{node}\}$ remains the input mass scale.
 

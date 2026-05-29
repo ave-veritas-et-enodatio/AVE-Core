@@ -15,9 +15,11 @@ traced, step-by-step, from three empirically anchored bounding limits and four
 structural axioms. No phenomenological curve-fitting, mass-tuning, or
 unconstrained free parameters are introduced at any stage.
 
+> **⚠️ Gating note (2026-05-28).** The "From Three Limits to Zero Parameters" closure (Layer 8 below) is **contingent on one open formal step**: that ropelength-minimality uniquely selects the canonical Clifford-torus embedding fixing $R \cdot r = 1/4$ (the spin-½ half-cover). This step is *conjectured* substrate-derived via the K4 → 2T ⊂ SU(2) → SO(3) chain but is **not yet proven from the classical axioms alone**. Until it is closed, $\alpha$ functions as the framework's one calibration input and the $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ match is a Class-4 geometric *consistency check*, not a completed first-principles derivation. (Separately, $G$'s closure is quantitatively open pending Chain B' — see Layer 8.) See [`Vol 1 Ch 8`](../vol1/ch8-alpha-golden-torus.md) §"Remaining open formal-rigor sub-item" — the canonical anchor for this gating item. Read the "zero parameters" framing throughout this chain as gated on it.
+
 A peer reviewer may verify the logical closure of the framework by confirming:
 1. Each "Layer" derives *only* from quantities established in preceding layers.
-2. The three canonical hardware scales are themselves derived (Layer 8 + Vol 1 Ch 8 Golden Torus $\alpha$ derivation), closing the loop to zero parameters.
+2. The three canonical hardware scales are themselves derived (Layer 8 + Vol 1 Ch 8 Golden Torus $\alpha$ derivation), closing the loop to zero parameters — **contingent on the open Clifford-torus embedding-selection item (see gating note above).**
 3. All numerical values are reproduced exactly by `src/ave/core/constants.py` (including `ALPHA_COLD_INV = 4π³ + π² + π` and `DELTA_STRAIN`).
 
 ## Postulates: Three Bounding Limits and Four Axioms
@@ -627,12 +629,12 @@ $$
 ## Layer 7 → Layer 8: Zero-Parameter Closure
 <!-- claim-quality: clm-sxn6eo -->
 
-Finally, the three initial bounding limits are themselves shown to be
-geometrically emergent---not independent empirical inputs---formally reducing
-the framework to **zero free parameters**.
+Finally, the three initial bounding limits are *conjectured* to be
+geometrically emergent---not independent empirical inputs---which would reduce
+the framework to **zero free parameters**. This reduction is **contingent on the open Clifford-torus embedding-selection item** (see the gating note at the top of this chain): until that step is proven from the classical axioms alone, $\alpha$ remains operationally the one calibration input.
 
-**$\alpha$ is derived (not input).**
-The full derivation is in Vol 1 Ch 8 (Zero-Parameter Closure: $\alpha$ from the Golden Torus). Three distinct physical regimes produce three independent equations that solve uniquely to the Golden Torus geometry:
+**$\alpha$ is *conjectured*-derived (gated on the open embedding-selection item).**
+The full derivation is in Vol 1 Ch 8 (Zero-Parameter Closure: $\alpha$ from the Golden Torus). Three distinct physical regimes produce three independent equations that solve uniquely to the Golden Torus geometry (regime 3, the screening/half-cover, carries the open embedding-selection step):
 
 1. **Nyquist regime** (Axiom 1 + smallest stable soliton): tube diameter $d = 1\,\ell_{node}$.
 2. **Crossings regime** (self-avoidance at trefoil crossings): $2(R-r) = d \Rightarrow R - r = 1/2$.
@@ -682,7 +684,8 @@ integer **1**.
 
 > **[Resultbox]** *Result*
 > The AVE framework is a closed, structurally zero-parameter Topological
-> Effective Field Theory (conditional on Layer 8 thermal closure of $\delta_{strain}$
+> Effective Field Theory (contingent on the open Clifford-torus embedding-selection
+> item — see gating note at top — and on Layer 8 thermal closure of $\delta_{strain}$
 > at $T_{CMB}$). Physical parameters flow exclusively outward from
 > geometric bounding limits to macroscopic observables, without looping any
 > output back into an unconstrained input.

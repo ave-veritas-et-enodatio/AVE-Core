@@ -7,7 +7,9 @@ claims: [clm-9s9apq]
 
 ## Section 1.4: The Pathway to a Zero-Parameter Universe
 
-The AVE framework shows that variables such as $G$, $\alpha$, and $\ell_{node}$ are not fundamental empirical inputs. They are emergent mathematical properties of the scale-invariant graph topology.
+> **⚠️ Gating note (2026-05-28).** AVE's zero-parameter closure is **contingent on one open formal step**: that ropelength-minimality uniquely selects the canonical Clifford-torus embedding fixing $R \cdot r = 1/4$ (the spin-½ half-cover). This step is *conjectured* substrate-derived via the K4 → 2T ⊂ SU(2) → SO(3) chain but is **not yet proven from the classical axioms alone**. Until it is closed, $\alpha$ functions as the framework's one calibration input and the $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ match is a Class-4 geometric *consistency check*, not a completed first-principles derivation. See [`ch8-alpha-golden-torus.md`](../../ch8-alpha-golden-torus.md) §"Remaining open formal-rigor sub-item" — the canonical anchor for this gating item. This section's "Pathway to a Zero-Parameter Universe" framing is an aspiration contingent on that step (and, for $G$, on the separately-open Chain B' closure noted in Pathway 2 below).
+
+The AVE framework's *aspiration* is that variables such as $G$, $\alpha$, and $\ell_{node}$ are not fundamental empirical inputs but emergent mathematical properties of the scale-invariant graph topology. As of the current edition this holds for $\ell_{node}$ (scale invariance, Pathway 3) but is **gated** for $\alpha$ (the open embedding-selection step above) and **quantitatively open** for $G$ (Chain B', Pathway 2). Until those close, $\alpha$ is operationally the one calibration input.
 
 **1. Deriving $\alpha$ via the Golden Torus S₁₁-Minimum (Ch.8):**
 
