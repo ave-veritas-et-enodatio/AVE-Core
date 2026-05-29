@@ -62,7 +62,8 @@ Eight-day delta between the live 2026-05-20 baseline in this doc and the current
 - **Q-DELTA-MAP-1-quant** (NEW): quantitative substrate-statistical-mechanics derivation of η_ε ≈ 4.45×10⁻⁶ from substrate E-mode dispersion + thermal occupation + dielectric coupling. Class 2 closure path; would lift clm-hp7nlm + clm-009nkt above 0.60.
 - **Q-OP21-BARDEEN-1** (earlier session, carried forward): explicit reduction Q = ℓ → 1/ln(Z₁/Z₀) via substrate-impedance integration at Cooper-pair Γ-boundary.
 - **Q-LCR-1 + Q-LCR-2** (NEW from clm-zuf7g1 Phase 3a walk-back): substrate-mechanism questions for Grant adjudication.
-- **Per-overrun `\texttt{path}` cleanup** + margin gate tightening (350pt → 15-30pt) — publication polish queued.
+- **Per-overrun `\texttt{path}` cleanup** + margin gate tightening (350pt → 15-30pt) — **DONE 2026-05-28** via merge `a9ab377f` (gate now 45pt; see `2026-05-28_vol9-corpus-latex-formatting.md`).
+- **Parameter-count framing walk-back (Option 2 — zero-parameter, gated)** — Phase 1 **MERGED** (`f6b22757`); Phase 2 **BLOCKED** (API limit). Wrap-up handoff: [`2026-05-28_parameter-count-framing-walkback.md`](2026-05-28_parameter-count-framing-walkback.md) §Wrap-up handoff.
 - **Means-test corpus extensions** to muon/tau, neutrino, QCD, cosmological inflation, substrate-microbiology (clm-eemap1 framework extension).
 
 ### Audit tag delta

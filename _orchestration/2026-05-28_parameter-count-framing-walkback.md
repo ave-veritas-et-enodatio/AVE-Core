@@ -115,5 +115,93 @@ The walk-back propagates ONE clause, in two registers. This is the load-bearing 
 
 ## Status
 - [x] **GATING: Grant picked Option 2 — "Zero-parameter, gated"** (2026-05-28)
-- [x] **Phase 1 MERGED** (2026-05-28) — `--no-ff` merge `f6b22757` on `analysis/integration`; audit tag `audit/2026-05-28_parameter-count-gating-phase1` → `9b4ae922`. ch8 conflict resolved: Phase 3-A4 table + Op21-closed preserved; embedding-selection gating integrated.
-- [~] **Phase 2 IN FLIGHT** (2026-05-28) — corpus-wide 3h-exhaustive STALE-PROSE sweep + ave-sweep-audit pre-merge; branch `analysis/parameter-count-gating-phase2` off `analysis/integration` @ `2ff7548b`
+- [x] **Phase 1 MERGED** (2026-05-28) — `--no-ff` merge `f6b22757`; audit tag `audit/2026-05-28_parameter-count-gating-phase1` → `9b4ae922`
+- [ ] **Phase 2 BLOCKED** (2026-05-28) — implementor agent `92cfc672` hit API limit before worktree/branch created; **no `analysis/parameter-count-gating-phase2` branch exists**
+- [ ] **Epic CLOSED** — blocked on Phase 2 + post-Phase-2 `ave-sweep-audit` pre-declaration
+
+---
+
+## Wrap-up handoff (2026-05-28 EOD)
+
+**For:** next orchestration or implementor session picking up parameter-count framing.  
+**Branch:** `analysis/integration` @ `435e8797` (or later). **Do not merge to `main`** until Grant greenlights integration→main (repo convention).
+
+### Session arc (what happened)
+
+1. Deep-dive on α / zero-parameter claims → scoped walk-back epic (Option 2).
+2. **Phase 1** implementor landed + merged (headline anchors, `constants.py`, closure-roadmap §0.5).
+3. **Vol 9 LaTeX formatting** implementor landed + merged in parallel (`a9ab377f`; audit tag → `3ca379fe`). Note: that merge brought **~155 commits** of prior integration work, not only 5 formatting commits — verify `git log 59c016e2..a9ab377f` if auditing scope.
+4. **Phase 2** spawn **failed** (API limit) — corpus propagation **not** done.
+
+### What is done (safe to treat as landed)
+
+| Deliverable | Evidence |
+|---|---|
+| Option 2 decision recorded | This doc §1 |
+| `constants.py` contradiction reconciled | Merge `f6b22757`; grep `ONE SCALE + GATED CONSTANTS`, `GATING NOTE (2026-05-28)` |
+| KB/LaTeX headline gating (8 files) | Phase 1 commit `9b4ae922` + ch8 merge resolution on `integration` |
+| closure-roadmap §0.5 bidirectional entry | `claim-quality-closure-roadmap.md` (path is **`claim-quality-closure-roadmap.md`**, NOT `common/closure-roadmap.md`) |
+| Vol 9 formatting + margin gate 350→45pt | Merge `a9ab377f`; subagent verified 8/8 volumes ≤45pt in clean worktree |
+
+**Gating markers currently in corpus (grep snapshot @ `435e8797`):** only **~9 files** contain `Gating note (2026-05-28)` / `contingent on the open Clifford` — while **~130+ manuscript files** still mention `zero-parameter` / `zero free parameter` (many are SENSE-2 legitimate; many are STALE-PROSE). **Phase 2 is required before calling propagation complete.**
+
+### What is NOT done (load-bearing)
+
+1. **Phase 2 — Step 3h-exhaustive STALE-PROSE sweep** (§2 methodology). Mandatory fixes called out in Phase 1 report:
+   - `src/ave/AGENTS.md` §1 — still reads *"derive ALL physical constants from three calibration inputs (M_E, ALPHA, G)"* without gating / operational-α language.
+   - Broken `\kbleaf{closure-roadmap.md}` in at least `vol_3_macroscopic/chapters/05_cosmology_dark_sector.tex` — should point to `claim-quality-closure-roadmap.md` (mechanical).
+   - `vol*/claim-quality.md`, `mathematical-closure.md`, `zero-parameter-derivations.md`, driver docstrings, vol chapters not in Phase-1 set — triage per SENSE-2 vs STALE-PROSE.
+2. **`ave-sweep-audit` pre-merge** on Phase 2 branch (skill lesson: 5× miss-rate without it).
+3. **§1.5 wording sign-off** — Phase 1 used the drafted clause; Grant may want to sharpen ch8 *half-cover resolved vs embedding-selection open* distinction corpus-wide (implementor preserved it in ch8 merge).
+4. **Optional:** retitle `"Zero-Parameter Closure"` headings vs gate-under-title only (Grant preference from Phase 1 report).
+
+### Parallel work: PDF build (`make clean && make all`)
+
+Grant running local full build. Known environmental gaps (pre-existing, not from formatting pass):
+
+- `vol_2`: `electron_3d_knot.png` missing in clean checkout
+- `vol_5`: `amino_acid_resonance.png` missing
+
+**When build completes:** confirm margin gate passes (45pt) on all volumes; note any new overfulls from siunitx reflow.
+
+### Phase 2 implementor brief (PENDING — copy to next session)
+
+```
+Branch: analysis/parameter-count-gating-phase2 off analysis/integration
+Worktree: ../AVE-Core-paramgating-p2 (isolated)
+
+Read: _orchestration/2026-05-28_parameter-count-framing-walkback.md §1.5 + §2
+
+Deliverables:
+1. Step 3h-exhaustive grep → classify (SENSE-2 / STALE-PROSE / Q1 / Q2)
+2. Fix STALE-PROSE + LOAD-BEARING global headlines (KB first → LaTeX → src)
+3. Mandatory: src/ave/AGENTS.md §1; closure-roadmap.md link fixes
+4. Post-cleanup re-grep + gap inventory table in report
+5. make refresh-kb-metadata && verify-kb-metadata && verify-md-links
+6. Push branch; do NOT merge
+
+Skills: ave-walk-back 3h-exhaustive, verify-before-cite, ave-evidence-framing-discipline
+After push: orchestration runs ave-sweep-audit (or spawn) THEN audit-tag + --no-ff merge
+```
+
+### Recommended wrap-up order (next session)
+
+| Step | Owner | Action |
+|---|---|---|
+| 1 | Grant / local | Let `make all` finish; capture pass/fail + missing figures |
+| 2 | Implementor | Execute Phase 2 brief above (~1 session; KB-heavy) |
+| 3 | Orchestration | `ave-sweep-audit` on Phase 2 diff **before** merge |
+| 4 | Orchestration | `--no-ff` merge + `audit/2026-05-28_parameter-count-gating-phase2` tag + branch delete |
+| 5 | Orchestration | Mark epic CLOSED in this doc; add one-line to `_orchestration/index.md` reconciliation |
+| 6 | Grant (optional) | Decide title retitle vs gate-under-title; decide if integration→`main` is ready |
+
+### Audit / merge reference (already landed)
+
+| Workstream | Merge commit | Audit tag → tip |
+|---|---|---|
+| Vol 9 formatting | `a9ab377f` | `audit/2026-05-28_vol9-corpus-latex-formatting` → `3ca379fe` |
+| Param-gating Phase 1 | `f6b22757` | `audit/2026-05-28_parameter-count-gating-phase1` → `9b4ae922` |
+
+### Physics note for external readers (unchanged crux)
+
+The corpus **gates** zero-parameter on the **embedding-selection** open item while treating the **spinor half-cover** as substrate-derived (ch8 Class 2). Doc 39 (archive) disagrees on half-cover nativeness — that tension is **intentionally preserved** under Option 2, not resolved in this epic.
