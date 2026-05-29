@@ -83,12 +83,14 @@ The same Cosserat couple-stress modulus $\gamma_c$ that sets the B-mode mass-gap
 
 The substrate's temperature coefficients under the Cosserat-Curie mechanism at the cosmic operating point $T = T_{CMB}$. Per the convention established in Ch.~\ref{ch:vol9_dc_electrical_characteristics}, parameters that retain their cold-lattice value at $T_{CMB}$ have TC $\approx 0$ (B-modes mass-gap-frozen); parameters modulated by the asymmetric thermal-mode population carry the canonical Cosserat-Curie $\eta_\varepsilon \approx 4.45 \times 10^{-6}$.
 
-\begin{footnotesize}
+\begin{table}[htbp]
+\centering
+\footnotesize
 \setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}p{0.12\linewidth} p{0.20\linewidth} p{0.10\linewidth} p{0.30\linewidth} p{0.20\linewidth}@{}}
-\hline
+\toprule
 \textbf{Symbol} & \textbf{TC at $T_{CMB}$} & \textbf{Sign} & \textbf{Substrate Mechanism} & \textbf{Canonical Source} \\
-\hline
+\midrule
 $\varepsilon_{eff}(T)$ & $-\eta_\varepsilon \approx -4.45 \times 10^{-6}$ & $-$ & E-mode thermal occupation; $\varepsilon_{eff} = \varepsilon_0(1-\eta_\varepsilon)$ at $T_{CMB}$ & \texttt{clm-hp7nlm} \S 3 \\
 $\mu_{eff}(T)$ & $\approx 0$ & --- & B-modes mass-gap-frozen ($k_B T_{CMB}/\hbar\omega_m \sim 10^{-10}$); no thermal modulation & \texttt{clm-hp7nlm} \S 2 \\
 $Z_0(T)$ & $+\eta_\varepsilon/2 \approx +2.23 \times 10^{-6}$ & $+$ & $Z_0 = \sqrt{\mu_0/\varepsilon_{eff}}$; only $\varepsilon$ side modulated ASYM-class & \texttt{clm-hp7nlm} \S 3 \\
@@ -97,11 +99,12 @@ $c_{shear}(T)$ & $\approx 0$ & --- & Group/rest-mass velocity untouched at cold-
 $\delta_{strain}(T)$ & $+2.225 \times 10^{-6}$ at $T_{CMB}$ & $+$ & Fractional vacuum strain coefficient $1 - \alpha^{-1}_{CODATA}/\alpha^{-1}_{ideal}$; substrate-mechanism class identified & \texttt{clm-hp7nlm} \S 3 (Class B, sol.\ 0.55) \\
 $\alpha^{-1}(T)$ & $-\eta_\varepsilon/2 \approx -2.23 \times 10^{-6}$ & $-$ & Thermal running of $\alpha^{-1}$ from cold-lattice asymptote toward CODATA & \texttt{clm-009nkt}; \texttt{clm-hp7nlm} \\
 $v_n^2/\Delta f$ & $4 k_B T R$ at $T = T_{CMB}$ & --- & Johnson-Nyquist substrate thermal-noise floor; \S\ref{sec:vol9_johnson_nyquist} & \texttt{translation-circuit.md} \S 9 (line 417) \\
-\hline
+\bottomrule
 \end{tabular}
-\end{footnotesize}
+\caption{Substrate temperature coefficients at the cosmic operating point $T=T_{CMB}$ under the Cosserat-Curie thermal-mode-population mechanism.}
+\label{tab:vol9_temperature_coefficients}
+\end{table}
 
-\vspace{0.5em}
 \noindent
 \textit{Reference cold-lattice values for every row above:} the DC primitives in Ch.~\ref{ch:vol9_dc_electrical_characteristics} spec table at $S(0) = 1$, $T \to 0$. The TC column quotes the fractional offset $\Delta X/X_0$ at $T = T_{CMB}$ relative to the cold-lattice reference (sign convention: positive = parameter increases with thermal load).
 
@@ -189,12 +192,14 @@ This is the discipline working at full strength: the substrate-mechanism class i
 
 Per the EE-as-substrate-native META framework (canonical leaf \texttt{translation-circuit.md} \S 2, \texttt{clm-eemap1}; companion skill \texttt{ave-ee-first-mapping} v1.0), standard EE temperature vocabulary maps directly to substrate-physics origin through the Cosserat-Curie mechanism. Each row below names an EE quantity engineers measure on physical components, the substrate-physics origin under the canonical thermal-mode population mechanism, and the canonical anchor in the AVE corpus.
 
-\begin{footnotesize}
+\begin{table}[htbp]
+\centering
+\footnotesize
 \setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}p{0.24\linewidth} p{0.40\linewidth} p{0.30\linewidth}@{}}
-\hline
+\toprule
 \textbf{EE Quantity} & \textbf{Substrate-Physics Origin} & \textbf{Canonical Anchor} \\
-\hline
+\midrule
 TCC (temperature coefficient of capacitance; ppm/$^\circ$C; class II ceramics 5--15\%/$\Delta T$) & Cosserat-Curie thermal-mode-population ASYM: E-side thermally modulated; B-side mass-gap-frozen & \texttt{translation-circuit.md} \S 9.2 (line 366); \texttt{clm-hp7nlm} \\
 TC$\mu$ of inductor cores below $T_{Curie,\text{ferrite}}$ & B-side mass-gap-frozen; substrate-Curie analog at material-specific scale; same $\gamma_c$ primitive & \texttt{translation-circuit.md} \S 9.2 (line 438); \texttt{trampoline-framework.md:188} \\
 TCR (temperature coefficient of resistance; ppm/$^\circ$C) & Thermal-mode population at the resistive boundary; same Cosserat-Curie ASYM mechanism, different observable & \texttt{translation-circuit.md} \S 9.2 (line 415) \\
@@ -203,11 +208,12 @@ Curie temperature $T_{Curie,\text{ferrite}}$ ($\sim 600$ K) & Material-specific 
 Johnson-Nyquist thermal noise ($v_n^2 = 4 k_B T R\,\Delta f$) & Substrate thermal-mode population at the resistive boundary; $k_B T$ per substrate mode per Hz; FDT cross-link & \texttt{translation-circuit.md} \S 9.2 (line 417); \texttt{translation-stochastics.md} \\
 Thermal drift (frequency / voltage / current) & Substrate thermal-mode-population-induced operating-point shift on the local-substrate LC tank & \texttt{translation-circuit.md} \S 9.1 row T1; \texttt{clm-hp7nlm} \\
 $\delta_{strain}$ at $T_{CMB}$ (cosmic-scale TCC of $\alpha^{-1}$) & The cosmological instance of substrate TCC: same Cosserat-Curie mechanism at the substrate's cosmic operating temperature & \texttt{clm-hp7nlm}; \texttt{clm-009nkt} \\
-\hline
+\bottomrule
 \end{tabular}
-\end{footnotesize}
+\caption{Standard EE temperature vocabulary (TCC, TC$\mu$, TCR, Johnson-Nyquist noise) mapped to substrate-physics origin under the Cosserat-Curie mechanism.}
+\label{tab:vol9_temperature_ee_translation}
+\end{table}
 
-\vspace{0.5em}
 \noindent
 The substrate is one substance characterized across scales. The deviations from cold-lattice that engineering codifies as ``temperature coefficients'' on component datasheets are the substrate as it actually exists in nature, not engineered alterations of it. The full 21-row engineering-correction catalog at \texttt{translation-circuit.md} \S 9.2 carries the comprehensive mapping; this chapter's eight-row EE Translation Table is the temperature-axis projection of that catalog (one EE-row per substrate-physics observable in the thermal-mode-population family).
 

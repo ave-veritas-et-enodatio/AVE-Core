@@ -34,13 +34,14 @@ Eight canonical substrate-primitive DC parameters. The TYPICAL column lists the 
 \begin{footnotesize}
 \setlength{\tabcolsep}{4pt}
 \begin{longtable}{@{}p{0.07\linewidth} p{0.15\linewidth} p{0.13\linewidth} p{0.05\linewidth} p{0.28\linewidth} p{0.22\linewidth}@{}}
-\hline
+\caption{Canonical DC substrate primitives at cold lattice $S(0)=1$: eight parameters with substrate mechanism and canonical source. Values imported from \texttt{src/ave/core/constants.py}.}\label{tab:vol9_dc_primitives}\\
+\toprule
 \textbf{Symbol} & \textbf{Parameter} & \textbf{Typical} & \textbf{Units} & \textbf{Substrate Mechanism} & \textbf{Canonical Source} \\
-\hline
+\midrule
 \endfirsthead
-\hline
+\toprule
 \textbf{Symbol} & \textbf{Parameter} & \textbf{Typical} & \textbf{Units} & \textbf{Substrate Mechanism} & \textbf{Canonical Source} \\
-\hline
+\midrule
 \endhead
 % --- Vacuum impedance trio ---
 $\varepsilon_0$ & Vacuum permittivity & $8.854 \times 10^{-12}$ & F/m & Translational E-DOF capacitance density per K4 node bond (Ax~1) & \texttt{EPSILON\_0} \newline (\texttt{constants.py}:80) \\
@@ -53,7 +54,7 @@ $T_{EM}$ & EM string tension & $0.212$ & N & 1D substrate-native tension scale $
 % --- Coupling primitives ---
 $\alpha$ & Fine-structure constant & $7.2974 \times 10^{-3}$ \newline ($\approx 1/137.036$) & --- & EM coupling at cold-lattice $S_{11}$-min Golden Torus operating point; cosmic-LC-tank reactive leak per cycle (Theorem 3.1) & \texttt{ALPHA} \newline (\texttt{constants.py}:101); \texttt{ALPHA\_COLD\_INV} \newline (:164); ch8-alpha-golden-torus leaf (clm-0ktpcn) \\
 $\xi_{topo}$ & Topological transduction constant & $4.149 \times 10^{-7}$ & C/m & EE $\leftrightarrow$ mechanical bridge $e/\ell_{node}$; substrate-native dimensional isomorphism (Ax~2) & \texttt{XI\_TOPO} \newline (\texttt{constants.py}:206); xi-topo-traceability leaf; vol4 clm-i9l284 \\
-\hline
+\bottomrule
 \end{longtable}
 \end{footnotesize}
 
@@ -119,12 +120,14 @@ DC characterization quoted in this chapter is the limit $A_0 \to 0$, $S(0) \to 1
 
 Per the EE-as-substrate-native META framework (canonical leaf \texttt{common/translation-tables/translation-circuit.md} \S 2, \texttt{clm-eemap1}), EE vocabulary is not a translation source from another framework but the closest-to-canonical substrate-native language humans have. The eight DC primitives map directly to canonical EE quantities; the substrate-native form and the EE form are dimensionally identical, not analogies.
 
-\begin{footnotesize}
+\begin{table}[htbp]
+\centering
+\footnotesize
 \setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}p{0.24\linewidth} p{0.36\linewidth} p{0.33\linewidth}@{}}
-\hline
+\toprule
 \textbf{EE Quantity} & \textbf{Substrate-Native Form} & \textbf{Canonical Leaf} \\
-\hline
+\midrule
 Free-space permittivity & K4 translational-DOF capacitance density per bond (Ax~1) & translation-circuit \S 4 \\
 Free-space permeability & K4 microrotational-DOF inductance density per bond (Ax~1) & translation-circuit \S 4 \\
 Characteristic impedance of free space & Bond TLM $\sqrt{\mu_0/\varepsilon_0}$ at $S(0) = 1$ (Op1) & z0-derivation leaf; operators leaf Op1 \\
@@ -133,9 +136,11 @@ Substrate length scale (component pitch analog) & K4 lattice pitch $\ell_{node} 
 Substrate-native tension scale (1D bond axial tension) & EM string tension $T_{EM} = m_e c^2/\ell_{node}$ & \texttt{constants.py}:329--330 \\
 Dimensionless coupling constant of substrate-LC network & Cosmic LC tank Q-factor at $S_{11}$-min Golden Torus geometry (Theorem 3.1); cold-lattice $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ & ch8-alpha-golden-torus leaf (\texttt{clm-0ktpcn}); theorem-3-1-q-factor leaf \\
 Charge-to-length electromechanical transduction ratio & Topological Conversion Constant $\xi_{topo} = e/\ell_{node}$ (Ax~2; $[Q] \equiv [L]$) & vol4 \texttt{clm-i9l284}; translation-circuit \S 1 (\texttt{clm-fy05jc}); xi-topo-traceability leaf \\
-\hline
+\bottomrule
 \end{tabular}
-\end{footnotesize}
+\caption{DC substrate primitives mapped to their canonical EE quantities and substrate-native forms. Per \texttt{clm-eemap1}, these are dimensional identities, not analogies.}
+\label{tab:vol9_dc_ee_translation}
+\end{table}
 
 \vspace{1em}
 

@@ -31,10 +31,13 @@ The substrate is therefore documented in the engineering datasheet as a Cosserat
 
 The bulk mechanical primitives of $\mathcal{M}_A$ at the cold-lattice operating point ($T \to 0$, saturation amplitude $A_0 = 0$, $S(A_0) = 1$):
 
+\begin{table}[htbp]
+\centering
 \renewcommand{\arraystretch}{1.35}
 \begin{tabular}{p{0.08\linewidth} p{0.22\linewidth} p{0.10\linewidth} p{0.42\linewidth}}
+\toprule
 \textbf{Symbol} & \textbf{Typical (cold-lattice)} & \textbf{Units} & \textbf{Substrate Mechanism / Canonical Source} \\
-\hline
+\midrule
 
 $G_{vac}$ & $\rho_{bulk}\, c_0^2$ (canonical) & Pa &
 3D continuum shear modulus, from $v_T = \sqrt{G/\rho} = c_0$ on the LC lattice. Ax~1 + Ax~4. Source: \texttt{src/ave/core/constants.py:587} (\texttt{G\_VAC}). \\
@@ -60,10 +63,12 @@ Longitudinal wave speed, from $K_{vac} = 2 G_{vac}$. Source: \texttt{src/ave/cor
 $l_c$ & $\sqrt{\gamma_c / G_{vac}}$ ($\approx r_W \sim 10^{-18}$~m) & m &
 Cosserat characteristic length; weak-force range scale. Couple-stress-to-shear-modulus ratio. Source: KB leaf \texttt{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} line~39 (\texttt{clm-5zuo7g}). \\
 
+\bottomrule
 \end{tabular}
 \renewcommand{\arraystretch}{1.0}
-
-\vspace{1em}
+\caption{Bulk mechanical primitives of $\mathcal{M}_A$ at the cold-lattice operating point ($T\to 0$, $A_0=0$, $S=1$).}
+\label{tab:vol9_mech_bulk}
+\end{table}
 
 \noindent
 \textbf{Conditions} for all entries: cold-lattice limit $T \to 0$, saturation operating point $A_0 = 0$ so $S(A_0) = 1$, isotropic substrate (no large-amplitude ASYM scaling, no boundary effects). Modulation under finite $A_0$ via the Axiom~4 saturation kernel is documented in \S\ref{sec:vol9_mech_wave_speeds} and (for finite-temperature thermal-mode-population ASYM via Cosserat-Curie freezing) in Ch.~6.
@@ -135,10 +140,13 @@ Both reduce to $c_0$ at the cold-lattice limit $S(0) = 1$. The mechanical-charac
 
 The EE-substrate-native projection of the mechanical primitives in this chapter (per \texttt{ave-ee-first-mapping} v1.0, canonical leaf \texttt{common/translation-tables/translation-circuit.md}, \texttt{clm-eemap1}). EE is the closest-to-substrate-native human-developed language for the K4-LC vacuum substrate; the mechanical sector projects cleanly onto EE without losing substrate-physics content because Cosserat micropolar mechanics IS the rotational-DOF / couple-stress side of the substrate's intrinsic LC + transformer network.
 
+\begin{table}[htbp]
+\centering
 \renewcommand{\arraystretch}{1.30}
 \begin{tabular}{p{0.32\linewidth} p{0.62\linewidth}}
+\toprule
 \textbf{Substrate mechanical primitive} & \textbf{EE projection (\texttt{translation-circuit.md} \S 4)} \\
-\hline
+\midrule
 3 translational E-DOFs (per node) & Capacitor (dielectric storage, $\mathbf{E}$-field origin) \\
 3 microrotational B-DOFs (per node) & Inductive flywheel (rotational moment-of-inertia + magnetic-flux storage, $\mathbf{B}$-field origin) \\
 Bond stretching (translational gradient) & Capacitive coupling / bond-tension stress; sets $G_{vac}$ shear modulus \\
@@ -148,10 +156,12 @@ Weak-force range $l_c = \sqrt{\gamma_c / G_{vac}}$ & Transformer leakage-inducta
 Cosserat rotation-sector mass-gap $m_\omega \sim 1$~MeV & Transformer cutoff frequency / ferrite-Curie-temperature analog \\
 Bulk mass density $\rho_{bulk} = \xi_{topo}^2 \mu_0 / (P_C\, \ell_{node}^2)$ & EE-to-mechanical transduction via $\xi_{topo} = e/\ell_{node}$ (Axiom~2 topological conversion constant); $\mu_0$ enters as the inductive-storage scale of the substrate \\
 Mechanical wave speed $v_T = c_0$ at cold lattice & EE free-space propagation speed $c_0 = 1/\sqrt{\mu_0 \varepsilon_0}$ --- same constant, same substrate \\
+\bottomrule
 \end{tabular}
 \renewcommand{\arraystretch}{1.0}
-
-\vspace{1em}
+\caption{EE projection of the substrate mechanical primitives via the Cosserat-LC / transformer correspondence (\texttt{translation-circuit.md} \S 4).}
+\label{tab:vol9_mech_ee_translation}
+\end{table}
 
 The $\xi_{topo} = e/\ell_{node}$ bridge (CLAUDE.md INVARIANT-C2; Axiom~2; canonical-source \texttt{src/ave/core/constants.py:206}) is the load-bearing translation between EE and mechanical observables: $\rho_{bulk}$ scales as $\xi_{topo}^2 \mu_0$ because the substrate's mass density IS the inductive-storage density of the K4-LC network at the node-spacing scale, with $\xi_{topo}$ supplying the EE-to-mechanical dimensional bridge. Every Vol~9 spec entry that crosses the EE / mechanical boundary inherits this $\xi_{topo}$ mapping.
 

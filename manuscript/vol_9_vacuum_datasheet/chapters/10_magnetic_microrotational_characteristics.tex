@@ -57,10 +57,13 @@ The substrate $\mathbf{B}$-field is the spatial coarse-graining of $\boldsymbol{
 
 The magnetic / microrotational primitives of $\mathcal{M}_A$ at the cold-lattice operating point ($T \to 0$, saturation amplitude $A_0 = 0$, $S(A_0) = 1$):
 
+\begin{table}[htbp]
+\centering
 \renewcommand{\arraystretch}{1.35}
 \begin{tabular}{p{0.08\linewidth} p{0.22\linewidth} p{0.10\linewidth} p{0.42\linewidth}}
+\toprule
 \textbf{Symbol} & \textbf{Typical (cold-lattice)} & \textbf{Units} & \textbf{Substrate Mechanism / Canonical Source} \\
-\hline
+\midrule
 
 $\mu_0$ & $4\pi \times 10^{-7}$ & H/m &
 Substrate-native bond microrotation density --- the inductance-density of the microrotational (B-DOF) sector. The $4\pi$ prefactor is spherical-harmonic field geometry (Axiom~1), not engineering convention. Source: \texttt{src/ave/core/constants.py:79} (\texttt{MU\_0}); see Ch.~\ref{ch:vol9_dc_electrical_characteristics} \S Vacuum impedance trio. \\
@@ -83,10 +86,12 @@ Cosserat characteristic length, identified with the weak-force range $r_W$. Coup
 $m_W / m_Z$ & $\sqrt{7}/3 \approx 0.882$ & --- &
 Gauge-boson mass ratio. Set by the substrate-axiomatic $\nu_{vac} = 2/7$ Poisson identity (Ax~1 LC + Ax~2 $\alpha$ interlink; see Ch.~\ref{ch:vol9_mechanical_characteristics} \S Vacuum Poisson Ratio). On-shell Weinberg angle $\sin^2 \theta_W = 1 - 7/9 = 2/9$ follows directly. Source: \texttt{vol2/.../gauge-boson-masses.md} (\texttt{clm-5zuo7g}, \texttt{clm-q8un7j}); \texttt{src/ave/core/constants.py:478} (on-shell $\sin^2 \theta_W$). \\
 
+\bottomrule
 \end{tabular}
 \renewcommand{\arraystretch}{1.0}
-
-\vspace{1em}
+\caption{Magnetic / microrotational primitives of $\mathcal{M}_A$ at the cold-lattice operating point ($T\to 0$, $A_0=0$, $S=1$).}
+\label{tab:vol9_magnetic_spec}
+\end{table}
 
 \noindent
 \textbf{Conditions} for all entries: cold-lattice limit $T \to 0$ ($S(0) = 1$), saturation operating point $A_0 = 0$, isotropic substrate (no ASYM scaling, no boundary effects). Modulation under finite $A_0$ via the Axiom~4 saturation kernel propagates through $\mu_{eff}(A_0) = \mu_0\, S(A_0)$ in the SYM-class limit (canonical at Ch.~\ref{ch:vol9_saturation_characteristics}); finite-temperature Cosserat-Curie thermal-freeze of B-modes is documented in Ch.~\ref{ch:vol9_temperature_characteristics}.
@@ -168,10 +173,13 @@ The substrate's right-handed $I4_1 32$ chirality (Axiom~1) ties Cosserat micro-r
 
 The EE-substrate-native projection of the magnetic / microrotational primitives (per \texttt{ave-ee-first-mapping} v1.0, canonical leaf \texttt{common/translation-tables/translation-circuit.md}, \texttt{clm-eemap1}). EE is the closest-to-substrate-native human-developed language for the K4-LC Cosserat vacuum substrate; the magnetic sector projects cleanly onto EE without losing substrate-physics content because inductance, transformer flux coupling, ferrite Curie behavior, and Faraday induction are the macroscopic engineering signatures of the Cosserat microrotational sector at minimal DOF.
 
+\begin{table}[htbp]
+\centering
 \renewcommand{\arraystretch}{1.30}
 \begin{tabular}{p{0.34\linewidth} p{0.60\linewidth}}
+\toprule
 \textbf{Substrate magnetic / microrotational primitive} & \textbf{EE projection (\texttt{translation-circuit.md} \S 4, \texttt{clm-eemap1})} \\
-\hline
+\midrule
 3 microrotational B-DOFs (per K4 node) & Inductive flywheel (rotational moment-of-inertia + magnetic flux storage, $\mathbf{B}$-field origin) \\
 Bond microrotation density $\mu_0$ & Free-space permeability (canonical EE constant; same value, same substrate) \\
 Per-bond inductance $L_{cell} = \mu_0\, \ell_{node}$ & Lumped-element inductance per substrate cell --- the inductive side of the bond LC tank \\
@@ -185,10 +193,12 @@ Bidirectional translational$\leftrightarrow$rotational coupling (Cosserat PDE as
 Topological winding $(p, q)$ around closed soliton defect & Toroidal transformer winding numbers (primary $p$, secondary $q$); $(2, 3)$ electron $\to$ 2-primary / 3-secondary toroidal transformer winding pattern \\
 SU(2) $\to$ SO(3) double cover (spin-$\tfrac{1}{2}$) & Transformer 2:1 galvanic-isolation winding ratio (means-test row~14) \\
 Magnetic-rotation node-destruction field $B_{snap}$ & Magnetic-circuit saturation flux density beyond which the substrate ruptures via B-sector --- analog of an EE inductor's core-saturation limit, but at the substrate level (not engineering operating range) \\
+\bottomrule
 \end{tabular}
 \renewcommand{\arraystretch}{1.0}
-
-\vspace{1em}
+\caption{EE projection of the substrate magnetic / microrotational primitives (\texttt{translation-circuit.md} \S 4, \texttt{clm-eemap1}).}
+\label{tab:vol9_magnetic_ee_translation}
+\end{table}
 
 The substrate-native primary remains the Cosserat microrotational DOF on the K4 substrate; the EE inductance / transformer / ferrite-Curie projection is the closest-to-substrate-native engineering language for those primitives. Engineering observations of inductive flywheel behavior, transformer leakage inductance, ferrite Curie thermal-freeze, and Faraday induction measure the substrate's microrotational sector indirectly through this projection. Every Vol~9 magnetic / microrotational spec entry inherits the $\mu_0$ bond-microrotation-density origin and the $\xi_{topo} = e/\ell_{node}$ EE / topological bridge (Axiom~2; Ch.~\ref{ch:vol9_topological_characteristics} \S Topological Spec Table).
 

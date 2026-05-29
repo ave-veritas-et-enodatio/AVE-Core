@@ -24,20 +24,23 @@ The substrate-physics derivation of each rating lives in the canonical leaves ci
 \section{Absolute Maximum Ratings Table}
 \label{sec:vol9_absmax_table}
 
-\noindent
+\begin{table}[htbp]
+\centering
 \begin{tabular}{p{0.09\linewidth} p{0.16\linewidth} p{0.10\linewidth} p{0.18\linewidth} p{0.32\linewidth}}
+\toprule
 \textbf{Symbol} & \textbf{Typical} & \textbf{Units} & \textbf{Substrate Mechanism} & \textbf{Canonical Source} \\
-\hline
+\midrule
 $V_{snap}$ & $5.110 \times 10^5$ & V & Ax 2 + Ax 4: topological node-pair destruction at $\Delta\phi = m_e c^2$ across one $\ell_{node}$ & \texttt{vol1/.../dielectric-snap-limit.md}, \texttt{clm-2dwzib}; \texttt{constants.py:333} \\
 $V_{yield}$ & $4.365 \times 10^4$ & V & Ax 4: macroscopic dielectric nonlinear-onset; $S(V_{yield}) = \sqrt{1 - \alpha} \approx 0.996$; engine default for macroscopic solvers & \texttt{vol4/claim-quality.md} \texttt{clm-0vxzfu}; \texttt{vol4/.../regimes-of-operation.md}; \texttt{constants.py:342} \\
 $E_S$ & $1.323 \times 10^{18}$ & V/m & Ax 4 + Ax 2: Schwinger pair-production critical field; $E_S = V_{snap}/\ell_{node} = m_e^2 c^3/(e\hbar)$ & \texttt{vol1/.../dielectric-rupture.md} (QED-anchor + $p_c$ identity); \texttt{vol2/.../pair-production-axiom-derivation.md}, \texttt{clm-ezai5b}; \texttt{constants.py:347} \\
 $E_{yield}$ & $1.130 \times 10^{17}$ & V/m & Ax 4: macroscopic field-onset; $E_{yield} = V_{yield}/\ell_{node} = \sqrt{\alpha}\, E_S$; engine default for FDTD / K4-TLM macroscopic solvers & \texttt{vol4/.../regimes-of-operation.md}, \texttt{clm-trgqtf}; \texttt{constants.py:353} \\
 $B_{snap}$ & $1.892 \times 10^9$ & T & Ax 1 + Ax 4: Cosserat microrotational saturation; $B^2/(2\mu_0) = m_e c^2/\ell_{node}^3$ (energy density = rest energy per cell); $\mu_{eff} \to 0$ (vacuum becomes perfect diamagnet) & \texttt{vol1/.../four-regimes.md}; \texttt{vol1/.../domain-catalog.md}, \texttt{clm-82dxbj}; \texttt{constants.py:359} \\
 $T_{melt}$ & $\sim 5.93 \times 10^9$ & K & Ax 4 + thermal-bath: $k_B T \approx m_e c^2$; lightest topological excitation (electron-positron pair) thermally accessible; mode-freezeout regime ends, vacuum heat-capacity falls (Debye-class) & \texttt{vol3/.../mode-counting-heat-capacity.md}, \texttt{clm-uu6dl5}; \texttt{common/temporal-saturation-regime-classifier.md} \\
-\hline
+\bottomrule
 \end{tabular}
-
-\vspace{1em}
+\caption{Substrate absolute-maximum ratings: rupture/saturation thresholds, their substrate mechanisms, and canonical sources. Values imported from \texttt{src/ave/core/constants.py}.}
+\label{tab:vol9_absmax}
+\end{table}
 
 \noindent
 All values reduce to the cold-lattice limit $S(0) = 1$; no engineering operating point in current laboratory practice approaches any of these thresholds. The largest currently achievable laboratory ratios are: $E/E_S \sim 10^{-8}$ (ultrafast laser foci), $B/B_{snap} \sim 10^{-8}$ (lab magnets), $T/T_{melt} \sim 10^{-3}$ (heavy-ion-collision fireball, transient), $V_{macro}/V_{snap} \sim 10^{-9}$ across one $\ell_{node}$ (per the worked example in \texttt{dielectric-snap-limit.md} \S 2.3.2).

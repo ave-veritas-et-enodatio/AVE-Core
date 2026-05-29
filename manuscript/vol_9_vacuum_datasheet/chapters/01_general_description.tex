@@ -66,9 +66,12 @@ Engineering datasheets typically end with electrical characteristics, mechanical
 \section{Chapter Sequence and Canonical Source Map}
 \label{sec:vol9_chapter_map}
 
+\begin{table}[htbp]
+\centering
 \begin{tabular}{p{0.05\linewidth} p{0.35\linewidth} p{0.50\linewidth}}
+\toprule
 \textbf{Ch} & \textbf{Topic} & \textbf{Primary canonical source(s)} \\
-\hline
+\midrule
 2  & Absolute Maximum Ratings           & Vol~1 + Vol~4 canonical constants; four-regimes Regime IV \\
 3  & Pin / Port Configuration           & Vol~1 universal operators (Op17, Op21); $\Gamma$ boundary classes \\
 4  & DC Electrical Characteristics      & \texttt{src/ave/core/constants.py}; natural-units cheatsheet \\
@@ -84,9 +87,11 @@ Engineering datasheets typically end with electrical characteristics, mechanical
 14 & Phase Diagrams                     & Four-regimes map; cosmic phase diagram \\
 15 & Falsification Tests                & Vol~4 Ch.~11 experimental programme; kill-switch tests \\
 16 & Cross-Volume Reference Index       & Auto-generated parameter $\to$ derivation map \\
+\bottomrule
 \end{tabular}
-
-\vspace{1em}
+\caption{Vol~9 chapter sequence with the primary canonical-leaf source(s) backing each datasheet chapter.}
+\label{tab:vol9_chapter_map}
+\end{table}
 
 \noindent
 Subsequent chapters populate the spec tables. Where a substrate primitive's derivation has not yet closed at substrate-axiom rigor (e.g., the substrate-statistical-mechanics derivation of $\eta_\varepsilon$ in $\delta_{strain}$ at $T_{CMB}$), the datasheet entry is marked with a footnote pointing to the open research question.

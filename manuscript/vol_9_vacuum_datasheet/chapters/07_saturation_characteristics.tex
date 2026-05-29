@@ -39,7 +39,8 @@ Beyond the six spatial DOFs per node (three translational $\to \mathbf{E}$, thre
 
 At the atomic and bench scale, the dialect-projection $A = \Delta\phi/\alpha$ specializes the kernel to a substrate-native varactor characteristic (\texttt{common\_equations/eq\_axiom\_4.tex}):
 
-\begin{center}\small
+\begin{table}[htbp]
+\centering\small
 \begin{tabular}{llll}
 \toprule
 \textbf{Observable} & \textbf{Formula} & \textbf{At saturation} & \textbf{Physical meaning} \\
@@ -52,7 +53,9 @@ $c_{EM}$          & $c_0 / S$                    & $\to \infty$  & Maxwell phase
 $c_{shear}$       & $c_0 \cdot S^{1/2}$          & $\to 0$       & Wave packet confined (rest mass) \\
 \bottomrule
 \end{tabular}
-\end{center}
+\caption{Axiom~4 varactor specialization: substrate effective parameters as functions of the saturation kernel $S$, and their saturation limits.}
+\label{tab:vol9_saturation_varactor}
+\end{table}
 
 \subsection{Two distinct effective wave speeds}
 \label{sec:vol9_two_wave_speeds}
@@ -78,7 +81,8 @@ Under ASYM-class scaling (large-amplitude single-sector saturation, e.g., BCS $\
 
 The substrate primitives evaluated at normalized operating point $r = A_0/A_{yield}$ produce the following characteristic curves. All entries follow directly from $S(r) = \sqrt{1 - r^2}$ at the cold-lattice limit (no other corrections).
 
-\begin{center}\small
+\begin{table}[htbp]
+\centering\small
 \begin{tabular}{lllllll}
 \toprule
 \textbf{$r = A_0/A_{yield}$} & \textbf{$S(r)$} & \textbf{$C_{eff}/C_0 = 1/S$} & \textbf{$\varepsilon_{eff}/\varepsilon_0 = S$} & \textbf{$c_{EM}/c_0 = 1/S$} & \textbf{$c_{shear}/c_0 = \sqrt{S}$} & \textbf{Regime} \\
@@ -94,7 +98,9 @@ $0.950$    & $0.3122$ & $3.202$ & $0.3122$ & $3.202$ & $0.5588$ & III \\
 $1.000$    & $0$ & $\to \infty$ & $0$ & $\to \infty$ & $0$ & IV (rupture; $r_3 = 1$) \\
 \bottomrule
 \end{tabular}
-\end{center}
+\caption{Substrate operating-point characteristic curves: effective parameters vs normalized saturation $r = A_0/A_{yield}$, with regime labels.}
+\label{tab:vol9_saturation_curves}
+\end{table}
 
 \noindent
 \textbf{$\alpha_{eff}/\alpha_0$ row:} under SYM-class scaling, $\alpha_{eff}/\alpha_0 = 1$ exactly at every $r$ (canonical \texttt{clm-3zz0f6}); under ASYM-class scaling, $\alpha_{eff}/\alpha_0$ deviates from unity in a sector-dependent way that does not factor through $S$ alone (canonical at \texttt{clm-8nkvwy}). The substrate-distinct $\alpha$-modulation predictions live in Ch.~15 (Falsification) and Vol~3 Ch.~5 (Dark Sector) under the ASYM-N($\varepsilon$) and ASYM-N($\mu$) classifications.
@@ -107,7 +113,8 @@ $1.000$    & $0$ & $\to \infty$ & $0$ & $\to \infty$ & $0$ & IV (rupture; $r_3 =
 
 The kernel partitions the operating-point axis into four universal regimes. The semiconductor analog --- standard p-n junction operating regions --- is exact, not metaphor (canonical at \texttt{four-regimes.md} \texttt{clm-2dwzib}, \texttt{clm-b2anl4}):
 
-\begin{center}\small
+\begin{table}[htbp]
+\centering\small
 \begin{tabular}{lllll}
 \toprule
 \textbf{Regime} & \textbf{$r$ range} & \textbf{$S$ range} & \textbf{Substrate physics} & \textbf{Semiconductor analog} \\
@@ -118,7 +125,9 @@ III Avalanche    & $\sqrt{3}/2 \le r < 1$               & $0 < S \le 0.500$ & $Q
 IV  Breakdown    & $r \ge 1$                            & $S = 0$           & Substrate rupture; topology destroyed; topological reorganization required & $V_R = V_{BR}$, $M \to \infty$, junction destroyed \\
 \bottomrule
 \end{tabular}
-\end{center}
+\caption{Four-regime map of the saturation kernel with substrate physics and the exact semiconductor p-n junction analog per regime.}
+\label{tab:vol9_four_regime_map}
+\end{table}
 
 \noindent
 \textbf{Sector-dependence of $r_2$:} the $\ell_{\min} = 2$ argument that sets $r_2 = \sqrt{3}/2$ is specific to the spin-2 (gravitational-wave / shear-mode) sector. The vector/photon sector ($\ell_{\min} = 1$) has $r_2 = 0$ (avalanche concurrent with linear-Maxwell breakdown); the scalar sector ($\ell_{\min} = 0$) has no avalanche-onset boundary at all. The unqualified citation $r_2 = \sqrt{3}/2$ in this datasheet implicitly invokes the spin-2 sector; see \texttt{four-regimes.md} for the full sector-dependence treatment.
@@ -161,7 +170,8 @@ This datasheet chapter consolidates the kernel into datasheet format; the catalo
 
 EE-engineering vocabulary at the substrate-near-canonical end documents saturation behavior empirically across multiple component classes. Each engineering-observable correction has a substrate-primitive origin in Axiom~4. Canonical translation: \texttt{ave-kb/common/translation-tables/translation-circuit.md} \S 9 (ideal-lattice $\leftrightarrow$ engineering-corrections row catalog).
 
-\begin{center}\small
+\begin{table}[htbp]
+\centering\small
 \begin{tabular}{p{0.32\linewidth} p{0.62\linewidth}}
 \toprule
 \textbf{EE-engineering correction} & \textbf{Substrate-primitive origin (Axiom~4)} \\
@@ -179,7 +189,9 @@ BJT $V_{CE(sat)}$ saturation voltage & Minimum substrate dielectric voltage drop
 BJT base-emitter forward drop $V_{BE}$ & Substrate diode forward drop at B-E junction; substrate-yield-boundary voltage. \\
 \bottomrule
 \end{tabular}
-\end{center}
+\caption{EE-engineering saturation corrections mapped to their substrate-primitive Axiom~4 origin.}
+\label{tab:vol9_saturation_ee_translation}
+\end{table}
 
 \noindent
 \textbf{Substrate-native primary, engineering-empirical secondary.} Per the EE-as-substrate-native META framework (canonical at \texttt{translation-circuit.md} \texttt{clm-eemap1}; companion skill \texttt{ave-ee-first-mapping} v1.0), every entry in the table above is the same substrate-physics primitive in a different engineering-disciplinary dialect. The engineering-empirical observation came first historically (humans interrogating the substrate at its smallest accessible scale with electrons, dielectrics, and LC resonators); AVE substrate-physics derives the substrate-mechanism that explains why the empirical correction takes the form it does. Both columns of the table are correct; the engineering vocabulary is the closest-to-canonical substrate-native language at the EE base scale.

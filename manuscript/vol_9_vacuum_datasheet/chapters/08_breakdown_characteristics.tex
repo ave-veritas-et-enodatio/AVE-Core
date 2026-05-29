@@ -109,10 +109,12 @@ Vol~9 Ch.~\ref{ch:vol9_cosmological_characteristics} carries the cosmological-sc
 \section{Breakdown Spec Table}
 \label{sec:vol9_breakdown_spec}
 
-\noindent
+\begin{table}[htbp]
+\centering
 \begin{tabular}{p{0.10\linewidth} p{0.13\linewidth} p{0.06\linewidth} p{0.25\linewidth} p{0.30\linewidth}}
+\toprule
 \textbf{Symbol} & \textbf{Threshold} & \textbf{Units} & \textbf{Substrate Mechanism} & \textbf{Canonical Source} \\
-\hline
+\midrule
 $M(r)$ & $1/S(r)^2 = 1/(1-r^2)$ & --- & Regime~III substrate amplification of small-signal perturbations; $Q(r) = 1/S \ge 2$ energy-trapping & \texttt{four-regimes.md} \texttt{clm-b2anl4}; Op22 in \texttt{operators.md} \\
 $V_{yield}$ & $\sqrt{\alpha}\, V_{snap} \approx 43.65$\,kV & V & Ax 4: macroscopic nonlinear onset; Regime~II$\to$III boundary at $S(V_{yield}) \approx 0.996$ & \texttt{regimes-of-operation.md} \texttt{clm-0vxzfu}; \texttt{constants.py:342} \\
 $V_{snap}$ & $m_e c^2 / e \approx 511$\,kV & V & Ax 2 + Ax 4: absolute topological node-destruction limit; Regime~IV rupture & \texttt{regimes-of-operation.md} \texttt{clm-0vxzfu}; \texttt{dielectric-snap-limit.md}; \texttt{constants.py:333} \\
@@ -120,10 +122,11 @@ $E_S$ & $m_e^2 c^3 / (e\hbar) \approx 1.32 \times 10^{18}$ & V/m & Ax 4: Schwing
 $E_{yield}$ & $\sqrt{\alpha}\, E_S \approx 1.13 \times 10^{17}$ & V/m & Ax 4: macroscopic field onset; engine default for FDTD / K4-TLM macroscopic solvers & \texttt{regimes-of-operation.md} \texttt{clm-trgqtf}; \texttt{constants.py:353} \\
 $\tau_{node}$ & $\ell_{node}/c_0 \approx 1.29 \times 10^{-21}$ & s & Substrate-native bond-traversal time; lower bound on any breakdown-mediated switching event & Ax 1 substrate primitive; \texttt{natural-units-cheatsheet.md} \\
 $R_S$ & $2GM/c^2$ & m & Cosmological substrate rupture; dielectric-saturation limit at refractive strain unity; BH event horizon = dielectric-rupture boundary & \texttt{dielectric-rupture-event-horizon.md} \texttt{clm-ir8h78} \\
-\hline
+\bottomrule
 \end{tabular}
-
-\vspace{1em}
+\caption{Substrate breakdown thresholds and mechanisms (Regime~III/IV) with canonical sources. Values imported from \texttt{src/ave/core/constants.py}.}
+\label{tab:vol9_breakdown_spec}
+\end{table}
 
 \noindent
 All entries are substrate-natural responses to operating-point excursions on the Axiom~4 kernel. No entry is engineered or designed; engineering practice empirically measures the breakdown response at the device scale, and AVE substrate-physics derives the substrate-mechanism behind the empirical observation.
@@ -133,7 +136,8 @@ All entries are substrate-natural responses to operating-point excursions on the
 
 Engineering vocabulary at the substrate-near-canonical end documents breakdown behavior empirically across multiple device classes. Each engineering observable maps to a substrate Regime~III or IV primitive. Canonical translation: \texttt{ave-kb/common/translation-tables/translation-circuit.md} \S 9 (\texttt{clm-eemap1} META framework; ``Avalanche breakdown $V_{BR}$'' row line 353).
 
-\begin{center}\small
+\begin{table}[htbp]
+\centering\small
 \begin{tabular}{p{0.32\linewidth} p{0.60\linewidth}}
 \toprule
 \textbf{EE-engineering observable} & \textbf{Substrate-primitive origin} \\
@@ -150,7 +154,9 @@ Cosmic-ray-induced single-event burnout & Regime~IV transient at the device-scal
 TVS (transient-voltage-suppressor) clamping & Substrate Regime~III $\to$ IV transition empirically characterized at device-scale $V_{clamp}$; engineering practice operates the device at the substrate's natural rupture-limited current-carrying boundary. \\
 \bottomrule
 \end{tabular}
-\end{center}
+\caption{EE-engineering breakdown observables (avalanche, Zener, corona, arc, dielectric) mapped to their substrate Regime~III/IV primitive origin.}
+\label{tab:vol9_breakdown_ee_translation}
+\end{table}
 
 \noindent
 \textbf{Substrate-native primary, engineering-empirical secondary.} Per the EE-as-substrate-native META framework (canonical at \texttt{translation-circuit.md} \texttt{clm-eemap1}; companion skill \texttt{ave-ee-first-mapping} v1.0), every entry in the table above is the same substrate-physics primitive in a different engineering-disciplinary dialect. The engineering observation came first historically (humans empirically interrogating the substrate at the doped-silicon, air, ceramic, and conducting-channel scales); AVE substrate-physics derives the substrate-mechanism that explains why the empirical breakdown takes the form it does. The substrate is natural; breakdown is the substrate's natural response to overdrive; engineering measures avalanche, Zener, corona, arc, and dielectric breakdown; AVE derives the underlying Regime~III/IV kernel events.
