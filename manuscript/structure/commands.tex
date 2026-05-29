@@ -34,7 +34,10 @@
 % Overfull \hbox margin overruns. Use for paths longer than ~one line can
 % absorb; short \texttt{} tokens (claim ids clm-xxxxxx, short filenames)
 % stay plain \texttt{}.
-\providecommand{\kbleaf}[1]{\texttt{\seqsplit{#1}}}
+% Robust so it survives moving arguments (\caption -> .lot/.aux, section
+% titles -> PDF bookmarks): fragile \seqsplit otherwise errors when written
+% to the aux file.
+\DeclareRobustCommand{\kbleaf}[1]{\texttt{\seqsplit{#1}}}
 
 % =========================================
 % SIUNITX CONFIGURATION (shared)

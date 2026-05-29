@@ -6,16 +6,16 @@
 \begin{itemize}
     \item Document the natural vacuum substrate $\mathcal{M}_A$ as a Cosserat micropolar continuum: 6~DOF per K4 node (3 translational $\to$ $\mathbf{E}$; 3 microrotational $\to$ $\mathbf{B}$), with intrinsic LC oscillators and bond couple-stress connecting nearest neighbours.
     \item Spec out the bulk mechanical primitives: shear modulus $G_{vac}$, bulk modulus $K_{vac} = 2 G_{vac}$, Poisson ratio $\nu_{vac} = 2/7$, Cosserat couple-stress modulus $\gamma_c$, bulk mass density $\rho_{bulk}$, transverse / mechanical wave speed $v_T$, and Cosserat characteristic length $l_c = \sqrt{\gamma_c / G_{vac}}$.
-    \item Tie each primitive to its canonical Axiom~1 + Axiom~2 + Axiom~4 derivation in Vols~1--3 and to its canonical-source entry in \texttt{src/ave/core/constants.py}.
+    \item Tie each primitive to its canonical Axiom~1 + Axiom~2 + Axiom~4 derivation in Vols~1--3 and to its canonical-source entry in \kbleaf{src/ave/core/constants.py}.
     \item Establish the substrate-physics framing for two engineering observables that depend on these primitives: gravitational time dilation (via $c_{shear}(A_0) = c_0 \sqrt{S(A_0)}$ in SYM-class saturation) and weak-force range $r_W \sim l_c$.
-    \item Translate the mechanical primitives into the EE-substrate-native projection (\texttt{ave-ee-first-mapping} v1.0; canonical leaf \texttt{common/translation-tables/translation-circuit.md}): substrate-elastic-network $\leftrightarrow$ LC + transformer network bridged by $\xi_{topo}$.
+    \item Translate the mechanical primitives into the EE-substrate-native projection (\texttt{ave-ee-first-mapping} v1.0; canonical leaf \kbleaf{common/translation-tables/translation-circuit.md}): substrate-elastic-network $\leftrightarrow$ LC + transformer network bridged by $\xi_{topo}$.
 \end{itemize}
 \end{objectivebox}
 
 \section{Substrate as Cosserat Micropolar Continuum}
 \label{sec:vol9_mech_cosserat_continuum}
 
-Per Axiom~1 (Ch.~\ref{ch:fundamental_axioms}, canonical equation file \texttt{common\_equations/eq\_axiom\_1.tex}; CLAUDE.md INVARIANT-S2), the natural vacuum $\mathcal{M}_A$ is a 3D chiral Laves K4 \emph{Cosserat} crystal. Each K4 node carries six intrinsic degrees of freedom:
+Per Axiom~1 (Ch.~\ref{ch:fundamental_axioms}, canonical equation file \kbleaf{common\_equations/eq\_axiom\_1.tex}; CLAUDE.md INVARIANT-S2), the natural vacuum $\mathcal{M}_A$ is a 3D chiral Laves K4 \emph{Cosserat} crystal. Each K4 node carries six intrinsic degrees of freedom:
 
 \begin{itemize}
     \item Three \textbf{translational} DOFs --- capacitive coupling $\varepsilon_0$, identified with the electric field $\mathbf{E}$.
@@ -24,7 +24,7 @@ Per Axiom~1 (Ch.~\ref{ch:fundamental_axioms}, canonical equation file \texttt{co
 
 This is the load-bearing structural distinction between $\mathcal{M}_A$ and a Cauchy (classical-elastic) continuum: a Cauchy medium has translational DOFs only and recovers Lam\'e elasticity; a Cosserat micropolar medium adds independent micro-rotations $\omega$ at every material point, with bond couple-stress $\gamma_c$ coupling neighbouring rotations. The intrinsic-spin-from-microrotation interpretation is canonical (CLAUDE.md INVARIANT-S2 Axiom~1; Vol~1 Ch.~\ref{sec:cosserat_primer} Cosserat primer).
 
-The substrate is therefore documented in the engineering datasheet as a Cosserat micropolar elastic medium with EE-substrate-native projection: translational DOFs $\leftrightarrow$ \textbf{capacitor} (dielectric storage); microrotational DOFs $\leftrightarrow$ \textbf{inductive flywheel} (rotational moment-of-inertia + magnetic flux storage); inter-node couple-stress $\gamma_c$ $\leftrightarrow$ \textbf{transformer mutual-inductance gradient} (canonical at \texttt{common/translation-tables/translation-circuit.md} \S 4 mapping rows; \texttt{ave-ee-first-mapping} v1.0 means-test rows 10, 12).
+The substrate is therefore documented in the engineering datasheet as a Cosserat micropolar elastic medium with EE-substrate-native projection: translational DOFs $\leftrightarrow$ \textbf{capacitor} (dielectric storage); microrotational DOFs $\leftrightarrow$ \textbf{inductive flywheel} (rotational moment-of-inertia + magnetic flux storage); inter-node couple-stress $\gamma_c$ $\leftrightarrow$ \textbf{transformer mutual-inductance gradient} (canonical at \kbleaf{common/translation-tables/translation-circuit.md} \S 4 mapping rows; \texttt{ave-ee-first-mapping} v1.0 means-test rows 10, 12).
 
 \section{Bulk Elastic Primitives}
 \label{sec:vol9_mech_bulk_table}
@@ -40,28 +40,28 @@ The bulk mechanical primitives of $\mathcal{M}_A$ at the cold-lattice operating 
 \midrule
 
 $G_{vac}$ & $\rho_{bulk}\, c_0^2$ (canonical) & \si{\pascal} &
-3D continuum shear modulus, from $v_T = \sqrt{G/\rho} = c_0$ on the LC lattice. Ax~1 + Ax~4. Source: \texttt{src/ave/core/constants.py:587} (\texttt{G\_VAC}). \\
+3D continuum shear modulus, from $v_T = \sqrt{G/\rho} = c_0$ on the LC lattice. Ax~1 + Ax~4. Source: \kbleaf{src/ave/core/constants.py:587} (\texttt{G\_VAC}). \\
 
 $K_{vac}$ & $2\, G_{vac}$ & \si{\pascal} &
 Bulk modulus from Effective Medium Theory at packing fraction $p^* = 8\pi\alpha$ (trace-reversal identity $K/G = 2$). Ax~1 LC mechanism + Ax~2 $\alpha$. Source: derived-numerology Appendix; Vol~3 Ch.~\ref{ch:gravity_and_yield}. \\
 
 $\nu_{vac}$ & $2/7 \approx 0.2857$ & --- &
-Vacuum Poisson ratio. Substrate-axiomatic identity (Ax~1 LC + Ax~2 $\alpha$ interlink); NOT a fitted parameter. Source: \texttt{src/ave/core/constants.py:447} (\texttt{NU\_VAC}); KB leaf \texttt{vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md} (\texttt{clm-x19btt}). See \S\ref{sec:vol9_mech_poisson} below. \\
+Vacuum Poisson ratio. Substrate-axiomatic identity (Ax~1 LC + Ax~2 $\alpha$ interlink); NOT a fitted parameter. Source: \kbleaf{src/ave/core/constants.py:447} (\texttt{NU\_VAC}); KB leaf \kbleaf{vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md} (\texttt{clm-x19btt}). See \S\ref{sec:vol9_mech_poisson} below. \\
 
 $\gamma_c$ & substrate-native (set by $r_W = l_c$) & \si{\newton} &
-Cosserat couple-stress modulus (microrotational bending inductance). Sets the weak-force range scale $l_c = \sqrt{\gamma_c/G_{vac}}$. Substrate primitive of the rotation sector. Source: KB leaf \texttt{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} (\texttt{clm-5zuo7g}; canonical use at line~39). \\
+Cosserat couple-stress modulus (microrotational bending inductance). Sets the weak-force range scale $l_c = \sqrt{\gamma_c/G_{vac}}$. Substrate primitive of the rotation sector. Source: KB leaf \kbleaf{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} (\texttt{clm-5zuo7g}; canonical use at line~39). \\
 
 $\rho_{bulk}$ & $\xi_{topo}^2\, \mu_0 / (P_C\, \ell_{node}^2)$ & \si{\kilogram\per\metre\cubed} &
-Bulk substrate mass density. Electromechanical $\xi_{topo}$ bridge (Ax~2) + critical packing fraction $P_C = 8\pi\alpha$ (Ax~1 LC) + node-spacing scale (Ax~1). Source: \texttt{src/ave/core/constants.py:579} (\texttt{RHO\_BULK}). \\
+Bulk substrate mass density. Electromechanical $\xi_{topo}$ bridge (Ax~2) + critical packing fraction $P_C = 8\pi\alpha$ (Ax~1 LC) + node-spacing scale (Ax~1). Source: \kbleaf{src/ave/core/constants.py:579} (\texttt{RHO\_BULK}). \\
 
 $v_T$ & $c_0$ (cold-lattice limit) & \si{\metre\per\second} &
 Transverse / mechanical wave speed. From $v_T = \sqrt{G_{vac}/\rho_{bulk}} = c_0$ by construction --- photons propagate at $c_0$ on the LC lattice. \emph{Reduces to $c_0$ at $S(0) = 1$; modulated by saturation per \S\ref{sec:vol9_mech_wave_speeds}.} \\
 
 $v_L$ & $\sqrt{2}\, c_0$ & \si{\metre\per\second} &
-Longitudinal wave speed, from $K_{vac} = 2 G_{vac}$. Source: \texttt{src/ave/core/constants.py:591} (\texttt{V\_LONG}). \\
+Longitudinal wave speed, from $K_{vac} = 2 G_{vac}$. Source: \kbleaf{src/ave/core/constants.py:591} (\texttt{V\_LONG}). \\
 
 $l_c$ & $\sqrt{\gamma_c / G_{vac}}$ ($\approx r_W \sim 10^{-18}$~m) & \si{\metre} &
-Cosserat characteristic length; weak-force range scale. Couple-stress-to-shear-modulus ratio. Source: KB leaf \texttt{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} line~39 (\texttt{clm-5zuo7g}). \\
+Cosserat characteristic length; weak-force range scale. Couple-stress-to-shear-modulus ratio. Source: KB leaf \kbleaf{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} line~39 (\texttt{clm-5zuo7g}). \\
 
 \bottomrule
 \end{tabular}
@@ -92,9 +92,9 @@ This is \emph{not} a fitted parameter. It is forced by two independent axiomatic
     \item Standard isotropic elastic identity: $\nu = (3K - 2G)/[2(3K + G)]$ evaluated at $K = 2G$ gives $\nu = 2/7$.
 \end{itemize}
 
-The derivation lives canonically at \texttt{ave-kb/vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md} (\texttt{clm-x19btt}) with the Effective Medium Theory derivation of $K/G = 2$ at the canonical leaves \texttt{topological-packing-fraction.md} and \texttt{one-seventh-impedance-projection.md} in the same KB directory. Per CLAUDE.md INVARIANT-S2, this is an Ax~1+Ax~2 \emph{interlink} (cross-axiom identity), not a fundamental axiom in its own right; the canonical-source entry is \texttt{src/ave/core/constants.py:447}.
+The derivation lives canonically at \kbleaf{ave-kb/vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md} (\texttt{clm-x19btt}) with the Effective Medium Theory derivation of $K/G = 2$ at the canonical leaves \kbleaf{topological-packing-fraction.md} and \kbleaf{one-seventh-impedance-projection.md} in the same KB directory. Per CLAUDE.md INVARIANT-S2, this is an Ax~1+Ax~2 \emph{interlink} (cross-axiom identity), not a fundamental axiom in its own right; the canonical-source entry is \kbleaf{src/ave/core/constants.py:447}.
 
-The same $\nu_{vac} = 2/7$ propagates into downstream electroweak observables --- $\sin^2\theta_W = 1 - 7/9 = 2/9$ (on-shell, \texttt{src/ave/core/constants.py:478}); the Wolfenstein CKM parameterization with $\lambda = \sin^2\theta_W = 2/9$, $A = \cos\theta_W = \sqrt{7}/3$, $\sqrt{\rho^2 + \eta^2} = 1/\sqrt{7}$ (Vol~II Ch.~\ref{ch:electroweak}); and the PMNS mixing angles with $\sin^2\theta_{12} = \nu_{vac} + 1/45 \approx 0.308$ (\texttt{src/ave/core/constants.py:568}). The Vol~9 datasheet records the mechanical Poisson ratio; the downstream electroweak observables are spec'd in their respective chapters.
+The same $\nu_{vac} = 2/7$ propagates into downstream electroweak observables --- $\sin^2\theta_W = 1 - 7/9 = 2/9$ (on-shell, \kbleaf{src/ave/core/constants.py:478}); the Wolfenstein CKM parameterization with $\lambda = \sin^2\theta_W = 2/9$, $A = \cos\theta_W = \sqrt{7}/3$, $\sqrt{\rho^2 + \eta^2} = 1/\sqrt{7}$ (Vol~II Ch.~\ref{ch:electroweak}); and the PMNS mixing angles with $\sin^2\theta_{12} = \nu_{vac} + 1/45 \approx 0.308$ (\kbleaf{src/ave/core/constants.py:568}). The Vol~9 datasheet records the mechanical Poisson ratio; the downstream electroweak observables are spec'd in their respective chapters.
 
 \section{Cosserat Couple-Stress and the Weak-Force Range}
 \label{sec:vol9_mech_couple_stress}
@@ -105,11 +105,11 @@ The Cosserat couple-stress modulus $\gamma_c$ is the substrate-native bending in
 l_c = \sqrt{\gamma_c / G_{vac}},
 \]
 
-and is identified with the weak-force range $r_W \approx 10^{-18}$~m (canonical at KB leaf \texttt{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} line~39, \texttt{clm-5zuo7g}; Vol~II Ch.~\ref{ch:electroweak}).
+and is identified with the weak-force range $r_W \approx 10^{-18}$~m (canonical at KB leaf \kbleaf{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} line~39, \texttt{clm-5zuo7g}; Vol~II Ch.~\ref{ch:electroweak}).
 
-\textbf{Substrate mechanism.} Per the canonical derivation (Vol~II Ch.~\ref{ch:electroweak}; \texttt{gauge-boson-masses.md}): weak interactions lack the kinetic energy required to overcome the ambient LC rotational inductance. Any physical excitation operating \emph{below} the medium's natural cutoff frequency becomes an evanescent wave. The static field equation transforms from the Laplace equation $\nabla^2 \theta = 0$ to the massive Helmholtz equation $\nabla^2 \theta - \theta / l_c^2 = 0$, whose Green's function is the Yukawa potential $V_{weak}(r) \propto e^{-r/l_c}/r$. The $W^\pm$ and $Z^0$ bosons are the evanescent cutoff modes of the substrate's bending and torsional sectors respectively, with mass ratio $m_W/m_Z = \sqrt{7}/3$ set by the same $\nu_{vac} = 2/7$ Poisson identity (\S\ref{sec:vol9_mech_poisson} above).
+\textbf{Substrate mechanism.} Per the canonical derivation (Vol~II Ch.~\ref{ch:electroweak}; \kbleaf{gauge-boson-masses.md}): weak interactions lack the kinetic energy required to overcome the ambient LC rotational inductance. Any physical excitation operating \emph{below} the medium's natural cutoff frequency becomes an evanescent wave. The static field equation transforms from the Laplace equation $\nabla^2 \theta = 0$ to the massive Helmholtz equation $\nabla^2 \theta - \theta / l_c^2 = 0$, whose Green's function is the Yukawa potential $V_{weak}(r) \propto e^{-r/l_c}/r$. The $W^\pm$ and $Z^0$ bosons are the evanescent cutoff modes of the substrate's bending and torsional sectors respectively, with mass ratio $m_W/m_Z = \sqrt{7}/3$ set by the same $\nu_{vac} = 2/7$ Poisson identity (\S\ref{sec:vol9_mech_poisson} above).
 
-\textbf{EE-substrate-native projection} (\texttt{ave-ee-first-mapping} v1.0 means-test row~10): the Cosserat couple-stress modulus $\gamma_c$ \emph{is} the \textbf{transformer leakage inductance characteristic length} at the bond scale. The W/Z mass scale is set by the transformer-leakage-inductance characteristic frequency. The microrotational sector mass-gap $m_\omega \sim 1$~MeV (canonical at \texttt{common/trampoline-framework.md} line~188) is the \textbf{ferrite-Curie-temperature analog} for the substrate's magnetic-mode thermal-freeze threshold (means-test row~12).
+\textbf{EE-substrate-native projection} (\texttt{ave-ee-first-mapping} v1.0 means-test row~10): the Cosserat couple-stress modulus $\gamma_c$ \emph{is} the \textbf{transformer leakage inductance characteristic length} at the bond scale. The W/Z mass scale is set by the transformer-leakage-inductance characteristic frequency. The microrotational sector mass-gap $m_\omega \sim 1$~MeV (canonical at \kbleaf{common/trampoline-framework.md} line~188) is the \textbf{ferrite-Curie-temperature analog} for the substrate's magnetic-mode thermal-freeze threshold (means-test row~12).
 
 The Vol~9 magnetic / microrotational characteristics of $\mathcal{M}_A$ --- the Cosserat flywheel inductance, the rotation-sector mass-gap, $B_{snap}$, and the weak-force range as a spec entry --- are documented separately in Ch.~10 (Magnetic / Microrotational Characteristics). This chapter records $\gamma_c$ as a bulk mechanical primitive; Ch.~10 develops the consequences for the magnetic sector.
 
@@ -124,7 +124,7 @@ v_T(0) = \sqrt{G_{vac} / \rho_{bulk}} = c_0,
 v_L(0) = \sqrt{K_{vac} / \rho_{bulk}} = \sqrt{2 G_{vac} / \rho_{bulk}} = \sqrt{2}\, c_0.
 \]
 
-The transverse speed equals $c_0$ \emph{by construction} --- photons are transverse excitations of the LC lattice, so $v_T = c_0$ identically (canonical-source \texttt{src/ave/core/constants.py:586--587}). The longitudinal speed $v_L = \sqrt{2}\, c_0$ follows from $K_{vac} = 2 G_{vac}$ (canonical-source \texttt{src/ave/core/constants.py:591}).
+The transverse speed equals $c_0$ \emph{by construction} --- photons are transverse excitations of the LC lattice, so $v_T = c_0$ identically (canonical-source \kbleaf{src/ave/core/constants.py:586--587}). The longitudinal speed $v_L = \sqrt{2}\, c_0$ follows from $K_{vac} = 2 G_{vac}$ (canonical-source \kbleaf{src/ave/core/constants.py:591}).
 
 \textbf{Saturation modulation.} At finite saturation operating point $A_0 \neq 0$, the substrate carries two distinct effective speeds, and conflating them is the canonical Pitfall~\#5 framework-leakage error (CLAUDE.md INVARIANT-S2, caught 2026-05-28 Phase~3-A3 WALK-BACK):
 
@@ -133,19 +133,19 @@ The transverse speed equals $c_0$ \emph{by construction} --- photons are transve
     \item $c_{shear}(A_0) = c_0\, \sqrt{S(A_0)}$ --- the substrate mechanical / group / rest-mass velocity; tracks the Schwarzschild $c\sqrt{1 - r_s/r}$ reduction in the SYM-class weak-field gravity limit. This is the spec entry for the mechanical $v_T$ at operating point $A_0$. Canonical at KB leaf \texttt{clm-8nkvwy}.
 \end{itemize}
 
-Both reduce to $c_0$ at the cold-lattice limit $S(0) = 1$. The mechanical-characteristics datasheet entry is $v_T(A_0) = c_{shear}(A_0) = c_0 \sqrt{S(A_0)}$. Under SYM-class saturation scaling (gravity-class realization: $\mu$ and $\varepsilon$ scale together so $Z_0$ stays invariant), this produces gravitational time dilation via the Schwarzschild reduction \emph{while} simultaneously preserving $\alpha$ exactly (canonical proof at \texttt{ave-kb/vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md}, \texttt{clm-3zz0f6}). The substrate-physics of the gravity-class SYM scaling is documented in Vol~3 Ch.~\ref{ch:gravity_and_yield}; this datasheet entry records $v_T(A_0) = c_{shear}(A_0)$ as the canonical mechanical wave-speed spec under saturation modulation.
+Both reduce to $c_0$ at the cold-lattice limit $S(0) = 1$. The mechanical-characteristics datasheet entry is $v_T(A_0) = c_{shear}(A_0) = c_0 \sqrt{S(A_0)}$. Under SYM-class saturation scaling (gravity-class realization: $\mu$ and $\varepsilon$ scale together so $Z_0$ stays invariant), this produces gravitational time dilation via the Schwarzschild reduction \emph{while} simultaneously preserving $\alpha$ exactly (canonical proof at \kbleaf{ave-kb/vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md}, \texttt{clm-3zz0f6}). The substrate-physics of the gravity-class SYM scaling is documented in Vol~3 Ch.~\ref{ch:gravity_and_yield}; this datasheet entry records $v_T(A_0) = c_{shear}(A_0)$ as the canonical mechanical wave-speed spec under saturation modulation.
 
 \section{EE Mechanical Translation}
 \label{sec:vol9_mech_ee_translation}
 
-The EE-substrate-native projection of the mechanical primitives in this chapter (per \texttt{ave-ee-first-mapping} v1.0, canonical leaf \texttt{common/translation-tables/translation-circuit.md}, \texttt{clm-eemap1}). EE is the closest-to-substrate-native human-developed language for the K4-LC vacuum substrate; the mechanical sector projects cleanly onto EE without losing substrate-physics content because Cosserat micropolar mechanics IS the rotational-DOF / couple-stress side of the substrate's intrinsic LC + transformer network.
+The EE-substrate-native projection of the mechanical primitives in this chapter (per \texttt{ave-ee-first-mapping} v1.0, canonical leaf \kbleaf{common/translation-tables/translation-circuit.md}, \texttt{clm-eemap1}). EE is the closest-to-substrate-native human-developed language for the K4-LC vacuum substrate; the mechanical sector projects cleanly onto EE without losing substrate-physics content because Cosserat micropolar mechanics IS the rotational-DOF / couple-stress side of the substrate's intrinsic LC + transformer network.
 
 \begin{table}[htbp]
 \centering
 \renewcommand{\arraystretch}{1.30}
 \begin{tabular}{p{0.32\linewidth} p{0.62\linewidth}}
 \toprule
-\textbf{Substrate mechanical primitive} & \textbf{EE projection (\texttt{translation-circuit.md} \S 4)} \\
+\textbf{Substrate mechanical primitive} & \textbf{EE projection (\kbleaf{translation-circuit.md} \S 4)} \\
 \midrule
 3 translational E-DOFs (per node) & Capacitor (dielectric storage, $\mathbf{E}$-field origin) \\
 3 microrotational B-DOFs (per node) & Inductive flywheel (rotational moment-of-inertia + magnetic-flux storage, $\mathbf{B}$-field origin) \\
@@ -159,11 +159,11 @@ Mechanical wave speed $v_T = c_0$ at cold lattice & EE free-space propagation sp
 \bottomrule
 \end{tabular}
 \renewcommand{\arraystretch}{1.0}
-\caption{EE projection of the substrate mechanical primitives via the Cosserat-LC / transformer correspondence (\texttt{translation-circuit.md} \S 4).}
+\caption{EE projection of the substrate mechanical primitives via the Cosserat-LC / transformer correspondence (\kbleaf{translation-circuit.md} \S 4).}
 \label{tab:vol9_mech_ee_translation}
 \end{table}
 
-The $\xi_{topo} = e/\ell_{node}$ bridge (CLAUDE.md INVARIANT-C2; Axiom~2; canonical-source \texttt{src/ave/core/constants.py:206}) is the load-bearing translation between EE and mechanical observables: $\rho_{bulk}$ scales as $\xi_{topo}^2 \mu_0$ because the substrate's mass density IS the inductive-storage density of the K4-LC network at the node-spacing scale, with $\xi_{topo}$ supplying the EE-to-mechanical dimensional bridge. Every Vol~9 spec entry that crosses the EE / mechanical boundary inherits this $\xi_{topo}$ mapping.
+The $\xi_{topo} = e/\ell_{node}$ bridge (CLAUDE.md INVARIANT-C2; Axiom~2; canonical-source \kbleaf{src/ave/core/constants.py:206}) is the load-bearing translation between EE and mechanical observables: $\rho_{bulk}$ scales as $\xi_{topo}^2 \mu_0$ because the substrate's mass density IS the inductive-storage density of the K4-LC network at the node-spacing scale, with $\xi_{topo}$ supplying the EE-to-mechanical dimensional bridge. Every Vol~9 spec entry that crosses the EE / mechanical boundary inherits this $\xi_{topo}$ mapping.
 
 The EE-substrate-native projection of the entire mechanical sector --- LC-network capacitance + transformer mutual-inductance + leakage inductance + ferrite Curie analog + free-space propagation --- is means-test-validated against 20+ independent substrate-physics cross-checks (canonical at \texttt{ave-ee-first-mapping} v1.0 means-test corpus). The means-test status for this chapter's primitives:
 
@@ -171,7 +171,7 @@ The EE-substrate-native projection of the entire mechanical sector --- LC-networ
     \item $G_{vac}, \rho_{bulk}, v_T = c_0$: identity (LC-network shear modulus = $\rho c^2$; trivially consistent with EE free-space propagation $c_0 = 1/\sqrt{\mu_0\varepsilon_0}$). Means-test rows~2--3.
     \item $K_{vac} = 2 G_{vac}$ + $\nu_{vac} = 2/7$: substrate-axiomatic from EMT at $p^* = 8\pi\alpha$; cross-validated against gradient-index refraction in Vol~3 gravity. Means-test row~9.
     \item $\gamma_c$ + $l_c$: order-of-magnitude match against W/Z mass scale via transformer-leakage-inductance characteristic frequency. Means-test row~10.
-    \item Cosserat rotation-sector mass-gap $m_\omega \sim 1$~MeV (consequence for Ch.~10): canonical at \texttt{trampoline-framework.md} line~188. Means-test row~12.
+    \item Cosserat rotation-sector mass-gap $m_\omega \sim 1$~MeV (consequence for Ch.~10): canonical at \kbleaf{trampoline-framework.md} line~188. Means-test row~12.
 \end{itemize}
 
 The substrate is natural; the EE projection is the cleanest-to-substrate-native language we have; this chapter records the mechanical-sector spec in both projections.

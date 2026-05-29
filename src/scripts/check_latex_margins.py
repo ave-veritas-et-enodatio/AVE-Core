@@ -17,19 +17,21 @@ def check_log(log_path: str) -> None:
     #                  Wave 1-3 chapter content landed with long \texttt{path}
     #                  citations to canonical-leaf paths (max observed 293pt
     #                  at Ch 8 + Ch 11 + Ch 13 + Ch 14 + Ch 15 + Ch 16 path
-    #                  citations). Per-overrun cleanup is queued, not
-    #                  in-flight; this PR delivers Vol 9 substrate-physics
-    #                  content + KB cross-refs and defers the cosmetic
-    #                  per-overrun \texttt{path} → \path{}/\seqsplit{} pass.
-    #
-    # FUTURE CLEANUP (post-Vol-9-merge):
-    #   1. Convert long-path \texttt{} → \path{} or \seqsplit{} across
-    #      foreword + all chapter narratives.
-    #   2. Re-run make vol9; observe new max overrun.
-    #   3. Tighten max_allowed back to 15-30pt for publication polish.
-    # See QUEUE: per-overrun surgical foreword + chapter cleanup (low
-    # priority; cosmetic; not gating substrate-physics content).
-    max_allowed = 350.0
+    #                  citations). Per-overrun cleanup was queued.
+    #   45pt 2026-05-28 (vol9-corpus LaTeX-formatting pass): the deferred
+    #                  cleanup landed. Long inline \texttt{} path citations
+    #                  corpus-wide are now wrapped in \kbleaf{} (= robust
+    #                  \texttt{\seqsplit{}}), which breaks the path at any
+    #                  character; the widest 5-/7-column Vol 9 tables were
+    #                  converted to tabularx wrapping columns; and global
+    #                  \sloppy was removed (replaced by a bounded
+    #                  \emergencystretch). Measured global max overrun across
+    #                  all 8 volumes dropped from 345pt -> 34pt (vol 9 34.05pt,
+    #                  vol 0 32.17pt; all others <14pt). Threshold set to 45pt:
+    #                  just above the measured max with a small headroom for
+    #                  pass-to-pass page-break variation in the cross-volume
+    #                  two-pass build.
+    max_allowed = 45.0
     failed = False
 
     try:

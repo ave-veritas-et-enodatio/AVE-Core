@@ -118,7 +118,7 @@ The physics engine implements both behaviors programmatically via the solver
 
 \subsection{Headline: SPARC 135-galaxy benchmark CONFIRMED (zero free parameters, 11.5\% Q=1 mean $|$residual$|$)}
 
-The AVE galactic-rotation prediction has been benchmarked against the full SPARC catalog (Lelli, McGaugh, Schombert 2016 AJ 152 157 --- 175 late-type galaxies, public). Live-fire validation 2026-05-17 via \texttt{src/scripts/vol\_3\_macroscopic/sparc\_catalog\_ingest.py}: 135 galaxies parsed (40 lack published $V_{flat}$); AVE prediction matches observed flat-rotation velocities with \textbf{zero free parameters} at the residuals shown in Table~\ref{tab:sparc_benchmark}.
+The AVE galactic-rotation prediction has been benchmarked against the full SPARC catalog (Lelli, McGaugh, Schombert 2016 AJ 152 157 --- 175 late-type galaxies, public). Live-fire validation 2026-05-17 via \kbleaf{src/scripts/vol\_3\_macroscopic/sparc\_catalog\_ingest.py}: 135 galaxies parsed (40 lack published $V_{flat}$); AVE prediction matches observed flat-rotation velocities with \textbf{zero free parameters} at the residuals shown in Table~\ref{tab:sparc_benchmark}.
 
 \begin{table}[H]
 \centering\footnotesize
@@ -142,7 +142,7 @@ Q=3 (worst) & 6 galaxies & 74.3\% & 94.4\% & Poor-quality data; large scatter ex
 
 \subsection{Legacy 5-galaxy demonstration (preserved for cross-check)}
 
-The physics engine also contains a smaller five-galaxy demonstration catalog (\texttt{gravity/galactic\_rotation.py}) spanning four decades of baryonic mass, used as a quick benchmark before the full SPARC ingestion landed.  Table~\ref{tab:galaxy_validation} preserves these values for cross-checking the SPARC ingestion pipeline.
+The physics engine also contains a smaller five-galaxy demonstration catalog (\kbleaf{gravity/galactic\_rotation.py}) spanning four decades of baryonic mass, used as a quick benchmark before the full SPARC ingestion landed.  Table~\ref{tab:galaxy_validation} preserves these values for cross-checking the SPARC ingestion pipeline.
 
 \begin{table}[H]
 \centering\footnotesize
@@ -221,17 +221,17 @@ This section previously proposed a VLBI Jupiter-grazing radio test claiming dark
 
 \begin{enumerate}
     \item The ``$377\,\Omega$ stretching'' mechanism contradicts AVE's own $Z_0$-invariance theorem (Vol 3 Ch 3 achromatic-impedance-matching + Vol 4 Ch 1 z0-derivation). $Z_{local}(r) = \sqrt{\mu(r)/\varepsilon(r)} \equiv Z_0$ at every $r$ because $\varepsilon(r)$ and $\mu(r)$ scale symmetrically with $n(r)$. There is no $Z_0$ to ``stretch'' geometrically.
-    \item The driver script \texttt{src/scripts/vol\_3\_macroscopic/vlbi\_impedance\_parallax.py} computes pure GR Shapiro delay ($n = 1 + 2GM/rc^2$). AVE's $n(r)$ is mathematically identical to the spatial transverse trace of the Gordon optical metric per Vol 3 Ch 3 refractive-index-of-gravity (line 14). No AVE-distinct VLBI observable is derived in the corpus.
+    \item The driver script \kbleaf{src/scripts/vol\_3\_macroscopic/vlbi\_impedance\_parallax.py} computes pure GR Shapiro delay ($n = 1 + 2GM/rc^2$). AVE's $n(r)$ is mathematically identical to the spatial transverse trace of the Gordon optical metric per Vol 3 Ch 3 refractive-index-of-gravity (line 14). No AVE-distinct VLBI observable is derived in the corpus.
 \end{enumerate}
 
-The corpus's actual derived DM mechanism is \textbf{kinematic mutual inductance of the spatial network} ($\nu_{kin} = \alpha c \ell_{node}$, per Vol 1 Ch 4 lc-electrodynamics), with the observable galactic-rotation chain driven by $a_0 = c H_\infty / (2\pi)$ via the Unruh-Hawking hoop projection (Vol 1 Ch 4 mond-hoop-stress). The matrix row C13-VLBI-DARK was split 2026-05-16 into three rows reflecting what the corpus actually derives: C13a (galactic rotation via $a_0 + \eta_{eff}$), C13b (bullet cluster via TT shockwave on Gordon metric), C13c (META row tracking three-mechanism coexistence as open theoretical gap). See KB \texttt{closure-roadmap.md} \S 0.5 and \texttt{divergence-test-substrate-map.md} C13 family section.
+The corpus's actual derived DM mechanism is \textbf{kinematic mutual inductance of the spatial network} ($\nu_{kin} = \alpha c \ell_{node}$, per Vol 1 Ch 4 lc-electrodynamics), with the observable galactic-rotation chain driven by $a_0 = c H_\infty / (2\pi)$ via the Unruh-Hawking hoop projection (Vol 1 Ch 4 mond-hoop-stress). The matrix row C13-VLBI-DARK was split 2026-05-16 into three rows reflecting what the corpus actually derives: C13a (galactic rotation via $a_0 + \eta_{eff}$), C13b (bullet cluster via TT shockwave on Gordon metric), C13c (META row tracking three-mechanism coexistence as open theoretical gap). See KB \kbleaf{closure-roadmap.md} \S 0.5 and \kbleaf{divergence-test-substrate-map.md} C13 family section.
 
 \subsection{DAMA Parallax \& Crystal Phonon Modulation --- descriptive only}
 The DAMA/LIBRA collaboration claims persistent annual modulation indicative of a Dark Matter ``Wind.'' Under the AVE framework, the Earth is physically flying through the Milky Way's rest-frame LC kinematic mutual-inductance field. This bulk lattice phenomenon generates macroscopic phononic coupling inside the highly tensioned DAMA NaI(Tl) scintillating crystals, modulating the spontaneous acoustic defect decay rate.
 
 If the DAMA collaboration were to switch target crystals---for instance, from Sodium Iodide ($\rho = 3.67 \times 10^3 \text{ kg/m}^3$) to Sapphire ($\rho = 3.98 \times 10^3\text{ kg/m}^3$) or Germanium ($\rho = 5.32 \times 10^3\text{ kg/m}^3$)---the \textbf{phase} of the annual modulation would remain identical, driven by Earth's orbital kinematics. The \textbf{amplitude} of the anomaly should scale with the crystal's bulk-density coupling constant $\kappa_{crystal} = \rho_{crystal}/\rho_{bulk}$ and structural acoustic Q-factor.
 
-\textbf{Honest scope (2026-05-16 audit):} the amplitude formula itself is NOT derived in the corpus. The script \texttt{vlbi\_impedance\_parallax.py} computes the crystal-density ratios $\kappa$ but does not predict an annual-modulation amplitude. The C14-DAMA matrix row carries a TBD-pin on the amplitude derivation; this is a corpus derivation gap, classed as part of the C13c three-mechanism unification META item.
+\textbf{Honest scope (2026-05-16 audit):} the amplitude formula itself is NOT derived in the corpus. The script \kbleaf{vlbi\_impedance\_parallax.py} computes the crystal-density ratios $\kappa$ but does not predict an annual-modulation amplitude. The C14-DAMA matrix row carries a TBD-pin on the amplitude derivation; this is a corpus derivation gap, classed as part of the C13c three-mechanism unification META item.
 
 \begin{summarybox}
 \begin{itemize}

@@ -24,7 +24,7 @@ decay-time error per event}; Phase-4 spin sweep confirms generalization
 across $a_* \in [0, 0.85]$ covering the entire LIGO BBH catalog (GW190521
 IMBH-class at $-0.25\%$); v2 outperforms standard GR Kerr QNM for $\tau$.
 All from zero free parameters (per the KB \texttt{ch15} ringdown-eigenvalue
-leaf + driver \texttt{src/scripts/vol\_3\_macroscopic/ligo\_ringdown\_driver.py}).
+leaf + driver \kbleaf{src/scripts/vol\_3\_macroscopic/ligo\_ringdown\_driver.py}).
 
 Both phenomena are governed by the universal saturation kernel
 $S(A) = \sqrt{1 - A^2}$ at gravitational scale --- same kernel as atomic
@@ -116,7 +116,7 @@ For GRS 1915+105 ($M \approx 14\,M_\odot$, $a_* \approx 0.7$), the impedance res
 
 Four stellar-mass X-ray binary systems exhibit well-characterised twin high-frequency QPOs with a near-universal $3$:$2$ frequency ratio (Abramowicz \& Klu{\'z}niak 2001; Remillard \& McClintock 2006). This ratio is a critical observational constraint on any accretion disk model.
 
-The AVE impedance band solver ({\texttt{orbital\_resonance.py}}) predicts quantised mode frequencies at each standing-wave resonance radius. Table~\ref{tab:qpo_comparison} compares the predicted mode spectrum against four systems with published RXTE twin HF QPO detections.
+The AVE impedance band solver ({\kbleaf{orbital\_resonance.py}}) predicts quantised mode frequencies at each standing-wave resonance radius. Table~\ref{tab:qpo_comparison} compares the predicted mode spectrum against four systems with published RXTE twin HF QPO detections.
 
 \begin{table}[H]
 \centering
@@ -231,7 +231,7 @@ The $\ell = 2$ fundamental Schwarzschild QNM eigenvalue is derived entirely from
 \end{resultbox}
 \noindent Zero free parameters, zero borrowed results.
 
-Frame-dragging shifts the prograde saturation boundary inward, but the K4 Cosserat lattice provides a rigid skeleton fraction that does NOT yield to rotational stress. Per the (2,3) torus-knot topology shared between electron and BH (KB \texttt{electron-bh-isomorphism.md}), the cavity has TWO components: a rigid $\nu_{vac}$ fraction set by K4 elasticity, plus a compliant $(1 - \nu_{vac})$ fraction that scales with the photon-orbit radius.
+Frame-dragging shifts the prograde saturation boundary inward, but the K4 Cosserat lattice provides a rigid skeleton fraction that does NOT yield to rotational stress. Per the (2,3) torus-knot topology shared between electron and BH (KB \kbleaf{electron-bh-isomorphism.md}), the cavity has TWO components: a rigid $\nu_{vac}$ fraction set by K4 elasticity, plus a compliant $(1 - \nu_{vac})$ fraction that scales with the photon-orbit radius.
 
 \begin{resultbox}{Kerr-Corrected Ringdown (v2 --- Cosserat back-reaction, 2026-05-18)}
 \begin{equation}
@@ -277,7 +277,7 @@ GW151226 & 20.8 $M_\odot$ & 0.74 & \textbf{764.0 Hz} & 750 Hz & \textbf{$+1.9$\%
 \bottomrule
 \end{tabularx}
 \end{center}
-\noindent \textbf{Frequency mean $-0.45\%$, decay-time mean $-0.47\%$ per event}. Live-fire driver at \texttt{src/scripts/vol\_3\_macroscopic/ligo\_ringdown\_driver.py}; full Phase-3+5 outputs in research \texttt{ligo-ringdown-driver-design.md} \S 8--10.
+\noindent \textbf{Frequency mean $-0.45\%$, decay-time mean $-0.47\%$ per event}. Live-fire driver at \kbleaf{src/scripts/vol\_3\_macroscopic/ligo\_ringdown\_driver.py}; full Phase-3+5 outputs in research \kbleaf{ligo-ringdown-driver-design.md} \S 8--10.
 
 \paragraph{Phase-4 spin sweep + mass-independence (2026-05-18).} v2 generalizes across the full Berti+Cardoso+Will 2006 Kerr QNM curve: 9 of 11 swept spin values $a_* \in \{0.0, 0.1, \ldots, 0.95\}$ PASS at $|\text{dev}| < 3\%$ vs GR reference; divergence onset $a_* \geq 0.90$ (near-extremal regime, currently unattested in LIGO catalog). Mass-independence confirmed at $7\times$ range: GW190521 ($M = 142\ M_\odot$, IMBH-class) matches at $-0.25\%$ per v2; GW170729 ($a_* = 0.81$) matches at $+1.77\%$. \textbf{v2 covers entire currently-detected LIGO BBH catalog at GR-class precision.} Near-extremal regime ($a_* > 0.90$) deferrable to Option B (full spheroidal cavity) when LIGO/ET detects such an event.
 
@@ -294,13 +294,13 @@ Black hole jets (Blandford-Znajek mechanism) preferentially launch along the spi
 The equatorial accretion disk is strain-blocked; the polar axis is strain-matched (Figure~\ref{fig:untapped}, Panel 3). The predicted jet opening angle scales with $a_*$ as the equatorial strain metric widens with increasing rotation.
 
 \paragraph{Engine implementation.}
-The rupture physics described above is implemented in two modules of the \texttt{regime\_4\_rupture/} package:
+The rupture physics described above is implemented in two modules of the \kbleaf{regime\_4\_rupture/} package:
 \begin{itemize}
-    \item \texttt{rupture\_solver.py}: Computes the lattice rupture state
+    \item \kbleaf{rupture\_solver.py}: Computes the lattice rupture state
           at a given strain $\varepsilon_{11}$.  At $S = 0$ the effective
           wave speed $c_{eff} \to 0$ and the impedance diverges, triggering
           the phase transition documented in \S\ref{sec:compactness_limit}.
-    \item \texttt{black\_hole\_jets.py}: Models the energy redirection
+    \item \kbleaf{black\_hole\_jets.py}: Models the energy redirection
           at $(1-S) \to 1$.  Energy that cannot propagate through the
           saturated interior is funnelled along the strain-minimised polar
           axis via the impedance gradient $\varepsilon_{11,\,polar} \ll \varepsilon_{11,\,equatorial}$.
