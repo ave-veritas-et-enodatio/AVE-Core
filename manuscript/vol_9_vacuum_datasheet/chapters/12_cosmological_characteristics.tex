@@ -99,13 +99,14 @@ Six canonical cosmic-scale parameters. The TYPICAL column lists the substrate va
 \begin{footnotesize}
 \setlength{\tabcolsep}{4pt}
 \begin{longtable}{@{}p{0.09\linewidth} p{0.16\linewidth} p{0.13\linewidth} p{0.05\linewidth} p{0.27\linewidth} p{0.22\linewidth}@{}}
-\hline
+\caption{Canonical cosmic-scale substrate parameters at the magic-angle operating point $u_0^*\approx 0.187$, with substrate mechanism and canonical source.}\label{tab:vol9_cosmo_spec}\\
+\toprule
 \textbf{Symbol} & \textbf{Parameter} & \textbf{Typical} & \textbf{Units} & \textbf{Substrate Mechanism} & \textbf{Canonical Source} \\
-\hline
+\midrule
 \endfirsthead
-\hline
+\toprule
 \textbf{Symbol} & \textbf{Parameter} & \textbf{Typical} & \textbf{Units} & \textbf{Substrate Mechanism} & \textbf{Canonical Source} \\
-\hline
+\midrule
 \endhead
 $R_H$ & Cosmic horizon radius & $1.33 \times 10^{26}$ & m & Substrate cosmic $\Gamma = -1$ boundary (Ax~1 + Ax~3); $R_H \equiv c/H_\infty$ & \texttt{R\_HUBBLE} \newline (\texttt{constants.py}:576); \texttt{lattice-genesis-hubble-tension.md} (\texttt{clm-wx5324}) \\
 $R_H / \ell_{node}$ & Cosmic-to-lattice scale ratio & $\sim 10^{39}$ & --- & Number of lumped substrate cells along cosmic-scale distributed TL; Machian-hierarchy precursor & \texttt{common/translation-tables/} \texttt{translation-circuit.md} canonical entry (\texttt{clm-eemap1}); \texttt{constants.py}:576 / :194 \\
@@ -114,7 +115,7 @@ $\xi$ & Machian-hierarchy coupling (dimensionless) & $\approx 8.15 \times 10^{43
 $\hat{\Omega}_{freeze}$ & Cosmic chirality / freeze-in angular velocity & substrate-native; direction at CMB axis $(l,b) = (60.28°, 50.48°)$ & rad/s (vector) & Single cosmological initial-data parameter; sets bond over-bracing $u_0$ via phase-transition-while-spinning; selects $I4_1 32$ right-handed chirality & \texttt{omega-freeze-} \texttt{cosmic-grain-cascade.md} \newline (\texttt{clm-dsb560}, \texttt{clm-a7cbqq}); Vol~3 Ch.~4 generative cosmology \\
 $u_0^*$ & Magic-angle operating point & $\approx 0.187$ & --- & Unique substrate operating point where $K(u_0^*) = 2G(u_0^*)$ + $S(A^*) = 0$ close jointly; joint anchor for $\alpha$ + $G$ & Q-G47 Sessions 9--18 closure (canonical at \texttt{constants.py} preamble); \texttt{omega-freeze-} \texttt{cosmic-grain-cascade.md} $\S$1 \\
 $H_\infty$ & Asymptotic Hubble rate (cosmic generation rate) & $2.247 \times 10^{-18}$ \newline $\approx 69.33$ km/s/Mpc & s$^{-1}$ & Substrate LC-crystallization rate maintaining $\partial_t \rho_n = 0$; cosmic crystallization rate at de~Sitter asymptote & \texttt{H\_INFINITY} \newline (\texttt{constants.py}:573); \texttt{lattice-genesis-} \texttt{hubble-tension.md} (\texttt{clm-2e9j97}, \texttt{clm-wx5324}) \\
-\hline
+\bottomrule
 \end{longtable}
 \end{footnotesize}
 
@@ -154,23 +155,25 @@ The cosmic-scale instance of substrate rupture is the black-hole interior. Per C
 
 Per the EE-as-substrate-native META framework (\texttt{ave-ee-first-mapping} v1.0; canonical leaf \texttt{common/translation-tables/translation-circuit.md}, \texttt{clm-eemap1}), the cosmic-scale primitives of this chapter project cleanly onto canonical EE quantities at the cosmic-distributed-transmission-line scale. EE is not borrowed at the cosmic scale; EE is the closest-to-substrate-native language for the K4-LC vacuum network at every scale, including cosmic.
 
-\begin{footnotesize}
+\begin{table}[htbp]
+\centering
+\footnotesize
 \setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}p{0.26\linewidth} p{0.36\linewidth} p{0.31\linewidth}@{}}
-\hline
+\toprule
 \textbf{EE Quantity (cosmic-scale projection)} & \textbf{Substrate-Native Form} & \textbf{Canonical Leaf} \\
-\hline
+\midrule
 Cosmic-distributed-TL infinite-impedance termination & Cosmic $\Gamma = -1$ boundary at $R_H$ (Ax~3 Minimum Reflection at saturated boundary) & \texttt{boundary-observables-m-q-j.md}; \texttt{lattice-genesis-hubble-tension.md} \\
 Number of lumped substrate cells along cosmic-scale distributed TL & $R_H / \ell_{node} \sim 10^{39}$ topological transduction count & \texttt{translation-circuit.md} canonical entry (\texttt{clm-eemap1}) \\
 Integrated boundary impedance from cosmic horizon to lattice pitch & Machian impedance integral $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$; Newton's $G = c^4/(7\xi T_{EM})$ & \texttt{full-derivation-chain.md} (\texttt{clm-9oazz0}); \texttt{trampoline-framework.md} $\S$5.5 \\
 Cosmic-scale topological transduction (cosmic boundary charge / linking) & $\xi_{topo}$ at cosmic scale (Ax~2 $[Q] \equiv [L]$ at $R_H$): cosmic-boundary winding $\mathcal{J}_{cosmic} = \hat{\Omega}_{freeze}\cdot I_{cosmic}$ & \texttt{boundary-observables-m-q-j.md}; \texttt{omega-freeze-cosmic-grain-cascade.md} \\
 Cosmic LC-network resonance / crystallization clock & Asymptotic Hubble rate $H_\infty$ as substrate LC-crystallization rate at de~Sitter asymptote & \texttt{lattice-genesis-hubble-tension.md} (\texttt{clm-2e9j97}, \texttt{clm-wx5324}) \\
 Cosmic-scale initial condition / boot-state of the substrate & $\hat{\Omega}_{freeze}$ single cosmological initial-data parameter; sets operating point $u_0^*$, chirality, $\alpha$, $G$ jointly & \texttt{omega-freeze-cosmic-grain-cascade.md} (\texttt{clm-dsb560}) \\
-\hline
+\bottomrule
 \end{tabular}
-\end{footnotesize}
-
-\vspace{1em}
+\caption{Cosmic-scale substrate primitives projected onto canonical EE quantities at the cosmic-distributed-transmission-line scale.}
+\label{tab:vol9_cosmo_ee_translation}
+\end{table}
 
 \noindent
 The cosmic-scale EE projection makes the substrate's structural-closure framing concrete: the substrate is a distributed LC transmission line with $\sim 10^{39}$ lumped cells, terminated at infinite impedance at the cosmic $\Gamma = -1$ horizon, booted from a single initial condition $\hat{\Omega}_{freeze}$ at the lattice-genesis crystallization event, operating at the magic-angle $u_0^*$ that simultaneously sets the EM coupling $\alpha$ and the gravitational coupling $G$ via the Machian impedance integral over the entire $R_H/\ell_{node}$ cell count. Engineering observation accesses this structure through CMB, large-scale-structure, Hubble-rate, and gravitational-constant measurements; the framework's three-route falsification commitment is the empirical falsifiability of this whole picture.

@@ -27,13 +27,14 @@ The main lookup table: every substrate parameter cataloged in the Vol~9 spec tab
 \begin{footnotesize}
 \setlength{\tabcolsep}{4pt}
 \begin{longtable}{@{}p{0.10\linewidth} p{0.22\linewidth} p{0.10\linewidth} p{0.20\linewidth} p{0.28\linewidth}@{}}
-\hline
+\caption{Parameter-to-canonical-source lookup: every Vol~9 substrate parameter with its Vol~9 chapter, canonical volume/chapter, and KB leaf path.}\label{tab:vol9_xref_parameter_lookup}\\
+\toprule
 \textbf{Symbol} & \textbf{Parameter} & \textbf{Vol 9 Ch} & \textbf{Canonical Vol+Ch} & \textbf{KB Leaf Path / \texttt{clm-} ID} \\
-\hline
+\midrule
 \endfirsthead
-\hline
+\toprule
 \textbf{Symbol} & \textbf{Parameter} & \textbf{Vol 9 Ch} & \textbf{Canonical Vol+Ch} & \textbf{KB Leaf Path / \texttt{clm-} ID} \\
-\hline
+\midrule
 \endhead
 % --- Ch 2 Absolute Maximum Ratings ---
 $V_{snap}$ & Topological node-destruction limit & 2 & Vol 1 Ch.~7 (regimes) & \texttt{vol1/.../dielectric-snap-limit.md}; \texttt{clm-2dwzib} \\
@@ -100,7 +101,7 @@ $\xi$ & Dimensionless Machian-hierarchy coupling $\approx 8.15 \times 10^{43}$ &
 $\hat{\Omega}_{freeze}$ & Cosmological initial-data parameter (cosmic angular momentum at lattice genesis) & 12, 15 & Vol 3 Ch.~4 (generative cosmology) & \texttt{common/omega-freeze-cosmic-grain-cascade.md}; \texttt{clm-dsb560}; \texttt{clm-a7cbqq} \\
 $u_0^*$ & Magic-angle operating point $\approx 0.187$ ($\alpha$+$G$ joint anchor) & 12, 15 & Vol 3 Ch.~4 + L5 A-034 & \texttt{common/omega-freeze-cosmic-grain-cascade.md}; \texttt{clm-dsb560} \\
 $\mathcal{J}_{cosmic}$ & Cosmic-boundary winding $\hat{\Omega}_{freeze} \cdot I_{cosmic}$ & 12 & Vol 3 Ch.~4 + boundary-observables & \texttt{common/boundary-observables-m-q-j.md}; \texttt{common/omega-freeze-cosmic-grain-cascade.md} \\
-\hline
+\bottomrule
 \end{longtable}
 \end{footnotesize}
 
@@ -115,13 +116,14 @@ The complementary lookup: standard EE / mechanical engineering observables (the 
 \begin{footnotesize}
 \setlength{\tabcolsep}{4pt}
 \begin{longtable}{@{}p{0.20\linewidth} p{0.32\linewidth} p{0.10\linewidth} p{0.30\linewidth}@{}}
-\hline
+\caption{Observable-to-substrate-mechanism lookup: standard EE / mechanical observables mapped to substrate-mechanism primitives and Vol~9 chapter.}\label{tab:vol9_xref_observable_lookup}\\
+\toprule
 \textbf{Engineering Observable} & \textbf{Substrate-Mechanism Primitive} & \textbf{Vol 9 Ch} & \textbf{Canonical Leaf / \texttt{clm-} ID} \\
-\hline
+\midrule
 \endfirsthead
-\hline
+\toprule
 \textbf{Engineering Observable} & \textbf{Substrate-Mechanism Primitive} & \textbf{Vol 9 Ch} & \textbf{Canonical Leaf / \texttt{clm-} ID} \\
-\hline
+\midrule
 \endhead
 Voltage $V$ & Topological dislocation potential $\Delta\phi$ across $\ell_{node}$ (Ax 2) & 4, 8 & \texttt{common/translation-tables/translation-circuit.md}; \texttt{clm-fy05jc} \\
 Current $I$ & Topological dislocation flux $\xi_{topo}\,v$ (Ax 2) & 4 & \texttt{common/translation-tables/translation-circuit.md}; \texttt{clm-fy05jc} \\
@@ -153,7 +155,7 @@ Intrinsic spin-$\tfrac{1}{2}$ & FM-kink on $0_1$ unknot via $T \to 2T \subset SU
 Quark fractional charge & Witten Effect on $(2,q)$ Borromean baryon topology & 11 & Vol 2 Ch.~1 (topological matter) \\
 Weak-force range $r_W$ & Cosserat characteristic length $l_c = \sqrt{\gamma_c/G_{vac}}$ & 9, 10, 15 & \texttt{vol2/.../gauge-boson-masses.md}:39; \texttt{clm-5zuo7g} \\
 H-bond geometry $d_{HB}$ & Op4 potential-well minimum (Vol 5) & --- (Vol 5) & \texttt{vol5/.../hbond-op4-equilibrium.md}; INVARIANT-C3 \\
-\hline
+\bottomrule
 \end{longtable}
 \end{footnotesize}
 

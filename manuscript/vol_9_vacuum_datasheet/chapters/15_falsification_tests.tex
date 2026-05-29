@@ -220,13 +220,14 @@ The framework's sharpest empirical commitment (Ch.~\ref{ch:vol9_cosmological_cha
 \begin{footnotesize}
 \setlength{\tabcolsep}{3pt}
 \begin{longtable}{@{}p{0.13\linewidth} p{0.18\linewidth} p{0.20\linewidth} p{0.18\linewidth} p{0.10\linewidth} p{0.14\linewidth}@{}}
-\hline
+\caption{Vol~9 falsification programme: per-test apparatus, prediction, kill-switch condition, status, and canonical source.}\label{tab:vol9_falsification_spec}\\
+\toprule
 \textbf{Test} & \textbf{Apparatus} & \textbf{Prediction} & \textbf{Kill-Switch Condition} & \textbf{Status} & \textbf{Canonical Source} \\
-\hline
+\midrule
 \endfirsthead
-\hline
+\toprule
 \textbf{Test} & \textbf{Apparatus} & \textbf{Prediction} & \textbf{Kill-Switch Condition} & \textbf{Status} & \textbf{Canonical Source} \\
-\hline
+\midrule
 \endhead
 PONDER-05 dielectric saturation & Paired DC-biased quartz at $V_{DC}/V_{yield} = 0.687$ & $C_{eff}/C_0 = 1.376$; $\varepsilon_{eff}/\varepsilon_0 = 0.727$; differential thrust $\sim 469\,\mu\text{N}$ & Null $C_{eff}$ rise at operating point falsifies Ax 4 dielectric specialization & Bench fab in progress; measurement pending & \texttt{parametric-coupling-kernel.md}; \texttt{measurement-hierarchy-snr.md}:66; B7-PONDER-05 \\
 HOPF-01 chiral antenna & 5 torus-knot wire antennas on FR-4 PCB; VNA $S_{11}$ & $\Delta f/f = \alpha\, pq/(p+q)$ linear through origin; substrate-independent slope $\alpha$ & Zero / random / substrate-dependent slope falsifies chiral $(p,q)$ resonance & Hardware in hand; partial knot stitching underway; HOPF-02 mitigation in fab & \texttt{open-source-hardware.md} (\texttt{clm-wzezvt}); A1-HOPF \\
@@ -240,7 +241,7 @@ Static-Sagnac galactic wind & Existing static-Sagnac and optical-cavity data (Br
 GRB photon dispersion & Ultra-high-energy gamma-ray-burst telescopes & No energy-dependent arrival-time delay at sub-Trans-Planckian $E$ & Strict energy-dependent dispersion observation falsifies topological decoupling theorem & Not yet observed at current bounds; consistent with prediction & \texttt{binary-kill-switches.md}; \texttt{epistemology-kill-switches.md} (\texttt{clm-gw2wgc}) \\
 Cosmic chirality axis (8-channel) & Planck PR3 + Pantheon+ + SDSS + Gaia + LIGO/Virgo + LiteBIRD + CODATA $G$ + CMB QNM & 8 independent observables mutually aligned with single $\hat{\Omega}_{freeze}$ axis at $(l, b) = (60.28^\circ, 50.48^\circ)$ & Mutual inconsistency across channels, or null preferred axis on aligned channels, falsifies single-cosmological-parameter framework & CMB axis empirically pinned 2026-05-19; cross-channel quantitative re-analysis pending & \texttt{omega-freeze-cosmic-grain-cascade.md} (\texttt{clm-dsb560}, \texttt{clm-pe8lpx}, \texttt{clm-fndptx}) \\
 Three-route $u_0^*$ convergence & EM ($\alpha$), gravitational ($G$), cosmological ($\hat{\Omega}_{freeze}$) data routes & All three routes converge on $u_0^* \approx 0.187$ at relevant precision & Disagreement across the three routes at constrained precision falsifies single-cosmological-parameter framework & Routes 1, 2 converge at CODATA precision; Route 3 quantitative pending & \texttt{constants.py} preamble; \texttt{omega-freeze-cosmic-grain-cascade.md} (\texttt{clm-dsb560}) \\
-\hline
+\bottomrule
 \end{longtable}
 \end{footnotesize}
 

@@ -58,9 +58,12 @@ Canonical derivation: \texttt{manuscript/ave-kb/vol2/particle-physics/ch01-topol
 \section{Topological Spec Table}
 \label{sec:vol9_topological_spec_table}
 
+\begin{table}[htbp]
+\centering
 \begin{tabular}{p{0.16\linewidth} p{0.16\linewidth} p{0.07\linewidth} p{0.13\linewidth} p{0.32\linewidth}}
+\toprule
 \textbf{Symbol} & \textbf{Typical} & \textbf{Units} & \textbf{Conditions} & \textbf{Substrate Mechanism / Canonical Source} \\
-\hline
+\midrule
 $\xi_{topo}$ & $e / \ell_{node}$ $\approx 4.149 \times 10^{-7}$ & C/m & cold lattice $S(0) = 1$ & Topological transduction; Ax~2 (\texttt{translation-circuit.md} \texttt{clm-fy05jc}) \\
 Space group & $I4_1 32$ (\#214) & --- & chiral cubic class & K4 substrate carrier; Ax~1 (CLAUDE.md INVARIANT-S2) \\
 K4 valence & 4 & --- & nearest neighbour & K4 graph topology; Ax~1 \\
@@ -77,9 +80,11 @@ Hopf self-link & $Q_H = p q$ & --- & --- & $(2, 3)$: $Q_H = 6$ \\
 Spin closure & $4\pi$ & rad & extended closed defects only & FM kink + $T \to 2T \subset SU(2)$ chain; \texttt{finkelstein-misner-spin-half-derivation.md} \texttt{clm-salw2h} \\
 Photon spin closure & $2\pi$ & rad & open propagating modes & Hopf-projected to $S^2$; $U(1)$ fibre integrated out \\
 Chirality bias & right-handed & --- & set by $\hat{\Omega}_{freeze}$ at lattice genesis & Ax~1; Vol~9 Ch.~\ref{ch:vol9_cosmological_characteristics} \\
+\bottomrule
 \end{tabular}
-
-\vspace{1em}
+\caption{Topological substrate primitives: transduction constant, space group, knot/winding assignments, and spin-closure data with canonical sources.}
+\label{tab:vol9_topological_spec}
+\end{table}
 
 \noindent
 Note on baryon entries: the $(2, q)$ assignments are per-loop windings on a Borromean three-loop substrate topology, NOT single-loop torus knots. The Borromean three-loop topology is the canonical baryon-sector identification (per \texttt{topological-fractionalization.md} loop-count taxonomy). The $(2, 5)$ cinquefoil winding is shared exclusively with the proton; muon is canonically $(2, 3)$ trefoil with one Cosserat torsion quantum, NOT a $(2, 5)$ cinquefoil (FI-13 resolution 2026-05-18).

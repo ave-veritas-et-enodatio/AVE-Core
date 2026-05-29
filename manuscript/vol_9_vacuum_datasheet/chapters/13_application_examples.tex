@@ -155,22 +155,26 @@ The substrate's cosmic-scale temperature coefficient $\delta_{strain}$ is theref
 
 The table below lists each application example and the Vol~9 chapters from which it draws substrate primitives. Each cell entry names the primary substrate primitive(s) the application invokes from that chapter; readers navigating an example may use this table to locate the substrate-physics spec entry directly.
 
+\begin{table}[htbp]
+\centering
 \renewcommand{\arraystretch}{1.40}
-\begin{footnotesize}
+\footnotesize
 \setlength{\tabcolsep}{3pt}
 \begin{tabular}{@{}p{0.21\linewidth} p{0.075\linewidth} p{0.075\linewidth} p{0.075\linewidth} p{0.075\linewidth} p{0.075\linewidth} p{0.075\linewidth} p{0.075\linewidth} p{0.075\linewidth} p{0.075\linewidth}@{}}
+\toprule
 \textbf{Application example} & \textbf{Ch.\,3} & \textbf{Ch.\,4} & \textbf{Ch.\,5} & \textbf{Ch.\,6} & \textbf{Ch.\,7} & \textbf{Ch.\,9} & \textbf{Ch.\,10} & \textbf{Ch.\,11} & \textbf{Ch.\,12} \\
-\hline
+\midrule
 $\alpha$ derivation (\S\ref{sec:vol9_app_electron_lc_alpha}) & $\Gamma=-1$ TIR (Ax~3) & $L_{cell}$, $C_{cell}$, $Z_0$, $\xi_{topo}$ & --- & --- & $u_0^*$ kernel closure & --- & --- & $(2,3)$ trefoil, $0_1$ unknot, $T \to 2T$ & $u_0^*$ magic angle \\
 Schwarzschild + Machian $G$ (\S\ref{sec:vol9_app_gravity_gradient_index}) & SYM-class $\Gamma=0$ ports & $Z_0$, $T_{EM}$ & $c_{EM}$ vs $c_{shear}$ at $A_0$ & --- & SYM-class $\alpha$-invariance & $G_{vac}$, $K=2G$, $\nu=2/7$, $c_{shear}$ & --- & --- & Machian $G = c^4/(7\xi T_{EM})$, $u_0^*$ \\
 $W$/$Z$ as transformer-leakage cutoff (\S\ref{sec:vol9_app_wz_transformer_leakage}) & --- & --- & --- & --- & --- & $\gamma_c$, $\nu_{vac}=2/7$, PAT $J=2I$ & $l_c$, $m_W/m_Z = \sqrt{7}/3$, $\sin^2\theta_W = 2/9$ & --- & --- \\
 Born-rule $p=2$ as boundary-Joule extraction (\S\ref{sec:vol9_app_born_rule_gamma_extraction}) & Op3 $\Gamma$, Ax~3, Op17 $T^2=1-\Gamma^2$, $V^2/Z_{det}$ & $Z_0$ at boundary & --- & --- & Ax~4 amplitude statistics & --- & --- & --- & --- \\
 $\delta_{strain}$ as cosmic-scale TCC (\S\ref{sec:vol9_app_delta_strain_cosmic_tcc}) & ASYM-class port subclass & $\varepsilon_0$, $\mu_0$ baseline & $c_{EM}$ branch at thermal load & Cosserat-Curie + $\eta_\varepsilon$ & ASYM $\alpha$-invariance void & --- & $\gamma_c$, $m_\omega$ B-mode gap & --- & --- \\
+\bottomrule
 \end{tabular}
-\end{footnotesize}
 \renewcommand{\arraystretch}{1.0}
-
-\vspace{0.5em}
+\caption{Cross-chapter citation map: per application example, the substrate primitive(s) drawn from each Vol~9 chapter.}
+\label{tab:vol9_app_citation_map}
+\end{table}
 
 \noindent
 \textbf{Reading the table.} Each row is an application example treated in a section above; each column is a Vol~9 chapter whose spec table or canonical-source routing contributes a substrate primitive to the example. Entries name the specific primitive(s) invoked, not full citation chains --- the canonical leaves are cited in the individual section bodies. Chapters not listed in the header (Ch.~2 absolute maximum ratings; Ch.~8 breakdown characteristics; Ch.~14 phase diagrams; Ch.~15 falsification tests) appear in individual examples as cross-references rather than primitive-source columns:
