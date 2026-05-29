@@ -38,13 +38,13 @@ The B-mode mass-gap is the canonical Cosserat rotation-sector mass-gap from \tex
 \subsection{Thermal-mode population at $T_{CMB}$}
 \label{subsec:vol9_thermal_population}
 
-At $T_{CMB} \approx 2.725$ K (canonical at \texttt{ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md} \S 2, \texttt{clm-hp7nlm}):
+At $T_{CMB} \approx \qty{2.725}{\kelvin}$ (canonical at \texttt{ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md} \S 2, \texttt{clm-hp7nlm}):
 \begin{align}
-k_B T_{CMB} &\approx 1.38 \times 10^{-23}\,\text{J/K} \times 2.725\,\text{K} \approx 3.76 \times 10^{-23}\,\text{J} \approx 0.235\,\text{meV} \\
-\hbar\omega_m &\sim 1\,\text{MeV} \approx 1.6 \times 10^{-13}\,\text{J} \\
-\frac{k_B T_{CMB}}{\hbar\omega_m} &\approx 2.4 \times 10^{-10}
+k_B T_{CMB} &\approx \qty{1.38e-23}{\joule\per\kelvin} \times \qty{2.725}{\kelvin} \approx \qty{3.76e-23}{\joule} \approx \qty{0.235}{\milli\electronvolt} \\
+\hbar\omega_m &\sim \qty{1}{\mega\electronvolt} \approx \qty{1.6e-13}{\joule} \\
+\frac{k_B T_{CMB}}{\hbar\omega_m} &\approx \num{2.4e-10}
 \end{align}
-The Boltzmann factor $\exp(-\hbar\omega_m / k_B T_{CMB}) \approx \exp(-4.3 \times 10^9) \approx 0$ --- \textbf{B-modes are thermally completely frozen} at the cosmic operating temperature. Only E-modes carry nonzero thermal occupation:
+The Boltzmann factor $\exp(-\hbar\omega_m / k_B T_{CMB}) \approx \exp(-\num{4.3e9}) \approx 0$ --- \textbf{B-modes are thermally completely frozen} at the cosmic operating temperature. Only E-modes carry nonzero thermal occupation:
 \begin{itemize}
     \item $\langle A_E^2 \rangle_{thermal} > 0$ --- finite E-mode amplitude excitation per Bose-Einstein occupation of substrate E-mode spectrum at $T_{CMB}$;
     \item $\langle A_B^2 \rangle_{thermal} \approx 0$ --- B-modes mass-gap-frozen; no thermal excitation.
@@ -66,9 +66,9 @@ To leading order in $\eta_\varepsilon$:
 \begin{equation}
 \frac{\alpha_{eff}}{\alpha_0} \approx \frac{1}{(1-\eta_\varepsilon)^{1/2}} \approx 1 + \frac{\eta_\varepsilon}{2} \qquad\Rightarrow\qquad \delta_{strain} = -\frac{\delta\alpha^{-1}}{\alpha^{-1}_0} \approx \frac{\eta_\varepsilon}{2}
 \end{equation}
-With the back-subtracted CODATA value $\delta_{strain} \approx 2.225 \times 10^{-6}$ (canonical at \texttt{clm-hp7nlm} \S 3 line 90; \texttt{clm-009nkt}):
+With the back-subtracted CODATA value $\delta_{strain} \approx \num{2.225e-6}$ (canonical at \texttt{clm-hp7nlm} \S 3 line 90; \texttt{clm-009nkt}):
 \begin{equation}
-\boxed{\;\delta_{strain}(T_{CMB}) \approx 2.225 \times 10^{-6} \qquad \eta_\varepsilon(T_{CMB}) \approx 4.45 \times 10^{-6}\;}
+\boxed{\;\delta_{strain}(T_{CMB}) \approx \num{2.225e-6} \qquad \eta_\varepsilon(T_{CMB}) \approx \num{4.45e-6}\;}
 \end{equation}
 
 \textbf{Sign verification.} E-mode thermal jiggling effectively counter-charges the substrate, reducing the effective dielectric stiffness --- $\varepsilon_{eff}$ DECREASES with thermal load ($\eta_\varepsilon > 0$). The $\alpha$ formula has $\varepsilon$ in the denominator, so $\alpha_{eff}$ INCREASES, $\alpha^{-1}_{eff}$ DECREASES. CODATA $\alpha^{-1} = 137.035999 < \alpha^{-1}_{ideal} = 137.0363038$. Sign matches observation.
@@ -81,7 +81,7 @@ The same Cosserat couple-stress modulus $\gamma_c$ that sets the B-mode mass-gap
 \section{Temperature Coefficient Spec Table}
 \label{sec:vol9_temperature_spec_table}
 
-The substrate's temperature coefficients under the Cosserat-Curie mechanism at the cosmic operating point $T = T_{CMB}$. Per the convention established in Ch.~\ref{ch:vol9_dc_electrical_characteristics}, parameters that retain their cold-lattice value at $T_{CMB}$ have TC $\approx 0$ (B-modes mass-gap-frozen); parameters modulated by the asymmetric thermal-mode population carry the canonical Cosserat-Curie $\eta_\varepsilon \approx 4.45 \times 10^{-6}$.
+The substrate's temperature coefficients under the Cosserat-Curie mechanism at the cosmic operating point $T = T_{CMB}$. Per the convention established in Ch.~\ref{ch:vol9_dc_electrical_characteristics}, parameters that retain their cold-lattice value at $T_{CMB}$ have TC $\approx 0$ (B-modes mass-gap-frozen); parameters modulated by the asymmetric thermal-mode population carry the canonical Cosserat-Curie $\eta_\varepsilon \approx \num{4.45e-6}$.
 
 \begin{table}[htbp]
 \centering
@@ -91,13 +91,13 @@ The substrate's temperature coefficients under the Cosserat-Curie mechanism at t
 \toprule
 \textbf{Symbol} & \textbf{TC at $T_{CMB}$} & \textbf{Sign} & \textbf{Substrate Mechanism} & \textbf{Canonical Source} \\
 \midrule
-$\varepsilon_{eff}(T)$ & $-\eta_\varepsilon \approx -4.45 \times 10^{-6}$ & $-$ & E-mode thermal occupation; $\varepsilon_{eff} = \varepsilon_0(1-\eta_\varepsilon)$ at $T_{CMB}$ & \texttt{clm-hp7nlm} \S 3 \\
+$\varepsilon_{eff}(T)$ & $-\eta_\varepsilon \approx \num{-4.45e-6}$ & $-$ & E-mode thermal occupation; $\varepsilon_{eff} = \varepsilon_0(1-\eta_\varepsilon)$ at $T_{CMB}$ & \texttt{clm-hp7nlm} \S 3 \\
 $\mu_{eff}(T)$ & $\approx 0$ & --- & B-modes mass-gap-frozen ($k_B T_{CMB}/\hbar\omega_m \sim 10^{-10}$); no thermal modulation & \texttt{clm-hp7nlm} \S 2 \\
-$Z_0(T)$ & $+\eta_\varepsilon/2 \approx +2.23 \times 10^{-6}$ & $+$ & $Z_0 = \sqrt{\mu_0/\varepsilon_{eff}}$; only $\varepsilon$ side modulated ASYM-class & \texttt{clm-hp7nlm} \S 3 \\
-$c_{EM}(T)$ & $+\eta_\varepsilon/2 \approx +2.23 \times 10^{-6}$ & $+$ & Maxwell phase velocity $1/\sqrt{\mu_0\varepsilon_{eff}}$; enters $\alpha$ formula & \texttt{clm-8nkvwy:111}; \texttt{clm-hp7nlm} \S 3 \\
+$Z_0(T)$ & $+\eta_\varepsilon/2 \approx \num{+2.23e-6}$ & $+$ & $Z_0 = \sqrt{\mu_0/\varepsilon_{eff}}$; only $\varepsilon$ side modulated ASYM-class & \texttt{clm-hp7nlm} \S 3 \\
+$c_{EM}(T)$ & $+\eta_\varepsilon/2 \approx \num{+2.23e-6}$ & $+$ & Maxwell phase velocity $1/\sqrt{\mu_0\varepsilon_{eff}}$; enters $\alpha$ formula & \texttt{clm-8nkvwy:111}; \texttt{clm-hp7nlm} \S 3 \\
 $c_{shear}(T)$ & $\approx 0$ & --- & Group/rest-mass velocity untouched at cold-lattice $A_0 = 0$; thermal occupation acts on $c_{EM}$ branch (see warning below) & \texttt{clm-8nkvwy:113}; INVARIANT-S2 \\
-$\delta_{strain}(T)$ & $+2.225 \times 10^{-6}$ at $T_{CMB}$ & $+$ & Fractional vacuum strain coefficient $1 - \alpha^{-1}_{CODATA}/\alpha^{-1}_{ideal}$; substrate-mechanism class identified & \texttt{clm-hp7nlm} \S 3 (Class B, sol.\ 0.55) \\
-$\alpha^{-1}(T)$ & $-\eta_\varepsilon/2 \approx -2.23 \times 10^{-6}$ & $-$ & Thermal running of $\alpha^{-1}$ from cold-lattice asymptote toward CODATA & \texttt{clm-009nkt}; \texttt{clm-hp7nlm} \\
+$\delta_{strain}(T)$ & $\num{+2.225e-6}$ at $T_{CMB}$ & $+$ & Fractional vacuum strain coefficient $1 - \alpha^{-1}_{CODATA}/\alpha^{-1}_{ideal}$; substrate-mechanism class identified & \texttt{clm-hp7nlm} \S 3 (Class B, sol.\ 0.55) \\
+$\alpha^{-1}(T)$ & $-\eta_\varepsilon/2 \approx \num{-2.23e-6}$ & $-$ & Thermal running of $\alpha^{-1}$ from cold-lattice asymptote toward CODATA & \texttt{clm-009nkt}; \texttt{clm-hp7nlm} \\
 $v_n^2/\Delta f$ & $4 k_B T R$ at $T = T_{CMB}$ & --- & Johnson-Nyquist substrate thermal-noise floor; \S\ref{sec:vol9_johnson_nyquist} & \texttt{translation-circuit.md} \S 9 (line 417) \\
 \bottomrule
 \end{tabular}
@@ -123,17 +123,17 @@ where $R$ is the resistive impedance of the substrate-LC boundary at the measure
 
 \subsection{Engineering-scale operating point}
 
-At room temperature $T \approx 300$ K and a representative resistive boundary $R = 1\,\text{k}\Omega$:
+At room temperature $T \approx \qty{300}{\kelvin}$ and a representative resistive boundary $R = \qty{1}{\kilo\ohm}$:
 \begin{equation}
-S_v(300\,\text{K}, 1\,\text{k}\Omega) = 4 \times 1.38 \times 10^{-23}\,\text{J/K} \times 300\,\text{K} \times 10^3\,\Omega \approx 1.66 \times 10^{-17}\,\text{V}^2/\text{Hz}
+S_v(\qty{300}{\kelvin}, \qty{1}{\kilo\ohm}) = 4 \times \qty{1.38e-23}{\joule\per\kelvin} \times \qty{300}{\kelvin} \times \qty{e3}{\ohm} \approx \qty{1.66e-17}{\volt\squared\per\hertz}
 \end{equation}
-Equivalently $\sqrt{S_v} \approx 4.07$ nV/$\sqrt{\text{Hz}}$ --- the standard EE engineering noise floor for a 1-k$\Omega$ resistor at room temperature.
+Equivalently $\sqrt{S_v} \approx \num{4.07}~\text{nV}/\sqrt{\text{Hz}}$ --- the standard EE engineering noise floor for a 1-k$\Omega$ resistor at room temperature.
 
 \subsection{Cosmic-scale operating point}
 
-At $T = T_{CMB} \approx 2.725$ K, the same Johnson-Nyquist substrate thermal-noise floor scales linearly with $T$ (substrate thermal-mode population at $k_B T_{CMB}$). The cosmic-scale noise floor at the substrate's $Z_0 = 376.73\,\Omega$ canonical resistive boundary:
+At $T = T_{CMB} \approx \qty{2.725}{\kelvin}$, the same Johnson-Nyquist substrate thermal-noise floor scales linearly with $T$ (substrate thermal-mode population at $k_B T_{CMB}$). The cosmic-scale noise floor at the substrate's $Z_0 = \qty{376.73}{\ohm}$ canonical resistive boundary:
 \begin{equation}
-S_v(T_{CMB}, Z_0) \approx 4 \times 1.38 \times 10^{-23} \times 2.725 \times 376.73 \approx 5.66 \times 10^{-20}\,\text{V}^2/\text{Hz}
+S_v(T_{CMB}, Z_0) \approx 4 \times \num{1.38e-23} \times 2.725 \times 376.73 \approx \qty{5.66e-20}{\volt\squared\per\hertz}
 \end{equation}
 
 This is the substrate's natural cosmic thermal-noise spectral density at the canonical $Z_0$ boundary --- the substrate as it exists in nature, characterized in EE units. Engineering practice measures the same substrate thermal-bath occupation at room-temperature resistive boundaries, recovering exactly $4 k_B T R$.
@@ -158,16 +158,16 @@ The Cosserat-Curie linear-asymmetry mechanism documented in \S\ref{sec:vol9_coss
 
     \item \textbf{Cosserat-Curie unfreezing regime} ($T \to T_{B-gap}$). Substrate B-modes thermally activate; the substrate transitions from Cosserat-Curie-frozen ASYM back toward canonical SYM-class scaling (per \texttt{clm-3zz0f6} $\alpha$-invariance restoration). $\delta_{strain}$ reaches a maximum near $T \sim T_{B-gap}/2$ and then decreases. Testable only at extreme cosmic-temperature regimes (very-early-universe nucleosynthesis-era $T$ probes).
 
-    \item \textbf{Regime IV onset (substrate melt)} ($T \to T_{melt} \sim m_e c^2/k_B \approx 5.93 \times 10^9$ K). Pair-production thermal threshold (Ch.~\ref{ch:vol9_absolute_maximum_ratings} canonical at \texttt{clm-uu6dl5}); lattice-mode equipartition begins to freeze \emph{into} pair-production rather than out of it. The Cosserat-Curie linear-asymmetry approximation breaks down well before $T_{melt}$; higher-order substrate-thermodynamics governs as $T \to T_{melt}$.
+    \item \textbf{Regime IV onset (substrate melt)} ($T \to T_{melt} \sim m_e c^2/k_B \approx \qty{5.93e9}{\kelvin}$). Pair-production thermal threshold (Ch.~\ref{ch:vol9_absolute_maximum_ratings} canonical at \texttt{clm-uu6dl5}); lattice-mode equipartition begins to freeze \emph{into} pair-production rather than out of it. The Cosserat-Curie linear-asymmetry approximation breaks down well before $T_{melt}$; higher-order substrate-thermodynamics governs as $T \to T_{melt}$.
 \end{itemize}
 
 \noindent
-\textbf{Note on $T_{B-gap}$ vs $T_{melt}$ ordering.} Both thresholds lie far above any current laboratory or cosmic engineering operating point; $T_{B-gap} \sim 10^{10}$ K (substrate Cosserat-Curie unfreezing) and $T_{melt} \sim 6 \times 10^9$ K (substrate pair-production threshold) bracket the same general substrate-energy scale ($\sim m_e c^2/k_B$ vs $\sim \hbar\omega_m/k_B$). The two thresholds are set by independent substrate primitives ($\omega_m$ from $\gamma_c$; $T_{melt}$ from $m_e c^2$) and are not currently constrained to a quantitative ordering at substrate-axiom rigor. This is a downstream sub-question of Q-DELTA-MAP-1-quant.
+\textbf{Note on $T_{B-gap}$ vs $T_{melt}$ ordering.} Both thresholds lie far above any current laboratory or cosmic engineering operating point; $T_{B-gap} \sim 10^{10}$ K (substrate Cosserat-Curie unfreezing) and $T_{melt} \sim \qty{6e9}{\kelvin}$ (substrate pair-production threshold) bracket the same general substrate-energy scale ($\sim m_e c^2/k_B$ vs $\sim \hbar\omega_m/k_B$). The two thresholds are set by independent substrate primitives ($\omega_m$ from $\gamma_c$; $T_{melt}$ from $m_e c^2$) and are not currently constrained to a quantitative ordering at substrate-axiom rigor. This is a downstream sub-question of Q-DELTA-MAP-1-quant.
 
 \section{Open Research: Quantitative $\eta_\varepsilon$ Derivation (Q-DELTA-MAP-1-quant)}
 \label{sec:vol9_temperature_open}
 
-The Cosserat-Curie thermal-asymmetry mechanism documented in \S\ref{sec:vol9_cosserat_curie_mechanism} identifies the substrate-mechanism class for $\delta_{strain}$ at $T_{CMB}$ (canonical leaf \texttt{clm-hp7nlm}, confidence/solidity \textbf{0.55 PARTIAL band}). It does NOT close the quantitative substrate-statistical-mechanics derivation of $\eta_\varepsilon \approx 4.45 \times 10^{-6}$ from substrate primitives.
+The Cosserat-Curie thermal-asymmetry mechanism documented in \S\ref{sec:vol9_cosserat_curie_mechanism} identifies the substrate-mechanism class for $\delta_{strain}$ at $T_{CMB}$ (canonical leaf \texttt{clm-hp7nlm}, confidence/solidity \textbf{0.55 PARTIAL band}). It does NOT close the quantitative substrate-statistical-mechanics derivation of $\eta_\varepsilon \approx \num{4.45e-6}$ from substrate primitives.
 
 \textbf{What is closed (Class B substrate-mechanism manifestation).}
 \begin{itemize}
@@ -181,7 +181,7 @@ The Cosserat-Curie thermal-asymmetry mechanism documented in \S\ref{sec:vol9_cos
     \item Compute substrate E-mode dispersion $\omega_E(k)$ at $T_{CMB}$ from substrate primitives ($\ell_{node}$, $G_{vac}$, $\rho_{bulk}$).
     \item Compute thermal occupation $\langle A_E^2 \rangle_{thermal}$ via substrate-Bose-Einstein occupation of the E-mode spectrum at $k_B T_{CMB}$.
     \item Couple to the substrate dielectric response via Ax~1 microscopic primitives to extract $\eta_\varepsilon$ at first principles.
-    \item Match to canonical $\eta_\varepsilon \approx 4.45 \times 10^{-6}$ at $T_{CMB}$.
+    \item Match to canonical $\eta_\varepsilon \approx \num{4.45e-6}$ at $T_{CMB}$.
 \end{enumerate}
 That substrate-statistical-mechanics work is not done at the canonical leaf. The quantitative-derivation gap holds the confidence below 0.60 (Class~2 emergence lift not yet achieved). Closing Q-DELTA-MAP-1-quant would lift both \texttt{clm-hp7nlm} AND \texttt{clm-009nkt} above the 0.60 emergence threshold; until then, the substrate-mechanism class is identified but $\eta_\varepsilon$ remains back-subtracted from CODATA at \texttt{clm-009nkt}, not derived from substrate primitives.
 

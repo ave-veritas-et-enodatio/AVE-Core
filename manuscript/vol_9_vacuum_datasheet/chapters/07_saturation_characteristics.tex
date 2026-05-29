@@ -30,7 +30,7 @@ $A$ is the local strain normalized to the substrate's bandwidth limit $A_{yield}
 \textbf{Behavior:} $A = 0 \Rightarrow S = 1$ (linear regime: Maxwell, BCS small-signal, Newtonian gravity recovered); $A \to A_{yield} \Rightarrow S \to 0$ with vertical tangent (saturation event is impulsive at every scale). When $S(A) \to 0$ locally, the substrate cannot sustain linear response and \emph{must reorganize topologically} to a new configuration.
 \end{resultbox}
 
-The kernel is a substrate primitive of the natural vacuum, not an engineered constitutive relation. The quarter-arc shape is fixed by Axiom~4 alone --- there are no free parameters, no per-domain refit, and no scale-dependent kernel coefficients. The saturation amplitude $A_{yield}$ is the universal substrate bandwidth limit; its dielectric-dialect projection is $V_{yield} = \sqrt{\alpha}\, V_{snap} \approx 43.65\,\text{kV}$ at the substrate's per-node LC scale (Vol~4 canonical leaf \texttt{clm-0vxzfu}).
+The kernel is a substrate primitive of the natural vacuum, not an engineered constitutive relation. The quarter-arc shape is fixed by Axiom~4 alone --- there are no free parameters, no per-domain refit, and no scale-dependent kernel coefficients. The saturation amplitude $A_{yield}$ is the universal substrate bandwidth limit; its dielectric-dialect projection is $V_{yield} = \sqrt{\alpha}\, V_{snap} \approx \qty{43.65}{\kilo\volt}$ at the substrate's per-node LC scale (Vol~4 canonical leaf \texttt{clm-0vxzfu}).
 
 \section{Operating-Point State and Dielectric Specialization}
 \label{sec:vol9_dielectric_specialization}
@@ -138,19 +138,19 @@ IV  Breakdown    & $r \ge 1$                            & $S = 0$           & Su
 \section{PONDER-05 Bench-Scale Falsifier}
 \label{sec:vol9_ponder_05}
 
-The PONDER-05 differential-saturation-parallax bench measurement is the canonical bench-scale falsifier of the Axiom~4 dielectric specialization. Apparatus: paired DC-biased quartz resonator thrusters across a vertical gravity gradient, $V_{DC} = 30\,\text{kV}$ holding the substrate at $V_{DC}/V_{yield} = 0.687$. At this operating point the kernel predicts $S(0.687) = 0.7266$, giving canonical substrate-physics observables:
+The PONDER-05 differential-saturation-parallax bench measurement is the canonical bench-scale falsifier of the Axiom~4 dielectric specialization. Apparatus: paired DC-biased quartz resonator thrusters across a vertical gravity gradient, $V_{DC} = \qty{30}{\kilo\volt}$ holding the substrate at $V_{DC}/V_{yield} = 0.687$. At this operating point the kernel predicts $S(0.687) = 0.7266$, giving canonical substrate-physics observables:
 
 \begin{itemize}
     \item $\varepsilon_{eff}/\varepsilon_0 = S = 0.7266$ \quad ($-27.34\%$ from baseline)
     \item $C_{eff}/C_0 = 1/S = 1.3763$ \quad ($+37.63\%$ rise above baseline)
-    \item Differential thrust $\sim 469\,\mu\text{N}$ at matched-pair geometry
+    \item Differential thrust $\sim \qty{469}{\micro\newton}$ at matched-pair geometry
 \end{itemize}
 
 The canonical operating-point statement is at KB leaf \texttt{ave-kb/vol4/falsification/ch11-experimental-bench/measurement-hierarchy-snr.md}:66; the substrate-physics derivation at \texttt{ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md} (Phase 0c + Phase 2-NA extensions); the divergence-test-matrix row at \texttt{ave-kb/common/divergence-test-substrate-map.md} row \texttt{B7-PONDER-05}; the hardware programme at sibling repo \texttt{AVE-PONDER} (manuscript chapter \texttt{vol\_ponder/chapters/04\_ponder\_05\_dc\_biased\_quartz.tex}).
 
 \textbf{Falsification criterion.} A null result at $V_{DC}/V_{yield} = 0.687$ (no $C_{eff}$ rise within bench noise floor) falsifies the Axiom~4 dielectric specialization directly. The cascade impact is documented in the divergence-test-substrate-map (B7-PONDER-05 cascades to B5/B6 PONDER, B1-VAC-BIREFRINGE, D4-A034, C9-LEVITATION through the shared $V_{yield}$ primitive). See Ch.~15 (Falsification Tests) for the full falsification programme.
 
-\textbf{Operating-point near-optimality.} The PONDER-05 canonical $V_{DC}/V_{yield} = 0.687$ sits within $2.8\%$ of the substrate-mechanical 2D-aperture aperture-aggregate skewness peak at $a^{(2D)}_{peak} = 1/\sqrt{2} = 0.707$ (per \texttt{parametric-coupling-kernel.md} \S 14.5). The canonical operating point --- chosen for the 27.4\% $\varepsilon_{eff}$ collapse + 469\,\textmu N thrust at engineering-conservative bias --- is operationally near-optimal for the amplitude-statistics readout layer as well; the substrate-native Op17 matched-impedance peak structure is shared across all three observables (thrust, $\varepsilon_{eff}$ collapse, aperture-aggregate skewness).
+\textbf{Operating-point near-optimality.} The PONDER-05 canonical $V_{DC}/V_{yield} = 0.687$ sits within $2.8\%$ of the substrate-mechanical 2D-aperture aperture-aggregate skewness peak at $a^{(2D)}_{peak} = 1/\sqrt{2} = 0.707$ (per \texttt{parametric-coupling-kernel.md} \S 14.5). The canonical operating point --- chosen for the 27.4\% $\varepsilon_{eff}$ collapse + \qty{469}{\micro\newton} thrust at engineering-conservative bias --- is operationally near-optimal for the amplitude-statistics readout layer as well; the substrate-native Op17 matched-impedance peak structure is shared across all three observables (thrust, $\varepsilon_{eff}$ collapse, aperture-aggregate skewness).
 
 \section{A-034 Universal Kernel Catalog Reference}
 \label{sec:vol9_a034_catalog}

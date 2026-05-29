@@ -36,10 +36,10 @@ The bond LC tank's natural angular frequency follows directly from the per-cell 
 \begin{equation}
 \omega_C \;=\; \frac{1}{\sqrt{L_{cell}\, C_{cell}}} \;=\; \frac{1}{\sqrt{\mu_0\, \varepsilon_0}\, \ell_{node}} \;=\; \frac{c_0}{\ell_{node}}
 \end{equation}
-Evaluated at the canonical primitives ($c_0 = 2.998\times 10^8$~m/s; $\ell_{node} = \hbar/(m_e c) \approx 3.862\times 10^{-13}$~m):
+Evaluated at the canonical primitives ($c_0 = \qty{2.998e8}{\metre\per\second}$; $\ell_{node} = \hbar/(m_e c) \approx \qty{3.862e-13}{\metre}$):
 \begin{align}
-\omega_C &\;\approx\; 7.76 \times 10^{20} \text{ rad/s} \\
-f_C \;=\; \frac{\omega_C}{2\pi} &\;\approx\; 1.23 \times 10^{20} \text{ Hz}
+\omega_C &\;\approx\; \qty{7.76e20}{\radian\per\second} \\
+f_C \;=\; \frac{\omega_C}{2\pi} &\;\approx\; \qty{1.23e20}{\hertz}
 \end{align}
 This is the substrate's absolute Nyquist limit --- the highest frequency at which the K4-LC substrate can support a coherent oscillation at all. Above $\omega_C$ the substrate cannot resolve a half-cycle within one bond, and the continuum wave description fails (the discrete K4-TLM lattice dispersion takes over; see \S\ref{sec:vol9_dispersion}).
 
@@ -138,20 +138,20 @@ Two regimes:
 \toprule
 \textbf{Symbol} & \textbf{Typical} & \textbf{Units} & \textbf{Conditions} & \textbf{Substrate mechanism} \\
 \midrule
-$Z_0$ & $\sqrt{\mu_0/\varepsilon_0} \approx 376.73$ & $\Omega$ & cold-lattice; $A_0 = 0$; $\omega \ll \omega_C$ & Bond TLM characteristic Z (Axiom~1; \texttt{constants.py:81}) \\
-$L_{cell}$ & $\mu_0 \ell_{node} \approx 4.85\times 10^{-19}$ & H & per bond, cold-lattice & Axiom~1 per-cell inductance \\
-$C_{cell}$ & $\varepsilon_0 \ell_{node} \approx 3.42\times 10^{-24}$ & F & per bond, cold-lattice & Axiom~1 per-cell capacitance \\
-$\omega_C$ & $c_0/\ell_{node} \approx 7.76\times 10^{20}$ & rad/s & cold-lattice & Bond LC natural frequency; substrate Nyquist ceiling \\
-$f_C$ & $\omega_C/(2\pi) \approx 1.23\times 10^{20}$ & Hz & cold-lattice & Same in Hz \\
-$k_{Brillouin}$ & $\pi/\ell_{node} \approx 8.13\times 10^{12}$ & rad/m & substrate K4 lattice & Substrate Brillouin-zone edge \\
-$v_{phase}$ & $c_0$ ($A_0 = 0$) & m/s & cold-lattice; $\omega \ll \omega_C$ & Maxwell phase velocity (cold) \\
-$v_{group}$ & $c_0$ ($A_0 = 0$) & m/s & cold-lattice; $\omega \ll \omega_C$ & Group velocity (cold) \\
-$\varepsilon_{eff}$ & $\varepsilon_0\, S(A_0)$ & F/m & operating point $A_0$ & INVARIANT-S2 Ax 4 small-signal \\
-$\mu_{eff}$ & $\mu_0\, S(A_0)$ & H/m & operating point $A_0$ & INVARIANT-S2 Ax 4 small-signal \\
-$C_{eff}$ & $C_0 / S(A_0)$ & F & operating point $A_0$ & Varactor C-vs-V at substrate scale \\
-$Z_{eff}$ (Op14) & $Z_0/\sqrt{S(A_0)}$ (ASYM-class) & $\Omega$ & operating point $A_0$, ASYM scaling & Op14 dynamic impedance \\
-$c_{EM}(A_0)$ & $c_0 / S(A_0)$ & m/s & operating point $A_0$ & \textbf{Maxwell phase velocity}; enters $\alpha$ \\
-$c_{shear}(A_0)$ & $c_0\, \sqrt{S(A_0)}$ & m/s & operating point $A_0$ & \textbf{Mechanical / group / rest-mass velocity}; Op16; Schwarzschild reduction \\
+$Z_0$ & $\sqrt{\mu_0/\varepsilon_0} \approx \num{376.73}$ & \si{\ohm} & cold-lattice; $A_0 = 0$; $\omega \ll \omega_C$ & Bond TLM characteristic Z (Axiom~1; \texttt{constants.py:81}) \\
+$L_{cell}$ & $\mu_0 \ell_{node} \approx \num{4.85e-19}$ & \si{\henry} & per bond, cold-lattice & Axiom~1 per-cell inductance \\
+$C_{cell}$ & $\varepsilon_0 \ell_{node} \approx \num{3.42e-24}$ & \si{\farad} & per bond, cold-lattice & Axiom~1 per-cell capacitance \\
+$\omega_C$ & $c_0/\ell_{node} \approx \num{7.76e20}$ & \si{\radian\per\second} & cold-lattice & Bond LC natural frequency; substrate Nyquist ceiling \\
+$f_C$ & $\omega_C/(2\pi) \approx \num{1.23e20}$ & \si{\hertz} & cold-lattice & Same in Hz \\
+$k_{Brillouin}$ & $\pi/\ell_{node} \approx \num{8.13e12}$ & \si{\radian\per\metre} & substrate K4 lattice & Substrate Brillouin-zone edge \\
+$v_{phase}$ & $c_0$ ($A_0 = 0$) & \si{\metre\per\second} & cold-lattice; $\omega \ll \omega_C$ & Maxwell phase velocity (cold) \\
+$v_{group}$ & $c_0$ ($A_0 = 0$) & \si{\metre\per\second} & cold-lattice; $\omega \ll \omega_C$ & Group velocity (cold) \\
+$\varepsilon_{eff}$ & $\varepsilon_0\, S(A_0)$ & \si{\farad\per\metre} & operating point $A_0$ & INVARIANT-S2 Ax 4 small-signal \\
+$\mu_{eff}$ & $\mu_0\, S(A_0)$ & \si{\henry\per\metre} & operating point $A_0$ & INVARIANT-S2 Ax 4 small-signal \\
+$C_{eff}$ & $C_0 / S(A_0)$ & \si{\farad} & operating point $A_0$ & Varactor C-vs-V at substrate scale \\
+$Z_{eff}$ (Op14) & $Z_0/\sqrt{S(A_0)}$ (ASYM-class) & \si{\ohm} & operating point $A_0$, ASYM scaling & Op14 dynamic impedance \\
+$c_{EM}(A_0)$ & $c_0 / S(A_0)$ & \si{\metre\per\second} & operating point $A_0$ & \textbf{Maxwell phase velocity}; enters $\alpha$ \\
+$c_{shear}(A_0)$ & $c_0\, \sqrt{S(A_0)}$ & \si{\metre\per\second} & operating point $A_0$ & \textbf{Mechanical / group / rest-mass velocity}; Op16; Schwarzschild reduction \\
 \bottomrule
 \end{tabular}
 \caption{AC substrate characteristics: cold-lattice primitives and operating-point $A_0$ modulated forms, with substrate mechanism per entry.}

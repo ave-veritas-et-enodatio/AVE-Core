@@ -5,7 +5,7 @@
 \begin{objectivebox}
 \begin{itemize}
     \item Document the substrate's microrotational sector --- the three B-DOFs of the Cosserat micropolar 6~DOF / node structure (Axiom~1) --- as the substrate-native origin of the magnetic field and of intrinsic spin.
-    \item Spec out the magnetic / microrotational primitives: bond inductance $L_{cell} = \mu_0\, \ell_{node}$, magnetic-rotation node-destruction field $B_{snap}$, Cosserat couple-stress modulus $\gamma_c$, rotation-sector mass-gap $m_\omega \sim 1$~MeV, and Cosserat characteristic length $l_c = \sqrt{\gamma_c / G_{vac}}$ identified with the weak-force range $r_W$.
+    \item Spec out the magnetic / microrotational primitives: bond inductance $L_{cell} = \mu_0\, \ell_{node}$, magnetic-rotation node-destruction field $B_{snap}$, Cosserat couple-stress modulus $\gamma_c$, rotation-sector mass-gap $m_\omega \sim \qty{1}{\mega\electronvolt}$, and Cosserat characteristic length $l_c = \sqrt{\gamma_c / G_{vac}}$ identified with the weak-force range $r_W$.
     \item Tie the rotation-sector mass-gap to the ferrite-Curie thermal-freeze analog: below $T \sim m_\omega/k_B$, microrotational excitations are frozen out, producing the asymmetric B-side response that drives the Cosserat-Curie thermal mechanism documented in Ch.~\ref{ch:vol9_temperature_characteristics}.
     \item Cite the canonical Vol~II derivation of $W^\pm / Z^0$ as the evanescent cutoff modes of the substrate's bending and torsional rotation sectors, with $l_c = \sqrt{\gamma_c/G_{vac}}$ setting the weak-force range.
     \item Anchor the substrate-native origin of intrinsic spin in the Cosserat microrotational DOF: the SU(2) / SO(3) double cover of the spin-$\tfrac{1}{2}$ representation is the Finkelstein--Misner kink on the extended $0_1$ unknot defect, documented as a topological characteristic in Ch.~\ref{ch:vol9_topological_characteristics}.
@@ -36,7 +36,7 @@ The bond-level inductance of $\mathcal{M}_A$ is the microrotational analog of bo
 L_{cell} = \mu_0\, \ell_{node}, \qquad C_{cell} = \varepsilon_0\, \ell_{node},
 \]
 
-with $\mu_0 = 4\pi \times 10^{-7}$~H/m the substrate-native bond microrotation density (canonical-source \texttt{src/ave/core/constants.py:79}, \texttt{MU\_0}). Per Ch.~\ref{ch:vol9_dc_electrical_characteristics} \S Vacuum impedance trio, the $4\pi$ prefactor on $\mu_0$ carries the spherical-harmonic field-geometry origin, not engineering convention; the substrate-native value is identical to the SI defined value because SI inherits the substrate.
+with $\mu_0 = 4\pi \times 10^{-7}$~\si{\henry\per\metre} the substrate-native bond microrotation density (canonical-source \texttt{src/ave/core/constants.py:79}, \texttt{MU\_0}). Per Ch.~\ref{ch:vol9_dc_electrical_characteristics} \S Vacuum impedance trio, the $4\pi$ prefactor on $\mu_0$ carries the spherical-harmonic field-geometry origin, not engineering convention; the substrate-native value is identical to the SI defined value because SI inherits the substrate.
 
 \textbf{Flywheel picture.} Each K4 node carries a Cosserat micro-rotation $\boldsymbol{\omega}$ with a Cosserat micro-inertia $I_\omega$; the bond's inductance is the substrate-native resistance to changing the per-bond microrotation differential, exactly as a transformer's mutual inductance is the resistance to changing the flux linkage between its windings. Engineering practice catalogs the flywheel storage at the LC tank level (oscillator $\omega_C = 1/\sqrt{L_{cell} C_{cell}} = c_0/\ell_{node}$, per Ch.~\ref{ch:vol9_ac_electrical_characteristics} \S AC characteristic frequency); AVE substrate-physics derives the inductance as the microrotation-density side of the LC tank.
 
@@ -65,22 +65,22 @@ The magnetic / microrotational primitives of $\mathcal{M}_A$ at the cold-lattice
 \textbf{Symbol} & \textbf{Typical (cold-lattice)} & \textbf{Units} & \textbf{Substrate Mechanism / Canonical Source} \\
 \midrule
 
-$\mu_0$ & $4\pi \times 10^{-7}$ & H/m &
+$\mu_0$ & $4\pi \times 10^{-7}$ & \si{\henry\per\metre} &
 Substrate-native bond microrotation density --- the inductance-density of the microrotational (B-DOF) sector. The $4\pi$ prefactor is spherical-harmonic field geometry (Axiom~1), not engineering convention. Source: \texttt{src/ave/core/constants.py:79} (\texttt{MU\_0}); see Ch.~\ref{ch:vol9_dc_electrical_characteristics} \S Vacuum impedance trio. \\
 
-$L_{cell}$ & $\mu_0\, \ell_{node}$ & H &
+$L_{cell}$ & $\mu_0\, \ell_{node}$ & \si{\henry} &
 Per-bond inductance. Microrotational analog of bond capacitance $C_{cell} = \varepsilon_0\, \ell_{node}$. Each K4 bond is an inductive flywheel storing energy in its Cosserat micro-rotation gradient. Source: Ch.~\ref{ch:vol9_dc_electrical_characteristics} line documenting $L_{cell}$; \texttt{common/translation-tables/translation-circuit.md} \S 4 mapping rows (\texttt{clm-eemap1}). \\
 
-$B_{snap}$ & $1.892 \times 10^9$ & T &
+$B_{snap}$ & $\num{1.892e9}$ & \si{\tesla} &
 Magnetic-rotation node-destruction field. Beyond this $B$, the energy density $B^2/(2\mu_0)$ equals one rest-energy per K4 cell ($m_e c^2/\ell_{node}^3$); microrotational DOFs cannot maintain Cosserat coherence and the substrate ruptures via the B-sector ($\mu_{eff} \to 0$, vacuum becomes perfect diamagnet). Magnetic analog of $V_{snap}$. Conditions: cold-lattice, no thermal mode-population. Source: \texttt{vol1/.../four-regimes.md}; \texttt{vol1/.../domain-catalog.md} (\texttt{clm-82dxbj}); \texttt{src/ave/core/constants.py:359} (\texttt{B\_SNAP}); see also Ch.~\ref{ch:vol9_absolute_maximum_ratings} where $B_{snap}$ enters the absolute-maximum-ratings table. \\
 
-$\gamma_c$ & substrate-native (set by $r_W = l_c$) & N &
+$\gamma_c$ & substrate-native (set by $r_W = l_c$) & \si{\newton} &
 Cosserat couple-stress modulus --- the substrate's bond-level resistance to differential micro-rotation between neighbouring K4 nodes. The microrotational analog of the bulk shear modulus $G_{vac}$. Substrate primitive of the rotation sector; sets the weak-force range scale. Source: \texttt{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} line~39 (\texttt{clm-5zuo7g}); see Ch.~\ref{ch:vol9_mechanical_characteristics} \S Cosserat Couple-Stress for the mechanical-side derivation. \\
 
-$m_\omega$ & $\sim 1$~MeV (rotation-sector mass-gap) & MeV &
+$m_\omega$ & $\sim \qty{1}{\mega\electronvolt}$ (rotation-sector mass-gap) & \si{\mega\electronvolt} &
 Cosserat rotation-sector excitation gap. The substrate's microrotational sector has a finite mass-gap $m_\omega^2 = 4 G_c / I_\omega$ (canonical at \texttt{common/trampoline-framework.md} line~188, period $T = 2\pi/\omega_m = \pi$ in natural units, Verlet-validated). Below $T \sim m_\omega/k_B$, microrotation modes are thermally frozen out --- the substrate's ferrite-Curie-temperature analog. At $T_{CMB}$ the B-sector is well below this gap, producing the asymmetric thermal response that drives $\delta_{strain}$ via the Cosserat-Curie mechanism (Ch.~\ref{ch:vol9_temperature_characteristics}). Source: \texttt{trampoline-framework.md:188}; means-test row~12 of \texttt{ave-ee-first-mapping} v1.0. \\
 
-$l_c$ & $\sqrt{\gamma_c / G_{vac}}\, \approx 10^{-18}$~m & m &
+$l_c$ & $\sqrt{\gamma_c / G_{vac}}\, \approx 10^{-18}$~\si{\metre} & \si{\metre} &
 Cosserat characteristic length, identified with the weak-force range $r_W$. Couple-stress / shear-modulus ratio sets the length over which Cosserat micro-rotation correlates; weak interactions operating below the medium's natural cutoff frequency become evanescent waves with characteristic decay length $l_c$. The $W^\pm / Z^0$ gauge bosons are the evanescent cutoff modes of the substrate's bending and torsional rotation sectors respectively. Source: \texttt{vol2/.../gauge-boson-masses.md} line~39 (\texttt{clm-5zuo7g}); see Ch.~\ref{ch:vol9_mechanical_characteristics} \S Cosserat Couple-Stress for the matching mechanical-side spec entry. \\
 
 $m_W / m_Z$ & $\sqrt{7}/3 \approx 0.882$ & --- &
@@ -108,7 +108,7 @@ The Cosserat microrotational sector carries a finite excitation gap. Per the can
 m_\omega^2 = 4\, G_c / I_\omega,
 \]
 
-with $G_c$ the Cosserat couple-stress modulus (here called $\gamma_c$ in the spec table; the trampoline-framework leaf uses $G_c$) and $I_\omega$ the Cosserat micro-inertia. The natural-units period is $T = 2\pi / \omega_m = \pi$. The empirical scale at substrate parameters is $m_\omega \sim 1$~MeV --- approximately the rest-energy scale of the lightest charged lepton (electron) and the canonical reference value used in the means-test corpus (row~12 of \texttt{ave-ee-first-mapping} v1.0).
+with $G_c$ the Cosserat couple-stress modulus (here called $\gamma_c$ in the spec table; the trampoline-framework leaf uses $G_c$) and $I_\omega$ the Cosserat micro-inertia. The natural-units period is $T = 2\pi / \omega_m = \pi$. The empirical scale at substrate parameters is $m_\omega \sim \qty{1}{\mega\electronvolt}$ --- approximately the rest-energy scale of the lightest charged lepton (electron) and the canonical reference value used in the means-test corpus (row~12 of \texttt{ave-ee-first-mapping} v1.0).
 
 \textbf{Ferrite-Curie thermal analog.} The EE-substrate-native projection of the rotation-sector mass-gap is the \textbf{ferrite Curie temperature}: below $T_C^{\text{ferrite}}$, the magnetic moments of a ferrite ceramic align into domains and the magnetic-response (permeability $\mu$) is finite; above $T_C^{\text{ferrite}}$, thermal energy disrupts the domain structure and $\mu$ collapses. The substrate analog: below $T \sim m_\omega/k_B \sim 10^{10}$~K, microrotational modes are thermally frozen out --- but \emph{the freeze runs the opposite direction relative to ferrite Curie behavior} in the regime relevant to all current astrophysics. At engineering operating temperatures including $T_{CMB} = 2.725$~K, the substrate sits far below the rotation-sector mass-gap and B-modes are frozen: $\mu$ is locked at $\mu_0$, no thermal modulation of the microrotational sector. The substrate operates naturally at the \emph{deep below-mass-gap} side of the curve at every laboratory temperature; this is not an engineering design choice but a structural consequence of the substrate's natural Cosserat couple-stress modulus $\gamma_c$ and Cosserat micro-inertia $I_\omega$ setting $m_\omega$ above the energy scale of any reachable thermal bath.
 
@@ -186,7 +186,7 @@ Per-bond inductance $L_{cell} = \mu_0\, \ell_{node}$ & Lumped-element inductance
 Bond twisting (microrotational gradient) & Couple-stress / mutual-inductance gradient; sets $\gamma_c$ couple-stress modulus \\
 Cosserat couple-stress $\gamma_c$ between nodes & Transformer mutual-inductance gradient (means-test row~10) \\
 Weak-force range $l_c = \sqrt{\gamma_c / G_{vac}}$ & Transformer leakage-inductance characteristic length (canonical at \texttt{gauge-boson-masses.md:39}) \\
-Cosserat rotation-sector mass-gap $m_\omega \sim 1$~MeV & Transformer cutoff frequency / ferrite Curie-temperature analog (means-test row~12) \\
+Cosserat rotation-sector mass-gap $m_\omega \sim \qty{1}{\mega\electronvolt}$ & Transformer cutoff frequency / ferrite Curie-temperature analog (means-test row~12) \\
 $W^\pm / Z^0$ as evanescent cutoff modes & Below-cutoff coupling between LC tanks separated by transformer-leakage inductance; below-cutoff means evanescent wave with characteristic decay $l_c$ \\
 Cosserat-Curie thermal-freeze of B-modes at $T_{CMB}$ & Ferrite operated far below its Curie temperature: $\mu$ frozen, no TC$\mu$, B-sector thermally inactive \\
 Bidirectional translational$\leftrightarrow$rotational coupling (Cosserat PDE asymmetric stress $\sigma^A$) & Faraday's law of induction: time-varying $\mathbf{E}$ drives time-varying $\mathbf{B}$ and vice versa; mutual inductance between E- and B-sectors at substrate boundary \\
@@ -207,7 +207,7 @@ The means-test status for this chapter's primitives:
 \begin{itemize}
     \item $\mu_0$, $L_{cell} = \mu_0 \ell_{node}$: identity (substrate-native = canonical EE constant; LC tank inductance = bond microrotation density times $\ell_{node}$). Means-test row~3 (EE wave propagation = $1/\sqrt{\mu_0 \varepsilon_0}$ identity).
     \item $\gamma_c$ + $l_c$ + W/Z mass scale: order-of-magnitude match against transformer-leakage-inductance characteristic frequency. Means-test row~10 (canonical at \texttt{gauge-boson-masses.md:39}).
-    \item Cosserat rotation-sector mass-gap $m_\omega \sim 1$~MeV: maps cleanly onto transformer cutoff frequency / ferrite Curie temperature analog. Means-test row~12 (canonical at \texttt{trampoline-framework.md:188}).
+    \item Cosserat rotation-sector mass-gap $m_\omega \sim \qty{1}{\mega\electronvolt}$: maps cleanly onto transformer cutoff frequency / ferrite Curie temperature analog. Means-test row~12 (canonical at \texttt{trampoline-framework.md:188}).
     \item $(2, 3)$ Clifford-torus electron winding: maps onto 2-primary / 3-secondary toroidal transformer winding pattern. Means-test row~13 (canonical at \texttt{torus-knot-uniqueness.md}); see Ch.~\ref{ch:vol9_topological_characteristics} for full topological framing.
     \item SU(2) $\to$ SO(3) double cover (spin-$\tfrac{1}{2}$): maps onto transformer 2:1 galvanic-isolation winding ratio. Means-test row~14 (canonical at \texttt{finkelstein-misner-spin-half-derivation.md}).
     \item $B_{snap}$: substrate-axiomatic saturation threshold; cross-validated against Schwinger pair-production scale via $B^2/(2\mu_0) \sim m_e c^2 / \ell_{node}^3$. Documented in Ch.~\ref{ch:vol9_absolute_maximum_ratings}.

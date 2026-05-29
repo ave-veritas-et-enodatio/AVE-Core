@@ -16,12 +16,12 @@
 \section{Cosmic Hierarchy: $R_H / \ell_{node} \sim 10^{39}$}
 \label{sec:vol9_cosmo_hierarchy}
 
-The substrate carries a single intrinsic length scale (Axiom~1; \texttt{constants.py} preamble structural-closure framing) --- the K4 nearest-neighbour spacing $\ell_{node} \approx 3.862 \times 10^{-13}$~m (canonical at Vol~9 Ch.~\ref{ch:vol9_dc_electrical_characteristics}~$\S$\ref{sec:vol9_dc_spec_table}). The substrate carries a single intrinsic boundary at the largest accessible scale --- the cosmic horizon $R_H \approx 1.33 \times 10^{26}$~m, set by $R_H \equiv c / H_\infty$ where $H_\infty$ is the asymptotic Hubble rate (canonical at \texttt{vol3/cosmology/ch04-generative-cosmology/lattice-genesis-hubble-tension.md} \texttt{clm-wx5324}; numerical evaluation $H_\infty \approx 69.33$ km/s/Mpc).
+The substrate carries a single intrinsic length scale (Axiom~1; \texttt{constants.py} preamble structural-closure framing) --- the K4 nearest-neighbour spacing $\ell_{node} \approx \qty{3.862e-13}{\metre}$ (canonical at Vol~9 Ch.~\ref{ch:vol9_dc_electrical_characteristics}~$\S$\ref{sec:vol9_dc_spec_table}). The substrate carries a single intrinsic boundary at the largest accessible scale --- the cosmic horizon $R_H \approx \qty{1.33e26}{\metre}$, set by $R_H \equiv c / H_\infty$ where $H_\infty$ is the asymptotic Hubble rate (canonical at \texttt{vol3/cosmology/ch04-generative-cosmology/lattice-genesis-hubble-tension.md} \texttt{clm-wx5324}; numerical evaluation $H_\infty \approx \qty{69.33}{\kilo\metre\per\second\per\mega\parsec}$).
 
 The ratio of these two scales is the substrate's intrinsic cosmic hierarchy:
 
 \[
-\frac{R_H}{\ell_{node}} \sim \frac{1.33 \times 10^{26}\,\text{m}}{3.86 \times 10^{-13}\,\text{m}} \sim 10^{39}.
+\frac{R_H}{\ell_{node}} \sim \frac{\qty{1.33e26}{\metre}}{\qty{3.86e-13}{\metre}} \sim 10^{39}.
 \]
 
 This is the engineering datasheet entry for the cosmic-scale topological transduction count --- the number of lumped substrate cells along the cosmic-scale distributed transmission line, per the canonical EE-substrate-native projection (\texttt{common/translation-tables/translation-circuit.md} canonical entry, \texttt{clm-eemap1}; same row, $R_H/\ell_{node} \sim 10^{39}$ identified as ``number of lumped substrate cells along cosmic-scale distributed TL''). Engineering does not design or choose this ratio; it is a property of the natural vacuum substrate the universe occupies, characterized observationally via CMB and large-scale-structure measurements that anchor $H_\infty$ + Vol~3 Ch.~4 cosmology that derives the relationship between cosmic generation thermodynamics and $R_H$.
@@ -29,7 +29,7 @@ This is the engineering datasheet entry for the cosmic-scale topological transdu
 \section{Machian Gravitational Constant $G$ as Derived Quantity}
 \label{sec:vol9_cosmo_machian_g}
 
-Newton's gravitational constant $G \approx 6.674 \times 10^{-11}\,\text{m}^3\,\text{kg}^{-1}\,\text{s}^{-2}$ is \textbf{not a substrate primitive} in the AVE framework. It is DERIVED as the Machian boundary impedance from Axiom~1 + Axiom~4 SYM-class scaling (per CLAUDE.md INVARIANT-S2 closing paragraph: ``the numerical calibration constants $\ldots$, $G$, are derived from these axioms --- not axioms themselves $\ldots$ gravity is the Machian boundary impedance, derived from Ax~1 + Ax~4 symmetric scaling, not a primitive axiom''). The canonical Vol~3 Ch.~4 closed-form expression is
+Newton's gravitational constant $G \approx \qty{6.674e-11}{\cubic\metre\per\kilogram\per\square\second}$ is \textbf{not a substrate primitive} in the AVE framework. It is DERIVED as the Machian boundary impedance from Axiom~1 + Axiom~4 SYM-class scaling (per CLAUDE.md INVARIANT-S2 closing paragraph: ``the numerical calibration constants $\ldots$, $G$, are derived from these axioms --- not axioms themselves $\ldots$ gravity is the Machian boundary impedance, derived from Ax~1 + Ax~4 symmetric scaling, not a primitive axiom''). The canonical Vol~3 Ch.~4 closed-form expression is
 
 \[
 G = \frac{c^4}{7\, \xi\, T_{EM}(u_0^*)}
@@ -42,7 +42,7 @@ where $T_{EM} = m_e c^2 / \ell_{node}$ is the substrate string tension (Vol~9 Ch
 \[
 \xi = \frac{4\pi\, R_H}{\ell_{node}\,\alpha^2}
 \sim 4\pi \cdot 10^{39} \cdot (137.036)^2
-\approx 8.15 \times 10^{43}.
+\approx \num{8.15e43}.
 \]
 
 The closed-form is canonical at \texttt{common/full-derivation-chain.md} \texttt{clm-9oazz0}, at \texttt{common/mathematical-closure.md} ``$G$ closure Layer~7,'' and at the engine implementation \texttt{src/ave/core/constants.py} line~471 (\texttt{XI\_MACHIAN}). The factor of 7 enters through the vacuum Poisson ratio $\nu_{vac} = 2/7$ (Vol~9 Ch.~\ref{ch:vol9_mechanical_characteristics}~$\S$\ref{sec:vol9_mech_poisson}; Axiom~1 LC + Axiom~2 $\alpha$ interlink).
@@ -108,13 +108,13 @@ Six canonical cosmic-scale parameters. The TYPICAL column lists the substrate va
 \textbf{Symbol} & \textbf{Parameter} & \textbf{Typical} & \textbf{Units} & \textbf{Substrate Mechanism} & \textbf{Canonical Source} \\
 \midrule
 \endhead
-$R_H$ & Cosmic horizon radius & $1.33 \times 10^{26}$ & m & Substrate cosmic $\Gamma = -1$ boundary (Ax~1 + Ax~3); $R_H \equiv c/H_\infty$ & \texttt{R\_HUBBLE} \newline (\texttt{constants.py}:576); \texttt{lattice-genesis-hubble-tension.md} (\texttt{clm-wx5324}) \\
+$R_H$ & Cosmic horizon radius & $\num{1.33e26}$ & \si{\metre} & Substrate cosmic $\Gamma = -1$ boundary (Ax~1 + Ax~3); $R_H \equiv c/H_\infty$ & \texttt{R\_HUBBLE} \newline (\texttt{constants.py}:576); \texttt{lattice-genesis-hubble-tension.md} (\texttt{clm-wx5324}) \\
 $R_H / \ell_{node}$ & Cosmic-to-lattice scale ratio & $\sim 10^{39}$ & --- & Number of lumped substrate cells along cosmic-scale distributed TL; Machian-hierarchy precursor & \texttt{common/translation-tables/} \texttt{translation-circuit.md} canonical entry (\texttt{clm-eemap1}); \texttt{constants.py}:576 / :194 \\
-$G$ & Newton's gravitational constant (DERIVED) & $6.674 \times 10^{-11}$ & m$^3$ kg$^{-1}$ s$^{-2}$ & Machian boundary impedance (NOT a primitive axiom); $G = c^4 / (7\xi T_{EM}(u_0^*))$ via Ax~1 + Ax~4 SYM scaling & \texttt{G} \newline (\texttt{constants.py}:118); \texttt{full-derivation-chain.md} (\texttt{clm-9oazz0}); CLAUDE.md INVARIANT-S2 \\
-$\xi$ & Machian-hierarchy coupling (dimensionless) & $\approx 8.15 \times 10^{43}$ & --- & $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$; integrated boundary coupling cosmic-horizon $\to$ lattice; NOT $\xi_{topo}$ (per CLAUDE.md INVARIANT-S2 namespace warning) & \texttt{XI\_MACHIAN} \newline (\texttt{constants.py}:471); \texttt{cosmological-constant-closure.md} (\texttt{clm-s4n33u}) \\
+$G$ & Newton's gravitational constant (DERIVED) & $\num{6.674e-11}$ & \si{\cubic\metre\per\kilogram\per\square\second} & Machian boundary impedance (NOT a primitive axiom); $G = c^4 / (7\xi T_{EM}(u_0^*))$ via Ax~1 + Ax~4 SYM scaling & \texttt{G} \newline (\texttt{constants.py}:118); \texttt{full-derivation-chain.md} (\texttt{clm-9oazz0}); CLAUDE.md INVARIANT-S2 \\
+$\xi$ & Machian-hierarchy coupling (dimensionless) & $\approx \num{8.15e43}$ & --- & $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$; integrated boundary coupling cosmic-horizon $\to$ lattice; NOT $\xi_{topo}$ (per CLAUDE.md INVARIANT-S2 namespace warning) & \texttt{XI\_MACHIAN} \newline (\texttt{constants.py}:471); \texttt{cosmological-constant-closure.md} (\texttt{clm-s4n33u}) \\
 $\hat{\Omega}_{freeze}$ & Cosmic chirality / freeze-in angular velocity & substrate-native; direction at CMB axis $(l,b) = (60.28°, 50.48°)$ & rad/s (vector) & Single cosmological initial-data parameter; sets bond over-bracing $u_0$ via phase-transition-while-spinning; selects $I4_1 32$ right-handed chirality & \texttt{omega-freeze-} \texttt{cosmic-grain-cascade.md} \newline (\texttt{clm-dsb560}, \texttt{clm-a7cbqq}); Vol~3 Ch.~4 generative cosmology \\
 $u_0^*$ & Magic-angle operating point & $\approx 0.187$ & --- & Unique substrate operating point where $K(u_0^*) = 2G(u_0^*)$ + $S(A^*) = 0$ close jointly; joint anchor for $\alpha$ + $G$ & Q-G47 Sessions 9--18 closure (canonical at \texttt{constants.py} preamble); \texttt{omega-freeze-} \texttt{cosmic-grain-cascade.md} $\S$1 \\
-$H_\infty$ & Asymptotic Hubble rate (cosmic generation rate) & $2.247 \times 10^{-18}$ \newline $\approx 69.33$ km/s/Mpc & s$^{-1}$ & Substrate LC-crystallization rate maintaining $\partial_t \rho_n = 0$; cosmic crystallization rate at de~Sitter asymptote & \texttt{H\_INFINITY} \newline (\texttt{constants.py}:573); \texttt{lattice-genesis-} \texttt{hubble-tension.md} (\texttt{clm-2e9j97}, \texttt{clm-wx5324}) \\
+$H_\infty$ & Asymptotic Hubble rate (cosmic generation rate) & $\num{2.247e-18}$ \newline $\approx \qty{69.33}{\kilo\metre\per\second\per\mega\parsec}$ & \si{\per\second} & Substrate LC-crystallization rate maintaining $\partial_t \rho_n = 0$; cosmic crystallization rate at de~Sitter asymptote & \texttt{H\_INFINITY} \newline (\texttt{constants.py}:573); \texttt{lattice-genesis-} \texttt{hubble-tension.md} (\texttt{clm-2e9j97}, \texttt{clm-wx5324}) \\
 \bottomrule
 \end{longtable}
 \end{footnotesize}
@@ -123,7 +123,7 @@ $H_\infty$ & Asymptotic Hubble rate (cosmic generation rate) & $2.247 \times 10^
 \textit{Conditions for every row above:} cosmic boundary at $R_H$ (cosmic $\Gamma = -1$ surface); lattice pitch $\ell_{node}$; magic-angle operating point $u_0^* \approx 0.187$ set by lattice-genesis $\hat{\Omega}_{freeze}$; right-handed $I4_1 32$ chiral space group fixed by the same lattice-genesis event. The cosmological characteristics are observational consequences of the natural substrate's structure --- engineering measures, AVE substrate-physics derives.
 
 \noindent
-\textbf{Namespace caveat (per CLAUDE.md INVARIANT-S2 cross-reference warning).} The dimensionless Machian-hierarchy coupling $\xi \approx 8.15 \times 10^{43}$ above is \emph{NOT} the same quantity as the topological transduction constant $\xi_{topo} = e/\ell_{node} \approx 4.149 \times 10^{-7}$~C/m of Vol~9 Ch.~\ref{ch:vol9_dc_electrical_characteristics}~$\S$\ref{subsec:vol9_dc_coupling_primitives}. Both are canonical, both are written ``$\xi$,'' and they are different physical quantities --- $\xi_{topo}$ is the EE-to-mechanical bridge (Axiom~2; C/m); $\xi$ is the Machian-hierarchy integrated boundary coupling (dimensionless). The CLAUDE.md disambiguation is verbatim canonical.
+\textbf{Namespace caveat (per CLAUDE.md INVARIANT-S2 cross-reference warning).} The dimensionless Machian-hierarchy coupling $\xi \approx \num{8.15e43}$ above is \emph{NOT} the same quantity as the topological transduction constant $\xi_{topo} = e/\ell_{node} \approx \qty{4.149e-7}{\coulomb\per\metre}$ of Vol~9 Ch.~\ref{ch:vol9_dc_electrical_characteristics}~$\S$\ref{subsec:vol9_dc_coupling_primitives}. Both are canonical, both are written ``$\xi$,'' and they are different physical quantities --- $\xi_{topo}$ is the EE-to-mechanical bridge (Axiom~2; C/m); $\xi$ is the Machian-hierarchy integrated boundary coupling (dimensionless). The CLAUDE.md disambiguation is verbatim canonical.
 
 \section{Lattice-Genesis Single-Seed Cosmology}
 \label{sec:vol9_cosmo_lattice_genesis}

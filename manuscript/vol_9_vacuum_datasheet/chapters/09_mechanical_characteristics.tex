@@ -39,28 +39,28 @@ The bulk mechanical primitives of $\mathcal{M}_A$ at the cold-lattice operating 
 \textbf{Symbol} & \textbf{Typical (cold-lattice)} & \textbf{Units} & \textbf{Substrate Mechanism / Canonical Source} \\
 \midrule
 
-$G_{vac}$ & $\rho_{bulk}\, c_0^2$ (canonical) & Pa &
+$G_{vac}$ & $\rho_{bulk}\, c_0^2$ (canonical) & \si{\pascal} &
 3D continuum shear modulus, from $v_T = \sqrt{G/\rho} = c_0$ on the LC lattice. Ax~1 + Ax~4. Source: \texttt{src/ave/core/constants.py:587} (\texttt{G\_VAC}). \\
 
-$K_{vac}$ & $2\, G_{vac}$ & Pa &
+$K_{vac}$ & $2\, G_{vac}$ & \si{\pascal} &
 Bulk modulus from Effective Medium Theory at packing fraction $p^* = 8\pi\alpha$ (trace-reversal identity $K/G = 2$). Ax~1 LC mechanism + Ax~2 $\alpha$. Source: derived-numerology Appendix; Vol~3 Ch.~\ref{ch:gravity_and_yield}. \\
 
 $\nu_{vac}$ & $2/7 \approx 0.2857$ & --- &
 Vacuum Poisson ratio. Substrate-axiomatic identity (Ax~1 LC + Ax~2 $\alpha$ interlink); NOT a fitted parameter. Source: \texttt{src/ave/core/constants.py:447} (\texttt{NU\_VAC}); KB leaf \texttt{vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md} (\texttt{clm-x19btt}). See \S\ref{sec:vol9_mech_poisson} below. \\
 
-$\gamma_c$ & substrate-native (set by $r_W = l_c$) & N &
+$\gamma_c$ & substrate-native (set by $r_W = l_c$) & \si{\newton} &
 Cosserat couple-stress modulus (microrotational bending inductance). Sets the weak-force range scale $l_c = \sqrt{\gamma_c/G_{vac}}$. Substrate primitive of the rotation sector. Source: KB leaf \texttt{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} (\texttt{clm-5zuo7g}; canonical use at line~39). \\
 
-$\rho_{bulk}$ & $\xi_{topo}^2\, \mu_0 / (P_C\, \ell_{node}^2)$ & kg/m$^3$ &
+$\rho_{bulk}$ & $\xi_{topo}^2\, \mu_0 / (P_C\, \ell_{node}^2)$ & \si{\kilogram\per\metre\cubed} &
 Bulk substrate mass density. Electromechanical $\xi_{topo}$ bridge (Ax~2) + critical packing fraction $P_C = 8\pi\alpha$ (Ax~1 LC) + node-spacing scale (Ax~1). Source: \texttt{src/ave/core/constants.py:579} (\texttt{RHO\_BULK}). \\
 
-$v_T$ & $c_0$ (cold-lattice limit) & m/s &
+$v_T$ & $c_0$ (cold-lattice limit) & \si{\metre\per\second} &
 Transverse / mechanical wave speed. From $v_T = \sqrt{G_{vac}/\rho_{bulk}} = c_0$ by construction --- photons propagate at $c_0$ on the LC lattice. \emph{Reduces to $c_0$ at $S(0) = 1$; modulated by saturation per \S\ref{sec:vol9_mech_wave_speeds}.} \\
 
-$v_L$ & $\sqrt{2}\, c_0$ & m/s &
+$v_L$ & $\sqrt{2}\, c_0$ & \si{\metre\per\second} &
 Longitudinal wave speed, from $K_{vac} = 2 G_{vac}$. Source: \texttt{src/ave/core/constants.py:591} (\texttt{V\_LONG}). \\
 
-$l_c$ & $\sqrt{\gamma_c / G_{vac}}$ ($\approx r_W \sim 10^{-18}$~m) & m &
+$l_c$ & $\sqrt{\gamma_c / G_{vac}}$ ($\approx r_W \sim 10^{-18}$~m) & \si{\metre} &
 Cosserat characteristic length; weak-force range scale. Couple-stress-to-shear-modulus ratio. Source: KB leaf \texttt{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} line~39 (\texttt{clm-5zuo7g}). \\
 
 \bottomrule
