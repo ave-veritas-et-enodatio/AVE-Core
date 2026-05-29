@@ -932,7 +932,7 @@ if __name__ == "__main__":
         sym = elem["sym"]
         tex = generate_circuit(elem)
         tex_path = os.path.join(OUTDIR, f"circuit_{sym}.tex")
-        with open(tex_path, "w") as f:
+        with open(tex_path, "w", encoding="utf-8") as f:
             f.write(tex)
 
         result = subprocess.run(
@@ -949,7 +949,7 @@ if __name__ == "__main__":
             # Print last few lines of log for debugging
             log = os.path.join(OUTDIR, f"circuit_{sym}.log")
             if os.path.exists(log):
-                with open(log) as lf:
+                with open(log, encoding="utf-8") as lf:
                     lines = lf.readlines()
                     for line in lines[-10:]:
                         if "!" in line or "Error" in line:

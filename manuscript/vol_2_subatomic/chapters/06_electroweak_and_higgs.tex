@@ -334,7 +334,7 @@ The corrected compliance junction coupling is therefore:
 
 \subsubsection{Key Identity: Compliance Eigenvalue = Poisson Ratio}
 
-From Lemma~1 (proven in \texttt{mixing\_derivation.py}), the compliance mixing angle at the $\nu_1\leftrightarrow\nu_2$ junction is:
+From Lemma~1 (proven in \kbleaf{mixing\_derivation.py}), the compliance mixing angle at the $\nu_1\leftrightarrow\nu_2$ junction is:
 \begin{equation}
     \sin^2\theta_{12} = \frac{\Delta c_{12}}{c_2} = \frac{2}{7} = \nu_\text{vac}
 \end{equation}
@@ -363,7 +363,7 @@ Error & $0.65\%$ & within $1\sigma$ of PDG \\
 \subsubsection{Proof Status and Lemma~5 (Open Problem)}
 \label{sec:lemma5}
 
-Four lemmas are proven from Axioms~1 and~4 (see\linebreak \texttt{p2.9b\_goldstone\_proof.md}):
+Four lemmas are proven from Axioms~1 and~4 (see\linebreak \kbleaf{p2.9b\_goldstone\_proof.md}):
 
 \begin{enumerate}
   \item \textbf{Lemma 1 (proven):} $\nu_\text{vac} = \Delta c_{12}/c_2$ --- the compliance eigenvalue is the Poisson strain.
@@ -388,7 +388,7 @@ The Bethe-lattice gives $m^2(\nu_1)/m^2(\nu_3) = \cos^2(2\pi/5)/\cos^2(2\pi/9) \
 
 \noindent\textbf{Independence Theorem (proven):} An SVD analysis of the PMNS coupling matrix confirms that the mass hierarchy and the mixing angles are algebraically independent physical inputs.  The mass-squared splittings cannot be derived from the PMNS rotation matrix alone.  The Goldstone junction coupling formula, Eq.~(\ref{eq:solar_coupling}), provides the correct physical mechanism.
 
-\noindent\textbf{Status:} The formula $7/235 = 0.02979$ ($0.65\%$ from PDG, within $1\sigma$) is a rigorous first-order structural estimate---Lemmas~1--4 are proven from Axioms~1 and~3 with zero free parameters.  Lemma~5 remains a genuine open research frontier: the physical mechanism connecting the junction coupling to the experimentally measured eigenvalue ratio requires an insight not yet in the AVE operator set.  The engine (\texttt{cosserat.py::neutrino\_delta\_m\_sq()}) tags this result with \texttt{@open\_problem P2.9b-SELF-ENERGY}.
+\noindent\textbf{Status:} The formula $7/235 = 0.02979$ ($0.65\%$ from PDG, within $1\sigma$) is a rigorous first-order structural estimate---Lemmas~1--4 are proven from Axioms~1 and~3 with zero free parameters.  Lemma~5 remains a genuine open research frontier: the physical mechanism connecting the junction coupling to the experimentally measured eigenvalue ratio requires an insight not yet in the AVE operator set.  The engine (\kbleaf{cosserat.py::neutrino\_delta\_m\_sq()}) tags this result with \texttt{@open\_problem P2.9b-SELF-ENERGY}.
 
 \section{Schwinger's Anomalous Magnetic Moment ($g-2$)}
 \label{sec:schwinger_leading_order_g_minus_2}
@@ -453,9 +453,9 @@ On the AVE lattice, the isomorphic computation is the \textbf{Multi-Port Nodal A
 \paragraph{Topological Derivation.}
 Using the canonical \texttt{AVE\_VACUUM\_CELL} solver framework (\url{src/ave/solvers/g_minus_2_lattice.py}), the $S_{11}$ structural limit is computed physically from a terminating Bethe tree bounded by the macroscopic transition limit (Regime~I/II boundary, $Y_0=1$).
 
-\noindent\textbf{Engine cross-check \& The K4-Bethe-Tree Substrate Was Wrong:}\footnote{Annotation updated 2026-05-13 evening. Original framing (K4 substrate gives $-0.0094$, claimed to be ``where QED breaks down'') was refuted by Route~B closure on the Cosserat unknot substrate.} The earlier \texttt{g\_minus\_2\_lattice.py} solver (radial K4 Bethe tree at depth 3) computed $C_2 \approx -0.0094$, deviating from the Petermann continuum limit ($-0.328$) by approximately $97\%$. This was originally framed as ``where continuous QED mathematics breaks down against the discrete vacuum hardware.''
+\noindent\textbf{Engine cross-check \& The K4-Bethe-Tree Substrate Was Wrong:}\footnote{Annotation updated 2026-05-13 evening. Original framing (K4 substrate gives $-0.0094$, claimed to be ``where QED breaks down'') was refuted by Route~B closure on the Cosserat unknot substrate.} The earlier \kbleaf{g\_minus\_2\_lattice.py} solver (radial K4 Bethe tree at depth 3) computed $C_2 \approx -0.0094$, deviating from the Petermann continuum limit ($-0.328$) by approximately $97\%$. This was originally framed as ``where continuous QED mathematics breaks down against the discrete vacuum hardware.''
 
-\noindent\textbf{Correction:} the K4 Bethe-tree was the wrong substrate. The canonical AVE electron is the $(2,3)$ Cosserat unknot (\texttt{src/ave/topological/cosserat\_field\_3d.py}, validated at Round~12, \texttt{research/\_archive/L3\_electron\_soliton/102\_round\_12\_unknot\_cosserat\_working.md}). On this substrate, the dark-wake $\times$ kernel-asymmetry correlation derives $C_2$ from substrate dynamics directly:
+\noindent\textbf{Correction:} the K4 Bethe-tree was the wrong substrate. The canonical AVE electron is the $(2,3)$ Cosserat unknot (\kbleaf{src/ave/topological/cosserat\_field\_3d.py}, validated at Round~12, \kbleaf{research/\_archive/L3\_electron\_soliton/102\_round\_12\_unknot\_cosserat\_working.md}). On this substrate, the dark-wake $\times$ kernel-asymmetry correlation derives $C_2$ from substrate dynamics directly:
 \begin{equation*}
 C_2^{\text{AVE}} = \frac{2}{\pi\alpha}\langle (S_d - S_q)\,\tau_{zx}\rangle = -0.32846
 \end{equation*}
@@ -581,7 +581,7 @@ factor, and the $\alpha/\pi$ loop coupling are all corpus-canonical
 inputs. The 97\% K4-Bethe-tree result was substrate misidentification,
 not a feature.
 
-\noindent The legacy \texttt{g\_minus\_2\_lattice.py} engine should be considered superseded; the Route~B framework on the Cosserat substrate is canonical.
+\noindent The legacy \kbleaf{g\_minus\_2\_lattice.py} engine should be considered superseded; the Route~B framework on the Cosserat substrate is canonical.
 
 \section{The Higgs Boson Mass}
 \label{sec:higgs_mass_derivation}
@@ -626,12 +626,12 @@ Each K4 node contributes equally to the self-interaction potential---$4$ nodes s
 
 \textbf{Error: $-0.55\%$ against AVE-derived VEV $v_{AVE} \approx 248{,}833$~MeV; $-1.59\%$ to $-1.68\%$ against PDG standard VEV $v = 246{,}220$~MeV.}
 
-\textbf{Scope correction (2026-05-17 Foundation Item 7).} The $v_{AVE}$ used above is itself $\sim 1.1\%$ off from PDG standard VEV (the $G_F$ derivation chain has $\sim 3\%$ residual error per \texttt{test\_ew\_constants.py}). The $-0.55\%$ headline therefore reports internal-consistency between two AVE-derived quantities (Class C consistency check), NOT the forward-prediction error against experiment (Class D). The end-to-end forward prediction $G_F \to v_{AVE} \to M_{H,AVE}$ vs PDG $M_H$ is $-1.59\%$ to $-1.68\%$. See closure-roadmap \S0.5 Foundation Item 7 entry.
+\textbf{Scope correction (2026-05-17 Foundation Item 7).} The $v_{AVE}$ used above is itself $\sim 1.1\%$ off from PDG standard VEV (the $G_F$ derivation chain has $\sim 3\%$ residual error per \kbleaf{test\_ew\_constants.py}). The $-0.55\%$ headline therefore reports internal-consistency between two AVE-derived quantities (Class C consistency check), NOT the forward-prediction error against experiment (Class D). The end-to-end forward prediction $G_F \to v_{AVE} \to M_{H,AVE}$ vs PDG $M_H$ is $-1.59\%$ to $-1.68\%$. See closure-roadmap \S0.5 Foundation Item 7 entry.
 \end{resultbox}
 
 \noindent\textbf{Why $N_{K4} = 4$?} The K4 complete graph is the minimal rigid 3D frame (Axiom 1). Its 4 vertices define 6 edges, each carrying an LC strut. The breathing mode is the symmetric radial eigenmode where all 4 nodes oscillate in-phase radially---the volume pulsation of the fundamental lattice cell. This is the only scalar ($J^P = 0^+$) mode available, matching the experimental spin-parity assignment from CMS and ATLAS.
 
-\noindent\textbf{Engine cross-check:} The physics engine computes $M_H$ via the same chain (\texttt{constants.py}, line 338): \texttt{M\_HIGGS\_MEV = HIGGS\_VEV\_MEV / np.sqrt(N\_K4)}. The spot-check pipeline confirms $M_H = 124{,}417$ MeV (within the 1\% tolerance band of 125,100 MeV).
+\noindent\textbf{Engine cross-check:} The physics engine computes $M_H$ via the same chain (\texttt{constants.py}, line 338): \kbleaf{M\_HIGGS\_MEV = HIGGS\_VEV\_MEV / np.sqrt(N\_K4)}. The spot-check pipeline confirms $M_H = 124{,}417$ MeV (within the 1\% tolerance band of 125,100 MeV).
 
 \section{Summary of Electroweak Predictions}
 
@@ -662,6 +662,6 @@ Table~the main text consolidates the ontological mapping between Standard Model 
 \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{topology_particle_zoo.png}
-    \caption{\textbf{The AVE Particle Zoo.} Complete topological classification of all fundamental fermions and baryons derived in the AVE framework. Top row: the three charged leptons as Cosserat excitations of the $0_1$ unknot (electron: smooth ring; muon: $\sqrt{3/7}$-turn impedance twist; tau: $7$-lobe curvature undulation) and the neutrino as a pure torsional screw defect. Bottom row: the proton as a $6^3_2$ Borromean linkage and the neutron as a Borromean link with a threaded unknot. Every mass is computed from $m_e$, $\alpha$, and $G$ with zero Standard Model parameters. Printable 3D STL meshes for all topologies are available in \texttt{assets/3d\_models/}.}
+    \caption{\textbf{The AVE Particle Zoo.} Complete topological classification of all fundamental fermions and baryons derived in the AVE framework. Top row: the three charged leptons as Cosserat excitations of the $0_1$ unknot (electron: smooth ring; muon: $\sqrt{3/7}$-turn impedance twist; tau: $7$-lobe curvature undulation) and the neutrino as a pure torsional screw defect. Bottom row: the proton as a $6^3_2$ Borromean linkage and the neutron as a Borromean link with a threaded unknot. Every mass is computed from $m_e$, $\alpha$, and $G$ with zero Standard Model parameters. Printable 3D STL meshes for all topologies are available in \kbleaf{assets/3d\_models/}.}
     \label{fig:particle_zoo}
 \end{figure}

@@ -108,7 +108,7 @@ def main() -> None:
     }
 
     out_json = results_dir / "dark_wake_extended_baseline.json"
-    with open(out_json, "w") as f:
+    with open(out_json, "w", encoding="utf-8") as f:
         json.dump(out, f, indent=2, default=str)
 
     print()

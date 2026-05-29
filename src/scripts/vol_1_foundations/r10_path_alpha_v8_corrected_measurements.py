@@ -562,7 +562,7 @@ def main():
         "T_V_rupt_natural_units": T_V_RUPT,
         "runs": results,
     }
-    args.output.write_text(json.dumps(payload, indent=2, default=str))
+    args.output.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"  Result: {args.output.relative_to(REPO_ROOT)}")
     return payload
 

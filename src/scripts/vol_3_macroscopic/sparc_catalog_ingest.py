@@ -76,7 +76,7 @@ def parse_sparc_table1(path: Path) -> list[dict]:
     galaxies = []
     in_data = False
     separator_count = 0
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         for line in f:
             if line.startswith("-" * 5):
                 separator_count += 1

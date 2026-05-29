@@ -181,7 +181,7 @@ def migrate_file(p: Path, dry_run: bool):
     'migrated' | 'would-migrate' | 'already' | 'no-changes' | 'defect' | 'excluded'."""
     if p.name in EXCLUDE_NAMES:
         return ("excluded", "infrastructure file")
-    text = p.read_text()
+    text = p.read_text(encoding="utf-8")
     if already_migrated(text):
         return ("already", "already migrated")
     lines = text.splitlines()
@@ -261,7 +261,7 @@ def migrate_file(p: Path, dry_run: bool):
         return ("no-changes", "")
     if dry_run:
         return ("would-migrate", "")
-    p.write_text(new_text)
+    p.write_text(new_text, encoding="utf-8")
     return ("migrated", "")
 
 
@@ -311,7 +311,7 @@ def main() -> int:
     print(f"  defects:          {counts['defect']}")
 
     if defects:
-        print(f"\nDefects (must be fixed by hand before migration):")
+        print("\nDefects (must be fixed by hand before migration):")
         for path, reason in defects:
             print(f"  {path}: {reason}")
 

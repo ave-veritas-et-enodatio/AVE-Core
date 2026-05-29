@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [clm-07kd5v, clm-8nkvwy, clm-rd9cjm, clm-y9old1]
+subtree-claims: [clm-07kd5v, clm-8nkvwy, clm-rd9cjm, clm-y9old1, clm-zf8eah]
 subtree-experiments: []
 -->
 
@@ -19,6 +19,7 @@ Maps Einstein's Field Equation onto the variable-impedance LC medium. The Stress
 | Symmetric Gravity Impedance | $Z(r) = \sqrt{\mu_{eff}/\varepsilon_{eff}} = Z_0$ (invariant) |
 | Gravitational Refractive Index Gradient | $n(r) = (1 + r_s/2r)^3 / (1 - r_s/2r)$ |
 | Frame-Dragging Impedance Convolution | $\omega(r) = 2Mar / (r^2 + a^2)^2$ |
+| Double Deflection (light vs matter) | $\delta_{\text{light}}/\delta_{\text{matter}} = (2/7)/(1/7) = 2$ [Double Deflection](double-deflection.md) |
 
 ## Derivations and Detail
 
@@ -29,6 +30,7 @@ Maps Einstein's Field Equation onto the variable-impedance LC medium. The Stress
 | [Gravitational Refractive Index Gradient](gravitational-refractive-index-gradient.md) | Isotropic-coordinate $n(r)$ for Lense-Thirring manifold |
 | [Frame-Dragging Impedance Convolution](frame-dragging-impedance-convolution.md) | Kerr angular dependence $\omega(r)$, D-shaped shadow, Doppler beaming |
 | [K4-TLM Lensing Validation](k4-tlm-lensing-validation.md) | Native Diamond lattice cross-validation of photon deflection |
+| [Double Deflection](double-deflection.md) | Factor-of-2 (light vs matter deflection) from the $2/7 : 1/7$ transverse-vs-scalar Poisson projection |
 | [GR <-> AVE Translation Dictionary](gr-ave-translation-dictionary.md) | Pointers to common translation tables |
 
 ## Cross-Volume References

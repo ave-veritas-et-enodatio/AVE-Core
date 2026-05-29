@@ -33,6 +33,7 @@ THREE PER-BOND ELLIPSE TESTS:
 Per-cluster Mode I if ANY of (a) / (b-x) / (b-y) / (b-z) / (c) passes
 C1 (R/r = φ² ± 5% on median) AND C2 (chirality ≥ 75%).
 """
+
 from __future__ import annotations
 
 import json
@@ -47,9 +48,9 @@ from scipy.signal import hilbert
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
 from tlm_electron_soliton_eigenmode import initialize_2_3_voltage_ansatz
 
+from ave.topological.vacuum_engine import VacuumEngine3D
 
 # ─── Constants (matching Move 5 + path α v1/v2 exactly for engine setup) ──
 
@@ -104,7 +105,9 @@ OUTPUT_JSON = Path(__file__).parent / "r9_path_alpha_v3_3d_aligned_results.json"
 
 def build_engine():
     return VacuumEngine3D.from_args(
-        N=N_LATTICE, pml=PML, temperature=0.0,
+        N=N_LATTICE,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -113,17 +116,22 @@ def build_engine():
 
 def seed_corpus_2_3_joint(engine):
     engine.cos.initialize_electron_2_3_sector(
-        R_target=R_ANCHOR, r_target=R_MINOR,
-        use_hedgehog=True, amplitude_scale=A26_AMP_SCALE,
+        R_target=R_ANCHOR,
+        r_target=R_MINOR,
+        use_hedgehog=True,
+        amplitude_scale=A26_AMP_SCALE,
     )
     initialize_2_3_voltage_ansatz(
-        engine.k4, R=R_ANCHOR, r=R_MINOR, amplitude=V_AMP_INIT,
+        engine.k4,
+        R=R_ANCHOR,
+        r=R_MINOR,
+        amplitude=V_AMP_INIT,
     )
 
 
 def make_interior_mask(nx, pml):
     mask = np.zeros((nx, nx, nx), dtype=bool)
-    mask[pml:nx - pml, pml:nx - pml, pml:nx - pml] = True
+    mask[pml : nx - pml, pml : nx - pml, pml : nx - pml] = True
     return mask
 
 
@@ -189,12 +197,14 @@ def find_bond_pairs(top_cells_list, top_cells_set):
             cell_b = (cell_a[0] + offset[0], cell_a[1] + offset[1], cell_a[2] + offset[2])
             if cell_b in top_cells_set and cell_b not in used_cells:
                 b_hat = (offset[0] / SQRT_3, offset[1] / SQRT_3, offset[2] / SQRT_3)
-                bond_pairs.append({
-                    "cell_a": list(cell_a),
-                    "port": port_idx,
-                    "cell_b": list(cell_b),
-                    "b_hat": list(b_hat),
-                })
+                bond_pairs.append(
+                    {
+                        "cell_a": list(cell_a),
+                        "port": port_idx,
+                        "cell_b": list(cell_b),
+                        "b_hat": list(b_hat),
+                    }
+                )
                 used_cells.add(cell_a)
                 used_cells.add(cell_b)
                 break
@@ -218,10 +228,8 @@ def main():
     print(f"  Lattice: N={N_LATTICE}, PML={PML} (interior {N_LATTICE - 2*PML}^3)")
     print(f"  Corpus GT: R={R_ANCHOR}, r={R_MINOR:.4f}")
     print(f"  Pre-evolve: t ∈ [0, {PRE_EVOLVE_END_P}] P")
-    print(f"  Selection: t ∈ [{PRE_EVOLVE_END_P}, {SELECTION_END_P}] P "
-          f"({N_SELECTION_STEPS} steps)")
-    print(f"  Recording: t ∈ [{SELECTION_END_P}, {RECORDING_END_P}] P "
-          f"({N_RECORDING_STEPS} steps)")
+    print(f"  Selection: t ∈ [{PRE_EVOLVE_END_P}, {SELECTION_END_P}] P " f"({N_SELECTION_STEPS} steps)")
+    print(f"  Recording: t ∈ [{SELECTION_END_P}, {RECORDING_END_P}] P " f"({N_RECORDING_STEPS} steps)")
     print(f"  Sampler: (Φ_link[A,port], ω_x, ω_y, ω_z) at K4 bond-pairs")
     print(f"  Per-bond ellipse views:")
     print(f"    (a) 3D ω-PCA: eigenvalues + planarity + e2/e1 aspect")
@@ -270,8 +278,7 @@ def main():
     v_inc_mean_sq_interior = v_inc_mean_sq.copy()
     v_inc_mean_sq_interior[~interior_mask] = 0.0
 
-    flat_idx = np.argpartition(v_inc_mean_sq_interior.ravel(),
-                                -TOP_K_CANDIDATES)[-TOP_K_CANDIDATES:]
+    flat_idx = np.argpartition(v_inc_mean_sq_interior.ravel(), -TOP_K_CANDIDATES)[-TOP_K_CANDIDATES:]
     sorted_idx = flat_idx[np.argsort(-v_inc_mean_sq_interior.ravel()[flat_idx])]
     top_cells_list = []
     top_cells_set = set()
@@ -290,15 +297,16 @@ def main():
     print(f"  Identified {n_pairs} K4 bond-pairs:")
     for k, bp in enumerate(bond_pairs):
         offset = PORT_OFFSETS[bp["port"]]
-        print(f"    [{k}] A={tuple(bp['cell_a'])} port {bp['port']} → "
-              f"B={tuple(bp['cell_b'])} (offset {offset})", flush=True)
+        print(
+            f"    [{k}] A={tuple(bp['cell_a'])} port {bp['port']} → " f"B={tuple(bp['cell_b'])} (offset {offset})",
+            flush=True,
+        )
 
     if n_pairs == 0:
         raise RuntimeError("No K4 bond-pairs found — abort")
 
     # ─── Phase 3: recording window (4-channel sampler) ────────────────────
-    print(f"  Recording window: capturing (Φ_link, ω_x, ω_y, ω_z) at "
-          f"{n_pairs} bond-pairs...", flush=True)
+    print(f"  Recording window: capturing (Φ_link, ω_x, ω_y, ω_z) at " f"{n_pairs} bond-pairs...", flush=True)
     phi_link_traj = np.zeros((N_RECORDING_STEPS, n_pairs))
     omega_xyz_traj = np.zeros((N_RECORDING_STEPS, n_pairs, 3))
 
@@ -313,8 +321,10 @@ def main():
             omega_xyz_traj[i, k, :] = omega[ix, iy, iz]
         if (time.time() - last_progress) > 30.0:
             t_period = (SELECTION_END_STEP + i) * DT / COMPTON_PERIOD
-            print(f"    [progress] t={t_period:6.1f} P  step {i}/{N_RECORDING_STEPS}  "
-                  f"elapsed {time.time()-t0:.1f}s", flush=True)
+            print(
+                f"    [progress] t={t_period:6.1f} P  step {i}/{N_RECORDING_STEPS}  " f"elapsed {time.time()-t0:.1f}s",
+                flush=True,
+            )
             last_progress = time.time()
 
     elapsed_total = time.time() - t0
@@ -338,11 +348,8 @@ def main():
         for ax in range(3):
             R_ax, r_ax = fit_ellipse_pca_2d(phi_link_traj[:, k], omega_k[:, ax])
             R_over_r_ax = R_ax / max(r_ax, 1e-30)
-            mean_sin_ax, std_sin_ax, chirality_sign_ax = chirality_hilbert(
-                phi_link_traj[:, k], omega_k[:, ax]
-            )
-            chir_label_ax = ("CCW" if chirality_sign_ax > 0
-                             else "CW" if chirality_sign_ax < 0 else "AMBIG")
+            mean_sin_ax, std_sin_ax, chirality_sign_ax = chirality_hilbert(phi_link_traj[:, k], omega_k[:, ax])
+            chir_label_ax = "CCW" if chirality_sign_ax > 0 else "CW" if chirality_sign_ax < 0 else "AMBIG"
             per_axis_views[axis_labels[ax]] = {
                 "R_phase": R_ax,
                 "r_phase": r_ax,
@@ -358,43 +365,45 @@ def main():
         omega_mag = np.linalg.norm(omega_k, axis=1)
         R_mag, r_mag = fit_ellipse_pca_2d(phi_link_traj[:, k], omega_mag)
         R_over_r_mag = R_mag / max(r_mag, 1e-30)
-        mean_sin_mag, std_sin_mag, chirality_sign_mag = chirality_hilbert(
-            phi_link_traj[:, k], omega_mag
-        )
-        chir_label_mag = ("CCW" if chirality_sign_mag > 0
-                          else "CW" if chirality_sign_mag < 0 else "AMBIG")
+        mean_sin_mag, std_sin_mag, chirality_sign_mag = chirality_hilbert(phi_link_traj[:, k], omega_mag)
+        chir_label_mag = "CCW" if chirality_sign_mag > 0 else "CW" if chirality_sign_mag < 0 else "AMBIG"
 
-        bond_results.append({
-            **bond_pairs[k],
-            "phi_link_amplitude_std": float(np.std(phi_link_traj[:, k])),
-            "view_a_3d_omega_pca": {
-                "eigvals": [e0, e1, e2],
-                "axis_lengths": [a0, a1, a2],
-                "planarity_e0_over_e2": planarity,
-                "in_plane_aspect_e2_over_e1": in_plane_aspect,
-            },
-            "view_b_per_axis": per_axis_views,
-            "view_c_magnitude": {
-                "R_phase": R_mag,
-                "r_phase": r_mag,
-                "R_over_r": R_over_r_mag,
-                "omega_mag_std": float(np.std(omega_mag)),
-                "chirality_mean_sin_dphi": mean_sin_mag,
-                "chirality_std_sin_dphi": std_sin_mag,
-                "chirality_sign": chirality_sign_mag,
-                "chirality_label": chir_label_mag,
-            },
-        })
-        print(f"  [{k}] {tuple(bond_pairs[k]['cell_a'])} → "
-              f"{tuple(bond_pairs[k]['cell_b'])}", flush=True)
-        print(f"      (a) 3D ω-PCA: planarity={planarity:.4f}, "
-              f"e2/e1={in_plane_aspect:.4f} (target φ²={PHI_SQ:.4f})", flush=True)
+        bond_results.append(
+            {
+                **bond_pairs[k],
+                "phi_link_amplitude_std": float(np.std(phi_link_traj[:, k])),
+                "view_a_3d_omega_pca": {
+                    "eigvals": [e0, e1, e2],
+                    "axis_lengths": [a0, a1, a2],
+                    "planarity_e0_over_e2": planarity,
+                    "in_plane_aspect_e2_over_e1": in_plane_aspect,
+                },
+                "view_b_per_axis": per_axis_views,
+                "view_c_magnitude": {
+                    "R_phase": R_mag,
+                    "r_phase": r_mag,
+                    "R_over_r": R_over_r_mag,
+                    "omega_mag_std": float(np.std(omega_mag)),
+                    "chirality_mean_sin_dphi": mean_sin_mag,
+                    "chirality_std_sin_dphi": std_sin_mag,
+                    "chirality_sign": chirality_sign_mag,
+                    "chirality_label": chir_label_mag,
+                },
+            }
+        )
+        print(f"  [{k}] {tuple(bond_pairs[k]['cell_a'])} → " f"{tuple(bond_pairs[k]['cell_b'])}", flush=True)
+        print(
+            f"      (a) 3D ω-PCA: planarity={planarity:.4f}, " f"e2/e1={in_plane_aspect:.4f} (target φ²={PHI_SQ:.4f})",
+            flush=True,
+        )
         for ax in range(3):
             v = per_axis_views[axis_labels[ax]]
-            print(f"      (b-{axis_labels[ax]}) (Φ,ω_{axis_labels[ax]}): "
-                  f"R/r={v['R_over_r']:8.4f}  chirality={v['chirality_label']}", flush=True)
-        print(f"      (c) (Φ,|ω|): R/r={R_over_r_mag:8.4f}  "
-              f"chirality={chir_label_mag}", flush=True)
+            print(
+                f"      (b-{axis_labels[ax]}) (Φ,ω_{axis_labels[ax]}): "
+                f"R/r={v['R_over_r']:8.4f}  chirality={v['chirality_label']}",
+                flush=True,
+            )
+        print(f"      (c) (Φ,|ω|): R/r={R_over_r_mag:8.4f}  " f"chirality={chir_label_mag}", flush=True)
 
     # ─── Phase 5: per-cluster + global adjudication ───────────────────────
     lattice_center = (engine.k4.nx - 1) / 2.0
@@ -416,8 +425,10 @@ def main():
             "median_R_over_r": median_R_over_r,
             "consensus_fraction": consensus_fraction,
             "consensus_direction": consensus_dir,
-            "n_ccw": n_ccw, "n_cw": n_cw,
-            "c1_pass": bool(c1_pass), "c2_pass": bool(c2_pass),
+            "n_ccw": n_ccw,
+            "n_cw": n_cw,
+            "c1_pass": bool(c1_pass),
+            "c2_pass": bool(c2_pass),
             "mode_i_pass": bool(c1_pass and c2_pass),
         }
 
@@ -425,13 +436,9 @@ def main():
     for cluster_key, bp_indices in clusters.items():
         # View (a) 3D ω-PCA — no chirality (rotation-invariant); test e2/e1 + planarity
         in_plane_aspect_list = [
-            bond_results[i]["view_a_3d_omega_pca"]["in_plane_aspect_e2_over_e1"]
-            for i in bp_indices
+            bond_results[i]["view_a_3d_omega_pca"]["in_plane_aspect_e2_over_e1"] for i in bp_indices
         ]
-        planarity_list = [
-            bond_results[i]["view_a_3d_omega_pca"]["planarity_e0_over_e2"]
-            for i in bp_indices
-        ]
+        planarity_list = [bond_results[i]["view_a_3d_omega_pca"]["planarity_e0_over_e2"] for i in bp_indices]
         median_e2_e1 = float(np.median(in_plane_aspect_list))
         median_planarity = float(np.median(planarity_list))
         a_c1_pass = abs(median_e2_e1 - PHI_SQ) <= PHI_SQ_TOL * PHI_SQ
@@ -461,9 +468,7 @@ def main():
         )
 
         cluster_mode_i = (
-            view_a["mode_i_pass"]
-            or any(view_b[ax]["mode_i_pass"] for ax in axis_labels)
-            or view_c["mode_i_pass"]
+            view_a["mode_i_pass"] or any(view_b[ax]["mode_i_pass"] for ax in axis_labels) or view_c["mode_i_pass"]
         )
 
         cluster_adjudication[cluster_key] = {
@@ -480,9 +485,7 @@ def main():
     persistence = omega_peak_final / max(omega_peak_init, 1e-30)
     persistence_ok = persistence >= PERSISTENCE_GUARD
 
-    all_clusters_mode_i = all(
-        a["cluster_mode_i_pass"] for a in cluster_adjudication.values()
-    )
+    all_clusters_mode_i = all(a["cluster_mode_i_pass"] for a in cluster_adjudication.values())
 
     # Determine which view drove Mode I (if any)
     passing_views = []
@@ -524,10 +527,7 @@ def main():
         )
 
     if not persistence_ok:
-        verdict += (
-            f" CAVEAT: peak |ω| persistence {persistence:.0%} below "
-            f"{PERSISTENCE_GUARD:.0%} threshold."
-        )
+        verdict += f" CAVEAT: peak |ω| persistence {persistence:.0%} below " f"{PERSISTENCE_GUARD:.0%} threshold."
 
     print()
     print("=" * 78, flush=True)
@@ -536,25 +536,30 @@ def main():
     for cluster_key, adj in cluster_adjudication.items():
         print(f"  Cluster {cluster_key} ({adj['n_bonds']} bonds):")
         va = adj["view_a_3d_omega_pca"]
-        print(f"    (a) 3D ω-PCA: median e2/e1 = {va['median_e2_over_e1']:.4f} "
-              f"(target φ²={PHI_SQ:.4f}, "
-              f"{'PASS' if va['c1_pass_aspect'] else 'FAIL'}), "
-              f"planarity {va['median_planarity_e0_over_e2']:.4f} "
-              f"({'PASS' if va['planarity_pass'] else 'FAIL'}) → "
-              f"Mode I {'PASS' if va['mode_i_pass'] else 'FAIL'}")
+        print(
+            f"    (a) 3D ω-PCA: median e2/e1 = {va['median_e2_over_e1']:.4f} "
+            f"(target φ²={PHI_SQ:.4f}, "
+            f"{'PASS' if va['c1_pass_aspect'] else 'FAIL'}), "
+            f"planarity {va['median_planarity_e0_over_e2']:.4f} "
+            f"({'PASS' if va['planarity_pass'] else 'FAIL'}) → "
+            f"Mode I {'PASS' if va['mode_i_pass'] else 'FAIL'}"
+        )
         for ax in axis_labels:
             vb = adj["view_b_per_axis"][ax]
-            print(f"    (b-{ax}) (Φ,ω_{ax}): median R/r = {vb['median_R_over_r']:.4f}, "
-                  f"chirality {vb['consensus_fraction']:.0%} {vb['consensus_direction']} → "
-                  f"C1 {'PASS' if vb['c1_pass'] else 'FAIL'}, "
-                  f"C2 {'PASS' if vb['c2_pass'] else 'FAIL'}")
+            print(
+                f"    (b-{ax}) (Φ,ω_{ax}): median R/r = {vb['median_R_over_r']:.4f}, "
+                f"chirality {vb['consensus_fraction']:.0%} {vb['consensus_direction']} → "
+                f"C1 {'PASS' if vb['c1_pass'] else 'FAIL'}, "
+                f"C2 {'PASS' if vb['c2_pass'] else 'FAIL'}"
+            )
         vc = adj["view_c_magnitude"]
-        print(f"    (c) (Φ,|ω|): median R/r = {vc['median_R_over_r']:.4f}, "
-              f"chirality {vc['consensus_fraction']:.0%} {vc['consensus_direction']} → "
-              f"C1 {'PASS' if vc['c1_pass'] else 'FAIL'}, "
-              f"C2 {'PASS' if vc['c2_pass'] else 'FAIL'}")
-        print(f"    Cluster Mode I: "
-              f"{'PASS' if adj['cluster_mode_i_pass'] else 'FAIL'}")
+        print(
+            f"    (c) (Φ,|ω|): median R/r = {vc['median_R_over_r']:.4f}, "
+            f"chirality {vc['consensus_fraction']:.0%} {vc['consensus_direction']} → "
+            f"C1 {'PASS' if vc['c1_pass'] else 'FAIL'}, "
+            f"C2 {'PASS' if vc['c2_pass'] else 'FAIL'}"
+        )
+        print(f"    Cluster Mode I: " f"{'PASS' if adj['cluster_mode_i_pass'] else 'FAIL'}")
     print(f"  Persistence: {persistence:.0%}")
     print()
     print(f"  Mode: {mode}")
@@ -595,7 +600,7 @@ def main():
         "mode": mode,
         "verdict": verdict,
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"  Result: {OUTPUT_JSON}")
     return payload
 

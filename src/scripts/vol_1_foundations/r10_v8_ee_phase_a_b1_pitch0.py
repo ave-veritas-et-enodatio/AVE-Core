@@ -140,7 +140,7 @@ def main():
         "verdict": verdict,
     }
     out_path = Path(__file__).parent / "r10_v8_ee_phase_a_b1_pitch0_results.json"
-    out_path.write_text(json.dumps(out, indent=2, default=str))
+    out_path.write_text(json.dumps(out, indent=2, default=str), encoding="utf-8")
     print(f"\nSaved {out_path.relative_to(Path.cwd())}")
 
 

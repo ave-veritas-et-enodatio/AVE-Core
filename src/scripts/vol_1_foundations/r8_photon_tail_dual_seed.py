@@ -57,6 +57,7 @@ INITIAL CONDITION CHOICE (path a — standing-wave IC):
   Mode I (corpus electron at engine scale): all 4 PASS.
   Mode III variants: at least one FAIL; failure pattern names what's wrong.
 """
+
 from __future__ import annotations
 
 import json
@@ -69,9 +70,9 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
 from tlm_electron_soliton_eigenmode import initialize_2_3_voltage_ansatz
 
+from ave.topological.vacuum_engine import VacuumEngine3D
 
 # ─── Constants per pred ───────────────────────────────────────────────────────
 
@@ -80,11 +81,11 @@ PHI_SQ = PHI * PHI
 
 N_LATTICE = 64
 PML = 4
-R_LOOP = 4.0           # major radius (lattice cells); chosen so (2,3) winding resolved
-R_MINOR = 1.5          # minor radius; r/R ≈ φ⁻² approx, but lattice-snapped
+R_LOOP = 4.0  # major radius (lattice cells); chosen so (2,3) winding resolved
+R_MINOR = 1.5  # minor radius; r/R ≈ φ⁻² approx, but lattice-snapped
 
-A26_AMP_SCALE = 0.3 / (np.sqrt(3.0) / 2.0)   # → peak |ω| = 0.3π corpus convention
-V_AMP_INIT = 0.1                              # K4 V_inc seed (linear regime)
+A26_AMP_SCALE = 0.3 / (np.sqrt(3.0) / 2.0)  # → peak |ω| = 0.3π corpus convention
+V_AMP_INIT = 0.1  # K4 V_inc seed (linear regime)
 
 OMEGA_C = 1.0
 COMPTON_PERIOD = 2.0 * np.pi / OMEGA_C
@@ -97,27 +98,32 @@ T_RECORD_START_PERIOD = 150.0
 STEP_RECORD_START = int(T_RECORD_START_PERIOD * COMPTON_PERIOD / DT)
 
 # Loop sampling
-N_LOOP_NODES = 30      # number of nodes sampled along (2,3) torus knot
+N_LOOP_NODES = 30  # number of nodes sampled along (2,3) torus knot
 
 # Adjudication thresholds
-ELLIPSE_ASPECT_TOL = 0.05            # 5% on R_phase/r_phase = φ²
-SPATIAL_WINDING_TOL_FRAC = 0.30      # 30% on total winding = 5·2π
-LC_REACTANCE_RANGE = (-1.2, -0.8)    # ρ ≈ -1 ± 0.2
+ELLIPSE_ASPECT_TOL = 0.05  # 5% on R_phase/r_phase = φ²
+SPATIAL_WINDING_TOL_FRAC = 0.30  # 30% on total winding = 5·2π
+LC_REACTANCE_RANGE = (-1.2, -0.8)  # ρ ≈ -1 ± 0.2
 
 # K4 port unit vectors (from k4_tlm.py)
-PORT_VECTORS = np.array([
-    [+1, +1, +1],
-    [+1, -1, -1],
-    [-1, +1, -1],
-    [-1, -1, +1],
-], dtype=float) / np.sqrt(3.0)
+PORT_VECTORS = np.array(
+    [
+        [+1, +1, +1],
+        [+1, -1, -1],
+        [-1, +1, -1],
+        [-1, -1, +1],
+    ],
+    dtype=float,
+) / np.sqrt(3.0)
 
 OUTPUT_JSON = Path(__file__).parent / "r8_photon_tail_dual_seed_results.json"
 
 
 def build_engine():
     return VacuumEngine3D.from_args(
-        N=N_LATTICE, pml=PML, temperature=0.0,
+        N=N_LATTICE,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -129,11 +135,16 @@ def seed_dual_field(engine):
     (2,3) topology at (R_LOOP, R_MINOR). Standing-wave initial conditions
     (no initial velocities)."""
     engine.cos.initialize_electron_2_3_sector(
-        R_target=R_LOOP, r_target=R_MINOR,
-        use_hedgehog=True, amplitude_scale=A26_AMP_SCALE,
+        R_target=R_LOOP,
+        r_target=R_MINOR,
+        use_hedgehog=True,
+        amplitude_scale=A26_AMP_SCALE,
     )
     initialize_2_3_voltage_ansatz(
-        engine.k4, R=R_LOOP, r=R_MINOR, amplitude=V_AMP_INIT,
+        engine.k4,
+        R=R_LOOP,
+        r=R_MINOR,
+        amplitude=V_AMP_INIT,
     )
 
 
@@ -143,7 +154,7 @@ def loop_path_samples(n_samples=N_LOOP_NODES):
     center. Each cell is the lattice cell closest to the curve at that
     parametric t. Port chosen as max-projection onto local tangent."""
     cx = (N_LATTICE - 1) / 2.0
-    p, q = 2, 3   # (2,3) torus knot
+    p, q = 2, 3  # (2,3) torus knot
 
     samples = []
     cumulative_arc = 0.0
@@ -163,10 +174,8 @@ def loop_path_samples(n_samples=N_LOOP_NODES):
         iz = int(round(cx + z))
 
         # Tangent vector at this t (for port selection)
-        dx_dt = (-R_MINOR * q * np.sin(q * t) * np.cos(p * t)
-                 - (R_LOOP + R_MINOR * np.cos(q * t)) * p * np.sin(p * t))
-        dy_dt = (-R_MINOR * q * np.sin(q * t) * np.sin(p * t)
-                 + (R_LOOP + R_MINOR * np.cos(q * t)) * p * np.cos(p * t))
+        dx_dt = -R_MINOR * q * np.sin(q * t) * np.cos(p * t) - (R_LOOP + R_MINOR * np.cos(q * t)) * p * np.sin(p * t)
+        dy_dt = -R_MINOR * q * np.sin(q * t) * np.sin(p * t) + (R_LOOP + R_MINOR * np.cos(q * t)) * p * np.cos(p * t)
         dz_dt = R_MINOR * q * np.cos(q * t)
         tangent = np.array([dx_dt, dy_dt, dz_dt])
         tangent /= np.linalg.norm(tangent)
@@ -175,13 +184,15 @@ def loop_path_samples(n_samples=N_LOOP_NODES):
         projections = PORT_VECTORS @ tangent
         best_port = int(np.argmax(np.abs(projections)))
 
-        samples.append({
-            "t_param": float(t),
-            "cell": (ix, iy, iz),
-            "port": best_port,
-            "tangent": tangent.tolist(),
-            "arc_length": float(cumulative_arc),
-        })
+        samples.append(
+            {
+                "t_param": float(t),
+                "cell": (ix, iy, iz),
+                "port": best_port,
+                "tangent": tangent.tolist(),
+                "arc_length": float(cumulative_arc),
+            }
+        )
 
     return samples
 
@@ -247,8 +258,10 @@ def main():
     initial_omega_peak = float(np.linalg.norm(np.asarray(engine.cos.omega), axis=-1).max())
     initial_vinc_peak = float(np.linalg.norm(np.asarray(engine.k4.V_inc), axis=-1).max())
     initial_c = int(engine.cos.extract_crossing_count())
-    print(f"  Initial state: peak |ω| = {initial_omega_peak:.4f}, "
-          f"peak |V_inc| = {initial_vinc_peak:.4f}, c = {initial_c}")
+    print(
+        f"  Initial state: peak |ω| = {initial_omega_peak:.4f}, "
+        f"peak |V_inc| = {initial_vinc_peak:.4f}, c = {initial_c}"
+    )
     print()
 
     # Recording arrays
@@ -285,15 +298,12 @@ def main():
             # Global energy series
             T_cos_series.append(float(engine.cos.kinetic_energy()))
             V_cos_series.append(float(engine.cos.total_energy()))
-            sum_vinc_sq_series.append(
-                float(np.sum((v_inc_arr * mask_active[..., None]) ** 2)))
-            sum_philink_sq_series.append(
-                float(np.sum((phi_link * mask_A[..., None]) ** 2)))
+            sum_vinc_sq_series.append(float(np.sum((v_inc_arr * mask_active[..., None]) ** 2)))
+            sum_philink_sq_series.append(float(np.sum((phi_link * mask_A[..., None]) ** 2)))
 
         if (time.time() - last_progress) > 60.0:
             t_p = step * DT / COMPTON_PERIOD
-            print(f"    [progress] step {step}, t={t_p:.1f}P, "
-                  f"elapsed {time.time() - t0:.1f}s", flush=True)
+            print(f"    [progress] step {step}, t={t_p:.1f}P, " f"elapsed {time.time() - t0:.1f}s", flush=True)
             last_progress = time.time()
 
     elapsed = time.time() - t0
@@ -316,24 +326,26 @@ def main():
     aspect_records = []
     for i, node in enumerate(loop_nodes):
         R_p, r_p, ratio, theta, amp_drift = fit_ellipse_pca(
-            v_inc_traces[i], v_ref_traces[i],
+            v_inc_traces[i],
+            v_ref_traces[i],
         )
-        aspect_records.append({
-            "node_idx": i,
-            "cell": list(node["cell"]),
-            "port": node["port"],
-            "arc_length": node["arc_length"],
-            "R_phase": R_p,
-            "r_phase": r_p,
-            "R_over_r": ratio,
-            "theta": theta,
-            "amp_drift": amp_drift,
-        })
+        aspect_records.append(
+            {
+                "node_idx": i,
+                "cell": list(node["cell"]),
+                "port": node["port"],
+                "arc_length": node["arc_length"],
+                "R_phase": R_p,
+                "r_phase": r_p,
+                "R_over_r": ratio,
+                "theta": theta,
+                "amp_drift": amp_drift,
+            }
+        )
 
     aspects_finite = [r["R_over_r"] for r in aspect_records if np.isfinite(r["R_over_r"])]
     median_aspect = float(np.median(aspects_finite)) if aspects_finite else float("nan")
-    aspect_phi_match = (np.isfinite(median_aspect)
-                       and abs(median_aspect - PHI_SQ) / PHI_SQ < ELLIPSE_ASPECT_TOL)
+    aspect_phi_match = np.isfinite(median_aspect) and abs(median_aspect - PHI_SQ) / PHI_SQ < ELLIPSE_ASPECT_TOL
 
     print(f"  C1 — Single-node ellipse aspect at {len(aspects_finite)} loop nodes:")
     print(f"    Median R_phase/r_phase = {median_aspect:.4f}, target = {PHI_SQ:.4f} ± {ELLIPSE_ASPECT_TOL:.0%}")
@@ -341,8 +353,7 @@ def main():
     print()
 
     # C2 — Spatial winding rotation across loop nodes
-    orientations_finite = np.array(
-        [r["theta"] for r in aspect_records if np.isfinite(r["theta"])])
+    orientations_finite = np.array([r["theta"] for r in aspect_records if np.isfinite(r["theta"])])
     if len(orientations_finite) >= N_LOOP_NODES // 2:
         # Unwrap to track continuous rotation
         unwrapped = np.unwrap(orientations_finite)
@@ -476,7 +487,7 @@ def main():
         "mode": mode,
         "verdict": verdict,
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"  Result: {OUTPUT_JSON}")
     return payload
 

@@ -60,7 +60,7 @@ $$\boxed{\, E_e = m_e c^2 = \hbar \omega_C = T_{EM} \cdot \ell_{\text{node}} = \
 
 ### §3.1 Substrate-derived parameter values (no rest-energy-specific fit parameters)
 
-All values below derive from Axioms 1 + 2 + 4 + $\alpha$ closure; no rest-energy-specific fit parameter is introduced. The framework-wide $\delta_{\text{strain}} \approx 2.225 \times 10^{-6}$ CMB thermal-running residual inherited via $\alpha$ closure is currently empirically calibrated at $T_{\text{CMB}}$, pending first-principles derivation — but it does not affect the structural Virial-sum identity below.
+All values below derive from Axioms 1 + 2 + 4 + $\alpha$ closure; no rest-energy-specific fit parameter is introduced. The framework-wide $\delta_{\text{strain}} \approx 2.225 \times 10^{-6}$ CMB thermal-running residual inherited via $\alpha$ closure is currently empirically calibrated at $T_{\text{CMB}}$, pending quantitative substrate-physics derivation (Q-DELTA-MAP-1 closed at mechanism-class identification 2026-05-28 via Cosserat-rotation-sector mass-gap thermal-mode-population ASYM at clm-hp7nlm; **Q-DELTA-MAP-1-quant** remains open — see [`research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md`](../../../../../research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md) §3 for the WALK-BACK history) — but it does not affect the structural Virial-sum identity below.
 
 | Symbol | Value | Source |
 |---|---|---|

@@ -234,7 +234,7 @@ In order of leverage:
 
 **Propagation needed:**
 
-- [`universal-saturation-kernel-catalog.md:88`](../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md) — the "(l = 174°, b = -5°)" parenthetical should be annotated as "literature placeholder; the empirical Planck PR3 SMICA axis is at (l = 60°, b = 50°) per [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md`](../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md)".
+- [`universal-saturation-kernel-catalog.md:88`](../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md) — the "(l = 174°, b = -5°)" parenthetical should be annotated as "literature placeholder; the empirical Planck PR3 SMICA axis is at (l = 60°, b = 50°) per `research/2026-05-19_c5-cmb-axis-executable-observer-result.md`" (the annotation prescription names the target file; relative path to compute at annotation-application time).
 - [`backmatter/07_universal_saturation_kernel.tex:221`](../manuscript/backmatter/07_universal_saturation_kernel.tex) — same annotation.
 
 These are minor inline-citation updates, not framework-level changes. The substantive A-034 cosmic-scale prediction (alignment-correlation) is independent of the specific axis value.

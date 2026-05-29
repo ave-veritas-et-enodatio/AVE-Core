@@ -55,6 +55,7 @@ POST-EXTRACTION DECISION (Phase 2, NOT in this run):
         engine-electron correspondence wrong)
   Each branch implies different Round 8+ next move.
 """
+
 from __future__ import annotations
 
 import json
@@ -67,9 +68,9 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from ave.topological.vacuum_engine import VacuumEngine3D
 from tlm_electron_soliton_eigenmode import initialize_2_3_voltage_ansatz
 
+from ave.topological.vacuum_engine import VacuumEngine3D
 
 # ─── Constants (match Move 5 + 6 exactly for deterministic reproduction) ─────
 
@@ -79,7 +80,7 @@ PHI_SQ = PHI * PHI
 N_LATTICE = 32
 PML = 4
 R_ANCHOR = 10.0
-R_MINOR = R_ANCHOR / PHI_SQ                      # ≈ 3.82
+R_MINOR = R_ANCHOR / PHI_SQ  # ≈ 3.82
 
 A26_AMP_SCALE = 0.3 / (np.sqrt(3.0) / 2.0)
 GT_PEAK_OMEGA = 0.3 * np.pi
@@ -107,7 +108,9 @@ OUTPUT_JSON = Path(__file__).parent / "r8_phase1_attractor_characterization_resu
 
 def build_engine():
     return VacuumEngine3D.from_args(
-        N=N_LATTICE, pml=PML, temperature=0.0,
+        N=N_LATTICE,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -116,15 +119,21 @@ def build_engine():
 
 def seed_corpus_2_3_joint(engine):
     engine.cos.initialize_electron_2_3_sector(
-        R_target=R_ANCHOR, r_target=R_MINOR,
-        use_hedgehog=True, amplitude_scale=A26_AMP_SCALE,
+        R_target=R_ANCHOR,
+        r_target=R_MINOR,
+        use_hedgehog=True,
+        amplitude_scale=A26_AMP_SCALE,
     )
     initialize_2_3_voltage_ansatz(
-        engine.k4, R=R_ANCHOR, r=R_MINOR, amplitude=V_AMP_INIT,
+        engine.k4,
+        R=R_ANCHOR,
+        r=R_MINOR,
+        amplitude=V_AMP_INIT,
     )
 
 
 # ─── Extraction (1): spatial moments ─────────────────────────────────────────
+
 
 def spatial_moments(field_density):
     """Centroid + per-axis std dev (sqrt of second central moment) of a 3D density."""
@@ -149,6 +158,7 @@ def spatial_moments(field_density):
 
 
 # ─── Extraction (5): energy partition ────────────────────────────────────────
+
 
 def measure_energy_partition(engine):
     """Cosserat potential + kinetic + amplitude-proxy partition."""
@@ -179,6 +189,7 @@ def measure_energy_partition(engine):
 
 
 # ─── Extraction (2)+(3)+(4): time-series + FFT helpers ───────────────────────
+
 
 def select_5_fixed_points(centroid, nx):
     """Centroid + 4 displaced points (±2 cells in x and y)."""
@@ -222,18 +233,16 @@ def main():
     print(f"  P_phase1_attractor_characterization (frozen extraction; no PASS/FAIL)")
     print("=" * 78, flush=True)
     print(f"  Lattice N={N_LATTICE}, deterministic Move 5 reproduction")
-    print(f"  Decay window for Q-fit:  t∈[{T_DECAY_START_PERIOD}, "
-          f"{T_DECAY_END_PERIOD}] Compton periods")
-    print(f"  FFT/phasor window:       t∈[{T_FFT_START_PERIOD}, "
-          f"{T_FFT_END_PERIOD}] Compton periods")
+    print(f"  Decay window for Q-fit:  t∈[{T_DECAY_START_PERIOD}, " f"{T_DECAY_END_PERIOD}] Compton periods")
+    print(f"  FFT/phasor window:       t∈[{T_FFT_START_PERIOD}, " f"{T_FFT_END_PERIOD}] Compton periods")
     print()
 
     engine = build_engine()
     seed_corpus_2_3_joint(engine)
 
     # ─── Run + record ─────────────────────────────────────────────────────────
-    decay_stream = []        # peak |ω|, t — for Q-fit
-    fft_step_stream = []     # raw V_inc, ω at 5 fixed points — for FFT
+    decay_stream = []  # peak |ω|, t — for Q-fit
+    fft_step_stream = []  # raw V_inc, ω at 5 fixed points — for FFT
     fft_step_indices = []
     final_omega = None
     final_v_inc = None
@@ -252,15 +261,16 @@ def main():
         if STEP_DECAY_START <= step <= STEP_DECAY_END:
             omega = np.asarray(engine.cos.omega)
             peak_om = float(np.linalg.norm(omega, axis=-1).max())
-            decay_stream.append({
-                "step": int(step),
-                "t_period": float(step * DT / COMPTON_PERIOD),
-                "peak_omega": peak_om,
-            })
+            decay_stream.append(
+                {
+                    "step": int(step),
+                    "t_period": float(step * DT / COMPTON_PERIOD),
+                    "peak_omega": peak_om,
+                }
+            )
         if (time.time() - last_progress) > 30.0:
             t_p = step * DT / COMPTON_PERIOD
-            print(f"    [progress P1] step {step}, t={t_p:.1f}P, "
-                  f"elapsed {time.time() - t0:.1f}s", flush=True)
+            print(f"    [progress P1] step {step}, t={t_p:.1f}P, " f"elapsed {time.time() - t0:.1f}s", flush=True)
             last_progress = time.time()
     elapsed_p1 = time.time() - t0
     print(f"  Pass 1 complete: {elapsed_p1:.1f}s")
@@ -273,45 +283,54 @@ def main():
     # ─── Extraction (1): spatial moments at t=200P ───────────────────────────
     print()
     print(f"  (1) SPATIAL MOMENTS at t=200P")
-    omega_density = np.sum(final_omega ** 2, axis=-1)
-    vinc_density = np.sum(final_v_inc ** 2, axis=-1)
-    u_density = np.sum(final_u ** 2, axis=-1)
+    omega_density = np.sum(final_omega**2, axis=-1)
+    vinc_density = np.sum(final_v_inc**2, axis=-1)
+    u_density = np.sum(final_u**2, axis=-1)
 
     moments_omega = spatial_moments(omega_density)
     moments_vinc = spatial_moments(vinc_density)
     moments_u = spatial_moments(u_density)
 
-    print(f"    |ω|² centroid: ({moments_omega['centroid'][0]:.2f}, "
-          f"{moments_omega['centroid'][1]:.2f}, {moments_omega['centroid'][2]:.2f})")
-    print(f"    |ω|² extent:   ({moments_omega['extent'][0]:.2f}, "
-          f"{moments_omega['extent'][1]:.2f}, {moments_omega['extent'][2]:.2f})  "
-          f"total={moments_omega['extent_total']:.2f}")
-    print(f"    V_inc² centroid: ({moments_vinc['centroid'][0]:.2f}, "
-          f"{moments_vinc['centroid'][1]:.2f}, {moments_vinc['centroid'][2]:.2f})")
-    print(f"    V_inc² extent: ({moments_vinc['extent'][0]:.2f}, "
-          f"{moments_vinc['extent'][1]:.2f}, {moments_vinc['extent'][2]:.2f})  "
-          f"total={moments_vinc['extent_total']:.2f}")
-    print(f"    |u|² centroid: ({moments_u['centroid'][0]:.2f}, "
-          f"{moments_u['centroid'][1]:.2f}, {moments_u['centroid'][2]:.2f})")
+    print(
+        f"    |ω|² centroid: ({moments_omega['centroid'][0]:.2f}, "
+        f"{moments_omega['centroid'][1]:.2f}, {moments_omega['centroid'][2]:.2f})"
+    )
+    print(
+        f"    |ω|² extent:   ({moments_omega['extent'][0]:.2f}, "
+        f"{moments_omega['extent'][1]:.2f}, {moments_omega['extent'][2]:.2f})  "
+        f"total={moments_omega['extent_total']:.2f}"
+    )
+    print(
+        f"    V_inc² centroid: ({moments_vinc['centroid'][0]:.2f}, "
+        f"{moments_vinc['centroid'][1]:.2f}, {moments_vinc['centroid'][2]:.2f})"
+    )
+    print(
+        f"    V_inc² extent: ({moments_vinc['extent'][0]:.2f}, "
+        f"{moments_vinc['extent'][1]:.2f}, {moments_vinc['extent'][2]:.2f})  "
+        f"total={moments_vinc['extent_total']:.2f}"
+    )
+    print(
+        f"    |u|² centroid: ({moments_u['centroid'][0]:.2f}, "
+        f"{moments_u['centroid'][1]:.2f}, {moments_u['centroid'][2]:.2f})"
+    )
     print(f"    |u|² extent total: {moments_u['extent_total']:.2f}")
     print()
 
     # ─── Pick 5 fixed points based on omega centroid ─────────────────────────
-    five_points = select_5_fixed_points(moments_omega['centroid'], N_LATTICE)
+    five_points = select_5_fixed_points(moments_omega["centroid"], N_LATTICE)
     print(f"  5 fixed points (around |ω|² centroid):")
     for idx, p in enumerate(five_points):
         print(f"    P{idx}: cell {p}")
     print()
 
     # ─── Pass 2: re-run, record at 5 fixed points during FFT window ──────────
-    print(f"  Pass 2: re-run with recording at 5 fixed points "
-          f"in t∈[{T_FFT_START_PERIOD}, {T_FFT_END_PERIOD}]P…")
+    print(f"  Pass 2: re-run with recording at 5 fixed points " f"in t∈[{T_FFT_START_PERIOD}, {T_FFT_END_PERIOD}]P…")
     engine = build_engine()
     seed_corpus_2_3_joint(engine)
 
-    five_point_v_inc_traces = [[] for _ in five_points]   # port 0 sum proxy
+    five_point_v_inc_traces = [[] for _ in five_points]  # port 0 sum proxy
     five_point_v_ref_traces = [[] for _ in five_points]
-    five_point_omega_traces = [[] for _ in five_points]   # |ω| at point
+    five_point_omega_traces = [[] for _ in five_points]  # |ω| at point
     centroid_vinc_p0 = []
     centroid_vref_p0 = []
     fft_step_indices = []
@@ -327,8 +346,7 @@ def main():
                 # Use sum across 4 ports as the "phasor pressure" at this cell
                 five_point_v_inc_traces[pi].append(float(np.sum(v_inc_at_pt)))
                 five_point_v_ref_traces[pi].append(float(np.sum(v_ref_at_pt)))
-                five_point_omega_traces[pi].append(float(np.linalg.norm(
-                    engine.cos.omega[ix, iy, iz, :])))
+                five_point_omega_traces[pi].append(float(np.linalg.norm(engine.cos.omega[ix, iy, iz, :])))
             # Centroid point P0 port-0 trace for phasor trajectory
             ix, iy, iz = five_points[0]
             centroid_vinc_p0.append(float(engine.k4.V_inc[ix, iy, iz, 0]))
@@ -336,36 +354,36 @@ def main():
             fft_step_indices.append(int(step))
         if (time.time() - last_progress) > 30.0:
             t_p = step * DT / COMPTON_PERIOD
-            print(f"    [progress P2] step {step}, t={t_p:.1f}P, "
-                  f"elapsed {time.time() - t0:.1f}s", flush=True)
+            print(f"    [progress P2] step {step}, t={t_p:.1f}P, " f"elapsed {time.time() - t0:.1f}s", flush=True)
             last_progress = time.time()
     elapsed_p2 = time.time() - t0
-    print(f"  Pass 2 complete: {elapsed_p2:.1f}s, "
-          f"{len(fft_step_indices)} FFT samples per point")
+    print(f"  Pass 2 complete: {elapsed_p2:.1f}s, " f"{len(fft_step_indices)} FFT samples per point")
     print()
 
     # ─── Extraction (2): FFT at 5 fixed points ───────────────────────────────
-    print(f"  (2) FFT AT 5 FIXED POINTS over t∈[{T_FFT_START_PERIOD}, "
-          f"{T_FFT_END_PERIOD}]P  (top freqs in natural-units ω):")
+    print(
+        f"  (2) FFT AT 5 FIXED POINTS over t∈[{T_FFT_START_PERIOD}, "
+        f"{T_FFT_END_PERIOD}]P  (top freqs in natural-units ω):"
+    )
     fft_results = []
     for pi, p in enumerate(five_points):
         v_inc_top = fft_top_freqs(five_point_v_inc_traces[pi], DT, n_top=3)
         omega_top = fft_top_freqs(five_point_omega_traces[pi], DT, n_top=3)
-        fft_results.append({
-            "point_idx": pi,
-            "cell": list(p),
-            "v_inc_top_omega_natural": v_inc_top,
-            "omega_top_omega_natural": omega_top,
-        })
+        fft_results.append(
+            {
+                "point_idx": pi,
+                "cell": list(p),
+                "v_inc_top_omega_natural": v_inc_top,
+                "omega_top_omega_natural": omega_top,
+            }
+        )
         v_inc_str = ", ".join(f"{w:.4f}" for w, _ in v_inc_top)
         omega_str = ", ".join(f"{w:.4f}" for w, _ in omega_top)
-        print(f"    P{pi} {p}: V_inc top ω = [{v_inc_str}], "
-              f"|ω| top ω = [{omega_str}]")
+        print(f"    P{pi} {p}: V_inc top ω = [{v_inc_str}], " f"|ω| top ω = [{omega_str}]")
     print()
 
     # ─── Extraction (3): Q-factor from log-decay fit ─────────────────────────
-    print(f"  (3) Q-FACTOR from log-decay over t∈[{T_DECAY_START_PERIOD}, "
-          f"{T_DECAY_END_PERIOD}]P")
+    print(f"  (3) Q-FACTOR from log-decay over t∈[{T_DECAY_START_PERIOD}, " f"{T_DECAY_END_PERIOD}]P")
     if len(decay_stream) >= 4:
         ts_periods = np.array([d["t_period"] for d in decay_stream])
         peak_oms = np.array([d["peak_omega"] for d in decay_stream])
@@ -395,13 +413,13 @@ def main():
     print()
 
     # ─── Extraction (4): (V_inc, V_ref) phasor trajectory at centroid ────────
-    print(f"  (4) (V_inc, V_ref) PHASOR TRAJECTORY at centroid P0 over "
-          f"t∈[{T_FFT_START_PERIOD}, {T_FFT_END_PERIOD}]P")
+    print(
+        f"  (4) (V_inc, V_ref) PHASOR TRAJECTORY at centroid P0 over " f"t∈[{T_FFT_START_PERIOD}, {T_FFT_END_PERIOD}]P"
+    )
     if len(centroid_vinc_p0) >= 8:
         v_inc_arr = np.array(centroid_vinc_p0)
         v_ref_arr = np.array(centroid_vref_p0)
-        pts = np.column_stack([v_inc_arr - v_inc_arr.mean(),
-                                v_ref_arr - v_ref_arr.mean()])
+        pts = np.column_stack([v_inc_arr - v_inc_arr.mean(), v_ref_arr - v_ref_arr.mean()])
         cov = np.cov(pts.T)
         evals, _ = np.linalg.eigh(cov)
         evals = np.sort(evals)[::-1]
@@ -414,16 +432,20 @@ def main():
         chunk_size = len(v_inc_arr) // chunks
         chunk_R = []
         for ci in range(chunks):
-            cinc = v_inc_arr[ci * chunk_size:(ci + 1) * chunk_size]
-            cref = v_ref_arr[ci * chunk_size:(ci + 1) * chunk_size]
+            cinc = v_inc_arr[ci * chunk_size : (ci + 1) * chunk_size]
+            cref = v_ref_arr[ci * chunk_size : (ci + 1) * chunk_size]
             if len(cinc) >= 3:
                 chunk_R.append(float(np.sqrt(np.var(cinc) + np.var(cref))))
         amp_drift = float(np.std(chunk_R) / max(np.mean(chunk_R), 1e-30)) if chunk_R else float("inf")
 
-        print(f"    Centroid P0 V_inc range: [{v_inc_arr.min():.4f}, "
-              f"{v_inc_arr.max():.4f}]  mean={v_inc_arr.mean():.4f}")
-        print(f"    Centroid P0 V_ref range: [{v_ref_arr.min():.4f}, "
-              f"{v_ref_arr.max():.4f}]  mean={v_ref_arr.mean():.4f}")
+        print(
+            f"    Centroid P0 V_inc range: [{v_inc_arr.min():.4f}, "
+            f"{v_inc_arr.max():.4f}]  mean={v_inc_arr.mean():.4f}"
+        )
+        print(
+            f"    Centroid P0 V_ref range: [{v_ref_arr.min():.4f}, "
+            f"{v_ref_arr.max():.4f}]  mean={v_ref_arr.mean():.4f}"
+        )
         print(f"    PCA aspect R/r (descriptive): {R_over_r_phasor:.4f}")
         print(f"    Amplitude drift over 5 chunks: {amp_drift:.4f}")
     else:
@@ -455,7 +477,6 @@ def main():
         "n_periods_total": N_PERIODS_TOTAL,
         "elapsed_seconds_pass1": elapsed_p1,
         "elapsed_seconds_pass2": elapsed_p2,
-
         "extraction_1_spatial_moments": {
             "omega_density": moments_omega,
             "vinc_density": moments_vinc,
@@ -491,7 +512,7 @@ def main():
             "peak_omega": peak_omega_final,
         },
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"  Result: {OUTPUT_JSON}")
     return payload
 

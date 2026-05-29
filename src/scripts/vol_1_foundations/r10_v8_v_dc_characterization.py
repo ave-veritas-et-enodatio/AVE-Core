@@ -283,7 +283,7 @@ def main():
         "sym_score_2_unique": sym_score_2_unique,
     }
     out_path = Path(__file__).parent / "r10_v8_v_dc_characterization_results.json"
-    out_path.write_text(json.dumps(out, indent=2, default=str))
+    out_path.write_text(json.dumps(out, indent=2, default=str), encoding="utf-8")
     print(f"\nSaved {out_path.relative_to(Path.cwd())}")
 
 

@@ -13,4 +13,6 @@ claims: [clm-salw2h]
 
 > **Substrate-native origin:** The Cosserat microrotational DOF per node (Axiom 1, three rotational coordinates alongside the three translational ones) IS the substrate-native origin of intrinsic spin. Macroscopic angular momentum, the EM magnetic field $B$, and QM electron spin are three projections of the same per-node rotational coordinate. The Finkelstein-Misner / Dirac-belt-trick mechanism on the extended $0_1$ unknot defect picks up the spinor double-cover automatically from the SU(2)→SO(3) 2-to-1 group structure; no separate "spin postulate" is added. Spin is what the rotational DOF IS when the substrate is excited as a topological soliton.
 
+> → Primary: [finkelstein-misner-spin-half-derivation](../../particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md) — explicit K4-native derivation of the FM mechanism (extended-unknot twist-and-unwind in §2.2, group-theoretic $K_4 \to A_4 \to 2T \subset SU(2)$ chain in §3, gyroscopic-isomorphism numerical anchor at $10^{-8}$ in §4, K4-native-vs-imported decomposition in §5).
+
 ---

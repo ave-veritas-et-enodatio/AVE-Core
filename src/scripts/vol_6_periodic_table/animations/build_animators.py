@@ -159,14 +159,14 @@ elements = [
     (8, 16, 75.0, "oxygen_16", "Oxygen-16 ($^{16}O$): $4\\\\alpha$ Macro-Tetrahedron Strain"),
 ]
 
-with open(f"{output_dir}/animate_hydrogen.py", "w") as f:
+with open(f"{output_dir}/animate_hydrogen.py", "w", encoding="utf-8") as f:
     f.write(h1_code)
 
 for Z, A, bound, name, title in elements:
     code = base_template.replace("{Z}", str(Z)).replace("{A}", str(A))
     code = code.replace("{BOUND}", str(bound)).replace("{NAME}", name).replace("{TITLE}", title)
     filename = name.split("_")[0]
-    with open(f"{output_dir}/animate_{filename}.py", "w") as f:
+    with open(f"{output_dir}/animate_{filename}.py", "w", encoding="utf-8") as f:
         f.write(code)
 
 print("Generated all standalone scripts.")

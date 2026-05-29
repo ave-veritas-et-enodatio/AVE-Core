@@ -525,7 +525,7 @@ def main():
         "mode": mode,
         "verdict": verdict,
     }
-    args.output.write_text(json.dumps(payload, indent=2, default=str))
+    args.output.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"  Result: {args.output.relative_to(REPO_ROOT)}")
     return payload
 

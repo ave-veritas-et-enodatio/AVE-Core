@@ -462,7 +462,7 @@ def main() -> int:
 
     # Save JSON output
     out_path = Path(__file__).parent / "baryon_ladder_pdg_2024_anchor_results.json"
-    with open(out_path, "w") as f:
+    with open(out_path, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, default=str)
     print(f"Results JSON: {out_path}")
 

@@ -160,7 +160,8 @@ def main():
             {"candidate_omegas": {k: float(v) for k, v in CANDIDATE_OMEGAS.items()}, "results": results},
             indent=2,
             default=str,
-        )
+        ),
+        encoding="utf-8",
     )
     print(f"\nSaved {out_path.relative_to(Path.cwd())}")
 

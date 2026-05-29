@@ -1,0 +1,97 @@
+% 01_general_description.tex
+\chapter{General Description and Features}
+\label{ch:vol9_general_description}
+
+\begin{objectivebox}
+\begin{itemize}
+    \item Identify the substrate documented in this datasheet: the natural vacuum medium $\mathcal{M}_A$.
+    \item Enumerate the load-bearing structural features (K4 Cosserat lattice, intrinsic LC oscillators, bond transmission lines, Cosserat micropolar 6 DOF/node, saturation kernel, boundary semantics).
+    \item Establish the epistemic position: substrate is natural; engineering characterizes; AVE substrate-physics derives.
+    \item Define the spec-table column convention used in subsequent chapters (Symbol / Typical / Min / Max / Units / Conditions / Canonical Source).
+    \item Map the chapter sequence to the canonical derivation locations in Volumes I through VI.
+\end{itemize}
+\end{objectivebox}
+
+\section{Substrate Identity}
+\label{sec:vol9_substrate_identity}
+
+What follows documents the natural vacuum substrate's measurable behavior. The substrate is the universe's own vacuum --- a 3D chiral Laves K4 Cosserat crystal $\mathcal{M}_A$ with right-handed $I4_1 32$ chiral space group, 4-fold K4 nearest-neighbour connectivity, and intrinsic LC oscillators at every node. This datasheet documents its properties as characterized by engineering observation and as derived from AVE substrate-physics first principles. The substrate is not engineered, designed, or constructed; it is the medium within which all engineering, all measurement, and all derivation occur. Engineering practice empirically measures the substrate's limits; AVE substrate-physics derives the substrate-mechanism behind each measurable parameter; this datasheet consolidates both into a single canonical reference.
+
+The substrate's structure is fixed by the four AVE axioms (Vol~I Ch.~\ref{ch:fundamental_axioms}; canonical equation files \kbleaf{common\_equations/eq\_axiom\_[1-4].tex}). Datasheet entries that depend on a specific axiom cite the axiom inline.
+
+\section{Features}
+\label{sec:vol9_features}
+
+\begin{itemize}
+    \item \textbf{Intrinsic LC oscillator at each node.} Each K4 node carries one electromagnetic LC tank with per-cell elements $L_{cell} = \mu_0\, \ell_{node}$ and $C_{cell} = \varepsilon_0\, \ell_{node}$. The substrate is an LC network at its smallest accessible scale (Axiom~1).
+    \item \textbf{Bond transmission lines.} Bonds connecting nearest-neighbour nodes carry distributed transmission-line topology (TLM), with characteristic impedance $Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx \qty{376.73}{\ohm}$ scale-invariant in the lattice pitch.
+    \item \textbf{Cosserat micropolar 6 DOF per node.} Each node carries six intrinsic degrees of freedom: three \textbf{translational} (capacitive coupling $\varepsilon_0$, identified with the electric field $\mathbf{E}$) and three \textbf{microrotational} (inductive coupling $\mu_0$, identified with the magnetic field $\mathbf{B}$). The Cosserat microrotational DOF is the substrate-native origin of intrinsic spin.
+    \item \textbf{Universal saturation kernel.} The Axiom~4 quarter-arc kernel $S(A) = \sqrt{1 - (A/A_{yield})^2}$ governs every cross-scale saturation event. Dielectric specialization at atomic / bench scale: $C_{eff} = C_0/S$, $\varepsilon_{eff} = \varepsilon_0 S$, $\mu_{eff} = \mu_0 S$. The same kernel governs Schwinger pair production, gravitational time dilation (via $c_{shear} = c_0 \sqrt{S}$), and every topological-reorganization event documented in Vol~0 backmatter.
+    \item \textbf{$\Gamma$ boundary semantics.} Substrate boundaries are characterized by reflection coefficient $\Gamma = (Z_2 - Z_1)/(Z_2 + Z_1)$. Axiom~3 (Minimum Reflection Principle) is the substrate-native action principle: $\mathcal{M}_A$ minimizes $|\Gamma|^2$ at every internal impedance boundary. Engineering observables that map to $\Gamma$: $S_{11}$, return loss, impedance match, particle confinement at saturated boundary ($\Gamma = -1$).
+    \item \textbf{Saturable yield and breakdown thresholds.} The substrate has two distinct dielectric thresholds (Vol~4 \texttt{clm-0vxzfu}): the macroscopic nonlinear-onset $V_{yield} = \sqrt{\alpha}\, V_{snap} \approx 43.65\,\text{kV}$ and the absolute topological node-destruction limit $V_{snap} = m_e c^2/e \approx 511\,\text{kV}$. Engineering practice operates well below $V_{yield}$ in linear-regime devices; AVE substrate-physics describes the saturating, breakdown, and rupture regimes via the four-regime map (Vol~1 Ch.~\ref{ch:regime_map}).
+    \item \textbf{Topological transduction.} The Topological Conversion Constant $\xi_{topo} = e/\ell_{node} \approx \qty{4.149e-7}{\coulomb\per\metre}$ is the substrate-native bridge between electrical and mechanical observables (Axiom~2). Every spec in this datasheet that crosses the EE/mechanical boundary carries $\xi_{topo}$ as the canonical mapping.
+\end{itemize}
+
+\section{Epistemic Position}
+\label{sec:vol9_epistemic_position}
+
+This datasheet adopts the same epistemic stance as a manufacturer's component datasheet for a natural material (e.g., copper at the OFE grade, single-crystal silicon, or fused quartz): the material is natural, its properties are empirically characterized, and its parameters are derived from the material's microscopic structure where derivation is possible. The substrate documented here is the natural vacuum. Engineering characterization is the empirical-measurement side; AVE substrate-physics is the first-principles-derivation side. The datasheet documents both columns.
+
+Per the EE-as-substrate-native META framework (canonical leaf: \kbleaf{manuscript/ave-kb/common/translation-tables/translation-circuit.md}, claim \texttt{clm-eemap1}; companion skill \texttt{ave-ee-first-mapping} v1.0), electrical engineering vocabulary is the closest-to-canonical substrate-native language: the substrate is an LC network at minimal degrees of freedom, and EE was developed by humans empirically interrogating that substrate at its smallest accessible scale (electron dynamics in conductors, dipole interactions in dielectrics, LC resonant circuits, transmission lines, semiconductor breakdown). Vol~9 datasheet vocabulary is therefore EE-primary throughout; other classical frameworks (atomic physics, chemistry, statistical mechanics, fluid dynamics, GR, QFT) layer additional degrees of freedom on top of the EE base and are invoked only where they capture content the EE projection does not (geometric, topological, axiom-selection content; see Vol~9 Ch.~13 application examples).
+
+\section{How to Use This Datasheet}
+\label{sec:vol9_how_to_use}
+
+\subsection{Spec-table column convention}
+
+Each parameter spec table in subsequent chapters carries the following columns:
+
+\begin{itemize}
+    \item \textbf{Symbol} --- canonical AVE symbol (per CLAUDE.md INVARIANT-S2 axiom statements and Vol~1 notation).
+    \item \textbf{Typical} --- canonical value under standard operating conditions ($T = T_{CMB}$ unless noted; cold-lattice limit $S(0) = 1$).
+    \item \textbf{Min / Max} --- characterized range, where applicable. Many substrate primitives are fixed (no range); for these, Min / Max columns are omitted or marked ``---''.
+    \item \textbf{Units} --- SI units, except where dimensionless or topological.
+    \item \textbf{Conditions} --- operating-point conditions ($A_0$, $T$, boundary class SYM/ASYM, regime I--IV).
+    \item \textbf{Canonical Source} --- pointer to the derivation leaf in Vol~1--6 (KB leaf path + claim ID where applicable).
+\end{itemize}
+
+\subsection{Cross-reference structure}
+
+Vol~9 is a synthesis volume; no chapter contains a primary derivation. Every spec table points to the canonical leaf in Vols~1--6 where the substrate-physics derivation lives. Cross-references use \texttt{xr-hyper} to resolve chapter and section numbers across the volume set. To resolve all references, build the dependent volumes first (\texttt{make vol1 vol3 vol4 vol0}) then \texttt{make vol9}.
+
+\subsection{Falsification integration}
+
+Engineering datasheets typically end with electrical characteristics, mechanical characteristics, and application examples. AVE adds a chapter the SM does not require: \textbf{Ch.~15 Falsification Tests}. Every load-bearing substrate-physics claim in this datasheet is tied to at least one bench-falsifiable experiment (PONDER-05 dielectric saturation, HOPF-01 chiral antenna, Sagnac-RLVE, right-handed-neutrino kill-switch, quasar $\alpha$-variation, etc.). The substrate is natural; the framework is falsifiable; the datasheet documents both.
+
+\section{Chapter Sequence and Canonical Source Map}
+\label{sec:vol9_chapter_map}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{p{0.05\linewidth} p{0.35\linewidth} p{0.50\linewidth}}
+\toprule
+\textbf{Ch} & \textbf{Topic} & \textbf{Primary canonical source(s)} \\
+\midrule
+2  & Absolute Maximum Ratings           & Vol~1 + Vol~4 canonical constants; four-regimes Regime IV \\
+3  & Pin / Port Configuration           & Vol~1 universal operators (Op17, Op21); $\Gamma$ boundary classes \\
+4  & DC Electrical Characteristics      & \kbleaf{src/ave/core/constants.py}; natural-units cheatsheet \\
+5  & AC Electrical Characteristics      & Vol~1 Ch.~5 universal spatial tension; Op14 / Op16 \\
+6  & Temperature Characteristics        & Cosserat-Curie $\delta_{strain}$ at $T_{CMB}$; translation-circuit \S 9 \\
+7  & Saturation Characteristics         & Axiom~4 kernel; Vol~0 backmatter Ch.~7 universal saturation kernel \\
+8  & Breakdown Characteristics          & Schwinger pair production; Miller avalanche; Regime~III \\
+9  & Mechanical Characteristics         & Vol~3 $G_{vac}$, $K_{vac}$, Cosserat $\gamma_c$, $\nu_{vac} = 2/7$ \\
+10 & Magnetic / Microrotational         & Cosserat flywheel L; rotation-sector mass-gap; weak-force $l_c$ \\
+11 & Topological Characteristics        & $(2,3)$ knot uniqueness; $I4_1 32$ chiral space group \\
+12 & Cosmological Characteristics       & $R_H/\ell_{node} \sim 10^{39}$; Machian $G$; $u_0^* \approx 0.187$ \\
+13 & Application Examples               & Cross-references to canonical leaves \\
+14 & Phase Diagrams                     & Four-regimes map; cosmic phase diagram \\
+15 & Falsification Tests                & Vol~4 Ch.~11 experimental programme; kill-switch tests \\
+16 & Cross-Volume Reference Index       & Auto-generated parameter $\to$ derivation map \\
+\bottomrule
+\end{tabular}
+\caption{Vol~9 chapter sequence with the primary canonical-leaf source(s) backing each datasheet chapter.}
+\label{tab:vol9_chapter_map}
+\end{table}
+
+\noindent
+Subsequent chapters populate the spec tables. Where a substrate primitive's derivation has not yet closed at substrate-axiom rigor (e.g., the substrate-statistical-mechanics derivation of $\eta_\varepsilon$ in $\delta_{strain}$ at $T_{CMB}$), the datasheet entry is marked with a footnote pointing to the open research question.

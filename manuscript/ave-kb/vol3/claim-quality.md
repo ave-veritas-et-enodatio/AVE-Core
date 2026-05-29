@@ -28,7 +28,7 @@
   - `clm-m3z5ux` (Vol 1 $H_\infty$ / MOND derivation, solidity X)
   - `clm-mroghg` (Vol 2 $H_\infty$ framing, solidity X)
   - `clm-9s9apq` (Vol 1 $p_c = 8\pi\alpha$ packing relation, solidity X)
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.70, 0.45)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
 - rationale: The resultbox states $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2)$, but the leaf itself frames this as a **geometric consistency proof** — $G$ and $H_\infty$ are "the same geometric limit evaluated from different topological reference frames," not an ab-initio prediction of $H_0$. The Machian coupling embeds $R_H \equiv c/H_\infty$ in the definition of $G$, so rearranging to "compute" $H_\infty$ is structurally circular. The algebra closes cleanly; the disclosed circularity (an unbroken open dependency on a $G$ that is not independently derived) pins the band below a clean derivation.
 - strengthen-by:
   - Derive $G$ from a local thermodynamic balance independent of $R_H$ (the leaf's named open problem), converting the consistency proof into a true downstream prediction.
@@ -59,7 +59,7 @@
   - Axiom 4 (Universal Saturation Kernel — radial strain $\varepsilon_{11}$)
   - `clm-iouqn9` (common: K4 magic-angle $\nu_{vac} = 2/7$, solidity X)
   - `clm-9s9apq` (Vol 1 EMT $p_c = 8\pi\alpha$, solidity X)
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.90, 0.45)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.90, 0.55)]
 - rationale: $n(r) = 1 + (2/7)(7GM/c^2r) = 1 + 2GM/c^2r$ is clean algebra once $\nu_{vac} = 2/7$ (trace-reversal, EMT-verified in the companion leaf) and the radial strain $\varepsilon_{11} = 7GM/c^2r$ are in hand. The temporal/spatial split (deflection couples to $1 + (9/7)\varepsilon_{11}$) is disclosed and consistent. The $c_{max}$ "warp baseline" extrapolation to $\Phi\to0$ is explicitly flagged interpretive and does not load-bear on the core refractive identity. Solar deflection is a category-(iii) consistency check, not novelty.
 - strengthen-by:
   - Derive $\varepsilon_{11} = 7GM/c^2r$ (the factor-7 Machian stress boundary $T_{max} = c^4/7G$) from primitives within this leaf rather than importing it.
@@ -90,7 +90,7 @@
   - Axiom 4 (Universal Saturation Kernel — symmetric scaling of $\mu,\varepsilon$)
   - `clm-gdd70j` (Vol 1 universal operators $Z,S,\Gamma$, solidity X)
   - `clm-rd9cjm` (Vol 3 refractive index $n(r)$, solidity X)
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.90, 0.45)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.90, 0.55)]
 - rationale: $Z(r) = \sqrt{\mu_0 n/\varepsilon_0 n} \equiv Z_0$ is an exact algebraic identity given symmetric scaling, so $\Gamma = 0$ across any gradient follows immediately. The leaf is honest that "Symmetric Scaling" is a **derived consequence of Axiom 3**, not a fifth axiom. The regime table (GW150914/170817/pulsar saturation ratios) is order-of-magnitude but the lossless-propagation conclusion is a clean consequence. Band held just below 1.0 because the per-source $V_{GW}/V_{snap}$ values are stated, not derived in this leaf.
 - strengthen-by:
   - Derive the per-source saturation ratios from source parameters within the leaf rather than tabulating them.
@@ -122,7 +122,7 @@
   - `clm-iouqn9` (common: $\nu_{vac} = 2/7$, solidity X)
   - `clm-rd9cjm` (Vol 3 refractive index / radial strain, solidity X)
   - `clm-07kd5v` (Vol 3 symmetric impedance $Z = Z_0$, solidity X)
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.70, 0.45)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
 - rationale: The confinement mechanism ($G_{shear}\to0$, $c_g\to0$ at $r_{sat} = 7GM/c^2$) follows cleanly from $\varepsilon_{11}(r_{sat}) = 1$ plus the symmetric-impedance result ($\Gamma = 0$). The electron-vs-BH contrast (knot $\Gamma=-1$ vs hole phase-transition) is structural and internally consistent. Band sits at disclosed-bound rather than clean-derivation because the interior is explicitly **observationally inaccessible** — the claim is structural (a phase transition exists), and the saturation picture it rests on is an imported/asserted regime rather than a closed interior solution.
 - strengthen-by:
   - Provide a worked interior solution (even schematic) showing $G_{shear}(r)\to0$ continuously across $r_{sat}$.
@@ -151,7 +151,7 @@
   - Axiom 4 (Universal Saturation Kernel — $\varepsilon_{11}(r_{sat}) = 1$)
   - `clm-iouqn9` (common: $\nu_{vac} = 2/7$, solidity X)
   - `clm-rd9cjm` (Vol 3 radial strain / refractive index, solidity X)
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.90, 0.45)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.90, 0.55)]
 - rationale: The compactness bound $R > 7GM/c^2 \Leftrightarrow 2GM/c^2R < 2/7$ is direct algebra from $\varepsilon_{11}(R) = 1$ and $\nu_{vac} = 2/7$; the comparison to Buchdahl ($8/9$) is exact. The NS test case (1.4 $M_\odot$ at 10 km → $\varepsilon_{11} = 1.46$) is illustrative and the leaf is careful to call it "what the AVE bound implies," not a validated EOS. Clean derivation; the $2/7$ recurrence is flagged interpretive (not extra evidence).
 - strengthen-by:
   - Derive the factor-7 ($T_{max} = c^4/7G$) within the leaf rather than carrying it from the strain definition.
@@ -181,7 +181,7 @@
   - `clm-iouqn9` (common: $\nu_{vac} = 2/7$, solidity X)
   - `clm-rd9cjm` (Vol 3 radial strain, solidity X)
   - `clm-x19btt` (Vol 3 compactness limit / $r_{sat}$, solidity X)
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.80, 0.45)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.80, 0.55)]
 - rationale: The Schwarzschild $\ell=2$ eigenvalue $18/49 \approx 0.3673$ closes end-to-end from three axiom-grounded steps ($r_{sat} = 7M_g$, $r_{eff} = 49M_g/9$ via Poisson, $\omega_R = \ell c/r_{eff}$) with zero free parameters — a genuine 1.7%-error category-(iv) derived prediction. Band held below 0.9 because the Kerr extension rests on a **disclosed phenomenological** photon-sphere shift + Cosserat back-reaction fit (v2, refined post-hoc against LIGO), and $Q = \ell$ disagrees with GR overtone structure for $\ell > 2$. The Schwarzschild core is clean; the spinning-remnant comparisons (10–18% pre-Kerr-correction) are the disclosed weak edge.
 - strengthen-by:
   - Derive the Kerr $x_{sat}(a_*)$ photon-sphere/Cosserat back-reaction form from primitives rather than fitting the rigid/compliant split.
@@ -211,7 +211,7 @@
   - Axiom 4 (Universal Saturation Kernel — FDT at the phase boundary)
   - `clm-x19btt` (Vol 3 compactness / $r_{sat}$, solidity X)
   - `clm-ir8h78` (Vol 3 BH interior phase transition, solidity X)
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.50, 0.45)]
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.55)]
 - rationale: The leaf reproduces the standard $T_H = \hbar c^3/(8\pi GMk_B)$ but the AVE mechanism is asserted via a proportionality $P_{transmitted}\propto\partial_r S|_{r_{sat}}$ with no worked spectral shape and the standard formula imported, not derived. This is a category-(iii) consistency check at the formula level; the FDT/Nyquist reinterpretation is the new (interpretive) content. The unbridged step (rate-to-temperature with the standard coefficient assumed) and absence of a derived spectrum pin it at substantive-open-dependency.
 - strengthen-by:
   - Derive the $T_H$ prefactor $\hbar c^3/(8\pi Gk_B)$ from $\partial_r S$ at $r_{sat}$ rather than quoting the standard result.
@@ -242,7 +242,7 @@
   - Axiom 4 (Universal Saturation Kernel — saturation operator $S$)
   - `clm-wx5324` (Vol 3 $H_\infty$, solidity X)
   - `clm-m3z5ux` (Vol 1 $H_\infty$ / MOND, solidity X)
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.70, 0.45)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
 - rationale: $a_0 = cH_\infty/(2\pi)$ is a clean parameter-free derivation and the 10.7% deficit vs empirical $1.2\times10^{-10}$ is honestly reported (not a small-parameter result). The galactic form is the Axiom-4 saturation operator with $g_N$ as amplitude. Band sits at disclosed-bound because $a_0$ inherits the disclosed import of $H_\infty$ (itself a consistency proof, see clm-wx5324) and the multi-galaxy table errors range 3–17% — the derivation closes but rests on a disclosed approximation. Regime-gating (zero drag at $g_N\gg a_0$) is correctly stated.
 - strengthen-by:
   - Derive the $2\pi$ Hoop-Stress projection factor from primitives within the leaf.
@@ -270,7 +270,7 @@
   - Axiom 3 (Minimum Reflection Principle — Ponderomotive Equivalence pathway)
   - `clm-rd9cjm` (Vol 3 scalar refractive index $n_{scalar}$, solidity X)
   - `clm-iouqn9` (common: $\nu_{vac} = 2/7$ Poisson, solidity X)
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.70, 0.45)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
 - rationale: $\Delta\phi = 6\pi GM/c^2a(1-e^2)$ reproduces the GR value (43"/century) exactly — a category-(iii) consistency check. The leaf's own Grant-adjudication scope-notes (Foundation Items 4–6, preserved verbatim) disclose the chain honestly: the $1/r^3$ tidal term was initially GR-PPN-taken-as-input (Item 4), then shown substrate-native at leading PPN-1 via the Ponderomotive Equivalence pathway with the "3" coefficient recovered exactly (Item 5). The recovery closes but rests on the disclosed reduction to PPN-1 order; the AVE-distinct chirality correction is explicitly bracketed across 4 OOM and walked back (Item 6).
 - strengthen-by:
   - Close the chirality-amplitude bracket ($\alpha^1\to\alpha^4$) by resolving the cosmic chirality fraction $f_R$, or scope the AVE-distinct test out of single-binary periastron.
@@ -297,7 +297,7 @@
 - depends-on:
   - `clm-u86caq` (Vol 3 MOND $a_0$ — Oort boundary, solidity X)
   - `clm-gdd70j` (Vol 1 universal operators $Z,S,\Gamma$ — reflection coefficient, solidity X)
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.60, 0.45)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.60, 0.55)]
 - rationale: Mixed-bag entry. Oort inner edge $r = \sqrt{GM_\odot/a_0} \approx 7400$ AU is a clean one-line formula but inherits the disclosed 10.7% $a_0$ deficit and lands only "within" (not on) the observed Hills range. Kirkwood $a_{gap} = a_J(q/p)^{2/3}$ reproduces all five gaps to <0.3% but is the standard mean-motion-resonance result reinterpreted (category-(iii)). Magnetopause uses standard pressure balance with errors 8.7%/11.8% (not sub-percent, correctly flagged). Each sub-result closes cleanly but uses empirical inputs / standard forms — disclosed-bound, averaged down for the heterogeneity.
 - strengthen-by:
   - Derive the Kirkwood cavity-mode reinterpretation as distinguishable from classical MMR (currently a relabeling).
@@ -325,7 +325,7 @@
 - depends-on:
   - Axiom 4 (Universal Saturation Kernel — Regime-IV stator boundary $S(A)\to0$)
   - `clm-ce8dg1` (Vol 1 substrate-equilibrium velocity / preferred frame, solidity X)
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.70, 0.45)]
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.70, 0.50)]
 - rationale: $\Delta V = V_\infty\cdot2(U_\oplus/c)(\cos\delta_{in} - \cos\delta_{out})$ is derived as a Sagnac-loop integral over the hyperbolic transit at the rigid Regime-IV stator boundary $R_\oplus$. The leaf's own 2026-05-18 walk-back is exemplary disclosure: it corrects the prior `cos α·cos δ` notation, removes the universal "13.4 mm/s" headline (NEAR-specific), and reports the verified Anderson-2008 anchor as 2/6 within 1σ, 3/6 within 2σ, 3/6 outliers. The mechanism closes against the empirical fit form; the disclosed partial per-spacecraft match (not all six) is what pins the band at disclosed-bound.
 - strengthen-by:
   - Add per-spacecraft geometric corrections (atmospheric/magnetospheric) to capture the three >2σ outliers.
@@ -550,7 +550,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
   - Axiom 2 (Topo-Kinematic Isomorphism — $\ell_{node} = \hbar/m_ec$ scale)
   - Axiom 3 (Minimum Reflection Principle — definition of $G$)
   - `clm-wx5324` (Vol 3 $H_\infty$ — same Machian-coupling geometric limit, solidity X)
-- solidity: 0.45 (use as input only, don't build deeper) [= min(1.00, 0.45)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(1.00, 0.55)]
 - rationale: $G = c^4/(7\xi T_{EM})$ with $T_{EM} = m_ec^2/\ell_{node}$ and $\ell_{node} = \hbar/m_ec$ gives $G = \hbar c/(7\xi m_e^2)$, hence $\alpha_G = Gm_e^2/\hbar c = 1/(7\xi)$ and $m_P = m_e\sqrt{7\xi}$ — these are **pure algebraic identities by substitution** into the AVE definition of $G$, carrying zero predictive content (the leaf states this explicitly: "not independent predictions… both sides match because $\xi$ was defined to make this hold"). Definitional; no observation could falsify the substitution itself. Classification: identity.
 - strengthen-by:
   - (Not applicable to local rigor — an identity is maximal at 1.0. Predictive content would require an independent derivation of $\xi$ or $G$, which is a separate claim.)
@@ -601,7 +601,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 - depends-on:
   - Axiom 4 (Universal Saturation Kernel — latent-heat / crystallisation regime)
   - `clm-wx5324` (Vol 3 $H_\infty$ / crystallisation rate, solidity X)
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.70, 0.45)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
 - rationale: $w_{vac} = -1 - \rho_{latent}/\rho_{vac}$ follows from a first-law argument (latent heat $\rho_{latent}dV$ expelled while funding new-volume internal energy → strictly negative total pressure), and positive $\rho_{latent}$ then guarantees $w < -1$ cleanly. Band held at disclosed-bound because the leaf gives **no numerical $w$** to compare against the $w\approx-1\pm0.05$ data, and "forbids Big Rip" / the CMB asymptotic-attractor floor are interpretive consequences, not quantitative bounds on $w(t)$. The sign argument closes; the magnitude and Big-Rip claims rest on the disclosed latent-heat picture.
 - strengthen-by:
   - Derive $\rho_{latent}/\rho_{vac}$ numerically (from crystallisation energetics) to give a falsifiable $w$ value.
@@ -630,7 +630,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
   - Axiom 4 (Universal Saturation Kernel — $\mu_{eff},\varepsilon_{eff}\to0$ at $r_s$)
   - `clm-07kd5v` (Vol 3 symmetric impedance $Z = Z_0$, solidity X)
   - `clm-rd9cjm` (Vol 3 refractive index $n(r)$, solidity X)
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.70, 0.45)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
 - rationale: This is explicitly an **ontological reinterpretation** ($T_{\mu\nu}\equiv U_{\mu\nu}$ LC energy density; $g_{\mu\nu}\leftrightarrow\varepsilon_{eff},\mu_{eff}$), NOT a derivation of the Einstein equation ab initio nor modified field equations — the leaf states this. The mapping is internally consistent and the apparent "$Z=Z_0$ invariant" vs "$Z\to0$ at horizon" tension is explicitly surfaced and reconciled (transverse impedance invariant while constitutive $\mu,\varepsilon$ collapse). The reinterpretation closes as a consistent identification; band at disclosed-bound because it imports the standard EFE rather than deriving it.
 - strengthen-by:
   - Derive (even schematically) the EFE from the LC Lagrangian rather than mapping onto the existing equation.
@@ -851,7 +851,7 @@ Under the corpus symmetric-saturation picture ($\Gamma_{\text{continuum}} = 0$ a
   - `clm-07kd5v` (Vol 3 symmetric impedance $Z = Z_0$, solidity X)
   - `clm-rd9cjm` (Vol 3 refractive index $n(r)$ — used in §3 expansion, solidity X)
   - `clm-x19btt` (Vol 3 $r_{sat} = 7GM/c^2$ saturation radius, solidity X)
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.50, 0.45)]
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.55)]
 - rationale: The cancellation argument is structurally clean — per-cell $|\Gamma|^2\sim(\ell_{node}/r_{sat})^2$ against $N_{cells}\sim(r_{sat}/\ell_{node})^2$ leaves an $O(1)$ product $4\pi\log2\,k_B\approx8.7\,k_B$. But §4 explicitly labels the per-cell $|\Gamma|^2$ a "pragmatic dimensional estimate" / "leading dimensional correction," and §9 discloses that a rigorous WKB calculation hits a near-horizon coordinate singularity, leaving the numerical prefactor and possible log corrections open. The order-of-magnitude and mass-independence are robust; the numerical constant is a leading-order dimensional estimate, not a closed derivation — substantive acknowledged open step.
 - strengthen-by:
   - Complete the near-horizon WKB calculation with a coordinate regulator to fix the prefactor and confirm/exclude log corrections.
@@ -882,7 +882,7 @@ AVE distinguishes four physically distinct entropy quantities at a BH horizon �
   - `clm-07kd5v` (Vol 3 symmetric impedance $Z = Z_0$, solidity X)
   - `clm-x19btt` (Vol 3 $r_{sat}$ / compactness-limit saturation radius, solidity X)
   - `clm-ze4clw` (common: M,Q,J boundary observables, solidity X)
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.70, 0.45)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
 - rationale: The four-way distinction is laid out cleanly and the AVE-native $\hat S_{geo} = k_BA\log2/\ell_{node}^2$ follows from a $|\Gamma|^2 = 1/2$ frustrated-bond beam-splitter (a 50/50 split = one bit/cell), with the Machian dilution ratio $\hat S_{geo}/S_{BH} = 4\log2/(7\xi)\approx2.8\times10^{-44}$ being clean algebra. The leaf is exemplary in disclosing that the standard $S_{BH}$ recovery requires **imported Boltzmann equipartition that AVE rejects**, that $S_v$ is a factor-of-4 off, that $S_\mu$ is informal, and that the first law is violated by $\sim10^{-44}$ on AVE-native quantities. Disclosed-bound: the distinction and $\hat S_{geo}$ close; the $|\Gamma|^2=1/2$ value is an assigned interface eigenmode, not independently derived.
 - strengthen-by:
   - Derive $|\Gamma|^2 = 1/2$ at the frustrated A-B bond from the chirality-mismatch impedance rather than asserting the symmetric beam-splitter value.
@@ -932,7 +932,7 @@ From the corpus-derived $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2)$ applied th
   - $\sim 10^{122}$ improvement over QED's naive ZPE prediction.
   - Derived from canonical corpus inputs with no $\rho_\Lambda$-specific fit parameter.
 - _Specific Non-Claims and Caveats_
-  - Carries the framework-wide $\delta_{\text{strain}} \approx 2.225\times 10^{-6}$ CMB thermal-running residual, currently empirically calibrated at $T_{\text{CMB}}$ pending first-principles derivation (inherited via $\alpha$ closure).
+  - Carries the framework-wide $\delta_{\text{strain}} \approx 2.225\times 10^{-6}$ CMB thermal-running residual, currently empirically calibrated at $T_{\text{CMB}}$ pending quantitative substrate-physics derivation (Q-DELTA-MAP-1 closed at mechanism-class identification 2026-05-28 via Cosserat-rotation-sector mass-gap thermal-mode-population ASYM at clm-hp7nlm; **Q-DELTA-MAP-1-quant** remains open — see [`research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md`](../../../research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md) §3 for the WALK-BACK history), inherited via $\alpha$ closure.
   - Downstream of the open $G$/$H_\infty$ Machian closure (Class E joint constraint), not a fully first-principles single-observable prediction.
 
 > **Leaf references:** [cosmological-constant-closure](./cosmology/ch05-dark-sector/cosmological-constant-closure.md).
@@ -979,7 +979,7 @@ Predicts a DAMA/LIBRA coupling quantum at $E = \alpha\, m_e c^2 \approx 3.728$ k
   - `clm-rtdmsn` (Vol 4 electron Q-factor LC tank — α-slew LC mechanism, solidity X) [vol3→vol4 exception, D11]
   - `clm-1eg13f` (Vol 4 Op14 saturation modulating local clock rate, solidity X) [vol3→vol4 exception, D11]
   - `clm-v6ti0v` (Vol 4 orbital friction reactive-vs-real power, solidity X) [vol3→vol4 exception, D11]
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.50, 0.45)]
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.50)]
 - rationale: $E = a_e\,m_ec^2 = \alpha m_ec^2 = 3.728$ keV follows by a clean substitution chain ($\nu_{slew} = a_e\nu_{Compton}$, $\ell_{node} = \hbar/m_ec$) and lands in the DAMA 2–6 keV window. But the leaf's own 8th/9th-cycle audit (preserved 🔴 author markers) **demotes** the "zero-parameter CONFIRMED" energy-scale status: it is a 1% coincidence with Ca Kα via Moseley, so magnitude alone does not discriminate AVE from SM atomic physics. Rate magnitude is explicitly PAUSED. The AVE-distinct content (Z-independence, CMB phase-lock, solid/liquid gate) is partly confirmed but the load-bearing energy claim rests on a disclosed unresolved anti-anchor — substantive open dependency.
 - strengthen-by:
   - Resolve the Ca Kα anti-anchor via the cross-crystal Z-independence test (NaI/Sapphire/Ge) so the energy line discriminates AVE from Moseley.
@@ -1010,7 +1010,7 @@ Candidate formula for the DAMA rate magnitude from matched-impedance coupling be
   - `clm-b27pnp` (Vol 3 DAMA α-slew energy quantum / $\nu_{slew}$, solidity X)
   - `clm-6t3p6x` (Vol 4 parametric coupling kernel — matched-LC varactor coupling, solidity X) [vol3→vol4 exception, D11]
   - `clm-rtdmsn` (Vol 4 electron Q-factor LC tank — matched-impedance coupling, solidity X) [vol3→vol4 exception, D11]
-- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 0.45)]
+- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 0.50)]
 - rationale: $\epsilon_{det} = 4\pi/N_{single}^2$ yields a rate $4.80\times10^{-7}$ within 0.6% of DAMA Phase-2. But the leaf is explicit (§3.2, preserved honest-scope / CANONIZED-status Grant marker) that this is a **POST-HOC consistency check, NOT a forward prediction** — the $4\pi$ prefactor was selected from five canonical candidates *after* inspecting the rate gap. The Theorem 3.1′ "inheritance" argument is structurally clean but acknowledged as assembled post-hoc, and the $1/N^2$ scaling is a heuristic Dicke-amplitude argument with full QM derivation pending (§12). Sketch with structural support, not a closed forward derivation — asserted-partial.
 - strengthen-by:
   - Run the forward-predictive cross-detector tests (HPGe 9.39 kg at 3.728 keV is the cleanest) to convert the post-hoc match into a forward result.
@@ -1071,10 +1071,123 @@ Axiom-first derivation of the AVE-native BH horizon at $r_{\text{sat}} = 7GM/c^2
   - Axiom 4 (Universal Saturation Kernel — $\varepsilon_{11}(r_{sat}) = 1$)
   - `clm-iouqn9` (common: $\nu_{vac} = 2/7$ / factor 7 Poisson projection, solidity X)
   - `clm-x19btt` (Vol 3 compactness limit / Buchdahl derivation, solidity X)
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.90, 0.45)]
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.90, 0.55)]
 - rationale: $r_{sat} = 7GM/c^2$ from $\varepsilon_{11}(r_{sat}) = 1$ with the factor $7 = 1/\nu_{vac}$, and the area theorem $\delta A = 392\pi G^2 M\delta M/c^4 \geq 0$ both close cleanly from Axiom 4 (saturation boundary $\propto M$) plus mass-energy conservation — no energy conditions needed, deriving *why* the horizon grows. $dE = dM c^2$ is itself a disclosed Ax2 identity. The leaf honestly scopes the falsifier (preserved Grant 2026-05-16 audit marker): the EHT-shadow falsifier was retracted because $r_{sat}$ is a shear/matter boundary, photon-geometric observables are silent. Clean derivation; the only disclosed gap (entropy/first-law pillar) is correctly delegated to the four-entropy leaf and not claimed here.
 - strengthen-by:
   - Pursue the surviving matter/shear falsifiers (inner-disk Fe-Kα edge vs ISCO, GW echoes) to give the $3.5\,r_s$ prediction an empirical test.
   - Carry the $\nu_{vac} = 2/7$ → factor-7 projection as an in-leaf derivation rather than referencing the Buchdahl-bound leaf.
+
+---
+
+## The Double Deflection — Light Bends Twice as Much as Matter
+<!-- id: clm-zf8eah -->
+
+- $\delta_{\text{light}}/\delta_{\text{matter}} = (n_\perp - 1)/(n_{\text{scalar}} - 1) = (2/7)/(1/7) = 2$; $\delta_{\text{light}} = 4GM/(bc^2)$ (Einstein), $\delta_{\text{matter}} = 2GM/(bc^2)$ (Soldner), with $\chi_{vol} = 7GM/(c^2 r)$
+- _Specific Claims_
+  - Matter (an isotropic 3D volumetric massive wave packet) couples to the *scalar* bulk strain via the $1/7$ volumetric projection: $n_{\text{scalar}} = 1 + (1/7)\chi_{vol}$.
+  - Light (a purely transverse Cosserat shear wave) is mechanically blind to the bulk and couples to the transverse cross-sectional strain via the Poisson ratio: $n_\perp = 1 + \nu_{vac}\chi_{vol} = 1 + (2/7)\chi_{vol}$.
+  - The deflection is linear in the projection coefficient in the eikonal limit; since $2/7$ is exactly double $1/7$, the photon refracts through a gradient exactly twice as severe, giving the Einstein $4GM/(bc^2)$ vs the Soldner $2GM/(bc^2)$ — Sun grazing $\to 1.75''$.
+  - The GR "factor of 2" is reframed as the transverse:isotropic Poisson ratio of a $K = 2G$ trace-reversed Cosserat solid, not a curved-4-manifold signature nor null-geodesic geometry.
+- _Specific Non-Claims and Caveats_
+  - This is a **consistency check** (category iii): AVE reproduces the standard Einstein deflection via mechanical Poisson projection, not an independent novel prediction beyond GR.
+  - The coupling-selection step — that a massive packet couples only to the scalar $1/7$ bulk while the photon, mechanically blind to bulk, couples only to the $2/7$ transverse sector — is asserted by **mechanical analogy**, not derived from a wave-equation projection. This is the one soft joint in the derivation.
+
+> **Leaf references:** [double-deflection](./gravity/ch02-general-relativity/double-deflection.md).
+
+### Quality
+- confidence: 0.78
+- depends-on:
+  - `clm-rd9cjm` (Vol 3 refractive index of gravity / $\nu_{vac} = 2/7$ trace-reversal / $1$-$7$ impedance projection cluster, solidity X)
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.78, 0.55)]
+- rationale: consistency-check. The arithmetic $\delta_{\text{light}}/\delta_{\text{matter}} = (2/7)/(1/7) = 2$ is clean once the two projection coefficients are in hand, and reproduces both the Soldner and Einstein deflections plus the $1.75''$ solar value. The single soft joint is the coupling-selection step (massive packet → scalar $1/7$ bulk only; photon → transverse $2/7$ sector only), asserted by mechanical analogy rather than derived from a wave-equation projection. Confidence 0.78 set by the applied-mathematician pass.
+- strengthen-by:
+  - Derive the coupling selection (matter→scalar-bulk, light→transverse-shear) from a wave-equation projection of the massive vs massless dispersion onto the Cosserat strain tensor, replacing the mechanical-analogy assertion.
+
+---
+
+## White Dwarf Gravitational Redshift — Saturation Correction
+<!-- id: clm-at7x0y -->
+
+- $z_{\text{AVE}} = 1/(\sqrt{1 - 2GM/c^2R}\cdot S(\varepsilon_{11})) - 1$, $S(\varepsilon_{11}) = \sqrt{1 - \varepsilon_{11}^2}$, $\varepsilon_{11} = 7GM/c^2R = 7\phi$; $\delta z = z_{\text{AVE}} - z_{\text{GR}} \approx z_{\text{GR}}\cdot\varepsilon_{11}^2/2 = 49\phi^2/2$ = $12.25\times$ the PPN $2\phi^2$ term
+- _Specific Claims_
+  - The AVE gravitational redshift carries an Axiom-4 saturation factor $S(\varepsilon_{11}) = \sqrt{1 - \varepsilon_{11}^2}$ beyond the Schwarzschild term; the correction over GR scales as $49\phi^2/2$, 12.25 times larger than the standard PPN second-order $2\phi^2$ correction, due to the Machian stress boundary $T_{\max} = c^4/(7G)$ ($\varepsilon_{11} = 7\phi$).
+  - For Sirius B: $v_{\text{obs}} = 80.65 \pm 0.77$ km/s, $v_{\text{GR}} = 77.75$ km/s, $v_{\text{AVE}} = 77.80$ km/s; the AVE correction is $\sim 0.05$ km/s, in the correct (upward) direction.
+- _Specific Non-Claims and Caveats_
+  - **Not currently discriminating.** The $\sim 0.05$ km/s AVE correction is far below the $2.9$ km/s observed$-$GR residual, which is dominated by the 3–5% mass-radius relation uncertainty, not by missing physics. The prediction is correct-direction but not yet a test that distinguishes AVE from GR at current M-R precision.
+  - The shear-eigenmode prediction (clm-mi6ils) modifies only $g_{rr}$ (spatial metric), not $g_{00}$ (temporal); standing shear waves do NOT contribute to spectral redshift.
+
+> **Leaf references:** [white-dwarf-gravitational-predictions](./gravity/ch20-white-dwarf-predictions/white-dwarf-gravitational-predictions.md).
+
+### Quality
+- confidence: 0.52
+- depends-on:
+  - Axiom 4 (Universal Saturation Kernel — saturation factor $S(\varepsilon_{11}) = \sqrt{1 - \varepsilon_{11}^2}$ on the redshift)
+  - `clm-rd9cjm` (Vol 3 $\nu_{vac} = 2/7$ → $\varepsilon_{11} = 7\phi$ Machian stress boundary, solidity X)
+- solidity: 0.52 (use as input only, don't build deeper) [= min(0.52, 0.55)]
+- rationale: emergence-test. The redshift formula $z_{\text{AVE}} = 1/(\sqrt{1-2GM/c^2R}\cdot S) - 1$ follows cleanly from the Axiom-4 saturation factor applied to the Schwarzschild term, and the $12.25\times$ amplification over the PPN $2\phi^2$ correction is a clean consequence of $\varepsilon_{11} = 7\phi$. The caveat is empirical, not derivational: the $\sim 0.05$ km/s correction is far below the $2.9$ km/s residual (dominated by 3–5% M-R uncertainty), so the prediction is correct-direction but not currently discriminating. Confidence 0.52 set by the applied-mathematician pass.
+- strengthen-by:
+  - Tighten the white-dwarf mass-radius constraints (e.g. improved JWST M-R) so the $\sim 0.05$ km/s saturation correction rises above the measurement residual and becomes a discriminating AVE-vs-GR test.
+
+---
+
+## White Dwarf Standing Shear-Wave Eigenfrequencies
+<!-- id: clm-mi6ils -->
+
+- WD surface = shear reflector ($\Gamma \approx -1$); $r_{\text{eff}} = R/(1 + \nu_{vac}) = 7R/9$; $f_\ell = \ell c/(2\pi r_{\text{eff}})$, $Q = \ell$; $\ell = 2$ modes $\sim 13$–$21$ Hz (LIGO band) for the five named white dwarfs
+- _Specific Claims_
+  - The WD interior is evanescent for shear perturbations (plasma frequency $\omega_p \gg$ any GW frequency), so the surface acts as a near-perfect shear reflector ($\Gamma \approx -1$); the effective cavity radius is $r_{\text{eff}} = R/(1 + \nu_{vac}) = 7R/9$ with $\nu_{vac} = 2/7$.
+  - Eigenfrequencies $f_\ell = \ell c/(2\pi r_{\text{eff}})$ with quality factor $Q = \ell$; the $\ell = 2$ modes land at $\sim 13$–$21$ Hz (Sirius B 21.15, 40 Eridani B 13.63, Procyon B 14.27, Stein 2051 B 15.34, GD 358 13.94 Hz) — the LIGO / Einstein Telescope band.
+  - These standing shear modes modify $g_{rr}$ (spatial metric) only; their observational signature is gravitational-wave ringdown, not spectral line shift. They are a different mode family from interior g-modes/p-modes of ZZ Ceti asteroseismology.
+- _Specific Non-Claims and Caveats_
+  - The Schwarzschild-BH QNM cross-check ($\omega M_{\text{geom}} = 0.3673$ vs GR exact $0.3737$, 1.7%) is a **cross-regime consistency check using a DIFFERENT boundary radius** ($r_{\text{sat}} = 7GM/c^2$, not the WD surface $R$). It validates the *formula's shape*, NOT the WD-boundary choice — it must not be presented as corroboration of the WD eigenfrequency prediction.
+  - No prediction-manifest bridge: the shear-eigenmode result is not currently a manifest prediction entry (the WD redshift, clm-at7x0y, is the P41 bridge target).
+
+> **Leaf references:** [white-dwarf-gravitational-predictions](./gravity/ch20-white-dwarf-predictions/white-dwarf-gravitational-predictions.md).
+
+### Quality
+- confidence: 0.50
+- depends-on:
+  - `clm-rd9cjm` (Vol 3 $\nu_{vac} = 2/7$ → $r_{\text{eff}} = 7R/9$, solidity X)
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.55)]
+- rationale: emergence-test. The eigenfrequency chain (surface shear reflector $\Gamma \approx -1$ from evanescent degenerate interior → $r_{\text{eff}} = R/(1+\nu_{vac}) = 7R/9$ → $f_\ell = \ell c/(2\pi r_{\text{eff}})$) closes cleanly and lands the $\ell=2$ modes in the LIGO band for all five named WDs. The honest caveat: the BH-QNM 1.7% cross-check uses a DIFFERENT boundary radius ($r_{\text{sat}} = 7GM/c^2$ vs the WD surface $R$) — it validates the formula's shape, not the WD-boundary choice, and must not be read as corroboration of the WD prediction. Confidence 0.50 set by the applied-mathematician pass.
+- strengthen-by:
+  - Validate the WD-surface boundary choice directly (e.g. against a WD-merger ringdown observation), independent of the BH-QNM shape cross-check, to convert the LIGO-band prediction into a tested result.
+
+---
+
+## δ_strain Substrate-Mechanism: Cosserat-Rotation-Sector Mass-Gap Thermal-Mode-Population ASYM
+<!-- id: clm-hp7nlm -->
+
+The substrate-mechanism class for the CMB-thermal-running of $\alpha$ ($\delta_{strain} \approx 2.225 \times 10^{-6}$ at $T_{CMB}$), identified via `ave-ee-first-mapping` v1.0 + Grant 2026-05-28 adjudication. Distinct from the magnitude-back-subtraction at clm-009nkt (Vol 1) — this entry is the substrate-mechanism identification; clm-009nkt is the observable identity.
+
+- _Specific Claims_
+  - Substrate carries bipartite thermal-mode structure per Ax 1: 3 translational E-DOFs/node (gapless acoustic, thermally populated at any $T > 0$) + 3 microrotational B-DOFs/node (Cosserat couple-stress mass-gap $\omega_m^2 = 4 G_c / I_\omega$ per canonical [`trampoline-framework.md:188`](../common/trampoline-framework.md); $\omega_m \sim 1$ MeV in physical units).
+  - At cosmic temperature $T_{CMB} \approx 2.725$ K: ratio $k_B T_{CMB}/\hbar\omega_m \sim 2 \times 10^{-10}$ → B-modes thermally completely frozen; only E-modes participate in substrate thermal-mode population.
+  - Asymmetric E vs B occupation breaks SYM-class scaling: $\varepsilon_{eff} = \varepsilon_0(1-\eta_\varepsilon)$ modulated, $\mu_{eff} = \mu_0$ frozen. Substituting into the α formula using the canonical c_EM phase velocity per clm-8nkvwy:111 ($c_{EM} = 1/\sqrt{\mu_{eff}\varepsilon_{eff}}$): $\alpha_{eff}/\alpha_0 \approx 1 + \eta_\varepsilon/2$, giving $\delta_{strain} \approx \eta_\varepsilon/2$.
+  - Sign check: E-mode thermal jiggling counter-charges substrate → $\varepsilon_{eff}$ decreases → $\alpha_{eff}$ increases → $\alpha^{-1}_{eff} < \alpha^{-1}_{ideal}$. CODATA $\alpha^{-1} = 137.035999 < \alpha^{-1}_{ideal} = 137.0363038$ — $\checkmark$ matches observation.
+  - Joint-constraint with weak force: same Cosserat couple-stress modulus $\gamma_c$ that sets weak force range $r_W = l_c = \sqrt{\gamma_c/G_{vac}}$ per canonical [`gauge-boson-masses.md:39`](../vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md) also sets $\omega_m^2 = 4 G_c/I_\omega$ producing δ_strain. Falsification of the weak-force derivation via the right-handed-neutrino kill-switch (clm-gw2wgc) simultaneously falsifies δ_strain mechanism.
+  - EE analog per `ave-ee-first-mapping` v1.0: substrate behaves as high-Q LC oscillator with TCC ceramic capacitor (ε side, thermally modulated) + ferrite inductor below Curie temperature (μ side, frozen). The substrate Cosserat-rotation-sector mass-gap IS the substrate-native Curie analog at substrate-temperature $\sim 10^{10}$ K; ferrite Curie at $\sim 600$ K is the material-specific manifestation of the same mechanism.
+  - Forward prediction (substrate-distinct): substrate α drifts roughly linearly with cosmic temperature $T$ for $T \ll T_{B-gap} \sim 10^{10}$ K; quasar absorption-line $\Delta\alpha/\alpha$ at higher redshift tests the substrate TCC mechanism.
+- _Specific Non-Claims and Caveats_
+  - Does NOT close the quantitative substrate-statistical-mechanics derivation of $\eta_\varepsilon$ from substrate E-mode dispersion + Bose-Einstein occupation at $T_{CMB}$. The numerical δ_strain ≈ $2.225 \times 10^{-6}$ magnitude remains back-subtracted from CODATA at clm-009nkt. The leaf identifies the mechanism class; it does not promote the back-subtraction to a derivation.
+  - Class B substrate-mechanism manifestation per `consistency-vs-emergence` v1.3 — NOT Class 2 substrate-mechanism axiom-manifestation. A Class 2 lift requires the quantitative substrate-statistical-mechanics computation that this leaf does not perform.
+  - Closes **Q-DELTA-MAP-1** at substrate-mechanism-class identification level ONLY. The three candidate paths P1/P2/P3 enumerated in the Phase 3-A3 WALK-BACK result ([`research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md`](../../../research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md) §3) are superseded by this leaf's fourth path (P4 — Cosserat-Curie mechanism), but the substrate-mechanism direction-setting that Q-DELTA-MAP-1 originally requested for δ_strain magnitude derivation remains future workstream (named Q-DELTA-MAP-1-quant in the leaf body).
+  - Does NOT promote δ_strain to Class E new prediction at this rigor level. Observable axis is Class 4 consistency (the numerical match is by construction at CODATA back-subtraction). Future Class E lift route: substrate-distinct cosmic-temperature-dependent α-drift forward prediction (§6 of leaf) becoming a substrate-distinct empirical handle at higher-redshift quasar measurements.
+  - The substrate is NATURAL — engineering observes its behavior; AVE derives the mechanism. This leaf is the AVE-substrate-physics derivation; engineering datasheets are the empirical phenomenology. Same epistemic status as a Cu elemental datasheet vs an atomic-orbital band-structure derivation.
+
+> **Leaf references:** [delta-strain-cosmic-tcc](./cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md).
+
+### Quality
+- confidence: 0.55
+- depends-on:
+  - clm-3zz0f6 — α Invariance Under Symmetric Gravity — load-bearing: SYM scaling gives α invariance; the Cosserat-Curie ASYM is what breaks SYM to produce δ_strain (the asymmetric scaling voids the SYM α-invariance condition canonical at the gravity-yield leaf)
+  - clm-8nkvwy — Symmetric vs Asymmetric saturation case — load-bearing: the c_EM vs c_shear distinction at lines 111/113; the δ_strain derivation uses c_EM in α (NOT c_shear, per Phase 3-A3 walk-back lesson)
+  - clm-5zuo7g — Weak Force Range from Cosserat $l_c$ — joint-constraint substrate-primitive ($\gamma_c$ underlies both weak force range AND B-mode mass-gap producing δ_strain); falsification of either falsifies both
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.55, 0.85)]
+- rationale: Substrate-mechanism class identified via `ave-ee-first-mapping` v1.0 prototype case + Grant 2026-05-28 adjudication, closing Q-DELTA-MAP-1 at mechanism-identification level (was OPEN per Phase 3-A3 WALK-BACK 2026-05-27; three candidate paths P1/P2/P3 all failed order-of-magnitude estimates). The fourth path P4 (Cosserat-rotation-sector mass-gap thermal-mode-population ASYM) is grounded in canonical Ax 1 bipartite-DOF structure + canonical Cosserat couple-stress primitive $\gamma_c$ (same primitive that sets weak force range per `gauge-boson-masses.md:39`). The EE-first-mapping discipline identified the substrate as a high-Q LC oscillator with TCC ceramic capacitor + ferrite-Curie-frozen inductor — the substrate-Cosserat-Curie mass-gap IS the substrate-native Curie analog. Sign check passes (E-mode counter-charging reduces $\varepsilon_{eff}$, increases $\alpha$, decreases $\alpha^{-1}$ below cold-lattice — CODATA $< \alpha^{-1}_{ideal}$ matches). Class B substrate-mechanism manifestation (NOT Class 2 emergence: the quantitative substrate-statistical-mechanics derivation of $\eta_\varepsilon$ from E-mode dispersion + Bose-Einstein occupation at $T_{CMB}$ is not closed). Class 4 observable consistency on the observable axis (numerical δ_strain ≈ $2.225 \times 10^{-6}$ is back-subtracted from CODATA; not Class E new prediction). Confidence 0.55 reflects: (a) substrate-mechanism class IS identified + load-bearing assumptions explicitly named (Class B); (b) quantitative-derivation gap holds confidence below 0.60 (Class 2 requires substrate-statistical-mechanics work); (c) joint-constraint structure with weak force range adds substantive substrate-physics content beyond canonical SYM/ASYM. Solidity bounded by clm-009nkt observable dependency (0.55 confidence target post-PR amendment; floored at 0.55) and clm-8nkvwy SYM/ASYM canonical-structure dependency.
+- strengthen-by:
+  - **Q-DELTA-MAP-1-quant** (NEW post-2026-05-28): close the quantitative substrate-statistical-mechanics derivation of $\eta_\varepsilon$ at $T_{CMB}$: (i) compute substrate E-mode dispersion $\omega_E(k)$ at $T_{CMB}$ from substrate primitives ($\ell_{node}$, $G_{vac}$); (ii) compute thermal occupation $\langle A_E^2 \rangle_{thermal}$ via substrate-Bose-Einstein occupation of E-mode spectrum at $k_B T_{CMB}$; (iii) couple to substrate dielectric response via Ax 1 microscopic primitives to extract $\eta_\varepsilon$; (iv) match to canonical $\eta_\varepsilon \approx 4.45 \times 10^{-6}$ at $T_{CMB}$. Closes Class B → Class 2 substrate-mechanism axiom-manifestation lift; lifts clm-009nkt confidence above 0.60.
+  - Strengthen the joint-constraint cross-check: derive the substrate's $T$-dependent α drift forward prediction (§6.1 of leaf — roughly linear scaling for $T_{CMB} \ll T \ll T_{B-gap}$) to a precision testable against current quasar absorption-line $\Delta\alpha/\alpha$ bounds ($\sim 10^{-5}$); this would lift the observable axis to Class E new prediction.
+  - Cross-validate the engineering-scale instance prediction (§6.3 of leaf): TCC of ceramic + ferrite-Curie-frozen LC oscillator frequency-temperature curve should follow the substrate-Cosserat-Curie thermal-mode-population ASYM mechanism scaled to engineering temperatures; quantitative test against empirical EE-component frequency-temperature data validates the substrate-mechanism extrapolation across $\sim 10^{10}$ K temperature range.
 
 ---

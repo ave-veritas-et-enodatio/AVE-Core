@@ -86,7 +86,7 @@ def collect_bare_canonical_ids(kb_root: Path) -> set[str]:
     """
     ids: set[str] = set()
     for path in kb_root.rglob("claim-quality.md"):
-        ids.update(_BARE_CANONICAL_ID.findall(_strip_code_fences(path.read_text())))
+        ids.update(_BARE_CANONICAL_ID.findall(_strip_code_fences(path.read_text(encoding="utf-8"))))
     return ids
 
 
@@ -136,7 +136,7 @@ def migrate(kb_root: Path, dry_run: bool) -> dict:
     occurrences = 0
 
     for path in kb_markdown_files(kb_root):
-        text = path.read_text()
+        text = path.read_text(encoding="utf-8")
         if not pattern.search(text):
             continue
         new_lines = []
@@ -156,7 +156,7 @@ def migrate(kb_root: Path, dry_run: bool) -> dict:
         occurrences += file_hits
         if not dry_run:
             tmp = path.with_suffix(path.suffix + ".tmp")
-            tmp.write_text(new_text)
+            tmp.write_text(new_text, encoding="utf-8")
             os.replace(tmp, path)
 
     return {

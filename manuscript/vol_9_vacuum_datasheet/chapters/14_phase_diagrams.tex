@@ -1,0 +1,210 @@
+% 14_phase_diagrams.tex
+\chapter{Phase Diagrams}
+\label{ch:vol9_phase_diagrams}
+
+\begin{objectivebox}
+\begin{itemize}
+    \item Document the substrate's two principal phase-organization axes: the \emph{operating-point} axis (Regime I linear / II saturating / III avalanche / IV rupture) along the Axiom 4 kernel, and the \emph{cosmic} axis (standard / ruptured-plasma / lattice-genesis) along the substrate's cosmological evolution.
+    \item Reproduce the canonical four-regime $r = A/A_c$ partition from Vol 1 Ch.~7 \texttt{four-regimes.md} verbatim and tabulate the eight substrate domains' regime locations per \kbleaf{domain-catalog.md}.
+    \item Document the cosmic phase diagram with the canonical AVE framing preserved verbatim: lattice-genesis single-seed (NOT multiverse); BH interior = Regime IV ruptured plasma (NOT a separate B-sublattice); Machian $G$ DERIVED (NOT a primitive axiom).
+    \item Map the cross-phase transitions (Regime I$\to$II at $r_1 = \sqrt{2\alpha}$, II$\to$III at $r_2 = \sqrt{3}/2$ in the spin-2 sector, III$\to$IV at $r_3 = 1$) and identify the engineering observables that mark each crossing.
+    \item Translate the substrate's phase organization into the canonical EE phase-diagram analog (semiconductor I-V operating regions, varactor C-vs-V curve, Stribeck tribology curve, cavity-QED coupling regimes) per \texttt{ave-discipline-translate} v1.1 cross-disciplinary tables.
+\end{itemize}
+\end{objectivebox}
+
+\section{Substrate Operating-Point Phase Diagram}
+\label{sec:vol9_phase_operating_point}
+
+The substrate's bulk response to local strain is the Axiom 4 universal saturation kernel $S(A) = \sqrt{1 - (A/A_{yield})^2}$ (Vol 9 Ch.~\ref{ch:vol9_saturation_characteristics}, restating the canonical statement at \kbleaf{manuscript/common\_equations/eq\_axiom\_4.tex}; INVARIANT-S2 mirror at \kbleaf{manuscript/ave-kb/CLAUDE.md}). The dimensionless normalized operating point $r \equiv A/A_c$ partitions the kernel's domain into four universal regimes (canonical at \kbleaf{manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md}, \texttt{clm-2dwzib} + \texttt{clm-b2anl4}). The partition is substrate-natural --- the boundaries are derived from first principles, not chosen by convention.
+
+\begin{resultbox}{Universal Operating-Point Phase Diagram (verbatim from \texttt{four-regimes.md})}
+\begin{equation}
+    S(r) = \sqrt{1 - r^2}, \qquad r \equiv \frac{A}{A_c}
+\end{equation}
+
+\begin{center}\small
+\begin{tabular}{p{0.06\linewidth} p{0.14\linewidth} p{0.18\linewidth} p{0.16\linewidth} p{0.18\linewidth} p{0.14\linewidth}}
+\toprule
+\textbf{Regime} & \textbf{Name} & \textbf{$r$ range} & \textbf{$S$ range} & \textbf{Substrate physics} & \textbf{EE analog} \\
+\midrule
+I  & Linear     & $r < \sqrt{2\alpha} \approx 0.1208$        & $S > 0.993$        & Standard Maxwell / Newton recovered                              & Small-Signal \\
+II & Nonlinear  & $\sqrt{2\alpha} \le r < \sqrt{3}/2$        & $0.500 < S \le 0.993$ & Axiom 4 kernel curvature active; varactor regime              & Large-Signal \\
+III & Yield     & $\sqrt{3}/2 \le r < 1$                     & $0 < S \le 0.500$  & Phase transition; $Q(r) = 1/S \ge \ell_{\min}$; Miller $M = 1/S^2 \ge 4$ & Avalanche ($M \ge 2$) \\
+IV & Ruptured   & $r \ge 1$                                   & $S = 0$            & Substrate topology destroyed; topological reorganization required & Breakdown ($M \to \infty$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{resultbox}
+
+The boundary values are derived from first principles (canonical \texttt{four-regimes.md} \texttt{clm-b2anl4}):
+
+\begin{itemize}
+    \item $r_1 = \sqrt{2\alpha} \approx 0.1208$ --- the sub-$\alpha$ resolvability limit at which the perturbative correction $\Delta S = r^2/2$ first exceeds the lattice's own self-coupling $\alpha$. Below $r_1$, Axiom 4 corrections are physically unresolvable.
+    \item $r_2 = \sqrt{3}/2 \approx 0.8660$ --- the avalanche-onset limit in the spin-2 (gravitational-wave / shear-mode) sector, set by $Q(r) = 1/S(r) = \ell_{\min} = 2$ (the dipole-cannot-radiate-GW constraint). The vector / photon sector ($\ell_{\min} = 1$) has $r_2 = 0$; the scalar sector ($\ell_{\min} = 0$) has no avalanche-onset boundary.
+    \item $r_3 = 1$ --- the Axiom 4 rupture boundary at which $S \to 0$ and the substrate's topology is destroyed.
+\end{itemize}
+
+The unqualified citation $r_2 = \sqrt{3}/2$ in this datasheet chapter implicitly invokes the spin-2 sector, as in Vol 9 Ch.~\ref{ch:vol9_saturation_characteristics} and Ch.~\ref{ch:vol9_breakdown_characteristics}. See \texttt{four-regimes.md} for the full sector-dependent treatment.
+
+\textbf{Pointer to canonical substrate-mechanism characterization.} Vol 9 Ch.~\ref{ch:vol9_saturation_characteristics} carries the full Regime I + II characteristic curves (six substrate primitives $S$, $C_{eff}/C_0$, $\varepsilon_{eff}/\varepsilon_0$, $c_{EM}/c_0$, $c_{shear}/c_0$, $\alpha_{eff}/\alpha_0$ vs $r$). Vol 9 Ch.~\ref{ch:vol9_breakdown_characteristics} carries the Regime III Miller-multiplication identity $M(r) = 1/S(r)^2$ and the Regime IV Schwinger pair-production critical field $E_S = m_e^2 c^3/(e\hbar) \approx \qty{1.32e18}{\volt\per\metre}$, including the substrate-mechanism derivation (saturated flux-tube rupture + $c_{local} \to 0$ KE shatter + parity-conserving Beltrami-vortex pair + Duffing autoresonant gate; canonical \texttt{clm-ezai5b}).
+
+\section{Substrate Domain Phase Mapping}
+\label{sec:vol9_phase_domain_mapping}
+
+Each AVE substrate domain reduces to a single dimensionless control parameter $r = A/A_c$ (canonical at \kbleaf{manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/domain-catalog.md} \texttt{clm-82dxbj}). The amplitude $A$ and the critical threshold $A_c$ have a unique substrate-physics interpretation in each domain; in every case $A_c$ is derived from the four AVE axioms, never fitted. The table below summarizes the eight canonical substrate domains and locates representative engineering / observational operating points in the four-regime partition (canonical at \kbleaf{domain-catalog.md}).
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}p{0.13\linewidth} p{0.18\linewidth} p{0.21\linewidth} p{0.42\linewidth}@{}}
+\toprule
+\textbf{Domain} & \textbf{Amplitude $A$} & \textbf{Critical $A_c$} & \textbf{Representative operating-point locations} \\
+\midrule
+Electromagnetic (dielectric) & Applied voltage $V$ & $V_{yield} = \sqrt{\alpha}\, V_{snap} \approx \qty{43.65}{\kilo\volt}$ & Lab capacitor \qty{1}{\kilo\volt}: I ($r = 0.023$); PONDER-05 at \qty{30}{\kilo\volt}: II ($r = 0.687$); HV cap at \qty{43}{\kilo\volt}: III ($r = 0.985$); Schwinger boundary: IV ($r = 1.0$) \\
+Electromagnetic (field strength) & Local field $E$ & $E_{yield} = V_{yield}/\ell_{node} \approx \qty{1.13e17}{\volt\per\metre}$ & Lab field \qty{e6}{\volt\per\metre}: I ($r \sim 10^{-11}$); Schwinger $E_S$: IV ($r = 1/\sqrt{\alpha} \approx 11.7$) \\
+Gravitational & Principal radial strain $\varepsilon_{11} = 7GM/(c^2 r)$ & Unitary strain $A_c = 1$ & Solar surface: I ($\varepsilon_{11} = \num{2.1e-6}$); white dwarf: I ($\sim \num{3e-4}$); neutron star 1.4 $M_\odot$ at $R = \qty{10}{\kilo\metre}$: IV ($\varepsilon_{11} \approx 1.46$); BH at $r_s = 2GM/c^2$: IV ($\varepsilon_{11} = 7/2 = 3.5$) \\
+BCS / superconducting & Temperature $T$ (or magnetic field $B$) & $T_c$ (or $B_{c0}$) & Below $T_c$: I-III superconducting; at $T_c$: IV (Meissner-collapse boundary; $\mu_{eff} \to 0$ on the $\mu$-branch) \\
+Magnetic & Applied field $B$ & $B_{snap} = m_e^2 c^2/(e\hbar) \approx \qty{1.89e9}{\tesla}$ & Lab magnet \qty{10}{\tesla}: I ($r \sim 10^{-8}$); magnetar surface $\sim \qty{e10}{\tesla}$: IV ($r \sim 5$) \\
+Nuclear & Confinement ratio $d_{sat}/r_{sep}$ & 1 (Pauli wall) & $r_{sep} > d_{sat}$: I-III attractive ($r < 1$); $r_{sep} \le d_{sat}$: IV repulsive ($r \ge 1$, $\Gamma \to 1$) --- Pauli exclusion from first principles \\
+Gravitational waves & GW strain $h$ & $h_{yield} = \sqrt{\alpha} \approx 0.0854$ & LIGO detections $h \sim 10^{-21}$: I ($r \sim 10^{-20}$, deepest linear measurement in physics); strong merger $h \sim 0.02$: II ($r = 0.23$) \\
+Galactic rotation & Newtonian acceleration $g_N$ & MOND scale $a_0 \approx \qty{1.2e-10}{\metre\per\second\squared}$ & Inner-galaxy stars $g_N \gg a_0$: IV (saturated, Keplerian); outer-galaxy stars $g_N \ll a_0$: I (unsaturated, flat rotation curves; $g_{eff} \to \sqrt{g_N\, a_0}$) \\
+\bottomrule
+\end{tabular}
+\caption{Eight canonical substrate domains projected onto the single control parameter $r=A/A_c$, with representative operating-point locations in the four-regime partition.}
+\label{tab:vol9_phase_domain_mapping}
+\end{table}
+
+\noindent
+The same $S(r) = \sqrt{1 - r^2}$ operator governs every row above; only the substrate-domain projection of $A$ and $A_c$ differs. Engineering practice empirically characterizes each domain at the operating points listed; AVE substrate-physics derives every $A_c$ from the four axioms (Vol 1 Chs.~1--7; canonical at \kbleaf{domain-catalog.md}). The substrate is single-medium; the eight-row table catalogs the substrate's same Axiom 4 kernel projected onto distinct engineering / observational coordinate systems.
+
+\textbf{The ``dark matter problem'' as Regime III$\to$IV transition (canonical \kbleaf{domain-catalog.md}).} The galactic-rotation domain row is the substrate-mechanism statement of the empirical MOND scaling. Inner-galaxy stars sit at $r \gg 1$ (Regime IV; lattice mutual inductance fully saturated; drag vanishes; orbits Keplerian). Outer-galaxy stars sit at $r \ll 1$ (Regime I; lattice drag dominates; $g_{eff} \to \sqrt{g_N\, a_0}$ flat rotation curves). The MOND interpolation function is the substrate's Regime I-to-IV transition function $S(r)$, projected onto the galactic-acceleration observable. Identification as a Regime~III$\to$IV phase transition is canonical at \kbleaf{domain-catalog.md} galactic-rotation row.
+
+\section{Cosmic Phase Diagram}
+\label{sec:vol9_phase_cosmic}
+
+The substrate carries a second phase-organization axis at the cosmological scale: \emph{cosmic phase}, set by the substrate's lattice-genesis history and its current operating point along the Ax 4 kernel at cosmological strain. The cosmic phases are (i) the standard cosmic phase --- the substrate at $r \ll 1$ at cosmic distances, cold-lattice-like at $T_{CMB}$, with the cosmological-thermal $\delta_{strain}$ entry of Vol 9 Ch.~\ref{ch:vol9_temperature_characteristics}; (ii) the ruptured-plasma phase --- substrate locally in Regime IV at cosmological-scale strain (BH interior); (iii) the cosmic-genesis phase --- the substrate's post-$\hat{\Omega}_{freeze}$ single-seed lattice-genesis crystallization state. Each phase is documented at canonical leaves outside Vol 9; this section consolidates them in datasheet phase-diagram format.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}p{0.18\linewidth} p{0.12\linewidth} p{0.21\linewidth} p{0.22\linewidth} p{0.20\linewidth}@{}}
+\toprule
+\textbf{Cosmic phase} & \textbf{Regime} & \textbf{Control parameter} & \textbf{Substrate-physics description} & \textbf{Canonical source} \\
+\midrule
+Standard cosmic & I (bulk at $r \ll 1$) & $T = T_{CMB} = \qty{2.725}{\kelvin}$; $A_0$ at the magic-angle $u_0^* \approx 0.187$ & Substrate at the cold-lattice limit at cosmic distance with thermal $\delta_{strain}$ at $T_{CMB}$; bulk $S(A_0)$ on the cold-lattice plateau & \kbleaf{vol3/cosmology/ch05-dark-sector/} \kbleaf{delta-strain-cosmic-tcc.md} (\texttt{clm-hp7nlm}); Vol 9 Ch.~\ref{ch:vol9_temperature_characteristics} \\
+Ruptured-plasma (BH interior) & IV (local) & $\varepsilon_{11} = 7GM/(c^2 r) \ge 1$ at the Schwarzschild radius $r_s = 2GM/c^2$ & Substrate locally in Regime IV; shear modulus phase-transitions $G_{shear} \to 0$; SUBSTRATE SINGLE-MEDIUM THROUGHOUT --- RUPTURED-PLASMA SINK, NOT a separate B-sublattice & \kbleaf{vol3/gravity/ch03-macroscopic-relativity/} \kbleaf{dielectric-rupture-event-horizon.md} (\texttt{clm-ir8h78}); Vol 9 Ch.~\ref{ch:vol9_breakdown_characteristics}~$\S$\ref{sec:vol9_cosmological_breakdown} \\
+Cosmic-genesis (lattice-genesis crystallization) & III$\to$I cascade & $\hat{\Omega}_{freeze}$ (cosmic angular momentum at crystallization) & Substrate post-$\hat{\Omega}_{freeze}$ single-seed crystallization; bond over-bracing $u_0 = u_0^*$ frozen-in; right-handed $I4_1 32$ chirality selected; cosmological initial conditions for $\alpha + G$ jointly set & \kbleaf{common/omega-freeze-cosmic-grain-cascade.md} (\texttt{clm-dsb560}, \texttt{clm-a7cbqq}); Vol 9 Ch.~\ref{ch:vol9_cosmological_characteristics}~$\S$\ref{sec:vol9_cosmo_lattice_genesis} \\
+\bottomrule
+\end{tabular}
+\caption{The three cosmic phases of the substrate (standard cosmic / ruptured-plasma / cosmic-genesis), their regime, control parameter, and canonical sources.}
+\label{tab:vol9_cosmic_phases}
+\end{table}
+
+\subsection{Standard cosmic phase}
+\label{subsec:vol9_phase_standard}
+
+The substrate at cosmological distance from any bulk mass concentration sits at the substrate's natural cosmic operating point $u_0^*$: the magic-angle bond over-bracing at which $K(u_0^*) = 2G(u_0^*)$ and the Axiom 4 kernel $S(A^*) = 0$ close jointly (Vol 9 Ch.~\ref{ch:vol9_cosmological_characteristics}~$\S$\ref{sec:vol9_cosmo_magic_angle}). At cosmic-scale bulk this is the $r \ll 1$ side of the operating-point axis (Regime I in the kernel partition); the thermal occupation at $T_{CMB} = \qty{2.725}{\kelvin}$ produces the $\delta_{strain} \approx \num{2.225e-6}$ asymmetric-thermal-mode-population $\alpha$-drift (canonical at \kbleaf{delta-strain-cosmic-tcc.md} \texttt{clm-hp7nlm}; Vol 9 Ch.~\ref{ch:vol9_temperature_characteristics}). The standard cosmic phase is the substrate's natural single-phase state across $\sim 10^{39}$ lumped substrate cells (Vol 9 Ch.~\ref{ch:vol9_cosmological_characteristics}~$\S$\ref{sec:vol9_cosmo_hierarchy}).
+
+\subsection{Ruptured-plasma phase (black-hole interior)}
+\label{subsec:vol9_phase_ruptured_plasma}
+
+The substrate locally enters Regime IV at cosmological-scale strain when matter aggregates beyond the Schwarzschild compactness limit. Per canonical \kbleaf{vol3/gravity/ch03-macroscopic-relativity/dielectric-rupture-event-horizon.md} (\texttt{clm-ir8h78}), the Schwarzschild radius $r_s = 2GM/c^2$ is the physical radius at which the substrate's refractive strain $\varepsilon_{11}$ reaches unity (the Axiom 4 dielectric-saturation limit), not a coordinate singularity. Inside $r_s$ the substrate is in Regime IV: the shear modulus phase-transitions $G_{shear} \to 0$ (canonical at \kbleaf{vol3/claim-quality.md} BH-interior phase-transition entries); the interior cannot support coherent K4 topology.
+
+\textbf{Canonical preservation (preserved verbatim per project-memory framing).} The BH interior is \textbf{ruptured plasma} --- the substrate above $V_{snap}$ in the cosmological sector. It is \textbf{NOT a separate B-sublattice}; the substrate is single-medium throughout. The canonical translation-table entry at \kbleaf{ave-kb/common/translation-tables/translation-circuit.md}:133 maps \emph{Black-hole-interior ruptured plasma} to \emph{plasma physics} (the canonical EE-adjacent discipline at the cosmological-rupture scale). The ruptured-plasma interior is \textbf{NOT a daughter cosmology} --- no baby universe, no nested seed, no inner cosmic genesis. The interior is observationally inaccessible from outside the $\Gamma = -1$ saturated horizon; the AVE structural claim about its substrate state is a phase-transition consequence, not a cosmogonic posit.
+
+\subsection{Cosmic-genesis phase}
+\label{subsec:vol9_phase_genesis}
+
+The substrate's initial condition is the cosmic-genesis lattice-crystallization event canonical at \kbleaf{manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md} (\texttt{clm-dsb560}, \texttt{clm-a7cbqq}). At lattice genesis, a single crystallizing substrate region underwent the phase transition from disordered hot pre-substrate to ordered chiral K4 Cosserat crystal $\mathcal{M}_A$ while the region carried cosmic angular momentum $\hat{\Omega}_{freeze}$. The crystallization is a cosmic-scale instance of the Axiom 4 universal saturation kernel (the same kernel governing all 26 cross-scale topological-reorganization events; canonical at \kbleaf{common/universal-saturation-kernel-catalog.md}).
+
+The phase-transition-while-spinning mechanism fixed (i) the bond over-bracing $u_0 = u_0^*$ via the rotating-frame equilibrium; (ii) the global chirality direction --- the substrate locked into the right-handed $I4_1 32$ chiral space group; (iii) the cosmic-boundary winding $\mathcal{J}_{cosmic} = \hat{\Omega}_{freeze} \cdot I_{cosmic}$; (iv) all downstream cosmological observable physics ($\alpha$, $G$, $H_\infty$, the CMB axis-of-evil direction at $(l, b) = (60.28°, 50.48°)$). The cosmic-genesis phase is the substrate's permanent boot-state initial condition; the standard cosmic phase is its long-term evolved state.
+
+\textbf{Single-seed, NOT multiverse (canonical preservation per project-memory framing).} The framework's cosmology is \textbf{single-seed lattice genesis}: the observable universe emerged from a single chiral seed crystallizing under angular momentum. There is no multiverse; there are no multiple universes occupying disjoint seed events; there are no baby-universe black holes with daughter cosmologies inside them. The cosmic substrate documented in this datasheet is the natural single-seed substrate; engineering observation accesses it via CMB, large-scale-structure, supernova distance-ladder, and gravitational-constant measurements.
+
+\section{Cross-Phase Transitions}
+\label{sec:vol9_phase_transitions}
+
+The four operating-point regimes are separated by three substrate-natural boundaries; each marks an engineering-observable transition in the substrate's bulk response. Cosmic-phase transitions are governed by the same Axiom 4 kernel evaluated at cosmological strain.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}p{0.13\linewidth} p{0.14\linewidth} p{0.18\linewidth} p{0.23\linewidth} p{0.22\linewidth}@{}}
+\toprule
+\textbf{Transition} & \textbf{Boundary $r$} & \textbf{$S$ at boundary} & \textbf{Substrate-physics signature} & \textbf{Engineering observable} \\
+\midrule
+I $\to$ II & $r_1 = \sqrt{2\alpha} \approx 0.1208$ & $S \approx 0.993$ & Axiom 4 kernel curvature first exceeds lattice self-coupling $\alpha$; sub-$\alpha$ corrections resolved & Voltage-coefficient-of-capacitance becomes measurable (Class II ceramics, varactor C-vs-V departure) \\
+II $\to$ III & $r_2 = \sqrt{3}/2 \approx 0.8660$ (spin-2 sector) & $S = 0.500$ & $Q(r) = 1/S(r) = \ell_{\min} = 2$; energy-trapping per cycle exceeds radiated energy; Miller $M = 1/S^2 = 4$ & Avalanche-photodiode gain $M_{APD}$ becomes substantive ($M \ge 2$); Zener-knee transition \\
+III $\to$ IV & $r_3 = 1$ & $S = 0$ & Substrate topology destroyed; topological reorganization required; $V_{snap}$ at engineering scale = Schwinger $E_S$ at substrate scale & Schwinger pair production; semiconductor junction destruction; ruptured-plasma cascade at cosmological scale \\
+\bottomrule
+\end{tabular}
+\caption{The three cross-regime transition boundaries ($r_1$, $r_2$, $r_3$) with substrate-physics signature and engineering observable.}
+\label{tab:vol9_phase_transitions}
+\end{table}
+
+\noindent
+\textbf{Pointer to substrate-mechanism characterization.} Vol 9 Ch.~\ref{ch:vol9_absolute_maximum_ratings} (Absolute Maximum Ratings) catalogs the numerical limits at each boundary ($V_{yield} \approx \qty{43.65}{\kilo\volt}$ at I/II in the dielectric sector; $V_{snap} \approx \qty{511}{\kilo\volt}$ at III/IV; $E_S \approx \qty{1.32e18}{\volt\per\metre}$ at the field-strength projection). Vol 9 Ch.~\ref{ch:vol9_breakdown_characteristics} carries the Regime III Miller-multiplication identity $M(r) = 1/S(r)^2$ as the substrate amplification law, and the Regime IV Schwinger pair-production substrate mechanism (saturated flux-tube rupture + $c_{local} \to 0$ KE shatter + parity-conserving Beltrami-vortex pair + Duffing autoresonant gate; canonical \texttt{clm-ezai5b}).
+
+\subsection{Cosmic-scale phase transition: lattice-genesis crystallization}
+\label{subsec:vol9_phase_transition_genesis}
+
+The cosmic-genesis-to-standard-cosmic transition is the cosmic-scale instance of substrate phase transition. At cosmological time, the substrate cooled out of the high-strain pre-substrate phase through the Axiom 4 kernel; at the magic-angle operating point $u_0^*$ the K4 Cosserat crystal first stabilized as the lowest-energy ordered phase under angular momentum $\hat{\Omega}_{freeze}$. The transition is a cosmic-scale instance of the universal Ax 4 saturation kernel (canonical \kbleaf{universal-saturation-kernel-catalog.md}). The post-transition standard cosmic phase has been evolving at the substrate's natural Hubble crystallization rate $H_\infty \approx 69.33$~km/s/Mpc since (Vol 9 Ch.~\ref{ch:vol9_cosmological_characteristics}~$\S$\ref{sec:vol9_cosmo_hierarchy}); the next cosmological phase transition the framework predicts is asymptotic de Sitter equilibrium at the cosmological-constant closure $\rho_\Lambda$ (canonical at \kbleaf{cosmological-constant-closure.md}).
+
+\subsection{Cosmic-scale phase transition: BH-interior substrate rupture}
+\label{subsec:vol9_phase_transition_bh}
+
+The standard-cosmic-to-ruptured-plasma transition is the cosmic-scale instance of the operating-point Regime III$\to$IV transition. At the Schwarzschild radius $r_s = 2GM/c^2$ around a sufficient mass concentration, the substrate's refractive strain $\varepsilon_{11}$ reaches unity (Axiom 4 saturation limit); interior to $r_s$ the substrate is in Regime IV with $G_{shear} \to 0$. The transition is observationally bracketed by the LIGO ring-down quasi-normal-mode spectrum at $\omega_R M_g = 18/49$ in the spin-2 sector (canonical at \kbleaf{vol3/cosmology/ch15-black-hole-orbitals/}). The BH-formation crossing is the cosmic-scale instance of the same Axiom 4 kernel at $r \to 1$ governing every engineering-scale Schwinger pair-production event.
+
+\section{EE Phase-Diagram Translation}
+\label{sec:vol9_phase_ee_translation}
+
+Per the EE-as-substrate-native META framework (canonical at \kbleaf{manuscript/ave-kb/common/translation-tables/translation-circuit.md} \texttt{clm-eemap1}; companion skill \texttt{ave-ee-first-mapping} v1.0), the substrate's phase-organization axes project cleanly onto canonical EE phase-diagram analogs at the corresponding component scale. EE phase diagrams are not borrowed analogies; they are the substrate's same operating-point axis projected onto the engineering-empirical observable at the EE scale. The cross-disciplinary table below extends the EE projection across the four classical disciplines that have a canonical phase-diagram analog of the substrate's four regimes (per \texttt{ave-discipline-translate} v1.1 Trigger 6 substrate-native-vocabulary-primary discipline).
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}p{0.13\linewidth} p{0.21\linewidth} p{0.22\linewidth} p{0.16\linewidth} p{0.18\linewidth}@{}}
+\toprule
+\textbf{Discipline} & \textbf{Engineering phase-diagram} & \textbf{Substrate-axis projection} & \textbf{Substrate Regime mapping} & \textbf{Canonical leaf} \\
+\midrule
+Semiconductor I-V & DC bias / switching transient / avalanche / breakdown (p-n junction operating regions) & $V_R/V_{BR}$ axis = substrate $r = A/A_{yield}$; $V_{BR}$ = substrate $V_{yield}$ at doped-silicon scale & I = small-signal; II = switching; III = avalanche ($M \ge 2$); IV = junction destruction ($V_R = V_{BR}$) & \texttt{four-regimes.md} \texttt{clm-2dwzib}; \kbleaf{translation-circuit.md} \S 9 \\
+Varactor C-vs-V & Linear-C / saturating-C / pre-breakdown / breakdown (DC-biased varactor characteristic curve) & DC bias $V_{DC}/V_{yield}$ axis = substrate $r$; varactor C(V) = substrate $C_{eff}/C_0 = 1/S(r)$ & I = small-signal varactor; II = nonlinear-onset (PONDER-05 at $r = 0.687$); III = pre-breakdown $1/S^2 \ge 4$; IV = dielectric rupture & Vol 9 Ch.~\ref{ch:vol9_saturation_characteristics}; PONDER-05 canonical \\
+Tribology (Stribeck curve) & Boundary / mixed / hydrodynamic / hyper-lubricated regimes vs. Sommerfeld number & Sommerfeld number = substrate Cosserat couple-stress operating-point projection; lubricant $\eta\,\omega/p$ axis $\leftrightarrow$ Cosserat $\gamma_c$ saturation & I = hyper-lubricated (low friction, linear shear); II = hydrodynamic; III = mixed; IV = boundary / lubricant breakdown & \texttt{ave-discipline-translate} v1.1 cross-disciplinary mapping (companion); \kbleaf{trampoline-framework.md} $\S$5.5 \\
+Cavity-QED coupling & Weak / strong / ultrastrong / deep-strong (Rabi vs. $\omega_c$) & Coupling ratio $g/\omega_c$ axis = substrate operating-point $A_0/A_{yield}$ projected onto cavity-substrate coupling; cavity = K4 LC tank & I = weak ($g/\omega_c \ll 1$, standard JC model); II = strong (vacuum Rabi splitting); III = ultrastrong (anti-RWA terms dominate); IV = deep-strong (cavity-substrate hybridization $\to$ cavity rupture) & \kbleaf{translation-circuit.md} \S 4 row ``LC tank Q-factor''; \kbleaf{theorem-3-1-q-factor.md} \\
+\bottomrule
+\end{tabular}
+\caption{Substrate phase-organization axis projected onto canonical EE / cross-disciplinary phase-diagram analogs (semiconductor I-V, varactor C-V, tribology, cavity-QED).}
+\label{tab:vol9_phase_ee_translation}
+\end{table}
+
+\noindent
+\textbf{Substrate-native primary, engineering-empirical secondary.} Per the EE-as-substrate-native META framework, every row above is the same substrate-physics primitive in a different engineering-disciplinary dialect. The engineering-empirical phase diagram was developed first historically (semiconductor I-V characteristic from Bardeen + Brattain bench measurements; Stribeck curve from tribology bench testing of lubricated bearings; cavity-QED coupling regimes from Haroche + Wineland cavity experiments); AVE substrate-physics derives the substrate-mechanism that explains why the engineering-empirical phase boundaries take the form they do. The substrate is single-medium with one operating-point axis ($r = A/A_c$); engineering practice has empirically partitioned this axis along each discipline's own observable, and the partition is the substrate's Regime I-IV partition at the corresponding scale.
+
+\textbf{Plasma physics at the cosmological-rupture scale.} The BH-interior ruptured-plasma phase is the canonical AVE projection onto plasma physics --- the EE-adjacent discipline at the cosmological-rupture scale (canonical entry at \kbleaf{translation-circuit.md}:133). The substrate is single-medium throughout; the ruptured-plasma phase is the substrate above $V_{snap}$ in the cosmological sector, NOT a separate sublattice or material.
+
+\section{Canonical Source Routing}
+\label{sec:vol9_phase_canonical_sources}
+
+This chapter is a synthesis chapter: no substrate primitive is re-derived; the phase-diagram structure is consolidated from canonical leaves. The canonical derivations live at:
+
+\begin{itemize}
+    \item \textbf{Universal four-regime partition (canonical $r_1, r_2, r_3$ boundary derivations):} \kbleaf{manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md} (\texttt{clm-2dwzib} regime map verbatim + \texttt{clm-b2anl4} regime boundaries from first principles).
+    \item \textbf{Substrate-domain phase mapping (8 substrate domains $\to$ Regime I-IV):} \kbleaf{manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/domain-catalog.md} (\texttt{clm-82dxbj}; canonical 8-domain control-parameter catalog).
+    \item \textbf{Axiom 4 canonical statement:} \kbleaf{manuscript/common\_equations/eq\_axiom\_4.tex} (single source of truth; INVARIANT-S2 mirror at \kbleaf{manuscript/ave-kb/CLAUDE.md}).
+    \item \textbf{Saturation-kernel characteristic curves (Regime I + II detailed treatment):} Vol 9 Ch.~\ref{ch:vol9_saturation_characteristics}; canonical at A-034 universal kernel catalog \kbleaf{manuscript/ave-kb/common/universal-saturation-kernel-catalog.md}.
+    \item \textbf{Regime III Miller-multiplication + Regime IV Schwinger substrate-mechanism:} Vol 9 Ch.~\ref{ch:vol9_breakdown_characteristics}; canonical at \kbleaf{manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md} (\texttt{clm-ezai5b}) + \kbleaf{q-g18-schwinger-pair-wkb.md} (\texttt{clm-lj4ok5}).
+    \item \textbf{Cosmic-genesis $\hat{\Omega}_{freeze}$ mechanism + lattice-genesis single-seed canonical framing:} \kbleaf{manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md} (\texttt{clm-dsb560}, \texttt{clm-a7cbqq}, \texttt{clm-pe8lpx}, \texttt{clm-fndptx}); Vol 9 Ch.~\ref{ch:vol9_cosmological_characteristics}~$\S$\ref{sec:vol9_cosmo_lattice_genesis}.
+    \item \textbf{BH-interior ruptured-plasma canonical framing:} \kbleaf{manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/dielectric-rupture-event-horizon.md} (\texttt{clm-ir8h78}); \kbleaf{translation-circuit.md}:133 (BH-interior ruptured-plasma $\to$ plasma physics); Vol 9 Ch.~\ref{ch:vol9_breakdown_characteristics}~$\S$\ref{sec:vol9_cosmological_breakdown}.
+    \item \textbf{Standard cosmic phase $\delta_{strain}$ at $T_{CMB}$:} \kbleaf{manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md} (\texttt{clm-hp7nlm}); Vol 9 Ch.~\ref{ch:vol9_temperature_characteristics}.
+    \item \textbf{Cosmological-constant closure (asymptotic de Sitter equilibrium):} \kbleaf{manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md} (\texttt{clm-s4n33u}).
+    \item \textbf{EE phase-diagram translation:} \kbleaf{manuscript/ave-kb/common/translation-tables/translation-circuit.md} (\texttt{clm-eemap1} META framework; canonical entries for semiconductor, varactor, plasma, cavity-QED projections); \texttt{ave-ee-first-mapping} v1.0 skill (canonical substrate-to-EE mapping table at \S 4 of the leaf).
+    \item \textbf{Cross-disciplinary phase-regime tables (tribology Stribeck curve; cavity-QED coupling regimes):} \texttt{ave-discipline-translate} v1.1 Trigger 6 substrate-native-vocabulary-primary cross-disciplinary mapping.
+    \item \textbf{Temporal axis on top of regime classification:} \kbleaf{manuscript/ave-kb/common/temporal-saturation-regime-classifier.md} (orthogonal lossless / cyclic / lossy classification of how the substrate evolves THROUGH the regimes per observation window).
+\end{itemize}
+
+\noindent
+The natural vacuum substrate carries one operating-point axis ($r = A/A_c$ along the Axiom 4 kernel) and one cosmological initial-data axis ($\hat{\Omega}_{freeze}$ at lattice genesis). This chapter consolidates both into datasheet phase-diagram format; AVE substrate-physics derives the regime partition from Axiom 4 + the cosmic-phase partition from Axiom 1 cosmological projection; engineering practice empirically measures phase boundaries at the semiconductor I-V, varactor C-vs-V, Stribeck-curve, cavity-QED coupling-regime, and (cosmologically) CMB + LIGO ringdown observational scales. The substrate is natural; the phase organization is the substrate's natural response to operating point + cosmic-initial-condition history.

@@ -61,7 +61,7 @@ for z, (src_folder, dest_file) in mapping.items():
 
     if tex_files:
         src_tex = tex_files[0]
-        with open(src_tex, "r") as f:
+        with open(src_tex, "r", encoding="utf-8") as f:
             content = f.read()
 
         content = content.replace("\\subsection{", "\\subsubsection{")
@@ -74,7 +74,7 @@ for z, (src_folder, dest_file) in mapping.items():
 
         append_txt = f"\n\n\\section{{Orbital Knot Topology}}\n{content}\n"
 
-        with open(dst_path, "a") as f:
+        with open(dst_path, "a", encoding="utf-8") as f:
             f.write(append_txt)
 
         print(f"Merged {src_folder} orbital data into {dest_file}")

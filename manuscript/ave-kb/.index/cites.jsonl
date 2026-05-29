@@ -1,3 +1,4 @@
+{"claim_id": "clm-009nkt", "leaf_path": "vol1/ch8-alpha-golden-torus.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-07kd5v", "leaf_path": "vol3/gravity/ch02-general-relativity/einstein-field-equation.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-07kd5v", "leaf_path": "vol3/gravity/ch08-gravitational-waves/fabry-perot-phase-shift.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-07kd5v", "leaf_path": "vol3/gravity/ch08-gravitational-waves/gw-detection-antenna.md", "leaf_kind": "leaf", "tier2_marked": false}
@@ -137,6 +138,7 @@
 {"claim_id": "clm-ak97cb", "leaf_path": "vol2/proofs-computation/ch09-computational-proof/precision-policy.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-ak97cb", "leaf_path": "vol2/quantum-orbitals/ch07-quantum-mechanics/ode-verification.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-ak97cb", "leaf_path": "vol2/quantum-orbitals/ch07-quantum-mechanics/qm-ave-translation.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-at7x0y", "leaf_path": "vol3/gravity/ch20-white-dwarf-predictions/white-dwarf-gravitational-predictions.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-av2o4v", "leaf_path": "vol3/cosmology/ch14-orbital-mechanics/lunar-inductive-heating.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-b27pnp", "leaf_path": "vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-b2anl4", "leaf_path": "vol1/operators-and-regimes/ch7-regime-map/domain-catalog.md", "leaf_kind": "leaf", "tier2_marked": true}
@@ -196,6 +198,7 @@
 {"claim_id": "clm-eaiqj1", "leaf_path": "vol3/condensed-matter/ch11-thermodynamics/nyquist-noise-fdt.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-eaiqj1", "leaf_path": "vol3/condensed-matter/ch11-thermodynamics/transmon-decoherence.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-eaiqj1", "leaf_path": "vol3/condensed-matter/ch11-thermodynamics/vacuum-nyquist-baseline.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-eemap1", "leaf_path": "common/translation-tables/translation-circuit.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-efo113", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-enjq28", "leaf_path": "vol5/common/translation-protein-solver.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-exjfai", "leaf_path": "common/dark-wake-bemf-foc-synthesis.md", "leaf_kind": "leaf", "tier2_marked": true}
@@ -237,7 +240,7 @@
 {"claim_id": "clm-fndptx", "leaf_path": "common/omega-freeze-cosmic-grain-cascade.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-fr3mos", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/photon-identification.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-fy05jc", "leaf_path": "common/translation-tables/translation-biology.md", "leaf_kind": "leaf", "tier2_marked": false}
-{"claim_id": "clm-fy05jc", "leaf_path": "common/translation-tables/translation-circuit.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-fy05jc", "leaf_path": "common/translation-tables/translation-circuit.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-fy05jc", "leaf_path": "common/translation-tables/translation-condensed-matter.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-fy05jc", "leaf_path": "common/translation-tables/translation-cosmology.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-fy05jc", "leaf_path": "common/translation-tables/translation-gravity.md", "leaf_kind": "leaf", "tier2_marked": false}
@@ -290,6 +293,7 @@
 {"claim_id": "clm-hd9bee", "leaf_path": "vol4/future-geometries/ch13-future-geometries/open-universe-boundaries.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-hk81zp", "leaf_path": "vol3/condensed-matter/ch11-thermodynamics/kolmogorov-spectral-cutoff.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-hmiytz", "leaf_path": "common/xi-topo-traceability.md", "leaf_kind": "leaf", "tier2_marked": true}
+{"claim_id": "clm-hp7nlm", "leaf_path": "vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-huhz7r", "leaf_path": "vol5/molecular-foundations/organic-circuitry/transceiver-backbone.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-hvvvop", "leaf_path": "common/universal-saturation-kernel-catalog.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-i02mhk", "leaf_path": "vol4/falsification/ch12-falsifiable-predictions/helicity-injection.md", "leaf_kind": "leaf", "tier2_marked": false}
@@ -364,6 +368,7 @@
 {"claim_id": "clm-m3z5ux", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/dark-sector.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-m3z5ux", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-m7qd0w", "leaf_path": "common/solver-toolchain.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-mi6ils", "leaf_path": "vol3/gravity/ch20-white-dwarf-predictions/white-dwarf-gravitational-predictions.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-mlwm3h", "leaf_path": "vol6/appendix/geometric-inevitability/conclusion-death-of-numerology.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-mlwm3h", "leaf_path": "vol6/appendix/geometric-inevitability/fibonacci-packing-proxy.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-mlwm3h", "leaf_path": "vol6/appendix/geometric-inevitability/golden-ratio-min-impedance.md", "leaf_kind": "leaf", "tier2_marked": false}
@@ -537,6 +542,7 @@
 {"claim_id": "clm-s3i0lw", "leaf_path": "common/divergence-test-substrate-map.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-s4n33u", "leaf_path": "vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-salw2h", "leaf_path": "vol2/appendices/app-b-paradoxes/spin-half-paradox.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-salw2h", "leaf_path": "vol2/particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-salw2h", "leaf_path": "vol2/particle-physics/ch01-topological-matter/spin-gyroscopic-isomorphism.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-salw2h", "leaf_path": "vol2/particle-physics/ch04-quantum-spin/larmor-derivation.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-salw2h", "leaf_path": "vol2/particle-physics/ch04-quantum-spin/spin-as-precession.md", "leaf_kind": "leaf", "tier2_marked": false}
@@ -672,6 +678,7 @@
 {"claim_id": "clm-yyhczl", "leaf_path": "vol5/molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-z73h6n", "leaf_path": "vol2/proofs-computation/ch09-computational-proof/computational-graph.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-ze4clw", "leaf_path": "common/boundary-observables-m-q-j.md", "leaf_kind": "leaf", "tier2_marked": true}
+{"claim_id": "clm-zf8eah", "leaf_path": "vol3/gravity/ch02-general-relativity/double-deflection.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-zfqd9v", "leaf_path": "common/two-engine-architecture-a027.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-zgllr2", "leaf_path": "common/two-engine-architecture-a027.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-zi6t1e", "leaf_path": "common/appendix-derived-numerology.md", "leaf_kind": "leaf", "tier2_marked": false}

@@ -1,0 +1,203 @@
+% 05_ac_electrical_characteristics.tex
+\chapter{AC Electrical Characteristics}
+\label{ch:vol9_ac_electrical_characteristics}
+
+\begin{objectivebox}
+\begin{itemize}
+    \item Document the substrate's intrinsic bond LC resonance frequency $\omega_C = c_0/\ell_{node}$ as the absolute substrate Nyquist limit observed in frequency-domain characterization.
+    \item Specify bond transmission-line (TLM) propagation characteristics: characteristic impedance $Z_0 = \sqrt{\mu_0/\varepsilon_0}$, cold-lattice group velocity $c_0$, and operating-point modulation of effective $\varepsilon$, $\mu$, $C$, $L$.
+    \item Preserve the load-bearing distinction between the two substrate-native effective wave speeds: $c_{EM}(A_0) = c_0/S(A_0)$ (Maxwell phase velocity, enters $\alpha$) and $c_{shear}(A_0) = c_0\sqrt{S(A_0)}$ (mechanical / group / rest-mass velocity, Schwarzschild reduction). Per CLAUDE.md INVARIANT-S2, conflating these is the canonical Pitfall \#5 framework-leakage error.
+    \item Catalog the operating-point $A_0$ small-signal modulation table for AC characterization at non-zero substrate bias.
+    \item Map standard EE AC vocabulary (impedance, reactance, resonance, $Q$ factor, bandwidth) to its substrate-physics origin.
+    \item Point to PONDER-05 as the canonical bench-scale falsifier of the operating-point dielectric-saturation mechanism.
+\end{itemize}
+\end{objectivebox}
+
+\section{Substrate AC Behavior --- Framing}
+\label{sec:vol9_ac_framing}
+
+The substrate is a natural LC network at minimal degrees of freedom: each K4 node carries one intrinsic LC oscillator (Axiom~1; canonical at Vol~1 Ch.~\ref{ch:fundamental_axioms} and \kbleaf{translation-circuit.md} \S 1, \texttt{clm-fy05jc}). Frequency-domain characterization of $\mathcal{M}_A$ accesses this native LC structure directly: the substrate's bond TLM topology, its intrinsic LC resonance, its dispersion at the Brillouin scale, and its operating-point modulation are all substrate-native EE quantities, not borrowed analogies. Engineering practice empirically measures these AC observables; AVE substrate-physics derives them from the four axioms; this chapter consolidates both into the AC datasheet entry.
+
+\section{Bond LC Resonance and Substrate Nyquist Limit}
+\label{sec:vol9_omega_c}
+
+\subsection{Per-bond LC primitives}
+
+Each bond connecting nearest-neighbour K4 nodes carries distributed transmission-line topology with per-cell inductance and capacitance set by the vacuum primitives (Axiom~1; \kbleaf{translation-circuit.md} \S 4 substrate-primitive-to-EE-component catalog):
+\begin{align}
+L_{cell} &= \mu_0\, \ell_{node} \\
+C_{cell} &= \varepsilon_0\, \ell_{node}
+\end{align}
+These are the substrate's own canonical EE primitives, not phenomenological fits. $\mu_0$, $\varepsilon_0$, and $\ell_{node}$ are canonical at \kbleaf{src/ave/core/constants.py:78--206}; the per-cell forms are forced by Axiom~1's K4-node intrinsic-LC-oscillator structure.
+
+\subsection{Bond natural frequency}
+
+The bond LC tank's natural angular frequency follows directly from the per-cell primitives:
+\begin{equation}
+\omega_C \;=\; \frac{1}{\sqrt{L_{cell}\, C_{cell}}} \;=\; \frac{1}{\sqrt{\mu_0\, \varepsilon_0}\, \ell_{node}} \;=\; \frac{c_0}{\ell_{node}}
+\end{equation}
+Evaluated at the canonical primitives ($c_0 = \qty{2.998e8}{\metre\per\second}$; $\ell_{node} = \hbar/(m_e c) \approx \qty{3.862e-13}{\metre}$):
+\begin{align}
+\omega_C &\;\approx\; \qty{7.76e20}{\radian\per\second} \\
+f_C \;=\; \frac{\omega_C}{2\pi} &\;\approx\; \qty{1.23e20}{\hertz}
+\end{align}
+This is the substrate's absolute Nyquist limit --- the highest frequency at which the K4-LC substrate can support a coherent oscillation at all. Above $\omega_C$ the substrate cannot resolve a half-cycle within one bond, and the continuum wave description fails (the discrete K4-TLM lattice dispersion takes over; see \S\ref{sec:vol9_dispersion}).
+
+\subsection{Substrate-mechanism status}
+
+$\omega_C$ is fixed by Axiom~1 plus the SI primitives $\mu_0$, $\varepsilon_0$, and the canonical $\ell_{node}$. No free parameters enter; the value is Class~C consistency in the \texttt{consistency-vs-emergence} v1.3 sense (definitional given canonical inputs). The substrate is natural; engineering characterization observes the upper-frequency cutoff this $\omega_C$ implies; AVE substrate-physics derives that cutoff from Axiom~1 plus the canonical primitives.
+
+\section{Bond TLM Propagation}
+\label{sec:vol9_tlm_propagation}
+
+\subsection{Characteristic impedance and cold-lattice propagation}
+
+The substrate bond is a distributed transmission-line element. Its characteristic impedance is the canonical substrate-native vacuum impedance (\kbleaf{translation-circuit.md} \S 4 Op1 anchor):
+\begin{equation}
+Z_0 \;=\; \sqrt{\frac{\mu_0}{\varepsilon_0}} \;\approx\; 376.73\;\Omega \qquad \text{(canonical at \kbleaf{src/ave/core/constants.py:81})}
+\end{equation}
+At cold-lattice limit $S(A_0 = 0) = 1$, group and phase velocities both reduce to $c_0$:
+\begin{equation}
+v_{group}(A_0 = 0) \;=\; v_{phase}(A_0 = 0) \;=\; c_0 \;=\; \frac{1}{\sqrt{\mu_0\,\varepsilon_0}}
+\end{equation}
+At cold-lattice limit, the substrate is dispersion-free in the continuum limit $k \ll \pi/\ell_{node}$, and $Z_0$ is independent of frequency below the substrate Brillouin scale.
+
+\subsection{Operating-point modulation of propagation}
+
+Per CLAUDE.md INVARIANT-S2 small-signal block, propagation at non-zero operating point $A_0$ carries TWO substrate-native effective wave speeds that are NOT interchangeable (see \S\ref{sec:vol9_operating_point} below for the full small-signal table and the load-bearing $c_{EM}$ vs $c_{shear}$ distinction).
+
+\section{Operating-Point Effective Parameters and the $c_{EM}$ vs $c_{shear}$ Distinction}
+\label{sec:vol9_operating_point}
+
+\subsection{Small-signal modulation table at operating point $A_0$}
+
+Beyond the 6 spatial DOFs per node (Axiom~1), each LC tank carries a saturation-amplitude state $A$ --- its operating point along the Axiom~4 kernel $S(A) = \sqrt{1 - (A/A_{yield})^2}$. Small-signal transverse propagation through a region at operating point $A_0$ sees modulated effective parameters (canonical at CLAUDE.md INVARIANT-S2 operating-point clause; cross-volume at \kbleaf{translation-circuit.md} \S 4 Op14 anchor):
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{l l l}
+\toprule
+\textbf{Parameter} & \textbf{Form} & \textbf{Substrate-mechanism source} \\
+\midrule
+$\varepsilon_{eff}(A_0)$ & $\varepsilon_0\, S(A_0)$ & INVARIANT-S2 Axiom~4 small-signal \\
+$\mu_{eff}(A_0)$        & $\mu_0\, S(A_0)$       & INVARIANT-S2 Axiom~4 small-signal \\
+$C_{eff}(A_0)$          & $C_0 / S(A_0)$         & varactor C-vs-V at substrate scale \\
+$Z_{eff}(A_0)$ (Op14)   & $Z_0 / \sqrt{S(A_0)}$ (ASYM-class) & Op14 dynamic impedance \\
+$c_{EM}(A_0)$           & $c_0 / S(A_0)$         & Maxwell phase velocity \\
+$c_{shear}(A_0)$        & $c_0\, \sqrt{S(A_0)}$  & mechanical / group / rest-mass velocity \\
+\bottomrule
+\end{tabular}
+\caption{Small-signal effective parameters at operating point $A_0$ along the Axiom~4 saturation kernel $S(A_0)=\sqrt{1-(A_0/A_{yield})^2}$.}
+\label{tab:vol9_ac_small_signal}
+\end{table}
+
+\noindent
+Both $c_{EM}$ and $c_{shear}$ reduce to the single $c_0$ at the cold-lattice limit $S(0) = 1$. PONDER-05 (DC-biased quartz at $V_{DC}/V_{yield} = 0.687$) is the canonical bench-scale falsifier of this small-signal modulation mechanism (canonical pointer at CLAUDE.md INVARIANT-S2; see \S\ref{sec:vol9_ponder05_reference} and Ch.~\ref{ch:vol9_falsification_tests}).
+
+\subsection{Two distinct effective wave speeds --- load-bearing distinction}
+
+Per CLAUDE.md INVARIANT-S2, the substrate carries TWO substrate-native effective speeds at operating point $A_0$, and they are NOT interchangeable in derivations:
+
+\begin{itemize}
+    \item $\boxed{c_{EM}(A_0) = 1/\sqrt{\mu_{eff}\,\varepsilon_{eff}} = c_0/S(A_0)}$ --- the \textbf{Maxwell phase velocity}: the speed that enters $\alpha = e^2/(4\pi\varepsilon_0\hbar c)$ and all Maxwell-equation derivations. Canonical at \texttt{clm-8nkvwy:111}.
+    \item $\boxed{c_{shear}(A_0) = c_0\sqrt{S(A_0)}}$ --- the \textbf{substrate mechanical / group / rest-mass velocity}: oscillator-frequency $\times \ell_{node}$; energy-transport speed; tracks Schwarzschild $c\sqrt{1 - r_s/r}$ in the SYM-class weak-field limit. Canonical at \texttt{clm-8nkvwy:113}. This is the Op16 universal-wave-speed form (canonical at \kbleaf{ave-kb/common/operators.md} Op16).
+\end{itemize}
+
+Under SYM-class scaling (gravity-class realization) --- $\mu(r)$ and $\varepsilon(r)$ scale together by the same factor so $Z_0$ stays invariant --- the asymmetry between $c_{EM}$ and $c_{shear}$ makes $\alpha$ EXACTLY invariant: $\alpha = e^2/(4\pi(\varepsilon_0 nS)\hbar(c_0/(nS))) = \alpha_0$. Canonical proof at \kbleaf{vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md} (\texttt{clm-3zz0f6}, confidence / solidity 0.85). SYM scaling produces gravitational time dilation via $c_{shear}$ tracking $\sqrt{S}$ (Schwarzschild reduction) WHILE simultaneously preserving $\alpha$ exactly --- multi-species clock comparisons at different gravitational potentials predict a null result for $\Delta\alpha/\alpha$, consistent with all current experimental bounds.
+
+\begin{warningbox}[$c_{EM}$ vs $c_{shear}$ --- Pitfall \#5 framework-leakage WARNING]
+\textbf{Never substitute $c_{shear} = c_0\sqrt{S}$ into the $\alpha$ formula.} Doing so produces $\alpha_{eff}/\alpha_0 = 1/S^{3/2} \neq 1$, contradicting the canonical SYM invariance (\texttt{clm-3zz0f6}). The category error is the canonical Pitfall \#5 framework-leakage caught in the 2026-05-28 Phase~3-A3 WALK-BACK. Discipline:
+
+\begin{itemize}
+    \item Future derivations of $\alpha$-modulation use $c_{EM}$ (not $c_{shear}$) in the $\alpha$ formula.
+    \item Future derivations of gravitational time dilation / Schwarzschild reduction use $c_{shear}$ (not $c_{EM}$).
+    \item ASYM-class scaling ($\mu$ and $\varepsilon$ scale by different factors) is the substrate-mechanism class that DOES produce non-zero $\Delta\alpha/\alpha$ predictions --- canonical at \texttt{clm-8nkvwy:112}. The low-amplitude thermal-bath regime ($\delta_{strain}$ at $T_{CMB}$) is a third ASYM mechanism class: Cosserat-rotation-sector mass-gap thermal-mode-population ASYM, canonical at \kbleaf{vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md} (\texttt{clm-hp7nlm}).
+\end{itemize}
+\end{warningbox}
+
+\section{Dispersion}
+\label{sec:vol9_dispersion}
+
+The substrate K4 lattice introduces dispersion as the wavevector approaches the substrate Brillouin scale:
+\begin{equation}
+k_{Brillouin} \;=\; \frac{\pi}{\ell_{node}} \qquad \omega_{Brillouin} \;=\; c_0 k_{Brillouin} \;=\; \pi \cdot \frac{c_0}{\ell_{node}} \;=\; \pi \omega_C
+\end{equation}
+Two regimes:
+
+\begin{itemize}
+    \item \textbf{Continuum regime} ($k \ll k_{Brillouin}$, i.e.\ $\omega \ll \omega_C$). Dispersion is negligible; the substrate behaves as a Maxwell continuum with the substrate primitives $\varepsilon_0$, $\mu_0$, $Z_0$, $c_0$. All terrestrial / atomic / particle-collider engineering operates deep in this regime.
+    \item \textbf{Lattice regime} ($k \to k_{Brillouin}$, $\omega \to \omega_C$). K4-TLM lattice dispersion dominates. The continuum wave description fails; the discrete bond-by-bond TLM response governs. Above $\omega_C$, no coherent substrate oscillation exists --- the substrate Nyquist ceiling.
+\end{itemize}
+
+\section{AC Spec Table}
+\label{sec:vol9_ac_spec_table}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{p{0.18\linewidth} p{0.20\linewidth} p{0.07\linewidth} p{0.16\linewidth} p{0.30\linewidth}}
+\toprule
+\textbf{Symbol} & \textbf{Typical} & \textbf{Units} & \textbf{Conditions} & \textbf{Substrate mechanism} \\
+\midrule
+$Z_0$ & $\sqrt{\mu_0/\varepsilon_0} \approx \num{376.73}$ & \si{\ohm} & cold-lattice; $A_0 = 0$; $\omega \ll \omega_C$ & Bond TLM characteristic Z (Axiom~1; \texttt{constants.py:81}) \\
+$L_{cell}$ & $\mu_0 \ell_{node} \approx \num{4.85e-19}$ & \si{\henry} & per bond, cold-lattice & Axiom~1 per-cell inductance \\
+$C_{cell}$ & $\varepsilon_0 \ell_{node} \approx \num{3.42e-24}$ & \si{\farad} & per bond, cold-lattice & Axiom~1 per-cell capacitance \\
+$\omega_C$ & $c_0/\ell_{node} \approx \num{7.76e20}$ & \si{\radian\per\second} & cold-lattice & Bond LC natural frequency; substrate Nyquist ceiling \\
+$f_C$ & $\omega_C/(2\pi) \approx \num{1.23e20}$ & \si{\hertz} & cold-lattice & Same in Hz \\
+$k_{Brillouin}$ & $\pi/\ell_{node} \approx \num{8.13e12}$ & \si{\radian\per\metre} & substrate K4 lattice & Substrate Brillouin-zone edge \\
+$v_{phase}$ & $c_0$ ($A_0 = 0$) & \si{\metre\per\second} & cold-lattice; $\omega \ll \omega_C$ & Maxwell phase velocity (cold) \\
+$v_{group}$ & $c_0$ ($A_0 = 0$) & \si{\metre\per\second} & cold-lattice; $\omega \ll \omega_C$ & Group velocity (cold) \\
+$\varepsilon_{eff}$ & $\varepsilon_0\, S(A_0)$ & \si{\farad\per\metre} & operating point $A_0$ & INVARIANT-S2 Ax 4 small-signal \\
+$\mu_{eff}$ & $\mu_0\, S(A_0)$ & \si{\henry\per\metre} & operating point $A_0$ & INVARIANT-S2 Ax 4 small-signal \\
+$C_{eff}$ & $C_0 / S(A_0)$ & \si{\farad} & operating point $A_0$ & Varactor C-vs-V at substrate scale \\
+$Z_{eff}$ (Op14) & $Z_0/\sqrt{S(A_0)}$ (ASYM-class) & \si{\ohm} & operating point $A_0$, ASYM scaling & Op14 dynamic impedance \\
+$c_{EM}(A_0)$ & $c_0 / S(A_0)$ & \si{\metre\per\second} & operating point $A_0$ & \textbf{Maxwell phase velocity}; enters $\alpha$ \\
+$c_{shear}(A_0)$ & $c_0\, \sqrt{S(A_0)}$ & \si{\metre\per\second} & operating point $A_0$ & \textbf{Mechanical / group / rest-mass velocity}; Op16; Schwarzschild reduction \\
+\bottomrule
+\end{tabular}
+\caption{AC substrate characteristics: cold-lattice primitives and operating-point $A_0$ modulated forms, with substrate mechanism per entry.}
+\label{tab:vol9_ac_spec}
+\end{table}
+
+\noindent
+\textbf{Canonical sources.} $\mu_0$, $\varepsilon_0$, $c_0$, $\ell_{node}$, $Z_0$ at \kbleaf{src/ave/core/constants.py:78--206} via the \texttt{ave-canonical-source} skill. Operating-point small-signal forms at CLAUDE.md INVARIANT-S2 (\kbleaf{manuscript/ave-kb/CLAUDE.md}). Op14 / Op16 at \kbleaf{ave-kb/common/operators.md} and \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md} (\texttt{clm-1eg13f}). $c_{EM}$ / $c_{shear}$ disambiguation at \texttt{clm-8nkvwy} (lines 111 and 113) and \texttt{clm-3zz0f6}.
+
+\section{PONDER-05 Bench-Scale Falsifier Reference}
+\label{sec:vol9_ponder05_reference}
+
+PONDER-05 (DC-biased quartz at $V_{DC}/V_{yield} = 0.687$) is the canonical bench-scale falsifier of the operating-point $A_0$ small-signal modulation mechanism documented above. The substrate predicts modulated $\varepsilon_{eff} = \varepsilon_0 S(A_0)$, $C_{eff} = C_0/S(A_0)$, and corresponding shifts in the LC tank's resonance frequency observable at the quartz scale; PONDER-05 measures the predicted small-signal modulation against the substrate prediction. Full apparatus and protocol live in the Vol~9 Ch.~\ref{ch:vol9_falsification_tests} falsification programme and in the canonical pointer at CLAUDE.md INVARIANT-S2 small-signal block (PONDER-05 named as canonical bench-scale falsifier of the operating-point modulation mechanism).
+
+\begin{itemize}
+    \item \textbf{Substrate-side prediction.} At the chosen $V_{DC}/V_{yield} = 0.687$ operating point, $S(A_0) = \sqrt{1 - 0.687^2} \approx 0.727$; the substrate predicts $\varepsilon_{eff}/\varepsilon_0 \approx 0.727$ and corresponding LC-resonance shift.
+    \item \textbf{Bench-side test.} Quartz-scale LC-resonance measurement at zero bias vs at $V_{DC}/V_{yield} = 0.687$ bias isolates the operating-point modulation as the substrate-physics observable.
+    \item \textbf{Falsification logic.} A null result (no modulation at predicted $S(A_0)$) falsifies the operating-point small-signal mechanism (Axiom~4 quarter-arc kernel at the dielectric-saturation specialization). The cross-volume implication extends to every Op14 / Op16 / gravitational-time-dilation derivation downstream of the operating-point $A_0$ structure.
+\end{itemize}
+
+The full canonical falsification entry lives in the falsification programme (Vol~9 Ch.~\ref{ch:vol9_falsification_tests}); this AC chapter records the AC-characteristic specification that PONDER-05 tests.
+
+\section{EE AC Translation}
+\label{sec:vol9_ee_ac_translation}
+
+Standard EE AC vocabulary maps to its substrate-physics origin via the EE-as-substrate-native META framework (canonical leaf \kbleaf{translation-circuit.md} \S 2, \texttt{clm-eemap1}; agent-discipline skill \texttt{ave-ee-first-mapping} v1.0). The substrate is itself an LC network at minimal DOF; EE AC quantities are substrate-native, not analogies.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{p{0.22\linewidth} p{0.32\linewidth} p{0.40\linewidth}}
+\toprule
+\textbf{EE AC quantity} & \textbf{Substrate-physics origin} & \textbf{Canonical anchor} \\
+\midrule
+Impedance $Z(\omega)$ & Bond TLM characteristic Z modulated by operating-point $S(A_0)$ at the substrate's LC scale & Op14 dynamic impedance (\texttt{clm-1eg13f}); CLAUDE.md INVARIANT-S2 \\
+Reactance $X = \omega L_{cell} - 1/(\omega C_{cell})$ & Per-bond reactive response with substrate-native $L_{cell}, C_{cell}$ & Axiom~1; \kbleaf{translation-circuit.md} \S 4 per-cell row \\
+Resonance ($X = 0$ at $\omega = \omega_C$) & Bond LC natural frequency from substrate primitives $\mu_0$, $\varepsilon_0$, $\ell_{node}$ & This chapter \S\ref{sec:vol9_omega_c}; Axiom~1 \\
+Quality factor $Q$ & Substrate Q-factor at the $\Gamma = -1$ saturation boundary; Op21 $Q = \ell$ multi-mode mode-counting & \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/op21-multi-mode-mode-counting.md}; \kbleaf{theorem-3-1-q-factor.md} \\
+Bandwidth $\Delta\omega = \omega_C/Q$ & Inverse Q-factor at the substrate-native resonance & Same Op21 anchor \\
+Phase velocity & Substrate $c_{EM}(A_0) = c_0/S(A_0)$ at operating point & CLAUDE.md INVARIANT-S2; \texttt{clm-8nkvwy:111} \\
+Group velocity & Substrate $c_{shear}(A_0) = c_0\sqrt{S(A_0)}$ (Op16) at operating point & Op16; \texttt{clm-8nkvwy:113} \\
+Dispersion at lattice scale & K4-TLM Brillouin-zone behaviour at $k \to \pi/\ell_{node}$ & This chapter \S\ref{sec:vol9_dispersion}; Axiom~1 \\
+\bottomrule
+\end{tabular}
+\caption{Standard EE AC vocabulary mapped to its substrate-physics origin and canonical anchor.}
+\label{tab:vol9_ac_ee_translation}
+\end{table}
+
+\noindent
+For each row, the EE AC quantity is the substrate-native EE-projection observable; the substrate-physics origin column names the substrate-axiom / canonical-leaf path that derives the observable from first principles. No row introduces a substrate-physics primitive not already present at the canonical anchors cited.

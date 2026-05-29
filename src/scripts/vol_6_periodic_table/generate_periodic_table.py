@@ -35,7 +35,7 @@ def generate_table() -> None:
     PT_ROOT = os.path.join(REPO_ROOT, "periodic_table")
 
     json_path = os.path.join(PT_ROOT, "elements.json")
-    with open(json_path, "r") as f:
+    with open(json_path, "r", encoding="utf-8") as f:
         elements = json.load(f)
 
     out_dir_tex = os.path.join(PT_ROOT, "chapters")
@@ -119,14 +119,14 @@ per-element optimizer (or first-principles geometric prediction) can be benchmar
         print(f" [+] Generated Data Card: Z={z:03d} {name}")
 
     catalog_file_path = os.path.join(out_dir_tex, "A_heavy_element_catalog.tex")
-    with open(catalog_file_path, "w") as f:
+    with open(catalog_file_path, "w", encoding="utf-8") as f:
         f.write(catalog_content)
 
     print(f"\n[*] Catalog generated at: {catalog_file_path}")
 
     # Clean up main.tex (Remove the 100+ includes, insert the single catalog)
     main_tex_path = os.path.join(PT_ROOT, "main.tex")
-    with open(main_tex_path, "r") as f:
+    with open(main_tex_path, "r", encoding="utf-8") as f:
         main_content = f.read()
 
     # Find insertion point just before \backmatter
@@ -143,7 +143,7 @@ per-element optimizer (or first-principles geometric prediction) can be benchmar
             + f"\n{clean_marker}\n\\appendix\n\\include{{chapters/A_heavy_element_catalog}}\n\n"
             + "\\backmatter\n\\bibliographystyle{plain}\n\\bibliography{bibliography}\n\n\\end{document}\n"
         )
-        with open(main_tex_path, "w") as f:
+        with open(main_tex_path, "w", encoding="utf-8") as f:
             f.write(new_content)
         print("[*] main.tex modified successfully to include the heavy element catalog appendix.")
     else:

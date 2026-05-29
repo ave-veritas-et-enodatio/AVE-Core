@@ -1,0 +1,328 @@
+{
+  "prereg": {
+    "M1_distinct_bands_required": 6,
+    "M1_band_separation_threshold": 0.05,
+    "M2_ordering_required": [
+      [
+        2,
+        3
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        2,
+        7
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        3,
+        7
+      ]
+    ],
+    "M2_ordering_match_threshold": "exact",
+    "M3_unknot_band_separation_max": 0.01,
+    "M4_gcd_gt1_band_stability_max": 0.1,
+    "M5_alpha_independence_kappa_scale_range": 0.2
+  },
+  "canonical_primitives": {
+    "ALPHA": 0.0072973525693,
+    "C_0": 299792458.0,
+    "L_NODE": 3.8615926772428334e-13,
+    "V_SNAP": 510998.9499961642,
+    "V_YIELD": 43651.851844321354,
+    "strain_linear": 8.542454313193605e-05,
+    "strain_squared": 7.297352569300002e-09,
+    "regime_I_threshold_sqrt_2alpha": 0.12080854745670937
+  },
+  "all_runs": [
+    {
+      "p": 2,
+      "q": 3,
+      "topology_class": "knot",
+      "kappa_tilde": 1.2,
+      "omega_peak_native": 5893552.197507782,
+      "omega_peak_dimensionless": 0.031287910671971134,
+      "spectral_centroid": 0.0,
+      "spectral_amplitude": 0.0,
+      "spectral_total_energy": 0.0
+    },
+    {
+      "p": 2,
+      "q": 5,
+      "topology_class": "knot",
+      "kappa_tilde": 1.4285714285714286,
+      "omega_peak_native": 5893552.197507782,
+      "omega_peak_dimensionless": 0.031287910671971134,
+      "spectral_centroid": 0.0,
+      "spectral_amplitude": 0.0,
+      "spectral_total_energy": 0.0
+    },
+    {
+      "p": 2,
+      "q": 7,
+      "topology_class": "knot",
+      "kappa_tilde": 1.5555555555555556,
+      "omega_peak_native": 5893552.197507782,
+      "omega_peak_dimensionless": 0.031287910671971134,
+      "spectral_centroid": 0.0,
+      "spectral_amplitude": 0.0,
+      "spectral_total_energy": 0.0
+    },
+    {
+      "p": 3,
+      "q": 4,
+      "topology_class": "knot",
+      "kappa_tilde": 1.7142857142857142,
+      "omega_peak_native": 5893552.197507782,
+      "omega_peak_dimensionless": 0.031287910671971134,
+      "spectral_centroid": 0.0,
+      "spectral_amplitude": 0.0,
+      "spectral_total_energy": 0.0
+    },
+    {
+      "p": 3,
+      "q": 5,
+      "topology_class": "knot",
+      "kappa_tilde": 1.875,
+      "omega_peak_native": 5893552.197507782,
+      "omega_peak_dimensionless": 0.031287910671971134,
+      "spectral_centroid": 0.0,
+      "spectral_amplitude": 0.0,
+      "spectral_total_energy": 0.0
+    },
+    {
+      "p": 3,
+      "q": 7,
+      "topology_class": "knot",
+      "kappa_tilde": 2.1,
+      "omega_peak_native": 5893552.197507782,
+      "omega_peak_dimensionless": 0.031287910671971134,
+      "spectral_centroid": 0.0,
+      "spectral_amplitude": 0.0,
+      "spectral_total_energy": 0.0
+    },
+    {
+      "p": 1,
+      "q": 1,
+      "topology_class": "unknot",
+      "kappa_tilde": 0.5,
+      "omega_peak_native": 5893552.197507782,
+      "omega_peak_dimensionless": 0.031287910671971134,
+      "spectral_centroid": 0.0,
+      "spectral_amplitude": 0.0,
+      "spectral_total_energy": 0.0
+    },
+    {
+      "p": 1,
+      "q": 2,
+      "topology_class": "unknot",
+      "kappa_tilde": 0.6666666666666666,
+      "omega_peak_native": 5893552.197507782,
+      "omega_peak_dimensionless": 0.031287910671971134,
+      "spectral_centroid": 0.0,
+      "spectral_amplitude": 0.0,
+      "spectral_total_energy": 0.0
+    },
+    {
+      "p": 1,
+      "q": 3,
+      "topology_class": "unknot",
+      "kappa_tilde": 0.75,
+      "omega_peak_native": 5893552.197507782,
+      "omega_peak_dimensionless": 0.031287910671971134,
+      "spectral_centroid": 0.0,
+      "spectral_amplitude": 0.0,
+      "spectral_total_energy": 0.0
+    },
+    {
+      "p": 2,
+      "q": 2,
+      "topology_class": "link",
+      "kappa_tilde": 1.0,
+      "omega_peak_native": 5893552.197507782,
+      "omega_peak_dimensionless": 0.031287910671971134,
+      "spectral_centroid": 0.0,
+      "spectral_amplitude": 0.0,
+      "spectral_total_energy": 0.0
+    },
+    {
+      "p": 2,
+      "q": 4,
+      "topology_class": "link",
+      "kappa_tilde": 1.3333333333333333,
+      "omega_peak_native": 5893552.197507782,
+      "omega_peak_dimensionless": 0.031287910671971134,
+      "spectral_centroid": 0.0,
+      "spectral_amplitude": 0.0,
+      "spectral_total_energy": 0.0
+    },
+    {
+      "p": 3,
+      "q": 6,
+      "topology_class": "link",
+      "kappa_tilde": 2.0,
+      "omega_peak_native": 5893552.197507782,
+      "omega_peak_dimensionless": 0.031287910671971134,
+      "spectral_centroid": 0.0,
+      "spectral_amplitude": 0.0,
+      "spectral_total_energy": 0.0
+    }
+  ],
+  "m5_perturbed": [
+    {
+      "kappa_scale": 0.8,
+      "omega_peak_dimensionless": 0.031287910671971134,
+      "spectral_amplitude": 0.0
+    },
+    {
+      "kappa_scale": 1.2,
+      "omega_peak_dimensionless": 0.031287910671971134,
+      "spectral_amplitude": 0.0
+    }
+  ],
+  "evaluation": {
+    "M1": {
+      "pass": false,
+      "detail": {
+        "omegas_sorted_dimensionless": [
+          0.031287910671971134,
+          0.031287910671971134,
+          0.031287910671971134,
+          0.031287910671971134,
+          0.031287910671971134,
+          0.031287910671971134
+        ],
+        "adjacent_spacings": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "min_spacing": 0.0,
+        "threshold": 0.05,
+        "all_distinct": false
+      }
+    },
+    "M2": {
+      "pass": false,
+      "detail": {
+        "expected_order": [
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            3,
+            7
+          ]
+        ],
+        "observed_order": [
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            3,
+            7
+          ]
+        ],
+        "exact_match": false
+      }
+    },
+    "M3": {
+      "pass": true,
+      "detail": {
+        "separations": [
+          {
+            "p": 1,
+            "q": 1,
+            "separation": 0.0
+          },
+          {
+            "p": 1,
+            "q": 2,
+            "separation": 0.0
+          },
+          {
+            "p": 1,
+            "q": 3,
+            "separation": 0.0
+          }
+        ],
+        "max_separation": 0.0,
+        "threshold": 0.01,
+        "baseline_omega": 0.031287910671971134
+      }
+    },
+    "M4": {
+      "pass": false,
+      "detail": {
+        "reason": "(2,3) baseline amplitude <= 0"
+      }
+    },
+    "M5": {
+      "pass": true,
+      "detail": {
+        "default_omega": 0.031287910671971134,
+        "perturbed": [
+          {
+            "kappa_scale": 0.8,
+            "omega_peak": 0.031287910671971134
+          },
+          {
+            "kappa_scale": 1.2,
+            "omega_peak": 0.031287910671971134
+          }
+        ],
+        "max_relative_drift": 0.0,
+        "interpretation": "substrate-native (geometric) if drift \u226a 20%; \u03b1-tautology if drift ~ 20%"
+      }
+    }
+  },
+  "outcome": {
+    "label": "C",
+    "text": "FALSIFIED \u2014 M1 fails (no (p,q) band-splitting). K4-TLM transverse modes are k-classified only in linear regime. Path B-prime DEAD at K4-TLM level; fall back to Path B (Faddeev-Skyrme variational)."
+  }
+}

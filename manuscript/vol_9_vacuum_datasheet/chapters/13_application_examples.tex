@@ -1,0 +1,194 @@
+% 13_application_examples.tex
+\chapter{Application Examples}
+\label{ch:vol9_application_examples}
+
+\begin{objectivebox}
+\begin{itemize}
+    \item Document a curated set of application examples in which substrate primitives from Chs.~2--12 combine to produce engineering observables: $\alpha$ derivation at the electron LC tank; Schwarzschild reduction as a SYM-class gradient-index transmission line; $W$/$Z$ gauge-boson masses as transformer-leakage cutoff modes; the Born-rule $p=2$ exponent as substrate boundary-Joule extraction at a $\Gamma$ port; $\delta_{strain}$ as the substrate's cosmic-scale TCC entry.
+    \item Frame each example as cross-chapter integration: each application invokes 3--5 substrate primitives across distinct datasheet chapters and resolves them at canonical leaves via \texttt{\textbackslash ref\{\}}. No new substrate-physics is derived here; the chapter is a navigation map.
+    \item Preserve the load-bearing framings carried through every preceding chapter: substrate is natural (no engineered applications); $\nu_{vac} = 2/7$ is the Ax~1 LC + Ax~2 $\alpha$ interlink (not promoted); $c_{EM}$ vs $c_{shear}$ are not interchangeable (Pitfall~\#5); Machian $G$ is derived (not a primitive axiom); lattice-genesis is single-seed (no multiverse, no baby universes); BH interiors are Regime~IV ruptured plasma (not a B-sublattice or daughter cosmology).
+    \item Tag each example's discipline class per \texttt{ave-discrimination-check} + \texttt{consistency-vs-emergence} v1.3: substrate-distinct-prediction-with-named-SM-counterfactual, identity-class consistency, manifestation-class, or substrate-mechanism mapping to observed quantities.
+    \item Provide a Cross-Chapter Citation Map for reader navigation: rows are application examples, columns are Vol~9 chapters whose substrate primitives the example invokes.
+\end{itemize}
+\end{objectivebox}
+
+\section{Cross-Chapter Integration}
+\label{sec:vol9_app_cross_chapter_integration}
+
+The preceding chapters of this datasheet catalog the substrate's individual primitive parameters --- the LC bond ($\varepsilon_0$, $\mu_0$, $Z_0$, $c_0$, $\ell_{node}$, $\alpha$, $\xi_{topo}$; Ch.~\ref{ch:vol9_dc_electrical_characteristics}); the AC resonance and operating-point modulation ($\omega_C$, $c_{EM}(A_0)$, $c_{shear}(A_0)$; Ch.~\ref{ch:vol9_ac_electrical_characteristics}); the Cosserat-Curie thermal sector ($\delta_{strain}$ at $T_{CMB}$; Ch.~\ref{ch:vol9_temperature_characteristics}); the Axiom~4 saturation kernel and its four-regime partition (Ch.~\ref{ch:vol9_saturation_characteristics}); the two-threshold breakdown structure ($V_{yield}$, $V_{snap}$, $E_S$; Ch.~\ref{ch:vol9_breakdown_characteristics}); the Cosserat mechanical primitives ($G_{vac}$, $K_{vac} = 2 G_{vac}$, $\nu_{vac} = 2/7$, $\gamma_c$; Ch.~\ref{ch:vol9_mechanical_characteristics}); the microrotational / magnetic sector ($\mu_0$, $L_{cell}$, $l_c$, $m_\omega$; Ch.~\ref{ch:vol9_magnetic_microrotational_characteristics}); the topological invariants ($(2,3)$ Clifford-torus electron, $I4_1 32$ chirality, $0_1$ unknot real-space body; Ch.~\ref{ch:vol9_topological_characteristics}); and the cosmic-scale primitives ($R_H$, $\hat{\Omega}_{freeze}$, $u_0^*$, Machian $G$; Ch.~\ref{ch:vol9_cosmological_characteristics}).
+
+This chapter shows how those primitives combine. Each application example below walks a single observed physical phenomenon back to the substrate primitives that produce it; each primitive is cited via cross-chapter \texttt{\textbackslash ref\{\}} into the chapter where that primitive's spec table lives, and into the canonical KB leaf where the substrate-physics derivation lives. No derivation is repeated; the chapter is a guided tour of cross-chapter combination.
+
+\textbf{Substrate-natural framing (load-bearing).} Each example below is a substrate-mechanism mapping --- the substrate is what it is; the observed phenomenon is what the substrate naturally produces; AVE substrate-physics names the mechanism; engineering practice empirically measures the consequence. Examples like the $\alpha = 1/(4\pi^3 + \pi^2 + \pi + \text{correction})$ derivation and the Born-rule $p = 2$ exponent are not ``framework-distinct claims'' that engineer a new physics --- they are derivations of standard observed quantities from the substrate's natural primitives, with the SM-language and substrate-language descriptions identified as two coordinate systems for the same physics. \texttt{ave-discrimination-check} discipline applies: where an example carries a substrate-distinct prediction beyond what the SM coordinate alone reaches (e.g., $\delta_{strain}$ as a thermal-mode-population ASYM modulation), the SM counterfactual is named explicitly.
+
+\section{Example: Electron LC Tank $\to$ Fine-Structure Constant}
+\label{sec:vol9_app_electron_lc_alpha}
+
+\textbf{Observed phenomenon.} The fine-structure constant $\alpha^{-1} = 137.035999$ (CODATA, 12 decimal places).
+
+\textbf{Substrate primitives invoked.}
+
+\begin{itemize}
+    \item \textbf{$(2,3)$ Clifford-torus phase-space winding} for the electron (Ch.~\ref{ch:vol9_topological_characteristics}~$\S$\ref{sec:vol9_torus_knot_winding}); $0_1$ unknot real-space body at minimum ropelength $2\pi$.
+    \item \textbf{Bond LC primitives} $L_{cell} = \mu_0\,\ell_{node}$, $C_{cell} = \varepsilon_0\,\ell_{node}$ (Ch.~\ref{ch:vol9_dc_electrical_characteristics}~$\S$\ref{subsec:vol9_dc_impedance_trio}); bond TLM characteristic impedance $Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx 376.73\,\Omega$.
+    \item \textbf{Topological transduction} $\xi_{topo} = e/\ell_{node}$ (Ch.~\ref{ch:vol9_dc_electrical_characteristics}~$\S$\ref{subsec:vol9_dc_coupling_primitives}; Ch.~\ref{ch:vol9_topological_characteristics}~$\S$\ref{sec:vol9_topological_spec_table}).
+    \item \textbf{Axiom 3 minimum-reflection principle} ($\mathcal{M}_A$ minimizes $|\Gamma|^2$ at every internal boundary; Ch.~\ref{ch:vol9_pin_port_configuration}~$\S$\ref{sec:vol9_substrate_boundary_semantics}); $\Gamma = -1$ TIR closure at the saturated bond (Ch.~\ref{ch:vol9_pin_port_configuration}~$\S$\ref{sec:vol9_boundary_saturation_conditions}).
+    \item \textbf{Magic-angle operating point} $u_0^* \approx 0.187$ at which the Axiom~4 kernel closes ($S(A^*) = 0$) and the Golden-Torus geometry $(R, r, d) = (\varphi/2, (\varphi-1)/2, 1)$ is realized (Ch.~\ref{ch:vol9_cosmological_characteristics}~$\S$\ref{sec:vol9_cosmo_magic_angle}).
+\end{itemize}
+
+\textbf{Cross-chapter chain.} The electron is a $(2,3)$ trefoil in Clifford-torus phase-space coordinates on the K4 substrate (Ch.~\ref{ch:vol9_topological_characteristics}~$\S$\ref{sec:vol9_torus_knot_winding}) with real-space body the $0_1$ unknot at minimum ropelength. At the magic-angle operating point $u_0^*$ (Ch.~\ref{ch:vol9_cosmological_characteristics}~$\S$\ref{sec:vol9_cosmo_magic_angle}), the substrate's bond pair saturates at $\Gamma = -1$ at both ends (Ch.~\ref{ch:vol9_pin_port_configuration}~$\S$\ref{sec:vol9_boundary_saturation_conditions}), forming a TIR-confined LC tank whose stored-energy quality factor is set by the codimensional mode-count assembly at the Golden-Torus geometry. The canonical Theorem~3.1 closure (canonical at \kbleaf{ave-kb/vol1/ch8-alpha-golden-torus.md}, \texttt{clm-0ktpcn}) is the addition of three independent codimensional Nyquist-cell mode counts at the $\Gamma = -1$ boundary:
+
+\[
+\alpha^{-1}_{\text{ideal}} \;=\; \underbrace{4\pi^3}_{\Lambda_{\text{vol}}\;(3\text{-cycle})} + \underbrace{\pi^2}_{\Lambda_{\text{surf}}\;(2\text{-cycle})} + \underbrace{\pi}_{\Lambda_{\text{line}}\;(1\text{-cycle})} \;\approx\; 137.0363038.
+\]
+
+The three terms are: the $4\pi$ spinor-temporal phase volume from the $T \to 2T \subset SU(2)$ K4-rotation-group chain (Ch.~\ref{ch:vol9_topological_characteristics}~$\S$\ref{sec:vol9_su2_so3_double_cover}); the Clifford-torus 2-area for substrate-spinor spatial half-cover; and the Ampère 1-cycle around the transverse cross-section perimeter at Nyquist-quantized diameter. The cold-lattice value $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi$ is the substrate's intrinsic value at $T \to 0$, $A_0 = 0$, $S(0) = 1$ (canonical \texttt{ALPHA\_COLD\_INV}, \kbleaf{src/ave/core/constants.py}:164). The observed CODATA $\alpha^{-1} = 137.035999$ sits below the cold-lattice asymptote by the fractional vacuum strain $\delta_{strain} \approx \num{2.225e-6}$ documented in \S\ref{sec:vol9_app_delta_strain_cosmic_tcc} below (the Cosserat-Curie thermal-mode-population ASYM correction at $T = T_{CMB}$).
+
+\textbf{Discipline class.} Per \texttt{consistency-vs-emergence} v1.3: the cold-lattice closure $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi$ is a Class~B substrate-mechanism mapping --- the SM-language fine-structure constant identifies as the substrate's $\Gamma = -1$ TIR-mode count at the electron LC tank's Golden-Torus geometry. The decimal accuracy $|\alpha^{-1}_{\text{CODATA}}/\alpha^{-1}_{\text{ideal}} - 1| \approx \num{2.2e-6}$ is identified at substrate-mechanism class (Class~B) for the $\delta_{strain}$ correction; the quantitative substrate-statistical-mechanics derivation is open (Q-DELTA-MAP-1-quant; Ch.~\ref{ch:vol9_temperature_characteristics}~$\S$\ref{sec:vol9_temperature_open}).
+
+\section{Example: Gravity as Gradient-Index Transmission Line}
+\label{sec:vol9_app_gravity_gradient_index}
+
+\textbf{Observed phenomenon.} Schwarzschild gravitational time dilation $c_{group}(r) = c_0 \sqrt{1 - r_s/r}$ at the weak-field limit, with simultaneously null $\Delta\alpha/\alpha$ between observers at different gravitational potentials.
+
+\textbf{Substrate primitives invoked.}
+
+\begin{itemize}
+    \item \textbf{Cosserat bulk moduli} $G_{vac}$, $K_{vac} = 2 G_{vac}$, $\nu_{vac} = 2/7$ (Ch.~\ref{ch:vol9_mechanical_characteristics}~$\S$\ref{sec:vol9_mech_poisson}); the $K/G = 2$ EMT closure at packing fraction $p^* = 8\pi\alpha$ is the substrate-axiomatic interlink (Ax~1 LC + Ax~2 $\alpha$).
+    \item \textbf{Two effective wave speeds} $c_{EM}(A_0) = c_0/S(A_0)$ (Maxwell phase velocity) and $c_{shear}(A_0) = c_0\sqrt{S(A_0)}$ (mechanical / group / rest-mass velocity) (Ch.~\ref{ch:vol9_saturation_characteristics}~$\S$\ref{sec:vol9_two_wave_speeds}); Ch.~\ref{ch:vol9_mechanical_characteristics}~$\S$\ref{sec:vol9_mech_wave_speeds}; CLAUDE.md INVARIANT-S2 Pitfall~\#5).
+    \item \textbf{SYM-class scaling} (gravity-class realization): $\mu(r)$ and $\varepsilon(r)$ scale together by the same factor so $Z_0 = \sqrt{\mu/\varepsilon}$ stays invariant; canonical at \kbleaf{ave-kb/vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md}, \texttt{clm-3zz0f6} (Ch.~\ref{ch:vol9_pin_port_configuration}~$\S$\ref{sec:vol9_port_class_taxonomy}; Ch.~\ref{ch:vol9_saturation_characteristics}~$\S$\ref{sec:vol9_alpha_invariance}).
+    \item \textbf{Machian $G$ as integrated boundary impedance} $G = c^4/(7\xi T_{EM}(u_0^*))$ with dimensionless Machian-hierarchy coupling $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$ (Ch.~\ref{ch:vol9_cosmological_characteristics}~$\S$\ref{sec:vol9_cosmo_machian_g}; \kbleaf{full-derivation-chain.md} \texttt{clm-9oazz0}).
+    \item \textbf{Axiom 3 minimum-reflection} at every substrate port (Ch.~\ref{ch:vol9_pin_port_configuration}~$\S$\ref{sec:vol9_substrate_boundary_semantics}): SYM-class ports satisfy $\Gamma = 0$ identically at every interior point.
+\end{itemize}
+
+\textbf{Cross-chapter chain.} Gravitational field gradients induce SYM-class scaling of the substrate's bulk constitutive parameters: $\mu(r)$ and $\varepsilon(r)$ scale by the same factor across the field region, so $Z_0$ is preserved interior-wide ($\Gamma = 0$ everywhere by Op17 + Axiom~3; Ch.~\ref{ch:vol9_pin_port_configuration}~$\S$\ref{sec:vol9_port_class_taxonomy}). The substrate's two effective wave speeds respond differently to this scaling: $c_{shear}(A_0) = c_0 \sqrt{S(A_0)}$ tracks the Schwarzschild $\sqrt{1 - r_s/r}$ reduction (Ch.~\ref{ch:vol9_mechanical_characteristics}~$\S$\ref{sec:vol9_mech_wave_speeds}), giving observed gravitational time dilation; $c_{EM}(A_0) = c_0/S(A_0)$ enters $\alpha = e^2/(4\pi\varepsilon_0\hbar c)$ in the inverse direction. The asymmetry is exact: under SYM scaling by factor $nS$, $\alpha_{eff}/\alpha_0 = e^2/[4\pi(\varepsilon_0 nS)\hbar(c_0/(nS))] = \alpha_0$. The substrate's gravity-class realization simultaneously produces gravitational time-dilation via $c_{shear}$ AND preserves $\alpha$ exactly (canonical proof \texttt{clm-3zz0f6}, solidity 0.85; Ch.~\ref{ch:vol9_saturation_characteristics}~$\S$\ref{sec:vol9_alpha_invariance}).
+
+The Machian impedance integral closes the macroscopic gravitational coupling: a local test mass couples to every other mass within $R_H$ through the substrate's integrated boundary impedance, giving Newton's $G = c^4/(7 \xi T_{EM}(u_0^*))$ with the factor of 7 inherited from $\nu_{vac} = 2/7$ (Ch.~\ref{ch:vol9_mechanical_characteristics}~$\S$\ref{sec:vol9_mech_poisson}; Ch.~\ref{ch:vol9_cosmological_characteristics}~$\S$\ref{sec:vol9_cosmo_machian_g}). The substrate's gravitational coupling is therefore derived from one cosmological operating point $u_0^*$ that jointly anchors $\alpha$ and $G$ (Ch.~\ref{ch:vol9_cosmological_characteristics}~$\S$\ref{sec:vol9_cosmo_magic_angle}); the framework's three-route falsification commitment (electromagnetic $\alpha$, gravitational $G$, cosmological $\mathcal{J}_{cosmic}$ must all give the same $u_0^*$) is the empirical exposure of this whole picture (Ch.~\ref{ch:vol9_falsification_tests}~$\S$\ref{sec:vol9_three_route_falsifiability}).
+
+\textbf{Discipline class.} The Schwarzschild-reduction substrate mapping is Class~B (substrate-mechanism mapping to a derived observable); the SYM-class $\alpha$-invariance is canonical Class~B at solidity 0.85 (\texttt{clm-3zz0f6}). Per \texttt{ave-discrimination-check}: the SM-counterfactual --- GR gravitational time dilation derived from $G_{\mu\nu} = 8\pi T_{\mu\nu}$ via the Einstein equations --- gives identical $c_{group}(r)$ at the weak-field limit; the substrate version reaches the same result via a different mechanism (gradient-index TL on a Cosserat micropolar continuum), and adds a falsifiable distinction at strong gravitational field where the substrate's underlying Axiom~4 kernel governs all regime-transitions including BH-formation (Ch.~\ref{ch:vol9_cosmological_characteristics}~$\S$\ref{sec:vol9_cosmo_substrate_rupture}: BH interior = Regime~IV ruptured plasma). The Machian-$G$ derivation is substrate-distinct beyond GR's posited $G$ --- the three-route $u_0^*$ convergence falsifier is canonical \texttt{clm-dsb560}; canonical at Ch.~\ref{ch:vol9_cosmological_characteristics}~$\S$\ref{sec:vol9_cosmo_omega_freeze}.
+
+\section{Example: $W$/$Z$ Gauge Bosons as Transformer-Leakage Cutoff Modes}
+\label{sec:vol9_app_wz_transformer_leakage}
+
+\textbf{Observed phenomenon.} The $W^\pm$ and $Z^0$ gauge bosons of the weak interaction have masses $\sim 80$ and $\sim 91$ GeV/$c^2$, with mass ratio $m_W/m_Z \approx 0.882$ and on-shell Weinberg angle $\sin^2\theta_W = 1 - m_W^2/m_Z^2 \approx 0.223$. The weak force has finite range $r_W \sim 10^{-18}$ m.
+
+\textbf{Substrate primitives invoked.}
+
+\begin{itemize}
+    \item \textbf{Cosserat couple-stress modulus} $\gamma_c$ (Ch.~\ref{ch:vol9_mechanical_characteristics}~$\S$\ref{sec:vol9_mech_couple_stress}; Ch.~\ref{ch:vol9_magnetic_microrotational_characteristics}~$\S$\ref{sec:vol9_weak_force_range_wz_cutoff}); substrate-native microrotational bending inductance setting the bond-level resistance to differential micro-rotation.
+    \item \textbf{Cosserat characteristic length} $l_c = \sqrt{\gamma_c/G_{vac}}$ (Ch.~\ref{ch:vol9_magnetic_microrotational_characteristics}~$\S$\ref{sec:vol9_weak_force_range_wz_cutoff}); identified with the weak-force range $r_W$.
+    \item \textbf{Vacuum Poisson ratio} $\nu_{vac} = 2/7$ (Ch.~\ref{ch:vol9_mechanical_characteristics}~$\S$\ref{sec:vol9_mech_poisson}); Ax~1 LC + Ax~2 $\alpha$ interlink, NOT a free parameter.
+    \item \textbf{Perpendicular Axis Theorem at bond-cylinder diameter $d = \ell_{node}$} (Ax~1 hard-sphere exclusion; Ch.~\ref{ch:vol9_magnetic_microrotational_characteristics}~$\S$\ref{sec:vol9_weak_force_range_wz_cutoff}): fixes $J = 2I$ for a uniform cross-section.
+    \item \textbf{Below-cutoff evanescent-wave mathematics on the microrotational sector} (Ch.~\ref{ch:vol9_magnetic_microrotational_characteristics}~$\S$\ref{sec:vol9_weak_force_range_wz_cutoff}; canonical at \kbleaf{ave-kb/vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} line~39, \texttt{clm-5zuo7g}): static field equation becomes massive Helmholtz $\nabla^2\theta - \theta/l_c^2 = 0$ with Yukawa Green's function $V \propto e^{-r/l_c}/r$.
+\end{itemize}
+
+\textbf{Cross-chapter chain.} Weak interactions on the substrate lack the kinetic energy required to overcome the ambient Cosserat micro-rotation inductance and become evanescent waves at characteristic decay length $l_c = \sqrt{\gamma_c/G_{vac}}$. The $W^\pm$ and $Z^0$ gauge bosons are the substrate's evanescent cutoff modes in two distinct geometric channels (Ch.~\ref{ch:vol9_magnetic_microrotational_characteristics}~$\S$\ref{sec:vol9_weak_force_range_wz_cutoff}; canonical at \kbleaf{gauge-boson-masses.md}, \texttt{clm-5zuo7g} + \texttt{clm-q8un7j}): $W^\pm$ is the pure longitudinal-torsional evanescent mode with characteristic wavenumber $k \propto G_{vac} J$ (torsional stiffness $\times$ polar moment); $Z^0$ is the transverse-bending evanescent mode with $k \propto E_{vac} I$ (bending stiffness $\times$ second moment of area). The Perpendicular Axis Theorem at a uniform bond cylinder of diameter $d = \ell_{node}$ fixes $J = 2I$, so the mass ratio reduces to $m_W/m_Z = \sqrt{2 G_{vac}/E_{vac}}$. Applying the standard isotropic-elastic identity $E = 2G(1+\nu)$ at the substrate Poisson ratio $\nu_{vac} = 2/7$ (Ch.~\ref{ch:vol9_mechanical_characteristics}~$\S$\ref{sec:vol9_mech_poisson}):
+
+\[
+m_W/m_Z = \sqrt{2G/[2G(1+2/7)]} = \sqrt{7/9} = \sqrt{7}/3 \approx 0.882,
+\]
+
+and the on-shell Weinberg angle $\sin^2\theta_W = 1 - m_W^2/m_Z^2 = 1 - 7/9 = 2/9 \approx 0.222$ follows directly (canonical-source \kbleaf{src/ave/core/constants.py}:478). The substrate's electroweak masses are therefore derived from one Cosserat couple-stress modulus $\gamma_c$ + one Cosserat bulk modulus $G_{vac}$ + the substrate-axiomatic Poisson ratio $\nu_{vac} = 2/7$. The EE projection (Ch.~\ref{ch:vol9_magnetic_microrotational_characteristics}~$\S$\ref{sec:vol9_magnetic_ee_translation}, means-test row~10): the same below-cutoff coupling mathematics that governs weak interactions also governs below-cutoff coupling between two LC tanks separated by a transformer leakage inductance --- $\gamma_c$ is the substrate-bond-scale transformer-leakage-inductance characteristic length.
+
+\textbf{Joint kill-switch.} The same $\gamma_c$ Cosserat couple-stress modulus that sets the weak-force range $r_W = l_c$ also sets the B-mode mass-gap $\omega_m^2 = 4 G_c/I_\omega$ that produces $\delta_{strain}$ at $T_{CMB}$ (\S\ref{sec:vol9_app_delta_strain_cosmic_tcc} below). Detection of a stable, freely propagating right-handed neutrino falsifies the $\tfrac{1}{3}G_{vac}$ microrotational boundary condition, destroying the weak-force derivation AND the $\delta_{strain}$ Cosserat-Curie mechanism jointly (Ch.~\ref{ch:vol9_falsification_tests}~$\S$\ref{sec:vol9_neutrino_kill_switch}; canonical at \kbleaf{ave-kb/vol4/falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md}, \texttt{clm-gw2wgc}).
+
+\textbf{Discipline class.} Per \texttt{ave-discrimination-check}: the SM Standard Model derives the W/Z masses from the Higgs vacuum-expectation-value $v$ + the electroweak couplings $g$, $g'$, with $m_W = gv/2$, $m_Z = v\sqrt{g^2+g'^2}/2$; the substrate version reaches identical numerical predictions from $\gamma_c$, $G_{vac}$, $\nu_{vac} = 2/7$, and the Perpendicular Axis Theorem. The mass ratio $m_W/m_Z = \sqrt{7}/3 \approx 0.882$ is a substrate-derived consequence of the $\nu_{vac} = 2/7$ Ax~1 LC + Ax~2 $\alpha$ interlink and the Cosserat micropolar structure of $\mathcal{M}_A$; the SM counterfactual produces the same numerical ratio via Higgs vev mechanics but does not derive the $2/7$ from substrate axioms. The right-handed-neutrino joint-falsifier is substrate-distinct (the SM model can accommodate either the existence or non-existence of right-handed neutrinos as a model parameter without internal contradiction; the substrate model cannot).
+
+\section{Example: Born Rule as Boundary-Joule Extraction at a $\Gamma$ Port}
+\label{sec:vol9_app_born_rule_gamma_extraction}
+
+\textbf{Observed phenomenon.} The Born rule $\Pr \propto |\psi|^2$ --- the squared-amplitude scaling of measurement-outcome probability in quantum mechanics, equivalent to a $p = 2$ exponent in the click-rate-versus-substrate-amplitude relation at a detector.
+
+\textbf{Substrate primitives invoked.}
+
+\begin{itemize}
+    \item \textbf{Substrate boundary semantics} via $\Gamma = (Z_2 - Z_1)/(Z_2 + Z_1)$ (Op3) at every internal impedance discontinuity (Ch.~\ref{ch:vol9_pin_port_configuration}~$\S$\ref{sec:vol9_substrate_boundary_semantics}).
+    \item \textbf{Axiom 3 minimum-reflection} as the substrate's native action principle (Ch.~\ref{ch:vol9_pin_port_configuration}~$\S$\ref{sec:vol9_substrate_boundary_semantics}).
+    \item \textbf{Op17 power transmission} $T^2 = 1 - \Gamma^2$ at every substrate port (Ch.~\ref{ch:vol9_pin_port_configuration}~$\S$\ref{sec:vol9_operator_port_behavior}; canonical-source \kbleaf{ave-kb/common/operators.md} Op17 row).
+    \item \textbf{Ohmic boundary kinematics} $V^2/Z_{det}$ at the substrate-detector boundary (Ch.~\ref{ch:vol9_dc_electrical_characteristics}~$\S$\ref{subsec:vol9_dc_impedance_trio} bond TLM $Z_0$; Ch.~\ref{ch:vol9_pin_port_configuration}~$\S$\ref{sec:vol9_engineering_translation} EE translation table).
+    \item \textbf{Substrate operating-point amplitude statistics} on the Axiom~4 kernel (Ch.~\ref{ch:vol9_saturation_characteristics}~$\S$\ref{sec:vol9_dielectric_specialization}); quadratic-Lagrangian per-site amplitude distribution + cumulant truncation (canonical at \kbleaf{ave-kb/vol1/dynamics/ch3-quantum-signal-dynamics/ohmic-decoherence-born.md}, \texttt{clm-ldmvwi}).
+\end{itemize}
+
+\textbf{Cross-chapter chain.} The substrate's measurement event at a detector is a substrate boundary-Joule extraction event: substrate energy is drawn out of the bulk at a $\Gamma$-port boundary via $V^2/Z_{det}$ Joule kinematics. Substrate amplitude statistics at the boundary are governed by the per-site quadratic-Lagrangian distribution + cumulant truncation; the extraction rate is the boundary-Joule integral over those amplitude statistics; the leading dependence on substrate amplitude is quadratic. The canonical derivation (Phase 2-A workstream, PR \#38 merged 2026-05-26; canonical claim \texttt{clm-ldmvwi}, canonical home \kbleaf{ave-kb/vol1/dynamics/ch3-quantum-signal-dynamics/ohmic-decoherence-born.md}) closes the master-equation derivation path end-to-end: master vacuum equation $\to$ boundary-impedance thermalization (FDT) at extraction lattice site $\to$ Joule extraction kinematics $\to$ cumulant truncation under quadratic-Lagrangian per-site amplitude statistics $\to$ quadratic-in-amplitude boundary-Joule extraction-rate scaling.
+
+The $p = 2$ exponent is therefore substrate-derived rather than postulated: $\Pr \propto |\psi|^2$ is the substrate's quadratic-in-amplitude boundary-Joule extraction-rate scaling at every $\Gamma$-port detector boundary. Per the canonical EE translation (\kbleaf{translation-circuit.md} \S 4; \kbleaf{translation-qm.md} Section B): the substrate amplitude $\psi$ is the boundary substrate field; $|\psi|^2$ is the substrate energy density per site; $V^2/Z_{det}$ is the Ohmic extraction rate per Joule kinematics; the $p = 2$ click-rate scaling is the substrate's quadratic-Lagrangian Gaussian-amplitude consequence. The SM-vocabulary measurement-postulate is identified as a substrate-derived consequence, not an independent rule.
+
+\textbf{Discipline class.} Per \texttt{ave-discipline-translate} v1.1 trigger~6 (substrate-native prose discipline): the standard-physics ``Born rule $p=2$'' label is parenthetical translation; the substrate-native form is ``quadratic-in-amplitude boundary-Joule extraction-rate scaling at a $\Gamma$-port detector boundary.'' Per \texttt{consistency-vs-emergence} v1.3: this is a Class~D emergence-class derivation --- the $p = 2$ exponent is derived from substrate primitives (master equation + boundary kinematics + amplitude statistics) without postulating a measurement rule. Per \texttt{ave-discrimination-check}: the SM-counterfactual ``Born rule is a postulate'' is consistent with all current observations because no measurement directly tests the substrate's $V^2/Z_{det}$ extraction kinematics at the substrate boundary; the substrate version reaches the same observable predictions plus the substrate-distinct forward predictions enumerated in the canonical Phase 2-A chain (Rice-formula crossing rate, Wald first-passage form, $\hbar\omega$ resonant-mode energy quantum per click).
+
+\section{Example: $\delta_{strain}$ as Cosmic-Scale Temperature Coefficient}
+\label{sec:vol9_app_delta_strain_cosmic_tcc}
+
+\textbf{Observed phenomenon.} CODATA $\alpha^{-1} = 137.035999$ sits below the cold-lattice substrate asymptote $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363038$ by the fractional vacuum strain coefficient $\delta_{strain} \approx \num{2.225e-6}$.
+
+\textbf{Substrate primitives invoked.}
+
+\begin{itemize}
+    \item \textbf{Substrate bipartite thermal-mode structure} (Ch.~\ref{ch:vol9_temperature_characteristics}~$\S$\ref{subsec:vol9_bipartite_modes}): three translational E-DOFs (gapless acoustic, thermally populated at any $T > 0$) + three microrotational B-DOFs (Cosserat-rotation-sector mass-gap $\omega_m^2 = 4G_c/I_\omega$, thermally frozen below $\hbar\omega_m/k_B$).
+    \item \textbf{CMB thermal bath at $T_{CMB} = \qty{2.725}{\kelvin}$} (Ch.~\ref{ch:vol9_temperature_characteristics}~$\S$\ref{subsec:vol9_thermal_population}); Boltzmann factor $\exp(-\hbar\omega_m/k_BT_{CMB}) \sim \exp(-\num{4.3e9}) \approx 0$ for B-modes.
+    \item \textbf{Cosserat couple-stress modulus} $\gamma_c$ (Ch.~\ref{ch:vol9_mechanical_characteristics}~$\S$\ref{sec:vol9_mech_couple_stress}; Ch.~\ref{ch:vol9_magnetic_microrotational_characteristics}~$\S$\ref{sec:vol9_rotation_sector_mass_gap}); the shared substrate primitive behind both the B-mode mass-gap AND the weak-force range $l_c$.
+    \item \textbf{Asymmetric thermal-mode population ASYM-class scaling} (Ch.~\ref{ch:vol9_temperature_characteristics}~$\S$\ref{subsec:vol9_asym_sym_breaking}; Ch.~\ref{ch:vol9_pin_port_configuration}~$\S$\ref{sec:vol9_port_class_taxonomy} ASYM-N subclasses): $\varepsilon_{eff}(T_{CMB}) = \varepsilon_0(1 - \eta_\varepsilon)$, $\mu_{eff}(T_{CMB}) = \mu_0$.
+    \item \textbf{Two effective wave speeds} (Ch.~\ref{ch:vol9_ac_electrical_characteristics}~$\S$\ref{sec:vol9_two_wave_speeds}; INVARIANT-S2 Pitfall~\#5): the thermal modulation acts on the $c_{EM}$ branch ($c_{EM} = 1/\sqrt{\mu_{eff}\varepsilon_{eff}}$, which enters $\alpha$), not the $c_{shear}$ branch.
+\end{itemize}
+
+\textbf{Cross-chapter chain.} At any operating temperature $T > 0$, the substrate's gapless translational E-modes are thermally populated by Bose-Einstein occupation while the gapped microrotational B-modes are mass-gap-suppressed by $\exp(-\hbar\omega_m/k_BT)$ (Ch.~\ref{ch:vol9_temperature_characteristics}~$\S$\ref{subsec:vol9_bipartite_modes}; Ch.~\ref{ch:vol9_magnetic_microrotational_characteristics}~$\S$\ref{sec:vol9_rotation_sector_mass_gap}). At $T = T_{CMB}$, the B-mode Boltzmann suppression is total ($\sim e^{-\num{4e9}}$), so $\mu_{eff} = \mu_0$ at cold-lattice while $\varepsilon_{eff} = \varepsilon_0(1 - \eta_\varepsilon)$ is modulated by thermal-photon-bath occupation of E-modes. The asymmetric scaling voids the SYM-class $\alpha$-invariance condition (Ch.~\ref{ch:vol9_saturation_characteristics}~$\S$\ref{sec:vol9_alpha_invariance}; Ch.~\ref{ch:vol9_pin_port_configuration}~$\S$\ref{sec:vol9_port_class_taxonomy}): substituting into $\alpha = e^2/(4\pi\varepsilon_{eff}\hbar c_{EM,eff})$ with $c_{EM,eff} = 1/\sqrt{\mu_0\varepsilon_{eff}}$, the leading-order correction is
+
+\[
+\frac{\alpha_{eff}}{\alpha_0} \approx \frac{1}{(1-\eta_\varepsilon)^{1/2}} \approx 1 + \frac{\eta_\varepsilon}{2}
+\qquad \Rightarrow \qquad
+\delta_{strain} \;\equiv\; -\frac{\delta\alpha^{-1}}{\alpha^{-1}_0} \approx \frac{\eta_\varepsilon}{2}.
+\]
+
+With CODATA $\alpha^{-1} = 137.035999$ and the cold-lattice substrate asymptote $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363038$:
+
+\[
+\delta_{strain}(T_{CMB}) \approx \num{2.225e-6}, \qquad \eta_\varepsilon(T_{CMB}) \approx \num{4.45e-6}.
+\]
+
+The substrate's cosmic-scale temperature coefficient $\delta_{strain}$ is therefore the same Cosserat-Curie mechanism that produces engineering-scale TCC entries in component datasheets, applied at cosmic scale with the CMB photon bath as the thermal driver (canonical at \kbleaf{ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md}, \texttt{clm-hp7nlm}; mirrored at \texttt{vol3} translation-circuit \S 9 line~417 EE TCR / TCC engineering correction row).
+
+\textbf{Forward prediction (substrate-distinct).} The substrate predicts roughly linear cosmic-temperature $\alpha$-drift for $T_{CMB} \ll T \ll T_{B-gap} \sim 10^{10}$~K (canonical \texttt{clm-hp7nlm} $\S$6). Quasar absorption-line $\Delta\alpha/\alpha$ measurements at higher redshift access this thermal regime; current bounds $\sim 10^{-5}$ are consistent with the substrate-predicted scaling at the back-subtracted $\eta_\varepsilon$ (Ch.~\ref{ch:vol9_falsification_tests}~$\S$\ref{subsec:vol9_quasar_alpha_null}). The substrate-distinct prediction beyond standard SM/QED null is the positive thermal scaling at higher cosmic $T$; quantitative substrate-statistical-mechanics derivation of $\eta_\varepsilon(T)$ is open (Q-DELTA-MAP-1-quant; Ch.~\ref{ch:vol9_temperature_characteristics}~$\S$\ref{sec:vol9_temperature_open}).
+
+\textbf{Discipline class.} Per \texttt{consistency-vs-emergence} v1.3: substrate-mechanism class identified at Class~B (PARTIAL band, solidity $\sim 0.55$); the $\delta_{strain}$ Cosserat-Curie mechanism class is canonical at \texttt{clm-hp7nlm} but the quantitative derivation of $\eta_\varepsilon(T_{CMB})$ from substrate statistical mechanics is the open closure path. Per \texttt{ave-discrimination-check}: the SM-counterfactual --- standard QED has no thermal $\alpha$-running mechanism at cosmic photon-bath occupation; CODATA $\alpha^{-1}$ is treated as a fundamental empirical constant with no substrate-mechanism explanation for the precise value. The substrate version identifies $\alpha^{-1}_{\text{CODATA}} = \alpha^{-1}_{\text{ideal}}(1 - \delta_{strain})$ with both the asymptote ($4\pi^3 + \pi^2 + \pi$) and the correction ($\delta_{strain}$ at $T_{CMB}$) derived from substrate primitives. The joint kill-switch (right-handed neutrino observation) ties this prediction to the W/Z derivation of \S\ref{sec:vol9_app_wz_transformer_leakage} via the shared $\gamma_c$ primitive.
+
+\section{Cross-Chapter Citation Map}
+\label{sec:vol9_app_cross_chapter_citation_map}
+
+The table below lists each application example and the Vol~9 chapters from which it draws substrate primitives. Each cell entry names the primary substrate primitive(s) the application invokes from that chapter; readers navigating an example may use this table to locate the substrate-physics spec entry directly.
+
+\begin{table}[htbp]
+\centering
+\renewcommand{\arraystretch}{1.40}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}p{0.21\linewidth} p{0.075\linewidth} p{0.075\linewidth} p{0.075\linewidth} p{0.075\linewidth} p{0.075\linewidth} p{0.075\linewidth} p{0.075\linewidth} p{0.075\linewidth} p{0.075\linewidth}@{}}
+\toprule
+\textbf{Application example} & \textbf{Ch.\,3} & \textbf{Ch.\,4} & \textbf{Ch.\,5} & \textbf{Ch.\,6} & \textbf{Ch.\,7} & \textbf{Ch.\,9} & \textbf{Ch.\,10} & \textbf{Ch.\,11} & \textbf{Ch.\,12} \\
+\midrule
+$\alpha$ derivation (\S\ref{sec:vol9_app_electron_lc_alpha}) & $\Gamma=-1$ TIR (Ax~3) & $L_{cell}$, $C_{cell}$, $Z_0$, $\xi_{topo}$ & --- & --- & $u_0^*$ kernel closure & --- & --- & $(2,3)$ trefoil, $0_1$ unknot, $T \to 2T$ & $u_0^*$ magic angle \\
+Schwarzschild + Machian $G$ (\S\ref{sec:vol9_app_gravity_gradient_index}) & SYM-class $\Gamma=0$ ports & $Z_0$, $T_{EM}$ & $c_{EM}$ vs $c_{shear}$ at $A_0$ & --- & SYM-class $\alpha$-invariance & $G_{vac}$, $K=2G$, $\nu=2/7$, $c_{shear}$ & --- & --- & Machian $G = c^4/(7\xi T_{EM})$, $u_0^*$ \\
+$W$/$Z$ as transformer-leakage cutoff (\S\ref{sec:vol9_app_wz_transformer_leakage}) & --- & --- & --- & --- & --- & $\gamma_c$, $\nu_{vac}=2/7$, PAT $J=2I$ & $l_c$, $m_W/m_Z = \sqrt{7}/3$, $\sin^2\theta_W = 2/9$ & --- & --- \\
+Born-rule $p=2$ as boundary-Joule extraction (\S\ref{sec:vol9_app_born_rule_gamma_extraction}) & Op3 $\Gamma$, Ax~3, Op17 $T^2=1-\Gamma^2$, $V^2/Z_{det}$ & $Z_0$ at boundary & --- & --- & Ax~4 amplitude statistics & --- & --- & --- & --- \\
+$\delta_{strain}$ as cosmic-scale TCC (\S\ref{sec:vol9_app_delta_strain_cosmic_tcc}) & ASYM-class port subclass & $\varepsilon_0$, $\mu_0$ baseline & $c_{EM}$ branch at thermal load & Cosserat-Curie + $\eta_\varepsilon$ & ASYM $\alpha$-invariance void & --- & $\gamma_c$, $m_\omega$ B-mode gap & --- & --- \\
+\bottomrule
+\end{tabular}
+\renewcommand{\arraystretch}{1.0}
+\caption{Cross-chapter citation map: per application example, the substrate primitive(s) drawn from each Vol~9 chapter.}
+\label{tab:vol9_app_citation_map}
+\end{table}
+
+\noindent
+\textbf{Reading the table.} Each row is an application example treated in a section above; each column is a Vol~9 chapter whose spec table or canonical-source routing contributes a substrate primitive to the example. Entries name the specific primitive(s) invoked, not full citation chains --- the canonical leaves are cited in the individual section bodies. Chapters not listed in the header (Ch.~2 absolute maximum ratings; Ch.~8 breakdown characteristics; Ch.~14 phase diagrams; Ch.~15 falsification tests) appear in individual examples as cross-references rather than primitive-source columns:
+
+\begin{itemize}
+    \item \textbf{Ch.~\ref{ch:vol9_absolute_maximum_ratings}} (Absolute Maximum Ratings) supplies $V_{snap}$, $V_{yield}$, $E_S$, $B_{snap}$, $T_{melt}$ as rupture-boundary references for the $\alpha$ derivation (electron LC tank at $V_{yield}$ closure) and the Cosserat-Curie mechanism (B-mode gap thermal cutoff at $T_{B-gap}$).
+    \item \textbf{Ch.~\ref{ch:vol9_breakdown_characteristics}} (Breakdown) supplies the Regime~IV substrate-rupture framing referenced by the gravity / BH discussion (interior = Regime~IV ruptured plasma per Ch.~\ref{ch:vol9_cosmological_characteristics}~$\S$\ref{sec:vol9_cosmo_substrate_rupture}) and the Schwinger $E_S$ field referenced by the cosmic vs.\ terrestrial null framing (Ch.~\ref{ch:vol9_falsification_tests}~$\S$\ref{subsec:vol9_schwinger_terrestrial_null}).
+    \item \textbf{Ch.~\ref{ch:vol9_phase_diagrams}} (Phase Diagrams) supplies the four-regime partition of the operating-point axis ($r = A_0/A_{yield}$) that locates each example on the substrate's overall phase diagram; the $\alpha$ derivation operates at the Regime~II $\to$ III boundary at $r_2 = \sqrt{3}/2$ (spin-2 sector), gravity at deep Regime~I ($r \ll 1$), the BH interior at Regime~IV, and the cosmic-scale $\delta_{strain}$ at low-amplitude thermal-bath ASYM (a sub-regime within Regime~I documented by the ASYM-N subclass enumeration).
+    \item \textbf{Ch.~\ref{ch:vol9_falsification_tests}} (Falsification) supplies the kill-switch tests that empirically interrogate the substrate primitives invoked by each example: PONDER-05 for the Ax~4 dielectric specialization (referenced by $\alpha$ derivation through the operating-point modulation and by $\delta_{strain}$ as the bench-scale analog of the thermal-mode ASYM mechanism); HOPF-01 for the $(p,q)$ chiral-resonance shift (referenced by $\alpha$ derivation through the $(2,3)$ topology); right-handed neutrino joint kill-switch for W/Z + $\delta_{strain}$ shared $\gamma_c$; three-route $u_0^*$ convergence for $\alpha$ + Machian $G$ + cosmological $\mathcal{J}_{cosmic}$.
+\end{itemize}
+
+\section{Summary}
+\label{sec:vol9_app_summary}
+
+Each application example treated above is the substrate's natural response under specified operating conditions, with the substrate primitives in Chs.~2--12 combining to produce the observed engineering quantity. No example introduces a new substrate primitive; no example postulates a physical phenomenon beyond what the substrate axioms (Ax~1 K4 Cosserat lattice + Ax~2 topo-kinematic isomorphism $\xi_{topo}$ + Ax~3 minimum reflection + Ax~4 universal saturation kernel) plus the structural-closure framing (one scale primitive $\ell_{node}$ + one cosmological initial-data parameter $\hat{\Omega}_{freeze}$) already supplies. The framework's predictive content is the joint constraint across application examples: $\alpha$, $G$, $m_W/m_Z$, $\delta_{strain}$, the Born-rule $p=2$ exponent, and (more broadly) every observable in this datasheet derive from one operating point $u_0^*$ + the substrate axioms; if any single derivation chain breaks, the framework breaks.
+
+The substrate is natural; the application examples document the substrate-mechanism behind specific observed phenomena; engineering measures; AVE substrate-physics derives. The next-step datasheet entries continue the same pattern: Ch.~\ref{ch:vol9_phase_diagrams} consolidates the operating-point + cosmic-phase partition; Ch.~\ref{ch:vol9_falsification_tests} catalogs the empirical kill-switches; Ch.~\ref{ch:vol9_cross_volume_reference} is the auto-generated parameter $\to$ derivation map.

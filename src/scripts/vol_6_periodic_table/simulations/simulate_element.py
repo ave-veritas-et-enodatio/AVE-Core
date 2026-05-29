@@ -866,7 +866,7 @@ def generate_summary_table(results: list[dict], output_file: str) -> None:
         ]
     )
 
-    with open(output_file, "w") as f:
+    with open(output_file, "w", encoding="utf-8") as f:
         f.write("\n".join(tex))
     print(f"[*] Summary table generated at: {output_file}\n")
 

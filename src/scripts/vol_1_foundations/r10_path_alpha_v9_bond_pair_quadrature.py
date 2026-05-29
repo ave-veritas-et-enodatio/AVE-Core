@@ -280,7 +280,7 @@ def main():
             "a_016_closure": "NEGATIVE",
             "top_cells": sorted(top_cells_list),
         }
-        OUTPUT_JSON.write_text(json.dumps(result, indent=2, default=str))
+        OUTPUT_JSON.write_text(json.dumps(result, indent=2, default=str), encoding="utf-8")
         return result
 
     # Recording: capture phasor trajectories at each bond-pair
@@ -338,7 +338,7 @@ def main():
         "bond_pairs": [{"A": list(bp["A"]), "B": list(bp["B"]), "offset": list(bp["offset"])} for bp in bond_pairs],
         "adjudication": adj,
     }
-    OUTPUT_JSON.write_text(json.dumps(result, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(result, indent=2, default=str), encoding="utf-8")
     print(f"\n[Result] Written to {OUTPUT_JSON}")
     return result
 

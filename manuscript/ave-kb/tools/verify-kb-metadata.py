@@ -83,14 +83,14 @@ import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
-# Make the sibling kb_index_lib importable regardless of invocation cwd.
-_TOOLS_DIR = Path(__file__).resolve().parent
-if str(_TOOLS_DIR) not in sys.path:
-    sys.path.insert(0, str(_TOOLS_DIR))
-
-import kb_index_lib  # noqa: E402
+# Sibling kb_index_lib resolves via PYTHONPATH (set by the make target).
+import kb_index_lib
 
 KB = Path("manuscript/ave-kb")
+
+# Single-source the user-facing remediation hint so the refresh-target name is
+# not duplicated across the several refresh-fixable failure reports below.
+REFRESH_HINT = "make refresh-kb-metadata"
 
 # Documented JSONL files emitted by the index pipeline (short names).
 INDEX_FILES = (
@@ -168,7 +168,7 @@ def collect_files() -> list[tuple[Path, dict | None]]:
             if not f.endswith(".md") or f in EXCLUDE_NAMES:
                 continue
             p = Path(root) / f
-            text = p.read_text()
+            text = p.read_text(encoding="utf-8")
             out.append((p, parse_frontmatter(text)))
     return out
 
@@ -178,7 +178,7 @@ def collect_canonical_ids() -> list[tuple[str, str]]:
     for p in KB.rglob("claim-quality.md"):
         if any(part in EXCLUDE_DIRS for part in p.relative_to(KB).parts[:-1]):
             continue
-        scrubbed = strip_code_fences(p.read_text())
+        scrubbed = strip_code_fences(p.read_text(encoding="utf-8"))
         for m in CANONICAL_ID.findall(scrubbed):
             out.append((m, str(p.relative_to(KB))))
     return out
@@ -209,7 +209,7 @@ def check_quality_block_integrity():
         # Scrub fenced code blocks so the preamble's format-example snippet
         # (a fenced `### Quality` / `<!-- id: clm-xxxxxx -->`) is not parsed
         # as a real claim section.
-        lines = strip_code_fences(p.read_text()).splitlines()
+        lines = strip_code_fences(p.read_text(encoding="utf-8")).splitlines()
 
         # Split into `---`-delimited sections, tracking 1-based start lines.
         # A bare `---` line is a section separator.
@@ -296,7 +296,7 @@ def check_tier2_coverage(files: list[tuple[Path, dict | None]]):
         ids = fm.get("claims", [])
         if len(ids) < 2:
             continue
-        text = p.read_text()
+        text = p.read_text(encoding="utf-8")
         # Scrub the frontmatter block so its own claims line doesn't count
         scrubbed = FRONTMATTER_BLOCK.sub("", text)
         markers = TIER2_INLINE.findall(scrubbed)
@@ -479,17 +479,16 @@ def check_index_well_formed(index_dir: Path):
         if not path.exists():
             missing.append(short)
             continue
-        raw = path.read_bytes()
-        if not raw:
+        text = path.read_text(encoding="utf-8")
+        if not text:
             # An empty file is well-formed per write_jsonl semantics, but
             # for the real KB every file is non-empty; if it is empty we
             # treat that as a freshness defect, caught by check_index_fresh.
             continue
-        if not raw.endswith(b"\n"):
+        if not text.endswith("\n"):
             eof_defects.append((short, "missing final newline"))
-        elif raw.endswith(b"\n\n"):
+        elif text.endswith("\n\n"):
             eof_defects.append((short, "multiple trailing newlines"))
-        text = raw.decode("utf-8", errors="replace")
         for lineno, line in enumerate(text.split("\n"), start=1):
             # Last element after a trailing newline is the empty string;
             # don't treat it as a malformed record.
@@ -526,12 +525,12 @@ def check_index_fresh(index_dir: Path):
         path = index_dir / f"{short}.jsonl"
         if not path.exists():
             continue
-        expected_bytes = kb_index_lib.serialize_records(expected[short])
-        actual_bytes = path.read_bytes()
-        if actual_bytes == expected_bytes:
+        expected_text = kb_index_lib.serialize_records(expected[short])
+        actual_text = path.read_text(encoding="utf-8")
+        if actual_text == expected_text:
             continue
         expected_count = len(expected[short])
-        actual_count = sum(1 for ln in actual_bytes.decode("utf-8", errors="replace").split("\n") if ln)
+        actual_count = sum(1 for ln in actual_text.split("\n") if ln)
         drift.append((short, expected_count, actual_count))
     return drift, expected
 
@@ -871,7 +870,7 @@ def check_leaf_references_fresh(state) -> list[tuple[str, str, str, str]]:
         if any(part in EXCLUDE_DIRS for part in p.relative_to(KB).parts[:-1]):
             continue
         register_rel = p.relative_to(KB).as_posix()
-        scrubbed = strip_code_fences(p.read_text()).splitlines()
+        scrubbed = strip_code_fences(p.read_text(encoding="utf-8")).splitlines()
 
         # Locate every (id_line, node_id, quality_line) entry region.
         id_lines: list[tuple[int, str]] = []
@@ -961,8 +960,6 @@ def check_solidity_fresh(state, index_dir: Path):
         )
     except kb_index_lib.SolidityCycleError:
         return [], [], []
-
-    by_id = {e.id: e for e in state.claim_entries}
 
     line_drift: list[tuple[str, str, str]] = []
     annotation_drift: list[tuple[str, str, str, str]] = []
@@ -1434,7 +1431,7 @@ def main(argv: list[str] | None = None) -> int:
             )
         for cid, got, want in sol_jsonl_drift:
             print(f"  {cid}: claims.jsonl — {got}, {want}")
-        print("  → Run `make refresh-kb-metadata` to regenerate solidity.")
+        print(f"  → Run `{REFRESH_HINT}` to regenerate solidity.")
 
     if leaf_ref_drift:
         has_failures = True
@@ -1449,16 +1446,15 @@ def main(argv: list[str] | None = None) -> int:
             print(f"    + {want.strip()}")
         print(
             "  → The `> **Leaf references:**` footer is a derived field; do not "
-            "hand-edit it. Run `make refresh-kb-metadata` to regenerate."
+            f"hand-edit it. Run `{REFRESH_HINT}` to regenerate."
         )
 
     if has_failures:
         if refresh_fixable:
             print(
                 "\n[claim-quality] FAIL — some failures are derivation-only "
-                "(subtree drift, missing index frontmatter). Try "
-                "`make refresh-kb-metadata` first; if anything remains, "
-                "those are real defects."
+                f"(subtree drift, missing index frontmatter). Try `{REFRESH_HINT}` "
+                "first; if anything remains, those are real defects."
             )
         else:
             print("\n[claim-quality] FAIL — fix the above and re-run.")

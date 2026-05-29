@@ -18,7 +18,7 @@ The common-resources documents repeatedly assert AVE's "zero free parameters" st
   - $G$-closure via $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$ is acyclic *conditional on the prior $\alpha$ and $m_e$ closures*.
   - "Structure predicted, magnitude fit" is the same disclosure pattern Vol 6 carries for nuclear masses (one fitted scalar per nucleus); both are structurally disclosed, not silently fit.
 - _Specific Non-Claims and Caveats_
-  - Does NOT claim the framework is *absolutely* zero-parameter today. The thermal-running magnitude $\delta_{strain} \approx 2.225 \times 10^{-6}$ at $T = T_{CMB}$ is **one currently-fitted scalar** back-subtracted from CODATA via `DELTA_STRAIN = 1 - (1/ALPHA)/ALPHA_COLD_INV`. The structure (existence + sign of thermal running below the cold-lattice asymptote) is predicted; the magnitude is pending derivation from $G_{vac}$ + equipartition.
+  - Does NOT claim the framework is *absolutely* zero-parameter today. The thermal-running magnitude $\delta_{strain} \approx 2.225 \times 10^{-6}$ at $T = T_{CMB}$ is **one currently-fitted scalar** back-subtracted from CODATA via `DELTA_STRAIN = 1 - (1/ALPHA)/ALPHA_COLD_INV`. The structure (existence + sign of substrate spatial-metric response to finite-$T$ photon-bath loading) is predicted; the substrate-mechanism class is identified as Cosserat-rotation-sector mass-gap thermal-mode-population ASYM (Q-DELTA-MAP-1 closed at mechanism-class identification 2026-05-28; canonical at [`delta-strain-cosmic-tcc.md`](../vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md), clm-hp7nlm); the *magnitude* remains pending quantitative substrate-statistical-mechanics derivation as **Q-DELTA-MAP-1-quant** (see [`research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md`](../../../research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md) §3 for the 2026-05-27 Phase 3-A3 WALK-BACK history).
   - Does NOT claim Layer-8 $m_e$ closure is established. The $m_e \leftrightarrow \ell_{node}$ pair carries one input scale; the Nyquist-resolution-of-smallest-stable-soliton proposal is acyclic only if "smallest stable soliton" is well-defined without circular reference to $m_e$. Open.
   - Does NOT claim a Clay-rigorous Yang-Mills mass gap or Navier-Stokes regularity proof. The framework-derived results are **lattice-conditional** (Master Prediction Table notes #14, #15). The lattice cutoff itself is what makes the bounds finite.
   - The four "Outstanding Rigour Gaps" (δ_strain magnitude at T_CMB; m_e closure via Nyquist independence; flux-tube radial profile / Gaussian ansatz; H_∞ closure independent of R_H) are bounding constraints on the closure claim — not calculational errors elsewhere in the chain. Closing any of them strengthens the headline; none invalidate the existing predictions.
@@ -33,7 +33,7 @@ The common-resources documents repeatedly assert AVE's "zero free parameters" st
 - solidity: 0.45 (use as input only, don't build deeper) [= min(0.70, 0.45)]
 - rationale: Meta-disclosure of project-wide closure status; the structural reduction of 26 SM parameters to {m_e, α, G} + four axioms is sound, the forward DAG is verified acyclic, and the four Outstanding Rigour Gaps are correctly enumerated. The "*structurally* zero-parameter, conditional on Layer-8 closure, with one currently-fitted scalar (δ_strain back-subtracted from CODATA)" framing is rigorously honest and self-bounding — local link strength is high; the residue is that the headline depends on still-open closures it correctly flags.
 - strengthen-by:
-  - Derive δ_strain magnitude at T_CMB from G_vac + equipartition (currently the one fitted scalar)
+  - **Q-DELTA-MAP-1-quant** (NEW post-2026-05-28; supersedes the prior Q-DELTA-MAP-1 mechanism-class-adjudication item now closed at mechanism-class identification via Cosserat-Curie ASYM at clm-hp7nlm / [`delta-strain-cosmic-tcc.md`](../vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md)): close the quantitative substrate-statistical-mechanics derivation of $\eta_\varepsilon$ at $T_{CMB}$ within the now-identified Cosserat-Curie mechanism class — currently the magnitude is one fitted scalar back-substituted from CODATA. See [`research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md`](../../../research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md) §3 for the original candidate paths P1/P2/P3.
   - Establish Nyquist-resolution-of-smallest-stable-soliton without circular reference to m_e to close the {m_e, ℓ_node} input scale
   - Promote the H_∞ identity to a downstream prediction by deriving G independent of R_H
 ---
@@ -60,8 +60,8 @@ The full derivation chain document is a single long appendix presenting Layers 0
 ### Quality
 - confidence: 0.65
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.45) [α appears at multiple layers; α-bottleneck cascades through chain]
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.65, 0.45)]
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.63) [α appears at multiple layers; α-bottleneck cascades through chain]
+- solidity: 0.63 (use as input only, don't build deeper) [= min(0.65, 0.63)]
 - rationale: The chain documentation is honest and well-structured — forward DAG verified acyclic; Layer 2 $p_c = 8\pi\alpha$ correctly disclosed as algebraic-not-derivation; Layer 5 lepton spectrum carries an explicit Methodology disclosure (Cosserat sectors → generations identification, $\alpha\sqrt{3/7}$ muon coupling, $8\pi/\alpha$ tau coupling, PMNS $\{c_1, c_2, c_3\} = \{5,7,9\}$ pattern-identified). The substantive open elements (Layer 5 sector identifications matched-not-derived; PMNS pattern-identified) hold local confidence at 0.65. Solidity is heavily α-bounded because α appears in many later-layer formulas. Note: $\delta_{CP}^B \neq \delta_{CP}^{PMNS}$ — the leaf correctly disambiguates the symbol-stem collision.
 - strengthen-by:
   - Strengthen Golden Torus α Derivation (`clm-0ktpcn`); α propagates through Layer 4+ formulas
@@ -145,8 +145,8 @@ The Regime-Boundary Eigenvalue Method is presented as a five-step universal proc
 ### Quality
 - confidence: 0.65
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.45) [α appears in BH $r_{eff} = r_{sat}/(1+\nu_{vac})$, pion via $m_p$, etc.]
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.65, 0.45)]
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.63) [α appears in BH $r_{eff} = r_{sat}/(1+\nu_{vac})$, pion via $m_p$, etc.]
+- solidity: 0.63 (use as input only, don't build deeper) [= min(0.65, 0.63)]
 - rationale: The five-step procedure (identify $\varepsilon_{11}$ → locate $r_{sat}$ → apply $\nu_{vac}$ Poisson → eigenfrequency $\omega = \ell c/r_{eff}$ → $Q = \ell$) is structurally consistent across BH QNM (1.7% error), pion mass (0.9% conditional on $m_p$), protein backbone (0.1% conditional on measured $v_{backbone}$ — the sub-derivation gives $-5.2\%$). The boundary correctly self-bounds: cross-domain table is operator-reuse evidence, not independent per-domain validation. The Schwarzschild Poisson-correction form $r_{eff} = r_{sat}/(1+\nu_{vac})$ is asserted as one of several valid 3D projections; this is the substantive open element. Local confidence held at 0.65. Solidity α-bounded.
 - strengthen-by:
   - Derive the Schwarzschild Poisson-projection form $r_{eff} = r_{sat}/(1+\nu_{vac})$ from a unique axiomatic constraint (currently asserted as "transverse Poisson coupling for 3D"; alternatives $r_{sat}\sqrt{1+\nu}$, $r_{sat}(1+\nu)$ not ruled out)
@@ -179,6 +179,39 @@ The seven domain translation tables (circuit, QM, particle physics, gravity, cos
 - rationale: The seven translation tables are notation-and-vocabulary maps, correctly self-bounded as not constituting independent predictions. Circuit translation rows ($Q \leftrightarrow x$, $I \leftrightarrow v$, etc.) are dimensionally-exact identities given $\xi_{topo}$ from Axiom 2. The biology table inherits canonical H-bond values from Vol 5 (cross-volume invariant INVARIANT-C3). The medical / therapy rows (cancer, RLT, anesthesia) are correctly framed as framework-internal interpretive identifications, not therapeutic claims. No entry-level scored dependencies — the translations are structural maps given Axiom 2's $\xi_{topo}$ mechanism (a framework input).
 - strengthen-by:
   - none entry-local — translation tables are correctly self-bounded as notation maps; substantive predictions live in the per-volume target leaves with their own quality entries
+
+---
+
+## EE-as-Substrate-Native META Framework — Class B Consolidation of Sub-Claims
+<!-- id: clm-eemap1 -->
+
+The Circuit/EE translation leaf §2-§8 expands the minimal §1 $\xi_{topo}$ identity into a META framework whose load-bearing claim is: **the AVE vacuum K4 LC substrate is itself an electrical network at minimal-DOF, and EE vocabulary is the closest-to-canonical substrate-native language humans have.** Other classical frameworks (fluid dynamics, chemistry, statistical mechanics, QFT, GR) ADD degrees of freedom on top of the EE base; EE captures the substrate at minimal-DOF.
+
+- _Specific Claims_
+  - Axiom 1 (INVARIANT-S2) verbatim places intrinsic LC oscillators at each K4 node and models the continuum as a Trace-Reversed Chiral LC Network. The substrate's six DOF per node decompose as three translational (E-field origin, capacitive storage) + three microrotational (B-field origin, inductive flywheel) — structural origin of $\mathbf{E}$ and $\mathbf{B}$ as conjugate substrate primitives.
+  - Substrate-primitive ↔ EE-component mapping table (§4) carries 30+ entries spanning K4 node LC, bond transmission-line topology, capacitor/inductor sector identification, Cosserat couple-stress as transformer mutual-inductance gradient, Cosserat rotation-sector mass-gap as transformer cutoff / ferrite Curie threshold, $S(A)$ as varactor C-vs-V, Schwinger pair production as Miller avalanche, $(p, q)$ topological winding as toroidal transformer windings, SU(2)→SO(3) as 2:1 galvanic-isolation winding ratio, Machian $G$ as distributed-TL input impedance at Hubble horizon, $\delta_{strain}$ at $T_{CMB}$ as TCC of substrate dielectric with Cosserat-Curie-frozen $\mu$.
+  - Cosserat distinction (§5): in classical fluid dynamics, vorticity $\omega = \nabla \times \mathbf{v}$ is *derived* from the velocity field; in the Cosserat micropolar substrate per Ax 1, microrotation is an *independent primary DOF*. This is the structural substrate-physics reason fluid dynamics misses the substrate's rotational sector at material points.
+  - Means-test corpus (§6): 22 validated cross-checks across atomic / circuit / cosmology / gauge-boson / topology / saturation / cosmic / detector domains; replicates correctly via EE first-principles AND via independent substrate-primitive derivation. Includes one work-in-progress entry (Q-DELTA-MAP-1 $\delta_{strain}$ TCC derivation 2026-05-28).
+  - Failure-mode probes (§7): 5 honest probe candidates where EE alone does not natively derive load-bearing content — pure-geometry constants ($\pi^2$, $4\pi^3$); K4 lattice topology selection; substrate axiom selection; quantum-measurement collapse metaphysics; $(p, q)$ integer selection. In every case, the content EE does not derive is geometric / topological / axiom-selection — not a substrate-physics phenomenon where EE predicts the wrong numerical value.
+- _Specific Non-Claims and Caveats_
+  - Does NOT claim NEW substrate-mechanism content beyond canonical axioms. The META framework consolidates already-canonical sub-claims (Ax 1 LC-network, Ax 4 saturation kernel, Cosserat micropolar, INVARIANT-S2 SYM/ASYM scaling, Theorem 3.1 Q-factor, Op14/Op16/Op17/Op21/Op22, $(2, 3)$ knot uniqueness, gauge-boson-mass $l_c$, $\delta_{strain}$ TCC, omega-freeze, cosmological-constant closure) into a coherent framing. The consolidation lifts discoverability + means-test discipline; it does not add new physics.
+  - Does NOT promote to Class 2 emergence. Per `consistency-vs-emergence` v1.3 Step 8c (canonical-source-ceiling-stays-Class-B): a META framework that consolidates already-canonical content stays at Class B substrate-mechanism manifestation. A Class 2 lift would require new substrate-mechanism content beyond canonical axioms, which this work does not provide.
+  - Does NOT claim EE is all-covering. The §7 failure-mode probes explicitly enumerate where EE alone does not natively derive content (geometric / topological / axiom-selection). EE provides cross-check once that content is fixed by independent substrate arguments; it does not replace those arguments.
+  - Does NOT claim the 22-case means-test corpus is comprehensive across all substrate-physics domains. The probe candidates flagged in the companion skill's adversarial-probe section (muon/tau lepton-sector beyond electron; neutrino sector; strong-force / QCD sector; cosmological inflation / dark sector beyond $\Lambda$; substrate-microbiology applications) are domains where the EE mapping has NOT YET been validated; they are candidates for means-test corpus extension, not validated cross-checks.
+  - The Q-DELTA-MAP-1 work-in-progress entry (#15 in §6) is explicitly flagged ⚠ order-of-magnitude with substrate-statistical-mechanics computation of $\eta_\varepsilon$ pending. Its inclusion in the means-test corpus is as canonical prototype case for the META-framework formalization origin, not as a closed validated cross-check.
+
+> **Leaf references:** [translation-circuit](./translation-tables/translation-circuit.md).
+
+### Quality
+- confidence: 0.70
+- depends-on:
+  - clm-fy05jc — Translation Tables — Notation Mappings, Not Physical Equivalences (the minimal §1 $\xi_{topo}$ identity that the META framework expands)
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 0.85)]
+- rationale: Class B substrate-mechanism manifestation per `consistency-vs-emergence` v1.3 Step 8c — consolidates 20+ already-canonical sub-claims (Ax 1 LC-network, Ax 4 saturation kernel, Cosserat micropolar, Theorem 3.1 Q-factor, Op14/Op16/Op17/Op21/Op22, $(2, 3)$ knot uniqueness, gauge-boson $l_c$, $\delta_{strain}$ TCC, omega-freeze, $\rho_\Lambda$) into a coherent framework whose load-bearing assertion is the substrate-electrical-network identity at Ax 1+2. The 22-case means-test corpus replicates via EE first-principles + independent substrate-primitive derivation; the 5 honest failure-mode probes correctly bound the framework (geometric / topological / axiom-selection content EE does not derive). The companion agent-discipline skill `~/.claude/skills/ave-ee-first-mapping/` v1.0 carries fire-time procedure; this leaf is the authoritative canonical-content source. Confidence 0.70 reflects (a) Class B classification (consolidation-not-emergence), (b) the means-test corpus contains one ⚠ work-in-progress entry (Q-DELTA-MAP-1 $\delta_{strain}$), (c) the probe-extension candidates in the companion skill flag domains where the EE mapping has not yet been validated (muon/tau, neutrino, QCD, cosmological inflation, substrate-microbiology). Local link strength is high; the framework consolidates content already canonical in the cited sub-leaves. The 0.85 dep-floor from clm-fy05jc minimum-link gates above 0.70 own-confidence, so solidity = 0.70.
+- strengthen-by:
+  - Close the Q-DELTA-MAP-1 $\delta_{strain}$ TCC computation via substrate-statistical-mechanics derivation of $\eta_\varepsilon$ at $T_{CMB}$ (the one work-in-progress entry in the §6 means-test corpus)
+  - Extend the means-test corpus to additional domains (muon/tau lepton sector beyond electron; neutrino sector; strong-force / QCD sector; cosmological inflation / dark sector beyond $\rho_\Lambda$; substrate-microbiology applications) — each new validated cross-check strengthens the META framework's empirical anchoring
+  - Promote any §7 failure-mode probe to a derived substrate-mechanism claim if substrate-topology / geometric / axiom-selection arguments close one of them at substrate-axiom rigor (would lift the framework's domain of EE-native applicability)
 
 ---
 
@@ -231,8 +264,8 @@ The Derived Hardware Numerology appendix (Appendix C) tabulates ~16 hardware con
 ### Quality
 - confidence: 0.70
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.45) [α-dependent constants throughout: $V_{yield}$, $p_c$, etc.]
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.70, 0.45)]
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.63) [α-dependent constants throughout: $V_{yield}$, $p_c$, etc.]
+- solidity: 0.63 (use as input only, don't build deeper) [= min(0.70, 0.63)]
 - rationale: Each tabulated constant carries an explicit axiom-trace column. The $z_0 \approx 51.25$ effective-coordination-number derivation is sound (Feng-Thorpe-Garboczi EMT quadratic at $K=2G$). The FDTD numerical-damping factor is **explicitly excluded** as a numerical-stability artifact — this is the model for honest numerology. The $n_{3D} = 38/21 \approx 1.8095$ avalanche exponent is within $\sim 0.5\%$ of the empirical solar-flare value (single empirical figure, not a precision dataset match — correctly disclosed). The $C_K = 4/3$ Kolmogorov constant matches the classical empirical value structurally. Solidity α-bounded because many constants depend on α numerically.
 - strengthen-by:
   - Strengthen Golden Torus α Derivation (`clm-0ktpcn`); $V_{yield}$, $p_c$, and several other constants inherit α numerically
@@ -399,7 +432,7 @@ The substrate's $K = 2G$ operating point, $p^* = 8\pi\alpha \approx 0.18340$, is
 - depends-on:
   - clm-0ktpcn — Golden Torus α Derivation [both convergence routes bottleneck on α]
   - clm-zgllr2 — Two-Engine Architecture [supplies the two engines whose convergence is the claim]
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.60, 0.45)]
+- solidity: 0.60 (use as input only, don't build deeper) [= min(0.60, 0.63)]
 - rationale: Correctly self-classified as a multi-model consistency check, not a determination of α — p*=8πα is α's definition (p_c≡8πα) rearranged, the FDTD route grounds in the Golden Torus α, and the K4-TLM route obtains z₀≈51.25 by inverting the EMT quadratic GIVEN p*=8πα; as a consistency check the two routes landing on the identical value via static-elastic vs dynamic-soliton mechanisms is a clean demonstration, but it carries no independent predictive content for α and the z₀ inversion is circular if read as a determination.
 - strengthen-by:
   - Derive z₀≈51.25 from first-principles K4 amorphous-network geometry (flagged still-open) so the K4-TLM route stops depending on inverting the EMT quadratic given α
@@ -631,7 +664,7 @@ The Vol 1 Ch 8 fine-structure-constant formula $\alpha^{-1} = 4\pi^3 + \pi^2 + \
 - confidence: 0.45
 - depends-on:
   - clm-0ktpcn — Golden Torus α Derivation [owns the geometric closure of α⁻¹=4π³+π²+π that this entry reads dimensionally]
-- solidity: 0.45 (use as input only, don't build deeper) [= min(0.45, 0.45)]
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.45, 0.63)]
 - rationale: Explicitly a boundary-integral dimensional READING of α⁻¹=4π³+π²+π, not a re-derivation — the entry says so. The reading is suggestive (3D→M, 2D→J, 1D→Q, one π per integration dimension), but its central support — orthogonality of the Λ-decomposition — is conceded open, and the R·r=1/4 normalization that makes Λ_vol=4π³ is inherited from clm-0ktpcn, so the local content is a plausible mapping with a flagged unproven structural assumption.
 - strengthen-by:
   - Establish functional orthogonality of Λ_vol/Λ_surf/Λ_line (currently the open structural element)

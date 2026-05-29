@@ -32,9 +32,8 @@ from pathlib import Path
 
 _THIS_DIR = Path(__file__).resolve().parent
 _TOOLS_DIR = _THIS_DIR.parent
-if str(_TOOLS_DIR) not in sys.path:
-    sys.path.insert(0, str(_TOOLS_DIR))
 
+# kb_index_lib resolves via PYTHONPATH (set by the test-tools make target).
 import kb_index_lib as lib  # noqa: E402
 
 _REFRESH = _TOOLS_DIR / "refresh-kb-metadata.py"
@@ -198,16 +197,16 @@ Body.
 
 def _build_kb(root: Path) -> None:
     """Materialize the synthetic KB under ``root``."""
-    (root / "CLAUDE.md").write_text(_CLAUDE_MD)
-    (root / "entry-point.md").write_text(_ENTRY_POINT)
+    (root / "CLAUDE.md").write_text(_CLAUDE_MD, encoding="utf-8")
+    (root / "entry-point.md").write_text(_ENTRY_POINT, encoding="utf-8")
     vol = root / "vol"
     vol.mkdir()
-    (vol / "index.md").write_text(_VOL_INDEX)
-    (vol / "claim-quality.md").write_text(_REGISTER)
-    (vol / "leaf-single.md").write_text(_LEAF_SINGLE)
-    (vol / "leaf-multi.md").write_text(_LEAF_MULTI)
-    (vol / "leaf-exp.md").write_text(_LEAF_EXP)
-    (vol / "leaf-sup.md").write_text(_LEAF_SUP)
+    (vol / "index.md").write_text(_VOL_INDEX, encoding="utf-8")
+    (vol / "claim-quality.md").write_text(_REGISTER, encoding="utf-8")
+    (vol / "leaf-single.md").write_text(_LEAF_SINGLE, encoding="utf-8")
+    (vol / "leaf-multi.md").write_text(_LEAF_MULTI, encoding="utf-8")
+    (vol / "leaf-exp.md").write_text(_LEAF_EXP, encoding="utf-8")
+    (vol / "leaf-sup.md").write_text(_LEAF_SUP, encoding="utf-8")
 
 
 class TestReverseMapUnit(unittest.TestCase):
@@ -291,7 +290,7 @@ class TestRefreshGeneration(unittest.TestCase):
         self.assertEqual(
             result.returncode, 0, f"refresh failed: {result.stderr}"
         )
-        self.text = self.register.read_text()
+        self.text = self.register.read_text(encoding="utf-8")
 
     def _footer_for(self, node_id: str) -> str:
         """Return the footer line within the entry whose id is ``node_id``."""
@@ -333,11 +332,11 @@ class TestRefreshGeneration(unittest.TestCase):
         )
 
     def test_idempotent(self):
-        before = self.register.read_bytes()
+        before = self.register.read_text(encoding="utf-8")
         result = _run(_REFRESH, self.kb)
         self.assertEqual(result.returncode, 0)
         self.assertEqual(
-            self.register.read_bytes(),
+            self.register.read_text(encoding="utf-8"),
             before,
             "leaf-references footer not idempotent across refresh runs",
         )
@@ -368,25 +367,25 @@ class TestVerifyDriftGate(unittest.TestCase):
         )
 
     def test_hand_edited_footer_fails(self):
-        text = self.register.read_text()
+        text = self.register.read_text(encoding="utf-8")
         edited = text.replace(
             "> **Leaf references:** [leaf-sup](./leaf-sup.md).",
             "> **Leaf references:** [leaf-sup](./leaf-sup.md) (hand-added prose).",
         )
         self.assertNotEqual(text, edited, "test setup failed to edit a footer")
-        self.register.write_text(edited)
+        self.register.write_text(edited, encoding="utf-8")
         result = _run(_VERIFY, self.kb)
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("leaf-references footer", result.stdout)
 
     def test_deleted_footer_fails_as_missing(self):
-        text = self.register.read_text()
+        text = self.register.read_text(encoding="utf-8")
         edited = text.replace(
             "> **Leaf references:** [leaf-sup](./leaf-sup.md).\n",
             "",
         )
         self.assertNotEqual(text, edited, "test setup failed to delete a footer")
-        self.register.write_text(edited)
+        self.register.write_text(edited, encoding="utf-8")
         result = _run(_VERIFY, self.kb)
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("(missing)", result.stdout)

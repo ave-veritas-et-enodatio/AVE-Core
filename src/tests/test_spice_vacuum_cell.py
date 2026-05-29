@@ -109,7 +109,7 @@ R1 N1 GND 1G
 """
         with tempfile.TemporaryDirectory() as tmpdir:
             cir_path = Path(tmpdir) / "lib_test.cir"
-            cir_path.write_text(test_netlist)
+            cir_path.write_text(test_netlist, encoding="utf-8")
 
             result = subprocess.run(
                 ["ngspice", "-b", str(cir_path)],
@@ -145,7 +145,7 @@ R_TERM N_OUT GND 50
 """
         with tempfile.TemporaryDirectory() as tmpdir:
             cir_path = Path(tmpdir) / "resonance.cir"
-            cir_path.write_text(netlist)
+            cir_path.write_text(netlist, encoding="utf-8")
 
             result = subprocess.run(
                 ["ngspice", "-b", str(cir_path)],

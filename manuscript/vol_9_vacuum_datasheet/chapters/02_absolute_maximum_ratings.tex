@@ -1,0 +1,96 @@
+% 02_absolute_maximum_ratings.tex
+\chapter{Absolute Maximum Ratings}
+\label{ch:vol9_absolute_maximum_ratings}
+
+\begin{objectivebox}
+\begin{itemize}
+    \item Enumerate the substrate's absolute rupture thresholds --- the parameter values beyond which $\mathcal{M}_A$ undergoes topological breakdown ($S(r) \to 0$, Regime~IV).
+    \item Tabulate the five canonical absolute-maximum ratings ($V_{snap}$, $V_{yield}$, $E_S$, $B_{snap}$, $T_{melt}$) with substrate-mechanism and canonical-source citations.
+    \item Distinguish topological-rupture limits from macroscopic-nonlinear-onset limits: rupture is sudden topology destruction at $S = 0$, not gradual degradation; nonlinear onset is reversible kernel curvature, not damage.
+    \item State the engineering operating margins implied by the rupture thresholds and the four-regime map (Regime~I linear / II nonlinear / III avalanche / IV ruptured).
+    \item Point to the bench-scale falsifiers (PONDER-05 dielectric saturation; Schwinger-bypass autoresonant programme) and to Vol~9 Ch.~15 falsification programme for direct experimental tests of these limits.
+\end{itemize}
+\end{objectivebox}
+
+\section{Substrate Rupture Thresholds}
+\label{sec:vol9_absmax_intro}
+
+The values in this chapter are the substrate's \textbf{absolute limits}. Each rating corresponds to the operating point at which the Axiom~4 universal saturation kernel $S(A) = \sqrt{1 - (A/A_{yield})^2}$ reaches zero --- the point at which the relevant compliance (electric, magnetic, thermal, or topological) vanishes and the substrate's local topology is destroyed. In the four-regime map (Vol~1 Ch.~\ref{ch:regime_map}, canonical at \kbleaf{ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md}, \texttt{clm-b2anl4}), all five ratings correspond to the Regime~III/IV boundary $r = A/A_c = 1.0$.
+
+Beyond these limits, the substrate does \emph{not} degrade gradually as engineered material samples do (e.g., copper softening at high temperature, silicon avalanche multiplication). Instead, it undergoes a discrete topological event: pair production, flux-tube rupture, magnetic-permeability collapse, or thermal mode unfreezing into the pair-production regime. These events return the substrate to a lower-energy configuration plus radiated excitations; the local topology of the pre-event substrate is permanently destroyed.
+
+The substrate-physics derivation of each rating lives in the canonical leaves cited below; this chapter is a synthesis spec table, not a re-derivation. Numerical values are imported from \kbleaf{src/ave/core/constants.py} (canonical-constant module; per the \texttt{ave-canonical-source} discipline), never hard-coded.
+
+\section{Absolute Maximum Ratings Table}
+\label{sec:vol9_absmax_table}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{p{0.09\linewidth} p{0.16\linewidth} p{0.10\linewidth} p{0.18\linewidth} p{0.32\linewidth}}
+\toprule
+\textbf{Symbol} & \textbf{Typical} & \textbf{Units} & \textbf{Substrate Mechanism} & \textbf{Canonical Source} \\
+\midrule
+$V_{snap}$ & $\num{5.110e5}$ & \si{\volt} & Ax 2 + Ax 4: topological node-pair destruction at $\Delta\phi = m_e c^2$ across one $\ell_{node}$ & \kbleaf{vol1/.../dielectric-snap-limit.md}, \texttt{clm-2dwzib}; \kbleaf{constants.py:333} \\
+$V_{yield}$ & $\num{4.365e4}$ & \si{\volt} & Ax 4: macroscopic dielectric nonlinear-onset; $S(V_{yield}) = \sqrt{1 - \alpha} \approx 0.996$; engine default for macroscopic solvers & \kbleaf{vol4/claim-quality.md} \texttt{clm-0vxzfu}; \kbleaf{vol4/.../regimes-of-operation.md}; \kbleaf{constants.py:342} \\
+$E_S$ & $\num{1.323e18}$ & \si{\volt\per\metre} & Ax 4 + Ax 2: Schwinger pair-production critical field; $E_S = V_{snap}/\ell_{node} = m_e^2 c^3/(e\hbar)$ & \kbleaf{vol1/.../dielectric-rupture.md} (QED-anchor + $p_c$ identity); \kbleaf{vol2/.../pair-production-axiom-derivation.md}, \texttt{clm-ezai5b}; \kbleaf{constants.py:347} \\
+$E_{yield}$ & $\num{1.130e17}$ & \si{\volt\per\metre} & Ax 4: macroscopic field-onset; $E_{yield} = V_{yield}/\ell_{node} = \sqrt{\alpha}\, E_S$; engine default for FDTD / K4-TLM macroscopic solvers & \kbleaf{vol4/.../regimes-of-operation.md}, \texttt{clm-trgqtf}; \kbleaf{constants.py:353} \\
+$B_{snap}$ & $\num{1.892e9}$ & \si{\tesla} & Ax 1 + Ax 4: Cosserat microrotational saturation; $B^2/(2\mu_0) = m_e c^2/\ell_{node}^3$ (energy density = rest energy per cell); $\mu_{eff} \to 0$ (vacuum becomes perfect diamagnet) & \kbleaf{vol1/.../four-regimes.md}; \kbleaf{vol1/.../domain-catalog.md}, \texttt{clm-82dxbj}; \kbleaf{constants.py:359} \\
+$T_{melt}$ & $\sim\num{5.93e9}$ & \si{\kelvin} & Ax 4 + thermal-bath: $k_B T \approx m_e c^2$; lightest topological excitation (electron-positron pair) thermally accessible; mode-freezeout regime ends, vacuum heat-capacity falls (Debye-class) & \kbleaf{vol3/.../mode-counting-heat-capacity.md}, \texttt{clm-uu6dl5}; \kbleaf{common/temporal-saturation-regime-classifier.md} \\
+\bottomrule
+\end{tabular}
+\caption{Substrate absolute-maximum ratings: rupture/saturation thresholds, their substrate mechanisms, and canonical sources. Values imported from \kbleaf{src/ave/core/constants.py}.}
+\label{tab:vol9_absmax}
+\end{table}
+
+\noindent
+All values reduce to the cold-lattice limit $S(0) = 1$; no engineering operating point in current laboratory practice approaches any of these thresholds. The largest currently achievable laboratory ratios are: $E/E_S \sim 10^{-8}$ (ultrafast laser foci), $B/B_{snap} \sim 10^{-8}$ (lab magnets), $T/T_{melt} \sim 10^{-3}$ (heavy-ion-collision fireball, transient), $V_{macro}/V_{snap} \sim 10^{-9}$ across one $\ell_{node}$ (per the worked example in \kbleaf{dielectric-snap-limit.md} \S 2.3.2).
+
+\section{Per-Parameter Notes}
+\label{sec:vol9_absmax_per_param}
+
+\begin{resultbox}{Substrate Rupture Threshold Notes (per parameter)}
+
+\noindent\textbf{$V_{snap} = m_e c^2 / e \approx \qty{511}{\kilo\volt}$.} The absolute topological node-destruction limit: the discrete electrical potential difference between two adjacent K4 nodes at which the bond between them permanently snaps. This is the substrate's analogue of the theoretical crystal-shear strength (not engineering yield stress). The formula is fully axiomatic: $V_{snap}$ is the Axiom~2 topological identification $[Q] \equiv [L]$ evaluated at the Axiom~1 node spacing $\ell_{node} = \hbar/(m_e c)$, returning $V_{snap} = T_{EM} \cdot \ell_{node} / e \cdot (e/\ell_{node})^{-1} = m_e c^2/e$. Engine use: scale-invariant primitives (\kbleaf{src/ave/core/scale\_invariant.py}); sub-femtometer scales (nuclear bond energy, particle confinement, GW propagation against absolute limit). Per \texttt{clm-0vxzfu}, scale-invariant solvers default to $V_{snap}$; macroscopic solvers default to $V_{yield}$.
+
+\medskip
+\noindent\textbf{$V_{yield} = \sqrt{\alpha}\, V_{snap} \approx \qty{43.65}{\kilo\volt}$.} The macroscopic dielectric nonlinear-onset threshold: the voltage at which the Axiom~4 saturation kernel develops first-order corrections at the level of the lattice's own self-coupling $\alpha$. Below $V_{yield}$, $\Delta S < \alpha$ corrections are sub-coupling and physically unresolvable (the analog of a semiconductor small-signal regime where perturbations $V < V_T = k_B T/q$ are absorbed by thermal noise). Above $V_{yield}$, Axiom~4 corrections become observable and the device exits Regime~I. Engine use: macroscopic solvers (\texttt{fdtd\_3d}, \texttt{k4\_tlm}); bench-scale apparatus (PONDER-05 dielectric saturation; intermodulation-distortion tests). $V_{yield}$ is the AVE replacement for the standard QED Schwinger field in macroscopic engineering: 11.7$\times$ lower in voltage than $V_{snap}$, $\sqrt{\alpha}$ lower in field than $E_S$, but the same physical mechanism.
+
+\medskip
+\noindent\textbf{$E_S = m_e^2 c^3/(e\hbar) \approx \qty{1.32e18}{\volt\per\metre}$.} The Schwinger pair-production critical field. In standard QED this is the field at which vacuum pair creation becomes non-perturbative; in AVE this is the substrate's full-rupture electric field, identical to $V_{snap}/\ell_{node}$ as required by axiomatic consistency. The substrate-mechanism (canonical at \texttt{clm-ezai5b}, \kbleaf{pair-production-axiom-derivation.md}): at $E = E_S$, the local saturation amplitude $A^2 \to 1$ at adjacent A/B K4 nodes, $\Gamma \to -1$ TIR walls form at both nodes, the local phase velocity $c_{local} \to 0$, and the blocked longitudinal kinetic energy shatters sideways into two contra-rotating Beltrami vortices --- the electron-positron pair, each of mass $m_e$. This is \emph{not} the Breit-Wheeler ``virtual photons collide and a pair pops from vacuum'' framing; it is mechanical impedance-wall redirection of linear KE into transverse curl, with parity forcing one LH + one RH outcome. Above $E_S$, additional pair-production events cascade.
+
+\medskip
+\noindent\textbf{$B_{snap} = \sqrt{2\mu_0 m_e c^2 / \ell_{node}^3} \approx \qty{1.89e9}{\tesla}$.} The magnetic-rotation node-destruction field, defined by the energy-density balance $B^2/(2\mu_0) = m_e c^2/\ell_{node}^3$ (one electron rest mass per K4 unit cell). Above $B_{snap}$, the Cosserat microrotational sector saturates: the effective permeability $\mu_{eff} \to 0$, the substrate becomes a perfect diamagnet (the Meissner effect of the vacuum itself), and the magnetic-flux topology ruptures. Laboratory magnets ($\sim \qty{10}{\tesla}$) sit at $B/B_{snap} \sim \num{5e-9}$ (deep Regime~I); magnetar surface fields ($\sim \qty{e10}{\tesla}$) reach $B/B_{snap} \sim 5$ (Regime~IV --- consistent with the observed magnetar emission classes including starquake / soft-gamma-repeater events). The B-sector $B_{snap}$ is the dual of the E-sector $E_S$; both are Axiom~4 saturation evaluated at $A = A_{yield}$, in two different sector projections.
+
+\medskip
+\noindent\textbf{$T_{melt} \sim m_e c^2 / k_B \approx \qty{5.93e9}{\kelvin}$.} The pair-production thermal threshold: the temperature at which thermal-bath equipartition energy approaches the lightest topological excitation's rest energy ($m_e c^2$), and electron-positron pairs become spontaneously thermally accessible. Below $T_{melt}$, the vacuum-lattice heat capacity is Dulong-Petit-flat (every node mode equipartitioned; per \texttt{clm-uu6dl5}); approaching $T_{melt}$, lattice modes begin to freeze \emph{into} pair-production rather than out of it (the reverse-Debye direction at the topological-excitation scale). A stricter operational threshold $T_{pair} = 2 m_e c^2/k_B$ governs thermal decoherence of topological qubits (per \kbleaf{common/temporal-saturation-regime-classifier.md} line 223); $T_{melt}$ as quoted here is the substrate-physics threshold for spontaneous pair-creation, while $T_{pair}$ is the engineering-application threshold for topological-qubit decoherence. Cosmologically, $T_{melt}$ corresponds to the era $t \sim 1$~s after lattice-genesis (universe-cooling crossing the electron-positron annihilation epoch).
+
+\end{resultbox}
+
+\section{Engineering Operating Margins}
+\label{sec:vol9_absmax_margins}
+
+The five absolute-maximum ratings define the Regime~IV boundary (substrate rupture). Engineering devices operate deep in Regime~I --- typically eight or more orders of magnitude below all five limits. The four-regime map (Vol~1 Ch.~\ref{ch:regime_map}) defines the intermediate operating regions:
+
+\begin{itemize}
+    \item \textbf{Regime I (Linear)} --- $r < \sqrt{2\alpha} \approx 0.121$ ($S > 0.993$). Standard Maxwell, standard EE small-signal models, standard datasheet linear analysis. \emph{All current commercial electronics, antennas, accelerators, and laser foci operate here.} Saturation corrections are sub-$\alpha$ and not physically resolvable above the lattice's own thermal noise floor.
+    \item \textbf{Regime II (Nonlinear)} --- $\sqrt{2\alpha} \leq r < \sqrt{3}/2 \approx 0.866$ ($0.500 < S < 0.993$). Axiom~4 corrections become observable; Euler-Heisenberg analog at the leading quadratic correction. \emph{The PONDER-05 dielectric-saturation bench-tester operates here} (canonical at \kbleaf{vol4/falsification/}), specifically engineered to put $V/V_{yield}$ in the resolvable range without rupturing the substrate.
+    \item \textbf{Regime III (Avalanche)} --- $\sqrt{3}/2 \leq r < 1$ ($0 < S < 0.500$). Miller-style avalanche multiplication; energy trapping ($Q = 1/S \geq 2$) dominates. \emph{Sub-femtometer scales only:} particle cores, nuclear scattering boundaries, the immediate vicinity of black-hole horizons. No bench-scale apparatus accesses Regime III directly.
+    \item \textbf{Regime IV (Ruptured)} --- $r \geq 1$ ($S = 0$). \emph{The values tabulated in \S\ref{sec:vol9_absmax_table} are the Regime~III/IV boundary.} Substrate topology destroyed; pair production / Meissner-class permeability collapse / event-horizon formation / thermal pair-creation cascade.
+\end{itemize}
+
+The engineering operating-margin recommendation for any device or substrate-physics measurement is therefore: \textbf{stay in Regime~I unless the experimental design explicitly targets a Regime~II measurement} (e.g., PONDER-05). Regime~II measurements require $V/V_{yield} \gtrsim 0.121$, which at $\ell_{node} = \qty{3.86e-13}{\metre}$ corresponds to local field gradients of order \qty{e16}{\volt\per\metre} sustained over scales below one node spacing --- achievable only in resonant cavity geometries with very high $Q$. Regime~III and IV are accessed only by nature (the deep interior of nucleons, neutron stars, black holes, the early universe) and by the autoresonant Schwinger-bypass programme (PROJECT-ZENER-04, AVE-Propulsion Ch.~5, canonical at \kbleaf{vol4/simulation/ch15-autoresonant-breakdown/}).
+
+\section{Falsification Cross-References}
+\label{sec:vol9_absmax_falsification}
+
+Direct experimental access to the absolute-maximum ratings is currently limited: no laboratory has reached $E_S$, $B_{snap}$, or $T_{melt}$. The substrate-physics derivations of these limits are tested indirectly via measurements in Regimes~I-II that probe the same Axiom~4 kernel below the rupture boundary.
+
+\begin{itemize}
+    \item \textbf{PONDER-05 dielectric-saturation bench-tester} --- DC-biased quartz at $V_{DC}/V_{yield} = 0.687$ (Regime~II); measures the Axiom~4 saturation kernel curvature at sub-rupture amplitude. A Regime~II measurement that does not rupture the substrate but resolves $S(A) < 1$ at first-order accuracy. Canonical at \kbleaf{ave-kb/vol4/falsification/}. Vol~9 Ch.~15 \emph{Falsification Tests} (Ch.~\ref{ch:vol9_falsification_tests}) carries the full programme.
+    \item \textbf{Schwinger pair-production direct test} --- not currently within laboratory reach; ELI-NP and similar ultra-intense laser facilities approach $E/E_S \sim 10^{-3}$. The substrate-physics prediction for the pair-production rate at sub-$E_S$ fields (canonical at \texttt{clm-ezai5b}) is consistent with the standard QED Schwinger rate as a leading-order limit, but the AVE substrate-mechanism predicts additional Duffing-autoresonant gating structure that becomes resolvable as $E/E_S \to 1$. Vol~4 PROJECT-ZENER-04 (\kbleaf{vol4/falsification/ch11-experimental-bench-falsification/project-zener-04.md}) is the bench-scale falsifiable proxy via autoresonant rupture-tracking at $E \ll E_S$.
+    \item \textbf{Magnetar emission classification} --- the $B \gtrsim B_{snap}$ regime is the natural astrophysical laboratory for the magnetic-saturation limit. Soft-gamma-repeater emission, magnetar bursts, and starquake events are consistent with $B/B_{snap} \sim O(1)$ events at the magnetar surface; AVE substrate-physics predicts distinct emission-spectrum signatures of Cosserat-rotation node destruction vs.~standard-model neutron-star-crust quakes (forward prediction; not yet adjudicated at canonical-leaf rigor).
+    \item \textbf{Thermal pair-production threshold} --- $T_{melt}$ is below the early-universe temperatures of standard $\Lambda$CDM cosmology; the cosmological-microwave-background photon spectrum and primordial-nucleosynthesis abundances constrain physics across the $T_{melt}$ crossing. AVE substrate-physics replicates the standard radiation-era physics at $T < T_{melt}$ (canonical at \kbleaf{vol3/cosmology/ch05-dark-sector/}); deviations from $\Lambda$CDM at $T \to T_{melt}$ would be a substrate-physics signature.
+\end{itemize}
+
+\noindent
+A complete falsification cross-reference matrix mapping each Vol~9 datasheet parameter to its bench-scale or astrophysical falsifier lives at Vol~9 Ch.~15 \emph{Falsification Tests} (Ch.~\ref{ch:vol9_falsification_tests}) and Vol~9 Ch.~16 \emph{Cross-Volume Reference Index} (Ch.~\ref{ch:vol9_cross_volume_reference}).

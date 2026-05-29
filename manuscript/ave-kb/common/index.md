@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [clm-3bwhad, clm-533gvm, clm-5fu303, clm-6mvtsf, clm-a7cbqq, clm-bjceop, clm-dsb560, clm-dxdsvt, clm-exjfai, clm-f0jwtk, clm-fndptx, clm-fy05jc, clm-gdd70j, clm-gr8d63, clm-gz7ryg, clm-h3acr9, clm-hmiytz, clm-hvvvop, clm-ibfyda, clm-io8hft, clm-iouqn9, clm-jwyy6l, clm-k3p9wz, clm-l4o7hv, clm-m7qd0w, clm-ofys5v, clm-pe8lpx, clm-pfocn6, clm-q4c615, clm-qwmnhn, clm-s3i0lw, clm-sjjvhf, clm-sxn6eo, clm-sysqaf, clm-t5ybqw, clm-vnp57s, clm-yawl6z, clm-ze4clw, clm-zfqd9v, clm-zgllr2, clm-zi6t1e]
+subtree-claims: [clm-3bwhad, clm-533gvm, clm-5fu303, clm-6mvtsf, clm-a7cbqq, clm-bjceop, clm-dsb560, clm-dxdsvt, clm-eemap1, clm-exjfai, clm-f0jwtk, clm-fndptx, clm-fy05jc, clm-gdd70j, clm-gr8d63, clm-gz7ryg, clm-h3acr9, clm-hmiytz, clm-hvvvop, clm-ibfyda, clm-io8hft, clm-iouqn9, clm-jwyy6l, clm-k3p9wz, clm-l4o7hv, clm-m7qd0w, clm-ofys5v, clm-pe8lpx, clm-pfocn6, clm-q4c615, clm-qwmnhn, clm-s3i0lw, clm-sjjvhf, clm-sxn6eo, clm-sysqaf, clm-t5ybqw, clm-vnp57s, clm-yawl6z, clm-ze4clw, clm-zfqd9v, clm-zgllr2, clm-zi6t1e]
 subtree-experiments: []
 bootstrap: true
 -->
@@ -17,7 +17,7 @@ Cross-volume reference material shared across all AVE volumes. Contains the unif
 
 | Result | Location |
 |---|---|
-| Complete derivation chain: 4 axioms + Golden Torus $\alpha$ derivation → 8 derivation layers → **structurally zero-parameter, conditional on thermal closure of $\delta_{strain}$ at $T_{CMB}$** (one currently-fitted scalar pending first-principles derivation) | [Full Derivation Chain](full-derivation-chain.md) |
+| Complete derivation chain: 4 axioms + Golden Torus $\alpha$ derivation → 8 derivation layers → **structurally zero-parameter, conditional on quantitative thermal closure of $\delta_{strain}$ at $T_{CMB}$** (one currently-fitted scalar; substrate-mechanism class identified as Cosserat-rotation-sector mass-gap thermal-mode-population ASYM at clm-hp7nlm; remaining open: **Q-DELTA-MAP-1-quant**) | [Full Derivation Chain](full-derivation-chain.md) |
 | Automated diagnostic confirms strict geometric closure (DAG proof + back-edge analysis; structurally zero-parameter modulo the $\delta_{strain}$ scalar) | [Mathematical Closure](mathematical-closure.md) |
 | Universal regime-boundary eigenvalue method applies across BH QNM, nuclear, protein, and semiconductor domains | [Solver Toolchain](solver-toolchain.md) |
 | Unified experimental index: hardware benchmarks, astronomical tests, biophysical proposals (all volumes) | [Unified Experiments Appendix](appendix-experiments.md) |

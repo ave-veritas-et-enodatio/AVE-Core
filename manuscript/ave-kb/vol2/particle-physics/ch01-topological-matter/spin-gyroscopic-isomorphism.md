@@ -64,3 +64,4 @@ In the AVE framework, this isomorphism is expected: "quantum spin" is a macrosco
 - `manuscript/vol_2_subatomic/chapters/01_topological_matter.tex`
 - [Newtonian Inertia as Lenz's Law](./newtonian-inertia-as-lenz.md) — inductance-to-mass mapping
 - [Electron Unknot](./electron-unknot.md) — the $0_1$ defect whose precession mode produces spin
+- [Finkelstein-Misner Spin-½ Derivation on the K4 Substrate](./finkelstein-misner-spin-half-derivation.md) — explicit K4-native FM-kink derivation + group-theoretic $K_4 \to A_4 \to 2T \subset SU(2)$ chain (the gyroscopic-isomorphism in this leaf is the §4 numerical anchor of that derivation)

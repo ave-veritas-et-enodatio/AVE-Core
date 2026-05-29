@@ -563,7 +563,7 @@ def main():
             "c_via_Op10": int(engine.cos.extract_crossing_count()),
         },
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"  Result: {OUTPUT_JSON}")
     return payload
 

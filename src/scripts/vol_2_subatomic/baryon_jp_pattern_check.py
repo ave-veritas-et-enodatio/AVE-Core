@@ -194,7 +194,7 @@ def main():
         ],
     }
     out_path = Path(__file__).parent / "baryon_jp_pattern_check_results.json"
-    out_path.write_text(json.dumps(out, indent=2, default=str))
+    out_path.write_text(json.dumps(out, indent=2, default=str), encoding="utf-8")
     print(f"\nSaved {out_path.relative_to(Path.cwd())}")
 
 

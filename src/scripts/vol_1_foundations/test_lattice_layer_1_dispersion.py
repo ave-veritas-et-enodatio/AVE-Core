@@ -348,7 +348,7 @@ def main() -> None:
         for k, v in result.items()
         if k not in ("frames",)  # frames too large
     }
-    with open(out_json, "w") as f:
+    with open(out_json, "w", encoding="utf-8") as f:
         json.dump(
             {"prereg": PREREG, "eval": eval_result, "result": result_serial},
             f,

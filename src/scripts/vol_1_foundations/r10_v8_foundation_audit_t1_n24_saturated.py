@@ -115,7 +115,7 @@ def main():
     # Combined comparison table — pull in prior data
     prior_results_path = Path(__file__).parent / "r10_v8_foundation_audit_t1_targeted_results.json"
     if prior_results_path.exists():
-        with open(prior_results_path) as f:
+        with open(prior_results_path, encoding="utf-8") as f:
             prior_data = json.load(f)
         prior_results = prior_data["results"]
     else:
@@ -191,7 +191,9 @@ def main():
             print(f"    {name:<22} {off:>11.4e} {on:>11.4e} {ratio:>8.3f}{flag}")
 
     out_path = Path(__file__).parent / "r10_v8_foundation_audit_t1_n24_saturated_results.json"
-    out_path.write_text(json.dumps({"new_results": results, "prior_results": prior_results}, indent=2, default=str))
+    out_path.write_text(
+        json.dumps({"new_results": results, "prior_results": prior_results}, indent=2, default=str), encoding="utf-8"
+    )
     print(f"\nSaved {out_path.relative_to(Path.cwd())}")
 
 

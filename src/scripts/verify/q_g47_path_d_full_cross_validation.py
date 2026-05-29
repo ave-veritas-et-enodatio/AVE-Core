@@ -767,7 +767,7 @@ def main():
         },
     }
     out_path = REPO_ROOT / "src" / "scripts" / "verify" / "q_g47_path_d_full_cross_validation_results.json"
-    with open(out_path, "w") as f:
+    with open(out_path, "w", encoding="utf-8") as f:
         json.dump(cache, f, indent=2)
     print(f"  Wrote: {out_path}")
     print()

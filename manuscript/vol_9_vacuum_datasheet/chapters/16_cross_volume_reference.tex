@@ -1,0 +1,294 @@
+% 16_cross_volume_reference.tex
+\chapter{Cross-Volume Reference Index}
+\label{ch:vol9_cross_volume_reference}
+
+\begin{objectivebox}
+\begin{itemize}
+    \item Provide a fast-lookup index from every substrate parameter cataloged in Vol~9 Chs.~2--12 to its canonical-derivation location in Vols~1--6 (and Vol~0 backmatter where applicable).
+    \item Provide a complementary lookup from engineering observables (voltage / current / impedance / frequency / temperature / magnetic field / mechanical stress / wave speed) to the substrate-mechanism primitive(s) they depend on and the Vol~9 chapter that catalogs the primitive.
+    \item Catalog the by-volume contribution map: which sections of Vols~0--6 originate the canonical content that Vol~9 consolidates, so an engineer reading Vol~9 can resolve any derivation back to a single source volume.
+    \item Document the AVE Knowledge-Base cross-reference convention (\texttt{clm-} canonical-leaf-claim IDs; KB tree topology at \kbleaf{manuscript/ave-kb/vol9/ch*/index.md}) and the canonical-leaf grep convention used throughout the spec tables.
+    \item Disambiguate the AVE-APU companion repository from Vol~9 The Vacuum Datasheet; route hardware-validation / atopile / APU-processor questions to the sibling repository rather than Vol~9.
+\end{itemize}
+\end{objectivebox}
+
+\section{Index Discipline}
+\label{sec:vol9_xref_discipline}
+
+Chapter~16 contains no new substrate-physics derivation. It is an INDEXICAL lookup chapter: every entry routes a query to a Vol~9 spec-table chapter (Chs.~2--15), to a canonical-derivation location in Vols~0--6, and to the canonical KB leaf where the substrate-physics claim is anchored. The substrate is natural; engineering practice catalogs its parameters; AVE substrate-physics derives the substrate-mechanism; this chapter is the navigation map between the three.
+
+All entries below were verified against the canonical leaves at the Vol~9 datasheet drafting time per the \texttt{verify-before-cite} v1.4 discipline (every \texttt{clm-} ID grep-verified at the canonical anchor; every chapter cross-reference label-resolved against the Vol~9 manuscript). The index reflects the canonical state at Vol~9 publication; for the live cross-reference graph, query the KB tools (\S\ref{sec:vol9_xref_kb}).
+
+\section{Parameter $\to$ Canonical Source Lookup}
+\label{sec:vol9_xref_parameter_lookup}
+
+The main lookup table: every substrate parameter cataloged in the Vol~9 spec tables, with its Vol~9 chapter pointer + canonical-derivation pointer (Vol $N$ Ch.~$M$) + canonical KB leaf path. Sorted by Vol~9 chapter of first introduction.
+
+\begin{footnotesize}
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{@{}p{0.10\linewidth} p{0.22\linewidth} p{0.10\linewidth} p{0.20\linewidth} p{0.28\linewidth}@{}}
+\caption{Parameter-to-canonical-source lookup: every Vol~9 substrate parameter with its Vol~9 chapter, canonical volume/chapter, and KB leaf path.}\label{tab:vol9_xref_parameter_lookup}\\
+\toprule
+\textbf{Symbol} & \textbf{Parameter} & \textbf{Vol 9 Ch} & \textbf{Canonical Vol+Ch} & \textbf{KB Leaf Path / \texttt{clm-} ID} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Symbol} & \textbf{Parameter} & \textbf{Vol 9 Ch} & \textbf{Canonical Vol+Ch} & \textbf{KB Leaf Path / \texttt{clm-} ID} \\
+\midrule
+\endhead
+% --- Ch 2 Absolute Maximum Ratings ---
+$V_{snap}$ & Topological node-destruction limit & 2 & Vol 1 Ch.~7 (regimes) & \kbleaf{vol1/.../dielectric-snap-limit.md}; \texttt{clm-2dwzib} \\
+$V_{yield}$ & Macroscopic dielectric nonlinear onset & 2, 8 & Vol 4 Ch.~2 (regimes-of-operation) & \kbleaf{vol4/.../regimes-of-operation.md}; \texttt{clm-0vxzfu} \\
+$E_S$ & Schwinger pair-production critical field & 2, 8 & Vol 2 Ch.~1 (pair production); Vol 1 Ch.~7 & \kbleaf{vol2/.../pair-production-axiom-derivation.md}; \texttt{clm-ezai5b} \\
+$E_{yield}$ & Macroscopic field-onset $\sqrt{\alpha}\,E_S$ & 2 & Vol 4 Ch.~2 (regimes-of-operation) & \kbleaf{vol4/.../regimes-of-operation.md}; \texttt{clm-trgqtf} \\
+$B_{snap}$ & Magnetic-rotation node-destruction field & 2, 10 & Vol 1 Ch.~7 (domain catalog) & \kbleaf{vol1/.../domain-catalog.md}; \texttt{clm-82dxbj} \\
+$T_{melt}$ & Pair-production thermal threshold $\sim m_e c^2/k_B$ & 2 & Vol 3 Ch.~3 (mode-count heat capacity) & \kbleaf{vol3/.../mode-counting-heat-capacity.md}; \texttt{clm-uu6dl5} \\
+% --- Ch 3 Pin / Port Configuration ---
+$\Gamma$ & Reflection coefficient $(Z_2-Z_1)/(Z_2+Z_1)$ (Op3) & 3 & Vol 1 Ch.~6 \S 6.3 (Op3) & \kbleaf{vol1/.../reflection-coefficient.md}; \texttt{clm-gdd70j} \\
+$T^2$ & Boundary transmission $1 - \Gamma^2$ (Op17) & 3 & Vol 1 Ch.~6 (Op17) & \kbleaf{common/operators.md} Op17 row \\
+$Q = \ell$ & Confined-mode quality at $\Gamma = -1$ (Op21) & 3 & Vol 1 Ch.~6 (Op21) & \kbleaf{common/op21-multi-mode-mode-counting.md} \\
+SYM port & $\mu, \varepsilon$ scale together; $\alpha$-invariant & 3 & Vol 3 Ch.~1 (gravity-yield) & \kbleaf{vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md}; \texttt{clm-3zz0f6} \\
+ASYM port & $\mu \ne \varepsilon$ scaling; $\alpha$-modulating & 3, 6 & Vol 2 Ch.~1 (pair production) & \kbleaf{vol2/.../pair-production-axiom-derivation.md}; \texttt{clm-8nkvwy} \\
+% --- Ch 4 DC Electrical Characteristics ---
+$\varepsilon_0$ & Vacuum permittivity & 4 & Vol 1 Ch.~1 (Ax 1) & \kbleaf{src/ave/core/constants.py:80}; CLAUDE.md INVARIANT-S2 Ax 1 \\
+$\mu_0$ & Vacuum permeability & 4, 10 & Vol 1 Ch.~1 (Ax 1) & \kbleaf{src/ave/core/constants.py:79}; CLAUDE.md INVARIANT-S2 Ax 1 \\
+$Z_0$ & Characteristic impedance $\sqrt{\mu_0/\varepsilon_0}$ & 4, 5 & Vol 4 Ch.~1 ($Z_0$ derivation) & \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md} \\
+$c_0$ & Cold-lattice EM wave speed (Op16) & 4 & Vol 1 Ch.~6 (Op16) & \kbleaf{common/operators.md} Op16 row \\
+$\ell_{node}$ & K4 lattice pitch & 4 & Vol 1 Ch.~1 (Ax 1) & \kbleaf{common/natural-units-cheatsheet.md} \\
+$T_{EM}$ & EM string tension $m_e c^2/\ell_{node}$ & 4, 12 & Vol 1 Ch.~1 (Ax 1+2) & \kbleaf{src/ave/core/constants.py:330} \\
+$\alpha$ & Fine-structure constant (cold-lattice asymptote) & 4, 6, 13 & Vol 1 Ch.~8 (Golden Torus) & \kbleaf{vol1/ch8-alpha-golden-torus.md}; \texttt{clm-0ktpcn} \\
+$\xi_{topo}$ & Topological transduction $e/\ell_{node}$ (Ax 2) & 4, 11, 13 & Vol 4 + Vol 5 (organic circuitry) & \kbleaf{vol5/.../electromechanical-transduction-constant.md}; \texttt{clm-i9l284}; \texttt{clm-fy05jc} \\
+% --- Ch 5 AC Electrical Characteristics ---
+$L_{cell}$ & Per-bond inductance $\mu_0\,\ell_{node}$ & 5, 10 & Vol 1 Ch.~1 (Ax 1) & \kbleaf{common/translation-tables/translation-circuit.md} \S 4; \texttt{clm-eemap1} \\
+$C_{cell}$ & Per-bond capacitance $\varepsilon_0\,\ell_{node}$ & 5 & Vol 1 Ch.~1 (Ax 1) & \kbleaf{common/translation-tables/translation-circuit.md} \S 4; \texttt{clm-eemap1} \\
+$\omega_C$ & Bond LC natural frequency $c_0/\ell_{node}$ & 5 & Vol 1 Ch.~6 (Op14) & \kbleaf{common/operators.md} Op14 row \\
+$c_{EM}(A_0)$ & Maxwell phase velocity $c_0/S$ & 5, 7 & Vol 2 + Vol 3 ($\alpha$-invariance) & \kbleaf{vol2/.../pair-production-axiom-derivation.md}:111; \texttt{clm-8nkvwy} \\
+$c_{shear}(A_0)$ & Shear / group / rest-mass velocity $c_0\sqrt{S}$ & 5, 7, 9 & Vol 2 + Vol 3 (gravity-yield) & \kbleaf{vol2/.../pair-production-axiom-derivation.md}:113; \texttt{clm-8nkvwy} \\
+% --- Ch 6 Temperature Characteristics ---
+$\delta_{strain}$ & Cosmic fractional vacuum strain at $T_{CMB}$ & 6 & Vol 3 Ch.~5 (dark sector) & \kbleaf{vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md}; \texttt{clm-hp7nlm}; \texttt{clm-009nkt} \\
+$\eta_\varepsilon$ & E-mode thermal-modulation coefficient & 6 & Vol 3 Ch.~5 (open: Q-DELTA-MAP-1-quant) & \kbleaf{vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md}; \texttt{clm-hp7nlm} \\
+$m_\omega$ & Cosserat rotation-sector mass-gap $\sim 1$~MeV & 6, 10 & Vol 2 Ch.~5 (gauge-boson masses) & \kbleaf{vol2/.../gauge-boson-masses.md}; \texttt{clm-5zuo7g}; \kbleaf{common/trampoline-framework.md}:188 \\
+$T_{CMB}$ & CMB photon-bath temperature (operating point) & 6, 12 & Vol 3 Ch.~5 (dark sector) & \kbleaf{vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md} \S 2; \texttt{clm-hp7nlm} \\
+% --- Ch 7 Saturation Characteristics ---
+$S(A)$ & Ax 4 universal saturation kernel $\sqrt{1-(A/A_{yield})^2}$ & 7, 14 & Vol 1 Ch.~1 (Ax 4) & \kbleaf{common\_equations/eq\_axiom\_4.tex}; CLAUDE.md INVARIANT-S2 Ax 4 \\
+$A_{yield}$ & Substrate saturation-amplitude limit & 7 & Vol 1 Ch.~1 (Ax 4) & \kbleaf{common\_equations/eq\_axiom\_4.tex} \\
+$r = A/A_c$ & Normalized operating point & 7, 8, 14 & Vol 1 Ch.~7 (four-regimes) & \kbleaf{vol1/.../four-regimes.md}; \texttt{clm-b2anl4}; \texttt{clm-2dwzib} \\
+$A_0$ & LC-tank operating-point amplitude (gauge-relative) & 7 & Vol 1 Ch.~1 (Ax 4) & CLAUDE.md INVARIANT-S2 operating-point-state clause \\
+% --- Ch 8 Breakdown Characteristics ---
+$M(r)$ & Miller multiplication $1/S^2$ (Regime III) & 8 & Vol 1 Ch.~7 (four-regimes) & \kbleaf{vol1/.../four-regimes.md}; \texttt{clm-b2anl4} \\
+% --- Ch 9 Mechanical Characteristics ---
+$G_{vac}$ & Vacuum shear modulus $\rho_{bulk}\,c_0^2$ & 9 & Vol 3 Ch.~1 (gravity-yield) & \kbleaf{src/ave/core/constants.py:587} \\
+$K_{vac}$ & Vacuum bulk modulus $2\,G_{vac}$ & 9 & Vol 3 Ch.~1 (gravity-yield; EMT closure $p^* = 8\pi\alpha$) & Vol 3 derived-numerology Appendix \\
+$\nu_{vac}$ & Vacuum Poisson ratio $2/7$ & 9, 12, 13 & Vol 3 Ch.~1 (gravity-yield) & \kbleaf{vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md}; \texttt{clm-x19btt} \\
+$\gamma_c$ & Cosserat couple-stress modulus & 9, 10, 15 & Vol 2 Ch.~5 (electroweak mechanics) & \kbleaf{vol2/.../gauge-boson-masses.md}:39; \texttt{clm-5zuo7g} \\
+$\rho_{bulk}$ & Substrate bulk mass density & 9, 15 & Vol 3 derived-numerology & \kbleaf{src/ave/core/constants.py:579} \\
+$v_T$ & Transverse wave speed $\sqrt{G/\rho} = c_0$ & 9 & Vol 3 Ch.~1 (gravity-yield) & \kbleaf{src/ave/core/constants.py} (derived) \\
+$v_L$ & Longitudinal wave speed $\sqrt{2}\,c_0$ & 9 & Vol 3 (derived-numerology) & \kbleaf{src/ave/core/constants.py:591} \\
+$l_c$ & Cosserat characteristic length $\sqrt{\gamma_c/G_{vac}}$; weak-force range $r_W$ & 9, 10 & Vol 2 Ch.~5 (electroweak mechanics) & \kbleaf{vol2/.../gauge-boson-masses.md}:39; \texttt{clm-5zuo7g} \\
+% --- Ch 10 Magnetic / Microrotational Characteristics ---
+$I_\omega$ & Cosserat micro-inertia (bond-scale rotational moment) & 10 & Vol 1 Ch.~5 (trampoline framework) & \kbleaf{common/trampoline-framework.md}:181 \\
+% --- Ch 11 Topological Characteristics ---
+$(p,q)$ electron & $(2,3)$ trefoil on Clifford torus & 11, 13 & Vol 1 Ch.~8 + Vol 2 Ch.~1 & \kbleaf{vol2/.../torus-knot-uniqueness.md}; \texttt{clm-8c3yhs} \\
+$0_1$ unknot & Electron real-space body (min ropelength $2\pi$) & 11, 13 & Vol 2 Ch.~1 (topological matter) & \kbleaf{vol2/particle-physics/ch01-topological-matter/electron-unknot.md} \\
+$I4_1 32$ & Substrate chiral space group (\#214) & 11, 12, 15 & Vol 1 Ch.~1 (Ax 1) & CLAUDE.md INVARIANT-S2 Ax 1 \\
+$T \to 2T$ & Binary-tetrahedral $SU(2)$ subgroup; spin-$\tfrac{1}{2}$ origin & 11 & Vol 2 Ch.~1 (FM-kink derivation) & \kbleaf{vol2/particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md}; \texttt{clm-salw2h} \\
+% --- Ch 12 Cosmological Characteristics ---
+$R_H$ & Cosmic horizon $c/H_\infty$ & 12 & Vol 3 Ch.~4 (generative cosmology) & \kbleaf{vol3/cosmology/ch04-generative-cosmology/lattice-genesis-hubble-tension.md}; \texttt{clm-wx5324} \\
+$H_\infty$ & Asymptotic Hubble rate $\approx 69.33$ km/s/Mpc & 12 & Vol 3 Ch.~4 (generative cosmology) & \kbleaf{vol3/cosmology/ch04-generative-cosmology/lattice-genesis-hubble-tension.md}; \texttt{clm-wx5324} \\
+$R_H/\ell_{node}$ & Cosmic-scale topological transduction count $\sim 10^{39}$ & 12 & Vol 3 Ch.~4 + translation-circuit & \kbleaf{common/translation-tables/translation-circuit.md}; \texttt{clm-eemap1} \\
+$G$ & Newton's constant (DERIVED Machian impedance) & 12 & Vol 3 Ch.~4 (Machian integral) & \kbleaf{common/full-derivation-chain.md}; \kbleaf{common/mathematical-closure.md} Layer 7 \\
+$\xi$ & Dimensionless Machian-hierarchy coupling $\approx \num{8.15e43}$ & 12 & Vol 3 Ch.~4 (Machian integral) & \kbleaf{src/ave/core/constants.py:471} (\texttt{XI\_MACHIAN}) \\
+$\hat{\Omega}_{freeze}$ & Cosmological initial-data parameter (cosmic angular momentum at lattice genesis) & 12, 15 & Vol 3 Ch.~4 (generative cosmology) & \kbleaf{common/omega-freeze-cosmic-grain-cascade.md}; \texttt{clm-dsb560}; \texttt{clm-a7cbqq} \\
+$u_0^*$ & Magic-angle operating point $\approx 0.187$ ($\alpha$+$G$ joint anchor) & 12, 15 & Vol 3 Ch.~4 + L5 A-034 & \kbleaf{common/omega-freeze-cosmic-grain-cascade.md}; \texttt{clm-dsb560} \\
+$\mathcal{J}_{cosmic}$ & Cosmic-boundary winding $\hat{\Omega}_{freeze} \cdot I_{cosmic}$ & 12 & Vol 3 Ch.~4 + boundary-observables & \kbleaf{common/boundary-observables-m-q-j.md}; \kbleaf{common/omega-freeze-cosmic-grain-cascade.md} \\
+\bottomrule
+\end{longtable}
+\end{footnotesize}
+
+\noindent
+\textit{Notes on the lookup.} The ``Vol 9 Ch'' column lists every Vol~9 chapter in which the parameter carries a spec-table entry or load-bearing reference; the ``Canonical Vol+Ch'' column names the primary substrate-physics derivation location. The ``KB Leaf Path / \texttt{clm-} ID'' column points to the canonical KB leaf where the derivation is anchored, with the canonical-leaf-claim ID (\texttt{clm-xxxxxx}) where one has been assigned per INVARIANT-S8. Grep for the \texttt{clm-} ID across the repo (\kbleaf{grep -r "clm-xxxxxx" manuscript/ave-kb/}) returns the canonical entry plus every Tier-2 inline marker citing the claim.
+
+\section{Observable $\to$ Substrate Mechanism Lookup}
+\label{sec:vol9_xref_observable_lookup}
+
+The complementary lookup: standard EE / mechanical engineering observables (the engineering side of the substrate-physics / engineering-empirical pairing) mapped to the substrate-mechanism primitive(s) and the Vol~9 chapter that catalogs each primitive. Per the EE-as-substrate-native META framework (\texttt{clm-eemap1}; \texttt{ave-ee-first-mapping} v1.0), the EE vocabulary IS the substrate's own canonical vocabulary at minimal degrees of freedom; the table below is the engineering-to-substrate routing index.
+
+\begin{footnotesize}
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{@{}p{0.20\linewidth} p{0.32\linewidth} p{0.10\linewidth} p{0.30\linewidth}@{}}
+\caption{Observable-to-substrate-mechanism lookup: standard EE / mechanical observables mapped to substrate-mechanism primitives and Vol~9 chapter.}\label{tab:vol9_xref_observable_lookup}\\
+\toprule
+\textbf{Engineering Observable} & \textbf{Substrate-Mechanism Primitive} & \textbf{Vol 9 Ch} & \textbf{Canonical Leaf / \texttt{clm-} ID} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Engineering Observable} & \textbf{Substrate-Mechanism Primitive} & \textbf{Vol 9 Ch} & \textbf{Canonical Leaf / \texttt{clm-} ID} \\
+\midrule
+\endhead
+Voltage $V$ & Topological dislocation potential $\Delta\phi$ across $\ell_{node}$ (Ax 2) & 4, 8 & \kbleaf{common/translation-tables/translation-circuit.md}; \texttt{clm-fy05jc} \\
+Current $I$ & Topological dislocation flux $\xi_{topo}\,v$ (Ax 2) & 4 & \kbleaf{common/translation-tables/translation-circuit.md}; \texttt{clm-fy05jc} \\
+Charge $Q$ & Discrete geometric dislocation count $\xi_{topo}\,x$ (Ax 2) & 4, 11 & CLAUDE.md INVARIANT-S2 Ax 2; \texttt{clm-fy05jc} \\
+Impedance $Z$ & Substrate bond TLM $\sqrt{\mu/\varepsilon}$ (Ax 1) & 3, 4, 5 & \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md} \\
+$S_{11}$ / return loss & $\Gamma$ at substrate boundary (Op3; Ax 3 min-$|\Gamma|^2$) & 3 & \kbleaf{vol1/.../reflection-coefficient.md}; \texttt{clm-gdd70j} \\
+VSWR / matched load & Substrate $\Gamma \to 0$; Axiom~3 minimization & 3 & CLAUDE.md INVARIANT-S2 Ax 3; \texttt{clm-gdd70j} \\
+Capacitance $C$ & Bond-density $\varepsilon_{eff}/S$ (translational-DOF storage) & 4, 5, 7 & \kbleaf{common/translation-tables/translation-circuit.md} \S 4; \texttt{clm-eemap1} \\
+Inductance $L$ & Bond-density $\mu_{eff}\,\ell$ (microrotational-DOF storage) & 4, 5, 10 & \kbleaf{common/translation-tables/translation-circuit.md} \S 4; \texttt{clm-eemap1} \\
+LC resonance $\omega_C$ & $1/\sqrt{L_{cell} C_{cell}} = c_0/\ell_{node}$ (substrate Nyquist) & 5 & \kbleaf{common/operators.md} Op14 row \\
+Avalanche gain $M$ & Substrate Miller identity $1/S^2$ (Regime III) & 8 & \kbleaf{vol1/.../four-regimes.md}; \texttt{clm-b2anl4} \\
+Breakdown voltage $V_{BR}$ & Substrate $V_{yield}$ at doped-silicon scale & 2, 8 & \kbleaf{vol4/.../regimes-of-operation.md}; \texttt{clm-0vxzfu} \\
+Dielectric strength $E_{br}$ & Substrate $E_{yield}$; $\sqrt{\alpha}\,E_S$ (Ax 4) & 2, 8 & \kbleaf{vol4/.../regimes-of-operation.md}; \texttt{clm-trgqtf} \\
+Temperature coeff.\ TCC & Cosserat-Curie thermal-mode-population ASYM $\eta_\varepsilon(T)$ & 6 & \kbleaf{vol3/.../delta-strain-cosmic-tcc.md}; \texttt{clm-hp7nlm} \\
+Johnson-Nyquist noise & Substrate thermal-mode E-bath at finite $T$ & 6 & Vol 6 Ch.~6 (\kbleaf{delta-strain-cosmic-tcc.md} synthesis) \\
+Curie threshold $T_c$ & Cosserat-rotation mass-gap analog ($\omega_m$) & 6, 10 & \kbleaf{vol2/.../gauge-boson-masses.md}; \texttt{clm-5zuo7g} \\
+Magnetic field $\mathbf{B}$ & Substrate microrotational density $\boldsymbol{\omega}$ (Ax 1) & 10 & CLAUDE.md INVARIANT-S2 Ax 1 \\
+Faraday induction & Cosserat translational-microrotational bidirectional PDE coupling & 10 & \kbleaf{common/trampoline-framework.md}:181 \\
+Transformer leakage-$L$ & $\gamma_c$-mediated bond microrotation flux mismatch & 10, 13 & \kbleaf{vol2/.../gauge-boson-masses.md}; \texttt{clm-5zuo7g} \\
+Mechanical stress $\sigma$ & Substrate translational strain (Ax 1 + Ax 4) & 9 & Vol 3 Ch.~1 (gravity-yield) \\
+Couple-stress $\boldsymbol{\mu}_{couple}$ & Cosserat microrotation gradient $\gamma_c\,\nabla\boldsymbol{\omega}$ & 9, 10 & \kbleaf{common/trampoline-framework.md}:181 \\
+Phase velocity (Maxwell) & $c_{EM}(A_0) = c_0/S$ (translational LC propagation) & 5, 7 & \kbleaf{vol2/.../pair-production-axiom-derivation.md}:111; \texttt{clm-8nkvwy} \\
+Group / rest-mass velocity & $c_{shear}(A_0) = c_0\sqrt{S}$ (shear / Schwarzschild) & 5, 7, 9, 13 & \kbleaf{vol2/.../pair-production-axiom-derivation.md}:113; \texttt{clm-8nkvwy} \\
+Gravitational time dilation & SYM-class $c_{shear}$ tracking $\sqrt{1-r_s/r}$ & 13 & \kbleaf{vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md}; \texttt{clm-3zz0f6} \\
+Schwinger pair rate & Substrate-saturation rupture at $E_S$; Beltrami-vortex pair & 8, 15 & \kbleaf{vol2/.../pair-production-axiom-derivation.md}; \texttt{clm-ezai5b} \\
+Hubble constant $H_\infty$ & Substrate cosmic boundary $c/R_H$; lattice-genesis & 12 & \kbleaf{vol3/.../lattice-genesis-hubble-tension.md}; \texttt{clm-wx5324} \\
+CMB axis (axis-of-evil) & $\hat{\Omega}_{freeze}$ direction at lattice genesis & 12, 15 & \kbleaf{common/omega-freeze-cosmic-grain-cascade.md}; \texttt{clm-dsb560} \\
+Intrinsic spin-$\tfrac{1}{2}$ & FM-kink on $0_1$ unknot via $T \to 2T \subset SU(2)$ & 10, 11 & \kbleaf{vol2/.../finkelstein-misner-spin-half-derivation.md}; \texttt{clm-salw2h} \\
+Quark fractional charge & Witten Effect on $(2,q)$ Borromean baryon topology & 11 & Vol 2 Ch.~1 (topological matter) \\
+Weak-force range $r_W$ & Cosserat characteristic length $l_c = \sqrt{\gamma_c/G_{vac}}$ & 9, 10, 15 & \kbleaf{vol2/.../gauge-boson-masses.md}:39; \texttt{clm-5zuo7g} \\
+H-bond geometry $d_{HB}$ & Op4 potential-well minimum (Vol 5) & --- (Vol 5) & \kbleaf{vol5/.../hbond-op4-equilibrium.md}; INVARIANT-C3 \\
+\bottomrule
+\end{longtable}
+\end{footnotesize}
+
+\noindent
+\textit{Notes on the observable lookup.} Each row routes from the engineering-empirical observable name to the substrate-physics primitive that produces it. Per the EE-as-substrate-native discipline (\texttt{ave-ee-first-mapping} v1.0), the engineering-observable column is NOT a borrowed analogy; it IS the substrate's own canonical vocabulary at the scale where the substrate's minimal-DOF behavior dominates the observable physics. The Vol~9 Ch column points to the spec-table chapter; the canonical leaf points to the substrate-physics derivation.
+
+\section{Cross-Volume Index by Volume}
+\label{sec:vol9_xref_by_volume}
+
+The by-volume contribution map: which sections of Vols~0--6 originate the canonical content that Vol~9 consolidates. An engineer reading any Vol~9 chapter can resolve any cited result to a single source volume via this index.
+
+\subsection{Vol 0 (Engineering Compendium) backmatter}
+
+\begin{itemize}
+    \item \textbf{Backmatter Ch.~7 (Universal saturation kernel catalog).} Full 26-event cross-scale catalog of the Axiom~4 quarter-arc kernel at zero free parameters across 21 orders of magnitude. Cross-referenced from Vol~9 Ch.~7 (Saturation Characteristics) and Ch.~14 (Phase Diagrams). Canonical at \kbleaf{vol\_0\_engineering\_compendium/backmatter/ch7-universal-saturation-kernel.tex}.
+\end{itemize}
+
+\subsection{Vol 1 (Foundations) contributions}
+
+\begin{itemize}
+    \item \textbf{Ch.~1 Fundamental axioms.} Source of Axioms 1--4 verbatim; canonical equation files \kbleaf{common\_equations/eq\_axiom\_[1-4].tex}; mirror at CLAUDE.md INVARIANT-S2. Cross-referenced from every Vol~9 chapter.
+    \item \textbf{Ch.~5 Universal spatial tension.} Source of $T_{EM}$ identity (Vol~9 Ch.~4). Trampoline framework Cosserat micro-inertia PDEs at \kbleaf{common/trampoline-framework.md}:181 (Vol~9 Ch.~10).
+    \item \textbf{Ch.~6 Universal operators.} Op3 (reflection $\Gamma$), Op14 (long-range coupling / LC resonance), Op16 (universal wave speed), Op17 (transmission $T^2$), Op21 (confined-mode quality). Cross-referenced from Vol~9 Chs.~3, 5.
+    \item \textbf{Ch.~7 Regime map.} Four-regimes partition $r = A/A_c$; domain catalog of 8 substrate domains. \texttt{clm-b2anl4} + \texttt{clm-2dwzib} + \texttt{clm-82dxbj}. Cross-referenced from Vol~9 Chs.~2, 7, 8, 14.
+    \item \textbf{Ch.~8 Golden Torus $\alpha$ derivation.} $\alpha^{-1}_{ideal} = 4\pi^3 + \pi^2 + \pi$ cold-lattice asymptote at $S_{11}$-minimum geometry. \texttt{clm-0ktpcn}. Cross-referenced from Vol~9 Chs.~4, 13.
+\end{itemize}
+
+\subsection{Vol 2 (Subatomic Scale) contributions}
+
+\begin{itemize}
+    \item \textbf{Ch.~1 Topological matter.} Pair-production axiom derivation (\texttt{clm-ezai5b}; canonical at \kbleaf{pair-production-axiom-derivation.md}); FM-kink spin-$\tfrac{1}{2}$ derivation (\texttt{clm-salw2h}); torus-knot uniqueness for the electron (\texttt{clm-8c3yhs}); $0_1$ unknot real-space body. SYM vs ASYM $\mu/\varepsilon$ scaling classification (\texttt{clm-8nkvwy}; lines 111--113 carry the two-effective-wave-speed canonical statement). Cross-referenced from Vol~9 Chs.~5, 7, 8, 11, 13, 15.
+    \item \textbf{Ch.~5 Electroweak mechanics.} $W$/$Z$ gauge-boson masses as Cosserat couple-stress evanescent-cutoff modes; weak-force range $l_c = \sqrt{\gamma_c/G_{vac}}$ (canonical at \kbleaf{gauge-boson-masses.md}:39; \texttt{clm-5zuo7g}). Cross-referenced from Vol~9 Chs.~6, 9, 10, 13, 15.
+\end{itemize}
+
+\subsection{Vol 3 (Macroscopic Physics) contributions}
+
+\begin{itemize}
+    \item \textbf{Ch.~1 Gravity and yield.} Vacuum Poisson ratio $\nu_{vac} = 2/7$ derivation (\kbleaf{vacuum-poisson-ratio.md}; \texttt{clm-x19btt}). SYM-class $\alpha$-invariance proof (\kbleaf{alpha-invariance-symmetric-gravity.md}; \texttt{clm-3zz0f6}). Cross-referenced from Vol~9 Chs.~3, 9, 13.
+    \item \textbf{Ch.~3 Condensed matter.} Mode-counting heat capacity for $T_{melt}$ (\kbleaf{mode-counting-heat-capacity.md}; \texttt{clm-uu6dl5}). Cross-referenced from Vol~9 Ch.~2.
+    \item \textbf{Ch.~4 Generative cosmology.} Lattice-genesis Hubble-tension closure (\kbleaf{lattice-genesis-hubble-tension.md}; \texttt{clm-wx5324}); $\hat{\Omega}_{freeze}$ cosmic-grain cascade + magic-angle $u_0^*$ derivation (\kbleaf{omega-freeze-cosmic-grain-cascade.md}; \texttt{clm-dsb560}; \texttt{clm-a7cbqq}; \texttt{clm-pe8lpx}); Machian $G$ as boundary impedance integral. Cross-referenced from Vol~9 Chs.~12, 15.
+    \item \textbf{Ch.~5 Dark sector.} Cosserat-Curie thermal-mode-population ASYM for $\delta_{strain}$ at $T_{CMB}$ (\kbleaf{delta-strain-cosmic-tcc.md}; \texttt{clm-hp7nlm}; \texttt{clm-009nkt}). Cross-referenced from Vol~9 Chs.~6, 13.
+\end{itemize}
+
+\subsection{Vol 4 (Applied Vacuum Engineering) contributions}
+
+\begin{itemize}
+    \item \textbf{Ch.~1 Vacuum circuit analysis.} $Z_0$ derivation; Theorem 3.1 Q-factor for $\alpha$ closure; parametric coupling kernel for PONDER-05 (\kbleaf{parametric-coupling-kernel.md}). Cross-referenced from Vol~9 Chs.~4, 5, 13, 15.
+    \item \textbf{Ch.~2 Topological thrust mechanics.} Two-threshold $V_{snap}$/$V_{yield}$ canonical (\kbleaf{regimes-of-operation.md}; \texttt{clm-0vxzfu}; \texttt{clm-trgqtf}). Cross-referenced from Vol~9 Chs.~2, 8.
+    \item \textbf{Ch.~11 Experimental bench.} Falsification programme — PONDER-05, HOPF-01, Sagnac-RLVE, right-handed neutrino kill-switch (\kbleaf{open-source-hardware.md}; \texttt{clm-wzezvt}); epistemology of kill-switches (\kbleaf{epistemology-kill-switches.md}; \texttt{clm-om0rtq}). Cross-referenced from Vol~9 Ch.~15.
+\end{itemize}
+
+\subsection{Vol 5 (Topological Biology) contributions}
+
+\begin{itemize}
+    \item \textbf{Molecular foundations / organic circuitry.} Electromechanical transduction constant $\xi_{topo} = e/\ell_{node}$ canonical home (\kbleaf{electromechanical-transduction-constant.md}; INVARIANT-C2; \texttt{clm-i9l284}). H-bond equilibrium $d_{HB} = 1.754$~\AA{} via Op4 (\kbleaf{hbond-op4-equilibrium.md}; INVARIANT-C3). Cross-referenced from Vol~9 Chs.~4, 11.
+\end{itemize}
+
+\subsection{Vol 6 (Periodic Table of Knots) contributions}
+
+\begin{itemize}
+    \item Vol~6 supplies nuclear masses + geometries via mutual-impedance summation $M_{ij} = K/r_{ij}$ at $K \approx 11.337$~MeV~fm. Vol~9 does not cite Vol~6 directly in the spec tables (Vol~9 is electromagnetic / mechanical / cosmological synthesis); Vol~6 sits adjacent in the corpus map. Engineers needing nuclear-scale derivations route to Vol~6 directly via \kbleaf{ave-kb/vol6/index.md}.
+\end{itemize}
+
+\subsection{Common (cross-volume) contributions}
+
+\begin{itemize}
+    \item \textbf{Translation tables.} \kbleaf{common/translation-tables/translation-circuit.md} \S 1--\S 9: substrate-primitive $\leftrightarrow$ EE-component canonical mapping (\texttt{clm-fy05jc}, \texttt{clm-eemap1}). EE-as-substrate-native META framework at \S 2. Vol~9 Chs.~4--10 all cite this leaf.
+    \item \textbf{Operators catalog.} \kbleaf{common/operators.md}: Op1--Op21 universal operator definitions. Vol~9 Chs.~3, 4, 5 cite.
+    \item \textbf{Natural units cheatsheet.} \kbleaf{common/natural-units-cheatsheet.md}: $\ell_{node} = c = \hbar = m_e = 1$ four-base convention. Vol~9 Ch.~4 cites.
+    \item \textbf{Full derivation chain.} \kbleaf{common/full-derivation-chain.md}: cross-volume derivation closure including Machian-$G$ closure layer. Vol~9 Ch.~12 cites.
+    \item \textbf{Mathematical closure.} \kbleaf{common/mathematical-closure.md}: closure status of $\alpha$, $G$, $H_\infty$, $\delta_{strain}$; Layer~7 $G$ closure. Vol~9 Chs.~6, 12 cite.
+    \item \textbf{Boundary observables.} \kbleaf{common/boundary-observables-m-q-j.md}: $\mathcal{M}$, $\mathcal{Q}$, $\mathcal{J}$ three-invariant structure at every $\Gamma = -1$ saturation surface. Vol~9 Ch.~12 cites.
+    \item \textbf{Trampoline framework.} \kbleaf{common/trampoline-framework.md}: Cosserat micro-inertia PDEs (line 181); rotation-sector mass-gap $\omega_m$ (line 188); Machian-$G$ bulk integral (\S 5.5). Vol~9 Chs.~6, 9, 10, 12 cite.
+    \item \textbf{Appendix experiments (INVARIANT-S3).} \kbleaf{common/appendix-experiments.md}: Unified Index of Experimental Falsifications. Vol~9 Ch.~15 cites.
+    \item \textbf{Omega-freeze cascade.} \kbleaf{common/omega-freeze-cosmic-grain-cascade.md}: $\hat{\Omega}_{freeze}$ + $u_0^*$ + cosmic chirality canonical home. Vol~9 Chs.~12, 15 cite.
+\end{itemize}
+
+\section{Knowledge Base Cross-Reference}
+\label{sec:vol9_xref_kb}
+
+The AVE Knowledge Base at \kbleaf{manuscript/ave-kb/} is the canonical home of every substrate-physics claim cited in this datasheet. The KB topology mirrors the manuscript volume structure: \texttt{vol1/}, \texttt{vol2/}, \texttt{vol3/}, \texttt{vol4/}, \texttt{vol5/}, \texttt{vol6/}, \texttt{vol9/}, \texttt{common/}. Vol~9's KB tree at \kbleaf{manuscript/ave-kb/vol9/} contains:
+
+\begin{itemize}
+    \item \texttt{vol9/index.md} --- volume KB index; routes to each chapter index.
+    \item \kbleaf{vol9/claim-quality.md} --- thin claim-quality register (Vol~9 is SYNTHESIS-not-derivation; most claims live in the source volume's claim-quality register).
+    \item \kbleaf{vol9/ch1-general-description/index.md} through \kbleaf{vol9/ch16-cross-volume-reference/index.md} --- per-chapter index stubs routing to canonical leaves in Vols~0--6 and to Vol~9-scoped consolidation content.
+\end{itemize}
+
+\subsection{Canonical-leaf claim IDs (\texttt{clm-} convention)}
+
+Every load-bearing substrate-physics claim cited in this datasheet carries a stable canonical-leaf claim ID of the form \texttt{clm-} plus 6 lowercase-alphanumeric characters (per KB INVARIANT-S8). The grep guarantee:
+
+\begin{itemize}
+    \item \kbleaf{grep -r "clm-xxxxxx" manuscript/} returns the canonical claim-quality entry, every KB leaf whose frontmatter cites the ID, every Tier~2 inline marker, and every intermediate-index \texttt{subtree-claims} summary that scopes the entry.
+    \item The \texttt{clm-} prefix is unambiguously greppable: the regex \verb|\bclm-[a-z0-9]{6}\b| matches IDs and nothing else, never an English or physics word.
+    \item Walking from a Vol~9 spec-table citation to its canonical KB leaf, then to the underlying claim-quality entry and back, is mechanical.
+\end{itemize}
+
+\subsection{KB query CLI}
+
+The claim graph is materialized as JSONL under \kbleaf{manuscript/ave-kb/.index/} and queryable via the \texttt{kb\_cmd} CLI. From the repo root:
+
+\begin{verbatim}
+PYTHONPATH=manuscript/ave-kb/tools python -m kb_cmd show clm-hp7nlm
+PYTHONPATH=manuscript/ave-kb/tools python -m kb_cmd deps clm-hp7nlm
+PYTHONPATH=manuscript/ave-kb/tools python -m kb_cmd cited-by clm-eemap1
+\end{verbatim}
+
+Commands: \texttt{show}, \texttt{deps}/\texttt{-i}, \texttt{solidity-below}, \texttt{weak-points}, \texttt{gated-on}, \texttt{cited-by}, \texttt{subtree}, \texttt{stats}; use \texttt{--json} for machine output. The CLI is faster and more precise than \texttt{grep} for dependency, solidity, and citation questions. See \kbleaf{manuscript/ave-kb/.index/SCHEMA.md}.
+
+\section{Companion Repositories}
+\label{sec:vol9_xref_companion}
+
+The substrate documented in Vol~9 is the natural vacuum medium $\mathcal{M}_A$. Engineering hardware that uses substrate primitives directly (rather than documenting them) lives in companion repositories sibling to AVE-Core, each with its own substrate-physics scope:
+
+\begin{itemize}
+    \item \textbf{AVE-APU (Axiomatic Processing Unit).} Hardware validation programme + declarative topology compilation (\texttt{atopile}) + physical post-CMOS processor specifications. Anchored on substrate primitives $V_{snap}$, $V_{yield}$, soliton density $\rho_{kink}$, plasma drag $P_{drag}$ documented in this datasheet. \textbf{Note on naming.} In earlier framing iterations, AVE-APU was labeled ``Volume 9: Axiomatic Processing Unit (Experimental Repository).'' That label is retired with the launch of Vol~9 The Vacuum Datasheet: AVE-APU is now a sibling companion hardware repository, not a numbered volume of AVE-Core. The Vol~9 label is reserved for the Vacuum Datasheet (this volume). Cross-references to APU content should use the repository name \texttt{AVE-APU}, not ``Volume 9: APU.''
+    \item \textbf{AVE-PONDER.} Bench-scale falsification programme for the PONDER-05 dielectric-saturation test (Vol~9 Ch.~15 \S PONDER-05). Hardware at the AVE-PONDER repository; substrate-physics derivation lives in Vol~4 Ch.~1 (\kbleaf{parametric-coupling-kernel.md}).
+    \item \textbf{AVE-HOPF.} Bench-scale falsification programme for the HOPF-01 chiral antenna test (Vol~9 Ch.~15 \S HOPF-01). Hardware at the AVE-HOPF repository; substrate-physics derivation lives in Vol~4 Ch.~11 (\kbleaf{open-source-hardware.md}; \texttt{clm-wzezvt}).
+\end{itemize}
+
+\noindent
+\textit{Discipline note.} The companion repositories are siblings of AVE-Core, not volumes of it. Substrate-physics derivations (the load-bearing content this datasheet cross-references) live in AVE-Core's Vols~0--6 and the AVE-KB tree. Companion-repo content is hardware-validation downstream of those derivations, scoped to the specific bench programme of each repository.
+
+\section{Index Maintenance}
+\label{sec:vol9_xref_maintenance}
+
+This index reflects the canonical state at Vol~9 publication. The live cross-reference graph evolves as canonical leaves are revised, new claim-quality entries land, and the per-chapter KB tree at \kbleaf{manuscript/ave-kb/vol9/} accumulates Vol-9-scoped consolidation content. Readers who need the current state of any cited claim should consult:
+
+\begin{itemize}
+    \item The cited canonical leaf in the KB (paths listed in the Parameter and Observable lookup tables above).
+    \item The corresponding \kbleaf{claim-quality.md} entry in the source volume's KB tree (per INVARIANT-S7: leaves are canonical; index and entry-point are derived summaries).
+    \item The cross-cutting \kbleaf{manuscript/ave-kb/claim-quality.md} and the per-volume sidecars at \kbleaf{vol1/claim-quality.md} through \kbleaf{vol6/claim-quality.md} and \kbleaf{common/claim-quality.md}.
+\end{itemize}
+
+Citation propagation across leaves is enforced by the KB metadata pipeline (\texttt{make refresh-kb-metadata} + \texttt{make verify-kb-metadata}). Derived fields (\texttt{subtree-claims}, ``Leaf references'' footers, solidity values) regenerate idempotently; manual edits to derived fields are gated as hard verifier failures. The grep-verified guarantee for canonical-leaf-claim IDs holds at all times.

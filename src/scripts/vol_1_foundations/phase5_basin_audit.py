@@ -34,6 +34,7 @@ References:
 - research/_archive/L3_electron_soliton/67_lc_coupling_reciprocity_audit.md §17-§26 (F17-K arc)
 - src/ave/topological/cosserat_field_3d.py:1228-1284 (TDI step implementation)
 """
+
 from __future__ import annotations
 
 import json
@@ -47,31 +48,30 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
 from ave.topological.vacuum_engine import VacuumEngine3D
 
-
 # ─── Pre-registered constants (frozen at commit time, per doc 71_ §3, §4, §6) ───
 
 PHI = 0.5 * (1.0 + np.sqrt(5.0))
-PHI_SQ = PHI * PHI                 # ≈ 2.618 — corpus GT major radius
-INV_PHI_SQ = 1.0 / PHI_SQ          # ≈ 0.382 — corpus GT minor radius
-GT_PEAK_OMEGA = 0.3 * np.pi        # ≈ 0.9425 — bound-state amplitude per doc 34_ §9.4
-A26_AMP_SCALE = 0.3 / (np.sqrt(3.0) / 2.0)   # ≈ 0.3464 (recovers 0.3π peak from √3/2·π canonical)
+PHI_SQ = PHI * PHI  # ≈ 2.618 — corpus GT major radius
+INV_PHI_SQ = 1.0 / PHI_SQ  # ≈ 0.382 — corpus GT minor radius
+GT_PEAK_OMEGA = 0.3 * np.pi  # ≈ 0.9425 — bound-state amplitude per doc 34_ §9.4
+A26_AMP_SCALE = 0.3 / (np.sqrt(3.0) / 2.0)  # ≈ 0.3464 (recovers 0.3π peak from √3/2·π canonical)
 
-DAMPING_GAMMA = 0.1                # TDI gradient-flow rate per doc 66_ §16
-N_LATTICE = 24                     # matches Phase 5 registered config
+DAMPING_GAMMA = 0.1  # TDI gradient-flow rate per doc 66_ §16
+N_LATTICE = 24  # matches Phase 5 registered config
 PML = 4
-MAX_STEPS = 1000                   # convergence cap
-CONVERGENCE_WINDOW = 50            # steps over which ΔE/E and velocity are checked
+MAX_STEPS = 1000  # convergence cap
+CONVERGENCE_WINDOW = 50  # steps over which ΔE/E and velocity are checked
 DELTA_E_REL_THRESH = 1e-6
 VELOCITY_THRESH = 1e-3
-RECORD_CADENCE = 10                # record trajectory every N steps
+RECORD_CADENCE = 10  # record trajectory every N steps
 
 A26_GUARD_LOW = 0.85 * GT_PEAK_OMEGA
 A26_GUARD_HIGH = 1.15 * GT_PEAK_OMEGA
-SATURATION_FREE_THRESH = 0.95      # S★ > 0.95 → "free" basin; below → "manifold-bound"
+SATURATION_FREE_THRESH = 0.95  # S★ > 0.95 → "free" basin; below → "manifold-bound"
 
 # Falsification tolerances (per doc 71_ §6)
-COMMON_R_TOL = 0.10 * PHI_SQ       # ≈ 0.262
-COMMON_r_TOL = 0.05 / PHI_SQ       # ≈ 0.019
+COMMON_R_TOL = 0.10 * PHI_SQ  # ≈ 0.262
+COMMON_r_TOL = 0.05 / PHI_SQ  # ≈ 0.019
 GT_R_TOL = 0.10
 GT_r_TOL = 0.05
 ENERGY_RELAXATION_FACTOR = 0.5
@@ -85,10 +85,12 @@ OUTPUT_JSON = Path(__file__).parent / "phase5_basin_audit_results.json"
 def _build_engine() -> VacuumEngine3D:
     """Construct the audit engine: A28 + self-terms, no sources, TDI mode."""
     engine = VacuumEngine3D.from_args(
-        N=N_LATTICE, pml=PML, temperature=0.0,
+        N=N_LATTICE,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
-        disable_cosserat_lc_force=True,    # A28 — Op14 z_local is the coupling channel
-        enable_cosserat_self_terms=True,   # Cosserat self-terms restored under A28
+        disable_cosserat_lc_force=True,  # A28 — Op14 z_local is the coupling channel
+        enable_cosserat_self_terms=True,  # Cosserat self-terms restored under A28
     )
     engine.cos.damping_gamma = DAMPING_GAMMA
     return engine
@@ -97,7 +99,9 @@ def _build_engine() -> VacuumEngine3D:
 def _seed_gt_family(engine: VacuumEngine3D, R: float, r: float) -> None:
     """GT-family seeder: corpus (2,3) hedgehog at given (R, r) with A26-corrected amplitude."""
     engine.cos.initialize_electron_2_3_sector(
-        R_target=R, r_target=r, use_hedgehog=True,
+        R_target=R,
+        r_target=r,
+        use_hedgehog=True,
         amplitude_scale=A26_AMP_SCALE,
     )
 
@@ -107,7 +111,9 @@ def _seed_F17K_endpoint(engine: VacuumEngine3D, R: float, r: float) -> None:
     Amplitude held at the same A26-corrected value for cross-comparability with GT family.
     """
     engine.cos.initialize_electron_2_3_sector(
-        R_target=R, r_target=r, use_hedgehog=True,
+        R_target=R,
+        r_target=r,
+        use_hedgehog=True,
         amplitude_scale=A26_AMP_SCALE,
     )
 
@@ -161,7 +167,7 @@ def _converged(history: list[dict]) -> bool:
     """ΔE/|E| < 1e-6 across last 50 records AND |velocity|_max < 1e-3 at tail."""
     if len(history) < (CONVERGENCE_WINDOW // RECORD_CADENCE) + 1:
         return False
-    tail = history[-(CONVERGENCE_WINDOW // RECORD_CADENCE):]
+    tail = history[-(CONVERGENCE_WINDOW // RECORD_CADENCE) :]
     E_tail = np.array([h["E_cos"] for h in tail])
     if E_tail[-1] == 0.0:
         return tail[-1]["|velocity|_max"] < VELOCITY_THRESH
@@ -179,9 +185,11 @@ def _run_seed(name: str, seeder, gt_family: bool) -> dict:
     seeder(engine)
 
     state_seed = _measure_state(engine)
-    print(f"    seed state: R={state_seed['R']:.3f} r={state_seed['r']:.3f} "
-          f"c={state_seed['c']} E={state_seed['E_cos']:.4f} "
-          f"|ω|_peak={state_seed['|ω|_peak']:.4f} S_peak={state_seed['S_peak']:.3f}")
+    print(
+        f"    seed state: R={state_seed['R']:.3f} r={state_seed['r']:.3f} "
+        f"c={state_seed['c']} E={state_seed['E_cos']:.4f} "
+        f"|ω|_peak={state_seed['|ω|_peak']:.4f} S_peak={state_seed['S_peak']:.3f}"
+    )
 
     # A26 contamination guard (per doc 71_ §4)
     if gt_family:
@@ -210,10 +218,13 @@ def _run_seed(name: str, seeder, gt_family: bool) -> dict:
     final = history[-1]
     label = "free" if final["S_peak"] > SATURATION_FREE_THRESH else "manifold-bound"
     e_ratio = final["E_cos"] / max(state_seed["E_cos"], 1e-12)
-    print(f"    final state ({elapsed:.1f}s, {final['step']} steps, "
-          f"{'CONVERGED' if converged else 'CAP REACHED'}):")
-    print(f"      R★={final['R']:.3f} r★={final['r']:.3f} c★={final['c']} "
-          f"E★/E₀={e_ratio:.3f} S★={final['S_peak']:.3f} → {label}")
+    print(
+        f"    final state ({elapsed:.1f}s, {final['step']} steps, " f"{'CONVERGED' if converged else 'CAP REACHED'}):"
+    )
+    print(
+        f"      R★={final['R']:.3f} r★={final['r']:.3f} c★={final['c']} "
+        f"E★/E₀={e_ratio:.3f} S★={final['S_peak']:.3f} → {label}"
+    )
 
     return {
         "seed_name": name,
@@ -259,13 +270,19 @@ def _evaluate_falsification(results: dict) -> dict:
     predicates = {
         "(a) common attractor": {
             "pass": common,
-            "R_spread": R_spread, "R_tol": COMMON_R_TOL,
-            "r_spread": r_spread, "r_tol": COMMON_r_TOL,
+            "R_spread": R_spread,
+            "R_tol": COMMON_R_TOL,
+            "r_spread": r_spread,
+            "r_tol": COMMON_r_TOL,
         },
         "(b) at corpus GT": {
             "pass": at_gt,
-            "R_mean": R_mean, "phi_sq": PHI_SQ, "R_tol": GT_R_TOL,
-            "r_mean": r_mean, "inv_phi_sq": INV_PHI_SQ, "r_tol": GT_r_TOL,
+            "R_mean": R_mean,
+            "phi_sq": PHI_SQ,
+            "R_tol": GT_R_TOL,
+            "r_mean": r_mean,
+            "inv_phi_sq": INV_PHI_SQ,
+            "r_tol": GT_r_TOL,
         },
         "(c) topology + relaxation": {
             "pass": topo_and_relax,
@@ -289,10 +306,14 @@ def main() -> dict:
     print("=" * 78)
     print(f"  Lattice: N={N_LATTICE}, pml={PML}, T=0, A28+self-terms ON, NO drive sources")
     print(f"  Integrator: TDI, damping_gamma={DAMPING_GAMMA}, max steps={MAX_STEPS}")
-    print(f"  Convergence: ΔE/|E|<{DELTA_E_REL_THRESH} over {CONVERGENCE_WINDOW} steps "
-          f"AND |velocity|<{VELOCITY_THRESH}")
-    print(f"  A26 guard: peak |ω| ∈ [{A26_GUARD_LOW:.4f}, {A26_GUARD_HIGH:.4f}] "
-          f"for GT-family seeds (target 0.3π={GT_PEAK_OMEGA:.4f})")
+    print(
+        f"  Convergence: ΔE/|E|<{DELTA_E_REL_THRESH} over {CONVERGENCE_WINDOW} steps "
+        f"AND |velocity|<{VELOCITY_THRESH}"
+    )
+    print(
+        f"  A26 guard: peak |ω| ∈ [{A26_GUARD_LOW:.4f}, {A26_GUARD_HIGH:.4f}] "
+        f"for GT-family seeds (target 0.3π={GT_PEAK_OMEGA:.4f})"
+    )
 
     # F17-K v2-v2 endpoints — inferred from R/r ratios at the same major scale as GT.
     # v2-v2 reported R/r=3.40 (Cosserat-energy descent) and R/r=1.03 (coupled-S₁₁ descent).
@@ -334,9 +355,11 @@ def main() -> dict:
             print("    → (a) failed: GT region is not a basin (ridge or fragmented landscape).")
         elif not adjudication["predicates"]["(b) at corpus GT"]["pass"]:
             print("    → (b) failed with (a) passing: engine basin ≠ corpus GT.")
-            print(f"      Actual attractor at (R★, r★) ≈ "
-                  f"({adjudication['predicates']['(b) at corpus GT']['R_mean']:.3f}, "
-                  f"{adjudication['predicates']['(b) at corpus GT']['r_mean']:.3f}).")
+            print(
+                f"      Actual attractor at (R★, r★) ≈ "
+                f"({adjudication['predicates']['(b) at corpus GT']['R_mean']:.3f}, "
+                f"{adjudication['predicates']['(b) at corpus GT']['r_mean']:.3f})."
+            )
         if not adjudication["predicates"]["(c) topology + relaxation"]["pass"]:
             print("    → (c) failed: topology not preserved or seed didn't relax.")
 
@@ -344,18 +367,23 @@ def main() -> dict:
         "pre_registration": "P_basin_audit_GT_stationarity",
         "doc": "research/_archive/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md",
         "constants": {
-            "PHI_SQ": PHI_SQ, "INV_PHI_SQ": INV_PHI_SQ,
-            "GT_PEAK_OMEGA": GT_PEAK_OMEGA, "A26_AMP_SCALE": A26_AMP_SCALE,
-            "DAMPING_GAMMA": DAMPING_GAMMA, "N_LATTICE": N_LATTICE,
+            "PHI_SQ": PHI_SQ,
+            "INV_PHI_SQ": INV_PHI_SQ,
+            "GT_PEAK_OMEGA": GT_PEAK_OMEGA,
+            "A26_AMP_SCALE": A26_AMP_SCALE,
+            "DAMPING_GAMMA": DAMPING_GAMMA,
+            "N_LATTICE": N_LATTICE,
             "MAX_STEPS": MAX_STEPS,
-            "COMMON_R_TOL": COMMON_R_TOL, "COMMON_r_TOL": COMMON_r_TOL,
-            "GT_R_TOL": GT_R_TOL, "GT_r_TOL": GT_r_TOL,
+            "COMMON_R_TOL": COMMON_R_TOL,
+            "COMMON_r_TOL": COMMON_r_TOL,
+            "GT_R_TOL": GT_R_TOL,
+            "GT_r_TOL": GT_r_TOL,
             "ENERGY_RELAXATION_FACTOR": ENERGY_RELAXATION_FACTOR,
         },
         "results": results,
         "adjudication": adjudication,
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"\n  Results written to {OUTPUT_JSON}")
     return payload
 

@@ -20,8 +20,9 @@
 \usepackage{amsmath, amssymb, amsfonts}
 \usepackage{amsthm}
 \usepackage{mathtools}
-\usepackage{siunitx} 
-\usepackage{bm} 
+\usepackage{siunitx}
+\usepackage{gensymb}  % \degree, \celsius, \perthousand for plain-text use (foreword + non-math context)
+\usepackage{bm}
 
 % --- Graphics & Floats ---
 \usepackage{graphicx}
@@ -33,10 +34,24 @@
 \usepackage{longtable}
 \usepackage{tabularx}
 \usepackage{caption}
+\usepackage{seqsplit}  % \seqsplit{} breaks long unbreakable tokens (KB-leaf paths) at any character; backs \kbleaf in commands.tex
 \usepackage[table,xcdraw]{xcolor}
 
 % --- Navigation & Linking ---
-\usepackage[hidelinks]{hyperref} 
+\usepackage[hidelinks]{hyperref}
+
+% --- Line-breaking discipline ---
+% Global \sloppy was removed 2026-05-28 (vol9-corpus LaTeX-formatting pass):
+% the long inline \texttt{} path citations that produced cosmetic Overfull
+% \hbox overruns are now wrapped in \kbleaf{} (= \texttt{\seqsplit{}}, see
+% commands.tex), which breaks the path at any character. With those sites
+% handled at the source, the global glue-stretching of \sloppy is no longer
+% needed and normal (tighter) interword spacing is restored corpus-wide.
+% \emergencystretch is retained as a bounded safety net: pdfTeX may stretch
+% by this amount per line before resorting to an overrun box. The reduced
+% value keeps the post-build margin gate (src/scripts/check_latex_margins.py)
+% tight while tolerating the few remaining narrative run-ins.
+\setlength{\emergencystretch}{2em} 
 \usepackage{tocloft}
 
 % Custom abstract environment for book class

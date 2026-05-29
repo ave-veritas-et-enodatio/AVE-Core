@@ -27,6 +27,35 @@
 \providecommand{\citestart}{}              
 \providecommand{\citeend}{}                
 
+% --- KB-leaf path citations ---
+% \kbleaf{path/to/leaf.md} typesets a long canonical-leaf / file path in
+% monospace and lets it break at any character (via seqsplit) so dense
+% narrative paragraphs with long inline path citations do not produce
+% Overfull \hbox margin overruns. Use for paths longer than ~one line can
+% absorb; short \texttt{} tokens (claim ids clm-xxxxxx, short filenames)
+% stay plain \texttt{}.
+% Robust so it survives moving arguments (\caption -> .lot/.aux, section
+% titles -> PDF bookmarks): fragile \seqsplit otherwise errors when written
+% to the aux file.
+\DeclareRobustCommand{\kbleaf}[1]{\texttt{\seqsplit{#1}}}
+
+% =========================================
+% SIUNITX CONFIGURATION (shared)
+% =========================================
+% Vol 9 (The Vacuum Datasheet) is the first volume to adopt siunitx for
+% physical quantities. siunitx is loaded in preamble.tex for all volumes;
+% no other volume invokes it, so these defaults are additive and cannot
+% disturb existing renders.
+\sisetup{
+  exponent-product = \times,      % render mantissa x 10^n with \times, not \cdot
+  per-mode = symbol,              % a/b units typeset with solidus (V/m), not negative powers
+  group-digits = integer,         % thin-space grouping on the integer part only
+  separate-uncertainty = true,    % a +- b form for quantities carrying uncertainty
+  range-phrase = {\text{ to }},   % \numrange / \qtyrange connective
+}
+% Non-SI units used in Vol 9 quantity strings.
+\DeclareSIUnit{\parsec}{pc}        % enables \kilo\metre\per\second\per\mega\parsec (km/s/Mpc Hubble rate)
+
 % --- Theorem-like Environments (amsthm) ---
 \newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{definition}[theorem]{Definition}

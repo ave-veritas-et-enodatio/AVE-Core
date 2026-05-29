@@ -27,6 +27,7 @@ Adjudication criteria (all 4 required for Mode I):
    energy at steady state (trapped state stays at the 6 ring nodes, not
    dissolved into bulk)
 """
+
 from __future__ import annotations
 
 import json
@@ -39,7 +40,6 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
 from ave.topological.vacuum_engine import VacuumEngine3D
-
 
 # ─── Constants ─────────────────────────────────────────────────────────────
 
@@ -56,7 +56,7 @@ N_RECORDING_STEPS = int(RECORDING_END_P * COMPTON_PERIOD / DT)
 
 # K4 port offsets (A's perspective; B's port-i offset = -A's port-i)
 PORT_OFFSETS_A = [
-    np.array([1, 1, 1]),    # port 0
+    np.array([1, 1, 1]),  # port 0
     np.array([1, -1, -1]),  # port 1
     np.array([-1, 1, -1]),  # port 2
     np.array([-1, -1, 1]),  # port 3
@@ -66,8 +66,8 @@ SQRT_3 = np.sqrt(3.0)
 # IC amplitudes (V_SNAP units; engine V_SNAP=1 in natural units)
 # Drive A² = V²/V_SNAP² ≈ 1 at ring nodes (saturation onset / Confinement Bubble)
 V_AMP_SATURATION = 0.95
-PHI_AMP = V_AMP_SATURATION   # 90° quadrature, equal magnitude (Virial split)
-OMEGA_AMP = V_AMP_SATURATION # B-field magnitude matches E-field for CP photon
+PHI_AMP = V_AMP_SATURATION  # 90° quadrature, equal magnitude (Virial split)
+OMEGA_AMP = V_AMP_SATURATION  # B-field magnitude matches E-field for CP photon
 
 # Adjudication thresholds
 SATURATION_PERSISTENCE_PERIODS = 100.0
@@ -89,12 +89,12 @@ def build_chair_ring(center):
     """
     cx, cy, cz = center
     nodes = [
-        (cx, cy, cz),               # n=0  A (all even)
-        (cx + 1, cy + 1, cz + 1),   # n=1  B
-        (cx, cy + 2, cz + 2),       # n=2  A
-        (cx - 1, cy + 3, cz + 1),   # n=3  B
-        (cx - 2, cy + 2, cz),       # n=4  A
-        (cx - 1, cy + 1, cz - 1),   # n=5  B
+        (cx, cy, cz),  # n=0  A (all even)
+        (cx + 1, cy + 1, cz + 1),  # n=1  B
+        (cx, cy + 2, cz + 2),  # n=2  A
+        (cx - 1, cy + 3, cz + 1),  # n=3  B
+        (cx - 2, cy + 2, cz),  # n=4  A
+        (cx - 1, cy + 1, cz - 1),  # n=5  B
     ]
 
     bonds = []
@@ -122,16 +122,18 @@ def build_chair_ring(center):
         traversal_dir = (np.array(node_next) - np.array(node_curr)).astype(float)
         traversal_dir /= np.linalg.norm(traversal_dir)
 
-        bonds.append({
-            "ring_idx": n,
-            "node_curr": list(node_curr),
-            "node_next": list(node_next),
-            "a_site": list(a_site),
-            "b_site": list(b_site),
-            "port": port_idx,
-            "a_to_b_offset": offset.tolist(),
-            "traversal_direction": traversal_dir.tolist(),
-        })
+        bonds.append(
+            {
+                "ring_idx": n,
+                "node_curr": list(node_curr),
+                "node_next": list(node_next),
+                "a_site": list(a_site),
+                "b_site": list(b_site),
+                "port": port_idx,
+                "a_to_b_offset": offset.tolist(),
+                "traversal_direction": traversal_dir.tolist(),
+            }
+        )
     return nodes, bonds
 
 
@@ -228,7 +230,7 @@ def measure_ring_state(engine, nodes, plane_normal):
     for node in nodes:
         ix, iy, iz = node
         V_sq = float(np.sum(engine.k4.V_inc[ix, iy, iz, :] ** 2))
-        A2_per_node.append(V_sq / (V_SNAP ** 2))
+        A2_per_node.append(V_sq / (V_SNAP**2))
 
     # Beltrami: cos_sim(A_vec, B_vec) at each ring node
     # A_vec ≈ Σ V_inc[port] · port_direction (4-port → 3D vector)
@@ -237,10 +239,7 @@ def measure_ring_state(engine, nodes, plane_normal):
     for node in nodes:
         ix, iy, iz = node
         is_a = all(c % 2 == 0 for c in node)
-        port_dirs = (
-            [p / SQRT_3 for p in PORT_OFFSETS_A] if is_a
-            else [-p / SQRT_3 for p in PORT_OFFSETS_A]
-        )
+        port_dirs = [p / SQRT_3 for p in PORT_OFFSETS_A] if is_a else [-p / SQRT_3 for p in PORT_OFFSETS_A]
         a_vec = np.zeros(3)
         for p_idx in range(4):
             a_vec += float(engine.k4.V_inc[ix, iy, iz, p_idx]) * port_dirs[p_idx]
@@ -260,9 +259,7 @@ def measure_ring_state(engine, nodes, plane_normal):
         omega_at = np.array(engine.cos.omega[ix, iy, iz, :], dtype=float)
         flux_total += float(np.dot(omega_at, plane_normal))
         omega_mag_total += float(np.linalg.norm(omega_at))
-    flux_relative = (
-        abs(flux_total) / max(omega_mag_total / 6.0, 1e-12)
-    )
+    flux_relative = abs(flux_total) / max(omega_mag_total / 6.0, 1e-12)
 
     # Ring-node energy localization
     ring_energy = 0.0
@@ -280,12 +277,8 @@ def measure_ring_state(engine, nodes, plane_normal):
         slice(pml, nx - pml),
         slice(pml, nx - pml),
     )
-    V_sq_interior = float(np.sum(
-        np.asarray(engine.k4.V_inc[interior_slice + (slice(None),)]) ** 2
-    ))
-    omega_sq_interior = float(np.sum(
-        np.asarray(engine.cos.omega[interior_slice + (slice(None),)]) ** 2
-    ))
+    V_sq_interior = float(np.sum(np.asarray(engine.k4.V_inc[interior_slice + (slice(None),)]) ** 2))
+    omega_sq_interior = float(np.sum(np.asarray(engine.cos.omega[interior_slice + (slice(None),)]) ** 2))
     total_energy = V_sq_interior + omega_sq_interior
 
     ring_localization = ring_energy / max(total_energy, 1e-30)
@@ -334,13 +327,17 @@ def main():
     print()
     print("Bonds (A-site, port, b̂_traversal):")
     for b_idx, bond in enumerate(bonds):
-        print(f"  bond {b_idx}: A{tuple(bond['a_site'])} port {bond['port']}, "
-              f"b̂_traversal={[f'{x:+.3f}' for x in bond['traversal_direction']]}")
+        print(
+            f"  bond {b_idx}: A{tuple(bond['a_site'])} port {bond['port']}, "
+            f"b̂_traversal={[f'{x:+.3f}' for x in bond['traversal_direction']]}"
+        )
     print()
 
     print("Engine setup...", flush=True)
     engine = VacuumEngine3D.from_args(
-        N=N_LATTICE, pml=PML, temperature=0.0,
+        N=N_LATTICE,
+        pml=PML,
+        temperature=0.0,
         amplitude_convention="V_SNAP",
         disable_cosserat_lc_force=True,
         enable_cosserat_self_terms=True,
@@ -349,13 +346,10 @@ def main():
     print()
 
     print("IC initialization at chair-ring nodes...", flush=True)
-    initialize_chair_ring_ic(
-        engine, nodes, bonds, V_AMP_SATURATION, PHI_AMP, OMEGA_AMP
-    )
+    initialize_chair_ring_ic(engine, nodes, bonds, V_AMP_SATURATION, PHI_AMP, OMEGA_AMP)
 
     initial_state = measure_ring_state(engine, nodes, plane_normal)
-    print(f"  A² at ring nodes (t=0):  min={initial_state['A2_min']:.4f}, "
-          f"mean={initial_state['A2_mean']:.4f}")
+    print(f"  A² at ring nodes (t=0):  min={initial_state['A2_min']:.4f}, " f"mean={initial_state['A2_mean']:.4f}")
     print(f"  Beltrami cos_sim (t=0):  mean={initial_state['cos_sim_mean']:+.4f}")
     print(f"  Centroid flux rel (t=0): {initial_state['centroid_flux_relative']:.4e}")
     print(f"  Ring localization (t=0): {initial_state['ring_localization']:.4f}")
@@ -389,10 +383,13 @@ def main():
                 saturation_lost = True
 
         if (time.time() - last) > 30.0:
-            print(f"    [progress] step {i}/{N_RECORDING_STEPS}, t={t_p:.1f}P, "
-                  f"A²_min={s['A2_min']:.3f}, cos_sim={s['cos_sim_mean']:+.3f}, "
-                  f"loc={s['ring_localization']:.3f}, "
-                  f"elapsed {time.time()-t0:.1f}s", flush=True)
+            print(
+                f"    [progress] step {i}/{N_RECORDING_STEPS}, t={t_p:.1f}P, "
+                f"A²_min={s['A2_min']:.3f}, cos_sim={s['cos_sim_mean']:+.3f}, "
+                f"loc={s['ring_localization']:.3f}, "
+                f"elapsed {time.time()-t0:.1f}s",
+                flush=True,
+            )
             last = time.time()
     elapsed = time.time() - t0
     print(f"  Recording done at {elapsed:.1f}s", flush=True)
@@ -409,15 +406,16 @@ def main():
     print("=" * 78, flush=True)
     print("  Adjudication")
     print("=" * 78, flush=True)
-    print(f"  Persistence: A²_min ≥ {SATURATION_A2_THRESHOLD} maintained for "
-          f"{persistence_period:.1f} P  (threshold ≥ "
-          f"{SATURATION_PERSISTENCE_PERIODS} P)")
-    print(f"  Beltrami |cos_sim| steady-state: {cos_sim_steady:.4f}  "
-          f"(threshold ≥ {BELTRAMI_PARALLELISM_THRESHOLD})")
-    print(f"  Centroid flux (rel) steady-state: {flux_rel_steady:.4e}  "
-          f"(threshold < {CENTROID_FLUX_REL_THRESHOLD})")
-    print(f"  Ring localization steady-state: {ring_loc_steady:.4f}  "
-          f"(threshold ≥ {RING_LOCALIZATION_THRESHOLD})")
+    print(
+        f"  Persistence: A²_min ≥ {SATURATION_A2_THRESHOLD} maintained for "
+        f"{persistence_period:.1f} P  (threshold ≥ "
+        f"{SATURATION_PERSISTENCE_PERIODS} P)"
+    )
+    print(
+        f"  Beltrami |cos_sim| steady-state: {cos_sim_steady:.4f}  " f"(threshold ≥ {BELTRAMI_PARALLELISM_THRESHOLD})"
+    )
+    print(f"  Centroid flux (rel) steady-state: {flux_rel_steady:.4e}  " f"(threshold < {CENTROID_FLUX_REL_THRESHOLD})")
+    print(f"  Ring localization steady-state: {ring_loc_steady:.4f}  " f"(threshold ≥ {RING_LOCALIZATION_THRESHOLD})")
     print(f"  A²_mean steady-state: {A2_mean_steady:.4f}")
     print()
 
@@ -504,7 +502,7 @@ def main():
         "mode": mode,
         "verdict": verdict,
     }
-    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str))
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
     print(f"  Result: {OUTPUT_JSON.relative_to(REPO_ROOT)}")
     return payload
 

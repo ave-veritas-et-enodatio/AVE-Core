@@ -783,7 +783,7 @@ def run_pipeline(
             f"CMB axis JSON not found at {CMB_AXIS_RESULTS_PATH}. "
             f"Run cmb_axis_alignment_executable_observer.py first."
         )
-    with open(CMB_AXIS_RESULTS_PATH) as f:
+    with open(CMB_AXIS_RESULTS_PATH, encoding="utf-8") as f:
         cmb_axis_data = json.load(f)
     cmb_axis_l = float(cmb_axis_data["axis_of_evil_computation"]["l_deg"])
     cmb_axis_b = float(cmb_axis_data["axis_of_evil_computation"]["b_deg"])
@@ -959,7 +959,7 @@ def main():
     }
 
     print(f"\nWriting full results to {RESULTS_PATH} ...")
-    with open(RESULTS_PATH, "w") as f:
+    with open(RESULTS_PATH, "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2)
     print(f"  Results JSON written ({RESULTS_PATH.stat().st_size / 1e3:.1f} KB)")
 

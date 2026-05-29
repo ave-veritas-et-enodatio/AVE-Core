@@ -3874,7 +3874,7 @@ The impedance mismatch at this discrete step produces a reflection coefficient (
     \label{eq:sir_gamma}
 \end{equation}
 \end{resultbox}
-This is the same operator at every scale: antenna port reflection ($S_{11}$), seismic Moho discontinuity ($\Gamma \approx 0.17$), and particle Pauli exclusion ($\Gamma \to -1$).  The operator is implemented in \texttt{scale\_invariant.py:reflection\_coefficient()}.
+This is the same operator at every scale: antenna port reflection ($S_{11}$), seismic Moho discontinuity ($\Gamma \approx 0.17$), and particle Pauli exclusion ($\Gamma \to -1$).  The operator is implemented in \kbleaf{scale\_invariant.py:reflection\_coefficient()}.
 
 \paragraph{Dimensional check:} $[Z_\text{out}]$ = $[Z_\text{in}]$ = dimensionless charge numbers, so $\Gamma$ is dimensionless.~$\checkmark$
 
@@ -3937,7 +3937,7 @@ When the adjacent inner shell is a pure $s$-shell ($n_\text{adjacent} = 1$), it 
 
 \subsection{Nuclear Precedent: Hierarchical Binding}
 
-In the nuclear domain, the function \texttt{hierarchical\_binding()} in \texttt{coupled\_resonator.py} models a multi-level cascade of alpha clusters.  The inner cluster's bonding mode frequency shifts the base frequency for the outer cluster's coupling.  The atomic correction is the exact scale-invariant analog.
+In the nuclear domain, the function \texttt{hierarchical\_binding()} in \kbleaf{coupled\_resonator.py} models a multi-level cascade of alpha clusters.  The inner cluster's bonding mode frequency shifts the base frequency for the outer cluster's coupling.  The atomic correction is the exact scale-invariant analog.
 
 \subsection{Derivation}
 

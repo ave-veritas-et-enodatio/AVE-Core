@@ -16,7 +16,7 @@ import json
 import posixpath
 import re
 import sys
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path, PurePosixPath
 from typing import TextIO
@@ -360,6 +360,22 @@ def parse_frontmatter(text: str) -> dict | None:
 # ---------------------------------------------------------------------------
 
 
+class FrameworkNodeParseError(ValueError):
+    """Edges reference framework nodes (axiom-N / INVARIANT-*) that did not
+    parse out of ``CLAUDE.md``.
+
+    Raised by :func:`build_all_records` when the assembled depends-on edges
+    target framework nodes that are absent from the rebuilt ``claims.jsonl``
+    node set. The usual cause is a transient ``CLAUDE.md`` state where the
+    INVARIANT-S2 axiom bullets or ``### INVARIANT-*`` headings don't match the
+    parser (e.g. indented, reflowed, or carrying merge-conflict markers mid
+    hand-merge): :func:`parse_framework_nodes` then silently yields fewer
+    framework nodes, and a naive write would emit an index whose edges dangle.
+    Failing loudly here prevents the silent drop (the downstream symptom is a
+    flood of cryptic referential-integrity orphans in ``make verify-kb-metadata``).
+    """
+
+
 def parse_framework_nodes(kb_root: Path = KB_ROOT_DEFAULT) -> list[FrameworkNode]:
     """Parse invariant and axiom nodes from ``manuscript/ave-kb/CLAUDE.md``.
 
@@ -376,7 +392,7 @@ def parse_framework_nodes(kb_root: Path = KB_ROOT_DEFAULT) -> list[FrameworkNode
     claude_md = kb_root / "CLAUDE.md"
     if not claude_md.is_file():
         return []
-    lines = claude_md.read_text().splitlines()
+    lines = claude_md.read_text(encoding="utf-8").splitlines()
 
     nodes: list[FrameworkNode] = []
     s2_anchor: str | None = None
@@ -711,7 +727,7 @@ def parse_claim_quality_file(
     ``None`` = silent). When ``known_ids`` is ``None``, no filtering occurs
     and the function preserves the pre-filter behavior.
     """
-    raw = path.read_text()
+    raw = path.read_text(encoding="utf-8")
     scrubbed = _strip_code_fences(raw)
     lines = scrubbed.splitlines()
     canonical_rel = _posix_relative(path, kb_root)
@@ -892,7 +908,7 @@ def parse_support_quality_entries(
     depends-on targets exactly as for a claim entry; a ``clm-``-shaped target
     outside the set is dropped with a diagnostic.
     """
-    raw = path.read_text()
+    raw = path.read_text(encoding="utf-8")
     scrubbed = _strip_code_fences(raw)
     lines = scrubbed.splitlines()
     canonical_rel = _posix_relative(path, kb_root)
@@ -1011,7 +1027,7 @@ def parse_leaf(path: Path, kb_root: Path) -> LeafRecord | None:
     Returns None if the file has no frontmatter or its kind is not
     ``leaf``/``leaf-as-index``.
     """
-    text = path.read_text()
+    text = path.read_text(encoding="utf-8")
     fm = parse_frontmatter(text)
     if not fm:
         return None
@@ -1099,7 +1115,7 @@ def parse_experiment_leaf(path: Path, kb_root: Path) -> list[ExperimentNode]:
     also reference other experiments), any ``exp-id`` is malformed, or any
     block's ``status`` is outside ``{run, pending}``.
     """
-    text = path.read_text()
+    text = path.read_text(encoding="utf-8")
     m = _FRONTMATTER_RE.search(text)
     if not m:
         return []
@@ -1222,7 +1238,7 @@ def parse_support_leaf(path: Path, kb_root: Path) -> list[SupportNode]:
     Raises :class:`SupportLeafError` for a malformed ``sup-id``, a malformed
     ``supports:`` claim id, or an on-point fraction outside ``(0, 1]``.
     """
-    text = path.read_text()
+    text = path.read_text(encoding="utf-8")
     m = _FRONTMATTER_RE.search(text)
     if not m:
         return []
@@ -1300,7 +1316,7 @@ def parse_support_leaf(path: Path, kb_root: Path) -> list[SupportNode]:
 
 def _parse_index(path: Path, kb_root: Path) -> IndexRecord | None:
     """Parse an ``index`` or ``entry-point`` kind file."""
-    text = path.read_text()
+    text = path.read_text(encoding="utf-8")
     fm = parse_frontmatter(text)
     if not fm:
         return None
@@ -1330,7 +1346,7 @@ def collect_known_claim_ids(kb_root: Path = KB_ROOT_DEFAULT) -> set[str]:
     for cq in sorted(kb_root.rglob("claim-quality.md")):
         if any(part in EXCLUDE_DIRS for part in cq.relative_to(kb_root).parts[:-1]):
             continue
-        scrubbed = _strip_code_fences(cq.read_text())
+        scrubbed = _strip_code_fences(cq.read_text(encoding="utf-8"))
         for line in scrubbed.splitlines():
             m = _CANONICAL_ID_RE.match(line.strip())
             if m:
@@ -2342,11 +2358,56 @@ def build_subtree_aggregate_records(state: KbState) -> list[dict]:
     return rows
 
 
+def _assert_framework_node_coverage(
+    claims_records: list[dict], depends_on_records: list[dict]
+) -> None:
+    """Fail loudly if any depends-on edge targets a framework node that is not
+    present in the rebuilt claims records.
+
+    Guards the silent-drop failure mode: if ``parse_framework_nodes`` yields
+    fewer axiom/invariant nodes than the claim graph references (a malformed
+    ``CLAUDE.md`` state), the index would be written with dangling edges. We
+    catch it at build time with an actionable message instead.
+    """
+    present = {
+        r["id"] for r in claims_records if r["node_type"] in ("axiom", "invariant")
+    }
+    referenced = {
+        e["target"]
+        for e in depends_on_records
+        if e.get("target_kind") in ("axiom", "invariant")
+    }
+    missing = sorted(referenced - present)
+    if not missing:
+        return
+    n_axioms = sum(1 for r in claims_records if r["node_type"] == "axiom")
+    n_invariants = sum(1 for r in claims_records if r["node_type"] == "invariant")
+    raise FrameworkNodeParseError(
+        f"{len(missing)} depends-on edge target(s) reference framework nodes "
+        f"absent from the rebuilt index: {', '.join(missing)}.\n"
+        f"parse_framework_nodes() yielded {n_axioms} axiom + {n_invariants} "
+        f"invariant node(s) from manuscript/ave-kb/CLAUDE.md.\n"
+        f"This is the silent framework-node drop (issue #28): the CLAUDE.md "
+        f"INVARIANT-S2 axiom bullets and/or '### INVARIANT-*' headings did not "
+        f"parse. Axiom bullets must match '- Axiom N: **Title** — ...' at "
+        f"line start (no leading indent, no merge-conflict markers); invariants "
+        f"need '### INVARIANT-XNN: <title>' headings. Fix CLAUDE.md and re-run "
+        f"(refresh aborted before writing a dangling index)."
+    )
+
+
 def build_all_records(state: KbState) -> dict[str, list[dict]]:
-    """Return every JSONL file's records keyed by short file name."""
+    """Return every JSONL file's records keyed by short file name.
+
+    Raises :class:`FrameworkNodeParseError` if the assembled edges reference
+    framework nodes that did not parse from ``CLAUDE.md`` (issue #28 guard).
+    """
+    claims = build_claims_records(state)
+    depends_on = build_depends_on_records(state)
+    _assert_framework_node_coverage(claims, depends_on)
     return {
-        "claims": build_claims_records(state),
-        "depends-on": build_depends_on_records(state),
+        "claims": claims,
+        "depends-on": depends_on,
         "strengthen-by": build_strengthen_by_records(state),
         "supported-by": build_supported_by_records(state),
         "cites": build_cites_records(state),
@@ -2359,13 +2420,13 @@ def build_all_records(state: KbState) -> dict[str, list[dict]]:
 # ---------------------------------------------------------------------------
 
 
-def serialize_records(records: list[dict]) -> bytes:
-    """Serialize records to canonical JSONL bytes.
+def serialize_records(records: list[dict]) -> str:
+    """Serialize records to canonical JSONL text.
 
     Each line is ``json.dumps(rec, ensure_ascii=False, separators=(', ', ': '))``.
     Keys appear in the dict's insertion order (Python 3.7+), so callers must
     construct records with keys in the documented order. The result has one
-    trailing ``\\n`` for non-empty inputs and is empty bytes for ``[]``.
+    trailing ``\\n`` for non-empty inputs and is the empty string for ``[]``.
     """
     lines = [
         json.dumps(rec, ensure_ascii=False, separators=(", ", ": "))
@@ -2374,16 +2435,16 @@ def serialize_records(records: list[dict]) -> bytes:
     body = "\n".join(lines)
     if body:
         body += "\n"
-    return body.encode("utf-8")
+    return body
 
 
 def write_jsonl(path: Path, records: list[dict]) -> None:
     """Write records as JSONL, one object per line, single trailing newline.
 
     Thin wrapper around :func:`serialize_records` that writes the canonical
-    bytes to ``path``.
+    text to ``path`` as UTF-8.
     """
-    path.write_bytes(serialize_records(records))
+    path.write_text(serialize_records(records), encoding="utf-8")
 
 
 def read_jsonl(path: Path) -> list[dict]:
@@ -2437,6 +2498,7 @@ __all__ = [
     "compute_support_solidity",
     "min_dependency_solidity",
     "SolidityCycleError",
+    "FrameworkNodeParseError",
     "build_claims_records",
     "build_depends_on_records",
     "build_strengthen_by_records",

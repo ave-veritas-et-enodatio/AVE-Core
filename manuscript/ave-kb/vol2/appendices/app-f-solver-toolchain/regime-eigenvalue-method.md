@@ -76,4 +76,6 @@ $$
 
 compared with the exact value $\omega_I M = 0.0890$ (error: 3.2%).
 
+> → Primary: [Op21 Multi-Mode Mode-Counting at the $\Gamma = -1$ Saturation/TIR Boundary](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op21-multi-mode-mode-counting.md) — substrate-foundational Op21 form: $Q = \ell$ per Nyquist-cell-resolved confined mode at the substrate's $\Gamma = -1$ saturation boundary. The BH-ringdown Step 5 extraction $Q = \ell$ at the lattice phase transition is one of four canonical cross-scale fires (electron LC tank, BH ringdown, this universal substrate-Q derivation procedure, knot-mode isomorphism) of the same substrate-foundational Op21 mode-counting mechanism. Full substrate-mechanism derivation chain (Ax 1 Nyquist cell size → Ax 3 + Ax 4 → curvature-mismatch per-cycle leak fraction $1/\ell$ → $Q_{\text{mode},\ell} = \ell$) at the canonical leaf.
+
 ---

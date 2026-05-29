@@ -1,5 +1,5 @@
 # Applied Vacuum Engineering (AVE-Core) — Master Build System
-# Public release — Volumes 0–6
+# Public release — Volumes 0–6 + Vol 9 Datasheet
 
 PYTHON ?= ./.venv/bin/python
 PYTEST ?= ./.venv/bin/pytest
@@ -12,11 +12,18 @@ SRC_DIR = manuscript
 
 SOURCE_DIR = src
 SCRIPT_DIR = $(SOURCE_DIR)/scripts
+KB_TOOLS_DIR = manuscript/ave-kb/tools
 
-# Volume list — public volumes only (0–6)
-VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_macroscopic vol_4_engineering vol_5_biology vol_6_periodic_table
+# KB-metadata target names: single-sourced because they are also referenced as
+# user-facing remediation hints in the Python tools ("run `make <name>`").
+# Used as the rule target, in .PHONY, and in help so a rename touches one line.
+KB_REFRESH = refresh-kb-metadata
+KB_VERIFY = verify-kb-metadata
 
-.PHONY: all clean distclean verify verify-kb-metadata refresh-kb-metadata refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links framing-audit test pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 setup
+# Volume list — public volumes (0–6) + Vol 9 datasheet (synthesis volume)
+VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_macroscopic vol_4_engineering vol_5_biology vol_6_periodic_table vol_9_vacuum_datasheet
+
+.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links framing-audit test test-tools pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -24,13 +31,14 @@ help:
 	@echo "  make setup                : bootstrap project"
 	@echo "  make all                  : Run verify, then compile all PDFs"
 	@echo "  make verify               : Run physics verification protocols (The Kernel Check) and kb claim id check"
-	@echo "  make refresh-kb-metadata  : Regenerate derived KB metadata (subtree-claims, solidity, claim index)"
+	@echo "  make $(KB_REFRESH)  : Regenerate derived KB metadata (subtree-claims, solidity, claim index)"
 	@echo "  make kb-claim-stats       : Print claim-graph counts + solidity build-band distribution (read-only)"
 	@echo "  make verify-md-links      : Check Markdown link integrity + cited-id validity (inter-repo: warn)"
 	@echo "  make verify-inter-repo-links : Same, but broken inter-repo links also gate (inter-repo: error)"
 	@echo "  make framing-audit        : Scan corpus for reviewer-misread framing anti-patterns (advisory)"
-	@echo "  make test                 : Run unit tests (pytest)"
-	@echo "  make pdf                  : Compile all 7 public volumes"
+	@echo "  make test                 : Run unit tests (src/tests + kb tools tests)"
+	@echo "  make test-tools           : Run KB tooling tests only (manuscript/ave-kb/tools/tests)"
+	@echo "  make pdf                  : Compile all 8 public volumes (Vols 0-6 + Vol 9 Datasheet)"
 	@echo "  make pdf_manuscript       : Compile manuscript volumes"
 	@echo "  make vol0                 : Vol 0:  The Engineering Compendium"
 	@echo "  make vol1                 : Vol I:  Foundations & Universal Operators"
@@ -39,6 +47,7 @@ help:
 	@echo "  make vol4                 : Vol IV: Applied Impedance Engineering"
 	@echo "  make vol5                 : Vol V:  Topological Biology"
 	@echo "  make vol6                 : Vol VI: The Periodic Table"
+	@echo "  make vol9                 : Vol IX: The Vacuum Datasheet (synthesis volume)"
 	@echo "  make figures              : Generate particle topology figure suite"
 	@echo "  make clean                : Remove auxiliary build artifacts (preserves PDFs)"
 	@echo "  make distclean            : Remove ALL build artifacts including PDFs"
@@ -51,7 +60,7 @@ setup:
 # =============================================================================
 # 1. Physics Verification (The "Simulate to Verify" Protocol)
 # =============================================================================
-verify: verify-kb-metadata verify-md-links
+verify: $(KB_VERIFY) verify-md-links
 	@echo "\n[Verify] Running DAG Anti-Cheat Scan..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_universe.py
 	@echo "\n[Verify] Running FDTD LC Network solvers..."
@@ -78,13 +87,13 @@ verify: verify-kb-metadata verify-md-links
 	@echo "[Verify] ALL PHYSICS PROTOCOLS PASSED."
 	@echo "=================================================="
 
-verify-kb-metadata:
+$(KB_VERIFY):
 	@echo "Running KB claim-quality framework integrity check (read-only)..."
-	$(PYTHON) manuscript/ave-kb/tools/verify-kb-metadata.py
+	PYTHONPATH=$(KB_TOOLS_DIR) $(PYTHON) $(KB_TOOLS_DIR)/verify-kb-metadata.py
 
-refresh-kb-metadata:
+$(KB_REFRESH):
 	@echo "Regenerating derived KB metadata fields (subtree-claims, ...)..."
-	$(PYTHON) manuscript/ave-kb/tools/refresh-kb-metadata.py
+	PYTHONPATH=$(KB_TOOLS_DIR) $(PYTHON) $(KB_TOOLS_DIR)/refresh-kb-metadata.py
 
 refresh-predictions:
 	@echo "Regenerating derived predictions-manifest fields (axioms_used from claim DAG)..."
@@ -92,15 +101,15 @@ refresh-predictions:
 
 kb-claim-stats:
 	@echo "Claim-graph stats summary (counts + solidity build-band distribution, read-only)..."
-	PYTHONPATH=src $(PYTHON) -m ave.kb stats
+	PYTHONPATH=$(KB_TOOLS_DIR) $(PYTHON) -m kb_cmd stats
 
 verify-md-links:
 	@echo "Checking Markdown link integrity + cited-id validity (inter-repo: warn)..."
-	$(PYTHON) manuscript/ave-kb/tools/verify-md-links.py --inter-repo warn
+	PYTHONPATH=$(KB_TOOLS_DIR) $(PYTHON) $(KB_TOOLS_DIR)/verify-md-links.py --inter-repo warn
 
 verify-inter-repo-links:
 	@echo "Checking Markdown links incl. inter-repo as gating (inter-repo: error)..."
-	$(PYTHON) manuscript/ave-kb/tools/verify-md-links.py --inter-repo error
+	PYTHONPATH=$(KB_TOOLS_DIR) $(PYTHON) $(KB_TOOLS_DIR)/verify-md-links.py --inter-repo error
 
 framing-audit:
 	@echo "[Framing] Full defense-context anti-pattern scan (advisory; warn/info do not gate)..."
@@ -110,7 +119,7 @@ framing-audit:
 # =============================================================================
 # 2. Unit Testing
 # =============================================================================
-test:
+test: test-tools
 	@echo "[Test] Running Unit Tests..."
 	# Scope to the unit-test tree only. src/scripts/**/*_test.py are runnable
 	# analysis/forward-prediction DRIVERS (each has a __main__ block), not pytest
@@ -118,6 +127,13 @@ test:
 	# non-fixture positional args like test_wave_speed(N, ...)). Drivers run
 	# standalone / via `make verify`, not here.
 	$(PYTEST) $(SOURCE_DIR)/tests
+
+test-tools:
+	@echo "[Test] Running KB tools tests..."
+	# The kb tooling tree (kb_cmd query CLI, kb_index_lib, refresh/verify scripts)
+	# lives under $(KB_TOOLS_DIR), outside src/. PYTHONPATH makes kb_cmd +
+	# kb_index_lib importable as siblings (no sys.path manipulation in the code).
+	PYTHONPATH=$(KB_TOOLS_DIR) $(PYTEST) $(KB_TOOLS_DIR)/tests
 
 # =============================================================================
 # 3. Manuscript Compilation
@@ -143,7 +159,7 @@ endef
 pdf: pdf_manuscript
 
 pdf_manuscript:
-	@echo "[Build] Compiling Volumes 0–VI (two-pass for cross-volume xr-hyper resolution)..."
+	@echo "[Build] Compiling Volumes 0–VI + Vol IX (two-pass for cross-volume xr-hyper resolution)..."
 	@echo "[Build] === Pass 1 (collect aux files) ==="
 	@for dir in $(VOLUMES); do \
 		$(MAKE) --no-print-directory _compile_vol VOL=$$dir; \
@@ -152,7 +168,7 @@ pdf_manuscript:
 	@for dir in $(VOLUMES); do \
 		$(MAKE) --no-print-directory _compile_vol VOL=$$dir; \
 	done
-	@echo "[Build] All 7 volume PDFs generated in $(OUT_DIR)/"
+	@echo "[Build] All 8 volume PDFs generated in $(OUT_DIR)/"
 
 _compile_vol:
 	$(call COMPILE_VOL,$(VOL))
@@ -188,6 +204,10 @@ vol5: vol1 vol3 vol0
 
 vol6: vol1 vol3 vol0
 	$(call COMPILE_VOL,vol_6_periodic_table)
+
+# Vol 9: The Vacuum Datasheet (synthesis volume; cross-references Vols 1/3/4/0)
+vol9: vol1 vol3 vol4 vol0
+	$(call COMPILE_VOL,vol_9_vacuum_datasheet)
 
 # =============================================================================
 # 4. Figure Generation

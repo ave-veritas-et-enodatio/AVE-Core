@@ -1,0 +1,40 @@
+[↑ Vol 9: The Vacuum Datasheet](../index.md)
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: []
+subtree-experiments: []
+-->
+
+# Ch.7 Saturation Characteristics
+
+Chapter 7 of the Vol 9 datasheet documents the Axiom 4 universal saturation kernel $S(A_0) = \sqrt{1 - (A_0/A_{yield})^2}$ as the substrate primitive governing every cross-scale saturation event in the natural vacuum. The chapter consolidates: (1) the verbatim Axiom 4 statement from `manuscript/common_equations/eq_axiom_4.tex` (single source of truth); (2) the dielectric specialization at atomic and bench scale — $\varepsilon_{eff} = \varepsilon_0 S$, $\mu_{eff} = \mu_0 S$, $C_{eff} = C_0/S$ — with the two effective wave speeds $c_{EM}(A_0) = c_0/S$ and $c_{shear}(A_0) = c_0\sqrt{S}$ called out explicitly per INVARIANT-S2 Pitfall #5 discipline; (3) the operating-point characteristic-curve table at canonical $r$ values from $r = 0$ through rupture; (4) the four-regime map (Small-Signal / Large-Signal / Avalanche / Breakdown) with semiconductor analog; (5) the PONDER-05 bench-scale falsifier at $V_{DC}/V_{yield} = 0.687$; (6) cross-reference to the A-034 universal saturation-kernel catalog at 26 instances spanning 21 orders of magnitude; (7) the EE saturation translation table (varactor / Miller multiplication / op-amp slew rate / core saturation / non-linear telegrapher) → Axiom 4 substrate primitive.
+
+The chapter is a **synthesis chapter** per Vol 9 charter — no substrate primitive is re-derived. All derivations live in the cited canonical leaves; the chapter consolidates them into datasheet format.
+
+## Primary canonical sources
+
+- **Axiom 4 canonical statement (verbatim source of truth):** [`manuscript/common_equations/eq_axiom_4.tex`](../../../common_equations/eq_axiom_4.tex); INVARIANT-S2 mirror at [`manuscript/ave-kb/CLAUDE.md`](../../CLAUDE.md).
+- **Universal saturation-kernel catalog (A-034, 26 instances / 21 orders of magnitude):** [`common/universal-saturation-kernel-catalog.md`](../../common/universal-saturation-kernel-catalog.md) (`clm-gz7ryg`, `clm-dxdsvt`, `clm-hvvvop`, `clm-5fu303`, `clm-l4o7hv`).
+- **Four-regime map (regime boundaries from first principles):** [`vol1/operators-and-regimes/ch7-regime-map/four-regimes.md`](../../vol1/operators-and-regimes/ch7-regime-map/four-regimes.md) (`clm-2dwzib`, `clm-b2anl4`).
+- **Axiom-definitions in-chapter restatement:** [`vol1/axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md`](../../vol1/axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md) (`clm-3kzmt9`, `clm-dfaiwj`).
+- **$\alpha$-invariance under SYM-class scaling (canonical proof):** [`vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md`](../../vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md) (`clm-3zz0f6`).
+- **PONDER-05 substrate-physics anchor ($P(\delta V)$ shape function, Phase 0c + Phase 2-NA):** [`vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md).
+- **PONDER-05 canonical operating-point statement ($V_{DC}/V_{yield} = 0.687$):** [`vol4/falsification/ch11-experimental-bench/measurement-hierarchy-snr.md`](../../vol4/falsification/ch11-experimental-bench/measurement-hierarchy-snr.md):66.
+- **PONDER-05 divergence-test matrix row (B7-PONDER-05):** [`common/divergence-test-substrate-map.md`](../../common/divergence-test-substrate-map.md).
+- **EE saturation translation (ideal-lattice ↔ engineering-corrections):** [`common/translation-tables/translation-circuit.md`](../../common/translation-tables/translation-circuit.md) §9 (`clm-eemap1`).
+- **ASYM-class substrate-distinct $\alpha$-modulation mechanism:** [`vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md`](../../vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md) (`clm-hp7nlm`).
+
+## Catalog-cardinality note (canonical)
+
+The Axiom 4 kernel governs **26 canonical cross-scale instances** per the canonical catalog at [`universal-saturation-kernel-catalog.md`](../../common/universal-saturation-kernel-catalog.md): 17 physical-substrate canonical + 2 biological-substrate + 5 engineered-substrate + 2 physical-substrate companion rows scoped for Sessions 4/5. The Vol 0 backmatter chapter and [`eq_axiom_4.tex`](../../../common_equations/eq_axiom_4.tex) cite the physical-substrate-only subset as **19 cross-scale topological-reorganization events** (17 canonical + 2 scoped). Both counts are correct at their respective scopes; cross-scale span is **21 orders of magnitude** uniformly (atomic ∼ $10^{-15}$ m to cosmic ∼ $10^{26}$ m).
+
+## Manuscript counterpart
+
+`manuscript/vol_9_vacuum_datasheet/chapters/07_saturation_characteristics.tex` (populated Vol 9 PR-E sub-PR — Ch 7 buildout).
+
+## Volume-scope classification
+
+Per Vol 9 charter (synthesis volume; no primary derivations), this chapter's content is Class B (synthesis consolidation of canonical content) per `consistency-vs-emergence` v1.3. No emergence-class claims; no new substrate primitives proposed. All numerical entries in the chapter's characteristic-curve table derive directly from $S(r) = \sqrt{1 - r^2}$ at cold-lattice limit with no corrections; the table is a definitional identity of the kernel, not a measurement or emergence test.
+
+---

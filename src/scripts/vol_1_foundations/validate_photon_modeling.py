@@ -486,7 +486,7 @@ def main() -> None:
             for k, v in list(entry.items()):
                 if isinstance(v, np.ndarray):
                     entry[k] = v.tolist()
-    with open(out_json, "w") as f:
+    with open(out_json, "w", encoding="utf-8") as f:
         json.dump(
             {"prereg": PREREG, "eval": eval_result, "rh_summary": rh_serial, "lh_summary": lh_serial},
             f,

@@ -1,13 +1,9 @@
 """Unit tests for ``kb_index_lib`` against a synthetic fixture KB.
 
-Run from the repo root (``manuscript`` path is hyphenated, so the dotted
-module form needs ``manuscript/ave-kb/tools`` on ``sys.path`` rather than
-``manuscript.ave-kb.tools.tests``)::
-
-    cd /Users/benn/projects/AVE-Umbrella/AVE-Core/manuscript/ave-kb/tools
-    python -m unittest tests.test_kb_index_lib
-
-Or, equivalently from the repo root::
+Run via the ``test-tools`` make target, which sets
+``PYTHONPATH=manuscript/ave-kb/tools`` so the sibling ``kb_index_lib``
+resolves (the ``ave-kb`` path segment is hyphenated, so a dotted
+``manuscript.ave-kb.tools`` import form is not available)::
 
     PYTHONPATH=manuscript/ave-kb/tools python -m unittest tests.test_kb_index_lib
 
@@ -21,17 +17,14 @@ file in the fixture or the live KB.
 """
 
 import json
-import sys
+import shutil
 import tempfile
 import unittest
 from pathlib import Path
 
-# Make the tools dir importable regardless of how the test is invoked.
 _THIS_DIR = Path(__file__).resolve().parent
-_TOOLS_DIR = _THIS_DIR.parent
-if str(_TOOLS_DIR) not in sys.path:
-    sys.path.insert(0, str(_TOOLS_DIR))
 
+# kb_index_lib resolves via PYTHONPATH (set by the test-tools make target).
 import kb_index_lib as lib  # noqa: E402
 
 # The synthetic fixture KB — the stable graph behavioral tests run against.
@@ -642,13 +635,15 @@ class TestJsonlIo(unittest.TestCase):
             p2 = Path(tmp) / "second.jsonl"
             lib.write_jsonl(p1, records)
             lib.write_jsonl(p2, records)
-            self.assertEqual(p1.read_bytes(), p2.read_bytes())
+            self.assertEqual(
+                p1.read_text(encoding="utf-8"), p2.read_text(encoding="utf-8")
+            )
 
     def test_empty_records_writes_empty_file(self):
         with tempfile.TemporaryDirectory() as tmp:
             p = Path(tmp) / "empty.jsonl"
             lib.write_jsonl(p, [])
-            self.assertEqual(p.read_bytes(), b"")
+            self.assertEqual(p.read_text(encoding="utf-8"), "")
             self.assertEqual(lib.read_jsonl(p), [])
 
     def test_malformed_jsonl_raises(self):
@@ -1160,7 +1155,7 @@ class TestSupportSolidity(unittest.TestCase):
         self.assertEqual(supports[0]["fraction"], lib.PENDING_LITERAL)
         self.assertIsNone(depends[0]["fraction"])
         # And the serialized line distinguishes them: "*pending*" vs null.
-        blob = lib.serialize_records(edges).decode("utf-8")
+        blob = lib.serialize_records(edges)
         self.assertIn('"fraction": "*pending*"', blob)
         self.assertIn('"fraction": null', blob)
 
@@ -1245,7 +1240,7 @@ class TestSupportPendingFractionParse(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             leaf = root / "leaf.md"
-            leaf.write_text(text)
+            leaf.write_text(text, encoding="utf-8")
             return lib.parse_support_leaf(leaf, root)
 
     def test_pending_fraction_parses_as_sentinel(self):
@@ -1423,6 +1418,76 @@ class TestComputeSolidityFixture(unittest.TestCase):
         # clm-ee5555's deps are all framework nodes → min is 1.0.
         ee = self.by_id["clm-ee5555"]
         self.assertEqual(lib.min_dependency_solidity(ee, self.sol), 1.0)
+
+
+class TestFrameworkNodeCoverageGuard(unittest.TestCase):
+    """Issue #28 regression: refresh must fail loudly — not silently emit a
+    dangling index — when CLAUDE.md framework-node parsing drops nodes that
+    the claim graph references.
+
+    Root cause of #28 was a transient mid-merge CLAUDE.md whose axiom bullets
+    no longer matched the parser, so ``parse_framework_nodes`` yielded zero
+    axioms and the rebuilt index lost ``axiom-1``..``axiom-4`` while
+    ``depends-on`` edges still targeted them — surfacing only later as a flood
+    of cryptic referential-integrity orphans in ``verify-kb-metadata``.
+    """
+
+    # --- unit: the guard predicate itself -------------------------------
+
+    def test_guard_silent_when_referenced_axiom_present(self):
+        claims = [
+            {"node_type": "axiom", "id": "axiom-1"},
+            {"node_type": "claim", "id": "clm-aaaaaa"},
+        ]
+        edges = [
+            {"source": "clm-aaaaaa", "target": "axiom-1", "target_kind": "axiom"}
+        ]
+        # No raise.
+        lib._assert_framework_node_coverage(claims, edges)
+
+    def test_guard_fires_when_referenced_axiom_missing(self):
+        claims = [{"node_type": "claim", "id": "clm-aaaaaa"}]  # axiom-1 dropped
+        edges = [
+            {"source": "clm-aaaaaa", "target": "axiom-1", "target_kind": "axiom"}
+        ]
+        with self.assertRaises(lib.FrameworkNodeParseError) as ctx:
+            lib._assert_framework_node_coverage(claims, edges)
+        msg = str(ctx.exception)
+        self.assertIn("axiom-1", msg)
+        self.assertIn("CLAUDE.md", msg)
+
+    # --- integration: real parse → build chain on the fixture -----------
+
+    def test_build_all_records_succeeds_on_valid_fixture(self):
+        state = lib.discover_kb(_FIXTURE, diagnostic_stream=None)
+        records = lib.build_all_records(state)  # must not raise
+        axioms = [r for r in records["claims"] if r["node_type"] == "axiom"]
+        self.assertEqual(len(axioms), 4)
+
+    def test_build_all_records_fires_on_malformed_claude_md(self):
+        # Reproduce #28: copy the fixture, mangle the axiom bullets so the
+        # parser regex (`^- Axiom N: **...**`) no longer matches (here: indent
+        # them, as a hand-merge might). The fixture's claim depends on Axiom 4,
+        # so the dropped axiom-4 node leaves a dangling edge → guard must fire.
+        with tempfile.TemporaryDirectory() as tmp:
+            kb = Path(tmp) / "mini-kb"
+            shutil.copytree(_FIXTURE, kb)
+            claude = kb / "CLAUDE.md"
+            text = claude.read_text(encoding="utf-8")
+            mangled = text.replace("\n- Axiom ", "\n  - Axiom ")  # indent bullets
+            self.assertNotEqual(text, mangled, "fixture must contain axiom bullets")
+            claude.write_text(mangled, encoding="utf-8")
+
+            state = lib.discover_kb(kb, diagnostic_stream=None)
+            # Sanity: the mangle actually dropped the axioms at parse time.
+            self.assertEqual(
+                sum(1 for n in state.framework_nodes if n.node_type == "axiom"), 0
+            )
+            with self.assertRaises(lib.FrameworkNodeParseError) as ctx:
+                lib.build_all_records(state)
+            msg = str(ctx.exception)
+            self.assertIn("axiom-4", msg)
+            self.assertIn("CLAUDE.md", msg)
 
 
 if __name__ == "__main__":

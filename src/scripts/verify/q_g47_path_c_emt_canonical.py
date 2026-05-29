@@ -295,7 +295,7 @@ def main():
         },
     }
     out_path = os.path.join(os.path.dirname(__file__), "q_g47_path_c_emt_canonical_results.json")
-    with open(out_path, "w") as f:
+    with open(out_path, "w", encoding="utf-8") as f:
         json.dump(cache, f, indent=2)
     print(f"  Wrote: {out_path}")
     print()

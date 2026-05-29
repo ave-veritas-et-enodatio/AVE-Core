@@ -197,7 +197,7 @@ LaTeX mirror at [`manuscript/backmatter/02_full_derivation_chain.tex:727-732`](.
 
 [`manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md:9`](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) verbatim at HEAD:
 
-> "The asymptotic Hubble constant $H_\infty$ is derived strictly from the three canonical hardware scales of the AVE framework ($\ell_{node}$, $\alpha$, $G$ — all three themselves derived; see [Vol 1 Ch.8 Golden Torus α derivation](../../ch8-alpha-golden-torus.md)). By equating the thermodynamic latent heat of lattice genesis to the holographic radiative capacity of the expanding horizon (derived in full in the Generative Cosmology chapter), the steady-state expansion rate evaluates to: ... $H_\infty = \frac{28\pi m_e^3 c G}{\hbar^2 \alpha^2}$"
+> "The asymptotic Hubble constant $H_\infty$ is derived strictly from the three canonical hardware scales of the AVE framework ($\ell_{node}$, $\alpha$, $G$ — all three themselves derived; see Vol 1 Ch.8 Golden Torus α derivation at `../../ch8-alpha-golden-torus.md` [relative path from quoted-source `mond-hoop-stress.md` perspective]). By equating the thermodynamic latent heat of lattice genesis to the holographic radiative capacity of the expanding horizon (derived in full in the Generative Cosmology chapter), the steady-state expansion rate evaluates to: ... $H_\infty = \frac{28\pi m_e^3 c G}{\hbar^2 \alpha^2}$"
 
 LaTeX mirror at [`manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex:263`](../manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex) — identical content.
 
