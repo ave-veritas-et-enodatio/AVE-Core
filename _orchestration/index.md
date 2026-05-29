@@ -63,14 +63,15 @@ Eight-day delta between the live 2026-05-20 baseline in this doc and the current
 - **Q-OP21-BARDEEN-1** (earlier session, carried forward): explicit reduction Q = ℓ → 1/ln(Z₁/Z₀) via substrate-impedance integration at Cooper-pair Γ-boundary.
 - **Q-LCR-1 + Q-LCR-2** (NEW from clm-zuf7g1 Phase 3a walk-back): substrate-mechanism questions for Grant adjudication.
 - **Per-overrun `\texttt{path}` cleanup** + margin gate tightening (350pt → 15-30pt) — **DONE 2026-05-28** via merge `a9ab377f` (gate now 45pt; see `2026-05-28_vol9-corpus-latex-formatting.md`).
-- **Parameter-count framing walk-back (Option 2 — zero-parameter, gated)** — Phase 1 **MERGED** (`f6b22757`); Phase 2 **BLOCKED** (API limit). Wrap-up handoff: [`2026-05-28_parameter-count-framing-walkback.md`](2026-05-28_parameter-count-framing-walkback.md) §Wrap-up handoff.
+- **Parameter-count framing walk-back (Option 2 — zero-parameter, gated)** — **EPIC CLOSED 2026-05-28 EOD++**: Phase 1 merge `f6b22757` (audit tag `audit/2026-05-28_parameter-count-gating-phase1` → `9b4ae922`); Phase 2 merge `7e814523` (audit tag `audit/2026-05-28_parameter-count-gating-phase2` → `2c0ce429`); sweep-audit cycle resolved D1+B1+B2+C1 via amendment `2c0ce429`. Deferred: C2 (`src/ave/ARCHITECTURE_REVIEW.md` staleness flag); Grant decisions carried forward: title-retitle-vs-gate-under-title + integration→main timing. Doc: [`2026-05-28_parameter-count-framing-walkback.md`](2026-05-28_parameter-count-framing-walkback.md) §CLOSED.
 - **Means-test corpus extensions** to muon/tau, neutrino, QCD, cosmological inflation, substrate-microbiology (clm-eemap1 framework extension).
 
 ### Audit tag delta
 
 - 2026-05-20 baseline: 35 tags
-- 2026-05-28 current: 65 tags
-- +30 across 8 days; +16 are Vol 9 chapter-buildout tags landed 2026-05-28; the other +14 cover Path B-prime, Phase 3-A2 through 3-A4, clm-zuf7g1 Phase 1/2/3a, ax4-saturation Phase 0c + 2-NA + 2-A, and related.
+- 2026-05-28 EOD baseline (per stale upstream count): 65 tags
+- 2026-05-28 EOD++ current (verified via `git tag -l "audit/*" | wc -l`): **68 tags** (+33 net across 8 days). The +3 delta from the stated 65→68 is param-gating Phase 1 + Vol 9 formatting + param-gating Phase 2 — the 65 stated above was a pre-EOD snapshot; Phase 1 and Vol 9 formatting tags landed within the same EOD window and the count wasn't refreshed.
+- Sweep breakdown: +16 Vol 9 chapter-buildout (incl. rollup), +1 Vol 9 formatting, +1 Phase 3-A4 walkback-cleanup, +2 param-gating Phase 1+2, + earlier-day landings (Path B-prime, 3-A2/3-A3, clm-zuf7g1, ax4-sat 0c/2-NA/2-A).
 
 ### What this reconciliation does NOT cover (deferred)
 

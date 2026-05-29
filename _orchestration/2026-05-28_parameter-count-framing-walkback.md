@@ -44,15 +44,27 @@ Pick the canonical position; everything downstream follows:
 1. Kill the `constants.py` internal contradiction (`:94/:101` vs `:105`).
 2. Collapse the three coexisting framings (A/B/C) to one stated consistently.
 
-## §1.5 Canonical gating clause (Option 2) — PENDING Grant sign-off
+## §1.5 Canonical gating clause (Option 2)
 
-The walk-back propagates ONE clause, in two registers. This is the load-bearing artifact; lock the wording before stamping ~130 sites.
+The walk-back propagates ONE clause, in two registers. This is the load-bearing artifact.
+
+### Phase 1 (drafted) — used for headline anchors already stamped
 
 **Long form** (once per headline doc — backmatter §, ch1, ch8 leaf, foreword if present):
 > AVE's zero-parameter closure is **contingent on one open formal step**: that ropelength-minimality uniquely selects the canonical Clifford-torus embedding fixing R·r = 1/4 (the spin-½ half-cover). This step is *conjectured* substrate-derived via the K4 → 2T ⊂ SU(2) → SO(3) chain but is **not yet proven from the classical axioms alone**. Until it is closed, α functions as the framework's one calibration input and the α⁻¹ = 4π³+π²+π match is a Class-4 geometric *consistency check*, not a completed first-principles derivation.
 
 **Short form** (inline, at every unqualified "zero-parameter" headline hit):
 > (contingent on the open Clifford-torus embedding-selection item — see [`ch8-alpha-golden-torus.md`](manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md) §"Remaining open formal-rigor sub-item")
+
+### Phase 2 (SHARPENED — Grant 2026-05-28) — apply to NEW STALE-PROSE fixes only
+
+Sharpens the half-cover-vs-embedding-selection distinction (Phase 1 clause conflates them; ch8 merge resolution preserved the distinction). Do NOT rewrite Phase-1-gated blocks unless grep shows they regressed.
+
+**Long form** (new/edited headline sites):
+> AVE's zero-parameter closure is contingent on one open formal step: that ropelength-minimality on K4 uniquely selects the canonical Clifford-torus embedding $r_1 = r_2 = 1/\sqrt{2}$ fixing $R \cdot r = 1/4$. The spin-½ half-cover itself is treated as substrate-derived via the K4 → 2T ⊂ SU(2) → SO(3) chain (see ch8 steps 1–4); the unproven piece is embedding-selection, not the half-cover postulate in isolation. Until embedding-selection is closed from the classical axioms alone, α is operationally the one calibration input and $4\pi^3 + \pi^2 + \pi$ is a Class-4 consistency check.
+
+**Short form** (inline STALE-PROSE hits):
+> (zero-parameter contingent on the open embedding-selection item — not the half-cover chain; see `ch8-alpha-golden-torus.md` §"Remaining open formal-rigor sub-item (THE gating item)")
 
 **`constants.py` reconciliation under Option 2** (`:94/:101/:105`):
 - Retitle `:94` block from "THREE CALIBRATION INPUTS" → "ONE SCALE + GATED CONSTANTS (zero-parameter contingent on open embedding item)".
@@ -116,8 +128,8 @@ The walk-back propagates ONE clause, in two registers. This is the load-bearing 
 ## Status
 - [x] **GATING: Grant picked Option 2 — "Zero-parameter, gated"** (2026-05-28)
 - [x] **Phase 1 MERGED** (2026-05-28) — `--no-ff` merge `f6b22757`; audit tag `audit/2026-05-28_parameter-count-gating-phase1` → `9b4ae922`
-- [ ] **Phase 2 BLOCKED** (2026-05-28) — implementor agent `92cfc672` hit API limit before worktree/branch created; **no `analysis/parameter-count-gating-phase2` branch exists**
-- [ ] **Epic CLOSED** — blocked on Phase 2 + post-Phase-2 `ave-sweep-audit` pre-declaration
+- [x] **Phase 2 MERGED** (2026-05-28 EOD++) — `--no-ff` merge `7e814523`; audit tag `audit/2026-05-28_parameter-count-gating-phase2` → `2c0ce429`; sweep-audit (agent `aef0a741`) PASS-WITH-FINDINGS → amendment `2c0ce429` resolved D1+B1+B2+C1; one C-class follow-up deferred (see "Deferred" block below)
+- [x] **Epic CLOSED** (2026-05-28 EOD++)
 
 ---
 
@@ -201,7 +213,43 @@ After push: orchestration runs ave-sweep-audit (or spawn) THEN audit-tag + --no-
 |---|---|---|
 | Vol 9 formatting | `a9ab377f` | `audit/2026-05-28_vol9-corpus-latex-formatting` → `3ca379fe` |
 | Param-gating Phase 1 | `f6b22757` | `audit/2026-05-28_parameter-count-gating-phase1` → `9b4ae922` |
+| Param-gating Phase 2 | `7e814523` | `audit/2026-05-28_parameter-count-gating-phase2` → `2c0ce429` |
 
 ### Physics note for external readers (unchanged crux)
 
 The corpus **gates** zero-parameter on the **embedding-selection** open item while treating the **spinor half-cover** as substrate-derived (ch8 Class 2). Doc 39 (archive) disagrees on half-cover nativeness — that tension is **intentionally preserved** under Option 2, not resolved in this epic.
+
+---
+
+## CLOSED — Phase 2 outcome (2026-05-28 EOD++)
+
+**Merge**: `7e814523` (`--no-ff` of `analysis/parameter-count-gating-phase2` → `analysis/integration`).
+**Audit tag**: `audit/2026-05-28_parameter-count-gating-phase2` → `2c0ce429` (annotated tag obj `c1c4d383`); pushed to origin; branch deleted on origin.
+**Files in merge**: 22 (incl. amendment) — see merge commit body for class breakdown.
+
+### Sweep-audit cycle that produced the merge
+
+1. Implementor (`ac6e8e8a`) — 4 commits (`508916da..dd3de8e8`), 18 files. Self-reported PASS with one observation (`src/scripts/` driver docstrings classified SENSE-2 LEGITIMATE per brief carve-out).
+2. Sweep-audit (`aef0a741`) — PASS-WITH-FINDINGS: 1 Class D + 2 Class B + 2 Class C. `make verify-kb-metadata` PASS; `make verify-md-links` 0 gating errors. Recommended MERGE WITH FOLLOWUP COMMIT.
+3. Amendment implementor (`ac15e60d`) — `2c0ce429`, +6 files:
+   - **D1** `\label{sec:open_rigor}` added at `08_alpha_golden_torus.tex:119` (option-a target paragraph)
+   - **B1** `vol2/index.md:14`, `vol5/index.md:14`, **`vol6/index.md:18`** (autonomous-scan addition with per-nucleus-fitted-R disclosure pointer) — sharpened short-form gating
+   - **B2** `src/scripts/AGENTS.md §"The Zero-Free-Parameters Constraint"` reconciled (ASCII GATING NOTE mirroring chunk 1)
+   - **C1** `src/ave/AGENTS.md` numeric line cites (`:94/:101/:105`) replaced with anchor language (`§ONE SCALE + GATED CONSTANTS header / ALPHA declaration / NOTE ON α block`)
+   - autonomous-scan negative results: `vol3/index.md`, `vol4/index.md`, `vol9/index.md` — no equivalent headline claim, LEFT ALONE; `vol7/index.md`, `vol8/index.md` — files do not exist
+4. Spot-check (orchestration, not full re-audit) — amendment diff verified clean: D1 label/ref pair resolves, B1 gating clauses present with sharpened wording, B2 mirror reads correctly, C1 anchor language verified against current `constants.py:105-138` state.
+
+### Deferred (post-epic-close, scoped follow-up)
+
+- **C2** — `src/ave/ARCHITECTURE_REVIEW.md:12` reads "The framework claims three calibration inputs (M_E, ALPHA, G)" unguarded. Auditor judgment: Q1-historical-adjacent (audit-snapshot doc, not in `_archive/`). Two options for follow-up: (a) add header note "Audit snapshot dated 2026-XX-XX; framework-headline framing changed 2026-05-28 — see `src/ave/AGENTS.md §1`"; (b) leave as-is per Rule 12 body-preserve. **No code/manuscript correctness impact.** Pick up in next architectural-doc pass.
+
+### Open Grant decisions (carried forward — NOT blocking; epic CLOSED)
+
+1. **Title retitle vs gate-under-title**: e.g. `manuscript/ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/zero-parameter-universe.md` retains its title under gate-language; should it be renamed (e.g. `zero-parameter-aspiration-gated.md`)? Phase 1 wrap-up flagged; Phase 2 left as-is (gate-under-title chosen by default). Grant to confirm or override.
+2. **integration → main**: `analysis/integration` now contains 4 epic merges since the last main checkpoint (Path B-prime, Vol 9 buildout, Vol 9 formatting, param-gating Phase 1+2) + multiple smaller PRs. Per branching convention `main` stays frozen until Grant greenlights. Grant call on timing.
+
+### What's recorded vs. what's NOT in this doc
+
+- This doc is the canonical record for the param-count framing walk-back epic — Status block + merge table + this CLOSED section are load-bearing.
+- The implementor + auditor full reports live in their respective agent transcripts (one-off, not persisted in the repo). Diff is fully reconstructable from the 5 commits + the audit tags.
+- The sharpened §1.5 clause (canonical Phase 2 wording) is recorded in §1.5 with the Phase 1 draft preserved alongside for historical audit.
