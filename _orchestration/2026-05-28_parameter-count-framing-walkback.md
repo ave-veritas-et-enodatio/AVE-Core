@@ -115,6 +115,5 @@ The walk-back propagates ONE clause, in two registers. This is the load-bearing 
 
 ## Status
 - [x] **GATING: Grant picked Option 2 — "Zero-parameter, gated"** (2026-05-28)
-- [x] Canonical gating clause drafted (§1.5); Grant greenlit Phase 1 spawn 2026-05-28
-- [~] **Phase 1 IN FLIGHT** — `ave-implementer` (agent `b900dc23`), branch `analysis/parameter-count-gating-phase1` off `analysis/integration` @ a48b2cf0, isolated worktree. Scope: constants.py contradiction + framing reconciliation + KB/LaTeX headline anchors + closure-roadmap §0.5 bidirectional entry. Pushes branch; orchestration merges.
-- [ ] Phase 2 — corpus-wide 3h-exhaustive STALE-PROSE sweep + pre-merge ave-sweep-audit
+- [x] **Phase 1 MERGED** (2026-05-28) — `--no-ff` merge `f6b22757` on `analysis/integration`; audit tag `audit/2026-05-28_parameter-count-gating-phase1` → `9b4ae922`. ch8 conflict resolved: Phase 3-A4 table + Op21-closed preserved; embedding-selection gating integrated.
+- [ ] Phase 2 — corpus-wide 3h-exhaustive STALE-PROSE sweep + **ave-sweep-audit pre-merge** (required before declaring propagation complete)

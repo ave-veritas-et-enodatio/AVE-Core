@@ -73,7 +73,8 @@
 - Pure-AVE-corpus rule applies to all commit messages.
 
 ## Status
-- [ ] Phase 1 — infra
-- [ ] Phase 2 — Vol 9 tables
-- [ ] Phase 3 — siunitx
-- [ ] Phase 4 — corpus path sweep + gate drop
+- [x] **MERGED** (2026-05-28) — `--no-ff` merge `a9ab377f` on `analysis/integration`; audit tag `audit/2026-05-28_vol9-corpus-latex-formatting` → `3ca379fe`. Remote implementor branch deleted.
+
+**Orchestration note:** the merged branch carried **~155 commits** ahead of pre-merge `integration` (not only the 5 formatting commits — included prior integration work that had not been merged). Formatting deliverables verified in subagent report: gate 350→45pt, 8/8 volumes pass margin check.
+
+**Follow-up:** clean-room `make pdf` needs vol_2/vol_5 generated figures (`electron_3d_knot.png`, `amino_acid_resonance.png`) — pre-existing untracked-asset gap.
