@@ -15,6 +15,18 @@ has been sharpened:
     the magic-angle operating point, which derives from Ω_freeze via the
     phase-transition-while-spinning mechanism. See L5 A-001 / A-030 / A-031.
 
+  GATING NOTE (2026-05-28): the structural-closure framing above is CONTINGENT
+    on one open formal step. The Ω_freeze → u_0* → α chain does NOT close
+    independently of the electromagnetic route: it rests on the SAME unproven
+    step as the Golden-Torus α derivation — that ropelength-minimality uniquely
+    selects the canonical Clifford-torus embedding fixing R·r = 1/4 (the spin-½
+    half-cover). That step is *conjectured* substrate-derived via the
+    K4 → 2T ⊂ SU(2) → SO(3) chain but is not yet proven from the classical
+    axioms alone. Until it is closed, the "one scale + one cosmological
+    parameter" count is an aspiration; operationally α functions as the
+    framework's one calibration input. See `manuscript/ave-kb/vol1/
+    ch8-alpha-golden-torus.md` §"Remaining open formal-rigor sub-item".
+
 The framework's three observational routes to constrain u_0* (sharpest
 empirical commitment):
   Route 1 — Electromagnetic: α to 12 decimals (CODATA) → u_0* via Q-G47
@@ -91,8 +103,15 @@ M_PROTON: float = 1.67262192369e-27  # Proton mass [kg] (CODATA 2018)
 M_SUN: float = 1.989e30  # Solar mass [kg] (IAU nominal)
 
 # =============================================================================
-# THREE CALIBRATION INPUTS
+# ONE SCALE + GATED CONSTANTS (zero-parameter contingent on open embedding item)
 # =============================================================================
+# Historically labeled "three calibration inputs" {m_e, α, G}. Under the
+# structural-closure framing the count is one scale (ℓ_node) plus constants that
+# are *conjectured*-derived — but that derivation is GATED on the open
+# Clifford-torus embedding-selection step (R·r = 1/4 spin-½ half-cover; see the
+# header and `manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md`). Until that step
+# is closed, α is operationally the one calibration input and {m_e, G} are
+# anchored as below.
 # Input 1: The spatial cutoff (from which m_e is derived via the unknot)
 M_E: float = 9.1093837015e-31  # Electron rest mass [kg]
 # NOTE: m_e is operationally used as the input because ℓ_node ≡ ℏ/(m_e·c).
@@ -102,7 +121,10 @@ ALPHA: float = 7.2973525693e-3  # Fine-structure constant (dimensionless)
 #
 # NOTE ON α (see also ALPHA_COLD_INV and DELTA_STRAIN below):
 # The value above is the CODATA measurement (α⁻¹ = 137.035999084).  Within the
-# AVE framework α is DERIVED, not input — it is the S₁₁-minimum geometric Q-factor
+# AVE framework α is *conjectured*-derived (gated on the open Clifford-torus
+# embedding-selection item — see header + `ch8-alpha-golden-torus.md`);
+# operationally it is the one calibration input until that step is closed.
+# The conjectured derivation makes it the S₁₁-minimum geometric Q-factor
 # of the trefoil soliton at dielectric ropelength (the "Golden Torus"):
 #
 #     α⁻¹_ideal = 4π³ + π² + π ≈ 137.0363038  (cold-lattice, T → 0)
@@ -118,7 +140,9 @@ ALPHA: float = 7.2973525693e-3  # Fine-structure constant (dimensionless)
 G: float = 6.67430e-11  # Gravitational constant [m³/(kg·s²)]
 
 # =============================================================================
-# α from Golden Torus Trefoil S₁₁-minimization (Zero-Parameter Closure)
+# α from Golden Torus Trefoil S₁₁-minimization
+# (Zero-Parameter Closure — contingent on the open Clifford-torus
+#  embedding-selection item; see `ch8-alpha-golden-torus.md`)
 # =============================================================================
 #
 # DERIVATION (manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex):
