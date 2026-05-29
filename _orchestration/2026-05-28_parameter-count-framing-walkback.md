@@ -116,4 +116,4 @@ The walk-back propagates ONE clause, in two registers. This is the load-bearing 
 ## Status
 - [x] **GATING: Grant picked Option 2 — "Zero-parameter, gated"** (2026-05-28)
 - [x] **Phase 1 MERGED** (2026-05-28) — `--no-ff` merge `f6b22757` on `analysis/integration`; audit tag `audit/2026-05-28_parameter-count-gating-phase1` → `9b4ae922`. ch8 conflict resolved: Phase 3-A4 table + Op21-closed preserved; embedding-selection gating integrated.
-- [ ] Phase 2 — corpus-wide 3h-exhaustive STALE-PROSE sweep + **ave-sweep-audit pre-merge** (required before declaring propagation complete)
+- [~] **Phase 2 IN FLIGHT** (2026-05-28) — corpus-wide 3h-exhaustive STALE-PROSE sweep + ave-sweep-audit pre-merge; branch `analysis/parameter-count-gating-phase2` off `analysis/integration` @ `2ff7548b`
