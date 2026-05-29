@@ -40,9 +40,30 @@ The `src/ave/` library is the physics engine. It defines:
 
 Scripts are consumers of this library. They import constants and functions from `ave` and use them to produce derivations, simulations, and figures for the manuscript.
 
-## The Zero-Free-Parameters Constraint
+## The Zero-Free-Parameters Constraint (ONE SCALE + GATED CONSTANTS — gated on open embedding-selection item)
 
-This model derives ALL physical constants from three calibration inputs (electron mass M_E, fine-structure constant ALPHA, gravitational constant G) plus SI definitions. What the Standard Model treats as independent empirical constants (particle masses, coupling constants, mixing angles) are derived outputs of the model.
+This model derives all downstream physical constants from a small bounding set:
+historically labeled "three calibration inputs" (electron mass M_E, fine-structure
+constant ALPHA, gravitational constant G); under the structural-closure framing
+the count is one scale (ell_node, equivalently M_E via the unknot ground state)
+plus constants that are *conjectured*-derived via Layer 8 closure. What the
+Standard Model treats as independent empirical constants (particle masses,
+coupling constants, mixing angles) are derived outputs of the model.
+
+**GATING NOTE (2026-05-28).** The Layer-8 closure that lifts the count from
+"three calibration inputs" to "one scale + gated constants" is contingent on
+one open formal step: that ropelength-minimality on K4 uniquely selects the
+canonical Clifford-torus embedding r1 = r2 = 1/sqrt(2) fixing R*r = 1/4
+(the spin-1/2 half-cover regime (c)). The K4 -> 2T subset SU(2) -> SO(3)
+chain itself is treated as substrate-derived (see `manuscript/ave-kb/vol1/
+ch8-alpha-golden-torus.md` steps 1-4); the unproven piece is
+embedding-selection, not the half-cover postulate in isolation. Until that
+embedding-selection step is closed from the classical axioms alone, ALPHA
+is operationally the one calibration input and alpha^-1 = 4*pi^3 + pi^2 + pi
+is a Class-4 consistency check. See `src/ave/core/constants.py` §ONE SCALE
++ GATED CONSTANTS header / ALPHA declaration / NOTE ON alpha block for the
+reconciled framing, and `manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md`
+§"Remaining open formal-rigor sub-item" for the canonical gating anchor.
 
 **For script code, this means:**
 

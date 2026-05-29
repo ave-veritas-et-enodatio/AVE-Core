@@ -11,14 +11,14 @@ bootstrap: true
 
 # AVE Common Resources
 
-Cross-volume reference material shared across all AVE volumes. Contains the unified experimental falsification index, the complete derivation chain from four axioms + three (now-derived) hardware scales to zero free parameters, the universal solver toolchain, system verification trace, the interdisciplinary translation matrix, and domain-specific translation tables mapping established physics disciplines to AVE equivalents. The zero-parameter closure is finalized by the Golden Torus $\alpha$ derivation (Vol 1 Ch 8).
+Cross-volume reference material shared across all AVE volumes. Contains the unified experimental falsification index, the complete derivation chain from four axioms + three (now-derived) hardware scales to zero free parameters (zero-parameter contingent on the open embedding-selection item — not the half-cover chain; see [`vol1/ch8-alpha-golden-torus.md`](../vol1/ch8-alpha-golden-torus.md) §"Remaining open formal-rigor sub-item (THE gating item)"), the universal solver toolchain, system verification trace, the interdisciplinary translation matrix, and domain-specific translation tables mapping established physics disciplines to AVE equivalents. The zero-parameter closure is finalized by the Golden Torus $\alpha$ derivation (Vol 1 Ch 8) **conditional on the upstream embedding-selection gating item closing from the classical axioms alone**.
 
 ## Key Results
 
 | Result | Location |
 |---|---|
-| Complete derivation chain: 4 axioms + Golden Torus $\alpha$ derivation → 8 derivation layers → **structurally zero-parameter, conditional on quantitative thermal closure of $\delta_{strain}$ at $T_{CMB}$** (one currently-fitted scalar; substrate-mechanism class identified as Cosserat-rotation-sector mass-gap thermal-mode-population ASYM at clm-hp7nlm; remaining open: **Q-DELTA-MAP-1-quant**) | [Full Derivation Chain](full-derivation-chain.md) |
-| Automated diagnostic confirms strict geometric closure (DAG proof + back-edge analysis; structurally zero-parameter modulo the $\delta_{strain}$ scalar) | [Mathematical Closure](mathematical-closure.md) |
+| Complete derivation chain: 4 axioms + Golden Torus $\alpha$ derivation → 8 derivation layers → **structurally zero-parameter, conditional on (1) upstream embedding-selection gating item AND (2) quantitative thermal closure of $\delta_{strain}$ at $T_{CMB}$** (one currently-fitted scalar; substrate-mechanism class identified as Cosserat-rotation-sector mass-gap thermal-mode-population ASYM at clm-hp7nlm; remaining open: **Q-DELTA-MAP-1-quant** + upstream embedding-selection per ch8) | [Full Derivation Chain](full-derivation-chain.md) |
+| Automated diagnostic confirms strict geometric closure (DAG proof + back-edge analysis; structurally zero-parameter modulo the upstream embedding-selection item AND the $\delta_{strain}$ scalar) | [Mathematical Closure](mathematical-closure.md) |
 | Universal regime-boundary eigenvalue method applies across BH QNM, nuclear, protein, and semiconductor domains | [Solver Toolchain](solver-toolchain.md) |
 | Unified experimental index: hardware benchmarks, astronomical tests, biophysical proposals (all volumes) | [Unified Experiments Appendix](appendix-experiments.md) |
 | Derived Hardware Numerology: all magic numbers traced to $\ell_{node}$, $\alpha$, $G$ | [Appendix C: Derived Numerology](appendix-derived-numerology.md) |

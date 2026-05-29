@@ -11,7 +11,7 @@ bootstrap: true
 
 # Vol 2 — The Subatomic Scale
 
-Volume 2 derives the properties of subatomic particles — fermion generations, baryon masses, neutrino oscillation parameters, quantum spin, and electroweak gauge structure — as topological standing-wave defects of the $\mathcal{M}_A$ LC condensate. Every mass, mixing angle, and coupling constant is computed from the framework's three calibration inputs ($m_e$, $\alpha$, $G$) plus the Poisson ratio $\nu_{vac} = 2/7$ and the packing fraction $p_c = 8\pi\alpha$, with zero Standard Model parameters.
+Volume 2 derives the properties of subatomic particles — fermion generations, baryon masses, neutrino oscillation parameters, quantum spin, and electroweak gauge structure — as topological standing-wave defects of the $\mathcal{M}_A$ LC condensate. Every mass, mixing angle, and coupling constant is computed from the framework's three calibration inputs ($m_e$, $\alpha$, $G$) plus the Poisson ratio $\nu_{vac} = 2/7$ and the packing fraction $p_c = 8\pi\alpha$, with zero Standard Model parameters (zero-parameter contingent on the open Clifford-torus embedding-selection item — not the half-cover chain; see [`../vol1/ch8-alpha-golden-torus.md`](../vol1/ch8-alpha-golden-torus.md) §"Remaining open formal-rigor sub-item (THE gating item)").
 
 ## Key Results
 

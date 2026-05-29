@@ -10,7 +10,7 @@ subtree-experiments: [exp-0n5p16, exp-1ddtr0, exp-1up5ww, exp-6kwkx7, exp-71uhr0
 
 <!-- Note: Ch.11 has NO \label{ch:...} at its \chapter{} command -->
 
-Comprehensive catalogue of tabletop falsification experiments, existing experimental signatures supporting the AVE framework, open-source hardware build guides, engineering scale-up architectures, and advanced telemetry concepts. All predictions derive from the single calibration constant $l_{node}$ with zero free parameters.
+Comprehensive catalogue of tabletop falsification experiments, existing experimental signatures supporting the AVE framework, open-source hardware build guides, engineering scale-up architectures, and advanced telemetry concepts. All predictions derive from the single calibration constant $l_{node}$ with zero free parameters (zero-parameter contingent on the open embedding-selection item — not the half-cover chain; see [`../../../vol1/ch8-alpha-golden-torus.md`](../../../vol1/ch8-alpha-golden-torus.md) §"Remaining open formal-rigor sub-item (THE gating item)").
 
 ## Key Results
 

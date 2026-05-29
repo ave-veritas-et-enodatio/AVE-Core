@@ -16,17 +16,36 @@ For engine work, the practical implications:
 
 ---
 
-## 1. The Zero Free Parameters Constraint
+## 1. The Zero Free Parameters Constraint (ONE SCALE + GATED CONSTANTS — gated on open embedding-selection item)
 
 **This is the single most important rule.**
 
-The model claims to derive ALL physical constants from three calibration inputs
-(M_E, ALPHA, G) plus SI definitions (C_0, HBAR, e_charge, MU_0, EPSILON_0).
-Introduction of any Standard Model constant — either hard-coded or via external
-import — that is not derived from these inputs is a **framework violation**.
+The model derives all downstream physical constants from a small bounding set:
+historically labeled "three calibration inputs" (M_E, ALPHA, G); under the
+structural-closure framing the count is one scale (ell_node, equivalently M_E
+via the unknot ground state) plus constants that are *conjectured*-derived
+via Layer 8 closure. Introduction of any Standard Model constant — either
+hard-coded or via external import — that is not derived from these inputs +
+the SI definitions (C_0, HBAR, e_charge, MU_0, EPSILON_0) is a **framework
+violation**.
+
+**GATING NOTE (2026-05-28).** The Layer-8 closure that lifts the count from
+"three calibration inputs" to "one scale + gated constants" is contingent on
+one open formal step: that ropelength-minimality on K4 uniquely selects the
+canonical Clifford-torus embedding r1 = r2 = 1/sqrt(2) fixing R*r = 1/4
+(the spin-1/2 half-cover regime (c)). The K4 -> 2T subset SU(2) -> SO(3)
+chain itself is treated as substrate-derived (see `manuscript/ave-kb/vol1/
+ch8-alpha-golden-torus.md` steps 1-4); the unproven piece is
+embedding-selection, not the half-cover postulate in isolation. Until that
+embedding-selection step is closed from the classical axioms alone, ALPHA
+is operationally the one calibration input and alpha^-1 = 4*pi^3 + pi^2 + pi
+is a Class-4 consistency check. See `src/ave/core/constants.py` §ONE SCALE
++ GATED CONSTANTS header / ALPHA declaration / NOTE ON alpha block for the
+reconciled framing, and `manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md`
+§"Remaining open formal-rigor sub-item" for the canonical gating anchor.
 
 Before adding any numeric literal or constant import, ask:
-- Is this derivable from M_E, ALPHA, G, and SI electromagnetic definitions?
+- Is this derivable from {M_E, ALPHA, G} and SI electromagnetic definitions?
 - If yes: derive it. If no: it must be flagged as a boundary condition or
   validation target, never used as a computation input.
 
