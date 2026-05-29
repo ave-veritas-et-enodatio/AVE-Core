@@ -9,7 +9,9 @@
 ## Mathematical Closure Status — "Structurally Zero-Parameter," Not Absolutely
 <!-- id: clm-sxn6eo -->
 
-The common-resources documents repeatedly assert AVE's "zero free parameters" status. The unqualified headline collapses a real distinction the leaves make explicit: the chain is *structurally* zero-parameter, conditional on Layer 8 closure of $\{m_e, \alpha, G\}$, with one currently-fitted scalar.
+The common-resources documents repeatedly assert AVE's "zero free parameters" status. The unqualified headline collapses two distinct conditions the leaves make explicit: the chain is *structurally* zero-parameter, conditional on (a) the upstream **embedding-selection** gating item that gates the entire Layer 8 closure (per the 2026-05-28 sharpening), and (b) Layer 8 closure of $\{m_e, \alpha, G\}$ with one currently-fitted scalar ($\delta_{strain}$). Both conditions must close to lift the framework from "structurally zero-parameter" to "absolutely zero-parameter".
+
+**Gating item (upstream, 2026-05-28).** AVE's zero-parameter closure is contingent on one open formal step: that ropelength-minimality on K4 uniquely selects the canonical Clifford-torus embedding $r_1 = r_2 = 1/\sqrt{2}$ fixing $R \cdot r = 1/4$. The spin-½ half-cover itself is treated as substrate-derived via the K4 → 2T ⊂ SU(2) → SO(3) chain (see [`vol1/ch8-alpha-golden-torus.md`](../vol1/ch8-alpha-golden-torus.md) steps 1–4); the unproven piece is embedding-selection, not the half-cover postulate in isolation. Until embedding-selection is closed from the classical axioms alone, $\alpha$ is operationally the one calibration input and $4\pi^3 + \pi^2 + \pi$ is a Class-4 consistency check. Canonical anchor: [`vol1/ch8-alpha-golden-torus.md`](../vol1/ch8-alpha-golden-torus.md) §"Remaining open formal-rigor sub-item".
 
 - _Specific Claims_
   - The forward derivation DAG (Layers 0–7) is acyclic by inspection: every derived quantity depends only on Layer-0 inputs $\{m_e, \alpha, G, \hbar, c, e, \mu_0, \varepsilon_0, T_{CMB}\}$ + Axioms 1–4 + earlier-layer derivations.

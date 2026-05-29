@@ -39,10 +39,14 @@ The electron's intrinsic body in physical 3D space is a $0_1$ unknot — a singl
   - (Currently empty after Phase 2-A closure. The prior "Strengthen clm-zuf7g1" item is retired — clm-zuf7g1 is now at its own confidence ceiling 0.65, equal to clm-unk0bd's confidence, so further work on clm-zuf7g1 alone would NOT lift clm-unk0bd until clm-unk0bd's own confidence rises. The next solidity lift on clm-unk0bd is a framework-extension question — see Non-Claims caveat block on real-space topological protection vs phase-space-only protection — not a derivation gap.)
 ---
 
-## Zero-Parameter Closure Status (Conditional on Thermal Closure)
+## Zero-Parameter Closure Status (Conditional on Embedding-Selection AND Thermal Closure)
 <!-- id: clm-5xon03 -->
 
-The framework's "zero free parameters" headline rests on a layered closure that is currently *conditional*. Vol 1's own ch0 introduction and Ch.8 disclose this; reviewers should not read the headline without the conditions.
+The framework's "zero free parameters" headline rests on a layered closure that is currently *conditional on two distinct open formal items*. Vol 1's own ch0 introduction and Ch.8 disclose both; reviewers should not read the headline without the conditions.
+
+**Gating item 1 (upstream — embedding-selection, 2026-05-28 sharpened gating).** AVE's zero-parameter closure is contingent on one open formal step: that ropelength-minimality on K4 uniquely selects the canonical Clifford-torus embedding $r_1 = r_2 = 1/\sqrt{2}$ fixing $R \cdot r = 1/4$. The spin-½ half-cover itself is treated as substrate-derived via the K4 → 2T ⊂ SU(2) → SO(3) chain (see [`ch8-alpha-golden-torus.md`](./ch8-alpha-golden-torus.md) steps 1–4); the unproven piece is embedding-selection, not the half-cover postulate in isolation. Until embedding-selection is closed from the classical axioms alone, $\alpha$ is operationally the one calibration input and $4\pi^3 + \pi^2 + \pi$ is a Class-4 consistency check. Canonical anchor: [`ch8-alpha-golden-torus.md`](./ch8-alpha-golden-torus.md) §"Remaining open formal-rigor sub-item (THE gating item)".
+
+**Gating item 2 (downstream — δ_strain magnitude, thermal closure).** Even with gating item 1 closed, the cold-lattice asymptote $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi$ requires the CMB-strain bridge $\delta_{\text{strain}}$ to recover CODATA at $T_{\text{CMB}}$. The structure (existence + sign) is substrate-predicted; the magnitude is one back-substituted scalar pending Q-DELTA-MAP-1-quant (see below). Both items must close to lift the framework from "structurally zero-parameter, conditional" to "absolutely zero-parameter".
 
 - _Specific Claims_
   - Vol 1 reduces 26 Standard Model parameters to a 3-element bounding set $\{m_e, \alpha, G\}$ + four axioms.
