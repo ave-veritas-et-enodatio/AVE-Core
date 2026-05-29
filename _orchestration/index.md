@@ -3,12 +3,92 @@
 **Audit trail (2026-05-23 Benn → 2026-05-25 merge):** This directory was ported from `analysis/integration` (D7 curation, KB claim-DAG integration) on 2026-05-23, and completed-work snapshots were moved to [`_archive/index-stale.md`](_archive/index-stale.md). Merged with integration live state on 2026-05-25 — treat this doc as the current live tracker; consult git log for recent updates.
 **EDIT** - 2026-05-23 Benn - document deprecated. Do not do any sweeping work from this document without evaluating current repo state. KB claim DAG has received many improvements and the KB has had many fixups in the process. This directory was ported over from `analysis/integration` branch, which has now been superseded. Work that was clearly already done has been extracted and moved to _archive/. What remains may still be relevant, but again, *check first*.
 
-**Last updated**: 2026-05-20 EOD++++++++++++++ (Q-C15-12 ✓ CLOSED via Path 1; Phase 1a-rev1 FULLY MERGED both repos)
-**Current focus**: C15-CLEAVE-01 Phase 1a-rev1 ✓ COMPLETE — atopile walk-back delivered clean module-level imports; all Q-C15-10/11/12 + Q1.2 + Q-HWMOD-04 CLOSED. Next: A1-HOPF Phase 0b (Grant fab submission, [EXEC]) + C11 Phase 0 outreach ([PREP]).
-**Current HEAD on `analysis/integration`**: `5977f4d` — Q-C15-12 Path 1 brief landed (will bump to next commit when walk-back lands)
-**Audit tag count (AVE-Core)**: 35 (`git tag -l "audit/*" | wc -l`) — `audit/2026-05-20_orchestration-reorg` landed
+> **Staleness notice (2026-05-28 EOD)**: Sections below (active epics, adjudication queue, priority ladder, open decisions) reflect 2026-05-20 EOD state. The reconciliation section directly below catalogs what has demonstrably changed between 2026-05-20 and 2026-05-28; items not addressed in the reconciliation should be re-verified against current corpus before relying on details below. Verify-before-cite v1.4 applies.
+
+## 2026-05-20 → 2026-05-28 reconciliation
+
+Eight-day delta between the live 2026-05-20 baseline in this doc and the current 2026-05-28 EOD state. Items here are verified against git log / file existence / PR merge state.
+
+### PRs landed (10 between 2026-05-20 and 2026-05-28)
+
+| PR | Title (short) | Landed | Notes |
+|---|---|---|---|
+| #43 | Path B-prime closure | 2026-05-26 | empirical Outcome C FALSIFIED; epic archived to `_archive/path-b-prime-k4-dispersion-pq.md` |
+| #47 | Phase 3-A4 Op21 multi-mode mode-counting canonical leaf | 2026-05-27 | clm-0ktpcn 0.60 → 0.65 |
+| #48 | Phase 3-A4 AMENDMENT (auditor findings) | 2026-05-27 | Class 2 → Class B; 0.65 → 0.63 PARTIAL |
+| #49 | Fix kb_cmd tool path in agent-facing docs | 2026-05-28 | hygiene |
+| #50 | Phase 3-A4 walk-back propagation cleanup P1-P4 | 2026-05-28 | LOAD-BEARING cascade arithmetic + 14 stale-prose + Rule 12 prereg header |
+| #51 | translation-circuit META framework expansion | 2026-05-28 | clm-eemap1 (EE-as-substrate-native at minimal-DOF) |
+| #52 | Phase 3-A3 WALK-BACK + Type B SM-leakage cleanup | 2026-05-28 | δ_strain Machian-G framing FALSIFIED; 12-file scrub |
+| #53 | INVARIANT-S2 c_EM/c_shear disambiguation | 2026-05-28 | Q-CLM-3ZZ0F6-DEPTH-1 closed; 2 PR #51 observation cleanups |
+| #54 | §9 + clm-hp7nlm Cosserat-Curie δ_strain canonical leaf | 2026-05-28 | closes Q-DELTA-MAP-1 at mechanism-class identification |
+| #55 | Vol 9 foundation (skeleton + Ch 1) + 7-vol PDF build infra | 2026-05-28 | broke + fixed all volume builds via foreword + preamble + table-wrap edits |
+| #56 | Vol 9 Ch 2-16 buildout (15 sessions in 5 waves) | 2026-05-28 | full Vol 9; 165-page PDF builds clean; 16 new audit tags |
+| #57 | orch(post-vol9-handoff-updates) | 2026-05-28 | this doc + Vol 9 plan/handoff doc completion |
+
+### Workstreams CLOSED since 2026-05-20
+
+- **Path B-prime — K4 (p,q) band-splitting** — CLOSED via PR #43; empirical Outcome C FALSIFIED; substrate-physical (p,q) reframe via canonical corpus. Epic doc moved to `_orchestration/_archive/path-b-prime-k4-dispersion-pq.md`. Was open-decision #2 in queued epics; now removed.
+- **Q-PBP-1** adjudication — RESOLVED GO via canonical corpus survey (commit `c29e3595`, 2026-05-26).
+- **clm-0ktpcn Phase 3-A2 / A3 / A4** — multiple closures (Phase 3-A2 WALK-BACK closure structural reframe; Phase 3-A4 Op21 + AMENDMENT to Class B 0.63 + walk-back propagation). clm-0ktpcn lifted via Op21 multi-mode formalization to 0.65 confidence then walked back to 0.63 PARTIAL.
+- **clm-zuf7g1 Phase 1 + Phase 2 + Phase 3a** — Phase 1 FM chain-promotion CLOSED via PR #37; Phase 2 master-equation derivation 5-session arc CLOSED; Phase 3a Z₀ derivation WALK-BACK CLOSURE (Class 2 not achieved on numerical-value sub-axis; Q-LCR-1/2 surfaced for Grant).
+- **Q-DELTA-MAP-1** — CLOSED at mechanism-class identification via PR #54 (Cosserat-Curie thermal-asymmetry; clm-hp7nlm canonical). NEW open follow-up: **Q-DELTA-MAP-1-quant** (quantitative η_ε derivation; Class 2 lift path).
+- **Q-AX4-NA-1 + Q-AX4-NA-2** — BOTH ADJUDICATED GO 2026-05-26 (κ_3 = 0 substrate-mechanical refinement; varactor canonical reframe). Q-AX4-NA-3 deferred to Phase 0c implementor. **Phase 0c CLOSED** with 2 Type E walk-backs (commits `f20335e6` + `380ce9fb`). **Phase 2-NA row CLOSED** (commit `9bbb13a2`). **Phase 2-A close-out** (commit `8415e0b1`).
+- **Vol 9 "The Vacuum Datasheet" initiative** — kicked off + CLOSED in single session 2026-05-28 via PR #55 + PR #56. See `2026-05-28_vol-9-vacuum-datasheet-plan-and-handoff.md` Completion Summary.
+- **Lossless-dynamics framing** (adjudication item #3 in queue below) — RESOLVED 2026-05-19 EOD+++ via `temporal-saturation-regime-classifier.md` companion KB leaf (option c selected). Already marked RESOLVED in adjudication queue below.
+
+### NEW canonical content since 2026-05-20
+
+- **`clm-eemap1`** — EE-as-substrate-native META framework at minimal-DOF (canonical at `manuscript/ave-kb/common/translation-tables/translation-circuit.md`); 23-row mapping + 20-case means-test corpus; PR #51.
+- **`clm-hp7nlm`** — Cosserat-Curie δ_strain at T_CMB canonical leaf (canonical at `manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md`); δ_strain ≈ 2.225×10⁻⁶ → η_ε ≈ 4.45×10⁻⁶; Class B 0.55 PARTIAL band; PR #54.
+- **`clm-rtdmsn`** (or near) — Op21 multi-mode mode-counting canonical leaf (`op21-multi-mode-mode-counting.md`); PR #47.
+- **`temporal-saturation-regime-classifier.md`** — 14-discipline temporal-regime trichotomy companion leaf; landed earlier in May.
+- **INVARIANT-S2 c_EM vs c_shear** disambiguation in `manuscript/ave-kb/CLAUDE.md` (PR #53) — load-bearing for α-invariance discipline; Pitfall #5 framework-leakage caught via ave-prereg v1.1 Step 3.5.
+- **Vol 9 "The Vacuum Datasheet"** at `manuscript/vol_9_vacuum_datasheet/` (16 chapters + KB mirror at `manuscript/ave-kb/vol9/`) — PRs #55 + #56.
+
+### Skills updated since 2026-05-20 (see Skill ecosystem state section below for canonical versions)
+
+- **NEW**: `ave-ee-first-mapping` v1.0 (2026-05-28; PR #51 companion)
+- `ave-walk-back` v1.1 → v1.2 (2026-05-27; Step 3h-exhaustive)
+- `consistency-vs-emergence` v1.2 → v1.3 (2026-05-27; Trigger 8 + Step 8 classification-promotion)
+- `ave-worktree-paths` NEW v1.0 (2026-05-27; first-call canary)
+- `ave-prereg` amended 2026-05-26 (v1.1 Step 3.5 substrate-thermodynamic-mapping audit)
+- `ave-canonical-leaf-pull` amended 2026-05-26 (Trigger 17 / framework-extension proposals)
+- `ave-discipline-translate` amended 2026-05-26 (v1.1 Trigger 6 cross-disciplinary translation)
+- Plus prior amendments: ave-multi-falsifier-triangulation-discipline (2026-05-23), ave-directory-enumeration-discipline (2026-05-23), ave-cavity-class-identification (2026-05-23), ave-fundamental-ground-up-implementation (2026-05-23), ave-module-library-discipline (2026-05-20)
+
+### Open follow-ups created by 2026-05-28 work
+
+- **Q-DELTA-MAP-1-quant** (NEW): quantitative substrate-statistical-mechanics derivation of η_ε ≈ 4.45×10⁻⁶ from substrate E-mode dispersion + thermal occupation + dielectric coupling. Class 2 closure path; would lift clm-hp7nlm + clm-009nkt above 0.60.
+- **Q-OP21-BARDEEN-1** (earlier session, carried forward): explicit reduction Q = ℓ → 1/ln(Z₁/Z₀) via substrate-impedance integration at Cooper-pair Γ-boundary.
+- **Q-LCR-1 + Q-LCR-2** (NEW from clm-zuf7g1 Phase 3a walk-back): substrate-mechanism questions for Grant adjudication.
+- **Per-overrun `\texttt{path}` cleanup** + margin gate tightening (350pt → 15-30pt) — publication polish queued.
+- **Means-test corpus extensions** to muon/tau, neutrino, QCD, cosmological inflation, substrate-microbiology (clm-eemap1 framework extension).
+
+### Audit tag delta
+
+- 2026-05-20 baseline: 35 tags
+- 2026-05-28 current: 65 tags
+- +30 across 8 days; +16 are Vol 9 chapter-buildout tags landed 2026-05-28; the other +14 cover Path B-prime, Phase 3-A2 through 3-A4, clm-zuf7g1 Phase 1/2/3a, ax4-saturation Phase 0c + 2-NA + 2-A, and related.
+
+### What this reconciliation does NOT cover (deferred)
+
+- Section E cascade row in active-epics table — last activity in epic doc was 2026-05-19 EOD; the cascade items (methodology-systematic adjudication, Neptune sub-class adjudication, β cosmic-ε Session 3) have NOT verifiably progressed. Still as-of-2026-05-19 below.
+- A1-HOPF Phase 0b — per `exp-a1-hopf.md`: "Phase 0b ready for Grant fab submission". Memory entry `project_hopf_01_status.md` says "boards in hand 2026-05-02; partial knot stitching underway; AVE-HOPF docs lag actual lab state" — so Phase 0b has likely progressed in the lab but AVE-HOPF docs lag. Not updated here; trust the memory entry over the epic doc on lab state.
+- C11-MACH-ZEHNDER Phase 0 facility partnership search — NOT verified.
+- C15-CLEAVE-01 Phase 1a-rev1 — last activity 2026-05-20; no further progress visible in git log. Likely still gated on Phase 1b/1c Grant manual KiCad work per index header below.
+- Adjudication queue items #1 (methodology-systematic), #2 (Neptune), #4 (C5 threshold-policy), #5 (4th-category) — no verifiable progress in 8 days.
+- Sibling-repo hygiene items (open decisions #7-10) — UNVERIFIED.
+- Pre-commit hook + worktree-spawn-leak discipline fixes — STILL OPEN (worktree-leak recurred during Vol 9 Wave 1 sessions).
+
+---
+
+**Last updated**: 2026-05-20 EOD++++++++++++++ (most sections); 2026-05-28 EOD (audit tag count + staleness notice + HEAD ref)
+**Current focus**: Vol 9 "The Vacuum Datasheet" ✅ COMPLETE 2026-05-28 (PR #55 + #56 both merged). Earlier 2026-05-20 focus: C15-CLEAVE-01 Phase 1a-rev1 ✓ COMPLETE — atopile walk-back delivered clean module-level imports; all Q-C15-10/11/12 + Q1.2 + Q-HWMOD-04 CLOSED. Next: A1-HOPF Phase 0b (Grant fab submission, [EXEC]) + C11 Phase 0 outreach ([PREP]) — both still queued.
+**Current HEAD on `main`**: `c6d2dcaf` — PR #56 merge (Vol 9 Ch 2-16). Last live integration head on `analysis/integration` (2026-05-20 EOD reference): `5977f4d`.
+**Audit tag count (AVE-Core)**: 65 (`git tag -l "audit/*" \| wc -l`) — 16 NEW Vol 9 audit tags landed 2026-05-28: `audit/2026-05-28_vol9-ch{02-16}-*` (15 chapter implementor branches) + `audit/2026-05-28_vol9-chapter-buildout` (integration branch). Was 35 at 2026-05-20 EOD; +30 across 8 days.
 **Audit tags pushed (sibling repos this session)**: `audit/2026-05-20_phase-1a-kicad-design` + `audit/2026-05-20_phase-1a-rev1-atopile-walkback` at `AVE-Bench-FemtoElectrometer`; `audit/2026-05-20_q-c15-12-stage-a-fix` at `AVE-Hardware-Modules`
-**Active branches (local AVE-Core)**: 5 — `analysis/integration`, `benn/long-running`, `golden-torus-update`, `main`, `research/l3-electron-soliton`
+**Active branches (local AVE-Core)**: 5 — `analysis/integration`, `benn/long-running`, `golden-torus-update`, `main`, `research/l3-electron-soliton`. Vol 9 chapter-buildout branches (16 total) deleted 2026-05-28 post-merge; preserved as audit tags.
 **Cross-repo state**: `AVE-Bench-FemtoElectrometer` main @ `7f9c721` (Phase 1a-rev1 ✓ MERGED with clean atopile module imports); `AVE-Hardware-Modules` main @ `8b0626b` (Q-C15-12 Stage A fix ✓ MERGED); AVE-Skills main @ `4f504c0`.
 
 **Grant adjudication queue (needs your yes before agents proceed)**:
@@ -24,52 +104,64 @@ This is the cross-cutting carry-forward for AVE-Core orchestration. Per-epic sta
 
 ## Active epics
 
-| Epic | Doc | Status | Last phase landed | Next |
+> **Status note (2026-05-28)**: each epic's row marked with verified-status if I checked the epic doc / git log against 2026-05-28 state. UNVERIFIED items reflect 2026-05-20 baseline.
+
+| Epic | Doc | Status (2026-05-28 annotated) | Last phase landed | Next |
 |---|---|---|---|---|
-| Section E cascade | [`theoretical/section-e-cascade.md`](theoretical/section-e-cascade.md) | ACTIVE — E1b-prime CLOSED Outcome Marginal-D; SDSS DR17 + Shamir 2022 cross-catalogs CLOSED; methodology-systematic at 2.99σ surfaced | E1b-prime merged via `c587573` audit `audit/2026-05-19_c5-pantheon-tightening` | (a) Methodology-systematic adjudication (Ganalyzer vs Longo cos-γ); (b) Observable 5/6/7 execution; (c) Joint Pantheon+ + SDSS + Shamir-DESI constraint |
-| Soliton-lattice coupling operator | [`theoretical/soliton-lattice-coupling-operator.md`](theoretical/soliton-lattice-coupling-operator.md) | ACTIVE — Sessions 1+2 CLOSED; Sessions 3-5 queued. Catalog row additions complete (Row 9-a, 9-b, 11-a, 14-a). Planetary scoring 14-15/16 class match + 3/3 anomalies resolved as stable kernel-branch equilibria. Neptune class-mismatch sub-anomaly surfaced (flag-don't-fix). | Session 2 merged via `78b9770` audit `audit/2026-05-19_soliton-lattice-coupling-operator-session2` | Session 3 (planetary finalization + Neptune sub-class adjudication) OR Session 4 (galactic-scale extension to SDSS DR17 via Row 11-a) |
-| Cosmic-ε / DE projection | [`theoretical/cosmic-epsilon-de-projection-scoping.md`](theoretical/cosmic-epsilon-de-projection-scoping.md) | ACTIVE — Sessions 1+2 CLOSED; Sessions 3-4 conditional. Op14 cosmic-horizon profile leaf landed. Projection chain (6 components, no magnitude-matching). γ verdict (composite Class E + ASYM-N(ε)) structurally confirmed. Row 14b cosmic-DE catalog row added. Anomaly A3 closed. A1 (MOND classification) + A2 (`cosmological-constant-closure.md` dual framing) carried forward. | Session 2 merged via `8e09046` (+ conflict fixup `4e99d77`); audit `audit/2026-05-19_cosmic-epsilon-de-projection-session2` | Session 3 (downstream walk-back: `cosmological-constant-closure.md` framing reconciliation per A2) OR Session 4 conditional (4th-category "thermodynamic latent-heat flow" if load-bearing) |
+| Section E cascade | [`theoretical/section-e-cascade.md`](theoretical/section-e-cascade.md) | **STILL ACTIVE — no verifiable progress 2026-05-20 → 2026-05-28**. Methodology-systematic adjudication still PROVISIONAL. Epic doc internal state still 2026-05-19 EOD. | E1b-prime merged via `c587573` audit `audit/2026-05-19_c5-pantheon-tightening` | (a) Methodology-systematic adjudication (Ganalyzer vs Longo cos-γ); (b) Observable 5/6/7 execution; (c) Joint Pantheon+ + SDSS + Shamir-DESI constraint |
+| Soliton-lattice coupling operator | [`theoretical/soliton-lattice-coupling-operator.md`](theoretical/soliton-lattice-coupling-operator.md) | **STILL ACTIVE — no verifiable progress 2026-05-20 → 2026-05-28**. Sessions 3-5 still queued; Neptune sub-class adjudication still pending. | Session 2 merged via `78b9770` audit `audit/2026-05-19_soliton-lattice-coupling-operator-session2` | Session 3 (planetary finalization + Neptune sub-class adjudication) OR Session 4 (galactic-scale extension to SDSS DR17 via Row 11-a) |
+| Cosmic-ε / DE projection | [`theoretical/cosmic-epsilon-de-projection-scoping.md`](theoretical/cosmic-epsilon-de-projection-scoping.md) | **STILL ACTIVE — no verifiable progress 2026-05-20 → 2026-05-28**. Sessions 3-4 still conditional. | Session 2 merged via `8e09046` (+ conflict fixup `4e99d77`); audit `audit/2026-05-19_cosmic-epsilon-de-projection-session2` | Session 3 (downstream walk-back: `cosmological-constant-closure.md` framing reconciliation per A2) OR Session 4 conditional (4th-category "thermodynamic latent-heat flow" if load-bearing) |
 | **Experimental Arc** (parent) | [`experimental/experimental-arc.md`](experimental/experimental-arc.md) | ACTIVE — Phase 2 audit complete 2026-05-20; 3 sub-epics spawned per cascade-emphasis ranking. Adjudication queue items EXP-1 / EXP-3 / EXP-4 promoted to sub-epics. EXP-2 (walk-back scope) RESOLVED to surgical (4-5 leaves). EXP-6 (B4-PROTEIN) + EXP-7 (C2-T-PAIR) DEFERRED outside cascade-emphasis top-3. | Phase 1 walk-back bundled with sub-epic-establishment commit | Phase 3 driver readiness audit (after sub-epic Phase 1 measurements land); Phase 4 cross-repo coordination on-demand; Phase 5 continuous canonical tie-back |
-| ↳ EXP-A1-HOPF (cascade × executability) | [`experimental/a1-hopf/exp-a1-hopf.md`](experimental/a1-hopf/exp-a1-hopf.md) + [Phase A audit](experimental/a1-hopf/exp-a1-hopf-repo-audit.md) + [Sim audit](experimental/a1-hopf/exp-a1-hopf-sim-audit.md) | **PHASE 0a ✓ COMPLETE + SIM AUDIT ✓ NO DRIFT — Phase 0b READY**. Phase B walk-back 6 commits on AVE-HOPF `analysis/a1-hopf-audit-walkback-2026-05-20` (local, not pushed): BLOCKER-1 Gerbers exported to `Gerbers_hopf_02a/`; BLOCKER-2 `hopf_02a_ORDERING.md` + `hopf_02a_BOM.md` drafted; R1.1 hardware/ reorg (hopf_01_* + hopf_02a_* prefix); ALPHA constants-gate fix in `hopf_02_nec2_run.py`; MAGIC_NUMBERS whitelist extension. Sim audit verified α + (p,q) + C8 axes: exact α match, (p,q) aligned with FI-13 RESOLVED, C8 PASS strengthens Outcome A/C interpretation without formula drift. 7 misdirected AVE-Core citations walked-back inline. | Phase A audit + Sim audit + Phase B walk-back all landed 2026-05-20 | Grant uploads `Gerbers_hopf_02a/` to JLCPCB per `hopf_02a_ORDERING.md`; orders mandrels per `hopf_02a_BOM.md`; optionally PR + squash-merge AVE-HOPF branch to main per AVE-HOPF AGENTS.md §3 |
-| ↳ EXP-C15-CLEAVE-01 (cascade SIZE — largest) | [`experimental/c15-cleave-01/exp-c15-cleave-01.md`](experimental/c15-cleave-01/exp-c15-cleave-01.md) (consolidated sub-epic with phase table) + [Framework-readiness audit](experimental/c15-cleave-01/exp-c15-cleave-01-sim-audit.md) + [`_archive/`](experimental/c15-cleave-01/_archive/) (4 closed-phase briefs: phase-0-scaffolding + q-c15-01-chamber-scoping + phase-1-kicad-brief + phase-1a-rev1-atopile-walkback-brief) + **sibling repos: `AVE-Bench-FemtoElectrometer` main @ `331a778` (Phase 1a) + Phase 1a-rev1 branch @ `b44b1f7` (Stage B LANDED, NOT merged) + `AVE-Hardware-Modules` main @ `e2171cb` (Stage A COMPLETE)** | **PHASE 1a ✓ MERGED to main at `331a778`** (audit tag `audit/2026-05-20_phase-1a-kicad-design` at `6d6552f`) → **PHASE 1a-rev1 ATOPILE WALK-BACK Stages A + B BOTH LANDED — Q-C15-12 MERGE PATH PENDING GRANT**. Stage A `AVE-Hardware-Modules` main @ `e2171cb` (8 modules + smoke tests + parts); Stage B `analysis/phase-1a-rev1-atopile-walkback` @ `b44b1f7` (3 commits; pushed; not merged; direct-part-import workaround for 2 Stage A latent bugs + ato.yaml `package:` block gap surfaced at integration time per Rule 10). All prior adjudications honored (Q-C15-01/03/04/05/07/08/09 + Q1.2). KB-leaf prediction verbatim preserved; pure-AVE-corpus zero. F-severity (Ax2 dies if 0.0 mV); U-D 41.5 mV/μm; ξ_topo family cascade (6+ dependents, largest single-row cascade in matrix). | Phase B reorg consolidated sub-epic doc 2026-05-20 EOD+++++++++++++ | Grant Q-C15-12 merge path decision (Path 1 fix Stage A first vs Path 2 merge Stage B as-is) → audit tag `audit/2026-05-20_phase-1a-rev1-atopile-walkback` → Phase 1b/1c KiCad GUI work from `ato build` outputs → Phase 2 fab + assembly (~$7670 full BOM mid-range) → Phase 3 measurement (ave-prereg + sweep) → Phase 4 outcome adjudication |
-| ↳ EXP-C11-MACH-ZEHNDER (cascade × severity F) | [`experimental/c11-mach-zehnder/exp-c11-mach-zehnder.md`](experimental/c11-mach-zehnder/exp-c11-mach-zehnder.md) + [Sim audit](experimental/c11-mach-zehnder/exp-c11-mach-zehnder-sim-audit.md) + [project-c11-mach-zehnder.md canonical KB leaf](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-c11-mach-zehnder.md) | **PHASE 0 — Facility partnership search initiating + Sim audit ✓ NO DRIFT.** Driver canonical (live-fire 249.6394 rad ≈ ~250 rad prediction at 1m + 100 eV); Pattern B canonical KB leaf landed at vol4/ch11/. F-severity (Ax3 + Ax1 die); ν_vac=2/7 cascade triangulation (C1 FULL PASS Phase 5 + C11 PENDING + C12 LISA-wait); 2-of-3 triangulation enabled if C11 PASS. Sim audit verified ν_vac=2/7 canonical + ε_11=7GM/c²r engine + n_s/n_t formula + Q-G47 Sessions 19 closure preserved ν_vac. | Sim audit + project KB leaf landed 2026-05-20 EOD+++ | Phase 0 facility partnership search: literature survey of electron-interferometer SOTA (Hasselbach Tübingen / LENS Italy / NIST / TEM holography centers) → candidate verification → cold-email outreach. Phase 2 ave-prereg gated on facility partnership. |
+| ↳ EXP-A1-HOPF (cascade × executability) | [`experimental/a1-hopf/exp-a1-hopf.md`](experimental/a1-hopf/exp-a1-hopf.md) + [Phase A audit](experimental/a1-hopf/exp-a1-hopf-repo-audit.md) + [Sim audit](experimental/a1-hopf/exp-a1-hopf-sim-audit.md) | **PHASE 0a ✓ COMPLETE (per epic doc, 2026-05-20 state)** + Sim audit ✓ NO DRIFT. Epic doc says "Phase 0b ready for Grant fab submission". **HOWEVER**: per memory entry `project_hopf_01_status.md`, boards in hand 2026-05-02; partial knot stitching underway; AVE-HOPF docs lag actual lab state. Phase 0b has likely progressed in the lab beyond what epic doc reflects. **Trust memory entry over epic doc for current lab state**. | Phase A audit + Sim audit + Phase B walk-back all landed 2026-05-20 | Grant uploads `Gerbers_hopf_02a/` to JLCPCB per `hopf_02a_ORDERING.md`; orders mandrels per `hopf_02a_BOM.md`; **OR** verify current AVE-HOPF lab state and update epic doc accordingly |
+| ↳ EXP-C15-CLEAVE-01 (cascade SIZE — largest) | [`experimental/c15-cleave-01/exp-c15-cleave-01.md`](experimental/c15-cleave-01/exp-c15-cleave-01.md) | **PHASE 1a-rev1 ✓ FULLY MERGED both repos** per top-of-doc note (Q-C15-12 ✓ CLOSED via Path 1 at commit `c7996256` 2026-05-20). **Still STILL ACTIVE at Phase 1b/1c (Grant manual KiCad GUI work) — no further verifiable progress in 8 days.** | Q-C15-12 Path 1 brief landed at `5977f4d` 2026-05-20 | Phase 1b/1c KiCad GUI work (schematic ERC clean + PCB layout + guard-ring polygon + DRC) per DESIGN_LOG §5.1-5.2; sub-agent tooling limitation makes this Grant manual |
+| ↳ EXP-C11-MACH-ZEHNDER (cascade × severity F) | [`experimental/c11-mach-zehnder/exp-c11-mach-zehnder.md`](experimental/c11-mach-zehnder/exp-c11-mach-zehnder.md) + [Sim audit](experimental/c11-mach-zehnder/exp-c11-mach-zehnder-sim-audit.md) + [project-c11-mach-zehnder.md canonical KB leaf](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-c11-mach-zehnder.md) | **STILL ACTIVE at Phase 0 facility partnership search — no verifiable progress in 8 days.** Sim audit ✓ NO DRIFT (2026-05-20 EOD+). | Sim audit + project KB leaf landed 2026-05-20 EOD+++ | Phase 0 facility partnership search: literature survey of electron-interferometer SOTA (Hasselbach Tübingen / LENS Italy / NIST / TEM holography centers) → candidate verification → cold-email outreach |
 
-## Queued epics (not yet kicked off)
+## Queued epics (not yet kicked off) — annotated with 2026-05-28 status
 
-| Epic | Doc | Trigger | Notes |
-|---|---|---|---|
-| DM META closure | (no doc yet) | Grant greenlight | Independent of Section E. Closes C13c META row. ~1-2 sessions. |
-| Phase 2 mass-spectrum activation | (no doc yet) | Grant greenlight | Pre-greenlit 2026-04-30 per [`research/_archive/L3_electron_soliton/98_framework_decision_ii_mass_spectrum_activation.md:5`](../research/_archive/L3_electron_soliton/98_framework_decision_ii_mass_spectrum_activation.md). W/Z/Higgs eigenvalue solver; ~1 week scope. |
-| Lossless-dynamics framing extension | (no doc yet) | Grant-greenlight — adjudication on Option (a) vs (b) | Grant 2026-05-19 EOD observation: "orbital dynamics as lossless fluid dynamics" suggests adding (a) "Lossless dynamics" as new row class to A-034 OR (b) "lossless vs lossy" as new axis (alongside ε/μ). Option (b) cleaner — each row gets a (SYM/ASYM × ε/μ × lossless/lossy) tag. Refines Reynolds/N-body predictability scaling for Q3' adjudication. ~1-2 hr corpus edit + companion-row-link update. |
-| Soliton-coupling Session 3 | [`theoretical/soliton-lattice-coupling-operator.md`](theoretical/soliton-lattice-coupling-operator.md) | Grant adjudication on Neptune class-mismatch (sub-class refinement vs operator class-prediction-granularity) | Per epic doc Phase plan: planetary finalization. Estimated 1-2 hr. |
-| Soliton-coupling Session 4 | [`theoretical/soliton-lattice-coupling-operator.md`](theoretical/soliton-lattice-coupling-operator.md) | Session 3 verdict | Galactic-scale extension to SDSS DR17 via Row 11-a; per Ax 2 TKI scaling from Row 9-a planetary form. Estimated 1-2 hr. |
-| β cosmic-ε Session 3 | [`theoretical/cosmic-epsilon-de-projection-scoping.md`](theoretical/cosmic-epsilon-de-projection-scoping.md) | Triggered by Anomaly A2 (`cosmological-constant-closure.md` dual framing) | Downstream walk-back if Session 2 reveals corpus framing inconsistencies. Estimated 1-2 hr. |
-| **clm-zuf7g1 strengthen** (NEW 2026-05-25 — adjacent to closed Golden Torus workstream) | [`clm-zuf7g1-strengthen.md`](clm-zuf7g1-strengthen.md) | Grant greenlight | Surfaced as new solidity-cap on clm-unk0bd after Phase 2 sub-items 3+4 wired clm-zuf7g1 as depends-on. Lifting clm-zuf7g1 unlocks cascade through clm-unk0bd → clm-0ktpcn → 12-claim cone (top-leverage shaky-load-bearing claim in the corpus). Workstream is Bell + Born rule + Möbius derivation + lossless-LC-resonator identification — adjacent physics class to Golden Torus, not a continuation. ~3-4 sessions estimated; Phase 1 (wire clm-zuf7g1 → clm-salw2h, chain-promotion) is a low-risk first-session deliverable. |
-| **Path B-prime — K4 (p,q) band-splitting entry-gate** (NEW 2026-05-25 — framework-extension exploration) | [`path-b-prime-k4-dispersion-pq.md`](path-b-prime-k4-dispersion-pq.md) | **Grant Q-PBP-1 adjudication** (does chiral $I4_132$ carry the $S^3 \to S^2$ Hopf-bundle structure?) | Grant insight 2026-05-25 — alternative to Path B (Faddeev-Skyrme variational) for deriving why electron is (2,3). Pre-reg drafted but parked uncommitted at `research/2026-05-25_path-b-prime-k4-dispersion-pq-classification-prereg.md` per Grant Option-1 scope-discipline call. AVE-HOPF doesn't have the framework (verified via 2026-05-25 deep dive); would be new theoretical contribution. Gated on Q-PBP-1 — if negative, abandon and fall back to Path B. ~5-9 hr single-session deliverable if greenlit. |
-| **KB Q2 stale narrative-tail cleanup** (NEW 2026-05-25 — small maintenance) | (no doc; tracked here) | Anytime — batchable | Stale prose breadcrumbs on cascaded entries from prior sessions, surfaced by ave-auditor Finding 6 during Phase 2 sub-item 1 audit. Files: vol1/claim-quality.md clm-5xon03 ("solidity drops to 0.28"), clm-3kzmt9 ("0.50 to 0.25 in 2026-05-06"), clm-zw6mut ("Under clm-unk0bd's solidity 0.40"), clm-b2anl4 ("(Solidity dropped from 0.41 to 0.31 in 2026-05-06)") — now all inconsistent with current 0.55+ solidities. ~15-30 min cosmetic cleanup; could be folded into next maintenance pass on this volume. |
+| Epic | Doc | Trigger | Status (2026-05-28) | Notes |
+|---|---|---|---|---|
+| DM META closure | (no doc yet) | Grant greenlight | STILL QUEUED | Independent of Section E. Closes C13c META row. ~1-2 sessions. |
+| Phase 2 mass-spectrum activation | (no doc yet) | Grant greenlight | STILL QUEUED | W/Z/Higgs eigenvalue solver; ~1 week scope. Pre-greenlit 2026-04-30. |
+| Lossless-dynamics framing extension | (no doc yet) | Grant adjudication on Option (a) vs (b) | ✅ RESOLVED via Option (c) | Resolved via `temporal-saturation-regime-classifier.md` companion KB leaf 2026-05-19 EOD+++. |
+| Soliton-coupling Session 3 | [`theoretical/soliton-lattice-coupling-operator.md`](theoretical/soliton-lattice-coupling-operator.md) | Grant Neptune adjudication | STILL QUEUED | Planetary finalization. Estimated 1-2 hr. |
+| Soliton-coupling Session 4 | same | Session 3 verdict | STILL QUEUED | Galactic-scale extension. Estimated 1-2 hr. |
+| β cosmic-ε Session 3 | [`theoretical/cosmic-epsilon-de-projection-scoping.md`](theoretical/cosmic-epsilon-de-projection-scoping.md) | Anomaly A2 trigger | STILL QUEUED | Downstream walk-back. Estimated 1-2 hr. |
+| **clm-zuf7g1 strengthen** | [`clm-zuf7g1-strengthen.md`](clm-zuf7g1-strengthen.md) | Grant greenlight | **PARTIALLY EXECUTED 2026-05-26** — Phase 1 + Phase 2 (5-session master-eq arc) CLOSED; Phase 3a Z₀ derivation CLOSED WALK-BACK (no solidity lift; Q-LCR-1/2 surfaced); Phase 3b deferred. clm-zuf7g1 confidence 0.60 → 0.65 (Phase 2); solidity remains 0.55. | Subsequent phases gated on Grant Q-LCR-1/2 adjudication. |
+| ~~Path B-prime~~ | ~~[`path-b-prime-k4-dispersion-pq.md`](_archive/path-b-prime-k4-dispersion-pq.md)~~ | Q-PBP-1 adjudication | **✅ CLOSED 2026-05-26 via PR #43** — empirical Outcome C FALSIFIED; substrate-physical (p,q) reframing. Epic doc archived. | No further action. |
+| **KB Q2 stale narrative-tail cleanup** | (no doc; tracked here) | Anytime — batchable | UNVERIFIED at 2026-05-28 | The mentioned solidity values may have changed in Phase 3-A4 + walk-back propagation work; verify against current state before action. |
+| **ax4-saturation narrow-aperture amplitude-shape** (NEW 2026-05-26) | [`ax4-saturation-narrow-aperture-amplitude-shape.md`](ax4-saturation-narrow-aperture-amplitude-shape.md) | Phase 0c implementor | **PARTIALLY EXECUTED 2026-05-26 to 2026-05-27** — Q-AX4-NA-1 + Q-AX4-NA-2 ADJUDICATED GO; Phase 0c CLOSED with 2 Type E walk-backs; Phase 2-NA + Phase 2-A close-outs landed. | Phase 0c implementor verifies Q-AX4-NA-3 (substrate correlation length) when ready. |
+| **clm-0ktpcn Golden Torus α strengthen** (NEW 2026-05-25) | [`clm-0ktpcn-golden-torus-alpha-strengthen.md`](clm-0ktpcn-golden-torus-alpha-strengthen.md) | — | **PARTIALLY EXECUTED 2026-05-25 to 2026-05-28** — Phase 1 (FM chain-promotion 8 claims 0.45 → 0.50) + Phase 2 (4/4 strengthen-by items on clm-unk0bd closed) + Phase 3-A2 (WALK-BACK closure structural reframe) + Phase 3-A3 (WALK-BACK δ_strain Machian-G framing FALSIFIED via PR #52) + Phase 3-A4 (Op21 multi-mode → AMENDMENT Class B → walk-back propagation P1-P4 via PRs #47/#48/#50). clm-0ktpcn at 0.55 solidity / 0.63 confidence PARTIAL. | Future: Q-DELTA-MAP-1-quant (Class 2 closure path for clm-hp7nlm → clm-0ktpcn cascade). |
 
 ## Adjudication queue for next orchestrator (5 substantive items + 4 hygiene)
 
-Grant has 5 substantive items + 4 hygiene items pending. Prioritized roughly by urgency / impact:
+Grant has 5 substantive items + 4 hygiene items pending. Prioritized roughly by urgency / impact. **Status column (2026-05-28 EOD) added; verified against current state.**
 
 ### Substantive (physics / framework)
 
-| # | Item | Origin | Recommendation |
-|---|---|---|---|
-| 1 | **Methodology-systematic adjudication**: Ganalyzer (Shamir 2022) vs Longo cos-γ (AVE SDSS DR17) — same SDSS-class input galaxies, 74° axis separation = 2.99σ_combined. AVE-Longo gets 5.33σ EXCLUSION of CMB-LSS alignment; Shamir's DESI Legacy gets 3.77° AGREEMENT. | Shamir 2022 epic | **PROVISIONAL** (walked back from RESOLVED-BY-IMPLICATION 2026-05-19 EOD+++ per external review). Initial temporal-classifier framing misclassified Ganalyzer + Longo as bulk-vs-individual estimators; per [shamir-result.md:39+62](../research/2026-05-19_c5-shamir-2022-cross-catalog-result.md) + [sdss-result.md:62](../research/2026-05-19_c5-sdss-spin-orientation-result.md), BOTH are per-galaxy chirality classifiers ($\chi_i \in \{-1,+1\}$) aggregated to population dipole. Difference is per-galaxy classification feature (algorithmic peripheral-pixel vs crowdsourced isophotal-twist). 2.99σ is per-galaxy-estimator-systematic. **Discriminating test**: McAdam & Shamir 2023 cross-comparison ([shamir-result.md:371](../research/2026-05-19_c5-shamir-2022-cross-catalog-result.md)) — Shamir's Ganalyzer on the SAME GZ1 catalog AVE uses. If methodology-systematic dominant → Ganalyzer/GZ1 reproduces Shamir DESI axis (l=242°, b=-47°); if catalog-systematic dominant → reproduces AVE Longo axis (l=129°, b=79°). 4 interpretive alternatives enumerated in leaf §Methodology-systematic (Alt 1 estimator-systematic / Alt 2 bulk-vs-individual / Alt 3 catalog-selection / Alt 4 image-resolution). Adjudication NOT resolved by temporal-regime axis. |
-| 2 | **Neptune spin-axis class-mismatch** (Soliton Session 2 sub-anomaly): operator predicts orthogonal-branch for icy-mantle class (Uranus + Neptune same class with comparable mass + rotation period); Neptune observed at 28° moderate. Neptune's mag-axis (47°) CONFIRMS class; spin-axis FAILS. Two paths: (A) sub-class refinement within icy-mantle (Neptune has higher internal heat-flux — could be on lossy branch per the lossless-dynamics framing), (B) acknowledged operator class-prediction-granularity limitation. Per Q1' adjudication, this is class-match-but-specific-value-fail — NOT a Class E joint-constraint kill. | Soliton Session 2 | Path A recommended given the lossless-dynamics observation (Neptune-as-lossy-branch is a substantive structural explanation, not an ad-hoc patch). Triggers Soliton-coupling Session 3 with refined per-internal-heat-flux sub-class taxonomy. |
-| 3 | **Lossless-dynamics framing** | Grant observation | **RESOLVED 2026-05-19 EOD+++ via [temporal-saturation-regime-classifier.md](../manuscript/ave-kb/common/temporal-saturation-regime-classifier.md)** — Option (c) selected (companion KB leaf, NOT catalog row mutation NOR orthogonal axis tag). Trichotomy (lossless / cyclic / lossy) per $\delta_{\text{AVE}} = t_{\text{sat}}/t_{\text{period}}$ — TAXONOMIC bridge classifying EM tan δ + fluid Reynolds + cavity QED g/κ under common substrate-physics axis (NOT yet derivational; forward-prediction of one classical value from S(A) + t_sat structure is the upgrade path). 14 classical-physics field analogues mapped with CANONICAL/EXTENSION/NEW-MAPPING/PARTIAL tags. Closes Q3' predictability scaling via Reynolds-analogue δ_AVE × N with corrected empirical anchor (6/8 spin-axis class match per Soliton Session 2:167, NOT 8/8 as originally drafted). |
-| 4 | **C5 threshold-policy adjudication** (still open from earlier): SDSS DR17 result outcome label depends on adjudication criterion — `20° + 3σ_combined` (Marginal-D stands) OR `σ_combined-only` (Outcome A formal disconfirmation) OR `cascade-loose` (need N≥3 disconfirmations). Soliton Session 2 + β Session 2 results may change framing — operator-output reframing makes "alignment threshold" a soft criterion since the operator predicts class-direction not exact value. | Earlier session | **PROVISIONAL** — operator-output reframing structurally maps threshold-policy onto Q1' class-prediction-tolerance (±15°), but landing as RESOLVED requires Grant explicit confirmation (procedural lesson from Item 1 walk-back: RESOLVED-BY-IMPLICATION framing is procedurally weak; default to PROVISIONAL + explicit confirmation step). Surface for Grant call. |
-| 5 | **4th-category "thermodynamic latent-heat flow"** framing (β Session 1 Q3 4th option): if neither Class E (joint-constraint) nor ASYM-N(ε) (saturation event) fully captures DE structurally, a new class for "thermodynamic flow observables" may be warranted. Session 2 confirmed γ (composite Class E + ASYM-N(ε)) suffices for now — but reserves option to extend. | β Session 1 Q3 | Hold pending downstream signals; not load-bearing unless Session 3 walk-back reveals tension. |
+| # | Item | Origin | Status (2026-05-28) | Recommendation |
+|---|---|---|---|---|
+| 1 | **Methodology-systematic adjudication**: Ganalyzer (Shamir 2022) vs Longo cos-γ (AVE SDSS DR17) — same SDSS-class input galaxies, 74° axis separation = 2.99σ_combined. AVE-Longo gets 5.33σ EXCLUSION of CMB-LSS alignment; Shamir's DESI Legacy gets 3.77° AGREEMENT. | Shamir 2022 epic | **STILL OPEN PROVISIONAL** — no verifiable progress in 8 days. McAdam & Shamir 2023 cross-comparison discriminating test not run. | Run McAdam & Shamir 2023 cross-comparison. 4 interpretive alternatives enumerated in leaf §Methodology-systematic. |
+| 2 | **Neptune spin-axis class-mismatch** (Soliton Session 2 sub-anomaly) | Soliton Session 2 | **STILL OPEN** — gated on Grant Path A vs B adjudication. No verifiable progress in 8 days. | Path A (lossless-vs-lossy sub-class refinement) recommended. |
+| 3 | **Lossless-dynamics framing** | Grant observation | **✅ RESOLVED 2026-05-19 EOD+++** via [temporal-saturation-regime-classifier.md](../manuscript/ave-kb/common/temporal-saturation-regime-classifier.md). Option (c) selected. | Closed; no further action. |
+| 4 | **C5 threshold-policy adjudication** | Earlier session | **STILL OPEN PROVISIONAL** — no verifiable progress. | Surface for Grant call. |
+| 5 | **4th-category "thermodynamic latent-heat flow"** framing | β Session 1 Q3 | **STILL OPEN — HOLD** | Pending downstream signals; not load-bearing unless Session 3 walk-back reveals tension. |
+
+### NEW substantive items surfaced 2026-05-28
+
+| # | Item | Origin | Status | Recommendation |
+|---|---|---|---|---|
+| 1a | **Q-DELTA-MAP-1-quant** — quantitative substrate-statistical-mechanics derivation of η_ε ≈ 4.45×10⁻⁶ from substrate E-mode dispersion + thermal occupation + dielectric coupling | PR #54 (clm-hp7nlm) | NEW OPEN | Class 2 closure path; would lift clm-hp7nlm + clm-009nkt above 0.60. Substantial workstream (substrate-statistical-mechanics setup). |
+| 2a | **Q-LCR-1 + Q-LCR-2** — substrate-mechanism questions from clm-zuf7g1 Phase 3a walk-back | clm-zuf7g1 Phase 3a | NEW OPEN | Surfaced for Grant adjudication; pre-condition for Phase 3b. |
+| 3a | **Q-OP21-BARDEEN-1** — explicit reduction Q = ℓ → 1/ln(Z₁/Z₀) via substrate-impedance integration at Cooper-pair Γ-boundary | earlier session, carried forward | STILL OPEN | Future workstream. |
 
 ### Process / discipline
 
-| # | Item | Recurrence | Recommendation |
-|---|---|---|---|
-| 6 | **Worktree-spawn branch-state leak** | 3rd recurrence this session | `isolation: "worktree"` spawn-default leaks the implementor's branch checkout into the orchestration session's main worktree. Per-spawn observed: scoping refactor, Shamir, β Session 2. The v1.3 pre-commit branch-check discipline catches it each time, but the leak is structural. **Recommended fix**: extend `ave-handoff-canonical-locale` v1.0 → v1.1 with explicit `orchestration-resets-to-integration-post-spawn` step. Alternatively, the implementor-spawn workflow in `_orchestration/README.md` "Spawning implementors via the Agent tool — discipline" section can add an explicit checkout after each spawn. |
-| 7 | **Merge-conflict-marker commit-slip** | 1 instance this session (commit `8e09046` β Session 2 merge had conflict markers at lines 46-50 and 136-147 of `universal-saturation-kernel-catalog.md`; cleaned up at `4e99d77`) | `git commit --no-edit` on a merge-in-progress accepted markers without refusing. **Recommended fix**: (a) add pre-commit hook checking `<<<<<<<` patterns in staged files; (b) extend `ave-walk-back` skill to mandate `grep -ln '<<<<<<<' --staged` check before commit; (c) extend `verify-before-cite` v1.3 with "post-merge sanity check before push" trigger. Option (a) is most reliable; (b)/(c) are agent-discipline backups. |
-| 8 | **Closed-epic archive move** | Done (item 5 from earlier session) | Resolved 2026-05-19 EOD: 5 closed epic docs moved to `_orchestration/_archive/` via `d8eb117`; inbound refs updated in 10 files. Shamir 2022 epic added to archive in this commit. |
-| 9 | **Sibling-repo hygiene** (carry-forward from earlier sessions) | Long-standing | Items 6-9 from open-decisions table below remain queued: AVE-Protein WIP, AVE-Metamaterials WIP, AVE-QED PDF, c8-baryon-ladder branch fate. ~30 min each; batchable. |
+| # | Item | Recurrence | Status (2026-05-28) | Recommendation |
+|---|---|---|---|---|
+| 6 | **Worktree-spawn branch-state leak** | Originally 3rd recurrence at 2026-05-19; **observed +3 more times during Vol 9 Wave 1 implementor sessions 2026-05-28** (Ch 2, Ch 7, Ch 9 implementors leaked to main repo path; recovered) | **STILL OPEN — RECURRENT** | Pattern not yet structurally fixed. `ave-worktree-paths` v1.0 added 2026-05-27 (first-call canary) but did not prevent the leak — implementors still wrote to main-repo path before canary check in some cases. **Stronger fix needed**: either pre-Write tool guard, or structural change to spawn-default behavior. |
+| 7 | **Merge-conflict-marker commit-slip** | 1 instance 2026-05-19 | **STILL OPEN** — no verifiable progress on recommended pre-commit hook | Recommend installation of `<<<<<<<` pre-commit hook. |
+| 8 | **Closed-epic archive move** | Done | **✅ RESOLVED 2026-05-19** + **Path B-prime added to archive 2026-05-26** | Closed; archive currently holds 8 docs at `_orchestration/_archive/`. |
+| 9 | **Sibling-repo hygiene** | Long-standing | **STILL OPEN — UNVERIFIED** for 2026-05-28 state | Items 6-9 from open-decisions table below; verify state before batching. |
 
 ## Next-move priority ladder
 
@@ -92,37 +184,59 @@ Grant has 5 substantive items + 4 hygiene items pending. Prioritized roughly by 
 9. Items 6-9 from "Open decisions" below. Each ≤30 min; batchable into single hygiene-pass session.
 10. Process-discipline fixes (items 6-7 from adjudication queue): pre-commit hook + skill amendments.
 
-## Open decisions (carry-forward + new)
+## Open decisions (carry-forward + new) — annotated with 2026-05-28 status
 
-| # | Item | Detail |
-|---|---|---|
-| 1 | **Methodology-systematic adjudication** (NEW this session — adjudication item #1) | Ganalyzer vs Longo cos-γ; 2.99σ separation on same SDSS data. Load-bearing for C5 cascade interpretation. |
-| 2 | **Neptune spin-axis class-mismatch** (NEW this session — adjudication item #2) | Path A (sub-class refinement, lossless-vs-lossy axis) vs Path B (granularity limitation). Recommend A. |
-| 3 | **Lossless-dynamics framing** (NEW this session — adjudication item #3) | Option (a) new row class vs Option (b) new axis. Recommend (b). |
-| 4 | **C5 threshold-policy adjudication** (carry-forward, refined) | 20° + 3σ_combined vs σ_combined-only vs cascade-loose. Probably resolved-by-implication via operator-output reframing. |
-| 5 | **4th-category "thermodynamic latent-heat flow"** (carry-forward, β Session 1 Q3) | Hold pending downstream signals. |
-| 6 | **C3-MUON-DELTA Run-4/5 update** (carry-forward) | Fermilab Run-4/5 expected 2026-2027 at ±10 ppm. Timing-dependent. |
-| 7 | **AVE-Protein 51 uncommitted files** (carry-forward) | Mass deletions of engines + manuscript chapters. Surface: intentional WIP or accidental? Grant decides commit / stash / restore. |
-| 8 | **AVE-Metamaterials SOLAR_PANEL_INITIATIVE WIP** (8 uncommitted, carry-forward) | Active workstream not yet committed. Grant decides when to commit. |
-| 9 | **AVE-QED PDF gitignore + .tex commit** (2 uncommitted, carry-forward) | 1 modified `09_anomalous_moment.tex` + 1 untracked `main.pdf` (build artifact). Should gitignore the PDF, commit the .tex when ready. |
-| 10 | **`analysis/c8-baryon-ladder-pdg-anchor` branch fate** (carry-forward) | 2 unpushed Q-G47 retrofit commits pushed earlier; branch still alive on local + origin. Keep as historical or delete via audit-tag pattern? |
-| 11 | **Pre-commit hook for conflict markers** (NEW this session — process adjudication item #7) | Recommend installation. Triggered by `8e09046` merge-conflict-slip + `4e99d77` cleanup. |
-| 12 | **Worktree-spawn branch-state-leak discipline** (NEW this session — process adjudication item #6) | Recommend extending `ave-handoff-canonical-locale` v1.0 → v1.1 OR `_orchestration/README.md` spawn-section. |
-| 13 | **Soliton-coupling Session 3 kickoff** (NEW — gated on item #2 adjudication) | Implementor session ready when Neptune path A/B decided. |
-| 14 | **β cosmic-ε Session 3 kickoff** (NEW — gated on Anomaly A2 from β Session 2) | Implementor session ready when downstream-walk-back greenlit. |
+| # | Item | Status (2026-05-28) | Detail |
+|---|---|---|---|
+| 1 | **Methodology-systematic adjudication** | STILL OPEN PROVISIONAL | Ganalyzer vs Longo cos-γ; 2.99σ separation on same SDSS data. Load-bearing for C5 cascade interpretation. |
+| 2 | **Neptune spin-axis class-mismatch** | STILL OPEN | Path A (sub-class refinement, lossless-vs-lossy axis) vs Path B (granularity limitation). Recommend A. |
+| 3 | **Lossless-dynamics framing** | ✅ RESOLVED 2026-05-19 EOD+++ | Closed via `temporal-saturation-regime-classifier.md`. |
+| 4 | **C5 threshold-policy adjudication** | STILL OPEN PROVISIONAL | 20° + 3σ_combined vs σ_combined-only vs cascade-loose. |
+| 5 | **4th-category "thermodynamic latent-heat flow"** | STILL OPEN — HOLD | Pending downstream signals. |
+| 6 | **C3-MUON-DELTA Run-4/5 update** | STILL OPEN — TIMING | Fermilab Run-4/5 expected 2026-2027 at ±10 ppm. |
+| 7 | **AVE-Protein 51 uncommitted files** | UNVERIFIED at 2026-05-28 | State 8 days old; verify before action. Grant decides commit / stash / restore. |
+| 8 | **AVE-Metamaterials SOLAR_PANEL_INITIATIVE WIP** (8 uncommitted) | UNVERIFIED at 2026-05-28 | State 8 days old; verify. |
+| 9 | **AVE-QED PDF gitignore + .tex commit** (2 uncommitted) | UNVERIFIED at 2026-05-28 | State 8 days old; verify. |
+| 10 | **`analysis/c8-baryon-ladder-pdg-anchor` branch fate** | UNVERIFIED at 2026-05-28 | Branch still alive on local + origin per 2026-05-20 baseline. Audit-tag-and-delete option remains. |
+| 11 | **Pre-commit hook for conflict markers** | STILL OPEN | No verifiable progress in 8 days. Recommend installation. |
+| 12 | **Worktree-spawn branch-state-leak discipline** | STILL OPEN — RECURRENT | `ave-worktree-paths` v1.0 added 2026-05-27 but did not fully prevent the leak (recurred 3× during Vol 9 Wave 1 sessions 2026-05-28). Stronger fix needed. |
+| 13 | **Soliton-coupling Session 3 kickoff** | STILL OPEN — gated on #2 | No progress. |
+| 14 | **β cosmic-ε Session 3 kickoff** | STILL OPEN — gated on Anomaly A2 | No progress. |
 
-## Skill ecosystem state (current versions)
+### NEW open decisions surfaced 2026-05-28
+
+| # | Item | Status | Detail |
+|---|---|---|---|
+| 15 | **Q-DELTA-MAP-1-quant Class 2 closure path** | NEW OPEN | Quantitative η_ε derivation; would lift clm-hp7nlm + clm-009nkt above 0.60. Substantial workstream. |
+| 16 | **Q-LCR-1 + Q-LCR-2** (from clm-zuf7g1 Phase 3a walk-back) | NEW OPEN | Substrate-mechanism questions for Grant adjudication; pre-condition for Phase 3b. |
+| 17 | **Q-OP21-BARDEEN-1** (carry-forward from earlier) | STILL OPEN | Explicit reduction Q = ℓ → 1/ln(Z₁/Z₀). |
+| 18 | **Means-test corpus extensions** (from clm-eemap1 META framework) | NEW OPEN | Extend 20-case means-test corpus to muon/tau, neutrino, QCD, cosmological inflation, substrate-microbiology. Per-domain workstreams. |
+| 19 | **Per-overrun `\texttt{path}` cleanup** | NEW OPEN | Foreword + Vol 9 chapter narratives; convert to `\path{}` / `\seqsplit{}`; then tighten margin gate back from 350pt → 15-30pt for publication polish. |
+| 20 | **Vol 9 followup PRs** | QUEUED | Means-test corpus extensions, per-overrun cleanup, Q-DELTA-MAP-1-quant — all queued post-Vol-9-merge. |
+
+## Skill ecosystem state (current versions — refreshed 2026-05-28 EOD)
+
+Below table refreshed to 2026-05-28 EOD by filesystem mtime on `~/.claude/skills/`. The previous skill table (2026-05-19 EOD baseline) is superseded; this table is canonical.
 
 | Skill | Version | Location | Last amended | Purpose |
 |---|---|---|---|---|
-| `verify-before-cite` | **v1.4** (was 1.3 mid-session, 1.2 pre-session) | `~/.claude/skills/verify-before-cite/SKILL.md` | 2026-05-19 EOD+ (v1.4 post-c8-merge) | Trigger 9 added (merge-conflict-shape claims — empirical `git merge --no-commit` before adjudication). 7th instance of bilateral-axis pattern; FUTURE-STATE axis projection. Origin: failure #5 (c8-baryon-ladder merge speculation; Grant: "this is ridiculous"). |
-| `consistency-vs-emergence` | **v1.1** (was 1.0 pre-session) | `~/.claude/skills/consistency-vs-emergence/SKILL.md` | 2026-05-19 EOD via skills commit `8dfc31d` | Class E added (operating-point projection / topological equilibrium observable). Closes H_∞ Class C miscategorization. |
-| `ave-canonical-leaf-pull` | **v1.2** (was 1.0 pre-session) | `~/.claude/skills/ave-canonical-leaf-pull/SKILL.md` | 2026-05-19 EOD via skills commits `41e6b47` (v1.1) + `4f504c0` (v1.2) | Trigger 16 added (framework-extension proposals / SM/QED-creeper at design layer) at v1.1; sub-case (e-i)/(e-ii)/(e-iii) for projection-vs-measurement conflation at v1.2. Closes "cosmic polarization field" + "QFT cosmological constant problem" failure modes. |
-| `ave-handoff-canonical-locale` | **v1.0** (added this session) | `~/.claude/skills/ave-handoff-canonical-locale/SKILL.md` | 2026-05-19 EOD | This directory's write-time discipline. Closes E1a + E1b loose-plans failure mode. |
-| `ave-discipline-translate` | **v1.0** (NEW this session ++) | `~/.claude/skills/ave-discipline-translate/SKILL.md` | 2026-05-19 EOD++ post temporal-saturation-regime-classifier leaf (98994c1) | Cross-disciplinary translation check. Forces consultation of translation-tables/ + four-regimes.md + temporal-saturation-regime-classifier.md + chemistry-translation/ + ave-analytical-toolkit-index.md + VCA-translation-matrix + trampoline-analogy-primer BEFORE invoking classical-physics analogue (Reynolds, tan δ, MOSFET regime, Cooper pair, Kerr, Purcell, T1/T2, etc.). Closes "reach for classical-physics language reflexively" failure mode + discoverability gap on 8-location cross-disciplinary infrastructure. 5th skill in "before deriving" cluster (with ave-prereg + ave-canonical-leaf-pull + ave-analytical-tool-selection + substrate-native-check). Probationary until first formal probe 2026-08-19. |
-| AVE-Core directives | n/a (corpus) | [`CLAUDE.md`](../CLAUDE.md) + [`_orchestration/README.md`](README.md) | 2026-05-19 EOD via integration commit `e9245cc` | Pre-commit branch-check discipline + implementor-spawn worktree-isolation default. Closes branch-confusion failure mode (subagent leaves working tree on its own branch). |
+| `ave-ee-first-mapping` | **v1.0 (NEW 2026-05-28)** | `~/.claude/skills/ave-ee-first-mapping/SKILL.md` | 2026-05-28 (PR #51 companion) | EE-as-substrate-native at minimal-DOF primary methodology. Forces EE vocabulary primary, classical-other-discipline secondary. Closes "reach for QFT / GR / chemistry analogue first when EE is closer-to-canonical" failure mode. 6th skill in "before deriving" cluster. |
+| `ave-walk-back` | **v1.2** (was v1.1 pre-2026-05-27) | `~/.claude/skills/ave-walk-back/SKILL.md` | 2026-05-27 | Step 3h-exhaustive added. Closes "incomplete walk-back propagation" surfaced 2026-05-27 Phase 3-A4 amendment. |
+| `consistency-vs-emergence` | **v1.3** (was v1.1 at 2026-05-19) | `~/.claude/skills/consistency-vs-emergence/SKILL.md` | 2026-05-27 | Trigger 8 + Step 8 classification-promotion checks. Closes Class 2 ↔ Class B promotion-discipline failure mode (Phase 3-A4 AMENDMENT PR #48). |
+| `ave-worktree-paths` | **v1.0 (NEW 2026-05-27)** | `~/.claude/skills/ave-worktree-paths/SKILL.md` | 2026-05-27 | First-call canary discipline. Forces `git rev-parse --show-toplevel` BEFORE first Write tool call; subsequent paths must start with canary output. Closes worktree-vs-main-repo path-leak failure mode (observed 3rd time during Vol 9 Wave 1 implementor sessions 2026-05-28; pattern not yet structurally fixed — see open decisions #11/#12 below). |
+| `ave-prereg` | **v1.1** | `~/.claude/skills/ave-prereg/SKILL.md` | 2026-05-26 | Step 3.5 substrate-thermodynamic-mapping audit added. Caught Phase 3-A3 framework-leakage error (c_shear-vs-c_EM substitution in α formula) per CLAUDE.md INVARIANT-S2; returned WALK-BACK rather than committing broken derivation. |
+| `ave-canonical-leaf-pull` | **v1.3** (was v1.2 at 2026-05-19) | `~/.claude/skills/ave-canonical-leaf-pull/SKILL.md` | 2026-05-26 | Trigger 17 added (framework-extension classifier — when to invoke per-class survey). |
+| `ave-discipline-translate` | **v1.1** (was v1.0 at 2026-05-19) | `~/.claude/skills/ave-discipline-translate/SKILL.md` | 2026-05-26 | Trigger 6 added (prose-vocabulary-substitution check). Forces substrate-native vocabulary when prose drifts to standard-physics analogue. |
+| `ave-multi-falsifier-triangulation-discipline` | v1.0 | `~/.claude/skills/ave-multi-falsifier-triangulation-discipline/SKILL.md` | 2026-05-23 | 2-of-3 triangulation rule for orthogonal-physics multi-anchor validation. |
+| `ave-directory-enumeration-discipline` | v1.0 | `~/.claude/skills/ave-directory-enumeration-discipline/SKILL.md` | 2026-05-23 | Forces `ls` survey of relevant directory before claiming "X doesn't exist". |
+| `ave-cavity-class-identification` | v1.0 | `~/.claude/skills/ave-cavity-class-identification/SKILL.md` | 2026-05-23 | Substrate-cavity classification: open / closed / matched / mismatched. |
+| `ave-fundamental-ground-up-implementation` | v1.0 | `~/.claude/skills/ave-fundamental-ground-up-implementation/SKILL.md` | 2026-05-23 | Implementation discipline: derive substrate observables before fitting. |
+| `ave-module-library-discipline` | v1.0 | `~/.claude/skills/ave-module-library-discipline/SKILL.md` | 2026-05-20 | Module-level imports for atopile + hardware modules. Surfaced 2026-05-20 Q-C15-12 atopile walk-back. |
+| `verify-before-cite` | **v1.4** | `~/.claude/skills/verify-before-cite/SKILL.md` | 2026-05-19 EOD+ | Trigger 9 added (merge-conflict-shape claims — empirical `git merge --no-commit` before adjudication). |
+| `ave-handoff-canonical-locale` | v1.0 | `~/.claude/skills/ave-handoff-canonical-locale/SKILL.md` | 2026-05-19 EOD | This directory's write-time discipline. |
+| AVE-Core directives | n/a (corpus) | [`CLAUDE.md`](../CLAUDE.md) + [`_orchestration/README.md`](README.md) | 2026-05-19 EOD | Pre-commit branch-check + worktree-isolation default. |
 
-**25 active skills total**; adversarial probes at 14-for-14 finding orthogonal-axis gaps. The 4 skill updates this session (verify-before-cite v1.3 → v1.4 + consistency-vs-emergence v1.1 + ave-canonical-leaf-pull v1.2 + ave-discipline-translate v1.0 NEW) all closed real failure-modes that fired this session — pure-corpus-validation cycle working as intended.
+**Skill ecosystem delta (2026-05-20 → 2026-05-28)**: +2 NEW skills (`ave-ee-first-mapping` + `ave-worktree-paths`) + 5 amendments (`ave-walk-back` v1.2, `consistency-vs-emergence` v1.3, `ave-prereg` v1.1, `ave-canonical-leaf-pull` v1.3, `ave-discipline-translate` v1.1) + 5 other skills with last-touched dates from 2026-05-23. The 25 active-skills total from 2026-05-19 baseline may have grown; canonical count is `ls ~/.claude/skills/ | wc -l` (not refreshed here — verify before citing).
 
 ## Data caching state
 
@@ -130,19 +244,15 @@ Grant has 5 substantive items + 4 hygiene items pending. Prioritized roughly by 
 - **SDSS DR17 Galaxy Zoo 1 cache** at `data/sdss_dr17/` — `.csv.gz` (19.4 MB, regular git via gitignore allowlist; not LFS) + `README.md`. Required by `c5_sdss_spin_orientation.py`. Galaxy Zoo 1 Table 2 (Lintott+2011, ~668k SDSS DR7 galaxies, crowdsourced visual classification).
 - **Shamir 2022 cache** at `data/shamir_2022/` — README only (no catalog data; per-galaxy classifications not publicly redistributed per Phase 0 verification; E2 sub-finding). Driver uses paper-quoted Table 3 axis (RA, Dec) → galactic 68%-containment radius via 200×200 uniform sampling.
 
-## Catalog state (A-034 universal-saturation-kernel-catalog)
+## Catalog state (A-034 universal-saturation-kernel-catalog) — 2026-05-19 EOD baseline
 
-**26 instances** at `manuscript/ave-kb/common/universal-saturation-kernel-catalog.md` (was 21 at session start). 5 new rows added:
+**Baseline at 2026-05-19**: 26 instances at `manuscript/ave-kb/common/universal-saturation-kernel-catalog.md` (was 21 at session start). 5 new rows added (9-a, 9-b, 11-a, 14-a, 14b).
 
-- Row 9-a: Planetary spin-axis (SYM, branch structure aligned/moderate/orthogonal/retrograde; ε-channel via Cosserat)
-- Row 9-b: Planetary mag-vs-spin offset (ASYM-N candidate, μ-channel-vs-spin-channel)
-- Row 11-a: Galactic spin-axis (TBD, scoped Session 4)
-- Row 14-a: LSS spin-axis (TBD conjectural, scoped Session 5 conditional)
-- Row 14b: Cosmic DE / ε-sector (ASYM-N ε, companion to Row 14 K4-crystallisation-SYM*)
+**2026-05-28 status**: per Vol 9 Ch 7 implementor surfacing (`vol-9-ch07(saturation-characteristics)`), the catalog currently reports **26 canonical cross-scale instances (17 physical + 2 biological + 5 engineered + 2 scoped)** per the catalog body, with the canonical kernel governing **19 cross-scale topological-reorganization events** (physical-substrate subset) per `eq_axiom_4.tex` / Vol 0 backmatter, **21 orders of magnitude span uniformly**. Both counts presented honestly with scope distinction. UNVERIFIED whether any rows added 2026-05-20 → 2026-05-28 beyond the 26 baseline; reconfirm via current file head if relying on instance count.
 
-**ε/μ axis classification** + **gap-cells table** + **companion-row links** all extended this session. Catalog now has explicit cross-section structure (SYM/ASYM-N(ε)/ASYM-N(μ)/ASYM-E × scale × observable-channel).
+**ε/μ axis classification** + **gap-cells table** + **companion-row links** all from 2026-05-19 baseline — UNVERIFIED for further changes.
 
-**Internal inconsistency carried forward**: Row 11 MOND classified SYM at line 38 of catalog; canonical leaf `saturated-lattice-mutual-inductance.md:4` classifies as ASYM-N(μ). Both classifications appear in catalog (the SYM at original line + the ASYM-N(μ) treatment in gap-cells table). Queued for adjudication.
+**Internal inconsistency carried forward**: Row 11 MOND classified SYM at line 38 of catalog vs. canonical leaf `saturated-lattice-mutual-inductance.md:4` ASYM-N(μ). UNVERIFIED whether resolved.
 
 ## Reference paths (canonical, tracked)
 
