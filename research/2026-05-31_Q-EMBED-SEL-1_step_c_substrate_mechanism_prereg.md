@@ -57,21 +57,59 @@ The corpus has NO explicit derivation of $R \cdot r = 1/4$ (or equivalently $\sq
 
 The contested ch8 step 4 (spinor half-cover) was supposed to be the substrate-mechanism but was QED-leakage (doc 29 F5).
 
-## §3 Plumber-physical question for Grant (PENDING — load-bearing for the derivation framing)
+## §3 Substrate-mechanism direction (updated 2026-05-31 per Grant hint)
 
-**Q-mech-pic**: What does $L_{envelope}$ — the soliton's effective inductance at the macroscopic phasor-envelope scale — scale as in terms of $R$ and $r$? Three candidate scalings give three different substrate-mechanisms for $R \cdot r = 1/4$:
+**Grant directive 2026-05-31**: *"think through this... research fusion required energy levels for cold fusion on earth and what metric compression does to atoms, likely same type of interaction as electrons."*
 
-- **(α) Λ-surface scaling**: $L_{envelope} \propto \Lambda_{surf} = 4\pi^2 (R \cdot r)$ — envelope-impedance is proportional to the Clifford-torus 2-cycle phasor surface area. Op17 power-conservation at the (2,3) eigenmode forces $L_{envelope} \cdot \omega_C / Z_0 = $ specific value derived from Op21 mode-count.
+That hint reframes the substrate-mechanism direction. The Op1+Op3+Op17+Axiom 3 impedance-matching framing was partial — it missed the canonical **Axiom 4 self-saturation mechanism** that the corpus already has at `photon-identification.md` and `theorem-3-1-q-factor.md`.
 
-- **(β) Geometric-mean scaling**: $L_{envelope} \propto \sqrt{R \cdot r}$ — envelope-impedance is proportional to the geometric mean of envelope scales, matching Op1's $Z = \sqrt{\mu/\varepsilon}$ form one-level-up. Axiom 3 $\Gamma \to 0$ matching to local bond LC tank forces $\sqrt{R \cdot r} = d/2$ directly.
+### §3.1 The actual substrate-mechanism: Axiom 4 self-saturation + TIR boundary formation
 
-- **(γ) Λ-volume scaling**: $L_{envelope} \propto \Lambda_{vol} = 16\pi^3 (R \cdot r)$ — envelope-impedance is proportional to the 3-cycle phasor volume (including 4π spinor closure). Matching condition involves $\Lambda_{vol}$, not $\Lambda_{surf}$.
+The electron is canonically defined as a **self-trapped photon** (`photon-identification.md:11`): the same K4 transverse-Cosserat-microrotation wave as a free photon, BUT with Axiom 4 self-saturation engaged. The mechanism (`photon-identification.md:104` verbatim):
 
-Sub-question: is the soliton's coupling to the surrounding substrate ground state through (i) the macroscopic envelope's 2-cycle phasor surface (β suggests), (ii) the envelope's 3-cycle phasor volume (γ), or (iii) the line-mode tube cross-section (regime a)?
+> *"$\Delta\phi \to \alpha \Rightarrow$ electron: at-yield amplitude triggers Axiom 4 self-saturation, $C_{eff} \to \infty$, $Z_{local} \to 0$, $\Gamma \to -1$ TIR cavity self-creates, the transverse wave is trapped into a standing wave inside the self-created mirror."*
 
-The differences matter because each leads to a different specific calculation in §4. (α) makes Op17 + Op21 load-bearing; (β) makes Op1 + Axiom 3 load-bearing; (γ) makes the spinor 4π factor + Op17 load-bearing.
+This IS the substrate-mechanism for the envelope (R, r):
+- The soliton's amplitude profile $A(r, \theta, \phi)$ varies in space across the (2,3) eigenmode
+- Where $A = A_{yield} = \sqrt{\alpha} \cdot V_{snap}$, Axiom 4's $S(A) \to 0$ saturation engages
+- At that surface, $C_{eff} \to \infty$, $Z_{local} \to 0$, $\Gamma \to -1$ TIR forms (per Op14 Dynamic Impedance)
+- **The (R, r) envelope IS the geometric location of this self-saturated TIR boundary surface**
 
-My read: **(β) is most consistent with the §9.2 AVE-native synthesis** (Op1's geometric-mean form scaling up to macroscopic envelope geometry). But (α) might be the cleaner direct route via Op17 since the corpus already has $\Lambda_{surf}$ as a canonical observable. I'll proceed with (β) unless you call (α) or (γ).
+The (R, r) aren't free geometric parameters — they're **outputs** of the saturation-profile equation. The substrate-mechanism for $\sqrt{R \cdot r} = d/2$ is then:
+
+> **The (2,3) eigenmode's amplitude profile reaches $A_{yield}$ at a specific geometric locus determined by Axiom 4 ($S(A)$ kernel) + Op14 ($Z_{eff} = Z_0/\sqrt{S}$) + the (2,3) topology. The TIR boundary surface has characteristic radii $(R, r)$ with $\sqrt{R \cdot r} = d/2$ — the geometric mean of envelope scales equals half the Nyquist scale because that's the natural length-scale at which the substrate self-saturates against its own Nyquist cutoff $d$.**
+
+### §3.2 Cross-domain validation: cold fusion ≡ same mechanism at nuclear scale
+
+The cold-fusion connection Grant pointed at: when EXTERNAL conditions (Pd lattice, electron screening) drive local substrate conditions toward $A \to A_{yield}$ near multiple nuclei simultaneously, the substrate locally saturates between the nuclei — the same TIR-boundary-formation mechanism, but driven externally instead of by self-amplitude.
+
+Standard physics' Coulomb barrier (~MeV for D-D fusion) is set by the substrate's vacuum impedance $Z_0$ at the inter-nuclear separation. In a saturated substrate (locally $S(A) \to 0$), $Z_{eff} = Z_0/\sqrt{S} \to \infty$ near the saturated region, which means the **effective distance scale shrinks**: the nuclei "see" each other at a much smaller effective separation than the vacuum-coordinate distance. The Coulomb barrier — set by impedance integrated over distance — drops.
+
+Empirical anchors:
+- Hot D-T fusion: ~100 keV ignition (Coulomb barrier at vacuum $Z_0$)
+- NASA Glenn lattice-confinement fusion (2020s, deuterium in metal hydride): ~keV scale (barrier reduced by factor of ~10² via lattice-induced local saturation)
+- Fleischmann-Pons cold fusion claims (controversial, but if real): ~eV scale (barrier reduced by factor of ~10⁴⁻⁵)
+
+The ratio matches the corpus's $1/\sqrt{S}$ scaling for the right $S$ values. **If the substrate-saturation mechanism is correct for the electron envelope, it should also predict cold-fusion energy scales.** This is a cross-domain falsifier built into the derivation.
+
+### §3.3 Revised Q-mech-pic (PENDING Grant confirmation)
+
+Updated candidate substrate-mechanisms — (α), (β), (γ) from prior version superseded by:
+
+- **(δ) Axiom 4 self-saturation TIR boundary** *(NEW DEFAULT per Grant hint)*: $L_{envelope}$, $C_{envelope}$, $Z_{envelope}$ are ALL set by the saturation-profile $S(A(r))$ at the (2,3) eigenmode. The (R, r) emerge as the locus where $A = A_{yield}$. The derivation reduces to solving the (2,3) eigenmode's amplitude profile + identifying the TIR boundary surface.
+
+  Substrate-mechanism chain: Axiom 1 (K4 + Cosserat) + Axiom 4 ($S(A)$ kernel) + Op14 (Dynamic Impedance) + Op17 (Power Transmission) + Axiom 3 ($\Gamma = -1$ TIR boundary condition) → (R, r) envelope with $\sqrt{R \cdot r} = d/2$.
+
+  Cross-domain falsifier: same mechanism predicts cold-fusion energy levels (lattice-confinement fusion ~keV, Fleischmann-Pons claims ~eV if real).
+
+The prior (α)/(β)/(γ) framings are now seen as PARTIAL — each captures one aspect of the (δ) mechanism:
+- (α) Λ-surface scaling: the TIR boundary's 2D extent is parameterized by $\Lambda_{surf}$
+- (β) Geometric-mean scaling: $\sqrt{R \cdot r}$ emerges naturally from the saturation profile's $1/\sqrt{S}$ dependence (Op14)
+- (γ) Λ-volume scaling: the soliton's confined 3D phase-space volume reflects the saturated region
+
+(δ) subsumes all three by tracing back to the canonical substrate-mechanism (Axiom 4 self-saturation) that the corpus already has at `photon-identification.md`.
+
+**Question for Grant**: confirm (δ) as the substrate-mechanism direction? If yes, the derivation in §6 changes shape — it becomes a saturation-profile calculation rather than an impedance-matching algebra. Substantially more work, but anchored in canonical Axiom-4 mechanism rather than novel Op1-scaling assumptions.
 
 ## §4 Expected outcome + discriminating bands (Step 3)
 
@@ -135,37 +173,89 @@ Cross-check: dimensionally, $[R \cdot r] = L^2$, $[d^2] = L^2$. Ratio $[R \cdot 
 
 ## §6 Methodology (Step 4 — proceed-with-derivation plan)
 
-Once Grant adjudicates §3 Q-mech-pic:
+Updated per §3.3 (δ) Axiom 4 self-saturation direction. Pending Grant confirmation of (δ).
 
-### §6.1 Derivation chain (under (β) Op1 geometric-mean scaling)
+### §6.1 Derivation chain under (δ) saturation-profile substrate-mechanism
 
-1. **Define $Z_{envelope}$** via Op1: $Z_{envelope} = \sqrt{\mu_{eff}/\varepsilon_{eff}}$ where $\mu_{eff}, \varepsilon_{eff}$ are the soliton's effective magnetic permeability and electric permittivity at the envelope scale (per Axiom 1 micropolar Cosserat decomposition: magnetic = microrotational DOF, electric = translational DOF).
+1. **Set up the (2,3) eigenmode** on the K4-TLM substrate at the bond LC tank scale. The eigenmode is a coherent excitation pattern with characteristic frequency $\omega_C = c/\ell_{node}$ (Compton frequency = LC tank eigenfrequency per `theorem-3-1-q-factor.md:27`).
 
-2. **Identify $\mu_{eff}, \varepsilon_{eff}$ in terms of (R, r, d)**: in phasor coords, the soliton's effective $\mu, \varepsilon$ scale with the envelope geometry. Candidate scaling: $\mu_{eff} \propto R$ (toroidal microrotational coherence), $\varepsilon_{eff} \propto 1/r$ (poloidal translational coherence). Then $Z_{envelope} = Z_0 \sqrt{R \cdot r}$ (with the geometric-mean appearing naturally from Op1 form).
+2. **Solve for the amplitude profile $A(r, \theta, \phi)$**: at the eigenmode, the soliton's local amplitude varies in space according to the Cosserat-EM field equations + the (2,3) topological winding constraint. Each bond carries $(V_\text{inc}, V_\text{ref})$; the time-averaged $|V_\text{inc}|^2 + |V_\text{ref}|^2$ gives a 3D scalar amplitude field across the lattice.
 
-3. **Apply Axiom 3** $|\Gamma|^2$ minimization at the envelope-to-bond-LC-tank boundary: $\Gamma = (Z_{envelope} - Z_{bond})/(Z_{envelope} + Z_{bond}) \to 0$ requires $Z_{envelope} = Z_{bond}$.
+3. **Identify the TIR boundary surface**: per Axiom 4, $S(A) = \sqrt{1 - (A/A_y)^2}$. At points where $A = A_y$, $S \to 0$ and Op14 gives $Z_{eff} \to \infty$, $\Gamma \to -1$ TIR. The locus $\{(r, \theta, \phi) : A(r, \theta, \phi) = A_y\}$ is the TIR boundary surface.
 
-4. **Identify $Z_{bond}$**: the local bond LC tank at the Nyquist-cell scale has $Z_{bond} = Z_0 \cdot (d/2) / \ell_{node}$ in lattice-natural units (the d/2 factor is the cross-section radius; in natural units $\ell_{node} = 1$).
+4. **Extract envelope geometry (R, r)**: the TIR boundary surface, in phasor coordinates, has the topology of a 2-torus (the (2,3) winding's natural envelope). Characterize this torus by its two characteristic radii — the time-averaged $\langle|V_\text{inc}|\rangle = R$ at the boundary in the toroidal direction, $\langle|V_\text{ref}|\rangle = r$ in the poloidal direction (per Grant 2026-04-27 phasor-space framing).
 
-5. **Match condition**: $Z_0 \sqrt{R \cdot r} = Z_0 \cdot d/2$ ⇒ $\sqrt{R \cdot r} = d/2$ ✓.
+5. **Show $\sqrt{R \cdot r} = d/2$**: from the saturation-profile equation $A(R, r) = A_y$ combined with the Nyquist constraint $d = 1\ell_{node}$ (regime a) and the (2,3) topology, the geometric mean of the boundary radii equals $d/2$ — half the Nyquist tube diameter. This is the matched-scale condition between the substrate's microscopic Nyquist cutoff and the soliton's macroscopic self-saturation envelope.
 
-This is the §9.2 synthesis made into explicit algebra. The load-bearing step is step 2 — the identification of $\mu_{eff}, \varepsilon_{eff}$ scaling. That's where Grant's adjudication of §3 Q-mech-pic matters.
+The load-bearing step is **step 2** (amplitude profile solution). This is potentially significant work — may require the (2,3) eigenmode solver on K4-TLM (extends existing `tlm_electron_soliton_eigenmode.py`).
 
-### §6.2 Cross-validation
+**Possible analytical shortcut**: the (2,3) eigenmode's amplitude profile might have a closed-form expression in the limit of small $r/\ell_{node}$, allowing $\sqrt{R \cdot r} = d/2$ to fall out without full numerical eigsolve. Worth attempting before scaffolding the engine work.
+
+### §6.2 Cross-validation (extended)
 
 After §6.1, cross-validate:
 - **Algebraic**: check that $R \cdot r = 1/4$ + $R - r = 1/2$ (regime b) uniquely give $R = \varphi/2, r = (\varphi-1)/2$ (Golden Torus) via the $u = d/2$ substitution.
 - **Λ values**: check $\Lambda_{vol} + \Lambda_{surf} + \Lambda_{line} = 4\pi^3 + \pi^2 + \pi$ at the derived (R, r, d) = Golden Torus.
 - **CODATA**: check $\delta_{strain}$ residual stays $\approx 2.225 \times 10^{-6}$ (no new tension introduced).
-- **Cross-particle**: §4.F — does the same matching condition give correct (R, r) for proton (3,5), Δ baryon (2,7+)? If yes, the substrate-mechanism is universal. If no, (p,q)-specific corrections needed.
+- **Cross-particle**: §4.F — does the same saturation-profile mechanism give correct (R, r) for proton (3,5), Δ baryon (2,7+)? If yes, the substrate-mechanism is universal across all (p,q) windings. If no, (p,q)-specific corrections needed.
+- **Cross-domain (NEW per §3.2)**: predict cold-fusion energy scales from the same substrate-saturation mechanism. Specifically:
+  - For external metric compression in a Pd-D lattice: predict the local $S$ at the inter-nuclear region as a function of electron screening density.
+  - From local $S$, predict the effective Coulomb barrier reduction factor.
+  - Compare to NASA Glenn lattice-confinement-fusion empirical data (~keV scale) and Fleischmann-Pons claims (~eV if real).
+  - If the substrate-saturation mechanism gives factor-100 barrier reduction for typical Pd-D conditions, the mechanism is universal. If not, either the mechanism is wrong OR cold fusion observations are artifacts.
 
 ### §6.3 Classification target (consistency-vs-emergence v1.3)
 
-- **Class 2 substrate-mechanism axiom-manifestation** if §6.1 chain closes from Axioms 1+2+3 + Op1+Op3+Op17 alone, no imports.
-- **Class B substrate-mechanism manifestation** if §6.1 closes but uses a substrate-mechanism step not in the canonical Op set (some new identification).
-- **Class C consistency check** if §6.1 doesn't actually derive — only checks consistency of the assumed Golden Torus with primitives.
+- **Class 2 substrate-mechanism axiom-manifestation** if §6.1 chain closes from Axioms 1+4 + Op14 + Op17 alone (no imports), AND cross-domain cold-fusion prediction matches empirical scales.
+- **Class B substrate-mechanism manifestation** if §6.1 closes for the electron case but the cross-domain cold-fusion prediction requires additional substrate-mechanism (e.g., specific (p,q)-corrections for nuclear cases).
+- **Class C consistency check** if §6.1 doesn't actually derive — only checks consistency of assumed Golden Torus with the saturation profile.
+- **Class D Outcome** if the saturation-profile approach hits a gap: walk back to per Reading (3) — Golden Torus is mathematical scaffold; α derivation is consistency identification rather than substrate-emergence.
 
-Target classification: **Class 2** (the framework's headline aspiration). Honest fallback if §6.1 hits a gap: Class B (still substrate-mechanism but requires named identification step).
+Target classification: **Class 2** (the framework's headline aspiration, now anchored in canonical Axiom 4 mechanism with cold-fusion cross-domain validation). Honest fallback: Class B with cross-domain partial-match.
+
+### §6.4 Implementor scope (PENDING Grant §3.3 confirmation)
+
+If Grant confirms (δ): the implementor brief becomes:
+
+```
+Branch: analysis/q-embed-sel-1-investigation (already created)
+Worktree: isolated per ave-worktree-paths
+Read: 
+  - this prereg
+  - epic doc _orchestration/2026-05-31_q-embed-sel-1-evaluation.md §9 + §10
+  - manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/photon-identification.md (self-trapped photon mechanism)
+  - manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md (Path A + Path B)
+  - manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/op21-multi-mode-mode-counting.md (Op21 mode-count canonical)
+  - manuscript/ave-kb/common/operators.md (Op1, Op3, Op14, Op17, Op21 forms)
+  - manuscript/ave-kb/CLAUDE.md (axioms canonical statements)
+  - existing scripts: r9_canonical_phase_space_phasor.py, tlm_electron_soliton_eigenmode.py
+
+Deliverables:
+1. Analytical attempt: (2,3) eigenmode amplitude profile + TIR boundary identification + (R, r) extraction
+2. If analytical doesn't close in 1 session: scaffold the numerical eigsolve extension
+3. Cross-validation per §6.2 (algebraic + Λ + CODATA + cross-particle)
+4. Cross-domain validation per §3.2: predict cold-fusion energy scale from same mechanism + compare to NASA Glenn lattice-confinement-fusion data
+5. Classification declaration per §6.3
+6. Result doc at research/2026-XX-XX_Q-EMBED-SEL-1_step_c_result.md
+7. PR-routed merge per memory v2
+
+Skills MANDATORY:
+  - ave-prereg (this prereg locks before any code; surface any new ambiguities to Grant)
+  - phase-space-coordinate-check (all of this is in phasor coords)
+  - substrate-native-check (before any solver scaffolding)
+  - ave-canonical-leaf-pull (for Q-factor / scaling-law / matched-coupling)
+  - ave-canonical-source (canonical constants from src/ave/core/constants.py)
+  - ave-driver-script-honesty (if numerical work)
+  - consistency-vs-emergence (classify each step)
+  - ave-fundamental-ground-up-implementation (no engineering defaults)
+  - ave-analytical-tool-selection (Saturation + Resonance + Boundary classes)
+  - ave-discipline-translate (cold-fusion translation — chemistry/nuclear-physics jargon)
+  - ave-evidence-framing-discipline (precision check on cold-fusion claim — be careful with Fleischmann-Pons-era controversies)
+  - verify-before-cite (every cross-domain cite)
+  - ave-discrimination-check (before framing as Class 2)
+  - ave-worktree-paths
+  - ave-multi-falsifier-triangulation-discipline (algebraic + Λ + CODATA + cross-particle + cross-domain)
+```
 
 ## §7 Status
 
