@@ -25,7 +25,7 @@ Usage:
 
 import numpy as np
 
-from ave.core.constants import ALPHA, C_0, EPSILON_0, K_B, Z_0
+from ave.core.constants import ALPHA, C_0, EPSILON_0, K_B, N_VOID_FRAC, Z_0, e_charge
 
 # ═══════════════════════════════════════════════════════════════════
 # Physical constants
@@ -230,12 +230,39 @@ print("  GHz absorption → temperature → surface tension gradient → flow")
 print(f"{'='*80}")
 
 # Absorption depth in water at 1 GHz
-# ε_r(water, 1GHz) ≈ 80 - j10  (Debye relaxation tail)
-eps_imag = 10.0  # approximate loss factor at 1 GHz
+# ──────────────────────────────────────────────────────────────────────────
+# FT-2 (2026-05-31): the loss factor eps_imag is now FORWARD-DERIVED from the
+# Axiom-4 saturation kernel S(A)=√(1−(A/A_yield)²) via the δ_AVE = t_sat/t_period
+# structure — NO datasheet loss input.  See research/2026-05-31_FT-2_delta-AVE-
+# loss-tangent_{prereg,result}.md.  This lifts δ_AVE (clm-f0jwtk) from Class-1
+# taxonomic toward a Class-4 predictor.
+#
+# DISSIPATIVE LEG (real-power; ave-power-category-check GUARD 1): water at 1 GHz
+# is an H-bond LC-tank network.  Its Debye loss = the per-cycle time-fraction the
+# local bond amplitude A(t) spends ABOVE the Op4 yield well (Γ→−1, leaky-cavity
+# seed: below yield reactive/lossless, dissipation switches on AT yield).  The
+# bond operating point is THERMAL: r = A₀/A_yield = √(kT/E_HB) with E_HB the Op4
+# void-projected H-bond well (INVARIANT-C3; E_HB = U_raw·(1−φ), U_raw≈0.832 eV).
+# t_sat/t_period uses the substrate-native arcsin time-fraction template
+# (radial-eigenvalue-solver.md:78), evaluated at u = (A₀/A_yield)² = kT/E_HB.
+T_water = 300.0  # K (room-temperature liquid-water operating point)
+kT = float(K_B) * T_water
+U_raw_HB_eV = 0.832  # Op4 unscreened H-bond well depth (hbond-op4-equilibrium.md:64)
+E_HB = U_raw_HB_eV * float(N_VOID_FRAC) * float(e_charge)  # = U_raw·(1−φ) ≈ 0.2158 eV
+u_sat = kT / E_HB  # (A₀/A_yield)² thermal operating point ≈ 0.120 (dimensionless)
+# δ_AVE = t_sat/t_period (arcsin time-fraction of the saturated inner region):
+delta_AVE = (2.0 / np.pi) * (np.arcsin(np.sqrt(u_sat)) - np.sqrt(u_sat * (1.0 - u_sat)))
+# tan δ ≈ δ_AVE (small-loss limit); ε'' = ε' · tan δ:
+tan_delta_AVE = delta_AVE
+eps_imag = eps_r_water * tan_delta_AVE  # kernel-derived loss factor (≈ 1.46, was 10.0)
 alpha_abs = 2 * np.pi * f_rf * eps_imag / (2 * float(C_0) * n_water)
 skin_depth = 1 / alpha_abs
 
-print(f"  ε_r = {eps_r_water:.0f} - j{eps_imag:.0f} at {f_rf/1e9:.0f} GHz")
+print(f"  [FT-2] E_HB = U_raw·(1−φ) = {E_HB/float(e_charge):.4f} eV (Op4 void-projected)")
+print(f"  [FT-2] u = kT/E_HB = {u_sat:.4f}  →  δ_AVE = t_sat/t_period = {delta_AVE:.4f}")
+print(f"  [FT-2] tan δ (kernel-derived, no datasheet) = {tan_delta_AVE:.4f}")
+print(f"  [FT-2] ε'' = ε'·tan δ = {eps_imag:.3f}  (was hard-coded 10.0)")
+print(f"  ε_r = {eps_r_water:.0f} - j{eps_imag:.1f} at {f_rf/1e9:.0f} GHz")
 print(f"  Absorption coefficient: α = {alpha_abs:.2f} m⁻¹")
 print(f"  Skin depth (1/e): δ = {skin_depth*100:.1f} cm")
 
