@@ -3,7 +3,62 @@
 **Audit trail (2026-05-23 Benn → 2026-05-25 merge):** This directory was ported from `analysis/integration` (D7 curation, KB claim-DAG integration) on 2026-05-23, and completed-work snapshots were moved to [`_archive/index-stale.md`](_archive/index-stale.md). Merged with integration live state on 2026-05-25 — treat this doc as the current live tracker; consult git log for recent updates.
 **EDIT** - 2026-05-23 Benn - document deprecated. Do not do any sweeping work from this document without evaluating current repo state. KB claim DAG has received many improvements and the KB has had many fixups in the process. This directory was ported over from `analysis/integration` branch, which has now been superseded. Work that was clearly already done has been extracted and moved to _archive/. What remains may still be relevant, but again, *check first*.
 
-> **Staleness notice (2026-05-28 EOD)**: Sections below (active epics, adjudication queue, priority ladder, open decisions) reflect 2026-05-20 EOD state. The reconciliation section directly below catalogs what has demonstrably changed between 2026-05-20 and 2026-05-28; items not addressed in the reconciliation should be re-verified against current corpus before relying on details below. Verify-before-cite v1.4 applies.
+> **Staleness notice (2026-05-31 EOD)**: Sections below (active epics, adjudication queue, priority ladder, open decisions) reflect 2026-05-20 EOD state, with reconciliations catalogued through 2026-05-31. Items not addressed in the reconciliation sections should be re-verified against current corpus before relying on details below. Verify-before-cite v1.4 applies.
+
+## 2026-05-31 reconciliation (Q-EMBED-SEL-1 substrate-mechanism arc)
+
+Single-day delta from 2026-05-28 EOD++ baseline. All items verified against `git log origin/main` + `git tag -l "audit/*"` + PR merge state.
+
+### PRs landed 2026-05-31 (3 PRs)
+
+| PR | Title (short) | Landed | Notes |
+|---|---|---|---|
+| #59 | Q-EMBED-SEL-1 substrate-mechanism (Phase 1+2+3) | 2026-05-31 | Merge `7e814523..7529f7ce`. Class B closure for $\sqrt{R \cdot r} = d/2$ via Ax 4 self-saturation + Op14 + named phasor-area-equals-Nyquist-cell-area identification; cross-particle universal (electron/proton/Δ); cross-domain (NASA Glenn cold fusion + FP stochastic-irreproducibility framing); ponderomotive-equivalence cross-scale. |
+| #60 | Q-EMBED-SEL-1 Phase 4 corpus walk-back | 2026-05-31 | Merge `7529f7ce..06161da6`. 46 files; spinor-half-cover provenance retired across corpus; new substrate-mechanism stamped canonical. Main sweep `a581d9f4` (33 files) + fixup `34a163f2` (13 files; sweep-audit findings). |
+| #61 | orch(Q-EMBED-SEL-1 epic CLOSED markers) | 2026-05-31 | This-session orch state update + this reconciliation section + carry-forward consolidation. |
+
+### Workstreams CLOSED 2026-05-31
+
+- **Q-EMBED-SEL-1 evaluation epic** (4 phases, parent at `_orchestration/2026-05-31_q-embed-sel-1-evaluation.md`) — Phase 1+2+3 Outcome A (Class B substrate-mechanism); Phase 4 corpus walk-back propagated. The framework's α-derivation now anchored in **Class B substrate-mechanism manifestation** with the QED-imported spinor half-cover argument (doc 29 F5 + doc 39 §3.4 critique) RETIRED corpus-wide.
+- **Parameter-count framing walkback epic Phase 3** (`_orchestration/2026-05-28_parameter-count-framing-walkback.md` §3.6) — RESOLVED by Q-EMBED-SEL-1 closure. The 2026-05-28 Phase 1+2 gating clause ("contingent on one open formal step: ropelength-minimality...") is SUPERSEDED. Framework upgrade: from "zero-parameter, gated on unproven embedding-selection" to "Class B substrate-mechanism manifestation, cross-particle universal + cross-domain validated + corpus-walkback propagated."
+
+### NEW canonical content 2026-05-31
+
+- **Phase 1+2+3 result docs** at `research/2026-05-31_Q-EMBED-SEL-1_step_c_*.md` (4 docs: prereg + result + Phase 2 prereg + Phase 2 result + Phase 3 prereg + Phase 3 result + Phase 4 prereg + Phase 4 result = effectively 8 docs across the 4 phases; canonical for the new substrate-mechanism).
+- **Substrate-mechanism replacement of ch8 step 4** (`manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md`): retired spinor half-cover; new provenance via Ax 4 self-saturation + Op14 Meissner-asymmetric + named phasor-area-equals-Nyquist-cell-area identification. K4 → A4 → 2T ⊂ SU(2) chain preserved canonical for spin-½ structure (steps 1–3); only the downstream surface-area halving (step 4) retired. The $4\pi$ factor in $\Lambda_{\text{vol}}$ now substrate-derived from bipartite K4 lobe-count.
+- **Cross-domain anchor**: same Ax 4 self-saturation + Op14 mechanism extends to Pd-D cold-fusion via $n_{\text{scalar}} = 1/S(A_0)$ identification (same form as ponderomotive equivalence at gravitational scale). Quantitatively predicts NASA Glenn lattice-confinement (~keV, ~10² reduction) AND quantitatively explains Fleischmann-Pons stochastic-irreproducibility as 2.9% operational tolerance sliver at metallurgical shatter limit.
+
+### Audit tags 2026-05-31
+
+- 2026-05-28 EOD++ baseline: 68 tags.
+- 2026-05-31 EOD: **70 tags** (+2 this session).
+- New this session: `audit/2026-05-31_q-embed-sel-1-substrate-mechanism` → `118a33a3` (Phase 1+2+3); `audit/2026-05-31_q-embed-sel-1-phase-4-corpus-walkback` → `34a163f2` (Phase 4).
+
+### Memory + skill amendments 2026-05-31
+
+- **Memory v2** of `feedback_branch_discipline_colleagues.md` — widened the pre-action check to cover push-to-main + merge-to-main + force-push, not just commit-on-main. Triggered by integration→main FF-push routing-convention slip (issue #58); landed during this session arc.
+- No new skills landed; existing skills exercised heavily: `ave-prereg`, `pre-test-physics-check`, `phase-space-coordinate-check`, `ave-walk-back` v1.2, `ave-sweep-audit`, `consistency-vs-emergence` v1.3, `verify-before-cite` v1.4, `ave-evidence-framing-discipline`, `ave-discipline-translate` v1.1, `ave-canonical-leaf-pull`, `ave-canonical-source`, `ave-worktree-paths`, `ave-handoff-canonical-locale`.
+
+### Carry-forward to next session (3 items)
+
+**1. Class-2 lift candidate workstream** — derive the phasor↔real-space area bijection at the bond LC tank from K4 + Cosserat substrate primitives alone. Would lift the Q-EMBED-SEL-1 substrate-mechanism from Class B to Class 2. **Canonical anchor**: `research/2026-05-31_Q-EMBED-SEL-1_step_c_result.md` §7.3. Out of scope for the closed epic; standalone future workstream.
+
+**2. AVE-HOPF cross-repo reconciliation** — `AVE-HOPF/docs/glossary.md:32` (Grant 2026-04-30 bracketing of Golden Torus as "post-IP-separation patch-attempt") needs un-bracketing per the now-validated Class B substrate-mechanism on AVE-Core main. Cross-repo PR in AVE-HOPF; gated on Grant call (or auto-spawnable per the now-validated provenance). **Canonical anchor**: `_orchestration/2026-05-31_q-embed-sel-1-evaluation.md` §11 (final bullet) + the Phase 1+2+3 result docs on AVE-Core main.
+
+**3. Class C deferred sites from sweep-audit (3 minor descriptors)** — captured here for persistence (auditor transcript doesn't persist):
+- `_orchestration/_archive/path-b-prime-k4-dispersion-pq.md:158` — "Ax 3 Min-reflection spinor half-cover" (archived doc; preservation territory; arguably skip)
+- `manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-unknot-cosserat-seeder.md:112` — minor cross-reference text "α derivation at Golden Torus + half-cover canonical"
+- `manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md:11` — bridging-role descriptor "regime (c) half-cover both presuppose"
+
+**Plus inline-comment Class B-4 sites** (operational, not corpus-load-bearing — auditor flagged but explicitly deferred):
+- `src/scripts/vol_1_foundations/verify_lambda_line.py`
+- `src/scripts/vol_1_foundations/validate_cosserat_alpha_via_ch8_ratios.py`
+- `src/scripts/vol_1_foundations/op21_multimode_derivation.py`
+- `src/scripts/vol_1_foundations/phasor_trajectory_test.py`
+
+All Class C + B-4 items: docstring/comment-only; would not break verify-* or tests. Single-pass `ave-walk-back` mini-sweep when convenient.
+
+---
 
 ## 2026-05-20 → 2026-05-28 reconciliation
 
@@ -279,12 +334,12 @@ Below table refreshed to 2026-05-28 EOD by filesystem mtime on `~/.claude/skills
 
 ## Playbook for the next orchestration session
 
-1. **First read**: this file (`index.md`) + the relevant active epic doc(s) — particularly `soliton-lattice-coupling-operator.md` and `cosmic-epsilon-de-projection-scoping.md` (both multi-session, Sessions 3+ queued).
+1. **First read**: this file (`index.md`) — particularly the **2026-05-31 reconciliation** at the top + the **carry-forward to next session** list. Then the relevant active epic doc(s) — `soliton-lattice-coupling-operator.md` + `cosmic-epsilon-de-projection-scoping.md` (both multi-session, Sessions 3+ queued).
 2. **Phase 0 state verification**:
-   - `git log analysis/integration -1 --oneline` should match HEAD `f9b2e55` (or have advanced).
-   - `git tag -l "audit/*" | wc -l` should match 33 (or higher).
-   - `git branch --show-current` should report `analysis/integration` — if not, `git checkout analysis/integration` BEFORE any commit per CLAUDE.md "Pre-commit discipline" section.
-   - Verify no leftover worktrees at `.claude/worktrees/` (none expected at handoff).
+   - `git log origin/main -1 --oneline` should match `06161da6` (or have advanced — PR #61 will have landed on top).
+   - `git tag -l "audit/*" | wc -l` should match **70** (or higher).
+   - `git branch --show-current` should report `main` — and per memory v2 (`feedback_branch_discipline_colleagues`), all new work goes on a branch + PR, no direct main commits.
+   - Verify no leftover worktrees at `.claude/worktrees/` (locked worktrees from agent sessions don't auto-clean; harmless local-ref vestiges).
 3. **Don't trust corpus-state claims here without re-verifying** (per `verify-before-cite` v1.4 triggers 7c + 8 + 9): facts here are accurate as of 2026-05-19 EOD+; re-verify if days/weeks later. For any merge decision, fire trigger 9 — attempt `git merge --no-commit --no-ff` with audit-tag safety BEFORE generating adjudication options.
 4. **Ask Grant**: which adjudication item to action first. Default if not specified: priority ladder item 1 (Soliton-coupling Session 3 with Neptune sub-class refinement). The methodology-systematic adjudication (item 1) is the most physically interesting but has multi-session downstream cascade.
 5. **For implementor-session kickoff**: append a `## Phase X (PENDING)` section to the relevant epic doc with assumptions A1-AN, scope boundary, phase plan, adjudication criteria, verification — that's the implementor briefing. Spawn `ave-implementer` agent with `isolation: "worktree"`. **Immediately after spawn, run `git checkout analysis/integration` to defensively avoid the worktree-spawn branch-state leak failure (3rd recurrence this session — pattern, not instance)**.
