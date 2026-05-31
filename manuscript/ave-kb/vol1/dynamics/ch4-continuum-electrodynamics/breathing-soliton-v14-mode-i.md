@@ -8,7 +8,7 @@ path-stable: "referenced from two-engine-architecture-a027 + boundary-observable
 
 # Breathing Soliton on Master Equation FDTD: v14 Mode I PASS
 
-The canonical empirical validation that the Master Equation FDTD engine autonomously hosts a sustained breathing soliton bound state at one active cell — closing the L3-electron-soliton branch's v14 pre-registered test (doc 109 §14.7) with 4/4 acceptance criteria PASS on the breathing-soliton-appropriate interpretation. This validates the boundary-envelope reformulation (§M/Q/J substrate-observability rule) at the **dynamic engine level**, complementing the Q-G19α Route B 50 ppm match at the boundary-integrated observable level.
+The canonical empirical validation that the Master Equation FDTD engine autonomously hosts a sustained breathing soliton bound state at one active cell — closing the L3-electron-soliton branch's v14 pre-registered test (doc 109 §14.7) with 4/4 acceptance criteria PASS on the breathing-soliton-appropriate interpretation. This validates the boundary-envelope reformulation (§M/Q/J substrate-observability rule) at the **dynamic engine level**, complementing the Q-G19α boundary-integrated g-2 closure (parameter-free Route B forward $+4.0\%$ off PDG; 50 ppm only conditional on the $n_q$-additivity postulate).
 
 Here "substrate" / "lattice" refers to the Chiral LC Network of Axiom 1, corresponding to a chiral Laves K4 Cosserat crystal at the substrate level.
 
@@ -51,7 +51,7 @@ For breathing solitons, the appropriate persistence criterion is $\text{mean}(V_
 1. The Master Equation predicts breathing solutions natively ($\partial_t^2 V$ has nonlinear $\sqrt{1 - (V/V_{\text{yield}})^2}$ coefficient → frequency-locked oscillation)
 2. The seed profile is not a stationary eigenmode; relaxation to the nearest attractor naturally produces breathing
 3. The mean is the natural average over the breathing cycle
-4. Q-G19α Route B's 50 ppm to PDG also uses time-averaged boundary-integrated observables, not instantaneous values
+4. Q-G19α's g-2 closure (50 ppm postulate-conditional; $+4.0\%$ parameter-free Route B forward) also uses time-averaged boundary-integrated observables, not instantaneous values
 
 The breathing structure is consistent with the doc 101 three-layer canonical electron: Cosserat $\omega$ rotates at $\omega_{\text{Compton}}$ bulk-spin rate → $V$ oscillates correspondingly. **The breathing solution IS the physical state of the canonical electron**, not a numerical artifact.
 
@@ -104,7 +104,7 @@ The simulation hosts a localized breathing structure whose physical boundary is 
 
 ## What this empirically establishes
 
-1. **The boundary-envelope reformulation is empirically validated at the dynamic engine level.** Beyond the Q-G19α Route B 50 ppm match (boundary-integrated observable validation), the Master Equation FDTD engine demonstrates that the canonical substrate hosts the breathing bound state autonomously at one active cell. The substrate-observability rule + three-boundary-observable framework ($\mathcal{M}, \mathcal{Q}, \mathcal{J}$) is operational at both the static integrated-observable level AND the dynamic engine-simulation level.
+1. **The boundary-envelope reformulation is empirically validated at the dynamic engine level.** Beyond the Q-G19α boundary-integrated g-2 closure (parameter-free Route B forward $+4.0\%$; 50 ppm only with the $n_q$-additivity postulate), the Master Equation FDTD engine demonstrates that the canonical substrate hosts the breathing bound state autonomously at one active cell. The substrate-observability rule + three-boundary-observable framework ($\mathcal{M}, \mathcal{Q}, \mathcal{J}$) is operational at both the static integrated-observable level AND the dynamic engine-simulation level.
 
 2. **The two-engine architecture is canonical.** K4-TLM remains canonical for sub-saturation bench-regime work (today's IM3 cubic slope $2.956$ at AVE-Bench-VacuumMirror); Master Equation FDTD is canonical for bound-state regime. Each engine excels in its regime; no need to make either do everything.
 
@@ -128,5 +128,5 @@ The simulation hosts a localized breathing structure whose physical boundary is 
   - `src/ave/core/master_equation_fdtd.py` — Master Equation FDTD canonical bound-state engine
   - `src/ave/core/k4_tlm.py` — K4-TLM canonical sub-saturation engine
 - **Empirical validation companions:**
-  - Q-G19α Route B (canonical at the AVE-QED sibling repo's Q-G19α closure analysis) — 50 ppm to PDG $C_2 = -0.32848$ via boundary-integrated observable
-  - Q-G19α saliency closure — $\delta = -3\alpha/2$ to 50 ppm via $(2, 3)$ trefoil q-axis winding (also boundary-integrated)
+  - Q-G19α Route B forward (canonical at the AVE-QED sibling repo's Q-G19α closure analysis) — parameter-free symmetric Route B gives $C_2 = -0.3416$, **$+4.0\%$ off PDG** ($C_2 = -0.32848$), via boundary-integrated observable (no postulate, no fit)
+  - Q-G19α saliency closure — $\delta = -3\alpha/2$ reaches 50 ppm via $(2, 3)$ trefoil q-axis winding (also boundary-integrated), but **only conditional on the $n_q$-additivity postulate** (the corpus's "single remaining intuitive step")

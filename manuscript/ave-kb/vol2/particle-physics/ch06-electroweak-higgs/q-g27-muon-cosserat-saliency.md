@@ -75,7 +75,7 @@ giving $a_\tau$ shifted by approximately $+1000 \times 10^{-11}$ from the SM (do
 ## Cross-references
 
 - **Sibling leafs (same chapter):**
-  - [Q-G19α Petermann + saliency closure (electron, 50 ppm)](q-g19a-petermann-saliency-closure.md) — the universal Petermann derivation that this leaf extends with Cosserat torsion
+  - [Q-G19α Petermann + saliency closure (electron; $+4.0\%$ parameter-free, 50 ppm postulate-conditional)](q-g19a-petermann-saliency-closure.md) — the universal Petermann derivation that this leaf extends with Cosserat torsion (Stage 1 symmetric Route B forward is $+4.0\%$ off PDG; the 50 ppm figure is conditional on the $n_q$-additivity postulate)
   - [Higgs Mass / lepton spectrum](higgs-mass.md) — muon MASS formula (Cosserat torsion at 1.24%), separate from this leaf's g−2 anomalous-moment derivation
   - [Lepton Spectrum](lepton-spectrum.md) — three-generation Cosserat sector chain
 - **Canonical manuscript anchors:**

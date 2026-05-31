@@ -575,7 +575,7 @@ Per A-031, the substrate-observability rule applied at cosmic scale gives a THIR
 
 | Route | Measurement | Output | Status |
 |---|---|---|---|
-| 1 — Electromagnetic (α) | $\alpha$ to 12 decimals (CODATA) | $u_0^*$ via Q-G47 + magic-angle closure | Q-factor identity verified 50 ppm to PDG (Q-G19α Route B canonical) |
+| 1 — Electromagnetic (α) | $\alpha$ to 12 decimals (CODATA) | $u_0^*$ via Q-G47 + magic-angle closure | Q-factor identity for $\alpha$; the linked Q-G19α g-2 closure reaches 50 ppm to PDG **only conditional on the $n_q$-additivity postulate** (parameter-free Route B forward is $+4.0\%$ off) |
 | 2 — Gravitational (G) | $G$ to ~4 decimals + CODATA constants | $u_0^*$ via Machian impedance integral $G = c^4/(7\xi T_{EM})$ | Vol 3 Ch 4 framework; explicit $\xi$ derivation pending |
 | 3 — Cosmological ($\mathcal{J}$) | $\mathcal{J}_{\text{cosmic}}$ via CMB / LSS anomalies | $u_0^*$ via $\Omega_{\text{freeze}} = \mathcal{J}_{\text{cosmic}}/I_{\text{cosmic}}$ | In-principle observable; CMB axis anomalies + LSS rotation alignment as candidate signals |
 
@@ -836,7 +836,7 @@ What's empirically validated (not just structurally derived):
 | K4-TLM D10 IM3 cubic V³ slope 2.956 | K4-TLM | bench-style validation (Vol 4 Ch 11) | commit `0599a10` |
 | Cubic K4 anisotropy at saturation collapse | Master Equation FDTD | Pearson($V_{\text{peak}}$, asphericity) = -0.191; collapse axis/diag ratio 1.089 | doc 114 |
 | $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi = 137.036$ Q-factor identity | electron_tank_q_factor.py | numerical verification to $\delta_{\text{strain}} \approx 2.22 \times 10^{-6}$ | doc 17 |
-| Q-G19α Route B g-2 closure to 50 ppm of PDG | Vol 2 Ch 6 §6.2 substrate derivation | dark-wake × kernel-asymmetry analytical-correlation closure | Vol 2 Ch 6 §6.2 |
+| Q-G19α g-2 closure: $+4.0\%$ parameter-free (Route B forward), 50 ppm postulate-conditional ($n_q$-additivity) | Vol 2 Ch 6 §6.2 substrate derivation | dark-wake × kernel-asymmetry analytical-correlation closure; symmetric Route B forward is $C_2 = -0.3416$ ($+4.0\%$), saliency $\delta = -3\alpha/2$ reaches 50 ppm only with the $n_q$-additivity postulate | Vol 2 Ch 6 §6.2 |
 | Cosserat sector mass gap $m^2 = 4 G_c / I_\omega$ (factor of 4, not 2) | cosserat_field_3d.py Verlet | Phase I time-domain validation, period $T = 2\pi/\omega_m = \pi$ | doc 41 §2-§3 |
 | τ_relax = ℓ_node/c (Ax1 + Ax3 derivation) | engine k4_tlm.py `tau_relax` param | derivation from K4 Lagrangian; SI mode ≈ 3.34e-9 s | doc 59 §1 |
 
@@ -853,7 +853,7 @@ What's empirically validated (not just structurally derived):
 
 | Prediction | Status | Path to closure |
 |---|---|---|
-| $\alpha = 1/(4\pi^3 + \pi^2 + \pi)$ | **Verified 50 ppm to PDG** via Q-G19α Route B closure | Closed empirical |
+| $\alpha = 1/(4\pi^3 + \pi^2 + \pi)$ | Q-G19α g-2 closure is **$+4.0\%$ off PDG parameter-free** (symmetric Route B forward, no postulate/no fit); reaches **50 ppm only conditional on the $n_q$-additivity postulate** | Parameter-free result derived; ppm headline postulate-gated |
 | $G$ at the same $u_0^*$ as $\alpha$ | **Framework structural, not yet numerically derived end-to-end** | Q-G47 Session 6+ (rigorous $u_0^*$) + Vol 3 Ch 4 numerical $\xi$ closure |
 | $\mathcal{J}_{\text{cosmic}}$ at the same $u_0^*$ as $\alpha$ AND $G$ | **Framework structural, in-principle observable, quantitatively open** | Cosmological observation campaign (CMB axis anomalies, LSS rotation, cosmic shear) + AVE prediction chain $\Omega_{\text{freeze}} \to \mathcal{J}_{\text{cosmic}}$ via $I_{\text{cosmic}}$ |
 | $\alpha / \alpha_G \sim (R_H / \ell_{\text{node}}) \cdot$ geometric factors $\sim 10^{42}$ | **Order-of-magnitude match** with observed $4.2 \times 10^{42}$; quantitative pending | Q-G47 Session 6+ closes the $u_0^*$ numerical chain |
