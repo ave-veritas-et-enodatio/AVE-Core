@@ -34,10 +34,10 @@ Before doing anything substantive, read these in order:
 
 | Branch | Role |
 |---|---|
-| `analysis/integration` | **Active tracker** — coworker-facing running integration of all driver-rerun + matrix-update + closure-roadmap work. New implementor branches branch FROM here and merge BACK here. |
+| `analysis/integration` | **Dormant** (historical tracker). Superseded by main-based integration in the 2026-05-28→31 `integration→main` transition; 0 commits ahead of `main`, last live 2026-05-20. Retained for history — do not branch from it or merge to it. |
 | `research/l3-electron-soliton` | **Coworker's reference** — UNTOUCHED. Active L3 research branch maintained by ave-veritas-et-enodatio. Do not merge into. |
-| `main` | **Frozen** at last coworker-greenlit checkpoint. Do not merge from `analysis/integration` until coworker is done. |
-| `analysis/<topic>` | Implementor-session branches off `analysis/integration`. Push but do NOT merge; orchestration session does the merge. |
+| `main` | **Active integration target.** Implementor branches branch off `main` and merge back via PR (PR #51–#59 all merged here). The earlier "frozen until coworker done" model ended with the 2026-05-28→31 `integration→main` transition. |
+| `analysis/<topic>` | Implementor-session branches off `main`. Push + open a PR; do NOT merge directly — the orchestration session does the PR merge. |
 | `audit/<date>_<topic>` | Immutable audit tags at implementor branch tip — preserves commit + tree + ancestry for retrospective review. |
 
 ## Session conventions
@@ -45,7 +45,7 @@ Before doing anything substantive, read these in order:
 Two distinct session types:
 
 - **Orchestration sessions** — multi-turn with Grant directly. Plan / audit / review / merge / decide what comes next. Update `_orchestration/index.md` + active epic docs. Do the `--no-ff` + audit-tag + branch-cleanup pattern on implementor merges.
-- **Implementor sessions** — single-deliverable. Kick off by reading a `## Phase X (PENDING)` section in the relevant `_orchestration/<epic>.md` doc. Branch off `analysis/integration`, full skill discipline (prereg + driver + result + matrix + closure-roadmap + auditor), push branch but do NOT merge.
+- **Implementor sessions** — single-deliverable. Kick off by reading a `## Phase X (PENDING)` section in the relevant `_orchestration/<epic>.md` doc. Branch off `main`, full skill discipline (prereg + driver + result + matrix + closure-roadmap + auditor), push branch but do NOT merge.
 
 See memory entry `feedback_orchestration_vs_implementation_sessions.md` for full discipline.
 
@@ -76,14 +76,14 @@ The `.agents/handoffs/` gitignored scratch is the only place external-context re
 
 ## Audit-tag + merge pattern
 
-When merging an implementor branch into `analysis/integration`:
+When merging an implementor branch into `main` (the active integration target):
 
 1. Tag the implementor branch tip with `audit/<date>_<topic>` BEFORE delete (preserves immutably)
 2. `git merge --no-ff <implementor-branch>` with detailed merge-commit message (outcome + cascade implications + walk-back queue updates)
 3. Push merge commit + audit tag to origin
 4. Delete implementor branch (local + remote) once tag verifies on origin
 
-Current state: 20 audit tags on origin (`git tag -l "audit/*" | wc -l`).
+Current state: 70 audit tags on origin (`git tag -l "audit/*" | wc -l`).
 
 ## Pre-commit discipline
 
