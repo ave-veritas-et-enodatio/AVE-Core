@@ -29,7 +29,7 @@ the smallest topologically stable soliton; $G$ from the Machian boundary in
 Axiom~3.
 
 \begin{quote}
-\textbf{Gating note (2026-05-28).} AVE's zero-parameter closure is \textbf{contingent on one open formal step}: that ropelength-minimality uniquely selects the canonical Clifford-torus embedding fixing $R \cdot r = 1/4$ (the spin-$\tfrac12$ half-cover). This step is \emph{conjectured} substrate-derived via the $K4 \to 2T \subset SU(2) \to SO(3)$ chain but is \textbf{not yet proven from the classical axioms alone}. Until it is closed, $\alpha$ functions as the framework's one calibration input and the $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ match is a Class-4 geometric \emph{consistency check}, not a completed first-principles derivation. (Separately, $G$'s closure is quantitatively open pending Chain~B$'$ --- see Layer~8.) Canonical anchor: KB leaf \texttt{vol1/ch8-alpha-golden-torus.md} \S``Remaining open formal-rigor sub-item''. The ``zero parameters'' framing throughout this chapter should be read as gated on this item.
+\textbf{Gating-clause resolution (2026-05-31, Q-EMBED-SEL-1 Phase 1+2+3).} The 2026-05-28 gating clause that made the closure contingent on ropelength-minimality embedding-selection is \textbf{RESOLVED} by the Q-EMBED-SEL-1 substrate-mechanism work (commits \texttt{66d63503} $+$ \texttt{b509767a} $+$ \texttt{ecfe9c13}; audit tag \texttt{audit/2026-05-31\_q-embed-sel-1-substrate-mechanism}; merged via PR \#59 at \texttt{7529f7ce}). The substrate-mechanism for $R \cdot r = 1/4$ now closes at \textbf{Class B substrate-mechanism manifestation} via Axiom 4 self-saturation + Op14 Meissner-asymmetric + named phasor-area-equals-Nyquist-cell-area identification (canonical at \texttt{research/2026-05-31\_Q-EMBED-SEL-1\_step\_c\_result.md} \S2.3); cross-particle universal (Phase 2: electron $(2,3)$ + proton $(2,5)$ + $\Delta$ baryon $(2,7)$) and cross-domain universal (Phase 3: electron-scale self-saturation + nuclear-scale Pd-D externally-driven saturation), both PASS at Outcome A. The ropelength-minimality embedding-selection framing is sidestepped by the new substrate-mechanism. \textbf{Class B caveat}: the named identification is substrate-canonical INPUT (not Class 2 axiom-emergence from K4 $+$ Cosserat primitives alone); a Class 2 lift candidate workstream is identified per Phase 1 result \S7.3. (Separately, $G$'s closure is quantitatively open pending Chain~B$'$ --- see Layer~8.) Canonical anchor: KB leaf \texttt{vol1/ch8-alpha-golden-torus.md} \S``Substrate-mechanism provenance of regime (c)''. The ``zero parameters'' framing throughout this chapter now reads as Class B substrate-mechanism manifestation with the named substrate-canonical identification as input, not contingent on the retired ropelength-minimality embedding-selection step.
 \end{quote}
 
 A peer reviewer may verify the logical closure of the framework by confirming:
@@ -38,8 +38,9 @@ A peer reviewer may verify the logical closure of the framework by confirming:
           preceding layers.
     \item The three canonical hardware scales are themselves derived
           (Layer~8 + Vol.~1 Ch.~\ref{ch:alpha_golden_torus} Golden Torus
-          $\alpha$ derivation), closing the loop to genuinely zero parameters ---
-          \textbf{contingent on the open Clifford-torus embedding-selection item (see gating note above).}
+          $\alpha$ derivation), closing the loop to genuinely zero parameters
+          at \textbf{Class B substrate-mechanism manifestation level per
+          Q-EMBED-SEL-1 Phase 1+2+3 (see gating-clause resolution above).}
     \item All numerical values are reproduced exactly by
           \texttt{src/ave/core/constants.py} (including
           \texttt{ALPHA\_COLD\_INV} $= 4\pi^3 + \pi^2 + \pi$ and
@@ -721,25 +722,28 @@ energy state:
 \label{sec:layer78}
 %======================================================================
 
-Finally, the three canonical hardware scales are \emph{conjectured} to be
-geometrically derived---not independent empirical inputs---which \emph{would}
-reduce the framework to \textbf{zero free parameters}. This reduction is
-\textbf{contingent on the open Clifford-torus embedding-selection item} (see the
-gating note at the head of this chapter): until that step is proven from the
-classical axioms alone, $\alpha$ remains operationally the one calibration input.
-The proposed closure for
-$\alpha$ is the Golden Torus derivation in Vol.~1 Ch.~\ref{ch:alpha_golden_torus};
-the three-regime argument there produces $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$
-(Nyquist + self-avoidance + spin-1/2 half-cover of
-Clifford torus --- the half-cover regime carrying the open embedding-selection
-step), with CMB thermal strain closing to the CODATA value.
+Finally, the three canonical hardware scales are geometrically derived at
+\textbf{Class B substrate-mechanism manifestation level} per Q-EMBED-SEL-1
+Phase 1+2+3 (2026-05-31)---not independent empirical inputs---reducing the
+framework to \textbf{zero free parameters} at Class B (modulo a future Class 2
+lift workstream + the $\delta_{strain}$ magnitude Q-DELTA-MAP-1-quant). See the
+gating-clause resolution at the head of this chapter for the substrate-mechanism
+that supersedes the prior ropelength-minimality embedding-selection gating.
+The closure for $\alpha$ is the Golden Torus derivation in Vol.~1
+Ch.~\ref{ch:alpha_golden_torus}; the three-regime argument there produces
+$\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ (Nyquist + self-avoidance + Q-EMBED-SEL-1
+Axiom-4 self-saturation + named phasor-area-equals-Nyquist-cell-area
+identification --- replaces the retired spin-1/2 half-cover provenance), with
+CMB thermal strain closing to the CODATA value.
 
-\paragraph{$\alpha$ is \emph{conjectured}-derived (gated on the open embedding-selection item).}
+\paragraph{$\alpha$ at Class B substrate-mechanism manifestation (Q-EMBED-SEL-1 Phase 1+2+3).}
 The full derivation is given in Vol.~1, Ch.~\ref{ch:alpha_golden_torus}
 \textit{``Zero-Parameter Closure: $\alpha$ from the Golden Torus''}. Three distinct physical regimes --- Nyquist resolution at tube
 diameter $d = 1\,\ell_{node}$, self-avoidance at trefoil crossings
-$R - r = 1/2$, and the spin-1/2 half-cover of the standard Clifford torus
-$\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ giving $R \cdot r = 1/4$ ---
+$R - r = 1/2$, and Axiom-4 self-saturation + Op14 Meissner-asymmetric +
+named phasor-area-equals-Nyquist-cell-area identification giving
+$R \cdot r = 1/4$ at $d = 1\,\ell_\text{node}$ (Q-EMBED-SEL-1 Phase 1 substrate-mechanism,
+\texttt{research/2026-05-31\_Q-EMBED-SEL-1\_step\_c\_result.md} \S2.3) ---
 produce three independent equations that solve uniquely to the Golden Torus
 $(R, r) = (\varphi/2, (\varphi-1)/2)$. The multipole
 decomposition on $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ at this geometry yields
@@ -781,6 +785,9 @@ $G$ derivation'' entry.
 \medskip
 \noindent\textbf{Refinement per \texttt{consistency-vs-emergence} v1.1 (Grant canonized 2026-05-19 EOD).} The consistency identity is more precisely a \textbf{Class E operating-point projection} that includes the Class C consistency-check sub-structure. The set $\{G, H_\infty, \hat{\Omega}_{\text{freeze}}, \alpha\}$ is joint-constrained at substrate operating point $u_0^* \approx 0.187$ via the $R_H/\ell_{\text{node}} \sim 10^{39}$ topological bridge (per the canonical $\Omega_\text{freeze}$ cosmic-grain cascade). The framework's testable content is the joint constraint on these N observables --- failure of any one falsifies the operating-point and therefore the entire substrate model --- not four independent percent-error claims. Class C is true (CODATA $G$ $\to$ SI substitution recovers $H_\infty$); Class E is also true and stronger (the joint constraint defines the framework's actual falsifiability surface).
 
+\medskip
+\noindent\textbf{Note on $\alpha$ closure path (Q-EMBED-SEL-1 Phase 1+2+3, 2026-05-31).} The $\Omega_\text{freeze} \to u_0^* \to \alpha$ chain in the projection structure above no longer rests on the retired ropelength-minimality embedding-selection step; the substrate-mechanism for $R \cdot r = 1/4$ in the $\alpha$ closure derives via Q-EMBED-SEL-1 Phase 1 (Axiom-4 self-saturation + Op14 Meissner-asymmetric + named phasor-area-equals-Nyquist-cell-area identification), cross-particle universal at Phase 2, cross-domain universal at Phase 3. See \texttt{research/2026-05-31\_Q-EMBED-SEL-1\_step\_c\_*.md}.
+
 \paragraph{$\ell_{node}$ is derived (not input).}
 The universe is a macroscopic \textbf{scale-invariant} fractal graph.
 The identical $M \propto 1/r$ spatial tension equation governs both subatomic
@@ -792,10 +799,13 @@ integer $\mathbf{1}$.
 \noindent
 \framebox[\textwidth]{%
 \parbox{0.95\textwidth}{\centering
-\textbf{Result:} The AVE framework is a closed, structurally zero-parameter Topological
-Effective Field Theory (contingent on the open Clifford-torus embedding-selection
-item --- see gating note at chapter head --- and on Layer~8 thermal closure of $\delta_{strain}$
-at $T_{CMB}$). Physical parameters flow exclusively outward from
+\textbf{Result:} The AVE framework is a closed Topological Effective Field
+Theory at \textbf{Class B substrate-mechanism manifestation level} per Q-EMBED-SEL-1
+Phase 1+2+3 (2026-05-31; see gating-clause resolution at chapter head) ---
+with a Class 2 lift candidate workstream identified (derive the phasor↔real-space
+area bijection at the bond LC tank from K4 $+$ Cosserat substrate primitives alone)
+and Layer~8 thermal closure of $\delta_{strain}$ at $T_{CMB}$ remaining open
+(Q-DELTA-MAP-1-quant). Physical parameters flow exclusively outward from
 geometric bounding limits to macroscopic observables, without looping any
 output back into an unconstrained input.
 }}

@@ -64,7 +64,14 @@ class TestGoldenTorusConstraints:
         assert abs((R_gt - r_gt) - 0.5) < 1e-12
 
     def test_holomorphic_screening_constraint(self) -> None:
-        """R · r = 1/4 (spin-1/2 half-cover of Clifford torus)."""
+        """R · r = 1/4 (Q-EMBED-SEL-1 substrate-mechanism: Ax 4 self-saturation
+        + Op14 Meissner-asymmetric coupling + phasor-area-equals-Nyquist-cell-area
+        identification at d = 1 lattice node, per
+        `research/2026-05-31_Q-EMBED-SEL-1_step_c_result.md` §2.3).
+        The prior spin-1/2 half-cover provenance is retired as load-bearing
+        per Q-EMBED-SEL-1 Phase 1 closure 2026-05-31 (Class B substrate-mechanism
+        manifestation); the algebraic identity R · r = 1/4 at the Golden Torus
+        geometry remains correct."""
         assert abs(R_gt * r_gt - 0.25) < 1e-12
 
     def test_golden_ratio_radii(self) -> None:
@@ -81,17 +88,34 @@ class TestGoldenTorusConstraints:
 
 
 # ───────────────────────────────────────────────────────────────────────────
-# 3. Clifford torus half-cover (justifies Λ_surf = π² normalization)
+# 3. Clifford torus historical-verification (Λ_surf = π² now derives from
+#    Q-EMBED-SEL-1 substrate-mechanism per §2.5 + research/2026-05-31_*; the
+#    half-cover algebraic identity below remains correct at the Golden Torus
+#    geometry as historical verification only — load-bearing provenance retired
+#    per Q-EMBED-SEL-1 Phase 1 closure 2026-05-31).
 # ───────────────────────────────────────────────────────────────────────────
 class TestCliffordHalfCover:
     def test_standard_clifford_area_is_2pi_squared(self) -> None:
-        """Standard Clifford torus at r₁ = r₂ = 1/√2 on S³ has area 2π²."""
+        """Standard Clifford torus at r₁ = r₂ = 1/√2 on S³ has area 2π².
+        Historical-verification per Q-EMBED-SEL-1 retirement of half-cover
+        provenance (2026-05-31); algebraic identity at this geometry remains
+        correct."""
         r1 = r2 = 1.0 / np.sqrt(2.0)
         A = clifford_area_numeric(r1, r2)
         assert abs(A - 2.0 * np.pi**2) < 1e-8
 
     def test_half_cover_gives_pi_squared(self) -> None:
-        """Physical half-cover area = ½ × 2π² = π² (spin-1/2 screening normalization)."""
+        """Algebraic identity ½ × 2π² = π² at the standard Clifford torus
+        embedding. Historical verification per Q-EMBED-SEL-1 retirement of
+        spin-1/2 half-cover as load-bearing for Λ_surf = π² (2026-05-31); the
+        canonical substrate-mechanism for Λ_surf = 4π²(R·r) = π² at the
+        Golden Torus now routes through Q-EMBED-SEL-1's substrate-derived
+        R·r = 1/4 (Ax 4 self-saturation + Op14 Meissner-asymmetric + phasor-
+        area-equals-Nyquist-cell-area identification, per
+        `research/2026-05-31_Q-EMBED-SEL-1_step_c_result.md` §2.3), NOT via
+        half-cover area-halving of the standard Clifford torus. The algebraic
+        identity below remains correct as historical verification of the
+        Golden Torus geometry."""
         r1 = r2 = 1.0 / np.sqrt(2.0)
         A_half = 0.5 * clifford_area_numeric(r1, r2)
         assert abs(A_half - np.pi**2) < 1e-8

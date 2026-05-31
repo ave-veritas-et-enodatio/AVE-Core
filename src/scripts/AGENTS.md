@@ -40,30 +40,34 @@ The `src/ave/` library is the physics engine. It defines:
 
 Scripts are consumers of this library. They import constants and functions from `ave` and use them to produce derivations, simulations, and figures for the manuscript.
 
-## The Zero-Free-Parameters Constraint (ONE SCALE + GATED CONSTANTS — gated on open embedding-selection item)
+## The Zero-Free-Parameters Constraint (ONE SCALE + SUBSTRATE-MECHANISM-VALIDATED CONSTANTS)
 
 This model derives all downstream physical constants from a small bounding set:
 historically labeled "three calibration inputs" (electron mass M_E, fine-structure
 constant ALPHA, gravitational constant G); under the structural-closure framing
 the count is one scale (ell_node, equivalently M_E via the unknot ground state)
-plus constants that are *conjectured*-derived via Layer 8 closure. What the
-Standard Model treats as independent empirical constants (particle masses,
-coupling constants, mixing angles) are derived outputs of the model.
+plus constants derived at Class B substrate-mechanism manifestation level per
+Q-EMBED-SEL-1 Phase 1+2+3 (2026-05-31). What the Standard Model treats as
+independent empirical constants (particle masses, coupling constants, mixing
+angles) are derived outputs of the model.
 
-**GATING NOTE (2026-05-28).** The Layer-8 closure that lifts the count from
-"three calibration inputs" to "one scale + gated constants" is contingent on
-one open formal step: that ropelength-minimality on K4 uniquely selects the
-canonical Clifford-torus embedding r1 = r2 = 1/sqrt(2) fixing R*r = 1/4
-(the spin-1/2 half-cover regime (c)). The K4 -> 2T subset SU(2) -> SO(3)
-chain itself is treated as substrate-derived (see `manuscript/ave-kb/vol1/
-ch8-alpha-golden-torus.md` steps 1-4); the unproven piece is
-embedding-selection, not the half-cover postulate in isolation. Until that
-embedding-selection step is closed from the classical axioms alone, ALPHA
-is operationally the one calibration input and alpha^-1 = 4*pi^3 + pi^2 + pi
-is a Class-4 consistency check. See `src/ave/core/constants.py` §ONE SCALE
-+ GATED CONSTANTS header / ALPHA declaration / NOTE ON alpha block for the
-reconciled framing, and `manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md`
-§"Remaining open formal-rigor sub-item" for the canonical gating anchor.
+**GATING-CLAUSE RESOLUTION (2026-05-31, Q-EMBED-SEL-1 Phase 1+2+3).** The
+2026-05-28 gating clause that made the closure contingent on ropelength-
+minimality embedding-selection is RESOLVED by the Q-EMBED-SEL-1 substrate-
+mechanism work (commits 66d63503 + b509767a + ecfe9c13; audit tag
+audit/2026-05-31_q-embed-sel-1-substrate-mechanism; merged via PR #59 at
+7529f7ce). The substrate-mechanism for R*r = 1/4 now closes at Class B
+substrate-mechanism manifestation via Axiom 4 self-saturation + Op14 Meissner-
+asymmetric + named phasor-area-equals-Nyquist-cell-area identification
+(canonical at research/2026-05-31_Q-EMBED-SEL-1_step_c_result.md §2.3);
+cross-particle universal (Phase 2) + cross-domain universal (Phase 3).
+Class B caveat: the named identification is substrate-canonical INPUT (not
+Class 2 axiom-emergence from K4 + Cosserat primitives alone); a Class 2 lift
+candidate workstream is identified per Phase 1 result §7.3. See
+`src/ave/core/constants.py` §ONE SCALE + SUBSTRATE-MECHANISM-VALIDATED
+CONSTANTS header / ALPHA declaration / NOTE ON alpha block for the substrate-
+mechanism framing, and `manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md`
+§"Substrate-mechanism provenance of regime (c)" for the canonical anchor.
 
 **For script code, this means:**
 
