@@ -3,6 +3,20 @@
 Review of all 60 Python files in `src/ave/`. Every file, import, and numeric
 literal has been examined. Findings are organized by severity.
 
+> **Framing note (2026-05-28 + 2026-05-29 update).** This is an audit-snapshot
+> document. Its body uses the historical "three calibration inputs (M_E, ALPHA,
+> G)" framing that was current at audit time. The corpus framing was
+> reconciled 2026-05-28 (Option 2 — "Zero-parameter, gated") to **ONE SCALE +
+> GATED CONSTANTS**, gated on the open Clifford-torus embedding-selection step.
+> For the current canonical framing see `src/ave/AGENTS.md` §1 (ONE SCALE +
+> GATED CONSTANTS — gated on open embedding-selection item), `src/ave/core/
+> constants.py` §ONE SCALE + GATED CONSTANTS header, and `manuscript/ave-kb/
+> vol1/ch8-alpha-golden-torus.md` §"Remaining open formal-rigor sub-item (THE
+> gating item)". Body preserved verbatim per Rule 12 (audit-snapshot
+> historical-record discipline); the headline framing claim in C1 below
+> ("three calibration inputs") should be read against the current gated
+> framing, not as the current canonical position.
+
 ---
 
 ## Critical Issues
