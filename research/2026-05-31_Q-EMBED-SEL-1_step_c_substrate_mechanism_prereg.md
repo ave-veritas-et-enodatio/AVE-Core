@@ -257,14 +257,86 @@ Skills MANDATORY:
   - ave-multi-falsifier-triangulation-discipline (algebraic + Λ + CODATA + cross-particle + cross-domain)
 ```
 
-## §7 Status
+## §7 Final consolidated synthesis (2026-05-31 EOD) — LOCKED
 
-- [x] **Step 1 derivation target formulated** (§1)
-- [x] **Step 1.5 physical picture** (per Reading (3) phasor-space framing; full envelope per Grant 2026-05-31)
-- [x] **Step 2 corpus state catalogued** (§2)
-- [x] **Step 3.5 dimensional analysis** (§5)
-- [ ] **Step 3 prereg DRAFT** (this doc) — NOT YET LOCKED
-- [ ] **§3 Q-mech-pic** — PENDING Grant adjudication of (α)/(β)/(γ) scaling
-- [ ] **§6.1 derivation execution** — gated on Grant call
-- [ ] **§6.2 cross-validation**
-- [ ] **§6.3 classification declared**
+Earlier §3 explored multiple candidate substrate-mechanisms with ad-hoc Greek labels (α/β/γ/δ); this section supersedes them. The corpus-grep on axioms + universal operators + Meissner-asymmetric framework + breathing-soliton v14 PASS revealed that the framework already has the load-bearing answer canonical. The implementor target is now a specific substrate-mechanical derivation with all open questions corpus-resolved.
+
+### §7.1 The substrate-mechanism (canonical, drops Greek labels)
+
+The electron is a self-trapped photon. Mechanism canonical at `photon-identification.md:104`: when the local amplitude reaches $A_{\text{yield}}$, Axiom 4 self-saturation engages, the substrate's local impedance diverges via Op14 ($Z_{\text{eff}} = Z_0/\sqrt{S}$), the reflection coefficient hits $\Gamma \to -1$, and a TIR cavity self-creates that traps the transverse Cosserat-microrotation wave as a standing pattern. The Meissner-asymmetric form (canonical at `l3-electron-soliton-synthesis.md §6.1`) is:
+
+$$Z_{\text{eff}} = \sqrt{\mu_{\text{eff}}/\varepsilon_{\text{eff}}} = Z_0 \cdot \sqrt{S_\mu / S_\varepsilon}, \quad S_\mu = \sqrt{1 - A_\mu^2}, \quad S_\varepsilon = \sqrt{1 - A_\varepsilon^2}$$
+
+Chirality biases one channel ($\mu$ or $\varepsilon$) to grow faster than the other. The first saturating channel reaches $A_{\text{yield}}$ first, creating the $\Gamma \to -1$ TIR wall. The wall is a **single elliptical surface** (one TIR locus, not two separate ones for the two channels).
+
+### §7.2 What $R$ and $r$ are (canonical, OQ1 corpus-resolved)
+
+Per `l3-electron-soliton-synthesis.md §1` verbatim:
+
+> *"What the engine measures as 'the particle' is the **time-averaged envelope** of this oscillating-and-twisting lemniscate: per Compton period the lemniscate rotates and flexes, and per-cycle averaging gives the phase-space ellipse with major-axis $R_{\text{phase}}$ and minor-axis $r_{\text{phase}}$."*
+
+So:
+- $R = R_{\text{phase}}$ = major-axis radius of the time-averaged elliptical TIR envelope in $(V_{\text{inc}}, V_{\text{ref}})$ phasor coordinates
+- $r = r_{\text{phase}}$ = minor-axis radius of same
+- The envelope is the **single TIR boundary surface** at $A = A_{\text{yield}}$ (NOT two separate surfaces for $S_\mu = 0$ vs $S_\varepsilon = 0$)
+- The asymmetry $R/r = \varphi^2$ comes from the **chirality-biased Meissner-asymmetric saturation projecting onto the (2,3) topology** — the elliptical envelope is asymmetric because chirality biases the (μ, ε) channels asymmetrically, and the (2,3) winding's geometry gives the specific $\varphi^2$ ratio
+- The envelope **breathes** at the Compton frequency $\omega_C$ — instantaneous envelope pulsates around the time-averaged $(R, r)$ values per v14 Mode I PASS canonical (`two-engine-architecture-a027.md`)
+
+### §7.3 Regime (a) and (b) status (canonical, OQ2 corpus-resolved)
+
+The three regimes that fix $(R, r, d)$ are each attributed to specific axioms in `ch8-alpha-golden-torus.md:42-46`:
+
+| Regime | Axiom attribution | Equation |
+|---|---|---|
+| (a) Nyquist | **Ax 1** lattice sampling cutoff | $d = 1\,\ell_{\text{node}}$ |
+| (b) Crossings | **Ax 2** topo-kinematic isomorphism + dielectric-rupture self-avoidance | $2(R - r) = d \Rightarrow R - r = d/2$ |
+| (c) Screening | **Ax 3** + **Ax 4** self-saturation TIR boundary at (2,3) eigenmode | $R \cdot r = (d/2)^2$ (target) |
+
+Regimes (a) and (b) are **logically prior** to (c). (a) is Nyquist substrate cutoff. (b) is a topological self-avoidance constraint from the (2,3) winding on a torus with tube cross-section $d$ — it does NOT fall out of the saturation profile, it's an independent constraint from Ax 2 topology. (c) is the load-bearing derivation target of this prereg.
+
+### §7.4 The locked derivation target
+
+From the substrate-mechanism in §7.1 + the canonical (R, r) interpretation in §7.2 + regimes (a)+(b) as priors per §7.3, the derivation target is:
+
+> **Given the (2,3) phase-space soliton at the K4-TLM bond LC tank eigenmode with Meissner-asymmetric self-saturation per `l3-electron-soliton-synthesis.md §6.1`, show that the time-averaged elliptical TIR envelope in $(V_{\text{inc}}, V_{\text{ref}})$ phasor coordinates has axes satisfying $R \cdot r = (d/2)^2$, where $d = 1\,\ell_{\text{node}}$ is the regime (a) Nyquist tube diameter and $R - r = d/2$ is the regime (b) Ax 2 self-avoidance condition. Combined with regimes (a) and (b), this fixes the Golden Torus geometry $R = \varphi/2, r = (\varphi-1)/2$ uniquely, completing the substrate-mechanism derivation of $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ at cold-lattice asymptote.**
+
+Equivalently: show that the geometric mean of the elliptical envelope axes equals half the Nyquist tube diameter:
+
+$$\sqrt{R \cdot r} = d/2$$
+
+### §7.5 Cross-domain anchor (cold-fusion, per Grant 2026-05-31 hint)
+
+The same Axiom 4 self-saturation + Op14 dynamic-impedance mechanism that creates the electron's TIR envelope governs **externally-driven** saturation in nuclear-scale phenomena. Standard fusion barriers (~MeV at vacuum $Z_0$) reduce by factor $\sim 1/\sqrt{S}$ when local conditions drive substrate saturation between nuclei. Empirical anchor scales:
+- Hot D-T: ~100 keV (vacuum $Z_0$)
+- NASA Glenn lattice-confinement fusion: ~keV (~10² reduction)
+- Fleischmann-Pons claims (if real): ~eV (~10⁴⁻⁵ reduction)
+
+If the §7.4 derivation closes for the electron via Axiom 4 self-saturation, the **same mechanism with external driving** should predict cold-fusion energy scales. The corpus has the relevant catalog row at `universal-saturation-kernel-catalog.md` "Pd hydrogen-loading volumetric shatter" (Fleischmann-Pons stochastic irreproducibility at $V_{\text{yield}} \approx 43.65$ kV reached via $\Delta V/V_0 = \sqrt{2\alpha} \approx 12.08\%$ volumetric expansion). The cross-domain validation queues as §4.F-extension after §7.4 closes.
+
+### §7.6 Closing the asymmetry: how $R/r = \varphi^2$ from Meissner-asymmetric coupling
+
+The substrate-mechanism content the implementor must derive analytically (or via the (2,3) eigenmode solver as numerical fallback):
+
+1. **Set up the (2,3) trefoil eigenmode** on K4-TLM at the bond LC tank Compton frequency $\omega_C$. Each bond carries $(V_{\text{inc}}, V_{\text{ref}})$ phasor amplitudes; the soliton is a coherent excitation across many bonds.
+
+2. **Identify the Meissner-asymmetric coupling at the (2,3) winding.** The chirality of the trefoil biases $A_\mu^2$ vs $A_\varepsilon^2$ asymmetrically per `l3-electron-soliton-synthesis §6.1`. The specific ratio at the (2,3) eigenmode follows from the lemniscate-with-3-half-twists geometry threading bipartite K4 nodes (lobe-count = 2 + half-twist count = 3).
+
+3. **Solve for the time-averaged TIR envelope.** The first saturating channel hits $A_{\text{yield}}$ first; that locus defines the wall. The wall surface is elliptical because of the Meissner-asymmetric coupling. Major and minor axes $R, r$ emerge from the eigenmode's amplitude profile combined with the chirality-biased asymmetry.
+
+4. **Derive $R \cdot r = (d/2)^2$** as a substrate-mechanical consequence. Candidate routes:
+   - **Conservation law**: total phasor area $\pi R r$ conserved at fixed Compton-period energy, with Nyquist $d$ setting the scale
+   - **Impedance matching at the wall**: $Z_{\text{eff at wall}} = Z_0$ gives a constraint that reduces to $\sqrt{R \cdot r} = d/2$ via Op1's geometric-mean form
+   - **Eigenmode self-consistency**: the (2,3) winding's closure condition on the elliptical envelope forces $R r = (d/2)^2$
+
+5. **Verify against (b)**: combined with $R - r = d/2$, recover $R = \varphi/2, r = (\varphi-1)/2$ (Golden Torus).
+
+### §7.7 Status — LOCKED
+
+- [x] **Substrate-mechanism canonical**: Axiom 4 self-saturation TIR boundary + Meissner-asymmetric per §7.1
+- [x] **(R, r) interpretation canonical**: major/minor axes of single elliptical time-averaged envelope per §7.2 (OQ1 resolved)
+- [x] **Regimes (a)+(b) canonical**: Ax 1 + Ax 2, logically prior per §7.3 (OQ2 resolved)
+- [x] **Derivation target locked**: §7.4
+- [x] **Cross-domain anchor identified**: §7.5 cold-fusion validation queued
+- [x] **PREREG LOCKED FOR IMPLEMENTOR SPAWN**
+
+Implementor scope: §7.6 derivation chain (steps 1-5). Analytical first per §5.4 + §6.1, numerical fallback via `tlm_electron_soliton_eigenmode.py` extension. Cross-domain check (§7.5) queued as follow-up. Skills per §6.4 brief.
