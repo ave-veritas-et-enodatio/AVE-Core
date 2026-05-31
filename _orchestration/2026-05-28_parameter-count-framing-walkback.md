@@ -239,9 +239,9 @@ The corpus **gates** zero-parameter on the **embedding-selection** open item whi
    - autonomous-scan negative results: `vol3/index.md`, `vol4/index.md`, `vol9/index.md` — no equivalent headline claim, LEFT ALONE; `vol7/index.md`, `vol8/index.md` — files do not exist
 4. Spot-check (orchestration, not full re-audit) — amendment diff verified clean: D1 label/ref pair resolves, B1 gating clauses present with sharpened wording, B2 mirror reads correctly, C1 anchor language verified against current `constants.py:105-138` state.
 
-### Deferred (post-epic-close, scoped follow-up)
+### Deferred (post-epic-close, scoped follow-up) — RESOLVED
 
-- **C2** — `src/ave/ARCHITECTURE_REVIEW.md:12` reads "The framework claims three calibration inputs (M_E, ALPHA, G)" unguarded. Auditor judgment: Q1-historical-adjacent (audit-snapshot doc, not in `_archive/`). Two options for follow-up: (a) add header note "Audit snapshot dated 2026-XX-XX; framework-headline framing changed 2026-05-28 — see `src/ave/AGENTS.md §1`"; (b) leave as-is per Rule 12 body-preserve. **No code/manuscript correctness impact.** Pick up in next architectural-doc pass.
+- ~~**C2** — `src/ave/ARCHITECTURE_REVIEW.md:12`~~ **RESOLVED** via commit `c81aea0e` (2026-05-29): option (a) chosen — added a "Framing note" block between title and Critical Issues that marks the doc as audit-snapshot historical-record, points to current canonical gated framing (`src/ave/AGENTS.md §1`, `src/ave/core/constants.py §ONE SCALE + GATED CONSTANTS header`, vol1/ch8 open formal-rigor sub-item), and preserves body verbatim per Rule 12.
 
 ### Open Grant decisions (carried forward — NOT blocking; epic CLOSED)
 
