@@ -129,7 +129,8 @@ Sharpens the half-cover-vs-embedding-selection distinction (Phase 1 clause confl
 - [x] **GATING: Grant picked Option 2 — "Zero-parameter, gated"** (2026-05-28)
 - [x] **Phase 1 MERGED** (2026-05-28) — `--no-ff` merge `f6b22757`; audit tag `audit/2026-05-28_parameter-count-gating-phase1` → `9b4ae922`
 - [x] **Phase 2 MERGED** (2026-05-28 EOD++) — `--no-ff` merge `7e814523`; audit tag `audit/2026-05-28_parameter-count-gating-phase2` → `2c0ce429`; sweep-audit (agent `aef0a741`) PASS-WITH-FINDINGS → amendment `2c0ce429` resolved D1+B1+B2+C1; one C-class follow-up deferred (see "Deferred" block below)
-- [x] **Epic CLOSED** (2026-05-28 EOD++)
+- [x] ~~**Epic CLOSED** (2026-05-28 EOD++)~~ → **REOPENED 2026-05-31**: see §Phase 3 below
+- [ ] **Phase 3 SCOPING** (2026-05-31) — coordinate-system walk-back: Phase 1+2 gating clause is in spatial-ropelength language; corpus retired that framing 2026-04-27/28 in favor of phase-space (V_inc, V_ref). PENDING Grant adjudication of replacement framing (a)/(b)/(c) — see §Phase 3 §"Framing decision required"
 
 ---
 
@@ -253,3 +254,116 @@ The corpus **gates** zero-parameter on the **embedding-selection** open item whi
 - This doc is the canonical record for the param-count framing walk-back epic — Status block + merge table + this CLOSED section are load-bearing.
 - The implementor + auditor full reports live in their respective agent transcripts (one-off, not persisted in the repo). Diff is fully reconstructable from the 5 commits + the audit tags.
 - The sharpened §1.5 clause (canonical Phase 2 wording) is recorded in §1.5 with the Phase 1 draft preserved alongside for historical audit.
+
+---
+
+## Phase 3 — coordinate-system walk-back (2026-05-31)
+
+**Opened**: 2026-05-31 (orchestration session, Grant) — re-opens this epic.
+**Branch**: `analysis/q-embed-sel-1-investigation` off `main`.
+**Skills fired this session**: `ave-prereg` (corpus-grep Step 2 dispatched), `pre-test-physics-check` (plumber question surfaced + Grant adjudicated), `verify-before-cite` (every cite below grep-confirmed), `phase-space-coordinate-check` (the missing skill in Phase 1+2 — now in scope), `ave-walk-back` (Step 3h-exhaustive in REVERSE).
+
+### §3.0 Why reopening — the corpus context Phase 1 missed
+
+The Phase 1 walkback scoping (§0 above) cited doc 39 as the dissenting voice but missed three load-bearing docs in the **same** `research/_archive/L3_electron_soliton/` directory PLUS a cross-repo bracketing in AVE-HOPF. Verified receipts (`verify-before-cite` 2026-05-31):
+
+| Doc | What it says | Status when Phase 1 ran |
+|---|---|---|
+| [`38_ropelength_minimality.md`](research/_archive/L3_electron_soliton/38_ropelength_minimality.md) §2 | Direct numerical refutation. Canonical Clifford ($r_1 = r_2 = 1/\sqrt{2}$) ropelength = **26**; actual minimum at asymmetric $(0.75, 0.66)$ ropelength = **24**. Ch 8's Golden Torus maps to $(r_1 \approx 0.966, r_2 \approx 0.258)$ ropelength ≈ **50**, far from any minimum. | Already in archive. Not cited in Phase 1 walkback §0. |
+| [`29_ch8_audit.md`](research/_archive/L3_electron_soliton/29_ch8_audit.md) F4–F9 + §2.4 | Explicit audit of ch8 with 6 structural problems. §2.4 verbatim: *"the minimum ropelength of the trefoil 3₁ in ℝ³ is ≈ 16.37... The Golden Torus as Ch 8 presents it has a trefoil of ropelength much smaller than that — **sub-ropelength, which is impossible for an embedded trefoil with unit-tube thickness**... If Ch 8 is genuinely making a real-space claim, it's falsified by elementary ropelength geometry. The phase-space reading is the only one that survives."* | Already in archive. Not cited in Phase 1 walkback §0. |
+| [`28_two_node_electron_synthesis.md`](research/_archive/L3_electron_soliton/28_two_node_electron_synthesis.md) §5 | Phase-space reinterpretation: **R, r are (V_inc, V_ref) phasor coordinates, NOT spatial tube radii**. Same Ch 8 algebra reinterpreted. Path α v1 test ran 2026-04-27 commit `466d8c4` and **FAILED** (C1 R/r=3.84 vs target φ²=2.62 FAIL; C2 chirality 50% TIE FAIL) with 4 A59 methodology gaps surfaced. | Already in archive. Not cited in Phase 1 walkback §0. |
+| [`AVE-HOPF/docs/glossary.md:32`](../../AVE-HOPF/docs/glossary.md) | *"Golden Torus / S₁₁-min — **Bracketed by Grant 2026-04-30** as a 'post-IP-separation patch-attempt.' Cite as bracketed-pending audit, NOT as the canonical parameter-free derivation."* | Already in sibling repo. Cross-repo inconsistency: Phase 1 stamped same claim as canonical anchor in AVE-Core 2026-05-28. |
+| [VACUUM_ENGINE_MANUAL.md:3713](research/_archive/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md) (Grant 2026-04-27 adjudication) | *"doc 28 §5.4 + doc 29 §3.2-§3.3 already canonized **R, r as PHASE-SPACE radii of (V_inc, V_ref) phasor on Clifford torus, NOT spatial bond-extent**."* | Already in archive. Phase 1 scoping did not cite this adjudication. |
+
+**Net**: the corpus's own audit position (4+ weeks before Phase 1) is that the spatial-coordinate reading of $(R, r, \text{Clifford-torus embedding})$ is falsified; phase-space is the surviving reading. The Phase 1 gating clause was stamped in the falsified coordinate system. Phase 2 propagated that clause to ~30 sites corpus-wide.
+
+### §3.1 Provenance of the spatial-ropelength gating clause
+
+Traced via `git log -S 'ropelength-minimality uniquely selects'`:
+
+1. **PR #36** (2026-05-26) + commit `ea798788` (Phase 3-A1 reframe) — **upstream cementing event**. Strengthened ch8's three-regime framing (Nyquist / Crossings / Screening half-cover) to "Class 2 axiom-manifestation" on the substrate-mechanism axis. Did NOT introduce the gating-clause wording; cemented the substrate-derivation claim that the gating clause sits on top of.
+2. **Commit `a48b2cf0`** (2026-05-28) — walkback scoping; introduced the spatial-ropelength language in the §0 audit summary citing doc 39 as the corpus dissent.
+3. **Commit `9b4ae922`** (2026-05-28, Phase 1 implementor; merged in `f6b22757`; **NO GitHub PR**) — first STAMP of the spatial-ropelength gating clause at headline anchors.
+4. **Commits `508916da..2c0ce429`** (2026-05-28 EOD, Phase 2 + amendment; merged in `7e814523`; **NO GitHub PR**) — propagated corpus-wide.
+
+### §3.2 Skills that should have fired but didn't
+
+| Skill | Trigger that matched at Phase 1 scoping | What it would have caught |
+|---|---|---|
+| `ave-prereg` | The gating clause IS a new physics claim about what's settled vs open (not just re-scope). Trigger 5 (new structural argument) + Trigger 6 (audit-fix-applied-to-canonical-content) both match. | Docs 28/29/38 surfaced immediately on Step 2 corpus-grep dispatch (confirmed in this session). |
+| `phase-space-coordinate-check` | Corpus claim describes R, r in phase-space (V_inc, V_ref) coordinates per Grant 2026-04-27 adjudication. Phase 1 was stamping a derivation framing on a phase-space claim using real-space-ropelength language. | Coordinate-system mismatch at scoping time, before any stamping. |
+| `verify-before-cite` v1.4 Trigger 7 | Doc 39's claim "canonical Clifford is not the ropelength minimum" was directly numerically verified by doc 38 in the same archive directory. Phase 1 cited the assertion without finding its corpus-verification. | The "verified receipts" in §0 weren't actually verified across the archive. |
+
+**Procedural gap** (not substantive): the skills weren't broken — the discipline was. Phase 1 was framed as "Type D framing re-scope" which the implementor's reading didn't match against the "new claim / new structural argument" triggers in `ave-prereg`. The walkback scoping treated docs 28/29/38's content as "existing corpus" rather than "corpus state that needs full enumeration before stamping."
+
+### §3.3 Framing decision required (PENDING Grant)
+
+The walk-back needs ONE replacement framing for the gating clause. Three live options:
+
+#### Option (a) — Phase-space framing (recommended)
+
+> AVE's zero-parameter closure is contingent on one open formal step in **phase-space coordinates**: that the (V_inc, V_ref) phasor on the Clifford torus uniquely realizes $R/r = \varphi^2$ at the substrate eigenmode. The spatial-coordinate reading of ropelength-minimality on the canonical Clifford embedding is **not** the load-bearing claim — that reading was retired by doc 29 (ch8 audit) which found the spatial Golden Torus is **sub-ropelength** for the (2,3) trefoil and concluded "the phase-space reading is the only one that survives." The phase-space test (Path α v1, commit `466d8c4`, 2026-04-27) **FAILED** (C1 R/r=3.84 vs target φ²=2.62; C2 chirality 50% TIE) with 4 A59 methodology gaps surfaced. The open formal step is either (i) re-run Path α (v2) with the A59 fixes, or (ii) analytical derivation that the (V_inc, V_ref) phasor on the Clifford torus uniquely has $R/r = \varphi^2$. Until one of these closes, α functions as the framework's one calibration input.
+
+**Scope**: walk back ~30 gating-clause sites + add new phase-space-coordinate language + cite docs 28/29/38 in walkback §0 + reconcile AVE-HOPF position. New empirical sub-epic: Path α v2 prereg with A59 methodology fixes.
+
+**Tradeoff**: preserves the zero-parameter aspiration honestly while gating on a concrete falsifiable next step. If Path α v2 also FAILS or the analytical proof doesn't close, the framework drops back to (b).
+
+#### Option (b) — Doc-39 calibration-input framing
+
+> α is one calibration input. The framework's parameter count is **one-parameter, honest** — α + the substrate Nyquist scale $\ell_{\text{node}}$ (collapsed to one via the unknot ground state). The $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ match is a **Class-4 geometric consistency check**, not a derivation. The corpus's prior "zero-parameter" headline framing was an aspiration that the spatial-coordinate derivation chain failed to support (doc 38 numerical refutation; doc 29 audit; AVE-HOPF Grant bracketing 2026-04-30). Future closure of α from substrate axioms alone is an open framework-extension question, but the current canonical position is one-parameter.
+
+**Scope**: walk back ~30 gating-clause sites + retire "zero-parameter" headline wherever it appears unqualified + retitle relevant sections (e.g., `zero-parameter-universe.md` → `one-parameter-honest.md`) + cross-repo: ratify AVE-HOPF Grant 2026-04-30 bracketing position. The title-retitle pass you flagged earlier becomes part of THIS walk-back.
+
+**Tradeoff**: largest propagation but most defensible externally. Matches BOTH the AVE-HOPF Grant 2026-04-30 bracketing AND doc 39's audit position. Loses the aspiration but doesn't preclude future re-derivation if a phase-space proof ever lands.
+
+#### Option (c) — Multi-path framing
+
+> The framework's parameter-count is currently in **open adjudication** between two live corpus positions: (a) one-parameter with phase-space derivation of α as the open formal step (Path α v2 / analytical phase-space proof), and (b) one-parameter calibration-input position with α as a calibration scale. Both are honest readings of the corpus; the deeper close-out (which framing is right) is itself the open work.
+
+**Scope**: walk back ~30 gating-clause sites + add multi-path gating language acknowledging both (a) and (b) as live + extensive cross-references between the two positions in the corpus + cross-repo: same as option (b).
+
+**Tradeoff**: most honest, most awkward to propagate. Hard for external readers to parse. Useful as a temporary position if you want to delay the (a) vs (b) call until Path α v2 either passes or fails.
+
+### §3.4 Recommendation
+
+**Option (a) — phase-space framing.**
+
+Reasoning:
+1. **Faithful to corpus**: doc 29 explicitly says phase-space is "the only surviving reading." Option (a) ratifies that audit position rather than overriding it.
+2. **Concrete falsifiable next step**: Path α v1 has 4 A59 methodology gaps documented; v2 is a tractable empirical sub-epic with a clear go/no-go.
+3. **Preserves aspiration honestly**: option (b) is the fallback IF (a) fails; starting at (a) gives the framework a chance.
+4. **Single coordinate system in the gating clause**: option (c) maintains two simultaneous framings corpus-wide, which is the same multi-framing problem Phase 1 was trying to solve in the first place.
+5. **AVE-HOPF reconciliation**: under (a), the AVE-HOPF "bracketing" gets restated as "bracketed pending phase-space derivation v2" — still bracketed, but with a concrete close-out path. Under (b), the bracketing gets ratified as the canonical position. Under (c), the bracketing becomes ambiguous.
+
+### §3.5 Implementor brief (PENDING Grant framing call)
+
+```
+Branch: analysis/q-embed-sel-1-investigation (already created)
+Worktree: ../AVE-Core-q-embed-sel-1 (isolated)
+
+Read: _orchestration/2026-05-28_parameter-count-framing-walkback.md §Phase 3 + §1.5 + §3 anchor inventory
+
+Deliverables (under Option <a/b/c>):
+1. Step 3h-exhaustive grep in REVERSE: identify all 30+ Phase-1+2-stamped sites; un-stamp; restamp with new framing
+2. §0 walkback-doc audit-receipts update: cite docs 28/29/38 + AVE-HOPF glossary:32 + 2026-04-27 Grant adjudication
+3. §1.5 new gating clause text (long-form + short-form per option chosen)
+4. ch8 KB leaf: rewrite §"Remaining open formal-rigor sub-item" to phase-space framing (option a) OR retire the section (option b)
+5. AVE-HOPF cross-repo reconciliation: open issue or PR in sibling repo updating glossary:32 to match new AVE-Core position
+6. Run make refresh-kb-metadata && verify-kb-metadata && verify-md-links; fix any failures
+7. PR-routed merge per memory v2: gh pr create --base main --head analysis/q-embed-sel-1-investigation --draft → review → merge
+
+Skills: ave-walk-back 3h-exhaustive, verify-before-cite, ave-evidence-framing-discipline, phase-space-coordinate-check, ave-discipline-translate, consistency-vs-emergence
+
+After push: orchestration runs ave-sweep-audit on diff THEN gh pr ready → merge via gh pr merge --squash (or --merge per coworker preference)
+```
+
+### §3.6 Phase 3 status
+
+- [x] **§3.0 corpus-context audit complete** (this session) — docs 28/29/38/AVE-HOPF glossary:32 cited
+- [x] **§3.1 provenance traced** (this session) — Phase 1 commit `9b4ae922`; no GitHub PR for either phase
+- [x] **§3.2 skill-gap diagnosis complete** (this session) — `ave-prereg` + `phase-space-coordinate-check` + `verify-before-cite` Trigger 7 didn't fire at Phase 1 scoping
+- [x] **§3.3 framing decision DEFERRED to downstream evaluation** (Grant 2026-05-31) — *"I don't want to reframe, I want to actually run out what's needed to evaluate/check for path a, what is left for us to model/simulate/derive."* Framing-choice adjudication waits on the concrete evaluation result. The evaluation epic is now scoped at [`2026-05-31_q-embed-sel-1-evaluation.md`](2026-05-31_q-embed-sel-1-evaluation.md)
+- [x] **§3.3 framing RESOLVED** (2026-05-31, downstream §4.B Phase 1 closed Class B): the framework's substrate-mechanism for $R \cdot r = 1/4$ closes at **Class B substrate-mechanism manifestation** via Axiom 4 self-saturation + Op14 Meissner-asymmetric + named phasor-area-equals-Nyquist-cell-area identification per [`research/2026-05-31_Q-EMBED-SEL-1_step_c_result.md`](../research/2026-05-31_Q-EMBED-SEL-1_step_c_result.md). The QED-imported spinor-half-cover argument is RETIRED. The 2026-05-28 Phase 1+2 gating clause ("ropelength-minimality on K4 uniquely selects... R·r = 1/4") is SUPERSEDED — the substrate-mechanism is no longer "gated on the open ropelength-minimality embedding-selection item" but is Class-B closed via the Axiom 4 self-saturation chain. The "zero-parameter" framework is now anchored in Class B substrate-mechanism manifestation rather than calibration-input (doc 39) or gated-on-unproven (Phase 1+2 stamp).
+- [x] **Q-EMBED-SEL-1 evaluation epic Phase 2 + Phase 3** (2026-05-31) — Phase 2 cross-particle OUTCOME A universal PASS across (2,3)/(2,5)/(2,7) ladder; Phase 3 cross-domain cold-fusion OUTCOME A 5/5 multi-falsifier PASS (NASA Glenn + FP-stochastic-irreproducibility-framing + shatter-limit + Phase 1+2 baseline + Schwinger). The Phase 1+2+3 substrate-mechanism chain (Ax 4 self-saturation + Op14 Meissner-asymmetric + named phasor-area-equals-Nyquist-cell-area identification) is now triangulated across electron-scale + hadronic-scale + nuclear-scale + cross-scale via ponderomotive-equivalence $n_{\text{scalar}} = 1/S$ identification. Class B classification preserved (no Class 2 promotion).
+- [ ] **Corpus walk-back propagation** (evaluation epic Phase 4) — **UN-GATED** by Phase 3 PASS. Replace spinor-half-cover provenance across ch8 + theorem-3-1-q-factor.md + related leaves with the validated Phase 1+2+3 substrate-mechanism. Step 3h-exhaustive corpus sweep + ave-sweep-audit + audit-tag + PR-routed merge.
+- [ ] **AVE-HOPF cross-repo reconciliation** — gated on Phase 4 corpus walk-back completion.
