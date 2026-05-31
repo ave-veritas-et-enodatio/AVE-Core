@@ -74,6 +74,8 @@ Probability enters AVE as an output, not an input. Per [`ohmic-decoherence-born.
 
 and [line 53](../vol1/dynamics/ch3-quantum-signal-dynamics/ohmic-decoherence-born.md): the $|\partial_t\mathbf{A}|^2$ click-probability scaling is "**derived end-to-end from substrate physics** … **No Born rule input anywhere in the chain.**" The leaf classifies this as Class 2 substrate-mechanism emergence ([line 56](../vol1/dynamics/ch3-quantum-signal-dynamics/ohmic-decoherence-born.md)). So $|\Psi|^2$ probability is the coarse-grained signature of deterministic Joule-extraction plus threshold-crossing first-passage — consistent with §1.
 
+**Two-particle extension — Bell/CHSH (how the determinism survives Bell's theorem).** The same derived Born rule is consumed by AVE's CHSH derivation: [`phase-locked-topological-thread.md`](../vol1/dynamics/ch3-quantum-signal-dynamics/phase-locked-topological-thread.md) (clm-zuf7g1) derives $E(\hat a,\hat b)=-\cos\theta_{ab}$ and $|S|_{\max}=2\sqrt2$ (Tsirelson bound) from substrate primitives, no-signalling preserved. This pins how the deterministic-substrate stance (§1) confronts **Bell's theorem**: AVE self-classifies (foreword, `manuscript/frontmatter/00_foreword.tex`) as a **nonlocal deterministic hidden-variable theory** — it concedes *locality* (the correlation is carried by a topological thread), NOT determinism, and NOT via local hidden variables or superdeterminism. Since $|S|=2\sqrt2$ exactly equals QM, CHSH is **not** an AVE-vs-QM discriminator: the determinism claim is shown *consistent* here, not novel-predictive. (The one AVE-distinct handle is an entanglement-decoherence threshold at $T_{\text{pair}}\approx1.19\times10^{10}$ K, which QM has no analogue of — cosmological-scale, not lab-near.)
+
 ## §5 — The substrate-agnostic / substrate-distinct boundary (the discipline that keeps this honest)
 
 This is the load-bearing distinction for any claim about statistics under AVE. The *aggregation machinery* of statistics is framework-neutral mathematics; AVE does not own it. Per [`translation-stochastics.md:29`](translation-tables/translation-stochastics.md), on the Central Limit Theorem:
@@ -105,6 +107,7 @@ The "statistics" here is the thermal-occupation statistics of the substrate's 6 
 ## §7 — Anti-confusion: what "statistics under AVE" is NOT
 
 - **NOT fundamental randomness.** The substrate is deterministic (§1); randomness is the coarse-grained thermal-noise floor.
+- **NOT inconsistent with Bell.** Determinism survives Bell's theorem by conceding *locality*, not determinism: AVE is a nonlocal deterministic hidden-variable theory (clm-zuf7g1; foreword) — correlation carried by a topological thread (CHSH $=2\sqrt2$, no-signalling preserved), NOT local hidden variables, NOT superdeterminism. CHSH $=$ QM exactly → no AVE-vs-QM discriminator (§4).
 - **NOT substrate-distinct aggregation.** The CLT / ensemble-averaging / Wick machinery is framework-neutral (§5, FM-5). Claiming the aggregation is AVE-physics is the documented failure mode.
 - **NOT microstate-counting entropy.** Substrate entropy is geometric $|\Gamma|$ scattering irreversibility; $S = k_B \ln\Omega$ is rejected on axiomatic grounds (§3).
 - **NOT a derived predictor (yet).** The $\delta_{\text{AVE}} \times N$ Reynolds analogue is Class 1 definitional / taxonomic, not a forward-predictive law, until the §8 lift is done.
@@ -126,5 +129,6 @@ The frozen prereg + corpus-audit for this workstream is at [`research/2026-05-31
 > → Primary: [Stochastics ↔ AVE Substrate-Native Translation](translation-tables/translation-stochastics.md) — the substrate-agnostic / substrate-distinct boundary (FM-5)
 > → Primary: [Four-Entropy Distinction](../vol3/condensed-matter/ch11-thermodynamics/four-entropy-distinction.md) — geometric entropy operator (clm-4o0f0h)
 > → Primary: [Ohmic Decoherence and the Born Rule](../vol1/dynamics/ch3-quantum-signal-dynamics/ohmic-decoherence-born.md) — derived deterministic Born rule (clm-ldmvwi)
+> ↗ See also: [Phase-Locked Topological Thread — Bell/CHSH](../vol1/dynamics/ch3-quantum-signal-dynamics/phase-locked-topological-thread.md) — determinism survives Bell as a nonlocal deterministic hidden-variable theory; CHSH $=2\sqrt2$ at Tsirelson (clm-zuf7g1)
 > ↗ See also: [δ_strain at T_CMB Cosmic TCC](../vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md) — the worked Cosserat thermal-mode instance (clm-hp7nlm)
 > ↗ See also: [Macroscopic Temperature as LC Noise](../vol3/condensed-matter/ch11-thermodynamics/macroscopic-temperature-lc-noise.md) — temperature as RMS EM noise (clm-t05mvx)
