@@ -11,7 +11,7 @@ bootstrap: true
 
 # Vol 2 — The Subatomic Scale
 
-Volume 2 derives the properties of subatomic particles — fermion generations, baryon masses, neutrino oscillation parameters, quantum spin, and electroweak gauge structure — as topological standing-wave defects of the $\mathcal{M}_A$ LC condensate. Every mass, mixing angle, and coupling constant is computed from the framework's three calibration inputs ($m_e$, $\alpha$, $G$) plus the Poisson ratio $\nu_{vac} = 2/7$ and the packing fraction $p_c = 8\pi\alpha$, with zero Standard Model parameters (zero-parameter contingent on the open Clifford-torus embedding-selection item — not the half-cover chain; see [`../vol1/ch8-alpha-golden-torus.md`](../vol1/ch8-alpha-golden-torus.md) §"Remaining open formal-rigor sub-item (THE gating item)").
+Volume 2 derives the properties of subatomic particles — fermion generations, baryon masses, neutrino oscillation parameters, quantum spin, and electroweak gauge structure — as topological standing-wave defects of the $\mathcal{M}_A$ LC condensate. Every mass, mixing angle, and coupling constant is computed from the framework's three calibration inputs ($m_e$, $\alpha$, $G$) plus the Poisson ratio $\nu_{vac} = 2/7$ and the packing fraction $p_c = 8\pi\alpha$, with zero Standard Model parameters at **Class B substrate-mechanism manifestation level per Q-EMBED-SEL-1 Phase 1+2+3 (2026-05-31)** — substrate-mechanism for $R \cdot r = 1/4$ via Axiom-4 self-saturation + Op14 Meissner-asymmetric + named phasor-area-equals-Nyquist-cell-area identification, see [`../vol1/ch8-alpha-golden-torus.md`](../vol1/ch8-alpha-golden-torus.md) §"Substrate-mechanism provenance of regime (c)".
 
 ## Key Results
 

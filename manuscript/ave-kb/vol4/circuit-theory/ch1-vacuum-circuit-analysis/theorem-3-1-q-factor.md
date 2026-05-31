@@ -45,8 +45,8 @@ From Vol 1 Ch 8:93-124: the three $\Lambda$ contributions at Golden Torus $R \cd
 
 | Term | Geometric form | Value | Dimensionality |
 |---|---|---|---|
-| $\Lambda_{\text{vol}}$ | $(2\pi R)(2\pi r)(2\pi \cdot 2) = 16\pi^3 (R \cdot r)$ | $4\pi^3 \approx 124.025$ | 3D — phase-space 3-torus hyper-volume with spin-½ double-cover factor $2\pi \cdot 2 = 4\pi$ |
-| $\Lambda_{\text{surf}}$ | $(2\pi R)(2\pi r) = 4\pi^2 (R \cdot r)$ | $\pi^2 \approx 9.870$ | 2D — Clifford-torus surface area, halved by spin-½ half-cover |
+| $\Lambda_{\text{vol}}$ | $(2\pi R)(2\pi r)(2\pi \cdot 2) = 16\pi^3 (R \cdot r)$ | $4\pi^3 \approx 124.025$ | 3D — phase-space 3-torus hyper-volume; the $4\pi$ temporal-phase closure per observable Compton cycle derives from bipartite K4 lobe-count (2 sublattices) × $2\pi$ phasor rotation per lobe (canonical at [`l3-electron-soliton-synthesis.md:103-105`](../../../vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md); standard-physics translation reference is "SU(2) → SO(3) double cover", but substrate content is K4 bipartite lobe-count per Q-EMBED-SEL-1 Phase 1 §5.2) |
+| $\Lambda_{\text{surf}}$ | $(2\pi R)(2\pi r) = 4\pi^2 (R \cdot r)$ | $\pi^2 \approx 9.870$ | 2D — Clifford-torus surface area at substrate-derived $R \cdot r = 1/4$ via Q-EMBED-SEL-1 Phase 1 substrate-mechanism (phasor enclosed area at Axiom-4 saturation onset = Nyquist cell cross-section area; canonical at `research/2026-05-31_Q-EMBED-SEL-1_step_c_result.md` §2.3); the prior spin-½ half-cover provenance of $\pi^2$ is retired |
 | $\Lambda_{\text{line}}$ | $\pi \cdot d$ | $\pi \approx 3.142$ | 1D — Nyquist-limited tube flux-moment |
 | **Total** | | $\boxed{137.036304}$ | $\alpha^{-1}$ cold |
 
@@ -56,8 +56,8 @@ The bridge between Path A and Path B is the **AVE natural-unit convention** in w
 
 | Region | Spatial domain | Dimensionless volume | $\omega L_i \times 4\pi / Z_0$ |
 |---|---|---|---|
-| Volumetric | 3-torus phase space ($\times$ spin-½) | $16\pi^3 R r$ | $\Lambda_{\text{vol}} = 4\pi^3$ |
-| Surface | Clifford-torus half-cover | $4\pi^2 R r$ | $\Lambda_{\text{surf}} = \pi^2$ |
+| Volumetric | 3-torus phase space ($\times$ K4 bipartite-lobe temporal-phase factor 2) | $16\pi^3 R r$ | $\Lambda_{\text{vol}} = 4\pi^3$ |
+| Surface | Clifford-torus 2-area at $R \cdot r = 1/4$ (Q-EMBED-SEL-1 Phase 1 substrate-mechanism) | $4\pi^2 R r$ | $\Lambda_{\text{surf}} = \pi^2$ |
 | Line | Nyquist core tube | $\pi \cdot d$ | $\Lambda_{\text{line}} = \pi$ |
 
 At Golden Torus, the three regions' reactances sum to the total tank reactance:
@@ -72,11 +72,11 @@ The identification $Q_i = \Lambda_i$ holds because in natural units ($Z_0 = 1$, 
 
 Vol 4 Ch 1:423-467 describes the saturation boundary as Total Internal Reflection: $Z_{\text{core}} \to 0$ drives $\Gamma = -1$ (perfect short), confining the LC oscillation.
 
-The effective radiation resistance per spinor cycle is $Z_0 / (4\pi)$:
+The effective radiation resistance per observable Compton cycle is $Z_0 / (4\pi)$:
 
 - $Z_0$ is the vacuum's characteristic impedance through which any radiated energy would escape
-- $4\pi$ is the electron's spinor-cycle-phase requirement (SU(2) double-cover of SO(3) per Vol 1 Ch 8 §3.2 — the electron's phase must traverse $4\pi$ to return to its original spinor, so the per-cycle impedance reference absorbs a $4\pi$ factor)
-- $Z_0 / (4\pi)$ = radiation impedance averaged over one full spinor cycle
+- $4\pi$ is the substrate temporal-phase closure per observable Compton cycle: bipartite K4 lobe-count (2 sublattices) × $2\pi$ phasor rotation per lobe = $4\pi$ (canonical at [`l3-electron-soliton-synthesis.md:103-105`](../../../vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md); per Q-EMBED-SEL-1 Phase 1 §5.2). The standard-physics translation reference is "SU(2) double-cover of SO(3)"; the substrate-mechanism content is K4 bipartite lobe-count, not an SU(2) postulate.
+- $Z_0 / (4\pi)$ = radiation impedance averaged over one full observable Compton cycle
 
 At resonance, only a fraction $1/Q = \alpha \approx 0.0073$ of the stored energy leaks per cycle through the TIR boundary — **this IS $\alpha$ in its original Sommerfeld meaning** ("coupling strength"), seen from the LC-tank side.
 
@@ -102,7 +102,7 @@ The three regimes (vol / surf / line) of the $\alpha^{-1}$ decomposition corresp
 
 ## Op21 multi-mode generalization
 
-The Q-factor decomposition generalizes via Op21 multi-mode form: at the saturation boundary, each mode with $\ell$ wavelengths around a 1D circumference releases $\sim 1/\ell$ of energy per cycle, giving $Q = \ell$ per mode. The Golden Torus at the Nyquist mode-count identity (single-cell-per-natural-unit) makes the mode counts equal the geometric measures: 1D mode (cross-section perimeter, $\pi \cdot d$) → cell-count $\pi$ at Nyquist-quantized $d = 1$; 2D mode (Clifford-torus half-cover) → cell-count $\pi^2$ at $R \cdot r = 1/4$; 3D mode (phase volume with spinor-temporal $4\pi$ closure) → cell-count $4\pi^3$. The three-$\Lambda$ sum is exactly the Op21 multi-mode generalization at Golden Torus geometry.
+The Q-factor decomposition generalizes via Op21 multi-mode form: at the saturation boundary, each mode with $\ell$ wavelengths around a 1D circumference releases $\sim 1/\ell$ of energy per cycle, giving $Q = \ell$ per mode. The Golden Torus at the Nyquist mode-count identity (single-cell-per-natural-unit) makes the mode counts equal the geometric measures: 1D mode (cross-section perimeter, $\pi \cdot d$) → cell-count $\pi$ at Nyquist-quantized $d = 1$; 2D mode (Clifford-torus 2-area at $R \cdot r = 1/4$ from Q-EMBED-SEL-1 Phase 1 substrate-mechanism) → cell-count $\pi^2$; 3D mode (phase volume with substrate $4\pi$ temporal-phase closure from bipartite K4 lobe-count) → cell-count $4\pi^3$. The three-$\Lambda$ sum is exactly the Op21 multi-mode generalization at Golden Torus geometry.
 
 > → Primary: [Op21 Multi-Mode Mode-Counting at the $\Gamma = -1$ Saturation/TIR Boundary](op21-multi-mode-mode-counting.md) — fully-derived substrate-mechanism leaf (Phase 3-A4, 2026-05-27). Promotes this paragraph to canonical-leaf rigor: five-step substrate-mechanism chain (Ax 1 Nyquist cell size → Ax 3 + Ax 4 forcing $\Gamma = -1$ TIR boundary → per-cycle leak fraction $1/\ell$ → $Q_{\text{mode},\ell} = \ell$ → Nyquist-cell-count = mode-count = dimensionless geometric measure) + Step 5.5 codimensional Nyquist-cell-category independence. Resolves the dual-identification at [`operators.md:61`](../../../common/operators.md) as Op21-foundational + BCS-Cooper-pair-phase-transition-specialization. Includes substrate-mechanical reason that $\Lambda_{\text{line}} = \pi$ (substrate Ampère 1-cycle around tube cross-section perimeter at Nyquist-quantized $d = 1$), NOT $\pi\varphi = 2\pi R$ (Clifford-torus major-loop perimeter).
 

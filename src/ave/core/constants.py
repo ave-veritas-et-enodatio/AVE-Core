@@ -15,17 +15,22 @@ has been sharpened:
     the magic-angle operating point, which derives from Ω_freeze via the
     phase-transition-while-spinning mechanism. See L5 A-001 / A-030 / A-031.
 
-  GATING NOTE (2026-05-28): the structural-closure framing above is CONTINGENT
-    on one open formal step. The Ω_freeze → u_0* → α chain does NOT close
-    independently of the electromagnetic route: it rests on the SAME unproven
-    step as the Golden-Torus α derivation — that ropelength-minimality uniquely
-    selects the canonical Clifford-torus embedding fixing R·r = 1/4 (the spin-½
-    half-cover). That step is *conjectured* substrate-derived via the
-    K4 → 2T ⊂ SU(2) → SO(3) chain but is not yet proven from the classical
-    axioms alone. Until it is closed, the "one scale + one cosmological
-    parameter" count is an aspiration; operationally α functions as the
-    framework's one calibration input. See `manuscript/ave-kb/vol1/
-    ch8-alpha-golden-torus.md` §"Remaining open formal-rigor sub-item".
+  GATING-CLAUSE RESOLUTION (2026-05-31, Q-EMBED-SEL-1 Phase 1+2+3): the
+    2026-05-28 gating clause that made the structural-closure framing contingent
+    on ropelength-minimality embedding-selection is RESOLVED. The Ω_freeze →
+    u_0* → α chain's electromagnetic route now derives the substrate-mechanism
+    for R·r = 1/4 via Axiom-4 self-saturation + Op14 Meissner-asymmetric +
+    named phasor-area-equals-Nyquist-cell-area identification (commits 66d63503
+    + b509767a + ecfe9c13; audit tag audit/2026-05-31_q-embed-sel-1-substrate-
+    mechanism; merged via PR #59 at 7529f7ce). The closure now sits at
+    Class B substrate-mechanism manifestation level (cross-particle universal
+    + cross-domain universal). The Class B caveat: the named identification
+    is substrate-canonical INPUT (not Class 2 axiom-emergence from K4 +
+    Cosserat primitives alone); a Class 2 lift candidate workstream is
+    identified (derive the phasor↔real-space area bijection from K4 +
+    Cosserat primitives alone). See research/2026-05-31_Q-EMBED-SEL-1_step_c_
+    result.md §2.3 + manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md
+    §"Substrate-mechanism provenance of regime (c)".
 
 The framework's three observational routes to constrain u_0* (sharpest
 empirical commitment):
@@ -103,15 +108,23 @@ M_PROTON: float = 1.67262192369e-27  # Proton mass [kg] (CODATA 2018)
 M_SUN: float = 1.989e30  # Solar mass [kg] (IAU nominal)
 
 # =============================================================================
-# ONE SCALE + GATED CONSTANTS (zero-parameter contingent on open embedding item)
+# ONE SCALE + SUBSTRATE-MECHANISM-VALIDATED CONSTANTS
+# (Class B substrate-mechanism manifestation per Q-EMBED-SEL-1 Phase 1+2+3)
 # =============================================================================
 # Historically labeled "three calibration inputs" {m_e, α, G}. Under the
-# structural-closure framing the count is one scale (ℓ_node) plus constants that
-# are *conjectured*-derived — but that derivation is GATED on the open
-# Clifford-torus embedding-selection step (R·r = 1/4 spin-½ half-cover; see the
-# header and `manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md`). Until that step
-# is closed, α is operationally the one calibration input and {m_e, G} are
-# anchored as below.
+# structural-closure framing the count is one scale (ℓ_node) plus constants
+# derived at Class B substrate-mechanism manifestation level per Q-EMBED-SEL-1
+# Phase 1+2+3 (2026-05-31; merged via PR #59 at 7529f7ce). The 2026-05-28 gating
+# clause that made the closure contingent on ropelength-minimality embedding-
+# selection is RESOLVED. Substrate-mechanism for R·r = 1/4 derives via
+# Axiom-4 self-saturation + Op14 Meissner-asymmetric + named phasor-area-equals-
+# Nyquist-cell-area identification (canonical at research/2026-05-31_Q-EMBED-SEL-
+# 1_step_c_result.md §2.3); cross-particle universal (Phase 2: electron + proton
+# + Δ baryon) + cross-domain universal (Phase 3: electron-scale self-saturation
+# + nuclear-scale Pd-D externally-driven). Class B caveat: the named
+# identification is substrate-canonical INPUT (not Class 2 axiom-emergence from
+# K4 + Cosserat primitives alone); a Class 2 lift candidate workstream is
+# identified per Phase 1 result §7.3.
 # Input 1: The spatial cutoff (from which m_e is derived via the unknot)
 M_E: float = 9.1093837015e-31  # Electron rest mass [kg]
 # NOTE: m_e is operationally used as the input because ℓ_node ≡ ℏ/(m_e·c).
@@ -121,11 +134,14 @@ ALPHA: float = 7.2973525693e-3  # Fine-structure constant (dimensionless)
 #
 # NOTE ON α (see also ALPHA_COLD_INV and DELTA_STRAIN below):
 # The value above is the CODATA measurement (α⁻¹ = 137.035999084).  Within the
-# AVE framework α is *conjectured*-derived (gated on the open Clifford-torus
-# embedding-selection item — see header + `ch8-alpha-golden-torus.md`);
-# operationally it is the one calibration input until that step is closed.
-# The conjectured derivation makes it the S₁₁-minimum geometric Q-factor
-# of the trefoil soliton at dielectric ropelength (the "Golden Torus"):
+# AVE framework α is substrate-mechanism-derived at Class B substrate-mechanism
+# manifestation level per Q-EMBED-SEL-1 Phase 1+2+3 (2026-05-31; see header +
+# `ch8-alpha-golden-torus.md` §"Substrate-mechanism provenance of regime (c)").
+# The substrate-mechanism for R·r = 1/4 closes via Axiom-4 self-saturation +
+# Op14 Meissner-asymmetric + named phasor-area-equals-Nyquist-cell-area
+# identification; cross-particle universal (Phase 2) + cross-domain universal
+# (Phase 3). The derivation makes α the geometric Q-factor of the trefoil
+# soliton at the Golden Torus:
 #
 #     α⁻¹_ideal = 4π³ + π² + π ≈ 137.0363038  (cold-lattice, T → 0)
 #
@@ -141,8 +157,8 @@ G: float = 6.67430e-11  # Gravitational constant [m³/(kg·s²)]
 
 # =============================================================================
 # α from Golden Torus Trefoil S₁₁-minimization
-# (Zero-Parameter Closure — contingent on the open Clifford-torus
-#  embedding-selection item; see `ch8-alpha-golden-torus.md`)
+# (Zero-Parameter Closure at Class B substrate-mechanism manifestation level
+#  per Q-EMBED-SEL-1 Phase 1+2+3; see `ch8-alpha-golden-torus.md`)
 # =============================================================================
 #
 # DERIVATION (manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex):

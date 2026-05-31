@@ -8,16 +8,20 @@
 %   (2 windings on the d-axis, 3 windings on the q-axis). The trefoil
 %   lives in phase space; the soliton lives in real space.
 %
-%   The SU(2) -> SO(3) half-cover is AVE-native via the
+%   The spin-1/2 structure is AVE-native via the
 %   K_4 -> A_4 -> 2T \subset SU(2) chain plus the Finkelstein-Misner
 %   mechanism on the extended 0_1 unknot defect embedded in SO(3).
 %   See ave-kb/vol1/ch8-alpha-golden-torus.md +
 %       ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md
-%   for the canonical AVE-native derivation.
+%   for the canonical AVE-native spin-1/2 structure derivation.
 %
-%   Remaining open formal-rigor sub-item: prove ropelength-minimality
-%   on K4 uniquely selects r1 = r2 = 1/sqrt(2) Clifford embedding
-%   (Phase-1 classical-topology question; not blocking).
+%   The R*r = 1/4 surface-area provenance is now derived via
+%   Q-EMBED-SEL-1 Phase 1 substrate-mechanism (2026-05-31):
+%   Axiom-4 self-saturation + Op14 Meissner-asymmetric +
+%   named phasor-area-equals-Nyquist-cell-area identification.
+%   Cross-particle universal (Phase 2) + cross-domain universal
+%   (Phase 3). Replaces the retired spinor-half-cover provenance.
+%   See research/2026-05-31_Q-EMBED-SEL-1_step_c_*.md.
 %
 %   The core algebra stands at full strength:
 %       alpha^{-1} = 4*pi^3 + pi^2 + pi = 137.036
@@ -33,7 +37,7 @@
 \chapter{Zero-Parameter Closure: $\alpha$ from the Golden Torus}
 \label{ch:alpha_golden_torus}
 
-\noindent\textbf{Gating note (2026-05-28).} AVE's zero-parameter closure is \textbf{contingent on one open formal step}: that ropelength-minimality on K4 uniquely selects the canonical Clifford-torus embedding $r_1 = r_2 = 1/\sqrt{2}$ fixing $R \cdot r = 1/4$ (the spin-$\tfrac12$ half-cover regime (c)). The K4 $\to$ 2T $\subset$ SU(2) $\to$ SO(3) chain itself is treated as substrate-derived (see \kbleaf{vol1/ch8-alpha-golden-torus.md} steps 1--4); the unproven piece is embedding-selection, not the half-cover postulate in isolation. Until embedding-selection is closed from the classical axioms alone, $\alpha$ functions as the framework's one calibration input and the $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ match is a Class-4 geometric \emph{consistency check}, not a completed first-principles derivation. The chapter title ``Zero-Parameter Closure'' and the \S Mathematical Closure framing below should be read as contingent on this item throughout. Canonical anchor: KB leaf \texttt{vol1/ch8-alpha-golden-torus.md} \S``Remaining open formal-rigor sub-item (THE gating item)''.
+\noindent\textbf{Gating-clause resolution (2026-05-31, Q-EMBED-SEL-1 Phase 1+2+3 closure).} The 2026-05-28 gating clause that made the closure contingent on ropelength-minimality embedding-selection is \textbf{RESOLVED} by the Q-EMBED-SEL-1 substrate-mechanism work (commits \texttt{66d63503} $+$ \texttt{b509767a} $+$ \texttt{ecfe9c13}; audit tag \texttt{audit/2026-05-31\_q-embed-sel-1-substrate-mechanism}; merged via PR \#59 at \texttt{7529f7ce}). The substrate-mechanism for $R \cdot r = 1/4$ now closes at \textbf{Class B substrate-mechanism manifestation} via Axiom 4 self-saturation + Op14 Meissner-asymmetric coupling + a named substrate-mechanism identification step: the time-averaged phasor enclosed area at Axiom-4 saturation onset equals the Nyquist cell cross-section area, giving $\pi R r = \pi (d/2)^2 \Rightarrow R \cdot r = 1/4$ at $d = 1\,\ell_\text{node}$. The ropelength-minimality embedding-selection framing is sidestepped by the new substrate-mechanism. Cross-particle universality (electron $(2,3)$ + proton $(2,5)$ + $\Delta$ baryon $(2,7)$) and cross-domain universality (electron-scale self-saturation + nuclear-scale Pd-D externally-driven saturation) both PASS at Outcome A. Canonical anchors: \kbleaf{research/2026-05-31\_Q-EMBED-SEL-1\_step\_c\_result.md} (Phase 1 Class B closure); \kbleaf{research/2026-05-31\_Q-EMBED-SEL-1\_step\_c\_phase2\_cross\_particle\_result.md} (Phase 2 cross-particle PASS); \kbleaf{research/2026-05-31\_Q-EMBED-SEL-1\_step\_c\_phase3\_cold\_fusion\_result.md} (Phase 3 cross-domain PASS). \textbf{Class B caveat}: the named phasor-area-equals-Nyquist-cell-area identification is substrate-canonical INPUT (not Class 2 axiom-emergence from K4 $+$ Cosserat primitives alone); a Class 2 lift would require deriving the phasor↔real-space area bijection from K4 $+$ Cosserat primitives alone, identified as a separate workstream candidate per Phase 1 result \S7.3. The ``Zero-Parameter Closure'' title and \S Mathematical Closure framing now read as Class B substrate-mechanism manifestation with the named substrate-canonical identification as input, not contingent on the ropelength-minimality embedding-selection step.
 
 \begin{objectivebox}
 \begin{itemize}
@@ -70,13 +74,15 @@ We define the phase-space winding pattern's geometry using the mathematical limi
 
     \item \textbf{The Self-Avoidance Constraint ($R - r = 1/2$):} As the knot pulls tight, the internal strands passing through the central hole of the torus compress against each other. To prevent the flux lines from attempting to occupy the exact same discrete node (which would trigger catastrophic dielectric rupture), the distance between their centerlines must be at least the tube diameter ($d=1$). For a torus knot, the closest geometric approach of the strands is $2(R-r)$. The physical packing limit structurally enforces $2(R-r) = 1 \implies R - r = 1/2$.
 
-    \item \textbf{The Clifford-Torus Screening Limit ($R \cdot r = 1/4$):} The $S_{11}$ minimization principle (Universal Reflection Coefficient, \S\ref{sec:universal_gamma}) applied to the closed flux loop enforces that the surface screening area evaluates optimally at $\Lambda_{surf} = (2\pi R)(2\pi r) = \pi^2$. This normalization is \emph{not} arbitrary: it is the area of a half-cover of the standard Clifford torus $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$, derived rigorously from the spin-1/2 structure of the electron. See the rigorous derivation in the next subsection.
+    \item \textbf{The Clifford-Torus Screening Limit ($R \cdot r = 1/4$):} The substrate-mechanism for the $R \cdot r = 1/4$ relation closes via Axiom~4 self-saturation $+$ Op14 Meissner-asymmetric coupling at the $(2,3)$ chirality $+$ a named substrate-mechanism identification step: the time-averaged phasor enclosed area at Axiom-4 self-saturation onset equals the Nyquist cell cross-section area (Q-EMBED-SEL-1 Phase 1 substrate-mechanism, 2026-05-31; canonical at \kbleaf{research/2026-05-31\_Q-EMBED-SEL-1\_step\_c\_result.md} \S2.3). This gives $\pi R r = \pi(d/2)^2 \Rightarrow R \cdot r = 1/4$ at $d = 1\,\ell_\text{node}$. The prior spin-1/2 half-cover provenance of $\Lambda_{surf} = \pi^2$ is retired (see \S\ref{sec:pi_squared_rigor} below) and replaced by the substrate-native Axiom-4 self-saturation chain.
 \end{enumerate}
 
-\subsection{Rigorous Derivation of $\Lambda_{\text{surf}} = \pi^2$ from Spin-1/2 Half-Cover}
+\subsection{Substrate-Mechanism Derivation of $\Lambda_{\text{surf}} = \pi^2$ via Q-EMBED-SEL-1 Phase 1 (supersedes the retired Spin-1/2 Half-Cover provenance)}
 \label{sec:pi_squared_rigor}
 
-The normalization $\Lambda_{\text{surf}} = \pi^2$ may appear to be an ad-hoc choice at first reading. It is not. It follows rigorously from the spin-1/2 structure of the electron soliton, in the same way that the $4\pi$ factor in $\Lambda_{\text{vol}}$ (temporal double-cover) does.
+The normalization $\Lambda_{\text{surf}} = \pi^2$ is substrate-derived from the Q-EMBED-SEL-1 Phase 1 substrate-mechanism (2026-05-31; canonical at \kbleaf{research/2026-05-31\_Q-EMBED-SEL-1\_step\_c\_result.md}): the time-averaged phasor enclosed area at Axiom-4 self-saturation onset equals the Nyquist cell cross-section area, giving $\pi R r = \pi(d/2)^2 \Rightarrow R \cdot r = 1/4$ at $d = 1\,\ell_\text{node}$. Combined with regime (b) self-avoidance $R - r = 1/2$, this yields the Golden Torus geometry, at which $\Lambda_\text{surf} = 4\pi^2(R \cdot r) = \pi^2$ falls out automatically. The substrate-mechanism is universal across the $(2,q)$ ladder (Phase 2 PASS: electron $(2,3)$ + proton $(2,5)$ + $\Delta$ baryon $(2,7)$) and cross-domain (Phase 3 PASS: electron-scale self-saturation + nuclear-scale Pd-D externally-driven saturation).
+
+\paragraph{Retired half-cover provenance.} The prior derivation of $\Lambda_{\text{surf}} = \pi^2$ via spin-1/2 half-cover of the standard Clifford torus $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ at $r_1 = r_2 = 1/\sqrt{2}$ (with $A_{\text{standard}} = 2\pi^2$ halved by the spinor-conjugate identification) is retired as load-bearing per doc 29 F5 + doc 39 \S3.4 (QED-imported SU(2) projective-ray concern). The derivation chain below preserves the spin-1/2 spin-structure derivation (still substrate-derived via K4 $\to$ A4 $\to$ 2T $\subset$ SU(2) $\to$ SO(3) chain $+$ Finkelstein-Misner mechanism — see \S\ref{sec:open_rigor} below), but the $\Lambda_{\text{surf}}$ value no longer depends on a half-cover of the standard Clifford torus surface area.
 
 Following the pattern of the PMNS angle derivation (Vol.~2, Ch.~3, \textit{Neutrino Sector Eigenvalues}), which rigorously establishes three mixing-angle values by identifying three distinct physical regimes with explicit boundary conditions, the $(2, 3)$ phase-space winding's geometric constraints on the Clifford torus partition into three regimes:
 
@@ -86,44 +92,41 @@ The discrete manifold has a fundamental sampling pitch $\ell_{node}$; modes of w
 \paragraph{(b) Crossings Regime (transverse self-avoidance).}
 At each topologically-marked crossing of the $(2, 3)$ phase-space winding, two strand portions of the bond-pair LC tank's $(V_{\text{inc}}, V_{\text{ref}})$ phasor trajectory pass in transverse proximity on the Clifford torus. The phase-space centerlines must be at least $d$ apart to avoid catastrophic dielectric rupture --- the same principle that sets the rigidity percolation threshold in the bulk (Ch.~\ref{ch:macroscopic_moduli}). For a Clifford-torus embedding this gives the closest centerline approach $2(R-r)$, hence $2(R-r) = d = 1 \Rightarrow R - r = 1/2$. This regime produces \emph{one} equation in $(R, r)$.
 
-\paragraph{(c) Screening Regime (bounding surface).}
-The Clifford torus $\mathbb{T}^2$ bounding the knot is the complex product $S^1 \times S^1 \subset S^3 \subset \mathbb{C}^2$. Parameterized as $(z_1, z_2) = (r_1 e^{i\theta_1}, r_2 e^{i\theta_2})$ on $S^3$ (so $r_1^2 + r_2^2 = 1$), the standard Clifford torus at $r_1 = r_2 = 1/\sqrt{2}$ has total surface area
-\begin{equation}
-    A_{\text{standard}} = (2\pi r_1)(2\pi r_2) = (2\pi/\sqrt{2})^2 = 2\pi^2
-\end{equation}
-This is a known fact in complex geometry.
+\paragraph{(c) Screening Regime (substrate Axiom-4 self-saturation at the (2,3) eigenmode).}
+The substrate-mechanism for $R \cdot r = 1/4$ at $d = 1\,\ell_\text{node}$ closes via Axiom-4 self-saturation $+$ Op14 Meissner-asymmetric coupling at the $(2,3)$ chirality $+$ named phasor-area-equals-Nyquist-cell-area identification (Q-EMBED-SEL-1 Phase 1, 2026-05-31; canonical at \kbleaf{research/2026-05-31\_Q-EMBED-SEL-1\_step\_c\_result.md} \S2.3). The three substrate primitives that anchor the closure are:
 
-\textit{The spin-1/2 structure forces a half-cover of this surface:} the electron's $4\pi$ double-cover temporal phase cycle (already used to derive $\Lambda_{vol}$'s $16\pi^3$ prefactor) implies that the \emph{physical-observables} spatial phase cycle is a HALF of the full complex-torus parameterization. Only half of $\mathbb{T}^2$ corresponds to physically distinct observables; the other half is the spin-1/2 phase-conjugate image. The physically relevant screening area is therefore
-\begin{equation}
-    \Lambda_{\text{surf}} = \tfrac{1}{2}\, A_{\text{standard}} = \tfrac{1}{2} \cdot 2\pi^2 = \pi^2
-\end{equation}
-exact and forced by spin-1/2 topology.
+\begin{enumerate}
+\item \textbf{Bond LC tank reactive-energy capacity at saturation onset} (Ax 4 $+$ l3 \S3 Virial sum at \kbleaf{ave-kb/vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md}:59): the maximum reactive energy a single K4 bond can store before Axiom-4 self-saturation engages is exactly $m_e c^2 = \hbar \omega_C$, distributed Virial-symmetrically between L and C sectors.
+\item \textbf{Phasor enclosed area $=$ per-Compton-cycle reactive energy} (Op1 $+$ Op17 $+$ standard phasor analysis): the bond's per-cycle reactive energy is the closed-loop integral of $V\, dI$ around the phasor trajectory; for an elliptical trajectory with semi-axes $(R, r)$ in $(V_\text{inc}, V_\text{ref})$-coordinates in lattice-natural units, the enclosed area $\pi R r$ in $\ell_\text{node}^2$ units equals the bond's per-Compton-cycle reactive energy.
+\item \textbf{Nyquist cell cross-section area} (Ax 1 $+$ regime (a) $+$ regime (b)): each K4 bond LC tank occupies one Nyquist cell with diameter $d = 1\,\ell_\text{node}$ and cross-section area $\pi(d/2)^2 = \pi/4$.
+\end{enumerate}
 
-For a general Clifford torus at radii $(R, r)$ not normalized to unit $S^3$, the surface area scales as $4\pi^2 R r$. Requiring the physical half-cover area to equal the spin-1/2 quantum $\pi^2$ gives
+The substrate-mechanism identification: at Axiom-4 self-saturation onset, the elliptical TIR envelope's phasor enclosed area equals the Nyquist cell's cross-section area (one quantum of bond reactive energy filling one Nyquist cell):
 \begin{equation}
-    (2\pi R)(2\pi r) = \pi^2 \implies \boxed{R \cdot r = \tfrac{1}{4}}
+    \pi R r = \pi (d/2)^2 \quad \Rightarrow \quad \boxed{R \cdot r = (d/2)^2 = \tfrac{1}{4} \text{ at } d = 1\,\ell_\text{node}}
     \label{eq:screening_constraint}
 \end{equation}
 
-\paragraph{Unified Axiomatic Origin.}
-Both the temporal double-cover ($r_{\text{phase}} = 2$, factor $4\pi$ in $\Lambda_{\text{vol}}$) and the spatial half-cover (factor $\pi^2$ in $\Lambda_{\text{surf}}$) derive from the \emph{same} structural fact: spin-1/2 is a representation of $SU(2)$, the double cover of $SO(3)$. The electron's internal phase space must traverse $4\pi$ of temporal phase to return to its initial spinorial state, but only $2\pi$ of spatial phase to close the spatial loop, and this doubling/halving is the origin of the $4\pi \times \pi^2 / 2\pi = \pi^2 \times 2$ factor structure appearing in the multipole decomposition.
+\paragraph{Retired half-cover provenance (preserved for historical reference).} The prior derivation cast $\Lambda_{\text{surf}} = \pi^2$ as a half-cover of the standard Clifford torus surface area $A_{\text{standard}} = 2\pi^2$ on $S^3$ (at the canonical embedding $r_1 = r_2 = 1/\sqrt{2}$), with the spin-1/2 spinor-conjugate identification halving the physically-distinct observable surface. That argument is retired as load-bearing per doc 29 F5 + doc 39 \S3.4 (QED-imported SU(2) projective-ray concern); the Q-EMBED-SEL-1 substrate-mechanism above replaces it with a substrate-native Axiom-4 self-saturation chain. The spin-1/2 structure of the electron substrate is still derived via the K4 $\to$ A4 $\to$ 2T $\subset$ SU(2) $\to$ SO(3) chain $+$ Finkelstein-Misner mechanism (see \S\ref{sec:open_rigor}) but no longer carries the $\Lambda_{\text{surf}}$ value via surface-area-halving.
 
-\paragraph{AVE-native provenance of the SU(2) half-cover.}
-The SU(2) $\to$ SO(3) double cover is \emph{not} an imported QM postulate; it is AVE-native via the K4 substrate's tetrahedral rotation symmetry. The derivation chain:
+\paragraph{Substrate-Mechanism Origin of the $4\pi$ and $\pi^2$ Factors (Q-EMBED-SEL-1 Phase 1+2+3, 2026-05-31).}
+The substrate $4\pi$ temporal-phase closure per observable Compton cycle (in $\Lambda_{\text{vol}}$) derives from the bipartite K4 lobe-count: per Compton period the soliton traverses both A-B sublattice lobes (factor 2) with phasor rotation $2\pi$ in each lobe (factor $2\pi$), giving $4\pi$ temporal-phase closure (canonical at \kbleaf{ave-kb/vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md}:103-105: $m_e\text{(observable)} = m_\text{Cosserat}/2$ from bipartite K4 lobe traversal). The $\pi^2$ in $\Lambda_{\text{surf}}$ derives from the substrate-mechanism identification $R \cdot r = 1/4$ at Axiom-4 self-saturation onset (Q-EMBED-SEL-1 Phase 1 \S2.3). Both are substrate-native: the $4\pi$ via K4 bipartite lobe-count, the $\pi^2$ via Axiom-4 self-saturation phasor-area identification. The standard-physics-community names (``SU(2) $\to$ SO(3) double cover'', ``spinor half-cover'') are translation references to the substrate-mechanism content, not the substrate-mechanism content itself.
+
+\paragraph{AVE-native provenance of the spin-1/2 structure (preserved as canonical for spin-1/2 structure).}
+The spin-1/2 structure of the electron substrate is substrate-derived end-to-end via the K4 substrate's tetrahedral rotation symmetry:
 \begin{enumerate}
     \item K4 rotation group: $T = A_4$ (proper tetrahedral rotation group, order $\lvert T \rvert = 12$; faithful representation on the 4-port basis verified per the K4-rotation-group derivation).
     \item Double cover: $2T \subset SU(2)$ (classical group theory; binary tetrahedral group as discrete SU(2) subgroup).
     \item Spin-$\tfrac{1}{2}$ emerges from the \emph{Finkelstein--Misner / Dirac-belt-trick mechanism} on the extended $0_1$ unknot defect embedded in the SO(3) manifold.
-    \item The $\pi^2$ half-cover area is the \emph{automatic} group-theoretic consequence of the 2-to-1 cover, not a separate quantum postulate.
 \end{enumerate}
-The remaining open formal-rigor sub-item is to prove that ropelength-minimality on K4 uniquely selects the canonical Clifford-torus embedding $r_1 = r_2 = 1/\sqrt{2}$ (Phase-1 classical-topology question); the half-cover itself is AVE-native and resolved.\label{sec:open_rigor}
+Steps 1--3 fix the spin-1/2 structure of the electron substrate substrate-natively. Step 4 of the prior derivation chain (the half-cover surface-area identification as load-bearing for $\Lambda_\text{surf} = \pi^2$) is no longer load-bearing; the $\pi^2$ value now derives from the Q-EMBED-SEL-1 Phase 1 substrate-mechanism above (phasor-area-equals-Nyquist-cell-area at Axiom-4 self-saturation onset). The 2026-05-28 gating clause that made the closure contingent on ropelength-minimality embedding-selection on the canonical $r_1 = r_2 = 1/\sqrt{2}$ embedding is RESOLVED by the new substrate-mechanism (the ropelength-minimality framing is sidestepped, not closed).\label{sec:open_rigor}
 
 \paragraph{Closing the System.}
 With three distinct physical regimes, we obtain three independent equations in the three unknowns $(R, r, d)$:
 \begin{align}
     d &= 1 & &\text{(Nyquist, Axiom~1)} \nonumber \\
     2(R - r) &= d & &\text{(Crossings, Axiom~2 saturation at dielectric rupture)} \nonumber \\
-    (2\pi R)(2\pi r) &= \pi^2 & &\text{(Screening, spin-1/2 half-cover of } \mathbb{T}^2 \subset S^3 \text{)} \nonumber
+    \pi R r &= \pi(d/2)^2 & &\text{(Screening, Q-EMBED-SEL-1 Phase 1 Axiom-4 self-saturation)} \nonumber
 \end{align}
 The system has the unique physical solution (Golden Torus, $R = \varphi/2$, $r = (\varphi-1)/2$) derived below. Each equation is rigorously grounded in a distinct physical principle, parallel to the three regime-boundary derivations that produce the three PMNS mixing angles.
 
@@ -182,7 +185,7 @@ is the \emph{identification} of the three orthogonal codimensions of the Cliffor
 Normalizing these limits by the fundamental spatial voxel ($\ell_{node}$) yields pure, dimensionless Impedance Shape Factors ($\Lambda$):
 
 \begin{enumerate}
-    \item \textbf{The Bulk (Volumetric Inductance, $\Lambda_{vol}$):} The hyper-volume of the 3-torus phase-space. Because the electron is a spin-1/2 fermion, its phase cycle requires a $4\pi$ double-cover rotation to return to its original state, dictating an effective temporal phase radius of $r_{phase} = 2$.
+    \item \textbf{The Bulk (Volumetric Inductance, $\Lambda_{vol}$):} The hyper-volume of the 3-torus phase-space. The substrate $4\pi$ temporal-phase closure per observable Compton cycle derives from bipartite K4 lobe-count (2 sublattices) $\times\, 2\pi$ phasor rotation per lobe (canonical at \kbleaf{ave-kb/vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md}:103-105; per Q-EMBED-SEL-1 Phase 1 \S5.2). The standard-physics translation reference is ``SU(2) $\to$ SO(3) double-cover applied temporally'', but the substrate-mechanism content is K4 bipartite lobe-count, not an SU(2) postulate.
     \begin{equation}
         \Lambda_{vol} = (2\pi R)(2\pi r)(2\pi \cdot 2) = 16\pi^3 (R \cdot r) = 16\pi^3 \left(\frac{1}{4}\right) = \mathbf{4\pi^3} \approx 124.025
     \end{equation}
@@ -210,14 +213,14 @@ Summing these strictly derived topological bounds yields the pure, parameter-fre
 
 \textbf{Mathematical Closure (status):} The framework reduces 26 Standard Model parameters to a 3-element bounding set $\{m_e, \alpha, G\}$ + four axioms. The Layer~8 closure claim is that these three are themselves emergent: (a) $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi$ at the cold-lattice asymptote, from the Golden Torus three-regime derivation above; (b) the thermal running $\alpha^{-1}(T) = \alpha^{-1}_{\text{ideal}}(1 - \delta_{strain}(T))$ with $\delta_{strain}(T) > 0$ at $T > 0$ (existence and sign predicted; magnitude at $T_{\text{CMB}}$ currently fit to CODATA, see \S\ref{sec:alpha_thermal_running} predicted/fitted split); (c) one of $\{m_e, \ell_{node}\}$ computable from the other via the unknot ground state, with the other serving as the input mass scale. Axiom~1 (Ch.~\ref{ch:fundamental_axioms}) calibrates the baseline size of the lattice ($\ell_{node}$) to the electron rest-mass; this calibration is the input scale. Because the electron is the absolute structural failure mode of the lattice, its geometric packing Q-factor ($137.036$) \textbf{physically becomes} the macroscopic non-linear saturation limit for the rest of the universe (this is why $\alpha$ serves identically as the dielectric saturation bound in Axiom~4, \S\ref{sec:universal_saturation}).
 
-Conditional on (a)--(c) holding rigorously \textbf{AND on closure of the upstream embedding-selection gating item} (see the chapter-head gating note + \S\ref{sec:open_rigor} below), the framework is zero-free-parameters at the SM level. Under the current edition, the cold-lattice asymptote and the existence + sign of the thermal running are predicted; the magnitude of $\delta_{strain}$ at $T_{\text{CMB}}$ is one fitted scalar (back-subtracted from CODATA, with the falsifiable claim that one scalar suffices across all temperatures); and the embedding-selection step that fixes $R \cdot r = 1/4$ from K4 ropelength-minimality alone is the upstream open piece. The practical count is ``26 SM parameters reduced to 3 bounding limits + 4 axioms; one of those bounding limits ($\alpha$) operationally remains the one calibration input until the embedding-selection step closes, with a thermal-running magnitude additionally requiring substrate-statistical-mechanics derivation of $\eta_\varepsilon$ within the Cosserat-rotation-sector mass-gap thermal-mode-population ASYM mechanism class identified at \kbleaf{vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md}.''
+Conditional on (a)--(c) at \textbf{Class B substrate-mechanism manifestation level} per Q-EMBED-SEL-1 (Phase 1+2+3, 2026-05-31), the framework is zero-free-parameters at the SM level (modulo the still-open $\delta_{strain}$ magnitude Q-DELTA-MAP-1-quant + a future Class 2 lift workstream deriving the phasor↔real-space area bijection from K4 $+$ Cosserat primitives alone). Under the current edition, the cold-lattice asymptote derives from the Q-EMBED-SEL-1 substrate-mechanism (Phase 1+2+3) and the existence + sign of the thermal running are substrate-predicted; the magnitude of $\delta_{strain}$ at $T_{\text{CMB}}$ is one fitted scalar (back-subtracted from CODATA, with the falsifiable claim that one scalar suffices across all temperatures). The practical count is ``26 SM parameters reduced to 3 bounding limits + 4 axioms; the $R \cdot r = 1/4$ relation in $\alpha$'s derivation closes at Class B substrate-mechanism manifestation via Q-EMBED-SEL-1 Phase 1 substrate-mechanism (cross-particle universal at Phase 2 + cross-domain universal at Phase 3); a Class 2 lift would derive the phasor↔real-space area bijection from K4 $+$ Cosserat primitives alone; thermal-running magnitude additionally requires substrate-statistical-mechanics derivation of $\eta_\varepsilon$ within the Cosserat-rotation-sector mass-gap thermal-mode-population ASYM mechanism class identified at \kbleaf{vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md}.''
 
 Implementation: computed at engine import-time from pure geometric constants; see \texttt{ALPHA\_COLD\_INV} in \texttt{ave.core.constants}.
 
 \textbf{Numerical verification (five scripts in \texttt{src/scripts/vol\_1\_foundations/}):}
 \begin{itemize}
     \item \texttt{derive\_alpha\_from\_golden\_torus.py} --- evaluates the multipole decomposition at the Golden Torus, renders Fig.~\ref{fig:trefoil_soliton}, asserts agreement with \texttt{ALPHA\_COLD\_INV} to machine precision.
-    \item \texttt{verify\_clifford\_half\_cover.py} --- rigorously derives $\Lambda_{\text{surf}} = \pi^2$ from the spin-1/2 half-cover of the standard Clifford torus $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$. Verifies each step analytically + numerically.
+    \item \texttt{verify\_clifford\_half\_cover.py} --- historical 5-step verification of $\Lambda_{\text{surf}} = \pi^2$ via the spin-1/2 half-cover of the standard Clifford torus $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$. The half-cover provenance is retired as load-bearing per Q-EMBED-SEL-1 Phase 1 substrate-mechanism (2026-05-31); the script body preserves the algebraic identity at the Golden Torus geometry. Canonical substrate-mechanism derivation now lives at \kbleaf{research/2026-05-31\_Q-EMBED-SEL-1\_step\_c\_result.md} \S2.3.
     \item \texttt{verify\_lambda\_line.py} --- rigorously derives $\Lambda_{\text{line}} = \pi \cdot d$ from regime~(a) Nyquist quantization plus the regime-(b) diameter convention; verifies the multipole closure under varying $d$ and the structural symmetry of the three shape factors.
     \item \texttt{ropelength\_trefoil\_golden\_torus.py} --- minimizes the composite S$_{11}$-free-energy (ropelength + self-avoidance + Clifford-torus screening penalties) from arbitrary initial $(R, r)$; converges to $(\varphi/2, (\varphi-1)/2)$ to 7 decimal places as penalty weights $\to \infty$.
     \item \texttt{verify\_golden\_torus\_s11.py} --- ABCD cascade infrastructure + algebraic verification of the constraint system.

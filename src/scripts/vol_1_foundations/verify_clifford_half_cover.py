@@ -1,4 +1,23 @@
 """
+🟡 SUPERSEDED 2026-05-31 — half-cover provenance retired as load-bearing
+per Q-EMBED-SEL-1 Phase 1 substrate-mechanism (canonical at
+`research/2026-05-31_Q-EMBED-SEL-1_step_c_result.md` §2.3).
+
+The substrate-mechanism for R·r = 1/4 now derives via Axiom-4 self-saturation
++ Op14 Meissner-asymmetric + named phasor-area-equals-Nyquist-cell-area
+identification, NOT via spin-1/2 half-cover of the standard Clifford torus.
+Cross-particle universal at Phase 2 (electron + proton + Δ baryon);
+cross-domain universal at Phase 3 (electron-scale self-saturation +
+nuclear-scale Pd-D externally-driven saturation).
+
+This script body is preserved as historical verification of the algebraic
+identity at the Golden Torus geometry. The Λ_surf = π² value still falls
+out of Λ_surf = (2π R)(2π r) = 4π²·(R·r) = 4π²·(1/4) = π² from substrate-
+derived R·r = 1/4 — but via the Q-EMBED-SEL-1 substrate-mechanism, not the
+half-cover identification this script verifies.
+
+──── Original script docstring (preserved as historical) ─────────────
+
 Verify the rigorous derivation of Λ_surf = π² from spin-1/2 half-cover
 of the Clifford torus T² ⊂ S³ ⊂ ℂ².
 

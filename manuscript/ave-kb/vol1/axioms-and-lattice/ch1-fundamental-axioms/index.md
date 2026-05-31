@@ -8,7 +8,7 @@ subtree-experiments: []
 
 # Ch.1: The Four Fundamental Axioms and Network Architecture
 
-The four fundamental axioms define the vacuum as an electromagnetic LC resonant network ($\mathcal{M}_A$) with a topo-kinematic charge-length isomorphism, an effective hardware action principle, and non-linear dielectric saturation bounded by the fine-structure constant. Three emergent hardware constraints ($\ell_{node}$, $\alpha$, $G$) are shown to be derivable from topology, reducing the framework to zero free parameters (zero-parameter contingent on the open embedding-selection item — not the half-cover chain; see [`../../ch8-alpha-golden-torus.md`](../../ch8-alpha-golden-torus.md) §"Remaining open formal-rigor sub-item (THE gating item)").
+The four fundamental axioms define the vacuum as an electromagnetic LC resonant network ($\mathcal{M}_A$) with a topo-kinematic charge-length isomorphism, an effective hardware action principle, and non-linear dielectric saturation bounded by the fine-structure constant. Three emergent hardware constraints ($\ell_{node}$, $\alpha$, $G$) are shown to be derivable from topology, reducing the framework to zero free parameters at **Class B substrate-mechanism manifestation level per Q-EMBED-SEL-1 Phase 1+2+3 (2026-05-31)** — substrate-mechanism for $R \cdot r = 1/4$ via Axiom-4 self-saturation + Op14 Meissner-asymmetric + named phasor-area-equals-Nyquist-cell-area identification, see [`../../ch8-alpha-golden-torus.md`](../../ch8-alpha-golden-torus.md) §"Substrate-mechanism provenance of regime (c)".
 
 ## Key Results
 
