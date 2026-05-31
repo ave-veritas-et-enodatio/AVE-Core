@@ -234,7 +234,7 @@ EE-first mapping is broadly applicable across substrate-physics, but the framewo
 
 ### Probe 1 — Pure-geometry constants ($\pi^2$, $4\pi^3$ in the Golden Torus closure)
 
-The $\pi^2$ in the Clifford-torus surface-integral half-cover and the $4\pi^3$ in the 3-volume integral that close the cold-lattice $\alpha^{-1}$ sum are **geometric**, not EE quantities. EE provides no derivation of the specific power of $\pi$; the substrate's K4-Clifford-torus geometry forces them.
+The $\pi^2$ in $\Lambda_\text{surf}$ via the substrate-derived $R \cdot r = 1/4$ (Q-EMBED-SEL-1 Phase 1 substrate-mechanism, `research/2026-05-31_Q-EMBED-SEL-1_step_c_result.md` §2.3: Axiom 4 self-saturation + Op14 Meissner-asymmetric + named phasor-area-equals-Nyquist-cell-area identification) and the $4\pi^3$ in the 3-volume integral (substrate $4\pi$ temporal-phase closure per observable Compton cycle via bipartite K4 lobe-count) that close the cold-lattice $\alpha^{-1}$ sum are **geometric**, not EE quantities. EE provides no derivation of the specific power of $\pi$; the substrate's K4 + Clifford-torus geometry + Axiom-4 saturation onset forces them.
 
 **Verdict.** EE does not natively derive these specific geometric constants but provides cross-check via the Q-factor calculation once the geometry is fixed. Not a failure mode in the sense of producing wrong predictions; just geometric content EE alone does not furnish. Canonical at [`theorem-3-1-q-factor.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) (substrate-geometry derivation of the regime decomposition).
 

@@ -658,7 +658,7 @@ The Vol 1 Ch 8 fine-structure-constant formula $\alpha^{-1} = 4\pi^3 + \pi^2 + \
 - _Specific Non-Claims and Caveats_
   - This claim is the boundary-integral dimensional READING of the formula; it does NOT re-derive the formula. The geometric three-regime closure derivation of $\alpha^{-1} = 4\pi^3+\pi^2+\pi$ is owned by the Vol 1 Ch 8 leaf (vol1 entry clm-0ktpcn) and is cross-referenced, not restated.
   - Does NOT claim the boundary-integral reading establishes the orthogonality of the three terms; the orthogonality of the Λ-decomposition is an open structural element flagged in the Vol 1 Ch 8 claim-quality entry.
-  - The R·r = 1/4 normalization that makes Λ_vol evaluate to exactly 4π³ is inherited from the Vol 1 Ch 8 derivation (spin-½ half-cover of the standard Clifford torus), not derived here.
+  - The R·r = 1/4 normalization that makes Λ_vol evaluate to exactly 4π³ is inherited from the Vol 1 Ch 8 derivation (Q-EMBED-SEL-1 substrate-mechanism: Axiom 4 self-saturation + Op14 Meissner-asymmetric + phasor-area-equals-Nyquist-cell-area identification per `research/2026-05-31_Q-EMBED-SEL-1_step_c_result.md`), not derived here.
 
 > **Leaf references:** [boundary-observables-m-q-j](./boundary-observables-m-q-j.md).
 
