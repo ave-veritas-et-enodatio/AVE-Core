@@ -362,7 +362,8 @@ After push: orchestration runs ave-sweep-audit on diff THEN gh pr ready → merg
 - [x] **§3.0 corpus-context audit complete** (this session) — docs 28/29/38/AVE-HOPF glossary:32 cited
 - [x] **§3.1 provenance traced** (this session) — Phase 1 commit `9b4ae922`; no GitHub PR for either phase
 - [x] **§3.2 skill-gap diagnosis complete** (this session) — `ave-prereg` + `phase-space-coordinate-check` + `verify-before-cite` Trigger 7 didn't fire at Phase 1 scoping
-- [ ] **§3.3 framing decision** — PENDING Grant adjudication of (a)/(b)/(c)
-- [ ] **§3.5 implementor execution** — gated on §3.3
-- [ ] **Sweep-audit + PR-routed merge** — gated on §3.5
-- [ ] **AVE-HOPF cross-repo reconciliation** — gated on §3.3
+- [x] **§3.3 framing decision DEFERRED to downstream evaluation** (Grant 2026-05-31) — *"I don't want to reframe, I want to actually run out what's needed to evaluate/check for path a, what is left for us to model/simulate/derive."* Framing-choice adjudication waits on the concrete evaluation result. The evaluation epic is now scoped at [`2026-05-31_q-embed-sel-1-evaluation.md`](2026-05-31_q-embed-sel-1-evaluation.md)
+- [ ] **Q-EMBED-SEL-1 evaluation epic** (downstream; resolves §3.3 by Phase 1+2 outcome) — see [`2026-05-31_q-embed-sel-1-evaluation.md`](2026-05-31_q-embed-sel-1-evaluation.md) §1
+- [ ] **§3.5 implementor execution** — superseded by evaluation epic Phase 0 (C1/C2 fix) + Phase 1 (Path α v2-phasor) + Phase 2 (analytical) + Phase 3 (cross-repo)
+- [ ] **Sweep-audit + PR-routed merge** — happens per-phase in evaluation epic
+- [ ] **AVE-HOPF cross-repo reconciliation** — evaluation epic Phase 3, gated on Phase 1+2 outcomes
