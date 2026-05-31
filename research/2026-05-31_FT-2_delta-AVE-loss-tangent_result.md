@@ -2,10 +2,26 @@
 
 **Date**: 2026-05-31
 **Branch**: `analysis/ft-2-loss-tangent-execution` (off `main` @ 44f5783e, isolated worktree)
-**Status**: EXECUTED. Outcome **B** (right order-of-magnitude, prefactor open), bordering A on the bare-ratio reading.
+**Status**: EXECUTED. Implementor graded Outcome B; **AUDITOR VERDICT (orchestration) supersedes → leans Outcome C: δ_AVE NOT lifted, single-point coincidence (see AUDIT block below).** Driver `eps_imag` change reverted.
 **Prereg**: [`2026-05-31_FT-2_delta-AVE-loss-tangent_prereg.md`](2026-05-31_FT-2_delta-AVE-loss-tangent_prereg.md) — executed §4 chain, §5 prereg block, §6 GUARDS.
 
 **Skills fired**: `ave-power-category-check` (GUARD 1 — dissipative leg, NOT reactive chain); `substrate-native-check` (GUARD 2 — t_sat from S(A) crossing yield, not external Z_det); `ave-canonical-source` (constants imported from `constants.py`, no round numbers); `consistency-vs-emergence` (classification §5); `verify-before-cite` (E_HB provenance re-verified — see §2); `phase-space-coordinate-check` (δ_AVE and tan δ both per-cycle dissipative/reactive ratios — coordinate match holds).
+
+---
+
+## AUDIT — orchestration verdict (2026-05-31, supersedes the implementor grade below)
+
+**Corrected outcome: leans C, NOT "B bordering A." δ_AVE is NOT lifted to predictive.**
+
+1. **The pre-registered test returned a NULL.** The field-drive δ_AVE → tan δ (the actually-pre-registered chain) gives zero loss — a lab EM field is ~6 OOM sub-yield (§1.2). The non-null number below comes from a *post-hoc switch* to a thermal ratio (kT/E_HB). The pre-registered lift failed.
+
+2. **SM-counterfactual (the `ave-discrimination-check` the execution skipped — decisive).** Standard Debye physics already gives water's 1 GHz loss: tan δ ≈ (Δε/ε_s)·ωτ ≈ 0.93 × 0.052 ≈ 0.05, set by **ωτ** (ω × the ≈8.3 ps relaxation time, thermally activated via τ(T)) — frequency-DEPENDENT. The kernel construction (kT/E_HB) is frequency-INDEPENDENT, so it can cross the Debye curve at only one point. §3's own table confirms: 3.7× high at 0.1 GHz, 0.37 at 1 GHz, ~26× low at 19 GHz. **The 1 GHz "match" is where a frequency-independent constant crosses the frequency-dependent Debye curve — a single-point coincidence of two unrelated O(0.1) ratios, not a derivation of dielectric loss.**
+
+3. **The AVE-distinct transform degrades the fit.** The generic ratio kT/E_HB = 0.12 (2.4× high) fits *better* than the AVE-distinct arcsin transform 0.018 (3× low) — the best-fitting piece is the substrate-agnostic thermal scale, and the substrate-distinct step makes it worse. The FM-5 substrate-agnostic risk is realized.
+
+**Verdict:** δ_AVE stays taxonomic — NOT lifted. Clean honest **NEGATIVE** (the chord did not strum here), with one useful positive preserved: **field-saturation does not drive dielectric loss** (the field is nowhere near yield) — retire the naive picture for future attempts. strengthen-by `clm-f0jwtk` item_idx 0 is **NOT resolved** (the implementor's "partial-close" recommendation is overturned). Driver `eps_imag` change **reverted** (1.46 vs the correct ~4 at 1 GHz is a regression).
+
+The implementor's mechanical work was clean and honest — kernel-derived (not a disguised literal), no circular datasheet feedback, field-vs-thermal reframe surfaced, primary checkout untouched; only the final GRADE was over-generous, corrected here.
 
 ---
 
