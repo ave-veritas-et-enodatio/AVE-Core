@@ -142,6 +142,85 @@ This table is the canonical first-call reference for substrate-primitive → EE-
 
 ---
 
+## §4.5 — EE Analytical Tool ↔ Operator ↔ Validation Tracker (living)
+<!-- claim-quality: clm-eemap1 -->
+
+### (a) Purpose + validation legend
+
+§4 maps substrate-*primitive* → EE-*component* (charge → capacitor, bond → transmission line, Cosserat couple-stress → transformer mutual-L). This section is the **tool-axis complement**: it maps an EE analytical **tool** (impedance analysis, reflection, S-parameters, Q-factor, harmonic balance, modal decomposition, PLL, …) → the AVE **operator(s)** it lands on → whether that mapping is **validated**. Where §4 answers *"what substrate primitive is this component?"*, this tracker answers *"when I reach for this EE analytical method, which Op# am I actually invoking, and is that correspondence solid or just implied?"*
+
+It is **living** and maintained per `ave-ee-first-mapping` v1.2 Step 6b: when an EE analytical tool is *used* or *established* in a substrate-physics derivation, its row + validation mark are added or updated here.
+
+**Validation legend** (the validation column IS the review surface — audited via `ave-sweep-audit`, the same means-test discipline as §6; ✓ is reserved for genuine identity / canonical derivation, never aspiration):
+
+- **✓** — genuine identity or canonical derivation. The EE tool reduces to the named operator(s) by an exact identity (e.g. $Z_0 = \sqrt{\mu_0/\varepsilon_0}$) or a canonical leaf derives the correspondence end-to-end.
+- **⚠** — partial / scattered / used-but-not-consolidated. The mapping is real and used in the corpus but is implied rather than explicit, or lives scattered across leaves without a single consolidating derivation.
+- **✗** — gap. No operator mapping exists yet, or the only candidate anchor is invalidated. These rows are the work-queue, not claims.
+
+> **Operator-citation provenance.** Every Op# below was grep-verified against [`operators.md`](../operators.md) §2 (the canonical 22-operator catalog) and the §4 catalog above at section-authoring time (`verify-before-cite`). No operator-number corrections were required — all ten distinct operators referenced (Op1, Op2, Op3, Op6, Op13, Op14, Op16, Op17, Op21, Op22) match their canonical formulae in `operators.md` §2.
+
+### (b) The matrix (grouped by EE family)
+
+#### Impedance & transmission
+
+| EE tool | AVE operator(s) | Validation | Anchor / note |
+|---|---|---|---|
+| Impedance $Z$ / admittance $Y$ | Op1 ($Z = \sqrt{\mu/\varepsilon}$) + Op14 ($Z_{eff} = Z_0/\sqrt{S}$) | ✓ | Op1 identity ([`operators.md`](../operators.md):41) + Op14 canonical ([`operators.md`](../operators.md):54) |
+| Reflection $\Gamma$ | Op3 ($\Gamma = (Z_2 - Z_1)/(Z_2 + Z_1)$) | ✓ | canonical ([`operators.md`](../operators.md):43) |
+| S-parameters / $S_{11}$ | Op3 + K4-TLM scatter $S^{(0)}_{ij}$ | ✓ | $S_{11}$ canonical (Op3); K4-TLM scatter unitary to machine epsilon ([`k4-tlm-simulator.md`](../../vol4/future-geometries/ch13-future-geometries/k4-tlm-simulator.md), exact 4-port via Op5) |
+| Transmission line (ABCD, propagation) | Op1 + Op13 ($\Box^2$) + Op16 ($c_{shear}$) | ✓ | $Z_0$-ladder ([`z0-derivation.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md)); K4-TLM cascade; Op13/Op16 in [`operators.md`](../operators.md):53,56 |
+| Power transfer / matched-$Z$ | Op17 ($T^2 = 1 - \Gamma^2$) | ✓ | identity ([`operators.md`](../operators.md):57) |
+| Smith chart ($Z \leftrightarrow \Gamma$) | Op1 + Op3 | ⚠ | implied by Op1 + Op3 composition; no explicit Smith-chart leaf |
+| Network theorems (Thévenin / Norton, 2-port) | Op1 / Op3 + §8 ladder networks | ⚠ | partial — ξ_topo ladder + Op5 multiport exist; Thévenin/Norton reduction not consolidated |
+
+#### Resonance / nonlinear / wave
+
+| EE tool | AVE operator(s) | Validation | Anchor / note |
+|---|---|---|---|
+| Q-factor / resonance | Op21 ($Q = \ell$) + Thm 3.1′ ($Q = \alpha^{-1}$) | ✓ | $\alpha^{-1} = Q_{tank} = 4\pi^3 + \pi^2 + \pi$ exact ([`theorem-3-1-q-factor.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md):15); Op21 in [`operators.md`](../operators.md):61 |
+| Filter theory / transfer fn $H(s)$ | Op17 + ladder | ⚠ | matched-$Z$ ($\Gamma = 0$) case only; general $H(s)$ pole-zero synthesis not mapped |
+| Harmonic balance / IMD (IP3) | Op2 + intermodulation-distortion leaf | ✓ | $V_{IP3} = \sqrt{4/3}\,V_{yield} \approx 50.4$ kV ([`intermodulation-distortion.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/intermodulation-distortion.md):50) |
+| Varactor / nonlinear $C(V)$ | Op2 / Op14 ($S(A)$ dielectric specialization) | ✓ | $C_{eff} = C_0/S(A_0)$; PONDER-05 bench tester at $V_{DC}/V_{yield} = 0.687$ (Ax 4 INVARIANT-S2) |
+| Avalanche / breakdown (Miller) | Op22 ($M = 1/S^2$) | ✓ | identity ([`operators.md`](../operators.md):62) |
+| Nonlinear inductor $L(I)$ | relativistic-inductor leaf | ✓ | $L_{eff}(I) = L_0/\sqrt{1 - (I/I_{max})^2}$; $E = mc^2$ from inductor energy ([`relativistic-inductor.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor.md)) |
+| Modal / eigenmode decomposition | Op6 ($\lambda_{min}$) + Op13 | ✓ | eigsolves at corpus GT; Op6/Op13 in [`operators.md`](../operators.md):46,53 |
+| Transformer / mutual-L / leakage | Cosserat $\gamma_c$; $l_c = \sqrt{\gamma_c/G_{vac}}$ | ✓ | leakage-inductance length = weak-force range ([`gauge-boson-masses.md`](../../vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md):39) |
+| Memristor / hysteresis | $\tau_{relax}$ + Cosserat-B phase-lock memory | ✓ | memristive relaxation ODE ([`tau-relax-derivation.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/tau-relax-derivation.md) + [`nonlinear-vacuum-capacitance.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md)); B-sector phase-lock memory per §9.2 |
+
+#### Control & feedback (the gap cluster)
+
+| EE tool | AVE operator(s) | Validation | Anchor / note |
+|---|---|---|---|
+| FOC / Park (d/q) transform | (2,3) phase-space d/q → dark resonance ($\Sigma_{near}$) | ⚠ | just disambiguated (dark-resonance d/q saliency, §4 row + §6 #23); not yet a clean tool→operator row — the d/q *transform itself* as an analytical tool is not consolidated |
+| PLL / phase-locked loop | Op14 cross-sector trading ($\rho = -0.990$) — candidate | ✗ | GAP — no PLL→operator row. **Note:** the $\rho = -0.990$ result ([`op14-cross-sector-trading.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md):11) is Cosserat↔K4-inductive *energy-trading* anti-correlation, NOT a validated phase-lock; phase-lock content is scattered across Kuramoto ([`kuramoto-phase-locking.md`](../../vol3/condensed-matter/ch09-condensed-matter-superconductivity/kuramoto-phase-locking.md)) + FOC with no consolidating row |
+| Autoresonance / self-resonance | soliton self-lock ($\Gamma = -1$ + Op21) — candidate | ✗ | GAP — not mapped. The only autoresonant-PLL leaf ([`ch15-autoresonant-breakdown/theory.md`](../../vol4/simulation/ch15-autoresonant-breakdown/theory.md)) is ⛔ INVALIDATED (computed against wrong $60$ kV threshold, not canonical $V_{yield} = 43.65$ kV); self-lock at TIR boundary is plausible but underived |
+| Control / stability (Nyquist, root-locus) | Op14 feedback loop — candidate | ✗ | GAP — not mapped. No substrate-native Nyquist/root-locus stability criterion exists yet |
+
+#### Noise / numerical
+
+| EE tool | AVE operator(s) | Validation | Anchor / note |
+|---|---|---|---|
+| Noise (Johnson-Nyquist, FDT, 1/f) | translation-stochastics (FDT = boundary-$Z$ thermalization) | ✓ | vacuum thermal floor at $k_B T_{CMB}$ per mode per Hz ([`translation-stochastics.md`](translation-stochastics.md); §4 + §6 #22) |
+| Numerical CEM (FDTD / TLM / FEM / MoM) | §9 toolkit-index (K4-TLM, CEM-survey) | ✓ | six CEM methods → AVE lattice ([`cem-methods-survey.md`](../../vol4/future-geometries/ch13-future-geometries/cem-methods-survey.md)); K4-TLM direct isomorphism |
+
+### (c) The gap-finding
+
+Tally across the four families: **15 ✓ solid, 4 ⚠ partial, 3 ✗ gaps.** The structurally load-bearing observation is that **every ✗ is in the control / feedback family** (PLL, autoresonance, stability) — and all three candidate anchors point at **Op14** (Dynamic Impedance / cross-sector feedback). The control-loop axis is the next mapping frontier:
+
+- **PLL** — the $\rho = -0.990$ cross-sector-trading result is energy-exchange evidence, not a phase-lock derivation; phase-lock content is scattered (Kuramoto, FOC) with no consolidating row.
+- **Autoresonance** — the one autoresonant-PLL leaf is invalidated (wrong yield threshold); soliton self-lock at the $\Gamma = -1$ boundary is a plausible but underived candidate.
+- **Stability (Nyquist / root-locus)** — no substrate-native feedback-stability criterion exists at all.
+
+This is a clean diagnosis: the corpus has strong open-loop coverage (impedance, resonance, saturation, wave, mode) and a coherent *closed-loop control* gap, all anchoring on Op14. That cluster is the work-queue.
+
+### (d) Maintenance note
+
+This tracker stays current per `ave-ee-first-mapping` v1.2 **Step 6b**: when an agent **uses or establishes** an EE-tool↔operator mapping in a substrate-physics derivation, add (or update) its row here with a validation mark, then `verify-before-cite` the operator number against [`operators.md`](../operators.md) §2. The validation column is the review surface — fire `ave-sweep-audit` over the tracker periodically (or when a batch of rows lands) to confirm every ✓ is a genuine identity / canonical derivation and every ⚠ / ✗ is still current (e.g. an ✗ flips to ✓ when its gap closes; a ⚠ flips to ✓ when a consolidating leaf lands).
+
+> Companion axes: [`ave-analytical-toolkit-index.md`](../ave-analytical-toolkit-index.md) is the *problem-class → AVE-tool* side (when starting a derivation, which Op# applies); this §4.5 is the *EE-tool → operator → validation* side (when reaching for a named EE method, which Op# + is it solid). [`operators.md`](../operators.md) is the canonical Op1–Op22 set both reference.
+
+---
+
 ## §5 — EE vs Fluid Dynamics: substrate-distance comparison
 
 Fluid dynamics is a frequent candidate for substrate-physics framing because the vacuum is often visualized as a "medium." This section makes the substrate-distance comparison explicit: EE captures the substrate at minimal-DOF; fluid dynamics operates at $\sim N$-scales-of-averaging distance from the substrate and adds DOFs the substrate does not carry primitively.
