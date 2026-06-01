@@ -186,6 +186,7 @@ It is **living** and maintained per `ave-ee-first-mapping` v1.2 Step 6b: when an
 | Modal / eigenmode decomposition | Op6 ($\lambda_{min}$) + Op13 | ✓ | eigsolves at corpus GT; Op6/Op13 in [`operators.md`](../operators.md):46,53 |
 | Transformer / mutual-L / leakage | Cosserat $\gamma_c$; $l_c = \sqrt{\gamma_c/G_{vac}}$ | ✓ | leakage-inductance length = weak-force range ([`gauge-boson-masses.md`](../../vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md):39) |
 | Memristor / hysteresis | $\tau_{relax}$ + Cosserat-B phase-lock memory | ✓ | memristive relaxation ODE ([`tau-relax-derivation.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/tau-relax-derivation.md) + [`nonlinear-vacuum-capacitance.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md)); B-sector phase-lock memory per §9.2 |
+| WKB tunneling / barrier penetration | Op16 ($c_{shear} = c_0\sqrt{S}$) + ASYM-saturation EM-evanescent ($c_{EM} = c_0/\sqrt{S}$ at $S < 1$, sub-threshold field) | ⚠ | canonical but scattered, not consolidated as one tool→operator row: classically-forbidden ↔ evanescent decay ([`ode-verification.md`](../../vol2/quantum-orbitals/ch07-quantum-mechanics/ode-verification.md):51, [`de-broglie-standing-wave.md`](../../vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md):42); ASYM EM-evanescent ([`claim-quality.md`](../../claim-quality.md):112); plasma below-cutoff ([`temporal-saturation-regime-classifier.md`](../temporal-saturation-regime-classifier.md):100); W/Z as "evanescent cutoff excitations" ([`gauge-boson-masses.md`](../../vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md):52). #2 cold-fusion Gamow coordinate-compression ($n_{scalar} = 1/S$) is the same mapping (surfaced by the 2026-05-31 EE-mapping self-audit) |
 
 #### Control & feedback (the gap cluster)
 
@@ -205,7 +206,7 @@ It is **living** and maintained per `ave-ee-first-mapping` v1.2 Step 6b: when an
 
 ### (c) The gap-finding
 
-Tally across the four families: **15 ✓ solid, 4 ⚠ partial, 3 ✗ gaps.** The structurally load-bearing observation is that **every ✗ is in the control / feedback family** (PLL, autoresonance, stability) — and all three candidate anchors point at **Op14** (Dynamic Impedance / cross-sector feedback). The control-loop axis is the next mapping frontier:
+Tally across the four families: **15 ✓ solid, 5 ⚠ partial, 3 ✗ gaps** (23 rows). The structurally load-bearing observation is that **every ✗ is in the control / feedback family** (PLL, autoresonance, stability) — and all three candidate anchors point at **Op14** (Dynamic Impedance / cross-sector feedback). The control-loop axis is the next mapping frontier:
 
 - **PLL** — the $\rho = -0.990$ cross-sector-trading result is energy-exchange evidence, not a phase-lock derivation; phase-lock content is scattered (Kuramoto, FOC) with no consolidating row.
 - **Autoresonance** — the one autoresonant-PLL leaf is invalidated (wrong yield threshold); soliton self-lock at the $\Gamma = -1$ boundary is a plausible but underived candidate.
