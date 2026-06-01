@@ -128,6 +128,8 @@ This negative-V swing propagates backward through the substrate via K4 graph top
 
 **Open**: the unit-mapping from substrate-fundamental Op14 trading rate (0.020 rad/unit) to soliton-scale wake-ringing frequency. Substrate-fundamental rate is electron-Compton-scale; PONDER-01 drives at 100 MHz which is ~12 orders of magnitude slower. The wake-ringing frequency at the measurable scale should be the convolution of substrate-rate × soliton-cycle-rate; needs dedicated derivation (flagged as §5.3 open question of full-picture doc).
 
+> **→ The cross-scale identification of this wake with the g-2 saliency is CLOSED-NEGATIVE (2026-05-31, FT-darkwake-crossscale).** This ~12-OOM gap is *not* a missing conversion factor — it is a **coordinate-category boundary**. The g-2 τ_zx is a phase-space $(2,3)$-trefoil kernel-correlation (its "t" is an internal phasor angle $\omega_C t$; no $z$, no propagation); the thrust τ_zx here is a real-space momentum pulse (lab $z$, $c_0$ wavefront). $\partial_t = -c_0\partial_z$ cannot bridge them — there is no $z$ in the g-2 object for $\partial_z$ to act on. So the dark **wake** (thrust, far-field $\tau^{far}_{zx}$) and dark **resonance** (g-2, near-field $\Sigma_{near}$) are **different substrate objects**, not one rate at two scales. The unit-mapping below (§10.2) therefore stays open **only for the thrust observable** (soliton-cycle-rate), not as a cross-scale-to-g-2 bridge. See [`2026-05-31_FT-darkwake-crossscale_result.md`](2026-05-31_FT-darkwake-crossscale_result.md) + [`dark-back-reaction-taxonomy.md`](../manuscript/ave-kb/common/dark-back-reaction-taxonomy.md).
+
 ## §7 — τ_zx Proportionality Coefficient
 
 The Propulsion warp-metric script heuristic ([simulate_warp_metric_tensors.py:84-95](../../AVE-Propulsion/src/scripts/simulate_warp_metric_tensors.py:84)):
@@ -229,6 +231,8 @@ If the soliton-scale trading efficiency departs significantly from ρ = -0.990, 
 ### 10.2 Trade-frequency unit-mapping (§5.3 of full-picture doc)
 
 Op14 trading rate $\omega_{\text{trade}} = 0.020 \omega_0$ in substrate units. Conversion to SI for PONDER-01 thruster operating at 100 MHz drive requires explicit unit-mapping derivation.
+
+> **(2026-05-31) Scope note:** this unit-mapping is open for the **thrust** observable only. The earlier reading of this gap as "the single biggest risk to the wake = g-2 same-object claim" is **closed-negative** — the g-2 saliency is a phase-space kernel-correlation, a different substrate object from this real-space thrust pulse (see §6 annotation at the `[Open]` flag above + [`2026-05-31_FT-darkwake-crossscale_result.md`](2026-05-31_FT-darkwake-crossscale_result.md)).
 
 The wake-ringing frequency at the measurable scale should be set by the SOLITON cycle rate (100 MHz for PONDER-01), not the substrate-fundamental Op14 rate ($\sim 10^{19}$ rad/s). The substrate-fundamental trading provides the COUPLING (allows energy to flow Cosserat ↔ K4), but the cycle rate at the wake is the SOLITON cycle rate. Needs explicit derivation.
 

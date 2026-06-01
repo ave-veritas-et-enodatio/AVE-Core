@@ -2,7 +2,7 @@
 
 **Date:** 2026-05-16
 **Branch:** `research/l3-electron-soliton`
-**Status:** **Substantial structural closure** — derivation chain assembled from corpus-canonical ingredients (per ave-prereg discipline). The n_q-additivity assumption is the one remaining intuitive step pending K4-Cosserat Lagrangian numerical confirmation.
+**Status:** **Stage-1 ingredients = structural closure; the n_q-additivity step is CLOSED-NEGATIVE (2026-05-31).** The chain (α-suppression + 1/2 equipartition + n_q-over-n_d) is assembled from corpus-canonical ingredients (per ave-prereg discipline), but the n_q-additivity assumption — the one remaining intuitive step — was resolved in the **negative** direction by the FT-b saliency-derivability stress-test: the saturation kernel is provably winding-blind at α-order, so δ = −3α/2 is a 1-point fit, not a derivable winding law. The three ingredients stand; their additive linear-in-n_q *composition* does not. See [`2026-05-31_FT-b-saliency-derivability_result.md`](../../2026-05-31_FT-b-saliency-derivability_result.md).
 **Per ave-prereg discipline:** corpus-grep agent `afdd0235a74b807b0` (2026-05-16) confirmed structural ingredients all delivered; this doc executes the focused 1-3 session derivation.
 
 ---
@@ -184,7 +184,7 @@ This intuition is consistent with the Q-G27 muon parallel: muon Cosserat salienc
 
 - **n_q-additivity assumption** (§6): independent-winding additive composition is structurally plausible but not rigorously derived from a substrate Lagrangian. Closure requires K4-Cosserat Lagrangian numerical integration showing α-order kernel feedback to each q-winding is additive.
 
-This is the **single remaining intuitive step**. It's not a "multi-week research" gap — it's the kind of computation Q-G47 Sessions 19+ would naturally close (per the same K4 unit-cell Cosserat-Lagrangian integration that produces individual ξ_K1/ξ_K2 values).
+> **CLOSED-NEGATIVE (2026-05-31, FT-b saliency-derivability).** The n_q-additivity step does not close — it is *refuted* at α-order. The saturation kernel is provably winding-blind: $\langle 1 - S(A^2)\rangle$ is exactly $q$-independent (since $\langle\sin^2(n\omega t)\rangle = \tfrac{1}{2}\ \forall n$), so a single $(2,q)$ knot supplies one current at frequency $q$, **not** $q$ independent additive oscillators. The linear $\delta = -q\alpha/2$ law fits *only* $q=3$ (0.12%); it is 24–780× off with the wrong sign at $q = 1, 5, 7$. So $\delta = -3\alpha/2$ is a **1-point fit**, and the §8 predictions for $(2,5)/(2,7)$ are the wrong-sign **refutation**, not pending measurements. The Stage-1 ingredients (§3–§5) are unaffected; only the additive *composition* (§6) is refuted. See [`2026-05-31_FT-b-saliency-derivability_result.md`](../../2026-05-31_FT-b-saliency-derivability_result.md).
 
 ## §8 Falsification predictions
 
