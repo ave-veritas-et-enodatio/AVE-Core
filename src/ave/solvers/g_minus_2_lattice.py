@@ -11,14 +11,17 @@ REFUTED by Route B closure 2026-05-13 evening:
 
   - The K4 Bethe-tree was the wrong substrate. Canonical AVE electron =
     (2,3) Cosserat unknot (src/ave/topological/cosserat_field_3d.py).
-  - On the Cosserat substrate, Route B (dark-wake × kernel-asymmetry
+  - On the Cosserat substrate, Route B (dark-resonance × kernel-asymmetry
     correlation with QED-form normalization + saliency δ = -3α/2) gives
     C_2 = -0.32846, matching PDG (-0.32848) to 50 ppm (0.005%).
+    NOTE: the 50 ppm is POSTULATE-DEPENDENT (n_q-additivity = 1-point fit,
+    not derivable, per FT-b 2026-05-31); the parameter-free result is the
+    +4.0% symmetric Route-B forward (C_2 = -0.3416).
   - Zero parameters fudged.
 
 See full closure:
   `manuscript/ave-kb/vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md`
-  (KB canonical, full substrate-native derivation: Route B dark-wake × kernel-asymmetry
+  (KB canonical, full substrate-native derivation: Route B dark-resonance × kernel-asymmetry
   correlation + saliency δ = -3α/2 = -α n_q/2 from q-axis trefoil winding)
   + `manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex` §6.2
   (manuscript canonical derivation; just landed Type D this session)

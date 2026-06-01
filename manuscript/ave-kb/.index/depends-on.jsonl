@@ -610,8 +610,8 @@
 {"source": "clm-uu6dl5", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "Substrate Topology — K4 lattice / $N_{K4} = 4$", "fraction": null}
 {"source": "clm-uu6dl5", "target": "clm-4vwsjc", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-uu6dl5", "target": "clm-iouqn9", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
-{"source": "clm-v2sg8z", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "saturation-kernel asymmetry; dark-wake back-reaction", "fraction": null}
-{"source": "clm-v2sg8z", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "saturation-kernel asymmetry; dark-wake back-reaction", "fraction": null}
+{"source": "clm-v2sg8z", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "saturation-kernel asymmetry; dark-resonance near-field back-reaction", "fraction": null}
+{"source": "clm-v2sg8z", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "saturation-kernel asymmetry; dark-resonance near-field back-reaction", "fraction": null}
 {"source": "clm-v2sg8z", "target": "clm-8c3yhs", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-v2sg8z", "target": "clm-stgx1i", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-v6ti0v", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "$\\eta\\to0$ dielectric-phase-transition drag suppression", "fraction": null}
