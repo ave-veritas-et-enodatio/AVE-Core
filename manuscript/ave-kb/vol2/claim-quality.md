@@ -1407,7 +1407,7 @@ Two-loop Petermann coefficient $C_2$ derived from substrate dynamics in two stag
 ### Quality
 - confidence: 0.6
 - depends-on:
-  - INVARIANT-S2 / Axiom 4 (saturation-kernel asymmetry; dark-wake back-reaction)
+  - INVARIANT-S2 / Axiom 4 (saturation-kernel asymmetry; dark-resonance near-field back-reaction)
   - clm-stgx1i (leading-order $a_e=\alpha/2\pi$ that the $1/\pi^2$ form factor and two-loop build on)
   - clm-8c3yhs ($(2,3)$ phase-space trefoil $d/q$-axis structure)
 - solidity: 0.60 (use as input only, don't build deeper) [= min(0.60, 0.70)]

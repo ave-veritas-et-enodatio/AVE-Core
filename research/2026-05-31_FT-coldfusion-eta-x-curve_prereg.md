@@ -33,7 +33,7 @@ and identify which features are parameter-free (shape + threshold) vs which carr
 ## §3 — Corpus state
 
 - **Phase-3 result (2026-05-31):** the mechanism + all formulas, validated 5/5 at order-of-magnitude. $\eta(x)$, the $x\ge 0.852$ threshold, and $x\approx 0.929$ are all DERIVED there but framed "consistency," not pre-registered forward curve. **Class B** ($n_{scalar}=1/S$ is canonical input, not Class-2-derived from K4+Cosserat primitives).
-- **Canonical anchors:** $\sqrt{2\alpha}$ shatter point + $R_I=\sqrt{2\alpha}$ ([`constants.py:386`](../src/ave/core/constants.py)); the $0.13$ metallurgical coefficient (Fusion vol Ch4:67, standard Pd hydrogen-loading scaling — **the one non-substrate input; flagged**).
+- **Canonical anchors:** $\sqrt{2\alpha}$ shatter point + $R_I=\sqrt{2\alpha}$ ([`constants.py`](../src/ave/core/constants.py), symbol `R_I`); the $0.13$ metallurgical coefficient (Fusion vol Ch4:67, standard Pd hydrogen-loading scaling — **the one non-substrate input; flagged**).
 - **Empirical landscape:** NASA Glenn (~keV, ~$10^2$ reduction) is the one solid peer-reviewed anchor (Steinetz et al., NASA TM-2020-5001734); Fleischmann-Pons is empirically disputed. Corpus framing: FP = stochastic-irreproducibility at the 2.9% sliver, NOT "AVE validates FP."
 
 ## §4 — Parameter-free content (dimensional analysis)

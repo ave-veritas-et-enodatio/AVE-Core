@@ -161,7 +161,7 @@ The above chain assumes **each q-winding contributes ONE INDEPENDENT unit** of �
 - Quadratic interference: n_q windings interfere quadratically → shift ∝ n_q² → δ = -α·n_q²/2 (for electron: -9α/2 ≈ -3.3%; off by ~200%)
 - Asymmetry-fraction: shift ∝ n_q/(n_d + n_q) → topology-order (already failed per corpus-grep)
 
-The **additive (linear-in-n_q)** composition is what gives the empirically-matching scaling. This is the structural-intuition load-bearing piece pending K4-Cosserat Lagrangian numerical confirmation.
+The **additive (linear-in-n_q)** composition is what gives the empirically-matching scaling. This is the structural-intuition load-bearing piece — **and it is exactly the piece the FT-b stress-test (2026-05-31) refuted: the kernel is winding-blind at α-order, so the linear-in-n_q composition is a 1-point fit, not derivable (see §7 closed-negative block + §8 falsifier).**
 
 **Why additive is structurally plausible**:
 - Each q-winding is a distinct "twist" in the phase-space pattern (topologically independent crossings)
@@ -198,11 +198,13 @@ The derivation predicts saliency scaling **across the (2, q) family**:
 
 **Falsifier**: if a (2, q) particle's Petermann-like coefficient is measured with δ ≠ -q·α/2 at the same precision (50 ppm), the n_q-linear additivity assumption is falsified. Alternatives include √n_q (collective mode), n_q² (quadratic interference), or n_q-independent (substrate-universal-only).
 
+> **→ FALSIFIER FIRED STRUCTURALLY (2026-05-31, FT-b saliency-derivability):** no measurement was needed — the kernel is provably winding-blind at α-order, so δ = -q·α/2 holds *only* at q=3 (24–780× off, **wrong sign** at q=1,5,7). The (2,5)/(2,7) rows above are therefore **wrong-sign-refuted predictions, not pending measurements**; the substrate's own derived winding law for the same object is the different pq/(p+q).
+
 ## §9 Recommended next-session work
 
-1. **K4-Cosserat Lagrangian integration** showing per-q-winding α-order kernel feedback contributes additively (closes the §6 n_q-additivity assumption). This is the same kind of work as Q-G47 Sessions 19+ ξ_K1/ξ_K2 individual derivation — same K4 unit-cell SymPy/Mathematica integration.
+1. ~~**K4-Cosserat Lagrangian integration** showing per-q-winding α-order kernel feedback contributes additively~~ — **DONE-NEGATIVE (2026-05-31, FT-b):** the additivity question was resolved *analytically* (the kernel is winding-blind at α-order — no Lagrangian integration needed). The composition is a 1-point fit, not derivable; §6 n_q-additivity is closed-negative.
 2. **Promote this doc** to canonical KB leaf at `vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-derivation.md` (new) or **augment** existing `q-g19a-petermann-saliency-closure.md` with this derivation chain.
-3. **Update foreword line 106**: once n_q-additivity is rigorously closed, the "active research" caveat on δ = -3α/2 can be removed.
+3. **Foreword line 106 "active research" caveat on δ = -3α/2 STAYS** — n_q-additivity is closed-*negative* (not closed-positive), so the caveat is permanent: the 50-ppm is a postulate-dependent 1-point fit, not a derived result. (The parameter-free chord is the +4.0% Route-B forward.)
 4. **Cross-check with Q-G27 muon**: verify the muon Cosserat saliency derivation has parallel structure (α × structural × form-factor with PAT projection vs n_q winding).
 
 ## §10 Cross-references
