@@ -44,7 +44,7 @@ A standard capacitor with PZT actuator generates charge via mechanical strain on
 | **Phase 1b PCB layout** | ⏳ PENDING | TBD post Q-C15-12 + merge | Gated on Phase 1a-rev1 merge | — |
 | **Phase 1c Gerbers** | ⏳ PENDING | TBD post Phase 1b | Gated on Phase 1b | — |
 | **Phase 2 fab + assembly** | ⏳ PENDING | TBD | ~$7670 mid-range BOM rollup | — |
-| **Phase 3 measurement** | ⏳ PENDING | ave-prereg-format pre-reg | Pre-reg precision target = Q-C15-02 closure | — |
+| **Phase 3 measurement** | 📋 PREREG DRAFTED 2026-06-01 (frozen at framing/discriminator level; gated on hardware for execution) | [`exp-c15-cleave-01-phase-3-measurement-prereg.md`](exp-c15-cleave-01-phase-3-measurement-prereg.md) — charge-pinned 2-level discriminator (Level-1 binary $C$-independent / Level-2 0.415 pC/µm) | Level-2 precision target = Q-C15-02 closure (in-situ $C$) | 2026-06-01 prereg-draft |
 | **Phase 4 outcome adjudication** | ⏳ CONDITIONAL on Phase 3 | TBD per KB-leaf §"Outcome adjudication" | Outcome A/B/C/D per KB leaf | — |
 
 Detailed prose for **active phases** (Phase 1a-rev1 forward to Phase 4) lives in the per-phase sections below. **Closed phases** (Phase 0, Q-C15-01, Phase 1 KiCad, Q-C15-10 adjudication, Stage A) have their original briefs preserved in [`_archive/`](_archive/) for full reference; the phase-table audit-trail-entry column points to the canonical dated entry in the audit trail at the bottom of this doc.
