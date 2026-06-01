@@ -455,9 +455,9 @@ Using the canonical \texttt{AVE\_VACUUM\_CELL} solver framework (\url{src/ave/so
 
 \noindent\textbf{Engine cross-check \& The K4-Bethe-Tree Substrate Was Wrong:}\footnote{Annotation updated 2026-05-13 evening. Original framing (K4 substrate gives $-0.0094$, claimed to be ``where QED breaks down'') was refuted by Route~B closure on the Cosserat unknot substrate.} The earlier \kbleaf{g\_minus\_2\_lattice.py} solver (radial K4 Bethe tree at depth 3) computed $C_2 \approx -0.0094$, deviating from the Petermann continuum limit ($-0.328$) by approximately $97\%$. This was originally framed as ``where continuous QED mathematics breaks down against the discrete vacuum hardware.''
 
-\noindent\textbf{Correction:} the K4 Bethe-tree was the wrong substrate. The canonical AVE electron is the $(2,3)$ Cosserat unknot (\kbleaf{src/ave/topological/cosserat\_field\_3d.py}, validated at Round~12, \kbleaf{research/\_archive/L3\_electron\_soliton/102\_round\_12\_unknot\_cosserat\_working.md}). On this substrate, the dark-resonance $\times$ kernel-asymmetry correlation derives $C_2$ from substrate dynamics directly:
+\noindent\textbf{Correction:} the K4 Bethe-tree was the wrong substrate. The canonical AVE electron is the $(2,3)$ Cosserat unknot (\kbleaf{src/ave/topological/cosserat\_field\_3d.py}, validated at Round~12, \kbleaf{research/\_archive/L3\_electron\_soliton/102\_round\_12\_unknot\_cosserat\_working.md}). On this substrate, the dark-resonance $\times$ kernel-asymmetry correlation derives $C_2$ from substrate dynamics directly (here $-\dot{\Sigma}_{\text{near}}$ is the retarded rate of the near-field reactive self-energy $\Sigma_{\text{near}} \propto V^2$; defined below):
 \begin{equation*}
-C_2^{\text{AVE}} = \frac{2}{\pi\alpha}\langle (S_d - S_q)\,\tau_{zx}\rangle = -0.32846
+C_2^{\text{AVE}} = \frac{2}{\pi\alpha}\langle (S_d - S_q)\,(-\dot{\Sigma}_{\text{near}})\rangle = -0.32846
 \end{equation*}
 matching PDG Petermann ($-0.32848$) to \textbf{$50$~ppm} ($0.005\%$).
 \paragraph{Route B substrate derivation (full).} The five ingredients are
@@ -472,19 +472,26 @@ each substrate-canonical:
     $S(A) = \sqrt{1-A^2}$; at second order the two principal axes carry
     asymmetric instantaneous strain $A_d(t)$, $A_q(t)$, and the asymmetry
     enters as $S_d - S_q = \sqrt{1-A_d^2} - \sqrt{1-A_q^2}$.
-    \item \textbf{Dark resonance} (retarded self-back-reaction):
-    $\tau_{zx}(t) = -\,dV^2/dt\big|_{t-\tau_{\text{retard}}}$ with
-    $\tau_{\text{retard}} = 1/\omega_C$ (one Compton-loop transit time,
-    set by the unknot geometric scale). The symbol $\tau_{zx}$ is retained;
-    this is the dark-resonance species (phase-space, at-rest self-$\Gamma$),
-    distinct from the dark-wake thrust species (real-space motion-trail)
-    sharing the same $\tau_{zx}$ signature (Vol~4 Ch~2; see the
-    dark-back-reaction taxonomy KB leaf).
+    \item \textbf{Dark resonance} (near-field reactive self-energy;
+    retarded self-back-reaction). Define $\Sigma_{\text{near}} \propto V^2$,
+    the near-field reactive self-energy (the electron's retarded
+    self-coupling; QED self-energy analogue); its retarded rate is the
+    reactive-power kernel
+    $-\dot{\Sigma}_{\text{near}}(t) = -\,dV^2/dt\big|_{t-\tau_{\text{retard}}}$
+    with $\tau_{\text{retard}} = 1/\omega_C$ (one Compton-loop transit time,
+    set by the unknot geometric scale). Dimensionally $-\dot{\Sigma}_{\text{near}}$
+    is a reactive-power / self-energy rate ($V^2/\text{time}$), not a shear
+    stress: the historic ``$\tau_{zx} = -dV^2/dt$'' written here was a mislabel,
+    now corrected to $-\dot{\Sigma}_{\text{near}}$. This is the \emph{near}
+    (reactive, bound, returns-to-source) dark-resonance species, distinct from
+    the dark-wake thrust species (real-space far-field Maxwell shear stress
+    $\tau^{\text{far}}_{zx}$; Vol~4 Ch~2; see the dark-back-reaction taxonomy
+    KB leaf).
     \item \textbf{Correlation as the second-order kernel structure}
     (direct analog of Schwinger's first-order $\langle \delta C/C\rangle
     = \pi\alpha$):
     \[
-        \langle (S_d - S_q)\,\tau_{zx} \rangle
+        \langle (S_d - S_q)\,(-\dot{\Sigma}_{\text{near}}) \rangle
         \quad\text{averaged over one trefoil period.}
     \]
     \item \textbf{Natural dimensional normalization}: the form-factor
@@ -496,10 +503,10 @@ each substrate-canonical:
 \noindent Combining the five gives the AVE second-order shift:
 \begin{equation}
     \Delta a_e^{(2)}
-    = \frac{1}{\pi^2}\,\langle (S_d - S_q)\,\tau_{zx}\rangle\,\frac{\alpha}{\pi},
+    = \frac{1}{\pi^2}\,\langle (S_d - S_q)\,(-\dot{\Sigma}_{\text{near}})\rangle\,\frac{\alpha}{\pi},
     \qquad
     C_2^{\text{AVE}}
-    = \frac{2}{\pi\alpha}\,\langle (S_d - S_q)\,\tau_{zx}\rangle.
+    = \frac{2}{\pi\alpha}\,\langle (S_d - S_q)\,(-\dot{\Sigma}_{\text{near}})\rangle.
 \end{equation}
 
 \paragraph{Numerical robustness (Route B base case, $\delta = 0$).}
@@ -508,7 +515,7 @@ A_{q,\text{peak}}^2 = 2\pi\alpha$ (each phase-space axis carries half
 of the Schwinger total $4\pi\alpha$), the correlation converges at
 $N_t \gtrsim 2\times 10^5$ to
 \[
-    \langle (S_d - S_q)\,\tau_{zx}\rangle = -3.916\times 10^{-3},
+    \langle (S_d - S_q)\,(-\dot{\Sigma}_{\text{near}})\rangle = -3.916\times 10^{-3},
     \quad
     C_2^{\text{AVE,sym}} = -0.3416,
 \]

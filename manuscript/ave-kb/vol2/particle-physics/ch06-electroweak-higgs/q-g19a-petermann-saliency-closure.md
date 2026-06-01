@@ -32,20 +32,20 @@ Five ingredients, each substrate-canonical:
 2. **Saturation-kernel asymmetry.** Axiom 4 sets $S(A) = \sqrt{1 - A^2}$. At second order, the two principal axes carry asymmetric instantaneous strain $A_d(t)$, $A_q(t)$, and the asymmetry enters as
    $$S_d - S_q = \sqrt{1 - A_d^2} - \sqrt{1 - A_q^2}.$$
 
-3. **Dark resonance** (retarded self-back-reaction):
-   $$\tau_{zx}(t) = -\frac{dV^2}{dt}\bigg|_{t - \tau_{\text{retard}}}$$
-   with $\tau_{\text{retard}} = 1/\omega_C$ (one Compton-loop transit time, set by the unknot geometric scale). The symbol $\tau_{zx}$ is retained, but this is the **dark-resonance** species (phase-space, at-rest self-$\Gamma$), distinct from the **dark-wake** thrust species (real-space motion-trail) that shares the same $\tau_{zx}$ signature — see [Dark Back-Reaction Taxonomy](../../../common/dark-back-reaction-taxonomy.md).
+3. **Dark resonance** (near-field reactive self-energy; retarded self-back-reaction). Define $\Sigma_{\text{near}} \propto V^2$ = the **near-field reactive self-energy** (the electron's retarded self-coupling; QED self-energy analogue); its retarded **rate** is the reactive-power kernel
+   $$-\dot\Sigma_{\text{near}}(t) = -\frac{dV^2}{dt}\bigg|_{t - \tau_{\text{retard}}}$$
+   with $\tau_{\text{retard}} = 1/\omega_C$ (one Compton-loop transit time, set by the unknot geometric scale). Dimensionally $-\dot\Sigma_{\text{near}}$ is a reactive-power / self-energy rate ($V^2/\text{time}$), **not** a shear stress — the historic "$\tau_{zx} = -dV^2/dt$" written here was a mislabel of this **dark-resonance** quantity, now corrected to $-\dot\Sigma_{\text{near}}$. This is the **near** (reactive, bound, returns-to-source) species, distinct from the **dark-wake** thrust species (real-space far-field Maxwell shear stress $\tau^{\text{far}}_{zx}$) — see [Dark Back-Reaction Taxonomy](../../../common/dark-back-reaction-taxonomy.md) and the [translation-circuit EE-mapping rows](../../../common/translation-tables/translation-circuit.md).
 
 4. **Correlation as the second-order kernel structure** (direct analog of Schwinger's first-order $\langle \delta C / C \rangle = \pi\alpha$):
-   $$\langle (S_d - S_q)\, \tau_{zx} \rangle \quad \text{averaged over one trefoil period.}$$
+   $$\langle (S_d - S_q)\, (-\dot\Sigma_{\text{near}}) \rangle \quad \text{averaged over one trefoil period.}$$
 
 5. **Natural dimensional normalization.** The form-factor prefactor $1/\pi^2$ is inherited from the Schwinger ring-in-cell derivation (Vol 2 Ch 6 §6.2 leading-order); the extra QED loop carries one factor of $\alpha/\pi$.
 
 Combining the five gives the AVE second-order shift:
 
 $$
-\Delta a_e^{(2)} = \frac{1}{\pi^2}\, \langle (S_d - S_q)\, \tau_{zx} \rangle\, \frac{\alpha}{\pi}, \qquad
-C_2^{\text{AVE}} = \frac{2}{\pi\alpha}\, \langle (S_d - S_q)\, \tau_{zx} \rangle.
+\Delta a_e^{(2)} = \frac{1}{\pi^2}\, \langle (S_d - S_q)\, (-\dot\Sigma_{\text{near}}) \rangle\, \frac{\alpha}{\pi}, \qquad
+C_2^{\text{AVE}} = \frac{2}{\pi\alpha}\, \langle (S_d - S_q)\, (-\dot\Sigma_{\text{near}}) \rangle.
 $$
 
 ## Numerical robustness (Route B base case, $\delta = 0$)
@@ -54,7 +54,7 @@ At the symmetric energy split $A_{d,\text{peak}}^2 = A_{q,\text{peak}}^2 = 2\pi\
 
 | Quantity | Symmetric Route B | PDG Petermann | Deviation |
 |---|---|---|---|
-| $\langle (S_d - S_q)\, \tau_{zx} \rangle$ | $-3.916 \times 10^{-3}$ | — | — |
+| $\langle (S_d - S_q)\, (-\dot\Sigma_{\text{near}}) \rangle$ | $-3.916 \times 10^{-3}$ | — | — |
 | $C_2^{\text{AVE,sym}}$ | $-0.3416$ | $-0.32848$ | $+4.0\%$ |
 | $\Delta a_e^{(2)}$ | $-9.21 \times 10^{-7}$ | $-8.86 \times 10^{-7}$ | $+4.0\%$ |
 
@@ -135,5 +135,5 @@ The trefoil $(2,3)$, the Compton retardation, the LC equipartition, the $1/\pi^2
   - [Higgs Mass leaf](higgs-mass.md) — Schwinger leading-order $a_e = \alpha/(2\pi)$ in this chapter
   - [Lepton Spectrum leaf](lepton-spectrum.md) — Cosserat generations + muon torsion-quantum
   - [Common: Three Boundary Observables](../../../common/boundary-observables-m-q-j.md) — $\mathcal{Q}$ (electric charge) projection from boundary winding
-  - [Common: Dark Back-Reaction Taxonomy](../../../common/dark-back-reaction-taxonomy.md) — the $g$-2 retarded self-$\Gamma$ here is the **dark-resonance** species; distinguished from the **dark-wake** thrust species (same $\tau_{zx}$ signature, different substrate object per FT-Dark-Wake-Cross-Scale Outcome C). ⚠ also disambiguates from the AMO CPT/EIT "dark resonance."
+  - [Common: Dark Back-Reaction Taxonomy](../../../common/dark-back-reaction-taxonomy.md) — the $g$-2 retarded self-$\Gamma$ here is the **dark-resonance** species, symbol **$\Sigma_{\text{near}}$ / $-\dot\Sigma_{\text{near}}$** (near-field reactive self-energy); distinguished from the **dark-wake** thrust species, symbol **$\tau^{\text{far}}_{zx}$** (far-field Maxwell shear stress) — separate symbols per decision-B (near/far field-zone tags), forced by FT-Dark-Wake-Cross-Scale Outcome C (the $g$-2 quantity is a reactive-power rate, not a stress). ⚠ also disambiguates from the AMO CPT/EIT "dark resonance."
 - **Engine cross-check:** the legacy `src/ave/solvers/g_minus_2_lattice.py` returned $C_2 \approx -0.0094$ (97% off) due to K4-Bethe-tree substrate misidentification; superseded by Route B on Cosserat substrate

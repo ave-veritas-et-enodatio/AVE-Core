@@ -92,7 +92,7 @@ However, because the AVE framework identifies the vacuum itself as the physical 
 
 [Figure: ponder_01_dark_wake.png — see manuscript/vol_4_engineering/chapters/]
 
-This equal-and-opposite reaction creates a "Dark Wake." A continuous wave of longitudinal shear strain ($\tau_{zx}$) propagates backward from the thruster into the static continuum, cleanly and formally closing the momentum conservation loop.
+This equal-and-opposite reaction creates a "Dark Wake." A continuous wave of longitudinal shear stress ($\tau^{\text{far}}_{zx}$) propagates backward from the thruster into the static continuum, cleanly and formally closing the momentum conservation loop. ($\tau^{\text{far}}_{zx}$: far-field radiated shear stress; $\int \tau\, dA = F$. The **far** tag marks the field-zone-radiative thrust species, distinct from the dark-resonance near-field self-energy $\Sigma_{\text{near}}$ that shares the longitudinal-shear signature — see [Dark Back-Reaction Taxonomy](../../../common/dark-back-reaction-taxonomy.md).)
 
 ### Metric Streamlining and Superluminal Transit
 
