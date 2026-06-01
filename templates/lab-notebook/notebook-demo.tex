@@ -1,0 +1,85 @@
+% AVE Engineering Notebook — demo / showcase.
+% Light "100g paper" + square dot grid is the default.
+% Try:  \usepackage[dark]{avenotebook}   (neon-on-black, like the substrate render)
+%       \usepackage[iso]{avenotebook}    (triangular / <111> dot grid)
+%       \usepackage[border]{avenotebook} (lattice border box)
+\documentclass[11pt]{article}
+\usepackage{avenotebook}
+\usepackage{lipsum}
+
+% --- notebook metadata -------------------------------------------------
+\notebookproject{Cavity-Mode Spectroscopy of the K4 Substrate}
+\notebookauthor{G. Lindblom}
+\notebookid{AVE-NB-01}
+\notebookdate{2026-05-31}
+
+\begin{document}
+
+\avecover
+
+% ===== ENTRY 1 =========================================================
+\aveentry{2026-05-31}{EXP-014}{Matched-LC coupling: $\Gamma\!\to\!0$ sweep}
+
+\objective
+Measure the reflection coefficient $\Gamma$ across a bond-junction
+impedance sweep and locate the matched-coupling null predicted by Op3,
+where the incident flux transfers without back-reflection.
+
+\hypothesis
+At impedance match the differential tensor line carries the full
+$V_\mathrm{inc}\!\leftrightarrow\!\Phi_\mathrm{link}$ exchange, so
+$|\Gamma|^2$ falls below the noise floor at $z = z_0$.
+
+\apparatus
+Single A-site driven against four tetrahedral B-neighbours
+(coordination $z=4$); network analyser on the drive port; saturation
+kernel active per Axiom 4.
+
+\procedure
+\begin{enumerate}[leftmargin=1.4em, itemsep=1pt]
+  \item Set branch admittance $Y_b = \nu_\mathrm{vac} = 2/7$.
+  \item Sweep drive impedance $z$ over $[0.6,\,1.6]\,z_0$, 41 points.
+  \item Record $|\Gamma|^2$ and the converged self-consistent $S_{11}$.
+\end{enumerate}
+
+\dataheading
+\begin{avedata}{@{}l r r r@{}}
+\avedatahead{$z/z_0$} & \avedatahead{$|\Gamma|^2$} & \avedatahead{$S_{11}$} & \avedatahead{Note}\\
+\midrule
+0.80 & \meas{0.0412}{} & \meas{-0.203}{} & off-match \\
+0.95 & \meas{0.0036}{} & \meas{-0.060}{} & near \\
+1.00 & \meas{0.0001}{} & \meas{-0.010}{} & \textbf{match} \\
+1.05 & \meas{0.0039}{} & \meas{0.062}{}  & near \\
+1.20 & \meas{0.0455}{} & \meas{0.213}{}  & off-match \\
+\end{avedata}
+
+\plotframe[48mm]{Fig. 1 — $|\Gamma|^2$ vs.\ normalised drive impedance}
+
+\analysis
+The null sits at $z=z_0$ with residual $|\Gamma|^2 = (1.0\pm0.4)\times10^{-4}$,
+consistent with a parameter-free fixed point ($|S_{11}|^2 \approx 0.0037$,
+converged in 7 iterations).
+
+\begin{averesult}
+Matched-coupling null confirmed at $z=z_0$: $|\Gamma|^2 = (1.0\pm0.4)\times10^{-4}$,
+i.e.\ $>99.98\%$ flux transfer. Forward-prediction, not a fit.
+\end{averesult}
+
+\begin{avenote}
+The 7-iteration convergence ties to the back-saturation ratio
+$|S_{11}|^2\approx0.0037$; see the self-consistent $M_W$ derivation.
+\end{avenote}
+
+\begin{avecaution}
+Drive amplitude must stay below $V_\mathrm{yield}$ at the nearest
+neighbour or Axiom-4 saturation distorts the measured $\Gamma$.
+\end{avecaution}
+
+\conclusion
+Op3 matched-impedance coupling reproduces the predicted reflection null
+to within measurement uncertainty. Proceed to the off-axis ($z\neq z_0$)
+phase characterisation.
+
+\witnessblock
+
+\end{document}

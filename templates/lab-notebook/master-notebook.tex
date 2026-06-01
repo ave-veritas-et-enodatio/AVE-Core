@@ -1,0 +1,23 @@
+% AVE Master Engineering Notebook — Leuchtturm A4+ style blank book.
+% 225 x 315 mm, two-sided, dotted, numbered pages, fill-in Contents.
+% Print double-sided, long-edge bind.  Set the page count below.
+\documentclass[11pt,twoside]{article}
+\usepackage[a4plus,plain]{avenotebook}  % add: dark / iso  to taste
+
+\notebookproject{Engineering Notebook}
+\notebookauthor{}
+\notebookid{AVE-NB Master \textbullet\ A4+}
+\notebookdate{2026}
+
+\def\NBPAGES{120}     % <-- number of numbered dotted pages (Leuchtturm Master = 233)
+
+\begin{document}
+
+\avecover                 % lattice cover
+\aveownership             % "this notebook belongs to / if found"
+\aveindex[3]{30}          % 3 Contents pages, 2 columns x 30 ruled rows
+
+\pagenumbering{arabic}\setcounter{page}{1}
+\avedottedpages{\NBPAGES} % the numbered dotted writing pages
+
+\end{document}
