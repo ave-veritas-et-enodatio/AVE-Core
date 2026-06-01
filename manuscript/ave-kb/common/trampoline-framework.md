@@ -836,7 +836,7 @@ What's empirically validated (not just structurally derived):
 | K4-TLM D10 IM3 cubic V³ slope 2.956 | K4-TLM | bench-style validation (Vol 4 Ch 11) | commit `0599a10` |
 | Cubic K4 anisotropy at saturation collapse | Master Equation FDTD | Pearson($V_{\text{peak}}$, asphericity) = -0.191; collapse axis/diag ratio 1.089 | doc 114 |
 | $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi = 137.036$ Q-factor identity | electron_tank_q_factor.py | numerical verification to $\delta_{\text{strain}} \approx 2.22 \times 10^{-6}$ | doc 17 |
-| Q-G19α g-2 closure: $+4.0\%$ parameter-free (Route B forward), 50 ppm postulate-conditional ($n_q$-additivity) | Vol 2 Ch 6 §6.2 substrate derivation | dark-wake × kernel-asymmetry analytical-correlation closure; symmetric Route B forward is $C_2 = -0.3416$ ($+4.0\%$), saliency $\delta = -3\alpha/2$ reaches 50 ppm only with the $n_q$-additivity postulate | Vol 2 Ch 6 §6.2 |
+| Q-G19α g-2 closure: $+4.0\%$ parameter-free (Route B forward), 50 ppm postulate-conditional ($n_q$-additivity) | Vol 2 Ch 6 §6.2 substrate derivation | dark-resonance × kernel-asymmetry analytical-correlation closure; symmetric Route B forward is $C_2 = -0.3416$ ($+4.0\%$), saliency $\delta = -3\alpha/2$ reaches 50 ppm only with the $n_q$-additivity postulate | Vol 2 Ch 6 §6.2 |
 | Cosserat sector mass gap $m^2 = 4 G_c / I_\omega$ (factor of 4, not 2) | cosserat_field_3d.py Verlet | Phase I time-domain validation, period $T = 2\pi/\omega_m = \pi$ | doc 41 §2-§3 |
 | τ_relax = ℓ_node/c (Ax1 + Ax3 derivation) | engine k4_tlm.py `tau_relax` param | derivation from K4 Lagrangian; SI mode ≈ 3.34e-9 s | doc 59 §1 |
 

@@ -135,6 +135,8 @@ The 23+ substrate primitives mapped to their canonical EE-component analog. Cros
 | **Cosmic-temperature evolution of $\alpha$** | Crystal oscillator frequency vs $T$ (substrate's analog of frequency-temperature curve) | clm-009nkt + related |
 | **Aharonov-Bohm phase** | Magnetic-flux-modulation of conduction-electron interference (canonical EE phenomenon) | Vol 2 quantum canonical |
 | **Vacuum thermal noise floor** | Johnson-Nyquist thermal noise at vacuum baseline ($k_B T_{CMB}$ per mode per Hz) | [`translation-stochastics.md`](translation-stochastics.md) FDT cross-link |
+| **dark wake (far-field reaction)** | far-field radiated shear stress **$\tau^{\text{far}}_{zx}$** (Maxwell/Cauchy stress; $\int \tau\, dA = F$; real-space reaction-momentum trail) | ✓ cross-ref [`chiral-thrust-derivation.md`](../../vol4/circuit-theory/ch2-topological-thrust-mechanics/chiral-thrust-derivation.md) (clm-7tynm2) |
+| **dark resonance (near-field reaction)** | near-field reactive self-energy **$\Sigma_{\text{near}}$ / $-\dot\Sigma_{\text{near}}$** (QED self-energy analogue; armature-reaction-induced d/q saliency → electron $g$-2 anomalous moment) | cross-ref [`q-g19a-petermann-saliency-closure.md`](../../vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md) (clm-v2sg8z) + [`dark-back-reaction-taxonomy.md`](../dark-back-reaction-taxonomy.md) |
 
 This table is the canonical first-call reference for substrate-primitive → EE-component lookup. Where a row's EE mapping is canonical at a referenced leaf, the leaf carries the derivation; this catalog enumerates the mapping without re-deriving.
 
@@ -223,6 +225,8 @@ The canonical cross-checks that establish the EE-as-substrate-native mapping is 
 | 20 | BH-interior ruptured plasma | Plasma physics (substrate ruptured above $V_{snap}$) | $\checkmark$ structural | Vol 3 cosmology canonical |
 | 21 | Cosmic-temperature evolution of $\alpha$ | Crystal-oscillator frequency vs $T$ | ⚠ structural; precise $T$-dependence pending closure | clm-009nkt strengthen-by item |
 | 22 | Vacuum thermal noise floor | Johnson-Nyquist noise at $k_B T_{CMB}$ per mode per Hz | $\checkmark$ structural | FDT cross-link in [`translation-stochastics.md`](translation-stochastics.md) |
+| 23 | Dark resonance (near-field reaction) $\Sigma_{\text{near}}$ / $-\dot\Sigma_{\text{near}}$ | Armature-reaction-induced d/q saliency (QED self-energy analogue) → electron $g$-2 anomalous moment | $\checkmark$ canonical ($g$-2 to 50 ppm; Route B forward $+4.0\%$) | [`q-g19a-petermann-saliency-closure.md`](../../vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md) (clm-v2sg8z) + [`dark-back-reaction-taxonomy.md`](../dark-back-reaction-taxonomy.md) |
+| 24 | Dark wake (far-field reaction) $\tau^{\text{far}}_{zx}$ | Far-field radiated Maxwell/Cauchy shear stress; $\int \tau\, dA = F$ reaction-momentum trail | $\checkmark$ structural ($\int \tau\, dA = F$ is an EE/Maxwell-stress identity) | [`chiral-thrust-derivation.md`](../../vol4/circuit-theory/ch2-topological-thrust-mechanics/chiral-thrust-derivation.md) (clm-7tynm2) |
 
 **Validation threshold.** 20+ validated cross-checks across atomic / circuit / cosmology / gauge-boson / topology / saturation / cosmic / detector domains — sufficient to establish the META framework as **Class B substrate-mechanism manifestation** (per [`consistency-vs-emergence`](../../../../../.claude/skills/) v1.3 classification rubric Step 8c canonical-source-ceiling-stays-Class-B: the META framework consolidates already-canonical sub-claims into a coherent framing; it does NOT add new substrate-mechanism content beyond canonical axioms; classification stays at Class B and is NOT promoted to Class 2 emergence).
 
@@ -459,7 +463,7 @@ Cross-link: the new δ_strain canonical leaf [`delta-strain-cosmic-tcc.md`](../.
 
 ### §9.4 — Implications
 
-1. **Every EE datasheet specification is a means-test case for `ave-ee-first-mapping` v1.0.** The means-test corpus at §6 currently lists 22 validated cross-checks; the engineering-non-ideality catalog above adds tens of additional rows (one per datasheet row per component type per substrate axis), each of which is a candidate substrate-physics derivation cross-check. Radical expansion of the means-test surface area.
+1. **Every EE datasheet specification is a means-test case for `ave-ee-first-mapping` v1.0.** The means-test corpus at §6 currently lists 24 validated cross-checks (including the two dark-back-reaction field-zone rows — dark resonance $\Sigma_{\text{near}}$ and dark wake $\tau^{\text{far}}_{zx}$); the engineering-non-ideality catalog above adds tens of additional rows (one per datasheet row per component type per substrate axis), each of which is a candidate substrate-physics derivation cross-check. Radical expansion of the means-test surface area.
 
 2. **δ_strain at $T_{CMB}$ is the cosmological instance of substrate TCC.** The same Cosserat-Curie mechanism that produces measurable TCC on a ceramic capacitor in a circuit lab produces the $2.225 \times 10^{-6}$ thermal-running of α at the substrate's cosmic-temperature operating point. One mechanism, many scales.
 
@@ -475,4 +479,4 @@ Cross-link: the new δ_strain canonical leaf [`delta-strain-cosmic-tcc.md`](../.
 - **SYM α-invariance canonical:** [`alpha-invariance-symmetric-gravity.md`](../../vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md) (clm-3zz0f6) — load-bearing for ASYM-induced α-drift mechanism (SYM gives α invariance; the substrate-thermal ASYM is what produces δ_strain)
 - **SYM vs ASYM canonical:** [`einstein-field-equation.md`](../../vol3/gravity/ch02-general-relativity/einstein-field-equation.md) (clm-8nkvwy) — the c_EM vs c_shear distinction load-bearing for δ_strain derivation
 - **Companion agent-discipline skill:** `~/.claude/skills/ave-ee-first-mapping/SKILL.md` v1.0 — EE-first-mapping discipline that uses this catalog at fire-time
-- **Means-test corpus extension target:** §6 above carries 22 canonical validated cross-checks; the §9 component-non-ideality catalog is the candidate expansion surface
+- **Means-test corpus extension target:** §6 above carries 24 canonical validated cross-checks; the §9 component-non-ideality catalog is the candidate expansion surface
