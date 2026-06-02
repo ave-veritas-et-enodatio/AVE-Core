@@ -52,8 +52,8 @@ Manuscript relationship: Volume 2 covers subatomic physics — atomic orbitals, 
 | `analyze_c12_emitter.py` | Analyzes C-12 nuclear emitter topology |
 | `assemble_uranium.py` | Optimizes 235-nucleon cloud into U-235 crystal structure |
 | `electron_interferometry_parallax.py` | Electron de Broglie interferometry calculation |
-| `fem_borromean_convergence.py` | FEM convergence test for Borromean link integrals |
-| `fem_borromean_convergence_jax.py` | JAX-accelerated version of FEM Borromean convergence |
+| `fem_borromean_convergence.py` | Gaussian-ansatz saturated-overlap-volume voxel-quadrature convergence study (misnamed "FEM"; bears on the ρ_threshold gap, NOT a derivation of the V=2 reactance count) |
+| `fem_borromean_convergence_jax.py` | JAX-accelerated port of the above (identical physics; voxel quadrature, not FEM) |
 | `generate_particle_stl.py` | Generates 3D-printable STL meshes of topological particles |
 | `generate_particle_topology_suite.py` | Batch generates topology visualizations for particle zoo |
 | `generate_verification_trace.py` | Produces a verification trace of all derived constants |

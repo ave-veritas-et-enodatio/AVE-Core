@@ -134,7 +134,9 @@ To convert the orthogonal tensor trace into a closed-form mass prediction, one m
 
 \textbf{The saturation threshold (under a Gaussian flux-tube ansatz).} The critical advance in evaluating $\mathcal{V}_{total}$ is determining the density threshold at which the combined flux-tube field becomes topologically locked. This threshold is derived from the mutual inductance coupling between the orthogonal LC flux loops at their crossings, conditional on the radial profile of the flux tube.
 
-\paragraph{Profile ansatz (open derivation gap).} The $\sigma$ derivation below assumes a \textbf{Gaussian flux-tube radial profile} with FWHM $= \ell_{node}$. Axiom 1 fixes the FWHM (Nyquist content: the smallest unambiguously-resolvable transverse feature is one lattice pitch), but it does not specify the functional form. The Gaussian is an \emph{ansatz} for tractability; other LC-soliton profiles (sech$^2$ kink, Bessel $J_0$ waveguide fundamental, the algebraic Axiom~4 kernel $\sqrt{1-r^2}$) would yield different mutual-coupling kernels and a different $\rho_{threshold}$. Either deriving the Gaussian profile from Axiom~4 LC dynamics, or replacing it with the framework-consistent profile and re-evaluating $\mathcal{V}_{total}$, is a documented outstanding rigour gap (see \texttt{mathematical-closure.md} \S Outstanding Rigour Gaps). The result below is internally consistent and parameter-free \emph{conditional on the Gaussian ansatz}; the empirical constraint $\mathcal{V}_{total} = 2.0$ at FEM convergence remains binding on whatever profile ultimately emerges.
+\paragraph{Profile ansatz (open derivation gap).} The $\sigma$ derivation below assumes a \textbf{Gaussian flux-tube radial profile} with FWHM $= \ell_{node}$. Axiom 1 fixes the FWHM (Nyquist content: the smallest unambiguously-resolvable transverse feature is one lattice pitch), but it does not specify the functional form. The Gaussian is an \emph{ansatz} for tractability; other LC-soliton profiles (sech$^2$ kink, Bessel $J_0$ waveguide fundamental, the algebraic Axiom~4 kernel $\sqrt{1-r^2}$) would yield different mutual-coupling kernels and a different $\rho_{threshold}$. Either deriving the Gaussian profile from Axiom~4 LC dynamics, or replacing it with the framework-consistent profile and re-evaluating $\rho_{threshold}$, is a documented outstanding rigour gap (see \texttt{mathematical-closure.md} \S Outstanding Rigour Gaps). The result below is internally consistent and parameter-free \emph{conditional on the Gaussian ansatz}.
+
+\emph{Do not fuse $\rho_{threshold}$ with $\mathcal{V}_{total} = 2$.} The Gaussian-ansatz gap binds the saturation density threshold $\rho_{threshold} \approx 1.1062$ (and the saturated-overlap-volume integral evaluated against it), both profile-dependent. It does \textbf{not} bind $\mathcal{V}_{total} = 2$: that ``2'' is the \textbf{dual-reactance count} (the node's two reactance sectors $X_C + X_L$, Axiom~1), a profile-\emph{independent} forced integer count, mass-confirmed via $m_p$ (canonical: \texttt{common/dual-reactance-storage-taxonomy.md}). A channel count is \emph{counted}, not integrated; it is unchanged if the flux-tube profile changes.
 
 Each flux tube is taken as a Gaussian LC resonant loop with FWHM $= \ell_{node}$, giving a Gaussian dispersion $\sigma = \ell_{node}/(2\sqrt{2\ln 2})$. At a pairwise crossing, the tubes are separated by the skew offset $d = \ell_{node}/2$. The mutual inductance coupling coefficient between two perpendicular tubes at this separation is:
 \begin{resultbox}{Orthogonal Flux Tube Mutual Coupling}
@@ -153,18 +155,18 @@ The factor of 4 in $\sigma/4$ is not arbitrary: it is the \textit{same} 4 appear
 
 This is a \textbf{closed-form result with no fitted parameters}, conditional on the Gaussian flux-tube ansatz declared above. Axiom~1 fixes the FWHM; the Gaussian \emph{profile} is the open derivation gap that, when closed, will determine whether the closed form remains $1.1062$ or shifts to a different value with the framework-consistent profile.
 
-\textbf{FEM convergence.} High-resolution 3D finite-element integration of the full Borromean topology at this derived threshold yields:
+\textbf{Gaussian-ansatz saturated-overlap-volume integral (a $\rho_{threshold}$ consistency check, NOT the source of $\mathcal{V}_{total} = 2$).} The earlier ``3D FEM integration of the full Borromean topology yields $\mathcal{V}_{total} = 2.0$'' narrative is \textbf{retired} --- it was triply wrong: (1) the method is \emph{not} finite-element, it is a uniform-Cartesian-grid Riemann sum (voxel quadrature, $V_{sat} = \sum \Theta(\rho_{total} > \rho_{threshold})\,\Delta x^3$); (2) it does not compute the reactance count $\mathcal{V}_{total}$, it integrates the \emph{Gaussian-ansatz} three-tube saturated overlap volume against the profile-dependent $\rho_{threshold}$ above; (3) it is therefore a self-consistency check on the Gaussian ansatz, not an independent geometric derivation of the integer~2. The script (\texttt{src/scripts/vol\_2\_subatomic/fem\_borromean\_convergence.py}, misnamed ``FEM''; JAX port \texttt{fem\_borromean\_convergence\_jax.py}) does run and yields:
 \begin{center}
 \begin{tabular}{ccc}
 \hline
-$N$ (grid) & $\mathcal{V}_{sat}$ & Error from 2.0 \\ \hline
+$N$ (grid) & $\mathcal{V}_{sat}$ (Gaussian overlap volume) & $\Delta$ from 2.0 \\ \hline
 128 & 2.0002 & 0.01\% \\
 256 & 2.0012 & 0.06\% \\
 $N\to\infty$ (Richardson) & 2.0027 & 0.13\% \\ \hline
 \end{tabular}
 \end{center}
 
-The saturated volume converges to $\mathcal{V}_{total} = 2.0$, confirming the $\mathbb{Z}_3 \times \mathbb{Z}_2$ topological bound as a geometric identity rather than a numerical approximation.
+That the Gaussian-ansatz saturated overlap volume lands near 2.0 is a \emph{property of the Gaussian profile at this $\rho_{threshold}$}, corroborative of internal consistency --- \textbf{not} the derivation of $\mathcal{V}_{total}$. The actual $\mathcal{V}_{total} = 2$ is the dual-reactance count (forced reactance-sector count $X_C + X_L$, Axiom~1; profile-independent; mass-confirmed via $m_p$), canonical at \texttt{common/dual-reactance-storage-taxonomy.md}. Do not read the near-2.0 overlap-volume result as a geometric identity confirming a topological bound --- that conflates the profile-dependent $\rho_{threshold}$ integral with the profile-independent reactance count.
 
 \subsection{The Cinquefoil Confinement Bound}
 

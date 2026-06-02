@@ -522,12 +522,19 @@ $$
 \mathcal{V}_{total} = 2.0
 $$
 
-<!-- DROPPED CLAIM (2026-06-02, V2 dual-reactance closure): V_total=2 was previously
-derived two ways, both retired -- (1) "signed intersection integral of three great
-circles" (vanishes by antisymmetry, = 0 not 2); (2) "FEM verified 2.001 +/- 0.003"
-(no FEM driver; provenance fabricated). V_total=2 is the dual-reactance count
-(X_C + X_L), forced by Axiom 1's two reactance types, mass-confirmed via m_p.
-See research/2026-06-01_baryon-V2-dual-reactance-closure.md. -->
+<!-- DROPPED CLAIM (2026-06-02, V2 dual-reactance closure + fabricated-FEM walk-back):
+V_total=2 was previously derived two ways, both retired -- (1) "signed intersection
+integral of three great circles" (vanishes by antisymmetry, = 0 not 2); (2) "3D FEM
+integration / FEM-verified 2.001 +/- 0.003 Richardson N->inf". Correction on (2): a
+script labeled FEM (src/scripts/vol_2_subatomic/fem_borromean_convergence.py + JAX
+port) DOES exist and produces ~2.001/2.0027, but it is NOT finite-element -- it is
+voxel quadrature of the Gaussian-ansatz three-tube saturated overlap volume against
+rho_threshold (a profile-dependent rho_threshold consistency check that lands near
+2.0 as a property of the Gaussian ansatz), NOT a derivation of the reactance count.
+V_total=2 is the dual-reactance count (X_C + X_L), forced by Axiom 1's two reactance
+types, profile-independent, mass-confirmed via m_p. Do not fuse the Gaussian-ansatz
+overlap volume (binds rho_threshold) with the reactance count V_total=2.
+See research/2026-06-01_baryon-V2-dual-reactance-closure.md (sec 3). -->
 
 **Step 6: Proton Mass Eigenvalue.**
 Regenerative dual-reactance feedback between the soliton core and its two
