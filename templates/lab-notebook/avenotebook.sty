@@ -71,35 +71,39 @@
 % =====================================================================
 %  PALETTE  (theme-switched)
 % =====================================================================
-% Brand glyph colours — held constant across themes so the mark reads
-% the same on cream and on black.
-\definecolor{aveBond}{HTML}{FF3366}   % corecolor — flux line
-\definecolor{aveHalo}{HTML}{99FFEE}   % node halo
+% Brand palette: neutral EARTH tones generally; ELECTRIC BLUE for the
+% electron's lensing / lattice; LIGHTNING YELLOW for the phase / trefoil.
+\definecolor{aveBond}{HTML}{B65A38}   % bond-star bonds (earth rust)
+\definecolor{aveHalo}{HTML}{9CC0FF}   % node halo (pale blue)
 
 \ifave@dark
-  \definecolor{avePaper}{HTML}{0F0F0F}
-  \definecolor{aveInk}{HTML}{E8E8E8}
-  \definecolor{aveGrid}{HTML}{14302F}   % faint cyan dots on black
-  \definecolor{aveGridStrong}{HTML}{2A5A57} % stronger grid (borders/frames)
-  \definecolor{aveCore}{HTML}{FF3366}
-  \definecolor{aveHead}{HTML}{FF5C7A}   % heading text, legible on black
-  \definecolor{aveTeal}{HTML}{00FFFF}   % labels / secondary accent
-  \definecolor{aveFaint}{HTML}{888888}
-  \definecolor{aveNode}{HTML}{5FF4FF}   % node fill
-  \definecolor{aveNodeEdge}{HTML}{00FFFF}
-  \definecolor{aveRule}{HTML}{FF3366}
+  \definecolor{avePaper}{HTML}{1E1813}     % warm dark ground
+  \definecolor{aveInk}{HTML}{E8E0CE}
+  \definecolor{aveGrid}{HTML}{4A4230}      % earth dots on dark
+  \definecolor{aveGridStrong}{HTML}{6B5F40}
+  \definecolor{aveCore}{HTML}{C96B3A}      % rust accent (rules)
+  \definecolor{aveHead}{HTML}{E08A4E}
+  \definecolor{aveTeal}{HTML}{5B8DEF}      % electric blue (labels / lensing)
+  \definecolor{aveFaint}{HTML}{9A8F76}
+  \definecolor{aveNode}{HTML}{5B8DEF}      % bond-star node (blue)
+  \definecolor{aveNodeEdge}{HTML}{2E72FF}
+  \definecolor{aveRule}{HTML}{C96B3A}
+  \definecolor{aveYellow}{HTML}{FFD21E}    % phase / trefoil
+  \definecolor{aveBlue}{HTML}{2E72FF}      % lensing
 \else
-  \definecolor{avePaper}{HTML}{FAFAF6}  % warm "100g" paper
-  \definecolor{aveInk}{HTML}{1A1A1A}
-  \definecolor{aveGrid}{HTML}{C3D3D6}   % pale cyan-grey engineering dots
-  \definecolor{aveGridStrong}{HTML}{A9BFC3} % stronger grid (borders/frames)
-  \definecolor{aveCore}{HTML}{FF3366}
-  \definecolor{aveHead}{HTML}{C81E47}   % deepened core, legible on cream
-  \definecolor{aveTeal}{HTML}{0E6E78}   % darkened cyan for labels
-  \definecolor{aveFaint}{HTML}{8A8F90}
-  \definecolor{aveNode}{HTML}{12C2D4}   % node fill, visible on cream
-  \definecolor{aveNodeEdge}{HTML}{0A7A86}
-  \definecolor{aveRule}{HTML}{FF3366}
+  \definecolor{avePaper}{HTML}{EAE3D2}     % warm kraft paper
+  \definecolor{aveInk}{HTML}{2A2620}
+  \definecolor{aveGrid}{HTML}{A99B7C}      % taupe dots (stronger, visible)
+  \definecolor{aveGridStrong}{HTML}{8A7B5B}
+  \definecolor{aveCore}{HTML}{A8542E}      % rust accent (rules)
+  \definecolor{aveHead}{HTML}{8A4322}
+  \definecolor{aveTeal}{HTML}{2C5FB8}      % electric blue (labels / lensing)
+  \definecolor{aveFaint}{HTML}{8A8270}
+  \definecolor{aveNode}{HTML}{2C5FB8}      % bond-star node (blue)
+  \definecolor{aveNodeEdge}{HTML}{1E4A95}
+  \definecolor{aveRule}{HTML}{A8542E}
+  \definecolor{aveYellow}{HTML}{C99A1E}    % phase / trefoil (gold on cream)
+  \definecolor{aveBlue}{HTML}{2C5FB8}      % lensing
 \fi
 
 \pagecolor{avePaper}
@@ -191,6 +195,28 @@
 % \avelogo — bond-star + wordmark, lockup for headers / title.
 \newcommand{\avelogo}[1][7]{\raisebox{-0.35ex}{\avebondstar[#1]}\;\avewordmark}
 
+% \avetrefoilglyph[<unit pt>] — compact electron (2,3)-knot glyph (logo use).
+\newcommand{\avetrefoilglyph}[1][6]{%
+  \begingroup
+  \pgfmathsetmacro{\ave@lw}{0.40*#1}%
+  \begin{tikzpicture}[x=#1 pt, y=#1 pt, baseline=-0.6ex, line cap=round, line join=round]
+    \draw[aveYellow, line width=\ave@lw pt]
+      plot[domain=0:360,samples=90,smooth,variable=\t]
+      ({0.385*(sin(\t)+2*sin(2*\t))},{0.385*(cos(\t)-2*cos(2*\t))});
+  \end{tikzpicture}%
+  \endgroup}
+
+% \avetrefoilmark{<radius cm>}{<color>} — faint electron watermark (trefoil +
+% torus ring) for writing pages; call inside a scope shifted to the page centre.
+\newcommand{\avetrefoilmark}[2]{%
+  \pgfmathsetmacro{\ave@sc}{#1/2.6}%
+  \begin{scope}[scale=\ave@sc, line cap=round, line join=round]
+    \draw[#2, opacity=0.07, line width=0.9pt] (0,0) circle(2.5);
+    \draw[#2, opacity=0.11, line width=2.4pt]
+      plot[domain=0:360,samples=140,smooth,variable=\t]
+      ({sin(\t)+2*sin(2*\t)},{cos(\t)-2*cos(2*\t)});
+  \end{scope}}
+
 % \avelatticemark[<unit>] — larger cover motif: a diamond-lattice cell.
 % Central A-site, its 4 B neighbours, and a 2nd A-shell, all bonds along
 % the two diagonal screen directions (the projected <111> bond set), so
@@ -237,13 +263,13 @@
   % with a dot at a corner and one at the tile centre.
   \pgfdeclarepatternformonly{ave@grid}
     {\pgfpoint{-0.6pt}{-0.6pt}}{\pgfpoint{5mm}{8.6603mm}}{\pgfpoint{5mm}{8.6603mm}}{%
-      \pgfpathcircle{\pgfpoint{0pt}{0pt}}{0.42pt}\pgfusepath{fill}%
-      \pgfpathcircle{\pgfpoint{2.5mm}{4.3301mm}}{0.42pt}\pgfusepath{fill}}
+      \pgfpathcircle{\pgfpoint{0pt}{0pt}}{0.55pt}\pgfusepath{fill}%
+      \pgfpathcircle{\pgfpoint{2.5mm}{4.3301mm}}{0.55pt}\pgfusepath{fill}}
 \else
   % square 5mm dot grid
   \pgfdeclarepatternformonly{ave@grid}
     {\pgfpoint{-0.6pt}{-0.6pt}}{\pgfpoint{5mm}{5mm}}{\pgfpoint{5mm}{5mm}}{%
-      \pgfpathcircle{\pgfpoint{0pt}{0pt}}{0.42pt}\pgfusepath{fill}}
+      \pgfpathcircle{\pgfpoint{0pt}{0pt}}{0.55pt}\pgfusepath{fill}}
 \fi
 
 \ifave@dots
@@ -280,6 +306,8 @@
       \ave@field{Exp}{\ave@experiment}\quad\ave@field{Date}{\ave@date}}%
     \fancyfoot[L]{\ave@field{Recorded}{\ave@author\ \rule[-2pt]{16mm}{0.4pt}}\quad
                   \ave@field{Witnessed}{\rule[-2pt]{16mm}{0.4pt}}}%
+    \fancyfoot[C]{\begin{tikzpicture}[remember picture,overlay]%
+      \begin{scope}[shift={(current page.center)}]\avetrefoilmark{2.9}{aveYellow}\end{scope}\end{tikzpicture}}%
     \fancyfoot[R]{{\sffamily\fontsize{7}{8}\selectfont\textcolor{aveFaint}{%
       \ave@notebookid\ \ \textbullet\ \ p.~\thepage\,/\,\pageref{LastPage}}}}}%
   \pagestyle{ave}% select only after the style is defined
@@ -439,7 +467,11 @@
   \fancyhead[R]{\textcolor{aveGridStrong}{\rule[1.2pt]{46mm}{0.4pt}}\,%
     \sffamily\fontsize{6}{7}\selectfont\textcolor{aveFaint}{TOPIC}}%
   \fancyfoot[LE,RO]{\sffamily\fontsize{8.5}{10}\selectfont\textcolor{aveFaint}{\thepage}}%
-  \fancyfoot[RE,LO]{\raisebox{-1pt}{\avebondstar[5]}}%
+  \fancyfoot[RE,LO]{\raisebox{-1pt}{\avetrefoilglyph[5]}}%
+  % faint electron watermark at page centre (write right over it)
+  \fancyfoot[C]{\begin{tikzpicture}[remember picture,overlay]
+      \begin{scope}[shift={(current page.center)}]\avetrefoilmark{3.2}{aveYellow}\end{scope}
+    \end{tikzpicture}}%
 }
 
 % page-emitting loops use plain-TeX \loop (NOT \foreach: \foreach tokenises

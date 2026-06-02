@@ -1,0 +1,51 @@
+\documentclass[border=0pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{knots,hobby,intersections,calc}
+\definecolor{earthbg}{HTML}{1E1813}
+\definecolor{earthln}{HTML}{8F8367}
+\definecolor{eblue}{HTML}{2E72FF}
+\definecolor{eblueLt}{HTML}{9CC0FF}
+\definecolor{ylw}{HTML}{FFD21E}
+\definecolor{ylwLt}{HTML}{FFE886}
+\def\TRE{plot[domain=0:360,samples=160,smooth,variable=\t]({0.80*(sin(\t)+2*sin(2*\t))},{0.80*(cos(\t)-2*cos(2*\t))})}
+\begin{document}
+\begin{tikzpicture}
+\clip (-5.35,-5.35) rectangle (5.35,5.35);
+\fill[earthbg] (-5.7,-5.7) rectangle (5.7,5.7);
+% ===== RIGID K4 lattice (fixed rest length, no geometric warp) =====
+% the "lensing" is an IMPEDANCE / refractive-index field painted on the rigid
+% grid: earth-tone lattice -> electric-blue where n(r) is high near the core.
+\foreach \i in {0,...,22}{\foreach \j in {0,...,22}{
+  \coordinate (n-\i-\j) at ({(\i-11)*0.52},{(\j-11)*0.52});}}
+\foreach \i in {0,...,21}{\foreach \j in {0,...,22}{
+  \pgfmathsetmacro{\gx}{(\i-10.5)*0.52}\pgfmathsetmacro{\gy}{(\j-11)*0.52}\pgfmathsetmacro{\r}{sqrt(\gx*\gx+\gy*\gy)}
+  \pgfmathtruncatemacro{\bl}{max(0,min(100,128/(\r+0.6)-6))}\pgfmathsetmacro{\op}{min(0.6,0.16+0.5/(\r+1.0))}
+  \pgfmathtruncatemacro{\ii}{\i+1}\draw[draw=eblue!\bl!earthln,opacity=\op,line width=0.5pt](n-\i-\j)--(n-\ii-\j);}}
+\foreach \i in {0,...,22}{\foreach \j in {0,...,21}{
+  \pgfmathsetmacro{\gx}{(\i-11)*0.52}\pgfmathsetmacro{\gy}{(\j-10.5)*0.52}\pgfmathsetmacro{\r}{sqrt(\gx*\gx+\gy*\gy)}
+  \pgfmathtruncatemacro{\bl}{max(0,min(100,128/(\r+0.6)-6))}\pgfmathsetmacro{\op}{min(0.6,0.16+0.5/(\r+1.0))}
+  \pgfmathtruncatemacro{\jj}{\j+1}\draw[draw=eblue!\bl!earthln,opacity=\op,line width=0.5pt](n-\i-\j)--(n-\i-\jj);}}
+% index-field intensity carried on the nodes (bright blue = high n near core)
+\foreach \i in {0,...,22}{\foreach \j in {0,...,22}{
+  \pgfmathsetmacro{\gx}{(\i-11)*0.52}\pgfmathsetmacro{\gy}{(\j-11)*0.52}\pgfmathsetmacro{\r}{sqrt(\gx*\gx+\gy*\gy)}
+  \pgfmathtruncatemacro{\bl}{max(0,min(100,128/(\r+0.6)-6))}\pgfmathsetmacro{\op}{min(0.95,0.1+0.85/(\r+0.7))}
+  \pgfmathsetmacro{\rad}{0.030+0.030/(\r+0.6)}
+  \fill[eblue!\bl!earthln,opacity=\op](n-\i-\j) circle(\rad);}}
+% ===== light rays bending through the index field (the real lensing) =====
+\foreach \b in {2.3,1.5,0.8,-0.8,-1.5,-2.3}{
+  \pgfmathsetmacro{\be}{\b*0.12}\pgfmathsetmacro{\bc}{\b*0.40}
+  \draw[eblue,opacity=0.85,line width=0.9pt]
+    (-5.4,\b) .. controls (-1.2,{\b*0.92}) and (1.6,\bc) .. (5.4,\be);}
+% ===== torus (electron envelope) + trefoil (the (2,3) phase knot) =====
+\fill[even odd rule,eblue,opacity=0.12] (0,0) circle(2.45) (0,0) circle(1.05);
+\draw[eblue,opacity=0.45,line width=3pt] (0,0) circle(1.75);
+\draw[eblue,opacity=0.8,line width=1.1pt] (0,0) circle(2.45);
+\draw[eblue,opacity=0.8,line width=1.1pt] (0,0) circle(1.05);
+\draw[ylw,opacity=0.06,line width=20pt,line cap=round] \TRE;
+\draw[ylw,opacity=0.13,line width=12pt,line cap=round] \TRE;
+\begin{knot}[consider self intersections=true,clip width=6,end tolerance=1pt,flip crossing=2]
+  \strand[ylw,line width=5pt,line cap=round] \TRE;\end{knot}
+\begin{knot}[consider self intersections=true,clip width=6,end tolerance=1pt,flip crossing=2]
+  \strand[ylwLt,line width=1.6pt,line cap=round] \TRE;\end{knot}
+\end{tikzpicture}
+\end{document}
