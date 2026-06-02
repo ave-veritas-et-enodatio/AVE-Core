@@ -23,9 +23,9 @@ The following domain-specific translation tables are each defined once in a cano
 - [Protein Folding (Biology ↔ EE)](../vol5/common/translation-protein.md)
 - [Protein Solver (Biology → EE → AVE Axiom)](../vol5/common/translation-protein-solver.md)
 
-## Parameter Accounting: The Synthesis of the Zero-Parameter Topology
+## Parameter Accounting: From ~26 SM Parameters to 3 Interlocked Inputs
 
-The Standard Model requires the manual, heuristic injection of 25--26 arbitrary parameters to function (see the complete enumeration in the [Full Derivation Chain](full-derivation-chain.md)). To bridge this gap, the AVE framework can initially be parameterized as a **Three-Parameter Theory**. By empirically calibrating the framework exclusively to the topological coherence length ($\ell_{node}$), the geometric packing fraction ($p_c$), and macroscopic gravity ($G$), **all other constants** ($c, \hbar, H_\infty, \nu_{vac}, \alpha, m_p, m_W, m_Z$) emerge as algebraically interlocked geometric consequences of the Chiral LC lattice topology. As the derivations resolve, even these three initial inputs are shown to be scale-invariant geometric outcomes, establishing a closed **Zero-Parameter** framework.
+The Standard Model requires the manual, heuristic injection of 25--26 arbitrary parameters to function (see the complete enumeration in the [Full Derivation Chain](full-derivation-chain.md)). To bridge this gap, the AVE framework can initially be parameterized as a **Three-Parameter Theory**. By empirically calibrating the framework exclusively to the topological coherence length ($\ell_{node}$), the geometric packing fraction ($p_c$), and macroscopic gravity ($G$), **all other constants** ($c, \hbar, H_\infty, \nu_{vac}, \alpha, m_p, m_W, m_Z$) emerge as algebraically interlocked geometric consequences of the Chiral LC lattice topology. Lifting even these three initial inputs to scale-invariant geometric outcomes --- a closed **Zero-Parameter** framework --- is the stated **target**, gated on the open gaps tracked in the [Full Derivation Chain](full-derivation-chain.md) scorecard ($G$'s closed-form Chain B′ derivation; the $\delta_{\text{strain}}$ thermal closure).
 
 ## Theoretical Stress Tests: Surviving Standard Disproofs
 

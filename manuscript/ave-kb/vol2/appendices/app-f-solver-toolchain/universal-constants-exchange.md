@@ -18,6 +18,6 @@ The fundamental constants $(G, c, \hbar, \varepsilon_0, e)$ are not parameters o
 | Current $\leftrightarrow$ Field | $\varepsilon_0\,c$ | A $\to$ V/m | Displacement current |
 | Energy $\leftrightarrow$ Temperature | $k_B$ | J $\to$ K | Thermal excitation |
 
-The AVE framework has **zero free parameters** precisely because all physical quantities reduce to geometric ratios of the lattice pitch $l_{\mathrm{node}}$ through these exchange rates.
+The AVE framework **reduces the Standard Model's ~26 independent empirical parameters to ~3 interlocked geometric inputs** $\{l_{\mathrm{node}}/m_e, \alpha, G\}$, with every other physical quantity then reducing to geometric ratios of the lattice pitch $l_{\mathrm{node}}$ through these exchange rates (full scorecard + named residuals in the [Full Derivation Chain](../../../common/full-derivation-chain.md)). Lifting even those three inputs to geometric outcomes --- a **structurally zero-parameter** framework --- is the stated **target**, gated on the open gaps tracked in that scorecard.
 
 ---
