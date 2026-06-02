@@ -9,7 +9,7 @@ claims: [clm-8ep2b4]
 
 To resolve the "Mutual Inductance Paradox" (why planets do not lose orbital energy to inductive drag), it is recognized that the $\mathcal{M}_A$ LC network naturally possesses an absolute **Magnetic Saturation Limit**. Microscopically, this is a *per-node energy density* threshold: each discrete lattice node can store a maximum energy in its local LC mode before overcoupling with adjacent nodes. The macroscopic Dielectric Yield Limit ($\tau_{yield}$) is the continuum expression of this microscopic saturation. It is strictly derived from: the baseline bulk energy density ($\rho_{bulk} c^2$), the mutual inductance coupling at the $6^3_2$ Borromean flux-tube crossings ($M/L = 1/\sqrt{2}$, establishing the per-node saturation threshold $\rho_{threshold} = 1 + \sigma/4 \approx 1.106$), and the dual-reactance count ($\mathcal{V}_{total} = 2.0$ — the node's two reactance sectors $X_C + X_L$, Axiom 1; counted, not integrated; canonical at [`../../../common/dual-reactance-storage-taxonomy.md`](../../../common/dual-reactance-storage-taxonomy.md)).
 
-By evaluating the scalar volume summation of these topological knot crossings ($\Sigma \mathcal{V}_{crossing}$) and modulating by the geometric lattice porosity ($\alpha = p_c/8\pi$), the parameter-free macroscopic yield stress limit is:
+By taking the dual-reactance count ($\mathcal{V}_{total} = 2$, the node's two reactance sectors $X_C + X_L$; the $\Sigma \mathcal{V}_{crossing}$ writing is a retired-framing re-factoring of the same value --- see Notation below) and modulating by the geometric lattice porosity ($\alpha = p_c/8\pi$), the parameter-free macroscopic yield stress limit is:
 
 > **[Resultbox]** *Macroscopic Yield Stress Limit*
 >
