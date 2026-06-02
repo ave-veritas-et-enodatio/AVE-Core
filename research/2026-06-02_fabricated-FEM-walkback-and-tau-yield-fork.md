@@ -6,7 +6,7 @@
 **Discipline:** `ave-walk-back` (3h-exhaustive), `substrate-native-check`, `consistency-vs-emergence`, `verify-before-cite`, flag-don't-fix
 **Predecessor:** `2026-06-01_baryon-V2-dual-reactance-closure.md` (the V=2 reactance-count reframe this completes)
 
-> **One-line:** the corpus fused two distinct quantities — the **dual-reactance count** `V_total = 2` (a forced Axiom-1 integer, profile-INDEPENDENT) and the **saturation density threshold** `ρ_threshold ≈ 1.1062` (Gaussian-ansatz-derived, profile-DEPENDENT) — and anchored both to a "3D FEM integration" narrative. That narrative is retired: the only "FEM" script is voxel quadrature of the Gaussian-ansatz saturated overlap volume (a `ρ_threshold` consistency check), not finite-element, and not a derivation of the reactance count. The two 2's are now decoupled. A SECOND fork — whether the τ_yield "2" is the dual-reactance count or a separate `6 × V_crossing` geometric factor — is **HELD for Grant's adjudication** with verbatim evidence (Bucket A unchanged).
+> **One-line:** the corpus fused two distinct quantities — the **dual-reactance count** `V_total = 2` (a forced Axiom-1 integer, profile-INDEPENDENT) and the **saturation density threshold** `ρ_threshold ≈ 1.1062` (Gaussian-ansatz-derived, profile-DEPENDENT) — and anchored both to a "3D FEM integration" narrative. That narrative is retired: the only "FEM" script is voxel quadrature of the Gaussian-ansatz saturated overlap volume (a `ρ_threshold` consistency check), not finite-element, and not a derivation of the reactance count. The two 2's (V_total vs ρ_threshold) are now decoupled. A SECOND fork was raised — whether the τ_yield "2" is the dual-reactance count or a separate `6 × V_crossing` geometric factor — and is now **RESOLVED (Grant 2026-06-02): FINISH.** The corpus shows there is **one** `V_total = 2.0` (the dual-reactance count PR-B already reframed in the compact form), presented two ways that "differ only by factoring choice"; the `6 × V_crossing` is circular (`V_crossing := V_toroidal/6`), a vestige of the retired geometric framing, NOT an independent derivation of 2. Bucket A is now finished (FEM-verified label dropped, dual-reactance reframe propagated); the only genuinely-open thing is the **mechanism** (does the yield *stress* scale with the reactance-sector count). See the §3 in-session correction below.
 
 ---
 
@@ -53,7 +53,26 @@ So the canonical conclusion is unchanged and in fact strengthened: the "3D finit
 
 ---
 
-## §3 — The τ_yield fork (Bucket A) — HELD-AND-FLAGGED for Grant
+## §3 — The τ_yield "fork" (Bucket A) — RESOLVED (Grant 2026-06-02): FINISH
+
+> **DISPOSITION (Grant 2026-06-02): RESOLVED — FINISH.** Propagate the
+> dual-reactance reframe to all Bucket-A τ_yield sites + drop the fabricated
+> "FEM-verified" label + record the named open item. The prior framing in this
+> §3 (a genuine "two distinct 2's" fork, HELD-AND-FLAGGED) was **WRONG and is
+> corrected in-session below** (flag-don't-fix: the original §3.2 reasoning is
+> preserved struck-through-in-prose with the correction adjacent, not silently
+> overwritten — see §3.2′). The corrected reality: there is **ONE** `V_total =
+> 2.0` (the dual-reactance count PR-B reframed at `01_appendices.tex:72`),
+> presented in two forms that the corpus itself says "differ only by factoring
+> choice and yield identical 1.04×10²² Pa" (`magnetic-saturation.md:20`); the
+> `6 × V_crossing` form is **circular** — `tvs-transition.md:27` *defines*
+> `V_crossing := V_toroidal/6 = 2.0/6`, so `6 × V_crossing = V_toroidal =
+> V_total = 2.0` is a re-factoring of the same 2, NOT an independent geometric
+> derivation. The genuinely-open item is purely the **mechanism** (does the
+> yield *stress* scale with the reactance-sector count, or merely inherit the
+> value 2). Bucket A is now executed; the §3.3 on-branch inconsistency is
+> thereby resolved (all forms now consistently call V_total the dual-reactance
+> count).
 
 ### §3.1 — The fork
 
@@ -64,7 +83,16 @@ The 7 Bucket-A sites embed `V_total = 2` in the dielectric-yield-stress formula.
 
 **The fork:** does the τ_yield "2" genuinely scale with the **dual-reactance count** (Grant's lean: the dielectric yield is an Axiom-4 saturation event; saturation = reactance hitting its limit → 2 sectors → factor 2), or is it a **separate geometric factor** — "6 Borromean crossings × per-crossing-volume (⅓ each) = 2" — that only coincidentally equals 2?
 
-### §3.2 — Why HELD (the "don't-fuse-the-2's" risk materialized — verbatim evidence)
+### §3.2 — [SUPERSEDED — see §3.2′] Why HELD (the "don't-fuse-the-2's" risk materialized — verbatim evidence)
+
+> **🔴 SUPERSEDED IN-SESSION (Grant 2026-06-02).** The four points below
+> concluded the τ_yield "2" was a *structurally independent* geometric factor
+> (a "sum over 6 Borromean crossings") distinct from the dual-reactance count,
+> and that fusing them would manufacture a false identity. **That conclusion was
+> wrong.** It mistook a **circular re-factoring** for an independent derivation.
+> The body is preserved unedited for the audit trail; the correction is §3.2′
+> immediately below. (Rule-12 substitution-not-retraction: the original
+> reasoning is not deleted; the corrected analysis carries its own statement.)
 
 The brief's flag-don't-force fallback: *"if your in-session physics work shows the τ_yield '2' is actually a separate geometric factor ('6 Borromean crossings × ⅓ = 2') that only coincidentally equals 2 — i.e. the 'don't-fuse-the-2's' risk materializes — then HOLD Bucket A unchanged and flag it."* It materialized:
 
@@ -82,25 +110,41 @@ The brief's flag-don't-force fallback: *"if your in-session physics work shows t
 
 4. **The shared anchor is the fabricated volume claim, not a physics identity.** The two presentations agree on 2.0 only because the corpus set `V_crossing = V_toroidal/6` — i.e. the τ_yield "2" inherits its value from the (now-reframed) `V_total`-as-volume. Applying Grant's lean would assert `6 × V_crossing ≡ X_C + X_L` — fusing the 6-crossing geometric sum with the 2-sector reactance count, manufacturing a false identity from the shared digit 2. This is exactly the failure mode `dual-reactance-storage-taxonomy.md` §"three distinct 2's" warns against ("do not write 'the reactance count equals [the other 2]' or imply one derives the other").
 
+### §3.2′ — CORRECTED: there is ONE `V_total = 2.0`; the "fork" was a misread of a circular re-factoring (Grant 2026-06-02)
+
+The §3.2 analysis above had **the verbatim corpus text backwards.** It treated `6 × V_crossing` as a *structurally independent* geometric quantity ("a sum over the proton's 6 Borromean crossings") that merely coincidentally equals the dual-reactance count, and on that basis held the two 2's apart. But the corpus text it quotes **defines `V_crossing` in terms of `V_total`, not the reverse** — the "derivation" is circular, so it is not an independent derivation of the value at all. The corrected reading (each point answers the same-numbered §3.2 point):
+
+1. **The expanded form does NOT derive the 2 via an independent geometric route — it re-factors `V_total`.** `tvs-transition.md:27` (verbatim): *"$\mathcal{V}_{crossing} = V_{toroidal}/6 = 2.0/6$ ... $\mathcal{V}_{total} = 6 \times \mathcal{V}_{crossing} = 2.0$."* Read the chain: `V_crossing` is **defined as** `V_toroidal/6`, so `6 × V_crossing = V_toroidal = V_total = 2.0` is an algebraic identity that reproduces the input. It computes nothing about crossings; it re-states `V_total`. The "Σ over 6 crossings" prose (`magnetic-saturation.md:12`) is window-dressing on that circular factoring.
+
+2. **The crossing number `c` is real and load-bearing elsewhere — but it is NOT what sets this 2.** The (2,q) torus-knot ladder, `c=5` cinquefoil, `r_opt = κ_FS/c`, "~170 MeV/crossing" are all genuine and untouched. The error was inferring that *because* crossing-number is load-bearing elsewhere, the `6 × V_crossing` writing here must be an independent crossing-count derivation. It is not: here `V_crossing` is back-defined from `V_total`. The proton's 6³₂ Borromean topology remains as topology; it does not set the value 2.
+
+3. **That no corpus derivation links yield to the reactance count is exactly — and only — the named open item, not grounds to hold a fork.** The empty `yield ∩ reactance` grep does not show the τ_yield 2 is a *different* quantity; it shows the **mechanism** (yield *stress* ∝ reactance-sector count) is **not yet derived**. That is the §3.4 open item, full stop. The value 2 is unambiguously the one `V_total` (the compact form `e²·V_total/(8πε₀ℓ⁴)` at `01_appendices.tex:72` was already reframed to the dual-reactance count by PR-B; the expanded form is the same quantity, as `magnetic-saturation.md:20` states the two "differ only by factoring choice and yield identical 1.04×10²² Pa").
+
+4. **There is no second 2 to fuse — so there is no false identity to manufacture.** `6 × V_crossing` and `V_total` are the *same* number by the corpus's own definition `V_crossing := V_toroidal/6`, not two numerically-coincident objects. Dropping `6 × V_crossing` to honest re-factoring language (or removing it) and calling `V_total` the dual-reactance count does **not** assert `6 × V_crossing ≡ X_C + X_L` as a derived identity — it states they are one quantity (`V_total`) written two ways, with the *mechanism* (does yield scale with the count) flagged open. The `dual-reactance-storage-taxonomy.md` §"three distinct 2's" warning applies to **V=2 vs K/G=2 vs E_L=E_C** (genuinely unrelated objects); the τ_yield `6 × V_crossing` is not a fourth distinct 2 — it is the V=2 itself, re-factored.
+
+**Net:** one `V_total = 2.0` (the dual-reactance count), two factorings, one open mechanism question. Bucket A is finished accordingly (§2 of the return: all sites reframed; the circular `6 × V_crossing` demoted to honest re-factoring language).
+
 ### §3.3 — Disposition
 
-**HELD-AND-FLAGGED.** All 7 Bucket-A sites left unchanged (verified: `git diff` touches no Bucket-A file). The genuine fork is surfaced for Grant's physical intuition — the resolution mechanism per the brief.
+**RESOLVED (Grant 2026-06-02): FINISH — executed.** All Bucket-A sites reframed to the dual-reactance count + the fabricated "FEM-verified" / "confirmed by FEM" label dropped + the `6 × V_crossing` circular re-factoring demoted to honest language (or removed). Sites executed (fresh-grep-verified enumeration, see §4.2′): `tvs-transition.md:27`; `magnetic-saturation.md:10,20`; `04_continuum_electrodynamics.tex:219,228`; `vol4/claim-quality.md:977,993`; `vol1/claim-quality.md:492,506,508`; `appendices-overview.md:66`. The named open item (§3.4) is recorded canonically at the two τ_yield claim-quality entries + a dedicated `§τ_yield open item` subsection in `dual-reactance-storage-taxonomy.md`.
 
-Note an **internal inconsistency already on-branch** (introduced by PR-B propagation `063e7c1b`, surfaced here, not resolved): `01_appendices.tex:72` was already reframed to call `V_total` the dual-reactance count in the *compact* `e²·V_total/(8πε₀ℓ⁴)` form, while the Vol 1 Ch 4 derivation it points to (`magnetic-saturation.md:20`) still calls it "FEM-verified" and builds it as `6 × V_crossing`. The corpus is therefore already ambiguous on this exact point. Resolving it requires the fork decision below, NOT a unilateral edit.
+The **on-branch internal inconsistency** flagged below is now **resolved by this finish**: `01_appendices.tex:72` (already PR-B-reframed to the dual-reactance count in the compact form) and the expanded-form derivation sites (`magnetic-saturation.md`, `04_continuum_electrodynamics.tex`, `tvs-transition.md`) now **all** consistently call `V_total` the dual-reactance count; the "FEM-verified" label and the circular `6 × V_crossing`-as-derivation are gone from the expanded sites.
+
+> *(Original flag, preserved for trail:)* Internal inconsistency introduced by PR-B propagation `063e7c1b`: `01_appendices.tex:72` was reframed to the dual-reactance count in the *compact* form while the Vol 1 Ch 4 derivation it points to (`magnetic-saturation.md:20`) still said "FEM-verified" and built it as `6 × V_crossing`. — *Resolved by the FINISH above.*
 
 ### §3.4 — The named open item (regardless of fork outcome)
 
 > **Open item — derive that τ_yield ∝ the dual-reactance count, vs merely inheriting the value 2.** The dielectric yield is an Axiom-4 saturation event; saturation = a reactance sector reaching its limit. *If* the yield stress scales with the count of saturating reactance sectors (2), then `τ_yield ∝ V_total` is the reactance count and Grant's lean applies cleanly. *But* the corpus currently derives the τ_yield "2" via a geometric `6 × V_crossing` (6 Borromean crossings × per-crossing volume) route that reaches 2.0 by an unrelated path. Closing this requires a substrate-mechanism derivation establishing **either** (a) that `6 × V_crossing` IS the 2-reactance-sector count (collapsing the fork toward Grant's lean), **or** (b) that the τ_yield 2 is a genuinely separate geometric factor (keep the geometric story; the shared value 2 is a coincidence to be flagged, not fused). Until then, the two 2's stay separate.
 
-### §3.5 — Boundary question for Grant
+### §3.5 — Boundary question for Grant — ANSWERED (2026-06-02): FINISH
 
-Three options:
+The three options below were surfaced for Grant. **Grant adjudicated FINISH** — option (A), as **corrected by §3.2′**: the "risk" annotation on (A) was itself the misread. Because `6 × V_crossing` is a circular re-factoring of the same `V_total` (`V_crossing := V_toroidal/6`), reframing `V_total` to the dual-reactance count does **not** assert `6 × V_crossing ≡ X_C + X_L` as a derived identity — there is only one 2 to begin with. The yield-scales-with-count *mechanism* is recorded as the named open item (§3.4), not asserted. Options preserved for the trail:
 
-- **(A) Apply Grant's lean** — reframe the τ_yield `V_total` to the dual-reactance count + retire the "FEM-verified" label + record the §3.4 open item. (Risk: asserts `6 × V_crossing ≡ X_C + X_L` without derivation — fuses two 2's.)
-- **(B) Keep the geometric `6 × V_crossing` story, drop only the fabricated "FEM-verified" label** — the "2" stays a per-crossing-volume sum; flag the numerical coincidence with the reactance count; record the §3.4 open item. (Drops the fabrication without pre-judging the fork.)
-- **(C) Something else** per your physical read of whether dielectric yield scales with reactance-sector count or with crossing-volume sum.
+- **(A) [CHOSEN — as corrected by §3.2′] Apply Grant's lean** — reframe the τ_yield `V_total` to the dual-reactance count + drop the fabricated "FEM-verified" label + record the §3.4 open item. (The original "Risk: fuses two 2's" annotation was the misread §3.2′ corrects: there is one `V_total`, re-factored; nothing is fused.)
+- **(B) Keep the geometric `6 × V_crossing` story, drop only the fabricated "FEM-verified" label** — *not chosen.* The `6 × V_crossing` is circular (re-states `V_total`), not a genuine per-crossing-volume sum; keeping it would preserve a vestige of the retired geometric framing presented as a derivation.
+- **(C) Something else** — *not chosen.*
 
-The unambiguous Bucket-B fabrication retirement + the V_total/ρ_threshold decoupling are executed; the τ_yield fork (which fuses-or-doesn't-fuse two 2's) is your call.
+The unambiguous Bucket-B fabrication retirement + the V_total/ρ_threshold decoupling were already executed; the τ_yield finish is now executed too, per Grant's call.
 
 ---
 
@@ -119,9 +163,27 @@ The unambiguous Bucket-B fabrication retirement + the V_total/ρ_threshold decou
 | `fem_borromean_convergence.py` (+ JAX port) | `ave-driver-script-honesty` scope note: voxel quadrature, not FEM; computes Gaussian-ansatz overlap volume (bears on `ρ_threshold` gap), not the V=2 reactance count. Runtime header + plot title corrected. |
 | `ARCHITECTURE.md:55-56` | Row descriptions reframed (voxel quadrature, not FEM; ρ_threshold, not the reactance count). |
 
-### §4.2 — Held (Bucket A — fork, unchanged)
+### §4.2′ — Executed (Bucket A — FINISH, Grant 2026-06-02)
 
-`magnetic-saturation.md:10,20`; `04_continuum_electrodynamics.tex:219,228`; `tvs-transition.md:24,27`; `vol4/claim-quality.md:977,993`; `vol1/claim-quality.md:492,506`; `appendices-overview.md:66`. (7 site-references; `01_appendices.tex:72` was already PR-B-reframed and is the internal-inconsistency partner noted in §3.3.)
+The §4.2 "held" list is now **executed**. Per-site changes:
+
+| Site | Change |
+|---|---|
+| `tvs-transition.md:27` | Prose: drop "FEM-verified Borromean halo volume"; `V_total = 2.0` = dual-reactance count (link to taxonomy); the `6 × V_crossing` writing demoted to a circular re-factoring of the same `V_total` (vestige of retired geometric framing), not a derivation. |
+| `magnetic-saturation.md:10` | Drop "confirmed by FEM to 0.13%"; "verified topological halo volume" → dual-reactance count (link). |
+| `magnetic-saturation.md:20` | Notation block: drop "(FEM-verified)"; `V_total` = dual-reactance count; `6 V_crossing` demoted to circular re-factoring; compact-form equivalence kept. |
+| `04_continuum_electrodynamics.tex:219` | `.tex` mirror of :10 — same reframe. |
+| `04_continuum_electrodynamics.tex:228` | `.tex` mirror of :20 — same reframe. |
+| `vol4/claim-quality.md:977` | Specific-claim: drop "(FEM-verified Borromean halo volume)"; `V_total` = dual-reactance count; circular `6 × V_crossing` parenthetical. |
+| `vol4/claim-quality.md:993` | Rationale: drop "FEM-verified Borromean halo volume"; dual-reactance count + named open item appended. |
+| `vol1/claim-quality.md:492` | Specific-claim: drop "FEM-verified to 0.13%"; dual-reactance count; circular-re-factoring note. |
+| `vol1/claim-quality.md:506` | Rationale: drop "FEM-verified to 0.13%" provenance; reframe to dual-reactance count; **distinct** macroscopic-embedding open question preserved verbatim; solidity arithmetic untouched; named open item noted as distinct. |
+| `vol1/claim-quality.md:508` | strengthen-by: "proton-specific 6-crossing Borromean topology" → "proton-provenanced dual-reactance count" (embedding question substance preserved). |
+| `appendices-overview.md:66` | Drop "FEM-verified"; `V_total` = dual-reactance count (link), "not an integrated/geometric halo volume" — matches `01_appendices.tex:72` compact form. |
+
+`01_appendices.tex:72` was already PR-B-reframed (compact form) and now agrees with the expanded-form sites — the §3.3 on-branch inconsistency is resolved.
+
+**Display-equation note:** the expanded-form *equations* (`tvs-transition.md:24`, `04_continuum_electrodynamics.tex:224`, `magnetic-saturation.md:17`) still display `… × (6 × V_crossing) × …` as one factoring equal to `… × V_total × α`. This is arithmetically true and the *adjacent prose* now explicitly labels it a circular re-factoring, not a derivation (Grant's "demote to honest language" option, chosen over "drop it" to preserve the audit trail of the corpus's historical writing). No site now *asserts* an independent geometric derivation of 2.
 
 ### §4.3 — NEW beyond the brief's enumeration (the expected "more")
 
@@ -137,5 +199,7 @@ The fresh exhaustive grep surfaced, beyond the brief's Bucket A+B lists: the FEM
 
 - `fem_borromean_convergence.py` run live this session → N=256 = 2.001208, Richardson = 2.002655 (0.133%); matches manuscript table + the "2.001 ± 0.003 Richardson" provenance exactly.
 - `git log --follow` + `git cat-file -e f9bd8da2:…` → the FEM script tracked since `de9d2293`, present at PR-B core and HEAD.
-- Post-edit sweep: "3D finite-element integration" prose = 0; "topological bound as a geometric identity" overclaim = 0; Bucket A "FEM-verified Borromean halo volume" sites intact (held); the only residual "FEM-converged" prose is the three deliberately-reframed rigour-gap rows (now "voxel quadrature... not a derivation of the reactance count").
-- No corpus derivation links dielectric yield to the 2-reactance-sector count (targeted grep empty) — basis for §3.2 point 3.
+- Post-edit sweep (Bucket B, original): "3D finite-element integration" prose = 0; "topological bound as a geometric identity" overclaim = 0.
+- **Post-FINISH sweep (Bucket A, 2026-06-02):** `FEM-verified` / `confirmed by FEM` / `geometric halo volume` / `integrated volume` / `FEM-verified Borromean halo volume` in the τ_yield context = **0** (fresh exhaustive grep across `manuscript/` + `.index/`, pasted in the return §3). The only surviving "FEM"/"halo volume" hits are: (a) the three deliberately-reframed rigour-gap rows (`mathematical-closure.md`, `12_mathematical_closure.tex` — "FEM-converged ... is dropped" reframe prose); (b) the legitimate CEM-methods-survey FEM-as-solver content (vol4 future-geometries, unrelated); (c) the already-reframed Bucket-B dual-reactance sites (vol2, `01_appendices.tex`, etc.); (d) the dropped-claim comment blocks in `full_derivation_chain` (history, marked DROPPED). None assert a τ_yield FEM-verified halo volume.
+- No corpus derivation links dielectric yield to the 2-reactance-sector count (targeted grep empty) — this is the **named open item** (§3.4), NOT grounds for a fork (§3.2′ corrects the prior §3.2 reading).
+- `make refresh-kb-metadata` run post-edit → regenerated `.index/claims.jsonl` picked up the reframed `clm-8ep2b4` + `clm-o2shcn` rationale strings (no hand-edit of jsonl); `make verify` green. Commit + push: see return §7.
