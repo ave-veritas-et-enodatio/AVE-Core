@@ -152,30 +152,83 @@ volume-derivations) changes.
 > "zero-parameter."** The separate parsimony claim "zero *baryon-data-tuned*
 > parameters" (inputs are electron-physics-provenanced) stands.
 
-## τ_yield open item — does the dielectric yield *scale with* the reactance-sector count?
+## τ_yield open item — RESOLVED (2026-06-02): STAYS-INHERITED + dual-branch landing
 
-> **Open item — derive that $\tau_{yield} \propto$ the dual-reactance count, vs
-> merely inheriting the value 2.** The macroscopic dielectric yield
-> $\tau_{yield} = \rho_{bulk} c^2 \cdot \mathcal{V}_{total} \cdot \alpha$ (Vol 1
-> Ch 4; Vol 4 Ch 1) is an Axiom-4 saturation event (saturation = a reactance
-> sector reaching its limit), so "yield $\propto$ number of saturating reactance
-> sectors (2)" is **physically natural** — but the corpus does **not yet
-> derive** that the yield *stress* scales with the reactance-sector count; it
-> currently only **inherits the value 2** from $\mathcal{V}_{total}$. This is a
-> **re-interpretation, not a derivation** — do not present it as one.
+> **RESOLVED (2026-06-02): STAYS-INHERITED.** The yield event is the electric
+> (ε-only) branch — single-sector ([`../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md`](../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):78,
+> *"only $\varepsilon_{eff} \to 0$ while $\mu_{eff}$ remains intact … the
+> dielectric-rupture branch (electric breakdown)"*); the ×2 is the inherited
+> $\mathcal{V}_{total}$ count-tag, **not** an $E_C + E_L$ within-event sum. The
+> count-2 manifests at the yield scale as the **two mutually-exclusive
+> saturation branches** of the same Axiom-4 kernel (electric → $X_C$ →
+> $\tau_{yield}$; magnetic → $X_L$ → rest mass, clm-lv3uw1) — the same
+> $X_C + X_L$ count as baryon $\mathcal{V} = 2$. **Class B manifestation; no
+> empirical discriminator.**
 
-This is the genuinely-open structural question that survived the fabricated-FEM
-walk-back (Grant 2026-06-02): the value 2 itself is **CLOSED** (forced
-reactance count, mass-confirmed — §"V_TOROIDAL_HALO = the dual-reactance count"
-above), and the prior "FEM-verified Borromean halo volume" provenance on the
-$\tau_{yield}$ sites was fabricated and is dropped. What remains open is purely
-the **mechanism**: whether the *yield stress* physically scales with the
-reactance-sector count, or merely re-uses the integer 2 by formula construction.
-Tracked at the τ_yield claim-quality entries
+**The adjudicated question** (Grant 2026-06-02) was *which physical event the
+yield is* — (A) first-sector breakdown of a pre-existing node-tank, or (B)
+nucleation of a new two-sector defect. The substrate walk landed on **(A)** and
+**ruled out (B)**: the master equation makes the two branches **mutually
+exclusive** (`master-equation.md:81`, *"they differ in which constitutive
+parameter saturates first"*); each self-terminates. The defect-nucleation
+outcome (B) invokes — the trapped $\Gamma \to -1$ two-sector knot — **IS the
+magnetic branch = rest mass** (`master-equation.md:79`, clm-lv3uw1), not
+$\tau_{yield}$; (B) mis-assigns the branch. And $\tau_{yield}$'s own outcome
+($Z \to \infty$, open-circuit, opaque) is a voltage-antinode / current-node
+boundary — capacitive-dominated, itself single-sector. So the yield-event
+physics is **single-sector (electric branch)** and does **not** supply an
+"$E_C + E_L$ summed at breakdown" justification for the 2. The value 2 itself
+was already **CLOSED** (forced reactance count, mass-confirmed — §"V_TOROIDAL_HALO
+= the dual-reactance count" above); only the *provenance* of the ×2 in
+$\tau_{yield}$ was open, and it resolves to **inherited** (a count-tag naming
+*which two-sector node* this is, not physics-forced by the yield event). The
+numerical value ($1.04\times 10^{22}$ Pa) stays canonical and mass-confirmed.
+The prior "FEM-verified Borromean halo volume" provenance on the $\tau_{yield}$
+sites was fabricated and is dropped.
+
+**The landing (the real result): the dual-branch unification.** The count-2
+*does* live at the yield scale — as the **two mutually-exclusive saturation
+branches of the same Axiom-4 kernel**, which **are** the two reactance sectors:
+
+| Branch | Saturates | $Z$, $\Gamma$, boundary | Reactance sector | Outcome |
+|---|---|---|---|---|
+| **Electric** (`master-equation.md:78`) | $\varepsilon_{eff} \to 0$ ($\mu$ intact) | $Z \to \infty$, $\Gamma \to +1$, open | **$X_C$** (capacitive / translational-E) | **$\tau_{yield}$** (dielectric breakdown) |
+| **Magnetic** (`master-equation.md:79`, clm-lv3uw1) | $\mu_{eff} \to 0$ ($\varepsilon$ intact) | $Z \to 0$, $\Gamma \to -1$, short | **$X_L$** (inductive / microrotational-B) | **rest mass** (Fermion confinement) |
+
+The branch↔sector identification is **canonical, not asserted**: the magnetic
+branch is named the **inductive / microrotational-B** sector at
+[`translation-tables/translation-circuit.md`](translation-tables/translation-circuit.md):464
+(*"substrate microrotational sector hits Ax 4 yield on the inductive branch …
+magnetic-branch saturation; clm-lv3uw1"*) and `:526`; the electric branch is its
+capacitive / translational-E complement. So **each branch literally IS one
+reactance sector reaching its Axiom-4 yield** (clm-lv3uw1) → the yield-scale "2"
+= the $X_C + X_L$ count = the same count as baryon $\mathcal{V} = 2$
+([`../../../research/2026-06-01_baryon-V2-dual-reactance-closure.md`](../../../research/2026-06-01_baryon-V2-dual-reactance-closure.md)).
+
+> **Shown identity, NOT the forbidden fusion.** Tying the yield-scale "2" to the
+> $X_C + X_L$ count is a **derived identity** (each branch *is* one reactance
+> sector at its Ax-4 yield, clm-lv3uw1), not a manufactured coincidence. It must
+> still be held apart from the other "three distinct 2's" above (§"The three
+> distinct '2's"): this is the **reactance-sector count**, NOT $K/G = 2$
+> (modulus ratio) and NOT the $E_L = E_C$ equipartition ratio-1. The chord it
+> lands: the dual-reactance count threads from the baryon (fm) through the two
+> saturation branches that split **yield vs mass** — it unifies $\tau_{yield}$
+> *and* rest mass, a stronger result than "yield scales with the count" would
+> have been.
+
+**Classification (consistency-vs-emergence, no promotion past canonical
+ceiling).** The dual-branch landing is **Class B axiom-manifestation**: the two
+branches are already canonical (`master-equation.md:77-81`, clm-lv3uw1); the new
+content is the *identification* branch↔sector↔baryon-count, near-definitional
+given the sector definitions. **Not** Class 2 emergence; **not** a new empirical
+prediction. Observable axis: **Class 4 consistency** — the sector count is not
+empirically variable. Resolved 2026-06-02 (`research/2026-06-02_tau-yield-reactance-count.md`
+§7); tracked at the τ_yield claim-quality entries
 ([`../vol1/claim-quality.md`](../vol1/claim-quality.md) clm-8ep2b4;
-[`../vol4/claim-quality.md`](../vol4/claim-quality.md) clm-o2shcn). Distinct from
-the separate vol1 open item (whether a proton-provenanced reactance count
-belongs in a *macroscopic / cosmological* formula at all).
+[`../vol4/claim-quality.md`](../vol4/claim-quality.md) clm-o2shcn). The separate
+vol1 open item (whether a proton-provenanced reactance count belongs in a
+*macroscopic / cosmological* formula at all) is distinct and remains tracked at
+clm-8ep2b4.
 
 ## Cross-references
 
