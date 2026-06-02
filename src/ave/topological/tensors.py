@@ -76,7 +76,8 @@ def calculate_structural_baryon_eigenvalue() -> float:
     Reframe 2026-06-01: V is the reactance-sector count, NOT a geometric tensor
     volume — see research/2026-06-01_baryon-V2-dual-reactance-closure.md.
     """
-    # 1D Baseline from Faddeev-Skyrme scalar solver (dynamic computation)
+    # 1D scalar rest-mass baseline: canonical Faddeev-Skyrme solver value
+    # (pre-computed constant, imported — not re-solved at call-time)
     from ave.core.constants import I_SCALAR_1D
 
     I_scalar = I_SCALAR_1D
