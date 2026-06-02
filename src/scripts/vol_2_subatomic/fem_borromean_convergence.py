@@ -1,9 +1,26 @@
 """
-P2: Borromean Flux-Tube FEM — V_halo Convergence Study
+P2: Borromean Flux-Tube Gaussian-Ansatz Saturated-Overlap-Volume Convergence Study
+
+SCOPE NOTE (2026-06-02, fabricated-FEM walk-back; ave-driver-script-honesty):
+  - This is NOT a finite-element method. It is a uniform-Cartesian-grid Riemann
+    sum (voxel quadrature: V_sat = Σ Θ(ρ_total > ρ_threshold)·Δx³). The "FEM" in
+    the filename/name is a misnomer kept only for path stability.
+  - It does NOT compute / derive the dual-reactance count V_TOROIDAL_HALO = 2.
+    That "2" is the node's forced count of two reactance sectors (X_C + X_L,
+    Axiom 1; profile-INDEPENDENT; counted, not integrated; mass-confirmed via
+    m_p). See research/2026-06-01_baryon-V2-dual-reactance-closure.md and
+    manuscript/ave-kb/common/dual-reactance-storage-taxonomy.md.
+  - What this DOES compute: the saturated overlap volume of three Gaussian flux
+    tubes, integrated against the (profile-DEPENDENT) saturation threshold
+    ρ_threshold ≈ 1.1062. The result landing near 2.0 is a *property of the
+    Gaussian ansatz at this ρ_threshold* — a self-consistency check on the
+    Gaussian flux-tube profile, NOT an independent geometric derivation of the
+    integer 2. Do NOT fuse this Gaussian-ansatz overlap volume (which bears on
+    the open ρ_threshold derivation gap) with the reactance count V=2.
 
 Models three mutually orthogonal Gaussian flux tubes (the 6³₂ Borromean
-linkage core) and computes the total saturated strain volume V_total
-as a function of 3D mesh resolution.
+linkage core) and computes the Gaussian-ansatz saturated overlap volume
+as a function of 3D grid resolution.
 
 Physical setup:
   - Three flux tubes along X, Y, Z axes
@@ -13,8 +30,8 @@ Physical setup:
   - Saturation threshold: ρ_sat = max(0, ρ_total - 1) where ρ_total is
     the sum of all three tube densities
 
-The FEM integrates the saturated overlap volume:
-  V_sat = ∫∫∫ Θ(ρ_total > ρ_threshold) d³x
+The voxel-quadrature integral of the saturated overlap volume:
+  V_sat = ∫∫∫ Θ(ρ_total > ρ_threshold) d³x   (uniform-grid Riemann sum)
 
 Convergence study: N = 64, 128, 256, 512 grid points per axis.
 Richardson extrapolation gives the N→∞ limit.
@@ -130,7 +147,8 @@ def compute_v_halo(N: int, L: float = 6.0, threshold: float = 0.5) -> tuple[floa
 def run_convergence_study() -> tuple[float, float]:
     """Run mesh refinement study and Richardson extrapolation."""
     print("=" * 60)
-    print("  P2: BORROMEAN FLUX-TUBE FEM — V_halo CONVERGENCE STUDY")
+    print("  P2: BORROMEAN GAUSSIAN-ANSATZ SATURATED-OVERLAP-VOLUME STUDY")
+    print("  (voxel quadrature vs rho_threshold; NOT FEM, NOT the V=2 reactance count)")
     print("=" * 60)
 
     # --- Phase 1: Derived Saturation Threshold ---
@@ -272,7 +290,7 @@ def run_convergence_study() -> tuple[float, float]:
     axes[2].grid(True, alpha=0.15, color="#30363d")
 
     fig.suptitle(
-        r"P2: Borromean $6^3_2$ FEM — $\mathcal{V}_{halo}$ Convergence",
+        r"P2: Borromean $6^3_2$ Gaussian-ansatz saturated-overlap-volume (voxel quadrature; not FEM)",
         fontsize=16,
         color="white",
         y=1.02,

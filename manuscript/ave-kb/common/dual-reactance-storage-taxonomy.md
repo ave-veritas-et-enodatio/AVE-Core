@@ -152,9 +152,35 @@ volume-derivations) changes.
 > "zero-parameter."** The separate parsimony claim "zero *baryon-data-tuned*
 > parameters" (inputs are electron-physics-provenanced) stands.
 
+## τ_yield open item — does the dielectric yield *scale with* the reactance-sector count?
+
+> **Open item — derive that $\tau_{yield} \propto$ the dual-reactance count, vs
+> merely inheriting the value 2.** The macroscopic dielectric yield
+> $\tau_{yield} = \rho_{bulk} c^2 \cdot \mathcal{V}_{total} \cdot \alpha$ (Vol 1
+> Ch 4; Vol 4 Ch 1) is an Axiom-4 saturation event (saturation = a reactance
+> sector reaching its limit), so "yield $\propto$ number of saturating reactance
+> sectors (2)" is **physically natural** — but the corpus does **not yet
+> derive** that the yield *stress* scales with the reactance-sector count; it
+> currently only **inherits the value 2** from $\mathcal{V}_{total}$. This is a
+> **re-interpretation, not a derivation** — do not present it as one.
+
+This is the genuinely-open structural question that survived the fabricated-FEM
+walk-back (Grant 2026-06-02): the value 2 itself is **CLOSED** (forced
+reactance count, mass-confirmed — §"V_TOROIDAL_HALO = the dual-reactance count"
+above), and the prior "FEM-verified Borromean halo volume" provenance on the
+$\tau_{yield}$ sites was fabricated and is dropped. What remains open is purely
+the **mechanism**: whether the *yield stress* physically scales with the
+reactance-sector count, or merely re-uses the integer 2 by formula construction.
+Tracked at the τ_yield claim-quality entries
+([`../vol1/claim-quality.md`](../vol1/claim-quality.md) clm-8ep2b4;
+[`../vol4/claim-quality.md`](../vol4/claim-quality.md) clm-o2shcn). Distinct from
+the separate vol1 open item (whether a proton-provenanced reactance count
+belongs in a *macroscopic / cosmological* formula at all).
+
 ## Cross-references
 
 - [`2026-06-01_baryon-V2-dual-reactance-closure.md`](../../../research/2026-06-01_baryon-V2-dual-reactance-closure.md) — the result doc: dual-reactance mechanism (§1), mass-discriminator (§2), the four false-volume-derivation audit (§3), honest "1-residual Skyrme" status (§4).
+- [`2026-06-02_fabricated-FEM-walkback-and-tau-yield-fork.md`](../../../research/2026-06-02_fabricated-FEM-walkback-and-tau-yield-fork.md) — the fabricated-FEM walk-back + τ_yield Bucket-A finish (Grant 2026-06-02): drops the fabricated "FEM-verified" label on the τ_yield sites, propagates the dual-reactance reframe, and names the yield-scales-with-count open item (§3).
 - [`translation-circuit.md`](translation-tables/translation-circuit.md):35 — Axiom-1 E/B conjugate-storage decomposition (3 translational-E → capacitive; 3 microrotational-B → inductive); §4.5 EE Analytical Tool Tracker carries the baryon-self-feedback ↔ regenerative dual-reactance LC loop row; §6 means-test carries the mass-discriminator entry.
 - [`self-consistent-mass-oscillator.md`](../vol2/particle-physics/ch02-baryon-sector/self-consistent-mass-oscillator.md) — the baryon mass eigenvalue (Vol 2 canonical).
 - [`../vol1/claim-quality.md`](../vol1/claim-quality.md):1391 — K=2G → √2 longitudinal/photon speed ratio (clm-uu1qbo); the SECOND distinct "2" (do not fuse with V=2).

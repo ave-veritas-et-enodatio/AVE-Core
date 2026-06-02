@@ -1,12 +1,25 @@
 """
-P2: Borromean Flux-Tube FEM — V_halo Convergence Study (JAX GPU)
-================================================================
+P2: Borromean Gaussian-Ansatz Saturated-Overlap-Volume Convergence (JAX GPU)
+============================================================================
 
 GPU-accelerated port of fem_borromean_convergence.py.
 All physics is IDENTICAL — only the compute backend changes.
 
-Borromean 6³₂ linkage geometry and saturation threshold are
-axiom-derived (Axiom 1: FWHM = ℓ_node, mutual inductance at crossing).
+SCOPE NOTE (2026-06-02, fabricated-FEM walk-back; ave-driver-script-honesty):
+This is voxel quadrature (uniform-grid Riemann sum), NOT a finite-element
+method ("FEM" in the name is a misnomer kept for path stability). It computes
+the Gaussian-ansatz three-tube saturated overlap volume against the
+profile-DEPENDENT saturation threshold ρ_threshold ≈ 1.1062 — a self-consistency
+check on the Gaussian flux-tube profile (bears on the open ρ_threshold derivation
+gap). It does NOT compute / derive the dual-reactance count V_TOROIDAL_HALO = 2,
+which is the node's forced count of two reactance sectors (X_C + X_L, Axiom 1;
+profile-INDEPENDENT; mass-confirmed via m_p). The overlap volume landing near 2.0
+is a property of the Gaussian ansatz, not a derivation of the integer 2 — do NOT
+fuse the two. Canonical: research/2026-06-01_baryon-V2-dual-reactance-closure.md;
+manuscript/ave-kb/common/dual-reactance-storage-taxonomy.md.
+
+Geometry uses FWHM = ℓ_node (Axiom 1); the saturation threshold ρ_threshold is
+Gaussian-ansatz-derived (FWHM fixed by Axiom 1; functional form is the open gap).
 
 Three orthogonal Gaussian flux tubes (the Borromean core) are evaluated
 on a 3D grid. The GPU parallelises the volumetric integration that

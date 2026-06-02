@@ -508,20 +508,37 @@ $$
 I_{scalar} \approx 1162\;m_e
 $$
 
-**Step 5: Toroidal Halo Volume.**
-The proton's Borromean topology generates a 3D orthogonal tensor crossing
-volume, computed analytically from the signed intersection integral of three
-great circles. At the derived saturation threshold
+**Step 5: Dual-Reactance Count.**
+The proton's node carries two reactance storage sectors --- capacitive ($X_C$,
+translational-E) and inductive ($X_L$, microrotational-B) --- so the
+dual-reactance count is $\mathcal{V}_{total} = 2$, the count of the node's two
+reactance sectors (NOT a geometric volume; see
+[`dual-reactance-storage-taxonomy.md`](dual-reactance-storage-taxonomy.md)). At
+the derived saturation threshold
 $\rho_{threshold} = 1 + \sigma/4 = 1 + \ell_{node}/(8\sqrt{2\ln 2})
 \approx 1.1062$:
 
 $$
 \mathcal{V}_{total} = 2.0
-\quad\text{(FEM verified: } 2.001 \pm 0.003\text{)}
 $$
 
+<!-- DROPPED CLAIM (2026-06-02, V2 dual-reactance closure + fabricated-FEM walk-back):
+V_total=2 was previously derived two ways, both retired -- (1) "signed intersection
+integral of three great circles" (vanishes by antisymmetry, = 0 not 2); (2) "3D FEM
+integration / FEM-verified 2.001 +/- 0.003 Richardson N->inf". Correction on (2): a
+script labeled FEM (src/scripts/vol_2_subatomic/fem_borromean_convergence.py + JAX
+port) DOES exist and produces ~2.001/2.0027, but it is NOT finite-element -- it is
+voxel quadrature of the Gaussian-ansatz three-tube saturated overlap volume against
+rho_threshold (a profile-dependent rho_threshold consistency check that lands near
+2.0 as a property of the Gaussian ansatz), NOT a derivation of the reactance count.
+V_total=2 is the dual-reactance count (X_C + X_L), forced by Axiom 1's two reactance
+types, profile-independent, mass-confirmed via m_p. Do not fuse the Gaussian-ansatz
+overlap volume (binds rho_threshold) with the reactance count V_total=2.
+See research/2026-06-01_baryon-V2-dual-reactance-closure.md (sec 3). -->
+
 **Step 6: Proton Mass Eigenvalue.**
-Structural feedback between the soliton core and the toroidal halo yields:
+Regenerative dual-reactance feedback between the soliton core and its two
+reactance sectors yields:
 
 $$
 \frac{m_p}{m_e}

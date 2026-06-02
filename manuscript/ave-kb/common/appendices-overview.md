@@ -63,7 +63,7 @@ The following mathematical bounds and identities were derived within the text fr
 - **Geometric Packing Fraction:** $p_c \approx 0.1834$
 - **Macroscopic Bulk Density:** $\rho_{bulk} = \frac{\xi_{topo}^2 \mu_0}{p_c \ell_{node}^2} \approx 7.92 \times 10^6 \text{ kg/m}^3$
 - **Kinematic Network Mutual Inductance:** $\nu_{vac} = \alpha c \ell_{node} \approx 8.45 \times 10^{-7} \text{ m}^2/\text{s}$
-- **Macroscopic Dielectric Yield Stress:** $\tau_{yield} = \frac{e^2\, \mathcal{V}_{total}}{8\pi \varepsilon_0\, \ell_{node}^4} \approx 1.04 \times 10^{22}\text{ Pa}$ (simplified from $\rho_{bulk}\, c^2 \cdot \mathcal{V}_{total} \cdot p_c/(8\pi)$; $\mathcal{V}_{total} = 2.0$ FEM-verified; derivation in Vol 1 Ch 4)
+- **Macroscopic Dielectric Yield Stress:** $\tau_{yield} = \frac{e^2\, \mathcal{V}_{total}}{8\pi \varepsilon_0\, \ell_{node}^4} \approx 1.04 \times 10^{22}\text{ Pa}$ (simplified from $\rho_{bulk}\, c^2 \cdot \mathcal{V}_{total} \cdot p_c/(8\pi)$; $\mathcal{V}_{total} = 2.0$ is the dual-reactance count ($X_C + X_L$ reactance sectors, Axiom 1; see [`dual-reactance-storage-taxonomy.md`](dual-reactance-storage-taxonomy.md)), not an integrated/geometric halo volume; derivation in Vol 1 Ch 4)
 
 <!--
 DROPPED CLAIM (2026-04-20 audit): a prior bullet listed a second τ_yield formula
@@ -85,7 +85,7 @@ See .agents/handoffs/TAU_YIELD_DERIVATION_AUDIT.md. Do not re-add without a deri
 - **Proton Rest Mass (Geometric Eigenvalue):** $m_p = \frac{\mathcal{I}_{scalar}}{1 - (\mathcal{V}_{total} \cdot p_c)} + 1.0 \approx \mathbf{1836\ m_e}$ (0.002% from CODATA)
 - **Mutual Inductance at Crossing:** $M/L = \exp(-d^2/(4\sigma^2)) = 1/\sqrt{2}$ (exact, $d = \ell_{node}/2$, $\sigma = \ell_{node}/(2\sqrt{2\ln 2})$)
 - **Saturation Threshold (closed-form, conditional on Gaussian flux-tube ansatz):** $\rho_{threshold} = 1 + \sigma/4 = 1 + \ell_{node}/(8\sqrt{2\ln 2}) \approx 1.1062$ (no fitted parameters; profile derivation pending — see [Outstanding Rigour Gaps](mathematical-closure.md))
-- **Toroidal Halo Volume (FEM Verified):** $\mathcal{V}_{total} = 2.0$ at derived threshold (FEM: $2.001 \pm 0.003$, Richardson $N\to\infty$)
+- **Dual-Reactance Count (Axiom-1 sectors):** $\mathcal{V}_{total} = 2.0$ — the node's two reactance sectors ($X_C + X_L$), mass-confirmed via $m_p$; NOT a FEM-integrated volume (prior FEM provenance fabricated, dropped per the V2 closure 2026-06-01)
 - **Macroscopic Strong Force:** $F_{confinement} = 3 \left(\frac{m_p}{m_e}\right) \alpha^{-1} T_{EM} \approx \mathbf{160{,}037\text{ N}} \ (\approx 0.999\text{ GeV/fm})$
 - **Witten Effect Fractional Charge (Quarks):** $q_{eff} = n + \frac{\theta}{2\pi}e \implies \pm \frac{1}{3}e, \pm \frac{2}{3}e$
 - **Vacuum Poisson's Ratio (Trace-Reversed Bound):** $\nu_{vac} \equiv \frac{2}{7}$
