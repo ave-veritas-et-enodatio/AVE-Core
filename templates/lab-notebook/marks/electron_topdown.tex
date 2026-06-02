@@ -1,0 +1,55 @@
+\documentclass[border=0pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{knots,hobby,intersections,calc}
+\definecolor{avebg}{HTML}{0B0E12}
+\definecolor{cyanp}{HTML}{34E1EE}
+\definecolor{fluxp}{HTML}{FF3A66}
+\definecolor{fluxhi}{HTML}{FFA6BC}
+\def\TRE{plot[domain=0:360,samples=160,smooth,variable=\t]({0.80*(sin(\t)+2*sin(2*\t))},{0.80*(cos(\t)-2*cos(2*\t))})}
+\begin{document}
+\begin{tikzpicture}
+\clip (-5.35,-5.35) rectangle (5.35,5.35);
+\fill[avebg] (-5.7,-5.7) rectangle (5.7,5.7);
+
+% ===== anisotropic lensed K4 lattice (4-fold, NOT radially symmetric) =====
+\foreach \i in {0,...,22}{\foreach \j in {0,...,22}{
+  \pgfmathsetmacro{\gx}{(\i-11)*0.52}\pgfmathsetmacro{\gy}{(\j-11)*0.52}
+  \pgfmathsetmacro{\r}{sqrt(\gx*\gx+\gy*\gy)+0.001}
+  \pgfmathsetmacro{\th}{atan2(\gy,\gx)}
+  \pgfmathsetmacro{\f}{max(0.34, 1 - 1.7*(1+0.45*cos(4*\th))/(\r*\r+1.5))}
+  \coordinate (n-\i-\j) at (\gx*\f,\gy*\f);}}
+% bonds (brighter toward the lensing centre)
+\foreach \i in {0,...,21}{\foreach \j in {0,...,22}{
+  \pgfmathsetmacro{\gx}{(\i-10.5)*0.52}\pgfmathsetmacro{\gy}{(\j-11)*0.52}\pgfmathsetmacro{\r}{sqrt(\gx*\gx+\gy*\gy)}
+  \pgfmathsetmacro{\op}{min(0.55,0.08+0.6/(\r+1.0))}
+  \pgfmathtruncatemacro{\ii}{\i+1}\draw[cyanp,opacity=\op,line width=0.45pt](n-\i-\j)--(n-\ii-\j);}}
+\foreach \i in {0,...,22}{\foreach \j in {0,...,21}{
+  \pgfmathsetmacro{\gx}{(\i-11)*0.52}\pgfmathsetmacro{\gy}{(\j-10.5)*0.52}\pgfmathsetmacro{\r}{sqrt(\gx*\gx+\gy*\gy)}
+  \pgfmathsetmacro{\op}{min(0.55,0.08+0.6/(\r+1.0))}
+  \pgfmathtruncatemacro{\jj}{\j+1}\draw[cyanp,opacity=\op,line width=0.45pt](n-\i-\j)--(n-\i-\jj);}}
+% nodes
+\foreach \i in {0,...,22}{\foreach \j in {0,...,22}{
+  \pgfmathsetmacro{\gx}{(\i-11)*0.52}\pgfmathsetmacro{\gy}{(\j-11)*0.52}\pgfmathsetmacro{\r}{sqrt(\gx*\gx+\gy*\gy)}
+  \pgfmathsetmacro{\op}{min(0.9,0.1+0.75/(\r+0.8))}
+  \fill[cyanp,opacity=\op](n-\i-\j) circle(0.032);}}
+
+% ===== glassy torus annulus (the lensing mass), top-down =====
+\fill[even odd rule,cyanp,opacity=0.18] (0,0) circle(2.45) (0,0) circle(1.05);
+\draw[cyanp,opacity=0.40,line width=3pt] (0,0) circle(1.75);     % tube top sheen
+\draw[cyanp,opacity=0.75,line width=1.1pt] (0,0) circle(2.45);   % outer edge
+\draw[cyanp,opacity=0.75,line width=1.1pt] (0,0) circle(1.05);   % inner edge
+\draw[white,opacity=0.22,line width=2pt] (118:1.75) arc(118:165:1.75); % glass highlight
+
+% ===== trefoil flux-knot (real over/under) =====
+\draw[fluxp,opacity=0.06,line width=20pt,line cap=round] \TRE;   % outer bloom
+\draw[fluxp,opacity=0.13,line width=12pt,line cap=round] \TRE;   % glow halo
+\begin{knot}[consider self intersections=true,clip width=6,end tolerance=1pt,
+  flip crossing=2]
+  \strand[fluxp,line width=5pt,line cap=round] \TRE;
+\end{knot}
+\begin{knot}[consider self intersections=true,clip width=6,end tolerance=1pt,
+  flip crossing=2]
+  \strand[fluxhi,line width=1.6pt,line cap=round] \TRE;        % highlight core
+\end{knot}
+\end{tikzpicture}
+\end{document}

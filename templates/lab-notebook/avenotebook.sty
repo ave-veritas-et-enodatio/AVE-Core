@@ -507,4 +507,17 @@
     \advance\ave@idxc by 1
   \repeat}
 
+% \aveplate{<graphic>}{<caption>} — full-bleed dark frontispiece plate. Paints
+% its own black page over the grid, so it works in light OR dark notebooks.
+\newcommand{\aveplate}[2]{%
+  \clearpage\thispagestyle{empty}%
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[black] (current page.south west) rectangle (current page.north east);
+    \node[inner sep=0pt] at (current page.center)
+      {\includegraphics[width=0.92\paperwidth,height=0.80\paperheight,keepaspectratio]{#1}};
+    \node[font=\sffamily\fontsize{8}{11}\selectfont, text=white!70, align=center]
+      at ([yshift=-0.42\paperheight]current page.center) {\MakeUppercase{#2}};
+  \end{tikzpicture}%
+  \null\clearpage}
+
 \endinput
