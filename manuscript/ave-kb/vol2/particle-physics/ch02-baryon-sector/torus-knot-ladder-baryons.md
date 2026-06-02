@@ -8,7 +8,7 @@ path-stable: "referenced from vol2 as eq:torus_knot_ladder"
 
 ## The Baryon Resonance Spectrum: The Torus Knot Ladder
 
-The cinquefoil confinement immediately generates a zero-parameter prediction of the **entire baryon resonance spectrum**. The $(2,q)$ torus knots form a progression using only odd $q = 3, 5, 7, 9, \ldots$---there is no stable $(2,4)$ torus knot. Each entry in this *Torus Knot Ladder* produces a distinct baryon state via the same eigenvalue equation:
+The cinquefoil confinement immediately generates a **1-residual** prediction of the **entire baryon resonance spectrum** (the one residual being the per-channel coupling $p_c = 8\pi\alpha$, canonical-packing-plausible but not line-by-line derived; vs standard Skyrme's two baryon-data-tuned parameters $F_\pi, e$). The $(2,q)$ torus knots form a progression using only odd $q = 3, 5, 7, 9, \ldots$---there is no stable $(2,4)$ torus knot. Each entry in this *Torus Knot Ladder* produces a distinct baryon state via the same eigenvalue equation:
 
 > **[Resultbox]** *Torus Knot Baryon Ladder*
 >
@@ -16,7 +16,7 @@ The cinquefoil confinement immediately generates a zero-parameter prediction of 
 > m(c) = \frac{\mathcal{I}_{scalar}(\kappa_{FS}/c)}{1 - \mathcal{V}_{total} \cdot p_c} + 1
 > $$
 
-No parameters are adjusted between states. The same $\kappa_{FS}$, $\mathcal{V}_{total} = 2.0$, and $p_c = 8\pi\alpha$ that derive the proton mass also predict the excited baryon resonances. **Refreshed against PDG 2024 + J^P consistency check (2026-05-18 driver run, [`baryon_ladder_pdg_2024_anchor.py`](../../../../../src/scripts/verify/baryon_ladder_pdg_2024_anchor.py))**:
+No parameters are adjusted *between* states (only the integer crossing number $c$ changes). The same $\kappa_{FS}$, $\mathcal{V}_{total} = 2$ (the **dual-reactance count** — the node's two reactance sectors $X_L + X_C$, NOT a geometric "toroidal halo volume"; see [`../../../common/dual-reactance-storage-taxonomy.md`](../../../common/dual-reactance-storage-taxonomy.md)), and $p_c = 8\pi\alpha$ that derive the proton mass also predict the excited baryon resonances. **Refreshed against PDG 2024 + J^P consistency check (2026-05-18 driver run, [`baryon_ladder_pdg_2024_anchor.py`](../../../../../src/scripts/verify/baryon_ladder_pdg_2024_anchor.py))**:
 
 | Torus Knot | $c$ | Predicted (MeV) | PDG 2024 Resonance | PDG Mass (MeV) | Deviation | $J^P$ Check |
 |---|---|---|---|---|---|---|
@@ -30,7 +30,7 @@ No parameters are adjusted between states. The same $\kappa_{FS}$, $\mathcal{V}_
 | $(2,19)$ | 19 | 2983.118 | $\Delta(2950)$ | ~2950 (**) | $+1.123\%$ | $15/2^+$ ✓ |
 | $(2,21)$ | 21 | 3199.142 | (no PDG state within 5%) | — | awaits catalog | — |
 
-**Precision summary (PDG 2024 anchored, 2026-05-18)**: 6/6 retrospective + 3/3 forward $J^P$-consistent with $(2,c)$ torus-knot winding allowed values; 4 of 6 retrospective within 3%, ALL 6 within 5%. Forward $c=17$ and $c=19$ land on existing PDG $\ast\ast$-rated entries within 1.2%. **Proton match at $-0.002\%$ is the strongest individual match in the framework**, set by 1 input (CODATA $m_e$) + 1 topological integer (cinquefoil $c=5$) + 1 halo invariant (Borromean $V=2$).
+**Precision summary (PDG 2024 anchored, 2026-05-18)**: 6/6 retrospective + 3/3 forward $J^P$-consistent with $(2,c)$ torus-knot winding allowed values; 4 of 6 retrospective within 3%, ALL 6 within 5%. Forward $c=17$ and $c=19$ land on existing PDG $\ast\ast$-rated entries within 1.2%. **Proton match at $-0.002\%$ is the strongest individual match in the framework**, set by 1 input (CODATA $m_e$) + 1 topological integer (cinquefoil $c=5$) + 1 dual-reactance count ($\mathcal{V}=2$, the two node reactance sectors $X_L + X_C$) + the per-channel-$p_c$ residual.
 
 Three features of this spectrum deserve emphasis:
 
