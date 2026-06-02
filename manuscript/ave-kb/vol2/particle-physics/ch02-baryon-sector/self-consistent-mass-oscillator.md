@@ -61,6 +61,6 @@ Adding the structurally mandated integer twist to the derived core yields the tr
 > x = 1835.12 + 1.0 = \mathbf{1836.12}
 > $$
 
-By resolving the exact saturated topological geometry of the Toroidal Halo at $\mathcal{V}_{total}=2.0$, confining the soliton by the cinquefoil crossing number with Axiom 4 gradient saturation inside the energy functional, and adding the $+1$ integer twist required for global charge, the theoretical prediction converges to within $\mathbf{0.002\%}$ of the empirical CODATA proton mass ($1836.153\,m_e$) using zero Standard Model parameters.
+By resolving the dual-reactance count $\mathcal{V}_{total}=2$ (the node's two reactance sectors $X_L + X_C$ — NOT a geometric "toroidal halo volume"; see [`../../../common/dual-reactance-storage-taxonomy.md`](../../../common/dual-reactance-storage-taxonomy.md)), confining the soliton by the cinquefoil crossing number with Axiom 4 gradient saturation inside the energy functional, and adding the $+1$ integer twist required for global charge, the theoretical prediction converges to within $\mathbf{0.002\%}$ of the empirical CODATA proton mass ($1836.153\,m_e$). This is a **1-residual** result (the per-channel coupling $p_c = 8\pi\alpha$ is canonical-packing-plausible but not line-by-line derived — the one residual; vs standard Skyrme's two baryon-data-tuned parameters $F_\pi, e$), not a zero-parameter result. The inputs are electron-physics-provenanced ($m_e$, $\alpha$), so the parsimony claim of **zero baryon-data-tuned parameters** stands.
 
 ---

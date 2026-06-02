@@ -39,36 +39,55 @@ def calculate_topological_nuclear_tension(mass_proton: float, mass_electron: flo
 
 def compute_toroidal_halo_volume() -> float:
     """
-    Computes the mathematical upper bound for the Toroidal Halo geometric volume.
-    As derived via 3D Skew Line topological integration on the discrete grid,
-    the scalar summation of the exact FWHM (1.0 l_node) flux tubes cannot exceed 1.0.
-    The total integration analytically converges to exactly 2.0 perfectly.
+    Returns the dual-reactance count (= 2) used in the baryon mass eigenvalue.
+
+    SCOPE NOTE (2026-06-01, Grant-adjudicated V=2 reactance-count reframe):
+    This function RETURNS A LITERAL constant (2.0); it does NOT perform an
+    integration.  The legacy name "toroidal halo volume" is a misnomer and the
+    legacy docstring's claim that "the total integration analytically converges
+    to exactly 2.0 perfectly" was an overclaim — no integration is performed
+    here, and the underlying signed crossing integral
+    "V = ∫∫∫ sgn(det) = 2" is itself false (a signed great-circle intersection
+    integral vanishes by antisymmetry, evaluating to 0, not 2).
+
+    The "2" is the COUNT of the node's two reactance sectors (Axiom 1:
+    3 translational-E DOF → capacitive X_C; 3 microrotational-B DOF → inductive
+    X_L), each one electron-ground-state unit feeding the proton's regenerative
+    self-consistent mass loop.  It is a dimensionless integer count, not a
+    geometric volume; a channel count is counted, not integrated.
+
+    The value 2.0 is correct (mass-confirmed: V=2 → 1836.117 m_e vs CODATA
+    1836.153) — only its meaning and the fabricated volume-derivation change.
+    Canonical: research/2026-06-01_baryon-V2-dual-reactance-closure.md (§1–§3)
+    + manuscript/ave-kb/common/dual-reactance-storage-taxonomy.md.
     """
-    # For a perfect 1.0 l_node skewed gap orthogonal intersection, the scalar
-    # overlap strictly peaks at 0.5 + 0.5 = 1.0 (The Unitary Strain Limit).
-    # Integrated over the topological closed-loop sphere, the volume closes at 2.0
-    V_total = 2.0
-    return V_total
+    # Dual-reactance count: 1 capacitive sector (X_C, translational-E) +
+    # 1 inductive sector (X_L, microrotational-B) = 2.  NOT an integration.
+    DUAL_REACTANCE_COUNT = 2.0
+    return DUAL_REACTANCE_COUNT
 
 
 def calculate_structural_baryon_eigenvalue() -> float:
     """
     Calculates the exact m_p / m_e structural core eigenvalue.
-    Uses the analytical 1D scalar rest-mass contribution (1162 m_e) plus the
-    self-consistent geometric feedback loop of the 3D tensor crossings.
+    Uses the analytical 1D scalar rest-mass contribution (~1162 m_e) plus the
+    self-consistent regenerative dual-reactance feedback loop (Black's
+    closed-loop form 1/(1 - V*p_c); V = dual-reactance count = 2).
+    Reframe 2026-06-01: V is the reactance-sector count, NOT a geometric tensor
+    volume — see research/2026-06-01_baryon-V2-dual-reactance-closure.md.
     """
     # 1D Baseline from Faddeev-Skyrme scalar solver (dynamic computation)
     from ave.core.constants import I_SCALAR_1D
 
     I_scalar = I_SCALAR_1D
 
-    # 3D Orthogonal Tensor Bound
-    V_total = compute_toroidal_halo_volume()
-    volumetric_packing_fraction = 8 * np.pi * ALPHA
+    # Dual-reactance count (X_C + X_L sectors); per-channel coupling p_c = 8πα
+    V_count = compute_toroidal_halo_volume()
+    per_channel_coupling = 8 * np.pi * ALPHA  # p_c (per-channel reactance gain)
 
-    # x_core = I_scalar + (V_total * kappa_v * x_core)
-    # x_core * (1 - V_total * kappa_v) = I_scalar
-    x_core = I_scalar / (1.0 - (V_total * volumetric_packing_fraction))
+    # Regenerative-loop (Black's) form: x_core = I_scalar + (V*p_c)*x_core
+    #   => x_core * (1 - V*p_c) = I_scalar  =>  x_core = I_scalar/(1 - V*p_c)
+    x_core = I_scalar / (1.0 - (V_count * per_channel_coupling))
 
     # Add +1 integer topological index loop mandated for global charge constraints
     x_total = x_core + 1.0
