@@ -38,7 +38,7 @@ The neutron in AVE is defined by **four tightly-coupled topological/dynamical pr
 
 | Observable | Axiom support | Derivation status | Notes |
 |---|---|---|---|
-| **Rest mass $m_n \approx 1.001378\,m_p \approx 939.565$ MeV** | Composite of proton mass eigenvalue ($m_p$, ✅ axiom-derived to 0.002% per `proton-identification.md`) + threaded-electron elastic-expansion contribution (mechanism-only, not derived) | **PARTIAL** — $m_p$ component is the framework's flagship axiom-derived mass; the $\Delta m \approx 1.293$ MeV addition is empirical input | Per §1 property 3 TBD-pin |
+| **Rest mass $m_n \approx 1.001378\,m_p \approx 939.565$ MeV** | Composite of proton mass eigenvalue ($m_p$, ✅ axiom-derived to 0.002% per `proton-identification.md`) + threaded-electron elastic-expansion contribution (mechanism-only, not derived) | **PARTIAL** — $m_p$ component is the framework's flagship mass prediction (axiom-derived; the per-channel loop-role is a matched structural assignment, same class as the lepton couplings — see the parameter ledger); the $\Delta m \approx 1.293$ MeV addition is empirical input | Per §1 property 3 TBD-pin |
 | Charge $0$ | Ax2 TKI literal addition | ✅ axiom-derived | Per §1 property 2 |
 | Spin-½ | Same Cosserat microrotation + Finkelstein-Misner mechanism as electron and proton (Ax1); composite spin = $\frac{1}{2}_p + \frac{1}{2}_e$ angular-momentum-coupled to net ½ | ✅ axiom-derived | Inherits from `proton-identification.md` and electron-identification structural inheritance pattern |
 | Mean lifetime $\tau_n \approx 880$ s (free) | Per §1 property 4: dielectric tunneling + CMB-noise threading slip | **MECHANISM, NO RATE** | TBD-pin per property 4 |

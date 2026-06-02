@@ -1368,8 +1368,8 @@ AVE-native canonical identification of the neutron as $6_2^3 \cup 0_1$ (the prot
 AVE-native canonical identification of the proton, structured to parallel the electron and photon identification leaves. Provides a 4-property definition ($(2,5)$ cinquefoil topology + $6_2^3$ Borromean linkage + $r_{opt} = \kappa_{FS}/5 \approx 4.97\,\ell_{node}$ + Axiom-4-saturated core), a first-principles axiom audit per property, and a per-input audit of the mass eigenvalue across 6 inputs (all first-principles, no fit parameters), plus a 6-framing cross-corpus translation guide.
 
 - _Specific Claims_
-  - Unlike $m_e$ (a calibration anchor), $m_p/m_e = 1836.12$ is genuinely zero-parameter, 0.002% from CODATA — AVE's flagship axiom-derived mass prediction.
-  - All 6 mass-eigenvalue inputs ($\kappa_{FS}=8\pi$, $c_5=5$, $\mathcal{I}_{scalar}\approx 1162$, $\mathcal{V}_{total}=2.0$ FEM-verified, $p_c=8\pi\alpha$, +1.0 charge twist) are first-principles.
+  - Unlike $m_e$ (a calibration anchor), $m_p/m_e = 1836.12$ is derived with zero baryon-data-tuned parameters (electron-physics-provenanced: $m_e + \alpha$, replacing Skyrme's $F_\pi + e$), 0.002% from CODATA — AVE's flagship mass prediction (axiom-derived; the per-channel loop-role is a matched structural assignment, same class as the lepton couplings — see the parameter ledger).
+  - All 6 mass-eigenvalue inputs ($\kappa_{FS}=8\pi$, $c_5=5$, $\mathcal{I}_{scalar}\approx 1162$, $\mathcal{V}_{total}=2$ dual-reactance count ($X_C + X_L$; NOT a FEM-integrated volume), $p_c=8\pi\alpha$, +1.0 charge twist) are first-principles.
 - _Specific Non-Claims and Caveats_
   - 2 open audit items flagged: $\mathcal{I}_{scalar}$ solver documentation, and corpus hygiene on duplicate subsection titles.
 
@@ -1384,7 +1384,7 @@ AVE-native canonical identification of the proton, structured to parallel the el
   - clm-9s9apq (packing fraction $p_c$; vol1)
   - clm-8c3yhs ($(2,3)$ torus-knot uniqueness — the proton's $(2,5)$ cinquefoil assignment is "the next stable entry after the electron's $(2,3)$" on the $(2,q_{odd})$ ladder, which rests on the coprimality + minimality argument that anchors $(2,3)$ as the lightest non-trivial coprime torus knot)
 - solidity: 0.63 (use as input only, don't build deeper) [= min(0.70, 0.63)]
-- rationale: A rigorous per-input audit of the flagship $m_p/m_e=1836.12$ (0.002%, zero fit parameters): $\kappa_{FS}=8\pi$, $c_5=5$, $\mathcal{V}_{total}=2.0$ (FEM-verified), $p_c=8\pi\alpha$, and the $+1.0$ charge twist are each traced to axioms. The audit is honest that $\mathcal{I}_{scalar}\approx1162$ is a computational input flagged for solver verification, and it inherits the Gaussian-ansatz bound of clm-mnb3lt. Consistent with the clm-mnb3lt band — disclosed methodology bound.
+- rationale: A rigorous per-input audit of the flagship $m_p/m_e=1836.12$ (0.002%, zero baryon-data-tuned parameters): $\kappa_{FS}=8\pi$, $c_5=5$, $\mathcal{V}_{total}=2$ (dual-reactance count $X_C + X_L$, NOT a FEM-integrated volume), $p_c=8\pi\alpha$, and the $+1.0$ charge twist are each traced to axioms (the per-channel loop-gain $=p_c$ identification is a matched structural assignment, same class as the lepton couplings — see ledger). The audit is honest that $\mathcal{I}_{scalar}\approx1162$ is a computational input flagged for solver verification, and it inherits the Gaussian-ansatz bound of clm-mnb3lt. Consistent with the clm-mnb3lt band — disclosed methodology bound.
 - strengthen-by:
   - Verify the 1D Faddeev-Skyrme solver implementation has no tunable parameter and document the $\mathcal{I}_{scalar}$ convergence.
   - Close the inherited Gaussian flux-tube ansatz gap upstream in clm-mnb3lt.
