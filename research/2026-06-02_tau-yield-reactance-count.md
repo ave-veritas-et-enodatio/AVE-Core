@@ -5,7 +5,7 @@
 **Type:** Substrate-physics derivation — provenance-upgrade + unification candidate
 **Discipline:** `ave-prereg`, `ave-ee-first-mapping`, `substrate-native-check`, `consistency-vs-emergence`, `pre-test-physics-check` Trigger 7, `verify-before-cite`
 **Prereg:** [`2026-06-02_tau-yield-reactance-count-prereg.md`](2026-06-02_tau-yield-reactance-count-prereg.md)
-**Status:** **CRUX SURFACED — AWAITING GRANT.** No verdict, no propagation, no matrix change until the plumber-physical call in §5 is made.
+**Status:** **RESOLVED (Grant 2026-06-02): STAYS-INHERITED + dual-branch landing; reading (B) ruled out.** Grant verified both load-bearing claims to source first (master-equation ε-only branch, verbatim; the α-bookkeeping, exact to 5 digits). Verdict + landing + handoff in §7. The held-crux record (§1–§6) is preserved frozen as the pre-adjudication state. Canonical open-item closure (`dual-reactance-storage-taxonomy.md:155`) + τ_yield-site provenance note + matrix + merge are the **orchestration** session's (this branch is NOT merged here).
 
 > **One-line:** Three independent substrate-level arguments — the corpus's own master equation, the bond-LC conjugacy, and the local-clock freeze — all point the same way: the τ_yield event is **single-sector** (capacitive breakdown, μ intact), so the clean "×2 = E_C + E_L at breakdown" does **not** fall out as forced. But whether the vacuum "yields" by *breaking down a pre-existing node-tank* (→ inherited) or *nucleating a new two-sector defect* (→ could force 2) is a **framing choice that is Grant's to make**, and the substrate walk lays out both. The repeated negatives are the `pre-test-physics-check` Trigger-7 signal to surface a reframe, not to declare "negative."
 
@@ -70,6 +70,8 @@ Under this reframe the honest answer to the literal question ("does the yield *s
 
 ## §5 — The crux (plumber-physical question for Grant)
 
+> **→ RESOLVED in §7 (Grant 2026-06-02): reading (A). Reading (B) ruled out — see §7.** The fork below is preserved as the frozen pre-adjudication record.
+
 Everything above is substrate-walk; **this one call is yours.** When the vacuum "yields" at `τ_yield`, which event is it physically?
 
 - **(A) First-sector breakdown of a pre-existing node-tank** — the corpus's current picture (`master-equation.md:78`, ε-only; varactor breakdown). The capacitive sector hits `A_yield`; the inductive sector (`μ`) is a spectator. Energy at rupture = **one** sector's worth. → the 2 is a **count-tag**, **STAYS-INHERITED** (with the §4 dual-branch reframe as the real unification).
@@ -82,4 +84,42 @@ The substrate physics that *would* decide it on its own keeps landing on (A): at
 ## §6 — Classification + verdict status
 
 - **consistency-vs-emergence:** Trigger-8 classification-promotion question. Canonical ceiling = *"a re-interpretation, not a derivation"* (`dual-reactance-storage-taxonomy.md:165`). CLOSE is earned **only** if (B) is the physical call **and** the §3.1 sub-derivation closes the α-order gap; otherwise classification stays at the inherited ceiling. Observable axis = Class 4 consistency / provenance (no empirically-variable sector count) — **not** a new prediction, per brief scope.
-- **Verdict:** **HELD — awaiting Grant's §5 call.** On current evidence the substrate points to **STAYS-INHERITED + §4 dual-branch reframe**; the CLOSE path is live only under reading (B) with two named sub-derivations outstanding. No τ_yield-site edits, no matrix change, no open-item closure until Grant adjudicates.
+- **Verdict:** **STAYS-INHERITED (Grant 2026-06-02 — see §7).** Reading (A); reading (B) ruled out (not parked). The ×2 is the inherited `𝒱_total` count-tag, not a within-event `E_C+E_L` sum. The real result is the **dual-branch unification** (§7). No τ_yield-site promotion-to-derived; canonical open-item closure + matrix + merge are the orchestration session's.
+
+---
+
+## §7 — Resolution (Grant 2026-06-02): STAYS-INHERITED + the dual-branch landing
+
+**Adjudication.** Grant verified the two load-bearing claims to source before calling it (the V=2-lesson reflex — verify the negative, don't rubber-stamp it):
+- `master-equation.md:78` ε-only branch, verbatim: *"only ε_eff → 0 while μ_eff remains intact."*
+- α-bookkeeping, exact: `e²/(8πε₀ℓ) = ½α·m_e c²` to 5 digits; the virial half-rest-mass is 137× larger. The per-sector quantity being doubled is the **α¹ Coulomb energy**, not the **α⁰ equipartition half-rest-mass** — different energies. (This corrected a conflation in the originating brief's "clean candidate" scoping.)
+
+**The call: reading (A).** τ_yield is the **electric branch** (dielectric breakdown) — single-sector.
+
+**Reading (B) is RULED OUT (not parked).** The master equation makes the two branches **mutually exclusive** — `:81` "they differ in *which* constitutive parameter saturates first," and each self-terminates (electric → opaque / no energy transport; magnetic → short / trapped knot). Sharper: the defect-nucleation outcome (B) invokes — the trapped `Γ→−1` two-sector knot — **IS the magnetic branch = rest mass** (`:79`, clm-lv3uw1), not τ_yield. (B) mis-assigns the branch. And τ_yield's own outcome (`Z→∞`, open-circuit, opaque) is a voltage-antinode / current-node boundary — capacitive-dominated, i.e. itself single-sector. So (B) is corpus-inconsistent for τ_yield; dropped.
+
+**Verdict — STAYS-INHERITED.** The yield-event physics is single-sector (electric branch), so it does **not** supply an "E_C + E_L summed at breakdown" justification for the 2. The ×2 in `τ_yield = e²·𝒱_total/(8πε₀ℓ⁴)` is **provenance-inherited** from the baryon `𝒱_total = 2` (a count-tag naming *which two-sector node* this is), **not** physics-forced by the yield event. The numerical value (1.04×10²² Pa) stays canonical and mass-confirmed — the value question was already CLOSED; only the provenance was open, and it resolves to **inherited**.
+
+**The landing (the real prize): the dual-branch unification.** The count-2 *does* live at the yield scale — as the **two mutually-exclusive saturation branches of the same Axiom-4 kernel**, which are the two reactance sectors:
+
+| Branch | Saturates | Z, Γ, boundary | Reactance sector | Outcome |
+|---|---|---|---|---|
+| **Electric** (`:78`) | ε_eff→0 (μ intact) | Z→∞, Γ→+1, open | **X_C** (capacitive / translational-E) | **τ_yield** (dielectric breakdown) |
+| **Magnetic** (`:79`, clm-lv3uw1) | μ_eff→0 (ε intact) | Z→0, Γ→−1, short | **X_L** (inductive / microrotational-B) | **rest mass** (Fermion confinement) |
+
+The branch↔sector identification is canonical, not asserted: the magnetic branch is named the **inductive / microrotational-B** sector at `translation-circuit.md:464` (*"microrotational sector hits Ax 4 yield on the inductive branch ... magnetic-branch saturation; clm-lv3uw1"*) and `:526`; the electric branch is its capacitive / translational-E complement. So the **two branches ARE the saturations of the two reactance sectors** → the "2" = the X_C + X_L count = the same count as baryon `V = 2` ([`2026-06-01_baryon-V2-dual-reactance-closure.md`](2026-06-01_baryon-V2-dual-reactance-closure.md)).
+
+**This is a genuine identity, shown — NOT the forbidden fusion.** Each branch *literally is* one reactance sector reaching its Axiom-4 yield (clm-lv3uw1), so tying the yield-scale "2" to the X_C+X_L count is a *derived* identity, not a manufactured coincidence. It must still be held apart from the other "three distinct 2's" (`dual-reactance-storage-taxonomy.md:42-60`): this is the **reactance-sector count**, NOT `K/G = 2` (modulus ratio) and NOT the `E_L = E_C` equipartition ratio-1. The chord it lands: the dual-reactance count threads from the baryon (fm) through the two saturation branches that split **yield vs mass** — it unifies τ_yield *and* rest mass, a stronger result than "yield scales with the count" would have been.
+
+**Classification (consistency-vs-emergence, Trigger 8 — no promotion past canonical ceiling).** The dual-branch landing is **Class B axiom-manifestation**: the two branches are already canonical (`master-equation.md:77-81`, clm-lv3uw1); the new content is the *identification* branch↔sector↔baryon-count, which is near-definitional given the sector definitions. Do **NOT** classify as Class 2 emergence or as a new empirical prediction. Observable axis: **Class 4 consistency** — the sector count is not empirically variable.
+
+**FLAG for orchestration (verify-before-cite / flag-don't-fix) — Γ-sign + branch tension in a canonical leaf.** `translation-circuit.md:115` reads *"Γ = −1 saturation TIR boundary | Open-circuit / Total reflection at LC tank yield."* This is in tension with `master-equation.md:78-79` on **two** counts: (1) **sign/topology** — Γ=−1 is a *short* circuit (Z→0), not "open-circuit," and `master-equation.md:79` correctly pairs Γ→−1 with Z→0; (2) **branch assignment** — `:115` puts the Γ=−1 boundary at "LC tank *yield*," but `master-equation.md` puts yield on the *electric* branch (Z→∞, open, Γ→+1) and Γ=−1 on the *magnetic / mass* branch. The landing must use the master-equation assignment (claim-tagged, EE-consistent); `translation-circuit.md:115` needs a reconciliation. Surfaced, not fixed here.
+
+### Handoff to orchestration (close + merge)
+
+This investigation branch is pushed, **NOT merged**. The orchestration session:
+1. **Close the open item** at `dual-reactance-storage-taxonomy.md:155-167` — proposed resolution text: *"RESOLVED (2026-06-02): STAYS-INHERITED. The yield event is the electric (ε-only) branch — single-sector (`master-equation.md:78`); the ×2 is the inherited 𝒱_total count-tag, not an E_C+E_L within-event sum. The count-2 manifests at the yield scale as the two mutually-exclusive saturation branches (electric→X_C→τ_yield; magnetic→X_L→rest mass, clm-lv3uw1) — the same X_C+X_L count as baryon V=2. Class B manifestation; no empirical discriminator."*
+2. **τ_yield-site provenance note** (`magnetic-saturation.md`, `01_appendices.tex`, `appendices-overview.md`, `04_continuum_electrodynamics.tex`): the 2 is inherited (count-tag = which branch), **NOT** promoted to "derived"; value unchanged.
+3. **Matrix**: clm-8ep2b4 / clm-o2shcn open-item → resolved-as-inherited; record the dual-branch identification (Class B) — consider a Tier-2 cross-ref on clm-lv3uw1 (it now also anchors the yield-vs-mass branch split tying to V=2).
+4. **Reconcile** the `translation-circuit.md:115` Γ-sign / branch tension flagged above.
+5. **Audit-tag + `--no-ff` merge** per the AVE merge pattern.
