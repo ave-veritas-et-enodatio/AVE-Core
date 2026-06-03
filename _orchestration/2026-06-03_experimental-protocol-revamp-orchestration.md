@@ -122,3 +122,30 @@ sibling→Core), lands with Grant's merge-go, tracks cross-repo promotions via t
 2. **AVE-PONDER PR #1** — review + merge before the PONDER implementor builds on it, or leave open?
 3. **Gates** — agree Protein + Neurology gate on EM-layer (HOPF/IVIM) results?
 4. **Retires** — greenlight retiring Casimir + splitting the cold-fusion claim?
+
+---
+
+## §7 Implementor verdicts (2026-06-03) — all 4 home, deflationary sweep
+
+| ID | Verdict | Survives as | Branch (pushed, not merged) |
+|---|---|---|---|
+| **HOPF A1** | α-readout **FALSE** (slope=α CODATA-injected `constants.py:133`; form-shared w/ classical coupled-line) | medium-independence + enantiomer-sign legs ($123, HOPF-02a) | `analysis/2026-06-03-hopf-antenna-harden` (AVE-HOPF, `871189b`) |
+| **IVIM A2** | discrimination **SOUND** (8.38e12, V⁴ to source); headline magnitude + APD detection NOT defensible (corpus self-contradicts 15–30 OOM, half-walked-back) | HELD pending Grant R-A (interferometric walk-back) vs R-B (derive N²-Bragg) | `analysis/2026-06-03-ivim-harden` (VacMirror, `7745954`) |
+| **Sagnac A2** | **RETIRE** → corroborative-null (Earth-rotor +7e-4 bias excluded by RLG geodesy 7e4×; Ch.6 eq.80 10⁶ arithmetic error) | W-vs-Al Ψ=7.15 self-consistency only | `analysis/2026-06-03-sagnac-fog-question` (PONDER, `d0cac77`) |
+| **Cleave B2** | two-sided revamp **WORKED** (conditional on detection; P3 all-null irreducible); slope 41.490 mV/μm to source | clean 2-sided, $7.7k; pending gap-dielectric call | `analysis/2026-06-03-cleave-two-sided` (Femto, `47d58a3`) |
+
+Meta: the survey + Phase-0 gates caught 1 injected-α (HOPF), 1 excluded-by-existing-data (Sagnac), 1 internally-contradictory (IVIM), 1 genuine-upgrade (Cleave). Every headline corrected — the deflation IS the deliverable.
+
+## §8 Skill-candidates watch (Grant "keep tabs" 2026-06-03)
+
+- ✅ **ave-ee-intuition-summary** — CREATED + committed (`~/.claude/skills`, `b94edc5`). 5-beat EE-mapped intuition summary; battle-tested on IVIM/HOPF/Sagnac. Self-audit (`ave-newly-created-skill-self-audit`): the 4 per-experiment summaries are owed → land them in the KB leaves.
+- 📋 **ave-experimental-protocol-survey** — the 5-survey discrimination-ranked-board fan-out pattern (this epic §1). Candidate.
+- 📋 **ave-discrimination-check amendment** — the three discriminator-failure modes (form-shared / already-constrained-by-existing-data / injected-magnitude); 2 of 3 fired today (Sagnac already-constrained, HOPF injected). Candidate.
+- 📋 **ave-walk-back amendment** — "resurrection detection": a walk-back started then reverted elsewhere without re-adjudication (IVIM Camp-A-WKB-walked-back → Camp-B-Bragg-resurrected, 15–30 OOM). Candidate.
+
+## §9 Cleanup state + pending
+
+- **Landing now:** HOPF A1 + Sagnac A2 Core walk-backs (worktree-isolated implementer → branch `analysis/2026-06-03-hopf-sagnac-walkbacks`); orchestrator reviews + merges.
+- **Pending Grant decisions:** (1) IVIM **R-A vs R-B**; (2) Cleave **gap-dielectric-vs-ℓ_node**; (3) HOPF protocol-doc correction (approval-gated AGENTS.md §117). IVIM + Cleave Core walk-backs finalize after (1)+(2).
+- **Sibling-repo merges (durable on origin, pending):** the 4 hardened-protocol branches merge to their repos with audit-tags — sequenced after the Core walk-backs + decisions.
+- **flag-don't-fix queue:** stale `:205`→`:246` ξ_topo cites (4 sites); `vacuum-impedance-mirror.md:67-79` retired-Reading-M framing (IVIM); `flyby-anomaly…:237` "back-solved from κ" remark (Sagnac); HOPF stale crib-sheet.
