@@ -49,7 +49,7 @@ Run the same experiment with Aluminum ($\rho_{Al} = 2{,}700$ kg/m³):
 $$\Psi = \frac{\Delta\phi_W}{\Delta\phi_{Al}} = \frac{\rho_W}{\rho_{Al}} \approx 7.15$$
 
 - **AVE prediction**: $\Psi \approx 7.15$ (density-dependent constitutive response)
-- **GR prediction**: $\Psi = 1$ (Lense-Thirring stated here as density-independent, $\sim 10^{-20}$ rad at this scale) — ⚠ **in tension with the 2026-06-03 verdict** (PONDER PR #1 `eb7a49b`: GR frame-drag scales with rotor $I \propto \rho$, so GR *also* predicts $\Psi = \rho_W/\rho_{Al}$ — flagged for adjudication, see scope-correction header)
+- **GR prediction**: $\Psi = \rho_W/\rho_{Al} \approx 7.15$ — the **same** ratio as AVE (corrected 2026-06-03; Lense-Thirring frame-drag scales with the rotor's angular momentum $J = I\omega$, $I \propto \rho$, so it is **not** density-independent). The GR–AVE difference is the **magnitude**, not the ratio: GR is $G/c^2$-suppressed to $\sim 10^{-20}$ rad; AVE predicts $\sim$20 OOM more — and that magnitude leg is the one excluded by RLG geodesy (next bullet).
 - **Self-consistency scaling check** (NOT a forward kill-switch — retired 2026-06-03): a measured $\Psi$ tests whether the AVE signal scales linearly with rotor density; the absolute-magnitude leg that would be a kill-switch is excluded by existing RLG Earth-rotation geodesy (Earth-as-rotor $+7\times10^{-4}$ bias)
 
 ---

@@ -57,7 +57,7 @@ To rigorously distinguish AVE from standard General Relativity (GR), the experim
 | Photodetector | InGaAs PIN Diode (Thorlabs DET01CFC) | \$180 |
 | Mechanical Rotors | 15cm Radius (1x Tungsten, 1x Aluminum) | \$800 |
 
-The Metric Mutual Inductance Ratio ($\Psi$) is defined as follows. While GR predicts a Lense-Thirring Frame-Dragging effect that is purely geometric and inherently independent of the rotor's material mass density (yielding a theoretical null phase shift of $\sim 10^{-20}$ rad at this scale), AVE predicts that the refractive index shift is a strictly constitutive electrical response to the magnetic saturation density of the rotor.
+The Metric Mutual Inductance Ratio ($\Psi$) is defined as follows. GR also predicts a Lense-Thirring frame-drag, and — contrary to an earlier framing here — it is **not** density-independent: the drag scales with the rotor's angular momentum $J = I\omega$, and $I \propto \rho$ at fixed geometry, so at fixed RPM the GR effect scales with mass density exactly as the AVE signal does. Both frameworks therefore predict the **same** ratio $\Psi = \rho_W/\rho_{Al} \approx 7.15$; they differ only in **magnitude** — GR's frame-drag is $G/c^2$-suppressed to $\sim 10^{-20}$ rad (unmeasurable), while AVE predicts a constitutive electrical response $\sim$20 orders of magnitude larger. The discriminator was always the magnitude, never the ratio — and that magnitude is the leg the RLG-geodesy objection (below) defeats.
 
 If the exact same experiment is run using an Aluminum rotor ($\rho_{Al} = 2{,}700\,\text{kg/m}^3$) of identical physical dimensions, AVE strictly predicts the optical signal will plummet exactly in proportion to the material magnetic density:
 
