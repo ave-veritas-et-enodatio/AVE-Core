@@ -330,6 +330,12 @@ z₀ α-circular caveat. Foreword :116 ("honestly characterized as CODATA input"
    radiation (photon) are ONE T₂ Cosserat excitation in two phases (trapped/free). α = the
    leak. (`photon-identification.md`, `claim-quality:1304`.)
 
+→ **FULL EE-native α picture preserved** (the session's framing yield, provenance-tagged
+canonical/synthesis/Class-B): [`research/2026-06-02_alpha-ee-native-framing.md`](../research/2026-06-02_alpha-ee-native-framing.md)
+— loss-tangent=1/Q, saturable-reactor cavity, dual-reactance=Cosserat-6DOF, Q=cell-count
+(scale-forced), geosync universality, photon-emission=mirror-leak, reluctance picture, the
+two α-routes. Promotion-to-`translation-circuit.md` flagged there, NOT yet done.
+
 **Open threads (both hard, both named — neither solved):**
 - (a) **L3 dynamic trapping**: does full nonlinear-dynamic-saturation + chiral Cosserat
   self-lock to R·r=¼? (the unsolved L3 bound-state problem; the "complete test" never run —
