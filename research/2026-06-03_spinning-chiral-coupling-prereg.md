@@ -1,6 +1,6 @@
 # Prereg: Spinning Chiral Impedance-Matched Antenna — rotation × chirality cross-term
 
-**Status:** SCOPING (2026-06-03). Corpus-grep dispatched (`ave-corpus-grep`, AVE-Core + AVE-HOPF + AVE-PONDER).
+**Status:** CLOSED 2026-06-03 — leaning Outcome B/C (see corpus-grep result below). **SUPERSEDED by `2026-06-03_yield-knee-map-prereg.md`** — the live line is the saturation-kernel yield-knee map (C–V / autoresonant), not mechanical spin.
 **Lane:** experimental-protocol revamp — the chiral pivot off the retired density-coupled Sagnac-RLVE.
 **Origin (Grant 2026-06-03):** the density-coupled rotor-Sagnac retired (achiral, GR-shared, RLG-excluded). The live question: does a **chiral** impedance-matched coupler — which touches the substrate's AVE-distinct chirality, not its GR-shared density — gain a *discriminating frequency-domain signature* when spun?
 
