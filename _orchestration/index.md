@@ -3,7 +3,39 @@
 **Audit trail (2026-05-23 Benn → 2026-05-25 merge):** This directory was ported from `analysis/integration` (D7 curation, KB claim-DAG integration) on 2026-05-23, and completed-work snapshots were moved to [`_archive/index-stale.md`](_archive/index-stale.md). Merged with integration live state on 2026-05-25 — treat this doc as the current live tracker; consult git log for recent updates.
 **EDIT** - 2026-05-23 Benn - document deprecated. Do not do any sweeping work from this document without evaluating current repo state. KB claim DAG has received many improvements and the KB has had many fixups in the process. This directory was ported over from `analysis/integration` branch, which has now been superseded. Work that was clearly already done has been extracted and moved to _archive/. What remains may still be relevant, but again, *check first*.
 
-> **Staleness notice (2026-05-31 EOD)**: Sections below (active epics, adjudication queue, priority ladder, open decisions) reflect 2026-05-20 EOD state, with reconciliations catalogued through 2026-05-31. Items not addressed in the reconciliation sections should be re-verified against current corpus before relying on details below. Verify-before-cite v1.4 applies.
+> **Staleness notice (2026-06-02)**: Sections below (active epics, adjudication queue, priority ladder, open decisions) reflect 2026-05-20 EOD state, with reconciliations catalogued through 2026-06-02 (newest first). Items not addressed in the reconciliation sections should be re-verified against current corpus before relying on details below. Verify-before-cite v1.4 applies.
+
+## 2026-06-02 reconciliation (α Class-2 lift investigation + honest-α relabel)
+
+Single-session delta from 2026-05-31 EOD. Verified against `git log origin/main` + `git tag -l`. **HEAD `b409b169`.** Directly addresses carry-forward item #1 (Class-2 lift candidate) in the 2026-05-31 section below.
+
+### CLOSED — α Class-2 lift: the substrate does NOT independently select the identification
+
+Question: does the K4 + Cosserat substrate **dynamically select** the (2,3) + R·r=¼ identification (the one posit under α's closed form) from a generic seed? **Outcome: NO** — closed across four engine×dynamics tests + the doc-34 static wall + the z₀ α-circularity:
+- 4 dynamic engine tests — FDTD nonlinear-saturation → dispersed; static Cosserat S11-relax → flat; dressed-eigenmode → flat; chiral-Meissner (κ_chiral) → flat/small. Immutable negative record (driver source + findings on origin): `audit/2026-06-02_alpha-lift-{cell-count,cosserat-binding,dressed-eigenmode,chiral-dressing}`.
+- doc-34 (`research/_archive/L3_electron_soliton/34_x4_constrained_s11.md`): "S11 landscape is flat within the hedgehog family … not uniquely selected without additional constraints."
+- z₀ α-circularity: rigidity-route z₀≈51.25 ← C_ratio=1.187 ← p_c=8πα (imposes α, doesn't read it out).
+
+**Genuine gain (survives the null):** α's **scale (~1/137) IS forced** — Compton-resonance trapping (cavity ≈ one Compton wavelength ≈ 4π³ Nyquist cells → Q≈137). Only the **exact** value (4π³+π²+π) rests on the one identification per route. Stronger + more precise than the prior "α rests entirely on R·r=¼."
+
+### Honest-α relabel landed (merged `7e763b1f`, `--no-ff`)
+
+Type-D framing narrowing (`ave-walk-back`): "derives / Zero-Parameter Closure" → "closed-form-at-one-identification, Class B." 20 files + straggler-fix, framing-only, `make verify` PASS, **NO value / prediction / matrix changed** (constants.py untouched). ch8 title → "Closed-Form α from the Golden Torus"; foreword honest-α scope para; trace-reversal + foreword two-engine → z₀ α-circular caveat. Tag `audit/2026-06-02_honest-alpha-relabel`.
+
+### NEW content 2026-06-02
+
+- **Epic**: `_orchestration/2026-06-02_alpha-class2-lift-radiation-resistance.md` (§1–§10 investigation + §11 close-state + §12 experimental pivot).
+- **EE-native α framing capture**: `research/2026-06-02_alpha-ee-native-framing.md` — loss-tangent=1/Q, saturable-reactor cavity, Q=cell-count (scale-forced), dual-reactance=Cosserat-6DOF, geosync universality, photon-emission=mirror-leak, two α-routes; provenance-tagged (canonical/synthesis/Class-B). Promotion to `translation-circuit.md` (clm-eemap1) flagged, NOT done.
+
+### Carry-forward to next session (2026-06-02)
+
+1. **Experimental falsification pivot** (epic §12) — point verify-to-source at the NOVEL predictions, not more α-postdiction; **Phase-0 magnitude-gate first**. Ranked: Sagnac-RLVE (Δφ≈2.07 rad) / vacuum-birefringence E⁴-vs-E² / √α impedance-mirror (43.65 kV) / DAMA Z-independence. Pure-physics "near-term falsification priorities" doc scoped, NOT written.
+2. **Two open first-principles threads** (either lifts a route to independent α): (a) **L3 dynamic trapping** — full nonlinear + chiral self-lock to R·r=¼ (the unsolved L3 bound-state problem; **supersedes the 2026-05-31 carry-forward #1** phasor↔real-space bijection step); (b) **z₀ from K4 amorphous coordination** (first-pass crystalline counting failed; currently α-circular).
+3. **EE-mapping promotion** — clean rows from the EE-framing capture → `translation-circuit.md` (clm-eemap1) per `ave-ee-first-mapping` Step 6 (+ mirror vol2-appendix + vol4).
+
+### Audit tags 2026-06-02
+
++5 this session (all on origin): `audit/2026-06-02_honest-alpha-relabel` + `audit/2026-06-02_alpha-lift-{cell-count,cosserat-binding,dressed-eigenmode,chiral-dressing}` (the 4 lift tags preserve driver source; findings in the epic). Separately, 4 earlier-2026-06-02 tags from other work also on origin (`baryon-r2-crossing-coupling`, `parameter-ledger-v2-reframe`, `tau-yield-reactance-count`, `zero-parameter-headline-reframe`). Baseline was 70 at 2026-05-31 EOD.
 
 ## 2026-05-31 reconciliation (Q-EMBED-SEL-1 substrate-mechanism arc)
 
@@ -140,10 +172,10 @@ Eight-day delta between the live 2026-05-20 baseline in this doc and the current
 
 ---
 
-**Last updated**: 2026-05-20 EOD++++++++++++++ (most sections); 2026-05-28 EOD (audit tag count + staleness notice + HEAD ref)
+**Last updated**: 2026-05-20 EOD++++++++++++++ (most sections); 2026-05-28 EOD (audit tag count + staleness notice + HEAD ref); **2026-06-02** (α Class-2 lift close + honest-α relabel — see reconciliation block at top; HEAD `b409b169`)
 **Current focus**: Vol 9 "The Vacuum Datasheet" ✅ COMPLETE 2026-05-28 (PR #55 + #56 both merged). Earlier 2026-05-20 focus: C15-CLEAVE-01 Phase 1a-rev1 ✓ COMPLETE — atopile walk-back delivered clean module-level imports; all Q-C15-10/11/12 + Q1.2 + Q-HWMOD-04 CLOSED. Next: A1-HOPF Phase 0b (Grant fab submission, [EXEC]) + C11 Phase 0 outreach ([PREP]) — both still queued.
 **Current HEAD on `main`**: `c6d2dcaf` — PR #56 merge (Vol 9 Ch 2-16). Last live integration head on `analysis/integration` (2026-05-20 EOD reference): `5977f4d`.
-**Audit tag count (AVE-Core)**: 65 (`git tag -l "audit/*" \| wc -l`) — 16 NEW Vol 9 audit tags landed 2026-05-28: `audit/2026-05-28_vol9-ch{02-16}-*` (15 chapter implementor branches) + `audit/2026-05-28_vol9-chapter-buildout` (integration branch). Was 35 at 2026-05-20 EOD; +30 across 8 days.
+**Audit tag count (AVE-Core)**: 65 (`git tag -l "audit/*" \| wc -l`) — 16 NEW Vol 9 audit tags landed 2026-05-28: `audit/2026-05-28_vol9-ch{02-16}-*` (15 chapter implementor branches) + `audit/2026-05-28_vol9-chapter-buildout` (integration branch). Was 35 at 2026-05-20 EOD; +30 across 8 days. **(This line is a 2026-05-28 snapshot — for current tags + HEAD see the 2026-06-02 reconciliation at top: +5 this session, 70 baseline at 2026-05-31.)**
 **Audit tags pushed (sibling repos this session)**: `audit/2026-05-20_phase-1a-kicad-design` + `audit/2026-05-20_phase-1a-rev1-atopile-walkback` at `AVE-Bench-FemtoElectrometer`; `audit/2026-05-20_q-c15-12-stage-a-fix` at `AVE-Hardware-Modules`
 **Active branches (local AVE-Core)**: 5 — `analysis/integration`, `benn/long-running`, `golden-torus-update`, `main`, `research/l3-electron-soliton`. Vol 9 chapter-buildout branches (16 total) deleted 2026-05-28 post-merge; preserved as audit tags.
 **Cross-repo state**: `AVE-Bench-FemtoElectrometer` main @ `7f9c721` (Phase 1a-rev1 ✓ MERGED with clean atopile module imports); `AVE-Hardware-Modules` main @ `8b0626b` (Q-C15-12 Stage A fix ✓ MERGED); AVE-Skills main @ `4f504c0`.
