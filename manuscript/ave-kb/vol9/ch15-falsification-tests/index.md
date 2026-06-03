@@ -30,8 +30,8 @@ The canonical cross-volume falsification catalog lives at:
   - [`vol4/falsification/ch11-experimental-bench-falsification/open-source-hardware.md`](../../vol4/falsification/ch11-experimental-bench-falsification/open-source-hardware.md) (clm-wzezvt)
   - [`vol4/falsification/ch11-experimental-bench-falsification/project-hopf-02.md`](../../vol4/falsification/ch11-experimental-bench-falsification/project-hopf-02.md) — HOPF-02 mitigation of pilot-board mutual-coupling confound
   - Divergence-test row A1-HOPF
-- **Sagnac-RLVE** rotational lattice mutual-inductance ($\Psi_{W/Al} = 7.15$):
-  - [`vol4/falsification/ch11-experimental-bench-falsification/sagnac-rlve.md`](../../vol4/falsification/ch11-experimental-bench-falsification/sagnac-rlve.md) (exp-rth12t status pending; strengthens clm-qx9bb8)
+- **Sagnac-RLVE** rotational lattice mutual-inductance ($\Psi_{W/Al} = 7.15$) — **RETIRED forward "kill-switch" → corroborative-null (2026-06-03 audit)**; surviving piece is the paired W-vs-Al $\Psi$ self-consistency scaling check (Earth-as-rotor $+7\times10^{-4}$ bias excluded by RLG geodesy; `AVE-PONDER/research/2026-06-03_sagnac-rlve-fog-question-verdict.md`):
+  - [`vol4/falsification/ch11-experimental-bench-falsification/sagnac-rlve.md`](../../vol4/falsification/ch11-experimental-bench-falsification/sagnac-rlve.md) (exp-rth12t status pending; strengthens clm-qx9bb8; scope-correction header 2026-06-03)
   - Divergence-test row A2-SAGNAC
 - **CLEAVE-01** femto-Coulomb electrometer ($\xi_{topo}$ kill-switch):
   - [`vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md`](../../vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md) (clm-ydksh6, exp-742kv5 status pending)

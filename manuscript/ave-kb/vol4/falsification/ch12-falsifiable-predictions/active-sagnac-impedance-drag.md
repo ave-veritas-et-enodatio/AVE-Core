@@ -34,8 +34,8 @@ AVE rejects this. The framework states the **Kinematic and Electromagnetic Entra
 
 [Figure: sagnac_kinematic_entrainment.png — see manuscript/vol_4_engineering/chapters/]
 
-**Falsification Test:**
-Identical units at same RPM with Aerogel vs Lead, and Aluminum vs Mu-Metal. [Detailed experimental configurations and environmental boundary conditions are extracted to companion IP volumes.]
+**Falsification Test (RE-SCOPED to self-consistency scaling check, 2026-06-03 audit):**
+Identical units at same RPM with Aerogel vs Lead, and Aluminum vs Mu-Metal. [Detailed experimental configurations and environmental boundary conditions are extracted to companion IP volumes.] **Scope note:** the parent A2-SAGNAC experiment retired forward "kill-switch" → corroborative-null (`AVE-PONDER/research/2026-06-03_sagnac-rlve-fog-question-verdict.md`): the same $\kappa = \rho_{rotor}/\rho_{bulk}$ applied to Earth-as-rotor predicts a $+7\times10^{-4}$ rotation-rate bias already excluded by ring-laser-gyro Earth-rotation geodesy by $7\times10^4\times$. This material-pair test survives as a **self-consistency** check (does the AVE signal scale linearly with rotor density/permeability) — **not** a forward AVE-vs-GR discriminator (GR Lense-Thirring frame-drag scales with rotor $I \propto \rho$ too, per PONDER PR #1 `eb7a49b`), and it still inherits the absolute-magnitude tension with RLG geodesy. See the canonical [`../ch11-experimental-bench-falsification/sagnac-rlve.md`](../ch11-experimental-bench-falsification/sagnac-rlve.md) scope-correction header.
 
 ### System Tolerances (The SNR Limit)
 
