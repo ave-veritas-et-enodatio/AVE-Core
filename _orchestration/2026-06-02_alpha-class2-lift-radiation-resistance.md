@@ -296,7 +296,7 @@ mechanism. **R·r=¼ is irreducibly an imposed identification** (the phasor-area
 bridge). α stays Class-B: closed-form geometry (4π³+π²+π) at three constraints — two
 lattice-forced (Nyquist d=1, self-avoidance R−r=½), one named identification (R·r=¼).
 
-**Driver branches (preserve as audit-tags):** `analysis/alpha-{cell-count, cosserat-binding,
+**Driver evidence (immutable audit-tags; do-not-merge branches may be deleted):** `audit/2026-06-02_alpha-lift-{cell-count, cosserat-binding,
 dressed-eigenmode, chiral-dressing}` — the 2×2+chiral negative record.
 
 ---
