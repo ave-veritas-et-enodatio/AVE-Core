@@ -663,7 +663,7 @@ flowchart TD
 
 ### α = 1/(4π³+π²+π) Cascade (audited 2026-05-16)
 
-α is the most foreword-anchored number in AVE — the central calibration ratio derived from the Golden Torus geometry of the electron unknot (Vol 1 Ch 8). It touches **12 of 33 matrix rows** across three distinct downstream chains: 5 primary direct loadings, a 6-row V_yield = √α · V_snap saturation chain, and a 1-row H_∞ ∝ 1/α² cosmological chain. The (2,q) chiral family forms a primary triangulation pair (A1-HOPF + C3-MUON-DELTA).
+α is the most foreword-anchored number in AVE — the central calibration ratio expressed in closed form by the Golden Torus geometry of the electron unknot (Vol 1 Ch 8). **Honest-α scope (2026-06-02):** α's value (α⁻¹ = 4π³+π²+π) is closed-form geometry whose scale (~1/137) is forced by the Compton-resonance trapping condition, but whose exact value rests on ONE substrate-geometric identification per route (R·r=¼ Golden-Torus route; z₀←1.187←p_c=8πα rigidity-percolation route) which the substrate does NOT independently select (4 dynamic engine tests + doc-34 S11-landscape-flatness + z₀ α-circularity) — Class B substrate-mechanism manifestation, not a "derivation" and not a "Zero-Parameter Closure." See [`vol1/ch8-alpha-golden-torus.md`](../vol1/ch8-alpha-golden-torus.md) §"Class B caveat (honest-α relabel)". It touches **12 of 33 matrix rows** across three distinct downstream chains: 5 primary direct loadings, a 6-row V_yield = √α · V_snap saturation chain, and a 1-row H_∞ ∝ 1/α² cosmological chain. The (2,q) chiral family forms a primary triangulation pair (A1-HOPF + C3-MUON-DELTA).
 
 ```mermaid
 flowchart TD

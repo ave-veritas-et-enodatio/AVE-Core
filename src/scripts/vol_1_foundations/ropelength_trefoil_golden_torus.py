@@ -2,10 +2,23 @@
 Ropelength minimization for the (2,3) trefoil knot — verify convergence to
 the Golden Torus geometry via three independent physical regimes.
 
-This script numerically closes the Ch.8 α derivation. Following the
-PMNS-angle derivation pattern (Vol.2 Ch.3), the trefoil's geometric
-constraints partition into three distinct physical regimes, each yielding
-one equation in (R, r, d):
+SCOPE NOTE (honest-α relabel, 2026-06-02): this script is a CONSISTENCY-CHECK
+AT the imposed R·r = 1/4 condition, NOT a from-scratch derivation of α. The
+screening penalty in STAGE B/C *imposes* R·r = 1/4 (the substrate-geometric
+identification the substrate does not independently select); ropelength-alone
+on the crossings-tight boundary lands at α⁻¹ ≈ 5.87, not 137.036 (STAGE A
+confirms the arc-length minimum does NOT pick the Golden Torus by itself).
+So this verifies that, GIVEN the R·r = 1/4 identification, the composite
+objective converges cleanly to the Golden Torus and reproduces
+α⁻¹ = 4π³+π²+π. α's value is closed-form geometry whose scale is forced by
+the Compton-resonance trapping condition but whose exact value rests on that
+one identification — Class B substrate-mechanism manifestation, not a
+"Zero-Parameter Closure." See manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md
+§"Class B caveat (honest-α relabel)".
+
+Following the PMNS-angle derivation pattern (Vol.2 Ch.3), the trefoil's
+geometric constraints partition into three distinct physical regimes, each
+yielding one equation in (R, r, d):
 
     ┌─────────────────┬──────────────────────┬───────────────────────────────┐
     │ Regime          │ Physical principle   │ Equation                      │
@@ -286,9 +299,14 @@ if __name__ == "__main__":
         print("    objective to the Golden Torus (R=φ/2, r=(φ-1)/2) from arbitrary")
         print("    starting points.")
         print()
-        print("  This closes the Ch.8 α derivation numerically:")
+        print("  This is a CONSISTENCY-CHECK AT the imposed R·r=1/4 condition")
+        print("  (the screening penalty imposes R·r=1/4; ropelength-alone lands")
+        print("  α⁻¹ ≈ 5.87). GIVEN that identification, the composite objective")
+        print("  converges to the Golden Torus and reproduces:")
         print("    minimum(ropelength + self-avoidance + screening) = Golden Torus")
         print(f"    → α⁻¹ = 4π³ + π² + π ≈ {4*np.pi**3 + np.pi**2 + np.pi:.6f}")
+        print("  (Class B; not a Zero-Parameter Closure — the substrate does not")
+        print("  independently select R·r=1/4. See ch8 §'Class B caveat (honest-α)'.)")
         print()
         print("  The 'I can guarantee you can make that work' S₁₁-minimization claim")
         print("  is computationally grounded: the ropelength-minimum (2,3) trefoil")
