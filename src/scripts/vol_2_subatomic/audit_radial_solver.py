@@ -5,7 +5,8 @@ import numpy as np
 
 from ave.solvers.radial_eigenvalue import ionization_energy_e2k
 
-PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
+# .git is a directory in a normal checkout but a file (gitdir pointer) in a worktree; test existence, not is_dir().
+PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").exists())
 
 
 def audit_radial_solver() -> None:

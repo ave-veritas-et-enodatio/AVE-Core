@@ -113,7 +113,8 @@ Scripts save figures and data to `assets/sim_outputs/` at the repository root:
 import os
 from pathlib import Path
 
-PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
+# .git is a directory in a normal checkout but a file (gitdir pointer) in a worktree; test existence, not is_dir().
+PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").exists())
 OUT_DIR = PROJECT_ROOT / "assets" / "sim_outputs"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 ```
