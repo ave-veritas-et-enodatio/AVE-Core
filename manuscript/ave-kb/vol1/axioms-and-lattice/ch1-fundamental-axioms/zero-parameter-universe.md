@@ -13,7 +13,7 @@ The AVE framework's leading result is that it **reduces the Standard Model's ~26
 
 **1. Deriving $\alpha$ via the Golden Torus S₁₁-Minimum (Ch.8):**
 
-The full closed-form derivation of $\alpha$ is in Vol 1 Ch 8 (Zero-Parameter Closure: $\alpha$ from the Golden Torus). Three distinct physical regimes produce three independent equations:
+The full closed form for $\alpha$ is in Vol 1 Ch 8 (Closed-Form $\alpha$ from the Golden Torus). Three distinct physical regimes produce three independent equations (honest-α scope 2026-06-02: α's value is closed-form geometry whose scale is forced by the Compton-resonance trapping condition but whose exact value rests on the $R \cdot r = 1/4$ identification the substrate does not independently select — Class B, not a first-principles "derivation" and not a "Zero-Parameter Closure"; see Ch.8 §"Class B caveat (honest-α relabel)"):
 
 - **Nyquist regime** (Axiom 1 + smallest stable soliton = trefoil): tube diameter $d \equiv 1\,\ell_{node}$.
 - **Crossings regime** (transverse self-avoidance at trefoil crossings): $2(R - r) = d \Rightarrow R - r = 1/2$.
@@ -37,7 +37,7 @@ The EMT argument below is a *downstream consequence* of this closure: once $\alp
 > p^* = \frac{10 z_0 - 12}{z_0(z_0 + 2)} = 8\pi\alpha
 > $$
 
-Solving this quadratic with $\alpha$ derived from the Golden Torus yields the effective coordination number of the chiral lattice: $z_0 \approx 51.25$. At this coordination, the rigidity threshold is $p_G = 6/z_0 \approx 0.117$, and the vacuum operates at $p^* = 0.1834$---a robust $56.7\%$ above the fluid-solid transition.
+Solving this quadratic with $\alpha$ taken from the Golden Torus closed form yields the effective coordination number of the chiral lattice: $z_0 \approx 51.25$. At this coordination, the rigidity threshold is $p_G = 6/z_0 \approx 0.117$, and the vacuum operates at $p^* = 0.1834$---a robust $56.7\%$ above the fluid-solid transition. (Honest-α relabel 2026-06-02: this makes explicit that the rigidity-percolation route takes $\alpha$ as input — $z_0 \leftarrow 1.187 \leftarrow p_c = 8\pi\alpha$ — so $z_0 \approx 51.25$ is located at $\alpha$ by construction, NOT an independent determination of $\alpha$; first-principles $z_0$ from K4 currently open. See §"self-consistency check" framing above and [`ch8-alpha-golden-torus.md`](../../ch8-alpha-golden-torus.md) §"Class B caveat (honest-α relabel)".)
 
 <!-- Figure: fig:rigidity_alpha — The Geometric Derivation of alpha. Effective Medium Theory for a 3D amorphous central-force network (z_0 ~ 51.25) shows the K/G ratio crossing the trace-reversal value of 2 at p* = 8*pi*alpha. The vacuum operates 56.7% above the rigidity onset (p_G = 0.117), not at the fluid-solid boundary. -->
 

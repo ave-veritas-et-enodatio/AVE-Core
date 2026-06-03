@@ -1,6 +1,18 @@
 """
 Phase-3 α⁻¹ validation via S11 minimization on a 3D Cosserat field.
 
+SCOPE NOTE (honest-α relabel, 2026-06-02): this is a CONSISTENCY-CHECK AT the
+imposed R·r = 1/4 condition, NOT a from-scratch derivation of α. The composite
+S11 free energy it minimizes inherits the screening penalty that imposes
+R·r = 1/4 (via ropelength_trefoil_golden_torus.py, the parametric reference);
+ropelength-alone lands α⁻¹ ≈ 5.87. So this verifies that the 3D Cosserat field
+tracks the parametric Golden-Torus result GIVEN that identification — it does
+NOT show the substrate independently selects R·r = 1/4. α's value is closed-form
+geometry whose scale is forced by the Compton-resonance trapping condition but
+whose exact value rests on that one substrate-geometric identification (Class B
+substrate-mechanism manifestation, not a "Zero-Parameter Closure"). See
+manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md §"Class B caveat (honest-α)".
+
 Per the reframing at end of 2026-04-20 session (see L3_PHASE3_SESSION_20260420
 handoff): the electron soliton's ground state is a reactive LC tank, not an
 energy minimum. The AVE-native objective is S11 minimization (equivalently
@@ -16,8 +28,9 @@ from those extracted values, and minimize over (R_target, r_target) with
 scipy.
 
 If minimization converges to Golden Torus in (R_target, r_target), the
-3D Cosserat field version tracks the parametric S11 result — which closes
-Phase-3 at the field level via S11 minimization.
+3D Cosserat field version tracks the parametric S11 result — a field-level
+consistency-check AT the imposed R·r = 1/4 condition (Class B; the substrate
+does not independently select R·r = 1/4), NOT a from-scratch closure of α.
 
 This is NOT gradient descent on the full field — the field-extractors
 (extract_shell_radii, extract_crossing_count) are not differentiable wrt
