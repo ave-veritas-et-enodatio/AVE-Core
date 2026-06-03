@@ -9,7 +9,8 @@ result doc reports.
 THE REFRAME (settled, not re-litigated here):
   The literal saturation knee at V_yield is bench-unreachable — V_yield = 43.65 kV
   is the PER-NODE voltage (across l_node = 3.86e-13 m), not per-apparatus. A bench
-  reaches a local saturation amplitude A ~ 3.8e-3 at best (PONDER Ch1:51: beta=1e3
+  reaches a local saturation amplitude A_hot ~ 2.654e-3 (RMS); PONDER ch1:122 quotes
+  the peak A_peak = sqrt2*A_hot ~ 3.8e-3 (peak convention) at this op point (beta=1e3
   tip x Q=1e4 build-up). So the bench measures the SMALL-A TREE-LEVEL kernel, not
   the knee. The reachable AVE-distinct observable is the SIGN of the V^2 coefficient:
 
@@ -95,8 +96,9 @@ BETA_CATALOG = {
 }
 G_FERRO = 3000.0  # BaTiO3 eps_r (Q-G42 section 2.5) — ferroelectric interface concentration
 
-# The canonical bench operating point (PONDER ch1:51, verified to source):
-#   30 kV across 1 mm, beta=1e3 tip, Q_build=1e4 -> A_local ~ 3.8e-3.
+# The canonical bench operating point (PONDER ch1:122, verified to source):
+#   30 kV across 1 mm, beta=1e3 tip, Q_build=1e4 -> A_hot ~ 2.654e-3 (RMS;
+#   = peak 3.8e-3 / sqrt2, the value PONDER ch1 quotes in its peak convention).
 V_BENCH = 30.0e3      # 30 kV applied (PONDER ch1 operating point)
 D_BENCH = 1.0e-3      # 1 mm gap
 Q_BUILD_BENCH = 1.0e4  # resonant field build-up (PONDER Q=1e4)
@@ -183,9 +185,9 @@ def report() -> None:
     # Headline bench A (PONDER beta=1e3 case) — the canonical operating point:
     A_bench = a_hot(1.0e3, V_BENCH, D_BENCH, Q_BUILD_BENCH)
     de_bench_local = kernel_deltaeps(A_bench)
-    print(f"\n    >>> CANONICAL bench A_hot = {A_bench:.3e}  (PONDER ch1:51 quotes ~3.8e-3)")
+    print(f"\n    >>> CANONICAL bench A_hot = {A_bench:.3e}  (RMS; PONDER ch1 quotes peak ~3.8e-3 = sqrt2*A_hot)")
     print(f"    >>> LOCAL hot-spot delta_eps/eps0 = {de_bench_local:+.3e}  "
-          f"(PONDER quotes 1-S ~ 7e-6)")
+          f"(= A_hot^2/2 = PONDER cycle-avg delta 3.52e-6 ch1:128/159; PONDER peak 1-S 7e-6 = A_peak^2/2)")
 
     # --- 2. Method B: BULK Df0/f0 with volume-fraction dilution ---------------
     print("\n[2] METHOD B (autoresonant) — bulk Df0/f0 = -1/2 <Deps/eps>_bulk:")
