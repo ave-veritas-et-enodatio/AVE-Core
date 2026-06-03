@@ -1,0 +1,372 @@
+{
+  "harness": "alpha_chiral_dressing_chisweep_scoped",
+  "driver_reused": "alpha_chiral_dressing_test.py",
+  "driver_head_note": "machinery imported unchanged from committed alpha_chiral_dressing_test.py",
+  "complete": true,
+  "points_done": 14,
+  "points_total": 14,
+  "wall_seconds_so_far": 704.0,
+  "config": {
+    "N_LATTICE": 24,
+    "PML": 4,
+    "SCOPED_CHI_SWEEP": [
+      0.0,
+      0.001,
+      0.00875682308316,
+      0.03,
+      0.1,
+      0.3,
+      0.9
+    ],
+    "SCOPED_CHI_PHYSICAL_INDEX": 2,
+    "SCOPED_SEEDS_R_r": [
+      [
+        6.0,
+        3.0
+      ],
+      [
+        8.0,
+        2.0
+      ]
+    ],
+    "KAPPA_CHIRAL_ELECTRON": 0.00875682308316,
+    "KAPPA_TILDE_ELECTRON": 1.2,
+    "SEED_AMPLITUDE_FRAC": 0.3,
+    "THETA_C": 0.7071067811865475,
+    "PHI_SQ_TARGET": 2.6180339887,
+    "ASPECT_BAND": 0.2,
+    "handedness": "RH",
+    "dropped_to_2_seeds": true
+  },
+  "per_seed": [
+    {
+      "R": 6.0,
+      "r": 3.0,
+      "R_over_r_seed": 2.0,
+      "bare_aspect": 2.101050354657277,
+      "sweep": [
+        {
+          "chi": 0.0,
+          "is_physical_chi": false,
+          "R_over_r_phase_bound": 2.128044187216033,
+          "R_over_r_phase_2_3": 3.172073493706147,
+          "localization_bound": 0.7910104095465537,
+          "lambda_mod_bound": 0.9265326466094205,
+          "theta_bound": 0.727824463900319,
+          "pq_bound": [
+            0,
+            0
+          ],
+          "pq_2_3": [
+            0,
+            0
+          ],
+          "n_in_band": 40,
+          "wall_s": 28.5
+        },
+        {
+          "chi": 0.001,
+          "is_physical_chi": false,
+          "R_over_r_phase_bound": 2.127962882207359,
+          "R_over_r_phase_2_3": 3.170990201554132,
+          "localization_bound": 0.7910071916553805,
+          "lambda_mod_bound": 0.9265331395601684,
+          "theta_bound": 0.7278236493641104,
+          "pq_bound": [
+            0,
+            0
+          ],
+          "pq_2_3": [
+            0,
+            0
+          ],
+          "n_in_band": 40,
+          "wall_s": 34.5
+        },
+        {
+          "chi": 0.00875682308316,
+          "is_physical_chi": true,
+          "R_over_r_phase_bound": 2.127381469694754,
+          "R_over_r_phase_2_3": 3.1617384725968187,
+          "localization_bound": 0.7909744679574562,
+          "lambda_mod_bound": 0.9265370195646817,
+          "theta_bound": 0.7278171874871107,
+          "pq_bound": [
+            0,
+            0
+          ],
+          "pq_2_3": [
+            0,
+            0
+          ],
+          "n_in_band": 40,
+          "wall_s": 37.3
+        },
+        {
+          "chi": 0.03,
+          "is_physical_chi": false,
+          "R_over_r_phase_bound": 2.1261668979084587,
+          "R_over_r_phase_2_3": 3.126720548013415,
+          "localization_bound": 0.7908230611497516,
+          "lambda_mod_bound": 0.9265481631009234,
+          "theta_bound": 0.727798134964022,
+          "pq_bound": [
+            0,
+            0
+          ],
+          "pq_2_3": [
+            0,
+            0
+          ],
+          "n_in_band": 40,
+          "wall_s": 29.9
+        },
+        {
+          "chi": 0.1,
+          "is_physical_chi": false,
+          "R_over_r_phase_bound": 2.1247826347695913,
+          "R_over_r_phase_2_3": 3.1147411640883416,
+          "localization_bound": 0.7897936178580097,
+          "lambda_mod_bound": 0.9265916506094263,
+          "theta_bound": 0.7277168102577773,
+          "pq_bound": [
+            0,
+            0
+          ],
+          "pq_2_3": [
+            0,
+            0
+          ],
+          "n_in_band": 40,
+          "wall_s": 31.1
+        },
+        {
+          "chi": 0.3,
+          "is_physical_chi": false,
+          "R_over_r_phase_bound": 2.063763035481038,
+          "R_over_r_phase_2_3": 3.091518818802422,
+          "localization_bound": 0.7972248360768988,
+          "lambda_mod_bound": 0.9260651122515944,
+          "theta_bound": 0.7295084734962894,
+          "pq_bound": [
+            0,
+            0
+          ],
+          "pq_2_3": [
+            0,
+            0
+          ],
+          "n_in_band": 40,
+          "wall_s": 29.4
+        },
+        {
+          "chi": 0.9,
+          "is_physical_chi": false,
+          "R_over_r_phase_bound": 1.7820849095240703,
+          "R_over_r_phase_2_3": 2.8845570768360753,
+          "localization_bound": 0.7970538760879272,
+          "lambda_mod_bound": 0.9265115305843784,
+          "theta_bound": 0.717896450680709,
+          "pq_bound": [
+            0,
+            0
+          ],
+          "pq_2_3": [
+            0,
+            0
+          ],
+          "n_in_band": 40,
+          "wall_s": 41.3
+        }
+      ]
+    },
+    {
+      "R": 8.0,
+      "r": 2.0,
+      "R_over_r_seed": 4.0,
+      "bare_aspect": 2.101050354657277,
+      "sweep": [
+        {
+          "chi": 0.0,
+          "is_physical_chi": false,
+          "R_over_r_phase_bound": 2.1968035048394134,
+          "R_over_r_phase_2_3": 3.172754793526155,
+          "localization_bound": 0.7833975022633439,
+          "lambda_mod_bound": 0.9265167418830412,
+          "theta_bound": 0.7287799179236218,
+          "pq_bound": [
+            0,
+            0
+          ],
+          "pq_2_3": [
+            0,
+            0
+          ],
+          "n_in_band": 40,
+          "wall_s": 43.2
+        },
+        {
+          "chi": 0.001,
+          "is_physical_chi": false,
+          "R_over_r_phase_bound": 2.1946386346584914,
+          "R_over_r_phase_2_3": 3.1727629499055223,
+          "localization_bound": 0.7836398068800084,
+          "lambda_mod_bound": 0.9265177401276794,
+          "theta_bound": 0.7287765416067976,
+          "pq_bound": [
+            0,
+            0
+          ],
+          "pq_2_3": [
+            0,
+            0
+          ],
+          "n_in_band": 40,
+          "wall_s": 38.5
+        },
+        {
+          "chi": 0.00875682308316,
+          "is_physical_chi": true,
+          "R_over_r_phase_bound": 2.1764012298413955,
+          "R_over_r_phase_2_3": 3.17284257070341,
+          "localization_bound": 0.7857256429073528,
+          "lambda_mod_bound": 0.9265267621782264,
+          "theta_bound": 0.7287462109157143,
+          "pq_bound": [
+            0,
+            0
+          ],
+          "pq_2_3": [
+            0,
+            0
+          ],
+          "n_in_band": 40,
+          "wall_s": 96.4
+        },
+        {
+          "chi": 0.03,
+          "is_physical_chi": false,
+          "R_over_r_phase_bound": 2.105751751682452,
+          "R_over_r_phase_2_3": 3.1732655518525563,
+          "localization_bound": 0.7951949213328244,
+          "lambda_mod_bound": 0.9265853699372663,
+          "theta_bound": 0.7285618303817197,
+          "pq_bound": [
+            0,
+            0
+          ],
+          "pq_2_3": [
+            0,
+            0
+          ],
+          "n_in_band": 40,
+          "wall_s": 98.1
+        },
+        {
+          "chi": 0.1,
+          "is_physical_chi": false,
+          "R_over_r_phase_bound": 2.1275733859193786,
+          "R_over_r_phase_2_3": 3.1825684581578786,
+          "localization_bound": 0.8006972016719774,
+          "lambda_mod_bound": 0.926929131749085,
+          "theta_bound": 0.7276449559770283,
+          "pq_bound": [
+            0,
+            0
+          ],
+          "pq_2_3": [
+            0,
+            0
+          ],
+          "n_in_band": 40,
+          "wall_s": 97.3
+        },
+        {
+          "chi": 0.3,
+          "is_physical_chi": false,
+          "R_over_r_phase_bound": 2.1697326897630744,
+          "R_over_r_phase_2_3": 3.083487845936597,
+          "localization_bound": 0.7957149017321077,
+          "lambda_mod_bound": 0.9269720652381794,
+          "theta_bound": 0.7277393361918647,
+          "pq_bound": [
+            0,
+            0
+          ],
+          "pq_2_3": [
+            0,
+            0
+          ],
+          "n_in_band": 40,
+          "wall_s": 37.3
+        },
+        {
+          "chi": 0.9,
+          "is_physical_chi": false,
+          "R_over_r_phase_bound": 2.0330403096134155,
+          "R_over_r_phase_2_3": 2.8434910886258105,
+          "localization_bound": 0.8014185092749274,
+          "lambda_mod_bound": 0.9271582153513932,
+          "theta_bound": 0.7276653512994541,
+          "pq_bound": [
+            0,
+            0
+          ],
+          "pq_2_3": [
+            0,
+            0
+          ],
+          "n_in_band": 40,
+          "wall_s": 29.2
+        }
+      ]
+    }
+  ],
+  "interim_verdict": {
+    "outcome": "FLAT/SMALL",
+    "reason": "CLOSE (FLAT/SMALL): the chiral coupling's increment on R/r as chi 0->physical(1.2*alpha) is -0.01053 (bound-mode, mean over seeds) -- O(alpha)-small, far below the 0.131 needed to move a generic ~2 seed toward phi^2=2.6180. Physical chirality is too weak to select the aspect; phi^2 would have to rest on R*r=1/4.",
+    "selects_aspect": false,
+    "chiral_increment_mean_bound": -0.010532496259648472,
+    "physical_chi_mean_R_over_r": 2.151891349768075,
+    "has_plateau": false,
+    "plateau_seeds": 0,
+    "per_seed_phi2_crossing": [
+      {
+        "R_over_r_seed": 2.0,
+        "reaches_phi2_within_band": false,
+        "first_in_band_chi": null,
+        "in_wide_band_only": true,
+        "interp_crossing_chi": null,
+        "plateau_band_frac": 0.1,
+        "wide_band_frac": 0.2,
+        "phi2": 2.6180339887
+      },
+      {
+        "R_over_r_seed": 4.0,
+        "reaches_phi2_within_band": false,
+        "first_in_band_chi": null,
+        "in_wide_band_only": true,
+        "interp_crossing_chi": null,
+        "plateau_band_frac": 0.1,
+        "wide_band_frac": 0.2,
+        "phi2": 2.6180339887
+      }
+    ],
+    "converge_or_shift": {
+      "verdict": "SHIFT independently (no selection)",
+      "converged": false,
+      "dressed_physical_R_over_r": [
+        2.127381469694754,
+        2.1764012298413955
+      ],
+      "dressed_physical_spread": 0.049019760146641556,
+      "bare_baseline_R_over_r": [
+        2.101050354657277,
+        2.101050354657277
+      ],
+      "bare_baseline_spread": 0.0,
+      "seed_ratio_spread": 2.0
+    }
+  },
+  "note": "COMPLETE; verdict recomputed with corrected PLATEAU_BAND (wide-band edge artifact fixed)"
+}

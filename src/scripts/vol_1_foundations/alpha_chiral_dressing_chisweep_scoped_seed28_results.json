@@ -1,0 +1,206 @@
+{
+  "harness": "alpha_chiral_dressing_chisweep_scoped",
+  "driver_reused": "alpha_chiral_dressing_test.py",
+  "driver_head_note": "machinery imported unchanged from committed alpha_chiral_dressing_test.py",
+  "complete": true,
+  "points_done": 7,
+  "points_total": 7,
+  "wall_seconds_so_far": 335.5,
+  "config": {
+    "N_LATTICE": 24,
+    "PML": 4,
+    "SCOPED_CHI_SWEEP": [
+      0.0,
+      0.001,
+      0.00875682308316,
+      0.03,
+      0.1,
+      0.3,
+      0.9
+    ],
+    "SCOPED_CHI_PHYSICAL_INDEX": 2,
+    "SCOPED_SEEDS_R_r": [
+      [
+        6.0,
+        2.142857142857143
+      ]
+    ],
+    "KAPPA_CHIRAL_ELECTRON": 0.00875682308316,
+    "KAPPA_TILDE_ELECTRON": 1.2,
+    "SEED_AMPLITUDE_FRAC": 0.3,
+    "THETA_C": 0.7071067811865475,
+    "PHI_SQ_TARGET": 2.6180339887,
+    "ASPECT_BAND": 0.2,
+    "handedness": "RH",
+    "dropped_to_2_seeds": false
+  },
+  "per_seed": [
+    {
+      "R": 6.0,
+      "r": 2.142857142857143,
+      "R_over_r_seed": 2.8000000000000003,
+      "bare_aspect": 2.101050354657277,
+      "sweep": [
+        {
+          "chi": 0.0,
+          "is_physical_chi": false,
+          "R_over_r_phase_bound": 2.0815441645663206,
+          "R_over_r_phase_2_3": 3.077925709442013,
+          "localization_bound": 0.7960422297805043,
+          "lambda_mod_bound": 0.9265952131176164,
+          "theta_bound": 0.7280295939467262,
+          "pq_bound": [
+            0,
+            0
+          ],
+          "pq_2_3": [
+            0,
+            0
+          ],
+          "n_in_band": 40,
+          "wall_s": 38.2
+        },
+        {
+          "chi": 0.001,
+          "is_physical_chi": false,
+          "R_over_r_phase_bound": 2.0815425486832786,
+          "R_over_r_phase_2_3": 3.0780964838048916,
+          "localization_bound": 0.7960375827643997,
+          "lambda_mod_bound": 0.9265954652125008,
+          "theta_bound": 0.7280291371772256,
+          "pq_bound": [
+            0,
+            0
+          ],
+          "pq_2_3": [
+            0,
+            0
+          ],
+          "n_in_band": 40,
+          "wall_s": 36.9
+        },
+        {
+          "chi": 0.00875682308316,
+          "is_physical_chi": true,
+          "R_over_r_phase_bound": 2.0815332103342814,
+          "R_over_r_phase_2_3": 3.079407396987098,
+          "localization_bound": 0.7960009495713777,
+          "lambda_mod_bound": 0.92659742923919,
+          "theta_bound": 0.7280255621513724,
+          "pq_bound": [
+            0,
+            0
+          ],
+          "pq_2_3": [
+            0,
+            0
+          ],
+          "n_in_band": 40,
+          "wall_s": 48.3
+        },
+        {
+          "chi": 0.03,
+          "is_physical_chi": false,
+          "R_over_r_phase_bound": 2.0815348729762766,
+          "R_over_r_phase_2_3": 3.0828775572134948,
+          "localization_bound": 0.7958954249370703,
+          "lambda_mod_bound": 0.92660288722598,
+          "theta_bound": 0.7280154665920471,
+          "pq_bound": [
+            0,
+            0
+          ],
+          "pq_2_3": [
+            0,
+            0
+          ],
+          "n_in_band": 40,
+          "wall_s": 35.0
+        },
+        {
+          "chi": 0.1,
+          "is_physical_chi": false,
+          "R_over_r_phase_bound": 2.081755139028106,
+          "R_over_r_phase_2_3": 3.0934873539249907,
+          "localization_bound": 0.7954977427343138,
+          "lambda_mod_bound": 0.9266217582295994,
+          "theta_bound": 0.7279783204583673,
+          "pq_bound": [
+            0,
+            0
+          ],
+          "pq_2_3": [
+            0,
+            0
+          ],
+          "n_in_band": 40,
+          "wall_s": 36.3
+        },
+        {
+          "chi": 0.3,
+          "is_physical_chi": false,
+          "R_over_r_phase_bound": 2.058789150739604,
+          "R_over_r_phase_2_3": 3.067856447145635,
+          "localization_bound": 0.7939365926435433,
+          "lambda_mod_bound": 0.9265692668629895,
+          "theta_bound": 0.7272846146334856,
+          "pq_bound": [
+            0,
+            0
+          ],
+          "pq_2_3": [
+            0,
+            0
+          ],
+          "n_in_band": 40,
+          "wall_s": 35.5
+        },
+        {
+          "chi": 0.9,
+          "is_physical_chi": false,
+          "R_over_r_phase_bound": 2.1023546741055106,
+          "R_over_r_phase_2_3": 3.080047960794849,
+          "localization_bound": 0.7929825743782498,
+          "lambda_mod_bound": 0.9260138388413869,
+          "theta_bound": 0.7297501748384458,
+          "pq_bound": [
+            0,
+            0
+          ],
+          "pq_2_3": [
+            0,
+            0
+          ],
+          "n_in_band": 40,
+          "wall_s": 71.6
+        }
+      ]
+    }
+  ],
+  "interim_verdict": {
+    "outcome": "FLAT/SMALL",
+    "reason": "CLOSE (FLAT/SMALL): the chiral coupling's increment on R/r as chi 0->physical(1.2*alpha) is -0.00001 (bound-mode, mean over seeds) -- O(alpha)-small, far below the 0.131 needed to move a generic ~2 seed toward phi^2=2.6180. Physical chirality is too weak to select the aspect; phi^2 would have to rest on R*r=1/4.",
+    "selects_aspect": false,
+    "chiral_increment_mean_bound": -1.0954232039228629e-05,
+    "physical_chi_mean_R_over_r": 2.0815332103342814,
+    "has_plateau": false,
+    "plateau_seeds": 0,
+    "per_seed_phi2_crossing": [
+      {
+        "R_over_r_seed": 2.8000000000000003,
+        "reaches_phi2_within_band": false,
+        "first_in_band_chi": null,
+        "in_wide_band_only": true,
+        "interp_crossing_chi": null,
+        "plateau_band_frac": 0.1,
+        "wide_band_frac": 0.2,
+        "phi2": 2.6180339887
+      }
+    ],
+    "converge_or_shift": {
+      "verdict": "insufficient",
+      "n_seeds_at_physical": 1
+    }
+  },
+  "note": "COMPLETE"
+}
