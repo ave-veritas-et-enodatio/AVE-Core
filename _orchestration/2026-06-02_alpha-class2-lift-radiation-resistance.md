@@ -298,3 +298,57 @@ lattice-forced (Nyquist d=1, self-avoidance R−r=½), one named identification 
 
 **Driver branches (preserve as audit-tags):** `analysis/alpha-{cell-count, cosserat-binding,
 dressed-eigenmode, chiral-dressing}` — the 2×2+chiral negative record.
+
+---
+
+## §11 — SESSION CLOSE STATE (2026-06-02) — pre-compaction handoff
+
+**⚠ LOAD-BEARING PENDING ACTION — the relabel is DONE but NOT MERGED.**
+- Branch `analysis/honest-alpha-relabel`, commits **`d81d7c44`** (main relabel, 20 files,
+  framing-only) **+ `e6af92b5`** (foreword two-engine z₀ α-circular straggler caught in
+  review). `make verify` PASS; **NO value / prediction / matrix-severity changed**
+  (constants.py untouched). Diffs reviewed to source.
+- **HELD FOR GRANT'S EXPLICIT MERGE-GO** (merge-authorization rule). On his go: `--no-ff`
+  merge → main + audit-tag the relabel tip.
+- **ALSO PENDING (Grant greenlit, not yet executed):** tag the 4 lift driver branches
+  `audit/2026-06-02_alpha-lift-{cell-count,cosserat-binding,dressed-eigenmode,chiral-dressing}`.
+- Grant offered to eyeball `git diff main..analysis/honest-alpha-relabel` before merge.
+
+**What the relabel landed (the honest framing, now in the corpus on the branch):**
+ch8 title "Zero-Parameter Closure"→"Closed-Form α from the Golden Torus"; foreword
+:25/:37/:84/:107 "derives via"→"supplied by" + explicit Honest-α scope para; the 2 α-scripts
+→ consistency-check-at-imposed-R·r=¼ scope notes; trace-reversal leaf + foreword two-engine →
+z₀ α-circular caveat. Foreword :116 ("honestly characterized as CODATA input") preserved.
+
+**Genuine gains banked this session (NOT just the close):**
+1. α's **SCALE (~1/137) is FORCED** — Compton-resonance trapping → cavity ≈ one Compton
+   wavelength ≈ 4π³ Nyquist cells → Q≈137 (the photon-trapping logical walk). Only the
+   *exact* value rests on the one identification.
+2. **EE-native α**: vacuum **loss-tangent = 1/Q = mode-count**; electron = saturable-reactor
+   trap (Γ=−1); the geosync universality (lock is kinematic → particle-independent).
+3. **Photon emission = the TIR/saturation trap transiently failing** — matter (electron) +
+   radiation (photon) are ONE T₂ Cosserat excitation in two phases (trapped/free). α = the
+   leak. (`photon-identification.md`, `claim-quality:1304`.)
+
+**Open threads (both hard, both named — neither solved):**
+- (a) **L3 dynamic trapping**: does full nonlinear-dynamic-saturation + chiral Cosserat
+  self-lock to R·r=¼? (the unsolved L3 bound-state problem; the "complete test" never run —
+  Test 1 dispersed, Test 2 static-flat bracket it). Would lift the Golden-Torus route.
+- (b) **z₀ from K4 amorphous coordination**: first-pass crystalline counting FAILED;
+  currently α-circular via z₀←1.187=(p_cauchy/p_c)^⅓←p_c=8πα (`closure-roadmap:138`). Would
+  lift the rigidity-percolation route + make the K/G crossing-graph an independent α.
+
+## §12 — NEXT-SESSION PIVOT: experimental falsification priorities (Grant's call to pursue)
+
+The α deep-dive's lesson: point verify-to-source + adversarial machinery at the NOVEL
+predictions, not more α-postdiction. **Phase 0 (cheap gate, do FIRST):** adversarially
+re-derive each prediction's MAGNITUDE to source + SM-counterfactual + the killer systematic
+BEFORE building anything (claims shrink under scrutiny — that's the whole session's lesson).
+**Candidates, ranked:** (1) **Sagnac-RLVE** — Δφ≈2.07 rad (W rotor, 200 m fiber, 10k RPM),
+Ψ=ρ_W/ρ_Al=7.15 differential; bold→clean yes/no; systematic = W/Al differ in MORE than
+density. (2) **Vacuum birefringence E⁴ vs QED E²** — cleanest SM-discriminator (a slope), but
+PVLAS-scale unless the E⁴ coefficient cooperates (Phase-0 decides). (3) **√α impedance mirror**
+Γ→1 at V_yield=43.65 kV — parameter-free, vacuum-vs-apparatus systematic brutal. (4) **Data-
+analysis** (DAMA Z-independence cross-crystal swap; velocity cluster-tightness σ=11 km/s) —
+cheap, the corpus's own surviving AVE-distinct ones. Grant asked for a pure-physics
+"near-term falsification priorities" doc (strip budget/timeline) — NOT yet written.
