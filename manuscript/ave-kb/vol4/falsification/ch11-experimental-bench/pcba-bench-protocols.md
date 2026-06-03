@@ -38,7 +38,7 @@ Five specific PCBA-level experiments, each isolating a single AVE prediction.
 - Dense ceramic disk at 10k RPM, $v_{vac} \approx 0.038$ m/s
 - Interdigitated capacitor driven at 10 kV, 1 kHz → $B \approx 4.2$ pT
 - Lock-in amplifier extracts $\sim 0.26\;\mu$V signal
-- **Falsification**: amplitude must scale linearly with RPM, flip $180°$ on reversal
+- **Falsification** (corroborative-null per 2026-06-03 audit — same $\kappa$ as A2-SAGNAC, already excluded by RLG geodesy): amplitude-∝-RPM + $180°$ flip is a self-consistency check, not a forward kill-switch
 
 <!-- claim-quality: clm-cltls0 -->
 ### ZENER-04: Impedance Avalanche Detector

@@ -40,7 +40,7 @@ Comprehensive catalogue of tabletop falsification experiments, existing experime
 | [Existing Experimental Signatures](existing-experimental-signatures.md) | Proton radius puzzle; neutron lifetime anomaly; Hubble tension; LIGO echoes; vortex core limits |
 | [Project CLEAVE-01](project-cleave-01.md) | Femto-coulomb electrometer; $Q = \xi_{topo} x$; 41.5 mV per micron |
 | [Project HOPF-02](project-hopf-02.md) | S-parameter VNA falsification; anomalous chiral $S_{11}$ notch; Snell parallax test |
-| [Project ROENTGEN-03](project-roentgen-03.md) | Solid-state Sagnac induction; 4.2 pT Lock-In detection |
+| [Project ROENTGEN-03](project-roentgen-03.md) | Solid-state Sagnac induction; 4.2 pT Lock-In detection — RETIRED to corroborative-null (2026-06-03) |
 | [Project ZENER-04](project-zener-04.md) | Impedance avalanche detector; Marx generator; avalanche knee at 43.65 kV |
 | [Metric Levitation Limit](metric-levitation-limit.md) | $m_{max} = 1.846\,\text{g}$; dielectric death spiral; topological rocket equation |
 | [Project TORSION-05](project-torsion-05.md) | Horizontal metric rectification; asymmetric flyback; $\sim 100\,\mu\text{N}$ DC thrust |

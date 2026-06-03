@@ -597,6 +597,8 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ## ROENTGEN-03 Solid-State Sagnac Induction ($B \approx 4.2$ pT)
 <!-- id: clm-qsgl7d -->
 
+> **Scope correction (2026-06-03 audit, Grant-adjudicated): RETIRED forward → corroborative-null, alongside A2-SAGNAC.** Same $\kappa = \rho_{rotor}/\rho_{bulk}$ entrainment, different transducer (Röntgen $\mathbf{v}\times\mathbf{E}$ magnetic pickup vs optical Sagnac); the Earth-rotor ring-laser-gyro exclusion ($+7\times10^{-4}$ bias excluded by $7\times10^4\times$) applies identically. The 4.2 pT prediction inherits the excluded $\kappa$; surviving fragment = RPM-linearity + $180°$ phase-flip self-consistency, NOT a forward kill-switch. See A2-SAGNAC retirement in `divergence-test-substrate-map.md`.
+
 - Spinning a non-metallic dense ceramic disk at 10k RPM creates $v_{vac} \approx 0.038$ m/s at $r=5$ cm; an interdigitated capacitor driven at 10 kV / 1 kHz overhead synthesizes a $B \approx 4.2$ pT alternating field via $\mathbf{B} = (1/c^2)\,\mathbf{v} \times \mathbf{E}$ acting on the induced vacuum drift.
 - _Specific Claims_
   - Roentgen's 1888 moving-dielectric induction extended to the bulk vacuum metric: spinning a neutral mass macroscopically phase-shifts $\mathcal{M}_A$ via mutual inductance, allowing a B-field to be synthesized from the vacuum's own induced drift rather than from any embedded current.
