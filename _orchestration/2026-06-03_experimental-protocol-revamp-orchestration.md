@@ -148,4 +148,24 @@ Meta: the survey + Phase-0 gates caught 1 injected-α (HOPF), 1 excluded-by-exis
 - **Landing now:** HOPF A1 + Sagnac A2 Core walk-backs (worktree-isolated implementer → branch `analysis/2026-06-03-hopf-sagnac-walkbacks`); orchestrator reviews + merges.
 - **Pending Grant decisions:** (1) IVIM **R-A vs R-B**; (2) Cleave **gap-dielectric-vs-ℓ_node**; (3) HOPF protocol-doc correction (approval-gated AGENTS.md §117). IVIM + Cleave Core walk-backs finalize after (1)+(2).
 - **Sibling-repo merges (durable on origin, pending):** the 4 hardened-protocol branches merge to their repos with audit-tags — sequenced after the Core walk-backs + decisions.
-- **flag-don't-fix queue:** stale `:205`→`:246` ξ_topo cites (4 sites); `vacuum-impedance-mirror.md:67-79` retired-Reading-M framing (IVIM); `flyby-anomaly…:237` "back-solved from κ" remark (Sagnac); HOPF stale crib-sheet.
+- **flag-don't-fix queue:** stale `:205`→`:246` ξ_topo cites (4 sites); `vacuum-impedance-mirror.md:67-79` retired-Reading-M framing (IVIM); ~~`flyby-anomaly…:237`~~ **FIXED** (`7f7447cb`); HOPF stale crib-sheet.
+
+---
+
+## §10 — Kernel-discovery thread + current board (2026-06-03)
+
+**The thread (how the experimental pivot unfolded, with Grant):** Sagnac-RLVE retired (achiral *density* coupling — GR-shared, RLG-excluded) → Grant: "spinning chiral impedance-matched antenna to couple to the lattice?" → **chirality, not density, is the AVE-distinct channel** (GR/EM have no parity-odd vacuum coupling) → that channel *is* HOPF → its (p,q)-chiral term is **nonlinear-saturation** (above V_yield), not linear → Grant: "autoresonance/PLL — measure the **AC response of the bulk lattice, not DC**" → characterize the vacuum as a **saturable reactor** (yield-knee map) → grep: the literal knee at V_yield is **bench-unreachable** (V_yield is per-node), but the reachable AVE-distinct observable is the **tree-level V²-coefficient SIGN** (AVE softens δε/ε₀=−A²/2; QED stiffens) → **converged onto Q-G42** (the prior Phase-0, decision-ready).
+
+**Two preregs (committed):**
+- `research/2026-06-03_spinning-chiral-coupling-prereg.md` — **CLOSED Outcome B/C** (mechanical spin conflates internal-Cosserat-ω with bulk-ω; category substitution caught by grep; superseded).
+- `research/2026-06-03_yield-knee-map-prereg.md` — **reframed** to the tree-level V²-coefficient SIGN test; resume from Q-G42.
+
+**The convergence (the session's experimental core):** the saturation kernel ε_eff(V)=ε₀√(1−(V/V_yield)²) is the coherent center — measured **three ways, same physics**: IVIM (reflectance Γ(V)), PONDER-05 (C–V, 27.4% ε-collapse at V_DC/V_yield=0.687), Q-G42 (V²-coefficient sign). HOPF is the *parity* channel; the kernel is the *saturation* channel. **All three pivots this session (HOPF, IVIM, Q-G42) converged onto existing corpus work** — the program is far more coherent than the survey's pile suggested.
+
+**Meta-result:** the `ave-prereg` + corpus-grep discipline caught **two** dead-ends (spinning category-error; literal-knee unreachability) BEFORE any bench was built — the whole point of the discipline, demonstrated twice in one thread.
+
+**Resumption (DISPATCHED 2026-06-03):** Q-G42 — derive the green-field **autoresonant Δf₀/f₀** small-signal number (Ch 15 lacks it) + design the **vacuum-vs-material separation** (universal −A²/2 vs material-specific electrostriction) + recommend the **detection architecture** (Q-G42 §4 Q1–Q3: precision-bridge ΔC/C~10⁻⁹ / cryo-lock-in 10⁻¹² / resonant-Q autoresonant 10⁻¹⁵) + reconcile the β/G_geom catalog ({30,10³,10⁵}).
+
+**Current board (tiered, post-hardening):** LIVE = HOPF (chiral legs) · Cleave (two-sided) · IVIM (discrimination sound, magnitude held) · **Q-G42 V²-sign kernel test (decision-ready)**. RETIRED = Sagnac/ROENTGEN-03 (landed) · Casimir (queued). GATED = Protein · Neurology. DONE anchors = SPARC · BH-ringdown. PARK = Schwinger · metric-fusion · baryon-ladder. DEMOTED = muon-g2 · Lamb · PVLAS-static-B · RT-SC · HTS-KI · PONDER-01 · acoustic-rect.
+
+**Pending Grant decisions (parked behind the kernel thread):** IVIM **R-A/R-B** · Cleave **gap-dielectric** · HOPF **§6.2** doc-correction · **Casimir retire** + **cold-fusion split** walk-backs.
