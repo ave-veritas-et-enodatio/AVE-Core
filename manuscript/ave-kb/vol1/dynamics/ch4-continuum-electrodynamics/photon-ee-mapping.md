@@ -55,6 +55,36 @@ The free photon and the electron are **two amplitude phases of the same underlyi
 
 ## §3 — Carrier × envelope
 
+The free photon's wave-packet structure decomposes (informally, as a visualization / engineering convenience — not a separate substrate axiom) into a **carrier × envelope**:
+
+- **Carrier** — the oscillation frequency $\omega$ of the $T_2$ microrotation wave. In the empty-space propagation baseline the carrier is a visualization choice ($\lambda_{eff}=10\,dx$), **not** matched to Compton or any SM scale (`photon_propagation.py`:74).
+- **Envelope** — a Gaussian amplitude modulation in time (and, for a beam, transversely in space), giving a bandwidth-limited pulse (`photon_propagation.py`:77; `animate_vacuum_phonon_3d.py`:63, "A 'photon': Gaussian envelope × sinusoidal carrier frequency").
+
+EE reading: a standard RF carrier under a pulse envelope. This is descriptive packaging of the matched-$Z_0$ transmission-line wave (§2); it adds no saturation physics ($\Delta\phi\ll\alpha$ throughout).
+
 ## §4 — The photon's own E↔B: I/Q quadrature ↔ (V_inc, V_ref), V ↔ Φ_link
+
+This is the section the [circuit translation table](../../../common/translation-tables/translation-circuit.md):173 flags as the pending consolidating leaf. The content (gate-(a) PASSED 2026-06-04 as a **description of what the engine factually does**, read from code):
+
+**The photon's $E$↔$B$ is a LINEAR I/Q quadrature on the bond's forward/backward voltage waves — internal to the K4 sector.** On each transmission-line bond, the incident and reflected voltage waves $(V_{inc}, V_{ref})$ ARE the photon's own in-phase / quadrature components:
+
+$$E \sim (V_{inc} + V_{ref}), \qquad B \sim \frac{V_{inc} - V_{ref}}{Z}$$
+
+locked together by the line impedance $Z$. This is a **linear** $E$↔$B$ coupling **internal to the K4 sector** (the bond's forward/backward voltage waves) — distinct from the *parametric* K4↔Cosserat bridge (which is where photon→matter-spin lives, §4.1 below). Equivalently, the $V\leftrightarrow\Phi_{link}$ linear LC slosh: voltage (capacitive, the $E$-like in-phase part) trades with flux-linkage $\Phi_{link}$ (inductive, the $B$-like quadrature part) every cycle, a lossless reactive exchange at $Z_0$.
+
+> **[Resultbox]** *The photon's quadrature, in EE terms*
+>
+> $E \sim (V_{inc}+V_{ref})$ (in-phase, capacitive), $B \sim (V_{inc}-V_{ref})/Z$ (quadrature, inductive), locked by the line impedance. The photon's $E$ and $B$ both live in the K4 sector as the two quadratures of one matched-line wave. This is a **linear** $E$↔$B$, NOT the parametric K4↔Cosserat pair-production coupling.
+
+**Anchors (verbatim, ✓-VERIFIED):** [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):173 ("the bond's incident/reflected voltage waves ARE the photon's own quadrature: $E\sim(V_{inc}+V_{ref})$, $B\sim(V_{inc}-V_{ref})/Z$ — a LINEAR $E$↔$B$ internal to the K4 sector"; code-confirmed `k4_tlm.py`:192-206, 340, 400; gate (a) 2026-06-04) and :233 ("(I) Intra-K4, the photon's own E↔B — LINEAR, PRESENT: `V_inc/V_ref ↔ Φ_link` ... E ~ (V_inc+V_ref), B ~ (V_inc−V_ref)/Z, locked by the line impedance").
+
+### §4.1 — Distinguished from the parametric photon→matter bridge (do not conflate)
+
+There are **two distinct "magnetic" DOFs and two distinct $E$↔$B$ couplings** — the load-bearing disambiguation from gate (a):
+
+- **(I) Intra-K4, the photon's own $E$↔$B$ — LINEAR, PRESENT** (this section §4): $V_{inc}/V_{ref}\leftrightarrow\Phi_{link}$ via TLM scatter+connect. This is where the photon's quadrature (and the $R\!\cdot\!r$ phasor) lives.
+- **(II) K4↔Cosserat bridge, photon → matter spin — PARAMETRIC, CANONICAL:** $V^2$ modulates the saturation varactor in $W_{refl}$ ($A^2_\varepsilon \supset V^2/V_{SNAP}^2$); it does **not** torque $\omega$. The coupling is **even in $\omega$**, so $\omega=0$ is an exact fixed point — a parametric pump that **cannot** seed the $\omega$-idler from zero (**Q0**). This IS the canonical **pair-production** coupling (matter spin from a *seeded* $\Gamma\to-1$ rupture), NOT a missing additive forcing term: a linear $V\to\omega$ term would manufacture spin below threshold (wrong physics).
+
+The intra-K4 linear $E$↔$B$ (I) is the photon; the K4↔Cosserat parametric bridge (II) is photon→matter. Conflating them is the error gate (a) corrected. (Anchor: [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):232–238.)
 
 ## §5 — Honest-status flags
