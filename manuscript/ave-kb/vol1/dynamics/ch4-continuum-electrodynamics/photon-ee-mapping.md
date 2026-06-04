@@ -7,7 +7,7 @@ no-claim: "consolidation / translation leaf — the photon's pending EE-mapping 
 
 # Photon EE Mapping — Free Photon ($Z_0$, $\Gamma=0$) vs Self-Trapped Electron ($\Gamma=-1$)
 
-This leaf is the photon's consolidating EE-mapping leaf — the one the [circuit translation table](../../../common/translation-tables/translation-circuit.md) I/Q-quadrature E↔B row (line 173) flags as **"consolidating canonical leaf pending."** It distinguishes the **free photon** (single-sector $T_2$, matched at $Z_0$, $\Gamma=0$, no core) from the **self-trapped electron** (the same wave at Axiom-4 saturation: $\Gamma=-1$ Local Bubble), and maps the photon's internal EE structure — carrier × envelope, the linear $E$↔$B$ as an I/Q quadrature on the bond's forward/backward voltage waves, and the $V\leftrightarrow\Phi_{link}$ linear LC slosh.
+This leaf is the photon's consolidating EE-mapping leaf — the one the [circuit translation table](../../../common/translation-tables/translation-circuit.md) I/Q-quadrature E↔B row (§4.5(b) line 178) now points to as the **"consolidating canonical leaf landed 2026-06-04"** (the row's earlier "leaf pending" wording was reconciled in this merge). It distinguishes the **free photon** (single-sector $T_2$, matched at $Z_0$, $\Gamma=0$, no core) from the **self-trapped electron** (the same wave at Axiom-4 saturation: $\Gamma=-1$ Local Bubble), and maps the photon's internal EE structure — carrier × envelope, the linear $E$↔$B$ as an I/Q quadrature on the bond's forward/backward voltage waves, and the $V\leftrightarrow\Phi_{link}$ linear LC slosh.
 
 ## §1 — Scope and classification
 
@@ -19,10 +19,8 @@ The owning canonical content:
 
 > → Primary: [Photon Identification (T₂-only Cosserat ω)](photon-identification.md) — the free-photon = single-sector $T_2$ identification ($u=0$, $\omega\neq0$, $\Delta\phi\ll\alpha$, $Z=Z_0$, $\Gamma=0$) and the electron = self-trapped photon at $V_{\text{yield}}$ (clm-3npynp, clm-i4p11y, clm-fr3mos).
 > → Primary: [Master Equation](master-equation.md) — the two mutually-exclusive Axiom-4 saturation branches: electric ($\varepsilon_{eff}\to0$, $Z\to\infty$, $\Gamma\to+1$ open) vs magnetic ($\mu_{eff}\to0$, $Z\to0$, $\Gamma\to-1$ short); the electron is the magnetic / short branch (clm-lv3uw1, lines 78–79).
-> ↗ See also: [Circuit Translation Table](../../../common/translation-tables/translation-circuit.md) §4 / §4.5 — the I/Q quadrature E↔B row (line 173) this leaf consolidates; the $\Gamma=-1$ short-circuit row (line 115); the shorted $\lambda/4$ resonator (line 240) (clm-eemap1).
+> ↗ See also: [Circuit Translation Table](../../../common/translation-tables/translation-circuit.md) §4 / §4.5 — the I/Q quadrature E↔B row (line 178) this leaf consolidates; the $\Gamma=-1$ short-circuit row (line 115); the shorted $\lambda/4$ resonator (§4.5(e) line 245) (clm-eemap1).
 > ↗ See also: [Double-Slit EE / Glossary Mapping](../ch3-quantum-signal-dynamics/double-slit-ee-mapping.md) — the double-slit companion (the electron-as-particle navigating its ponderomotive wake).
-
-## §2 — Free photon vs self-trapped electron (the load-bearing distinction)
 
 ## §2 — Free photon vs self-trapped electron (the load-bearing distinction)
 
@@ -39,7 +37,7 @@ The free photon and the electron are **two amplitude phases of the same underlyi
 | EE component | matched lossless transmission line | **shorted $\lambda/4$ resonator** (gate-(b) CLOSED 2026-06-04) |
 | Rest mass | none (massless) | trapped reactive energy of the shorted resonator |
 
-**Anchors:** free photon = [photon-identification.md](photon-identification.md):11,24 (✓-VERIFIED canonical); electron = self-trapped photon = [photon-identification.md](photon-identification.md):11; $\Gamma=-1$ magnetic-branch short = [master-equation.md](master-equation.md):78–79 (clm-lv3uw1) + [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):115; Local Bubble = [resonant-lc-solitons.md](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md):50 + [zero-impedance-boundary.md](../ch3-quantum-signal-dynamics/zero-impedance-boundary.md):51; shorted $\lambda/4$ resonator = [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):240.
+**Anchors:** free photon = [photon-identification.md](photon-identification.md):11,24,77 ("$\Gamma = 0$ at every bond", no core) (✓-VERIFIED canonical); electron = self-trapped photon = [photon-identification.md](photon-identification.md):11; $\Gamma=-1$ magnetic-branch short = [master-equation.md](master-equation.md):78–79 (clm-lv3uw1) + [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):115; Local Bubble = [resonant-lc-solitons.md](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md):50 + [zero-impedance-boundary.md](../ch3-quantum-signal-dynamics/zero-impedance-boundary.md):51; shorted $\lambda/4$ resonator = [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):245 (§4.5(e) "Half/quarter-wave resonator … Gate (b) … CLOSED").
 
 > **[Resultbox]** *The two mutually-exclusive Axiom-4 branches (do not conflate)*
 >
@@ -64,7 +62,7 @@ EE reading: a standard RF carrier under a pulse envelope. This is descriptive pa
 
 ## §4 — The photon's own E↔B: I/Q quadrature ↔ (V_inc, V_ref), V ↔ Φ_link
 
-This is the section the [circuit translation table](../../../common/translation-tables/translation-circuit.md):173 flags as the pending consolidating leaf. The content (gate-(a) PASSED 2026-06-04 as a **description of what the engine factually does**, read from code):
+This is the section the [circuit translation table](../../../common/translation-tables/translation-circuit.md):178 (§4.5(b) I/Q quadrature row) points to as the consolidating leaf ("consolidating canonical leaf landed 2026-06-04"). The content (gate-(a) PASSED 2026-06-04 as a **description of what the engine factually does**, read from code):
 
 **The photon's $E$↔$B$ is a LINEAR I/Q quadrature on the bond's forward/backward voltage waves — internal to the K4 sector.** On each transmission-line bond, the incident and reflected voltage waves $(V_{inc}, V_{ref})$ ARE the photon's own in-phase / quadrature components:
 
@@ -76,7 +74,7 @@ locked together by the line impedance $Z$. This is a **linear** $E$↔$B$ coupli
 >
 > $E \sim (V_{inc}+V_{ref})$ (in-phase, capacitive), $B \sim (V_{inc}-V_{ref})/Z$ (quadrature, inductive), locked by the line impedance. The photon's $E$ and $B$ both live in the K4 sector as the two quadratures of one matched-line wave. This is a **linear** $E$↔$B$, NOT the parametric K4↔Cosserat pair-production coupling.
 
-**Anchors (verbatim, ✓-VERIFIED):** [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):173 ("the bond's incident/reflected voltage waves ARE the photon's own quadrature: $E\sim(V_{inc}+V_{ref})$, $B\sim(V_{inc}-V_{ref})/Z$ — a LINEAR $E$↔$B$ internal to the K4 sector"; code-confirmed `k4_tlm.py`:192-206, 340, 400; gate (a) 2026-06-04) and :233 ("(I) Intra-K4, the photon's own E↔B — LINEAR, PRESENT: `V_inc/V_ref ↔ Φ_link` ... E ~ (V_inc+V_ref), B ~ (V_inc−V_ref)/Z, locked by the line impedance").
+**Anchors (verbatim, ✓-VERIFIED):** [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):178 ("the bond's incident/reflected voltage waves ARE the photon's own quadrature: $E\sim(V_{inc}+V_{ref})$, $B\sim(V_{inc}-V_{ref})/Z$ — a LINEAR $E$↔$B$ internal to the K4 sector"; code-confirmed `k4_tlm.py`:192-206, 340, 400; gate (a) 2026-06-04) and :238 (§4.5(e) bullet "(I) Intra-K4, the photon's own E↔B — LINEAR, PRESENT: `V_inc/V_ref ↔ Φ_link` ... E ~ (V_inc+V_ref), B ~ (V_inc−V_ref)/Z, locked by the line impedance").
 
 ### §4.1 — Distinguished from the parametric photon→matter bridge (do not conflate)
 
@@ -85,7 +83,7 @@ There are **two distinct "magnetic" DOFs and two distinct $E$↔$B$ couplings** 
 - **(I) Intra-K4, the photon's own $E$↔$B$ — LINEAR, PRESENT** (this section §4): $V_{inc}/V_{ref}\leftrightarrow\Phi_{link}$ via TLM scatter+connect. This is where the photon's quadrature (and the $R\!\cdot\!r$ phasor) lives.
 - **(II) K4↔Cosserat bridge, photon → matter spin — PARAMETRIC, CANONICAL:** $V^2$ modulates the saturation varactor in $W_{refl}$ ($A^2_\varepsilon \supset V^2/V_{SNAP}^2$); it does **not** torque $\omega$. The coupling is **even in $\omega$**, so $\omega=0$ is an exact fixed point — a parametric pump that **cannot** seed the $\omega$-idler from zero (**Q0**). This IS the canonical **pair-production** coupling (matter spin from a *seeded* $\Gamma\to-1$ rupture), NOT a missing additive forcing term: a linear $V\to\omega$ term would manufacture spin below threshold (wrong physics).
 
-The intra-K4 linear $E$↔$B$ (I) is the photon; the K4↔Cosserat parametric bridge (II) is photon→matter. Conflating them is the error gate (a) corrected. (Anchor: [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):232–238.)
+The intra-K4 linear $E$↔$B$ (I) is the photon; the K4↔Cosserat parametric bridge (II) is photon→matter. Conflating them is the error gate (a) corrected. (Anchor: [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):237–239, §4.5(e) "The load-bearing disambiguation" bullets (I)/(II).)
 
 ## §5 — Honest-status flags
 
@@ -93,14 +91,14 @@ Carried verbatim per `ave-evidence-framing-discipline`:
 
 - **This leaf is consistency / translation, not emergence.** Every mapping is an identification of already-canonical content (§1); `no-claim:` frontmatter; no new derivation.
 
-- **$R\!\cdot\!r=\tfrac14$ is NOT canonical — Class-B, contradicts honest-α.** The substrate does **not** independently select $R\!\cdot\!r=\tfrac14$ ([translation-circuit.md](../../../common/translation-tables/translation-circuit.md):230, "the substrate does NOT independently select R·r=1/4"; `clm-0ktpcn`, Class-B, CHALLENGE-CLOSED 2026-06-04). The I/Q quadrature of §4 is where the $R\!\cdot\!r$ phasor *lives*, but the $\tfrac14$ value is a **named identification the substrate does not derive** — do NOT present §4 as deriving it.
+- **$R\!\cdot\!r=\tfrac14$ is NOT canonical — Class-B, contradicts honest-α.** The substrate does **not** independently select $R\!\cdot\!r=\tfrac14$ ([translation-circuit.md](../../../common/translation-tables/translation-circuit.md):235, "the substrate does NOT independently select R·r=1/4"; `clm-0ktpcn`, Class-B, CHALLENGE-CLOSED 2026-06-04). The I/Q quadrature of §4 is where the $R\!\cdot\!r$ phasor *lives*, but the $\tfrac14$ value is a **named identification the substrate does not derive** — do NOT present §4 as deriving it.
 
-- **The $E$↔$B$ row (translation-circuit.md:173) was ⚠ partial, "consolidating leaf PENDING" — THIS leaf is that pending leaf.** On landing, the §4.5(b) Impedance & transmission I/Q row's pending-note should point here.
+- **The $E$↔$B$ row (translation-circuit.md:178) was ⚠ partial, "consolidating leaf PENDING" — THIS leaf is that pending leaf, and it has now LANDED.** The §4.5(b) Impedance & transmission I/Q row's note (:178) now reads "consolidating canonical leaf landed 2026-06-04" and points here.
 
-- **Soliton self-lock / autoresonance at $\Gamma=-1$ is underived** (✗ GAP, [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):202,217). The electron's stable confinement at the $\Gamma=-1$ boundary is asserted from the saturation mechanism; the autoresonance / self-lock that would keep it locked is a plausible-but-underived candidate (the only autoresonant-PLL leaf is invalidated for using the wrong yield threshold).
+- **Soliton self-lock / autoresonance at $\Gamma=-1$ is underived** (✗ GAP, [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):207 (Autoresonance row, "GAP — not mapped"), :222 (gap-finding §)). The electron's stable confinement at the $\Gamma=-1$ boundary is asserted from the saturation mechanism; the autoresonance / self-lock that would keep it locked is a plausible-but-underived candidate (the only autoresonant-PLL leaf is invalidated for using the wrong yield threshold).
 
-- **The shorted $\lambda/4$ resonator map is a DESCRIPTION (gate-(b) CLOSED 2026-06-04), not a $\tfrac14$ derivation.** It describes the electron's trapped-reactive-energy structure (a shorted $\lambda/4$ resonator = a half-Γ-lap on the Smith chart); it does **not** derive $R\!\cdot\!r=\tfrac14$ ([translation-circuit.md](../../../common/translation-tables/translation-circuit.md):240).
+- **The shorted $\lambda/4$ resonator map is a DESCRIPTION (gate-(b) CLOSED 2026-06-04), not a $\tfrac14$ derivation.** It describes the electron's trapped-reactive-energy structure (a shorted $\lambda/4$ resonator = a half-Γ-lap on the Smith chart); it does **not** derive $R\!\cdot\!r=\tfrac14$ ([translation-circuit.md](../../../common/translation-tables/translation-circuit.md):245, §4.5(e) "Half/quarter-wave resonator … Gate (b) … CLOSED").
 
 - **Helical-photon ($u\neq0$ AND $\omega\neq0$) RETRACTED** ([photon-identification.md](photon-identification.md):93). Canonical photon is single-sector ($T_2$ only). Legacy "helical soliton" scripts use the superseded framing.
 
-> **⚠ Surfaced status drift (flag-don't-fix, for auditor adjudication).** The translation-circuit.md:173 I/Q row's note still reads that "the $R{\cdot}r=1/4$ phasor-radius question that lives in this sector is a *separate*, **gate-(b)-pending** claim", whereas the (e)-section rows at :240–241 record gate (b) as **RUN and CLOSED 2026-06-04** (R·r=¼ "CHALLENGE-CLOSED 2026-06-04, Class B hardened"). The two statements are about the same claim at different points in the same file; the :240–241 closure is the later, authoritative state. This leaf adopts the **Class-B / gate-(b)-CLOSED** status (R·r=¼ not derived) and surfaces the :173 "gate-(b)-pending" phrasing as **stale wording to reconcile**, not a live open question. Do not silently rewrite :173 — the auditor adjudicates whether to update its phrasing when this leaf lands.
+> **Status note (RECONCILED 2026-06-04).** A prior version of this leaf flagged a status drift: the translation-circuit.md I/Q row's note formerly read that "the $R{\cdot}r=1/4$ phasor-radius question that lives in this sector is a *separate*, **gate-(b)-pending** claim", while the (e)-section rows recorded gate (b) as RUN and CLOSED. That tension was **reconciled in the 2026-06-04 merge**: the I/Q row at [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):178 now itself carries the authoritative closure — "$R{\cdot}r=1/4$ … a *separate* claim — **gate (b) RESOLVED-NEGATIVE 2026-06-04** … Class B" — consistent with the §4.5(e) dispositions at :245–246 ("Half/quarter-wave resonator … Gate (b) … CLOSED"; "R·r = 1/4 … CHALLENGE-CLOSED 2026-06-04, Class B hardened"). This leaf adopts the **Class-B / gate-(b)-RESOLVED-NEGATIVE** status (R·r=¼ not derived). **No open tension remains** — the :178 row and the :245–246 dispositions now state the same authoritative outcome.
