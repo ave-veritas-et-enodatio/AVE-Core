@@ -9,7 +9,8 @@ import ast
 import sys
 from pathlib import Path
 
-PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
+# .git is a directory in a normal checkout but a file (gitdir pointer) in a worktree; test existence, not is_dir().
+PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").exists())
 EXCLUDED_DIRS = {".venv", "venv", "node_modules", ".git", "__pycache__", ".eggs", "*.egg-info"}
 
 BANNED_IMPORTS = ["scipy.constants"]
