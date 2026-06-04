@@ -42,7 +42,7 @@ The combined local field at a resonant tip is:
 > E_{local}^{peak} = \beta \cdot Q \cdot E_{macro} \cdot \sqrt{2} \approx 4.2 \times 10^{14} \;\text{V/m}
 > $$
 
-giving $E_{local}/E_{yield} \approx 3.8 \times 10^{-3}$. The tips are thus *regime-bouncing*: during each RF half-cycle, the local field rises from zero (Regime I) toward the onset of Regime II, inducing a measurable Jensen's rectification:
+giving the peak ratio $E_{local}^{peak}/E_{yield} \approx 3.8 \times 10^{-3}$ — i.e. the peak hot-spot amplitude $A_{peak} \approx 3.75 \times 10^{-3}$. (The canonical *RMS* amplitude is $A_{RMS} = A_{peak}/\sqrt2 = \beta Q E_{macro}/E_{yield} = 2.654 \times 10^{-3}$ — the value the AVE-Core qg42 `a_hot()` returns and the Q-G42 V²-sign operating point. Both use the canonical $E_{yield} = 1.13 \times 10^{17}$ V/m; the peak field $E_{local}^{peak} = \beta Q E_{macro}\sqrt2 \approx 4.24 \times 10^{14}$ V/m is correct as written.) The tips are thus *regime-bouncing*: during each RF half-cycle, the local field rises from zero (Regime I) toward the onset of Regime II, inducing a measurable Jensen's rectification (cycle-averaged, $\delta = A_{peak}^2/4 = A_{RMS}^2/2$):
 
 $$
 \delta = 1 - \langle S \rangle \approx 3.5 \times 10^{-6} \quad (3.5 \;\text{ppm})
