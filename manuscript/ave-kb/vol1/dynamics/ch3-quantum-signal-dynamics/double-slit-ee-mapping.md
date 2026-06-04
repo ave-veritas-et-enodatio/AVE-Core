@@ -63,7 +63,36 @@ Each row is a consistency / translation identification (§1). The "Status" colum
 
 ## §4 — Which-path decoherence and the screen / Born rule (EE form)
 
+**Which-path = Ohmic / Joule decoherence.** To extract which-path information, a detector must physically couple to the vacuum lattice and draw kinetic energy from the $\mathbf{A}$-field — i.e. it acts as a **resistive mechanical load** $Z_{det}$. The work it extracts over a measurement interval is governed by ordinary Joule heating ($P = V^2/R$):
+
+$$W_{extracted} = \int P_{load}\,dt \;\propto\; \frac{\lvert\partial_t\mathbf{A}(x_n)\rvert^2}{Z_{det}}\,\Delta t$$
+
+Drawing this energy **thermalizes** the local phase wave, permanently attenuating the interference gradients — continuous decoherence, not an instantaneous binary collapse. (Canonical: [Ohmic Decoherence and the Born Rule](ohmic-decoherence-born.md) lines 18, 23, 34.)
+
+**The screen is the Born rule, derived.** The probability that the extracted work triggers a discrete click at screen position $x_n$ scales as the squared local field amplitude:
+
+$$P(\text{click}\mid x_n) = \frac{\lvert\partial_t\mathbf{A}(x_n)\rvert^2}{\int\lvert\partial_t\mathbf{A}(\mathbf{x})\rvert^2\,d^3x} \;\equiv\; \lvert\Psi\rvert^2$$
+
+This is **not asserted** — it is derived end-to-end from the master vacuum equation via a 7-step substrate-physics chain (master equation + Axiom-1 Ohmic boundary + FDT/Nyquist + AVE Lagrangian + standard probability theory; **no Born-rule input anywhere in the chain**). The derivation path was **closed 2026-05-26** (Phase 2-A). (Canonical: [Ohmic Decoherence and the Born Rule](ohmic-decoherence-born.md) lines 31, 36–61.)
+
+> **[Resultbox]** *Scope qualifier (carry verbatim)*
+>
+> The Born-rule derivation applies to **AC signals or sign-symmetric signal ensembles** (the canonical photodetection regime — oscillating EM fields from photon sources). DC / sign-asymmetric signals retain a linear-in-$V_s$ contribution; the $\lvert V_s\rvert^2$ scaling is sub-leading there. (Anchor: [ohmic-decoherence-born.md](ohmic-decoherence-born.md):59.)
+
+EE reading: the detector is a resistive tap on a transmission line carrying the wake; the click-rate is the time-integrated dissipated power crossing a threshold at the Joule-integration boundary (the "detector capture work-function" row in [translation-circuit.md](../../../common/translation-tables/translation-circuit.md) §4).
+
 ## §5 — The AVE-distinct prediction: visibility vs detector impedance
+
+Because which-path decoherence is continuous Ohmic dissipation (§4), fringe **visibility $V$** should vary **continuously** with the detector's impedance $Z_{det}$ (equivalently, with how strongly the detector detunes the local $\Gamma$ from the matched condition) — not jump between two binary outcomes.
+
+> **[Resultbox]** *AVE vs Copenhagen — the falsifiable distinction*
+>
+> - **Copenhagen:** wave-function collapse is **binary** — the path is either observed (fringes destroyed) or not (fringes intact).
+> - **AVE:** decoherence is **continuous** — fringe visibility $V$ degrades in proportion to the detector's impedance perturbation (Γ-detune): a partial, tunable Ohmic tap gives partial visibility.
+>
+> This is a testable, falsifiable distinction. (Driver: `double_slit_design_space.py` lines 17–20 — Panel 4 sweeps observer impedance 0%→100% damping → continuous decoherence.)
+
+This prediction is the discriminating content of the AVE double-slit: the mechanism reproduces the standard fringe pattern (consistency, §4) but predicts a continuous $V(Z_{det})$ curve where Copenhagen predicts a step.
 
 ## §6 — Distinctness guards (what this is NOT)
 
