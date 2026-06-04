@@ -1,0 +1,46 @@
+{
+  "T_CMB_K": 2.725,
+  "eta_eps_target_compare_only": 4.44688267564608e-06,
+  "step_i_dispersion": {
+    "c_E_mps": 299792458.0,
+    "c_E_over_c0": 1.0,
+    "k_D_per_m": 10093703338239.572,
+    "k_D_over_pi_per_l": 1.2407009817987982,
+    "omega_D_rad_s": 3.026016134093647e+21,
+    "hbar_omega_D_J": 3.1911513328024527e-13,
+    "hbar_omega_D_over_mec2": 3.8977770897207478,
+    "Theta_Debye_K": 23113415015.70966
+  },
+  "step_ii_occupation": {
+    "kT_J": 3.762268525e-23,
+    "x_D": 8481987161.728315,
+    "n_dof_per_cell_check": 2.9999999999999862,
+    "u_classical_J_per_m3": 1960070341507914.2,
+    "u_BE_J_per_m3": 6.257607388177882e-14,
+    "u_BE_closed_T4_J_per_m3": 6.257607387827148e-14,
+    "u_zpe_J_per_m3": 6.234484302981857e+24,
+    "u_rest_J_per_m3": 1.4217754623669164e+24,
+    "frac_classical": 1.3786075181272755e-09,
+    "frac_BE": 4.4012627547815885e-38,
+    "BE_over_classical": 3.1925422550722345e-29
+  },
+  "step_iii_eps_coupling": {
+    "eta_eps_BE_restnorm": 2.2006313773907942e-38,
+    "eta_eps_BE_yieldnorm": 2.5761113805337824e-37,
+    "eta_eps_classical_restnorm": 6.893037590636377e-10,
+    "eta_eps_classical_yieldnorm": 8.069153592065755e-09,
+    "u_yield_kin_J_per_m3": 1.2145451930889097e+23,
+    "sqrt_alpha_cold": 0.08542444816365302
+  },
+  "step_iv_adjudication": {
+    "eta_eps_target": 4.44688267564608e-06,
+    "eta_eps_BE_forward_range_lo": 2.2006313773907942e-38,
+    "eta_eps_BE_forward_range_hi": 2.5761113805337824e-37,
+    "eta_eps_classical_foil_lo": 6.893037590636377e-10,
+    "eta_eps_classical_foil_hi": 8.069153592065755e-09,
+    "OOM_gap_BE_best": 31.237091035175997,
+    "OOM_gap_classical_best": 2.7412276892784844,
+    "BE_below_classical_by_OOM": 28.49586334589751,
+    "OUTCOME": "C"
+  }
+}
