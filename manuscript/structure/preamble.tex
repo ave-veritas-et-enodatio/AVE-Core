@@ -24,6 +24,35 @@
 \usepackage{gensymb}  % \degree, \celsius, \perthousand for plain-text use (foreword + non-math context)
 \usepackage{bm}
 
+% --- Unicode math-symbol safety net ---
+% pdflatex+inputenc errors FATALLY ("Unicode character ... not set up for use
+% with LaTeX") on a raw Unicode math glyph that slips into source prose (e.g. a
+% copy-pasted "phasor↔real-space"). Source should use the LaTeX form
+% ($\leftrightarrow$, $\to$, ...); this map is the belt-and-suspenders safety
+% net so a stray copy compiles instead of halting the build — load-bearing
+% because this preamble + the backmatter are symlinked into every satellite
+% repo (AVE-Fusion, etc.), so one stray glyph breaks them all at once.
+% Scope is deliberately limited to arrows + binary relations (the recurring
+% paste-risk class). Greek letters and box-drawing glyphs are NOT mapped: they
+% appear legitimately in verbatim output and %-comment banners, and a stray one
+% in text mode should fail loud rather than silently render. The LaTeX kernel
+% already sets up → and ← (so those never erred — only ↔ did); we map just the
+% glyphs the kernel leaves undefined, which also keeps the build log free of
+% newunicodechar "Redefining" warnings.
+\usepackage{newunicodechar}
+\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+\newunicodechar{⇐}{\ensuremath{\Leftarrow}}
+\newunicodechar{⇔}{\ensuremath{\Leftrightarrow}}
+\newunicodechar{↦}{\ensuremath{\mapsto}}
+\newunicodechar{≤}{\ensuremath{\leq}}
+\newunicodechar{≥}{\ensuremath{\geq}}
+\newunicodechar{≠}{\ensuremath{\neq}}
+\newunicodechar{≈}{\ensuremath{\approx}}
+\newunicodechar{≡}{\ensuremath{\equiv}}
+\newunicodechar{∝}{\ensuremath{\propto}}
+\newunicodechar{∞}{\ensuremath{\infty}}
+
 % --- Graphics & Floats ---
 \usepackage{graphicx}
 \usepackage{float}
