@@ -1,6 +1,6 @@
 # Full-electron binding — re-seed probe brief (2026-06-04)
 
-**Status:** PENDING — implementor dispatch (worktree-isolated, branch off main).
+**Status:** COMPLETE 2026-06-04 — **Mode II** (continuum hosts the localization/mass, but structurally cannot carry the (2,3) winding; discrete K4+Cosserat is load-bearing). See **§RESULT** at end. Branch `2c1ebd74` pushed, NOT merged (awaiting auditor pass).
 **Orchestrator:** this brief + the fork-discrimination logic; implementor runs the driver.
 **Origin:** the `phase3f` electron-torus-knot attempt (2026-05-18) FAILED — the (2,3) knot
 dispersed worse than random (20.9% vs 56.3% retention). Diagnosis (phase3f §Factor 5): the seed
@@ -119,3 +119,40 @@ PASS criteria (Mode I) — substrate-derived, matched-baseline:
 - `research/2026-06-04_full-electron-binding-reseed-result.md` (prereg + result + the fork verdict).
 - Push the branch; do NOT merge (orchestrator merges after auditor pass).
 - Surface to orchestrator (do not self-resolve) any framing ambiguity that needs Grant.
+
+---
+
+## RESULT (2026-06-04) — Mode II; the continuum carries mass, NOT the (2,3) winding
+
+Implementor complete (Option C primary). Branch `analysis/2026-06-04-full-electron-transverse-selftrap`
+(`2c1ebd74`, pushed, **NOT merged** — awaiting auditor pass). Deliverables:
+`research/2026-06-04_full-electron-transverse-selftrap-result.md` + `r10_fdtd3d_transverse_photon_selftrap.py`
+(+ `.json`). `make verify` PASS (defense-context clean across 950 files). 7 incremental commits.
+
+1. **Does a transverse photon self-trap?** **YES, partially.** A structured transverse photon (two
+   counter-propagating opposite-handed circularly-polarized focused pulses, multi-node, E⊥B⊥k)
+   **self-traps** into a localized, saturation-engaged bound photon (A_max=0.179 > √(2α)=0.121) that
+   **out-retains the matched-distribution baseline (0.580 vs 0.389)** — a genuine localization
+   emergence, **topology/coherence-driven not amplitude-driven** (the matched baseline engages
+   identical saturation depth yet disperses faster). **But it does NOT bind into a (2,3) electron** —
+   the winding is absent.
+2. **(2,3) emergent or imposed?** **NEITHER — the self-trap emerges, the (2,3) winding does NOT.**
+   The poloidal-"3" is **structurally unreachable on `fdtd_3d.py`**: the continuum Maxwell engine has
+   six real-space Yee E/H fields, **no Cosserat ω sector, no native (V_inc,V_ref) ports**; per the
+   corpus's own projection chain (`06_winding_index_projection.md` §4, user-adjudicated 2026-04-20),
+   the "3" is the **SU(2) U(1)-fibre phase — "the information lost in the projection" to the E-field**,
+   so it has no Maxwell-field carrier here. **Grant's "a transverse wave across multiple nodes SETS
+   the 2,3" is NOT confirmed on the continuum engine — because the continuum has no carrier for it.**
+3. **CONTROL (single-bond, A46-corrected):** the planted (2,3) phasor seed in (V_inc,V_ref)=(E±Z₀·H)
+   coords **holds amplitude best of all arms (0.974, no dispersal)** — fixes phase3f's real-space-tangent
+   bug (20.9% dispersal) — **but exhibits no dynamical winding invariant** either.
+
+**FORK VERDICT = Mode II:** the **continuum hosts the localization (mass)** but **structurally cannot
+carry the (2,3) winding (charge/spin)** — the **discrete K4 4-port + Cosserat is load-bearing** for the
+winding. This RESOLVES the continuum-vs-discrete fork toward **discrete**.
+
+**NEXT (Option B — needs Grant):** move the headline (2,3)-emergence test to **`VacuumEngine3D`** (K4 +
+Cosserat, native (V_inc,V_ref) ports + Op10 winding-extractor), where the full (2,3) emergence — and
+Grant's "transverse sets the 2,3" hypothesis — is actually testable. The Mode-II result is the empirical
+case for Option B. (Implementor did NOT free-build past the structural gap — surfaced it per Rule 16, built
+the testable part, flagged the rest. 4 auditor-queue items in result-doc §9.)
