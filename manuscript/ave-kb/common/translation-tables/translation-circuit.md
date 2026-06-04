@@ -223,6 +223,19 @@ This tracker stays current per `ave-ee-first-mapping` v1.2 **Step 6b**: when an 
 
 > Companion axes: [`ave-analytical-toolkit-index.md`](../ave-analytical-toolkit-index.md) is the *problem-class → AVE-tool* side (when starting a derivation, which Op# applies); this §4.5 is the *EE-tool → operator → validation* side (when reaching for a named EE method, which Op# + is it solid). [`operators.md`](../operators.md) is the canonical Op1–Op22 set both reference.
 
+### (e) Canonization candidates — ⚠ PENDING CHALLENGE (2026-06-04; do NOT promote to ✓/⚠-validated until gates pass)
+
+Surfaced 2026-06-04 via `ave-ee-first-mapping` on the photon→electron engine arc (the Q0 parametric-decoupling finding). These are **hypotheses, NOT validated rows** — they CONTRADICT this session's honest-α Class-B verdict (2026-06-02: the substrate does NOT independently select R·r=1/4) and must clear the challenge gates in [`2026-06-04_ee-rf-quadrature-coupling-and-alpha-quarter-hypothesis.md`](../../../../research/2026-06-04_ee-rf-quadrature-coupling-and-alpha-quarter-hypothesis.md) §5 before any KB landing. Listed here as grep-discoverable breadcrumbs only:
+
+- **Degenerate parametric amplifier** ↔ Op14 (K4-V → Cosserat-ω): the V²-even-in-ω coupling is a parametric pump that cannot seed the ω-idler from zero (Q0; `k4_cosserat_coupling.py:118`). Candidate engine-artifact diagnosis. *(control/feedback gap-cluster sibling to PLL/autoresonance, all on Op14.)*
+- **Linear LC / transformer E↔B coupling** (the LC tank's resonant slosh) — candidate MISSING term; a node's E↔B coupling should be linear (Maxwell-curl-like), not parametric-only. Gate (a) = `substrate-native-check` the actual coupling code.
+- **I/Q quadrature** ↔ (V_inc,V_ref); the photon = a full E+B quadrature pair (seed both channels, not V-only).
+- **Half/quarter-wave resonator** ↔ Γ=−1 boundary (antinode pinned at the cell edge) — would refine the §4 "open-circuit / total-reflection" row.
+- **R·r = 1/4 = (Nyquist half-cell)²** — candidate EMERGENT origin of the α half-cover identification (Class-2 lift IF gates (a)+(b)+(c) pass; today Class-B per honest-α 2026-06-02).
+- **Injection locking** ↔ nucleation rule; **Manley–Rowe** ↔ pump/signal/idler split; **2:3 Lissajous / mode-lock** ↔ the (2,3) winding.
+
+Promotion path: clear §5 gates → land validated rows in §4 / §4.5 / §6 with ✓ or an honest ⚠.
+
 ---
 
 ## §5 — EE vs Fluid Dynamics: substrate-distance comparison
