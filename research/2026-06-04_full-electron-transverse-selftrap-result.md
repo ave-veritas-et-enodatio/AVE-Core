@@ -20,7 +20,7 @@ Two questions, sharpest first:
 
 Plus the CONTROL: the single-bond planted-(2,3) phasor seed — the continuum-vs-discrete fork verdict.
 
-**[RESULT — one-line verdict goes here after run.]**
+**RESULT (one line):** A structured transverse photon **DOES self-trap** into a localized, saturation-engaged, matched-baseline-out-retaining bound photon on `fdtd_3d.py` — but the **(2,3) winding does NOT emerge** (toroidal-"2" absent; poloidal-"3" structurally unreachable, no Cosserat carrier). **Fork = Mode II** (continuum hosts the localization, NOT the winding → the discrete K4 4-port + Cosserat is load-bearing for the (2,3)). **Emergence = self-trap emerges, (2,3) does not.** The CONTROL (A46-corrected planted-(2,3) phasor seed) holds amplitude best (0.974, no dispersal — fixing phase3f's real-space-tangent failure) but shows no dynamical winding either.
 
 ---
 
@@ -115,7 +115,7 @@ The canonical pair-production origin ([`pair-production-axiom-derivation.md:51,7
 - Self-consistent E–H pair: each pulse is a proper propagating Maxwell mode (|E| = Z_0·|H|, B⊥E⊥k) so the engine does not have to manufacture H from a zero initial condition (the phase3f Factor-1 gap). Built as an initial condition spanning a few wavelengths (a wave packet), then evolved — the two packets collide at center.
 - **NO (2,3) winding, NO Beltrami handedness, NO torus-knot tangent is placed.** The seed is a pure transverse photon. Emergence is the question.
 
-**Amplitude policy (ave-infinity-discipline):** peak constructive amplitude ramped across a sweep `{0.6, 0.8, 0.95}·V_yield/dx` worth of per-pulse amplitude (the constructive sum at focus reaches ~2× a single pulse). Clip at the S_min floor (`EPS_SAT_RATIO`); if any cell NaNs, drop to the next-lower amplitude and record the clip. The phase3f NaN at `0.85·V_yield/dx` was a single-seed artifact; counter-propagating packets distribute the strain differently — but the floor + dt-CFL buffer guard it.
+**Amplitude policy (ave-infinity-discipline) — AMENDED during build (empirical, documented):** The engine is instantiated with `v_yield=V_SNAP` (the TOPOLOGICAL scale, per [`constants.py:42-43`](../src/ave/core/constants.py) *"Use V_SNAP only for subatomic/topological simulations"*), NOT the `V_YIELD` default. Reason (validated at build time): with the `V_YIELD` default the field ruptures at `V_local→V_yield`, i.e. at `A = V/V_snap ≈ 0.085` — BELOW the √(2α)≈0.121 Op14 engagement bar — and NaNs at the constructive focus (the phase3f Factor-3 blowup). Operating at `V_snap` puts the saturation onset at the topological scale where the Γ→−1 pair-production mechanism lives. **Validated stable+saturating sweep: `{0.3, 0.5, 0.7}·V_snap/dx`** → peak `A = V/V_snap ≈ {0.40, 0.61, 0.77}` (all past √(2α), all NaN-free over 160 steps). `0.85·V_snap/dx` breaches `A>1` and NaNs (the `c_eff`-divergence at exact saturation) → that is the ave-infinity-discipline cap; the sweep stays below it. Clip at the S_min floor (`EPS_SAT_RATIO`); if any cell NaNs, drop to the next-lower amplitude and record the clip. *(Prereg originally specified `{0.6,0.8,0.95}·V_yield/dx`; superseded by this empirically-validated `V_snap`-scale sweep. The change is the operating-point fix, not a post-hoc threshold drop.)*
 
 ### §5.2 C-NUCLEATE — transverse photon + Option-D nucleation rule (secondary CONTROL)
 
@@ -162,8 +162,67 @@ Per `ave-fundamental-ground-up-implementation`: thresholds substrate-derived or 
 
 ## §7 RESULT
 
-[FILLED AFTER RUN]
+**Run:** [`r10_fdtd3d_transverse_photon_selftrap.py`](../src/scripts/vol_1_foundations/r10_fdtd3d_transverse_photon_selftrap.py); engine at `v_yield=V_SNAP`, N=48³, PML=6, amplitude `0.70·V_snap/dx` (deepest non-NaN in the sweep), N_settle=80 + N_record=240 steps. Deterministic (reproduced identically across 2 runs). Raw: [`r10_fdtd3d_transverse_photon_selftrap_results.json`](../src/scripts/vol_1_foundations/r10_fdtd3d_transverse_photon_selftrap_results.json).
+
+### §7.1 Per-arm observables
+
+| Arm | trap interior? | peak-A max | sat Op14 (A>√2α)? | peak-field retention | phasor aspect R/r | toroidal winding |
+|---|---|---|---|---|---|---|
+| **C-EMERGE** (no winding imposed) | YES | 0.179 | YES | **0.580** | 1.95 | 0.000 |
+| **BASELINE** (matched trivial) | YES | 0.369 | YES | **0.389** | 2.84 | −1.00 |
+| **C-NUCLEATE** (Option-D imposed) | YES | 0.181 | YES | 0.577 | 2.14 | −0.00 |
+| **A-CONTROL** (planted-(2,3) phasor) | YES | 0.371 | YES | **0.974** | 2.96 | 0.000 |
+
+### §7.2 PASS criteria (C-EMERGE)
+
+| # | Criterion | Result |
+|---|---|---|
+| P1 | Self-trap localization (trap stays interior + peak field > 0.5) | **PASS** |
+| P2 | Retention > matched-trivial baseline | **PASS** (0.580 > 0.389) |
+| P3 | Saturation engaged (A > √(2α) = 0.121) | **PASS** (A_max = 0.179) |
+| P4 | Toroidal-"2" polarization winding (≈ 2) | **FAIL** (0.000) |
+| P5 | Phasor limit-cycle present (closed cloud + chirality) | PASS (aspect 1.95, chirality nonzero) |
+| P6 | Poloidal-"3" winding | **OUT OF SCOPE** (no Cosserat sector — §1) |
+| P7 | Q-factor ≈ α⁻¹ | not computed this run (coarse on this engine; deferred) |
+| P8 | Persistence (breathing allowed) | PASS-adjacent (peak-field retention 0.58 over window; breather mean recorded) |
+
+### §7.3 VERDICT (the deliverable)
+
+**Fork verdict: Mode II** — the continuum `fdtd_3d.py` engine hosts a **localized self-trapped photon** (P1+P3 pass; the transverse photon DOES self-trap and engage saturation) but **NOT the (2,3) winding structure**. Even the testable toroidal-"2" does not emerge (P4 fail). This is strong support that the **discrete K4 4-port + Cosserat sector is load-bearing for the WINDING** — path forward is K4-TLM + Cosserat ([`r10_v8_t_st_self_trap.py`](../src/scripts/vol_1_foundations/r10_v8_t_st_self_trap.py), which runs the same self-trap reframe on `VacuumEngine3D` with native ports + Op10 c-extractor).
+
+**Emergence headline (sharpened): SELF-TRAP EMERGES; the (2,3) WINDING DOES NOT.**
+- C-EMERGE, with **zero imposed winding**, autonomously self-traps a localized photon AND out-retains the matched-distribution trivial baseline (0.580 vs 0.389) — a **genuine emergence result for LOCALIZATION** (the transverse self-trap is real, and it is topology/coherence-driven, not amplitude-driven: the Factor-2-clean matched baseline disperses faster despite identical saturation depth).
+- BUT the **(2,3) winding is neither emergent nor, on this engine, testable-to-emerge**: the toroidal-"2" (the only winding observable `fdtd_3d.py` can carry) does NOT emerge (P4=0), and the poloidal-"3" has no carrier (P6 out of scope, §1). So Grant's hypothesis — "a transverse wave across multiple nodes SETS the (2,3)" — is **not confirmed on the continuum Maxwell engine**; the (2,3) does not fall out of the transverse self-trap here.
+
+### §7.4 The CONTROL verdict (single-bond A-CONTROL, continuum-vs-discrete fork)
+
+The planted-(2,3) phasor seed (A-CONTROL) **retains amplitude best of all arms (0.974)** and stays interior — i.e. a placed-(2,3) end-state, when seeded in PHASOR coordinates (the A46 fix vs phase3f's real-space tangent), **does NOT disperse** on `fdtd_3d.py` (contrast phase3f's 20.9% real-space-tangent dispersal). BUT its toroidal winding is also 0.000 and its phasor aspect (2.96) is just the seed's imposed shape, not an emergent structure. **Continuum-vs-discrete fork for the control: the continuum engine HOLDS a placed-(2,3)-phasor amplitude envelope (it does not actively reject it), but it does not exhibit the winding as a dynamical invariant** — consistent with the Mode-II reading that the continuum carries the localization but the discrete K4 4-port + Cosserat carries the winding. The A46 re-seed fixes the dispersal (the phase3f failure was the real-space placement), but does not by itself produce a winding-bearing bound state on the continuum engine.
+
+### §7.5 Honest limitations (ave-evidence-framing-discipline)
+
+1. **The toroidal-winding observable is weak.** Both C-EMERGE (0.000) and the trivial baseline (−1.000) return non-2 values, and the trivial baseline "winds" MORE than the structured photon — a sign the fixed-ring (R=8, z-center plane) `toroidal_polarization_winding` is sampling incidental field structure, not a centered topological winding of the (actually off-center, migrating) trapped state. The honest reading is **"no reliable toroidal-2 winding is present"**, not a precise "winding = 0" measurement. This does not rescue the result toward emergence — it confirms the winding is not robustly there to measure on this engine — but it is a real observable-design limitation flagged for the auditor.
+2. **Q-factor (P7) not computed** — the integrated-boundary α⁻¹ observable is coarse on a real-space Maxwell engine without the native LC-tank bond; deferred rather than reported imprecisely.
+3. **Resolution/window modest** (N=48³, 320 steps, ~8 s) — chosen for tractability + the strong Mode-II/Mode-III signal does not hinge on resolution (the winding is absent at the structural level, not a convergence artifact). A higher-resolution / longer-window confirmation is a cheap follow-up but is unlikely to flip Mode II → Mode I given the structural §1 argument (no Cosserat carrier).
+4. **Poloidal-"3" is the headline gap** and it is **structural, not numerical** — `fdtd_3d.py` has no SU(2)/Cosserat fibre, so the "3" cannot emerge here regardless of seed or resolution (§1). This is the load-bearing finding, not a tuning issue.
 
 ## §8 Cross-references
 
-[FILLED]
+- **Brief:** [`_orchestration/2026-06-04_full-electron-binding-reseed-probe.md`](../_orchestration/2026-06-04_full-electron-binding-reseed-probe.md) §0 REDIRECT
+- **Driver + raw result:** [`r10_fdtd3d_transverse_photon_selftrap.py`](../src/scripts/vol_1_foundations/r10_fdtd3d_transverse_photon_selftrap.py) + [`...results.json`](../src/scripts/vol_1_foundations/r10_fdtd3d_transverse_photon_selftrap_results.json)
+- **Engine:** [`fdtd_3d.py`](../src/ave/core/fdtd_3d.py) (E/H Yee, nonlinear ε/μ, no Cosserat)
+- **Discrete-Cosserat comparison arm (the path-forward engine):** [`r10_v8_t_st_self_trap.py`](../src/scripts/vol_1_foundations/r10_v8_t_st_self_trap.py) — same self-trap reframe on `VacuumEngine3D` (native `k4.V_inc/V_ref` + `cos.omega` + Op10 `extract_crossing_count`)
+- **Prior failure (re-seeded):** [`2026-05-18_phase3f-electron-torus-knot-first-attempt.md`](2026-05-18_phase3f-electron-torus-knot-first-attempt.md) + [`test_fdtd3d_electron_torus_knot_seed.py`](../src/tests/test_fdtd3d_electron_torus_knot_seed.py)
+- **Canonical mechanism (pair-production origin):** [`pair-production-axiom-derivation.md`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md) §2 seven steps + §5.1 "what the engine cannot represent" + Option-D line 121
+- **The (2,3)-in-phasor placement:** [`theory.md:16`](../manuscript/ave-kb/vol4/simulation/ch14-leaky-cavity-particle-decay/theory.md)
+- **The projection-chain finding (the "3" is the lost U(1) fibre):** [`06_winding_index_projection.md`](_archive/L3_electron_soliton/06_winding_index_projection.md) §3-§4 + 2026-04-20 amendment (c=3 scalar, not winding pair)
+- **Electron = self-trapped photon (the reframe):** [`electron-bh-isomorphism.md:10`](../manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md), [`optical-refraction-gravity.md:13`](../manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/optical-refraction-gravity.md), [`electron-unknot.md:9`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-unknot.md)
+- **Phasor methodology reused:** [`r9_canonical_phase_space_phasor.py`](../src/scripts/vol_1_foundations/r9_canonical_phase_space_phasor.py), [`phasor_trajectory_test.py`](../src/scripts/vol_1_foundations/phasor_trajectory_test.py)
+- **Q-factor PASS bar (deferred):** [`theorem-3-1-q-factor.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) (α⁻¹ = 4π³+π²+π)
+- **Breather criterion (P8):** [`breathing-soliton-v14-mode-i.md`](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/breathing-soliton-v14-mode-i.md)
+
+## §9 For the auditor queue (implementer surfaces; auditor lands)
+
+1. **Adjudicate the §1 finding** (Grant): is the `fdtd_3d.py` target retained with the honest scoping (option A/C, implemented here), or does the headline (2,3)-emergence question move PRIMARY onto `VacuumEngine3D` (option B)? The Mode-II result here is the empirical case FOR option B as the next step.
+2. **Mode II → K4-TLM + Cosserat path** (closure-roadmap candidate): the result supports the discrete 4-port + Cosserat as load-bearing for the winding; [`r10_v8_t_st_self_trap.py`](../src/scripts/vol_1_foundations/r10_v8_t_st_self_trap.py) is the staged comparison.
+3. **Observable-design caveat** (§7.5.1): the fixed-ring toroidal-winding observable is weak; a centered/structure-tracking winding extractor is the improvement if the continuum arm is revisited.
+4. **No manuscript/matrix entry drafted by implementer** — this is a fork-verdict research result; the auditor decides corpus-state propagation.
