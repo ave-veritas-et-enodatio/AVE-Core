@@ -9,8 +9,8 @@ result doc reports.
 THE REFRAME (settled, not re-litigated here):
   The literal saturation knee at V_yield is bench-unreachable — V_yield = 43.65 kV
   is the PER-NODE voltage (across l_node = 3.86e-13 m), not per-apparatus. A bench
-  reaches a local saturation amplitude A_hot ~ 2.654e-3 (RMS); PONDER ch1:122 quotes
-  the peak A_peak = sqrt2*A_hot ~ 3.8e-3 (peak convention) at this op point (beta=1e3
+  reaches a local saturation amplitude A_RMS ~ 2.654e-3 (RMS); PONDER ch1:122 quotes
+  the peak A_peak = sqrt2*A_RMS ~ 3.8e-3 (peak convention) at this op point (beta=1e3
   tip x Q=1e4 build-up). So the bench measures the SMALL-A TREE-LEVEL kernel, not
   the knee. The reachable AVE-distinct observable is the SIGN of the V^2 coefficient:
 
@@ -22,7 +22,7 @@ THE REFRAME (settled, not re-litigated here):
   doc 2026-06-03). Plus the even-2w harmonic (canonical parametric-coupling-kernel.md).
 
 WHAT THIS SCRIPT COMPUTES (all from ave.core.constants — no hard-coded physics):
-  1. Local hot-spot kernel delta_eps/eps0 at the bench A_hot, per beta-catalog tip.
+  1. Local hot-spot kernel delta_eps/eps0 at the bench A_RMS, per beta-catalog tip.
   2. Method-B (autoresonant) BULK fractional resonance shift Df0/f0, accounting for
      (a) saturated-volume-fraction dilution in the bulk resonator,
      (b) the relation Df0/f0 ~= -1/2 * <Deps/eps>_bulk,
@@ -33,8 +33,8 @@ WHAT THIS SCRIPT COMPUTES (all from ave.core.constants — no hard-coded physics
   5. Per-architecture SNR vs the three resolution floors (1e-9 / 1e-12 / 1e-15).
 
 NOTE on Q (load-bearing, flag-don't-fix): there are TWO distinct "Q"s here.
-  - Q_build  : the resonant FIELD build-up that raises the local A_hot (PONDER's Q=1e4).
-               This enters the SIGNAL (larger A_hot -> larger delta_eps).
+  - Q_build  : the resonant FIELD build-up that raises the local A_RMS (PONDER's Q=1e4).
+               This enters the SIGNAL (larger A_RMS -> larger delta_eps).
   - Q_meas   : the resonator line-Q that sets the minimum RESOLVABLE Df0/f0 ~ 1/(Q*SNR).
                This enters the FLOOR, not the signal. The three architectures are
                distinguished by their resolvable-Df0/f0 floor, NOT by a multiplicative
@@ -79,7 +79,10 @@ def kernel_deltaeps_qed(E: float | np.ndarray) -> float | np.ndarray:
 def a_hot(beta: float, v_app: float, d_gap: float, q_build: float = 1.0) -> float:
     """Local saturation amplitude at the field-concentration hot spot.
 
-    A_hot = (field-build-up Q) * beta * V_app / (d_gap * E_YIELD).
+    Returns A_RMS, the RMS-convention amplitude (V_app is the RMS drive);
+    the function keeps its hot-spot name but the value is A_RMS, NOT the peak.
+    A_RMS = (field-build-up Q) * beta * V_app / (d_gap * E_YIELD).
+    PONDER ch1 quotes the peak A_peak = sqrt2 * A_RMS at the same op point.
     beta = geometric field-enhancement; q_build = resonant field build-up (PONDER Q).
     """
     return q_build * beta * v_app / (d_gap * E_YIELD)
@@ -97,7 +100,7 @@ BETA_CATALOG = {
 G_FERRO = 3000.0  # BaTiO3 eps_r (Q-G42 section 2.5) — ferroelectric interface concentration
 
 # The canonical bench operating point (PONDER ch1:122, verified to source):
-#   30 kV across 1 mm, beta=1e3 tip, Q_build=1e4 -> A_hot ~ 2.654e-3 (RMS;
+#   30 kV across 1 mm, beta=1e3 tip, Q_build=1e4 -> A_RMS ~ 2.654e-3 (RMS;
 #   = peak 3.8e-3 / sqrt2, the value PONDER ch1 quotes in its peak convention).
 V_BENCH = 30.0e3      # 30 kV applied (PONDER ch1 operating point)
 D_BENCH = 1.0e-3      # 1 mm gap
@@ -111,11 +114,11 @@ Q_BUILD_BENCH = 1.0e4  # resonant field build-up (PONDER Q=1e4)
 # localized. The BULK eigenfrequency shift is the volume-weighted local shift:
 #
 #   <delta_eps/eps0>_bulk = (1/V_res) * integral( delta_eps/eps0 dV )
-#                         = -1/2 * A_hot^2 * eta_eff
+#                         = -1/2 * A_RMS^2 * eta_eff
 #
-# eta_eff = (1/V_res) * integral( A(r)^2 / A_hot^2 dV )  is the effective FIELD-FILLING
+# eta_eff = (1/V_res) * integral( A(r)^2 / A_RMS^2 dV )  is the effective FIELD-FILLING
 # fraction. For a hot feature of scale r_feat in a resonator of scale L_res with a
-# 1/r^2 field falloff, integral(A^2 dV) ~ A_hot^2 * r_feat^3 * O(1) (the 1/r^4 integrand
+# 1/r^2 field falloff, integral(A^2 dV) ~ A_RMS^2 * r_feat^3 * O(1) (the 1/r^4 integrand
 # converges within a few r_feat), so eta_eff ~ (r_feat / L_res)^3 * (geometry O(1)).
 #
 # This is a PARAMETERIZED systematic (geometry-dependent), bracketed across a
@@ -168,7 +171,7 @@ def report() -> None:
     print(f"    Gamma ratio = ratio^2 = {dratio**2:.6g}  (expect 8.381e12)")
 
     # --- 1. Local hot-spot kernel per beta catalog ----------------------------
-    print("\n[1] Local hot-spot saturation amplitude A_hot + LOCAL delta_eps/eps0:")
+    print("\n[1] Local hot-spot saturation amplitude A_RMS + LOCAL delta_eps/eps0:")
     print(f"    bench operating point: V={V_BENCH/1e3:.0f} kV, d={D_BENCH*1e3:.0f} mm, "
           f"Q_build={Q_BUILD_BENCH:.0e}")
     for name, beta in BETA_CATALOG.items():
@@ -179,20 +182,20 @@ def report() -> None:
         de_qed = kernel_deltaeps_qed(E_local)
         sign = "SOFTEN(-)" if de < 0 else "stiffen(+)"
         ratio = abs(de / de_qed) if de_qed != 0 else float("inf")
-        print(f"    beta={beta:>8.0e}  A_hot={A:.3e}  "
+        print(f"    beta={beta:>8.0e}  A_RMS={A:.3e}  "
               f"deps_AVE={de:+.3e} [{sign}]  deps_QED={de_qed:+.3e}  |AVE/QED|={ratio:.3e}")
 
     # Headline bench A (PONDER beta=1e3 case) — the canonical operating point:
     A_bench = a_hot(1.0e3, V_BENCH, D_BENCH, Q_BUILD_BENCH)
     de_bench_local = kernel_deltaeps(A_bench)
-    print(f"\n    >>> CANONICAL bench A_hot = {A_bench:.3e}  (RMS; PONDER ch1 quotes peak ~3.8e-3 = sqrt2*A_hot)")
+    print(f"\n    >>> CANONICAL bench A_RMS = {A_bench:.3e}  (RMS; PONDER ch1 quotes peak ~3.8e-3 = sqrt2*A_RMS)")
     print(f"    >>> LOCAL hot-spot delta_eps/eps0 = {de_bench_local:+.3e}  "
-          f"(= A_hot^2/2 = PONDER cycle-avg delta 3.52e-6 ch1:128/159; PONDER peak 1-S 7e-6 = A_peak^2/2)")
+          f"(= A_RMS^2/2 = PONDER cycle-avg delta 3.52e-6 ch1:128/159; PONDER peak 1-S 7e-6 = A_peak^2/2)")
 
     # --- 2. Method B: BULK Df0/f0 with volume-fraction dilution ---------------
     print("\n[2] METHOD B (autoresonant) — bulk Df0/f0 = -1/2 <Deps/eps>_bulk:")
-    print("    <Deps/eps>_bulk = -1/2 * A_hot^2 * eta_eff   (eta_eff = field-filling frac)")
-    print(f"    using CANONICAL bench A_hot = {A_bench:.3e}")
+    print("    <Deps/eps>_bulk = -1/2 * A_RMS^2 * eta_eff   (eta_eff = field-filling frac)")
+    print(f"    using CANONICAL bench A_RMS = {A_bench:.3e}")
     df0_by_eta: dict[str, float] = {}
     for eta_name, eta in ETA_EFF_RANGE.items():
         deps_bulk = -0.5 * A_bench**2 * eta
