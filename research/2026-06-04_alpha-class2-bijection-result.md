@@ -95,6 +95,43 @@ A single mechanism explains every numerical near-miss above (4π²α ≠ ¼; 2π
 Does the work derive a **new K4+Cosserat primitive**? **No.** The chain reuses only canonical primitives (L_cell, C_cell, ξ_topo, Z₀, ω_C). The one step that would have to be *derived* for a Class-2 lift — that one quantum of bond reactive energy fills exactly one Nyquist cell **at the amplitude the substrate independently fixes** — is exactly the step that, run honestly, lands on 4π²α ≠ ¼ and therefore must **import** α to close. No new primitive is produced; the work **formalizes (and now falsifies the α-freedom of) an existing identification.** Per v1.3, classification cannot be promoted past the canonical source's Class-B ceiling without a named new substrate-primitive, and none exists.
 
 
-## §VERDICT — placeholder (filled incrementally)
+## §VERDICT — Class B confirmed (the last α-¼ lift-path closes)
+
+### V.1 — PASS-criteria adjudication (prereg §3, evaluated)
+
+| Bar | Condition | Result | Evidence |
+|---|---|---|---|
+| **B1 — non-circular** | K is α-free on input | ✅ **PASS** | K = (C_cell/ξ_topo)² has free symbols {c, e, ε₀, ℏ, m_e}; no α (R.4, AST-verified in sanity script) |
+| **B2 — forced** | K's value fixed by canonical constants, no free *dimensionful* slack | ✅ (bridge is forced) | K = 6.791×10⁻³⁵ m²/V², a definite combination of canonical constants |
+| **B3 — bijection emergent** | πR·r = A_cell follows WITHOUT imposing K=1 or R·r=¼ | ❌ **FAIL** | bridge forces R·r → **4π²α** ≈ 0.288 in V_yield units, **not** ¼; closing to ¼ requires α = 1/16π² (≠ CODATA). Cell-filling forces V_yield/V_snap = **2πα** ≠ canonical √α (R.4) |
+| **B-fallback** | K is a free normalization OR the closure substitutes α | ✅ **TRIGGERED** | the closure to ¼ / √α is recovered only by substituting the empirical α, or by the natural-unit choice that sets the overall constant to unity |
+
+Lift requires **B1 ∧ B2 ∧ B3**. **B3 fails. → Class B confirmed.**
+
+### V.2 — The explicit derive-vs-substitute adjudication (the discriminator)
+
+The prereg's discriminator: *does requiring the photon phasor to fill exactly one Nyquist cell **FORCE** √α to the golden-torus value (DERIVED, Class 2), or does it require **SUBSTITUTING** α / leave a free normalization (Class B)?*
+
+**Answer: it SUBSTITUTES.** Two independent reads of the same scalar equation both show α entering at the closure, never at the input:
+
+1. **R·r read** — the α-free bridge forces R·r\|_required = 4π²α·V_yield² . The corpus golden-torus value R·r = ¼·V_yield² is recovered **iff** 4π²α = ¼, which is a *statement about the numerical value of α* (and a false one: it gives α = 1/16π² ≈ 0.006333, missing CODATA 0.007297 by ~13%). The geometry does **not** force ¼; matching ¼ forces (a wrong) α.
+
+2. **V_yield read** — "phasor fills one cell" forces V_yield/V_snap = 2πα via the α-free bridge, whereas the canonical kinetic-yield value is √α. These coincide only at α = 1/4π² ≈ 0.0253 (again ≠ CODATA). So the substrate's *own* saturation amplitude (√α·V_snap, `kinetic-yield-threshold.md:21`) and the *cell-filling* amplitude (2πα·V_snap) are **different physical scales** — the bijection is not an identity the substrate satisfies; it is a normalization one *imposes*.
+
+The canonical √α in V_yield is itself imported by **substitution**, not derivation: `kinetic-yield-threshold.md:16` states *verbatim* it follows *"by substituting the fundamental definition of the fine-structure constant (α = e²/4πε₀ℏc)."* So even the amplitude scale the §2.3 closure leans on is an α-substitution, exactly as the prereg's HARD honesty line anticipated. **Q2's reframe (V_yield = geometric mean of string-tension × Coulomb-coupling) is correct and makes the lift *meaningful to attempt* — but the geometric-mean structure does not, on the kinematic unit-bridge, *output* √α; it *consumes* the Coulomb coupling e²/4πε₀ = αℏc, which is α substituted in.**
+
+### V.3 — The single explanatory mechanism (Rule 11 honest closure)
+
+Every near-miss (4π²α ≠ ¼; 2πα ≠ √α; implied α ∈ {1/16π², 1/4π²} ≠ CODATA) has **one cause**: the four-base unit convention {ℓ_node, c, ℏ, m_e} has already spent all dimensional freedom; the *one* remaining dimensionless ratio — the charge/voltage scale at which "one cell is filled" — **is α** (definitionally, α = e²/4πε₀ℏc). A *kinematic* unit-bridge is a single scalar relation with a single free normalization, so it has exactly enough freedom to **absorb** α and **zero** freedom to **predict** it. Over-determining α needs a *second, independent* condition — and that condition lives in the **selection** layer (which dressed-eigenmode dynamics, R−r=½ self-avoidance, and the R/r golden ratio supply), explicitly **out of scope** here (prereg §4). This is the clean, decisive failure of a pre-registered prediction with a single mechanism explaining all failures — the discipline working at full strength (Rule 11). **Branch closed; no rescue attempted.**
+
+This **kinematic/analytical** negative complements the **dynamical** negatives already on record (the four 2026-06-02 `audit/2026-06-02_alpha-lift-*` engine tests + S₁₁-landscape flatness + the 2026-06-04 adversarial re-challenge that held): the bijection cannot be lifted to Class 2 by *either* the dynamics (selection) *or* the kinematics (this unit-bridge).
+
+### V.4 — SM-counterfactual (ave-discrimination-check)
+
+This is a **negative** result, so the discrimination check runs in reverse — is there a *positive* AVE-distinct claim hiding here that I must avoid over-stating? **No.** What the audit establishes is the *absence* of an AVE-distinct derivation: the bridge is α-free but α-uninformative. In SM/QED, α is a measured input with no derivation; nothing here changes that. The honest framing is therefore symmetric with SM: AVE's α⁻¹ = 4π³+π²+π remains a **closed-form geometric identification whose scale (~1/137) is forced by the Compton-resonance trapping condition but whose exact value rests on ONE substrate-geometric identification per route that the substrate does not independently select** (the existing canonical Class-B framing at `ch8-alpha-golden-torus.md:11`). This result **does not** add an AVE-distinct empirical anchor and **must not** be promoted as one. It *strengthens* the Class-B caveat by closing one of the two named lift-routes analytically.
+
+### V.5 — Classification (consistency-vs-emergence v1.3)
+
+**Class B (axiom-manifestation with a named identification), unchanged — and now with the α-freedom of the phasor↔real-space bijection explicitly falsified.** No new K4+Cosserat primitive is derived (R.6). The phasor-area = Nyquist-cell-area step remains canonical INPUT, not Class-2 emergence; the kinematic bridge that might have derived it instead requires α to be substituted. Per v1.3, promotion past the canonical Class-B ceiling requires a named new substrate-primitive, and there is none.
 
 ## §AUDITOR QUEUE — placeholder (filled incrementally)
