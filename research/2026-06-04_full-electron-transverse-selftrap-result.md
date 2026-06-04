@@ -1,0 +1,169 @@
+# Full-electron binding — transverse-photon self-trap (Option C primary) — PREREG + RESULT
+
+**Date**: 2026-06-04
+**Branch**: `analysis/2026-06-04-full-electron-transverse-selftrap`
+**Brief**: [`_orchestration/2026-06-04_full-electron-binding-reseed-probe.md`](../_orchestration/2026-06-04_full-electron-binding-reseed-probe.md) §0 REDIRECT (Option C primary; single-bond seed demoted to CONTROL)
+**Driver**: [`src/scripts/vol_1_foundations/r10_fdtd3d_transverse_photon_selftrap.py`](../src/scripts/vol_1_foundations/r10_fdtd3d_transverse_photon_selftrap.py)
+**Engine**: [`src/ave/core/fdtd_3d.py`](../src/ave/core/fdtd_3d.py) (full-vector Maxwell, nonlinear ε(E)/μ(H) per Axiom 4, Mur/CPML)
+**Prior failure re-seeded**: [`research/2026-05-18_phase3f-electron-torus-knot-first-attempt.md`](2026-05-18_phase3f-electron-torus-knot-first-attempt.md) (20.9% knot vs 56.3% random retention — A46 real-space-vs-phase-space failure + Factor-2 random-baseline confound)
+
+**Status**: PREREG FROZEN. Result section filled after driver run. Awaiting auditor pass before merge.
+
+---
+
+## §0 HEADLINE (the deliverable)
+
+Two questions, sharpest first:
+
+1. **Does a structured/knotted transverse photon self-trap into a bound (2,3) electron on `fdtd_3d.py`?**
+2. **Is the (2,3) winding EMERGENT (the transverse self-trap forms it autonomously) or IMPOSED (a nucleation rule injects it)?** — Emergence = Class-D-style deep result; imposed-but-persists = partial; disperses = transverse seed insufficient (report what's missing).
+
+Plus the CONTROL: the single-bond planted-(2,3) phasor seed — the continuum-vs-discrete fork verdict.
+
+**[RESULT — one-line verdict goes here after run.]**
+
+---
+
+## §1 LOAD-BEARING FINDING SURFACED TO GRANT (pre-test-physics-check) — read before the prereg
+
+**This is the one plumber-physical question fired BEFORE committing the seed, per brief §2 + Rule 16. It is FLAGGED, not silently resolved — Grant's physical intuition is the resolution mechanism.**
+
+### The finding, in one sentence
+
+`fdtd_3d.py` carries **six real-space Yee fields and nothing else** — `Ex, Ey, Ez, Hx, Hy, Hz` ([`fdtd_3d.py:80-86`](../src/ave/core/fdtd_3d.py)). It has **no Cosserat microrotation ω sector** and **no native (V_inc, V_ref) ports** (grep for `cosserat|omega|v_inc` in the module returns nothing). But the corpus's own projection chain says the **poloidal "3" of the (2,3) winding lives in exactly the sector this engine does not have.**
+
+### Why this is load-bearing for the headline emerge-vs-impose question
+
+The canonical placement (brief §1, [`leaky-cavity .../theory.md:16`](../manuscript/ave-kb/vol4/simulation/ch14-leaky-cavity-particle-decay/theory.md)) is: electron = `0₁` unknot in real space + `(2,3)` Clifford-torus winding **in the (V_inc, V_ref) phasor trajectory**. The L3 winding-index projection doc ([`research/_archive/L3_electron_soliton/06_winding_index_projection.md`](_archive/L3_electron_soliton/06_winding_index_projection.md), user-adjudicated 2026-04-20) makes the structure explicit:
+
+- The full electron is the **Cosserat microrotation field ω(r)** → SU(2) element `U(r) = exp(iσ·ω/2)` (Level 1). This carries the pair `(w₁, w₂) = (2, 3)`.
+- **w₁ = 2** (toroidal / major Clifford cycle) is the SU(2) **base-space** winding. It survives the Hopf projection `SU(2) → S²` down to the E-field polarization direction (Level 3). **A pure-Maxwell field can carry this "2".**
+- **w₂ = 3** (poloidal / minor Clifford cycle) is the SU(2) **U(1) fibre-phase** winding. Verbatim doc 06 §4: *"the U(1) fibre phase is the information lost in the projection. n̂ on the shell is … independent of θ₂. So at Level 2, w₂ is invisible."* And the 2026-04-20 amendment header: *"AVE's native topological invariant is the scalar crossing count c, not a winding pair … The electron has c = 3 (phase-space trefoil on the Clifford torus)."*
+
+So the "3" is **structurally not a Maxwell-field (E, H) observable** — it is a Cosserat-fibre quantity. `fdtd_3d.py` evolves Level 3 (E, H); the carrier of the "3" is Level 0/1 (ω), which this engine does not have. The corpus self-trap driver that DOES test the (2,3) emergence ([`r10_v8_t_st_self_trap.py`](../src/scripts/vol_1_foundations/r10_v8_t_st_self_trap.py)) runs on `VacuumEngine3D` (native `k4.V_inc/V_ref` ports + `cos.omega` Cosserat sector + `cos.extract_crossing_count()` Op10 extractor), **not** on `fdtd_3d.py`.
+
+### What this means for the brief's deliverable (and why I did NOT free-build past it)
+
+The brief directs the run onto `fdtd_3d.py` specifically — and that is the load-bearing fork choice (brief §4): does the **continuum** engine host the (2,3), or is the **discrete K4 4-port + Cosserat** genuinely required? My finding sharpens the fork BEFORE the run:
+
+- **The toroidal "2" IS testable on `fdtd_3d.py`** — it is the E-field polarization winding around the major loop, a genuine Maxwell observable. And the `(V_inc, V_ref) = (E ± Z·H)` characteristic decomposition IS computable as a derived observable from the engine's E, H (Riemann invariants of the 1-D characteristic split). The transverse self-trap, the saturation Γ→−1 mechanism, the c_eff→0 freeze, and the polarization-winding "2" are all on this engine.
+- **The poloidal "3" is structurally unreachable on `fdtd_3d.py`** — there is no Cosserat fibre to carry it. So the honest answer to "does the (2,3) emerge on `fdtd_3d.py`" is: the engine can test whether the **"2" (toroidal polarization winding) + the phasor-trajectory aspect/chirality** emerge from the transverse self-trap, but it **cannot** test poloidal-"3" emergence — that requires the Cosserat sector. A NULL on the "3" from `fdtd_3d.py` is **uninformative about emergence** (the carrier is absent), exactly the A46 phase-space-coordinate trap one rung deeper.
+
+### The question for Grant (inline, options not buttons)
+
+This is the framing-level call. Three ways forward, surfaced for adjudication:
+
+- **(A) Run on `fdtd_3d.py` as briefed, scoped honestly.** Test what the continuum engine CAN host (transverse self-trap → localization persistence; toroidal-"2" polarization winding; (V_inc,V_ref) phasor aspect/chirality from the E±Z·H characteristic decomposition). Report poloidal-"3" emergence as **structurally out-of-scope for this engine** (Cosserat carrier absent) — which is itself a clean fork verdict: *the continuum Maxwell engine carries at most the "2"; the "3" needs the discrete-Cosserat sector.* This is what the driver below implements. **(Implementer default — does not require Grant before proceeding, but the scoping is the load-bearing choice.)**
+- **(B) Switch the PRIMARY arm to `VacuumEngine3D`** (k4 + Cosserat), where the (2,3) emergence is fully testable (native ports + Op10 c-extractor), and keep `fdtd_3d.py` as the continuum control. This contradicts the brief's explicit `fdtd_3d.py` target but is where the full headline question is answerable. **(Requires Grant — it overrides the brief's engine choice.)**
+- **(C) Both:** run the `fdtd_3d.py` transverse self-trap (continuum-arm fork verdict, this driver) AND note the `VacuumEngine3D` self-trap already exists as the discrete-Cosserat arm — and report the COMPARISON as the fork. **(The driver below + a cross-reference to the existing K4-TLM self-trap; no new K4-TLM driver written this session unless Grant directs.)**
+
+**Implementer lane decision (documented, reversible by Grant):** proceed with **(A)/(C) hybrid** — the brief's `fdtd_3d.py` target is honored, the driver is scoped honestly to what the continuum engine carries, the poloidal-"3" limitation is reported as a fork verdict rather than forced, and the existing K4-TLM self-trap is cross-referenced as the discrete-Cosserat comparison arm. This does NOT free-build past the ambiguity — it builds the testable part and flags the untestable part explicitly. If Grant wants the full (2,3)-emergence answer, that is option (B), a `VacuumEngine3D` driver in a follow-up.
+
+## §2 Substrate-native-check — the fdtd_3d.py walk
+
+Walked [`fdtd_3d.py`](../src/ave/core/fdtd_3d.py) before writing any seed code. The transverse photon IS the seed now (brief §0).
+
+| Checkpoint | Finding on `fdtd_3d.py` |
+|---|---|
+| **Sector** | Full-vector Maxwell (Yee leapfrog), nonlinear ε(E)/μ(H) per Axiom 4. NOT the K4-TLM 4-port; NOT the Cosserat sector. |
+| **Reactance pair (Ax 1)** | E ↔ H. The capacitive (3 translational-E DOF) and inductive (3 microrotational-B DOF, here represented only as H) conjugate pair. **The Cosserat microrotation ω as an independent DOF is absent** — B enters only via `curl(E)`, not as a free rotational state. |
+| **Coordinate system (Checkpoint 4 — THE one)** | **Real-space lattice-Cartesian** (`Ex[i,j,k]` etc.). The corpus (2,3) lives in the **(V_inc, V_ref) phasor phase-space** ([`theory.md:16`](../manuscript/ave-kb/vol4/simulation/ch14-leaky-cavity-particle-decay/theory.md)). The engine carries E, H in real space; `V_inc = E + Z·H`, `V_ref = E − Z·H` must be COMPUTED as derived observables (the 1-D transmission-line characteristic / Riemann-invariant split). This is the A46 fix the prior phase3f run omitted (it placed the (2,3) tangent in real-space field direction — [`test_fdtd3d_electron_torus_knot_seed.py:74`](../src/tests/test_fdtd3d_electron_torus_knot_seed.py)). |
+| **Saturation-modulated clock (Op14, c_eff at A→1)** | `ε_eff = ε₀·S(V_local)`, `μ_eff = μ₀·S(B_local)`, `S(A)=√(1−(A/A_yield)²)` ([`fdtd_3d.py:189-245`](../src/ave/core/fdtd_3d.py) via `saturation_factor`). At V→V_yield the local update coefficient `ce = dt/(ε_eff·dx)` diverges → field-trapping; this IS the Γ→−1 self-trap mechanism. **No nucleation rule** — the engine has no "impose (2,3) when A²≥1" trigger (mirrors [`pair-production-axiom-derivation.md:109-121`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md) §5.1 stated for K4-TLM). |
+| **ave-infinity-discipline (S_min floor)** | `ratio_sq` clipped to `1 − EPS_SAT_RATIO` (`EPS_SAT_RATIO = 1e-12`, [`fdtd_3d.py:211,238`](../src/ave/core/fdtd_3d.py)). So `c_eff` never literally → ∞/NaN at A→1. The phase3f Factor-3 NaN blowup at `0.85·V_yield/dx` is mitigated but amplitude still must be tuned + dt is CFL-limited with a 0.80 buffer ([`fdtd_3d.py:77`](../src/ave/core/fdtd_3d.py)). The driver clips at the S_min floor and documents it. |
+| **Boundaries** | Mur 1st-order ABC (default) or CPML — **absorbing**, energy LEAVES the grid. There is NO reflecting wall: confinement must be **self-generated** by the Γ→−1 saturation, not by a box. This is correct for a self-trap test (a trap that only holds because of a hard wall is not a self-trap). PML-cell exclusion (Rule 10) applies to all top-K field sampling. |
+| **dx semantics** | `dx` is a COMPUTATIONAL grid parameter, NOT ℓ_node. Physics enters via V_yield/B_yield. Results converge as dx→0 at fixed V_yield ([`fdtd_3d.py:34-43`](../src/ave/core/fdtd_3d.py)). |
+
+**SM/QED-leak audit (substrate-native-check output):** no Lagrangian/gradient-descent/energy-basin defaults leaked — this is a forward time-domain Maxwell evolution from a structured initial condition, watching for autonomous self-trap. The one place a leak could enter is treating the absorbing boundary as a confining cavity (it is not) or sampling at the centroid of a shell (the empty middle) — both guarded below.
+
+## §3 Phase-space-coordinate-check — where the (2,3) lives vs what we can measure
+
+Per A46: the corpus claim is in phase-space; the test observable MUST be in matching coordinates. The prior phase3f FAIL was precisely a real-space-vs-phase-space mismatch. The fix here:
+
+**Coordinate of the corpus claim:** the `(2,3)` Clifford-torus winding lives in the `(V_inc, V_ref)` phasor trajectory ([`theory.md:16`](../manuscript/ave-kb/vol4/simulation/ch14-leaky-cavity-particle-decay/theory.md) verbatim: *"The trefoil lives in the bond-pair LC tank's (V_inc, V_ref) phasor trajectory, not in the real-space flux-tube topology"*). The candidate continuum mapping (brief §1.3): `V_inc = E + Z·H`, `V_ref = E − Z·H` (the forward/backward transmission-line characteristic split; standard `V± = (E ± Z·H)/2`, [`radial-eigenvalue-solver.md:307-311`](../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/radial-eigenvalue-solver.md) forward/backward TL waves — NOTE: brief §1.3 cited this as `vol4/circuit-theory/...`; verify-before-cite correction, the canonical path is `vol2/quantum-orbitals/ch07-quantum-mechanics/`).
+
+**Observable design (matched coordinates):**
+1. At each sampled interior site, form the phasor pair `(V_inc, V_ref)` per field-component from the engine's E, H using `Z = Z_0` (the cold-lattice impedance; the engine's vacuum is Z_0). Record the per-step trajectory over the recording window.
+2. **Aspect/chirality observable** (testable on `fdtd_3d.py`): PCA ellipse `R_phase/r_phase` (φ² target ≈ 2.618) + angular-momentum chirality sign — the canonical phase-space methodology from [`r9_canonical_phase_space_phasor.py`](../src/scripts/vol_1_foundations/r9_canonical_phase_space_phasor.py) (`fit_ellipse_pca`, `chirality_direction`). This is a phasor-coordinate observable — A46-compliant.
+3. **Toroidal-"2" winding observable** (testable): the E-field polarization winding number around the major loop — count `2π`-multiples of the polarization-angle accumulation traversing the toroidal centerline. This IS the w₁=2 that survives the Hopf projection (doc 06 §3).
+4. **Poloidal-"3" winding observable** (NOT testable on `fdtd_3d.py` — see §1): would require the SU(2) fibre phase, i.e., the Cosserat ω sector. Reported as structurally-absent, not as a NULL.
+
+**Discipline note (why aspect-ratio is NOT the winding number):** the `R_phase/r_phase = φ²` aspect test ([`phasor_trajectory_test.py`](../src/scripts/vol_1_foundations/phasor_trajectory_test.py), [`r9_canonical_phase_space_phasor.py`](../src/scripts/vol_1_foundations/r9_canonical_phase_space_phasor.py)) is the **shape of the phasor limit cycle**, a NECESSARY-but-not-sufficient signature. It is NOT the toroidal/poloidal winding-number pair. The brief §4 PASS criterion "(2,3) winding number conserved (toroidal 2, poloidal 3)" is stronger than the aspect ratio. On `fdtd_3d.py` we can deliver: aspect/chirality (limit-cycle shape) + toroidal-"2" (polarization winding); we CANNOT deliver poloidal-"3" (Cosserat fibre). This is stated honestly as a partial-observability result, not dressed up as a full (2,3) confirmation.
+
+## §4 Consistency-vs-emergence classification (per arm)
+
+Per `consistency-vs-emergence`: tag each arm before writing it; the headline IS the emerge-vs-impose distinction.
+
+| Arm | Class | Why | Imposes the answer? |
+|---|---|---|---|
+| **C-EMERGE** (primary): structured transverse photon, NO (2,3) imposed | **EMERGENCE-test** (Class-D-style dynamic engine test) | Seed is a pure transverse photon (two counter-propagating focused transverse pulses, E⊥B⊥k, multi-node). Drive the constructive-interference point past V_yield → toward V_snap. Watch for autonomous self-trap + autonomous polarization-"2" + autonomous phasor limit-cycle. **The (2,3) is NOT in the seed.** | **NO** — `ave-driver-script-honesty`: the emergence arm must not impose the answer it tests for. The seed has zero imposed winding; any (2,3)-signature that appears is engine output. |
+| **C-NUCLEATE** (secondary): transverse photon + Option-D nucleation rule | **CONSISTENCY-check** (does the imposed BC persist?) | When C1 (A²≥1 at the trap) is met, impose the Beltrami handedness BC per Option D ([`pair-production-axiom-derivation.md:121`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md)). Then test persistence. | **YES, by construction** — this is a CONTROL, clearly labeled. It tests "if we impose it, does it hold?", NOT "does it emerge?" Tagging it emergence would be the cardinal `consistency-vs-emergence` error. |
+| **A-CONTROL** (the brief's demoted single-bond): planted (2,3) end-state | **CONSISTENCY-check** (continuum-vs-discrete fork) | The phase3f-style placed-(2,3) seed, re-seeded into phasor coordinates this time. Compared against the matched-baseline. | **YES** — imposed end-state; the fork verdict (does it persist on the continuum engine) is the output, not emergence. |
+
+**α-injection audit (`consistency-vs-emergence` FLAG):** the seed geometry uses `R = r = ℓ_node/2π` style horn-torus dimensions (geometry, not α) and the Golden-Torus `R·r=1/4` only appears in the Q-factor PASS bar (a comparison target, not a seed parameter). **No seed parameter routes through α.** The amplitude thresholds V_yield = √α·V_snap and V_snap = m_e c²/e are imported canonical constants used as the physical operating point (the engine's own saturation thresholds), not tuned. This is NOT an α-emergence claim (that is closed Class B, [`ch8-alpha-golden-torus.md`](../manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md)); it is a topology-self-trap test. The one place α enters the PASS bar is the Q-factor ≈ α⁻¹ check (§6) — flagged there as a consistency target (ALPHA_COLD_INV = 4π³+π²+π), explicitly NOT an emergence headline.
+
+**Headline classification, sharpened:** C-EMERGE is the only emergence-class arm, and it is emergence-class ONLY for the observables `fdtd_3d.py` can carry (self-trap localization, toroidal-"2" polarization winding, phasor limit-cycle aspect/chirality). The poloidal-"3" emergence is **not assessable on this engine** (carrier absent, §1). So the strongest honest headline `fdtd_3d.py` can return is: *"the toroidal-2 + phasor-limit-cycle component of the (2,3) {does / does not} emerge from the transverse self-trap; the poloidal-3 is structurally out of scope for the continuum engine."*
+
+## §5 The seed constructions (Option C primary + Control arm)
+
+### §5.1 C-EMERGE — structured transverse photon (PRIMARY, no (2,3) imposed)
+
+The canonical pair-production origin ([`pair-production-axiom-derivation.md:51,76-77`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md)): counter-propagating transverse waves constructively interfere, breach V_yield, `c_local→0` closes the longitudinal channel, blocked KE shatters sideways into the transverse curl. We seed the ORIGIN (the transverse photon), not the END-state (the compressed knot).
+
+**Construction:** two counter-propagating focused transverse pulses along ±x, meeting at the lattice center.
+- Each pulse: transverse fields only (E in y–z plane, B in y–z plane, k along x → E⊥B⊥k). **Circular polarization** with **opposite handedness** on the two pulses, so the constructive-interference region carries a rotating transverse field — a multi-node structured (Hopfion-like) transverse standing configuration, NOT a featureless plane wave. The "structure across multiple nodes" is Grant's hypothesized setter of the (2,3) (brief §0: *"a transverse wave across multiple nodes SETS the 2,3"*).
+- Transverse Gaussian waist `σ_yz` focused so the on-axis constructive peak amplitude breaches V_yield and is driven toward V_snap at the focus.
+- Self-consistent E–H pair: each pulse is a proper propagating Maxwell mode (|E| = Z_0·|H|, B⊥E⊥k) so the engine does not have to manufacture H from a zero initial condition (the phase3f Factor-1 gap). Built as an initial condition spanning a few wavelengths (a wave packet), then evolved — the two packets collide at center.
+- **NO (2,3) winding, NO Beltrami handedness, NO torus-knot tangent is placed.** The seed is a pure transverse photon. Emergence is the question.
+
+**Amplitude policy (ave-infinity-discipline):** peak constructive amplitude ramped across a sweep `{0.6, 0.8, 0.95}·V_yield/dx` worth of per-pulse amplitude (the constructive sum at focus reaches ~2× a single pulse). Clip at the S_min floor (`EPS_SAT_RATIO`); if any cell NaNs, drop to the next-lower amplitude and record the clip. The phase3f NaN at `0.85·V_yield/dx` was a single-seed artifact; counter-propagating packets distribute the strain differently — but the floor + dt-CFL buffer guard it.
+
+### §5.2 C-NUCLEATE — transverse photon + Option-D nucleation rule (secondary CONTROL)
+
+Identical transverse-photon seed as C-EMERGE, PLUS the Option-D rule ([`pair-production-axiom-derivation.md:121`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md)): when the trap site reaches `A² ≥ 1` (C1), impose a Beltrami handedness bias (LH at the trap) at the amplitude corresponding to the saturated standing wave. On `fdtd_3d.py` the imposable part is the **chiral transverse rotation sense** (since there is no ω sector, the full Beltrami `∇×B=λB` BC is only partially representable — another instance of §1). Tests: does imposing the chirality make the self-trap persist longer / lock the phasor limit-cycle? Clearly labeled CONTROL (not emergence).
+
+### §5.3 A-CONTROL — single-bond planted (2,3) end-state (the brief's demoted arm)
+
+The phase3f-class placed-(2,3) seed, **re-seeded correctly this time** into phasor coordinates (the A46 fix): instead of placing the (2,3) tangent in real-space field direction (the phase3f bug), place a phasor-trajectory seed whose `(V_inc, V_ref) = (E ± Z_0·H)` traces a (2,3)-style winding at the seed sites, with the matched-baseline comparison. Run; measure persistence + phasor aspect; report the continuum-vs-discrete fork verdict.
+
+### §5.4 Matched baseline (phase3f Factor-2 fix — MANDATORY)
+
+The prior random-direction baseline was a confound (random gave larger single-component amplitudes → more saturation → spurious "better" retention). **The baseline here is a matched-amplitude-distribution, topologically-trivial seed:** same per-component amplitude statistics and same spatial envelope as the C-EMERGE constructive region, but **scrambled phase relationship** (destroys the constructive transverse coherence while preserving the amplitude histogram). This isolates the topology/coherence effect from the saturation-amplitude effect. Concretely: take the C-EMERGE field, randomly permute the phase of each component's Fourier modes (preserving the power spectrum / amplitude distribution), re-inject. A bound state from C-EMERGE must out-retain this matched-trivial baseline — NOT a random-direction seed.
+
+## §6 PASS criteria + adjudication forks (substrate-derived, matched baseline)
+
+Per `ave-fundamental-ground-up-implementation`: thresholds substrate-derived or honestly tagged engineering-choice — NOT arbitrary bars. Per `ave-evidence-framing-discipline`: "binds" requires ALL applicable criteria, not just persistence.
+
+### §6.1 PASS criteria (Mode I = full self-trap into bound (2,3))
+
+| # | Criterion | Threshold | Provenance | Testable on `fdtd_3d.py`? |
+|---|---|---|---|---|
+| P1 | **Self-trap localization** | Energy-density peak in interior persists; FWHM bounded (does NOT disperse to grid scale) over the recording window | localization is the defining self-trap signature | YES |
+| P2 | **Retention > matched-trivial baseline** | C-EMERGE peak-`\|E\|` retention > matched-distribution trivial baseline (§5.4), NOT random | phase3f Factor-2 fix; matched baseline is the honest control | YES |
+| P3 | **Saturation engaged (Γ→−1 onset)** | `A² = (V_local/V_snap)²` at trap reaches the Op14 onset `√(2α) ≈ 0.117`; ideally the local `c_eff` collapses toward 0 | [`pair-production-axiom-derivation.md`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md) step 6; `√(2α)` is R_I boundary | YES |
+| P4 | **Toroidal-"2" polarization winding** | E-field polarization winds 2× around the major loop (w₁=2 survives Hopf projection) | [`06_winding_index_projection.md`](_archive/L3_electron_soliton/06_winding_index_projection.md) §3 | YES (this is the "2") |
+| P5 | **Phasor limit-cycle** | `(V_inc, V_ref)` traces a closed limit cycle (not chaotic/dispersive); aspect `R_phase/r_phase` and chirality recorded; φ² ≈ 2.618 is the diagnostic target | [`r9_canonical_phase_space_phasor.py`](../src/scripts/vol_1_foundations/r9_canonical_phase_space_phasor.py); A46 phasor coords | YES (aspect/chirality) |
+| P6 | **Poloidal-"3" winding** | SU(2) fibre-phase winds 3× around the minor cycle | [`06_winding_index_projection.md`](_archive/L3_electron_soliton/06_winding_index_projection.md) §4 | **NO — Cosserat carrier absent (§1)** |
+| P7 | **Q-factor ≈ α⁻¹** | integrated boundary observable ≈ α⁻¹ = 137.036 (ALPHA_COLD_INV) | [`theorem-3-1-q-factor.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) | PARTIAL — Q from leak-per-cycle estimate only; coarse on this engine |
+| P8 | **Bound-state persistence** | trapped configuration sustains ≥ recording window without amplitude decay past threshold; **breathing allowed** (mean-V_peak breather criterion, [`breathing-soliton-v14-mode-i.md`](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/breathing-soliton-v14-mode-i.md)) | v14 Mode I precedent | YES |
+
+**Substrate-derived PASS bars (not arbitrary):** P3 threshold `√(2α)` is the canonical R_I Regime-I→II boundary (`constants.R_I`). P7 target is `ALPHA_COLD_INV = 4π³+π²+π` (canonical). P5 φ² is the canonical Golden-Torus aspect. P2/P8 are matched-baseline-relative (no absolute arbitrary number). P4/P6 are integer winding numbers (no tolerance arbitrariness — an integer either winds 2× or it doesn't).
+
+### §6.2 The fork-discrimination verdict (the load-bearing output)
+
+- **Mode I (binds, winding signatures present on `fdtd_3d.py`)** → the continuum `(V_inc,V_ref)` characteristic decomposition of (E,H) hosts the testable electron structure; CONTINUUM hypothesis supported for the part `fdtd_3d.py` carries. **Caveat: even a Mode I here is only a "2"+limit-cycle Mode I; the "3" is untested (P6 absent).**
+- **Mode III (disperses even with correct transverse-photon origin seed + near-V_snap amplitude, across the amplitude sweep + ≥3 parameterizations)** → strong evidence the discrete K4 4-port + Cosserat is genuinely load-bearing; the continuum engine cannot host the (2,3); path forward is K4-TLM + Cosserat + c_eff (the [`r10_v8_t_st_self_trap.py`](../src/scripts/vol_1_foundations/r10_v8_t_st_self_trap.py) arm). **This is as valuable as a PASS.**
+- **Mode II (self-traps but winding/observables off)** → partial; seed-construction or operating-point issue; diagnose.
+
+### §6.3 Emergence headline verdict (sharpened, per §4)
+
+- **EMERGENT** (deep result): C-EMERGE (no imposed winding) autonomously produces self-trap + toroidal-"2" + phasor limit-cycle, AND out-retains the matched baseline. (Still caveated: "3" not assessable.)
+- **IMPOSED-but-persists** (partial): C-EMERGE disperses but C-NUCLEATE (Option-D imposed) persists → the structure must be imposed, not emergent, on this engine.
+- **DISPERSES** (transverse seed insufficient): both C-EMERGE and C-NUCLEATE fail to hold → report exactly what's missing (almost certainly the Cosserat sector + discrete 4-port, per §1).
+
+## §7 RESULT
+
+[FILLED AFTER RUN]
+
+## §8 Cross-references
+
+[FILLED]
