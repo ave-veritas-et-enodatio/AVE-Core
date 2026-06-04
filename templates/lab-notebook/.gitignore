@@ -1,0 +1,11 @@
+# LaTeX build artifacts — the rendered *.pdf previews are tracked on purpose.
+*.aux
+*.log
+*.fls
+*.fdb_latexmk
+*.out
+*.toc
+*.synctex.gz
+*.bbl
+*.blg
+*.xdv

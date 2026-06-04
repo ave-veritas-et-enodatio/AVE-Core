@@ -39,6 +39,7 @@ The continuous quantum formalism is derived from discrete finite-element signal 
 | [Zero-Impedance Boundary](./zero-impedance-boundary.md) | Transmission line reflection, $\Gamma=-1$ boundary, internal confinement, Pauli exclusion |
 | [Quantum Foam and Virtual Particles](./quantum-foam-virtual.md) | Baseline RMS thermal noise, virtual particles as failed topologies |
 | [Ohmic Decoherence and Born Rule](./ohmic-decoherence-born.md) | Measurement as Ohmic loading, deterministic Born rule from Joule heating |
+| [Double-Slit EE / Glossary Mapping](./double-slit-ee-mapping.md) | Consolidation/translation leaf: the AVE double-slit (electron = self-trapped photon; defect through one slit + ponderomotive wake $\nabla\lvert\Psi\rvert^2$ through both) → EE component glossary; which-path Joule decoherence; Born screen; core = shorted $\lambda/4$ resonator; AVE-distinct visibility-vs-$Z_{det}$ prediction; ponderomotive-wake $\neq$ thrust dark-wake guard |
 | [Nonlinear Telegrapher](./nonlinear-telegrapher.md) | Non-linear wave equation, dielectric saturation expansion, Euler-Heisenberg $E^4$ correction |
 | [Phase-Locked Topological Thread](./phase-locked-topological-thread.md) | Topological thread (phase-locked gear train), CHSH = 2√2, no-signaling from Axioms 1–4 |
 | [Thermal Lattice Noise + $T_{V\text{-rupt}}$](./thermal-lattice-noise.md) | Equipartition $\sigma_V$ / $\sigma_\omega$ derivations; AVE-native vacuum-rupture temperature $T_{V\text{-rupt}} \approx 3.44 \times 10^6$ K (substrate-temperature analog of the Schwinger limit) |

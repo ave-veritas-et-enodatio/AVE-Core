@@ -1,0 +1,55 @@
+\documentclass[border=0pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{knots,hobby,intersections,calc,arrows.meta}
+\providecommand{\rot}{0}
+\definecolor{earthbg}{HTML}{1E1813}
+\definecolor{earthln}{HTML}{8F8367}
+\definecolor{eblue}{HTML}{2E72FF}
+\definecolor{eblueLt}{HTML}{9CC0FF}
+\definecolor{ylw}{HTML}{FFD21E}
+\definecolor{ylwLt}{HTML}{FFE886}
+\def\TRE{plot[domain=0:360,samples=160,smooth,variable=\t]({0.80*(sin(\t)+2*sin(2*\t))},{0.80*(cos(\t)-2*cos(2*\t))})}
+\begin{document}
+\begin{tikzpicture}
+\clip (-5.35,-5.35) rectangle (5.35,5.35);
+\fill[earthbg] (-5.7,-5.7) rectangle (5.7,5.7);
+% RIGID lattice + index field (static)
+\foreach \i in {0,...,22}{\foreach \j in {0,...,22}{
+  \coordinate (n-\i-\j) at ({(\i-11)*0.52},{(\j-11)*0.52});}}
+\foreach \i in {0,...,21}{\foreach \j in {0,...,22}{
+  \pgfmathsetmacro{\gx}{(\i-10.5)*0.52}\pgfmathsetmacro{\gy}{(\j-11)*0.52}\pgfmathsetmacro{\r}{sqrt(\gx*\gx+\gy*\gy)}
+  \pgfmathtruncatemacro{\bl}{max(0,min(100,128/(\r+0.6)-6))}\pgfmathsetmacro{\op}{min(0.6,0.16+0.5/(\r+1.0))}
+  \pgfmathtruncatemacro{\ii}{\i+1}\draw[draw=eblue!\bl!earthln,opacity=\op,line width=0.5pt](n-\i-\j)--(n-\ii-\j);}}
+\foreach \i in {0,...,22}{\foreach \j in {0,...,21}{
+  \pgfmathsetmacro{\gx}{(\i-11)*0.52}\pgfmathsetmacro{\gy}{(\j-10.5)*0.52}\pgfmathsetmacro{\r}{sqrt(\gx*\gx+\gy*\gy)}
+  \pgfmathtruncatemacro{\bl}{max(0,min(100,128/(\r+0.6)-6))}\pgfmathsetmacro{\op}{min(0.6,0.16+0.5/(\r+1.0))}
+  \pgfmathtruncatemacro{\jj}{\j+1}\draw[draw=eblue!\bl!earthln,opacity=\op,line width=0.5pt](n-\i-\j)--(n-\i-\jj);}}
+\foreach \i in {0,...,22}{\foreach \j in {0,...,22}{
+  \pgfmathsetmacro{\gx}{(\i-11)*0.52}\pgfmathsetmacro{\gy}{(\j-11)*0.52}\pgfmathsetmacro{\r}{sqrt(\gx*\gx+\gy*\gy)}
+  \pgfmathtruncatemacro{\bl}{max(0,min(100,128/(\r+0.6)-6))}\pgfmathsetmacro{\op}{min(0.95,0.1+0.85/(\r+0.7))}
+  \pgfmathsetmacro{\rad}{0.030+0.030/(\r+0.6)}\fill[eblue!\bl!earthln,opacity=\op](n-\i-\j) circle(\rad);}}
+% STEADY frame-drag circulation (right-handed) on the rigid grid -- the spin's
+% effect is a constant rotational impedance field, decaying outward (not a
+% rotating geometry). Arrows do NOT move between frames.
+\foreach \k in {0,...,11}{\pgfmathsetmacro{\a}{\k*30}
+  \draw[-{Stealth[length=3.5pt]},eblue,opacity=0.55,line width=0.8pt]
+    ({2.95*cos(\a)},{2.95*sin(\a)}) -- ++({0.42*cos(\a+90)},{0.42*sin(\a+90)});}
+\foreach \k in {0,...,9}{\pgfmathsetmacro{\a}{\k*36+18}
+  \draw[-{Stealth[length=3pt]},eblue,opacity=0.30,line width=0.7pt]
+    ({3.95*cos(\a)},{3.95*sin(\a)}) -- ++({0.34*cos(\a+90)},{0.34*sin(\a+90)});}
+% torus envelope
+\fill[even odd rule,eblue,opacity=0.12] (0,0) circle(2.45) (0,0) circle(1.05);
+\draw[eblue,opacity=0.45,line width=3pt] (0,0) circle(1.75);
+\draw[eblue,opacity=0.8,line width=1.1pt] (0,0) circle(2.45);
+\draw[eblue,opacity=0.8,line width=1.1pt] (0,0) circle(1.05);
+% trefoil PHASE rotates by \rot (the only thing that legitimately spins)
+\begin{scope}[rotate=\rot]
+\draw[ylw,opacity=0.06,line width=20pt,line cap=round] \TRE;
+\draw[ylw,opacity=0.13,line width=12pt,line cap=round] \TRE;
+\begin{knot}[consider self intersections=true,clip width=6,end tolerance=1pt,flip crossing=2]
+  \strand[ylw,line width=5pt,line cap=round] \TRE;\end{knot}
+\begin{knot}[consider self intersections=true,clip width=6,end tolerance=1pt,flip crossing=2]
+  \strand[ylwLt,line width=1.6pt,line cap=round] \TRE;\end{knot}
+\end{scope}
+\end{tikzpicture}
+\end{document}

@@ -107,6 +107,9 @@ The K4-TLM substrate carries transverse Cosserat-microrotation wave excitations 
 
 This framing is what makes "the electron is a self-trapped photon" (line 11) precise: same K4 transverse-Cosserat-microrotation wave, parameterized only by whether self-saturation has engaged.
 
+> ↗ See also: [Photon EE Mapping](photon-ee-mapping.md) — the EE consolidation of this photon-vs-electron distinction (free photon = matched $Z_0$/$\Gamma=0$ lossless line, no core; electron = $\Gamma=-1$ shorted $\lambda/4$ resonator; carrier × envelope; the photon's $E$↔$B$ as a LINEAR I/Q quadrature on $(V_{inc},V_{ref})$, disambiguated from the parametric pair-production bridge), carrying the R·r≠¼ Class-B flag.
+> ↗ See also: [Double-Slit EE / Glossary Mapping](../ch3-quantum-signal-dynamics/double-slit-ee-mapping.md) — the double-slit mechanism with the electron (this self-trapped photon) as the navigating defect.
+
 ### §4.1 — The trapping mechanism step-by-step
 
 The electron differs from the photon by **one additional piece of physics**: Axiom 4 saturation engages. The mechanism, step-by-step:
