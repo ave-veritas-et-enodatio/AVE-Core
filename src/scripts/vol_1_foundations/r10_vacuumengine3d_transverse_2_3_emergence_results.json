@@ -1,0 +1,269 @@
+{
+  "A": {
+    "arm": "A",
+    "mode": "emergence",
+    "amplitude": 0.4,
+    "x0_pulses": [
+      14,
+      34
+    ],
+    "max_a2_interior": 0.3508552028754323,
+    "max_a2_loc": [
+      35,
+      23,
+      27
+    ],
+    "saturation_engaged": true,
+    "energy_retention_postshutoff": 0.017291140915614688,
+    "trap_bond": {
+      "site": [
+        34,
+        26,
+        24
+      ],
+      "port": 3
+    },
+    "winding_peak_bond": {
+      "n1": 12,
+      "n2": 0,
+      "crossing_count_c": 22,
+      "R_phase_over_r_phase": 76.77282328949148,
+      "amp": 0.08389172720430815,
+      "p1": 3,
+      "p2": 1,
+      "w1_raw": 12.000000000000002,
+      "w2_raw": 0.0,
+      "winding_ratio": "n/a"
+    },
+    "winding_center_bond": {
+      "n1": 11,
+      "n2": 7,
+      "crossing_count_c": 93,
+      "R_phase_over_r_phase": 3.3608059131281864,
+      "amp": 0.0016782786387590928,
+      "p1": 1,
+      "p2": 2,
+      "w1_raw": 11.000000000000002,
+      "w2_raw": -7.0,
+      "winding_ratio": "3:2"
+    },
+    "winding_spatial_ring": {
+      "w1_spatial": 0,
+      "w2_spatial": 0,
+      "ring_amp": 0.002169024753684745
+    },
+    "reactance_consistency": {
+      "corr_vinc_dphidt": -0.008614394904435406,
+      "c_state_alive": true,
+      "l_state_alive": true
+    },
+    "cosserat_omega_diag": {
+      "omega_op10_crossing_count": 0,
+      "hopf_charge": 0.0,
+      "omega_max": 0.0,
+      "omega_energy": 0.0
+    },
+    "gate_firings": 0,
+    "elapsed_s": 163.6576759815216
+  },
+  "B": {
+    "arm": "B",
+    "mode": "baseline",
+    "amplitude": 0.4,
+    "x0_pulses": [
+      14,
+      34
+    ],
+    "max_a2_interior": 0.2779596892039388,
+    "max_a2_loc": [
+      33,
+      23,
+      27
+    ],
+    "saturation_engaged": true,
+    "energy_retention_postshutoff": 0.015778700801036178,
+    "trap_bond": {
+      "site": [
+        34,
+        26,
+        24
+      ],
+      "port": 3
+    },
+    "winding_peak_bond": {
+      "n1": 10,
+      "n2": 0,
+      "crossing_count_c": 19,
+      "R_phase_over_r_phase": 2032.5558172131775,
+      "amp": 0.08671501025415773,
+      "p1": 3,
+      "p2": 1,
+      "w1_raw": 10.0,
+      "w2_raw": 0.0,
+      "winding_ratio": "n/a"
+    },
+    "winding_center_bond": {
+      "n1": 15,
+      "n2": 34,
+      "crossing_count_c": 81,
+      "R_phase_over_r_phase": 1.871453488414293,
+      "amp": 0.001671174169343717,
+      "p1": 1,
+      "p2": 0,
+      "w1_raw": -15.000000000000005,
+      "w2_raw": -34.00000000000003,
+      "winding_ratio": "3:7"
+    },
+    "winding_spatial_ring": {
+      "w1_spatial": 0,
+      "w2_spatial": 0,
+      "ring_amp": 0.0021397039360666545
+    },
+    "reactance_consistency": {
+      "corr_vinc_dphidt": -0.001225008066285681,
+      "c_state_alive": true,
+      "l_state_alive": true
+    },
+    "cosserat_omega_diag": {
+      "omega_op10_crossing_count": 0,
+      "hopf_charge": 0.0,
+      "omega_max": 0.0,
+      "omega_energy": 0.0
+    },
+    "gate_firings": 0,
+    "elapsed_s": 162.9366638660431
+  },
+  "C": {
+    "arm": "C",
+    "mode": "imposed",
+    "amplitude": 0.4,
+    "x0_pulses": [
+      14,
+      34
+    ],
+    "max_a2_interior": 8.896817146492955,
+    "max_a2_loc": [
+      14,
+      20,
+      22
+    ],
+    "saturation_engaged": true,
+    "energy_retention_postshutoff": 0.9137080465280153,
+    "trap_bond": {
+      "site": [
+        14,
+        20,
+        22
+      ],
+      "port": 1
+    },
+    "winding_peak_bond": {
+      "n1": 8,
+      "n2": 0,
+      "crossing_count_c": 16,
+      "R_phase_over_r_phase": 3410.548483612725,
+      "amp": 1.6007186960443358,
+      "p1": 0,
+      "p2": 2,
+      "w1_raw": -8.0,
+      "w2_raw": 0.0,
+      "winding_ratio": "n/a"
+    },
+    "winding_center_bond": {
+      "n1": 0,
+      "n2": 2,
+      "crossing_count_c": 55,
+      "R_phase_over_r_phase": 13.154383381045935,
+      "amp": 0.16220299558761955,
+      "p1": 3,
+      "p2": 1,
+      "w1_raw": 0.0,
+      "w2_raw": 2.0,
+      "winding_ratio": "n/a"
+    },
+    "winding_spatial_ring": {
+      "w1_spatial": 0,
+      "w2_spatial": 0,
+      "ring_amp": 0.10576392980396285
+    },
+    "reactance_consistency": {
+      "corr_vinc_dphidt": -0.8977930899133877,
+      "c_state_alive": true,
+      "l_state_alive": true
+    },
+    "cosserat_omega_diag": {
+      "omega_op10_crossing_count": 0,
+      "hopf_charge": 0.0,
+      "omega_max": 0.0,
+      "omega_energy": 0.0
+    },
+    "gate_firings": 0,
+    "elapsed_s": 197.79261088371277
+  },
+  "verdict": {
+    "bars": {
+      "B1_self_trap": true,
+      "B2_beats_baseline": true,
+      "B3_23_phasor_winding": false,
+      "B4_reactance_ring": true
+    },
+    "B3_detail": {
+      "temporal": {
+        "c_A": 22,
+        "c_B": 19,
+        "c_C": 16,
+        "n_A": [
+          12,
+          0
+        ],
+        "n_B": [
+          10,
+          0
+        ],
+        "n_C": [
+          8,
+          0
+        ],
+        "A_is_23": false,
+        "pass": false
+      },
+      "spatial_ring": {
+        "w_A": [
+          0,
+          0
+        ],
+        "w_B": [
+          0,
+          0
+        ],
+        "w_C": [
+          0,
+          0
+        ],
+        "A_is_23": false,
+        "pass": false
+      },
+      "Q1_note": "temporal-single-bond (theory.md:16 default) vs spatial-ring (Q1 alternative); B3 PASS if (2,3) emerges in EITHER in Arm A, absent in B, present in C. Compare Arm C (planted (2,3)) across the two coordinates to see which one the (2,3) actually lives in."
+    },
+    "retention": {
+      "A": 0.017291140915614688,
+      "B": 0.015778700801036178
+    },
+    "carrier2_cosserat_omega": {
+      "omega_max_A": 0.0,
+      "dormant_per_Q0": true,
+      "note": "Q0: pure-V transverse photon leaves Cosserat \u03c9\u22610 (parametric V\u2192\u03c9 decoupling, exact fixed point). The SU(2) U(1)-fibre '3' (06_ \u00a74) does NOT emerge in \u03c9 from a transverse photon on this engine \u2014 discrete-engine sharpening of Mode II. Stands independent of the phasor-sector verdict."
+    },
+    "outcome": "iii",
+    "verdict": "OUTCOME (iii) \u2014 Grant's hypothesis REFUTED (V-sector): self-traps (B1\u2713) but the (2,3) phasor winding does NOT emerge from the transverse photon (only appears when IMPOSED via the nucleation rule). Topological-selection, not transverse-set."
+  },
+  "config": {
+    "N": 48,
+    "PML": 4,
+    "n_periods": 40,
+    "amplitude": 0.4,
+    "A2_op14": 0.12080854745670937,
+    "ALPHA": 0.0072973525693,
+    "dt": 0.7071067811865475
+  }
+}
