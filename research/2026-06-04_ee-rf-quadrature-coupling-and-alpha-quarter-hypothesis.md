@@ -72,13 +72,13 @@ verdict (2026-06-02): a **named identification** the substrate **does NOT indepe
 **The hypothesis — factor it in EE/RF terms:**
 - **(d/2) = the Nyquist half-cell** — the smallest resolvable phasor radius (half the sampling). **Forced** (lattice Nyquist limit).
 - **squared** — R·r is a **2-D phasor action**: R toroidal, r poloidal = the two quadratures (I/Q, E-capacitor + B-flywheel). **Forced** by the quadrature structure.
-- the ONLY non-forced piece = *"at saturation onset the phasor fills exactly one Nyquist cell"* (R=r=d/2). That is the named identification.
+- the ONLY non-forced piece = *"at saturation onset the phasor fills exactly one Nyquist cell"* (R=r=d/2). That is the named identification. **[2026-06-04: "R=r=d/2" is geometrically loose — canonical is the GOLDEN split R=φ/2 ≠ r=(φ−1)/2 with R·r=(d/2)²; both give ¼ but the corpus derives only the golden torus.]**
 
 **Claim under test:** a **Γ=−1-terminated cavity is a half/quarter-wave resonator** — the boundary
 **pins the antinode at the cell edge**. At saturation onset (A→1, the Γ=−1 mirror forms) the standing
 wave's antinode reaches the maximal amplitude the cell can hold → the phasor radius saturates at the
 Nyquist half-cell → **R·r=(d/2)²=1/4 becomes the resonance condition, not a free choice.** If true, the
-1/4 is "a half-wave cavity in both quadratures" — substrate-forced, and α-from-geometry lifts Class-B→Class-2.
+1/4 is "a half-wave cavity in both quadratures" — substrate-forced, and α-from-geometry lifts Class-B→Class-2. **→ GATE (b) OUTCOME 2026-06-04: it does NOT. This selection hypothesis was tested against every prior attempt and FALSIFIED; Class B holds. See [`2026-06-04_alpha-quarter-adversarial-rechallenge.md`](2026-06-04_alpha-quarter-adversarial-rechallenge.md).**
 
 ## §4 The connection — both symptoms trace to ONE missing piece
 
