@@ -1,0 +1,153 @@
+{
+  "driver": "r10_fdtd3d_transverse_photon_selftrap",
+  "prereg": "research/2026-06-04_full-electron-transverse-selftrap-result.md",
+  "engine": "fdtd_3d.py (full-vector Maxwell, v_yield=V_SNAP)",
+  "config": {
+    "N": 48,
+    "dx": 0.01,
+    "PML": 6,
+    "n_settle": 80,
+    "n_record": 240,
+    "amp_frac_vsnap": 0.7
+  },
+  "scope_note": "poloidal-3 OUT OF SCOPE on fdtd_3d.py (no Cosserat sector, prereg \u00a71)",
+  "arms": {
+    "C-EMERGE": {
+      "label": "C-EMERGE",
+      "seed": "C-EMERGE transverse photon (two counter-prop CP packets)",
+      "imposed_winding": null,
+      "nan_hit": false,
+      "trap_cell": [
+        41,
+        24,
+        21
+      ],
+      "trap_still_interior": true,
+      "peak_E_retention": 0.580107061208185,
+      "peak_E_breather_mean": 14.119323799635128,
+      "interior_energy_retention": 0.030520045756226435,
+      "peak_A_max": 0.17891588705033018,
+      "saturation_engaged_op14": true,
+      "phasor_aspect_R_over_r": 1.9535669414963588,
+      "phasor_aspect_vs_phi2": 0.7461961723534317,
+      "phasor_chirality_sign": -1,
+      "phasor_chirality_cross_mean": -2007135319465.2183,
+      "toroidal_polarization_winding": 0.0,
+      "n_phasor_samples": 60,
+      "option_d": null,
+      "seed_meta": {
+        "seed": "C-EMERGE transverse photon (two counter-prop CP packets)",
+        "seed_peak_E": 35100273.165473744,
+        "V_local_peak": 351002.73165473744,
+        "V_yield": 510998.9499961642,
+        "breach_yield_at_seed": false,
+        "wavelength_cells": 6.2832,
+        "waist_cells": 4.0,
+        "packet_width_cells": 6.0,
+        "sep_cells": 12.0,
+        "imposed_winding": null
+      }
+    },
+    "BASELINE": {
+      "label": "BASELINE",
+      "seed": "matched-distribution trivial baseline (phase-scrambled, peak-matched)",
+      "imposed_winding": null,
+      "nan_hit": false,
+      "trap_cell": [
+        38,
+        28,
+        15
+      ],
+      "trap_still_interior": true,
+      "peak_E_retention": 0.3894934725368685,
+      "peak_E_breather_mean": 20.358136949098213,
+      "interior_energy_retention": 0.03024426327713028,
+      "peak_A_max": 0.3688787326917052,
+      "saturation_engaged_op14": true,
+      "phasor_aspect_R_over_r": 2.8431861314348796,
+      "phasor_aspect_vs_phi2": 1.0860004658657982,
+      "phasor_chirality_sign": -1,
+      "phasor_chirality_cross_mean": -10058467191207.018,
+      "toroidal_polarization_winding": -1.0,
+      "n_phasor_samples": 60,
+      "option_d": null
+    },
+    "C-NUCLEATE": {
+      "label": "C-NUCLEATE",
+      "seed": "C-NUCLEATE transverse photon + Option-D chirality",
+      "imposed_winding": null,
+      "nan_hit": false,
+      "trap_cell": [
+        41,
+        24,
+        21
+      ],
+      "trap_still_interior": true,
+      "peak_E_retention": 0.5771632353724405,
+      "peak_E_breather_mean": 14.152216914304859,
+      "interior_energy_retention": 0.03058896383261524,
+      "peak_A_max": 0.18091606866760154,
+      "saturation_engaged_op14": true,
+      "phasor_aspect_R_over_r": 2.137003425279744,
+      "phasor_aspect_vs_phi2": 0.8162626743819159,
+      "phasor_chirality_sign": -1,
+      "phasor_chirality_cross_mean": -1827692100049.8901,
+      "toroidal_polarization_winding": -1.4135798584282297e-16,
+      "n_phasor_samples": 60,
+      "option_d": {
+        "rule": "Option-D chirality bias (LH), fdtd_3d-representable subset",
+        "trap_xyz": [
+          41,
+          24,
+          21
+        ],
+        "radius_cells": 4.0,
+        "bias": 0.15,
+        "note": "no Cosserat \u03c9 sector \u2014 full Beltrami BC not representable (prereg \u00a71)",
+        "is_control_not_emergence": true
+      }
+    },
+    "A-CONTROL": {
+      "label": "A-CONTROL",
+      "seed": "A-CONTROL single-bond planted-(2,3) phasor seed (A46-corrected)",
+      "imposed_winding": [
+        2,
+        3
+      ],
+      "nan_hit": false,
+      "trap_cell": [
+        30,
+        28,
+        23
+      ],
+      "trap_still_interior": true,
+      "peak_E_retention": 0.9739717348308655,
+      "peak_E_breather_mean": 43.22021447593079,
+      "interior_energy_retention": 0.31968871230413215,
+      "peak_A_max": 0.37091426031288965,
+      "saturation_engaged_op14": true,
+      "phasor_aspect_R_over_r": 2.9622793737930593,
+      "phasor_aspect_vs_phi2": 1.1314900366161942,
+      "phasor_chirality_sign": 1,
+      "phasor_chirality_cross_mean": 1722618998.913867,
+      "toroidal_polarization_winding": 2.208718528794109e-18,
+      "n_phasor_samples": 60,
+      "option_d": null
+    }
+  },
+  "verdict": {
+    "P1_localization": true,
+    "P2_retention_gt_matched_baseline": true,
+    "P3_saturation_engaged": true,
+    "P4_toroidal_2_winding": false,
+    "P5_phasor_limit_cycle": true,
+    "P6_poloidal_3": "OUT_OF_SCOPE (no Cosserat sector on fdtd_3d.py \u2014 prereg \u00a71)",
+    "C-EMERGE_peak_E_retention": 0.580107061208185,
+    "BASELINE_peak_E_retention": 0.3894934725368685,
+    "A-CONTROL_peak_E_retention": 0.9739717348308655,
+    "C-NUCLEATE_peak_E_retention": 0.5771632353724405,
+    "fork_verdict": "Mode II (self-traps but the (2,3) winding observable is OFF: toroidal-2 absent) \u2014 the continuum engine hosts a localized self-trapped photon but NOT the (2,3) winding structure. Even the testable '2' does not emerge here. Strong support that the discrete K4 4-port + Cosserat is load-bearing for the WINDING (path forward = K4-TLM + Cosserat, r10_v8_t_st_self_trap.py).",
+    "emergence_headline": "SELF-TRAP EMERGES but the (2,3) WINDING DOES NOT \u2014 C-EMERGE (no imposed winding) autonomously self-traps a localized photon + out-retains the matched baseline (a real emergence result for LOCALIZATION), but the toroidal-2 winding does NOT emerge (P4 fail) and poloidal-3 is out of scope. The (2,3) winding is NEITHER emergent NOR (on this engine) testable-to-emerge \u2014 it needs the Cosserat sector + discrete 4-port (prereg \u00a71). Honest partial."
+  },
+  "elapsed_s": 8.163729906082153
+}

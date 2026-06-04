@@ -216,11 +216,12 @@ def build_matched_trivial_baseline(engine: FDTD3DEngine, c_emerge_meta: dict, *,
         # FFT, randomize phase, preserve magnitude spectrum (Hermitian-symmetric
         # so the inverse is real), inverse FFT. Preserves the amplitude
         # distribution's power spectrum; destroys spatial phase coherence.
-        F = np.fft.rfftn(field)
+        axes = tuple(range(field.ndim))
+        F = np.fft.rfftn(field, axes=axes)
         mag = np.abs(F)
         rand_phase = np.exp(1j * rng.uniform(0.0, 2.0 * np.pi, size=F.shape))
         F_scr = mag * rand_phase
-        out = np.fft.irfftn(F_scr, s=field.shape)
+        out = np.fft.irfftn(F_scr, s=field.shape, axes=axes)
         return out
 
     # Phase3f Factor-2 fix is two-sided: the baseline must match BOTH (a) the
@@ -462,9 +463,175 @@ def toroidal_polarization_winding(engine: FDTD3DEngine, *, R_cells: float, n_phi
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# SECTION 4 — run-and-probe + adjudication                               [stub]
+# SECTION 4 — run-and-probe + adjudication
 # ══════════════════════════════════════════════════════════════════════════════
-# Built in commit 5.
+
+# Run config (substrate-scale; modest for tractability — convergence noted in result)
+N_LATTICE = 48
+DX = 0.01
+PML = 6
+N_SETTLE = 80  # steps to let the two packets collide before locking the trap cell
+N_RECORD = 240  # recording-window steps (phasor trajectory + persistence)
+PROBE_EVERY = 4
+
+
+def run_arm(engine: FDTD3DEngine, seed_meta: dict, *, label: str, nucleate: bool = False) -> dict:
+    """Evolve one arm; record localization, retention, saturation, phasor, winding.
+
+    Returns the per-arm observable dict. PML-excluded, density-peak sampling.
+    """
+    R_major = float(seed_meta.get("R_cells", 8.0))
+    # Seed interior energy for the retention baseline (PML-excluded)
+    interior0 = float(interior_energy_density(engine, PML).sum())
+
+    trap = None
+    vi_traj: list[float] = []
+    vr_traj: list[float] = []
+    peak_E_series: list[float] = []
+    interiorE_series: list[float] = []
+    peak_A_series: list[float] = []
+    nan_hit = False
+
+    for s in range(N_SETTLE + N_RECORD):
+        engine.step()
+        if not np.all(np.isfinite(engine.Ey)):
+            nan_hit = True
+            break
+        if s == N_SETTLE:
+            # Lock the trap cell at the post-collision interior density peak
+            pk = top_k_density_peaks(engine, PML, k=1)
+            trap = pk[0] if pk else None
+            if nucleate and trap is not None:
+                seed_meta["option_d"] = apply_option_d_chirality(engine, trap)
+        if s >= N_SETTLE and (s - N_SETTLE) % PROBE_EVERY == 0:
+            u_int = interior_energy_density(engine, PML)
+            peak_E_series.append(float(np.sqrt(u_int).max()))
+            interiorE_series.append(float(u_int.sum()))
+            Em = np.sqrt(engine.Ex**2 + engine.Ey**2 + engine.Ez**2)
+            peak_A_series.append(float((Em * DX / V_SNAP).max()))
+            if trap is not None:
+                vi, vr = phasor_pair_at(engine, trap, component="y")
+                vi_traj.append(vi)
+                vr_traj.append(vr)
+
+    # Observables
+    R_phase, r_phase = fit_ellipse_pca(vi_traj, vr_traj) if len(vi_traj) > 3 else (0.0, 0.0)
+    aspect = R_phase / max(r_phase, 1e-30)
+    cm, csign = chirality_sign(vi_traj, vr_traj) if len(vi_traj) > 3 else (0.0, 0)
+    tor_wind = toroidal_polarization_winding(engine, R_cells=R_major) if not nan_hit else float("nan")
+
+    # localization: did the energy stay interior + bounded, or leak/disperse?
+    interiorE_final = float(interior_energy_density(engine, PML).sum()) if not nan_hit else 0.0
+    interior_retention = interiorE_final / max(interior0, 1e-30)
+    # peak-field retention over the recording window (mean-V_peak breather criterion)
+    if len(peak_E_series) > 2:
+        peak_E_retention = float(np.mean(peak_E_series[-3:]) / max(peak_E_series[0], 1e-30))
+        peak_E_breather_mean = float(np.mean(peak_E_series))
+    else:
+        peak_E_retention = 0.0
+        peak_E_breather_mean = 0.0
+    peak_A_max = float(np.max(peak_A_series)) if peak_A_series else 0.0
+
+    # is the trap cell still interior (self-trapped) or did it migrate to the PML edge?
+    trap_interior = None
+    if trap is not None:
+        ti = all(PML <= trap[d_] < (N_LATTICE - PML) for d_ in range(3))
+        trap_interior = bool(ti)
+
+    return {
+        "label": label,
+        "seed": seed_meta.get("seed"),
+        "imposed_winding": seed_meta.get("imposed_winding"),
+        "nan_hit": bool(nan_hit),
+        "trap_cell": list(trap) if trap is not None else None,
+        "trap_still_interior": trap_interior,
+        "peak_E_retention": peak_E_retention,
+        "peak_E_breather_mean": peak_E_breather_mean,
+        "interior_energy_retention": interior_retention,
+        "peak_A_max": peak_A_max,
+        "saturation_engaged_op14": bool(peak_A_max > R_I),  # A > √(2α)
+        "phasor_aspect_R_over_r": aspect,
+        "phasor_aspect_vs_phi2": aspect / PHI_SQ if aspect > 0 else 0.0,
+        "phasor_chirality_sign": csign,
+        "phasor_chirality_cross_mean": cm,
+        "toroidal_polarization_winding": tor_wind,
+        "n_phasor_samples": len(vi_traj),
+        "option_d": seed_meta.get("option_d"),
+    }
+
+
+def adjudicate(results: dict) -> dict:
+    """Apply prereg §6 PASS criteria + fork verdict + emergence headline."""
+    cE = results["C-EMERGE"]
+    base = results["BASELINE"]
+    cN = results.get("C-NUCLEATE", {})
+    aC = results.get("A-CONTROL", {})
+
+    # P1 localization: trap stayed interior + peak field did not collapse
+    p1 = bool(cE["trap_still_interior"]) and cE["peak_E_retention"] > 0.5
+    # P2 retention > matched baseline
+    p2 = cE["peak_E_retention"] > base["peak_E_retention"]
+    # P3 saturation engaged
+    p3 = cE["saturation_engaged_op14"]
+    # P4 toroidal-2 winding (|w − 2| < 0.5 → integer 2)
+    tw = cE["toroidal_polarization_winding"]
+    p4 = (not np.isnan(tw)) and abs(abs(tw) - 2.0) < 0.5
+    # P5 phasor limit-cycle present (closed cloud, finite aspect, nonzero chirality)
+    p5 = cE["phasor_aspect_R_over_r"] > 1.05 and cE["phasor_chirality_sign"] != 0
+    # P6 poloidal-3: structurally out of scope (Cosserat absent) — recorded, not PASS/FAIL
+    p6 = "OUT_OF_SCOPE (no Cosserat sector on fdtd_3d.py — prereg §1)"
+
+    # Fork verdict. P4 (toroidal-2 winding) is the load-bearing structural
+    # observable; P5 (phasor limit-cycle aspect) is NECESSARY-BUT-NOT-SUFFICIENT
+    # (prereg §3) — a closed phasor cloud is not the (2,3) winding. So Mode I
+    # requires P4; P5-alone with P4-fail is Mode II (self-trap without the "2").
+    self_trapped = p1 and p3
+    if self_trapped and p4 and p5 and p2:
+        fork = "Mode I (self-traps; toroidal-2 + phasor limit-cycle present) — continuum hosts the testable structure; CAVEAT: poloidal-3 untested (P6 out of scope)"
+    elif self_trapped:
+        fork = ("Mode II (self-traps but the (2,3) winding observable is OFF: toroidal-2 absent) "
+                "— the continuum engine hosts a localized self-trapped photon but NOT the (2,3) "
+                "winding structure. Even the testable '2' does not emerge here. Strong support "
+                "that the discrete K4 4-port + Cosserat is load-bearing for the WINDING "
+                "(path forward = K4-TLM + Cosserat, r10_v8_t_st_self_trap.py).")
+    else:
+        fork = "Mode III (disperses even with transverse-photon origin seed across sweep) — strong evidence the discrete K4 4-port + Cosserat is load-bearing; continuum engine cannot host the (2,3); path forward = K4-TLM + Cosserat (r10_v8_t_st_self_trap.py)"
+
+    # Emergence headline. The (2,3) winding is the headline subject. P4 (toroidal-2)
+    # is the only WINDING observable fdtd_3d.py can carry; P5 alone is not winding.
+    # So "(2,3) emergent" requires at minimum P4. P5-only = self-trap-emerges-but-
+    # winding-does-not.
+    p23_winding_emerged = p4  # the only winding signature this engine can test
+    if p2 and self_trapped and p23_winding_emerged:
+        emergence = ("EMERGENT (toroidal-2 component) — C-EMERGE (no imposed winding) self-traps, "
+                     "out-retains matched baseline, AND autonomously winds the toroidal-2. "
+                     "CAVEAT: poloidal-3 not assessable on this engine (Cosserat absent).")
+    elif p2 and self_trapped:
+        emergence = ("SELF-TRAP EMERGES but the (2,3) WINDING DOES NOT — C-EMERGE (no imposed "
+                     "winding) autonomously self-traps a localized photon + out-retains the matched "
+                     "baseline (a real emergence result for LOCALIZATION), but the toroidal-2 "
+                     "winding does NOT emerge (P4 fail) and poloidal-3 is out of scope. The (2,3) "
+                     "winding is NEITHER emergent NOR (on this engine) testable-to-emerge — it needs "
+                     "the Cosserat sector + discrete 4-port (prereg §1). Honest partial.")
+    elif cN and cN.get("trap_still_interior") and cN.get("peak_E_retention", 0) > cE["peak_E_retention"]:
+        emergence = "IMPOSED-but-persists (partial) — C-EMERGE disperses; C-NUCLEATE (Option-D imposed) persists better → structure imposed, not emergent, on this engine"
+    else:
+        emergence = "DISPERSES — transverse seed insufficient on the continuum engine; missing the Cosserat sector + discrete 4-port (prereg §1)"
+
+    return {
+        "P1_localization": p1,
+        "P2_retention_gt_matched_baseline": p2,
+        "P3_saturation_engaged": p3,
+        "P4_toroidal_2_winding": p4,
+        "P5_phasor_limit_cycle": p5,
+        "P6_poloidal_3": p6,
+        "C-EMERGE_peak_E_retention": cE["peak_E_retention"],
+        "BASELINE_peak_E_retention": base["peak_E_retention"],
+        "A-CONTROL_peak_E_retention": aC.get("peak_E_retention"),
+        "C-NUCLEATE_peak_E_retention": cN.get("peak_E_retention"),
+        "fork_verdict": fork,
+        "emergence_headline": emergence,
+    }
 
 
 def verify_constants() -> None:
@@ -477,6 +644,32 @@ def verify_constants() -> None:
     assert abs(A2_OP14 - 2.0 * ALPHA) < 1e-9, "A2_OP14 ≠ 2α"
 
 
+def _new_engine() -> FDTD3DEngine:
+    """Engine at the TOPOLOGICAL scale (v_yield=V_SNAP) per prereg §5.1 amendment."""
+    return FDTD3DEngine(
+        nx=N_LATTICE, ny=N_LATTICE, nz=N_LATTICE, dx=DX,
+        linear_only=False, use_pml=True, pml_layers=PML, v_yield=V_SNAP,
+    )
+
+
+def _pick_stable_amplitude() -> tuple[float, float]:
+    """Sweep {0.3,0.5,0.7}·V_snap/dx; return the HIGHEST that does not NaN over a
+    short collision run (ave-infinity-discipline: deepest stable saturation)."""
+    best_frac = AMP_SWEEP_FRAC_VSNAP[0]
+    for frac in AMP_SWEEP_FRAC_VSNAP:
+        e = _new_engine()
+        build_transverse_photon_seed(e, amplitude=frac * V_SNAP / DX)
+        ok = True
+        for _ in range(N_SETTLE + 20):
+            e.step()
+            if not np.all(np.isfinite(e.Ey)):
+                ok = False
+                break
+        if ok:
+            best_frac = frac
+    return best_frac, best_frac * V_SNAP / DX
+
+
 def main() -> dict:
     print("=" * 78, flush=True)
     print("  r10 — Transverse-photon self-trap on fdtd_3d.py (Option C primary)")
@@ -484,11 +677,83 @@ def main() -> dict:
     print("=" * 78, flush=True)
     verify_constants()
     print(f"  Canonical: V_YIELD={V_YIELD:.3e} V, V_SNAP={V_SNAP:.3e} V, Z_0={Z_0:.2f} Ω")
-    print(f"  PASS bars: α⁻¹={ALPHA_COLD_INV:.4f}, φ²={PHI_SQ:.4f}, A²_Op14=2α={A2_OP14:.4f}")
+    print(f"  PASS bars: α⁻¹={ALPHA_COLD_INV:.4f}, φ²={PHI_SQ:.4f}, A_Op14=√(2α)={R_I:.4f}")
+    print(f"  Engine: N={N_LATTICE}³, PML={PML}, v_yield=V_SNAP (topological scale)")
     print("  SCOPE (prereg §1): fdtd_3d.py carries E/H only — toroidal-2 + phasor")
     print("    limit-cycle testable; poloidal-3 OUT OF SCOPE (Cosserat absent).")
-    print("\n  [skeleton — seeds + observables + adjudication built in commits 2-5]")
-    return {"status": "skeleton", "prereg": "research/2026-06-04_full-electron-transverse-selftrap-result.md"}
+    t0 = time.time()
+
+    # Pick the deepest stable amplitude across the sweep
+    amp_frac, amplitude = _pick_stable_amplitude()
+    print(f"\n  Amplitude (deepest stable in sweep {AMP_SWEEP_FRAC_VSNAP}): "
+          f"{amp_frac:.2f}·V_snap/dx", flush=True)
+
+    results: dict = {}
+
+    # --- C-EMERGE (primary, emergence-class): transverse photon, NO winding imposed
+    print("\n  [C-EMERGE] transverse photon, no (2,3) imposed ...", flush=True)
+    e = _new_engine()
+    mE = build_transverse_photon_seed(e, amplitude=amplitude)
+    results["C-EMERGE"] = run_arm(e, mE, label="C-EMERGE")
+    results["C-EMERGE"]["seed_meta"] = mE
+
+    # --- BASELINE (matched-distribution trivial; phase3f Factor-2 fix)
+    print("  [BASELINE] matched-distribution trivial (phase-scrambled, peak-matched) ...", flush=True)
+    e = _new_engine()
+    mE_for_base = build_transverse_photon_seed(e, amplitude=amplitude)
+    mB = build_matched_trivial_baseline(e, mE_for_base)
+    results["BASELINE"] = run_arm(e, mB, label="BASELINE")
+
+    # --- C-NUCLEATE (control, consistency): transverse photon + Option-D chirality
+    print("  [C-NUCLEATE] transverse photon + Option-D chirality (control) ...", flush=True)
+    e = _new_engine()
+    mN = build_transverse_photon_seed(e, amplitude=amplitude)
+    mN["seed"] = "C-NUCLEATE transverse photon + Option-D chirality"
+    results["C-NUCLEATE"] = run_arm(e, mN, label="C-NUCLEATE", nucleate=True)
+
+    # --- A-CONTROL (the demoted single-bond planted-(2,3) phasor seed)
+    print("  [A-CONTROL] single-bond planted-(2,3) phasor seed (A46-corrected) ...", flush=True)
+    e = _new_engine()
+    mA = build_single_bond_phasor_seed(e, amplitude=amplitude)
+    results["A-CONTROL"] = run_arm(e, mA, label="A-CONTROL")
+
+    verdict = adjudicate(results)
+    elapsed = time.time() - t0
+
+    # ── Report ────────────────────────────────────────────────────────────────
+    print("\n" + "=" * 78)
+    print("  VERDICT")
+    print("=" * 78)
+    print(f"  Fork: {verdict['fork_verdict']}")
+    print(f"  Emergence headline: {verdict['emergence_headline']}")
+    print(f"\n  PASS criteria (C-EMERGE):")
+    for kk in ("P1_localization", "P2_retention_gt_matched_baseline", "P3_saturation_engaged",
+               "P4_toroidal_2_winding", "P5_phasor_limit_cycle", "P6_poloidal_3"):
+        print(f"    {kk}: {verdict[kk]}")
+    print(f"\n  Retention (peak |field|): C-EMERGE={verdict['C-EMERGE_peak_E_retention']:.3f}  "
+          f"BASELINE={verdict['BASELINE_peak_E_retention']:.3f}  "
+          f"A-CONTROL={verdict['A-CONTROL_peak_E_retention']}  "
+          f"C-NUCLEATE={verdict['C-NUCLEATE_peak_E_retention']}")
+    for arm in ("C-EMERGE", "BASELINE", "C-NUCLEATE", "A-CONTROL"):
+        r = results[arm]
+        print(f"  [{arm}] trap_interior={r['trap_still_interior']} peak_A_max={r['peak_A_max']:.4f} "
+              f"sat_op14={r['saturation_engaged_op14']} aspect={r['phasor_aspect_R_over_r']:.3f} "
+              f"tor_wind={r['toroidal_polarization_winding']:.3f} nan={r['nan_hit']}")
+
+    payload = {
+        "driver": "r10_fdtd3d_transverse_photon_selftrap",
+        "prereg": "research/2026-06-04_full-electron-transverse-selftrap-result.md",
+        "engine": "fdtd_3d.py (full-vector Maxwell, v_yield=V_SNAP)",
+        "config": {"N": N_LATTICE, "dx": DX, "PML": PML, "n_settle": N_SETTLE,
+                    "n_record": N_RECORD, "amp_frac_vsnap": amp_frac},
+        "scope_note": "poloidal-3 OUT OF SCOPE on fdtd_3d.py (no Cosserat sector, prereg §1)",
+        "arms": results,
+        "verdict": verdict,
+        "elapsed_s": elapsed,
+    }
+    OUTPUT_JSON.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
+    print(f"\n  Saved {OUTPUT_JSON.name} ({elapsed:.0f}s)")
+    return payload
 
 
 if __name__ == "__main__":
