@@ -43,6 +43,24 @@ The AVE double-slit is a deterministic, continuous-medium interference problem �
 
 ## §3 — Component → substrate-primitive → EE-component table
 
+Each row is a consistency / translation identification (§1). The "Status" column carries the honest state of each mapping; "✓-VERIFIED canonical" marks a mapping confirmed verbatim against its anchor at this leaf's authoring (`verify-before-cite`).
+
+| Component | Substrate primitive | EE component | Anchor | Status |
+|---|---|---|---|---|
+| **Photon (free)** | $T_2$-only transverse Cosserat shear wave; $u=0$, $\omega\neq0$, $\Delta\phi\ll\alpha$ | matched ($\Gamma=0$) lossless transmission line at $Z_0\approx376.7\,\Omega$ | [photon-identification.md](../ch4-continuum-electrodynamics/photon-identification.md):11,24 | ✓-VERIFIED canonical |
+| **Carrier** | oscillation frequency $\omega$ of the $T_2$ wave | RF carrier | (informal) photon-propagation visualization | informal — see [Photon EE Mapping](../ch4-continuum-electrodynamics/photon-ee-mapping.md) §3 |
+| **Envelope** | Gaussian amplitude modulation in space/time | bandwidth-limited pulse envelope | (informal) photon-propagation visualization | informal — see [Photon EE Mapping](../ch4-continuum-electrodynamics/photon-ee-mapping.md) §3 |
+| **Electron (the "particle")** | self-trapped photon — the $T_2$ wave at $\Delta\phi\to\alpha$; magnetic branch shorts | **shorted $\lambda/4$ resonator** | [photon-identification.md](../ch4-continuum-electrodynamics/photon-identification.md):11; [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):240 | ✓ (electron = self-trapped photon canonical; $\lambda/4$ gate-(b) CLOSED 2026-06-04) |
+| **"Bubble" / core** | $\Gamma=-1$ self-created $0\,\Omega$ Local Bubble; $c_{local}\to0$, hyper-rigid envelope | $0\,\Omega$ short at the resonator mouth | [resonant-lc-solitons.md](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md):50; [zero-impedance-boundary.md](zero-impedance-boundary.md):51; [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):115 | ✓ ($\Gamma=-1$ SHORT, magnetic branch, clm-lv3uw1) |
+| **Rest mass** | trapped reactive energy in the $\Gamma=-1$ standing wave | stored reactive energy of the shorted resonator | [master-equation.md](../ch4-continuum-electrodynamics/master-equation.md):79; [zero-impedance-boundary.md](zero-impedance-boundary.md):51 | ✓ (clm-lv3uw1) |
+| **Transverse wake** | continuous transverse inductive wake $\propto\nabla\lvert\Psi\rvert^2$ (ponderomotive, near-field) | near-field ponderomotive gradient — **NOT** the far-field $\tau^{far}_{zx}$ dark-wake | [ohmic-decoherence-born.md](ohmic-decoherence-born.md):11; regime-distinct from [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):139 | ✓ (Born-path closed); regime-tagged ≠ thrust dark-wake (§6) |
+| **Slit wall** | aperture / impedance discontinuity in the lattice (wake transmits through both) | aperture / boundary discontinuity in the line | [ohmic-decoherence-born.md](ohmic-decoherence-born.md):11 | consistency |
+| **Detector / observer** | resistive mechanical load coupling to the $\mathbf{A}$-field | resistive load $Z_{det}$ (Joule sink) | [ohmic-decoherence-born.md](ohmic-decoherence-born.md):18,23 | ✓ (clm-ldmvwi) |
+| **Which-path decoherence** | Ohmic thermalization of the phase wave; $W_{extracted}\propto\lvert\partial_t\mathbf{A}\rvert^2/Z_{det}$ | $P=V^2/R$ Joule heating at the load | [ohmic-decoherence-born.md](ohmic-decoherence-born.md):18,23,34 | ✓ (clm-ldmvwi) |
+| **Screen / Born rule** | $P(\text{click}\mid x_n)=\lvert\partial_t\mathbf{A}(x_n)\rvert^2/\!\int\!\lvert\partial_t\mathbf{A}\rvert^2\equiv\lvert\Psi\rvert^2$ | detector capture-work at the Joule-integration boundary | [ohmic-decoherence-born.md](ohmic-decoherence-born.md):31,36-61 | ✓ (Born-path CLOSED 2026-05-26; AC/sign-symmetric scope :59) |
+| **de-Broglie wave** | transverse standing-wave troughs the defect navigates | standing-wave pattern on the line | [ohmic-decoherence-born.md](ohmic-decoherence-born.md):11 | consistency |
+| **Visibility vs impedance** | fringe visibility $V$ vs $Z_{det}$ is **continuous** (Γ-detune) | continuous decoherence vs binary collapse | (driver) `double_slit_design_space.py`:17-20 | AVE-distinct falsifiable prediction (§5) |
+
 ## §4 — Which-path decoherence and the screen / Born rule (EE form)
 
 ## §5 — The AVE-distinct prediction: visibility vs detector impedance
