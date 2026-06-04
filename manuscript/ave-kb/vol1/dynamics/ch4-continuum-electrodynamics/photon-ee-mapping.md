@@ -88,3 +88,19 @@ There are **two distinct "magnetic" DOFs and two distinct $E$↔$B$ couplings** 
 The intra-K4 linear $E$↔$B$ (I) is the photon; the K4↔Cosserat parametric bridge (II) is photon→matter. Conflating them is the error gate (a) corrected. (Anchor: [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):232–238.)
 
 ## §5 — Honest-status flags
+
+Carried verbatim per `ave-evidence-framing-discipline`:
+
+- **This leaf is consistency / translation, not emergence.** Every mapping is an identification of already-canonical content (§1); `no-claim:` frontmatter; no new derivation.
+
+- **$R\!\cdot\!r=\tfrac14$ is NOT canonical — Class-B, contradicts honest-α.** The substrate does **not** independently select $R\!\cdot\!r=\tfrac14$ ([translation-circuit.md](../../../common/translation-tables/translation-circuit.md):230, "the substrate does NOT independently select R·r=1/4"; `clm-0ktpcn`, Class-B, CHALLENGE-CLOSED 2026-06-04). The I/Q quadrature of §4 is where the $R\!\cdot\!r$ phasor *lives*, but the $\tfrac14$ value is a **named identification the substrate does not derive** — do NOT present §4 as deriving it.
+
+- **The $E$↔$B$ row (translation-circuit.md:173) was ⚠ partial, "consolidating leaf PENDING" — THIS leaf is that pending leaf.** On landing, the §4.5(b) Impedance & transmission I/Q row's pending-note should point here.
+
+- **Soliton self-lock / autoresonance at $\Gamma=-1$ is underived** (✗ GAP, [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):202,217). The electron's stable confinement at the $\Gamma=-1$ boundary is asserted from the saturation mechanism; the autoresonance / self-lock that would keep it locked is a plausible-but-underived candidate (the only autoresonant-PLL leaf is invalidated for using the wrong yield threshold).
+
+- **The shorted $\lambda/4$ resonator map is a DESCRIPTION (gate-(b) CLOSED 2026-06-04), not a $\tfrac14$ derivation.** It describes the electron's trapped-reactive-energy structure (a shorted $\lambda/4$ resonator = a half-Γ-lap on the Smith chart); it does **not** derive $R\!\cdot\!r=\tfrac14$ ([translation-circuit.md](../../../common/translation-tables/translation-circuit.md):240).
+
+- **Helical-photon ($u\neq0$ AND $\omega\neq0$) RETRACTED** ([photon-identification.md](photon-identification.md):93). Canonical photon is single-sector ($T_2$ only). Legacy "helical soliton" scripts use the superseded framing.
+
+> **⚠ Surfaced status drift (flag-don't-fix, for auditor adjudication).** The translation-circuit.md:173 I/Q row's note still reads that "the $R{\cdot}r=1/4$ phasor-radius question that lives in this sector is a *separate*, **gate-(b)-pending** claim", whereas the (e)-section rows at :240–241 record gate (b) as **RUN and CLOSED 2026-06-04** (R·r=¼ "CHALLENGE-CLOSED 2026-06-04, Class B hardened"). The two statements are about the same claim at different points in the same file; the :240–241 closure is the later, authoritative state. This leaf adopts the **Class-B / gate-(b)-CLOSED** status (R·r=¼ not derived) and surfaces the :173 "gate-(b)-pending" phrasing as **stale wording to reconcile**, not a live open question. Do not silently rewrite :173 — the auditor adjudicates whether to update its phrasing when this leaf lands.
