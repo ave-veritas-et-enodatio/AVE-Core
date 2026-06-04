@@ -60,7 +60,7 @@ from ave.core.constants import ALPHA, ALPHA_COLD_INV
 # ============================================================================
 A_E_MEASURED = 1.15965218073e-3   # measured electron anomaly (frequency ratio)
 C2_QED = -0.328478965             # QED 2-loop Petermann coefficient (SM-counterfactual)
-ALPHA_INV_QED = 137.035999        # QED-faceplate extraction of alpha^-1
+ALPHA_INV_QED = 1.0 / ALPHA       # CODATA alpha^-1, derived from canonical ALPHA (faceplate comparison anchor; ave-canonical-source — no hardcoded magic number)
 Q0_INV = ALPHA_COLD_INV           # = 4pi^3 + pi^2 + pi = 137.0363038 (canonical)
 
 # QED higher-loop coefficients (for apples-to-apples faceplate framing only;
