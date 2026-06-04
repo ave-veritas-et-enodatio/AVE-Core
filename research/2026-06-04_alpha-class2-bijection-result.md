@@ -134,4 +134,43 @@ This is a **negative** result, so the discrimination check runs in reverse — i
 
 **Class B (axiom-manifestation with a named identification), unchanged — and now with the α-freedom of the phasor↔real-space bijection explicitly falsified.** No new K4+Cosserat primitive is derived (R.6). The phasor-area = Nyquist-cell-area step remains canonical INPUT, not Class-2 emergence; the kinematic bridge that might have derived it instead requires α to be substituted. Per v1.3, promotion past the canonical Class-B ceiling requires a named new substrate-primitive, and there is none.
 
-## §AUDITOR QUEUE — placeholder (filled incrementally)
+## §AUDITOR QUEUE
+
+Implementer-lane surfacing per Rule 15 + flag-don't-fix. The auditor lands the manuscript / KB / `COLLABORATION_NOTES` entries; I surface the findings + provenance below. **No KB/manuscript files were edited by this session** — result lives in `research/` + the sanity script only.
+
+### AQ-1 (top item) — close the gate-(b) `R·r=1/4` phasor-radius question with this kinematic negative
+
+`translation-circuit.md:173` flags *verbatim*: *"the R·r=1/4 phasor-radius question that lives in this sector is a separate, **gate-(b)-pending** claim."* **This result resolves that gate-(b) for the kinematic unit-bridge: it does NOT lift — the bijection requires substituting α (B3 FAIL).** Auditor action: when consolidating the pending I/Q-quadrature canonical leaf, record that the kinematic phasor↔real-space area bijection is **Class B (α-substituted), analytically closed 2026-06-04** — alongside the dynamical negatives. Recommend the gate-(b) marker be updated from "pending" to "resolved-negative (kinematic)" with this doc as anchor. **Do not** read this as resolving the *linear-quadrature decomposition* row itself (that is gate-(a), separate and not under test here).
+
+### AQ-2 — the Class-B caveat at `ch8-alpha-golden-torus.md:11` can cite a second closed lift-route
+
+The ch8 Class-B caveat (clm-0ktpcn, the `> Class B caveat (honest-α relabel)` block) currently lists the dynamical negatives (the four `audit/2026-06-02_alpha-lift-*` + S₁₁-flatness + the 2026-06-04 adversarial re-challenge) and states *"A Class 2 lift would require deriving the phasor↔real-space area bijection from K4 + Cosserat primitives — identified as a separate workstream candidate (see Phase 1 result §7.3)."* **That separate workstream (Q-EMBED-SEL-1 §7.3) is now executed and returns Class B (negative).** Auditor action (lands the edit): append to the caveat that the §7.3 kinematic-bijection lift-route has been **analytically attempted and closed Class B** (this doc), so **both** named lift-routes — dynamical *selection* and kinematic *unit-bridge* — are now closed. The caveat's honest framing strengthens; the chapter title/Class-B framing is unchanged.
+
+### AQ-3 — `COLLABORATION_NOTES` / closure-roadmap: Q-EMBED-SEL-1 §7.3 status → CLOSED (Class B)
+
+The §7.3 lift-candidate is the last open α-¼ lift-path. With this analytical negative + the prior dynamical negatives + the 2026-06-04 adversarial re-challenge that held, **the α-¼ lift programme is closed at Class B on all named routes.** Surface for the auditor's roadmap queue: mark Q-EMBED-SEL-1 §7.3 (phasor↔real-space bijection lift) CLOSED-NEGATIVE; no remaining open lift-route for α⁻¹ = 4π³+π²+π beyond first-principles z₀-from-K4 (a *different* route, still open, untouched here).
+
+### AQ-4 — DO NOT promote as a positive anchor (ave-discrimination-check carry-forward)
+
+This is a clean negative; it adds no AVE-distinct empirical anchor (V.4). Flag for the auditor: ensure no foreword / predictions-matrix promotion derives from this doc. The only corpus-state change is **caveat-strengthening** (a named lift-route closed), not a new positive claim.
+
+### Provenance table (verify-before-cite — all grep-verified at cited line, 2026-06-04)
+
+| Citation | Line content (verified) |
+|---|---|
+| `2026-05-31_Q-EMBED-SEL-1_step_c_result.md:69` | "(ii) **Phasor enclosed area = per-Compton-cycle reactive energy** … the enclosed area πRr in ℓ_node² units equals the bond's per-Compton-cycle reactive energy (up to the unit-system overall constant that the lattice-natural-units choice sets to unity)" |
+| `kinetic-yield-threshold.md:16` | "By **substituting** the fundamental definition of the fine-structure constant (α = e²/4πε₀ℏc), the kinetic yield limit simplifies" |
+| `kinetic-yield-threshold.md:21` | E_k = √(F_yield · e²/4πε₀) = √((m_e²c³/ℏ)(αℏc)) = **√α · m_e c²** |
+| `z0-derivation.md:19` | L_cell = μ₀ ℓ_node,  C_cell = ε₀ ℓ_node |
+| `natural-units-cheatsheet.md:59` | V_SNAP = m_e c²/e → native **1/√α**, SI 511,000 V |
+| `translation-circuit.md:173` (common) | "E ~ (V_inc+V_ref), B ~ (V_inc−V_ref)/Z … the R·r=1/4 phasor-radius question … is a separate, **gate-(b)-pending** claim" |
+| `ch8-alpha-golden-torus.md:11` | the Class-B caveat block (clm-0ktpcn) listing the closed lift-routes |
+| `constants.py:234` | `L_NODE = HBAR/(M_E*C_0)` (α-free) |
+| `constants.py:246` | `XI_TOPO = e_charge/L_NODE` (α-free) |
+| `constants.py:373` | `V_SNAP = (M_E*C_0**2)/e_charge` (α-free) |
+| `constants.py:382` | `V_YIELD = np.sqrt(ALPHA)*V_SNAP` (carries α — the suspect; per `kinetic-yield-threshold.md` an α-substitution) |
+
+### Files this session produced (worktree-isolated, branch `analysis/2026-06-04-alpha-class2-bijection`)
+- `research/2026-06-04_alpha-class2-bijection-result.md` (this doc)
+- `src/scripts/vol_1_foundations/alpha_class2_bijection_circularity_audit.py` (sanity-check; `make verify` PASSES; DAG anti-cheat clean; α-free construction AST-verified)
+
