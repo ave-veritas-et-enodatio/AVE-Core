@@ -223,18 +223,23 @@ This tracker stays current per `ave-ee-first-mapping` v1.2 **Step 6b**: when an 
 
 > Companion axes: [`ave-analytical-toolkit-index.md`](../ave-analytical-toolkit-index.md) is the *problem-class → AVE-tool* side (when starting a derivation, which Op# applies); this §4.5 is the *EE-tool → operator → validation* side (when reaching for a named EE method, which Op# + is it solid). [`operators.md`](../operators.md) is the canonical Op1–Op22 set both reference.
 
-### (e) Canonization candidates — ⚠ PENDING CHALLENGE (2026-06-04; do NOT promote to ✓/⚠-validated until gates pass)
+### (e) Canonization candidates — gate (a) RUN 2026-06-04 (split verdict; do NOT promote to ✓ until the α-emergence gates b+c pass)
 
-Surfaced 2026-06-04 via `ave-ee-first-mapping` on the photon→electron engine arc (the Q0 parametric-decoupling finding). These are **hypotheses, NOT validated rows** — they CONTRADICT this session's honest-α Class-B verdict (2026-06-02: the substrate does NOT independently select R·r=1/4) and must clear the challenge gates in [`2026-06-04_ee-rf-quadrature-coupling-and-alpha-quarter-hypothesis.md`](../../../../research/2026-06-04_ee-rf-quadrature-coupling-and-alpha-quarter-hypothesis.md) §5 before any KB landing. Listed here as grep-discoverable breadcrumbs only:
+Surfaced 2026-06-04 via `ave-ee-first-mapping` on the photon→electron engine arc (the Q0 parametric-decoupling finding); full record + the crystal-clear vocab/math map in [`2026-06-04_ee-rf-quadrature-coupling-and-alpha-quarter-hypothesis.md`](../../../../research/2026-06-04_ee-rf-quadrature-coupling-and-alpha-quarter-hypothesis.md) (§8 = gate (a) outcome). **Gate (a) split the set in two:** the *descriptive* mappings (what the engine factually does — read from code) PASSED and are KB-eligible; the *α-emergence* mappings stay ⚠-pending gate (b) and still CONTRADICT the honest-α Class-B verdict (2026-06-02: the substrate does NOT independently select R·r=1/4). Grep-discoverable breadcrumbs:
 
-- **Degenerate parametric amplifier** ↔ Op14 (K4-V → Cosserat-ω): the V²-even-in-ω coupling is a parametric pump that cannot seed the ω-idler from zero (Q0; `k4_cosserat_coupling.py:118`). Candidate engine-artifact diagnosis. *(control/feedback gap-cluster sibling to PLL/autoresonance, all on Op14.)*
-- **Linear LC / transformer E↔B coupling** (the LC tank's resonant slosh) — candidate MISSING term; a node's E↔B coupling should be linear (Maxwell-curl-like), not parametric-only. Gate (a) = `substrate-native-check` the actual coupling code.
-- **I/Q quadrature** ↔ (V_inc,V_ref); the photon = a full E+B quadrature pair (seed both channels, not V-only).
-- **Half/quarter-wave resonator** ↔ Γ=−1 boundary (antinode pinned at the cell edge) — would refine the §4 "open-circuit / total-reflection" row.
-- **R·r = 1/4 = (Nyquist half-cell)²** — candidate EMERGENT origin of the α half-cover identification (Class-2 lift IF gates (a)+(b)+(c) pass; today Class-B per honest-α 2026-06-02).
-- **Injection locking** ↔ nucleation rule; **Manley–Rowe** ↔ pump/signal/idler split; **2:3 Lissajous / mode-lock** ↔ the (2,3) winding.
+**The load-bearing disambiguation (gate (a)'s headline clarity).** There are **two distinct "magnetic" DOFs and two distinct E↔B couplings** — do not conflate them:
+- **(I) Intra-K4, the photon's own E↔B — LINEAR, PRESENT:** `V_inc/V_ref ↔ Φ_link` via TLM scatter+connect (`k4_tlm.py:340,400`). E ~ (V_inc+V_ref), B ~ (V_inc−V_ref)/Z, locked by the line impedance. *This is where the 1/4 phasor lives.*
+- **(II) K4↔Cosserat bridge, photon → matter spin — PARAMETRIC, CANONICAL:** V² modulates the saturation varactor in `W_refl` (`A²_ε ⊃ V²/V_SNAP²`), it does not torque ω; even in ω ⇒ ω=0 is an exact fixed point. This is **pair-production** (matter spin from a seeded Γ→−1 rupture), not a bug. Three engines carry these: K4-TLM (`k4_tlm.py`, the photon, linear), Cosserat (`cosserat_field_3d.py`, ω = matter spin, bridged via W_refl), Maxwell-FDTD (`fdtd_3d.py:285,309`, clean curl E↔H reference, no (2,3) carrier).
 
-Promotion path: clear §5 gates → land validated rows in §4 / §4.5 / §6 with ✓ or an honest ⚠.
+**Per-term dispositions:**
+- **Degenerate parametric amplifier** ↔ Op14/W_refl bridge (K4-V → Cosserat-ω): the V²-even-in-ω coupling is a parametric pump that cannot seed the ω-idler from zero (Q0; `k4_cosserat_coupling.py:118`). **Gate (a) PASSED as a DESCRIPTION** — but RE-SCOPED: this is the *canonical pair-production* coupling, NOT an engine artifact. KB-eligible.
+- ~~**Linear LC / transformer E↔B is a MISSING term**~~ — **REFUTED by gate (a).** The linear E↔B exists *intra-K4* (`V↔Φ_link`); the K4↔Cosserat bridge is *correctly* parametric. The original "missing-coupling" diagnosis conflated couplings (I) and (II). Struck.
+- **I/Q quadrature** ↔ (V_inc,V_ref) (`k4_tlm.py:192-193`); the photon's E+B both live in the K4 sector. **Gate (a) PASSED.** KB-eligible.
+- **Half/quarter-wave resonator** ↔ Γ=−1 boundary (antinode pinned at the cell edge) — would refine the §4 "open-circuit / total-reflection" row. **Gate (b) PENDING.**
+- **R·r = 1/4 = (Nyquist half-cell)²** — candidate EMERGENT origin of the α half-cover identification; **DECOUPLED from the Cosserat issue by gate (a)** (it lives in the K4 phasor, which has its linear LC) and now rests entirely on **gate (b)**. Class-2 lift IF gates (b)+(c) pass; today Class-B per honest-α 2026-06-02, 4 negative α-lift tests still evidence against.
+- **Injection locking** ↔ nucleation rule; **Manley–Rowe** ↔ pump/signal/idler split; **2:3 Lissajous / mode-lock** ↔ the (2,3) winding. **Gate (a) PASSED as descriptions** of the Cos-sector seed/winding; the (2,3)-*emergence* remains a no-seed/pair-production question.
+
+Promotion path: the PASSED descriptive mappings (parametric-amp↔bridge re-scoped, I/Q↔(V_inc,V_ref), the two-sector disambiguation, injection-lock descriptions) are eligible to land as ✓/⚠ tracker rows now (awaiting go); the α-emergence mappings clear gate (b)+(c) first.
 
 ---
 
