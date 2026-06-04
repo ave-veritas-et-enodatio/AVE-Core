@@ -11,6 +11,38 @@ This probe re-seeds correctly + discriminates a load-bearing fork.
 
 ---
 
+## §0 REDIRECT (Grant 2026-06-04) — seed the ORIGIN (transverse photon), not the END state
+
+Grant's reframe, corpus-confirmed: **the electron IS a self-trapped photon** (`electron-bh-isomorphism.md:10`
+"the electron is a self-trapped photon … 0₁ unknot confined by a Γ=−1 TIR boundary"; `optical-refraction-gravity.md:13`
+"Mass is confined EM wave energy (Hopfions)"), and **the (2,3) is the photon's TRANSVERSE CURL projected at
+confinement** (`pair-production-axiom-derivation.md:76-77`: at full saturation c_local→0 closes the longitudinal
+channel, energy conservation shatters the blocked KE "sideways into the transverse curl channel," and "the
+transverse curl is forced into (2,3) winding"). So planting the compressed single-bond (2,3) end-state (§1, §3
+below) is **almost certainly why end-state seeds disperse** — it omits the transverse structure that defines and
+stabilizes the knot.
+
+**Option C is now PRIMARY; the single-bond seed (§1/§3/§4 Option A) is demoted to CONTROL.**
+
+**Option C — transverse-photon self-trap (the physical origin):** seed a structured/knotted **transverse photon**
+(Hopfion-like / two counter-propagating focused transverse pulses, multi-node) on `fdtd_3d.py`, drive the
+constructive-interference point to breach V_yield → V_snap, and watch for an **autonomous (2,3) self-trap** — the
+canonical pair-production mechanism (`pair-production-axiom-derivation.md` §2 seven steps + §"Option D nucleation
+rule" line 121 + §"What the current engine cannot represent" line 109-121, which flags the engine has **no
+nucleation rule** — implementor decides pure-emergence vs nucleation-rule-assisted).
+
+**The headline question (sharper consistency-vs-emergence):** does the **(2,3) EMERGE** from the transverse-mode
+self-trap (Grant's hypothesis: a transverse wave across multiple nodes *sets* the 2,3 — the minimal stable closure
+of a self-trapped transverse photon; "2" ~ spin-½ double-cover, "3" ~ minimal poloidal winding) **OR must it be
+imposed** (the Option-D nucleation rule)? Emergence = the deep result; imposed-but-persists = partial; disperses
+= the transverse seed is still insufficient (report what's missing).
+
+**Verdict to return:** (1) does a transverse photon self-trap into a bound (2,3) electron on `fdtd_3d.py`? (2) is
+the (2,3) emergent or imposed? (3) the single-bond CONTROL result (continuum-vs-discrete, per §4). Surface to
+Grant any load-bearing choice in the transverse-knot / Hopfion construction before committing to it.
+
+---
+
 ## §1 Target + physical picture (Step 1.5)
 
 **Target:** Does the full-vector Maxwell FDTD engine (`src/ave/core/fdtd_3d.py`) autonomously host a
