@@ -1,6 +1,6 @@
 # Full-electron Option B — (2,3)-emergence on the DISCRETE engine (`VacuumEngine3D`)
 
-**Status:** PREREG (frozen) — result pending driver run.
+**Status:** COMPLETE — §RESULT/§VERDICT/§AUDITOR filled 2026-06-04 by the orchestration session, adjudicating the orphaned-implementor run (driver pid 53937 socket-died mid-writeup; data was committed, the verdict sections were empty). **The adjudication CORRECTS the driver's auto-verdict in two places (B2 false-pass; B3 extractor unvalidated) and re-anchors the headline on the retention discriminator — see §VERDICT.**
 **Branch:** `analysis/2026-06-04-full-electron-option-B-discrete`
 **Driver:** `src/scripts/vol_1_foundations/r10_vacuumengine3d_transverse_2_3_emergence.py`
 **Brief:** `_orchestration/2026-06-04_full-electron-option-B-discrete-emergence.md` (commit e1a6c963)
@@ -276,10 +276,6 @@ photon carries the (2,3) structure but won't self-trap on the Z(V)-only K4-TLM. 
 NOT free-build the ~1-2 week c_eff refactor; I test as-is and surface the go/no-go. (Recorded in
 RESULT/§VERDICT if it fires.)
 
-## §5 Surfaced-for-Grant questions (pre-test-physics-check)
-
-<!-- FILLED: the questions -->
-
 ## §6 Configuration
 
 **Engine** (`VacuumEngine3D.from_args`, A28-corrected coupling per `r10_v8_t_st_self_trap.py`
@@ -323,12 +319,51 @@ bars) + `*_capture.npz` (axial + trap-bond reactance-pair traces).
 
 ## RESULT
 
-<!-- FILLED AFTER RUN -->
+**Run:** `r10_vacuumengine3d_transverse_2_3_emergence.py`, completed 2026-06-04 08:06. Config (canonical): `N=48`, `pml=4`, `n_periods=40`, `amplitude=0.4`, `A²_op14 = √(2α) = 0.12081` (`ALPHA=0.0072973525693` imported from `ave.core.constants`). Three arms, ~163–198 s each. Trap bond = density-peak interior cell (PML-excluded); a self-trapped shell's centroid is the empty middle, so the **peak bond** (where the energy is) is the meaningful probe — the center bond runs at ~50× lower amplitude (near-empty) and its winding is noise.
+
+| Observable | Arm A — emergence | Arm B — matched baseline | Arm C — imposed (2,3) |
+|---|---|---|---|
+| max A²_interior | 0.351 | 0.278 | **8.90** |
+| saturation engaged (> 0.1208) | ✓ | ✓ | ✓ |
+| **energy retention post-shutoff** | **0.0173** | **0.0158** | **0.914** |
+| peak-bond winding (n₁,n₂), c | (12,0), c=22 | (10,0), c=19 | (8,0), c=16 |
+| peak-bond amplitude | 0.084 | 0.087 | **1.60** |
+| peak-bond R_phase/r_phase | 76.8 | 2033 | 3411 |
+| center-bond winding (n₁,n₂), c | (11,7), c=93 | (15,34), c=81 | (0,2), c=55 |
+| spatial-ring winding (w₁,w₂) | (0,0) | (0,0) | (0,0) |
+| reactance corr ⟨V_inc, dΦ/dt⟩ | −0.009 | −0.001 | **−0.898** |
+| Cosserat ω_max / Hopf Q_H / Op10-c | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 |
+
+**Driver auto-eval bars:** B1 self-trap ✓ · B2 beats-baseline ✓ (literal `>`) · B3 (2,3)-phasor-winding ✗ · B4 reactance-ring ✓ · auto-outcome "iii".
+
+**The three numbers that carry the verdict (all robust, coordinate-independent):**
+1. **Retention:** A 1.7% ≈ B 1.6% ≪ C **91.4%**. The transverse photon (coherent curl) disperses *identically to the phase-scrambled baseline*; only the imposed nucleation binds.
+2. **Peak-bond A ≈ B, both ≠ C:** Arm A's energetic bond ((12,0), amp 0.084) matches the baseline ((10,0), amp 0.087), not the imposed control (amp **1.60**, 20× larger, bound). The emergence arm's phasor sector looks *trivial*, not like an imposed (2,3).
+3. **Cosserat ω ≡ 0 in every arm:** ω_max = Hopf = Op10 = 0 across A, B, **and C**. The pure-V transverse photon never spins up the Cosserat sector — exact ω=0 fixed point, empirically, on the discrete engine.
 
 ## §VERDICT (the §4-of-brief outcome i/ii/iii)
 
-<!-- FILLED AFTER RUN -->
+The orchestration adjudication **corrects the driver's auto-verdict in two places** and lands the same headline (iii) on *better-supported* grounds.
+
+**Headline — Outcome (iii): the transverse photon does NOT set the (2,3).** By the prereg's own B3 criterion — Arm A must MATCH the imposed-(2,3) template (Arm C), not a literal "(2,3)" — Arm A matches Arm **B** (baseline), not Arm C: peak-bond winding **and amplitude** A=(12,0)/amp0.084 ≈ B=(10,0)/amp0.087, while C is a wholly different physical object (amp 1.60, 91% retention). Grant's hypothesis *"a transverse wave across multiple nodes SETS the (2,3)"* is **REFUTED on `VacuumEngine3D`** — but read the caveats; this is refuted on the *retention + match-the-template* discriminators, not on the winding numbers.
+
+**The robust discriminator is RETENTION, not the winding extractor.** A 1.7% ≈ B 1.6% ≪ C 91.4%. Coherent transverse curl (A) disperses exactly like phase-scrambled noise (B); only the imposed nucleation (C) produces a durable bound state. This is the clean evidence.
+
+**CORRECTION 1 — B2 is a false pass.** The auto-verdict marks B2 (beats baseline) ✓ on the literal 0.0173 > 0.0158. That margin (1.7% vs 1.6%) is within noise: **both arms essentially fully dispersed**, no topological retention advantage. Honest **B2 = ✗**. This *strengthens* the refutation — coherent structure buys nothing over noise.
+
+**CORRECTION 2 — the B3 winding extractor is UNVALIDATED (the load-bearing caveat).** It does not recover the *imposed* (2,3) in Arm C: peak (8,0), center (0,2), spatial-ring (0,0) in **all** arms including the imposed control; R_phase/r_phase = 77–3411 (near-degenerate ≈ 1-D trajectories). **An extractor that cannot see a known-imposed (2,3) cannot certify its absence as "no emergence."** So B3-as-a-(2,3)-detector is INCONCLUSIVE; the refutation does NOT rest on the winding numbers reading "not (2,3)" — it rests on (a) A tracking B not C (the prereg's match-the-template logic) and (b) retention. The likely culprit is the §3 A47-v3 coordinate question (the imposed (2,3) may live in a coordinate neither the temporal-single-bond nor the spatial-ring extractor reads). Top auditor item.
+
+**Carrier-2 (Cosserat ω) — the gate-(a) tie, robust across all arms.** ω_max = Hopf Q_H = Op10-c = 0 in A, B, **and** C. The pure-V transverse photon leaves the Cosserat sector at exactly **ω ≡ 0** — the empirical, discrete-engine confirmation of the **Q0** finding that **gate (a) (main, commit `8adf10ed`, research `2026-06-04_ee-rf-quadrature-coupling-and-alpha-quarter-hypothesis.md` §8) resolved analytically**: the K4↔Cosserat coupling `W_refl` is even in ω, so ω=0 is an exact fixed point, and the deterministic engine has no fluctuation to seed the parity-break. The SU(2) U(1)-fibre "3" does **not** emerge in ω from a transverse photon — mechanism-confirmed, not a tuning artifact.
+
+**The unified physical picture (the real content of this result).** The (2,3) winding is the **binder**: impose it (Arm C, = pair-production's nucleation seed) and the state binds at 91% retention; withhold it (Arm A) and a transverse photon disperses like noise. The transverse wave does NOT *generate* the (2,3) — the (2,3) must be **nucleated (seeded)**. This is the discrete-engine realization of gate (a)'s *deterministic-no-seed*: the engine **can host a bound electron** (Arm C proves the host exists) but **cannot nucleate one from a transverse photon** (Arm A dispersal + the ω=0 fixed point). Pair-production's fluctuation seed is not an engine artifact — it is the required symmetry-breaker, and once supplied, the electron binds. Grant's transverse-set hypothesis is refuted *in favor of* the pair-production picture the corpus already carries — the two negatives (this + gate (a)) are the same physics seen from the discrete and analytical sides.
+
+**Net outcome:** **(iii)-headline** (transverse photon does not set the (2,3)) on the retention + match-the-template discriminators; **B3-detector inconclusive** (extractor caveat — blocks any standalone (2,3)-presence/absence claim until validated); **retention + ω≡0 robust**. NOT a clean (ii) — saturation *did* breach (B1 ✓); NOT the auto-verdict's clean (iii)-on-winding-numbers. The (ii)/(iii) boundary (B1 ✓ but retention ≈ baseline) is surfaced for Grant's physical call (§AUDITOR #3).
 
 ## §AUDITOR QUEUE
 
-<!-- FILLED AFTER RUN -->
+1. **[BLOCKING for any (2,3)-detector claim] Validate the phasor-winding extractor against the imposed control.** It fails to recover the Arm-C imposed (2,3) — peak (8,0), center (0,2), spatial-ring (0,0) in every arm. Until it recovers a *known-imposed* (2,3), no (2,3)-emergence/absence claim built on it is load-bearing. Diagnose against §3 (A47-v3 phase-space-vs-real-space) + §5 Q1/Q2 (temporal-single-bond vs spatial-ring; the imposed (2,3) may live in a coordinate neither extractor reads).
+2. **B2 false-pass** — auto-verdict B2=true is within-noise (1.7% vs 1.6%); corrected to ✗ (no retention advantage over baseline). Confirm the correction.
+3. **(ii)/(iii) boundary — Grant's physical call.** B1 ✓ (saturation breached, A²=0.35) but retention 1.7% (dispersed ≈ baseline). Is "momentary breach + dispersal" outcome (iii) [self-traps, then no-(2,3)] or outcome (ii) [never durably traps]? Refuted on the (2,3) axis (iii); on the *binding* axis the photon never durably bound (ii-flavor). Surfaced, not forced.
+4. **gate-(a) cross-link (bidirectional).** Carrier-2 ω≡0 here is the empirical/discrete confirmation of gate (a)'s analytical Q0 (main `8adf10ed`, research §8). Cross-reference both docs on merge; this is the discrete side of the same deterministic-no-seed finding.
+5. **Arm C as a positive control — characterize the bound state.** 91% retention + A²=8.9 from the imposed nucleation is a strong positive that the engine HOSTS a bound electron once seeded. Follow-up: is the Arm-C bound state the φ²/(2,3) electron (R/r→φ², (2,3) winding in the *correct* coordinate), or a generic saturated blob? This is the natural successor test, and it depends on auditor #1 (a validated extractor).
+6. **Merge status.** This doc + `*_results.json` + `*_capture.npz` are committed on `analysis/2026-06-04-full-electron-option-B-discrete`; the branch is NOT merged (awaits the batch-merge authorization with the other pending sibling-repo merges).
