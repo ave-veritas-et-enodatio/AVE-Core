@@ -7,11 +7,39 @@ no-claim: "consolidation / translation leaf — maps the canonical AVE double-sl
 
 # Double-Slit EE / Glossary Mapping — Defect + Ponderomotive Wake
 
-_Skeleton — sections populated incrementally per implementer-dispatch incremental-write discipline._
+This leaf consolidates the AVE double-slit experiment's component glossary into a single substrate-primitive → electrical-engineering (EE) component mapping. The "particle" in the AVE double-slit is the **electron — a self-trapped photon** (see [Photon Identification](../ch4-continuum-electrodynamics/photon-identification.md), $T_2$-only Cosserat microrotation; electron = that wave at Axiom-4 self-saturation). The mechanism, its which-path decoherence, and its Born-rule screen are owned by [Ohmic Decoherence and the Born Rule](ohmic-decoherence-born.md); the EE-component vocabulary is owned by the [circuit translation table](../../../common/translation-tables/translation-circuit.md). This leaf re-states the correspondence; it derives nothing new.
 
 ## §1 — Scope and classification
 
+> **[Resultbox]** *Classification — consistency / translation (NOT emergence)*
+>
+> Per `consistency-vs-emergence`: every row in this leaf is a **consistency / translation identification** between a substrate primitive (already canonical elsewhere) and its EE component. NONE of it is an emergence test, and NONE of it is a new derivation. This leaf carries `no-claim:` frontmatter and references its owning claims by cross-link.
+
+The owning canonical content:
+
+> → Primary: [Ohmic Decoherence and the Born Rule](ohmic-decoherence-born.md) — the double-slit mechanism (defect + ponderomotive wake), Ohmic which-path decoherence, and the master-equation-derived Born rule (clm-7zuwtm, clm-ldmvwi, clm-zuf7g1).
+> → Primary: [Photon Identification (T₂-only Cosserat ω)](../ch4-continuum-electrodynamics/photon-identification.md) — the electron = self-trapped photon identification (clm-3npynp, clm-i4p11y, clm-fr3mos).
+> → Primary: [Master Equation](../ch4-continuum-electrodynamics/master-equation.md) — the magnetic-branch ($\Gamma \to -1$, short-circuit) saturation that creates the electron's core (clm-lv3uw1).
+> ↗ See also: [Circuit Translation Table](../../../common/translation-tables/translation-circuit.md) §4/§4.5 — the EE-component catalog this leaf draws on (clm-eemap1).
+> ↗ See also: [Photon EE Mapping](../ch4-continuum-electrodynamics/photon-ee-mapping.md) — the companion leaf on free-photon vs self-trapped-electron EE structure (carrier × envelope, I/Q quadrature, V↔Φ_link).
+
 ## §2 — The reconciled mechanism (electron = self-trapped photon; defect + wake)
+
+## §2 — The reconciled mechanism (electron = self-trapped photon; defect + wake)
+
+The AVE double-slit is a deterministic, continuous-medium interference problem — not a mysterious wave-function collapse. Three pieces:
+
+1. **The particle is the electron's defect / core.** The electron is a **self-trapped photon**: a $T_2$-only transverse Cosserat-microrotation wave whose amplitude has crossed $V_{\text{yield}} = \sqrt{\alpha}\,V_{\text{snap}} \approx 43.65$ kV, triggering Axiom-4 self-saturation. On the **magnetic branch** the Cosserat $\mu_{eff} \to 0$, the local impedance $Z = \sqrt{\mu_{eff}/\varepsilon_0} \to 0$, and the reflection coefficient $\Gamma \to -1$ (a **short-circuit**, total internal reflection). The wave weaves its own spherical $0\,\Omega$ "Local Bubble" — a hyper-rigid envelope where $c_{local} \to 0$ — which is the localized topological defect (the matter core) that threads **one** slit. (Canonical: [Photon Identification](../ch4-continuum-electrodynamics/photon-identification.md) line 11; [Master Equation](../ch4-continuum-electrodynamics/master-equation.md) lines 78–79, clm-lv3uw1; [Zero-Impedance Boundary](zero-impedance-boundary.md) line 51; [Resonant LC Solitons](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md) line 50.)
+
+2. **The wake threads both slits.** The defect's motion through the lattice generates a continuous **transverse inductive wake** — a ponderomotive pressure field $\propto \nabla|\Psi|^2$. This wake is a low-amplitude field disturbance (not a saturated core), so it passes through **both** apertures and interferes with itself on the far side, producing the standing-wave trough pattern. (Canonical: [Ohmic Decoherence and the Born Rule](ohmic-decoherence-born.md) line 11.)
+
+3. **Deterministic ponderomotive navigation.** The defect rides the transverse ponderomotive gradients of its own (self-interfered) wake: $\mathbf{F} \propto \nabla|\Psi|^2$ steers it into the quantized standing-wave troughs. The fringe pattern is built up by many such deterministic single-particle trajectories — the statistics are the Born rule (§4), not an axiom.
+
+> **[Resultbox]** *The reconciled picture in one line*
+>
+> Defect (the electron's $\Gamma = -1$ core) through one slit; ponderomotive transverse wake ($\propto \nabla|\Psi|^2$) through both; deterministic navigation $\mathbf{F} \propto \nabla|\Psi|^2$ into the troughs. The screen intensity is $|\partial_t\mathbf{A}|^2 \equiv |\Psi|^2$.
+
+**The EE picture of the core.** The electron's $\Gamma = -1$ self-created $0\,\Omega$ cavity maps to a **shorted $\lambda/4$ resonator** — the most fundamental EE mapping of the matter core (a shorted quarter-wave line presents a short at its mouth after a half-Γ-lap on the Smith chart; gate-(b) CLOSED 2026-06-04, [translation-circuit.md](../../../common/translation-tables/translation-circuit.md) line 240). The trapped reactive energy of this resonator IS the electron's rest mass. The full free-photon-vs-self-trapped-electron EE structure is developed in the companion leaf [Photon EE Mapping](../ch4-continuum-electrodynamics/photon-ee-mapping.md).
 
 ## §3 — Component → substrate-primitive → EE-component table
 
