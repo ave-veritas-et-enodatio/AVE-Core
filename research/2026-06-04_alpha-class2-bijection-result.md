@@ -3,7 +3,7 @@
 # Phasor↔real-space area bijection — Class-B→Class-2 lift candidate (RESULT)
 
 **Status**: RESULT — analytical derivation complete. **VERDICT: Class B confirmed.** The last α-¼ lift-path closes.
-**Prereg**: [`2026-06-04_alpha-class2-bijection-prereg.md`](2026-06-04_alpha-class2-bijection-prereg.md) (FROZEN @ `063c548b`).
+**Prereg**: [`2026-06-04_alpha-class2-bijection-prereg.md`](2026-06-04_alpha-class2-bijection-prereg.md) (FROZEN @ `947b2c49`, incl. §8 completeness addendum).
 **Branch**: `analysis/2026-06-04-alpha-class2-bijection` (off `main`); worktree-isolated.
 **Question (Q-EMBED-SEL-1 §7.3)**: can the named identification *phasor-enclosed-area = Nyquist-cell-area* (which holds α⁻¹ = 4π³+π²+π at **Class B**) be **derived** from K4 + Cosserat primitives, lifting it to **Class 2**? Or is it an irreducible normalization / α-substitution?
 
@@ -78,7 +78,7 @@ This is a **definite α-free SI quantity** — good so far. The question is whet
 | V_snap units (R·r / V_snap²) | e⁴/(4c²ε₀²ℏ²) | **4π²α²** ≈ 0.002102 |
 | V_yield-canonical units (R·r / V_yield²), V_yield=√α·V_snap | πe²/(cε₀ℏ) | **4π²α** ≈ 0.2881 |
 
-In the lattice-natural V_yield units the corpus uses, **R·r\|_required = 4π²α ≈ 0.2881, NOT ¼ = 0.25.** The golden-torus value is **missed by ~13%** (factor 0.868). The honestly-built α-free bridge does **not** reproduce R·r = ¼.
+In the lattice-natural V_yield units the corpus uses, **R·r\|_required = 4π²α ≈ 0.2881, NOT ¼ = 0.25.** The bridge value **overshoots** ¼ by a factor 0.2881/0.25 = **1.152** (≈15% high; equivalently ¼ is 0.868× the bridge value — the sanity script reports the 1.152 form). The honestly-built α-free bridge does **not** reproduce R·r = ¼.
 
 **The cell-filling condition, run directly.** "Photon phasor fills exactly one Nyquist cell" ⇒ map V_yield through the bridge to a length and require it = the cell tube radius ℓ_node/2:
 $$\frac{C_\text{cell}}{\xi_\text{topo}}\,V_\text{yield} = \frac{\ell_\text{node}}{2}\ \Rightarrow\ \frac{V_\text{yield}}{V_\text{snap}} = \frac{e^2}{2c\varepsilon_0\hbar} = \boxed{2\pi\alpha}.$$
