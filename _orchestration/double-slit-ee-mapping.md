@@ -3,7 +3,7 @@
 **Branch:** `analysis/double-slit-ee-mapping` (off `main`)
 **Session type:** Implementor (single-deliverable; KB-only — no engine code, no `.py` touched)
 **Discipline applied:** `ave-ee-first-mapping` (Step 6 land+mirror+regime-tag+cross-ref), `consistency-vs-emergence` (classify as translation/consistency), `ave-evidence-framing-discipline` (honest flags carried verbatim), `verify-before-cite` (every anchor grep-confirmed before landing), `ave-canonical-source`, `substrate-native-check` trigger-6 (EE IS substrate-native — no SM leakage in prose), Pure-AVE-corpus rule.
-**Status:** _populated incrementally; see commit log._
+**Status:** ALL 4 DELIVERABLES LANDED on `analysis/double-slit-ee-mapping` (commit log §9). KB metadata PASS; `refresh-kb-metadata` no-op (no derived-field drift); zero broken-intra links from the new leaves; load-bearing physics-chain audit (SHORT-not-OPEN electron core, wake regime-tag end-to-end, helical-photon retraction-only) PASS. Ready for orchestrator audit + merge.
 
 ---
 
@@ -140,3 +140,47 @@ All anchors below were grep/Read-confirmed against `analysis/double-slit-ee-mapp
 | `photon_propagation.py:74,77` | carrier frequency $\omega$ (`:74`); temporal Gaussian envelope (`:77`) | ✓ |
 | `animate_vacuum_phonon_3d.py:63` | "A 'photon': Gaussian envelope × sinusoidal carrier frequency" | ✓ |
 | `simulate_double_slit_observer.py:6` | "a 'photon' is a helical soliton" — the RETRACTED framing (note as superseded) | ✓ (superseded) |
+
+---
+
+## 9 — Commit log + final validation (landed state)
+
+**Commits (off `main`, oldest first):**
+
+| Hash | Summary |
+|---|---|
+| `4338b08a` | orchestration: brief skeleton |
+| `34805d10` | orchestration: populate brief (corpus / physics / table / flags / queue / anchor log) |
+| `86b7aa0f` | kb: double-slit leaf skeleton (ch3) |
+| `7ddcda1c` | kb: double-slit §1-§2 + photon-ee-mapping skeleton |
+| `2692c6a2` | kb: double-slit §3 component table |
+| `4817cb6c` | kb: double-slit §4-§5 (Ohmic which-path + Born; visibility-vs-Z) |
+| `6ac9e6c9` | kb: double-slit §6-§7 (guards + flags) — body complete |
+| `d94be156` | kb: ch3 index row + ohmic-decoherence-born cross-ref |
+| `abbd0748` | kb: photon-ee-mapping §1-§2 (free-photon vs self-trapped-electron) |
+| `cb3e16c0` | kb: photon-ee-mapping §3-§4 (carrier×envelope; I/Q E↔B, V↔Φ_link) |
+| `277230a7` | kb: photon-ee-mapping §5 (honest flags) — body complete |
+| `5d12abea` | kb: ch4 index row + photon-identification cross-ref back-links |
+| `40db4ea3` | kb: translation-circuit §4 double-slit cluster + :173 pending-note flip |
+
+**Files created (3):**
+- `_orchestration/double-slit-ee-mapping.md` (this brief)
+- `manuscript/ave-kb/vol1/dynamics/ch3-quantum-signal-dynamics/double-slit-ee-mapping.md` (no-claim leaf)
+- `manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/photon-ee-mapping.md` (no-claim leaf)
+
+**Files modified (4):**
+- `manuscript/ave-kb/vol1/dynamics/ch3-quantum-signal-dynamics/index.md` (+1 row)
+- `manuscript/ave-kb/vol1/dynamics/ch3-quantum-signal-dynamics/ohmic-decoherence-born.md` (+1 See-also)
+- `manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/index.md` (+1 row)
+- `manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/photon-identification.md` (+2 See-also)
+- `manuscript/ave-kb/common/translation-tables/translation-circuit.md` (+6 §4 rows; :173/:242/:244 pending-note flips)
+
+**Validation (worktree direct-run against main `.venv`):**
+- `verify-kb-metadata.py` → **PASS** (721 files, 40 no-claim, 287 canonical entries).
+- `refresh-kb-metadata.py` → **no-op** (0 files changed; no `subtree-claims` / solidity / index drift — confirms both new leaves are correctly `no-claim`).
+- `verify-md-links.py --inter-repo warn` → **zero broken-intra links from either new leaf** (pre-existing `research/` + `.claude/skills/` inter-repo warnings unrelated, present on `main`).
+- Load-bearing physics-chain audit → **PASS**: (1) electron core is Γ=−1 SHORT / magnetic-branch in both leaves, never tied to the Γ=+1 open-circuit electric branch; (2) ponderomotive-wake regime-tag (near-field ∇\|Ψ\|² ≠ far-field τ^far_zx) present end-to-end across double-slit §3+§6 and translation-circuit §4 row 138; (3) all "helical" mentions are retraction/superseded flags only — none propagate the retracted framing.
+
+**Anchor re-verification:** all 25 anchors (§8) re-confirmed at branch tip; **NONE failed**.
+
+**Surfaced for auditor (flag-don't-fix):** the translation-circuit.md:173 row previously carried stale "R·r=1/4 gate-(b)-pending" wording while :240–241 records gate-(b) CLOSED → Class-B. This brief + the photon leaf §5 flag surface the drift; the :173 mirror edit reconciled the wording toward the authoritative :240–241 state (an in-table wording correction toward already-canonical status, not a silent physics change). Auditor confirms the reconciliation direction at merge.
