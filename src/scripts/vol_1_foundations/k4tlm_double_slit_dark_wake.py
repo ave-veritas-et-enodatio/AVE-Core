@@ -468,11 +468,61 @@ def render_panels(cfg: DSConfig, resA: RunResult, resB: RunResult, out_stem: str
     return rendered
 
 
+def visibility_vs_z_det(cfg: DSConfig, z_values: list, out_stem: str) -> dict:
+    """Optional: screen fringe visibility vs detector load Z_det.
+
+    Demonstrates that the which-path transition is CONTINUOUS (dark-wake / Born),
+    not the binary all-or-nothing collapse of the Copenhagen reading. A separate
+    light render (no frames recorded -> fast).
+    """
+    vis_pts = []
+    for zd in z_values:
+        c = DSConfig(**{**cfg.__dict__})
+        c.Z_det = zd
+        res = run_engine(c, two_slit=True, observer=(zd > 0.0), n_frames=2)
+        vis_pts.append(res.visibility)
+    # single-slit floor (full which-path) for reference
+    floor = run_engine(cfg, two_slit=False, observer=False, n_frames=2).visibility
+
+    fig, ax = plt.subplots(figsize=(7.5, 5), facecolor="#0a0a2e")
+    ax.set_facecolor("#0a0a2e")
+    ax.plot(z_values, vis_pts, "o-", color="#ff8b3b", lw=2, markersize=7, label="K4-TLM dark-wake (continuous)")
+    ax.axhline(floor, color="#39ff88", ls="--", lw=1.2, label=f"single-slit floor (V={floor:.2f})")
+    # Copenhagen-binary caricature: V stays maximal until "measurement", then 0.
+    ax.step(
+        [z_values[0], 0.5, 0.5, z_values[-1]],
+        [vis_pts[0], vis_pts[0], floor, floor],
+        where="post", color="#5b9bff", ls=":", lw=1.5, label="Copenhagen-binary (caricature)",
+    )
+    ax.set_xlabel("detector load strength  Z_det", color="white")
+    ax.set_ylabel("screen fringe visibility  V", color="white")
+    ax.set_title("Which-path decoherence is CONTINUOUS on the K4-TLM substrate", color="white", fontsize=11)
+    ax.tick_params(colors="white")
+    for s in ax.spines.values():
+        s.set_color("#334")
+    leg = ax.legend(loc="lower left", fontsize=8, facecolor="#111122", edgecolor="#334")
+    for txt in leg.get_texts():
+        txt.set_color("white")
+    fig.text(0.5, 0.01, HONEST_CAPTION, color="#cccccc", fontsize=7, ha="center", style="italic", wrap=True)
+    plt.tight_layout(rect=[0, 0.03, 1, 1])
+    SIM_OUTPUTS.mkdir(parents=True, exist_ok=True)
+    out_png = str(SIM_OUTPUTS / f"{out_stem}_visibility_vs_Zdet.png")
+    fig.savefig(out_png, dpi=110, bbox_inches="tight", facecolor="#0a0a2e")
+    plt.close(fig)
+    return {
+        "z_values": list(z_values),
+        "visibility": [float(v) for v in vis_pts],
+        "floor": float(floor),
+        "png": out_png,
+    }
+
+
 def main() -> dict:
     parser = argparse.ArgumentParser(description="K4-TLM double-slit dark-wake animation")
     parser.add_argument("--steps", type=int, default=None, help="override n_steps")
     parser.add_argument("--frames", type=int, default=60, help="recorded animation frames")
     parser.add_argument("--stem", type=str, default="k4tlm_double_slit_dark_wake")
+    parser.add_argument("--visibility-sweep", action="store_true", help="also render visibility-vs-Z_det")
     args = parser.parse_args()
 
     cfg = DSConfig()
@@ -508,6 +558,14 @@ def main() -> dict:
     for k, v in rendered.items():
         print(f"    {k}: {v}")
 
+    sweep = None
+    if args.visibility_sweep:
+        print("\n  Running visibility-vs-Z_det sweep...", flush=True)
+        sweep = visibility_vs_z_det(cfg, [0.0, 0.2, 0.4, 0.6, 0.8, 0.95], args.stem)
+        print(f"    visibility(Z_det): {list(zip(sweep['z_values'], [round(v, 3) for v in sweep['visibility']]))}")
+        print(f"    single-slit floor: {sweep['floor']:.3f}")
+        print(f"    png: {sweep['png']}")
+
     summary = {
         "constants": const_info,
         "predicted_fringe_spacing_cells": float(pred),
@@ -519,6 +577,7 @@ def main() -> dict:
         "peak_ys_two_slit": [float(y) for y in (resA.peak_ys if resA.peak_ys is not None else [])],
         "honest_caption": HONEST_CAPTION,
         "rendered": rendered,
+        "visibility_sweep": sweep,
     }
     print("\n" + json.dumps({k: v for k, v in summary.items() if k != "constants"}, indent=2))
     return summary
