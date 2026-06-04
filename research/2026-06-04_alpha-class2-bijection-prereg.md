@@ -70,3 +70,17 @@ The natural-units cheatsheet sets **V_snap → 1/√α**. If the phasor enclosed
 ## §7 — Pure-AVE-corpus rule
 
 Pure substrate physics throughout. No external-context references.
+
+## §8 — POST-FREEZE COMPLETENESS ADDENDUM (Grant's audit, 2026-06-04)
+
+Grant's two post-freeze checks ("is V_yield a phasor?" + "have we captured all axioms/calibrations/regimes/BCs?") surfaced load-bearing items §0–§6 under-captured. The dispatched implementor's anchors (Q-EMBED-SEL-1 §2.2-2.3) carry these; verified in review.
+
+**(a) V_yield IS a phasor boundary, not a scalar — load-bearing for the Step-0 circularity audit.** Q-EMBED-SEL-1 §2.2: at yield, S(A)→0, Z_local→0, **Γ→−1 TIR forms**, and *"the TIR boundary surface is the **locus in (V_inc, V_ref) phasor coordinates** at which the first-saturating channel hits yield."* Under Meissner-asymmetric bias it is an **ELLIPSE** — R along the slower-saturating V_inc, r along the faster-saturating V_ref. So **the (R,r) electron ellipse IS the yield boundary**; the scalar V_yield = √α·V_snap is its equivalent-isotropic radius √(R·r). **CONSEQUENCE: R·r carries V_yield² = α·V_snap² — it is NOT α-free.** Step 0 must resolve whether that α (the soliton↔lattice coupling in V_yield) is FORCED by the cell-filling (derived → Class 2) or inherited (→ Class B). This sharpens the crux.
+
+**(b) Ax 3 (Minimum Reflection / Γ=−1 TIR) was under-listed.** §0 cited Ax 1+2+4; the Γ=−1 TIR wall **is** the yield boundary where R,r live (§2.2). Full axiom set: {**Ax 1** Nyquist cell · **Ax 2** TKI bridge · **Ax 3** Γ=−1 TIR yield-locus · **Ax 4** saturation kernel}.
+
+**(c) Chirality calibration χ_(2,3) = 1.2α** — the Meissner-asymmetry driver splitting R≠r (a SECOND α-carrier, in the R/r *aspect*; R·r the *product* is the bijection's invariant per §2.3, since the asymmetry redistributes between channels without changing the product). Must be in the calibration set.
+
+**(d) Four-regime placement** (`four-regimes.md`): the bijection lives at saturation onset = the **Regime III/IV (yield) boundary**. Boundary-condition set: {Γ=−1 TIR · Nyquist λ_min=2ℓ_node · self-avoidance d=diameter · Meissner-asymmetry χ_(2,3)}.
+
+**Net:** (a)+(c) make the α-circularity audit STRICTER — R·r carries α via V_yield AND R/r via χ_(2,3); the lift requires *deriving* those couplings from cell-filling, not inheriting them. Honest expectation tightens toward Class B unless the cell-filling geometry independently forces V_yield's √α.
