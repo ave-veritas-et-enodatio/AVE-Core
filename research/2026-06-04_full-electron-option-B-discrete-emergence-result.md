@@ -176,22 +176,78 @@ Arm B at matched saturation depth, and (b) MATCHES the Arm-C imposed signature.
 | **B3 — (2,3) phasor winding (HEADLINE)** | (V_inc,V_ref) temporal winding at trap bond, Arm A | crossing count c=3 (±0) OR (n₁,n₂)=(2,3); ABSENT in Arm B; MATCHES Arm C | `theory.md:16` (2,3) in phasor; `06_` amendment c=3 trefoil on Clifford torus. The headline emergence claim. |
 | **B4 — reactance-pair consistency** | C-state (V_inc) ⟷ L-state (Phi_link) anti-correlation phase at trap bond | T-V anti-correlation present over window (genuine reactive ring, not frozen) | Rule 10 reactance corollary: distinguishes a ringing (2,3) tank from a static saturated snapshot. |
 
-**Adjudication (no post-hoc criteria-dropping, Rule 11):**
-- **Outcome (i) — Grant's hypothesis CONFIRMED:** B1 ✓ AND B3 ✓ in Arm A (c=3 emergent, zero
-  imposed, absent in B, matches C). The transverse wave SETS the (2,3); full electron hosts on
-  `VacuumEngine3D`.
-- **Outcome (ii) — needs c_eff/Path-A:** B1 ✗ in Arm A (disperses, like K4-TLM v14 Mode III) —
-  carries the (2,3) carrier but lacks the binder. **Surface the doc-111 Path-A go/no-go to Grant;
-  do NOT free-build the c_eff refactor** (brief §2 mandate).
-- **Outcome (iii) — Grant's hypothesis REFUTED:** B1 ✓ but B3 ✗ in Arm A (self-traps, but the
-  (2,3) only appears in Arm C when IMPOSED, absent in the emergence arm). Transverse wave does
-  NOT set the (2,3); it's topological-selection, not transverse-set.
+**Adjudication (no post-hoc criteria-dropping, Rule 11) — carrier-explicit per Q0:**
+
+The Q0 finding (ω≡0 fixed point) splits the verdict by carrier. The headline tracks the
+**(V_inc, V_ref) phasor** (carrier 1, corpus-canonical) per my Q0 default; the **Cosserat ω**
+(carrier 2) result is recorded alongside.
+
+- **Outcome (i) — Grant's hypothesis CONFIRMED (V-sector):** B1 ✓ AND B3 ✓ in Arm A (the
+  (V_inc, V_ref) phasor develops c=3 / (2,3) emergent, zero imposed, ABSENT in B, MATCHES C). The
+  transverse wave SETS the (2,3) in the phasor sector; full electron (mass + the phasor (2,3))
+  hosts on `VacuumEngine3D`. (Carrier-2 caveat: the Cosserat ω stays decoupled — noted, not fatal
+  to (i) since theory.md:16 places the (2,3) in the phasor, not ω.)
+- **Outcome (ii) — needs binder (Path-A):** B1 ✗ in Arm A (the V-sector self-trap disperses, like
+  K4-TLM v14 Mode III) — carries the (2,3) phasor carrier but lacks the binder. **Surface the
+  doc-111 Path-A (c_eff) go/no-go to Grant; do NOT free-build** (brief §2). [ALSO: the Q0
+  ω-decoupling is a second structural finding on the same axis — the carrier-2 ω-seed go/no-go.]
+- **Outcome (iii) — Grant's hypothesis REFUTED (V-sector):** B1 ✓ but B3 ✗ in Arm A (V-sector
+  self-traps, but the (2,3) phasor winding only appears in Arm C when IMPOSED, absent in the
+  emergence arm). The transverse wave does NOT set the (2,3); it's topological-selection /
+  nucleation-imposed, not transverse-set.
+- **Carrier-2 result (recorded in ALL outcomes):** the Cosserat ω stays at ω≡0 from the pure-V
+  transverse photon (Q0). The SU(2) "3" (U(1) fibre per `06_` §4) does NOT emerge in ω from a
+  transverse photon on this engine — parametric V→ω decoupling. This is the discrete-engine
+  sharpening of Mode II and stands independent of the phasor-sector verdict.
 
 ## §5 Surfaced-for-Grant questions (pre-test-physics-check)
 
 Per the brief §3 + Rule 16 strengthening: ask BEFORE the design locks, not after 30 commits.
-Both are answerable in one sentence each; I proceeded with the stated default but flag them as
-the load-bearing framing decisions for adjudication.
+
+### Q0 (THE load-bearing finding — surfaced from smoke-test before the full run)
+
+**A pure transverse K4-V photon does NOT spin up the Cosserat ω sector on this engine — ω≡0
+is an exact fixed point of the coupled dynamics.** Verified empirically (3 smoke configs, N=32):
+the two counter-propagating pulses self-trap and breach saturation (A²_max = 0.13–0.16 >
+A²_op14 = 0.121), yet `cosserat.omega` stays at **machine zero** in every config — including with
+the direct V→ω coupling force ON (`disable_cosserat_lc_force=False`), not just the A28 config.
+
+**Why (mechanism, not bug):** the V→ω coupling is **parametric/multiplicative**, not
+additive/forcing. The coupling energy `W_refl(u, ω, V²)` (`k4_cosserat_coupling.py:118`
+`_coupling_energy_total_asymmetric`) is built from κ=curl(ω), the Beltrami helicity h(ω), and V².
+It is even/quadratic in ω about ω=0, so its ω-gradient `∂W/∂ω` **vanishes at ω=0**. The K4 V can
+saturate, modulate the impedance kernel, and self-trap — but it never breaks the ω=0 symmetry.
+A parametric coupling has no seed to amplify from an exact ω=0 state. (`PairNucleationGate` is the
+one thing that injects ω directly — which is exactly why Arm C / the Option-D nucleation rule is
+the IMPOSED control: it SEEDS ω, breaking the symmetry the transverse photon cannot.)
+
+**Why this is load-bearing — there are TWO distinct "(2,3) carriers" and they behave oppositely:**
+1. **(V_inc, V_ref) phasor (V-sector)** — ALIVE, self-traps, the corpus-canonical carrier
+   (`theory.md:16` "the trefoil lives in the bond-pair LC tank's (V_inc, V_ref) phasor trajectory").
+   The headline B3 phasor-winding test runs here and is fully meaningful.
+2. **Cosserat ω (Cos-sector)** — the SU(2) carrier hosting the w₂=3 U(1)-fibre per `06_` §4 — is
+   **parametrically decoupled** and stays at ω≡0 from a pure-V seed. So the real-space ω-Op10
+   diagnostic reads 0 (no Cosserat carrier spun up), AND `extract_hopf_charge` → 0.
+
+This is the **discrete-engine sharpening of Option C's Mode II**: on `fdtd_3d.py` the (2,3) had
+NO carrier; on `VacuumEngine3D` the Cosserat (2,3) carrier EXISTS but is **dynamically decoupled
+from a transverse V photon in the V→ω direction** (parametric, not additive). The (V_inc, V_ref)
+carrier remains live, so the headline is still testable — but the "spin/charge in the SU(2) ω
+sector" layer is unreachable from a pure-V photon without an ω seed.
+
+**Q0 plumber question for Grant:** is "a transverse wave SETS the (2,3)" a claim about (1) the
+**(V_inc, V_ref) phasor winding** (V-sector — alive, what I'll headline), or does it require (2)
+the **Cosserat ω** to spin up (Cos-sector — which a pure-V transverse photon provably cannot do
+on this engine; ω=0 is a fixed point)? If (1): I run the 3-arm phasor test as designed. If (2):
+that is a structural finding analogous to Path-A — the transverse photon needs an **ω seed** (or
+an additive V→ω forcing term, a new coupling) to break the ω=0 symmetry, and per the brief I do
+**NOT free-build that** — I surface the go/no-go. **My default: headline the (V_inc, V_ref)
+phasor (carrier 1, corpus-canonical per theory.md:16), and report the ω≡0 finding as the
+structural result for carrier 2.**
+
+### Q1 + Q2 (design decisions; proceeded with stated default, flagged for adjudication)
+
+Both answerable in one sentence each.
 
 **Q1 (the headline winding-definition — load-bearing):** the (2,3) "3" is the U(1) **fibre
 phase** (`06_` §4) — a *temporal* phase winding of the bond's quadrature, not a spatial winding.
