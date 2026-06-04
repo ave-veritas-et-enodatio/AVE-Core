@@ -207,17 +207,22 @@ ALPHA_COLD: float = 1.0 / ALPHA_COLD_INV  # ≈ 7.29352e-3
 # Vacuum Strain Coefficient — CMB-induced thermal expansion of the spatial metric
 # ═══════════════════════════════════════════════════════════════════════════════
 #
-# The observed α⁻¹ (CODATA 137.035999) is below the cold asymptote by a fractional
-# amount corresponding to thermal expansion of the spatial metric under the 2.7 K
-# CMB bath.  AVE identifies this as the Vacuum Strain Coefficient:
+# The observed α⁻¹ (CODATA 137.035999) sits below the cold geometric asymptote
+# (4π³+π²+π = 137.0363038) by the Vacuum Strain Coefficient:
 #
 #     δ_strain = 1 − α_obs / α_cold
 #              = 1 − 137.035999 / 137.036304
 #              ≈ 2.225 × 10⁻⁶
 #
-# Falsifiable prediction: α runs with local thermal energy.  In extreme thermal
-# environments (collider cores, early universe) α⁻¹ decreases below 137.036.  The
-# cold 137.0363038 is the mathematical T → 0 asymptote.
+# HONEST SCOPE (2026-06-04, FT-1 + bijection closure). δ_strain as defined here is a
+# DEFINITIONAL RESIDUAL (1 − CODATA/α_cold), NOT a derived thermal observable. The
+# Cosserat-thermal-ASYM mechanism (clm-hp7nlm) correctly predicts the SIGN of α-vs-T
+# running, but its quantitative magnitude (Q-DELTA-MAP-1-quant) was CLOSED NEGATIVE by
+# FT-1 (2026-05-31): the E-mode Bose-Einstein occupation undershoots by ~31 OOM. The
+# genuine thermal α-drift the mechanism predicts is ~10⁻³⁸ — unobservable; only the
+# direction (α⁻¹ drops in hot environments) holds, in sign. The 2.225e-6 above is the
+# named-identification residual of the Class-B golden-torus α (both lift-routes —
+# selection + bijection — closed 2026-06-04), not a falsifiable ~ppm prediction.
 #
 DELTA_STRAIN: float = 1.0 - (1.0 / ALPHA) / ALPHA_COLD_INV  # ≈ 2.225e-6
 
