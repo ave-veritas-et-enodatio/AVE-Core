@@ -1,3 +1,6 @@
+"""Legacy 2-panel field-density plot. Superseded by electron_field_density_v2.py
+(adds envelope framing + a phase-space (2,3) panel). Kept as the simpler reference
+plotter; captions match v2's honest framing (real-space envelope; (2,3) is phase-space)."""
 import numpy as np, matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -25,8 +28,8 @@ half = (nx/2)/ell
 ext = [-half, half, -half, half]
 
 fig,axs=plt.subplots(1,2,figsize=(13.8,7.4)); fig.patch.set_facecolor(EARTHBG)
-panels=[(axs[0],V,cmapV,YLW,'NODE VOLTAGE  $V=\\nabla\\!\\cdot u$',f'capacitive / E-DOF  —  engine solve, equatorial slice ({Vp})'),
-        (axs[1],B,cmapB,BLUE,'MAGNETIC DENSITY  $|B|=|\\omega|$',f'inductive / B-DOF  —  engine solve, equatorial slice ({Bp})')]
+panels=[(axs[0],V,cmapV,YLW,'NODE-VOLTAGE ENVELOPE  $V=\\nabla\\!\\cdot u$',f'real space · capacitive / E-DOF · equatorial slice ({Vp})'),
+        (axs[1],B,cmapB,BLUE,'MAGNETIC ENVELOPE  $|B|=|\\omega|$',f'real space · inductive / B-DOF · only the $w_1{{=}}2$ toroidal projection ({Bp})')]
 for ax,F,cm,tc,title,sub in panels:
     ax.set_facecolor(EARTHBG)
     ax.imshow(F.T,origin='lower',extent=ext,cmap=cm,interpolation='bilinear')
@@ -45,9 +48,10 @@ for ax,F,cm,tc,title,sub in panels:
     for sp in ax.spines.values(): sp.set_color('#3A3320')
 axs[0].plot([-half+0.4,-half+1.4],[-half+0.45,-half+0.45],color='#EDE6D6',lw=2.2)
 axs[0].text(-half+0.9,-half+0.62,'$1\\,\\ell_{node}$',color='#EDE6D6',ha='center',fontsize=8.5)
-fig.text(0.5,0.022,'Engine solve: CosseratField3D relaxation of the (2,3) sector to the Golden Torus.  '
-         'Lattice pitch $\\ell_{node}=\\hbar/m_ec$;  $R=\\varphi/2,\\ r=(\\varphi{-}1)/2,\\ R\\!\\cdot\\!r=1/4$  (actual computed fields)',
-         ha='center',color='#9CC0FF',fontsize=10)
+fig.text(0.5,0.022,'Continuum CosseratField3D solve at $dx\\approx0.1\\,\\ell_{node}$ (below the $\\ell_{node}=\\hbar/m_ec$ cutoff) — real-space ENVELOPE only.  '
+         'The $(2,3)$ is a phase-space object in the $(V_{inc},V_{ref})$ phasor [theory.md:16], absent from this continuum field.  '
+         '$R=\\varphi/2,\\ r=(\\varphi{-}1)/2,\\ R\\!\\cdot\\!r=1/4$.',
+         ha='center',color='#9CC0FF',fontsize=9)
 plt.subplots_adjust(left=0.012,right=0.988,top=0.92,bottom=0.115,wspace=0.04)
 plt.savefig('/tmp/electron_fields_engine.png',dpi=150,facecolor=EARTHBG)
 print('plotted; V slice',Vp,'B slice',Bp,'half(ell_node)=%.2f'%half)
