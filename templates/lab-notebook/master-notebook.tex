@@ -1,0 +1,25 @@
+% AVE Master Engineering Notebook — Leuchtturm A4+ style blank book.
+% 225 x 315 mm, two-sided, dotted, numbered pages, fill-in Contents.
+% Print double-sided, long-edge bind.  Set the page count below.
+\documentclass[11pt,twoside]{article}
+\usepackage[a4plus,plain]{avenotebook}  % add: dark / iso  to taste
+
+\notebookproject{Engineering Notebook}
+\notebookauthor{}
+\notebookid{AVE-NB Master \textbullet\ A4+}
+\notebookdate{2026}
+
+\def\NBPAGES{120}     % <-- number of numbered dotted pages (Leuchtturm Master = 233)
+
+\begin{document}
+
+\avecover                 % lattice cover
+\aveplate{marks/electron_faithful}{The electron --- a $(2,3)$ phase-knot; its impedance field lenses the rigid K4 lattice}
+\aveplate{marks/photon_to_electron}{Pair production --- a photon builds to $V_{\text{yield}}$; Axiom-4 saturation makes $\Gamma\!\to\!-1$ a self-TIR mirror, trapping it as the $(2,3)$ electron knot. (Electron = Photon + TIR Confinement)}
+\aveownership             % "this notebook belongs to / if found"
+\aveindex[3]{30}          % 3 Contents pages, 2 columns x 30 ruled rows
+
+\pagenumbering{arabic}\setcounter{page}{1}
+\avedottedpages{\NBPAGES} % the numbered dotted writing pages
+
+\end{document}

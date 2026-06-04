@@ -1,0 +1,555 @@
+% =====================================================================
+%  avenotebook.sty  —  AVE Engineering Notebook / Lab-Record template
+% ---------------------------------------------------------------------
+%  Applied Vacuum Engineering · experimental walk-through paper.
+%
+%  Visual identity is pulled from the canonical substrate render
+%  (assets/sim_outputs/lattice_structure_3d.png) and the manuscript
+%  preamble palette:
+%      corecolor  = #FF3366   (LC differential tensor line / flux junction)
+%      neonblue   = #00FFFF   (discrete coordinate node)
+%      halocolor  = #99FFEE   (node halo)
+%      darkbg     = #0F0F0F
+%
+%  The dotted writing grid IS the lattice: every dot is a "Discrete
+%  Coordinate Node."  The header glyph is the diamond-cubic bond-star
+%  drawn from the engine's canonical bond vectors
+%  (src/ave/topological/cosserat_field_3d.py:129  TETRA_OFFSETS):
+%      (+1,+1,+1) (+1,-1,-1) (-1,+1,-1) (-1,-1,+1)
+%  i.e. coordination-4, four <111> bonds at 109.47 deg (sp3), viewed
+%  down a 2-fold axis so all four bonds stay visible.
+%
+%  Engines:  pdflatex / xelatex / lualatex   (no fontspec required)
+%  Options:  [dark]    neon-on-black variant (default = light "100g paper")
+%            [iso]     triangular / <111>-projection dot grid (default square)
+%            [border]  draw a thin lattice border box around the writing area
+%            [nodots]  suppress the dot grid entirely
+%            [plain]   no per-page header/footer chrome
+% =====================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{avenotebook}[2026/05/31 v0.1 AVE Engineering Notebook template]
+
+% ---- options ---------------------------------------------------------
+\newif\ifave@dark   \ave@darkfalse
+\newif\ifave@iso    \ave@isofalse
+\newif\ifave@border \ave@borderfalse
+\newif\ifave@dots   \ave@dotstrue
+\newif\ifave@chrome \ave@chrometrue
+\newif\ifave@aplus  \ave@aplusfalse
+
+\DeclareOption{dark}{\ave@darktrue}
+\DeclareOption{iso}{\ave@isotrue}
+\DeclareOption{border}{\ave@bordertrue}
+\DeclareOption{nodots}{\ave@dotsfalse}
+\DeclareOption{plain}{\ave@chromefalse}
+\DeclareOption{a4plus}{\ave@aplustrue}
+\ProcessOptions\relax
+
+% ---- core packages ---------------------------------------------------
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{XCharter}                 % body serif
+\RequirePackage[scaled=0.92]{helvet}      % chrome / heading sans
+\RequirePackage[scaled=0.86]{inconsolata} % data / measurement mono
+\RequirePackage{amsmath,amssymb}
+\RequirePackage[table,dvipsnames]{xcolor}
+\RequirePackage{tikz}
+\usetikzlibrary{patterns,calc}
+\RequirePackage{eso-pic}
+\RequirePackage{geometry}
+\RequirePackage{fancyhdr}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\RequirePackage{tabularx}
+\RequirePackage{booktabs}
+\RequirePackage{array}
+\RequirePackage{enumitem}
+\RequirePackage{microtype}
+\RequirePackage{lastpage}
+\RequirePackage{environ}
+
+% =====================================================================
+%  PALETTE  (theme-switched)
+% =====================================================================
+% Brand palette: neutral EARTH tones generally; ELECTRIC BLUE for the
+% electron's lensing / lattice; LIGHTNING YELLOW for the phase / trefoil.
+\definecolor{aveBond}{HTML}{B65A38}   % bond-star bonds (earth rust)
+\definecolor{aveHalo}{HTML}{9CC0FF}   % node halo (pale blue)
+
+\ifave@dark
+  \definecolor{avePaper}{HTML}{1E1813}     % warm dark ground
+  \definecolor{aveInk}{HTML}{E8E0CE}
+  \definecolor{aveGrid}{HTML}{4A4230}      % earth dots on dark
+  \definecolor{aveGridStrong}{HTML}{6B5F40}
+  \definecolor{aveCore}{HTML}{C96B3A}      % rust accent (rules)
+  \definecolor{aveHead}{HTML}{E08A4E}
+  \definecolor{aveTeal}{HTML}{5B8DEF}      % electric blue (labels / lensing)
+  \definecolor{aveFaint}{HTML}{9A8F76}
+  \definecolor{aveNode}{HTML}{5B8DEF}      % bond-star node (blue)
+  \definecolor{aveNodeEdge}{HTML}{2E72FF}
+  \definecolor{aveRule}{HTML}{C96B3A}
+  \definecolor{aveYellow}{HTML}{FFD21E}    % phase / trefoil
+  \definecolor{aveBlue}{HTML}{2E72FF}      % lensing
+\else
+  \definecolor{avePaper}{HTML}{EAE3D2}     % warm kraft paper
+  \definecolor{aveInk}{HTML}{2A2620}
+  \definecolor{aveGrid}{HTML}{A99B7C}      % taupe dots (stronger, visible)
+  \definecolor{aveGridStrong}{HTML}{8A7B5B}
+  \definecolor{aveCore}{HTML}{A8542E}      % rust accent (rules)
+  \definecolor{aveHead}{HTML}{8A4322}
+  \definecolor{aveTeal}{HTML}{2C5FB8}      % electric blue (labels / lensing)
+  \definecolor{aveFaint}{HTML}{8A8270}
+  \definecolor{aveNode}{HTML}{2C5FB8}      % bond-star node (blue)
+  \definecolor{aveNodeEdge}{HTML}{1E4A95}
+  \definecolor{aveRule}{HTML}{A8542E}
+  \definecolor{aveYellow}{HTML}{C99A1E}    % phase / trefoil (gold on cream)
+  \definecolor{aveBlue}{HTML}{2C5FB8}      % lensing
+\fi
+
+\pagecolor{avePaper}
+% make aveInk the persistent default text colour (survives group/\normalcolor
+% resets — essential so the dark theme's body text is actually light).
+\def\normalcolor{\color{aveInk}}
+\AtBeginDocument{\normalcolor}
+
+% =====================================================================
+%  GEOMETRY  +  per-page chrome
+% =====================================================================
+\ifave@aplus
+  % Leuchtturm "Master" trim: 225 x 315 mm, two-sided, outer page numbers
+  \geometry{paperwidth=225mm, paperheight=315mm,
+    top=18mm, bottom=16mm, inner=20mm, outer=16mm,
+    headheight=14pt, headsep=8pt, footskip=20pt, twoside}
+\else
+  \geometry{letterpaper,
+    top=22mm, bottom=20mm, left=20mm, right=18mm,
+    headheight=16pt, headsep=10pt, footskip=24pt}
+\fi
+
+% ---- notebook metadata (user-settable, with defaults) ---------------
+\def\ave@project{Untitled Investigation}
+\def\ave@experiment{EXP-000}
+\def\ave@author{}
+\def\ave@notebookid{AVE-NB-01}
+\def\ave@date{\today}
+\newcommand{\notebookproject}[1]{\def\ave@project{#1}}
+\newcommand{\experimentid}[1]{\def\ave@experiment{#1}}
+\newcommand{\notebookauthor}[1]{\def\ave@author{#1}}
+\newcommand{\notebookid}[1]{\def\ave@notebookid{#1}}
+\newcommand{\notebookdate}[1]{\def\ave@date{#1}}
+
+% =====================================================================
+%  THE LATTICE  —  diamond-cubic bond-star glyph
+% ---------------------------------------------------------------------
+%  Engine bond vectors projected down the x 2-fold axis (drop x, keep
+%  (y,z) as screen (x,y)):
+%     a=(+1,+1,+1) -> (+1,+1) up-right   FRONT (x=+1)
+%     b=(+1,-1,-1) -> (-1,-1) down-left  FRONT (x=+1)   => "/" diagonal
+%     c=(-1,+1,-1) -> (+1,-1) down-right BACK  (x=-1)
+%     d=(-1,-1,+1) -> (-1,+1) up-left    BACK  (x=-1)   => "\" diagonal
+%  Front bonds bright/thick, back bonds dim/thin -> 3D depth.
+%  Centre node = A-site; outer nodes = B-sublattice (bipartite).
+% =====================================================================
+% \avebondstar[<unit length in pt>]  — the mark, baseline-aligned.
+\newcommand{\avebondstar}[1][6]{%
+  \begingroup
+  % precompute real pt sizes (must MULTIPLY, not digit-concatenate)
+  \pgfmathsetmacro{\wf}{0.17*#1}% front bond width
+  \pgfmathsetmacro{\wb}{0.09*#1}% back bond width
+  \pgfmathsetmacro{\we}{0.05*#1}% node edge width
+  \pgfmathsetmacro{\wc}{0.06*#1}% centre edge width
+  \pgfmathsetmacro{\rb}{0.19*#1}% back node radius
+  \pgfmathsetmacro{\rf}{0.25*#1}% front node radius
+  \pgfmathsetmacro{\rk}{0.32*#1}% centre node radius
+  \pgfmathsetmacro{\rh}{0.46*#1}% halo radius
+  \begin{tikzpicture}[x=#1 pt, y=#1 pt, baseline=-0.6ex,
+        line cap=round, line join=round]
+    % back bonds ("\"): dim+thin
+    \draw[aveBond!45, line width=\wb pt] (0,0) -- (-1,1);
+    \draw[aveBond!45, line width=\wb pt] (0,0) -- (1,-1);
+    % back nodes (B-sublattice): hollow ring
+    \foreach \p in {(-1,1),(1,-1)}{%
+      \fill[avePaper] \p circle (\rb pt);
+      \draw[aveNodeEdge!75, line width=\we pt] \p circle (\rb pt);}
+    % front bonds ("/"): bright+thick
+    \draw[aveBond, line width=\wf pt] (0,0) -- (1,1);
+    \draw[aveBond, line width=\wf pt] (0,0) -- (-1,-1);
+    % front nodes (B-sublattice): solid, crisp
+    \foreach \p in {(1,1),(-1,-1)}{%
+      \fill[aveNode] \p circle (\rf pt);
+      \draw[aveNodeEdge, line width=\we pt] \p circle (\rf pt);}
+    % centre node (A-site): halo + solid, largest
+    \fill[aveNode!22] (0,0) circle (\rh pt);
+    \fill[aveNode] (0,0) circle (\rk pt);
+    \draw[aveNodeEdge, line width=\wc pt] (0,0) circle (\rk pt);
+  \end{tikzpicture}%
+  \endgroup}
+
+% \avewordmark — "AVE" monogram + expansion, sans, brand-coloured.
+\newcommand{\avewordmark}{%
+  {\sffamily\bfseries
+   \textcolor{aveHead}{A}\textcolor{aveTeal}{V}\textcolor{aveHead}{E}%
+   \hspace{0.5em}\textcolor{aveInk}{\fontsize{7}{8}\selectfont
+   \MakeUppercase{Applied Vacuum Engineering}}}}
+
+% \avelogo — bond-star + wordmark, lockup for headers / title.
+\newcommand{\avelogo}[1][7]{\raisebox{-0.35ex}{\avebondstar[#1]}\;\avewordmark}
+
+% \avetrefoilglyph[<unit pt>] — compact electron (2,3)-knot glyph (logo use).
+\newcommand{\avetrefoilglyph}[1][6]{%
+  \begingroup
+  \pgfmathsetmacro{\ave@lw}{0.40*#1}%
+  \begin{tikzpicture}[x=#1 pt, y=#1 pt, baseline=-0.6ex, line cap=round, line join=round]
+    \draw[aveYellow, line width=\ave@lw pt]
+      plot[domain=0:360,samples=90,smooth,variable=\t]
+      ({0.385*(sin(\t)+2*sin(2*\t))},{0.385*(cos(\t)-2*cos(2*\t))});
+  \end{tikzpicture}%
+  \endgroup}
+
+% \avetrefoilmark{<radius cm>}{<color>} — faint electron watermark (trefoil +
+% torus ring) for writing pages; call inside a scope shifted to the page centre.
+\newcommand{\avetrefoilmark}[2]{%
+  \pgfmathsetmacro{\ave@sc}{#1/2.6}%
+  \begin{scope}[scale=\ave@sc, line cap=round, line join=round]
+    \draw[#2, opacity=0.07, line width=0.9pt] (0,0) circle(2.5);
+    \draw[#2, opacity=0.11, line width=2.4pt]
+      plot[domain=0:360,samples=140,smooth,variable=\t]
+      ({sin(\t)+2*sin(2*\t)},{cos(\t)-2*cos(2*\t)});
+  \end{scope}}
+
+% \avelatticemark[<unit>] — larger cover motif: a diamond-lattice cell.
+% Central A-site, its 4 B neighbours, and a 2nd A-shell, all bonds along
+% the two diagonal screen directions (the projected <111> bond set), so
+% the figure tiles as a coherent lattice patch.  "/" bonds bright (front),
+% "\" bonds dim (back); A-sites solid, B-sites hollow (bipartite).
+\newcommand{\avelatticemark}[1][24]{%
+  \begingroup
+  \pgfmathsetmacro{\wf}{0.12*#1}% front bond
+  \pgfmathsetmacro{\wb}{0.07*#1}% back bond
+  \pgfmathsetmacro{\web}{0.035*#1}% B-node edge
+  \pgfmathsetmacro{\wea}{0.04*#1}% A-node edge
+  \pgfmathsetmacro{\wec}{0.05*#1}% centre edge
+  \pgfmathsetmacro{\rb}{0.15*#1}% B-node radius
+  \pgfmathsetmacro{\ra}{0.17*#1}% A-node radius
+  \pgfmathsetmacro{\rk}{0.24*#1}% centre radius
+  \pgfmathsetmacro{\rh}{0.34*#1}% halo radius
+  \begin{tikzpicture}[x=#1 pt, y=#1 pt, line cap=round, line join=round]
+    % dim "\"-direction bonds (back)
+    \foreach \a/\b/\c/\d in {0/0/1/-1, 0/0/-1/1, 1/1/2/0, 1/1/0/2, -1/-1/-2/0, -1/-1/0/-2}{%
+      \draw[aveBond!42, line width=\wb pt] (\a,\b) -- (\c,\d);}
+    % bright "/"-direction bonds (front)
+    \foreach \a/\b/\c/\d in {0/0/1/1, 0/0/-1/-1, 1/-1/2/0, 1/-1/0/-2, -1/1/-2/0, -1/1/0/2}{%
+      \draw[aveBond, line width=\wf pt] (\a,\b) -- (\c,\d);}
+    % B-sublattice nodes (1st shell): hollow rings
+    \foreach \p in {(1,1),(-1,-1),(1,-1),(-1,1)}{%
+      \fill[avePaper] \p circle (\rb pt);
+      \draw[aveNodeEdge!80, line width=\web pt] \p circle (\rb pt);}
+    % A-sublattice nodes (2nd shell): solid
+    \foreach \p in {(2,0),(-2,0),(0,2),(0,-2)}{%
+      \fill[aveNode] \p circle (\ra pt);
+      \draw[aveNodeEdge, line width=\wea pt] \p circle (\ra pt);}
+    % centre A-site, largest, haloed
+    \fill[aveNode!22] (0,0) circle (\rh pt);
+    \fill[aveNode] (0,0) circle (\rk pt);
+    \draw[aveNodeEdge, line width=\wec pt] (0,0) circle (\rk pt);
+  \end{tikzpicture}%
+  \endgroup}
+
+% =====================================================================
+%  DOT GRID  —  the writing surface (dots = coordinate nodes)
+% =====================================================================
+\ifave@iso
+  % triangular / <111>-projection lattice: rectangular tile s x s*sqrt3
+  % with a dot at a corner and one at the tile centre.
+  \pgfdeclarepatternformonly{ave@grid}
+    {\pgfpoint{-0.6pt}{-0.6pt}}{\pgfpoint{5mm}{8.6603mm}}{\pgfpoint{5mm}{8.6603mm}}{%
+      \pgfpathcircle{\pgfpoint{0pt}{0pt}}{0.55pt}\pgfusepath{fill}%
+      \pgfpathcircle{\pgfpoint{2.5mm}{4.3301mm}}{0.55pt}\pgfusepath{fill}}
+\else
+  % square 5mm dot grid
+  \pgfdeclarepatternformonly{ave@grid}
+    {\pgfpoint{-0.6pt}{-0.6pt}}{\pgfpoint{5mm}{5mm}}{\pgfpoint{5mm}{5mm}}{%
+      \pgfpathcircle{\pgfpoint{0pt}{0pt}}{0.55pt}\pgfusepath{fill}}
+\fi
+
+\ifave@dots
+  \AddToShipoutPictureBG{%
+    \AtPageLowerLeft{%
+      \begin{tikzpicture}
+        \fill[pattern=ave@grid, pattern color=aveGrid]
+          (0,0) rectangle (\paperwidth,\paperheight);
+        \ifave@border
+          \draw[aveGridStrong, line width=0.6pt]
+            ([shift={(14mm,12mm)}]0,0)
+            rectangle ([shift={(-12mm,-14mm)}]\paperwidth,\paperheight);
+        \fi
+      \end{tikzpicture}}}
+\fi
+
+% =====================================================================
+%  HEADER / FOOTER
+% =====================================================================
+\newcommand{\ave@field}[2]{%
+  {\sffamily\fontsize{6}{7}\selectfont\textcolor{aveFaint}{\MakeUppercase{#1}}}%
+  \hspace{0.35em}{\sffamily\fontsize{8.5}{10}\selectfont\textcolor{aveInk}{#2}}}
+
+% custom coloured header rule (fancyhdr calls \headrule to draw it)
+\renewcommand{\headrule}{\hbox to\headwidth{\color{aveRule}\rule{\headwidth}{0.8pt}}}
+
+\ifave@chrome
+  \fancypagestyle{ave}{%
+    \fancyhf{}%
+    \renewcommand{\headrulewidth}{0.8pt}%
+    \renewcommand{\footrulewidth}{0pt}%
+    \fancyhead[L]{\avelogo[7]}%
+    \fancyhead[R]{\ave@field{Project}{\ave@project}\quad
+      \ave@field{Exp}{\ave@experiment}\quad\ave@field{Date}{\ave@date}}%
+    \fancyfoot[L]{\ave@field{Recorded}{\ave@author\ \rule[-2pt]{16mm}{0.4pt}}\quad
+                  \ave@field{Witnessed}{\rule[-2pt]{16mm}{0.4pt}}}%
+    \fancyfoot[C]{\begin{tikzpicture}[remember picture,overlay]%
+      \begin{scope}[shift={(current page.center)}]\avetrefoilmark{2.9}{aveYellow}\end{scope}\end{tikzpicture}}%
+    \fancyfoot[R]{{\sffamily\fontsize{7}{8}\selectfont\textcolor{aveFaint}{%
+      \ave@notebookid\ \ \textbullet\ \ p.~\thepage\,/\,\pageref{LastPage}}}}}%
+  \pagestyle{ave}% select only after the style is defined
+\else
+  \pagestyle{empty}
+\fi
+
+% =====================================================================
+%  ENTRY  +  SECTION HEADINGS
+% =====================================================================
+% \aveentry{<date>}{<exp-id>}{<title>} — dated entry banner.
+\newcommand{\aveentry}[3]{%
+  \par\addvspace{1.2\baselineskip}%
+  \experimentid{#2}\notebookdate{#1}%
+  \noindent\begin{tikzpicture}
+    \node[anchor=west, inner sep=0pt] (b) at (0,0) {\avebondstar[8]};
+  \end{tikzpicture}%
+  \hspace{0.6em}%
+  \begin{minipage}[c]{0.86\linewidth}
+    {\sffamily\fontsize{6.5}{8}\selectfont\textcolor{aveTeal}{%
+      \MakeUppercase{#2}\hfill #1}}\\[-1pt]
+    {\sffamily\bfseries\fontsize{15}{17}\selectfont\textcolor{aveHead}{#3}}%
+  \end{minipage}%
+  \par\vspace{2pt}\noindent
+  \textcolor{aveRule}{\rule{\linewidth}{1.2pt}}\par\addvspace{0.6\baselineskip}}
+
+% generic styled run-in heading
+\newcommand{\avehead}[1]{%
+  \par\addvspace{0.7\baselineskip}%
+  \noindent{\sffamily\bfseries\fontsize{10}{12}\selectfont
+    \textcolor{aveTeal}{\rule[-0.4ex]{2.4pt}{1.3ex}}\,%
+    \textcolor{aveHead}{\MakeUppercase{#1}}}%
+  \par\nobreak\vspace{2pt}\nobreak}
+
+\newcommand{\objective}{\avehead{Objective}}
+\newcommand{\hypothesis}{\avehead{Hypothesis}}
+\newcommand{\apparatus}{\avehead{Apparatus \& Setup}}
+\newcommand{\materials}{\avehead{Materials}}
+\newcommand{\procedure}{\avehead{Procedure}}
+\newcommand{\observations}{\avehead{Observations}}
+\newcommand{\dataheading}{\avehead{Data}}
+\newcommand{\analysis}{\avehead{Analysis}}
+\newcommand{\conclusion}{\avehead{Conclusion}}
+
+% =====================================================================
+%  CALLOUTS
+% =====================================================================
+\newtcolorbox{averesultbox}{%
+  enhanced, breakable, sharp corners, boxrule=0pt,
+  leftrule=2.6pt, colframe=aveCore, colback=aveCore!8,
+  coltitle=aveHead, fonttitle=\sffamily\bfseries\small,
+  title=RESULT, attach title to upper, after title={\quad},
+  left=8pt, right=8pt, top=6pt, bottom=6pt}
+\newenvironment{averesult}{\begin{averesultbox}}{\end{averesultbox}}
+
+\newtcolorbox{avenotebox}{%
+  enhanced, breakable, sharp corners, boxrule=0pt,
+  leftrule=2.6pt, colframe=aveTeal, colback=aveTeal!7,
+  coltitle=aveTeal, fonttitle=\sffamily\bfseries\small,
+  title=NOTE, attach title to upper, after title={\quad},
+  left=8pt, right=8pt, top=6pt, bottom=6pt}
+\newenvironment{avenote}{\begin{avenotebox}}{\end{avenotebox}}
+
+\newtcolorbox{avecautionbox}{%
+  enhanced, breakable, sharp corners, boxrule=0pt,
+  leftrule=2.6pt, colframe=orange!85!black, colback=orange!10,
+  coltitle=orange!60!black, fonttitle=\sffamily\bfseries\small,
+  title=CAUTION, attach title to upper, after title={\quad},
+  left=8pt, right=8pt, top=6pt, bottom=6pt}
+\newenvironment{avecaution}{\begin{avecautionbox}}{\end{avecautionbox}}
+
+% =====================================================================
+%  DATA  —  measurement helper, table, plot frame
+% =====================================================================
+% \meas{value}{unit}  — mono value + small sans unit. \mbox => math-safe.
+\newcommand{\meas}[2]{\mbox{{\ttfamily #1}\,{\sffamily\fontsize{8}{9}\selectfont\textcolor{aveFaint}{#2}}}}
+% \uncert{x}{dx}{unit}
+\newcommand{\uncert}[3]{\mbox{{\ttfamily #1\,$\pm$\,#2}\,{\sffamily\fontsize{8}{9}\selectfont\textcolor{aveFaint}{#3}}}}
+
+% avedata: a clean tabular with auto core-pink top/bottom rules.
+% usage: \begin{avedata}{<tabular colspec>} ... rows ... \end{avedata}
+% Plain tabular (not tabularx) so it wraps safely in \newenvironment and
+% needs no X column; use a p{<width>} column for wrapping text.
+\newenvironment{avedata}[1]{%
+  \par\addvspace{4pt}%
+  \arrayrulecolor{aveCore}%
+  \begin{tabular}{#1}%
+  \specialrule{1pt}{0pt}{0pt}}%
+  {\specialrule{1pt}{0pt}{0pt}%
+   \end{tabular}%
+   \arrayrulecolor{black}\par\addvspace{4pt}}
+% header-row helper for avedata (per-cell text formatter)
+\newcommand{\avedatahead}[1]{{\sffamily\bfseries\small\textcolor{aveHead}{#1}}}
+
+% \plotframe[<height>]{<caption>} — dashed placeholder to tape/paste a
+% printed plot, or to \includegraphics into later.
+\newcommand{\plotframe}[2][55mm]{%
+  \par\addvspace{6pt}\noindent
+  \begin{tikzpicture}
+    \draw[aveTeal!55, dashed, line width=0.7pt]
+      (0,0) rectangle (\linewidth,#1);
+    \node[anchor=north west, inner sep=5pt, text=aveFaint]
+      at (0,#1) {\sffamily\fontsize{7}{8}\selectfont\MakeUppercase{#2}};
+    \node[text=aveGridStrong] at ($(0,0)!0.5!(\linewidth,#1)$)
+      {\sffamily\small affix / \texttt{\textbackslash includegraphics} here};
+  \end{tikzpicture}\par\addvspace{6pt}}
+
+% \witnessblock — end-of-entry sign-off (priority/IP convention).
+\newcommand{\witnessblock}{%
+  \par\addvspace{1.1\baselineskip}\noindent
+  \textcolor{aveGridStrong}{\rule{\linewidth}{0.4pt}}\par\vspace{4pt}\noindent
+  {\sffamily\fontsize{8}{10}\selectfont
+   \begin{tabularx}{\linewidth}{@{}X X@{}}
+     \textcolor{aveFaint}{Recorded by} \rule[-2pt]{34mm}{0.4pt}\quad
+       \textcolor{aveFaint}{Date} \rule[-2pt]{20mm}{0.4pt} &
+     \hfill\textcolor{aveFaint}{Witnessed by} \rule[-2pt]{34mm}{0.4pt}\quad
+       \textcolor{aveFaint}{Date} \rule[-2pt]{20mm}{0.4pt}
+   \end{tabularx}}\par}
+
+% =====================================================================
+%  COVER  —  \avecover  (uses the metadata setters)
+% =====================================================================
+\newcommand{\avecover}{%
+  \thispagestyle{empty}%
+  \begin{center}
+    \vspace*{1.9cm}
+    {\avelatticemark[30]}\\[1.2cm]
+    {\sffamily\bfseries\fontsize{30}{34}\selectfont
+      \textcolor{aveHead}{A}\textcolor{aveTeal}{V}\textcolor{aveHead}{E}}\\[2pt]
+    {\sffamily\fontsize{11}{13}\selectfont\textcolor{aveInk}{%
+      \MakeUppercase{Applied Vacuum Engineering}}}\\[2pt]
+    {\sffamily\fontsize{9}{11}\selectfont\textcolor{aveFaint}{%
+      \MakeUppercase{Engineering Notebook \textbullet\ Experimental Record}}}\\[1.6cm]
+    \textcolor{aveRule}{\rule{0.5\linewidth}{1.2pt}}\\[10pt]
+    {\sffamily\fontsize{16}{19}\selectfont\textcolor{aveInk}{\ave@project}}\\[10pt]
+    \textcolor{aveRule}{\rule{0.5\linewidth}{1.2pt}}\\[1.4cm]
+    {\sffamily\fontsize{9}{12}\selectfont\textcolor{aveFaint}{%
+      \begin{tabular}{r@{\hspace{1em}}l}
+        \MakeUppercase{Notebook} & \ave@notebookid\\[3pt]
+        \MakeUppercase{Investigator} & \ave@author\\[3pt]
+        \MakeUppercase{Opened} & \ave@date\\
+      \end{tabular}}}
+  \end{center}\clearpage}
+
+% =====================================================================
+%  MASTER NOTEBOOK MODE  —  Leuchtturm A4+ style: numbered dotted pages,
+%  fill-in Contents index, ownership page.  Pair with the [a4plus] option.
+% =====================================================================
+
+% per-page furniture for blank dotted pages: faint DATE/TOPIC rules at the
+% top, page number in the OUTER bottom corner, tiny bond-star inner corner.
+\fancypagestyle{avemaster}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}\renewcommand{\footrulewidth}{0pt}%
+  \fancyhead[L]{\sffamily\fontsize{6}{7}\selectfont\textcolor{aveFaint}{DATE}\,%
+    \textcolor{aveGridStrong}{\rule[1.2pt]{34mm}{0.4pt}}}%
+  \fancyhead[R]{\textcolor{aveGridStrong}{\rule[1.2pt]{46mm}{0.4pt}}\,%
+    \sffamily\fontsize{6}{7}\selectfont\textcolor{aveFaint}{TOPIC}}%
+  \fancyfoot[LE,RO]{\sffamily\fontsize{8.5}{10}\selectfont\textcolor{aveFaint}{\thepage}}%
+  \fancyfoot[RE,LO]{\raisebox{-1pt}{\avetrefoilglyph[5]}}%
+  % faint electron watermark at page centre (write right over it)
+  \fancyfoot[C]{\begin{tikzpicture}[remember picture,overlay]
+      \begin{scope}[shift={(current page.center)}]\avetrefoilmark{3.2}{aveYellow}\end{scope}
+    \end{tikzpicture}}%
+}
+
+% page-emitting loops use plain-TeX \loop (NOT \foreach: \foreach tokenises
+% its whole body, so \clearpage/\thispagestyle fire at the wrong time vs the
+% output routine and pages fall back to the default style).
+\newcount\ave@pgc
+\newcount\ave@idxc
+
+% \avedottedpages{<n>} — n numbered blank dotted pages in master style.
+\newcommand{\avedottedpages}[1]{%
+  \clearpage\pagestyle{avemaster}%
+  \ave@pgc=0
+  \loop\ifnum\ave@pgc<#1
+    \null\newpage
+    \advance\ave@pgc by 1
+  \repeat}
+
+% \aveownership — front "this notebook belongs to / if found" page.
+\newcommand{\aveownership}{%
+  \thispagestyle{empty}\null\vspace*{2.0cm}%
+  \begin{center}\avebondstar[16]\end{center}\vspace{1.1cm}\par\noindent
+  {\sffamily\fontsize{9}{12}\selectfont\textcolor{aveFaint}{\MakeUppercase{This notebook belongs to}}}\\[3mm]
+  \textcolor{aveGridStrong}{\rule{\linewidth}{0.4pt}}\\[12mm]
+  {\sffamily\fontsize{9}{12}\selectfont\textcolor{aveFaint}{\MakeUppercase{If found, please return to}}}\\[3mm]
+  \textcolor{aveGridStrong}{\rule{\linewidth}{0.4pt}}\\[7mm]
+  \textcolor{aveGridStrong}{\rule{\linewidth}{0.4pt}}\\[14mm]
+  {\sffamily\fontsize{9}{12}\selectfont\textcolor{aveFaint}{%
+    \begin{tabular}{@{}p{34mm}p{34mm}p{34mm}@{}}
+      \MakeUppercase{Volume} & \MakeUppercase{Opened} & \MakeUppercase{Closed}\\[3mm]
+      \textcolor{aveGridStrong}{\rule{30mm}{0.4pt}} &
+      \textcolor{aveGridStrong}{\rule{30mm}{0.4pt}} &
+      \textcolor{aveGridStrong}{\rule{30mm}{0.4pt}}\\
+    \end{tabular}}}%
+  \clearpage}
+
+% one column of ruled "topic .......... page" lines (fill-in by hand).
+% Drawn in TikZ at a fixed 7.4 mm pitch — deterministic, avoids the
+% \par/\baselineskip drift that otherwise overflows the page.
+\newcommand{\ave@indexcol}[1]{%
+  \begin{minipage}[t]{0.47\linewidth}
+    \begin{tikzpicture}
+      \foreach \ave@r in {1,...,#1}{%
+        \draw[aveGridStrong, line width=0.35pt]
+          (0,{-\ave@r*7.4mm}) -- (0.80\linewidth,{-\ave@r*7.4mm});
+        \draw[aveGridStrong, line width=0.35pt]
+          (0.86\linewidth,{-\ave@r*7.4mm}) -- (\linewidth,{-\ave@r*7.4mm});}%
+    \end{tikzpicture}%
+  \end{minipage}}
+
+\newcommand{\ave@indexheader}{%
+  \noindent\raisebox{-0.4ex}{\avebondstar[8]}\hspace{0.6em}%
+  {\sffamily\bfseries\fontsize{14}{16}\selectfont\textcolor{aveHead}{\MakeUppercase{Contents}}}%
+  \hfill{\sffamily\fontsize{6.5}{8}\selectfont\textcolor{aveFaint}{%
+    \MakeUppercase{Topic}\hspace{2em}\MakeUppercase{Page}}}%
+  \par\vspace{2pt}\noindent\textcolor{aveRule}{\rule{\linewidth}{1.2pt}}\par\vspace{6mm}}
+
+% \aveindex[<pages>]{<rows-per-column>} — fill-in Contents (default 3 pages).
+\newcommand{\aveindex}[2][3]{%
+  \clearpage\pagestyle{empty}%
+  \ave@idxc=0
+  \loop\ifnum\ave@idxc<#1
+    \ave@indexheader
+    \noindent\ave@indexcol{#2}\hfill\ave@indexcol{#2}%
+    \newpage
+    \advance\ave@idxc by 1
+  \repeat}
+
+% \aveplate{<graphic>}{<caption>} — full-bleed dark frontispiece plate. Paints
+% its own black page over the grid, so it works in light OR dark notebooks.
+\newcommand{\aveplate}[2]{%
+  \clearpage\thispagestyle{empty}%
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[black] (current page.south west) rectangle (current page.north east);
+    \node[inner sep=0pt] at (current page.center)
+      {\includegraphics[width=0.92\paperwidth,height=0.80\paperheight,keepaspectratio]{#1}};
+    \node[font=\sffamily\fontsize{8}{11}\selectfont, text=white!70, align=center]
+      at ([yshift=-0.42\paperheight]current page.center) {\MakeUppercase{#2}};
+  \end{tikzpicture}%
+  \null\clearpage}
+
+\endinput
