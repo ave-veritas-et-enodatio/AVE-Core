@@ -98,6 +98,20 @@ is reading 2, then two of the three transducers are consistency-class / unreacha
 kernel. That is a material deflation of the convergence story and must be Grant-adjudicated before
 any corpus surgery.
 
+**The mechanical-grain "fourth transducer" (Grant 2026-06-03, scoped under `ave-prereg`):** Grant's
+instinct — that the quartz *crystalline structure / grain* couples the piezo effect to the
+lattice/vacuum mechanically, distinct from the dead DC-field channel — was scoped. Outcome at
+[`research/2026-06-03_piezo-mechanical-fourth-transducer-prereg.md`](2026-06-03_piezo-mechanical-fourth-transducer-prereg.md):
+**green-field but blocked.** The mechanical channel exists *only* in the LOCKED (finite-strain
+Lagrangian) reading of the substrate — which is Grant's own unresolved doc-109 trampoline question
+(`research/_archive/L3_electron_soliton/109_elastic_substrate_finite_strain_investigation.md`,
+canonical engine = SLIDING/Eulerian → a mechanical strain couples to the kernel only via the piezo
+E-field it generates = the dead field channel). Even granting LOCKED, A_mech ~ ν_vac·ε_mech ~ 10⁻⁶
+(δε/ε ~ 10⁻¹³…10⁻⁸ near fracture) — ~10⁵× the field channel but still ≪ 0.687; grain-dependence
+(κ_quality) is the only discriminator and its materials-map is open; the natural locked coefficient
+(κ_entrain) is categorically excluded from the reactive kernel. **Not a rescue; gated on the
+foundational locked-vs-sliding fork, not a bench choice. Q-G42 stays the one clean discriminator.**
+
 ---
 
 ## 5. The R-A re-freeze plan (queued, not executed)
