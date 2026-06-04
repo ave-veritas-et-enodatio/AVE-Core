@@ -96,4 +96,21 @@ This prediction is the discriminating content of the AVE double-slit: the mechan
 
 ## §6 — Distinctness guards (what this is NOT)
 
+Three confusions the reconciled canon must not re-introduce:
+
+1. **Ponderomotive wake $\neq$ thrust dark-wake.** The double-slit transverse wake is a **near-field ponderomotive** pressure field $\propto \nabla|\Psi|^2$ that navigates the defect. It is **not** the **far-field dark-wake** $\tau^{far}_{zx}$ (the radiated shear stress that carries reaction momentum for AVE thrust devices). The $\tau_{zx}$ derivation is an explicit **OPEN gap** ([dark-wake-bemf-foc-synthesis.md](../../../common/dark-wake-bemf-foc-synthesis.md):98–100; the symbol $\tau^{far}_{zx}$ is the "dark wake (far-field reaction)" row in [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):139). **Do not import $\tau_{zx}$ / Op14-thrust math into the double-slit analysis.**
+
+2. **The electron's "bubble" $\neq$ the free photon, and $\neq$ a cavitation bubble.** The electron's core is its own $\Gamma=-1$ self-created $0\,\Omega$ cavity (bubble-LIKE, self-confined — the matter core). The **free photon** has NO core and NO bubble (it is matched at $Z_0$, $\Gamma=0$). Separately, the sonoluminescence **cavitation bubble** proper is a DIFFERENT mechanism — saturated Rayleigh-Plesset inertia ($\rho_{eff}=\rho_0/(1-\mathrm{M}^2)^{3/2}$, [sonoluminescence-derivation.md](../../../vol3/applied-physics/ch14-sonoluminescence/sonoluminescence-derivation.md):25–27), NOT the $\Gamma=-1$ impedance cavity. The three must never merge.
+
+3. **The "helical photon" framing is RETRACTED.** Any legacy script or doc calling the photon a "helical soliton" or a **dual-sector** ($u\neq0$ AND $\omega\neq0$) object is using the **empirically-wrong** framing retracted at [photon-identification.md](../ch4-continuum-electrodynamics/photon-identification.md):93 ("Doc 107 correction"). The canonical photon is **single-sector** ($T_2$ only: $\omega\neq0$, $u=0$). The double-slit driver `simulate_double_slit_observer.py` (line 6, "a 'photon' is a helical soliton") uses this **superseded** framing — it is **not** propagated here.
+
 ## §7 — Honest-status flags
+
+Carried verbatim per `ave-evidence-framing-discipline`:
+
+- **This leaf is consistency / translation, not emergence.** Every mapping is an identification of already-canonical content (§1). No new derivation; `no-claim:` frontmatter.
+- **The Born-rule derivation is closed but scoped.** Closed 2026-05-26 for **AC / sign-symmetric signals** only ([ohmic-decoherence-born.md](ohmic-decoherence-born.md):59); DC / sign-asymmetric signals retain a sub-leading linear-in-$V_s$ term.
+- **The visibility-vs-$Z_{det}$ continuity is a forward prediction, not a closed result.** It is the AVE-distinct falsifiable distinction (§5), driver-explored but not yet experimentally confirmed.
+- **The electron-core EE map ($\Gamma=-1$ → shorted $\lambda/4$ resonator) is a DESCRIPTION, gate-(b) CLOSED 2026-06-04.** It describes the electron's trapped-reactive-energy structure; it does **not** derive $R\!\cdot\!r=\tfrac14$ (which is Class-B, `clm-0ktpcn` — see [Photon EE Mapping](../ch4-continuum-electrodynamics/photon-ee-mapping.md) §5 for the full flag).
+- **Soliton self-lock / autoresonance at $\Gamma=-1$ is underived** (✗ GAP, [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):202,217). The defect's stable confinement is asserted from the saturation mechanism, not yet derived from an autoresonance / self-lock argument.
+- **Helical-photon framing RETRACTED** ([photon-identification.md](../ch4-continuum-electrodynamics/photon-identification.md):93); the `simulate_double_slit_observer.py` "helical soliton" framing is **superseded** (§6.3).
