@@ -70,16 +70,126 @@ from ave.core.fdtd_3d import FDTD3DEngine
 # Derived dimensionless targets (substrate-derived PASS bars, prereg §6.1)
 PHI_SQ = PHI * PHI  # ≈ 2.618 — Golden-Torus phasor aspect (P5 diagnostic)
 A2_OP14 = R_I**2  # = 2α ≈ 0.0146 onset (R_I = √(2α)); P3 saturation-engagement bar
-# NOTE on P3: R_I = √(2α) is the Regime-I→II strain-ratio boundary in A²-units
-# where A = V/V_snap. The Op14 engagement A² bar is R_I² = 2α.
+# NOTE on P3 + operating point (validated during build, prereg §5.1 amendment):
+# The engine is instantiated with v_yield=V_SNAP — the TOPOLOGICAL scale, per
+# constants.py:42-43 ("Use V_SNAP only for subatomic/topological simulations").
+# Then the engine strain is A = V_local/V_SNAP, the Op14 engagement bar is
+# A² = R_I² = 2α (A ≈ 0.121), and full saturation (Γ→−1) is A→1. Stable amplitude
+# sweep that engages deep saturation WITHOUT the A→1 c_eff-divergence NaN:
+# {0.3, 0.5, 0.7}·V_SNAP/dx → peak A ≈ {0.40, 0.61, 0.77} (all past √(2α), all
+# stable). 0.85·V_SNAP/dx breaches A>1 and NaNs (ave-infinity-discipline cap).
+# Had we left v_yield=V_YIELD (43.65 kV default), the field would rupture at
+# V→V_yield (A=V/V_snap≈0.085) — BELOW the √(2α) Op14 bar — and NaN at the focus
+# (the phase3f Factor-3 blowup). Operating at V_SNAP is the fix.
+AMP_SWEEP_FRAC_VSNAP = (0.3, 0.5, 0.7)  # × V_SNAP/dx; validated stable + saturating
 
 OUTPUT_JSON = Path(__file__).parent / "r10_fdtd3d_transverse_photon_selftrap_results.json"
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# SECTION 1 — transverse-photon seed construction (C-EMERGE)            [stub]
+# SECTION 1 — transverse-photon seed construction (C-EMERGE)
 # ══════════════════════════════════════════════════════════════════════════════
-# Built in commit 2.
+#
+# Two counter-propagating focused circularly-polarized transverse pulses along
+# ±x, meeting at the lattice center. Each is a proper propagating Maxwell mode:
+# E⊥B⊥k with |E| = Z_0·|H| (self-consistent; fixes phase3f Factor-1 H=0 gap).
+# Opposite handedness on the two pulses → the constructive-interference region
+# carries a rotating multi-node transverse field (structured/Hopfion-like). NO
+# (2,3) winding, NO Beltrami tangent, NO torus-knot is placed — emergence is the
+# question (ave-driver-script-honesty: the emergence arm imposes nothing).
+
+
+def _gaussian_packet_envelope(x_cells, x0, k0, packet_width):
+    """Longitudinal Gaussian wave-packet envelope × carrier along propagation axis.
+
+    Returns the complex carrier exp(i k0 (x - x0)) × Gaussian(|x-x0|/packet_width).
+    The real/imag parts seed the two quadratures of a propagating transverse mode.
+    """
+    xi = (x_cells - x0).astype(float)
+    gauss = np.exp(-(xi**2) / (2.0 * packet_width**2))
+    carrier = np.exp(1j * k0 * xi)
+    return gauss * carrier
+
+
+def build_transverse_photon_seed(
+    engine: FDTD3DEngine,
+    amplitude: float,
+    *,
+    wavelength_cells: float = 6.2832,  # λ ≈ 2π cells (Compton-scale on the grid)
+    waist_cells: float = 4.0,  # transverse Gaussian σ_yz (focused beam)
+    packet_width_cells: float = 6.0,  # longitudinal packet σ
+    sep_cells: float = 12.0,  # initial ± separation of the two packets from center
+) -> dict:
+    """Seed two counter-propagating focused CP transverse pulses (C-EMERGE).
+
+    Sets engine.Ex..Hz IN PLACE. The fields are transverse (E,B in y-z plane;
+    k along x). Self-consistent |E| = Z_0|H|. Opposite handedness on the two
+    pulses. Returns a metadata dict (seed peak |E|, breach flag).
+
+    NO (2,3) / Beltrami / torus-knot is imposed.
+    """
+    nx, ny, nz = engine.nx, engine.ny, engine.nz
+    cx, cy, cz = (nx - 1) / 2.0, (ny - 1) / 2.0, (nz - 1) / 2.0
+    k0 = 2.0 * np.pi / wavelength_cells
+
+    i, j, k = np.indices((nx, ny, nz))
+    x = i.astype(float)
+    yy = j - cy
+    zz = k - cz
+    rho_t = np.sqrt(yy**2 + zz**2)  # transverse radius from x-axis
+
+    # Transverse focusing envelope (Gaussian beam waist), shared by both pulses.
+    waist = np.exp(-(rho_t**2) / (2.0 * waist_cells**2))
+
+    # Pulse A: propagates +x, launched left-of-center; RH circular transverse.
+    # Pulse B: propagates -x, launched right-of-center; LH circular transverse.
+    # Center positions
+    x0_A = cx - sep_cells
+    x0_B = cx + sep_cells
+
+    packA = _gaussian_packet_envelope(x, x0_A, +k0, packet_width_cells)  # +k
+    packB = _gaussian_packet_envelope(x, x0_B, -k0, packet_width_cells)  # -k
+
+    # Circular polarization in the transverse (y,z) plane:
+    #   RH (pulse A, +x): E_y = Re(pack), E_z = Im(pack)  (rotates one sense)
+    #   LH (pulse B, -x): E_y = Re(pack), E_z = -Im(pack) (opposite sense)
+    Ey_A = amplitude * waist * np.real(packA)
+    Ez_A = amplitude * waist * np.imag(packA)
+    Ey_B = amplitude * waist * np.real(packB)
+    Ez_B = -amplitude * waist * np.imag(packB)
+
+    # Self-consistent H for a transverse mode: H = (1/Z_0) k_hat × E.
+    # For +x propagation: H_y = -E_z/Z_0, H_z = +E_y/Z_0.
+    # For -x propagation: H_y = +E_z/Z_0, H_z = -E_y/Z_0.
+    Hy_A = -Ez_A / Z_0
+    Hz_A = +Ey_A / Z_0
+    Hy_B = +Ez_B / Z_0
+    Hz_B = -Ey_B / Z_0
+
+    # Superpose the two counter-propagating packets (E is longitudinally Ex=0).
+    engine.Ex[...] = 0.0
+    engine.Ey[...] = Ey_A + Ey_B
+    engine.Ez[...] = Ez_A + Ez_B
+    engine.Hx[...] = 0.0
+    engine.Hy[...] = Hy_A + Hy_B
+    engine.Hz[...] = Hz_A + Hz_B
+
+    E_mag = np.sqrt(engine.Ex**2 + engine.Ey**2 + engine.Ez**2)
+    seed_peak_E = float(E_mag.max())
+    V_local_peak = seed_peak_E * engine.dx
+    breach_yield = V_local_peak > engine.v_yield
+    return {
+        "seed": "C-EMERGE transverse photon (two counter-prop CP packets)",
+        "seed_peak_E": seed_peak_E,
+        "V_local_peak": V_local_peak,
+        "V_yield": float(engine.v_yield),
+        "breach_yield_at_seed": bool(breach_yield),
+        "wavelength_cells": wavelength_cells,
+        "waist_cells": waist_cells,
+        "packet_width_cells": packet_width_cells,
+        "sep_cells": sep_cells,
+        "imposed_winding": None,  # ave-driver-script-honesty: nothing imposed
+    }
 
 
 # ══════════════════════════════════════════════════════════════════════════════
