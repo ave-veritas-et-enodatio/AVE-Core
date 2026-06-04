@@ -10,6 +10,23 @@ own doc-109 trampoline question). Even granting the favorable reading, the signa
 the discriminator (grain-dependence) is open. **It does NOT rescue PONDER-05. Q-G42 remains the
 one clean forward discriminator of the saturation kernel.**
 
+> **🔴 CORRECTION (2026-06-03, post full doc-109 + L3-archive read; Rule 12 substitution-not-retraction):**
+> This prereg repeatedly calls doc-109's locked-vs-sliding question "unresolved / deferred / gated."
+> **That framing is WRONG.** Verify-before-cite on the full doc-109 + docs 110–114 shows it was
+> **reframed AND empirically closed:** (1) doc 109 §13 boundary-envelope reformulation (Grant-confirmed
+> 2026-05-14 evening) settled it toward **impedance-only** — the substrate sees the *boundary* not the
+> interior (no-hair, BH↔electron), "compression" is the refractive-index gradient n(r) **not** geometric
+> bond-length change, and Reading C1 (locked/geometric) was deemed *canonically inconsistent with
+> gravity-as-impedance* (§13.4, §15), **not** deferred; (2) the §14 test was **run and closed at v14
+> Mode I** (doc 113) — K4-TLM cannot host the bound electron (Mode III) but the **Master Equation FDTD**
+> engine (`src/ave/core/master_equation_fdtd.py`) hosts a sustained breathing soliton (4/4 PASS). So the
+> mechanical "fourth transducer" is **RULED OUT, not gated** — the geometric-locked channel it needs was
+> reframed-against + empirically unneeded. **The conclusion below is UNCHANGED and strengthened:** the
+> fourth transducer is not viable; Q-G42 is the one clean kernel discriminator. Read every "gated on the
+> unresolved fork" below as "ruled out by the closed fork." Flagged tension T1 (§"Two flagged tensions")
+> also **dissolves** — the neutron-lifetime "phonons shake 𝓜_A" is impedance-shaking (doc 109 §3.3/§13.8),
+> consistent with impedance-only. The body is preserved as originally written per Rule 12.
+
 ---
 
 ## PREREG

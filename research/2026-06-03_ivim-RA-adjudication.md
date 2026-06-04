@@ -109,8 +109,12 @@ canonical engine = SLIDING/Eulerian → a mechanical strain couples to the kerne
 E-field it generates = the dead field channel). Even granting LOCKED, A_mech ~ ν_vac·ε_mech ~ 10⁻⁶
 (δε/ε ~ 10⁻¹³…10⁻⁸ near fracture) — ~10⁵× the field channel but still ≪ 0.687; grain-dependence
 (κ_quality) is the only discriminator and its materials-map is open; the natural locked coefficient
-(κ_entrain) is categorically excluded from the reactive kernel. **Not a rescue; gated on the
-foundational locked-vs-sliding fork, not a bench choice. Q-G42 stays the one clean discriminator.**
+(κ_entrain) is categorically excluded from the reactive kernel. **Not a rescue; ~~gated on the
+foundational locked-vs-sliding fork, not a bench choice~~ → CORRECTED 2026-06-03 (full doc-109 read,
+Rule 12): RULED OUT, not gated — the fork was reframed (doc 109 §13 boundary-envelope, impedance-only,
+Grant-confirmed) AND closed at v14 Mode I (doc 113; Master Equation FDTD hosts the breathing soliton,
+K4-TLM cannot). The geometric-locked channel was reframed-against + empirically unneeded. Q-G42 stays
+the one clean discriminator.**
 
 ---
 
