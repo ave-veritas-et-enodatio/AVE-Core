@@ -348,9 +348,117 @@ def build_single_bond_phasor_seed(
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# SECTION 3 — phasor observable: (V_inc,V_ref)=(E±Z_0·H), aspect+chirality [stub]
+# SECTION 3 — phasor observable: (V_inc,V_ref)=(E±Z_0·H), aspect+chirality
 # ══════════════════════════════════════════════════════════════════════════════
-# Built in commit 4.
+#
+# phase-space-coordinate-check (A46): the (2,3) lives in the (V_inc,V_ref) phasor.
+# We compute V_inc = E + Z_0·H, V_ref = E − Z_0·H as DERIVED observables from the
+# engine's real-space E, H (the transmission-line characteristic split). The
+# observable lives in phasor coordinates — NOT real-space field direction (the
+# phase3f failure). Sampling: PML-excluded, energy-density-PEAK (not centroid —
+# centroid of a shell is the empty middle, Rule 10).
+
+
+def interior_energy_density(engine: FDTD3DEngine, pml: int) -> np.ndarray:
+    """EM energy density with PML cells zeroed (Rule 10 PML-cell exclusion)."""
+    u = engine.energy_density()
+    nx, ny, nz = engine.nx, engine.ny, engine.nz
+    out = np.zeros_like(u)
+    out[pml : nx - pml, pml : ny - pml, pml : nz - pml] = u[pml : nx - pml, pml : ny - pml, pml : nz - pml]
+    return out
+
+
+def top_k_density_peaks(engine: FDTD3DEngine, pml: int, k: int = 4) -> list[tuple[int, int, int]]:
+    """Top-K energy-density PEAK cells (NOT centroid+offset), PML-excluded (Rule 10)."""
+    u = interior_energy_density(engine, pml)
+    flat = u.ravel()
+    if np.count_nonzero(flat) < k:
+        k = max(1, int(np.count_nonzero(flat)))
+    idx = np.argpartition(flat, -k)[-k:]
+    idx = idx[np.argsort(-flat[idx])]
+    return [tuple(int(v) for v in np.unravel_index(i, u.shape)) for i in idx]
+
+
+def phasor_pair_at(engine: FDTD3DEngine, xyz, *, component: str = "y") -> tuple[float, float]:
+    """(V_inc, V_ref) = (E ± Z_0·H) at a cell, for one transverse component.
+
+    The characteristic / Riemann-invariant split of the (E, H) pair. component
+    'y' uses (Ey, Hz) — the (E_y, H_z) pair that propagates along x (E×H ∝ +x):
+    V_inc = E_y + Z_0·H_z, V_ref = E_y − Z_0·H_z. component 'z' uses (Ez, -Hy).
+    """
+    i, j, k = xyz
+    if component == "y":
+        E = engine.Ey[i, j, k]
+        H = engine.Hz[i, j, k]
+    else:
+        E = engine.Ez[i, j, k]
+        H = -engine.Hy[i, j, k]
+    v_inc = float(E + Z_0 * H)
+    v_ref = float(E - Z_0 * H)
+    return v_inc, v_ref
+
+
+def fit_ellipse_pca(v_inc_traj, v_ref_traj) -> tuple[float, float]:
+    """PCA on the (V_inc, V_ref) point cloud → (R_phase, r_phase) ellipse semi-axes.
+
+    Canonical phase-space methodology (r9_canonical_phase_space_phasor.py).
+    """
+    pts = np.column_stack([np.asarray(v_inc_traj), np.asarray(v_ref_traj)])
+    pts = pts - pts.mean(axis=0)
+    if pts.shape[0] < 3:
+        return 0.0, 0.0
+    cov = np.cov(pts.T)
+    evals = np.sort(np.linalg.eigvalsh(cov))  # ascending
+    r_phase = float(np.sqrt(max(evals[0], 1e-30)))
+    R_phase = float(np.sqrt(max(evals[1], 1e-30)))
+    return R_phase, r_phase
+
+
+def chirality_sign(v_inc_traj, v_ref_traj) -> tuple[float, int]:
+    """Mean angular momentum P×dP/dt of the phasor trajectory; sign = rotation sense."""
+    vi = np.asarray(v_inc_traj) - np.mean(v_inc_traj)
+    vr = np.asarray(v_ref_traj) - np.mean(v_ref_traj)
+    if len(vi) < 3:
+        return 0.0, 0
+    dvi = np.diff(vi)
+    dvr = np.diff(vr)
+    vim = 0.5 * (vi[:-1] + vi[1:])
+    vrm = 0.5 * (vr[:-1] + vr[1:])
+    cross = vim * dvr - vrm * dvi
+    m = float(np.mean(cross))
+    return m, int(np.sign(m))
+
+
+def toroidal_polarization_winding(engine: FDTD3DEngine, *, R_cells: float, n_phi: int = 72) -> float:
+    """Toroidal-"2" observable: E-field polarization winding around the major loop.
+
+    Samples the transverse E-polarization angle θ_pol = atan2(Ez, Ey) at n_phi
+    points around a circle of radius R_cells in the z=center plane, and counts the
+    total 2π-windings of θ_pol as φ goes 0→2π. This is the w₁ that survives the
+    Hopf projection to the E-field (06_winding_index_projection.md §3). Returns the
+    (real-valued) winding number; ≈ 2 is the toroidal-"2" PASS. The poloidal-"3"
+    is NOT computable here (Cosserat fibre absent, prereg §1/§6.1 P6).
+    """
+    nx, ny, nz = engine.nx, engine.ny, engine.nz
+    cx, cy, cz = (nx - 1) / 2.0, (ny - 1) / 2.0, (nz - 1) / 2.0
+    phis = np.linspace(0.0, 2.0 * np.pi, n_phi, endpoint=False)
+    theta = np.zeros(n_phi)
+    for a, ph in enumerate(phis):
+        xi = int(round(cx + R_cells * np.cos(ph)))
+        yi = int(round(cy + R_cells * np.sin(ph)))
+        zi = int(round(cz))
+        xi = np.clip(xi, 0, nx - 1)
+        yi = np.clip(yi, 0, ny - 1)
+        ey = engine.Ey[xi, yi, zi]
+        ez = engine.Ez[xi, yi, zi]
+        theta[a] = np.arctan2(ez, ey)
+    # Unwrap and count total winding over the closed loop
+    unwrapped = np.unwrap(theta)
+    total = unwrapped[-1] - unwrapped[0]
+    # add the closing step (last → first)
+    closing = np.angle(np.exp(1j * (theta[0] - theta[-1])))
+    total += closing
+    return float(total / (2.0 * np.pi))
 
 
 # ══════════════════════════════════════════════════════════════════════════════
