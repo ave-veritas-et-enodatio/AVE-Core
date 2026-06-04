@@ -26,11 +26,11 @@ Chapter 13 of the Vol 9 datasheet is the cross-chapter integration map. Each app
 
 Per `consistency-vs-emergence` v1.3 + `ave-discrimination-check`:
 
-- α derivation: Class~B substrate-mechanism mapping for the cold-lattice asymptote (canonical at `clm-0ktpcn`); δ_strain correction is Class~B at PARTIAL band (`clm-hp7nlm`, solidity ~0.55), with Q-DELTA-MAP-1-quant the open closure path
+- α derivation: Class~B substrate-mechanism mapping for the cold-lattice asymptote (a named geometric identification, canonical at `clm-0ktpcn`); δ_strain correction is Class~B at PARTIAL band (`clm-hp7nlm`, solidity ~0.55), with Q-DELTA-MAP-1-quant (the magnitude-derivation route) CLOSED NEGATIVE (FT-1 2026-05-31) — the δ_strain magnitude is a definitional residual, SIGN-only
 - Schwarzschild + Machian G: Class~B substrate-mechanism mapping for gravitational time dilation; SM-counterfactual is GR with posited $G$; three-route $u_0^*$ convergence is substrate-distinct (canonical `clm-dsb560`)
 - W/Z transformer-leakage: Class~B substrate-mechanism mapping; SM-counterfactual is Higgs-vev mechanics; right-handed neutrino joint kill-switch is substrate-distinct (canonical `clm-gw2wgc`)
 - Born rule: Class~D emergence-class derivation of the $p=2$ exponent from substrate primitives (canonical `clm-ldmvwi`, master-equation-derivation-path closed Phase 2-A); SM-counterfactual is Born rule as postulate
-- δ_strain: Class~B substrate-mechanism class identified (`clm-hp7nlm`); SM-counterfactual is QED with no thermal $\alpha$-running mechanism at CMB photon-bath occupation; quantitative derivation $\eta_\varepsilon(T)$ open (Q-DELTA-MAP-1-quant)
+- δ_strain: Class~B substrate-mechanism class identified, SIGN predicted (`clm-hp7nlm`); SM-counterfactual is QED with no thermal $\alpha$-running mechanism at CMB photon-bath occupation — but the quantitative magnitude derivation $\eta_\varepsilon(T)$ (Q-DELTA-MAP-1-quant) was CLOSED NEGATIVE (FT-1 2026-05-31: ~31 OOM undershoot, AND generic-thermal not AVE-distinct), so the magnitude is a definitional residual
 
 ## Carry-forward framings (preserved verbatim per chapter discipline)
 

@@ -649,9 +649,10 @@ $$
 Finally, the three initial bounding limits are geometrically derived
 at Class B substrate-mechanism manifestation level per Q-EMBED-SEL-1
 Phase 1+2+3 (2026-05-31)---not independent empirical inputs---reducing
-the framework to **zero free parameters** at Class B (modulo a future
-Class 2 lift workstream + the $\delta_{strain}$ magnitude
-Q-DELTA-MAP-1-quant). See the gating-clause resolution at the top of
+the framework to **zero free parameters** at Class B substrate-mechanism
+manifestation level (α a named geometric identification; the $\delta_{strain}$
+magnitude a definitional residual after Q-DELTA-MAP-1-quant closed NEGATIVE,
+FT-1 2026-05-31). See the gating-clause resolution at the top of
 this chain for the substrate-mechanism that supersedes the prior
 ropelength-minimality embedding-selection gating.
 
@@ -708,10 +709,11 @@ integer **1**.
 > The AVE framework is a closed Topological Effective Field Theory at
 > **Class B substrate-mechanism manifestation level** per Q-EMBED-SEL-1
 > Phase 1+2+3 (2026-05-31; see gating-clause resolution at top) — with a
-> Class 2 lift candidate workstream identified (derive the phasor↔real-space
-> area bijection at the bond LC tank from K4 + Cosserat substrate primitives
-> alone) and Layer 8 thermal closure of $\delta_{strain}$ at $T_{CMB}$
-> remaining open (Q-DELTA-MAP-1-quant). Physical parameters flow exclusively
+> Class 2 α lift now resting on the separate z₀-from-K4 route (both named
+> golden-torus lift-routes — selection + the phasor↔real-space area bijection —
+> closed Class B 2026-06-04) and the Layer 8 $\delta_{strain}$ magnitude a
+> definitional residual (Q-DELTA-MAP-1-quant CLOSED NEGATIVE, FT-1 2026-05-31).
+> Physical parameters flow exclusively
 > outward from geometric bounding limits to macroscopic observables, without
 > looping any output back into an unconstrained input.
 
@@ -841,7 +843,7 @@ Counting honestly against the chain's own structure ("three empirically anchored
 - **Structurally eliminated ($\varnothing$):** 1 --- $\theta_{QCD}$ (exact zero by topological CPT).
 - **Future targets ($\triangleright$):** 0.
 
-**Honest framing of "zero free parameters":** The chain reduces 26 SM parameters to a 3-element bounding set $\{m_e, \alpha, G\}$ + four axioms, which is then claimed to close to zero parameters at Layer 8. The "26 / 26 derived" headline is correct *conditional on Layer 8 closure holding*; without that closure, the count is "25 of 26 expressed as functions of three bounding limits, of which one ($m_e$) is the input scale." The Layer-8 closure depends on (a) the Golden Torus cold-lattice $\alpha^{-1}_{ideal} = 4\pi^3+\pi^2+\pi$ derivation (Vol 1 Ch 8) and (b) the thermal running $\alpha^{-1}(T)$: existence and sign predicted; the magnitude $\delta_{strain}$ at $T_{CMB}$ is one currently-fitted scalar (back-subtracted from CODATA). Q-DELTA-MAP-1 (substrate-mechanism class identification) closed at mechanism-class identification 2026-05-28 via Cosserat-rotation-sector mass-gap thermal-mode-population ASYM ([`vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md`](../vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md), clm-hp7nlm); the remaining open item is **Q-DELTA-MAP-1-quant** (quantitative substrate-statistical-mechanics derivation of $\eta_\varepsilon$ within the now-identified mechanism class — see [`research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md`](../../../research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md) §3 for the 2026-05-27 Phase 3-A3 WALK-BACK that surfaced the original three candidate paths P1/P2/P3). See [`Vol 1 Ch 8`](../vol1/ch8-alpha-golden-torus.md) for the predicted/fitted disclosure.
+**Honest framing of "zero free parameters":** The chain reduces 26 SM parameters to a 3-element bounding set $\{m_e, \alpha, G\}$ + four axioms, which is then claimed to close to zero parameters at Layer 8. The "26 / 26 derived" headline is correct *conditional on Layer 8 closure holding*; without that closure, the count is "25 of 26 expressed as functions of three bounding limits, of which one ($m_e$) is the input scale." The Layer-8 closure depends on (a) the Golden Torus cold-lattice $\alpha^{-1}_{ideal} = 4\pi^3+\pi^2+\pi$ derivation (Vol 1 Ch 8, a named geometric identification) and (b) the thermal running $\alpha^{-1}(T)$: existence and sign predicted; the magnitude $\delta_{strain}$ at $T_{CMB}$ is a **definitional residual** (back-subtracted from CODATA, $1-$CODATA$/\alpha_\text{cold}$), NOT a derivable thermal observable. Q-DELTA-MAP-1 (substrate-mechanism class identification) closed at mechanism-class identification 2026-05-28 via Cosserat-rotation-sector mass-gap thermal-mode-population ASYM ([`vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md`](../vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md), clm-hp7nlm), predicting the SIGN; the candidate quantitative magnitude derivation **Q-DELTA-MAP-1-quant** was **ATTEMPTED and CLOSED NEGATIVE** (FT-1, 2026-05-31: E-mode Bose-Einstein occupation undershoots $\eta_\varepsilon$ by ~31 OOM, generic-thermal not AVE-distinct — [`research/2026-05-31_FT-1_delta-strain-eta-epsilon_result.md`](../../../research/2026-05-31_FT-1_delta-strain-eta-epsilon_result.md); see [`research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md`](../../../research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md) §3 for the earlier Phase 3-A3 WALK-BACK + candidate paths P1/P2/P3). See [`Vol 1 Ch 8`](../vol1/ch8-alpha-golden-torus.md) for the predicted/fitted disclosure.
 
 Every quantity marked $\checkmark$ is computed by the physics engine at import time with zero per-parameter curve-fitting; the input scale ($m_e$) is calibrated once and propagated. The scope of "no curve-fitting" claim is the SM-parameter table only; nuclear masses (Vol 6) are a separate one-fit-per-nucleus structural claim — see Vol 6 introduction methodology note.
 
@@ -889,7 +891,7 @@ Every quantity marked $\checkmark$ is computed by the physics engine at import t
 | $\alpha_s$ | $\alpha^{3/7}$ (compliance projection) | 0.1214 | 0.1179 | $2.97\%$ |
 | $m_H$ | $v/\sqrt{N_{K4}} = v/2$ | 124417 MeV | 125100 MeV | $0.55\%$ |
 
-**Empirical inputs (bounding limits):** 3 — $\{m_e, \alpha, G\}$. Each is *claimed* emergent at Layer 8 (Vol 1 Ch 8 Golden Torus); the closure rests on the cold-lattice $\alpha^{-1}_{ideal} = 4\pi^3+\pi^2+\pi$ derivation, plus a thermal-running correction whose existence and sign are predicted but whose magnitude ($\delta_{strain}$ at $T_{CMB}$) is one currently-fitted scalar — see Vol 1 Ch 8 predicted/fitted disclosure.
+**Empirical inputs (bounding limits):** 3 — $\{m_e, \alpha, G\}$. Each is *claimed* emergent at Layer 8 (Vol 1 Ch 8 Golden Torus, α a named geometric identification); the closure rests on the cold-lattice $\alpha^{-1}_{ideal} = 4\pi^3+\pi^2+\pi$ derivation, plus a thermal-running correction whose existence and sign are predicted but whose magnitude ($\delta_{strain}$ at $T_{CMB}$) is a definitional residual ($1-$CODATA$/\alpha_\text{cold}$; the quantitative-derivation route Q-DELTA-MAP-1-quant closed NEGATIVE, FT-1 2026-05-31) — see Vol 1 Ch 8 predicted/fitted disclosure.
 **Phenomenological per-parameter curve fits within the SM table:** 0 (one input scale propagates; no per-row tuning). Vol 6 nuclear masses are out of scope of this scorecard — see Vol 6 introduction for that methodology (one fitted scalar per nucleus, structurally disclosed).
 **Predictions within 5% of measurement:** 38/38.
 **SM parameters reduced to 3 bounding limits + 4 axioms:** 26 / 26 (with $\theta_{QCD}$ structurally eliminated). Whether this counts as "zero free parameters" depends on whether Layer 8 closure of $\{m_e, \alpha, G\}$ holds; conditional on Layer 8, yes.

@@ -12,7 +12,7 @@ claims: [clm-hp7nlm]
 
 The canonical substrate-mechanism leaf for $\delta_{strain} \approx 2.225 \times 10^{-6}$ at $T_{CMB} \approx 2.725$ K, identified per `ave-ee-first-mapping` v1.0 + Grant 2026-05-28 adjudication as the **Cosserat-rotation-sector mass-gap thermal-mode-population ASYM** mechanism. The substrate's bipartite thermal-mode structure (Ax 1) carries gapless E-modes (translational, thermally populated at any $T > 0$) and gapped B-modes (microrotational, Cosserat couple-stress mass-gap $\omega_m \sim 1$ MeV). At cosmic-temperature $T_{CMB}$ with $k_B T_{CMB} \approx 0.2$ meV vs the $\sim 1$ MeV B-mode gap (ratio $\sim 10^{-10}$), B-modes are thermally frozen; only E-modes participate in substrate thermal-mode population. Asymmetric occupation breaks SYM-class scaling: $\varepsilon$ thermally modulates while $\mu$ stays at cold-lattice. Asymmetric SYM-breaking voids the canonical clm-3zz0f6 α-invariance ruling; α drifts from cold-lattice $\alpha^{-1}_{ideal} = 4\pi^3 + \pi^2 + \pi$ to CODATA $137.035999$, the drift being δ_strain.
 
-The substrate-mechanism is **identified** (Class B); the **quantitative substrate-statistical-mechanics derivation** of $\eta_\varepsilon$ from substrate E-mode dispersion at $T_{CMB}$ is **not closed** at this leaf — that closure is the path from Class B substrate-mechanism manifestation to Class 2 substrate-mechanism axiom-manifestation. Confidence target for the downstream clm-009nkt entry: 0.45 → 0.55 (PARTIAL band per Phase 3-A3 prework brief; substrate-mechanism identified + load-bearing assumption named, but quantitative-derivation gap holds confidence below 0.60).
+The substrate-mechanism is **identified** (Class B); the candidate **quantitative substrate-statistical-mechanics derivation** of $\eta_\varepsilon$ from substrate E-mode dispersion at $T_{CMB}$ (Q-DELTA-MAP-1-quant) was **ATTEMPTED and CLOSED NEGATIVE** by FT-1 (2026-05-31, [`research/2026-05-31_FT-1_delta-strain-eta-epsilon_result.md`](../../../../../research/2026-05-31_FT-1_delta-strain-eta-epsilon_result.md)): the E-mode Bose-Einstein occupation undershoots $\eta_\varepsilon \approx 4.45 \times 10^{-6}$ by **~31 OOM** (at $T_{CMB} \ll \Theta_{\text{Debye}} \approx 2.3 \times 10^{10}$ K the BE occupation suppresses *below* equipartition by ~28.5 OOM and cannot amplify), AND is **generic-thermal, not AVE-distinct** (SM-counterfactual: any lattice framework with a ~MeV Debye cutoff + 2.7 K bath gives the same suppression). So the Class-2 lift via this route does **NOT** occur; δ_strain's magnitude is a **definitional residual** ($1 - $CODATA$/\alpha_\text{cold}$), and the thermal mechanism holds in **sign only** (the genuine α-T drift is $\sim 10^{-38}$, unobservable). This is a MAGNITUDE-only re-scope — the SIGN-mechanism (this leaf's §3) and the weak-force $\gamma_c$ joint-constraint (§6.2) SURVIVE unchanged. The downstream clm-009nkt confidence STAYS at 0.55 (the Class-2 lift that would push it above 0.60 does not occur). Reinforced by the 2026-06-04 golden-torus bijection closure: $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ is a **named geometric identification** (both lift-routes — selection + bijection — closed Class B); only the separate $z_0$-from-K4 route stays open.
 
 ## Key Results
 
@@ -118,7 +118,7 @@ A Class 2 substrate-mechanism axiom-manifestation lift would require:
 3. Couple to substrate dielectric response via Ax 1 microscopic primitives to extract $\eta_\varepsilon$
 4. Match to canonical $\eta_\varepsilon \approx 4.45 \times 10^{-6}$ at $T_{CMB}$
 
-That's substrate-statistical-mechanics work not done at this leaf. Future Q-DELTA-MAP-1-quant follow-up workstream.
+That substrate-statistical-mechanics work was carried out as Q-DELTA-MAP-1-quant (FT-1, 2026-05-31) and **CLOSED NEGATIVE**: steps 1–3 forward (no target fed in) yield $\eta_\varepsilon \sim 10^{-38}$, undershooting step 4's target by ~31 OOM, because $\Theta_{\text{Debye}} \approx 2.3 \times 10^{10}$ K $\gg T_{CMB}$ forces the deeply-quantum Debye-$T^4$ regime where BE occupation lies *below* equipartition. The lift does **not** occur via this route — the Class B classification STAYS (the candidate Class B → Class 2 lift is now a recorded negative, not an open workstream).
 
 **Observable axis**: **Class 4 observable consistency**. The numerical value of $\delta_{strain} = 2.225 \times 10^{-6}$ matches canonical CODATA-derived value by construction — δ_strain is back-subtracted from CODATA at clm-009nkt. **NOT Class E new prediction** at this rigor level. Future Class E lift route: if the cosmic-temperature-dependent α-drift forward prediction (§6) becomes a substrate-distinct empirical handle at higher-redshift quasar absorption-line measurements, the observable axis lifts to Class E.
 
@@ -162,7 +162,7 @@ This is empirically observed in EE practice. AVE's prediction is that the same m
 This leaf identifies the substrate-mechanism class for δ_strain (Cosserat-Curie thermal-mode-population ASYM). It does NOT:
 
 - Derive $\eta_\varepsilon$ quantitatively from substrate E-mode dispersion + thermal occupation. The numerical magnitude δ_strain $\approx 2.225 \times 10^{-6}$ remains back-subtracted from CODATA at clm-009nkt, identical to the prior state. Adding this leaf's mechanism identification does NOT promote the back-subtraction to a derivation.
-- Close the substrate-statistical-mechanics computation needed for a Class 2 emergence lift. That work is future Q-DELTA-MAP-1-quant workstream.
+- Close the substrate-statistical-mechanics computation needed for a Class 2 emergence lift. That work was carried out as Q-DELTA-MAP-1-quant (FT-1, 2026-05-31) and **CLOSED NEGATIVE** — the E-mode BE-occupation derivation undershoots $\eta_\varepsilon$ by ~31 OOM and is generic-thermal (not AVE-distinct), so the magnitude does not lift to a derivation. δ_strain stays a **definitional residual**.
 - Promote clm-009nkt to "fitted scalar resolved" status. The clm-009nkt confidence target is **0.45 → 0.55** (PARTIAL band per consistency-vs-emergence v1.3 Step 8d), reflecting the substrate-mechanism identification + load-bearing-assumption naming, with the quantitative-derivation gap holding confidence below 0.60.
 
 What this leaf DOES:
@@ -172,7 +172,7 @@ What this leaf DOES:
 - Provides forward-prediction handles (cosmic-temperature-dependent α drift; joint-falsification with right-handed neutrino kill-switch; engineering-scale empirical cross-check)
 - Closes Q-DELTA-MAP-1 at substrate-mechanism-class identification level (was OPEN; now: Cosserat-rotation-sector mass-gap thermal-mode-population ASYM identified)
 
-The Class 2 emergence lift (quantitative substrate-statistical-mechanics derivation of $\eta_\varepsilon$) remains future workstream.
+The Class 2 emergence lift (quantitative substrate-statistical-mechanics derivation of $\eta_\varepsilon$) was **attempted (Q-DELTA-MAP-1-quant / FT-1, 2026-05-31) and CLOSED NEGATIVE** — it undershoots by ~31 OOM and is generic-thermal, not AVE-distinct. The magnitude does not lift; δ_strain stays a definitional residual. The SIGN-mechanism and the weak-force $\gamma_c$ joint-constraint are unaffected and remain canonical. (See [`research/2026-05-31_FT-1_delta-strain-eta-epsilon_result.md`](../../../../../research/2026-05-31_FT-1_delta-strain-eta-epsilon_result.md) for the full forward derivation + honest-closure record; the 2026-06-04 golden-torus bijection closure independently confirms $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ as a named identification.)
 
 ## §8 — Cross-references
 
@@ -183,7 +183,7 @@ The Class 2 emergence lift (quantitative substrate-statistical-mechanics derivat
 - **SYM-class α-invariance proof** (clm-3zz0f6, confidence/solidity 0.85): [`alpha-invariance-symmetric-gravity.md`](../../gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md) — load-bearing: SYM scaling gives α invariance; δ_strain emerges precisely because asymmetric thermal occupation breaks SYM
 - **SYM vs ASYM canonical** (clm-8nkvwy): [`einstein-field-equation.md`](../../gravity/ch02-general-relativity/einstein-field-equation.md) — load-bearing: the c_EM vs c_shear distinction underlying the asymmetric scaling analysis
 - **CLAUDE.md INVARIANT-S2** (Ax 1-4 + c_EM vs c_shear disambiguation): `manuscript/ave-kb/CLAUDE.md` lines 51-73
-- **Mathematical-closure δ_strain framework statement**: [`mathematical-closure.md`](../../../common/mathematical-closure.md) line 105 — δ_strain as currently-fitted thermal scalar at $T_{CMB}$ pending substrate-physics derivation
+- **Mathematical-closure δ_strain framework statement**: [`mathematical-closure.md`](../../../common/mathematical-closure.md) — δ_strain as a **definitional residual** ($1-$CODATA$/\alpha_\text{cold}$) after Q-DELTA-MAP-1-quant closed NEGATIVE (FT-1, 2026-05-31); the cold-lattice α is a named geometric identification
 
 ### Lateral cosmological substrate-mechanism leaves
 

@@ -9,7 +9,7 @@
     \item Tabulate the temperature coefficients of the substrate primitives ($\varepsilon_{eff}$, $\mu_{eff}$, $Z_0$, $c_{EM}$, $c_{shear}$, $\delta_{strain}$) at $T = T_{CMB}$ under the Cosserat-Curie mechanism.
     \item Quote the substrate-native thermal noise floor (Johnson-Nyquist) and place it as an engineering-scale observable of the same substrate thermal-bath occupation that drives $\delta_{strain}$ at the cosmic scale.
     \item Bound the operating temperature range over which the linear Cosserat-Curie mechanism holds: $T_{CMB} \ll T \ll T_{B-gap} \sim 10^{10}$ K below; $T_{melt} \sim m_e c^2/k_B$ above (Regime~IV onset).
-    \item Flag the open quantitative substrate-statistical-mechanics derivation as Q-DELTA-MAP-1-quant; the substrate-mechanism class is identified (Class B) but the quantitative derivation of $\eta_\varepsilon$ is not closed at substrate-axiom rigor.
+    \item Record the quantitative substrate-statistical-mechanics derivation (Q-DELTA-MAP-1-quant) as CLOSED NEGATIVE (FT-1, 2026-05-31: $\sim$31 OOM undershoot, generic-thermal not AVE-distinct); the substrate-mechanism class is identified (Class B) and predicts the SIGN, but the magnitude is a definitional residual, not derived at substrate-axiom rigor.
 \end{itemize}
 \end{objectivebox}
 
@@ -18,7 +18,7 @@
 
 The substrate $\mathcal{M}_A$ is natural. It carries a finite thermal-mode population at any operating temperature $T > 0$, set by the Bose-Einstein occupation of substrate-native modes against the canonical six-degrees-of-freedom-per-node K4 bipartite structure (Axiom~1; CLAUDE.md INVARIANT-S2). Engineering practice observes the consequences of this thermal-mode population --- temperature coefficient of capacitance (TCC), temperature coefficient of resistance (TCR), Curie thresholds on ferromagnetic components, Johnson-Nyquist thermal noise floor on every resistive boundary --- across many millions of components characterized over decades. AVE substrate-physics identifies the single substrate-mechanism class that produces all of these engineering-scale observables, AND the cosmic-scale instance $\delta_{strain}$ at $T_{CMB}$ that drives the CMB-thermal-running of $\alpha$ from cold-lattice $\alpha^{-1}_{ideal} = 4\pi^3 + \pi^2 + \pi$ to the CODATA value. The substrate is not engineered, designed, or tuned; engineering measurement and substrate-physics derivation converge on the same natural material.
 
-This chapter documents the substrate's temperature characteristics at this discipline level: the substrate-mechanism class is identified at PARTIAL-band rigor (Class B per \texttt{consistency-vs-emergence} v1.3); the quantitative substrate-statistical-mechanics derivation of $\eta_\varepsilon$ remains future workstream (Q-DELTA-MAP-1-quant); the Class~2 emergence lift is the canonical closure path and is flagged explicitly in \S\ref{sec:vol9_temperature_open}.
+This chapter documents the substrate's temperature characteristics at this discipline level: the substrate-mechanism class is identified at PARTIAL-band rigor (Class B per \texttt{consistency-vs-emergence} v1.3) and predicts the SIGN of $\alpha$-vs-$T$ running; the candidate quantitative substrate-statistical-mechanics derivation of $\eta_\varepsilon$ (Q-DELTA-MAP-1-quant) was attempted and CLOSED NEGATIVE (FT-1, 2026-05-31), so the $\delta_{strain}$ magnitude is a definitional residual --- the negative result + its single-mechanism explanation are recorded explicitly in \S\ref{sec:vol9_temperature_open}.
 
 \section{Cosserat-Curie Thermal-Asymmetry Mechanism}
 \label{sec:vol9_cosserat_curie_mechanism}
@@ -162,12 +162,12 @@ The Cosserat-Curie linear-asymmetry mechanism documented in \S\ref{sec:vol9_coss
 \end{itemize}
 
 \noindent
-\textbf{Note on $T_{B-gap}$ vs $T_{melt}$ ordering.} Both thresholds lie far above any current laboratory or cosmic engineering operating point; $T_{B-gap} \sim 10^{10}$ K (substrate Cosserat-Curie unfreezing) and $T_{melt} \sim \qty{6e9}{\kelvin}$ (substrate pair-production threshold) bracket the same general substrate-energy scale ($\sim m_e c^2/k_B$ vs $\sim \hbar\omega_m/k_B$). The two thresholds are set by independent substrate primitives ($\omega_m$ from $\gamma_c$; $T_{melt}$ from $m_e c^2$) and are not currently constrained to a quantitative ordering at substrate-axiom rigor. This is a downstream sub-question of Q-DELTA-MAP-1-quant.
+\textbf{Note on $T_{B-gap}$ vs $T_{melt}$ ordering.} Both thresholds lie far above any current laboratory or cosmic engineering operating point; $T_{B-gap} \sim 10^{10}$ K (substrate Cosserat-Curie unfreezing) and $T_{melt} \sim \qty{6e9}{\kelvin}$ (substrate pair-production threshold) bracket the same general substrate-energy scale ($\sim m_e c^2/k_B$ vs $\sim \hbar\omega_m/k_B$). The two thresholds are set by independent substrate primitives ($\omega_m$ from $\gamma_c$; $T_{melt}$ from $m_e c^2$) and are not currently constrained to a quantitative ordering at substrate-axiom rigor. This threshold-ordering question is a distinct downstream sub-question of the $\delta_{strain}$ thread (whose magnitude-derivation route Q-DELTA-MAP-1-quant closed NEGATIVE, FT-1 2026-05-31); it remains independently unresolved at substrate-axiom rigor.
 
-\section{Open Research: Quantitative $\eta_\varepsilon$ Derivation (Q-DELTA-MAP-1-quant)}
+\section{Closed Research (Negative): Quantitative $\eta_\varepsilon$ Derivation (Q-DELTA-MAP-1-quant)}
 \label{sec:vol9_temperature_open}
 
-The Cosserat-Curie thermal-asymmetry mechanism documented in \S\ref{sec:vol9_cosserat_curie_mechanism} identifies the substrate-mechanism class for $\delta_{strain}$ at $T_{CMB}$ (canonical leaf \texttt{clm-hp7nlm}, confidence/solidity \textbf{0.55 PARTIAL band}). It does NOT close the quantitative substrate-statistical-mechanics derivation of $\eta_\varepsilon \approx \num{4.45e-6}$ from substrate primitives.
+The Cosserat-Curie thermal-asymmetry mechanism documented in \S\ref{sec:vol9_cosserat_curie_mechanism} identifies the substrate-mechanism class for $\delta_{strain}$ at $T_{CMB}$ (canonical leaf \texttt{clm-hp7nlm}, confidence/solidity \textbf{0.55 PARTIAL band}) and predicts the SIGN of $\alpha$-vs-$T$ running. The candidate quantitative substrate-statistical-mechanics derivation of $\eta_\varepsilon \approx \num{4.45e-6}$ from substrate primitives (Q-DELTA-MAP-1-quant) was \textbf{attempted and closed NEGATIVE} (FT-1, 2026-05-31): it undershoots the target by $\sim$31 OOM and is generic-thermal, not AVE-distinct. So $\delta_{strain}$'s magnitude is a \textbf{definitional residual} ($1-$CODATA$/\alpha_{cold}$), with only the SIGN substrate-set.
 
 \textbf{What is closed (Class B substrate-mechanism manifestation).}
 \begin{itemize}
@@ -176,16 +176,16 @@ The Cosserat-Curie thermal-asymmetry mechanism documented in \S\ref{sec:vol9_cos
     \item The joint-constraint with the weak-force range is explicit: a single substrate primitive $\gamma_c$ underlies both observables (\S\ref{subsec:vol9_joint_constraint}).
 \end{itemize}
 
-\textbf{What is open (Class~2 emergence lift, Q-DELTA-MAP-1-quant).}
+\textbf{What was attempted and closed NEGATIVE (Q-DELTA-MAP-1-quant; FT-1, 2026-05-31).} The forward chain below was run with the target firewalled (read by the final compare only):
 \begin{enumerate}
-    \item Compute substrate E-mode dispersion $\omega_E(k)$ at $T_{CMB}$ from substrate primitives ($\ell_{node}$, $G_{vac}$, $\rho_{bulk}$).
-    \item Compute thermal occupation $\langle A_E^2 \rangle_{thermal}$ via substrate-Bose-Einstein occupation of the E-mode spectrum at $k_B T_{CMB}$.
-    \item Couple to the substrate dielectric response via Ax~1 microscopic primitives to extract $\eta_\varepsilon$ at first principles.
-    \item Match to canonical $\eta_\varepsilon \approx \num{4.45e-6}$ at $T_{CMB}$.
+    \item Compute substrate E-mode dispersion $\omega_E(k)$ at $T_{CMB}$ from substrate primitives ($\ell_{node}$, $G_{vac}$, $\rho_{bulk}$) --- gapless, $c_E = c_0$, Debye cutoff $\hbar\omega_D \approx 1.6$~MeV, $\Theta_{\text{Debye}} \approx \qty{2.3e10}{\kelvin}$.
+    \item Compute thermal occupation $\langle A_E^2 \rangle_{thermal}$ via substrate-Bose-Einstein occupation of the E-mode spectrum at $k_B T_{CMB}$ --- at $T_{CMB} \ll \Theta_{\text{Debye}}$ this is the Debye-$T^4$ law, \emph{below} equipartition by $\sim$28.5 OOM.
+    \item Couple to the substrate dielectric response via Ax~1 microscopic primitives to extract $\eta_\varepsilon$ at first principles --- $\eta_\varepsilon \sim 10^{-38}$.
+    \item Compare to canonical $\eta_\varepsilon \approx \num{4.45e-6}$ at $T_{CMB}$ --- \textbf{undershoots by $\sim$31 OOM}.
 \end{enumerate}
-That substrate-statistical-mechanics work is not done at the canonical leaf. The quantitative-derivation gap holds the confidence below 0.60 (Class~2 emergence lift not yet achieved). Closing Q-DELTA-MAP-1-quant would lift both \texttt{clm-hp7nlm} AND \texttt{clm-009nkt} above the 0.60 emergence threshold; until then, the substrate-mechanism class is identified but $\eta_\varepsilon$ remains back-subtracted from CODATA at \texttt{clm-009nkt}, not derived from substrate primitives.
+\textbf{Single-mechanism explanation (Rule 11).} $\Theta_{\text{Debye}} \approx \qty{2.3e10}{\kelvin} \gg T_{CMB}$ forces the deeply-quantum Debye-$T^4$ regime, where Bose-Einstein occupation lies \emph{below} classical equipartition mode-by-mode and cannot supply amplification. The Class~2 emergence lift via this route does \textbf{NOT} occur: \texttt{clm-hp7nlm} STAYS 0.55 and \texttt{clm-009nkt} STAYS 0.55. $\eta_\varepsilon$ remains back-subtracted from CODATA at \texttt{clm-009nkt} --- a definitional residual, not derived from substrate primitives. Moreover, per the SM-counterfactual, even a magnitude match would have been generic-thermal (any lattice framework with a $\sim$MeV Debye cutoff + 2.7~K bath gives the identical suppression), not AVE-distinct.
 
-This is the discipline working at full strength: the substrate-mechanism class is named and the load-bearing assumption is explicit; the gap to a quantitative substrate-axiom derivation is named and bounded; the closure path (Q-DELTA-MAP-1-quant) is on the workstream queue. The substrate is natural; the substrate-physics derivation is partial; the future workstream is identified.
+This is the discipline working at full strength (Rule 11 honest closure): the pre-registered prediction failed decisively; a single named mechanism ($\Theta_{\text{Debye}} \gg T_{CMB}$) explains the undershoot; the branch closes as a clean negative with no rescue attempted. The substrate-mechanism class and its SIGN prediction + weak-force $\gamma_c$ joint-constraint SURVIVE; only the magnitude-derivation route is closed. Anchor: \texttt{research/2026-05-31\_FT-1\_delta-strain-eta-epsilon\_result.md}.
 
 \section{EE Translation: TCC, TCR, Thermal Noise Vocabulary}
 \label{sec:vol9_temperature_ee_translation}
