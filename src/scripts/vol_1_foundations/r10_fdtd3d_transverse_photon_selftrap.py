@@ -193,9 +193,158 @@ def build_transverse_photon_seed(
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# SECTION 2 — matched baseline + A-CONTROL + C-NUCLEATE seeds            [stub]
+# SECTION 2 — matched baseline + C-NUCLEATE + A-CONTROL seeds
 # ══════════════════════════════════════════════════════════════════════════════
-# Built in commit 3.
+
+
+def build_matched_trivial_baseline(engine: FDTD3DEngine, c_emerge_meta: dict, *, seed: int = 12345) -> dict:
+    """Matched-distribution topologically-trivial baseline (phase3f Factor-2 FIX).
+
+    Takes the SAME amplitude distribution + power spectrum as the C-EMERGE field
+    (which must already be seeded on `engine`), but SCRAMBLES the Fourier phase
+    per component — destroying the constructive transverse coherence while
+    preserving the per-component amplitude histogram. This isolates the
+    topology/coherence effect from the saturation-amplitude effect.
+
+    NOT a random-direction seed (the phase3f confound where random gave larger
+    single-component amplitudes → more saturation → spurious better retention).
+    Operates IN PLACE on engine.Ey/Ez/Hy/Hz (the active components of C-EMERGE).
+    """
+    rng = np.random.default_rng(seed)
+
+    def _phase_scramble(field: np.ndarray) -> np.ndarray:
+        # FFT, randomize phase, preserve magnitude spectrum (Hermitian-symmetric
+        # so the inverse is real), inverse FFT. Preserves the amplitude
+        # distribution's power spectrum; destroys spatial phase coherence.
+        F = np.fft.rfftn(field)
+        mag = np.abs(F)
+        rand_phase = np.exp(1j * rng.uniform(0.0, 2.0 * np.pi, size=F.shape))
+        F_scr = mag * rand_phase
+        out = np.fft.irfftn(F_scr, s=field.shape)
+        return out
+
+    # Phase3f Factor-2 fix is two-sided: the baseline must match BOTH (a) the
+    # per-component amplitude distribution AND (b) the PEAK |E| (so it engages the
+    # saturation kernel to the SAME depth — otherwise whichever seed has the
+    # larger peak gets spurious saturation-driven retention, the original
+    # phase3f confound, in either direction). We phase-scramble (preserve power
+    # spectrum → topology-trivial) then rescale the WHOLE vector field so peak |E|
+    # matches C-EMERGE's peak |E| exactly.
+    ce_peak_E = float(c_emerge_meta["seed_peak_E"])
+    for attr in ("Ey", "Ez", "Hy", "Hz"):
+        f = getattr(engine, attr)
+        if float(np.max(np.abs(f))) == 0.0:
+            continue
+        setattr(engine, attr, _phase_scramble(f))
+    engine.Ex[...] = 0.0
+    engine.Hx[...] = 0.0
+    # Rescale vector field so peak |E| matches C-EMERGE peak (match saturation depth)
+    E_mag = np.sqrt(engine.Ex**2 + engine.Ey**2 + engine.Ez**2)
+    scr_peak = float(E_mag.max()) or 1.0
+    rescale = ce_peak_E / scr_peak
+    for attr in ("Ey", "Ez", "Hy", "Hz"):
+        setattr(engine, attr, getattr(engine, attr) * rescale)
+
+    E_mag = np.sqrt(engine.Ex**2 + engine.Ey**2 + engine.Ez**2)
+    return {
+        "seed": "matched-distribution trivial baseline (phase-scrambled, peak-matched)",
+        "seed_peak_E": float(E_mag.max()),
+        "matched_to": c_emerge_meta.get("seed"),
+        "matched_peak_to": ce_peak_E,
+        "imposed_winding": None,
+        "is_random_direction": False,  # explicitly NOT the phase3f confound
+    }
+
+
+def apply_option_d_chirality(engine: FDTD3DEngine, trap_xyz, *, radius_cells: float = 4.0, bias: float = 0.15) -> dict:
+    """C-NUCLEATE: Option-D nucleation rule (chirality bias) at the trap site.
+
+    Per pair-production-axiom-derivation.md:121: when C1 (A²≥1) is met, impose
+    the Beltrami handedness BC. On fdtd_3d.py (no Cosserat ω sector, prereg §1)
+    the imposable part is the chiral TRANSVERSE rotation sense — bias the (Ey,Ez)
+    transverse field toward a fixed circular handedness (LH) within a sphere of
+    `radius_cells` around the trap. This is a CONTROL (clearly labeled), testing
+    persistence-when-imposed, NOT emergence.
+    """
+    nx, ny, nz = engine.nx, engine.ny, engine.nz
+    tx, ty, tz = trap_xyz
+    i, j, k = np.indices((nx, ny, nz))
+    r2 = (i - tx) ** 2 + (j - ty) ** 2 + (k - tz) ** 2
+    mask = r2 <= radius_cells**2
+    # LH circular bias: rotate (Ey,Ez) toward (cosθ, sinθ) handedness by mixing.
+    Ey, Ez = engine.Ey.copy(), engine.Ez.copy()
+    engine.Ey[mask] = Ey[mask] - bias * Ez[mask]
+    engine.Ez[mask] = Ez[mask] + bias * Ey[mask]
+    # Keep H self-consistent-ish for the standing trap (no propagation imposed).
+    return {
+        "rule": "Option-D chirality bias (LH), fdtd_3d-representable subset",
+        "trap_xyz": [int(v) for v in trap_xyz],
+        "radius_cells": radius_cells,
+        "bias": bias,
+        "note": "no Cosserat ω sector — full Beltrami BC not representable (prereg §1)",
+        "is_control_not_emergence": True,
+    }
+
+
+def build_single_bond_phasor_seed(
+    engine: FDTD3DEngine,
+    amplitude: float,
+    *,
+    R_cells: float = 8.0,
+    r_cells: float = 3.0,
+    p: int = 2,
+    q: int = 3,
+) -> dict:
+    """A-CONTROL: single-bond planted-(2,3) seed, re-seeded in PHASOR coords (A46 fix).
+
+    The phase3f bug placed the (2,3) tangent in REAL-space field direction. Here
+    we place a phasor-trajectory seed: at toroidal-shell sites, set (E, H) so the
+    derived (V_inc, V_ref) = (E ± Z_0·H) traces a (p,q) winding — the corpus
+    placement (theory.md:16). This is the demoted CONTROL arm; imposed end-state,
+    fork-verdict output (continuum-vs-discrete).
+    """
+    nx, ny, nz = engine.nx, engine.ny, engine.nz
+    cx, cy, cz = (nx - 1) / 2.0, (ny - 1) / 2.0, (nz - 1) / 2.0
+    i, j, k = np.indices((nx, ny, nz))
+    x = i - cx
+    y = j - cy
+    z = k - cz
+    rho_xy = np.sqrt(x**2 + y**2 + 1e-12)
+    rho_tube = np.sqrt((rho_xy - R_cells) ** 2 + z**2 + 1e-12)
+    phi = np.arctan2(y, x)  # toroidal angle
+    psi = np.arctan2(z, rho_xy - R_cells)  # poloidal angle
+    envelope = amplitude / (1.0 + (rho_tube / 2.0) ** 2)  # hedgehog (AVE-canonical)
+
+    # (p,q) winding PHASE: the phasor angle advances p× toroidally, q× poloidally.
+    winding_phase = p * phi + q * psi
+    # Encode in the (V_inc, V_ref) split: V_inc ∝ cos(phase), V_ref ∝ sin(phase),
+    # i.e. E = (V_inc+V_ref)/2 carries the in-phase part, Z_0·H = (V_inc−V_ref)/2
+    # the quadrature. Map onto the transverse (Ey,Ez) with the poloidal frame.
+    V_inc = envelope * np.cos(winding_phase)
+    V_ref = envelope * np.sin(winding_phase)
+    E_par = 0.5 * (V_inc + V_ref)
+    ZH_par = 0.5 * (V_inc - V_ref)
+    # Project onto transverse poloidal direction (so it lives off-axis, shell-like)
+    ey_hat = -np.sin(phi)
+    ez_hat = np.cos(phi)
+    engine.Ex[...] = 0.0
+    engine.Ey[...] = E_par * ey_hat
+    engine.Ez[...] = E_par * ez_hat
+    engine.Hx[...] = 0.0
+    engine.Hy[...] = (ZH_par / Z_0) * (-ez_hat)  # H ⟂ E, transverse
+    engine.Hz[...] = (ZH_par / Z_0) * (ey_hat)
+
+    E_mag = np.sqrt(engine.Ex**2 + engine.Ey**2 + engine.Ez**2)
+    return {
+        "seed": f"A-CONTROL single-bond planted-({p},{q}) phasor seed (A46-corrected)",
+        "seed_peak_E": float(E_mag.max()),
+        "R_cells": R_cells,
+        "r_cells": r_cells,
+        "p": p,
+        "q": q,
+        "imposed_winding": [p, q],  # THIS arm imposes — it is a control
+        "placement": "phasor (V_inc,V_ref)=(E±Z_0·H), NOT real-space tangent",
+    }
 
 
 # ══════════════════════════════════════════════════════════════════════════════
