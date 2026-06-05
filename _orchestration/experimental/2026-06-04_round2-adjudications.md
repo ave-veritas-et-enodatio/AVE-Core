@@ -12,7 +12,8 @@
 | 2 | Cleave CPD / SM≠0.0 | Kelvin probe / patch potentials (CPD real, gap-dep ∝1/g²) | confirm + propagate SM≠0.0 + gap-sweep | **AGREED** 2026-06-04 |
 | 3 | per-node-conflation sweep | series-cell voltage division (V_yield is per-node, not terminal) | scoped sweep, inventory-first; PONDER-05 carve-out | **AGREED** 2026-06-04 |
 | 4 | constants.py cite content-anchor | N/A (tooling, not physics) | convention + ξ_topo lockstep + head-sweep folded; informal tail | **AGREED** 2026-06-04 |
-| 5 | birefringence-e4 index-convention | permittivity-depth (1−S) mislabeled as index-shift (√S−1); √ε factor | correct clm-pp3qwf + E²/E⁴ reframe (auditor) | **AGREED** 2026-06-04 |
+| 5 | birefringence-E4 index-convention + survives | √ε (1−S depth vs √S−1 shift); discriminator = COEFFICIENT not exponent (AVE 4.4e5× QED) | √ε fix (5 sites) + coefficient reframe + derivation — **SURVIVES** | **AGREED** 2026-06-04 |
+| 6 | PONDER-05 vacuum-vs-material | per-node A at 30 kV = 10⁻⁷ (reaching 0.687 needs 1.0 node-lengths) | MATERIAL / consistency-class; folds into #3; INVARIANT-S2 cite fix | **AGREED** 2026-06-04 |
 
 ---
 
@@ -153,3 +154,15 @@ All 5 adjudications **AGREED**. Sequenced execution (Layer 3 corpus deltas + Lay
 **PONDER-05 vacuum-vs-material (Auditor B open Q = the #3 carve-out):** is "V_DC/V_yield=0.687 at ~30 kV bias" a vacuum-kernel reading or a quartz-material reading? Gates whether #3's sweep deflates the 8 sites or PONDER-05 is consistency-class. Resolve before #3's batch.
 
 **✓ Round-2 merges LANDED (2026-06-04, Grant "fire the merges"):** all 4 — IVIM + Q-G42 → AVE-Core main `3f55d492` (verify-kb-metadata PASS); Cleave → Femto main `78a86f6`; HOPF → HOPF main `c43af7b`. All audit-tagged + pushed. No conflicts. **NEXT — corrections + sweeps phase:** AGREED-and-ready: #2 SM≠0.0 (4 sites), HOPF §6.2 relabel + reciprocity-sweep leg (per #1), #4 content-anchor (ξ_topo lockstep + head-sweep). PENDING Grant: #5 √ε (land the 5-site fix incl. the shipped vol_9 false-falsifier + the survives-or-demotes call) + PONDER-05 vacuum-vs-material (gates #3). Implementer-fixes to fold: op14 inventory path (before #3), C_in clarity (Cleave), "~5.4 OOM" cosmetic (Q-G42).
+
+### Post-merge adjudications — #5 resolved + #6 PONDER-05 (Grant "settle these now", 2026-06-04)
+
+**#5 birefringence-E4 — SURVIVES (reframed; the "demote" lean REVERSED by derivation).** The discriminator is the COEFFICIENT, not the (dead) exponent. The test specifies a FIELD (not a gap-voltage) → NO per-node conflation: A=E/E_yield. AVE's vacuum saturates at E_yield~1.13e17 V/m with an O(1) coefficient; QED at E_crit~1.32e18 with α²~1e-5 → AVE predicts δn = **4.4e5× QED** at any field (verified: at 1e14 V/m δn_AVE=2.0e-7 measurable vs δn_QED=4.5e-13; at 3e16 V/m δn_AVE=1.8%). → keep the determinate √ε fix (5 sites) AND reframe clm-pp3qwf from "E²-vs-E⁴ exponent" to the coefficient discriminator; land as a forward prediction (derivation + driver). The corpus UNDERSOLD this test.
+
+**#6 PONDER-05 — MATERIAL (consistency-class).** Smoking gun: reaching "V_DC/V_yield=0.687" at 30 kV requires the 30 kV to drop across **1.0 node-lengths (0.386 pm)**. Across any real quartz (1 mm–1 µm) per-node A=10⁻⁷–10⁻¹⁰ → kernel collapse ~0. The 27.4% is the QUARTZ voltage-coefficient (any Class-II ceramic varactor), NOT the vacuum. The "0.687 V_yield at 30 kV" framing IS the per-node conflation. → reclassify consistency-class; this RESOLVES the #3 gate (the 0.687/27.4% sites = conflated camp); fix the INVARIANT-S2 (`CLAUDE.md`) + EE-skill "canonical bench-scale falsifier" citations. **#3 sweep UNBLOCKED.**
+
+### Corrections dispatched (2026-06-04) — 3 worktree-isolated implementers
+- **IMP-1** (AVE-Core walk-backs + #3 sweep): #2 SM≠0.0 (4 sites) + #3 per-node-conflation sweep (PONDER-05=material template; INVARIANT-S2 + the 0.687/27.4% sites + the 8-site inventory, op14 path corrected) + #4 content-anchor (ξ_topo + head-sweep).
+- **IMP-2** (AVE-Core birefringence #5): √ε-fix (5 sites) + coefficient-reframe + forward-prediction derivation + driver.
+- **IMP-3** (AVE-HOPF §6.2): C3/C4 → consistency-class + reciprocity-sweep leg.
+- Orchestrator: EE-skill PONDER-05 edit (outside the AVE-Core worktree); review + merge the 3 branches; closure (closure-roadmap §0.5, capstone, branch cleanup).
