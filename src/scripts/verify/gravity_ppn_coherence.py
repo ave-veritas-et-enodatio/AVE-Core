@@ -240,6 +240,45 @@ def chapter14_perihelion_per_orbit_rad() -> float:
     return 6.0 * pi * G * M_SUN / (C_0**2 * A_MERCURY_M * (1.0 - E_MERCURY**2))
 
 
+def photon_index_combination_readings():
+    """Every natural way of folding the two AVE indices into ONE photon index.
+
+    n_temporal = 1 + 2U, n_spatial = 1 + 9U (U = GM/(c^2 r)). Computes the
+    weak-field slope K (so photon index ~ 1 + K U) for each candidate
+    combination, and the resulting Snell-gradient deflection 2K * GM/(b c^2)
+    as a multiple of GR's 4GM/bc^2. Confirms that ONLY the bare (2/7) index
+    (= sqrt(g_ij/-g00) of the true GR isotropic metric) reproduces GR; every
+    reading that USES the (9/7) value overshoots.
+    """
+    U = sp.symbols("U", positive=True)
+    n_t = 1 + 2 * U  # (2/7) eps_11 = 2U
+    n_s = 1 + 9 * U  # (9/7) eps_11 = 9U
+
+    def slope(expr):
+        ser = sp.series(expr, U, 0, 2).removeO()
+        return sp.simplify((ser - 1) / U)
+
+    candidates = {
+        "(2/7) index alone = sqrt(g_ij/-g00)_GR": n_t,
+        "(9/7) index alone": n_s,
+        "sqrt(n_s * n_t)": sp.sqrt(n_s * n_t),
+        "(n_s + n_t)/2": (n_s + n_t) / 2,
+        "sqrt(n_s / n_t)": sp.sqrt(n_s / n_t),
+    }
+    out = {}
+    for name, expr in candidates.items():
+        K = slope(expr)
+        out[name] = {
+            "slope_K": str(K),
+            "deflection_coeff_GM_bc2": str(2 * K),
+            "multiple_of_GR": float(2 * K) / 4.0,
+        }
+    # cross-check: GR isotropic photon index sqrt(g_ij/-g00) with -g00=1-2U, g_ij=1+2U
+    gr_photon_slope = slope(sp.sqrt((1 + 2 * U) / (1 - 2 * U)))
+    out["_gr_isotropic_photon_index_slope"] = str(gr_photon_slope)  # = 2 -> matches (2/7)
+    return out
+
+
 def main() -> dict:
     results: list = []
 
@@ -359,6 +398,7 @@ def main() -> dict:
             "ppn_light_deflection_coeff_expr": str(light_coeff),
             "ppn_perihelion_factor_expr": str(perih_factor),
             "ave_indices_to_ppn": {k: str(v) for k, v in ppn.items()},
+            "photon_index_combination_readings": photon_index_combination_readings(),
         },
         "phase1_deflection": {
             "gr_4GM_bc2_arcsec": gr_defl,
@@ -404,6 +444,14 @@ def _print_report(out: dict) -> None:
     print(f"  PPN light-deflection coeff  : delta = [{s['ppn_light_deflection_coeff_expr']}] * GM/bc^2")
     print(f"  PPN perihelion factor       : F = {s['ppn_perihelion_factor_expr']}")
     print(f"  AVE indices -> PPN          : {s['ave_indices_to_ppn']}")
+    print("  photon-index combination readings (deflection as multiple of GR):")
+    for name, d in s["photon_index_combination_readings"].items():
+        if name.startswith("_"):
+            continue
+        print(
+            f"    {name:42s} K={d['slope_K']:>4s}  "
+            f"-> {d['deflection_coeff_GM_bc2']:>5s} GM/bc^2  = {d['multiple_of_GR']:.2f}x GR"
+        )
 
     p1 = out["phase1_deflection"]
     print("\n--- PHASE 1: LIGHT DEFLECTION (grazing Sun, b = R_sun) ---")

@@ -22,6 +22,34 @@
       "ns_minus1_in_U": "9",
       "gamma_from_9_7_spatial": "9/2",
       "gamma_double_deflection_2_7": "1"
+    },
+    "photon_index_combination_readings": {
+      "(2/7) index alone = sqrt(g_ij/-g00)_GR": {
+        "slope_K": "2",
+        "deflection_coeff_GM_bc2": "4",
+        "multiple_of_GR": 1.0
+      },
+      "(9/7) index alone": {
+        "slope_K": "9",
+        "deflection_coeff_GM_bc2": "18",
+        "multiple_of_GR": 4.5
+      },
+      "sqrt(n_s * n_t)": {
+        "slope_K": "11/2",
+        "deflection_coeff_GM_bc2": "11",
+        "multiple_of_GR": 2.75
+      },
+      "(n_s + n_t)/2": {
+        "slope_K": "11/2",
+        "deflection_coeff_GM_bc2": "11",
+        "multiple_of_GR": 2.75
+      },
+      "sqrt(n_s / n_t)": {
+        "slope_K": "7/2",
+        "deflection_coeff_GM_bc2": "7",
+        "multiple_of_GR": 1.75
+      },
+      "_gr_isotropic_photon_index_slope": "2"
     }
   },
   "phase1_deflection": {
