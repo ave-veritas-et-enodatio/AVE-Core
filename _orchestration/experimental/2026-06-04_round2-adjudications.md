@@ -11,8 +11,8 @@
 | 1 | HOPF reciprocity | Pasteur (reciprocal, P-odd) vs Tellegen (non-recip, T-odd) | reciprocal-Pasteur at linear → C3/C4 retire labels; ADD 2-port reciprocity sweep | **AGREED** 2026-06-04 |
 | 2 | Cleave CPD / SM≠0.0 | Kelvin probe / patch potentials (CPD real, gap-dep ∝1/g²) | confirm + propagate SM≠0.0 + gap-sweep | **AGREED** 2026-06-04 |
 | 3 | per-node-conflation sweep | series-cell voltage division (V_yield is per-node, not terminal) | scoped sweep, inventory-first; PONDER-05 carve-out | **AGREED** 2026-06-04 |
-| 4 | constants.py cite content-anchor | N/A (tooling, not physics) | convention + ξ_topo lockstep + opportunistic bulk | **SURFACED** 2026-06-04 (pending) |
-| 5 | IVIM index-convention | δn≈−A²/4 vs Δn≈+A²/2 (factor-2 + sign) | — | queued |
+| 4 | constants.py cite content-anchor | N/A (tooling, not physics) | convention + ξ_topo lockstep + head-sweep folded; informal tail | **AGREED** 2026-06-04 |
+| 5 | birefringence-e4 index-convention | permittivity-depth (1−S) mislabeled as index-shift (√S−1); √ε factor | correct clm-pp3qwf + E²/E⁴ reframe (auditor) | **SURFACED** 2026-06-04 (pending) |
 
 ---
 
@@ -87,7 +87,7 @@ Plumber's-eye: a ferrite isolator only works *because of the magnet*. Remove the
 
 ---
 
-## §4 — constants.py citation content-anchoring (ξ_topo + general)  [SURFACED 2026-06-04 — pending Grant]
+## §4 — constants.py citation content-anchoring (ξ_topo + general)  [AGREED 2026-06-04]
 
 **Decision context.** Cleave round-2 F-R2-2: `XI_TOPO` is cited at `constants.py:246` but has drifted to `:251` (verified; `:205` is now `ALPHA_COLD`). Recurring — the §9 flag-don't-fix queue already logged a ":205→:246" drift. The call: how to fix durably?
 
@@ -99,10 +99,31 @@ Plumber's-eye: a ferrite isolator only works *because of the magnet*. Remove the
 
 **Precedent.** Content-anchoring is already established corpus practice: `ff9a2b1a` + `d9d33d00` (double-slit-ee) "content-anchor volatile citations (was stale 'line 139' post-merge)."
 
-**Decision (pending Grant).** (a) Adopt **content-anchoring as the convention** for constants.py cites — cite the symbol (`XI_TOPO`), not the line (formalize the `ff9a2b1a` practice; new cites symbol-anchored). (b) Immediate lockstep: fix the 3–4 ξ_topo stale cites + the high-traffic `:133` (α, 10 cites). (c) The bulk ~100+ line-cites: **opportunistic** (fix line→symbol as files are touched, incl. by the #3 per-node sweep), NOT a dedicated big-bang sweep (Class-C cosmetic). Lean: (a) yes, (b) yes, (c) opportunistic.
+**Decision (Grant AGREED 2026-06-04).** (a) Adopt **content-anchoring as the convention** for constants.py cites — cite the symbol (`XI_TOPO`), not the line (formalize the `ff9a2b1a` practice; new cites symbol-anchored). (b) Immediate lockstep: fix the 3–4 ξ_topo stale cites. (c) **Fold the high-traffic head-sweep** (~7 lines ≥5 cites: `:133` α, `:79`, `:619`, `:432`, `:333`, `:194`, `:78` — ~47 cites, ~50% of exposure) into the lockstep — these are where one line-move cascades. The scattered tail (~50 singletons) is **informal/self-healing** (a stale singleton is a 10-sec re-grep; no hook/tracker built — that machinery is overkill for cosmetic debt). Rationale: opportunistic only works with a trigger+tracker, which isn't worth building here; the honest version is head-now + informal-tail.
 
 **Execution (on agreement).** Lockstep ξ_topo + `:133` now (rides with the #3 inventory pass — overlapping files); convention noted in contributor guidance; bulk fix opportunistic. `closure-roadmap §0.5` row.
 
 ---
 
-*Entry #5 (IVIM index-convention) queued.*
+## §5 — vacuum-birefringence-E4 index-convention (δn = −A²/4 vs "Δn" = +A²/2)  [SURFACED 2026-06-04 — pending Grant]
+
+**Decision context.** IVIM round-2 flagged a cross-leaf inconsistency: `vacuum-impedance-mirror.md` gives δn ≈ **−A²/4** while `vacuum-birefringence-e4.md` (clm-pp3qwf) + `divergence-test-substrate-map.md:63` give "Δn" ≈ **+A²/2** — same E-field family, but factor-2 AND sign differ. The call: which is right, and how to reconcile?
+
+**Hypothesis revised (worked-adjudication discipline — `ave-discrimination-check` "don't anchor on first-plausible").** My first read was "different quantities — absolute index vs two-channel birefringence, just disambiguate." **Reading the actual e4 leaf falsified that.** The e4 leaf literally defines `Δn_eff = 1 − √(1 − (E/E_yield)²)`. That is **1 − S(A)**, the *permittivity saturation depth*, NOT a refractive index shift.
+
+**EE map** (`ave-ee-first-mapping`): n = √(ε_eff μ_eff / ε₀μ₀); for ε-only modulation, **n = √(ε_eff/ε₀) = √S**. The saturation kernel S = √(1−A²) ≈ 1 − A²/2, so:
+- permittivity depth: `1 − S ≈ +A²/2` ← what the e4 leaf computed and mislabeled "Δn_eff".
+- **actual index shift**: `δn = √S − 1 = (1−A²)^¼ − 1 ≈ −A²/4` ← the mirror leaf's value, **correct**.
+- ratio (1−S)/δn ≈ (A²/2)/(−A²/4) = **−2** → *exactly* the agent's "factor-2 + sign". The factor-½ is the √ in n=√ε (the EE wave-speed/index identity); the sign is depth (1−S, positive) vs shift (√S−1, negative, the vacuum softens → index drops). The e4 leaf **forgot the √**.
+
+**Secondary issue.** The e4 leaf's prose ("the optical shift is driven by an **E⁴** term; if the slope stays E², AVE is falsified") is sloppy: 1−S ≈ A²/2 + A⁴/8 is **E²-leading**, same leading order as QED's Euler-Heisenberg. The AVE-distinct signature is the **E⁴+ DEVIATION** (saturation-arc steepening as E→E_yield), not an E⁴-leading effect. The discriminator needs reframing to "deviation from QED's pure-E² baseline," not "E⁴-leading."
+
+**Skills applied.** `consistency-vs-emergence` (n = √(εμ) is the load-bearing identity; the e4 leaf's quantity is a consistency-class permittivity depth, not the index observable it claims); `ave-walk-back` (correct clm-pp3qwf + propagate to `divergence-test-substrate-map.md:63`); `ave-discrimination-check` (revised the first-plausible hypothesis after reading the source); `ave-audit-of-audit` (the agent's flag was sound; the root is a √ε conflation, sharper than "factor-2 + sign").
+
+**Decision (pending Grant).** Determinate part: the mirror leaf (−A²/4) is **correct**; the e4 leaf conflates permittivity-depth (1−S) with index-shift (√S−1) — fix clm-pp3qwf (relabel 1−S as permittivity saturation depth; give the correct index shift δn = √S−1 ≈ −A²/4). Intent part (your confirm): reframe the E²/E⁴ discriminator as "AVE's saturation arc deviates from QED's pure-E² via higher-order E⁴+ terms as E→E_yield" (not E⁴-leading). Lean: fix the √ε conflation (determinate) + reframe the discriminator (confirm with you). Auditor-gate executes the leaf correction.
+
+**Execution (on agreement).** Auditor-gate: correct clm-pp3qwf (`vacuum-birefringence-e4.md`) + `divergence-test-substrate-map.md:63` per `ave-walk-back`; verify the E²/E⁴ falsifiable claim's viability (it's facility-class, E→10¹⁶–10¹⁷ V/m — ties to #3 per-node scale). `closure-roadmap §0.5` row.
+
+---
+
+*All 5 adjudications worked. Next: auditor-gate (verifies + executes the determinate corrections) → round-2 merge-calls → the agreed sweeps/edits.*

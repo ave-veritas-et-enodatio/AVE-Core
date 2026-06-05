@@ -259,4 +259,6 @@ round-1 sibling-branch cleanup.
 tracked EE-mapped + skill-disciplined in [`experimental/2026-06-04_round2-adjudications.md`](experimental/2026-06-04_round2-adjudications.md)
 — #1 HOPF reciprocity **AGREED** (reciprocal-Pasteur at linear; add reciprocity sweep); #2 Cleave CPD/SM≠0.0
 **AGREED** (CPD real per Kelvin-probe; gap-sweep 4-corner cure; SM≠0.0 propagation authorized); #3 per-node-conflation
-sweep **AGREED** (scoped, inventory-first; PONDER-05 carved out); #4 constants.py-cite content-anchor SURFACED; #5 queued.
+sweep **AGREED** (scoped, inventory-first; PONDER-05 carved out); #4 constants.py-cite content-anchor **AGREED**
+(convention + ξ_topo lockstep + head-sweep; informal tail); #5 birefringence-E4 index-convention SURFACED (√ε conflation:
+mirror leaf −A²/4 correct, e4 leaf mislabels permittivity-depth 1−S as index-shift). **All 5 adjudications worked.**
