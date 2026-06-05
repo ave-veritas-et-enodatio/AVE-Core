@@ -273,15 +273,18 @@ def apply_baseline_longitudinal_drive(engine, v_drive, N, PML, variant="A", form
 # ══════════════════════════════════════════════════════════════════════════════
 def seed_linear_pulse(engine, N, PML, peak_A2_target=0.5 * A2_OP14):
     """A sub-saturation Cosserat DISPLACEMENT blob (below A²_op14 ⇒ no self-trap),
-    localized at center, so the longitudinal drive imprints a CLEAN +x momentum
-    that advects at c_L — the SM-counterfactual + the drive smoke test. Seeds a
-    small static +x displacement gradient (a compression) whose symmetric strain
-    ε_sym sets A²_ε below the Op14 bar; the drive then adds the +x momentum. (The
-    V-sector is left at vacuum so there is no competing knot — pure
-    longitudinal-transport control.)"""
-    env, cx = _host_envelope(engine, N, PML, sigma_frac=0.12)
-    # seed a tiny +x displacement bump so there is a localized compressible blob
-    engine.cos.u[..., 0] = env
+    a localized COMPRESSIBLE +x bump at center. The SAME curl-free longitudinal
+    drive then biases it: the SM-counterfactual + the drive smoke test. A directional
+    compression bias (zero net momentum) drags this blob's compression pattern +x
+    (and as the bulk modulus acts, the energy centroid follows at ~c_L). The V-sector
+    is left at vacuum (no competing knot) — pure longitudinal-transport control."""
+    cx = (N - 1) / 2.0
+    i, j, k = np.indices((N, N, N), dtype=float)
+    r2 = (i - cx) ** 2 + (j - cx) ** 2 + (k - cx) ** 2
+    sigma = max(3.0, 0.12 * N)
+    env = np.exp(-r2 / (2.0 * sigma**2))
+    env[~engine.cos.mask_alive] = 0.0
+    engine.cos.u[..., 0] = env                       # +x displacement bump (compressible blob)
     engine.cos.u[~engine.cos.mask_alive] = 0.0
     # scale displacement so peak electric-sector strain A²_ε ≈ target (sub-saturation)
     A2e = _cos_electric_A2(engine)
@@ -420,3 +423,415 @@ def cos_kinetic_energy(engine, PML):
     u_dot = np.asarray(engine.cos.u_dot)
     m = _interior_mask(engine.N, PML) & engine.cos.mask_alive
     return float(0.5 * np.sum((u_dot**2)[m]))
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# ANTI-STALL smoke test (hard 2-try cap) + the MANDATORY curl/div gate
+# ══════════════════════════════════════════════════════════════════════════════
+def _imprint_and_gate(engine, drive_fn, v_drive, N, PML, variant, form):
+    """Apply a drive, isolate the imprinted field (delta vs pre-drive), and gate its
+    curl/div purity. Returns (drive_field_delta, div_rms, curl_rms, ratio)."""
+    base = np.array(engine.cos.u_dot if form == "velocity" else engine.cos.u)
+    drive_fn(engine, v_drive, N, PML, variant=variant, form=form)
+    now = np.array(engine.cos.u_dot if form == "velocity" else engine.cos.u)
+    delta = now - base
+    d, c, ratio = drive_purity(engine, PML, field=delta)
+    return delta, d, c, ratio
+
+
+def smoke_test_drive(N=40, PML=4, n_steps=60, v_list=(0.0, 0.3, -0.3),
+                     form="displacement"):
+    """ANTI-STALL smoke + GATE. For each candidate variant (A then B, hard 2-try
+    cap): (1) gate the drive purity (curl/div < CURL_DIV_GATE) on the imprinted
+    field; (2) seed a sub-saturation LINEAR pulse, apply the drive, confirm the
+    |u|²-centroid ADVECTS (v≠0, sign-symmetric, v≈0 at v_drive=0).
+
+    Returns the FIRST variant that passes BOTH gate + advection, plus the full
+    per-variant record. If neither passes → variant=None (caller returns
+    BLOCKED-drive)."""
+    out = {"variants": {}, "gate_threshold": CURL_DIV_GATE, "chosen_variant": None,
+           "chosen_form": form}
+    for variant in ("A", "B"):
+        rec = {"per_v": [], "gate_ratio_at_vmax": None, "gate_passed": None,
+               "advects": None, "v0_is_zero": None, "signflips": None}
+        # gate on the largest |v| (worst case for purity)
+        v_gate = max(v_list, key=abs)
+        eng_g = setup_engine(N, PML)
+        seed_host(eng_g, N)
+        for _ in range(5):
+            eng_g.step()
+        _, dg, cg, ratio_g = _imprint_and_gate(eng_g, apply_longitudinal_drive,
+                                               v_gate, N, PML, variant, form)
+        rec["gate_ratio_at_vmax"] = ratio_g
+        rec["gate_div_rms"] = dg
+        rec["gate_curl_rms"] = cg
+        rec["gate_passed"] = bool(ratio_g < CURL_DIV_GATE)
+        # LINEAR advection smoke
+        for v_drive in v_list:
+            eng = setup_engine(N, PML)
+            seed_linear_pulse(eng, N, PML)
+            apply_longitudinal_drive(eng, v_drive, N, PML, variant=variant, form=form)
+            cx0, e0 = x_centroid_cos(eng, PML)
+            traj = [(0.0, cx0)]
+            for s in range(n_steps):
+                eng.step()
+                if (s + 1) % 5 == 0:
+                    cx, e = x_centroid_cos(eng, PML)
+                    traj.append(((s + 1) * DT, cx))
+            ts = np.array([t for (t, c) in traj if not np.isnan(c)])
+            cs = np.array([c for (t, c) in traj if not np.isnan(c)])
+            v = float(np.polyfit(ts, cs, 1)[0]) if len(ts) >= 2 else float("nan")
+            rec["per_v"].append({"v_drive": v_drive, "v_centroid": v,
+                                 "dx": float(cs[-1] - cs[0]) if len(cs) >= 2 else float("nan")})
+        vmax = [d for d in rec["per_v"] if abs(d["v_drive"]) == abs(v_gate) and d["v_drive"] > 0]
+        v0 = [d for d in rec["per_v"] if d["v_drive"] == 0.0]
+        vneg = [d for d in rec["per_v"] if abs(d["v_drive"]) == abs(v_gate) and d["v_drive"] < 0]
+        v_at_max = vmax[0]["v_centroid"] if vmax else float("nan")
+        v_at_0 = v0[0]["v_centroid"] if v0 else float("nan")
+        v_at_neg = vneg[0]["v_centroid"] if vneg else float("nan")
+        rec["advects"] = bool(abs(v_at_max) > 1e-3 and abs(v_at_max) > 5.0 * (abs(v_at_0) + 1e-6))
+        rec["v0_is_zero"] = bool(abs(v_at_0) < 1e-3)
+        rec["signflips"] = bool(np.sign(v_at_max) != np.sign(v_at_neg)) if vmax and vneg else None
+        out["variants"][variant] = rec
+        if rec["gate_passed"] and rec["advects"]:
+            out["chosen_variant"] = variant
+            break   # hard 2-try cap: take the first that clears both
+    return out
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Instrumented arm runner (the full decisive test)
+# ══════════════════════════════════════════════════════════════════════════════
+def run_arm(kind, v_drive, N, PML, variant, form, settle=10, n_steps=70, rec_every=5):
+    """Run one (arm, v_drive) cell and record the FULL trajectory (CP6 reactance
+    pair: both the C-state position-centroid AND the L-state A²(t)/K_u(t) at EVERY
+    recorded step over the window — the Rule-10 reactance-tracking corollary).
+
+    kind:
+      'selftrap' — durable (2,3) host, CURL-FREE longitudinal-compression driven
+                   (the object under test). x-centroid of the V-SECTOR knot.
+      'linear'   — sub-saturation Cosserat displacement blob, same drive
+                   (SM-counterfactual). x-centroid of the COSSERAT |u|² field.
+      'baseline' — host + even standing-compression (matched energy, zero +x bias).
+
+    Records per step: knot/blob x-centroid (→ velocity), interior energy
+    (→ retention), FWHM, native max|τ_zx| (DarkWakeObserver, axis=0), peak interior
+    A² (saturated-while-moving), Cosserat K_u (longitudinal-channel witness). Also
+    records the post-drive curl/div purity of the imprinted field (per-arm gate
+    audit trail)."""
+    engine = setup_engine(N, PML)
+    obs = DarkWakeObserver(cadence=1, propagation_axis=0)
+    if kind == "linear":
+        seed_linear_pulse(engine, N, PML)
+        centroid = x_centroid_cos
+    else:
+        seed_host(engine, N)
+        centroid = x_centroid_vsector
+    engine.add_observer(obs)
+    for _ in range(settle):
+        engine.step()
+    # apply the drive at t=0 of the recording window; capture imprinted-field purity
+    drive_fn = apply_baseline_longitudinal_drive if kind == "baseline" else apply_longitudinal_drive
+    base = np.array(engine.cos.u_dot if form == "velocity" else engine.cos.u)
+    drive_fn(engine, v_drive, N, PML, variant=variant, form=form)
+    now = np.array(engine.cos.u_dot if form == "velocity" else engine.cos.u)
+    div_rms, curl_rms, curl_div = drive_purity(engine, PML, field=(now - base))
+
+    m = _interior_mask(N, PML)
+    traj = []   # (t, cx, E_int, fwhm, max_tau_zx, peakA2, K_u)
+    cx0, e0 = centroid(engine, PML)
+    d0 = obs._capture(engine)
+    A2_0 = a2_field(engine)
+    traj.append((0.0, cx0, e0, x_fwhm_vsector(engine, PML), d0["max_tau_zx"],
+                 float(A2_0[m].max()), cos_kinetic_energy(engine, PML)))
+    for s in range(n_steps):
+        engine.step()
+        if (s + 1) % rec_every == 0:
+            cx, e = centroid(engine, PML)
+            d = obs._capture(engine)
+            A2 = a2_field(engine)
+            traj.append(((s + 1) * DT, cx, e, x_fwhm_vsector(engine, PML),
+                         d["max_tau_zx"], float(A2[m].max()),
+                         cos_kinetic_energy(engine, PML)))
+    arr = np.array(traj, dtype=float)
+    ts, cxs, es, fwhms, taus, peakA2s, kus = arr.T
+    good = ~np.isnan(cxs)
+    v = float(np.polyfit(ts[good], cxs[good], 1)[0]) if good.sum() >= 2 else float("nan")
+    retention = float(es[-1] / es[0]) if es[0] > 0 else float("nan")
+    return {
+        "kind": kind, "v_drive": v_drive, "variant": variant, "form": form,
+        "v_centroid": v,
+        "cx_start": float(cxs[0]), "cx_end": float(cxs[-1]),
+        "dx_total": float(cxs[-1] - cxs[0]),
+        "E_start": float(es[0]), "E_end": float(es[-1]), "retention": retention,
+        "fwhm_start": float(fwhms[0]), "fwhm_end": float(fwhms[-1]),
+        "max_tau_zx_mean": float(np.mean(taus)),
+        "max_tau_zx_start": float(taus[0]), "max_tau_zx_end": float(taus[-1]),
+        "peakA2_mean": float(np.mean(peakA2s)), "peakA2_min": float(np.min(peakA2s)),
+        "peakA2_start": float(peakA2s[0]), "peakA2_end": float(peakA2s[-1]),
+        "K_u_mean": float(np.mean(kus)), "K_u_start": float(kus[0]), "K_u_end": float(kus[-1]),
+        # per-arm drive purity (the audit trail proving the drive was clean)
+        "drive_div_rms": div_rms, "drive_curl_rms": curl_rms, "drive_curl_div": curl_div,
+        "_traj": arr,
+    }
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Adjudicator — the verdict map + the FOUR adversarial controls
+# ══════════════════════════════════════════════════════════════════════════════
+LATTICE_VELOCITY_FLOOR = 1e-3   # |v| below this is lattice/centroid-jitter artifact
+
+
+def adjudicate_motion_stability(sweep, V_SWEEP):
+    """Verdict map (prereg + DRIVE-CORRECTION). A SUPPORTS requires the knot to
+    translate (>floor) MORE than LINEAR, retention↑ with |v|, τ_zx-tracking, AND all
+    FOUR adversarial controls cleared:
+      (1) LINEAR does NOT advect the same (else generic transport, not bemf);
+      (2) core A² HOLDS during motion (no decay → not a dying blob being pushed);
+      (3) knot velocity > LATTICE_VELOCITY_FLOOR;
+      (4) BASELINE matched-energy does NOT show the same retention gain.
+    """
+    V = sorted({r["v_drive"] for r in sweep["selftrap"].values()})
+    v_max = max(V, key=abs)
+    pos_v = [v for v in V if v > 0]
+    v_pos = max(pos_v) if pos_v else v_max
+
+    def get(arm, v):
+        return sweep[arm][v]
+
+    # --- knot vs linear vs baseline translation response (drive-induced, v=0 corrected)
+    st_resp = abs(get("selftrap", v_pos)["v_centroid"] - get("selftrap", 0.0)["v_centroid"])
+    lin_resp = abs(get("linear", v_pos)["v_centroid"] - get("linear", 0.0)["v_centroid"])
+    base_resp = abs(get("baseline", v_pos)["v_centroid"] - get("baseline", 0.0)["v_centroid"])
+
+    linear_advects = bool(lin_resp > LATTICE_VELOCITY_FLOOR)
+    knot_moves = bool(st_resp > LATTICE_VELOCITY_FLOOR)
+
+    # sign-flip pin tell on the self-trap: real translation flips sign with v_drive
+    has_neg = (-abs(v_max)) in sweep["selftrap"]
+    st_signflip = (bool(np.sign(get("selftrap", v_pos)["v_centroid"]) !=
+                        np.sign(get("selftrap", -abs(v_max))["v_centroid"]))
+                   if has_neg else None)
+
+    # --- retention(|v|) slope on the SELF-TRAP arm (Grant: >0 if motion stabilizes)
+    st_ret = [get("selftrap", v)["retention"] for v in V]
+    st_vabs = [abs(get("selftrap", v)["v_centroid"]) for v in V]
+    ret_slope = (float(np.polyfit(st_vabs, st_ret, 1)[0])
+                 if len(V) >= 2 and np.ptp(st_vabs) > 1e-12 else float("nan"))
+
+    # --- native-τ_zx-vs-retention correlation across the v-sweep (Grant: >0)
+    tau = [get("selftrap", v)["max_tau_zx_mean"] for v in V]
+    if len(V) >= 3 and np.std(tau) > 1e-30 and np.std(st_ret) > 1e-30:
+        tau_ret_corr = float(np.corrcoef(tau, st_ret)[0, 1])
+    else:
+        tau_ret_corr = float("nan")
+
+    # ── FOUR adversarial controls ───────────────────────────────────────────────
+    # (1) LINEAR does NOT advect the same as the knot (knot response >> linear)
+    ctrl1_linear_distinct = bool(knot_moves and st_resp > 2.0 * lin_resp)
+    # (2) core A² HOLDS during motion at the driven cell (no decay → stable soliton,
+    #     not a dying blob). peakA2_end/start ratio ≥ 0.8 AND peakA2 stays ≫ 1.
+    sc = get("selftrap", v_pos)
+    a2_hold = (sc["peakA2_end"] / sc["peakA2_start"]) if sc["peakA2_start"] > 0 else float("nan")
+    ctrl2_a2_holds = bool(a2_hold >= 0.8 and sc["peakA2_min"] > 1.0)
+    # (3) knot velocity exceeds the lattice-artifact floor
+    ctrl3_above_floor = bool(abs(get("selftrap", v_pos)["v_centroid"]) > LATTICE_VELOCITY_FLOOR)
+    # (4) BASELINE matched-energy does NOT show the same retention gain as SELF-TRAP
+    st_ret_gain = get("selftrap", v_pos)["retention"] - get("selftrap", 0.0)["retention"]
+    base_ret_gain = get("baseline", v_pos)["retention"] - get("baseline", 0.0)["retention"]
+    ctrl4_baseline_distinct = bool(st_ret_gain > 0 and st_ret_gain > 2.0 * abs(base_ret_gain))
+    all_four = bool(ctrl1_linear_distinct and ctrl2_a2_holds and ctrl3_above_floor and ctrl4_baseline_distinct)
+
+    # PIN: linear advects, knot does NOT (response < ¼ linear, no sign-flip)
+    knot_pinned = bool(linear_advects and st_resp < 0.25 * lin_resp)
+    if has_neg and st_signflip is not None:
+        knot_pinned = bool(knot_pinned and (st_signflip is False))
+
+    # ── VERDICT ─────────────────────────────────────────────────────────────────
+    if not linear_advects:
+        verdict = "BLOCKED-drive"
+        text = ("The LINEAR control does NOT advect under the (gated, curl-free) drive — "
+                "the drive's directional-compression bias cannot move even a "
+                "sub-saturation blob. (Should not occur if the smoke test selected a "
+                "variant that advects; if it does, the curl-free directional drive is the "
+                "blocker.)")
+    elif knot_pinned:
+        verdict = "PIN-even-longitudinal"
+        text = ("LINEAR advects but the SELF-TRAP knot does NOT (response ≪ linear, "
+                "no sign-flip with drive direction). The saturated (2,3) V-core "
+                "(A²≫1 ⇒ S→0 ⇒ c_eff→0) does not track the z_local saturation-impedance "
+                "bias enough to translate — even though the bulk/longitudinal channel is "
+                "NOT frozen by S and the LINEAR compression advects at ~c_L. The knot is a "
+                "frozen-clock soliton, PINNED even on the channel the electron physically "
+                "moves in. Grant's stability-FROM-motion hypothesis is CONTRADICTED on the "
+                "decisive longitudinal channel; flag-worthy tension with de-broglie:50.")
+    elif knot_moves and all_four and ret_slope > 0 and tau_ret_corr > 0:
+        verdict = "SUPPORTS-pending-discrimination-check"
+        text = ("The SELF-TRAP knot TRANSLATES under the curl-free longitudinal drive MORE "
+                "than LINEAR, retention RISES with |v|, the gain tracks native τ_zx (>0), "
+                "AND all four adversarial controls cleared (LINEAR-distinct, A²-holds, "
+                "above-floor, BASELINE-distinct). SUPPORTS Grant — but MANDATORY: complete "
+                "the full ave-discrimination-check SM-counterfactual table BEFORE any "
+                "positive framing. A positive overturns the static-trap canon (highest bar).")
+    elif knot_moves:
+        verdict = "CONTRADICTS"
+        text = ("The SELF-TRAP knot responds to the drive but the bemf-stabilization "
+                "signature FAILS: retention does not rise with |v| (slope≤0) and/or does "
+                "not track native τ_zx (corr≤0) and/or an adversarial control fails "
+                "(LINEAR matches / A² decays / BASELINE matches). Longitudinal motion here "
+                "is generic transport, NOT bemf-stabilized topological translation.")
+    else:
+        verdict = "CONTRADICTS"
+        text = ("Neither a clean translation nor a clean pin: the knot does not move above "
+                "floor AND the LINEAR control's advection is marginal. No stability-from-"
+                "motion signal on the longitudinal channel.")
+
+    return {
+        "verdict": verdict, "text": text,
+        "linear_advects": linear_advects, "knot_moves": knot_moves, "knot_pinned": knot_pinned,
+        "selftrap_response": st_resp, "linear_response": lin_resp, "baseline_response": base_resp,
+        "selftrap_resp_over_linear": float(st_resp / lin_resp) if lin_resp > 0 else float("nan"),
+        "selftrap_signflips_with_drive": st_signflip,
+        "retention_v_slope_selftrap": ret_slope,
+        "native_tau_zx_vs_retention_corr": tau_ret_corr,
+        "adversarial_controls": {
+            "1_linear_distinct": ctrl1_linear_distinct,
+            "2_a2_holds": ctrl2_a2_holds, "a2_end_over_start": a2_hold,
+            "3_above_lattice_floor": ctrl3_above_floor,
+            "4_baseline_distinct": ctrl4_baseline_distinct,
+            "selftrap_retention_gain": st_ret_gain, "baseline_retention_gain": base_ret_gain,
+            "all_four_cleared": all_four,
+        },
+        "forward_predicted_verdict": FORWARD_PREDICTED_VERDICT,
+        "forward_predicted_sign": FORWARD_PREDICTED_SIGN,
+        "v_by_arm": {arm: {str(v): get(arm, v)["v_centroid"] for v in sorted(sweep[arm])} for arm in sweep},
+        "retention_by_arm": {arm: {str(v): get(arm, v)["retention"] for v in sorted(sweep[arm])} for arm in sweep},
+        "peakA2_traj_selftrap": {str(v): [get("selftrap", v)["peakA2_start"],
+                                          get("selftrap", v)["peakA2_min"],
+                                          get("selftrap", v)["peakA2_end"]] for v in sorted(sweep["selftrap"])},
+        "curl_div_by_arm": {arm: {str(v): get(arm, v)["drive_curl_div"] for v in sorted(sweep[arm])} for arm in sweep},
+    }
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Full sweep + main
+# ══════════════════════════════════════════════════════════════════════════════
+def run_full_sweep(N, PML, variant, form, settle=10, n_steps=70):
+    """SELF-TRAP / LINEAR / BASELINE × v_drive ∈ {0, low, mid, −mid}. Fixed host
+    config across the sweep (no saturation-depth confound). Per-arm curl/div gate
+    enforced (every arm's drive must be ≥90% compression)."""
+    V_SWEEP = [0.0, 0.15, 0.30, -0.30]   # 0, low, mid, −mid (sign-flip control)
+    arms = ["selftrap", "linear", "baseline"]
+    sweep = {a: {} for a in arms}
+    gate_fail = []
+    for arm in arms:
+        for v in V_SWEEP:
+            print(f"    [{arm:9s} v={v:+.2f}] ...", flush=True, end=" ")
+            t0 = time.time()
+            r = run_arm(arm, v, N, PML, variant, form, settle=settle, n_steps=n_steps)
+            sweep[arm][v] = r
+            gate_ok = (v == 0.0) or (r["drive_curl_div"] < CURL_DIV_GATE)
+            if not gate_ok:
+                gate_fail.append((arm, v, r["drive_curl_div"]))
+            print(f"v={r['v_centroid']:+.5f} ret={r['retention']:.3f} "
+                  f"τ_zx={r['max_tau_zx_mean']:.2e} peakA²={r['peakA2_mean']:.2f} "
+                  f"curl/div={r['drive_curl_div']:.4f}{'' if gate_ok else ' GATE-FAIL'} "
+                  f"({time.time()-t0:.0f}s)", flush=True)
+    return sweep, V_SWEEP, gate_fail
+
+
+def main():
+    N, PML = 48, 4
+    SMOKE_N = 40
+    settle, n_steps = 10, 70
+    print("=" * 82, flush=True)
+    print("  MOTION-STABILITY via back-EMF — LONGITUDINAL (decisive) channel | VacuumEngine3D")
+    print("  Grant: stability FROM motion (retention(|v|)↑, tracks native longitudinal τ_zx).")
+    print("  Canon: frozen V-core PINS even longitudinally (S→0, c_eff→0; c_L NOT frozen by S).")
+    print("=" * 82, flush=True)
+    print(f"  ALPHA={ALPHA} A²_op14={A2_OP14:.4f} c_L=√(10/3)={C_LONG:.4f} (ave-canonical-source) | dt={DT:.4f}")
+    print(f"  FORWARD-PREDICTED (no fit): {FORWARD_PREDICTED_VERDICT} | {FORWARD_PREDICTED_SIGN}")
+    print(f"  DRIVE GATE: curl/div < {CURL_DIV_GATE} (≥90% compression; the fix the killed run lacked)")
+
+    # ── ANTI-STALL: gate + LINEAR-advection smoke, hard 2-try cap (Variant A → B) ──
+    print("\n  ── ANTI-STALL: curl/div gate + LINEAR-advection smoke (A→B, 2-try cap) ──", flush=True)
+    ts0 = time.time()
+    smoke = smoke_test_drive(N=SMOKE_N, PML=PML, n_steps=60, form="displacement")
+    for variant, rec in smoke["variants"].items():
+        print(f"    Variant {variant}: gate curl/div={rec['gate_ratio_at_vmax']:.4f} "
+              f"(pass={rec['gate_passed']}) | advects={rec['advects']} "
+              f"v0≈0={rec['v0_is_zero']} signflip={rec['signflips']}", flush=True)
+        for d in rec["per_v"]:
+            print(f"        v_drive={d['v_drive']:+.2f}: v_centroid={d['v_centroid']:+.5f} dx={d['dx']:+.4f}")
+    chosen = smoke["chosen_variant"]
+    print(f"    CHOSEN drive variant: {chosen} (form={smoke['chosen_form']}) ({time.time()-ts0:.0f}s)", flush=True)
+    if chosen is None:
+        print("\n  BLOCKED-drive: neither Variant A nor B passes BOTH gate + LINEAR advection "
+              "(2-try cap reached). STOP — see _orchestration DRIVE-CORRECTION.", flush=True)
+        out = {"verdict": {"verdict": "BLOCKED-drive",
+                           "text": "Neither curl-free variant cleared gate+advection within the 2-try cap.",
+                           "forward_predicted_verdict": FORWARD_PREDICTED_VERDICT},
+               "smoke": smoke}
+        _save(out, None, None)
+        return out["verdict"]
+
+    # ── FULL SWEEP ──
+    print(f"\n  ── FULL SWEEP (N={N}): SELF-TRAP / LINEAR / BASELINE × v_drive (variant {chosen}) ──", flush=True)
+    sweep, V, gate_fail = run_full_sweep(N, PML, chosen, smoke["chosen_form"],
+                                         settle=settle, n_steps=n_steps)
+    if gate_fail:
+        print(f"\n  BLOCKED-drive: {len(gate_fail)} arm(s) failed the curl/div gate at sweep time: "
+              f"{gate_fail}. A mixed drive must NOT be run. STOP.", flush=True)
+        verdict = {"verdict": "BLOCKED-drive",
+                   "text": f"Per-arm gate failed at sweep time: {gate_fail}",
+                   "forward_predicted_verdict": FORWARD_PREDICTED_VERDICT}
+    else:
+        verdict = adjudicate_motion_stability(sweep, V)
+
+    print("\n" + "=" * 82)
+    print("  VERDICT:", verdict["verdict"])
+    print("=" * 82)
+    if "adversarial_controls" in verdict:
+        c = verdict["adversarial_controls"]
+        print(f"  knot_moves={verdict['knot_moves']} pinned={verdict['knot_pinned']} | "
+              f"selftrap_resp/linear={verdict['selftrap_resp_over_linear']:.3f}")
+        print(f"  retention(|v|) slope (self-trap): {verdict['retention_v_slope_selftrap']:.4e}")
+        print(f"  native τ_zx vs retention corr: {verdict['native_tau_zx_vs_retention_corr']:.3f}")
+        print(f"  adversarial controls — 1_linear_distinct={c['1_linear_distinct']} "
+              f"2_a2_holds={c['2_a2_holds']}(A²end/start={c['a2_end_over_start']:.3f}) "
+              f"3_above_floor={c['3_above_lattice_floor']} 4_baseline_distinct={c['4_baseline_distinct']} "
+              f"→ ALL_FOUR={c['all_four_cleared']}")
+        print(f"  per-arm curl/div (proves drive clean): {verdict['curl_div_by_arm']}")
+    print(f"\n  {verdict['text']}")
+    print(f"\n  Forward-predicted: {verdict['forward_predicted_verdict']} | observed: {verdict['verdict']}")
+
+    _save({"verdict": verdict, "smoke": smoke,
+           "config": {"N": N, "PML": PML, "settle": settle, "n_steps": n_steps,
+                      "host_R_frac": HOST_R_FRAC, "host_amp": HOST_AMP,
+                      "A2_op14": A2_OP14, "ALPHA": ALPHA, "dt": DT, "c_L": C_LONG,
+                      "V_sweep": V, "drive_variant": chosen, "drive_form": smoke["chosen_form"],
+                      "curl_div_gate": CURL_DIV_GATE}},
+          sweep, V)
+    return verdict
+
+
+def _save(out_json, sweep, V):
+    if sweep is not None:
+        out_json["arms"] = {arm: {str(v): {kk: vv for kk, vv in sweep[arm][v].items() if kk != "_traj"}
+                                  for v in sweep[arm]} for arm in sweep}
+    out_path = Path(__file__).parent / "motion_stability_bemf_longitudinal_probe_results.json"
+    out_path.write_text(json.dumps(out_json, indent=2, default=str), encoding="utf-8")
+    print(f"\n  Saved {out_path.name}", flush=True)
+    if sweep is not None:
+        npz_path = Path(__file__).parent / "motion_stability_bemf_longitudinal_probe_capture.npz"
+        np.savez_compressed(
+            npz_path,
+            **{f"{arm}_v{str(v).replace('-', 'm').replace('.', 'p')}": sweep[arm][v]["_traj"]
+               for arm in sweep for v in sweep[arm]},
+            dt=DT, c_L=C_LONG,
+        )
+        print(f"  Saved {npz_path.name}", flush=True)
+
+
+if __name__ == "__main__":
+    main()
