@@ -14,6 +14,7 @@
 | 4 | constants.py cite content-anchor | N/A (tooling, not physics) | convention + ξ_topo lockstep + head-sweep folded; informal tail | **AGREED** 2026-06-04 |
 | 5 | birefringence-E4 index-convention + survives | √ε (1−S depth vs √S−1 shift); discriminator = COEFFICIENT not exponent (AVE 4.4e5× QED) | √ε fix (5 sites) + coefficient reframe + derivation — **SURVIVES** | **AGREED** 2026-06-04 |
 | 6 | PONDER-05 vacuum-vs-material | per-node A at 30 kV = 10⁻⁷ (reaching 0.687 needs 1.0 node-lengths) | MATERIAL / consistency-class; folds into #3; INVARIANT-S2 cite fix | **AGREED** 2026-06-04 |
+| 7 | NA-aperture PONDER-05 anchor | κ₃/κ₄ + 0.707 (Op17 matched-impedance) PONDER-05-independent; 0.687≈0.707 spurious coincidence | KEEP derivation (Class-2) / DEFLATE PONDER-05 empirical leg (facility-class) | **AGREED + DONE** 2026-06-04 `82bbcf2e` |
 
 ---
 
@@ -173,6 +174,6 @@ All 5 adjudications **AGREED**. Sequenced execution (Layer 3 corpus deltas + Lay
 - **EE-skill PONDER-05 mirror** done (`ave-ee-first-mapping` SKILL.md mapping-table row + means-test #11 → "material consistency analog of the kernel shape, NOT a vacuum-kernel tester"; leaf-authoritative-first satisfied by the landed INVARIANT-S2).
 
 **Remaining (corrections phase):**
-- **NA-aperture adjudication** (QUEUED per Grant) — the *closed* Class-2-emergence κ₃/κ₄ result anchors on the PONDER-05 conflation ("a^(2D)=0.707 within 3% of 0.687"); does it survive losing that empirical leg, or deflate? (`parametric-coupling-kernel.md §13/14`, `dama-matched-lc-coupling.md:269`.)
+- **NA-aperture adjudication #7** ✓ **DONE 2026-06-04 (`82bbcf2e`)** — keep-derivation / deflate-anchor: the κ₃/κ₄ closed forms + a^(2D)_peak=0.707 (Op17 matched-impedance) **Class-2 derivation SURVIVES** (substrate-geometric, PONDER-05-independent); the **PONDER-05 empirical-engagement leg DEFLATED** (the 0.707≈0.687 "within 3%" was a spurious coincidence — 0.687 is a quartz material ratio; the vacuum at PONDER-05's 30 kV is at a~10⁻⁷; the prediction is facility-class ~8×10¹⁶ V/m, not the 30 kV bench). Edits: `parametric-coupling-kernel.md §14.5` banner + §13/14 lines (470/570/575/582) + `dama-matched-lc-coupling.md:269`. Derivation (§13, §14.1-4, §14.9) untouched.
 - **.tex follow-up alignment** — `backmatter/07:107`, `vol_3/04:364`, vol_9 `.tex` echoes of the PONDER-05 conflation (KB `.md` corrected, `.tex` pending) + the `14_phase_diagrams.tex:64`-vs-`:65` self-contradiction (one row conflated, one honest, same table).
 - **Closure** — `closure-roadmap §0.5` rows; capstone synthesis (`research/2026-06-04_experimental-round2-synthesis.md`); round-1 + round-2 + corrections branch cleanup (Grant go).
