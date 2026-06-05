@@ -166,3 +166,13 @@ All 5 adjudications **AGREED**. Sequenced execution (Layer 3 corpus deltas + Lay
 - **IMP-2** (AVE-Core birefringence #5): √ε-fix (5 sites) + coefficient-reframe + forward-prediction derivation + driver.
 - **IMP-3** (AVE-HOPF §6.2): C3/C4 → consistency-class + reciprocity-sweep leg.
 - Orchestrator: EE-skill PONDER-05 edit (outside the AVE-Core worktree); review + merge the 3 branches; closure (closure-roadmap §0.5, capstone, branch cleanup).
+
+### Corrections MERGED (2026-06-04, Grant "fire the merges")
+- **IMP-1** (#2 SM≠0.0 4 sites + #3 per-node sweep 11 KB files incl. INVARIANT-S2 + #4 content-anchor ~22 files) + **IMP-2** (#5 birefringence √ε fix 5 sites + coefficient reframe + forward driver) → **AVE-Core main `c7e57cc6`** (refresh committed, `verify-kb-metadata` PASS). Audit tags `audit/2026-06-04_corrections-walkback-pernode` + `_birefringence-coefficient-reframe` pushed.
+- **IMP-3** (HOPF §6.2 C3/C4 → consistency-class + Phase R reciprocity sweep) → **AVE-HOPF main `02c422f`**; + hardened-prereg SUPERSEDED-in-part banner `f6bfd90` (KEEP-BOTH). Audit tag `audit/2026-06-04_hopf-s62-reciprocity`.
+- **EE-skill PONDER-05 mirror** done (`ave-ee-first-mapping` SKILL.md mapping-table row + means-test #11 → "material consistency analog of the kernel shape, NOT a vacuum-kernel tester"; leaf-authoritative-first satisfied by the landed INVARIANT-S2).
+
+**Remaining (corrections phase):**
+- **NA-aperture adjudication** (QUEUED per Grant) — the *closed* Class-2-emergence κ₃/κ₄ result anchors on the PONDER-05 conflation ("a^(2D)=0.707 within 3% of 0.687"); does it survive losing that empirical leg, or deflate? (`parametric-coupling-kernel.md §13/14`, `dama-matched-lc-coupling.md:269`.)
+- **.tex follow-up alignment** — `backmatter/07:107`, `vol_3/04:364`, vol_9 `.tex` echoes of the PONDER-05 conflation (KB `.md` corrected, `.tex` pending) + the `14_phase_diagrams.tex:64`-vs-`:65` self-contradiction (one row conflated, one honest, same table).
+- **Closure** — `closure-roadmap §0.5` rows; capstone synthesis (`research/2026-06-04_experimental-round2-synthesis.md`); round-1 + round-2 + corrections branch cleanup (Grant go).
