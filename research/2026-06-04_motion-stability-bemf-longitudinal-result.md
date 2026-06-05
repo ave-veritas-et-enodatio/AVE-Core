@@ -9,11 +9,25 @@
 
 ---
 
-## VERDICT — `__VERDICT__`
+## VERDICT — `PIN-even-longitudinal`
 
-__VERDICT_TEXT__
+**LINEAR advects but the SELF-TRAP knot does NOT** (drive-response ≪ linear, **no
+sign-flip with drive direction**). The saturated (2,3) V-core (peak A²≈3.07 ⇒
+S→0 ⇒ c_eff→0) does not track the `z_local` saturation-impedance bias enough to
+translate — *even though* the bulk/longitudinal channel is NOT frozen by S and the
+LINEAR sub-saturation compression advects cleanly at ~c_L. The knot is a
+frozen-clock soliton, **PINNED even on the longitudinal channel the electron
+physically moves in**. Grant's stability-FROM-motion hypothesis is **CONTRADICTED
+on the decisive longitudinal channel** (the prior two transverse runs also PINNED;
+this closes the genuinely-open third channel).
 
-This **matches / overturns** the forward-prediction (`PIN-even-longitudinal`).
+This **matches** the forward-prediction (`PIN-even-longitudinal`, committed as a
+pre-run constant — no fit). The substrate default held: `observed == forward`.
+
+This is a clean, publishable negative result with a single named mechanism
+(saturation-screening, below) — the discipline working at full strength (Rule 11
+honest closure). No rescue debugging; branch closes on a falsification with the
+mechanism named.
 
 ---
 
@@ -35,9 +49,9 @@ drive (1.414 > 0.10).
 
 | Arm | drive | v=0 | v=+0.15 | v=+0.30 | v=−0.30 | gate (<0.10) |
 |---|---|---|---|---|---|---|
-| SELF-TRAP | curl-free directional | __CD_ST__ | | | | __CD_ST_PASS__ |
-| LINEAR | curl-free directional | __CD_LIN__ | | | | __CD_LIN_PASS__ |
-| BASELINE | curl-free even-standing | __CD_BASE__ | | | | __CD_BASE_PASS__ |
+| SELF-TRAP | curl-free x-planar (Variant B) | 0.0 | 0.0 | 0.0 | 0.0 | **PASS** |
+| LINEAR | curl-free x-planar (Variant B) | 0.0 | 1.7e-16 | 1.1e-16 | 1.1e-16 | **PASS** |
+| BASELINE | curl-free even-standing | 0.0 | 0.0 | 0.0 | 0.0 | **PASS** |
 
 (Full per-(arm, v) curl/div in the results JSON `curl_div_by_arm`.) Every driven
 arm is ≥90 % compression — the drive is a clean A₁/bulk-channel longitudinal
@@ -53,8 +67,8 @@ LINEAR `|u|²`-centroid advection:
 
 | Variant | curl/div gate | LINEAR advects? | v0≈0 | sign-flips | chosen |
 |---|---|---|---|---|---|
-| A (compression dipole `∇[(x−c)G(r)]`) | __SMOKE_A_GATE__ | __SMOKE_A_ADV__ | __SMOKE_A_V0__ | __SMOKE_A_SF__ | |
-| B (x-planar pulse `w(x)sin(k_x x)`) | __SMOKE_B_GATE__ | __SMOKE_B_ADV__ | __SMOKE_B_V0__ | __SMOKE_B_SF__ | __CHOSEN__ |
+| A (compression dipole `∇[(x−c)G(r)]`) | 0.0000 PASS | **No** (v≈±5e-5) | yes | yes | |
+| B (x-planar pulse `w(x)sin(k_x x)`) | 0.0000 PASS | **Yes** (v≈∓0.029, dx≈∓0.78) | yes | yes | **✓ B / displacement** |
 
 **Why Variant A does not advect (and that is EXPECTED, per the DRIVE-CORRECTION):**
 a localized curl-free field has **zero net linear momentum** by `∮` — the symmetric
@@ -72,20 +86,44 @@ anti-stall fallback, not an iteration past the cap.
 
 ## The four adversarial controls (the (ii) "MOVES" positive collapsed on these)
 
-| # | Control | Result | Cleared? |
+| # | Control | Result | Cleared (for SUPPORTS)? |
 |---|---|---|---|
-| 1 | LINEAR does NOT advect the same (knot ≫ linear) | __CTRL1__ | __CTRL1_OK__ |
-| 2 | core A²(t) HOLDS during motion (no dying-blob decay) | __CTRL2__ | __CTRL2_OK__ |
-| 3 | knot velocity > lattice-artifact floor (1e-3) | __CTRL3__ | __CTRL3_OK__ |
-| 4 | BASELINE matched-energy shows NO same retention gain | __CTRL4__ | __CTRL4_OK__ |
+| 1 | LINEAR-distinct (knot moves ≫ linear) | knot drive-response = **0**, linear = 0.0085 → knot does NOT move more | **No** |
+| 2 | core A²(t) HOLDS during motion | A²_end/A²_start = **1.001** (held perfectly; peak A²≈3.07 throughout) | Yes |
+| 3 | knot velocity > lattice floor (1e-3) | |v_knot| = 0.00263 > 1e-3 | Yes |
+| 4 | BASELINE-distinct (no matched-energy gain) | selftrap retention-gain = **0.0**, baseline = **0.0** → identical, no differential | **No** |
 
-__CONTROLS_SUMMARY__
+**Interpretation (CRITICAL — these controls gate a SUPPORTS, and a SUPPORTS is NOT
+the verdict):** controls 1 and 4 fail *because the knot does not move at all* —
+there is no translation to be "more than linear" (control 1) and no retention gain
+to attribute to directionality (control 4). For a PIN that is the CORRECT outcome:
+the four controls are the gate that *would* admit a SUPPORTS, and they correctly
+refuse to. Control 2 (A²-holds) and control 3 (above-floor) confirm the soliton is
+a genuine stable trap throughout (NOT a dying blob, NOT sub-lattice jitter) — so
+the PIN is the real "a stable soliton that refuses to translate," not "a blob that
+fell apart." All four together: **clean PIN, no SUPPORTS, no CONTRADICTS-via-generic-
+transport ambiguity.**
 
 ---
 
 ## A²(t) core trajectory — saturated-while-(not)-moving
 
-__A2_TRAJ__
+The SELF-TRAP core peak A² (V-sector, at the density peak — NOT centroid) over the
+recording window, `[start, min, end]`, is **identical across every v_drive**:
+
+| v_drive | peak A² [start, min, end] |
+|---|---|
+| 0.00 | [3.0745, 3.0706, 3.0768] |
+| +0.15 | [3.0745, 3.0706, 3.0768] |
+| +0.30 | [3.0745, 3.0706, 3.0768] |
+| −0.30 | [3.0745, 3.0706, 3.0768] |
+
+The core stays at A²≈3.07 (well above 1 — S→0, c_eff→0, frozen clock) the whole
+window, A²_end/A²_start = 1.001. This is **NOT** the transverse-run's (ii) failure
+mode (A 0.85→0.4, a dying blob being pushed): it is a **fully stable, saturated
+soliton that simply does not translate** under the longitudinal drive. The
+byte-identical trajectories across v_drive ARE the PIN: the V-core evolution is
+completely independent of the longitudinal drive.
 
 ---
 
@@ -93,13 +131,24 @@ __A2_TRAJ__
 
 | v_drive | SELF-TRAP v / ret / peakA² | LINEAR v / ret | BASELINE v / ret |
 |---|---|---|---|
-__MOTION_TABLE__
+| 0.00 | +0.00263 / 0.518 / 3.07 | −0.00002 / 0.845 | +0.00263 / 0.518 |
+| +0.15 | +0.00263 / 0.518 / 3.07 | +0.00555 / 0.748 | +0.00263 / 0.518 |
+| +0.30 | +0.00263 / 0.518 / 3.07 | +0.00843 / 0.562 | +0.00263 / 0.518 |
+| −0.30 | +0.00263 / 0.518 / 3.07 | −0.00848 / 0.562 | +0.00263 / 0.518 |
 
-- **Knot-centroid velocity (drive-induced):** SELF-TRAP `__ST_RESP__`, LINEAR
-  `__LIN_RESP__`, BASELINE `__BASE_RESP__` (selftrap/linear = `__ST_OVER_LIN__`).
-- **retention(|v|) slope (SELF-TRAP):** `__RET_SLOPE__` (Grant: >0 if motion stabilizes).
-- **native longitudinal τ_zx vs retention correlation:** `__TAU_CORR__` (Grant: >0; canon: ≤0).
-- **knot sign-flips with drive direction:** `__ST_SIGNFLIP__`.
+- **Knot-centroid velocity (drive-induced, v=0 corrected):** SELF-TRAP `0.000`,
+  LINEAR `0.0085`, BASELINE `0.000` (selftrap/linear = `0.000`).
+- **SELF-TRAP velocity is byte-identical (+0.00263) at every v_drive** — that
+  +0.00263 is the knot's own intrinsic settling drift, completely **drive-
+  independent**. LINEAR velocity scales with drive and **sign-flips cleanly**
+  (+0.00843 at +0.30 → −0.00848 at −0.30): the control advects, the knot does not.
+- **retention(|v|) slope (SELF-TRAP):** `nan` — degenerate (all retentions
+  identical = 0.518, zero variance). NOT >0; the saturated knot's retention is
+  drive-invariant, so there is NO motion-stabilization signal.
+- **native longitudinal τ_zx vs retention correlation:** `nan` — degenerate (τ_zx
+  byte-identical = 6.60e5 across the sweep; retention zero-variance). NOT >0.
+- **knot sign-flips with drive direction:** `False` (the robust pin tell —
+  v(+0.30) == v(−0.30) == +0.00263, so the residual drift is NOT a drive response).
 
 ---
 
@@ -122,9 +171,11 @@ so a longitudinal compression DOES feed `z_local` (the prefactor of the native
 `τ_zx = z_local·∂_x A²`). The path is NOT blocked. But at the saturated (2,3) core
 the two terms are wildly asymmetric (directly measured at the production host):
 
-- V-sector term at the core: `V²/V_SNAP² ≈ __VCONTRIB__` (already at the clip ceiling).
+- V-sector term at the core: `V²/V_SNAP² ≈ 3.07` (already above 1 → A²_ε pins at
+  the clip ceiling `1−1e-10`, S_ε,min = 1e-5).
 - Drive strain term at the core, at the sweep amplitude (v_drive=0.30):
-  `ε_sym²/ε_yield² ≈ __ECONTRIB__` — **~__SCREEN_RATIO__× smaller** than the V-term.
+  `ε_sym²/ε_yield² ≈ 1.90e-2` — **~162× smaller** than the V-term (measured at the
+  production N=48 host).
 
 Because `A²_ε` is **already clipped to `1−1e-10` by the V-sector alone**, the
 longitudinal strain a physical-amplitude drive imprints cannot move `S_ε` at the
@@ -159,7 +210,37 @@ couple to the V-core (in which case the saturation-screening is the falsifier)?
 
 ## ave-discrimination-check — SM-counterfactual table
 
-__DISCRIMINATION_SECTION__
+**Nothing reads as a positive → no promotion to gate.** `ave-discrimination-check`
+fires *before framing a positive as "AVE-distinct / STRONG POSITIVE / load-bearing
+confirmation"*; the verdict here is a falsification (PIN), so there is no positive
+claim to promote and the skill's promotion path does not apply. For completeness,
+the SM-counterfactual is run on the two observables that DID move (so the negative
+is honestly bounded), and the result is classified per `consistency-vs-emergence`:
+
+| Observable | What moved | SM predicts same? | Class | Load-bearing? |
+|---|---|---|---|---|
+| LINEAR sub-saturation blob advects under a curl-free +x compression pulse | v ∝ drive, sign-symmetric | **YES** — a linear elastic medium advects a one-sided compression pulse at its bulk sound speed; pure classical acoustics | **C** (consistency / generic transport) | No — this is the SM-counterfactual control *by design*; it confirms the drive works, not that AVE is distinct |
+| SELF-TRAP (2,3) knot does NOT translate under the same drive | nothing (drive-invariant) | partially — SM has no (2,3)-knotted soliton, but a generic "frozen heavy defect doesn't move under a weak bulk perturbation" is not AVE-specific | **negative result** (falsifies the AVE-distinct *positive* claim Grant proposed) | The NEGATIVE is load-bearing: it falsifies "stability-from-motion" on the decisive channel |
+
+- **The would-be Class-D claim** (bemf-stabilized topological translation distinct
+  from the linear control) **did not materialize** — the knot did not translate at
+  all, so there is no emergence-class signal to claim. A SUPPORTS here would have
+  had to clear the full Class-D bar (a dimensionless translation/retention coupling
+  from primitives, distinct from the linear control); it does not even reach the
+  starting line (zero knot translation).
+- **Magnitude-vs-ratio discriminator axis (Step 2.5):** N/A — there is no positive
+  AVE-distinct observable whose magnitude or ratio could discriminate. The only
+  moving observable (LINEAR advection) shares BOTH form and scale with classical
+  acoustics (it IS classical acoustics, by construction of the control).
+- **Interpretive alternatives** for "knot doesn't move" (enumerated, not anchored):
+  (A) genuine PIN — frozen V-core screens the bias [supported: mechanism measured,
+  162× screening]; (B) coupling-blocked artifact — u never reaches z_local [refuted:
+  S_ε responds monotonically to escalated drive, 0.96→0.08 at v_drive=30]; (C)
+  drive too weak in absolute terms — would move at higher amplitude [true but
+  physically irrelevant: the moving-electron-scale longitudinal compression IS this
+  amplitude; reaching parity needs ~100× = rupture-scale]; (D) wrong channel — the
+  electron's de-Broglie wake is self-sourced, not externally driven [OPEN — flagged
+  for Grant above]. (A) is the operative mechanism; (D) is the live physics fork.
 
 ---
 
