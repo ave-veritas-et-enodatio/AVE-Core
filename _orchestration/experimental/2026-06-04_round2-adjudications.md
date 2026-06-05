@@ -12,7 +12,7 @@
 | 2 | Cleave CPD / SM≠0.0 | Kelvin probe / patch potentials (CPD real, gap-dep ∝1/g²) | confirm + propagate SM≠0.0 + gap-sweep | **AGREED** 2026-06-04 |
 | 3 | per-node-conflation sweep | series-cell voltage division (V_yield is per-node, not terminal) | scoped sweep, inventory-first; PONDER-05 carve-out | **AGREED** 2026-06-04 |
 | 4 | constants.py cite content-anchor | N/A (tooling, not physics) | convention + ξ_topo lockstep + head-sweep folded; informal tail | **AGREED** 2026-06-04 |
-| 5 | birefringence-e4 index-convention | permittivity-depth (1−S) mislabeled as index-shift (√S−1); √ε factor | correct clm-pp3qwf + E²/E⁴ reframe (auditor) | **SURFACED** 2026-06-04 (pending) |
+| 5 | birefringence-e4 index-convention | permittivity-depth (1−S) mislabeled as index-shift (√S−1); √ε factor | correct clm-pp3qwf + E²/E⁴ reframe (auditor) | **AGREED** 2026-06-04 |
 
 ---
 
@@ -105,7 +105,7 @@ Plumber's-eye: a ferrite isolator only works *because of the magnet*. Remove the
 
 ---
 
-## §5 — vacuum-birefringence-E4 index-convention (δn = −A²/4 vs "Δn" = +A²/2)  [SURFACED 2026-06-04 — pending Grant]
+## §5 — vacuum-birefringence-E4 index-convention (δn = −A²/4 vs "Δn" = +A²/2)  [AGREED 2026-06-04]
 
 **Decision context.** IVIM round-2 flagged a cross-leaf inconsistency: `vacuum-impedance-mirror.md` gives δn ≈ **−A²/4** while `vacuum-birefringence-e4.md` (clm-pp3qwf) + `divergence-test-substrate-map.md:63` give "Δn" ≈ **+A²/2** — same E-field family, but factor-2 AND sign differ. The call: which is right, and how to reconcile?
 
@@ -120,10 +120,18 @@ Plumber's-eye: a ferrite isolator only works *because of the magnet*. Remove the
 
 **Skills applied.** `consistency-vs-emergence` (n = √(εμ) is the load-bearing identity; the e4 leaf's quantity is a consistency-class permittivity depth, not the index observable it claims); `ave-walk-back` (correct clm-pp3qwf + propagate to `divergence-test-substrate-map.md:63`); `ave-discrimination-check` (revised the first-plausible hypothesis after reading the source); `ave-audit-of-audit` (the agent's flag was sound; the root is a √ε conflation, sharper than "factor-2 + sign").
 
-**Decision (pending Grant).** Determinate part: the mirror leaf (−A²/4) is **correct**; the e4 leaf conflates permittivity-depth (1−S) with index-shift (√S−1) — fix clm-pp3qwf (relabel 1−S as permittivity saturation depth; give the correct index shift δn = √S−1 ≈ −A²/4). Intent part (your confirm): reframe the E²/E⁴ discriminator as "AVE's saturation arc deviates from QED's pure-E² via higher-order E⁴+ terms as E→E_yield" (not E⁴-leading). Lean: fix the √ε conflation (determinate) + reframe the discriminator (confirm with you). Auditor-gate executes the leaf correction.
+**Decision (Grant AGREED 2026-06-04).** Determinate part: the mirror leaf (−A²/4) is **correct**; the e4 leaf conflates permittivity-depth (1−S) with index-shift (√S−1) — fix clm-pp3qwf (relabel 1−S as permittivity saturation depth; give the correct index shift δn = √S−1 ≈ −A²/4). Intent part (confirmed): reframe the E²/E⁴ discriminator as "AVE's saturation arc deviates from QED's pure-E² via higher-order E⁴+ terms as E→E_yield" (not E⁴-leading). Auditor-gate verifies + the correction lands on its clear.
 
 **Execution (on agreement).** Auditor-gate: correct clm-pp3qwf (`vacuum-birefringence-e4.md`) + `divergence-test-substrate-map.md:63` per `ave-walk-back`; verify the E²/E⁴ falsifiable claim's viability (it's facility-class, E→10¹⁶–10¹⁷ V/m — ties to #3 per-node scale). `closure-roadmap §0.5` row.
 
 ---
 
-*All 5 adjudications worked. Next: auditor-gate (verifies + executes the determinate corrections) → round-2 merge-calls → the agreed sweeps/edits.*
+## Execution phase (2026-06-04)
+
+All 5 adjudications **AGREED**. Sequenced execution (Layer 3 corpus deltas + Layer 4 audit tags):
+
+1. **Auditor-gate** — 2 read-only `ave-auditor` passes **DISPATCHED 2026-06-04**: **A** (Cleave upgrade + #2 SM≠0.0 + #5 √ε corrections) `a94a5ab0`; **B** (IVIM / Q-G42 / HOPF deflations) `ad6be830`. Verify before any merge/correction.
+2. **Round-2 merge-calls** — 4 branches (`cleave-round2-smcounterfactual` / `hopf-round2-chiral-counterfactual` / `ivim-round2-rescope` / `qg42-vsign-harden`), Grant go per branch, after auditor clears. Audit-tag + `--no-ff` per the sibling-merge pattern.
+3. **Determinate corrections** — #2 SM≠0.0 (`project-cleave-01.md:22/44/65` + `occupation-robustness:95`); #5 √ε (`clm-pp3qwf` + `divergence-test-substrate-map.md:63`) — apply after auditor confirms.
+4. **Agreed sweeps** — #3 per-node-conflation (inventory-first → blast-radius review → batch re-scope; PONDER-05 carved out); #4 content-anchor (ξ_topo lockstep + high-traffic head-sweep; informal tail).
+5. **Closure** — `closure-roadmap §0.5` rows; capstone synthesis (`research/2026-06-04_experimental-round2-synthesis.md`); session handoff; round-1 + round-2 branch cleanup (Grant go).

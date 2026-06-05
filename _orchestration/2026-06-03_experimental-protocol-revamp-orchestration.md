@@ -261,4 +261,9 @@ tracked EE-mapped + skill-disciplined in [`experimental/2026-06-04_round2-adjudi
 **AGREED** (CPD real per Kelvin-probe; gap-sweep 4-corner cure; SM≠0.0 propagation authorized); #3 per-node-conflation
 sweep **AGREED** (scoped, inventory-first; PONDER-05 carved out); #4 constants.py-cite content-anchor **AGREED**
 (convention + ξ_topo lockstep + head-sweep; informal tail); #5 birefringence-E4 index-convention SURFACED (√ε conflation:
-mirror leaf −A²/4 correct, e4 leaf mislabels permittivity-depth 1−S as index-shift). **All 5 adjudications worked.**
+mirror leaf −A²/4 correct, e4 leaf mislabels permittivity-depth 1−S as index-shift). **All 5 AGREED.**
+
+**Execution phase (2026-06-04):** auditor-gate DISPATCHED (2 read-only ave-auditor passes — A `a94a5ab0` corrections+upgrade,
+B `ad6be830` deflations) → round-2 merge-calls (4 branches, Grant go per branch) → determinate corrections (#2 SM≠0.0, #5 √ε)
+→ agreed sweeps (#3 per-node inventory-first, #4 content-anchor) → closure (closure-roadmap §0.5, capstone, branch cleanup).
+See ledger [`experimental/2026-06-04_round2-adjudications.md`](experimental/2026-06-04_round2-adjudications.md) "Execution phase".
