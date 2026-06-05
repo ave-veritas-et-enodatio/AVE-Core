@@ -171,3 +171,42 @@ Meta: the survey + Phase-0 gates caught 1 injected-α (HOPF), 1 excluded-by-exis
 **Current board (tiered, post-hardening):** LIVE = HOPF (chiral legs) · **Cleave (two-sided — occupation-gap CLOSED, walk-back merged `d2b37f53`)** · **IVIM (R-A adjudicated 2026-06-03: WKB-suppressed → interferometric re-scope; per-node-V_yield conflation = root of Camp-A/B; see [`research/2026-06-03_ivim-RA-adjudication.md`](../research/2026-06-03_ivim-RA-adjudication.md))** · **Q-G42 V²-sign kernel test (decision-ready)**. RETIRED = Sagnac/ROENTGEN-03 (landed) · Casimir (queued). GATED = Protein · Neurology. DONE anchors = SPARC · BH-ringdown. PARK = Schwinger · metric-fusion · baryon-ladder. DEMOTED = muon-g2 · Lamb · PVLAS-static-B · RT-SC · HTS-KI · PONDER-01 · acoustic-rect.
 
 **Pending Grant decisions (parked behind the kernel thread):** ~~IVIM **R-A/R-B**~~ → **R-A adjudicated 2026-06-03** (interferometric re-scope; IVIM-local walk-back queued — see adjudication doc §6). ~~HOPF **§6.2** doc-correction~~ → **RESOLVED + applied 2026-06-04** (AVE-HOPF `e4989d2`, pushed not merged). ~~Cleave gap-dielectric~~ → **RESOLVED + merged `d2b37f53`**. **NEW (⚑ surfaced by the R-A mapping audit, BLOCKS corpus surgery):** per-node-V_yield/apparatus conflation is corpus-wide (conflated camp = `vacuum-impedance-mirror.md` + `measurement-hierarchy-snr.md:66` + `universal-saturation-kernel-catalog.md:72`; honest camp = Q-G42 + `trampoline-framework.md:439` + `claim-quality.md:393`) **+ the PONDER-05 vacuum-vs-material** consistency-vs-emergence question → both need Grant's call before the kernel-convergence narrative (§10 ¶3 flag) re-scopes. ~~Casimir retire + cold-fusion split~~ → **AVE-Core §0.5 changelog LANDED** (on origin/main; cross-repo leaf edits remain queued as chips: QED + Metamaterials Casimir, Fusion Pd/D).
+
+---
+
+## §11 — Round-1 merges LANDED + round-2 hardening DISPATCHED (2026-06-04)
+
+**The 4 hardened round-1 protocol branches MERGED to their sibling-repo mains** (Grant merge-go
+2026-06-04; worktree-isolated, `--no-ff`, audit-tagged, sibling mains ruff-clean):
+
+| Protocol | Repo main | Audit tag | Verdict banked |
+|---|---|---|---|
+| Cleave two-sided | AVE-Bench-FemtoElectrometer `7cd73d1` | `audit/2026-06-04_cleave-two-sided` | **UPGRADE** — two-sided dielectric-invariance discriminator (slope 41.490 mV/μm = e/ℓ_node) |
+| HOPF antenna-harden | AVE-HOPF `6a74498` | `audit/2026-06-04_hopf-antenna-harden` | **DEFLATION** — α-readout FALSE (CODATA-injected, form-shared); survives medium-indep + enantiomer-sign |
+| IVIM re-verification | AVE-Bench-VacuumMirror `0e9070d` | `audit/2026-06-04_ivim-harden` | **DEFLATION** — V⁴ discrimination sound; headline photon-counting magnitude not defensible |
+| Sagnac retire | AVE-PONDER `a097edd` | `audit/2026-06-04_sagnac-fog-retire` | **RETIRE** — corroborative-null (RLG-excluded 7e4×) + Ch.6 eq.80 10⁶ fix |
+
+Merge notes: (a) PONDER PR #1 (`eb7a49b` GR-discrimination-fix) was already on main via `9d2a788`; the
+fog-question merge added only the retire `d0cac77`. (b) IVIM had a ruff-format(origin)-vs-content(harden)
+conflict on `scripts/analytical_gamma_v_sweep.py` — resolved by keeping harden content + re-applying ruff
+format. (c) All 4 sibling repos' `origin/main` had concurrently merged Grant's `ci/mirror-core-tooling`
+PRs; local mains were stale — caught at first push (non-fast-forward), re-merged onto fresh origin/main.
+(d) Newly-merged drivers ruff-cleaned (predated the repos' ruff baseline; I001 + F541, behavior-preserving).
+**Round-1 branches NOT deleted — pending Grant's separate branch-cleanup go.**
+
+**Round-2 hardening DISPATCHED — 4 worktree-isolated background implementors (2026-06-04):**
+
+| Hardener | Repo | Branch (push-don't-merge) | Round-2 attack |
+|---|---|---|---|
+| Cleave R2 | AVE-Bench-FemtoElectrometer | `analysis/2026-06-04-cleave-round2-smcounterfactual` | SM-counterfactual: can electrostriction/flexoelectric/triboelectric mimic BOTH the slope AND dielectric-invariance? + positive control + go/no-go SNR |
+| HOPF R2 | AVE-HOPF | `analysis/2026-06-04-hopf-round2-chiral-counterfactual` | classical-chiral (bianisotropy/optical-activity) counterfactual on the 2 survivors (medium-indep + enantiomer-sign) |
+| IVIM R2 | AVE-Core | `analysis/2026-06-04-ivim-round2-rescope` | R-A interferometric re-scope: derive Δφ off CORRECT per-node V_yield; re-scope leaf `vacuum-impedance-mirror.md`; inventory the broader per-node conflation (flag-don't-fix, Grant-gated) |
+| Q-G42 R2 | AVE-Core | `analysis/2026-06-04-qg42-vsign-harden` | Phase-1: derive small-signal Δf₀/f₀; vacuum-vs-material separation; detection-architecture pick; β/G_geom catalog reconcile |
+
+Each runs prereg→derive→auditor→result, push-don't-merge. **Round-2 results merge as a SECOND merge-call
+round** (Grant go per branch, same pattern). The attacks deliberately re-aim the round-1 failure mode
+(*form-shared-with-classical-theory*) at the survivors — round-2 MAY further deflate, which is the point;
+merging round-1 first banked the auditable checkpoint.
+
+**Pending:** round-2 verdicts (4 implementors in flight); round-1 sibling-branch cleanup (Grant go); the
+broader per-node-V_yield/apparatus-conflation corpus sweep (still Grant-gated per §10).
