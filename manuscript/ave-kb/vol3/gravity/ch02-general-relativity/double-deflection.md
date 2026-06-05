@@ -30,7 +30,7 @@ A massive topological defect (Hopfion) and a massless photon share the same spat
 
 ## The Factor of 2 Falls Out of $2/7 : 1/7$
 
-The deflection of a wave packet grazing a spherically symmetric refractive gradient is, in the eikonal limit, linear in the projection coefficient multiplying $\chi_{vol}$. Because the transverse Poisson coupling ($2/7$) is arithmetically exactly double the scalar bulk coupling ($1/7$), the photon refracts through a gradient exactly twice as severe as the ballistic matter wave:
+The deflection of a wave packet grazing a spherically symmetric refractive gradient is, in the eikonal limit, linear in the projection coefficient multiplying $\chi_{vol}$. Because the transverse Poisson coupling ($2/7$) is arithmetically exactly double the scalar bulk coupling ($1/7$), the photon refracts through a gradient exactly twice as severe as the ballistic matter soliton (a standing-resonance topological defect coupling to the isotropic bulk, *not* a longitudinal matter wave):
 
 <!-- claim-quality: clm-zf8eah -->
 > **[Resultbox]** *Double Deflection*
