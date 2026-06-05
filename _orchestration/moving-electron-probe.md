@@ -57,20 +57,68 @@ Fired `substrate-native-check` (Checkpoint 8) + `pre-test-physics-check` before 
 
 ## §4 The CP8 test design (3 arms)
 
-<!-- skeleton -->
+All arms run on `master_equation_fdtd.py` at the validated v14-breather operating point. The breather seed is `profile='sech'`, `A=0.85·V_yield`, `R=2.5` — the Mode-I-PASS config from `r10_master_equation_v14_v2.py` (note: `0.99`/`0.95` higher-amp configs in that sweep are alternative seeds; `0.85, R=2.5` is the canonical breather). Boost is imparted via the `V_prev` leapfrog lag (the proven momentum operator).
+
+> **Amplitude/operating-point note (ave-infinity-discipline):** the engine clips at `A_cap=0.99`, `S_min=0.05` (⇒ `c_eff ≤ √20·c₀`). The brief's validated sweep `{0.3,0.5,0.7}·V_snap/dx` is the transverse-photon-seed sweep on the OTHER engine (`fdtd_3d.py`, `v_yield=V_SNAP`); on THIS engine (`master_equation_fdtd.py`) the v14 breather uses `A·V_yield` with `V_yield=1.0` natural units, and `A=0.85` is the documented stable breather (the `r10_master_equation_v14_v2.py` sweep ran `0.85` to completion — it is NOT the NaN cap here; the engine's `A_cap`/`S_min` clip prevents the divergence). Reuse `A=0.85`, do not re-derive.
+
+| Arm | Seed | Boost | Role |
+|---|---|---|---|
+| **BOOST** | v14 breather (sech, A=0.85, R=2.5) | transverse `k_x` phase ramp via `V_prev` lag | the test: does the self-trapped lump translate? |
+| **STATIONARY (control)** | same breather | `k_x=0` (`V_prev=V`) | the pinned baseline / centroid-migration-noise floor |
+| **BASELINE (matched)** | phase-scrambled breather (FFT phase-permute, power spectrum PRESERVED) | same `k_x` as BOOST | controls for amplitude/saturation depth (phase3f Factor-2 fix); same per-component amplitude stats + same spatial envelope, scrambled phase |
+
+The matched BASELINE isolates topology/coherence from amplitude: a translating BOOST must out-translate (and out-retain) the phase-scrambled seed at identical saturation depth — otherwise any "motion" is an amplitude/dispersion artifact, not coherent transport of the self-trap.
 
 ## §5 Observable + discriminator (saturated-core vs envelope centroid)
 
-<!-- skeleton -->
+Tracked over the recording window (PML-excluded throughout):
+- **(a) energy-density centroid** `x_c = Σ x·V² / Σ V²` → displacement `Δx` + velocity `v_obs = Δx/Δt`.
+- **(b) retention** — energy still trapped in the interior post-window (vs radiated into PML).
+- **(c) FWHM** — stays localized vs spreads to grid scale.
+
+**The duality discriminator (the load-bearing distinction):** compute TWO centroids —
+- **saturated-core centroid**: weighted only over cells where `A > A_sat` (cells at/near saturation, the frozen-clock shell+core).
+- **envelope centroid**: weighted over all interior `V²`.
+
+Reading:
+- **core + envelope translate together** ⇒ the self-trap MOVES (the boost carries the whole structure; interior-advect wins).
+- **core pins while envelope sloshes** (envelope centroid moves but saturated-core centroid stationary, or vice-versa) ⇒ PIN-with-internal-motion (the frozen boundary holds the core; the duality resolves to boundary-pin).
+
+**Verdict bins:**
+- **MOVES:** centroid translates coherently at finite `v`, FWHM bounded, displacement ≫ STATIONARY migration-noise, AND core+envelope translate together.
+- **PINS:** self-traps (retention high, FWHM bounded) but centroid ≈ stationary despite `k_x≠0` (the frozen-clock prediction); core pinned.
+- **DISPERSES:** retention collapses; radiates at `c₀`; no durable trap under boost.
 
 ## §6 Forward-predicted group velocity (driver-honesty, stated BEFORE the run)
 
-<!-- skeleton -->
+Per `de-broglie-standing-wave.md:181`, the massive dispersion is `ω²=c²k²+ω_C²`, `ω_C≡m_e c²/ℏ` (Compton frequency); group velocity `v_g=dω/dk=c²k/ω`.
+
+**Substrate-derived `ω_C` in lattice units (NOT an engineering choice):** `ℓ_node = ℏ/(m_e c)` = the reduced Compton wavelength (`constants.py:237,262` verbatim). So `ω_C = m_e c²/ℏ = c₀/ℓ_node`, and in the engine's natural units (`c₀=1`, `ℓ_node↦dx=1`) this is **`ω_C(lattice) = 1.0`** exactly.
+
+Forward-predicted `v_g` (NO tuning — `k_x` chosen as well-resolved cells/wavelength, not to hit a target):
+
+| wavelength (cells) | `k_x` | `ω` | **`v_g/c₀`** | `v_phase/c₀` |
+|---|---|---|---|---|
+| 6 | 1.047 | 1.448 | **0.723** | 1.383 |
+| **8 (PRIMARY)** | **0.785** | **1.272** | **0.618** | **1.619** |
+| 12 | 0.524 | 1.129 | **0.464** | 2.156 |
+| 16 | 0.393 | 1.074 | **0.366** | 2.736 |
+
+**Primary prediction (`k_x=2π/8`): `v_g = 0.618·c₀`.** `v_g < c₀` always (massive dispersion). Compare observed centroid velocity to this; report predicted-vs-observed; do NOT tune `k_x` to hit a target.
+
+> **Honesty caveat (stated pre-run):** the de-Broglie `v_g` is the GROUP/ENVELOPE prediction for a massive lump moving through the *cold* lattice (`ω_C=1` is the cold-lattice Compton frequency). The breather's *core* sits at saturation (A≈0.85) where the local clock is modulated (`ω_local=ω_C·√S`); the boost carrier `k_x` is imposed on the cold-lattice phase. So `v_g=0.618` is the leading prediction for the envelope transport speed, but a measured `v_obs` somewhat below it (clock-drag from the saturated core) would still be consistent with MOVES — the discriminator is `v_obs` finite & coherent vs `v_obs≈0` (PIN), not a tight match to 0.618.
 
 ## §7 Expected outcomes (MOVES / PINS / DISPERSES)
 
-<!-- skeleton -->
+Three structural-capability outcomes, each a clean finding:
+
+- **MOVES** — the engine hosts a MOBILE self-trap: the interior-advect (`c_eff→∞`) channel carries the boost; the corpus electron's transverse translation is a hostable layer on this engine. `v_obs` finite, coherent, ≫ STATIONARY noise, FWHM bounded, core+envelope together.
+- **PINS** (the frozen-clock prediction) — the Γ=−1 saturated boundary holds the envelope: self-traps but does not translate despite `k_x≠0`. This is the CLEAN structural finding the brief flags as expected: the frozen clock holds; the corpus's actual electron motion is then the SEPARATE longitudinal bulk-modulus displacement channel (`de-broglie-standing-wave.md:50`), a follow-up probe, not a failure.
+- **DISPERSES** — boost destroys the trap: retention collapses, radiates at `c₀`. Would say the breather is fragile to transverse momentum on this engine (the mobility layer is unhostable via this seed/operator).
 
 ## §8 Auditor queue
 
-<!-- skeleton -->
+1. **Adjudicate the verdict's corpus propagation** (auditor lands, implementer surfaces): MOVES/PINS/DISPERSES → does this warrant a KB leaf (a `breathing-soliton` mobility addendum) or a research-result-only finding? No manuscript/matrix entry drafted by implementer.
+2. **Duality reading**: if PIN-with-internal-motion, the saturated-core-vs-envelope split is the load-bearing observable — confirm the discriminator cleanly separates boundary-pin from interior-advect, or flag if the two centroids co-move ambiguously.
+3. **The `ω_C(lattice)=1` mapping** (`ℓ_node`=reduced Compton wavelength ↦ dx): confirm this substrate-derivation is the right cold-lattice dispersion anchor for the forward-prediction, vs a saturated-clock-corrected `ω_C·√S`.
+4. **Longitudinal follow-up**: a PIN here makes the longitudinal bulk-modulus displacement channel (`de-broglie-standing-wave.md:50`) the natural next probe — flag as closure-roadmap candidate.
