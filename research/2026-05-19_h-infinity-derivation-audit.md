@@ -171,7 +171,7 @@ There is exactly ONE algebraic relation linking the pair $(G, H_\infty)$ in corp
 
 ### §4.4 Engine-level confirmation
 
-[`src/ave/core/constants.py:432`](../src/ave/core/constants.py): `XI_MACHIAN = HBAR * C_0 / (7.0 * G * M_E**2)`. The engine cannot evaluate the "official" Machian integral $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$ from substrate primitives because $R_H$ is itself derived from $H_\infty$ which is derived from $G$. The code's only way to get a numerical $\xi$ is to invert the closed-form using CODATA $G$. This is the circularity made literal in source code.
+[`src/ave/core/constants.py` `XI_MACHIAN`](../src/ave/core/constants.py): `XI_MACHIAN = HBAR * C_0 / (7.0 * G * M_E**2)`. The engine cannot evaluate the "official" Machian integral $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$ from substrate primitives because $R_H$ is itself derived from $H_\infty$ which is derived from $G$. The code's only way to get a numerical $\xi$ is to invert the closed-form using CODATA $G$. This is the circularity made literal in source code.
 
 ---
 
@@ -427,7 +427,7 @@ Per `verify-before-cite` discipline, every file:line citation in this doc was re
 - [`asymptotic-hubble-constant.md:12`](../manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/asymptotic-hubble-constant.md) — verified verbatim present
 - [`optical-refraction-gravity.md:50-64`](../manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/optical-refraction-gravity.md) — verified Chain B derivation present verbatim
 - [`01_gravity_and_yield.tex:95-127`](../manuscript/vol_3_macroscopic/chapters/01_gravity_and_yield.tex) — verified LaTeX mirror present
-- [`src/ave/core/constants.py:432`](../src/ave/core/constants.py) — verified `XI_MACHIAN` definition present
+- [`src/ave/core/constants.py` `XI_MACHIAN`](../src/ave/core/constants.py) — verified `XI_MACHIAN` definition present
 - [`closure-roadmap.md:37`](../manuscript/ave-kb/claim-quality-closure-roadmap.md) — verified "ALREADY CLOSED" row present
 - [`hubble-tension.md:21`](../manuscript/ave-kb/vol2/nuclear-field/ch10-open-problems/hubble-tension.md) — verified "balances node generation against the holographic thermal capacity" present
 - [`zero-parameter-universe.md:38-41`](../manuscript/ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/zero-parameter-universe.md) — verified Chain B' qualitative gloss present

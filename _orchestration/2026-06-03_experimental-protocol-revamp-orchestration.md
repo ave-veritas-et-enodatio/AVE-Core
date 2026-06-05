@@ -129,7 +129,7 @@ sibling→Core), lands with Grant's merge-go, tracks cross-repo promotions via t
 
 | ID | Verdict | Survives as | Branch (pushed, not merged) |
 |---|---|---|---|
-| **HOPF A1** | α-readout **FALSE** (slope=α CODATA-injected `constants.py:133`; form-shared w/ classical coupled-line) | medium-independence + enantiomer-sign legs ($123, HOPF-02a) | `analysis/2026-06-03-hopf-antenna-harden` (AVE-HOPF, `871189b`) |
+| **HOPF A1** | α-readout **FALSE** (slope=α CODATA-injected `constants.py` `ALPHA`; form-shared w/ classical coupled-line) | medium-independence + enantiomer-sign legs ($123, HOPF-02a) | `analysis/2026-06-03-hopf-antenna-harden` (AVE-HOPF, `871189b`) |
 | **IVIM A2** | discrimination **SOUND** (8.38e12, V⁴ to source); headline magnitude + APD detection NOT defensible (corpus self-contradicts 15–30 OOM, half-walked-back) | HELD pending Grant R-A (interferometric walk-back) vs R-B (derive N²-Bragg) | `analysis/2026-06-03-ivim-harden` (VacMirror, `7745954`) |
 | **Sagnac A2** | **RETIRE** → corroborative-null (Earth-rotor +7e-4 bias excluded by RLG geodesy 7e4×; Ch.6 eq.80 10⁶ arithmetic error) | W-vs-Al Ψ=7.15 self-consistency only | `analysis/2026-06-03-sagnac-fog-question` (PONDER, `d0cac77`) |
 | **Cleave B2** | two-sided revamp **WORKED** (conditional on detection; P3 all-null irreducible); slope 41.490 mV/μm to source | clean 2-sided, $7.7k; pending gap-dielectric call | `analysis/2026-06-03-cleave-two-sided` (Femto, `47d58a3`) |

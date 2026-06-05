@@ -17,7 +17,7 @@
 
 **The ξ_topo audit verdict this derivation rests on (2026-06-03).** (a) The CHARGE $\mathcal{Q} = \mathrm{Link}(\partial\Omega, \mathbf{F}_{\text{substrate}}) \in \mathbb{Z}$ is a gap-protected topological invariant — `boundary_invariants.py:9`, `boundary-observables-m-q-j.md:20`. (b) $\xi_{topo} = e/\ell_{node}$ is a frozen-metric **UNIT-BRIDGE** (C/m), NOT itself a Chern number — `electromechanical-transduction-constant.md:13,25`; `_archive/L3_electron_soliton/39_alpha_is_calibration.md:145` ("a UNIT CONVERSION, not a derivation … same status as meter = 1/299792458 of a light-second"). (c) The solid-dielectric node-occupation case is green-field (zero corpus hits) — this doc closes it.
 
-**What this derivation does NOT touch.** It does not re-derive $\xi_{topo}$'s numerical value (canonical at `constants.py:246`, $\xi_{topo} = e/\ell_{node} \approx 4.149\times10^{-7}$ C/m). It does not change the C15 prediction (41.5 mV/μm stands; this is a Type-D mechanism-scope clarification, not a value-amendment). It does not assert the per-node-occupation-budget form of Pauli is now *derived* — that form is PROVISIONAL in the corpus (§1) and stays provisional; what is derived here is the narrower, sufficient-for-Cleave claim that **whatever the interior occupancy, it is invisible to $\mathcal{Q}$.**
+**What this derivation does NOT touch.** It does not re-derive $\xi_{topo}$'s numerical value (canonical at `constants.py` `XI_TOPO`, $\xi_{topo} = e/\ell_{node} \approx 4.149\times10^{-7}$ C/m). It does not change the C15 prediction (41.5 mV/μm stands; this is a Type-D mechanism-scope clarification, not a value-amendment). It does not assert the per-node-occupation-budget form of Pauli is now *derived* — that form is PROVISIONAL in the corpus (§1) and stays provisional; what is derived here is the narrower, sufficient-for-Cleave claim that **whatever the interior occupancy, it is invisible to $\mathcal{Q}$.**
 
 ## §1 — Corpus-grep: is Pauli-from-saturation already in AVE? (substrate-native-check + pre-test-physics-check)
 
@@ -117,7 +117,7 @@ The robustness in §2.3 is conditional on the dielectric preserving the substrat
 | Atom = bounded soliton assembly, no-hair row | `boundary-observables-m-q-j.md:45` | ✓ |
 | $\xi_{topo}=e/\ell_{node}$ frozen-metric unit-bridge, no free params | `electromechanical-transduction-constant.md:13,25` | ✓ |
 | $\ell_{node}=\hbar/(m_e c)$ is a UNIT CONVERSION, not a derivation | `_archive/L3_electron_soliton/39_alpha_is_calibration.md:145` | ✓ |
-| $\xi_{topo}$ canonical value $\approx4.149\times10^{-7}$ C/m | `src/ave/core/constants.py:246` (`XI_TOPO = e_charge/L_NODE`); `L_NODE` `:234` | ✓ |
+| $\xi_{topo}$ canonical value $\approx4.149\times10^{-7}$ C/m | `src/ave/core/constants.py` `XI_TOPO` (`= e_charge/L_NODE`); see `L_NODE` | ✓ |
 | Pauli = $\Gamma=-1$ saturated-boundary collision (Form 1, canonical) | `resonant-lc-solitons.md:56–64` | ✓ |
 | Substrate-native Pauli is PROVISIONAL (Form 2); promote per-node $A^2\le1$ | `vol2/claim-quality.md:1178,1195` | ✓ |
 | Axiom 4 produces the Pauli wall | `regimes-of-operation.md:34` | ✓ |

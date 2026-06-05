@@ -19,7 +19,7 @@ This is a fully valid pre-registered result (prereg §5 + §7: "Outcome C (untes
 
 ## §1 — The forward curve (computed, parameter-free)
 
-The driver computes, from canonical constants only (`ALPHA` = `constants.py:133`, `R_I = √(2α)` = `constants.py:402`) plus the single flagged metallurgical coefficient `0.13`:
+The driver computes, from canonical constants only (`ALPHA` = `constants.py` `ALPHA`, `R_I = √(2α)` = `constants.py` `R_I`) plus the single flagged metallurgical coefficient `0.13`:
 
 $$A_0(x) = \frac{0.13\,x}{\sqrt{2\alpha}}, \quad S(A_0)=\sqrt{1-A_0^2}, \quad n_{scalar}=\frac1S, \quad \frac{\eta(x)}{\eta_0}=S(A_0), \quad \frac{P_{fusion}(x)}{P_{fusion}(0)}=e^{-2\eta_0(S-1)}.$$
 
@@ -154,11 +154,11 @@ SM predicts cold fusion **impossible at any loading** (Coulomb barrier environme
 
 | Skill | Trigger | Evidence in this work |
 |---|---|---|
-| `ave-canonical-source` | Numerical driver | `ALPHA` (constants.py:133) + `R_I = √(2α)` (constants.py:402) imported; `0.13` is the only literal, flagged as non-substrate metallurgy in the driver header + as `PD_VOL_COEFF`. No hard-coded $\sqrt{2\alpha}$, $\alpha$, or threshold. |
+| `ave-canonical-source` | Numerical driver | `ALPHA` (constants.py `ALPHA`) + `R_I = √(2α)` (constants.py `R_I`) imported; `0.13` is the only literal, flagged as non-substrate metallurgy in the driver header + as `PD_VOL_COEFF`. No hard-coded $\sqrt{2\alpha}$, $\alpha$, or threshold. |
 | `ave-driver-script-honesty` | Forward-prediction driver | Driver header + figure footer state "FORWARD PREDICTION (NOT a fit)"; $\eta_0$ drawn as an explicit *scale family* $\{3,5,7\}$, never fitted; the parameter-free $\eta/\eta_0$ curve is the primary output. No comparison-to-target tuning. |
 | `ave-evidence-framing-discipline` | LENR strength-language | NASA Glenn = solid anchor (mechanism direction, one operating point — not "tests the curve"); FP = stochastic-irreproducibility, explicit NO "AVE validates FP"; Berlinguette null kept as null. §6.3 + §7 guards. |
 | `consistency-vs-emergence` v1.3 | Class tagging | §7: Class B substrate-mechanism manifestation; explicit NOT-Class-2, NOT-emergence, NOT-empirical-validation. |
-| `verify-before-cite` | All file:line + quote cites | constants.py:133 (`ALPHA`), :402 (`R_I`) grep-verified; kernel-catalog Pd row line 42 verified; AVE-Fusion Ch3:51,55 + Ch4:11,25,67,72,75,77,80 grep-verified verbatim in the sibling repo; data-survey claims sourced to fetched NASA Glenn page + Nature/Science/Wikipedia/ARPA-E summaries (paywalled primaries flagged as such). |
+| `verify-before-cite` | All file:line + quote cites | constants.py `ALPHA`, `R_I` (content-anchored; symbols grep-verified); kernel-catalog Pd row line 42 verified; AVE-Fusion Ch3:51,55 + Ch4:11,25,67,72,75,77,80 grep-verified verbatim in the sibling repo; data-survey claims sourced to fetched NASA Glenn page + Nature/Science/Wikipedia/ARPA-E summaries (paywalled primaries flagged as such). |
 | `ave-discrimination-check` | "AVE-distinct" framing | §7 SM-counterfactual: SM cold-fusion-impossible-at-any-loading; AVE-distinct content = the $\Gamma\to0$ radiation-channel regime change at $x=0.852$ + window closure at $0.929$. |
 | `substrate-native-check` | Pre-code substrate walk | Curve built from Ax-2 TKI strain + Ax-4 kernel + $n_{scalar}=1/S$ + Op14/$\Gamma$ impedance — all canonical substrate primitives (inherited from Phase-3); real-space (volumetric strain / Gamow distance), no phasor transform; no SM/Lagrangian defaults. |
 | `phase-space-coordinate-check` | Coordinate match | Prediction + (hypothetical) measurement both live in **real-space loading-ratio** coordinates (`x` on the x-axis; excess power / radiation yield as observables). No phase-space↔real-space mismatch — the curve and the §5 experiment share the `x` axis. |

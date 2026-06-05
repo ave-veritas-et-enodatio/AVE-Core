@@ -62,11 +62,11 @@ Computed from `src/ave/core/constants.py` verbatim values (no hardcoded literals
 
 | Quantity | Symbol | Canonical-primitive value | Source |
 |---|---|---|---|
-| Fine-structure constant | $\alpha$ | $7.2973525693 \times 10^{-3}$ | constants.py:101 ALPHA |
-| Speed of light | $c$ | $2.99792458 \times 10^8$ m/s | constants.py:78 C_0 |
-| Node spacing | $\ell_{node}$ | $\hbar/(m_e c) \approx 3.8616 \times 10^{-13}$ m | constants.py:194 L_NODE |
-| Rupture voltage | $V_{snap}$ | $m_e c^2 / e \approx 5.11 \times 10^5$ V | constants.py:333 V_SNAP |
-| Yield voltage | $V_{yield}$ | $\sqrt{\alpha} \cdot V_{snap} \approx 4.365 \times 10^4$ V | constants.py:342 V_YIELD |
+| Fine-structure constant | $\alpha$ | $7.2973525693 \times 10^{-3}$ | constants.py `ALPHA` |
+| Speed of light | $c$ | $2.99792458 \times 10^8$ m/s | constants.py `C_0` |
+| Node spacing | $\ell_{node}$ | $\hbar/(m_e c) \approx 3.8616 \times 10^{-13}$ m | constants.py `L_NODE` |
+| Rupture voltage | $V_{snap}$ | $m_e c^2 / e \approx 5.11 \times 10^5$ V | constants.py `V_SNAP` |
+| Yield voltage | $V_{yield}$ | $\sqrt{\alpha} \cdot V_{snap} \approx 4.365 \times 10^4$ V | constants.py `V_YIELD` |
 | Source amplitude (linear regime) | $V_{amp}$ | $0.001 \cdot V_{yield} \approx 43.65$ V | driver param |
 | Strain at source | $A$ | $V_{amp}/V_{snap} = 0.001\sqrt\alpha \approx 8.54 \times 10^{-5}$ | dimensional |
 | Strain squared | $A^2$ | $\approx 7.30 \times 10^{-9}$ | dimensional |

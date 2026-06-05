@@ -109,7 +109,7 @@ Per `consistency-vs-emergence` v1.2 master-equation-derivation-path discipline, 
 ### §4.1 — Five-step substrate-primitive chain
 
 **Step 1 — Ax 1 Nyquist cell size as substrate-natural-unit primary**.
-The substrate's discrete K4-TLM lattice has Nyquist cell size $\ell_{node}$ (Ax 1). In lattice-natural units, $\ell_{node} = 1$ by definition (per `natural-units-cheatsheet.md` foreword line 34 + `lattice-impedance-decomposition.md` §2 + `src/ave/core/constants.py:194`). All substrate-mechanism content lives natively in these units; the SI value $\ell_{node} \approx 3.86 \times 10^{-13}$ m is a translation factor back to laboratory measurement (per Grant's natural-unit-conformity intuition).
+The substrate's discrete K4-TLM lattice has Nyquist cell size $\ell_{node}$ (Ax 1). In lattice-natural units, $\ell_{node} = 1$ by definition (per `natural-units-cheatsheet.md` foreword line 34 + `lattice-impedance-decomposition.md` §2 + `src/ave/core/constants.py` `L_NODE`). All substrate-mechanism content lives natively in these units; the SI value $\ell_{node} \approx 3.86 \times 10^{-13}$ m is a translation factor back to laboratory measurement (per Grant's natural-unit-conformity intuition).
 
 The substrate's discrete cell-counting is therefore the substrate-native cardinality measure for any sub-manifold of the lattice: a 1-cycle of length $L$ contains $L/\ell_{node} = L$ Nyquist cells (natural units), a 2-area of area $A$ contains $A/\ell_{node}^2 = A$ Nyquist cells, a 3-volume of volume $V$ contains $V/\ell_{node}^3 = V$ Nyquist cells. The dimensionless geometric measure IS the cell count, by Ax-1 substrate primitive in lattice-natural units.
 
@@ -183,10 +183,10 @@ Per ave-prereg v1.1 Step 3.5: pre-freeze the dimensional-analysis closure at can
 
 | Quantity | Native value | SI value (translation factor) | Source |
 |---|---|---|---|
-| $\ell_{node}$ | $1$ | $3.86 \times 10^{-13}$ m | `natural-units-cheatsheet.md` §2 + `constants.py:194` (`L_NODE`) |
+| $\ell_{node}$ | $1$ | $3.86 \times 10^{-13}$ m | `natural-units-cheatsheet.md` §2 + `constants.py` (`L_NODE`) |
 | $Z_0$ | $1$ | $376.73$ Ω | `natural-units-cheatsheet.md` §2 + `lattice-impedance-decomposition.md:118` |
 | $V_{yield}$ | $1$ | $43{,}652$ V | `natural-units-cheatsheet.md` §2 + `lattice-impedance-decomposition.md:116` |
-| $V_{snap}$ | $1/\sqrt{\alpha} \approx 11.71$ | $511{,}000$ V | `natural-units-cheatsheet.md` §2 (`V_SNAP` `constants.py:333`) |
+| $V_{snap}$ | $1/\sqrt{\alpha} \approx 11.71$ | $511{,}000$ V | `natural-units-cheatsheet.md` §2 (`V_SNAP` `constants.py`) |
 | $\tau_{relax} = \ell_{node}/c$ | $1$ | $1.288 \times 10^{-21}$ s | `natural-units-cheatsheet.md` §2 (`TAU_RELAX_SI` `constants.py:289`) |
 | $\alpha$ | $0.0072973525693$ | dimensionless | `constants.py:101` (`ALPHA`) |
 | $\Lambda_{\text{line}}$ at $d = 1$ | $\pi \approx 3.142$ | dimensionless | `ch8-alpha-golden-torus.md:90`; native value matches §5.2 closure |
