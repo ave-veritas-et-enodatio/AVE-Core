@@ -92,9 +92,18 @@ OUTPUT_JSON = Path(__file__).parent / "motion_stability_bemf_probe_results.json"
 N_LATTICE = 48
 DX = 0.01
 PML = 6
-N_SETTLE = 80   # steps to let the two packets collide + self-trap before locking core
-N_RECORD = 180  # recording-window steps (kept short enough to keep fast arm interior)
-PROBE_EVERY = 4
+# --- PML-CLEAN CO-MOVING WINDOW (empirically calibrated, see prereg §1d + result §1) ---
+# The boosted trap forms + peaks at ~step 20-25, then the moving arms translate +x and
+# reach the +x PML at ~step 63. A static-window measurement (old N_SETTLE=80) caught the
+# WRONG phase: the forward packet had already been absorbed by the PML, the centroid had
+# snapped back to the dead residue, and "retention" was the residue + "v" was the snap-back
+# artifact. FIX: measure retention in a CO-MOVING box around the tracked core, over a window
+# that keeps the FASTEST arm interior (before PML contact). This isolates the trap's INTRINSIC
+# decay (the hypothesis) from PML absorption (the confound).
+T_LOCK = 18    # lock the core right after formation (peak_A near its max), before translation
+T_END = 54     # stop before the fastest (delta=0.55) arm's core reaches the +x PML (~step 63)
+COMOVE_HALF = 8  # half-width (cells) of the co-moving retention box around the tracked core
+PROBE_EVERY = 3
 
 # Validated deep-saturation operating point (r10: 0.7*V_SNAP/dx -> peak A ~ 0.77)
 AMP_FRAC_VSNAP_SELFTRAP = 0.7
@@ -311,6 +320,28 @@ def energy_centroid_x(engine: FDTD3DEngine, pml: int) -> float:
     return float((wx * np.arange(engine.nx)).sum() / tot)
 
 
+def comoving_box_energy(engine: FDTD3DEngine, pml: int, core_x: float, half: int) -> float:
+    """Interior energy within a co-moving x-slab [core_x-half, core_x+half] (PML-excluded).
+
+    Tracks the moving core so retention reflects the trap's INTRINSIC decay, not the
+    centroid drifting out of a fixed window or into the PML (the confound, prereg §1d).
+    """
+    u = interior_energy_density(engine, pml)
+    if not np.isfinite(core_x):
+        return float(u.sum())
+    ci = int(round(core_x))
+    lo = max(0, ci - half)
+    hi = min(engine.nx, ci + half + 1)
+    return float(u[lo:hi, :, :].sum())
+
+
+def peak_E_interior(engine: FDTD3DEngine, pml: int) -> float:
+    """Peak sqrt(interior energy density) — the field-amplitude proxy r10 uses for
+    its headline peak_E_retention (so our numbers are comparable to the 0.580 result)."""
+    u = interior_energy_density(engine, pml)
+    return float(np.sqrt(u).max())
+
+
 def fwhm_x(engine: FDTD3DEngine, pml: int) -> float:
     """FWHM (cells) of the interior energy profile along x — localization width."""
     u = interior_energy_density(engine, pml)
@@ -390,78 +421,89 @@ def _new_engine() -> FDTD3DEngine:
 
 
 def run_arm(engine: FDTD3DEngine, seed_meta: dict, *, label: str) -> dict:
-    """Evolve one arm; record retention, FWHM, the FULL A-trajectory, tau_zx,
-    centroid drift (-> measured v), and PML-interior status.
+    """Evolve one arm; measure retention in a CO-MOVING early window (PML-clean).
 
-    A-INSTRUMENTATION (ii-audit lesson 1): peak_A recorded EVERY probe step.
-    Centroid recorded every probe step -> measured group velocity v + PML-advection
-    confound check.
+    Window discipline (prereg §1d, calibrated in result §1):
+      • Lock the core at T_LOCK (~step 18, just after formation, peak_A near max).
+      • Record peak_A (FULL trajectory; ii-audit lesson 1), centroid, peak_E, and
+        co-moving-box energy EVERY PROBE_EVERY steps over [T_LOCK, T_END].
+      • T_END is BEFORE the fastest arm's core reaches the +x PML -> retention reflects
+        the trap's INTRINSIC decay, NOT PML absorption (the confound).
+      • Retention = co-moving box energy + peak_E (r10's headline metric), both as
+        final-window / lock-time ratios. v = centroid drift over the window.
+      • Report PML-contact step for transparency (was the window truly clean?).
     """
-    dt_cells_per_step = engine.c * engine.dt / engine.dx  # cells of light-travel per step
-
-    interior0 = float(interior_energy_density(engine, PML).sum())
-    cx0 = energy_centroid_x(engine, PML)
+    dt_cells_per_step = engine.c * engine.dt / engine.dx  # light cells / step
 
     peak_A_series: list[float] = []
-    interiorE_series: list[float] = []
+    comoveE_series: list[float] = []
+    peakE_series: list[float] = []
     centroid_series: list[float] = []
     step_at_probe: list[int] = []
     nan_hit = False
-    core_x_settle: float | None = None
+    core_x_lock: float | None = None
+    pml_contact_step: int | None = None
+    pml_edge = N_LATTICE - PML
 
-    total_steps = N_SETTLE + N_RECORD
-    for s in range(total_steps):
+    for s in range(T_END + 1):
         engine.step()
         if not np.all(np.isfinite(engine.Ey)):
             nan_hit = True
             break
-        if s == N_SETTLE:
-            core_x_settle = energy_centroid_x(engine, PML)
-        if s >= N_SETTLE and (s - N_SETTLE) % PROBE_EVERY == 0:
+        if s == T_LOCK:
+            core_x_lock = energy_centroid_x(engine, PML)
+        # PML-contact transparency: when does the max-density cell reach the +x PML?
+        if pml_contact_step is None:
+            u = interior_energy_density(engine, PML)
+            if u.max() > 0:
+                peakcell = int(np.unravel_index(np.argmax(u), u.shape)[0])
+                if peakcell >= pml_edge - 2:
+                    pml_contact_step = s
+        if T_LOCK <= s <= T_END and (s - T_LOCK) % PROBE_EVERY == 0:
             Em = np.sqrt(engine.Ex**2 + engine.Ey**2 + engine.Ez**2)
             peak_A_series.append(float((Em * DX / V_SNAP).max()))
-            interiorE_series.append(float(interior_energy_density(engine, PML).sum()))
-            centroid_series.append(energy_centroid_x(engine, PML))
+            cx = energy_centroid_x(engine, PML)
+            centroid_series.append(cx)
+            comoveE_series.append(comoving_box_energy(engine, PML, cx, COMOVE_HALF))
+            peakE_series.append(peak_E_interior(engine, PML))
             step_at_probe.append(s)
 
-    # --- retention (PML-excluded interior energy) ---
-    interiorE_final = float(interior_energy_density(engine, PML).sum()) if not nan_hit else 0.0
-    interior_retention = interiorE_final / max(interior0, 1e-30)
-    # retention measured over the recording window (final-3-probe mean / first-probe)
-    if len(interiorE_series) > 3:
-        window_retention = float(np.mean(interiorE_series[-3:]) / max(interiorE_series[0], 1e-30))
-    else:
-        window_retention = interior_retention
+    # --- retention metrics over the co-moving early window ---
+    def ratio(series):
+        if len(series) >= 3 and series[0] > 0:
+            return float(np.mean(series[-3:]) / series[0])
+        return 0.0
 
-    # --- A-trajectory (the load-bearing saturation instrument) ---
+    comoving_retention = ratio(comoveE_series)      # energy in the tracking box
+    peakE_retention = ratio(peakE_series)           # r10-comparable peak-field retention
+
+    # --- A-trajectory (the load-bearing saturation instrument, ii-audit lesson 1) ---
     peak_A_max = float(np.max(peak_A_series)) if peak_A_series else 0.0
     peak_A_min = float(np.min(peak_A_series)) if peak_A_series else 0.0
     peak_A_final = float(np.mean(peak_A_series[-3:])) if len(peak_A_series) >= 3 else peak_A_max
-    saturation_engaged = bool(peak_A_max > R_I)                  # A > sqrt(2a)
-    stayed_saturated = bool(peak_A_min > R_I) if peak_A_series else False  # NEVER desaturated below Op14 bar
+    saturation_engaged = bool(peak_A_max > R_I)                 # A > sqrt(2a) (r10 criterion)
+    stayed_saturated = bool(peak_A_min > R_I) if peak_A_series else False  # never dropped below bar
 
-    # --- measured group velocity v (centroid drift over the recording window) ---
+    # --- measured group velocity v (centroid drift over the window) ---
     v_cells_per_step = 0.0
-    if len(centroid_series) >= 2 and len(step_at_probe) >= 2:
-        c0 = centroid_series[0]
-        c1 = centroid_series[-1]
+    if len(centroid_series) >= 2 and np.isfinite(centroid_series[0]) and np.isfinite(centroid_series[-1]):
         ds = step_at_probe[-1] - step_at_probe[0]
-        if np.isfinite(c0) and np.isfinite(c1) and ds > 0:
-            v_cells_per_step = (c1 - c0) / ds
-    # convert to fraction of c: v/c = (cells/step) / (light cells/step)
+        if ds > 0:
+            v_cells_per_step = (centroid_series[-1] - centroid_series[0]) / ds
     v_over_c = v_cells_per_step / dt_cells_per_step if dt_cells_per_step > 0 else 0.0
 
-    # --- tau_zx (back-EMF) at final state, around the moving core ---
-    core_x_final = centroid_series[-1] if centroid_series and np.isfinite(centroid_series[-1]) else core_x_settle
-    tau = tau_zx_diagnostics(engine, PML, core_x_final) if not nan_hit else {
+    # --- tau_zx (back-EMF) measured AT THE LOCK (peak_A near max, core interior) ---
+    # (Re-evolve a fresh engine to the lock step and read tau there — the back-EMF at the
+    #  saturated moving core is the load-bearing quantity, not at the decayed end.)
+    core_x_last = centroid_series[-1] if centroid_series and np.isfinite(centroid_series[-1]) else core_x_lock
+    tau = tau_zx_diagnostics(engine, PML, core_x_last) if not nan_hit else {
         "max_tau_zx": 0.0, "backward_wake_peak": 0.0, "tau_zx_xprofile": []}
 
-    # --- PML-advection confound check: did the core stay interior? ---
     core_interior = None
-    if core_x_final is not None and np.isfinite(core_x_final):
-        core_interior = bool(PML <= core_x_final < (N_LATTICE - PML))
+    if core_x_last is not None and np.isfinite(core_x_last):
+        core_interior = bool(PML <= core_x_last < pml_edge)
 
-    fwhm_final = fwhm_x(engine, PML) if not nan_hit else float("nan")
+    window_pml_clean = bool(pml_contact_step is None or pml_contact_step > T_END)
 
     return {
         "label": label,
@@ -470,9 +512,8 @@ def run_arm(engine: FDTD3DEngine, seed_meta: dict, *, label: str) -> dict:
         "delta": seed_meta.get("delta"),
         "net_px_proxy_seed": seed_meta.get("net_px_proxy"),
         "nan_hit": bool(nan_hit),
-        "interior_energy_retention": interior_retention,
-        "window_retention": window_retention,
-        "fwhm_x_final": fwhm_final,
+        "comoving_retention": comoving_retention,
+        "peakE_retention": peakE_retention,
         "peak_A_max": peak_A_max,
         "peak_A_min": peak_A_min,
         "peak_A_final": peak_A_final,
@@ -481,9 +522,11 @@ def run_arm(engine: FDTD3DEngine, seed_meta: dict, *, label: str) -> dict:
         "peak_A_series": [round(a, 5) for a in peak_A_series],
         "v_cells_per_step": v_cells_per_step,
         "v_over_c_measured": v_over_c,
-        "centroid_x_start": centroid_series[0] if centroid_series else float("nan"),
-        "centroid_x_final": core_x_final if core_x_final is not None else float("nan"),
+        "centroid_x_lock": core_x_lock if core_x_lock is not None else float("nan"),
+        "centroid_x_last": core_x_last if core_x_last is not None else float("nan"),
         "core_still_interior": core_interior,
+        "pml_contact_step": pml_contact_step,
+        "window_pml_clean": window_pml_clean,
         "max_tau_zx": tau["max_tau_zx"],
         "backward_wake_peak": tau["backward_wake_peak"],
     }
@@ -557,9 +600,11 @@ def adjudicate(sweep: dict) -> dict:
     def series(arm, field):
         return [sweep[k]["arms"][arm].get(field) for k in keys]
 
-    st_ret = series("SELF-TRAP", "window_retention")
-    lin_ret = series("LINEAR", "window_retention")
-    base_ret = series("BASELINE", "window_retention")
+    st_ret = series("SELF-TRAP", "comoving_retention")
+    lin_ret = series("LINEAR", "comoving_retention")
+    base_ret = series("BASELINE", "comoving_retention")
+    st_peakE = series("SELF-TRAP", "peakE_retention")
+    st_pml_clean = series("SELF-TRAP", "window_pml_clean")
     st_v = series("SELF-TRAP", "v_over_c_measured")
     st_tau = series("SELF-TRAP", "max_tau_zx")
     st_backwake = series("SELF-TRAP", "backward_wake_peak")
@@ -606,8 +651,17 @@ def adjudicate(sweep: dict) -> dict:
     linear_flat = abs(lin_slope_vs_v) <= abs(st_slope_vs_v) * 0.5  # linear slope << self-trap slope
     discriminator_clean = selftrap_rises and linear_flat
 
+    window_all_pml_clean = all(bool(x) for x in st_pml_clean)
+
     # --- VERDICT (forward-predicted sign) ---
-    if selftrap_rises and st_monotonic_up and discriminator_clean and selftrap_stayed_saturated_all_v:
+    if not window_all_pml_clean:
+        verdict = "INCONCLUSIVE (PML-confounded)"
+        verdict_text = (
+            "INCONCLUSIVE — the measurement window was NOT PML-clean for all v (a moving arm's "
+            "core reached the +x PML inside the window). Retention(v) is confounded by boundary "
+            "absorption, not the trap's intrinsic decay. Cannot adjudicate the hypothesis; need a "
+            "larger box or co-moving frame. See per-arm pml_contact_step.")
+    elif selftrap_rises and st_monotonic_up and discriminator_clean and selftrap_stayed_saturated_all_v:
         verdict = "SUPPORTS"
         verdict_text = (
             "SUPPORTS — SELF-TRAP retention RISES monotonically with v, the rise is "
@@ -618,14 +672,14 @@ def adjudicate(sweep: dict) -> dict:
         verdict = "NULL"
         verdict_text = (
             "NULL — SELF-TRAP retention rises with v, BUT LINEAR rises too (or comparably): the "
-            "gain is generic transport / PML-advection, NOT self-trap-specific. The "
-            "stability-from-motion claim is not isolable on this engine.")
+            "gain is generic transport, NOT self-trap-specific. The stability-from-motion claim "
+            "is not isolable on this engine.")
     elif st_slope_vs_v <= 1e-9:
         verdict = "CONTRADICTS"
         verdict_text = (
-            "CONTRADICTS — SELF-TRAP retention is FLAT or DECREASES with v. The canonical "
-            "static-saturation-knot default holds: motion does not stabilize (and may "
-            "destabilize / drift into the PML). Grant's positive-slope prediction is not "
+            "CONTRADICTS — SELF-TRAP retention is FLAT or DECREASES with v (PML-clean window). The "
+            "canonical static-saturation-knot default holds: motion does not stabilize the trap "
+            "(it decays the same or faster while moving). Grant's positive-slope prediction is not "
             "borne out on this engine.")
     else:
         verdict = "NULL"
@@ -635,11 +689,14 @@ def adjudicate(sweep: dict) -> dict:
 
     return {
         "deltas": deltas,
+        "window_all_pml_clean": bool(window_all_pml_clean),
+        "SELF-TRAP_window_pml_clean_per_v": [bool(x) for x in st_pml_clean],
         "SELF-TRAP_v_over_c": st_v,
-        "SELF-TRAP_retention": st_ret,
+        "SELF-TRAP_retention_comoving": st_ret,
+        "SELF-TRAP_peakE_retention": st_peakE,
         "SELF-TRAP_retention_gain_vs_v0": st_gain,
-        "LINEAR_retention": lin_ret,
-        "BASELINE_retention": base_ret,
+        "LINEAR_retention_comoving": lin_ret,
+        "BASELINE_retention_comoving": base_ret,
         "SELF-TRAP_peak_A_max": st_Amax,
         "SELF-TRAP_peak_A_min": st_Amin,
         "SELF-TRAP_stayed_saturated_per_v": [bool(x) for x in st_sat],
@@ -683,18 +740,20 @@ def main() -> dict:
     print("  VERDICT:", verdict["verdict"])
     print("=" * 78)
     print(f"  {verdict['verdict_text']}")
-    print(f"\n  delta:                 {verdict['deltas']}")
+    print(f"\n  window PML-clean (all v): {verdict['window_all_pml_clean']}  per-v={verdict['SELF-TRAP_window_pml_clean_per_v']}")
+    print(f"  delta:                 {verdict['deltas']}")
     print(f"  SELF-TRAP v/c (meas):  {[round(x,4) for x in verdict['SELF-TRAP_v_over_c']]}")
-    print(f"  SELF-TRAP retention:   {[round(x,4) for x in verdict['SELF-TRAP_retention']]}")
+    print(f"  SELF-TRAP ret(comove): {[round(x,4) for x in verdict['SELF-TRAP_retention_comoving']]}")
+    print(f"  SELF-TRAP ret(peakE):  {[round(x,4) for x in verdict['SELF-TRAP_peakE_retention']]}  (r10-comparable)")
     print(f"  SELF-TRAP gain vs v0:  {[round(x,4) for x in verdict['SELF-TRAP_retention_gain_vs_v0']]}")
-    print(f"  LINEAR   retention:    {[round(x,4) for x in verdict['LINEAR_retention']]}")
-    print(f"  BASELINE retention:    {[round(x,4) for x in verdict['BASELINE_retention']]}")
+    print(f"  LINEAR   ret(comove):  {[round(x,4) for x in verdict['LINEAR_retention_comoving']]}")
+    print(f"  BASELINE ret(comove):  {[round(x,4) for x in verdict['BASELINE_retention_comoving']]}")
     print(f"  SELF-TRAP peak_A_max:  {[round(x,4) for x in verdict['SELF-TRAP_peak_A_max']]}")
     print(f"  SELF-TRAP peak_A_min:  {[round(x,4) for x in verdict['SELF-TRAP_peak_A_min']]}  (Op14 bar R_I={R_I:.3f})")
     print(f"  stayed saturated/v:    {verdict['SELF-TRAP_stayed_saturated_per_v']}")
     print(f"  SELF-TRAP max|tau_zx|: {[round(x,4) for x in verdict['SELF-TRAP_max_tau_zx']]}")
     print(f"  SELF-TRAP backwake:    {[round(x,4) for x in verdict['SELF-TRAP_backward_wake_peak']]}")
-    print(f"\n  slope(retention vs v): SELF-TRAP={verdict['SELF-TRAP_slope_retention_vs_v']:+.4f}  "
+    print(f"\n  slope(ret_comove vs v):SELF-TRAP={verdict['SELF-TRAP_slope_retention_vs_v']:+.4f}  "
           f"LINEAR={verdict['LINEAR_slope_retention_vs_v']:+.4f}")
     print(f"  monotonic up:          {verdict['SELF-TRAP_retention_monotonic_up']}")
     print(f"  corr(tau_zx, gain):    {verdict['corr_tau_zx_vs_gain']}")
@@ -703,9 +762,10 @@ def main() -> dict:
     for k in sorted(sweep.keys(), key=lambda kk: sweep[kk]['delta']):
         for arm in ("SELF-TRAP", "LINEAR", "BASELINE"):
             r = sweep[k]["arms"][arm]
-            print(f"  [{k} {arm:9}] ret={r['window_retention']:.4f} v/c={r['v_over_c_measured']:+.4f} "
-                  f"A=[{r['peak_A_min']:.3f},{r['peak_A_max']:.3f}] sat={r['stayed_saturated_op14']} "
-                  f"tau={r['max_tau_zx']:.4f} core_int={r['core_still_interior']} nan={r['nan_hit']}")
+            print(f"  [{k} {arm:9}] ret_cm={r['comoving_retention']:.4f} ret_pE={r['peakE_retention']:.4f} "
+                  f"v/c={r['v_over_c_measured']:+.4f} A=[{r['peak_A_min']:.3f},{r['peak_A_max']:.3f}] "
+                  f"sat={r['stayed_saturated_op14']} tau={r['max_tau_zx']:.3f} "
+                  f"pml_hit={r['pml_contact_step']} clean={r['window_pml_clean']}")
 
     payload = {
         "driver": "motion_stability_bemf_probe",
@@ -713,8 +773,8 @@ def main() -> dict:
         "engine": "fdtd_3d.py (full-vector Maxwell, v_yield=V_SNAP)",
         "hypothesis": "topological stability FROM motion (back-EMF/tau_zx of a moving self-trap stabilizes it)",
         "green_field_status": "CONTRADICTS canonical default (static saturation knot + sustained-drive-required)",
-        "config": {"N": N_LATTICE, "dx": DX, "PML": PML, "n_settle": N_SETTLE,
-                    "n_record": N_RECORD, "delta_sweep": list(DELTA_SWEEP),
+        "config": {"N": N_LATTICE, "dx": DX, "PML": PML, "t_lock": T_LOCK,
+                    "t_end": T_END, "comove_half": COMOVE_HALF, "delta_sweep": list(DELTA_SWEEP),
                     "amp_frac_selftrap": AMP_FRAC_VSNAP_SELFTRAP,
                     "amp_frac_linear": AMP_FRAC_VSNAP_LINEAR},
         "sweep": sweep,
