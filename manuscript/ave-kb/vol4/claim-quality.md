@@ -381,29 +381,30 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 ---
 
-## Vacuum Birefringence Discriminator: $E^4$ vs $E^2$
+## Vacuum Birefringence Discriminator: COEFFICIENT (AVE $\sim 10^6\times$ QED)
 <!-- id: clm-pp3qwf -->
 
-- AVE: $\Delta n \propto E^4$ (Taylor of $1 - \sqrt{1 - (E/E_{yield})^2}$); QED: $\Delta n \propto E^2$ (Euler-Heisenberg)
+- AVE: $\delta n = -\tfrac14 (E/E_{yield})^2$ (index shift, $\varepsilon$-only, $n=\sqrt{\varepsilon_{eff}/\varepsilon_0}=\sqrt{S}$); QED: $\delta n \approx a_{EH}\,\alpha^2 (E/E_{crit})^2$ (Euler-Heisenberg, $a_{EH}\sim 7/45$). **Both are $E^2$-leading**; the discriminator is the COEFFICIENT, not the exponent.
 - _Specific Claims_
-  - High-finesse cavity sweep through extreme DC field — the **scaling exponent** ($E^4$ vs $E^2$) cleanly separates AVE from QED.
-  - IMD spectroscopy variant: dual-tone drive, IM3 amplitude scales as $V^3$ (AVE cubic) vs QED $V^6$; measurable above $\sim 30\%$ of $V_{yield}$ ($\sim 13$ kV).
+  - High-intensity laser interferometry specifying a transverse FIELD $E$ (not a gap-voltage $\Rightarrow$ no per-node conflation, $A=E/E_{yield}$ directly). AVE's vacuum saturates at $E_{yield}=V_{yield}/\ell_{node}\approx 1.13\times10^{17}$ V/m with an O(1) (un-suppressed) nonlinearity; QED at $E_{crit}\approx 1.32\times10^{18}$ V/m with an $\alpha^2\sim 5\times10^{-5}$ loop suppression $\Rightarrow$ AVE predicts $\delta n \sim 10^6\times$ QED at any field (structural ratio $1/(4\,a_{EH}\,\alpha^3)$; $\approx 6.4\times10^5$ at prefactor-1, $\approx 4\times10^6$ at the textbook single-mode $a_{EH}=7/45$).
+  - IMD spectroscopy variant: dual-tone drive, IM3 amplitude scales as $V^3$ (AVE cubic) vs QED $V^6$; measurable above $\sim 30\%$ of $V_{yield}$ ($\sim 13$ kV). *(IM3 distortion-ORDER is a separate, correct claim — see [intermodulation-distortion](./circuit-theory/ch1-vacuum-circuit-analysis/intermodulation-distortion.md); NOT the birefringence index-shift discriminator.)*
 - _Specific Non-Claims and Caveats_
-  - The IMD predicted IM3 power table evaluated at lab-attainable drive levels gives strongly negative dBc values ($-160$ dBc at $1\%$ of $V_{yield}$); detection threshold is "Strong" only at $\sim 90\%$ of $V_{yield}$ ($\sim 39$ kV) per the leaf's own table. Any "easily measurable IM3 in standard labs" framing reads the high-drive end of the table as if it were attainable everywhere.
-  - QED's predicted IM3 cross-section ($\sim 10^{-65}$ cm$^2$ at optical) is "$\sim 10^{40}$ times smaller than the AVE prediction at the same frequency" — the AVE prediction depends on the apparatus reaching $\sim 30\%$ of $V_{yield}/\ell_{node} \sim 3 \times 10^{16}$ V/m macroscopic field, which is far beyond current laboratory capability without resonant local enhancement.
-  - Distinguishing $E^2$ from $E^4$ to within $\pm 0.5$ in the exponent is the falsification target; sub-decade dynamic range or systematic field-uncertainty would allow both fits.
+  - The index shift is **negative** ($n$ drops — the vacuum softens) and $E^2$-leading: $\delta n = -A^2/4 - 3A^4/32 + \mathcal{O}(A^6)$. The quantity $1-S = +A^2/2 + A^4/8$ is the **permittivity saturation DEPTH**, not the index shift; the historical "$\Delta n_{eff}=1-\sqrt{1-(E/E_{yield})^2}$" labeling conflated depth with the $n=\sqrt{S}$ index observable (off by the factor $-2$: the $\sqrt{}$ in $n=\sqrt{\varepsilon}$ plus the depth-vs-shift sign).
+  - An $E^2$ slope does **NOT** falsify AVE (QED is also $E^2$-leading). A **QED-sized coefficient** ($\delta n \sim \alpha^2 (E/E_{crit})^2$, $\sim 10^6\times$ smaller than the AVE prediction at the same field) **falsifies AVE**; an AVE-sized coefficient falsifies QED at this observable. Two-sided.
+  - The discriminator is facility-class: at $E\sim 10^{14}$ V/m (extreme-laser-reachable) AVE gives $\delta n\approx 2.0\times10^{-7}$ (high-finesse-cavity measurable) vs $\delta n_{QED}\approx 5\times10^{-14}$; the AVE-distinct margin is the $\sim10^6$ coefficient gap, present at ALL fields, not a regime-gated exponent change.
 
 > **Leaf references:** [intermodulation-distortion](./circuit-theory/ch1-vacuum-circuit-analysis/intermodulation-distortion.md), [epistemology-of-falsification](./falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md), [epistemology-kill-switches](./falsification/ch11-experimental-bench/epistemology-kill-switches.md), [dielectric-plateau-prediction](./falsification/ch12-falsifiable-predictions/dielectric-plateau-prediction.md), [vacuum-birefringence-e4](./falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md).
 
 ### Quality
 - confidence: 0.8
 - depends-on:
-  - Axiom 4 (saturation kernel → $\Delta n=1-\sqrt{1-(E/E_{yield})^2}$)
+  - Axiom 4 (saturation kernel $S=\sqrt{1-(E/E_{yield})^2}$ → index $n=\sqrt{S}$, $\delta n\approx -A^2/4$)
   - clm-vjv4zf (varactor Taylor expansion template)
 - solidity: 0.80 (ok to build on, see caveats) [= min(0.80, 0.90)]
-- rationale: The discriminator is a clean Taylor-expansion result: AVE's $\Delta n\propto E^4$ (leading term of $1-\sqrt{1-(E/E_{yield})^2}$) vs QED's Euler-Heisenberg $E^2$, with the parallel IM3 cubic-vs-sextic ($V^3$ vs $V^6$) scaling derived in the IMD leaf. The derivation closes cleanly from Axiom 4. The leaf discloses the practical attainability bound (measurable only near $V_{yield}$; QED cross-section $\sim10^{40}\times$ smaller) and the $\pm0.5$-in-exponent falsification target. A clean derivation with disclosed measurement-regime bounds.
+- rationale: The discriminator is the COEFFICIENT of the (shared $E^2$-leading) index shift, not the exponent. AVE's $\delta n=\sqrt{S}-1\approx -\tfrac14(E/E_{yield})^2$ (the $n=\sqrt{\varepsilon_{eff}/\varepsilon_0}$ identity applied to the Ax-4 kernel) carries an O(1) coefficient against an un-suppressed yield field $E_{yield}\approx 1.13\times10^{17}$ V/m; QED's Euler-Heisenberg $\delta n\approx a_{EH}\alpha^2(E/E_{crit})^2$ is $\alpha^2$-loop-suppressed against $E_{crit}\approx 1.32\times10^{18}$ V/m. The field-independent ratio $1/(4\,a_{EH}\,\alpha^3)\sim 10^6$ is AVE-distinct at ALL fields (forward driver `birefringence_coefficient_discriminator.py`). The historical "$\Delta n\propto E^4$" framing was a $\sqrt{\varepsilon}$ conflation (it Taylor-expanded the permittivity DEPTH $1-S=+A^2/2$, itself $E^2$-leading, not the index shift) — corrected; an $E^2$ slope does not falsify AVE.
 - strengthen-by:
-  - Provide a concrete local-field-enhancement path that brings the $\sim30\%\,V_{yield}$ drive into laboratory reach, so the discriminator is testable below the macroscopic $\sim3\times10^{16}$ V/m wall.
+  - Establish a concrete high-intensity-laser facility path (FIELD-specified, not gap-voltage) reaching $E\gtrsim 10^{14}$ V/m where $\delta n_{AVE}\sim 2\times10^{-7}$ is high-finesse-cavity measurable and the $\sim10^6$ coefficient gap is resolvable against the QED baseline.
+  - Pin the QED Euler-Heisenberg single-mode prefactor $a_{EH}$ (literature input, $\sim7/45$) under the facility's exact field-polarization geometry to tighten the ratio band.
 
 ---
 
