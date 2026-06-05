@@ -10,8 +10,8 @@
 |---|---|---|---|---|
 | 1 | HOPF reciprocity | Pasteur (reciprocal, P-odd) vs Tellegen (non-recip, T-odd) | reciprocal-Pasteur at linear → C3/C4 retire labels; ADD 2-port reciprocity sweep | **AGREED** 2026-06-04 |
 | 2 | Cleave CPD / SM≠0.0 | Kelvin probe / patch potentials (CPD real, gap-dep ∝1/g²) | confirm + propagate SM≠0.0 + gap-sweep | **AGREED** 2026-06-04 |
-| 3 | per-node-conflation sweep | series-cell voltage division (V_yield is per-node, not terminal) | scoped sweep, inventory-first; PONDER-05 carve-out | **SURFACED** 2026-06-04 (pending) |
-| 4 | ξ_topo content-anchor | content-anchor vs line-number cite (hygiene) | — | queued |
+| 3 | per-node-conflation sweep | series-cell voltage division (V_yield is per-node, not terminal) | scoped sweep, inventory-first; PONDER-05 carve-out | **AGREED** 2026-06-04 |
+| 4 | constants.py cite content-anchor | N/A (tooling, not physics) | convention + ξ_topo lockstep + opportunistic bulk | **SURFACED** 2026-06-04 (pending) |
 | 5 | IVIM index-convention | δn≈−A²/4 vs Δn≈+A²/2 (factor-2 + sign) | — | queued |
 
 ---
@@ -63,7 +63,7 @@ Plumber's-eye: a ferrite isolator only works *because of the magnet*. Remove the
 
 ---
 
-## §3 — Per-node-V_yield / apparatus-voltage conflation sweep  [SURFACED 2026-06-04 — pending Grant]
+## §3 — Per-node-V_yield / apparatus-voltage conflation sweep  [AGREED 2026-06-04]
 
 **Decision context.** Over-determined: IVIM (`c3fdb53`) + Q-G42 (`fdd88c3`) round-2 BOTH rooted their feasibility-kills in the same error — reading apparatus (gap) voltage as if it were the per-node V_yield. Flagged BLOCKING in epic §10; round-2 surfaced 8+ verbatim sites. The call: run the corpus-wide re-scope now, or keep parked?
 
@@ -81,10 +81,28 @@ Plumber's-eye: a ferrite isolator only works *because of the magnet*. Remove the
 
 **Blast-radius caution.** The sweep may deflate kernel-MAGNITUDE headlines beyond IVIM/Q-G42 (anywhere the kernel was read at apparatus scale). The SIGN-based + zero-free-param discriminators (Q-G42 sign, Cleave geometry) are UNAFFECTED. → recommend INVENTORY-FIRST (read-only blast-radius report) before any leaf is edited.
 
-**Decision (pending Grant).** (a) Authorize the scoped per-node-conflation sweep — executed INVENTORY-FIRST (read-only enumeration of all conflated sites + what each correction deflates), surfaced for review BEFORE any leaf is touched, then batch re-scope with the honest-camp template, auditor-gated. (b) Confirm PONDER-05 vacuum-vs-material is carved out as a SEPARATE consistency-vs-emergence adjudication. Lean: yes + yes.
+**Decision (Grant AGREED 2026-06-04).** (a) Authorized the scoped per-node-conflation sweep — executed INVENTORY-FIRST (read-only enumeration of all conflated sites + what each correction deflates), surfaced for review BEFORE any leaf is touched, then batch re-scope with the honest-camp template, auditor-gated. (b) PONDER-05 vacuum-vs-material carved out as a SEPARATE consistency-vs-emergence adjudication.
 
 **Execution (on agreement).** Phase 1 = read-only inventory sweep (enumerate universe, class-taxonomy {conflated / honest / borderline}, blast-radius per site) → surface to Grant. Phase 2 (on blast-radius review) = batch re-scope, auditor-gated, `closure-roadmap §0.5`. PONDER-05 vacuum-vs-material = separate adjudication doc.
 
 ---
 
-*Entries #4 (ξ_topo content-anchor), #5 (IVIM index-convention) queued.*
+## §4 — constants.py citation content-anchoring (ξ_topo + general)  [SURFACED 2026-06-04 — pending Grant]
+
+**Decision context.** Cleave round-2 F-R2-2: `XI_TOPO` is cited at `constants.py:246` but has drifted to `:251` (verified; `:205` is now `ALPHA_COLD`). Recurring — the §9 flag-don't-fix queue already logged a ":205→:246" drift. The call: how to fix durably?
+
+**EE map: N/A.** This is citation-tooling hygiene, not a substrate-physics adjudication — `ave-ee-first-mapping` explicitly does not fire on tooling/framing. (ξ_topo's *physics* is already EE-canonical: e/ℓ_node = the charge-per-length electromechanical transduction constant, `clm-fy05jc`. The question here is only how to CITE it.) Recognizing when EE-mapping does NOT apply is part of "apply relevant skills."
+
+**Skills applied.** `verify-before-cite` (line-number cites to a growing file are inherently fragile — they go stale on every insertion above them); `ave-sweep-audit` (the bulk fix is a mechanical sweep — but Class-C cosmetic, so opportunistic, not big-bang); `ave-evidence-framing-discipline` (honest scope below — it is NOT "a few sites").
+
+**Scope (honest — bigger than first framed).** Immediate ξ_topo lockstep: 3 located `:246` cites (`2026-06-04_alpha-class2-bijection-result.md:169`, `2026-06-03_topological-charge-occupation-robustness.md:20` + `:120`) + the Femto `:205` cite → re-point to `XI_TOPO` / `:251`. But the GENERAL exposure is large: **~100+ `constants.py:NNN` line-number cites corpus-wide**, every one drift-exposed (`:133` (α) has 10 cites, `:79` 7, `:619` 7, `:432`/`:333`/`:194` 6 each). 52 docs already cite XI_TOPO by symbol (the good, stable pattern) — the corpus is MIXED.
+
+**Precedent.** Content-anchoring is already established corpus practice: `ff9a2b1a` + `d9d33d00` (double-slit-ee) "content-anchor volatile citations (was stale 'line 139' post-merge)."
+
+**Decision (pending Grant).** (a) Adopt **content-anchoring as the convention** for constants.py cites — cite the symbol (`XI_TOPO`), not the line (formalize the `ff9a2b1a` practice; new cites symbol-anchored). (b) Immediate lockstep: fix the 3–4 ξ_topo stale cites + the high-traffic `:133` (α, 10 cites). (c) The bulk ~100+ line-cites: **opportunistic** (fix line→symbol as files are touched, incl. by the #3 per-node sweep), NOT a dedicated big-bang sweep (Class-C cosmetic). Lean: (a) yes, (b) yes, (c) opportunistic.
+
+**Execution (on agreement).** Lockstep ξ_topo + `:133` now (rides with the #3 inventory pass — overlapping files); convention noted in contributor guidance; bulk fix opportunistic. `closure-roadmap §0.5` row.
+
+---
+
+*Entry #5 (IVIM index-convention) queued.*
