@@ -55,3 +55,50 @@ field-INDEPENDENT (leading): True  ->  constant = 4.1358e+06 = 1/(4 a_EH alpha^3
 ```
 
 `δn_AVE/δn_QED = 1/(4 a_EH α³)`, constant in E to the leading-term approximation. This is the whole point: a *coefficient* discriminator, present identically at every field — not an exponent or regime gate.
+
+---
+
+## §3 — The prefactor band (⚑ flag-don't-fix)
+
+The headline ratio rides on the QED Euler-Heisenberg prefactor `a_EH`, which is convention-dependent (single-mode vs differential vs order-of-magnitude). The structural form `1/(4 a_EH α³)` is exact; the number spans ~1 OOM:
+
+```
+a_EH convention                     a_EH   ratio 1/(4 a alpha^3)
+single-mode parallel  (7/45)      0.1556              4.1358e+06
+single-mode perp      (4/45)      0.0889              7.2376e+06
+differential birefr.  (3/45)      0.0667              9.6502e+06
+prefactor-1 reference (a=1)       1.0000              6.4335e+05
+order-of-mag EH       (~1.5)      1.5000              4.2890e+05
+=> headline band: [4.29e+05, 9.65e+06]
+```
+
+**The ledger §5 / dispatch headline "~4.4×10⁵×" (with worked `δn_QED ≈ 4.5×10⁻¹³ at 10¹⁴ V/m`) corresponds to the `a_EH ≈ 1.5` (order-of-magnitude EH) end of the band**, NOT the textbook single-mode `7/45` (which gives `δn_QED ≈ 4.7×10⁻¹⁴` and ratio `4.1×10⁶`). Per flag-don't-fix, I did NOT silently collapse to one number:
+- The reframed corpus leaves (Part A) state **"`~10⁶`"** — robust across the entire band, `ave-evidence-framing-discipline`-correct until the convention is pinned.
+- The driver reports the **full band** so the corpus headline can be pinned (Grant/auditor decision) without re-running.
+- **The physics verdict is identical at every point in the band:** AVE is `~10⁵–10⁶×` QED, a `~6` OOM gap. The ~1-OOM prefactor spread is immaterial to the discrimination (the verdict has ~6 OOM of margin).
+
+**Decision surfaced (not resolved):** which `a_EH` convention the corpus headline pins. Recommend the single-mode `7/45` (the standard textbook weak-field birefringence coefficient, most defensible as a literature citation) → headline `~4×10⁶`; OR keep the convention-free "`~10⁶`" framing already landed in the leaves. The "4.4×10⁵" figure should NOT be quoted as if it were the single-mode value.
+
+---
+
+## §4 — Measurability + classification
+
+### 4.1 Measurability verdict: MEASURABLE at facility-class fields
+
+```
+E=1.00e+13 V/m -> |dn_AVE|=1.956e-09  (SNR vs ~1e-15 floor 1.96e+06)  [MEASURABLE]
+E=1.00e+14 V/m -> |dn_AVE|=1.956e-07  (SNR 1.96e+08)                   [MEASURABLE]
+E=1.00e+16 V/m -> |dn_AVE|=1.962e-03  (SNR 1.96e+12)                   [MEASURABLE]
+```
+
+At `E ~ 10¹⁴ V/m` (extreme-laser-reachable; ELI/petawatt-class focal fields), `δn_AVE ≈ 2.0×10⁻⁷` — well above a representative high-finesse-cavity index-shift floor `~10⁻¹⁵`. The QED baseline there is `~5×10⁻¹⁴`, so the `~10⁶` coefficient gap is the AVE-distinct margin. **The test is facility-class but the AVE signal is comfortably measurable; the discrimination lives in the coefficient, present at all fields, not in reaching a near-yield regime.**
+
+### 4.2 Classification (`consistency-vs-emergence`)
+
+| Quantity | Class | Note |
+|---|---|---|
+| `δn_AVE = √S − 1 ≈ −A²/4` | **manifestation** of Axiom 4 | the wave-speed identity `n=√(ε/ε₀)` on the Ax-4 kernel; not a fit, not a CODATA-substitution identity. |
+| `(E_crit/E_yield)² = 1/α` | **identity** (structural) | algebraic from the constant definitions (`V_yield=√α V_snap`, `E_crit=V_snap/L_node`). |
+| ratio `1/(4 a_EH α³)` | **discriminating forward prediction** | AVE-distinct: un-suppressed (tree-level saturation) vs QED loop-suppressed (α²). Differs from QED by `~10⁶`. |
+
+**Headline-class verdict:** the coefficient ratio is a *discriminating forward prediction*, two-sided. NOT headlined as "α emerges" — α enters as an *input* (the QED loop factor and the substrate-field identity both carry α); what is AVE-distinct is the *un-suppressed-vs-suppressed contrast*, a `~6` OOM coefficient gap.
