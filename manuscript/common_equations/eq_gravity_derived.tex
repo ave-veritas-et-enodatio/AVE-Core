@@ -50,7 +50,7 @@ Multi-species clock comparisons at different gravitational potentials predict a
 The principal radial strain $\varepsilon_{11} = 7GM/(c^2 r)$ compresses the lattice asymmetrically.
 The refractive index decomposes into:
 \begin{align}
-    n_{temporal} &= 1 + \tfrac{2}{7}\,\varepsilon_{11} && (\text{controls clock rate, redshift}) \nonumber \\
+    n_{temporal} &= 1 + \tfrac{2}{7}\,\varepsilon_{11} && (\text{bulk/coordinate-time propagation index, slope 2}) \nonumber \\
     n_{spatial} &= 1 + \tfrac{9}{7}\,\varepsilon_{11} && (\text{controls matter-wave parallax, C11})
     \label{eq:lattice_decomposition}
 \end{align}
@@ -60,8 +60,14 @@ The refractive index decomposes into:
 % which produced confusion in driver-script implementations. The parity violation
 % Delta_n = n_spatial - n_temporal = (9/7 - 2/7) * eps_11 = eps_11 is unchanged
 % by the notation cleanup.
-The temporal component governs gravitational redshift ($z \approx GM/(c^2 r)$);
-the spatial component governs the matter-wave (electron de~Broglie) parallax measured by
+The temporal index $n_{temporal}$ (slope 2) is the \emph{bulk/coordinate-time}
+propagation index --- what a signal traversing the gradient accumulates (Shapiro-class
+integrated delay), $\approx 1/g_{00}$. The genuine \emph{local} clock rate / gravitational
+redshift is a \emph{distinct} (slope 1) quantity, the proper tick of a clock sitting at $r$:
+$\sqrt{g_{00}} = \sqrt{S} \approx 1 - GM/(c^2 r)$, giving redshift
+$z \approx GM/(c^2 r)$. The two are bridged by $z = (n_{temporal} - 1)/2$: a propagating
+signal picks up $2\times$ the local clock effect.
+The spatial component governs the matter-wave (electron de~Broglie) parallax measured by
 C11-MACH-ZEHNDER ($n_s - n_t = \varepsilon_{11}$) and frame dragging.
 % W1 walk-back 2026-06-05 (Class-C internal-coherence; basis: research/2026-06-05_gravity-ppn-coherence-result.md):
 % the (9/7) spatial index does NOT control light deflection. The canonical light-deflection
@@ -69,3 +75,12 @@ C11-MACH-ZEHNDER ($n_s - n_t = \varepsilon_{11}$) and frame dragging.
 % index n_perp = 1 + (2/7)chi_vol, not n_spatial. The (9/7) index IS load-bearing for the
 % C11 electron matter-wave parallax (249.64 rad). KEEP-BOTH: (9/7) retained; only the
 % "light deflection" attribution corrected.
+% W2 walk-back 2026-06-05 (Class-C internal-coherence; Grant bulk-vs-local adjudication;
+% basis: research/2026-06-05_gravity-sign-frequency-modulation-result.md):
+% the "controls clock rate, redshift" annotation on n_temporal conflated TWO distinct
+% temporal quantities. n_temporal (slope 2) = BULK/coordinate-time propagation index
+% (integrated Shapiro delay, ~1/g00). The LOCAL clock rate / redshift is slope 1:
+% sqrt(g00) = sqrt(S) ~ 1 - GM/rc^2, z = GM/rc^2 (the c_shear clock). Bridge:
+% z = (n_temporal - 1)/2. RELABEL ONLY: n_temporal value (2/7 eps_11) and all
+% derivations unchanged; only the "clock rate, redshift" label disambiguated from the
+% slope-1 local clock. KEEP-BOTH.
