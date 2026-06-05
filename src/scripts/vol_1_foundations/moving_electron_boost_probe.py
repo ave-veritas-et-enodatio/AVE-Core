@@ -363,6 +363,61 @@ if __name__ == "__main__":
               f"{adj.get('fwhm_max_ratio', float('nan')):>7.2f} {adj['verdict']:>10}")
     print("-" * 78)
 
+    # ---- centroid-trajectory viz (positive result -> the translation made visible) ----
+    try:
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+        from ave_path_util import sim_output
+
+        fig, (axL, axR) = plt.subplots(1, 2, figsize=(13, 5), facecolor="#0a0a0a")
+        colors = {"STATIONARY": "C1", "BOOST": "C2", "BASELINE": "C3"}
+        for a in arms:
+            h = a["hist"]
+            x0 = h["env_cen"][0]
+            axL.plot(h["t"], h["env_cen"] - x0, "-o", ms=3, color=colors[a["name"]],
+                     label=f"{a['name']} (k_x={a['k_x']:.3f})")
+        # predicted ballistic line for the BOOST
+        tb = arms[1]["hist"]["t"]
+        axL.plot(tb, vg_pred * tb, "w--", lw=1, label=f"predicted v_g·t ({vg_pred:.3f}·c₀·t)")
+        axL.set_xlabel("t (natural units)")
+        axL.set_ylabel("envelope-centroid displacement Δx (cells)")
+        axL.set_title("Centroid translation — only the coherent k_x boost moves")
+        axL.legend(loc="upper left", fontsize=8)
+        axL.grid(True, alpha=0.2)
+
+        # right: core vs envelope centroid for the BOOST arm (the duality discriminator)
+        hb = arms[1]["hist"]
+        axR.plot(hb["t"], hb["env_cen"] - hb["env_cen"][0], "C2-o", ms=3, label="envelope centroid")
+        core_rel = hb["core_cen"] - hb["core_cen"][0]
+        axR.plot(hb["t"], core_rel, "C0-s", ms=3, label="saturated-core centroid")
+        axR.set_xlabel("t (natural units)")
+        axR.set_ylabel("centroid displacement Δx (cells)")
+        axR.set_title("BOOST: core + envelope translate TOGETHER (interior-advect)")
+        axR.legend(loc="upper left", fontsize=8)
+        axR.grid(True, alpha=0.2)
+
+        for ax in (axL, axR):
+            ax.set_facecolor("#0f0f0f")
+            ax.tick_params(colors="white")
+            for s in ax.spines.values():
+                s.set_color("#333")
+            ax.xaxis.label.set_color("white")
+            ax.yaxis.label.set_color("white")
+            ax.title.set_color("white")
+            leg = ax.get_legend()
+            if leg:
+                leg.get_frame().set_facecolor("#0f0f0f")
+                leg.get_frame().set_edgecolor("none")
+                for t in leg.get_texts():
+                    t.set_color("white")
+        fig.suptitle("Moving-electron boost probe (CP8) — VERDICT: MOVES", color="white", fontsize=14)
+        out = sim_output("moving_electron_boost_probe.png")
+        fig.savefig(out, dpi=140, facecolor="#0a0a0a", bbox_inches="tight")
+        print(f"\nViz: {out}")
+    except Exception as e:  # viz is optional; never block the verdict on it
+        print(f"\n(viz skipped: {e})")
+
     boost_adj = results["BOOST"][1]
     print(f"\nForward-predicted v_g = {vg_pred:.4f} c0   |   BOOST observed v_obs = "
           f"{boost_adj.get('v_obs', float('nan')):.4f} c0   |   "
