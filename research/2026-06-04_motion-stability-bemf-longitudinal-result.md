@@ -189,6 +189,29 @@ V-core does not merely *fail to track* the longitudinal bias — it **screens** 
 The bulk-strain contribution to the local clock is ~100× swamped (and then clipped)
 by the already-saturated V² at the core where the knot lives.
 
+### Coupling-live verification — reproducible control (review closure)
+
+The screening mechanism rests on one load-bearing fact: the longitudinal drive
+must actually REACH the saturation kernel (coupling live, screened at the core),
+NOT be a silent no-op (drive disconnected from the V-sector, in which case the
+byte-identical V-evolution would be a wiring artifact and the PIN a mislabel). The
+original mechanism numbers were a scratch computation; this is now a committed,
+reproducible control — `verify_coupling_live_longitudinal.py` — mirroring the
+engine's own kernel call (`vacuum_engine.py:1320-1329`) exactly. Independent re-run
+(N=48, settle=10, Variant-B displacement — the drive `main()` selects):
+
+| drive | S_ε mean (interior) | S_ε @ core |
+|---|---|---|
+| none | 0.9734 | 1.000e-05 |
+| v=0.30 (physical) | 0.9713 | 1.000e-05 |
+| v=30 (100× rupture) | 0.0511 | 1.000e-05 |
+
+**Coupling is LIVE** (mean moves 0.973→0.051 at 100× — the drive's strain reaches
+the kernel) AND **screened at the core** (S_ε@core pinned at the 1e-5 floor
+regardless of drive — V²=3.075 already clips A²_ε). At *physical* amplitude the mean
+barely moves (0.9734→0.9713). **SCREENED-PIN confirmed — the falsification is real,
+not a no-op.** (Closes the review's reproducibility gap.)
+
 ### Tension flagged for Grant (NOT resolved here, per flag-don't-fix)
 
 `de-broglie-standing-wave.md:50` (verified verbatim): *"It does not travel as a
