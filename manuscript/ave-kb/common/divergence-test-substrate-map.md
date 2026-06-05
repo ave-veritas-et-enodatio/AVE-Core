@@ -58,11 +58,11 @@ This leaf catalogues every AVE-distinct prediction that diverges from Standard M
 
 ## Tier B — Simulation substrate exists, no hardware
 
-### B1. Tree-level vacuum nonlinearity (E² → E⁴ birefringence + vacuum-mirror APD spike) (Project ZENER-04 / Impedance Avalanche Detector)
+### B1. Tree-level vacuum nonlinearity (E²-coefficient birefringence + vacuum-mirror APD spike) (Project ZENER-04 / Impedance Avalanche Detector)
 
-- **AVE predicts:** $\Delta n_{eff} = 1 - \sqrt{1 - (E/E_{yield})^2}$ — Taylor expansion gives leading $E^4$ term. Vacuum-mirror reflection coefficient $\Gamma(V) = [(1-(V/V_{yield})^2)^{-1/4} - 1] / [(1-(V/V_{yield})^2)^{-1/4} + 1] \to 1$ as $V \to 43.65$ kV.
-- **Standard predicts:** Euler-Heisenberg polynomial in $E^2$ (PVLAS limit $\sim 10^{-23}$); no APD-detectable back-scatter from DC vacuum.
-- **Discriminator:** *"If the slope remains $E^2$, AVE is falsified."* APD back-scatter spike at 35-43 kV DC sweep on asymmetric-electrode vacuum-mirror geometry. Departure from QED at $\sim 10^{12}$ level per foreword line 106.
+- **AVE predicts:** index shift $\delta n = \sqrt{S}-1 \approx -\tfrac14(E/E_{yield})^2$ (the $n=\sqrt{\varepsilon_{eff}/\varepsilon_0}=\sqrt{S}$ identity on the Ax-4 kernel $S=\sqrt{1-(E/E_{yield})^2}$; $E^2$-leading, negative). O(1) coefficient against $E_{yield}\approx1.13\times10^{17}$ V/m. Vacuum-mirror reflection coefficient $\Gamma(V) = [(1-(V/V_{yield})^2)^{-1/4} - 1] / [(1-(V/V_{yield})^2)^{-1/4} + 1] \to 1$ as $V \to 43.65$ kV (per-node $V_{yield}$).
+- **Standard predicts:** Euler-Heisenberg $\delta n \approx a_{EH}\alpha^2(E/E_{crit})^2$ — also $E^2$-leading, but $\alpha^2$-loop-suppressed against $E_{crit}\approx1.32\times10^{18}$ V/m (PVLAS limit $\sim 10^{-23}$); no APD-detectable back-scatter from DC vacuum.
+- **Discriminator:** the **COEFFICIENT** (not the exponent — both are $E^2$-leading). $\delta n_{AVE}/\delta n_{QED}=1/(4\,a_{EH}\,\alpha^3)\sim10^6$ at any field; a QED-sized coefficient falsifies AVE. APD back-scatter spike at 35-43 kV DC sweep on asymmetric-electrode vacuum-mirror geometry. Departure from QED at $\sim 10^{6}$ level in the index coefficient (the historical "$E^2$-slope-falsifies / $\sim10^{12}$" framing was a $\sqrt{\varepsilon}$ exponent conflation — corrected).
 - **Test type:** new experiment.
 - **Substrate:** no sibling-repo executable observer; bench specs in KB only. PVLAS-class or HV-DC infrastructure required.
 - **KB anchors:** [`../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md` lines 8, 20](../vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md); [`../vol4/falsification/ch11-experimental-bench-falsification/vacuum-impedance-mirror.md` lines 60, 83](../vol4/falsification/ch11-experimental-bench-falsification/vacuum-impedance-mirror.md).
