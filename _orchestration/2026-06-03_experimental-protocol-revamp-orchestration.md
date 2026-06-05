@@ -258,4 +258,5 @@ round-1 sibling-branch cleanup.
 **Adjudication ledger (Layer 2 — the *why* behind each decision):** the 5 round-2 adjudications are
 tracked EE-mapped + skill-disciplined in [`experimental/2026-06-04_round2-adjudications.md`](experimental/2026-06-04_round2-adjudications.md)
 — #1 HOPF reciprocity **AGREED** (reciprocal-Pasteur at linear; add reciprocity sweep); #2 Cleave CPD/SM≠0.0
-SURFACED; #3–#5 queued.
+**AGREED** (CPD real per Kelvin-probe; gap-sweep 4-corner cure; SM≠0.0 propagation authorized); #3 per-node-conflation
+sweep SURFACED; #4–#5 queued.

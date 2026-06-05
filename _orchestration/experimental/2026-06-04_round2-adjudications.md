@@ -9,8 +9,8 @@
 | # | Item | EE map (crux) | Decision | Status |
 |---|---|---|---|---|
 | 1 | HOPF reciprocity | Pasteur (reciprocal, P-odd) vs Tellegen (non-recip, T-odd) | reciprocal-Pasteur at linear → C3/C4 retire labels; ADD 2-port reciprocity sweep | **AGREED** 2026-06-04 |
-| 2 | Cleave CPD / SM≠0.0 | Kelvin probe / patch potentials (CPD real, gap-dep ∝1/g²) | confirm + propagate SM≠0.0 + gap-sweep | **SURFACED** 2026-06-04 (pending) |
-| 3 | per-node-conflation sweep | per-node V_yield vs apparatus voltage (scale bridge) | — | queued |
+| 2 | Cleave CPD / SM≠0.0 | Kelvin probe / patch potentials (CPD real, gap-dep ∝1/g²) | confirm + propagate SM≠0.0 + gap-sweep | **AGREED** 2026-06-04 |
+| 3 | per-node-conflation sweep | series-cell voltage division (V_yield is per-node, not terminal) | scoped sweep, inventory-first; PONDER-05 carve-out | **SURFACED** 2026-06-04 (pending) |
 | 4 | ξ_topo content-anchor | content-anchor vs line-number cite (hygiene) | — | queued |
 | 5 | IVIM index-convention | δn≈−A²/4 vs Δn≈+A²/2 (factor-2 + sign) | — | queued |
 
@@ -41,7 +41,7 @@ Plumber's-eye: a ferrite isolator only works *because of the magnet*. Remove the
 
 ---
 
-## §2 — Cleave CPD / SM≠0.0  [SURFACED 2026-06-04 — pending Grant]
+## §2 — Cleave CPD / SM≠0.0  [AGREED 2026-06-04]
 
 **Decision context.** Cleave round-2 (`analysis/2026-06-04-cleave-round2-smcounterfactual`, `76f66b9`) found round-1's foundational claim *"Standard EM predicts 0.0 mV"* FALSE — contact-potential-difference (CPD) gives a non-zero, polarity-ODD, ~21%-of-floor charge that form-shares with the ξ_topo floor on magnitude + polarity. Cure: CPD is gap-DEPENDENT (∝1/g²), the floor is gap-INDEPENDENT → a gap-sweep separates them (4-corner symmetry discriminator). The call: confirm the correctness finding + authorize the SM≠0.0 propagation + adopt the gap-sweep leg.
 
@@ -57,10 +57,34 @@ Plumber's-eye: a ferrite isolator only works *because of the magnet*. Remove the
 
 **Flag for auditor (not Grant's intuition call).** The floor's measured VOLTAGE (mV) is gap-independent only at FIXED C_in (readout capacitance) — the gap-sweep must hold C_in fixed (or account for it), per the occupation-robustness framing (`:95` "hold C_in fixed and read the floor"). Protocol-design subtlety; does not change the adjudication.
 
-**Decision (pending Grant).** Confirm the CPD correctness finding (SM≠0.0) + the gap-sweep cure; authorize propagating the correction to the located sites; adopt the gap-sweep + 4-corner framing as the canonical Cleave discriminator. **Lean: strong confirm** — this is settled EE/metrology, and it STRENGTHENS Cleave (magnitude argument → symmetry argument).
+**Decision (Grant AGREED 2026-06-04).** Confirmed the CPD correctness finding (SM≠0.0) + the gap-sweep cure; authorized propagating the correction to the located sites; adopt the gap-sweep + 4-corner framing as the canonical Cleave discriminator. (Settled EE/metrology; STRENGTHENS Cleave: magnitude argument → symmetry argument.)
 
 **Execution (on agreement).** Propagate SM≠0.0 to the 4 located sites (per `ave-walk-back`, corrected statement: *"the polarity-odd, gap-INDEPENDENT component is classically 0.0; the raw vacuum charge is not — CPD gives a polarity-odd, gap-dependent term"*); the round-2 branch's TEST_PROCEDURE edit lands on merge; new `translation-circuit.md §4` row (CPD ↔ Kelvin probe / patch potentials); `closure-roadmap §0.5` row. Sequenced after the auditor-gate.
 
 ---
 
-*Entries #3 (per-node-conflation sweep), #4 (ξ_topo content-anchor), #5 (IVIM index-convention) logged as adjudicated.*
+## §3 — Per-node-V_yield / apparatus-voltage conflation sweep  [SURFACED 2026-06-04 — pending Grant]
+
+**Decision context.** Over-determined: IVIM (`c3fdb53`) + Q-G42 (`fdd88c3`) round-2 BOTH rooted their feasibility-kills in the same error — reading apparatus (gap) voltage as if it were the per-node V_yield. Flagged BLOCKING in epic §10; round-2 surfaced 8+ verbatim sites. The call: run the corpus-wide re-scope now, or keep parked?
+
+**Substrate picture.** V_yield is a PER-NODE quantity — the yield voltage across ONE lattice cell (ℓ_node = 0.386 pm). Saturation A = E_local·ℓ_node/V_yield is a per-cell phenomenon. The conflation reads A = V_apparatus/V_yield (whole-gap voltage / per-node yield), off by d_gap/ℓ_node ≈ 2.6×10⁸.
+
+**EE map** (`ave-ee-first-mapping`, distributed-element). A vacuum gap is a SERIES STACK of N = d_gap/ℓ_node ≈ 2.6×10⁸ distributed LC cells (the corpus's own "R_H/ℓ_node cells along a distributed transmission line" framing). The voltage across ONE cell = V_apparatus/N. Saturation/breakdown is PER-CELL. The conflation compares the WHOLE-STACK voltage to a SINGLE-CELL rating — a series-string voltage-division error (like asking "will this cap break?" by comparing the voltage across a 10⁸-cap series string to one cap's rating).
+
+**The seductive trap.** V_YIELD ≈ 43.65 kV (canonical = √α·V_SNAP) numerically LOOKS bench-reachable (43 kV is achievable!) — but it is the voltage across ℓ_node = 0.386 pm, i.e. the yield FIELD E_YIELD = V_YIELD/ℓ_node ≈ 1.13×10¹⁷ V/m. Applying 43 kV across a 100 µm gap gives only 4.4×10⁸ V/m → A ≈ 3.9×10⁻⁹ (matches both round-2 agents). The 43.65 kV coincidence is why this is "the most common Vol 4 reading error" (`claim-quality.md:51`).
+
+**Means-test.** The corpus's own distributed-TL model (R_H/ℓ_node cells; Machian-G = TL input impedance) IS the per-cell framework. The conflated camp violates the corpus's own model → the honest camp (per-node) is canonical-consistent. **Physics SETTLED** — not a coin flip; the real call is SCOPE / blast-radius.
+
+**Sites** (round-2 inventory, full enumeration pending): conflated camp — `vacuum-impedance-mirror.md` (IVIM-rescoped already), `measurement-hierarchy-snr.md:66`, `universal-saturation-kernel-catalog.md:72`, `translation-circuit.md:111/191/481`, `op14-local-clock-modulation.md:106`, `divergence-test-substrate-map.md:126/466`, `17_noise_floor_boundary.tex:84`. Honest camp (template) — Q-G42, `trampoline-framework.md:439`, `claim-quality.md:51/393`.
+
+**Skills applied.** `ave-sweep-audit` (this IS the N>10 mechanical-sweep class — scope-bound, class-taxonomy, honest-camp template, batch + auditor + closure-roadmap); `ave-walk-back` (each conflated site = a per-node re-scope); `consistency-vs-emergence` (the PONDER-05 27.4% ε-collapse vacuum-vs-material question — vacuum kernel = emergence, or quartz electrostriction = material-consistency background? — is a SEPARATE adjudication, carved out, NOT folded into this sweep); `substrate-native-check` (saturation lives at the node/cell scale).
+
+**Blast-radius caution.** The sweep may deflate kernel-MAGNITUDE headlines beyond IVIM/Q-G42 (anywhere the kernel was read at apparatus scale). The SIGN-based + zero-free-param discriminators (Q-G42 sign, Cleave geometry) are UNAFFECTED. → recommend INVENTORY-FIRST (read-only blast-radius report) before any leaf is edited.
+
+**Decision (pending Grant).** (a) Authorize the scoped per-node-conflation sweep — executed INVENTORY-FIRST (read-only enumeration of all conflated sites + what each correction deflates), surfaced for review BEFORE any leaf is touched, then batch re-scope with the honest-camp template, auditor-gated. (b) Confirm PONDER-05 vacuum-vs-material is carved out as a SEPARATE consistency-vs-emergence adjudication. Lean: yes + yes.
+
+**Execution (on agreement).** Phase 1 = read-only inventory sweep (enumerate universe, class-taxonomy {conflated / honest / borderline}, blast-radius per site) → surface to Grant. Phase 2 (on blast-radius review) = batch re-scope, auditor-gated, `closure-roadmap §0.5`. PONDER-05 vacuum-vs-material = separate adjudication doc.
+
+---
+
+*Entries #4 (ξ_topo content-anchor), #5 (IVIM index-convention) queued.*
