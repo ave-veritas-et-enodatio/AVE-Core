@@ -102,3 +102,53 @@ At `E ~ 10¹⁴ V/m` (extreme-laser-reachable; ELI/petawatt-class focal fields),
 | ratio `1/(4 a_EH α³)` | **discriminating forward prediction** | AVE-distinct: un-suppressed (tree-level saturation) vs QED loop-suppressed (α²). Differs from QED by `~10⁶`. |
 
 **Headline-class verdict:** the coefficient ratio is a *discriminating forward prediction*, two-sided. NOT headlined as "α emerges" — α enters as an *input* (the QED loop factor and the substrate-field identity both carry α); what is AVE-distinct is the *un-suppressed-vs-suppressed contrast*, a `~6` OOM coefficient gap.
+
+---
+
+## §5 — The two-sided falsifier (frozen, Rule 11)
+
+The discriminator is FIELD-specified (the test sets a transverse optical/DC field `E` directly → `A = E/E_yield`, NO per-node gap-voltage conflation; this is the structural difference from the IVIM / Q-G42 conflation failures, where an apparatus voltage was read as a per-node voltage).
+
+- **AVE-confirming:** measured coefficient `~ −¼` (O(1)), `~10⁶×` the QED Euler-Heisenberg baseline at the same field.
+- **AVE-falsifying:** a measured coefficient of **QED size** (`~ a_EH α²(E/E_crit)²`, `~10⁶×` smaller). **A QED-sized coefficient falsifies AVE.**
+- **QED-falsifying (at this observable):** an AVE-sized coefficient.
+- **NOT a falsifier:** an `E²` *slope*. Both AVE and QED are E²-leading. The prior shipped "if the slope remains E², AVE is falsified" was a √ε exponent conflation — killed in Part A.
+
+**Adjudication criterion (frozen, no post-hoc drift):** ✅ = measured ratio within ~1 OOM of `1/(4 a_EH α³)` (AVE-consistent); ❌ = ratio within ~1 OOM of 1 (QED-sized → AVE-falsified). The `~6` OOM separation means sub-decade field-uncertainty and the ~1-OOM prefactor-convention spread do NOT blur the verdict.
+
+---
+
+## §6 — Corpus deltas (sites touched, `ave-walk-back`)
+
+### 6.1 Part A — √ε determinate fix (commit `ad26d357`)
+
+| Site | Edit |
+|---|---|
+| `manuscript/ave-kb/vol4/claim-quality.md:387` | clm-pp3qwf canonical body: header + claims + caveats + Quality block → coefficient discriminator; `δn=√S−1≈−A²/4` corrected; "E² slope falsifies AVE" killed |
+| `manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md:12` | leaf derivation: `δn=√S−1`, ratio `1/(4 a_EH α³)`, √ε provenance note |
+| `…/vacuum-birefringence-e4.md:24` | protocol prose: coefficient framing, "E² slope does NOT falsify AVE" |
+| `manuscript/ave-kb/common/divergence-test-substrate-map.md:63` | B1 row: AVE-predicts / Standard-predicts / Discriminator → coefficient |
+| `manuscript/vol_4_engineering/chapters/12_falsifiable_predictions.tex:108`, caption, `:125` | derivation + figure caption + protocol → coefficient |
+| `manuscript/vol_9_vacuum_datasheet/chapters/15_falsification_tests.tex:143`, `:239` | **shipped false-falsifier** (prose + table row) → coefficient; "E² slope falsifies AVE" killed |
+
+**SAFE (untouched, verified):** `intermodulation-distortion.md:69` + `dielectric-plateau-prediction.md:23` (IM3 distortion-ORDER / capacitance-divergence — separate correct claims).
+
+### 6.2 Part B — derivation record (this branch)
+
+| Artifact | Commit |
+|---|---|
+| Prereg `research/2026-06-04_birefringence-coefficient-prereg.md` | `1f2cdf57` |
+| Driver `src/scripts/vol_4_engineering/birefringence_coefficient_discriminator.py` | `649fb7df` |
+| This result doc | §1 `72440d53` · §2 `ff558f26` · §3-4 `5f3a1c60` · §5-6 (this) |
+
+### 6.3 Open items for auditor/Grant (surfaced, not landed — lane discipline)
+
+1. **EH-prefactor convention (§3 flag).** Pin which `a_EH` the corpus headline uses, or keep the convention-free "`~10⁶`". The "4.4×10⁵" should not be quoted as a single-mode value. *(Implementer surfaces; auditor/Grant lands the manual/headline pin.)*
+2. **`closure-roadmap §0.5` row + the round-2 capstone** (`research/2026-06-04_experimental-round2-synthesis.md`) — the auditor lane lands these; this result is the empirical substrate they cite.
+3. **clm-pp3qwf solidity/confidence re-rating** — the reframe arguably strengthens the claim (clean coefficient handle vs the dead exponent); the Quality block was updated in Part A but a fresh solidity number is an auditor call.
+
+---
+
+## §7 — Closure
+
+The vacuum-birefringence kill-switch **SURVIVES** as a stronger, cleaner, two-sided coefficient discriminator. The determinate √ε error (and the shipped false-falsifier) is corrected; the surviving discriminator (`δn_AVE ~10⁶× δn_QED`, field-independent, measurable at facility-class fields) is derived forward, driver-validated, and landed in the corpus leaves. Branch ready for auditor-gate + merge-call (do NOT self-merge — lane discipline).
