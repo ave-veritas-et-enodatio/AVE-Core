@@ -36,7 +36,7 @@ Before doing anything substantive, read these in order:
 |---|---|
 | `analysis/integration` | **Dormant** (historical tracker). Superseded by main-based integration in the 2026-05-28→31 `integration→main` transition; 0 commits ahead of `main`, last live 2026-05-20. Retained for history — do not branch from it or merge to it. |
 | `research/l3-electron-soliton` | **Coworker's reference** — UNTOUCHED. Active L3 research branch maintained by ave-veritas-et-enodatio. Do not merge into. |
-| `main` | **Active integration target.** Implementor branches branch off `main` and merge back via PR (PR #51–#59 all merged here). The earlier "frozen until coworker done" model ended with the 2026-05-28→31 `integration→main` transition. |
+| `main` | **Active integration target — PROTECTED; no direct commits.** ALL changes — implementor deliverables AND orchestration tracker / KB / manuscript / README / corpus edits — land via a **reviewed PR**, never a direct push or a direct `git merge --no-ff … && git push origin main`. (2026-06-05 workflow change, Grant: prior orchestration sessions pushed tracker + corpus + public-README edits direct to main and did `--no-ff` implementor merges without a PR review gate — **deprecated**.) Implementor branches branch off `main`; the orchestrator merges them back via PR. |
 | `analysis/<topic>` | Implementor-session branches off `main`. Push + open a PR; do NOT merge directly — the orchestration session does the PR merge. |
 | `audit/<date>_<topic>` | Immutable audit tags at implementor branch tip — preserves commit + tree + ancestry for retrospective review. |
 
@@ -44,7 +44,7 @@ Before doing anything substantive, read these in order:
 
 Two distinct session types:
 
-- **Orchestration sessions** — multi-turn with Grant directly. Plan / audit / review / merge / decide what comes next. Update `_orchestration/index.md` + active epic docs. Do the `--no-ff` + audit-tag + branch-cleanup pattern on implementor merges.
+- **Orchestration sessions** — multi-turn with Grant directly. Plan / audit / review / merge / decide what comes next. **Even orchestration-authored edits — `_orchestration/index.md`, active epic docs, KB / manuscript / README corpus — go on a branch + PR, reviewed before merge (no direct-to-main; 2026-06-05).** The orchestrator still owns the audit-tag + branch-cleanup discipline on implementor merges, but the merge itself is a reviewed PR merge, not a direct `git merge --no-ff` + push.
 - **Implementor sessions** — single-deliverable. Kick off by reading a `## Phase X (PENDING)` section in the relevant `_orchestration/<epic>.md` doc. Branch off `main`, full skill discipline (prereg + driver + result + matrix + closure-roadmap + auditor), push branch but do NOT merge.
 
 See memory entry `feedback_orchestration_vs_implementation_sessions.md` for full discipline.
@@ -76,11 +76,11 @@ The `.agents/handoffs/` gitignored scratch is the only place external-context re
 
 ## Audit-tag + merge pattern
 
-When merging an implementor branch into `main` (the active integration target):
+When merging an implementor branch into `main` (the active integration target) — **as of 2026-06-05 via a reviewed PR, not a direct push**:
 
 1. Tag the implementor branch tip with `audit/<date>_<topic>` BEFORE delete (preserves immutably)
-2. `git merge --no-ff <implementor-branch>` with detailed merge-commit message (outcome + cascade implications + walk-back queue updates)
-3. Push merge commit + audit tag to origin
+2. **Open a PR** (`gh pr create --base main`); the merge carries the detailed message (outcome + cascade implications + walk-back queue updates). **A reviewer (the coworker async, or Grant in-session on the diff) approves before merge** — no self-merge of un-reviewed corpus changes.
+3. Merge the PR (`gh pr merge --no-ff`); push the audit tag to origin
 4. Delete implementor branch (local + remote) once tag verifies on origin
 
 Current state: 109 audit tags on origin (`git tag -l "audit/*" | wc -l`).
