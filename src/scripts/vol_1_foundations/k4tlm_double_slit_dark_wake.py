@@ -67,7 +67,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.animation import FFMpegWriter, FuncAnimation, PillowWriter  # noqa: E402
 
-from ave.core.constants import ALPHA, C_0, L_NODE, V_SNAP, V_YIELD, Z_0  # noqa: E402
+from ave.core.constants import ALPHA, C_0, EPSILON_0, L_NODE, MU_0, V_SNAP, V_YIELD, Z_0  # noqa: E402
 from ave.core.k4_tlm import K4Lattice3D  # noqa: E402
 
 try:
@@ -141,7 +141,7 @@ def verify_constants(cfg: DSConfig) -> dict:
     self-consistent and that the drive amplitude keeps Axiom 4 dormant
     (linear vacuum), so the wake is a genuine small-signal transverse field.
     """
-    assert 376.0 < Z_0 < 377.0, f"Z_0 out of range: {Z_0}"
+    assert abs(Z_0 - np.sqrt(MU_0 / EPSILON_0)) < 1e-9, f"Z_0 != sqrt(MU_0/EPSILON_0): {Z_0}"
     assert V_YIELD < V_SNAP, f"V_YIELD ({V_YIELD}) must be < V_SNAP ({V_SNAP})"
     assert abs(V_YIELD - np.sqrt(ALPHA) * V_SNAP) < 1.0, "V_YIELD != sqrt(alpha)*V_SNAP"
     assert cfg.amp < V_YIELD, (
