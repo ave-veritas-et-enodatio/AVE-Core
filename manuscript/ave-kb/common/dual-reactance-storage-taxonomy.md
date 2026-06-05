@@ -28,7 +28,7 @@ result doc adopts `X_L / X_C` for the reactance sectors rather than `V_L / V_C`:
 | 2 | `V_snap` (`V_SNAP`) | substrate rupture voltage `m_e c²/e` | V (≈ 511 kV) | [`constants.py`](../../../src/ave/core/constants.py):373 |
 | 3 | `V_inc` | **incident** wave amplitude (phase-space coordinate) | V | phase-space pair (A46; Clifford-torus / impedance plane) |
 | 4 | `V_ref` | **reflected** wave amplitude (phase-space coordinate) | V | phase-space pair (A46; `Γ = V_ref/V_inc`) |
-| 5 | `V_DC` | DC bias point on the Ax4 varactor kernel | V | INVARIANT-S2 (PONDER-05 at `V_DC/V_yield = 0.687`) |
+| 5 | `V_DC` | DC bias point on the Ax4 varactor kernel (operating point $A_0 = V_{DC}/V_{yield}$ is a **per-node** ratio) | V | INVARIANT-S2 (PONDER-05's "0.687 at 30 kV" is the quartz material's voltage-coefficient — consistency-class analog of the kernel SHAPE, NOT a vacuum-kernel reading; `vol4/claim-quality.md:51`) |
 | 6 | `V_TOROIDAL_HALO` (`𝒱_total`, legacy `V_halo`) | **dual-reactance COUNT** (this leaf) | dimensionless integer (= 2) | [`constants.py`](../../../src/ave/core/constants.py):770; this leaf |
 | 7 | gain term `V·p_c` | loop-gain `βA` in the regenerative-feedback eigenvalue | dimensionless | baryon eigenvalue `x = I_scalar/(1 − V·p_c) + 1` |
 
