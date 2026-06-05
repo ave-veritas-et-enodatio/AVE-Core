@@ -50,16 +50,53 @@ All arms: `master_equation_fdtd.py`, N=48³, PML=4, breather `sech` A=0.85 R=2.5
 
 ## §3 The duality reading (interior-advect vs boundary-pin)
 
-<!-- skeleton -->
+The load-bearing duality the test adjudicates: the Γ=−1 saturated boundary is BOTH
+- `c_local→0` (hyper-rigid → PIN): [`resonant-lc-solitons.md:50`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md) *"the nodes at the saturation boundary are geometrically jammed … the local phase velocity (c_local=1/√(LC)) strictly collapses to zero, creating a hyper-rigid, localized envelope"* — and
+- `c_eff→∞` (interior advects): [`111_master_equation_audit_and_engine_gap.md:41`](_archive/L3_electron_soliton/111_master_equation_audit_and_engine_gap.md) `c_eff(V)=c₀·(1−A²)^(−1/4)=c₀/√S → ∞`.
+
+**Discriminator (saturated-core centroid vs envelope centroid):** the BOOST arm's **core centroid translates +18.0 cells** while the **envelope centroid translates +13.9 cells** — both move, together, in the same direction, at comparable magnitude (the core actually leads the spread-out envelope tail). The driver's automated reading: *"core+envelope translate TOGETHER (interior-advect; MOVES-consistent)."*
+
+**Resolution: the interior-advect channel wins.** The boost is carried by the whole structure — the saturated core does NOT stay pinned while the interior sloshes around it. The frozen-clock boundary, far from anchoring the lump in place, **rides along with it**: the saturated region is a co-moving mirror, not a fixed one. Mechanically (EE-native, per the on-main translation-circuit mapping [`common/translation-tables/translation-circuit.md`](../manuscript/ave-kb/common/translation-tables/translation-circuit.md)): the `Γ=−1` short-circuit boundary is a property of the *impedance discontinuity* at the core edge, and that discontinuity travels with the core's high-amplitude region — it is a moving boundary condition, not a lattice-fixed wall. The `c_local→0` "hyper-rigid envelope" of `resonant-lc-solitons.md` describes the boundary's rigidity in its OWN co-moving frame (it does not radiate, it does not spread at the boundary), which is fully consistent with the whole rigid object translating.
+
+This is the clean answer to the prereg's central question: **the rigid boundary does NOT pin the envelope; the interior carries the boost.** The Γ=−1 frozen clock is a *co-moving* frozen clock.
 
 ## §4 Honest framing + limitations (structural-capability finding either way)
 
-<!-- skeleton -->
+**This is a STRUCTURAL-CAPABILITY FINDING (substrate-native-check Checkpoint 8).** Per the prereg, both MOVES and PINS were pre-registered as clean findings; the engine returned MOVES — the mobility layer IS hostable on the Master-Equation FDTD engine. The corpus electron's transverse translation is reproduced by the proven self-trap host given the simplest momentum operator. This sits one layer above the sibling result ([`2026-06-04_full-electron-transverse-selftrap-result.md`](2026-06-04_full-electron-transverse-selftrap-result.md), Mode II): that established self-trap *localization* (mass) emerges on the continuum engine but the (2,3) *winding* does not; THIS establishes that the localization, once formed, is *mobile* — it translates coherently and at (near) the predicted de-Broglie group velocity.
+
+**Limitations (ave-evidence-framing-discipline):**
+
+1. **The breather is metastable, not a perfect eigenmode.** The `A=0.85, R=2.5` sech is the documented v14 *breathing/decaying* soliton, not a static bound state — retention ~0.5-0.7 over the window, FWHM breathes. So this is "a localized, mobile, breathing lump translates coherently," NOT "a perfectly conserved particle translates forever." The translation signal (env_disp 13.9 vs noise 0.36/0.67, ~20× separation) is robust to this; the *durability* is breather-limited.
+
+2. **The boost injects a t=0 transient** (`V_prev` leapfrog kick → raw energy briefly exceeds the seed). Handled by normalizing retention to the post-transient peak; retention then *declines* monotonically (no runaway). Honest reading: a mildly-radiating moving lump, not a perfectly lossless one. An auditor may prefer a soft-injection boost (ramp the carrier over several steps) to remove the transient — flagged.
+
+3. **Window/resolution modest** (N=48³, 400 steps, ~seconds). The translation is unambiguous at this scale and is not a convergence artifact (it is a ~14-cell coherent displacement, far above lattice noise), but a higher-resolution / longer-window confirmation (does it translate ballistically for 1000+ steps before the breather decays?) is a cheap follow-up.
+
+4. **`v_obs` tracks de-Broglie `v_g` only at short wavelengths** (§2). The long-`k_x` velocity floor (~0.6·c₀) is itself a real finding — a moving saturated self-trap is not a free de-Broglie wave — but it means "the breather translates at *approximately* the predicted group velocity" is accurate only near the resolved primary `k_x`; the full `v_g(k_x)` dispersion is NOT reproduced across the range. Stated, not papered over.
+
+5. **Real-space centroid is the correct coordinate here** (translation IS a real-space observable, `de-broglie-standing-wave.md:50` "its motion displaces the lattice"; `phase-space-coordinate-check` confirmed in prereg §3) — this is NOT the phase-space-(2,3) trap that sank phase3f. But by the same token, this probe says nothing about whether the *internal winding* survives the boost (that lives in phasor coordinates and is out of scope for a scalar engine, as the sibling Mode-II result established).
+
+**SM-counterfactual note (ave-discrimination-check):** that a localized wavepacket translates at its group velocity is, in isolation, NOT AVE-distinct (any dispersive wave engine does this). What IS substrate-specific here: (a) the lump is a *self-trapped* saturation soliton (Γ=−1 boundary), and it translates *as a unit* (core+envelope together) rather than dispersing — the matched-baseline contrast shows the coherence/self-trap is load-bearing for the transport; (b) the long-`k_x` velocity floor is a saturated-clock signature absent from a linear engine. The headline claim is the narrow, honest one: **the Master-Equation FDTD engine HOSTS a mobile self-trap** (the mobility layer is hostable) — a capability statement about the engine, not a claim that group-velocity transport per se is AVE-distinct.
 
 ## §5 Cross-references
 
-<!-- skeleton -->
+- **Brief / prereg:** [`_orchestration/moving-electron-probe.md`](../_orchestration/moving-electron-probe.md)
+- **Driver:** [`src/scripts/vol_1_foundations/moving_electron_boost_probe.py`](../src/scripts/vol_1_foundations/moving_electron_boost_probe.py)
+- **Engine:** [`master_equation_fdtd.py`](../src/ave/core/master_equation_fdtd.py) — the only `c_eff(V)=c₀/√S` engine
+- **The PROVEN host (v14 breather, Mode-I):** [`r10_master_equation_v14_v2.py`](../src/scripts/vol_1_foundations/r10_master_equation_v14_v2.py) + [`breathing-soliton-v14-mode-i.md`](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/breathing-soliton-v14-mode-i.md)
+- **The duality (boundary-pin `c_local→0`):** [`resonant-lc-solitons.md:50`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md)
+- **The duality (interior-advect `c_eff→∞`) + engine-gap:** [`111_master_equation_audit_and_engine_gap.md:18,41,89`](_archive/L3_electron_soliton/111_master_equation_audit_and_engine_gap.md)
+- **de-Broglie dispersion + group velocity:** [`de-broglie-standing-wave.md:181`](../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md); **longitudinal bulk-modulus motion (the follow-up channel):** same file `:50`
+- **Electron = self-trapped photon (the reframe):** [`electron-bh-isomorphism.md:10`](../manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md)
+- **Sibling self-trap precedent (localization emerges, (2,3) does not — Mode II):** [`2026-06-04_full-electron-transverse-selftrap-result.md`](2026-06-04_full-electron-transverse-selftrap-result.md); **discrete-emergence Option-B precedent:** [`2026-06-04_full-electron-option-B-discrete-emergence-result.md`](2026-06-04_full-electron-option-B-discrete-emergence-result.md)
+- **The momentum-seed shape adapted:** [`test_fdtd3d_moving_pulse_wake.py:_seed_moving_gaussian_pulse`](../src/tests/test_fdtd3d_moving_pulse_wake.py) (`cos(k_x·x)·envelope`)
+- **EE-mapping leaves (now on main):** [`common/translation-tables/translation-circuit.md`](../manuscript/ave-kb/common/translation-tables/translation-circuit.md) (the Γ=−1 short-circuit / impedance-boundary EE mapping)
 
 ## §6 Auditor queue
 
-<!-- skeleton -->
+1. **Corpus propagation of the verdict** (auditor lands, implementer surfaces): MOVES is a positive hosting result. Does it warrant a KB leaf — a mobility addendum to [`breathing-soliton-v14-mode-i.md`](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/breathing-soliton-v14-mode-i.md) ("the v14 breather is mobile; translates at ≈de-Broglie v_g; Γ=−1 boundary is co-moving, not pinning") — or research-result-only? No manuscript/matrix entry drafted by implementer.
+2. **The duality resolution** (the load-bearing physics output): confirm the saturated-core-vs-envelope reading — the Γ=−1 frozen clock is a *co-moving* frozen clock (interior-advect), NOT a lattice-fixed pin. This resolves the `resonant-lc-solitons.md:50` (`c_local→0`) vs `111:41` (`c_eff→∞`) apparent tension as boundary-in-co-moving-frame vs interior-in-lab-frame, both consistent with a rigid translating object. Auditor: is this the right resolution, or is the core-centroid co-move an artifact of the breather's spreading?
+3. **The `ω_C(lattice)=1` anchor**: confirm `ℓ_node`=reduced-Compton-wavelength↦dx is the right cold-lattice dispersion anchor (vs a saturated-clock-corrected `ω_C·√S`). The long-`k_x` velocity floor suggests the saturated correction is real and could be derived — closure-roadmap candidate.
+4. **Longitudinal follow-up** (the brief's flagged separate channel): since this transverse probe returned MOVES (not PIN), the longitudinal bulk-modulus displacement channel ([`de-broglie-standing-wave.md:50`](../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md)) is now a *complementary* probe (both transverse-boost and longitudinal-displacement may carry electron motion), not the fallback the PIN branch would have made it. Flag as a follow-up: does longitudinal displacement give a different `v(k)` law?
+5. **Boost-transient cleanup** (§4.2): a soft-injected carrier boost (ramped over several steps) would remove the t=0 `V_prev` kick transient; worth a confirmation run if the result is promoted.
+6. **Verdict-label nuance** (§1): STATIONARY/BASELINE show `DISPERSES` in the driver's auto-classifier only because the bare `A=0.85` breather decays on N=48 — they are the *no-translation* controls, and the translation discriminator (env_disp ~20× separation) is what carries the MOVES verdict. Auditor: confirm the classifier's `DISPERSES` tag on the controls is not misread as "the test dispersed."
