@@ -18,3 +18,40 @@ The vacuum-birefringence kill-switch (clm-pp3qwf) was **re-framed, not retracted
    - **Ratio `δn_AVE/δn_QED = 1/(4 a_EH α³) ~ 10⁶`, field-INDEPENDENT.**
 
 **The corpus undersold this test.** The prior framing made it a facility-only, regime-gated, exponent-fitting test with a `±0.5`-in-exponent target. The corrected framing makes it a `~6` OOM coefficient gap present at *every* field — a far stronger and cleaner AVE-distinct handle.
+
+---
+
+## §2 — The derivation, reproduced by the forward driver
+
+The driver (`birefringence_coefficient_discriminator.py`) computes everything forward from `ave.core.constants`; the QED Euler-Heisenberg prefactor is the only non-AVE input (labeled literature, not fit). Validated output (`PYTHONPATH=src python3 ...`):
+
+### 2.1 The substrate identity (the field-scale gap is an α-power)
+
+```
+E_CRIT == V_SNAP/L_NODE         : True   (V_SNAP/L_NODE = 1.32329e+18 V/m)
+E_YIELD == sqrt(ALPHA)*E_CRIT   : True
+(E_CRIT/E_YIELD)^2 = 137.036    vs   1/ALPHA = 137.036   [match: True]
+```
+
+This is the key structural result. `E_crit = m_e²c³/(eℏ) = V_SNAP/L_NODE` exactly (Schwinger field = snap-voltage per node-length), and `E_yield = V_YIELD/L_NODE = √α·V_SNAP/L_NODE = √α·E_crit`. Therefore `(E_crit/E_yield)² = 1/α` **exactly** — the gap between the AVE yield field and the QED Schwinger field is *itself* an α-power, not an independent number.
+
+### 2.2 The AVE index shift (manifestation of Axiom 4)
+
+```
+   E (V/m)   A=E/E_yield   dn_AVE(exact)   dn_AVE(lead)
+  1.00e+13    8.8463e-05    -1.9564e-09    -1.9564e-09
+  1.00e+14    8.8463e-04    -1.9564e-07    -1.9564e-07
+  1.00e+16    8.8463e-02    -1.9622e-03    -1.9564e-03
+  3.00e+16    2.6539e-01    -1.8093e-02    -1.7608e-02
+```
+
+`δn = √S − 1 = (1−A²)^¼ − 1`, NEGATIVE (the vacuum softens), E²-leading. The exact-arc and leading-term agree to ~3 sig figs below `E = 10¹⁶ V/m`; the arc steepens near yield (the higher-order `−3A⁴/32` term).
+
+### 2.3 The ratio (field-INDEPENDENT)
+
+```
+leading-term ratio across the sweep (a_EH=0.1556): min=4.1358e+06  max=4.1358e+06
+field-INDEPENDENT (leading): True  ->  constant = 4.1358e+06 = 1/(4 a_EH alpha^3)
+```
+
+`δn_AVE/δn_QED = 1/(4 a_EH α³)`, constant in E to the leading-term approximation. This is the whole point: a *coefficient* discriminator, present identically at every field — not an exponent or regime gate.
