@@ -254,3 +254,8 @@ gating decision.
 go per branch); (3) **adjudications** — HOPF sugar-water-vs-ferrite physics call + cheap reciprocity-sweep add;
 the per-node-conflation corpus sweep; Cleave SM≠0.0 propagation; XI_TOPO content-anchor lockstep fix;
 round-1 sibling-branch cleanup.
+
+**Adjudication ledger (Layer 2 — the *why* behind each decision):** the 5 round-2 adjudications are
+tracked EE-mapped + skill-disciplined in [`experimental/2026-06-04_round2-adjudications.md`](experimental/2026-06-04_round2-adjudications.md)
+— #1 HOPF reciprocity **AGREED** (reciprocal-Pasteur at linear; add reciprocity sweep); #2 Cleave CPD/SM≠0.0
+SURFACED; #3–#5 queued.
