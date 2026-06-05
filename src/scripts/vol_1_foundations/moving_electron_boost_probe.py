@@ -43,31 +43,34 @@ import numpy as np
 REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from ave.core.constants import ALPHA, ALPHA_COLD_INV, C_0, L_NODE, M_E, V_SNAP, V_YIELD  # noqa: E402
+from ave.core.constants import ALPHA, ALPHA_COLD_INV, C_0, HBAR, L_NODE, M_E, V_SNAP, V_YIELD  # noqa: E402
 from ave.core.master_equation_fdtd import MasterEquationFDTD  # noqa: E402
 
 # =============================================================================
 # verify_constants — canonical cross-check BEFORE any output (ave-canonical-source)
 # =============================================================================
 def verify_constants():
-    """Cross-check canonical constants before producing any numbers/plots."""
+    """Cross-check canonical constants before producing any numbers/plots.
+
+    The load-bearing check is the omega_C(lattice)=1 forward-prediction anchor:
+    omega_C = m_e c^2 / hbar (Compton frequency, de-broglie-standing-wave.md:181) and
+    ell_node = hbar/(m_e c) (reduced Compton wavelength, constants.py:237,262), so
+    ell_node * omega_C = c_0 EXACTLY -> in natural units (c0=1, ell_node->dx=1),
+    omega_C(lattice) = c0/ell_node = 1.0. This verifies that identity from the
+    imported constants (no hard-coded physics).
+    """
     ok = True
-    # V_yield = sqrt(alpha) * V_snap
     if not np.isclose(V_YIELD, np.sqrt(ALPHA) * V_SNAP, rtol=1e-9):
         print(f"  FAIL V_YIELD: {V_YIELD} != sqrt(ALPHA)*V_SNAP={np.sqrt(ALPHA)*V_SNAP}")
         ok = False
-    # ell_node = hbar/(m_e c) — but L_NODE imported; check it equals reduced Compton wavelength
-    # (constants.py defines L_NODE = HBAR/(M_E*C_0)); cross-check via Compton frequency
-    omega_C_SI = M_E * C_0**2  # /hbar; hbar cancels in the lattice-unit check below
-    # omega_C * ell_node / c0 should = 1 (ell_node = c0/omega_C * ... ) — verify ell_node*omega_C/c = 1
-    # ell_node = hbar/(m_e c), omega_C = m_e c^2/hbar => ell_node*omega_C = c. So /c0 = 1. EXACT.
-    lhs = L_NODE * (M_E * C_0**2)  # = ell_node * (hbar*omega_C) = ell_node*hbar*omega_C
-    # ell_node*hbar*omega_C / (hbar*c0) should be 1 => L_NODE*M_E*C_0^2/(HBAR*C_0). Avoid HBAR import noise:
-    # Direct: L_NODE should equal HBAR/(M_E*C_0). Re-derive HBAR from L_NODE for the print.
-    omega_C_lattice = 1.0  # = c0/ell_node in natural units (ell_node -> dx, c0 -> 1)
+    omega_C_SI = M_E * C_0**2 / HBAR  # Compton angular frequency [rad/s]
+    ell_node_times_omegaC_over_c = (L_NODE * omega_C_SI) / C_0  # must equal 1.0 exactly
+    if not np.isclose(ell_node_times_omegaC_over_c, 1.0, rtol=1e-9):
+        print(f"  FAIL omega_C anchor: ell_node*omega_C/c0 = {ell_node_times_omegaC_over_c} != 1.0")
+        ok = False
     print(f"  V_YIELD = {V_YIELD:.4f} V = sqrt(ALPHA)*V_SNAP  [OK]")
-    print(f"  L_NODE  = {L_NODE:.6e} m (reduced Compton wavelength) -> omega_C(lattice) = {omega_C_lattice:.1f}")
-    print(f"  ALPHA_COLD_INV = {ALPHA_COLD_INV:.6f}")
+    print(f"  ell_node*omega_C/c0 = {ell_node_times_omegaC_over_c:.6f}  ->  omega_C(lattice) = 1.0  [OK]")
+    print(f"  L_NODE = {L_NODE:.6e} m (reduced Compton wavelength);  ALPHA_COLD_INV = {ALPHA_COLD_INV:.6f}")
     return ok
 
 
