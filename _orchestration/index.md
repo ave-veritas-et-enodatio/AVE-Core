@@ -3,7 +3,30 @@
 **Audit trail (2026-05-23 Benn → 2026-05-25 merge):** This directory was ported from `analysis/integration` (D7 curation, KB claim-DAG integration) on 2026-05-23, and completed-work snapshots were moved to [`_archive/index-stale.md`](_archive/index-stale.md). Merged with integration live state on 2026-05-25 — treat this doc as the current live tracker; consult git log for recent updates.
 **EDIT** - 2026-05-23 Benn - document deprecated. Do not do any sweeping work from this document without evaluating current repo state. KB claim DAG has received many improvements and the KB has had many fixups in the process. This directory was ported over from `analysis/integration` branch, which has now been superseded. Work that was clearly already done has been extracted and moved to _archive/. What remains may still be relevant, but again, *check first*.
 
-> **Staleness notice (2026-06-02)**: Sections below (active epics, adjudication queue, priority ladder, open decisions) reflect 2026-05-20 EOD state, with reconciliations catalogued through 2026-06-02 (newest first). Items not addressed in the reconciliation sections should be re-verified against current corpus before relying on details below. Verify-before-cite v1.4 applies.
+> **Staleness notice (2026-06-02)**: Sections below (active epics, adjudication queue, priority ladder, open decisions) reflect 2026-05-20 EOD state, with reconciliations catalogued through 2026-06-04 (newest first). Items not addressed in the reconciliation sections should be re-verified against current corpus before relying on details below. Verify-before-cite v1.4 applies.
+
+## 2026-06-04 reconciliation (experimental round-2 hardening arc — COMPLETE)
+
+Multi-session delta. **HEAD `d6f636f8`+** (verify vs `git log origin/main`). Directly **EXECUTES** the 2026-06-02 carry-forward item #1 (the experimental falsification pivot) — and reshapes it.
+
+### The arc
+2026-06-03 protocol revamp ([`2026-06-03_experimental-protocol-revamp-orchestration.md`](2026-06-03_experimental-protocol-revamp-orchestration.md)) surveyed + ranked the board → round-1 + round-2 adversarial hardening → **7 adjudications** (each EE-mapped + skill-disciplined) in the ledger [`experimental/2026-06-04_round2-adjudications.md`](experimental/2026-06-04_round2-adjudications.md) → merges → corrections → closure. Capstone narrative: [`research/2026-06-04_experimental-round2-synthesis.md`](../research/2026-06-04_experimental-round2-synthesis.md). Changelog: `claim-quality-closure-roadmap.md` §0.5 (round-2-arc row).
+
+### Survivor board (SUPERSEDES the 2026-06-02 ranked pivot list)
+- **Cleave-01** — SURVIVES + upgraded (gap-independent 4-corner symmetry; round-1 "SM=0.0" was FALSE — CPD). Flagship near-term bench (~$7.7k).
+- **Birefringence-E4** — SURVIVES, reframed (coefficient discriminator ~10⁶× QED; the shipped "E² slope falsifies AVE" false-falsifier KILLED). Facility-class.
+- **Q-G42 V²-sign** — forward, feasibility-gated. **HOPF** — C3/C4 retired (consistency-class); surviving leg = 2-port reciprocity sweep ($123).
+- **Sagnac → RETIRED** · **IVIM → interferometric** (bench-undetectable) · **PONDER-05 → MATERIAL** (per-node conflation; reclassified across INVARIANT-S2 + corpus + EE-skill) · **NA-aperture → keep-derivation/deflate-anchor**.
+- **Throughline (end-to-end):** SYMMETRY / SIGN / zero-free-param discriminators survive; MAGNITUDE / per-node-conflation-anchored ones deflate.
+
+### Landed
+All 4 round-2 + 3 corrections branches merged (AVE-Core + AVE-HOPF), audit-tagged, deleted. Public **README sweep** (`7b2ff096`): kill-switch table reframed to the survivors + honest-α propagated to the headlines/badge + stale rows fixed (g-2 demoted, δ_strain walked-back); `run_kill_switches.py` rewritten to the survivors (`d6f636f8`). 109 audit tags on origin.
+
+### Carry-forward / follow-ons
+- The broader `.tex` per-node-conflation echo sweep (13 files; KB `.md` corrected; flagged in §0.5).
+- Per-row prediction-table classification + A-034 19-vs-26 corpus inconsistency (hygiene).
+- Facility-class tests (birefringence, Q-G42) await a partner facility; near-term bench = Cleave + HOPF reciprocity sweep.
+- **z₀-from-K4** — the one still-open α-route (see the 2026-06-02 section below).
 
 ## 2026-06-02 reconciliation (α Class-2 lift investigation + honest-α relabel)
 
@@ -29,7 +52,7 @@ Type-D framing narrowing (`ave-walk-back`): "derives / Zero-Parameter Closure" �
 
 ### Carry-forward to next session (2026-06-02)
 
-1. **Experimental falsification pivot** (epic §12) — point verify-to-source at the NOVEL predictions, not more α-postdiction; **Phase-0 magnitude-gate first**. Ranked: Sagnac-RLVE (Δφ≈2.07 rad) / vacuum-birefringence E⁴-vs-E² / √α impedance-mirror (43.65 kV) / DAMA Z-independence. Pure-physics "near-term falsification priorities" doc scoped, NOT written.
+1. **Experimental falsification pivot** (epic §12) — **✓ EXECUTED 2026-06-04** (see the 2026-06-04 reconciliation section above; the ranked list below was reshaped by round-2 — Sagnac RETIRED, vacuum-birefringence reframed E⁴-vs-E²→coefficient, √α impedance-mirror = per-node conflation). *Original carry-forward:* point verify-to-source at the NOVEL predictions, not more α-postdiction; **Phase-0 magnitude-gate first**. Ranked: Sagnac-RLVE (Δφ≈2.07 rad) / vacuum-birefringence E⁴-vs-E² / √α impedance-mirror (43.65 kV) / DAMA Z-independence. Pure-physics "near-term falsification priorities" doc scoped, NOT written.
 2. **Two open first-principles threads** (either lifts a route to independent α): (a) **L3 dynamic trapping** — full nonlinear + chiral self-lock to R·r=¼ (the unsolved L3 bound-state problem; **supersedes the 2026-05-31 carry-forward #1** phasor↔real-space bijection step); (b) **z₀ from K4 amorphous coordination** (first-pass crystalline counting failed; currently α-circular).
 3. **EE-mapping promotion** — clean rows from the EE-framing capture → `translation-circuit.md` (clm-eemap1) per `ave-ee-first-mapping` Step 6 (+ mirror vol2-appendix + vol4).
 
