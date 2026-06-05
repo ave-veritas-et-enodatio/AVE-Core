@@ -210,3 +210,47 @@ merging round-1 first banked the auditable checkpoint.
 
 **Pending:** round-2 verdicts (4 implementors in flight); round-1 sibling-branch cleanup (Grant go); the
 broader per-node-V_yield/apparatus-conflation corpus sweep (still Grant-gated per §10).
+
+---
+
+## §12 — Round-2 hardening verdicts: ALL 4 HOME (2026-06-04)
+
+All 4 round-2 implementors complete; branches **PUSHED-NOT-MERGED**; verdicts verified by orchestrator to
+load-bearing level (driver-honesty + key citations + corpus-correction sanity); **AUDITOR-GATE PENDING
+before any merge.**
+
+| Protocol | Branch (tip) | Round-2 VERDICT | Net |
+|---|---|---|---|
+| **Cleave** | `analysis/2026-06-04-cleave-round2-smcounterfactual` (`76f66b9`) | **SURVIVES (conditional on gap-sweep)** | Found + cured a real **CPD (moving-Kelvin)** form-sharing trap round-1 missed; upgraded to a 4-corner symmetry discriminator {linear ∧ polarity-odd ∧ material-indep ∧ **gap-indep**}. GO, $7.7k, SNR 41,490×. **The flagship survivor.** |
+| **Q-G42** | `analysis/2026-06-04-qg42-vsign-harden` (`fdd88c3`) | **FORWARD-DISCRIMINATOR (conditional)** | Δf₀/f₀ = +¼A²η_eff, **+sign** forward-distinct (driver verified forward/canonical); magnitude +1.8e-12…-15, only autoresonant-PLL reaches it; gated on per-node reachability-fork + **FN-destruction** (2.3e5× FN ceiling). |
+| **IVIM** | `analysis/2026-06-04-ivim-round2-rescope` (`c3fdb53`) | **STRUCTURE survives, magnitude undetectable** | V⁴ tree-vs-loop + isotropy-vs-birefringence parameter-free; Δφ~1.8e-12 rad → 7.6 yr to SNR=1, apparatus field-emits first. Leaf re-scoped (Rule-12, strengthens 1.0→0.5). |
+| **HOPF** | `analysis/2026-06-04-hopf-round2-chiral-counterfactual` (`d240d70`) | **C3/C4 RETIRE (form-shared); chirality PARTIAL** | Medium-indep + enantiomer-sign are reciprocal-Pasteur (own metamaterials ch:164: "circular birefringence Γ_L≠Γ_R"); only non-reciprocity (Tellegen) escapes, corpus pins it above-yield. Survivor: cheap 2-port S₂₁-vs-S₁₂ reciprocity sweep on existing HOPF-02a (not-yet-run, decisive). |
+
+**THE THROUGHLINE (hard-confirmed by round-2):** the protocols that survive are exactly the ones whose
+discriminator is a **SYMMETRY or SIGN at zero-free-parameter, NOT a magnitude.** Cleave SURVIVES on a
+4-corner symmetry; Q-G42 on a sign. IVIM + HOPF-legs leaned on magnitude → deflated. The discriminating
+question is *"does the protocol have a symmetry corner NO classical mechanism can fake?"* — Cleave: yes
+(gap-independence, which CPD cannot fake); HOPF: only above-yield (non-reciprocity). Same throughline as the
+2026-06-04 status answer (sign-tests + zero-free-param geometry survive the α-undecided).
+
+**Flag-don't-fix queue (round-2 — NOT landed; auditor + Grant):**
+- **Cleave F-R2-3 (corpus correctness):** round-1's *"SM predicts exactly 0.0 in vacuum-gap-only"* is FALSE —
+  CPD (moving-Kelvin) gives ~21%-of-floor, polarity-ODD, same parity as the floor. Corrected locally in Femto
+  TEST_PROCEDURE; KB leaf + AVE-Core Phase-3 prereg §4 need the CPD caveat (auditor to locate exact sites —
+  orchestrator quick-grep did NOT surface the "0.0" phrasing in `project-cleave-01.md`).
+- **Cleave F-R2-2 (recurring stale pointer):** XI_TOPO verified at `constants.py:251`; cited as `:246`
+  (round-1 + occupation-robustness doc) and `:205` (which is actually ALPHA_COLD). Drifted 205→246→251 across
+  versions → argues for CONTENT-anchored cites. Lockstep fix owed.
+- **IVIM:** 8 corpus-wide per-node-conflation sites BLOCKED on Grant (2 known + 6 new) + index-convention
+  discrepancy (δn≈−A²/4 vs Δn≈+A²/2, factor-2 + sign).
+- **Q-G42:** `ch15-autoresonant-breakdown/theory.md` ⛔ INVALIDATED banner (wrong 60 kV); per-node reachability
+  fork now carries verbatim both-camp evidence + FN-destruction corollary (BLOCKING per §10).
+
+**Convergence:** the per-node-V_yield/apparatus conflation (§10 BLOCKING) is now **OVER-DETERMINED** — IVIM +
+Q-G42 independently rooted their feasibility-kills in it. Grant's adjudication of the corpus-wide sweep is the
+gating decision.
+
+**Pending (sequenced):** (1) **auditor-gate** over the 4 round-2 branches; (2) round-2 **merge-calls** (Grant
+go per branch); (3) **adjudications** — HOPF sugar-water-vs-ferrite physics call + cheap reciprocity-sweep add;
+the per-node-conflation corpus sweep; Cleave SM≠0.0 propagation; XI_TOPO content-anchor lockstep fix;
+round-1 sibling-branch cleanup.
