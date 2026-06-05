@@ -114,12 +114,21 @@ def _interior_mask(N, PML):
 # ══════════════════════════════════════════════════════════════════════════════
 def apply_coherent_phasor_boost(engine, k_x, x_c=None):
     """Rotate the winding phasor ox+i·oy by exp(i k_x x) at every active site,
-    where ox = V0+V1 (ports {0,1}, +x hemisphere) and oy = V2+V3 (ports {2,3},
-    −x hemisphere). The full phasor is rotated COHERENTLY (a +x spatial phase
-    gradient = a genuine +x traveling-wave boost on the channel the (2,3) winding
-    lives in), then redistributed onto the ports preserving each pair's intra-pair
-    ratio. NOT the port-pairs (the stalled run showed port-pairing is not a clean
-    traveling wave).
+    ENERGY-CONSERVINGLY, where ox = V0+V1 (ports {0,1}, +x hemisphere) and
+    oy = V2+V3 (ports {2,3}, −x hemisphere) — the channel the (2,3) winding lives
+    in (ansatz: {0,1}=cos θ_wind, {2,3}=sin θ_wind). A +x spatial phase gradient =
+    a genuine +x traveling-wave boost.
+
+    Construction (exact energy conservation — verified max|dE/E|=6e-16 vs the prior
+    multiplicative-redistribution form that injected O(10⁶) energy at phasor zeros
+    on the saturated shell): decompose each site's 4 ports into a COMMON mode
+    (a,b) = (V0+V1, V2+V3) = (ox, oy) and a DIFFERENTIAL mode (c,d) = (V0−V1, V2−V3).
+    Rotate ONLY the common mode by R(α) (orthogonal → preserves a²+b², hence total
+    port energy exactly); leave the differential mode fixed. Invert:
+      V0=(a'+c)/2, V1=(a'−c)/2, V2=(b'+d)/2, V3=(b'−d)/2.
+    No division → no blow-up at ox≈0 or oy≈0 (which occur all over the winding shell).
+    NOT the port-pairs (the stalled run showed port-pairing is not a clean traveling
+    wave).
 
     k_x: +x phase gradient (rad/cell). 0 → identity (no boost).
     x_c: phase reference plane (defaults to lattice center).
@@ -134,22 +143,16 @@ def apply_coherent_phasor_boost(engine, k_x, x_c=None):
     alpha = k_x * (xi - x_c)                      # (N,1,1) per-x rotation angle
     ca = np.cos(alpha)
     sa = np.sin(alpha)
-    ox = V[..., 0] + V[..., 1]
-    oy = V[..., 2] + V[..., 3]
-    ox_new = ca * ox - sa * oy
-    oy_new = sa * ox + ca * oy
-    # redistribute preserving intra-pair ratios: scale pair {0,1} by ox_new/ox,
-    # pair {2,3} by oy_new/oy. Guard the near-zero-magnitude denominator.
-    eps = 1e-12
-    s01 = np.where(np.abs(ox) > eps, ox_new / np.where(np.abs(ox) > eps, ox, 1.0), 0.0)
-    s23 = np.where(np.abs(oy) > eps, oy_new / np.where(np.abs(oy) > eps, oy, 1.0), 0.0)
-    # where the pair sum was ~0 but the rotation wants nonzero, split evenly
-    born01 = (np.abs(ox) <= eps) & (np.abs(ox_new) > eps)
-    born23 = (np.abs(oy) <= eps) & (np.abs(oy_new) > eps)
-    V[..., 0] = np.where(born01, 0.5 * ox_new, V[..., 0] * s01)
-    V[..., 1] = np.where(born01, 0.5 * ox_new, V[..., 1] * s01)
-    V[..., 2] = np.where(born23, 0.5 * oy_new, V[..., 2] * s23)
-    V[..., 3] = np.where(born23, 0.5 * oy_new, V[..., 3] * s23)
+    a = V[..., 0] + V[..., 1]   # common mode = (ox, oy) — the winding phasor
+    b = V[..., 2] + V[..., 3]
+    c = V[..., 0] - V[..., 1]   # differential mode (untouched)
+    d = V[..., 2] - V[..., 3]
+    a2 = ca * a - sa * b        # rotate common mode by exp(i k_x x)
+    b2 = sa * a + ca * b
+    V[..., 0] = 0.5 * (a2 + c)
+    V[..., 1] = 0.5 * (a2 - c)
+    V[..., 2] = 0.5 * (b2 + d)
+    V[..., 3] = 0.5 * (b2 - d)
     V[~engine.k4.mask_active] = 0.0
 
 
@@ -264,16 +267,298 @@ def smoke_test_boost(N=40, PML=4, n_steps=60, k_list=(0.0, 0.15, 0.30)):
     return out
 
 
-if __name__ == "__main__":
+# ══════════════════════════════════════════════════════════════════════════════
+# BASELINE — matched energy + A-trajectory, NET-ZERO momentum (opposite-v superpose)
+# ══════════════════════════════════════════════════════════════════════════════
+def apply_opposite_v_baseline_boost(engine, k_x, x_c=None):
+    """BASELINE(v) boost (ave-discrimination-check matched control): superpose a
+    +k_x and −k_x phase gradient on the SAME host, giving a standing (net-zero
+    momentum) modulation at the SAME interior energy + SAME saturation depth +
+    SAME A-trajectory as SELF-TRAP(v) — but NO net translation. This is the
+    genuinely-matched baseline the brief requires (NOT a phase-scramble, which
+    would change energy/saturation). cos(k_x x) common-mode amplitude modulation:
+    the even part of exp(±i k_x x), so it carries the boost's |k_x| spectral
+    content with zero first moment.
+
+    Energy-conserving: rotates the common mode (ox,oy) by ±α and averages → a real
+    amplitude scaling cos(α); to keep energy matched we re-normalize the common
+    mode magnitude back to its pre-boost value per site."""
+    if k_x == 0.0:
+        return
+    N = engine.N
+    if x_c is None:
+        x_c = (N - 1) / 2.0
+    V = engine.k4.V_inc
+    xi = np.arange(N, dtype=float)[:, None, None]
+    alpha = k_x * (xi - x_c)
+    ca = np.cos(alpha)
+    a = V[..., 0] + V[..., 1]
+    b = V[..., 2] + V[..., 3]
+    c = V[..., 0] - V[..., 1]
+    d = V[..., 2] - V[..., 3]
+    mag0 = np.sqrt(a * a + b * b)
+    # symmetric (even) part of the rotation: ½[R(α)+R(−α)] = diag(cos α) → standing
+    a2 = ca * a
+    b2 = ca * b
+    mag1 = np.sqrt(a2 * a2 + b2 * b2)
+    # renormalize common-mode magnitude back to mag0 (match energy exactly)
+    scale = np.where(mag1 > 1e-12, mag0 / np.where(mag1 > 1e-12, mag1, 1.0), 1.0)
+    a2 *= scale
+    b2 *= scale
+    V[..., 0] = 0.5 * (a2 + c)
+    V[..., 1] = 0.5 * (a2 - c)
+    V[..., 2] = 0.5 * (b2 + d)
+    V[..., 3] = 0.5 * (b2 - d)
+    V[~engine.k4.mask_active] = 0.0
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Instrumented arm runner (the full decisive test)
+# ══════════════════════════════════════════════════════════════════════════════
+def run_arm(kind, k_x, N, PML, settle=10, n_steps=70, rec_every=5):
+    """Run one (arm, v) cell and record the full trajectory.
+
+    kind:
+      'selftrap' — durable (2,3) host (A²≈3.07 steady, S=0 frozen core), boosted by
+                   the coherent phasor traveling wave (the object under test).
+      'linear'   — zero-carrier sub-saturation pulse, same boost (SM-counterfactual).
+      'baseline' — host + opposite-v (standing) boost: matched energy + A-trajectory,
+                   net-zero momentum (the genuinely-matched control).
+
+    Records: x-centroid trajectory (→ velocity), interior energy (→ retention),
+    FWHM (localization), native max|τ_zx| (DarkWakeObserver), peak interior A²
+    (saturated-while-moving check)."""
+    engine = setup_engine(N, PML)
+    obs = DarkWakeObserver(cadence=1, propagation_axis=0)
+    if kind == "linear":
+        seed_linear_pulse(engine, N, PML)
+    else:
+        seed_host(engine, N)
+    engine.add_observer(obs)
+    # settle (let the host self-trap into the frozen-core (2,3); harmless for linear)
+    for _ in range(settle):
+        engine.step()
+    # apply the boost at t=0 of the recording window
+    if kind == "baseline":
+        apply_opposite_v_baseline_boost(engine, k_x)
+    else:
+        apply_coherent_phasor_boost(engine, k_x)
+
+    traj = []   # (t, cx, E_int, fwhm, max_tau_zx, peakA2)
+    cx0, e0 = x_centroid(engine, PML)
+    d0 = obs._capture(engine)
+    A2_0 = a2_field(engine)
+    m = _interior_mask(N, PML)
+    traj.append((0.0, cx0, e0, x_fwhm(engine, PML), d0["max_tau_zx"], float(A2_0[m].max())))
+    for s in range(n_steps):
+        engine.step()
+        if (s + 1) % rec_every == 0:
+            cx, e = x_centroid(engine, PML)
+            d = obs._capture(engine)
+            A2 = a2_field(engine)
+            traj.append(((s + 1) * DT, cx, e, x_fwhm(engine, PML),
+                         d["max_tau_zx"], float(A2[m].max())))
+    arr = np.array(traj, dtype=float)
+    ts, cxs, es, fwhms, taus, peakA2s = arr.T
+    good = ~np.isnan(cxs)
+    v = float(np.polyfit(ts[good], cxs[good], 1)[0]) if good.sum() >= 2 else float("nan")
+    # retention = last/first interior energy over the recorded (post-boost) window
+    retention = float(es[-1] / es[0]) if es[0] > 0 else float("nan")
+    return {
+        "kind": kind, "k_x": k_x,
+        "v_centroid": v,
+        "cx_start": float(cxs[0]), "cx_end": float(cxs[-1]),
+        "dx_total": float(cxs[-1] - cxs[0]),
+        "E_start": float(es[0]), "E_end": float(es[-1]),
+        "retention": retention,
+        "fwhm_start": float(fwhms[0]), "fwhm_end": float(fwhms[-1]),
+        "max_tau_zx_mean": float(np.mean(taus)),
+        "max_tau_zx_start": float(taus[0]), "max_tau_zx_end": float(taus[-1]),
+        "peakA2_mean": float(np.mean(peakA2s)), "peakA2_min": float(np.min(peakA2s)),
+        "_traj": arr,
+    }
+
+
+def adjudicate_motion_stability(sweep):
+    """Apply the decisive disambiguation + Grant-vs-canon verdict.
+
+    sweep: {arm: {k_x: result}} for arm in {selftrap, linear, baseline}, k_x in K_SWEEP.
+    """
+    K = sorted({r["k_x"] for r in sweep["linear"].values()})
+    k_max = max(K)
+
+    def v_of(arm, k):
+        return sweep[arm][k]["v_centroid"]
+
+    # boost-RESPONSE = v(k_max) corrected for the k=0 self-drift, and the
+    # sign-symmetry (a real momentum kick flips sign with k). We probe ±k_max.
+    lin_resp = abs(v_of("linear", k_max) - v_of("linear", 0.0))
+    st_resp = abs(v_of("selftrap", k_max) - v_of("selftrap", 0.0))
+    # sign-flip test (the robust pin tell): does v flip sign between +k and −k?
+    # (cast to Python bool — numpy bool_ fails `is False` identity checks.)
+    has_neg = (-k_max) in sweep["linear"]
+    lin_signflip = bool(np.sign(v_of("linear", k_max)) != np.sign(v_of("linear", -k_max))) if has_neg else None
+    st_signflip = bool(np.sign(v_of("selftrap", k_max)) != np.sign(v_of("selftrap", -k_max))) if has_neg else None
+
+    linear_moves = bool(lin_resp > 1e-3)
+    # PIN: linear responds to the boost, self-trap does NOT (response ≪ linear AND
+    # no sign-flip with boost direction → motion is boost-independent self-drift).
+    knot_pinned = bool(linear_moves and (st_resp < 0.25 * lin_resp))
+    if has_neg:
+        knot_pinned = bool(knot_pinned and (st_signflip is False))  # st_signflip now Python bool
+
+    # retention(v) slope on the SELF-TRAP arm (Grant: should be >0 if motion stabilizes)
+    st_ret = [sweep["selftrap"][k]["retention"] for k in K]
+    st_v_abs = [abs(sweep["selftrap"][k]["v_centroid"]) for k in K]
+    ret_slope = float(np.polyfit(st_v_abs, st_ret, 1)[0]) if len(K) >= 2 and np.ptp(st_v_abs) > 1e-9 else float("nan")
+
+    # native-τ_zx-vs-stability correlation: across the v-sweep, does the stability
+    # gain (Δretention vs k=0) track max|τ_zx|? Grant: positive. Canon: ≤0.
+    tau = [sweep["selftrap"][k]["max_tau_zx_mean"] for k in K]
+    ret = st_ret
+    if len(K) >= 3 and np.std(tau) > 1e-30 and np.std(ret) > 1e-30:
+        tau_ret_corr = float(np.corrcoef(tau, ret)[0, 1])
+    else:
+        tau_ret_corr = float("nan")
+
+    # saturated-while-moving check (peak A² stays ≫1 → frozen core throughout)
+    peakA2_min = min(sweep["selftrap"][k]["peakA2_min"] for k in K)
+    saturated_throughout = bool(peakA2_min > 1.0)
+
+    # VERDICT
+    if not linear_moves:
+        verdict = "BLOCKED-boost"
+        text = ("The LINEAR control does NOT move under the boost — the boost mechanism is the "
+                "blocker, not the physics. (Should not occur: smoke test passed.)")
+    elif knot_pinned:
+        verdict = "CONTRADICTS-via-PIN"
+        text = ("LINEAR moves but the SELF-TRAP knot does NOT (boost-independent residual drift, "
+                "no sign-flip with boost direction). The saturated (2,3) core (A²≫1 ⇒ S=0 ⇒ "
+                "c_eff→0) is GENUINELY PINNED — stable because static (frozen local clock), NOT "
+                "via motion. Grant's stability-FROM-motion hypothesis is CONTRADICTED cleanly on "
+                "the native-τ_zx engine. The knot is a frozen-clock soliton; motion needs an "
+                "external drive the boost cannot supply to a c_eff→0 core.")
+    else:
+        # the knot DID respond to the boost → SUPPORTS pathway (gated by discipline)
+        supports = bool(ret_slope > 0 and tau_ret_corr > 0)
+        if supports:
+            verdict = "SUPPORTS-pending-discrimination-check"
+            text = ("The SELF-TRAP knot MOVES under the boost AND retention rises with v AND the "
+                    "stability gain tracks native τ_zx (positive) — SUPPORTS Grant. MANDATORY: "
+                    "apply ave-discrimination-check (LINEAR-control SM-counterfactual already in; "
+                    "verify saturated-while-moving + baseline-fairness + interpretive-alternatives) "
+                    "BEFORE any positive framing. A positive overturns the static-trap canon.")
+        else:
+            verdict = "NULL"
+            text = ("The SELF-TRAP knot responds to the boost but retention does NOT rise with v "
+                    "(slope≤0) and/or stability does NOT track native τ_zx (corr≤0). Neither a "
+                    "clean PIN nor a motion-stabilization signal — NULL on the stability-from-motion "
+                    "axis.")
+
+    return {
+        "verdict": verdict, "text": text,
+        "linear_moves": linear_moves,
+        "linear_boost_response": lin_resp, "selftrap_boost_response": st_resp,
+        "selftrap_resp_over_linear": float(st_resp / lin_resp) if lin_resp > 0 else float("nan"),
+        "linear_signflips_with_boost": (bool(lin_signflip) if lin_signflip is not None else None),
+        "selftrap_signflips_with_boost": (bool(st_signflip) if st_signflip is not None else None),
+        "knot_pinned": knot_pinned,
+        "retention_v_slope_selftrap": ret_slope,
+        "native_tau_zx_vs_retention_corr": tau_ret_corr,
+        "saturated_throughout": saturated_throughout,
+        "peakA2_min_selftrap": peakA2_min,
+        "forward_predicted_verdict": FORWARD_PREDICTED_VERDICT,
+        "forward_predicted_sign": FORWARD_PREDICTED_SIGN,
+        "v_by_arm_k": {arm: {str(k): sweep[arm][k]["v_centroid"] for k in sorted(sweep[arm])}
+                       for arm in sweep},
+        "retention_by_arm_k": {arm: {str(k): sweep[arm][k]["retention"] for k in sorted(sweep[arm])}
+                               for arm in sweep},
+    }
+
+
+def run_full_sweep(N=48, PML=4, settle=10, n_steps=70):
+    """The decisive test: SELF-TRAP / LINEAR / BASELINE × v∈{0, low, mid} (+ −mid for
+    the sign-flip pin tell). Fixed host config (peak A²≈8.9-run / ≈3.07-steady) across
+    the sweep — no saturation-depth confound (same seed amplitude every cell)."""
+    K_SWEEP = [0.0, 0.15, 0.30, -0.30]   # 0, low, mid, −mid (sign-flip control)
+    arms = ["selftrap", "linear", "baseline"]
+    sweep = {a: {} for a in arms}
+    for arm in arms:
+        for k in K_SWEEP:
+            print(f"    [{arm:9s} k={k:+.2f}] ...", flush=True, end=" ")
+            t0 = time.time()
+            r = run_arm(arm, k, N, PML, settle=settle, n_steps=n_steps)
+            sweep[arm][k] = r
+            print(f"v={r['v_centroid']:+.5f} ret={r['retention']:.3f} "
+                  f"τ_zx={r['max_tau_zx_mean']:.3e} peakA²={r['peakA2_mean']:.2f} "
+                  f"({time.time()-t0:.0f}s)", flush=True)
+    return sweep, K_SWEEP
+
+
+def main():
     print("=" * 80, flush=True)
-    print("  SMOKE TEST — does the one-shot coherent phasor boost ADVECT a LINEAR pulse?")
+    print("  MOTION-STABILITY via back-EMF — native Cosserat/dark-wake τ_zx on VacuumEngine3D")
+    print("  Grant: stability FROM motion (retention(v) slope>0, tracks native τ_zx).")
+    print("  Canon: saturated knot PINNED (S=0 frozen core, c_eff→0). Maxwell saw only E/H proj.")
     print("=" * 80, flush=True)
     print(f"  ALPHA={ALPHA} A²_op14={A2_OP14:.4f} (ave-canonical-source) | dt={DT:.4f}")
-    print(f"  FORWARD-PREDICTED: {FORWARD_PREDICTED_VERDICT} | {FORWARD_PREDICTED_SIGN}")
-    t0 = time.time()
-    res = smoke_test_boost(k_list=(0.0, 0.15, 0.30, -0.30))
-    for d in res["per_kx"]:
-        print(f"    k_x={d['k_x']:+.2f}: v_centroid={d['v_centroid']:+.4f} cell/τ "
-              f"dx_total={d['dx_total']:+.3f} (cx {d['cx_start']:.2f}→{d['cx_end']:.2f})")
-    print(f"    MOVES={res['moves']} MONOTONE={res['monotone']} v0≈0={res['v0_is_zero']} "
-          f"({time.time()-t0:.0f}s)")
+    print(f"  FORWARD-PREDICTED (no fit): {FORWARD_PREDICTED_VERDICT} | {FORWARD_PREDICTED_SIGN}")
+
+    print("\n  ── ANTI-STALL smoke test (does the boost advect a LINEAR pulse?) ──", flush=True)
+    ts0 = time.time()
+    smoke = smoke_test_boost(k_list=(0.0, 0.15, 0.30, -0.30))
+    for d in smoke["per_kx"]:
+        print(f"    k_x={d['k_x']:+.2f}: v={d['v_centroid']:+.4f} cell/τ dx={d['dx_total']:+.3f}")
+    print(f"    LINEAR MOVES={smoke['moves']} v0≈0={smoke['v0_is_zero']} ({time.time()-ts0:.0f}s)")
+    if not smoke["moves"]:
+        print("\n  BLOCKED-boost: LINEAR pulse does not move. STOP (see _orchestration brief).")
+        return {"verdict": "BLOCKED-boost", "smoke": smoke}
+
+    print("\n  ── FULL SWEEP: SELF-TRAP / LINEAR / BASELINE × v ──", flush=True)
+    sweep, K = run_full_sweep()
+    verdict = adjudicate_motion_stability(sweep)
+
+    print("\n" + "=" * 80)
+    print("  VERDICT:", verdict["verdict"])
+    print("=" * 80)
+    print(f"  LINEAR moves: {verdict['linear_moves']} (response {verdict['linear_boost_response']:.4f}); "
+          f"SELF-TRAP response {verdict['selftrap_boost_response']:.4f} "
+          f"(= {verdict['selftrap_resp_over_linear']:.3f}× linear)")
+    print(f"  sign-flips with boost dir — linear: {verdict['linear_signflips_with_boost']}, "
+          f"self-trap: {verdict['selftrap_signflips_with_boost']}")
+    print(f"  knot PINNED: {verdict['knot_pinned']}")
+    print(f"  retention(v) slope (self-trap): {verdict['retention_v_slope_selftrap']:.4e}")
+    print(f"  native τ_zx vs retention corr: {verdict['native_tau_zx_vs_retention_corr']:.3f}")
+    print(f"  saturated throughout (peakA²_min={verdict['peakA2_min_selftrap']:.2f}): "
+          f"{verdict['saturated_throughout']}")
+    print(f"\n  {verdict['text']}")
+    print(f"\n  Forward-predicted: {verdict['forward_predicted_verdict']} | "
+          f"observed: {verdict['verdict']}")
+
+    # save (strip raw traj arrays from JSON; keep in npz)
+    out_json = {
+        "verdict": verdict,
+        "smoke": smoke,
+        "config": {"N": 48, "PML": 4, "settle": 10, "n_steps": 70,
+                   "host_R_frac": HOST_R_FRAC, "host_amp": HOST_AMP,
+                   "A2_op14": A2_OP14, "ALPHA": ALPHA, "dt": DT,
+                   "K_sweep": K},
+        "arms": {arm: {str(k): {kk: vv for kk, vv in sweep[arm][k].items() if kk != "_traj"}
+                       for k in sweep[arm]} for arm in sweep},
+    }
+    out_path = Path(__file__).parent / "motion_stability_bemf_cosserat_probe_results.json"
+    out_path.write_text(json.dumps(out_json, indent=2, default=str), encoding="utf-8")
+    print(f"\n  Saved {out_path.name}")
+    npz_path = Path(__file__).parent / "motion_stability_bemf_cosserat_probe_capture.npz"
+    np.savez_compressed(
+        npz_path,
+        **{f"{arm}_k{str(k).replace('-','m').replace('.','p')}": sweep[arm][k]["_traj"]
+           for arm in sweep for k in sweep[arm]},
+        dt=DT, N=48, PML=4,
+    )
+    print(f"  Saved {npz_path.name}")
+    return verdict
+
+
+if __name__ == "__main__":
+    main()

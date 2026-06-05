@@ -1,0 +1,340 @@
+{
+  "verdict": {
+    "verdict": "CONTRADICTS-via-PIN",
+    "text": "LINEAR moves but the SELF-TRAP knot does NOT (boost-independent residual drift, no sign-flip with boost direction). The saturated (2,3) core (A\u00b2\u226b1 \u21d2 S=0 \u21d2 c_eff\u21920) is GENUINELY PINNED \u2014 stable because static (frozen local clock), NOT via motion. Grant's stability-FROM-motion hypothesis is CONTRADICTED cleanly on the native-\u03c4_zx engine. The knot is a frozen-clock soliton; motion needs an external drive the boost cannot supply to a c_eff\u21920 core.",
+    "linear_moves": true,
+    "linear_boost_response": 0.02201046668403683,
+    "selftrap_boost_response": 0.0022578326598098318,
+    "selftrap_resp_over_linear": 0.10257995399285799,
+    "linear_signflips_with_boost": true,
+    "selftrap_signflips_with_boost": false,
+    "knot_pinned": true,
+    "retention_v_slope_selftrap": -4.52840419073316,
+    "native_tau_zx_vs_retention_corr": -0.3981048534110367,
+    "saturated_throughout": true,
+    "peakA2_min_selftrap": 3.0706406874151257,
+    "forward_predicted_verdict": "CONTRADICTS-via-PIN",
+    "forward_predicted_sign": {
+      "linear_moves": true,
+      "knot_moves": false,
+      "retention_slope_sign": "<= 0 (flat or falling)",
+      "tau_zx_vs_stability_corr_sign": "<= 0"
+    },
+    "v_by_arm_k": {
+      "selftrap": {
+        "-0.3": 0.002083134955411313,
+        "0.0": 0.0026286052056766923,
+        "0.15": 0.0016652137349939097,
+        "0.3": 0.004886437865486524
+      },
+      "linear": {
+        "-0.3": 0.022010466684037083,
+        "0.0": 1.2616304775817618e-16,
+        "0.15": 0.05829091269054787,
+        "0.3": -0.022010466684036705
+      },
+      "baseline": {
+        "-0.3": 0.004387570127131004,
+        "0.0": 0.0026286052056766923,
+        "0.15": 0.004996938789713761,
+        "0.3": 0.004387570127131004
+      }
+    },
+    "retention_by_arm_k": {
+      "selftrap": {
+        "-0.3": 0.531427251222944,
+        "0.0": 0.5177145180741688,
+        "0.15": 0.5327927073797566,
+        "0.3": 0.5174232068628727
+      },
+      "linear": {
+        "-0.3": 0.27258580260094384,
+        "0.0": 0.2997182581646419,
+        "0.15": 0.2920997910047547,
+        "0.3": 0.27258580260094384
+      },
+      "baseline": {
+        "-0.3": 0.4979196107948598,
+        "0.0": 0.5177145180741688,
+        "0.15": 0.5183301346001733,
+        "0.3": 0.4979196107948598
+      }
+    }
+  },
+  "smoke": {
+    "per_kx": [
+      {
+        "k_x": 0.0,
+        "v_centroid": 3.15310555962031e-16,
+        "cx_start": 19.499999999999996,
+        "cx_end": 19.5,
+        "dx_total": 3.552713678800501e-15
+      },
+      {
+        "k_x": 0.15,
+        "v_centroid": -0.055863201422371264,
+        "cx_start": 19.499999999999996,
+        "cx_end": 17.632609335290315,
+        "dx_total": -1.8673906647096814
+      },
+      {
+        "k_x": 0.3,
+        "v_centroid": -0.05292425136397584,
+        "cx_start": 19.499999999999996,
+        "cx_end": 17.739723581988674,
+        "dx_total": -1.7602764180113226
+      },
+      {
+        "k_x": -0.3,
+        "v_centroid": 0.05292425136397632,
+        "cx_start": 19.499999999999996,
+        "cx_end": 21.26027641801133,
+        "dx_total": 1.7602764180113333
+      }
+    ],
+    "moves": true,
+    "monotone": false,
+    "v0_is_zero": true
+  },
+  "config": {
+    "N": 48,
+    "PML": 4,
+    "settle": 10,
+    "n_steps": 70,
+    "host_R_frac": 0.22,
+    "host_amp": 0.4,
+    "A2_op14": 0.12080854745670937,
+    "ALPHA": 0.0072973525693,
+    "dt": 0.7071067811865475,
+    "K_sweep": [
+      0.0,
+      0.15,
+      0.3,
+      -0.3
+    ]
+  },
+  "arms": {
+    "selftrap": {
+      "0.0": {
+        "kind": "selftrap",
+        "k_x": 0.0,
+        "v_centroid": 0.0026286052056766923,
+        "cx_start": 23.51212881461084,
+        "cx_end": 23.623376001192746,
+        "dx_total": 0.11124718658190602,
+        "E_start": 776.0372729621323,
+        "E_end": 401.7657627791825,
+        "retention": 0.5177145180741688,
+        "fwhm_start": 25.0,
+        "fwhm_end": 24.0,
+        "max_tau_zx_mean": 660470.2904329619,
+        "max_tau_zx_start": 574986.0943321579,
+        "max_tau_zx_end": 649810.5770751506,
+        "peakA2_mean": 3.073667976535138,
+        "peakA2_min": 3.0706406874151257
+      },
+      "0.15": {
+        "kind": "selftrap",
+        "k_x": 0.15,
+        "v_centroid": 0.0016652137349939097,
+        "cx_start": 23.512128814610843,
+        "cx_end": 23.562864868875472,
+        "dx_total": 0.050736054264628905,
+        "E_start": 776.0372729621322,
+        "E_end": 413.4669996890976,
+        "retention": 0.5327927073797566,
+        "fwhm_start": 25.0,
+        "fwhm_end": 24.0,
+        "max_tau_zx_mean": 581752.315195419,
+        "max_tau_zx_start": 574986.0943321579,
+        "max_tau_zx_end": 579890.7256528127,
+        "peakA2_mean": 3.1363580685137293,
+        "peakA2_min": 3.074532432328173
+      },
+      "0.3": {
+        "kind": "selftrap",
+        "k_x": 0.3,
+        "v_centroid": 0.004886437865486524,
+        "cx_start": 23.512128814610836,
+        "cx_end": 23.71232870779807,
+        "dx_total": 0.2001998931872322,
+        "E_start": 776.0372729621324,
+        "E_end": 401.539694421185,
+        "retention": 0.5174232068628727,
+        "fwhm_start": 25.0,
+        "fwhm_end": 24.0,
+        "max_tau_zx_mean": 574636.5102583218,
+        "max_tau_zx_start": 574986.0943321576,
+        "max_tau_zx_end": 562943.4960627444,
+        "peakA2_mean": 3.137963345838354,
+        "peakA2_min": 3.0743093015500125
+      },
+      "-0.3": {
+        "kind": "selftrap",
+        "k_x": -0.3,
+        "v_centroid": 0.002083134955411313,
+        "cx_start": 23.51212881461084,
+        "cx_end": 23.584567959534258,
+        "dx_total": 0.0724391449234183,
+        "E_start": 776.0372729621323,
+        "E_end": 412.4073548168154,
+        "retention": 0.531427251222944,
+        "fwhm_start": 25.0,
+        "fwhm_end": 24.0,
+        "max_tau_zx_mean": 599352.3501527186,
+        "max_tau_zx_start": 574986.0943321576,
+        "max_tau_zx_end": 582295.2959310779,
+        "peakA2_mean": 3.8092560375547992,
+        "peakA2_min": 3.0745324323281733
+      }
+    },
+    "linear": {
+      "0.0": {
+        "kind": "linear",
+        "k_x": 0.0,
+        "v_centroid": 1.2616304775817618e-16,
+        "cx_start": 23.499999999999996,
+        "cx_end": 23.5,
+        "dx_total": 3.552713678800501e-15,
+        "E_start": 9.592764873405917,
+        "E_end": 2.8751267788401833,
+        "retention": 0.2997182581646419,
+        "fwhm_start": 28.0,
+        "fwhm_end": 14.0,
+        "max_tau_zx_mean": 0.0015473523928048807,
+        "max_tau_zx_start": 0.0016266611986165383,
+        "max_tau_zx_end": 0.0015499057369195452,
+        "peakA2_mean": 0.01224811067481491,
+        "peakA2_min": 0.011255408856690172
+      },
+      "0.15": {
+        "kind": "linear",
+        "k_x": 0.15,
+        "v_centroid": 0.05829091269054787,
+        "cx_start": 23.500000000000004,
+        "cx_end": 26.718802044305907,
+        "dx_total": 3.218802044305903,
+        "E_start": 9.592764873405917,
+        "E_end": 2.8020446146796205,
+        "retention": 0.2920997910047547,
+        "fwhm_start": 28.0,
+        "fwhm_end": 14.0,
+        "max_tau_zx_mean": 0.002111315491778356,
+        "max_tau_zx_start": 0.001626661198616538,
+        "max_tau_zx_end": 0.001849986343845301,
+        "peakA2_mean": 0.012556153166186544,
+        "peakA2_min": 0.009444989320687092
+      },
+      "0.3": {
+        "kind": "linear",
+        "k_x": 0.3,
+        "v_centroid": -0.022010466684036705,
+        "cx_start": 23.500000000000004,
+        "cx_end": 22.31021175128725,
+        "dx_total": -1.1897882487127518,
+        "E_start": 9.592764873405917,
+        "E_end": 2.6148515121794933,
+        "retention": 0.27258580260094384,
+        "fwhm_start": 28.0,
+        "fwhm_end": 26.0,
+        "max_tau_zx_mean": 0.0022760141061765114,
+        "max_tau_zx_start": 0.001626661198616539,
+        "max_tau_zx_end": 0.0016618496513591619,
+        "peakA2_mean": 0.010253016814055039,
+        "peakA2_min": 0.006391114556951007
+      },
+      "-0.3": {
+        "kind": "linear",
+        "k_x": -0.3,
+        "v_centroid": 0.022010466684037083,
+        "cx_start": 23.500000000000004,
+        "cx_end": 24.68978824871275,
+        "dx_total": 1.1897882487127447,
+        "E_start": 9.592764873405917,
+        "E_end": 2.6148515121794933,
+        "retention": 0.27258580260094384,
+        "fwhm_start": 28.0,
+        "fwhm_end": 26.0,
+        "max_tau_zx_mean": 0.0021694599318337325,
+        "max_tau_zx_start": 0.0016266611986165383,
+        "max_tau_zx_end": 0.0015678217717876952,
+        "peakA2_mean": 0.010253016814055039,
+        "peakA2_min": 0.006391114556951007
+      }
+    },
+    "baseline": {
+      "0.0": {
+        "kind": "baseline",
+        "k_x": 0.0,
+        "v_centroid": 0.0026286052056766923,
+        "cx_start": 23.51212881461084,
+        "cx_end": 23.623376001192746,
+        "dx_total": 0.11124718658190602,
+        "E_start": 776.0372729621323,
+        "E_end": 401.7657627791825,
+        "retention": 0.5177145180741688,
+        "fwhm_start": 25.0,
+        "fwhm_end": 24.0,
+        "max_tau_zx_mean": 660470.2904329619,
+        "max_tau_zx_start": 574986.0943321579,
+        "max_tau_zx_end": 649810.5770751506,
+        "peakA2_mean": 3.073667976535138,
+        "peakA2_min": 3.0706406874151257
+      },
+      "0.15": {
+        "kind": "baseline",
+        "k_x": 0.15,
+        "v_centroid": 0.004996938789713761,
+        "cx_start": 23.512128814610843,
+        "cx_end": 23.7308221114593,
+        "dx_total": 0.21869329684845695,
+        "E_start": 776.0372729621322,
+        "E_end": 402.24350414921344,
+        "retention": 0.5183301346001733,
+        "fwhm_start": 25.0,
+        "fwhm_end": 23.0,
+        "max_tau_zx_mean": 617316.074820643,
+        "max_tau_zx_start": 574986.0943321576,
+        "max_tau_zx_end": 616846.2145149207,
+        "peakA2_mean": 3.0758662029225543,
+        "peakA2_min": 3.0721706727695866
+      },
+      "0.3": {
+        "kind": "baseline",
+        "k_x": 0.3,
+        "v_centroid": 0.004387570127131004,
+        "cx_start": 23.51212881461084,
+        "cx_end": 23.68803139792221,
+        "dx_total": 0.17590258331136965,
+        "E_start": 776.0372729621323,
+        "E_end": 386.4041769156093,
+        "retention": 0.4979196107948598,
+        "fwhm_start": 25.0,
+        "fwhm_end": 24.0,
+        "max_tau_zx_mean": 565926.473902595,
+        "max_tau_zx_start": 574986.0943321578,
+        "max_tau_zx_end": 556734.8651114423,
+        "peakA2_mean": 3.4811738492269795,
+        "peakA2_min": 3.0734177486378207
+      },
+      "-0.3": {
+        "kind": "baseline",
+        "k_x": -0.3,
+        "v_centroid": 0.004387570127131004,
+        "cx_start": 23.51212881461084,
+        "cx_end": 23.68803139792221,
+        "dx_total": 0.17590258331136965,
+        "E_start": 776.0372729621323,
+        "E_end": 386.4041769156093,
+        "retention": 0.4979196107948598,
+        "fwhm_start": 25.0,
+        "fwhm_end": 24.0,
+        "max_tau_zx_mean": 565926.473902595,
+        "max_tau_zx_start": 574986.0943321578,
+        "max_tau_zx_end": 556734.8651114423,
+        "peakA2_mean": 3.4811738492269795,
+        "peakA2_min": 3.0734177486378207
+      }
+    }
+  }
+}
