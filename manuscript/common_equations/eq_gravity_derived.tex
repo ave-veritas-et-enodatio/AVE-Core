@@ -51,7 +51,7 @@ The principal radial strain $\varepsilon_{11} = 7GM/(c^2 r)$ compresses the latt
 The refractive index decomposes into:
 \begin{align}
     n_{temporal} &= 1 + \tfrac{2}{7}\,\varepsilon_{11} && (\text{controls clock rate, redshift}) \nonumber \\
-    n_{spatial} &= 1 + \tfrac{9}{7}\,\varepsilon_{11} && (\text{controls light deflection})
+    n_{spatial} &= 1 + \tfrac{9}{7}\,\varepsilon_{11} && (\text{controls matter-wave parallax, C11})
     \label{eq:lattice_decomposition}
 \end{align}
 % Notation cleanup 2026-05-17: both indices carry the "1 +" DC unit for parallelism.
@@ -61,4 +61,11 @@ The refractive index decomposes into:
 % Delta_n = n_spatial - n_temporal = (9/7 - 2/7) * eps_11 = eps_11 is unchanged
 % by the notation cleanup.
 The temporal component governs gravitational redshift ($z \approx GM/(c^2 r)$);
-the spatial component governs light bending and frame dragging.
+the spatial component governs the matter-wave (electron de~Broglie) parallax measured by
+C11-MACH-ZEHNDER ($n_s - n_t = \varepsilon_{11}$) and frame dragging.
+% W1 walk-back 2026-06-05 (Class-C internal-coherence; basis: research/2026-06-05_gravity-ppn-coherence-result.md):
+% the (9/7) spatial index does NOT control light deflection. The canonical light-deflection
+% derivation (Ch 2 \S double_deflection -> 4GM/bc^2) uses the (2/7) TRANSVERSE Cosserat-shear
+% index n_perp = 1 + (2/7)chi_vol, not n_spatial. The (9/7) index IS load-bearing for the
+% C11 electron matter-wave parallax (249.64 rad). KEEP-BOTH: (9/7) retained; only the
+% "light deflection" attribution corrected.
