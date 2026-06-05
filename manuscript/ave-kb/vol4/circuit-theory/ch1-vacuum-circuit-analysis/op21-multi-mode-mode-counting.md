@@ -47,7 +47,7 @@ Lattice-natural units throughout ($\ell_{node} = c = \hbar = m_e = 1$, $Z_0 = 1$
 
 ### §2.1 — Step 1: Ax 1 Nyquist cell size as substrate-native cardinality unit
 
-Per Ax 1 (Substrate Topology, [INVARIANT-S2](../../../CLAUDE.md)), the substrate is a 3D chiral Laves K4 Cosserat crystal with discrete cell size $\ell_{node}$ (canonical at [`lattice-impedance-decomposition.md` §2](../../../vol1/operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md) + [`src/ave/core/constants.py:194`](../../../../../src/ave/core/constants.py)). In lattice-natural units, $\ell_{node} = 1$ by definition — the substrate's natural cardinality unit.
+Per Ax 1 (Substrate Topology, [INVARIANT-S2](../../../CLAUDE.md)), the substrate is a 3D chiral Laves K4 Cosserat crystal with discrete cell size $\ell_{node}$ (canonical at [`lattice-impedance-decomposition.md` §2](../../../vol1/operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md) + [`src/ave/core/constants.py` `L_NODE`](../../../../../src/ave/core/constants.py)). In lattice-natural units, $\ell_{node} = 1$ by definition — the substrate's natural cardinality unit.
 
 The substrate's discrete cell-counting IS the substrate-native cardinality measure for any sub-manifold of the lattice. For a sub-manifold $\Sigma_k$ of geometric codimension $k$:
 
@@ -251,7 +251,7 @@ The two operators are substrate-mechanical complementary: Op17 = open-boundary e
 
 ### §6.4 — Upstream canonical content (Phase 3-A4 inputs)
 
-- **Ax 1 Nyquist cell size**: [`src/ave/core/constants.py:194`](../../../../../src/ave/core/constants.py) `L_NODE` + INVARIANT-S2 (Ax 1)
+- **Ax 1 Nyquist cell size**: [`src/ave/core/constants.py`](../../../../../src/ave/core/constants.py) `L_NODE` + INVARIANT-S2 (Ax 1)
 - **Ax 3 + Ax 4 saturation kernel → $\Gamma = -1$**: [`electron-identification.md:24`](../../../vol2/particle-physics/ch01-topological-matter/electron-identification.md) + [`theorem-3-1-q-factor.md:71-79`](theorem-3-1-q-factor.md)
 - **Clifford-torus codimensional embedding**: [`ch8-alpha-golden-torus.md:97-108`](../../../vol1/ch8-alpha-golden-torus.md) + [`boundary-observables-m-q-j.md`](../../../common/boundary-observables-m-q-j.md)
 - **Golden Torus geometry $(R, r, d)$**: [`ch8-alpha-golden-torus.md:31-93`](../../../vol1/ch8-alpha-golden-torus.md) (three-substrate-regime derivation)

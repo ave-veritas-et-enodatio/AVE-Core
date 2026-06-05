@@ -22,10 +22,10 @@ The canonical cross-volume falsification catalog lives at:
 
 ### Bench-scale kill-switches
 
-- **PONDER-05** dielectric saturation at $V_{DC}/V_{yield} = 0.687$:
-  - [`vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md) — substrate-physics derivation
+- **PONDER-05** DC-biased quartz, 27.4% $\varepsilon_{eff}$ collapse at ~30 kV — ⚠ **consistency-class material varactor analog of the kernel SHAPE, NOT a vacuum-kernel kill-switch** (2026-06-04 per-node-conflation correction): $V_{DC}/V_{yield}$ is a **per-node** ratio, and at 30 kV across real quartz the vacuum per-node $A_0 = 10^{-7}$–$10^{-10}$ → vacuum collapse ~0. The 27.4% is the quartz material's own voltage-coefficient; the vacuum-kernel falsifier is facility-class ($\sim 8\times10^{16}$ V/m). Cascade to Ax4 DECOUPLED (a null quartz effect falsifies quartz dielectric data, not the vacuum kernel). Per `vol4/claim-quality.md:51`.
+  - [`vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md) — substrate-physics derivation (the §13/§14 amplitude-shape edifice anchors on $a = 0.687$ as the operating point — see borderline-flag note in the 2026-06-04 corrections result doc)
   - [`vol4/falsification/ch11-experimental-bench-falsification/open-source-hardware.md`](../../vol4/falsification/ch11-experimental-bench-falsification/open-source-hardware.md) — open-source PCBA build guide
-  - Divergence-test row B7-PONDER-05
+  - Divergence-test row B7-PONDER-05 (reclassified consistency-class)
 - **HOPF-01** chiral antenna $S_{11}$ torus-knot shift ($\Delta f/f = \alpha\cdot pq/(p+q)$):
   - [`vol4/falsification/ch11-experimental-bench-falsification/open-source-hardware.md`](../../vol4/falsification/ch11-experimental-bench-falsification/open-source-hardware.md) (clm-wzezvt)
   - [`vol4/falsification/ch11-experimental-bench-falsification/project-hopf-02.md`](../../vol4/falsification/ch11-experimental-bench-falsification/project-hopf-02.md) — HOPF-02 mitigation of pilot-board mutual-coupling confound

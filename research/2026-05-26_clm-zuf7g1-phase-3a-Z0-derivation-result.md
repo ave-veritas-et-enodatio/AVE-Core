@@ -115,7 +115,7 @@ The strengthen-by item is **REFRAMED** rather than retired: from "derive the str
 
 **Is the substrate-impedance Z₀ numerical value 376.73 Ω derivable as substrate-mechanism emergence from Ax 1 + Ax 2 lattice parameters, or is it definitionally fixed by the μ₀/ε₀ canonical-source link to standard continuum-electrodynamics values?**
 
-Current corpus state: μ₀ and ε₀ are SI engineering inputs at `src/ave/core/constants.py:79-80`; per-bond lumped elements are stipulated as $L_{\text{cell}} = \mu_0 \ell_{\text{node}}$ and $C_{\text{cell}} = \epsilon_0 \ell_{\text{node}}$ at `vol4/circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md`; numerical value 376.73 Ω comes out by SI substitution. The clm-k6quve open strengthen-by item ("Pin the L_cell/C_cell lattice-native values by stating the μ₀/ε₀ convention used, removing the two 'depends on choice' rows") is the in-corpus acknowledgment that the L_cell and C_cell values currently depend on the μ₀/ε₀ choice and are not derived from K4 geometry.
+Current corpus state: μ₀ and ε₀ are SI engineering inputs at `src/ave/core/constants.py` (`MU_0`, `EPSILON_0`); per-bond lumped elements are stipulated as $L_{\text{cell}} = \mu_0 \ell_{\text{node}}$ and $C_{\text{cell}} = \epsilon_0 \ell_{\text{node}}$ at `vol4/circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md`; numerical value 376.73 Ω comes out by SI substitution. The clm-k6quve open strengthen-by item ("Pin the L_cell/C_cell lattice-native values by stating the μ₀/ε₀ convention used, removing the two 'depends on choice' rows") is the in-corpus acknowledgment that the L_cell and C_cell values currently depend on the μ₀/ε₀ choice and are not derived from K4 geometry.
 
 **Discriminator**: does there exist (anywhere in corpus or as an extension-axis Grant has in mind) a derivation of μ₀ and/or ε₀ from K4-TLM substrate primitives (chiral Laves K4 unit-cell geometry + Ax 2 TKI scale + Ax 4 saturation-kernel) independent of SI? If yes, Phase 3a closes Class 2 on the numerical-value sub-axis once that derivation is wired in. If no, Z₀'s numerical-value sub-axis is permanently Class B; Phase 3a's WALK-BACK is the durable closure.
 
@@ -123,7 +123,7 @@ Current corpus state: μ₀ and ε₀ are SI engineering inputs at `src/ave/core
 
 **Does the corpus need a separate Phase 3a-pre workstream that derives μ₀ and ε₀ themselves from K4-TLM substrate primitives BEFORE Z₀ can earn Class 2 substrate-mechanism emergence on the numerical-value sub-axis?**
 
-This is the structural question: μ₀ is currently an SI engineering input at `constants.py:79`; ε₀ is derived from μ₀ + c at `constants.py:80`. To lift Z₀ to Class 2 substrate-mechanism emergence on the numerical-value sub-axis, one of:
+This is the structural question: μ₀ is currently an SI engineering input at `constants.py` `MU_0`; ε₀ is derived from μ₀ + c at `constants.py` `EPSILON_0`. To lift Z₀ to Class 2 substrate-mechanism emergence on the numerical-value sub-axis, one of:
 
 - (a) Derive μ₀ from K4-TLM substrate primitives (chiral Laves K4 unit-cell geometric inductance per pitch) independent of SI. Then ε₀ via $\epsilon_0 = 1/(\mu_0 c^2)$; c is calibration-input (`m_e`-based via $\ell_{\text{node}} \equiv \hbar/(m_e c)$ per `constants.py:97-99`).
 - (b) Derive ε₀ from K4-TLM substrate primitives (chiral Laves K4 unit-cell geometric capacitance per pitch) independent of SI. Then μ₀ via $\mu_0 = 1/(\epsilon_0 c^2)$.

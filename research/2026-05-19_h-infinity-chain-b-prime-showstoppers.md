@@ -121,7 +121,7 @@ Tip review via `git show research/l3-electron-soliton:manuscript/ave-kb/common/f
 
 ### §1.5 Engine code check (trigger 8 evidence)
 
-`src/ave/core/constants.py:432` literal content at HEAD (verified by direct read):
+`src/ave/core/constants.py` `XI_MACHIAN` literal content (verified by direct read; content-anchored — was cited at line 432, since drifted):
 
 ```python
 XI_MACHIAN: float = HBAR * C_0 / (7.0 * G * M_E**2)
@@ -129,7 +129,7 @@ XI_MACHIAN: float = HBAR * C_0 / (7.0 * G * M_E**2)
 
 Per audit §4.4: the engine cannot evaluate $\xi$ from substrate primitives because $R_H = c/H_\infty$ requires $H_\infty$ which requires $G$. The engine's only path to $\xi$ is to invert the closed-form $G = \hbar c/(7\xi m_e^2)$ using CODATA $G$. This is the source-code-level confirmation that no closed-form Chain B' is currently implementable in the engine.
 
-(Engine `constants.py:432` circularity treatment is DEFERRED to Thread 3 per orchestration brief; not addressed here.)
+(Engine `constants.py` `XI_MACHIAN` circularity treatment is DEFERRED to Thread 3 per orchestration brief; not addressed here.)
 
 ---
 
@@ -254,7 +254,7 @@ This is NOT a Chain B' (independent G derivation). It is a tensor-anisotropy ext
 |---|---|
 | Does corpus contain a closed-form $G$ derivation from substrate-local primitives that avoids $R_H$? | **NO.** All 5 candidate locations are qualitative gloss. Three are prose-only narratives loops $H_\infty$ in as a boundary condition (Cand 1, 4). Two are Chain A formula with Chain B'-flavored prose attribution (Cand 2, 5). One is corpus's own honest self-statement of the open gap (Cand 3). |
 | Could closed-form Chain B' exist in any sibling repo, branch, or archive doc? | **NO.** Cross-repo grep (10 AVE-staging + Applied-Vacuum-Engineering archive) returned 0 hits beyond AVE-Core's 5 qualitative-gloss candidates. Cross-branch grep (`benn/long-running`, `golden-torus-update`, `research/l3-electron-soliton`) returned 0 new closed-form work. L3 archive doc 118 is a tensor extension of EXISTING Chain B, not a new chain. |
-| Does the engine source code permit a Chain B' path? | **NO.** `src/ave/core/constants.py:432` literally inverts the closed-form using CODATA $G$ because $\xi$ cannot be evaluated from substrate primitives — $R_H$ depends on $H_\infty$ depends on $G$. The engine's structure mirrors the corpus's structural lack of Chain B'. |
+| Does the engine source code permit a Chain B' path? | **NO.** `src/ave/core/constants.py` `XI_MACHIAN` literally inverts the closed-form using CODATA $G$ because $\xi$ cannot be evaluated from substrate primitives — $R_H$ depends on $H_\infty$ depends on $G$. The engine's structure mirrors the corpus's structural lack of Chain B'. |
 | Does the corpus self-state the gap as open work? | **YES** (Cand 3) — explicitly. *"Multi-session work, blocking on quantitative derivation of crystallization thermodynamics from substrate axioms."* And implicitly throughout the qualitative-gloss candidates. |
 
 ### §4.2 Verdict: **(d)** — qualitative paths in corpus that don't reach closure
@@ -358,7 +358,7 @@ Every file:line in this doc verified at HEAD `4457d3e` on `analysis/h-infinity-f
 - `manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md:9` — verified verbatim
 - `manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex:263` — verified verbatim
 - `manuscript/ave-kb/common/mathematical-closure.md` (entire 111-line file) — verified absence of Outstanding Rigour Gaps row
-- `src/ave/core/constants.py:432` — verified `XI_MACHIAN = HBAR * C_0 / (7.0 * G * M_E**2)` literal
+- `src/ave/core/constants.py` `XI_MACHIAN` — verified `XI_MACHIAN = HBAR * C_0 / (7.0 * G * M_E**2)` literal
 - `git branch --contains 912dd88` — verified returns `benn/long-running`, `golden-torus-update`; NOT `analysis/integration`
 - `git show 912dd88` — verified author Benn Herrera, 2026-04-28, 4 files (matching audit §7)
 - `research/_archive/L3_electron_soliton/118_omega_freeze_tensor_extension_vol3ch1.md` — verified header content describes tensor extension of EXISTING Vol 3 Ch 1 scalar chain, not new Chain B'

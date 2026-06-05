@@ -165,10 +165,10 @@ This is a clean negative; it adds no AVE-distinct empirical anchor (V.4). Flag f
 | `natural-units-cheatsheet.md:59` | V_SNAP = m_e c²/e → native **1/√α**, SI 511,000 V |
 | `translation-circuit.md:173` (common) | "E ~ (V_inc+V_ref), B ~ (V_inc−V_ref)/Z … the R·r=1/4 phasor-radius question … is a separate, **gate-(b)-pending** claim" |
 | `ch8-alpha-golden-torus.md:11` | the Class-B caveat block (clm-0ktpcn) listing the closed lift-routes |
-| `constants.py:234` | `L_NODE = HBAR/(M_E*C_0)` (α-free) |
-| `constants.py:246` | `XI_TOPO = e_charge/L_NODE` (α-free) |
-| `constants.py:373` | `V_SNAP = (M_E*C_0**2)/e_charge` (α-free) |
-| `constants.py:382` | `V_YIELD = np.sqrt(ALPHA)*V_SNAP` (carries α — the suspect; per `kinetic-yield-threshold.md` an α-substitution) |
+| `constants.py` `L_NODE` | `L_NODE = HBAR/(M_E*C_0)` (α-free) |
+| `constants.py` `XI_TOPO` | `XI_TOPO = e_charge/L_NODE` (α-free) |
+| `constants.py` `V_SNAP` | `V_SNAP = (M_E*C_0**2)/e_charge` (α-free) |
+| `constants.py` `V_YIELD` | `V_YIELD = np.sqrt(ALPHA)*V_SNAP` (carries α — the suspect; per `kinetic-yield-threshold.md` an α-substitution) |
 
 ### Files this session produced (worktree-isolated, branch `analysis/2026-06-04-alpha-class2-bijection`)
 - `research/2026-06-04_alpha-class2-bijection-result.md` (this doc)

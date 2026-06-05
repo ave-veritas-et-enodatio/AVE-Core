@@ -36,7 +36,7 @@ A-034's universal kernel $S(A) = \sqrt{1 - A^2}$ is the same physics across many
 Most operational AVE benches use **bulk-response architectures** (many emitters in coherent ensemble), not single-emitter setups. The reason: **bulk-response measurements are A-034 universal-kernel measurements** at the most efficient SNR.
 
 - **Single-emitter** benches have cleaner geometry (no inter-emitter coupling, no array calibration) but linear SNR scaling. Useful for **fundamental kernel-validation experiments** where the kernel form $S(A) = \sqrt{1 - A^2}$ must be measured precisely at one specific operating point.
-- **Bulk-response** benches sacrifice geometric simplicity for $\sqrt{N}$ SNR gain. Useful for **engineering-grade measurements** where signal-to-noise is critical (e.g., IVIM imaging that detects 27.4% $\varepsilon_{\text{eff}}$ collapse against thermal-noise floor).
+- **Bulk-response** benches sacrifice geometric simplicity for $\sqrt{N}$ SNR gain. Useful for **engineering-grade measurements** where signal-to-noise is critical (e.g., IVIM imaging against a thermal-noise floor; the "27.4% $\varepsilon_{\text{eff}}$ collapse" figure is the quartz material's voltage-coefficient analog, not a vacuum-kernel reading — see the per-node-conflation note at the IVIM example below).
 - **Phased-array PLL** sacrifices everything except SNR. Useful for **rupture experiments** where the operating point IS the saturation threshold ($A \to 1$) and the autoresonant lock provides exponential amplification through the Duffing softening of the lattice resonance frequency.
 
 ## §3 — Connection to A-034 framework principle
@@ -63,7 +63,7 @@ Examples:
 **Use case:** detect small kernel deviations against thermal-noise floor at engineering precision.
 
 Examples:
-- **IVIM bench** (impedance-vacuum imaging measurement): $N \sim 100$–$10^4$ coherent emitters in a phased ensemble; detects 27.4% $\varepsilon_{\text{eff}}$ collapse at $V_{\text{DC}} / V_{\text{yield}} = 0.687$ (bench-measurable at $\sim 30$ kV bias per Vol 4 Ch 1)
+- **IVIM bench** (impedance-vacuum imaging measurement): $N \sim 100$–$10^4$ coherent emitters in a phased ensemble. (NB: the often-quoted "27.4% $\varepsilon_{\text{eff}}$ collapse at $V_{\text{DC}}/V_{\text{yield}} = 0.687$, ~30 kV" is the **quartz material's** voltage-coefficient — a consistency-class varactor analog of the kernel SHAPE — NOT a vacuum-kernel reading: $V_{\text{DC}}/V_{\text{yield}}$ is a **per-node** ratio, and the vacuum per-node $A_0$ at 30 kV across real quartz is $10^{-7}$–$10^{-10}$ → vacuum collapse ~0. Apparatus-voltage-as-per-node conflation, per `claim-quality.md:51`; appreciable per-node $A_0$ needs facility fields $\sim 8\times10^{16}$ V/m.)
 - **YBCO phased array** (BCS scale): $N \sim 10^6$ Cooper pairs in coherent state; tests $B_c(T) = B_{c0} \sqrt{1 - (T/T_c)^2}$ at **0.00% error**
 - **DC-biased piezoelectric ensemble**: multiple crystals in array, $\sqrt{N}$ SNR boost over single crystal
 

@@ -27,7 +27,7 @@ SUBSTRATE MECHANISM (canonical — Phase-3 cold-fusion result, Class B):
 
   2. Ax-2 Topo-Kinematic Isomorphism maps that volumetric strain to a
      continuous substrate scalar strain, normalised to the Ax-4 yield
-     boundary r_yield = sqrt(2*alpha) (constants.R_I, constants.py:402):
+     boundary r_yield = sqrt(2*alpha) (constants.R_I):
         A_0(x) = 0.13 * x / sqrt(2*alpha)        ->  A_0 = 1 at x = 0.929 (Ch4:72)
 
   3. Ax-4 self-saturation kernel sets the local scalar refractive index:
@@ -86,7 +86,7 @@ from ave.core.constants import ALPHA, R_I
 PD_VOL_COEFF = 0.13
 
 # --- Canonical substrate yield boundary -----------------------------------
-# R_I = sqrt(2*alpha) is imported from constants.py:402 (NEVER hard-coded).
+# R_I = sqrt(2*alpha) is imported from constants.py (symbol R_I; NEVER hard-coded).
 # A_0(x) = PD_VOL_COEFF * x / R_I ;  A_0 = 1 at the shatter loading.
 R_YIELD = R_I  # = sqrt(2*ALPHA) ~= 0.12081
 
@@ -175,8 +175,8 @@ def _print_table(x_grid: np.ndarray) -> None:
     print("\nFT-Cold-Fusion eta(x) — parameter-free forward curve")
     print("=" * 68)
     print(f"  PD_VOL_COEFF (Delta V/V0 = 0.13 x)  = {PD_VOL_COEFF}  [FLAGGED: non-substrate]")
-    print(f"  ALPHA (constants.py:133)            = {ALPHA:.12g}")
-    print(f"  R_I = sqrt(2 alpha) (constants:402) = {R_YIELD:.10f}")
+    print(f"  ALPHA (constants.py ALPHA)          = {ALPHA:.12g}")
+    print(f"  R_I = sqrt(2 alpha) (constants R_I)  = {R_YIELD:.10f}")
     print(f"  N_BRIDGE (D-D node, Ch4:25)         = {N_BRIDGE}")
     print("-" * 68)
     print(f"  {'x (D/Pd)':>9} {'A_0':>8} {'S=eta/eta0':>11} {'n_scalar':>10}  regime")

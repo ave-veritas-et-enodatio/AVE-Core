@@ -69,7 +69,7 @@ The 26 canonical cross-scale instances span 21 orders of magnitude: 17 physical-
 
 | Scale | Sym | $A$ definition | Saturation event |
 |---|---|---|---|
-| DC-biased piezoelectric (e.g., quartz) | SYM | $V_{\text{DC}} / V_{\text{yield}}$ | $\varepsilon_{\text{eff}}$ collapse 27.4%, $C_{\text{eff}}$ rise 37.7% at $V_{\text{DC}} / V_{\text{yield}} = 0.687$ (bench-measurable at $\sim 30$ kV bias) |
+| DC-biased piezoelectric (e.g., quartz) | SYM | $V_{\text{DC}} / V_{\text{yield}}$ (**per-node** ratio) | Quartz/Class-II-ceramic voltage-coefficient-of-capacitance reproduces the kernel SHAPE: $\varepsilon_{\text{eff}}$ collapse 27.4%, $C_{\text{eff}}$ rise 37.7% at ~30 kV — a **material-scale consistency analog**, NOT a vacuum-kernel measurement. The vacuum per-node $A_0 = V_{DC}/V_{yield} = E_{local}\ell_{node}/V_{YIELD}$ at 30 kV across real quartz is $10^{-7}$–$10^{-10}$ (vacuum collapse ~0); the "0.687 at 30 kV" reading conflates apparatus voltage with the per-node ratio (per `claim-quality.md:51`; appreciable per-node $A_0$ needs $\sim 8\times10^{16}$ V/m). |
 | Asymmetric-electrode vacuum-mirror bench | SYM | $A_{\text{DC}}(\mathbf{r})$ field profile | $\Gamma_{\text{bench}}$ from $\int \nabla S_{\text{eff}}$ along photon path; cross-polarized vacuum birefringence at $\sim 10^{12}$ departure from QED |
 | Active topological metamaterials | **ASYM-E** | $\phi / \phi_{\text{crit}}$ | Phase crystallization $V_I$; asymmetric saturation variant $K/G \neq 2$ — designer-controllable decoupled $\varepsilon/\mu$ saturation |
 | Sine-Gordon kink memory | SYM | metric displacement / yield | $2\pi$ phase kink with integer topological charge; substrate-native non-volatile memory primitive |
