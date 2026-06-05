@@ -467,7 +467,7 @@ At room T + PONDER-05 canonical operating point ($a = 0.687$): per-site $\kappa_
 
 **Open follow-on items** (not blocking canonical use of §13):
 - **Phase 2: aperture-aggregate prediction** — combine §13 single-site shape with Edgeworth pre-asymptote across N = W/ℓ_corr independent sites; identify substrate-saturation × narrow-aperture observability threshold; map to Category II narrow-aperture single-event extractors per [`translation-instrumentation.md`](../../../common/translation-tables/translation-instrumentation.md)
-- **PONDER-05 connection**: the canonical PONDER-05 bench-scale falsifier at $V_{DC}/V_{yield} = 0.687$ (per INVARIANT-S2 + [`measurement-hierarchy-snr.md`](../../falsification/ch11-experimental-bench/measurement-hierarchy-snr.md):66) operates the substrate-vacuum-varactor at the operating point covered by §13. The §13 closed-form $\kappa_3, \kappa_4$ at $a = 0.687$ are specific testable predictions for PONDER-05 amplitude-statistics extraction.
+- **PONDER-05 connection** — **DEFLATED 2026-06-04 (#7)**: PONDER-05 (DC-biased quartz) does NOT operate the *vacuum* at $a = 0.687$ — its 30 kV biases the vacuum to per-node $a\sim10^{-7}$ (0.687 is the quartz material's voltage ratio, per the updated INVARIANT-S2 + [`measurement-hierarchy-snr.md`](../../falsification/ch11-experimental-bench/measurement-hierarchy-snr.md):66). The §13 closed-form $\kappa_3, \kappa_4$ at $a = 0.687$ are the prediction for a *vacuum biased to 0.687* (**facility-class**, $\sim8\times10^{16}$ V/m), NOT the PONDER-05 bench. See the §14.5 banner.
 
 ---
 
@@ -535,7 +535,9 @@ $$\mathcal{F}(\Delta\omega_{det}, \omega_{det}; V_{DC}) = \frac{\int_0^\infty |H
 
 **$\mathcal{F}$ is the substrate-distinct lift over generic CLT-pre-asymptote treatments**: standard varactor-noise theory at arbitrary $C(V)$ has no substrate-state-dependent wave speed and cannot generate $\mathcal{F}$ frequency-shift under bias. Standard treatments reproduce the §14.1 1/√N central-aggregation but not the §14.4 frequency-domain visibility.
 
-### §14.5 PONDER-05 canonical operating point at $a^{(2D)}_{peak}$ — operational near-optimality
+### §14.5 PONDER-05 canonical operating point at $a^{(2D)}_{peak}$ — ~~operational near-optimality~~ DEFLATED (spurious coincidence)
+
+> **⚑ DEFLATED 2026-06-04 (PONDER-05 = material, per INVARIANT-S2 + adjudication #7).** The "PONDER-05 within 3% of the 0.707 peak" alignment in §14.5–14.7 is a **spurious coincidence**: 0.687 is the **quartz material's** $V_{DC}/V_{yield}$ ratio, NOT a vacuum operating point. PONDER-05's 30 kV puts the *vacuum* at per-node $a \sim 10^{-7}$ (reaching $a = 0.687$ needs 30 kV across 1.0 node-lengths), so the vacuum $\kappa_3/\kappa_4$ at PONDER-05's bench is $\sim 0$ — PONDER-05 is **not** a near-optimal bench for this observable. **The $a^{(2D)}_{peak} = 0.707$ derivation (§14.9, the Op17 matched-impedance condition) and the §13 $\kappa_3/\kappa_4$ closed forms are UNAFFECTED** — they are substrate-geometric forward predictions, **facility-class** to test (the vacuum reaches $a \sim 0.7$ only at $\sim 8\times10^{16}$ V/m). The §14.5–14.7 PONDER-05-bench framing below is preserved as the historical Phase-2-NA record (KEEP-BOTH).
 
 The PONDER-05 canonical bench-scale operating point is $V_{DC}/V_{yield} = 0.687$ (per INVARIANT-S2 + [`measurement-hierarchy-snr.md`](../../falsification/ch11-experimental-bench/measurement-hierarchy-snr.md):66). The load-bearing 2D-aperture aperture-aggregate skewness peak sits at $a^{(2D)}_{peak} = 1/\sqrt{2} = 0.707$.
 
@@ -567,19 +569,21 @@ Per [`translation-instrumentation.md`](../../../common/translation-tables/transl
 |---|---|---|---|---|
 | I | Photodiode / PMT / CCD / bolometer | $N \gg 10^9$ | Case A (broadband) | washed out (large N suppression); NOT a candidate |
 | II | APD / SPAD / TES / SNSPD (event-based) | $N \sim 10^3$-$10^6$ | architecture-dependent | candidate IF analog amplitude-statistics readout + sub-μm aperture; STRUCTURAL caveats |
-| II | **PONDER-05-class precision-impedance bench** | **$N \sim 10$-$100$** | **Case C (matched-impedance)** | **LOAD-BEARING empirical-engagement architecture**; falsifiable at canonical 0.687 operating point |
+| II | PONDER-05-class precision-impedance bench | $N \sim 10$-$100$ | Case C (matched-impedance) | **DEFLATED 2026-06-04 (#7)**: 30 kV biases the *vacuum* to $a\sim10^{-7}$ (0.687 is the quartz material ratio); the vacuum $\kappa_3/\kappa_4$ at $a\sim0.7$ is **facility-class** ($\sim8\times10^{16}$ V/m), NOT this bench |
 | III | Superconducting qubit / transmon / SQUID | (coupled bidirectional) | N/A | NOT applicable (not one-way Joule extractor) |
 
 ### §14.8 Classification + open work
 
 **`consistency-vs-emergence` v1.2 classification**: **Class 2 substrate-mechanism emergence** on substance axis (Ax 4 kernel form via Phase 0c per-site cumulants + Op14/Op16 metric-lensing convolution via $\mathcal{F}$ frequency-domain visibility factor + Phase 0c correlation length shrinkage via dimensionality-dependent peak); **Class 4 substrate-agnostic-consistency** on mathematical-tool axis (central-aggregation 1/√N + 1/N + cumulant additivity over independent sums + closed-form optimization of $a(1-a^2)^{(3d-2)/8}$).
 
+**NB (2026-06-04, adjudication #7):** the Class-2 emergence is the **derivation** — the $\kappa_3/\kappa_4$ closed forms + the $a^{(2D)}_{peak}=0.707$ Op17 matched-impedance peak — and it SURVIVES (PONDER-05-independent, substrate-geometric). What deflated is the **empirical-engagement leg** (§14.5–14.7): PONDER-05's 30 kV does NOT bias the *vacuum* to $a=0.687$ (per-node $a\sim10^{-7}$), so the prediction is **facility-class** (vacuum reaches $a\sim0.7$ only at $\sim8\times10^{16}$ V/m), not testable at the PONDER-05 bench. The "0.707 within 3% of 0.687" alignment was a spurious coincidence (a substrate-geometric optimum vs a quartz material ratio).
+
 **One Type E walk-back documented** in result doc §7:
 1. Peak operating point is dimensionality-dependent ($a^{(d)}_{peak} = \sqrt{4/(3d+2)}$; prereg expected uniform $1/\sqrt{2}$). The substrate-mechanical mechanism — competition between $a$-linear per-site growth and N-growth-with-bias via correlation length shrinkage — is unchanged.
 
 **Open follow-on items** (not blocking canonical use of §14):
 - **Phase 2-LLCP sub-epic** (separate critical-point regime): substrate-mechanical treatment of avalanche multiplication as substrate operating AT the LLCP analog (canonical via [`vol3/condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md`](../../../vol3/condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md)). Phase 14 sub-saturation framework does NOT apply at the critical point.
-- **Phase 3 KB integration**: add Phase 2-NA aperture-aggregate prediction as new row B7-PONDER-05-EXT in [`divergence-test-substrate-map.md`](../../../common/divergence-test-substrate-map.md) — extension of B7-PONDER-05 with histogram-statistics readout layer.
+- ~~**Phase 3 KB integration**: add row B7-PONDER-05-EXT~~ **DEFLATED 2026-06-04 (#7)** — the aperture-aggregate prediction is real (Class-2, §14.8) but **facility-class**, NOT a PONDER-05-bench extension (PONDER-05's vacuum $a\sim10^{-7}$ at 30 kV; 0.687 is the quartz material ratio, per INVARIANT-S2). Any forward-prediction row must be scoped to facility fields ($\sim8\times10^{16}$ V/m), not B7-PONDER-05.
 - **Detector-architecture-specific $\mathcal{F}$ derivations**: PONDER-05 architecture-specific $\mathcal{F}$ from `AVE-PONDER` sibling repo; SPAD/APD/SNSPD architecture-specific derivations for non-PONDER-05 empirical-engagement paths (Phase 4 follow-on).
 
 ---

@@ -83,7 +83,7 @@ When merging an implementor branch into `main` (the active integration target):
 3. Push merge commit + audit tag to origin
 4. Delete implementor branch (local + remote) once tag verifies on origin
 
-Current state: 70 audit tags on origin (`git tag -l "audit/*" | wc -l`).
+Current state: 109 audit tags on origin (`git tag -l "audit/*" | wc -l`).
 
 ## Pre-commit discipline
 

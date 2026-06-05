@@ -234,7 +234,7 @@ PONDER formula at [`AVE-PONDER/manuscript/vol_ponder/chapters/02_thrust_and_sagn
 
 $$v_{network} = v_{rotor} \cdot \rho_{rotor}/\rho_{bulk}$$
 
-Canonical $\rho_{bulk} = 7.916 \times 10^6$ kg/m³ — substrate-derived as `RHO_BULK = ξ²μ₀/(p_c·ℓ²_node)` at `src/ave/core/constants.py:619`. The provenance is **forward** (substrate → $\rho_{bulk}$ → $\kappa_{entrain} = 0.00244$ for Tungsten), NOT back-solved from $\kappa$. [provenance wording corrected 2026-06-03]
+Canonical $\rho_{bulk} = 7.916 \times 10^6$ kg/m³ — substrate-derived as `RHO_BULK = ξ²μ₀/(p_c·ℓ²_node)` at `src/ave/core/constants.py` `RHO_BULK`. The provenance is **forward** (substrate → $\rho_{bulk}$ → $\kappa_{entrain} = 0.00244$ for Tungsten), NOT back-solved from $\kappa$. [provenance wording corrected 2026-06-03]
 
 For Earth-as-rotor:
 - $\rho_{Earth} = 5,515$ kg/m³

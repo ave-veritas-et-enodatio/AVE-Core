@@ -1,270 +1,137 @@
 #!/usr/bin/env python3
 """
-The 4 Kill Switches — One Falsification Per Axiom
-===================================================
-Computes the exact, parameter-free predictions for the four flagship
-falsification experiments of the Applied Vacuum Engineering framework.
+AVE Falsification Surface — the round-2-hardened survivors
+==========================================================
+Prints the HONEST experimental falsification surface of the Applied Vacuum
+Engineering framework, AFTER the 2026-06-04 round-2 adversarial hardening.
 
-Each experiment is mapped to one of the four axioms and produces a
-single, binary, measurable prediction that the Standard Model either
-contradicts or cannot make.
+The earlier "4 binary tabletop kill switches" framing is SUPERSEDED:
+  - Sagnac (Ψ≈7.15)            → RETIRED (corroborative-null; RLG geodesy excludes
+                                  the Earth-rotor bias ~7e4×; the Ψ-ratio is not a
+                                  discriminator — GR scales with density too).
+  - "C/C₀→∞ at 43 kV"          → per-node conflation (apparatus voltage read as the
+                                  per-node yield; the vacuum per-node A at 43 kV is
+                                  ~1e-9). The plateau is facility-class (~1e16 V/m),
+                                  not a 43 kV bench. PONDER-05 = quartz material.
+  - Cleave "SM = 0.0 mV"       → FALSE (contact-potential gives a gap-dependent
+                                  charge); the discriminator is the gap-INDEPENDENT
+                                  4-corner symmetry, not "presence vs 0".
+  - HOPF medium-indep/enantiomer → CONSISTENCY-class (form-shared with classical
+                                  reciprocal-Pasteur chiral media); the surviving
+                                  AVE-distinct leg is the 2-port reciprocity sweep.
+
+The recurring lesson: an AVE-distinct falsifier survives only when it is a
+SYMMETRY / SIGN / zero-free-parameter corner classical physics is forbidden to
+enter AND a bench can reach — not a magnitude.
+
+References:
+  - README.md  "Experimental Falsification"
+  - manuscript/ave-kb/claim-quality-closure-roadmap.md  §0.5
+  - _orchestration/experimental/2026-06-04_round2-adjudications.md
+Detailed forward drivers:
+  - src/scripts/vol_4_engineering/birefringence_coefficient_discriminator.py
+  - src/scripts/vol_4_engineering/qg42_vsign_deltaf.py
 
 Run:
     python src/scripts/run_kill_switches.py
 
-All arithmetic uses the physics engine (src/ave/core/constants.py).
-No magic numbers.
+All AVE arithmetic imports canonical constants (src/ave/core/constants.py);
+no fit-to-target, no magic numbers. Non-AVE literature inputs (the QED
+Euler-Heisenberg prefactor; the bench readout capacitance) are labeled.
 """
-import numpy as np
+from ave.core.constants import ALPHA, E_CRIT, E_YIELD, V_YIELD, XI_TOPO
 
-from ave.axioms.scale_invariant import saturation_factor
-from ave.core.constants import ALPHA, EPSILON_0, L_NODE, RHO_BULK, V_SNAP, V_YIELD, XI_TOPO
-
-# ─────────────────────────────────────────────────────────────────────
-# ANSI formatting helpers
-# ─────────────────────────────────────────────────────────────────────
-BOLD = "\033[1m"
-CYAN = "\033[96m"
-GREEN = "\033[92m"
-YELLOW = "\033[93m"
-RED = "\033[91m"
-RESET = "\033[0m"
+BOLD, CYAN, GREEN, YELLOW, RED, RESET = (
+    "\033[1m", "\033[96m", "\033[92m", "\033[93m", "\033[91m", "\033[0m",
+)
 
 
 def header(title: str) -> None:
-    print(f"\n{'='*72}")
-    print(f"{BOLD}{CYAN}{title}{RESET}")
-    print(f"{'='*72}")
+    print(f"\n{'=' * 76}\n{BOLD}{CYAN}{title}{RESET}\n{'=' * 76}")
 
 
 def result(label: str, value: str, unit: str = "") -> None:
-    suffix = f" {unit}" if unit else ""
-    print(f"  {GREEN}→{RESET} {label}: {BOLD}{value}{RESET}{suffix}")
+    print(f"  {GREEN}→{RESET} {label}: {BOLD}{value}{RESET}{(' ' + unit) if unit else ''}")
 
 
-def compare(label: str, ave_val: str, sm_val: str) -> None:
-    print(f"  {YELLOW}AVE predicts:{RESET} {ave_val}")
-    print(f"  {RED}Std Model:  {RESET} {sm_val}")
+def compare(ave_val: str, sm_val: str) -> None:
+    print(f"  {YELLOW}AVE-distinct:{RESET} {ave_val}")
+    print(f"  {RED}Standard:   {RESET} {sm_val}")
 
 
-# =====================================================================
-# KILL SWITCH 1 — AXIOM 1: Chiral VNA Antenna (Hopf Coil S₁₁ Test)
-# =====================================================================
-def kill_switch_1() -> float:
-    header("KILL SWITCH 1 — AXIOM 1: LC IMPEDANCE")
-    print(f"  {BOLD}Chiral VNA Antenna (Hopf Coil S₁₁ Test){RESET}")
-    print()
-    print("  Test: Wind a (p,q) torus-knot coil and a standard toroid to")
-    print("  identical DC inductances. Sweep S₁₁ from 10 MHz to 100 MHz.")
-    print()
-
-    # Predicted anomalous frequency shift from chiral vacuum coupling
-    p, q = 3, 11  # standard trefoil-type torus knot
-    delta_f_over_f = ALPHA * (p * q) / (p + q)
-
-    result("Torus knot (p,q)", f"({p},{q})")
-    result("Predicted Δf/f", f"{delta_f_over_f:.6f}", "(dimensionless)")
-    result("α (fine structure)", f"{ALPHA:.6e}")
-    print()
-    compare(
-        "Hopf coil shows anomalously deep S₁₁ notch (Δf/f = α·pq/(p+q))",
-        f"Δf/f ≈ {delta_f_over_f:.4e}",
-        "Both coils show identical S₁₁ curves (no chiral vacuum coupling)",
-    )
-    print()
-    print(f"  {BOLD}Estimated BOM (placeholder — needs vendor quotes):{RESET}")
-    print("    • VNA instrument (borrow/rent)              ~$0 – $500")
-    print("    • FR-4 PCB + magnet wire + toroidal core     ~$50 – $200")
-    print("    • SMA connectors + cables                    ~$50 – $100")
-    print(f"    {BOLD}Total: ~$100 – $800{RESET}")
-    print()
-    return delta_f_over_f
+def falsifier_1_cleave() -> None:
+    header("FALSIFIER 1 — Axiom 2 (ξ_topo): Cleave-01 + gap-sweep   [NEAR-TERM BENCH ~$7.7k]")
+    C_IN = 10e-12  # bench readout capacitance, F (engineering literal — NP0/C0G)
+    mv_per_um = (XI_TOPO * 1e-6 / C_IN) * 1e3  # (e/ℓ_node) × 1µm / C_in → mV
+    result("Charge-floor slope ξ_topo = e/ℓ_node", f"{XI_TOPO:.4e}", "C/m")
+    result("Voltage floor (C_in = 10 pF)", f"{mv_per_um:.3f}", "mV/μm")
+    print("  AVE-distinct signature: the floor is GAP-INDEPENDENT — it survives a ≥4×")
+    print("  gap-sweep. Classical fakers (contact-potential / electrostriction / tribo)")
+    print("  are gap-DEPENDENT (∝ 1/g²); the gap-independence corner is the one none can fake.")
+    compare(f"a gap-independent floor (~{mv_per_um:.0f} mV/μm) surviving the gap-sweep",
+            "a gap-DEPENDENT contact-potential background (SM is NOT 0 — round-2 CPD correction)")
 
 
-# =====================================================================
-# KILL SWITCH 2 — AXIOM 2: Femto-Coulomb Electrometer
-# =====================================================================
-def kill_switch_2() -> float:
-    header("KILL SWITCH 2 — AXIOM 2: TOPOLOGICAL PHASE TWIST")
-    print(f"  {BOLD}Femto-Coulomb Electrometer (Piezo Cleavage Test){RESET}")
-    print()
-    print("  Test: Mechanically separate two uncharged plates in hard vacuum")
-    print("  by exactly 1.0 μm. Measure voltage step on electrometer op-amp.")
-    print()
-
-    displacement_m = 1.0e-6  # 1 μm
-    C_parasitic_F = 10.0e-12  # 10 pF (controlled input capacitance)
-
-    # Topological charge generated by spatial cleavage
-    Q_topo = XI_TOPO * displacement_m  # [C]
-    V_output = Q_topo / C_parasitic_F  # [V]
-
-    result("ξ_topo (topological conversion)", f"{XI_TOPO:.4e}", "C/m")
-    result("Displacement", f"{displacement_m*1e6:.1f}", "μm")
-    result("Parasitic capacitance", f"{C_parasitic_F*1e12:.1f}", "pF")
-    result("Induced charge Q = ξ × Δx", f"{Q_topo:.4e}", "C")
-    result("Output voltage V = Q/C", f"{V_output*1e3:.2f}", "mV")
-    print()
-    compare(
-        f"Clean {V_output*1e3:.1f} mV step per μm of displacement",
-        f"V = {V_output*1e3:.1f} mV / μm",
-        "V = 0.0 mV (no charge generated from mechanical separation)",
-    )
-    print()
-    print(f"  {BOLD}Estimated BOM (placeholder — needs vendor quotes):{RESET}")
-    print("    • ADA4530-1 electrometer eval board          ~$200")
-    print("    • PZT piezo linear actuator (1 μm range)     ~$500 – $1,000")
-    print("    • Vacuum bell jar + roughing pump             ~$800 – $2,000")
-    print("    • Oscilloscope (borrow/rent)                  ~$0 – $500")
-    print("    • Guard ring PCB + Teflon standoffs           ~$100")
-    print(f"    {BOLD}Total: ~$1,600 – $3,800{RESET}")
-    print()
-    return V_output
+def falsifier_2_hopf() -> None:
+    header("FALSIFIER 2 — Axiom 1 (chiral lattice): HOPF 2-port reciprocity   [CHEAP ~$123]")
+    print("  Test: |S21| vs |S12| on the existing HOPF-02a board — field off, non-magnetic,")
+    print("  power-independent, full 2-port SOLT, null floor 0.05 dB (do NOT relax post-hoc).")
+    print("  NB the medium-independence + enantiomer-sign legs are CONSISTENCY-class")
+    print("  (reciprocal-Pasteur); the genuine non-reciprocity is corpus-tied to the")
+    print("  above-yield regime, so the linear bench likely reads reciprocal.")
+    compare("a passive, zero-field, power-independent non-reciprocity |S21| ≠ |S12| (> 0.05 dB)",
+            "|S21| = |S12| (reciprocal) — classically forbidden to break without a magnet")
 
 
-# =====================================================================
-# KILL SWITCH 3 — AXIOM 3: Sagnac Mutual Inductance
-# =====================================================================
-def kill_switch_3() -> float:
-    header("KILL SWITCH 3 — AXIOM 3: LEAST REFLECTED ACTION (GRAVITY)")
-    print(f"  {BOLD}Sagnac Mutual Inductance (Density-Dependent Rotor Test){RESET}")
-    print()
-    print("  Test: Spin a dense rotor inside a fiber-optic Sagnac loop.")
-    print("  Swap tungsten for aluminum rotor. Measure phase shift ratio.")
-    print()
-
-    # Material densities [kg/m³]
-    rho_tungsten = 19_300.0
-    rho_aluminum = 2_700.0
-
-    # Entrainment coupling: κ = ρ_material / ρ_bulk_vacuum
-    kappa_W = rho_tungsten / RHO_BULK
-    kappa_Al = rho_aluminum / RHO_BULK
-
-    # The falsification ratio: phase shift should scale with density
-    Psi = rho_tungsten / rho_aluminum
-
-    result("ρ_vacuum (bulk)", f"{RHO_BULK:.3e}", "kg/m³")
-    result("ρ_tungsten", f"{rho_tungsten:.0f}", "kg/m³")
-    result("ρ_aluminum", f"{rho_aluminum:.0f}", "kg/m³")
-    result("κ_W (entrainment)", f"{kappa_W:.4e}")
-    result("κ_Al (entrainment)", f"{kappa_Al:.4e}")
-    result("Ψ = ρ_W / ρ_Al (density ratio)", f"{Psi:.3f}")
-    print()
-    compare(
-        f"Phase shift ratio Ψ = {Psi:.2f}× between W and Al rotors",
-        f"Δφ_W / Δφ_Al = {Psi:.2f}",
-        "Δφ_W / Δφ_Al = 1.00 (GR: no material dependence in Sagnac)",
-    )
-    print()
-    print(f"  {BOLD}Estimated BOM (placeholder — needs vendor quotes):{RESET}")
-    print("    • Fiber Sagnac interferometer (200m loop)     ~$3,000 – $5,000")
-    print("    • Precision brushless motor + controller      ~$1,000 – $2,000")
-    print("    • Tungsten rotor slug (machined)              ~$500 – $1,500")
-    print("    • Aluminum rotor slug (machined)              ~$100 – $300")
-    print("    • Lock-in amplifier                           ~$3,000 – $8,000")
-    print("    • Photodetector + DAQ                         ~$1,000 – $3,000")
-    print(f"    {BOLD}Total: ~$8,600 – $19,800{RESET}")
-    print()
-    return Psi
+def falsifier_3_qg42() -> None:
+    header("FALSIFIER 3 — Axiom 4 (saturation SIGN): Q-G42 autoresonant V²   [FORWARD]")
+    result("Tree-level Δf₀/f₀ sign — AVE", "+ (vacuum softens → resonance RISES)")
+    result("Tree-level Δf₀/f₀ sign — QED", "− (vacuum stiffens, Euler-Heisenberg)")
+    print("  AVE-distinct signature: the SIGN is robust to the √α magnitude uncertainty.")
+    print("  Magnitude form Δf₀/f₀ = +¼·A_RMS²·η_eff (see qg42_vsign_deltaf.py).")
+    compare("Δf₀/f₀ > 0 (softening)", "Δf₀/f₀ < 0 (stiffening)")
 
 
-# =====================================================================
-# KILL SWITCH 4 — AXIOM 4: EE Bench Dielectric Plateau
-# =====================================================================
-def kill_switch_4() -> None:
-    header("KILL SWITCH 4 — AXIOM 4: UNIVERSAL SATURATION")
-    print(f"  {BOLD}EE Bench Dielectric Plateau (Vacuum Gap C(V) Curve){RESET}")
-    print()
-    print("  Test: Sweep a 100 μm vacuum gap from 0 → 43 kV DC.")
-    print("  Track capacitance with an LCR meter. Plot C(V)/C₀.")
-    print()
-
-    gap_m = 100.0e-6  # 100 μm
-    area_m2 = 1.0e-6  # 1 mm² effective electrode area
-
-    # Baseline capacitance of the gap
-    C0 = EPSILON_0 * area_m2 / gap_m  # [F]
-
-    result("V_YIELD (dielectric saturation)", f"{V_YIELD:.2f}", "V")
-    result("V_SNAP (absolute nodal limit)", f"{V_SNAP:.2f}", "V")
-    result("Gap width", f"{gap_m*1e6:.0f}", "μm")
-    result("E_yield = V_yield / ℓ_node", f"{V_YIELD/L_NODE:.3e}", "V/m")
-    result("C₀ (baseline)", f"{C0:.4e}", "F")
-
-    # Compute C(V)/C₀ curve at several voltage points
-    # The saturation operates in the VOLTAGE DOMAIN: the topological voltage
-    # across the gap is compared directly to V_YIELD = √α × V_SNAP ≈ 43.65 kV.
-    # See Vol 4 Ch 12 §EE Bench: C_eff(V) = C₀ / S(V/V_yield)
-    print(f"\n  {BOLD}Predicted C(V)/C₀ curve:{RESET}")
-    print(f"  {'V (kV)':>10}  {'V/V_yield':>10}  {'S(V)':>10}  {'C/C₀':>10}")
-    print(f"  {'-'*44}")
-
-    for V_kV in [0.0, 10.0, 20.0, 30.0, 35.0, 38.0, 40.0, 41.0, 42.0, 43.0, 43.5]:
-        V = V_kV * 1e3
-        ratio = V / V_YIELD
-        if ratio >= 1.0:
-            S_val = 0.0
-            C_ratio = float("inf")
-            print(f"  {V_kV:10.1f}  {ratio:10.4f}  {S_val:10.4f}  {'∞':>10}")
-        else:
-            S_val = float(saturation_factor(np.array([V]), yield_limit=V_YIELD)[0])
-            C_ratio = 1.0 / S_val if S_val > 1e-15 else float("inf")
-            print(f"  {V_kV:10.1f}  {ratio:10.4f}  {S_val:10.4f}  {C_ratio:10.4f}")
-
-    print()
-    compare(
-        "C(V)/C₀ diverges asymptotically as V → 43.65 kV",
-        "C/C₀ → ∞ at V_yield",
-        "C/C₀ = 1.00 (flat, linear ε₀, no saturation)",
-    )
-    print()
-    print(f"  {BOLD}Estimated BOM (placeholder — needs vendor quotes):{RESET}")
-    print("    • UHV vacuum chamber + turbopump              ~$5,000 – $15,000")
-    print("    • HV DC power supply (0–50 kV, low ripple)    ~$3,000 – $8,000")
-    print("    • Tungsten needle electrodes + positioner      ~$1,000 – $3,000")
-    print("    • Precision LCR meter (e.g., Keysight E4980A)  ~$3,000 – $8,000")
-    print("    • Optical interferometer (laser + detector)    ~$2,000 – $5,000")
-    print("    • Safety interlocks + HV cabling               ~$500 – $2,000")
-    print(f"    {BOLD}Total: ~$14,500 – $41,000{RESET}")
-    print()
+def falsifier_4_birefringence() -> None:
+    header("FALSIFIER 4 — Axiom 4 (saturation COEFFICIENT): vacuum birefringence   [FACILITY]")
+    a_EH = 7.0 / 45.0  # QED Euler-Heisenberg single-mode prefactor (LITERATURE input)
+    # Substrate identity (E_crit/E_yield)² = 1/α (since E_yield = √α·E_crit) collapses the
+    # field dependence: δn_AVE/δn_QED = (1/4)/(a_EH·α²) · (E_crit/E_yield)² = 1/(4·a_EH·α³).
+    ratio = 1.0 / (4.0 * a_EH * ALPHA**3)
+    result("AVE index shift", f"−¼·(E/E_yield)²   [O(1) coeff; E_yield ≈ {E_YIELD:.2e} V/m]")
+    result("QED index shift", f"a_EH·α²·(E/E_crit)²   [α²-suppressed; E_crit ≈ {E_CRIT:.2e} V/m]")
+    result("AVE / QED coefficient ratio", f"{ratio:.2e}", "× (field-INDEPENDENT)")
+    print("  AVE-distinct signature: a vacuum index shift ~10⁶× QED's at any field. BOTH are")
+    print("  E²-leading — the discriminator is the COEFFICIENT, not an 'E² vs E⁴ exponent'")
+    print("  (the prior exponent framing was a √ε conflation; corrected round-2).")
+    compare(f"δn ~ {ratio:.0e}× QED at high-intensity-laser fields (~1e16 V/m)",
+            "QED-sized (α²-suppressed) coefficient")
 
 
-# =====================================================================
-# MAIN
-# =====================================================================
+def falsifier_5_u0() -> None:
+    header("FALSIFIER 5 — single-parameter (Ω_freeze): the u₀* three-route check   [FRAMEWORK]")
+    print("  α, G, and 𝒥_cosmic must all land at the SAME operating point u₀* set by Ω_freeze.")
+    print("  Honest scope: the α-route is a NAMED geometric identification (α⁻¹=4π³+π²+π —")
+    print("  the substrate does not independently select it); the G and 𝒥_cosmic routes are")
+    print("  framework-structural, quantitatively open. The three-route CONSISTENCY is the")
+    print("  falsifier; 'all derive from Ω_freeze' is not claimed.")
+
+
 def main() -> None:
-    print(f"\n{BOLD}{'='*72}")
-    print("  THE 4 KILL SWITCHES")
-    print("  Applied Vacuum Engineering — Experimental Falsification Program")
-    print(f"{'='*72}{RESET}")
-    print()
-    print("  Each test targets one axiom with a binary, tabletop-measurable")
-    print("  prediction. If any single prediction fails, the framework is dead.")
-    print()
-    print(f"  {YELLOW}NOTE: All BOM cost estimates are placeholders.{RESET}")
-    print(f"  {YELLOW}Final vendor-quoted pricing is forthcoming.{RESET}")
-
-    delta_f = kill_switch_1()
-    V_out = kill_switch_2()
-    Psi = kill_switch_3()
-    kill_switch_4()
-
-    # Summary table
-    header("SUMMARY TABLE")
-    print(f"  {'#':>3}  {'Axiom':<28}  {'Test':<30}  {'Prediction':<20}")
-    print(f"  {'-'*84}")
-    print(f"  {'1':>3}  {'LC Impedance (Z₀=377Ω)':<28}  {'Chiral VNA S₁₁':<30}  {'Δf/f = ' + f'{delta_f:.4e}':<20}")
-    print(
-        f"  {'2':>3}  {'Topological Phase (ξ_topo)':<28}  {'Femto-Coulomb Electrometer':<30}"
-        f"  {f'{V_out*1e3:.1f} mV/μm':<20}"
-    )
-    print(f"  {'3':>3}  {'Gravity (G → ρ_bulk)':<28}  {'Sagnac Density Ratio':<30}  {f'Ψ = {Psi:.2f}':<20}")
-    print(f"  {'4':>3}  {'Saturation (S=√(1-A²))':<28}  {'EE Bench C(V) Divergence':<30}  {'C/C₀ → ∞ @ 43.65kV':<20}")
-    print()
-    print(f"  {GREEN}All predictions computed from src/ave/core/constants.py{RESET}")
-    print(f"  {GREEN}Zero free parameters. Zero magic numbers.{RESET}")
-    print()
+    header("AVE FALSIFICATION SURVIVORS — round-2-hardened (2026-06-04)")
+    print("  The pre-2026-06 '4 binary kill switches' framing is superseded (see module")
+    print("  docstring + README). Survivors below — symmetry/sign/zero-free-param corners")
+    print(f"  survive; magnitudes deflate. (α⁻¹ = {1.0 / ALPHA:.6f} is a named identification.)")
+    falsifier_1_cleave()
+    falsifier_2_hopf()
+    falsifier_3_qg42()
+    falsifier_4_birefringence()
+    falsifier_5_u0()
+    header("SUMMARY")
+    print("  Near-term bench : Cleave (gap-independent 4-corner) + HOPF reciprocity sweep")
+    print("  Forward/facility: Q-G42 V²-sign · vacuum birefringence coefficient (~10⁶× QED)")
+    print("  Framework-level : the u₀* three-route check")
+    print("  NO deprecated framings (Sagnac Ψ=7.15, C/C₀→∞ at 43 kV, SM=0.0 mV) are computed.")
 
 
 if __name__ == "__main__":

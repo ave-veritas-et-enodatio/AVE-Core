@@ -41,7 +41,7 @@ The chapter content is **Class B substrate-mechanism manifestation** per `consis
 
 - **Ch.5 AC Electrical Characteristics**: $S(A_0)$-modulated effective parameters $\varepsilon_{eff}$, $\mu_{eff}$, $c_{EM}$, $c_{shear}$.
 - **Ch.6 Temperature Characteristics**: Cosserat-Curie thermal-asymmetry δ_strain at $T_{CMB}$; TCC of substrate dielectric.
-- **Ch.7 Saturation Characteristics**: Ax 4 kernel $S(A_0)$ characteristic curves; PONDER-05 bench-tester at $V_{DC}/V_{yield} = 0.687$.
+- **Ch.7 Saturation Characteristics**: Ax 4 kernel $S(A_0)$ characteristic curves; PONDER-05 (quartz 27.4% at ~30 kV) as a consistency-class material varactor analog of the kernel SHAPE — "$V_{DC}/V_{yield} = 0.687$" is a per-node ratio, not a vacuum-kernel reading (`vol4/claim-quality.md:51`).
 - **Ch.8 Breakdown Characteristics**: $V_{snap}$, $V_{yield}$, $E_S$ Schwinger limit (downstream consequences of the cold-lattice DC primitives at finite-amplitude regimes).
 
 ## Manuscript counterpart

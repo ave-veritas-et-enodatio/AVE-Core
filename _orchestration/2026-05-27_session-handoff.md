@@ -56,7 +56,7 @@ All amendments survived adversarial-probe-discipline review through 7+ session-t
 
 **Phase 2-A Born rule master-equation-derivation-path** (PR #38): clm-ldmvwi confidence 0.55 → 0.65; cascade lifted clm-zuf7g1 + clm-unk0bd + clm-5xon03 each 0.55 → 0.65 (own confidence ceilings).
 
-**Phase 3a clm-zuf7g1 Z₀ derivation** (PR via combined merge): WALK-BACK with dual-axis classification refinement — Class 2 substrate-mechanism emergence on scale-invariance sub-axis (K4-TLM topology + Ax 2 TKI forces pitch cancellation) + Class B substrate-mechanism manifestation on numerical-value sub-axis ($\mu_0, \varepsilon_0$ are SI engineering inputs at `src/ave/core/constants.py:79-80`, not derived from K4 primitives) + Class 4 observable consistency. Solidity unchanged 0.65/0.65. Surfaced Q-LCR-1 + Q-LCR-2 (derive $\mu_0, \varepsilon_0$ from K4 geometry?) as open framework-extension questions.
+**Phase 3a clm-zuf7g1 Z₀ derivation** (PR via combined merge): WALK-BACK with dual-axis classification refinement — Class 2 substrate-mechanism emergence on scale-invariance sub-axis (K4-TLM topology + Ax 2 TKI forces pitch cancellation) + Class B substrate-mechanism manifestation on numerical-value sub-axis ($\mu_0, \varepsilon_0$ are SI engineering inputs at `src/ave/core/constants.py` (`MU_0`, `EPSILON_0`), not derived from K4 primitives) + Class 4 observable consistency. Solidity unchanged 0.65/0.65. Surfaced Q-LCR-1 + Q-LCR-2 (derive $\mu_0, \varepsilon_0$ from K4 geometry?) as open framework-extension questions.
 
 **Phase 3-A1+Q2 clm-0ktpcn prose reframe + cascade hygiene**: confidence 0.55 → 0.60 via prose-reframe lift; 7-entry stale-narrative-tail cleanup; clm-0ktpcn solidity 0.60.
 

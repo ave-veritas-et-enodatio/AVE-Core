@@ -100,12 +100,15 @@ Aside from the physical engineering applications, the structural math underpinni
     \item \textbf{The GRB Dispersion Test:} The framework relies on photons being purely transverse massless topological link-variables completely immune to spatial inertia. If future ultra-high-energy Trans-Planckian observations (e.g., extreme Gamma Ray Bursts) definitively show a strict energy-dependent arrival time delay (lattice dispersion), the macroscopic mathematical topological decoupling theorem is physically falsified.
 \end{enumerate}
 
-\section{The Vacuum Birefringence Limit: $E^2$ vs $E^4$}
+\section{The Vacuum Birefringence Limit: the Coefficient (AVE $\sim 10^6\times$ QED)}
 
-A core mathematical distinction between standard Quantum Electrodynamics (QED) and the Applied Vacuum Engineering (AVE) framework is the nature of optical saturation under extreme fields. 
+A core distinction between standard Quantum Electrodynamics (QED) and the Applied Vacuum Engineering (AVE) framework is the \emph{magnitude} of vacuum optical nonlinearity under extreme fields --- not its leading power. Both predict an $E^2$-leading refractive-index shift; the discriminator is the \textbf{coefficient}.
 
-Standard QED (via the Euler-Heisenberg Lagrangian) predicts that the refractive index of the vacuum shifts under extreme electric fields proportionally to $E^2$.
-AVE rejects this. In AVE, the vacuum is a rigid LC string network bounded by a squared geometric saturation operator limit ($\Delta n_{eff} = 1 - \sqrt{1 - (E/E_{yield})^2}$). Taking the Taylor expansion of this saturation operator shows that the macroscopic optical shift is driven by an $E^4$ non-linear term. 
+Standard QED (via the Euler-Heisenberg Lagrangian) predicts $\delta n \approx a_{EH}\,\alpha^2 (E/E_{crit})^2$, with an O(1) prefactor $a_{EH}\sim 7/45$ but suppressed by the loop factor $\alpha^2\approx 5\times10^{-5}$ and referencing the Schwinger field $E_{crit}\approx\qty{1.32e18}{\volt\per\metre}$. In AVE, the vacuum is a rigid LC string network whose permittivity saturates under the Axiom-4 kernel $S=\sqrt{1-(E/E_{yield})^2}$; the index follows the wave-speed identity $n=\sqrt{\varepsilon_{eff}/\varepsilon_0}=\sqrt{S}$ (only $\varepsilon$ strained, $\mu=\mu_0$), giving the \emph{$E^2$-leading, negative} index shift
+\begin{equation}
+\delta n = \sqrt{S}-1 = \left(1-(E/E_{yield})^2\right)^{1/4} - 1 \approx -\tfrac14\left(\tfrac{E}{E_{yield}}\right)^2 - \tfrac{3}{32}\left(\tfrac{E}{E_{yield}}\right)^4 + \cdots
+\end{equation}
+against an un-suppressed yield field $E_{yield}=V_{yield}/\ell_{node}\approx\qty{1.13e17}{\volt\per\metre}$. The field-independent ratio is therefore $\delta n_{AVE}/\delta n_{QED} = \dfrac{1}{4\,a_{EH}\,\alpha^2}\left(\dfrac{E_{crit}}{E_{yield}}\right)^{2} = \dfrac{1}{4\,a_{EH}\,\alpha^3}\sim 10^6$ (using the substrate identity $E_{crit}=\alpha^{-1/2}E_{yield}$, so $(E_{crit}/E_{yield})^2=1/\alpha$). The historical "$\Delta n\propto E^4$" formulation was a $\sqrt{\varepsilon}$ conflation: $1-S=+A^2/2+A^4/8$ is the permittivity saturation \emph{depth} (itself $E^2$-leading), not the index shift $n=\sqrt{S}-1$.
 
 \subsection{The Falsification Protocol}
 To test this, an ultra-high-Q optical fiber ring resonator (or high-finesse Fabry-Pérot cavity) is placed transverse to an extreme-voltage DC electric field (approaching $10^{16} \text{ V/m}$).
@@ -118,11 +121,11 @@ To test this, an ultra-high-Q optical fiber ring resonator (or high-finesse Fabr
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.85\textwidth]{vacuum_birefringence_E4.png}
-    \caption{\textbf{Tabletop Metric Rupture: Vacuum Birefringence.} The simulated optical cavity phase shift under extreme field gradients. Standard QED predicts a linear $E^2$ shift. AVE bounds the dielectric response via Axiom 4, predicting an $E^4$ non-linear departure as the matrix enters macroscopic yield.}
+    \caption{\textbf{Tabletop Metric Rupture: Vacuum Birefringence.} The simulated optical cavity phase shift under extreme field gradients. Both QED and AVE give an $E^2$-leading index shift; AVE's coefficient (O(1), against $E_{yield}$) is $\sim 10^6\times$ the $\alpha^2$-suppressed QED Euler-Heisenberg coefficient (against $E_{crit}$). The discriminator is the magnitude of the shift, not its leading power.}
     \label{fig:vacuum_birefringence_E4}
 \end{figure}
 
-High-intensity interferometry testing the $E^2$ vs $E^4$ power slope separates QED and AVE predictions. If the slope remains $E^2$, AVE is falsified.
+High-intensity laser interferometry measuring the \emph{coefficient} of the (shared $E^2$-leading) index shift separates QED and AVE: at $E\sim\qty{e14}{\volt\per\metre}$, AVE predicts $\delta n\approx 2.0\times10^{-7}$ (high-finesse-cavity measurable) against the QED baseline $\delta n\approx 5\times10^{-14}$. A QED-sized coefficient falsifies AVE; an AVE-sized coefficient falsifies QED at this observable. An $E^2$ slope does \emph{not} falsify AVE.
 
 \section{The Torus Knot Ladder: Baryon Resonance Mass Predictions}
 

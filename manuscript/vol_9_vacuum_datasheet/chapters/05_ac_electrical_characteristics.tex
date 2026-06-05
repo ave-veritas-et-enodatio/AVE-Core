@@ -28,7 +28,7 @@ Each bond connecting nearest-neighbour K4 nodes carries distributed transmission
 L_{cell} &= \mu_0\, \ell_{node} \\
 C_{cell} &= \varepsilon_0\, \ell_{node}
 \end{align}
-These are the substrate's own canonical EE primitives, not phenomenological fits. $\mu_0$, $\varepsilon_0$, and $\ell_{node}$ are canonical at \kbleaf{src/ave/core/constants.py:78--206}; the per-cell forms are forced by Axiom~1's K4-node intrinsic-LC-oscillator structure.
+These are the substrate's own canonical EE primitives, not phenomenological fits. $\mu_0$, $\varepsilon_0$, and $\ell_{node}$ are canonical at \kbleaf{src/ave/core/constants.py} (symbols \texttt{MU\_0}, \texttt{EPSILON\_0}, \texttt{L\_NODE}); the per-cell forms are forced by Axiom~1's K4-node intrinsic-LC-oscillator structure.
 
 \subsection{Bond natural frequency}
 
@@ -159,7 +159,7 @@ $c_{shear}(A_0)$ & $c_0\, \sqrt{S(A_0)}$ & \si{\metre\per\second} & operating po
 \end{table}
 
 \noindent
-\textbf{Canonical sources.} $\mu_0$, $\varepsilon_0$, $c_0$, $\ell_{node}$, $Z_0$ at \kbleaf{src/ave/core/constants.py:78--206} via the \texttt{ave-canonical-source} skill. Operating-point small-signal forms at CLAUDE.md INVARIANT-S2 (\kbleaf{manuscript/ave-kb/CLAUDE.md}). Op14 / Op16 at \kbleaf{ave-kb/common/operators.md} and \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md} (\texttt{clm-1eg13f}). $c_{EM}$ / $c_{shear}$ disambiguation at \texttt{clm-8nkvwy} (lines 111 and 113) and \texttt{clm-3zz0f6}.
+\textbf{Canonical sources.} $\mu_0$, $\varepsilon_0$, $c_0$, $\ell_{node}$, $Z_0$ at \kbleaf{src/ave/core/constants.py} (symbols \texttt{MU\_0}, \texttt{EPSILON\_0}, \texttt{C\_0}, \texttt{L\_NODE}, \texttt{Z\_0}) via the \texttt{ave-canonical-source} skill. Operating-point small-signal forms at CLAUDE.md INVARIANT-S2 (\kbleaf{manuscript/ave-kb/CLAUDE.md}). Op14 / Op16 at \kbleaf{ave-kb/common/operators.md} and \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md} (\texttt{clm-1eg13f}). $c_{EM}$ / $c_{shear}$ disambiguation at \texttt{clm-8nkvwy} (lines 111 and 113) and \texttt{clm-3zz0f6}.
 
 \section{PONDER-05 Bench-Scale Falsifier Reference}
 \label{sec:vol9_ponder05_reference}

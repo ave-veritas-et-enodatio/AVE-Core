@@ -3,7 +3,7 @@
 ![Build Status](https://img.shields.io/badge/verification-373/373_PURE-brightgreen)
 ![Tests](https://img.shields.io/badge/tests-800%2B_passed-blue)
 ![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)
-![Predictions](https://img.shields.io/badge/predictions-47/47_verified-orange)
+![Predictions](https://img.shields.io/badge/predictions-47_derived-orange)
 
 > *Treating the vacuum not as a geometric abstraction, but as a Discrete Amorphous Manifold (M_A): a physical LC substrate whose engineering properties are the fundamental constants of nature.*
 
@@ -11,13 +11,13 @@
 
 > ## 🎯 Framework Status: Structural Closure (2026-05-15)
 >
-> The AVE framework reached **structural closure** on 2026-05-15. The conceptual structure is now visible end-to-end; every step of the construction maps cleanly to a math structure; the epistemic horizon is explicitly named; the falsification test is specified.
+> The AVE framework reached **structural closure** on 2026-05-15. The conceptual structure is visible end-to-end and the epistemic horizon is explicitly named. *Refined since:* the **2026-06-02 honest-α relabel** (α⁻¹=4π³+π²+π is a *named geometric identification*, not a clean derivation and not a zero-parameter closure) and the **2026-06-04 round-2 hardening** (which deflated several bench falsifiers and pulled a shipped false-falsifier). The current falsification surface is the [Experimental Falsification](#experimental-falsification) table below, **not** the legacy "4 kill switches."
 >
 > **Canonical entry point for the framework picture:** [`manuscript/ave-kb/common/trampoline-framework.md`](manuscript/ave-kb/common/trampoline-framework.md) — picture-first / mechanism-first reference covering the six-step ground-up build (rubber sheet → trampoline → springs too long → press center → bubble wand → 3D sphere) and the substrate-observability rule applied at every scale including ourselves.
 >
 > **Closure path planning:** [`manuscript/ave-kb/claim-quality-closure-roadmap.md`](manuscript/ave-kb/claim-quality-closure-roadmap.md) — living planning artifact tracking 28 actions across 7 tiers from structural closure to theoretical + empirical closure. Status dashboard updated per session.
 >
-> **The single-cosmological-parameter claim:** α, G, and cosmic angular momentum 𝒥_cosmic all derive from one cosmological initial-data parameter Ω_freeze (the rotation rate at lattice genesis). Three independent observational routes must give the same $u_0^*$ operating-point value or the framework is falsified. See `trampoline-framework.md` §1.3.7 ("God's Hand and the cosmic IC") and `research/_archive/L5/axiom_derivation_status.md` A-030 + A-031.
+> **The single-cosmological-parameter claim:** α, G, and cosmic angular momentum 𝒥_cosmic must all land at the **same** operating point $u_0^*$ fixed by one cosmological initial-data parameter Ω_freeze (the rotation rate at lattice genesis), or the framework is falsified. *Honest scope:* the α-route is a **named geometric identification** at $u_0^*$ (not a derivation from Ω_freeze); the G and 𝒥_cosmic routes are framework-structural, quantitatively open. The three-route falsification structure survives; the "all derive from" framing does not. See `trampoline-framework.md` §1.3.7 ("God's Hand and the cosmic IC") and `research/_archive/L5/axiom_derivation_status.md` A-030 + A-031.
 >
 > **A-034 — Universal Saturation-Kernel Strain-Snap Mechanism (canonical 2026-05-15 evening):** Axiom 4's saturation kernel $S(A) = \sqrt{1 - A^2}$ is the **same operator at every scale** — 19-instance catalog spanning 21 orders of magnitude (atomic dielectric breakdown → BCS superconductivity at 0.00% error → NOAA-validated solar flares → BH ring-down at 1.7% from GR → cosmic K4 crystallization). Cross-scale empirical anchors: BCS $B_c(T)$, Schwarzschild $r_s$, BH QNM $\omega_R M_g = 18/49$, NOAA GOES 40-yr solar-flare validation. Refines A-031 ("God's Hand" decoupled into cosmic-parameter horizon vs observable mechanism — the mechanism is observable at 4 smaller scales). Canonical synthesis: [`manuscript/ave-kb/common/trampoline-framework.md`](manuscript/ave-kb/common/trampoline-framework.md) §7.5; full catalog: [`manuscript/backmatter/07_universal_saturation_kernel.tex`](manuscript/backmatter/07_universal_saturation_kernel.tex); L5 entry: `research/_archive/L5/axiom_derivation_status.md` A-034.
 
@@ -25,7 +25,7 @@
 
 ## Overview
 
-Applied Vacuum Engineering is a physics framework that derives 47 verified predictions—from the electron g−2 anomaly to galactic rotation curves—from exactly **4 axioms**. The fine-structure constant α is a closed-form geometric invariant: from the Golden Torus S₁₁-minimum geometry of the trefoil electron soliton, $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi \approx 137.0363$ (cold lattice), with a CMB-induced thermal strain coefficient bringing it to the CODATA value $137.035999$. Its **scale (~1/137) is forced by the Compton-resonance trapping condition**, but its **exact value rests on one substrate-geometric identification per route (R·r=¼ Golden-Torus; or z₀←1.187←p_c=8πα rigidity-percolation) that the substrate does not independently select** — a Class B substrate-mechanism manifestation, not a first-principles "derivation" of α and not a zero-parameter closure for α (see [Vol 1, Ch. 8 §"Class B caveat (honest-α relabel)"](manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md)).
+Applied Vacuum Engineering is a physics framework that derives 47 predictions—from the electron g−2 anomaly to galactic rotation curves—from exactly **4 axioms** (these span definitional identities, axiom-manifestations, consistency-checks, and genuinely-derived values — see the [Master Prediction Table](#master-prediction-table) classification note; "47" is not "47 empirically verified"). The fine-structure constant α is a closed-form geometric invariant: from the Golden Torus S₁₁-minimum geometry of the trefoil electron soliton, $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi \approx 137.0363$ (cold lattice), with a CMB-induced thermal strain coefficient bringing it to the CODATA value $137.035999$. Its **scale (~1/137) is forced by the Compton-resonance trapping condition**, but its **exact value rests on one substrate-geometric identification per route (R·r=¼ Golden-Torus; or z₀←1.187←p_c=8πα rigidity-percolation) that the substrate does not independently select** — a Class B substrate-mechanism manifestation, not a first-principles "derivation" of α and not a zero-parameter closure for α (see [Vol 1, Ch. 8 §"Class B caveat (honest-α relabel)"](manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md)).
 
 The central thesis: the vacuum is a physical substrate governed by finite inductive (μ₀) and capacitive (ε₀) densities. By treating Z₀ = √(μ₀/ε₀) ≈ 377 Ω as a real engineering impedance, every phenomenon from particle confinement to protein folding becomes a circuit problem.
 
@@ -40,7 +40,7 @@ The central thesis: the vacuum is a physical substrate governed by finite induct
 
 > **On axiom count after Ch 8.** Ch 8 derives α⁻¹ = 4π³ + π² + π from the Golden Torus geometry. This does *not* reduce the axiom count. Axiom 2's content is the topo-kinematic isomorphism `[Q] ≡ [L]` — the claim that a topological dislocation encodes charge — which is independent of α's numerical value and is *load-bearing* for the Ch 8 derivation (without it, a knot in the LC substrate has no EM interpretation and the multipole decomposition yielding α cannot be set up). What changed: the *value* of α is no longer taken as input; it is produced by applying Axiom 2's isomorphism to the minimum-crossing soliton under Axiom 1's LC-lattice topology.
 
-### What This Derives (46 Predictions, 0 Free Parameters)
+### What This Derives (47 Predictions from 4 Axioms)
 
 | Category | Examples | Max Error |
 |----------|----------|-----------|
@@ -141,7 +141,7 @@ print(f"sin²θ_W = {2/9:.4f}  (derived: 2 weak modes / 9 angular sectors)")
 |---|-----------|-----|--------|
 | 1 | α⁻¹ from Golden Torus S₁₁-min | 0.001% cold / 0.000% CMB-corrected | ✅ 4π³+π²+π = 137.036304 ([Ch.8](manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex)) |
 | 2 | Z₀ from Axiom 1 | 0.00% | ✅ √(μ₀/ε₀) ≈ 377 Ω |
-| 3 | g-2 anomaly | 0.15% | ✅ |
+| 3 | g-2 anomaly | 0.15% | ⚠ postdiction — demoted from forward-falsifier (2026-06-03 revamp board) |
 | 4 | sin²θ_W | 0.35% | ✅ |
 | 5 | M_W | 0.57% | ✅ |
 | 6 | M_Z | 0.62% | ✅ |
@@ -171,7 +171,7 @@ print(f"sin²θ_W = {2/9:.4f}  (derived: 2 weak modes / 9 angular sectors)")
 | 43 | BCS B_c(T) | 0.00% | ✅ |
 | 44–45 | BH interior, Regime IV | Exact | ✅ |
 | 46 | IE sweep Z=1–12 | 2.8% max | ✅ |
-| 47 | α thermal running (δ_strain) | 2.2×10⁻⁶ at T=2.7 K | ✅ CMB-induced; predicts α runs with local T |
+| 47 | δ_strain (α-vs-T) | sign-only | ⚠ **walked back** — δ_strain is a *definitional residual* (1−CODATA/α_cold), **not** a 2.2×10⁻⁶ thermal prediction; the genuine α-vs-T drift is ~10⁻³⁸ (unobservable). Only the *direction* (sign) holds (closure-roadmap §0.5) |
 
 **Run the cold-lattice α derivation:** `python src/scripts/vol_1_foundations/derive_alpha_from_golden_torus.py`
 **Verify Clifford half-cover → π² rigorously:** `python src/scripts/vol_1_foundations/verify_clifford_half_cover.py`
@@ -193,23 +193,21 @@ print(f"sin²θ_W = {2/9:.4f}  (derived: 2 weak modes / 9 angular sectors)")
 
 ---
 
-## Experimental Falsification: The 4 Kill Switches
+## Experimental Falsification
 
-Every axiom exposes a binary, tabletop-measurable prediction. If **any single one** fails, the framework is dead.
+Each axiom exposes a falsifier. The honest falsification surface below reflects the **2026-06-04 round-2 adversarial hardening** — graded by what's reachable now vs. facility-class.
 
-| # | Axiom | Test | AVE Prediction | Standard Model |
-|---|-------|------|----------------|----------------|
-| 1 | **LC Impedance** (Z₀ = 377 Ω) | **Chiral VNA Antenna** — Torus-knot coil vs. standard toroid S₁₁ sweep | Anomalous S₁₁ notch (Δf/f ≈ 0.017) | Identical curves |
-| 2 | **Topological Phase** (ξ_topo) | **Femto-Coulomb Electrometer** — Separate uncharged plates by 1 μm | **41.5 mV** step on oscilloscope | 0.0 mV |
-| 3 | **Gravity** (G → ρ_bulk) | **Sagnac Mutual Inductance** — Spin W vs. Al rotor in fiber loop | Phase ratio Ψ ≈ **7.15** | Ψ = 1.00 |
-| 4 | **Saturation** (S = √(1−A²)) | **EE Bench Dielectric Plateau** — Sweep vacuum gap to 43 kV | C/C₀ → **∞** at 43.65 kV | C/C₀ = 1.00 |
+> **Note on the prior framing.** An earlier "4 binary tabletop kill switches" table is **superseded**: two of its four entries rested on a per-node-voltage conflation (reading an apparatus voltage as the per-node yield) or a now-corrected SM counterfactual. The recurring lesson of round-2: an AVE-distinct signature survives only when it is a **symmetry / sign / zero-free-parameter** corner that classical physics is *forbidden* to enter **and** a bench can reach — not a magnitude. Full record: [`claim-quality-closure-roadmap.md` §0.5](manuscript/ave-kb/claim-quality-closure-roadmap.md) + [`_orchestration/experimental/2026-06-04_round2-adjudications.md`](_orchestration/experimental/2026-06-04_round2-adjudications.md).
 
-> **All predictions computed live from the physics engine — zero free parameters:**
-> ```bash
-> python src/scripts/run_kill_switches.py
-> ```
+| Axiom | Falsifier | AVE-distinct signature | Standard physics | Readiness |
+|---|---|---|---|---|
+| **2** — Topo-Kinematic (ξ_topo) | **Cleave-01 femto-Coulomb electrometer** + gap-sweep | a **gap-INDEPENDENT** charge floor (41.5 mV/μm = e/ℓ_node) surviving a ≥4× gap-sweep — the one corner no classical mechanism (contact-potential / electrostriction / tribo) can fake | a gap-*dependent* contact-potential background only (SM is **not** 0) | **near-term bench** (~$7.7k) — the flagship |
+| **1** — Chiral lattice | **HOPF 2-port reciprocity sweep** (\|S₂₁\| vs \|S₁₂\|) | a passive, zero-field, non-magnetic **non-reciprocity** \|S₂₁\|≠\|S₁₂\| — classically forbidden without a magnet | reciprocal (\|S₂₁\|=\|S₁₂\|) | **cheap** (~$123, existing board); likely linear-null — the distinct regime is above-yield |
+| **4** — Saturation (sign) | **Q-G42 autoresonant V²-coefficient** | the **sign** of the tree-level shift: AVE softens (Δf₀/f₀ > 0), QED stiffens — robust to the √α magnitude uncertainty | opposite sign | forward; feasibility-gated (per-node reachability) |
+| **4** — Saturation (coefficient) | **Vacuum birefringence** (high-intensity laser) | δn ≈ −¼(E/E_yield)² — a vacuum index shift **~10⁶× QED's** α²-suppressed coefficient (both are E²-leading; the discriminator is the *coefficient*, not an "E²-vs-E⁴ exponent") | Euler-Heisenberg (α²-suppressed) | facility-class (~10¹⁶ V/m) |
+| **Single-parameter** (Ω_freeze) | **The u₀\* three-route check** | α, G, and 𝒥_cosmic must land at the **same** operating point u₀\* | unrelated | framework-level — α-route is a named geometric identification; G/𝒥 are framework-structural, quantitatively open |
 
-*Estimated costs: ~$500 (VNA) to ~$25K (EE Bench). BOM estimates are placeholders pending vendor quotes. Full protocols in Volume IV, Ch 11–12.*
+*Near-term bench track: Cleave + the HOPF reciprocity sweep. The rest are facility-class or framework-level. Full protocols: Volume IV, Ch 11–12. (The legacy `src/scripts/run_kill_switches.py` driver still computes the superseded framings — a physics-update is queued.)*
 
 ---
 

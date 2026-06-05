@@ -15,7 +15,7 @@ Per prereg §4 master-equation-derivation-path discipline, the five-step chain e
 
 ### §2.1 — Step 1: Ax 1 Nyquist cell size as substrate-natural cardinality unit
 
-**Substrate primitive**: per Ax 1 (Substrate Topology, INVARIANT-S2), the substrate is a 3D chiral Laves K4 Cosserat crystal with discrete cell size $\ell_{node}$ (canonical at `natural-units-cheatsheet.md` foreword line 34 + `lattice-impedance-decomposition.md` §2 lines 100-132 + `src/ave/core/constants.py:194`). In lattice-natural units, $\ell_{node} = 1$ by definition — the substrate's natural cardinality unit.
+**Substrate primitive**: per Ax 1 (Substrate Topology, INVARIANT-S2), the substrate is a 3D chiral Laves K4 Cosserat crystal with discrete cell size $\ell_{node}$ (canonical at `natural-units-cheatsheet.md` foreword line 34 + `lattice-impedance-decomposition.md` §2 lines 100-132 + `src/ave/core/constants.py` `L_NODE`). In lattice-natural units, $\ell_{node} = 1$ by definition — the substrate's natural cardinality unit.
 
 **Consequence**: the substrate's discrete cell-counting IS the substrate-native cardinality measure for any sub-manifold of the lattice. For a sub-manifold $\Sigma_k$ of geometric codimension $k$ in the substrate:
 

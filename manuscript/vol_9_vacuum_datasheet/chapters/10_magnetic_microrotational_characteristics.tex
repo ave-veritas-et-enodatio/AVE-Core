@@ -36,7 +36,7 @@ The bond-level inductance of $\mathcal{M}_A$ is the microrotational analog of bo
 L_{cell} = \mu_0\, \ell_{node}, \qquad C_{cell} = \varepsilon_0\, \ell_{node},
 \]
 
-with $\mu_0 = 4\pi \times 10^{-7}$~\si{\henry\per\metre} the substrate-native bond microrotation density (canonical-source \kbleaf{src/ave/core/constants.py:79}, \texttt{MU\_0}). Per Ch.~\ref{ch:vol9_dc_electrical_characteristics} \S Vacuum impedance trio, the $4\pi$ prefactor on $\mu_0$ carries the spherical-harmonic field-geometry origin, not engineering convention; the substrate-native value is identical to the SI defined value because SI inherits the substrate.
+with $\mu_0 = 4\pi \times 10^{-7}$~\si{\henry\per\metre} the substrate-native bond microrotation density (canonical-source \kbleaf{src/ave/core/constants.py}, \texttt{MU\_0}). Per Ch.~\ref{ch:vol9_dc_electrical_characteristics} \S Vacuum impedance trio, the $4\pi$ prefactor on $\mu_0$ carries the spherical-harmonic field-geometry origin, not engineering convention; the substrate-native value is identical to the SI defined value because SI inherits the substrate.
 
 \textbf{Flywheel picture.} Each K4 node carries a Cosserat micro-rotation $\boldsymbol{\omega}$ with a Cosserat micro-inertia $I_\omega$; the bond's inductance is the substrate-native resistance to changing the per-bond microrotation differential, exactly as a transformer's mutual inductance is the resistance to changing the flux linkage between its windings. Engineering practice catalogs the flywheel storage at the LC tank level (oscillator $\omega_C = 1/\sqrt{L_{cell} C_{cell}} = c_0/\ell_{node}$, per Ch.~\ref{ch:vol9_ac_electrical_characteristics} \S AC characteristic frequency); AVE substrate-physics derives the inductance as the microrotation-density side of the LC tank.
 
@@ -66,7 +66,7 @@ The magnetic / microrotational primitives of $\mathcal{M}_A$ at the cold-lattice
 \midrule
 
 $\mu_0$ & $4\pi \times 10^{-7}$ & \si{\henry\per\metre} &
-Substrate-native bond microrotation density --- the inductance-density of the microrotational (B-DOF) sector. The $4\pi$ prefactor is spherical-harmonic field geometry (Axiom~1), not engineering convention. Source: \kbleaf{src/ave/core/constants.py:79} (\texttt{MU\_0}); see Ch.~\ref{ch:vol9_dc_electrical_characteristics} \S Vacuum impedance trio. \\
+Substrate-native bond microrotation density --- the inductance-density of the microrotational (B-DOF) sector. The $4\pi$ prefactor is spherical-harmonic field geometry (Axiom~1), not engineering convention. Source: \kbleaf{src/ave/core/constants.py} (\texttt{MU\_0}); see Ch.~\ref{ch:vol9_dc_electrical_characteristics} \S Vacuum impedance trio. \\
 
 $L_{cell}$ & $\mu_0\, \ell_{node}$ & \si{\henry} &
 Per-bond inductance. Microrotational analog of bond capacitance $C_{cell} = \varepsilon_0\, \ell_{node}$. Each K4 bond is an inductive flywheel storing energy in its Cosserat micro-rotation gradient. Source: Ch.~\ref{ch:vol9_dc_electrical_characteristics} line documenting $L_{cell}$; \kbleaf{common/translation-tables/translation-circuit.md} \S 4 mapping rows (\texttt{clm-eemap1}). \\

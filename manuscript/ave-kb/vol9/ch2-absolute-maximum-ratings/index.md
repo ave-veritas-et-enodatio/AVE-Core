@@ -25,7 +25,7 @@ The chapter content is **Class B/C synthesis** per `consistency-vs-emergence` v1
 | [`vol1/.../domain-catalog.md`](../../vol1/operators-and-regimes/ch7-regime-map/domain-catalog.md), `clm-82dxbj` | Per-domain control-parameter catalog; $B_{snap}$ magnetic-sector canonical home |
 | [`vol3/.../mode-counting-heat-capacity.md`](../../vol3/condensed-matter/ch11-thermodynamics/mode-counting-heat-capacity.md), `clm-uu6dl5` | $T \sim m_e c^2 / k_B \approx 5.93 \times 10^9$ K thermal pair-production threshold; vacuum heat-capacity Debye-class roll-off |
 | [`common/temporal-saturation-regime-classifier.md`](../../common/temporal-saturation-regime-classifier.md) | $T_{pair} = 2 m_e c^2/k_B$ thermal-decoherence engineering threshold for topological qubits |
-| `src/ave/core/constants.py:333` (`V_SNAP`), `:342` (`V_YIELD`), `:347` (`E_CRIT`), `:353` (`E_YIELD`), `:359` (`B_SNAP`) | Canonical numerical constants (per `ave-canonical-source`) |
+| `src/ave/core/constants.py` symbols `V_SNAP`, `V_YIELD`, `E_CRIT`, `E_YIELD`, `B_SNAP` | Canonical numerical constants (per `ave-canonical-source`) |
 
 ## Manuscript counterpart
 
