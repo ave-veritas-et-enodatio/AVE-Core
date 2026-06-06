@@ -66,7 +66,12 @@ from ave.core.constants import (
 from ave.core.universal_operators import (
     universal_reflection as _universal_reflection,           # Op3   (universal_operators:118)
     universal_power_transmission as _universal_power_transmission,  # Op17  (universal_operators:833)
+    universal_spectral_analysis as _universal_spectral_analysis,    # Op7   (universal_operators:355)
 )
+
+# r10 coordinate-correct (2,3) extractor functions — lazy-imported + cached
+# (the module needs the scripts path + its own JAX-stack dep). COMPOSED.
+_R10_FUNCS: dict[str, Any] = {}
 
 
 def _universal_power_transmission_from_gamma(gamma: float) -> float:
@@ -702,6 +707,275 @@ class ObservableBattery:
                     "NOT the Axiom-2 winding/linking; M = integrated strain (rigorous).",
         }
 
-    def extract_full(self, engine) -> dict:  # noqa: D401 — filled Step 5
-        """Heavy post-run field-walks (run once). Implemented Step 5."""
-        raise NotImplementedError("ObservableBattery.extract_full — filled Step 5")
+    # ─────────────────────────────────────────────────────────────────────────
+    # Heavy post-run field-walks — run ONCE on the converged state (extract_full).
+    # ─────────────────────────────────────────────────────────────────────────
+    def extract_full(self, engine) -> dict:
+        """The expensive field-walks, run once on the converged state (prereg
+        §3): (2,3) shell-walk (#6), Θ_RP (#5), M/Q/J (#9 heavy), R/r (#11
+        heavy), ρ_Q density (#13), dispersion FFT (#14). Each channel that
+        cannot be honestly computed is returned with an ``inconclusive`` flag
+        rather than a null (so a missing read is never a false negative)."""
+        full: dict[str, Any] = {}
+        inconclusive: list[str] = []
+
+        full["winding_2_3"] = self._winding_2_3(engine, inconclusive)
+        full["theta_RP"] = self._theta_RP(engine, inconclusive)
+        full["boundary_MQJ"] = self._boundary_MQJ(engine)        # heavy full-field
+        full["hopf_full"] = self._hopf_full(engine, inconclusive)  # + R/r shell radii
+        full["charge_density"] = self._charge_density(engine, inconclusive)
+        full["dispersion"] = self._dispersion(engine, inconclusive)
+
+        full["_inconclusive"] = inconclusive
+        return full
+
+    # ── CHANNEL 6 — (2,3) winding (COMPOSE the r10 coordinate-correct extractor)
+    def _winding_2_3(self, engine, inconclusive: list) -> dict:
+        """The soliton's topological charge W via the coordinate-correct (2,3)
+        extractor. COMPOSES ``shell_params_from_field`` + ``extract_2_3_spatial``
+        + ``is_2_3`` from r10 (the clean-validated extractor). Redefines none.
+
+        Reads the K4 V_inc/Phi_link full field (NOT the Cosserat sector), so it
+        populates on the K4-hosted imposed-(2,3) control. modal_count / n_walks
+        confidence fields are carried through so a weak read is visible (the V0
+        degradation-vs-contamination fork: a conserved (2,3) cannot fade
+        gradually, so a weak read = thermal dressing, not lost charge)."""
+        r10 = self._lazy_r10(inconclusive, "winding_2_3")
+        if r10 is None:
+            return {"inconclusive": True, "reason": "r10-extractor-unavailable"}
+        try:
+            k4 = engine.k4
+            V_inc = np.asarray(k4.V_inc, dtype=float)
+            Phi = np.asarray(k4.Phi_link, dtype=float)
+            mA = np.asarray(k4.mask_A, dtype=bool)
+            N = int(engine.N)
+            PML = int(self.pml_thickness)
+            R, r, cx, cy, cz, kz = r10["shell_params_from_field"](V_inc, mA, N)
+            res = r10["extract_2_3_spatial"](V_inc, Phi, mA, N, PML, R, r,
+                                             (cx, cy, cz), kz)
+            res.pop("_curve", None)   # drop figure samples from the record
+            res["is_2_3"] = bool(r10["is_2_3"](res))
+            res["a2_max"] = float(np.sum(V_inc ** 2, axis=-1).max())
+            return res
+        except Exception as exc:   # pragma: no cover
+            inconclusive.append("winding_2_3")
+            return {"inconclusive": True, "reason": f"{type(exc).__name__}: {exc}"}
+
+    # ── CHANNEL 5 — Real↔phase angle Θ_RP (COMPOSE r10 nhat + fibre-phase) ─────
+    def _theta_RP(self, engine, inconclusive: list) -> dict:
+        """Angle between the real-space field direction n̂ (Cosserat-analog,
+        from K4 port-weighted direction) and the phase-space C↔L/U(1)-fibre
+        phase. COMPOSES ``field_direction_nhat`` + ``fibre_phase_cell`` +
+        ``knot_tangent_port_weights`` (r10). Redefines none.
+
+        Eigenmode-vs-trajectory discriminator (phase-space-coordinate-check —
+        this is the one channel that is explicitly an angle BETWEEN a real-space
+        and a phase-space axis): n̂ locked in quadrature to the C↔L fibre =
+        phase-coherent eigenmode; the angle drifting = dissipative trajectory.
+        Read at the energy-density-peak A-sites (density-peak sampling, A-Rule
+        10 — NOT centroid+offset, since a shell's centroid is the empty middle)."""
+        r10 = self._lazy_r10(inconclusive, "theta_RP")
+        if r10 is None:
+            return {"inconclusive": True, "reason": "r10-extractor-unavailable"}
+        try:
+            k4 = engine.k4
+            V_inc = np.asarray(k4.V_inc, dtype=float)
+            Phi = np.asarray(k4.Phi_link, dtype=float)
+            mA = np.asarray(k4.mask_A, dtype=bool)
+            N = int(engine.N)
+            interior = self._interior_mask(V_inc.shape[:3])
+            valid = mA & np.asarray(k4.mask_active, dtype=bool) & interior
+
+            # locate the hosted shell to get the knot-tangent coherent weight
+            R, r, cx, cy, cz, kz = r10["shell_params_from_field"](V_inc, mA, N)
+
+            # Density-peak sampling: top-K |V_inc|² A-sites (PML-excluded).
+            a2 = np.sum(V_inc ** 2, axis=-1)
+            a2_valid = np.where(valid, a2, -1.0)
+            K = min(64, int(valid.sum()))
+            if K <= 0:
+                inconclusive.append("theta_RP")
+                return {"inconclusive": True, "reason": "no-valid-interior-A-sites"}
+            flat_idx = np.argpartition(a2_valid.ravel(), -K)[-K:]
+            ijk = np.array(np.unravel_index(flat_idx, a2.shape)).T  # (K,3)
+
+            angles = []
+            for (i, j, k) in ijk:
+                V_cell = V_inc[i, j, k]            # (4,) port voltages
+                Phi_cell = Phi[i, j, k]            # (4,) port flux
+                # real-space field direction n̂ (S² "2" base) → its azimuth
+                nhat, nmag = r10["field_direction_nhat"](V_cell)
+                if nmag < 1e-12:
+                    continue
+                nhat_az = float(np.arctan2(nhat[1], nhat[0]))
+                # phase-space C↔L fibre phase at the cell's (φ,ψ) coherent weight
+                phi_ang = float(np.arctan2(j - cy, i - cx))
+                psi_ang = 0.0  # outer-equator crest (minor angle ~0 at the slice)
+                w_port = r10["knot_tangent_port_weights"](phi_ang, psi_ang, R, r)
+                fibre_phase, fmag = r10["fibre_phase_cell"](V_cell, Phi_cell, w_port)
+                if fmag < 1e-15:
+                    continue
+                # Θ_RP = angle between the real-space n̂-azimuth and the phase
+                # fibre angle, wrapped to (−π, π].
+                dtheta = np.arctan2(np.sin(nhat_az - fibre_phase),
+                                    np.cos(nhat_az - fibre_phase))
+                angles.append(float(dtheta))
+
+            if not angles:
+                inconclusive.append("theta_RP")
+                return {"inconclusive": True, "reason": "no-coherent-fibre-phase"}
+            angles = np.array(angles)
+            # circular stats: mean resultant length R_bar ∈ [0,1]; R_bar→1 =
+            # locked (coherent eigenmode), R_bar→0 = drifting (trajectory).
+            C = float(np.mean(np.cos(angles)))
+            S = float(np.mean(np.sin(angles)))
+            R_bar = float(np.hypot(C, S))
+            theta_mean = float(np.arctan2(S, C))
+            # quadrature check: |Θ_RP| near π/2 = locked-in-quadrature.
+            quad_frac = float(np.mean(np.abs(np.abs(angles) - np.pi / 2.0) < (np.pi / 8.0)))
+            return {
+                "theta_RP_mean_rad": theta_mean,
+                "theta_RP_circular_R": R_bar,    # coherence: →1 locked, →0 drifting
+                "quadrature_fraction": quad_frac,  # frac within ±π/8 of ±π/2
+                "n_samples": int(len(angles)),
+                "coord": Coord.REAL_VS_PHASE.value,
+            }
+        except Exception as exc:   # pragma: no cover
+            inconclusive.append("theta_RP")
+            return {"inconclusive": True, "reason": f"{type(exc).__name__}: {exc}"}
+
+    # ── CHANNEL 11 heavy — Hopf + centroids + R/r shell radii ─────────────────
+    def _hopf_full(self, engine, inconclusive: list) -> dict:
+        """Q_hopf + centroids (COMPOSE TopologyObserver) PLUS shell radii R/r
+        via ``CosseratField3D.extract_shell_radii`` (cosserat:1737). R/r vs φ²
+        golden-torus aspect. Feeds the rigorous Q/J. Reads the Cosserat sector;
+        on a K4-only control the centroids/Q_hopf read 0 (flagged, not nulled)."""
+        try:
+            cap = _TopologyObserver(cadence=1)._capture(engine)     # COMPOSED
+            cap["phi_squared"] = float(PHI ** 2)   # golden-torus aspect reference
+            # R/r reads the Cosserat ω field; it is ONLY meaningful when that
+            # sector is alive. On a K4-only control the read picks up noise — so
+            # gate it + flag rather than report a meaningless R/r (flag-don't-fix).
+            cos = engine.cos
+            cos_alive = bool(np.any(np.abs(np.asarray(cos.omega)) > 1e-30))
+            if cos_alive:
+                R, r = cos.extract_shell_radii()                     # COMPOSED
+                cap["R_major"] = float(R)
+                cap["r_minor"] = float(r)
+                cap["R_over_r"] = float(R / r) if r > 1e-12 else 0.0
+            else:
+                cap["R_major"] = None
+                cap["r_minor"] = None
+                cap["R_over_r"] = None
+                cap["R_r_note"] = ("Cosserat ω cold (K4-only control): R/r shell "
+                                   "radii not meaningful; the (2,3) winding (#6) "
+                                   "reads the K4-hosted shell instead.")
+            if cap.get("n_centroids", 0) == 0:
+                cap["note"] = ("Q_hopf/centroids read the Cosserat ω field; "
+                               "0 on a K4-only control (not a null result).")
+            return cap
+        except Exception as exc:   # pragma: no cover
+            inconclusive.append("hopf_full")
+            return {"inconclusive": True, "reason": f"{type(exc).__name__}: {exc}"}
+
+    # ── CHANNEL 13 — Per-site charge density ρ_Q (reuse the Q_hopf kernel) ─────
+    def _charge_density(self, engine, inconclusive: list) -> dict:
+        """Pre-integration Chern-Simons/Beltrami integrand per site — the
+        virtual-soliton / pair-nucleation precursor map (where the substrate is
+        about to seed topology). REUSES the shipped ``_hopf_density`` kernel
+        (cosserat:240, A·B/2) that ``extract_hopf_charge`` integrates — same
+        kernel, un-integrated. Redefines none. Reduced to interior peak / RMS /
+        signed-sum (the full field is too large for the JSON record)."""
+        try:
+            from ave.topological.cosserat_field_3d import _hopf_density  # COMPOSED kernel
+            cos = engine.cos
+            omega = np.asarray(cos.omega, dtype=float)
+            if not np.any(np.abs(omega) > 1e-30):
+                return {"rho_Q_peak": 0.0, "rho_Q_rms": 0.0, "rho_Q_signed_sum": 0.0,
+                        "note": "cosserat-omega-cold (K4-only control)"}
+            rho = np.asarray(_hopf_density(omega, float(cos.dx)), dtype=float)
+            live = np.asarray(cos.mask_alive, dtype=bool)
+            interior = self._interior_mask(rho.shape)
+            sel = live & interior
+            rho_sel = rho[sel] if sel.any() else np.array([0.0])
+            return {
+                "rho_Q_peak": float(np.abs(rho_sel).max()),
+                "rho_Q_rms": float(np.sqrt(np.mean(rho_sel ** 2))),
+                "rho_Q_signed_sum": float(rho_sel.sum() * (float(cos.dx) ** 3)),
+                "rho_Q_positive_frac": float(np.mean(rho_sel > 0)),
+            }
+        except Exception as exc:   # pragma: no cover
+            inconclusive.append("charge_density")
+            return {"inconclusive": True, "reason": f"{type(exc).__name__}: {exc}"}
+
+    # ── CHANNEL 14 — Spectral dispersion (COMPOSE universal_spectral_analysis) ─
+    def _dispersion(self, engine, inconclusive: list) -> dict:
+        """FFT of the accumulated probe series → spectrum, dominant frequencies.
+        COMPOSES the shipped ``universal_spectral_analysis`` (universal_operators:
+        355). Does the soliton ring at ω_C? POST-RUN only. Honest INCONCLUSIVE
+        if too few probe samples accumulated (DSP needs a series)."""
+        if len(self.probe_history) < 8:
+            inconclusive.append("dispersion")
+            return {"inconclusive": True,
+                    "reason": f"probe_history too short ({len(self.probe_history)}<8 samples)",
+                    "n_probe_samples": len(self.probe_history)}
+        try:
+            series = np.asarray(self.probe_history, dtype=float)
+            spec = _universal_spectral_analysis(series)             # COMPOSED
+            dom_k = spec.get("dominant_k")
+            power = spec.get("power")
+            out = {
+                "n_probe_samples": int(series.size),
+                "dominant_k": [int(x) for x in np.atleast_1d(dom_k)][:5]
+                              if dom_k is not None else [],
+                "dc_level": float(np.real(spec["spectrum"][0]) / series.size)
+                            if "spectrum" in spec else 0.0,
+            }
+            if power is not None and len(power) > 1:
+                # peak-spatial-frequency reading (DSP) — phase/group velocity
+                # would require a (k, ω) 2D probe; v1 reports the 1D peak only.
+                out["peak_freq_index"] = int(np.argmax(power[1:]) + 1)
+            return out
+        except Exception as exc:   # pragma: no cover
+            inconclusive.append("dispersion")
+            return {"inconclusive": True, "reason": f"{type(exc).__name__}: {exc}"}
+
+    # ── Lazy r10 (2,3) extractor import (scripts path) — composed, not copied ──
+    def _lazy_r10(self, inconclusive: list, channel: str) -> Optional[dict]:
+        """Import + cache the r10 coordinate-correct (2,3) extractor functions
+        (COMPOSED). Returns None + flags inconclusive if the scripts path / its
+        own dep (tlm_electron_soliton_eigenmode) is unavailable."""
+        if _R10_FUNCS:
+            return _R10_FUNCS
+        try:
+            import sys as _sys
+            from pathlib import Path as _Path
+            # the r10 module lives in src/scripts/vol_1_foundations; add to path
+            here = _Path(__file__).resolve()
+            # …/src/ave/core/observable_battery.py → …/src
+            src_root = here.parents[2]
+            scripts_dir = src_root / "scripts" / "vol_1_foundations"
+            for p in (str(scripts_dir),):
+                if p not in _sys.path:
+                    _sys.path.insert(0, p)
+            from r10_2_3_winding_extractor_coordinate import (   # COMPOSED
+                extract_2_3_spatial,
+                shell_params_from_field,
+                field_direction_nhat,
+                fibre_phase_cell,
+                knot_tangent_port_weights,
+                is_2_3,
+            )
+            _R10_FUNCS.update(
+                extract_2_3_spatial=extract_2_3_spatial,
+                shell_params_from_field=shell_params_from_field,
+                field_direction_nhat=field_direction_nhat,
+                fibre_phase_cell=fibre_phase_cell,
+                knot_tangent_port_weights=knot_tangent_port_weights,
+                is_2_3=is_2_3,
+            )
+            return _R10_FUNCS
+        except Exception as exc:   # pragma: no cover
+            if channel not in inconclusive:
+                inconclusive.append(channel)
+            return None
