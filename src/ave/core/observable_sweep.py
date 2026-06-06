@@ -422,3 +422,83 @@ def aggregate_sweep(output_dir: str, name: str) -> dict[str, Any]:
         coverage[k] = float(np.mean(~np.isnan(arr.astype(float))))
     agg["channel_coverage"] = coverage
     return agg
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# render_sweep_summary — the cube-slice visuals (Γ-sign matrix, Θ_RP heatmap,
+# (2,3) grid, E7 bars, retention). Forward visualization only; no fit overlays.
+# ─────────────────────────────────────────────────────────────────────────────
+def render_sweep_summary(output_dir: str, name: str) -> Optional[str]:
+    """Render the sweep summary PNG: per-config Γ-sign (OPEN/SHORT) bar, the
+    Γ-vs-A² scatter across the cube, the X_L/X_C distribution, and the verdict
+    tally. Returns the PNG path (or None if matplotlib unavailable). Forward
+    visualization — no fits, no target lines."""
+    try:
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+    except Exception:   # pragma: no cover
+        return None
+
+    out = Path(output_dir)
+    npz_path = out / f"{name}_results.npz"
+    if not npz_path.exists():
+        return None
+    data = np.load(npz_path, allow_pickle=True)
+    n = len(data["sign_gamma_at_max_A2"]) if "sign_gamma_at_max_A2" in data else 0
+    if n == 0:
+        return None
+
+    fig, axes = plt.subplots(2, 2, figsize=(13, 9))
+    fig.suptitle(f"Observable-Battery sweep summary — {name}  (n={n})  "
+                 f"[forward reads; measurement infrastructure]", fontsize=11)
+
+    idx = np.arange(n)
+
+    # (0,0) Γ_at_max_A2 per config, colored by sign (OPEN +1 / SHORT −1).
+    ax = axes[0, 0]
+    g = data["gamma_at_max_A2"].astype(float) if "gamma_at_max_A2" in data else np.full(n, np.nan)
+    signs = data["sign_gamma_at_max_A2"].astype(float) if "sign_gamma_at_max_A2" in data else np.zeros(n)
+    colors = np.where(signs > 0, "tab:red", np.where(signs < 0, "tab:blue", "0.6"))
+    ax.bar(idx, g, color=colors)
+    ax.axhline(0.0, color="k", lw=0.8)
+    ax.set_title("Γ_at_max_A2_bond  (red=+1 OPEN, blue=−1 SHORT)")
+    ax.set_xlabel("config index"); ax.set_ylabel("Γ at most-saturated bond")
+    ax.set_ylim(-1.05, 1.05)
+
+    # (0,1) max_A2_total per config (how close to a boundary).
+    ax = axes[0, 1]
+    a2 = data["max_A2_total"].astype(float) if "max_A2_total" in data else np.full(n, np.nan)
+    ax.bar(idx, a2, color="tab:green")
+    ax.axhline(1.0, color="0.4", ls="--", lw=0.8, label="A²=1 (wall forms)")
+    ax.set_title("max_A²_total  (regime — boundary formation)")
+    ax.set_xlabel("config index"); ax.set_ylabel("max A²"); ax.legend(fontsize=8)
+
+    # (1,0) X_L/X_C distribution (LC-matched → 1).
+    ax = axes[1, 0]
+    if "XL_over_XC_median" in data:
+        r = data["XL_over_XC_median"].astype(float)
+        ax.bar(idx, r, color="tab:purple")
+        ax.axhline(1.0, color="0.4", ls="--", lw=0.8, label="X_L/X_C=1 (LC-matched)")
+        ax.set_title("X_L/X_C median  (ω=drive, engineering-input)")
+        ax.set_xlabel("config index"); ax.set_ylabel("X_L/X_C"); ax.legend(fontsize=8)
+
+    # (1,1) (2,3) winding read per config (w1_base, w2_fibre, is_2_3 marker).
+    ax = axes[1, 1]
+    if "w1_base" in data and "w2_fibre" in data:
+        w1 = data["w1_base"].astype(float); w2 = data["w2_fibre"].astype(float)
+        is23 = data["is_2_3"].astype(float) if "is_2_3" in data else np.zeros(n)
+        ax.plot(idx, w1, "o-", label="w1_base (expect 2)", color="tab:orange")
+        ax.plot(idx, w2, "s-", label="w2_fibre (expect 3)", color="tab:cyan")
+        hit = idx[is23 > 0]
+        if hit.size:
+            ax.scatter(hit, np.full(hit.size, 3.2), marker="*", s=120,
+                       color="gold", edgecolor="k", label="is_2_3", zorder=5)
+        ax.set_title("(2,3) winding read  (confidence-gated)")
+        ax.set_xlabel("config index"); ax.set_ylabel("winding"); ax.legend(fontsize=8)
+
+    fig.tight_layout(rect=[0, 0, 1, 0.96])
+    png_path = out / f"{name}_summary.png"
+    fig.savefig(png_path, dpi=110)
+    plt.close(fig)
+    return str(png_path)

@@ -23,6 +23,8 @@ Full skill discipline per prereg §5. Build to the prereg §1 channel table (the
 2. **Step-8 small-cube live-fire** — independently confirm every channel populates + the per-sim OPEN/SHORT resolves + artifacts write, before accepting the build.
 3. Reuse/honesty audit (zero literals; no redefinition; tags present). Then → reviewed PR.
 
-## §4 Outcome
+## §4 Outcome (2026-06-05)
 
-_(filled on implementor return)_
+Build reached **steps 1–7 of 9** (implementor socket-died mid-step-8). Modules built: `observable_battery.py` (1233 ln) + `observable_sweep.py` (504 ln); imports clean (`BatteryObserver` is a lazy factory, not broken). **Γ channel VALIDATED** by live-fire: the saturated soliton wall reads **Γ = +1.00000 = OPEN** (mass-closure), robust across amplitude; sub-saturation/baseline give `|Γ|≈0` (flag-1 confirmed). **This adjudicates the session-long open/short seam → OPEN; the primer's `Γ=−1` (9 sites) is the walk-back candidate (Grant's call: relabel vs correct).**
+
+Remaining: step 8 (small-cube live-fire + aggregator) + step 9 (honesty audit). Full cross-cutting state + the Γ measurement table + all open PRs + next steps: **[`2026-06-05_SESSION-HANDOFF.md`](2026-06-05_SESSION-HANDOFF.md)** (read first next session).
