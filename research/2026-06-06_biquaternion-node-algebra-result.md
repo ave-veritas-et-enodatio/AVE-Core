@@ -458,10 +458,95 @@ physics. This is the pre-registered "most likely partial → land consistency-cl
 
 ## §8 Discrimination-check on T2 (`ave-discrimination-check`)
 
-PENDING.
+The prereg §4.7 question: is the longitudinal mode AVE-distinct (transverse-EM-forbidden),
+and does it predict anything new?
+
+**Step 1 — enumerate the claims:**
+- (a) the substrate has a *propagating longitudinal/acoustic* vacuum mode;
+- (b) that mode is *transverse-EM-forbidden* (the Heaviside vacuum has no propagating
+  longitudinal EM mode);
+- (c) the biquaternion grade-0 scalar is its algebraic home;
+- (d) the biquaternion *adds a new testable prediction* about it (the G3 claim).
+
+**Step 2 — SM-counterfactual table:**
+
+| Claim | SM / Heaviside-Maxwell predicts same? | AVE-distinct? |
+|---|---|---|
+| (a) propagating longitudinal *vacuum* mode | NO — Maxwell vacuum is transverse; longitudinal/scalar modes are gauge, non-propagating. (SM *does* have longitudinal modes in **media** — sound, Langmuir, phonons.) | **YES** — but as a *framework claim* (vacuum is a medium), already canonical via the Master Equation, **not** new to the biquaternion |
+| (b) transverse-EM-forbidden | YES forbidden in transverse EM — that is the point | YES, **already canonical** (the deleted scalar) |
+| (c) biquaternion is its algebraic home | N/A — a math statement, no physical counterfactual | notation, consistency-class |
+| (d) **new** prediction from the algebra | — | **NO** — the biquaternion adds no number/dispersion/coupling |
+
+**Step 2.5 — discriminator axis:** the T2 claim is an **existence** claim (does a propagating
+longitudinal vacuum mode exist?), not magnitude or ratio. The discriminator is existence-of-mode:
+SM-vacuum NO, AVE YES. But that discriminator is **already supplied** by the Master Equation
+(it propagates `V`; gives `c_eff(V)`), and **predates** the biquaternion. A *new* discriminator
+would be a measured longitudinal dispersion/speed — which is the Master Equation's content, not
+the algebra's.
+
+**Step 3 — promote only on AVE-distinct content:** the longitudinal mode **IS** AVE-distinct
+(claims a/b) — answering the first half of §4.7 **YES**. But the AVE-distinctness is a property
+of the **already-canonical** breathing/acoustic mode; the biquaternion contributes the
+structural **narrative** (Heaviside's deleted scalar = the grade-0 slot), which is
+consistency-class. Answering the second half of §4.7 — does the biquaternion predict anything
+new — **NO**.
+
+**Discrimination verdict:** *"Maxwell's deleted scalar = AVE's 7th mode"* is best read as a
+**structural identification with illumination value**, **not** a structural necessity of the
+substrate and **not** a new AVE-distinct prediction. The longitudinal mode's AVE-distinctness is
+real and canonical; the biquaternion re-expresses it without adding empirical content. (This is
+the §4.4 verdict, confirmed by the counterfactual.)
 
 ---
 
 ## §9 Discipline-fired log + honest closure
 
-PENDING.
+### §9.1 Disciplines fired (and what each caught)
+
+| Discipline | What it caught / enforced here |
+|---|---|
+| `substrate-native-check` (trigger 6, prose-derivation of an algebra) | §2.3: the substrate's 7 modes come from K4+Cosserat micropolar DOF (Ax 1), **not** the algebra; the 8-component match is consistency, not derivation — guarded the algebra-first SM/QED leak |
+| `phase-space-coordinate-check` | §3.2: prereg §2 bundles **real-space** 720° with **phase-space** (2,3) under "SU(2) closure"; surfaced as a coordinate-category caveat (consistent with FM §9 + torus-knot-uniqueness) |
+| `consistency-vs-emergence` (Step 8 classification-promotion) | §7.1 + the whole G-gate: every result classified; none promotes past its canonical-source ceiling; named the algebra-necessity-vs-substrate-necessity distinction that sinks G1 |
+| `ave-discrimination-check` | §8: T2 longitudinal mode IS AVE-distinct but the biquaternion adds no new discriminator |
+| `ave-evidence-framing-discipline` | §0 verdict-up-front; no "found the number system"; strongest *accurate* framing (null cone ↔ reflection wall), neither inflated nor under-claimed |
+| `ave-canonical-source` | §6 + verify script: `ALPHA_COLD_INV` imported, forward-only, no fitting; canonical-source assertion in the script |
+| `ave-ee-first-mapping` (prereg §5, pre-fired) | EE (Z, Γ, windings) is the measurement language; the biquaternion is the rotation/longitudinal language under it — complementary |
+
+### §9.2 Flag-don't-fix items surfaced (not silently reconciled)
+
+1. **Op3 vs Op17** (§1): the prereg labels the reflection coefficient "Op17"; canonically the
+   reflection coefficient is **Op3** (`operators.md:43`), Op17 is the downstream `T²=1−Γ²`. A
+   prereg-internal label slip; no corpus change — noted for the auditor.
+2. **Real-space 720° vs phase-space (2,3)** (§3.2): the prereg §2 bundling is loose; the
+   canonical leaves already separate the two coordinate systems. Consistent with canon; a
+   clarification, not a correction.
+3. **Open/short sign = Möbius convention** (§5.2): the SL(2,ℂ) view names the sign-ambiguity
+   precisely but does **not** resolve which boundary the substrate imposes — that remains the
+   open corpus seam / Grant's adjudication (`observable-battery-infrastructure-prereg.md:44`).
+   The algebra is not evidence for either boundary condition.
+
+### §9.3 Honest closure (Rule 11)
+
+The pre-registered prediction — *"most likely partial; T1/T3 consistency-class, T2 the strongest
+genuine-content candidate, T4 high-risk; pre-commit to landing consistency-class if G1–G3 fail"*
+— is **borne out**. A **single mechanism explains all three G-gate failures**: every piece is
+**standard mathematics** (`SU(2)⊂SL(2,ℂ)`, `Cl(3)` grading, Möbius geometry, the null cone) over
+**already-canonical, independently-substrate-derived** facts, and **algebra-internal necessity is
+not substrate-physical necessity**. That is the discipline working at full strength, not a
+failure. **Branch closed**; no rescue toward a forced G-gate pass attempted.
+
+**Substitution-not-retraction (Rule 12):** N/A — this was an open prove-or-disprove, not a
+falsified prior hypothesis. It lands **disprove-the-strong-claim** (the biquaternion is *not* a
+newly-discovered substrate number system) / **affirm-the-weak-claim** (it is an elegant
+consistency-class re-expression). No slot is refilled with an unverified hypothesis.
+
+### §9.4 Corpus-state (for the auditor — surface, do not land)
+
+This result is **consistency-class**: it adds/retires **no** matrix row, **no** claim-quality
+entry, and requires **no** manuscript edit. It cross-links the §1 canonical leaves without
+modifying them. If anything is worth landing, it is a one-line teaching cross-reference (the
+null-cone ↔ `Γ=−1`-wall lens) and the Op3/Op17 prereg-label note — both the auditor's call, not
+the implementer's. The verification script
+[`verify_biquaternion_node_algebra.py`](../src/scripts/vol_1_foundations/verify_biquaternion_node_algebra.py)
+is forward-only and passes `make verify`.
