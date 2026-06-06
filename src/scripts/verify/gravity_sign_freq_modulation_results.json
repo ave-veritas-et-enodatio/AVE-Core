@@ -1,0 +1,82 @@
+{
+  "constants_imported": {
+    "G": 6.6743e-11,
+    "C_0": 299792458.0,
+    "L_NODE": 3.8615926772428334e-13,
+    "Z_0": 376.73031346177066,
+    "MU_0": 1.2566370614359173e-06,
+    "EPSILON_0": 8.854187817620389e-12,
+    "M_SUN": 1.989e+30,
+    "source": "ave.core.constants"
+  },
+  "external_inputs": {
+    "R_SUN_M": 695700000.0,
+    "source": "IAU 2015 solar radius"
+  },
+  "checks": [
+    {
+      "label": "Phase1 SIGN: loading drops signal speed -> n>1 (bends toward mass)",
+      "detail": "omega_node, c_light, c_shear all DROP under loading; n_light=1/S>1, n_shear=1/sqrt(S)>1; phase c_EM=c_0/S RISES (not the ray observable); Z=Z_0 invariant (reflectionless).",
+      "passed": true,
+      "numbers": {
+        "signal_speeds_drop_monotonically": true,
+        "bending_indices_gt_1": true,
+        "phase_velocity_c_EM_rises": true,
+        "Z_local_invariant_eq_Z0": true,
+        "Z_local_over_Z0_max_dev": 2.220446049250313e-16,
+        "at_A_0p5": {
+          "S": 0.8660254037844386,
+          "omega_node_over_omega0": 0.8660254037844386,
+          "c_light_over_c0": 0.8660254037844386,
+          "c_shear_over_c0": 0.9306048591020996,
+          "c_EM_over_c0": 1.1547005383792517,
+          "n_light": 1.1547005383792517,
+          "n_shear": 1.074569931823542,
+          "n_EM": 0.8660254037844386
+        }
+      }
+    },
+    {
+      "label": "Phase2 MAP+factor2: c_EM/c_shear<->index exact; {1/S,1/sqrt S} ratio->2 (FLAGGED)",
+      "detail": "c_shear->1/sqrt(S), c_EM->S (NOT 1/S), c_light(both reactances)->1/S exactly. Reactance-counting (n_light-1)/(n_shear-1)->2 in weak limit, BUT this is a different mechanism than canonical 2/7:1/7 Poisson, and conflicts with Op16 (propagating-wave index = 1/sqrt(S) = matter index -> ratio 1). NOT reconciled.",
+      "passed": true,
+      "numbers": {
+        "index_map_exact": true,
+        "n_shear_from_c_shear": 1.118033988749895,
+        "n_EM_from_c_EM_is_S_not_inv_S": 0.8,
+        "n_light_from_c_light": 1.25,
+        "reactance_ratio_weaklimit": 2.0000005004881642,
+        "reactance_factor2_in_limit": true,
+        "reactance_ratio_vs_eps": {
+          "1e-02": 2.0050378152592163,
+          "1e-03": 2.000500375312913,
+          "1e-04": 2.0000500037453284,
+          "1e-05": 2.000005000051731,
+          "1e-06": 2.0000005004881642
+        },
+        "op16_light_index_equals_matter_index_FLAG": true,
+        "canonical_poisson_2_7_over_1_7": 2.0,
+        "canonical_poisson_factor2": true
+      }
+    },
+    {
+      "label": "Phase4 LENSING: canonical (2/7) photon index -> 4GM/bc^2 = GR (Class C)",
+      "detail": "Snell-gradient delta=2K*GM/bc^2; light K=2 (2/7 index) -> 1.75'' = Einstein; matter K=1 (1/7) -> Soldner; ratio 2. GR recomputed from imported G (no target).",
+      "passed": true,
+      "numbers": {
+        "delta_light_arcsec": 1.7517100517691688,
+        "delta_matter_arcsec": 0.8758550258845844,
+        "GR_einstein_arcsec_recomputed": 1.7517100517691688,
+        "ratio_light_over_matter": 2.0,
+        "ratio_light_over_GR": 1.0,
+        "observed_solar_deflection_arcsec": 1.75
+      }
+    }
+  ],
+  "verdict": {
+    "H1_sign_confirmed": true,
+    "H2_map_exact_but_factor2_mechanism_FLAGGED": true,
+    "lensing_class_C_consistency": true,
+    "note": "H1 (sign) PASS: signal speed drops -> n>1 -> bends toward mass, Z invariant. c_EM (phase) rises but is not the ray observable. H2 FLAG: {1/S,1/sqrt(S)} reactance-counting gives the NUMBER 2 but is a different mechanism than canonical 2/7:1/7 Poisson and conflicts with Op16 (propagating-wave index = 1/sqrt(S) = matter index). c_EM=c_0/S maps to index S, NOT 1/S. NOT reconciled -- surfaced for Grant adjudication."
+  }
+}
