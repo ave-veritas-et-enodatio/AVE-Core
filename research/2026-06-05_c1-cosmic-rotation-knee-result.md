@@ -9,9 +9,11 @@
 
 ## 0. TL;DR
 
-**Outcome: SCOPED (data-test) + DERIVATION-COMPLETE (Phases 1-2) + ECHO-RISK FLAGGED (Phase 4 — needs Grant adjudication).**
+**Outcome: SCOPED (data-test) + DERIVATION-COMPLETE (Phases 1-2) + ABSOLUTE-KNEE k NOT-DERIVABLE (Phase 1.5 — make-or-break check FAILS the chord condition) + ECHO-RISK FLAGGED (Phase 4 — needs Grant adjudication).**
 
-- **Phase 1-2 (derivation): COMPLETE, corpus-grounded, zero new free parameters.** The soliton-lattice-coupling-operator's missing functional form is derived as **coupling ∝ $I_s$** (moment-of-inertia / knot-content) from three canonical anchors, and the knee is derived as the canonical **regenerative coupling-number $Q\cdot\delta \geq 2$** (Reynolds-analog), with $\delta \propto I_s$. Key equations verbatim below (§1, §2).
+> **2026-06-05 RESULT-UPDATE (Phase 1.5 — absolute-knee normalization): the make-or-break §4.3 condition is NOT met.** The proportionality constant $k$ in $\delta_s = k\,I_s$ **cannot be cleanly derived from the substrate** (it was the §5.2-named open piece). Worked through three candidate canonical normalizations (§1.5): (1) the soliton's own gravitational self-strain $\delta = GM/(c^2R)$ — the literal scalar-gravity template `parametric-coupling-kernel.md:286` — puts the knee at **~Schwarzschild compactness** ($M/R = 4\times c^2/2G$), so **every galaxy is ~6 OOM SUB-knee** ($Q\delta_\text{gal}\sim10^{-6}$); (2) the $\xi$-Machian mass-hierarchy $\delta = M/(\xi m_e)$ puts the knee at $M_\text{crit}\sim10^{-17}\,M_\odot$, so **every galaxy is ~26 OOM ABOVE-knee** (fully locked); (3) the cosmic-vorticity ratio $\omega_\text{freeze}/\omega_\text{gal}\sim10^{-2}$ is the only one that lands near $O(0.01)$ but **does not scale with $I_s$** (it scales *inversely* with galaxy spin). **No normalization simultaneously (a) scales with $I_s$ per Anchors A+B AND (b) places the knee inside the observable galaxy range $10^9$–$10^{12}\,M_\odot$.** Per §4.3, an a-priori-located knee in the testable range is the condition for calling C1 a chord; **that number does not exist on the derived chain** ⇒ **the chord-in-the-knee verdict is DOWNGRADED to ECHO-pending-$k$** (the smooth-trend is a shared FORM / echo, and the discriminating knee-shape has no a-priori location). $k$ is reported **SCOPED-OPEN, NOT fudged** — a forced-fit $M_\text{crit}$ would be an echo dressed as a chord (brief honesty clause). Full arithmetic + the precise missing canonical normalization in **§1.5**; updated discrimination verdict in **§4.6**.
+
+- **Phase 1-2 (derivation): COMPLETE, corpus-grounded, zero new free parameters.** The soliton-lattice-coupling-operator's missing functional form is derived as **coupling ∝ $I_s$** (moment-of-inertia / knot-content) from three canonical anchors, and the knee is derived as the canonical **regenerative coupling-number $Q\cdot\delta \geq 2$** (Reynolds-analog), with $\delta \propto I_s$. Key equations verbatim below (§1, §2). **BUT the absolute knee LOCATION (which galaxy mass) requires the proportionality constant $k$, which §1.5 shows is NOT cleanly substrate-derivable.**
 - **Phase 3 (data test): SCOPED, NOT RUN.** The in-repo GZ1 Table 2 catalog has chirality + position but **no stellar mass, luminosity, or redshift column** (verified: 16 columns, none photometric). An $I_s$ proxy requires a cross-match to NSA / SDSS-photometric on objID, which is not in-repo. Per `ave-driver-script-honesty`, no alignment-vs-mass numbers are fabricated; the precise catalog/observable/cut/expected-signal is scoped in §3 for a follow-up live-fire session.
 - **Phase 4 (discrimination): ECHO-RISK.** A *monotone* alignment∝mass correlation is NOT AVE-distinct — ΛCDM tidal-torque theory, observational selection (massive galaxies are better-resolved → less chirality noise), and Bianchi/MOND can each produce a rising alignment-strength-with-mass trend. **The chord lives ONLY in the KNEE** — a *threshold* at the specific dimensionless location $Q\cdot\delta\sim2$ with $\delta\propto I_s$, which the alternatives do not predict. The discriminating observable is the *shape* (sigmoid-with-knee vs power-law vs flat), not the *sign* of the trend.
 
@@ -66,6 +68,68 @@ $$\boxed{\;\mathcal{A}(\Pi_s) = \kappa_{\text{quality}}(\Pi_s) = \begin{cases} (
 where $\mathcal{A}$ is the normalized alignment-strength (0 = isotropic, 1 = fully locked to $\hat{\Omega}_{\text{freeze}}$). This is **exactly the form the prediction requires**: alignment-strength rises quadratically with $\Pi_s$ (hence with $I_s$) below the knee, then saturates to a ceiling above it. The functional form is **the canonical Axiom-4 saturation envelope already in the catalog** — no new free parameter; the only mapping is $\delta_s\propto I_s$, which is the operator epic's explicitly-missing piece now supplied by Anchors A+B.
 
 This is the **soliton-lattice-coupling-operator's missing functional form** (operator epic line 27: "operator's output undetermined"): the operator outputs alignment-strength $\mathcal{A}(\Pi_s)$ with $\Pi_s = Q_s\delta_s$, $\delta_s\propto I_s$.
+
+---
+
+## 1.5 Phase 1.5 — Pinning $k$ (the absolute knee location): make-or-break check
+
+**This is the §4.3 chord condition rendered numerical.** §1.3 derives the *dimensionless* knee ($Q\delta=2$) and the *scaling* ($\delta_s\propto I_s$). What remains is the **proportionality constant $k$** in $\delta_s = k\,I_s$ — equivalently, *which* physical $\delta$ the cosmic coupling actually is. Pinning $k$ converts the dimensionless knee into an **absolute** knee: a specific critical moment-of-inertia $I_\text{crit} = 2/(Q\,k)$, hence (via $I\propto M R^2$) a specific **critical galaxy mass $M_\text{crit}$**. §4.3 says C1 is a chord **iff** $M_\text{crit}$ lands a-priori inside the observable galaxy range $\sim10^9$–$10^{12}\,M_\odot$. So $M_\text{crit}$ **is** the verdict.
+
+All numbers below are computed from `ave.core.constants` (no hardcoding); the driver is reproduced in §1.5.6.
+
+### 1.5.1 Canonical-leaf discipline: which $\xi$ (per `ave-canonical-leaf-pull`)
+
+The C1 normalization candidate is the **cosmic Machian flux coupling**. Per `manuscript/ave-kb/CLAUDE.md:77` (verbatim):
+
+> ⚠ Do not confuse $\xi_{topo} = e/\ell_{node}$ (electromechanical transduction, C/m) with the dimensionless Machian hierarchy coupling $\xi \approx 8.15 \times 10^{43}$ that appears in `eq_gravity_derived.tex`.
+
+So the C1 leaf is the **dimensionless** $\xi$, `XI_MACHIAN` in `ave.core.constants` (NOT `XI_TOPO`, which is C/m and would not give a dimensionless $\delta$):
+
+- `XI_MACHIAN = HBAR*C_0/(7*G*M_E**2)` (`constants.py:516`) $= 8.1548\times10^{43}$, cross-checked $= 4\pi(R_H/\ell_\text{node})\alpha^{-2}$ to machine precision (`eq_gravity_derived.tex:23`).
+- ⚠ **Class E circularity (intentional), `constants.py:504–509`:** $\xi$ is **inverted out of CODATA $G$** ($G = \hbar c/(7\xi m_e^2)$). Any $M_\text{crit}$ that routes through $\xi$ is therefore a **Class E operating-point projection** (consistency-class), NOT an independent emergence-class prediction. This is recorded now because it bears on §4.6.
+
+### 1.5.2 Which physical $\delta$? — the corpus template
+
+The corpus has exactly **one** worked gravitational coupling-depth, the scalar-gravity RVR template (`parametric-coupling-kernel.md:286`, verbatim):
+
+> scalar-gravity parametric pumping concluded NULL for $\delta_L = GM_\oplus / (c^2 R_\oplus) \approx 6.96 \times 10^{-10}$ (15 OOM short of $Q\cdot\delta\geq2$).
+
+Reproduced exactly by the driver ($\delta_L(\text{Earth}) = 6.9611\times10^{-10}$). This template is a **gravitational strain** $GM/(c^2R)$ — identical in form to the canonical principal radial strain $\varepsilon_{11} = 7GM/(c^2r)$ (`eq_gravity_derived.tex:50`). The kernel's own §7 (line 290) flags **why** this is small: *"scalar-gravity $\delta_L$ is post-cosmological-suppression ($GM/c^2R$ is heavily suppressed by the $G/c^2$ factor)."* That $G/c^2$ suppression is the crux of what follows.
+
+### 1.5.3 The three candidate normalizations, worked
+
+| # | Reading of $\delta_s$ | Form | Scales with $I_s$? | $M_\text{crit}$ ($Q\delta=2$) | In $10^9$–$10^{12}\,M_\odot$? |
+|---|---|---|---|---|---|
+| **1** | Galaxy's own **gravitational self-strain** (literal `kernel.md:286` template applied to the galaxy) | $\delta = GM/(c^2R)$ | ~yes (via $M$; $I\propto MR^2$) | $\sim 3.5\times10^{20}$ ($Q=137$) to $6.5\times10^{24}\,M_\odot$ ($Q=1$) | ❌ **~8–13 OOM TOO HIGH** |
+| **2** | **$\xi$-Machian mass-hierarchy** (soliton mass in units of $\xi m_e$) | $\delta = M/(\xi m_e)$ | yes (via $M$) | $\sim 5\times10^{-19}$ ($Q=137$) to $7\times10^{-17}\,M_\odot$ ($Q=1$) | ❌ **~26 OOM TOO LOW** |
+| **3** | **Cosmic-vorticity ratio** (frame-drag rate ratio) | $\delta = \omega_\text{freeze}/\omega_\text{gal}$ | **NO** (scales *inversely* with spin; not $I_s$) | n/a (lands $O(10^{-2})$ but wrong scaling) | ✗ wrong observable |
+| — | $\alpha$-slew $\delta_C$ (Schwinger substrate refresh) | $0.0457$ (fixed) | **NO** ($I_s$-independent) | n/a | ✗ no $I_s$, no knee-vs-mass |
+
+**Reading 1 — the literal template — is the cleanest substrate reading and it fails decisively.** The knee surface $Q\,GM/(c^2R)=2$ requires $M/R = 2c^2/(QG)$; at $Q=1$ this is **$4\times$ the Schwarzschild ratio** $c^2/2G$. Galaxies have $GM/(c^2R)\sim10^{-6}$ (Milky Way $1.9\times10^{-7}$; even a $10^{13}\,M_\odot$ giant elliptical only $9.6\times10^{-6}$). So **$Q\delta_\text{gal}\sim10^{-6}$, ~6 OOM short of the knee for the *most massive* galaxy** — and $Q=\alpha^{-1}=137$ buys only ~2 OOM, still ~4 OOM short. **Under the literal corpus template, the entire observable galaxy population is SUB-knee.** This is exactly the kernel's own §7 warning (line 290) made quantitative: the $G/c^2$ suppression keeps any gravitational-strain $\delta$ ~6+ OOM below regeneration for any non-compact object.
+
+**Reading 2 routes through $\xi$ and overshoots by ~26 OOM** (the Machian mass scale $\xi m_e = 7.4\times10^{13}$ kg $= 3.7\times10^{-17}\,M_\odot$ is *sub-asteroid*; dividing into a galaxy mass gives $Q\delta\sim10^{56}$). It also carries the §1.5.1 Class E circularity, so even if it landed in range it would be consistency-class, not emergence.
+
+**Reading 3 is the only $\delta$ that lands near $O(0.01)$** ($\omega_\text{freeze}/\omega_\text{gal}\sim1.7\times10^{-3}$ to $6.9\times10^{-3}$ across dwarf→massive, using $\omega_\text{freeze}\sim H_\infty$). But it scales **inversely** with galaxy angular velocity — a faster/denser galaxy has a *smaller* $\delta$ — which is the **opposite** of the $\delta_s\propto I_s$ that Anchors A+B require, and it is not a moment-of-inertia scaling at all. It cannot be the C1 $\delta_s$.
+
+### 1.5.4 The verdict on $k$: NOT cleanly substrate-derivable (SCOPED-OPEN)
+
+**No single canonical normalization simultaneously (a) makes $\delta_s\propto I_s$ (Anchors A+B) AND (b) places the knee in the observable galaxy range.** The two readings that scale with mass bracket the galaxy range by **~8 OOM (high)** and **~26 OOM (low)** respectively; the one reading that lands near the knee scale does not scale with $I_s$. **There is no value of $k$ on the derived chain that yields a galaxy-scale knee** — pinning $k$ requires a canonical normalization the corpus does not currently supply.
+
+Per the brief's honesty clause, $k$ is reported **SCOPED-OPEN, not fudged.** A forced-fit $k$ — e.g. choosing the constant so $M_\text{crit} = 10^{11}\,M_\odot$ by construction — would be **an echo dressed as a chord** (it would *define* the knee onto the data rather than *predict* it a-priori, exactly the §4.3 failure mode).
+
+### 1.5.5 Precisely what is missing (scope for a follow-up derivation)
+
+The gap is a **single canonical normalization step**: *what dimensionless coupling-depth does the cosmic $\hat\Omega_\text{freeze}$ circulation impose on a bound soliton's LC tank, expressed as a function of that soliton's $I_s$?* The corpus supplies the *channel* ($\mathcal{J}_s = \hat\Omega_s I_s$, Anchor A; mutual-inductance $\propto c$, Anchor B) and the *threshold* ($Q\delta=2$), but **not the absolute per-soliton conversion** $I_s \to \delta_s$. Concretely missing:
+
+1. **The cosmic-flux-linkage normalization** $\Phi_\text{cosmic} = \mathcal{J}_\text{cosmic}$-to-per-soliton mutual inductance $M_{s,\text{cosmic}}$ — i.e. how much of $\hat\Omega_\text{freeze}$'s flux threads a galaxy-scale loop. This is the `omega-freeze-cosmic-grain-cascade.md` **nested-cascade**, which is corpus-flagged **PROVISIONAL** (`:156`, see §5.3) — so the very leaf that would supply $k$ is itself not yet derived.
+2. **The galaxy-scale $Q_\text{gal}$.** §2.3 asserts "low, lossy, matched" but no canonical $Q_\text{gal}$ value exists; the knee location is linear in $1/Q$.
+3. **The coarse-graining transition** (microrotation PRIMARY → vorticity DERIVED, `translation-circuit.md:273-301`) is the *physical scale* where grip turns on, but it is a *qualitative* transition, not a calibrated $I_\text{crit}$.
+
+Pinning $k$ therefore depends on **first** deriving the nested-cascade flux-linkage (a separate, currently-provisional corpus item) — it is **not** an arithmetic step on already-frozen constants. This is a genuine derivation-blocked boundary, surfaced to Grant per `missing-axiom-vs-engine-bug` discipline (do NOT draft the missing normalization here).
+
+### 1.5.6 Driver (reproducibility)
+
+Computed from `ave.core.constants` (`ALPHA`, `G`, `C_0`, `M_E`, `M_SUN`, `XI_MACHIAN`, `R_HUBBLE`, `H_INFINITY` — all imported, none hardcoded). Galaxy fiducials (mass, radius, $v_\text{rot}$) are standard astronomical inputs (dwarf $10^9\,M_\odot$/2 kpc → giant elliptical $10^{13}\,M_\odot$/50 kpc), **stated as external observational inputs, not AVE constants**. Self-strain $\delta_L(\text{Earth})$ reproduces the corpus value $6.96\times10^{-10}$ exactly; `XI_MACHIAN` reproduces $4\pi(R_H/\ell_\text{node})\alpha^{-2} = 8.15\times10^{43}$ exactly. The full driver is logged inline in the session (no new repo file — it is a one-shot arithmetic check, not a reusable solver, per `ave-driver-script-honesty`).
 
 ---
 
@@ -174,7 +238,9 @@ Interp 3 (selection) is the most dangerous because it is a *monotone-rising-alig
 
 **This is the load-bearing adjudication question for Grant:** is the knee-shape (sigmoid with a null plateau below a threshold at $Q\delta\sim2$) a strong-enough discriminator to call a chord, given that the resolution-selection confound is itself a monotone-rising-with-mass mechanism? My assessment (inference, not corpus): **the knee is discriminating IF and only if (a) its location is predicted a priori from $Q\delta=2$ + an independent $\delta\propto I_s$ calibration, and (b) the sub-knee plateau is demonstrably at the isotropic null with classification-SNR regressed out.** Absent both, a detected mass-trend is an ECHO.
 
-### 4.4 Discrimination verdict
+### 4.4 Discrimination verdict (PRE-Phase-1.5 — SUPERSEDED by §4.6; preserved per KEEP-BOTH)
+
+> ⚠ **This 4.4 verdict was written before the Phase 1.5 absolute-knee check (§1.5).** It is preserved unchanged for audit continuity. Its load-bearing conditional — "*BUT only if location is a-priori-predicted*" — is **resolved NEGATIVE by §1.5**: the a-priori location does not exist on the derived chain. **Read §4.6 for the current verdict.**
 
 | | Verdict |
 |---|---|
@@ -188,6 +254,29 @@ Interp 3 (selection) is the most dangerous because it is a *monotone-rising-alig
 - **NOT WARRANTED (would be over-claim):** "AVE predicts galaxy spin-alignment rises with mass, distinct from ΛCDM." — FALSE; the *trend* is a shared FORM / echo.
 - **NOT WARRANTED:** "C1 is confirmed." — the data test is SCOPED, not run; no empirical verdict.
 - **HONEST HEADLINE:** "Parameter-free derivation complete; the discriminating signature is the KNEE-SHAPE (not the trend); data test scoped pending cross-match; chord-vs-echo turns on whether the a-priori-located knee survives the resolution-selection confound."
+
+### 4.6 Discrimination verdict — UPDATED with $M_\text{crit}$ pinned (per `ave-discrimination-check`, re-run)
+
+The §1.5 make-or-break check changes the verdict. The whole §4.4 chord-candidacy rested on **"the knee is a-priori-located"** — a *threshold at a specific $I_s$ that the alternatives do not predict.* §1.5 shows that on the derived chain **there is no a-priori knee location inside the observable galaxy range** (the candidate normalizations bracket it by ~8 OOM high / ~26 OOM low, or scale wrong). Re-running `ave-discrimination-check` with this in hand:
+
+| Discriminator axis | Pre-1.5 (§4.4) | Post-1.5 (this verdict) | Why it changed |
+|---|---|---|---|
+| Alignment∝mass **trend (sign)** | ECHO | **ECHO** (unchanged) | ΛCDM tidal-torque + selection share the FORM (Step 2.5). **Reinforced** by direct corpus precedent: `sagnac-rlve.md:68` + `divergence-test-substrate-map.md:51` — "*GR Lense-Thirring frame-drag scales with rotor moment of inertia $I\propto\rho$ too*" → an $I_s$-scaling was **already demoted** from "discriminator vs GR" to "scaling-confirmation" (PONDER PR #1 `eb7a49b`). |
+| The **KNEE (threshold shape)** | CHORD-CANDIDATE *if a-priori-located* | **ECHO-pending-$k$ (NOT a chord today)** | Its sole condition (a-priori location) is **unmet**: §1.5 finds no $k$ on the derived chain that places the knee in $10^9$–$10^{12}\,M_\odot$. A knee whose location is *fit to the data* is not AVE-distinct from a generic resolution/selection turn-on. |
+| Sub-knee **plateau at null** | discriminating *if observed* | **untestable a-priori** | Without a predicted knee location, "plateau below the knee" has no predicted boundary to test against — the §4.3 distinguisher collapses into the selection-confound. |
+| **Net** | chord lives in the knee SHAPE | **The knee SHAPE has no a-priori LOCATION ⇒ C1 is an ECHO on the current derived chain.** A chord re-opens **iff** the §1.5.5 normalization ($k$ via the nested-cascade flux-linkage, currently PROVISIONAL) is derived and *independently* lands the knee in the testable range. | — |
+
+**§4.3 condition restated and evaluated:** "*call C1 a chord iff the knee is a-priori-located in the testable range.*" **Evaluated: FALSE on the derived chain.** Therefore **C1 is — at the current state of derivation — an ECHO**, degenerate with the smooth-trend and the resolution-selection confound, exactly the §3 "far above all galaxies → everything sub-knee → no observable plateau-vs-locked split" branch (Reading 1, the literal corpus template, puts the entire galaxy population ~6 OOM sub-knee).
+
+This is **not a falsification of the framework** — it is a falsification of *C1-as-a-chord-on-the-currently-derivable-chain* (Rule 11 honest closure of the chord claim, not of the physics). The Phase 1-2 derivation (the operator's missing functional FORM) stands as a real, parameter-free corpus contribution; what fails is the *discriminating-test* status, because the discriminator (the knee) has no a-priori address. The branch to re-open it is named and bounded (§1.5.5): derive the nested-cascade flux-linkage $k$, then re-check $M_\text{crit}$.
+
+### 4.7 Updated strength language (per `ave-evidence-framing-discipline`)
+
+- **WARRANTED:** "The operator's missing functional FORM is derived parameter-free (alignment-strength = Axiom-4 regenerative envelope, $\Pi_s=Q_s\delta_s$, $\delta_s\propto I_s$, dimensionless knee at $Q\delta=2$). The electron and lab-scalar-gravity reflection ends are corpus-confirmed."
+- **WARRANTED (new):** "The *absolute* knee location is **not** a-priori-predictable on the current derived chain: no canonical normalization places it in the observable galaxy range while preserving $\delta_s\propto I_s$. The proportionality constant $k$ is SCOPED-OPEN, blocked on the PROVISIONAL nested-cascade flux-linkage."
+- **NOT WARRANTED (over-claim, was the pre-1.5 risk):** "The galaxy-spin knee is an AVE-distinct discriminating prediction." — **FALSE today**: the discriminator has no a-priori location, so it is an echo of the resolution-selection confound.
+- **NOT WARRANTED:** "$M_\text{crit}\approx10^{11}\,M_\odot$." — would require a **forced-fit $k$**; explicitly refused (§1.5.4).
+- **HONEST HEADLINE:** "Derivation FORM complete and parameter-free; absolute knee LOCATION not derivable (k scoped-open, blocked on provisional cascade); therefore C1 is an ECHO on the current chain — chord-status re-opens only if the cascade flux-linkage is derived and independently lands the knee in $10^9$–$10^{12}\,M_\odot$."
 
 ---
 
@@ -205,9 +294,11 @@ The soliton-coupling Session 2 planetary scoring (`research/2026-05-20_soliton-c
 
 **My read (inference):** Session 2's $A_{\text{spin}}=L_p g_{\text{class}}$ used $L_p$ (an angular-momentum proxy) where C1's $\delta_s\propto I_s$ uses the moment-of-inertia/knot-content, and Session 2 mapped this onto obliquity-angle branches rather than alignment-strength. The "post-saturation reorganization to aligned" ad-hockery (line 162, 170) is a symptom of using the strength-governing variable ($\propto I_s$) to drive an angle-selection that should saturate to *coherence*, not to a *90° branch*. **C1's derivation suggests the cleaner reading: high $I_s$ → high $\Pi_s$ → strong LOCK (low scatter), which for the gas giants means tightly tracking the local $\hat{\Omega}_{\text{freeze}}$ (low obliquity) — no reorganization needed.** This would *remove* the Session 2 ad-hoc step. But this reframes a merged corpus result and must NOT be silently applied — **flagged for Grant**: does C1's strength-vs-angle distinction supersede Session 2's high-$L_p$ reorganization patch?
 
-### 5.2 The $\delta_s\propto I_s$ proportionality constant is not pinned (honest gap)
+### 5.2 The $\delta_s\propto I_s$ proportionality constant is not pinned → now WORKED in §1.5: SCOPED-OPEN (not fudged)
 
-The derivation establishes $\delta_s\propto I_s$ (Anchors A+B) and the knee at $Q\delta=2$ (canonical), but the **absolute proportionality constant** $\delta_s = k\cdot I_s$ (what $I_s$ value gives $\delta=1$) is NOT derived here — it requires the cosmic-flux-linkage normalization (the $\xi$ Sagnac integration constant, `XI_MACHIAN` in `ave.core.constants`, tying $\mathcal{J}_{\text{cosmic}}$ to the per-soliton coupling). Without $k$, the knee location in *absolute* $I_s$ (which galaxy mass) is not predicted — only the *existence* of the knee and its *dimensionless* location ($Q\delta=2$). **This is exactly the open piece the memory thread named:** "pin WHAT's in numerator/denominator of the ratio = the soliton-lattice-coupling-operator Session 2 derivation (scoped, never run)." Pinning $k$ is the next derivation step (Phase 1 of a follow-up), and it is what makes the knee location *a-priori-predicted* (the §4.3 condition for a chord). **Honest status: the FORM is derived; the absolute knee LOCATION needs $k$.**
+> **2026-06-05 RESOLVED-to-SCOPED by §1.5.** This gap (named here in the original freeze) was the explicit subject of Phase 1.5. **Outcome: $k$ is NOT cleanly substrate-derivable** — three candidate canonical normalizations (gravity self-strain, $\xi$-Machian mass-hierarchy, cosmic-vorticity ratio) either miss the galaxy range by ~8–26 OOM or fail the $\delta_s\propto I_s$ requirement (full arithmetic §1.5). Pinning $k$ is **blocked on the PROVISIONAL nested-cascade flux-linkage** (§5.3, §1.5.5), not an arithmetic step on frozen constants. Reported SCOPED-OPEN per the brief honesty clause; a forced-fit $k$ is explicitly refused (§1.5.4). The **make-or-break consequence** (knee has no a-priori galaxy-scale location ⇒ C1 is an ECHO on the current chain) is in §4.6.
+
+The derivation establishes $\delta_s\propto I_s$ (Anchors A+B) and the knee at $Q\delta=2$ (canonical), but the **absolute proportionality constant** $\delta_s = k\cdot I_s$ (what $I_s$ value gives $\delta=1$) is NOT derived here. The original freeze guessed it "requires the $\xi$-Machian normalization, `XI_MACHIAN`"; §1.5.3 **tested that guess and found Reading 2 ($\xi$-Machian) overshoots by ~26 OOM** *and* carries Class E circularity (`constants.py:504`) — so $\xi$-Machian is **not** the clean normalization. Without a working $k$, the knee location in *absolute* $I_s$ (which galaxy mass) is not predicted — only the *existence* of the knee and its *dimensionless* location ($Q\delta=2$). **This is exactly the open piece the memory thread named:** "pin WHAT's in numerator/denominator of the ratio." **Honest status: the FORM is derived; the absolute knee LOCATION needs $k$, and §1.5 shows $k$ is blocked on a currently-PROVISIONAL corpus leaf — surfaced to Grant, not drafted.**
 
 ### 5.3 Nested-cascade is PROVISIONAL (corpus-flagged, not C1's to resolve)
 
@@ -234,6 +325,15 @@ All load-bearing citations re-grepped verbatim at execution time (2026-06-05) on
 | `research/2026-05-20_soliton-coupling-operator-session2-planetary-scoring.md:162` | high-$L_p$ "return to aligned" post-saturation reorganization | content |
 | `ave.core.constants` | `ALPHA=0.0072973525693` (α⁻¹≈137.036), `XI_MACHIAN=8.15e43`, `G=6.6743e-11` — imported, not hardcoded (per `ave-canonical-source`) | content |
 | GZ1 Table 2 columns | 16 cols, no mass/mag/z (verified via gzip read) | content |
+| **§1.5 ADDITIONS (Phase 1.5):** | | |
+| `manuscript/ave-kb/CLAUDE.md:77` | verbatim ⚠ "Do not confuse $\xi_{topo}=e/\ell_{node}$ (C/m) with the dimensionless Machian hierarchy coupling $\xi\approx8.15\times10^{43}$" — confirms C1 leaf = `XI_MACHIAN`, NOT `XI_TOPO` | content + file:line (canonical-leaf-pull) |
+| `manuscript/common_equations/eq_gravity_derived.tex:20,23,50` | $G=\hbar c/(7\xi m_e^2)$; $\xi=4\pi(R_H/\ell_{node})\alpha^{-2}\approx8.15\times10^{43}$; principal radial strain $\varepsilon_{11}=7GM/(c^2r)$ | content |
+| `src/ave/core/constants.py:504-509,516` | `XI_MACHIAN = HBAR*C_0/(7*G*M_E**2)`; **"Class E circularity (intentional): G is CODATA-input ... ξ_M is inverted out of G"** — load-bearing for the §4.6 consistency-vs-emergence tag | content (consistency-vs-emergence) |
+| `parametric-coupling-kernel.md:286,290` | scalar-gravity $\delta_L=GM_\oplus/(c^2R_\oplus)$; §7 verbatim "scalar-gravity $\delta_L$ is **post-cosmological-suppression** ($GM/c^2R$ heavily suppressed by the $G/c^2$ factor)" — the crux of why Reading 1 is ~6 OOM sub-knee | content |
+| `parametric-coupling-kernel.md:22-24` | $\delta_C$ defined as **capacitance modulation depth** $\delta_C/C_0=(1/4)(V_{pump}/V_{yield})^2\approx4.57\%$ (α-slew, Schwinger; **no $I_s$ dependence**) | content |
+| `sagnac-rlve.md:68` | verbatim "GR Lense-Thirring frame-drag scales with rotor **moment of inertia $I\propto\rho$** too — both frameworks predict $\Psi=\rho_W/\rho_{Al}$" — **direct corpus precedent that $I_s$-scaling is NOT AVE-distinct** (§4.6) | content |
+| `divergence-test-substrate-map.md:51` | verbatim "GR Lense-Thirring frame-drag scales with rotor moment of inertia $I\propto\rho$ ... demoted $\Psi=7.15$ from 'discriminator vs GR' to 'AVE-coupling scaling confirmation'" (PONDER PR #1 `eb7a49b`) | content |
+| `ave.core.constants` (§1.5 driver) | `R_HUBBLE = C_0/H_INFINITY` $=1.334\times10^{26}$ m; `H_INFINITY`; `M_SUN=1.989e30`; `M_E`, `C_0`, `G` — all imported; $\delta_L(\text{Earth})=6.9611\times10^{-10}$ reproduces corpus exactly; `XI_MACHIAN` reproduces $4\pi(R_H/\ell_{node})\alpha^{-2}$ exactly | content + recompute |
 
 Memory thread (`project_cosmic_rotation_soliton_coupling_thread`, 2026-06-05) is **exploratory/uncommitted** — its claims are used as *synthesis scaffolding pointing at canonical anchors*, and every load-bearing physics claim is independently re-verified against the committed corpus above. The memory thread itself is NOT cited as authority.
 
@@ -244,22 +344,30 @@ Memory thread (`project_cosmic_rotation_soliton_coupling_thread`, 2026-06-05) is
 | Skill | Fired | Where |
 |---|---|---|
 | `ave-prereg` | YES | Phase 0 corpus-grep (prereg §1); outcome = "genuinely open, here's the diagnostic" |
-| `ave-canonical-leaf-pull` | YES | enumerated Q-factor / mutual-inductance / boundary-observable / saturation-kernel class leaves before deriving (§1.1) |
+| `ave-canonical-leaf-pull` | YES | enumerated Q-factor / mutual-inductance / boundary-observable / saturation-kernel class leaves before deriving (§1.1); **§1.5.1 — confirmed C1 leaf = `XI_MACHIAN` (dimensionless), NOT `XI_TOPO` (C/m), per `CLAUDE.md:77`** |
+| `ave-fundamental-ground-up-implementation` | YES — §1.5 | **derive-first $k$ from substrate; worked 3 candidate normalizations; honestly TAGGED as SCOPED-OPEN when no clean derivation exists (did NOT default to engineering-choice or forced-fit)** |
+| `ave-canonical-source` | YES | §1.5.6 — all numbers from `ave.core.constants` (no hardcoding); driver reproduces corpus $\delta_L$ + $\xi$ to machine precision |
 | `substrate-native-check` (trigger 6) | YES | prose-derivation substrate-walk (prereg §1.4): coupling is impedance-matching/Reynolds, NOT Lagrangian energy-basin; EE-native not MOND/Bianchi |
-| `consistency-vs-emergence` | YES | §2.4 — alignment observable Class E; knee-form Class B (axiom-manifestation), no CODATA back-substitution |
-| `ave-discrimination-check` | YES — LOAD-BEARING | §4 — Step 1.5 (6 interpretations), Step 2+2.5 (FORM-vs-SCALE: trend=echo, knee=chord), verdict §4.4 |
-| `verify-before-cite` | YES | §6 — all citations re-grepped verbatim |
-| `ave-evidence-framing-discipline` | YES | §4.5 — chord-vs-echo strength calibration; over-claim explicitly avoided |
-| `ave-driver-script-honesty` | YES | §3 — data test SCOPED not run; no fabricated numbers; precise follow-up scope |
+| `consistency-vs-emergence` | YES | §2.4 — alignment observable Class E; knee-form Class B; **§1.5.1 + §4.6 — Reading 2 ($\xi$-Machian) flagged Class E circularity (G is CODATA-input), so a $\xi$-routed $M_\text{crit}$ would be consistency-class not emergence** |
+| `ave-discrimination-check` | YES — LOAD-BEARING, **RE-RUN** | §4 — Step 1.5 (6 interpretations), Step 2+2.5 (FORM-vs-SCALE); **§4.6 RE-RUN with $M_\text{crit}$ pinned: knee has no a-priori location ⇒ verdict downgraded CHORD-CANDIDATE → ECHO-pending-$k$; reinforced by `sagnac-rlve.md:68` $I\propto\rho$ precedent** |
+| `verify-before-cite` | YES | §6 — all citations re-grepped verbatim, incl. §1.5 additions (CLAUDE.md:77, eq_gravity_derived, constants.py:504, kernel:286/290, sagnac-rlve:68) |
+| `ave-evidence-framing-discipline` | YES | §4.5 + **§4.7** — chord-vs-echo strength calibration; "$M_\text{crit}\approx10^{11}$" explicitly listed NOT-WARRANTED (forced-fit refused) |
+| `ave-driver-script-honesty` | YES | §3 — data test SCOPED not run; **§1.5 — no fudged $k$; $M_\text{crit}$ not forced into range; one-shot arithmetic check, no fabricated reusable solver** |
 | `phase-space-coordinate-check` | YES | prereg §1.4 + §3.1 — observable matched to prediction coordinates (alignment-strength vs $I_s$, not real-space φ²) |
-| `flag-don't-fix` | YES | §5 — Session 2 tension + $k$-gap + cascade-provisional surfaced, NOT silently resolved |
+| `flag-don't-fix` | YES | §5 — Session 2 tension + $k$-gap + cascade-provisional surfaced, NOT silently resolved; **§1.5.5 — missing normalization surfaced to Grant per `missing-axiom-vs-engine-bug`, NOT drafted here** |
 | Pure-AVE-corpus rule | YES | no external-context references |
 
 ---
 
 ## 8. Result-doc freeze attestation
 
-This result doc records the Phase 0-4 execution of 2026-06-05 against the frozen prereg `research/2026-06-05_c1-cosmic-rotation-knee-prereg.md`. The derivation (Phases 1-2) is corpus-grounded and parameter-free. The data test (Phase 3) is SCOPED, not run — no numerical alignment-vs-mass result is claimed. The discrimination verdict (Phase 4) is that the trend-sign is an echo and the knee-shape is the chord-candidate, pending (a) the scoped cross-match data test and (b) Grant adjudication on the resolution-selection confound + the Session 2 tension. Any subsequent live-fire run requires a RESULT-UPDATE entry.
+This result doc records the Phase 0-4 execution of 2026-06-05 against the frozen prereg `research/2026-06-05_c1-cosmic-rotation-knee-prereg.md`, **plus the 2026-06-05 Phase 1.5 RESULT-UPDATE (absolute-knee normalization, §1.5 + §4.6).** The derivation (Phases 1-2) is corpus-grounded and parameter-free. The data test (Phase 3) is SCOPED, not run — no numerical alignment-vs-mass result is claimed.
+
+**Phase 1.5 (absolute knee) outcome:** the proportionality constant $k$ in $\delta_s = k\,I_s$ is **NOT cleanly substrate-derivable** — no canonical normalization places the knee in the observable galaxy range ($10^9$–$10^{12}\,M_\odot$) while preserving $\delta_s\propto I_s$ (gravity self-strain ~8 OOM high; $\xi$-Machian ~26 OOM low + Class E circularity; cosmic-vorticity wrong scaling). $k$ is **SCOPED-OPEN, blocked on the PROVISIONAL nested-cascade flux-linkage**; explicitly **not forced-fit**.
+
+**Updated discrimination verdict (§4.6):** because the discriminating knee has **no a-priori galaxy-scale location** on the derived chain, the §4.3 chord condition evaluates **FALSE**, and **C1 is — at the current state of derivation — an ECHO** (degenerate with the smooth-trend and the resolution-selection confound; reinforced by the corpus precedent `sagnac-rlve.md:68` that $I\propto\rho$ frame-drag scaling is shared with GR). This is an honest closure of *C1-as-a-chord-on-the-current-chain* (Rule 11), **not** a falsification of the framework or of the Phase 1-2 FORM derivation, which stands. The chord re-opens **iff** the §1.5.5 nested-cascade flux-linkage $k$ is derived and independently lands the knee in the testable range.
+
+**Open for Grant adjudication:** (a) the Session 2 strength-vs-angle tension (§5.1); (b) whether the nested-cascade flux-linkage normalization (§1.5.5) is a tractable follow-up derivation or a deeper structural gap; (c) confirmation that ECHO-on-current-chain is the correct closure label (vs. holding C1 open pending the cascade). Any subsequent live-fire run or $k$-derivation requires a new RESULT-UPDATE entry.
 
 ---
 
