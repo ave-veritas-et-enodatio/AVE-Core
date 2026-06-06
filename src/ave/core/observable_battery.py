@@ -580,14 +580,126 @@ class ObservableBattery:
         cap = _EnergyBudgetObserver()._capture(engine)   # COMPOSED
         return cap
 
-    # ── Step-2 + Step-3 cheap channels (Γ, reactances, E7, budget) ────────────
-    def sample_cheap(self, engine) -> dict:  # noqa: D401 — extended Step 4/6
-        """O(N) per-step scalar channels. Steps 2-3: Γ, reactances, E7, budget."""
+    # ─────────────────────────────────────────────────────────────────────────
+    # CHANNEL 12 — Saturation / regime (COMPOSE RegimeClassifierObserver).
+    # ─────────────────────────────────────────────────────────────────────────
+    def _regime(self, engine) -> dict:
+        """Where on the Axiom-4 kernel the substrate sits — how close to making
+        a boundary (A²→1 = the wall forms = matter). COMPOSES the shipped
+        ``RegimeClassifierObserver._capture`` (vacuum_engine:395): per-regime
+        cell counts (Pythagorean A²_k4+A²_cos), max_A2_total. Redefined never."""
+        return _RegimeClassifierObserver()._capture(engine)   # COMPOSED
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # CHANNELS 10 — Beltrami helicity (COMPOSE _beltrami_helicity + get_helicity).
+    # ─────────────────────────────────────────────────────────────────────────
+    def _helicity(self, engine) -> dict:
+        """The chirality signature — the handedness frozen at genesis.
+
+        h_K4 = ``K4Lattice3D.get_helicity_density`` (k4_tlm:535, A·B bipartite,
+        native) reduced to mean/abs-mean over interior live sites; and the
+        Cosserat Beltrami helicity h = ω·(∇×ω)/(|ω||∇×ω|) via the shipped
+        ``_beltrami_helicity`` (cosserat:445). COMPOSED — redefines neither."""
+        k4 = engine.k4
+        interior = self._interior_mask(np.asarray(k4.z_local_field).shape)
+        live = np.asarray(k4.mask_active, dtype=bool) & interior
+        h_k4 = np.asarray(k4.get_helicity_density(), dtype=float)        # COMPOSED
+        h_k4_live = h_k4[live] if live.any() else np.array([0.0])
+        out = {
+            "t": float(getattr(engine, "time", 0.0)),
+            "h_K4_mean": float(h_k4_live.mean()),
+            "h_K4_abs_mean": float(np.abs(h_k4_live).mean()),
+            "h_K4_signed_sum": float(h_k4_live.sum()),
+        }
+        # Cosserat Beltrami helicity (lazy — only if the cos sector is alive).
+        try:
+            from ave.topological.cosserat_field_3d import _beltrami_helicity  # COMPOSED
+            cos = engine.cos
+            omega = np.asarray(cos.omega, dtype=float)
+            if np.any(np.abs(omega) > 1e-30):
+                h_bel = np.asarray(_beltrami_helicity(omega, float(cos.dx)))
+                cos_live = np.asarray(cos.mask_alive, dtype=bool)
+                h_bel_live = h_bel[cos_live] if cos_live.any() else np.array([0.0])
+                out["h_beltrami_mean"] = float(h_bel_live.mean())
+                out["h_beltrami_abs_mean"] = float(np.abs(h_bel_live).mean())
+            else:
+                out["h_beltrami_mean"] = 0.0
+                out["h_beltrami_abs_mean"] = 0.0
+                out["h_beltrami_note"] = "cosserat-omega-cold"
+        except Exception as exc:   # pragma: no cover — pure-FDTD / import guard
+            out["h_beltrami_note"] = f"unavailable: {type(exc).__name__}"
+        return out
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # CHANNEL 11 (cheap part) — Hopf charge + centroids (COMPOSE TopologyObserver).
+    # ─────────────────────────────────────────────────────────────────────────
+    def _hopf_cheap(self, engine) -> dict:
+        """Q_hopf (Chern-Simons) + centroids — the topological sector (→6 for a
+        (2,3) electron, 0 vacuum) and where matter sits. COMPOSES the shipped
+        ``TopologyObserver._capture`` (vacuum_engine:644, which calls
+        ``extract_hopf_charge`` + ``find_soliton_centroids``). Redefined never.
+        Shell radii R/r (``extract_shell_radii``) are added in extract_full
+        (heavier). Cheap because Q_hopf + centroids are O(N) on the cos field."""
+        cap = _TopologyObserver(cadence=1)._capture(engine)   # COMPOSED
+        return cap
+
+    # ── Step-2 + Step-3 + Step-4 cheap channels ──────────────────────────────
+    def sample_cheap(self, engine) -> dict:  # noqa: D401 — extended Step 6
+        """O(N) per-step scalar channels (Γ, reactances, E7, budget, regime,
+        helicity, Q_hopf). Heavy field-walks live in extract_full (Step 5)."""
         return {
             "reflection": self._reflection(engine),
             "reactances": self._reactances(engine),
             "energy7": self._energy7(engine),
             "energy_budget": self._energy_budget(engine),
+            "regime": self._regime(engine),
+            "helicity": self._helicity(engine),
+            "hopf": self._hopf_cheap(engine),
+        }
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # CHANNEL 9 — Boundary invariants M, Q, J (COMPOSE compute_all_invariants).
+    # ─────────────────────────────────────────────────────────────────────────
+    def _boundary_MQJ(self, engine) -> dict:
+        """The three things visible outside a Γ-wall (A-026), on A = √(V_inc²):
+
+            M = ∫(n−1)dV   — RIGOROUS (mass = integrated strain, geometry).
+            Q              — first-pass-proxy (component-count stand-in, NOT the
+                             Axiom-2 winding/linking).
+            J              — first-pass-proxy (MOI-anisotropy stand-in, NOT the
+                             (2,3) angular momentum).
+
+        COMPOSES the shipped ``compute_all_invariants`` (boundary_invariants:268)
+        — whose own dataclass docstring labels Q "linking number proxy" and J
+        "winding number proxy" (lines 77/80). V_yield is passed as the engine's
+        natural-unit V_SNAP (=1.0) to match the field normalization; tagged. The
+        proxy tags are MANDATORY (prereg §5) and surfaced verbatim so Q/J are
+        never read as the rigorous winding (ave-evidence-framing). Heavy: a
+        full-field walk → lives in extract_full."""
+        from ave.core.boundary_invariants import compute_all_invariants  # COMPOSED
+        k4 = engine.k4
+        V_inc = np.asarray(k4.V_inc, dtype=float)
+        # Scalar substrate field A = √(Σ_port V_inc²) — the prereg's channel-9 input.
+        A_scalar = np.sqrt(np.sum(V_inc ** 2, axis=-1))     # (N,N,N)
+        v_snap = float(getattr(engine, "V_SNAP", getattr(k4, "V_SNAP", 1.0)))
+        dx = float(getattr(k4, "dx", 1.0))
+        inv = compute_all_invariants(
+            A_scalar, dx=dx, V_yield=v_snap,
+            l_node=float(L_NODE),
+        )
+        return {
+            "M": float(inv.M),
+            "Q": float(inv.Q),
+            "J": float(inv.J),
+            "M_unit_normalized": (float(inv.M_unit_normalized)
+                                  if inv.M_unit_normalized is not None else None),
+            "M_source": Source.NATIVE.value,    # rigorous: mass = integrated strain
+            "Q_source": Source.PROXY.value,     # MANDATORY proxy tag (Axiom-2 stand-in)
+            "J_source": Source.PROXY.value,     # MANDATORY proxy tag
+            "V_yield_used": v_snap,
+            "V_yield_source": Source.ENGINEERING.value,  # natural-unit V_SNAP normalization
+            "note": "Q,J are geometric proxies (component-count / MOI-anisotropy), "
+                    "NOT the Axiom-2 winding/linking; M = integrated strain (rigorous).",
         }
 
     def extract_full(self, engine) -> dict:  # noqa: D401 — filled Step 5
