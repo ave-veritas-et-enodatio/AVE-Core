@@ -26,7 +26,7 @@ Derives macroscopic gravity from the Effective Medium Theory of the $\mathcal{M}
 | Kinetic Yield Threshold | $E_{k} = \sqrt{\alpha}\cdot m_{e}c^{2} \approx 43.65$ keV |
 | Static Nodal Tension | $T_{static} = m_{e}c^{2}/(2\pi\, \ell_{node}) \approx 0.0338$ N |
 | α Invariance Under Symmetric Gravity | $\alpha = e^2/(4\pi\varepsilon_0\hbar c_0) = \alpha_0$ exactly; multi-species $\Delta\alpha/\alpha = 0$ |
-| Temporal vs Spatial Lattice Decomposition | $n_{temporal} = 1 + (2/7)\varepsilon_{11}$ (redshift); $n_{spatial} = 1 + (9/7)\varepsilon_{11}$ (light deflection) |
+| Temporal vs Spatial Lattice Decomposition | $n_{temporal} = 1 + (2/7)\varepsilon_{11}$ (bulk/coordinate-time propagation index, slope 2; local clock/redshift is $\sqrt{g_{00}}$, $z = (n_{temporal}-1)/2$ — W2); $n_{spatial} = 1 + (9/7)\varepsilon_{11}$ (matter-wave parallax, C11) |
 
 ## Derivations and Detail
 
@@ -44,7 +44,7 @@ Derives macroscopic gravity from the Effective Medium Theory of the $\mathcal{M}
 | [Static Nodal Tension](static-nodal-tension.md) | Electron ropelength tension $T_{static} \approx 0.0338$ N |
 | [Leaky Cavity Decay](leaky-cavity-decay.md) | Muon/Tau exceed yield limit; leaky cavity mechanism of weak decay |
 | [α Invariance Under Symmetric Gravity](alpha-invariance-symmetric-gravity.md) | Derived Consequence 1 of Axiom 3: ε·c cancellation gives exact α invariance under gravitational strain; multi-species $\Delta\alpha/\alpha = 0$ |
-| [Temporal vs Spatial Lattice Decomposition](temporal-spatial-lattice-decomposition.md) | Derived Consequence 2 of Axiom 3: $n_{temporal}$ governs redshift, $n_{spatial}$ governs light deflection |
+| [Temporal vs Spatial Lattice Decomposition](temporal-spatial-lattice-decomposition.md) | Derived Consequence 2 of Axiom 3: $n_{temporal}$ is the bulk/coordinate-time propagation index (slope 2; the local clock rate / redshift is the slope-1 $\sqrt{g_{00}}$, $z = (n_{temporal}-1)/2$ — W2), $n_{spatial}$ governs matter-wave parallax (C11) and frame dragging (light deflection couples to the $(2/7)$ transverse index, Ch 2) |
 | [Remaining Ch.1 Results](remaining-ch01-results.md) | Stub redirecting to optical-refraction-gravity.md |
 
 NOTE: summarybox and exercisebox environments are not extracted as leaves.

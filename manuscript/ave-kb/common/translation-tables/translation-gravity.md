@@ -13,7 +13,7 @@ Gravity is macroscopic dielectric refraction; no curved manifold is required.
 
 | **General Relativity** | **AVE Equivalent** | **Relationship** |
 |---|---|---|
-| Metric tensor $g_{\mu\nu}$ | Variable $\varepsilon_{eff}, \mu_{eff}$ | Temporal: $n_t(r) = 1 + (2/7)\varepsilon_{11} = 1 + 2GM/(rc^2)$ (clock rate, redshift); Spatial: $n_s(r) = 1 + (9/7)\varepsilon_{11}$ (light deflection). $Z = Z_0$ invariant under Symmetric Gravity. |
+| Metric tensor $g_{\mu\nu}$ | Variable $\varepsilon_{eff}, \mu_{eff}$ | Temporal (bulk): $n_t(r) = 1 + (2/7)\varepsilon_{11} = 1 + 2GM/(rc^2)$ — the slope-2 **coordinate-time / propagation** index ($\approx 1/g_{00}$, Shapiro), *distinct from* the slope-1 **local clock rate / redshift** $\sqrt{g_{00}} \approx 1 - GM/rc^2$, $z = GM/rc^2$ (bridge $z = (n_t - 1)/2$). Spatial: $n_s(r) = 1 + (9/7)\varepsilon_{11}$ (matter-wave parallax, C11). Light deflection couples to the transverse index $n_\perp = 1 + (2/7)\chi_{vol}$ (Ch 2 §double_deflection → $4GM/bc^2$). $Z = Z_0$ invariant under Symmetric Gravity. (W2 relabel 2026-06-05.) |
 | Spacetime curvature | Dielectric refraction | Geodesic $\equiv$ Fermat path through refractive medium. |
 | Stress-energy $T_{\mu\nu}$ | LC energy density $U$ | $U = \tfrac{1}{2}\varepsilon_0 |E|^2 + \tfrac{1}{2}\mu_0 |H|^2$. |
 | Schwarzschild radius $r_s$ | Saturation boundary ($S \to 0$) | $Z \to 0, \; \Gamma = -1$: total impedance collapse. |

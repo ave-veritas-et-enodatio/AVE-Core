@@ -41,7 +41,7 @@
 
 - $n(r) = 1 + \nu_{vac}\,\varepsilon_{11} = 1 + (2/7)\,\varepsilon_{11}$ with $\varepsilon_{11}(r) = 7GM/(c^2 r)$
 - _Specific Claims_
-  - The refractive form $n(r) = 1 + 2GM/(c^2 r)$ is the **temporal component** of the lattice metric (governs clock rate / redshift).
+  - The refractive form $n(r) = 1 + 2GM/(c^2 r)$ is the **temporal component** of the lattice metric — specifically the slope-2 **bulk/coordinate-time propagation index** ($\approx 1/g_{00}$, Shapiro). The genuine **local clock rate / redshift** is the slope-1 $\sqrt{g_{00}} \approx 1 - GM/rc^2$, $z = GM/rc^2 = (n-1)/2$. (W2 relabel 2026-06-05; bulk-vs-local disambiguation, value unchanged.)
   - Light deflection couples to a **separate spatial component** $n_{spatial} = 1 + (9/7)\varepsilon_{11}$. The Einstein deflection $\delta = 4GM/(bc^2)$ comes from integrating the full bidirectional metric; the temporal-only $n(r)$ alone reproduces the Newtonian half-deflection, not the GR value.
   - Solar deflection at the Einstein value is a **category (iii) consistency check** (per cross-cutting Master Prediction Table tripwire) — the framework reproduces the standard result via metric refraction, not an independent novel prediction.
 - _Specific Non-Claims and Caveats_
