@@ -25,6 +25,18 @@ Analytical derivation, not simulation. Full discipline per prereg §5. The §3 G
 2. **Longitudinal-mode discrimination** — is "Maxwell's deleted scalar = AVE's 7th mode" AVE-distinct + testable, or just identifiable?
 3. **No overclaim** — `ave-evidence-framing` on the result-doc strength language before accepting.
 
-## §4 Outcome
+## §4 Outcome (2026-06-06) — CONSISTENCY-CLASS (echo, not chord)
 
-_(filled on implementor return)_
+**Verdict: all three G-gates FAIL → the biquaternion is a notation/pedagogy aid, NOT the substrate's number system.** The pre-registered "most likely" outcome, landed honestly. Orchestrator-audited the crux verbatim.
+
+- **G1 (unification) FAIL** — the algebra makes 4 canonical facts co-occur with algebra-internal necessity (steelmanned fully), but algebra-necessity ≠ substrate-necessity: the substrate has each for independent physical reasons; the bridge is notational. No new substrate primitive.
+- **G2 (α-structure) FAIL** — **audited load-bearing finding:** the corpus EXPLICITLY makes the `4π` in `α⁻¹=4π³+π²+π` the **K4 bipartite lobe-count**, demoting "SU(2) double-cover" to a *standard-physics translation reference* ([`theorem-3-1-q-factor.md:48`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md), verbatim) — and the `π²` spin-½ provenance is *retired* (now Clifford-torus area at `R·r=¼`). The algebra generates none of the π-powers. Quaternions/SU(2) = the shadow; K4 = the thing. **EE-first vindicated.**
+- **G3 (longitudinal discriminator) FAIL** — the algebra forces the scalar slot, but the substrate's 7th mode is forced by Ax 1+4. Critical no-overclaim catch: standard-Maxwell's deleted scalar is *gauge* (non-physical), AVE's 7th mode is a *real acoustic DOF* — same algebraic home, NOT a physical identity. No new number/dispersion/coupling.
+
+**Salvaged value (consistency-class but worth keeping):** (a) the `|Γ|=1` saturation wall **is** the biquaternion null cone (zero divisors) — the Γ=−1 boundary is *why* it would be the *bi*-quaternion (real ℍ has no zero divisors); (b) **T3 holds and closes the open/short relabel** — the Smith chart IS the `SL(2,ℂ)`/Möbius spinor action; the open/short **sign is a Möbius `Z↔1/Z` convention** (sends Γ→−Γ). This is the algebraic proof behind the measured "sign is convention" conclusion.
+
+**Prereg errors caught (KEEP-BOTH, corrected in result doc):** Γ = **Op3** not Op17 (prereg §1); §2 bundled real-space 720° with phase-space (2,3) across coordinate systems (phase-space-coordinate-check miss).
+
+**Corpus impact: none** (cross-links only). Result doc: [`research/2026-06-06_biquaternion-node-algebra-result.md`](../research/2026-06-06_biquaternion-node-algebra-result.md). Verification script (forward-only, passes `make verify`): `src/scripts/vol_1_foundations/verify_biquaternion_node_algebra.py`. Commits 8b56961a→dea3182f.
+
+**Follow-ons (Grant-adjudicated):** open/short primer relabel = PROCEED (T3-backed); entrainment = REFRAME substrate-native (K4/Cosserat/Kuramoto/κ_entrain), NOT biquaternion-dynamics.
