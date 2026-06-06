@@ -59,6 +59,23 @@ from ave.core.constants import (
     V_YIELD,    # yield voltage √α · V_SNAP [V]  (boundary-invariant strain ref)
 )
 
+# ── Shipped diagnostics COMPOSED by import (KEEP-BOTH — never redefined) ──────
+# These two live in ave.core (pure-numpy, no JAX/Cosserat), so they are safe to
+# import at module level even for a pure-FDTD run. The heavier topological
+# readers (Cosserat / r10 (2,3) extractor) are lazy-imported inside extract_full.
+from ave.core.universal_operators import (
+    universal_reflection as _universal_reflection,           # Op3   (universal_operators:118)
+    universal_power_transmission as _universal_power_transmission,  # Op17  (universal_operators:833)
+)
+
+
+def _universal_power_transmission_from_gamma(gamma: float) -> float:
+    """T² from a reflection coefficient, via the shipped Op17 reduction
+    T² = 1 − Γ² (universal_operators:843). Kept as a thin adapter because the
+    shipped operator takes impedances; here we already hold Γ from the rebuilt
+    bond reflection, so T² = 1 − Γ² is the algebraic identity it computes."""
+    return float(np.clip(1.0 - gamma ** 2, 0.0, 1.0))
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Honesty-tag enum (ave-evidence-framing): the provenance of every channel.
@@ -232,10 +249,171 @@ class ObservableBattery:
         "V_YIELD": V_YIELD,
     }
 
-    # Steps 2-5 implement these; declared here so the contract is visible.
-    def sample_cheap(self, engine) -> dict:  # noqa: D401 — filled Step 2-4/6
-        """O(N) per-step scalar channels. Implemented incrementally per §6."""
-        raise NotImplementedError("ObservableBattery.sample_cheap — filled Step 2-4/6")
+    # K4 port shifts (A→B direction vectors per port) — MUST mirror the engine's
+    # own convention so the rebuilt Γ matches the in-flight bond reflection.
+    # Source: ave.core.k4_tlm.K4Lattice3D._connect_all port_shifts (k4_tlm:378).
+    # Each entry rolls B's value to A's location: np.roll(field, shift, axes).
+    _PORT_SHIFTS = (
+        (-1, -1, -1),  # Port 0: B at (+1,+1,+1)
+        (-1, +1, +1),  # Port 1: B at (+1,-1,-1)
+        (+1, -1, +1),  # Port 2: B at (-1,+1,-1)
+        (+1, +1, -1),  # Port 3: B at (-1,-1,+1)
+    )
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # CHANNEL 1 — Γ reflection coefficient (THE HEADLINE).
+    # ─────────────────────────────────────────────────────────────────────────
+    def _reflection(self, engine) -> dict:
+        """Rebuild the in-flight reflection coefficient Γ per directed A→B bond.
+
+        The engine NEVER stores its in-flight Γ — at ``k4_tlm.py``:410 it is a
+        local variable inside ``_scatter_all`` (``gamma = (z_B_at_A − z_A_own) /
+        (z_B_at_A + z_A_own + eps)``). We rebuild it from the PERSISTENT
+        ``z_local_field`` (``k4_tlm.py``:294, ``Z_eff = 1/√S = 1/(1−A²)^¼``) via
+        ``np.roll(port_shifts)`` + ``universal_reflection`` — COMPOSED, never
+        redefined. To mirror the engine's A→B convention exactly we call
+        ``universal_reflection(z_A_own, z_B_at_A)`` = ``(z_B − z_A)/(z_B + z_A)``.
+
+        Physical reading (prereg §1 #1 / §2 #2): **the reflecting boundary IS
+        matter.** Cold vacuum is a uniform Z₀ → Γ=0 (transparent); Γ≠0 only
+        where saturation bends S(A). The reduction the substrate cares about is
+        **Γ_at_max_A2_bond** — the boundary condition at the most-saturated bond:
+
+            sign(Γ_at_max_A2) = +1  →  antinode / OPEN  (Z→∞, mass-closure)
+            sign(Γ_at_max_A2) = −1  →  node     / SHORT (clamped, primer)
+
+        Only meaningful with Op3/Op14 nonlinear ON (``op3_bond_reflection``);
+        the metadata records the flag so a Γ≈0 reads "linear-vacuum-no-
+        reflection," NOT "matched."  PML cells are excluded from the argmax
+        (A-Rule 10 corollary) — they carry frozen-absorbing artifact.
+
+        Returns the scalar reductions (cheap-scalar channel) plus a coarse
+        Γ-vs-A² scatter (binned, O(N) to store).
+        """
+        k4 = engine.k4
+        z = np.asarray(k4.z_local_field, dtype=float)            # (N,N,N) persistent Z_eff
+        v_snap = float(getattr(engine, "V_SNAP", getattr(k4, "V_SNAP", 1.0)))
+
+        # Per-site K4 strain A² = |V_inc|²/V_SNAP² — the SAME numerator the
+        # engine uses in _update_z_local_field (strain = v_total/v_snap).
+        v_total_sq = np.sum(np.asarray(k4.V_inc, dtype=float) ** 2, axis=-1)
+        A2_site = v_total_sq / (v_snap ** 2)                     # (N,N,N)
+
+        mask_A = np.asarray(k4.mask_A, dtype=bool)
+        mask_active = np.asarray(k4.mask_active, dtype=bool)
+        interior = self._interior_mask(z.shape)                  # PML-excluded
+
+        op3 = bool(getattr(k4, "op3_bond_reflection", False))
+
+        gamma_stack = []   # (4, N, N, N) per-port Γ at A-sites
+        A2_bond_stack = []  # (4, N, N, N) per-bond strain (max of endpoints)
+        for shift_to_B in self._PORT_SHIFTS:
+            z_A_own = z
+            z_B_at_A = np.roll(z, shift=shift_to_B, axis=(0, 1, 2))
+            # COMPOSE the shipped operator — mirrors engine convention exactly.
+            gamma = _universal_reflection(z_A_own, z_B_at_A)
+            gamma_stack.append(gamma)
+            # bond strain = max of the two endpoints' A² (the saturated-wall side)
+            A2_B_at_A = np.roll(A2_site, shift=shift_to_B, axis=(0, 1, 2))
+            A2_bond_stack.append(np.maximum(A2_site, A2_B_at_A))
+
+        gamma_arr = np.stack(gamma_stack, axis=0)    # (4,N,N,N)
+        A2_bond_arr = np.stack(A2_bond_stack, axis=0)
+
+        # Restrict to live, interior A-site bonds (canonical A→B direction).
+        bond_valid = mask_A & mask_active & interior          # (N,N,N)
+        valid4 = np.broadcast_to(bond_valid, gamma_arr.shape)  # (4,N,N,N)
+
+        if not valid4.any():
+            return self._empty_reflection(op3)
+
+        g_valid = gamma_arr[valid4]
+        a2_valid = A2_bond_arr[valid4]
+
+        # THE ADJUDICATOR: Γ at the most-saturated valid bond.
+        i_max = int(np.argmax(a2_valid))
+        gamma_at_max_A2 = float(g_valid[i_max])
+        A2_at_max = float(a2_valid[i_max])
+
+        # R² / T² per bond (COMPOSE Op17). R² = Γ², T² = 1 − Γ².
+        R2 = float(gamma_at_max_A2 ** 2)
+        T2 = float(_universal_power_transmission_from_gamma(gamma_at_max_A2))
+
+        # Coarse Γ-vs-A² scatter (binned) — forward read, no fit. 12 A²-bins.
+        scatter = self._gamma_vs_A2_scatter(g_valid, a2_valid)
+
+        return {
+            "t": float(getattr(engine, "time", 0.0)),
+            "gamma_at_max_A2": gamma_at_max_A2,
+            "sign_gamma_at_max_A2": int(np.sign(gamma_at_max_A2)) if gamma_at_max_A2 != 0.0 else 0,
+            "A2_at_max_bond": A2_at_max,
+            "gamma_max": float(g_valid.max()),
+            "gamma_min": float(g_valid.min()),
+            "gamma_abs_max": float(np.abs(g_valid).max()),
+            "gamma_rms": float(np.sqrt(np.mean(g_valid ** 2))),
+            "R2_at_max_A2": R2,
+            "T2_at_max_A2": T2,
+            "n_valid_bonds": int(g_valid.size),
+            "op3_bond_reflection": op3,
+            "gamma_vs_A2_scatter": scatter,
+        }
+
+    def _empty_reflection(self, op3: bool) -> dict:
+        """Degenerate Γ record (no valid interior bonds)."""
+        return {
+            "t": 0.0, "gamma_at_max_A2": 0.0, "sign_gamma_at_max_A2": 0,
+            "A2_at_max_bond": 0.0, "gamma_max": 0.0, "gamma_min": 0.0,
+            "gamma_abs_max": 0.0, "gamma_rms": 0.0, "R2_at_max_A2": 0.0,
+            "T2_at_max_A2": 1.0, "n_valid_bonds": 0, "op3_bond_reflection": op3,
+            "gamma_vs_A2_scatter": {"A2_bin_centers": [], "gamma_mean": [],
+                                    "gamma_std": [], "counts": []},
+        }
+
+    @staticmethod
+    def _gamma_vs_A2_scatter(gamma: np.ndarray, A2: np.ndarray,
+                             n_bins: int = 12) -> dict:
+        """Binned Γ-vs-A² scatter — the forward read of how the boundary
+        condition tracks saturation (no fit, no target). Bins over [0, A²_max]."""
+        a2_max = float(A2.max())
+        if a2_max <= 0.0:
+            return {"A2_bin_centers": [], "gamma_mean": [], "gamma_std": [], "counts": []}
+        edges = np.linspace(0.0, a2_max, n_bins + 1)
+        idx = np.clip(np.digitize(A2, edges) - 1, 0, n_bins - 1)
+        centers, means, stds, counts = [], [], [], []
+        for b in range(n_bins):
+            sel = idx == b
+            c = int(sel.sum())
+            centers.append(float(0.5 * (edges[b] + edges[b + 1])))
+            counts.append(c)
+            if c > 0:
+                means.append(float(gamma[sel].mean()))
+                stds.append(float(gamma[sel].std()))
+            else:
+                means.append(0.0)
+                stds.append(0.0)
+        return {"A2_bin_centers": centers, "gamma_mean": means,
+                "gamma_std": stds, "counts": counts}
+
+    def _interior_mask(self, shape: tuple[int, int, int]) -> np.ndarray:
+        """Boolean interior mask excluding PML cells (A-Rule 10 corollary):
+        pml ≤ {i,j,k} ≤ N − pml − 1. PML cells return frozen-absorbing
+        artifact, not interior physics, so they are filtered before any
+        top-K / argmax field-density extraction."""
+        nx, ny, nz = shape
+        p = self.pml_thickness
+        m = np.zeros(shape, dtype=bool)
+        if p <= 0:
+            m[:] = True
+            return m
+        m[p:nx - p, p:ny - p, p:nz - p] = True
+        return m
+
+    # Steps 3-5 implement the remaining cheap channels; Step 2 wires Γ only.
+    def sample_cheap(self, engine) -> dict:  # noqa: D401 — extended Step 3-4/6
+        """O(N) per-step scalar channels. Step 2: Γ only (the headline)."""
+        return {
+            "reflection": self._reflection(engine),
+        }
 
     def extract_full(self, engine) -> dict:  # noqa: D401 — filled Step 5
         """Heavy post-run field-walks (run once). Implemented Step 5."""
