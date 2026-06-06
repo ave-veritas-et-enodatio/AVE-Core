@@ -712,6 +712,73 @@ def _extract_on_engine(engine, N, PML, label):
     return res
 
 
+def characterize_C1(V_inc, mask_A, N, PML, R, r, center, kz, n_ang=360):
+    """C1 (prereg §3, GATED on V0 pass): where does the n̂-direction "2" winding
+    CLOSE in real space — ≈1 ℓ_node (single-bond / midpoint-centred, Grant) vs
+    ≈2 ℓ_node (bond-pair / node-centred, l3:30)? Structural read ONLY (NOT an α
+    or selection claim). ℓ_node = 1 lattice cell.
+
+    Two real-space spans are measured along the MAJOR circle (the toroidal
+    direction the "2" winds in):
+      • span_per_nhat_closure: the arc-length over which the n̂-direction
+        azimuth advances by π (a director half-turn = one closure of the headless
+        n̂-direction). With w₁=2 over circumference 2πR, the n̂ azimuth turns 2·2π
+        (the field n̂≈±t̂ sign-flips double it) → closures are ℓ_node-scale.
+      • span_density_peaks: the spacing between successive |V_inc|² density
+        crests along the tube (the saturated-node spacing).
+    Reports both in ℓ_node (cells). single-bond ⇒ ≈1; bond-pair ⇒ ≈2.
+    """
+    cx, cy, cz = center
+    angs = np.linspace(0.0, 2.0 * np.pi, n_ang, endpoint=False)
+    arc = R * (angs[1] - angs[0])  # arc-length per angular step (cells)
+    nhat_az, dens = [], []
+    for phi in angs:
+        rad = R + r  # outer-equator tube crest
+        x, y, z = cx + rad * np.cos(phi), cy + rad * np.sin(phi), kz
+        if not (PML <= x < N - PML and PML <= y < N - PML and PML <= z < N - PML):
+            nhat_az.append(np.nan)
+            dens.append(0.0)
+            continue
+        vc = interp_vinc(V_inc, mask_A, N, x, y, z)
+        nh, m = field_direction_nhat(vc)
+        e_phi = np.array([-np.sin(phi), np.cos(phi), 0.0])
+        e_rad = np.array([np.cos(phi), np.sin(phi), 0.0])
+        nhat_az.append(np.arctan2(nh @ e_phi, nh @ e_rad))
+        dens.append(float(np.sum(vc**2)))
+    nhat_az = np.array(nhat_az)
+    dens = np.array(dens)
+    valid = np.isfinite(nhat_az)
+    out = {"R": float(R), "r": float(r), "arc_per_step_cells": float(arc)}
+
+    # span per n̂-direction closure (director half-turn = π advance)
+    az = nhat_az[valid]
+    if len(az) > 16:
+        unw = np.unwrap(2 * az) / 2.0  # director unwrap (mod π)
+        total_turn = abs(unw[-1] - unw[0])  # total director rotation (rad)
+        n_closures = total_turn / np.pi  # number of π half-turns
+        circ = 2.0 * np.pi * R
+        out["nhat_total_director_turns"] = float(total_turn / (2 * np.pi))
+        out["n_nhat_closures_per_loop"] = float(n_closures)
+        out["span_per_nhat_closure_cells"] = float(circ / n_closures) if n_closures > 0 else float("nan")
+
+    # density-peak spacing along the tube (saturated-node spacing)
+    d = dens[valid]
+    if len(d) > 16:
+        dm = d - d.mean()
+        # find local maxima above half-max
+        thr = 0.5 * d.max()
+        peaks = [i for i in range(1, len(d) - 1)
+                 if d[i] > d[i - 1] and d[i] >= d[i + 1] and d[i] > thr]
+        if len(peaks) >= 2:
+            gaps = np.diff(peaks) * arc
+            out["n_density_peaks"] = len(peaks)
+            out["span_density_peaks_cells"] = float(np.median(gaps))
+        else:
+            out["n_density_peaks"] = len(peaks)
+            out["span_density_peaks_cells"] = float("nan")
+    return out
+
+
 def main():
     print("=" * 78, flush=True)
     print("  Coordinate-correct (2,3)-winding extractor — V0/V1 VALIDATION GATE")
@@ -765,6 +832,24 @@ def main():
           f"c={resB['crossing_count_c']} A²max={resB['a2_max']:.3f}")
     print(f"  >> V1 (null on baseline): {'PASS (no (2,3))' if v1_null else 'FAIL ((2,3) read on baseline!)'}")
 
+    # ── C1 characterization (GATED on V0 pass; prereg C2) ──
+    c1 = None
+    if v0_pass:
+        print("\n  ── C1: single-bond vs bond-pair n̂-direction closure span ──")
+        c1 = characterize_C1(engC.k4.V_inc, engC.k4.mask_A, N, PML,
+                             resC["R"], resC["r"],
+                             ((N - 1) / 2.0, (N - 1) / 2.0, (N - 1) / 2.0),
+                             resC["kz"])
+        print(f"     span per n̂-direction closure: "
+              f"{c1.get('span_per_nhat_closure_cells', float('nan')):.2f} ℓ_node "
+              f"({c1.get('n_nhat_closures_per_loop', 0):.1f} closures/loop)")
+        print(f"     density-peak (saturated-node) spacing: "
+              f"{c1.get('span_density_peaks_cells', float('nan')):.2f} ℓ_node "
+              f"({c1.get('n_density_peaks', 0)} peaks)")
+    else:
+        print("\n  C1 SKIPPED — V0 did not pass (prereg C2: no single/pair "
+              "verdict on an unvalidated tool).")
+
     out = {
         "config": {"N": N, "PML": PML, "n_periods": n_periods, "amplitude": amp,
                    "ALPHA": ALPHA, "A2_op14": A2_OP14, "dt": DT},
@@ -773,6 +858,7 @@ def main():
         "legacy_armC_peakbond_read": legacy,
         "V0_pass": bool(v0_pass),
         "V1_null": bool(v1_null),
+        "C1_characterization": c1,
         "meta_C": metaC, "meta_B": metaB,
     }
     op = Path(__file__).parent / "r10_2_3_winding_extractor_coordinate_results.json"
