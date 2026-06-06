@@ -979,3 +979,255 @@ class ObservableBattery:
             if channel not in inconclusive:
                 inconclusive.append(channel)
             return None
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# BatteryObserver — the thin Observer wrapper for the VacuumEngine3D hook.
+# ─────────────────────────────────────────────────────────────────────────────
+# Lazy base so a pure-numpy import of this module (FDTD-only) doesn't pull the
+# Cosserat/JAX stack. The real base is ave.topological.vacuum_engine.Observer.
+def _make_battery_observer_class():
+    from ave.topological.vacuum_engine import Observer as _Observer
+
+    class BatteryObserver(_Observer):
+        """Drives an ``ObservableBattery`` off the per-step engine hook
+        (vacuum_engine:1851). Each cadence-filtered step calls
+        ``battery.sample_cheap(engine)`` (O(N) scalar channels) and appends a
+        scalar probe value for the post-run dispersion FFT (#14). Heavy field-
+        walks (``extract_full``) are NOT run per-step — the harness calls them
+        once on the converged state, mirroring the shipped cheap-scalar-history
+        / heavy-once pattern.
+
+        ``probe_fn`` extracts one scalar per step for the dispersion series
+        (default: max |V_inc| at the lattice center — a native ring probe)."""
+
+        def __init__(self, battery: "ObservableBattery", cadence: int = 1,
+                     probe_fn=None):
+            super().__init__(cadence=cadence)
+            self.battery = battery
+            self.probe_fn = probe_fn or _default_probe_fn
+
+        def _capture(self, engine):
+            rec = self.battery.sample_cheap(engine)
+            # accumulate the dispersion probe (cheap scalar per step)
+            try:
+                self.battery.probe_history.append(float(self.probe_fn(engine)))
+            except Exception:   # pragma: no cover — probe is best-effort
+                pass
+            rec["t"] = float(getattr(engine, "time", 0.0))
+            rec["step_count"] = int(getattr(engine, "step_count", 0))
+            return rec
+
+    return BatteryObserver
+
+
+def _default_probe_fn(engine) -> float:
+    """Default dispersion probe: |V_inc| magnitude at the lattice center node
+    (a native ring probe). Reads off the K4 V_inc field."""
+    k4 = engine.k4
+    V = np.asarray(k4.V_inc, dtype=float)
+    nx, ny, nz = V.shape[:3]
+    c = (nx // 2, ny // 2, nz // 2)
+    return float(np.sqrt(np.sum(V[c] ** 2)))
+
+
+# Module-level cache so the class is built once (after the first lazy import).
+_BATTERY_OBSERVER_CLS: list = []
+
+
+def make_battery_observer(battery: "ObservableBattery", cadence: int = 1,
+                          probe_fn=None):
+    """Construct a ``BatteryObserver`` bound to ``battery`` (lazy base import).
+    Attach via ``engine.add_observer(make_battery_observer(battery))``."""
+    if not _BATTERY_OBSERVER_CLS:
+        _BATTERY_OBSERVER_CLS.append(_make_battery_observer_class())
+    return _BATTERY_OBSERVER_CLS[0](battery, cadence=cadence, probe_fn=probe_fn)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Forward per-sim analysis (prereg §4) — forward classification off native
+# state. Every verdict a forward read; every threshold honesty-tagged. NO fits,
+# NO target-matching (ave-driver-script-honesty).
+# ─────────────────────────────────────────────────────────────────────────────
+# Classification thresholds — engineering choices, tagged. NOT physics targets;
+# they are read-off discriminators (which axis discriminates is read OFF the
+# cube, not decided here).
+_ANALYSIS_THRESHOLDS = {
+    "eigenmode_circular_R": 0.5,   # Θ_RP circular-R above ⇒ phase-coherent eigenmode
+    "retention_bound": 0.5,        # H(t)/H(t_drive_off) above ⇒ bound standing wave
+    "lc_matched_tol": 0.2,         # |X_L/X_C − 1| below ⇒ LC-matched standing mode
+    "saturated_A2": 1.0,           # max_A2_total ≥ ⇒ a boundary has formed (matter)
+}
+
+
+def analyze_report(report: "ObservableReport",
+                   drive_off_step: Optional[int] = None) -> dict:
+    """Run the forward per-sim classification on a populated ObservableReport.
+
+    Verdicts (each a forward read off native state, prereg §4):
+      * OPEN / SHORT          via sign(Γ_at_max_A2)         (the boundary condition)
+      * eigenmode / trajectory via Θ_RP circular-R + retention
+      * (2,3)-hosted           via is_2_3 (+ confidence)     (the topological charge)
+      * LC-matched             via |X_L/X_C − 1|             (the bond-pair resonance)
+      * regime                 via max_A2_total              (where on the Ax-4 kernel)
+      * retention              via H(t)/H(t_drive_off)       (conservation vs dispersal)
+
+    All thresholds are engineering discriminators (tagged), NOT physics targets.
+    """
+    th = _ANALYSIS_THRESHOLDS
+    out: dict[str, Any] = {"thresholds": dict(th),
+                           "thresholds_source": Source.ENGINEERING.value}
+
+    # ── OPEN / SHORT (the headline boundary condition) ────────────────────────
+    refl_last = report.latest_scalar("reflection")
+    if refl_last and refl_last.get("n_valid_bonds", 0) > 0:
+        sgn = int(refl_last.get("sign_gamma_at_max_A2", 0))
+        op3 = bool(refl_last.get("op3_bond_reflection", False))
+        gam = float(refl_last.get("gamma_at_max_A2", 0.0))
+        if not op3:
+            verdict = "LINEAR-VACUUM-NO-REFLECTION"   # prereg §2 #1: NOT "matched"
+        elif sgn > 0:
+            verdict = "OPEN"     # antinode, Z→∞, mass-closure
+        elif sgn < 0:
+            verdict = "SHORT"    # node, primer
+        else:
+            verdict = "MATCHED-OR-ZERO"
+        out["boundary_condition"] = {
+            "verdict": verdict, "sign_gamma_at_max_A2": sgn,
+            "gamma_at_max_A2": gam, "op3_bond_reflection": op3,
+            "evidence": "sign of Γ at the most-saturated interior bond",
+        }
+    else:
+        out["boundary_condition"] = {"verdict": "INCONCLUSIVE",
+                                     "reason": "no valid interior bonds"}
+
+    # ── eigenmode / trajectory ────────────────────────────────────────────────
+    theta = report.full.get("theta_RP", {})
+    retention = _compute_retention(report, drive_off_step)
+    if theta and not theta.get("inconclusive"):
+        Rbar = float(theta.get("theta_RP_circular_R", 0.0))
+        coherent = Rbar >= th["eigenmode_circular_R"]
+        bound = (retention is not None) and (retention >= th["retention_bound"])
+        if coherent and bound:
+            verdict = "EIGENMODE"        # phase-coherent + retained
+        elif coherent:
+            verdict = "EIGENMODE-CANDIDATE"  # coherent but retention unknown/low
+        else:
+            verdict = "TRAJECTORY"       # drifting / dissipative
+        out["mode_class"] = {"verdict": verdict, "theta_RP_circular_R": Rbar,
+                             "retention": retention}
+    else:
+        out["mode_class"] = {"verdict": "INCONCLUSIVE",
+                             "reason": "theta_RP not computed"}
+
+    # ── (2,3)-hosted (the topological charge) ─────────────────────────────────
+    w = report.full.get("winding_2_3", {})
+    if w and not w.get("inconclusive"):
+        is23 = bool(w.get("is_2_3", False))
+        out["topology_class"] = {
+            "verdict": "TWO-THREE-HOSTED" if is23 else "WEAK-OR-ABSENT",
+            "is_2_3": is23,
+            "w1_base": w.get("w1_base"), "w2_fibre": w.get("w2_fibre"),
+            "crossing_count_c": w.get("crossing_count_c"),
+            "w1_modal_count": w.get("w1_base_modal_count"),
+            "w2_modal_count": w.get("w2_fibre_modal_count"),
+            "n_walks": w.get("w1_base_n_walks"),
+            # prereg §2 #3: a conserved (2,3) can't fade — a WEAK read is thermal
+            # dressing around a conserved core, NOT lost charge. Confidence
+            # fields make the weak read visible.
+            "note": ("conserved-(2,3) cannot fade gradually; a weak read = "
+                     "thermal dressing / under-converged shell, not lost charge"),
+        }
+    else:
+        out["topology_class"] = {"verdict": "INCONCLUSIVE",
+                                 "reason": w.get("reason", "winding not computed")}
+
+    # ── LC-matched (the bond-pair resonance) ──────────────────────────────────
+    rx = report.latest_scalar("reactances")
+    if rx and rx.get("n_valid_bonds", 0) > 0:
+        ratio_med = float(rx.get("XL_over_XC_median", 0.0))
+        closest = float(rx.get("XL_over_XC_closest_to_1", 0.0))
+        matched = abs(ratio_med - 1.0) <= th["lc_matched_tol"]
+        out["lc_class"] = {
+            "verdict": "LC-MATCHED" if matched else "LC-DETUNED",
+            "XL_over_XC_median": ratio_med,
+            "XL_over_XC_closest_to_1": closest,
+            "omega_source": rx.get("omega_source", Source.ENGINEERING.value),
+            "caveat": "ω = drive-ω (engineering-input), not the soliton ω_C",
+        }
+    else:
+        out["lc_class"] = {"verdict": "INCONCLUSIVE", "reason": "no reactance bonds"}
+
+    # ── regime (where on the Ax-4 kernel) ─────────────────────────────────────
+    reg = report.latest_scalar("regime")
+    if reg:
+        a2 = float(reg.get("max_A2_total", 0.0))
+        out["regime_class"] = {
+            "verdict": "SATURATED-WALL" if a2 >= th["saturated_A2"]
+                       else ("TRANSITION" if a2 >= 2.0 * ALPHA else "PASSBAND"),
+            "max_A2_total": a2,
+            "rupture_cells": int(reg.get("rupture", 0)),
+            "rg_III_cells": int(reg.get("rg_III", 0)),
+        }
+    else:
+        out["regime_class"] = {"verdict": "INCONCLUSIVE"}
+
+    return out
+
+
+def _compute_retention(report: "ObservableReport",
+                       drive_off_step: Optional[int]) -> Optional[float]:
+    """retention = H(t_final)/H(t_drive_off) from the energy-budget history. If
+    no drive-off step is known, falls back to H(t_final)/H(t_initial)."""
+    hist = report.scalar_history.get("energy_budget", [])
+    if len(hist) < 2:
+        return None
+    H = [float(r.get("H_total", 0.0)) for r in hist]
+    H_final = H[-1]
+    if drive_off_step is not None:
+        # find the history record nearest the drive-off step
+        steps = [int(r.get("step_count", i)) for i, r in enumerate(hist)]
+        idx = int(np.argmin([abs(s - drive_off_step) for s in steps]))
+        H_ref = H[idx]
+    else:
+        H_ref = H[0]
+    if abs(H_ref) < 1e-30:
+        return None
+    return float(H_final / H_ref)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Non-VacuumEngine3D (FDTD-scalar) branch — the harness wraps a scalar-field
+# engine's run() loop; channels that are undefined for a scalar field (Γ needs
+# the K4 z_local_field; (2,3)/helicity/Q_hopf need the topological state) are
+# marked N/A so a missing read is never a false null result (prereg §3).
+# ─────────────────────────────────────────────────────────────────────────────
+def fdtd_scalar_report(engine, name: str = "", config: Optional[dict] = None) -> "ObservableReport":
+    """Build an ObservableReport for a non-VacuumEngine3D scalar-field engine
+    (e.g. MasterEquationFDTD). Marks the topological / Γ channels N/A (they are
+    undefined for a scalar field) and reads whatever scalar diagnostics the
+    engine does expose. Honest N/A, not a null."""
+    report = ObservableReport(name=name, config=dict(config or {}))
+    na_channels = ["reflection", "power_split", "reactance_XC", "reactance_XL",
+                   "theta_RP", "winding_2_3", "energy7", "boundary_MQJ",
+                   "helicity", "hopf", "charge_density"]
+    report.full["_not_applicable"] = {
+        ch: "undefined for a scalar field (no K4 z_local_field / topological state)"
+        for ch in na_channels
+    }
+    report.inconclusive = list(na_channels)
+    report.metadata.update({
+        "engine_class": type(engine).__name__,
+        "engine_kind": "fdtd-scalar",
+        "note": "scalar-field engine — topological + Γ channels N/A by construction",
+    })
+    # best-effort scalar reads (energy / spectral) if the engine exposes them
+    for attr in ("total_energy", "energy"):
+        fn = getattr(engine, attr, None)
+        if callable(fn):
+            try:
+                report.full["scalar_energy"] = float(fn())
+                break
+            except Exception:   # pragma: no cover
+                pass
+    return report
