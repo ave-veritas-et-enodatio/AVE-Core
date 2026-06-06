@@ -77,6 +77,45 @@ def _universal_power_transmission_from_gamma(gamma: float) -> float:
     return float(np.clip(1.0 - gamma ** 2, 0.0, 1.0))
 
 
+# ── Lazy-imported topological diagnostics (KEEP-BOTH — composed, not copied) ──
+# These live in ave.topological (need the Cosserat/JAX stack) so they are
+# imported on FIRST USE inside the heavy reads — a pure-FDTD run never triggers
+# them. Cached at module level after the first successful import.
+_TOPO_OBSERVERS: dict[str, Any] = {}
+
+
+def _lazy_topo_observers() -> dict[str, Any]:
+    """Import + cache the three shipped Observers' classes (for ._capture
+    composition) and return them. Redefines none — composes by import."""
+    if not _TOPO_OBSERVERS:
+        from ave.topological.vacuum_engine import (
+            EnergyBudgetObserver,
+            RegimeClassifierObserver,
+            TopologyObserver,
+        )
+        _TOPO_OBSERVERS.update(
+            EnergyBudgetObserver=EnergyBudgetObserver,
+            RegimeClassifierObserver=RegimeClassifierObserver,
+            TopologyObserver=TopologyObserver,
+        )
+    return _TOPO_OBSERVERS
+
+
+def _EnergyBudgetObserver():
+    """Shipped EnergyBudgetObserver (vacuum_engine:664) — composed by import."""
+    return _lazy_topo_observers()["EnergyBudgetObserver"]()
+
+
+def _RegimeClassifierObserver():
+    """Shipped RegimeClassifierObserver (vacuum_engine:392) — composed."""
+    return _lazy_topo_observers()["RegimeClassifierObserver"]()
+
+
+def _TopologyObserver(**kw):
+    """Shipped TopologyObserver (vacuum_engine:618) — composed."""
+    return _lazy_topo_observers()["TopologyObserver"](**kw)
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Honesty-tag enum (ave-evidence-framing): the provenance of every channel.
 # ─────────────────────────────────────────────────────────────────────────────
@@ -408,11 +447,147 @@ class ObservableBattery:
         m[p:nx - p, p:ny - p, p:nz - p] = True
         return m
 
-    # Steps 3-5 implement the remaining cheap channels; Step 2 wires Γ only.
-    def sample_cheap(self, engine) -> dict:  # noqa: D401 — extended Step 3-4/6
-        """O(N) per-step scalar channels. Step 2: Γ only (the headline)."""
+    # ─────────────────────────────────────────────────────────────────────────
+    # CHANNELS 3 & 4 — Capacitive / inductive reactance X_C, X_L.
+    # ─────────────────────────────────────────────────────────────────────────
+    def _reactances(self, engine) -> dict:
+        """C-state (V_inc, voltage store) vs L-state (Φ_link, flux store) ratio.
+
+            X_C = |V_inc| / (ω·|Φ_link|)        (capacitive)
+            X_L =  ω·|Φ_link| / |V_inc|         (inductive)
+            X_L/X_C → 1  ⇒  LC-matched standing mode (bond-pair resonance)
+
+        ω = ``self.reactance_omega`` — ENGINEERING-INPUT (prereg §5 mandatory
+        tag): the config drive-ω, NOT the soliton's own ω_C = c/ℓ_node. A formed
+        electron rings at ω_C; v1 uses drive-ω and tags it. Convergence of a
+        measured ring frequency to ω_C is itself an electron-check (#14), but is
+        NOT asserted here. Read off live, interior, A-site bonds (PML-excluded).
+        """
+        k4 = engine.k4
+        omega = float(self.reactance_omega)
+        V_inc = np.asarray(k4.V_inc, dtype=float)       # (N,N,N,4)  C-state per port
+        Phi = np.asarray(k4.Phi_link, dtype=float)      # (N,N,N,4)  L-state per port
+        mask_A = np.asarray(k4.mask_A, dtype=bool)
+        mask_active = np.asarray(k4.mask_active, dtype=bool)
+        interior = self._interior_mask(V_inc.shape[:3])
+        valid = mask_A & mask_active & interior          # (N,N,N)
+
+        eps = 1e-30
+        absV = np.abs(V_inc)                              # (N,N,N,4)
+        absPhi = np.abs(Phi)
+        # per-bond magnitudes at valid A-sites
+        valid4 = np.broadcast_to(valid[..., None], absV.shape)
+        absV_v = absV[valid4]
+        absPhi_v = absPhi[valid4]
+        if absV_v.size == 0:
+            return {"t": float(getattr(engine, "time", 0.0)), "omega": omega,
+                    "XC_median": 0.0, "XL_median": 0.0, "XL_over_XC_median": 0.0,
+                    "XL_over_XC_min": 0.0, "n_valid_bonds": 0,
+                    "omega_source": Source.ENGINEERING.value}
+
+        XC = absV_v / (omega * absPhi_v + eps)
+        XL = (omega * absPhi_v) / (absV_v + eps)
+        ratio = XL / (XC + eps)   # = (ω·|Φ|/|V|) / (|V|/(ω·|Φ|)) = (ω|Φ|/|V|)²
+
+        return {
+            "t": float(getattr(engine, "time", 0.0)),
+            "omega": omega,
+            "omega_source": Source.ENGINEERING.value,  # mandatory engineering-input tag
+            "XC_median": float(np.median(XC)),
+            "XL_median": float(np.median(XL)),
+            "XL_over_XC_median": float(np.median(ratio)),
+            "XL_over_XC_min": float(ratio.min()),
+            "XL_over_XC_closest_to_1": float(ratio.flat[int(np.argmin(np.abs(ratio - 1.0)))]),
+            "n_valid_bonds": int(absV_v.size),
+        }
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # CHANNEL 7 — 7-mode energy split (the substrate's 7 micropolar DOF).
+    # ─────────────────────────────────────────────────────────────────────────
+    def _energy7(self, engine) -> dict:
+        """Energy partition across the 7 micropolar DOF, mechanically:
+
+            3 translational / C-sector :  ½·ρ·u̇ᵢ²        (per axis i)
+            3 rotational     / L-sector :  ½·I_ω·ω̇ᵢ²      (per axis i)
+            1 volumetric                 :  ½·λ·(∇·u)²      (λ = K − ⅔G = (4/3)G)
+            + E_K4 (the K4-TLM sector)
+
+        Composes the SAME ½ρ|u̇|²+½I_ω|ω̇|² kernel as ``CosseratField3D.
+        kinetic_energy`` (cosserat:1504) but split per-axis (the aggregate sum is
+        cross-checked). The volumetric term is NEW (the divergence of u), with
+        the Lamé λ DERIVED from the field's own shear modulus self.G via the
+        engine's K=2G convention (cfl_dt:1491) — no planted modulus.
+
+        C-sector (3 trans + volumetric) vs L-sector (3 rot) balance is the
+        mechanical reading of the C↔L reactance state (real-space complement to
+        channels 3/4).
+        """
+        cos = engine.cos
+        mask = np.asarray(cos.mask_alive, dtype=bool)
+        u_dot = np.asarray(cos.u_dot, dtype=float)       # (N,N,N,3)
+        omega_dot = np.asarray(cos.omega_dot, dtype=float)
+        u = np.asarray(cos.u, dtype=float)
+        dx = float(cos.dx)
+        rho = float(cos.rho)
+        I_omega = float(cos.I_omega)
+        G = float(getattr(cos, "G", 1.0))
+        lam = (4.0 / 3.0) * G   # λ = K − ⅔G, with K = 2G (cfl_dt convention) → (4/3)G
+
+        m3 = mask[..., None].astype(float)
+        # 3 translational (C-sector), per axis
+        E_trans = [float(0.5 * rho * np.sum((u_dot[..., i] * mask) ** 2)) for i in range(3)]
+        # 3 rotational (L-sector), per axis
+        E_rot = [float(0.5 * I_omega * np.sum((omega_dot[..., i] * mask) ** 2)) for i in range(3)]
+        # 1 volumetric — ½λ(∇·u)² (NEW). Central-difference divergence on the
+        # lattice (dx spacing); masked to alive sites.
+        div_u = self._divergence(u, dx) * mask
+        E_vol = float(0.5 * lam * np.sum(div_u ** 2) * (dx ** 3))
+
+        E_K4 = float(engine.k4.total_energy())
+        E_C = sum(E_trans) + E_vol     # C-sector: translation + volumetric
+        E_L = sum(E_rot)               # L-sector: rotation
+        total7 = E_C + E_L
+
+        return {
+            "t": float(getattr(engine, "time", 0.0)),
+            "E_trans_x": E_trans[0], "E_trans_y": E_trans[1], "E_trans_z": E_trans[2],
+            "E_rot_x": E_rot[0], "E_rot_y": E_rot[1], "E_rot_z": E_rot[2],
+            "E_volumetric": E_vol,
+            "E_C_sector": E_C, "E_L_sector": E_L,
+            "C_over_L": float(E_C / (E_L + 1e-30)),
+            "E_7mode_total": total7,
+            "E_K4": E_K4,
+            "lambda_lame": lam,
+        }
+
+    @staticmethod
+    def _divergence(u: np.ndarray, dx: float) -> np.ndarray:
+        """∇·u via central differences on the lattice (NEW). u is (N,N,N,3)."""
+        du_dx = np.gradient(u[..., 0], dx, axis=0)
+        dv_dy = np.gradient(u[..., 1], dx, axis=1)
+        dw_dz = np.gradient(u[..., 2], dx, axis=2)
+        return du_dx + dv_dy + dw_dz
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # CHANNEL 8 — Energy budget + retention (COMPOSE EnergyBudgetObserver).
+    # ─────────────────────────────────────────────────────────────────────────
+    def _energy_budget(self, engine) -> dict:
+        """E_K4, E_cos, T_cos, E_coupling, H_total — composed from the shipped
+        ``EnergyBudgetObserver._capture`` (vacuum_engine:667), redefined never.
+        ``retention = H(t)/H(t_drive_off)`` is added downstream once the drive-
+        off step is known (the per-sim analysis fills it). Conservation→1 = bound
+        standing wave (mass = trapped reactance); →0 = dispersal."""
+        cap = _EnergyBudgetObserver()._capture(engine)   # COMPOSED
+        return cap
+
+    # ── Step-2 + Step-3 cheap channels (Γ, reactances, E7, budget) ────────────
+    def sample_cheap(self, engine) -> dict:  # noqa: D401 — extended Step 4/6
+        """O(N) per-step scalar channels. Steps 2-3: Γ, reactances, E7, budget."""
         return {
             "reflection": self._reflection(engine),
+            "reactances": self._reactances(engine),
+            "energy7": self._energy7(engine),
+            "energy_budget": self._energy_budget(engine),
         }
 
     def extract_full(self, engine) -> dict:  # noqa: D401 — filled Step 5
