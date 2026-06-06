@@ -576,4 +576,226 @@ def is_2_3(result):
     return (c == 3) or ((abs(w1), abs(w2)) in [(2, 3), (3, 2)])
 
 
+# ══════════════════════════════════════════════════════════════════════════════
+# Arm-C / Arm-B FULL-FIELD re-run (the IMPOSED control + matched baseline)
+# ══════════════════════════════════════════════════════════════════════════════
+# The shipped capture npz carries only single-bond (V_inc,V_ref,Phi_link) TIME
+# series — which cannot host the SPATIAL (2,3) (θ=2φ+3ψ is a fixed constant at
+# one bond). We re-run ONLY the IMPOSED control (Arm C) + matched baseline
+# (Arm B) to capture the converged FULL FIELD. Per prereg §0 this is allowed
+# (the imposed control is the KNOWN-signal control); NO α/R·r-selection or
+# nucleation-emergence test is run (those are CLOSED).
+def _run_armC_full_field(N=48, PML=4, n_periods=40, amplitude=0.40):
+    """Re-run Arm C (PairNucleationGate IMPOSED control) exactly as the legacy
+    driver (same engine config, same initialize_2_3_voltage_ansatz placement),
+    saving the converged FULL field. Deterministic, ~3 min."""
+    from ave.topological.vacuum_engine import (
+        PairNucleationGate, SpatialDipoleCPSource, VacuumEngine3D,
+        _forward_t2_port_weights,
+    )
+    from tlm_electron_soliton_eigenmode import initialize_2_3_voltage_ansatz
+
+    # match the legacy directional-source subclass (counter-propagating precursor)
+    class _DirSrc(SpatialDipoleCPSource):
+        def __init__(self, *a, direction_sign=+1, **k):
+            super().__init__(*a, **k)
+            self._dir_sign = int(direction_sign)
+
+        def _init_if_needed(self, engine):
+            if self._port_w_prop is not None:
+                return
+            d = tuple((self._dir_sign if i == self.propagation_axis else 0.0)
+                      for i in range(3))
+            self._port_w_prop = _forward_t2_port_weights(d)
+            Nn = engine.N
+            yc = (Nn - 1) / 2.0 if self.y_c is None else self.y_c
+            zc = (Nn - 1) / 2.0 if self.z_c is None else self.z_c
+            j, k = np.indices((Nn, Nn), dtype=float)
+            r2 = (j - yc) ** 2 + (k - zc) ** 2
+            g = np.exp(-r2 / (2.0 * self.sigma_yz**2))
+            self._g_y_profile = (j - yc) * g
+            self._g_z_profile = (k - zc) * g
+
+    engine = VacuumEngine3D.from_args(
+        N=N, pml=PML, temperature=0.0, amplitude_convention="V_SNAP",
+        disable_cosserat_lc_force=True, enable_cosserat_self_terms=True,
+        use_asymmetric_saturation=True, axiom_4_enabled=True,
+    )
+    # transverse-photon precursor (Arm A/C share the opposite-handed source)
+    ramp, sustain, decay = 1.5, 3.0, 2.0
+    x0f, x0b = int(round(0.30 * N)), int(round(0.70 * N))
+    for sign, hand, x0 in ((+1, "RH", x0f), (-1, "LH", x0b)):
+        engine.add_source(_DirSrc(
+            x0=x0, propagation_axis=0, amplitude=amplitude, omega=1.0,
+            handedness=hand, sigma_yz=3.0,
+            t_ramp=ramp * COMPTON_PERIOD, t_sustain=sustain * COMPTON_PERIOD,
+            t_decay=decay * COMPTON_PERIOD, direction_sign=sign,
+        ))
+    # IMPOSED (2,3): plant on the golden-torus shell (legacy R_shell=0.22N)
+    R_shell = 0.22 * N
+    r_shell = R_shell / (PHI**2)
+    initialize_2_3_voltage_ansatz(engine.k4, R=R_shell, r=r_shell,
+                                  amplitude=amplitude)
+    engine.add_observer(PairNucleationGate(cadence=1, saturation_frac=0.95))
+
+    n_steps = int(n_periods * COMPTON_PERIOD / DT)
+    t0 = time.time()
+    for _ in range(n_steps):
+        engine.step()
+    elapsed = time.time() - t0
+    return engine, {"R_shell": R_shell, "r_shell": r_shell, "elapsed_s": elapsed,
+                    "n_steps": n_steps}
+
+
+def _run_armB_full_field(N=48, PML=4, n_periods=40, amplitude=0.40):
+    """Re-run Arm B (matched baseline: SAME-handedness counter-propagating
+    pulses, NO imposed winding) for the V1 null check. Same config as Arm C
+    minus the imposed ansatz and with same-handedness (trivial topology)."""
+    from ave.topological.vacuum_engine import (
+        SpatialDipoleCPSource, VacuumEngine3D, _forward_t2_port_weights,
+    )
+
+    class _DirSrc(SpatialDipoleCPSource):
+        def __init__(self, *a, direction_sign=+1, **k):
+            super().__init__(*a, **k)
+            self._dir_sign = int(direction_sign)
+
+        def _init_if_needed(self, engine):
+            if self._port_w_prop is not None:
+                return
+            d = tuple((self._dir_sign if i == self.propagation_axis else 0.0)
+                      for i in range(3))
+            self._port_w_prop = _forward_t2_port_weights(d)
+            Nn = engine.N
+            yc = (Nn - 1) / 2.0 if self.y_c is None else self.y_c
+            zc = (Nn - 1) / 2.0 if self.z_c is None else self.z_c
+            j, k = np.indices((Nn, Nn), dtype=float)
+            r2 = (j - yc) ** 2 + (k - zc) ** 2
+            g = np.exp(-r2 / (2.0 * self.sigma_yz**2))
+            self._g_y_profile = (j - yc) * g
+            self._g_z_profile = (k - zc) * g
+
+    engine = VacuumEngine3D.from_args(
+        N=N, pml=PML, temperature=0.0, amplitude_convention="V_SNAP",
+        disable_cosserat_lc_force=True, enable_cosserat_self_terms=True,
+        use_asymmetric_saturation=True, axiom_4_enabled=True,
+    )
+    ramp, sustain, decay = 1.5, 3.0, 2.0
+    x0f, x0b = int(round(0.30 * N)), int(round(0.70 * N))
+    for sign, x0 in ((+1, x0f), (-1, x0b)):  # SAME handedness (trivial topology)
+        engine.add_source(_DirSrc(
+            x0=x0, propagation_axis=0, amplitude=amplitude, omega=1.0,
+            handedness="RH", sigma_yz=3.0,
+            t_ramp=ramp * COMPTON_PERIOD, t_sustain=sustain * COMPTON_PERIOD,
+            t_decay=decay * COMPTON_PERIOD, direction_sign=sign,
+        ))
+    n_steps = int(n_periods * COMPTON_PERIOD / DT)
+    t0 = time.time()
+    for _ in range(n_steps):
+        engine.step()
+    return engine, {"elapsed_s": time.time() - t0, "n_steps": n_steps}
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# V0/V1 driver
+# ══════════════════════════════════════════════════════════════════════════════
+def _extract_on_engine(engine, N, PML, label):
+    """Locate the hosted shell + run the coordinate-correct extractor."""
+    V_inc = engine.k4.V_inc
+    Phi = engine.k4.Phi_link
+    mA = engine.k4.mask_A
+    R, r, cx, cy, cz, kz = shell_params_from_field(V_inc, mA, N)
+    res = extract_2_3_spatial(V_inc, Phi, mA, N, PML, R, r, (cx, cy, cz), kz)
+    res.pop("_curve", None)  # drop figure samples from the JSON record
+    res["label"] = label
+    res["a2_max"] = float(np.sum(V_inc**2, axis=-1).max())
+    return res
+
+
+def main():
+    print("=" * 78, flush=True)
+    print("  Coordinate-correct (2,3)-winding extractor — V0/V1 VALIDATION GATE")
+    print("  (n̂-direction base '2' + C↔L/U(1)-fibre '3' via internal U(1) phase)")
+    print("=" * 78, flush=True)
+    print(f"  ALPHA = {ALPHA} (ave-canonical-source; not hardcoded)")
+    print(f"  A²_op14 = √(2α) = {A2_OP14:.4f}\n")
+
+    N, PML, n_periods, amp = 48, 4, 40, 0.40
+
+    # ── Arm C — IMPOSED control (the KNOWN-signal V0 gate) ──
+    print("  ── Arm C (IMPOSED control) — re-run for full field ──", flush=True)
+    engC, metaC = _run_armC_full_field(N, PML, n_periods, amp)
+    print(f"     {metaC['n_steps']} steps in {metaC['elapsed_s']:.0f}s; "
+          f"shell R={metaC['R_shell']:.2f} r={metaC['r_shell']:.2f}", flush=True)
+    resC = _extract_on_engine(engC, N, PML, "C_imposed")
+
+    # ── Arm B — matched baseline (the V1 null) ──
+    print("  ── Arm B (matched baseline) — re-run for full field ──", flush=True)
+    engB, metaB = _run_armB_full_field(N, PML, n_periods, amp)
+    print(f"     {metaB['n_steps']} steps in {metaB['elapsed_s']:.0f}s", flush=True)
+    resB = _extract_on_engine(engB, N, PML, "B_baseline")
+
+    # ── adjudication ──
+    v0_pass = is_2_3(resC)
+    v1_null = not is_2_3(resB)
+
+    legacy = {"n1": 8, "n2": 0, "crossing_count_c": 16}  # legacy Arm-C peak-bond
+
+    print("\n" + "=" * 78)
+    print("  V0/V1 VERDICT")
+    print("=" * 78)
+    print(f"  Arm C (imposed): shell R={resC['R']:.2f} r={resC['r']:.2f} "
+          f"kz={resC['kz']} sites={resC.get('n_shell_sites', 0)} "
+          f"A²max={resC['a2_max']:.3f}")
+    print(f"    NEW extractor: w1_base={resC['w1_base']} "
+          f"(modal {resC['w1_base_modal_count']}/{resC['w1_base_n_walks']}, "
+          f"raw~{resC['w1_base_raw']:.2f})  "
+          f"w2_fibre={resC['w2_fibre']} "
+          f"(modal {resC['w2_fibre_modal_count']}/{resC['w2_fibre_n_walks']}, "
+          f"raw~{resC['w2_fibre_raw']:.2f})  c={resC['crossing_count_c']}")
+    print(f"    diagnostic: n̂-dir w1={resC['diag_nhat_w1']} "
+          f"(raw {resC.get('diag_nhat_w1_raw', float('nan')):.2f}); "
+          f"C↔L w2={resC['diag_CL_w2']} "
+          f"(raw {resC.get('diag_CL_w2_raw', float('nan')):.2f})")
+    print(f"    LEGACY read on same control: (n1,n2)=({legacy['n1']},"
+          f"{legacy['n2']}) c={legacy['crossing_count_c']}")
+    print(f"  >> V0 (recover imposed (2,3)): "
+          f"{'PASS' if v0_pass else 'FAIL'}")
+    print(f"\n  Arm B (baseline): w1={resB['w1_base']} w2={resB['w2_fibre']} "
+          f"c={resB['crossing_count_c']} A²max={resB['a2_max']:.3f}")
+    print(f"  >> V1 (null on baseline): {'PASS (no (2,3))' if v1_null else 'FAIL ((2,3) read on baseline!)'}")
+
+    out = {
+        "config": {"N": N, "PML": PML, "n_periods": n_periods, "amplitude": amp,
+                   "ALPHA": ALPHA, "A2_op14": A2_OP14, "dt": DT},
+        "arm_C_imposed": resC,
+        "arm_B_baseline": resB,
+        "legacy_armC_peakbond_read": legacy,
+        "V0_pass": bool(v0_pass),
+        "V1_null": bool(v1_null),
+        "meta_C": metaC, "meta_B": metaB,
+    }
+    op = Path(__file__).parent / "r10_2_3_winding_extractor_coordinate_results.json"
+    op.write_text(json.dumps(out, indent=2, default=str), encoding="utf-8")
+    print(f"\n  Saved {op.name}")
+
+    # save converged full fields for C1 characterization (P2) + auditor re-check
+    npz = Path(__file__).parent / "r10_2_3_winding_extractor_coordinate_capture.npz"
+    np.savez_compressed(
+        npz,
+        C_V_inc=engC.k4.V_inc, C_V_ref=engC.k4.V_ref, C_Phi_link=engC.k4.Phi_link,
+        C_mask_A=engC.k4.mask_A,
+        B_V_inc=engB.k4.V_inc, B_V_ref=engB.k4.V_ref, B_Phi_link=engB.k4.Phi_link,
+        B_mask_A=engB.k4.mask_A,
+        N=N, PML=PML, dt=DT,
+        C_R=resC["R"], C_r=resC["r"], C_kz=resC["kz"],
+    )
+    print(f"  Saved {npz.name}")
+    return out
+
+
+if __name__ == "__main__":
+    main()
+
+
 
