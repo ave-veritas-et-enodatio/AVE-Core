@@ -377,7 +377,82 @@ pedagogically-nice *consistency* observation, recorded as such, not inflated.
 
 ## §7 Classification + the explicit G1/G2/G3 verdict
 
-PENDING.
+### §7.1 Per-result classification (`consistency-vs-emergence`)
+
+| Result | Class | New substrate primitive? | G-gate |
+|---|---|---|---|
+| §2 construction (algebra closes, maps to 7+charge) | definitional / consistency | No — hosts the canonical mode-count; does not generate it | — |
+| §3 T1 closure (720°/SU(2)) | **C consistency** | No — same SU(2) as FM (already tagged imported math, FM §5) | none |
+| §4 T2 longitudinal scalar | **C consistency** (structural-illumination flavor) | No — mode forced by Ax 1+4, not algebra | none (G3 fail) |
+| §5 T3 Möbius/Γ | **A/C consistency** | No — textbook Möbius=SL(2,ℂ)=Smith chart | none |
+| §6 T4 α grade-parallel | **C consistency** | No — 3D/2D/1D already canonical (clm-rtdmsn) | none (G2 fail) |
+
+No result reaches Class D (emergence) or Class E (operating-point projection). Every result
+is a re-expression of content already canonical at its source's ceiling; per
+`consistency-vs-emergence` Step 8c, none promotes.
+
+### §7.2 G1 — structural unification: **FAIL** (the load-bearing determination)
+
+**Steelman (the strongest case FOR G1).** One algebra makes four canonical facts co-occur as
+facets of `ℍ⊗ℂ`, and *with algebra-internal necessity*:
+- T1 spin double cover = real unit quaternions `SU(2)`;
+- T3 impedance-Möbius/reflection = unit biquaternions `SL(2,ℂ)` (**forced** as the
+  complexification of that same `SU(2)`);
+- T2 longitudinal scalar = the grade-0 part **forced** by closure of the (E,B) vector product;
+- the `Γ=−1` reflection wall = the **null cone**, **forced** to exist by the complexification
+  (it is exactly what makes `N` non-definite).
+
+You cannot have the complexified spin group (needed for the boost/Möbius reflection structure)
+without *also* getting the scalar grade and the null cone. At the **algebra level** this is
+necessity, not juxtaposition — the strongest result in the analysis.
+
+**Why it still FAILS the gate.** The necessity is **algebra-internal, not substrate-physical**,
+and per `consistency-vs-emergence` Step 8b the unification adds **no new substrate content**:
+
+1. **No new axiom / primitive.** It uses Axioms 1–4 and standard math (`SU(2)⊂SL(2,ℂ)`,
+   `Cl(3)` grading, Möbius geometry, the null cone) unchanged.
+2. **The "bridge" is notational, not derivational.** The substrate has all four facts for
+   **independent physical reasons** — the FM kink (spin), medium compliance (longitudinal),
+   EE boundary reflection (Γ), the saturation wall (null cone) — **none derived from the
+   others via the algebra.** The biquaternion does not derive any facet from another; it is a
+   post-hoc container that fits *because* the substrate independently has all four.
+3. **Algebra-necessity ≠ substrate-necessity.** That `ℍ⊗ℂ` forces `SL(2,ℂ)` to contain `SU(2)`
+   is a fact about the *algebra*. It does **not** demonstrate that a substrate with spin **must**
+   have a propagating longitudinal mode, or that reflection **must** co-occur with spin — a
+   counterfactual incompressible or spinless medium would simply be described by a *different*
+   algebra. The biquaternion is the right *language* for *this* substrate; it does not *force*
+   the substrate's feature-set.
+
+The gate requires unification that is **new structural content** (Step 8b) and **necessity**
+at the substrate level. What we have is genuine **algebra-internal** necessity re-expressing
+four **independently-canonical, independently-substrate-derived** facts in one elegant
+notation. **That is consistency-class unification-of-description — not new physics. G1 FAILS.**
+
+### §7.3 G2 — α-decomposition: **FAIL**
+
+Per §6: the `Cl(3)` grades parallel the `{3D,2D,1D}` vol/surf/line hierarchy (a clean
+consistency observation), but the algebra generates **none** of the π-powers — those are
+Golden-Torus angular geometry + `R·r=1/4` + the K4-bipartite factor 2. No forward path
+`algebra → 137`. And canon already makes the `4π` **K4-bipartite**, demoting "SU(2)
+double-cover" to a translation reference (`theorem-3-1-q-factor.md:48,78`). **G2 FAILS.**
+
+### §7.4 G3 — longitudinal discriminator: **FAIL**
+
+Per §4: the scalar slot is algebra-forced and the longitudinal mode is AVE-distinct
+(§8), but the mode is **already canonical** (the breathing/acoustic 7th mode; the Master
+Equation already supplies its dispersion `c_eff(V)`). The biquaternion re-expresses *why* the
+mode exists (the Heaviside-deleted scalar slot) but yields **no new number, dispersion
+relation, or coupling**. **G3 FAILS.**
+
+### §7.5 Overall verdict
+
+**All three gates fail → the biquaternion is a CONSISTENCY-CLASS notation / pedagogy aid.**
+Canonize nothing. The strongest accurate framing is the **null-cone ↔ reflection-wall**
+identification (§5.4): the substrate's `Γ=−1` boundary is *why* the number system is the
+**complex** quaternion (which has a null cone) rather than the real one (which does not) — a
+clean re-expression of the canonical Axiom-3/4 boundary, valuable as a teaching lens, not new
+physics. This is the pre-registered "most likely partial → land consistency-class" outcome
+(prereg §4), recorded honestly per Rule 11.
 
 ---
 
