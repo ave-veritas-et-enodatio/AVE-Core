@@ -1,0 +1,121 @@
+{
+  "constants_imported": {
+    "G": 6.6743e-11,
+    "C_0": 299792458.0,
+    "M_SUN": 1.989e+30,
+    "source": "ave.core.constants"
+  },
+  "external_inputs": {
+    "A_MERCURY_M": 57900000000.0,
+    "E_MERCURY": 0.2056,
+    "T_MERCURY_DAYS": 87.969,
+    "R_SUN_M": 695700000.0,
+    "DAYS_PER_JULIAN_CENTURY": 36525.0,
+    "sources": "NASA JPL planetary fact sheet (Mercury a,e,T); IAU 2015 (R_sun)"
+  },
+  "symbolic": {
+    "refraction_deflection_coeff_equals_2K": true,
+    "ppn_light_deflection_coeff_expr": "2*gamma + 2",
+    "ppn_perihelion_factor_expr": "-beta/3 + 2*gamma/3 + 2/3",
+    "ave_indices_to_ppn": {
+      "nt_minus1_in_U": "2",
+      "ns_minus1_in_U": "9",
+      "gamma_from_9_7_spatial": "9/2",
+      "gamma_double_deflection_2_7": "1"
+    },
+    "photon_index_combination_readings": {
+      "(2/7) index alone = sqrt(g_ij/-g00)_GR": {
+        "slope_K": "2",
+        "deflection_coeff_GM_bc2": "4",
+        "multiple_of_GR": 1.0
+      },
+      "(9/7) index alone": {
+        "slope_K": "9",
+        "deflection_coeff_GM_bc2": "18",
+        "multiple_of_GR": 4.5
+      },
+      "sqrt(n_s * n_t)": {
+        "slope_K": "11/2",
+        "deflection_coeff_GM_bc2": "11",
+        "multiple_of_GR": 2.75
+      },
+      "(n_s + n_t)/2": {
+        "slope_K": "11/2",
+        "deflection_coeff_GM_bc2": "11",
+        "multiple_of_GR": 2.75
+      },
+      "sqrt(n_s / n_t)": {
+        "slope_K": "7/2",
+        "deflection_coeff_GM_bc2": "7",
+        "multiple_of_GR": 1.75
+      },
+      "_gr_isotropic_photon_index_slope": "2"
+    }
+  },
+  "phase1_deflection": {
+    "gr_4GM_bc2_arcsec": 1.7517100517691688,
+    "ave_2_7_index_arcsec": 1.7517100517691688,
+    "ave_2_7_ratio_to_GR": 1.0,
+    "ave_2_7_implied_PPN_gamma": 1.0,
+    "ave_9_7_index_arcsec": 7.88269523296126,
+    "ave_9_7_ratio_to_GR": 4.5,
+    "ave_9_7_implied_PPN_gamma": 8.0
+  },
+  "phase2_perihelion": {
+    "gr_ch14_arcsec_per_century": 42.999646788136126,
+    "ch14_per_orbit_rad": 5.020872412591373e-07,
+    "metric_gamma_4p5_F": 3.3333333333333335,
+    "metric_gamma_4p5_arcsec_per_century": 143.33215596045375,
+    "metric_gamma_4p5_ratio_to_GR": 3.333333333333333,
+    "metric_gamma_1_F": 1.0,
+    "metric_gamma_1_arcsec_per_century": 42.999646788136126,
+    "metric_gamma_1_ratio_to_GR": 1.0
+  },
+  "results": [
+    {
+      "label": "Phase1: deflection via (2/7) transverse index (Ch 2 double-deflection)",
+      "detail": "n_perp = 1 + (2/7)eps_11 = 1 + 2GM/c^2 r  ->  delta = 4GM/bc^2",
+      "value": 1.7517100517691688,
+      "reference": 1.7517100517691688,
+      "reference_label": "GR 4GM/bc^2",
+      "ratio_to_reference": 1.0,
+      "coheres": true
+    },
+    {
+      "label": "Phase1: deflection via (9/7) spatial index (decomposition-leaf label)",
+      "detail": "n_spatial = 1 + (9/7)eps_11 = 1 + 9GM/c^2 r  ->  delta = 18GM/bc^2",
+      "value": 7.88269523296126,
+      "reference": 1.7517100517691688,
+      "reference_label": "GR 4GM/bc^2",
+      "ratio_to_reference": 4.5,
+      "coheres": false
+    },
+    {
+      "label": "Phase2: Ch 14 coeff-3 perihelion (V_tidal ~ 1+3GM/c^2 r)",
+      "detail": "Delta_phi = 6 pi GM/(c^2 a(1-e^2)); PPN factor F=1 (= GR)",
+      "value": 42.999646788136126,
+      "reference": 42.999646788136126,
+      "reference_label": "GR 43''/century",
+      "ratio_to_reference": 1.0,
+      "coheres": true
+    },
+    {
+      "label": "Phase2: perihelion from metric IF gamma=9/2 (9/7-spatial), beta=1",
+      "detail": "PPN factor F=(2-beta+2gamma)/3=3.3333 -> Delta_phi",
+      "value": 143.33215596045375,
+      "reference": 42.999646788136126,
+      "reference_label": "GR/Ch14 43''/century",
+      "ratio_to_reference": 3.333333333333333,
+      "coheres": false
+    },
+    {
+      "label": "Phase2: perihelion from metric IF gamma=1 (2/7 reading), beta=1",
+      "detail": "PPN factor F=1.0000 -> Delta_phi (= GR/Ch14)",
+      "value": 42.999646788136126,
+      "reference": 42.999646788136126,
+      "reference_label": "GR/Ch14 43''/century",
+      "ratio_to_reference": 1.0,
+      "coheres": true
+    }
+  ]
+}
