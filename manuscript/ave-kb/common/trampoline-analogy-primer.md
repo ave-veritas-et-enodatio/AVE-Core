@@ -140,6 +140,32 @@ For electron $(2, 3)$: $\Delta f/f = 1.2\alpha \approx 8.76 \times 10^{-3}$ (chi
 
 ---
 
+## Step 3.5: The medium is a gyroscope-fabric — the inductive sector
+
+Steps 0–3 had you **press the sheet and watch it deflect**. That deflection is real — but it is only *one half* of the substrate: the **compliance**, the stretch, the **capacitive ($\varepsilon$, E-field)** sector. The medium you were pressing is not a passive sheet. It is a **chiral micropolar fabric — a continuum of coupled micro-gyroscopes** — and *that* is its primary mechanical character.
+
+**Every point of the fabric can spin.** "Micropolar" means each material point carries, besides its translation $u$, an independent **microrotation $\omega$** (Axiom 1, Cosserat continuum form; canonical Vol 1 Ch 1: *the Cosserat microrotational DOF IS the substrate-native origin of intrinsic spin*). The substrate is **continuous everywhere**; the K4 lattice is the *sampling grid* of this continuum, not a bag of discrete beads. So the **fabric itself is the gyroscope** — distributed, not a rotor bolted onto each node.
+
+**This is the inductance, and the C/L split is canonical** (the substrate's two constitutive halves — the *inertia–compliance* decomposition):
+- **gyroscope = microrotation = inertia = $\mu$ = inductance (L)** — the magnetic / B-field sector
+- **stretch = strain $\varepsilon$ = compliance = capacitance (C)** — the electric / E-field sector
+
+The trampoline only ever showed you the **C**. **Step 3.5 is the L.** Where you *pressed* the compliance, you **spin** the gyroscope.
+
+**The chirality lives in the twist, not the stretch.** What laces the micro-gyroscopes together is the **couple-stress** — the handed over-bracing ($\sigma^A$) of Steps 2–3 — an *inductive* coupling (mutual-$\mu$ between neighbours), not a stretch. So the fabric's springs do double duty: stretch (compliance, C) **and** a handed twist-lacing (the chirality, an L-coupling).
+
+**At rest the fabric is wound, not spinning.** The twist-lacing winds every gyroscope to a handed **rest-angle $\theta$** — that *is* the chirality, stored as elastic energy. But the rotation **rate $\omega = 0$ at rest**: the gyroscopes sit cocked, they do not turn. So the rest vacuum carries **no net circulation, no net B-field — it is magnetically neutral** (load-bearing: $\omega = 0$ is an *exact fixed point*; a term that spun the fabric below threshold would "manufacture spin," wrong physics). The handed winding is **parity**, not angular momentum; net rotation *rate* lives only at the cosmic boundary ($\Omega_{\text{freeze}} = \mathcal{J}_{\text{cosmic}}/I_{\text{cosmic}}$), never a per-node rest field.
+
+**Spin-up is what excitation does.** Apply a field or trap a soliton and the fabric's gyroscopes spin up to net $\omega$, biased the **handed** way. That net $\omega$ IS the **magnetic moment**; the spun-up region is the electron **flywheel** ($L = I\omega$), whose precession under a field is the classical-gyroscope Larmor precession that maps 1:1 onto the Bloch sphere.
+
+> **⚠ The fabric is the gyroscope; one patch of it is not spin-½.** A local gyroscopic DOF is *where* spin lives, not the *whole* of spin-½. A point-rotor in an $SO(3)$ medium carries only integer spin; the half-integer **$4\pi$ / 720° double-cover** belongs to the **extended closed loop** — the electron $0_1$ unknot threading the fabric — recovered via the belt-trick (Finkelstein–Misner kink; see Step 4.5 and the Vol 2 spin-½ paradox). In real space the electron is a plain unknot; the *half* lives in **phase space**, as the $(2,3)$ Clifford-torus winding that closes only after a double traversal. Spin the fabric locally; defer the ½ to the loop.
+
+So the substrate, in one line: **a chiral continuum of coupled micro-gyroscopes ($\mu$ / inertia / L), elastically compliant in stretch ($\varepsilon$ / C), laced by a handed twist (the chirality).** Steps 4–6 load *both* halves — the gyroscope you spin and the compliance you stretch.
+
+> ↗ See also: [Spin-½ as Classical Gyroscopic Precession](../vol2/particle-physics/ch04-quantum-spin/spin-as-precession.md) — electron flywheel $L = I\omega$, Larmor ↔ Bloch-sphere isomorphism (`clm-salw2h`)
+
+---
+
 ## Step 4: Fourth structural difference — applied strain and the saturation kernel
 
 When an external field is applied to the substrate, bonds are pulled out of their buckled rest state toward the straight configuration. Define the strain parameter:
@@ -518,6 +544,8 @@ Before any new AVE derivation, articulate the physical picture in mechanical/top
   - [AVE BH Horizon Area Theorem](../vol3/cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md) — Step 5 universal-horizon BH case
   - [Cosserat Mass-Gap](../vol1/axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md) — Step 6 7-mode compliance, massive mode
   - [K4 Rotation Group $T = A_4$](../vol1/axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md) — Step 3 chirality + group structure
+  - [Spin-½ as Classical Gyroscopic Precession](../vol2/particle-physics/ch04-quantum-spin/spin-as-precession.md) — Step 3.5 spin-up; electron flywheel $L = I\omega$, Larmor ↔ Bloch-sphere (`clm-salw2h`)
+  - [Spin-½ Paradox](../vol2/appendices/app-b-paradoxes/spin-half-paradox.md) — Step 3.5 guardrail: the ½ is the extended-loop double-cover, not the single rotor
   - [Universal Saturation-Kernel Catalog (A-034)](universal-saturation-kernel-catalog.md) — Step 4 saturation kernel at 26 scales
 - **ave-prereg integration**:
   - Step 1.5 ("Articulate the physical picture in mechanical bullets") — references this primer

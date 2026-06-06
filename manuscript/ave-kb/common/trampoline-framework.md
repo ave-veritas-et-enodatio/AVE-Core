@@ -22,7 +22,7 @@ path-stable: "referenced from vol1, vol2, vol3, vol4 as canonical trampoline-fra
 
 If you read nothing else in this doc, internalize these five bullets:
 
-1. **The substrate is a tetrahedral elastic mesh.** Every point in space is a K4 4-port active node; every link between nodes is a bond that stores three kinds of energy (electric / magnetic / pressure). Two interpenetrating sublattices (A and B) carry opposite chirality. This is the trampoline material.
+1. **The substrate is a chiral continuum of coupled micro-gyroscopes.** Every point is a Cosserat micropolar element that can both *spin* (microrotation → inertia → $\mu$ → inductance L, the magnetic / B half) and *stretch* (strain → compliance → $\varepsilon$ → capacitance C, the electric / E half), laced by a handed twist (the chirality). The microrotation — the gyroscope — is what makes this a Cosserat *crystal* rather than a plain elastic sheet. Sampled on the K4 tetrahedral lattice: every node is a 4-port active site, every bond stores three kinds of energy (electric / magnetic / pressure), and two interpenetrating sublattices (A, B) carry opposite chirality. The gyroscope-fabric is the medium; the trampoline-sheet you press is only its **compliance** half (→ primer Step 3.5).
 
 2. **Bonds stretch under wave amplitude $A$, with a strict ceiling at $A = 1$.** The saturation kernel $S(A) = \sqrt{1-A^2}$ (Axiom 4) is the trampoline's stress-strain curve. Past $V_{\text{yield}}$ the material softens (Bingham-plastic transition); at $V_{\text{snap}}$ it can stretch no more and a $\Gamma = -1$ wall forms.
 
@@ -220,6 +220,10 @@ These are independent at the kinematic level. The full rotational symmetry is $\
 - $\omega_C = m_e = 1$ is the **field** (spin-½ projection) frequency
 - The factor of 2 IS the half-cover, exactly as the picture predicts
 
+**Where the half lives — phase space, not real space (gyroscope-primary sharpening).** The fabric is the gyroscope (§0, §2.1); its *local* microrotation is the inductive DOF, but a single local rotor in an $\mathrm{SO}(3)$ medium carries only integer spin. The half-integer belongs to the **extended closed loop** — the electron $0_1$ **unknot** in *real* space — and is read most cleanly in **phase space** as the **$(2,3)$ Clifford-torus winding** (2 windings on the d-axis, 3 on the q-axis) that closes only after the $720°$ double traversal above. Real space: a plain unknot, no crossings. Phase space: a $(2,3)$ torus knot whose closure IS the half-cover. The frame×field $2{:}1$ gearing and the $(2,3)$ phase-space winding are two views of the same SU(2)→SO(3) double cover. *Caveat:* the $10^{-8}$ gyroscopic isomorphism (below) certifies the Larmor precession **rate** ($g=2$), not the $4\pi$ closure (`clm-salw2h` strengthen-by open).
+
+> ↗ See also: [α from the Golden Torus](../vol1/ch8-alpha-golden-torus.md) — the $(2,3)$ phase-space Clifford-torus winding (real-space unknot vs phase-space knot)
+
 **Cross-references.** A-008 (RESOLVED, doc 75 retraction); doc 03 §4.3 (R·r = 1/4 topological quantization at geometric scale, same half-cover principle); gyroscopic isomorphism numerically verified to $10^{-8}$ (manuscript/ave-kb/vol2/appendices/app-b-paradoxes/spin-half-paradox.md).
 
 ---
@@ -341,11 +345,19 @@ A **K4-bipartite tetrahedral Cosserat micropolar elastic continuum**. Three clai
 - **Bipartite**: the lattice splits into two sublattices A and B that interpenetrate. A-nodes connect only to B-nodes and vice versa. This is the substrate's intrinsic matter / antimatter distinction at the lattice level.
 - **Cosserat micropolar**: each node carries a microrotation $\boldsymbol{\omega}$ in addition to a translation $\mathbf{u}$. Bonds resist twist as well as stretch. The Cosserat sector hosts the half-cover SU(2) → SO(3) structure that gives spin-½.
 
-**Trampoline mapping:** the lattice itself is the trampoline material; the nodes are the warp/weft crossing points; the bonds are the springs between crossings; A/B sublattices are the two interleaved weaves with opposite handedness.
+**The two constitutive halves (inertia–compliance decomposition).** The medium splits into exactly two constitutive sectors: the **microrotation $\boldsymbol{\omega}$** (the gyroscope) is the **inertia → $\mu$ → inductance (L)**, the magnetic / B sector; the **strain** (the stretch) is the **compliance → $\varepsilon$ → capacitance (C)**, the electric / E sector. The handed couple-stress twist-lacing that couples neighbouring gyroscopes is the chirality — an inductive coupling, not a stretch.
+
+> → Primary: [Full Derivation Chain](full-derivation-chain.md) — constitutive inertia–compliance ($\mu$–$\varepsilon$) decomposition
+
+**Trampoline mapping (gyroscope-primary).** The **fabric itself is the gyroscope** — the micropolar continuum whose microrotation is the inductance; the **springs are its compliance**; the handed twist-lacing between weaves is the chirality. The nodes are the K4 *sampling* points of this continuum, **not** discrete rotor-beads (the substrate is continuous everywhere — §1.2); A/B sublattices are the two interleaved weaves of opposite handedness. The flat trampoline-sheet shows only the compliance (C) half — the gyroscope (L) is the medium's primary character (→ primer Step 3.5).
 
 ![K4 bipartite tetrahedral lattice](../../../assets/sim_outputs/trampoline_framework/01_k4_bipartite_lattice.png)
 
 *Figure 1 — K4 bipartite tetrahedral lattice. Blue nodes (A sublattice) connect to orange nodes (B sublattice) along the four port vectors $p_0, p_1, p_2, p_3$ (each at 109.47° from the others). Each bond carries three storage modes (Figure 3). The right-handed port vector chirality is the substrate's genesis chirality.*
+
+![The gyroscope-fabric — the inductive sector](../../../assets/sim_outputs/trampoline_framework/08_gyroscope_fabric.png)
+
+*Figure 8 — The gyroscope-fabric: the substrate's inductive ($\mu$ / L) sector, and the counterpart to the capacitive trampoline figures (what a flat sheet cannot depict — a spin). **(A)** At rest, the chiral twist-lacing winds each rotor to a handed rest-angle $\theta$; the rotation rate $\omega = 0$, so the vacuum is magnetically neutral (the winding is stored elastic energy, not circulation). **(B)** Under an applied field or a trapped soliton the rotors spin up to net $\omega$ = magnetic moment $\mu$ (biased handed) — the electron flywheel $L = I\omega$ (the inertia $\to \mu \to$ inductance), which Larmor-precesses under $B$. **(C)** Spin-½ is **not** any single rotor: it is the $(2,3)$ phase-space Clifford-torus winding of the **extended** closed loop (§1.5), closing only after the 720° double traversal; in real space (inset) the electron is a plain $0_1$ unknot. Generator: [`src/scripts/trampoline_framework/generate_gyroscope_fabric.py`](../../../src/scripts/trampoline_framework/generate_gyroscope_fabric.py).*
 
 ### 1.2 Port vectors (canonical genesis chirality)
 
@@ -401,6 +413,10 @@ Same spring, viewed electrically:
 
 The vacuum impedance $Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx 376.73 \, \Omega$ is the unstrained-bond impedance. Under saturation, $Z_{\text{eff}}(V) = Z_0 / \sqrt{S(V)}$ — bond impedance diverges as $A \to 1$.
 
+> **Node-LC vs bond-LC — one medium, two lumpings.** This section places the LC tank on the **bond**; Axiom 1 and [`dual-reactance-storage-taxonomy.md`](dual-reactance-storage-taxonomy.md) place an LC oscillator on the **node** (its two reactance sectors). These are not in conflict: they are the standard **lumped-vs-distributed** descriptions of one continuous medium — a lumped LC oscillator at each node, a distributed transmission-line on each bond (the substrate is continuous everywhere; §1.2). KEEP-BOTH; neither framing redefines the other.
+>
+> → Primary: [Translation — Circuit](translation-tables/translation-circuit.md) — canonical lumped-node / distributed-line reconciliation of the node-LC and bond-LC framings
+
 ### 2.3 The bond is also a clock
 
 Wave propagation through a bond takes time $\tau = \ell_{\text{node}}/c$. Under saturation, the wave slows: $c_{\text{eff}}(V) = c_0 \cdot (1 - A^2)^{-1/4}$. **Saturation = local clock slowing**, exactly analogous to gravitational time dilation per Vol 3 Ch 3:125-142 (refractive-index-of-gravity). At rupture, the local clock freezes.
@@ -444,6 +460,8 @@ $V_{\text{yield}} \approx 43.65 \, \text{kV}$ (Vol 4 Ch 1, INVARIANT-C1) corresp
 
 ### 3.2 The trampoline analogy (canonical mapping)
 
+> *This table maps the **compliance** (capacitive, $\varepsilon$) half — the stretch-and-saturate picture. The **gyroscope** (inductive, $\mu$) half — the medium's primary character — is the microrotation built in §1.4–1.6 and the [primer's Step 3.5](trampoline-analogy-primer.md); a flat sheet cannot depict a spin.*
+
 | Trampoline (real-world) | AVE substrate (canonical name) |
 |---|---|
 | Trampoline material (Cordura fabric / springs) | Substrate $\mathcal{M}_A$ — K4 bipartite Cosserat micropolar lattice |
@@ -460,6 +478,7 @@ $V_{\text{yield}} \approx 43.65 \, \text{kV}$ (Vol 4 Ch 1, INVARIANT-C1) corresp
 | Person walking across stretched-trampoline section | Time slowing per $c_{\text{eff}}(V)$ |
 
 **Where the analogy breaks** (be honest about it):
+- **The trampoline shows only the compliance (the stretch you press); it cannot show the gyroscope** (the microrotation — the medium's primary, inductive character). A flat sheet deflects but does not *spin*. The substrate is a chiral gyroscope-fabric ($\mu$ / inertia / L) of which the trampoline-deflection is only the capacitive ($\varepsilon$ / C) half.
 - The trampoline is 2D; the substrate is 3D. The substrate's K4 tetrahedral 4-port is intrinsically 3D.
 - A real trampoline rebounds linearly; the substrate's $S(A) = \sqrt{1 - A^2}$ kernel is strictly nonlinear above $A_{\text{yield}}$.
 - A trampoline can be torn permanently; the substrate's $\Gamma = -1$ boundaries are dynamic (form / dissolve depending on whether saturation persists).
