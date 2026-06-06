@@ -318,7 +318,60 @@ G1 verdict (§7).
 
 ## §6 T4 — α-structure (G2 test): vol/surf/line + 4π-spinor, forward only
 
-PENDING.
+**Result: G2 FAILS. The grade structure parallels the vol/surf/line dimensional hierarchy
+(a real, consistency-class observation) but generates NONE of the π-powers. There is no
+forward path from the algebra to `137` without importing the Golden-Torus geometry.**
+
+`ave-canonical-source` / forward-only: `ALPHA_COLD_INV = 4π³+π²+π` is **imported**, not fit
+(`constants.py:204` → `137.0363038`). No target-fitting to `137.036` anywhere below.
+
+### §6.1 The clean structural parallel (consistency-class)
+
+The canonical decomposition `α⁻¹ = Q_vol + Q_surf + Q_line = 4π³ + π² + π` is a **3D/2D/1D**
+dimensional hierarchy (`theorem-3-1-q-factor.md:15`; `Λ_vol↔ℳ` 3D, `Λ_surf↔𝒥` 2D, `Λ_line↔𝒬`
+1D — the `ℳ,𝒬,𝒥` boundary-observable structure). The biquaternion / `Cl(3)` grades are a
+dimensional hierarchy too:
+
+| `Cl(3)` grade | dim | components | α-term |
+|---|---|---|---|
+| pseudoscalar (grade 3) | 3D | 1 | `Λ_vol = 4π³` |
+| bivector (grade 2) | 2D | 3 | `Λ_surf = π²` |
+| vector (grade 1) | 1D | 3 | `Λ_line = π` |
+| scalar (grade 0) | 0D | 1 | — (the breathing/longitudinal mode, T2) |
+
+This is genuinely tidy: the α-sum uses exactly the **three spatial grades** `{3D,2D,1D}`, and
+the **grade-0 scalar** (the longitudinal mode of T2) sits *apart* from the reactance sum —
+which is precisely why the 7th mode is separate from `α`. The algebra gives a clean reason for
+**why three additive terms** and **why they are 3D/2D/1D graded**.
+
+### §6.2 But it generates none of the π-powers (the G2 failure)
+
+The grade structure supplies the **dimensional skeleton** only. The **magnitudes** `4π³, π², π`
+come from the **Golden-Torus geometry**, NOT the algebra (`theorem-3-1-q-factor.md:46–61`):
+`Λ_vol = (2πR)(2πr)(2π·2) = 16π³(R·r) = 4π³` at `R·r = 1/4`; `Λ_surf = 4π²(R·r) = π²`;
+`Λ_line = π·d` at `d=1`. These are **angular measures** (`2π` per winding) × the
+substrate-derived `R·r = 1/4` (Nyquist cell cross-section at saturation onset, Q-EMBED-SEL-1)
+× the **K4 bipartite lobe-count factor 2**. The biquaternion algebra produces **no `2π` angular
+measures**, no `R·r=1/4`, no Golden-Torus — so **there is no forward path `algebra → 137`**.
+The verification script states this limit explicitly (C6).
+
+> **Sharper still (`theorem-3-1-q-factor.md:48,78`):** the canonical substrate content of the
+> `4π` is *"K4 bipartite lobe-count (2 sublattices) × 2π phasor rotation per lobe,"* and
+> **"SU(2) double-cover" is explicitly demoted to a *standard-physics translation reference.***
+> So even the one factor a spinor account would claim — the `4π` — is, in canon, **K4 bipartite,
+> not a spinor postulate.** The biquaternion's spinor-`4π` is the *translation label*, not the
+> mechanism. This **further** undercuts any G2 claim: the algebra cannot even claim the `4π` as
+> its own forward-derived content.
+
+### §6.3 Classification (`consistency-vs-emergence` Step 8)
+
+**T4 = Class C / consistency-class.** The 3D/2D/1D structure is **already canonical**
+(`theorem-3-1-q-factor.md` + `boundary-observables-m-q-j.md`, clm-rtdmsn). The grade-dimension
+parallel **re-expresses** it; it adds **no new substrate primitive**, derives **no value**, and
+the `4π` it would lean on is canonically K4-bipartite, not spinor. Per Step 8c, classification
+stays at the canonical ceiling. **G2 FAILS** — the biquaternion does not derive or
+structurally-explain `α⁻¹` independently of the Golden-Torus geometry. The grade-parallel is a
+pedagogically-nice *consistency* observation, recorded as such, not inflated.
 
 ---
 
