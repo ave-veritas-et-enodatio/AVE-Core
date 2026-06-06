@@ -146,7 +146,56 @@ trigger 6 fires. The checkpoints, walked:
 
 ## §3 T1 — closure: does unit-quaternion/SU(2) recover 720°/(2,3)/spin-½?
 
-PENDING.
+**Result: YES for the 720°/spin-½ double cover (consistency-class); the (2,3) is a
+SEPARATE phase-space fact that unit-closure does NOT force.**
+
+### §3.1 The 720° double cover — recovered (consistency)
+
+The **real** unit quaternions are exactly `SU(2)`. A rotation by `θ` about `x̂` is
+`U = cos(θ/2) + sin(θ/2)\,i`; verified (C2):
+- `U†U = I` (unitary — it IS SU(2)),
+- `θ=2π → U = −I` (sign flip — the spin-½ signature),
+- `θ=4π → U = +I` (the 720° closure),
+- `det U = 1` (places it in `SL(2,ℂ)`; `SU(2)` is the real, unitary subgroup).
+
+This **reproduces** the canonical Finkelstein–Misner result exactly. Per
+`finkelstein-misner-spin-half-derivation.md` §2–§5, the 4π/720° double cover is
+K4-native (FM kink on the extended `0₁` unknot; group chain `K₄→A₄→2T⊂SU(2)`), and
+**§5 already decomposes** "K4-native physics vs imported SU(2)/Pauli math." The
+biquaternion's unit-closure is the **same SU(2)**, in quaternion notation.
+
+### §3.2 The (2,3) is phase-space — NOT forced by unit-closure (`phase-space-coordinate-check`)
+
+> **Flag-don't-fix — coordinate-discipline catch.** Prereg §2 writes "unit-quaternion
+> closure = SU(2) = the spin-½ / **(2,3)** / 720° double cover," bundling three things as
+> one. The canonical leaves keep them in **different coordinate systems**:
+>
+> - The **720°/spin-½** double cover lives in **real space** — the FM kink on the unknot
+>   defect embedded in the 3D K4 substrate (`finkelstein-misner` §9: *"this derivation
+>   lives in real-space coordinates"*).
+> - The **(2,3)** lives in **phase space** — the Clifford-torus winding `T²⊂S³⊂ℂ²` of the
+>   bond-pair LC tank (`torus-knot-uniqueness` §"Note on real-space vs phase-space";
+>   `finkelstein-misner` §9: *"the (2,3) winding … lives in phase-space coordinates"*).
+>
+> Unit-quaternion closure recovers the real-space `SU(2)` double cover (720°) **and**
+> provides the `S³` stage on which phase-space torus knots live (the quaternionic Hopf map
+> `S³→S²`). But it does **not select (2,3)**: that selection is the coprimality +
+> minimality argument of `torus-knot-uniqueness.md` (gcd=1, both windings ≥2, smallest
+> `p+q`), a knot-theoretic fact about curves on the torus, **not** a consequence of the
+> quaternion algebra. **Conflating the real-space 720° with the phase-space (2,3) under
+> "SU(2) closure" is a coordinate-category error.** The honest statement: unit-closure ⟹
+> 720° (real-space); (2,3) is a separate phase-space minimality result the algebra hosts
+> but does not derive.
+
+### §3.3 Classification (`consistency-vs-emergence`)
+
+**T1 = Class C / consistency-class re-expression.** `consistency-vs-emergence` Step 8:
+the canonical source (`finkelstein-misner`, clm-salw2h) already carries the SU(2)
+double cover, and **§5 explicitly tags SU(2)/Pauli as imported math language** over
+K4-native physics. The biquaternion adds **no new substrate primitive** — no new axiom
+invocation, no new substrate-derivation of the double cover, no new discriminator. Per
+Step 8c, classification **stays at the canonical ceiling (clm-salw2h)**; the quaternion
+is a re-notation. **T1 does NOT pass any G-gate.**
 
 ---
 
