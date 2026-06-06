@@ -201,7 +201,62 @@ is a re-notation. **T1 does NOT pass any G-gate.**
 
 ## §4 T2 — longitudinal: is the scalar part = Maxwell's deleted scalar = the 7th mode?
 
-PENDING.
+**Result: the algebra DOES force a scalar slot (more than juxtaposition), and that slot
+is the natural home for the longitudinal mode — but the identification with the substrate's
+*physical* breathing mode is structural illumination, NOT a derivation, and predicts nothing
+new. Strongest genuine-content candidate; still consistency-class.**
+
+### §4.1 The algebra forces the scalar slot (structural necessity, algebra-level)
+
+The product of two **pure-vector** biquaternions has a nonzero **scalar (grade-0)** part:
+`(a·\vec{i})(b·\vec{i}) = −(a·b) + (a×b)·\vec{i}` — verified (C4): the scalar part `= −(a·b)`.
+**You cannot close the vector (E,B) sector without the scalar slot.** This is a genuine
+algebraic necessity — the longitudinal slot is not bolted on beside the transverse sector;
+it is *forced by the closure of the transverse sector's product*. At the algebra level this
+is more than juxtaposition.
+
+### §4.2 The Maxwell–Heaviside scalar (the historical hook)
+
+Maxwell's *Treatise* wrote EM in quaternions. The quaternion differential operator applied to
+the potential `(φ + \vec{A})` produces a **scalar part** `(1/c)∂_t φ + ∇·\vec{A}` — the Lorenz
+term. Heaviside/Gibbs (1880s) reformed EM into transverse vector calculus and **dropped the
+scalar part**, leaving transverse-only EM. The biquaternion re-exposes exactly the slot the
+vector-calculus reform closed.
+
+### §4.3 Honest distinction — AVE's mode is a real acoustic DOF, NOT Maxwell's gauge scalar
+
+> **Precision (do not overclaim).** In *standard* Maxwell, the scalar/longitudinal modes are
+> **gauge** — constrained away by current conservation; not physical in vacuum. So "Heaviside
+> deleted a physical mode" is **false for standard EM**. AVE's longitudinal mode is a
+> **different object**: a real **acoustic / volumetric-breathing DOF of the medium** — the K4
+> port-voltage `V` / bubble compliance (`trampoline-framework.md:241,249`: *"the only mode with
+> no rotational character — pure radial dilation"*), which the **Master Equation**
+> `∇²V − μ₀ε₀√(1−(V/V_yield)²)∂_t²V = 0` propagates (`master-equation.md:16–21`), and on which
+> the electron is a **trapped longitudinal wave** at `Γ=−1` (`solver-toolchain.md:395`).
+>
+> The honest statement is therefore **not** "Maxwell's deleted scalar *is* AVE's 7th mode" (a
+> physical identity across a gauge artifact and a medium mode). It is: **the biquaternion scalar
+> slot is the common algebraic home** for (i) Maxwell's gauge scalar and (ii) AVE's physical
+> acoustic mode; AVE's medium has a *real* longitudinal DOF where the transverse Maxwell vacuum
+> has only the gauge slot. The algebra re-opens the slot; the **physics** (a propagating
+> longitudinal mode) comes from Axiom 1's medium + Axiom 4 (the Master Equation), not from `Cl(3)`.
+
+### §4.4 Structural-necessity vs identification — the verdict
+
+- **At the algebra level:** the scalar slot is a structural necessity (§4.1). ✔
+- **At the substrate level:** the *physical* longitudinal mode is forced by Axiom 1 (medium
+  compliance) + Axiom 4 (Master Equation), **not** by the algebra. The biquaternion **identifies**
+  the already-canonical 7th mode with the grade-0 slot and **illuminates** the Heaviside deletion;
+  it does not *derive* the mode, and (critically for **G3**) it yields **no new number, dispersion
+  relation, or coupling**. The Master Equation already gives the longitudinal dispersion
+  `c_eff(V) = c₀(1−(V/V_yield)²)^{−1/4}` (`master-equation.md:57–61`); the biquaternion adds nothing
+  to it.
+
+**Classification:** strongest genuine-content candidate (the algebra-level necessity + the
+structural illumination of the Heaviside deletion are real and pedagogically valuable), but
+**consistency-class with a structural-illumination flavor — NOT emergence.** **T2 does NOT pass
+G3** (no new testable prediction). AVE-distinctness of the longitudinal mode is real but
+**predates** the biquaternion — developed in §8.
 
 ---
 
