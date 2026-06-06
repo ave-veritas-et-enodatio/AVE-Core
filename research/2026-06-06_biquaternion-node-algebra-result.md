@@ -262,7 +262,57 @@ G3** (no new testable prediction). AVE-distinctness of the longitudinal mode is 
 
 ## §5 T3 — Möbius: is Γ the SL(2,ℂ)/biquaternion action on the reflection sphere?
 
-PENDING.
+**Result: YES — the Smith chart IS the spinor geometry of impedance. The correspondence
+holds cleanly, but it is textbook math (Möbius = SL(2,ℂ) on the Riemann sphere);
+consistency-class. The genuinely-illuminating by-product is the null-cone ↔ `|Γ|=1`
+identification (carried to the G1 verdict §7).**
+
+### §5.1 Γ is a Möbius map = SL(2,ℂ) action on the Riemann sphere
+
+`Op3`: `Γ = (Z − Z₀)/(Z + Z₀)` is a **fractional-linear (Möbius) transform** of the impedance
+plane, matrix `[[1,−Z₀],[1,Z₀]]`, `det = 2Z₀ ≠ 0` (C3) — an element of `PSL(2,ℂ)`. Möbius
+transforms are **exactly** the action of `PSL(2,ℂ)` on the Riemann sphere `ℂP¹`, and the
+**Smith chart** is precisely this map (impedance half-plane → reflection unit disk). Since the
+**unit biquaternions are `SL(2,ℂ)`** (the complexification of the `SU(2)` of §3), the impedance
+reflection geometry is the **biquaternion (spinor) action on the reflection sphere**. The Smith
+chart is the spinor geometry of impedance — the correspondence **holds**.
+
+Verified images (C3): open `Z→∞ → Γ=+1`; short `Z=0 → Γ=−1`; matched `Z=Z₀ → Γ=0`. And
+`|Γ|=1 ⟺ Z = ιX` purely reactive (`|Γ|²=1`, C3) — the lossless boundary is the unit circle.
+
+### §5.2 The open/short SIGN is a Möbius convention (ties to the session measurement)
+
+The 1-port duality `Z ↔ 1/Z` sends `Γ → −Γ` (C3) — it **swaps the open and short fixed
+points** on the Smith/Riemann sphere. So **which boundary one calls `+1` is a Möbius
+convention** (which antipode is "north"). This is exactly the open/short seam from this
+session's measurement: `sign(Γ_at_max_A2)` distinguishes `+1` = antinode/OPEN (Z→∞,
+mass-closure) from `−1` = node/SHORT (primer), and per
+`observable-battery-infrastructure-prereg.md:44` *"which boundary condition the substrate truly
+imposes is the corpus seam, Grant's adjudication (flag-don't-fix)."* The biquaternion/SL(2,ℂ)
+view **names the sign-ambiguity precisely** (it is the choice of which fixed point is the base
+point of the Möbius action) but **does not resolve which the substrate imposes** — that remains
+the empirical/adjudication question. The algebra clarifies the *structure* of the convention;
+it is not evidence for either boundary condition.
+
+### §5.3 Classification (`consistency-vs-emergence`)
+
+**T3 = Class A/C consistency-class.** "Möbius = SL(2,ℂ) on the Riemann sphere" and "the Smith
+chart is a Möbius transform of impedance" are **standard mathematics + textbook EE**. The
+biquaternion re-expresses the canonical `Op3` reflection coefficient in spinor language —
+elegant, and it unifies cleanly with T1's `SU(2)` (the real/complex faces of one group, §7) —
+but it adds **no new substrate primitive** (Step 8b). **T3 passes no G-gate** on its own.
+
+### §5.4 The one genuinely-illuminating by-product — the null cone IS the reflection wall
+
+The lossless boundary `|Γ|=1` (`Z` purely reactive; the open/short wall where `Z→∞`/`Z=0`)
+coincides with the biquaternion **null cone** (`N(q)=0`, the zero divisors, C5). Real quaternions
+`ℍ` have **no** null cone (division algebra); only the **complex** (bi)quaternion does. So the
+substrate's having a **reflection/saturation boundary** (the `Γ=−1` TIR wall where mass forms,
+Axiom 3/4) is what "selects" the **bi**quaternion over the real quaternion: the wall is the null
+cone, and only `ℍ⊗ℂ` carries one. This is the strongest *structural* observation in the analysis
+— but it is a **re-expression** of the canonical `Γ=−1` boundary (Axiom 3 minimum-reflection +
+Axiom 4 saturation), not new physics. Consistency-class; pedagogically valuable. Carried into the
+G1 verdict (§7).
 
 ---
 
