@@ -990,7 +990,7 @@ Predicts a DAMA/LIBRA coupling quantum at $E = \alpha\, m_e c^2 \approx 3.728$ k
 ## DAMA Rate Magnitude — Matched-LC-Coupling Formula
 <!-- id: clm-5em8fx -->
 
-Candidate formula for the DAMA rate magnitude from matched-impedance coupling between the electron's reactive α-slew LC tank and a coherent NaI crystal LC mode: per-cycle efficiency $\epsilon_{det} = 4\pi/N_{single}^2$ (with $4\pi$ the spinor-cycle radiation-impedance averaging factor), giving $R_{predicted} = 4.80\times 10^{-7}$ events/s/kg vs DAMA/LIBRA Phase-2 observed $4.77\times 10^{-7}$ — a 0.6% consistency. Cross-detector forward predictions follow (HPGe 9.39 kg is the cleanest single-experiment test for 4 AVE-distinct claims).
+Candidate formula for the DAMA rate magnitude from matched-impedance coupling between the electron's reactive α-slew LC tank and a coherent NaI crystal LC mode: per-cycle efficiency $\epsilon_{det} = 4\pi/N_{single}^2$ (with $4\pi$ the observable-Compton-cycle radiation-impedance averaging factor — substrate-mechanism bipartite K4 lobe-count, SU(2) double-cover as standard-physics translation reference), giving $R_{predicted} = 4.80\times 10^{-7}$ events/s/kg vs DAMA/LIBRA Phase-2 observed $4.77\times 10^{-7}$ — a 0.6% consistency. Cross-detector forward predictions follow (HPGe 9.39 kg is the cleanest single-experiment test for 4 AVE-distinct claims).
 
 - _Specific Claims_
   - $\epsilon_{det} = 4\pi/N_{single}^2$ yields rate within 0.6% of DAMA Phase-2 observed.

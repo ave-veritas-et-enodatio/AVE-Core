@@ -11,7 +11,7 @@ The DAMA rate magnitude has a candidate formula from matched-impedance coupling 
 
 $$\boxed{\epsilon_{det} = \frac{4\pi}{N_{single}^2}}$$
 
-where $N_{single}$ is the atom count in a single coherent crystal and $4\pi$ is canonically motivated by the spinor-cycle radiation-impedance averaging factor per [Theorem 3.1' line 67-73](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md). Predicted rate per kg:
+where $N_{single}$ is the atom count in a single coherent crystal and $4\pi$ is canonically motivated by the observable-Compton-cycle radiation-impedance averaging factor (substrate-mechanism: bipartite K4 lobe-count; standard-physics translation reference: "SU(2) double-cover") per [Theorem 3.1' lines 75-79](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md). Predicted rate per kg:
 
 $$R_{predicted} = N_e^{(kg)} \times \nu_{slew} \times \frac{4\pi}{N_{single}^2} = 4.80 \times 10^{-7}\,\text{events/s/kg}$$
 
@@ -52,7 +52,7 @@ $$\epsilon_{det}^{required} = \frac{R_{DAMA}}{R_{intrinsic}} = \frac{4.77 \times
 
 For matched coupling between two LC tanks, the per-cycle energy-transfer efficiency depends on (a) the radiation-impedance reference at the source tank's boundary and (b) the coherent-receiver matched-state probability. For an electron LC tank coupling to a coherent N-atom crystal external receiver:
 
-$$\epsilon_{det} = \underbrace{4\pi}_{\text{spinor-cycle radiation-impedance averaging}} \times \underbrace{\frac{1}{N_{single}^2}}_{\text{coherent two-state matched-receiver probability (Fermi golden rule)}}$$
+$$\epsilon_{det} = \underbrace{4\pi}_{\text{observable-Compton-cycle radiation-impedance averaging}} \times \underbrace{\frac{1}{N_{single}^2}}_{\text{coherent two-state matched-receiver probability (Fermi golden rule)}}$$
 
 ### §2.4 — N_single for DAMA/LIBRA Phase-2
 
@@ -75,12 +75,12 @@ $$R_{predicted} = N_e^{(kg)} \times \nu_{slew} \times \epsilon_{det}^{predicted}
 
 ## §3 — The 4π prefactor: Theorem 3.1' inheritance argument
 
-The 4π is **uniquely determined** by the spinor-cycle radiation-impedance averaging context per [Theorem 3.1' line 65-75](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) verbatim:
+The 4π is **uniquely determined** by the observable-Compton-cycle radiation-impedance averaging context — substrate-mechanism the bipartite K4 lobe-count, with "SU(2) double-cover" demoted to standard-physics translation reference — per [Theorem 3.1' lines 75-79](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) verbatim:
 
-> "The effective radiation resistance **per spinor cycle** is $Z_0/(4\pi)$:
+> "The effective radiation resistance per observable Compton cycle is $Z_0 / (4\pi)$:
 > - $Z_0$ is the vacuum's characteristic impedance through which any radiated energy would escape
-> - $4\pi$ is the electron's spinor-cycle-phase requirement (SU(2) double-cover of SO(3) per Vol 1 Ch 8 §3.2 — the electron's phase must traverse $4\pi$ to return to its original spinor, so the per-cycle impedance reference absorbs a $4\pi$ factor)
-> - $Z_0/(4\pi)$ = radiation impedance averaged over one full spinor cycle"
+> - $4\pi$ is the substrate temporal-phase closure per observable Compton cycle: bipartite K4 lobe-count (2 sublattices) × $2\pi$ phasor rotation per lobe = $4\pi$ (canonical at `l3-electron-soliton-synthesis.md:103-105`; per Q-EMBED-SEL-1 Phase 1 §5.2). The standard-physics translation reference is "SU(2) double-cover of SO(3)"; the substrate-mechanism content is K4 bipartite lobe-count, not an SU(2) postulate.
+> - $Z_0 / (4\pi)$ = radiation impedance averaged over one full observable Compton cycle"
 
 The matched-coupling efficiency inherits this 4π averaging because matched coupling depends on the radiation-impedance reference at the source tank's TIR boundary.
 
@@ -93,10 +93,10 @@ Five canonical AVE O(10) prefactors appear in [Theorem 3.1' α-decomposition](..
 | $\pi$ | $\Lambda_{line}$ = 1D line integral of electron tank's INTERNAL Q structure | Internal reactance component, not radiation-impedance reference |
 | $2\pi$ | Hoop Stress geometric projection (cosmic $a_0$ + substrate $v_{slew}$ velocity formulas) | Hoop Stress applies to drift-projection-onto-closed-loops, not two-tank matched coupling |
 | $\pi^2$ | $\Lambda_{surf}$ = 2D surface integral of electron tank's INTERNAL Q structure | Internal reactance component, not radiation-impedance reference |
-| **$4\pi$** | **Spinor-cycle radiation impedance averaging (Theorem 3.1' line 65-75)** | **CORRECT physical context: matched coupling inherits radiation-impedance reference** |
+| **$4\pi$** | **Observable-Compton-cycle radiation impedance averaging (Theorem 3.1' lines 75-79; substrate-mechanism K4 bipartite lobe-count)** | **CORRECT physical context: matched coupling inherits radiation-impedance reference** |
 | $4\pi^3$ | $\Lambda_{vol}$ = 3D volume integral of electron tank's INTERNAL Q structure | Internal reactance component, not radiation-impedance reference |
 
-Only 4π corresponds to the per-spinor-cycle radiation-impedance averaging context that matched-coupling efficiency requires. The other prefactors are canonical AVE numbers but for DIFFERENT physical quantities (internal-Q components or cosmic-scale Hoop Stress projection).
+Only 4π corresponds to the per-observable-Compton-cycle radiation-impedance averaging context that matched-coupling efficiency requires. The other prefactors are canonical AVE numbers but for DIFFERENT physical quantities (internal-Q components or cosmic-scale Hoop Stress projection).
 
 ### §3.2 — Honest discrimination-check: post-hoc construction
 
@@ -176,10 +176,10 @@ The matched-LC-coupling formula $\epsilon_{det} = 4\pi/N_{single}^2$ is falsifie
 ## §7 — Cross-references
 
 ### Canonical AVE physics references (load-bearing)
-- [Theorem 3.1' Q-factor at TIR boundary](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) — canonical $Q = \alpha^{-1}$ + 4π spinor-cycle inheritance
+- [Theorem 3.1' Q-factor at TIR boundary](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) — canonical $Q = \alpha^{-1}$ + 4π observable-Compton-cycle radiation-impedance inheritance (substrate-mechanism: K4 bipartite lobe-count)
 - [Orbital friction paradox reactive-power table](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md) line 31 — canonical reactive-power classification (electron orbital P_real = 0, Q_reactive = m_e c² · α)
 - [Leaky-cavity-particle-decay theory](../../../vol4/simulation/ch14-leaky-cavity-particle-decay/theory.md) line 12 — electron tank below V_yield rings forever
-- [α from Golden Torus](../../../vol1/ch8-alpha-golden-torus.md) — SU(2) double-cover argument (4π per spinor cycle)
+- [α from Golden Torus](../../../vol1/ch8-alpha-golden-torus.md) — K4-bipartite-lobe-count substrate-mechanism for the 4π (SU(2) double-cover as standard-physics translation reference)
 - [DAMA α-slew derivation](dama-alpha-slew-derivation.md) §12 — full reactive-power physical picture + anti-anchor adjudication
 
 ### Engine implementation
@@ -229,7 +229,7 @@ Where:
 - $\eta_{scintillation}$ = experimental detection efficiency (electronics + photomultiplier conversion)
 
 **Components of $\varepsilon_{det}$**:
-- $4\pi$: inherits from Theorem 3.1' spinor-cycle averaging $Z_{radiation} = Z_0/(4\pi)$ (DERIVED, not post-hoc)
+- $4\pi$: inherits from Theorem 3.1' observable-Compton-cycle radiation-impedance averaging $Z_{radiation} = Z_0/(4\pi)$ (substrate-mechanism: bipartite K4 lobe-count; DERIVED, not post-hoc)
 - $N_{single}$: atoms in single coherent crystal volume (apparatus-specific)
 - $\kappa_{quality}$: regenerative-regime envelope from Q·δ ≥ 2 RVR threshold (saturated at 1 for solid crystals in deep-regenerative regime; $(Q\delta_C/2)^2$ for sub-regenerative)
 

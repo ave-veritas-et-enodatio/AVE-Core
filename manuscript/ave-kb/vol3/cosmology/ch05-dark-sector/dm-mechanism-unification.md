@@ -71,7 +71,7 @@ $$g_{eff} = g_N + \sqrt{g_N a_0}\,\sqrt{1 - g_N/a_0}$$
 
 $$\varepsilon_{det} = \frac{4\pi \cdot \kappa_{quality}}{N_{single}^2}$$
 
-where 4π inherits from Theorem 3.1' spinor-cycle averaging ($Z_{radiation} = Z_0/(4\pi)$), 1/N² derives from Dicke amplitude × matched-cycle synchronization, and $\kappa_{quality}$ is the Q·δ regenerative envelope.
+where 4π inherits from Theorem 3.1' observable-Compton-cycle radiation-impedance averaging ($Z_{radiation} = Z_0/(4\pi)$; substrate-mechanism: bipartite K4 lobe-count), 1/N² derives from Dicke amplitude × matched-cycle synchronization, and $\kappa_{quality}$ is the Q·δ regenerative envelope.
 
 **The α-slew rate itself is a Hoop Stress 2π projection** per [`mond-hoop-stress.md` §4.5](../../../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md):
 
