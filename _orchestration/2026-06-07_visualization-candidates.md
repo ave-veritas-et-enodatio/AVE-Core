@@ -15,6 +15,7 @@ Marked per Grant: implement once we have positive simulations, OR sooner if they
 | 7 | **Genesis: photon → self-trapped electron** | the ω-shear photon self-trapping into the confined loop (the canonical "electron = self-trapped photon") | [POST] | animation |
 | 8 | **Annihilation `ω+(−ω)=0`** | two bags meeting, the inductive energy unwinding into 2γ | [POST] | animation |
 | 9 | **Coherence/Reynolds spectrum** | qubit→Cooper-pair→…→classical along laminar→turbulent `Re_q`; decoherence = turbulence onset | [ADJ] | static/interactive |
+| 10 | **RGB-LED spinor demo (physical lab)** | RGB strip on a physical loop, color-cycling with rotation — the color returns to start only after **two** full rotations (720°), demonstrating the spinor double-cover / spin-½ *live*; trefoil path traced in color | [POST]/lab | hardware |
 
 **Adjudication-priority (render first, would unblock Grant's calls):** #1 (trefoil = neighbor-tension path — bears on the (2,3)-real-space-projection question + whether "3" tracks neighbor count), #3+#4 (spin/mass-one-oscillation + ½-spin double-cover — the spin-stabilization story), #6 (the differential-torque tension field — the trefoil's *origin*).
 
