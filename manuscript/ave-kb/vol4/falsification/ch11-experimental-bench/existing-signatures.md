@@ -31,7 +31,7 @@ AVE: The universe is actively crystallizing new spatial volume. Early universe: 
 
 Post-merger gravitational wave echoes separated by $\sim 0.29$ s — forbidden by GR's one-way membrane.
 
-AVE: At the event horizon, $\Gamma = -1$ (dielectric rupture). The horizon is a hard reflective boundary (total internal reflection). Gravitational ringdown echoes are *predicted*.
+AVE: gravitational waves are **shear (tensor) modes**, and the BH interior is a **shear-mode phase transition** ($G_{\text{shear}} \to 0$) — a *perfect reflector for shear waves* ($\Gamma = -1$ in the shear/GW sector), even though $\Gamma = 0$ for EM (symmetric gravity, $Z = Z_0$ invariant; see [electron–BH isomorphism](../../../vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md)). So GW reflect totally off the horizon: gravitational ringdown echoes are *predicted*. (NB the mechanism is the shear reflection, **not** an ε-sector "dielectric rupture" — that is the asymmetric EM case.)
 
 ### Superconducting Vortex Core Limits
 
