@@ -75,7 +75,68 @@ Four task-brief citations did not resolve as written; corrected here per
 
 ## §1 — Strain ontology: E and B are not fundamental
 
-*[scaffold — filled in a following commit]*
+**Claim.** The substrate does not store energy "in the electromagnetic field." It
+stores energy as **elastic strain of the K4–Cosserat crystal** $\mathcal{M}_A$.
+What we call $\mathbf{E}$ and $\mathbf{B}$ are not two independent fundamental
+fields; they are the **two — and only two — projections** of that single strain
+state. $\mathbf{E}$ is the *translational* projection; $\mathbf{B}$ is the
+*microrotational* projection.
+
+**Canonical anchor.** Axiom 1, verbatim (`manuscript/ave-kb/CLAUDE.md`
+INVARIANT-S2): the vacuum is *"a 3D chiral Laves K4 Cosserat crystal, with
+micropolar nodes (6 DOFs each: **3 translational → E, 3 microrotational → B**;
+Cosserat rotational DOF IS the substrate-native origin of intrinsic spin)…
+modeled in continuum as a Trace-Reversed Chiral LC Network."* The energy split is
+the Axiom-3 node Lagrangian (same source): $\mathcal{L}_{node} =
+\tfrac12\varepsilon_0|\partial_t\mathbf{A}_n|^2 -
+\tfrac{1}{2\mu_0}|\nabla\times\mathbf{A}_n|^2$ — the first (capacitive) term is
+the $\mathbf{E}$ / translational store, the second (inductive) term is the
+$\mathbf{B}$ / microrotational store. In Cosserat field variables this reads
+$\mathbf{E}=\partial_t\mathbf{u}$ (translational displacement rate) and
+$\mathbf{B}=\nabla\times\boldsymbol{\omega}$ (curl of the microrotation): the
+two strain channels, nothing else.
+
+**Why exactly two — three independent forcings converge.** The "E and B are
+projections, not primitives" claim is not one argument dressed three ways; it is
+three *independent* closures landing on the same 2-channel answer:
+
+1. **Reactive (EE / LC).** In any LC system, energy is *always* cycling between
+   the capacitor (electric store) and the inductor (magnetic store). There is no
+   third reactive element. Axiom 3's "lossless reactive cycling" (INVARIANT-S2)
+   *is* this: the substrate is a network of LC tanks, and at resonance
+   $X_L=-X_C$ exactly, so the energy ledger has precisely two reactive halves.
+   `src/ave/core/constants.py:757-796` (the dual-reactance count, Grant-adjudicated
+   2026-06-01) states it directly: *"3 translational-E DOF → capacitive $X_C$
+   (dielectric storage); 3 microrotational-B DOF → inductive $X_L$ (inductive
+   flywheel)… the substrate inherits standard LC reactance algebra verbatim,
+   Axiom 1."* Two stores ⇒ two fields.
+
+2. **Elastic (Cosserat).** A micropolar (Cosserat) continuum has, by
+   construction, exactly two kinds of DOF per material point: translational
+   displacement $\mathbf{u}$ (3) and microrotation $\boldsymbol{\omega}$ (3).
+   That is the 6 DOF/node of Axiom 1. A K4–Cosserat crystal therefore admits
+   exactly two strain sectors and *cannot* carry a third — there is no field
+   left over to be "fundamental."
+
+3. **Geometric (Helmholtz).** Any smooth 3D vector field splits uniquely into a
+   curl-free (longitudinal) part $\oplus$ a divergence-free (transverse) part.
+   The substrate strain field, being a 3D field, must obey this. The
+   translational-rate ($\mathbf{E}$) and microrotational-curl ($\mathbf{B}$)
+   projections are the substrate's realization of that split — the longitudinal/
+   transverse decomposition is not imposed, it is the only decomposition a 3D
+   field admits.
+
+**Substrate-native check (CP1).** This is the ontological reason the engine runs
+**wave propagation / reactive strain cycling**, not energy-functional
+minimization: there is no scalar potential being descended — there is strain
+being elastically stored and reactively traded between the translational and
+microrotational channels. Reaching for "minimize $W$" here is the SM/continuum
+default the substrate-walk exists to catch.
+
+**Classification.** Class **B** axiom-manifestation / ontological synthesis. This
+restates Axiom 1; it adds no primitive. The contribution is the *three-forcings*
+framing (reactive ∧ elastic ∧ geometric all give 2 channels), which is an
+intuition aid, not a derivation.
 
 ## §2 — The EE map: E ↔ nodes (shunt C), B ↔ bonds (series L)
 
