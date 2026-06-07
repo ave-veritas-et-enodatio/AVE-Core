@@ -137,4 +137,26 @@
 3. **⚠ A2.2 / A4.1 — sub-yield relaxation (cheap).** Longer-window / memristive re-run of the over-yield drops — do they relax sub-yield? Carrier result unaffected either way.
 4. **🔍 A3.1 — charge-extractor.** Build a Cosserat-ω-sector charge read (the V-phasor sign is unreliable on pure-V).
 
-**Net:** the session's simulations are sound *within* their assumptions; the load-bearing one (A1.1, even-in-ω V↔ω coupling) is **not a bug, but a modeling choice** that decides whether light can birth charge — and it is the open physics question, not a numerical artifact.
+**Net (pre-§8):** the session's simulations are sound *within* their assumptions; the load-bearing one (A1.1, even-in-ω V↔ω coupling) is **not a bug, but a modeling choice** that decides whether light can birth charge — and it is the open physics question, not a numerical artifact.
+
+---
+
+## §8 — HEADLINE CORRECTION: the seeded photon (V) ≠ the canonical photon (ω≠0)
+
+*(Added 2026-06-06 after BOTH genesis arms returned (III). Cross-referencing the canonical photon hub resolves why — and reframes A1.1.)*
+
+**The canonical photon is the ω-WAVE, not a V-wave.** `photon-identification.md:11,24` verbatim: the photon is *"a knotted transverse Cosserat shear wave with u=0 and ω≠0"* — pure microrotation, sub-saturation, `Z=Z_0` matched. And `:11`: ***"the electron is a self-trapped photon,"*** formed by **Axiom-4 saturation TIR confinement** (`V→V_yield ⇒ C_eff→∞, Z→0, Γ=−1` cavity, `:25`), **NOT** by force-free relaxation.
+
+**Both arms seeded the wrong object / mechanism:**
+- **Arm A** seeded a **V-wave** (`vacuum_engine.py:269`) → `ω≡0` (A1.2). *Wrong sector* — the photon is ω. Hosted the geometry (ℓ_node pair), not the carrier.
+- **Arm B** seeded the **ω** (right sector) but as a localized **flywheel** under **force-free relaxation** → (III), it de-collimates. *Wrong geometry (flywheel vs wave) + wrong mechanism (relaxation vs saturation-confinement).*
+
+**A1.1 reframed.** The open question may not be "should there be a V→ω coupling" — it may be that **the photon already IS ω**: seed the transverse Cosserat-ω shear **wave**, drive across `V_yield`, and saturation self-traps it into the standing (2,3). The two (III)s rule out the two wrong paths; the canonical genesis (ω-shear wave + saturation) is **untested and indicated**.
+
+**❓ Architecture question (Grant — supersedes §7 #1):** is the engine's `V_inc/V_ref` injection a *wrong-sector* photon (canonical = Cosserat-ω `T₂` shear), or is the TLM-V the correct representation of the transverse mode with the Cosserat-ω a separate field the V-side should drive? `photon-identification.md:24` says photon = ω; the engine seeds V and gets ω≡0 — a **direct contradiction** to resolve before/within the re-run.
+
+**The CMB / cosmic-frame half (extends A6.1):** the charge **sign** is not a free local input — it is inherited from `Ω_freeze` (cosmic rotation at lattice freeze-in: `trampoline-framework:105`, *"Direction of Ω_freeze → right-handed chirality"*). The CMB thermal bath cannot seed the ω-**magnitude** (Cosserat-ω is mass-gapped ≫ T_CMB); the CMB-frame **motion** + the **dark-wake back-reaction** is the magnitude route — and that back-reaction is currently **observed-not-acted** (`DarkWakeObserver` is an `Observer`, `vacuum_engine.py:1457`; absent from the even-in-ω `energy_gradient`). So: **charge sign ← Ω_freeze; charge magnitude ← motion through the CMB frame.**
+
+**A1.6 — gradient-descent ω-settling (CP1 flag):** `cosserat_field_3d.py:1384` `omega -= learning_rate·dE_dw` is energy-minimization — `substrate-native-check` CP1 flags this (the substrate runs wave-propagation, not descent). Even-in-ω, so it doesn't change the ω=0 conclusion, but it's a real assumption on the record.
+
+**Re-aim:** the canonical genesis — seed the transverse Cosserat-ω shear **wave**, drive across `V_yield`, watch it self-trap. *The electron is a self-trapped photon, and we were one sector + one mechanism off.*
