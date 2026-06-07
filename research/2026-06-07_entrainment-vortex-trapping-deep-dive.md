@@ -3,7 +3,7 @@
 **Date:** 2026-06-07
 **Lane:** implementer (research-doc — consistency-class mapping / literature deep-dive)
 **Branch:** `analysis/2026-06-07-entrainment-vortex-trapping` (off `origin/main` @ `dbb60320`)
-**Status:** SKELETON (incremental-write — one section per commit)
+**Status:** complete — §§0–7 + cross-refs filled (incremental-write, one section per commit). Consistency-class throughout; one structural emergence candidate (§2.4) assessed at candidate-criterion. Access ledger honest (1110.3435 + IOP READ; PRF + Zhi Lin INFERRED/gated).
 **Companions (same object, other lenses — cross-referenced, not edited):**
 - `research/2026-06-07_electron-coherence-reynolds-mapping.md` (branch `analysis/2026-06-07-electron-coherence-reynolds`) — the Reynolds/loss-tangent lens on electron coherence; carries the canonical `S(Re,Re_c)` + Bingham + Kelvin-vortex corpus content this doc maps ONTO.
 - `research/2026-06-07_electron-interstitial-rotor-synthesis.md` (branch `analysis/2026-06-07-electron-rotor-synthesis`) — the rotor/Meissner-cage ontology; defines the **Fork A/B/C/D** genesis taxonomy this doc's Mapping A targets.
@@ -484,10 +484,135 @@ number.** No headline promotion. No matrix row. No foreword.
 
 ## §7 — Honest ledger, open items, KB-placement flag, and Grant/auditor surface
 
-*(filling)*
+### Closing consistency-vs-emergence ledger (as filled)
+
+| § | Content | Class (as filled) | Verdict |
+|---|---|---|---|
+| §1 | Four-paper extraction + VARDEN method | literature record | 1110.3435 READ (video abstract, no equations); IOP READ; PRF + Zhi Lin INFERRED |
+| §2 | trap=confinement / core-fallout=MODE III; double-sided bracket; three-rate criterion | **consistency lens + 1 structural emergence candidate** | the spine; §2.4 is the one reach past lens — candidate-criterion, not a number |
+| §3 | entrainment-buoyancy → inertia | **consistency lens** | added-mass(reactive)=inertia; viscous-entrainment(dissipative)=confinement; clean bifurcation, no number |
+| §4 | stratification → `A₀(r)` yield surface | **consistency, identity-adjacent** | re-describes canonical operating-point; `∇A₀`-only-observable is the real structural match |
+| §5 | VARDEN → future driver | **FLAG, not built** | scheme reusable (stiff-wall implicit integrator note), operator not |
+| §6 | classification + teeth | meta | whole-doc consistency-class; no promotion/matrix/foreword |
+
+**Net.** A guided analogy, honestly consistency-class throughout, inheriting the echo-not-chord ceiling. **One**
+structural emergence candidate (§2.4's three-rate Fork-A criterion), assessed at *candidate-criterion* and
+explicitly short of a closed AVE-distinct number. The deliverable's spine — trap↔confinement, escape↔MODE-III,
+and the entrainment↔self-saturation reserve-vs-loss competition — is the contribution; the teeth are deferred to
+a named, partly-scoped derivation (`A²_crit`).
+
+### Open-items queue
+
+1. **Predicted outcome of the already-scoped C3-gate test (§2.4).** The fluid lens predicts a C3-gated
+   irreversible commit step should convert the 4× *pump* into a *bounded* trap. This is a falsifiable prediction
+   for the test already in `…genesis-next-steps-scope.md:68,89` — *not a new test*. If C3 does **not** bound the
+   pump, the equilibration must be genuinely dissipative (the Grant question below).
+2. **Derive `A²_crit` (the §6 promotion path).** From `A²_μ=1` + α-leak `1/(α ω_C)` + Duffing pump rate; either
+   yields a testable bounded-`(2,3)` amplitude **(a)** or proves none exists at lattice scale **(b)** → Fork C
+   sub-`ℓ_node`. This is the single item that would move §2.4 from lens to AVE-distinct number.
+3. **Stiff-wall integrator (§5).** Whoever next touches the moving-`Γ=−1` integrator: an implicit /
+   semi-implicit (Crank–Nicholson-class) treatment of the boundary term is the VARDEN-suggested fix for the
+   flagged stiff-wall issue (`historical-precedents.md:28`).
+4. **Soliton-in-`A₀(r)`-gradient driver (§4/§5).** A future driver seeding a precursor (CP8) into a graded
+   `A₀(r)` toward an asymmetric yield surface, measuring trap/escape **in `(V_inc,V_ref)` phase-space
+   coordinates** (§2.3). Candidate only; `ave-prereg` + `pre-test-physics-check` fire first.
+
+### ONE plumber-physical question for Grant (pre-test-physics-check — surfaced BEFORE any driver)
+
+The fluid trap is stable **because it is dissipative**: viscous mixing during rebound is an irreversible,
+real-power settle to neutral buoyancy. The AVE 4× regime forms the wall but **parametric-pumps** — a reactive,
+lossless runaway — because the modelled ramp has no equilibrating dissipation in the swept window. So:
+
+> **Is electron genesis a CAST or a TUNE?** Does converting the over-amplitude (4×) blocked-KE into a *bounded*
+> particle require an **irreversible, real-power "settling" step** — a place where the lattice sheds entropy /
+> bleeds real power to lock the state, the way viscous mixing makes the fluid ring trap stable (a *cast*: latent
+> heat shed once, then solid)? **Or** is the canonical confinement **purely reactive** — a lossless,
+> C3-phase-coherent winding-closure that just *locks* with no dissipation (a *tune*: a resonance found, nothing
+> bled)? If a cast, the missing ingredient in `[1×,4×]` is a **dissipation channel**, not amplitude — and the C3
+> gate must carry real power. If a tune, C3 should bound the pump with zero real-power loss. The 4× pump *smells*
+> like a missing damping path to an electron plumber; does genesis have one?
+
+This refines the **interpretation** of the already-scoped C3-gate test (it does not propose a new pivot, per
+Rule 16): the test's result is read differently depending on whether C3 is reactive or dissipative. **Surfaced
+for Grant; not adjudicated here.**
+
+### KB-leaf placement — NO leaf (flag, do not create)
+
+Per the task and `consistency-vs-emergence`: **no KB leaf is warranted.** This is exploratory, consistency-class
+research onto an **open** problem (Fork A is the live genesis blocker, not a closed result); a KB leaf would
+imply canonical standing this mapping does not have. The doc's natural consumers are the **genesis Fork-A
+thread** (`_orchestration/2026-06-06_genesis-next-steps-scope.md`) and the **companion-doc cross-reference web**.
+If anything is ever landed, it is a *one-line pointer* from the CFD-precedent thread (`historical-precedents.md`)
+or a Fork-A-reframe note in the genesis scope — **the auditor lands that, not me** (lane discipline).
+
+### Surfaced for the auditor / Grant queue (I surface; the auditor lands)
+
+- **verify-before-cite flag (§3):** the brief's gloss *"can't be entrained without motion"* is **not verbatim**
+  at `vol2/claim-quality.md:670`; the actual `clm-jwyy6l` text is the Lenz/back-EMF reinterpretation. Used as
+  intuition gloss only. (Not a contradiction — a citation-hygiene note.)
+- **Pre-existing missing-artifact note (not mine to resolve):** the MODE-III result doc
+  `research/2026-06-06_optionD-impose-under-reflective-confinement-result.md` + its script are referenced in
+  `…genesis-next-steps-scope.md:62` but were flagged by `rotor-synthesis:640-646` as **not committed on any git
+  ref**. My §2 leans on the *verbatim numbers in the orchestration scope doc* (`:63`, the 1×/4× bracket), which
+  IS committed — so my citation chain is intact — but the underlying result artifact's commit status remains the
+  open item the rotor-synthesis doc already surfaced. Re-flagged here for continuity; the auditor/Grant own it.
+- **Alignment, not invention:** §2.4's Fork-A↔Fork-D link and the C3-gate outcome prediction **reinforce** the
+  already-scoped test (`…scope.md:68,89`); they do not propose a new methodology. The fluid lens's contribution
+  is the *dissipative-vs-reactive* framing of C3 (the Grant question above).
+
+**Classification of this section:** meta / forward-scoping. No emergence claim. Consistent with the whole-document
+echo-not-chord ceiling.
 
 ---
 
 ## Cross-references (canonical leaves + corpus + papers — verify-before-cite checked)
 
-*(filling)*
+**The papers (access-tagged per §0 ledger)**
+- `arXiv:1110.3435` — Camassa, Khatri, McLaughlin, Mertens, Monbureau, Nenon, Smith, Viotti, White, *"The
+  trapping and escape of buoyant vortex rings in sharply stratified fluids"* (2011). **READ** (1-page GFM video
+  abstract; four regimes + parameters verbatim; no equations). Local copy `/tmp/camassa_1110.3435.pdf`.
+- IOP *Comput. Sci. Discov.* **6:014001** (2013) — VARDEN DNS method paper. **READ** (abstract + method via
+  WebFetch): variable-density NS, approximate-projection + multigrid, 2nd-order upwind, Crank–Nicholson,
+  adaptive Δt, Hill's-spherical-vortex IC; "critical bifurcation… trapped… or escape" phase diagram.
+- *Phys. Rev. Fluids* **1, 050503** (2016), *"Liquid Chandeliers by Entrainment."* **INFERRED** (gated, HTTP
+  403) — journal version of 1110.3435; "chandeliers" regime covered by §1.1's READ content; no PRF text quoted.
+- Zhi Lin et al., subsurface oil-plume trapping in stratification. **INFERRED** (gated) — direction-agnostic
+  confirmation of the entrainment-trapping mechanism; no numbers.
+
+**Companion research docs (same object, other lenses — cross-referenced, not edited)**
+- `research/2026-06-07_electron-coherence-reynolds-mapping.md` (branch `analysis/2026-06-07-electron-coherence-reynolds`)
+  — the Reynolds/loss-tangent lens; canonical `S(Re,Re_c)` + Bingham + Kelvin-vortex corpus content; its §5
+  emergence-hook honesty is the template for this doc's §6.
+- `research/2026-06-07_electron-interstitial-rotor-synthesis.md` (branch `analysis/2026-06-07-electron-rotor-synthesis`)
+  — rotor/Meissner-cage ontology; **Fork A/B/C/D** taxonomy (§9-reframe lines 596-616); self-Meissner threshold;
+  "none resolve the genesis blocker" honesty inherited here.
+
+**Genesis / Fork-A corpus**
+- `_orchestration/2026-06-06_genesis-next-steps-scope.md` — Fork A/B/C/D verbatim (`:84-87`); the 1×/4×
+  double-sided bracket (`:63`); the already-scoped C3-gate test (`:68,89`).
+- `manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md` —
+  7-step genesis chain (`:70-77`); C1/C2/C3 nucleation conditions (`:83-85`); C3-fail → *"dissipates instead"*.
+
+**Confinement mechanism (Meissner / saturation / `Γ=−1` — the substrate-native "trap")**
+- `manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex` — TVS-Zener solid→slipstream
+  (`:294-308`); particle-core `μ_eff,ε_eff→0` asymmetric, `Z→0`, `Γ=−1` (`:432,:438`); thixotropic relaxation
+  (`:322`); zero-impedance skin / Faraday cage (`:338-362`).
+- `manuscript/vol_3_macroscopic/chapters/19_phase_transition_turbulence.tex` — Regime I→II at `r₁=√(2α)`
+  (`:19,:28`); `S(Re,Re_c)=√(1−(Re/Re_c)²)` (`:38`); laminar below `Re_c` (`:41`).
+- `manuscript/ave-kb/CLAUDE.md` INVARIANT-S2 — operating-point state `A₀`, `ε_eff=ε₀S`, `μ_eff=μ₀S`;
+  **gradient-only-observable**; symmetric (reflectionless) vs asymmetric (`Γ=−1`) loading.
+
+**Inertia (Mapping B)**
+- `manuscript/ave-kb/vol2/claim-quality.md:665-679` — `clm-jwyy6l` Newtonian inertia as macroscopic Lenz's law,
+  `E_mass=½L_eff|A|²`; *"category (i) ontological reinterpretation, not a new numerical prediction"* (conf. 0.3).
+
+**Kelvin-vortex precedent + classification ceiling**
+- `manuscript/ave-kb/common/historical-precedents.md` — Kelvin 1867 / Helmholtz 1858 frozen-in (`:25`);
+  ideal-fluid failure: no confinement, no length scale (`:27`); AVE realizes via saturable crystal + `(2,q)` +
+  `ℓ_node` + verdict-II moving-`Γ=−1` confinement (`:28`); Kelvin real-space vs AVE phase-space (`:30`);
+  **echo-not-chord consistency-class ceiling** (`:38-39`).
+
+**Adjacent (named by the brief; confirmed NOT to already carry this mapping)**
+- `manuscript/vol_4_engineering/chapters/02_vacuum_fluid_dynamics.tex` — "Aerodynamic Isomorphism" /
+  compressible-dielectric / bow-shock; **no stratified-entrainment content** (so this mapping is new relative
+  to it; a natural future home for an aerodynamic↔stratification dictionary entry).
