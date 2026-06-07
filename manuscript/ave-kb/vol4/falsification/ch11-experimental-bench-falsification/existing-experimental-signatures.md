@@ -39,11 +39,11 @@ In the Late Universe (The Cold Vacuum), this extreme thermal back-pressure has c
 
 Standard General Relativity rigorously dictates that an Event Horizon is a flawless "one-way membrane." Things fall in, but they mathematically cannot bounce back. Therefore, classical mechanics expressly forbids post-merger **Black Hole Echoes** (ringdown overtones bouncing off the horizon). Following the 2015 LIGO GW150914 merger detection, independent researchers (Abedi, Dykaar, Afshordi) analyzed the LIGO noise floor and found contentious evidence of repeating gravitational wave echoes separated by $\sim 0.29$ seconds.
 
-The AVE framework natively anticipates this exact phenomenon. As massive strain ($h_\perp$) scales up toward an event horizon, the localized spatial impedance of the topological LC network geometrically diverges. As proven by the FDTD solver in the engine, at the exact event horizon boundary, the effective wave reflection coefficient hits the absolute Dielectric Rupture limit ($\Gamma = -1$).
+The AVE framework natively anticipates this exact phenomenon. As massive strain ($h_\perp$) scales up toward an event horizon, the localized spatial impedance of the topological LC network geometrically diverges. At the exact event horizon boundary, the effective wave reflection coefficient hits the absolute **shear-mode reflection** limit ($\Gamma = -1$ for the shear/tensor (gravitational-wave) sector; $\Gamma = 0$ for EM — the BH interior is a shear-mode phase transition $G_{\text{shear}} \to 0$, not an ε-sector dielectric mismatch; see [electron–BH isomorphism](../../../vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md)).
 
 [Figure: simulate_black_hole_core.png — see manuscript/vol_4_engineering/chapters/]
 
-The Event Horizon acts as a hard dielectric reflective boundary (Total Internal Reflection). The rigorous framework explicitly *predicts* Black Hole echoes. The LIGO data, currently inexplicable by standard physics without breaking Einstein's math, serves as phenomenal empirical validation of the $\Gamma = -1$ tensor bounds.
+The Event Horizon acts as a hard **shear-mode** reflective boundary (Total Internal Reflection). The rigorous framework explicitly *predicts* Black Hole echoes. The LIGO data, currently inexplicable by standard physics without breaking Einstein's math, serves as phenomenal empirical validation of the $\Gamma = -1$ tensor bounds.
 
 ### Superconducting Vortex Core Limits (The Kill Check)
 
