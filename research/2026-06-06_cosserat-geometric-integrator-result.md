@@ -6,6 +6,8 @@
 **Driver (Phase 0, NO new engine code):** `src/scripts/vol_1_foundations/r10_2_3_winding_sector_evolution_diagnostic.py`
 **Reuses (UNMODIFIED):** `src/scripts/vol_1_foundations/r10_2_3_winding_extractor_coordinate.py` (the coordinate-correct extractor + Arm-C imposed control validated in [`2026-06-05_2-3-winding-extractor-result.md`](2026-06-05_2-3-winding-extractor-result.md)).
 
+**Phases in this doc:** **§0–§5 = Phase 0** (sector-split diagnostic → verdict **(B)**: over-saturation, not integrator-leak; Phase 1 saved). **Phase 0.5** (appended below, REDIRECT) re-tests survival in a quasi-stable sub-saturation regime → verdict **(II)**: the regime exists and the imposed (2,3) **degrades genuinely** there (amplitude-independent), refining (B) — the degradation is NOT merely an over-saturation artifact.
+
 ---
 
 ## §0 Headline
@@ -110,4 +112,102 @@ The indicated next questions — *surfaced for orchestrator/Grant adjudication, 
 - Phase-0 driver: `src/scripts/vol_1_foundations/r10_2_3_winding_sector_evolution_diagnostic.py`
 - Results JSON: `src/scripts/vol_1_foundations/r10_2_3_winding_sector_evolution_diagnostic_results.json`
 - Figure: `src/scripts/vol_1_foundations/r10_2_3_winding_sector_evolution_diagnostic.png`
+- Reused (unmodified) extractor: `src/scripts/vol_1_foundations/r10_2_3_winding_extractor_coordinate.py`
+
+---
+
+# Phase 0.5 — quasi-stable (2,3) survival re-test (REDIRECT, Grant-greenlit 2026-06-06)
+
+**Driver (Phase 0.5, NO new engine code):** `src/scripts/vol_1_foundations/r10_2_3_winding_quasistable_survival.py`
+**Reuses (UNMODIFIED):** `r10_2_3_winding_extractor_coordinate.py` (the validated extractor + the Arm-C imposed control + `initialize_2_3_voltage_ansatz`).
+
+## §0.5 Headline — VERDICT (II)
+
+**A quasi-stable (sub-saturation) (2,3) regime DOES exist — and the imposed (2,3) DEGRADES in it, at every amplitude.** Phase-0 (B) diagnosed the Arm-C blow-up as over-saturation and left open whether the (2,3) is *conserved-but-untested-in-a-too-violent-regime*. Phase 0.5 builds the gentle regime (sources-OFF free evolution + an amplitude sweep) and re-tests survival there. Result: the imposed (2,3) is disrupted within ~2–10 Compton periods **even at `A²max ≈ 0.07` — 14× below the rupture wall** — at the same rate as at the over-driven config. So the V0 degradation is **genuine and amplitude-independent, NOT an over-saturation artifact** (the discriminator-(I) "the (2,3) is innocent" reading is REFUTED).
+
+**Honest scope (load-bearing — flagged, not buried).** This (II) is a finding about **the imposed all-C-state (2,3) PLANT** (the exact V0 Arm-C initial condition: `initialize_2_3_voltage_ansatz` writes `V_inc` only, `Φ_link=0` at the seed). It does **NOT** by itself refute winding-conservation for a *properly-hosted* (precursor-grown) electron. It shows the planted finished-composite (2,3) is **not a self-consistent standing solution** of the K4+Cosserat engine — exactly the `substrate-native-check` CP8 anti-pattern outcome (plant-the-end-state → degrades). Two untested variants (a balanced-LC seed; a precursor-grown (2,3)) are surfaced in §0.5.5, NOT scaffolded (lane discipline + Rule 16).
+
+## §0.5.1 Method — sources-OFF free evolution + amplitude sweep
+
+The **key variable** is the pumping: build the SAME imposed-(2,3) seed on the SAME golden-torus shell, then evolve **WITHOUT** the counter-propagating `SpatialDipoleCPSource` sources AND without the `PairNucleationGate` injection (a saturation-triggered side-effect observer, `vacuum_engine.py:1172`), so `A²max` cannot be pumped past saturation — it can only settle/decay. **Faithful-reuse audit (pre-commit):** the sources-off engine `from_args(...)` config and the ansatz placement (`R=0.22N`, `r=R/φ²`) are **byte-identical** to Arm-C (`_run_armC_full_field`); the ONLY difference is the absence of the sources + gate, so sources-ON vs sources-OFF is a single-variable comparison at matched amplitude.
+
+The ansatz envelope is linear in `amplitude` (`tlm_…_eigenmode.py:78,121`), so seed `A²max ∝ amplitude²` — a **forward prediction** (NOT a fit): measured seeds `{0.106, 0.238, 0.423, 0.662, 0.953, 1.694}` vs predicted `1.69·(amp/0.40)² = {0.106, 0.238, 0.422, 0.660, 0.951, 1.690}` — exact. `A²max=1` (the rupture wall) ≈ amp 0.31.
+
+**Anchored validity check (determinism + reuse correctness) — PASS.** At `t=0`, ALL six amplitudes read **w1=2 (12/12), w2=3 (11/12), c=3** — reproducing the 2026-06-05 clean-ansatz anchor and the Phase-0 seed exactly. The deterministic engine + unchanged extractor → the `t>0` evolution is a genuine effect, not a tool change.
+
+## §0.5.2 `A²max(t)` — sources-ON (Arm-C) vs sources-OFF (free evolution)
+
+| config | t=0 | t=2 | t=5 | t=10 | regime |
+|---|---|---|---|---|---|
+| **ON amp 0.40** (Arm-C, Phase-0) | **1.69** | 4.45 | 5.94 | 5.84 | blows to ~6 (pumped) |
+| **OFF amp 0.40** (free) | **1.69** | 3.11 (peak) | — | — | self-blows to ~3 (no sources) |
+| **ON amp 0.20** | **0.42** | 0.38 | 0.42 | 0.29 | stays ~0.4 (sub-wall) |
+| **OFF amp 0.20** (free) | **0.42** | → 0.61 (peak) | — | — | stays sub-wall, settles |
+
+Two findings: (i) **the sources only over-saturate an already-near/over-wall seed** — at amp 0.40 they push `A²max` 3→6, but at amp 0.20 the field stays sub-wall (~0.4) with OR without sources; (ii) an **over-wall seed self-amplifies even sources-OFF** (amp 0.40: 1.69→3.11). So Phase-0's "Arm-C over-saturates" is the amp-0.40 high-seed config specifically, and the over-amplitude is partly intrinsic to the over-wall seed, not solely the sources.
+
+## §0.5.3 Goldilocks-band map (sources-OFF)
+
+`quasi-stable` ≡ `A²max(t)` never reaches the wall `A²→1` over the whole evolution. `survived` ≡ winding integers (2,3) hold at the **last two** snapshots (sustained — robust to the LC-equilibration transient; a single-frame recovery does NOT count). Figure: `r10_2_3_winding_quasistable_survival.png`.
+
+| amp | A²seed | A²peak | Φ²peak | quasi-stable | **survived** | seed→evolved (w1,w2) | t_first_loss |
+|---|---|---|---|---|---|---|---|
+| **0.10** | 0.106 | **0.152** | 0.074 | ✅ | ❌ | (2,3)→(0,1) | 10 T |
+| **0.15** | 0.238 | **0.343** | 0.166 | ✅ | ❌ | (2,3)→(0,1) | 10 T |
+| **0.20** | 0.423 | **0.612** | 0.701 | ✅ | ❌ | (2,3)→(0,1) | 2 T |
+| **0.25** | 0.662 | **0.964** | 9.18 | ✅ | ❌ | (2,3)→(0,1) | 2 T |
+| 0.30 | 0.953 | 1.405 | 1.9e4 | ❌ (self-blows) | ❌ | (2,3)→(1,1) | 2 T |
+| 0.40 | 1.694 | 3.108 | 4.5e4 | ❌ (self-blows) | ❌ | (2,3)→(1,1) | 2 T |
+
+**Quasi-stable band = amps {0.10, 0.15, 0.20, 0.25}** (`A²max` stays 0.07–0.96, never detonates). **Survived band = ∅.** The (2,3) degrades in 100 % of the quasi-stable band.
+
+**Self-amplification edge (new finding).** The `Φ²max` (L-store) column is the tell: sub-wall seeds (amp ≤ 0.20) keep `Φ²` bounded (≤ 0.70); the near-wall seed (0.25) starts climbing (9.2); over-wall seeds (0.30, 0.40) **explode** (1.9e4, 4.5e4). A **sources-free** near-wall instability: as the C-store (`A²`) approaches saturation, the L-store (`Φ_link`) runs away. This is distinct from the Phase-0 sources-pumped blow-up and is its own (separately-reported) result.
+
+## §0.5.4 Survival re-test — `w1/w2` per snapshot (the quasi-stable band)
+
+Per-snapshot winding integers (sources-OFF); seed coherence is 12/12, 11/12 at every amplitude:
+
+| amp | t=0 | t=2 | t=5 | t=10 | t=20 | t=40 |
+|---|---|---|---|---|---|---|
+| 0.10 | (2,3) | (2,3) | (2,3) | (1,2) | (2,3) | **(0,1)** |
+| 0.15 | (2,3) | (2,3) | (2,3) | (1,2) | (2,2) | **(0,1)** |
+| 0.20 | (2,3) | (2,2) | (2,3) | (1,0) | (0,2) | **(0,1)** |
+| 0.25 | (2,3) | (2,2) | (2,3) | (1,0) | (1,1) | **(0,1)** |
+
+The winding integers hold cleanly only for the first ~5 T, then **wander off (2,3)** and never sustainably return; the modal **coherence collapses immediately** — 12/12 → 5–8/12 by t=2 and stays split for the rest of the evolution (it never recovers to the unanimous 12/12 of the seed). The unanimous-12/12-vote → split-5/12-vote IS the degradation signal: the field is disrupted into a low-coherence state where the (2,3) is no longer a clean single winding. This is genuine field evolution (the load-bearing `w1/w2` read `V_inc`'s spatial 2φ+3ψ pattern, which is disrupted as the field evolves), not extractor noise.
+
+## §0.5.5 Verdict (II) + mechanism + honest scope
+
+**VERDICT (II): a quasi-stable sub-saturation (2,3) regime exists, and the imposed (2,3) degrades there — genuine physics degradation, independent of amplitude.** The driver's transparent rule returns (II): band `{0.10, 0.15, 0.20, 0.25}` is quasi-stable + (2,3)-formed; goldilocks (survived) = ∅.
+
+**Single explanatory mechanism (Rule 11 honest closure).** The imposed (2,3) is a **non-eigenmode plant**: it is not a self-consistent standing solution of the K4+Cosserat engine, so it relaxes/wanders within ~2–10 Compton periods regardless of amplitude. The degradation is present at `A²max ≈ 0.07` (amp 0.10) just as at `A²max ≈ 6` (Arm-C) — so the **single cause is "the planted (2,3) is not a stable structure," NOT over-saturation and NOT a flat-Cosserat-ω integrator leak.** This is precisely the `substrate-native-check` CP8 anti-pattern outcome: plant-the-finished-composite → degrades even in the gentle regime.
+
+**What this resolves about the V0 fork.** Phase-0 (B) named over-saturation as the mechanism and *saved* the conservation question ("too violent to test"). Phase 0.5 tests it in the gentle regime and finds the (2,3) **still** degrades → the over-saturation explanation is **incomplete**: over-saturation is real at amp ≥ 0.30 (and was severe at the amp-0.40 Arm-C config), but it is **not the cause** of the winding degradation, which reproduces sub-saturation. The V0 "12/12→5/12 fail" is therefore **genuine degradation of the imposed all-C (2,3) ansatz**, not a measurement artifact.
+
+**What this does NOT establish (honest scope — flag-don't-fix).**
+1. **NOT "winding is non-conserved."** This is a property of the imposed PLANT, not of a precursor-grown electron. CP8: to test conservation, seed the generative precursor and let the (2,3) FORM, then test persistence — do not plant the finished knot.
+2. **All-C unbalanced initial condition.** The ansatz plants only `V_inc` (C-state); `Φ_link=0` at the seed — *not* a balanced-LC standing-mode IC (like releasing a pendulum from max displacement, zero velocity). The first ~2 T are visibly LC-equilibration. A **balanced-LC (2,3) seed** (`V_inc` + `Φ_link` in quadrature via `initialize_phi_link_2_3_ansatz`, which exists at `tlm_…_eigenmode.py:127` but is unused by Arm-C) is an **untested variant** that might survive better — a candidate next test, surfaced for orchestrator/Grant adjudication.
+
+**Phase-1 (geometric integrator) warrant: still NO.** Phase-0 (B) already saved the build; Phase 0.5 reinforces it — the degradation is amplitude-independent disruption of a non-eigenmode plant in BOTH sectors, not an off-group Cosserat-ω leak a geometric integrator would fix.
+
+### Redirect (indicated, NOT scaffolded — lane discipline + Rule 16)
+
+1. **Balanced-LC (2,3) seed** — plant `V_inc` + `Φ_link` in quadrature (a standing-mode IC), re-test survival sources-OFF. Distinguishes "the (2,3) winding is unstable" from "the all-C IC sloshes apart."
+2. **Precursor-grown (2,3)** (the CP8-correct test) — seed the generative precursor, let the dynamics build the (2,3), THEN test persistence. The substrate-native way to ask the conservation question.
+3. **Sources-free near-wall self-amplification** (the `Φ_link` runaway at seed `A² ≳ 0.95`) is a separate, newly-surfaced engine behavior worth its own characterization.
+
+## §0.5.6 Discipline walk (which skills fired)
+
+- **`substrate-native-check`** — CP1: NO solver written; snapshot cadence on the engine's own velocity-Verlet step. CP5: the engine applies `ω_local(r)=ω_global·√(1−A²(r))` natively; `A²max(t)` reported as the saturation driver; no uniform-global-σ eigsolve (a forward time-domain read). CP6: **reactance PAIR tracked** — C-state `A²max` (`V_inc`) AND L-state `Φ²max` (`Φ_link`) every logged step; the pair is what surfaced the sources-free `Φ_link` runaway and confirmed the sub-wall settling is genuine (not C-settles-while-L-grows). CP7: extractor PML-excludes every ring point + density-crest shell location (reused unchanged). CP8: **the imposed (2,3) is a PLANT** — sources-off free evolution is closer to seed-the-precursor but is still a plant; the (II) is explicitly scoped as a plant-not-a-grown-composite finding, and the precursor-grown test is named as the CP8-correct redirect.
+- **`phase-space-coordinate-check`** — load-bearing winding read in phase-space `Θ=2φ+3ψ` (the extractor's internal U(1) phase, matching the corpus (2,3) on the Clifford torus); `A²max`/`Φ²max` are scalars (saturation magnitude, frame-free); real-space `(R,r)` is diagnostic-only (where to walk). MATCH.
+- **`ave-canonical-source`** — `ALPHA` from `ave.core.constants`; `PHI`/`DT`/`COMPTON`/`A2_OP14` reused from the extractor. `A2_WALL=1.0` is the saturation kernel's own rupture normalization (tagged). `N`/`PML`/amplitudes/cadence are honestly-tagged engineering choices.
+- **`ave-driver-script-honesty`** — forward READ of a KNOWN-imposed signal; NO `minimize`/`curve_fit`, NO parameter tuned toward (2,3). The seed `A²max∝amp²` is a forward prediction (verified). The I/II/III verdict is a transparent printed rule on seed→evolved deltas. The fragile single-frame "survived" metric was caught and strengthened to *sustained* (last-two-snapshots) before the production run (flag-don't-fix on my own driver).
+- **`consistency-vs-emergence`** — CONSERVATION-under-free-evolution of an IMPOSED control + a regime characterization: **consistency** class, NOT emergence; no α / hosting / CODATA claim.
+- **`ave-evidence-framing-discipline`** — (II) is stated honestly as the data shows; survival was NOT pre-claimed; the scope limits (plant-not-grown, all-C IC) are flagged, not buried.
+
+## §0.5.7 Artifacts
+
+- Phase 0.5 driver: `src/scripts/vol_1_foundations/r10_2_3_winding_quasistable_survival.py`
+- Results JSON: `src/scripts/vol_1_foundations/r10_2_3_winding_quasistable_survival_results.json`
+- Figure: `src/scripts/vol_1_foundations/r10_2_3_winding_quasistable_survival.png` (A²max(t) on-vs-off · Goldilocks-band map · survival w1/w2)
 - Reused (unmodified) extractor: `src/scripts/vol_1_foundations/r10_2_3_winding_extractor_coordinate.py`
