@@ -200,23 +200,121 @@ entrained buoyant reserve relative to the core's excess weight.** That is the va
 
 ## §2 — Mapping A: trap-vs-escape → genesis confinement (Fork A) [THE SPINE]
 
-*(filling)*
-
 ### §2.1 — The Fork-A problem restated (the double-sided bracket)
 
-*(filling)*
+Genesis (`pair-production-axiom-derivation.md`, 7-step chain) drives a seed at a K4 A–B node pair through
+saturation until `A²→1` shorts the bond (`Z_core→0`, `Γ=−1` wall forms at the nodes), the blocked
+longitudinal KE is forced into the transverse curl channel, and the `(2,3)` winding closes into a confined
+standing wave at `ω_C` — the electron. **Nucleation needs three simultaneous local conditions**
+(`pair-production-axiom-derivation.md:83-85`): **C1** amplitude (`A²≥1` at both nodes), **C2** frequency
+(`Ω_node(A²_local) ≈ ω_drive`, the Duffing-shifted resonance locks the drive), **C3** phase (the field
+phase lets the `(2,3)` close on the `(V_inc,V_ref)` trajectory — *"without the right phase relation… the
+blocked KE cannot resolve into a topologically coherent standing wave (dissipates instead)"*).
+
+**Fork A is the amplitude-calibration crux** (`_orchestration/2026-06-06_genesis-next-steps-scope.md:84`):
+*"rest-energy-sized pair (`A²≈0.23`, no wall) vs short-its-own-bond-sized (`A²→1`, pumps). ~4× apart.
+This tension is the genesis blocker."* The live empirical finding (same doc, C2 `:63`) is a **double-sided
+bracket** with **no stable window between**:
+
+- **Low end (1×, `A²_μ≈0.23`, `S_μ≈0.88`, `Γ≈−0.03`):** the wall **does not engage** — a matched bulk, no
+  reflection. The seed **dissolves → MODE III**. *(This is the "falls through, no confinement" end.)*
+- **High end (4×, `Γ_min=−0.994`):** the wall **forms** but the seed **parametric-pumps** (energy →
+  `10⁴–10⁷×`). *(Runaway — not a bound particle either.)*
+- *"There is no amplitude in [1×,4×] where the wall both forms AND stays bounded."*
+
+So Fork A is not "too weak vs just right" — it is **"too weak (dissolve) vs too strong (pump)", with the
+bound trapped state nowhere in the swept window.** Holding this exact shape is what the fluid lens
+illuminates.
 
 ### §2.2 — The structural isomorphism (load-bearing variables)
 
-*(filling)*
+| Fluid (Camassa–McLaughlin) | AVE genesis (Fork A) | Status of the bridge |
+|---|---|---|
+| Dense vortex ring falling through stratification | Driven seed at a K4 A–B node pair under the genesis ramp | the moving "object" |
+| **Trap** (settling / chandeliers / bouncing — content held at the interface) | **Confinement** — `Γ=−1` wall forms, `(2,3)` winding closes, stable standing wave at `ω_C` = the electron | **trap ⇒ confinement** |
+| **Escape — core-fallout** (entrainment can't carry the core back; core falls through) | **MODE-III dissolution** — wall does not engage / KE *"dissipates instead"* (C3 fail), seed lost | **escape ⇒ MODE III** |
+| **Entrainment bubble** of light fluid the ring drags down, growing with descent | The **self-dug saturated pocket** the seed builds around itself as `A²_μ→1` at its bounding nodes — the *self-Meissner cage forming* (`rotor-synthesis §3`: "strong enough to expel itself") | accumulation of a confining envelope |
+| **Buoyant rebound** of the entrainment bubble at the transition | The **`Γ=−1` reflection** of the blocked KE back into the bond (the "moving reflective boundary" that converts collapse→confinement, `historical-precedents.md:28` verdict-II) | reflection/return of energy |
+| **Rebound-mixing → equilibrate to local ambient density → lock** (what makes the trap *stable*) | The **C3-gated resolution** of the blocked KE into the coherent `(2,3)` standing wave (the "equilibrated", *bounded* end-state) | the lock that makes confinement bounded |
+| Accumulated buoyant reserve vs core excess weight, `Π_trap` (§1.5) | **Accumulated self-saturation** (toward `A²_μ=1`, weaving the wall) vs the **amplitude that leaks/detunes away** | the central competition |
+| Control: top-layer thickness `H` (more descent → more entrainment) | Control: **drive ring-up duration / power** (more autoresonant pumping → more accumulated `A²_μ`) | the "more confinement reserve" knob |
+| Control: droplet excess density `Δρ_core` (more downward pull → escape) | Control: **the rest-energy calibration** (the `m_ec²`-sized impose sits at `A²≈0.23`; the "weight" that must be overcome to reach `A²=1`) | the "harder to trap" knob |
+
+**The load-bearing variable on both sides is the same shape:** an **accumulated confining reserve** (entrained
+buoyancy / self-saturation) racing against a **loss** (core penetration / amplitude leak), with a **lock step**
+(mixing-equilibration / C3-resolution) that decides whether a formed wall yields a *bounded* trapped object.
 
 ### §2.3 — Where the analogy BREAKS (substrate-native-check + ave-discrimination-check)
 
-*(filling)*
+Stated plainly, because the lens is only as honest as its failure modes:
+
+1. **The confinement force is NOT buoyancy.** Fluid trapping is gravity acting on a density difference. AVE
+   confinement is an **impedance** effect: Axiom-4 saturation drives `μ_eff,ε_eff→0` *asymmetrically* →
+   `Z→0` → `Γ=−1` perfect mirror (`01_vacuum_circuit_analysis.tex:432`, `:438`;
+   `k4_cosserat_coupling.py` asymmetric-Meissner). No `g`, no `Δρ`. The fluid `Π_trap`, `Fr`, `Ri` are
+   **not substrate quantities** — they are the *grammar* of "reserve vs loss", re-instantiated, not imported.
+2. **Coordinate mismatch (phase-space-coordinate-check / A46).** The vortex ring, entrainment bubble, and
+   rebound are **real-space** velocity-field events. The AVE `(2,3)` lives in **phase space** — a
+   `(V_inc,V_ref)` loop on the Clifford torus (`pair-production-axiom-derivation.md:85`; Kelvin real-space
+   vs AVE phase-space, `historical-precedents.md:30`). The "trap" is the *winding closing in phase space*,
+   not an object settling in real space. **Any test of this mapping must measure winding-closure in
+   `(V_inc,V_ref)` coordinates**, never a real-space lattice-Cartesian "did the blob stay put" metric.
+3. **The decisive disanalogy — the pump end has no fluid counterpart.** The fluid trap is **stable because
+   it is DISSIPATIVE**: viscous mixing during rebound is an irreversible, entropy-producing settle to
+   neutral buoyancy. The fluid has **one** failure mode (core-fallout — under-reserve). The AVE bracket has
+   **two**: under-amplitude **dissolves** (matches core-fallout) *and* over-amplitude **parametric-pumps**
+   (`10⁴–10⁷×`) — and **the pump has no fluid analog**, precisely because the genesis ramp as currently
+   modelled is **reactive/lossless** (autoresonant positive feedback), with no equilibrating dissipation in
+   the swept window. *This break is the most useful thing the lens tells us* (it points straight at the
+   missing equilibration channel — §2.4).
+4. **Generic-bistability caveat (ave-discrimination-check).** "A system with a trap/escape threshold" is
+   **generic** — SM, classical fluids, any bistable medium has one. The lens, by itself, is **not
+   AVE-distinct**. Only a threshold whose **number** traces to substrate primitives (`A²=1`, `α`, `ℓ_node`)
+   would be (see §6).
 
 ### §2.4 — Substrate-native Fork-A confinement criterion (HYPOTHESIS, not import)
 
-*(filling)*
+The fluid trap is really **three** things working together (§1.1): (i) **enough** accumulated buoyant
+reserve to rebound at all; (ii) the rebound is **fast enough** to catch the core before it separates; (iii)
+**mixing equilibrates** the conglomerate to neutral buoyancy so the trap is *bounded and stable* rather than
+oscillatory/runaway. Re-grounded in the substrate, this proposes a **three-rate balance** for Fork A —
+substrate-native, derived from the engine's own processes, NOT from `Π_trap`/`Fr`:
+
+> **HYPOTHESIS (Fork-A trapping criterion, substrate-native).** A driven seed **confines** (→ electron)
+> iff, at the bounding nodes:
+>
+> 1. **Accumulation beats leak.** The autoresonant ring-up drives `A²_μ` to the self-Meissner threshold
+>    (`A²_μ→1`, weaving `Γ=−1`) **before** the amplitude leaks/detunes back below it. Define
+>    `τ_acc` = ring-up time to `A²_μ=1`; `τ_leak` = amplitude-drain time (intrinsic floor `~Q/ω_C = 1/(α ω_C)`,
+>    shorter once a detuning channel opens as `Ω_node(A²)` slides off `ω_drive`). **Condition: `τ_acc < τ_leak`.**
+>    *(Failure → the 1× MODE-III "dissolve" end = core-fallout.)*
+> 2. **An equilibration channel beats the pump.** Once the wall forms, a **C3-gated, irreversible commit
+>    step** must convert the blocked KE into the bounded `(2,3)` standing wave **faster** than the
+>    autoresonant feedback amplifies it. Define `τ_eq` = C3-resolution time; `τ_pump` = parametric e-folding
+>    time. **Condition: `τ_eq < τ_pump`.** *(Failure → the 4× "pump" end — the regime with no fluid analog,
+>    because the fluid's viscous mixing always supplies `τ_eq < τ_pump`.)*
+>
+> **Trap (confinement) ⇔ `τ_acc < τ_leak` AND `τ_eq < τ_pump`.** Either inequality failing reproduces one
+> arm of the observed double-sided bracket.
+
+**What the lens contributes that the prior framing did not:** Fork A was posed as a **1-parameter**
+amplitude tension (`A²≈0.23` vs `A²→1`, ~4× apart). The entrainment lens says the bracket is **2-failure-mode**
+and that the high (pump) arm is failing for a *different reason* than the low (dissolve) arm — it is missing
+the **equilibration/dissipation step** that, in the fluid, is supplied by mixing. This **links Fork A to Fork
+D (the dropped C3 phase-gate)** through a concrete physical reading: **C3 is the substrate's
+mixing-equilibration** — the irreversible "settle to neutral buoyancy" that locks a formed wall into a
+*bounded* particle instead of a reactive runaway. The genesis scope already proposes the cheap test (add the
+C3 gate + re-run, `…genesis-next-steps-scope.md:68,89`); **the fluid lens does not invent a new methodology —
+it predicts the OUTCOME of that already-scoped test**: a C3-gated commit step should convert the 4× pump into
+a bounded trap (or, if it does not, the equilibration must be genuinely *dissipative* — see §7's question to
+Grant).
+
+**Honest ceiling.** This is a **structural hypothesis** (a three-rate balance + a Fork-A↔Fork-D link), not a
+number. It **does not resolve** the genesis blocker — *"None resolve the genesis blocker, which remains Fork
+A amplitude-gating"* (`rotor-synthesis:616`). Its value is (a) reframing the pump arm as a missing-channel
+problem, (b) supplying a falsifiable engine prediction for the already-scoped C3 test, (c) surfacing the
+dissipative-vs-reactive question (§7). Class: **consistency-class lens with one structural emergence
+candidate** (the criterion), assessed in §6.
 
 ---
 
