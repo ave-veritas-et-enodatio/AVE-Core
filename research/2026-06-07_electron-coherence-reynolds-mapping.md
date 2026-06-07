@@ -263,7 +263,54 @@ into an actual decoherence-*rate number*, is the §5 emergence hook.
 
 ## §4 — The CFD lens: which fluid concepts clarify the soliton
 
-*[scaffold — filled in a following commit]*
+Four computational-fluid-dynamics concepts earn their keep as *lenses* on the electron soliton.
+Each is leaf-pinned; each carries the phase-space caveat below.
+
+| CFD concept | What it clarifies about the soliton | Canonical anchor | Coordinate status |
+|---|---|---|---|
+| **Beltrami-vortex stability** (force-free flow $\nabla\times\mathbf{v}=k\mathbf{v}$, the Woltjer/Taylor minimum-energy helical state) | *Why the rotor is stable / laminar.* The electron is literally a Beltrami standing wave $\nabla\times\mathbf{A}=k\mathbf{A}$ — the force-free configuration in which the nonlinear vortex-stretching term vanishes, so the flow self-sustains without cascading. Beltrami = the maximally-stable, lowest-$\mathrm{Re}_q$ fluid state. | `electron-unknot.md:13` (Beltrami $\nabla\times A=kA$ standing wave, ropelength $2\pi$ at `:11`) | **phase-space** |
+| **Reynolds (laminar→turbulent) transition** | *The quantum→classical boundary itself.* Subcritical transition with intermittency: turbulent bursts near $\mathrm{Re}_c$ follow $1-S(\mathrm{Re},\mathrm{Re}_c)$ — so decoherence onset is a soft, intermittent bifurcation, not a sharp line. | `19_phase_transition_turbulence.tex:38-49` ($S=\sqrt{1-(\mathrm{Re}/\mathrm{Re}_c)^2}$; intermittent-burst prediction) | drive-parameter |
+| **Vortex shedding** (von Kármán street, $\mathrm{Re}\sim40$–$200$) | *The cyclic / cavity-stabilized middle of the spectrum.* A bound rotor periodically shedding coherence into its environment is the **cyclic** $\delta_{\text{AVE}}$ regime — the atom/molecule row, Rabi/Ramsey oscillation: phase leaks and refreshes per cycle rather than monotonically decaying. | `temporal-saturation-regime-classifier.md:58` (Kármán shedding = Cyclic regime) | phase-space |
+| **Vortex reconnection** (two opposite-circulation tubes merge → cascade → dissipate) | *Annihilation, candidate.* $e^-+e^+\to\gamma\gamma$ as two opposite-helicity phase-loops reconnecting and radiating — the time-reverse of pair-production genesis. **Candidate lens, not a result** (see §6 queue). | `pair-production-axiom-derivation.md:84-85` (forward genesis: winding closes on the $(V_{inc},V_{ref})$ phasor trajectory, else "dissipates instead") | **phase-space** |
+
+**Helmholtz frozen-in = topological protection.** The oldest of these concepts is the load-bearing
+one. Kelvin's 1867 vortex atom rested on **Helmholtz's 1858 theorem** — in an ideal fluid vortex
+lines are frozen-in and topologically conserved, "*a knot cannot untie*" (`historical-precedents.md:25`).
+That is exactly the soliton's topological protection: the $0_1$ unknot's helicity (spin) cannot
+dissipate without a crossing-change, which the $\Gamma=-1$ wall forbids. AVE supplies the two
+ingredients the ideal fluid lacked and that killed Kelvin's program in 1900 — **confinement** (the
+saturable crystal's $\Gamma=-1$ wall, not an ideal fluid) and a **length scale** ($\ell_{node}$,
+not scale-free) — so the vortex-knot finally quantizes (`historical-precedents.md:27-28`).
+
+> **Phase-space coordinate discipline (A46 / substrate-native-check — load-bearing).** Every CFD
+> concept above is a **real-space** fluid construct (vortices, Kármán streets, reconnection events
+> live in a real-space velocity field). The AVE soliton's "vortex" does **not**. Kelvin's knots
+> "*lived in real space; AVE's $(2,q)$ lives in phase space (Clifford torus)*"
+> (`historical-precedents.md:30`); the electron is a "*one-dimensional phase flux loop*"
+> (`electron-unknot.md:43`), its winding traced on the $(V_{inc},V_{ref})$ phasor trajectory
+> (`pair-production-axiom-derivation.md:85`). Consequence: these concepts are **intuition lenses**,
+> not measurement prescriptions. A test of "Beltrami stability" or "annihilation = reconnection"
+> must measure the winding/reconnection in **phase-space coordinates** ($V_{inc}/V_{ref}$, Clifford
+> torus). A real-space lattice-Cartesian vortex-tracking measurement compared against the
+> phase-space $(2,3)$ winding would be uninformative — the canonical A46 trap.
+
+**Reusable fluid math the corpus actually carries (brief's audit question).**
+
+- **Bingham-plastic constitutive — REUSABLE (real equations).** `saturation-operator.md:27` gives the
+  yield stress $\tau_y=B_{snap}^2/2\mu_0$; `01_vacuum_circuit_analysis.tex:294-336` gives the full
+  constitutive set: the TVS-Zener viscosity law $\eta_{eff}(V)=\{\eta_0\ (V<V_{yield}),\,0\
+  (V\ge V_{yield})\}$ (:300-308), the bulk yield-stress evaluation $\tau_{yield}=\rho_{bulk}c^2\cdot
+  \mathcal{V}_{total}\cdot\alpha\approx1.04\times10^{22}$ Pa (:309-315), and the thixotropic
+  relaxation time $\tau_{relax}=\ell_{node}/c\approx1.29\times10^{-21}$ s (:322) with memristive
+  pinched-hysteresis (:330-336). This is genuine yield-stress-fluid math, reusable as-is.
+- **Reynolds–saturation kernel — REUSABLE.** `19_phase_transition_turbulence.tex:38`:
+  $S(\mathrm{Re},\mathrm{Re}_c)=\sqrt{1-(\mathrm{Re}/\mathrm{Re}_c)^2}$ — the Axiom-4 kernel with Re as
+  the drive parameter; the same engine function as every other saturation event.
+- **Kelvin vortex — PRECEDENT-CONCEPT ONLY (no equations).** `historical-precedents.md` is an
+  explicitly consistency-class intellectual-lineage leaf (no-claim, `:5`); the reusable content is the
+  *Helmholtz frozen-in / topological-conservation concept*, not quantitative fluid math. The leaf
+  self-caps at the "echo, not chord" ceiling (`:38-39`); §4's CFD lens inherits that ceiling — it is
+  intuition, not derivation.
 
 ---
 
