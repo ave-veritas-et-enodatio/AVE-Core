@@ -130,3 +130,79 @@ This is the **one genuinely load-bearing physics call**, and it is **harder** th
 **ANSWER (deliverable Q3): Δc_crit CAN re-ground on the 3 Cosserat sectors — via the intrinsic-3-component-angular-momentum (SU(2) selection-rule) argument — and IF it does, Δc_crit stays 3 and θ₁₃ screening is preserved.** But it is **not irreducible-either-way**: as *written* it is bond-count (→4, θ₁₃ breaks), and the re-grounding is a **genuine mechanism-substitution** (not a relabel like δ_CP), because torsional-AM **transport** has a real bond carrier (Op14). So Δc_crit is **re-groundable but contested** — the load-bearing call is *"is the screening bottleneck the bond-channel count (z=4) or the angular-momentum-component count (3)?"* — and that is the **one question for Grant**.
 
 ---
+
+## §4 — Classification: legitimate re-derivation, or post-hoc relabel? (consistency-vs-emergence)
+
+**The numbers are preserved by per-sector and CHANGED by per-bond-at-z=4.** That is settled arithmetic (§2.1, §3.1). The honest question (deliverable framing #5) is whether the per-sector substitution is a *legitimate re-derivation* or a *post-hoc relabel*. Answer, split by term:
+
+- **δ_CP "1/3": legitimate re-attribution, preserves the number.** The chiral phase is torsional and the chirality is a Cosserat order-parameter (resolution point 3) — the quantity *was always* a 3-Cosserat-component object; the "per K4 bond" wording (`delta-cp-violation.md:23`) was a **coincidental mislabel** that read true only because z=3 made bonds = sectors. The re-grounding does not invent the 3 from new physics; it **re-attributes an already-correct number to its true z-independent source**. This is the good kind of relabel — physically motivated, number-preserving.
+
+- **Δc_crit "3": number-preserving ONLY under a contested mechanism-substitution.** Here the per-sector reading is **not** a near-relabel (§3.2): the written mechanism (bond transport, Op14-carried) genuinely points at z=4. Preserving the number requires *adopting the SU(2)-selection-rule bottleneck over the bond-channel bottleneck* — a real physics choice. If Grant adjudicates the selection-rule reading, the number is preserved legitimately; if he adjudicates the transport reading, θ₁₃ walks back.
+
+**Per-bond and per-sector give the same "3" ONLY because the per-bond reading was coincidental — say which: it was coincidental.** At z=3, coordination = Cosserat-component-count = trefoil-crossing-count = 3, so the corpus could weld all three (`chiral-screening.md:24`, `vol2/claim-quality.md:218`) and never decide which was load-bearing. The weld's own words — *"structurally identical, not independent coincidences"* — are **falsified by z=4**: the diamond makes coordination = 4 while the other two stay 3, so they ARE independent, and **two of the three (sectors, crossings) were the real carriers; bond-count was the coincidental passenger.**
+
+**Consistency-vs-emergence class (unchanged by the re-grounding).** δ_CP and θ₁₃ are **Class C consistency-class** already (FI-13: $c_1=5$ chosen-not-derived → $c_1 c_3 = 45$ is a consistency identification, not emergence). The re-grounding fixes the *provenance of the "3,"* not the predictive status — it does **not** lift the class. Per `consistency-vs-emergence` Step 8 (classification-promotion check): the 3 Cosserat sectors are **already canonical Axiom 1 content** (`eq_axiom_1.tex:20`), so **no new substrate primitive** is introduced; classification **stays at the canonical ceiling** (Step 8c). This is a wording/provenance correction, NOT a solidity promotion. `clm-7o8clt` (0.60) and `clm-rji99i` (0.55) confidences should **not** move on the strength of the re-grounding.
+
+**Discrimination-check note (the novel content is untouched).** The neutrino sector's one genuinely-forward / falsifiable claim — the **inverted mass hierarchy** ($m_i \propto 1/c_i^2$, $m_1>m_2>m_3$, the JUNO falsifier per `delta-cp-violation.md:40,63-77`) — depends on the **crossing numbers 5,7,9**, NOT on the connectivity "3." It is **completely unaffected** by the z=3↔z=4 question and survives regardless of how the "3" re-grounds. The re-grounding is housekeeping on the consistency-class PMNS angles; it does not touch the sector's discriminating prediction.
+
+---
+
+## §5 — FLAG (don't fix): the axiom-vs-leaf contradiction the weld was hiding
+
+Surfaced per flag-don't-fix, with both verbatim file:lines. This is the **load-bearing internal contradiction**, and it predates this session — the weld at `chiral-screening.md:24` was masking it:
+
+- **Canonical Axiom 1** — `manuscript/common_equations/eq_axiom_1.tex:20` (verbatim): *"…governed by the right-handed $I4_1 32$ chiral space group, **with 4-fold K4 nearest-neighbor connectivity at each node**. Each node is micropolar (Cosserat-type), carrying six intrinsic degrees of freedom per node: **three translational** … and **three microrotational** …"* → coordination **z = 4**; the "3" is the **microrotational sector count**, explicitly distinct from connectivity.
+
+- **Neutrino leaf** — `chiral-screening.md:11` (verbatim): *"The SRS/K4 lattice is chiral … and **3-connected: each node has exactly 3 bonds**."* → coordination **z = 3**.
+
+These **directly contradict**: the axiom says **4-fold connectivity + 3 microrotational DOF**; the neutrino leaf says **3 bonds** and then welds connectivity ≡ trefoil ≡ sectors. The resolution-of-record adjudicated **z = 4** (axiom wins; the z=3 srs leaves are the outliers). So `chiral-screening.md:11`'s "3 bonds" is **already wrong against the canonical axiom**, independent of the neutrino arithmetic. **Crucially, Axiom 1 itself already separates the two "3"s** the neutrino leaf welded: it puts **4** on connectivity and **3** on the microrotational sectors. That is the strongest possible support for the per-sector re-grounding of δ_CP — *the axiom already says the sector-3 and the connectivity-number are different things, and the connectivity number is 4.*
+
+**Adjacent contradiction (same root, outside the neutrino sector — surfaced, not in scope to fix):** `vol1/claim-quality.md` is **internally inconsistent** on the same axis — `:141` asserts *"chiral SRS net (coordination z = 3)"* while `:1188` asserts *"K4 graph topology (4-neighbor connectivity, Axiom 1)."* Both in one file. Flagged for the broader z=3-leaf walk-back the resolution doc already queued; not a neutrino-sector item.
+
+**Terminology hazard to disambiguate (flag, do not silently resolve):** the phrase "**3 Cosserat sectors**" is used with **two different meanings** in the corpus. (i) Here / resolution-doc / `eq_axiom_1.tex:20`: the **3 microrotational components** $\omega_x,\omega_y,\omega_z$ (the SU(2) generators). (ii) `vol1/claim-quality.md:520`: *"Three Cosserat sectors (translation, rotation, curvature-twist) produce three lepton generations"* — a **different triplet** (three DOF-*types*, not the three rotational components). The δ_CP / Δc_crit re-grounding relies on reading (i). If the walk-back wording uses "3 Cosserat sectors," it must specify **reading (i)** explicitly, or the two will collide.
+
+---
+
+## §6 — Walk-back recommendation (SURFACED, not executed)
+
+Per flag-don't-fix and lane discipline, I do **not** execute any of this; I surface it for Grant + the auditor lane. The verdict splits cleanly on Grant's one Δc_crit adjudication:
+
+### If Grant adjudicates Δc_crit → 3 (Cosserat SU(2) selection-rule): KEEP z=4, FIX WORDING
+
+Re-ground (don't delete) the bond-attribution in these spots; the numbers are all preserved:
+
+| Leaf:line | Current (bond-count) | Re-ground to |
+|---|---|---|
+| `chiral-screening.md:11` | "3-connected: each node has exactly 3 bonds" | z=4 diamond connectivity; the screening "3" is the **3 Cosserat microrotational sectors** (reading (i)), not the bond count |
+| `chiral-screening.md:13` | "Each K4 bond transfers at most 1 unit … 3 bonds per node → Δc_crit=3" | torsional AM is intrinsically 3-component (SU(2)); max 3 independent quanta per interaction regardless of z |
+| `chiral-screening.md:24` | "structurally identical: the trefoil has c=3 *because* the lattice is 3-connected" | **sever the weld** — sectors (3) and trefoil-crossings (3) coincide; connectivity (4) does **not**; they are **not** "the same geometric fact" |
+| `delta-cp-violation.md:23` | "One K4 bond's share … because the lattice is 3-connected, each bond carries 1/3" | one **Cosserat-sector's** share of the chiral order-parameter; 3 sectors → 1/3 (equivalently 1/c_trefoil) |
+| `delta-cp-violation.md:30` | "Screened (Δc = 4 > 3)" | keep — but footnote that the "3" is Δc_crit = **sector count**, not connectivity |
+| `index.md:11`, `:22` | "K4 lattice connectivity (3)" / "(K4 connectivity = trefoil crossing number)" | "3 Cosserat microrotational sectors (= trefoil c=3)"; drop "connectivity" |
+| `vol2/claim-quality.md:217,218,232` | "K4 lattice connectivity (3)"; "structurally identical, not independent coincidences"; depends-on "K4 3-connectivity" | re-ground input to "3 Cosserat sectors"; **delete the "not independent coincidences" claim** (z=4 falsifies it); fix the depends-on |
+
+This is the **clean (sector-grounded) outcome**: numbers preserved, provenance corrected, **no prediction lost**, solidity unchanged (no promotion — §4).
+
+### If Grant adjudicates Δc_crit → 4 (bond-transport bottleneck): WALK BACK θ₁₃ (Rule 12)
+
+δ_CP still re-grounds and survives (per-sector restores 1.3556π; even naive bond-flip stays in-band). But θ₁₃ **unscreens and breaks ~20×** (0.022 → ~0.44). Then per Rule 12 (substitution-not-retraction): preserve the body, add a 🔴 header to the θ₁₃ screened-regime derivation (`pmns-eigenvalues.md:40-49`, `delta-cp-violation.md:30`), and the "all four PMNS from three inputs" framing (`index.md:11`, `vol2/claim-quality.md:217`) loses θ₁₃ → "three of four." θ₁₂, θ₂₃, δ_CP, and the inverted-hierarchy JUNO falsifier survive. This is the **messy outcome — but note it is messy only at Δc_crit, and only if the transport reading wins.**
+
+**My read (implementer lane, non-binding):** the SU(2)-selection-rule reading is physically the stronger one — the transferred quantity (self-linking / torsional AM) is intrinsically 3-component and cannot exceed 3 independent quanta even on a 4-bond node, and **Axiom 1 already separates connectivity (4) from the rotational-sector count (3)**. But the Op14/Φ_link bond-carrier is real, so this is genuinely Grant's call, not mine.
+
+---
+
+## §7 — Deliverable verdict + return summary
+
+1. **Where the "3" enters:** bond-count is the **primary written reading** in both terms (`chiral-screening.md:11,13`; `delta-cp-violation.md:23`; `index.md:11`; `vol2/claim-quality.md:217,232`), with trefoil-crossings + Cosserat-sectors **welded as "structurally identical"** (`chiral-screening.md:24`, `vol2/claim-quality.md:218`). The weld is what z=4 breaks.
+
+2. **δ_CP on z=4:** **YES, per-sector restores 1.3556π exactly** (middle term 1/3, not 1/4; $61/45$, NuFIT 0.3%). Per-crossing equal; per-sector the stronger grounding for the neutrino.
+
+3. **Δc_crit / θ₁₃:** re-grounds on the 3 Cosserat sectors **via a genuine SU(2)-selection-rule mechanism-substitution** (→ stays 3, θ₁₃ preserved) — but as *written* it is bond-count (→ 4, θ₁₃ breaks ~20×) and the substitution is **contested** (Op14/Φ_link gives torsional-AM transport a real bond carrier). **The one question for Grant.**
+
+4. **Verdict:** **KEEP z=4 + fix the bond-wording** (clean, sector-grounded outcome) — **conditional on Grant adjudicating Δc_crit = 3 via the angular-momentum-component reading.** δ_CP's re-grounding is clean and unconditional; **only θ₁₃ hangs on the Δc_crit call.** If Grant takes the bond-transport reading instead, walk back θ₁₃ alone (Rule 12) — δ_CP and the JUNO falsifier survive either way. **Outcome is clean (sector-grounded), with one genuine-physics caveat localized to Δc_crit — NOT messy z=3-dependence across the board.**
+
+5. **Flagged (not fixed):** `eq_axiom_1.tex:20` (z=4 + 3 microrotational) **directly contradicts** `chiral-screening.md:11` (z=3, 3 bonds) — the axiom already separates connectivity-4 from sector-3, which is itself the strongest support for the re-grounding. Adjacent: `vol1/claim-quality.md:141` (z=3) vs `:1188` (z=4) self-contradiction; "3 Cosserat sectors" terminology collision (`eq_axiom_1.tex:20` ω-components vs `vol1/claim-quality.md:520` DOF-types).
+
+**Doc:** `research/2026-06-07_neutrino-3-regrounding-check.md`
+**Branch:** `analysis/2026-06-07-neutrino-3-regrounding` (off `origin/main` @ `d5b71d5c`) — pushed, NOT merged.
+
