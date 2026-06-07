@@ -120,6 +120,13 @@ ambient density → **the ring content traps in the transition layer.**
 4. **"Core-fallout"** (small `H`, large `Δρ`) — the **entrainment bubble can no longer carry the entire
    ring content back**; some rebounds but **core material continues downward.** *(Escape — the core is
    lost through the interface.)*
+5. **"Fission into a cascade of smaller vortices"** — *[ADDED 2026-06-07, re-read of the 1110.3435 abstract.]*
+   The abstract names this as a distinct critical outcome alongside complete- and partial-trapping (regimes
+   1–4 above are the IOP phase-diagram ordering; the arXiv abstract's own three-way split is trap / partial-trap
+   / **fission**): the over-energetic ring **fragments into a shower of smaller rings** rather than trapping or
+   falling through. Originally collapsed into "chandeliers" above, but it is a **distinct over-energy outcome**
+   — the ring *shattering*, not just impact-fingering. It is the **missed counterpart to the genesis 4× pump**
+   (§2.3 point 3): the over-amplitude seed's third exit.
 
 **The load-bearing physical claim:** trap-vs-escape is set by a competition between **accumulated
 entrained buoyancy** (which grows with descent distance `H` — more entrainment) and the **core's excess
@@ -233,6 +240,7 @@ illuminates.
 | Dense vortex ring falling through stratification | Driven seed at a K4 A–B node pair under the genesis ramp | the moving "object" |
 | **Trap** (settling / chandeliers / bouncing — content held at the interface) | **Confinement** — `Γ=−1` wall forms, `(2,3)` winding closes, stable standing wave at `ω_C` = the electron | **trap ⇒ confinement** |
 | **Escape — core-fallout** (entrainment can't carry the core back; core falls through) | **MODE-III dissolution** — wall does not engage / KE *"dissipates instead"* (C3 fail), seed lost | **escape ⇒ MODE III** |
+| **Fission** — over-energetic ring *"fissioning into a cascade of smaller vortices"* (1110.3435 abstract, the missed third outcome) | **Multi-soliton shower** — over-amplitude seed fragments into a cascade of smaller solitons = **decay / pair-or-multi-production**; this is what the lossless 4× "pump" becomes once a fragmentation channel exists | **fission ⇒ shower (decay)** — the trap-vs-fission line = make-ONE vs make-a-SHOWER = laminar (low `Re_q`) vs turbulent-cascade (high `Re_q`) |
 | **Entrainment bubble** of light fluid the ring drags down, growing with descent | The **self-dug saturated pocket** the seed builds around itself as `A²_μ→1` at its bounding nodes — the *self-Meissner cage forming* (`rotor-synthesis §3`: "strong enough to expel itself") | accumulation of a confining envelope |
 | **Buoyant rebound** of the entrainment bubble at the transition | The **`Γ=−1` reflection** of the blocked KE back into the bond (the "moving reflective boundary" that converts collapse→confinement, `historical-precedents.md:28` verdict-II) | reflection/return of energy |
 | **Rebound-mixing → equilibrate to local ambient density → lock** (what makes the trap *stable*) | The **C3-gated resolution** of the blocked KE into the coherent `(2,3)` standing wave (the "equilibrated", *bounded* end-state) | the lock that makes confinement bounded |
@@ -259,14 +267,24 @@ Stated plainly, because the lens is only as honest as its failure modes:
    vs AVE phase-space, `historical-precedents.md:30`). The "trap" is the *winding closing in phase space*,
    not an object settling in real space. **Any test of this mapping must measure winding-closure in
    `(V_inc,V_ref)` coordinates**, never a real-space lattice-Cartesian "did the blob stay put" metric.
-3. **The decisive disanalogy — the pump end has no fluid counterpart.** The fluid trap is **stable because
-   it is DISSIPATIVE**: viscous mixing during rebound is an irreversible, entropy-producing settle to
-   neutral buoyancy. The fluid has **one** failure mode (core-fallout — under-reserve). The AVE bracket has
-   **two**: under-amplitude **dissolves** (matches core-fallout) *and* over-amplitude **parametric-pumps**
-   (`10⁴–10⁷×`) — and **the pump has no fluid analog**, precisely because the genesis ramp as currently
-   modelled is **reactive/lossless** (autoresonant positive feedback), with no equilibrating dissipation in
-   the swept window. *This break is the most useful thing the lens tells us* (it points straight at the
-   missing equilibration channel — §2.4).
+3. **The pump end DOES have a fluid counterpart — fission. [CORRECTED 2026-06-07, Grant re-read of 1110.3435.]**
+   The DISSIPATIVE-trap observation stands (viscous rebound-mixing settles to neutral buoyancy → stable trap).
+   But the original claim here — *"the fluid has only ONE failure mode (core-fallout), so the 4× pump has no
+   fluid analog"* — was **wrong**: it read only the IOP 4-regime phase diagram (§1.2). The **1110.3435 abstract
+   itself names a THIRD critical outcome** (verbatim): the ring *"fissioning into a cascade of smaller
+   vortices."* The over-energetic ring does **not** run away — it **fragments**. **That is the pump's missing
+   counterpart.** The `10⁴–10⁷×` parametric pump is the **lossless artifact** of an engine with no fragmentation
+   channel; restore that channel and the over-amplitude state **fissions** (cascades energy down to smaller
+   solitons) instead of pumping. **Fission IS the missing equilibration** (the cascade disperses the excess;
+   §2.4) — and it is a *physical* end-state, not a numerical pathology: **one soliton → many = decay /
+   pair-or-multi-production / a shower** (mapped in §2.2). So the **trap-vs-fission boundary is the
+   make-ONE-electron vs make-a-SHOWER boundary**, and it coincides with the **laminar (low-`Re_q`, coherent)
+   vs turbulent-cascade (high-`Re_q`, decohered)** axis of the coherence-Reynolds doc: a clean trap is laminar,
+   fission is the turbulent shower. *(Honest tag: the abstract NAMES fission; the cascade→smaller-solitons +
+   shower/decay mappings are reasoning from the named regime + known vortex physics, not extracted math — it
+   is a video abstract.)* **This correction — not the original "no counterpart" claim — is the most useful
+   thing the lens tells us:** the genesis blocker is not "find a damping term," it is *"the over-driven seed
+   has a third exit we never modelled — it shatters."*
 4. **Generic-bistability caveat (ave-discrimination-check).** "A system with a trap/escape threshold" is
    **generic** — SM, classical fluids, any bistable medium has one. The lens, by itself, is **not
    AVE-distinct**. Only a threshold whose **number** traces to substrate primitives (`A²=1`, `α`, `ℓ_node`)
