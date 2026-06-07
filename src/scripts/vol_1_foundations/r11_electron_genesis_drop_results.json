@@ -1,0 +1,472 @@
+{
+  "config": {
+    "N": 40,
+    "PML": 4,
+    "ALPHA": 0.0072973525693,
+    "A_YIELD": 0.08542454313193604,
+    "A2_YIELD": 0.0072973525693,
+    "A2_OP14": 0.12080854745670937,
+    "OMEGA_C": 1.0,
+    "DT": 0.7071067811865475,
+    "ELL_NODE_CELLS": 1.0,
+    "amp_single": 0.5,
+    "amp_pair": 0.48
+  },
+  "calibration": {
+    "single": [
+      [
+        0.4,
+        0.2733243737902734
+      ],
+      [
+        0.45,
+        0.35076768539545816
+      ],
+      [
+        0.48,
+        0.43166156017826485
+      ],
+      [
+        0.5,
+        2.9821554167624305
+      ],
+      [
+        0.52,
+        7.67821303604137
+      ],
+      [
+        0.55,
+        11.138248567639312
+      ]
+    ],
+    "pair": [
+      [
+        0.4,
+        0.29816481889655927
+      ],
+      [
+        0.45,
+        0.38917190004998303
+      ],
+      [
+        0.48,
+        4.178029493170252
+      ],
+      [
+        0.5,
+        10.196676869024671
+      ],
+      [
+        0.52,
+        9.19118489716931
+      ],
+      [
+        0.55,
+        13.153912934949167
+      ]
+    ]
+  },
+  "build1_single": {
+    "run": {
+      "mode": "single",
+      "amplitude": 0.5,
+      "N": 40,
+      "PML": 4,
+      "n_drive": 58,
+      "n_free": 142,
+      "n_steps": 200,
+      "x0_sources": [
+        12
+      ],
+      "drive_peak_a2": 2.9821554167624305,
+      "elapsed_s": 98.62466406822205,
+      "kz": 20,
+      "n_drops": 1
+    },
+    "gate": {
+      "gate_start_step": 114,
+      "energy_retention_postshutoff": 0.08278345760671367,
+      "final_peak_a2": 1.2806663778682148,
+      "final_mean_interior_a2": 0.00011409269880451972,
+      "n_final_drops": 1,
+      "per_drop": [
+        {
+          "slot": 0,
+          "final_site": [
+            12,
+            16,
+            20
+          ],
+          "dom_port": 1,
+          "a2_core_window": 1.2804617529258704,
+          "site_peak_a2": 1.2806663778682148,
+          "localized": true,
+          "check1_sub_yield_ring": {
+            "vinc_over_vyield_max": 9.164388563549656,
+            "vinc_over_vyield_mean": 8.380440545469725,
+            "vinc_over_vyield_final": 8.380441565459467,
+            "vref_over_vyield_max": 9.160479257363097,
+            "phi_over_vyield_max": 470.8074536585722,
+            "reactance_corr": -0.0038659660415585324,
+            "c_state_alive": true,
+            "l_state_alive": true,
+            "rings": true,
+            "sub_yield": false,
+            "sub_yield_ring": false,
+            "n_zero_crossings": 85
+          },
+          "check2_omega_C": {
+            "omega_zc": 4.391221508644898,
+            "omega_fft": 4.442882938158367,
+            "omega_C": 1.0,
+            "omega_local_expected": 3.162277615450719e-05,
+            "ratio_to_omega_C": 4.442882938158367,
+            "ratio_to_omega_local": 140496.29660756787
+          },
+          "check3_size": {
+            "fwhm_cells": 1.0,
+            "peak_a2": 1.2806663778682148,
+            "fwhm_over_ell_node": 1.0
+          },
+          "check45_phasor": {
+            "w1_signed": 5.0,
+            "w2_signed": -1.0,
+            "n1": 5,
+            "n2": 1,
+            "winding_ratio": "5:1",
+            "crossing_count_c": 18,
+            "R_over_r": 50938.37905966469,
+            "amp": 1.0167690956422937,
+            "chirality_sign": 1,
+            "p1": 1,
+            "p2": 2
+          }
+        }
+      ],
+      "check5_charge_conservation": {
+        "applicable": false,
+        "opposite_sign": false,
+        "sign_lo": 0,
+        "sign_hi": 0
+      },
+      "carrier2_omega": {
+        "omega_op10_c": 0,
+        "hopf_charge": 0.0,
+        "omega_max": 0.0,
+        "omega_energy": 0.0
+      }
+    },
+    "matched_baseline": {
+      "energy_retention": 0.2994286098953318,
+      "peak_retention": 0.9994229047909079,
+      "e0": 49.02636065763082,
+      "e1": 14.679895019941583,
+      "peak0": 1.2814487092417546,
+      "peak1": 1.2807091913309538
+    },
+    "verdict": {
+      "outcome": "III",
+      "verdict": "(III) NO-STABLE-DROP \u2014 the photon(s) do NOT pinch off into a persistent localized sub-V_yield ringing droplet (disperse / stay over-yield). The A->1 pinch-off regime did not yield the electron-droplet.",
+      "persists": false,
+      "two_three_assembles": false,
+      "pair_opposite_sign": true,
+      "beats_baseline": true
+    }
+  },
+  "build2_pair": {
+    "run": {
+      "mode": "pair",
+      "amplitude": 0.48,
+      "N": 40,
+      "PML": 4,
+      "n_drive": 58,
+      "n_free": 142,
+      "n_steps": 200,
+      "x0_sources": [
+        12,
+        28
+      ],
+      "drive_peak_a2": 4.178029493170252,
+      "elapsed_s": 97.25082802772522,
+      "kz": 20,
+      "n_drops": 2
+    },
+    "gate": {
+      "gate_start_step": 114,
+      "energy_retention_postshutoff": 0.15611456258623907,
+      "final_peak_a2": 2.4201164993164053,
+      "final_mean_interior_a2": 0.000414275057148831,
+      "n_final_drops": 2,
+      "per_drop": [
+        {
+          "slot": 0,
+          "final_site": [
+            12,
+            16,
+            18
+          ],
+          "dom_port": 1,
+          "a2_core_window": 2.4207940970117594,
+          "site_peak_a2": 2.4201164993164053,
+          "localized": true,
+          "check1_sub_yield_ring": {
+            "vinc_over_vyield_max": 10.628000958540905,
+            "vinc_over_vyield_mean": 10.417943795609322,
+            "vinc_over_vyield_final": 10.417943797086266,
+            "vref_over_vyield_max": 10.624981594533454,
+            "phi_over_vyield_max": 575.2855565743952,
+            "reactance_corr": -0.0016381770487847776,
+            "c_state_alive": true,
+            "l_state_alive": true,
+            "rings": true,
+            "sub_yield": false,
+            "sub_yield_ring": false,
+            "n_zero_crossings": 85
+          },
+          "check2_omega_C": {
+            "omega_zc": 4.391221508644898,
+            "omega_fft": 4.442882938158367,
+            "omega_C": 1.0,
+            "omega_local_expected": 3.162277615450719e-05,
+            "ratio_to_omega_C": 4.442882938158367,
+            "ratio_to_omega_local": 140496.29660756787
+          },
+          "check3_size": {
+            "fwhm_cells": 1.0,
+            "peak_a2": 2.4201164993164053,
+            "fwhm_over_ell_node": 1.0
+          },
+          "check45_phasor": {
+            "w1_signed": 1.0,
+            "w2_signed": -2.0,
+            "n1": 1,
+            "n2": 2,
+            "winding_ratio": "1:2",
+            "crossing_count_c": 20,
+            "R_over_r": 7752.002035333284,
+            "amp": 1.258818788554002,
+            "chirality_sign": 1,
+            "p1": 1,
+            "p2": 2
+          }
+        },
+        {
+          "slot": 1,
+          "final_site": [
+            28,
+            16,
+            20
+          ],
+          "dom_port": 3,
+          "a2_core_window": 2.0678515474823556,
+          "site_peak_a2": 2.0677893304270465,
+          "localized": true,
+          "check1_sub_yield_ring": {
+            "vinc_over_vyield_max": 11.123898316861643,
+            "vinc_over_vyield_mean": 10.878702550875783,
+            "vinc_over_vyield_final": 10.87870114061469,
+            "vref_over_vyield_max": 11.123922351257843,
+            "phi_over_vyield_max": 610.851601313055,
+            "reactance_corr": 0.009491144830997863,
+            "c_state_alive": true,
+            "l_state_alive": true,
+            "rings": true,
+            "sub_yield": false,
+            "sub_yield_ring": false,
+            "n_zero_crossings": 85
+          },
+          "check2_omega_C": {
+            "omega_zc": 4.391221508644898,
+            "omega_fft": 4.442882938158367,
+            "omega_C": 1.0,
+            "omega_local_expected": 3.162277615450719e-05,
+            "ratio_to_omega_C": 4.442882938158367,
+            "ratio_to_omega_local": 140496.29660756787
+          },
+          "check3_size": {
+            "fwhm_cells": 1.0,
+            "peak_a2": 2.4201164993164053,
+            "fwhm_over_ell_node": 1.0
+          },
+          "check45_phasor": {
+            "w1_signed": 2.0,
+            "w2_signed": 0.0,
+            "n1": 2,
+            "n2": 0,
+            "winding_ratio": "n/a",
+            "crossing_count_c": 19,
+            "R_over_r": 14788.554656567894,
+            "amp": 1.3145566526201418,
+            "chirality_sign": 1,
+            "p1": 3,
+            "p2": 0
+          }
+        }
+      ],
+      "check5_charge_conservation": {
+        "applicable": true,
+        "opposite_sign": false,
+        "sign_lo": 1,
+        "sign_hi": 1
+      },
+      "carrier2_omega": {
+        "omega_op10_c": 0,
+        "hopf_charge": 0.0,
+        "omega_max": 0.0,
+        "omega_energy": 0.0
+      }
+    },
+    "verdict": {
+      "outcome": "III",
+      "verdict": "(III) NO-STABLE-DROP \u2014 the photon(s) do NOT pinch off into a persistent localized sub-V_yield ringing droplet (disperse / stay over-yield). The A->1 pinch-off regime did not yield the electron-droplet.",
+      "persists": false,
+      "two_three_assembles": false,
+      "pair_opposite_sign": false,
+      "beats_baseline": true
+    }
+  },
+  "build2_pair_baseline": {
+    "run": {
+      "mode": "pair_baseline",
+      "amplitude": 0.48,
+      "N": 40,
+      "PML": 4,
+      "n_drive": 58,
+      "n_free": 142,
+      "n_steps": 200,
+      "x0_sources": [
+        12,
+        28
+      ],
+      "drive_peak_a2": 7.522691580104485,
+      "elapsed_s": 97.34207820892334,
+      "kz": 20,
+      "n_drops": 2
+    },
+    "gate": {
+      "gate_start_step": 114,
+      "energy_retention_postshutoff": 0.19609944156464446,
+      "final_peak_a2": 2.7429974315871952,
+      "final_mean_interior_a2": 0.0005893134820569986,
+      "n_final_drops": 2,
+      "per_drop": [
+        {
+          "slot": 0,
+          "final_site": [
+            12,
+            16,
+            20
+          ],
+          "dom_port": 2,
+          "a2_core_window": 2.3327008613973246,
+          "site_peak_a2": 2.3331087121734457,
+          "localized": true,
+          "check1_sub_yield_ring": {
+            "vinc_over_vyield_max": 10.838129635435259,
+            "vinc_over_vyield_mean": 10.356955351347619,
+            "vinc_over_vyield_final": 10.35695424743298,
+            "vref_over_vyield_max": 10.836421901011777,
+            "phi_over_vyield_max": 592.9378408773033,
+            "reactance_corr": 0.001749343125277251,
+            "c_state_alive": true,
+            "l_state_alive": true,
+            "rings": true,
+            "sub_yield": false,
+            "sub_yield_ring": false,
+            "n_zero_crossings": 85
+          },
+          "check2_omega_C": {
+            "omega_zc": 4.391221508644898,
+            "omega_fft": 4.442882938158367,
+            "omega_C": 1.0,
+            "omega_local_expected": 3.162277615450719e-05,
+            "ratio_to_omega_C": 4.442882938158367,
+            "ratio_to_omega_local": 140496.29660756787
+          },
+          "check3_size": {
+            "fwhm_cells": 1.0,
+            "peak_a2": 2.7429974315871952,
+            "fwhm_over_ell_node": 1.0
+          },
+          "check45_phasor": {
+            "w1_signed": -1.0,
+            "w2_signed": 5.0,
+            "n1": 1,
+            "n2": 5,
+            "winding_ratio": "1:5",
+            "crossing_count_c": 19,
+            "R_over_r": 24159.30729673309,
+            "amp": 1.2525383808336699,
+            "chirality_sign": -1,
+            "p1": 2,
+            "p2": 1
+          }
+        },
+        {
+          "slot": 1,
+          "final_site": [
+            28,
+            16,
+            20
+          ],
+          "dom_port": 1,
+          "a2_core_window": 2.7436189299854057,
+          "site_peak_a2": 2.7429974315871952,
+          "localized": true,
+          "check1_sub_yield_ring": {
+            "vinc_over_vyield_max": 13.607189020990273,
+            "vinc_over_vyield_mean": 12.133679374595243,
+            "vinc_over_vyield_final": 12.133730614943776,
+            "vref_over_vyield_max": 13.602354657264437,
+            "phi_over_vyield_max": 713.49835340156,
+            "reactance_corr": -0.007540540919651449,
+            "c_state_alive": true,
+            "l_state_alive": true,
+            "rings": true,
+            "sub_yield": false,
+            "sub_yield_ring": false,
+            "n_zero_crossings": 85
+          },
+          "check2_omega_C": {
+            "omega_zc": 4.391221508644898,
+            "omega_fft": 4.442882938158367,
+            "omega_C": 1.0,
+            "omega_local_expected": 3.162277615450719e-05,
+            "ratio_to_omega_C": 4.442882938158367,
+            "ratio_to_omega_local": 140496.29660756787
+          },
+          "check3_size": {
+            "fwhm_cells": 1.0,
+            "peak_a2": 2.7429974315871952,
+            "fwhm_over_ell_node": 1.0
+          },
+          "check45_phasor": {
+            "w1_signed": 3.0,
+            "w2_signed": -2.0,
+            "n1": 3,
+            "n2": 2,
+            "winding_ratio": "3:2",
+            "crossing_count_c": 17,
+            "R_over_r": 23549.87295905744,
+            "amp": 1.4765684702490325,
+            "chirality_sign": 1,
+            "p1": 1,
+            "p2": 2
+          }
+        }
+      ],
+      "check5_charge_conservation": {
+        "applicable": true,
+        "opposite_sign": true,
+        "sign_lo": -1,
+        "sign_hi": 1
+      },
+      "carrier2_omega": {
+        "omega_op10_c": 0,
+        "hopf_charge": 0.0,
+        "omega_max": 0.0,
+        "omega_energy": 0.0
+      }
+    }
+  }
+}
