@@ -507,7 +507,67 @@ contradicted.*
 
 ## §6 — Charge sign from cosmic-frame chirality
 
-*[scaffold — filled in a following commit]*
+**Claim.** The sign of the electron's charge is the **handedness of its rotor**
+(§4), and that handedness is meaningful only against the lattice's intrinsic
+chirality, which was **set at cosmic freeze-out by $\Omega_{freeze}$**. LH rotor →
+one sign, RH rotor → the other; *which* is "the electron" is anchored to the
+cosmic / CMB frame.
+
+**Step 1 — charge sign = rotor twist handedness.** `chirality-and-antimatter.md:10`:
+*"Electric charge polarity is defined as the Topological Twist Direction of the
+closed magnetic standing wave."* The electron and positron are the *same* object
+wound in opposite senses. The charge sign is the chirality of the §4 rotor's
+phase-winding — a rotor property, not a separate "charge field."
+
+**Step 2 — the lattice is intrinsically chiral ($I4_1 32$).** "RH" and "LH" are
+not free labels: the K4–Cosserat crystal carries the **$I4_1 32$ chiral space
+group** (Axiom 1, `manuscript/ave-kb/CLAUDE.md` INVARIANT-S2). The A→B sublattice
+frame-flip (the same bipartite structure that gives the $4\pi$ double-cover in
+§4) is chiral — handedness is defined relative to the crystal.
+
+**Step 3 — the lattice handedness is set by $\Omega_{freeze}$ (cosmic frame).**
+`omega-freeze-cosmic-grain-cascade.md:45`: *"Direction of $\Omega_{freeze}$
+becomes the direction of bond bowing → right-handed chirality ($I4_1 32$ chiral
+space group per Axiom 1)."* `:183`: *"R-handed vs L-handed $I4_1 32$ selected by
+cosmic angular momentum at nucleation."* `:101`: *"$f_R\approx1$ = cosmic
+R-handed chirality fraction at the $I4_1 32$ ground state."* The **absolute**
+handedness of the lattice was fixed at freeze-out by the cosmic angular momentum
+($\Omega_{freeze}$, the substrate's CMB rest frame).
+
+**Step 4 — synthesis: charge sign is anchored to the cosmic frame.** Compose:
+charge sign = rotor twist handedness (1), defined relative to lattice chirality
+(2), set by $\Omega_{freeze}$ (3). So the *absolute meaning* of "negative charge"
+(which twist sense) is anchored to the cosmic frame; the matter/antimatter
+asymmetry reads as the $f_R\approx1$ chirality-selection at freeze-out. The engine
+encodes the mechanism locally: the injected pair gets $\Phi_{link}=\pm\Phi_{critical}$,
+*"sign from lattice chirality"* (`vacuum_engine.py:1200`).
+
+> **Canonical contradiction surfaced (flag-don't-fix — return-item #4).** The two
+> Vol 2 Ch 1 leaves **disagree on which handedness is the electron**:
+> - `chirality-and-antimatter.md:10`: *"An electron ($e^-$) is a **right-handed**
+>   unknot; a positron ($e^+$) … a **left-handed** unknot."*
+> - `pair-production-axiom-derivation.md:25`: *"Two contra-rotating Beltrami
+>   vortices: $e^-$ (**LH** chirality) + $e^+$ (**RH** chirality)."*
+>
+> These are a direct sign-convention contradiction ($e^-=$ RH vs $e^-=$ LH) between
+> two canonical leaves in the same chapter. The `PairNucleationGate` injects LH at
+> $r_A$ / RH at $r_B$ (`vacuum_engine.py:1198-1219`) without labelling which is
+> $e^-$, so the engine does not adjudicate. **This is exactly the convention the
+> cosmic-frame anchor (Step 4) is supposed to fix** — and until it is fixed,
+> "$e^-$ = which handedness" is corpus-ambiguous. Surfaced for Grant; not
+> resolved here (resolving it silently could mask a cross-domain sign signal).
+
+> **Scope flag (evidence-framing).** The *qualitative* chain
+> ($\Omega_{freeze}\to$ lattice chirality $\to$ charge-sign convention) is
+> assembled from three canonical pieces; **no single leaf states the full
+> $\Omega_{freeze}\to$charge-sign bridge** — it is a synthesis. The *quantitative*
+> chirality coupling is explicitly **not derived**: $\delta_\chi$ is *"conjecturally
+> $\sim\alpha^2$ … structurally plausible but NOT derived"* (`omega-freeze-cosmic-grain-cascade.md:100`).
+
+**Classification.** Class **C** consistency / cite-canonical + rotor framing. No
+new primitive. The contribution is the rotor reading (charge sign = rotor
+handedness anchored to $\Omega_{freeze}$); the quantitative lock is open, and the
+$e^-$-handedness convention is corpus-contradictory (flag above).
 
 ## §7 — Consequences and open derivations queued
 
