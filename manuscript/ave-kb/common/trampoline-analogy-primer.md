@@ -275,7 +275,7 @@ The same total-reflection wall at $A = 1$ ($|\Gamma| = 1$; legacy "$\Gamma = -1$
 - **Cosmic asymptotic horizon $R_H$** (cosmological substrate saturation)
 - **Light cone / Lorentz invariance** (kinematic substrate saturation at $v = c$)
 
-In the trampoline picture, all four are **the same fully-straight bond at $A = 1$** viewed through different observable channels.
+In the trampoline picture, all four are **saturation at $A = 1$** viewed through different observable channels. **One mechanism distinction to keep** (canonical at [electron–BH isomorphism](../vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md)): the saturation kernel is common, but the *reflected sector* differs. The electron tube wall and the Schwinger field are **EM impedance-mismatch** walls — total reflection of transverse EM, $|\Gamma| = 1$. The **black-hole** interior is instead a **shear-mode phase transition** ($G_{\text{shear}} \to 0$): a perfect reflector for *shear* waves, but $\Gamma = 0$ for EM ($Z = Z_0$ invariant under symmetric gravity). Same $A = 1$ saturation; different wave sector trapped — do not flatten them into one $|\Gamma|=1$ EM wall.
 
 ---
 
