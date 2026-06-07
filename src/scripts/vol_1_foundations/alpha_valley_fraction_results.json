@@ -1,0 +1,179 @@
+{
+  "shells": [
+    {
+      "shell": 1,
+      "R": 1.7320508075688772,
+      "multiplicity": 4
+    },
+    {
+      "shell": 2,
+      "R": 2.8284271247461903,
+      "multiplicity": 12
+    },
+    {
+      "shell": 3,
+      "R": 3.3166247903554,
+      "multiplicity": 12
+    },
+    {
+      "shell": 4,
+      "R": 4.0,
+      "multiplicity": 6
+    },
+    {
+      "shell": 5,
+      "R": 4.358898943540674,
+      "multiplicity": 12
+    },
+    {
+      "shell": 6,
+      "R": 4.898979485566356,
+      "multiplicity": 24
+    }
+  ],
+  "canonical_operating_point": {
+    "p": 3.0,
+    "sharp": 2.0
+  },
+  "realspace_valley_fraction": {
+    "contrast_(max-min)/max": 0.16265935194267303,
+    "minmax_min/max": 0.837340648057327,
+    "below_mean_solid_angle_frac": 0.5001666666666666,
+    "depth_below_mean_(mean-min)/mean": 0.08849996307997132
+  },
+  "realspace_mode_count": {
+    "P_l_first8": [
+      3.80550403584746e-31,
+      3.42790847726984e-13,
+      1.0476741530844744e-13,
+      0.08994619890662821,
+      4.3730799178035234e-13,
+      2.826755999577023e-13,
+      5.808988855705431e-13,
+      0.000390935655814448
+    ],
+    "l_eff_95pct": 3,
+    "modes_sum_2lp1_to_leff": 15,
+    "participation_mode_count": 1.0204569354971857,
+    "literal_bulge_count_local_maxima": 4
+  },
+  "phasespace_projection": {
+    "phasespace_contrast_(max-min)/max": 0.13789338608537813,
+    "phasespace_minmax_min/max": 0.8621066139146218,
+    "valley_frac_uniform_measure": 0.48819444444444443,
+    "valley_frac_phasespace_Rr_measure": 0.4881160611637832,
+    "measure_changes_valley_frac_by": -0.00016055750234984697,
+    "phasespace_Rr_weighted_mean": 2.0,
+    "uniform_uv_mean": 2.0,
+    "Rr_vs_uniform_mean_shift": 0.0,
+    "R_over_r": 2.618033988749895,
+    "R_over_r_is_phi2": 2.618033988749895
+  },
+  "corpus_phasespace_reference": {
+    "Lambda_vol_4pi3": 124.0251067211993,
+    "Lambda_surf_pi2": 9.86960440108936,
+    "Lambda_line_pi": 3.141592653589793,
+    "alpha_inv_modecount": 137.03630377587842,
+    "valley_fraction_1_over_modecount": 0.007297336344064639,
+    "uses_Rr_eq_1_4_named_identification": true,
+    "is_projection_of_grant_realspace_envelope": false
+  },
+  "sensitivity_sweep": [
+    {
+      "p": 1.0,
+      "sharp": 1.0,
+      "rs_below_mean_frac": 0.523,
+      "rs_contrast": 0.03453860503383213,
+      "mode_count": 168,
+      "bulge_count": 21
+    },
+    {
+      "p": 1.0,
+      "sharp": 2.0,
+      "rs_below_mean_frac": 0.5001666666666666,
+      "rs_contrast": 0.06474494681529974,
+      "mode_count": 15,
+      "bulge_count": 4
+    },
+    {
+      "p": 1.0,
+      "sharp": 4.0,
+      "rs_below_mean_frac": 0.601,
+      "rs_contrast": 0.13138040729800932,
+      "mode_count": 24,
+      "bulge_count": 4
+    },
+    {
+      "p": 2.0,
+      "sharp": 1.0,
+      "rs_below_mean_frac": 0.54,
+      "rs_contrast": 0.043713734205293474,
+      "mode_count": 168,
+      "bulge_count": 21
+    },
+    {
+      "p": 2.0,
+      "sharp": 2.0,
+      "rs_below_mean_frac": 0.5001666666666666,
+      "rs_contrast": 0.10401691830649189,
+      "mode_count": 15,
+      "bulge_count": 4
+    },
+    {
+      "p": 2.0,
+      "sharp": 4.0,
+      "rs_below_mean_frac": 0.5965,
+      "rs_contrast": 0.21047302723661107,
+      "mode_count": 24,
+      "bulge_count": 4
+    },
+    {
+      "p": 3.0,
+      "sharp": 1.0,
+      "rs_below_mean_frac": 0.56,
+      "rs_contrast": 0.06247140139217629,
+      "mode_count": 120,
+      "bulge_count": 14
+    },
+    {
+      "p": 3.0,
+      "sharp": 2.0,
+      "rs_below_mean_frac": 0.5001666666666666,
+      "rs_contrast": 0.16265935194267303,
+      "mode_count": 15,
+      "bulge_count": 4
+    },
+    {
+      "p": 3.0,
+      "sharp": 4.0,
+      "rs_below_mean_frac": 0.5935,
+      "rs_contrast": 0.3235764792444435,
+      "mode_count": 24,
+      "bulge_count": 4
+    }
+  ],
+  "comparison_only": {
+    "ALPHA": 0.0072973525693,
+    "ALPHA_INV": 137.0359990836958,
+    "ALPHA_COLD_INV": 137.0363037758784
+  },
+  "input_trace": {
+    "K4_shell_positions_n_R": "exact diamond-lattice geometry (k4_tlm.py:378) \u2014 Ax 1 \u2014 NO \u03b1",
+    "shell_multiplicities": "exact lattice coordination (4,12,...) \u2014 Ax 1 \u2014 NO \u03b1",
+    "coupling_falloff_w_Rp": "R^-p, p in {1,2,3} swept \u2014 modeling knob, \u03b1-free",
+    "angular_kernel_g": "max(cos,0)^sharp, sharp in {1,2,4} swept \u2014 modeling knob, \u03b1-free",
+    "quadrature": "Fibonacci-sphere / uniform (u,v) torus \u2014 numerical \u2014 NO \u03b1",
+    "phasespace_R_r_Rr": "R=\u03c6/2,r=(\u03c6-1)/2,R\u00b7r=1/4 \u2014 Golden-Torus geometry (\u03c6, \u03b1-free); the NAMED Class-B identification used ONLY in the corpus reference, NOT in Grant's real-space envelope",
+    "alpha_present_in_envelope_or_valley_fraction": false,
+    "e_eps0_hbar_Z0SI_c_present": false
+  },
+  "classification": {
+    "real_space_valley_fraction_is_1_over_137": false,
+    "real_space_valley_fraction_alpha_free": true,
+    "phase_space_corpus_modecount_is_137": true,
+    "phase_space_137_uses_named_Rr_identification_not_grant_envelope": true,
+    "verdict": "NEAR-MISS-LOCALIZATION",
+    "which_frame_carries_alpha": "PHASE-SPACE (Clifford-torus mode-count with R\u00b7r=1/4)",
+    "corpus_route_vs_grant_envelope": "DIFFERENT (phase-space Clifford-torus mode-count vs real-space K4 bulge field)"
+  }
+}

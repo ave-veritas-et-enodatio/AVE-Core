@@ -242,6 +242,185 @@ the §6.4 sweep, not blocked (the classification is made robust to it).
 8. **Sensitivity** — sweep `p∈{1,2,3}`, kernel sharpness, n_shells; show `f_valley` stays geometry-
    pinned `O(1)` and never `1/137` without α.
 
+---
+
+## §6 RESULTS
+
+Driver `src/scripts/vol_1_foundations/alpha_valley_fraction.py`; outputs
+`alpha_valley_fraction_results.json` + `..._map.png`. K4 shells = exact diamond geometry; envelope on
+a 6000-point Fibonacci sphere; SH mode-count to `l_max=18` (DC monopole removed — counts the bulge
+modulation, not the host base); phase-space frame on a 240×240 Golden-torus `(u,v)` grid.
+
+### §6.1 ★ THE INPUT-TRACE — `f_valley` is α-FREE (the necessary precondition, satisfied)
+
+| Input to `f_valley` | trace | α present? |
+|---|---|---|
+| K4 shell positions `n̂, R_s` | exact diamond geometry — shells at `R=√3(×4), 2√2(×12), √11(×12), 4(×6), …` (Ax 1) | **NO** |
+| shell multiplicities | exact lattice coordination `4, 12, 12, 6, 12, 24` (Ax 1) | **NO** |
+| coupling falloff `w=R^{-p}` | `p∈{1,2,3}` swept — modeling knob | **NO** |
+| angular kernel `g=max(cos,0)^sharp` | `sharp∈{1,2,4}` swept — modeling knob | **NO** |
+| sphere / torus quadrature | Fibonacci-sphere / uniform `(u,v)` | **NO** |
+| phase-space frame only: `R=φ/2, r=(φ-1)/2, R·r=1/4` | Golden-Torus geometry (φ, α-free); the **named Class-B identification**, used ONLY in the corpus reference, NOT in Grant's real-space envelope | **NO** (φ-derived) |
+
+**`e, ε₀, ℏ, Z₀-via-SI, c, α` are ALL ABSENT** from the envelope and the valley fraction. The
+real-space K4 envelope is genuinely α-free geometry. The classification therefore turns entirely on
+the MAGNITUDE, in each frame.
+
+### §6.2 REAL-SPACE valley fraction — α-FREE, `O(0.1–0.6)`, NOT `1/137`
+
+K4 shell table (pure geometry): `R=1.7321(×4)`, `2.8284(×12)`, `3.3166(×12)`, `4.0(×6)`,
+`4.3589(×12)`, `4.8990(×24)`. Canonical operating point (near-field rotor falloff `p=3`, `sharp=2`):
+
+| real-space measure | value | vs `α=0.00730` |
+|---|---|---|
+| valley contrast `(max−min)/max` | **0.1627** | `22×` too large |
+| below-mean solid-angle fraction | **0.5002** | `69×` too large |
+| valley depth `(mean−min)/mean` | **0.0885** | `12×` too large |
+| min/max | 0.8373 | — |
+
+**The α-free real-space valley fraction is `O(0.1–0.6)` — off from `1/137 = 0.00730` by `12–69×`.**
+It does NOT land `1/137`.
+
+### §6.3 Grant's "bulge / mode count" — `4` literal bulges; SH count a KNOB (`15–168`), not pinned `137`
+
+| measure (canonical `p=3, sharp=2`) | value | vs `α⁻¹=137` |
+|---|---|---|
+| literal bulge count (local maxima) | **4** (the tetrahedral NN) | `34×` too few |
+| SH bandwidth `l_eff` (95% modulation power) | 3 | — |
+| total bulge modes `Σ(2l+1), 1≤l≤l_eff` | **15** | `9×` too few |
+
+Across the falloff/sharpness sweep the literal bulge count is `4–21` and the SH mode count ranges
+`15→168` — it is **not geometry-pinned at 137**; it swings by `>10×` with the kernel knob.
+
+> **Honest near-coincidence (not a hit, flag-don't-fix).** The smooth-kernel limit `p=3, sharp=1`
+> gives SH mode-count `120 ≈ 4π³ = 124` (the volumetric term). This is a KNOB coincidence, not an
+> emergence: `sharp=2` gives `15`, `sharp=1, p=1` gives `168`. The mode count tracks the kernel
+> bandwidth, not a fixed `137`. Reported as a near-coincidence; explicitly NOT a hit (it is not
+> robust to the sweep, and it recovers only the `4π³` not the full `4π³+π²+π`).
+
+### §6.4 PHASE-SPACE projection of Grant's envelope — frame-dependent, still NOT `1/137`
+
+Projecting the SAME real-space envelope onto the Golden torus `T²⊂S³⊂ℂ²` (`R/r = 2.618 = φ²`,
+phase-space `R·r` area element):
+
+| phase-space measure | value | real-space counterpart |
+|---|---|---|
+| valley contrast `(max−min)/max` | **0.1379** | `0.1627` (real-space) → **frame-dependent** |
+| valley fraction (uniform `(u,v)`) | 0.4882 | 0.5002 |
+| valley fraction (`R·r` phase-space measure) | 0.4881 | — |
+
+**The valley contrast CHANGES between frames (`0.138` phase-space vs `0.163` real-space)** — the same
+envelope gives a different valley contrast under the two measures, the explicit demonstration that
+**real-space projections do NOT preserve phase-space ratios** (the canonical `R/r=φ²` caveat). But the
+projected phase-space valley fraction is still `O(0.5)` — projecting Grant's envelope onto the
+Clifford torus does **NOT** manufacture `1/137`. (The `R·r`-vs-uniform valley-fraction shift is small
+for this statistic — the smooth envelope is measure-robust at the below-mean threshold — while the
+contrast carries the frame-dependence.)
+
+### §6.5 CORPUS reference — `137.036` ONLY via the named `R·r=1/4`, NOT Grant's envelope
+
+| corpus phase-space mode-count (`derive_alpha_from_golden_torus.py`) | value |
+|---|---|
+| `Λ_vol = 16π³(R·r) = 4π³` | 124.025 |
+| `Λ_surf = 4π²(R·r) = π²` | 9.870 |
+| `Λ_line = π·d = π` | 3.142 |
+| `α⁻¹ = Λ_vol+Λ_surf+Λ_line` | **137.036** |
+| `1/(mode count)` | **0.007297 ≈ α** |
+
+The corpus `137` reproduces `1/137` **exactly** — but it uses `R·r=1/4` (the named Class-B
+identification, `ch8-alpha-golden-torus.md`) and the Clifford-torus codimensional mode-count. It is
+**NOT a projection of Grant's real-space K4 envelope**; it is the independent phase-space construction.
+
+---
+
+## §7 VERDICT
+
+**The seven return questions:**
+
+**1. The valley fraction in BOTH frames.**
+- **Real-space (Grant's literal envelope):** valley contrast `0.163`, below-mean solid-angle fraction
+  `0.500`, valley depth `0.089` — all `O(0.1–0.6)`. Bulge count `4` (tetrahedral NN); SH mode count
+  `15` (canonical) ranging `15–168` over the knob sweep.
+- **Phase-space (Grant's envelope projected onto the Golden torus):** valley contrast `0.138`, valley
+  fraction `~0.49`. Frame-dependent vs real-space (contrast `0.138` ≠ `0.163`), but still `O(0.5)`.
+- **Corpus phase-space reference (separate construction):** `1/(4π³+π²+π) = 0.007297 ≈ α`.
+
+**2. α-FREE or α-encoded (full input-trace). — α-FREE.** Every input to the envelope and the valley
+fraction is α-free: K4 lattice geometry (Ax 1), the falloff/kernel knobs, the quadrature. **No `e, ε₀,
+ℏ, Z₀-via-SI, c, α` anywhere.** The phase-space `R·r=1/4` is φ-derived (α-free) and appears ONLY in
+the corpus reference, never in Grant's envelope. The necessary precondition for emergence IS satisfied
+— the geometry is genuinely α-free — exactly as the dark-wake loss (PR #119) was.
+
+**3. Does either frame give `1/137`? The near-miss number + the frame. — NEITHER frame gives `1/137`
+from Grant's envelope.** The real-space valley fraction is `0.089–0.50` (the closest single number is
+the valley depth `0.089`, still `12×` larger than `α`); the bulge/mode count is `4–168` (never robustly
+`137`). The only `137` is the corpus's SEPARATE Clifford-torus mode-count, which uses `R·r=1/4`. The
+honest near-coincidence — the smooth-kernel SH mode-count `120 ≈ 4π³ = 124` — is a kernel-knob artifact
+(`sharp=2 → 15`), NOT a hit, and recovers only the `4π³`, not `4π³+π²+π`.
+
+**4. Which frame carries α? — PHASE-SPACE (the Clifford-torus mode-count with `R·r=1/4`).** The
+real-space K4 envelope — the SHADOW — does NOT carry `1/137`; the valley contrast is even frame-
+dependent (`0.138` phase-space vs `0.163` real-space), the explicit confirmation that real-space
+projections do not preserve the phase-space `R/r=φ²` ratio. α stays in the phase-space frame, on the
+Clifford torus, via the named `R·r=1/4` identification. This confirms the PR #119 dark-wake
+localization and the 2026-06-06 biquaternion G2-fail (the grades give the `{3D,2D,1D}` skeleton but
+generate none of the π-powers — those are Golden-Torus angular geometry).
+
+**5. Corpus's Golden-Torus α — SAME route as Grant's envelope, or DIFFERENT? — DIFFERENT.** The corpus
+derivation (`ch8-alpha-golden-torus.md`, `derive_alpha_from_golden_torus.py`) is a **phase-space
+Clifford-torus mode-count** on `T²⊂S³⊂ℂ²` in `(V_inc,V_ref)` coordinates: `Λ_vol+Λ_surf+Λ_line` at
+`R·r=1/4, d=1`. Grant's envelope is a **real-space K4 multi-neighbor bulge field** on the `S²` of
+lattice directions. They are NOT the same construction: the corpus route uses the phasor-area /
+Clifford-torus codimensional decomposition (a phase-space object), while Grant's envelope is the
+literal real-space rotor density. The real-space envelope is a NEW route — and this test shows it does
+NOT reproduce the phase-space `137`.
+
+**6. Honest classification — NEAR-MISS-LOCALIZATION.** The real-space valley/bulge route is α-FREE but
+`≠ 1/137` (the valley fraction is `O(0.1–0.5)`, the bulge count `O(4–21)`, the SH mode count a `15–168`
+knob — never robustly `137`). Per the pre-registration, this is **NEAR-MISS-LOCALIZATION**, reported
+as plainly as a hit: it LOCALIZES α to the phase-space Clifford-torus mode-count (the corpus route, via
+`R·r=1/4`), NOT to Grant's real-space envelope. It is **NOT** a first geometric α-emergence (the
+real-space frame does not carry `137`), and it is **NOT** circular (no α was fed in — the geometry is
+genuinely α-free; the corpus `137` reference's `R·r=1/4` is φ-derived, not α-encoded — though `ch8`
+separately flags that the *kinematic unit-bridge* lift of `R·r=1/4` forces `R·r→4π²α`, which would be
+α-encoded; that route is not used here).
+
+**7. Robustness.** The verdict is robust to the falloff `p∈{1,2,3}`, the kernel sharpness
+`sharp∈{1,2,4}`, and the shell count: the real-space valley fraction stays `[0.50, 0.60]` (below-mean)
+and the mode count swings `15→168` — bracketing but never pinning `137`, the signature of a KNOB, not
+a geometry-locked emergence. To FORCE `f_valley = 1/137` would require feeding in `R·r→4π²α` (α-encoded)
+or α directly — refused.
+
+**Constructive localization (where the α-free emergence candidate actually lives).** Consistent with
+PR #119 (the parametric loss carries only the `4π`) and the biquaternion G2-fail (the grades give the
+`{3D,2D,1D}` skeleton, not the π-powers), this test adds: **the real-space multi-neighbor rotor
+envelope (Grant's mechanism) does NOT carry `137` either.** α⁻¹ = `4π³+π²+π` is carried specifically by
+the **phase-space Clifford-torus codimensional mode-count with `R·r=1/4`** — a phase-space object that
+neither the real-space parametric loss, nor the node-algebra grades, nor the real-space K4 envelope
+reproduce. The localization is now tight: α lives in the phase-space `(V_inc,V_ref)` Clifford-torus
+mode-count, and the load-bearing open question remains the corpus's own — whether `R·r=1/4` (the named
+Class-B identification) can be derived from K4 + Cosserat primitives WITHOUT the kinematic unit-bridge's
+α-encoding (`ch8` §gating-clause; the separate `z₀`-from-K4 rigidity-percolation route).
+
+**Caveats held / FLAGs for Grant (flag-don't-fix):**
+- The coupling falloff `p` and angular kernel `sharp` are α-free modeling knobs; the verdict is made
+  robust to them (§6.5 sweep). The physically-canonical choice (near-field reactive rotor envelope →
+  `1/R³`) is `p=3` per the `dark-back-reaction-taxonomy` near/far split (the time-averaged rotor
+  envelope is the near-field reactive species), surfaced in §4 `pre-test-physics-check`.
+- The honest near-coincidence `SH mode-count 120 ≈ 4π³` at `p=3, sharp=1` is a kernel-bandwidth knob
+  artifact, NOT a hit — surfaced so it is not mistaken for a partial emergence.
+- This test touches α's GEOMETRY-localization ONLY. The `(2,3)` topological closure (phase-space) and
+  the `R·r=1/4`-from-K4 open question are untouched.
+
+---
+
+**Status: §0–§5 frozen pre-run; §6–§7 post-run. Pre-registration confirmed exactly: the α-FREE
+real-space K4 multi-neighbor rotor envelope gives a valley fraction `O(0.1–0.5)` and a bulge/mode count
+`O(4–168)`, NOT `1/137`. α is carried by the PHASE-SPACE Clifford-torus mode-count (`R·r=1/4`), a
+DIFFERENT construction from Grant's real-space envelope — confirming the real-space-does-not-preserve-
+phase-space-ratios caveat. NEAR-MISS-LOCALIZATION, not emergence, not circular. The α-free emergence
+candidate stays localized to the phase-space `(V_inc,V_ref)` Golden-Torus geometry.**
+
 **Outputs:** `alpha_valley_fraction_results.json` + `alpha_valley_fraction_map.png`.
 **Discipline:** `ave-canonical-source` (ALPHA/ALPHA_COLD_INV/PHI imported; COMPARISON ONLY) ·
 `consistency-vs-emergence` (§3 trace fixed pre-run) · `substrate-native-check` (§1) ·
