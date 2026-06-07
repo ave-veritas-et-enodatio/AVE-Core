@@ -1,7 +1,7 @@
-# Maxwell's quaternions, Heaviside's excision, and the longitudinal sector
+# Historical roots: the longitudinal scalar (Maxwell–Heaviside) + the topological knot (Kelvin–Tait)
 
 **Date:** 2026-06-06 · **Branch:** `analysis/2026-06-06-maxwell-quaternion-longitudinal-context` (off `origin/main` `fc303233`)
-**Status:** research synthesis — historical context + AVE bridge. **Origin:** Grant 2026-06-06, surfaced by the saturation-TIR / moving-Γ=−1-boundary genesis thread.
+**Status:** research synthesis — historical context + AVE bridge. **Origin:** Grant 2026-06-06, surfaced by the saturation-TIR / moving-Γ=−1-boundary genesis thread. **AVE re-ties two 19th-century threads, both abandoned ~1900: Maxwell's quaternion / longitudinal EM (§1–§5) and Kelvin's vortex-knot atom (§6); they converge in the electron (§7).**
 
 **Classification (`consistency-vs-emergence`):** §1 is **historical fact**. §2 is **grounded** (canonical `photon-identification.md`). §3–§5 are the **AVE bridge — CONSISTENCY-CLASS** (the *same* "echo, not chord" verdict as the biquaternion result, #99): the algebra co-occurs with already-canonical, independently-substrate-derived facts; it adds **no new substrate primitive**. Documented because the through-line is load-bearing for **intuition + framing**, NOT as a new prediction. Validated as a *chord* IFF the saturation-TIR build returns (I).
 
@@ -42,10 +42,28 @@ The decisive feature: `N(q)=0` has nonzero solutions — the **null cone (zero d
 
 The biquaternion result landed a **consistency-class verdict** (echo, not chord) — correct *for the free/transverse node algebra* (the radiation regime, where vector calculus already wins). This synthesis sharpens **where** the algebra might earn its keep: **at the confined/reactive/longitudinal regime — the electron — where the scalar (`w`) + reactive (`ι`) re-engage on the null cone.** We tested the biquaternion on the photon's home turf (Heaviside's domain) and called it an echo; the electron (the null-cone-trapped, saturated state) is the one place it might be a chord. **Pending the saturation-TIR genesis build** (does the ω-photon self-trap on the null cone?).
 
-## §6 Honest scope + cross-refs
+## §6 Kelvin's vortex-atoms and the knot-theory lineage (the second root)
 
-**Scope:** §1 historical fact; §2 grounded; §3–§5 **consistency-class bridge — no new substrate primitive** (same ceiling as the biquaternion verdict). The null-cone↔wall and electron↔longitudinal-knot are *framings*, load-bearing for intuition, validated as physics IFF the saturation-TIR build returns (I). Do not cite as a derivation or prediction.
+The other root is older and more direct. **Lord Kelvin's 1867 "On Vortex Atoms"** proposed that atoms are **knotted/linked vortex tubes** in the aether — building on **Helmholtz's 1858 vortex theorems** (in an ideal fluid, vortex lines are frozen-in and *topologically conserved*: a knot cannot untie). Stability = topology; chemical variety = knot variety. To *tabulate the elements*, **P.G. Tait** began classifying knots (1877–1885, the first knot tables) — **which is how knot theory was born as a mathematical discipline.** (The corpus already records the precedent in one line — `l3-electron-soliton-synthesis.md:47`: Kelvin 1867 + Helmholtz 1858 + the Faddeev–Niemi 1997 knotted-soliton revival — but never develops it.)
 
-**Cross-refs:** `vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md` (Maxwell–Heaviside wave eq) · `vol1/dynamics/ch4-continuum-electrodynamics/photon-identification.md` (`A₁/T₂`) · `research/2026-06-06_biquaternion-node-algebra-result.md` (null cone, `ι`, scalar grade) · `research/2026-06-06_saturation-tir-moving-boundary-prereg.md` (the moving `Γ=−1` boundary = the null cone) · `common/operators.md` (Op3 `Γ`, Op14 `Z_eff`, Op21 `Q=ℓ`).
+**Why it failed (~1900):** an ideal-fluid vortex has **no confinement and no intrinsic length scale** — a fluid knot can be any size, so it cannot quantize (no discrete spectra, no fixed mass), and the aether itself was refuted (Michelson–Morley). The nuclear atom + QM replaced it.
 
-**Graduation candidate:** if the saturation-TIR build returns (I), this through-line graduates to a KB leaf at `vol1/dynamics/ch4-continuum-electrodynamics/` (the longitudinal-sector / Heaviside-excision framing for the photon↔electron split).
+**Why AVE realizes it:** AVE's medium is **not an ideal fluid but a saturable elastic crystal** (the K4–Cosserat micropolar lattice). The **saturation `Γ=−1` wall** supplies the confinement Kelvin lacked, and the **lattice `ℓ_node`** supplies the length scale — so the knot **quantizes**: the `(2,q)` torus-knot ladder (`torus-knot-ladder.md`: electron `(2,3)`, proton `(2,5)`, `r_opt = κ_FS/q`, `κ_FS = 8π`) with fixed size (`ℓ_node` = reduced Compton) and `Q=ℓ` mode-count. **The saturation crystal fixes Kelvin's fatal flaw.** And the loop closes: the knot theory Kelvin's physics *spawned* (Tait → Reidemeister / Alexander / Jones → Faddeev–Niemi knotted solitons) is now the math AVE *uses* to identify its particles — a 150-year round-trip.
+
+*(Two refinements beyond confinement: Kelvin's knots lived in **real space** (the vortex tube); AVE's `(2,q)` lives in **phase space** (the Clifford torus, `V_inc/V_ref`) — a deeper realization. And the aether died, but AVE's medium keeps a surviving rest frame: the CMB / `Ω_freeze`.)*
+
+## §7 The convergence — the two threads AVE re-ties
+
+Two 19th-century threads, both set aside by ~1900, both re-tied here:
+- **Root 1 — the formulation (Maxwell–Heaviside, §1–§5):** the longitudinal/scalar Heaviside discarded = the electron's confined sector.
+- **Root 2 — the ontology (Kelvin–Tait, §6):** the particle-as-knot-in-the-medium = the `(2,q)` topological winding.
+
+They **converge in the electron**: a topological **knot** (Kelvin) that *is* the **longitudinal scalar** (Maxwell–Heaviside), **confined on the null cone** (the saturation `Γ=−1` wall), described by **knot theory** (Tait) over the **quaternion** algebra (Hamilton/Maxwell). The vortex-knot and the quaternion-EM — the two pictures the 20th century shelved — are the **same object** in AVE, and the **saturation crystal** is what makes them physical where the ideal fluid and the vector calculus could not.
+
+## §8 Honest scope + cross-refs
+
+**Scope:** §1 + the §6 Kelvin/Helmholtz/Tait dates are **historical fact**; §2 grounded; §3–§5 + the §6 "why-it-works-now" + §7 are the **consistency-class bridge — no new substrate primitive** (same ceiling as the biquaternion verdict). The null-cone↔wall, electron↔longitudinal-knot, and Kelvin-vortex↔(2,q)-knot are *framings*, load-bearing for intuition, validated as physics IFF the saturation-TIR build returns (I). Do not cite as a derivation or prediction.
+
+**Cross-refs:** `vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md` (Maxwell–Heaviside wave eq) · `vol1/.../photon-identification.md` (`A₁/T₂`) · `vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md:47` (Kelvin 1867 / Helmholtz 1858 / Faddeev–Niemi 1997 precedent) · `vol2/.../torus-knot-ladder.md` (the `(2,q)` knot ladder) · `research/2026-06-06_biquaternion-node-algebra-result.md` (null cone, `ι`, scalar grade) · `research/2026-06-06_saturation-tir-moving-boundary-prereg.md` (the moving `Γ=−1` boundary = the null cone) · `common/operators.md` (Op3 `Γ`, Op14 `Z_eff`, Op21 `Q=ℓ`).
+
+**Graduation candidate:** if the saturation-TIR build returns (I), this graduates to KB leaves — the longitudinal-sector / Heaviside-excision framing at `vol1/dynamics/ch4-continuum-electrodynamics/`, and the **Kelvin-vortex-atom → AVE-knot lineage** at `vol2/particle-physics/ch01-topological-matter/` (developing the one-line precedent at `l3-electron-soliton-synthesis.md:47` into the full Kelvin → Tait → Faddeev–Niemi → AVE arc + the why-it-works-now confinement story).
