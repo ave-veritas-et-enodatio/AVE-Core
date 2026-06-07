@@ -410,13 +410,75 @@ is the one piece of new intuition. Honest ceiling: same echo-not-chord as the re
 
 ## §5 — Mapping D: numerical method (VARDEN) → possible future sim import (FLAG, don't build)
 
-*(filling)*
+The IOP paper (§1.2, READ) is the cleanest sim-relevant artifact. **What is reusable is the SCHEME, not the
+operator** — the AVE substrate is **discrete K4-TLM + Cosserat**, not continuum Navier–Stokes
+(`substrate-native-check` CP1). Importing the variable-density NS *operator* would be exactly the
+continuum-leak Rule-6 error. But three *scheme* ideas could seed a future **soliton-in-`A₀(r)`-gradient
+driver** (which would test §2/§4 in matching phase-space coordinates):
+
+1. **Compact-vortex initial condition (Hill's spherical vortex).** A compact, exact vortex IC is the fluid
+   analog of seeding a localized precursor. **CP8 caveat:** the AVE genesis lesson is to seed the
+   **generative precursor** (a driven photon/seed) and let the `(2,3)` *emerge*, NOT plant the finished knot
+   (the phase3f "plant-the-finished-object → ambiguous dispersal" failure). So Hill's-vortex-as-IC maps to the
+   *precursor seed*, not to a pre-built `(2,3)`.
+2. **Variable-coefficient handling across a sharp interface.** VARDEN advects `ρ` conservatively with a
+   2nd-order upwind scheme across the density jump. The AVE analog is a **variable-`S(A₀)` coefficient** across
+   the yield surface (§4) — and the engine *already* has the local-clock modulation `c_eff(r) = c·√(1−A²(r))`
+   (Op14, `substrate-native-check` CP5). The reusable idea is the **conservative interface treatment**, not
+   the NS advection itself.
+3. **Implicit (Crank–Nicholson) + adaptive Δt for the stiff gradient.** This is the most directly relevant: the
+   genesis program has a flagged **"stiff-wall integrator issue"** at the moving `Γ=−1` boundary
+   (`historical-precedents.md:28`). VARDEN's implicit diffusion + adaptive Δt is precisely the class of scheme
+   that tames a stiff moving interface. **Worth noting for whoever next touches the stiff-wall integrator** —
+   an implicit/semi-implicit treatment of the `Γ=−1`-boundary term may be the fix.
+
+> **FLAG, do not build (lane discipline).** This is a literature deep-dive; I do **not** scaffold a driver off
+> it. The above are sim-import *candidates* for a future scoped driver (the `pre-test-physics-check` +
+> `ave-prereg` would fire first). Surfaced for the orchestrator/auditor and for the genesis stiff-wall thread.
 
 ---
 
 ## §6 — Classification: consistency-vs-emergence + SM-counterfactual + the one place with teeth
 
-*(filling)*
+**Whole-doc class: consistency-class lens.** Per `consistency-vs-emergence`, the mapping introduces **no new
+substrate primitive** — it re-instantiates one open problem (Fork A) and three canonical objects (inertia,
+operating-point, numerical scheme) in stratified-entrainment vocabulary. It inherits the
+`historical-precedents.md:39` ceiling verbatim: the vortex-atom ↔ `(2,q)`-soliton bridge is a **framing,
+load-bearing for intuition, not a derivation or prediction — "echo, not chord."** This doc does **not** promote
+past it. "AVE = fluid dynamics" is **not** claimed anywhere; the fluid is a lens, the substrate is impedance.
+
+**SM-counterfactual (ave-discrimination-check Steps 2 + 2.5).** The honest discrimination result:
+
+- A **trap/escape threshold** is **generic bistability** — SM, classical fluids, autoresonance, any bistable
+  medium has one. The *existence* of the competition is **shared FORM**, not AVE-distinct.
+- Per Step 2.5: when the competitor shares the **FORM** (reserve-vs-loss bistability), the discrimination — if
+  any — lives in the **MAGNITUDE / SCALE**, not the ratio or the existence of a threshold. So the lens *as a
+  structure* is non-discriminating; only a **substrate-traced critical NUMBER** could be AVE-distinct.
+
+**The one place with teeth (§2.4's criterion) — assessed honestly.** The three-rate balance is currently a
+**FORM**, not a number — identical in status to the companion doc's §5 emergence hook (*"candidate FORMS in
+hand; an AVE-distinct falsifiable NUMBER is not — yet"*). What would give it teeth, concretely:
+
+> **Promotion path (what would make this an AVE-distinct falsifiable number).** Derive the **critical
+> amplitude** `A²_crit` at which a *bounded* trap exists — i.e. where `τ_acc = τ_leak` **and** `τ_eq = τ_pump`
+> hold simultaneously — from substrate primitives only: the self-Meissner threshold (`A²_μ = 1`), the α-set
+> intrinsic leak (`τ_leak ~ 1/(α ω_C)`), and the autoresonant pump rate (from the Duffing softening
+> `Ω_node(A) = ω_C(1−A²)^{1/4}`). Two falsifiable outcomes:
+> - **(a)** `A²_crit` lands in an accessible window → predicts the seed amplitude + C3-gate timing at which the
+>   engine yields a *bounded* `(2,3)` (testable in `(V_inc,V_ref)` phase-space coordinates — §2.3), **or**
+> - **(b)** no `A²_crit` exists at lattice scale → a **substrate-native falsification of lattice-scale
+>   genesis**, forcing **Fork C (sub-`ℓ_node`)** — itself a sharp, corpus-consistent prediction
+>   (`rotor-synthesis:604`, "the self-consistent electron may be sub-`ℓ_node`").
+
+Either outcome is more than a lens. **But until `A²_crit` is derived and shown to be `α`/`ℓ_node`-set (not a
+generic-resonator value), this is consistency-class.** Honest tag, mirroring the companion: **candidate-
+criterion, structural** — it makes a falsifiable engine prediction (the C3-gate outcome) and names a
+derivable number (`A²_crit`), but neither is closed here. It does **not** redeem the genesis blocker; it
+reframes the pump arm and points the derivation.
+
+**Net classification:** §1 literature-record; §2–§5 consistency-class lens; **§2.4 = the single structural
+emergence candidate**, assessed at *candidate-criterion* and **explicitly short of a closed AVE-distinct
+number.** No headline promotion. No matrix row. No foreword.
 
 ---
 
