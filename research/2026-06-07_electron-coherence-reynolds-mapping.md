@@ -67,7 +67,100 @@ consistency-class, and §5 assesses it honestly (candidate scaling vs descriptio
 
 ## §1 — The Quantum Reynolds number $\mathrm{Re}_q$
 
-*[scaffold — filled in a following commit]*
+**The idea.** In fluid mechanics the Reynolds number $\mathrm{Re}=UL/\nu$ is the ratio of the
+inertial (disordering) scale to the viscous (ordering) scale, and the laminar→turbulent transition
+happens as it crosses a geometry-set critical value. The proposal here: the **quantum–classical
+boundary is a laminar–turbulent transition**, governed by a substrate Reynolds number
+
+$$
+\boxed{\;\mathrm{Re}_q \;\equiv\; \frac{\text{decohering "flow" scale}}{\text{coherence-binding scale}}\;}
+\qquad
+\mathrm{Re}_q < 1 \Rightarrow \text{laminar} = \text{coherent / quantum},\quad
+\mathrm{Re}_q > 1 \Rightarrow \text{turbulent} = \text{decohered / classical}.
+$$
+
+**$\mathrm{Re}_q$ is not a new primitive — it is the substrate loss tangent.** The corpus already
+carries this ratio under its substrate-native name, the **Axiom-4 temporal projection**
+$\delta_{\text{AVE}} \equiv t_{\text{sat}}/t_{\text{period}}$
+(`temporal-saturation-regime-classifier.md:29`) — the fraction of each characteristic period the
+system spends past yield (Op14 firing, real-power dissipation). That leaf *already* names the
+fluid Reynolds classification as one of $\delta_{\text{AVE}}$'s established-physics homologs
+("the system's distance from the inviscid limit", `:33`), alongside the EM loss tangent
+$\tan\delta=\sigma/(\omega\varepsilon)$ and the cavity-QED bad-cavity ratio $\kappa/g$. So:
+
+$$
+\mathrm{Re}_q \;\sim\; \delta_{\text{AVE}} \;=\; \frac{t_{\text{sat}}}{t_{\text{period}}}
+\;\sim\; \underbrace{\frac{\xi(T)}{K}}_{\text{Kuramoto}}
+\;\sim\; \underbrace{\frac{\kappa}{g}}_{\text{cavity QED}}
+\;\sim\; \underbrace{\frac{1}{Q}}_{\text{LC tank}} .
+$$
+
+Each numerator is a decohering "flow" (thermal jitter $\xi(T)$, cavity loss rate $\kappa$,
+per-cycle leak $1/Q$); each denominator is the coherence binding (phase-lock coupling $K$,
+coherent coupling $g$, stored-reactive cycling). When the binding wins, $\mathrm{Re}_q<1$: laminar,
+phase-preserving, **coherent**. When the flow wins, $\mathrm{Re}_q>1$: turbulent, real-power,
+**decohered**. The Kuramoto form is exact for the superconducting case
+(`bcs-alternative-framework.md:28`: phase-lock fires when $\xi(T)<K$); the cavity-QED form is the
+closest established-physics homolog the temporal-classifier leaf identifies
+(`:142`: $g/\kappa = 1/\delta_{\text{AVE}}$).
+
+**The transition is the saturation operator, with Re as the drive parameter.** Vol 3 Ch 19 already
+maps the laminar→turbulent transition directly onto the Axiom-4 kernel
+(`19_phase_transition_turbulence.tex:21-43`): the Reynolds number is normalized to a drive
+parameter $r=\mathrm{Re}/\mathrm{Re}_{\max}$, and
+
+$$
+S(\mathrm{Re},\mathrm{Re}_c)=\sqrt{1-(\mathrm{Re}/\mathrm{Re}_c)^2},
+\qquad
+\mathrm{Re}<\mathrm{Re}_c \Rightarrow S>0\ (\text{laminar}),
+\qquad
+\mathrm{Re}=\mathrm{Re}_c \Rightarrow S=0\ (\text{saturated / turbulent}).
+$$
+
+The coherent electron rotor is the laminar standing wave: sub-saturation ($S>0$), reactive,
+Regime I, $\delta_{\text{AVE}}\to0$, $Q=1/\alpha$ enormous. Thermalization drives it toward
+$\mathrm{Re}_c$, where the laminar mode saturates and the energy goes into "turbulent eddies"
+(`:35`) — incoherent lattice modes.
+
+**Substrate-native discipline (CP1).** $\mathrm{Re}_q$ here is a **loss tangent**, not a
+Navier–Stokes $UL/\nu$. The AVE substrate is a *discrete* K4 lattice ($\ell_{node}$), so there is
+no continuum viscosity $\nu$ to form $UL/\nu$; the substrate quantity is the *discrete* Op14
+saturation-firing fraction $t_{\text{sat}}/t_{\text{period}}$. The fluid Reynolds number is the
+borrowed **vocabulary**; $\delta_{\text{AVE}}$ is the **mechanism**. This matters for honesty:
+$\mathrm{Re}_q$ classifies (Class-1 definitional, per the temporal-classifier leaf's own
+self-classification `:306,:310`), it does not by itself predict a number — that is reserved for
+§5.
+
+### The "yield" overload — two inverse-polarity pictures, reconciled (flag-don't-fix)
+
+The brief's framing — *coherent = above-yield frictionless slipstream (laminar); classical/thermal
+= below-yield viscous (turbulent)* — uses the **Bingham-slipstream / drag** yield, which has the
+**inverse polarity** of the **dielectric-saturation / Reynolds** yield above. Both are canonical;
+they are not in conflict because "yield" names two different thresholds on two different subjects.
+Surfacing both verbatim rather than silently picking one:
+
+- **Dielectric-saturation yield (the $\mathrm{Re}_q$ axis).** `19_phase_transition_turbulence.tex:41`:
+  "*For $\mathrm{Re}<\mathrm{Re}_c$, $S>0$ and the flow remains laminar.*" `saturation-operator.md:27`:
+  "*the vacuum flows above $\tau_y=B_{snap}^2/2\mu_0$.*" Here **laminar/coherent = BELOW** the
+  threshold (sub-yield reactive); above-yield = Op14 fires = dissipation. Subject: the *interior
+  field amplitude* of the standing wave.
+- **Bingham-slipstream / drag yield (the brief's phrasing).** `01_vacuum_circuit_analysis.tex:301-302`:
+  "*$\eta_0$ … $V<V_{yield}$ (solid: high drag); $0$ … $V\geq V_{yield}$ (slipstream: zero drag)*"
+  — above-yield the mutual inductance is annihilated and the vacuum "*enters ideal frictionless
+  flow … the Zero-Impedance Slipstream*" (`:308`). Here **frictionless = ABOVE** the threshold.
+  Subject: the *drag on embedded matter moving through* the medium.
+
+**Reconciliation.** The coherent rotor's low $\mathrm{Re}_q$ is realized by *both* facts at once,
+at two different locations of the same object: its **interior** standing-wave field is *below* the
+dielectric-saturation yield ($S>0$, laminar, reactive), while its **Meissner cage wall** is
+*above* the drag-annihilation yield ($\eta\to0$, $\mu_{eff}\to0$, frictionless slipstream). The
+rotor glides frictionlessly (slipstream, above drag-yield) *because* it is wrapped in a saturated
+Meissner wall, *and* it stays laminar (reactive, below dielectric-yield) *because* its own field
+never reaches Op14. Decoherence = $\mathrm{Re}_q$ rising = **either** the cage wall losing its
+$\eta\to0$ slipstream (a drag channel opens) **or** the interior being driven to Op14 saturation.
+The two yields are the two ways to spoil coherence; the single $\mathrm{Re}_q$ axis tracks both.
+The overload is recorded here, not resolved-by-fiat — if a downstream test needs one threshold it
+must name which subject (interior field vs embedded-matter drag) it measures.
 
 ---
 
