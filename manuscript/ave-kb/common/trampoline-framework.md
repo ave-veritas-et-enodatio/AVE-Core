@@ -634,11 +634,13 @@ The framework structurally supports this prediction, and the FRAMEWORK COMMITMEN
 
 ## §6 Boundaries and envelopes — what the substrate observes
 
-### 4.1 The $\Gamma = -1$ boundary
+### 4.1 The total-reflection boundary ($|\Gamma| = 1$)
 
-Where the substrate is locally saturated ($A \to 1$), the bond impedance $Z_{\text{eff}} \to \infty$. Any substrate wave incident on a saturated region encounters a perfect impedance mismatch — total reflection ($\Gamma = -1$). The saturated region is **causally and impedance-disconnected** from the rest of the substrate.
+Where the substrate is locally saturated ($A \to 1$), the bond impedance $Z_{\text{eff}} \to \infty$. Any substrate wave incident on a saturated region encounters a perfect impedance mismatch — **total reflection ($|\Gamma| = 1$)**. The saturated region is **causally and impedance-disconnected** from the rest of the substrate.
 
-This is the canonical $\Gamma = -1$ saturation boundary. It is structurally identical at every scale (electron horn-torus tube wall, nucleus Borromean envelope, Schwarzschild horizon, cosmic $R_H$). See §7 below + Common Foreword §Three Boundary Observables for the multi-scale hierarchy.
+> **Sign convention (gauge, not physics).** The bare *sign* of $\Gamma$ is not a substrate observable — Axiom 3 minimizes $|\Gamma|^2$, never $\Gamma$. The same total-reflection wall reads $\Gamma_V = +1$ (open / voltage antinode) from the vacuum *outside* and $\Gamma = -1$ (short / displacement node) from *inside* the trapped region, related by the reflection-sphere Möbius map $Z \leftrightarrow 1/Z$ ($\Gamma \to -\Gamma$). Physical, gauge-invariant content: $|\Gamma| = 1$ and $Z_{\text{eff}} \to \infty$ (measured — observable-battery 2026-06-06; proven — the Smith chart is the $SL(2,\mathbb{C})$ spinor action). The legacy "$\Gamma = -1$" label throughout the corpus denotes this wall in the inside (displacement) convention.
+
+This is the canonical total-reflection saturation boundary (legacy "$\Gamma = -1$"). It is structurally identical at every scale (electron horn-torus tube wall, nucleus Borromean envelope, Schwarzschild horizon, cosmic $R_H$). See §7 below + Common Foreword §Three Boundary Observables for the multi-scale hierarchy.
 
 ### 4.2 The substrate-observability rule (canonical)
 

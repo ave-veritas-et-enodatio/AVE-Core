@@ -256,17 +256,19 @@ Pair production is **NOT particle creation from nothing** — it is a **substrat
 
 ---
 
-## Step 5: Fifth structural difference — the $\Gamma = -1$ boundary at $A = 1$
+## Step 5: Fifth structural difference — the total-reflection wall ($|\Gamma| = 1$) at $A = 1$
 
 At $A = 1$, the bond is fully straight. It has **zero remaining elastic capacity** for further unbuckling. Any additional applied strain cannot be absorbed elastically.
 
-**Result: total internal reflection.** Substrate strain attempting to propagate past $A = 1$ is reflected with reflection coefficient $\Gamma = -1$. This is the **AVE universal horizon**.
+**Result: total internal reflection.** At $A = 1$ the substrate has saturated itself into a **perfect mirror**: the bond impedance diverges ($Z_{\text{eff}} = Z_0/\sqrt{S} \to \infty$), so a wave attempting to propagate past it is **totally reflected** ($|\Gamma| = 1$). This is the **AVE universal horizon** — and matter is the energy this mirror traps.
+
+> **On the sign of $\Gamma$ — which side of the mirror you stand on.** A perfect mirror is a perfect mirror; calling it "open" or "short" is only your vantage. From *outside* (the vacuum) the wall is a high-impedance **open** (voltage antinode, $\Gamma_V = +1$); from *inside* (the trapped soliton) it is a **short** (displacement node, $\Gamma = -1$). These are the same wall, related by the reflection-sphere Möbius map $Z \leftrightarrow 1/Z$ (which sends $\Gamma \to -\Gamma$). **Only the magnitude is physical** — Axiom 3 minimizes $|\Gamma|^2$, never the sign. The gauge-invariant content is $|\Gamma| = 1$ and $Z_{\text{eff}} \to \infty$, confirmed by direct measurement (observable-battery, 2026-06-06) and proven algebraically (the impedance Smith chart is the $SL(2,\mathbb{C})$ spinor action on the reflection sphere). The legacy "$\Gamma = -1$" label throughout the corpus denotes this $|\Gamma| = 1$ wall in the inside-the-soliton (displacement) convention.
 
 **Beyond $A = 1$: Regime IV.** The bond does not break. Instead, the substrate **phase-transitions** to a different state — **Regime IV pre-geodesic plasma** (the K4 lattice's parent medium). This is the same plasma found in BH interiors and pre-K4 cosmology (cosmology "bottle in freezer" framework). The substrate beyond $A = 1$ is **not damaged; it is in a different phase**.
 
 ### The universal horizon
 
-The $\Gamma = -1$ boundary at $A = 1$ is the same mechanism that produces:
+The same total-reflection wall at $A = 1$ ($|\Gamma| = 1$; legacy "$\Gamma = -1$") is the mechanism that produces:
 
 - **BH event horizons** (gravitational strain saturation; see [AVE BH Horizon Area Theorem](../vol3/cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md): $r_{\text{sat}} = 7GM/c^2 = 3.5 r_s$)
 - **Schwinger pair-production fields** (electric-field saturation at $V_{\text{SNAP}} = 511$ kV; see [Pair Production Axiom Derivation](../vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md))
