@@ -410,7 +410,69 @@ load-bearing item.
 
 ## §6 — Honest ledger + open items
 
-*[scaffold — filled in a following commit]*
+### Closing consistency-vs-emergence ledger (as filled)
+
+| § | Content | Class (as filled) | Verdict |
+|---|---|---|---|
+| §1 | $\mathrm{Re}_q$ = substrate loss tangent $\delta_{\text{AVE}}$; laminar↔turbulent = quantum↔classical | **consistency (taxonomic)** | $\mathrm{Re}_q$ is canonical $\delta_{\text{AVE}}$ specialized; Class-1 definitional, predicts no number alone |
+| §2 | Central table: 5 coherence states on the $\mathrm{Re}_q$ spectrum | **consistency (synthesis)** | Every row leaf-pinned; ties Q-factor + Kuramoto + temporal-classifier; no new primitive |
+| §3 | frictionless⟺coherence⟺low $\mathrm{Re}_q$; $\alpha$ = intrinsic viscosity floor | **consistency / identity** | $\alpha=1/Q_{\text{tank}}$ canonical identity; decoherence = external channel beyond the floor |
+| §4 | CFD lens (Beltrami / Re-transition / shedding / reconnection) | **consistency (lens)** | Intuition only; inherits `historical-precedents.md:39` echo-not-chord ceiling; phase-space caveat load-bearing |
+| §5 | does $\mathrm{Re}_q$ / VFD-ramp-vs-leak predict a decoherence RATE? | **emergence candidate → candidate-scaling, description-leaning** | Rate FORM substrate-native ($\Gamma_\phi\sim\delta_{\text{AVE}}^{\text{ext}}\omega_C$); one $\alpha$-specific dimensional candidate offered; **NOT a closed emergence claim** — needs a derived $\delta_{\text{AVE}}^{\text{ext}}$ |
+
+**Net.** §1–4 are consistency-class (taxonomy / synthesis / identity / lens). §5 is the sole emergence
+*candidate*, and it lands honestly at *candidate-scaling* — concrete forms, no closed AVE-distinct
+number yet. The whole doc inherits the consistency-class ceiling of its sources; nothing here promotes
+past it. The temporal-classifier leaf already made the load-bearing honesty call this doc defers to:
+the $\delta_{\text{AVE}}\leftrightarrow$Reynolds unification is "*a useful classification scheme, not
+a falsifiable AVE-distinct prediction*" until one value is forward-derived
+(`temporal-saturation-regime-classifier.md:310`).
+
+**SM-counterfactual (discrimination honesty).** SM already has both a Reynolds number (fluid) and a
+loss tangent (EM) — distinct dimensionless ratios per discipline. The *only* AVE-distinct content on
+offer is the claim that the electron's coherence ratio, the fluid Reynolds ratio, and the cavity-QED
+$g/\kappa$ all trace to the *same* substrate kernel $S(A)$. That claim is real but **taxonomic until
+the trace is demonstrated for one system** (§5 step 3). This doc does not over-headline it.
+
+### Open-items queue
+
+1. **$\mathrm{Re}_q\to$ coherence-time scaling (the §5 promotion path — load-bearing).** Derive
+   $\delta_{\text{AVE}}^{\text{ext}}$ (equivalently $Q_{\text{eff}}$) for **one** named electron
+   environment from $S(A)$ + the boundary-leak geometry; transmon boundary-node channel first
+   ($\gamma=\tfrac12 Z_0/\omega_0 L_{eff}$, `transmon-decoherence.md:32`). Predict
+   $T_{\text{coh}}=Q_{\text{eff}}/\omega_C$; check against a measured coherence time. Success here is
+   what would move §5 from candidate-scaling to a closed emergence prediction.
+   *(IP-divide note: keep this on the substrate-physics side; the QC-device application leaves are
+   in AVE-Metamaterials per `transmon-decoherence.md:18`.)*
+2. **Annihilation = vortex-reconnection check (the §4 candidate).** Test whether $e^-+e^+\to\gamma\gamma$
+   is a phase-space reconnection of two opposite-helicity $(2,3)$ loops (time-reverse of genesis,
+   `pair-production-axiom-derivation.md`). **Must be measured in phase-space coordinates**
+   ($V_{inc}/V_{ref}$, Clifford torus) per the §4 A46 caveat — a real-space lattice-Cartesian
+   reconnection metric would be uninformative.
+3. **Two-yields overload resolution (§1).** If a downstream driver needs a single "yield" threshold,
+   it must name its subject (interior field amplitude → dielectric-saturation yield; embedded-matter
+   drag → Bingham-slipstream yield). Recorded, not resolved-by-fiat; left open for the test that needs it.
+4. **VFD-ramp threshold exponent (§5 step 2).** The $\dot\omega_{\text{crit}}\sim(\alpha\omega_C)^2$
+   dimensional candidate and the standard $\propto\dot\omega^{3/4}$ autoresonance amplitude-threshold
+   need reconciling against autoresonance theory (Fajans–Friedland), and the $\alpha$-prefactor shown
+   to differ from a generic resonator, before either is more than consistency-class.
+
+### KB-leaf placement — FLAG, do not create (return question to orchestrator/auditor)
+
+This doc and the companion rotor-synthesis doc are two lenses on **one** object (the electron rotor),
+both consistency-class, mutually cross-referenced. Two defensible distillation targets:
+
+- **(a) One shared KB leaf** — e.g. `electron-rotor-coherence-synthesis.md` hosting the rotor-ontology
+  sections (companion §§1–6) *and* a coherence-Reynolds subsection (this doc's §§1–5), since they share
+  the same canonical sources and the same echo-not-chord ceiling.
+- **(b) Two leaves** — the rotor doc distills to its own ontology leaf; this doc becomes a `temporal-
+  saturation-regime-classifier`-adjacent **electron-specialization** leaf (it is literally
+  $\delta_{\text{AVE}}$ applied to the electron), cross-linking the rotor leaf.
+
+Recommendation leans **(b)**: this doc's natural home is *beside* `temporal-saturation-regime-classifier.md`
+(it specializes that leaf), while the rotor doc's home is in Vol 2 particle-topology. But both are
+viable and the call is a corpus-placement decision. **Per incremental-write + lane discipline I do not
+create either leaf** — surfaced here for the auditor/orchestrator to land at promotion time.
 
 ---
 
