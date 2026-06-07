@@ -13,6 +13,15 @@ Test whether the V0-fork (2,3) degradation (Arm-C evolved, modal coherence 12/12
 - **P0 — diagnostic (PENDING; implementor; NO new engine code).** Re-run Arm-C evolution + the extractor; split the degradation into `w1`(the "2"/Cosserat) vs `w2`(the "3"/LC) vs time. Prediction: "2" leaks, "3" holds (A). Outcomes (B) "3" also leaks → integrator won't help, redirect; (C) neither → metric artifact.
 - **P1 — geometric integrator (CONDITIONAL on P0=(A)).** Add SO(3)/quaternion-exp-map ω-integrator (KEEP-BOTH flag); re-run Arm-C flat-Verlet vs geometric; does it conserve the "2"?
 
+## §1.5 Phase 0.5 — quasi-stable (2,3) survival test (REDIRECT, Grant-greenlit 2026-06-06)
+
+Phase-0 (B) showed the Arm-C control over-saturates (`A²max=1.69` seed → ~6 pumped), so V0 never had a clean conservation regime. Find one and re-test survival.
+- **Key variable: sources-OFF free evolution** (impose the (2,3), kill the pumping sources → `A²max` can't be pumped past saturation) × an **amplitude sweep** (~0.10–0.40; `A²max=1` ≈ amp 0.31). Use the observable battery channels (saturation/regime + `A²max(t)`, the (2,3) extractor `w1/w2`, retention) — the amplitude-sweep is finally pointed at its purpose.
+- **Find the Goldilocks band:** amplitude (sources-off) where the (2,3) *forms* (extractor recovers 2,3 at seed) AND `A²max(t) ≈ const` (sub-saturation, quasi-stable).
+- **Re-test survival there:** does `w1=2 / w2=3` hold over evolution, or degrade?
+
+**Discriminators:** **(I)** band exists + (2,3) survives → physically conserved; V0 "fail" was purely over-saturation → fork RESOLVED (the (2,3) is innocent). **(II)** band exists + (2,3) degrades → genuine physics degradation, independent of amplitude. **(III)** no band (the (2,3) only forms *with* saturation) → the imposed-(2,3) ansatz can't be both formed and stable (a seed/ansatz finding). Honest report of whichever; `substrate-native-check` CP8 (sources-off free evolution is closer to precursor-not-plant; note the imposed-(2,3) is still a plant).
+
 ## §2 Orchestrator checkpoints
 
 1. **P0 verdict** — which half degrades (A/B/C)? Gates whether P1 is built at all (don't build the integrator unless the leak is in its sector).
