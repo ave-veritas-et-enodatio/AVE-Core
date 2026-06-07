@@ -395,7 +395,115 @@ new number). **Not** a Class-D emergence — the AVE-distinct content is the
 
 ## §5 — Derivation: spin (helicity) stabilizes the unknot
 
-*[scaffold — filled in a following commit]*
+**Target.** The electron is the `0₁` *unknot* — and the corpus's own
+millennium-prize leaf says a $c=0$ object has **no crossing-number protection and
+radiates freely.** So what holds the electron together? This section argues, from
+canonical inputs, that the answer is **field helicity** (the field-theoretic face
+of spin), and that a spinless ($H=0$) loop should *dissolve* — a candidate
+mechanism for the genesis MODE-III result. Honestly classified, with an explicit
+statement of what the atomic-orbital sims do and do not test.
+
+**Step 1 — the electron is the `0₁` unknot ($c=0$).** `electron-unknot.md:9`:
+*"The Electron: The Fundamental Unknot ($0_1$)."* The unknot has crossing number
+$c=0$. (Distinct from the $(2,3)$: the $(2,q)$ torus knots classify the **phase
+winding** on the loop, *not* the loop's spatial knotting — *"the electron is an
+unknot, $0_1$ … $c=3$ crossings → electron phase winding"*,
+`src/ave/core/constants.py:689-695`. Spatially $c=0$; the $(2,3)$ is the phasor
+pattern carried on it.)
+
+**Step 2 — $c=0$ ⇒ no crossing-number protection.** `poincare-conjecture.md:36`:
+*"a simply connected perturbation has $c=0$ — no impedance mirror, no topological
+barrier. Energy stored in curvature radiates freely."* And `:48`: *"A simply
+connected, closed 3-manifold has no topological protection ($c=0$)."* The
+crossing-number mirror that protects the proton (the $(2,5)$ cinquefoil, $c=5$)
+is **not available to the electron**. Two stabilizers must then be distinguished —
+they are different physics:
+
+- **Spatial confinement** — the $\Gamma=-1$ Meissner bag (§3) holds the energy
+  *in a region*.
+- **Internal coherence** — what keeps the confined content a *coherent linked-flux
+  loop* instead of relaxing into incoherent oscillation.
+
+The Meissner bag gives the first. It does **not**, by itself, give the second: a
+bag can confine energy that is nonetheless dissolving internally. Step 3 supplies
+the second.
+
+**Step 3 — the remaining stabilizer is field helicity.** The electron is a
+**Beltrami standing wave**: $\nabla\times\mathbf{A}=k\mathbf{A}$
+(`electron-unknot.md:13`). Its magnetic helicity is then strictly positive even
+at $c=0$:
+$$H=\int \mathbf{A}\cdot\mathbf{B}\,dV=\int \mathbf{A}\cdot(\nabla\times\mathbf{A})\,dV=k\int|\mathbf{A}|^2\,dV>0.$$
+Helicity is the *linking number of the field lines* — a topological invariant of
+the **field**, not of the spatial loop. So the unknot ($c=0$ spatially) still
+carries a conserved field-topological charge ($H>0$). The conservation +
+stability backing is standard plasma physics (cited as external math, not as AVE
+corpus): **Woltjer (1958)** — $H=\int\mathbf{A}\cdot\mathbf{B}\,dV$ is invariant
+in an ideal medium; **Taylor (1974)** — a relaxing field reaches the *minimum
+energy state at fixed helicity*, which is exactly a Beltrami (force-free)
+field. The electron, being Beltrami with $H>0$, **is** the minimum-energy state
+at its helicity: protected by helicity conservation, not by crossing number. This
+is the field-theoretic face of "spin stabilizes the loop." (Consistent with the
+verdict-II engine finding *"charge=helicity confirms"*, `historical-precedents.md:28`,
+and with spin = the rotor's phase-winding from §4.)
+
+**Step 4 — a spinless ($H=0$) loop dissolves: a *candidate* MODE-III mechanism.**
+Impose a loop with $H=0$ (non-Beltrami, not force-free): it has **neither**
+crossing-number protection ($c=0$) **nor** helicity protection ($H=0$). By
+`poincare-conjecture.md:36` it radiates freely — it dissolves. This is a
+*candidate* reading of the genesis MODE-III dissolution: the imposed pair
+dissolved at step ~11 (`…genesis-next-steps-scope.md` §0; the audit reports a
+W2 run "`…optionD…result.md`… **Verdict MODE III**", §8-C2 — see the flag below).
+It aligns with `pair-production-axiom-derivation.md:85`: without C3 phase
+coherence *"the blocked KE cannot resolve into a topologically coherent standing
+wave (dissipates instead)"* — a phase-coherent loop carries linked flux ($H>0$);
+a phase-incoherent imposed loop has $H\approx0$ and dissolves. The §5 helicity
+requirement and the genesis **Fork D (the dropped C3 phase-gate)** are two
+descriptions of one requirement: *the loop must be seeded with the right linked
+flux (helicity / phase coherence) or it dissolves.*
+
+> **Honest flags (verify-before-cite / evidence-framing / flag-don't-fix).**
+> (a) The MODE-III result doc
+> `research/2026-06-06_optionD-impose-under-reflective-confinement-result.md`
+> and its script `phase5_optionD_under_reflective_confinement.py` are **not
+> committed on any git ref**; they are referenced only in the orchestration audit
+> (`…genesis-next-steps-scope.md:62`). I therefore cite the *orchestration
+> finding*, not the (absent) result doc, and flag the missing artifact in §0/§7.
+> (b) Helicity-seeding is **one** candidate for MODE-III, **not** the audit's
+> leading one. The audit's primary diagnosis is **Fork A — amplitude-gating**
+> (the rest-energy-calibrated impose gives $A^2_\mu\approx0.23$, $S_\mu\approx0.88$,
+> $\Gamma\approx-0.03$: *the wall never engages*; `…scope.md:63,84`, "the genesis
+> blocker"), which is **mechanism-independent of helicity**. So the honest claim
+> is: helicity-seeding is a candidate aligned with Fork D; it does **not**
+> supersede the Fork-A amplitude diagnosis. This is a hypothesis, not a result.
+
+**Step 5 — the atomic-orbital sims are scalar/spinless cavity models (so this is
+untested, not contradicted).** I checked the atomic-orbital machinery directly:
+
+- `src/ave/solvers/radial_eigenvalue.py` solves the soliton **$(n,l)$** radial
+  standing-wave condition for the Op6 eigenvalue $E\sim Z^2 R_y/n^2$ (docstring +
+  `radial_eigenvalue_abcd()` bracket `Z²Ry/n²`). The quantum numbers are $(n,l)$
+  — **there is no spin and no helicity quantum number anywhere in the solver.**
+- `de-broglie-standing-wave.md:212-215`: $E_{0,n}=Z^2R_y/n^2$ is *"the Op6
+  eigenvalue of a soliton (Axiom 4) in a $1/r$ Coulomb cavity (Axiom 2), derived
+  from energy minimisation"*; the equilibrium radius comes from $dE/dR=0$ in that
+  external well (`:201-207`). The ionization-energy chain inherits the same
+  Coulomb-cavity framing.
+
+In every case **stability comes from the external Coulomb cavity (the nucleus's
+$1/r$ well), not from the electron's own helicity.** These are scalar
+cavity-eigenvalue models. Therefore they **neither test nor contradict** §5: they
+sidestep the free-electron self-stabilization question by supplying an external
+well. **The free electron — no external cavity — is exactly where helicity is
+load-bearing.** (This is the answer to the audit's "is this tested?" — it is not.)
+
+**Classification.** Class **C** consistency + **candidate mechanism**. The
+helicity-stabilization argument is *structural*, assembled from canonical inputs
+(`poincare-conjecture.md:36,48`; `electron-unknot.md:13` Beltrami) plus standard
+Woltjer/Taylor plasma theory; it adds no primitive and earns no emergence band.
+The dissolution-of-a-spinless-loop is a **hypothesis** (candidate for MODE-III,
+aligned with Fork D, not superseding Fork A); it is **not** a confirmed result,
+and the atomic sims do not bear on it. Honest status: *untested, not
+contradicted.*
 
 ## §6 — Charge sign from cosmic-frame chirality
 
