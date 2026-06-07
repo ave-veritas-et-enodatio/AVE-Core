@@ -140,7 +140,72 @@ intuition aid, not a derivation.
 
 ## §2 — The EE map: E ↔ nodes (shunt C), B ↔ bonds (series L)
 
-*[scaffold — filled in a following commit]*
+§1 said the substrate has two strain channels. §2 says *where they live* in the
+lattice, and that the engine is already built exactly this way. This is the
+spine: the LC-ladder topology.
+
+**The ladder.** A TLM / LC-ladder has a fixed topology: **shunt capacitors to
+ground at each node, series inductors on each bond between nodes.** Voltage
+develops across the shunt-C *at* the node; current/flux flows through the
+series-L *along* the bond. Mapping §1's two channels onto this:
+
+- $\mathbf{E}$ (voltage, translational) **charges the shunt capacitance AT the
+  node.** The engine's node voltage is `V_inc` — a per-node array
+  (`src/ave/core/k4_tlm.py:192`, indexed `[nx,ny,nz,4]`: node × 4 K4 ports). The
+  local strain is read straight off it: $A=|V_{inc}|/V_{SNAP}$
+  (`k4_tlm.py:264`). E lives at nodes.
+- $\mathbf{B}$ (current/flux, microrotational) **threads the series inductance ON
+  the bond, between nodes.** The engine's bond flux is `Φ_link`, the *per-bond
+  magnetic flux linkage* $\Phi_{link}=\int V_{bond}\,dt$ (`k4_tlm.py:206`),
+  accumulated each step as $\Phi_{link}{+}{=}V_{avg}\,dt$ with
+  $V_{avg}=\tfrac12(V_{ref,A}+V_{ref,B})$ (`k4_tlm.py:371,386`). B lives on bonds.
+
+This is not an analogy bolted on after the fact — it is the data layout of the
+canonical K4-TLM engine. The EE-first mapping table makes it canonical:
+*"Translational E DOFs at node → Capacitor; Microrotational B DOFs at node →
+Inductive flywheel; Bond connecting nodes → Distributed transmission-line
+element"* (`ave-ee-first-mapping` §4, mirrored from
+`common/translation-tables/translation-circuit.md`).
+
+**Three consequences fall straight out.**
+
+1. **Charge = E-termination on a node.** Charge is where the translational
+   ($\mathbf{E}$) strain *terminates* — a node where the shunt-C carries a net
+   capacitive termination of E-flux. This is the EE reading of Axiom 2 (charge =
+   geometric dislocation, $\xi_{topo}=e/\ell_{node}$): a charge is a node where
+   E-flux ends. Charge is a **node / capacitive** property.
+
+2. **Mass = $\tfrac12 L I^2$ of the bond-loop.** Mass is the *inductive*
+   (magnetic) energy of the current circulating the closed bond-loop. Verbatim
+   from `resonant-lc-solitons.md:17-23`: $E_{mag}=\tfrac12
+   L_e I_{max}^2=\tfrac12 m_ec^2$, and Virial balance gives $E_{total}=m_ec^2$.
+   That is the bond/inductive face of the Mass-Closure Theorem $mc^2=E_{reactive}$
+   (`vol2/claim-quality.md:1199`). Mass is a **bond / inductive** property. (Charge
+   on the node, mass on the bond — already the dual-reactance split that §3 and §4
+   make load-bearing.)
+
+3. **The $\Gamma=-1$ wall = node capacitor $C_{eff}\to\infty$ short.** As the
+   node strain $\Delta\phi\to\alpha$ (Axiom-4 saturation), the node shunt-C
+   diverges: $C_{eff}=C_0/\sqrt{1-(\Delta\phi/\alpha)^2}\to\infty$
+   (`resonant-lc-solitons.md:32`). Then $Z_{core}=\sqrt{\mu_0/C_{eff}}\to 0\,\Omega$
+   (`:38`), and $\Gamma=(0-Z_0)/(0+Z_0)=-1$ — a Perfect Short-Circuit Boundary
+   (`:45-48`). The confining mirror is a **saturated node shorting to 0 Ω**.
+
+**Polarity flag (load-bearing; resolved in §3).** Consequence 3 is the
+*capacitive* reading of the wall (node $C_{eff}\to\infty\Rightarrow Z\to0$). But
+the live engine reaches $Z\to0$ via the *magnetic* branch — the asymmetric
+Meissner kernel $Z_{eff}=Z_0\sqrt{S_\mu/S_\varepsilon}\to0$ as $S_\mu\to0$
+(`k4_cosserat_coupling.py:364,368`), and the genesis audit (`…genesis-next-steps-scope.md:71-74`,
+C4) notes the engine's *symmetric* default $z_{local}=Z_0/\sqrt{S}\to\infty$ is
+the **inverse** (open) polarity. Two reactive routes to the same $\Gamma=-1$:
+$C\to\infty$ (capacitive, node) vs $\mu\to0$ (inductive/magnetic, Meissner).
+They are the two halves of the dual reactance — §3 resolves which one cages the
+mass.
+
+**Classification.** Class **A** identity + **B** manifestation. The node-C /
+bond-L assignment IS how the engine is constructed; the three consequences are
+restatements of canonical results (`resonant-lc-solitons.md`,
+`vol2/claim-quality.md:1199`). No new primitive.
 
 ## §3 — Interstitial Meissner / maglev confinement
 
