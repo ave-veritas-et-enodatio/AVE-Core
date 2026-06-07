@@ -571,7 +571,83 @@ $e^-$-handedness convention is corpus-contradictory (flag above).
 
 ## §7 — Consequences and open derivations queued
 
-*[scaffold — filled in a following commit]*
+### (a) Engine consequence — mass is sub-node, spin is lattice
+
+The synthesis exposes a concrete solver requirement. From §3, **mass is
+interstitial**: the B-vortex bag floats in the pocket *between* nodes — its energy
+density peaks in the bond interior, a *sub-$\ell_{node}$* field structure (the
+density-peak-vs-centroid discipline applies: sample the bond interior, not a
+node). From §4, **spin is a lattice property**: the bipartite double-cover ($2$
+sublattices $\times\,2\pi=4\pi$) is the K4 A→B identity itself. So a faithful
+electron solver must **resolve the sub-node field AND preserve the K4 bipartite
+identity at once** — which is exactly the canonical dual-engine gap: K4-TLM
+carries the bipartite lattice identity but tracks node ports (no dynamical
+bond-state); the Master-Equation FDTD resolves the sub-node field but has no K4
+bipartite structure (`…genesis-next-steps-scope.md` §5 GAP-1/2; scale caveat
+`l3-electron-soliton-synthesis.md:26` "sub-$\ell_{node}$ … or a different scale",
+audit C5). substrate-native CP2: mass = V-sector interstitial field; spin =
+bipartite lattice identity — the solver must hold both sectors.
+
+### (b) Genesis reframe — the self-Meissner threshold and seeded helicity
+
+The brief asked to reframe "Forks A/B." Honest correction (verify-before-cite):
+the genesis doc enumerates **Forks A/B/C/D** (§9). The synthesis touches three:
+
+- **Fork A (amplitude / calibration crux) — reframed via §3 self-caging.** Fork A
+  is the ~4× tension: rest-energy-sized impose ($A^2_\mu\approx0.23$, no wall) vs
+  short-its-own-bond ($A^2\to1$, pumps). The §3 self-Meissner picture *names* the
+  threshold: a stable loop must be **strong enough to expel itself** — the
+  amplitude at which its own B saturates the surrounding nodes ($A^2_\mu\to1$) and
+  weaves its own $\Gamma=-1$ wall. Self-consistency requires the rest-energy
+  amplitude to *coincide* with that self-Meissner threshold. The observed ~4× gap
+  then reads as the engine saying the **lattice-scale** pair is not self-consistent
+  — which **links Fork A to Fork C (scale)**: the self-consistent electron may be
+  sub-$\ell_{node}$. *This is a reframe/diagnosis, not a fix — the amplitude gap is
+  real (`…scope.md:63`, "the genesis blocker").*
+- **Fork B (polarity) — addressed by §3.** The confining wall is the **magnetic**
+  branch ($\mu\to0\Rightarrow Z\to0$ Meissner), not the engine's symmetric default
+  $Z\to\infty$ (open). §3 resolves the polarity *direction* (low-Z short via the
+  magnetic sector); the capacitive-vs-magnetic *primacy* remains the open part.
+- **Fork D (C3 phase-coherence) — reframed via §5.** "Spin/helicity must be seeded"
+  is the same requirement as the dropped C3 phase-gate: a loop without linked flux
+  ($H=0$) / phase coherence dissolves. §5 supplies the field-topological reading.
+
+*(Honest: the brief's "Fork A/B" undercounts; the reframes land on A, B, and D.
+None resolve the genesis blocker, which remains Fork A amplitude-gating.)*
+
+### (c) Open derivations queued (with their honest status)
+
+1. **rotor-frequency = zitterbewegung, rigorously.** §4 *identified* zitter
+   $=2\omega_C$ by the $4\pi$ bipartite-lobe count. Open: derive the internal
+   $2\omega_C$ tick **from the K4 scatter+connect dynamics directly** (engine
+   measurement), not from the counting argument alone.
+2. **$\alpha$ as the London-depth leak, $Q=1/\alpha$.** §3 flagged the
+   London-penetration caveat; the per-cycle reactive leak $1/Q=\alpha$
+   (`theorem-3-1-q-factor.md:81`) is the natural analog. Open: formalize
+   $\lambda_L\leftrightarrow\alpha$ (the electron's finite-Q = its Meissner
+   penetration depth) as a derivation, not an analogy.
+3. **the spin ↔ charge-sign chirality lock.** §6 gave the qualitative
+   $\Omega_{freeze}\to$chirality$\to$charge-sign chain; the **quantitative**
+   coupling is conjectural ($\delta_\chi\sim\alpha^2$, not derived,
+   `omega-freeze:100`), **and** the $e^-$-handedness convention is corpus-
+   contradictory (§6 flag). Open: derive the lock *and* resolve $e^-=$ RH-vs-LH.
+
+### Surfaced for the auditor / Grant queue (I surface; the auditor lands)
+
+- **Canonical contradiction** (§6): `chirality-and-antimatter.md:10` ($e^-=$ RH)
+  vs `pair-production-axiom-derivation.md:25` ($e^-=$ LH). Needs adjudication; a
+  manual/`COLLABORATION_NOTES` entry is the auditor's to land, not mine.
+- **Missing artifact**: the MODE-III result doc
+  `research/2026-06-06_optionD-impose-under-reflective-confinement-result.md` +
+  `phase5_optionD_under_reflective_confinement.py` are referenced in
+  `…genesis-next-steps-scope.md:62` (§8-C2) but **not committed on any git ref**.
+  Either they live uncommitted in the `genesis2-wt` worktree (§6 of that doc) or
+  the audit cited planned artifacts; needs locating/committing before §5's
+  MODE-III claim has a citable corpus anchor.
+
+**Classification.** Meta / forward-scoping. No emergence claim. Consistent with
+the whole-document ceiling: consistency-class synthesis, no new primitive
+(`historical-precedents.md:39`).
 
 ---
 
