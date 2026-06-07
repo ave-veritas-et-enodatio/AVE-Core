@@ -3,7 +3,8 @@
 **Date:** 2026-06-07
 **Lane:** implementer (research-doc — consistency-class synthesis/mapping)
 **Branch:** `analysis/2026-06-07-electron-coherence-reynolds` (off `origin/main` @ `d3065c1c`)
-**Status:** scaffold — sections filled one-per-commit (incremental-write discipline).
+**Status:** complete — §§0–6 filled (incremental-write, one section per commit); pre-push
+verify-before-cite pass applied (BCS/δ_AVE line refs corrected).
 **Companion:** [`research/2026-06-07_electron-interstitial-rotor-synthesis.md`](2026-06-07_electron-interstitial-rotor-synthesis.md)
 (branch `analysis/2026-06-07-electron-rotor-synthesis`) — established: electron = frictionless
 B-rotor in a self-dug Meissner cage; mass = ½LI²; spin = bipartite double-cover; qubit = rotor
@@ -82,7 +83,7 @@ $$
 **$\mathrm{Re}_q$ is not a new primitive — it is the substrate loss tangent.** The corpus already
 carries this ratio under its substrate-native name, the **Axiom-4 temporal projection**
 $\delta_{\text{AVE}} \equiv t_{\text{sat}}/t_{\text{period}}$
-(`temporal-saturation-regime-classifier.md:29`) — the fraction of each characteristic period the
+(`temporal-saturation-regime-classifier.md:26`) — the fraction of each characteristic period the
 system spends past yield (Op14 firing, real-power dissipation). That leaf *already* names the
 fluid Reynolds classification as one of $\delta_{\text{AVE}}$'s established-physics homologs
 ("the system's distance from the inviscid limit", `:33`), alongside the EM loss tangent
@@ -100,7 +101,7 @@ per-cycle leak $1/Q$); each denominator is the coherence binding (phase-lock cou
 coherent coupling $g$, stored-reactive cycling). When the binding wins, $\mathrm{Re}_q<1$: laminar,
 phase-preserving, **coherent**. When the flow wins, $\mathrm{Re}_q>1$: turbulent, real-power,
 **decohered**. The Kuramoto form is exact for the superconducting case
-(`bcs-alternative-framework.md:28`: phase-lock fires when $\xi(T)<K$); the cavity-QED form is the
+(`bcs-alternative-framework.md:36`: phase-lock fires when $\xi(T)<K$); the cavity-QED form is the
 closest established-physics homolog the temporal-classifier leaf identifies
 (`:142`: $g/\kappa = 1/\delta_{\text{AVE}}$).
 
@@ -175,10 +176,10 @@ $\kappa/g$. Low $\mathrm{Re}_q$ = laminar = reactive/lossless = **coherent**; hi
 | Coherence state | $\mathrm{Re}_q$ regime | AVE substrate regime | Viscosity / friction source | Coherence status | Canonical leaf |
 |---|---|---|---|---|---|
 | **Qubit** — single frictionless rotor | $\mathrm{Re}_q \to 0$ | Sub-yield reactive LC tank ($0_1$ unknot) in self-dug Meissner cage; Regime I, $\delta_{\text{AVE}}\to0$, $Q=1/\alpha$ | **London/$\alpha$ leak**: per-cycle reactive leak $1/Q=\alpha$ through the $\Gamma=-1$ TIR cage wall (intrinsic linewidth). Actual decoherence needs an *external* boundary-node channel | **Coherent** — lossless / laminar (within thread-lifetime) | `theorem-3-1-q-factor.md:38,81` ($Q=1/\alpha$); `transmon-decoherence.md:12,32` (boundary-node noise + $\gamma$); `temporal-saturation-regime-classifier.md:42` (lossless row) |
-| **Cooper pair** — two Kuramoto phase-locked rotors | slightly higher (still $<1$) | Two $0_1$ rotors phase-locked, order parameter $R\to1$, zero relative $d\Phi/dt$ | **Dissipationless**: phase-lock *annihilates* the relative inductive drag ($\Delta(dB/dt)_{\text{rel}}=0\Rightarrow$ resistance $=0$) | **Coherent** — dissipationless / laminar | `bcs-alternative-framework.md:30,38,42` (Kuramoto $R=1$, "frictionless topological gear train") |
+| **Cooper pair** — two Kuramoto phase-locked rotors | slightly higher (still $<1$) | Two $0_1$ rotors phase-locked, order parameter $R\to1$, zero relative $d\Phi/dt$ | **Dissipationless**: phase-lock *annihilates* the relative inductive drag ($\Delta(dB/dt)_{\text{rel}}=0\Rightarrow$ resistance $=0$) | **Coherent** — dissipationless / laminar | `bcs-alternative-framework.md:36,42,44` (Kuramoto $R=1$ :36, zero relative $d\Phi/dt$ :42, "frictionless topological gear train" :44) |
 | **BEC / superfluid** — macroscopic laminar | low, macroscopic | $N$ rotors globally phase-locked at $\Omega_{\text{macro}}$; Meissner state below $T_c$ | **None** (below $T_c$): macroscopic synchronization, no relative-phase drag; Meissner expulsion | **Coherent** — macroscopic laminar | `bcs-alternative-framework.md:44` (macroscopic phase-lock); `temporal-saturation-regime-classifier.md:72` (superconductor-below-$T_c$ = lossless row) |
 | **Atom / molecule** — cavity-stabilized | moderate | Op6 Coulomb-cavity standing wave; bound but radiatively coupled to environment | **Finite-Q radiative + thermal coupling**: cyclic dissipation per cavity decay; cavity-resonator $Q=\omega U/P_{\text{loss}}$ | **Coherent within cavity lifetime** — cyclic | `temporal-saturation-regime-classifier.md:67` (cavity-resonator = cyclic row); de-Broglie standing-wave / Op6 cavity (companion §4 cross-ref) |
-| **Thermal / classical** — decohered | $\mathrm{Re}_q > 1$ | $A\to1$, Op14 fires continuously, real-power dominated; Kuramoto desync ($\xi(T)>K$) | **Full viscous drag**: thermal acoustic jitter desyncs the rotor gas → frequency mismatch → micro-inductive drag = electrical **resistance** | **Decohered** — turbulent / classical | `bcs-alternative-framework.md:26,28` (thermal desync = resistance); `temporal-saturation-regime-classifier.md:44` (lossy row); `19_phase_transition_turbulence.tex:41` (Re$>$Re$_c$ turbulent) |
+| **Thermal / classical** — decohered | $\mathrm{Re}_q > 1$ | $A\to1$, Op14 fires continuously, real-power dominated; Kuramoto desync ($\xi(T)>K$) | **Full viscous drag**: thermal acoustic jitter desyncs the rotor gas → frequency mismatch → micro-inductive drag = electrical **resistance** | **Decohered** — turbulent / classical | `bcs-alternative-framework.md:26,36` (drag = resistance :26; desync $\xi(T)>K$ :36); `temporal-saturation-regime-classifier.md:44` (lossy row); `19_phase_transition_turbulence.tex:41` (Re$>$Re$_c$ turbulent) |
 
 **One-line spine.** Coherence is the laminar (low-$\mathrm{Re}_q$, lossless-reactive) end of the
 substrate's loss-tangent axis; classicality is the turbulent (high-$\mathrm{Re}_q$, real-power)
@@ -480,7 +481,7 @@ create either leaf** — surfaced here for the auditor/orchestrator to land at p
 
 **Substrate-native loss tangent / Reynolds axis**
 - `manuscript/ave-kb/common/temporal-saturation-regime-classifier.md` — $\delta_{\text{AVE}}=
-  t_{\text{sat}}/t_{\text{period}}$ substrate loss tangent (:29); maps to fluid Reynolds
+  t_{\text{sat}}/t_{\text{period}}$ substrate loss tangent (:26); maps to fluid Reynolds
   (:33, :50-59), cavity-QED $g/\kappa=1/\delta_{\text{AVE}}$ (:142), quantum T1/T2 (:212-223);
   "$\delta_{\text{AVE}}\times N$ = Reynolds analogue" (:302); TAXONOMIC-not-derivational (:310).
 - `manuscript/vol_3_macroscopic/chapters/19_phase_transition_turbulence.tex` — Re→drive parameter
