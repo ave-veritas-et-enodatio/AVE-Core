@@ -316,7 +316,95 @@ not scale-free) — so the vortex-knot finally quantizes (`historical-precedents
 
 ## §5 — The VFD lens (autoresonant motor frame) + the emergence hook
 
-*[scaffold — filled in a following commit]*
+**Naming disambiguation (flag-don't-fix).** "VFD" here = **variable-frequency drive**, the EE device
+that runs a motor at a controlled, swept frequency. This collides with a corpus abbreviation: in
+AVE-Core "VFD" already labels **Vacuum Fluid Dynamics** (`manuscript/vol_4_engineering/chapters/
+02_vacuum_fluid_dynamics.tex`). They are unrelated; this section means the motor-drive device.
+Surfaced so a future reader does not merge the two.
+
+**The rotor is a motor; the genesis drive is its VFD.** The companion doc's electron is a B-rotor
+spinning at the Compton clock $\omega_C=c/\ell_{node}$. A motor's resonant frequency is not fixed: as
+the rotor loads up (amplitude $A$ rises toward yield), its mechanical/group eigenfrequency
+**down-regulates** along the quarter-arc,
+
+$$
+\Omega_{node}(A) \;=\; \omega_C\,(1-A^2)^{1/4}
+\qquad\text{(from } c_{shear}=c_0(1-r^2)^{1/4},\ \texttt{regime-equation-sets.md:23}\text{)},
+$$
+
+which is exactly the **Duffing softening** the autoresonant leaf describes: "*as a Duffing oscillator
+is driven toward its maximum amplitude, its local resonant frequency shifts*"
+(`autoresonant-dielectric-rupture.md:12`), and the genesis nucleation condition C2 is the
+phase-lock of that shifted resonance with the drive, "*$\Omega_{node}(A^2_{local})\approx
+\omega_{drive}$ — node's Duffing-shifted rotational resonance locks with incoming drive*"
+(`pair-production-axiom-derivation.md:84`). A **fixed-frequency** drive detunes and reflects (stalls);
+the cure is a VFD: an "*Autoresonant Regenerative Feedback Loop … a phase-locked loop (PLL) to sweep
+the driving … frequency downward [to track] the dropping resonant frequency*"
+(`autoresonant-dielectric-rupture.md:14`). The engine carries this as a class:
+`AutoresonantCWSource(CWSource)` with PLL frequency tracking (`vacuum_engine.py:678`, shifted-$\omega$
+at `:1358`), "*same mechanism as Propulsion Ch5 autoresonant rupture*" (`vacuum_engine.py:83`;
+AVE-Propulsion `05_autoresonant_dielectric_rupture.tex`). **Genesis = a VFD ramp** that rings the
+rotor up from $A\approx0$ to $A^2\ge1$ while chasing $\Omega_{node}$ down the quarter-arc.
+
+This closes the loop with coherence: a coherently-locked rotor is a VFD holding lock (laminar, low
+$\mathrm{Re}_q$); a rotor whose drive *loses* lock dumps its blocked KE incoherently — genesis
+condition C3 failing means the winding "*dissipates instead*" (`pair-production-axiom-derivation.md:85`).
+**Loss of VFD lock IS decoherence**, viewed from the drive side.
+
+### The emergence hook — does $\mathrm{Re}_q$ (or VFD-ramp-vs-leak) predict a decoherence RATE?
+
+This is the one place the doc reaches past consistency-class. Honest assessment, in three steps.
+
+**1. The rate FORM is substrate-native and exists.** From §3, the dephasing rate is the *opened*
+(external) loss tangent times the carrier clock:
+
+$$
+\boxed{\;\Gamma_\phi \;\sim\; \delta_{\text{AVE}}^{\,\text{ext}}\cdot\omega_C,
+\qquad T_{\text{coh}} \;\sim\; \frac{1}{\Gamma_\phi} \;=\; \frac{Q_{\text{eff}}}{\omega_C}\;}
+$$
+
+with $\omega_C=m_ec^2/\hbar\approx7.76\times10^{20}\,$rad/s fixed by canon (`theorem-3-1-q-factor.md:28`).
+This is a genuine scaling *form* — decoherence rate $=$ loss-tangent $\times$ Compton clock — and it
+is the same object the temporal-classifier leaf already carries as $\delta_{\text{AVE}}$.
+
+**2. The VFD-ramp-vs-leak competition gives a concrete threshold candidate.** Whether a VFD ramp
+holds lock (coherent) or slips (decoherent) is a Landau–Zener / autoresonance competition between the
+**chirp rate** $\dot\omega$ and the rotor's **linewidth** $\Delta\omega = \omega_C/Q = \alpha\,\omega_C$.
+The drive follows the resonance only while it does not chirp out of the linewidth within a coherence
+time; that gives a candidate threshold chirp rate
+
+$$
+\dot\omega_{\text{crit}} \;\sim\; \Delta\omega^2 \;=\; (\alpha\,\omega_C)^2
+\qquad\text{[dimensional candidate — my construction, NOT corpus-canonical; queued for §6].}
+$$
+
+Equivalently, in the standard autoresonance form (threshold *drive amplitude* $\propto
+\dot\omega^{\,3/4}$ for a Duffing oscillator), the AVE-distinct content is the **$\alpha$-set
+prefactor** — the rotor's linewidth $\alpha\omega_C$ fixes how slowly the genesis laser must sweep.
+That is a number, and it is $\alpha$-specific, which is what would make it AVE-distinct.
+
+**3. Honest verdict: candidate FORMS in hand; an AVE-distinct falsifiable NUMBER is not — yet.**
+Both pieces above are scaling *forms*, not closed predictions:
+
+- $\Gamma_\phi=\delta_{\text{AVE}}^{\,\text{ext}}\omega_C$ needs a **derived** $\delta_{\text{AVE}}^{\,\text{ext}}$
+  for a *named* environment. The temporal-classifier leaf is explicit that $\delta_{\text{AVE}}$ is
+  Class-1 **definitional / taxonomic**, and states the exact promotion recipe: "*pick one
+  classical-physics value … and FORWARD-PREDICT it from $S(A)$ + the $t_{sat}/t_{period}$ structure
+  for that specific system*" (`temporal-saturation-regime-classifier.md:310`). Until that one number
+  is derived, the form is a classifier, not an emergence prediction.
+- $\dot\omega_{\text{crit}}\sim(\alpha\omega_C)^2$ is a *dimensional* candidate and the
+  $\dot\omega^{3/4}$ amplitude-threshold is *standard* autoresonance applied to the AVE Duffing —
+  consistency-class, until the $\alpha$-prefactor is pinned and shown to differ from a generic
+  resonator.
+
+So the honest tag is **candidate-scaling, description-leaning** — better than pure description (two
+concrete forms and one $\alpha$-specific dimensional candidate are on the table), but **short of a
+closed emergence claim**. The single cleanest path to promote it is named and small: derive
+$\delta_{\text{AVE}}^{\,\text{ext}}$ (or equivalently $Q_{\text{eff}}$) for **one** concrete electron
+environment — the transmon boundary-node channel ($\gamma=\tfrac12 Z_0/\omega_0 L_{eff}$,
+`transmon-decoherence.md:32`) is the obvious first target — and check the predicted
+$T_{\text{coh}}=Q_{\text{eff}}/\omega_C$ against a measured coherence time. That is the §6 queue's
+load-bearing item.
 
 ---
 
