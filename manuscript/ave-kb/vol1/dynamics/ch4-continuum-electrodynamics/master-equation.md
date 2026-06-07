@@ -15,6 +15,8 @@ If the discrete spatial vacuum is a physical LC network ($\mathcal{M}_A$) suppor
 
 Before discussing the bulk properties of the universe, the transport mechanism is defined. In the continuous limit ($L \gg \ell_{node}$), signal propagation is governed by the classical Maxwell-Heaviside acoustic wave equation:
 
+> ↗ See also: [Historical Precedents](../../../common/historical-precedents.md) — why it is *Maxwell-Heaviside*: Maxwell wrote EM in Hamilton's quaternions; Heaviside-Gibbs reformulated to vector calculus, demoting the scalar/longitudinal (correct for the transverse photon; the longitudinal re-engages at saturation = the electron).
+
 > **[Resultbox]** *Maxwell-Heaviside Acoustic Wave Equation*
 >
 > $$

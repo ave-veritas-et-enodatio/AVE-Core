@@ -46,6 +46,8 @@ What the engine measures as "the particle" is the **time-averaged envelope** of 
 
 **Historical precedent**: this lemniscate-with-twists picture has direct lineage to Lord Kelvin's 1867 "On Vortex Atoms" hypothesis and Helmholtz's 1858 vortex theorems; modern revival via Faddeev–Niemi 1997 knotted solitons.
 
+> ↗ See also: [Historical Precedents](../../../common/historical-precedents.md) — the consolidated Kelvin → Tait → Faddeev–Niemi → AVE lineage, including why the ideal-fluid vortex-atom failed (~1900) and how the saturation crystal supplies the confinement + length scale it lacked.
+
 ## §2 — Universal "2" from bipartite K4
 
 **The "2" in $(2, q)$ is the lemniscate's two lobes**, enforced by bipartite K4: every oscillation alternates A ↔ B sublattices. This is universal across the $(2, q)$ family — every stable particle has the lemniscate lobe structure because the lattice is bipartite. **"$q$" varies by particle** as the half-twist count.
