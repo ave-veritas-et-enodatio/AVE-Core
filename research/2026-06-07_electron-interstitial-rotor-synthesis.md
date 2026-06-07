@@ -209,7 +209,108 @@ restatements of canonical results (`resonant-lc-solitons.md`,
 
 ## §3 — Interstitial Meissner / maglev confinement
 
-*[scaffold — filled in a following commit]*
+**The picture in one sentence.** A saturated node has $Z\to0$ — it is a local
+superconductor — so it **expels B (Meissner)**; the expelled B-vortex "bag"
+floats in the **interstitial** pocket between nodes, **frictionlessly** (the
+above-yield slipstream is a zero-drag fluid), and **self-cages** (its own B
+saturates the surrounding nodes, weaving the very walls that hold it). The
+electron is a B-vortex levitating in a magnetic Meissner cage of its own making.
+
+This is not a new mechanism. It is the **single picture that four independent
+canonical threads were each describing from one side.**
+
+**Thread 1 — MIT-Bag / dual-Meissner flux-tube confinement.** The $\Gamma=-1$
+TIR wall is the bag wall. `resonant-lc-solitons.md:52-54` exposes the MIT Bag
+Model as *"a macroscopic impedance wall woven natively by the non-linear
+varactor limits of the continuous vacuum"* (LaTeX `01_vacuum_circuit_analysis.tex:569-587`).
+The impedance-regime table (`…tex:432`) gives the particle-core row verbatim:
+*Particle core ($\Delta\phi\to\alpha$) | $\mu_{eff}\to0$ **(Meissner)** |
+$\varepsilon_{eff}\to0$ (dielectric collapse) | $Z\to0\,\Omega$ | $\Gamma=-1$*,
+and the surrounding text (`:438`) contrasts it with gravity: gravity scales
+$\mu,\varepsilon$ *symmetrically* ($Z_0$ preserved, transparent), while
+*"topological saturation (particles, event horizons) drives both to zero
+**asymmetrically** via Axiom 4… creating perfect mirrors ($\Gamma=-1$)."* The
+"dual" in dual-Meissner is the framework's own: the *particle* expels B where
+*gravity* does not.
+
+**Thread 2 — the asymmetric-Meissner kernel (the engine's live wall).** The
+mechanism Thread 1 names is *coded and live by default*. The coupled engine uses
+$Z_{eff}/Z_0=\sqrt{S_\mu/S_\varepsilon}$ (`k4_cosserat_coupling.py:364`; code at
+`:390-393`), and the docstring states the limit explicitly: *"Asymmetric (chiral
+drive): $Z_{eff}\to0$ as $S_\mu\to0$ (Meissner…)"* (`:368`), producing the
+*"Meissner-like confinement wall where $S_\mu\to0$ with $S_\varepsilon$ finite"*
+(`:139-140`). The genesis audit confirms it runs by default and that MODE-III ran
+on it: `use_asymmetric_saturation=True` (`…genesis-next-steps-scope.md:58`, C1).
+
+**Thread 3 — the Bingham-plastic frictionless slipstream (the maglev).** Below
+$V_{yield}$ the vacuum is a rigid high-drag solid ($\eta_0>0$); above it, the
+*Zero-Impedance Slipstream* ($\eta_{eff}=0$, frictionless) — the TVS-Zener
+solid→slipstream transition (`01_vacuum_circuit_analysis.tex:294-362`). The
+`PairNucleationGate` docstring (`vacuum_engine.py:1179-1191`) assembles the
+capsule: *"when both endpoints of an A→B bond reach **Meissner saturation**
+($A^2_\mu\ge1$), the local material is punched past yield into the slipstream
+regime. $\Gamma\to-1$ walls form at each endpoint… A **Bingham-plastic capsule**
+is formed: flowing-slipstream interior, rigid-solid exterior, $\Gamma=-1$ walls
+at A and B."* The B-vortex floats in the zero-drag interior — that is the maglev:
+levitated and frictionless because the surrounding saturated nodes both expel it
+(Meissner) and present it no drag (slipstream).
+
+**Thread 4 — Kelvin topological protection.** Inside that frictionless capsule,
+Kelvin's 1867 theorem applies: in a perfect incompressible frictionless fluid a
+knotted vortex is topologically protected — it *cannot untie*. The docstring
+quotes it (`vacuum_engine.py:1191-1195`, Kelvin 1867). `historical-precedents.md:23-30`
+situates the thread: Kelvin's vortex-atom + Helmholtz's frozen-in vortex lines,
+with AVE supplying the **two ingredients the ideal fluid lacked** — the topology
+(the $(2,q)$ classification) and the length scale $\ell_{node}$ — and the
+*saturable crystal* supplying the confinement (verdict-II, 2026-06-06: the
+$\Gamma=-1$ boundary converts collapse → confinement; *"the '2' Cosserat winding
+forms, and charge=helicity confirms"*).
+
+**Polarity resolution (resolves the §2 flag) — the dual reactance $V=2$.** §2
+left two routes to $\Gamma=-1$: capacitive ($C_{eff}\to\infty$, node) vs magnetic
+($\mu\to0$, Meissner). They are not competitors — they are the **two halves of
+the node's dual reactance** (`src/ave/core/constants.py:757-796`,
+`V_TOROIDAL_HALO=2.0`, Grant-adjudicated 2026-06-01): *3 microrotational-B DOF →
+inductive $X_L$* and *3 translational-E DOF → capacitive $X_C$*. The assignment
+is then clean:
+
+- **Mass-confinement = MAGNETIC Meissner.** The bag that holds the mass (the
+  B-vortex, §2 consequence 2) is the *inductive/magnetic* wall: $S_\mu\to0
+  \Rightarrow \mu_{eff}\to0 \Rightarrow Z\to0$, expelling B. This is the branch
+  the engine *must* use — the genesis audit (`…genesis-next-steps-scope.md:71-74`,
+  C4) flags that the engine's symmetric default $z_{local}=Z_0/\sqrt S\to\infty$
+  is *inverse* (open) polarity and reaches the canonical low-Z short *"only via
+  the magnetic branch ($\mu_{eff}\to0\Rightarrow Z\to0$)."*
+- **Charge-coupling = CAPACITIVE node.** The charge (E-termination, §2
+  consequence 1) lives on the node's shunt-C. That is the capacitive half.
+
+So $V=2$ is *why* the polarity question has a clean answer: the mass sits in the
+inductive (Meissner) reactance, the charge in the capacitive reactance. The
+confining wall is magnetic.
+
+**Honest flags.**
+
+- *Capacitive-vs-magnetic provenance is not fully reconciled.* `resonant-lc-solitons.md`
+  derives the *same* $\Gamma=-1$ from $C_{eff}\to\infty$ (capacitive), while the
+  live engine needs $\mu\to0$ (magnetic). Both reach $Z\to0$; the static
+  particle-core has *both* collapsed (`…tex:432`). Which reactance is *primary*
+  in the dynamics is genesis **Fork B (polarity)**, still open
+  (`…genesis-next-steps-scope.md:85`). §3 takes the magnetic branch because that
+  is the one the load-bearing engine uses; the capacitive derivation is the same
+  wall seen from the charge side.
+- *London-penetration caveat (B not strictly zero at the nodes).* A real Meissner
+  superconductor does not expel B to exactly zero — B decays over the London
+  depth $\lambda_L$. The AVE analog of that finite leak is the electron tank's
+  *finite Q*: a fraction $1/Q=\alpha$ leaks per cycle through the TIR boundary
+  (`theorem-3-1-q-factor.md:81`). The electron is not a perfect mirror; it leaks
+  $\alpha$ per cycle. (Queued in §7c: "$\alpha$ as the London-depth leak,
+  $Q=1/\alpha$.")
+
+**Classification.** Class **C** consistency synthesis. It unifies four canonical
+threads under one picture and adds **no primitive**; per
+`historical-precedents.md:39` the Kelvin-thread ceiling is consistency-class, and
+this inherits it. The unification is an intuition/coherence contribution, not a
+derivation or a prediction.
 
 ## §4 — Derivation: rotor = zitterbewegung = Compton clock (spin & mass, one oscillation)
 
