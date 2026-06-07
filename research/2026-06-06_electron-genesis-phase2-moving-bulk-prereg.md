@@ -46,6 +46,14 @@ Add a **bulk drift velocity** to the lattice (the substrate moving at the CMB-fr
 4. **`ν_kin`/`κ_entrain`** drag matches canonical.
 5. Carry forward the Phase-1 gate (sub-V_yield ring / `ω_C` / `ℓ_node` / (2,3) / charge-conservation) — does the moving-bulk genesis still pass it (better)?
 
+### §3.1 The factor-of-2 reads (Grant amendment 2026-06-06 — surface-tension vs entrained-mass)
+
+6. **Surface-vs-entrained energy partition:** the surface-tension/skin energy (the saturation `A→1` boundary, the **C/compliance** store) vs the entrained/dark-wake energy (the **L/inertia** store, `L_drag`). Is it the **LC equipartition 1:1** (`½LI² = ½CV²` at every instant; `mass-closure-theorem.md:46`)?
+7. **`K/G` modulus ratio:** the effective bulk(K)/shear(G) modulus in the droplet — is it **2:1** (`K=2G`, the trace-reversal point; `dual-reactance-storage-taxonomy.md:51`)?
+8. **Dark-wake speed:** the longitudinal/shear wake propagation speed — is it **`√2·c`** (the `K=2G → √2` prediction)?
+
+> **Forward only — NO target-fit to 1 / 2 / √2.** The corpus FLAGS the stacked 2's (`K/G=2`, reactance-sector-count=2, `m_Cosserat=2m_e`, pair `2m_ec²`) as a **coincidence-magnet** ("distinct 2's," `dual-reactance-storage-taxonomy.md:54,212`) and `K=2G` as a *downstream consistency, NOT a driver* (`:62`). These reads MEASURE which 2 (if any) governs — **energy may be 1:1 (equipartition) while stiffness is 2:1 (K=2G)**. They ALSO settle the cardinal-`v=c√2` contradiction-backlog item (is the `√2` physical or a grid artifact?) — **one droplet, both answers.**
+
 ---
 
 ## §4 Honest outcomes (pre-committed)
