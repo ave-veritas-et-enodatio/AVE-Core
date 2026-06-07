@@ -35,3 +35,16 @@ The synthesis is mostly consistency-class re-description. The genuine emergence 
 - Genesis forks A–D (genesis-scope §9) still open.
 - New physics forks: does neighbor coordination **select the ground-state knot** (trefoil=electron, higher-crossing=heavier)? Is the holonomy **topologically** π? Does the cage leak **= α**?
 - **Next:** land the 3 docs → fold-ins → PRs. **Watch the holonomy verdict first** (cleanest emergence test). Then adjudicate whether α-closure earns a dedicated derivation push (gated on the `Q=1/α` derived-vs-asserted check).
+
+## §6 Bulk→electron projection thread (how cosmic strain sets one electron's spin/precession)
+Synthesis on canonical pieces (NOT a single leaf): how the bulk strain of ALL nodes projects to a SINGLE electron's phase-space precession through its neighbor nodes.
+- **Operating-point bias → precession clock** (Op14): bulk → smooth `A₀(r)` → local `ω_local=ω_C·√S(A₀)` + `Z_eff=Z₀/√S` sets the precession RATE.
+- **1/7 trace-reversal projection** (`K=2G`, `ν=2/7`, `gravity/index.md:13`): the 3D bulk strain projects onto the electron's 1D loop scaled by **1/7**. `K=2G` IS the bulk↔local projection operator (Grant's "factor of 2").
+- **Gradient torque → precession**: `∇A₀` (neighbors at differing operating points) torques the `(V_inc,V_ref)` axis → the trefoil-axis sweep; rate ∝ projected gradient (the GR-precession mechanism, cosmic-strain-sourced).
+- **Ω_freeze → the local screw** (`water-anomaly-lc-partition.md:44`): cosmic K4 crystallization under cosmic angular momentum froze the `I4₁32` screw = the local 2nd-shell chirality. **THE BULK SOURCES THE LOCAL CHIRALITY THAT MAKES SPIN-½.**
+- **Machian anchor** (`claim-quality:14`): `ξ=4π(R_H/ℓ_node)α⁻²` embeds the cosmic horizon → the precession's scale/inertia.
+- **Neighbors = messengers:** the electron sees its 3–4 neighbors carrying the local sample of `{A₀, ∇A₀, the screw}`; the tension/holonomy path IS that encoding.
+- **Host-node balance:** the host = the **capacitive (C) half** of the electron's LC tank (anchors the E/charge) + the **inner Meissner wall** (expels the B/loop). Balance = reactive equipartition `½CV²=½LI²` at `ω_C` + the Meissner cavity (loop floats between host-inner + neighbors-outer).
+- **Intrinsic vs projected chirality (the screw-test discriminator):** spin CARRIES intrinsic chirality (rest, frame-independent, `Ω_freeze`-sourced); forward momentum PROJECTS it (helicity `S·p̂`, path-dependent). Mass = the rotor's ability to spin without translating. So **path-independent π = intrinsic spin-½ (I); path-dependent π = projected helicity only (II).**
+- **One-line:** precession = the **SLIP between the electron's rotor (d-q) frame and the bulk strain frame** (Machian + FOC + trace-reversal, one statement). Co-rotate with the bulk → no precession.
+- **PAYOFF:** the 2nd-shell screw test (running, `a8501311`) tests whether the cosmically-sourced (`Ω_freeze`) handedness makes the spin **intrinsic**. The bulk→electron thread and the spin-½ test are the SAME physics — *watch the bulk hand the electron its spin.*
