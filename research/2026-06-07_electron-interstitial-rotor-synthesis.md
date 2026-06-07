@@ -314,7 +314,84 @@ derivation or a prediction.
 
 ## §4 — Derivation: rotor = zitterbewegung = Compton clock (spin & mass, one oscillation)
 
-*[scaffold — filled in a following commit]*
+**Target.** Show that the electron's **mass** and its **spin** are not two facts
+about the electron but **two readings of one oscillation** — the bond LC rotor
+ringing at the Compton frequency. Every input is canonical; the result
+reproduces Dirac zitterbewegung. This is an **identity/consistency** derivation,
+not a new prediction.
+
+**Step 1 — the rotor at rest is $\omega_C$.** The de Broglie massive dispersion
+(`de-broglie-standing-wave.md:184`):
+$$\omega^2 = c^2k^2 + \omega_C^2,\qquad \omega_C \equiv \frac{m_ec^2}{\hbar}\;(\text{Compton frequency}).$$
+At rest ($k=0$): $\omega=\omega_C$. The rest electron is a clock ticking at the
+Compton frequency. Physically that clock is the bond LC tank: the electron is two
+saturated K4 nodes with the bond carrying the $(2,3)$ phase-space LC oscillation
+*at Compton frequency* (`pair-production-axiom-derivation.md:33`). Call this
+oscillation **the rotor**.
+
+**Step 2 — the rotor's energy IS the mass (identity).**
+$$E = \hbar\omega_C = \hbar\cdot\frac{m_ec^2}{\hbar} = m_ec^2.$$
+By §2 (`resonant-lc-solitons.md:17-23`) that energy is the reactive
+LC energy: $E_{mag}=\tfrac12 L_e I_{max}^2=\tfrac12 m_ec^2$, Virial-doubled to
+$m_ec^2$. So
+$$\boxed{\;\hbar\omega_C \;=\; m_ec^2 \;=\; \tfrac12 L I^2\;(\text{Virial: }+\tfrac12 L I^2)\;}$$
+which is the Mass-Closure Theorem $mc^2=E_{reactive}$ (`vol2/claim-quality.md:1199`)
+read as "the rotor's energy quantum is the rest mass." Steps 1–2 are **identities**
+(Compton relation + mass-closure), not predictions.
+
+**Step 3 — zitterbewegung $=2\omega_C$ from the double-cover.** Dirac theory has
+the electron *trembling* (zitterbewegung) at $2m_ec^2/\hbar = 2\omega_C$ — twice
+the Compton frequency. The factor 2 is the spinor double-cover: the state needs a
+$4\pi$ rotation, not $2\pi$, to return to itself. In the rotor, **one observable
+Compton cycle requires $4\pi$ of phasor rotation** — and the corpus says *why*:
+the $4\pi$ is the **K4 bipartite lobe-count, 2 sublattices $\times\,2\pi$ per
+lobe** (`theorem-3-1-q-factor.md:78`). The internal phasor therefore ticks twice
+(once per sublattice lobe) per observable cycle: internal tick rate $=2\omega_C$
+— exactly the zitterbewegung frequency. *The trembling at $2\omega_C$ is the
+per-lobe tick of the bipartite rotor.*
+
+> **Provenance flag (verify-before-cite / flag-don't-fix).** The corpus
+> *deliberately* frames this $4\pi$ as K4 bipartite lobe-count and labels
+> "SU(2)$\to$SO(3) double-cover" the **standard-physics translation reference,
+> not the substrate mechanism** (`theorem-3-1-q-factor.md:78`); it further states
+> *"the prior spin-½ half-cover provenance of $\pi^2$ is retired"* (`:49`). So I
+> do **not** assert the brief's literal group chain "$K4\to A4\to 2T\subset
+> SU(2)$" as the canonical derivation. The canonical substrate content is "2
+> bipartite sublattice lobes $\times\,2\pi=4\pi$"; the binary-tetrahedral / SU(2)
+> double-cover is the standard-physics *name* for that 2-sublattice structure (a
+> translation overlay, defensible as a label, not as the substrate derivation).
+
+**Step 4 — one oscillation, two observables.** Assemble:
+
+- **Mass** $=$ the rotor's *energy* ($\hbar\omega_C$, Step 2) — the inductive
+  $\tfrac12 LI^2$ of the bond-loop (§2).
+- **Spin** $=$ the rotor's *double-cover phase topology* (the 2-sublattice $4\pi$
+  structure, Step 3). Canonically: *"Cosserat rotational DOF IS the
+  substrate-native origin of intrinsic spin"* (INVARIANT-S2), and *"Quantum Spin
+  is … classically derivable as the continuous optical circulation of this
+  massive electromagnetic light-loop"* (`electron-unknot.md:13`).
+
+These are not two things. They are two reads of the **same** bond LC rotor: its
+energy is the mass, its bipartite phase-winding is the spin. **One rotor, one
+oscillation, both observables.** Hence:
+$$\text{massless} \iff \omega_C=0 \iff \text{no rotor} \iff \text{photon}.$$
+With $m_e=0$ there is no rest oscillation — no closed rotor, no Compton clock, no
+$\tfrac12 LI^2$ bond-loop. A massless excitation is the *unconfined traveling
+transverse wave* (photon); the electron is the **same wave caught in its own
+$\Gamma=-1$ rotor** (the canonical "electron = photon + TIR confinement", the
+genesis chain photon → self-trap → rotor; `…genesis-next-steps-scope.md` §0,
+`historical-precedents.md:28` verdict-II self-trap).
+
+**Classification.** Class **A identity** (Steps 1–2: $\hbar\omega_C=m_ec^2=\tfrac12
+LI^2$ is the Compton relation + mass-closure, definitional) **+ Class C
+consistency** (Steps 3–4: reproduces Dirac zitterbewegung at $2\omega_C$ and the
+spin-½ double-cover via the bipartite rotor — a standard result via an
+alternative mechanism). Dual-axis (`consistency-vs-emergence` v1.2): substrate-
+mechanism axis = **Class B manifestation** (the correspondence is *identified*
+via canonical inputs, not traced as a full master-equation derivation of Dirac
+theory); observable axis = **Class 4 consistency** (reproduces Dirac exactly; no
+new number). **Not** a Class-D emergence — the AVE-distinct content is the
+*mechanism* (a bond LC bipartite rotor), not a prediction.
 
 ## §5 — Derivation: spin (helicity) stabilizes the unknot
 
