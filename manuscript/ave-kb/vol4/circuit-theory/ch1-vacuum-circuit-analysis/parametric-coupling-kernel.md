@@ -17,7 +17,7 @@ path-stable: "referenced from common/ave-analytical-toolkit-index.md §1 and vol
 > $$\boxed{\varepsilon_{det} = \frac{4\pi \cdot \kappa_{quality}}{N_{single}^2}}$$
 >
 > where:
-> - $4\pi$ inherits from Theorem 3.1' spinor-cycle radiation impedance averaging ($Z_{radiation} = Z_0/(4\pi)$)
+> - $4\pi$ inherits from Theorem 3.1' observable-Compton-cycle radiation-impedance averaging ($Z_{radiation} = Z_0/(4\pi)$; substrate-mechanism: bipartite K4 lobe-count)
 > - $N_{single}$ = atoms in single coherent crystal volume
 > - $\kappa_{quality}$ = regenerative-regime envelope: $=1$ for $Q \cdot \delta_C \geq 2$ (deep-regenerative); $=(Q \delta_C / 2)^2$ for sub-regenerative
 > - $\delta_C / C_0 = (1/4)(V_{pump}/V_{yield})^2 \approx 4.57\%$ at canonical α-slew operating point
@@ -37,7 +37,7 @@ For N coherent receivers in the apparatus (e.g., crystal lattice sites phase-loc
 1. **Dicke amplitude distribution**: $|c_{single}|^2 = 1/N$ in symmetric coherent state $|J, M\rangle$ with $J = N/2$
 2. **Matched-cycle synchronization fraction**: $1/N$ of internal phase configurations align with substrate cycle phase
 
-The $4\pi$ prefactor inherits from Theorem 3.1' spinor-cycle averaging at the source tank's TIR boundary.
+The $4\pi$ prefactor inherits from Theorem 3.1' observable-Compton-cycle radiation-impedance averaging at the source tank's TIR boundary (substrate-mechanism: bipartite K4 lobe-count; standard-physics translation reference: "SU(2) double-cover").
 
 **Categorical class**: REACTIVE-power coupling (Axis A per `ave-power-category-check`), distinct from REAL-power $\kappa_{entrain}$ Sagnac-RLVE mass-density drag-along. Common-pitfall rule: do NOT mix $\kappa_{entrain}$ (real-power) and parametric kernel (reactive-power) in same coupling formula.
 
@@ -103,8 +103,8 @@ Per `ave-audit-of-audit` 2026-05-17 retroactive substrate-native walk: the §4 1
 
 **Substrate-side port**:
 - Bulk K4-TLM lattice node hosts the pump $V_{pump}(t) = V_a \cos(\omega_{slew} t)$ at $\omega_{slew} = 9.02 \times 10^{17}$ Hz (α-slew rate, per Schwinger anomalous-moment substrate)
-- Characteristic radiation impedance per spinor cycle: $Z_{radiation} = Z_0/(4\pi)$ per [Theorem 3.1' Q-Factor](theorem-3-1-q-factor.md):65-75
-- The $4\pi$ is substrate-native (SU(2) double-cover phase requirement at TIR boundary), NOT a solid-angle integration borrowed from QED
+- Characteristic radiation impedance per observable Compton cycle: $Z_{radiation} = Z_0/(4\pi)$ per [Theorem 3.1' Q-Factor](theorem-3-1-q-factor.md):75-79
+- The $4\pi$ is substrate-native (bipartite K4 lobe-count: 2 sublattices × $2\pi$ phasor rotation per lobe = $4\pi$ temporal-phase closure at the TIR boundary; standard-physics translation reference "SU(2) double-cover"), NOT a solid-angle integration borrowed from QED
 - Available substrate power: $P_{substrate} = V_a^2 / Z_{radiation} = V_a^2 \cdot (4\pi/Z_0)$
 
 **Apparatus-side port (per atom)**:
@@ -177,7 +177,7 @@ $$\varepsilon_{det}^{per-receiver-per-cycle} = \frac{1}{N} \times \frac{1}{N} = 
 **Substrate-native provenance** (replaces prior Dicke-borrowing + Fermi-golden-rule reconciliation):
 - First $1/N$: N-parallel atomic LC tank voltage-divider per Vol 4 Ch 1 ladder network + Vol 2 Ch 7 analog-ladder-filter
 - Second $1/N$: substrate-clock phase-bin enumeration (one matched bin per N internal-phase configurations)
-- 4π prefactor: substrate's spinor-cycle radiation impedance $Z_{radiation} = Z_0/(4\pi)$ per Theorem 3.1' (substrate-native via SU(2) double-cover at TIR boundary)
+- 4π prefactor: substrate's observable-Compton-cycle radiation impedance $Z_{radiation} = Z_0/(4\pi)$ per Theorem 3.1' (substrate-native via bipartite K4 lobe-count at TIR boundary; standard-physics translation reference "SU(2) double-cover")
 
 **Note on Fermi-golden-rule structural equivalence**: a reader familiar with QED may recognize that the substrate-native voltage-divider + phase-bin enumeration is structurally equivalent to FGR's $|M|^2 \rho(E)$ factorization (with $|M|^2 \propto 1/N$ from amplitude distribution and $\rho(E) \propto 1$ from per-cycle phase-bin density bounded by matched fraction). The equivalence is informative but is NOT the derivation; the derivation is substrate-native per §3.5 + this section.
 
@@ -188,11 +188,11 @@ $$\varepsilon_{det}^{per-receiver-per-cycle} = \frac{1}{N} \times \frac{1}{N} = 
 
 ## §5 — Theorem 3.1' inheritance: the 4π prefactor
 
-Per [Theorem 3.1' Q-Factor](theorem-3-1-q-factor.md) line 65-75, the substrate's radiation impedance averaged over electron spinor cycle:
+Per [Theorem 3.1' Q-Factor](theorem-3-1-q-factor.md) lines 75-79, the substrate's radiation impedance averaged over one observable Compton cycle:
 
 $$Z_{radiation} = \frac{Z_0}{4\pi}$$
 
-The $1/(4\pi)$ factor arises from spinor-cycle averaging (electron's internal phase completes one closed loop in $4\pi$ radians, not $2\pi$).
+The $1/(4\pi)$ factor arises from observable-Compton-cycle averaging: per cycle the substrate traverses both bipartite K4 sublattice lobes (2 × $2\pi$ phasor rotation per lobe = $4\pi$ temporal-phase closure), not a single $2\pi$ loop. (Standard-physics translation reference: the electron's internal phase completes one closed loop in $4\pi$ radians, not $2\pi$ — the "SU(2) double-cover".)
 
 For parametric coupling, the substrate-receiver coupling efficiency depends on $1/Z_{radiation}$ (lower coupling impedance → higher coupling). The matched-coupling prefactor inherits:
 
@@ -202,7 +202,7 @@ $$\varepsilon_{coupling-prefactor} \propto \frac{1}{Z_{radiation}} = \frac{4\pi}
 
 $$\boxed{\varepsilon_{det} = \frac{4\pi \cdot \kappa_{quality}}{N^2}}$$
 
-The 4π is now DERIVED from spinor-cycle radiation impedance, NOT post-hoc selected from $\{\pi, 2\pi, \pi^2, 4\pi\}$ to match DAMA.
+The 4π is now DERIVED from the observable-Compton-cycle radiation impedance (substrate-mechanism: bipartite K4 lobe-count), NOT post-hoc selected from $\{\pi, 2\pi, \pi^2, 4\pi\}$ to match DAMA.
 
 ## §6 — κ_quality envelope from Q·δ regenerative regime
 
@@ -597,7 +597,7 @@ The Phase 2-NA peak at $a^{(2D)}_{peak} = 1/\sqrt{2} = 0.707$ (substrate operati
 **Canonical substrate-matched-impedance infrastructure**:
 
 - **Op17 Power Transmission** at [`common/operators.md:57`](../../../common/operators.md): $T^2 = 1 - \Gamma^2$ — substrate boundary energy-transfer coefficient (Vol 1 Ch 6 §1.16 canonical). Peaks at $T = 1$ when $\Gamma = 0$ (substrate-matched-impedance condition); goes to zero at $\Gamma = \pm 1$ (TIR-wall / canonical pair-production mechanism).
-- **Theorem 3.1' matched-LC framework** at [`theorem-3-1-q-factor.md`](theorem-3-1-q-factor.md): matched-coupling between two LC tanks with $4\pi$ spinor-cycle radiation-impedance averaging at the canonical matched-impedance condition.
+- **Theorem 3.1' matched-LC framework** at [`theorem-3-1-q-factor.md`](theorem-3-1-q-factor.md): matched-coupling between two LC tanks with $4\pi$ observable-Compton-cycle radiation-impedance averaging (substrate-mechanism: bipartite K4 lobe-count) at the canonical matched-impedance condition.
 - **Matched-LC-coupling canonical formula** at [`vol3/cosmology/ch05-dark-sector/dama-matched-lc-coupling.md`](../../../vol3/cosmology/ch05-dark-sector/dama-matched-lc-coupling.md): $\epsilon_{det} = (4\pi/N^2)$ matched-coupling efficiency framework that this cycle-12 parametric-coupling-kernel.md is the substrate-vacuum-varactor sub-yield specialization of.
 
 **Substrate-mechanical structural identity**: $a \cdot S_0$ peaks at $a = S_0$ is the same substrate-mechanical condition as $T^2 = 1 - \Gamma^2$ peaks at $\Gamma = 0$ — source-side amplitude characteristic ($a$ / $\Gamma$-source) equals load-side compliance characteristic ($S_0$ / $\Gamma$-load), with substrate transmitting maximum signature power at the equal-split condition. Phase 2-NA aperture-aggregate skewness signature peaks at the same condition as Op17 boundary transmission; both are substrate-mechanical expressions of the same matched-impedance structural identity, applied to two different observable axes.

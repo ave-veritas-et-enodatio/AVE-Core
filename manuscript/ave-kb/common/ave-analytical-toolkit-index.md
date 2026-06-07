@@ -44,7 +44,7 @@ The 9 recognized analytical-problem classes (any AVE derivation that maps to ≥
 |---|---|---|---|
 | **Op17 Power Transmission** | T² = 1 - Γ² | [`operators.md` Op17 line 47](operators.md) | Matched-impedance energy-transfer fraction per cycle |
 | **Op3 Reflection Coefficient** | Γ = (Z₂ - Z₁)/(Z₂ + Z₁) | [`operators.md` Op3 line 33](operators.md) | Two-impedance interface; mismatch fraction |
-| **Theorem 3.1' Radiation Impedance** | Z_radiation = Z₀/(4π) per spinor cycle | [`vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md` line 65-75](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) | Electron α-slew tank coupling to external receiver |
+| **Theorem 3.1' Radiation Impedance** | Z_radiation = Z₀/(4π) per observable Compton cycle (4π = K4 bipartite lobe-count) | [`vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md` lines 75-79](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) | Electron α-slew tank coupling to external receiver |
 | **Sagnac-RLVE κ_entrain template** | κ_entrain = ρ_matter / ρ_bulk | [`vol4/falsification/ch11-experimental-bench-falsification/sagnac-rlve.md` line 14-26](../vol4/falsification/ch11-experimental-bench-falsification/sagnac-rlve.md) | DC mass-density real-power coupling (rotor → bulk substrate velocity) |
 | **Orbital friction paradox reactive-vs-real table** | $P_{real} = VI\cos\theta$; $Q_{reactive} = VI\sin\theta$ | [`vol4/circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md` line 31 canonical table](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md) | Categorize coupling as P_real (dissipative) or Q_reactive (conservative) — load-bearing categorical check |
 | **Op14 Cross-Sector Trading** | $H_{total} = H_{cos} + H_{K4-inductive}$; $\rho(H_{cos}, \Sigma\|\Phi_{link}\|^2) = -0.990$ | [`vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md) | Energy exchange between Cosserat and K4-inductive sectors |
@@ -57,7 +57,7 @@ The 9 recognized analytical-problem classes (any AVE derivation that maps to ≥
 
 **Common pitfalls** (load-bearing):
 - **DO NOT mix real-power and reactive-power templates** (categorical error per Axis A of ave-power-category-check skill). κ_entrain is for real-power (mass-density-coupled DRAG-ALONG per `sagnac-rlve.md:14-22`); Op17 + Parametric Coupling Kernel are for reactive-power. **Sagnac-RLVE κ_entrain DOES NOT apply to reactive-power coupling at α-slew operating point** — see [`research/2026-05-17_plumber-physical-audit-matched-LC.md`](../../../research/2026-05-17_plumber-physical-audit-matched-LC.md) for canonical example + cycle-12 walk-back at `parametric-coupling-kernel.md` §10 for the structurally-correct categorical separation.
-- **DO NOT use Z₀ directly when spinor-cycle averaging applies**; use Z₀/(4π) per Theorem 3.1' for electron-class sources.
+- **DO NOT use Z₀ directly when observable-Compton-cycle (4π) radiation-impedance averaging applies**; use Z₀/(4π) per Theorem 3.1' for electron-class sources.
 - **DO check whether the source is moving (Sagnac-RLVE class) vs oscillating (matched-LC class)** — different categories.
 - **DO NOT use $\omega_{app} = 2\omega_{slew}$** for parametric resonance with α-slew pump. Degenerate parametric coupling puts signal at SUB-HARMONIC of pump: $\omega_{app} = \omega_{slew}$ (the $C_{eff}$ modulation frequency is $2\omega_{slew}$ but the amplified signal sits at half that).
 
@@ -199,7 +199,7 @@ The 9 recognized analytical-problem classes (any AVE derivation that maps to ≥
 - Vacuum mirror at V_yield: Γ → 1 reflects laser nonlinearly without rupture (vacuum-impedance-mirror.md)
 
 **Common pitfalls**:
-- Spinor-cycle (4π) vs orbital-cycle (2π) averaging — different prefactors apply (Theorem 3.1' uses 4π for Z_radiation per spinor cycle)
+- Observable-Compton-cycle (4π = K4 bipartite lobe-count: 2 sublattices × 2π) vs single-loop (2π) averaging — different prefactors apply (Theorem 3.1' uses 4π for Z_radiation per observable Compton cycle; standard-physics translation reference "spinor cycle")
 - TIR boundary vs ordinary refractive boundary — different physics (Γ = -1 perfect short vs continuous Γ(Δn))
 
 ---

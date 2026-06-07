@@ -5,8 +5,10 @@ kind: leaf
 claims: [clm-ir8h78, clm-c6k5om]
 -->
 
-## Black Holes and The Absolute Impedance Mismatch ($\Gamma = -1$)
-<!-- claim-quality: clm-ir8h78 (this leaf states the BH-interior phase transition / Axiom 4 dielectric saturation rupture; note: the $\Gamma = -1$ "absolute mismatch" framing here is reconciled in einstein-field-equation.md and in the entry's caveats — under Symmetric Gravity $Z = Z_0$ everywhere, so $\Gamma = 0$ across the horizon, with the topological-rupture / phase-transition content being the surviving claim) -->
+## Black Holes — Lattice Phase Transition, Not Impedance Mismatch
+<!-- claim-quality: clm-ir8h78 (this leaf states the BH-interior phase transition / Axiom 4 dielectric saturation rupture; under Symmetric Gravity $Z = Z_0$ everywhere, so $\Gamma = 0$ across the horizon — the prior "$\Gamma = -1$ absolute mismatch" title is retired (2026-06-06 doc-reconcile), reconciled canonically at electron-bh-isomorphism.md:23-34 (and einstein-field-equation.md), with the topological-rupture / phase-transition content being the surviving claim) -->
+
+> → Primary: [Electron–Black-Hole Isomorphism (§ The Saturation Boundary as a Phase Transition)](../ch15-black-hole-orbitals/electron-bh-isomorphism.md) — canonical reconciliation (lines 23–34): the black hole's confinement is a SHEAR-mode lattice phase transition ($G_{shear} \to 0$; under Symmetric Gravity $Z = Z_0$ at all radii, so $\Gamma = 0$ everywhere — the saturated interior reflects shear waves *through the phase transition*, not through an impedance mismatch). This is distinct from the electron's EM impedance-mismatch wall ($\Gamma = -1$ at the knot boundary, where $Z \to 0$). The "$\Gamma = -1$" framing is retired for the black hole; the topological-rupture / phase-transition content is the surviving claim (clm-ir8h78).
 
 No physical substrate compresses infinitely to a geometric singularity. As confined electromagnetic wave packets (matter) aggregate into a hyper-dense core, the macroscopic refractive index ($n_{\perp}=1+2GM/rc^{2}$) increases.
 

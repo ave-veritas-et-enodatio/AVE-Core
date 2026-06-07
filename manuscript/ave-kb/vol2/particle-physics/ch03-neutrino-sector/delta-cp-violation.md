@@ -39,7 +39,7 @@ Each term has a distinct physical origin:
 > - **σ-tension framing** (per Foundation Item 7 discipline): all four predictions land **within 1σ** of NuFIT 5.2 best-fit ± band — qualitatively distinct from the 3.5σ α_s tension flagged in FI-7. The 1.0% deviation on sin²θ_13 is within the experimental 1σ uncertainty (0.022 + 0.00067 = 0.02267 > AVE 0.02222).
 > - **Forward-prediction load-bearing**: inverted mass hierarchy is a categorical falsifier independent of c_1=5 derivation status (1/c² scaling forces m_1 > m_2 > m_3 for any c_1 < c_2 < c_3). **JUNO mass-ordering result (~2026-2028 timeframe)** will adjudicate; if JUNO confirms NORMAL hierarchy at >3σ, neutrino sector framework dies cleanly.
 >
-> See [closure-roadmap §0.5 FI-13 entry](../../../claim-quality-closure-roadmap.md) for full audit findings + c_1=5 derivation gap registered as open work item + cross-volume ν_vac anchor count.
+> See [claim-quality-closure-roadmap.md §0.5 FI-13 entry](../../../claim-quality-closure-roadmap.md) for full audit findings + c_1=5 derivation gap registered as open work item + cross-volume ν_vac anchor count.
 
 > **Scope correction (2026-05-17 night, Foundation Item 13 audit)**: The original framing — "all four PMNS parameters derive from three inputs (c_1=5, c_3=9, ν_vac=2/7, K4 connectivity=3); maximum deviation 1.0%; no curve fitting" — was MIXED honest:
 >

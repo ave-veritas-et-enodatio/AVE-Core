@@ -126,7 +126,7 @@
 - rationale: The confinement mechanism ($G_{shear}\to0$, $c_g\to0$ at $r_{sat} = 7GM/c^2$) follows cleanly from $\varepsilon_{11}(r_{sat}) = 1$ plus the symmetric-impedance result ($\Gamma = 0$). The electron-vs-BH contrast (knot $\Gamma=-1$ vs hole phase-transition) is structural and internally consistent. Band sits at disclosed-bound rather than clean-derivation because the interior is explicitly **observationally inaccessible** — the claim is structural (a phase transition exists), and the saturation picture it rests on is an imported/asserted regime rather than a closed interior solution.
 - strengthen-by:
   - Provide a worked interior solution (even schematic) showing $G_{shear}(r)\to0$ continuously across $r_{sat}$.
-  - Reconcile the "$\Gamma=0$ everywhere" framing here with the "$\Gamma=-1$" titled sibling leaf (`black-holes-impedance-mismatch.md`) to remove the disclosed inter-leaf tension.
+  - **RESOLVED (2026-06-06 doc-reconcile):** the sibling leaf [`black-holes-impedance-mismatch.md`](./cosmology/ch04-generative-cosmology/black-holes-impedance-mismatch.md) was retitled "Black Holes — Lattice Phase Transition, Not Impedance Mismatch" (no longer "$\Gamma=-1$"-titled), and the canonical "$\Gamma=0$"-vs-"$\Gamma=-1$" reconciliation is at [`electron-bh-isomorphism.md` lines 23–34](./cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md): BH = SHEAR-mode phase transition ($G_{shear}\to0$, $Z=Z_0$, $\Gamma=0$); electron = EM mismatch ($\Gamma=-1$). Inter-leaf tension removed.
 
 ---
 
@@ -990,7 +990,7 @@ Predicts a DAMA/LIBRA coupling quantum at $E = \alpha\, m_e c^2 \approx 3.728$ k
 ## DAMA Rate Magnitude — Matched-LC-Coupling Formula
 <!-- id: clm-5em8fx -->
 
-Candidate formula for the DAMA rate magnitude from matched-impedance coupling between the electron's reactive α-slew LC tank and a coherent NaI crystal LC mode: per-cycle efficiency $\epsilon_{det} = 4\pi/N_{single}^2$ (with $4\pi$ the spinor-cycle radiation-impedance averaging factor), giving $R_{predicted} = 4.80\times 10^{-7}$ events/s/kg vs DAMA/LIBRA Phase-2 observed $4.77\times 10^{-7}$ — a 0.6% consistency. Cross-detector forward predictions follow (HPGe 9.39 kg is the cleanest single-experiment test for 4 AVE-distinct claims).
+Candidate formula for the DAMA rate magnitude from matched-impedance coupling between the electron's reactive α-slew LC tank and a coherent NaI crystal LC mode: per-cycle efficiency $\epsilon_{det} = 4\pi/N_{single}^2$ (with $4\pi$ the observable-Compton-cycle radiation-impedance averaging factor — substrate-mechanism bipartite K4 lobe-count, SU(2) double-cover as standard-physics translation reference), giving $R_{predicted} = 4.80\times 10^{-7}$ events/s/kg vs DAMA/LIBRA Phase-2 observed $4.77\times 10^{-7}$ — a 0.6% consistency. Cross-detector forward predictions follow (HPGe 9.39 kg is the cleanest single-experiment test for 4 AVE-distinct claims).
 
 - _Specific Claims_
   - $\epsilon_{det} = 4\pi/N_{single}^2$ yields rate within 0.6% of DAMA Phase-2 observed.
