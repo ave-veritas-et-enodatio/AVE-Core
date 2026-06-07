@@ -14,6 +14,7 @@ Each → fold-ins → **reviewed PR** (no self-merge, no leaf without Grant).
 ## §2 Emergence-test candidates (the "does it have teeth?" list)
 The synthesis is mostly consistency-class re-description. The genuine emergence candidates (testable *numbers*, not re-descriptions):
 1. **Holonomy = π** (running, `a7467a52`) — does chiral geometry yield spin-½? Robust/topological π = emergence.
+   - **1b. g = 2** (FOLLOW-UP on the holonomy result) — the SAME π double-cover gives half-spin (`S=ℏ/2`) AND double-moment (`g=2`): `μ_s = g·μ_B·(S/ℏ) = 2·μ_B·½ = μ_B`. So a robust-π holonomy should *also* predict **g=2** as a SECOND independent number from the chiral geometry — compute the B-core magnetic moment + the spin (angular momentum) + their ratio. Strongest version of the spin result: two numbers (spin-½ AND g=2) from one geometry. Corrects the loose "half-pole-pair" framing — the electron is a **dipole with a double-cover**, NOT a monopole/half-pole-pair (a literal half-pole-pair would be a forbidden monopole). Fix the coherence-doc §5 note accordingly.
 2. **Fine structure from tidal spin-orbit** (queued, rotor-doc §7) — rotor-resolved atom generates `L·S` splitting with no term inserted.
 3. **`Re_q` → decoherence rate** (coherence-doc §5) — does the quantum Reynolds number predict a coherence-time number?
 4. **α-closure** (§3) — the big one.
