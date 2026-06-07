@@ -181,3 +181,142 @@ Extends `swept_gamma_omega_A2.py` (imports its `floquet_max_multiplier`, `S_kern
 **Discipline:** `ave-canonical-source` (ALPHA, Z_0 imported; α COMPARISON ONLY; ω_C=Z₀=1 engine-natural) · `consistency-vs-emergence` (§3 trace fixed pre-run) · `substrate-native-check` (§1) · KEEP-BOTH (new driver, no engine mutation).
 
 ---
+
+## §6 RESULTS
+
+Driver `src/scripts/vol_1_foundations/darkwake_feedback_alpha.py`; outputs
+`darkwake_feedback_alpha_results.json` + `..._map.png`. Floquet monodromy reused from
+swept-Γ; threshold `γ*(A²)` by vectorized bisection (200-point A² grid, 1500 RK4 steps/period, 50 iters).
+
+### §6.1 ★ THE INPUT-TRACE — `γ` is α-FREE (the necessary precondition, satisfied)
+
+Every input to the dark-wake loss, traced (matches the §3 pre-registration exactly):
+
+| Input to `γ(A²)` | trace | α present? |
+|---|---|---|
+| `z_local(A²)` | `(1−A²)^{±1/4}` (Op14 kernel, Ax 4) | **NO** |
+| `Z₀` (in `R_geom = Z₀/4π`) | `√(μ₀/ε₀)`, engine-natural 1 (Class-A identity) | **NO** |
+| `4π` (in `R_geom`) | K4 bipartite-lobe temporal-phase closure (Ax 1) | **NO** |
+| `ω_C·L_bond = Z_LC` | `√(L/C) = Z₀ = 1` (bare-bond reactance) | **NO** |
+| `ρ_Op14` | `0.990` (Pearson trade efficiency) | **NO** |
+| `A²` | self-selected by gain=loss (engine state) | **NO** |
+
+`γ(A²→0)/ω_C = z_local·R_geom·ρ = 0.07878 ⟹ Q_bare = 4π/ρ = 12.693`. **`e, ε₀, ℏ, Z₀-via-SI, c, α`
+are ALL ABSENT** from the loss magnitude. The loss is genuinely α-free geometry — exactly as the
+swept-Γ gain was. The classification therefore turns entirely on the MAGNITUDE: `Q_bare = 4π ≈ 12.57`
+vs `1/α = 137.04`, the ratio `137/(4π) = 10.905 = 1/(4πα)`.
+
+### §6.2 The loss BOUNDS the pump (Fork A's window is real)
+
+The dark-wake `γ(A²)` pulls the lossless tongue off the ω-axis at the Op14 ridge:
+
+| A² | `|λ|` lossless | `|λ|+γ`(low-Z) | `|λ|+γ`(high-Z) |
+|---|---|---|---|
+| 0.10 | 1.021 | 0.903 | 0.897 |
+| 0.50 | 1.137 | 1.017 | 0.971 |
+| 0.90 | 1.362 | 1.258 | 1.056 |
+
+The α-free dark-wake loss turns the unbounded lossless ridge into a **bounded** gain=loss locus — **YES,
+Fork A's stable parametric window exists once the REAL loss is restored.**
+
+### §6.3 ★ THE α-CLASSIFICATION — CALIBRATION (the headline, as pre-registered)
+
+The self-consistent operating point (where the α-free dark-wake `γ(A²)` equals the Floquet gain=loss
+threshold `γ_threshold(A²)`):
+
+| | A²_self | Q_self = ω_C/γ | Q_self·α |
+|---|---|---|---|
+| α-FREE dark-wake (low-Z / TIR-short) | 0.453 | **14.76** | 0.108 |
+| α-FREE dark-wake (high-Z / engine) | 0.623 | **9.95** | 0.073 |
+| **target `1/α`** | — | **137.04** | 1.000 |
+
+**The α-free dark-wake loss gives `Q_self ≈ 10–15 ≈ O(4π)`, off from `1/α = 137` by `×9–14`.** It does
+**NOT** land 137. Contrast the two ways to FORCE `Q = 1/α`, both shown explicitly as **α-in → α-out**:
+
+- **α-ENCODED toy** `γ := α·ω_C = 0.00730` → `Q = 137.0 = 1/α` (the swept-Γ stretch — α SET by hand).
+- **α-ENCODED reactance** (theorem-3-1 Path A): `ω_C·L_e = ℏ/e² = Z₀/(4πα)`; `Q = (Z₀/4πα)/(Z₀/4π) =
+  137.0 = 1/α` (α via the SI definition `α = e²Z₀/4πℏ`).
+
+**The 137 lives in the α-ENCODED REACTANCE / near-field mass (`M_inertial ≡ L_drag → L_e`), NEVER in
+the α-free far-field loss.** The bare-bond reactance is `Z₀`; the electron's is `Z₀/(4πα) = 10.9·Z₀` —
+and that `×1/(4πα)` enhancement IS the entire α-content. The dark-wake loss is geometry, but it is
+`~10.9×` too large (`1/4π` vs the `α` needed) for `Q = 137`. **VERDICT: CALIBRATION.** `Q = 1/α` is the
+A47 `p_c = 8πα` / theorem-3-1 Path A consistency-class identity (α-in → α-out), **not** an emergence of 137.
+
+### §6.4 Sensitivity — `Q_self` is geometry-pinned, not a 137-knob
+
+Sweeping the O(1) reduction coefficient `R_geom` over `×4` around the canonical `1/4π`:
+
+| `R_geom` | 1/(8π)=0.0398 | **1/(4π)=0.0796** | 1/(2π)=0.159 | 1/π=0.318 |
+|---|---|---|---|---|
+| `Q_self` | 27.41 | **14.76** | 8.56 | 5.80 |
+
+`Q_self` stays `O(5–30)` across the whole sweep — **never 137**. To reach `137` the coefficient would
+have to be `≈ α` (10.9× below `1/4π`), with no geometric factor of `4πα` available to supply it. The
+calibration verdict is **robust to the modeling choice** — the magnitude is geometry-pinned, not a
+free knob tuned to 137.
+
+### §6.5 Genesis threshold (secondary) — the swept-Γ "4×" DISSOLVES
+
+| | A²_self | m_ec² point 0.23 relative to it |
+|---|---|---|
+| swept-Γ TOY (α-encoded `γ=α`) | `8α = 0.058` | `0.23/0.058 = 3.94` ← the flagged "4×" |
+| **REAL α-free dark-wake (low-Z)** | **0.453** | `0.23/0.453 = 0.51×` (m_ec² point is BELOW A²_self) |
+
+With the REAL α-free loss the self-selected amplitude is `A²_self ≈ 0.45`, an order of magnitude above
+the α-encoded toy's `8α ≈ 0.058`. So the m_ec² point `0.23` sits at `~0.5×` of `A²_self` — **NOT 4×
+above it.** The swept-Γ "`0.23/0.057 ≈ 4.0`" coincidence **DISSOLVES**: it was an artifact of the
+α-encoded toy loss (`8α` is tiny only because α is tiny). The coincidence-magnet tell flagged in
+swept-Γ §6.4 is confirmed — the "4×" was the toy, not the physics.
+
+---
+
+## §7 VERDICT
+
+**The four return questions:**
+
+**1. ★ Does the α-FREE dark-wake give `Q = 1/α`? EMERGENCE or CALIBRATION? — CALIBRATION.**
+The full input-trace of `γ` (§6.1) is α-free: `z_local` (Op14 kernel), `Z₀` (Class-A identity), `4π`
+(K4 geometry), `Z_LC` (bare-bond reactance), `ρ_Op14`, `A²` — **no `e, ε₀, ℏ, Z₀-via-SI, c, α`
+anywhere.** That necessary precondition for emergence IS satisfied (the loss is genuine geometry).
+**But the magnitude gives `Q_self ≈ 10–15 ≈ O(4π)`, off from 137 by `×9–14`, robust to a `×4`
+coefficient sweep (§6.4) and to polarity.** Landing `Q = 1/α` requires α-encoding — either `γ = α·ω_C`
+(set by hand) or the α-encoded reactance `Z₀/4πα` (theorem-3-1 Path A, SI α-def). **The 137 lives in
+the α-encoded near-field REACTANCE / mass (`M_inertial ≡ L_drag → L_e`), never in the α-free far-field
+LOSS.** An α-encoded reactance was not allowed to masquerade as the loss deriving α. This is **NOT** the
+first non-circular α route; `Q = 1/α` remains the A47 `p_c = 8πα` / theorem-3-1 Path A consistency
+identity (α-in → α-out). **A clean negative — as decisive as a positive would have been.**
+
+**2. Does the loss bound the pump? m_ec² point on the locus or ~4× above? — Loss BOUNDS the pump
+(YES, §6.2); the "4×" DISSOLVES.** The α-free dark-wake turns the unbounded lossless tongue into a
+bounded gain=loss locus. The self-selected amplitude is `A²_self ≈ 0.45` (low-Z) — so the m_ec² point
+`0.23` sits at `~0.5×` of it, **not** `4×` above. The swept-Γ "`0.23/0.057 ≈ 4.0`" was an artifact of
+the α-encoded toy loss (`8α` tiny); the real geometry-set loss removes it.
+
+**3. Verdict — first non-circular α route, or calibration? — CALIBRATION.** Robustly. The genuine
+α-free dark-wake loss gives `Q ~ 4π ~ 12`, not 137.
+
+**4. The constructive reframe (where the α-free emergence candidate actually lives).** `137 = 4π · 10.905`,
+and `137.036 = 4π³ + π² + π` (theorem-3-1 Path B, Golden-Torus): `4π³ = (4π)·π²`. **The dark-wake
+parametric loss captures exactly the `4π` factor (the LINE / temporal-phase radiation resistance) — one
+of the three multipole reactance contributions.** The remaining `×10.9 ≈ π²·(1+…)` is the 3D
+phase-VOLUME + surface mode count — the **Golden-Torus multipole geometry on the SEPARATE `(V_inc,V_ref)`
+phase-space axis**, which is a different mechanism from the parametric loss/gain ratio (task caveat: *do
+not conflate the parametric `Q` with the multipole `α⁻¹`*). So the parametric-loss route alone reaches
+only `4π`; **the genuine α-free emergence candidate is the multipole / Golden-Torus `4π³+π²+π`, on the
+phase-space axis this real-space sweep does not touch.** This driver cleanly localizes WHY the parametric
+route is calibration: it carries only the radiation-resistance `4π`, not the full multipole mode structure.
+
+**Caveats held:** this tests the α loss/scale + the genesis threshold ONLY. The `(2,3)` topological
+closure (Fork D, phase-space) is **untouched** — **genesis is NOT closed.** FLAG-POLARITY (low-Z TIR-short
+vs high-Z engine; both give `Q ~ O(10)`, classification polarity-robust) and the near/far dark-wake split
+(CP1: the task's `M_inertial≡L_drag` is the near-field reactance, the loss is the far-field radiation —
+corpus-canonical per `dark-back-reaction-taxonomy.md`) are surfaced for Grant, not silently reframed.
+
+---
+
+**Status: §0–§5 frozen pre-run; §6–§7 post-run. Pre-registration confirmed exactly: the α-FREE
+dark-wake loss gives `Q ~ 4π ~ 12–15`, NOT `1/α = 137`. `Q = 1/α` is α-ENCODED (the near-field reactance
+`L_e`, theorem-3-1 Path A SI α-def), NOT an emergence — CALIBRATION. The loss bounds the pump (Fork A
+window real); the genesis "4×" dissolves. The α-free emergence candidate lives on the SEPARATE multipole /
+Golden-Torus phase-space axis (`4π³+π²+π`), not the parametric loss/gain ratio. `(2,3)` closure untouched.**
