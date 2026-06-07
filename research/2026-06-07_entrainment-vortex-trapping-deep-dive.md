@@ -320,13 +320,91 @@ candidate** (the criterion), assessed in §6.
 
 ## §3 — Mapping B: entrainment-buoyancy law → dark-wake / inertia
 
-*(filling)*
+**The corpus target.** AVE identifies inertia as a **reactive, inductive (Lenz) back-EMF**: `clm-jwyy6l`
+(`vol2/claim-quality.md:666-674`) — *"mass is identified with stored inductive energy required to maintain
+the topological integrity of the closed flux loop. Newton's `F = ma` is then a macroscopic phenomenological
+consequence of Lenz's law on a confined electromagnetic phase loop,"* with `E_mass = ½ L_eff |A|²` and
+back-EMF `V = −L di/dt` the resistance to acceleration. It is explicitly a *"category (i) ontological
+reinterpretation, not a new numerical prediction"* (confidence 0.3; leaves
+`dark-wake-bemf-foc-synthesis.md`, `newtonian-inertia-as-lenz.md`).
+
+> **verify-before-cite flag.** The brief paraphrased `:670` as *"can't be entrained without motion."* That
+> phrase is **not** at `:670`; the verbatim claim is the Lenz/back-EMF text above. I use the brief's phrasing
+> as an *intuition gloss* only, not as a corpus quote.
+
+**Is the entrainment RATE a candidate inertia model? Yes — but only the REACTIVE branch, and the
+Camassa–McLaughlin entrainment is the WRONG (dissipative) branch.** This is the load-bearing discrimination:
+
+- **Inviscid ADDED-MASS (virtual mass) is the correct fluid analog of AVE inertia.** A body accelerating
+  through a fluid must also accelerate the fluid it displaces/drags; the reaction is an **extra,
+  velocity-history-independent, lossless** inertia — the classic added-mass `m_add = C_M ρ V`. This is
+  **reactive** (potential-flow, no entropy), and it is the *exact* structure of `clm-jwyy6l`: the soliton
+  accelerating must accelerate its dragged **reactive dark-wake** (the lattice's inductive response) too →
+  back-EMF → inertial mass. `m_add ↔ L_eff`; the entrained/displaced reactive field IS the stored `½L|A|²`.
+  **This is a genuinely good lens** — added-mass is the fluid word for "inertia = dragging your own reactive
+  field."
+- **The Camassa–McLaughlin entrainment is VISCOUS — dissipative — so it is NOT the inertia branch.** Their
+  abstract says *"viscous entrainment which alters the effective buoyancy."* Viscous entrainment is
+  irreversible mass-accumulation; it changes *buoyancy* (a real-power / settling effect), and it is exactly
+  the **confinement-accumulation** of Mapping A (§2), **not** reactive inertia. Mapping the *viscous*
+  entrainment rate onto inertia would import the wrong polarity (a lossy drag onto a lossless reactance).
+
+**Net for Mapping B.** The entrainment-rate framing **is** a candidate model for inertial-mass accumulation
+— provided one takes the **reactive added-mass** limit (the field the soliton must drag-accelerate, `↔ L_eff`),
+and explicitly **separates it from the dissipative viscous entrainment** that the Camassa–McLaughlin papers
+actually study (which belongs to confinement, §2, and to decoherence/real-power loss, companion §3). So the
+two fluid effects bifurcate cleanly onto two AVE targets:
+
+| Fluid effect | Character | AVE target |
+|---|---|---|
+| **Inviscid added-mass** (`m_add = C_M ρ V`) | reactive, lossless | **inertia** = back-EMF `½L|A|²` (`clm-jwyy6l`) |
+| **Viscous entrainment** (Camassa–McLaughlin bubble) | dissipative, accumulating | **confinement** (Fork A, §2) + real-power loss (decoherence) |
+
+**Discrimination + classification.** The added-mass lens adds **intuition, not a number**; it inherits
+`clm-jwyy6l`'s own ceiling (confidence 0.3, *"not a new numerical prediction"*). SM-counterfactual: added-mass
+is textbook classical/quantum field-reaction physics; "inertia = field reaction" is **not AVE-distinct**
+unless the *prefactor* (`C_M`, or equivalently `L_eff` for the `(2,3)` geometry) is **derived from substrate
+topology** and shown to differ from a generic field-dressed mass. Class: **consistency-class lens** (the clean
+reactive/dissipative bifurcation is the contribution).
 
 ---
 
 ## §4 — Mapping C: stratification → bulk-strain gradient `A₀(r)` / yield surface
 
-*(filling)*
+**The corpus target.** Each LC node carries a saturation-amplitude **operating-point state `A₀`** along the
+Axiom-4 kernel (`ave-kb/CLAUDE.md` INVARIANT-S2, "Operating-point state and small-signal modulation"). A
+spatial profile `A₀(r)` modulates the local effective medium: `ε_eff = ε₀ S(A₀)`, `μ_eff = μ₀ S(A₀)`,
+`C_eff = C₀/S(A₀)` — the same **varactor-bias** mechanism that produces refractive-index gradients at all
+scales. **A `A₀(r)` profile is therefore a graded-impedance / graded-refractive-index background.**
+
+**The mapping.**
+
+| Fluid stratification | AVE operating-point background |
+|---|---|
+| Density profile `ρ(z)` (two layers) | Operating-point field `A₀(r)` (graded saturation = two operating points) |
+| Sharp density transition (pycnocline, ~1 cm) | **Yield surface** — where `A₀(r)` crosses a regime boundary (`r₁ = √(2α) ≈ 0.121`, Regime I→II, `19_phase_transition_turbulence.tex:19,28`; or `A²→1`, the `Γ=−1` boundary) |
+| Buoyancy frequency `N² = −(g/ρ) dρ/dz` (only the *gradient* is dynamically active; uniform `ρ` does nothing) | `∇A₀` — **only the gradient is physically observable** (operating-point state is *gauge-relative*; "only spatial gradients of `A` are physically observable, not absolute per-node values", `ave-kb/CLAUDE.md` INVARIANT-S2) |
+| Ring descending from light → dense layer through the transition | Seed driven from **sub-yield (Regime I)** through the yield surface toward **saturated (`A²=1`, `Γ=−1`)** |
+| The transition layer where trapping happens | The **yield-surface region** where the wall forms and the `(2,3)` can lock |
+
+**The genuinely suggestive structural parallel (flag, not a claim).** Both systems share the property that
+**only the gradient is dynamically active** — fluid stratification acts through `N² ∝ dρ/dz` (a uniform
+density column is inert), and the AVE operating point acts through `∇A₀` (absolute per-node `A₀` is
+gauge-relative; only gradients are observable). This is a real structural match between *stratification* and
+*the operating-point field*, beyond the loose "layers ↔ regions" analogy. It is the cleanest part of Mapping C.
+
+**Symmetric vs asymmetric loading — which gradient reflects (substrate-native-check).** Not every `A₀(r)`
+gradient is a trapping yield surface. Per `ave-kb/CLAUDE.md` INVARIANT-S2: a **symmetric** both-sector scaling
+(`S_ε = S_μ`) keeps `Z = Z₀` **invariant → reflectionless** (the gravity-class, transparent gradient — the
+ring would merely *refract*). Only an **asymmetric** load (`S_μ→0`, `S_ε` finite — the particle/Meissner
+case, `01_vacuum_circuit_analysis.tex:432,438`) gives `Z→0`, `Γ=−1` — a **reflecting** yield surface. **The
+trap happens only at the asymmetric (Meissner) yield surface**, consistent with §2's confinement mechanism.
+So Mapping C sharpens §2: the "sharp density transition" is specifically an **asymmetric-saturation yield
+surface**, not a generic refractive step.
+
+**Classification.** Consistency-class, **identity-adjacent** — it re-describes the canonical `A₀(r)`
+operating-point in stratification vocabulary and adds **no new primitive**; the `∇A₀`-only-observable parallel
+is the one piece of new intuition. Honest ceiling: same echo-not-chord as the rest of this doc.
 
 ---
 
