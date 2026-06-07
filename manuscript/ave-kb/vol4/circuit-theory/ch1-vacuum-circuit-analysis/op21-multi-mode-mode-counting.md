@@ -249,6 +249,8 @@ Op17 (matched-impedance peak transmission at $\Gamma = 0$) and Op21 (mode-counti
 
 The two operators are substrate-mechanical complementary: Op17 = open-boundary energy transfer (substrate transmitting maximum signature power at matched-impedance condition); Op21 = closed-boundary energy quantization (substrate confining and counting modes at the saturation boundary). At the substrate scale this is a single $\Gamma$-space framework with two operational endpoints.
 
+> ↗ See also: [Biquaternion node-algebra (result)](../../../../../research/2026-06-06_biquaternion-node-algebra-result.md) — the $\Gamma = -1$ endpoint is the biquaternion **null cone** (zero divisors); this is *why* the substrate node-algebra is the **complex** quaternion $\mathbb{H} \otimes \mathbb{C}$ rather than the real one (a division algebra has no null cone). Consistency-class re-expression of the $\Gamma$-space boundary — no new prediction or primitive.
+
 ### §6.4 — Upstream canonical content (Phase 3-A4 inputs)
 
 - **Ax 1 Nyquist cell size**: [`src/ave/core/constants.py`](../../../../../src/ave/core/constants.py) `L_NODE` + INVARIANT-S2 (Ax 1)
