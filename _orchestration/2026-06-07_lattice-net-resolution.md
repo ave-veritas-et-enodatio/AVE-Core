@@ -10,13 +10,14 @@
 4. **"K4" is an ambiguous name** — Sunada's K4-*graph* (4 vertices, degree-3) vs 4-*coordination*. The substrate the engine computes is **diamond (z=4)**; the "chiral Laves K4 / srs (z=3)" name is the numerological outlier, not the computed object.
 5. **Spin (II) holonomy tests probed the wrong sector** (node positions = achiral E-sector); spin lives in the Cosserat ω-sector → the intrinsic spin-½ / FM test re-scopes to the **ω-helicity**, not node-position rotation.
 
-## The one open work item
-Re-ground the neutrino "3" on the **3 Cosserat sectors / trefoil crossings** (both survive z=4) via a **per-bond → per-sector substitution check**:
-- δ_CP: per-bond "1/3" → π/4 at z=4, but δ_CP survives anyway (1.27π vs 1.36π, inside ±0.2). Sharper exposure: `Δc_crit = 3 → 4` flips the θ₁₃ screening regime.
-- **Re-grounds on sectors → keep z=4, walk back the bond-*wording*. Doesn't → walk back the neutrino leaves.**
+## The one open work item — RESOLVED (check `ad91271e`, PR #113)
+**Verdict: KEEP z=4 + fix the bond-wording. Clean (sector-grounded) outcome; one localized Grant call at θ₁₃.**
+- **δ_CP re-grounds CLEANLY + UNCONDITIONALLY:** the middle term stays 1/3 on the **3 Cosserat sectors** (z-independent) → restores **61/45 = 1.3556π** on z=4 (per-*bond* would degrade to 1.272π). The "3" was welded (bond=sector=crossing) only *coincidentally* at z=3; z=4 de-welds it and the sector/crossing groundings survive. **Axiom-supported:** `eq_axiom_1.tex:20` already says "4-fold connectivity … three microrotational DOF" — 4 bonds, 3 sectors, *distinct*.
+- **θ₁₃ is the ONE load-bearing Grant call:** `Δc_crit` (the θ₁₃ screening threshold; Δc=4 knife-edge — the wrong reading unscreens it ~20×, 0.022→~0.44) re-grounds on the 3 Cosserat sectors via an **SU(2) selection rule** (angular momentum is intrinsically 3-component → max 3 quanta/interaction, z-independent) — BUT as written it's bond-channel transport (`op14-cross-sector-trading.md:11`: the trade goes via the bond LC tank's inductive side, ρ=−0.990). **Plumber-physical: is the AM-transfer bottleneck the 3 angular-momentum COMPONENTS (→ Δc_crit=3, θ₁₃ survives) or the bond CHANNELS (→ 4 on diamond, θ₁₃ breaks)?**
+- δ_CP, θ₁₂, θ₂₃, the JUNO inverted-hierarchy falsifier **survive either way** (they depend on crossing-numbers 5,7,9, not connectivity-3). **NOT board-wide z=3-dependence — one localized call at θ₁₃.**
 
 ## Walk-back queue (pending the substitution check + Grant's confirm — NOT yet executed)
-- z=3 bond-attribution wording: `chiral-screening.md:11,24` · `delta-cp-violation.md:23,30` · `dielectric-snap-limit.md:32` · `bond-force-constants.md:110` · `vol1/claim-quality.md:141` → re-ground on Cosserat-sectors OR 🔴.
+- z=3 bond-attribution wording → re-ground on Cosserat-sectors: `delta-cp-violation.md:23` (δ_CP "1/3 per bond"→"per sector") **UNCONDITIONAL** · `chiral-screening.md:11,13,24` (Δc_crit + the bond=sector=crossing weld) **GATED on Grant's θ₁₃/Δc_crit call** · `dielectric-snap-limit.md:32` · `bond-force-constants.md:110` · `vol1/claim-quality.md:141` (+ `:1188` is the z=3-vs-z=4 self-contradiction). Disambiguate the "3 Cosserat sectors" terminology collision: ω-components (`eq_axiom_1.tex:20`) vs translation/rotation/curvature-twist (`vol1/claim-quality.md:520`).
 - `eq_axiom_1.tex:20` "4-fold + chiral Laves K4" self-contradiction → clarify: **4-bond diamond + 3-phase Cosserat spin + `k_χ` chiral decoration.**
 - `closure-roadmap:191` → note the **coordination** axis is now resolved (was left open; only the space-group axis had been adjudicated).
 
