@@ -165,8 +165,129 @@ engine-natural; NO hard-coded constants) · `consistency-vs-emergence` (§3 clas
 
 ## §6 RESULTS
 
-*(pending run)*
+Driver `src/scripts/vol_1_foundations/swept_gamma_omega_A2.py`; outputs
+`swept_gamma_omega_A2_results.json` + `..._tongue_map.png`. Grid: A²∈[0.01,0.97]×49,
+ω_drive∈[0.20,3.00]×141 ω_C; Floquet monodromy, 4000 RK4 steps/pump-period.
+
+### §6.1 GAIN — the 4× pump IS a parametric tongue (Outcome A confirmed)
+
+The lossless `(A², ω_drive)` Floquet surface shows a single **principal instability tongue**.
+Its ridge (the ω_drive of max gain per A²) tracks the **Op14-softened** prediction
+`ω_drive = 2ω_C√(1−¼A²)`:
+
+| A² | ridge measured (ω_C) | Op14 predict `2ω_C√(1−¼A²)` |
+|---|---|---|
+| 0.19 | 1.940 | 1.952 |
+| 0.49 | 1.860 | 1.873 |
+| 0.79 | 1.720 | 1.792 |
+
+mean `|ridge − Op14pred| = 0.042 ω_C` over the resolved tongue. **The tongue peaks near `2ω_C`
+(at A²→0) and bends DOWN as A² rises** — the Op14 local-clock signature (CP5); a bare no-Op14
+tongue would be a vertical line at fixed `2ω_C`. The amplified signal / self-oscillation is at the
+**sub-harmonic `ω_drive/2 ≈ ω_C` — the Compton clock.** So the pump is at `2ω_C`, the clock is `ω_C`.
+
+`max|λ| = 1.575 > 1` on the ridge ⟹ **positive Floquet exponent ⟹ exponential growth.** On the
+**lossless** engine the principal tongue reaches the ω-axis (**zero threshold**): gain is unbounded
+for **all A² > 0** on the ridge. **This IS the lossless-parametric artifact = the 4× pump** (the
+engine's observed `10⁴–10⁷×` energy blow-up = `1.575×/period` compounded over the run). ✓ Outcome A.
+
+*(Honest caveat: at A²=0.79 the measured ridge 1.720 sits BELOW the leading-order 1.792 — the exact
+non-Taylor `⟨S(A(t))⟩` softens faster than `1−¼A²`, so the real down-bend is even stronger than
+leading order. The discriminating fact — tongue at `2ω_C`, bending down — is robust.)*
+
+### §6.2 CAVITY — the SECOND threshold the 1-D cuts conflated
+
+Static Op3 reflection `|Γ_Op3(A²)| → 1 only as A²→1` (S→0). low-Z (canonical short) `Γ(0.23) = −0.033`
+**matches optionD 1× (`Γ_min = −0.011`, "matched bulk, no wall")**; the wall (`|Γ|>0.9`) forms only at
+**A² ≳ 0.999**. So there are **TWO distinct thresholds**, which the genesis 1-D amplitude cuts saw only
+in combination:
+- **(i) parametric-GAIN** threshold: any A² > 0 (lossless tongue).
+- **(ii) CAVITY-formation** threshold: A² → 1 (the Γ=−1 wall that traps the gain).
+
+The genesis "amplitude-gating" verdict IS this decomposition: **1× (A²=0.23) = gain present but no
+cavity** → the mode leaks/disperses before the gain compounds; **4× (amplitude ×4 = A²×16 → A²→1,
+rupture R_III) = gain AND cavity** → the Γ=−1 wall traps the always-present gain → runaway pump.
+Neither fixed-amplitude cut could resolve that gain and cavity are **separate axes**.
+
+**FLAG-POLARITY (for Grant):** observed Γ is **negative** (low-Z / short, canonical Meissner μ-branch),
+matching the optionD asymmetric kernel. The engine's 4× `Γ=−0.994` is **steeper** than the symmetric
+low-Z toy at A²=0.97 (`−0.41`) — the asymmetric μ-wall (`Z_μ→0`) shorts faster than the symmetric
+`Z=Z₀√S`. Sign + steepness flagged; **does not change the gain** (pump depth is the `|1/C_eff|`
+modulation, polarity-independent).
+
+### §6.3 α-READOUT — the headline (consistency-vs-emergence, as pre-registered §3)
+
+- **GAIN is α-DECOUPLED.** The pump depth (`¼A²`), the ridge (`2ω_C√(1−¼A²)`), and the entire Floquet
+  surface were computed with **ZERO α input** — pure geometry of `S(A)=√(1−A²)`. This is **NOT** the
+  circular `p_c=8πα` failure mode (A47 v17) and **NOT** keyed to α via a `κ_chiral=α·κ̃` primitive.
+  The gain is genuine topology/geometry. **Class D-eligible structure.** ✓
+- **Q=1/α is α-ENCODED.** To land `Q=ω_C/γ=1/α` the loss must be **set to `γ=α·ω_C` by hand**.
+  Theorem-3-1 Path A (`:21-40`) derives `Q=1/α` by **substituting the SI definition `α=e²Z₀/(4πℏ)`**
+  into the reactance (`ω_C·L_e=ℏ/e²=Z₀/(4πα)`; `Q=4πℏ/(e²Z₀) ≡ α⁻¹` by CODATA ℏ,e,Z₀). So **"α=1/Q"
+  is α-in → α-out** — **Class A/C identity/consistency, NOT an emergence of 137.036.** Reporting it as
+  emergence would be the exact A47 `p_c=8πα` failure mode.
+- **The honest split:** parametric **STRUCTURE** (gain) = α-free geometry; parametric **SCALE** (where the
+  threshold sits → Q → operating amplitude) = α-encoded via the loss. The separate geometric
+  `α⁻¹=4π³+π²+π` (Golden-Torus mode-count, theorem-3-1 Path B) is a **DIFFERENT axis** — not the
+  parametric Q; do not conflate.
+
+### §6.4 LOSS (STRETCH) — a BOUNDED threshold appears with the dark-wake
+
+Adding a loss γ lifts the principal tongue off the ω-axis: a **BOUNDED threshold locus `γ*(A²)`**
+appears (the gain=loss curve), rising with A² (more gain needs more loss to bound). **YES — Fork A's
+stable window exists once the loss is restored.** At `Q=1/α` (`γ=α·ω_C`), the self-selected gain=loss
+amplitude is **`A²_self ≈ 0.057 ≈ 8α`** (within 2%; scaling `A²_self ∝ α`, **α-encoded via the loss**,
+NOT an α-free prediction).
+
+**Does the electron operating point sit ON it?** The m_ec²-calibrated impose is at `A²≈0.23` — **above**
+`A²_self≈0.057` (ratio `0.23/0.057 ≈ 4.0`). This is **suggestive** of Fork A's "~4× apart" calibration
+crux, but **flagged as an observation for Grant, NOT a closed claim** (the rest-energy-to-threshold
+ratio and the amplitude-scale-to-cavity "4×" are different ratios; over-reading a 4≈4 coincidence is
+exactly the coincidence-magnet tell). **Caveat:** this stretch uses a TOY damping γ — it demonstrates a
+bounded locus EXISTS for any loss; it does **not** show the *real* dark-wake `τ_zx` produces `Q=1/α`.
+That is the genuine emergence test and the immediate next driver (§7).
 
 ## §7 VERDICT
 
-*(pending run)*
+**The four return questions:**
+
+1. **Is the 4× pump a parametric tongue (peaks at ω≈2ω_C)? — YES.** A single principal Floquet tongue,
+   ridge at `2ω_C` (A²→0) bending down as `2ω_C√(1−¼A²)` (Op14); signal/self-osc at the sub-harmonic
+   `ω_C` (Compton clock). Lossless `max|λ|=1.575>1` → unbounded ridge = the 4× pump. The 1-D genesis
+   cuts couldn't resolve it because they sampled fixed (A², ω) points on a 2-D surface.
+
+2. **Q(A²) at the operating point — is it 1/α? α-decoupled or α-encoded? — Q≈1/α STRUCTURALLY, but the
+   GAIN is α-DECOUPLED (geometry) while Q=1/α is α-ENCODED (the loss carries α).** The honest headline:
+   the parametric gain is genuine α-free topology/geometry (good — not the circular `p_c=8πα` mode), but
+   "α=1/Q" is α-in→α-out (theorem-3-1 inserts the SI α definition into the loss). **The characterization
+   does NOT derive α; it does not let an α-encoded primitive masquerade as deriving α.**
+
+3. **Does a bounded threshold locus appear with the dark-wake loss? Electron on it? — A bounded locus
+   appears with a TOY loss (YES, Fork A's window exists); at Q=1/α the self-osc amplitude is A²≈8α≈0.057.
+   "Electron on it" is UNRESOLVED** — pending feeding the *real* dark-wake `τ_zx` (α-free geometry) into
+   the EOM. The operating point A²≈0.23 sits ~4× above the toy-loss threshold (suggestive of Fork A's
+   calibration crux; flagged, not closed).
+
+4. **Verdict — does the characterization dissolve Fork A? — YES, the amplitude/resonance Fork A is
+   dissolved.** The "4× pump" is not a pathology to debug away: it is the **lossless-parametric tongue**,
+   the necessary artifact of running genesis with the dark-wake back-reaction switched off
+   (`DarkWakeObserver` observed-not-fed-back, `vacuum_engine.py:1457`). The genesis fork structure
+   collapses into: *(i)* an always-present α-free parametric gain, *(ii)* a cavity that forms only at
+   A²→1, and *(iii)* a missing loss. **Caveat held:** this dissolves Fork A (amplitude/resonance) ONLY —
+   the `(2,3)` topological closure (Fork D / C3) is a **separate (V_inc,V_ref) phase-space axis** this
+   real-space sweep does **not** touch. The genesis is **not** closed.
+
+**Immediate next driver (the genuine emergence test):** feed the real `DarkWakeObserver` `τ_zx`
+back-EMF (the α-free, geometry-set loss; `M_inertial≡L_drag`) into the bond-LC / Cosserat EOM and
+re-measure Q at the gain=loss threshold. **If the α-free dark-wake produces Q=1/α**, that is a genuine
+α emergence (α-free loss → α-encoded Q out) — the first non-circular route. **If the dark-wake magnitude
+is a free knob**, Q=1/α is calibration. This is the test the §6.3 split makes well-posed; it does NOT
+solve α (deriving 137 has eluded everyone — do not overclaim). Pair with the **FLAG-POLARITY** (Fork B)
+and **calibration-crux** (Fork A rest-energy-vs-threshold) adjudications for Grant.
+
+---
+
+**Status: §1–§4 frozen pre-run; §6–§7 post-run. Outcome A (parametric tongue) confirmed. Fork A
+dissolved (amplitude/resonance axis). α NOT derived (gain α-decoupled / Q=1/α α-encoded — honest
+consistency, not emergence). `(2,3)` phase-space closure untouched (caveat held). Next: dark-wake
+back-EMF into the EOM.**
