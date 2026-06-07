@@ -352,6 +352,20 @@ $\mathrm{Re}_q$); a rotor whose drive *loses* lock dumps its blocked KE incohere
 condition C3 failing means the winding "*dissipates instead*" (`pair-production-axiom-derivation.md:85`).
 **Loss of VFD lock IS decoherence**, viewed from the drive side.
 
+### Field-Oriented Control (FOC) — the frame that decouples the rotor (consistency-class mapping)
+
+If the VFD is the *drive*, **Field-Oriented Control** is the *frame*. FOC is the standard EE discipline for an AC rotor: transform stationary lab-frame quantities into a **rotating frame aligned with the rotor flux** — Clarke ($a,b,c\to\alpha,\beta$), then **Park** ($\alpha,\beta\to d,q$) — where the dynamics decouple. Three mappings, each leaf-pinned:
+
+1. **The Park transform IS the trefoil ↔ $(2,3)$ map.** The corpus writes the electron's winding as "**2 windings on the d-axis, 3 on the q-axis**" (`torus-knot-uniqueness.md` — phase-space, explicitly *not* a real-space trefoil). So the host-node's real-space path (the "trefoil projection") is the **lab/stationary frame**; the $(2,3)$ d-q winding is the **rotor-aligned rotating frame**; the Park transform is the change of variables between them — exactly as a motor's lab-frame sinusoids become d-q constants. *This resolves the trefoil-vs-$(2,3)$ tension: one object, two frames.* (The A46 phase-space discipline holds — the $(2,3)$ lives in $(V_{inc},V_{ref})$; the trefoil is its real-space shadow. The Park transform is precisely that projection — and is the concrete recipe for viz-candidate #1.)
+
+2. **FOC's flux/torque decoupling = the mass/charge split.** In d-q, the **d-axis controls flux** (magnetizing, the B-core) and the **q-axis controls torque** (the work) — independently. Map: d-axis $=$ the "2" $=$ B/Cosserat-ω → **mass/spin**; q-axis $=$ the "3" $=$ V-sector → **charge/interaction**. The decoupling engineers must enter the rotor frame to achieve is the companion doc's B-core(mass)/E-projection(charge) separation.
+
+3. **Sensorless back-EMF = inertial mass.** FOC estimates rotor position from the speed-proportional **back-EMF**. The corpus identifies inertia as exactly this — "*mass = Lenz's law on a confined EM phase loop*" (`vol2/claim-quality.md:670`), the dark-wake/back-EMF opposing acceleration. The rotor's back-EMF **is** its inertial mass, so FOC's back-EMF model is a ready handle on the inertia derivation.
+
+**One flagged stretch (not a claim):** FOC relates electrical to mechanical angle by pole-pairs, $\theta_e = p\,\theta_m$. The spinor advances half as fast as real rotation (720° to return) → a formal $p=\tfrac12$. FOC motors are integer-pole (boson-like); the electron's half-integer is its fermionic signature — and the chiral-holonomy diagnostic now running is, in these terms, measuring whether the chiral lattice is a "half-pole-pair." Suggestive only.
+
+**Classification:** consistency-class mapping (the Park-frame identity + EE vocabulary); adds no substrate primitive. Its one touch on the emergence hook: FOC's back-EMF model is the concrete object for a *derived* inertia / $Q$.
+
 ### The emergence hook — does $\mathrm{Re}_q$ (or VFD-ramp-vs-leak) predict a decoherence RATE?
 
 This is the one place the doc reaches past consistency-class. Honest assessment, in three steps.
