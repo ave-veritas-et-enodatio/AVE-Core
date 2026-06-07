@@ -631,6 +631,20 @@ None resolve the genesis blocker, which remains Fork A amplitude-gating.)*
    coupling is conjectural ($\delta_\chi\sim\alpha^2$, not derived,
    `omega-freeze:100`), **and** the $e^-$-handedness convention is corpus-
    contradictory (§6 flag). Open: derive the lock *and* resolve $e^-=$ RH-vs-LH.
+4. **fine structure as tidal spin–orbit emergence (EMERGENCE-class — the one with teeth).**
+   The canonical scalar `radial_eigenvalue.py` orbital solver is **spinless** — stability
+   comes from the Coulomb cavity, not helicity (§5) — so it has no rotor to tide-couple and
+   produces **no fine structure**. *Prediction:* add the rotor (the finite-size spin-½ B-loop)
+   to the $1/r$ cavity; the Coulomb gradient $dV/dr$ across the finite loop **torques the rotor
+   (a tidal bulge), generating** $H_{SO}\propto(1/r)(dV/dr)\,\mathbf{L}\cdot\mathbf{S}$ — the
+   $j=\ell\pm\tfrac12$ fine-structure splitting — with **no $\mathbf{L}\cdot\mathbf{S}$ inserted
+   by hand**, scaling as $\alpha^2$ with the Thomas-precession $\tfrac12$. **I.e. the bound
+   electron's spin–orbit coupling IS a tidal lock** (the Coulomb-gradient tide torquing the
+   rotor; the de Broglie standing wave is the separate, exact phase-lock). *Discriminator:* if
+   the emergent splitting matches observed fine structure with a **zero fitted spin–orbit
+   coefficient** → genuine emergence — **the only emergence-class item in this doc**; the rest
+   is consistency-class. The spinless orbital sims structurally cannot run this; it needs the
+   finite-size-rotor-in-a-gradient solver (the same tool the spin/$\alpha$ work points at).
 
 ### Surfaced for the auditor / Grant queue (I surface; the auditor lands)
 
