@@ -200,7 +200,64 @@ coherence-binding (cage Q, phase-lock coupling $K$) can still overcome.
 
 ## §3 — Frictionless ⟺ coherence ⟺ low $\mathrm{Re}_q$
 
-*[scaffold — filled in a following commit]*
+The three words are one statement read in three vocabularies:
+
+| Vocabulary | "Coherent" reads as | Mechanism |
+|---|---|---|
+| **EE** | lossless, $\Gamma=-1$ boundary, $Q=1/\alpha$, $\tan\delta\to0$ | reactive energy cycles between $C$ (E) and $L$ (B) with no real-power leak |
+| **Fluid** | laminar, $\mathrm{Re}_q<1$, sub-yield, $S>0$ | the standing wave never sheds into turbulent (incoherent) modes |
+| **Mechanics** | frictionless, maglev, zero drag | the Meissner cage levitates the rotor with no contact, no viscous coupling |
+
+**The cage IS the frictionlessness.** The companion rotor-synthesis doc establishes the electron as
+a frictionless B-rotor in a self-dug Meissner cage whose wall is a $\Gamma=-1$ Perfect Short-Circuit
+Boundary. In EE terms a $\Gamma=-1$ wall reflects every incident wave with zero transmission: no
+energy crosses the boundary, so there is **zero viscous coupling** between the rotor's circulation
+and the outside lattice. That is exactly the maglev condition — the Meissner expulsion ($\mu_{eff}\to0$,
+the $\eta\to0$ slipstream of `01_vacuum_circuit_analysis.tex:308`) lifts the rotor off the substrate
+so nothing grips it. A perfectly reflecting cage is a perfectly laminar one: $\mathrm{Re}_q=0$.
+
+**$\alpha$ is the intrinsic viscosity floor.** A real cage is not a perfect mirror. The Q-factor leaf
+makes the leak exact: at the TIR boundary "only a fraction $1/Q=\alpha\approx0.0073$ of the stored
+energy leaks per cycle … *this IS $\alpha$* in its original Sommerfeld meaning"
+(`theorem-3-1-q-factor.md:81`), with $Q_{\text{tank}}=1/\alpha$ (`:38`) at the Compton-clock
+eigenfrequency $\omega_C=c/\ell_{node}$ (`:28`). So the **fine-structure constant is the electron
+rotor's intrinsic loss tangent** — its irreducible kinematic viscosity, the $\mathrm{Re}_q$ floor a
+free electron can never go below:
+
+$$
+\mathrm{Re}_q^{\,\text{floor}} \;=\; \frac{1}{Q_{\text{tank}}} \;=\; \alpha \;\approx\; \frac{1}{137}.
+$$
+
+This is why the qubit row sits at $\mathrm{Re}_q\to0$ but not *at* zero: $\alpha$ is the London-leak
+viscosity of the Meissner cage. Crucially, $\alpha$ is the resonator **linewidth**, not by itself a
+decoherence channel — the $0_1$ unknot is topologically protected (the leak is reactively returned
+at the $\Gamma=-1$ wall, which is *why* the tank rings at $Q=1/\alpha$ instead of radiating away).
+$\alpha$ sets how *sharp* the rotor is, not how *fast* it dephases.
+
+**Decoherence = a friction channel opening.** Dephasing needs an *extra* loss path beyond the
+intrinsic $\alpha$ floor — a place where the $\Gamma=-1$ wall degrades to $|\Gamma|<1$ and real power
+escapes. The transmon leaf shows the canonical one: thermal noise enters "*exclusively through the
+lead boundaries — the edge nodes where the junction impedance meets the … feedline*"
+(`transmon-decoherence.md:12`), i.e. a deliberately-built leak at specific cage-wall nodes, not a
+bulk effect. The opened channel has a rate — the Ohmic damping coefficient
+$\gamma=\tfrac12\,Z_0/(\omega_0 L_{eff})$ (`:32`) — and the coherence metric $C(t)\in[0,1]$ decays by
+oscillatory relaxation at that rate (`:14`). In the Kuramoto/thermal limit the channel is the whole
+warm lattice: frequency mismatch between unsynchronized rotors makes $d\Phi/dt\neq0$ between them —
+"*localized inductive drag … observed as electrical resistance*" (`bcs-alternative-framework.md:26`).
+That is the viscous, turbulent, $\mathrm{Re}_q>1$ end.
+
+**Coherence-time $\propto$ cage losslessness.** Putting it together, the dephasing rate is the *opened*
+loss tangent times the carrier, $\Gamma_\phi \sim \delta_{\text{AVE}}^{\,\text{ext}}\cdot\omega$, so
+
+$$
+T_{\text{coh}} \;\sim\; \frac{1}{\Gamma_\phi} \;\sim\; \frac{Q_{\text{eff}}}{\omega}
+\;=\; \frac{1}{\delta_{\text{AVE}}^{\,\text{ext}}\,\omega}.
+$$
+
+The cleaner the cage (the closer the wall's $\Gamma$ to $-1$, the smaller the external loss tangent),
+the longer the coherence — coherence-time is literally proportional to cage losslessness $Q_{\text{eff}}$.
+Whether that proportionality is *only* a proportionality, or whether the substrate fixes the prefactor
+into an actual decoherence-*rate number*, is the §5 emergence hook.
 
 ---
 
