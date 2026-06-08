@@ -1,0 +1,164 @@
+{
+  "scope": "alpha-free two-node projection first pass; alpha comparison only",
+  "inputs": {
+    "p_winding": 2,
+    "q_winding": 3,
+    "phi": 1.618033988749895,
+    "R_phase": 0.8090169943749475,
+    "r_phase": 0.30901699437494745,
+    "alpha_used_as_input": false,
+    "alpha_cold_comparison": 0.007297336344064641,
+    "alpha_cold_inv_comparison": 137.0363037758784,
+    "sqrt_alpha_comparison": 0.08542444816365302
+  },
+  "full_profile_metrics": {
+    "variance_total": 0.7500037500187509,
+    "positive_variance_total": 0.7500037500187509,
+    "rank_positive": 2,
+    "complete_projector": true,
+    "eigenvalues": [
+      0.37500187500937426,
+      0.37500187500937654
+    ],
+    "positive_eigenvalues": [
+      0.37500187500937426,
+      0.37500187500937654
+    ],
+    "screened_variance_fraction": 0.49999999999999845,
+    "screened_rms_fraction": 0.7071067811865465,
+    "condition_ratio_positive": 1.000000000000006
+  },
+  "projectors": {
+    "one_node_x": {
+      "variance_total": 0.37500187500937504,
+      "positive_variance_total": 0.37500187500937504,
+      "rank_positive": 1,
+      "complete_projector": false,
+      "eigenvalues": [
+        0.37500187500937504
+      ],
+      "positive_eigenvalues": [
+        0.37500187500937504
+      ],
+      "screened_variance_fraction": 0.0,
+      "screened_rms_fraction": 0.0,
+      "condition_ratio_positive": null,
+      "variance_error_vs_alpha_ratio": 0.0,
+      "rms_error_vs_sqrt_alpha_ratio": 0.0
+    },
+    "one_node_y": {
+      "variance_total": 0.3750018750093752,
+      "positive_variance_total": 0.3750018750093752,
+      "rank_positive": 1,
+      "complete_projector": false,
+      "eigenvalues": [
+        0.3750018750093752
+      ],
+      "positive_eigenvalues": [
+        0.3750018750093752
+      ],
+      "screened_variance_fraction": 0.0,
+      "screened_rms_fraction": 0.0,
+      "condition_ratio_positive": null,
+      "variance_error_vs_alpha_ratio": 0.0,
+      "rms_error_vs_sqrt_alpha_ratio": 0.0
+    },
+    "two_node_adjacent_conjugate_xy": {
+      "variance_total": 0.7500037500187509,
+      "positive_variance_total": 0.7500037500187509,
+      "rank_positive": 2,
+      "complete_projector": true,
+      "eigenvalues": [
+        0.37500187500937426,
+        0.37500187500937654
+      ],
+      "positive_eigenvalues": [
+        0.37500187500937426,
+        0.37500187500937654
+      ],
+      "screened_variance_fraction": 0.49999999999999845,
+      "screened_rms_fraction": 0.7071067811865465,
+      "condition_ratio_positive": 1.000000000000006,
+      "variance_error_vs_alpha_ratio": 68.51815188793898,
+      "rms_error_vs_sqrt_alpha_ratio": 8.277569201639995
+    },
+    "two_node_wrong_same_axis": {
+      "variance_total": 0.7500037500187485,
+      "positive_variance_total": 0.7500037500187485,
+      "rank_positive": 1,
+      "complete_projector": false,
+      "eigenvalues": [
+        0.0,
+        0.7500037500187485
+      ],
+      "positive_eigenvalues": [
+        0.7500037500187485
+      ],
+      "screened_variance_fraction": 0.0,
+      "screened_rms_fraction": 0.0,
+      "condition_ratio_positive": null,
+      "variance_error_vs_alpha_ratio": 0.0,
+      "rms_error_vs_sqrt_alpha_ratio": 0.0
+    },
+    "two_node_wrong_45deg_pair": {
+      "variance_total": 0.7500037500187478,
+      "positive_variance_total": 0.7500037500187478,
+      "rank_positive": 2,
+      "complete_projector": true,
+      "eigenvalues": [
+        0.10983550623257579,
+        0.640168243786172
+      ],
+      "positive_eigenvalues": [
+        0.10983550623257579,
+        0.640168243786172
+      ],
+      "screened_variance_fraction": 0.14644660940672663,
+      "screened_rms_fraction": 0.3826834323650903,
+      "condition_ratio_positive": 5.828427124746172,
+      "variance_error_vs_alpha_ratio": 20.0685020536076,
+      "rms_error_vs_sqrt_alpha_ratio": 4.479788170617847
+    },
+    "three_node_120deg": {
+      "variance_total": 1.1250056250281233,
+      "positive_variance_total": 1.1250056250281246,
+      "rank_positive": 2,
+      "complete_projector": true,
+      "eigenvalues": [
+        0.0,
+        0.5625028125140614,
+        0.5625028125140631
+      ],
+      "positive_eigenvalues": [
+        0.5625028125140614,
+        0.5625028125140631
+      ],
+      "screened_variance_fraction": 0.4999999999999992,
+      "screened_rms_fraction": 0.707106781186547,
+      "condition_ratio_positive": 1.0000000000000029,
+      "variance_error_vs_alpha_ratio": 68.51815188793908,
+      "rms_error_vs_sqrt_alpha_ratio": 8.27756920164
+    },
+    "four_node_quadrature": {
+      "variance_total": 1.5000075000375017,
+      "positive_variance_total": 1.5000075000375015,
+      "rank_positive": 2,
+      "complete_projector": true,
+      "eigenvalues": [
+        0.0,
+        6.487931504535163e-17,
+        0.7500037500187486,
+        0.7500037500187529
+      ],
+      "positive_eigenvalues": [
+        0.7500037500187486,
+        0.7500037500187529
+      ],
+      "screened_variance_fraction": 0.4999999999999986,
+      "screened_rms_fraction": 0.7071067811865466,
+      "condition_ratio_positive": 1.0000000000000056,
+      "variance_error_vs_alpha_ratio": 68.51815188793901,
+      "rms_error_vs_sqrt_alpha_ratio": 8.277569201639997
+    }
+  }
+}
