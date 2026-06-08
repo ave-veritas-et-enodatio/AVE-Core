@@ -28,6 +28,8 @@ This is the substrate-native test of **FORK A (calibration crux)**: rest-energy-
 
 **Secondary prediction:** A monotonic trend — `Γ_min` becomes more negative as seed amplitude increases, while `energy_growth_ratio` increases super-linearly past `A_peak ≈ 0.85`.
 
+> 🔴 **Post-run note (W2, Rule 12):** SPLIT verdict — the `Γ_min`-monotonic clause is CONFIRMED; the **super-linear `energy_growth_ratio` clause is FALSIFIED** (`energy_growth_ratio ≈ 1.0` for 12/13 rows, no parametric pump). Prediction body preserved above; see §8.2 for the adjudication split.
+
 ## §3 Inputs / forbidden inputs
 
 Allowed:
@@ -111,7 +113,9 @@ The engine-matching **capped-Γ observer (`A_cap = 0.99`)** reaches **Outcome C 
 ### Interpretation (honest)
 
 1. **Primary prediction falsified on the scalar unified lane** when Γ is computed from full strain. A bounded wall+trap window exists, but only at **~6–8× rest-energy amplitude** (`0.48` → `3.0+`), not at the calibrated rest scale.
-2. **Secondary prediction confirmed:** `Γ_min` monotonically strengthens with amplitude; no parametric pump on `MasterEquationFDTD` (unlike coupled option-D at 4×).
+2. **Secondary prediction — SPLIT verdict (was "confirmed"; W2 correction):**
+   - **(a) `Γ_min` monotonic — CONFIRMED:** `Γ_min` monotonically strengthens (more negative) as seed amplitude increases.
+   - **(b) super-linear energy growth past `A_peak` — 🔴 FALSIFIED (Rule 12):** the §2 secondary prediction also called for `energy_growth_ratio` to increase **super-linearly past `A_peak ≈ 0.85`**. The data contradict this: `energy_growth_ratio ≈ 1.0` for 12/13 amplitudes (energy growth ≤ 1.02×) — **no parametric pump** on `MasterEquationFDTD` (unlike coupled option-D at 4×, which pumped to 10⁴–10⁷×). The super-linear-growth half is falsified; preserved here per Rule 12 (prediction body intact in §2, falsification recorded). Note this is the *favorable* direction — bounded energy is what made the wall+trap window discussion possible — but the prediction as written is still falsified.
 3. **Observer-definition split:** the engine's `A_cap = 0.99` clipping homogenizes saturated-core `z_local`, capping observed `Γ` near −0.43. Wall detection is sensitive to whether the observer respects the engine cap.
 4. **Not genesis closure:** planted sech seeds, scalar lane only, no `(2,3)` impose, no L5 Q measurement, no α claim.
 
