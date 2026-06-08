@@ -84,5 +84,13 @@ So: the **physics the engines compute is canonical**; the staleness that reached
 7. **Fix 2 broken imports** (`simulate_geodynamo_vca`, `simulate_dt_fusion`).
 8. **HOLD:** `gravity_ppn_coherence.py` rides the gravity-PPN adjudication (O-class).
 
+## REBASE DELTA — re-verified against origin/main `60f170a0` (2026-06-08; +21 PRs since base `f1f927c8`)
+
+- **g-2 manifest stale-pin — CONFIRMED STILL LIVE.** PR #135 (`lepton-sector-corrections`) did NOT touch the manifest; `numerical-provenance-manifest.md:35` still pins `C_2=−0.0094` as canonical and brands −0.328 "wrong." Finding stands.
+- **NEW upstream infra — code-provenance-index (PR #136).** `src/scripts/verify/{CODE_PROVENANCE.md, code_provenance.jsonl (6-seed), verify_code_provenance.py (drift-gate verifier)}`. The 6 seeds cover **proton/lepton claim-ids** (clm-cmic3e, clm-k6olj8…), **not g-2 or IE** — so my g-2-manifest-stale and IE-drift (Ga/Ge/As) findings are exactly the **prime next seeds** for this gate. **Recommend: register `simulate_g2_direction2.py` (Route-B C_2) and the heavy-Z IE generators as the next code-provenance seeds** — this new infra is the right home for the sim worklist.
+- **r_opt STL scale-bug (PR #137 §43) — MY AUDIT MISSED IT.** Upstream found a *real code-level scale bug* (~2290–4583×) in the STL geometry export (`generate_particle_stl.py` + `cosserat_field_3d.py`/`entanglement_thread.py`), now fixed (`assets/3d_models/ACCURATE_SCALING.md`). My sim-audit's drift-target list didn't include geometry-export scale, so it slipped — honest coverage gap, now resolved upstream.
+- **`entanglement_thread.py` B-finding — partially addressed by #137:** `r_opt` default is now documented as the dimensionless coupling-budget ratio `κ_FS/c` (per the #133 relabel), not a bare length-literal. (`spectral_gap.py:269` KeyError untouched — still stands.)
+- **Unchanged on origin/main:** the IE solver drift (Ga/Ge/As), A-034-in-docstrings, lbm_3d Bingham, Sagnac sims, confinement 0.999, V_BR, birefringence — all re-grep-confirmed present. The HOLD-in-code items (O1 mixing_derivation, O2 black_hole_core sector-split, O3 constants.py:480 z₀≈51.25) stand.
+
 ## Discipline
 `ave-sweep-audit`, `ave-canonical-source` (constants.py compliance), `ave-driver-script-honesty` (print-vs-compute), `verify-before-cite` (skeptic re-verify each high-severity), `ave-evidence-framing-discipline`, `flag-don't-fix`. READ-ONLY — no sim/KB edits.

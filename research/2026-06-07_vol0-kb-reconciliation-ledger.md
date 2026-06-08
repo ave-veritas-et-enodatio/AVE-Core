@@ -152,6 +152,15 @@ Canonical Axiom 1 (`eq_axiom_1.tex:20`) = **"chiral Laves K4 Cosserat *crystal* 
 
 **Ground before trusting (Class-M):** M2 protein modules (check impedance-folding walk-back inheritance, cross-repo) · M1/M4 module/SPICE claims · M3/M5/M7 internal collisions.
 
+## REBASE DELTA — re-verified against origin/main `60f170a0` (2026-06-08; +125 commits / 21 PRs #117–#137 since base `f1f927c8`)
+
+Branch rebased cleanly onto `60f170a0` (4 research commits replay, no conflicts). Findings re-verified against the new state:
+
+- **NEW / RECLASSIFIED — m_p (`ch2:24`): Class-A → Class-B.** PR #132 (`proton-leaf-walkbacks`, 2026-06-08) landed **Correction 3**: the proton mass precision is now stated two-tier — **bare topology = +0.74%** (the emergence magnitude, zero baryon input), δ_th=1/(14π²) thermal correction refines to **−0.002%**; the leaves explicitly say *"do not headline pure-geometry-to-ppm"* (`torus-knot-ladder-baryons.md:33,41`, `self-consistent-mass-oscillator.md:18`, `vol2/claim-quality.md:1371`). Vol 0 `ch2:24` and its twin `appendices-overview.md:85` **both** still carry the bare *"0.002% from CODATA"* (twin: 0 hits for +0.74% — the walk-back propagated to the baryon leaves but NOT to the ch2-twin). ⟹ **B (framing drift):** add the +0.74%/−0.002% two-tier framing; fix the twin alongside. Plus Corrections 1+2 (#132): the (2,5) cinquefoil is now **phase-space winding (not real-space)** and `r_opt = κ_FS/c` is a **dimensionless budget ratio (NOT a length)** — re-check the bm02 proton-derivation prose if it states either as real-space/length.
+- **D3 (z=3) — line shifted `:510 → :514`** (bm02 edited by PR #135 lepton-corrections); content *"The K4 lattice is 3-connected"* unchanged. Stands.
+- **O3 (crystalline vs amorphous) — REINFORCED.** `claim-quality-closure-roadmap.md:149` now states *"z₀=51.25 first-principles (first-pass crystalline counting **wrong**; needs amorphous EMT route)"*; `trace-reversal-mechanism.md:20,22` unchanged (amorphous z₀≈51.25, α-circular). The fork is sharper, not closed — the crystalline z₀-count was tried and failed. (Separate §31 `z0=52` *physical-lattice* attempt was walked back — a different route.) HOLD stands.
+- **Unchanged on origin/main (re-grep-confirmed):** D1 A-034 19→26 (`constants.py:46` "19" vs catalog:9 "26 Scales"; `appendix_experiments.tex:24` "19"), D2 τ_yield 7.21e34 (`ch2:14`), D5 Sagnac flagship framing (`appendix_experiments.tex:9`), O1 Δc_crit, O2 BH-Γ. All stand.
+
 ## Discipline & verifier status
 
 Skills: `ave-sweep-audit` (spine), `ave-prereg`, `ave-audit` (pre-spawn grounding), `verify-before-cite` (every row grep/Read-verified + skeptic-checked), `ave-evidence-framing-discipline` (age≠stale; "19=SYM-subset" precision), `flag-don't-fix` + `ave-walk-back` (read-only — worklist, no propagation), `self-isolate-worktree`. No Vol 0 or KB file was edited. This ledger + the figure-staleness plan are the only artifacts.
