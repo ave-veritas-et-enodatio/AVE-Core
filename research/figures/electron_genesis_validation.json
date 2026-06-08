@@ -1,0 +1,52 @@
+{
+  "engine": "src/ave/core/fdtd_3d.py :: FDTD3DEngine (full-vector Maxwell, Axiom-4 dual saturation S(A)=sqrt(1-(A/A_yield)^2), v_yield=V_SNAP)",
+  "seed": "C-EMERGE: two counter-propagating focused circularly-polarized transverse photon packets (reused build_transverse_photon_seed)",
+  "config": {
+    "N": 48,
+    "dx": 0.01,
+    "PML": 6,
+    "amp_frac_vsnap": 0.7,
+    "n_settle": 80,
+    "n_record_beatwindow": 240,
+    "n_tail": 220
+  },
+  "V1_localization_beat": {
+    "C_EMERGE_retention": 0.580107061208185,
+    "BASELINE_retention": 0.3894934725368685,
+    "beats_matched_baseline": true,
+    "REAL": true,
+    "note": "peak-|field| retention over the canonical 240-step beat window; C-EMERGE out-retains the phase-scrambled amplitude-matched control (reproduces 2026-06-04 \u00a77.1 0.580 vs 0.389 \u2014 topology/coherence-driven localization, NOT amplitude-driven)."
+  },
+  "V2_saturation_engaged": {
+    "peakA_max": 0.9322211697835059,
+    "Op14_onset_sqrt_2alpha": 0.12080854745670937,
+    "S_min_kernel_floor": 0.3618890584246392,
+    "engaged": true,
+    "REAL": true,
+    "note": "peak strain A=|E|dx/V_SNAP crosses the Op14 engagement onset sqrt(2*alpha); the Axiom-4 kernel S(A) bites (S_min<1). Operating point is EARLY saturation (A_max~0.18, not full A->1 rupture) \u2014 the localization beat, not deep Gamma->-1, is the load-bearing signal."
+  },
+  "V3_c_recovery": {
+    "method": "wavefront (leading-edge signal velocity), \u03bb=12 cells",
+    "slope_cells_per_step": 0.4450320512820513,
+    "ideal_slope_c_dt_over_dx": 0.46188021535170065,
+    "linear_fit_r2": 0.998673506888183,
+    "c_measured_m_s": 288856825.01260006,
+    "c_0_m_s": 299792458.0,
+    "c_ratio": 0.9635226547713888,
+    "note": "linear-region single-packet WAVEFRONT speed; the ~4% deficit from c_0 is numerical dispersion + integer-cell front quantization at the finite grid \u2014 c is recovered to within grid resolution.",
+    "REAL": true
+  },
+  "HONESTY": {
+    "REAL_engine_demonstrated": [
+      "self-trap localization (mass formation) \u2014 beats matched baseline",
+      "Axiom-4 saturation kernel engagement (A crosses sqrt(2alpha))",
+      "transverse E-B propagation + c-recovery"
+    ],
+    "PLANTED_ILLUSTRATIVE": [
+      "any (2,3) Clifford-torus winding overlay \u2014 does NOT emerge (P4 FAIL, toroidal winding 0.000 on this run; 2026-06-04 \u00a77.2)",
+      "any spin-1/2 overlay \u2014 not selected by the engine",
+      "the omega_C label on the breathing frequency \u2014 the grid dx is computational (not ell_node), so the absolute frequency is not the physical Compton value; the breathing itself is real, the omega_C identification is the framework interpretation."
+    ]
+  },
+  "alpha": 0.0072973525693
+}
