@@ -3,9 +3,15 @@
 **Date:** 2026-06-07 · **Branch:** `analysis/2026-06-07-vol0-kb-reconciliation-ledger` (off `main` @ `f1f927c8`) · **Lane:** auditor (READ-ONLY).
 **Scope:** every simulation script's MATH vs the current KB — canonical-constant compliance (`src/ave/core/constants.py`), formula-vs-KB-derivation, asserted-output-vs-latest-KB-value, print-not-compute honesty. Cross-referenced to the Vol 0 ↔ KB ledger's Class-D drifts.
 
-## Headline (reassuring)
+## Headline
 
-**446 sims triaged, 412 SIM-MATCH (92%).** **None of the manuscript-text drifts the Vol 0 ledger surfaced propagated into the simulation layer:** no `T_EM=2.1e9` (the 10-OOM historical bug — gone tree-wide), no `τ_yield=7.21e34` Bingham form, no "19-instance" A-034 census, no hard-coded `z=3` (every connectivity is `coordination_z=4`), no `9/7`-as-light-deflection in production code. The C11 Mach-Zehnder sim (`electron_interferometry_parallax.py`) is **correctly fixed to ~250 rad** (the factor-7 driver bug repair landed in code). The drift lives in manuscript prose, not the engines.
+**Combined: ~648 sim-units triaged (446 scripts pass + 202 engine/test supplement), ~591 SIM-MATCH (~91%).** The **value-consuming math is clean**: no engine *computes* a stale physics value from `T_EM=2.1e9` (the 10-OOM bug is gone tree-wide), the `7.21e34` Bingham number, hard-coded `z=3` (every connectivity is `coordination_z=4`), or `9/7`-as-light-deflection (only `gravity_ppn_coherence.py`, which is HOLD and *exists to expose* that mislabel). The C11 Mach-Zehnder sim is correctly fixed to ~250 rad.
+
+**Two corrections to the first-pass headline (the supplement caught these):**
+- **The A-034 "19" DID reach engine code** — `constants.py:46`, `universal_operators.py:36`, `master_equation_fdtd.py:27`, `scale_invariant.py:18` assert "19 catalog instances" in **docstrings/comments** (latest KB = 26). Documentation-severity (no engine math consumes the count), but real D1.
+- **The dropped τ_yield-Bingham framing reached one engine** — `src/ave/core/lbm_3d.py:13` carries *"Yield stress τ_y = B_snap²/(2μ₀) (Bingham plastic)"* — the Bingham yield-stress framing the KB dropped 2026-04-20 (a different *form* than 7.21e34, but the retired framing).
+
+So: the **physics the engines compute is canonical**; the staleness that reached code is **documentation/framing in a handful of files** + one genuinely-drifted *solver output* (the IE finding below).
 
 ## THE headline finding (meta) — the provenance gate itself is stale
 
@@ -44,13 +50,32 @@
 - **Shared non-canonical-mass pattern (critic):** empirical PDG `M_P=1.00727 / M_N=1.00866 amu` hard-coded in ≥3 vol_2 sims (`assemble_uranium.py:41`, `simulate_uranium_fission.py:42`, `visualize_isotope_stability.py:30`) vs AVE-derived `M_P_MEV_AVE=938.2539` (`constants.py:950`) — a *systemic* non-canonical pattern, not 3 unrelated orphans.
 - Remainder: visualization/demo scripts with phenomenological params (neutrino-oscillation GIF, borromean plots, normalized-unit FDTD) — no KB claim mapped.
 
-## Coverage — first pass + SUPPLEMENT IN FLIGHT
+## Supplement results (`wzbl5usf6`, 202 files: ~85 `src/ave/` engines + 90 tests + vol_2 subdirs + 23 `_archive`)
 
-**Cluster pass covered (446):** vol_1 (200), vol_2 (48 — glob miss of 4 subdir files, +1 D4 recovered by critic), vol_3 (63), vol_4 (49), vol_6 (42), verify (16), peer_review+trampoline (14), `src/ave/solvers` (14).
-**Supplement running (`wzbl5usf6`, ~140 files):** the **~85 `src/ave/` canonical engines** the first pass skipped (`gravity/ topological/ regime_1-4/ nuclear/ condensed/ plasma/ axioms/ core/` — incl. `cosserat_field_3d.py` the canonical electron substrate, `black_hole_core.py` the BH-Γ HOLD engine, the doping engines behind Vol 6), the **90-test regression layer** (incl. the manifest-flagship `test_radial_eigenvalue.py`), vol_2 subdirs, `_archive` (23). **This section will be appended when the supplement lands.**
+179/202 SIM-MATCH. **New HIGH-severity finding + the two headline corrections above + the HOLD-items confirmed live in code:**
+
+### D1 — **Ionization-energy solver drift for heavy elements (NEW, HIGH)**
+`src/ave/nuclear/{gallium_atom.py:10, germanium_atom.py:12, arsenic_atom.py:10}` compute (live `ionization_energy_e2k(Z)`) **IE = 3.20 / 4.66 / 6.00 eV** for Ga/Ge/As — but the KB IE table (`vol6/framework/ionization-energy-summary.md:28-30`) gives the AVE column as **5.999 / 7.763 / 9.742 eV**. ~2× discrepancy. This is **exactly the `radial_eigenvalue` drift pattern the A47 manifest was built to catch** — but for Z=31-33, *outside* the Z=1-14 range the manifest says was surgically restored + CI-locked. The flagship `verify_atomic_ie_manuscript_table.py` (cited at manifest:25 as the IE CI gate) **could not be located in `src/scripts/verify/`** — possible dangling reference / the gate doesn't exist for these Z. **Resolve: re-run the IE solver at Z=31-33 against the KB table; either the solver drifted or the table is from a restored state the engine no longer reproduces.**
+
+### D1 — A-034 "19" in 4 engine docstrings (the headline correction): `constants.py:46`, `universal_operators.py:36`, `master_equation_fdtd.py:27`, `scale_invariant.py:18` → bump to 26.
+
+### D3 — `lbm_3d.py:13` dropped-Bingham τ_yield framing (headline correction); the g-2 manifest stale-pin (confirmed both halves — `g_minus_2_lattice.py` header *already* says "SUPERSEDED 2026-05-13"; the manifest is the lone stale node; canonical generator `simulate_g2_direction2.py` unregistered).
+
+### D4 — `src/ave/condensed/{gaas_doping.py:26, germanium_doping.py:33}` hard-code experimental band-gaps (1.424, 0.681 eV) overwriting the structural compute (no AVE-Core KB derivation — silicon-design migrated to AVE-APU, cross-repo); `src/ave/axioms/{navier_stokes.py:276, millennium.py:135}` assert `GLOBAL_EXISTENCE_PROVEN=True` / "RIGOROUS DERIVATION" with **zero computation** (sibling `yang_mills.py` is the honest one — discloses "NOT a Clay-Prize proof").
+
+### HOLD — the three open items are LIVE in canonical code (good to know for adjudication):
+- **O1 (Δc_crit=3):** `src/ave/topological/mixing_derivation.py` hard-codes `Delta_c_crit=3`.
+- **O2 (BH Γ):** `src/ave/regime_3_saturated/black_hole_core.py` **already implements the sector-split correctly** — `r_sat=7GM/c²`, `S=√(1−ε²)`, **no bare Γ=−1** (EM stays GR). `rupture_solver.py` is an exemplary sector-split reference. So the O2 canonical resolution is *already in the engines* — only the KB *labels* lag.
+- **O3 (amorphous z):** `src/ave/core/constants.py:480` hard-codes `Z_COORDINATION ≈ 51.25` (the amorphous-EMT root of `P_C·z₀²+(2P_C−10)z₀+12=0`) — the amorphous picture is baked into the canonical constants.
+
+### B / M (supplement)
+- B: `test_regime_map.py:214` (`3e8` for c, +0.07%), `test_framework_25_derived.py` (stale "25 SM from 3 inputs" vs current "structural closure" framing), `lense_thirring.py` + `entanglement_thread.py` (α/r_opt literals), `condensed/condensed_matter.py` (underived 1.2 prefactor), `silicon_doping.py` V_bi 1.04904 vs 1.0496, `silicon_nucleus.py` mass 26084 vs 26053.
+- M: ~26 `_archive` engine-driven phase-test scratch (r7/r8/r9/r10) + vol_2 animations (no KB claim); `bjt_mechanics.py` (leaf removed from AVE-Core per REPO-ARCH-7). **tests-regression: 88/90 MATCH** — the regression layer is clean.
+- **Latent code bug (robustness, no value impact):** `spectral_gap.py:269` `BARYON_LADDER[5]["mass_MeV"]` will KeyError (key is lowercase `mass_mev`) for crossing numbers outside {3,5,7,9,11,13}.
 
 ## Sync worklist (separate session)
-1. **META (do first):** repoint `numerical-provenance-manifest.md` g-2 entry off the refuted `C_2=−0.0094` to Route-B `simulate_g2_direction2.py` (−0.32846); the gate currently certifies a walked-back value.
+0. **HIGH (do first — possible real solver drift):** re-run `ionization_energy_e2k(31/32/33)` for Ga/Ge/As vs the KB IE table (5.999/7.763/9.742 eV); the engine gives ~2× low. Locate or rebuild `verify_atomic_ie_manuscript_table.py` (manifest:25 cites it as the IE CI gate; it could not be found) and extend the lock past Z=14.
+1. **META:** repoint `numerical-provenance-manifest.md` g-2 entry off the refuted `C_2=−0.0094` to Route-B `simulate_g2_direction2.py` (−0.32846); the gate currently certifies a walked-back value.
 2. **Propagate the Sagnac retirement** into the 3 vol_4 forward-prediction sims (same fix as Vol 0 ledger D5 + Vol 4 leaves).
 3. **V_BR 3.594→3.631** in the Vol 6 semiconductor figure generator.
 4. **Confinement split:** use the sim's computed 0.999 to resolve the KB-internal 0.999/1.002 split (ledger D4).
