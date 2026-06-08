@@ -1,0 +1,115 @@
+{
+  "scope": "L5 alpha-free Q/leakage; unified projection lane; alpha comparison-only",
+  "cases": [
+    {
+      "label": "rest_scale",
+      "amplitude": 0.48,
+      "prior_A_squared_peak": 0.23
+    },
+    {
+      "label": "wall_window",
+      "amplitude": 3.0,
+      "prior_gamma_min_uncapped": -0.49
+    }
+  ],
+  "results": [
+    {
+      "seed_amplitude": 0.48,
+      "case_label": "rest_scale",
+      "alpha_used_as_input": false,
+      "A_peak_max_trace": 0.48,
+      "A_squared_peak_max_trace": 0.2304,
+      "A_peak_final": 0.15647966476476255,
+      "gamma_min_shell_final": -0.0012654200641001256,
+      "gamma_mean_shell_final": -2.095949930026423e-05,
+      "gamma_min_post_transient_trace": -0.013394911116755644,
+      "gamma_used_for_leak": -0.013394911116755644,
+      "bond_q_proxy_valid": false,
+      "leak_fraction_gamma": 0.9998205763561742,
+      "leak_fraction_phasor": 0.5074251813961072,
+      "Q_gamma": 3.1421564307460685,
+      "Q_phasor": 6.191243100995016,
+      "L_vol": 545.7813594019095,
+      "L_surf": 21.12886534435934,
+      "L_line": 1.8363579371134517,
+      "Q_lambda_sum": 568.7465826833824,
+      "R_boundary_used": 10.499243320117658,
+      "rho_phasor_ref_over_inc": 1.030148440868952,
+      "Q_decay": 115.96935536113502,
+      "decay_fit_ok": true,
+      "breathing_freq_hz": 0.07530800950958805,
+      "decay_tau": 490.1761784197819,
+      "decay_rate": 0.002040082819250368,
+      "n_peaks_used": 15,
+      "classification": {
+        "outcome": "C_no_alpha_scale",
+        "verdict": "L5_NEGATIVE",
+        "alpha_matches": [],
+        "four_pi_matches": [],
+        "match_tolerance": 0.15
+      },
+      "comparison_only": {
+        "alpha_cold": 0.007297336344064641,
+        "alpha_cold_inv": 137.0363037758784,
+        "four_pi": 12.566370614359172,
+        "rel_err_Q_gamma_vs_alpha_inv": 0.9770706276791803,
+        "rel_err_Q_gamma_vs_four_pi": 0.7499551360393882,
+        "rel_err_Q_lambda_vs_alpha_inv": 3.1503351083780116,
+        "rel_err_Q_lambda_vs_four_pi": 44.25941500034184,
+        "rel_err_leak_gamma_vs_alpha": 136.0117162229185
+      }
+    },
+    {
+      "seed_amplitude": 3.0,
+      "case_label": "wall_window",
+      "alpha_used_as_input": false,
+      "A_peak_max_trace": 3.0,
+      "A_squared_peak_max_trace": 9.0,
+      "A_peak_final": 0.7307443715556347,
+      "gamma_min_shell_final": -0.056254577277499725,
+      "gamma_mean_shell_final": -0.0009130400155503807,
+      "gamma_min_post_transient_trace": -0.6340925123349184,
+      "gamma_used_for_leak": -0.6340925123349184,
+      "bond_q_proxy_valid": true,
+      "leak_fraction_gamma": 0.5979266858007914,
+      "leak_fraction_phasor": 0.5310807989853958,
+      "Q_gamma": 5.2541435734421515,
+      "Q_phasor": 5.915470225230612,
+      "L_vol": 192.1066011989637,
+      "L_surf": 54.07147283879897,
+      "L_line": 0.48893582371802335,
+      "Q_lambda_sum": 246.6670098614807,
+      "R_boundary_used": 8.342412375997787,
+      "rho_phasor_ref_over_inc": 1.1325635585753202,
+      "Q_decay": null,
+      "decay_fit_ok": false,
+      "breathing_freq_hz": null,
+      "decay_tau": null,
+      "classification": {
+        "outcome": "C_no_alpha_scale",
+        "verdict": "L5_NEGATIVE",
+        "alpha_matches": [],
+        "four_pi_matches": [],
+        "match_tolerance": 0.15
+      },
+      "comparison_only": {
+        "alpha_cold": 0.007297336344064641,
+        "alpha_cold_inv": 137.0363037758784,
+        "four_pi": 12.566370614359172,
+        "rel_err_Q_gamma_vs_alpha_inv": 0.961658747144587,
+        "rel_err_Q_gamma_vs_four_pi": 0.5818885392860834,
+        "rel_err_Q_lambda_vs_alpha_inv": 0.8000121359439343,
+        "rel_err_Q_lambda_vs_four_pi": 18.629136958575973,
+        "rel_err_leak_gamma_vs_alpha": 80.93766295110146
+      }
+    }
+  ],
+  "pair_classification": {
+    "outcome": "C_negative_both",
+    "verdict": "L5_NEGATIVE_BOTH",
+    "rest_verdict": "L5_NEGATIVE",
+    "wall_verdict": "L5_NEGATIVE",
+    "wall_leak_exceeds_rest_leak": false,
+    "interpretation": "Alpha-free L5 leakage/Q proxies on unified projection lane at calibration-crux amplitudes. No alpha inserted; comparison to 137 and 4\u03c0 is post-hoc only."
+  }
+}

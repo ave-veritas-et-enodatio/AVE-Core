@@ -41,6 +41,18 @@ The synthesis is mostly consistency-class re-description. The genuine emergence 
 - New physics forks: does neighbor coordination **select the ground-state knot** (trefoil=electron, higher-crossing=heavier)? Is the holonomy **topologically** π? Does the cage leak **= α**?
 - **Next:** land the 3 docs → fold-ins → PRs. **Watch the holonomy verdict first** (cleanest emergence test). Then adjudicate whether α-closure earns a dedicated derivation push (gated on the `Q=1/α` derived-vs-asserted check).
 
+## §9 Native-lane genesis bench (2026-06-08 — PR #126)
+
+**Handoff:** [`2026-06-08_electron-genesis-native-bench-handoff.md`](2026-06-08_electron-genesis-native-bench-handoff.md)
+
+**Status:** native instrumentation **CLOSED** at bench-protocol level; dynamic α readout **NOT closed**.
+
+- Closed: propagate 0.48 → snap @ x≥14 → trap≥1.25 → pinned TIR ≥600 steps (`electron_genesis_finish.py`).
+- Not closed: ε_Γ≈0.0126 vs α≈0.0073; WS1 proxy audit failed; WS2 naive shell drain destabilized trap; phasor R/r≈5.74≠φ².
+- Deferred: bridge Meissner (projection lane), **engine-native BEMF** (bolt-on ruled out 2026-06-08), autoresonant/no-snap genesis, eigenmode hunt.
+- **v2 channel sweep (2026-06-08):** V_ref boundary leak @ α/cycle — no effect; driver BEMF gain=0.12 — runaway. **Stop line confirmed.**
+- **Does NOT supersede** §3 α-closure — reframes it: category error (ε_Γ vs α) + missing **Lagrangian-coupled** dissipative/feedback channels, not Γ ceiling.
+
 ## §6 Bulk→electron projection thread (how cosmic strain sets one electron's spin/precession)
 Synthesis on canonical pieces (NOT a single leaf): how the bulk strain of ALL nodes projects to a SINGLE electron's phase-space precession through its neighbor nodes.
 - **Operating-point bias → precession clock** (Op14): bulk → smooth `A₀(r)` → local `ω_local=ω_C·√S(A₀)` + `Z_eff=Z₀/√S` sets the precession RATE.
