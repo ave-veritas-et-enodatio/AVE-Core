@@ -1,0 +1,110 @@
+{
+  "trap_amp": 1.5,
+  "snap_step": 14,
+  "n_post_samples": 593,
+  "dt_outer": 0.7071067811865475,
+  "omega_yield": 3.141592653589793,
+  "steps_per_compton_cycle": 2.8284271247461903,
+  "gamma_target_for_alpha": -0.9963446510399578,
+  "comparison_only_alpha": 0.007297336344064641,
+  "comparison_Z0_over_4pi": 29.9792458,
+  "static_proxies": {
+    "P1_eps_gamma": 0.012606579413467323,
+    "P2_eps_S_combined": 0.0,
+    "P3_eps_S_mu": 0.0,
+    "P4_eps_S_eps": 0.0,
+    "P7_one_minus_abs_gamma": 0.006323281695616395,
+    "P9_inv_z_squared": 1.0,
+    "P5_shell_leak_per_cycle": 0.0033986163728136447,
+    "P6_H_leak_per_cycle": 0.00457101755210929,
+    "P8_Q_from_shell_decay": 294.23738671985524
+  },
+  "proxy_scores": [
+    {
+      "proxy": "P7_one_minus_abs_gamma",
+      "value": 0.006323281695616395,
+      "abs_err_vs_alpha": 0.0009740546484482459,
+      "rel_err_vs_alpha": 0.13348084869906027,
+      "within_10pct": false,
+      "Q_proxy": 158.14573003971157
+    },
+    {
+      "proxy": "P6_H_leak_per_cycle",
+      "value": 0.00457101755210929,
+      "abs_err_vs_alpha": 0.0027263187919553513,
+      "rel_err_vs_alpha": 0.3736046501642793,
+      "within_10pct": false,
+      "Q_proxy": 218.76966968515606
+    },
+    {
+      "proxy": "P5_shell_leak_per_cycle",
+      "value": 0.0033986163728136447,
+      "abs_err_vs_alpha": 0.0038987199712509964,
+      "rel_err_vs_alpha": 0.5342661743174354,
+      "within_10pct": false,
+      "Q_proxy": 294.23738671985524
+    },
+    {
+      "proxy": "P1_eps_gamma",
+      "value": 0.012606579413467323,
+      "abs_err_vs_alpha": 0.0053092430694026815,
+      "rel_err_vs_alpha": 0.7275590460786429,
+      "within_10pct": false,
+      "Q_proxy": 79.3236584804061
+    },
+    {
+      "proxy": "P2_eps_S_combined",
+      "value": 0.0,
+      "abs_err_vs_alpha": 0.007297336344064641,
+      "rel_err_vs_alpha": 1.0,
+      "within_10pct": false,
+      "Q_proxy": null
+    },
+    {
+      "proxy": "P3_eps_S_mu",
+      "value": 0.0,
+      "abs_err_vs_alpha": 0.007297336344064641,
+      "rel_err_vs_alpha": 1.0,
+      "within_10pct": false,
+      "Q_proxy": null
+    },
+    {
+      "proxy": "P4_eps_S_eps",
+      "value": 0.0,
+      "abs_err_vs_alpha": 0.007297336344064641,
+      "rel_err_vs_alpha": 1.0,
+      "within_10pct": false,
+      "Q_proxy": null
+    },
+    {
+      "proxy": "P9_inv_z_squared",
+      "value": 1.0,
+      "abs_err_vs_alpha": 0.9927026636559354,
+      "rel_err_vs_alpha": 136.0363037758784,
+      "within_10pct": false,
+      "Q_proxy": 1.0
+    },
+    {
+      "proxy": "P8_Q_from_shell_decay",
+      "value": 294.23738671985524,
+      "abs_err_vs_alpha": 294.2300893835112,
+      "rel_err_vs_alpha": 40320.20390876269,
+      "within_10pct": false,
+      "Q_proxy": 0.0033986163728136442
+    }
+  ],
+  "best_proxy": {
+    "proxy": "P7_one_minus_abs_gamma",
+    "value": 0.006323281695616395,
+    "abs_err_vs_alpha": 0.0009740546484482459,
+    "rel_err_vs_alpha": 0.13348084869906027,
+    "within_10pct": false,
+    "Q_proxy": 158.14573003971157
+  },
+  "hamiltonian_lossless": false,
+  "shell_leak_windows": 592,
+  "verdict": "LEAK_PROXY_NONE_MATCH",
+  "outcome": "D",
+  "alpha_used_as_input": false,
+  "interpretation": "Theorem 3.1' expects per-cycle leak 1/Q=alpha through R=Z0/(4pi). If P6~0 and no static proxy matches alpha, gap is lossless dynamics + wrong observable."
+}

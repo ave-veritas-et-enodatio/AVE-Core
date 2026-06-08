@@ -1,0 +1,53 @@
+{
+  "prereg": "research/2026-06-08_electron-alpha-leak-tune-prereg.md",
+  "baseline": {
+    "variant": "baseline_no_leak",
+    "enable_leak": false,
+    "snap_step": 14,
+    "n_post_samples": 593,
+    "gamma_min_post": -0.9936952705720117,
+    "gamma_final_post": -0.993668182088072,
+    "gamma_target_for_alpha": -0.9963446510399578,
+    "tir_held": true,
+    "static_proxies": {
+      "P1_eps_gamma": 0.012606579413467323,
+      "P2_eps_S_combined": 0.0,
+      "P5_shell_leak_per_cycle": 0.0033986163728136447,
+      "P6_H_leak_per_cycle": 0.00457101755210929
+    },
+    "abs_eps_gamma_minus_alpha": 0.0053092430694026815,
+    "shell_leak_matches_alpha": false,
+    "mean_leak_per_step": null,
+    "verdict": "BASELINE_OR_INCONCLUSIVE",
+    "outcome": "D",
+    "alpha_used_as_leak_rate_only": false
+  },
+  "tune": {
+    "variant": "with_alpha_leak",
+    "enable_leak": true,
+    "snap_step": 14,
+    "n_post_samples": 593,
+    "gamma_min_post": -0.9936952775935239,
+    "gamma_final_post": -0.0001472099089970021,
+    "gamma_target_for_alpha": -0.9963446510399578,
+    "tir_held": false,
+    "static_proxies": {
+      "P1_eps_gamma": 0.5870429118281847,
+      "P2_eps_S_combined": 6.484195570567016e-06,
+      "P5_shell_leak_per_cycle": 0.015460978641161607,
+      "P6_H_leak_per_cycle": 0.015919682899543302
+    },
+    "abs_eps_gamma_minus_alpha": 0.5797455754841201,
+    "shell_leak_matches_alpha": false,
+    "mean_leak_per_step": 0.002586107858005282,
+    "verdict": "TIR_LOST_WITH_LEAK",
+    "outcome": "C",
+    "alpha_used_as_leak_rate_only": true
+  },
+  "classification": {
+    "aggregate_verdict": "TUNE_DESTABILIZED_TRAP",
+    "eps_improved": false,
+    "delta_abs_eps": 0.5744363324147174
+  },
+  "comparison_only_alpha": 0.007297336344064641
+}
