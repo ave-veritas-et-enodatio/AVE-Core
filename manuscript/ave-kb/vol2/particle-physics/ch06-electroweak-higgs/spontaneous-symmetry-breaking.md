@@ -35,7 +35,7 @@ Each factor has a first-principles geometric origin:
 1. $\pi$ --- spherical geometry of the $1/r^2$ integral
 2. $\alpha^2$ --- two-vertex coupling (Axiom 4 dielectric $\times 2$)
 3. $p_c = 8\pi\alpha$ --- packing fraction (clm-9s9apq, via Axiom 4: Saturation)
-4. $\sqrt{3/7}$ --- torsion-shear projection from the PAT and $\nu = 2/7$
+4. $\sqrt{3/7}$ --- torsion-shear projection from the PAT and $\nu = 2/7$ <!-- 🔴 OPEN FLAG (Rule 12): the "torsion-shear from PAT" label on √(3/7) is contested — $\sqrt{3/7} = \sqrt{1-2\nu}$ is the bulk/dilatational signature, not deviatoric/shear; see the canonical 🔴 flag in lepton-spectrum.md (Generation 2). Grant's adjudication pending; label preserved unchanged here. -->
 5. $2\pi$ --- ring topology of the unknot (Axiom 1)
 
 **The $\alpha^2$ factor** arises because the twist field $\phi$ couples to the EM background through the Axiom 4 dielectric susceptibility. The self-energy is a two-vertex process (second-order perturbation theory):
