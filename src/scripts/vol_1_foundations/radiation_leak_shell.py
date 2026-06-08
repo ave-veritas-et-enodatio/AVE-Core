@@ -90,5 +90,5 @@ def apply_radiation_leak_shell(
         "shell_fractional_energy_loss": fractional,
         "scale_applied": scale,
         "Z_radiation_SI": float(Z_RADIATION),
-        "Z0_over_4pi_ratio": float(Z_RADIATION / Z_0),
+        "Z_radiation_over_Z0": float(Z_RADIATION / Z_0),
     }

@@ -59,6 +59,6 @@ def apply_radiation_leak_boundary(
         "v_ref_fractional_loss": 1.0 - (e_ref_after / e_ref_before) if e_ref_before > 1e-30 else 0.0,
         "omega_fractional_loss": 1.0 - (omega_after / omega_before) if omega_before > 1e-30 else 0.0,
         "Z_radiation_SI": float(Z_RADIATION),
-        "Z0_over_4pi_ratio": float(Z_RADIATION / Z_0),
+        "Z_radiation_over_Z0": float(Z_RADIATION / Z_0),
         "channel": "V_ref_only_boundary",
     }
