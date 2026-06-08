@@ -1,0 +1,423 @@
+{
+  "prereg": "research/2026-06-08_native-electron-model-prereg.md",
+  "model_description": "Joint Golden-Torus (2,3) quadrature phasor + 0\u2081 unknot \u03c9 on VacuumEngine3D; zero drive; no PairNucleationGate; \u03b1 comparison-only.",
+  "rows": [
+    {
+      "n_steps": 800,
+      "snap_step": null,
+      "n_samples": 401,
+      "golden_torus_R": 0.8090169943749475,
+      "golden_torus_r": 0.30901699437494745,
+      "R_times_r": 0.25000000000000006,
+      "phi_sq_target": 2.618033988749895,
+      "omega_peak_initial": 0.3504179235993425,
+      "omega_peak_final": 0.011876690764077729,
+      "omega_persistence_ratio": 0.03389293173729659,
+      "energy_ratio_final_initial": 0.7635174178083438,
+      "crossing_count_c": 1,
+      "gamma_min": -0.9936869104342505,
+      "gamma_final": -0.9936764434121794,
+      "gamma_target_for_alpha": -0.9963446510399578,
+      "eps_gamma_mean": 0.012604313637456191,
+      "abs_eps_minus_alpha": 0.00530697729339155,
+      "pca_shell": {
+        "R": 0.00039744160787847824,
+        "r": 9.400205737433376e-05,
+        "R_over_r": 4.228009673190359,
+        "centroid_v_inc": -2.4332758490847648e-05,
+        "centroid_v_ref": 0.00034611816876260884,
+        "angle_deg": 95.23007142933426
+      },
+      "pca_bond": {
+        "R": 0.010184215911950532,
+        "r": 0.0013090814571298395,
+        "R_over_r": 7.779665548299356,
+        "centroid_v_inc": -0.05047399078878194,
+        "centroid_v_ref": -0.04940623977901677,
+        "angle_deg": 48.032028329553306
+      },
+      "property_checks": {
+        "P1_unknot_localized": true,
+        "P2_shell_Rr_near_phi_sq": false,
+        "P2_bond_Rr_near_phi_sq": false,
+        "P3_TIR_held": true,
+        "P4_T2_omega_dominates_u": false
+      },
+      "properties_passed": 2,
+      "verdict": "MODEL_TRAP_PARTIAL_IDENTIFICATION",
+      "outcome": "B",
+      "alpha_used_as_input": false,
+      "comparison_only_alpha": 0.007297336344064641,
+      "records_tail": [
+        {
+          "step": 792,
+          "gamma_min": -0.9936764280021537,
+          "eps_gamma": 0.012607156432880573,
+          "shell_phasor": [
+            6.538706066885345e-05,
+            0.00041417517265584256
+          ],
+          "bond_phasor": [
+            -0.05183045834330641,
+            -0.05086071561974019
+          ],
+          "omega_shell_mean": 0.002266056187775055,
+          "u_shell_mean": 0.0011367129034979202,
+          "e_shell_fraction": 0.9643265626203811,
+          "cx": 15.576226089114934
+        },
+        {
+          "step": 794,
+          "gamma_min": -0.9936764304423585,
+          "eps_gamma": 0.012607151583332588,
+          "shell_phasor": [
+            6.567747500795632e-05,
+            0.0004142501259808735
+          ],
+          "bond_phasor": [
+            -0.05179503534846397,
+            -0.05082532842731199
+          ],
+          "omega_shell_mean": 0.002144752377812846,
+          "u_shell_mean": 0.0014903901378100265,
+          "e_shell_fraction": 0.9643283579101605,
+          "cx": 15.576243616836095
+        },
+        {
+          "step": 796,
+          "gamma_min": -0.9936764384010771,
+          "eps_gamma": 0.01260713576655037,
+          "shell_phasor": [
+            6.599604133700306e-05,
+            0.000414294244871738
+          ],
+          "bond_phasor": [
+            -0.05175850684763749,
+            -0.05078883588960725
+          ],
+          "omega_shell_mean": 0.002749321121030508,
+          "u_shell_mean": 0.0006803657104058501,
+          "e_shell_fraction": 0.9643302723228694,
+          "cx": 15.576260216472729
+        },
+        {
+          "step": 798,
+          "gamma_min": -0.9936764438007456,
+          "eps_gamma": 0.012607125035503652,
+          "shell_phasor": [
+            6.626424390300303e-05,
+            0.0004143412924065228
+          ],
+          "bond_phasor": [
+            -0.051720829030698516,
+            -0.05075119422850337
+          ],
+          "omega_shell_mean": 0.0030542208762999435,
+          "u_shell_mean": 0.0005683642772675258,
+          "e_shell_fraction": 0.9643320625688571,
+          "cx": 15.576277044348839
+        },
+        {
+          "step": 800,
+          "gamma_min": -0.9936764434121794,
+          "eps_gamma": 0.01260712580772183,
+          "shell_phasor": [
+            6.655012315347782e-05,
+            0.0004144106152747091
+          ],
+          "bond_phasor": [
+            -0.05168488585168378,
+            -0.05071528738324145
+          ],
+          "omega_shell_mean": 0.003440691621738191,
+          "u_shell_mean": 0.0013708990056172153,
+          "e_shell_fraction": 0.9643338090114465,
+          "cx": 15.576294235299391
+        }
+      ],
+      "variant": "canonical_subyield",
+      "seed": "golden_torus_quadrature_plus_unknot",
+      "amplitude_V_SNAP": 0.48
+    },
+    {
+      "n_steps": 800,
+      "snap_step": null,
+      "n_samples": 401,
+      "golden_torus_R": 0.8090169943749475,
+      "golden_torus_r": 0.30901699437494745,
+      "R_times_r": 0.25000000000000006,
+      "phi_sq_target": 2.618033988749895,
+      "omega_peak_initial": 0.6716343535654065,
+      "omega_peak_final": 0.02292948205218534,
+      "omega_persistence_ratio": 0.03413982910561822,
+      "energy_ratio_final_initial": 0.8112905805994938,
+      "crossing_count_c": 1,
+      "gamma_min": -0.9936823100696934,
+      "gamma_final": -0.9936628364905812,
+      "gamma_target_for_alpha": -0.9963446510399578,
+      "eps_gamma_mean": 0.01265687946419696,
+      "abs_eps_minus_alpha": 0.005359543120132319,
+      "pca_shell": {
+        "R": 0.0007634571172991534,
+        "r": 0.0002178916113821456,
+        "R_over_r": 3.503838961290606,
+        "centroid_v_inc": 0.00012064802923810814,
+        "centroid_v_ref": 0.0005373610913876864,
+        "angle_deg": 97.34651878930961
+      },
+      "pca_bond": {
+        "R": 0.020278466512344016,
+        "r": 0.0025823323426047307,
+        "R_over_r": 7.8527717667392345,
+        "centroid_v_inc": -0.07453499232421205,
+        "centroid_v_ref": -0.07194164426161292,
+        "angle_deg": 47.16861159342821
+      },
+      "property_checks": {
+        "P1_unknot_localized": true,
+        "P2_shell_Rr_near_phi_sq": false,
+        "P2_bond_Rr_near_phi_sq": false,
+        "P3_TIR_held": true,
+        "P4_T2_omega_dominates_u": false
+      },
+      "properties_passed": 2,
+      "verdict": "MODEL_TRAP_PARTIAL_IDENTIFICATION",
+      "outcome": "B",
+      "alpha_used_as_input": false,
+      "comparison_only_alpha": 0.007297336344064641,
+      "records_tail": [
+        {
+          "step": 792,
+          "gamma_min": -0.9936627119997063,
+          "eps_gamma": 0.012634414781388603,
+          "shell_phasor": [
+            0.00021290463179145038,
+            0.00043638366570863095
+          ],
+          "bond_phasor": [
+            -0.052930233861032586,
+            -0.050655497979065815
+          ],
+          "omega_shell_mean": 0.004328771095818714,
+          "u_shell_mean": 0.0021832911651231664,
+          "e_shell_fraction": 0.9651504463273627,
+          "cx": 15.681367983297546
+        },
+        {
+          "step": 794,
+          "gamma_min": -0.9936627336543475,
+          "eps_gamma": 0.012634371746569228,
+          "shell_phasor": [
+            0.00021411140484386295,
+            0.0004339328142744319
+          ],
+          "bond_phasor": [
+            -0.05280821851275241,
+            -0.05045783850395116
+          ],
+          "omega_shell_mean": 0.004122527170265954,
+          "u_shell_mean": 0.002863289233491937,
+          "e_shell_fraction": 0.9651485702895725,
+          "cx": 15.64443771061979
+        },
+        {
+          "step": 796,
+          "gamma_min": -0.9936627796074555,
+          "eps_gamma": 0.012634280422785249,
+          "shell_phasor": [
+            0.0002144090115529447,
+            0.00043247509180862736
+          ],
+          "bond_phasor": [
+            -0.0528910739555596,
+            -0.05032051311774115
+          ],
+          "omega_shell_mean": 0.005288897906173989,
+          "u_shell_mean": 0.0013007276326658527,
+          "e_shell_fraction": 0.965148483314998,
+          "cx": 15.687589116904327
+        },
+        {
+          "step": 798,
+          "gamma_min": -0.9936628272128304,
+          "eps_gamma": 0.012634185815404764,
+          "shell_phasor": [
+            0.00021177765002497494,
+            0.00043268827739294306
+          ],
+          "bond_phasor": [
+            -0.052566559023724486,
+            -0.05029201717944084
+          ],
+          "omega_shell_mean": 0.005887636319926227,
+          "u_shell_mean": 0.0010886792911055188,
+          "e_shell_fraction": 0.9651489710998964,
+          "cx": 15.681350561646854
+        },
+        {
+          "step": 800,
+          "gamma_min": -0.9936628364905812,
+          "eps_gamma": 0.012634167377492567,
+          "shell_phasor": [
+            0.0002129854121548441,
+            0.00043023735155241737
+          ],
+          "bond_phasor": [
+            -0.05244558592203566,
+            -0.05009539942389531
+          ],
+          "omega_shell_mean": 0.006640608670016602,
+          "u_shell_mean": 0.002626036877010136,
+          "e_shell_fraction": 0.9651470921281632,
+          "cx": 15.644426491689885
+        }
+      ],
+      "variant": "canonical_saturated",
+      "seed": "golden_torus_quadrature_plus_unknot",
+      "amplitude_V_SNAP": 0.92
+    },
+    {
+      "n_steps": 800,
+      "snap_step": 14,
+      "n_samples": 401,
+      "golden_torus_R": 0.8090169943749475,
+      "golden_torus_r": 0.30901699437494745,
+      "R_times_r": 0.25000000000000006,
+      "phi_sq_target": 2.618033988749895,
+      "omega_peak_initial": 0.2296638401347298,
+      "omega_peak_final": 0.019117699525900717,
+      "omega_persistence_ratio": 0.08324209642530372,
+      "energy_ratio_final_initial": 1.1132018216634079,
+      "crossing_count_c": 1,
+      "gamma_min": -0.9936953950347557,
+      "gamma_final": -0.9936939292773133,
+      "gamma_target_for_alpha": -0.9963446510399578,
+      "eps_gamma_mean": 0.032273650317893,
+      "abs_eps_minus_alpha": 0.024976313973828358,
+      "pca_shell": {
+        "R": 0.017256201207040932,
+        "r": 0.004398788816866128,
+        "R_over_r": 3.922943775085555,
+        "centroid_v_inc": -0.006877493018788101,
+        "centroid_v_ref": 0.006937387543964267,
+        "angle_deg": 48.14333427436071
+      },
+      "pca_bond": {
+        "R": 0.041325002031369976,
+        "r": 0.019423293189512032,
+        "R_over_r": 2.127600177177173,
+        "centroid_v_inc": -0.08096603433220735,
+        "centroid_v_ref": 0.0971797157460763,
+        "angle_deg": -147.1753914314699
+      },
+      "property_checks": {
+        "P1_unknot_localized": true,
+        "P2_shell_Rr_near_phi_sq": false,
+        "P2_bond_Rr_near_phi_sq": false,
+        "P3_TIR_held": true,
+        "P4_T2_omega_dominates_u": true
+      },
+      "properties_passed": 3,
+      "verdict": "MODEL_TRAP_PARTIAL_IDENTIFICATION",
+      "outcome": "B",
+      "alpha_used_as_input": false,
+      "comparison_only_alpha": 0.007297336344064641,
+      "records_tail": [
+        {
+          "step": 792,
+          "gamma_min": -0.9936939464432276,
+          "eps_gamma": 0.012572340802083914,
+          "shell_phasor": [
+            -0.006114196414300167,
+            0.005958813824903805
+          ],
+          "bond_phasor": [
+            -0.10755805089419437,
+            0.08312731491973466
+          ],
+          "omega_shell_mean": 0.0025933651263585528,
+          "u_shell_mean": 0.001589423931437713,
+          "e_shell_fraction": 0.9818872627036456,
+          "cx": 15.006028426752033
+        },
+        {
+          "step": 794,
+          "gamma_min": -0.993693942425608,
+          "eps_gamma": 0.012572348786652365,
+          "shell_phasor": [
+            -0.006108212913984358,
+            0.005952786995569501
+          ],
+          "bond_phasor": [
+            -0.10757054958542085,
+            0.08316689277572684
+          ],
+          "omega_shell_mean": 0.0037233602072728345,
+          "u_shell_mean": 0.0017491615582984614,
+          "e_shell_fraction": 0.9818568022807623,
+          "cx": 15.006039643978946
+        },
+        {
+          "step": 796,
+          "gamma_min": -0.9936939385746347,
+          "eps_gamma": 0.012572356440030075,
+          "shell_phasor": [
+            -0.006102219195099801,
+            0.005946745661795904
+          ],
+          "bond_phasor": [
+            -0.10758442671358828,
+            0.08320546732318206
+          ],
+          "omega_shell_mean": 0.0046745897222983885,
+          "u_shell_mean": 0.0020809502515435185,
+          "e_shell_fraction": 0.9818264604489609,
+          "cx": 15.006050465119104
+        },
+        {
+          "step": 798,
+          "gamma_min": -0.9936939325127264,
+          "eps_gamma": 0.01257236848739307,
+          "shell_phasor": [
+            -0.0060962381892252695,
+            0.0059407065409844756
+          ],
+          "bond_phasor": [
+            -0.10759543418907855,
+            0.08324755711889596
+          ],
+          "omega_shell_mean": 0.005407511692778161,
+          "u_shell_mean": 0.0009195742681068909,
+          "e_shell_fraction": 0.9817964427417395,
+          "cx": 15.00606112301
+        },
+        {
+          "step": 800,
+          "gamma_min": -0.9936939292773133,
+          "eps_gamma": 0.01257237491741392,
+          "shell_phasor": [
+            -0.0060902496592073144,
+            0.005934679427925213
+          ],
+          "bond_phasor": [
+            -0.10760747785531706,
+            0.08328806273039341
+          ],
+          "omega_shell_mean": 0.005377887869571212,
+          "u_shell_mean": 0.0007974809869836461,
+          "e_shell_fraction": 0.981766595157006,
+          "cx": 15.006072078408137
+        }
+      ],
+      "variant": "bench_snap_reference",
+      "seed": "genesis_bench_snap",
+      "amplitude_V_SNAP": 0.48
+    }
+  ],
+  "classification": {
+    "aggregate_verdict": "NATIVE_MODEL_TIR_WITHOUT_FULL_FOUR_PROPERTY",
+    "best_canonical_variant": "canonical_subyield",
+    "best_properties_passed": 2,
+    "bench_reference_verdict": "MODEL_TRAP_PARTIAL_IDENTIFICATION"
+  }
+}

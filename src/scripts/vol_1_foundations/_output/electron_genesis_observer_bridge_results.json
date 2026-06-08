@@ -1,0 +1,368 @@
+{
+  "scope": "electron genesis observer bridge; no alpha in computation",
+  "master_bound_state_lane": {
+    "engine": "MasterEquationFDTD",
+    "alpha_used_as_input": false,
+    "n_steps": 1200,
+    "cadence": 5,
+    "dt": 0.051639777949432225,
+    "seed": {
+      "profile": "sech",
+      "amplitude": 0.85,
+      "radius": 2.5
+    },
+    "observables_available": {
+      "bound_state_scalar_V": true,
+      "V_inc_V_ref": false,
+      "Phi_link": false,
+      "z_local": false
+    },
+    "peak_mean_post_transient": 0.19845077155157292,
+    "peak_min_post_transient": 0.07380600284614959,
+    "peak_max_post_transient": 0.5329238339588831,
+    "fwhm_cv_post_transient": 0.30117063799425803,
+    "energy_initial": 116.66819445113954,
+    "energy_final": 82.61410561290454,
+    "l1_trapping_pass": true,
+    "trace_tail": {
+      "peaks": [
+        0.3273367873994665,
+        0.3708184587006674,
+        0.41099313055548553,
+        0.44701819115754693,
+        0.47800004761586307,
+        0.5029958743206001,
+        0.521049036753357,
+        0.531265427528719,
+        0.5329238339588831,
+        0.5255962606011083,
+        0.5092431393798836,
+        0.484252502086309
+      ],
+      "fwhm": [
+        11.302496756176629,
+        10.63605666387316,
+        10.0089125259248,
+        9.70760947830282,
+        9.328176809185312,
+        9.126301592353915,
+        9.033642384583448,
+        8.986591310700472,
+        8.842396451724209,
+        8.842396451724209,
+        8.962879877785609,
+        9.056985233535592
+      ],
+      "center": [
+        0.3273367873994665,
+        0.3708184587006674,
+        0.41099313055548553,
+        0.44701819115754693,
+        0.47800004761586307,
+        0.5029958743206001,
+        0.521049036753357,
+        0.531265427528719,
+        0.5329238339588831,
+        0.5255962606011083,
+        0.5092431393798836,
+        0.484252502086309
+      ]
+    }
+  },
+  "k4_reactance_observer_lane": {
+    "engine": "K4Lattice3D",
+    "alpha_used_as_input": false,
+    "n_steps": 320,
+    "drive_steps": 64,
+    "dt": 2.3586543367496838e-09,
+    "seed": "alpha-free 2:3 four-port quadrature precursor, drive then free-run",
+    "observables_available": {
+      "bound_state_scalar_V": false,
+      "V_inc_V_ref": true,
+      "Phi_link": true,
+      "z_local": true
+    },
+    "energy_initial": 0.00023902030245639023,
+    "energy_peak": 1.611727015884693,
+    "energy_final": 0.2428900149918301,
+    "energy_retained_fraction_of_peak": 0.15070170853871637,
+    "v_inc_std_post_transient": 0.00011757169732131253,
+    "v_ref_std_post_transient": 0.00029629939995004295,
+    "phi_std_post_transient": 2.2177228885516666e-11,
+    "phi_abs_max_local_post_transient": 4.726333717725335e-10,
+    "phi_slope_std_post_transient": 3.811613671733549e-05,
+    "c_l_energy_correlation": null,
+    "v_phi_slope_correlation": 0.2390923959710183,
+    "z_center_mean_post_transient": 1.0103980312400613,
+    "first_shell_envelope": {
+      "rank_positive": 4,
+      "positive_eigenvalues": [
+        4.016525257667833e-11,
+        3.570352375865162e-10,
+        0.0004136548723889405,
+        0.003009502260632768
+      ],
+      "screened_variance_fraction": 1.1733392992308824e-08,
+      "screened_rms_fraction": 0.00010832078744317189
+    },
+    "second_shell_envelope": {
+      "rank_positive": 10,
+      "positive_eigenvalues": [
+        2.1669859379786814e-12,
+        5.724251028780392e-12,
+        1.954609208463696e-11,
+        4.319445142004911e-11,
+        7.32993036809773e-09,
+        2.359279545156789e-08,
+        4.373630762259983e-08,
+        1.344643066824338e-06,
+        2.2219263472391123e-05,
+        0.000129321907817053
+      ],
+      "screened_variance_fraction": 1.4166960191212554e-08,
+      "screened_rms_fraction": 0.00011902504018572123
+    },
+    "l1_bound_like_pass": false,
+    "l2_phasor_observer_pass": true,
+    "l3_phi_link_observer_pass": true,
+    "l4_neighbor_envelope_pass": true,
+    "trace_tail": {
+      "v_inc_port0": [
+        -0.14165796694608382,
+        -0.14165836509243357,
+        -0.14165921978441032,
+        -0.14166013074265116,
+        -0.14166054881581025,
+        -0.14166138284487811,
+        -0.1416622321839464,
+        -0.1416626670361919,
+        -0.1416634767360058,
+        -0.1416642715873362,
+        -0.1416647199297498,
+        -0.14179443394416946
+      ],
+      "v_ref_port0": [
+        0.14180430405115538,
+        0.14180340969006816,
+        0.14180250837103708,
+        0.14180149590310448,
+        0.14180061537439886,
+        0.14179976725462975,
+        0.1417988099727133,
+        0.14179794801890364,
+        0.14179714892458112,
+        0.14179624020760126,
+        0.1417954005905421,
+        0.1416648495341063
+      ],
+      "phi_port0": [
+        4.665538604395152e-10,
+        4.671475113367789e-10,
+        4.677414553717995e-10,
+        4.683345180211107e-10,
+        4.689281885807298e-10,
+        4.695220787144422e-10,
+        4.701152384856391e-10,
+        4.707089240691126e-10,
+        4.713027747859358e-10,
+        4.71896022046086e-10,
+        4.724897198107785e-10,
+        4.726333717725335e-10
+      ],
+      "phi_abs_max_local": [
+        4.665538604395152e-10,
+        4.671475113367789e-10,
+        4.677414553717995e-10,
+        4.683345180211107e-10,
+        4.689281885807298e-10,
+        4.695220787144422e-10,
+        4.701152384856391e-10,
+        4.707089240691126e-10,
+        4.713027747859358e-10,
+        4.71896022046086e-10,
+        4.724897198107785e-10,
+        4.726333717725335e-10
+      ],
+      "energy": [
+        0.24289006221884113,
+        0.24289005657984142,
+        0.24289005120217266,
+        0.242890046109834,
+        0.24289004126293404,
+        0.24289003663841818,
+        0.24289003225890632,
+        0.24289002808478027,
+        0.24289002410071686,
+        0.24289002032705959,
+        0.24289001672552699,
+        0.2428900149918301
+      ]
+    }
+  },
+  "master_unified_projection_lane": {
+    "engine": "MasterEquationFDTD+PhasorBridge",
+    "alpha_used_as_input": false,
+    "n_steps": 1200,
+    "cadence": 5,
+    "dt": 0.051639777949432225,
+    "seed": {
+      "profile": "sech",
+      "amplitude": 0.85,
+      "radius": 2.5
+    },
+    "observables_available": {
+      "bound_state_scalar_V": true,
+      "V_inc_V_ref": true,
+      "Phi_link": true,
+      "z_local": true
+    },
+    "peak_mean_post_transient": 0.19845077155157292,
+    "peak_min_post_transient": 0.07380600284614959,
+    "peak_max_post_transient": 0.5329238339588831,
+    "fwhm_cv_post_transient": 0.30117063799425803,
+    "energy_initial": 116.66819445113954,
+    "energy_final": 82.61410561290454,
+    "v_inc_std_post_transient": 0.10445679381730179,
+    "v_ref_std_post_transient": 0.09952423704725483,
+    "phi_std_post_transient": 0.621354617516734,
+    "phi_abs_max_local_post_transient": 1.2757999581916344,
+    "phi_slope_std_post_transient": 0.19855292585437795,
+    "c_l_energy_correlation": -0.2640362709286796,
+    "v_phi_slope_correlation": 0.9793897407982978,
+    "z_center_mean_post_transient": 1.0108363698725762,
+    "bond_gamma_min_post_transient": -0.005630982861471311,
+    "first_shell_envelope": {
+      "rank_positive": 2,
+      "positive_eigenvalues": [
+        0.00024005486263777408,
+        0.062444299631105274
+      ],
+      "screened_variance_fraction": 0.0038295817924030085,
+      "screened_rms_fraction": 0.06188361489443719
+    },
+    "second_shell_envelope": {
+      "rank_positive": 3,
+      "positive_eigenvalues": [
+        6.0744049546058614e-05,
+        0.001469266119759097,
+        0.1331991935076539
+      ],
+      "screened_variance_fraction": 0.00045086030265349854,
+      "screened_rms_fraction": 0.021233471281293093
+    },
+    "l1_trapping_pass": true,
+    "l2_phasor_observer_pass": true,
+    "l3_phi_link_observer_pass": true,
+    "l4_neighbor_envelope_pass": true,
+    "trace_tail": {
+      "peaks": [
+        0.3273367873994665,
+        0.3708184587006674,
+        0.41099313055548553,
+        0.44701819115754693,
+        0.47800004761586307,
+        0.5029958743206001,
+        0.521049036753357,
+        0.531265427528719,
+        0.5329238339588831,
+        0.5255962606011083,
+        0.5092431393798836,
+        0.484252502086309
+      ],
+      "fwhm": [
+        11.302496756176629,
+        10.63605666387316,
+        10.0089125259248,
+        9.70760947830282,
+        9.328176809185312,
+        9.126301592353915,
+        9.033642384583448,
+        8.986591310700472,
+        8.842396451724209,
+        8.842396451724209,
+        8.962879877785609,
+        9.056985233535592
+      ],
+      "v_inc_port0": [
+        0.20305578492318738,
+        0.22004976668043452,
+        0.23452734772827294,
+        0.2461136544996559,
+        0.2544402466299175,
+        0.25914646446007095,
+        0.25990143859070325,
+        0.25645012406735024,
+        0.24867448928731276,
+        0.2366496383981721,
+        0.22067235471375055,
+        0.20124944175048282
+      ],
+      "v_ref_port0": [
+        0.16366839369973324,
+        0.18540922935033372,
+        0.2054965652777428,
+        0.22350909557877346,
+        0.23900002380793153,
+        0.25149793716030006,
+        0.26052451837667856,
+        0.2656327137643595,
+        0.26646191697944155,
+        0.2627981303005541,
+        0.2546215696899418,
+        0.2421262510431545
+      ],
+      "phi_port0": [
+        -0.9719072382382877,
+        -0.8820111477673006,
+        -0.7819166697917483,
+        -0.6726129101023397,
+        -0.555284518645518,
+        -0.4313173169518579,
+        -0.3023062540006782,
+        -0.17005641222309734,
+        -0.036565315226642275,
+        0.09602312565586227,
+        0.22549552826833383,
+        0.34966939968128663
+      ],
+      "phi_abs_max_local": [
+        0.9719072382382877,
+        0.8820111477673006,
+        0.7819166697917483,
+        0.6726129101023397,
+        0.555284518645518,
+        0.4313173169518579,
+        0.30508035735385,
+        0.17637475869865732,
+        0.14503586361062135,
+        0.21714715794254313,
+        0.3011915929391439,
+        0.39195805626506075
+      ]
+    }
+  },
+  "classification": {
+    "verdict": "PROJECTION_BRIDGE_INSTRUMENTED",
+    "alpha_inserted": false,
+    "comparison_only": {
+      "alpha_cold": 0.007297336344064641,
+      "alpha_cold_inv": 137.0363037758784,
+      "four_pi": 12.566370614359172
+    },
+    "layer_passes": {
+      "L1_master_trapping": true,
+      "L2_phasor": true,
+      "L3_phi_link": true,
+      "L4_neighbor_envelope": true,
+      "unified_engine_has_all_layers": true
+    },
+    "split_lane_reference": {
+      "L1_master_trapping": true,
+      "L2_k4_phasor": true,
+      "L3_k4_phi_link": true,
+      "L4_k4_neighbor_envelope": true,
+      "unified_engine_has_all_layers": false
+    },
+    "interpretation": "MasterEquationFDTD bound-state dynamics now carry projected V_inc/V_ref/Phi_link/z_local observers via the scalar\u2192bond projection bridge. This closes the observer-architecture gap for instrumentation; it does not yet claim alpha emergence or replace native K4-TLM bond dynamics."
+  }
+}

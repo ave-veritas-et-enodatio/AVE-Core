@@ -7,7 +7,7 @@ claims: [clm-k6olj8]
 
 ## The Torus Knot Ladder
 
-The $(2,q)$ torus knots with odd $q = 3, 5, 7, \ldots$ generate a family of topological solitons. Each member is characterised by its crossing number $c = q$, which sets both the confinement radius ($r_{\mathrm{opt}} = \kappa_{\mathrm{FS}}/c$) and the eigenvalue mode number ($\ell = c$).
+The $(2,q)$ torus knots with odd $q = 3, 5, 7, \ldots$ generate a family of topological solitons. Each member is characterised by its crossing number $c = q$, which sets both the 🔴 *[relabel 2026-06-08]* dimensionless coupling-budget ratio (~~confinement radius~~ — $r_{\mathrm{opt}} = \kappa_{\mathrm{FS}}/c$, a pure number, NOT a length; $\kappa_{\mathrm{FS}}=8\pi$ is a pure geometric constant per `constants.py:683-687`) and the eigenvalue mode number ($\ell = c$).
 
 Running the Faddeev-Skyrme solver with the Borromean 3D tensor correction for each crossing number yields a mass spectrum, a QNM (particle resonance), and a medium eigenvalue (exchange boson):
 

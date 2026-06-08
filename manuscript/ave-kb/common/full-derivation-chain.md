@@ -364,7 +364,9 @@ $m_e = \hbar / (c\,\ell_{node}) \approx 0.511\;\text{MeV}$.
 > **Methodology disclosure.** The lepton-generation derivation below uses three identifications that are *matched* against observation rather than derived step-by-step from the four axioms:
 > - The chiral LC lattice has three independent micropolar (Cosserat) coupling sectors → identified with three observed generations. The "three sectors = three generations" matching is a structural assumption consistent with Cosserat micropolar continuum mechanics; it is not derived from Axioms 1–4 alone.
 > - The torsional coupling factor $\alpha\sqrt{3/7}$ (muon) is asserted: $\alpha$ is the dielectric compliance from Axiom 2, $\sqrt{3/7}$ is the PAT torsion-shear projection at $\nu_{vac} = 2/7$. The derivation chain from Cosserat micropolar theory through the unknot's torsional eigenmode to this specific factor is not presented in full.
-> - The bending coupling factor $8\pi/\alpha = p_c/\alpha^2$ (tau) is similarly identified rather than derived from a step-by-step Cosserat calculation.
+> - The bending coupling factor $8\pi/\alpha = p_c/\alpha^2$ (tau) is similarly identified rather than derived from a step-by-step Cosserat calculation. *Net-$\alpha$-power reduction (algebraic identity; retires any "$\alpha^1$ muon / $\alpha^2$ tau exponent" framing):* since $p_c = 8\pi\alpha$, the tau's $p_c/\alpha^2 = 8\pi/\alpha$, so the **net $\alpha$-power is $\alpha^{-1}$ for BOTH charged leptons** ($m_\mu = \sqrt{7/3}\,m_e/\alpha$, $m_\tau = 8\pi\,m_e/\alpha$). The $\mu$-vs-$\tau$ differentiation is the **prefactor** ($\sqrt{7/3} \approx 1.528$ muon vs $8\pi \approx 25.13$ tau), NOT an exponent. The genuine $\alpha^1/\alpha^2$ split is sector-level: charged leptons (single-vertex static defect, net $\alpha^{-1}$) vs **W/Z (transient two-vertex self-energy, $\alpha^2$)** — the real $\alpha^2$ locus, canonical at [`weak-coupling.md`](../vol2/particle-physics/ch05-electroweak-mechanics/weak-coupling.md) and [`spontaneous-symmetry-breaking.md`](../vol2/particle-physics/ch06-electroweak-higgs/spontaneous-symmetry-breaking.md).
+>
+> **🔴 OPEN FLAG (Rule 12 — `√(3/7)` "PAT torsion-shear" label; Grant's physics adjudication pending. Body above preserved unchanged; label NOT swapped per substitution-not-retraction.):** $\sqrt{3/7} = \sqrt{1 - 2\nu_{vac}}$ at $\nu_{vac} = 2/7$ is EXACTLY the dilatational/compressional (bulk) elastic signature: $(1-2\nu)$ = bulk/volumetric, $(1+\nu)$ = shear/deviatoric (the corpus uses $(1+\nu) = 9/7$ as the Z-factor $3/\sqrt{7} = \sqrt{9/7}$). The genuinely-shear $(1+\nu)$ combination is used elsewhere while the **bulk** combination $\sqrt{1-2\nu}$ here carries the "torsion-shear / PAT" label — an elastic-type contradiction. **OPEN — Grant's physics adjudication:** does an independent torsion route reach $\sqrt{3/7}$, or is this the dilatational (bulk) projection and the label wrong? The engine constant `_SIN_THETA_W_PAT` (`src/ave/topological/cosserat.py:65`) is NOT renamed — deferred.
 >
 > The PMNS sector below carries an analogous status: the three neutrino crossing numbers $c_1=5, c_2=7, c_3=9$ are identified by pattern (consecutive odd integers from the $(2,q)$ torus-knot ladder paired with three regime types), not derived from a unique axiomatic constraint that picks $\{5,7,9\}$ over alternatives.
 >
@@ -470,6 +472,8 @@ $$
 \approx 25.133
 $$
 
+> **Shared-value caveat (not an independent confirmation).** This $\kappa_{FS} = p_c/\alpha = 8\pi$ is the **same geometric ratio** $p_c/\alpha$ that sets the tau bending coupling $m_\tau = m_e\,p_c/\alpha^2 = 8\pi\,m_e/\alpha$. The two appearances of $8\pi$ are *one reused ratio*, not two independent matches — and they enter through *two as-yet-unreconciled mechanisms* (Cosserat micropolar bending for the tau vs the Faddeev–Skyrme quartic stabilization here). Counting "tau $= 8\pi$" and "$\kappa_{FS} = 8\pi$" as two separate confirmations would double-count the single identification $p_c = 8\pi\alpha$.
+
 **Step 2: Thermal Softening.**
 The Faddeev--Skyrme energy functional includes Axiom 4 gradient saturation
 $S(|\partial_r\phi|, \pi/\ell_{node})$ inside the integrand, preventing
@@ -489,14 +493,14 @@ $$
 \approx 24.951
 $$
 
-**Step 3: Soliton Confinement Radius.**
+**Step 3: Soliton Coupling-Budget Ratio.** 🔴 *[dimensional-provenance relabel 2026-06-08 — prior heading* ~~"Soliton Confinement Radius"~~ *and the* ~~$\ell_{node}$~~ *units were a dimensional category error]*
 The proton is a $(2,5)$ cinquefoil torus knot with crossing number $c_5 = 5$.
-The crossing number bounds the phase gradient, setting the confinement radius:
+The crossing number bounds the phase gradient by absorbing a fraction of the total coupling; this is a **dimensionless coupling-budget ratio, NOT a length** ($\kappa_{eff}$ inherits the pure-geometric $\kappa_{FS}=8\pi$ per `constants.py:683-687`):
 
 $$
 r_{opt} = \frac{\kappa_{eff}}{c_5}
 = \frac{24.951}{5}
-\approx 4.99\;\ell_{node}
+\approx 4.99 \quad\text{(dimensionless; NOT $\ell_{node}$)}
 $$
 
 **Step 4: 1D Scalar Trace.**
@@ -813,8 +817,8 @@ Table: Complete accounting of the 26 Standard Model free parameters.
 | 9 | $m_t$ (top) | Quark | $\checkmark$ | $v/\sqrt{2}$ (EW saturation) | $0.8\%$ |
 | | **Charged Lepton Masses (3)** | | | | |
 | 10 | $m_e$ (electron) | Lepton | $\circ$ | Unknot ground state: $\hbar/(c\,\ell_{node})$ — circular with $\ell_{node}$ at Layer 1; one of $\{m_e, \ell_{node}\}$ is the input scale, the other is computed. Layer 8 (Vol 1 Ch 8 Golden Torus) is the proposed zero-parameter closure. | input scale |
-| 11 | $m_\mu$ (muon) | Lepton | $\checkmark$ | Cosserat torsion: $m_e/(\alpha\sqrt{3/7})$ | $1.24\%$ |
-| 12 | $m_\tau$ (tau) | Lepton | $\checkmark$ | Cosserat bending: $m_e p_c/\alpha^2$ | $0.95\%$ |
+| 11 | $m_\mu$ (muon) | Lepton | $\checkmark$ | Cosserat torsion (matched closed-form, no solver): $m_e/(\alpha\sqrt{3/7})$ | $1.24\%$ ‡ |
+| 12 | $m_\tau$ (tau) | Lepton | $\checkmark$ | Cosserat bending (matched closed-form, no solver): $m_e p_c/\alpha^2 = 8\pi m_e/\alpha$ | $0.95\%$ ‡ |
 | | **CKM Mixing Matrix (4)** | | | | |
 | 13 | $\theta_{12}$ (Cabibbo) | CKM | $\checkmark$ | $\lambda = \sin^2\theta_W = 2/9$ (scale invariance) | $1.4\%$ |
 | 14 | $\theta_{23}$ | CKM | $\checkmark$ | $A\lambda^2 = \cos\theta_W \cdot (2/9)^2$ | $4.1\%$ |
@@ -846,6 +850,8 @@ Counting honestly against the chain's own structure ("three empirically anchored
 **Honest framing of "zero free parameters":** The chain reduces 26 SM parameters to a 3-element bounding set $\{m_e, \alpha, G\}$ + four axioms, which is then claimed to close to zero parameters at Layer 8. The "26 / 26 derived" headline is correct *conditional on Layer 8 closure holding*; without that closure, the count is "25 of 26 expressed as functions of three bounding limits, of which one ($m_e$) is the input scale." The Layer-8 closure depends on (a) the Golden Torus cold-lattice $\alpha^{-1}_{ideal} = 4\pi^3+\pi^2+\pi$ derivation (Vol 1 Ch 8, a named geometric identification) and (b) the thermal running $\alpha^{-1}(T)$: existence and sign predicted; the magnitude $\delta_{strain}$ at $T_{CMB}$ is a **definitional residual** (back-subtracted from CODATA, $1-$CODATA$/\alpha_\text{cold}$), NOT a derivable thermal observable. Q-DELTA-MAP-1 (substrate-mechanism class identification) closed at mechanism-class identification 2026-05-28 via Cosserat-rotation-sector mass-gap thermal-mode-population ASYM ([`vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md`](../vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md), clm-hp7nlm), predicting the SIGN; the candidate quantitative magnitude derivation **Q-DELTA-MAP-1-quant** was **ATTEMPTED and CLOSED NEGATIVE** (FT-1, 2026-05-31: E-mode Bose-Einstein occupation undershoots $\eta_\varepsilon$ by ~31 OOM, generic-thermal not AVE-distinct — [`research/2026-05-31_FT-1_delta-strain-eta-epsilon_result.md`](../../../research/2026-05-31_FT-1_delta-strain-eta-epsilon_result.md); see [`research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md`](../../../research/2026-05-28_phase-3-a3-delta-strain-machian-projection-result.md) §3 for the earlier Phase 3-A3 WALK-BACK + candidate paths P1/P2/P3). See [`Vol 1 Ch 8`](../vol1/ch8-alpha-golden-torus.md) for the predicted/fitted disclosure.
 
 Every quantity marked $\checkmark$ is computed by the physics engine at import time with zero per-parameter curve-fitting; the input scale ($m_e$) is calibrated once and propagated. The scope of "no curve-fitting" claim is the SM-parameter table only; nuclear masses (Vol 6) are a separate one-fit-per-nucleus structural claim — see Vol 6 introduction methodology note.
+
+> **‡ Tier note on charged-lepton masses (Rows 11–12; and the Layer 5 entries of the Summary DAG below), consistency-vs-emergence.** The muon and tau mass rows are **matched closed-form algebraic expressions** ($m_\mu = m_e/(\alpha\sqrt{3/7})$, $m_\tau = m_e p_c/\alpha^2 = 8\pi m_e/\alpha$) evaluated from the CODATA-input $\alpha$ and $p_c$ with $m_e$ the input scale — **no numerical solver**, and *not* an axiom-emergent derivation. The framework self-flags this honestly above (Methodology disclosure: the muon factor "is asserted"; the tau factor is "identified rather than derived"). This is a *distinct, lower* tier than the proton $m_p/m_e$ **Faddeev–Skyrme eigenvalue** (Layer 6, Summary DAG below), which IS a numerical-solver result. Read the $\checkmark$ on the lepton rows as **closed-form consistency** (matched closed-form), not first-principles Cosserat-eigenmode emergence and not solver-backed like the baryon row.
 
 ## Summary: The Complete Derivation DAG
 

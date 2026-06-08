@@ -35,7 +35,7 @@ The K4-TLM substrate has **anisotropic kinematics native to Axiom 1**:
 
 | Port-mode | Wave character | Speed | Substrate origin |
 |---|---|---|---|
-| $A_1 \propto (1, 1, 1, 1)$ | Scalar / longitudinal | $c \cdot \sqrt{2} = \sqrt{K_{\text{bulk}} / \rho}$ | Bulk modulus $K_{\text{bulk}}$ governs scalar compression speed |
+| $A_1 \propto (1, 1, 1, 1)$ | Scalar / longitudinal (lattice port-mode) | $c \cdot \sqrt{2} = \sqrt{K_{\text{bulk}} / \rho}$ | Bulk modulus $K_{\text{bulk}}$ governs this **pure-dilatation** scalar compression speed. NB (2026-06-08 c_L reconciliation): this $\sqrt{K/\rho}=\sqrt{2}\,c$ is the bulk-modulus port-mode (measured at cardinal-axis $v/c=1.45$), distinct from the isotropic-solid longitudinal **P-wave** $\sqrt{(K+\tfrac{4}{3}G)/\rho}=\sqrt{10/3}\,c$ ($\nu=2/7$; canonical vol_2 Ch 7). Both retained as distinct quantities. |
 | $T_2$ (chiral-transverse triplet) | **The photon** (per [Photon Identification](photon-identification.md)) | $c = \sqrt{G / \rho}$ | Shear modulus $G$ governs transverse shear speed |
 
 The $A_1$/$T_2$ port-mode decomposition is the canonical group theory owned by [K4 4-Port Irrep Decomposition](../../operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md); the present leaf measures the propagation-speed split that decomposition implies. The K4 magic-angle condition $K = 2G$ (Vol 1 Ch 2 macroscopic moduli) makes the substrate's $A_1$ and $T_2$ speeds related by $v_{A_1} / v_{T_2} = \sqrt{2}$ — the same $\sqrt{2}$ that shows up in cardinal-axis kinematics.

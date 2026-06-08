@@ -1,0 +1,99 @@
+{
+  "pairs": [
+    {
+      "lane": "projection",
+      "amplitude_V_SNAP": 0.48,
+      "gamma_min": -0.013394911116755644,
+      "eps_gamma": 0.9998205763561742,
+      "gamma_full_tir": false
+    },
+    {
+      "lane": "native",
+      "amplitude_V_SNAP": 0.48,
+      "gamma_min": -0.013429454679682387,
+      "eps_gamma": 0.9998196497470063,
+      "gamma_full_tir": false
+    },
+    {
+      "lane": "projection",
+      "amplitude_V_SNAP": 1.0,
+      "gamma_min": -0.34683006886227974,
+      "eps_gamma": 0.8797089033329863,
+      "gamma_full_tir": false
+    },
+    {
+      "lane": "native",
+      "amplitude_V_SNAP": 1.0,
+      "gamma_min": -0.9919017291422431,
+      "eps_gamma": 0.016130959724628302,
+      "gamma_full_tir": true
+    },
+    {
+      "lane": "projection",
+      "amplitude_V_SNAP": 1.5,
+      "gamma_min": -0.383701740109616,
+      "eps_gamma": 0.8527729746368526,
+      "gamma_full_tir": false
+    },
+    {
+      "lane": "native",
+      "amplitude_V_SNAP": 1.5,
+      "gamma_min": -0.9936920407365981,
+      "eps_gamma": 0.012576128176735035,
+      "gamma_full_tir": true
+    },
+    {
+      "lane": "projection",
+      "amplitude_V_SNAP": 3.0,
+      "gamma_min": -0.4533648302459189,
+      "eps_gamma": 0.7944603306960891,
+      "gamma_full_tir": false
+    },
+    {
+      "lane": "native",
+      "amplitude_V_SNAP": 3.0,
+      "gamma_min": -0.9936953802267694,
+      "eps_gamma": 0.012569491315976178,
+      "gamma_full_tir": true
+    }
+  ],
+  "classification": {
+    "verdict": "LANE_SPLIT_CONFIRMED",
+    "outcome": "A",
+    "splits": [
+      {
+        "amplitude": 0.48,
+        "gamma_projection": -0.013394911116755644,
+        "gamma_native": -0.013429454679682387,
+        "delta_native_minus_projection": -3.454356292674314e-05,
+        "native_tir": false,
+        "projection_tir": false
+      },
+      {
+        "amplitude": 1.0,
+        "gamma_projection": -0.34683006886227974,
+        "gamma_native": -0.9919017291422431,
+        "delta_native_minus_projection": -0.6450716602799633,
+        "native_tir": true,
+        "projection_tir": false
+      },
+      {
+        "amplitude": 1.5,
+        "gamma_projection": -0.383701740109616,
+        "gamma_native": -0.9936920407365981,
+        "delta_native_minus_projection": -0.6099903006269821,
+        "native_tir": true,
+        "projection_tir": false
+      },
+      {
+        "amplitude": 3.0,
+        "gamma_projection": -0.4533648302459189,
+        "gamma_native": -0.9936953802267694,
+        "delta_native_minus_projection": -0.5403305499808505,
+        "native_tir": true,
+        "projection_tir": false
+      }
+    ],
+    "comparison_only_alpha": 0.007297336344064641
+  }
+}

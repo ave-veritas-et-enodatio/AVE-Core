@@ -1,0 +1,94 @@
+{
+  "scope": "native K4 gamma ceiling; VacuumEngine3D asymmetric Meissner",
+  "amplitudes_V_SNAP": [
+    0.2,
+    0.48,
+    0.85,
+    1.0,
+    1.5,
+    2.0,
+    3.0
+  ],
+  "rows": [
+    {
+      "amplitude_V_SNAP": 0.2,
+      "A_squared_peak_v_inc": 0.04000000000000001,
+      "gamma_min_trace": -0.002131893279530107,
+      "eps_gamma": 0.9999954550310447,
+      "abs_eps_minus_alpha": 0.9926981186869801,
+      "gamma_full_tir_pass": false,
+      "alpha_used_as_input": false
+    },
+    {
+      "amplitude_V_SNAP": 0.48,
+      "A_squared_peak_v_inc": 0.2304,
+      "gamma_min_trace": -0.013429454679682387,
+      "eps_gamma": 0.9998196497470063,
+      "abs_eps_minus_alpha": 0.9925223134029417,
+      "gamma_full_tir_pass": false,
+      "alpha_used_as_input": false
+    },
+    {
+      "amplitude_V_SNAP": 0.85,
+      "A_squared_peak_v_inc": 0.7224999999999999,
+      "gamma_min_trace": -0.0835771765928408,
+      "eps_gamma": 0.9930148555527691,
+      "abs_eps_minus_alpha": 0.9857175192087045,
+      "gamma_full_tir_pass": false,
+      "alpha_used_as_input": false
+    },
+    {
+      "amplitude_V_SNAP": 1.0,
+      "A_squared_peak_v_inc": 1.0,
+      "gamma_min_trace": -0.9919017291422431,
+      "eps_gamma": 0.016130959724628302,
+      "abs_eps_minus_alpha": 0.008833623380563661,
+      "gamma_full_tir_pass": true,
+      "alpha_used_as_input": false
+    },
+    {
+      "amplitude_V_SNAP": 1.5,
+      "A_squared_peak_v_inc": 6.470663283769084,
+      "gamma_min_trace": -0.9936920407365981,
+      "eps_gamma": 0.012576128176735035,
+      "abs_eps_minus_alpha": 0.005278791832670394,
+      "gamma_full_tir_pass": true,
+      "alpha_used_as_input": false
+    },
+    {
+      "amplitude_V_SNAP": 2.0,
+      "A_squared_peak_v_inc": 5.516313050346452,
+      "gamma_min_trace": -0.9936953853474219,
+      "eps_gamma": 0.012569481139238836,
+      "abs_eps_minus_alpha": 0.005272144795174195,
+      "gamma_full_tir_pass": true,
+      "alpha_used_as_input": false
+    },
+    {
+      "amplitude_V_SNAP": 3.0,
+      "A_squared_peak_v_inc": 25.043224114817427,
+      "gamma_min_trace": -0.9936953802267694,
+      "eps_gamma": 0.012569491315976178,
+      "abs_eps_minus_alpha": 0.005272154971911537,
+      "gamma_full_tir_pass": true,
+      "alpha_used_as_input": false
+    }
+  ],
+  "classification": {
+    "verdict": "GAMMA_CEILING_NOT_BLOCKING",
+    "outcome": "A",
+    "any_full_tir": true,
+    "gamma_plateau_at_high_amp": true,
+    "best_eps_to_alpha": {
+      "amplitude_V_SNAP": 2.0,
+      "A_squared_peak_v_inc": 5.516313050346452,
+      "gamma_min_trace": -0.9936953853474219,
+      "eps_gamma": 0.012569481139238836,
+      "abs_eps_minus_alpha": 0.005272144795174195,
+      "gamma_full_tir_pass": true,
+      "alpha_used_as_input": false
+    },
+    "comparison_only_alpha": 0.007297336344064641,
+    "gamma_full_tir_threshold": -0.99
+  }
+}

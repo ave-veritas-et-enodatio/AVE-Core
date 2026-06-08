@@ -590,3 +590,71 @@ Cross-link: the new δ_strain canonical leaf [`delta-strain-cosmic-tcc.md`](../.
 - **SYM vs ASYM canonical:** [`einstein-field-equation.md`](../../vol3/gravity/ch02-general-relativity/einstein-field-equation.md) (clm-8nkvwy) — the c_EM vs c_shear distinction load-bearing for δ_strain derivation
 - **Companion agent-discipline skill:** `~/.claude/skills/ave-ee-first-mapping/SKILL.md` v1.0 — EE-first-mapping discipline that uses this catalog at fire-time
 - **Means-test corpus extension target:** §6 above carries 25 canonical validated cross-checks; the §9 component-non-ideality catalog is the candidate expansion surface
+
+---
+
+## §10 — Session 2026-06-07 reframes: constants-as-line-properties, α-as-loss-tangent / screened-precession, FOC self-commutation (consistency-class lenses)
+<!-- claim-quality: clm-eemap1 -->
+
+This section consolidates four chat-only reframes (PR #120 sec14) into the EE-as-substrate-native META framework. **Each is CONSISTENCY-CLASS — a re-framing / lens onto already-canonical substrate physics, NOT a new derivation.** They add no new substrate primitive beyond canonical axioms; per `consistency-vs-emergence` v1.3 Step 8c the classification stays at the META framework's **Class B** ceiling and is NOT promoted to Class 2. Provenance + classification ledger: [`research/2026-06-07_session-reframes-ee-fluids-mapping.md`](../../../../research/2026-06-07_session-reframes-ee-fluids-mapping.md).
+
+### §10.1 — The "fundamental constants" are transmission-line properties of $\mathcal{M}_A$ (Class A identities + Class B Lorentz-emergence)
+
+The vacuum IS a K4-TLM transmission-line network (Ax 1). Its "fundamental constants" are the EE properties of that line — none is primitive-fundamental; each is an LC-network property:
+
+| "Fundamental constant" | Transmission-line property | Class |
+|---|---|---|
+| $c = 1/\sqrt{\mu_0\varepsilon_0}$ (line velocity) | wave propagation speed; operating-point dependent: $c_{EM} = c_0/S$, $c_{shear} = c_0\sqrt{S}$ (INVARIANT-S2) | **A** identity (§6 #3) |
+| $Z_0 = \sqrt{\mu_0/\varepsilon_0}$ (characteristic impedance) | line characteristic impedance | **A** identity (§6 #2) |
+| $L = \mu_0$ (per the $\xi_{topo}$ identity, mass↔inductance) | series line inductance / inertia | **A** identity (§1) |
+| $C = \varepsilon_0$ (compliance↔capacitance) | shunt line capacitance / compliance | **A** identity (§1) |
+| $R \leftrightarrow \eta$ (resistance↔viscosity) | the line loss (see §10.3: $\tan\delta = \alpha$) | **A** identity (§1) |
+| $\alpha$ (the line coupling / loss) | dimensionless coupling = loss tangent = $1/Q$ (§10.3); cold value $\alpha^{-1}=4\pi^3+\pi^2+\pi$ | structural (Thm 3.1); **value OPEN** (§10.2) |
+
+**Lorentz invariance ($c$ constant) is EMERGENT, not an axiom.** It is the cold-lattice limit $S(A)\to 1$ realized over observable wavelengths, where K4 diamond-cubic symmetry suppresses anisotropy to $(q\ell_{node})^4 \sim 10^{-22}$ at optical $\lambda$. Canonical: [`preferred-frame-and-emergent-lorentz.md`](../../vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md) (clm-yr6tu4, clm-ce8dg1) — **Class B axiom-manifestation** ("strict Lorentz invariance at observable scales is a derived consequence of K4 cubic symmetry, not an axiom"). The reframe's content is the EE re-labeling (constants = line properties); the physics is already canonical.
+
+### §10.2 — $\alpha$ as the screened effective precession angle (α-VALUE DERIVATION OPEN — do NOT claim derived)
+
+The reframe: $\alpha$ is the electron's per-orbit spin-slip (the g$-$2 anomaly direction), and its VALUE $1/137$ is the *screened effective* coupling — a bare coupling reduced by the lattice dielectric/chiral SCREENING ($S(A)$, $\Delta c_{crit}$) to the low-energy residual (the running of $\alpha$); the screening is what would explain the SMALLNESS.
+
+> **⚠ EVIDENCE FRAMING (`ave-evidence-framing-discipline`).** This is a **FRAMING LENS, NOT a derivation of $\alpha$.** The cold-lattice $\alpha^{-1}=4\pi^3+\pi^2+\pi$ is a geometric Q-factor result ([`theorem-3-1-q-factor.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md), structural), but the screening-explains-smallness story is **OPEN** and consistent with the standing honest-$\alpha$ **Class-B** verdict (clm-0ktpcn, 2026-06-02: the substrate does NOT independently select $\alpha$'s value). The two open tests that would close it: the **Golden-Torus audit** (the $S_{11}$-minimum geometry route) and the **screening-factor route** (bare → screened residual via $S(A)/\Delta c_{crit}$). Until one passes, $\alpha$'s value is **not derived**.
+
+### §10.3 — $\alpha = 1/Q = \tan\delta$: the loss tangent / slip angle (Class A EE identity)
+
+Given the canonical identification $Q_{tank} = \alpha^{-1}$ ([`theorem-3-1-q-factor.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md)) and the canonical substrate loss tangent $\delta_{AVE}$ ([`temporal-saturation-regime-classifier.md`](../temporal-saturation-regime-classifier.md), $\tan\delta = \sigma/(\omega\varepsilon)$), the line's loss tangent IS $\alpha$:
+
+$$\alpha = Q^{-1} = \tan\delta \approx \frac{1}{137.036}, \qquad \delta = \arctan\alpha \approx 0.418^\circ \;(\text{the slip angle}).$$
+
+**Class A identity** (consistency-class): definitional once $Q=\alpha^{-1}$ is accepted. The numeric slip angle $\arctan\alpha \approx 0.418^\circ$ is an EE re-expression of $\alpha$, **NOT** an independent prediction — the VALUE stays open per §10.2. (Means-test cross-link: §6 #1 establishes $\alpha^{-1}=Q_{tank}$; this row is its loss-tangent re-expression.)
+
+### §10.4 — FOC: the electron is a self-commutating 3-phase machine; "½-commutation" = spinor double-cover (g=2 POSITED)
+
+Field-Oriented Control (Park d/q) is the canonical co-rotating-frame decomposition ([`05_universal_solver_toolchain.tex`](../../../backmatter/05_universal_solver_toolchain.tex):120-136; d-axis = reactive/non-radiating, q-axis = real/radiating). Applied to the electron rotor:
+
+- The **"½ phase-pair commutation" is the SPINOR DOUBLE-COVER** — the Finkelstein-Misner kink / Dirac belt trick (SU(2)→SO(3), 2:1), **NOT** a half-pole-pair machine. Canonical: [`spin-half-paradox.md`](../../vol2/appendices/app-b-paradoxes/spin-half-paradox.md):12-14 (Cosserat microrotation DOF IS the substrate-native spin origin); §4 "SU(2)→SO(3) double cover" + "$(2,3)$ Clifford-torus winding" rows.
+- The **pole-pairs are the $(2,3)$ WINDING numbers** — already canonical (toolchain :401 pole-pairs ↔ mode-$\ell$ row; §4 $(2,3)$ Clifford-torus winding row).
+- The electron is **SELF-COMMUTATING**: the Compton-clock spinor rotation IS the de Broglie propagation drive (the rotor supplies its own commutation; no external commutator). Cross-ref the $\nu_{slew} = \alpha\,\nu_{Compton}$ Compton-clock structure ([`preferred-frame-and-emergent-lorentz.md`](../../vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md):107).
+- **$g = 2$ is POSITED, not derived** (`ave-evidence-framing-discipline`); the anomalous part $a_e = \alpha/2\pi$ is the slip (§10.2/§10.3), but the leading $g=2$ is an input.
+
+**Class B manifestation** (Cosserat-spin part, already canonical) + structural isomorphism (FOC/Park mapping). Tracker cross-ref: §4.5(c) "FOC / Park (d/q) transform" row (⚠ — d/q transform as an analytical tool not yet consolidated; this reframe sharpens its physical reading but does not close the ⚠).
+
+---
+
+## §11 — The vacuum as a chiral piezoelectric Cosserat solid (consistency-class reframe)
+<!-- claim-quality: clm-eemap1 -->
+
+**Class B consistency-class reframe — NOT a derivation, NOT a Class-2 emergence claim.** This subsection consolidates three already-canonical pieces — Axiom 1 (E/B as Cosserat DOFs), Axiom 2 ($Q=\xi_{topo}\,x$), and the $I4_1 32$ chiral (non-centrosymmetric) space group — into one coherent framing: **the AVE vacuum satisfies the structural definition of a piezoelectric (+ piezomagnetic) medium, and classical electromagnetism is its piezoelectric response.** It introduces no free parameter, predicts no new number, and relaxes no standard-EM result. It sits at the same Class B ceiling as the EE-as-substrate-native META framework (§6, canonical-source-ceiling rule) — a vocabulary translation over canonical axioms, not new substrate-mechanism content. Full record: [`research/2026-06-08_vacuum-as-chiral-piezoelectric.md`](../../../../research/2026-06-08_vacuum-as-chiral-piezoelectric.md).
+
+The mapping (each right-column entry is already canonical; the reframe adds no new row, only the observation that the right column *is* a chiral piezoelectric medium):
+
+| Piezoelectric / Cosserat phenomenology | AVE substrate identity | Class | Anchor |
+|---|---|---|---|
+| Medium must be **non-centrosymmetric** to be piezoelectric (centrosymmetric class forbids it) | $I4_1 32$ chiral space group; centrosymmetric $Fd\bar{3}m$ is the $k_\chi=0$ supergroup (piezo-forbidden) | A axiom + B consistency | Ax 1 INVARIANT-S2; [`claim-quality-closure-roadmap.md`](../../claim-quality-closure-roadmap.md):191 |
+| **Direct effect:** strain $\to$ bound charge / polarization | $Q = \xi_{topo}\,x$ — displacement $\to$ topological charge (§1 row above) | A identity | Ax 2; §1 $\xi_{topo}$ identity |
+| **Inverse effect:** applied field $\to$ strain | **E** = translational DOF; modulating the translational/$\varepsilon$ sector IS a lattice deformation | A identity | Ax 1 6-DOF decomposition |
+| **Piezomagnetic / couple-stress:** stress $\to$ magnetization / micro-rotation | **B** = microrotational Cosserat DOF; antisymmetric stress $\sigma^A$ fires couple-stress $\to\omega$; force projects via force-stress (E) AND couple-stress (B) | A axiom + B consistency | [`trampoline-framework.md`](../trampoline-framework.md):183-196 |
+| Universal **electromechanical coupling constant** $d$ | $\xi_{topo} = e/\ell_{node}$ — the **dielectric-invariant floor**; material piezo ($d_{ij}$) rides on top | A identity / B live-bench | [`project-cleave-01.md`](../../vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md):42-47 |
+
+**The one falsifiable surface** is pre-existing and unchanged by the reframe: the universal $\xi_{topo}\cdot x$ floor is dielectric-invariant (topology-protected integer linking charge), while material piezoelectricity rides on top — the two-sided **C15-CLEAVE** femto-electrometer discriminator (P1 presence / P2 dielectric-invariance), the live bench at [`project-cleave-01.md`](../../vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md):42-47,65,87. The reframe supplies only the one-line reading: *C15-CLEAVE measures the vacuum's direct piezoelectric coefficient $\xi_{topo}$, separated from any material $d_{ij}$ by the gap-sweep + material-swap.*
+
+> **Over-claim guard (`ave-evidence-framing-discipline`).** Correct strength: EM **is** (in substrate vocabulary) the vacuum's piezoelectric response — an identity-by-translation. NOT "EM emerges from / is derived from piezoelectricity" (causally backwards, too strong). The non-centrosymmetry tie is a Class B consistency observation; it does NOT independently select $I4_1 32$ (that is the substrate-topology argument, §7 Probe 2).

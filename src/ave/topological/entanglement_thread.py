@@ -30,7 +30,7 @@ No external quantum postulates are used.
 
 import numpy as np
 
-from ave.core.constants import C_0, HBAR, K_B, L_NODE, M_E, e_charge
+from ave.core.constants import C_0, HBAR, K_B, KAPPA_FS, L_NODE, M_E, e_charge
 
 # ═══════════════════════════════════════════════════════════════
 # Thread geometry
@@ -138,15 +138,22 @@ def impedance_taper_profile(
     Args:
         d: Separation distance [m] (or in ℓ_node units if < 1000).
         n_points: Number of sample points along the axis.
-        r_opt: Soliton confinement radius [ℓ_node]. Default: 8.32.
+        r_opt: Taper radial-scale parameter. Default: KAPPA_FS/3 ≈ 8.32
+            (electron, c=3). 🔴 §43 (2026-06-08): this is the DIMENSIONLESS
+            coupling-budget ratio r_opt = κ_FS/c (constants.py:683-687) —
+            NOT a "confinement radius" / length in ℓ_node. FLAG: whether it
+            should set the taper's spatial WIDTH is gated on the pending
+            canonical soliton-size definition (taper physics unchanged here).
         n_profile: Power-law exponent of the phase profile. Default: 1.0.
 
     Returns:
         (x_array, Z_array): positions along axis and Z/Z₀ values.
     """
     if r_opt is None:
-        # Engine-derived value: electron (c=3), kappa_FS/3 ≈ 8.32
-        r_opt = 8.32
+        # ave-canonical-source: electron c=3 → r_opt = KAPPA_FS/3 (≈ 8.32).
+        # r_opt is a DIMENSIONLESS coupling-budget ratio (§43, NOT a length
+        # in ℓ_node); imported from constants.py, not hard-coded.
+        r_opt = KAPPA_FS / 3.0
 
     # Work in ℓ_node units for the profile
     d_nodes = d / L_NODE if d > 1000 else d

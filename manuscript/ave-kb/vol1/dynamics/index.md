@@ -25,7 +25,7 @@ Quantum formalism and continuum electrodynamics are derived from the discrete si
 | Macroscopic Bulk Mass Density | $\rho_{bulk} = \xi_{topo}^2\mu_0/(p_c\ell_{node}^2) \approx 7.92 \times 10^6$ kg/m$^3$ |
 | Asymptotic Hubble Constant | $H_\infty = 28\pi m_e^3 c G/(\hbar^2\alpha^2) \approx 69.32$ km/s/Mpc |
 | Geometric Drift Acceleration | $a_{genesis} = cH_\infty/(2\pi) \approx 1.07 \times 10^{-10}$ m/s$^2$ |
-| Longitudinal Lattice Compression | $v_{longitudinal} = \sqrt{2G_{vac}/\rho_{bulk}} = \sqrt{2}\,c \approx 1.41c$ |
+| Longitudinal (P) Wave | $c_L = \sqrt{(K_{vac}+\tfrac{4}{3}G_{vac})/\rho_{bulk}} = \sqrt{10/3}\,c \approx 1.83c$ at $K=2G$ ($\nu=2/7$; canonical vol_2 Ch 7). Prior $\sqrt{2}\,c = \sqrt{K/\rho}$ = bulk-modulus dilatational speed (omits $4G/3$ shear) — 2026-06-08 c_L reconciliation |
 | CHSH Violation | $|S|_{\max} = 2\sqrt{2} pprox 2.828$ |
 
 ## Derivations and Detail

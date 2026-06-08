@@ -8,9 +8,19 @@ are deliberately excluded because the AVE architecture handles the 3D tensor
 contribution separately via the Borromean eigenvalue equation in tensors.py.
 
 CRITICAL: The 1D functional is scale-free — it has no natural energy
-minimum at finite radius. Without a confinement bound, the soliton
-spreads indefinitely (r_opt → ∞, I → 580). The physical confinement
+minimum at finite integration coordinate. Without a confinement bound, the
+soliton spreads indefinitely (r_opt → ∞, I → 580). The physical confinement
 is set by the topological crossing number of the soliton's winding.
+
+[dimensional-provenance note 2026-06-08]: r_opt below is the DIMENSIONLESS
+coupling-budget ratio κ_FS / c, NOT a real-space length / "confinement
+radius". κ_FS = 8π is a pure geometric constant (constants.py:683-687). The
+solver's integration coordinate normalises ℓ_node = 1 purely as the
+Nyquist-gradient-cutoff unit (see the gradient_yield comment in
+_energy_density below), so a numeric r_opt is a pure number, not a multiple
+of ℓ_node. The only MEASURED proton size is the sub-node charge radius
+D_p ≈ 0.841 fm (≈ 460× smaller than ℓ_node = 386 fm) — the proton is NOT a
+~5 ℓ_node extended object.
 
 THE TORUS KNOT LADDER (Phase Winding Classification):
   The electron's topology is an unknot (0₁), but its phase winding
@@ -19,19 +29,24 @@ THE TORUS KNOT LADDER (Phase Winding Classification):
   c₅ = 5 crossings.  The (2,q) torus knots require odd q; there is
   no stable (2,4) configuration (the figure-eight is not a torus knot).
 
-  The crossing number sets the confinement radius because each crossing
-  constrains the phase gradient ∂ᵣφ by absorbing a fraction of the total
-  coupling. The soliton's radial extent is therefore:
+  The crossing number sets the DIMENSIONLESS coupling-budget ratio (NOT a
+  real-space "confinement radius" / "radial extent") because each crossing
+  absorbs a fraction of the total coupling. The per-crossing budget ratio
+  is therefore:
 
-      r_opt = κ_FS / c₅ = κ_FS / 5
+      r_opt = κ_FS / c₅ = κ_FS / 5   (a pure number, NOT a length)
 
   This divides the total Faddeev-Skyrme coupling by the number of
-  topological crossings through which the phase must wind.
+  topological crossings through which the phase must wind. [relabel
+  2026-06-08: prior text "confinement radius" / "soliton's radial extent"
+  framed r_opt as a length — a dimensional category error; r_opt is
+  dimensionless, κ_FS = 8π being a pure geometric constant.]
 
   CROSS-SCALE CONNECTION (confinement ↔ atomic void floor):
-    At nuclear scale (Regime I, S→0): the crossing number confines
-    the soliton radius via r_opt = κ/c.  The SAME lattice packing
-    fraction φ = π√2/6 (FCC, K=2G) bounds the saturated zone geometry.
+    At nuclear scale (Regime I, S→0): the crossing number sets the
+    dimensionless coupling-budget ratio r_opt = κ/c (a pure number, NOT a
+    soliton radius).  The SAME lattice packing fraction φ = π√2/6 (FCC,
+    K=2G) bounds the saturated zone geometry.
 
     At atomic scale (Regime II, S≈1): the junction crossing count c
     drains phase space via Op10.  The void fraction (1-φ ≈ 0.26)

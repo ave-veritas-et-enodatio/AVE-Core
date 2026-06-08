@@ -1,0 +1,119 @@
+{
+  "scope": "native VacuumEngine3D translating defect + bond-\u0393 at centroid",
+  "amplitudes_V_SNAP": [
+    0.48,
+    1.0,
+    1.5
+  ],
+  "rows": [
+    {
+      "amplitude_V_SNAP": 0.48,
+      "seed_center": [
+        8,
+        16,
+        16
+      ],
+      "v_drive": 0.04,
+      "centroid_x_start": 8.285083769446063,
+      "centroid_x_end": 18.736800948059983,
+      "centroid_x_delta": 10.45171717861392,
+      "centroid_moved": true,
+      "A_squared_peak_v_inc": 0.2304,
+      "gamma_min_at_centroid": -0.013355924078451773,
+      "eps_at_gamma_min": 0.9998216192920106,
+      "eps_closest_to_alpha": 0.9998216192920106,
+      "abs_eps_closest_minus_alpha": 0.992524282947946,
+      "gamma_full_tir_pass": false,
+      "alpha_used_as_input": false
+    },
+    {
+      "amplitude_V_SNAP": 1.0,
+      "seed_center": [
+        8,
+        16,
+        16
+      ],
+      "v_drive": 0.04,
+      "centroid_x_start": 8.285083769446059,
+      "centroid_x_end": 9.24695156200396,
+      "centroid_x_delta": 0.9618677925579018,
+      "centroid_moved": true,
+      "A_squared_peak_v_inc": 1.0,
+      "gamma_min_at_centroid": -0.5283468965946391,
+      "eps_at_gamma_min": 0.7208495568588138,
+      "eps_closest_to_alpha": 0.7208495568588138,
+      "abs_eps_closest_minus_alpha": 0.7135522205147492,
+      "gamma_full_tir_pass": false,
+      "alpha_used_as_input": false
+    },
+    {
+      "amplitude_V_SNAP": 1.5,
+      "seed_center": [
+        8,
+        16,
+        16
+      ],
+      "v_drive": 0.04,
+      "centroid_x_start": 8.285083769446059,
+      "centroid_x_end": 8.082567683658485,
+      "centroid_x_delta": -0.20251608578757363,
+      "centroid_moved": false,
+      "A_squared_peak_v_inc": 6.470663283769084,
+      "gamma_min_at_centroid": -0.993690027137189,
+      "eps_at_gamma_min": 0.012580129968092546,
+      "eps_closest_to_alpha": 0.012580129968092546,
+      "abs_eps_closest_minus_alpha": 0.005282793624027905,
+      "gamma_full_tir_pass": true,
+      "alpha_used_as_input": false
+    }
+  ],
+  "classification": {
+    "verdict": "PROPAGATION_WITH_TIR_AT_WALL",
+    "outcome": "A",
+    "any_centroid_moved": true,
+    "any_full_tir": true,
+    "rest_row": {
+      "amplitude_V_SNAP": 0.48,
+      "seed_center": [
+        8,
+        16,
+        16
+      ],
+      "v_drive": 0.04,
+      "centroid_x_start": 8.285083769446063,
+      "centroid_x_end": 18.736800948059983,
+      "centroid_x_delta": 10.45171717861392,
+      "centroid_moved": true,
+      "A_squared_peak_v_inc": 0.2304,
+      "gamma_min_at_centroid": -0.013355924078451773,
+      "eps_at_gamma_min": 0.9998216192920106,
+      "eps_closest_to_alpha": 0.9998216192920106,
+      "abs_eps_closest_minus_alpha": 0.992524282947946,
+      "gamma_full_tir_pass": false,
+      "alpha_used_as_input": false
+    },
+    "wall_row": {
+      "amplitude_V_SNAP": 1.5,
+      "seed_center": [
+        8,
+        16,
+        16
+      ],
+      "v_drive": 0.04,
+      "centroid_x_start": 8.285083769446059,
+      "centroid_x_end": 8.082567683658485,
+      "centroid_x_delta": -0.20251608578757363,
+      "centroid_moved": false,
+      "A_squared_peak_v_inc": 6.470663283769084,
+      "gamma_min_at_centroid": -0.993690027137189,
+      "eps_at_gamma_min": 0.012580129968092546,
+      "eps_closest_to_alpha": 0.012580129968092546,
+      "abs_eps_closest_minus_alpha": 0.005282793624027905,
+      "gamma_full_tir_pass": true,
+      "alpha_used_as_input": false
+    },
+    "comparison_only_alpha": 0.007297336344064641
+  },
+  "gif_amp": 1.5,
+  "gif_path": "/Users/grantlindblom/AVE-staging/AVE-Core/assets/sim_outputs/native_electron_propagation.gif"
+}

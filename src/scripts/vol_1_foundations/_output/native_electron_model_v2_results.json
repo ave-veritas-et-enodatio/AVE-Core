@@ -1,0 +1,245 @@
+{
+  "prereg": "research/2026-06-08_native-electron-model-v2-prereg.md",
+  "parent": "native_electron_model.py",
+  "rows": [
+    {
+      "variant": "baseline",
+      "amplitude_V_SNAP": 0.92,
+      "channels": {
+        "boundary_leak_V_ref_only": false,
+        "dark_wake_bemf_on_u": false,
+        "lagrangian_emf_coupling": false,
+        "bemf_gain": null
+      },
+      "n_steps": 800,
+      "gamma_target_for_alpha": -0.9963446510399578,
+      "comparison_only_alpha": 0.007297336344064641,
+      "alpha_used_as_input": false,
+      "gamma_min": -0.9936823100696934,
+      "gamma_final": -0.9936628364905812,
+      "eps_gamma_mean": 0.01265687946419696,
+      "abs_eps_minus_alpha": 0.005359543120132319,
+      "omega_persistence_ratio": 0.03413982910561822,
+      "pca_shell": {
+        "R": 0.0007634571172991534,
+        "r": 0.0002178916113821456,
+        "R_over_r": 3.503838961290606,
+        "centroid_v_inc": 0.00012064802923810814,
+        "centroid_v_ref": 0.0005373610913876864,
+        "angle_deg": 97.34651878930961
+      },
+      "pca_bond": {
+        "R": 0.020278466512344016,
+        "r": 0.0025823323426047307,
+        "R_over_r": 7.8527717667392345,
+        "centroid_v_inc": -0.07453499232421205,
+        "centroid_v_ref": -0.07194164426161292,
+        "angle_deg": 47.16861159342821
+      },
+      "property_checks": {
+        "P1_unknot_localized": true,
+        "P2_shell_Rr_near_phi_sq": false,
+        "P2_bond_Rr_near_phi_sq": false,
+        "P3_TIR_held": true,
+        "P4_T2_omega_dominates_u": false,
+        "P4b_omega_persistence_ge_0p5": false
+      },
+      "properties_passed": 2,
+      "verdict": "MODEL_V2_PARTIAL_TRAP",
+      "outcome": "C"
+    },
+    {
+      "variant": "boundary_leak",
+      "amplitude_V_SNAP": 0.92,
+      "channels": {
+        "boundary_leak_V_ref_only": true,
+        "dark_wake_bemf_on_u": false,
+        "lagrangian_emf_coupling": false,
+        "bemf_gain": null
+      },
+      "n_steps": 800,
+      "gamma_target_for_alpha": -0.9963446510399578,
+      "comparison_only_alpha": 0.007297336344064641,
+      "alpha_used_as_input": true,
+      "gamma_min": -0.9936823100696934,
+      "gamma_final": -0.9936628370183164,
+      "eps_gamma_mean": 0.012656877590854782,
+      "abs_eps_minus_alpha": 0.005359541246790141,
+      "omega_persistence_ratio": 0.03251205557899562,
+      "pca_shell": {
+        "R": 0.0007633510240319937,
+        "r": 0.00021790355241782498,
+        "R_over_r": 3.503160070416319,
+        "centroid_v_inc": 0.00012064802923810814,
+        "centroid_v_ref": 0.0005366204196365778,
+        "angle_deg": 97.34547615345633
+      },
+      "pca_bond": {
+        "R": 0.020265004891964835,
+        "r": 0.0025827745908096147,
+        "R_over_r": 7.846215060375216,
+        "centroid_v_inc": -0.07453499232421205,
+        "centroid_v_ref": -0.07184840711242728,
+        "angle_deg": 47.132910444815444
+      },
+      "property_checks": {
+        "P1_unknot_localized": true,
+        "P2_shell_Rr_near_phi_sq": false,
+        "P2_bond_Rr_near_phi_sq": false,
+        "P3_TIR_held": true,
+        "P4_T2_omega_dominates_u": false,
+        "P4b_omega_persistence_ge_0p5": false
+      },
+      "properties_passed": 2,
+      "verdict": "MODEL_V2_PARTIAL_TRAP",
+      "outcome": "C"
+    },
+    {
+      "variant": "bemf_feedback",
+      "amplitude_V_SNAP": 0.92,
+      "channels": {
+        "boundary_leak_V_ref_only": false,
+        "dark_wake_bemf_on_u": true,
+        "lagrangian_emf_coupling": false,
+        "bemf_gain": 0.12
+      },
+      "n_steps": 800,
+      "gamma_target_for_alpha": -0.9963446510399578,
+      "comparison_only_alpha": 0.007297336344064641,
+      "alpha_used_as_input": false,
+      "gamma_min": -0.993685206385896,
+      "gamma_final": 0.0,
+      "eps_gamma_mean": 0.9950752747562702,
+      "abs_eps_minus_alpha": 0.9877779384122056,
+      "omega_persistence_ratio": 1660.78267293214,
+      "pca_shell": {
+        "R": 0.0007634571172991534,
+        "r": 0.0002178916113821456,
+        "R_over_r": 3.503838961290606,
+        "centroid_v_inc": 0.00012064802923810814,
+        "centroid_v_ref": 0.0005373610913876864,
+        "angle_deg": 97.34651878930961
+      },
+      "pca_bond": {
+        "R": 0.020278466512344016,
+        "r": 0.0025823323426047307,
+        "R_over_r": 7.8527717667392345,
+        "centroid_v_inc": -0.07453499232421205,
+        "centroid_v_ref": -0.07194164426161292,
+        "angle_deg": 47.16861159342821
+      },
+      "property_checks": {
+        "P1_unknot_localized": true,
+        "P2_shell_Rr_near_phi_sq": false,
+        "P2_bond_Rr_near_phi_sq": false,
+        "P3_TIR_held": false,
+        "P4_T2_omega_dominates_u": false,
+        "P4b_omega_persistence_ge_0p5": true
+      },
+      "properties_passed": 2,
+      "verdict": "MODEL_V2_CHANNEL_DESTABILIZED",
+      "outcome": "E"
+    },
+    {
+      "variant": "leak_plus_bemf",
+      "amplitude_V_SNAP": 0.92,
+      "channels": {
+        "boundary_leak_V_ref_only": true,
+        "dark_wake_bemf_on_u": true,
+        "lagrangian_emf_coupling": false,
+        "bemf_gain": 0.12
+      },
+      "n_steps": 800,
+      "gamma_target_for_alpha": -0.9963446510399578,
+      "comparison_only_alpha": 0.007297336344064641,
+      "alpha_used_as_input": true,
+      "gamma_min": -0.9936852047333492,
+      "gamma_final": 0.0,
+      "eps_gamma_mean": 0.9950752747644603,
+      "abs_eps_minus_alpha": 0.9877779384203957,
+      "omega_persistence_ratio": 1627.723761995531,
+      "pca_shell": {
+        "R": 0.0007633510240319937,
+        "r": 0.00021790355241782498,
+        "R_over_r": 3.503160070416319,
+        "centroid_v_inc": 0.00012064802923810814,
+        "centroid_v_ref": 0.0005366204196365778,
+        "angle_deg": 97.34547615345633
+      },
+      "pca_bond": {
+        "R": 0.020265004891964835,
+        "r": 0.0025827745908096147,
+        "R_over_r": 7.846215060375216,
+        "centroid_v_inc": -0.07453499232421205,
+        "centroid_v_ref": -0.07184840711242728,
+        "angle_deg": 47.132910444815444
+      },
+      "property_checks": {
+        "P1_unknot_localized": true,
+        "P2_shell_Rr_near_phi_sq": false,
+        "P2_bond_Rr_near_phi_sq": false,
+        "P3_TIR_held": false,
+        "P4_T2_omega_dominates_u": false,
+        "P4b_omega_persistence_ge_0p5": true
+      },
+      "properties_passed": 2,
+      "verdict": "MODEL_V2_CHANNEL_DESTABILIZED",
+      "outcome": "E"
+    },
+    {
+      "variant": "leak_bemf_emf",
+      "amplitude_V_SNAP": 0.92,
+      "channels": {
+        "boundary_leak_V_ref_only": true,
+        "dark_wake_bemf_on_u": true,
+        "lagrangian_emf_coupling": true,
+        "bemf_gain": 0.12
+      },
+      "n_steps": 800,
+      "gamma_target_for_alpha": -0.9963446510399578,
+      "comparison_only_alpha": 0.007297336344064641,
+      "alpha_used_as_input": true,
+      "gamma_min": -0.9936823100696934,
+      "gamma_final": 0.0,
+      "eps_gamma_mean": 0.9975376445552483,
+      "abs_eps_minus_alpha": 0.9902403082111837,
+      "omega_persistence_ratio": 527926366392.8263,
+      "pca_shell": {
+        "R": 13.804077561910596,
+        "r": 6.1374346821704,
+        "R_over_r": 2.24916081013656,
+        "centroid_v_inc": -8.253112112454142,
+        "centroid_v_ref": -14.74386995740469,
+        "angle_deg": -137.74506051081636
+      },
+      "pca_bond": {
+        "R": 156.17232773504335,
+        "r": 74.94433935164075,
+        "R_over_r": 2.08384421139906,
+        "centroid_v_inc": -79.5666474873117,
+        "centroid_v_ref": -239.66473828393578,
+        "angle_deg": 171.40638383221162
+      },
+      "property_checks": {
+        "P1_unknot_localized": true,
+        "P2_shell_Rr_near_phi_sq": true,
+        "P2_bond_Rr_near_phi_sq": false,
+        "P3_TIR_held": false,
+        "P4_T2_omega_dominates_u": false,
+        "P4b_omega_persistence_ge_0p5": true
+      },
+      "properties_passed": 3,
+      "verdict": "MODEL_V2_CHANNEL_DESTABILIZED",
+      "outcome": "E"
+    }
+  ],
+  "classification": {
+    "aggregate_verdict": "V2_CHANNELS_NO_BREAKTHROUGH",
+    "best_stable_variant": "baseline",
+    "best_stable_properties_passed": 2,
+    "stable_arms": ["baseline", "boundary_leak"],
+    "destabilized_arms": ["bemf_feedback", "leak_plus_bemf", "leak_bemf_emf"],
+    "baseline_omega_persistence": 0.03413982910561822,
+    "note": "Do not treat runaway omega on BEMF arms as circulation success"
+  }
+}
