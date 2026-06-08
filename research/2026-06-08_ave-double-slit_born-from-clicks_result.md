@@ -85,13 +85,30 @@ Born rule, no p = |ψ|², no sampling from |ψ|² (`rng.choice(p=…)`, inverse-
 | z-uniformity of the 2D slice | 2.4e-4 | faithful 2D Maxwell |
 | **No-Born grep of detector CODE** | **all_pass = True** | no Born/p=2/\|ψ\|² in placement |
 | Energy-exponent counterfactual (only p=2 should match) | \|E\|¹→χ²=4.89, **\|E\|²→1.13**, \|E\|³→2.29 | exponent is energy-forced |
+| **Argmax-fallback audit** — clicks routed through the \|E\|² safety fallback | **0 / 6000 (0.00%)** | every click a genuine first-passage crossing |
 
 The no-Born grep tokenizes `click_detector.py`, strips comments + docstrings,
 and confirms the executable tokens contain no `born`, no `psi`, no weighted
 sampler (`p=`/`multinomial`), no `intensity.sum` normalisation, while confirming
 `saturation_factor` (canonical kernel) IS used and intensity is consumed as a
-`rate`. The words "born"/"psi" occur **only** in the explanatory docstring
-(7 and 3 raw occurrences, all in prose).
+`rate`. The words "born"/"psi" occur **only** in prose — docstrings and comments,
+never executable code (9 and 3 raw occurrences; the "born" count is +2 over the
+original 7 solely from the two new fallback-audit instrumentation comments).
+
+**Argmax-fallback audit (auditor nit).** `accumulate_clicks` has a safety
+fallback: if a cell never crosses the saturation yield within `max_micro_steps`
+(60000) the click is routed to the brightest realised cell, `argmax(accum)` — a
+direct |E|²-correlated path that would *partially manufacture* the Born
+agreement. With mean first-passage ≈ 14 micro-steps it fires effectively never,
+but a future retune (higher `thermal_kT` / lower `coupling`) could silently
+route a fraction of clicks through it. The detector now **counts** every
+fallback fire and exposes it on `ClickResult`; `validate.fallback_audit`
+**asserts the count is 0** (reporting the fraction in its failure message) and
+writes `argmax_fallback_count` / `argmax_fallback_fraction` into
+`capstone_validation.json`. Re-run result: **0 / 6000 (0.00%)** — every click is
+a genuine first-passage yield-crossing, and the Born stats are byte-unchanged
+(χ²/dof = 1.02, KS = 0.009), confirming the counter is pure instrumentation, not
+a physics change.
 
 The m=2 detector (quantum=0.5) degrades to χ²/dof = 1.59, confirming the
 single-quantum (m≈1) Born regime predicted by competing-exponentials theory —

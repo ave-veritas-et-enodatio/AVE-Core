@@ -11,6 +11,11 @@ Validation for the capstone (validate-what-you-did):
   4. exponent_scan     - counterfactual: a detector responding to |E|^1 or |E|^3
                          does NOT reproduce the wave pattern; only |E|^2 (energy,
                          Poynting) does -> the Born exponent is energy-forced.
+  5. fallback_audit    - instrumentation gate: confirm EVERY click fired by a
+                         genuine first-passage yield-crossing, NOT the
+                         argmax(|E|^2) safety fallback (which would partially
+                         MANUFACTURE the Born agreement). Asserts the fallback
+                         count is 0 and reports its fraction.
 """
 
 from __future__ import annotations
@@ -22,7 +27,7 @@ from pathlib import Path
 import numpy as np
 from scipy.signal import find_peaks
 
-from .click_detector import accumulate_clicks
+from .click_detector import ClickResult, accumulate_clicks
 from .config import DetectorConfig
 from .field_engine import FieldResult
 
@@ -98,6 +103,39 @@ def grep_no_born(detector_path: str | Path) -> dict:
     }
     checks["all_pass"] = all(v for k, v in checks.items())
     return {"checks": checks, "docstring_mentions": doc_only}
+
+
+def fallback_audit(clicks: ClickResult) -> dict:
+    """Confirm no click used the argmax(|E|^2) safety fallback.
+
+    The fallback in ``accumulate_clicks`` routes a click to the brightest
+    realised cell when no yield-crossing happens within ``max_micro_steps``.
+    That is a direct |E|^2-correlated placement which would PARTIALLY
+    MANUFACTURE the Born agreement rather than let it emerge from genuine
+    first-passage statistics. In the deterministic capstone config it must fire
+    exactly zero times (mean first-passage ~14 micro-steps << the 60000 cap).
+
+    This gate ASSERTS the count is 0, with a failure message that reports the
+    fraction - so a future retune (higher ``thermal_kT`` / lower ``coupling``)
+    that silently opens the |E|^2 path is caught loudly instead of laundered
+    into the result.
+    """
+    n = int(clicks.click_cells.size)
+    count = int(clicks.argmax_fallback_count)
+    frac = count / max(n, 1)
+    assert count == 0, (
+        f"argmax(|E|^2) fallback fired {count}/{n} clicks ({100.0 * frac:.4f}%): "
+        f"the |E|^2-correlated safety path is active and would MANUFACTURE the "
+        f"Born agreement. A genuine first-passage yield-crossing is required for "
+        f"every click; raise max_micro_steps or revert the thermal_kT/coupling "
+        f"retune that opened this path."
+    )
+    return {
+        "argmax_fallback_count": count,
+        "argmax_fallback_fraction": frac,
+        "all_genuine_first_passage": count == 0,
+        "n_clicks": n,
+    }
 
 
 def exponent_scan(field: FieldResult, exponents=(1.0, 2.0, 3.0), *, n_clicks: int = 4000) -> dict:

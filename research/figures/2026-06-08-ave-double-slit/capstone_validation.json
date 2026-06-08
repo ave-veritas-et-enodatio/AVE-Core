@@ -9,6 +9,8 @@
   },
   "n_clicks": 6000,
   "mean_micro_steps": 14.2575,
+  "argmax_fallback_count": 0,
+  "argmax_fallback_fraction": 0.0,
   "histogram_match": {
     "chi2_dof": 1.0216025139400318,
     "corr": 0.968058304192716,
@@ -38,7 +40,7 @@
       "all_pass": true
     },
     "docstring_mentions": {
-      "born_raw_count": 7,
+      "born_raw_count": 9,
       "psi_raw_count": 3
     }
   },
@@ -58,6 +60,12 @@
       "corr": 0.9617560905565942,
       "ks": 0.05497728568370697
     }
+  },
+  "fallback_audit": {
+    "argmax_fallback_count": 0,
+    "argmax_fallback_fraction": 0.0,
+    "all_genuine_first_passage": true,
+    "n_clicks": 6000
   },
   "figures": {
     "a_smooth_field": "/Users/grantlindblom/AVE-staging/AVE-Core-dslit-wt/research/figures/2026-06-08-ave-double-slit/a_smooth_interference_field.png",

@@ -21,7 +21,7 @@ from . import figures
 from .click_detector import accumulate_clicks
 from .config import DetectorConfig, FieldConfig, fig_path
 from .field_engine import run_field
-from .validate import exponent_scan, fringe_spacing, grep_no_born, histogram_match
+from .validate import exponent_scan, fallback_audit, fringe_spacing, grep_no_born, histogram_match
 
 
 def main(*, skip_anim: bool = False) -> dict:
@@ -38,6 +38,7 @@ def main(*, skip_anim: bool = False) -> dict:
     detector_src = Path(__file__).with_name("click_detector.py")
     grep = grep_no_born(detector_src)
     escan = exponent_scan(field)
+    fb = fallback_audit(clicks)  # asserts no click used the |E|^2 argmax fallback
 
     stats = {
         "chi2_dof": hm["chi2_dof"],
@@ -73,10 +74,13 @@ def main(*, skip_anim: bool = False) -> dict:
         },
         "n_clicks": int(clicks.click_cells.size),
         "mean_micro_steps": clicks.mean_micro_steps,
+        "argmax_fallback_count": fb["argmax_fallback_count"],
+        "argmax_fallback_fraction": fb["argmax_fallback_fraction"],
         "histogram_match": hm,
         "fringe": fr,
         "no_born_grep": grep,
         "exponent_scan": escan,
+        "fallback_audit": fb,
         "figures": paths,
     }
     out_json = fig_path("capstone_validation.json")
@@ -99,6 +103,11 @@ def main(*, skip_anim: bool = False) -> dict:
         f"  no-Born grep: all_pass={grep['checks']['all_pass']}  "
         f"(raw docstring mentions: born={grep['docstring_mentions']['born_raw_count']}, "
         f"psi={grep['docstring_mentions']['psi_raw_count']})"
+    )
+    print(
+        f"  fallback audit: argmax |E|^2 fallback fired {fb['argmax_fallback_count']}/{fb['n_clicks']} "
+        f"({100.0 * fb['argmax_fallback_fraction']:.4f}%)  "
+        f"all_genuine_first_passage={fb['all_genuine_first_passage']}"
     )
     print("  energy-exponent counterfactual (chi2/dof; only p=2 should match):")
     for k, v in escan.items():

@@ -59,6 +59,13 @@ class ClickResult:
     histogram: np.ndarray  # counts per detector cell (len n_cells)
     mean_micro_steps: float  # mean first-passage time per electron [micro-steps]
     cfg: DetectorConfig
+    # Instrumentation (NOT physics): how many clicks were routed through the
+    # argmax(|E|^2) safety fallback instead of a genuine first-passage yield
+    # crossing. The fallback is an |E|^2-correlated path that would PARTIALLY
+    # MANUFACTURE the Born agreement; it must be 0 in the deterministic config.
+    # A future retune (higher thermal_kT / lower coupling) that silently opens
+    # this path is caught by ``validate.fallback_audit`` instead of laundered.
+    argmax_fallback_count: int = 0
 
 
 def accumulate_clicks(
@@ -97,6 +104,7 @@ def accumulate_clicks(
 
     click_cells = np.empty(cfg.n_clicks, dtype=np.int64)
     total_micro = 0
+    argmax_fallback_count = 0  # clicks routed through the |E|^2 safety fallback
 
     for e in range(cfg.n_clicks):
         accum = np.zeros(n)  # accumulated absorbed energy per cell
@@ -128,6 +136,10 @@ def accumulate_clicks(
                 break
 
         if winner < 0:  # safety: no crossing within the cap -> brightest realised
+            # |E|^2-correlated fallback: counted (not silent) so it can be
+            # asserted-to-zero downstream. If this ever fires it partially
+            # MANUFACTURES the Born agreement and must be surfaced, not hidden.
+            argmax_fallback_count += 1
             winner = int(np.argmax(accum))
         click_cells[e] = winner
 
@@ -141,6 +153,7 @@ def accumulate_clicks(
         histogram=histogram,
         mean_micro_steps=total_micro / max(cfg.n_clicks, 1),
         cfg=cfg,
+        argmax_fallback_count=argmax_fallback_count,
     )
 
 
