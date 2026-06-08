@@ -26,7 +26,7 @@ The continuous quantum formalism is derived from discrete finite-element signal 
 | Deterministic Born Rule | $P(\text{click}\mid x_n) = \|\partial_t\mathbf{A}(x_n)\|^2/\int\|\partial_t\mathbf{A}\|^2 d^3x \equiv \|\Psi\|^2$ |
 | Non-Linear Telegrapher Equation | $\partial^2\Delta\phi/\partial z^2 = \mu_0\epsilon(\Delta\phi)\partial^2\Delta\phi/\partial t^2 + \mu_0(d\epsilon/d\Delta\phi)(\partial\Delta\phi/\partial t)^2$ |
 | Euler-Heisenberg $E^4$ Correction | $U \approx \frac{1}{2}\epsilon_0(\Delta\phi)^2 - \frac{3}{8\alpha^2}\epsilon_0(\Delta\phi)^4$ |
-| Longitudinal Tension Wave | $v_{longitudinal} = \sqrt{2}\,c \approx 1.41c$ |
+| Longitudinal (P) Wave | $c_L = \sqrt{10/3}\,c \approx 1.83c$ (isotropic-solid P-wave at $K=2G$ / $\nu=2/7$; prior $\sqrt{2}\,c$ = bulk-modulus dilatational speed, omits $4G/3$ shear — 2026-06-08 c_L reconciliation) |
 
 ## Derivations and Detail
 

@@ -139,9 +139,11 @@ The baseline macroscopic bulk mass density ($\rho_{bulk}$) of the spatial vacuum
     m_{node} = \xi_{topo}^2 \mu_0 \ell_{node}
 \end{equation}
 \end{resultbox}
-\begin{resultbox}{Longitudinal Tension Wave Velocity}
+% [2026-06-08 c_L reconciliation -- prior wording preserved per Rule 12]: resultbox "Longitudinal Tension Wave Velocity" gave v_longitudinal = sqrt(K_bulk/rho_node). SUPERSEDED: sqrt(K/rho) is the bulk-modulus (dilatational) speed, which omits the 4G/3 shear term; the isotropic-solid longitudinal P-wave carries that term.
+\begin{resultbox}{Longitudinal (P) Wave Velocity}
 \begin{equation}
-    v_{longitudinal} = \sqrt{\frac{K_{bulk}}{\rho_{node}}}
+    c_L = \sqrt{\frac{K_{bulk} + \tfrac{4}{3}G_{vac}}{\rho_{node}}}
+    \qquad\left(\sqrt{K_{bulk}/\rho_{node}}\ \text{is the bulk-modulus dilatational speed; it omits the}\ \tfrac{4}{3}G\ \text{shear term}\right)
 \end{equation}
 \end{resultbox}
 
@@ -292,12 +294,13 @@ By applying this exact continuum mechanics projection to the topological knot, t
 a_{genesis}=\frac{a_r}{2\pi}=\frac{c\cdot H_{\infty}}{2\pi} = \frac{14 m_e^3 c^2 G}{\hbar^2 \alpha^2} \approx 1.07 \times 10^{-10} \text{ m/s}^2
 \end{equation}
 \end{resultbox}
-\begin{resultbox}{Longitudinal Lattice Compression Velocity}
+% [2026-06-08 c_L reconciliation -- prior wording preserved per Rule 12]: resultbox "Longitudinal Lattice Compression Velocity" gave v_longitudinal = sqrt(K_vac/rho_bulk) = sqrt(2 G_vac/rho_bulk) = sqrt(2) c approx 4.24e8 m/s approx 1.41c. SUPERSEDED: sqrt(K/rho)=sqrt(2)c is the bulk-modulus (dilatational) speed, which omits the 4G/3 shear term and is NOT the isotropic-solid P-wave (it IS the K4 A_1 scalar port-mode measured at cardinal-axis v/c=1.45).
+\begin{resultbox}{Longitudinal (P) Wave Velocity}
 \begin{equation}
-    v_{longitudinal} = \sqrt{\frac{K_{vac}}{\rho_{bulk}}} = \sqrt{\frac{2G_{vac}}{\rho_{bulk}}} = \sqrt{2}\,c \approx 4.24 \times 10^{8} \text{ m/s} \approx 1.41c
+    c_L = \sqrt{\frac{K_{vac} + \tfrac{4}{3}G_{vac}}{\rho_{bulk}}} = \sqrt{\tfrac{10}{3}}\,c \approx 5.48 \times 10^{8} \text{ m/s} \approx 1.83c
 \end{equation}
 \end{resultbox}
-Because $v_{longitudinal} > c$, the longitudinal mode carries only phase information, not
+At the $K_{vac}=2G_{vac}$ operating point (equivalently Poisson ratio $\nu=2/7$; canonical derivation in Vol~2 Ch~7) the longitudinal P-wave carries the $4G/3$ shear term; the pure bulk-modulus dilatational speed $\sqrt{K_{vac}/\rho_{bulk}}=\sqrt{2}\,c$ omits it. Because $c_L > c$, the longitudinal mode carries only phase information, not
 extractable energy---the same topological constraint demonstrated for the entanglement thread
 (Chapter~3, \S3.7).
 
