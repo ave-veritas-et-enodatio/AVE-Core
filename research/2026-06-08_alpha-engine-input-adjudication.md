@@ -82,7 +82,8 @@ This path uses native `VacuumEngine3D` with `axiom_4_enabled=True` (hence inheri
 2. **No** `PairNucleationGate` with default `delta_lock_fraction`
 3. **Snap trigger:** geometry-only — motion + local strain / measured-ε lock + full `seed_sech_v_inc` replace at `trap_amp ≥ 1.5`
 4. **Scoring:** `bond_gamma_min` on native `z_local_total`; compare `ε = 1 − Γ²` to `ALPHA_COLD` post-hoc only
-5. **Explicit JSON flag:** `alpha_used_as_input: false`, `delta_lock_source: "measured_eps" | "explicit_fraction"`
+5. **Explicit JSON flag:** `alpha_used_as_input: false`, `alpha_in_operating_point: "sqrt_alpha_via_V_YIELD"`, `delta_lock_source: "measured_eps" | "explicit_fraction"`
+   - **N2 caveat — `alpha_in_operating_point: sqrt_alpha_via_V_YIELD`:** `alpha_used_as_input: false` means α is not a *computational dial / fit target* in the dynamics or snap logic. It does **not** mean α is absent from the operating point: the native lane runs `axiom_4_enabled=True`, so the yield voltage inherits √α structurally via `V_YIELD = √α · V_SNAP` (Axiom-4, INVARIANT-C1). Any amplitude expressed in `V_YIELD` units therefore carries √α. This is acceptable (structural yield geometry, per §1), but the lane is **√α-in-operating-point**, not α-clean in the absolute sense — record both flags together so the `false` is not read as "no α anywhere."
 
 ## Follow-up (optional engine hygiene, not blocking snap)
 
