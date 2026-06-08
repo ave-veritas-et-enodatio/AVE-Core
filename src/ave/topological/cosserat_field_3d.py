@@ -898,11 +898,16 @@ class CosseratField3D:
         a Gaussian envelope — NOT topologically derived, just a QM
         wavefunction shape.
 
-        r_opt: confinement radius from the topological crossing number,
-        r_opt = kappa_FS / Q where kappa_FS = 8*pi (Axiom-derived, from
-        manuscript/backmatter/02_full_derivation_chain.tex:463) and Q = 3
-        for the electron (2,3) winding. So r_opt = 8*pi/3 ~ 8.38 lattice
-        units by default, scaled to the r_target passed in.
+        r_opt: the radial scale of the hedgehog envelope. In this method
+        r_opt = r_target (the caller-supplied tube radius); see the body.
+        🔴 RELABEL (§43, 2026-06-08): an earlier docstring called this the
+        "confinement radius from the topological crossing number,
+        r_opt = kappa_FS / Q ... ~8.38 lattice units." Misleading on two
+        counts: (a) the code uses the caller's r_target, NOT κ_FS/Q; and
+        (b) κ_FS/Q is a DIMENSIONLESS coupling-budget ratio
+        (constants.py:683-687), NOT a length in lattice units. The
+        κ_FS = 8π provenance (02_full_derivation_chain.tex:463) is retained
+        here for reference only — it is a diagnostic scalar, not a length.
 
         amplitude_scale: multiplier applied to the canonical envelope peak.
         Default 1.0 preserves the original sqrt(3)/2*pi peak (the static

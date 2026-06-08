@@ -4,7 +4,18 @@
 ==========================================
 
 Generates watertight STL mesh files for every fundamental particle
-topology in the AVE framework, at physically correct relative scales.
+topology in the AVE framework.
+
+🔴 RETRACTED (§43, 2026-06-08): the original line above read
+"…at physically correct relative scales." That is FALSE. The mesh
+scales are set by r_opt = κ_FS/c, which is a DIMENSIONLESS
+coupling-budget ratio (constants.py:683-687), NOT a physical length.
+These STLs are TOPOLOGY / RENDERING demos at an arbitrary UNIFORM
+scale; they do NOT encode physical particle sizes or physically
+correct relative scales. The honest fix is RELABEL, not regenerate:
+no vertex value was changed. Accurate relative scaling awaits the
+canonical soliton-size definition — see assets/3d_models/ACCURATE_SCALING.md
+(pending 2026-06-08 soliton-size determination).
 
 Particle inventory:
   LEPTONS (Unknot variants):
@@ -56,6 +67,18 @@ MM_PER_L_NODE = 10.0
 # that do not affect the mathematical topology or scale ratios.
 #
 # THE ELECTRON SCALE PROBLEM:
+# 🔴 RETRACTED (§43, 2026-06-08): every length claim in this block rests on
+#   r_opt = κ_FS/c (and ℓ_node/(2π)) read as a physical length in ℓ_node units.
+#   That is FALSE — r_opt is a DIMENSIONLESS coupling-budget ratio
+#   (constants.py:683-687), NOT a length. So "~1:31 electron:proton" does NOT
+#   hold. Worse, the only MEASURED proton size — charge radius D_p = 0.841 fm
+#   (Pohl 2010; proton-identification.md) — is SUB-NODE: ≈460× smaller than
+#   ℓ_node = 386 fm, hence unrenderable as a lattice object. "Size" is also
+#   measure-dependent (electron is LARGER by Compton, SMALLER by charge radius).
+#   The STLs are TOPOLOGY / RENDERING demos at an arbitrary UNIFORM scale; the
+#   5/c mesh-ratio below is a rendering convention, not a physical scale. See
+#   assets/3d_models/ACCURATE_SCALING.md. Original text preserved verbatim
+#   below (Rule-12):
 #   The physical electron radius is R = ℓ_node/(2π) ≈ 0.16 ℓ_node.
 #   At 10 mm/ℓ_node, this is 1.6 mm diameter — too small to 3D print.
 #   Baryons are ~5 ℓ_node, so the true electron:proton ratio is ~1:31.
@@ -315,9 +338,15 @@ def make_baryon_stl(
     """
     Generate a (2,q) torus knot STL mesh for a baryon.
 
-    DERIVED from engine:
-      Major radius R = r_opt = κ_FS / c          [DERIVED]
-      Tube orbit radius = r_opt / (2π)            [DERIVED] (ropelength)
+    🔴 RELABEL (§43, 2026-06-08): r_opt = κ_FS/c is a DIMENSIONLESS
+    coupling-budget ratio (constants.py:683-687), NOT a physical length.
+    It is used here as an arbitrary UNIFORM rendering scale, so the tags
+    below mark TOPOLOGY provenance only — they do NOT certify a physical
+    major-radius length. See assets/3d_models/ACCURATE_SCALING.md.
+
+    Mesh-geometry recipe (unchanged, topology-correct):
+      Major radius R = r_opt = κ_FS / c    [topology scale, DIMENSIONLESS]
+      Tube orbit radius = r_opt / (2π)     (ropelength ratio, scale-relative)
 
     Args:
         q: Crossing number (odd, ≥ 3).
@@ -326,8 +355,8 @@ def make_baryon_stl(
     Returns:
         stl.mesh.Mesh
     """
-    r_opt = KAPPA_FS / q  # [DERIVED] confinement radius in ℓ_node
-    R_mm = r_opt * scale_mm  # major radius in mm
+    r_opt = KAPPA_FS / q  # 🔴 §43: DIMENSIONLESS coupling-budget ratio (NOT a length in ℓ_node)
+    R_mm = r_opt * scale_mm  # 🔴 §43: arbitrary UNIFORM rendering scale (NOT a physical major radius)
     r_tube_physical = R_mm / (2 * np.pi)  # [DERIVED] tube orbit from ropelength
     tube_r = r_tube_physical * 0.5  # [RENDERING] 50% of physical for printability
 
@@ -474,12 +503,15 @@ def make_proton_borromean_stl(
     Three mutually interlocking rings representing the three
     independent flux loops of the proton (V_toroidal_halo = 2).
 
-    DERIVED: r_opt = κ_FS/5 for proton (c=5)                  [DERIVED]
+    🔴 RELABEL (§43, 2026-06-08): r_opt = κ_FS/5 (proton, c=5) is a
+    DIMENSIONLESS coupling-budget ratio (constants.py:683-687), NOT a
+    confinement length; used here as an arbitrary UNIFORM rendering scale.
+    See assets/3d_models/ACCURATE_SCALING.md.
     eccentricity = 1.6: pre-existing borromean.py parameter    [RENDERING]
     tube_r factor 0.35: thinner tubes for visual clarity       [RENDERING]
     """
-    r_opt = KAPPA_FS / 5  # [DERIVED] proton confinement radius
-    R_mm = r_opt * scale_mm
+    r_opt = KAPPA_FS / 5  # 🔴 §43: DIMENSIONLESS coupling-budget ratio (NOT a length)
+    R_mm = r_opt * scale_mm  # 🔴 §43: arbitrary UNIFORM rendering scale (NOT a physical radius)
     r_tube_physical = R_mm / (2 * np.pi)  # [DERIVED] ropelength tube radius
     tube_r = r_tube_physical * 0.35  # [RENDERING] thinner for visual clarity
 

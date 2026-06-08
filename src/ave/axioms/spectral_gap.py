@@ -15,7 +15,14 @@ THE ARGUMENT (4 steps):
 
 3. CONFINEMENT — At topological knot boundaries, Z → 0 ⟹ Γ → −1
    (total reflection).  The crossing number c of the torus knot sets
-   the confinement radius: r_conf = κ_FS / c.
+   the coupling-budget ratio r_conf = κ_FS / c.
+   🔴 RELABEL (§43, 2026-06-08): r_conf = κ_FS/c is a DIMENSIONLESS
+   coupling-budget ratio (constants.py:683-687), NOT a physical length /
+   "confinement radius" in ℓ_node. Treat it as a diagnostic scalar.
+   FLAG (flag-don't-fix): Step 4's narrative E_min = ℏc / r_conf (function
+   minimum_excitation_energy) reads r_conf as a length; the code there
+   actually returns ℏc / ℓ_node. The dimensional reconciliation of that
+   derivation is OPEN — surfaced for Grant, not silently rewritten here.
 
 4. MASS GAP — The Faddeev-Skyrme functional minimized inside the
    confined region gives Δ(c) > 0 for all c ≥ 3.  The minimum mass
@@ -188,7 +195,10 @@ def confinement_radius(kappa_fs: float, crossing_number: int) -> float:
         crossing_number: Torus knot crossing number (odd, ≥ 3).
 
     Returns:
-        Confinement radius [units of ℓ_node].
+        Coupling-budget ratio κ_FS / c [DIMENSIONLESS]. 🔴 RELABEL (§43,
+        2026-06-08): previously documented as "Confinement radius [units of
+        ℓ_node]". κ_FS/c is NOT a length — see constants.py:683-687. It is a
+        diagnostic scalar; the value and call sites are unchanged.
     """
     if crossing_number < 3:
         raise ValueError("Crossing number must be ≥ 3 (minimum is trefoil)")
