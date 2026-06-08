@@ -1,0 +1,185 @@
+{
+  "test": "alpha-as-twist (Calugareanu-White framing Tw of the (2,3) flux tube)",
+  "date": "2026-06-07",
+  "alpha_free_inputs": {
+    "p": 2,
+    "q": 3,
+    "R_golden": 0.8090169943749475,
+    "r_golden": 0.30901699437494745,
+    "Rr": 0.25000000000000006
+  },
+  "comparison_only_constants": {
+    "ALPHA": 0.0072973525693,
+    "ALPHA_COLD_INV": 137.0363037758784
+  },
+  "geometries": {
+    "golden_torus_(2,3)": {
+      "label": "golden_torus_(2,3)",
+      "p": 2,
+      "q": 3,
+      "R": 0.8090169943749475,
+      "r": 0.30901699437494745,
+      "Rr": 0.25000000000000006,
+      "realspace": {
+        "writhe_Wr": -3.3070774252043877,
+        "total_torsion": -16.920126777675463,
+        "twist_frenet_turns": -2.6929218144085927,
+        "twist_surface_turns": -2.6929218144085927,
+        "pohl_self_linking_SL": -5.999999239612981,
+        "Lk_surface_check_Wr_plus_Twsurf": -5.999999239612981,
+        "pq_topological": 6,
+        "Twsurf_per_rev_turns": -1.3464609072042963,
+        "Twsurf_per_rev_rad": -8.460063388837732,
+        "Twsurf_per_rev_deg": -484.72592659354666,
+        "TwFrenet_per_rev_turns": -1.3464609072042963,
+        "TwFrenet_per_rev_rad": -8.460063388837732,
+        "Wr_per_rev_turns": -1.6535387126021939,
+        "Twsurf_defect_from_nearest_int": 0.3070781855914073,
+        "Wr_defect_from_nearest_int": -0.30707742520438774,
+        "SL_defect_from_nearest_int": 7.603870191275064e-07
+      },
+      "phasespace": {
+        "framing_turns_Vinc_axis": 2.0000000000000004,
+        "framing_turns_Vref_axis": 3.0000000000000004,
+        "self_linking_pq": 6,
+        "winding_twist_per_rev_turns": 1.5,
+        "winding_twist_per_rev_rad": 9.42477796076938,
+        "winding_twist_per_rev_deg": 540.0,
+        "note": "flat torus: geodesic, no R\u00b3 writhe; twist is the winding ratio q/p"
+      },
+      "adjudication": {
+        "targets": {
+          "alpha_rad": 0.0072973525693,
+          "inv137_dimensionless": 0.0072992700729927005,
+          "inv137_turn_rad": 0.045862666475763404,
+          "alpha_cold_inv": 137.0363037758784
+        },
+        "candidates_scanned": {
+          "realspace.Twsurf_per_rev_rad": -8.460063388837732,
+          "realspace.TwFrenet_per_rev_rad": -8.460063388837732,
+          "realspace.Twsurf_per_rev_turns": -1.3464609072042963,
+          "realspace.Wr_per_rev_turns": -1.6535387126021939,
+          "realspace.Twsurf_defect_from_nearest_int": 0.3070781855914073,
+          "realspace.Wr_defect_from_nearest_int": -0.30707742520438774,
+          "phasespace.winding_twist_per_rev_rad": 9.42477796076938,
+          "phasespace.winding_twist_per_rev_turns": 1.5
+        },
+        "hits_within_1pct": [],
+        "loss_tangent_1_over_modecount": 0.007297336344064641,
+        "loss_tangent_note": "1/(4\u03c0\u00b3+\u03c0\u00b2+\u03c0) = \u03b1_cold by definition of Q=mode-count; NOT an independent twist-geometry derivation (see prereg \u00a72)"
+      }
+    },
+    "generic_torus_(2,3)_R1_r0.3": {
+      "label": "generic_torus_(2,3)_R1_r0.3",
+      "p": 2,
+      "q": 3,
+      "R": 1.0,
+      "r": 0.3,
+      "Rr": 0.3,
+      "realspace": {
+        "writhe_Wr": -3.1861664862121053,
+        "total_torsion": 1.1697212037544054,
+        "twist_frenet_turns": 0.1861669116169157,
+        "twist_surface_turns": -2.813833088383091,
+        "pohl_self_linking_SL": -2.9999995745951895,
+        "Lk_surface_check_Wr_plus_Twsurf": -5.999999574595196,
+        "pq_topological": 6,
+        "Twsurf_per_rev_turns": -1.4069165441915454,
+        "Twsurf_per_rev_rad": -8.839917358892198,
+        "Twsurf_per_rev_deg": -506.48995590895635,
+        "TwFrenet_per_rev_turns": 0.09308345580845785,
+        "TwFrenet_per_rev_rad": 0.5848606018772027,
+        "Wr_per_rev_turns": -1.5930832431060526,
+        "Twsurf_defect_from_nearest_int": 0.18616691161690913,
+        "Wr_defect_from_nearest_int": -0.1861664862121053,
+        "SL_defect_from_nearest_int": 4.2540481048902734e-07
+      },
+      "phasespace": {
+        "framing_turns_Vinc_axis": 2.0000000000000004,
+        "framing_turns_Vref_axis": 3.0000000000000004,
+        "self_linking_pq": 6,
+        "winding_twist_per_rev_turns": 1.5,
+        "winding_twist_per_rev_rad": 9.42477796076938,
+        "winding_twist_per_rev_deg": 540.0,
+        "note": "flat torus: geodesic, no R\u00b3 writhe; twist is the winding ratio q/p"
+      },
+      "adjudication": {
+        "targets": {
+          "alpha_rad": 0.0072973525693,
+          "inv137_dimensionless": 0.0072992700729927005,
+          "inv137_turn_rad": 0.045862666475763404,
+          "alpha_cold_inv": 137.0363037758784
+        },
+        "candidates_scanned": {
+          "realspace.Twsurf_per_rev_rad": -8.839917358892198,
+          "realspace.TwFrenet_per_rev_rad": 0.5848606018772027,
+          "realspace.Twsurf_per_rev_turns": -1.4069165441915454,
+          "realspace.Wr_per_rev_turns": -1.5930832431060526,
+          "realspace.Twsurf_defect_from_nearest_int": 0.18616691161690913,
+          "realspace.Wr_defect_from_nearest_int": -0.1861664862121053,
+          "phasespace.winding_twist_per_rev_rad": 9.42477796076938,
+          "phasespace.winding_twist_per_rev_turns": 1.5
+        },
+        "hits_within_1pct": [],
+        "loss_tangent_1_over_modecount": 0.007297336344064641,
+        "loss_tangent_note": "1/(4\u03c0\u00b3+\u03c0\u00b2+\u03c0) = \u03b1_cold by definition of Q=mode-count; NOT an independent twist-geometry derivation (see prereg \u00a72)"
+      }
+    },
+    "generic_torus_(2,3)_R1_r0.5": {
+      "label": "generic_torus_(2,3)_R1_r0.5",
+      "p": 2,
+      "q": 3,
+      "R": 1.0,
+      "r": 0.5,
+      "Rr": 0.5,
+      "realspace": {
+        "writhe_Wr": -3.5182379152542995,
+        "total_torsion": -15.59336279947135,
+        "twist_frenet_turns": -2.4817607689611405,
+        "twist_surface_turns": -2.481760768961141,
+        "pohl_self_linking_SL": -5.99999868421544,
+        "Lk_surface_check_Wr_plus_Twsurf": -5.9999986842154405,
+        "pq_topological": 6,
+        "Twsurf_per_rev_turns": -1.2408803844805705,
+        "Twsurf_per_rev_rad": -7.796681399735676,
+        "Twsurf_per_rev_deg": -446.7169384130054,
+        "TwFrenet_per_rev_turns": -1.2408803844805703,
+        "TwFrenet_per_rev_rad": -7.796681399735675,
+        "Wr_per_rev_turns": -1.7591189576271498,
+        "Twsurf_defect_from_nearest_int": -0.48176076896114095,
+        "Wr_defect_from_nearest_int": 0.4817620847457005,
+        "SL_defect_from_nearest_int": 1.3157845604183649e-06
+      },
+      "phasespace": {
+        "framing_turns_Vinc_axis": 2.0000000000000004,
+        "framing_turns_Vref_axis": 3.0000000000000004,
+        "self_linking_pq": 6,
+        "winding_twist_per_rev_turns": 1.5,
+        "winding_twist_per_rev_rad": 9.42477796076938,
+        "winding_twist_per_rev_deg": 540.0,
+        "note": "flat torus: geodesic, no R\u00b3 writhe; twist is the winding ratio q/p"
+      },
+      "adjudication": {
+        "targets": {
+          "alpha_rad": 0.0072973525693,
+          "inv137_dimensionless": 0.0072992700729927005,
+          "inv137_turn_rad": 0.045862666475763404,
+          "alpha_cold_inv": 137.0363037758784
+        },
+        "candidates_scanned": {
+          "realspace.Twsurf_per_rev_rad": -7.796681399735676,
+          "realspace.TwFrenet_per_rev_rad": -7.796681399735675,
+          "realspace.Twsurf_per_rev_turns": -1.2408803844805705,
+          "realspace.Wr_per_rev_turns": -1.7591189576271498,
+          "realspace.Twsurf_defect_from_nearest_int": -0.48176076896114095,
+          "realspace.Wr_defect_from_nearest_int": 0.4817620847457005,
+          "phasespace.winding_twist_per_rev_rad": 9.42477796076938,
+          "phasespace.winding_twist_per_rev_turns": 1.5
+        },
+        "hits_within_1pct": [],
+        "loss_tangent_1_over_modecount": 0.007297336344064641,
+        "loss_tangent_note": "1/(4\u03c0\u00b3+\u03c0\u00b2+\u03c0) = \u03b1_cold by definition of Q=mode-count; NOT an independent twist-geometry derivation (see prereg \u00a72)"
+      }
+    }
+  }
+}
