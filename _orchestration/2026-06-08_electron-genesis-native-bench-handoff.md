@@ -1,49 +1,44 @@
-# Session handoff — 2026-06-08 (electron genesis native bench + α dynamic readout)
+# Session handoff — 2026-06-08 (electron genesis native bench — CLEAN STOP)
 
 **Branch:** `analysis/2026-06-07-two-node-alpha-projection`  
 **PR:** [#126](https://github.com/ave-veritas-et-enodatio/AVE-Core/pull/126)  
-**Parent epic:** [`2026-06-07_electron-synthesis-epic.md`](2026-06-07_electron-synthesis-epic.md) §3 α-closure  
-**For:** next orchestration or implementor session continuing native-lane electron instrumentation.
+**Parent epic:** [`2026-06-07_electron-synthesis-epic.md`](2026-06-07_electron-synthesis-epic.md) §9  
+**Status:** **SIMS COMPLETE — modeling stop line for this arc.**
 
 ---
 
-## §0 TL;DR
+## §0 Executive summary (clean point)
 
-**Native bench genesis protocol is CLOSED.** Reproducible pinned TIR trap after manual snap (trap_amp ≥ 1.25). **Numerical α dynamic readout is NOT closed** — and naive fixes are ruled out.
+| Question | Answer |
+|----------|--------|
+| Can we manufacture a pinned TIR trap on native `VacuumEngine3D`? | **YES** — reproducible protocol + joint seed both work |
+| Does ε_Γ → α on bond readout? | **NO** — ε ≈ 0.0126 (~1.7× α) across all stable arms |
+| Does re-scoring fix it (WS1)? | **NO** — `LEAK_PROXY_NONE_MATCH` |
+| Does naive α/cycle shell drain fix it (WS2)? | **NO** — `TUNE_DESTABILIZED_TRAP` |
+| Does V_ref-only boundary leak fix it (v2)? | **NO** — unchanged from baseline |
+| Does driver-side BEMF fix circulation? | **NO** — **runaway** (gain not substrate-derived) |
+| Is manual snap required for TIR? | **NO** — Golden-Torus joint seed @ 0.92 reaches Γ≈−0.99 |
+| Is this a derived electron? | **NO** — ω flywheel decays to ~3%; R/r ≠ φ²; no closed orbit |
 
-| Question | Verdict |
-|----------|---------|
-| Can native engine reach Γ≈−1? | **YES** (`GAMMA_CEILING_NOT_BLOCKING`) |
-| Sub-yield propagation? | **YES** @ amp=0.48 |
-| Persistent trap post-snap? | **YES** @ trap≥1.25, ≥600 steps, pinned |
-| ε_Γ → α on bond readout? | **NO** — ε≈0.0126 (~1.7× α), Q_proxy≈80 vs 137 |
-| Re-score ε proxies (WS1)? | **NO** — `LEAK_PROXY_NONE_MATCH`; best `(1−\|Γ\|)` ~13% short |
-| Bolt-on α/cycle shell drain (WS2)? | **NO** — `TUNE_DESTABILIZED_TRAP`; TIR lost |
-| Phasor geometry on trap shell? | **Open loop** — R/r≈5.74, not φ²≈2.62; core Meissner-nulled |
-| Derived electron (no manual snap)? | **NOT demonstrated** |
-| Projection lane unified with native? | **DEFERRED** — bridge Meissner (~Γ≈−0.45 stall) |
+**Stop line:** Native **bench instrumentation + static joint seed** are closed. **Dynamic electron model** (circulation + α readout + φ² phasor closure) is **not** closed on this engine configuration. Do not merge claims of “derived electron” or “α emission measured.”
 
-**Stop line (modeling):** native instrumentation complete; α emission + lane unification deferred.
-
-**Fundamental read:** bond reflection deficit (ε_Γ) ≠ fine-structure leak (α); lossless pinning ≠ closed dissipative orbit. Progress needs self-consistent eigenmode or reactance-boundary leak, not more snap tweaks.
+**Fundamental read:** Bond reflection deficit (ε_Γ) ≠ fine-structure leak (α). Lossless/pinned trap ≠ closed dissipative orbit. Bolt-on channels without Lagrangian-coupled feedback are ruled out.
 
 ---
 
-## §1 PR / branch state
+## §1 PR / commit ladder
 
-| Item | State |
-|------|-------|
-| PR #126 | **OPEN** — awaiting review merge to `main` |
-| Commits on branch (pre-this handoff) | `972dd988` genesis thread; `03d6b362` finish sweep |
-| This commit | Phase 2 leak audit/tune + phasor GIF + handoff |
-| GIF assets | Local under `assets/sim_outputs/` (gitignored); regenerate via drivers |
-| Not in scope | `_orchestration/experimental/c15-cleave-01/...` (unrelated experimental audit) |
-
-**α-engine adjudication (landed on branch):** keep √α in `V_YIELD` (axiom-4 structural); **isolate** `PairNucleationGate` default δ_lock=α — genesis drivers do not register gate as observer.
+| Commit | Content |
+|--------|---------|
+| `972dd988` | Genesis thread: Γ ceiling, propagation, snap, observer bridge, α-engine adjudication |
+| `03d6b362` | Finish sweep: persistent trap @ trap≥1.25 |
+| `77f41ba7` | Phase 2: leak audit/tune, phasor GIF, handoff v1 |
+| `18eaaa25` | Native electron model v1 (joint seed vs snap) |
+| *(pending)* | Model v2 channels + this handoff update |
 
 ---
 
-## §2 Instrumentation ladder (complete)
+## §2 Instrumentation ladder (CLOSED)
 
 ```
 sub-yield seed (0.48) + co-moving drive
@@ -53,168 +48,146 @@ sub-yield seed (0.48) + co-moving drive
   → pinned trap, Γ ≤ −0.99 for ≥600 steps
 ```
 
-| Stage | Driver | JSON / artifact | Verdict |
-|-------|--------|-----------------|---------|
-| Γ ceiling | `native_k4_gamma_ceiling.py` | `native_k4_gamma_ceiling_results.json` | TIR reachable |
-| Propagation | `native_electron_propagation.py` | `native_electron_propagation_results.json` | rest vs wall @ 0.48 / ≥1.5 |
-| Ramp handoff | `native_electron_propagation_ramp.py` | `native_electron_propagation_ramp_results.json` | `HANDOFF_INCONCLUSIVE` |
-| Reseed handoff | `native_electron_reseed_handoff.py` | `native_electron_reseed_handoff_results.json` | pinned @ trap 1.5 |
-| Snap | `electron_genesis_snap.py` | `electron_genesis_snap_results.json` | position/hybrid OK |
-| **Finish** | `electron_genesis_finish.py` | `electron_genesis_finish_results.json` | **persistent @ trap≥1.25** |
-| Observer bridge | `electron_genesis_observer_bridge.py` | `electron_genesis_observer_bridge_results.json` | L2 phasor observers on scalar lane |
-| Projection gate | `projection_native_gamma_gate.py` | `projection_native_gamma_gate_results.json` | `LANE_SPLIT_CONFIRMED` |
-| Propagation showcase | `electron_propagation_showcase.py` | `electron_propagation_native.gif` | sub-yield viz |
-| 3D propagation | `electron_propagation_3d.py` | `electron_propagation_3d.gif` | optional 3D slice |
+| Stage | Driver | Verdict |
+|-------|--------|---------|
+| Γ ceiling | `native_k4_gamma_ceiling.py` | TIR reachable |
+| Propagation | `native_electron_propagation.py` | rest vs wall @ 0.48 / ≥1.5 |
+| Finish | `electron_genesis_finish.py` | **persistent @ trap≥1.25** |
+| Snap | `electron_genesis_snap.py` | position/hybrid OK |
+| Observer bridge | `electron_genesis_observer_bridge.py` | L2 phasor observers |
+| Projection gate | `projection_native_gamma_gate.py` | `LANE_SPLIT_CONFIRMED` |
 
-**Spatial GIFs (regenerate):**
-- `assets/sim_outputs/electron_propagation_native.gif`
-- `assets/sim_outputs/electron_genesis_snap.gif`
+**GIFs (regenerate):** `electron_propagation_native.gif`, `electron_genesis_snap.gif`, `electron_genesis_phasor.gif`, `native_electron_model_phasor.png`
 
 ---
 
-## §3 Phase 2 — α dynamic readout (this session)
+## §3 Phase 2 — α dynamic readout (CLOSED NEGATIVE)
 
-### Workstream 1 — ε proxy audit
+### WS1 — ε proxy audit
 
-| Item | Detail |
-|------|--------|
-| Prereg | `research/2026-06-08_electron-alpha-leak-audit-prereg.md` |
-| Driver | `electron_alpha_leak_audit.py` |
-| JSON | `electron_alpha_leak_audit_results.json` |
-| Verdict | **`LEAK_PROXY_NONE_MATCH`** |
+- **Verdict:** `LEAK_PROXY_NONE_MATCH`
+- Best proxy: `(1−|Γ|)` ≈ 0.0063 (~13% below α)
+- `ε_Γ = 1−Γ²` ≈ 0.0126 — not closest; S-sector → 0 at Meissner core
+- **Conclusion:** Re-scoring alone cannot close α readout
 
-**Key reads:**
-- `ε_Γ = 1−Γ²` ≈ 0.0126 — not closest proxy
-- Best: `(1−|Γ|)` ≈ 0.0063 — still ~13% below α
-- S-sector proxies → 0 at Meissner core
-- Per-cycle H drift ≠ α (not Theorem 3.1′ boundary load)
+### WS2 — naive shell drain (CAST→TUNE v1)
 
-### Workstream 2 — CAST→TUNE naive shell drain
+- **Verdict:** `TUNE_DESTABILIZED_TRAP` (Outcome C)
+- With leak: Γ_final → 0, ε_Γ → 0.59
+- **Conclusion:** Total phasor scale on shell destroys bound state
 
-| Item | Detail |
-|------|--------|
-| Prereg | `research/2026-06-08_electron-alpha-leak-tune-prereg.md` (§5 adjudication filled) |
-| Module | `radiation_leak_shell.py` |
-| Driver | `electron_alpha_leak_tune.py` |
-| JSON | `electron_alpha_leak_tune_results.json` |
-| Verdict | **`TUNE_DESTABILIZED_TRAP`** (Outcome C) |
+### WS2b — V_ref-only boundary leak (v2)
 
-| Arm | TIR? | ε_Γ | Γ_final |
-|-----|------|-----|---------|
-| baseline | held | 0.0126 | −0.994 |
-| with α leak | **lost** | 0.587 | ≈ 0 |
-
-Applied leak: `mean_leak_per_step = 0.002586` from `ALPHA_COLD` per Compton cycle (forward, not fit). Measured P5 post-collapse ≈ 0.015 — artifact, not validation.
-
-**Conclusion:** naive `√(1−leak)` scale on shell phasor **destroys** bound state. Next dissipative hypothesis: **reactance-boundary** outward flux drain only.
-
-### Dynamic phasor visualization (new)
-
-| Item | Detail |
-|------|--------|
-| Driver | `electron_genesis_phasor_gif.py` |
-| JSON | `electron_genesis_phasor_results.json` |
-| Outputs | `electron_genesis_phasor.gif`, `electron_genesis_phasor.png` |
-
-**Sampling discipline:** centroid **core** is Meissner-nulled (phasor ≈ 0). Driver uses **shell-mean** ⟨V_inc⟩, ⟨V_ref⟩ port 0, r≤6 (same shell as Γ readout).
-
-**Post-snap reads @ trap=1.25:**
-- TIR held, ε̄ ≈ 0.0126 (consistent with finish/leak)
-- PCA R/r ≈ **5.74** — not golden-torus φ² ≈ 2.62
-- Large evolving loop in phasor space — not closed (2,3) torus signature
-- Pre-snap: small loop near origin
+- **Verdict:** no change vs baseline (same ε̄, same ω persist ~3%)
+- Rate **was** forward-calculated from `ALPHA_COLD` per Compton cycle
+- **Conclusion:** Radiative drain on reflected component alone does not move α readout or circulation while TIR holds
 
 ---
 
-## §4 Research doc index (branch)
+## §4 Phasor instrumentation
 
-| Doc | Role |
-|-----|------|
-| `2026-06-07_two-node-alpha-projection-test.md` | Thread origin |
-| `2026-06-07_electron-genesis-observer-bridge-prereg.md` | Scalar→bond bridge |
-| `2026-06-07_native-k4-gamma-ceiling-prereg.md` | Γ ceiling |
-| `2026-06-08_native-electron-propagation-adjudication.md` | Propagation adjudication |
-| `2026-06-08_electron-genesis-snap-prereg.md` | Snap protocol |
-| `2026-06-08_electron-genesis-finish-prereg.md` | Finish prereg |
-| `2026-06-08_electron-genesis-finish-adjudication.md` | **Canonical stop line** |
-| `2026-06-08_alpha-engine-input-prereg.md` | α in engine inputs |
-| `2026-06-08_alpha-engine-input-adjudication.md` | Keep √α; isolate gate δ_lock |
-| `2026-06-08_electron-alpha-leak-audit-prereg.md` | WS1 + §5 adjudication |
-| `2026-06-08_electron-alpha-leak-tune-prereg.md` | WS2 + §5 adjudication |
+**Driver:** `electron_genesis_phasor_gif.py`
+
+- **Sampling:** shell-mean ⟨V_inc⟩, ⟨V_ref⟩ port 0 (core Meissner-nulled)
+- Post-snap: large phasor loop; **PCA R/r ≈ 5.74** (not φ² ≈ 2.62)
+- Confirms phase-space motion exists on shell; not golden-torus closure
 
 ---
 
-## §5 Gaps still open (not closed by this arc)
-
-| Gap | Evidence | Priority |
-|-----|----------|----------|
-| ε_Γ ≠ α | Persistent ~1.7× across finish, audit, phasor | — closed as failure mode |
-| Circulation / unknot ω | Seeded; no persistence metric | **P1 tooling** |
-| Bond-scale phasor (doc 28 §5.1) | Shell-mean ≠ single A–B bond | **P1 tooling** |
-| Multi-port (2,3) quadrature | Port 0 only so far | P2 |
-| Γ(t), ε(t) time series | Means only in audit | **P1 tooling** |
-| Reactance-boundary leak (TUNE v2) | WS2 naive drain failed | **P1 physics** |
-| Bridge Meissner | Projection ~−0.45 vs native −0.99 | P2 lane unification |
-| Autoresonant genesis (no snap) | Position snap only exercised | P2 emergence |
-| Self-consistent eigenmode | `tlm_electron_soliton_eigenmode` not chained | P3 fundamental |
-| Pytest smoke gate | No regression on ladder | P3 hygiene |
-| Predictions matrix / orchestration index | Not updated this session | Auditor queue |
-
----
-
-## §6 Recommended tooling stack (next build order)
-
-From session analysis — implement in this order unless Grant reprioritizes:
-
-1. **`electron_genesis_trap_timeseries.py`** — ε_Γ(t), Γ(t), Q_proxy(t), (1−|Γ|)(t) post-snap
-2. **`electron_genesis_bond_phasor.py`** — single A–B bond (V_inc,V_ref)(t), Lissajous + FFT 3/2, PCA R/r vs φ²
-3. **Dual-panel sync viz** — phasor + xz |V|² shared timeline
-4. **Circulation metric** — shell ω/u winding per Compton cycle
-5. **CAST→TUNE v2** — `radiation_leak_boundary.py` + tune driver (outward flux only)
-6. **Bridge Meissner A/B** — extend `projection_native_gamma_gate.py`
-7. **`electron_genesis_autoresonant.py`** — no manual snap
-8. **Eigenmode hunt** — coupled engine + `tlm_electron_soliton_eigenmode`
-9. **Pytest smoke** — snap fires, TIR @ trap≥1.25, fast gate
-
-**Probably don't need:** more ε proxy variants without new physical channel; another spatial-only GIF; synthetic trefoil visuals (already `electron_trefoil_visuals.py`).
-
----
-
-## §7 Run commands (regenerate artifacts)
-
-```bash
-# Phase 2
-PYTHONPATH=src python src/scripts/vol_1_foundations/electron_alpha_leak_audit.py
-PYTHONPATH=src python src/scripts/vol_1_foundations/electron_alpha_leak_tune.py   # ~8–10 min
-
-# Phasor viz (~3.5 min)
-PYTHONPATH=src python src/scripts/vol_1_foundations/electron_genesis_phasor_gif.py
-
-# Full ladder (long)
-PYTHONPATH=src python src/scripts/vol_1_foundations/native_k4_gamma_ceiling.py
-PYTHONPATH=src python src/scripts/vol_1_foundations/electron_genesis_finish.py
-```
-
----
-
-## §8 Next actions for Grant / reviewer
-
-1. **Review PR #126** — merge via reviewed PR gate (not direct-to-main).
-2. **Decide fork:** accept bench-protocol stop line vs fund Tier-1 tooling (timeseries + bond phasor) vs jump to TUNE v2 / eigenmode.
-3. **Auditor queue:** propagate stop line to predictions matrix; update `_orchestration/index.md` reconciliation section; cross-link finish adjudication ↔ phasor ↔ WS1/WS2.
-4. **Optional:** gitignore whitelist for genesis GIFs if assets should ship in PR diffs.
-
----
-
-## §9 Native electron model (2026-06-08 follow-on)
+## §5 Native electron model v1
 
 **Driver:** `native_electron_model.py`  
 **Prereg:** `research/2026-06-08_native-electron-model-prereg.md`
 
-Joint Golden-Torus quadrature phasor + 0₁ unknot ω, **no snap**. Result: **TIR + localization (2/4)** but **ω persistence ~3%**, R/r ≠ φ², ε_Γ unchanged. Manual snap not required for TIR; **circulation + phase-space closure** remain open.
+**Seed:** Golden Torus `R,r` from `constants.py` + `initialize_quadrature_2_3_eigenmode` + `initialize_electron_unknot_sector`, zero drive.
+
+| Arm | Snap? | Pass | Γ_min | ε̄ | ω persist |
+|-----|-------|------|-------|-----|-----------|
+| canonical 0.48 | no | 2/4 | −0.994 | 0.0126 | **0.034** |
+| canonical 0.92 | no | 2/4 | −0.994 | 0.0127 | **0.034** |
+| bench snap | yes | 3/4 | −0.994 | 0.032 | 0.034 |
+
+**Landed:** P1 localization (~96%), P3 TIR.  
+**Failed:** P2 R/r ≠ φ²; P4 ω flywheel dies (~3% of seed).
+
+**New read:** Manual snap **not required** for TIR; still **not** a derived electron.
 
 ---
 
-## §10 One-line carry-forward
+## §6 Native electron model v2 — channel sweep (FINAL SIMS)
 
-> **We built a reproducible Γ=−1-class trap on the native bench; we did not derive an electron with α falling out of the bond readout.** Reflection deficit ≠ radiation leak; lossless pinning ≠ closed dissipative orbit. Next leverage: bond-scale phasor + time series + circulation on the existing trap, then reactance-boundary leak or self-consistent eigenmode.
+**Drivers:** `native_electron_model_v2.py`, `radiation_leak_boundary.py`, `back_emf_feedback.py`  
+**Prereg:** `research/2026-06-08_native-electron-model-v2-prereg.md`  
+**JSON:** `native_electron_model_v2_results.json`
+
+| Arm | Channels | Pass | Γ_min | Γ_final | ε̄ | ω persist | Verdict |
+|-----|----------|------|-------|---------|-----|-----------|---------|
+| baseline | — | 2/4 | −0.994 | −0.994 | 0.0127 | 0.034 | PARTIAL_TRAP |
+| boundary_leak | V_ref drain @ α/cycle | 2/4 | −0.994 | −0.994 | 0.0127 | 0.033 | PARTIAL_TRAP |
+| bemf_feedback | gain=**0.12** (hand) | 2/4 | −0.994 | **0** | **0.995** | **1660×** | DESTABILIZED |
+| leak+bemf | both | 2/4 | −0.994 | **0** | **0.995** | **1628×** | DESTABILIZED |
+| leak+bemf+EMF | + Lagrangian EMF | 3/4 | −0.994 | **0** | **0.998** | **5×10¹¹×** | DESTABILIZED |
+
+### Channel adjudication
+
+| Channel | Gain calculated? | Result |
+|---------|------------------|--------|
+| **Boundary leak** | **Yes** — `leak_per_step = 1−(1−α)^(1/N_cycle)` on **V_ref only** | No improvement; TIR held |
+| **BEMF feedback** | **No** — `u -= gain·τ_zx·dt` with hand `gain=0.12` | **Runaway**; Γ_final→0; ε_Γ→1; not physics |
+| **Lagrangian EMF** | Engine-native `δL_c/δV²` | Catastrophic runaway when combined with BEMF |
+
+**Do not interpret** v2 `classification.improved_omega=true` as success — it flags runaway artifact on destabilized arms, not circulation restoration.
+
+**Aggregate verdict (honest):** `V2_CHANNELS_NO_BREAKTHROUGH` — only stable arms are baseline ≡ boundary_leak (2/4). BEMF/EMF bolt-ons **ruled out** until feedback is derived from \(L_{\text{eff}}\), \(\rho\), \(Z_0\) inside the coupled EOM.
+
+---
+
+## §7 What a correct next attempt requires (not done here)
+
+1. **BEMF in EOM** — not `gain·τ·dt` on `u`; use discrete stress divergence or `use_lagrangian_emf_coupling` with **stability-derived** coupling strength from Op14 \(L_{\text{eff}}(z)\) and Cosserat \(\rho\).
+2. **Leak–trap balance** — per-step radiative power \(\sim \alpha E_{\text{trap}}/T_{\text{Compton}}\) coupled to reactance boundary, not bulk phasor scaling.
+3. **Circulation** — ω persistence requires reciprocal K4↔Cosserat trading (Op14 Pearson −0.99 channel), not impulse kicks.
+4. **Bond-scale phasor** — doc 28 §5.1 single A–B bond trajectory vs shell mean (R/r=2.08 on runaway arm is not physical).
+5. **Bridge Meissner** — projection lane still deferred (~Γ≈−0.45 stall).
+
+---
+
+## §8 Research doc index
+
+| Doc | Role |
+|-----|------|
+| `2026-06-08_electron-genesis-finish-adjudication.md` | Bench stop line |
+| `2026-06-08_electron-alpha-leak-audit-prereg.md` | WS1 adjudication |
+| `2026-06-08_electron-alpha-leak-tune-prereg.md` | WS2 adjudication |
+| `2026-06-08_native-electron-model-prereg.md` | Joint seed v1 |
+| `2026-06-08_native-electron-model-v2-prereg.md` | Channel sweep v2 |
+
+---
+
+## §9 Run commands (reproduce)
+
+```bash
+# Phase 2
+PYTHONPATH=src python src/scripts/vol_1_foundations/electron_alpha_leak_audit.py
+PYTHONPATH=src python src/scripts/vol_1_foundations/electron_alpha_leak_tune.py
+
+# Viz + models
+PYTHONPATH=src python src/scripts/vol_1_foundations/electron_genesis_phasor_gif.py
+PYTHONPATH=src python src/scripts/vol_1_foundations/native_electron_model.py
+PYTHONPATH=src python src/scripts/vol_1_foundations/native_electron_model_v2.py   # ~13 min
+```
+
+---
+
+## §10 Recommended actions for Grant / reviewer
+
+1. **Review PR #126** — merge instrumentation; do **not** promote “electron derived” framing.
+2. **Accept stop line** — bench protocol + negative channel results are the deliverable.
+3. **Auditor queue** — predictions matrix row; epic §9; walk-back any overclaim language.
+4. **Next epic fork** (if funded): engine-native BEMF derivation prereg **before** another driver gain sweep.
+
+---
+
+## §11 One-line carry-forward
+
+> **We can pin a Γ=−1-class trap with the corpus-correct static seed; we cannot derive an electron until feedback and leak are inside the coupled Lagrangian with substrate-derived gain — bolt-on channels failed or ran away.**

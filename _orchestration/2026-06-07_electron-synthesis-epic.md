@@ -49,8 +49,9 @@ The synthesis is mostly consistency-class re-description. The genuine emergence 
 
 - Closed: propagate 0.48 → snap @ x≥14 → trap≥1.25 → pinned TIR ≥600 steps (`electron_genesis_finish.py`).
 - Not closed: ε_Γ≈0.0126 vs α≈0.0073; WS1 proxy audit failed; WS2 naive shell drain destabilized trap; phasor R/r≈5.74≠φ².
-- Deferred: bridge Meissner (projection lane), reactance-boundary leak (TUNE v2), autoresonant/no-snap genesis, eigenmode hunt.
-- **Does NOT supersede** §3 α-closure — reframes it: category error (ε_Γ vs α) + missing dissipative channel geometry, not Γ ceiling.
+- Deferred: bridge Meissner (projection lane), **engine-native BEMF** (bolt-on ruled out 2026-06-08), autoresonant/no-snap genesis, eigenmode hunt.
+- **v2 channel sweep (2026-06-08):** V_ref boundary leak @ α/cycle — no effect; driver BEMF gain=0.12 — runaway. **Stop line confirmed.**
+- **Does NOT supersede** §3 α-closure — reframes it: category error (ε_Γ vs α) + missing **Lagrangian-coupled** dissipative/feedback channels, not Γ ceiling.
 
 ## §6 Bulk→electron projection thread (how cosmic strain sets one electron's spin/precession)
 Synthesis on canonical pieces (NOT a single leaf): how the bulk strain of ALL nodes projects to a SINGLE electron's phase-space precession through its neighbor nodes.
