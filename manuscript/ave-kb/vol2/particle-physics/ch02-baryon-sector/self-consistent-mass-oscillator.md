@@ -15,15 +15,15 @@ The 1D Faddeev-Skyrme energy functional for a localized topological defect is *s
 
 The electron's phase profile follows the $(2,3)$ pattern with $c_3 = 3$ phase crossings, even though its ground-state topology is the unknot ($0_1$). In the torus knot classification, these are the $(2,q)$ torus knots with strictly **odd** $q$: the $(2,3)$ trefoil, the $(2,5)$ cinquefoil, the $(2,7)$ knot, and so on. There is no stable $(2,4)$ torus knot---the figure-eight knot ($4_1$) is not a torus knot and cannot be embedded on the chiral lattice.
 
-The proton's phase winding passes through the **$(2,5)$ cinquefoil torus knot**---the next stable entry in the torus knot ladder after the electron's $c=3$ winding. Its $c_5 = 5$ crossings each constrain the soliton's radial phase gradient by absorbing a fraction of the total Faddeev-Skyrme coupling $\kappa_{FS}$. The confinement radius is therefore:
+The proton's phase winding passes through the **$(2,5)$ cinquefoil torus knot**---the next stable entry in the torus knot ladder after the electron's $c=3$ winding. Its $c_5 = 5$ crossings each absorb a fraction of the total Faddeev-Skyrme coupling $\kappa_{FS}$. 🔴 *[dimensional-provenance relabel 2026-06-08]* — prior text ~~"each constrain the soliton's radial phase gradient ... The confinement radius is therefore:"~~ framed $r_{opt}$ as a real-space length. $\kappa_{FS} = 8\pi$ is a **pure geometric (dimensionless) constant** (`src/ave/core/constants.py:683-687`: *"This is a pure geometric constant: the solid-angle normalisation"*), so $r_{opt} = \kappa_{FS}/c_5$ is a **dimensionless coupling-budget ratio, NOT a length**. The per-crossing coupling-budget partition is therefore:
 
-> **[Resultbox]** *Cinquefoil Confinement Bound*
+> **[Resultbox]** *Cinquefoil Coupling-Budget Partition (dimensionless)*
 >
 > $$
-> r_{opt} = \frac{\kappa_{FS}}{c_5} = \frac{\kappa_{FS}}{5} \approx 4.97 \; \ell_{node}
+> r_{opt} = \frac{\kappa_{FS}}{c_5} = \frac{8\pi}{5} \approx 5.03 \quad\text{(dimensionless; NOT a length)}
 > $$
 
-This topological confinement means the proton extends over approximately five lattice spacings---a genuinely extended object in the $\mathcal{M}_A$ condensate.
+> 🔴 *[relabel 2026-06-08]* The prior resultbox read ~~"$r_{opt} = \kappa_{FS}/5 \approx 4.97\;\ell_{node}$"~~ and the following sentence ~~"This topological confinement means the proton extends over approximately five lattice spacings---a genuinely extended object in the $\mathcal{M}_A$ condensate."~~ Both are **retired dimensional category errors**. $r_{opt}$ is a **dimensionless coupling-budget ratio, NOT a length** — the $\ell_{node}$ units were spurious, and the $4.97$ was a stale value ($8\pi/5 = 5.03$; the $4.97$ traced to an old $\delta_{th}=1/(28\pi)$ effective-coupling, mislabeled onto the cold $\kappa_{FS}=8\pi$ symbol). The proton is **NOT $\sim 5$ lattice spacings extended**: the only *measured* proton size is the charge radius $D_p = 0.841$ fm, which is **sub-node — $\approx 460\times$ smaller than one $\ell_{node} = 386$ fm**. The real-space sub-node geometry is an OPEN item, not a $\sim 5\,\ell_{node}$ extended object.
 
 ### The Structural Eigenvalue
 
