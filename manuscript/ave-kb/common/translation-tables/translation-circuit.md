@@ -590,3 +590,24 @@ Cross-link: the new δ_strain canonical leaf [`delta-strain-cosmic-tcc.md`](../.
 - **SYM vs ASYM canonical:** [`einstein-field-equation.md`](../../vol3/gravity/ch02-general-relativity/einstein-field-equation.md) (clm-8nkvwy) — the c_EM vs c_shear distinction load-bearing for δ_strain derivation
 - **Companion agent-discipline skill:** `~/.claude/skills/ave-ee-first-mapping/SKILL.md` v1.0 — EE-first-mapping discipline that uses this catalog at fire-time
 - **Means-test corpus extension target:** §6 above carries 25 canonical validated cross-checks; the §9 component-non-ideality catalog is the candidate expansion surface
+
+---
+
+## §10 — The vacuum as a chiral piezoelectric Cosserat solid (consistency-class reframe)
+<!-- claim-quality: clm-eemap1 -->
+
+**Class B consistency-class reframe — NOT a derivation, NOT a Class-2 emergence claim.** This subsection consolidates three already-canonical pieces — Axiom 1 (E/B as Cosserat DOFs), Axiom 2 ($Q=\xi_{topo}\,x$), and the $I4_1 32$ chiral (non-centrosymmetric) space group — into one coherent framing: **the AVE vacuum satisfies the structural definition of a piezoelectric (+ piezomagnetic) medium, and classical electromagnetism is its piezoelectric response.** It introduces no free parameter, predicts no new number, and relaxes no standard-EM result. It sits at the same Class B ceiling as the EE-as-substrate-native META framework (§6, canonical-source-ceiling rule) — a vocabulary translation over canonical axioms, not new substrate-mechanism content. Full record: [`research/2026-06-08_vacuum-as-chiral-piezoelectric.md`](../../../../research/2026-06-08_vacuum-as-chiral-piezoelectric.md).
+
+The mapping (each right-column entry is already canonical; the reframe adds no new row, only the observation that the right column *is* a chiral piezoelectric medium):
+
+| Piezoelectric / Cosserat phenomenology | AVE substrate identity | Class | Anchor |
+|---|---|---|---|
+| Medium must be **non-centrosymmetric** to be piezoelectric (centrosymmetric class forbids it) | $I4_1 32$ chiral space group; centrosymmetric $Fd\bar{3}m$ is the $k_\chi=0$ supergroup (piezo-forbidden) | A axiom + B consistency | Ax 1 INVARIANT-S2; [`claim-quality-closure-roadmap.md`](../../claim-quality-closure-roadmap.md):191 |
+| **Direct effect:** strain $\to$ bound charge / polarization | $Q = \xi_{topo}\,x$ — displacement $\to$ topological charge (§1 row above) | A identity | Ax 2; §1 $\xi_{topo}$ identity |
+| **Inverse effect:** applied field $\to$ strain | **E** = translational DOF; modulating the translational/$\varepsilon$ sector IS a lattice deformation | A identity | Ax 1 6-DOF decomposition |
+| **Piezomagnetic / couple-stress:** stress $\to$ magnetization / micro-rotation | **B** = microrotational Cosserat DOF; antisymmetric stress $\sigma^A$ fires couple-stress $\to\omega$; force projects via force-stress (E) AND couple-stress (B) | A axiom + B consistency | [`trampoline-framework.md`](../trampoline-framework.md):183-196 |
+| Universal **electromechanical coupling constant** $d$ | $\xi_{topo} = e/\ell_{node}$ — the **dielectric-invariant floor**; material piezo ($d_{ij}$) rides on top | A identity / B live-bench | [`project-cleave-01.md`](../../vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md):42-47 |
+
+**The one falsifiable surface** is pre-existing and unchanged by the reframe: the universal $\xi_{topo}\cdot x$ floor is dielectric-invariant (topology-protected integer linking charge), while material piezoelectricity rides on top — the two-sided **C15-CLEAVE** femto-electrometer discriminator (P1 presence / P2 dielectric-invariance), the live bench at [`project-cleave-01.md`](../../vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md):42-47,65,87. The reframe supplies only the one-line reading: *C15-CLEAVE measures the vacuum's direct piezoelectric coefficient $\xi_{topo}$, separated from any material $d_{ij}$ by the gap-sweep + material-swap.*
+
+> **Over-claim guard (`ave-evidence-framing-discipline`).** Correct strength: EM **is** (in substrate vocabulary) the vacuum's piezoelectric response — an identity-by-translation. NOT "EM emerges from / is derived from piezoelectricity" (causally backwards, too strong). The non-centrosymmetry tie is a Class B consistency observation; it does NOT independently select $I4_1 32$ (that is the substrate-topology argument, §7 Probe 2).
