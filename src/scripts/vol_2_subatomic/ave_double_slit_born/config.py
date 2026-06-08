@@ -84,12 +84,15 @@ class DetectorConfig:
     """
 
     a_yield: float = 1.0  # saturation-yield amplitude S(a_yield)=0 (units of accum. amplitude)
-    coupling: float = 4.0  # absorption-rate constant [shots per unit (norm. intensity * dt)]
-    quantum: float = 0.7  # accumulated-energy per absorbed shot quantum
-    thermal_kT: float = 0.012  # Johnson-Nyquist (FDT) diffusion strength
+    # Single-quantum-sensitive regime: one absorbed yield-quantum self-traps the
+    # cell (m = a_yield^2 / quantum ~ 1). Competing Poisson absorption then fires
+    # cell i first with probability proportional to its rate (= |E|^2) -> Born.
+    coupling: float = 2.0e-4  # absorption-rate constant (small -> rare ties, genuine first-passage)
+    quantum: float = 1.0  # accumulated-energy per absorbed shot quantum
+    thermal_kT: float = 3.0e-4  # Johnson-Nyquist (FDT) sub-threshold jitter
     dt: float = 1.0  # detector micro-step
-    max_micro_steps: int = 20000  # safety cap per electron
+    max_micro_steps: int = 60000  # safety cap per electron
     seed: int = 20260608
 
-    n_clicks: int = 4000  # total electrons fired (clicks accumulated)
-    snapshot_counts: tuple[int, ...] = field(default_factory=lambda: (10, 80, 600, 4000))
+    n_clicks: int = 6000  # total electrons fired (clicks accumulated)
+    snapshot_counts: tuple[int, ...] = field(default_factory=lambda: (12, 120, 800, 6000))
