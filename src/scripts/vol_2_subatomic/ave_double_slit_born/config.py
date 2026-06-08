@@ -95,4 +95,4 @@ class DetectorConfig:
     seed: int = 20260608
 
     n_clicks: int = 6000  # total electrons fired (clicks accumulated)
-    snapshot_counts: tuple[int, ...] = field(default_factory=lambda: (12, 120, 800, 6000))
+    snapshot_counts: tuple[int, ...] = field(default_factory=lambda: (12, 700, 6000))
