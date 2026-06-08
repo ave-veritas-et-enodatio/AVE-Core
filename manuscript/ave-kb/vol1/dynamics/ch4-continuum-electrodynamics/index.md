@@ -24,7 +24,7 @@ The non-linear AVE master equation unifies expanding cosmology and electromagnet
 | Macroscopic Yield Stress Limit | $\tau_{yield} = (\rho_{bulk}c^2)(6\times\mathcal{V}_{crossing})(p_c/8\pi)$ |
 | Asymptotic Hubble Constant | $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2) \approx 69.32$ km/s/Mpc |
 | Geometric Drift Acceleration (MOND $a_0$) | $a_{genesis} = cH_\infty/(2\pi) \approx 1.07\times10^{-10}$ m/s$^2$ |
-| Longitudinal Lattice Compression | $v_{longitudinal} = \sqrt{2G_{vac}/\rho_{bulk}} = \sqrt{2}\,c \approx 1.41c$ |
+| Longitudinal (P) Wave | $c_L = \sqrt{(K_{vac}+\tfrac{4}{3}G_{vac})/\rho_{bulk}} = \sqrt{10/3}\,c \approx 1.83c$ at $K=2G$ ($\nu=2/7$; canonical vol_2 Ch 7). Prior $\sqrt{2}\,c = \sqrt{K/\rho}$ = bulk-modulus dilatational speed (omits $4G/3$ shear) — 2026-06-08 c_L reconciliation |
 
 ## Derivations and Detail
 

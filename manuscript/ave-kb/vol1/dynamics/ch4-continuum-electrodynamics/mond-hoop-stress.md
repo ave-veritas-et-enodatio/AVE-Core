@@ -34,11 +34,13 @@ By applying this exact continuum mechanics projection to the topological knot, t
 > a_{genesis}=\frac{a_r}{2\pi}=\frac{c\cdot H_{\infty}}{2\pi} = \frac{14 m_e^3 c^2 G}{\hbar^2 \alpha^2} \approx 1.07 \times 10^{-10} \text{ m/s}^2
 > $$
 
-> **[Resultbox]** *Superluminal Lattice Compression Velocity*
+> **[Resultbox]** *Superluminal Longitudinal (P) Wave Velocity*
 >
 > $$
-> v_{longitudinal} = \sqrt{\frac{2G_{vac}}{\rho_{bulk}}} = \sqrt{2}\,c \approx 4.24 \times 10^{8} \text{ m/s} \approx 1.41c
+> c_L = \sqrt{\frac{K_{vac} + \tfrac{4}{3}G_{vac}}{\rho_{bulk}}} = \sqrt{\tfrac{10}{3}}\,c \approx 5.48 \times 10^{8} \text{ m/s} \approx 1.83c
 > $$
+>
+> *(2026-06-08 c_L reconciliation, Rule 12: the prior wording quoted the pure bulk-modulus (dilatational) speed $v_{longitudinal} = \sqrt{2G_{vac}/\rho_{bulk}} = \sqrt{K/\rho} = \sqrt{2}\,c \approx 4.24\times10^{8}\,\text{m/s} \approx 1.41c$ as the longitudinal speed. That form omits the $4G/3$ shear term and is the dilatational/fluid speed, NOT the isotropic-solid P-wave. The canonical longitudinal P-wave speed is $\sqrt{10/3}\,c$ at $K=2G$ (Poisson $\nu=2/7$; canonical vol_2 Ch 7). The $\sqrt{2}\,c$ bulk-modulus dilatational speed is retained as the distinct bulk quantity — e.g. the K4 $A_1$ scalar port-mode measured at cardinal-axis $v/c=1.45$. Neither speed feeds the MOND $a_0$ result, which is $a_0 = c\,H_\infty/2\pi$.)*
 
 Because the $2\pi$ divisor is a dimensionless geometric projection factor from Hoop Stress, $a_{genesis}$ preserves the acceleration dimensions of $[\text{m/s}^2]$.
 

@@ -19,11 +19,13 @@ The baseline macroscopic bulk mass density ($\rho_{bulk}$) of the spatial vacuum
 > m_{node} = \xi_{topo}^2 \mu_0 \ell_{node}
 > $$
 
-> **[Resultbox]** *Longitudinal Tension Wave Velocity*
+> **[Resultbox]** *Longitudinal (P) Wave Velocity*
 >
 > $$
-> v_{longitudinal} = \sqrt{\frac{K_{bulk}}{\rho_{node}}}
+> c_L = \sqrt{\frac{K_{bulk} + \tfrac{4}{3}G_{vac}}{\rho_{node}}}
 > $$
+>
+> *(2026-06-08 c_L reconciliation, Rule 12: prior wording gave $v_{longitudinal} = \sqrt{K_{bulk}/\rho_{node}}$ — the bulk-modulus (dilatational) speed, which omits the $4G/3$ shear term. The isotropic-solid longitudinal P-wave carries the shear term; at $K=2G$ this is $\sqrt{10/3}\,c$ ($\nu=2/7$; canonical vol_2 Ch 7). The $\sqrt{K/\rho}$ bulk-modulus dilatational speed is retained as the distinct bulk quantity.)*
 
 Dividing by the Voronoi geometric volume of a single spatial node ($V_{node} = p_c \ell_{node}^3$, from the packing fraction $p_c = 8\pi\alpha$ derived in Chapter 2):
 

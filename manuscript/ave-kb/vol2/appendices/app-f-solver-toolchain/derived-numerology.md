@@ -54,7 +54,7 @@ is a first-principles prediction of a hadronic mass from two topological invaria
 |---|---|---|
 | $G_{string} \approx 5.49 \times 10^{11}$ Pa | $T_{EM}/\ell_{node} = m_ec^2/\ell_{node}^2$ | 1D string tension per length (axial stiffness) |
 | $G_{vac} \approx 7.11 \times 10^{23}$ Pa | $\rho_{bulk} \cdot c^2$ | 3D continuum shear modulus; $v_T = \sqrt{G/\rho} = c$ |
-| $v_{long} = \sqrt{2} \cdot c$ | $\sqrt{2G_{vac}/\rho_{bulk}}$ | Longitudinal wave speed; $K = 2G$ from effective medium theory |
+| $c_L = \sqrt{10/3}\,c \approx 1.83c$ | $\sqrt{(K+\tfrac{4}{3}G)/\rho_{bulk}}$ | Longitudinal (P) wave speed at $K=2G$ ($\nu=2/7$; canonical vol_2 Ch 7). Prior $v_{long}=\sqrt{2}\,c=\sqrt{K/\rho}$ = bulk-modulus dilatational speed (omits $4G/3$ shear) — 2026-06-08 c_L reconciliation |
 | $T_{pair} \approx 1.19 \times 10^{10}$ K | $2m_ec^2/k_B$ | Thread decoherence onset temperature (pair-creation threshold) |
 
 Note: $G_{string}$ and $G_{vac}$ are distinct quantities. The manuscript (Vol 1, §3.7 rev.0) previously conflated them, quoting $G_{vac} \approx 5.48 \times 10^{24}$ Pa — a 13-order-of-magnitude error. The correct 3D shear modulus is $\rho \cdot c^2$, verified by the cross-check $v_T = \sqrt{G/\rho} = c$.
