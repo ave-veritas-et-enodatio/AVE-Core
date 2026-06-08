@@ -1,0 +1,31 @@
+{
+  "purpose": "REAL engine field output of a free photon (transverse wave-packet) \u2014 replaces analytic illustration",
+  "c_analytic_mps": 299792458.0,
+  "c_constants_mps": 299792458.0,
+  "c_classification": "CONSISTENCY CHECK (c baked into dt + update coeffs; not emergence)",
+  "K4_TLM": {
+    "engine": "K4-TLM (scatter+connect, diamond lattice, T\u2082 photon)",
+    "v_meas_mps": 437616524.4717356,
+    "v_ratio_to_c": 1.4597316002917444,
+    "xcorr_lag_frames": 9.042296939732516,
+    "note": "cardinal-axis group speed \u2248 \u221a2\u00b7c \u2014 anisotropic diamond-lattice kinematics (connect advances 1 cardinal cell/step at dt=dx/(c\u221a2)). Structural manifestation of K4 elastic moduli; absolute c still consistency.",
+    "dt_s": 2.3586543367496838e-09,
+    "lambda_cells": 16.0
+  },
+  "FDTD_Yee": {
+    "engine": "FDTD Yee (continuum Maxwell, linear vacuum)",
+    "v_meas_mps": 303634157.19794065,
+    "v_ratio_to_c": 1.0128145291698454,
+    "xcorr_lag_frames": 9.975794599925322,
+    "note": "isotropic continuum Maxwell \u2014 recovers c within Yee numerical dispersion.",
+    "dt_s": 1.5406665612371765e-11,
+    "lambda_cells": 16.0,
+    "envelope_temporal_width_growth_frac": 0.09398024688613892,
+    "dispersion_note": "Yee numerical dispersion: forward-packet group velocity at/below c at finite points-per-wavelength; envelope temporal width grows by the reported fraction between the two downstream planes."
+  },
+  "figures": {
+    "gif": "/Users/grantlindblom/AVE-staging/AVE-Core-photon-wt/research/figures/photon_engine_real.gif",
+    "strip_png": "/Users/grantlindblom/AVE-staging/AVE-Core-photon-wt/research/figures/photon_engine_real_strip.png"
+  },
+  "faithful_vs_illustrative": "ALL panels are real engine arrays (K4 V_inc energy density; FDTD E_z, H_y). No analytic curve. The only non-physical choices are visualization params (\u03bb=16 cells, \u03c3_yz, pulse width) \u2014 propagation, speed, and field structure are pure engine output."
+}
