@@ -22,8 +22,10 @@ The literal "above cutoff ⇒ aliased fractal" claim is **empirically false agai
 |---|---|---|---|---|---|---|
 | Electron | 1.0 | **AT** cutoff (identity) | (2,3) trefoil, `0₁` real-space | definitional | stable | `preferred-frame-and-emergent-lorentz.md:103` |
 | Muon | 207 | **ABOVE** cutoff | (2,3) trefoil **+ 1 Cosserat torsional quantum** | +1.24% | metastable (τ≈2.2 µs) | `q-g27-muon-cosserat-saliency.md:30` |
-| Proton | 1836 | **ABOVE** cutoff | (2,5) cinquefoil, Borromean N=3 | −0.002% | stable | `torus-knot-ladder-baryons.md:23,41` |
-| Δ baryon | ~2412 | **ABOVE** cutoff | (2,7) ladder | within ~1% | resonance | `2026-05-31_..._cross_particle_prereg.md:73` |
+| Proton | 1836 | **ABOVE** cutoff | (2,5) cinquefoil, Borromean N=3 (6₂³) | −0.002% | stable | (2,5)/−0.002%: `torus-knot-ladder-baryons.md:23,41`; 6₂³ Borromean N=3: `proton-identification.md:20,31` |
+| Δ baryon | ~2412 | **ABOVE** cutoff | (2,7) ladder | +2.354% | resonance | freq `2026-05-31_..._cross_particle_prereg.md:73`; mass `…:74` + `torus-knot-ladder-baryons.md:24` |
+
+**Mixed-basis note (muon row):** the zone-count `ω/ω_C = 207` uses the **PDG** ratio `m_μ/m_e = 206.8`, whereas the `+1.24%` figure is the deviation of the **AVE-derived** mass `m_μ = m_e/(α√(3/7)) ≈ 107.0 MeV` (`index.md:32`; corpus-stated `+1.24%` at `q-g27-muon-cosserat-saliency.md:12`) from PDG `105.66 MeV`. Zone-count and mass-deviation are therefore on different bases (the 207 zone-count is not re-derived from the 107 MeV AVE mass, which would give 209×).
 
 Muon (207×) and proton (1836×) sit **far above** any O(1)·ω_C fold point, yet both carry **clean (2,q) torus-knot topology** and derive to ~1% / part-per-50,000 precision. They are RESOLVED, not fractalized. **"Above cutoff = aliased fractal" is false as stated.**
 
@@ -79,7 +81,7 @@ The global `m_p c²/ℏ = 1836·ω_C` is the **COLLECTIVE eigenvalue mass**, NOT
 |---|---|---|
 | **A1 — Aliasing-depth ↔ width** | **OPEN.** No AVE derivation links fold-count `ω/ω_C` to resonance width/lifetime. Refuted as SOLE driver (proton deepest, narrowest). | grep: no `width`/`Γ`-vs-`ω/ω_C` derivation in `manuscript/ave-kb/` |
 | **A2 — Torus-knot quantization as resolution mechanism** | **ASSERTED, not derived.** "(2,q) only for coprime odd q; no stable (2,4)"; baryon ladder predicts spectrum with no between-state parameters. WHY coprime-odd-q suppresses decay is NOT derived. | `torus-knot-ladder-baryons.md:11,19` |
-| **A3 — Prime-N / Borromean loop-count irreducibility** | **EMBRYONIC.** Borromean N=3 framing exists; "unlinking costs infinite topological energy" is structurally coherent but NOT quantitatively grounded. | `torus-knot-ladder-baryons.md:19` (V_total dual-reactance), Borromean N=3 framing |
+| **A3 — Prime-N / Borromean loop-count irreducibility** | **EMBRYONIC.** Borromean N=3 framing exists; "unlinking costs infinite topological energy" is structurally coherent but NOT quantitatively grounded. | `proton-identification.md:20,31` (6₂³ Borromean = 3-loop def + axiom-audit row); `topological-fractionalization.md:20` (ℤ₃ / N=3 permutation-symmetry framing) |
 | **A4 — Which carrier aliases (global vs per-loop)** | **OPEN / undefined for composites.** Global mass-carrier ≠ per-loop bond-LC carrier. | `2026-05-31_..._cross_particle_prereg.md:173` |
 | **A5 — "Fractal / self-similar morphology"** | **UNDEFINED operationally.** Corpus has NO definition of what "fractal morphology" denotes (spectrum self-similarity? chaotic phase-space trajectory? decay-channel multiplicity? Lorentzian-tail pattern?). | grep: no `fractal` morphology definition in particle-physics KB |
 
@@ -197,8 +199,10 @@ The §35 tie-in surfaced a coherent step (aliasing) bolted to an ungrounded cons
 - `manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md:103` — `ω_Compton = c/ℓ_node = m_e c²/ℏ`, identity construction
 - `…/preferred-frame-and-emergent-lorentz.md:67-68,81` — real-space `q → π/ℓ_node`; C7-GRB "NOT suppressed — at lattice resolution; surviving forward prediction"
 - `…/preferred-frame-and-emergent-lorentz.md:24,46-48` — cubic-symmetry zone-edge anisotropy
-- `manuscript/ave-kb/vol2/particle-physics/ch02-baryon-sector/torus-knot-ladder-baryons.md:11,19,23,41` — (2,q) coprime-odd-q ladder; proton (2,5) c=5 at −0.002%; V_total dual-reactance
-- `manuscript/ave-kb/vol2/particle-physics/ch06-electroweak-higgs/q-g27-muon-cosserat-saliency.md:30` — muon = electron + 1 Cosserat torsional quantum; (2,3) preserved; 1.24%
+- `manuscript/ave-kb/vol2/particle-physics/ch02-baryon-sector/torus-knot-ladder-baryons.md:11,19,23,24,41` — (2,q) coprime-odd-q ladder; proton (2,5) c=5 at −0.002%; Δ (2,7) c=7 at +2.354% (`:24`); V_total dual-reactance
+- `manuscript/ave-kb/vol2/particle-physics/ch02-baryon-sector/proton-identification.md:20,31` — proton 6₂³ Borromean linkage = three (N=3) mutually entangled flux loops (4-property def `:20` + first-principles axiom-audit row `:31`)
+- `manuscript/ave-kb/vol2/particle-physics/ch02-baryon-sector/topological-fractionalization.md:20` — 6₂³ Borromean N=3 / ℤ₃ permutation-symmetry framing
+- `manuscript/ave-kb/vol2/particle-physics/ch06-electroweak-higgs/q-g27-muon-cosserat-saliency.md:30,12` — muon = electron + 1 Cosserat torsional quantum, (2,3) preserved (`:30`); mass match +1.24% (`:12`)
 - `manuscript/ave-kb/vol2/particle-physics/index.md:32` — `m_μ = m_e/(α√(3/7)) ≈ 107.0 MeV`
-- `research/2026-05-31_Q-EMBED-SEL-1_step_c_phase2_cross_particle_prereg.md:63,73,173` — `ω_C^(p)=1836·ω_C^(e)`, `ω_C^(Δ)=(1232/938.27)·ω_C^(p)`, global-vs-per-loop carrier
+- `research/2026-05-31_Q-EMBED-SEL-1_step_c_phase2_cross_particle_prereg.md:63,73,74,173` — `ω_C^(p)=1836·ω_C^(e)`, `ω_C^(Δ)=(1232/938.27)·ω_C^(p)`, Δ mass 1261.001 vs 1232 MeV (+2.354%, `:74`), global-vs-per-loop carrier
 - `research/2026-05-18_c8-baryon-ladder-pdg-anchor-prereg.md:1-117` — prereg format template
