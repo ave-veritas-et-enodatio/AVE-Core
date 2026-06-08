@@ -1,0 +1,69 @@
+{
+  "field": {
+    "wavelength_measured": 18.0,
+    "wavelength_analytic": 18.13799364234218,
+    "fringe_spacing_pred": 48.0,
+    "z_uniformity": 0.00024092694463163396,
+    "L": 192,
+    "d": 72
+  },
+  "n_clicks": 6000,
+  "mean_micro_steps": 14.2575,
+  "histogram_match": {
+    "chi2_dof": 1.0216025139400318,
+    "corr": 0.968058304192716,
+    "ks": 0.009104664992183,
+    "n_bins": 255
+  },
+  "fringe": {
+    "spacing_clicks": 46.5,
+    "spacing_pred": 48.0,
+    "spacing_err_pct": 3.125,
+    "n_peaks": 3,
+    "peaks": [
+      152,
+      198,
+      245
+    ],
+    "fresnel_number": 1.5
+  },
+  "no_born_grep": {
+    "checks": {
+      "no_born_in_code": true,
+      "no_psi_in_code": true,
+      "no_weighted_sampler": true,
+      "no_intensity_prob_norm": true,
+      "uses_canonical_saturation_kernel": true,
+      "consumes_intensity_as_rate": true,
+      "all_pass": true
+    },
+    "docstring_mentions": {
+      "born_raw_count": 7,
+      "psi_raw_count": 3
+    }
+  },
+  "exponent_scan": {
+    "p=1": {
+      "chi2_dof": 4.887365742595682,
+      "corr": 0.8625290403623533,
+      "ks": 0.08970377025841357
+    },
+    "p=2": {
+      "chi2_dof": 1.131046875562955,
+      "corr": 0.9575743995362891,
+      "ks": 0.012255088775943612
+    },
+    "p=3": {
+      "chi2_dof": 2.291714966866357,
+      "corr": 0.9617560905565942,
+      "ks": 0.05497728568370697
+    }
+  },
+  "figures": {
+    "a_smooth_field": "/Users/grantlindblom/AVE-staging/AVE-Core-dslit-wt/research/figures/2026-06-08-ave-double-slit/a_smooth_interference_field.png",
+    "b_clicks_first": "/Users/grantlindblom/AVE-staging/AVE-Core-dslit-wt/research/figures/2026-06-08-ave-double-slit/b_clicks_first.png",
+    "c_clicks_hundreds": "/Users/grantlindblom/AVE-staging/AVE-Core-dslit-wt/research/figures/2026-06-08-ave-double-slit/c_clicks_hundreds.png",
+    "d_born_recovered": "/Users/grantlindblom/AVE-staging/AVE-Core-dslit-wt/research/figures/2026-06-08-ave-double-slit/d_born_recovered.png",
+    "animation": "/Users/grantlindblom/AVE-staging/AVE-Core-dslit-wt/research/figures/2026-06-08-ave-double-slit/born_from_clicks_animation.mp4"
+  }
+}
