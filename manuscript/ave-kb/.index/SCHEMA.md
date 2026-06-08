@@ -1,6 +1,8 @@
 # AVE-KB Derived Index — Schema Specification
 
 **Status:** Live — built and hardened (clm- IDs, framework nodes, derived solidity, NaN-propagation, exp- experiment nodes + `experiments:` references, sup- support nodes; experiment-/support-ness conferred by hosting an `exp-id` / `sup-id`. A leaf is a **container** hosting ANY number of ANY combination of `clm` / `exp` / `sup` node-bodies — no one-per-leaf and no one-per-flavor cap). Last revised 2026-05-23.
+
+> **`def-` definition node-type — SPECIFIED (Stage 1), pipeline materialization PENDING (Stage 2).** A sixth node-type, `def-` (vocabulary / adjudicated-term), is **specified** below (see "Definition record") and **seeded** in the canonical vocabulary register [`common/vocabulary-register.md`](../common/vocabulary-register.md) as of 2026-06-08, extending the single identification spine per INVARIANT-S11 ("extend, don't reinvent"). Its record shape, `\bdef-[a-z0-9]{6}\b` id format, and sort position are frozen here. The **emit + drift-gate wiring** (`build_claims_records` materialization into `claims.jsonl`, referential-integrity over `clm_cross_links`, and the freshness count) is the **Stage 2** step and is **NOT yet active** — `claims.jsonl` currently holds the FIVE materialized node types (`claim` / `invariant` / `axiom` / `experiment` / `support`); `def-` nodes live structurally-valid in the register but are not yet emitted. Until Stage 2 lands, the `def-` namespace is invisible to the current pipeline (the `clm`/`exp`/`sup` id regexes do not match it), so the seed register does not perturb the existing build or verify. Promote this notice (and the inventory / count lines below) when Stage 2 wires the emitter + verifier.
 **Scope:** specifies the canonical JSONL files that live under this directory, the record shapes within each, the build invariants, and the query semantics the runtime module (`src/ave/kb/index.py`) is expected to provide over them.
 
 This directory is **derived** from canonical sources:
@@ -118,6 +120,35 @@ Support field order: `node_type`, `id`, `title`, `canonical_path`, `canonical_an
 
 A support node's `quality` / `depends-on` / `solidity` write-back live in a **claim-quality-style entry keyed by the sup-id** (a `<!-- id: sup-xxxxxx -->` marker + a `### Quality` block with `quality:` / `depends-on:` / `solidity:` / `rationale:`, parallel to a claim entry — `quality:` in place of `confidence:`). The beneficiary fan-out is authored in the **hosting leaf's** `supports:` frontmatter block (parallel to an experiment's `strengthens:`), one `clm-<id>: <fraction>` pair per beneficiary. A container may host SEVERAL `sup-id:` — each `sup-id:` key opens its own `supports:` block (the pairs that follow belong to that block until the next `sup-id:`); a single `sup-id:` is the one-element case. Each `sup-id` materializes its own support record (sharing the container's canonical home) and its own `supports` edges. A leaf may co-host `sup-id:` with `claims:` / `exp-id:` / `no-claim:` — orthogonal node-bodies. `sup_solidity` is dep-gated and pending-propagating exactly like a claim's derivation; a free-standing support (no deps) has `sup_solidity == quality`.
 
+**Definition record** (`node_type: "definition"`) — SPECIFIED (Stage 1); pipeline materialization is **Stage 2 (PENDING — not yet emitted into `claims.jsonl`)**. A `def-` node is an **adjudicated vocabulary term** — the third tracked index after the claim graph (`clm`/`exp`/`sup`) and the code-provenance index. It records the *locked meaning* of a load-bearing term, the substrate **axis** it lives on, its **dimension/type**, an adjudication **status**, the `clm`/`exp`/`sup` ids it is load-bearing for, and — for an overloaded term — an **open-ambiguity flag** plus the verified file:line **conflicting sites**. A definition is a **terminal metadata node**: like a framework node it carries NO scoring fields (no `confidence`/`solidity`/`quality`), and like a framework node it emits NO graph edges — it never participates in `depends` / `strengthens` / `supports`. Its `clm_cross_links` are reverse-citation bookkeeping (which claims a term is load-bearing for), never traversed for solidity. Definitions are register-hosted (the way `clm-`/`sup-` entries are hosted in a `claim-quality.md` register): one per `<!-- id: def-xxxxxx -->` marker in the canonical vocabulary register `common/vocabulary-register.md`. 11 fields.
+
+```typescript
+{
+  node_type: "definition",       // discriminator
+  id: string,                    // def-[a-z0-9]{6}; primary key (greppable \bdef-[a-z0-9]{6}\b)
+  term: string,                  // the vocabulary term (surface form, e.g. "node", "r_opt", "κ_share")
+  adjudicated_meaning: string,   // the locked meaning — single-line normalized (LF → ' ')
+  axis: string,                  // "spatial-Brillouin" | "phase-carrier" | "dimensionless" | "notation" | "other"
+  dimension: string,             // dimension / type, e.g. "length (L)", "frequency (T⁻¹)", "dimensionless", "n/a (notation)"
+  status: string,                // "SOLID" | "ambiguous" | "proposed" | "retired"
+  canonical_path: string,        // POSIX path of the register leaf (the term's home) — relative to ave-kb/
+  canonical_anchor: string,      // GitHub-style anchor for the term's heading in the register
+  clm_cross_links: string[],     // sorted unique clm-/exp-/sup- ids this term is load-bearing for (reverse bookkeeping; may be empty)
+  open_ambiguity: boolean,       // true iff the term is overloaded (≥2 conflicting corpus meanings to disambiguate)
+  conflicting_sites: string[]    // when open_ambiguity: verified "path:line" sites carrying the conflicting meanings (sorted; [] when open_ambiguity false)
+}
+```
+
+Definition field order: `node_type`, `id`, `term`, `adjudicated_meaning`, `axis`, `dimension`, `status`, `canonical_path`, `canonical_anchor`, `clm_cross_links`, `open_ambiguity`, `conflicting_sites`.
+
+**Status semantics (definitive rule).**
+- `SOLID` — the meaning is locked AND the cite confirms it (e.g. `node` = spatial-Nyquist / Brillouin cell per `vol1/dynamics/ch3-quantum-signal-dynamics/paley-wiener-hilbert.md:10`). A `SOLID` term MAY still carry `open_ambiguity: true` (the canonical sense is locked, but the same word is used loosely elsewhere and must be qualified) — the two fields are orthogonal (status = "is the canonical sense adjudicated?"; open_ambiguity = "is the surface form overloaded?").
+- `ambiguous` — the term has ≥2 corpus meanings and NO single locked sense yet; canonization is gated on adjudication. Always carries `open_ambiguity: true` + the `conflicting_sites`.
+- `proposed` — a coined term gated on review, verified to have **0 prior corpus hits** (e.g. `κ_share`, `r_env`, `node-Nyquist-size-boundary`). NEVER seed a coinage `SOLID` — a coinage with prior hits is a collision, not a coinage.
+- `retired` — a superseded / walked-back term, preserved (Rule 12 substitution-not-retraction) so a grep for it resolves to its replacement.
+
+**Stage-2 materialization rule (when wired).** `refresh-kb-metadata` parses each `<!-- id: def-xxxxxx -->` entry in the vocabulary register, emits one `node_type: "definition"` record into `claims.jsonl`, and the sort key `(node_type, id)` places the `definition` group **between `claim` and `experiment`** (ASCII: axiom < claim < **definition** < experiment < invariant < support). `verify-kb-metadata` extends the referential-integrity pass so every id in `clm_cross_links` resolves to a `claim` / `experiment` / `support` node (orphan = hard failure), enforces the `\bdef-[a-z0-9]{6}\b` id format, and adds the def-count to the freshness check. No new edge file is touched (definitions emit no edges). Until that lands, this record shape is documentation only.
+
 **Framework record** (`node_type: "invariant"` or `"axiom"`) — exactly 5 fields. Framework nodes carry no scoring fields: they are **solidity-1.0 by definition** (framework bedrock). This is a documented rule, not a stored field.
 
 ```typescript
@@ -137,7 +168,7 @@ Framework field order: `node_type`, `id`, `title`, `canonical_path`, `canonical_
 - **Invariants** (18) — parsed from `### INVARIANT-XX: <title>` headings (regex `^### (INVARIANT-[A-Z]+[0-9]+):\s*(.+)$`). `id` is the label verbatim; `canonical_anchor` is the slug of the node's own heading. `INVARIANT-S6` (the subsumed-into-S5 tombstone) is a real heading and is included so a reference to it resolves.
 - **Axioms** (4) — parsed from the `- Axiom N: **<title>** — ...` bullets in the INVARIANT-S2 section (regex `^- Axiom ([1-4]): \*\*(.+?)\*\*`). `id` is `axiom-N` lowercase; `title` is the bold text. All four axioms point at the slug of the `### INVARIANT-S2: AVE Axiom numbering` heading — the KB's axiom-numbering authority.
 
-**Sort key.** Records are sorted by `(node_type, id)` — explicit grouping by ASCII order of the discriminator: axioms, then claims, then experiments, then invariants, then **support** (alphabetical: axiom < claim < experiment < invariant < support).
+**Sort key.** Records are sorted by `(node_type, id)` — explicit grouping by ASCII order of the discriminator: axioms, then claims, then experiments, then invariants, then **support** (alphabetical: axiom < claim < experiment < invariant < support). (When the Stage-2 `def-` materialization lands, the `definition` group sorts between `claim` and `experiment` — alphabetical: axiom < claim < **definition** < experiment < invariant < support — so no existing record's relative order changes; a new group is inserted.)
 
 **`build_band` derivation** (mechanical, from solidity):
 
