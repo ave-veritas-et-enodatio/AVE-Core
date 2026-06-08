@@ -293,6 +293,45 @@ are the clean negatives (#117/#121/#123/#125); the careful ones are #122
   does NOT show dynamic SELECTION (drivers SEED a finished unknot ansatz, reach a
   PLANTED wall). EPIC-DOC editor — latent overlap with #125's queued §20/§21 edit.
 
+## POST-CONSOLIDATION ADDENDUM (added 2026-06-08 on the #138 branch)
+
+Two PRs landed/opened after the 21-PR table above was frozen. Same per-PR review
+format; they are intentionally NOT folded into the quick-reference table (which is
+fixed at #117–#137). #139 is a fresh standalone; #127 is a status delta on its
+Group-A row.
+
+**#139 — ave-double-slit (the QM-trio capstone)** (14 files, +1275/−0) — *low-risk additive*
+- *What*: the §48 capstone — a real FDTD interference field read out by a
+  competing-Poisson **click detector** that recovers the Born statistic
+  `p ∝ |ψ|²` from discrete clicks with **NO Born / `p=|ψ|²` / multinomial /
+  inverse-CDF fed in**. New package `src/scripts/vol_2_subatomic/ave_double_slit_born/`
+  (7 modules) + result doc + figures/animation/validation JSON. **Auditor verdict:
+  GENUINE-EMERGENCE.**
+- *Check*: **additive — NO `src/ave/` engine collision** (all code lives under
+  `src/scripts/vol_2_subatomic/ave_double_slit_born/`, no engine mutation);
+  **reviewable STANDALONE** (no dependency on the Group A–E queue or the r_opt
+  chain). Killer non-circularity = the regime-dependence probe (low-contrast ramp
+  → 3.47× ratio, NOT the 25× of hidden rate-squaring NOR a regime-invariant
+  fixed-χ² |ψ|²-sampler); validation χ²/dof=1.02, KS=0.009, corr=0.968, n=6000.
+  Honest-scope caveat on the headline: the exponent "2" is the EM energy-vs-
+  amplitude power-law (physically forced), **NOT topology-derived** — 2 auditor
+  nits being closed on the PR (commit-verb "DERIVED"→"energy-forced";
+  argmax-fallback asserted-zero counter). **CI was IN_PROGRESS at guide-write
+  time** (verified PASS 2026-06-08: `make verify + make test`, run
+  `27155583671`). Cross-ref epic §48.
+
+**#127 — vacuum-piezoelectric-framing — STATUS UPDATE** (the Group-A row above)
+- *Was*: listed Group A, conflict `none`. origin/main subsequently advanced
+  (`translation-circuit.md` gained §10 from the 2026-06-07 reframes), turning #127
+  → **CONFLICTING** on that leaf.
+- *Now*: **RESOLVED — MERGEABLE/CLEAN** via a **KEEP-BOTH merge of origin/main**:
+  main's §10 (the 2026-06-07 reframes) kept verbatim + the piezo section
+  **renumbered §10→§11** ("The vacuum as a chiral piezoelectric Cosserat solid");
+  **nothing dropped** (merge diff `+21/−0`, `make verify` green; verified on
+  origin/main — both §10 and §11 present). **Verified 2026-06-08: #127 has SINCE
+  MERGED to main** (commit `2e12040`, mergedAt 2026-06-08T17:52Z) — the resolution
+  landed; the Group-A row is now a closed/merged item, not an open review.
+
 ## Cross-cutting flags
 
 - **Stack**: #118 → #119 (git-confirmed ancestry). Merge #118 before #119, or
