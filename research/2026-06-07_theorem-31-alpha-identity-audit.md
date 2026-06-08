@@ -48,7 +48,7 @@ The corpus is honest: `electron_tank_q_factor.py` Method 1 uses CODATA α.
 α⁻¹ = Λ_vol + Λ_surf + Λ_line = 4π³ + π² + π   (Golden Torus, Class B)
 ```
 
-**Verdict:** **Class B substrate-mechanism** at named identification (`R·r = 1/4`, phasor-area = Nyquist cell). **Does not use α as input.** Produces 137.036 cold from geometry.
+**Verdict:** **Class-B closed form** at named identification (`R·r = 1/4`, phasor-area = Nyquist cell). It evaluates to 137.036 from geometry without α as a *computational* input — but `R·r = 1/4` is **unproven-forced** (forced-vs-fitted undetermined; the `R=φ/2`, `r=(φ−1)/2` Golden-Torus identification is asserted, not derived — see session §18/§25). So this is a **Class-B closed-form consistency identity contingent on a forced `R·r = 1/4`**, not an unconditional "produces 137.036 cold from geometry" derivation. Until `R·r = 1/4` is shown forced (not fitted), the cold-derivation framing overstates it.
 
 ### Bridge Q_i = Λ_i
 
