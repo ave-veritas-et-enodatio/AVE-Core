@@ -83,13 +83,41 @@ _EXP_ID_RE = re.compile(r"\b(exp-[a-z0-9]{6})\b")
 # Support-ID pattern (INVARIANT-S10): `sup-` prefix plus 6 lowercase
 # alphanumeric chars. Exact, like the claim- and exp-id patterns.
 _SUP_ID_RE = re.compile(r"\b(sup-[a-z0-9]{6})\b")
-# Canonical pattern for ANY spine node id (clm- / exp- / sup-), the full
-# greppable id grammar of INVARIANT-S8/S9/S10. Public so other tools (e.g.
-# verify-md-links, which scans prose for cited ids) consume one source of
-# truth for the id shape rather than re-encoding it. Note `_ANY_ID_RE` above
-# is deliberately clm|exp only (frontmatter id-list values never hold sup-);
-# this one spans all three node prefixes.
-ANY_NODE_ID_RE = re.compile(r"\b((?:clm|exp|sup)-[a-z0-9]{6})\b")
+# Definition-ID pattern (INVARIANT-S12): `def-` prefix plus 6 lowercase
+# alphanumeric chars. Exact, like the claim-/exp-/sup-id patterns. A `def-`
+# node is an adjudicated vocabulary term — the third tracked index after the
+# claim graph and the code-provenance index.
+_DEF_ID_RE = re.compile(r"\b(def-[a-z0-9]{6})\b")
+# A canonical-id marker keying a `def-` definition entry in the vocabulary
+# register (parallel to `_CANONICAL_SUP_ID_RE` for a sup- register entry).
+_CANONICAL_DEF_ID_RE = re.compile(r"<!--\s*id:\s*(def-[a-z0-9]{6})\s*-->")
+# A definition register field line: `- **<label>:** <value>` (the bolded
+# field-block shape authored in vocabulary-register.md, parallel to a sup-
+# entry's `### Quality` block). Label captured between `**` and `:**`.
+_DEF_FIELD_RE = re.compile(r"^-\s+\*\*([^:*]+):\*\*\s*(.*)$")
+# A verified `path:line` corpus cite inside backticks within a definition's
+# `- conflicting sites:` sub-bullet (e.g. `vol1/ch0-intro.md:21,48`). The
+# `:digit` tail (optionally a `,`/`-` line list or range) distinguishes a file
+# cite from an inline code span carrying no line number.
+_DEF_CITE_RE = re.compile(r"`([^`]+:\d[\d,\-]*)`")
+# A spine reference id a definition's `clm-cross-links` field may name — a
+# claim / experiment / support id (NEVER a def- id: a definition's cross-links
+# point at the claims it is load-bearing for, not at other definitions). Used
+# to extract `clm_cross_links`; deliberately excludes the `def` prefix that
+# `ANY_NODE_ID_RE` now carries.
+_SPINE_REF_ID_RE = re.compile(r"\b((?:clm|exp|sup)-[a-z0-9]{6})\b")
+# Canonical pattern for ANY spine node id (clm- / exp- / sup- / def-), the
+# full greppable id grammar of INVARIANT-S8/S9/S10/S12. Public so other tools
+# (e.g. verify-md-links, which scans prose for cited ids) consume one source
+# of truth for the id shape rather than re-encoding it. Note `_ANY_ID_RE`
+# above is deliberately clm|exp only (frontmatter id-list values never hold
+# sup-/def-); this one spans all four node prefixes.
+ANY_NODE_ID_RE = re.compile(r"\b((?:clm|exp|sup|def)-[a-z0-9]{6})\b")
+# The canonical vocabulary register filename — sole home of `def-` definition
+# entries (INVARIANT-S12), the def- analog of a `claim-quality.md` register.
+VOCAB_REGISTER_NAME = "vocabulary-register.md"
+# Adjudication-status enum for a `def-` node (SCHEMA "Status semantics").
+DEFINITION_STATUSES = ("SOLID", "ambiguous", "proposed", "retired")
 # A `strengthens:` block pair line: `clm-<id>: <strength>` (strength a float
 # in [0,1]). Indented under the `strengthens:` frontmatter key.
 _STRENGTHENS_PAIR_RE = re.compile(
@@ -228,6 +256,47 @@ class SupportNode:
 
 
 @dataclass(frozen=True)
+class DefinitionNode:
+    """An adjudicated vocabulary term — a terminal metadata node (INVARIANT-S12).
+
+    A ``def-`` node records the *locked meaning* of a load-bearing term, the
+    substrate ``axis`` it lives on, its ``dimension`` / type, an adjudication
+    ``status`` (``SOLID`` | ``ambiguous`` | ``proposed`` | ``retired``), the
+    ``clm``/``exp``/``sup`` ids it is load-bearing for (``clm_cross_links`` —
+    reverse-citation bookkeeping, never traversed for solidity), and — for an
+    overloaded surface form — an ``open_ambiguity`` flag plus the verified
+    ``conflicting_sites`` file:line cites.
+
+    Like a framework node it is **terminal**: it carries NO scoring fields
+    (no ``confidence`` / ``solidity`` / ``quality``) and emits NO graph edges
+    (never participates in ``depends`` / ``strengthens`` / ``supports``).
+    Definitions are **register-hosted** — one per ``<!-- id: def-xxxxxx -->``
+    marker in the canonical vocabulary register (``VOCAB_REGISTER_NAME``), the
+    way ``clm-`` / ``sup-`` entries are hosted in a ``claim-quality.md``
+    register. ``canonical_path`` is that register leaf and ``canonical_anchor``
+    is the slug of the term's ``## <term>`` heading.
+
+    ``status`` and ``open_ambiguity`` are **orthogonal axes** (INVARIANT-S12):
+    ``status`` answers "is the canonical sense adjudicated?"; ``open_ambiguity``
+    answers "is the surface form overloaded?". A term may be ``SOLID`` AND carry
+    ``open_ambiguity: True`` (canonical sense locked, but the same word is used
+    loosely elsewhere and must be qualified).
+    """
+
+    id: str
+    term: str
+    adjudicated_meaning: str
+    axis: str
+    dimension: str
+    status: str
+    canonical_path: str
+    canonical_anchor: str
+    clm_cross_links: tuple[str, ...]
+    open_ambiguity: bool
+    conflicting_sites: tuple[str, ...]
+
+
+@dataclass(frozen=True)
 class FrameworkNode:
     """A structural invariant or AVE axiom — a first-class graph node.
 
@@ -316,6 +385,7 @@ class KbState:
     framework_nodes: tuple[FrameworkNode, ...]
     experiments: tuple[ExperimentNode, ...]
     supports: tuple[SupportNode, ...] = ()
+    definitions: tuple[DefinitionNode, ...] = ()
 
 
 # ---------------------------------------------------------------------------
@@ -1016,6 +1086,179 @@ def parse_support_quality_entries(
     return out
 
 
+class DefinitionEntryError(ValueError):
+    """Raised when a ``def-`` entry in the vocabulary register is malformed.
+
+    A definition entry under a ``## <term>`` heading must carry a well-formed
+    ``<!-- id: def-xxxxxx -->`` marker and a bolded field block whose required
+    fields (``term``, ``adjudicated-meaning``, ``axis``, ``dimension/type``,
+    ``status``) are all present, whose ``status`` is one of SOLID / ambiguous /
+    proposed / retired, and — when ``status`` is ``ambiguous`` — whose
+    mandatory ``open-ambiguity-flag`` is ``YES`` (SCHEMA "Status semantics":
+    an ambiguous term always carries the flag). A malformed ``def-`` id, an
+    unknown status, a missing required field, or a flagless ``ambiguous`` entry
+    is a hard failure — the drift-gate that keeps a perturbed vocabulary entry
+    from silently materializing a wrong ``node_type: definition`` record.
+    """
+
+
+def parse_definition_entries(
+    path: Path, kb_root: Path
+) -> list[DefinitionNode]:
+    """Parse every ``<!-- id: def-xxxxxx -->`` entry in the vocabulary register.
+
+    A ``def-`` node is **register-hosted** (INVARIANT-S12), the def- analog of a
+    ``sup-`` entry in a ``claim-quality.md`` register: one entry per ``## <term>``
+    heading carrying a ``<!-- id: def-xxxxxx -->`` marker and a bolded field
+    block (``- **term:** …`` / ``- **adjudicated-meaning:** …`` / …). Returns one
+    :class:`DefinitionNode` per entry.
+
+    A marker is recognized only when it is the WHOLE stripped line (``.match``
+    on the stripped line) — so the inline ``def-xxxxxx`` field-legend
+    placeholder in the register's prose never parses as an entry (it does not
+    begin its line). ``canonical_path`` is the register leaf; ``canonical_anchor``
+    is the slug of the term's ``## <term>`` heading (NOT the editorial
+    ``canonical-home`` cite, which grounds the meaning but is not materialized).
+
+    ``clm_cross_links`` are extracted verbatim from the ``- **clm-cross-links:**``
+    line (sorted, unique, ``clm``/``exp``/``sup`` ids only) and **not** filtered
+    against the known-id set here — an orphan cross-link materializes into the
+    record so the verifier's referential-integrity pass fails loudly on it
+    (the drift-gate), rather than being silently dropped. ``conflicting_sites``
+    are the ``path:line`` cites in the ``- conflicting sites:`` sub-bullet
+    (sorted, unique; ``[]`` when ``open_ambiguity`` is false).
+
+    Raises :class:`DefinitionEntryError` for a malformed ``def-`` id, an unknown
+    ``status``, a missing required field, or an ``ambiguous`` entry whose
+    mandatory ``open-ambiguity-flag`` is not ``YES``.
+    """
+    raw = path.read_text(encoding="utf-8")
+    scrubbed = _strip_code_fences(raw)
+    lines = scrubbed.splitlines()
+    canonical_rel = _posix_relative(path, kb_root)
+
+    # Locate every (id_line, def_id, heading_text). A `## ` heading sets the
+    # current term; the next whole-line `<!-- id: def-... -->` marker opens its
+    # entry.
+    entries_meta: list[tuple[int, str, str]] = []
+    last_heading_text: str | None = None
+    for i, line in enumerate(lines):
+        if line.startswith("## "):
+            last_heading_text = line[3:].strip()
+            continue
+        m = _CANONICAL_DEF_ID_RE.match(line.strip())
+        if m and last_heading_text is not None:
+            entries_meta.append((i, m.group(1), last_heading_text))
+
+    nodes: list[DefinitionNode] = []
+    for id_line, def_id, hd_text in entries_meta:
+        if not _DEF_ID_RE.fullmatch(def_id):
+            raise DefinitionEntryError(
+                f"{canonical_rel}: definition entry has malformed id "
+                f"{def_id!r} (expected \\bdef-[a-z0-9]{{6}}\\b)."
+            )
+
+        # The field block runs from the id-marker line to the next `## ` heading
+        # (or EOF). Sibling entries are separated by `## <term>` headings.
+        block_end = len(lines)
+        for j in range(id_line + 1, len(lines)):
+            if lines[j].startswith("## "):
+                block_end = j
+                break
+        block = lines[id_line + 1 : block_end]
+
+        # Walk the bolded field bullets. A wrapped value folds into its field
+        # until the next `- **label:**` bullet. The `- conflicting sites:`
+        # sub-bullet is collected separately for cite extraction; any OTHER
+        # sub-bullet (resolution-proposal, an OPEN over-read guard) is ignored —
+        # only the conflicting-sites sub-bullet carries materialized cites.
+        fields: dict[str, str] = {}
+        conflicting_parts: list[str] = []
+        cur_label: str | None = None
+        buf: list[str] = []
+        for ln in block:
+            fm = _DEF_FIELD_RE.match(ln)
+            if fm:
+                if cur_label is not None:
+                    fields[cur_label] = _normalize_text(" ".join(buf))
+                cur_label = fm.group(1).strip()
+                buf = [fm.group(2)]
+                continue
+            stripped = ln.strip()
+            if stripped.startswith("- conflicting sites:"):
+                conflicting_parts.append(stripped)
+                continue
+            if cur_label is not None and stripped and not stripped.startswith("- "):
+                buf.append(stripped)
+        if cur_label is not None:
+            fields[cur_label] = _normalize_text(" ".join(buf))
+
+        term = fields.get("term", "").strip()
+        meaning = fields.get("adjudicated-meaning", "").strip()
+        axis = fields.get("axis", "").strip()
+        dimension = fields.get("dimension/type", "").strip()
+        status_raw = fields.get("status", "").strip()
+        status = status_raw.split()[0] if status_raw else ""
+
+        missing = [
+            name
+            for name, val in (
+                ("term", term),
+                ("adjudicated-meaning", meaning),
+                ("axis", axis),
+                ("dimension/type", dimension),
+                ("status", status),
+            )
+            if not val
+        ]
+        if missing:
+            raise DefinitionEntryError(
+                f"{canonical_rel}: definition {def_id} is missing required "
+                f"field(s): {', '.join(missing)}."
+            )
+        if status not in DEFINITION_STATUSES:
+            raise DefinitionEntryError(
+                f"{canonical_rel}: definition {def_id} has invalid status "
+                f"{status!r} (expected one of {', '.join(DEFINITION_STATUSES)})."
+            )
+
+        oab_raw = fields.get("open-ambiguity-flag", "").strip()
+        open_ambiguity = oab_raw.upper().startswith("YES")
+        if status == "ambiguous" and not open_ambiguity:
+            raise DefinitionEntryError(
+                f"{canonical_rel}: definition {def_id} is status 'ambiguous' but "
+                f"its open-ambiguity-flag is not YES — an ambiguous term always "
+                f"carries open-ambiguity (SCHEMA Status semantics)."
+            )
+
+        clm_cross_links = tuple(
+            sorted(set(_SPINE_REF_ID_RE.findall(fields.get("clm-cross-links", ""))))
+        )
+        if open_ambiguity:
+            conflicting_sites = tuple(
+                sorted(set(_DEF_CITE_RE.findall(" ".join(conflicting_parts))))
+            )
+        else:
+            conflicting_sites = ()
+
+        nodes.append(
+            DefinitionNode(
+                id=def_id,
+                term=term,
+                adjudicated_meaning=meaning,
+                axis=axis,
+                dimension=dimension,
+                status=status,
+                canonical_path=canonical_rel,
+                canonical_anchor=_slugify_heading(hd_text),
+                clm_cross_links=clm_cross_links,
+                open_ambiguity=open_ambiguity,
+                conflicting_sites=conflicting_sites,
+            )
+        )
+    return nodes
+
+
 # ---------------------------------------------------------------------------
 # Leaf / index discovery
 # ---------------------------------------------------------------------------
@@ -1443,6 +1686,19 @@ def discover_kb(
 
     framework_nodes = parse_framework_nodes(kb_root)
 
+    # Vocabulary-register `def-` definition nodes (INVARIANT-S12) — the third
+    # tracked index after the claim graph (clm/exp/sup) and the code-provenance
+    # index. Register-hosted (the def- analog of clm-/sup- entries hosted in a
+    # claim-quality.md register), parsed from each `vocabulary-register.md`'s
+    # `<!-- id: def-xxxxxx -->` markers. A malformed entry raises
+    # DefinitionEntryError here (the drift-gate), exactly as a malformed exp-id
+    # / sup-id raises in the leaf parsers above.
+    definitions: list[DefinitionNode] = []
+    for vr in sorted(kb_root.rglob(VOCAB_REGISTER_NAME)):
+        if any(part in EXCLUDE_DIRS for part in vr.relative_to(kb_root).parts[:-1]):
+            continue
+        definitions.extend(parse_definition_entries(vr, kb_root))
+
     return KbState(
         claim_entries=tuple(claim_entries),
         leaves=tuple(leaves),
@@ -1450,6 +1706,7 @@ def discover_kb(
         framework_nodes=tuple(framework_nodes),
         experiments=tuple(experiments),
         supports=tuple(supports),
+        definitions=tuple(definitions),
     )
 
 
@@ -1929,20 +2186,28 @@ def min_dependency_solidity(
 def build_claims_records(state: KbState) -> list[dict]:
     """One record per graph node, sorted by ``(node_type, id)``.
 
-    ``claims.jsonl`` holds a type-tagged union of FOUR node types,
+    ``claims.jsonl`` holds a type-tagged union of SIX node types,
     discriminated by ``node_type``:
 
     * ``claim`` records carry the full 15-field shape (``node_type`` first,
       then the 14 claim fields, including ``derivation_solidity`` and
       ``experimental_solidity`` before ``solidity``).
+    * ``definition`` records are terminal metadata nodes (INVARIANT-S12) — the
+      12-field vocabulary-term shape (``node_type``, ``id``, ``term``,
+      ``adjudicated_meaning``, ``axis``, ``dimension``, ``status``,
+      ``canonical_path``, ``canonical_anchor``, ``clm_cross_links``,
+      ``open_ambiguity``, ``conflicting_sites``). No scoring fields, no edges.
     * ``experiment`` records are minimal — six fields (``node_type``, ``id``,
       ``title``, ``canonical_path``, ``canonical_anchor``, ``status``).
+    * ``support`` records carry ``node_type`` / ``id`` / ``title`` /
+      ``canonical_path`` / ``canonical_anchor`` / ``quality`` / ``solidity``.
     * ``invariant`` / ``axiom`` records are minimal — exactly the five
       identifying fields. Framework nodes are solidity-1.0 by definition, so
       they carry no scoring fields.
 
     The sort key ``(node_type, id)`` groups axioms, then claims, then
-    experiments, then invariants (ASCII order of the discriminator).
+    definitions, then experiments, then invariants, then support (ASCII order
+    of the discriminator).
 
     Claim counts (depends_on_count, strengthen_by_count, citation_count) are
     derived from the same state so they're internally consistent with the
@@ -2021,6 +2286,29 @@ def build_claims_records(state: KbState) -> list[dict]:
                 "canonical_anchor": sup.canonical_anchor,
                 "quality": sup.quality,
                 "solidity": full.sup_solidity.get(sup.id),
+            }
+        )
+    for defn in state.definitions:
+        # A definition is a terminal metadata node (INVARIANT-S12): no scoring
+        # fields, no edges. The 11-field payload (field order per SCHEMA) is
+        # materialized verbatim from the vocabulary register; the sort key
+        # `(node_type, id)` slots the `definition` group between `claim` and
+        # `experiment` (axiom < claim < definition < experiment < invariant <
+        # support), so no existing record's relative order changes.
+        out.append(
+            {
+                "node_type": "definition",
+                "id": defn.id,
+                "term": defn.term,
+                "adjudicated_meaning": defn.adjudicated_meaning,
+                "axis": defn.axis,
+                "dimension": defn.dimension,
+                "status": defn.status,
+                "canonical_path": defn.canonical_path,
+                "canonical_anchor": defn.canonical_anchor,
+                "clm_cross_links": list(defn.clm_cross_links),
+                "open_ambiguity": defn.open_ambiguity,
+                "conflicting_sites": list(defn.conflicting_sites),
             }
         )
     for node in state.framework_nodes:
@@ -2476,6 +2764,10 @@ __all__ = [
     "ExperimentLeafError",
     "SupportNode",
     "SupportLeafError",
+    "DefinitionNode",
+    "DefinitionEntryError",
+    "VOCAB_REGISTER_NAME",
+    "DEFINITION_STATUSES",
     "StrengthenByItem",
     "LeafRecord",
     "IndexRecord",
@@ -2486,6 +2778,7 @@ __all__ = [
     "parse_leaf",
     "parse_experiment_leaf",
     "parse_support_leaf",
+    "parse_definition_entries",
     "parse_claim_quality_file",
     "parse_support_quality_entries",
     "collect_known_claim_ids",

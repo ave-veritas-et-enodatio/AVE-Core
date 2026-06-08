@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-no-claim: "Canonical vocabulary register — hosts def- (adjudicated-term) nodes, the third tracked index after the claim graph (clm/exp/sup) and the code-provenance index. def- is a spine node-type SPECIFIED in .index/SCHEMA.md (INVARIANT-S11 extend-don't-reinvent); pipeline materialization into claims.jsonl is Stage 2 (PENDING). This leaf originates no clm-/exp-/sup- node, so it carries no-claim until the def- emitter is wired (Stage 2), at which point hosting def- nodes will satisfy Tier-1 coverage on its own."
+no-claim: "Canonical vocabulary register — hosts def- (adjudicated-term) nodes, the third tracked index after the claim graph (clm/exp/sup) and the code-provenance index. def- is a spine node-type specified in .index/SCHEMA.md and canonized in INVARIANT-S12 (extend-don't-reinvent); the Stage-2 emitter materializes each def- entry into claims.jsonl as a node_type: definition record (LIVE 2026-06-08). This leaf originates no clm-/exp-/sup- node-body via frontmatter — the def- entries are body-hosted register entries (the def- analog of clm-/sup- entries hosted in a claim-quality.md register, which is itself no-claim) — so it carries no-claim."
 path-stable: "the canonical vocabulary-register leaf; docs/glossary.md is its rendered view"
 -->
 
@@ -27,12 +27,14 @@ scheme).
 > glossary is re-synced from it).
 
 > **Stage status.** Stage 1 (this file + the [`.index/SCHEMA.md`](../.index/SCHEMA.md)
-> `def-` spec) is **landed**. Stage 2 — wiring `refresh-kb-metadata` to
-> materialize each `def-` node into `claims.jsonl` (`node_type: "definition"`)
-> and `verify-kb-metadata` to drift-gate them under the same referential-integrity
-> pass as `clm`/`exp`/`sup` — is **PENDING** (tracked follow-up). Until Stage 2
-> lands, the `def-` namespace is invisible to the pipeline id regexes
-> (`clm|exp|sup`), so this register does not perturb the existing build or verify.
+> `def-` spec) **and** Stage 2 are both **landed** (2026-06-08). Stage 2 wired
+> `refresh-kb-metadata` to materialize each `def-` node into `claims.jsonl`
+> (`node_type: "definition"`, sorted between `claim` and `experiment`) and
+> `verify-kb-metadata` to drift-gate them under the same referential-integrity
+> pass as `clm`/`exp`/`sup` (every `clm_cross_links` id resolves to a claim /
+> experiment / support node; orphan = hard failure). The `def-` namespace is
+> now part of the pipeline id grammar (`ANY_NODE_ID_RE` + `verify-md-links`),
+> so a perturbed entry **fails `make verify-kb-metadata`** (INVARIANT-S12).
 
 > **Seed scope.** This is a **verified SEED**, not the full table. Each term was
 > re-derived and re-grepped against the live corpus (verify-before-cite); a term
@@ -264,11 +266,12 @@ line states the opposite: r_opt is "dimensionless … NOT a length"); (2) the
 §46/§47 line-number for the proton 0.84 fm "RMS vibration" cite (the live site is
 `src/ave/core/constants.py:967-971`, not :957-960). Surfaced flag-don't-fix.
 
-**Follow-up (tracked):** (a) Stage 2 — wire `refresh-kb-metadata` +
-`verify-kb-metadata` to materialize `node_type: "definition"` records into
-`claims.jsonl` and drift-gate `clm_cross_links` referential integrity (per the
-[`.index/SCHEMA.md`](../.index/SCHEMA.md) "Stage-2 materialization rule"). (b)
-Add the remaining §47 clarity-risk terms beyond this core set as each is
-individually verified. (c) Grant adjudication of the 3 `proposed` coinages and
-the §45 A-vs-B canonical fork before any `proposed` → `SOLID` promotion.
+**Follow-up (tracked):** (a) Stage 2 — **LANDED 2026-06-08**: `refresh-kb-metadata`
+materializes `node_type: "definition"` records into `claims.jsonl` and
+`verify-kb-metadata` drift-gates `clm_cross_links` referential integrity (per the
+[`.index/SCHEMA.md`](../.index/SCHEMA.md) "Stage-2 materialization rule" +
+INVARIANT-S12). (b) Add the remaining §47 clarity-risk terms beyond this core
+set as each is individually verified. (c) Grant adjudication of the 3 `proposed`
+coinages and the §45 A-vs-B canonical fork before any `proposed` → `SOLID`
+promotion.
 

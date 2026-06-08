@@ -16,6 +16,7 @@ from .index import (
     BUILD_BANDS,
     CitationEdge,
     Claim,
+    Definition,
     FrameworkNode,
     Index,
     StrengthenByItem,
@@ -94,7 +95,7 @@ def _build_parser() -> argparse.ArgumentParser:
     _add_global_flags(p_sub)
     p_sub.add_argument("path")
 
-    p_show = sub.add_parser("show", help="Full record for one node (claim, invariant, or axiom).")
+    p_show = sub.add_parser("show", help="Full record for one node (claim, definition, invariant, or axiom).")
     _add_global_flags(p_show)
     p_show.add_argument("claim_id")
 
@@ -154,9 +155,24 @@ def _strengthen_to_dict(it: StrengthenByItem) -> dict:
     return d
 
 
-def _format_show_text(node: Claim | FrameworkNode) -> str:
-    if isinstance(node, FrameworkNode):
+def _format_show_text(node: Claim | FrameworkNode | Definition) -> str:
+    if isinstance(node, Definition):
         fields: list[tuple[str, object]] = [
+            ("node_type", node.node_type),
+            ("id", node.id),
+            ("term", node.term),
+            ("adjudicated_meaning", node.adjudicated_meaning),
+            ("axis", node.axis),
+            ("dimension", node.dimension),
+            ("status", node.status),
+            ("canonical_path", node.canonical_path),
+            ("canonical_anchor", node.canonical_anchor),
+            ("clm_cross_links", ", ".join(node.clm_cross_links)),
+            ("open_ambiguity", node.open_ambiguity),
+            ("conflicting_sites", ", ".join(node.conflicting_sites)),
+        ]
+    elif isinstance(node, FrameworkNode):
+        fields = [
             ("node_type", node.node_type),
             ("id", node.id),
             ("title", node.title),
@@ -288,6 +304,7 @@ def _dispatch(args: argparse.Namespace, idx: Index, out, err) -> int:
         else:
             for key in (
                 "claims",
+                "definitions",
                 "invariants",
                 "axioms",
                 "depends_on_edges",

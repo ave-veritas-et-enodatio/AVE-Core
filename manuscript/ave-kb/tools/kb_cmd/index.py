@@ -84,6 +84,32 @@ class FrameworkNode:
 
 
 @dataclass(frozen=True, slots=True)
+class Definition:
+    """An adjudicated vocabulary term — one ``node_type: definition`` node.
+
+    A terminal metadata node (INVARIANT-S12): no scoring fields, no edges.
+    ``status`` (SOLID | ambiguous | proposed | retired) and ``open_ambiguity``
+    are **orthogonal** axes — a term may be ``SOLID`` and still carry
+    ``open_ambiguity: True`` (canonical sense locked, surface form overloaded).
+    The canonical mis-use watch-list query is
+    ``status == "SOLID" and open_ambiguity``.
+    """
+
+    node_type: str  # always "definition"
+    id: str
+    term: str
+    adjudicated_meaning: str
+    axis: str
+    dimension: str
+    status: str
+    canonical_path: str
+    canonical_anchor: str
+    clm_cross_links: tuple[str, ...]
+    open_ambiguity: bool
+    conflicting_sites: tuple[str, ...]
+
+
+@dataclass(frozen=True, slots=True)
 class DependsOnEdge:
     """A forward dependency edge from ``source`` to ``target``.
 
@@ -212,10 +238,38 @@ def _framework_from_record(rec: dict) -> FrameworkNode:
     )
 
 
-def _node_from_record(rec: dict) -> Claim | FrameworkNode:
-    """Dispatch a claims.jsonl record on its ``node_type`` discriminator."""
-    if rec.get("node_type", "claim") == "claim":
+def _definition_from_record(rec: dict) -> Definition:
+    return Definition(
+        node_type=rec["node_type"],
+        id=rec["id"],
+        term=rec["term"],
+        adjudicated_meaning=rec["adjudicated_meaning"],
+        axis=rec["axis"],
+        dimension=rec["dimension"],
+        status=rec["status"],
+        canonical_path=rec["canonical_path"],
+        canonical_anchor=rec["canonical_anchor"],
+        clm_cross_links=tuple(rec.get("clm_cross_links") or ()),
+        open_ambiguity=bool(rec.get("open_ambiguity", False)),
+        conflicting_sites=tuple(rec.get("conflicting_sites") or ()),
+    )
+
+
+def _node_from_record(rec: dict) -> Claim | FrameworkNode | Definition:
+    """Dispatch a claims.jsonl record on its ``node_type`` discriminator.
+
+    A ``definition`` record carries the vocabulary-term shape (``term`` instead
+    of ``title``, no scoring fields), so it must be routed to its own builder —
+    ``_framework_from_record`` would ``KeyError`` on the absent ``title``.
+    ``experiment`` / ``support`` records (which DO carry ``title`` /
+    ``canonical_path`` / ``canonical_anchor``) load through the framework
+    builder, resolvable via :meth:`Index.node` / ``show``.
+    """
+    node_type = rec.get("node_type", "claim")
+    if node_type == "claim":
         return _claim_from_record(rec)
+    if node_type == "definition":
+        return _definition_from_record(rec)
     return _framework_from_record(rec)
 
 
@@ -274,16 +328,21 @@ class Index:
 
     def __init__(
         self,
-        nodes: list[Claim | FrameworkNode],
+        nodes: list[Claim | FrameworkNode | Definition],
         depends_on: list[DependsOnEdge],
         strengthen_by: list[StrengthenByItem],
         cites: list[CitationEdge],
         subtree_aggregates: list[SubtreeAggregate],
     ) -> None:
         # claims.jsonl is a type-tagged union; split it into the claim subset
-        # (which carries the scoring fields the filter queries operate on)
-        # and the framework subset (invariants + axioms).
+        # (which carries the scoring fields the filter queries operate on),
+        # the framework subset (invariants + axioms; experiment / support load
+        # here too as title-bearing nodes), and the definition subset
+        # (INVARIANT-S12 vocabulary terms — terminal, no scoring fields).
         self._claims: list[Claim] = sorted((n for n in nodes if isinstance(n, Claim)), key=lambda c: c.id)
+        self._definitions: list[Definition] = sorted(
+            (n for n in nodes if isinstance(n, Definition)), key=lambda d: d.id
+        )
         self._framework: list[FrameworkNode] = sorted(
             (n for n in nodes if isinstance(n, FrameworkNode)), key=lambda n: n.id
         )
@@ -294,8 +353,10 @@ class Index:
 
         self._by_id: dict[str, Claim] = {c.id: c for c in self._claims}
         # Every node, keyed by id — used by node() and dependents_of() so
-        # framework ids resolve too.
-        self._node_by_id: dict[str, Claim | FrameworkNode] = {n.id: n for n in (*self._claims, *self._framework)}
+        # framework and definition ids resolve too.
+        self._node_by_id: dict[str, Claim | FrameworkNode | Definition] = {
+            n.id: n for n in (*self._claims, *self._framework, *self._definitions)
+        }
 
         # Forward / inverse dependency adjacency.
         deps_fwd: dict[str, set[str]] = defaultdict(set)
@@ -465,11 +526,12 @@ class Index:
         """
         return self._by_id.get(node_id)
 
-    def node(self, node_id: str) -> Claim | FrameworkNode | None:
+    def node(self, node_id: str) -> Claim | FrameworkNode | Definition | None:
         """Return the graph node for ``node_id`` regardless of node type.
 
-        Resolves claim, invariant, and axiom ids. Returns ``None`` if no
-        node carries that id.
+        Resolves claim, invariant, axiom, and definition ids (plus experiment /
+        support ids, which load as title-bearing framework-shaped nodes).
+        Returns ``None`` if no node carries that id.
         """
         return self._node_by_id.get(node_id)
 
@@ -489,9 +551,26 @@ class Index:
         return list(self._framework)
 
     @property
-    def all_nodes(self) -> list[Claim | FrameworkNode]:
-        """Every graph node — claims plus framework nodes, sorted by id."""
-        return sorted((*self._claims, *self._framework), key=lambda n: n.id)
+    def definitions(self) -> list[Definition]:
+        """All definition (`def-`) vocabulary nodes, sorted by id (INVARIANT-S12)."""
+        return list(self._definitions)
+
+    @property
+    def watch_list(self) -> list[Definition]:
+        """Vocabulary terms whose canonical sense is SOLID yet surface-overloaded.
+
+        The canonical mis-use watch-list (INVARIANT-S12): ``status == "SOLID"``
+        AND ``open_ambiguity`` — a locked meaning that is still loosely reused
+        elsewhere and must be qualified at every cite.
+        """
+        return [d for d in self._definitions if d.status == "SOLID" and d.open_ambiguity]
+
+    @property
+    def all_nodes(self) -> list[Claim | FrameworkNode | Definition]:
+        """Every graph node — claims, framework nodes, and definitions, by id."""
+        return sorted(
+            (*self._claims, *self._framework, *self._definitions), key=lambda n: n.id
+        )
 
     @property
     def stats(self) -> dict[str, int]:
@@ -500,6 +579,7 @@ class Index:
         axioms = sum(1 for n in self._framework if n.node_type == "axiom")
         return {
             "claims": len(self._claims),
+            "definitions": len(self._definitions),
             "invariants": invariants,
             "axioms": axioms,
             "depends_on_edges": len(self._depends_on),
