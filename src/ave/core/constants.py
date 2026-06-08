@@ -694,8 +694,12 @@ KAPPA_FS_COLD: float = 8.0 * pi  # = 25.1327...
 #   c = 5 crossings → proton phase winding  ((2,5) cinquefoil)
 #   c = 7 crossings → (predicted next stable baryon)
 #
-# The crossing number c sets the soliton's confinement radius:
-#   r_opt = κ_FS / c
+# [dimensional-provenance relabel 2026-06-08] The crossing number c sets the
+# soliton's DIMENSIONLESS coupling-budget ratio (NOT a length / "confinement
+# radius"):
+#   r_opt = κ_FS / c   (a pure number — κ_FS = 8π is a pure geometric constant,
+#                        per KAPPA_FS_COLD above; the ℓ_node units below were
+#                        spurious)
 #
 # Physical basis: each crossing constrains the phase gradient by
 # absorbing a fraction of the total coupling. The 1D functional is
@@ -703,7 +707,13 @@ KAPPA_FS_COLD: float = 8.0 * pi  # = 25.1327...
 # number is the only topological invariant that bounds the soliton.
 #
 # The proton's cinquefoil crossing number c = 5 gives:
-#   r_opt = κ_eff / 5 ≈ 4.97 ℓ_node
+#   r_opt = κ_eff / 5 ≈ 4.99   (DIMENSIONLESS coupling-budget ratio, NOT a length)
+#   [relabel 2026-06-08: prior comment read "≈ 4.97 ℓ_node" — a dimensional
+#    category error; the ℓ_node units were spurious and 4.97 was a stale value
+#    (κ_eff/5 = 24.951/5 = 4.99; the 4.97 traced to an old δ_th = 1/(28π)).
+#    r_opt is a pure number; the only MEASURED proton size is the sub-node
+#    charge radius D_p ≈ 0.841 fm, ≈ 460× smaller than ℓ_node = 386 fm. The
+#    proton is NOT a ~5 ℓ_node extended object.]
 CROSSING_NUMBER_PROTON: int = 5  # (2,5) cinquefoil
 # Alias: the (2,5) torus knot is also called the cinquefoil. Same value, kept
 # for callers that refer to the knot by its name rather than the proton role.

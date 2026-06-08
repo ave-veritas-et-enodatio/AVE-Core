@@ -489,14 +489,14 @@ $$
 \approx 24.951
 $$
 
-**Step 3: Soliton Confinement Radius.**
+**Step 3: Soliton Coupling-Budget Ratio.** 🔴 *[dimensional-provenance relabel 2026-06-08 — prior heading* ~~"Soliton Confinement Radius"~~ *and the* ~~$\ell_{node}$~~ *units were a dimensional category error]*
 The proton is a $(2,5)$ cinquefoil torus knot with crossing number $c_5 = 5$.
-The crossing number bounds the phase gradient, setting the confinement radius:
+The crossing number bounds the phase gradient by absorbing a fraction of the total coupling; this is a **dimensionless coupling-budget ratio, NOT a length** ($\kappa_{eff}$ inherits the pure-geometric $\kappa_{FS}=8\pi$ per `constants.py:683-687`):
 
 $$
 r_{opt} = \frac{\kappa_{eff}}{c_5}
 = \frac{24.951}{5}
-\approx 4.99\;\ell_{node}
+\approx 4.99 \quad\text{(dimensionless; NOT $\ell_{node}$)}
 $$
 
 **Step 4: 1D Scalar Trace.**
