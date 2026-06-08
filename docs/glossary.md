@@ -74,6 +74,21 @@ The substrate has standard-physics-precise terminology — distinct concepts wit
 
 ---
 
+## 1.7. Transmission-line-vacuum / α-as-loss-tangent / self-commutation vocabulary (canonical 2026-06-07)
+
+Session 2026-06-07 reframe vocabulary. **All entries are CONSISTENCY-CLASS** (re-framings / lenses onto already-canonical substrate physics, not new derivations). Full ledger: [`research/2026-06-07_session-reframes-ee-fluids-mapping.md`](../research/2026-06-07_session-reframes-ee-fluids-mapping.md); EE-mapping home: [`translation-circuit.md §10`](../manuscript/ave-kb/common/translation-tables/translation-circuit.md).
+
+| Term | Meaning in AVE | Class / cross-ref |
+|---|---|---|
+| **Transmission-line vacuum** | The vacuum $\mathcal{M}_A$ IS a K4-TLM transmission-line network (Ax 1); its "fundamental constants" are EE properties of the line, not primitives | consistency; translation-circuit.md §10.1 |
+| **Line-property constant** | A "fundamental constant" re-read as a transmission-line property: $c$ = line velocity ($c_{EM}=c_0/S$, $c_{shear}=c_0\sqrt S$), $Z_0$ = characteristic impedance, $L=\mu_0$, $C=\varepsilon_0$, $R\leftrightarrow$ loss, $\alpha$ = coupling/loss. **None is fundamental.** Lorentz invariance ($c$ const) = EMERGENT cold-lattice ($S\to1$) limit | Class A identities + Class B (Lorentz); preferred-frame-and-emergent-lorentz.md |
+| **Screened effective precession** ($\alpha$) | $\alpha$ = the electron per-orbit spin-slip; its value $1/137$ framed as the *screened* low-energy residual of a bare coupling (running of $\alpha$). **α-VALUE DERIVATION OPEN** — Golden-Torus audit + screening-factor route are the open tests; do NOT claim derived | OPEN lens; translation-circuit.md §10.2; honest-α Class-B (clm-0ktpcn) |
+| **Slip-angle / loss-tangent-α** | $\alpha = 1/Q = \tan\delta \approx 1/137$, slip angle $\delta=\arctan\alpha\approx 0.418^\circ$. EE identity once $Q_{tank}=\alpha^{-1}$; the numeric value is a re-expression, not an independent prediction | Class A identity; translation-circuit.md §10.3; temporal-saturation-regime-classifier.md |
+| **Self-commutation** | The electron is a self-commutating 3-phase (FOC) machine: the Compton-clock spinor rotation IS the de Broglie propagation drive (rotor supplies its own commutation). The "½ phase-pair commutation" = the SPINOR DOUBLE-COVER (SU(2)→SO(3)), NOT a half-pole-pair machine; pole-pairs = the $(2,3)$ winding. **g=2 POSITED, not derived** | Class B (Cosserat spin) + structural; translation-circuit.md §10.4; spin-half-paradox.md:12-14 |
+| **Achiral-diamond reframe** (z=4) ⚠ FLAGGED | Reframe: substrate is z=4 *achiral* diamond, chirality = Cosserat microrotation NOT net chirality. z=4 tetrahedral IS canonical (water leaf, §1.6); the **achiral-vs-chiral framing is a FLAGGED TENSION** with Axiom 1's $I4_132$ *chiral* space group (cf. the $Fd\bar3m$ diamond-cubic wording in the Lorentz leaf) — **unadjudicated, for Grant** | FLAG (not landed); see session-reframes doc §2 |
+
+---
+
 ## 2. Three substrate boundary invariants — canonical names (Grant-locked 2026-05-14 evening)
 
 | Symbol | Canonical name | Operational definition | EE projection | QFT projection |
