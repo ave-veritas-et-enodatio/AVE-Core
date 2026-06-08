@@ -583,6 +583,28 @@ echo-not-chord ceiling.
 
 ---
 
+## §8 — Paper-#4 genesis extension: trap + freeze-in → electron soliton (consistency-class consolidation, added 2026-06-07)
+
+Added 2026-06-07 to consolidate the chat-only "paper-#4 extension" reframe (PR #120 sec14) into this doc, its
+natural fluids home. **CONSISTENCY-CLASS guided-analogy — each leg is a LENS, not a derivation.** This extends the
+Fork-A trap mapping (§2) and the entrainment→dark-wake mapping (§3) into a single genesis pipeline. Companion EE/vocab
+ledger: [`2026-06-07_session-reframes-ee-fluids-mapping.md`](2026-06-07_session-reframes-ee-fluids-mapping.md).
+
+| Paper-#4 fluid leg | AVE genesis leg | Substrate grounding (already canonical) | Class |
+|---|---|---|---|
+| Buoyant **vortex-ring TRAP** in sharp stratification (1110.3435 regimes) | The parametric **threshold** that confines the nascent soliton | §2 trap-vs-escape → genesis confinement; the seeded $\Gamma\!\to\!-1$ rupture (pair-production coupling) | consistency lens |
+| **FREEZE-IN** (the trapped ring locked in) | **Water-style crystallization** of the K4 lattice around the defect → the electron soliton | [`water-anomaly-lc-partition.md`](../manuscript/ave-kb/vol3/condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md): same Axiom-4 first-order $\sqrt{1-A^2}$ crystallization mechanism class (latent-heat homeostasis, constant density) | consistency lens |
+| **ENTRAINMENT** (the buoyant wake the ring drags) | The **dark-wake split**: near-field reactive self-energy = mass; far-field radiated shear = loss | already canonical: [`translation-circuit.md §4`](../manuscript/ave-kb/common/translation-tables/translation-circuit.md) dark-resonance $\Sigma_{near}$ (near-field mass) + dark-wake $\tau^{far}_{zx}$ (far-field loss) | consistency lens (canonical split) |
+| **FISSION** of an over-driven ring | **Decay / shower** (over-threshold soliton sheds daughters) | lens only — NOT derived; no canonical decay-channel mapping asserted | OPEN lens |
+
+**Honest framing.** The freeze-in↔water-crystallization tie is the load-bearing new connection (it routes genesis
+confinement through the *already-canonical* Axiom-4 crystallization kernel rather than a bespoke trap criterion).
+The fission→decay leg is the weakest — a verbal analogy with no substrate-mechanism behind it; flagged OPEN, not
+claimed. **No α-derivation, no emergence claim, no new KB leaf** (consistent with the §7 "NO leaf" call). The
+electron-soliton genesis remains the live open Fork-A problem; this section is a fluids lens onto it, not a closure.
+
+---
+
 ## Cross-references (canonical leaves + corpus + papers — verify-before-cite checked)
 
 **The papers (access-tagged per §0 ledger)**

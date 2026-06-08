@@ -1,0 +1,210 @@
+{
+  "scope": "alpha-identity discriminator; comparison-only scoring",
+  "amplitudes": [
+    0.48,
+    1.0,
+    2.0,
+    3.0,
+    3.5,
+    4.0
+  ],
+  "rows": [
+    {
+      "amplitude": 0.48,
+      "A_peak_trace": 0.48,
+      "gamma_min": -0.013394911116755644,
+      "eps_gamma": 0.9998205763561742,
+      "q_gamma": 3.1421564307460685,
+      "screened_variance": 0.09344771018693,
+      "screened_rms": 0.30569218208343174,
+      "strain_asymmetry": 0.007579009401263582,
+      "twist_rate": 0.09950403957060451,
+      "torque_coupling_ratio": 13.128897762551274,
+      "q_lambda_sum": 118.00435666876417,
+      "alpha_used_as_input": false
+    },
+    {
+      "amplitude": 1.0,
+      "A_peak_trace": 1.0,
+      "gamma_min": -0.551920893971403,
+      "eps_gamma": 0.6953833267978073,
+      "q_gamma": 4.517785417802023,
+      "screened_variance": 0.11424967105217401,
+      "screened_rms": 0.3380083890263288,
+      "strain_asymmetry": 0.03800859181286265,
+      "twist_rate": 0.10053984488093753,
+      "torque_coupling_ratio": 2.645187313856585,
+      "q_lambda_sum": 104.93407335914944,
+      "alpha_used_as_input": false
+    },
+    {
+      "amplitude": 2.0,
+      "A_peak_trace": 2.0,
+      "gamma_min": -0.6041769888309252,
+      "eps_gamma": 0.634970166167196,
+      "q_gamma": 4.947622456899133,
+      "screened_variance": 0.15544977078135372,
+      "screened_rms": 0.3942711893879056,
+      "strain_asymmetry": 0.04104508849022602,
+      "twist_rate": 0.18101160521005932,
+      "torque_coupling_ratio": 4.410067364166196,
+      "q_lambda_sum": 95.32198453133645,
+      "alpha_used_as_input": false
+    },
+    {
+      "amplitude": 3.0,
+      "A_peak_trace": 3.0,
+      "gamma_min": -0.6340925123349184,
+      "eps_gamma": 0.5979266858007914,
+      "q_gamma": 5.2541435734421515,
+      "screened_variance": 0.12142831031279029,
+      "screened_rms": 0.34846565155376547,
+      "strain_asymmetry": 0.28879182580013296,
+      "twist_rate": 0.21924255167086712,
+      "torque_coupling_ratio": 0.7591715972688247,
+      "q_lambda_sum": 56.52713089718459,
+      "alpha_used_as_input": false
+    },
+    {
+      "amplitude": 3.5,
+      "A_peak_trace": 3.5,
+      "gamma_min": -0.6344923727445325,
+      "eps_gamma": 0.5974194289290132,
+      "q_gamma": 5.258604761518535,
+      "screened_variance": 0.15343360401072775,
+      "screened_rms": 0.39170601732769916,
+      "strain_asymmetry": 0.09614218456537812,
+      "twist_rate": 0.22539012895566704,
+      "torque_coupling_ratio": 2.344341664115177,
+      "q_lambda_sum": 77.59413376581686,
+      "alpha_used_as_input": false
+    },
+    {
+      "amplitude": 4.0,
+      "A_peak_trace": 4.0,
+      "gamma_min": -0.6344877705724438,
+      "eps_gamma": 0.5974252689940099,
+      "q_gamma": 5.258553356606167,
+      "screened_variance": 0.1928061748959053,
+      "screened_rms": 0.43909699941573876,
+      "strain_asymmetry": 0.2508167405191937,
+      "twist_rate": 0.2844281324508921,
+      "torque_coupling_ratio": 1.1340077694260853,
+      "q_lambda_sum": 18.37889459019316,
+      "alpha_used_as_input": false
+    }
+  ],
+  "scoring": {
+    "family_mean_log10_rel_err": {
+      "H1_cage_leak": 1.9658540579239112,
+      "H2_projector_alpha": 0.6330324084654274,
+      "H2_projector_half": 0.28487041173666305,
+      "H3_torque_coupling": 2.551853437499272,
+      "H4_four_pi": 0.4310784131837115,
+      "H5_static_geometry": 0.30710015811009717
+    },
+    "ranked_families": [
+      [
+        "H2_projector_half",
+        0.28487041173666305
+      ],
+      [
+        "H5_static_geometry",
+        0.30710015811009717
+      ],
+      [
+        "H4_four_pi",
+        0.4310784131837115
+      ],
+      [
+        "H2_projector_alpha",
+        0.6330324084654274
+      ],
+      [
+        "H1_cage_leak",
+        1.9658540579239112
+      ],
+      [
+        "H3_torque_coupling",
+        2.551853437499272
+      ]
+    ],
+    "per_row_scores": [
+      {
+        "H1_cage_leak_eps_vs_alpha": 2.136757706378302,
+        "H2_projector_var_vs_alpha": 1.1074043000990679,
+        "H2_projector_rms_vs_sqrt_alpha": 0.5537021500495338,
+        "H3_torque_coupling_vs_alpha": 3.25506390246719,
+        "H4_q_gamma_vs_four_pi": 0.6019820616381023,
+        "H5_q_lambda_vs_137": 0.06493759450546044,
+        "H2_half_var": 0.728401340305113,
+        "H2_half_rms": 0.36420067015255664
+      },
+      {
+        "H1_cage_leak_eps_vs_alpha": 1.9790599094638388,
+        "H2_projector_var_vs_alpha": 1.1946905943905197,
+        "H2_projector_rms_vs_sqrt_alpha": 0.5973452971952599,
+        "H3_torque_coupling_vs_alpha": 2.559292067257488,
+        "H4_q_gamma_vs_four_pi": 0.4442842647236391,
+        "H5_q_lambda_vs_137": 0.11591910431812481,
+        "H2_half_var": 0.6411150460136611,
+        "H2_half_rms": 0.32055752300683055
+      },
+      {
+        "H1_cage_leak_eps_vs_alpha": 1.9395889566777156,
+        "H2_projector_var_vs_alpha": 1.3284257220583948,
+        "H2_projector_rms_vs_sqrt_alpha": 0.6642128610291974,
+        "H3_torque_coupling_vs_alpha": 2.7812808594730103,
+        "H4_q_gamma_vs_four_pi": 0.40481331193751585,
+        "H5_q_lambda_vs_137": 0.1576425606182844,
+        "H2_half_var": 0.5073799183457861,
+        "H2_half_rms": 0.2536899591728931
+      },
+      {
+        "H1_cage_leak_eps_vs_alpha": 1.9134835727253119,
+        "H2_projector_var_vs_alpha": 1.221155587875429,
+        "H2_projector_rms_vs_sqrt_alpha": 0.6105777939377145,
+        "H3_torque_coupling_vs_alpha": 2.017175587621008,
+        "H4_q_gamma_vs_four_pi": 0.3787079279851123,
+        "H5_q_lambda_vs_137": 0.38457869318972093,
+        "H2_half_var": 0.6146500525287519,
+        "H2_half_rms": 0.307325026264376
+      },
+      {
+        "H1_cage_leak_eps_vs_alpha": 1.9131149784398076,
+        "H2_projector_var_vs_alpha": 1.322756122396689,
+        "H2_projector_rms_vs_sqrt_alpha": 0.6613780611983445,
+        "H3_torque_coupling_vs_alpha": 2.5068565420604227,
+        "H4_q_gamma_vs_four_pi": 0.3783393336996078,
+        "H5_q_lambda_vs_137": 0.24700674689034532,
+        "H2_half_var": 0.5130495180074919,
+        "H2_half_rms": 0.25652475900374594
+      },
+      {
+        "H1_cage_leak_eps_vs_alpha": 1.9131192238584909,
+        "H2_projector_var_vs_alpha": 1.4219565747650287,
+        "H2_projector_rms_vs_sqrt_alpha": 0.7109782873825142,
+        "H3_torque_coupling_vs_alpha": 2.1914516661165115,
+        "H4_q_gamma_vs_four_pi": 0.37834357911829103,
+        "H5_q_lambda_vs_137": 0.8725162491386472,
+        "H2_half_var": 0.4138490656391523,
+        "H2_half_rms": 0.20692453281957618
+      }
+    ],
+    "h1_eps_monotone_decreasing": false,
+    "h1_gamma_monotone_increasing": false,
+    "closest_eps_to_alpha": {
+      "amplitude": 3.5,
+      "abs_err": 0.5901220925849486
+    },
+    "verdict": "DISCRIMINATOR_INCONCLUSIVE",
+    "outcome": "E",
+    "interpretation": "Lower mean log10 relative error = better match. H1 wins on mechanism if eps tracks 1-gamma^2 and approaches alpha only near full TIR. Short-term images = H2/H3."
+  },
+  "comparison_only": {
+    "alpha": 0.007297336344064641,
+    "alpha_inv": 137.0363037758784,
+    "four_pi": 12.566370614359172,
+    "screened_half": 0.5
+  }
+}

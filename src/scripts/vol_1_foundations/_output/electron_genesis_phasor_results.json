@@ -1,0 +1,25 @@
+{
+  "trap_amp": 1.25,
+  "snap_step": 14,
+  "n_pre_samples": 8,
+  "n_post_samples": 493,
+  "sample_port": 0,
+  "sample_site": "shell_mean_r<=6",
+  "gamma_min_post": -0.9936953950347557,
+  "gamma_final_post": -0.993693986997749,
+  "gamma_target_for_alpha": -0.9963446510399578,
+  "eps_gamma_mean_post": 0.012574383957747319,
+  "abs_eps_minus_alpha": 0.005277047613682678,
+  "tir_held": true,
+  "pca_post_snap": {
+    "R": 0.014213859286796573,
+    "r": 0.0024764714934531495,
+    "R_over_r": 5.739561034468848,
+    "centroid_v_inc": -0.006885292575865496,
+    "centroid_v_ref": 0.00671119797007616,
+    "angle_deg": 50.023003915205685
+  },
+  "phi_sq_target": 2.618033988749895,
+  "comparison_only_alpha": 0.007297336344064641,
+  "n_trajectory_points": 501
+}
