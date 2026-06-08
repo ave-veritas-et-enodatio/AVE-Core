@@ -4,6 +4,8 @@
 **JSON:** `src/scripts/vol_1_foundations/_output/native_electron_propagation_results.json`  
 **GIF:** `assets/sim_outputs/native_electron_propagation.gif` (amp=1.5)
 
+> **Framing scope (B2 — planted-persistence / wall-reachability, NOT emergent formation).** The native drivers here (`native_electron_propagation.py`, `native_electron_reseed_handoff.py`, `electron_genesis_snap.py`) seed a finished electron ansatz — `initialize_electron_unknot_sector(R=0.5, r=0.25)` (unknot torus) + bulk `seed_sech_v_inc` blob — and run **one-way Cosserat→K4 coupled** (`disable_cosserat_lc_force=True`). "Genesis = propagate → snap trap" and "wall formation" below mean **the imposed ansatz reaches/holds a Γ=−1-class trap at the motion site**, not emergent formation of the electron from generic initial data.
+
 ## Verdict: `PROPAGATION_WITH_TIR_AT_WALL` (split by amplitude)
 
 | Amp | Δx (centroid) | Γ_min @ core | ε | Read |
