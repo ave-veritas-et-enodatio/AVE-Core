@@ -88,7 +88,11 @@ Output: `src/scripts/vol_1_foundations/_output/unified_amplitude_gamma_sweep_res
 
 ## §8 Adjudication
 
-**Verdict: `CALIBRATION_CRUX_WINDOW_UNCAPPED_OBSERVER` (partial primary-prediction falsification).**
+**Verdict (capped observer — load-bearing): `CALIBRATION_CRUX_NO_CAPPED_WINDOW`.**
+
+The engine-matching **capped-Γ observer (`A_cap = 0.99`)** reaches **Outcome C — no wall**: deepest `Γ_min ≈ −0.4253` at amplitudes ≥ 3.0, never crossing the `−0.5` wall threshold (`wall_pass = false`, `window_pass = false`). This is the load-bearing result and the headline. The uncapped-Γ observer's apparent window at `Γ_min ≈ −0.61` (amplitudes 3.0–4.0) is a **full-strain diagnostic artifact** that the engine never realizes — see below; do not headline the uncapped −0.61.
+
+> Superseded headline label (for audit-trail continuity): `CALIBRATION_CRUX_WINDOW_UNCAPPED_OBSERVER`. It elevated the uncapped-observer window and is corrected here — the capped observer is the one that matches engine numerics.
 
 ### Capped-Γ observer (A_cap = 0.99, matches engine numerics)
 
