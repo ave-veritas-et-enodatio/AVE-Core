@@ -158,24 +158,143 @@ load-bearing; several gate the soliton-size adoption.
 
 ## 5. NEW INFRASTRUCTURE
 
-<!-- infra -->
+- **2 new skills (drafted + live-validated this session, §40):**
+  - `ave-dimensional-provenance-check` — the coupling/count-as-length guard.
+    Would have pre-empted the three category-errors of this class: 8π/5 (coupling
+    ratio as length), z₀=52 (path-count as coordination), (2,5) (phase as
+    real-space). Lint rule it carries: a dimensionless budget-ratio is NEVER
+    multiplied by ℓ_node.
+  - `ave-live-fire-derivation-provenance` — the dead-input + forward-vs-fit
+    residual guard. Caught node_pitch DEAD (I_scalar identical at 1 vs 1e6) and
+    the proton/Δ forward-not-fit signature (forward misses exact CODATA by
+    0.0019% = the derivation signature; a reverse-fit hits machine precision).
+- **Code-provenance index prototype (PR #136, §44).** 6-record registry
+  (m_p/m_e, m_Δ, m_μ/m_e, m_τ/m_e, m_n, r_opt) + `verify_code_provenance.py`
+  drift-gate + honest "6-seed PROTOTYPE, NOT all-code-tracked" framing; mirrors
+  `claims.jsonl`. It caught a §41 error on its first run (leptons are
+  LOOSELY-gated at ±2%, not ungated). 4 verifier-robustness WARNs queued.
 
 ## 6. OPEN TENSIONS (carry into next effort)
 
-<!-- tensions -->
+- **A46 two-axes — do NOT fuse.** The corpus restricts "aliasing" to the
+  SPATIAL/Brillouin axis (q>π/ℓ_node); extending it onto the PHASE-SPACE
+  CARRIER axis (ω=mc²/ℏ) is the conflation the corpus forbids. They coincide
+  NUMERICALLY at c/ℓ_node but are PHYSICALLY distinct. "phase-space = sub-node"
+  fuses the two. [§35/§46/§47.]
+- **crossing→radius law runs OPPOSITE** (more crossings → SMALLER r_opt:
+  electron 8.38, proton 5.03) — self-consistent ONLY if r_opt is not a real-space
+  size (i.e. only under the κ_share reading). [§46 tension 3.]
+- **The proton spatial-extent / 2281× fork** (= the §43/§45 A-vs-B Grant
+  decision). The sub-node body (D_p=0.84fm = ℓ_node/459) is genuinely sub-
+  Nyquist; the winding survives (phasor-invariant), the body is aliased. [§36/§45.]
+- **√(3/7) elastic-type** (dilatational vs torsion-shear; Grant decision #4).
+- **Recurring session pattern (load-bearing meta).** The orchestrator
+  repeatedly inflated Grant's good INTUITIONS into "new mechanisms" and reasoned
+  from a partial archive slice — multiple corrections from Grant's pointers
+  (φ-premise inverted; z₀ "untouched"/the 2026-05-18 z₀ effort missed;
+  chiral-matching ungrounded; cog→belt-trick; spherical-vs-cubic envelope). Next
+  effort: GROUND intuitions + SWEEP the archive BEFORE framing a result. [§24/§28/§31.]
 
 ## 7. The scoped soliton-size adoption plan (the recommended next workstream)
 
-<!-- adoption-plan -->
+Gated on the §47 vocab-disambiguation lock + Grant greenlight. When unblocked,
+the adoption deliverable is (from §46/§47):
+
+1. **Canonical soliton-size leaf** — two SPATIAL sizes across the Nyquist node
+   (real-space body above ℓ_node / sub-node SPATIAL charge-core below) + the
+   phase-space WINDING ((2,3)) recorded as a DISTINCT identity axis, NOT a size.
+2. **`r_opt → κ_share` rename** (0 corpus hits; dimensionless coupling-budget;
+   lint: NEVER × ℓ_node) — completes the §43 walk-back.
+3. **A SEPARATE name for the 2nd genuine length** (`r_env` / saturation-boundary)
+   — §47 found r_opt also denotes a real soliton HWHM/tube-radius in live
+   fit-params; "r_opt is dimensionless" was only half the story.
+4. **§43 A/B resolution recorded** (once Grant decides #2/#3) — bug (A) vs
+   correct-scale STLs (B).
+5. **§45 GAP closure** — name the ≥6 length scales the corpus conflates
+   (ℓ_node=substrate-spacing, D_p=charge-radius, Compton=localization, …).
+6. **Cross-section-vs-radius fix** — `02_baryon_sector.tex:40` equates an AREA
+   (L²) to a LENGTH (L); the 0.84fm is the charge RADIUS, mislabeled.
+7. **`ACCURATE_SCALING.md` two-size update** + **`dimensional-provenance-check`
+   κ_share lint** + **`ave-walk-back` propagation** across the 14 surfaced sites.
 
 ## 8. SKILL-CANDIDATE (watch list)
 
-<!-- skill-candidate -->
+- **`lock-vocab-before-canonizing`** (§46) — verify-before-cite extended to
+  definitional clarity: a 5-way term cross-check (corpus-usage + axis +
+  dimension + collision + ambiguous-usage hunt) BEFORE locking a new canonical
+  term. Applied first to this adoption (the `w1pc27h3k` disambiguation IS the
+  skill in action — it found 14 ambiguous load-bearing terms before the canon
+  was written). Draft if it recurs / earns tenure.
 
 ## 9. WORKTREE-PRUNE list (list-only — do NOT prune this session)
 
-<!-- worktree-prune -->
+AVE-Core carries **46 worktrees**: 21 KEEP (open-PR) + 22 PRUNE-SAFE + 3 HOLD.
+Reproduced via `git worktree list`, `gh pr list`, `git branch --merged
+origin/main`, `git cherry origin/main <branch>`, `git status --short`.
+`origin/main` HEAD = `63e6671a`. **This session lists only — it prunes nothing.**
+
+### KEEP (21) — one per open PR; do NOT prune
+
+Every open PR (#117–#137) maps 1:1 to a live worktree (table in the PR review
+guide). All clean except the main checkout. **The main checkout
+`/Users/grantlindblom/AVE-staging/AVE-Core` is parked on `analysis/2026-06-07-
+two-node-alpha-projection` (= PR #126)** and carries 1 untracked stray not part
+of #126: `_orchestration/experimental/c15-cleave-01/exp-c15-cleave-01-state-
+audit-2026-06-06.md`. KEEP regardless; flagging the stray.
+
+### PRUNE-SAFE (22) — merged OR stale-no-PR, working tree CLEAN
+
+**A. Merged-to-origin-main + clean (12):**
+- `/private/tmp/ave-bemf-long` (PR #89) · `/private/tmp/ave-ds-build` (PR #86)
+- `…/AVE-Core-coherence-reynolds-wt` (#109) · `…/AVE-Core-doc-reconciles-wt` (#102)
+- `…/AVE-Core-entrainment-wt` (#115/#112) · `…/AVE-Core-holonomy-wt` (#110)
+- `…/AVE-Core-nb-wt` (#84) · `…/AVE-Core-quaternion-wt` (#99)
+- `…/AVE-Core-skindepth-wt` (#97) · `…/AVE-Core-trampoline-wt` (#106)
+- `…/.claude/worktrees/agent-a78af06c7311976b7` — gravity-ppn-coherence (#91
+  MERGED — corrects the MEMORY stale-belief that recorded this branch "not merged")
+- `…/.claude/worktrees/agent-a7f46b8c6ecb22523` — electron-rotor-synthesis (#116,
+  == origin/main parent)
+
+**B. Merged-by-ancestry + clean + LOCKED (3) — need `git worktree unlock` first:**
+- `…/.claude/worktrees/agent-a69468dce2e62b5d4` — casimir-coldfusion-walkbacks
+- `…/.claude/worktrees/agent-a93319e705a22375f` — placeholder branch
+- `…/.claude/worktrees/agent-ac61b174858eddb7b` — qg42-resume
+
+**C. Stale (no PR, real unmerged commits) + clean (7)** — branch ref retains
+commits after `git worktree remove`; no data loss:
+- `/private/tmp/ave-bemf` — motion-stability-bemf [5 commits, 2026-06-04]
+- `/private/tmp/ave-bemf-cos` — motion-stability-bemf-cosserat [2, 2026-06-04]
+- `/private/tmp/ave-ii-build` — moving-electron-probe [9, 2026-06-04]
+- `…/AVE-Core-integrator-wt` — cosserat-geometric-integrator [7, 2026-06-06]
+- `…/AVE-Core-obs-battery-wt` — genesis-armB-flywheel-seed [2, 2026-06-06]
+- `/private/tmp/ave-vol0-recon-wt` — vol0-kb-reconciliation-ledger [4, **2026-06-08
+  = today**] ⚠ RECENT — confirm not mid-flight before prune
+- `…/AVE-Core-pathc-wt` — pathc-z0-amorphous-emt [2, **2026-06-08 = today**] ⚠
+  RECENT — confirm not mid-flight before prune (this is the §29/§31 Path C branch)
+
+### HOLD (3) — uncommitted changes present; do NOT prune (protects un-saved work)
+
+- `…/AVE-Core-genesis2-wt` — saturation-tir-moving-boundary (STALE, 4 unmerged
+  commits) — **4 MODIFIED tracked files (un-saved work):**
+  `assets/sim_outputs/trefoil_alpha_qfactor.png`,
+  `src/ave/topological/cosserat_field_3d.py`,
+  `src/ave/topological/k4_cosserat_coupling.py`,
+  `src/ave/topological/vacuum_engine.py`
+- `…/AVE-Core-fbd-wt` — fluxtube-dynamics-fbd (MERGED) — **1 untracked research
+  doc:** `research/2026-06-07_electron-flux-tube-dynamics-fbd.md`
+- `…/AVE-Core-2-3-wt` — 2-3-winding-extractor (MERGED) — **2 untracked sim
+  artifacts (likely regenerable):** `…r10_2_3_winding_extractor_coordinate_
+  capture.npz`, `…_coordinate_results.json`
+
+**Scope note:** AVE-Core worktrees only (the 46 in `git worktree list`). Sibling
+repos (HOPF, PONDER, …) not triaged this turn.
 
 ## 10. Cross-references
 
-<!-- xrefs -->
+- **Detailed phase log:** [`2026-06-07_electron-synthesis-epic.md`](2026-06-07_electron-synthesis-epic.md)
+  §0–§47 (carried by PR #120) — the full session narrative, all workflow IDs,
+  every walk-back and correction.
+- **Per-PR review:** [`2026-06-08_pr-review-guide.md`](2026-06-08_pr-review-guide.md)
+  — the 21-PR fast-review checklist, dependency + risk ordered.
+- **Orchestration index:** [`index.md`](index.md) — the 2026-06-08 reconciliation
+  section carries the priority-ladder + open-decisions + PR-queue deltas.
