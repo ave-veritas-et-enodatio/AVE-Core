@@ -1,5 +1,17 @@
 # AVE-Core Glossary — Substrate-Native Vocabulary
 
+> **Rendered view of the vocabulary spine.** As of 2026-06-08 the tracked
+> source of truth for adjudicated AVE terms is the `def-` spine register
+> [`manuscript/ave-kb/common/vocabulary-register.md`](../manuscript/ave-kb/common/vocabulary-register.md)
+> (node-type specified in [`.index/SCHEMA.md`](../manuscript/ave-kb/.index/SCHEMA.md);
+> the third tracked index after the `clm`/`exp`/`sup` claim graph and the
+> code-provenance index). **This glossary is a human-facing rendered view; the
+> spine register wins on disagreement** (and this glossary is re-synced from it).
+> The register additionally carries the *adjudication status* (SOLID / ambiguous /
+> proposed / retired), the substrate *axis*, and the *open-ambiguity flags* +
+> verified conflicting sites that this prose table does not — consult it before
+> treating any term below as locked.
+
 **Created 2026-05-15.** Canonical substrate-native vocabulary for the
 AVE-Core manuscript. The same vocabulary table is reproduced in the
 **Common Foreword** (§Three Boundary Observables / §Substrate Vocabulary)
@@ -163,8 +175,15 @@ All three must give the same $u_0^*$ or the single-cosmological-parameter framew
 
 ## 6. Maintenance
 
+**Source of truth: the `def-` spine register**
+([`manuscript/ave-kb/common/vocabulary-register.md`](../manuscript/ave-kb/common/vocabulary-register.md)).
+This glossary is its **rendered view** — when an adjudicated term's *meaning,
+status, axis, or ambiguity-flag* changes, edit the spine register first and
+re-sync this view from it (the register is verifier-tracked; this prose view is
+not). Do not adjudicate a term's status here.
+
 Update this glossary when:
-- New canonical substrate-native term added (sync from Common Foreword or Vol 1 Ch 1)
+- New canonical substrate-native term added (sync from the spine register, Common Foreword, or Vol 1 Ch 1)
 - New chapter cross-reference comes online
 - New A-NNN catalog entry affects vocabulary (sync to top tables)
 
