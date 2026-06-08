@@ -298,3 +298,48 @@ repos (HOPF, PONDER, …) not triaged this turn.
   — the 21-PR fast-review checklist, dependency + risk ordered.
 - **Orchestration index:** [`index.md`](index.md) — the 2026-06-08 reconciliation
   section carries the priority-ladder + open-decisions + PR-queue deltas.
+
+## Post-consolidation addendum (2026-06-08)
+
+Three items closed/clarified after the §16–§47 handoff above was frozen.
+
+- **(i) Double-slit capstone — the QM-trio made empirical (PR #139, epic §48).**
+  The §33 trio (superposition=aliasing / collapse=sampling / entanglement=thread)
+  now has its empirical capstone: a real FDTD interference field read out by a
+  competing-Poisson **click detector** that recovers the Born statistic
+  `p ∝ |ψ|²` from discrete clicks with **NO Born / `p=|ψ|²` / multinomial /
+  inverse-CDF anywhere in the detector** — click placement is an FDT
+  threshold-crossing first-passage race (no observer, no projection postulate).
+  **Auditor verdict: GENUINE-EMERGENCE.** Killer non-circularity = the
+  regime-dependence probe: a low-contrast ramp gives a **3.47× ratio**, NOT the
+  **25× of hidden rate-squaring** NOR a **regime-invariant fixed-χ² |ψ|²-sampler**;
+  validation χ²/dof=1.02, KS=0.009, corr=0.968, n=6000 on a real field with deep
+  `|E|²=0` nulls. **HONEST SCOPE:** what emerges is the **collapse mechanism**
+  (discrete clicks out of a continuous field) + **click-density ∝ power**; the
+  exponent **"2" is the EM energy-vs-amplitude power-law — physically forced, NOT
+  topology-derived** (the (2,3) winding is not shown here). consistency-vs-
+  emergence: **Class-2 emergence** (clicks + |ψ|² stats) + **Class-4 consistency**
+  (Born + Fraunhofer). 2 auditor nits being closed on #139 (commit-verb
+  "DERIVED"→"energy-forced"; argmax-fallback asserted-zero counter).
+- **(ii) #127 vacuum-piezoelectric — CONFLICTING → RESOLVED, MERGEABLE/CLEAN.**
+  origin/main advanced (`translation-circuit.md` gained §10, the 2026-06-07
+  reframes), putting #127 in conflict on that leaf. Resolved via a **KEEP-BOTH
+  merge of origin/main**: main's §10 reframes kept verbatim + the piezo section
+  **renumbered §10→§11** ("The vacuum as a chiral piezoelectric Cosserat solid");
+  **nothing dropped** (merge diff `+21/−0`, `make verify` green). #127 has since
+  MERGED to main (commit `2e12040`, mergedAt 2026-06-08T17:52Z).
+- **(iii) The Vacuum Datasheet already exists — it IS Vol 9.** The "vacuum =
+  chiral piezoelectric Cosserat solid" prose (§30/§32, PR #127) is a *consistency
+  reframe of one operating point*, not a new datasheet: **Vol 9 IS the canonical
+  Vacuum Datasheet.** Ch.1 (`vol_9_vacuum_datasheet/chapters/01_general_description.tex:18`)
+  carries the substrate **IDENTITY** — "a 3D chiral Laves K4 Cosserat crystal …
+  with right-handed `I4₁32` chiral space group, 4-fold K4 nearest-neighbour
+  connectivity, and intrinsic LC oscillators at every node". Ch.14
+  (`chapters/14_phase_diagrams.tex`) carries the **PHASE DIAGRAM** — the
+  operating-point axis (Regime I linear / II saturating / III avalanche / IV
+  rupture, along the Ax 4 kernel) AND the cosmic axis (standard / ruptured-plasma
+  / lattice-genesis). **The prior prose "solid" description is Regime I** (linear /
+  small-signal: `r < √(2α) ≈ 0.1208`, `S > 0.993`, "standard Maxwell/Newton
+  recovered") **of that phase-diagram** — one cell of Vol 9 ch14, not a standalone
+  characterization. Reframes the datasheet-program question (#124): the program is
+  a Vol 9 cross-check, not a net-new artifact.
