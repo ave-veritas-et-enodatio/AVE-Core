@@ -378,6 +378,115 @@ def render_montage(data: dict) -> Path:
     return out
 
 
+# ── DEDICATED interstitial still: the "drop in water" condensation ─────────────
+# A GENUINE captured frame (steps probed every PROBE_EVERY=4) in the saturation-
+# onset → self-trap transition, BETWEEN stage-b (s24, the collision/onset crest)
+# and stage-c (s72, the radiative shedding). At this frame the diffuse two-lobe
+# photon has fully COALESCED into a single coherent localized core wrapped by ONE
+# closed saturation skin (the √(2α) Axiom-4 kernel-onset contour). Frame choice is
+# substrate-grounded, not interpolated: at s24 the raw peak-A metric is maximal but
+# that frame IS stage-b; at the s28 breathing-node the skin fragments into 3 broken
+# contours; s32 is the post-coalescence breathing crest where the skin re-forms as a
+# SINGLE closed boundary around a single condensed core — the cleanest distinct
+# droplet reading in the interstitial window.
+DROPLET_STEP = 32
+
+
+def _crop_interior(arr2d, n, pml):
+    """Rule-10 interior crop (PML excluded) — the droplet hero shot shows physics
+    cells only, no frozen-absorbing boundary artifact."""
+    return arr2d[pml:n - pml, pml:n - pml]
+
+
+def panel_droplet_skin(ax, A_xz, n, pml, *, title):
+    """xz saturation skin (interior-cropped). The √(2α) contour is the Axiom-4
+    kernel-engagement onset — the 'surface-tension' skin condensing the core."""
+    Ai = _crop_interior(A_xz, n, pml).T
+    im = ax.imshow(Ai, origin="lower", cmap="magma", vmin=0.0, vmax=1.0,
+                   interpolation="bilinear", aspect="equal")
+    if Ai.max() > SQRT2A:
+        ax.contour(Ai, levels=[SQRT2A], colors=["#33e0ff"], linewidths=1.9, alpha=0.95)
+    ax.set_title(title, color=FG, fontsize=8.5, pad=4)
+    ax.set_xlabel("x  (propagation →)", color=MUTE, fontsize=7)
+    ax.set_ylabel("z", color=MUTE, fontsize=7)
+    ax.set_xticks([]); ax.set_yticks([])
+    _dark(ax)
+    _tag(ax, "REAL · skin = Axiom-4 onset √(2α)", REAL_C)
+    return im
+
+
+def panel_droplet_core(ax, u_plane, n, pml, *, title, xlabel):
+    """Interior-cropped energy density u — the condensed coherent droplet core,
+    with a 0.5·max contour marking the core boundary."""
+    ui = _crop_interior(u_plane, n, pml).T
+    ub = ui / max(ui.max(), 1e-30)
+    im = ax.imshow(ub, origin="lower", cmap="inferno", vmin=0, vmax=1,
+                   interpolation="bilinear", aspect="equal")
+    ax.contour(ub, levels=[0.5], colors=["#33e0ff"], linewidths=1.0, alpha=0.55)
+    ax.set_title(title, color=FG, fontsize=8.5, pad=4)
+    ax.set_xlabel(xlabel, color=MUTE, fontsize=7)
+    ax.set_xticks([]); ax.set_yticks([])
+    _dark(ax)
+    _tag(ax, "REAL · engine energy_density()", REAL_C)
+    return im
+
+
+def render_interstitial_droplet(data: dict) -> Path:
+    """The 'drop in water' interstitial: saturation skin + condensed core at a
+    GENUINE captured frame in the onset→self-trap transition (no interpolation)."""
+    n, pml = data["N"], data["PML"]
+    steps = data["ce_steps"]
+    fi = frame_for_step(steps, DROPLET_STEP)
+    st = int(steps[fi])
+    assert st == DROPLET_STEP, (
+        f"interstitial must be a GENUINE captured frame; expected step "
+        f"{DROPLET_STEP}, nearest captured is {st} (probe spacing mismatch)")
+    peakA = float(data["ce_peakA"][fi]); Smin = float(data["ce_Smin"][fi])
+
+    fig = plt.figure(figsize=(13.6, 5.7))
+    fig.patch.set_facecolor(BG)
+    gs = fig.add_gridspec(1, 3, wspace=0.16, left=0.04, right=0.985,
+                          top=0.82, bottom=0.255)
+    ax0 = fig.add_subplot(gs[0, 0])
+    panel_droplet_skin(ax0, data["ce_xz_A"][fi], n, pml,
+                       title="Saturation skin  A = |E|·dx / A_yield   (xz — the surface-tension boundary)")
+    ax1 = fig.add_subplot(gs[0, 1])
+    panel_droplet_core(ax1, data["ce_xz_u"][fi], n, pml,
+                       title="Condensed core  u   (xz propagation plane)",
+                       xlabel="x  (propagation →)")
+    ax2 = fig.add_subplot(gs[0, 2])
+    panel_droplet_core(ax2, data["ce_yz_u"][fi], n, pml,
+                       title="Droplet cross-section  u   (yz transverse plane)",
+                       xlabel="y")
+
+    fig.suptitle(
+        f"ELECTRON GENESIS · INTERSTITIAL — the “drop in water” condensation"
+        f"     step {st}   ·   peak A = {peakA:.3f}   ·   S(A)ₘᵢₙ = {Smin:.3f}",
+        color=FG, fontsize=12.5, fontweight="bold", y=0.975)
+    fig.text(0.5, 0.885,
+             "the diffuse two-lobe photon has COALESCED into one coherent core wrapped by a single closed "
+             "saturation skin  ·  genuine captured FDTD frame, between stage-b (s24 onset) and stage-c (s72 shedding)",
+             color=REAL_C, fontsize=8.3, ha="center")
+
+    # honesty footer (ave-evidence-framing-discipline) — REAL vs apt-analogy, colored
+    lines = [
+        ("REAL (engine-demonstrated):  the Axiom-4 saturation self-trap LOCALIZATION — the kernel S(A)=√(1−A²) "
+         "engages where A crosses √(2α), condensing the field into a coherent localized core.", REAL_C),
+        ("“drop in water” = the apt PHYSICAL reading:  the cubic saturation boundary acts as SURFACE TENSION between "
+         "the soliton’s energy and the vacuum, condensing the diffuse field into a coherent core — NOT a claim of literal water.", FG),
+        ("NOT overlaid:  the (2,3) Clifford-torus winding / spin-½ — these do NOT emerge on this continuum engine "
+         "(P4 toroidal-winding FAILS, 0.000; 2026-06-04 §7.2).", ILLUS_C),
+    ]
+    y = 0.155
+    for txt, col in lines:
+        fig.text(0.5, y, txt, color=col, fontsize=7.4, ha="center", va="top")
+        y -= 0.052
+    out = FIG_DIR / "electron_genesis_interstitial_droplet.png"
+    fig.savefig(out, dpi=150, facecolor=BG)
+    plt.close(fig)
+    return out
+
+
 def render_animation(data: dict) -> list[Path]:
     n, pml = data["N"], data["PML"]
     steps = data["ce_steps"]
@@ -458,6 +567,7 @@ def main() -> None:
         outs.append(p)
     p = render_validation(data); print(f"  panel: {p.name}"); outs.append(p)
     p = render_montage(data); print(f"  montage: {p.name}"); outs.append(p)
+    p = render_interstitial_droplet(data); print(f"  interstitial: {p.name}"); outs.append(p)
     print("  rendering long animation (GIF + mp4) ...", flush=True)
     anim = render_animation(data)
     for a in anim:
