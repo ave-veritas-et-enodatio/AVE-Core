@@ -45,9 +45,9 @@ Each leg with its canonical/derived cite and its honest class per `consistency-v
 | **Locality** | **Local** | **Local** | **Nonlocal** |
 | **Ontology** | **Epistemic** (observer under-samples; nothing new in the substrate) | **Dynamical** (a real boundary energy-extraction process unfolds) | **Ontic** (a real topological structure connects the pair) |
 | **Class** (`consistency-vs-emergence`) | **SYNTHESIS / consistency-class** (Class-0 reframe) | **DUAL-AXIS**: Class-2 substrate-mechanism emergence (derivation-path) **+** Class-4 observable consistency (prediction) | **CANONICAL** Class-1 (Axiom-1 mechanism); CHSH $=2\sqrt2$ is Class-4 consistency, **not** a discriminator |
-| **Canonical / cite anchor** | `manuscript/ave-kb/common/translation-tables/translation-qm.md:19` | `manuscript/ave-kb/vol1/dynamics/ch3-quantum-signal-dynamics/ohmic-decoherence-born.md:55,57-59,61` (clm-ldmvwi) | `manuscript/ave-kb/vol1/dynamics/ch3-quantum-signal-dynamics/phase-locked-topological-thread.md:8-13,114,175-183` (clm-zuf7g1) |
+| **Canonical / cite anchor** | `manuscript/ave-kb/common/translation-tables/translation-qm.md:19` | `manuscript/ave-kb/vol1/dynamics/ch3-quantum-signal-dynamics/ohmic-decoherence-born.md:55,57-59,61` (clm-ldmvwi) | `manuscript/ave-kb/vol1/dynamics/ch3-quantum-signal-dynamics/phase-locked-topological-thread.md:8-13,116,177-185` (clm-zuf7g1) |
 
-### Verbatim cite payloads (verify-before-cite, re-verified in this worktree @ `origin/main` 63e6671a, 2026-06-08)
+### Verbatim cite payloads (verify-before-cite, re-verified against shipped HEAD `966f4a2b` = base `63e6671a` + this workstream's body-only KB insertions; all line cites reconciled to that tree, 2026-06-08)
 
 **Superposition** — `translation-qm.md:19`:
 > `| $|\psi|^2$ probability | Time-averaged trajectory | Density of point-defect sweeping its standing-wave mode. |`
@@ -66,10 +66,10 @@ Each leg with its canonical/derived cite and its honest class per `consistency-v
 **Entanglement** — `phase-locked-topological-thread.md:13`:
 > "the lattice architecture reveals that entangled particles are connected by a *topological thread* — a quantised phase winding on the $\mathcal{M}_A$ graph that functions as a phase-locked gear train, mechanically identical to the Meissner effect derived in Volume III, Chapter 9."
 
-`phase-locked-topological-thread.md:114` (binary 2-antinode):
+`phase-locked-topological-thread.md:116` (binary 2-antinode):
 > "**Binary outcome from saturation (Axiom 4).** The particle's saturated boundary ($\Gamma = -1$) supports a standing wave with exactly two antinodes."
 
-`phase-locked-topological-thread.md:180,183` (no-signalling, Bob's marginal $=1/2$):
+`phase-locked-topological-thread.md:182,185` (no-signalling, Bob's marginal $=1/2$):
 > "$P(B{=}+) = \tfrac{1}{2}\sin^2(\theta_{ab}/2) + \tfrac{1}{2}\cos^2(\theta_{ab}/2) = \tfrac{1}{2}$ … Bob always observes a 50/50 outcome distribution."
 
 **Deterministic substrate / Bell survival** — `statistics-under-ave.md:29`:
@@ -100,7 +100,7 @@ Each leg with its canonical/derived cite and its honest class per `consistency-v
 
 `ohmic-decoherence-born.md` derives the Born $p=2$ click-probability scaling end-to-end from substrate physics (7-step chain, `:48-53`): master vacuum equation → FDT Langevin boundary → stochastic master equation → Joule extraction $V^2/Z_{det}$ → $V \leftrightarrow \partial_t\mathbf{A}$ via the AVE Lagrangian → Gaussian amplitude via FDT+CLT → threshold-crossing first-passage (Rice/Wald) → $p=2$ uniqueness. **No Born-rule input anywhere in the chain** (`:55`).
 
-This is the corpus's strongest demonstration of why collapse is **dynamical, not interpretive**: there is no observer and no discontinuous projection. The substrate evolves continuously *through* the extraction event; the "click" is a discrete energy quantum drawn through a boundary aperture at a threshold-crossing (`translation-qm.md:39-42`).
+This is the corpus's strongest demonstration of why collapse is **dynamical, not interpretive**: there is no observer and no discontinuous projection. The substrate evolves continuously *through* the extraction event; the "click" is a discrete energy quantum drawn through a boundary aperture at a threshold-crossing (`translation-qm.md:41-44`).
 
 **Dual-axis classification** (`consistency-vs-emergence`, exactly as the leaf states at `:57-59`):
 - **Class-2 substrate-mechanism emergence** on the *derivation-path* axis — the full path traces to the master vacuum equation.
@@ -108,11 +108,11 @@ This is the corpus's strongest demonstration of why collapse is **dynamical, not
 
 **Scope qualifier** (`:61`): derivation holds for AC / sign-symmetric ensembles (the canonical photodetection regime). DC / sign-asymmetric signals retain a sub-leading linear-in-$V_s$ term. This is scope, not refutation.
 
-**Open / not-yet-load-bearing**: the $p=2$ *scaling* is derived; the identification $\Pr = |\psi|^2$ is pinned at the leaf's §A.5 step. Forward-prediction candidates (Ax-4 saturation-induced narrow-aperture amplitude-shape corrections, nanoscale CLT failure, non-Markovian memory) exist but are below current measurement precision and are not load-bearing for this leaf's present solidity.
+**Open / not-yet-load-bearing**: the $p=2$ *scaling* is derived (A.3 + A.4); the definitional identification $\Pr \equiv |\psi|^2$ is **not** a step inside the ohmic leaf (whose derivation table runs A.2–A.4 only, `ohmic-decoherence-born.md:48-53`) — it is the still-pending **Phase 2-A.5 KB-integration step**, documented as the deferred definitional identification in `research/2026-05-26_clm-ldmvwi-phase-2a-4-uniqueness-result.md:243` (and §9, `:272`). Forward-prediction candidates (Ax-4 saturation-induced narrow-aperture amplitude-shape corrections, nanoscale CLT failure, non-Markovian memory) exist but are below current measurement precision and are not load-bearing for this leaf's present solidity.
 
 ### 3.3 Entanglement = thread (NONLOCAL, ONTIC) — CANONICAL Class-1
 
-`phase-locked-topological-thread.md` is the canonical leaf. Entangled particles are connected by a **real topological thread**: a $2\pi$ quantised phase winding on the $\mathcal{M}_A$ graph, realized as a lossless ($Q=\infty$) phase-locked LC gear train, characteristic impedance $Z_0 \approx 377\,\Omega$ (`:13`, `:15-32`). Binary measurement outcomes come from Axiom-4 saturation: the $\Gamma=-1$ boundary supports a standing wave with **exactly two antinodes** (`:114`). No-signalling is exact — Bob's marginal is $\tfrac{1}{2}$ independent of Alice's setting (`:180`). CHSH reaches the Tsirelson bound $|S|=2\sqrt2$, derived from substrate primitives (Möbius half-angle coupling + Axiom-4 binary saturation + Born from Ohmic extraction), **no import of Bell's theorem**.
+`phase-locked-topological-thread.md` is the canonical leaf. Entangled particles are connected by a **real topological thread**: a $2\pi$ quantised phase winding on the $\mathcal{M}_A$ graph, realized as a lossless ($Q=\infty$) phase-locked LC gear train, characteristic impedance $Z_0 \approx 377\,\Omega$ (`:13`, `:17-34`). Binary measurement outcomes come from Axiom-4 saturation: the $\Gamma=-1$ boundary supports a standing wave with **exactly two antinodes** (`:116`). No-signalling is exact — Bob's marginal is $\tfrac{1}{2}$ independent of Alice's setting (`:182`). CHSH reaches the Tsirelson bound $|S|=2\sqrt2$, derived from substrate primitives (Möbius half-angle coupling + Axiom-4 binary saturation + Born from Ohmic extraction), **no import of Bell's theorem**.
 
 **Class**: Class-1 (Axiom-1 canonical mechanism). The CHSH magnitude is Class-4 observable consistency — it matches QM exactly and is therefore **not** a discriminator (see §5).
 
@@ -126,7 +126,7 @@ The May-2025 origin seed framed the spark as **"entanglement → aliasing"**. Un
 - **Entanglement is nonlocal** → it needs the **thread**. A *local* aliasing account of entanglement would predict the correlation arises from a shared local under-sampling — i.e. a **local hidden variable** — and would therefore **Bell-falsify** (it cannot reproduce $|S|=2\sqrt2$ without signalling).
 
 **The fix** (corpus-side; the memory seed is left untouched per the standing directive — do not edit memory):
-- Keep **aliasing OUT** of the entanglement leaf. `phase-locked-topological-thread.md` currently contains **zero** occurrences of "aliasing" — verified clean in this worktree. The mechanism there is the thread, full stop.
+- Keep **aliasing OUT** of the entanglement leaf. `phase-locked-topological-thread.md` contains **zero** occurrences of "aliasing" in the mechanism **body**; the sole mention is the line-15 guard-note (inserted by this workstream), which names "aliasing" only to **EXCLUDE** it from the thread. The mechanism there is the thread, full stop.
 - Keep **aliasing IN** the superposition reading only (`translation-qm.md:19`, as the Nyquist reading).
 
 Re-targeting the slot makes the trio **Bell-surviving**: AVE concedes *locality* (carried by the real thread), retains *determinism*, and is a nonlocal deterministic hidden-variable theory (`statistics-under-ave.md:77`). The spatial-vs-temporal aliasing disambiguation (`paley-wiener-hilbert.md:10`) is the structural guard that prevents reversion: spatial aliasing (Brillouin) ≠ temporal aliasing (superposition reading) ≠ the thread (entanglement).
@@ -143,10 +143,10 @@ Re-targeting the slot makes the trio **Bell-surviving**: AVE concedes *locality*
 - **CHSH $=2\sqrt2$** — matches QM exactly (`statistics-under-ave.md:77` says so verbatim: "CHSH is **not** an AVE-vs-QM discriminator").
 - **Born $p=2$** — replicates QM exactly in the canonical regime (`ohmic-decoherence-born.md:59`). Its value is in being *derived* (confidence asset), not in being *distinct*.
 
-**The only candidate discriminator across the whole trio:** the **entanglement-decoherence onset at $T_{\text{pair}}$** (`phase-locked-topological-thread.md:55-68`):
+**The only candidate discriminator across the whole trio:** the **entanglement-decoherence onset at $T_{\text{pair}}$** (`phase-locked-topological-thread.md:57-70`):
 $$T_{\text{pair}} = \frac{2 m_e c^2}{k_B} \approx 1.19 \times 10^{10}\;\text{K}.$$
-- **AVE** (`:67`): entanglement decoherence has a sharp, temperature-dependent onset at the pair-creation threshold; below it, the $2\pi$ winding is topologically protected ($P_{\text{break}} \propto e^{-2m_e c^2/k_B T}$).
-- **Standard QM** (`:68`): decoherence is governed by environmental coupling strength alone, with **no** intrinsic temperature threshold tied to $2 m_e c^2$.
+- **AVE** (`:69`): entanglement decoherence has a sharp, temperature-dependent onset at the pair-creation threshold; below it, the $2\pi$ winding is topologically protected ($P_{\text{break}} \propto e^{-2m_e c^2/k_B T}$).
+- **Standard QM** (`:70`): decoherence is governed by environmental coupling strength alone, with **no** intrinsic temperature threshold tied to $2 m_e c^2$.
 - **Caveat (load-bearing)**: this is a **cosmological-scale** temperature (heavy-ion / QGP regime, $T \gtrsim 10^{10}$ K), **not lab-near**. It is the one place the trio makes a falsifiable AVE-vs-QM prediction, but it is not currently a practical lab handle.
 
 ---
