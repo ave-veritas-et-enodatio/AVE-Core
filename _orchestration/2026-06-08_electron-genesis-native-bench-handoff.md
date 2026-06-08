@@ -206,6 +206,15 @@ PYTHONPATH=src python src/scripts/vol_1_foundations/electron_genesis_finish.py
 
 ---
 
-## §9 One-line carry-forward
+## §9 Native electron model (2026-06-08 follow-on)
+
+**Driver:** `native_electron_model.py`  
+**Prereg:** `research/2026-06-08_native-electron-model-prereg.md`
+
+Joint Golden-Torus quadrature phasor + 0₁ unknot ω, **no snap**. Result: **TIR + localization (2/4)** but **ω persistence ~3%**, R/r ≠ φ², ε_Γ unchanged. Manual snap not required for TIR; **circulation + phase-space closure** remain open.
+
+---
+
+## §10 One-line carry-forward
 
 > **We built a reproducible Γ=−1-class trap on the native bench; we did not derive an electron with α falling out of the bond readout.** Reflection deficit ≠ radiation leak; lossless pinning ≠ closed dissipative orbit. Next leverage: bond-scale phasor + time series + circulation on the existing trap, then reactance-boundary leak or self-consistent eigenmode.
