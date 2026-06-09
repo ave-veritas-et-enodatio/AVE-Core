@@ -29,6 +29,16 @@ Per the 2026-06-09 corpus-grep (both AVE-Core mains + worktrees + siblings):
 
 **Verdict:** dead-by-default on current canon (single-τ symmetric), but **not closed by derivation**. The amplitude-dependent-τ seam has never been probed.
 
+## 2.6 Regime / phase-state scope (Grant 2026-06-09) — do NOT test in the achromatic regime
+
+Grant's guardrail: *"look at why transverse waves have achromatic propagation in the tensor regime… apply the different regimes and states of phase."* The transverse achromaticity **localizes where thixotropy can live** — it is the control, not the test:
+
+- **Transverse (EM/shear) propagation is ACHROMATIC** in the tensor/SYM regime: symmetric scaling μ'=n·μ₀, ε'=n·ε₀ keeps **Z=Z₀ invariant**, so *"transverse light bends through deep gravity wells without chromatic dispersion, internal scattering, or boundary back-reflection"* (`achromatic-impedance-matching.md`, clm-rd9cjm). Achromatic = frequency-independent = index set by the DC strain STATE, not frequency = **no rate-dependence**. **The transverse/shear sector is therefore structurally thixotropy-FREE** — a test there returns a guaranteed B that says nothing. **Do not look there.**
+- **The BULK (longitudinal/volumetric) mode is self-steepening / dispersive.** The ρ̄ relation `c_eff²=c₀²(1+ρ̄/(1−ρ̄²))` makes c rise with compression → crest outruns trough (self-steepening, `04_superluminal_transit.tex:89`) → intrinsically nonlinear, NOT achromatic. **Thixotropy, if anywhere, lives in the bulk mode** — consistent with the temporal taxonomy (the sat/desat asymmetry is the bulk channel; companion doc §5).
+- **Only near the LIMITS.** Within the bulk mode the rate-asymmetry can only appear near the compression ceiling ρ̄→+1 and the cavitation floor ρ̄_cav=−1/φ, where `#59:77`'s amplitude-dependent τ_relax(ρ̄) + self-steepening are strong — the **near-yield / nonlinear → ruptured/plasma ("black-hole pre-geodesic vacuum plasma") phase.** In the linear small-ρ̄ acoustic regime even the bulk mode is ~achromatic single-τ → no thixotropy. Dispersion onset is canonically the trans-Planckian / cubic-symmetry-breakdown scale (C7-GRB-DISPERSION) — the same lattice-scale band where achromaticity breaks.
+
+**Phase-state map for the derivation:** Linear (achromatic, single-τ, NO thixotropy — the control) → **Nonlinear / near-yield (amplitude-dependent τ, self-steepening — the thixotropy candidate; RUN HERE)** → Ruptured / plasma / pre-geodesic (Γ=−1, pair-production — the extreme). The bulk sat/desat derivation must be done in the **near-yield bulk band**, not the linear or transverse regime.
+
 ## 3. substrate-native-check (FIRST)
 
 - **Sector / dynamics:** time-domain LC relaxation of the saturation state S(t) toward S_eq(A); first-order memristive ODE (`tau-relax-derivation.md:78`). NOT a minimization, NOT continuum-Helmholtz.
@@ -38,7 +48,12 @@ Per the 2026-06-09 corpus-grep (both AVE-Core mains + worktrees + siblings):
 
 ## 4. Prediction (pre-committed)
 
-I expect: τ_relax(A) **does** rise near saturation (L_eff grows as the kernel stiffens), so τ is amplitude-dependent. **But** I predict the leading correction makes τ a function of *instantaneous A only*, not of sign(dA/dt) — so under a symmetric drive the loading and unloading paths traverse the **same** τ(A) at each A, the loop closes symmetrically, and **∮ net-rectification = 0 → OUTCOME B**. Genuine rectification requires the near-saturation dynamics to introduce an intrinsic **sign-dependence** (fast onset / slow recovery — the STZ liquefy-fast/refreeze-slow picture made quantitative). The crack where A could happen: if saturation **onset** is abrupt (Γ→−1 rupture is fast) while **recovery** is gradual (re-freeze is diffusive), that IS a sign-dependence the first-order ODE doesn't capture.
+Now cast in the **bulk mode** (§2.6). τ_relax(ρ̄) **does** become amplitude-dependent near the limits (L_eff grows as the kernel stiffens). The prediction is genuinely **less confidently B than the shear case**, because the bulk mode has a concrete physical sign-asymmetry that the shear/transverse mode lacks: **self-steepening.** Because c_eff rises with compression, a **compression front sharpens** (shock-like, fast — the sat stroke) while a **rarefaction front spreads** (slow — the desat stroke). That IS the fast-liquefy/slow-refreeze picture, mechanically, and it depends on sign(dρ̄/dt). So:
+
+- **The crack for A:** if the self-steepening compression-sharpen / rarefaction-spread asymmetry survives into a net ∮ over a symmetric drive cycle, with H conserved, then τ_bulk,sat ≠ τ_bulk,desat is real → Outcome A (rectification door open in the bulk mode).
+- **Why it may still be B:** self-steepening is a *reversible* nonlinearity (it's in the conservative c_eff(ρ̄) relation, not a dissipative memory term). A reversible front-shape asymmetry can still integrate to **∮ = 0** over a closed symmetric cycle (the front sharpens on compression and re-spreads on the return — no net). It rectifies only if a genuinely **dissipative / irreversible** step (a τ that lags differently up vs down, the #59:77 amplitude-dependent τ) breaks the cycle's reversibility. The derivation's job: separate the reversible self-steepening (∮=0) from any irreversible τ-asymmetry (∮≠0).
+
+Pre-committed lean: **50/50 A-vs-B** — the self-steepening makes this a real contest, not a foregone B. That is exactly why it's worth running.
 
 ## 5. Discriminating outcomes
 
@@ -55,7 +70,9 @@ If the canonical single-τ = ℓ_node/c is exact through the saturation knee (no
 - **Symmetric drive only.** Any externally-imposed waveform asymmetry (fast-up/slow-down ramp, flyback quench) is the *refuted* route (`03_acoustic_rectification.tex:13`) and is banned — the drive must be a pure symmetric oscillation so any rectification is substrate-intrinsic.
 - **τ(A) vs τ(sign dA/dt).** Explicitly separate instantaneous-amplitude dependence (symmetric, does not rectify) from sign-of-rate dependence (memory, rectifies). Conflating them manufactures a false A.
 - **H-conservation gate.** Net rectification that doesn't conserve H=T+V over the cycle is an artifact, not a finding (Checkpoint 6).
-- **Limits from canon, not tuned** — τ_relax = ℓ_node/c, L_eff(A) near-saturation form from `#59` / Op14 canon, not fitted.
+- **Right regime (§2.6).** Run in the **near-yield BULK** band. Do NOT run in the linear or transverse/shear regime — those are achromatic (frequency-independent), hence rate-asymmetry-free by construction; a B there is vacuous. Apply the explicit phase-state (Linear → Nonlinear/near-yield → Ruptured/plasma).
+- **Reversible vs dissipative (the A/B discriminator).** Self-steepening is a *reversible* (conservative) nonlinearity and can give ∮=0 even while looking asymmetric. Only an *irreversible/dissipative* τ-asymmetry (the #59:77 amplitude-dependent τ lagging differently up vs down) yields ∮≠0. The derivation MUST separate these — a front-shape asymmetry is not a rectifier unless it survives a closed symmetric cycle with net ∮≠0.
+- **Limits from canon, not tuned** — τ_relax = ℓ_node/c, L_eff(A) near-saturation form from `#59` / Op14 canon, the ρ̄ relation from `04_superluminal_transit.tex:86`, not fitted.
 
 ## 8. Skills + deliverables
 
