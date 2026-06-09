@@ -1,6 +1,6 @@
 # Vacuum z=4 Diamond — Coordination/Chirality Walk-Back (orchestration brief)
 
-**Status:** SCOPED — branch + draft PR isolate the work; **execution HELD pending two Grant calls** (Gate A θ₁₃, Gate B axiom-naming). Tier C (truly-unconditional) is ready to land independently.
+**Status:** **Tier C EXECUTED** (9 gate-independent edits, this branch, 2026-06-08; KB verify PASS, scripts compile, `Z_COORDINATION` resolves). **Gates A (θ₁₃) + B (axiom-naming) HELD pending two Grant calls.**
 **Branch:** `analysis/2026-06-08-vacuum-z4-coordination-walkback` (off `origin/main` @ `3088232d`, PR #141).
 **Worktree:** `/Users/grantlindblom/AVE-staging/AVE-Core-z4walkback-wt` (isolated; self-isolate discipline — the shared checkout is on a coworker branch 120 behind origin/main).
 **Skills applied:** `ave-walk-back` (Type D + Step 3h-exhaustive), `ave-prereg`, `ave-handoff-canonical-locale`, `verify-before-cite`, `ave-canonical-source`, `ave-discipline-translate` (W2 c_EM/c_shear), `ave-evidence-framing-discipline`.
@@ -83,7 +83,7 @@ Number-preserving re-groundings + pure hygiene; safe to land on this branch imme
 
 ## 4. Execution plan (after Grant's two calls) — ave-walk-back Step 3 order
 
-1. **Tier C now** (on your go): the 9 number-preserving/hygiene edits above → `make refresh-kb-metadata` → `make verify-kb-metadata`.
+1. **Tier C** — ✅ **EXECUTED 2026-06-08** (this branch): the 9 number-preserving/hygiene edits above. KB metadata verify PASS (no drift — prose-only, no claim/frontmatter change, so `refresh` not needed); 4 scripts `py_compile` OK; `Z_COORDINATION` import resolves to 51.2482. δ_CP scope-lock honored (θ₁₃ blockquotes at `:35-55` untouched). Changelog entry **deferred** to the complete-walk-back merge (Tier C is on a draft branch; the closure-roadmap tracks canon/main state, nothing merged yet).
 2. **After Gate A (θ₁₃):** the 20 screening sites (re-ground to sectors, or Rule-12 walk-back θ₁₃ + 🔴 header on `pmns-eigenvalues.md:40-49` + `delta-cp-violation.md:30`).
 3. **After Gate B (axiom-naming):** source leaves → axiom statements (`eq_axiom_1/2.tex`, CLAUDE.md, LIVING_REFERENCE.md, axiom-definitions.md) → claim-quality entries (`clm-9s9apq`, `clm-q39qct`, `clm-9gh0a1`, `clm-zuf7g1`) → engine (`mixing_derivation.py`, `soliton_bond_solver.py`, `constants.py`, `open_problems.py`) → datasheet (vol 9 ×9) → frontmatter/backmatter → STALE_PROSE tail (53 files).
 4. **Changelog (bidirectional, 3l):** `claim-quality-closure-roadmap.md` (root — **note: not `common/closure-roadmap.md`**) — forward entry + reverse SUPERSEDED-marker on the original z=3 canonization; back-pointer to the 2026-06-07 resolution.

@@ -1,4 +1,15 @@
 # simulate_3d_lattice.py
+#
+# ⚠ SUPERSEDED FRAMING (legacy z=3 visualization, retained for reference).
+# This driver renders the degree-3 chiral SRS / "Laves K4" net (it wires exactly
+# 3 nearest neighbors per node, below). Per the 2026-06-07 lattice-net
+# resolution-of-record (_orchestration/2026-06-07_lattice-net-resolution.md), the
+# canonical substrate is the degree-4 ACHIRAL diamond net (Fd-3m) that the engine
+# actually computes on (src/ave/.../k4_tlm.py); chirality is an EXCITED Cosserat
+# order-parameter (k_chi), not a cold-lattice property. The z=3 srs framing here
+# is the numerological outlier. A canonical rebuild on the diamond net (4 nearest
+# neighbors) is queued as follow-up.
+#
 # Simulates the fundamental topological substrate of the Trace-Reversed
 # Chiral LC Network. We rigidly use the mathematical SRS net (Laves K4 crystal),
 # which is the definitive algebraically continuous, 3D isotropic, highly-symmetric

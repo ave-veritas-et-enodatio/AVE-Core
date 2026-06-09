@@ -107,7 +107,7 @@ The raw curvature $d^2E/dd^2$ must be projected topologically from the 3D isotro
 Bond stretching displaces two nuclei along *one* spatial axis. On the isotropic chiral lattice (SRS net, $K_4$ crystal), the electromagnetic coupling distributes equally among 3 equivalent spatial dimensions. The potential energy curvature projects onto the bond axis with weight $1/D$ where $D = 3$. This is the electromagnetic analogue of the equipartition theorem.
 
 **Three-Phase Balance Factor ($1/\sqrt{3}$).**
-On the SRS lattice, each interior node (e.g., carbon, nitrogen, oxygen) is a 3-connected WYE junction — a three-phase node. A bond between two interior atoms (a "heavy-heavy" bond) represents a balanced three-phase system, where the $1/3$ isotropy projection is complete.
+Each interior node (e.g., carbon, nitrogen, oxygen) presents as a three-phase (WYE) junction — the three-phase structure following from the **3 equivalent spatial dimensions** (the 3 translational / Cosserat sectors), *not* from lattice coordination (the cold diamond net is 4-connected). A bond between two interior atoms (a "heavy-heavy" bond) represents a balanced three-phase system, where the $1/3$ isotropy projection is complete.
 
 However, hydrogen is a terminal atom with only a single bond. An X--H bond represents an unbalanced load on a three-phase system. In power engineering, a single-phase line-to-neutral connection scales the impedance by a factor of $1/\sqrt{3}$ relative to the balanced three-phase line-to-line equivalent. Thus, the effective isotropy projection for terminal atoms receives an additional $1/\sqrt{3}$ unbalanced factor.
 

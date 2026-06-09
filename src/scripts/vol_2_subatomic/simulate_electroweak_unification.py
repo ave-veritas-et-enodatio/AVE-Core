@@ -11,8 +11,9 @@ Derives ALL electroweak masses and mixing angles from three inputs:
 DERIVATION CHAIN (zero free parameters):
 ─────────────────────────────────────────
 Step 1: POISSON RATIO → WEAK MIXING ANGLE
-  The K4 lattice has ν_vac = 2/7 (Poisson ratio of a chiral 3D network
-  with 4 nodes per unit cell, each with coordination 3).
+  The K4 lattice has ν_vac = 2/7 (Poisson ratio of the degree-4 achiral
+  diamond net; the 4-node K4 cell carries 3 Cosserat microrotational sectors —
+  chirality is an excited k_χ decoration, not bond coordination).
   cos²θ_W = 1 - ν_vac × (ν_vac⁻¹ - 1)⁻¹ = 7/9
   sin²θ_W = 2/9 ≈ 0.2222 (PDG: 0.2230, Δ = 0.35%)
 

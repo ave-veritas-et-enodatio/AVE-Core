@@ -11,14 +11,14 @@ Output: assets/sim_outputs/emt_packing_landscape.png
 import matplotlib.pyplot as plt
 import numpy as np
 
-from ave.core.constants import P_C
+from ave.core.constants import P_C, Z_COORDINATION
 from ave_path_util import sim_output
 
 # ─── EMT model ───
 # For a 3D amorphous central-force network (Feng-Thorpe-Garboczi),
 # the K/G ratio depends on p relative to the percolation thresholds.
 # We model this as a smooth interpolation.
-z0 = 51.25  # effective coordination from p_c
+z0 = Z_COORDINATION  # canonical effective coordination (≈51.25); see constants.py
 p_K = 2 / z0  # bulk percolation threshold
 p_G = 6 / z0  # shear percolation threshold
 

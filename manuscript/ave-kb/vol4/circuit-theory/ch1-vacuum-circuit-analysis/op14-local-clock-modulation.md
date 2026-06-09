@@ -34,7 +34,7 @@ $$\tau_{\text{local}}(r) = \frac{\tau_{\text{unstrained}}}{\sqrt{1 - A^2(r)}}$$
 
 The local clock slows because the substrate's response to amplitude is **non-linear**: as $A^2 \to 1$, the kernel $S$ flattens to zero, so any wave needs longer to propagate through the saturated region.
 
-This is **substrate-native time dilation** — the same mechanism that produces gravitational time dilation (slow clocks near massive objects via $n(r) = 1 + 2GM/(rc^2) \approx 1/\sqrt{S}$) at macroscopic scale.
+This is **substrate-native time dilation** — the same mechanism that produces gravitational time dilation (slow clocks near massive objects via the slope-1 local-clock factor $1/\sqrt{S} \approx 1 + GM/(rc^2)$; the steeper $1 + 2GM/(rc^2) = 1/g_{00} = 1/S$ is the distinct slope-2 bulk/coordinate (Shapiro) propagation index, per the W2 relabel in `temporal-spatial-lattice-decomposition.md`) at macroscopic scale.
 
 ## §2 — Cross-volume parallel: gravity is Op14 at long range
 
@@ -42,7 +42,7 @@ From Vol 3 Ch 3 (macroscopic relativity):
 
 $$\tau_{\text{local, gravity}} = n(r) \cdot \tau_{\text{unstrained}}$$
 
-with $n(r) = 1 + 2GM/(rc^2) \approx 1/\sqrt{S(r)}$ for weak-field substrate saturation.
+with local-clock factor $n(r) = 1/\sqrt{S(r)} \approx 1 + GM/(rc^2)$ (slope 1) for weak-field substrate saturation; the slope-2 $1 + 2GM/(rc^2) = 1/g_{00}$ is the distinct bulk/coordinate (Shapiro) propagation index (W2, `temporal-spatial-lattice-decomposition.md`).
 
 **Same physics, different source:**
 

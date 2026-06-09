@@ -126,7 +126,15 @@ def q_factor_decomposition(V_field, center, R_boundary):
 #
 # Critical engine-limitation note (Grant, 2026-05-18): the K4 lattice (Axiom 1)
 # is *chiral* Laves — the 4 bonds at each node are arranged with handedness,
-# applying ASYMMETRIC TORQUE to the node. This chiral coupling is the mechanism
+# applying ASYMMETRIC TORQUE to the node.
+# [2026-06-07 update, per _orchestration/2026-06-07_lattice-net-resolution.md:
+#  the cold substrate is the degree-4 ACHIRAL diamond net (Fd-3m); "Laves" is the
+#  legacy z=3 outlier name. The chirality referenced here is the EXCITED Cosserat
+#  order-parameter k_chi (zero under linear drive, switched on by the soliton's
+#  (p,q) winding) — i.e. the asymmetric-torque coupling is a property of the
+#  excited mode, not of the cold lattice. The engine-limitation conclusion below
+#  (a scalar EMT/continuum solver lacks this coupling) is unchanged.]
+# This chiral coupling is the mechanism
 # that turns pure radial breathing into multi-mode (2,3) torus knot structure
 # (2 = orbital winding, 3 = chiral precession). MasterEquationFDTD is a scalar
 # EMT/continuum solver with NO chiral structure, NO Cosserat torque coupling,
