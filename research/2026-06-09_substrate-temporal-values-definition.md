@@ -1,7 +1,7 @@
 # Substrate Temporal Values — careful definitions + reconciliation (DRAFT)
 
 **Date:** 2026-06-09 · **Branch:** `analysis/2026-06-09-saturation-temporal-preregs` (off `main` @ f1f927c8)
-**Status:** DRAFT definition doc (Grant directive 2026-06-09: *"the voxels of the lattice are what freeze, they are our gears… define these temporal values carefully and document"*). Asserts the solid parts; **one assignment flagged OPEN for Grant** (§5). Feeds: the Vol-9 datasheet temporal section + a KB-leaf reconciliation of three contradicting leaves (§4, PR-gated).
+**Status:** DRAFT definition doc (Grant directive 2026-06-09: *"the voxels of the lattice are what freeze, they are our gears… define these temporal values carefully and document"*). The §5 mode-assignment is **RESOLVED by Grant 2026-06-09: shear vs bulk, each with a saturation & desaturation time** (the two locked K=2G mechanical moduli + the EM phase). One residual physics question (limit-asymmetry → time-asymmetry) routes to the thixotropy prereg. Feeds: the Vol-9 datasheet temporal section + a KB-leaf reconciliation of three contradicting leaves (§4, PR-gated).
 
 > **Why this doc exists.** Three canonical leaves state the clock-vs-strain exponent *three different ways* (§4) — a live coherence contradiction surfaced by the time-dilation prereg corpus-grep. Grant's gear/voxel picture cuts through it: there is not ONE clock; there are SECTOR clocks, and the "contradiction" is leaves describing different sectors without labels. To avoid the root cause (an overloaded symbol `S`), **everything here is written in the physical strain `A` directly.** Canonical kernel: `S(A) ≡ √(1−A²)` (datasheet ch.01, constants.py) — but `S` is used inconsistently elsewhere, so we avoid it in the definitions.
 
@@ -23,18 +23,23 @@ Two facts make this exactly Grant's "minimum latch/gear/tooth":
 
 The substrate carries distinct wave sectors at distinct speeds. Two are canonically fixed; a third is the compressional/density wave:
 
-| sector | speed vs strain A | behavior under load (A↑) | role |
+| sector | speed vs strain | behavior under load | role |
 |---|---|---|---|
-| **EM (transverse), phase** | `c_EM = c₀·(1−A²)^(−1/2)` | **RISES** (→∞ at A→1) | Maxwell phase velocity; the speed that enters α (clm-8nkvwy, INVARIANT-S2:64) |
-| **mechanical (matter/rest-mass)** | `c_shear = c₀·(1−A²)^(+1/4)` | **FREEZES** (→0 at A→1) | group/energy-transport/rest-mass speed; tracks Schwarzschild c√(1−r_s/r) (clm-8nkvwy, INVARIANT-S2:65; Op16 operators.md:56) |
-| **compressional (longitudinal density)** | `c_dens = c₀·√(1 + ρ̄/(1−ρ̄²))` | rises for ρ̄>0; → 0 at the cavitation floor **ρ̄_cav = −1/φ** | the rarefaction/superluminal relation (`04_superluminal_transit.tex:86`); a DIFFERENT wave from c_shear |
+| **EM (transverse), phase** | `c_EM = c₀·(1−A²)^(−1/2)` | **RISES** (→∞ at A→1) | Maxwell phase velocity; the speed that enters α (clm-8nkvwy, INVARIANT-S2:64). Electromagnetic, NOT one of the two mechanical modes below. |
+| **SHEAR — mechanical deviatoric (modulus G=μ)** | `c_shear = c₀·(1−A²)^(+1/4)` | **FREEZES** (→0 at A→1) | group/energy-transport/rest-mass speed; the **matter clock**; tracks Schwarzschild c√(1−r_s/r) (clm-8nkvwy, INVARIANT-S2:65; Op16 operators.md:56) |
+| **BULK — mechanical volumetric (modulus K)** | `c_bulk = c₀·√(1 + ρ̄/(1−ρ̄²))` | stiffens at compression ceiling ρ̄→+1; **freezes at the cavitation floor ρ̄_cav = −1/φ** | the rarefaction/superluminal relation (`04_superluminal_transit.tex:86`); a DISTINCT wave from shear |
+
+**Canonical backing for the shear/bulk split (Grant 2026-06-09):** the substrate sits at the **K = 2G operating point** (`claim-quality-closure-roadmap.md:149`: k_a=2/7, k_s=1/7 → K_0=16/7, G_0=8/7, ratio 2) → **Poisson ratio ν_vac = 2/7** as an algebraic identity, with Cosserat couple-stress length ℓ_c = √6·ℓ_node. Shear (G) and bulk (K) are not ad-hoc — they are the substrate's two locked elastic moduli.
 
 ## 3. The two confirmed times (tick = ℓ_node / c_sector)
 
-| clock | period vs A | rate | verdict under load |
+| clock | period | rate | verdict under load |
 |---|---|---|---|
-| **Matter / gravitational clock** (rides c_shear) | `τ_matter = τ₀·(1−A²)^(−1/4)` | `ω_matter = ω₀·(1−A²)^(+1/4) = ω₀√S` | **DILATES** (slows) — gravitational time dilation |
+| **SHEAR clock = matter / gravitational** (rides c_shear) | `τ_shear = τ₀·(1−A²)^(−1/4)` | `ω_shear = ω₀·(1−A²)^(+1/4) = ω₀√S` | **DILATES** (slows) — gravitational time dilation |
+| **BULK clock = compressional** (rides c_bulk) | `τ_bulk = τ₀/√(1+ρ̄/(1−ρ̄²))` | inverse | dilates toward the cavitation floor ρ̄_cav=−1/φ; faster under compression |
 | **EM-phase "clock"** (rides c_EM) | `τ_EM = τ₀·(1−A²)^(+1/2)` | `ω_EM = ω₀·(1−A²)^(−1/2)` | phase advances FASTER (this is the α-speed, not a proper matter clock) |
+
+**Sat vs desat (Grant 2026-06-09):** each mechanical mode has a **saturation** time (loading, strain↑) and a **desaturation** time (unloading, strain↓). The thixotropy question is whether they differ *per mode* (τ_sat ≠ τ_desat). The bulk mode already has **asymmetric LIMITS** — compression ceiling ρ̄→+1 (stiffen) vs rarefaction floor ρ̄_cav=−1/φ (cavitate) — so its sat (compress) and desat (rarefy) traverse different endpoints; whether that limit-asymmetry becomes a *time*-constant asymmetry is exactly the [thixotropy prereg](2026-06-09_thixotropy-amplitude-dependent-tau_prereg.md).
 
 **The matter clock is the one that means "time dilation"** — a person, a chemical reaction, an atomic clock are mechanical wave-packets; packets move at the group/mechanical speed `c_shear`, which freezes as `(1−A²)^(1/4)`. **This answers the time-dilation prereg's exponent gate: p = ¼ (clock ∝ √S)** — and now with the physical *why*: matter is a packet, packets ride c_shear, c_shear freezes. Not "because INVARIANT-S2 says so."
 
@@ -48,14 +53,25 @@ The substrate carries distinct wave sectors at distinct speeds. Two are canonica
 
 Root cause: (i) the symbol `S` is overloaded (`√(1−A²)` vs `(1−A²)`) across leaves; (ii) "the clock" was stated without naming WHICH sector. Both fixed by §2–§3 (define in A, label the sector). **This reconciliation, applied to the three leaves, is a PR-gated walk-back — not done here.**
 
-## 5. OPEN — flagged for Grant (the heart of "longitudinal vs transverse time")
+## 5. RESOLVED by Grant 2026-06-09 — shear vs bulk, each with sat & desat
 
-Canon fixes the EM sector as transverse (light is transverse) and fixes the matter clock as riding `c_shear ∝ (1−A²)^¼`. **But canon never states whether `c_shear` is the transverse-mechanical shear or a longitudinal-torsional mode** (grep returned zero characterization), AND there is a *separate* longitudinal compressional/density speed `c_dens` (the ρ̄ relation, §2). So:
+The taxonomy is **not** "longitudinal vs transverse" loosely — it's the canonical elastic decomposition **shear (deviatoric, G) vs bulk (volumetric, K)**, locked at K=2G, **each with a saturation (loading) and a desaturation (unloading) time:**
 
-- **Q1 — c_shear's polarization.** Is the matter/rest-mass speed `c_shear = c₀(1−A²)^¼` the **transverse** mechanical shear, or the **longitudinal** torsional shear (the dark-wake sector was explicitly "longitudinal-shear")? In standard elasticity "shear" = transverse, but AVE used "longitudinal-shear" for τ_zx — so the label is ambiguous and the physics is unpinned.
-- **Q2 — is there a distinct longitudinal time?** The compressional `c_dens` (ρ̄ relation) is a genuinely different wave from `c_shear`. Does it carry its OWN clock (a "longitudinal/compressional time") distinct from the matter clock? If so, "longitudinal vs transverse time" is THREE times, not two: EM-transverse (c_EM), shear (c_shear), compressional-longitudinal (c_dens).
+- **Q1 resolved:** the matter/gravitational clock is the **SHEAR** mode (deviatoric distortion, modulus G=μ) — `c_shear = c₀(1−A²)^¼`, freezing at the saturation ceiling. (It is the mechanical-shear sector, distinct from the EM-transverse sector, which is electromagnetic, not one of the two mechanical moduli.)
+- **Q2 resolved:** the compressional density wave **IS** a distinct time — the **BULK** mode (volumetric, modulus K), `c_bulk`, which freezes at the **cavitation floor ρ̄_cav = −1/φ**. So the taxonomy is **EM-transverse + shear + bulk** — three speeds, of which the two mechanical ones (shear, bulk) are the substrate's locked K=2G pair.
 
-**Plumber question for Grant:** when matter's clock freezes, is the freezing mode the *transverse* mechanical oscillation of the node, or a *longitudinal* (torsional / compressional) one — and is the compressional density wave a separate time we should track? Your call pins the §2 polarization labels and decides whether the temporal taxonomy is 2-time or 3-time. Until then §2's "transverse/longitudinal" tags on the mechanical rows are PROVISIONAL.
+**The temporal value-set, then, is a 2×2 over the mechanical modes + the EM phase:**
+
+| | saturation (load, strain↑) | desaturation (unload, strain↓) |
+|---|---|---|
+| **shear (G, matter clock)** | τ_shear,sat | τ_shear,desat |
+| **bulk (K, density)** | τ_bulk,sat (→ compression ceiling ρ̄→+1) | τ_bulk,desat (→ cavitation floor ρ̄_cav=−1/φ) |
+
+plus the EM-phase time τ_EM (electromagnetic, c_EM). Limits cleanly partition: **shear saturation = the A→1 ceiling; bulk desaturation = the ρ̄_cav=−1/φ floor** — the ceiling and the floor are different modes' freeze-points.
+
+**Residual flag (the genuine open physics → the derivations, not a definition gap):**
+- Does the bulk mode's **amplitude-limit** asymmetry (ceiling ρ̄=+1 vs floor ρ̄=−1/φ) become a **relaxation-TIME** asymmetry (τ_bulk,sat ≠ τ_bulk,desat)? If yes → the thixotropy/rectification door is open in the **bulk** mode; if no → closed. This is precisely the [thixotropy prereg](2026-06-09_thixotropy-amplitude-dependent-tau_prereg.md), now sharpened to the bulk sat-vs-desat channel.
+- Is the shear strain `A` independent of the volumetric strain `ρ̄`, or coupled (does shearing a node also dilate it)? The derivation must state whether shear and bulk saturate independently or share a strain budget.
 
 ## 6. Deliverable targets (once §5 is called)
 
