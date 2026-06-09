@@ -53,7 +53,7 @@ jax.config.update("jax_enable_x64", True)
 import jax.numpy as jnp  # noqa: E402
 import numpy as np  # noqa: E402
 
-from ave.core.constants import ALPHA  # noqa: E402
+from ave.core.constants import ALPHA, V_SNAP  # noqa: E402
 
 # ─────────────────────────────────────────────────────────────────────────
 # Phase 4 asymmetric-saturation chirality coupling
@@ -776,6 +776,11 @@ class CosseratField3D:
         I_omega: float = 1.0,
         pml_thickness: int = 0,
         damping_gamma: float = 0.0,
+        use_impedance_boundary: bool = False,
+        impedance_clamp_strength: float = 200.0,
+        impedance_skin_smoothing: int = 2,
+        impedance_implicit: bool = False,
+        impedance_cfl_safety: float = 0.4,
     ):
         self.nx = nx
         self.ny = ny
@@ -853,6 +858,56 @@ class CosseratField3D:
         # rather than only S₁₁-stationary states like doc 34_'s X4b.
         self.damping_gamma = float(damping_gamma)
         self.I_omega = float(I_omega)
+
+        # ---------------------------------------------------------
+        # Saturation-TIR moving Γ=−1 impedance boundary (KEEP-BOTH, default OFF)
+        # ---------------------------------------------------------
+        # Renders Axiom-4 saturation as a *moving reflective short* (the wave
+        # reflects off its own Z→0 wall) rather than a non-convex energy term.
+        # Default False → the energy-saturation path (use_saturation) is
+        # untouched and byte-identical. When True, `step()` propagates a clean
+        # linear elastic ω-wave (matched bulk, Γ≈0 — the photon limit) plus an
+        # Op3 Γ=−1 node-clamp at the moving μ-side saturation front (the wall).
+        # Mechanism + sector subtlety: research/2026-06-06_saturation-tir-
+        # moving-boundary-prereg.md; corpus anchors photon-identification.md:25,
+        # pair-production-axiom-derivation.md §6, dual-reactance-storage-taxonomy
+        # ("Magnetic: μ_eff→0, Z→0, Γ→−1, short, rest mass").
+        self.use_impedance_boundary = bool(use_impedance_boundary)
+        self.impedance_clamp_strength = float(impedance_clamp_strength)
+        # Skin-depth regularization: the saturation front has a finite thickness
+        # (~ℓ_node), not a grid-sharp edge. Smoothing the clamp weight over a
+        # few tetrahedral-neighbor passes keeps the moving wall resolved above
+        # the Nyquist (grid) scale, preventing the discrete clamp from focusing
+        # energy into a single-cell spike (UV collapse — the §7 alias failure).
+        self.impedance_skin_smoothing = int(impedance_skin_smoothing)
+        # Clamp weight relu(−Γ) is frozen ONCE per `step()` (both velocity-Verlet
+        # half-kicks see the same weight) so the node-clamp is a conservative
+        # potential force within the step — the moving boundary advances only
+        # between steps. Recomputing it at both half-kicks made the wall pump
+        # energy (the §7 ring/alias failure). None until the first step.
+        self._clamp_weight = None
+        # Implicit / energy-conserving integrator for the stiff Γ=−1 clamp
+        # (KEEP-BOTH, default OFF → explicit velocity-Verlet, byte-identical to
+        # the (II) build). When True, the moving-clamp restoring force is split
+        # off and integrated by an EXACT harmonic rotation of the (ω, ω̇)
+        # reactance pair (the analytic LC-reactance solution; Strang split:
+        # kick / exact-rotate-drift / kick), AND the step is internally
+        # sub-divided to a CFL-safe sub-dt = impedance_cfl_safety · cfl_dt.
+        #
+        # DIAGNOSIS (2026-06-06, this build — corrects the (II) §6 framing):
+        # the (II) hard-Γ=−1 energy growth is NOT a within-step integrator error
+        # — the exact reactance rotation gives bit-for-bit the same growth as the
+        # explicit kick at the same dt. It is a CFL-margin instability: the
+        # engine's clamp-aware cfl_dt (which already folds c_clamp = √(K/I_ω)·dx)
+        # under-resolves the wall-CONFINED high-curvature wave by ~2×. The
+        # OPERATIVE fix is the tighter sub-dt; the exact rotation is the
+        # CP6-correct reactance integration retained for stiffness → CFL-limit
+        # robustness. With safety 0.4: energy bounded (Emax/E₀≈2.6, |ω|max≈8 at
+        # Γ_min=−0.99) vs ~10⁴–10⁵× runaway at the default dt.
+        # CP1: the reactive (energy-storing) node-clamp, NOT gradient descent.
+        # CP6: (ω=C-state, ω̇=L-state) tracked exactly as the rotated pair.
+        self.impedance_implicit = bool(impedance_implicit)
+        self.impedance_cfl_safety = float(impedance_cfl_safety)
 
     # ------------------------------------------------------------------
     # Initial condition
@@ -1499,6 +1554,12 @@ class CosseratField3D:
         c_R = np.sqrt(self.gamma / max(self.I_omega, 1e-30))
         c_L = np.sqrt((2.0 * self.G + 4.0 * self.G / 3.0) / max(self.rho, 1e-30))
         c_max = max(c_T, c_R, c_L)
+        # The Γ=−1 node-clamp is a stiff reactive spring (ω_clamp = √(K/I_ω));
+        # fold its effective wave speed c_clamp = ω_clamp·dx into the CFL bound
+        # so the moving reflective wall stays stable (per §7 ring/alias risk).
+        if self.use_impedance_boundary:
+            c_clamp = np.sqrt(self.impedance_clamp_strength / max(self.I_omega, 1e-30)) * self.dx
+            c_max = max(c_max, c_clamp)
         return float(0.3 * self.dx / (c_max * np.sqrt(3.0)))
 
     def kinetic_energy(self) -> float:
@@ -1525,6 +1586,215 @@ class CosseratField3D:
         self.u_dot = self.u_dot * combined
         self.omega_dot = self.omega_dot * combined
 
+    # ------------------------------------------------------------------
+    # Saturation-TIR moving Γ=−1 impedance boundary (KEEP-BOTH opt-in)
+    # ------------------------------------------------------------------
+    # CP1 substrate-native: the K4-TLM scatter+connect IS a reflection process,
+    # so imposing a Γ=−1 short at the saturated front is the lattice's own wave
+    # dynamics — applied inside the velocity-Verlet propagation (`step`), NOT
+    # the gradient-descent settle (`relax_step`) and NOT the non-convex energy
+    # multiplier. The Op14 asymmetric-Meissner Z_eff and the Op3 Γ already exist
+    # as a diagnostic + an energy term; this wires them into the *propagation*
+    # as a moving boundary condition (the gap the prereg identified).
+
+    def _impedance_gamma_field(self) -> np.ndarray:
+        """Op3 reflection-coefficient field Γ(r) from the Op14 asymmetric
+        (Meissner) impedance Z_eff = Z₀·√(S_μ/S_ε), Z₀ = 1 in engine units.
+
+        Reuses `_update_saturation_kernels` (single source of truth for the
+        (S_μ, S_ε) split). In the pure-Cosserat engine there is no K4 voltage,
+        so V_sq = 0 (the ε-electric K4 term vanishes; V_SNAP then drops out).
+        The μ-side (curvature / microrotational-B) saturation drives S_μ→0 as
+        the ω-photon focuses (A²_μ = κ²/ω_yield²), so Z_eff→0 and Γ→−1 — the
+        electron's short. The ε-side (strain) drives S_ε→0 → Z_eff→∞ → Γ→+1
+        (open) — NOT a confining wall; the sign is respected by the clamp gate.
+
+        Matched limit (A≪1): S_μ ≈ S_ε ≈ 1 → Z_eff ≈ 1 → Γ ≈ 0 (the photon
+        propagates freely). Smooth in A across yield (no hard discontinuity).
+        """
+        u_j = jnp.asarray(self.u)
+        w_j = jnp.asarray(self.omega)
+        V_sq = jnp.zeros((self.nx, self.ny, self.nz), dtype=u_j.dtype)
+        S_mu, S_eps = _update_saturation_kernels(
+            u_j,
+            w_j,
+            V_sq,
+            self.dx,
+            V_SNAP,
+            self.omega_yield,
+            self.epsilon_yield,
+            KAPPA_CHIRAL_ELECTRON,
+        )
+        Z_eff = jnp.sqrt(S_mu / jnp.maximum(S_eps, 1e-12))  # Z₀ = 1
+        gamma = (Z_eff - 1.0) / (Z_eff + 1.0)
+        return np.asarray(gamma)
+
+    def _impedance_clamp_accel(self) -> tuple[np.ndarray, np.ndarray]:
+        """Op3 Γ=−1 reflective scatter as a moving node-clamp on ω.
+
+        At a Z→0 short the across-variable (the ω / microrotational-B field,
+        the C-state per the reactance pair) is driven to a *node* and the
+        incident wave reflects with 180° inversion (Γ=−1, total reflection,
+        T²=1−Γ²=0). Realized as a reactive (energy-storing, NOT dissipative)
+        restoring acceleration a_ω = −(K/I_ω)·relu(−Γ)·ω.
+
+        SECTOR SUBTLETY (sign-gated): only the μ-side short (Γ<0) is a node.
+        The ε-side open (Γ>0) is an *antinode* — NOT clamped. The gate
+        relu(−Γ) = max(0, (Z₀−Z_eff)/(Z₀+Z_eff)) is 1 at the μ-short (Γ=−1),
+        0 at matched/open. The smooth grading in |Γ| across yield is the
+        matched→reflective interpolation that prevents the wall ringing (§7).
+        u (translational) is untouched — the short lives in the μ/rotational
+        sector. PML + dead cells receive no clamp (CP7 PML exclusion).
+
+        Uses the per-step frozen weight `self._clamp_weight` (set in `step()`)
+        so both Verlet half-kicks apply the SAME conservative restoring force.
+        """
+        refl = self._clamp_weight  # relu(−Γ) ∈ [0,1], frozen this step; μ-short only
+        K = self.impedance_clamp_strength
+        a_w = -(K / self.I_omega) * refl[..., None] * self.omega
+        combined = self.mask_alive[..., None].astype(a_w.dtype) * self.cos_pml_mask.astype(a_w.dtype)
+        a_w = a_w * combined
+        a_u = np.zeros_like(self.u)
+        return a_u, a_w
+
+    def _bare_linear_gradient(self) -> tuple[np.ndarray, np.ndarray]:
+        """Clean linear Cosserat elastic gradient (Cauchy + micropolar +
+        curvature only; k_op10 = k_refl = k_hopf = 0, no saturation kernel).
+
+        This is the matched bulk for the impedance-boundary path: a small ω
+        wave propagates as a pure linear shear wave (Z = Z₀, Γ = 0). Isolating
+        the bulk to the linear wave means any confinement is attributable to
+        the Γ=−1 wall alone, not to the nonlinear energy terms (CP8 mechanism
+        isolation)."""
+        u_j = jnp.asarray(self.u)
+        w_j = jnp.asarray(self.omega)
+        _, (dE_du, dE_dw) = _val_and_grad_bare(
+            u_j,
+            w_j,
+            self._mask_alive_jax,
+            self.dx,
+            self.G,
+            self.G_c,
+            self.gamma,
+            0.0,  # k_op10
+            0.0,  # k_refl
+            0.0,  # k_hopf
+            self.omega_yield,
+            self.epsilon_yield,
+        )
+        mask = self._mask_alive_jax[..., None].astype(dE_du.dtype)
+        return np.asarray(dE_du * mask), np.asarray(dE_dw * mask)
+
+    def impedance_hamiltonian(self) -> dict:
+        """Proper conserved energy for the impedance-boundary path (CP6).
+
+        `total_hamiltonian()` adds the SATURATED energy functional, which is
+        NOT what the impedance dynamics integrate (they use the linear-elastic
+        bulk + the Γ=−1 node-clamp). The conserved quantity here is
+
+            H = T  +  W_linear(bulk)  +  V_clamp,
+            V_clamp = ½ K Σ relu(−Γ)·|ω|²   (the reactive wall potential).
+
+        Returns the three parts so the result doc can show energy sloshing
+        between kinetic, elastic, and wall-reactive storage (the reactance
+        pair) rather than mis-reading wall storage as non-conservation."""
+        T = self.kinetic_energy()
+        W = float(
+            _total_energy_bare(
+                jnp.asarray(self.u),
+                jnp.asarray(self.omega),
+                self._mask_alive_jax,
+                self.dx,
+                self.G,
+                self.G_c,
+                self.gamma,
+                0.0,
+                0.0,
+                0.0,
+                self.omega_yield,
+                self.epsilon_yield,
+            )
+        )
+        if self._clamp_weight is not None:
+            mask = self.mask_alive[..., None].astype(self.omega.dtype)
+            V_clamp = 0.5 * self.impedance_clamp_strength * float(
+                np.sum(self._clamp_weight[..., None] * self.omega**2 * mask)
+            )
+        else:
+            V_clamp = 0.0
+        return {"T": T, "W_linear": W, "V_clamp": V_clamp, "H": T + W + V_clamp}
+
+    def _freeze_clamp_weight(self) -> None:
+        """Set `self._clamp_weight = relu(−Γ)` (μ-short only) from the current
+        field, with skin-depth smoothing over tetrahedral neighbors so the
+        reflective wall is a finite-thickness skin, not a grid-sharp (Nyquist)
+        edge. The μ-side short (Γ<0) is a node (confining); the ε-side open
+        (Γ>0) is an antinode and is not clamped (relu gate)."""
+        gamma = self._impedance_gamma_field()
+        weight = np.maximum(0.0, -gamma)
+        for _ in range(self.impedance_skin_smoothing):
+            acc = weight.copy()
+            for p in TETRA_OFFSETS:
+                acc = acc + np.roll(weight, shift=(-p[0], -p[1], -p[2]), axis=(0, 1, 2))
+            weight = acc / (1 + len(TETRA_OFFSETS))
+        self._clamp_weight = weight * self.mask_alive.astype(weight.dtype)
+
+    def _clamp_omega0(self) -> np.ndarray:
+        """Per-cell clamp angular frequency Ω₀ = √((K/I_ω)·relu(−Γ)) from the
+        frozen per-step weight `self._clamp_weight`. Zero where matched/open
+        (no μ-short → no clamp → the cell free-streams). The reactive node-clamp
+        ω̈ = −Ω₀²·ω is an exact harmonic oscillator in (ω, ω̇) at this Ω₀."""
+        w = self._clamp_weight
+        return np.sqrt((self.impedance_clamp_strength / self.I_omega) * np.maximum(w, 0.0))
+
+    def _rotate_clamp(self, omega0: np.ndarray, tau: float) -> None:
+        """Advance (ω, ω̇) by the EXACT harmonic-rotation flow of the reactive
+        Γ=−1 node-clamp over time `tau`, in place.
+
+            ω(τ)  =  ω·cos(Ω₀τ) + (ω̇/Ω₀)·sin(Ω₀τ)
+            ω̇(τ) = −ω·Ω₀·sin(Ω₀τ) + ω̇·cos(Ω₀τ)
+
+        This is the analytic solution of ω̈ = −Ω₀²ω (the reactive node-clamp as
+        a lossless LC oscillator), so the clamp energy ½I_ω(ω̇² + Ω₀²ω²) is
+        conserved EXACTLY for any τ — no truncation, no parametric pumping. As
+        Ω₀→0 the rotation degrades smoothly to free drift ω ← ω + τ·ω̇ (matched
+        cells stream as a plain Verlet drift), so the bulk wave is unchanged.
+        CP6: the (ω=C-state, ω̇=L-state) reactance pair is rotated together."""
+        O = omega0[..., None]
+        phi = O * tau
+        c = np.cos(phi)
+        s = np.sin(phi)
+        tiny = 1e-30
+        O_safe = np.where(O > tiny, O, 1.0)
+        drift = np.where(O > tiny, s / O_safe, tau)  # sin(Ω₀τ)/Ω₀ → τ as Ω₀→0
+        om = c * self.omega + drift * self.omega_dot
+        od = -O * s * self.omega + c * self.omega_dot
+        self.omega = om
+        self.omega_dot = od
+
+    def _bulk_accel(self) -> tuple[np.ndarray, np.ndarray]:
+        """Linear-elastic bulk acceleration ONLY (no clamp) — the soft part of
+        the implicit Strang split. The stiff Γ=−1 clamp is carried separately by
+        `_rotate_clamp` (exact), so this is the matched-bulk shear wave."""
+        dE_du, dE_dw = self._bare_linear_gradient()
+        return -dE_du / self.rho, -dE_dw / self.I_omega
+
+    def _accel(self) -> tuple[np.ndarray, np.ndarray]:
+        """Acceleration (a_u, a_ω) for the velocity-Verlet step.
+
+        Default path (use_impedance_boundary=False): exactly −∇W/mass from
+        `energy_gradient()` — byte-identical to the pre-mechanism engine.
+        Impedance path: linear-elastic bulk + Op3 Γ=−1 node-clamp at the
+        moving μ-side front."""
+        if self.use_impedance_boundary:
+            dE_du, dE_dw = self._bare_linear_gradient()
+            a_u = -dE_du / self.rho
+            a_w = -dE_dw / self.I_omega
+            c_u, c_w = self._impedance_clamp_accel()
+            return a_u + c_u, a_w + c_w
+        dE_du, dE_dw = self.energy_gradient()
+        return -dE_du / self.rho, -dE_dw / self.I_omega
+
     def step(self, dt: float | None = None) -> None:
         """Advance (u, omega) one timestep via velocity-Verlet.
 
@@ -1546,10 +1816,56 @@ class CosseratField3D:
         if dt is None:
             dt = self.cfl_dt
 
-        # Force at current state  →  acceleration
-        dE_du, dE_dw = self.energy_gradient()
-        a_u = -dE_du / self.rho
-        a_w = -dE_dw / self.I_omega
+        # Freeze the Γ=−1 node-clamp weight relu(−Γ) (from the current field)
+        # with skin-depth smoothing. The EXPLICIT path freezes ONCE per step
+        # ((II) §7 design); the IMPLICIT path re-freezes EVERY sub-step (below)
+        # so the moving reflective wall tracks the focusing field — the
+        # operative anti-pumping requirement (see implicit branch).
+        if self.use_impedance_boundary and not self.impedance_implicit:
+            self._freeze_clamp_weight()
+
+        # Implicit / energy-conserving path: sub-divided Strang split (kick /
+        # exact-rotate-drift / kick) with the clamp weight RE-FROZEN every
+        # sub-step. The (II) §6 hard-Γ=−1 growth is a moving-boundary temporal-
+        # resolution instability (Strang commutator ∝ sub-dt²·Ω₀·k_bulk): the
+        # reflective wall must be re-evaluated AND integrated at a sub-dt ≤
+        # impedance_cfl_safety·cfl_dt, else energy pumps. NOT a within-step
+        # integrator error (the exact rotation gives bit-identical growth at the
+        # same sub-dt + freeze cadence). The exact rotation is the CP6-correct
+        # reactance integration; the fine sub-dt + per-sub-step re-freeze is the
+        # operative fix.
+        if self.use_impedance_boundary and self.impedance_implicit:
+            dt_safe = self.impedance_cfl_safety * self.cfl_dt
+            n_sub = max(1, int(np.ceil(dt / max(dt_safe, 1e-30))))
+            sub = dt / n_sub
+            for _ in range(n_sub):
+                self._freeze_clamp_weight()  # re-evaluate the moving wall each sub-step
+                omega0 = self._clamp_omega0()
+                a_u, a_w = self._bulk_accel()
+                # 1. half-kick (bulk force only)
+                self.u_dot = self.u_dot + 0.5 * sub * a_u
+                self.omega_dot = self.omega_dot + 0.5 * sub * a_w
+                self._zero_velocities_outside_alive()
+                # 2. drift u; exact-rotate the (ω, ω̇) reactance pair through clamp
+                self.u = self.u + sub * self.u_dot
+                self._rotate_clamp(omega0, sub)
+                self._zero_outside_alive()
+                # 3. half-kick (bulk force at the new state)
+                a_u_new, a_w_new = self._bulk_accel()
+                self.u_dot = self.u_dot + 0.5 * sub * a_u_new
+                self.omega_dot = self.omega_dot + 0.5 * sub * a_w_new
+                self._zero_velocities_outside_alive()
+                if self.damping_gamma > 0.0:
+                    decay = max(0.0, 1.0 - self.damping_gamma * sub)
+                    self.u_dot *= decay
+                    self.omega_dot *= decay
+            self.time += dt
+            return
+
+        # Force at current state  →  acceleration. `_accel` is the default
+        # −∇W/mass when use_impedance_boundary=False (byte-identical), or the
+        # linear-bulk + Γ=−1 node-clamp when the moving impedance wall is on.
+        a_u, a_w = self._accel()
 
         # Half-kick: u_dot(t+dt/2)
         self.u_dot = self.u_dot + 0.5 * dt * a_u
@@ -1561,10 +1877,9 @@ class CosseratField3D:
         self.omega = self.omega + dt * self.omega_dot
         self._zero_outside_alive()
 
-        # Force at new state  →  new acceleration
-        dE_du_new, dE_dw_new = self.energy_gradient()
-        a_u_new = -dE_du_new / self.rho
-        a_w_new = -dE_dw_new / self.I_omega
+        # Force at new state  →  new acceleration (moving boundary: Γ is
+        # recomputed from the drifted field, so the front advances each step).
+        a_u_new, a_w_new = self._accel()
 
         # Half-kick: u_dot(t+dt)
         self.u_dot = self.u_dot + 0.5 * dt * a_u_new
@@ -1591,6 +1906,7 @@ class CosseratField3D:
         wavelength: float,
         amplitude: float = 1e-3,
         axis: int = 2,
+        helicity: float = 0.0,
     ) -> None:
         """Seed a small propagating rotational (ω) Gaussian wavepacket.
 
@@ -1611,6 +1927,13 @@ class CosseratField3D:
             wavelength: carrier λ in lattice cells.
             amplitude: peak omega amplitude (rad).
             axis: component index (0,1,2) of omega to excite.
+            helicity: 0.0 → linear polarization (legacy, byte-identical). A
+                nonzero value adds a quadrature ω component along d̂×ê_axis,
+                90° out of phase, giving a circularly-polarized (corkscrew) ω
+                field with nonzero Beltrami helicity h — the *charge*. The sign
+                sets handedness (e⁻ vs e⁺). Load-bearing for charge=helicity
+                (Arm C) and for the chirality-biased μ-side saturation that
+                distinguishes the two charge signs (κ_chiral·h term in Op14).
         """
         d_hat = np.asarray(direction, dtype=float)
         d_hat = d_hat / np.linalg.norm(d_hat)
@@ -1636,6 +1959,25 @@ class CosseratField3D:
         # traveling wave at speed c_T along +d̂. omega(r, t) ~ cos(k·r − ω t)
         # ⇒ ∂_t omega|_{t=0} = ω · sin(k·r) = c_T·|k|·sin(k·r).
         omega_dot_field[..., axis] = c_T * np.linalg.norm(k_vec) * amplitude * envelope * carrier_sin
+
+        # Helical (circularly-polarized) partner: a quadrature ω component
+        # along ê_perp = d̂ × ê_axis, 90° out of phase (cos→sin). The ω vector
+        # then rotates in the (ê_axis, ê_perp) plane along the propagation
+        # axis → a corkscrew with nonzero Beltrami helicity h (the charge).
+        # ω_perp(r,t) = h·A·env·sin(k·r − ωt) ⇒ ∂_t|₀ = −h·c_T·|k|·A·env·cos.
+        if helicity != 0.0:
+            e_axis = np.zeros(3)
+            e_axis[axis] = 1.0
+            e_perp = np.cross(d_hat, e_axis)
+            n_perp = np.linalg.norm(e_perp)
+            if n_perp > 1e-12:
+                e_perp = e_perp / n_perp
+                k_mag = float(np.linalg.norm(k_vec))
+                for c in range(3):
+                    omega_field[..., c] += helicity * amplitude * envelope * carrier_sin * e_perp[c]
+                    omega_dot_field[..., c] += (
+                        -helicity * c_T * k_mag * amplitude * envelope * carrier_cos * e_perp[c]
+                    )
 
         # Enforce active-site mask.
         mask4 = self.mask_alive[..., None].astype(omega_field.dtype)
