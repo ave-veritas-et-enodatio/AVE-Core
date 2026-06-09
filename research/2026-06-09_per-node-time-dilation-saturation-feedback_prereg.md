@@ -50,6 +50,12 @@ Three disagreeing exponents live in canon simultaneously (clock ∝ (1−A²)^p)
 
 ## 3. substrate-native-check (FIRST)
 
+**Regime / phase-state declaration (per `ave-regime-phase-state-check`, 2026-06-09):**
+- **MODE:** mechanical-**shear** (the matter/gravitational clock, c_shear=c₀(1−A²)^¼). NOT the bulk mode.
+- **REGIME — and the crucial contrast with thixotropy:** the effect is a **SCALAR** ⟨clock⟩-deficit (a Jensen time-average of a concave kernel, ≈½A₀² to leading order, **frequency-independent**). A scalar/DC deficit is **achromatic and EXISTS in EVERY regime** — it is the one substrate-response effect that survives the linear-achromatic regime. Only its **magnitude** scales with amplitude (largest near-yield). This is the opposite of the thixotropy/rectification effect, which needs a ∮≠0 (vectorial, rate-asymmetric) and therefore *only exists* in the near-yield bulk regime. **Do NOT mis-apply the near-yield-bulk requirement here** — time dilation does not need it to exist, only to be large. (This is precisely why the same Jensen machinery that failed as thrust succeeds as a clock: thrust needs the ∮ that the regime forbids; the clock needs only the scalar deficit that the regime allows everywhere.)
+- **PHASE-STATE:** SYM-class symmetric loading (Z=Z₀ invariant, reflectionless gravity-class); the ASYM Meissner-mirror is a different observable.
+
+
 - **Dynamics/sector:** time-averaged saturation of the LC tank under AC drive; the clock is the **shear/mechanical** oscillator (c_shear sector, pending §2a). Symmetric loading keeps Z=Z₀ (SYM-class, reflectionless gravity); the drive must be symmetric-both-sector, else it's the Meissner-mirror observable.
 - **Objective:** ⟨clock-kernel⟩ over a drive cycle (the rectified DC offset) + the self-consistent A fixed point — NOT energy minimization.
 - **Coordinate system:** real-space per-node strain A; clock is real-space time-domain. The per-node strain (NOT apparatus field) is load-bearing — the 2026-06-04 walk-back is the cautionary anchor.
