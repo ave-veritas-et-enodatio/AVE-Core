@@ -48,3 +48,7 @@ Grant's "ion closed-loop compression cycle" tangent → dark-wake reaction-thrus
 3. **Cross-repo** (Propulsion leaf, AVE-Skills mirror) = **separate session**; tracked here + in the promotions-tracker, not executed inline.
 4. **Nulls carry their regime label** (`ave-regime-phase-state-check`) before they justify any walk-back.
 5. On any arc PR merge: add a one-line pointer to this epic from `index.md`, and log the closure-roadmap row.
+
+## 6. Progress log (2026-06-09)
+- **Thixotropy rigor-gap CLOSED** — `savefig` + 4-panel Outcome-B figure folded into the thixo branch (`5969bda1`); the result doc embeds it. (Was the one stranded artifact; now homed.)
+- **Rectifier Stage-1 prereg FROZEN** — [`2026-06-09_rectifier-stage1-biased-diode_prereg.md`](../research/2026-06-09_rectifier-stage1-biased-diode_prereg.md): single DC-biased leaky varactor diode + AC pump + (V,Q) loop + ledger + mandatory bias sweep. Binds ave-asymmetric-grip + ave-regime-phase-state-check + ave-engineering-program-rigor. **Next:** dispatch the Stage-1 driver run (own implementor branch off this one) — pending Grant's gut-check on the A-vs-B physical fork (directed momentum vs re-radiated heat).
