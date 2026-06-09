@@ -1,0 +1,132 @@
+[↑ Common Resources](index.md)
+
+<!-- kb-frontmatter
+kind: leaf
+no-claim: "routing-aid index — consolidates the scattered history-dependent (memory / hysteresis) canon by class and points at the canonical leaves; hosts no new physics (INVARIANT-S7: leaves are canonical, indexes are routing aids)"
+-->
+
+# Substrate Hysteresis / History-Dependent (Memory) Index
+
+**Purpose**: routing-aid index that consolidates the AVE substrate's scattered **history-dependent (memory) physics** — Lenz-freeze latching, the τ_relax relaxation class, thixotropic / stick-slip / Bingham yield, cosmological defect-freezing, and the hysteresis loops of dynamic saturation — into one place, organized by class. The canon is real and partly derived, but it is spread across ~20 leaves in Vol 1, 2, 3, 4 + common with no consolidating section. This index closes that gap, applying the same kernel-catalog / analytical-toolkit-index pattern (see [`universal-saturation-kernel-catalog.md`](universal-saturation-kernel-catalog.md), [`ave-analytical-toolkit-index.md`](ave-analytical-toolkit-index.md)) to memory physics.
+
+**Origin**: 2026-06-08 (Grant directive). A dark-wake derivation cycle stalled because the smooth Axiom-4 kernel $S(A) = \sqrt{1 - A^2}$ is **memoryless** (algebraically symmetric in $A$), so the implementor went hunting for the Lenz-freeze latching that should have been one index-lookup away. The memory physics lives one level below the smooth kernel — in the *dynamics* of how the kernel relaxes — and was un-indexed.
+
+**Routing-aid status (INVARIANT-S7)**: every claim cited below is owned by the canonical leaf it points to. This index asserts no new physics and carries no `clm-` of its own; consult the cited leaf (and, where one exists, its `claim-quality.md` entry) before treating any summary line here as a claim source.
+
+---
+
+## The headline scoping: reversible envelope vs. dynamic-crossing hysteresis
+
+The load-bearing distinction — **already canonical** in [`tau-relax-derivation.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/tau-relax-derivation.md) §3 as the "two levels of the saturation kernel," recorded here as the organizing axis, not a new claim:
+
+> **Same substrate, two regimes.**
+>
+> - **Reversible sub-yield envelope (Level 1, memoryless).** The smooth Axiom-4 kernel $S_{\text{eq}}(r) = \sqrt{1 - r^2}$ depends on $r^2 = (A/A_c)^2$ only — **no sign dependence, no path dependence.** Up-crossing and down-crossing see the same $S_{\text{eq}}$ at matched $r$. Below yield, away from a dynamic crossing, the substrate's saturation response is a reversible reactive envelope. ([`tau-relax-derivation.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/tau-relax-derivation.md) §3 Level 1, lines 68-72.)
+> - **Dynamic-crossing hysteresis (Level 2, memristive).** The *actual* state $S(t)$ relaxes toward $S_{\text{eq}}$ with the finite time constant $\tau_{\text{relax}} = \ell_{\text{node}}/c$ via a first-order ODE $dS/dt = (S_{\text{eq}}(r(t)) - S(t))/\tau_{\text{relax}}$. The finite relaxation makes $S(t)$ lag — above equilibrium on up-crossing, below on down-crossing — so over a cycle $S(t)$ **encloses a hysteresis loop** $\oint S\, dr$ = dissipated energy per cycle. The substrate is therefore **memristive (path-dependent)**, even though the kernel form is symmetric. ([`tau-relax-derivation.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/tau-relax-derivation.md) §3 Level 2 + Key-Results table, lines 22-24, 74-89.)
+
+Everything in the class tables below is a manifestation of Level 2 — the dynamics of crossing or being driven through saturation — at some scale. When a derivation needs memory, latching, freezing, or path-dependence, it is reaching for Level-2 physics; the smooth $\sqrt{1-A^2}$ envelope alone will not supply it.
+
+---
+
+## §0 — Class taxonomy
+
+| Class | What it is | Canonical home(s) |
+|---|---|---|
+| §1 Inductive / Lenz memory | Diverging $L_{\text{eff}}$ near $S \to 0$ generates Lenz back-EMF that blocks $d\omega/dt$ (or $dI/dt$); Op14 dynamic impedance is the substrate's history-dependent ("memristor") operating point | dark-wake BEMF synthesis; Op14 leaves; relativistic inductor; Newtonian-inertia-as-Lenz; geodynamo |
+| §2 Relaxation-time class | $\tau_{\text{relax}} = \ell_{\text{node}}/c$ — the causal-minimum state-change time that makes the substrate memristive; the $\geq 100$-Compton-period persistence of frozen residues | τ_relax derivation; nonlinear vacuum capacitance |
+| §3 Thixotropic / stick-slip / Bingham yield | Slow-grip / fast-slip: above yield the vacuum flows (Bingham plastic), then thixotropically re-freezes; the moving-soliton STZ slipstream | saturation operator; Peierls-Nabarro paradox; temporal-regime tribology row; nonlinear vacuum capacitance |
+| §4 Defect-freezing / matter-precipitation / ω-freeze | Topology that cannot unwind during a yield-crossing freezes in; cosmic spin frozen at lattice genesis; matter precipitation from cooling vacuum | τ_relax §4; Ω_freeze cascade; trampoline framework; Op14 cosmic-horizon profile |
+| §5 Hysteresis loops in saturation | The reversible-envelope-vs-dynamic-latching scoping itself: pinched hysteresis loops, the loss-tangent temporal trichotomy, non-volatile kink memory | τ_relax §3; nonlinear vacuum capacitance (Vacuum Memristor); temporal-saturation-regime classifier; VCA kink trap |
+
+---
+
+## §1 — Inductive / Lenz memory (back-EMF yield-freeze, Op14 substrate memristor)
+
+**WHEN TO USE**: deriving why a topologically non-trivial configuration resists change, latches, or freezes when driven through (or toward) saturation; any time the dynamics are governed by a *rate* ($d\omega/dt$, $dI/dt$) rather than an instantaneous amplitude.
+
+| Leaf | What it covers | Canonical claim |
+|---|---|---|
+| [`dark-wake-bemf-foc-synthesis.md`](dark-wake-bemf-foc-synthesis.md) §1.2 (lines 42-46) | Diverging $L_{\text{eff}}$ (Op14 near $S = 0$) → diverging Lenz back-EMF **blocks $d\omega/dt$** during the $\tau_{\text{relax}}$ crossing window; topologically non-trivial $\omega$ **FREEZES**; residues persist $\geq 100$ Compton periods. Substrate-native (Axiom 1 + Op14 + Lenz), **not** a Kibble-Zurek import. | clm-exjfai |
+| [`newtonian-inertia-as-lenz.md`](../vol2/particle-physics/ch01-topological-matter/newtonian-inertia-as-lenz.md) (line 12) | Mass IS inductive resistance: $F = ma$ as the macroscopic consequence of Lenz back-EMF on a confined phase loop; inertia is the substrate's memory of its own flux. | clm-jwyy6l |
+| [`relativistic-inductor.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor.md) (lines 14-16, 30-32) | $L_{\text{eff}}(I) = L_0/\sqrt{1 - (I/I_{\max})^2} \to \infty$ at $I_{\max}$ — the diverging-inductance mechanism that physically collapses the slew rate $dI/dt \to 0$ (the magnetic-sector projection of the same Axiom-4 kernel that the freeze rides on). | clm-p5cf3t |
+| [`op14-local-clock-modulation.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md) | Op14 dynamic impedance $Z_{\text{eff}}(r) = Z_0/\sqrt{S(r)}$ — the **history-dependent (substrate-memristor) operating point**; at $A^2 \to 1$ the local clock freezes ($\omega_{\text{local}} \to 0$). The static limit gives gravity; the dynamic limit gives the BEMF-blocking (§5 of that leaf: inertial mass). | clm-1eg13f |
+| [`op14-cross-sector-trading.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md) | The **reactance pair**: Cosserat $\omega$ ↔ K4-inductive $\Phi_{\text{link}}$ energy trading via Op14 $Z_{\text{eff}}$ modulation, $\rho(H_{\text{cos}}, \Sigma\|\Phi_{\text{link}}\|^2) = -0.990$. The L-state ($\Phi_{\text{link}}$) is the inductive memory the C-state trades against. | clm-p2tp9i |
+| [`geodynamo-vca-back-emf.md`](../vol3/applied-physics/ch13-geophysics/geodynamo-vca-back-emf.md) | Planetary-scale instance: the geodynamo as a Topo-Kinematic inductive back-EMF generator (Earth dipole within factor-2 of empirical); Mars null = solid core → $R_{Fe} \to \infty$ collapses the eddy current. | clm-wd5rs0 |
+
+**Pitfall**: the back-EMF freeze is **rate-dependent** — it only latches if the yield crossing takes $\geq \tau_{\text{relax}}$ (per dark-wake §1.2). A snapshot at one phase cannot distinguish a frozen latch from an oscillator caught at peak — record the C-state / L-state **pair** ([`op14-cross-sector-trading.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md)).
+
+---
+
+## §2 — Relaxation-time class (τ_relax, ≥100-Compton-period persistence)
+
+**WHEN TO USE**: any time-domain problem with a transient, a finite response lag, a memristive ODE, a hysteresis-loop area, or a persistence/dwell timescale.
+
+| Leaf | What it covers | Canonical claim |
+|---|---|---|
+| [`tau-relax-derivation.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/tau-relax-derivation.md) | **THE canonical relaxation-time leaf.** $\tau_{\text{relax}} = \ell_{\text{node}}/c \approx 1.288 \times 10^{-21}$ s from the per-cell K4 Lagrangian + causal propagation; no faster mode is axiom-permitted. Dynamic $S(t)$ relaxation ODE; up/down-crossing memristive lag; hysteresis loop area $\oint S\, dr$ = dissipated energy/cycle. | clm-n3un96 |
+| [`nonlinear-vacuum-capacitance.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md) §"Vacuum Memristor" (lines 41-61) | Thixotropic relaxation time restated as the **memristor crossover**: at drive $f \gg 1/\tau_{\text{relax}} \approx 7.8 \times 10^{20}$ Hz the vacuum is too slow to yield (purely elastic / reversible); at $f \ll 1/\tau_{\text{relax}}$ full yield+recovery each cycle → maximum hysteresis loss. The crossover is set entirely by $\ell_{\text{node}}$ and $c$. | clm-8nkvwy, clm-vjv4zf |
+
+**Persistence**: frozen-topology residues persist $\geq 100$ Compton periods in the post-heal solid regime ([`dark-wake-bemf-foc-synthesis.md`](dark-wake-bemf-foc-synthesis.md) §1.2, line 46) — i.e. $\tau_{\text{relax}}$ is the causal *minimum* state-change time, but the physical *persistence* of a frozen defect is far longer and memristive-state-dependent ([`tau-relax-derivation.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/tau-relax-derivation.md) §6).
+
+---
+
+## §3 — Thixotropic / stick-slip / Bingham yield (slow-grip / fast-slip)
+
+**WHEN TO USE**: a moving boundary, a yield-then-flow-then-reheal cycle, a rectification asymmetry between loading and unloading, or any problem where the vacuum behaves as a yield-stress (Bingham) plastic rather than a linear dielectric.
+
+| Leaf | What it covers | Canonical claim |
+|---|---|---|
+| [`saturation-operator.md`](../vol1/operators-and-regimes/ch6-universal-operators/saturation-operator.md) (line 27) | Dielectric saturation as the **Bingham plastic yield**: the vacuum flows above $\tau_y = B_{\text{snap}}^2/2\mu_0$ (fluid-mechanics language for the Axiom-4 collapse of lattice permittivity under strong-field loading). | clm-gdd70j |
+| [`peierls-nabarro-paradox.md`](../vol2/appendices/app-b-paradoxes/peierls-nabarro-paradox.md) (line 12) | The moving electron's leading boundary mechanically liquefies the amorphous substrate (Shear Transformation Zone) → frictionless zero-impedance slipstream; **the vacuum thixotropically re-freezes behind it**. The canonical stick-slip-then-heal picture; resolves the would-be Bremsstrahlung paradox. | clm-ghs75o |
+| [`temporal-saturation-regime-classifier.md`](temporal-saturation-regime-classifier.md) §11 Tribology (lines 178-186) | Stick-slip oscillation classified by static-vs-kinetic friction asymmetry → **Cyclic** temporal regime; Stribeck-curve mapping (hydrodynamic = lossless, boundary = lossy, dry/Coulomb = saturation boundary at slip). | clm-f0jwtk |
+| [`nonlinear-vacuum-capacitance.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md) §"Vacuum Memristor (Thixotropic Hysteresis)" | The dielectric-saturation→plastic transition requires a finite geometric relaxation time to liquefy the lattice — the thixotropic mechanism behind the pinched hysteresis loop. | clm-8nkvwy |
+
+**Active research (off-branch — reference, not canon)**: the dark-wake rrad-L rectification thread (slow-grip / fast-slip Bingham-yield rectification of a driven dark wake) is being developed on the propulsion branch `analysis/2026-06-08-rrad-l-darkwake` as `research/2026-06-08_rrad-l-rectification_prereg.md` + `_result.md` (and the `_rrad-l-darkwake_` prereg/result pair). It is **not yet on main** and is not citable as canon from here; integration is handled separately by orchestration. (See report note: the seed-inventory-named `_rrad-l-stickslip-phase3_prereg.md` was not found on that branch as of this writing.)
+
+---
+
+## §4 — Defect-freezing / matter-precipitation / ω-freeze (cosmological frozen grain)
+
+**WHEN TO USE**: a cooling / crystallizing substrate, a frozen-in initial condition, defect-density prediction, or the cosmological matter-precipitation lifecycle.
+
+| Leaf | What it covers | Canonical claim |
+|---|---|---|
+| [`tau-relax-derivation.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/tau-relax-derivation.md) §4 (lines 91-103) | **BEMF-driven defect freezing (AVE-native Kibble-Zurek)**: near saturation $L_{\text{eff}} \to \infty$ blocks $dI/dt$ and $d\omega/dt$ so topology cannot unwind during the yield-crossing → freezes. Mechanism for matter precipitation under cooling; predicts **linear** cooling-rate scaling (NOT the K-Z power law), because Axiom 4 is first-order. | clm-n3un96 |
+| [`omega-freeze-cosmic-grain-cascade.md`](omega-freeze-cosmic-grain-cascade.md) §2 (lines 42-49) | Cosmic spin $\Omega_{\text{freeze}}$ **locked into the substrate at lattice genesis** as bond over-bracing $u_0^*$ + global chirality direction; survives forever as the cosmological initial condition; sets $\alpha$, $G$, $\mathcal{J}_{\text{cosmic}}$ jointly. | clm-dsb560, clm-a7cbqq |
+| [`trampoline-framework.md`](trampoline-framework.md) (lines 97-105, 422) | The freeze-in mechanism in primer form: rotating-frame freeze-in sets $u_0$ + chirality at genesis (97-105); under saturation the local clock slows and **at rupture freezes** (422). | (see leaf) |
+| [`op14-cosmic-horizon-profile.md`](../vol3/cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md) (lines 24, 57, 68) | The **frozen-horizon vs ongoing-crystallisation** distinction: BH event horizon is a one-shot $A^2 = 1$ frozen saturation lock; the cosmic horizon is maintained near $A^2 = 1$ by latent-heat balance with $\partial_t A^2 \neq 0$ — same profile shape, non-zero time-derivative. | clm-48g5qf |
+
+**Pitfall**: matter precipitation from cooling vacuum is the *cosmological* instance of the §1 back-EMF freeze ([`dark-wake-bemf-foc-synthesis.md`](dark-wake-bemf-foc-synthesis.md) §1.2) — same mechanism, cosmic scale. Do not import a Kibble-Zurek power-law; the AVE prediction is linear in cooling rate.
+
+---
+
+## §5 — Hysteresis loops in saturation (the reversible-envelope-vs-dynamic-latching scoping)
+
+**WHEN TO USE**: distinguishing reversible reactive cycling from genuine dissipative/latching history; classifying a system's time-pattern through saturation; non-volatile stored-state memory.
+
+| Leaf | What it covers | Canonical claim |
+|---|---|---|
+| [`tau-relax-derivation.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/tau-relax-derivation.md) §3 (lines 66-90) | **The headline scoping itself**: Level 1 (Axiom-4 alone, algebraically symmetric, reversible) vs Level 2 (Axiom 4 + Axiom 1 + Axiom 3, dynamic, memristive) — the loop $\oint S\, dr$ appears only at Level 2. | clm-n3un96 |
+| [`nonlinear-vacuum-capacitance.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md) §"Vacuum Memristor" (lines 51-61) | The **pinched hysteresis loop**: memristance $M(q) = d\Phi/dq$; the $V$–$I$ Lissajous passes through the origin but encloses finite area $\propto$ energy dissipated per thixotropic yield–heal cycle. The textbook memristor signature. | clm-8nkvwy |
+| [`temporal-saturation-regime-classifier.md`](temporal-saturation-regime-classifier.md) | The **temporal trichotomy** — Lossless (reversible, $\delta_{\text{AVE}} \to 0$) / Cyclic / Lossy (irreversible, $\delta_{\text{AVE}} \to 1$) — via the substrate-native loss tangent $\delta_{\text{AVE}} = t_{\text{sat}}/t_{\text{period}}$. The classifier that separates reversible reactive cycling from dynamic-latching loss across 21 OOM. | clm-f0jwtk |
+| [`appendix-vca-symbols.md`](appendix-vca-symbols.md) (line 39) | **Sine-Gordon kink trap = non-volatile memory** (Flash/NAND analog): $\phi(x) = 4\arctan(e^{\gamma(x-vt)})$ — a substrate-native stored-state memory primitive (integer topological charge held against the reversible envelope). Energy $U_{\text{kink}}$ at [`appendix-derived-numerology.md`](appendix-derived-numerology.md) (line 34). | (see leaf) |
+
+**Framing discipline** (per `consistency-vs-emergence` light + `ave-evidence-framing-discipline`): the reversible-vs-hysteretic distinction is the **existing canonical Level-1-vs-Level-2 scoping** of [`tau-relax-derivation.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/tau-relax-derivation.md), not a new claim of this index. The smooth Axiom-4 kernel $S(A) = \sqrt{1 - A^2}$ (canonical: INVARIANT-S2 in [`../CLAUDE.md`](../CLAUDE.md); 26-instance catalog in [`universal-saturation-kernel-catalog.md`](universal-saturation-kernel-catalog.md)) is unchanged; the memory physics is the dynamics *of* that kernel, not a modification of it.
+
+---
+
+## §6 — Cross-references
+
+- **Companion indexes**: [`ave-analytical-toolkit-index.md`](ave-analytical-toolkit-index.md) §4 Time-domain (τ_relax, memristive ODE, BEMF, cooling-rate scaling) is the problem-class entry point; this leaf is the memory-physics-specific consolidation under it.
+- **Kernel catalog**: [`universal-saturation-kernel-catalog.md`](universal-saturation-kernel-catalog.md) — the spatial-instantaneous kernel across 26 scales; the Sine-Gordon kink-memory + sine-Gordon engineered rows are its memory-relevant entries.
+- **Temporal companion**: [`temporal-saturation-regime-classifier.md`](temporal-saturation-regime-classifier.md) — the orthogonal temporal axis; the lossless/cyclic/lossy trichotomy is the time-domain partner of this index's reversible/hysteretic axis.
+- **Substrate-observability**: [`boundary-observables-m-q-j.md`](boundary-observables-m-q-j.md) — the frozen interior (clock-stopped) vs externally-observable boundary invariants $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ that the §4 freeze produces.
+
+## §7 — Maintenance
+
+This index is a **routing aid** (INVARIANT-S7): it points at canonical leaves and hosts no claims. Discipline:
+
+1. New canonical memory-physics leaf lands → add a row to the appropriate §1-§5 class table here with a grep-verified file:line + the governing `clm-` id.
+2. A derivation cycle stalls for want of a memory mechanism (the failure mode that motivated this index) → record it as a worked example of the gap this index closes.
+3. A cited leaf's section/line moves → re-grep and update the file:line citation.
+4. Optional back-links: the most central leaves (τ_relax derivation, nonlinear-vacuum-capacitance, dark-wake BEMF synthesis, temporal-regime classifier) may carry a `> ↗ See also:` pointer back to this index — added at orchestration/PR time, not by this leaf.
