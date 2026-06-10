@@ -66,6 +66,23 @@ All values reduce to the cold-lattice limit $S(0) = 1$; no engineering operating
 
 \end{resultbox}
 
+\section{Bulk Rarefaction Floor $\bar{\rho}_{cav}$ (candidate-claim)}
+\label{sec:vol9_absmax_rho_cav}
+
+The five ratings above are the \emph{compression / saturation}-side absolute limits (the substrate driven \emph{up} the Axiom~4 kernel toward $S \to 0$). The bulk volumetric sector has a second absolute limit on the \emph{rarefaction} side --- a most-negative volumetric strain $\bar{\rho}$ beyond which the bulk (density / compressional) wave speed vanishes and the medium cavitates.
+
+\begin{warningbox}[$\bar{\rho}_{cav}$ --- CANDIDATE-CLAIM, auditor-gated]
+\textbf{Status: candidate-claim, not yet promoted (auditor-gated per the Vol~9 figure-build worklist, \texttt{analysis/2026-06-09-vol9-datasheet-figures}).} Recorded here for completeness of the bulk-sector limit pair; do not cite as a closed datasheet value until promoted.
+\end{warningbox}
+
+\noindent
+The bulk compressional wave speed obeys $c_{bulk}^2 = c_0^2\,[\,1 + \bar{\rho}/(1 - \bar{\rho}^2)\,]$ (canonical relation at sibling-repo \kbleaf{AVE-Propulsion/manuscript/vol\_propulsion/chapters/04\_superluminal\_transit.tex}:86; $\bar{\rho} = \delta\rho/\rho_0$ the normalized volumetric strain, $\bar{\rho} \in [-1, 1]$). Setting $c_{bulk} = 0$ gives $1 + \bar{\rho}/(1-\bar{\rho}^2) = 0 \Rightarrow \bar{\rho}^2 - \bar{\rho} - 1 = 0$, whose negative root is
+\begin{equation}
+\bar{\rho}_{cav} = \frac{1 - \sqrt{5}}{2} = -\frac{1}{\varphi} \approx -0.618,
+\label{eq:vol9_rho_cav}
+\end{equation}
+with $\varphi$ the golden ratio. At $\bar{\rho} \to \bar{\rho}_{cav}$ the bulk wave speed freezes ($c_{bulk} \to 0$): the rarefaction-side analog of the saturation-side $A \to A_{yield}$ ceiling, but in the \emph{volumetric / bulk} mode rather than the deviatoric / shear mode. The value $-1/\varphi$ is \emph{derived} (the $c_{bulk} = 0$ root of the canonical relation above), \emph{not} a free parameter; the candidate-claim status is about its promotion to a canonical Vol~9 datasheet line, not about the algebra. The bulk-sector clock that freezes at this floor is documented in the temporal/switching section, Ch.~\ref{ch:vol9_ac_electrical_characteristics} \S Temporal Characteristics.
+
 \section{Engineering Operating Margins}
 \label{sec:vol9_absmax_margins}
 

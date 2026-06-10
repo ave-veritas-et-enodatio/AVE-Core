@@ -238,6 +238,22 @@ DELTA_STRAIN: float = 1.0 - (1.0 / ALPHA) / ALPHA_COLD_INV  # ≈ 2.225e-6
 # ℓ_node ≡ ℏ / (m_e · c)
 L_NODE: float = HBAR / (M_E * C_0)  # ≈ 3.8616e-13 m
 
+# Cosserat characteristic (coupling) length — the substrate-CONTINUOUS K4
+# discrete↔continuum length ratio of the micropolar lattice.
+#   ℓ_c² = (β+γ)/[2(μ+κ)] = ℓ_node² · ξ_K2/(2·ξ_K1) = 6·ℓ_node²
+#   (Q-G47 Session 19: ξ_K1 = 8/3, ξ_K2 = 32 → ξ_K2/(2·ξ_K1) = 6), so ℓ_c = √6·ℓ_node.
+# Canonical: claim-quality-closure-roadmap.md:149 ("recovers canonical ℓ_c/ℓ_node = √6
+#   exactly"); continuous-springs-reframing.md:36 ("the Cosserat characteristic length,
+#   substrate-continuous quantity; ℓ_c/ℓ_node ≈ √6").
+# ⚠ DISAMBIGUATION (two-objects-one-symbol — flag-don't-fix): this ELL_C
+#   (≈ 9.46e-13 m, the K4 LATTICE-scale Cosserat coupling length, ≈ 2.45 node
+#   spacings) is NOT the weak-force-range "l_c = √(γ_c/G_vac) ≈ 1e-18 m" used in
+#   vol9 ch9/ch10 + gauge-boson-masses.md:39. Same symbol and same formula STRUCTURE
+#   (√(couple-stress/shear)), but ~6 orders of magnitude apart and a different physical
+#   referent. Surfaced for auditor adjudication (vol9 ch9/ch10 carry the disambiguation
+#   footnote); not silently merged.
+ELL_C: float = np.sqrt(6.0) * L_NODE  # ≈ 9.460e-13 m (lattice Cosserat coupling length)
+
 # Bohr radius — the atomic unit of length
 # a₀ ≡ ℏ / (α · m_e · c) = ℓ_node / α
 A_0: float = L_NODE / ALPHA  # ≈ 5.2918e-11 m

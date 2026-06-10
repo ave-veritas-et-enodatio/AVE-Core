@@ -69,6 +69,15 @@ The substrate carries \textbf{two distinct substrate-native effective wave speed
 
 Both reduce to a single $c_0$ at the cold-lattice limit $S(0) = 1$.
 
+\subsection{Bulk rarefaction floor $\bar{\rho}_{cav} = -1/\varphi$ (candidate-claim)}
+\label{sec:vol9_rho_cav_saturation}
+
+The kernel above governs the \emph{deviatoric / shear} and dielectric sectors via the strain amplitude $A$ (saturation-side ceiling $A \to A_{yield}$). The \emph{bulk / volumetric} sector has a separate rarefaction-side floor in the normalized volumetric strain $\bar{\rho} = \delta\rho/\rho_0$: from $c_{bulk}^2 = c_0^2[1 + \bar{\rho}/(1-\bar{\rho}^2)]$ (canonical relation at sibling-repo \kbleaf{AVE-Propulsion/.../04\_superluminal\_transit.tex}:86), $c_{bulk} \to 0$ at the negative root $\bar{\rho}^2 - \bar{\rho} - 1 = 0$,
+\begin{equation}
+\bar{\rho}_{cav} = \frac{1-\sqrt{5}}{2} = -\frac{1}{\varphi} \approx -0.618 .
+\end{equation}
+This is the bulk analog of the shear-sector $A = A_{yield}$ ceiling. \textbf{Status: candidate-claim, auditor-gated} (promotion tracked on \texttt{analysis/2026-06-09-vol9-datasheet-figures}); the $-1/\varphi$ value is \emph{derived} (the $c_{bulk}=0$ root), but its promotion to a canonical Vol~9 datasheet line is not yet adjudicated. The bulk-mode clock that freezes at this floor is documented in Ch.~\ref{ch:vol9_ac_electrical_characteristics} \S Temporal Characteristics (Ch.~\ref{ch:vol9_absolute_maximum_ratings} \S Bulk Rarefaction Floor records it as the rarefaction-side absolute limit).
+
 \subsection{$\alpha$-invariance under SYM-class saturation}
 \label{sec:vol9_alpha_invariance}
 
