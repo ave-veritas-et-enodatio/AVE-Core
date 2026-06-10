@@ -95,6 +95,12 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         chi_exch: float = 0.02,
         bounce_thresh: float = 1.5,
         transduce_axis: int | None = None,
+        # --- v6 PHASE-3 ω-recipient (the Cosserat winding channel wired back on) ---
+        # omega_recipient_frac splits the extracted δL between the ω micro-rotation
+        # carrier (frac) and the u_adv orbital circulation (1−frac). 0.0 ⇒ pure
+        # u_adv = the PHASE-2 smoke / keeper byte-identical path. A NEW knob ⇒
+        # inventoried + swept (ave-apparatus-floor-attribution v1.1; §210).
+        omega_recipient_frac: float = 0.0,
         **kwargs,
     ):
         """
@@ -163,12 +169,16 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         self.chi_exch = float(chi_exch)
         self.bounce_thresh = float(bounce_thresh)
         self.transduce_axis = transduce_axis  # int or None
+        self.omega_recipient_frac = float(min(max(omega_recipient_frac, 0.0), 1.0))
         # D9 ledgers (the AM channel closes 1:1 BY CONSTRUCTION; energy TRACKED):
-        self.L_transferred = 0.0          # cumulative ΔL deposited into u_adv (the bulk gain)
+        self.L_transferred = 0.0          # cumulative ΔL deposited (u_adv + ω, = removed)
+        self.L_transferred_u = 0.0        # cumulative ΔL into u_adv orbital circulation
+        self.L_transferred_omega = 0.0    # cumulative ΔL into the ω micro-rotation carrier
         self.S_photon_removed = 0.0       # cumulative photon spin removed (= L_transferred exactly)
         self.E_transduce_photon_loss = 0.0  # energy removed from the photon (≥0 by construction)
-        self.E_transduce_bulk_gain = 0.0    # actual bulk-KE change from the deposit (±)
-        self.E_transduce_absorbed = 0.0     # passive lossy-mirror sink = loss − bulk_gain (≥0 ⇒ no pump)
+        self.E_transduce_bulk_gain = 0.0    # actual bulk-KE change from the u_adv deposit (±)
+        self.E_transduce_omega_gain = 0.0   # actual ω-tank energy change from the ω deposit (±)
+        self.E_transduce_absorbed = 0.0     # passive lossy-mirror sink = loss − gains (≥0 ⇒ no pump)
         self.transduce_events = 0           # steps the transducer fired
         self.snap_mask = np.zeros((Nn, Nn, Nn), dtype=bool)
         self.latent_ledger = np.zeros((Nn, Nn, Nn), dtype=np.float64)  # held-out per cell
@@ -475,28 +485,65 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         perp2 = r1 ** 2 + r2 ** 2
         I_wall = float(np.sum(rho_full * gw * perp2) * self.dx ** 3)
         if abs(I_wall) > 1e-30 and dL != 0.0:
-            Omega_add = dL / I_wall
-            # δu = Ω_add·(n̂×r)·g_wall : axial-symmetric azimuthal spin-up of the shell.
-            # (n̂×r) for n̂=ê_n: component c1 = −r2, component c2 = +r1.
-            du = np.zeros_like(self.u_adv)
-            du[..., c1] = Omega_add * (-r2) * gw
-            du[..., c2] = Omega_add * (r1) * gw
-            # actual bulk-KE change (honest: includes the u·δu cross term)
-            u = self.u_adv
-            ke_delta = float(np.sum(
-                rho_full * (np.sum(u * du, axis=-1) + 0.5 * np.sum(du ** 2, axis=-1))
-            ) * self.dx ** 3)
-            self.u_adv = u + du
+            # SPLIT the extracted δL between the ω micro-rotation carrier (PHASE-3
+            # winding channel) and the u_adv orbital circulation. frac=0 ⇒ pure
+            # u_adv (the PHASE-2 smoke / keeper byte-identical path).
+            f_om = self.omega_recipient_frac
+            dL_u = (1.0 - f_om) * dL
+            dL_om = f_om * dL
+            ke_delta = 0.0
+            e_omega_gain = 0.0
+            # --- (2a) DEPOSIT dL_u into u_adv (orbital), wall-localized azimuthal ---
+            if dL_u != 0.0:
+                Omega_u = dL_u / I_wall
+                # δu = Ω_u·(n̂×r)·g_wall : axial-symmetric azimuthal spin-up of the shell.
+                du = np.zeros_like(self.u_adv)
+                du[..., c1] = Omega_u * (-r2) * gw
+                du[..., c2] = Omega_u * (r1) * gw
+                u = self.u_adv
+                ke_delta = float(np.sum(
+                    rho_full * (np.sum(u * du, axis=-1) + 0.5 * np.sum(du ** 2, axis=-1))
+                ) * self.dx ** 3)
+                self.u_adv = u + du
+            # --- (2b) DEPOSIT dL_om into the ω carrier as a wall-localized azimuthal
+            # increment of π_ω (= the L-state of the ω reactance pair). I_wall_om uses
+            # unit weight (ω is its own field, not advected by ρ). The axial ω angular
+            # momentum increment ∫(r×δπ_ω)·n̂ = Ω_om·I_wall_om = dL_om EXACTLY. CP10:
+            # this is a per-cell BOUNDARY operation on the g_wall shell (not an ω-EOM
+            # term). It deposits a RIGID azimuthal rotation — it does NOT plant a
+            # poloidal (2,3) winding (whether one EMERGES is the open T2 question). ---
+            if dL_om != 0.0:
+                I_wall_om = float(np.sum(gw * perp2) * self.dx ** 3)
+                if abs(I_wall_om) > 1e-30:
+                    Omega_om = dL_om / I_wall_om
+                    dpi = np.zeros_like(self.omega)
+                    dpi[..., c1] = Omega_om * (-r2) * gw
+                    dpi[..., c2] = Omega_om * (r1) * gw
+                    piw_om = (self.omega - self.omega_prev) / self.dt
+                    e_omega_gain = float(np.sum(
+                        np.sum(piw_om * dpi, axis=-1) + 0.5 * np.sum(dpi ** 2, axis=-1)
+                    ) * self.dx ** 3)
+                    # increase π_ω by dpi: ω_prev ← ω − (π_ω+dpi)·dt = ω_prev − dpi·dt
+                    self.omega_prev = self.omega_prev - dpi * self.dt
+                    self.L_transferred_omega += dL_om
+                else:
+                    dL_om = 0.0
             self.E_transduce_bulk_gain += ke_delta
-            self.L_transferred += dL
-            self.S_photon_removed += dL
+            self.E_transduce_omega_gain += e_omega_gain
+            self.L_transferred_u += dL_u
+            self.L_transferred += (dL_u + dL_om)
+            self.S_photon_removed += (dL_u + dL_om)
             # --- (1) the photon PAYS: scale π_w by (1−χ̃·g_wall) at the wall ---
-            piw_loss = 0.5 * float(np.sum(
+            # the spin removed = dL = dL_u + dL_om (when both recipients are live the
+            # extraction is scaled so the photon pays exactly what is deposited).
+            pay_scale = (dL_u + dL_om) / dL  # =1 unless an ω deposit was dropped
+            piw_loss = pay_scale * 0.5 * float(np.sum(
                 np.sum(piw ** 2, axis=-1) * (1.0 - (1.0 - extract_frac) ** 2)
             ) * self.dx ** 3)
             self.E_transduce_photon_loss += piw_loss
-            self.E_transduce_absorbed += (piw_loss - ke_delta)
-            self.w_prev = self.w - (self.w - self.w_prev) * (1.0 - extract_frac)[..., None]
+            self.E_transduce_absorbed += (piw_loss - ke_delta - e_omega_gain)
+            self.w_prev = self.w - (self.w - self.w_prev) * (
+                1.0 - pay_scale * extract_frac)[..., None]
             self.transduce_events += 1
 
     def transducer_ledger(self) -> dict:
@@ -508,16 +555,37 @@ class UnifiedGenesisEngine(CrystalGraftV4):
                  if abs(self.L_transferred) > 1e-30 else float("nan"))
         return {
             "L_transferred": self.L_transferred,
+            "L_transferred_u": self.L_transferred_u,
+            "L_transferred_omega": self.L_transferred_omega,
+            "omega_recipient_frac": self.omega_recipient_frac,
             "S_photon_removed": self.S_photon_removed,
             "ledger_ratio_removed_over_transferred": ratio,
             "E_photon_loss": self.E_transduce_photon_loss,
             "E_bulk_gain": self.E_transduce_bulk_gain,
+            "E_omega_gain": self.E_transduce_omega_gain,
             "E_absorbed_sink": self.E_transduce_absorbed,
             "passive_no_pump": bool(self.E_transduce_absorbed >= -1e-12),
             "transduce_events": self.transduce_events,
             "L_bulk_axial": self.angular_momentum_bulk(self._transduce_axis()),
+            "L_omega_axial": self.angular_momentum_omega_axial(self._transduce_axis()),
             "S_photon_axial": self.photon_spin_axial(),
         }
+
+    def angular_momentum_omega_axial(self, axis: int | None = None) -> float:
+        """Axial angular momentum of the ω micro-rotation carrier's L-state,
+        L_ω,n = ∫ (r×π_ω)·n̂ dV (interior). The SIGNED ω-channel AM the transducer
+        deposits into (the helicity-odd recipient); spin_L_omega() is its magnitude."""
+        if axis is None:
+            axis = self._transduce_axis()
+        pw = (self.omega - self.omega_prev) / self.dt
+        m = self.interior_mask()
+        if axis == 2:
+            Ln = self._bx * pw[..., 1] - self._by * pw[..., 0]
+        elif axis == 1:
+            Ln = self._bz * pw[..., 0] - self._bx * pw[..., 2]
+        else:
+            Ln = self._by * pw[..., 2] - self._bz * pw[..., 1]
+        return float(np.sum(Ln * m) * self.dx ** 3)
 
     def hand_snap_region(self, mask: np.ndarray, rho_set: float | None = None):
         """CALIBRATION (D6 F0d — 'a known case'): hand-open a snapped pocket. Sets
