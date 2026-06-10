@@ -182,7 +182,7 @@ a blessed row; those remain in the companion report pending the §Promotion gate
 
 | Symbol | Normative name | Class | Channel | Real-space component(s) | Phase-space representation | Declared bridge (or UNDECLARED) | Canonical anchor | NOT-this |
 |---|---|---|---|---|---|---|---|---|
-| BEMF | back-EMF (Lenz terminal reaction) | **PORT** (not a field/mode) | port/terminal | n/a — appears only against **changes**; zero at steady circulation | n/a | dynamical form $\mathrm{bemf\_emf}=\kappa_L\|g[w\cdot(\nabla\times\pi_\omega)]\|$ (a cross-sector reaction read at the port) | 2026-06-10 PORT-only ruling; corr$(\mathrm{bemf\_emf},\tau_{zx})=+0.117$ `2026-06-10_bemf-feedback-smoke_result.md:79` [branch bemf, UNMERGED] | NOT $\tau_{zx}$ (the meter; "distinct objects, NOT interchangeable"); NOT a screening-current field (the Meissner field-reading is hypothesis-class — see novel-objects report); NOT $R_{rad,L}{+}jX_L$ (the longitudinal-shear **radiation impedance**, §3.8 $Z_L$ row — also port-class but a DISTINCT port object: BEMF is the terminal Lenz reaction, $R_{rad,L}{+}jX_L$ is the wake-drag$+$reactive-store impedance the wake presents); the 0.117 is a coincidence-magnet (§4 C-0.117) |
+| BEMF | back-EMF (Lenz terminal reaction) | **PORT** (not a field/mode) | port/terminal | n/a — appears only against **changes**; zero at steady circulation | n/a | dynamical form $\mathrm{bemf\_emf}=\kappa_L\|g[w\cdot(\nabla\times\pi_\omega)]\|$ (a cross-sector reaction read at the port) | 2026-06-10 PORT-only ruling; corr$(\mathrm{bemf\_emf},\tau_{zx})=+0.117$ `2026-06-10_bemf-feedback-smoke_result.md:79` [branch bemf, UNMERGED] | NOT $\tau_{zx}$ (the meter; "distinct objects, NOT interchangeable"); NOT a screening-current field — **RECONCILED 2026-06-10 (N11):** the persistent screening current IS the field; the BEMF is its **Faraday-induced PORT signature**; the Meissner analogy is bounded **Meissner-CLASS** (lens, not identity). See novel-objects N11 + framing §11.6 (`2026-06-10_matter-as-vapor-locked-pump_framing.md`, on the rename-queue-execution branch); NOT $R_{rad,L}{+}jX_L$ (the longitudinal-shear **radiation impedance**, §3.8 $Z_L$ row — also port-class but a DISTINCT port object: BEMF is the terminal Lenz reaction, $R_{rad,L}{+}jX_L$ is the wake-drag$+$reactive-store impedance the wake presents); the 0.117 is a coincidence-magnet (§4 C-0.117) |
 | $Z_L=R_{rad,L}+jX_L$ | longitudinal-shear radiation impedance | port impedance | **shear** ($X_L$ near-field; $R_{rad,L}$ radiated) | $R_{rad,L}=P_{rad,L}/(\tfrac12|I|^2)$ = wake drag; $X_L$ = near-field reactive store; $\Omega$ | n/a | $R_{rad,L}=\oint_{far}\langle I_k\rangle\cdot dA_k/(\tfrac12|I|^2)$ | `2026-06-08_rrad-l-darkwake_result.md:111-114,210-222` (main) | $X_L$ is **shear**, explicitly NOT the electron's **bulk** $m_ec^2\alpha$ reactance ("different elastic channels") — the which-channel-stores-the-pilot question is the OPEN fork (§6.1) |
 | drive EMF | FOC d/q chiral-photon drive arm | port/source | EM-transverse drive | n/a | the d/q drive vector | FOC d/q Park (BH-QNM co-rotating frame) | `genesis-24` prereg:28 (main); v5 commit 45f6d104 [branch v5] | NOT BEMF (the reaction); NOT the winding-extraction Park-along-contours (different Park) |
 
@@ -297,6 +297,8 @@ collisions are cited as **precedents the registry extends** (it does not re-liti
 The registry **renames nothing**. Every proposed rename/annotation of an existing leaf is staged here
 for adjudication. Each row: item | current name | proposed | basis | affected files.
 
+> **🟢 EXECUTION UPDATE (2026-06-10, Grant rename-queue adjudication):** rows **R1–R8 + N11 are ADJUDICATED (Grant 2026-06-10) and EXECUTED** on branch `analysis/2026-06-10-rename-queue-execution` (off `main`). Every edit landed as a **Rule-12 annotation / dated note** (frozen prereg bodies untouched per Rule 11; code-comment/docstring fixes in-place); no leaf body was rewritten and **no file was renamed** (the R3 filename rename remains an optional auditor follow-up). Per-row commit cross-refs in the **EXECUTION STATUS** block below the table.
+
 | # | Item | Current name/usage | Proposed (candidate) | Basis | Affected files |
 |---|---|---|---|---|---|
 | R1 | electron ontology | "The electron is a **self-trapped photon**" ($T_2$-only + TIR, no A1 content) | annotate with a cross-link to the two-objects box ("unknot **dilatation-mass carrying** the $(2,3)$ winding — two objects, not one"); reconcile the ontology | tension between two canon leaves; one says $T_2$-only, the other says A1-mass **+** $T_2$-winding | `photon-identification.md:11`; `master-equation.md:20`; confusion-prone channel line `cosserat-mass-gap.md:108` |
@@ -312,6 +314,24 @@ for adjudication. Each row: item | current name | proposed | basis | affected fi
 > canon leaves**, not a typo. Per flag-don't-fix it is surfaced with both verbatim readings, NOT
 > reframed to match. Auditor/Grant adjudicate which ontology is normative (or whether the
 > "self-trapped photon" line needs the two-objects annotation).
+
+### EXECUTION STATUS — 2026-06-10 (ADJUDICATED + EXECUTED; branch `analysis/2026-06-10-rename-queue-execution`)
+
+All rows adjudicated by Grant 2026-06-10 and executed as Rule-12 annotations (one commit per ruling, mechanical-first / load-bearing-last). `make verify` green per commit.
+
+| Row | Status | Commit | Execution form |
+|---|---|---|---|
+| R7 | ADJUDICATED + EXECUTED | `44d5656a` | in-place comment fix (`constants.py:1012`: line 127 → **508**) |
+| R8 | ADJUDICATED + EXECUTED | `54f0e98c` | **frozen prereg** (Rule 11) → Rule-12 appended amendment; only `RHO_CAV` repointed to `cavitation_flow.py:64` (the other 4 primitives ARE in `constants.py` — precise split, not a blanket swap) |
+| R4 | ADJUDICATED + EXECUTED | `a271894f` | normative "Cosserat coupling length"; dated naming-notes at all 3 sites (bodies preserved) |
+| R5 | ADJUDICATED + EXECUTED | `8ecce849` | channel-subscript → shear/port; code docstrings in-place; taxonomy leaf + **frozen** rrad-l prereg via Rule-12 notes |
+| R6 | ADJUDICATED + EXECUTED | `721dade0` | STALE-flags repoint $\omega_{local}$ to $c_{shear}=c_0(1-A^2)^{1/4}$ (temporal-values:29); brief refs 17/31 **drifted** → actual table-row 19 + eq 33 annotated |
+| R2 | ADJUDICATED + EXECUTED | `05c873e7` | field/port retag (classical lexicon: wake FIELD / $R_{rad,L}$ radiation resistance / Faraday–Lenz back-EMF); code in-place + 2 leaf notes |
+| R3 | ADJUDICATED + EXECUTED | `254be06d` | antenna-zone title-clarification block under H1; **filename kept** (rename = optional auditor follow-up) |
+| N11 | ADJUDICATED + RECONCILED | `c969e575` (framing §11.6) + this commit (registry §3.8 + novel-objects N11) | screening-current = field; BEMF = its Faraday PORT signature; Meissner-CLASS lens, not identity |
+| R1 | ADJUDICATED + EXECUTED | `0b2b4b66` | provenance-vs-state + first-order-class phase-change ontology; evidence table w/ per-signature tags; cross-links at `master-equation.md:20` + `cosserat-mass-gap.md:108` |
+
+Two items surfaced (flag-don't-fix), NOT silently fixed: (1) the **R3 filename rename** is link-breaking → left to the auditor; (2) the **N11 "Meissner/D1-picture section"** named in the ruling does **not exist by that name** in the framing doc — the note was placed at §11 (its nearest home) and the absence surfaced.
 
 ---
 

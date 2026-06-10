@@ -162,6 +162,7 @@
 - **Proposed symbol+name:** the **Meissner-class snap picture** (analogy, explicitly bounded).
 - **Status:** hypothesis (Grant-ratified as a picture; in tension with the PORT-only ruling — for Grant
   to adjudicate).
+- **🟢 RECONCILED (2026-06-10, Grant rename-queue adjudication — N11 reconciliation, rides with R2; body above preserved):** the tension is resolved by the **field-vs-port split**: the **PERSISTENT SCREENING CURRENT is the FIELD** (the standing, non-radiating circulation of the broken/saturated phase — the order-parameter content), and the **BACK-EMF is its Faraday-induced PORT signature** (read only against *changes*; zero at steady circulation — it *meters* the field, it is not the field; corr 0.117 = distinct objects). The **Meissner analogy is bounded as Meissner-CLASS** — a lens, not an identity (no claim the substrate IS a superconductor / no term-for-term BCS map). The PORT-only BEMF ruling and the field-reading are therefore **both correct, about different objects** — not in tension. Landed: registry §3.8 BEMF row (RECONCILED) + framing `2026-06-10_matter-as-vapor-locked-pump_framing.md` §11.6 (commit `c969e575`, branch `analysis/2026-06-10-rename-queue-execution`).
 
 ---
 
@@ -179,7 +180,7 @@
 | N8 | geometric twin-pocket split | candidate-physics | no (review-pending) |
 | N9 | transducer + $\delta L$ (v6) | candidate / UNVERIFIABLE | no (review-pending) |
 | N10 | order-parameter identification | hypothesis / ratified-framing | reflected in $V$ row (canon framing) |
-| N11 | Meissner-class snap picture | hypothesis (in tension) | no — feeds RENAME-QUEUE R2 |
+| N11 | Meissner-class snap picture | **RECONCILED (2026-06-10)** (was: hypothesis, in tension) | no — feeds RENAME-QUEUE R2 |
 
 **For Grant:** N5, N7, N8, N9, N11 are the genuinely unblessed objects for independent review. N9's
 $\delta L$ is UNVERIFIABLE this turn (running-build worktree only). N11 carries a live same-day tension
