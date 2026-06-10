@@ -184,9 +184,16 @@ def main():
         "phi2_comparison": PHI2_COMPARISON,
         "missing_physical_input": missing_input,
         "class": "cannot be graded emergence; inputs do not close the ratio",
-        "coordinate_check": "R/r is a REAL-SPACE O_1 unknot major/minor ratio "
-        "compared to the REAL-SPACE Golden-Torus phi^2 -> coordinate-matched; "
-        "the (2,3) phase winding does NOT enter this balance.",
+        "coordinate_check": "UNADJUDICATED (flagged, not asserted): constants.py:200-201 "
+        "labels the Golden-Torus radii real-space major/minor (which, at face value, "
+        "would make R/r coordinate-matched to phi^2), BUT vapor-lock doc 24cf3aa4 "
+        "framing.md:118 says the two roots are physically unrelated constructions (a "
+        "phasor-area embedding vs a bulk-stiffness zero), the torus form appearing only "
+        "under a post-hoc x=2R substitution -- i.e. phi^2 may be a PHASE-space "
+        "(phasor-area) ratio, making the R/r-vs-phi^2 comparison a coordinate MISMATCH. "
+        "Does NOT change the UNDERDETERMINED bin; strengthens do-not-cite-the-phi-link. "
+        "The (2,3) phase winding does NOT enter this balance regardless. Real-space-vs-"
+        "phasor-area provenance of R_GOLDEN_TORUS surfaced to Grant.",
     }
 
     # --- emit ---

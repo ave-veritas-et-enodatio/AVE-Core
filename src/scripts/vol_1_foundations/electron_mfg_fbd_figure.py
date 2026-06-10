@@ -130,8 +130,12 @@ def main():
     ax2.plot(rho_wall, rr, color="#1f4e79", lw=2.2,
              label=r"$R/r$ (forward, $v_\theta=c_0$ closure)")
     ax2.axhline(PHI2, color="#a33", ls="--", lw=1.5, label=r"$\varphi^2=%.4f$" % PHI2)
-    # the non-canonical fit point
-    rho_fit = rho_wall[np.argmin(np.abs(rr - PHI2))]
+    # the non-canonical fit point -- back-solved on a dense grid (1e-6 spacing) so the
+    # annotation deterministically matches the rr_balance JSON (rho_wall ~= 0.4401),
+    # not a coarse 400-point-grid rounding artifact
+    _rho_dense = np.linspace(0.30, 0.55, 250001)
+    _rr_dense = np.exp(G_const_v(_rho_dense) - G_const_v(rho_cav))
+    rho_fit = _rho_dense[np.argmin(np.abs(_rr_dense - PHI2))]
     ax2.plot([rho_fit], [PHI2], "o", color="#a33", ms=8, zorder=6)
     ax2.annotate(r"forced match needs $\bar\rho_{wall}\approx%.3f$" % rho_fit
                  + "\n(NON-canonical $\\Rightarrow$ FITTED)",
