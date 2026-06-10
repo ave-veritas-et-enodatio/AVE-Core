@@ -171,24 +171,52 @@ class SonicHorizonFlow2D(CavitationFlow2D):
         self.u[self.static_mirror] = 0.0
         self.v[self.static_mirror] = 0.0
 
-    # ---- handedness probe: bulk azimuthal-m acoustic OAM pulse (CP2 bulk-channel) ----
+    # ---- handedness probe: bulk azimuthal-m acoustic OAM VORTEX (CP2 bulk-channel) ----
     def add_oam_pulse(self, m: int, r0: float, amp: float = 1e-3, width: float = 0.05,
-                      inward: bool = True):
-        """Superpose a small-amplitude CONVERGING bulk (compression) wave-packet:
-        a Gaussian ring at radius r0 with azimuthal phase e^{imφ}. Bulk-channel
-        (divergence-bearing, curl-free pulse); m>0 co-handed, m<0 counter-handed.
-        Returns the linear acoustic energy of the launched pulse (E_incident)."""
+                      inward: bool = True, carrier: float | None = None):
+        """Superpose a small-amplitude CONVERGING bulk (compression) acoustic VORTEX
+        carrying a genuine quadrature ``e^{imφ}`` winding (prereg §2.2). The state is
+        set in quadrature: the density perturbation is the cos component of
+        ``A·ring·e^{iΘ}`` while the velocity is ``u = ∇Φ`` from the sin-component
+        velocity potential — so ``u`` is CURL-FREE (divergence/bulk channel, NOT a
+        shear/vortical probe) yet carries a nonzero second-order acoustic OAM
+        ``L₂ = ∫ρ̄(x v − y u) dA ∝ m`` whose SIGN follows sign(m).
+
+        ``+m`` (co-handed) and ``−m`` (counter-handed) are PHYSICALLY DISTINCT
+        circulations (mirror-image spirals with opposite OAM), NOT the bit-identical
+        fields the previous ``dens = amp·ring·cos(m·φ)`` produced — ``cos(m·φ)`` is
+        EVEN in ``m`` (``cos(mφ)=cos(−mφ)``), so the old probe could not represent
+        handedness by construction. The radial carrier ``Θ = mφ + sgn·kr·r`` makes
+        the winding a true chiral spiral (a pure azimuthal cos(mφ) would make ±m
+        either bit-identical or a global sign-flip — both give R(+m)=R(−m) since the
+        reflectance is quadratic in the field). Returns ``E_incident``.
+        """
         r = self.R + 1e-12
         phi = np.arctan2(self.Y, self.X)
         ring = np.exp(-((r - r0) ** 2) / (2.0 * width**2))
-        dens = amp * ring * np.cos(m * phi)
-        self.rho = self.rho + dens
-        # converging radial velocity consistent with an inward-propagating acoustic pulse:
-        # for a linear pulse u_r ≈ -c0 * ρ̄ (inward), curl-free radial direction
+        # radial carrier wavenumber (≈ one carrier wave per envelope FWHM by default);
+        # sgn sets the convergence direction (inward ⇒ u_r ≈ −c0·ρ̄, as for a converging
+        # acoustic pulse — recovers the previous probe's radial behaviour at the carrier).
+        kr = (2.0 * np.pi / (4.0 * width)) if carrier is None else float(carrier)
         sgn = -1.0 if inward else 1.0
-        ur = sgn * self.c0 * dens
-        self.u = self.u + ur * (self.X / r)
-        self.v = self.v + ur * (self.Y / r)
-        # linear acoustic energy of the pulse
-        e_inc = 0.5 * np.sum(self.c0**2 * dens**2 + (ur) ** 2) * self.dx**2
+        # complex acoustic-vortex phase Θ = mφ + sgn·kr·r
+        theta = m * phi + sgn * kr * r
+        # density = Re[A·ring·e^{iΘ}]  (the cos quadrature / C-state)
+        dens = amp * ring * np.cos(theta)
+        # velocity potential Φ = (c0/k_tot)·A·ring·sin Θ  (the sin quadrature); u = ∇Φ
+        # via the engine's own FD stencil ⇒ DISCRETELY curl-free (bulk-channel).
+        k_tot = np.hypot(kr, abs(m) / max(r0, self.dx))
+        Phi = (self.c0 / k_tot) * amp * ring * np.sin(theta)
+        du = self._ddx(Phi)
+        dv = self._ddy(Phi)
+        self.rho = self.rho + dens
+        self.u = self.u + du
+        self.v = self.v + dv
+        # linear acoustic energy of the launched pulse (compression + KE)
+        e_inc = 0.5 * np.sum(self.c0**2 * dens**2 + du**2 + dv**2) * self.dx**2
         return float(e_inc)
+
+    def oam_second_order(self):
+        """Second-order acoustic OAM L₂ = ∫ρ̄·(x v − y u) dA (sign-tied to the probe m;
+        the handedness-discriminating, m-odd invariant the cos(mφ) probe lacked)."""
+        return float(np.sum(self.rho * (self.X * self.v - self.Y * self.u)) * self.dx**2)

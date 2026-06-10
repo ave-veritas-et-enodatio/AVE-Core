@@ -40,7 +40,7 @@ A fixed-probe re-run with a correct `e^{imφ}` winding tests **rotating-horizon 
 - **#5** (FLAG `ρ̄_cav` CANDIDATE-CLAIM): **unaffected.**
 - **#6** (FLAG floored-predecessor fragility): **unaffected.**
 
-**5. Repair + re-run (R1).** The probe is re-implemented with a true quadrature `e^{imφ}` winding (`±m` physically distinct, opposite azimuthal circulation), guarded by a keeper unit test (`R(+m) ≠ R(−m)` on a rotating reference — a defect class `make verify` could not otherwise catch). The Stage-A handedness floor is re-derived on genuinely distinct `±m` fields and Stage D re-run. **Re-run verdict + asym numbers: see the Addendum-to-the-Addendum (§4-bis), added in the R1 commit.**
+**5. Repair + re-run (R1).** The probe is re-implemented with a true quadrature `e^{imφ}` winding (`±m` physically distinct, opposite azimuthal circulation), guarded by a keeper unit test (`R(+m) ≠ R(−m)` on a rotating reference — a defect class `make verify` could not otherwise catch). The Stage-A handedness floor is re-derived on genuinely distinct `±m` fields and Stage D re-run. **Re-run outcome (R1, now landed): `UNRESOLVED → SELECTIVE` (frame-dragging, WEAK) — `R_co > R_counter`, asym `+1.9e-3 … +2.7e-3`, ~8 orders above the re-derived 5.5e-12 floor, M-scaling and `χ`-independent; absolute `R_co ≈ 3%` of the mirror reference (transient pocket); FRAME-DRAGGING ONLY (not the cholesteric-Bragg rule). Full table + caveats: §4-bis.**
 
 ---
 
@@ -153,6 +153,37 @@ Bulk azimuthal-`m` acoustic OAM pulses (compression pulses with `e^{imφ}` phase
 
 ---
 
+## 4-bis. Handedness arm — REPAIRED re-run (R1): `UNRESOLVED → SELECTIVE` (frame-dragging, weak)
+
+> **This section is the Addendum-to-the-Addendum (R1).** The probe `add_oam_pulse` was re-implemented with a **true quadrature `e^{imφ}` winding** — the density is the cos component of `A·ring·e^{iΘ}` (`Θ = mφ + sgn·kr·r`, a chiral spiral) and the velocity is `u = ∇Φ` from the sin-component velocity potential, so the probe stays **curl-free / bulk-channel** (prereg §2.2) yet carries a nonzero **second-order acoustic OAM `L₂ = ∫ρ̄(x v − y u) dA ∝ m`** with **opposite sign for ±m**. The `+m` and `−m` probes are now **physically distinct circulations** (not the bit-identical fields the `cos(m·φ)` probe produced, and not a trivial global sign-flip — which would also give `R(+m)=R(−m)`, the reflectance being quadratic). A **keeper unit test** (`src/tests/test_sonic_horizon_oam_probe.py`, 5 tests) pins all of this incl. `R(+m) ≠ R(−m)` on a rotating reference — the defect class `make verify` cannot catch.
+
+**Re-derived Stage-A handedness instrument floor (genuinely distinct ±m fields):**
+
+| reference | R(+1) | R(−1) | `|R(+1)−R(−1)|` |
+|---|---|---|---|
+| static pressure-release mirror (radius 0.20) | 0.5434504928408977 | 0.5434504928463568 | **5.46e-12** |
+
+The floor is now a **genuine numerical residual** (the static mirror's `φ→−φ` grid symmetry; the ±m fields differ but a `φ`-symmetric target reflects them symmetrically), differing at the **11th digit** — NOT the old `cos(m·φ)` bit-identity (which was equal to ALL digits on EVERY target, rotating or not). Re-derived references: `R_known_mirror = 0.5435`, `R_transparent_floor = 0.0` (probe-dependent — the repaired pulse couples differently than the old one; the closure-arm Stages B/C/E are probe-independent and re-ran **byte-identical**).
+
+**Stage D — handedness-resolved reflectivity off the formed (transient) pocket (N=160, matched energy, same M band):**
+
+| config | R_co (m=+1) | R_counter (m=−1) | asym (co−counter) | vs floor 5.5e-12 |
+|---|---|---|---|---|
+| M=0.9, χ=1.0 | 0.014726 | 0.012860 | **+0.001866** | ~3.4e8× floor |
+| M=1.0, χ=1.0 | 0.017596 | 0.014930 | **+0.002667** | ~4.9e8× floor |
+| M=0.9, χ=0.0 | 0.014726 | 0.012860 | **+0.001866** | ~3.4e8× floor |
+
+**VERDICT: SELECTIVE (frame-dragging) — weak.** `R_co > R_counter` in **every** config, asym `+1.9e-3 … +2.7e-3`, **~8 orders of magnitude above** the re-derived handedness floor (5.5e-12) and clearing the transparent floor (0.0). The asymmetry is physically coherent: it **scales with the drive** (`+0.00187` at M=0.9 → `+0.00267` at M=1.0 — stronger rotation, stronger frame-dragging) and is **`χ_shock`-independent** (`+0.00187` at χ=1.0 = `+0.00187` at χ=0.0, M=0.9 — it is a property of the conserved circulation Γ, **not** the dissipation). The static-mirror control (asym ≈ 0) confirms the asymmetry appears **only with rotation** → attributable to frame-dragging (rotational-Doppler / acoustic-superradiance analog), not a probe or measurement artifact.
+
+**Caveats (load-bearing):**
+- **WEAK.** Absolute `R_co ≈ 0.015–0.018` is only **~3%** of the static-mirror reference (0.54). The LOCK pocket is **transient** (no sustained reflector, §0/§2/§4-bis), so this is weak frame-dragging selectivity on a transient rotating flow, not a strong sustained-horizon valve. The fractional asym (~13–15% of R_co) is substantial, but the absolute reflectance is small.
+- **SCOPE — FRAME-DRAGGING ONLY.** This measures **rotating-acoustic-horizon frame-dragging** selectivity. The **I4₁32 cholesteric-Bragg lattice selection rule** (hypothesis 0(c)) is **NOT representable** in this continuum bulk-flow engine (prereg §2.2 representation-capability flag); it stays out of reach of this engine and needs the chiral-crystal engine. A SELECTIVE here supports "the rotating reflector has a **frame-dragging** handedness" — it does **NOT** confirm the cholesteric mechanism, and does **NOT** rehabilitate the vapor-lock-v5 "chirality valve = the mirror's selection rule" headline (Addendum §4, queue #4).
+- The **closure-arm LOCK verdict is unchanged** (§0, §2, §3, §5, §6); the probe touches only Stage A's handedness floor + Stage D.
+
+**Verdict chain (honest record):** handedness `BLIND` (§0/§4, probe artifact) → `UNRESOLVED` (Addendum §1, the ±m probe could not represent the asymmetry) → **`SELECTIVE` (frame-dragging, weak)** (this §4-bis, repaired probe). Fig 5 redrawn from this data.
+
+---
+
 ## 5. Control comparison (STEP 4c) — the closure's effects vanish when the closure is OFF
 
 | run | deepest ρ̄_core | after de-spin | persistent pocket | E_diss |
@@ -197,9 +228,9 @@ Bulk azimuthal-`m` acoustic OAM pulses (compression pulses with `e^{imφ}` phase
 ## 8. Corpus-state deltas to QUEUE (auditor lands; implementer surfaces only)
 
 1. **NEW capability:** `SonicHorizonFlow2D` — the sharp-interface free-boundary sonic-horizon closure on the bulk-flow branch (impedance-collapse reflector + a tuned one-way void-KE sink at the EOS-defined horizon + exact-EOS internal-energy ledger). First AVE engine that integrates `c²=0` as a moving free boundary rather than flooring it positive. Closes the predecessor's `pressure()`-zero-call-sites ledger gap.
-2. **NEW result (manifestation-class):** the named sonic-horizon closure the cavitation-core probe GATED (predecessor §0-bis(e)) returns **LOCK** — the cavitated pocket is a reversible spring even with the genuine horizon + one-way shock dissipation; the vapor-lock irreversibility is NOT in the sonic-horizon closure. Forward-useful: localizes the irreversibility to rim-venting / topological-wall physics. ~~and rules out the acoustic horizon as the chirality valve (BLIND).~~ 🔴 **RETRACTED (Addendum §4): the handedness arm is UNRESOLVED — the acoustic horizon is neither ruled out nor in as the chirality valve (the ±m probe was degenerate; repaired re-run §4-bis).**
+2. **NEW result (manifestation-class):** the named sonic-horizon closure the cavitation-core probe GATED (predecessor §0-bis(e)) returns **LOCK** — the cavitated pocket is a reversible spring even with the genuine horizon + one-way shock dissipation; the vapor-lock irreversibility is NOT in the sonic-horizon closure. Forward-useful: localizes the irreversibility to rim-venting / topological-wall physics. ~~and rules out the acoustic horizon as the chirality valve (BLIND).~~ 🔴 **RETRACTED (Addendum §4) → then RESOLVED (§4-bis): the repaired-probe re-run gives WEAK frame-dragging SELECTIVE (R_co > R_counter, asym ~2e-3). The acoustic horizon IS weakly handedness-selective via FRAME-DRAGGING — but this is NOT the I4₁32 cholesteric-Bragg "chirality valve", which this engine cannot represent.**
 3. **FLAG (flag-don't-fix) — the LOCK mechanism is mass-conservation:** the rim over-pressure (a PE reservoir) refills the void; the horizon dissipates KE but does not vent the rim PE. Any future vapor-lock-FLASH hypothesis must specify how the rim mass leaves the system. Surfaced verbatim, not reframed.
-4. **FLAG — representation-capability (🔴 STRENGTHENED, Addendum §4):** the handedness arm is **UNRESOLVED** — there is **no valid frame-dragging null at all** (the ±m probe was degenerate, Addendum §1). Even after repair (§4-bis), a frame-dragging re-run is **NOT** the I4₁32 **cholesteric-Bragg** lattice selection rule, which this continuum engine cannot represent (needs the chiral-crystal engine). The vapor-lock v5 "chirality valve = the mirror's selection rule" claim is **NOT** supported by this engine, and there is not even a clean BLIND null. Do not headline v5 on this engine. *(Original BLIND-based wording preserved: "the handedness BLIND is for rotating-horizon frame-dragging, NOT the I4₁32 cholesteric-Bragg lattice selection rule... Do not headline v5 on this BLIND.")*
+4. **FLAG — representation-capability (🔴 STRENGTHENED, Addendum §4; updated §4-bis):** the repaired-probe re-run (§4-bis) gives a **WEAK frame-dragging SELECTIVE** (`R_co > R_counter`, asym ~2e-3) — so the rotating acoustic horizon **does** carry a frame-dragging handedness. But this is the **rotating-horizon FRAME-DRAGGING** mechanism, **NOT** the I4₁32 **cholesteric-Bragg** lattice selection rule, which this continuum engine **cannot represent** (needs the chiral-crystal engine). The vapor-lock v5 "chirality valve = the **mirror's selection rule**" claim is therefore **STILL NOT supported** by this engine — the selectivity found is a different mechanism (frame-dragging ≠ cholesteric-Bragg). **Do not headline v5 on this frame-dragging SELECTIVE.** *(Original BLIND-based wording preserved: "the handedness BLIND is for rotating-horizon frame-dragging, NOT the I4₁32 cholesteric-Bragg lattice selection rule... Do not headline v5 on this BLIND.")*
 5. **FLAG — `ρ̄_cav` remains CANDIDATE-CLAIM** (zero KB/constants hits); this probe does not promote it. It confirms the `c²=0` root is a clean reflecting horizon and the crossing is dissipative-but-reversible; the physical interpretation still needs the §6 rim-venting mechanism + Grant adjudication.
 6. **FLAG — the floored predecessor is numerically fragile on de-spin at M=1.0 (NaN rebound);** the sharp-interface closure (clamp + inert void) is stable through the same de-spin. A note for any future use of the floored `CavitationFlow2D` at high drive.
 
