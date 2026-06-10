@@ -43,7 +43,7 @@ Observer types
 - `TopologyObserver`          — Q_H (Hopf invariant), soliton centroid count,
                                 shell radii (for (2,3) structures)
 - `EnergyBudgetObserver`      — E_K4, E_cos, T_cos, E_coupling, H_total
-- `DarkWakeObserver`          — τ_zx longitudinal shear strain (back-EMF
+- `DarkWakeObserver`          — τ_zx longitudinal-shear (shear-channel) strain (back-EMF
                                 signature); ports formula from AVE-Propulsion's
                                 simulate_warp_metric_tensors.py. Uses
                                 tetrahedral gradient (NOT np.gradient) because
@@ -1455,7 +1455,7 @@ class PairNucleationGate(Observer):
 
 
 class DarkWakeObserver(Observer):
-    """Dark wake diagnostic — the longitudinal shear strain τ_zx wave that
+    """Dark wake diagnostic — the longitudinal-shear (shear-channel) strain τ_zx wave that
     propagates backward from any coherent V excitation (per AVE-PONDER
     vol_ponder/ch01 and AVE-Propulsion simulate_warp_metric_tensors.py:84-85).
 
@@ -1474,7 +1474,7 @@ class DarkWakeObserver(Observer):
         principle) → Noether currents → momentum conservation. The dark
         wake IS the field-theoretic form of the
         Newton-3rd-law back-reaction: every forward soliton/photon must
-        carry an equal-and-opposite longitudinal-shear-strain wave behind
+        carry an equal-and-opposite longitudinal-shear (shear-channel) strain wave behind
         it, mass-equivalent to the inductive back-EMF (M_inertial ≡ L_drag,
         per higgs_impedance_mapping.py:48-52).
       • Ax 4 (Op14 saturation kernel S(A) = √(1 − A²)) modulates Z_local
