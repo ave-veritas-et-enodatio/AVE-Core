@@ -43,6 +43,32 @@ $T_{melt}$ & $\sim\num{5.93e9}$ & \si{\kelvin} & Ax 4 + thermal-bath: $k_B T \ap
 \end{table}
 
 \noindent
+\textbf{Scope, provenance, and bench-access annotations.} Each absolute-maximum line carries a per-line scope (per-bond / per-node / per-cell / COLLECTIVE), provenance (DERIVED / CALIBRATION-INPUT / EMERGENT-measured / OPEN), and the corpus bench that measures it (blank if none):
+
+\begin{table}[htbp]
+\centering\footnotesize
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}p{0.10\linewidth} p{0.16\linewidth} p{0.30\linewidth} p{0.30\linewidth}@{}}
+\toprule
+\textbf{Symbol} & \textbf{Scope} & \textbf{Provenance} & \textbf{Bench-access} \\
+\midrule
+$V_{snap}$ & per-node & DERIVED ($m_e c^2/e$, Ax~2+Ax~4) & --- \\
+$V_{yield}$ & per-node & DERIVED ($\sqrt{\alpha}\,V_{snap}$; $\alpha$ is the calibration input) & PONDER-05; EE-bench plateau \\
+$E_S$ & per-node & DERIVED ($V_{snap}/\ell_{node}$) & --- \\
+$E_{yield}$ & per-node & DERIVED ($V_{yield}/\ell_{node}$) & --- \\
+$B_{snap}$ & per-cell & DERIVED (energy density $= m_e c^2/\ell_{node}^3$) & --- \\
+$T_{melt}$ & COLLECTIVE (thermal bath) & DERIVED ($m_e c^2/k_B$) & --- \\
+$\bar{\rho}_{cav}$ & per-cell (bulk) & DERIVED ($c_{bulk}=0$ root) --- \textbf{CANDIDATE-CLAIM} & --- \\
+\bottomrule
+\end{tabular}
+\caption{Scope / provenance / bench-access for the absolute-maximum ratings. The only calibration input in this chapter's chain is $\alpha$ (Class-B closed-form; enters $V_{yield}$, $E_{yield}$); every other line is DERIVED from $\{m_e, c, \ell_{node}\}$.}
+\label{tab:vol9_absmax_scope}
+\end{table}
+
+\noindent
+\textbf{Regime-boundary axis (precision).} The Regime~I--IV boundaries in \S\ref{sec:vol9_absmax_margins} are stated on the \textbf{$r = A$ axis} ($r < \sqrt{2\alpha} \approx 0.121$, $\sqrt{2\alpha} \le r < \sqrt{3}/2 \approx 0.866$, $r \ge 1$; \kbleaf{four-regimes.md}:24--29). The engine \kbleaf{src/ave/topological/vacuum\_engine.py}:177--179 uses the \textbf{$A^2$ axis} ($2\alpha$, $3/4$, $1$). The two are the same boundaries ($r = \sqrt{A^2}$), but the axis must be named when quoting a number. The $r_2 = \sqrt{3}/2$ value is \textbf{sector-dependent} (spin-2 / shear sector; the vector/photon sector has $r_2 = 0$, the scalar sector has no avalanche onset --- see Ch.~\ref{ch:vol9_saturation_characteristics} \S Four-Regime Map).
+
+\noindent
 All values reduce to the cold-lattice limit $S(0) = 1$; no engineering operating point in current laboratory practice approaches any of these thresholds. The largest currently achievable laboratory ratios are: $E/E_S \sim 10^{-8}$ (ultrafast laser foci), $B/B_{snap} \sim 10^{-8}$ (lab magnets), $T/T_{melt} \sim 10^{-3}$ (heavy-ion-collision fireball, transient), $V_{macro}/V_{snap} \sim 10^{-9}$ across one $\ell_{node}$ (per the worked example in \kbleaf{dielectric-snap-limit.md} \S 2.3.2).
 
 \section{Per-Parameter Notes}
@@ -65,6 +91,23 @@ All values reduce to the cold-lattice limit $S(0) = 1$; no engineering operating
 \noindent\textbf{$T_{melt} \sim m_e c^2 / k_B \approx \qty{5.93e9}{\kelvin}$.} The pair-production thermal threshold: the temperature at which thermal-bath equipartition energy approaches the lightest topological excitation's rest energy ($m_e c^2$), and electron-positron pairs become spontaneously thermally accessible. Below $T_{melt}$, the vacuum-lattice heat capacity is Dulong-Petit-flat (every node mode equipartitioned; per \texttt{clm-uu6dl5}); approaching $T_{melt}$, lattice modes begin to freeze \emph{into} pair-production rather than out of it (the reverse-Debye direction at the topological-excitation scale). A stricter operational threshold $T_{pair} = 2 m_e c^2/k_B$ governs thermal decoherence of topological qubits (per \kbleaf{common/temporal-saturation-regime-classifier.md} line 223); $T_{melt}$ as quoted here is the substrate-physics threshold for spontaneous pair-creation, while $T_{pair}$ is the engineering-application threshold for topological-qubit decoherence. Cosmologically, $T_{melt}$ corresponds to the era $t \sim 1$~s after lattice-genesis (universe-cooling crossing the electron-positron annihilation epoch).
 
 \end{resultbox}
+
+\section{Bulk Rarefaction Floor $\bar{\rho}_{cav}$ (candidate-claim)}
+\label{sec:vol9_absmax_rho_cav}
+
+The five ratings above are the \emph{compression / saturation}-side absolute limits (the substrate driven \emph{up} the Axiom~4 kernel toward $S \to 0$). The bulk volumetric sector has a second absolute limit on the \emph{rarefaction} side --- a most-negative volumetric strain $\bar{\rho}$ beyond which the bulk (density / compressional) wave speed vanishes and the medium cavitates.
+
+\begin{warningbox}[$\bar{\rho}_{cav}$ --- CANDIDATE-CLAIM, auditor-gated]
+\textbf{Status: candidate-claim, not yet promoted (auditor-gated per the Vol~9 figure-build worklist, \texttt{analysis/2026-06-09-vol9-datasheet-figures}).} Recorded here for completeness of the bulk-sector limit pair; do not cite as a closed datasheet value until promoted.
+\end{warningbox}
+
+\noindent
+The bulk compressional wave speed obeys $c_{bulk}^2 = c_0^2\,[\,1 + \bar{\rho}/(1 - \bar{\rho}^2)\,]$ (canonical relation at sibling-repo \kbleaf{AVE-Propulsion/manuscript/vol\_propulsion/chapters/04\_superluminal\_transit.tex}:86; $\bar{\rho} = \delta\rho/\rho_0$ the normalized volumetric strain, $\bar{\rho} \in [-1, 1]$). Setting $c_{bulk} = 0$ gives $1 + \bar{\rho}/(1-\bar{\rho}^2) = 0 \Rightarrow \bar{\rho}^2 - \bar{\rho} - 1 = 0$, whose negative root is
+\begin{equation}
+\bar{\rho}_{cav} = \frac{1 - \sqrt{5}}{2} = -\frac{1}{\varphi} \approx -0.618,
+\label{eq:vol9_rho_cav}
+\end{equation}
+with $\varphi$ the golden ratio. At $\bar{\rho} \to \bar{\rho}_{cav}$ the bulk wave speed freezes ($c_{bulk} \to 0$): the rarefaction-side analog of the saturation-side $A \to A_{yield}$ ceiling, but in the \emph{volumetric / bulk} mode rather than the deviatoric / shear mode. The value $-1/\varphi$ is \emph{derived} (the $c_{bulk} = 0$ root of the canonical relation above), \emph{not} a free parameter; the candidate-claim status is about its promotion to a canonical Vol~9 datasheet line, not about the algebra. The bulk-sector clock that freezes at this floor is documented in the temporal/switching section, Ch.~\ref{ch:vol9_ac_electrical_characteristics} \S Temporal Characteristics.
 
 \section{Engineering Operating Margins}
 \label{sec:vol9_absmax_margins}

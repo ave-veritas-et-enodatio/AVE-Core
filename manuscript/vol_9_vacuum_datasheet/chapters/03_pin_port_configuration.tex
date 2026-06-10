@@ -33,6 +33,109 @@ Axiom~3 (\textbf{Minimum Reflection Principle}, CLAUDE.md INVARIANT-S2; canonica
 
 The equivalent EE-projection form is the extremization of hardware action $S_{AVE}$ with node Lagrangian $\mathcal{L}_{node} = \tfrac{1}{2}\varepsilon_0|\partial_t\mathbf{A}_n|^2 - \tfrac{1}{2\mu_0}|\nabla\times\mathbf{A}_n|^2$. Engineering practice has measured the same minimization for over a century under different EE names --- $S_{11}$ minimization, return-loss maximization, VSWR $\to 1$, peak-power-transfer matching, lossless reactive cycling. These are not approximations to a deeper SM action principle; per the EE-as-substrate-native META framework (canonical leaf \kbleaf{ave-kb/common/translation-tables/translation-circuit.md} \S 2, claim \texttt{clm-eemap1}), they are direct EE-language statements of Axiom~3.
 
+\section{Per-Cell Degree-of-Freedom and Mode Inventory}
+\label{sec:vol9_per_cell_dof_mode}
+
+Before the boundary ($\Gamma$-port) taxonomy of the rest of this chapter, the datasheet must specify the cell's \emph{internal} degree-of-freedom content --- the modes a simulator has to carry to render one vacuum cell faithfully. The two are distinct objects and the same word ``port'' is used for both; \S\ref{subsec:vol9_dof_disambiguations} separates them explicitly.
+
+\subsection{The seven per-cell modes}
+\label{subsec:vol9_seven_modes}
+
+Each K4 node carries the six Cosserat micropolar spatial DOFs of Axiom~1 (CLAUDE.md INVARIANT-S2: 3 translational $\to \mathbf{E}$, 3 microrotational $\to \mathbf{B}$) \emph{plus} one volumetric ($A_1$) breathing mode --- seven kinematic modes in total (canonical at \kbleaf{common/trampoline-framework.md}:198, the 7-mode bubble compliance ``3 translational + 3 rotational + 1 volumetric''). These are kinematic coordinates; the saturation-amplitude operating point $A$ is a separate object (\S\ref{subsec:vol9_dof_disambiguations} footnote~i).
+
+\begin{table}[htbp]
+\centering\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}p{0.05\linewidth} p{0.20\linewidth} p{0.14\linewidth} p{0.20\linewidth} p{0.07\linewidth} p{0.21\linewidth}@{}}
+\toprule
+\textbf{\#} & \textbf{Mode} & \textbf{$T_d$ irrep} & \textbf{EE projection} & \textbf{Store} & \textbf{Integrating engine} \\
+\midrule
+3 & Translational $\mathbf{u} = (u_x, u_y, u_z)$ & part of $A_1 \oplus T_2$ valence; couples $T_2$ & Capacitor (dielectric $\mathbf{E}$) & $\varepsilon^2$ & Cosserat field (\kbleaf{src/ave/topological/cosserat\_field\_3d.py}) \\
+3 & Microrotational $\boldsymbol{\omega} = (\omega_x, \omega_y, \omega_z)$ & $T_2$ (3-fold body-axis); intrinsic spin & Inductive flywheel ($\mathbf{B}$) & $\kappa^2$ & Cosserat field (same engine) \\
+1 & Volumetric breathing ($A_1$, radial dilation) & $A_1$ trivial rep (1-dim) & K4 port voltage (pressure / stored potential) & $V^2$ & Master Equation FDTD (\kbleaf{src/ave/core/master\_equation\_fdtd.py}) \\
+\bottomrule
+\end{tabular}
+\caption{The seven per-cell kinematic modes of $\mathcal{M}_A$ (3 translational $+$ 3 microrotational $+$ 1 volumetric breathing). Storage-term column ($\varepsilon^2, \kappa^2, V^2$) and engine assignment per \kbleaf{common/trampoline-framework.md}:198, :239--241, :249.}
+\label{tab:vol9_per_cell_modes}
+\end{table}
+
+\noindent
+The total saturation amplitude is the Pythagorean sum over the three storage subgroups (\kbleaf{trampoline-framework.md}:332):
+\begin{equation}
+A^2 = \varepsilon^2 + \kappa^2 + V^2,
+\label{eq:vol9_pythagorean_amplitude}
+\end{equation}
+and the Axiom~4 kernel $S(A) = \sqrt{1 - A^2}$ acts on this \emph{total}, not on any single mode; at $A = 1$ the $\Gamma = -1$ wall forms. \textbf{Engine note (load-bearing for Ch.~\ref{ch:vol9_engine_requirements}):} the breathing $A_1$ mode is the \emph{only} mode the scalar Master Equation FDTD integrates (it is pure radial dilation, no rotational character); the other six (Cosserat $\mathbf{u} + \boldsymbol{\omega}$) require the Cosserat field engine (\kbleaf{trampoline-framework.md}:249). A single-engine simulation renders one mode-family only.
+
+\subsection{K4 four-port valence and the photon/electron mode assignment}
+\label{subsec:vol9_k4_valence}
+
+The K4 node's four nearest-neighbour bond amplitudes decompose under the tetrahedral group as $V_{4\text{-port}} = A_1 \oplus T_2$ ($\dim 4 = 1 + 3$; canonical at \kbleaf{trampoline-framework.md}:276, doc~30 \S 1). The two free-mode assignments follow directly:
+\begin{itemize}
+    \item \textbf{Photon} $= T_2$ alone --- the linear K4-TLM propagating mode (port amplitudes $(+1, -1, +1, -1)$ for $+x$), the $(0,3)$ entry: pure 3-fold body-axis propagating vector mode (\kbleaf{trampoline-framework.md}:276).
+    \item \textbf{Electron} $= E \otimes T_2 = T_1 \oplus T_2$, hosting the $(2,3)$ phase-space torus knot: the $T_2$ propagating wave locked into a bound state by the 2-fold $E$-rep face-axis trap (\kbleaf{trampoline-framework.md}:278--281).
+\end{itemize}
+
+\subsection{Per-port wave content (the bond-port)}
+\label{subsec:vol9_per_port_wave_content}
+
+Each cell connects to its four K4 nearest neighbours through four \emph{bond-ports}. Each bond-port carries \textbf{exactly one independent traveling-wave amplitude}, the incident wave $V_{inc}$; the reflected amplitude $V_{ref}$ is \emph{derived} from the same scalar field by the TLM traveling-wave split and is \emph{not} an independent state:
+\begin{align}
+V_{inc} &= \tfrac{1}{2}(V_{phys} + Z_0\, I_{phys}), &
+V_{ref} &= \tfrac{1}{2}(V_{phys} - Z_0\, I_{phys})
+\end{align}
+(canonical at \kbleaf{src/ave/core/master\_fdtd\_phasor\_bridge.py}:16--17, code at :89--90; the bridge is an \emph{observer}, read-only, not a dynamics engine). The inductive flux-linkage state $\Phi_{link}$ accumulates $V_{phys}\,dt$ on directed A$\to$B bonds (the L-state of the bond LC tank). This ``one independent wave per port, $V_{ref}$ derived'' fact is the datasheet line that Ch.~\ref{ch:vol9_engine_requirements} turns into an engine requirement (read-only projections are observables, never state carriers).\footnote{The phasor bridge (\kbleaf{master\_fdtd\_phasor\_bridge.py}:16--17) \emph{implements} the TLM traveling-wave split; the rule that $V_{ref}$ is \emph{not independent state} is \emph{adjudicated} as \textbf{A36}: a prior attempt to descend on the joint $(u, \omega, V_{inc}, V_{ref})$ state was retracted as an A36 Rule~6 violation, because ``$V_{ref}$ is fully determined by $V_{inc}$ once the TLM operator is fixed'' (\kbleaf{research/2026-05-18\_abcd-handoff-prereg-outcome-corpus-state-retrofit.md} \S1.3, lines 62, 68). The relation does \emph{not} follow from ``Op5'': Op5 (\kbleaf{ave-kb/common/operators.md}:45) is the \emph{Multiport Y-to-S Conversion} $[S] = (I + [Y]/Y_0)^{-1}(I - [Y]/Y_0)$, a different operator; a prior attribution of the $V_{ref}$-derived rule to ``Op5'' was incorrect and is corrected here.}
+
+\subsection{Three disambiguations the table must carry}
+\label{subsec:vol9_dof_disambiguations}
+
+The DOF/mode inventory sits at the intersection of three same-word / same-number collisions that have caused documented framework errors. The table above is constructed to keep them separate:
+
+\begin{enumerate}
+    \item[(i)] \textbf{The $A_1$ breathing MODE $\neq$ the saturation STATE $A$.} The breathing mode (Table~\ref{tab:vol9_per_cell_modes} row~3) is a genuine kinematic coordinate the Master Equation integrates. The saturation-amplitude state $A$ --- the operating point along the Axiom~4 kernel --- is \emph{``not a seventh spatial DOF''} (Ch.~\ref{ch:vol9_saturation_characteristics}, \texttt{07\_saturation\_characteristics.tex} \S Operating-Point State: ``it is the dynamical state of the LC tank, analogous to the DC bias on a semiconductor varactor''). A mode is a coordinate; $A$ is an operating point. Distinct objects.
+    \item[(ii)] \textbf{The K4 tetrahedral BOND-port $\neq$ the $\Gamma$-port of \S\ref{sec:vol9_substrate_boundary_semantics}.} A bond-port is one of the four nearest-neighbour TLM transmission-line connections carrying $V_{inc}$ (\S\ref{subsec:vol9_per_port_wave_content}); every cell has exactly four, always. A $\Gamma$-port is an impedance discontinuity ($Z_1 \neq Z_2$) where Eq.~\ref{eq:vol9_universal_gamma} applies; a cell has one only where its local impedance differs from a neighbour's. Same word, two objects: a connectivity element vs.\ an impedance-boundary figure-of-merit.
+    \item[(iii)] \textbf{The $A_1$ dilatation ``3'' (mass) $\neq$ the $T_2$ winding ``3'' (the $(2,3)$ poloidal number).} The $A_1$ volumetric/dilatation sector carries the soliton's mass (the breathing bound state's rest energy on the Master Equation engine); the $T_2$ body-axis 3-fold supplies the ``3'' of the electron's $(2,3)$ torus knot (\kbleaf{trampoline-framework.md}:280, ``the `3' labels the $T_2$ rep''). $A_1$ and $T_2$ are orthogonal irreps; the two homonymous ``3''s are different objects (dilatation mass vs.\ poloidal winding) and must not be wired into a single phasor.
+\end{enumerate}
+
+\section{Sector-to-Sector Coupling Matrix}
+\label{sec:vol9_sector_coupling_matrix}
+
+The cell's sectors are not independent: a faithful simulation must wire the documented cross-sector couplings and, equally, must \emph{not} wire the ones that are structural zeros or unadjudicated. This section consolidates the coupling content that is otherwise scattered across the engine and the canonical leaves into a single matrix over the four sectors $\{\mathbf{E}\,(u),\ \mathbf{B}\,(\omega),\ V\,(A_1\text{ breathing}),\ A\,(\text{saturation state})\}$.
+
+\begin{table}[htbp]
+\centering\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}p{0.10\linewidth} p{0.20\linewidth} p{0.20\linewidth} p{0.20\linewidth} p{0.16\linewidth}@{}}
+\toprule
+\textbf{from $\downarrow$ / to $\rightarrow$} & \textbf{$\mathbf{E}$ ($u$)} & \textbf{$\mathbf{B}$ ($\omega$)} & \textbf{$V$ ($A_1$ breathing)} & \textbf{$A$ (sat.\ state)} \\
+\midrule
+\textbf{$\mathbf{E}$ ($u$)} & --- (self) & Faraday / Cosserat $\sigma^A$ (conservative)$^a$ & shear$\to$bulk: sign-sel.\ \textbf{shown}; topo$+$lock \textbf{no}; $\chi$-src OPEN$^d$ & loads $A$ via $\varepsilon^2$ \\
+\textbf{$\mathbf{B}$ ($\omega$)} & Faraday / Cosserat $\sigma^A$ (conservative)$^a$ & $\kappa_{chiral} = \alpha\cdot(6/5)$ chiral bias$^b$ & \textbf{0} (structural zero)$^c$ & loads $A$ via $\kappa^2$ \\
+\textbf{$V$ ($A_1$)} & bulk$\to$shear: sign-sel.\ \textbf{shown}; topo$+$lock \textbf{no}; $\chi$-src OPEN$^d$ & \textbf{0} (structural zero)$^c$ & --- (self) & loads $A$ via $V^2$ \\
+\textbf{$A$ (sat.)} & $\varepsilon_{eff} = \varepsilon_0 S(A)$ & $\mu_{eff} = \mu_0 S(A)$ & $c_{eff}(A)$ modulation & --- (self) \\
+\bottomrule
+\end{tabular}
+\caption{Sector-to-sector coupling matrix for the vacuum cell. Off-diagonal entry $(i,j)$ is the coupling that sources sector $j$ from sector $i$. The bottom row is the Axiom~4 back-reaction: the saturation state $A$ modulates every sector via $S(A)$ (Op14 / Op16). Superscripts: see notes below.}
+\label{tab:vol9_sector_coupling}
+\end{table}
+
+\noindent\textbf{Notes on the coupling entries.}
+
+\begin{description}
+    \item[$^a$ Faraday / Cosserat $\sigma^A$ (conservative).] The $\mathbf{E} \leftrightarrow \mathbf{B}$ coupling is the bidirectional translational$\leftrightarrow$rotational coupling of the Cosserat PDE through the antisymmetric stress $\sigma^A$ (canonical at \kbleaf{common/trampoline-framework.md}:208; Ch.~\ref{ch:vol9_magnetic_microrotational_characteristics} \S Cosserat Flywheel Inductance). It is the substrate-native origin of Faraday's law and is \emph{energy-conserving} (the reciprocal source$+$back-reaction of one coupling, not a pump).
+    \item[$^b$ $\kappa_{chiral} = \alpha\cdot(6/5)$ (one-parameter).] The chiral coupling that biases the microrotational handedness. The factor $6/5$ is \textbf{derived} from the electron $(2,3)$ winding ($pq/(p+q) = 6/5$; canonical at \kbleaf{src/ave/topological/cosserat\_field\_3d.py}:89, \texttt{KAPPA\_TILDE\_ELECTRON}); the factor $\alpha$ is a \textbf{calibration input}, not derived (the one-parameter framing, adjudicated 2026-05-02; AVE-HOPF ch01; mirror PR \#147). The composite is \texttt{KAPPA\_CHIRAL\_ELECTRON} $= \alpha \times (6/5) \approx 8.757\times10^{-3}$ (\kbleaf{cosserat\_field\_3d.py}:126).
+    \item[$^c$ Structural zero (measured).] A pure microrotational ($\omega$) drive sources \emph{no} volumetric / port-voltage ($V_{inc}$) response: the genesis runs measure $\max|V_{inc}| = 0$ for an $\omega$-only source (the ``GAP-1'' structural zero of the genesis-2x reflection arc). There is no $\omega \to V$ source channel in the substrate; an engine must \emph{not} synthesise one. (The reverse $V \to \omega$ is likewise zero at source.)
+    \item[$^d$ Chiral Beltrami shear$\leftrightarrow$bulk source --- \texttt{graft-v3} VERDICT (2026-06-09 adversarial panel: demoted B$\to$C; supersedes the prior \emph{verdict pending}).] The driver \texttt{analysis/2026-06-09-crystal-graft-v3} returned (\texttt{research/2026-06-09\_crystal-graft-v3\_result.md}, Rule-12 final-verdict addendum at \texttt{4627651a}). Four scoped findings:
+    \emph{(1) Handedness / sign-selection DEMONSTRATED.} An \emph{exactly force-free} Beltrami source ($\cos(b_\lambda,\nabla\times b_\lambda)=\pm1.000$) deposits a helicity whose SIGN flips with the source's imposed spatial handedness $\chi$: $H_{bel}$ RH $+76.3$ / LH $-90.5$ / centro $-8.5\times10^{-15}$ (full run) --- flips with $\chi$, clean centrosymmetric null. Scoped: this is sign-selection by an \textbf{imposed} template ($\chi$ is a source INPUT), \emph{not} charge carried from a photon.
+    \emph{(2) Topology-selection REFUTED.} No $(2,3)$ knot self-assembles from a pure-handedness static template ($w_{pol}\equiv0$); the geometry-templated variant \textbf{detonates} ($E_\omega=\num{3.15e27}$, NOT force-free, $\cos=0.19$).
+    \emph{(3) The conserved LOCK is UNIMPLEMENTED.} Only the energize half is built: $|\mathbf{L}_\omega|$ pumps without saturating, and the pump is \textbf{chirality-independent} --- the $\chi=0$ centro arm pumps $|\mathbf{L}_\omega|$ to $347.7$ (vs RH $18.0$ / LH $0.20$; frozen wall $\propto t^{0.43}$ unbounded, live wall $4L/L=6.53$). ENERGIZE-without-LOCK $\Rightarrow$ no conserved $(2,3)$.
+    \emph{(4) $\chi$-from-photon OPEN.} Handedness is a source input, not derived from the seed photon; the de-novo conversion (the photon's own conserved helicity $+$ a Taylor/Beltrami lock $+$ a resolution gate) is \textbf{in flight} on \texttt{analysis/2026-06-10-graft-v4-photon-helicity}.
+    Net: the chiral Beltrami source carries a \emph{sign} (handedness) but does NOT close the topology and has no lock --- do \textbf{not} wire it as an adjudicated shear$\leftrightarrow$bulk coupling on the strength of this row; the cell records sign-selection \textbf{shown}, topology $+$ lock \textbf{refuted/unbuilt}, $\chi$-source \textbf{OPEN}.
+\end{description}
+
+\noindent\textbf{The flag-gated EMF reciprocal --- a non-conservative coupling that must stay off.} The engine carries an optional Lagrangian-EMF cross-sector term (\kbleaf{src/ave/topological/k4\_cosserat\_coupling.py}:550, the per-port EMF $= +2\,V_{inc}\,\partial L_c/\partial V_{sq}$, behind the flag \texttt{use\_lagrangian\_emf\_coupling}, default \texttt{False} at :211). The \textbf{NON-CONSERVATIVE} tag rests on the \emph{runaway} evidence, not on the in-code sign-comment: the code's own NOTE at :233--235 records that this term ``AMPLIFIES the runaway; path-1 was the wrong direction,'' and the genesis-24 driver run is the empirical detonation --- $E_V \to \num{6.8e8}$ monotone to the last step, $|\mathbf{L}|$ unbounded ($2.7 \to 43.4$), \texttt{reverses = False} (genesis-24 result \S7). The flag defaults to \texttt{False} \emph{because} the coupling drives this runaway. \textbf{Flag (contradicted in-code comment, \emph{flag-don't-fix}):} a separate comment at :547--549 claims the implemented positive sign ``produces oscillatory exchange consistent with reciprocal LC dynamics'' --- i.e.\ \emph{conservative}, the opposite of this tag. That comment is \textbf{stale / contradicted by the genesis-24 detonation} and is \emph{not} the basis for the NON-CONSERVATIVE classification. Whether the $+2$ EMF is genuinely reciprocal (per :547--549) or detonates (per genesis-24) is a substrate-physics question surfaced for adjudication, not silently resolved here; on the empirical record the datasheet records the term as \textbf{NON-CONSERVATIVE / off-by-default}, and Ch.~\ref{ch:vol9_engine_requirements} states the corresponding engine requirement (cross-sector couplings must be conservative Hamiltonian pairs).
+
 \section{Port Class Taxonomy}
 \label{sec:vol9_port_class_taxonomy}
 
