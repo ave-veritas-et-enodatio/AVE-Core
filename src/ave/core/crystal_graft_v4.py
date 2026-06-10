@@ -233,20 +233,16 @@ class CrystalGraftV4(CrystalGraftV3):
         # bulk V (mass / Γ=−1 trap)
         c_eff_sq = self.c_eff_squared(self.V)
         a_V = c_eff_sq * self._laplacian(self.V, self.dx)
-        # shear w (photon)
-        a_w = np.empty_like(self.w)
-        for comp in range(3):
-            a_w[..., comp] = (self.c_T ** 2) * self._laplacian(self.w[..., comp], self.dx)
+        # shear w (photon) — vectorized Laplacian (bit-identical to per-comp loop)
+        a_w = (self.c_T ** 2) * self._laplacian_vec(self.w, self.dx)
         # micro-rotation ω (winding) + mass-gap LC reactance
-        a_omega = np.empty_like(self.omega)
         if self.omega_sector_on:
-            for comp in range(3):
-                a_omega[..., comp] = (
-                    self.c_omega ** 2 * self._laplacian(self.omega[..., comp], self.dx)
-                    - self.omega_gap ** 2 * self.omega[..., comp]
-                )
+            a_omega = (
+                (self.c_omega ** 2) * self._laplacian_vec(self.omega, self.dx)
+                - (self.omega_gap ** 2) * self.omega
+            )
         else:
-            a_omega[:] = 0.0
+            a_omega = np.zeros_like(self.omega)
 
         # the 3-way photon-director buckle (CHANGE 1)
         if self.omega_sector_on and self.buckle_on:

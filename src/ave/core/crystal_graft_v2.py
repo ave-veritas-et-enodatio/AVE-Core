@@ -194,20 +194,16 @@ class CrystalGraftV2(CrystalEngine):
         # bulk V (the mass / Γ=−1 trap) — same nonlinear c_eff dynamics
         c_eff_sq = self.c_eff_squared(self.V)
         a_V = c_eff_sq * self._laplacian(self.V, self.dx)
-        # shear w (photon) — linear vector wave
-        a_w = np.empty_like(self.w)
-        for comp in range(3):
-            a_w[..., comp] = (self.c_T**2) * self._laplacian(self.w[..., comp], self.dx)
+        # shear w (photon) — linear vector wave (vectorized Laplacian, bit-identical)
+        a_w = (self.c_T**2) * self._laplacian_vec(self.w, self.dx)
         # micro-rotation ω (winding) — OWN wave eq + OWN mass-gap LC reactance
-        a_omega = np.empty_like(self.omega)
         if self.omega_sector_on:
-            for comp in range(3):
-                a_omega[..., comp] = (
-                    self.c_omega**2 * self._laplacian(self.omega[..., comp], self.dx)
-                    - self.omega_gap**2 * self.omega[..., comp]
-                )
+            a_omega = (
+                (self.c_omega**2) * self._laplacian_vec(self.omega, self.dx)
+                - (self.omega_gap**2) * self.omega
+            )
         else:
-            a_omega[:] = 0.0
+            a_omega = np.zeros_like(self.omega)
 
         # ADD-2 buckle (conservative, boundary-localized)
         if self.omega_sector_on and self.buckle_on:

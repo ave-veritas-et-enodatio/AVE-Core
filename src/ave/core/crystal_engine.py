@@ -165,6 +165,29 @@ class CrystalEngine:
         ) / (dx**2)
         return L
 
+    @staticmethod
+    def _laplacian_vec(F: np.ndarray, dx: float) -> np.ndarray:
+        """7-point Laplacian over the 3 LEADING spatial axes of a (N,N,N,C)
+        vector field, in one pass.
+
+        BIT-IDENTICAL to looping ``_laplacian(F[..., c], dx)`` over the trailing
+        component axis: same stencil, same float64 operands, same per-element
+        op order (the arithmetic is component-independent), boundary left 0.
+        Replaces the ``for comp in range(3)`` per-component calls in the vector
+        (w, ω) sectors of step() — a speedup (fewer Python calls / temporaries),
+        NOT a physics change."""
+        L = np.zeros_like(F)
+        L[1:-1, 1:-1, 1:-1, :] = (
+            F[2:, 1:-1, 1:-1, :]
+            + F[:-2, 1:-1, 1:-1, :]
+            + F[1:-1, 2:, 1:-1, :]
+            + F[1:-1, :-2, 1:-1, :]
+            + F[1:-1, 1:-1, 2:, :]
+            + F[1:-1, 1:-1, :-2, :]
+            - 6.0 * F[1:-1, 1:-1, 1:-1, :]
+        ) / (dx**2)
+        return L
+
     def saturation_kernel(self, V: np.ndarray) -> np.ndarray:
         """S(A)=√(1-A²), A=|V|/V_yield, clipped to [S_min, 1] (the A-034 kernel)."""
         A = np.abs(V) / self.V_yield
@@ -241,9 +264,8 @@ class CrystalEngine:
         conserving), NOT as a velocity rescale."""
         c_eff_sq = self.c_eff_squared(self.V)
         a_V = c_eff_sq * self._laplacian(self.V, self.dx)
-        a_w = np.empty_like(self.w)
-        for comp in range(3):
-            a_w[..., comp] = (self.c_T**2) * self._laplacian(self.w[..., comp], self.dx)
+        # vectorized shear Laplacian (bit-identical to the per-component loop)
+        a_w = (self.c_T**2) * self._laplacian_vec(self.w, self.dx)
 
         if self.converter_on:
             f_V, f_w = self._converter_forces()
