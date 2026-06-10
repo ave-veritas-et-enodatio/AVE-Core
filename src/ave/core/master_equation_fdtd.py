@@ -162,6 +162,10 @@ class MasterEquationFDTD:
         refractive-index gradient n(r) = 1 + 2GM/(rc²).
         """
         S = self.saturation_kernel(self.V)
+        # FLAG (2026-06-10, apparatus-floors char.): exponent defect — c_eff_squared
+        # at :148-151 sets c_eff²=c0²/S, so physical n=c0/c_eff=S^0.5, NOT S^0.25.
+        # Downstream Γ=(n-1)/(n+1) magnitudes understate the wall depth. Comment-only
+        # flag per flag-don't-fix; FIX IS A PHYSICS-REVIEW ITEM (Grant/auditor).
         return S**0.25
 
     def step(self):
