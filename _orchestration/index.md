@@ -3,7 +3,82 @@
 **Audit trail (2026-05-23 Benn → 2026-05-25 merge):** This directory was ported from `analysis/integration` (D7 curation, KB claim-DAG integration) on 2026-05-23, and completed-work snapshots were moved to [`_archive/index-stale.md`](_archive/index-stale.md). Merged with integration live state on 2026-05-25 — treat this doc as the current live tracker; consult git log for recent updates.
 **EDIT** - 2026-05-23 Benn - document deprecated. Do not do any sweeping work from this document without evaluating current repo state. KB claim DAG has received many improvements and the KB has had many fixups in the process. This directory was ported over from `analysis/integration` branch, which has now been superseded. Work that was clearly already done has been extracted and moved to _archive/. What remains may still be relevant, but again, *check first*.
 
-> **Staleness notice (2026-06-02)**: Sections below (active epics, adjudication queue, priority ladder, open decisions) reflect 2026-05-20 EOD state, with reconciliations catalogued through 2026-06-04 (newest first). Items not addressed in the reconciliation sections should be re-verified against current corpus before relying on details below. Verify-before-cite v1.4 applies.
+> **Staleness notice (2026-06-02; refreshed 2026-06-08)**: Sections below (active epics, adjudication queue, priority ladder, open decisions) reflect 2026-05-20 EOD state, with reconciliations catalogued through **2026-06-08** (newest first). The **2026-06-08 reconciliation** immediately below carries the current priority ladder (21-PR review backlog + soliton-size adoption), open decisions (#21–#27), active-epic, PR-queue, and worktree-prune state — it SUPERSEDES the immediate-tier ladder in the 2026-05-28 static sections. Items not addressed in the reconciliation sections should be re-verified against current corpus before relying on details below. Verify-before-cite v1.4 applies.
+
+## 2026-06-08 reconciliation (electron-synthesis + α-route + soliton-size arc)
+
+Multi-session delta. **`origin/main` HEAD `63e6671a`** (Merge PR #116). Adds the
+2026-06-07/08 electron-structure synthesis arc. Full handoff:
+[`2026-06-08_session-handoff.md`](2026-06-08_session-handoff.md); detailed phase
+log §0–§47 in [`2026-06-07_electron-synthesis-epic.md`](2026-06-07_electron-synthesis-epic.md)
+(PR #120); per-PR review checklist: [`2026-06-08_pr-review-guide.md`](2026-06-08_pr-review-guide.md).
+
+### State of the board
+- **21 open PRs (#117–#137)**, all `MERGEABLE` against `main` (verified
+  `gh pr list --state open`, 2026-06-08). Grant reviews each himself — see the
+  review guide. **DO NOT auto-merge.**
+- **46 worktrees**: 21 KEEP (1 per open PR) / 22 prune-safe / 3 HOLD
+  (uncommitted work). Prune-list = §9 of the handoff doc. **List-only; nothing
+  pruned this session.** Main checkout is parked on `analysis/2026-06-07-two-node-
+  alpha-projection` (PR #126); carries 1 untracked stray flagged in the handoff.
+
+### CLOSED / resolved
+- **α-value derivation = NEGATIVE on every closed route** (incl. the z₀=52
+  "1.5%" WALK-BACK, §31 — unforced path-multiplicity, physical z≈16→1/α≈49). AVE
+  constrains α's SCALE + FUNCTIONAL FORM (substrate geometry) but does NOT derive
+  its VALUE; α stays **Class-B**. The framing (α = a vacuum loss-tangent, not a
+  constant) is the chord; the value is a calibration entry. [§18/§22/§25/§31.]
+- **Fork A (genesis amplitude crux)**: electron = parametric oscillator at
+  threshold = marginal Hopf limit cycle at ω_C. [§9/§12/§13/§19.]
+- **Lattice = z=4 achiral diamond** (water-confirmed); spin/chirality on the
+  Cosserat microrotation, not the net. [§8.1/§16/§28.]
+- **proton = PHASE-space (2,5)** (walk-back, PR #132); **proton-mass I_scalar=1162
+  forward-DERIVED not fitted** (+0.74% topology-only; −0.002% rides 1 thermal
+  correction, proton-specific coincidence). [§36/§39/§40.]
+- **QM trio** (PR #128); **piezoelectric framing** (PR #127); **force-projection
+  grounding** (→ #130/#137). All consistency-class.
+
+### Active epic (add to the Active-epics table)
+| Epic | Doc | Status | Next |
+|---|---|---|---|
+| Electron-structure synthesis | [`2026-06-07_electron-synthesis-epic.md`](2026-06-07_electron-synthesis-epic.md) | **ACTIVE — §0–§47 logged; α-derivation closed-negative; soliton-size GAP scoped** | Soliton-size adoption (gated on vocab-lock + greenlight); then the operating-point coefficients (the falsifiable, AVE-distinct datasheet column) |
+
+### Priority ladder delta (supersedes the 2026-05-28 ladder for the immediate tier)
+1. **21-PR review backlog** (#117–#137) — Grant reviews each; the review guide
+   orders them (fast batch → r_opt walk-back chain in order → HIGH-risk #126).
+2. **Soliton-size adoption** (the recommended next workstream) — COHERENT-BUT-
+   SYNTHESIS (§46); gated on the `w1pc27h3k` vocab-disambiguation lock (§47, 14
+   clarity-risk terms) + Grant greenlight. Plan = §7 of the handoff.
+3. **Operating-point coefficients** (dc/dA, dα/dT, dε/dE) — the falsifiable,
+   AVE-distinct test surface (§26/§40 suggested next-effort), now that α's value
+   is honestly bounded.
+
+### Open decisions surfaced 2026-06-08 (carry forward)
+| # | Item | Detail |
+|---|---|---|
+| 21 | **Soliton-size adoption mode** | adopt node-Nyquist two-size framing? gated on vocab-lock + greenlight (§46/§47). |
+| 22 | **Multi-node-vs-single-node proton** | `02_baryon_sector.tex:40` (multi) vs `semiconductor_binding_engine.py:68` (single); decides the §43/§45 fork. |
+| 23 | **§43/§45 A-vs-B canonical fork** | proton body sub-node (A; r_opt-as-length = bug) vs supra-node (B; STLs correct-scale). Do NOT collapse. |
+| 24 | **√(3/7) dilatational-vs-torsion** | √(1−2ν) bulk signature vs the muon leaf's "torsion-shear" label; identity exact, label at-issue (§40/§41). Flag-don't-fix. |
+| 25 | **cold-vs-thermal κ_FS** | proton leaf COLD 8π/5=5.03 vs ladder THERMAL κ_eff/5=4.990; single convention = Grant's call (§42). |
+| 26 | **Manuscript-figure reference** | which figures #129/#134 feed, at what scale-claim tier (gated on #23). |
+| 27 | **Emergence-vs-consistency m_p/m_e** | prereg (consistency) vs leaf Class-4 (emergence) self-classification (§38). |
+
+### New infrastructure
+- 2 new skills (drafted + live-validated §40): `ave-dimensional-provenance-check`
+  (coupling/count-as-length guard), `ave-live-fire-derivation-provenance`
+  (dead-input + forward-vs-fit residual guard).
+- Code-provenance index prototype (PR #136, §44).
+- **SKILL-CANDIDATE (watch)**: `lock-vocab-before-canonizing` (§46) — 5-way term
+  cross-check before locking a canonical term.
+
+### Discipline note
+The session repeatedly inflated good intuitions into "mechanisms" + reasoned from
+a partial archive slice (multiple Grant-pointer corrections: φ-premise inverted,
+z₀ effort missed, chiral-matching ungrounded, cog→belt-trick, spherical-vs-cubic).
+Next effort: GROUND intuitions + SWEEP the archive BEFORE framing a result.
+
+---
 
 ## 2026-06-04 reconciliation (experimental round-2 hardening arc — COMPLETE)
 
