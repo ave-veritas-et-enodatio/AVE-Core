@@ -94,6 +94,8 @@ is the pre-panel record, retained intact per Rule 12.*
 | Golden-torus self-assembles | `R/r_meas=2.995` vs `φ²=2.618` (14.4% off; was 33% in v2) | within 25% + real (2,3) | ❌ |
 | α⁻¹ emerges (α-free) | **REFUSED by joint-ledger guard** (no real (2,3)) | `4π³+π²+π` | ❌ |
 
+> **RECORD-HONESTY qualifier (2026-06-10 · `analysis/2026-06-10-apparatus-floors` · governing skill `ave-apparatus-floor-attribution`; numbers per `research/2026-06-10_apparatus-floors_note.md`).** The SMOKE-1 `Γ_min=−0.849 (= v2 baseline; regression intact)` row is a **seed-depth regression check, NOT a wall-depth measurement.** −0.849 is v2's deepest STATIC-SEED read with NON-binding clips, carried here as the regression target; it does not represent a dynamical wall (the deepest dynamical wall at the standard `A_cap=0.999` is −0.37, sitting on the clip floor `max(√(1−A_cap²), S_min)^(1/4)→(n−1)/(n+1)`; corr 1.0000, residual 0.0000 across the 10-cell sweep). The regression certifies that the Beltrami source did not break the wall — i.e. the SIGN and hardening trend, not the −0.849 magnitude. Magnitude is additionally understated by the `n=S^0.25` diagnostic-exponent defect (physical `n=S^0.5` per `c_eff²=c0²/S`; corrected exponent deepens, does not flip).
+
 ## §1 — The ONE physics change (engine `CrystalGraftV3`)
 
 `CrystalGraftV3(CrystalGraftV2)` overrides ONLY the buckle director — everything else (the hardened Γ=−1
