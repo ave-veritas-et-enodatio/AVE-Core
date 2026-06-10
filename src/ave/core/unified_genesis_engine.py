@@ -716,6 +716,21 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         mask = (rc < radius_frac * 0.5 * self.N * self.dx)
         return float(np.sum(z[:, :, mid][mask]) * self.dx ** 2)
 
+    def angular_momentum_bulk(self, axis: int | None = None) -> float:
+        """Bulk advective angular momentum about `axis`, L=∫ρ(r×u)·axis (interior).
+        The T3 spin observable on the bulk-circulation channel."""
+        if axis is None:
+            axis = getattr(self, "foc_axis", 2)
+        rho_full = 1.0 + self.rho_bar
+        ux, uy, uz = self.u_adv[..., 0], self.u_adv[..., 1], self.u_adv[..., 2]
+        if axis == 2:
+            Lz = self._bx * uy - self._by * ux
+        elif axis == 1:
+            Lz = self._bz * ux - self._bx * uz
+        else:
+            Lz = self._by * uz - self._bz * uy
+        return float(np.sum(rho_full * Lz * self.interior_mask()) * self.dx ** 3)
+
     def rho_core(self):
         """Deepest (most-negative) ρ̄ in the PML/interior-excluded region, sampled
         at the density MINIMUM (CP7 — for a rarefying core this IS the peak of
