@@ -80,6 +80,12 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         eps_den: float = 1e-6,
         nu_art_bulk: float = 5e-4,
         rho_diff: float = 5e-4,
+        # --- D1 SNAP state machine (component 2; off by default) ---
+        snap_on: bool = False,
+        rho_cav: float = RHO_CAV,
+        chi_shock: float = 1.0,
+        delta_heal: float = 0.0,
+        snap_payback_rate: float = 1.0,
         **kwargs,
     ):
         """
@@ -124,6 +130,30 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         self.clip_c2_hits = 0
         self.bulk_step_count = 0
 
+        # ---------- D1 SNAP state machine (CP10 per-cell boundary; component 2) ----
+        # CLIP suspects (prereg §5): N1 rho_cav (candidate −1/φ), N3 chi_shock
+        # (latent-tally fraction; 0 = elastic control), N2 delta_heal (re-entry
+        # width). The snap is hysteresis-by-BOOKKEEPING: re-entry requires the
+        # tally PAID BACK (NO new EOS — the EOS is the inherited rarefaction one;
+        # the reflector is the EOS's own c²(ρ̄_cav)=0 with c2_floor=0).
+        self.snap_on = bool(snap_on)
+        self.rho_cav = float(rho_cav)        # N1
+        self.chi_shock = float(chi_shock)    # N3
+        self.delta_heal = float(delta_heal)  # N2
+        self.snap_payback_rate = float(snap_payback_rate)
+        self.snap_mask = np.zeros((Nn, Nn, Nn), dtype=bool)
+        self.latent_ledger = np.zeros((Nn, Nn, Nn), dtype=np.float64)  # held-out per cell
+        self.paid_ledger = np.zeros((Nn, Nn, Nn), dtype=np.float64)    # paid-back per cell
+        # cumulative scalar ledgers (energy bookkeeping; the tally must close)
+        self.E_latent_held = 0.0   # currently held out of the dynamics (sum of latent_ledger)
+        self.E_latent_restored = 0.0  # paid-back-and-returned (cumulative)
+        self.E_diss_snap = 0.0     # shock-class one-way (chi_shock·void-KE)
+        self.mass_clamp = 0.0      # |mass| added by the void-floor clamp (honesty)
+        self.snap_events = 0
+        self.unsnap_events = 0
+        if self.snap_on:
+            self._build_U_table()
+
     # ----------------------------------------------------- bulk EOS (rarefaction)
     def c_bulk2_raw(self, rho: np.ndarray) -> np.ndarray:
         """Unclipped rarefaction-stiffness EOS c_bulk²(ρ̄)=c₀²(1+ρ̄/(1−ρ̄²)).
@@ -144,6 +174,28 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         burst detector reads this ledger (cavitation_flow.py:165–166 parity)."""
         arg = np.maximum(1.0 - rho ** 2, self.eps_den)
         return (self.c0 ** 2) * (rho - 0.5 * np.log(arg))
+
+    # ----------------------------------------- exact EOS internal energy ε(ρ̄)
+    def _build_U_table(self):
+        """ε(ρ)=ρ∫_1^ρ p(s)/s² ds (s≡ρ=1+ρ̄), p the exact EOS integral. The latent
+        tally and the snap energy bookkeeping use THIS internal energy — the same
+        convention sonic_horizon_flow validated by free-run KE+PE conservation."""
+        rb = np.linspace(-0.999, 3.0, 40001)
+        rho = 1.0 + rb
+        p = self.pressure(rb)
+        integrand = p / rho ** 2
+        i0 = int(np.argmin(np.abs(rb)))
+        cum = np.zeros_like(rb)
+        for i in range(i0 + 1, len(rb)):
+            cum[i] = cum[i - 1] + 0.5 * (integrand[i] + integrand[i - 1]) * (rho[i] - rho[i - 1])
+        for i in range(i0 - 1, -1, -1):
+            cum[i] = cum[i + 1] + 0.5 * (integrand[i] + integrand[i + 1]) * (rho[i] - rho[i + 1])
+        self._U_rb = rb
+        self._U_eps = rho * cum
+
+    def U_density(self, rho_bar):
+        """Exact EOS internal-energy density ε(ρ̄) (table interp)."""
+        return np.interp(rho_bar, self._U_rb, self._U_eps)
 
     # ----------------------------------------------- 3D bulk differential ops
     @staticmethod
@@ -203,14 +255,109 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         self.clip_c2_hits += int(np.count_nonzero((c2raw < self.c2_floor * self.c0 ** 2) & m))
         self.bulk_step_count += 1
 
+    # ------------------------------------------------------- D1 SNAP machine (CP10)
+    def _tally_latent_and_snap(self, newly):
+        """A cell newly crossing ρ̄≤ρ̄_cav: TALLY its latent (reversible internal-
+        energy released crossing to the void floor + χ_shock of its advective KE),
+        REMOVE it from the dynamics, clamp the cell to the void floor (the
+        Z_bulk→0 reflector with c2_floor=0). Hysteresis-by-bookkeeping: the latent
+        is HELD until paid back."""
+        rb_before = self.rho_bar[newly]
+        # reversible internal-energy released crossing to the floor
+        d_eps = np.abs(self.U_density(rb_before) - self.U_density(self.rho_cav))
+        # shock-class void KE removed (one-way)
+        rho_full = 1.0 + rb_before
+        ke_void = 0.5 * rho_full * np.sum(self.u_adv[newly] ** 2, axis=-1)
+        latent_cell = (d_eps + self.chi_shock * ke_void) * self.dx ** 3
+        self.latent_ledger[newly] = latent_cell
+        self.paid_ledger[newly] = 0.0
+        self.E_latent_held += float(np.sum(latent_cell))
+        self.E_diss_snap += float(np.sum(self.chi_shock * ke_void) * self.dx ** 3)
+        # remove the crossing KE (shock), clamp to the void floor (track added mass)
+        self.u_adv[newly] *= (1.0 - self.chi_shock)
+        self.mass_clamp += float(np.sum(np.clip(self.rho_cav - rb_before, 0.0, None)) * self.dx ** 3)
+        self.rho_bar[newly] = self.rho_cav
+        self.snap_mask[newly] = True
+        self.snap_events += int(np.count_nonzero(newly))
+
+    def _snap_step(self):
+        """Per-cell snap state machine (normal↔snapped), interior only (CP7).
+          1. newly-snapping cells (ρ̄≤ρ̄_cav, not yet snapped) ⇒ tally + clamp.
+          2. already-snapped cells ⇒ enforced void (reflector BC) + over-pressure
+             payback accrual.
+          3. cells whose tally is PAID BACK ⇒ un-snap (re-enter above the floor;
+             the held latent is RESTORED to the dynamics ledger). NO new EOS."""
+        m = self.interior_mask()
+        # (1) crossings
+        below = (self.rho_bar <= self.rho_cav) & m & ~self.snap_mask
+        if below.any():
+            self._tally_latent_and_snap(below)
+        if not self.snap_mask.any():
+            return
+        cm = self.snap_mask
+        # (2) enforce the boundary-class void (reflector: ρ̄ held at floor, u killed)
+        self.rho_bar[cm] = self.rho_cav
+        self.u_adv[cm] = 0.0
+        # over-pressure payback: the surrounding medium does work against the void.
+        # neighbor-mean pressure minus the void pressure; positive ⇒ pushing in.
+        p = self.pressure(self.rho_bar)
+        p_neigh = (np.roll(p, 1, 0) + np.roll(p, -1, 0)
+                   + np.roll(p, 1, 1) + np.roll(p, -1, 1)
+                   + np.roll(p, 1, 2) + np.roll(p, -1, 2)) / 6.0
+        over = np.clip(p_neigh - self.pressure(np.array(self.rho_cav)), 0.0, None)
+        self.paid_ledger[cm] += over[cm] * self.dx ** 3 * self.snap_payback_rate * self.dt
+        # (3) un-snap the paid-up cells (re-enter above floor; restore the latent)
+        paid_up = cm & (self.paid_ledger >= self.latent_ledger) & (self.latent_ledger > 0.0)
+        if paid_up.any():
+            restored = float(np.sum(self.latent_ledger[paid_up]))
+            self.E_latent_held -= restored
+            self.E_latent_restored += restored
+            self.rho_bar[paid_up] = self.rho_cav + self.delta_heal
+            self.snap_mask[paid_up] = False
+            self.latent_ledger[paid_up] = 0.0
+            self.paid_ledger[paid_up] = 0.0
+            self.unsnap_events += int(np.count_nonzero(paid_up))
+
+    def hand_snap_region(self, mask: np.ndarray, rho_set: float | None = None):
+        """CALIBRATION (D6 F0d — 'a known case'): hand-open a snapped pocket. Sets
+        the region below the floor and runs ONE snap detection so it tallies +
+        clamps exactly as a dynamical crossing would. Returns the tallied latent."""
+        if rho_set is None:
+            rho_set = self.rho_cav - 0.05
+        before = self.E_latent_held
+        self.rho_bar[mask & self.interior_mask()] = rho_set
+        self._snap_step()
+        return self.E_latent_held - before
+
+    # ------------------------------------------------------- pocket observers (CP7)
+    def pocket_cells(self) -> int:
+        return int(np.count_nonzero(self.snap_mask))
+
+    def pocket_frac(self) -> float:
+        return self.pocket_cells() / float(np.count_nonzero(self.interior_mask()))
+
+    def snap_ledger(self) -> dict:
+        return {
+            "pocket_cells": self.pocket_cells(),
+            "snap_events": self.snap_events,
+            "unsnap_events": self.unsnap_events,
+            "E_latent_held": self.E_latent_held,
+            "E_latent_restored": self.E_latent_restored,
+            "E_diss_snap": self.E_diss_snap,
+            "mass_clamp": self.mass_clamp,
+        }
+
     # ------------------------------------------------------------------- step
     def step(self):
         """Inherited V/w/ω/buckle/lock step (UNCHANGED), then — only if the bulk
-        sector is on — the ρ̄/u rarefaction substep. bulk_density_on=False ⇒
-        byte-identical to CrystalGraftV4.step()."""
+        sector is on — the ρ̄/u rarefaction substep, then — only if snap_on — the
+        D1 per-cell snap state machine. bulk_density_on=False ⇒ byte-identical to
+        CrystalGraftV4.step()."""
         super().step()
         if self.bulk_density_on:
             self._bulk_step()
+            if self.snap_on:
+                self._snap_step()
 
     # ------------------------------------------- energize (ENERGIZE+LOCK; never pump)
     def energize_rotation_column(self, M_edge: float, R_core: float,
