@@ -175,3 +175,121 @@ charge, no quantized spin, no de Broglie, and a geometric (not chiral) twin**. N
   byte-identity + the `w_pol≡0` / `E_V`-detonation signatures).
 - Predecessor verdicts (sonic-horizon LOCK, genesis-24 B-localizes, graft-v4 C→LOCK-FAIL, cavitation CLIP):
   all INHERITED, none overturned.
+
+---
+
+## 🔴 ADDENDUM — 2026-06-10 (Rule-12, append-only; v5 panel ruling)
+
+**Rule 12 / append-only:** the bodies above (§0–§8) are PRESERVED verbatim and SUPERSEDED here, not
+rewritten. The frozen prereg `@454acf19` (single file, 285 insertions) is untouched. Every number below
+re-verified against `research/2026-06-10_genesis-v5-seeded-snap_results.json` and the engine/driver
+(`src/ave/core/unified_genesis_engine.py`, `src/scripts/vol_1_foundations/genesis_v5_seeded_snap_run.py`,
+`src/ave/core/longitudinal_burst_detector.py`) before writing (verify-before-cite). **The HEADLINE VERDICT
+(§0) — NOT-ELECTRON; the spontaneous-snap cascade detonates T1 — STANDS unchanged.** This addendum revises
+ONLY the D8 lock-mechanism reading and scopes four secondary claims.
+
+### A. D8 DEMOTED — supersedes §0 lines 20–29, §2 lines 63–66, §6 line 145, §8 line 171
+
+The prior verdict **"D8 = BOTH — two independent channels"** is DEMOTED to:
+
+> **MOTION-LOCKED CONFIRMED + SNAP-channel UNRESOLVED (construction-dependent).**
+
+The SNAP-LOCKED "positive" CANNOT be binned a positive under §4.1's own floor-gate: it is
+**construction-guaranteed, not measured**. Five independent legs of the basis (each re-verified):
+
+1. **The snap's irreversibility is fixed, never swept.** `snap_payback_rate=1.0` in EVERY persistence arm
+   (engine default `unified_genesis_engine.py:88`; `build_engine` default `genesis_v5_seeded_snap_run.py:65`;
+   `run_arm` never overrides it) and `delta_heal=0.0` (engine default `:87`, never passed). The MAIN arm
+   records `unsnap_events=0` (`snap_ledger`): NO cell ever paid back its tally over the entire window. With
+   the re-entry width pinned to zero and the payback rate pinned to one and NEITHER swept, "the pocket holds
+   under P2 de-spin" is the construction, not a finding.
+2. **§210 hard-constraint violation.** The prereg's STEP-5 rule (`prereg:210`) mandates the FULL knob set
+   `N1–N6 / D1 / K1–K5` swept BEFORE any §4 verdict. The run swept only `{N1, N3, N4, D1, K1, K2}`. The two
+   knobs that gate the SNAP-LOCKED bin — **N2 `Δ_heal`** (`prereg:198`, pre-named CLIP signature *"hysteresis
+   tracks Δ_heal (built-in irreversibility)"*) and **K3 stop-time** (`prereg:206`, *"H_total 'converged'
+   value tracks stop-time"*) — were never swept. The discriminator the prereg itself named for this exact
+   bin was not run.
+3. **Engine fiat clamp + de-spin starves the payback.** The held-void is a hard clamp
+   (`unified_genesis_engine.py:306–322`: `rho_bar[cm]=rho_cav`, `u_adv[cm]=0`); un-snapping requires
+   `paid_ledger ≥ latent_ledger`, where `paid_ledger` accrues from neighbor over-pressure × the (fixed)
+   payback rate × dt (`:315`). The P2 protocol forcibly de-spins (`despin_bulk(0.0)`), killing the very
+   flow that generates over-pressure → the ledger starves → non-payback is **near-tautological** under P2.
+4. **The pocket GROWS under P1, it does not converge.** P1 (drive-off) pocket `5968 → 7576` (`+26.9 %`),
+   `rho_core` pinned at the floor `−0.618`. A 27 % runaway read at an arbitrary stop-time is a transient
+   caught mid-growth, NOT a converged locked structure (the K3 falsifier exactly).
+5. **The energy tally never closes.** Build pumps `H_total 16 906 → 64 834` (`+283 %`), closure residual
+   `−1.09` (`energy_ledger.closure_resid_frac`). Energy is created across the build; the snap tally
+   (`latent 968`, `vent_seed 484`, `vent_rad 484`) cannot be energy-certified against a non-closing ledger.
+   A persistence claim resting on this tally is uncertifiable until the `+283 %` pump is isolated.
+
+### B. MOTION-LOCKED STANDS — the genuine, sweep-backed positive (supersedes-and-strengthens §2 line 64)
+
+This is the real result of the run, and it is the rival D8 hypothesis (*"isn't motion the lock?"*):
+
+- `L_bulk` drive-off ratio (P1) is **0.97–0.99 in ALL arms** — `0.9733` in the four snap arms AND
+  **`0.9945` in the no-snap arm** (the MOTION-LOCK discriminator: persistence there is the rival POSITIVE,
+  not a control failure, per `prereg:105`/`:129`).
+- The motion-deficit deepening is **`≈ −0.0516` INVARIANT** across the K1 `ν_art ∈ {1e-4 … 5e-3}` (50×)
+  span (`−0.05157 … −0.05153`); `Γ`-decay `+0.012 → +0.016`. The lock does NOT track viscosity.
+
+**Certified conclusion: as far as this run certifies, THE LOCK IS THE MOTION ITSELF** (conserved,
+viscosity-independent circulation), NOT the snap. The snap's remaining live, certified role is the
+**latent-burst / genesis-moment** mechanism, not a persistence lock: D6 genuinely detected
+**~160 impulsive longitudinal bursts** (the detector-scan list holds exactly 160; the body §4 line 99
+*"~170"* reads slightly high — flag-don't-fix, the scan returns 160) at **onset step 2849** (the
+spontaneous-snap cascade), magnitudes `0.035–93.95` clearing the known-null floor `3.84e-5` by **3–6 OOM**,
+total burst energy `1936` — the **birth flash**, a real detection. Its MAGNITUDE is apparatus-tracked
+(N1 latent ∝ candidate floor; N3 ∝ `χ_shock`); the DETECTION (floor-clearance) is physics.
+
+### C. SCOPE the "laid to rest" sentence — supersedes §2 lines 73–74
+
+The §2 claim that the sonic-horizon heal-vs-viscosity worry is "laid to rest" is OVER-SCOPED. v5's K1
+invariance is a DIFFERENT engine/regime (the unified-genesis bulk, `M=1.8` seeded/snapping column), not the
+sonic-horizon run's artifacts. The sonic-horizon heal-vs-viscosity attribution remains **OPEN on that
+branch's own artifacts** (auditor queue). v5 strengthens the motion-lock case; it does not close the
+predecessor's attribution.
+
+### D. CAP the K2 onset claim — supersedes §3 K2 row / §7 flag 4; + T6 caveat
+
+The K2 spontaneous-snap-ONSET-TIME claim is CAPPED: in the K2 sweep **no arm actually snapped** —
+all three resolutions ran the FIXED `steps_to_snap=2000` cap with `pocket_cells=0` and deepest `rho`
+`−0.577/−0.430/−0.344` (never reached the floor `−0.618`). The "onset time tracks resolution" reading is an
+**extrapolation from a sweep where nothing snapped**, not a measured onset; spontaneous-assembly TIMING
+claims are capped accordingly. Separately, **T6 (de Broglie) is an under-validated leg**: it was evaluated
+on a detonating/non-converged object (T1 already FAILED), so its `NOT-INVERSE-P` result is a flat-`λ` read
+on a transient — caveat-tagged, carries no independent weight.
+
+### E. COLLIMATION honesty line — supersedes §4 collimation bullet (lines 103–106)
+
+Columnarity `0.9333` clears its floor `0.025` by **37×**, but is **byte-identical (`0.9332873079510086`)
+across all four snap arms — including across handedness** (C-achiral and C-opp-helicity carry the identical
+value). It is the IMPOSED `energize_rotation_column` geometry (z-invariant by construction), NOT an emergent
+chiral collimation. The prereg's D3 horizon→tube→ring sequence **never ran**. Honest instrument (the floor
+gates correctly), null emergence.
+
+### F. TWIN / handedness — instrument-null (supersedes §4 twin bullet, lines 107–111)
+
+The twin is an **instrument-null**: the drive's handedness never coupled into the bulk. The pocket split
+`RH=2608 / LH=1040` is **byte-identical** across MAIN, C-achiral, AND C-opp-helicity — a geometric split by
+the rotation column's vorticity sense, present at zero net helicity. Pair-canon is **untouched** (neither
+confirmed nor refuted here). The `±0.11658` `Hbel` sign-carry (`−0.117 / ≈0 / +0.117` for RH/achiral/LH)
+confirms the **graft-v4 sign channel exists** but closes no `(2,3)` winding. **Named blocking component for
+any future T2/T5: a real photon-helicity → bulk-circulation/ω coupling channel (the transducer)** — absent
+here, it is the missing primitive (A44: an engine coupling-family gap, NOT a missing axiom).
+
+### G. NAMED FOLLOW-UPS (verbatim-class; recorded, NOT a debug-toward-success — Rule 11)
+
+1. **Snap-channel adjudication sweep** — `Δ_heal × snap_payback_rate × K3` (Rule-11-safe; it adjudicates the
+   LOCK claim, NOT the electron claim, which is closed NOT-ELECTRON).
+2. **GAP-C detonation isolation** — vent-off / frac sweep to isolate the snap→seed vent trigger.
+3. **The handedness-coupling channel** (the §F transducer) — the load-bearing primitive for T2/T5.
+4. **K2 convergence** — drive an arm to an actual snap (lift the 2000-step cap) before any onset-time claim.
+5. **The `+283 %` pump isolation** — required BEFORE any T1 retest (the ledger must close first).
+6. **The sonic-horizon retroactive heal-vs-viscosity attribution** (§C; that branch's own artifacts).
+
+### H. NET CORPUS-STATE DELTA (I surface; the auditor lands — supersedes §8 bullet 2)
+
+- **v5 build: FALSIFIED (NOT-ELECTRON)** — unchanged; Rule-12 🔴 header on the v5 hypothesis slot stands.
+- **D8: MOTION-LOCKED confirmed (sweep-backed, ν_art-invariant) — a real new positive.** The SNAP-LOCKED
+  sub-claim is **withdrawn to UNRESOLVED (construction-dependent)**; it is NOT a co-equal second channel.
+  The motion-lock is the certified positive; the snap is the certified birth-flash, not a certified lock.
