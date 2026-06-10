@@ -90,6 +90,11 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         vent_mode: str = "kick",
         snap_accounting: str = "legacy",
         meissner_harden: float = 0.0,
+        # --- v6 D9 transducer (chiral-boundary spin-orbit exchange BC); OFF by default ---
+        transducer_on: bool = False,
+        chi_exch: float = 0.02,
+        bounce_thresh: float = 1.5,
+        transduce_axis: int | None = None,
         **kwargs,
     ):
         """
@@ -149,6 +154,22 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         self.vent_mode = str(vent_mode)            # "kick" (v5) | "absorbed" (D10a)
         self.snap_accounting = str(snap_accounting)  # "legacy" (v5) | "conservative" (D11)
         self.meissner_harden = float(meissner_harden)  # D10b per-cell threshold hardening
+        # --- v6 D9 transducer (chiral-boundary spin-orbit exchange BC) ---
+        # CP10 boundary-localized; OFF by default (the inherited byte-identical path).
+        # chi_exch = the SWEPT per-step wall spin-extraction fraction (prereg §6.5);
+        # bounce_thresh = the bounce-COUNT detector level (cosmetic, swept);
+        # transduce_axis = the spin axis n̂ (None ⇒ foc_axis at transduce time).
+        self.transducer_on = bool(transducer_on)
+        self.chi_exch = float(chi_exch)
+        self.bounce_thresh = float(bounce_thresh)
+        self.transduce_axis = transduce_axis  # int or None
+        # D9 ledgers (the AM channel closes 1:1 BY CONSTRUCTION; energy TRACKED):
+        self.L_transferred = 0.0          # cumulative ΔL deposited into u_adv (the bulk gain)
+        self.S_photon_removed = 0.0       # cumulative photon spin removed (= L_transferred exactly)
+        self.E_transduce_photon_loss = 0.0  # energy removed from the photon (≥0 by construction)
+        self.E_transduce_bulk_gain = 0.0    # actual bulk-KE change from the deposit (±)
+        self.E_transduce_absorbed = 0.0     # passive lossy-mirror sink = loss − bulk_gain (≥0 ⇒ no pump)
+        self.transduce_events = 0           # steps the transducer fired
         self.snap_mask = np.zeros((Nn, Nn, Nn), dtype=bool)
         self.latent_ledger = np.zeros((Nn, Nn, Nn), dtype=np.float64)  # held-out per cell
         self.paid_ledger = np.zeros((Nn, Nn, Nn), dtype=np.float64)    # paid-back per cell
@@ -386,6 +407,117 @@ class UnifiedGenesisEngine(CrystalGraftV4):
             self.latent_ledger[paid_up] = 0.0
             self.paid_ledger[paid_up] = 0.0
             self.unsnap_events += int(np.count_nonzero(paid_up))
+
+    # ===================================== D9 TRANSDUCER (chiral-boundary BC, CP10)
+    def _transduce_axis(self) -> int:
+        """The spin axis n̂ for the transducer: the explicit override, else the
+        FOC/drive axis, else z (=2)."""
+        if self.transduce_axis is not None:
+            return int(self.transduce_axis)
+        return int(getattr(self, "foc_axis", 2))
+
+    def photon_spin_axial(self, axis: int | None = None, wall_weighted: bool = False) -> float:
+        """The photon's axial mechanical SPIN  S_φ = ∫ (w × ∂_tw)·n̂ dV  (interior).
+        For a CP shear photon S_φ ∝ −h·k·∫|w|² (HELICITY-ODD); a linear-pol
+        (achiral) photon has one transverse component ⇒ S_φ ≡ 0. This is the
+        depletable photon-helicity ledger the transducer pays from (the m-even
+        keeper probe — it MUST separate ±helicity on a known seed)."""
+        if axis is None:
+            axis = self._transduce_axis()
+        piw = (self.w - self.w_prev) / self.dt
+        s_dens = np.cross(self.w, piw)[..., axis]
+        weight = self.interior_mask().astype(np.float64)
+        if wall_weighted:
+            weight = weight * self._wall_window()
+        return float(np.sum(s_dens * weight) * self.dx ** 3)
+
+    def wall_photon_intensity(self) -> float:
+        """I_wall = ∫ g_wall·|∂_tw|² dV — the wall-shell photon intensity. Its
+        peaks COUNT the bounces (the per-bounce normalization; the bounce_thresh
+        knob sets the count level — cosmetic, does not move the total transfer)."""
+        piw = (self.w - self.w_prev) / self.dt
+        gw = self._wall_window() * self.interior_mask()
+        return float(np.sum(gw * np.sum(piw ** 2, axis=-1)) * self.dx ** 3)
+
+    def _transducer_step(self):
+        """D9 — the chiral-boundary spin-orbit exchange BC (prereg §6.1; CP10).
+
+        A per-cell BOUNDARY operation on the g_wall shell ONLY (NOT a bulk EOM
+        term — the v5 detonation lesson): per step the chiral wall torques the
+        ANGULAR pair (the polar-conjugate of the snap's radial reflector). It
+        (1) extracts photon axial spin Δs(r)=χ̃·g_wall(r)·s_density(r) by scaling
+        π_w←π_w·(1−χ̃·g_wall) — s_density is LINEAR in π_w so the removed spin is
+        EXACTLY δL=Σ Δs·dV; (2) deposits exactly δL into u_adv as a wall-localized
+        azimuthal increment δu=Ω_add·(n̂×r)·g_wall, Ω_add=δL/I_wall. The AM ledger
+        closes 1:1 BY CONSTRUCTION (bounded, depleting, no refilled source). The
+        ENERGY is TRACKED (passive lossy mirror: E_absorb=loss−bulk_gain≥0 ⇒ no
+        pump — ave-conserved-vs-pumped, the D11 discipline on the transducer)."""
+        n = self._transduce_axis()
+        chi = self.chi_exch
+        gw = self._wall_window() * self.interior_mask()
+        if chi == 0.0 or not np.any(gw > 0.0):
+            return
+        # --- the photon's axial spin density s = (w × π_w)·n̂ (linear in π_w) ---
+        piw = (self.w - self.w_prev) / self.dt
+        s_dens = np.cross(self.w, piw)[..., n]
+        # per-cell extracted spin Δs = χ̃·g_wall·s_dens ; total δL (signed = handedness)
+        extract_frac = chi * gw                       # the per-cell scaling depth (≤ χ̃)
+        dL = float(np.sum(extract_frac * s_dens) * self.dx ** 3)
+        # --- (2) DEPOSIT exactly δL into u_adv (orbital), wall-localized azimuthal ---
+        rho_full = 1.0 + self.rho_bar
+        # (n̂×r) deposited as du[c1]=Ω(−r2), du[c2]=Ω(+r1); r_⊥²=r1²+r2².
+        if n == 2:
+            r1, r2, c1, c2 = self._bx, self._by, 0, 1   # ẑ×r = (−y, x, 0)
+        elif n == 1:
+            r1, r2, c1, c2 = self._bz, self._bx, 2, 0   # ŷ×r = (z, 0, −x)
+        else:
+            r1, r2, c1, c2 = self._by, self._bz, 1, 2   # x̂×r = (0, −z, y)
+        perp2 = r1 ** 2 + r2 ** 2
+        I_wall = float(np.sum(rho_full * gw * perp2) * self.dx ** 3)
+        if abs(I_wall) > 1e-30 and dL != 0.0:
+            Omega_add = dL / I_wall
+            # δu = Ω_add·(n̂×r)·g_wall : axial-symmetric azimuthal spin-up of the shell.
+            # (n̂×r) for n̂=ê_n: component c1 = −r2, component c2 = +r1.
+            du = np.zeros_like(self.u_adv)
+            du[..., c1] = Omega_add * (-r2) * gw
+            du[..., c2] = Omega_add * (r1) * gw
+            # actual bulk-KE change (honest: includes the u·δu cross term)
+            u = self.u_adv
+            ke_delta = float(np.sum(
+                rho_full * (np.sum(u * du, axis=-1) + 0.5 * np.sum(du ** 2, axis=-1))
+            ) * self.dx ** 3)
+            self.u_adv = u + du
+            self.E_transduce_bulk_gain += ke_delta
+            self.L_transferred += dL
+            self.S_photon_removed += dL
+            # --- (1) the photon PAYS: scale π_w by (1−χ̃·g_wall) at the wall ---
+            piw_loss = 0.5 * float(np.sum(
+                np.sum(piw ** 2, axis=-1) * (1.0 - (1.0 - extract_frac) ** 2)
+            ) * self.dx ** 3)
+            self.E_transduce_photon_loss += piw_loss
+            self.E_transduce_absorbed += (piw_loss - ke_delta)
+            self.w_prev = self.w - (self.w - self.w_prev) * (1.0 - extract_frac)[..., None]
+            self.transduce_events += 1
+
+    def transducer_ledger(self) -> dict:
+        """The D9 channel ledger (conservation-by-channel; numbers FROM the field).
+        L_transferred ≡ S_photon_removed BY CONSTRUCTION (1:1 AM closure); the
+        INDEPENDENT depletion evidence is the measured photon-spin change vs the
+        free-drift floor (reported by the driver)."""
+        ratio = (self.S_photon_removed / self.L_transferred
+                 if abs(self.L_transferred) > 1e-30 else float("nan"))
+        return {
+            "L_transferred": self.L_transferred,
+            "S_photon_removed": self.S_photon_removed,
+            "ledger_ratio_removed_over_transferred": ratio,
+            "E_photon_loss": self.E_transduce_photon_loss,
+            "E_bulk_gain": self.E_transduce_bulk_gain,
+            "E_absorbed_sink": self.E_transduce_absorbed,
+            "passive_no_pump": bool(self.E_transduce_absorbed >= -1e-12),
+            "transduce_events": self.transduce_events,
+            "L_bulk_axial": self.angular_momentum_bulk(self._transduce_axis()),
+            "S_photon_axial": self.photon_spin_axial(),
+        }
 
     def hand_snap_region(self, mask: np.ndarray, rho_set: float | None = None):
         """CALIBRATION (D6 F0d — 'a known case'): hand-open a snapped pocket. Sets
@@ -654,6 +786,10 @@ class UnifiedGenesisEngine(CrystalGraftV4):
             self._bulk_step()
             if self.snap_on:
                 self._snap_step()
+            # D9 transducer: AFTER the bulk substep so u_adv exists to receive the
+            # orbital AM; a per-cell BOUNDARY operation (CP10), not a bulk EOM term.
+            if self.transducer_on:
+                self._transducer_step()
 
     # ------------------------------------------- energize (ENERGIZE+LOCK; never pump)
     def energize_rotation_column(self, M_edge: float, R_core: float,
