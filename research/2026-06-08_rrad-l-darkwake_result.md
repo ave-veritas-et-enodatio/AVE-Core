@@ -16,6 +16,8 @@
 > BLOCKED on a converged radiating sim + a coupled-mode boundary calculation. The
 > precise remaining gap is named in §7. No false closure is claimed.
 
+> **2026-06-09 NOTE (regime rescope of Phases 2–5).** Phase-1 findings here — the antenna framing surviving (R_rad,L > 0, propagating, Outcome C rejected) and the ν=2/7 radiative-prefactor WALK-BACK (candidate 4/49) — are **UNAFFECTED** by the 2026-06-09 regime rescope of Phases 2–5. That rescope concerns the sub-yield-linear *rectification* nulls (wrong-regime artifacts per `ave-regime-phase-state-check`); this Phase-1 impedance/propagation result is not a rectification test. See the REGIME-RESCOPE headers on the Phase 2–5 result docs.
+
 ---
 
 ## 0. Headline

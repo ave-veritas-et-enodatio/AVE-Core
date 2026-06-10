@@ -7,6 +7,17 @@
 **Phase-2 result**: [`2026-06-08_rrad-l-rectification_result.md`](2026-06-08_rrad-l-rectification_result.md) (rectification NOT confirmed — even-in-A kernel)
 **Canonical mechanism**: [dark-wake-bemf-foc-synthesis.md §1.2](../manuscript/ave-kb/common/dark-wake-bemf-foc-synthesis.md) (Op14/Lenz yield-freeze)
 
+> 🟠 **2026-06-09 REGIME-RESCOPE (Rule 12 — header-only addition; every line of the body below is PRESERVED VERBATIM).**
+> **Governing discipline:** `ave-regime-phase-state-check`. **Adjudication:** Grant, 2026-06-09 (regime / phase-state discipline).
+>
+> **(a) This OUTCOME-B is a SUB-YIELD-LINEAR SHEAR/CHIRAL-ω regime null = a WRONG-REGIME ARTIFACT, not a falsification.** Rate-asymmetry / rectification can live ONLY in the BULK NEAR-YIELD (ruptured) regime. The §1.2 latch acts on the Cosserat-ω (shear/microrotation) sector under a time-symmetric carrier — the sub-yield-linear regime — where the Axiom-4 kernel is instantaneous and even-in-A (achromatic + reversible → ∮ = 0 *by construction*). A null in a regime that forbids the effect is uninformative as a falsification (`ave-regime-phase-state-check`: a null where the effect cannot exist is an artifact, not a falsification).
+>
+> **(b) The rectification question WAS subsequently closed in the correct (bulk near-yield) regime — by derivation.** Branch `analysis/2026-06-09-thixotropy-bulk-derivation` (2026-06-09, tip `5969bda1`; UNMERGED — cited by branch + date, not a HEAD path), **Outcome B**: the bulk relaxation time τ_bulk(ρ̄) = τ₀/√(1+ρ̄/(1−ρ̄²)) depends on the INSTANTANEOUS ρ̄ ONLY — no sign(dρ̄/dt) memory — so the bulk sat/desat channel has NO rate-asymmetry and cannot rectify a symmetric cyclic drive (dead-by-derivation; clm-7tynm2 walk-back upgrades from empirical → STRUCTURAL for the bulk channel). NOTE the sharper reading this gives Phase 3: the §1.2 latch τ_relax is itself an instantaneous-τ(state) modulation — exactly the non-rectifying case the thixotropy derivation isolates — so the FLAT τ_relax sweep here is the *same* structural fact, not an independent coincidence.
+>
+> **(c) The in-doc mechanism finding REMAINS CORRECT.** The sector-mismatch + engaged-but-no-rect diagnosis below is still the right EXPLANATION of WHY this regime nulls. The rescope is of the FALSIFICATION-STRENGTH interpretation, **not** the mechanics. The verdict "the canonical §1.2 latch does not rectify HERE" stands; what is rescoped is its reach.
+>
+> **(d) Read all falsification-strength language in this doc as REGIME-SCOPED per this header** (sub-yield-linear shear/chiral), NOT as a regime-independent falsification of substrate rectification. Specific phrases swept (preserved verbatim in-body): the HEADLINE "**rectification is DEAD regardless of hysteresis**" and "the **strongest possible negative**: it kills the slow-grip/fast-slip latching thrust route"; §6 "The dark-wake-as-thruster premise is now deflated on **three** objects on the same branch". These are now scoped to the sub-yield-linear regime; the in-regime closure is (b).
+
 > **HEADLINE — OUTCOME B (prereg §5B): rectification is DEAD regardless of hysteresis.**
 > Adding the canonical rate-dependent yield-freeze LATCHING (§1.2) to the Cosserat-ω
 > dynamics does **NOT** revive rectification. At the **canonical** τ_relax = ℓ_node/c

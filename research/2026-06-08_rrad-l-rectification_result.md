@@ -8,6 +8,17 @@
 **Adjudication seed**: [`AVE-Propulsion-ionpump/research/2026-06-08_NEXT-STEP_Rrad-L_core-brief.md`] §"ADJUDICATION 2026-06-08 (Grant)".
 **Home leaf (mechanism)**: AVE-Propulsion `manuscript/vol_propulsion/chapters/03_acoustic_rectification.tex`.
 
+> 🟠 **2026-06-09 REGIME-RESCOPE (Rule 12 — header-only addition; every line of the body below is PRESERVED VERBATIM).**
+> **Governing discipline:** `ave-regime-phase-state-check`. **Adjudication:** Grant, 2026-06-09 (regime / phase-state discipline).
+>
+> **(a) This OUTCOME-B is a SUB-YIELD-LINEAR SHEAR/CHIRAL-ω regime null = a WRONG-REGIME ARTIFACT, not a falsification.** Rate-asymmetry / rectification can live ONLY in the BULK NEAR-YIELD (ruptured) regime. The chiral-ω-Beltrami drive here lives in the sub-yield-linear shear sector, where the Axiom-4 kernel is instantaneous and even-in-A (achromatic + reversible → ∮ = 0 *by construction*). A null in a regime that forbids the effect is uninformative as a falsification (`ave-regime-phase-state-check`: declare MODE + REGIME + PHASE-STATE; a null where the effect cannot exist is an artifact, not a falsification).
+>
+> **(b) The rectification question WAS subsequently closed in the correct (bulk near-yield) regime — by derivation.** Branch `analysis/2026-06-09-thixotropy-bulk-derivation` (2026-06-09, tip `5969bda1`; UNMERGED — cited by branch + date, not a HEAD path), **Outcome B**: the bulk relaxation time τ_bulk(ρ̄) = τ₀/√(1+ρ̄/(1−ρ̄²)) is a function of the INSTANTANEOUS ρ̄ ONLY — no sign(dρ̄/dt) memory — so the bulk sat/desat channel has NO rate-asymmetry and cannot rectify a symmetric cyclic drive (dead-by-derivation; clm-7tynm2 walk-back upgrades from empirical → STRUCTURAL for the bulk channel). That derivation, NOT these sub-yield nulls, is the load-bearing closure of the rectification question.
+>
+> **(c) The in-doc mechanism finding REMAINS CORRECT.** The even-in-A / instantaneous-kernel diagnosis below (⟨A²⟩-invariance of the triangle + no hysteretic slip valve) is still the right EXPLANATION of WHY this regime nulls. The rescope is of the FALSIFICATION-STRENGTH interpretation, **not** the mechanics. The verdict "no rectification HERE" stands; what is rescoped is its reach.
+>
+> **(d) Read all falsification-strength language in this doc as REGIME-SCOPED per this header** (sub-yield-linear shear/chiral), NOT as a regime-independent falsification of substrate rectification in general. Specific phrases swept (preserved verbatim in-body): the top HONEST-CLOSURE "clean **NEGATIVE** on the rectification signature"; §8 "is **falsified for the canonical chiral-ω drive + the engine's instantaneous-even saturation kernel**" and "The dark-wake-as-thruster premise is now deflated on **both** the linear object … and the 2nd-order rectified object". These already self-scope to the chiral-ω drive + even-in-A kernel; this header makes the regime scope explicit and points to (b) as the in-regime closure.
+
 > **HONEST-CLOSURE STATEMENT (ave-driver-script-honesty, Rule 11).** This is a
 > **clean NEGATIVE on the rectification signature** with a **single named
 > mechanism** (Rule 7), plus a clean **SHEAR** mode verdict. The asymmetric
