@@ -306,8 +306,9 @@ class TestBridge:
         nodes = collect_spine_nodes()
         assert len(nodes) > 0
         assert "claim" in set(nodes.values())
-        # every id is a known spine prefix
-        assert all(nid.split("-", 1)[0] in {"clm", "exp", "sup", "axiom", "INVARIANT"} for nid in nodes)
+        # every id is a known spine prefix (def- = vocabulary node-type, the
+        # sixth spine node-type materialized into the index per INVARIANT-S12)
+        assert all(nid.split("-", 1)[0] in {"clm", "exp", "sup", "axiom", "INVARIANT", "def"} for nid in nodes)
 
 
 # ───────────────────────────────────────────────────────────────────────────
