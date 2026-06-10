@@ -11,7 +11,8 @@
 >
 > **Discipline tags applied:** `verify-before-cite` (every anchor in this doc was grep-verified this
 > session against `AVE-Core @ origin/main f2ed89d5` or the named unmerged branch via git objects;
-> two stale/failed cites are explicitly quarantined in §6.3), `ave-representation-capability-check`
+> two failed/unverified cites are quarantined in §6.3 and one misfiled-anchor cite was corrected this
+> session — see §6.3 and §3.10 flag (1)), `ave-representation-capability-check`
 > (this registry IS that skill's instrument — every field entry carries its real-space DOF capability
 > AND its phase-space representation AND the declared bridge between them, so a name can never silently
 > double-count a carrier against an engine DOF), `ave-evidence-framing-discipline` (each anchor tagged
@@ -100,9 +101,10 @@ historical single-$\tau_{zx}$ "dark wake" was a symbol-level conflation (§4, wo
 ## 3. The registry table
 
 Organized by sector. Anchors tagged `(main)` = `AVE-Core @ origin/main f2ed89d5`; `[branch X]` =
-named **UNMERGED** branch (verified via git objects this session, not yet canon). PROPOSED rows
-(from the novel-objects report) are marked **⟂PROPOSED** and are NOT canon — they enter here only as
-flagged candidates pending the §Promotion gate.
+named **UNMERGED** branch (verified via git objects this session, not yet canon). Engine-construct rows
+that are not yet canon carry a `[branch X]`/`[branch UNMERGED]` tag AND an explicit engine/apparatus class
+— that tag **is** the not-canon marker. No novel-objects-report row (N1–N11) is promoted into this table as
+a blessed row; those remain in the companion report pending the §Promotion gate.
 
 ### 3.1 EM-transverse sector
 
@@ -133,8 +135,8 @@ flagged candidates pending the §Promotion gate.
 | Symbol | Normative name | Class | Channel | Real-space component(s) (rank/sector/units) | Phase-space representation | Declared bridge (or UNDECLARED) | Canonical anchor | NOT-this |
 |---|---|---|---|---|---|---|---|---|
 | $V$ | longitudinal scalar (A1 dilatation-mass) | field | **bulk-longitudinal** | the Heaviside/Gibbs-excised compression scalar; rank-0 per-node; standing $V$ = Lane-1 mass presence ($m_ec^2$ = trapped acoustic compression); the order-parameter channel | projected (read-only) onto $(V_{inc},V_{ref})$ on the K4 bond Smith chart | $V_{phys}=\tfrac12(V_{here}+V_{nbr})$; $V_{inc}=\tfrac12(V_{phys}+Z_0 I_{phys})$, $V_{ref}=\tfrac12(V_{phys}-Z_0 I_{phys})$ | `master-equation.md:18-20`; `master_fdtd_phasor_bridge.py:16-17` (main) | NOT the orbital potential $V(r)$ (homonym, `de-broglie:42`); NOT the $(V_{inc},V_{ref})$ projection (those are read-only, **not** independent DOF — the double-count lesson); distinguish **standing** $V$ (mass) vs **propagating** $V$ |
-| $\bar\rho$ | bulk density perturbation | field | **bulk-longitudinal** | EOS $p(\bar\rho)=\rho_0c_0^2[\bar\rho-\tfrac12\ln(1-\bar\rho^2)]$; rank-0 scalar; dimensionless density ratio | n/a (real-space) | n/a | EOS `cavitation_flow.py:165-166` (main) | NOT the Pearson correlation $\rho$; NOT $\rho_{Op14}$; NOT $\rho_{latent}$ (dark-energy density); NOT the candidate floor $\bar\rho_{cav}$ |
-| $\bar\rho_{cav}$ | cavitation floor (**CANDIDATE, not canon**) | candidate threshold | **bulk-longitudinal** | candidate clamp $\bar\rho_{cav}=-1/\varphi\approx-0.618$; the $c_{bulk}$ freeze floor | n/a | n/a | `2026-06-09_per-node-time-dilation-saturation-feedback_prereg.md:45` ("GREEN-FIELD, not in canon") (main) | NOT in `constants.py` (NO `RHO_CAV` at origin/main — grep count 0; the "RHO_CAV from constants.py" cite is FALSE, quarantined §6.3); cite as candidate only |
+| $\bar\rho$ | bulk density perturbation | field | **bulk-longitudinal** | EOS $p(\bar\rho)=\rho_0c_0^2[\bar\rho-\tfrac12\ln(1-\bar\rho^2)]$; rank-0 scalar; dimensionless density ratio | n/a (real-space) | n/a | EOS `cavitation_flow.py:165-166` (main) | NOT the Pearson correlation $\rho$; NOT $\rho_{Op14}$; NOT $\rho_{latent}$ (dark-energy density); NOT the freeze floor $\bar\rho_{cav}$ (the clamp threshold, distinct object) |
+| $\bar\rho_{cav}$ | cavitation floor — **operational canon** (floor-VALUE epistemic status CONTESTED, §3.10 flag) | bulk threshold constant | **bulk-longitudinal** | $\bar\rho_{cav}=-1/\varphi\approx-0.618$; the $c_{bulk}$ freeze floor ($c_{bulk}^2(\bar\rho_{cav})=0$) | n/a | n/a | **defined** `cavitation_flow.py:64` (`RHO_CAV=-1.0/PHI`); **consumed** by the merged Vol-4 probe `cavitation_core_probe.py:35,69,237,249` (PR#161); freeze-floor relation `substrate-temporal-values-definition.md:30,61` (main) | the constant lives in `cavitation_flow.py:64`, **NOT** `constants.py` (the rectifier-prereg "from constants.py" attribution is misfiled → RENAME-QUEUE R8). Floor-VALUE $-1/\varphi$: CANDIDATE per `cavitation_flow.py:62` comment ("floor is CANDIDATE") + `v5 prereg:74` ("cite as candidate, never canonical") vs "Q2 resolved" per `substrate-temporal-values:61` — CONTESTED, surfaced not resolved (flag-don't-fix) |
 | bulk-acoustic pilot | de Broglie matter-wave reactive store | field / near-field store | **bulk-longitudinal** (canonical reading — fork OPEN) | longitudinal acoustic pressure waves governed by the vacuum Bulk Modulus; $n_{acoustic}(r)\propto1/\sqrt{E-eV(r)}$ | the standing-wave resonance $2\pi r=n\lambda$ | acoustic-impedance reflection at $E-eV(r)=0$ (total reflection, $\Gamma=-1$) | `de-broglie-standing-wave.md:50` (main) | the transverse-inductive reading (`ohmic-decoherence-born.md:11`) is the OPEN fork (§6.1); NOT the far-field dark wake $\tau^{far}_{zx}$ |
 | $c_{bulk}$ | bulk (compressional) speed | kernel/speed | **bulk-longitudinal** | $c_{bulk}=c_0\sqrt{1+\bar\rho/(1-\bar\rho^2)}$; stiffens at $\bar\rho\to+1$; freezes at $\bar\rho_{cav}$ | n/a | n/a | `substrate-temporal-values-definition.md:30` (main) | NOT $c_{shear}$; NOT $c_{EM}$; NOT the legacy overloaded $c_{eff}$ (§4 W5) |
 
@@ -180,7 +182,7 @@ flagged candidates pending the §Promotion gate.
 
 | Symbol | Normative name | Class | Channel | Real-space component(s) | Phase-space representation | Declared bridge (or UNDECLARED) | Canonical anchor | NOT-this |
 |---|---|---|---|---|---|---|---|---|
-| BEMF | back-EMF (Lenz terminal reaction) | **PORT** (not a field/mode) | port/terminal | n/a — appears only against **changes**; zero at steady circulation | n/a | dynamical form $\mathrm{bemf\_emf}=\kappa_L\|g[w\cdot(\nabla\times\pi_\omega)]\|$ (a cross-sector reaction read at the port) | 2026-06-10 PORT-only ruling; corr$(\mathrm{bemf\_emf},\tau_{zx})=+0.117$ `2026-06-10_bemf-feedback-smoke_result.md:79` [branch bemf, UNMERGED] | NOT $\tau_{zx}$ (the meter; "distinct objects, NOT interchangeable"); NOT a screening-current field (the Meissner field-reading is hypothesis-class — see novel-objects report); the 0.117 is a coincidence-magnet (§4 C-0.117) |
+| BEMF | back-EMF (Lenz terminal reaction) | **PORT** (not a field/mode) | port/terminal | n/a — appears only against **changes**; zero at steady circulation | n/a | dynamical form $\mathrm{bemf\_emf}=\kappa_L\|g[w\cdot(\nabla\times\pi_\omega)]\|$ (a cross-sector reaction read at the port) | 2026-06-10 PORT-only ruling; corr$(\mathrm{bemf\_emf},\tau_{zx})=+0.117$ `2026-06-10_bemf-feedback-smoke_result.md:79` [branch bemf, UNMERGED] | NOT $\tau_{zx}$ (the meter; "distinct objects, NOT interchangeable"); NOT a screening-current field (the Meissner field-reading is hypothesis-class — see novel-objects report); NOT $R_{rad,L}{+}jX_L$ (the longitudinal-shear **radiation impedance**, §3.8 $Z_L$ row — also port-class but a DISTINCT port object: BEMF is the terminal Lenz reaction, $R_{rad,L}{+}jX_L$ is the wake-drag$+$reactive-store impedance the wake presents); the 0.117 is a coincidence-magnet (§4 C-0.117) |
 | $Z_L=R_{rad,L}+jX_L$ | longitudinal-shear radiation impedance | port impedance | **shear** ($X_L$ near-field; $R_{rad,L}$ radiated) | $R_{rad,L}=P_{rad,L}/(\tfrac12|I|^2)$ = wake drag; $X_L$ = near-field reactive store; $\Omega$ | n/a | $R_{rad,L}=\oint_{far}\langle I_k\rangle\cdot dA_k/(\tfrac12|I|^2)$ | `2026-06-08_rrad-l-darkwake_result.md:111-114,210-222` (main) | $X_L$ is **shear**, explicitly NOT the electron's **bulk** $m_ec^2\alpha$ reactance ("different elastic channels") — the which-channel-stores-the-pilot question is the OPEN fork (§6.1) |
 | drive EMF | FOC d/q chiral-photon drive arm | port/source | EM-transverse drive | n/a | the d/q drive vector | FOC d/q Park (BH-QNM co-rotating frame) | `genesis-24` prereg:28 (main); v5 commit 45f6d104 [branch v5] | NOT BEMF (the reaction); NOT the winding-extraction Park-along-contours (different Park) |
 
@@ -208,10 +210,17 @@ flagged candidates pending the §Promotion gate.
 | $R_{GOLDEN\_TORUS}$ | $\varphi/2$; MINOR $=(\varphi-1)/2$; $R\cdot r=1/4$ | `constants.py:200-202` | NOT the real-space radii |
 | $\alpha$ / ALPHA_COLD_INV / DELTA_STRAIN | fine-structure / cold output / thermal strain | `constants.py:135-152,204,227` | — |
 
-> **Constants hygiene flags (verified this session):** (1) `constants.py` contains **NO `RHO_CAV`**
-> (grep count 0 at origin/main) — the `2026-06-09_rectifier-stage1-biased-diode_prereg.md:34` claim
-> "RHO_CAV=-1/phi (from constants.py)" is **FALSE**; quarantined §6.3. (2) `constants.py:1012` comment
-> "NU_VAC already defined at line 127" is a **stale internal anchor** — `NU_VAC` is at line 508.
+> **Constants hygiene flags (verified this session):** (1) `constants.py` contains **no `RHO_CAV`**
+> (constants.py-scoped grep = 0) — **but the symbol exists**: `RHO_CAV = -1.0/PHI` is defined at
+> `cavitation_flow.py:64` and consumed by the **merged** Vol-4 probe `cavitation_core_probe.py:35,69,237,249`
+> (PR#161, = this baseline). So the `2026-06-09_rectifier-stage1-biased-diode_prereg.md:34` line
+> "RHO_CAV=-1/phi (from constants.py)" is **not a non-existent symbol but a misfiled file attribution**
+> ("from constants.py" → should read `cavitation_flow.py:64`); RENAME-QUEUE R8. **Correction note:** an
+> earlier draft of this registry over-generalized the constants.py-scoped negative to "no RHO_CAV at
+> origin/main — grep count 0" and quarantined the cite as FALSE; that was the *challenge-canonical-negative
+> / grep-configs-not-conclusions* failure — corrected this session against the cavitation-core-probe PR#161
+> merge that **is** the baseline. (2) `constants.py:1012` comment "NU_VAC already defined at line 127" is a
+> **stale internal anchor** — `NU_VAC` is at line 508.
 
 ---
 
@@ -266,7 +275,7 @@ collisions are cited as **precedents the registry extends** (it does not re-liti
 
 | Tag | Glyph | Referents (with channel) | Live? | Anchors |
 |---|---|---|---|---|
-| C-Γ | $\Gamma$ | Smith reflection $\Gamma=V_{ref}/V_{inc}$ **vs** Kelvin circulation $\Gamma$ (=80.75 built-state) — **both inside the same v5 prereg** | **LIVE** | `2026-06-10_genesis-v5-seeded-snap_prereg.md:46` vs `:52,247` [branch v5]; plus $\Gamma_{pack}/\Gamma_{steric}$ `operators.md:48-49`; $\Gamma_{sagnac}$ gain `dark-wake-bemf-foc-synthesis.md:25` |
+| C-Γ | $\Gamma$ | Smith reflection $\Gamma=V_{ref}/V_{inc}$ **vs** Kelvin circulation $\Gamma$ (built value $\Gamma=80.75$) — the two senses collide **inside the same v5 arc** | **LIVE** | Smith-$\Gamma$ `…genesis-v5-seeded-snap_prereg.md:46`; circulation-$\Gamma$ symbol (no value) `…prereg.md:52,247`; the **built value** $\Gamma=80.75$ is in `…genesis-v5-seeded-snap_result.md:59,123` [branch v5]; plus $\Gamma_{pack}/\Gamma_{steric}$ `operators.md:48-49`; $\Gamma_{sagnac}$ gain `dark-wake-bemf-foc-synthesis.md:25` |
 | C-0.117 | 0.117 | corr$(\mathrm{bemf\_emf},\tau_{zx})=+0.117$ **vs** Op14 onset $\sqrt{2\alpha}\approx0.117$ **vs** $p_G=6/z_0$ rigidity threshold — three unrelated 0.117s | near-miss | `2026-06-10_bemf-feedback-smoke_result.md:79` [branch]; coincidence-magnet flag |
 | C-φ | $\varphi$ | golden ratio ($R=\varphi/2$) **vs** FCC packing fraction $\varphi=\pi\sqrt2/6$ | LIVE (canon) | `ch8-alpha-golden-torus.md:77` vs `omega-freeze-cosmic-grain-cascade.md:180`; $\bar\rho_{cav}=-1/\varphi$ only well-defined under the golden sense |
 | C-ν | $\nu$ | Poisson $\nu_{vac}=2/7$ **vs** kinematic $\nu_{kin}=\alpha c\ell_{node}$ (comment spells it "$\nu_{vac\_kin}$") **vs** artificial-viscosity knob $\nu_{art}$ | near-miss | `constants.py:508` vs `:655` vs `2026-06-10_genesis-v5-seeded-snap_result.md:64` [branch] |
@@ -297,6 +306,7 @@ for adjudication. Each row: item | current name | proposed | basis | affected fi
 | R5 | bare "longitudinal" | unqualified "longitudinal" at shear/EM/port sites | channel-subscript every usage (bulk / shear / EM-forbidden / port-$R_{rad,L}$) | Rule 3 (four-way ambiguous) | `dark-back-reaction-taxonomy.md:11`; `vacuum_engine.py:46,1458,1477`; `rrad-l` prereg:1 |
 | R6 | stale $c_{eff}$ | $\omega_{local}=\omega_0\sqrt{1-A^2}$ (single-speed, $(1-A^2)^{1/2}$) | repoint to $c_{shear}=c_0(1-A^2)^{1/4}$ (matter clock) | already canon-flagged STALE (factor-2 exponent) | `op14-local-clock-modulation.md:17,31` |
 | R7 | `constants.py:1012` anchor | comment "NU_VAC already defined at line 127" | correct to line 508 | stale internal anchor (verified) | `constants.py:1012` |
+| R8 | `RHO_CAV` file attribution | "RHO_CAV=−1/φ (from `constants.py`)" | correct to "from `cavitation_flow.py:64`" (the other primitives on that line ARE in `constants.py`; `RHO_CAV` is not) | wrong-file anchor (verified: `RHO_CAV` defined `cavitation_flow.py:64`, consumed `cavitation_core_probe.py`, PR#161; absent from `constants.py`) | `2026-06-09_rectifier-stage1-biased-diode_prereg.md:34` |
 
 > R1 is the load-bearing one for the auditor: it is a genuine **electron-definition tension between two
 > canon leaves**, not a typo. Per flag-don't-fix it is surfaced with both verbatim readings, NOT
@@ -329,10 +339,18 @@ added-mass pilot store — "which elastic channel stores the pilot" is exactly t
 
 ### 6.3 Quarantined cites (verified FALSE/UNVERIFIED this session — do NOT import)
 
-- **`RHO_CAV` from `constants.py`** — FALSE. `2026-06-09_rectifier-stage1-biased-diode_prereg.md:34`
-  lists "RHO_CAV=-1/phi" among "canonical primitives (from constants.py)", but `constants.py` at
-  origin/main contains **no `RHO_CAV`** (grep count 0). The cavitation floor is GREEN-FIELD candidate
-  only (`time-dilation prereg:45`). Cite $\bar\rho_{cav}=-1/\varphi$ as candidate, never as constants.py.
+- **`RHO_CAV` file attribution** — CORRECTED (an earlier draft over-quarantined this as "FALSE"; that
+  was the *challenge-canonical-negative* failure — a constants.py-scoped grep over-generalized to
+  "origin/main", carried past the PR#161 cavitation-core-probe merge that **is** the baseline).
+  `2026-06-09_rectifier-stage1-biased-diode_prereg.md:34` lists "RHO_CAV=−1/φ" among "canonical primitives
+  (from `constants.py`)". The symbol is **real and operational canon**: `RHO_CAV = -1.0/PHI` is defined at
+  `cavitation_flow.py:64` and consumed by the **merged** Vol-4 probe `cavitation_core_probe.py:35,69,237,249`
+  (PR#161, = this baseline). Only the **file attribution** is wrong — it lives in `cavitation_flow.py`, NOT
+  `constants.py` (constants.py-scoped grep = 0). Cite the symbol from `cavitation_flow.py:64`; the misfiled
+  "from constants.py" is RENAME-QUEUE R8. The floor-VALUE $-1/\varphi$ epistemic status is itself CONTESTED
+  across canon sites (CANDIDATE per `cavitation_flow.py:62` + `v5 prereg:74` vs "Q2 resolved" per
+  `substrate-temporal-values:61`) — surfaced §3.3, **not** resolved (flag-don't-fix). The dated
+  "GREEN-FIELD" status (`per-node-time-dilation prereg:45`, 2026-06-09) predates the PR#161 merge.
 - **"channel-ledger ratification leans bulk"** — FAILED. Recorded as a failed cite at
   `pilotwake-bhphase-survey_note.md:86` (the string "channel-ledger" appears nowhere in `research/` or
   `manuscript/ave-kb/`). Do not import the "leans bulk" lean; the §6.1 fork stands on the two verbatim

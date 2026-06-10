@@ -169,10 +169,10 @@
 
 | # | Object | Status | In registry table? |
 |---|---|---|---|
-| N1 | latent tally (`latent_ledger`/`paid_ledger`) | engine-construct | yes, branch-tagged (operators/ledgers) |
+| N1 | latent tally (`latent_ledger`/`paid_ledger`) | engine-construct | no — no own row; the mechanism is referenced as "hysteresis-by-bookkeeping" in the §3.9 snap-state-machine row |
 | N2 | burst detector + FLASH burst (D6) | engine-construct | yes, branch-tagged |
 | N3 | snap state machine + snapped-cell state | engine-construct → candidate | yes, branch-tagged |
-| N4 | vent / birth pulse | candidate-physics | yes, branch-tagged (bulk) |
+| N4 | vent / birth pulse | candidate-physics | no (review-pending) — no own §3 row |
 | N5 | pocket / void (the fourth object) | candidate-physics | no (review-pending) |
 | N6 | motion-lock / snap-lock | candidate-physics | partial ($L_{bulk}$ row, branch-tagged) |
 | N7 | electron self-spectrum $f_0$ | candidate-physics | no (review-pending) |
