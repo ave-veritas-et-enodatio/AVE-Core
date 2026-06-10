@@ -1,0 +1,39 @@
+{
+  "cavitation_floor": {
+    "rho_cav_from_EOS_root": -0.6180339887498948,
+    "minus_one_over_phi": -0.6180339887498948,
+    "abs_diff": 0.0,
+    "one_minus_rhocav_sq": 0.6180339887498949,
+    "equals_one_over_phi": 1.1102230246251565e-16,
+    "c_eff_sq_at_root_over_c0sq": 2.220446049250313e-16,
+    "class": "IDENTITY (parameter-free root of the CANDIDATE Propulsion EOS)"
+  },
+  "forward_balance": {
+    "closure_A_v_const": {
+      "description": "v_theta = c0 (rigid lock at trapped-photon speed); the ONLY scale-free closure (c0^2, rho0, Omega all cancel)",
+      "RR_at_canonical_landmarks": {
+        "plus_1_over_phi (symmetric mirror of floor)": 3.2073761776883294,
+        "plus_1_over_phi_sq": 2.461585842394389,
+        "plus_one_half": 2.7948181395722402
+      },
+      "none_equals_phi2": true,
+      "rho_wall_that_forces_phi2": 0.4401186779072679,
+      "rho_wall_is_canonical": false,
+      "fit_tell": "R/r = phi^2 requires rho_wall ~= 0.4401, which is NOT a canonical density (not 1/phi, not 1/phi^2, not a saturation root). Forcing phi^2 is therefore FITTED, not forward."
+    },
+    "closure_B_solid_body": {
+      "description": "v_theta = Omega*r (cavprobe config); the balance pins (Omega^2/2c0^2)*(R^2 - r^2), a dimensional combination, NOT the ratio R/r",
+      "dimensionless_LHS_floor_to_symmetric_wall": 1.1654532127682156,
+      "RR_pinned": false,
+      "free_input": "edge Mach M_edge = Omega*r/c0 (sets R/r at fixed R^2-r^2)"
+    }
+  },
+  "verdict": {
+    "bin": "UNDERDETERMINED",
+    "rr_forward_value": "not pinned (function of profile + rho_wall)",
+    "phi2_comparison": 2.618033988749895,
+    "missing_physical_input": "the OUTER saturation-wall density rho_wall AND the circulation/velocity profile law v_theta(r). The cavitation-floor inner BC (rho_cav=-1/phi) is one constraint; a pure ratio R/r needs a second independent canonical BC. No canonical pair tested lands on phi^2; forcing it needs rho_wall~=0.440 (non-canonical) -> fitted.",
+    "class": "cannot be graded emergence; inputs do not close the ratio",
+    "coordinate_check": "UNADJUDICATED (flagged, not asserted): constants.py:200-201 labels the Golden-Torus radii real-space major/minor (which, at face value, would make R/r coordinate-matched to phi^2), BUT vapor-lock doc 24cf3aa4 framing.md:118 says the two roots are physically unrelated constructions (a phasor-area embedding vs a bulk-stiffness zero), the torus form appearing only under a post-hoc x=2R substitution -- i.e. phi^2 may be a PHASE-space (phasor-area) ratio, making the R/r-vs-phi^2 comparison a coordinate MISMATCH. Does NOT change the UNDERDETERMINED bin; strengthens do-not-cite-the-phi-link. The (2,3) phase winding does NOT enter this balance regardless. Real-space-vs-phasor-area provenance of R_GOLDEN_TORUS surfaced to Grant."
+  }
+}
