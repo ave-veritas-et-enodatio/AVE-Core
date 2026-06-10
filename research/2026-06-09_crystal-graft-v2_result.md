@@ -29,6 +29,8 @@
 | Golden-torus self-assembles | `R/r_meas = 1.75` vs `φ² = 2.62` (33% off; **r independently measured**) | within 25% + real (2,3) | ❌ |
 | α⁻¹ emerges (α-free) | **REFUSED by joint-ledger guard** (no real (2,3)) | `4π³+π²+π` | ❌ |
 
+> **RECORD-HONESTY qualifier (2026-06-10 · `analysis/2026-06-10-apparatus-floors` · governing skill `ave-apparatus-floor-attribution`; numbers per `research/2026-06-10_apparatus-floors_note.md`).** The SMOKE-1 `Γ_min = −0.849` verdict row above is the **deepest STATIC-SEED read with NON-binding clips** (A_core=0.999999999, S_min=1e-12, A_cap≈1) — not a dynamical wall depth. The apparatus-floors characterization found `Γ_min` sits EXACTLY on the clip floor `max(√(1−A_cap²), S_min)^(1/4)→(n−1)/(n+1)` in all 10 sweep cells (corr 1.0000, residual 0.0000): there is NO clip-independent plateau. The deepest *dynamical* wall at the standard `A_cap=0.999` is **−0.37** (on the clip). Magnitude is additionally understated by the `n=S^0.25` diagnostic-exponent defect (see the §0 carrier-spec note + engine-code flag): `c_eff²=c0²/S` ⇒ physical `n=S^0.5`, which DEEPENS the corrected wall (−0.37→−0.65); it does not flip the sign. **What survives: the wall SIGN (short, Γ<0) + the monotone-with-depth trend.** The magnitude is apparatus- and diagnostic-exponent-dependent.
+
 ## §0 — The two distinct "3"s (Grant-ratified, recorded verbatim)
 
 The "3" is **TWO DISTINCT objects**, orthogonal (A1 ⊥ T2):
@@ -100,6 +102,8 @@ Master-Equation bulk has no multi-component U(1)-fibre carrier*. Verified this s
 `|Γ|<0.08` (no trap). Breather **confines** (localization sustained over 400 steps). The floor is set by
 `S_min` (named engineering knob; `Γ_min,floor = (S_min^{1/4}−1)/(S_min^{1/4}+1)`); the asymptote to −1 is the
 rupture boundary A→1.
+
+> **RECORD-HONESTY qualifier (2026-06-10 · apparatus-floors · `ave-apparatus-floor-attribution`; `research/2026-06-10_apparatus-floors_note.md`).** (i) **The `Γ_min` sweep-row magnitudes above (−0.10 … −0.85) are apparatus-qualified** — this is a STATIC depth sweep with the clips driven non-binding (S_min→1e-12, A_cap→1); the values sit on the clip floor, not on a physical wall, and are further understated by the off-exponent diagnostic (`n=S^0.25`; physical `n=S^0.5` per `c_eff²=c0²/S` ⇒ deeper, e.g. −0.37→−0.65 at A_cap=0.999). The SIGN and monotonicity-with-depth survive; the absolute magnitudes do not. (ii) **The "floor is set by `S_min`" sentence is INCOMPLETE.** The binding clip is `max(√(1−A_cap²), S_min)`, not `S_min` alone: at the standard `A_cap=0.999` the `A_cap` clip binds for ALL `S_min ≤ 0.025`, giving floor **−0.37** (`(√(1−A_cap²))^{1/4}` form) independent of `S_min` there; `S_min` only binds at large `S_min`. Per the 10-cell A_cap×S_min sweep: corr(Γ_min, Γ_floor)=1.0000, max|residual|=0.0000.
 
 **SMOKE-2 — the buckle is CONSERVATIVE (energize-LOCK).** Two-part:
 - *(A) conservation proof* (linearize bulk so the only cross-coupling is the buckle; measure
