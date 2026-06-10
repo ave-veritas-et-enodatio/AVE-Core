@@ -133,10 +133,21 @@ class CrystalEngine:
 
     def interior_mask(self) -> np.ndarray:
         """PML-excluded interior (A-Rule 10 corollary — PML cells are frozen-
-        absorbing artifact, never interior physics)."""
-        p = self.pml_thickness
-        i, j, k = np.indices((self.N, self.N, self.N))
-        return (i >= p) & (i < self.N - p) & (j >= p) & (j < self.N - p) & (k >= p) & (k < self.N - p)
+        absorbing artifact, never interior physics).
+
+        CACHED (speedup, bit-identical): the mask depends only on N and
+        pml_thickness, both fixed at construction and never mutated, so it is
+        built once on first call and the SAME array returned thereafter. Every
+        caller reads it (multiply / boolean-index) — none mutate it. getattr
+        with a None default makes the cache work for every subclass without an
+        __init__ change."""
+        m = getattr(self, "_interior_mask_cache", None)
+        if m is None:
+            p = self.pml_thickness
+            i, j, k = np.indices((self.N, self.N, self.N))
+            m = (i >= p) & (i < self.N - p) & (j >= p) & (j < self.N - p) & (k >= p) & (k < self.N - p)
+            self._interior_mask_cache = m
+        return m
 
     # ------------------------------------------------------------ operators
     @staticmethod
