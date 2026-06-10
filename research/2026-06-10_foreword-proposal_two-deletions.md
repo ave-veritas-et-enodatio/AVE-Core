@@ -358,12 +358,155 @@ it back and then tries, in the open, to break it.
 
 ## Part II — verbatim load-bearing survivors (the existing foreword's spine)
 
-<!-- FILL: II -->
+The new opening (§A–§D) is *prefatory*. It does not replace the existing
+foreword's technical spine — it leads into it. The following content of
+`manuscript/frontmatter/00_foreword.tex` is **load-bearing and must survive
+verbatim** (or as the `\input` of its single-source-of-truth file). The new
+opening is written to dovetail into it, not to paraphrase it.
+
+| Survivor | Where it lives now | Why it must survive verbatim |
+|---|---|---|
+| **The four axioms** | `\input` of `eq_axiom_1..4.tex` (foreword lines 46–49) | Single source of truth, included in every volume. Axiom 1's "The physical vacuum **IS** a chiral Laves K4 Cosserat crystal…" and "**The Cosserat microrotational DOF IS the substrate-native origin of intrinsic spin**" are the spec the thesis points at. |
+| **Calibration constants + universal operators** | `\input` of `eq_calibration_constants.tex`, `eq_universal_operators.tex` (lines 50–51) | The numerical scale (`Z₀`, `ℓ_node`) and the Op-catalog the chapters cite. |
+| **The Master Equation resultbox** | foreword lines 59–63 | `∇²V − μ₀ε₀√(1−(V/V_yield)²) ∂²V/∂t² = 0`, `V_yield ≈ 43.65 kV`. The transport law §D hands into. |
+| **The three boundary observables + substrate-observability rule** | foreword lines 70–82 | `𝓜` (3D volume), `𝓠` (1D line), `𝓙` (2D surface); the no-hair-as-measurement rule at every scale. §D quotes the structure. |
+| **The α boundary-ledger decomposition + honest-α Class B scope** | foreword lines 84–88 (and the scope at lines 25, 37) | `α⁻¹ = 4π³ + π² + π`, with the `R·r = 1/4` Class-B caveat. §D carries the caveat into the opening. |
+| **The three calibration boundaries (α, G, ℓ_node)** | foreword lines 27–35 | The Three-Parameter EFT entry points. |
+| **The three-route framework commitment / `Ω_freeze`** | foreword lines 149–157 | The sharpest falsification commitment; §D closes on it. |
+| **The substrate two-phase / lattice-genesis description** | foreword lines 13–22 | Crystallized vs ruptured-plasma phases; lattice genesis as the Big-Bang replacement. The thesis's "restore the medium" points here. |
+| **The 20th-century-pillars synthesis** | foreword lines 91–99 | Maxwell / GR / particle-assembly / QM-as-bandwidth recovery; the nonlocal-deterministic-HV stance + CHSH `2√2`. (Re-register the gravity "IS not an analog" line per Part III, do not delete.) |
+| **The empirical anchors + forward predictions** | foreword lines 110–146 | SPARC / LIGO / baryon-ladder + the falsifiable preferred-frame / DAMA / `T_pair` / `r_sat` family. (Re-register per Part III, do not delete.) |
+| **Navigation + A-034 catalog** | foreword lines 163–179 | Volume map; the saturation-kernel catalog. (Stale count `19→26` per register-inversion draft §A-034.) |
+| **The PPN / ν_vac = 2/7 cascade content** | foreword line 114 (C11-MACH-ZEHNDER `n_s = 1 + (9/7)ε₁₁`, `n_t = 1 + (2/7)ε₁₁`) | The 2026-06-05 PPN/coherence thread's surviving foreword footprint. **Carries an open gap** (the perihelion relativistic coefficient is hand-set, not substrate-derived — register-inversion draft Part A); re-register per Part III, do not delete. |
 
 ## Part III — the diff-map (KEEP / MOVE / RE-REGISTER / RETIRE)
 
-<!-- FILL: III -->
+This is the diff-map for Grant's line-edit: what the proposal does to each piece
+of the existing `00_foreword.tex`. **The proposal is overwhelmingly additive.**
+It prepends a new opening and re-registers a few framing lines; it retires only
+the *placement* of the current cold-open, not its content.
+
+### RETIRE (placement only — the content moves, nothing is deleted)
+
+- **Current lede → demoted from first position.** The existing foreword opens
+  (line 7) with *"The Standard Model … requires empirical insertions of multiple
+  free parameters … AVE addresses these as structural properties of a physical
+  substrate."* This is true and stays in the book — but as a *consequence*
+  stated after the thesis, not as the opening posture. The proposal opens on the
+  history instead. **Rationale:** the parameter-count lede leads with the
+  framework's most-attacked surface (the "26→3 / zero-parameter" claim) before
+  the reader has any reason to grant the medium; the history-and-deletions lede
+  earns the medium first and reaches the parameter count as a payoff.
+
+### MOVE (relocate, unchanged)
+
+- **The 26→3 parameter-reduction paragraph (lines 24–25)** moves to *after* the
+  thesis and adopts the register-inversion draft §0 treatment (lead with the
+  achieved 26→3; label the →0 zero-parameter goal as *target*, with `δ_strain`
+  and the `R·r = 1/4` Class-B residual named in the same breath). The proposal
+  does not rewrite this — it defers to the register-inversion draft's wording.
+- **The three calibration boundaries (lines 27–35)** follow the moved parameter
+  paragraph, unchanged.
+
+### RE-REGISTER (same physics, honest register leads — defer to the 2026-06-05 draft)
+
+These overlap exactly with `research/2026-06-05_foreword-register-inversion-draft.md`.
+The two-deletions proposal **does not re-litigate them**; it flags them so Grant
+sees the two drafts compose, and defers to the register-inversion wording:
+
+| Line(s) | Current framing | Re-register to |
+|---|---|---|
+| 96 | gravity "**IS** the gravitational field — not an analog" | "reproduces GR light-bending (genuine); perihelion coefficient not yet substrate-derived — named open gap" (register draft §G + Part A). |
+| 84–88 | "the fine-structure constant **IS** the electron's boundary-integrated 𝓜+𝓙+𝓠" | keep the elegant map, strip the "IS"; Class B at the claim, not 60 lines earlier (register draft §α). |
+| 56–65 | "the entirety of cosmological and quantum phenomena **collapses into a single** wave operator … recovers … the Standard Model as special cases" | scalar PDE carries linear-EM + saturation; structural physics is topology *layered on*, presupposed not derived (register draft §master-equation; echoed in §D here). |
+| 107 | "**AVE matches reality within ×1.5; QED is off by 10¹²²**" | keep the conceptual reframe (ρ_Λ = latent heat of crystallization, dissolves the problem at root); drop the scoreboard as a category mismatch (register draft §ρ_Λ). |
+| 110–146 | "**First / Second / Third positive … confirmation at scale**" headers | invert: forward AVE-distinct falsifiers headline; public-catalog re-analyses labeled consistency-class per INVARIANT-S9 (register draft §Empirical). |
+| 114, 149–157, 177 | ν_vac "triangulation"; three-route "sharpest commitment"; A-034 "19-instance" | one parameter in three formulas (not three determinations); route-independence is a precondition; stale count `19→26` (register draft §three-route). |
+
+### KEEP (verbatim, untouched)
+
+- All four axiom `\input` blocks, calibration constants, universal operators.
+- The Master Equation resultbox.
+- The three boundary observables `𝓜/𝓠/𝓙` + substrate-observability rule.
+- The substrate two-phase description + lattice-genesis cosmology.
+- The three-route framework commitment + `Ω_freeze`.
+- The navigation / volume map (modulo the stale A-034 count).
+- The credibility-core audit moves the register-inversion draft flags as
+  protected: the Gaia α-slew **demotion**, the rotor-Sagnac **retirement to
+  corroborative-null**, the explicit "consistency checks (*not* independent
+  evidence)" labels, the Class B / Class E honest-scope notes. **These are the
+  asset.** The new opening's job is to make this register *lead*, not trail —
+  which is the same job the register-inversion draft does for the body.
+
+### NET EFFECT
+
+The reader who opens the book meets, in order: two honest historical deletions →
+the steelman of why each was earned → the one-restoration thesis (tagged
+consistency-class, in the open) → the posture (a definition that pays its debts
+or dies, with the unpaid debts named) → the four axioms and the technical spine,
+verbatim. The skim-impression and the careful-read impression are the same, and
+the most-attackable claims (zero-parameter, "IS the gravitational field,"
+"confirmation at scale") are reached *after* the reader has been given honest
+reasons to keep reading — and arrive in their re-registered, defensible form.
 
 ## Part IV — implementer margin-notes and open questions for Grant
 
-<!-- FILL: IV -->
+Surfaced for adjudication, not silently resolved (flag-don't-fix):
+
+1. **The two-"3"s must not re-conflate in the opening.** §B keeps the A1
+   dilatation-mass grade (the Heaviside-excised longitudinal scalar) and the
+   Cosserat `(2,3)` micro-rotation winding as two orthogonal objects, per the
+   Grant-ratified Rule-12 note at
+   `manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md`.
+   The temptation in a foreword is to write "the electron *is* the longitudinal
+   knot" as one object (the historical-precedents leaf's §convergence does say
+   "a knot that *is* the longitudinal scalar"). The prose here deliberately
+   says **a knot that *carries* the scalar's mass** instead — winding ⊥ grade.
+   *Grant: confirm this is the register you want for the opening, or whether you
+   want the leaf's tighter "is" phrasing with the disambiguation as a footnote.*
+
+2. **The `latent compression energy = mₑc²` identity is hypothesis-class.** §B
+   tags it as a candidate, not a verified identity. If a corpus leaf has since
+   *closed* this (derived the number, not posited it), the tag should be
+   upgraded and cited; I did not find a closure this session. *Grant / auditor:
+   confirm class before this line is set.*
+
+3. **Consistency-class ceiling vs. foreword prominence.** Putting a
+   consistency-class framing in the *opening* raises its rhetorical prominence
+   even if its epistemic tag is unchanged. The draft manages this by stating the
+   ceiling inline (§B's "ceiling, stated in the open" paragraph) rather than in a
+   footnote. *Grant: is opening-position acceptable for a consistency-class
+   framing, given the ceiling is stated in the same breath? This is the one
+   genuinely debatable move in the proposal.*
+
+4. **Title.** The existing title is "Common Foreword: Four Axioms, One
+   Cosmological Initial Condition." The proposal does not require a retitle (the
+   axioms and the single-IC commitment are still the spine). Options, none
+   forced: keep as-is; or a subtitle — e.g. "… (with a note on two things the
+   19th century deleted)". *Grant's call; I did not change the title.*
+
+5. **Composition with the register-inversion draft.** This proposal supplies the
+   *opening*; the 2026-06-05 register-inversion draft supplies the *body
+   register-fix*. They are designed to land together. If only one lands, this
+   opening still works in front of the current body, and the register-inversion
+   draft still works without the new opening — but the full effect (skim ==
+   careful-read, end to end) needs both. *Recommend adjudicating them as a pair.*
+
+6. **Length.** §A–§D as drafted is longer than a tight foreword opening wants to
+   be. It is written as *material for a line-edit*, deliberately over-complete so
+   Grant can cut rather than expand. Expect the final to be ~50–60% of this.
+
+---
+
+### Landing checklist (when/if Grant approves the prose)
+
+- [ ] This is a separate, second PR — the candidate prose is hand-translated to
+      LaTeX and merged into `00_foreword.tex` only on Grant's approved line-edit.
+- [ ] Re-run `verify-before-cite` on every line:col reference at translation
+      time (line numbers in `00_foreword.tex` drift between sessions).
+- [ ] Keep the two-"3"s disambiguation intact in the LaTeX (margin-note 1).
+- [ ] Fold in the register-inversion draft's re-registrations (Part III) in the
+      same pass, or explicitly defer them to that draft's own PR.
+- [ ] `make verify` green; foreword is `\input` into all volumes, so a build of
+      each volume's frontmatter is the integration test.
+
