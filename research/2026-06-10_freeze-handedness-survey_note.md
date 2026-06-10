@@ -47,7 +47,7 @@ The naive counterfactual is "no rotation → racemic universe." The canon is **s
 | **Magnitude-link** ($\eta \propto L_{\text{net}}$) | CONTRADICTED-soft (would over-determine) | consistency-class, do-not-build |
 
 - **Sign-link (CANONICAL):** [`baryon-asymmetry.md:24-25`](../manuscript/ave-kb/vol2/nuclear-field/ch10-open-problems/baryon-asymmetry.md) (lattice chirality → C and CP violation) + [`chirality-and-antimatter.md:10`](../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/chirality-and-antimatter.md) ("an electron ($e^-$) is a right-handed unknot; a positron ($e^+$) … wound as a left-handed unknot").
-- **Magnitude-link (CONTRADICTED-soft):** the corpus already derives $\eta$ from a **zero-parameter** route, $\eta = \delta_{CP}\cdot\alpha_W^4\cdot C_{sph}/g_*$ ([`baryon-asymmetry.md:42-46`](../manuscript/ave-kb/vol2/nuclear-field/ch10-open-problems/baryon-asymmetry.md)) — but that claim is **`clm-4vwsjc`, confidence 0.4, build_status "do not build on, rework needed."** A second magnitude route $\eta \propto L_{\text{net}}$ from the freeze would be **over-determination**, not corroboration. Per `consistency-vs-emergence`: the existing $\eta$ formula is consistency-class with an **imported electroweak-baryogenesis formula** (the substrate supplies $\delta_{CP}$, $g_*$, $C_{sph}$ assignments; the $\alpha_W^4 C_{sph}/g_*$ scaffold is SM-imported), not emergence-class — do not headline.
+- **Magnitude-link (CONTRADICTED-soft):** the corpus already derives $\eta$ from a **zero-parameter** route, $\eta = \delta_{CP}\cdot\alpha_W^4\cdot C_{sph}/g_*$ ([`baryon-asymmetry.md:42-46`](../manuscript/ave-kb/vol2/nuclear-field/ch10-open-problems/baryon-asymmetry.md)) — but that claim is **`clm-4vwsjc`, confidence 0.4, build_status "do not build on, rework needed"** (registry status pinned at [`vol2/claim-quality.md:491,496`](../manuscript/ave-kb/vol2/claim-quality.md), block header `clm-4vwsjc` at :476; the leaf `baryon-asymmetry.md` itself carries only `claims: [clm-4vwsjc]` at :5). A second magnitude route $\eta \propto L_{\text{net}}$ from the freeze would be **over-determination**, not corroboration. Per `consistency-vs-emergence`: the existing $\eta$ formula is consistency-class with an **imported electroweak-baryogenesis formula** (the substrate supplies $\delta_{CP}$, $g_*$, $C_{sph}$ assignments; the $\alpha_W^4 C_{sph}/g_*$ scaffold is SM-imported), not emergence-class — do not headline.
 
 ---
 
@@ -65,7 +65,7 @@ The naive counterfactual is "no rotation → racemic universe." The canon is **s
 | Driven-vs-stochastic origin already derived | `59_memristive_yield_crossing_derivation.md:267` | PROMOTION CANDIDATE (archive→canon) |
 | Direction-link present-weak | `claim-quality-closure-roadmap.md:88` (5.33σ) | consistency-class (adverse) |
 | Sign-link transitive | `baryon-asymmetry.md:24-25`; `chirality-and-antimatter.md:10` | CANONICAL |
-| Magnitude-link $\eta\propto L_{\text{net}}$ would over-determine | `baryon-asymmetry.md:42-46` (`clm-4vwsjc`, conf 0.4) | consistency-class, do-not-build |
+| Magnitude-link $\eta\propto L_{\text{net}}$ would over-determine | `baryon-asymmetry.md:42-46` (η formula); `vol2/claim-quality.md:491,496` (`clm-4vwsjc` registry: conf 0.4, do-not-build) | consistency-class, do-not-build |
 
 ## §7 KB-action / Grant-gated queue
 
@@ -84,3 +84,4 @@ All cites in §1–§6 re-verified verbatim against the named files/lines. Notes
 - `59_memristive_yield_crossing_derivation.md` is **titled** "Memristive Yield-Crossing Derivation" — a casual filename match would look wrong for baryogenesis, but the §5.4 baryogenesis content is genuinely present at lines 267 and 283 (verbatim-verified). Verify-before-cite earned its keep here.
 - `closure-roadmap.md` resolves to the actual file **`claim-quality-closure-roadmap.md`** (no bare `closure-roadmap.md` exists in the tree); :92 and :88 verified there.
 - No cite in this note FAILED re-verification.
+- **Registry-pin precision (auditor FINDING 2, applied 2026-06-10):** the `clm-4vwsjc` `confidence 0.4` / `do not build on, rework needed` value is verbatim-correct but its registry home is [`vol2/claim-quality.md:491,496`](../manuscript/ave-kb/vol2/claim-quality.md) (block header `clm-4vwsjc` at :476), **not** `baryon-asymmetry.md` (which carries only `claims: [clm-4vwsjc]` at :5). §5 and §6 now pin both the formula location and the registry-status location. Non-falsifying cite-location polish (Class-B); the value and the do-not-headline conclusion are unchanged.
