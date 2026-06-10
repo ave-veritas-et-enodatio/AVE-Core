@@ -1,0 +1,70 @@
+# Pre-Registration — Genesis-24: Photon Absorption by a Pre-Saturated Seed Region (the "saturated-seed" reframe of GAP-1)
+
+**Status:** **DRAFT — RUN-GATED** on Grant's adjudication of the precondition (§0). Review-ready; do NOT fire the expensive run until §0 resolves. (Designed by the 2026-06-09 ground+design workflow `w4qp2klli`: 6 corpus readers + 3 design lenses + synthesis; `ready_to_run=False`.)
+**Lineage:** direct successor to genesis-23 (`research/2026-06-09_reflection-genesis-23-self-assembly_result.md`, GAP-1 = no omega->V source; GAP-2 = coupled wall has no stable confining window for a free photon). This run does NOT re-test the lone photon; it tests Grant's reframe that the missing omega->V *source* is a missing *initial condition* (a pre-saturated, V-populated seed), not a missing axiom.
+
+## §0 — PRECONDITION (run-blocker, above this prereg's pay grade)
+The saturated-seed premise presumes the **V-populated-electron lane**. `electron-identification.md:116-125` flags an OPEN corpus contradiction with the dominant transverse-only lane (`photon-identification.md:11,82-84`: electron = self-trapped transverse photon; longitudinal grade dissipates by Gauss's law) awaiting Grant adjudication. **If Grant selects transverse-only, V_inc=0 from a transverse photon is EXPECTED physics, seeding a V-populated region is non-physical, and this test is MOOT.** Resolve before launch (see plumber-question + §2.5 Smith-chart restatement).
+
+## §1 — Target
+Decide whether a transverse omega-photon, absorbed by a **non-circular pre-saturated, V-populated seed region**, (a) energizes the K4 V-sector beyond a matched no-photon control (closes GAP-1's *source* half), and (b) drives a **de-novo** (2,3) phase-space winding (closes the *topology* half); and whether **emission reverses** it. Headline is the **photon-attributable delta**, NOT absolute V-population.
+
+## §2 — Mode / Regime / Phase-State
+- **MODE:** the COUPLED channel — K4 longitudinal "3" (V_inc/V_ref capacitive, A^2_V=V_sq/V_SNAP^2) ⊗ Cosserat transverse "2" (omega winding). The single load-bearing cross-source is the EMF reciprocal `emf = +2.0*V_inc*dL_dVsq` (`src/ave/topological/k4_cosserat_coupling.py:703`, verified this session). NOT EM-transverse-only, NOT bulk-only.
+- **REGIME:** near-yield **in the longitudinal channel** (A^2_V > 0, driven toward deep saturation S->small). The lone-photon NOT-A was a **regime-gated null** — a multiplicative channel (proportional to V_inc) cannot fire at V_inc=0 by construction; this run moves the V-sector into the regime where it CAN fire. Saturation referent = **soliton-internal A^2_total -> 1** (Compton reading `37_node_saturation_pauli_mechanism.md:230-232`), explicitly NOT the orbital-position metric-compression of `07_quantum_mechanics_and_orbitals.tex:306-308` (which puts deeper-on-emission).
+- **PHASE-STATE:** dynamical (CP9), time-domain integration across a full absorb->drive->emit window. NOT a static eigensolve, NOT a single snapshot. Mandatory **reactance-pair recording every step** (A-Rule-10): C-state (V_inc, A^2_V, omega) AND L-state (Phi_link, omega_dot) — a single snapshot cannot distinguish a held seed from an oscillator caught at peak, nor energize-LOCK from a secular pump.
+- **ENGINE NUANCE (flag):** default `use_asymmetric_saturation=True` (kappa_chiral*h model; V enters the electric kernel A^2_eps). A pure-V seed (h=0) gives S_mu=1, large A^2_eps -> z_local=sqrt(S_mu/S_eps) LARGE (eps-side high-Z, NOT the Gamma=-1 short). The confining wall is therefore **omega/photon-driven**, not V-seed-driven; the V-seed's sole job is to bias the EMF source. The additive legacy branch `A^2_total=A^2_V+A^2_cos` (`k4_cosserat_coupling.py:460-470`) is NON-default. Run primary in the default model; an additive-model arm is optional for contrast.
+
+## §2.5 — Coordinate system: the Smith Γ-plane (Grant intuition, 2026-06-09; the test's native state-space)
+The (V_inc, V_ref) phase-space **IS the Smith chart**: `Γ = V_ref/V_inc` (canonical, `dual-reactance-storage-taxonomy.md:30`, A46; the Op3 reflection map `operators.md:43`). Read the entire genesis on the disk:
+- **Photon = chart CENTER** (Γ=0, Z=Z₀, matched, V_ref=0). The lone-photon GAP-1 null is "every cell pinned at the center" — `Γ=V_ref/V_inc=0/0` is the degenerate fixed point; a matched line has nothing to reflect, nothing to wind.
+- **Electron = the Γ=−1 short on the left rim** (Z_core->0, the particle "weaves its own perfect topological mirror", `pair-production-axiom-derivation.md:43`). α = the residual radial gap inside the rim (`α=Z₀/(4π)`, Theorem 3.1'); Q=α⁻¹ = round-trips before leak.
+- **The non-circular seed = an INTERMEDIATE off-center point** (Γ≠0 because A^2_V>0, but NOT at the rim and NOT a (2,3)). Genesis = **the photon drives the operating point from the seed's intermediate Γ toward the Γ=−1 rim, winding (2,3) en route.**
+- **The circularity guard is VISUAL on the chart:** if the seed starts AT the rim (Γ=−1) it is the planted electron (VOID); it must start at an intermediate Γ and the **photon** must drive the migration to the rim. Seed-start-Γ vs photon-driven-end-Γ (Arm-1) vs control-end-Γ (Arm-2) is the discriminator.
+- **§0 restated geometrically:** the precondition question is literally *"does a saturated mass live OFF-center on the Smith chart (V_inc≠0, an impedance mismatch — Layer-3 lane) or AT the center like the photon (V_inc=0, purely transverse — transverse-only lane)?"* If at-center, there is no off-center seed to place and the run is moot.
+
+## §3 — Mechanism (chain, with corpus anchors)
+Photon (transverse omega, helicity h) -> absorbed by pre-saturated V-populated seed -> standing V_inc biases the EMF amplifier (`:703`, dead at V=0, live at V!=0) -> dE_V grows (photon-attributable) -> region driven deeper into A^2_total -> IF held V winds in (V_inc,V_ref) phase-space to (w_tor~2, w_pol~3) the (2,3) closes with charge = photon helicity -> emission = Axiom-4 relaxation (TIR fails, A<V_yield, Gamma off -1; `photon-identification.md:138`), V_inc->0, winding unwinds, outgoing helical photon reappears. **Honest ceiling:** §8 precedent (`result.md:196-211`) — externally-energized V-partner "confines but does not wind"; predicts B.
+Corpus grounding for the reframe: lone photon cannot bootstrap V (`44:140-143` modulation-not-seed; `50:209-215` structural-limit); pair-production needs a partner/saturated region (`pair-production-axiom-derivation.md:51`); V populated externally by Phi_link pump (`op14-cross-sector-trading.md:17-23`) — "missing IC, not missing axiom" (`44:24-26`).
+
+## §4 — Seed Definition (non-circular) + Forbidden List
+**Hypothesis seed (A2):** direct-write `k4.V_inc` (`src/ave/core/k4_tlm.py:192`) via the existing `_seed_v_partner` shape (`reflection_genesis_23_self_assembly.py:346`): circularly-polarized in-plane V-vector (Vx=cos(2pi x/LAM), Vy=sin(2pi x/LAM), Gaussian env), tetra-readable (NOT pure-breathing), amp=frac*V_SNAP, **frac swept {0.30, 0.60, 0.85, 0.95}** (A^2_V=frac^2; 0.85-0.95 = deep saturation). Cosserat omega EMPTY -> H_bel(omega)=0 (charge-neutral by construction). No theta=2phi+3psi knot. **On the Smith chart: an intermediate off-center Γ (set by frac), NOT the Γ=−1 rim.**
+**Photon:** `cosserat_field_3d.py:1901` `initialize_gaussian_wavepacket_omega`, helical (helicity=+/-1 = the charge), LOCKED config (sigma=3, lambda=6, axis=2).
+**FORBIDDEN (auto-VOID):** `initialize_electron_2_3_sector` / `initialize_2_3_torus_knot_sector` (`cosserat_field_3d.py:916/1156`) — these PLANT the knot (= seeding AT the rim).
+**CP8 SEED-AUDIT CERTIFICATE (t=0, recorded artifact):** admissible iff `vinc_closes_23=False` AND `vref_closes_23=False` (`_phase_space_winding:195`, (w_tor,w_pol) != (~2,~3) in both sectors) AND omega-(2,3) absent AND `|H_bel|~0` (`_beltrami_helicity_total:234`). Nonzero seed-time winding -> VOID.
+**Zero new free params:** the only knob is `frac` (an engineering-choice saturation depth, honestly tagged, **swept not tuned**, with a no-photon control at each frac); V_SNAP, V_YIELD=sqrt(alpha)*V_SNAP, R_I=sqrt(2*alpha) are canonical (`constants.py:378,387,407`). No threshold is set to manufacture a positive.
+
+## §5 — Arms / Controls (the decisive guards)
+- **Arm-1:** seed + photon. (Expect (2,3) closes under hypothesis — Smith: migrates to the rim.)
+- **Arm-2 (DECISIVE):** SAME seed, NO photon. **MUST be null in BOTH source (no dE_V growth) AND topology (no winding).** Non-null Arm-2 -> the seed carried the answer -> CONSISTENCY/plant, no genesis claim. (Smith: seed alone must NOT drift to the rim.)
+- **Arm-3:** no seed + photon (= genesis-23, already NOT-A; confirms photon-alone cannot — stays at center).
+- **Arm-4:** seed + OPPOSITE-helicity photon (expect (2,3) with FLIPPED charge — the provenance certificate; +h -78.4 / -h +81.0 already reproduced).
+- **Arm-5 (Class-C discriminator):** CW free-work drive at omega_0 on the seed V-tank (reproduce the reactive-entrainment detonation: |V_inc|~t, H_drift>0). If (2,3)-like structure appears ONLY under this pump and NOT under the finite single-photon absorb-emit, the emergence is a pump artifact (Class C), not genesis.
+
+## §6 — Headline Metric + Falsifier
+- **HEADLINE (frozen):** `dE_V = E_V(photon-ON) - E_V(no-photon Arm-2)` over the absorption window (photon-attributable), PAIRED with the de-novo phase-space winding pair (w_tor,w_pol)->(2,3). **`max|V_inc|!=0` is NOT the headline** — it is trivially true for any legitimate seed (the seed pre-loads V; Smith: it starts off-center by construction) and reporting it as the GAP-1 reversal is the circularity trap.
+- **CONSERVATION LEDGER (closes over a full absorb-emit cycle):** ENERGY (finite reservoir, H conserved ~1e-9, no H_drift, net dE~0); CHARGE=helicity H_bel (bounded, returns to seed baseline, energized+LOCKED); SPIN |L| (d|L|^2/dt~0, bounded precession not |L|~t). Per-sector instrumentation `max_A_sq_k4/cos/total` (`:835-837`).
+- **FALSIFIER (one frozen sentence):** with a seed VERIFIED (w_tor,w_pol)=(0,0) and A^2_V driven deep, if `dE_V <= eps_machine` across the absorption window (photon adds no V beyond Arm-2), GAP-1 is STRUCTURAL (missing primitive), the saturated-seed reframe is wrong at the source level, branch closes (Outcome C1). eps_machine and Arm-2 are frozen pre-run; no post-hoc relaxation.
+
+## §7 — Discriminating Outcomes
+- **A** (strong positive): dE_V>0 monotone AND de-novo (2,3) closes AND Arm-2 null AND Arm-4 sign-flips AND ledger closes AND emission reverses -> GAP-1 reversed by the missing IC. (Smith: photon drives seed -> Γ=−1 rim; control stays put.)
+- **B** (most likely; localizes): dE_V>0 (source reversed) but vinc_closes_23=False (winder gap) -> residual gap = missing winder primitive. **Only real if reproduced at frac 0.85-0.95**; a B seen only at shallow frac is a sub-saturation wrong-regime artifact.
+- **C1** (falsifier): dE_V<=eps_machine -> GAP-1 structural, clean negative. **C2** (void): closure with nonzero seed-time winding / forbidden seeder / non-null Arm-2 -> circular, not reported as A.
+
+## §8 — Figures
+1. dE_V(t) per arm, all frac (photon-ON vs Arm-2 control overlay) — the headline delta.
+2. **Smith chart (the genesis trajectory):** Γ=V_ref/V_inc per load-bearing cell, seed-time (t=0, the off-center start) vs peak absorption (Arm-1) vs control (Arm-2) — does the photon drive the operating point from the intermediate seed-Γ to the Γ=−1 short? Overlaid with the (V_inc & V_ref) Clifford-torus winding read (A46 coordinates) so de-novo (2,3) closure and the chart migration are read together.
+3. Reactance-pair trajectory: C-state (V_inc) vs L-state (Phi_link) over absorb+emit (energize-LOCK vs secular-pump discriminator).
+4. Conservation ledger: H, H_bel, |L| vs t across the closed absorb-emit cycle.
+5. Arm-4 charge sign-flip (final H_bel vs photon helicity).
+
+## §9 — Guards / Skills (baked in)
+`substrate-native-check` CP8 (seed the generative precursor, not the finished (2,3)) + CP9 (dynamical evolution, not heuristic) + CP10 (confinement as boundary Gamma, not bulk force); `consistency-vs-emergence` (emergence scoped ONLY to de-novo winding + photon-traced charge — V-population is a SUPPLIED IC = consistency-class, never headlined as emergence); `ave-conserved-vs-pumped` (charge/spin energize+LOCK; Arm-5 secular-pump control); `phase-space-coordinate-check` / A46 (winding measured in (V_inc,V_ref), never real-space; the Smith Γ-plane is the native diagnostic); `verify-before-cite` (every claim file:line, classified); `pre-test-physics-check` (the §0 plumber-question surfaced BEFORE dispatch); `ave-regime-phase-state-check` (the sub-saturation-B artifact guard). If Outcome B forces the winder question, re-fire `substrate-native-check` BEFORE adding any new coupling primitive.
+
+## §10 — Deliverables
+- `research/2026-06-09_genesis-24-saturated-seed_result.md`: A/B/C verdict, DERIVED/VERIFIED/BLOCKED, gap localization, seed-audit certificate, all 5 figures.
+- Variant driver arm + Arm-2/4/5 controls on the existing genesis-23 driver (no new machinery — all extractors exist: `_phase_space_winding:195`, `_beltrami_helicity_total:234`, `_seed_v_partner:346`, `_run:378`).
+- Honest closure: a B (V energizes, (2,3) does not wind) LOCALIZES the gap to the winder primitive and refines the L3 open problem — it is NOT a framework failure (Rule 11).
+
+---
+*Open corpus gaps flagged by the design workflow (carry into the result doc): no Kramers-Heisenberg/Rabi/resonant-scattering Op in corpus (cavity-QED is a flagged gap, `temporal-saturation-regime-classifier.md:132-142`; absorb/emit = the Axiom-4 engage/relax cycle); the "static inductive core" the photon lacks (`photon-identification.md:69-70`, A1/u-translation irrep) is related-but-not-identical to the K4 V_inc capacitor — a seed must populate the V_inc one specifically; the "electron = self-trapped TRANSVERSE photon" claim (`clm-i4p11y`) is engine-UNVALIDATED (`vol1/claim-quality.md:1307`) and in tension with the genesis-23 live-fire — part of the §0 open contradiction.*
