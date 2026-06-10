@@ -129,6 +129,92 @@ Two regimes:
     \item \textbf{Lattice regime} ($k \to k_{Brillouin}$, $\omega \to \omega_C$). K4-TLM lattice dispersion dominates. The continuum wave description fails; the discrete bond-by-bond TLM response governs. Above $\omega_C$, no coherent substrate oscillation exists --- the substrate Nyquist ceiling.
 \end{itemize}
 
+\section{Temporal / Switching Characteristics}
+\label{sec:vol9_temporal_switching}
+
+A datasheet's switching section states how fast the device responds. For $\mathcal{M}_A$ the relevant quantities are the substrate's irreducible clock tick and the way each wave sector's clock rate modulates under load. The substrate-physics content of this section is sourced from the temporal-values definition doc \texttt{research/2026-06-09\_substrate-temporal-values-definition.md} (branch \texttt{analysis/2026-06-09-saturation-temporal-preregs}; a dependency of this datasheet section, not yet on \texttt{main}). The two effective wave speeds are canonical at CLAUDE.md INVARIANT-S2 and \texttt{clm-8nkvwy}; this section adds the clock (tick) projection and the bulk sector.
+
+\subsection{The clock quantum --- the voxel tick}
+\label{subsec:vol9_clock_quantum}
+
+The K4-TLM lattice advances by scatter-then-connect, one cell at a time. The irreducible tick is one signal-crossing of one voxel:
+\begin{equation}
+\tau_0 = \frac{\ell_{node}}{c_0} \approx \qty{1.288e-21}{\second},
+\label{eq:vol9_tau0}
+\end{equation}
+the unstrained value of the canonical relaxation time $\tau_{relax} = \ell_{node}/c$ (\kbleaf{tau-relax-derivation.md}:11; \kbleaf{src/ave/core/constants.py} \texttt{TAU\_RELAX\_SI}). Because $\ell_{node} = \hbar/(m_e c)$ is the electron reduced Compton wavelength, $\tau_0$ is the \emph{electron Compton time} --- the substrate's minimum gear tooth. ``Freezing'' is the gear seizing: when a sector's local crossing speed $\to 0$, a signal can no longer cross a cell in finite time and that sector's clock stops.
+
+\subsection{Sector speeds (three) under load}
+\label{subsec:vol9_sector_speeds}
+
+The substrate carries three distinct wave sectors at three distinct speeds, written directly in the physical strain $A$ (avoiding the overloaded symbol $S$). Two are the locked K=2G mechanical moduli (shear $G$, bulk $K$); the third is electromagnetic:
+
+\begin{table}[htbp]
+\centering\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}p{0.16\linewidth} p{0.22\linewidth} p{0.16\linewidth} p{0.36\linewidth}@{}}
+\toprule
+\textbf{Sector} & \textbf{Speed} & \textbf{Under load} & \textbf{Role} \\
+\midrule
+EM (transverse), phase & $c_{EM} = c_0\,(1-A^2)^{-1/2}$ & \textbf{rises} ($\to\infty$ at $A\to1$) & Maxwell phase velocity; enters $\alpha$ (\texttt{clm-8nkvwy}; INVARIANT-S2). Electromagnetic, not one of the two mechanical moduli. \\
+Shear (deviatoric, $G = \mu$) & $c_{shear} = c_0\,(1-A^2)^{+1/4}$ & \textbf{freezes} ($\to0$ at $A\to1$) & group / energy-transport / rest-mass speed; the \textbf{matter clock}; tracks Schwarzschild $c\sqrt{1-r_s/r}$ (Op16). \\
+Bulk (volumetric, $K$) & $c_{bulk} = c_0\sqrt{1 + \bar{\rho}/(1-\bar{\rho}^2)}$ & stiffens at $\bar{\rho}\to+1$; freezes at $\bar{\rho}_{cav} = -1/\varphi$ & compressional / density wave; rarefaction relation (\kbleaf{04\_superluminal\_transit.tex}:86); distinct from shear. \\
+\bottomrule
+\end{tabular}
+\caption{The three sector speeds under load. Shear and bulk are the substrate's locked K=2G mechanical pair ($\nu_{vac}=2/7$, Cosserat coupling length $\ell_c^{\text{(K4)}} = \sqrt{6}\,\ell_{node}$, \texttt{ELL\_C}); EM is electromagnetic.}
+\label{tab:vol9_sector_speeds}
+\end{table}
+
+\subsection{Sector clocks (three) --- tick $= \ell_{node}/c_{sector}$}
+\label{subsec:vol9_sector_clocks}
+
+\begin{table}[htbp]
+\centering\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}p{0.26\linewidth} p{0.22\linewidth} p{0.22\linewidth} p{0.20\linewidth}@{}}
+\toprule
+\textbf{Clock} & \textbf{Period} & \textbf{Rate} & \textbf{Under load} \\
+\midrule
+Shear = matter / gravitational & $\tau_{shear} = \tau_0\,(1-A^2)^{-1/4}$ & $\omega_{shear} = \omega_0\,(1-A^2)^{+1/4} = \omega_0\sqrt{S}$ & \textbf{dilates} (slows) --- gravitational time dilation \\
+Bulk = compressional & $\tau_{bulk} = \tau_0 / \sqrt{1 + \bar{\rho}/(1-\bar{\rho}^2)}$ & inverse & dilates toward $\bar{\rho}_{cav} = -1/\varphi$ \\
+EM-phase (not a proper matter clock) & $\tau_{EM} = \tau_0\,(1-A^2)^{+1/2}$ & $\omega_{EM} = \omega_0\,(1-A^2)^{-1/2}$ & phase advances \emph{faster} (the $\alpha$-speed) \\
+\bottomrule
+\end{tabular}
+\caption{The three sector clocks. The \textbf{matter clock is the shear clock}: people, chemical reactions, and atomic clocks are mechanical wave-packets riding $c_{shear}$, which freezes as $(1-A^2)^{1/4}$. This fixes the time-dilation exponent at $p = \tfrac14$ (clock $\propto \sqrt{S}$) with the physical reason --- matter is a packet, packets ride $c_{shear}$.}
+\label{tab:vol9_sector_clocks}
+\end{table}
+
+\subsection{Sat / desat times --- the 2$\times$2 over the mechanical modes}
+\label{subsec:vol9_sat_desat}
+
+Each mechanical mode has a \emph{saturation} time (loading, strain $\uparrow$) and a \emph{desaturation} time (unloading, strain $\downarrow$). The soliton-boundary cycle time scales as $\tau_{cycle} \propto 1/\sqrt{S}$ (\kbleaf{two-engine-architecture-a027.md}:28).
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{@{}p{0.28\linewidth} p{0.30\linewidth} p{0.32\linewidth}@{}}
+\toprule
+ & \textbf{saturation (load, $A\uparrow$)} & \textbf{desaturation (unload, $A\downarrow$)} \\
+\midrule
+shear ($G$, matter clock) & $\tau_{shear,sat}$ (toward $A\to1$ ceiling) & $\tau_{shear,desat}$ \\
+bulk ($K$, density) & $\tau_{bulk,sat}$ (toward $\bar{\rho}\to+1$ ceiling) & $\tau_{bulk,desat}$ (toward $\bar{\rho}_{cav}=-1/\varphi$ floor) \\
+\bottomrule
+\end{tabular}
+\caption{Temporal value-set: a 2$\times$2 over the two mechanical modes (shear, bulk), plus the EM-phase time $\tau_{EM}$ (electromagnetic). The ceiling ($A\to1$) and the floor ($\bar{\rho}_{cav}=-1/\varphi$) are different modes' freeze-points.}
+\label{tab:vol9_sat_desat}
+\end{table}
+
+\noindent
+\textbf{Open (not asserted):} whether the bulk mode's amplitude-limit asymmetry (compression ceiling $\bar{\rho}\to+1$ vs.\ cavitation floor $\bar{\rho}_{cav}=-1/\varphi$) becomes a \emph{relaxation-time} asymmetry $\tau_{bulk,sat} \neq \tau_{bulk,desat}$ is the open thixotropy/rectification question (\kbleaf{research/2026-06-09\_thixotropy-amplitude-dependent-tau\_prereg.md}, same branch). The \emph{shear}-sector rate-asymmetry has been derived \textbf{NEGATIVE} (sub-yield-linear shear is achromatic and reversible); the bulk near-yield channel is where a non-zero asymmetry could live. The datasheet records the 2$\times$2 structure but does not assert a non-zero $\tau_{sat}-\tau_{desat}$.
+
+\begin{warningbox}[Two stale temporal leaves --- cite only with this flag]
+Two canonical leaves state the clock-vs-strain exponent in pre-split form and must \textbf{not} be inherited:
+\begin{itemize}
+    \item \kbleaf{op14-local-clock-modulation.md}:17,31 gives $\omega_{local} = \omega_0\sqrt{1-A^2} \propto (1-A^2)^{1/2}$ --- a \textbf{STALE} single-speed model from before the $c_{EM}/c_{shear}$ split (\texttt{clm-8nkvwy}); off by a factor of 2 in the exponent relative to the canonical matter clock $\omega_{shear} \propto (1-A^2)^{1/4}$ (Table~\ref{tab:vol9_sector_clocks}).
+    \item \kbleaf{04\_superluminal\_transit.tex}:41 labels the clock $c = 1/\sqrt{\mu\varepsilon} = c_{EM}$ --- \textbf{MISLABELED}; that is the EM-phase speed, not the matter clock (the canonical Pitfall~\#5 $c_{EM}/c_{shear}$ category error).
+\end{itemize}
+Both are flagged for a PR-gated walk-back at their home leaves; this datasheet section is the canonical temporal-values statement.
+\end{warningbox}
+
 \section{AC Spec Table}
 \label{sec:vol9_ac_spec_table}
 
