@@ -1,0 +1,169 @@
+{
+  "config": {
+    "N": 44,
+    "v3_config": {
+      "source_mode": "abc",
+      "lam_sign": 1,
+      "p": 2,
+      "q": 3,
+      "S_min": 0.002,
+      "A_cap": 0.999,
+      "omega_gap": 1.0,
+      "wall_center": 0.78,
+      "wall_width": 0.16,
+      "kappa_tilde": 1.2,
+      "pml_thickness": 5
+    },
+    "lock_eta": 0.05,
+    "n_steps": 600,
+    "plant_amp": 0.3,
+    "delta_v3": 0.4,
+    "delta_v4": 0.007745966692414834,
+    "v3strength_via": "photon_coupling=False + build_beltrami_director (crystal_graft_v4.py:147-149)"
+  },
+  "arms": {
+    "v3seed_lockOFF": {
+      "label": "v3seed_lockOFF",
+      "delta": 0.4,
+      "lock_eta": 0.0,
+      "n_steps": 600,
+      "Rk": 9.68,
+      "rk": 3.6974309889010177,
+      "plant_amp": 0.3,
+      "read_t0": [
+        2,
+        3
+      ],
+      "is_2_3_t0": true,
+      "alias_clean_t0": true,
+      "read_tN": [
+        2,
+        2
+      ],
+      "is_2_3_tN": false,
+      "rel_tN": [
+        0.9248702157402828,
+        0.594486209149929
+      ],
+      "alias_clean_tN": true,
+      "survives_2_3": false,
+      "collapsed_to_2_1": false,
+      "H_bel_t0": 5.283711539537437,
+      "H_bel_tN": 4512.752727945332,
+      "H_bel_min": 7.277190266262194,
+      "H_bel_max": 10904.039684025283,
+      "lock_drift_max": 0.0,
+      "lock_drift_mean": 0.0,
+      "lock_active": false
+    },
+    "v3seed_lockON": {
+      "label": "v3seed_lockON",
+      "delta": 0.4,
+      "lock_eta": 0.05,
+      "n_steps": 600,
+      "Rk": 9.68,
+      "rk": 3.6974309889010177,
+      "plant_amp": 0.3,
+      "read_t0": [
+        2,
+        3
+      ],
+      "is_2_3_t0": true,
+      "alias_clean_t0": true,
+      "read_tN": [
+        2,
+        2
+      ],
+      "is_2_3_tN": false,
+      "rel_tN": [
+        0.92487239818973,
+        0.5944810283235136
+      ],
+      "alias_clean_tN": true,
+      "survives_2_3": false,
+      "collapsed_to_2_1": false,
+      "H_bel_t0": 5.283711539537437,
+      "H_bel_tN": 4512.752753832475,
+      "H_bel_min": 7.2771902662621955,
+      "H_bel_max": 10904.039683429208,
+      "lock_drift_max": 4.1911967638210753e-16,
+      "lock_drift_mean": 6.777047667805877e-17,
+      "lock_active": true
+    },
+    "v4seed_lockOFF": {
+      "label": "v4seed_lockOFF",
+      "delta": 0.007745966692414834,
+      "lock_eta": 0.0,
+      "n_steps": 600,
+      "Rk": 9.68,
+      "rk": 3.6974309889010177,
+      "plant_amp": 0.3,
+      "read_t0": [
+        2,
+        3
+      ],
+      "is_2_3_t0": true,
+      "alias_clean_t0": true,
+      "read_tN": [
+        2,
+        3
+      ],
+      "is_2_3_tN": true,
+      "rel_tN": [
+        0.913673510170972,
+        0.7352029385111343
+      ],
+      "alias_clean_tN": true,
+      "survives_2_3": true,
+      "collapsed_to_2_1": false,
+      "H_bel_t0": 5.283711539537437,
+      "H_bel_tN": 35.79229733584511,
+      "H_bel_min": 5.273174795674706,
+      "H_bel_max": 282.35980548583245,
+      "lock_drift_max": 0.0,
+      "lock_drift_mean": 0.0,
+      "lock_active": false
+    },
+    "v4seed_lockON": {
+      "label": "v4seed_lockON",
+      "delta": 0.007745966692414834,
+      "lock_eta": 0.05,
+      "n_steps": 600,
+      "Rk": 9.68,
+      "rk": 3.6974309889010177,
+      "plant_amp": 0.3,
+      "read_t0": [
+        2,
+        3
+      ],
+      "is_2_3_t0": true,
+      "alias_clean_t0": true,
+      "read_tN": [
+        2,
+        3
+      ],
+      "is_2_3_tN": true,
+      "rel_tN": [
+        0.9133164530581028,
+        0.7351773797844567
+      ],
+      "alias_clean_tN": true,
+      "survives_2_3": true,
+      "collapsed_to_2_1": false,
+      "H_bel_t0": 5.283711539537437,
+      "H_bel_tN": 35.79224646608647,
+      "H_bel_min": 5.273174795674703,
+      "H_bel_max": 282.359703007108,
+      "lock_drift_max": 5.97400145813991e-16,
+      "lock_drift_mean": 1.092635753294361e-16,
+      "lock_active": true
+    }
+  },
+  "verdicts": {
+    "primary_v3seed": "INERT",
+    "control_v4seed": "NOT-DEMONSTRATED"
+  },
+  "figures": [
+    "crystal_graft_v4_lock_isolation_fig.png"
+  ]
+}
