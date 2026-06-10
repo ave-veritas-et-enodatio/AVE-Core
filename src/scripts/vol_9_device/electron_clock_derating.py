@@ -2,7 +2,7 @@
 Electron DEVICE datasheet — Curve (b): internal-clock derating vs translation.
 
 AVE picture: the soliton's internal clock is a transverse shear-wave bouncing in
-the medium, whose speed is the CONSTANT lattice shear speed c (de-broglie:248,
+the medium, whose speed is the CONSTANT lattice shear speed c (de-broglie:245,
 "c_S ≡ c"; photons ARE transverse waves, Axiom 1). When the soliton translates at
 v, the wave must cover a diagonal path at the SAME constant c, so the internal
 rate derates.
@@ -36,7 +36,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 OUT = Path(__file__).parent / "_output"
 OUT.mkdir(exist_ok=True)
 
-C = 1.0  # lattice-natural transverse shear speed (de-broglie:248 c_S = c)
+C = 1.0  # lattice-natural transverse shear speed (de-broglie:245 c_S ≡ c)
 L = 1.0  # transverse reflector separation (sets t0 = 2L/c; cancels in f/f0)
 
 

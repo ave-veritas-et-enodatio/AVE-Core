@@ -128,7 +128,7 @@ def bvd_from_resonance(w0: float, Q: float) -> dict:
         "L_m": float(Lm),
         "R_m": float(Rm),
         "C_0_shunt": "UNRESOLVED (anti-resonance not measured)",
-        "note": "BVD subordinate to FOC/Park bridge (quartz-survey-survey §6)",
+        "note": "BVD subordinate to FOC/Park bridge (quartz-survey §6)",
     }
 
 

@@ -45,10 +45,10 @@
 | Rest mass (energy) | m_ec² = **trapped longitudinal-dilatation acoustic energy** (the "3"-as-MASS at the Γ=−1 `c_eff` wall) | hypothesis-class (latent-heat identification) | picture: `crystal_graft_v2.py:16-18`; latent-heat id: `matter-as-vapor-locked-pump_framing.md §6 N6` (unmerged); contrast `yang-mills-steps1-2.md:10` "assumed, not derived" | engine `bulk_energy` E_V exists but is **NOT calibrated to m_ec²** — no SI bridge run; UNTESTED as a number |
 | Charge magnitude | **±1 e** = the (2,3) micro-rotation winding integer (helicity-class) | canonical picture | `ch8-alpha-golden-torus.md:44`; T2 spec `genesis-v5 prereg:112` | phase-space read, **extractor floor r ≥ 3 cells** (`genesis-v5 prereg:150`) |
 | Charge sign | **= handedness** (photon helicity, sign-traced); RH↔LH flips the sign at identical input energy | measured-in-engine (sign) | graft-v4 sign-flip (cited in `genesis-v5 prereg:112`); seeder `crystal_graft_v2.py:321` | known-positive (2,3) reads back `(w_tor,w_pol)=(2,3)` at rel **(0.80, 0.59)** (`crystal-graft-v2_result.md:25`); de-novo sign is v5-PENDING |
-| Spin | **½ ℏ-class** = locked half-pole-pair micro-rotation L_ω | derived mapping / UNTESTED | T3 spec `genesis-v5 prereg:113` ("DERIVE the engine-unit mapping, do NOT assume") | engine-unit→ℏ/2 conversion computed at run time; **v5 de-novo lock PENDING** — no clean lock yet (graft-v2 full run w_pol=0) |
-| Self-impedance Q (DERIVED) | **Q = α⁻¹ ≈ 137.036** = 4π³+π²+π (Λ_vol+Λ_surf+Λ_line self-impedance sum) | canonical-derived | `constants.py:204` ALPHA_COLD_INV; `ch8-alpha-golden-torus.md:115-117,131` | — (derived, not measured) |
+| Spin | **½ ℏ-class** = locked half-pole-pair micro-rotation L_ω | derived mapping / UNTESTED | T3 spec `genesis-v5 prereg:113` ("DERIVE the engine-unit mapping, do NOT assume") | engine-unit→ℏ/2 conversion computed at run time; **v5 de-novo lock PENDING** — no clean lock yet (graft-v2 full run gives `(w_tor,w_pol)=(0,0)`) |
+| Self-impedance Q (DERIVED) | **Q = α⁻¹ ≈ 137.036** = 4π³+π²+π (Λ_vol+Λ_surf+Λ_line self-impedance sum) | canonical-derived | `constants.py:204` ALPHA_COLD_INV; `ch8-alpha-golden-torus.md:115-117,128` | — (derived, not measured) |
 | Per-cycle reactive leak | **1/Q = α ≈ 0.0073** of stored energy leaks per cycle through the TIR boundary (Sommerfeld "coupling strength", LC-tank side) | canonical-derived | `theorem-3-1-q-factor.md:81` | — |
-| Self-impedance Q (MEASURED) | **UNTESTED** — the leak observable is **dispersion-contaminated at current config**; an apparatus redesign is required | UNTESTED | apparatus-floors verdict 2026-06-10 (`research/2026-06-10_apparatus-floors_note.md`, read-only): leak FLAT (CV 1.5%), set by breather dispersion; **S11 sweep RAN** (`2026-06-10_electron-s11-sweep_result.md`): probe-gate PASS, bulk channel **MULTI-MODE / low-contrast** (no single high-Q; single-Lorentzian fit fails Q≈0.73) | **NEVER** copy α⁻¹=137 into this cell. S11 measured NO single Q (instrument floor: net-susceptibility median+3σ; peaks only 1.1–1.5×); row stays UNTESTED |
+| Self-impedance Q (MEASURED) | **UNTESTED** — the leak observable is **dispersion-contaminated at current config**; an apparatus redesign is required | UNTESTED | apparatus-floors verdict 2026-06-10 (`research/2026-06-10_apparatus-floors_note.md`, read-only): leak FLAT (CV 1.5%), set by breather dispersion; **S11 sweep RAN** (`2026-06-10_electron-s11-sweep_result.md`): probe-gate PASS, bulk channel **MULTI-MODE / low-contrast** (no single high-Q; single-Lorentzian fit non-resonant/overdamped Q≈0.73) | **NEVER** copy α⁻¹=137 into this cell. S11 measured NO single Q (instrument floor: net-susceptibility median+3σ; peaks only 1.1–1.5×); row stays UNTESTED |
 | Reactive store | **Q_react = m_ec²·α** = the "Quantized reactive shell" (θ=90°, P_real=0 — lossless LC tank) | canonical | `orbital-friction-paradox.md:35` | — |
 | Lattice impedance | **Z₀ = 377 Ω** invariant under symmetric saturation (Axiom 4) | canonical | `de-broglie-standing-wave.md:248` | — |
 
@@ -58,7 +58,7 @@
 
 ## 4. GEOMETRY — PHASE-SPACE (Golden Torus) vs REAL-SPACE (envelope), kept SEPARATE
 
-> **⚠ FENCE (2026-06-10 settlement, `quarter-fence-verdict_note.md` §3a).** R and r are **PHASOR SEMI-AXES in (V_inc, V_ref)** — they live in PHASE-SPACE. The real-space envelope ratio ≈ 2.27 is a **DIFFERENT canonical quantity**. The two are **never compared across coordinates** (the A46 trap). Phase-space rows and real-space rows are fenced into separate tables below.
+> **⚠ FENCE (2026-06-10 settlement; in-tree anchor `constants.py:196-198` "the Clifford-torus (R, r) phase-space coordinates"; settlement note `quarter-fence-verdict_note.md` §3a — branch-local, NOT in this worktree).** R and r are **PHASOR SEMI-AXES in (V_inc, V_ref)** — they live in PHASE-SPACE. The real-space envelope ratio ≈ 2.27 is a **DIFFERENT canonical quantity**. The two are **never compared across coordinates** (the A46 trap). Phase-space rows and real-space rows are fenced into separate tables below.
 
 ### 4a. PHASE-SPACE GEOMETRY (the Golden Torus — (V_inc, V_ref) phasor plane)
 
@@ -71,7 +71,7 @@
 | Golden-torus point | **(R, r, d) = (φ/2, (φ−1)/2, 1) ≈ (0.809, 0.309, 1)** | canonical | `ch8-alpha-golden-torus.md:111`; `constants.py:200-202` (RR=¼ exactly) |
 | (2,3) winding | toroidal "2" (polarization direction) + poloidal "3" (LC phase); charge = Beltrami helicity ∫ω·(∇×ω) | canonical picture | `crystal_graft_v2.py:20-24,287-294` |
 | Pole-pair → spin mapping | p=2 toroidal, q=3 poloidal; "half-pole-pair" = ½ circulation quantum of one pole-pair | derived (run-time) / UNTESTED | T3 `genesis-v5 prereg:113` |
-| Self-impedance sum | α⁻¹ = **Λ_vol + Λ_surf + Λ_line = 4π³ + π² + π ≈ 137.036** | canonical-derived | `ch8-alpha-golden-torus.md:115-117,131`; `constants.py:204` |
+| Self-impedance sum | α⁻¹ = **Λ_vol + Λ_surf + Λ_line = 4π³ + π² + π ≈ 137.036** | canonical-derived | `ch8-alpha-golden-torus.md:115-117,128`; `constants.py:204` |
 
 ### 4b. REAL-SPACE GEOMETRY (the envelope — lattice-Cartesian) — DO NOT compare to 4a
 
@@ -89,7 +89,7 @@
 
 ## 5. EQUIVALENT CIRCUIT (BVD motional arm — SUBORDINATE pedagogy)
 
-> **⚠ SUBORDINATION HEADER (the quartz-survey ruling, `quartz-alpha-bucket-survey_note.md` §6).** The Butterworth–Van-Dyke (BVD) crystal-equivalent circuit is **illustrative pedagogy, NOT the canonical real↔phase bridge.** The canonical bridge is **FOC / Park d–q** (`solver-toolchain.md:359` "Step 6 is the Park transform (FOC) generalisation"; framed `:128`). The dimensional projection between lattice and circuit quantities is **ξ_topo ≡ e/ℓ_node** (INVARIANT-C2, `claim-quality.md:200`). Everything in this section is read **through** the FOC/Park bridge; the BVD rendering is a teaching aid subordinate to it.
+> **⚠ SUBORDINATION HEADER (the quartz-survey ruling, `quartz-alpha-bucket-survey_note.md` §6 — branch-local, NOT in this worktree; the load-bearing canonical cite `solver-toolchain.md:359/:128` is in-tree below).** The Butterworth–Van-Dyke (BVD) crystal-equivalent circuit is **illustrative pedagogy, NOT the canonical real↔phase bridge.** The canonical bridge is **FOC / Park d–q** (`solver-toolchain.md:359` "Step 6 is the Park transform (FOC) generalisation"; framed `:128`). The dimensional projection between lattice and circuit quantities is **ξ_topo ≡ e/ℓ_node** (INVARIANT-C2, `claim-quality.md:200`). Everything in this section is read **through** the FOC/Park bridge; the BVD rendering is a teaching aid subordinate to it.
 
 | Element | Role | Provenance | Source cite | Floor |
 |---|---|---|---|---|
@@ -138,7 +138,7 @@ The acceptance-test battery is the Genesis-v5 electron spec-sheet (`genesis-v5 p
 
 **Acceptance verdicts (FROZEN, `genesis-v5 prereg:178-180`):** ELECTRON-CLASS = T1 passes AND ≥4 of T2–T6 at their floors, no positive sitting at a clip value. PARTIAL = T1 passes but winder/spin/twin localizes (named residual, e.g. w_pol≡0). NOT-ELECTRON = T1 fails → transient/pump, clean negative, branch closes.
 
-**Status: ALL PENDING** (v5 run in flight; graft-v2 full run currently gives w_pol=0 → the named winder-gap residual, `crystal-graft-v2_result.md:28`).
+**Status: ALL PENDING** (v5 run in flight; graft-v2 full run currently gives `(w_tor,w_pol)=(0,0)` → the named winder-gap residual, `crystal-graft-v2_result.md:28`).
 
 ---
 
@@ -160,10 +160,10 @@ The falsification scoreboard's open ledger. Each row states the BLOCKER and the 
 
 | Open row | Why it cannot be filled | What it needs |
 |---|---|---|
-| **Measured Q (self-impedance)** | the bulk leak observable is **dispersion-contaminated** — the S11 sweep (`2026-06-10_electron-s11-sweep_result.md`, probe-gate PASS) found **MULTI-MODE / low-contrast** structure (2 weak net peaks 1.1–1.5× floor; single-Lorentzian fit fails Q≈0.73), NOT a single wall-transmission Q | a probe that isolates wall transmission from bulk breather dispersion — an **apparatus REDESIGN** (e.g. a boundary-localized reflection read at the Γ=−1 front, not a bulk-volume response). Surfaced, NOT auto-pivoted |
+| **Measured Q (self-impedance)** | the bulk leak observable is **dispersion-contaminated** — the S11 sweep (`2026-06-10_electron-s11-sweep_result.md`, probe-gate PASS) found **MULTI-MODE / low-contrast** structure (2 weak net peaks 1.1–1.5× floor; single-Lorentzian fit non-resonant/overdamped Q≈0.73), NOT a single wall-transmission Q | a probe that isolates wall transmission from bulk breather dispersion — an **apparatus REDESIGN** (e.g. a boundary-localized reflection read at the Γ=−1 front, not a bulk-volume response). Surfaced, NOT auto-pivoted |
 | **Mass m_ec² as a number** | the latent-heat-of-cavitation = m_ec² identification is genesis-direction HYPOTHESIS-class on an unmerged branch; no SI bridge calibrates engine E_V to 0.511 MeV | the genesis-direction derivation (currently a "payoff-if-true") + an engine→SI energy bridge |
-| **De-novo (2,3) / charge emergence** | graft-v2 full run gives w_pol=0 (carrier capable, source structure wrong — mode-selection residual) | a chiral (Beltrami/helical) source structure so the (2,3) geometry-selects (surfaced, NOT auto-pivoted — `crystal-graft-v2_result.md:170`); the v5 run is in flight |
-| **Spin half-pole-pair lock** | no clean de-novo L_ω lock yet (graft-v2 w_pol=0; v3 t^0.43 / v4 ratio-5.0 lessons) | a stable assembled ring whose L_ω locks without dialing (v5 T3, PENDING) |
+| **De-novo (2,3) / charge emergence** | graft-v2 full run gives `(w_tor,w_pol)=(0,0)` (carrier capable, source structure wrong — mode-selection residual) | a chiral (Beltrami/helical) source structure so the (2,3) geometry-selects (surfaced, NOT auto-pivoted — `crystal-graft-v2_result.md:170`); the v5 run is in flight |
+| **Spin half-pole-pair lock** | no clean de-novo L_ω lock yet (graft-v2 `(w_tor,w_pol)=(0,0)`; v3 t^0.43 / v4 ratio-5.0 lessons) | a stable assembled ring whose L_ω locks without dialing (v5 T3, PENDING) |
 | **ℓ_node circularity** | cell pitch ℓ_node ≡ ℏ/(m_ec) is DEFINED via m_e, so Bohr-radius = 137·ℓ_node and the Z=137 SOA are internally-consistent geometry, not independent m_e predictions | a first-principles ℓ_node from K4 lattice primitives independent of m_e (defusal); currently open |
 | **Two-"3"s conflation flag** | the corpus conflates MASS-"3" (A1 dilatation) and WINDING-"3" (Cosserat (2,3)) at `master-equation.md:18` (per the v5 T1 flag) | an auditor adjudication of the master-equation wording (flag-don't-fix; surfaced, NOT silently rewritten) |
 | **Real-space 2.27 mechanism** | the 2.27 attractor is canonical but its mechanism needs a fitted ρ̄_wall≈0.304 (branch-local, PR #164 unmerged) | the coax-secondary re-run that PR #164 left "license-pending"; not promoted |
