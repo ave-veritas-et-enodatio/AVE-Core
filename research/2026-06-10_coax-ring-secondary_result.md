@@ -1,5 +1,7 @@
 # RESULT — Coax-ring secondary route to α: the SCALE-FREE reactance-pair slosh is REAL (phasor-space), but the real-space b/a does NOT close (diverges at the α-free A→1 wall)
 
+> 🔴 **SUPERSEDED IN PART (2026-06-10) — see the VERDICT ADDENDUM at the foot of this doc.** The Arm-3 **SCALE-FREE** headline and the **§5 license EARNED** statements in this body (lines ~1, 21, 27, 98, 114, 146) are demoted to **UNRESOLVED** / **§5 license WITHHELD pending re-run**. Per Rule 12 the body below is preserved unedited; the dated addendum at the foot is the operative verdict.
+
 **Date:** 2026-06-10
 **Branch:** `analysis/2026-06-10-coax-ring-secondary` (worktree off `analysis/2026-06-10-sonic-horizon-closure`). Not pushed/merged.
 **Prereg (FROZEN, committed alone first):** [`2026-06-10_coax-ring-secondary_prereg.md`](2026-06-10_coax-ring-secondary_prereg.md) (commit `f14c1166`, before any run artifact).
@@ -148,3 +150,43 @@ Per the frozen synthesis map (prereg §7): **Arm-3 SCALE-FREE ∧ Arm-1 RATIO-DE
 3. **FLAG — `ρ̄_cav=−1/φ` remains CANDIDATE-CLAIM** (zero KB/constants hits); this run does not promote it. It uses it only as a parameter-free EOS root + an α-free inner BC.
 4. **FLAG (flag-don't-fix) — the b/a divergence is the single mechanism:** the α-free A→1 (full compression) wall is asymptotic (`c²→∞`), so no finite real-space b/a exists for the v=c₀ profile. Any future "coax b/a = 2.27" hypothesis must specify a DIFFERENT (finite, α-free, canonical) outer locus — the A→1 saturation wall is not it. Surfaced verbatim, not reframed.
 5. **FLAG — representation nuance:** the literal cross-sector u↔ω (V↔ω) is UNRESOLVED here (buckle geometry-limited, `H_couple/E_ω=5.4e-6`); the resolved + correct DOF pair for the winding is the carrier's own reactance pair `ω↔π_ω`. A co-located breather+winding config would be needed to resolve the cross-sector channel (separate design).
+
+---
+
+## 🔴 VERDICT ADDENDUM (2026-06-10) — record-honesty (Rule 12)
+
+**Status:** panel-mandated record-honesty fix. Per **Rule 12** this addendum is APPENDED; no body paragraph above is rewritten. Per **Rule 11** the frozen prereg (`2026-06-10_coax-ring-secondary_prereg.md`) is NOT edited. Every number below was re-verified this session against `_output/coax_ring_secondary_results.json`, `_output/coax_ring_scale_invariance_results.json`, and `src/scripts/vol_1_foundations/coax_ring_secondary.py`.
+
+**One-line:** the Arm-3 headline bin should read **UNRESOLVED, not SCALE-FREE**; the §5 license is **WITHHELD (license-pending-re-run, NOT closed-negative)**; and two of the three frozen Arm-3 predictions (the u↔ω observable and the ω∝1/r magnitude) **did not return the headline claim**. Arm-1 (RATIO-DERIVED) and Arm-2 (DIFFERENT) standing records are **unchanged**, qualifiers restated below.
+
+### (a) Arm-3 bin: SCALE-FREE → UNRESOLVED (the prereg's own bin-67)
+The headline "spread 6.2% < worst floor 23.7%" is the literal trigger of prereg **bin 67** ("the exchange-fraction read does not clear its own instrument floor"), NOT bin 65. `f_exch_spread = 0.0623` (6.2%) and the worst free-evolution ledger floor `= 0.2365` (23.7%); the floor is ~4× the spread, so the read sits **below its own instrument floor** at the driving scale. Per-scale floor: **23.7 / 12.3 / 7.1%** at r=4/6/8 — the floor only drops under the spread at r=8, never at the r=4 driving point.
+- **r–N confound:** N is tied to r (38/50/62 at r=4/6/8); the grid-resolution sweep that would separate scale-physics from resolution-artifact was run **only at r=6** (N=44/50/62, `grid_sweep_r6`), **never at the worst, driving r=4/N=38 point**. The invariance claim therefore rests on a scale axis confounded with grid resolution at exactly the point that sets the floor.
+- **non-conservation artifact:** `f_exch = 1.0519 > 1` at r=4 (`scale_sweep_carrier_reactance_pair.r=4.f_exch`). An exchange *fraction* exceeding unity is a ledger non-conservation artifact (consistent with the 23.7% drift), not a physical slosh — a further reason the r=4 point cannot anchor an invariance read.
+- **Bin → UNRESOLVED.**
+
+### (b) the FROZEN u↔ω observable returned UNRESOLVED; the verdict-bearing pair is a re-projection
+Prereg **line 60** froze the observable as the cross-sector **u↔ω** exchange (bulk-V `E_V` ↔ Cosserat-ω `E_ω`). That observable returned `H_couple/E_ω = 5.36e-6` (`cross_sector_V_omega.cross_frac_Hcouple_over_Eomega`) — geometry-limited, far below the ledger floor ⇒ **UNRESOLVED for the frozen observable**. The verdict-bearing pair used in the body (the carrier's own **ω↔π_ω** reactance pair) is a **RE-PROJECTION** onto a different DOF pair than the one frozen. A conjugate (ω, π_ω) pair full-sloshes generically for any clean oscillator (the body's own honest caveat, line 100; JSON `honest_caveat`) — **necessary-not-sufficient** — so it cannot carry the SCALE-FREE verdict the frozen u↔ω observable was meant to deliver.
+
+### (c) the frozen ω∝1/r magnitude prediction FAILED; the mass-gap reading is post-hoc
+Prereg **line 101** froze the magnitude prediction `ω ∝ 1/r` (ratio ≈ 1 : 0.67 : 0.50 over r=4→6→8, i.e. ~50% drop). Measured: `ω_field = 1.0929 → 1.0524` over r=4→8 = a **3.7% drop** (`omega_field_by_scale_r4_r6_r8`), **not ~50%**. The frozen magnitude prediction **FAILED by an order of magnitude**. The body's mass-gap-dispersion reframe (`ω = √(c_ω²k² + ω_0²) → ω_0`, body line 93) — under which a *small* droop toward ω_0=1.0 reads as "as LC predicts" — is **post-hoc**: it is not the frozen line-101 prediction, and it converts the failure of the frozen prediction into a confirmation of a different one.
+
+### (d) §5 license: WITHDRAW / HOLD — license-pending-re-run, NOT closed-negative
+The §5 license is granted in the body (lines 27, 114, 146) on "Arm-3 SCALE-FREE ∧ Arm-1 RATIO-DERIVED" (prereg §7 line 109). With Arm-3 = **UNRESOLVED** that antecedent is **not met**, so the license is **WITHHELD**. The phasor-native quantization **design note** (body line ~119) is **NOT AUTHORIZED**, pending a re-run whose ledger floor is driven **below the f_exch spread at all scales** (including r=4).
+- This is **not** a closed-negative. The prereg's death condition (§7 **line 110**: "Arm-3 **SCALE-DEPENDENT** → the coax reading DIES honestly") requires a **resolved SCALE-DEPENDENT** verdict, which was **NOT met** (the read never cleared its floor). Honest routing: **license-pending-re-run**, not branch-closed.
+
+### (e) dead-input block 5b is structural code-inspection, NOT a numerical sweep; 5c is the operative test
+Arm-1 block 5b (`coax_ring_secondary.py:162-166`) loops `for amul in [0.01, 1.0, 100.0]` but the loop variable `amul` is **never consumed** inside the body — the computed value is `ba_from_floors(rho_cav, 0.99)`, identical on all three iterations (JSON `b_alpha_sweep_canonical_BC`: **9.748 ×3**). It is a **structural code-inspection** point (α literally does not enter `ba_from_floors`), **not a numerical sweep**: it cannot fail, so it carries no empirical weight. The genuine, operative circularity test is **5c** (`block5_dead_input.c_REJECTED_sqrt2alpha_BC_sweep`): the rejected √(2α) onset BC feeds α into ρ̄_wall and b/a **moves with α** — **1.822 → 1.887 → 1.984** over α×{0.5, 1, 2} — a real contrapositive showing the canonical A→1 BC's α-independence is meaningful.
+
+### (f) KEEP-BOTH: prereg bins 65 and 67 BOTH fire when floor > spread
+Prereg **bin 65** ("invariant within the ledger floor" ⇒ SCALE-FREE) and **bin 67** ("read does not clear its own floor" ⇒ UNRESOLVED) are **both satisfied** in the floor > spread regime that actually occurred — a latent criterion tension in the frozen prereg. Both readings are preserved (**KEEP-BOTH**; no in-place redefinition). The **honest routing is bin 67**: a spread that sits below the instrument floor is unresolved, not invariant. **Prescription for future preregs:** order the bins so the floor-check **gates** the invariance claim (bin 67 evaluated first; bin 65 reachable only once spread > floor is itself resolved).
+
+### (g) Arm-1 / Arm-2 standing record — NO demotion (qualifiers restated)
+- **Arm-1 = RATIO-DERIVED stands.** `b/a` is α-free at the function-body level (`ba_from_floors` takes no α; the meaningful proof is 5c, the operative test); the circularity lens is **NOT-REFUTED**. Three qualifiers stand: (1) `b/a` **diverges** at the exact α-free A→1 wall (`ba_at_A_to_1_exact = +inf`); (2) the regularized value **tracks the apparatus clip** `A_cap` (**5.24 → 55.09** over A_cap 0.9→0.99999) — apparatus, not physics; (3) the inner BC `ρ̄_cav = −1/φ` remains **CANDIDATE-CLAIM**. Plus: 5b is vacuous-relabeled per (e).
+- **Arm-2 = DIFFERENT stands.** The real-space route "A→1 fixes b/a = 2.27" is **CLOSED** (forward-registered negative): the A→1 BC gives a divergent / clip-tracking R/r (**+329%** vs 2.27 at A_cap=0.99), and landing on 2.27 requires the **fitted** `ρ̄_wall ≈ 0.304` (`fit_tell.rho_wall_that_forces_2.27`), a non-canonical density = a FIT. This **reinforces** the L3 doc-28 §4.2 real-space ↔ phase-space coordinate firewall **from a new direction** (real-space b/a will not carry the closure).
+
+### (h) the one surviving candidate signal — properly scoped
+The single piece of positive content that survives is the **grid-robust ω-droop toward ω_0 = 1.0 at r=6** (`grid_sweep_r6`: ω_field = 1.078 / 1.074 / 1.074 at N=44/50/62, converged at N≥50). This is a **weak CANDIDATE** that needs its **own prereg** with a floor-resolved multi-scale design. It is **NOT a verdict-carrier** and must **not** be cited as evidence for the slosh / SCALE-FREE reading (per (a)-(c) that reading is UNRESOLVED).
+
+### Net
+Arm-3: **UNRESOLVED** (was SCALE-FREE). §5 license: **WITHHELD, pending re-run** (not closed-negative). Frozen u↔ω observable + frozen ω∝1/r magnitude: **did not return** the headline. Arm-1 (RATIO-DERIVED) and Arm-2 (DIFFERENT): **unchanged**. The phasor-native quantization design note (body §5, line ~119) is **NOT AUTHORIZED**. Corpus-state delta #1 (body §7) is correspondingly **DOWNGRADED**: the discriminating secondary is **UNRESOLVED in phasor coordinates** and **CLOSED in real-space** — it does **not** currently "earn the §5 license." (Per lane discipline the auditor lands the manuscript / `COLLABORATION_NOTES` update; implementer surfaces only.)
