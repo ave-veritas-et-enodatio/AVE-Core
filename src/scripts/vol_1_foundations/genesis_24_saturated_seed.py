@@ -263,9 +263,16 @@ def _ledger_closes(res: dict) -> dict:
     q = max(1, len(Vi) // 4)
     v_secular = float(Vi[-q:].mean() / max(Vi[:q].mean(), 1e-30)) if Vi.size else 1.0
     L_bounded = bool(L.max() < 5.0 * max(L[0], 1e-30)) if L.size else True
+    # |L| range (verify-before-cite: makes the "|L| 5→43 unbounded" claim
+    # JSON-confirmable rather than asserted; L_bounded reads L[0] vs L.max()).
+    L_first = float(L[0]) if L.size else 0.0
+    L_last = float(L[-1]) if L.size else 0.0
+    L_min = float(L.min()) if L.size else 0.0
+    L_max = float(L.max()) if L.size else 0.0
     return {
         "H_drift": H_drift, "H_span": H_span, "v_secular_ratio": v_secular,
         "L_bounded": L_bounded,
+        "L_first": L_first, "L_last": L_last, "L_min": L_min, "L_max": L_max,
         "closes": bool(abs(H_drift) < 0.05 and L_bounded and v_secular < 3.0),
     }
 
@@ -347,17 +354,34 @@ def _make_figures(out, matrix, emit) -> dict:
     p = os.path.join(HERE, "genesis24_fig3_reactance_pair.png")
     fig.savefig(p, dpi=110); plt.close(fig); paths["fig3"] = p
 
-    # FIG 4 — conservation ledger H, H_bel, |L| over the (Arm-1) window
+    # FIG 4 — conservation ledger H, H_bel, |L| over the (Arm-1) window.
+    # ave-driver-script-honesty: captions are COMPUTED from the plotted series
+    # (deepest frac 0.95), NOT templated. The ledger FAILS here (H drifts, |L|
+    # grows secularly, ledger.closes=False) — templated "flat = no H_drift" /
+    # "bounded precession" captions would CONTRADICT the plotted data.
     fig, ax = plt.subplots(1, 3, figsize=(15, 4.4))
     for f in FRACS:
         a1 = matrix[(1, f)]; ts = np.arange(len(a1["H_series"]))
         ax[0].plot(ts, a1["H_series"], "-", color=cols[f], label=f"frac={f}")
         ax[1].plot(ts, a1["Hbel_series"], "-", color=cols[f])
         ax[2].plot(ts, a1["L_series"], "-", color=cols[f])
-    ax[0].set_title("H (energy) — flat = no H_drift"); ax[0].set_xlabel("step"); ax[0].legend(fontsize=7)
-    ax[1].set_title("H_bel (charge) — bounded = energized+LOCKED"); ax[1].set_xlabel("step")
-    ax[2].set_title("|L| (spin) — bounded precession, not |L|~t"); ax[2].set_xlabel("step")
-    fig.suptitle("FIG 4 — conservation ledger (Arm-1): energize-LOCK, not pump")
+    _Hd = np.asarray(matrix[(1, 0.95)]["H_series"], float)
+    _Ld = np.asarray(matrix[(1, 0.95)]["L_series"], float)
+    _Hbd = np.asarray(matrix[(1, 0.95)]["Hbel_series"], float)
+    _hdrift = (_Hd[-1] - _Hd[0]) / (abs(_Hd[0]) or 1.0)
+    _evpk = emit.get("E_V_peak", float("nan"))
+    ax[0].set_title(f"H (energy): DRIFTS {_hdrift:+.1%} over window (deepest frac)\n"
+                    f"-> NOT conserved; ledger FAILS")
+    ax[0].set_xlabel("step"); ax[0].legend(fontsize=7)
+    ax[1].set_title(f"H_bel (charge): |H_bel| {abs(_Hbd[0]):.0f}->{abs(_Hbd[-1]):.0f}\n"
+                    f"(photon-attributable, sign=handedness)")
+    ax[1].set_xlabel("step")
+    ax[2].set_title(f"|L| (spin): GROWS {_Ld[0]:.0f}->{_Ld.max():.0f} (secular, |L|~t)\n"
+                    f"-> NOT bounded precession")
+    ax[2].set_xlabel("step")
+    fig.suptitle("FIG 4 — conservation ledger (Arm-1): ledger FAILS -> secular PUMP, not energize-LOCK\n"
+                 f"(H drifts, |L| grows secularly; the same EMF :703 pump detonates E_V->{_evpk:.1e} "
+                 f"over the 100-step emit window)")
     fig.tight_layout()
     p = os.path.join(HERE, "genesis24_fig4_ledger.png")
     fig.savefig(p, dpi=110); plt.close(fig); paths["fig4"] = p
@@ -471,9 +495,11 @@ def main():
             three_closes_deep = True
         out["winding"][str(f)] = {
             "t0": {"w_tor": p0.get("vinc_w_tor"), "w_pol": p0.get("vinc_w_pol"),
+                   "vinc_rel_tor": p0.get("vinc_rel_tor"), "vinc_rel_pol": p0.get("vinc_rel_pol"),
                    "closes23": bool(p0["vinc_closes_23"] or p0["vref_closes_23"])},
             "peak": {"w_tor": p1.get("vinc_w_tor"), "w_pol": p1.get("vinc_w_pol"),
-                     "vinc_rel_pol": p1.get("vinc_rel_pol"), "closes23": closes},
+                     "vinc_rel_tor": p1.get("vinc_rel_tor"), "vinc_rel_pol": p1.get("vinc_rel_pol"),
+                     "closes23": closes},
         }
 
     # ── Arm-2 decisive control: must be null in BOTH source and topology ──
@@ -485,6 +511,76 @@ def main():
     out["arm2_EV_growth"] = {
         str(f): (matrix[(2, f)]["E_V"] / max(audits[f]["E_V_seed"], 1e-30)) for f in FRACS
     }
+
+    # ── TASK-1 ARM-2 CONTROL (decisive): toroidal winding + RELIABILITY for BOTH
+    #    Arm-1 (seed+photon) and Arm-2 (seed, NO photon), all fracs, t=0 AND peak.
+    #    Prior runs COMPUTED Arm-2's vinc_w_tor in _phase_space_winding then
+    #    DISCARDED it (only closes23 serialized); vinc_rel_tor was recorded for NO
+    #    arm. Both now serialized — the de-novo toroidal "2" is decidable only with
+    #    the no-photon control AND the contour reliability (closure gate rel_tor>0.1
+    #    at _phase_space_winding:227; below it, w_tor is sub-gate noise). ──
+    out["arm12_toroidal"] = {}
+    for f in FRACS:
+        rec = {}
+        for arm in (1, 2):
+            p0 = matrix[(arm, f)]["ps0"]; p1 = matrix[(arm, f)]["ps1"]
+            rec[f"arm{arm}"] = {
+                "t0": {"w_tor": p0.get("vinc_w_tor"), "rel_tor": p0.get("vinc_rel_tor"),
+                       "w_pol": p0.get("vinc_w_pol"), "rel_pol": p0.get("vinc_rel_pol"),
+                       "amp": p0.get("vinc_amp")},
+                "peak": {"w_tor": p1.get("vinc_w_tor"), "rel_tor": p1.get("vinc_rel_tor"),
+                         "w_pol": p1.get("vinc_w_pol"), "rel_pol": p1.get("vinc_rel_pol"),
+                         "amp": p1.get("vinc_amp")},
+            }
+        out["arm12_toroidal"][str(f)] = rec
+
+    # Resolution rule (one-source-vs-two). Gate = rel_tor>0.1 (the frozen closure
+    # reliability gate); band = |w_tor−2|<0.5 (the (2,3) closure tolerance). A peak
+    # contour below the gate is sub-gate noise and its w_tor is meaningless.
+    REL_GATE = 0.1
+    def _reaches2_reliable(ps):
+        wt = abs(ps.get("vinc_w_tor", 0.0) or 0.0)
+        rt = ps.get("vinc_rel_tor", 0.0) or 0.0
+        return bool(abs(wt - 2.0) < 0.5 and rt > REL_GATE)
+    a1_2 = {f: _reaches2_reliable(matrix[(1, f)]["ps1"]) for f in FRACS}
+    a2_2 = {f: _reaches2_reliable(matrix[(2, f)]["ps1"]) for f in FRACS}
+    a1_relmax = max((matrix[(1, f)]["ps1"].get("vinc_rel_tor", 0.0) or 0.0) for f in FRACS)
+    a2_relmax = max((matrix[(2, f)]["ps1"].get("vinc_rel_tor", 0.0) or 0.0) for f in FRACS)
+    if a1_relmax <= REL_GATE and a2_relmax <= REL_GATE:
+        tor_case = "C_subgate"
+        tor_msg = ("toroidal winding UNVERIFIED — rel_tor<=0.1 for BOTH arms (sub-gate "
+                   "noise contour); w_tor=2.0 is meaningless noise.")
+        source_count = "indeterminate (toroidal winding sub-gate)"
+    elif any(a1_2.values()) and not any(a2_2.values()):
+        tor_case = "A_photon_driven"
+        tor_msg = ("de-novo toroidal '2' is REAL (photon-driven): Arm-1 reaches a reliable "
+                   "w_tor~=2, Arm-2 (no-photon) does NOT.")
+        source_count = "ONE (poloidal q=3 source only)"
+    elif any(a2_2.values()):
+        tor_case = "B_seed_artifact"
+        tor_msg = ("toroidal '2' is a SEED ARTIFACT: Arm-2 (no-photon) ALSO reaches a reliable "
+                   "w_tor~=2 at the |omega|^2 density peak -> the §3 'toroidal winds / sharper "
+                   "than genesis-23' framing must be RETRACTED (Rule 12).")
+        source_count = "TWO (a toroidal-'2' AND a poloidal-'3' source)"
+    else:
+        tor_case = "indeterminate"
+        tor_msg = ("Arm-1 itself does not reach a reliable w_tor~=2; the toroidal '2' is not "
+                   "established as photon-driven.")
+        source_count = "indeterminate"
+    out["task1_toroidal_resolution"] = {
+        "rel_gate": REL_GATE,
+        "arm1_reaches2_reliable": {str(f): bool(a1_2[f]) for f in FRACS},
+        "arm2_reaches2_reliable": {str(f): bool(a2_2[f]) for f in FRACS},
+        "arm1_rel_tor_max": a1_relmax, "arm2_rel_tor_max": a2_relmax,
+        "case": tor_case, "msg": tor_msg, "source_count": source_count,
+    }
+    print("\n[TASK-1 ARM-2 CONTROL — toroidal winding, photon vs no-photon]")
+    print(f"  case={tor_case}  source_count={source_count}")
+    print(f"  rel_tor max:  Arm-1={a1_relmax:.3f}  Arm-2={a2_relmax:.3f}  (gate={REL_GATE})")
+    for f in FRACS:
+        p1 = matrix[(1, f)]["ps1"]; p2 = matrix[(2, f)]["ps1"]
+        print(f"  frac={f}: Arm-1 (w_tor={p1.get('vinc_w_tor')}, rel_tor={p1.get('vinc_rel_tor')}) | "
+              f"Arm-2 (w_tor={p2.get('vinc_w_tor')}, rel_tor={p2.get('vinc_rel_tor')})")
 
     # ── Arm-3 (= genesis-23 null): no-seed photon stays at center ──
     a3 = matrix[(3, 0.30)]

@@ -9,7 +9,61 @@
 
 ---
 
+## 🔴 CORRECTING HEADER (2026-06-09, post-run demotion — Rule 12 / ave-walk-back; body preserved unchanged below)
+
+**Two over-claims in the body below are DEMOTED. The original reasoning is preserved verbatim (Rule 12);
+where it conflicts with this header, this header governs.** A deterministic re-run of the driver added the
+decisive Arm-2 toroidal control (`arm12_toroidal` / `task1_toroidal_resolution` in the JSON) and the |L|
+range in the ledger. Both demotions are now backed by serialized JSON, not asserted.
+
+**(1) §0 "FORWARD STEP / one new step past genesis-23" + §9 row "Photon energizes V beyond control —
+VERIFIED" → DEMOTED to: the photon triggers a seed-biased, NON-CONSERVATIVE SECULAR PUMP — not an
+absorption step.** The live channel is the path-1 EMF reciprocal (`k4_cosserat_coupling.py:703`,
+`_compute_emf_per_port`, `emf = +2·V_inc·∂L/∂V_sq`, enabled by `use_lagrangian_emf_coupling=True`), whose
+own docstring at **`k4_cosserat_coupling.py:242`** states *"this AMPLIFIES the runaway; path-1 was the wrong
+direction."* The ledger FAILS (Arm-1 @ frac 0.95, 40-step window: `H_drift = −6.3 %`; `|L|` **UNBOUNDED
+2.7 → 43.4**, ~16×, `ledger.L_bounded = False`) and the 100-step emit window **DETONATES** (`E_V → 6.8×10⁸`
+monotone to the last step, `max|V_inc| → 1.08×10⁴`, `reverses = False`). **`dE_V` is the leading edge of
+that runaway — NOT a demonstrated energize-LOCK absorption** (`ave-conserved-vs-pumped`). The raw delta is
+real; its reading *as a forward absorption step* is withdrawn — the photon tips the EMF amplifier from decay
+into runaway, it does not lock energy into a bound absorber.
+
+**(2) §3 "the toroidal '2' genuinely enters phase-space / sharper than genesis-23" → RETRACTED (sub-gate).**
+The Arm-2 (no-photon) toroidal control — `vinc_w_tor` AND `vinc_rel_tor` for BOTH arms, all fracs, t=0 and
+peak, serialized for the first time — returns **Case C (sub-gate)**: toroidal winding reliability
+`rel_tor = 0.000` for BOTH Arm-1 and Arm-2 at EVERY frac, two orders below the `> 0.1` closure gate. Arm-1's
+`w_tor = 1/2/2/1` is **non-monotone, collapses at the deepest frac 0.95, and rides a zero-reliability
+contour — it is meaningless noise, not a populated winding.** So the toroidal half is NOT "sharper than
+genesis-23": genesis-23's V-sector was *empty* (`amp = 0`); genesis-24's is *populated but
+winding-unreliable* (`amp > 0`, `rel_tor = 0`) — a different distinction than "no 2" vs "real 2." The
+de-novo toroidal "2" is **UNVERIFIED** — neither photon-driven (Case A needs Arm-1 `rel_tor > 0.1` — FAILS)
+nor a clean seed artifact (Case B needs Arm-2 to reach a reliable `w_tor ≈ 2` — Arm-2 is `0`). See the
+Arm-1-vs-Arm-2 table added to §3.
+
+**SOURCE-COUNT VERDICT (the deliverable):** **NOT RESOLVED — Case C.** The toroidal channel is sub-gate, so
+the run establishes neither "one source (poloidal q=3 only, because the photon supplies the 2)" nor "two
+sources (a toroidal-2 AND a poloidal-3 source)." Crucially it **removes the positive evidence for the
+one-source reading** — the toroidal "2" is not demonstrated to arise dynamically, so it cannot be counted as
+handled. The only robust topological result stands: **(2,3) does not close; the residual gap is the winder
+primitive** (the poloidal q=3 fibre is unpopulated AND the toroidal "2" is sub-gate noise — the §3
+"only-the-poloidal-fibre-is-missing" asymmetry is itself withdrawn).
+
+**What SURVIVES intact (NOT demoted):** `dE_V > 0` real, deep, monotone (decisively **not C1**) · seed-audit
+clean, charge-neutral, no forbidden seeder (**not C2 / not laundered**) · charge = photon helicity,
+Arm-4 `−h` flips H_bel sign at every frac (provenance, not emergent (2,3) charge) · (2,3) does not close,
+gap localized to the winder primitive.
+
+**verify-before-cite:** the *"this AMPLIFIES the runaway"* quote is at `:242` (the
+`use_lagrangian_emf_coupling` NOTE), not `:703`; `:703` is where that same path-1 EMF is computed. Both are
+cited accurately above and match the body's own §7 (`:242`) usage.
+
+---
+
 ## §0 — VERDICT: **B** — source channel FIRES, topology does NOT wind. Two gaps localized; one *new step past genesis-23*.
+
+> 🔴 **See CORRECTING HEADER above** — the "FORWARD STEP / one new step past genesis-23" framing in this §0
+> is demoted: `dE_V>0` is the leading edge of a seed-biased secular pump (ledger fails, emission detonates),
+> not a demonstrated energize-LOCK absorption. The §0 reasoning is preserved below as written.
 
 > **The saturated-seed reframe is PARTIALLY VINDICATED at the source level and DECISIVELY FALSIFIED at the
 > topology level — and the run localizes the residual obstruction to two precise, independent mechanisms.**
@@ -119,6 +173,35 @@ poloidal (q=3) winder** — sharper than genesis-23's "the '3' never enters phas
 whole V-sector was unpopulated; here the toroidal half populates and winds, only the poloidal fibre is
 missing). **Figure 1 (right).**
 
+> **🔴 RETRACTION + ARM-2 TOROIDAL CONTROL (2026-06-09, Rule 12 — the §3 prose above is preserved; this
+> block governs).** The claim above that "the toroidal half populates and winds" is **withdrawn as
+> sub-gate.** The decisive Arm-2 (no-photon) toroidal control — `vinc_w_tor` AND `vinc_rel_tor` for BOTH
+> arms, all fracs, at the |ω|² density peak (CP7) — was serialized for the first time (the prior run
+> COMPUTED Arm-2's `vinc_w_tor` at `genesis_24_saturated_seed.py:224` then DISCARDED it; `rel_tor` was
+> recorded for NO arm):
+>
+> | frac | Arm-1 (seed+photon) `w_tor` | Arm-1 `rel_tor` | Arm-2 (seed, NO photon) `w_tor` | Arm-2 `rel_tor` | reliable (`rel_tor>0.1`)? |
+> |---|---|---|---|---|---|
+> | 0.30 | 1.0 | **0.000** | 0.0 | **0.000** | NO (both) |
+> | 0.60 | **2.0** | **0.000** | 0.0 | **0.000** | NO (both) |
+> | 0.85 | **2.0** | **0.000** | 0.0 | **0.000** | NO (both) |
+> | 0.95 | 1.0 | **0.000** | 0.0 | **0.000** | NO (both) |
+>
+> (t=0, every frac, both arms: `w_tor = 0.0`, `rel_tor = 0.0`.)
+>
+> **Case C — sub-gate: `rel_tor = 0.000` for BOTH arms at EVERY frac**, two orders below the `>0.1` closure
+> gate (`reflection_genesis_23_self_assembly.py::_phase_space_winding:227`). Arm-1's `w_tor = 1/2/2/1` is
+> **non-monotone, collapses at the deepest frac 0.95 (back to 1), NOT reproduced at deepest saturation, and
+> rides a zero-reliability contour → meaningless noise, not a populated winding.** The toroidal "2" is
+> **UNVERIFIED**: not photon-driven (Case A needs Arm-1 `rel_tor>0.1` — FAILS) and not a clean seed artifact
+> (Case B needs Arm-2 to reach a reliable `w_tor≈2` — Arm-2 is `0`). The genesis-23 contrast is therefore
+> *empty V-sector* (`amp=0`) vs genesis-24 *populated-but-winding-unreliable* (`amp>0`, `rel_tor=0`), NOT
+> "no 2" → "real 2". **Source-count: NOT resolved by the toroidal channel** (see CORRECTING HEADER). The
+> robust topological result stands — (2,3) does not close and the winder primitive is absent — now true of
+> BOTH the poloidal fibre (`rel_pol ≈ 0.005`) AND the toroidal "2" (`rel_tor = 0.000`); the
+> "only-the-poloidal-fibre-is-missing" asymmetry above is withdrawn. JSON: `arm12_toroidal`,
+> `task1_toroidal_resolution.case = "C_subgate"`.
+
 ---
 
 ## §4 — Smith chart: NO migration to the Γ=−1 rim (genesis-23 GAP-2 reproduced)
@@ -221,7 +304,7 @@ mere energy-deficit.
 | Claim | Status |
 |---|---|
 | Non-circular seed is admissible (no t=0 (2,3), charge-neutral) | **VERIFIED** (§1, all fracs) |
-| Photon energizes V beyond no-photon control, monotone in seed depth | **VERIFIED** (§2: dE_V>0, deep, monotone) |
+| Photon energizes V beyond no-photon control, monotone in seed depth | **VERIFIED (raw dE_V>0)** → 🔴 **DEMOTED to PUMP-ONSET** (CORRECTING HEADER: seed-biased secular pump via EMF `:703`; ledger fails `H_drift −6.3 %` / `\|L\|` 2.7→43.4, emit detonates `E_V→6.8×10⁸`; **not** an energize-LOCK absorption) |
 | Lone photon (no seed) leaves V-sector at zero (= genesis-23 GAP-1) | **VERIFIED** (§5 Arm-3) |
 | Charge = photon helicity (provenance, sign flips) | **VERIFIED** (§6) |
 | Source channel = the EMF `:703` reciprocal, biased by standing V_inc | **DERIVED** (mechanism chain; genesis-23 dead→genesis-24 live) |
@@ -254,7 +337,13 @@ step) · `ave-regime-phase-state-check` (the secular-pump regime explicitly flag
 - [`genesis24_fig4_ledger.png`](../src/scripts/vol_1_foundations/genesis24_fig4_ledger.png) — H, H_bel, |L| vs t (ledger non-closure).
 - [`genesis24_fig5_arm4_charge_flip.png`](../src/scripts/vol_1_foundations/genesis24_fig5_arm4_charge_flip.png) — Arm-4 charge sign flip.
 
-**Honest closure (Rule 11 / substitution-not-retraction).** Genesis-24 is a **clean, reproduced B**: the
+**Honest closure (Rule 11 / substitution-not-retraction).** 🔴 *Post-run demotion (see CORRECTING HEADER):
+"reverses the source half / one real step past genesis-23" is demoted — the live ω→V channel is a
+NON-CONSERVATIVE secular pump (ledger fails `H_drift −6.3 %` / `|L|` 2.7→43.4; emission detonates
+`E_V→6.8×10⁸`), so `dE_V>0` is pump-onset, not a demonstrated absorption; and the toroidal "2" is sub-gate
+(Case C, `rel_tor=0.000` both arms), so the localization is to the winder primitive generally, not "only the
+poloidal fibre." The closure remains a clean B; the prose below is preserved unchanged.* Genesis-24 is a
+**clean, reproduced B**: the
 saturated-seed reframe **reverses the source half of GAP-1** (a V-populated IC converts the dead ω→V channel
 into a live, monotone, photon-attributable one — *one real step past genesis-23*) but **does not close the
 topology** — the poloidal (q=3) winder is structurally absent and the Γ=−1 rim never forms. The deliverable

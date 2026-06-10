@@ -98,11 +98,14 @@
       "t0": {
         "w_tor": 0.0,
         "w_pol": 0.0,
+        "vinc_rel_tor": 0.0,
+        "vinc_rel_pol": 0.0,
         "closes23": false
       },
       "peak": {
         "w_tor": 1.0,
         "w_pol": 0.0,
+        "vinc_rel_tor": 0.0,
         "vinc_rel_pol": 0.002,
         "closes23": false
       }
@@ -111,11 +114,14 @@
       "t0": {
         "w_tor": 0.0,
         "w_pol": 0.0,
+        "vinc_rel_tor": 0.0,
+        "vinc_rel_pol": 0.0,
         "closes23": false
       },
       "peak": {
         "w_tor": 2.0,
         "w_pol": 0.0,
+        "vinc_rel_tor": 0.0,
         "vinc_rel_pol": 0.004,
         "closes23": false
       }
@@ -124,11 +130,14 @@
       "t0": {
         "w_tor": 0.0,
         "w_pol": 0.0,
+        "vinc_rel_tor": 0.0,
+        "vinc_rel_pol": 0.0,
         "closes23": false
       },
       "peak": {
         "w_tor": 2.0,
         "w_pol": 0.0,
+        "vinc_rel_tor": 0.0,
         "vinc_rel_pol": 0.005,
         "closes23": false
       }
@@ -137,11 +146,14 @@
       "t0": {
         "w_tor": 0.0,
         "w_pol": 0.0,
+        "vinc_rel_tor": 0.0,
+        "vinc_rel_pol": 0.0,
         "closes23": false
       },
       "peak": {
         "w_tor": 1.0,
         "w_pol": -0.0,
+        "vinc_rel_tor": 0.0,
         "vinc_rel_pol": 0.005,
         "closes23": false
       }
@@ -153,6 +165,164 @@
     "0.6": 0.5488705399489482,
     "0.85": 0.5795970409030985,
     "0.95": 0.6022074788968838
+  },
+  "arm12_toroidal": {
+    "0.3": {
+      "arm1": {
+        "t0": {
+          "w_tor": 0.0,
+          "rel_tor": 0.0,
+          "w_pol": 0.0,
+          "rel_pol": 0.0,
+          "amp": 0.39999999999999997
+        },
+        "peak": {
+          "w_tor": 1.0,
+          "rel_tor": 0.0,
+          "w_pol": 0.0,
+          "rel_pol": 0.002,
+          "amp": 0.11310391063432985
+        }
+      },
+      "arm2": {
+        "t0": {
+          "w_tor": 0.0,
+          "rel_tor": 0.0,
+          "w_pol": 0.0,
+          "rel_pol": 0.0,
+          "amp": 0.39999999999999997
+        },
+        "peak": {
+          "w_tor": 0.0,
+          "rel_tor": 0.0,
+          "w_pol": 0.0,
+          "rel_pol": 0.0,
+          "amp": 0.2406769393845506
+        }
+      }
+    },
+    "0.6": {
+      "arm1": {
+        "t0": {
+          "w_tor": 0.0,
+          "rel_tor": 0.0,
+          "w_pol": 0.0,
+          "rel_pol": 0.0,
+          "amp": 0.7999999999999999
+        },
+        "peak": {
+          "w_tor": 2.0,
+          "rel_tor": 0.0,
+          "w_pol": 0.0,
+          "rel_pol": 0.004,
+          "amp": 0.5372378859104973
+        }
+      },
+      "arm2": {
+        "t0": {
+          "w_tor": 0.0,
+          "rel_tor": 0.0,
+          "w_pol": 0.0,
+          "rel_pol": 0.0,
+          "amp": 0.7999999999999999
+        },
+        "peak": {
+          "w_tor": 0.0,
+          "rel_tor": 0.0,
+          "w_pol": 0.0,
+          "rel_pol": 0.0,
+          "amp": 0.4546140678095158
+        }
+      }
+    },
+    "0.85": {
+      "arm1": {
+        "t0": {
+          "w_tor": 0.0,
+          "rel_tor": 0.0,
+          "w_pol": 0.0,
+          "rel_pol": 0.0,
+          "amp": 1.1333333333333333
+        },
+        "peak": {
+          "w_tor": 2.0,
+          "rel_tor": 0.0,
+          "w_pol": 0.0,
+          "rel_pol": 0.005,
+          "amp": 0.9045685644623583
+        }
+      },
+      "arm2": {
+        "t0": {
+          "w_tor": 0.0,
+          "rel_tor": 0.0,
+          "w_pol": 0.0,
+          "rel_pol": 0.0,
+          "amp": 1.1333333333333333
+        },
+        "peak": {
+          "w_tor": 0.0,
+          "rel_tor": 0.0,
+          "w_pol": 0.0,
+          "rel_pol": 0.0,
+          "amp": 0.5236981608887878
+        }
+      }
+    },
+    "0.95": {
+      "arm1": {
+        "t0": {
+          "w_tor": 0.0,
+          "rel_tor": 0.0,
+          "w_pol": 0.0,
+          "rel_pol": 0.0,
+          "amp": 1.2666666666666666
+        },
+        "peak": {
+          "w_tor": 1.0,
+          "rel_tor": 0.0,
+          "w_pol": -0.0,
+          "rel_pol": 0.005,
+          "amp": 1.0707195037406851
+        }
+      },
+      "arm2": {
+        "t0": {
+          "w_tor": 0.0,
+          "rel_tor": 0.0,
+          "w_pol": 0.0,
+          "rel_pol": 0.0,
+          "amp": 1.2666666666666666
+        },
+        "peak": {
+          "w_tor": 0.0,
+          "rel_tor": 0.0,
+          "w_pol": 0.0,
+          "rel_pol": 0.0,
+          "amp": 0.5372946197119141
+        }
+      }
+    }
+  },
+  "task1_toroidal_resolution": {
+    "rel_gate": 0.1,
+    "arm1_reaches2_reliable": {
+      "0.3": false,
+      "0.6": false,
+      "0.85": false,
+      "0.95": false
+    },
+    "arm2_reaches2_reliable": {
+      "0.3": false,
+      "0.6": false,
+      "0.85": false,
+      "0.95": false
+    },
+    "arm1_rel_tor_max": 0.0,
+    "arm2_rel_tor_max": 0.0,
+    "case": "C_subgate",
+    "msg": "toroidal winding UNVERIFIED \u2014 rel_tor<=0.1 for BOTH arms (sub-gate noise contour); w_tor=2.0 is meaningless noise.",
+    "source_count": "indeterminate (toroidal winding sub-gate)"
   },
   "arm3_null": {
     "E_V": 0.0,
@@ -217,6 +387,10 @@
     "H_span": 0.07362611175430689,
     "v_secular_ratio": 1.2161438511237663,
     "L_bounded": false,
+    "L_first": 2.661893677870396,
+    "L_last": 11.213311494203644,
+    "L_min": 2.286850004535989,
+    "L_max": 43.44406654958464,
     "closes": false
   },
   "emission_reverse": {
