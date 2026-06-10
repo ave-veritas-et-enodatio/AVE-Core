@@ -432,6 +432,112 @@ class UnifiedGenesisEngine(CrystalGraftV4):
     def pocket_frac(self) -> float:
         return self.pocket_cells() / float(np.count_nonzero(self.interior_mask()))
 
+    # ===================================== D3/D4 collimation + twin observers (CP7)
+    def _axial_field(self, axis: int):
+        """The axial vorticity component about `axis` (the trapped-flux proxy the
+        collimation organizes), interior-masked."""
+        if axis == 2:
+            f = self._d(self.u_adv[..., 1], 0, self.dx) - self._d(self.u_adv[..., 0], 1, self.dx)
+        elif axis == 1:
+            f = self._d(self.u_adv[..., 0], 2, self.dx) - self._d(self.u_adv[..., 2], 0, self.dx)
+        else:
+            f = self._d(self.u_adv[..., 2], 1, self.dx) - self._d(self.u_adv[..., 1], 2, self.dx)
+        return f * self.interior_mask()
+
+    def _interior_box(self):
+        """The interior bounding box (PML/sponge excluded) as a 3-tuple of slices —
+        so axial means are taken over the interior extent, NOT diluted by the
+        masked boundary planes (CP7)."""
+        m = self.interior_mask()
+        ii = np.where(m.any(axis=2).any(axis=1))[0]
+        jj = np.where(m.any(axis=2).any(axis=0))[0]
+        kk = np.where(m.any(axis=1).any(axis=0))[0]
+        return (slice(ii[0], ii[-1] + 1), slice(jj[0], jj[-1] + 1), slice(kk[0], kk[-1] + 1))
+
+    def columnarity(self, axis: int | None = None, field: np.ndarray | None = None) -> float:
+        """D3 collimation observable: how COLUMNAR (z-invariant, Taylor-column-like)
+        the trapped flux is along `axis`. = Nax·∫|f̄|² / ∫|f|² over the INTERIOR box,
+        f̄ the axial mean. 1 ⇒ a perfect column (z-invariant); ≈1/Nax ⇒ no axial
+        coherence (the floor). A WATCHED observable with its own floor (not an
+        assumed geometry)."""
+        if axis is None:
+            axis = getattr(self, "foc_axis", 2)
+        f = self._axial_field(axis) if field is None else (field * self.interior_mask())
+        f = f[self._interior_box()]  # interior extent only (no boundary-zero dilution)
+        Nax = f.shape[axis]
+        fbar = f.mean(axis=axis, keepdims=True)
+        num = Nax * float(np.sum(fbar ** 2))
+        den = float(np.sum(f ** 2)) + 1e-30
+        return num / den
+
+    @staticmethod
+    def columnarity_floor(Nax: int) -> float:
+        """The no-axial-coherence floor (a random/isotropic field): ≈1/Nax. A
+        columnarity must CLEAR this to claim collimation (F0a-class gate)."""
+        return 1.0 / float(Nax)
+
+    def core_sense(self, axis: int | None = None, radius_frac: float = 0.25) -> float:
+        """The SENSE of the dominant rotation = circulation over an INNER disk
+        (strictly inside a column, so the boundary shear layer is excluded).
+        positive ⇒ CCW/RH, negative ⇒ CW/LH. The handedness observable that the
+        global ∫ζ (=0 by compact support) cannot give."""
+        if axis is None:
+            axis = getattr(self, "foc_axis", 2)
+        f = self._axial_field(axis)
+        mid = self.N // 2
+        if axis == 2:
+            sl = (slice(None), slice(None), mid); a1, a2 = self._bx[:, :, mid], self._by[:, :, mid]
+        elif axis == 1:
+            sl = (slice(None), mid, slice(None)); a1, a2 = self._bx[:, mid, :], self._bz[:, mid, :]
+        else:
+            sl = (mid, slice(None), slice(None)); a1, a2 = self._by[mid, :, :], self._bz[mid, :, :]
+        rc = np.sqrt(a1 ** 2 + a2 ** 2)
+        disk = rc < (radius_frac * 0.5 * self.N * self.dx)
+        return float(np.sum(f[sl][disk]) * self.dx ** 2)
+
+    def handedness_ledger(self, axis: int | None = None, tol: float = 0.1) -> dict:
+        """D4/T5 twin ledger: split the axial vorticity into BOTH senses (ζ>0 / ζ<0)
+        and report the GLOBAL handedness (their difference). For ANY compactly-
+        supported flow ∫ζ=0 EXACTLY (the boundary shear layer carries the counter-
+        circulation) — so global≈0 is the BORN-IN-PAIRS / Kelvin signature itself
+        (the T5 global-handedness-ledger-zero check), NOT a degeneracy to debug.
+        The dominant rotation SENSE is core_sense() (an inner disk); twin SEPARATION
+        is twin_pocket_ledger()."""
+        if axis is None:
+            axis = getattr(self, "foc_axis", 2)
+        f = self._axial_field(axis)
+        dV = self.dx ** 3
+        rh = float(np.sum(f[f > 0]) * dV)
+        lh = float(-np.sum(f[f < 0]) * dV)
+        net = rh - lh
+        total = rh + lh + 1e-30
+        return {
+            "RH_vorticity": rh,
+            "LH_vorticity": lh,
+            "global_handedness": net,
+            "abs_net_frac": abs(net) / total,
+            "core_sense": self.core_sense(axis),
+            "balanced": bool(abs(net) / total < tol),  # born-in-pairs (compact support)
+        }
+
+    def twin_pocket_ledger(self, axis: int | None = None) -> dict:
+        """Classify the SNAP pockets by the local axial-vorticity sense at each
+        snapped cell → RH-pocket vs LH-pocket cell counts (the dual-handedness
+        pocket ledger; twin-pocket formation is a spec-sheet test, its absence an
+        honest finding NOT a tweak target)."""
+        if axis is None:
+            axis = getattr(self, "foc_axis", 2)
+        f = self._axial_field(axis)
+        cm = self.snap_mask
+        rh_cells = int(np.count_nonzero(cm & (f > 0)))
+        lh_cells = int(np.count_nonzero(cm & (f < 0)))
+        return {
+            "RH_pocket_cells": rh_cells,
+            "LH_pocket_cells": lh_cells,
+            "twin_present": bool(rh_cells > 0 and lh_cells > 0),
+            "total_pocket_cells": self.pocket_cells(),
+        }
+
     def snap_ledger(self) -> dict:
         return {
             "pocket_cells": self.pocket_cells(),
