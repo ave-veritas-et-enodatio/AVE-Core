@@ -7,6 +7,84 @@
 **CI gate (hardened):** [`src/tests/test_graft_v4_alpha_free.py`](../src/tests/test_graft_v4_alpha_free.py) ·
 **Results:** `crystal_graft_v4_results.json` · N held FIXED at **72**; lock_eta **0.05**; n_steps **1200**.
 
+## 🔴 PANEL VERDICT ADDENDUM — 2026-06-10 4-lens adversarial panel: **C → LOCK-FAIL** (`survives_adversarial = FALSE`)
+
+> **Rule 12 walk-back (substitution-not-retraction): the doc body below (from `## VERDICT — C` onward) is
+> PRESERVED UNCHANGED; this dated header SUPERSEDES it.** A 4-lens adversarial panel demoted the run
+> **C → LOCK-FAIL** (**3/4 lenses refuted; the lock-saturation lens FATAL**; the one surviving lens is the
+> CHANGE-1 provenance repairs — "the surviving greens" below). The doc is **not citable** for any "the lock
+> is built / saturates / bounds |L_ω| / fixes the v3-killer" claim. The slot is NOT refilled with a new
+> hypothesis (Rule 12 / A47 v11b); the demoted verdict + the six corrections + the named gap are the boundary.
+
+**(1) Final adjudicated verdict: LOCK-FAIL.** The header line below ("…the lock saturates magnitude but a
+STOP gate fires") is REFUTED — the lock does not earn the word "saturates". The saturation STOP gate FAILS
+on **every active lock-ON arm**: doubling ratios `RH 5.03 / χ-null 3.97 / live-wall 5.19` vs frozen tol
+**1.3** (`smoke_saturation`), with lock-OFF `3.69`. The ratio is **η-invariant** (§4 records the η 0.1→0.5
+sweep `5.27→5.48→5.60→5.65`) — rescaling the lock rescales |L_ω| magnitude but NOT the ratio: the
+**linear-damper-against-a-growing-source** signature (a stronger damper, same ratio, because the source
+keeps feeding). `|L_ω|(t)` climbs as ≈ **t^2.2** over the late-time excursion (the rise from the t≈3
+minimum) and is **still rising at the last recorded sample** (`rh_ledger_series.L_t`: max `2.17` IS the
+final point — the run ended **mid-excursion**). And `Hbel_t` swings to **−153.2 = 53 %** of the −291.4
+input before relaxing (min −153.2, end −7.8; headline "trapped −6.0") — so the headline trapped value is
+**stop-time-dependent**, not a converged invariant.
+
+**(2) Strike "the TOTAL helicity ledger BALANCES" / any "conserved" reading — relabel the radiated bin.**
+§2 is **tautological, not evidence**: the radiated bin is the **closure identity**
+`radiated := H_photon_0 − trapped − residual` ([`crystal_graft_v4.py:366`](../src/ave/core/crystal_graft_v4.py)),
+**NOT a measured PML boundary flux**. `input ≡ trapped + residual + radiated` holds by construction for ANY
+numbers; the "+2 % radiated" is the residual of an algebraic identity, not a conservation measurement. No
+conservation is demonstrated by the ledger "closing".
+
+**(3) Strike "alias-clean" for the de-novo RH / LH / lockOFF contours.** All three recorded
+**`alias_clean=False`** (`matrix.{RH,LH,lockOFF_RH}.alias_clean`) — the `w_tor=4` read on those contours is
+NOT internally validated. The ONLY internally-clean sub-read is the **poloidal** one (`RH.w_pol_raw_list` =
+**12/12 zeros**): `w_pol=0` is clean, but the toroidal/aspect read on the active arms is alias-dirty and
+must not be cited as clean.
+
+**(4) Two winding reads are VOID / hardcoded-fallback, not measured.** The `deplete_RH` winding `(4,0)` is
+**VOID** — its `r_meas = 2.27 < 3 cells` (`matrix.deplete_RH.r_meas`), below the resolution floor the prereg
+applies to every de-novo read (`prereg:92`). The `no_photon` `r_meas = 3.0`, `R = 15.84` are the
+**hardcoded fallback** of `find_denovo_shell`
+([`crystal_graft_v4_run.py:88-89`](../src/scripts/vol_1_foundations/crystal_graft_v4_run.py):
+`return 0.22*N, 3.0` when the |ω|² band is empty), NOT a measured torus — for no_photon ω≡0, nothing to
+measure.
+
+**(5) Planted-knot survival is NOT attributable to the lock.** SMOKE-1 records `read_tN_lockOFF = (2,3)` —
+**lock-OFF preserves the planted knot too** (`smoke_lock`). The v3-strength isolation smoke (the controlled
+lock-ON-vs-OFF-under-a-destructive-source test) was **never run** in this result. It has now been run — see
+[`2026-06-10_lock-isolation-smoke_note.md`](2026-06-10_lock-isolation-smoke_note.md): verdict
+**NOT-DEMONSTRATED** (both arms survive identically under the well-scaled seed) and **INERT** (both arms
+destroy the knot identically under the faithful v3-strength config; lock-ON ≡ lock-OFF to ~6 ppb). The lock
+removes the net rigid rotation L_ω — orthogonal to the poloidal winding and to H_bel — so SMOKE-1's survival
+is the source's doing, not the lock's.
+
+**(6) §9 corpus-state queue correction (A47 v11b substitution-not-retraction).** §9's first bullet ("the lock
+is built — knot survives, |L_ω| bounded; the v3-killer fixed") must **NOT** land. Replace with: **the
+saturation STOP gate FAILED (ratio 5.03/3.97/5.19 ≫ 1.3, η-invariant); |L_ω| is small but UNSATURATED and
+still rising at run-end; planted-knot survival is NOT isolated from source-gentling (the lock is
+NOT-DEMONSTRATED / INERT — lock-isolation note).** The v3 "lock unbuilt" lens is NOT repaired — it is
+reproduced one level down: a *built* lock that is *inert*.
+
+**The SURVIVING greens (real, precisely scoped — these stand):**
+- **Charge sign-provenance is REAL.** Trapped H_bel flips `RH −5.977 / LH +5.977` at **identical** input
+  energy `E_w0 = 56.273` (`matrix.{RH,LH}.{H_bel_trapped,Ew0}`); sign traces the photon helicity, no dialed χ.
+- **α-freedom CI: 7 passed** (panel re-executed live; adversarial-AST detector-reachability — `ast.Import` +
+  attribute + bare-CODATA scan over the engine chain AND the driver, plus a runtime engine-state assertion).
+- **Independence positive-control reachable-False (the v3 unfalsifiability repaired).** The slaved arm
+  `ω:=F(V)` is flagged `winding_robust=False`, `slaved_flagged_False=True` (`smoke_independence`) — the gate
+  can fail.
+- **no-photon null BY PHYSICS (the v3 byte-identical failure repaired).** `no_photon`: `H_bel +0.0`,
+  `E_ω 0`, winding `(0,0)` — differs from signal by construction (the source literally contains `w`).
+
+**The named gap (verbatim-class — surfaced for Grant; conservation-genesis is UNTESTED):**
+conserve-and-transfer detonates (trilinear `H_bel −4107`); stable transfers ~2 % = a **non-depleting chiral
+director that never pays for its torque** — the missing primitive is a **BOUNDED, helicity-TRANSFERRING
+coupling** (norm-preserving `H_photon↔H_bel` exchange); **conservation-genesis is UNTESTED — not refuted, not
+confirmed.** (A44 / Rule 16: an engine coupling-family gap, not a missing axiom; not auto-pivoted.)
+
+*Attribution: graft-v4 adversarial panel, 2026-06-10. The body below (`## VERDICT — C` onward) is the
+pre-panel record, retained intact per Rule 12.*
+
 ## VERDICT — C (the conservation hypothesis is FALSIFIED; CHANGE 1's provenance LANDS; the lock saturates magnitude but a STOP gate fires)
 
 > **Grant's twist question (recorded verbatim in the prereg §0): "is the poloidal '3' the photon's own
