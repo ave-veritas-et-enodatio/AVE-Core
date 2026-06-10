@@ -29,7 +29,25 @@ The four threads below develop the two sides (A, B), the epistemology of the res
 
 ## Thread A — Kelvin resumed
 
-<!-- stub: filled in commit 2 -->
+**The steelman first.** Kelvin's vortex-atom program was not a crank idea that was laughed out of physics. It was a serious research program by the leading physicist of his era, and it spawned a permanent branch of mathematics: Tait began tabulating knots (1877–1885) **in order to tabulate the chemical elements**, and that tabulation *is* the origin of knot theory (→ [`historical-precedents.md`](historical-precedents.md) Root 2). The program died for two specific, honest reasons, both empirical rather than logical:
+
+1. **The medium it required was removed.** Michelson–Morley (1887) and special relativity (1905) took away the aether. A vortex-atom is a vortex *in something*; with the medium gone, there was nothing for the knot to be a knot *in*.
+2. **The ideal fluid could not quantize.** Even granting the medium, an ideal-fluid vortex has **no confinement and no intrinsic length scale**, so it has no discrete spectrum and no fixed mass. Helmholtz's theorems (1858) guarantee a knot *cannot untie* — but topological permanence is not the same as a quantized particle. The program could classify knots; it could not make one *be* an electron with a definite mass.
+
+**So the program died with the ether, not by refutation.** No experiment showed atoms are *not* knotted excitations of a medium; the medium was simply removed, and the question went with it. That is the precise sense in which the interior was *abandoned* rather than *answered*.
+
+**The resumption (AVE candidate — CONSISTENCY-CLASS for the framing; the realized object HYPOTHESIS-CLASS).** The AVE lattice supplies exactly the two ingredients Kelvin's ideal fluid lacked, and both are canonical: a **confining length scale** `ℓ_node`, and a **saturable** medium (K4–Cosserat) whose `Γ=−1` wall can dynamically confine, where an ideal fluid cannot. On that medium the electron is identified as a **`(2,q)` torus configuration** — the program resumed with the tools Kelvin never had. → Primary: [`torus-knot-ladder.md`](../vol2/particle-physics/ch01-topological-matter/torus-knot-ladder.md), [`electron-identification.md`](../vol2/particle-physics/ch01-topological-matter/electron-identification.md), [`ch8-alpha-golden-torus.md`](../vol1/ch8-alpha-golden-torus.md).
+
+**The crucial correction Kelvin lacked — two spaces, not one.** Kelvin's knots lived in **real space**: he imagined a literal knotted tube of fluid. AVE's canonical identification splits that single picture into **two distinct spaces**, and this is the load-bearing modern fix:
+
+- **Real space:** the electron is the simplest possible loop — the **`0₁` unknot** (a single closed flux-tube at minimum ropelength `2π`), *not* a real-space knot. → Primary: [`electron-unknot.md`](../vol2/particle-physics/ch01-topological-matter/electron-unknot.md); [`electron-identification.md`](../vol2/particle-physics/ch01-topological-matter/electron-identification.md) §1 property 1.
+- **Phase space:** the **`(2,3)` winding** lives in the bond-pair LC tank's `(V_inc, V_ref)` Clifford-torus *phase* space — verbatim, [`electron-identification.md`](../vol2/particle-physics/ch01-topological-matter/electron-identification.md) §1 property 2: *"The `(2,3)` 'trefoil' is the phase-space winding pattern, **NOT a real-space trefoil knot**."*
+
+This two-spaces split is why AVE can claim Kelvin's *topology* without inheriting his *error*: the knottedness Kelvin sought is real, but it is a winding of the order-parameter phase, carried by a real-space object that is itself an unknot. (This is the same A1-dilatation-mass ⊥ Cosserat-`(2,3)`-winding orthogonality the corpus enforces at [`master-equation.md`](../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md) `:18` — the two-"3"s disambiguation.)
+
+> **`flag-don't-fix` (citation-label, surfaced not resolved).** The 2026-06-10 adjudication named the phase-winding anchor as "the registry §3.6 row." Per `verify-before-cite`, **no leaf carrying a "registry §3.6" section exists under that exact name** in the tracked corpus (grep of `manuscript/ave-kb/` 2026-06-10). The canonical home of the real-space-`0₁` / phase-space-`(2,3)` two-spaces statement is `electron-identification.md` §1 (properties 1 + 2), cited above, plus `ch8` §1–§3. The "registry §3.6" label is carried **descriptively**; the auditor lane resolves it to its landed name (or creates the registry row) on return.
+
+**The named hole (no triumphalism).** Resuming the program is not the same as completing it. The **full `(2,3)` has never self-assembled** in a driver: the confinement *mechanism* is partly validated (the moving-`Γ=−1`-boundary converts collapse→confinement, → [`historical-precedents.md`](historical-precedents.md) §"Root 2", verdict II), but the `(2,3)` winding closing *on its own* needs the coupled K4+Cosserat engine and has not been demonstrated. Kelvin resumed is a **hypothesis with a working confinement step and an open self-assembly step**, not a finished particle. **Class: CONSISTENCY-CLASS (the historical bridge) over a HYPOTHESIS-CLASS realized object (the un-self-assembled `(2,3)`).**
 
 ## Thread B — Poincaré's stress = the lock problem
 
