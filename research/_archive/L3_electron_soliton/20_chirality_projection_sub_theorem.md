@@ -1,6 +1,8 @@
 # Sub-Theorem 3.1.1 — Chirality Projection from K4 to (p,q) Torus Knot
 
-**Status:** DRAFT, numerically verified. Closes Item 3 of
+**Status:** DRAFT, numerically verified (Path A algebraic identity — see
+§4 scope note; the numerical check is an algebraic identity, not independent
+verification: Path B / antenna measurement pending). Closes Item 3 of
 [`L3_PHASE3_NEXT_STEPS_PLAN_20260421.md`](../../.agents/handoffs/L3_PHASE3_NEXT_STEPS_PLAN_20260421.md).
 
 **Companion script:** [`src/scripts/vol_1_foundations/chirality_projection.py`](../../src/scripts/vol_1_foundations/chirality_projection.py)
@@ -24,6 +26,19 @@ the AVE-HOPF table 1 to 10⁻¹².
 > is the harmonic mean of the toroidal and poloidal winding numbers,
 > derived as the parallel-impedance combination of two independent
 > chirality channels.
+
+> 🔴 **Correction (2026-06-09 — A43 stale-belief mirror).** The blockquote
+> above is preserved verbatim per Rule 12 but its framing is **superseded**.
+> Per AVE-Core doc 108 / AVE-HOPF ch01 (`01_chiral_coupling_prediction.tex`,
+> adjudicated 2026-05-02):
+> - This is **one-parameter (α), not zero-parameter**. `α` is a
+>   **calibration input**, not a value "derived/fixed by Axiom 2." The
+>   parameter-free, exactly-derived piece is the topological factor
+>   `pq/(p+q)` alone.
+> - `pq/(p+q)` is the **parallel-channel combination** of the two winding
+>   impedances. It equals **half** the harmonic mean `2pq/(p+q)` of `p,q` —
+>   it is *not* the harmonic mean itself (the "harmonic mean" label
+>   throughout this doc is a mislabel; the math/value pq/(p+q) is unchanged).
 
 For the electron `(p,q) = (2,3)`:
 ```
@@ -137,9 +152,10 @@ Therefore:
 χ_(p,q) = Z_total = α · pq/(p+q)
 ```
 
-The harmonic-mean factor `pq/(p+q)` emerges as the standard parallel-
-combination formula. This is the same physics as parallel resistors,
-parallel inductors, parallel-Q tank combinations.
+The parallel-channel-combination factor `pq/(p+q)` (= half the harmonic
+mean `2pq/(p+q)` of `p,q`, not the harmonic mean itself) emerges as the
+standard parallel-combination formula. This is the same physics as parallel
+resistors, parallel inductors, parallel-Q tank combinations.
 
 ### §3.4 Why parallel (not series)
 
@@ -158,6 +174,16 @@ channel.
 ---
 
 ## §4 Numerical verification
+
+> ⚠️ **Scope note (2026-06-09).** Item 1 below — direct formula vs
+> parallel-impedance combination agreeing to 10⁻¹² — is an **algebraic
+> identity**: `α·pq/(p+q)` and `(α p · α q)/(α p + α q)` are the *same
+> expression* rearranged, so the agreement is exact by construction. It is
+> **NOT an empirical or independent verification** of the physics. The
+> substrate derivation is Path A (§3); **Path B (§7 item 1) — explicit
+> per-bond chirality accumulation — remains the open rigor item.** The
+> AVE-HOPF table rows are *predicted* shifts computed with the same formula
+> (§2.5), not measurements; the antenna measurement is pending per §7 item 5.
 
 [`src/scripts/vol_1_foundations/chirality_projection.py`](../../src/scripts/vol_1_foundations/chirality_projection.py)
 verifies:
@@ -184,8 +210,9 @@ verifies:
 | (3,11) | 33 | 19 | 22 | 2.357 |
 
 `pq/(p+q)` differs from each of `Q_H`, `SL`, and `c` — it's a
-distinct topological invariant (the harmonic mean) representing
-the parallel-channel chiral coupling.
+distinct topological invariant (the parallel-channel combination,
+= half the harmonic mean of `p,q`) representing the parallel-channel
+chiral coupling.
 
 4. **Electron prediction:** `χ_electron = α · 6/5 ≈ 8.757 × 10⁻³`,
    giving `Δf/f = 0.876%` at any frequency. At X-band (8 GHz):
@@ -247,13 +274,13 @@ Item 2 validates both Theorem 3.1 and this sub-theorem end-to-end.
    integral over K4 (using `_hopf_density` from
    [`cosserat_field_3d.py:202`](../../src/ave/topological/cosserat_field_3d.py#L202)
    along the (p,q) parametrization) and show it equals
-   `α·pq/(p+q)` directly. Path A's algebra reproduces all empirical
-   AVE-HOPF rows; Path B is desirable for axiomatic rigor but not
-   load-bearing for Item 2.
+   `α·pq/(p+q)` directly. Path A's algebra reproduces all predicted
+   AVE-HOPF rows (same formula — see §4 scope note); Path B is desirable
+   for axiomatic rigor but not load-bearing for Item 2.
 
 2. **Composite knots `gcd(p,q) ≠ 1`.** Non-coprime windings produce
-   composite (cable) knots, not simple torus knots. The harmonic
-   mean formula may need adjustment. Not relevant for the electron
+   composite (cable) knots, not simple torus knots. The
+   `pq/(p+q)` parallel-channel formula may need adjustment. Not relevant for the electron
    ((2,3) is coprime) but flagged for muon/tau if their windings
    are non-coprime.
 
@@ -265,14 +292,15 @@ Item 2 validates both Theorem 3.1 and this sub-theorem end-to-end.
    formalism that reduces to both as special cases would be
    valuable but is deferred.
 
-4. **Higher Vassiliev invariants.** The harmonic mean `pq/(p+q)`
+4. **Higher Vassiliev invariants.** The parallel-channel factor `pq/(p+q)`
+   (= half the harmonic mean of `p,q`)
    is the simplest knot invariant of `(p,q)` distinct from `pq`,
    `pq−p−q`, etc. Higher-order corrections (Vassiliev / Kontsevich
    invariants) may add subleading terms. Deferred unless data
    demands it.
 
-5. **Verification at scale.** Path A reproduces empirical AVE-HOPF
-   table; the sub-theorem will be definitively validated when the
+5. **Verification at scale.** Path A reproduces the predicted AVE-HOPF
+   table (same formula); the sub-theorem will be definitively validated when the
    AVE-HOPF antenna experiment measures `Δf/f` for a (2,3) torus
    knot in an X-band cavity.
 
@@ -280,7 +308,8 @@ Item 2 validates both Theorem 3.1 and this sub-theorem end-to-end.
 
 ## §8 Takeaways
 
-- The harmonic mean `pq/(p+q)` is **not phenomenology** — it
+- The parallel-channel factor `pq/(p+q)` (= half the harmonic mean of
+  `p,q`) is **not phenomenology** — it
   emerges from the standard parallel-impedance combination of two
   independent chirality channels (toroidal `p`, poloidal `q`),
   each with impedance linear in winding count, both coupling to

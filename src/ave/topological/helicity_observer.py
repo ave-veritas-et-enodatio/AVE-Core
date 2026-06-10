@@ -16,7 +16,9 @@ Output history per record_cadence step:
 References:
   - cosserat_field_3d.py:358-376 — _beltrami_helicity definition
   - vacuum_engine.py:791-972 — CosseratBeltramiSource (handedness="RH"/"LH")
-  - doc 20 chirality projection sub-theorem (κ_chiral = 1.2·α)
+  - doc 20 chirality projection sub-theorem (κ_chiral = 1.2·α;
+    Path-A heuristic, Path-B per-bond derivation open per doc 20 §7 item 1;
+    one-parameter framing per doc 108)
   - doc 54 §6 (asymmetric μ/ε saturation, h_local role)
 """
 
