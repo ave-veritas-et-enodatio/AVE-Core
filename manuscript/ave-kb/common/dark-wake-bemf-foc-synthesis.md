@@ -124,6 +124,8 @@ This is the **load-bearing analytical work** that would close the dark-wake deri
 
 The dark wake $\tau_{zx}$ is **plausibly the substrate-scale manifestation of the same Lenz back-EMF mechanism** that Op14 derives at the bond-pair scale:
 
+> **Field/port retag note (2026-06-10, Grant rename-queue adjudication R2, classical lexicon — sentence above preserved unedited):** keep the **field** and the **port** distinct (Rule 2). The dark wake $\tau_{zx}$ is the **WAKE FIELD** (shear channel); its **port signature** is the **radiation resistance** $R_{rad,L}$ — its drag is the **wave-making resistance** (the hydrodynamics term). The **back-EMF** is the *separate* **Faraday–Lenz port reaction**, induced only **against changes** (zero at steady circulation). They are **distinct objects, NOT interchangeable** — the $\mathrm{corr}(\mathrm{bemf\_emf},\tau_{zx}) = +0.117$ receipt (`2026-06-10_bemf-feedback-smoke_result.md:79`) is a near-zero, coincidence-magnet correlation, not an identity. The "same mechanism" reading above is the *plausible-manifestation* hypothesis, not a field=port identity. Registry §3.8 BEMF/$Z_L$ rows + §5 R2.
+
 - **Op14 trading** (bond-pair scale): Cosserat $\omega$ ↔ K4-inductive $\Phi_{\text{link}}$ trades energy via $L_{\text{eff}}$ modulation at $\sim 0.020$ rad/unit trading frequency.
 - **Dark wake** (soliton scale): an accelerating soliton transfers momentum to a backward-propagating substrate shear via the SAME mutual-inductance mechanism.
 
