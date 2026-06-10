@@ -2,43 +2,55 @@
 # Hook: PreToolUse trigger-detect for AVE-discipline skills.
 #
 # Runs on Write|Edit|Bash tool calls; greps the proposed content/command for
-# trigger keywords that match skill descriptions in ~/.claude/skills/.
-# If matches found, outputs reminders to stderr (visible to agent) about
-# which skills may apply. Does NOT block (always exits 0).
+# trigger keywords and lights an indicator lamp (stderr reminder) naming which
+# skills may apply. Does NOT block (always exits 0).
 #
-# Plumber-physical: this is a passive sensor (current transformer) that
-# reads what's flowing through the tool-call wire and lights an indicator
-# lamp if it detects current matching specific signatures. The agent sees
-# the indicator and chooses whether to invoke the skill via Skill tool.
+# SELF-MAINTAINING (2026-06-09 rewrite): the keyword table is NO LONGER
+# hardcoded here. Each skill declares its own detection regex in its frontmatter
+# via a single-line `trigger_patterns:` field (a case-insensitive ERE, pipe-
+# delimited). This hook DYNAMICALLY scans ~/.claude/skills/*/SKILL.md, unions
+# every skill's declared patterns, and tests them against the tool-call content.
+# Adding/removing/renaming a skill needs NO edit here — the skill carries its own
+# trigger, co-located with its description. Skills without a `trigger_patterns:`
+# field simply get no mechanical nudge (graceful — they still fire on
+# agent-discipline via their description surfaced in the system reminder).
 #
-# Closes the gap surfaced in 2026-05-18 session post-mortem: 11 skills
-# should have fired but didn't because there's no automatic mechanism;
-# all firing is currently agent-discipline-driven without any nudge.
+# To opt a skill into mechanical nudging, add to its frontmatter, e.g.:
+#   trigger_patterns: 'phase.space|Lissajous|V_inc|V_ref|Clifford.torus'
+# Keep the value a single-quoted single-line ERE with no ": " (colon-space).
 #
-# Design note: this is the Phase 2 work flagged in
-# ~/.claude/skills/README.md §6 ("auto-detection hook for skill firings —
-# Phase 2 work"). Prototype implementation; iterate as triggers prove
-# under-/over-sensitive.
+# Plumber-physical: a passive sensor (current transformer) that reads what's
+# flowing through the tool-call wire and lights a lamp if it detects current
+# matching any skill's declared signature. The agent sees the lamp and chooses
+# whether to invoke the skill via the Skill tool.
+#
+# Closes the 2026-05-18 gap (skills that should fire but don't, no auto nudge)
+# AND the 2026-06-09 gap (the hardcoded table covered only ~13/39 skills and
+# silently rotted every time a skill was added — none of the ion-compression-arc
+# skills were in it). Companion doc: SKILL_TRIGGER_DETECT.md.
 
 set -uo pipefail
 
+SKILLS_DIR="${HOME}/.claude/skills"
+
 # Read JSON payload Claude Code pipes to stdin
 PAYLOAD=$(cat)
-TOOL_NAME=$(printf '%s' "$PAYLOAD" | jq -r '.tool_name // empty')
+TOOL_NAME=$(printf '%s' "$PAYLOAD" | jq -r '.tool_name // empty' 2>/dev/null)
 
 # Extract content based on tool type
 CONTENT=""
+FILE_PATH=""
 case "$TOOL_NAME" in
     "Write")
-        CONTENT=$(printf '%s' "$PAYLOAD" | jq -r '.tool_input.content // empty')
-        FILE_PATH=$(printf '%s' "$PAYLOAD" | jq -r '.tool_input.file_path // empty')
+        CONTENT=$(printf '%s' "$PAYLOAD" | jq -r '.tool_input.content // empty' 2>/dev/null)
+        FILE_PATH=$(printf '%s' "$PAYLOAD" | jq -r '.tool_input.file_path // empty' 2>/dev/null)
         ;;
     "Edit")
-        CONTENT=$(printf '%s' "$PAYLOAD" | jq -r '.tool_input.new_string // empty')
-        FILE_PATH=$(printf '%s' "$PAYLOAD" | jq -r '.tool_input.file_path // empty')
+        CONTENT=$(printf '%s' "$PAYLOAD" | jq -r '.tool_input.new_string // empty' 2>/dev/null)
+        FILE_PATH=$(printf '%s' "$PAYLOAD" | jq -r '.tool_input.file_path // empty' 2>/dev/null)
         ;;
     "Bash")
-        CONTENT=$(printf '%s' "$PAYLOAD" | jq -r '.tool_input.command // empty')
+        CONTENT=$(printf '%s' "$PAYLOAD" | jq -r '.tool_input.command // empty' 2>/dev/null)
         FILE_PATH=""
         ;;
     *)
@@ -46,8 +58,9 @@ case "$TOOL_NAME" in
         ;;
 esac
 
-# Skip if AVE-Core path not detected (other repos use different disciplines)
-if [[ -n "$FILE_PATH" ]] && [[ "$FILE_PATH" != *"AVE-Core"* ]] && [[ "$FILE_PATH" != *"AVE-staging"* ]]; then
+# Skip if a FILE_PATH is set but is outside the AVE workspace (other repos use
+# different disciplines). Bash calls have empty FILE_PATH and are always scanned.
+if [[ -n "$FILE_PATH" ]] && [[ "$FILE_PATH" != *"AVE-Core"* ]] && [[ "$FILE_PATH" != *"AVE-staging"* ]] && [[ "$FILE_PATH" != *".claude/skills"* ]]; then
     exit 0
 fi
 
@@ -57,7 +70,6 @@ HAYSTACK="$FILE_PATH"$'\n'"$CONTENT"
 # Accumulator for triggered-skill list
 TRIGGERED=""
 
-# Helper: append skill + reason
 trigger() {
     local skill="$1"
     local reason="$2"
@@ -65,92 +77,43 @@ trigger() {
 }
 
 # ============================================================
-# Trigger rules (skill → keyword/pattern → reason)
+# Dynamic scan: union every skill's declared trigger_patterns
 # ============================================================
-
-# consistency-vs-emergence: comparing computed value to CODATA/canonical target
-if echo "$HAYSTACK" | grep -qE "ave\.core\.constants|CODATA|alpha.{0,5}=.{0,5}1/137|137\.036|6\.674e-11|8.{0,3}pi.{0,3}alpha|8πα|fine.{0,5}structure|predictions\.yaml"; then
-    trigger "consistency-vs-emergence" "constants.py or CODATA-target compare detected"
-fi
-
-# ave-canonical-source: new Python script with hardcoded constants
-if [[ "$FILE_PATH" == *.py ]] && echo "$HAYSTACK" | grep -qE "1\s*\.\s*0?\s*/\s*137\.|137\.03[0-9]+|6\.674[eE]-?11|9\.10[0-9]+[eE]-?31|1\.602[0-9]+[eE]-?19|6\.626[0-9]+[eE]-?34|1\.054[0-9]+[eE]-?34|ALPHA\s*=|^G_NEWTON|^M_E_KG|^HBAR"; then
-    trigger "ave-canonical-source" "hardcoded numerical constant in Python script (should import from ave.core.constants)"
-fi
-
-# substrate-native-check: new solver/operator code
-if [[ "$FILE_PATH" == *"src/ave/solvers/"* ]] || [[ "$FILE_PATH" == *"src/ave/topological/"* ]] || [[ "$FILE_PATH" == *"src/ave/core/"* ]]; then
-    trigger "substrate-native-check" "writing to src/ave/{solvers,topological,core}/ — substrate-physics walk required"
-fi
-if echo "$HAYSTACK" | grep -qE "eigenvalue|eigsolve|Hessian|gradient.descent|Lagrangian.minimization|basin.of.attraction|energy.landscape"; then
-    trigger "substrate-native-check" "SM/QM-default keyword (eigenvalue/Hessian/gradient descent) detected — verify substrate-native framing"
-fi
-
-# pre-test-physics-check: new test or prereg
-if [[ "$FILE_PATH" == *"src/tests/"* ]] || [[ "$FILE_PATH" == *"prereg"*".md" ]] || [[ "$FILE_PATH" == *"_test_"* ]]; then
-    trigger "pre-test-physics-check" "new test/prereg file — physical-picture check required before locking design"
-fi
-
-# phase-space-coordinate-check: phase-space / topology keywords
-if echo "$HAYSTACK" | grep -qE "phase.space|Lissajous|phasor|V_inc|V_ref|Clifford.torus|\(2,3\).{0,5}torus|\(p,q\).{0,5}knot|impedance.plane"; then
-    trigger "phase-space-coordinate-check" "phase-space coordinate keywords detected — verify coordinate-system match before test"
-fi
-
-# ave-discrimination-check: load-bearing/strong-positive claims
-if echo "$HAYSTACK" | grep -qE "load-bearing|AVE-distinct|STRONG POSITIVE|foreword promotion|canonical anchor|empirical confirmation"; then
-    trigger "ave-discrimination-check" "strength-claim keyword detected — SM-counterfactual + interpretive-alternatives check required"
-fi
-
-# ave-evidence-framing-discipline: precision/strength language
-if echo "$HAYSTACK" | grep -qE "approximately matches|within [0-9]+%|rigorous|exact match|survives|confirms|validates|demonstrates|essentially exact|to within rounding"; then
-    trigger "ave-evidence-framing-discipline" "strength language detected — precision check required (verify the quantitative claim)"
-fi
-
-# ave-infinity-discipline: continuum-limit / divergence claims
-if echo "$HAYSTACK" | grep -qE "continuum limit|ℓ_node.{0,3}→.{0,3}0|UV divergence|UV cutoff|renormalization|RG flow|continuum approximation|Clay.class"; then
-    trigger "ave-infinity-discipline" "continuum/infinity keyword detected — lattice+saturation discipline applies"
-fi
-
-# ave-independence-check: N-instance claims
-if echo "$HAYSTACK" | grep -qE "[0-9]+ independent|[0-9]+ instances|[0-9]+ pillars|[0-9]+ anchors|[0-9]+ confirmations|multi-confirmation"; then
-    trigger "ave-independence-check" "N-instance enumeration detected — pairwise algebraic check required"
-fi
-
-# verify-before-cite: file:line citation claims
-if echo "$HAYSTACK" | grep -qE "per \`[^\`]+:[0-9]+\`|at \[[^]]+:[0-9]+\]|file:line|the corpus says|according to the canonical"; then
-    trigger "verify-before-cite" "file:line citation detected — verify content before asserting"
-fi
-
-# ave-prereg: new research/*.md or new derivation script
-if [[ "$FILE_PATH" == *"research/"* ]] && [[ "$FILE_PATH" == *.md ]] && [[ "$FILE_PATH" != *"_archive"* ]]; then
-    trigger "ave-prereg" "new research doc — corpus-grep for prior work + pre-registration discipline"
-fi
-if [[ "$FILE_PATH" == *"src/scripts/verify/"* ]] && [[ "$FILE_PATH" == *.py ]]; then
-    trigger "ave-prereg" "new verify script — corpus-grep prior work + pre-registration before derivation"
-fi
-
-# ave-walk-back: editing matrix or KB anchor or chapter
-if [[ "$FILE_PATH" == *"divergence-test-substrate-map.md"* ]] || [[ "$FILE_PATH" == *"closure-roadmap.md"* ]]; then
-    trigger "ave-walk-back" "editing matrix/closure-roadmap — walk-back propagation graph applies (matrix + KB + chapter + foreword + changelog)"
-fi
-
-# ave-audit: about to spawn ave-auditor or ave-corpus-grep
-if echo "$HAYSTACK" | grep -qE "ave-auditor|ave-corpus-grep|Agent.{0,30}subagent_type"; then
-    trigger "ave-audit" "audit-agent spawn detected — pre-audit grep verification required"
+# One pass over all SKILL.md files; grep -H yields "path:trigger_patterns: '...'"
+# only for skills that declare the field. Skill dir names contain no ':' so the
+# split on ':trigger_patterns:' is unambiguous.
+if [[ -d "$SKILLS_DIR" ]]; then
+    while IFS= read -r line; do
+        [[ -z "$line" ]] && continue
+        file="${line%%:trigger_patterns:*}"
+        raw="${line#*:trigger_patterns:}"
+        # strip leading whitespace
+        raw="${raw#"${raw%%[![:space:]]*}"}"
+        # strip one layer of surrounding single quotes (the YAML scalar quoting)
+        raw="${raw#\'}"; raw="${raw%\'}"
+        [[ -z "$raw" ]] && continue
+        # test the skill's ERE against the haystack (case-insensitive).
+        # a malformed ERE makes grep exit 2 -> treated as no-match -> never breaks the hook.
+        if printf '%s' "$HAYSTACK" | grep -qiE -- "$raw" 2>/dev/null; then
+            sname="$(basename "$(dirname "$file")")"
+            desc="$(grep -m1 '^description:' "$file" 2>/dev/null | sed 's/^description:[[:space:]]*//' | cut -c1-100)"
+            [[ -z "$desc" ]] && desc="(see skill description)"
+            trigger "$sname" "${desc}…"
+        fi
+    done < <(grep -H '^trigger_patterns:' "$SKILLS_DIR"/*/SKILL.md 2>/dev/null)
 fi
 
 # ============================================================
 # Output reminder if any skills triggered
 # ============================================================
-
 if [[ -n "$TRIGGERED" ]]; then
-    # Output to stderr so it appears in Claude's tool feedback
     cat >&2 <<EOF
 [skill-trigger-detect] potential skill matches for this tool call:
 ${TRIGGERED}
-Per ~/.claude/skills/SKILL.md descriptions, consider invoking via:
+Per each skill's frontmatter description, consider invoking via:
   Skill(skill: "<skill-name>")
-This is a non-blocking nudge. If skill doesn't apply, proceed.
+This is a non-blocking nudge (matched on each skill's declared trigger_patterns).
+If a skill doesn't apply, proceed.
 EOF
 fi
 
