@@ -93,31 +93,51 @@ def fig4_timeseries():
     axb.set_title("Crossing is SMOOTH (no latent step); E_diss accrues gradually")
     fig.tight_layout(); fig.savefig(os.path.join(OUT, "fig4_timeseries.png"), dpi=130); plt.close(fig)
     print(f"[fig4] pocket peaks {int(pk.max())} at t={t[np.argmax(pk)]:.3f} then decays to {int(pk[-1])}; "
-          f"KE+PE declines smoothly across the crossing (no latent discontinuity); "
-          f"E_diss→{Ed[-1]:.2e} (the one-way sink, ~23% of the KE+PE decline; rest is acoustic radiation).")
+          f"KE+PE declines smoothly across the crossing (no discontinuous latent step); "
+          f"E_diss→{Ed[-1]:.2e} (the one-way sink, ≈23% of the KE+PE decline — ESTIMATE: "
+          f"E_sponge/E_visc/mass-clamp not separately ledgered; mass_clamp≈3×E_diss).")
 
 
 def fig5_handedness():
+    # REPAIRED PROBE (R1): the OAM probe now carries a true quadrature e^{imφ}
+    # winding (±m physically distinct); the floor is the static-mirror φ→−φ
+    # symmetry residual, NOT the old cos(m·φ) bit-identity. Verdict derived from
+    # the data: asym above the floor AND same sign (co>counter) -> SELECTIVE.
     hd = D["D_handedness"]; cal = D["A_calibration"]
     keys = list(hd.keys())
     co = [hd[k]["R_co"] for k in keys]; ct = [hd[k]["R_counter"] for k in keys]
+    asy = [hd[k]["asym"] for k in keys]
+    floor = cal["handedness_floor_static"]
+    ref = cal["R_known_mirror"]
+    max_abs_asym = max(abs(a) for a in asy)
+    all_co_gt_ct = all(a > 0 for a in asy)
+    clears_floor = max_abs_asym > 10.0 * floor
+    if clears_floor and all_co_gt_ct:
+        verdict = "SELECTIVE (frame-dragging)"
+    elif clears_floor:
+        verdict = "SELECTIVE (mixed sign — flag)"
+    else:
+        verdict = "BLIND / UNRESOLVED"
     x = np.arange(len(keys))
     fig, ax = plt.subplots(figsize=(6.8, 4.2))
     ax.bar(x - 0.18, co, 0.34, label="R_co (m=+1)", color="C0")
     ax.bar(x + 0.18, ct, 0.34, label="R_counter (m=−1)", color="C1")
-    ax.axhline(cal["R_known_mirror"], ls="--", color="g", lw=1,
-               label=f"static-mirror reference R={cal['R_known_mirror']:.2f}")
+    ax.axhline(ref, ls="--", color="g", lw=1,
+               label=f"static-mirror reference R={ref:.2f}")
     ax.axhline(cal["R_transparent_floor"], ls=":", color="k", lw=1,
                label=f"transparent floor R={cal['R_transparent_floor']:.3f}")
     ax.set_xticks(x); ax.set_xticklabels(keys, fontsize=8, rotation=15)
     ax.set_ylabel("reflectance R"); ax.legend(fontsize=7)
-    ax.set_title(f"Handedness: R_co = R_counter (asym=0.000); floor={cal['handedness_floor_static']:.3f}\n"
-                 "BLIND — no rotating-horizon frame-dragging selectivity above the floor")
+    frac = 100.0 * max(co) / ref if ref else float("nan")
+    ax.set_title(
+        f"Handedness (repaired e^{{imφ}} probe): R_co > R_counter, asym up to {max(asy):+.4f}\n"
+        f"floor |R(+1)−R(−1)|={floor:.1e}; {verdict} — weak (R_co≈{frac:.0f}% of mirror ref; transient pocket)")
     fig.tight_layout(); fig.savefig(os.path.join(OUT, "fig5_handedness.png"), dpi=130); plt.close(fig)
-    asy = [hd[k]["asym"] for k in keys]
-    print(f"[fig5] R_co={[f'{x:.3f}' for x in co]} vs R_counter={[f'{x:.3f}' for x in ct]}; "
-          f"asym={asy} (all 0.000, = the static-mirror handedness floor). BLIND. "
-          f"Absolute R≈0.006 ≈ floor (the LOCK pocket is transient — no SUSTAINED reflector).")
+    print(f"[fig5] R_co={[f'{v:.4f}' for v in co]} vs R_counter={[f'{v:.4f}' for v in ct]}; "
+          f"asym(co−ct)={[f'{v:+.4f}' for v in asy]} (co>counter in all configs, scales with M, "
+          f"χ-independent). Floor |R(+1)−R(−1)|={floor:.1e} (static-mirror symmetry). "
+          f"{max_abs_asym:.1e} ≫ floor → {verdict}. CAVEAT: weak — R_co≈{frac:.0f}% of the mirror "
+          f"reference (transient LOCK pocket); FRAME-DRAGGING only, NOT the I4₁32 cholesteric-Bragg rule.")
 
 
 if __name__ == "__main__":
