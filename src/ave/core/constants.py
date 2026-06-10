@@ -253,6 +253,12 @@ L_NODE: float = HBAR / (M_E * C_0)  # ≈ 3.8616e-13 m
 #   referent. Surfaced for auditor adjudication (vol9 ch9/ch10 carry the disambiguation
 #   footnote); not silently merged.
 ELL_C: float = np.sqrt(6.0) * L_NODE  # ≈ 9.460e-13 m (lattice Cosserat coupling length)
+# NAMING NOTE (2026-06-10, Grant rename-queue adjudication R4): the NORMATIVE name
+#   for this ℓ_c (= √6·ℓ_node) is "Cosserat coupling length" everywhere in canon.
+#   The two other names in use — "Cosserat couple-stress length"
+#   (substrate-temporal-values-definition.md:32) and "Cosserat characteristic length"
+#   (claim-quality.md:1036) — are the same object; treat them as parenthetical
+#   first-use aliases only. (Registry §5 R4; Rule 1 one-object-one-name.)
 
 # Bohr radius — the atomic unit of length
 # a₀ ≡ ℏ / (α · m_e · c) = ℓ_node / α
