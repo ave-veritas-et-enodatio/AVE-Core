@@ -240,11 +240,121 @@ settled result** (see §C).
 
 ### §C — The posture: a definition that can die
 
-<!-- FILL: C -->
+What kind of book is this, then? It is **the resumption of an abandoned
+question, run as a standing falsification lab.** Not a demand that you believe
+the medium is real — a demand that you let the medium be *defined precisely
+enough to be killed.*
+
+A constitutive definition is worth more than a picture because it
+**generates obligations.** When you say "the vacuum *is* this specific crystal,"
+you no longer get to wave at intuitions; you owe a datasheet. This framework
+takes that literally — Volume IX is "The Vacuum Datasheet," and its own opening
+states the discipline plainly: *the substrate is natural; engineering
+characterizes its limits; AVE derives the mechanism.* The definition owes, and
+pays into, things you can check and falsify:
+
+- a **spec sheet** — DC and AC characteristics, a breakdown voltage, mechanical
+  moduli, a saturation kernel — with typical/min/max values, the way you would
+  hand a real component to a real circuit designer;
+- a **measured nucleation barrier** for forming the soliton — a number, not a
+  hope;
+- a **phase diagram** — the crystallized phase we live in, and the ruptured
+  plasma phase at black-hole interiors and before lattice genesis, with a named
+  transition (the universal strain-snap) between them;
+- and, just as load-bearing, **the named holes** — because a definition that
+  only advertises its wins is not a definition, it is a brochure.
+
+So the holes are stated here, in the foreword, next to the thesis they
+qualify — not buried:
+
+- **The winding has never self-assembled.** The convergence says the electron is
+  a `(2,3)` knot, but in the engine a transverse photon does **not** spontaneously
+  energize the Cosserat sector and wind itself into the full `(2,3)` — the
+  sector stays unpopulated; the "3" never enters phase space on its own. The
+  confinement *step* is partly demonstrated (a moving reflective `Γ = −1`
+  boundary converts collapse into confinement — the wave self-traps, the "2"
+  winding forms, charge-as-helicity checks out), but the **full self-assembly of
+  the electron from a photon is an open, live, failing-so-far test**, not a
+  result. [open-gap]
+- **The snap channel is unresolved.** The mechanism by which chiral compression
+  buckles into the hardened winding at the saturated wall — the step that would
+  let the longitudinal grade and the micro-rotation actually couple at genesis —
+  is named but not closed. [open-gap]
+
+And two honesty caveats the corpus already carries, kept in view so the opening
+does not over-reach what restoration buys: Kelvin's knots lived in **real
+space**, whereas the `(2,q)` here lives in **phase space** (the Clifford torus) —
+a comparison must be made in matching coordinates or it is uninformative; and
+the aether died for a reason, so the fact that this medium keeps a rest frame
+(identified with the CMB / `Ω_freeze`) is a commitment that must answer to the
+Michelson–Morley-class null results, which it does only because its anisotropy is
+suppressed far below current bounds.
+
+The steelman stays in the book. Heaviside and Gibbs were right for radiation;
+the point electron has been measured to twelve figures and that measurement is
+not in dispute; the behavioral formalism earned its dominance. This framework's
+claim is narrow and falsifiable: that there is a *constitution* behind the
+behavior, that the constitution is a specific medium, and that defining it
+precisely either pays its debts — the spec sheet, the barrier, the phase
+diagram, the self-assembly — or it dies. The book is the ledger of which debts
+are paid, which are owed, and what would close the account either way.
 
 ### §D — The bridge: from the thesis into the book
 
-<!-- FILL: D -->
+The rest of this foreword, and the volumes after it, are the restoration carried
+out in order. Read them as the medium's specification followed by its
+consequences:
+
+- **The four axioms are the medium's spec.** Axiom 1 names the crystal and its
+  per-node degrees of freedom — the three translational (capacitive, the E
+  field) and three microrotational (inductive, the B field) that make every node
+  an LC oscillator, and that make the Cosserat rotation the substrate-native
+  origin of spin. Axiom 2 says charge is a topological dislocation with the
+  Burgers vector set by the node pitch. Axiom 3 is the variational principle the
+  substrate extremizes. Axiom 4 is the saturation kernel — the single nonlinear
+  response, `S(A) = √(1 − A²)`, that turns "drive the medium to its limit" into
+  "trap a soliton." These four are stated next, verbatim, exactly as the existing
+  foreword states them (Part II lists what must survive unchanged).
+
+- **The Master Equation is the medium's transport law at one line.** The
+  nonlinear d'Alembertian `∇²V − μ₀ε₀√(1−(V/V_yield)²) ∂²V/∂t² = 0` is Maxwell
+  in the linear limit (`S → 1`) and the saturation physics — the place the
+  longitudinal grade re-engages — everywhere else. *Honest read, carried from
+  the register-inversion draft:* this scalar equation carries the linear-EM and
+  saturation sectors; the structural physics (spin-½, the gauge sectors, the
+  mass spectrum) is the **topology layered on the substrate**, presupposed by
+  the scalar PDE, not derived from it.
+
+- **The three boundary observables are how you measure a piece of the medium
+  from outside it.** At any saturated `Γ = −1` surface — electron tube wall,
+  nucleus envelope, planetary magnetopause, black-hole horizon, cosmic horizon —
+  exactly three integrated quantities escape: a volume integral (mass `𝓜`), a
+  line integral (charge `𝓠`), a surface integral (spin `𝓙`). This is the
+  no-hair theorem read as an engineering measurement rule, and it is the same
+  rule at every scale, including the one we sit inside.
+
+- **The fine-structure constant is the electron's boundary ledger.** The closed
+  form `α⁻¹ = 4π³ + π² + π` maps onto exactly those three integral
+  dimensionalities. *Honest scope, as the existing foreword already states it:*
+  this closes at Class B — closed-form-*at*-an-identification (`R·r = 1/4`, which
+  the substrate does not independently select), not a first-principles
+  derivation. The opening should not headline it as more than that.
+
+- **The volumes are the restoration program.** Volume I establishes the axioms
+  with full derivations; Volumes II–VI carry the consequences into the
+  subatomic, macroscopic, engineering, biological, and periodic-table regimes;
+  Volume IX is the datasheet; Volume 0 holds the full derivation chains, the
+  parameter ledger, and the saturation-kernel catalog. The framework's own
+  sharpest commitment lives here too: that `α`, `G`, and the cosmic winding
+  `𝒥_cosmic` all trace to a single cosmological initial condition `Ω_freeze` via
+  one operating point `u₀*` — three routes that must agree or the framework is
+  falsified.
+
+That commitment is the right note to open and close on, because it is the whole
+posture in one line: **one medium, defined precisely enough that three
+independent measurements of it have to give the same answer — or it dies.** The
+two deletions were the cost of not having the medium. This is the book that puts
+it back and then tries, in the open, to break it.
 
 ## Part II — verbatim load-bearing survivors (the existing foreword's spine)
 
