@@ -43,6 +43,32 @@ $T_{melt}$ & $\sim\num{5.93e9}$ & \si{\kelvin} & Ax 4 + thermal-bath: $k_B T \ap
 \end{table}
 
 \noindent
+\textbf{Scope, provenance, and bench-access annotations.} Each absolute-maximum line carries a per-line scope (per-bond / per-node / per-cell / COLLECTIVE), provenance (DERIVED / CALIBRATION-INPUT / EMERGENT-measured / OPEN), and the corpus bench that measures it (blank if none):
+
+\begin{table}[htbp]
+\centering\footnotesize
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}p{0.10\linewidth} p{0.16\linewidth} p{0.30\linewidth} p{0.30\linewidth}@{}}
+\toprule
+\textbf{Symbol} & \textbf{Scope} & \textbf{Provenance} & \textbf{Bench-access} \\
+\midrule
+$V_{snap}$ & per-node & DERIVED ($m_e c^2/e$, Ax~2+Ax~4) & --- \\
+$V_{yield}$ & per-node & DERIVED ($\sqrt{\alpha}\,V_{snap}$; $\alpha$ is the calibration input) & PONDER-05; EE-bench plateau \\
+$E_S$ & per-node & DERIVED ($V_{snap}/\ell_{node}$) & --- \\
+$E_{yield}$ & per-node & DERIVED ($V_{yield}/\ell_{node}$) & --- \\
+$B_{snap}$ & per-cell & DERIVED (energy density $= m_e c^2/\ell_{node}^3$) & --- \\
+$T_{melt}$ & COLLECTIVE (thermal bath) & DERIVED ($m_e c^2/k_B$) & --- \\
+$\bar{\rho}_{cav}$ & per-cell (bulk) & DERIVED ($c_{bulk}=0$ root) --- \textbf{CANDIDATE-CLAIM} & --- \\
+\bottomrule
+\end{tabular}
+\caption{Scope / provenance / bench-access for the absolute-maximum ratings. The only calibration input in this chapter's chain is $\alpha$ (Class-B closed-form; enters $V_{yield}$, $E_{yield}$); every other line is DERIVED from $\{m_e, c, \ell_{node}\}$.}
+\label{tab:vol9_absmax_scope}
+\end{table}
+
+\noindent
+\textbf{Regime-boundary axis (precision).} The Regime~I--IV boundaries in \S\ref{sec:vol9_absmax_margins} are stated on the \textbf{$r = A$ axis} ($r < \sqrt{2\alpha} \approx 0.121$, $\sqrt{2\alpha} \le r < \sqrt{3}/2 \approx 0.866$, $r \ge 1$; \kbleaf{four-regimes.md}:24--29). The engine \kbleaf{src/ave/topological/vacuum\_engine.py}:177--179 uses the \textbf{$A^2$ axis} ($2\alpha$, $3/4$, $1$). The two are the same boundaries ($r = \sqrt{A^2}$), but the axis must be named when quoting a number. The $r_2 = \sqrt{3}/2$ value is \textbf{sector-dependent} (spin-2 / shear sector; the vector/photon sector has $r_2 = 0$, the scalar sector has no avalanche onset --- see Ch.~\ref{ch:vol9_saturation_characteristics} \S Four-Regime Map).
+
+\noindent
 All values reduce to the cold-lattice limit $S(0) = 1$; no engineering operating point in current laboratory practice approaches any of these thresholds. The largest currently achievable laboratory ratios are: $E/E_S \sim 10^{-8}$ (ultrafast laser foci), $B/B_{snap} \sim 10^{-8}$ (lab magnets), $T/T_{melt} \sim 10^{-3}$ (heavy-ion-collision fireball, transient), $V_{macro}/V_{snap} \sim 10^{-9}$ across one $\ell_{node}$ (per the worked example in \kbleaf{dielectric-snap-limit.md} \S 2.3.2).
 
 \section{Per-Parameter Notes}

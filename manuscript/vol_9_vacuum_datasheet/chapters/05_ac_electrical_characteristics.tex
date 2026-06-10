@@ -247,6 +247,32 @@ $c_{shear}(A_0)$ & $c_0\, \sqrt{S(A_0)}$ & \si{\metre\per\second} & operating po
 \noindent
 \textbf{Canonical sources.} $\mu_0$, $\varepsilon_0$, $c_0$, $\ell_{node}$, $Z_0$ at \kbleaf{src/ave/core/constants.py} (symbols \texttt{MU\_0}, \texttt{EPSILON\_0}, \texttt{C\_0}, \texttt{L\_NODE}, \texttt{Z\_0}) via the \texttt{ave-canonical-source} skill. Operating-point small-signal forms at CLAUDE.md INVARIANT-S2 (\kbleaf{manuscript/ave-kb/CLAUDE.md}). Op14 / Op16 at \kbleaf{ave-kb/common/operators.md} and \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md} (\texttt{clm-1eg13f}). $c_{EM}$ / $c_{shear}$ disambiguation at \texttt{clm-8nkvwy} (lines 111 and 113) and \texttt{clm-3zz0f6}.
 
+\subsection{Scope, Provenance, and Bench-Access}
+\label{subsec:vol9_ac_scope_provenance}
+
+\begin{table}[htbp]
+\centering\footnotesize
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}p{0.12\linewidth} p{0.16\linewidth} p{0.27\linewidth} p{0.30\linewidth}@{}}
+\toprule
+\textbf{Symbol} & \textbf{Scope} & \textbf{Provenance} & \textbf{Bench-access} \\
+\midrule
+$Z_0$ & per-bond & DERIVED & --- \\
+$L_{cell}$, $C_{cell}$ & per-cell & DERIVED ($\mu_0\ell_{node}$, $\varepsilon_0\ell_{node}$) & --- \\
+$\omega_C$, $f_C$ & per-bond & DERIVED ($c_0/\ell_{node}$) & --- \\
+$k_{Brillouin}$ & per-node & DERIVED ($\pi/\ell_{node}$) & --- \\
+$v_{phase}$, $v_{group}$ (cold) & COLLECTIVE & DERIVED ($\to c_0$ at $S=1$) & --- \\
+$\varepsilon_{eff}$, $C_{eff}$ ($A_0$) & per-cell & DERIVED ($\varepsilon_0 S$, $C_0/S$) & PONDER-05; EE-bench plateau \\
+$\mu_{eff}$, $Z_{eff}$ ($A_0$) & per-cell & DERIVED (Op14 $S(A_0)$ forms) & --- \\
+$c_{EM}$ ($A_0$) & per-cell & DERIVED ($c_0/S$) & --- \\
+$c_{shear}$ ($A_0$) & per-cell & DERIVED ($c_0\sqrt{S}$) & Sagnac-RLVE (rotation / clock sector) \\
+$\tau_0$ (clock tick) & per-cell & DERIVED ($\ell_{node}/c_0$) & --- \\
+\bottomrule
+\end{tabular}
+\caption{Scope / provenance / bench-access for the AC + temporal lines. Every AC line is DERIVED from the DC primitives (Ch.~\ref{ch:vol9_dc_electrical_characteristics}); the only calibration inputs upstream are $\ell_{node}$ and $\alpha$. PONDER-05 + the EE-bench plateau read the $C_{eff}(V)$ / $\varepsilon_{eff}$ saturation onset; Sagnac-RLVE reads the rotation / $c_{shear}$ clock sector.}
+\label{tab:vol9_ac_scope}
+\end{table}
+
 \section{PONDER-05 Bench-Scale Falsifier Reference}
 \label{sec:vol9_ponder05_reference}
 
