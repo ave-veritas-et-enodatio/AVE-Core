@@ -73,3 +73,62 @@
 - **Rule 11:** JOB 3 adjudicates the LOCK, not the electron. A CLIP verdict is the discipline working (the v5 demotion was correct); a PHYSICS verdict is a new positive worth its own tracked entry; MIXED is reported honestly with the invariant-vs-tracking split named.
 - **Rule 12:** the v5 SNAP-LOCKED slot already carries its 🔴 demotion; this prereg does NOT refill it — JOB 3 either confirms UNRESOLVED→CLIP or promotes a NEW (sweep-backed) positive with its own verification chain.
 - **The auditor lands the manual entry; this prereg + the JOB results SURFACE the empirical finding only.**
+
+---
+
+## 6. PHASE 2 — THE D9 TRANSDUCER SMOKE (THE GATE; this mini-prereg FROZEN before any run artifact)
+
+**Status when frozen:** PHASE 1 hygiene CLOSED (JOB 1 pump-fix PASS @ `fee2ccb6`; JOB 2 both renderings @ `49520541`; JOB 3 snap-channel CLIP @ `e3a4eef8`). The D11 pump-gate is PASS (drive-off H_total^cons monotone non-increasing, max positive excursion 0.0000% ≤ F-CLOSE +0.184%), so PHASE 2 is UNGATED to run. The genesis/T1 arm remains NOT run (NOT-ELECTRON stands); PHASE 2 builds + smokes the missing PRIMITIVE only.
+
+### 6.1 THE D9 OPERATOR (substrate-walked; derivation stated)
+
+A **chiral boundary condition on the wall shell** — the polar-conjugate of the snap reflector. The snap reflects the RADIAL pair (Z_bulk→0); D9 makes the SAME wall **chiral** so it torques the ANGULAR pair per traversal. Substrate-native checkpoints walked before the first line:
+
+- **CP10 boundary-not-bulk (THE load-bearing constraint — every v5 bulk-coupling architecture detonated or nulled):** the exchange acts ONLY on the `_wall_window()` g_wall shell (A≈`wall_center`=R_II, the Γ=−1 saturation front of the planted pocket), interior-masked. It is a per-cell BOUNDARY operation applied in `step()` AFTER the inherited V/w/ω + bulk substeps — NOT a term added to any field's acceleration/EOM. No bulk trilinear potential is introduced (so the indefinite-Hamiltonian pump that detonated `photon_deplete=True` cannot recur).
+- **The payer (photon helicity ledger) = the photon's axial mechanical SPIN** `S_φ ≡ ∫ (w × ∂_tw)·n̂ dV` (n̂ = the FOC/drive axis). For a CP shear photon `S_φ ∝ −h·k·∫|w|²` (HELICITY-ODD by construction); for a linear-pol (achiral, helicity=0) photon `w` has one transverse component ⇒ `S_φ ≡ 0` (the achiral null is structural, from the field — not dialed).
+- **The recipient (the bulk circulation) = `u_adv` orbital AM** `L_bulk ≡ ∫ ρ̄_full (r×u_adv)·n̂ dV` — the EXACT channel v5 measured as NEVER coupling (four arms byte-identical L_bulk 139360). D9's whole job is to make the photon handedness land here.
+- **Conservation-by-channel (ave-representation-capability-check v1.1 (C); ave-conserved-vs-pumped):** per step at the wall the operator (1) extracts per-cell spin `Δs(r)=χ̃·g_wall(r)·s_density(r)` by scaling π_w←π_w·(1−χ̃·g_wall) — since `s_density=(w×π_w)·n̂` is LINEAR in π_w, the spin removed equals `Σ Δs·dV ≡ δL` EXACTLY; (2) deposits exactly δL into `u_adv` as a wall-localized azimuthal increment `δu=Ω_add·(n̂×r)·g_wall` with `Ω_add=δL/I_wall`, `I_wall=Σ ρ̄_full·g_wall·r_⊥² dV` ⇒ `ΔL_bulk≡δL` EXACTLY. **AM ledger closes 1:1 BY CONSTRUCTION** (the exchanged L comes FROM the photon; bounded; no refilled source — δL→0 as S_φ drains). The ENERGY ledger is tracked, NOT assumed conservative: the photon spin-scaling removes `E_ph_loss=½Σ|π_w|²(1−(1−χ̃g)²)dV`, the deposit adds `E_bulk_gain=½Σρ̄_full|δu|²dV`; the remainder `E_absorb=E_ph_loss−E_bulk_gain` is a passive lossy-mirror sink. **GATE on the channel: `E_absorb ≥ 0` (the wall is PASSIVE — never creates energy) and H_total not increased** (the D11 discipline, re-applied to the transducer).
+- **DERIVATION of δL form / the swept coefficient:** the FORM `δL ∝ κ̃·h·g_wall·(photon spin)` is the ADD-2 canonical velocity-space rotation (`crystal_engine.py:33-37`: a chirality-signed angle θ_χ=κ̃·h·g_front rotating the conjugate velocity pair, conserving the sum of squares) — applied to the ANGULAR pair (photon spin ↔ bulk orbital) instead of the (∂_tV,∂_tw) pair. The residual magnitude is the dimensionless per-step wall-extraction fraction `χ̃≡chi_exch` (the SWEPT knob); the κ̃-anchored value `χ̃=κ̃·dt·ω_ref` is run as one sweep point. **The verdict must be coefficient-ROBUST** (sign/oddness/null/depletion invariant across the χ̃ sweep; |ΔL_bulk| scales ~linearly with χ̃ — the expected, reported control-parameter scaling).
+- **phase-space-coordinate-check:** the measured quantities (S_φ, L_bulk) are REAL-SPACE axial angular momenta — the native coordinate for an AM-transfer claim. No φ²/winding claim is made here, so no Park-along-contours extractor is invoked (that gate binds winding claims, A46).
+
+### 6.2 THE SMOKE SETUP (a formed pocket + a bouncing chiral wave packet)
+
+- N=40 (the MAIN config), `bulk_density_on=True` (so `u_adv` exists to receive orbital AM), **`buckle_on=False`** (ISOLATE D9 as the ONLY w↔bulk channel — the inherited bulk buckle is silenced so the transfer is unambiguous), `omega_sector_on=False` for the gate (focus the channel; ω-recipient is future-work). Snap optional (the saturated seed IS the trap/pocket).
+- Planted pocket: `seed_bulk(frac=0.95)` — a saturated V blob whose A crosses `wall_center` ⇒ a g_wall shell (the chiral wall). `freeze_wall_window()` so the shell is a fixed geometric boundary.
+- Chiral packet: `drive_chiral_photon(helicity=±1)` (CP) and `helicity=0` (achiral/linear control), seeded at center, propagating along the axis; it traverses the g_wall shell repeatedly (reflecting off the PML/box) — each traversal = a wall interaction (a "bounce").
+- `u_adv` starts at REST (no energized column) ⇒ ΔL_bulk measures the transfer from ZERO (clean). With D9 off (`chi_exch=0`), nothing sources u_adv ⇒ ΔL_bulk≡0 (the structural known-null floor).
+
+### 6.3 MEASUREMENTS (numbers FROM the evolved field — ave-driver-script-honesty)
+
+(i) **d(L_transferred)/d(bounce)** = cumulative ΔL_bulk / N_bounce, with floor; (ii) **RH-vs-LH sign reversal** (helicity-odd, quantitative: the odd-part fraction); (iii) **the photon helicity ledger depleting 1:1** (cumulative S_φ_removed vs L_transferred ratio; AND the photon's MEASURED axial spin S_φ(t) depleting beyond the free-drift baseline); (iv) **the achiral null** (helicity=0 ⇒ ΔL_bulk at floor); (v) **knob sweeps** (chi_exch, bounce_thresh, wall_width).
+
+### 6.4 FLOORS (ORDERED BINS — floor-check FIRST; ave-apparatus-floor-attribution v1.1)
+
+- **F-EXCHANGE (the known-null):** the chi_exch=0 (transducer-OFF) run's |ΔL_bulk| (= structural zero + numeric noise). Every positive ΔL_bulk is gated on |ΔL_bulk| ≥ 100× F-EXCHANGE.
+- **F-DRIFT (the free-spin baseline):** the chi_exch=0 run's |ΔS_φ| over the window (how much the photon's axial spin drifts from free propagation/dispersion/PML alone). A depletion claim must show |ΔS_φ(on)| exceeds F-DRIFT.
+- **F-PROBE (PROBE-CAPABILITY keeper, the m-even lesson):** the spin probe S_φ must DISTINGUISH ±helicity on a KNOWN reference BEFORE any dynamics — a freshly-seeded RH photon gives S_φ of one sign, LH the opposite sign, achiral ≈0. Encoded as a keeper unit test (`test_unified_transducer_v6.py`). A probe that cannot separate ±h on the known seed is DISQUALIFIED (the verdict is CLIP).
+
+### 6.5 APPARATUS INVENTORY — every D9 knob inventoried + swept (§210-COMPLIANCE GATE)
+
+| knob | sweep | CLIP telltale |
+|---|---|---|
+| `chi_exch` (exchange coeff) | {0, 0.005, 0.02 (default), 0.08, κ̃-anchored} | the verdict (sign/oddness/null) tracks the magnitude (it must NOT — only \|ΔL_bulk\| scales ~linearly) |
+| `bounce_thresh` (bounce detector) | {1.2, 1.5 (default), 2.0}× median I_wall | the TOTAL ΔL tracks the threshold (it must NOT — only the cosmetic N_bounce count tracks it) |
+| `wall_width` (wall sharpness) | {0.06, 0.12 (default), 0.20} A-units | the verdict tracks the shell sharpness (sign/oddness must be invariant) |
+| `helicity` ∈ {+1, −1, 0} | the helicity-odd + achiral-null axes | (this IS the discriminator, not a CLIP suspect) |
+
+**§210 deviation policy:** the run executes EVERY sweep above, or states the deviation explicitly BEFORE running and re-bins. A positive whose governing knob was unswept is CLIP by this prereg's own law.
+
+### 6.6 GATE BINS (FROZEN — Rule 11; no post-hoc criterion drop)
+
+- **TRANSDUCER-LIVE** iff ALL: **(L1)** |ΔL_bulk(RH)| ≥ 100×F-EXCHANGE at default χ̃; **(L2)** helicity-odd — sign(ΔL_bulk(RH)) = −sign(ΔL_bulk(LH)) AND odd-part fraction |RH−LH|/(|RH|+|LH|) > 0.9 (near-perfect reversal); **(L3)** depleting + no pump — AM ledger 1:1 (|S_φ_removed/L_transferred − 1| < 1e-6) AND measured |ΔS_φ(on)| > F-DRIFT with the depletion sign AND E_absorb ≥ 0 AND H_total not increased; **(L4)** achiral null — |ΔL_bulk(helicity=0)| ≤ 3×F-EXCHANGE AND the F-PROBE keeper passes; **(L5)** coefficient/sharpness-robust — L1,L2,L4 invariant across the χ̃ and wall_width sweeps, |ΔL_bulk|∝χ̃, and total ΔL invariant across bounce_thresh (only N_bounce tracks it).
+- **TRANSDUCER-DEAD** iff: D12(i) fires (RH≡LH byte-identical within 200 steps) OR |ΔL_bulk(RH)| < 10×F-EXCHANGE (no transfer above floor).
+- **UNRESOLVED**: anything else (above floor but not helicity-odd; achiral not null; a pump detected; or a knob-tracking that cannot be separated into physics-vs-count).
+
+### 6.7 D12 FAIL-FAST ASSERTIONS (cheap, early — run BEFORE the full matrix)
+
+(i) after the transducer is enabled, RH-drive and LH-drive `u_adv` must NOT be byte-identical within 200 steps — if they are, the coupling is DEAD: ABORT the matrix, report TRANSDUCER-DEAD; (ii) the achiral arm must show |ΔL_bulk| at the F-EXCHANGE floor (the known-null) within the same window.
+
+### 6.8 CORPUS STATE
+
+- **OPEN.** This smoke is the GATE for the Run phase (the full T1–T6 spec-sheet matrix is GATED on TRANSDUCER-LIVE). It does NOT promote the electron claim (NOT-ELECTRON stands). The auditor lands any manual entry; this prereg + the smoke result SURFACE the empirical finding only.
