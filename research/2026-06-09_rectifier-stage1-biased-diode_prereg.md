@@ -74,10 +74,10 @@ Appended post-freeze per the Grant rename-queue adjudication 2026-06-10, ruling 
 
 **Provenance correction — `RHO_CAV` is NOT in `constants.py`.** §5 line 34 attributes its **Canonical primitives** list — *"(from `constants.py`, per `ave-canonical-source`): V_yield=43.65 kV, E_yield=1.13×10¹⁷ V/m, ℓ_node=0.386 pm, Q=α⁻¹→R≈α, RHO_CAV=−1/φ"* — to `constants.py`. That blanket attribution is correct for **four of the five** primitives but **wrong for `RHO_CAV`**:
 
-- `V_YIELD` ≈ 43,652 V — `constants.py:403` ✓
-- `E_YIELD` ≈ 1.13×10¹⁷ V/m — `constants.py:414` ✓
+- `V_YIELD` ≈ 43,652 V — `constants.py:409` ✓
+- `E_YIELD` ≈ 1.13×10¹⁷ V/m — `constants.py:420` ✓
 - `ℓ_node` (`L_NODE`) ≈ 0.386 pm — `constants.py:239` ✓
-- `Q = α⁻¹` (and `E_YIELD_KINETIC` ≈ 43.65 keV) — `constants.py` (`ALPHA`, `:397`) ✓
+- `Q = α⁻¹` (and `E_YIELD_KINETIC` ≈ 43.65 keV) — `constants.py` (`ALPHA`, `:133`; `E_YIELD_KINETIC`, `:403`) ✓
 - **`RHO_CAV = −1/φ`** — **ABSENT from `constants.py`** (verified live this session: `grep RHO_CAV constants.py` → no match). It is defined in **`cavitation_flow.py:64`** (`RHO_CAV = -1.0 / PHI  # = (1−√5)/2 ≈ −0.6180339887 ; c_bulk²(ρ̄_cav)=0`), consumed by the cavitation-core probe (PR#161). The cavitation floor is a CANDIDATE anchor (from `PHI`), not a `constants.py` canonical.
 
 Corrected reading of line 34: *the primitives are from `constants.py` **except `RHO_CAV=−1/φ`, which is from `cavitation_flow.py:64`***. No value changes; only the file-attribution is corrected. Disciplines: `verify-before-cite` (every line re-verified live), `ave-apparatus-floor-attribution` (the cavitation floor is candidate-class, sourced where it actually lives).

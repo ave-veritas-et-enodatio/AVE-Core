@@ -31,7 +31,7 @@ The substrate carries distinct wave sectors at distinct speeds. Two are canonica
 
 **Canonical backing for the shear/bulk split (Grant 2026-06-09):** the substrate sits at the **K = 2G operating point** (`claim-quality-closure-roadmap.md:149`: k_a=2/7, k_s=1/7 → K_0=16/7, G_0=8/7, ratio 2) → **Poisson ratio ν_vac = 2/7** as an algebraic identity, with Cosserat couple-stress length ℓ_c = √6·ℓ_node. Shear (G) and bulk (K) are not ad-hoc — they are the substrate's two locked elastic moduli.
 
-> **Naming note (2026-06-10, Grant rename-queue adjudication R4 — line above preserved unedited):** "Cosserat couple-stress length" here is a first-use alias for the **normative name "Cosserat coupling length"** (ℓ_c = √6·ℓ_node). One object, three names in canon ("coupling" normative; "couple-stress" here; "characteristic" at `claim-quality.md:1036`). Registry §5 R4; Rule 1.
+> **Naming note (2026-06-10, Grant rename-queue adjudication R4 — line above preserved unedited):** "Cosserat couple-stress length" here is a first-use alias for the **normative name "Cosserat coupling length"** (ℓ_c = √6·ℓ_node). One object, three names in canon ("coupling" normative; "couple-stress" here; "characteristic" at `claim-quality.md:1038`). Registry §5 R4; Rule 1.
 
 ## 3. The two confirmed times (tick = ℓ_node / c_sector)
 

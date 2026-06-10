@@ -257,7 +257,7 @@ ELL_C: float = np.sqrt(6.0) * L_NODE  # ≈ 9.460e-13 m (lattice Cosserat coupli
 #   for this ℓ_c (= √6·ℓ_node) is "Cosserat coupling length" everywhere in canon.
 #   The two other names in use — "Cosserat couple-stress length"
 #   (substrate-temporal-values-definition.md:32) and "Cosserat characteristic length"
-#   (claim-quality.md:1036) — are the same object; treat them as parenthetical
+#   (claim-quality.md:1038) — are the same object; treat them as parenthetical
 #   first-use aliases only. (Registry §5 R4; Rule 1 one-object-one-name.)
 
 # Bohr radius — the atomic unit of length
@@ -1015,7 +1015,7 @@ D_INTRA_ALPHA: float = D_PROTON * np.sqrt(8.0)  # ≈ 2.379 fm
 # The DEUTERON BINDING ENERGY is the eigenvalue energy scaled by α:
 #   B_deuteron = ℏω₁ × α  (electromagnetic coupling of the cavity mode)
 
-# NU_VAC already defined at line 508 — use that single definition
+# NU_VAC already defined at line 514 — use that single definition
 
 # Inter-nucleon eigenvalue distance [fm]
 D_NN_EIGENVALUE: float = pi * D_PROTON * 7.0 / 9.0  # ≈ 2.056 fm
