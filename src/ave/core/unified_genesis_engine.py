@@ -336,6 +336,95 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         self._snap_step()
         return self.E_latent_held - before
 
+    # ============================================ D5 DRIVE (FOC d/q chiral photon)
+    def drive_chiral_photon(self, helicity: int = +1, sigma: float = 5.0,
+                            wavelength: float = 8.0, amplitude: float = 0.05,
+                            axis: int = 2, center=None,
+                            bemf_arm: bool = False, tau_zx_arm: bool = False):
+        """D5 DRIVE: inject the FOC-framed chiral transverse photon (the v4 field-
+        derived source, the inherited seed_photon) along `axis` (the FOC/spin
+        axis). helicity=±1 sets the handedness (the q-axis torque sign = charge
+        sign provenance). Arms: bemf_arm (the κ_L=6/5 reaction-half = the lock's
+        inertia, centered-step) and tau_zx_arm (Fork-A literal τ_zx radiation-
+        reaction feedback) — each its OWN switch, metered, swept (prereg §3)."""
+        if center is None:
+            c = (self.N - 1) / 2.0
+            center = (c, c, c)
+        direction = [0, 0, 0]
+        direction[axis] = 1
+        self.seed_photon(center, sigma=sigma, wavelength=wavelength,
+                         amplitude=amplitude, helicity=float(helicity),
+                         direction=tuple(direction))
+        self.foc_axis = int(axis)
+        self.drive_helicity = int(np.sign(helicity)) or 1
+        self.bemf_arm = bool(bemf_arm)
+        self.tau_zx_arm = bool(tau_zx_arm)
+        self._bemf_work = 0.0
+        self._tau_zx_work = 0.0
+
+    def _foc_unit_vectors(self, axis: int):
+        """Cylindrical ê_ρ (radial ⟂ axis = the d/flux direction) and ê_φ
+        (azimuthal = the q/torque direction) about `axis`."""
+        if axis == 2:
+            a1, a2 = self._bx, self._by
+        elif axis == 1:
+            a1, a2 = self._bx, self._bz
+        else:
+            a1, a2 = self._by, self._bz
+        rho = np.sqrt(a1 ** 2 + a2 ** 2) + 1e-12
+        e_rho = np.zeros((self.N, self.N, self.N, 3))
+        e_phi = np.zeros((self.N, self.N, self.N, 3))
+        # map the two in-plane axes back to (x,y,z) component indices
+        idx = {2: (0, 1), 1: (0, 2), 0: (1, 2)}[axis]
+        e_rho[..., idx[0]] = a1 / rho
+        e_rho[..., idx[1]] = a2 / rho
+        e_phi[..., idx[0]] = -a2 / rho
+        e_phi[..., idx[1]] = a1 / rho
+        return e_rho, e_phi
+
+    def foc_dq_project(self, F: np.ndarray, axis: int | None = None) -> dict:
+        """Project a vector field F onto the FOC d-axis (cyl-radial = FLUX/core-
+        rarefaction role) and q-axis (cyl-azimuthal = TORQUE/circulation spin-up
+        role). Returns the d/q POWERS (∫|·|²) and the SIGNED net q-torque (its sign
+        = the spin-up handedness)."""
+        if axis is None:
+            axis = getattr(self, "foc_axis", 2)
+        e_rho, e_phi = self._foc_unit_vectors(axis)
+        m = self.interior_mask()
+        Fd = np.sum(F * e_rho, axis=-1)
+        Fq = np.sum(F * e_phi, axis=-1)
+        P_d = float(np.sum((Fd ** 2) * m) * self.dx ** 3)
+        P_q = float(np.sum((Fq ** 2) * m) * self.dx ** 3)
+        net_q = float(np.sum(Fq * m) * self.dx ** 3)  # signed torque sense
+        return {"P_d": P_d, "P_q": P_q, "net_q_torque": net_q}
+
+    def foc_dq_meter(self) -> dict:
+        """Meter the DRIVE's two roles separately: the buckle force f_ω (the
+        photon's action on the winding carrier) split into d (flux/rarefaction)
+        and q (torque/spin-up). The net q-torque SIGN tracks the drive helicity
+        (the charge-sign provenance — the v4 RH↔LH sign-carry)."""
+        if not (self.omega_sector_on and self.buckle_on and self.photon_coupling):
+            return {"P_d": 0.0, "P_q": 0.0, "net_q_torque": 0.0, "helicity": 0}
+        _, f_w, f_omega = self._buckle_forces()
+        out = self.foc_dq_project(f_omega)
+        out["helicity"] = int(getattr(self, "drive_helicity", 0))
+        # the HANDEDNESS channel is the photon's QUADRATIC helicity (flips with the
+        # CP helicity — the v4 sign-carry); the net LINEAR q-torque is symmetry-
+        # balanced (~0). Both reported so the meter does not over-claim the torque.
+        out["photon_helicity"] = self.helicity_photon()
+        return out
+
+    def bemf_power(self) -> float:
+        """The κ_L=6/5 BEMF reaction-half power = the energy the lock removes from
+        the rigid-rotation mode per step (the lock's inertia; it appears only
+        against CHANGES — D8). The inherited lock_relax is an EXACT per-step
+        contraction (centered/unconditionally-stable — the velocity-dependent-
+        force integration mandate is already satisfied)."""
+        if not (self.lock_on and self.omega_sector_on):
+            return 0.0
+        # H_bel conservation canary doubles as the BEMF metering hook
+        return float(self._Hbel_pre_lock - self._Hbel_post_lock)
+
     # ------------------------------------------------------- pocket observers (CP7)
     def pocket_cells(self) -> int:
         return int(np.count_nonzero(self.snap_mask))
