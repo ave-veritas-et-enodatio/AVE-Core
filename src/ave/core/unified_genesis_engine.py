@@ -86,9 +86,10 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         chi_shock: float = 1.0,
         delta_heal: float = 0.0,
         snap_payback_rate: float = 1.0,
-        # --- v6 hygiene (D11); ALL default to the v5 byte-identical path ---
+        # --- v6 hygiene (D10/D11); ALL default to the v5 byte-identical path ---
         vent_mode: str = "kick",
         snap_accounting: str = "legacy",
+        meissner_harden: float = 0.0,
         **kwargs,
     ):
         """
@@ -144,9 +145,10 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         self.chi_shock = float(chi_shock)    # N3
         self.delta_heal = float(delta_heal)  # N2
         self.snap_payback_rate = float(snap_payback_rate)
-        # v6 hygiene knobs (D11) — default values reproduce the v5 path exactly
+        # v6 hygiene knobs (D10/D11) — default values reproduce the v5 path exactly
         self.vent_mode = str(vent_mode)            # "kick" (v5) | "absorbed" (D10a)
         self.snap_accounting = str(snap_accounting)  # "legacy" (v5) | "conservative" (D11)
+        self.meissner_harden = float(meissner_harden)  # D10b per-cell threshold hardening
         self.snap_mask = np.zeros((Nn, Nn, Nn), dtype=bool)
         self.latent_ledger = np.zeros((Nn, Nn, Nn), dtype=np.float64)  # held-out per cell
         self.paid_ledger = np.zeros((Nn, Nn, Nn), dtype=np.float64)    # paid-back per cell
@@ -313,6 +315,22 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         self.rho_bar[newly] = clamp
         self.snap_mask[newly] = True
         self.snap_events += int(np.count_nonzero(newly))
+        # D10(b) MEISSNER: each newly-snapped cell RAISES neighbors' snap threshold.
+        if self.meissner_harden > 0.0:
+            self._meissner_harden_neighbors(newly)
+
+    def _meissner_harden_neighbors(self, newly):
+        """D10(b) — each newly-snapped cell LOWERS (hardens) its 6-neighbors' snap
+        threshold by `meissner_harden` (more-negative ⇒ a deeper deficit needed to
+        snap). Floored at rho_floor (the integrable band). Negative feedback: the
+        cascade front must reach ever-deeper deficits, so it NUCLEATES-AND-STOPS
+        (real condensation). CP10: a per-cell BOUNDARY threshold, NOT a bulk force."""
+        nb = np.zeros_like(self.snap_mask)
+        for ax in range(3):
+            nb |= np.roll(newly, 1, axis=ax) | np.roll(newly, -1, axis=ax)
+        nb &= ~self.snap_mask & self.interior_mask()
+        self.rho_cav_field[nb] -= self.meissner_harden
+        np.maximum(self.rho_cav_field, self.rho_floor + 1e-3, out=self.rho_cav_field)
 
     def _snap_step(self):
         """Per-cell snap state machine (normal↔snapped), interior only (CP7).

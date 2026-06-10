@@ -11,10 +11,11 @@ KEEPER unit test, and the new knobs default to the v5 byte-identical path.
   VENT-ABSORBED     vent_mode=absorbed routes the shock to a conservative store
                     (E_vent_absorbed), leaving ∂_tV UNKICKED (no breather trigger);
                     contrast the v5 vent-into-seed kick that perturbs V_prev.
+  MEISSNER-THRESH   (D10b, JOB 2) a snapped cell LOWERS its neighbors' per-cell snap
+                    threshold by exactly meissner_harden (the negative-feedback
+                    mechanism); harden=0 is the known-different uniform reference.
 
-(The D10b Meissner-threshold keeper lands with JOB 2, which adds that mechanism.)
-
-Engine: src/ave/core/unified_genesis_engine.py (v6 D11 additions)
+Engine: src/ave/core/unified_genesis_engine.py (v6 D10/D11 additions)
 Prereg: research/2026-06-10_genesis-v6-transducer_prereg.md (§1 CP10, §2 F-PROBE)
 """
 
@@ -91,3 +92,32 @@ def test_v6_vent_absorbed_stores_without_kicking_V():
     Vprev2 = e2.V_prev.copy()
     e2.hand_snap_region(ball)
     assert float(np.max(np.abs(e2.V_prev - Vprev2))) > 0.0, "kick mode MUST perturb V_prev"
+
+
+def test_v6_meissner_hardens_neighbor_threshold_by_increment():
+    """D10(b) mechanism keeper: a snapped cell lowers each 6-neighbor's per-cell
+    snap threshold by EXACTLY meissner_harden (more-negative ⇒ harder to snap).
+    meissner_harden=0 leaves the threshold field uniform (the known-different ref)."""
+    N = 24
+    inc = 0.05
+    e = UnifiedGenesisEngine(N, bulk_density_on=True, snap_on=True, c2_floor=0.0,
+                             chi_shock=1.0, snap_payback_rate=0.0,
+                             snap_accounting="conservative", meissner_harden=inc)
+    c = N // 2
+    seed = np.zeros((N, N, N), dtype=bool)
+    seed[c, c, c] = True
+    e.hand_snap_region(seed)
+    # a face-neighbor of the snapped cell (not itself snapped) must be hardened
+    assert e.snap_mask[c, c, c]
+    nbr = (c + 1, c, c)
+    assert not e.snap_mask[nbr]
+    assert abs(e.rho_cav_field[nbr] - (RHO_CAV - inc)) < 1e-12, "neighbor threshold hardened by inc"
+    # a far cell is untouched (uniform)
+    assert abs(e.rho_cav_field[2, 2, 2] - RHO_CAV) < 1e-12
+
+    # the known-different reference: meissner_harden=0 keeps the field uniform
+    e0 = UnifiedGenesisEngine(N, bulk_density_on=True, snap_on=True, c2_floor=0.0,
+                              chi_shock=1.0, snap_payback_rate=0.0,
+                              snap_accounting="conservative", meissner_harden=0.0)
+    e0.hand_snap_region(seed)
+    assert np.all(e0.rho_cav_field == RHO_CAV), "harden=0 must leave the threshold uniform"
