@@ -266,3 +266,32 @@ A grep-verified survey of the vapor-lock/cavitation picture against the corpus r
 | Enstrophy-bounds `ℓ²` discrepancy (**NEW corpus defect**) | `Ω≤2Nc²/ℓ` (`navier-stokes-prize.md:59`) vs `Z_max=2Nc²·dx` (`kolmogorov-spectral-cutoff.md:57`) — 1D-line vs 3D-volume, never reconciled (survey S10) | OPEN — newly surfaced; for the auditor |
 | Equilibration-slot three-way adjudication | (a) C3-gate `...deep-dive.md:309`; (b) dark-wake convergence (WOBBLY, predates the 2026-06-09 walk-back); (c) cavitation pocket (NEW) (survey S5) | OPEN — Grant adjudication; the pocket is a competitor, not a gap-filler |
 | Dissipative-vs-reactive lock split | `...deep-dive.md:540` (dissipative) vs `yang-mills-steps3-5.md:43-49` (reactive Γ=−1 mirror) (survey S6) | OPEN — real internal split; the vapor-lock picture takes the reactive side openly |
+
+### 10.9 — PR BATCH PUSHED + OPENED (2026-06-10; Rule-12 dated append — §10.7 "unpushed evidence branches" SUPERSEDED, body preserved above)
+
+The 12 local-only electron-genesis-arc evidence branches enumerated in §10.7 (and several not listed there) are now **pushed and opened as review-gated PRs (#152–#163)** against protected `main`. **All are falsification-lab negatives** — none reads as a success; demotions carry both the original verdict and the demotion. **Grant merges (review-gated); no auto-merge.** `analysis/2026-06-10-coax-ring-secondary` is **EXCLUDED** (live workflow, not in this batch). PRs **#150** (wall-sign relabel) and **#151** (this branch — vapor-lock framing + tracker) were already open and are unchanged by this batch.
+
+| PR | Branch | Base | Verdict one-liner |
+|---|---|---|---|
+| #152 | `analysis/2026-06-09-reflection-genesis-23` | `main` | genesis-23: the "3" does NOT close — Outcome C (V≡0, no container); bundles V→ω probes (entrainment VERDICT A/form-only, cross-sector pump VERDICT B/form-but-no-fire, trace-reversal WALL-ENGINE) |
+| #153 | `analysis/2026-06-09-genesis-24-saturated-seed` | #152 | genesis-24: DEMOTED to Outcome C / sub-gate (Case C); pump-as-absorption over-claims retracted (Rule 12); GAP-1 localized to poloidal (q=3) winder |
+| #154 | `analysis/2026-06-09-crystal-engine-design` | `main` | crystal engine (State-C graft): Outcome C — the Γ<0 wall forms, but the scalar cannot wind (the load-bearing capability finding) |
+| #155 | `analysis/2026-06-09-crystal-graft-v2` | #154 | graft-v2: winding gets its OWN Cosserat-ω carrier (double-count FIXED) — Outcome C, planted (2,3) reads back but no de-novo self-assembly; source centrosymmetric |
+| #156 | `analysis/2026-06-09-crystal-graft-v3` | #154 | graft-v3: chiral Beltrami source selects HANDEDNESS not TOPOLOGY — Outcome C (demoted from B, Rule 12); charge=helicity carryable; α-free CI 4 passed |
+| #157 | `analysis/2026-06-09-genesis-perf-utils` | #154 | perf-utils: 24.9× extractor + 5.9× runner, bit-identical (no physics change) |
+| #158 | `analysis/2026-06-10-apparatus-floors` | #154 | apparatus floors: Γ wall = apparatus corr 1.0000 (TRACKS-KNOB); H_bel leak = dispersion; ledger floor ±6.5% |
+| #159 | `analysis/2026-06-10-graft-v4-photon-helicity` | #157 | graft-v4: photon-helicity conversion FALSIFIES conservation — LOCK-FAIL (lock NOT-DEMONSTRATED/INERT, demoted C, Rule 12); α-free CI 7 passed |
+| #160 | `analysis/2026-06-10-bemf-feedback-smoke` | #159 | bemf-feedback: inductive reaction-half COUPLES (correct sign) but SUB-THRESHOLD — INERT; undepleting source = no reservoir; slot not refilled (Rule 12) |
+| #161 | `analysis/2026-06-10-cavitation-core-probe` | `main` | cavitation-core: circulating core crosses ρ̄_cav=−1/φ (reach STANDS, clip-invariant) but LOCK DEMOTED to CLIP — FLASH/LOCK UNDECIDED (positive c² floor; Rule 12) |
+| #162 | `analysis/2026-06-10-sonic-horizon-closure` | #161 | sonic-horizon: c²=0 horizon is a reversible spring (LOCK), irreversibility NOT supplied; handedness SELECTIVE but WEAK (frame-dragging only, not cholesteric-Bragg) + keeper test |
+| #163 | `analysis/2026-06-10-electron-manufacturing-flow` | `main` | electron-mfg: fab-traveler + forward R/r FBD UNDERDETERMINED (ρ̄_wall≈0.440 fit-tell caught; α gate dispersion-blocked) + Class-A audit fixes |
+
+**Ancestry (git merge-base-verified):** four roots base `main` — #152, #154, #161, #163. Stack edges: #152→#153; #154→{#155, #156, #157, #158} with #155/#156 SIBLINGS (graft-v3 is NOT a descendant of graft-v2 — they share only the v2-build commit `1bf62595`); #157→#159 (graft-v4 contains perf-utils via merge `37fd973c`); #159→#160; #161→#162. #163 independent (cites #161/#158 by branch+commit, no git ancestry).
+
+**Suggested merge order (parents before children; independents any order):**
+1. **#152 → #153**
+2. **#154 → #155 / #156 / #157 / #158 (any order)** → **#159 (after #157)** → **#160 (after #159)**
+3. **#161 → #162**
+4. **#163** (any time)
+
+GitHub will auto-retarget each child PR to `main` when its parent merges (or retarget manually). Three-dot diffs of #156/#157/#158 carry the shared `1bf62595` v2-build commit (also in #155); #159's three-dot also carries the graft-v3 content (overlaps #156) — expected, harmless on merge.
