@@ -7,6 +7,67 @@
 **CI gate:** [`src/tests/test_graft_v3_alpha_free.py`](../src/tests/test_graft_v3_alpha_free.py) ·
 **Results:** `crystal_graft_v3_results.json` · N held FIXED at **44** across smoke + full run.
 
+## 🔴 FINAL-VERDICT ADDENDUM — 2026-06-09 adversarial panel: **B → C** (`survives_adversarial = FALSE`)
+
+> **Rule 12 walk-back (substitution-not-retraction): the doc body below is PRESERVED UNCHANGED; this
+> dated header SUPERSEDES the `## VERDICT — B` headline that follows.** A 4-lens adversarial panel
+> (graft-v3 adversarial panel + synthesis, 2026-06-09) DEMOTED the run from **B** to **C**. Two lenses are
+> FATAL. The surviving result is real but strictly narrower than the body claims. The slot is NOT refilled
+> with a new hypothesis (Rule 12); the demoted verdict + the four pinned residuals are the honest boundary.
+
+**FATAL lens 1 — the independence gate (SMOKE-4) is UNFALSIFIABLE as configured.** Under 71× the
+provocation the winding integer NEVER flipped on its slaving branch — the gate cannot return False as
+wired. **RETRACT the sentence at `:111`** ("**The gate CAN return False** (a winding-integer flip ⇒ ω
+slaved to V); it returned True") — it is empirically false for this configuration. A gate that cannot fail
+proves nothing; the SMOKE-4 ✅ is downgraded to UNFALSIFIED. *(Separately load-bearing: the SMOKE-4
+"(2,1) robust" read is itself the 500-step DYNAMICS product, not the planted (2,3) surviving — see
+[`2026-06-09_extractor-poloidal-misread_note.md`](2026-06-09_extractor-poloidal-misread_note.md).)*
+
+**FATAL lens 2 — the `|L_ω|` pump never SATURATES (ENERGIZE-LOCK unmet; the lock half is unimplemented).**
+The body concedes this in §6, but the panel rules it FATAL to a B. Even the FROZEN wall grows as a power
+law `|L_ω| ∝ t^0.43` (frozen 4L/L = 1.82 ⇒ p = log1.82/log4 = 0.43 — sub-secular but UNBOUNDED, never
+plateaus); the LIVE wall pumps super-linearly (4L/L = 6.53); and the **χ=0 (centro) arm — zero helicity
+(H_bel = −8.5e-15), zero winding (0,0) — still pumps `|L_ω|` to 347.7** (vs RH 18.0 / LH 0.20). A buckle
+that energizes `|L_ω|` even with no structure to host it, and no lock to arrest it, is a PUMP, not a
+stable conserved knot. ENERGIZE without LOCK ⇒ no (2,3) can be a conserved object here.
+
+**`:33` misstatement — corrected.** The line reads `R/r_meas=2.995 vs φ²=2.618 (14.4% off … within 25% +
+real (2,3)) ❌`. The 14.4% aspect error (`R_over_r_relerr = 0.1439`) is **WITHIN the 25% aspect bar** — the
+golden-torus row does NOT fail on aspect ratio. The REAL golden-torus failures are (i) the **product
+`R·r = 2.838 ≠ ¼`** (`Rr_lattice = 2.838` vs `RR_target = 0.25`) and (ii) the **absent (2,3)** (`w_pol≡0`,
+`golden_self_assembles = False`). The ❌ must be attributed to the product + the missing knot, NOT to a
+missed aspect ratio.
+
+**The SURVIVING result, precisely scoped (this is the C, not a B).** A force-free Beltrami template
+deposits a helicity whose SIGN flips with the template's IMPOSED spatial handedness χ: **H_bel RH +76.3 /
+LH −90.5 / χ=0 −8.5e-15 (full run); source exactly force-free (`cos(b_λ,∇×b_λ) = ±1.000`).** This is real
+and clean — but it is **sign-selection by an IMPOSED template, NOT "charge=helicity carryable from the
+photon."** χ is an INPUT to the source; the photon is decoupled (§4.1) — the `no_photon_null` arm is
+**byte-for-byte identical to `abc_denovo_RH`** (Eomega = 76.670288… and Hbel = 76.265188… equal to full
+machine precision). Nothing about charge was carried FROM a seed; the template's own handedness was read
+back out. The §2 headline ("charge=helicity is CARRYABLE") is demoted to "the sign of an imposed-template
+helicity flips with the template's imposed χ."
+
+**JSON field-hygiene flags (misleading names — do NOT cite the raw booleans).** `control_null = True`
+reads as "the control deposited nothing" but is True ONLY because the control's `(2,0) ≠ (2,3)` — it is
+not evidence of a null control (the χ=0 arm pumped `|L_ω|` to 347.7). `saturates = True` does NOT mean the
+pump saturated — it is literally `bool(frozen_subsecular)` = `frozen_ratio_4L < 2.5` (run line ~610), i.e.
+"the frozen wall is sub-secular," which Lens-2 shows is still an unbounded `t^0.43` pump.
+
+**The four pinned residuals (the C-class boundary).**
+1. **Topology-selection FAILED** — the poloidal "3" never self-assembles from a pure-handedness source
+   (`w_pol≡0`); and the de-novo torus scale (R≈2.9, r≈1.1) is below the extractor's poloidal-resolution
+   floor (so even a true (2,3) there could not be resolved — extractor-misread note).
+2. **The LOCK is MISSING** — only the energize half of energize-lock is built; `|L_ω|` pumps without
+   saturating (Lens 2).
+3. **χ-from-photon is OPEN** — handedness is a source INPUT, not derived from a seed; the photon is
+   decoupled (§4.1).
+4. **The independence gate is UNFALSIFIABLE** — cannot return False as configured (`:111` retracted,
+   Lens 1).
+
+*Attribution: graft-v3 adversarial panel + synthesis, 2026-06-09. The body below (`## VERDICT — B` onward)
+is the pre-panel record, retained intact per Rule 12.*
+
 ## VERDICT — B (the predicted charge=helicity fix LANDS; the (2,3) knot does not yet close)
 
 > **The ONE physics change — the buckle director `x̂` → a force-free (A∥B) BELTRAMI field `b_λ`
