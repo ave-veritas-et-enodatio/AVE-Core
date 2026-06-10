@@ -272,7 +272,14 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         self.latent_ledger[newly] = latent_cell
         self.paid_ledger[newly] = 0.0
         self.E_latent_held += float(np.sum(latent_cell))
-        self.E_diss_snap += float(np.sum(self.chi_shock * ke_void) * self.dx ** 3)
+        e_shock = float(np.sum(self.chi_shock * ke_void) * self.dx ** 3)
+        # D2 VENT: the shock-removed void KE drains as a longitudinal pulse into
+        # the seed (near-field) + a spherical remainder (radiated); else it is a
+        # pure one-way dissipative sink (component-2 behavior).
+        if getattr(self, "vent_into_seed", False):
+            self._vent_to_seed(e_shock)
+        else:
+            self.E_diss_snap += e_shock
         # remove the crossing KE (shock), clamp to the void floor (track added mass)
         self.u_adv[newly] *= (1.0 - self.chi_shock)
         self.mass_clamp += float(np.sum(np.clip(self.rho_cav - rb_before, 0.0, None)) * self.dx ** 3)
@@ -423,6 +430,82 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         """De-energize the bulk advective circulation (the P2 forced-de-spin arm /
         the hysteresis test). factor=0 ⇒ full de-spin."""
         self.u_adv *= factor
+
+    # ------------------------------------------------------- D2 SEED (Lane-1 V)
+    def seed_lane1(self, center=None, sigma: float = 4.0, frac: float = 0.85,
+                   vent_into_seed: bool = False, vent_near_frac: float = 0.5):
+        """D2 SEED: a Lane-1 saturated region carrying a STANDING longitudinal V
+        (the genesis-24 trap machinery, A_cap-class). Plants the inherited
+        topology-NULL bulk seed (V only; NO (2,3) planted — CP8 precursor-only)
+        and arms the VENT: the snap's latent PULSE drains into this seed.
+
+        ave-conserved-vs-pumped: the standing V is ENERGIZED+LOCKED once (stationary
+        ∂_tV=0 start), never CW-pumped. frac is the swept saturation depth
+        (A²_V=frac²; engineering-choice, genesis-24 grid {0.30,0.60,0.85,0.95}).
+
+        FLAG (flag-don't-fix): `vent_into_seed` instantiates the GAP-C cross-sector
+        coupling (snap ledger → seed V) that NO inherited engine specifies — it is
+        the D2-RATIFIED coupling (the directive), hypothesis-class, switchable and
+        energy-accounted; default OFF so the seed alone is the inherited physics."""
+        if center is None:
+            c = (self.N - 1) / 2.0
+            center = (c, c, c)
+        # the inherited topology-null saturated bulk seed (helical=False ⇒ no winding)
+        self.seed_bulk(center, sigma=sigma, frac=frac, helical=False)
+        # seed window (normalized Gaussian) — the vent's near-field target
+        cx, cy, cz = center
+        r2 = (self._bx / self.dx + (self.N - 1) / 2.0 - cx) ** 2 \
+            + (self._by / self.dx + (self.N - 1) / 2.0 - cy) ** 2 \
+            + (self._bz / self.dx + (self.N - 1) / 2.0 - cz) ** 2
+        self._seed_window = np.exp(-r2 / (2.0 * sigma ** 2))
+        self.seed_frac = float(frac)
+        self.vent_into_seed = bool(vent_into_seed)
+        self.vent_near_frac = float(min(max(vent_near_frac, 0.0), 1.0))
+        self.E_vent_to_seed = 0.0
+        self.E_vent_radiated = 0.0
+
+    def seed_certificate(self) -> dict:
+        """CP8 precursor-only certificate: the seed is V-populated but topology-
+        NULL. |H_bel|≈0 (no (2,3) planted), ω≡0, A²_V≈frac², ∂_tV≈0 (standing).
+        A non-null H_bel / nonzero ω here would auto-VOID the run (a forbidden
+        topology seeder fired)."""
+        m = self.interior_mask()
+        A2 = (np.abs(self.V) / self.V_yield) ** 2
+        w = getattr(self, "_seed_window", np.ones_like(self.V))
+        denom = float(np.sum(w * m)) + 1e-30
+        A2_seed = float(np.sum(A2 * w * m) / denom)   # window-weighted average
+        A2_peak = float(np.max(A2 * m))               # core depth (= frac², genesis-24)
+        hbel = float(abs(self.helicity_bel())) if self.omega_sector_on else 0.0
+        omega_max = float(np.max(np.abs(self.omega)))
+        dvdt_max = float(np.max(np.abs((self.V - self.V_prev) / self.dt)))
+        topology_null = (hbel < 1e-12) and (omega_max < 1e-12)
+        return {
+            "A2_seed": A2_seed,
+            "A2_peak": A2_peak,
+            "frac2": float(self.seed_frac ** 2) if hasattr(self, "seed_frac") else None,
+            "H_bel_abs": hbel,
+            "omega_max": omega_max,
+            "dVdt_max": dvdt_max,
+            "topology_null": bool(topology_null),
+            "passes": bool(topology_null and A2_seed > 0.0),
+        }
+
+    def _vent_to_seed(self, e_vent: float):
+        """Deliver an impulsive LONGITUDINAL pulse of energy `e_vent` into the
+        seed: a ∂_tV velocity kick over the seed window carries vent_near_frac
+        (near-field); the remainder is tracked as radiated (spherical remainder).
+        Energy-accounted (driver-honesty: a labeled model coupling — the GAP-C
+        surface)."""
+        if e_vent <= 0.0 or not getattr(self, "vent_into_seed", False):
+            return
+        w = self._seed_window
+        e_near = self.vent_near_frac * e_vent
+        norm = float(np.sum((w ** 2) * self.interior_mask())) * self.dx ** 3 + 1e-30
+        dv = np.sqrt(2.0 * e_near / norm)  # kick amplitude s.t. ½∫(dv·w)²dV = e_near
+        # add dv·w to ∂_tV = (V−V_prev)/dt  ⇒  V_prev -= dv·w·dt
+        self.V_prev = self.V_prev - dv * w * self.dt
+        self.E_vent_to_seed += e_near
+        self.E_vent_radiated += (1.0 - self.vent_near_frac) * e_vent
 
     # ----------------------------------------------------- bulk observers (CP6/CP7)
     def bulk_vorticity_z(self) -> np.ndarray:
