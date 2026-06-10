@@ -65,3 +65,19 @@ Ledger requires over-unity → C (crank). ∮ directed = 0 across the whole bias
 ## 9. Skills + deliverables
 - **Skills:** ave-asymmetric-grip (lead) · ave-regime-phase-state-check · ave-fundamental-ground-up-implementation · substrate-native-check · ave-canonical-source · ave-engineering-program-rigor (figures + bias sweep) · ave-driver-script-honesty (ledger) · ave-discrimination-check.
 - **Deliverables:** `2026-06-09_rectifier-stage1-biased-diode_result.md` (A/B/C + the (V,Q) loop + ledger numbers + the **bias sweep** + **the induced n(r) profile + ray-traced deflection chromaticity (§6a)** + DERIVED/VERIFIED/BLOCKED + figures per engineering-rigor); driver (biased leaky varactor diode + AC pump + (V,Q) loop + ponderomotive momentum + ledger + bias sweep + **the ponderomotive n(r) gradient + a chromaticity ray-trace** + savefig). Own implementor branch off this one; do NOT push/merge. **No thrust / engineered-gravity claim unless A with a closing ledger AND an achromatic induced lens.**
+
+---
+
+## §10 AMENDMENT — 2026-06-10 (post-freeze provenance correction, Rule 12)
+
+Appended post-freeze per the Grant rename-queue adjudication 2026-06-10, ruling **R8** (registry §5 R8, `research/2026-06-10_field-symbol-registry.md:309`). This prereg is **FROZEN** (`> SCAFFOLD — frozen before compute`); the §5 line-34 body above is **preserved verbatim and NOT rewritten** — this is a record correction only.
+
+**Provenance correction — `RHO_CAV` is NOT in `constants.py`.** §5 line 34 attributes its **Canonical primitives** list — *"(from `constants.py`, per `ave-canonical-source`): V_yield=43.65 kV, E_yield=1.13×10¹⁷ V/m, ℓ_node=0.386 pm, Q=α⁻¹→R≈α, RHO_CAV=−1/φ"* — to `constants.py`. That blanket attribution is correct for **four of the five** primitives but **wrong for `RHO_CAV`**:
+
+- `V_YIELD` ≈ 43,652 V — `constants.py:403` ✓
+- `E_YIELD` ≈ 1.13×10¹⁷ V/m — `constants.py:414` ✓
+- `ℓ_node` (`L_NODE`) ≈ 0.386 pm — `constants.py:239` ✓
+- `Q = α⁻¹` (and `E_YIELD_KINETIC` ≈ 43.65 keV) — `constants.py` (`ALPHA`, `:397`) ✓
+- **`RHO_CAV = −1/φ`** — **ABSENT from `constants.py`** (verified live this session: `grep RHO_CAV constants.py` → no match). It is defined in **`cavitation_flow.py:64`** (`RHO_CAV = -1.0 / PHI  # = (1−√5)/2 ≈ −0.6180339887 ; c_bulk²(ρ̄_cav)=0`), consumed by the cavitation-core probe (PR#161). The cavitation floor is a CANDIDATE anchor (from `PHI`), not a `constants.py` canonical.
+
+Corrected reading of line 34: *the primitives are from `constants.py` **except `RHO_CAV=−1/φ`, which is from `cavitation_flow.py:64`***. No value changes; only the file-attribution is corrected. Disciplines: `verify-before-cite` (every line re-verified live), `ave-apparatus-floor-attribution` (the cavitation floor is candidate-class, sourced where it actually lives).
