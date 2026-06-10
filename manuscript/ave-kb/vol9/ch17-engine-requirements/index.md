@@ -20,6 +20,7 @@ The chapter content is **Class B/C synthesis** per `consistency-vs-emergence` v1
 - **Source symmetry class must admit the target topology** (centrosymmetric source cannot select a chiral knot — graft-v2).
 - **Conservation canaries on float64** (H-drift, $|\mathbf{L}|$ gates are the pump-vs-lock detectors); fixed $N$ across compared runs; alias-checked extractors with reliability gates **and representation-capability-validated at the sampling scale** (plant-$(2,3)$-at-de-novo-scale $\to$ read-$(2,3)$; minor radius $r \gtrsim 3$ cells — a TRUE $(2,3)$ reads back as $(2,2)$/garbage at $r\approx1.1$ cells, so de-novo $w_{pol}=0$ nulls are partly representation-limited per the extractor-poloidal-misread note); observers strictly read-only.
 - **Regime-reachability**: the engine must reach the regime the test requires (bulk near-yield for rectification); sub-yield nulls are artifacts.
+- **(Candidate — characterization-in-flight) Wall sharpness / leak must be shown NOT regularization-limited.** Sweep $S_{min}$ / $A_{cap}$ before attributing any wall-sharpness / leak number (e.g. $\Gamma_{min}\approx-0.85$ carried across graft-v2/v3) to a physical constant ($\alpha$ above all); a number that tracks a regularization knob is apparatus, not physics. In-flight characterization on `analysis/2026-06-10-apparatus-floors` ($S_{min}$/$A_{cap}$ wall attribution + $H_{bel}$ ledger floor + wall-sign audit); discipline `ave-apparatus-floor-attribution`. NOT yet an adjudicated requirement — promote on that branch's verdict.
 
 ## Manuscript counterpart
 
