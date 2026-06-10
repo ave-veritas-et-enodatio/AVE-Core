@@ -1009,7 +1009,7 @@ D_INTRA_ALPHA: float = D_PROTON * np.sqrt(8.0)  # ≈ 2.379 fm
 # The DEUTERON BINDING ENERGY is the eigenvalue energy scaled by α:
 #   B_deuteron = ℏω₁ × α  (electromagnetic coupling of the cavity mode)
 
-# NU_VAC already defined at line 127 — use that single definition
+# NU_VAC already defined at line 508 — use that single definition
 
 # Inter-nucleon eigenvalue distance [fm]
 D_NN_EIGENVALUE: float = pi * D_PROTON * 7.0 / 9.0  # ≈ 2.056 fm
