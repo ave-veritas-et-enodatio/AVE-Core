@@ -1617,6 +1617,25 @@ class EngineConfig:
     # the coupling term is double-counting and Cosserat needs its self-terms
     # BACK for topology-stabilizing dynamics. Default False preserves legacy.
     enable_cosserat_self_terms: bool = False
+    # Saturation-TIR moving Γ=−1 impedance boundary, COUPLED (KEEP-BOTH, default
+    # OFF → byte-identical to the legacy coupled engine). When True, Axiom-4
+    # saturation is rendered as a moving reflective short at the SHARED front,
+    # confining BOTH the K4 V-sector "3" (z_local→0 bond Γ→−1) and the Cosserat
+    # "2" (ω node-clamp) — the coupled port of the standalone (II) mechanism
+    # (research/2026-06-06_optionD-impose-under-reflective-confinement-result.md).
+    # impedance_implicit bundles the exact reactance-pair rotation (CP6) + a
+    # CFL-safe sub-dt (impedance_cfl_safety) that is the operative anti-pumping fix.
+    use_impedance_boundary: bool = False
+    impedance_clamp_strength: float = 200.0
+    impedance_skin_smoothing: int = 2
+    impedance_implicit: bool = True
+    impedance_cfl_safety: float = 0.4
+    # Sector-coupling toggle (the one new variable for the Option-D-impose
+    # re-test). True → the Cosserat-ω wall sees the live K4 V_sq (full sector
+    # coupling, the §9 fix); False → V_sq=0 forced (decoupled (II)-standalone
+    # wall). Lets the driver isolate moving-boundary-alone vs +sector-coupling.
+    # Only active when use_impedance_boundary=True.
+    couple_v_sector: bool = True
 
 
 class VacuumEngine3D:
@@ -1654,6 +1673,12 @@ class VacuumEngine3D:
             use_lagrangian_emf_coupling=config.use_lagrangian_emf_coupling,
             disable_cosserat_lc_force=config.disable_cosserat_lc_force,
             enable_cosserat_self_terms=config.enable_cosserat_self_terms,
+            use_impedance_boundary=config.use_impedance_boundary,
+            impedance_clamp_strength=config.impedance_clamp_strength,
+            impedance_skin_smoothing=config.impedance_skin_smoothing,
+            impedance_implicit=config.impedance_implicit,
+            impedance_cfl_safety=config.impedance_cfl_safety,
+            couple_v_sector=config.couple_v_sector,
         )
 
         self.k4 = self._coupled.k4

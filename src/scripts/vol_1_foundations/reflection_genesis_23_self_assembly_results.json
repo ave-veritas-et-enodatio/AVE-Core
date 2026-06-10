@@ -1,0 +1,179 @@
+{
+  "config": {
+    "N": 24,
+    "PML": 4,
+    "sigma": 3.0,
+    "wavelength": 6.0,
+    "A_lock": 3.0,
+    "A_pump": 6.0,
+    "K_wall": 60.0,
+    "n_steps": 50,
+    "kappa_chiral": 0.00875682308316,
+    "alpha": 0.0072973525693,
+    "alpha_cold_inv": 137.0363037758784
+  },
+  "validity_gate": {
+    "gamma_min": -3.2895475340875015e-09,
+    "E_ratio": 0.9964114945286783,
+    "max_V_inc": 0.0,
+    "pass": true
+  },
+  "the_2": {
+    "loc0": 0.9676589945491783,
+    "locf": 0.48189870440967486,
+    "loc_nowall": 0.5420189048854122,
+    "omega_max0": 3.0,
+    "omega_maxf": 0.9847039106940318,
+    "held": false,
+    "locked": true,
+    "peak": [
+      16,
+      12,
+      12
+    ]
+  },
+  "the_3": {
+    "v_sector": {
+      "max_V_inc": 0.0,
+      "max_V_ref": 0.0,
+      "max_Phi_link": 0.0,
+      "V_sq_sum": 0.0
+    },
+    "phase_space": {
+      "R_shell": 2.5411649948891553,
+      "vinc_amp": 0.0,
+      "vref_amp": 0.0,
+      "vinc_w_tor": 0.0,
+      "vinc_rel_tor": 0.0,
+      "vinc_w_pol": 0.0,
+      "vinc_rel_pol": 0.0,
+      "vref_w_tor": 0.0,
+      "vref_rel_tor": 0.0,
+      "vref_w_pol": 0.0,
+      "vref_rel_pol": 0.0,
+      "vinc_closes_23": false,
+      "vref_closes_23": false,
+      "phase_space_populated": false
+    },
+    "c_omega_realspace": 2
+  },
+  "charge_helicity": {
+    "H_plus": -78.38070052574129,
+    "H_minus": 80.9967363111041,
+    "loc_plus": 0.48189870440967486,
+    "loc_minus": 0.499801505152419,
+    "sign_flips": true,
+    "both_confine": false
+  },
+  "chirality": {
+    "plus": {
+      "gamma_min": -0.0028986871155516247,
+      "gamma_max": 0.030327718332479974,
+      "frac_mu_short": 0.0,
+      "frac_eps_open": 0.0,
+      "h_bel": -78.38070052574129
+    },
+    "minus": {
+      "gamma_min": -0.0035187365304359284,
+      "gamma_max": 0.014620047445143221,
+      "frac_mu_short": 0.0,
+      "frac_eps_open": 0.0,
+      "h_bel": 80.9967363111041
+    },
+    "definite_selection": false
+  },
+  "spin_L": {
+    "L_min": 4.491438451965113,
+    "L_max": 25.084837806696946,
+    "omega_lock_max": 2.6251973984821353,
+    "omega_pump_max": 331.9546095705041,
+    "locked": true,
+    "pump_detonates": true,
+    "H_bel_series": [
+      -61.064053034925536,
+      -203.76196597179634,
+      -106.04795433892912,
+      -101.93294885033637,
+      -139.46203606567948,
+      -75.51798194360455,
+      -96.23676095541597,
+      -98.88890583325795,
+      -69.89489361309667,
+      -96.7661299215348,
+      -96.5358131585829,
+      -71.3878390673892,
+      -67.07941052759455,
+      -78.38070052574129
+    ]
+  },
+  "alpha_leak": {
+    "gamma_min": -0.0028986871155516247,
+    "T2_residual": 0.9999915976130062,
+    "leak": 0.9971013128844484,
+    "Q_inv_leak": 1.0029071139292418,
+    "alpha_cold_inv_target": 137.0363037758784,
+    "sweep": [
+      {
+        "A": 0.5,
+        "gamma_min": -5.410070222036766e-06
+      },
+      {
+        "A": 1.0,
+        "gamma_min": -2.004461412264094e-05
+      },
+      {
+        "A": 1.5,
+        "gamma_min": -3.816021862625304e-05
+      },
+      {
+        "A": 2.0,
+        "gamma_min": -7.273255125211983e-05
+      },
+      {
+        "A": 3.0,
+        "gamma_min": -0.0005231707555128217
+      },
+      {
+        "A": 4.0,
+        "gamma_min": -0.08804222373773055
+      },
+      {
+        "A": 6.0,
+        "gamma_min": -0.9936506717338283
+      }
+    ]
+  },
+  "gap_localization": {
+    "v0": 0.11563155400398491,
+    "v_end": {
+      "max_V_inc": 0.08631309308640789,
+      "max_V_ref": 0.08605593101544182,
+      "max_Phi_link": 0.036310343820183395,
+      "V_sq_sum": 0.8141376147439237
+    },
+    "phase_space": {
+      "R_shell": 2.5411649948891553,
+      "vinc_amp": 0.20145793827457595,
+      "vref_amp": 0.1026640400356586,
+      "vinc_w_tor": 0.0,
+      "vinc_rel_tor": 0.0,
+      "vinc_w_pol": 0.0,
+      "vinc_rel_pol": 0.0,
+      "vref_w_tor": 0.0,
+      "vref_rel_tor": 0.0,
+      "vref_w_pol": 0.0,
+      "vref_rel_pol": 0.0,
+      "vinc_closes_23": false,
+      "vref_closes_23": false,
+      "phase_space_populated": true
+    }
+  },
+  "verdict": "C",
+  "figures": {
+    "fig1": "/Users/grantlindblom/AVE-staging/AVE-Core-genesis23-wt/src/scripts/vol_1_foundations/genesis23_fig1_phase_space_winding.png",
+    "fig2": "/Users/grantlindblom/AVE-staging/AVE-Core-genesis23-wt/src/scripts/vol_1_foundations/genesis23_fig2_localization.png",
+    "fig3": "/Users/grantlindblom/AVE-staging/AVE-Core-genesis23-wt/src/scripts/vol_1_foundations/genesis23_fig3_charge_chirality.png",
+    "fig4": "/Users/grantlindblom/AVE-staging/AVE-Core-genesis23-wt/src/scripts/vol_1_foundations/genesis23_fig4_spin_lock.png",
+    "fig5": "/Users/grantlindblom/AVE-staging/AVE-Core-genesis23-wt/src/scripts/vol_1_foundations/genesis23_fig5_alpha_leak.png"
+  }
+}
