@@ -21,8 +21,9 @@ index or frequency shift), so they combine in PARALLEL:
           = (alpha * p * alpha * q) / (alpha * p + alpha * q)
           = alpha * pq/(p+q)
 
-The harmonic-mean factor pq/(p+q) emerges naturally from parallel
-combination of two impedances linear in their winding count.
+The parallel-channel-combination factor pq/(p+q) (= HALF the harmonic
+mean 2pq/(p+q) of p,q, NOT the harmonic mean itself) emerges naturally
+from parallel combination of two impedances linear in their winding count.
 
 Verification protocol:
   1. For each (p,q) in the canonical Hopf-coil chirality table (held in
@@ -60,7 +61,12 @@ def chirality_parallel_impedance(p: int, q: int) -> float:
 
 
 def harmonic_mean_winding(p: int, q: int) -> float:
-    """pq/(p+q) — topological FoM (Hopf-coil chirality convention).
+    """pq/(p+q) — parallel-channel-combination FoM (Hopf-coil convention).
+
+    NOTE on the name: this is a LEGACY symbol. The factor pq/(p+q) is the
+    PARALLEL-CHANNEL COMBINATION of the two winding impedances, which equals
+    HALF the harmonic mean 2pq/(p+q) of (p,q) — it is NOT the harmonic mean
+    itself. Symbol name kept for caller stability; computation unchanged.
 
     Matches the canonical Beltrami-Hopf coil derivation (separate
     propulsion engineering compendium).
@@ -180,15 +186,19 @@ def main():
             "to 1e-12 for all (p,q) in Hopf-coil chirality framework table."
         )
         print("")
-        print("Physical interpretation confirmed:")
+        print("Physical interpretation (Path A, doc 20):")
         print("  - Each winding direction (toroidal p, poloidal q) is an")
         print("    independent chiral-coupling channel with impedance")
         print("    Z_i = alpha * i (linear in winding count).")
         print("  - Two channels in parallel (same TIR boundary) give")
         print("    Z_total = alpha * pq/(p+q), reproducing the Hopf-coil chirality framework")
-        print("    empirical frequency-shift formula.")
-        print("  - Harmonic-mean factor pq/(p+q) derived from substrate")
-        print("    physics, not phenomenology.")
+        print("    PREDICTED frequency-shift formula.")
+        print("  - This PASS is an internal algebraic-consistency identity:")
+        print("    direct pq/(p+q) and the parallel-impedance form are the")
+        print("    same expression, so they agree by construction (not an")
+        print("    empirical or independent verification). The substrate")
+        print("    derivation of the parallel-channel factor pq/(p+q) is")
+        print("    doc 20 Path A; Path B (per-bond) remains the open item.")
     else:
         print("FAIL: some rows disagree. Path A may need refinement.")
 
