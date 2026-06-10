@@ -1478,10 +1478,10 @@ class DarkWakeObserver(Observer):
         wake IS the field-theoretic form of the
         Newton-3rd-law back-reaction: every forward soliton/photon must
         carry an equal-and-opposite longitudinal-shear (shear-channel) strain wave behind
-        it, mass-equivalent to the inductive wake-drag (M_inertial ≡ L_drag = the
-        radiation resistance R_rad,L, the WAKE FIELD's wave-making port drag —
-        NOT the Faraday–Lenz back-EMF, a separate port reaction; corr 0.117,
-        per higgs_impedance_mapping.py:48-52).
+        it. The backward wake's RADIATED momentum is the WAKE FIELD's wave-making port
+        drag — the radiation resistance R_rad,L (the resistive, radiated part of Z_L).
+        The soliton's inertial mass is the SEPARATE reactive self-inductance L_self
+        (X_L), read as the Lenz back-EMF vs Z_0 (M_inertial ≡ L_drag, higgs_impedance_mapping.py:44-48; corr 0.117).
       • Ax 4 (Op14 saturation kernel S(A) = √(1 − A²)) modulates Z_local
         spatially: at A² → A²_yield, Z_eff steepens locally, creating the
         gradient that drives ∂|V|²/∂x → τ_zx. Without saturation modulation,
