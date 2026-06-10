@@ -1,0 +1,175 @@
+{
+  "prereg": "research/2026-06-10_genesis-v6-transducer_prereg.md",
+  "job": "D11 pump isolation + fix",
+  "scale": {
+    "N": 40,
+    "M": 1.8,
+    "n_build": 3200,
+    "n_persist": 1200,
+    "frac": 0.85,
+    "seed": 20260610
+  },
+  "bisection": {
+    "MAIN": {
+      "name": "MAIN",
+      "config": {
+        "seed": true,
+        "snap": true,
+        "vent_into_seed": true,
+        "vent_mode": "kick"
+      },
+      "plateau_step": 2800,
+      "built_step": 3200,
+      "H_naive_plateau": 13741.76797486265,
+      "H_naive_built": 64834.855609741055,
+      "H_cons_plateau": 13741.727740937094,
+      "H_cons_built": 23547.520678438283,
+      "H_naive_growth_pct": 371.80869105300906,
+      "H_cons_growth_pct": 71.3577879169399,
+      "EV_naive_built": 50339.23598968623,
+      "EV_cons_built": 9051.901058383452,
+      "max_V_built": 5.552622648059636,
+      "pocket_built": 5968,
+      "E_latent_held": 968.2971635196701,
+      "E_diss_snap": 0.0,
+      "E_vent_to_seed": 483.9151663235743,
+      "E_vent_absorbed": 0.0,
+      "E_reflect": 0.0,
+      "wall_s": 38.452122926712036
+    },
+    "VENT_OFF": {
+      "name": "VENT_OFF",
+      "config": {
+        "seed": true,
+        "snap": true,
+        "vent_into_seed": false,
+        "vent_mode": "kick"
+      },
+      "plateau_step": 2800,
+      "built_step": 3200,
+      "H_naive_plateau": 13741.76797486265,
+      "H_naive_built": 14508.762286020663,
+      "H_cons_plateau": 13741.727740937094,
+      "H_cons_built": 14508.71376759332,
+      "H_naive_growth_pct": 5.58148203754458,
+      "H_cons_growth_pct": 5.581438092179251,
+      "EV_naive_built": 12.908910569032082,
+      "EV_cons_built": 12.860392141689147,
+      "max_V_built": 0.3236770834569944,
+      "pocket_built": 5968,
+      "E_latent_held": 968.2971635196701,
+      "E_diss_snap": 967.8303326471486,
+      "E_vent_to_seed": 0.0,
+      "E_vent_absorbed": 0.0,
+      "E_reflect": 0.0,
+      "wall_s": 39.4883918762207
+    },
+    "SEED_OFF": {
+      "name": "SEED_OFF",
+      "config": {
+        "seed": false,
+        "snap": true,
+        "vent_into_seed": true,
+        "vent_mode": "kick"
+      },
+      "plateau_step": 2800,
+      "built_step": 3200,
+      "H_naive_plateau": 13728.631007191614,
+      "H_naive_built": 14495.66943224704,
+      "H_cons_plateau": 13728.631007191614,
+      "H_cons_built": 14495.66943224704,
+      "H_naive_growth_pct": 5.587144301960039,
+      "H_cons_growth_pct": 5.587144301960039,
+      "EV_naive_built": 0.0,
+      "EV_cons_built": 0.0,
+      "max_V_built": 0.0,
+      "pocket_built": 5968,
+      "E_latent_held": 968.2971635196701,
+      "E_diss_snap": 967.8303326471486,
+      "E_vent_to_seed": 0.0,
+      "E_vent_absorbed": 0.0,
+      "E_reflect": 0.0,
+      "wall_s": 39.54625582695007
+    },
+    "SNAP_OFF": {
+      "name": "SNAP_OFF",
+      "config": {
+        "seed": true,
+        "snap": false,
+        "vent_into_seed": true,
+        "vent_mode": "kick"
+      },
+      "plateau_step": 2800,
+      "built_step": 3200,
+      "H_naive_plateau": 13778.593398882836,
+      "H_naive_built": 13775.798726423895,
+      "H_cons_plateau": 13778.55316495728,
+      "H_cons_built": 13775.750207996552,
+      "H_naive_growth_pct": -0.02028271230623964,
+      "H_cons_growth_pct": -0.020342897597235402,
+      "EV_naive_built": 12.908910569032082,
+      "EV_cons_built": 12.860392141689147,
+      "max_V_built": 0.3236770834569944,
+      "pocket_built": 0,
+      "E_latent_held": 0.0,
+      "E_diss_snap": 0.0,
+      "E_vent_to_seed": 0.0,
+      "E_vent_absorbed": 0.0,
+      "E_reflect": 0.0,
+      "wall_s": 38.82704281806946
+    }
+  },
+  "functional_artifact": {
+    "EV_naive_built": 50339.23598968623,
+    "EV_cons_built": 9051.901058383452,
+    "naive_over_cons_ratio": 5.5611783276248214
+  },
+  "F_CLOSE": {
+    "max_pos_excursion_pct": 0.18400757007732202,
+    "resid_pct": 0.02304965973598847,
+    "note": "no-snap drive-off; the free PML/numeric drift floor (the pump gate)"
+  },
+  "fix_demo": {
+    "built": {
+      "step": 3200,
+      "H_naive": 13528.830952564855,
+      "H_cons": 13528.782434137513,
+      "EV_naive": 12.908910569032082,
+      "EV_cons": 12.860392141689147,
+      "max_V": 0.3236770834569944,
+      "pocket": 5256,
+      "E_latent_held": 0.5229384973210942,
+      "E_diss_snap": 0.0,
+      "E_vent_to_seed": 0.0,
+      "E_vent_absorbed": 967.8353249722118,
+      "E_reflect": 3.252211872178094e-07
+    },
+    "EV_naive_built": 12.908910569032082,
+    "max_V_built": 0.3236770834569944,
+    "pocket_built": 5256,
+    "drive_off_resid_pct": -4.085448118935856,
+    "drive_off_max_pos_excursion_pct": 0.0,
+    "snap_ledger": {
+      "pocket_cells": 5256,
+      "snap_events": 31200,
+      "unsnap_events": 25944,
+      "E_latent_held": 0.5229384973210942,
+      "E_latent_restored": 4.59402112408838,
+      "E_diss_snap": 0.0,
+      "E_vent_absorbed": 967.8353249722118,
+      "E_reflect": 3.252211872178094e-07,
+      "mass_clamp": 9.949074376013947
+    },
+    "pump_gate_pass": true
+  },
+  "verdict": {
+    "dominant_mechanism": "GAP-C vent re-injection -> genesis-24 seed-V breather",
+    "evidence": "MAIN H_naive build-growth +371.8% (EV_naive->50339, maxV->5.55); VENT_OFF identical pocket cascade (pocket=5968) but EV_naive flat (->13, maxV->0.32), H_cons growth only +5.6%.",
+    "secondary_1": "wrong functional: EV_naive/EV_cons = 5.6x at MAIN built (the naive bulk_energy over-reports the saturated-core breather).",
+    "secondary_2": "snap-accounting double-count: VENT_OFF legacy H_cons grows +5.6% (shock KE held AND dissipated) -> conservative accounting de-double-counts.",
+    "fix": "vent_mode=absorbed (conservative store, no V-kick) + snap_accounting=conservative",
+    "post_fix_drive_off_resid_pct": -4.085448118935856,
+    "F_CLOSE_pct": 0.18400757007732202,
+    "pump_gate_pass": true
+  }
+}

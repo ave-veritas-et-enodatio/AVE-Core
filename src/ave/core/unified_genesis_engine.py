@@ -86,6 +86,9 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         chi_shock: float = 1.0,
         delta_heal: float = 0.0,
         snap_payback_rate: float = 1.0,
+        # --- v6 hygiene (D11); ALL default to the v5 byte-identical path ---
+        vent_mode: str = "kick",
+        snap_accounting: str = "legacy",
         **kwargs,
     ):
         """
@@ -141,13 +144,22 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         self.chi_shock = float(chi_shock)    # N3
         self.delta_heal = float(delta_heal)  # N2
         self.snap_payback_rate = float(snap_payback_rate)
+        # v6 hygiene knobs (D11) — default values reproduce the v5 path exactly
+        self.vent_mode = str(vent_mode)            # "kick" (v5) | "absorbed" (D10a)
+        self.snap_accounting = str(snap_accounting)  # "legacy" (v5) | "conservative" (D11)
         self.snap_mask = np.zeros((Nn, Nn, Nn), dtype=bool)
         self.latent_ledger = np.zeros((Nn, Nn, Nn), dtype=np.float64)  # held-out per cell
         self.paid_ledger = np.zeros((Nn, Nn, Nn), dtype=np.float64)    # paid-back per cell
+        # per-cell snap THRESHOLD + clamp value (the D10b Meissner hook lowers the
+        # threshold; uniform = rho_cav ⇒ byte-identical to the v5 scalar path).
+        self.rho_cav_field = np.full((Nn, Nn, Nn), self.rho_cav, dtype=np.float64)
+        self.snap_clamp_val = np.full((Nn, Nn, Nn), self.rho_cav, dtype=np.float64)
         # cumulative scalar ledgers (energy bookkeeping; the tally must close)
         self.E_latent_held = 0.0   # currently held out of the dynamics (sum of latent_ledger)
         self.E_latent_restored = 0.0  # paid-back-and-returned (cumulative)
         self.E_diss_snap = 0.0     # shock-class one-way (chi_shock·void-KE)
+        self.E_vent_absorbed = 0.0  # D10(a) conservative store (the vent-absorbed sink)
+        self.E_reflect = 0.0       # D11 conservative: per-step reflector-BC KE removed
         self.mass_clamp = 0.0      # |mass| added by the void-floor clamp (honesty)
         self.snap_events = 0
         self.unsnap_events = 0
@@ -263,27 +275,42 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         Z_bulk→0 reflector with c2_floor=0). Hysteresis-by-bookkeeping: the latent
         is HELD until paid back."""
         rb_before = self.rho_bar[newly]
-        # reversible internal-energy released crossing to the floor
-        d_eps = np.abs(self.U_density(rb_before) - self.U_density(self.rho_cav))
+        # per-cell clamp floor: rho_cav (legacy/scalar) OR the cell's own threshold
+        # (conservative/Meissner — set in _snap_step before this call).
+        legacy = self.snap_accounting == "legacy"
+        clamp = self.rho_cav if legacy else self.snap_clamp_val[newly]
+        # reversible internal-energy released crossing to the (per-cell) floor
+        d_eps = np.abs(self.U_density(rb_before) - self.U_density(clamp))
         # shock-class void KE removed (one-way)
         rho_full = 1.0 + rb_before
         ke_void = 0.5 * rho_full * np.sum(self.u_adv[newly] ** 2, axis=-1)
-        latent_cell = (d_eps + self.chi_shock * ke_void) * self.dx ** 3
+        if legacy:
+            # v5 path (byte-identical): latent holds d_eps + chi·ke_void. NOTE the
+            # chi·ke_void is ALSO booked to diss/vent below — the DOUBLE-COUNT D11
+            # isolates (the shock KE is held AND dissipated; the +5.6% residual pump).
+            latent_cell = (d_eps + self.chi_shock * ke_void) * self.dx ** 3
+        else:
+            # D11 conservative: latent holds ONLY the reversible internal energy
+            # (the un-snap payback threshold); the shock KE is the IRREVERSIBLE
+            # one-way destination, booked ONCE (de-double-count).
+            latent_cell = d_eps * self.dx ** 3
         self.latent_ledger[newly] = latent_cell
         self.paid_ledger[newly] = 0.0
         self.E_latent_held += float(np.sum(latent_cell))
         e_shock = float(np.sum(self.chi_shock * ke_void) * self.dx ** 3)
-        # D2 VENT: the shock-removed void KE drains as a longitudinal pulse into
-        # the seed (near-field) + a spherical remainder (radiated); else it is a
-        # pure one-way dissipative sink (component-2 behavior).
-        if getattr(self, "vent_into_seed", False):
+        # VENT routing: D10(a) absorbed (conservative store, no V-kick — the pump
+        # fix) | D2 vent-into-seed (the v5 ∂_tV kick = the Class-C pump trigger) |
+        # pure one-way dissipative sink.
+        if self.vent_mode == "absorbed":
+            self.E_vent_absorbed += e_shock
+        elif getattr(self, "vent_into_seed", False):
             self._vent_to_seed(e_shock)
         else:
             self.E_diss_snap += e_shock
         # remove the crossing KE (shock), clamp to the void floor (track added mass)
         self.u_adv[newly] *= (1.0 - self.chi_shock)
-        self.mass_clamp += float(np.sum(np.clip(self.rho_cav - rb_before, 0.0, None)) * self.dx ** 3)
-        self.rho_bar[newly] = self.rho_cav
+        self.mass_clamp += float(np.sum(np.clip(clamp - rb_before, 0.0, None)) * self.dx ** 3)
+        self.rho_bar[newly] = clamp
         self.snap_mask[newly] = True
         self.snap_events += int(np.count_nonzero(newly))
 
@@ -295,23 +322,39 @@ class UnifiedGenesisEngine(CrystalGraftV4):
           3. cells whose tally is PAID BACK ⇒ un-snap (re-enter above the floor;
              the held latent is RESTORED to the dynamics ledger). NO new EOS."""
         m = self.interior_mask()
-        # (1) crossings
-        below = (self.rho_bar <= self.rho_cav) & m & ~self.snap_mask
+        legacy = self.snap_accounting == "legacy"
+        # (1) crossings — per-cell threshold rho_cav_field (≡ rho_cav unless Meissner
+        # hardened); broadcasting over a uniform field is byte-identical to the scalar.
+        below = (self.rho_bar <= self.rho_cav_field) & m & ~self.snap_mask
         if below.any():
+            if not legacy:
+                # the cell clamps/holds at its own threshold (Meissner-aware)
+                self.snap_clamp_val[below] = self.rho_cav_field[below]
             self._tally_latent_and_snap(below)
         if not self.snap_mask.any():
             return
         cm = self.snap_mask
-        # (2) enforce the boundary-class void (reflector: ρ̄ held at floor, u killed)
-        self.rho_bar[cm] = self.rho_cav
+        # (2) enforce the boundary-class void (reflector: ρ̄ held at floor, u killed).
+        # D11 conservative: TALLY the reflector-removed KE (one-way physical sink) so
+        # the ledger closes — the v5 legacy path destroys it untallied.
+        if not legacy:
+            self.E_reflect += float(np.sum(
+                0.5 * (1.0 + self.rho_bar[cm]) * np.sum(self.u_adv[cm] ** 2, axis=-1)
+            ) * self.dx ** 3)
+            self.rho_bar[cm] = self.snap_clamp_val[cm]
+        else:
+            self.rho_bar[cm] = self.rho_cav
         self.u_adv[cm] = 0.0
         # over-pressure payback: the surrounding medium does work against the void.
-        # neighbor-mean pressure minus the void pressure; positive ⇒ pushing in.
+        # neighbor-mean pressure minus the (per-cell) void pressure; positive ⇒ in.
         p = self.pressure(self.rho_bar)
         p_neigh = (np.roll(p, 1, 0) + np.roll(p, -1, 0)
                    + np.roll(p, 1, 1) + np.roll(p, -1, 1)
                    + np.roll(p, 1, 2) + np.roll(p, -1, 2)) / 6.0
-        over = np.clip(p_neigh - self.pressure(np.array(self.rho_cav)), 0.0, None)
+        if legacy:
+            over = np.clip(p_neigh - self.pressure(np.array(self.rho_cav)), 0.0, None)
+        else:
+            over = np.clip(p_neigh - self.pressure(self.snap_clamp_val), 0.0, None)
         self.paid_ledger[cm] += over[cm] * self.dx ** 3 * self.snap_payback_rate * self.dt
         # (3) un-snap the paid-up cells (re-enter above floor; restore the latent)
         paid_up = cm & (self.paid_ledger >= self.latent_ledger) & (self.latent_ledger > 0.0)
@@ -319,7 +362,8 @@ class UnifiedGenesisEngine(CrystalGraftV4):
             restored = float(np.sum(self.latent_ledger[paid_up]))
             self.E_latent_held -= restored
             self.E_latent_restored += restored
-            self.rho_bar[paid_up] = self.rho_cav + self.delta_heal
+            floor = self.rho_cav if legacy else self.snap_clamp_val[paid_up]
+            self.rho_bar[paid_up] = floor + self.delta_heal
             self.snap_mask[paid_up] = False
             self.latent_ledger[paid_up] = 0.0
             self.paid_ledger[paid_up] = 0.0
@@ -546,8 +590,40 @@ class UnifiedGenesisEngine(CrystalGraftV4):
             "E_latent_held": self.E_latent_held,
             "E_latent_restored": self.E_latent_restored,
             "E_diss_snap": self.E_diss_snap,
+            "E_vent_absorbed": self.E_vent_absorbed,
+            "E_reflect": self.E_reflect,
             "mass_clamp": self.mass_clamp,
         }
+
+    # ----------------------------------------- v6 D11 unified energy bookkeeping
+    def bulk_internal_energy(self, interior_only: bool = True) -> float:
+        """∫ε(ρ̄)dV — the exact-EOS internal energy (the U-table). snap_on only;
+        else falls back to the linear-acoustic PE proxy ½c₀²∫ρ̄² (v5 H_field parity)."""
+        m = self.interior_mask() if interior_only else 1.0
+        if getattr(self, "snap_on", False) and hasattr(self, "_U_rb"):
+            return float(np.sum(self.U_density(self.rho_bar) * m) * self.dx ** 3)
+        return float(0.5 * self.c0 ** 2 * np.sum((self.rho_bar ** 2) * m) * self.dx ** 3)
+
+    def snap_energy_ledger_total(self) -> float:
+        """Sum of ALL snap-energy destinations currently OUT of the field dynamics:
+        held latent + dissipated + vented (seed/radiated) + absorbed (D10a) +
+        reflector-removed (D11). EXCLUDES E_latent_restored (it returned to the
+        field). The H_total bookkeeping term that must close the ledger."""
+        return (self.E_latent_held + self.E_diss_snap
+                + getattr(self, "E_vent_to_seed", 0.0) + getattr(self, "E_vent_radiated", 0.0)
+                + self.E_vent_absorbed + self.E_reflect)
+
+    def total_energy_unified(self, conserved: bool = True) -> float:
+        """H_total across ALL sectors (V + shear-w + ω + coupling + bulk-KE +
+        bulk-U) + the snap ledger.  conserved=True uses the master-equation
+        INVARIANT bulk_energy_conserved for the V-sector (CP2 — the c_eff²-weighted
+        energy); conserved=False uses the naive bulk_energy (the v5 functional the
+        saturated-core breather grows — the D11 wrong-functional artifact)."""
+        ev = self.bulk_energy_conserved(True) if conserved else self.bulk_energy(True)
+        field = (ev + self.shear_energy(True) + self.omega_energy(True)
+                 + self._coupling_energy() + self.bulk_kinetic_energy()
+                 + self.bulk_internal_energy(True))
+        return field + self.snap_energy_ledger_total()
 
     # ------------------------------------------------------------------- step
     def step(self):
