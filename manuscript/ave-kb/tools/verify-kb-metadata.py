@@ -40,7 +40,11 @@ Fourteen checks, all hard fail-loud:
        strengthen-by / cites / subtree-aggregates resolves to a record in
        claims.jsonl (which holds claim + framework nodes), and every
        depends-on edge's target_kind matches the resolved node's node_type.
-       (Not refresh-fixable; symptom of a build bug.)
+       Also enforces the `def-` node-id format (\bdef-[a-z0-9]{6}\b) and that
+       every id in a definition's `clm_cross_links` resolves to a claim /
+       experiment / support node (INVARIANT-S12; an orphan or framework /
+       definition target is a hard failure). (Not refresh-fixable; symptom of
+       a build bug or a perturbed vocabulary entry.)
    12. Solidity-graph acyclicity: the claim depends-on graph must be a DAG.
        A cycle makes solidity undefined for its members. (Not refresh-fixable;
        the cycle must be broken in the claim depends-on declarations.)
@@ -116,6 +120,7 @@ TIER2_INLINE = re.compile(r"<!--\s*claim-quality:\s*(.*?)\s*-->", re.DOTALL)
 ID_RE = re.compile(r"\b(clm-[a-z0-9]{6})\b")
 EXP_ID_RE = re.compile(r"\bexp-[a-z0-9]{6}\b")
 SUP_ID_RE = re.compile(r"\bsup-[a-z0-9]{6}\b")
+DEF_ID_RE = re.compile(r"\bdef-[a-z0-9]{6}\b")
 # Either prefix — for id-list frontmatter values that may hold clm- ids
 # (claims:, subtree-claims:) or exp- ids (experiments:, subtree-experiments:).
 ANY_ID_RE = re.compile(r"\b((?:clm|exp)-[a-z0-9]{6})\b")
@@ -560,11 +565,14 @@ def check_index_referential_integrity(index_dir: Path):
         return []
     try:
         node_type_by_id: dict[str, str] = {}
+        definition_records: list[dict] = []
         for ln in claims_path.read_text(encoding="utf-8").split("\n"):
             if not ln:
                 continue
             rec = json.loads(ln)
             node_type_by_id[rec["id"]] = rec.get("node_type", "claim")
+            if rec.get("node_type") == "definition":
+                definition_records.append(rec)
     except (json.JSONDecodeError, KeyError):
         return []
 
@@ -764,6 +772,34 @@ def check_index_referential_integrity(index_dir: Path):
             violations.append(
                 ("claims", nid, "support node id is not \\bsup-[a-z0-9]{6}\\b")
             )
+        if ntype == "definition" and not DEF_ID_RE.fullmatch(nid):
+            violations.append(
+                ("claims", nid, "definition node id is not \\bdef-[a-z0-9]{6}\\b")
+            )
+
+    # Definition (`def-`) clm_cross_links referential integrity (INVARIANT-S12).
+    # A definition is a terminal node carrying no edges; its `clm_cross_links`
+    # are reverse-citation bookkeeping (which claims a term is load-bearing for).
+    # Every id must resolve to a claim / experiment / support node — an orphan,
+    # or a target that resolves to a framework / definition node, is a hard
+    # failure (the drift-gate that fails when a perturbed def- entry breaks a
+    # cross-link).
+    for rec in definition_records:
+        did = rec.get("id", "?")
+        for cid in rec.get("clm_cross_links") or []:
+            tgt = node_type_by_id.get(cid)
+            if tgt is None:
+                violations.append(
+                    ("claims", cid,
+                     f"definition {did} clm_cross_links id does not resolve "
+                     f"in claims.jsonl (orphan)")
+                )
+            elif tgt not in ("claim", "experiment", "support"):
+                violations.append(
+                    ("claims", cid,
+                     f"definition {did} clm_cross_links id resolves to {tgt!r}, "
+                     f"expected claim / experiment / support")
+                )
 
     experiment_ids = {
         nid for nid, t in node_type_by_id.items() if t == "experiment"
@@ -1218,6 +1254,7 @@ def main(argv: list[str] | None = None) -> int:
         f"[index] {len(INDEX_FILES)} JSONL files "
         f"({len(expected_records['claims'])} nodes: "
         f"{node_type_counts.get('claim', 0)} claims / "
+        f"{node_type_counts.get('definition', 0)} definitions / "
         f"{node_type_counts.get('experiment', 0)} experiments / "
         f"{node_type_counts.get('support', 0)} support / "
         f"{node_type_counts.get('invariant', 0)} invariants / "

@@ -15,6 +15,7 @@ Typical use::
 from .index import (
     CitationEdge,
     Claim,
+    Definition,
     DependsOnEdge,
     Index,
     StrengthenByItem,
@@ -25,6 +26,7 @@ from .index import (
 __all__ = [
     "Claim",
     "CitationEdge",
+    "Definition",
     "DependsOnEdge",
     "Index",
     "StrengthenByItem",
