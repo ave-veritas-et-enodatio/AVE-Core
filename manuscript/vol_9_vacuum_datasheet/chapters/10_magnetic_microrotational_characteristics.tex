@@ -80,8 +80,8 @@ Cosserat couple-stress modulus --- the substrate's bond-level resistance to diff
 $m_\omega$ & $\sim \qty{1}{\mega\electronvolt}$ (rotation-sector mass-gap) & \si{\mega\electronvolt} &
 Cosserat rotation-sector excitation gap. The substrate's microrotational sector has a finite mass-gap $m_\omega^2 = 4 G_c / I_\omega$ (canonical at \kbleaf{common/trampoline-framework.md} line~188, period $T = 2\pi/\omega_m = \pi$ in natural units, Verlet-validated). Below $T \sim m_\omega/k_B$, microrotation modes are thermally frozen out --- the substrate's ferrite-Curie-temperature analog. At $T_{CMB}$ the B-sector is well below this gap, producing the asymmetric thermal response that drives $\delta_{strain}$ via the Cosserat-Curie mechanism (Ch.~\ref{ch:vol9_temperature_characteristics}). Source: \kbleaf{trampoline-framework.md:188}; means-test row~12 of \texttt{ave-ee-first-mapping} v1.0. \\
 
-$l_c$ & $\sqrt{\gamma_c / G_{vac}}\, \approx 10^{-18}$~\si{\metre} & \si{\metre} &
-Cosserat characteristic length, identified with the weak-force range $r_W$. Couple-stress / shear-modulus ratio sets the length over which Cosserat micro-rotation correlates; weak interactions operating below the medium's natural cutoff frequency become evanescent waves with characteristic decay length $l_c$. The $W^\pm / Z^0$ gauge bosons are the evanescent cutoff modes of the substrate's bending and torsional rotation sectors respectively. Source: \kbleaf{vol2/.../gauge-boson-masses.md} line~39 (\texttt{clm-5zuo7g}); see Ch.~\ref{ch:vol9_mechanical_characteristics} \S Cosserat Couple-Stress for the matching mechanical-side spec entry. \\
+$l_c^{\text{(weak)}}$ & $\sqrt{\gamma_c / G_{vac}}\, \approx 10^{-18}$~\si{\metre} & \si{\metre} &
+\textbf{Weak-force-range} Cosserat characteristic length, identified with $r_W$. Couple-stress / shear-modulus ratio sets the length over which Cosserat micro-rotation correlates; weak interactions operating below the medium's natural cutoff frequency become evanescent waves with characteristic decay length $l_c^{\text{(weak)}}$. The $W^\pm / Z^0$ gauge bosons are the evanescent cutoff modes of the substrate's bending and torsional rotation sectors respectively. Source: \kbleaf{vol2/.../gauge-boson-masses.md} line~39 (\texttt{clm-5zuo7g}). \emph{Distinct from the LATTICE Cosserat coupling length $\ell_c^{\text{(K4)}} = \sqrt{6}\,\ell_{node} \approx \num{9.46e-13}$~m (\texttt{ELL\_C}) --- see Ch.~\ref{ch:vol9_mechanical_characteristics} \S Two Cosserat Characteristic Lengths for the disambiguation.} \\
 
 $m_W / m_Z$ & $\sqrt{7}/3 \approx 0.882$ & --- &
 Gauge-boson mass ratio. Set by the substrate-axiomatic $\nu_{vac} = 2/7$ Poisson identity (Ax~1 LC + Ax~2 $\alpha$ interlink; see Ch.~\ref{ch:vol9_mechanical_characteristics} \S Vacuum Poisson Ratio). On-shell Weinberg angle $\sin^2 \theta_W = 1 - 7/9 = 2/9$ follows directly. Source: \kbleaf{vol2/.../gauge-boson-masses.md} (\texttt{clm-5zuo7g}, \texttt{clm-q8un7j}); \kbleaf{src/ave/core/constants.py:478} (on-shell $\sin^2 \theta_W$). \\
@@ -98,6 +98,29 @@ Gauge-boson mass ratio. Set by the substrate-axiomatic $\nu_{vac} = 2/7$ Poisson
 
 \noindent
 \textbf{Min/Max} columns are omitted: every primitive is a substrate-axiomatic value at the cold-lattice limit, not a characterized engineering range. Engineering tolerances enter via operating-point ($A_0$, $T$) modulation, documented chapter-by-chapter.
+
+\subsection{Scope, Provenance, and Bench-Access}
+\label{subsec:vol9_magnetic_scope_provenance}
+
+\begin{table}[htbp]
+\centering\footnotesize
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}p{0.11\linewidth} p{0.16\linewidth} p{0.32\linewidth} p{0.26\linewidth}@{}}
+\toprule
+\textbf{Symbol} & \textbf{Scope} & \textbf{Provenance} & \textbf{Bench-access} \\
+\midrule
+$\mu_0$ & per-bond & DERIVED (SI primitive; microrotation density) & --- \\
+$L_{cell}$ & per-cell & DERIVED ($\mu_0\ell_{node}$) & --- \\
+$B_{snap}$ & per-cell & DERIVED ($B^2/2\mu_0 = m_e c^2/\ell_{node}^3$) & --- \\
+$\gamma_c$ & per-bond & DERIVED (set by $r_W$) & --- \\
+$m_\omega$ & COLLECTIVE (rotation mass-gap) & DERIVED ($m_\omega^2 = 4G_c/I_\omega$, Verlet-validated) & --- \\
+$l_c^{\text{(weak)}}$ & sub-node (weak range) & DERIVED --- collides with $\ell_c^{\text{(K4)}}$ (\S Ch.~\ref{ch:vol9_mechanical_characteristics}), OPEN & --- \\
+$m_W/m_Z = \sqrt{7}/3$ & COLLECTIVE & DERIVED (from $\nu_{vac}=2/7$) & --- \\
+\bottomrule
+\end{tabular}
+\caption{Scope / provenance / bench-access for the magnetic / microrotational primitives. All lines DERIVED; no calibration input enters beyond the upstream $\{\ell_{node}, \alpha\}$. The microrotational ($\hat{\Omega}_{freeze}$) handedness is the chirality calibration input documented in Ch.~\ref{ch:vol9_topological_characteristics}; the chiral coupling it sets is read by HOPF-01/02 (consistency-class).}
+\label{tab:vol9_magnetic_scope}
+\end{table}
 
 \section{Rotation-Sector Mass-Gap and Ferrite-Curie Analog}
 \label{sec:vol9_rotation_sector_mass_gap}

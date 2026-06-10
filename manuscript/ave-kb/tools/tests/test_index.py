@@ -64,8 +64,20 @@ class TestLoad(unittest.TestCase):
         claim_ids = {c.id for c in idx.all_claims}
         for fw in idx.framework_nodes:
             self.assertNotIn(fw.id, claim_ids)
-        # all_nodes is the exact union of claims and non-claim nodes.
-        self.assertEqual(len(idx.all_nodes), len(idx.all_claims) + len(idx.framework_nodes))
+        # Definition (`def-`) nodes are a third category, excluded from both
+        # the claim population and the framework bucket (INVARIANT-S12).
+        for d in idx.definitions:
+            self.assertNotIn(d.id, claim_ids)
+            self.assertEqual(d.node_type, "definition")
+        # all_nodes is the exact union of claims, framework nodes, and definitions.
+        self.assertEqual(
+            len(idx.all_nodes),
+            len(idx.all_claims) + len(idx.framework_nodes) + len(idx.definitions),
+        )
+        # The watch-list is the SOLID-and-overloaded subset of the definitions.
+        for d in idx.watch_list:
+            self.assertEqual(d.status, "SOLID")
+            self.assertTrue(d.open_ambiguity)
         # Band counts partition the claim population exactly.
         self.assertEqual(sum(idx.band_distribution.values()), len(idx.all_claims))
 

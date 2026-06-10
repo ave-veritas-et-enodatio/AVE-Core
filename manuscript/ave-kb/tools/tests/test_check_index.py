@@ -92,7 +92,8 @@ class TestCheckIndex(unittest.TestCase):
         (self.index_dir / name).write_text(content, encoding="utf-8")
 
     def test_index_line_reports_node_type_breakdown(self):
-        """The [index] summary reports a claims / invariants / axioms breakdown.
+        """The [index] summary reports a claims / definitions / experiments /
+        support / invariants / axioms breakdown.
 
         Asserts the line's *format* — content-independent — not the specific
         node counts.
@@ -101,8 +102,8 @@ class TestCheckIndex(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout)
         self.assertRegex(
             result.stdout,
-            r"\d+ nodes: \d+ claims / \d+ experiments / \d+ support / "
-            r"\d+ invariants / \d+ axioms",
+            r"\d+ nodes: \d+ claims / \d+ definitions / \d+ experiments / "
+            r"\d+ support / \d+ invariants / \d+ axioms",
         )
 
     def test_check_detects_target_kind_mismatch(self):

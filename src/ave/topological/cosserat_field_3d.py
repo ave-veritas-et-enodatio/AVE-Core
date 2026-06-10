@@ -74,10 +74,15 @@ from ave.core.constants import ALPHA  # noqa: E402
 # For the electron (2,3) winding:  κ̃ = 2·3/(2+3) = 6/5 = 1.2
 # For the (1,1) Beltrami:           κ̃ = 1·1/(1+1) = 1/2 = 0.5
 #
-# Verified vs canonical Hopf-coil chirality table empirical benchmark
-# (held in separate propulsion engineering compendium).
-# Not a free parameter — parallel-channel impedance combination at TIR
-# boundary; the (p,q) topology determines κ̃, α determines absolute scale.
+# Framework-honest framing (per AVE-Core doc 108 / AVE-HOPF ch01
+# "01_chiral_coupling_prediction.tex", adjudicated 2026-05-02): this is
+# ONE-parameter, NOT zero-parameter. pq/(p+q) = 6/5 is the parameter-free
+# topological factor (exact, derived from the (p,q) winding via the
+# parallel-channel impedance combination at the TIR boundary); α is a
+# CALIBRATION INPUT, not derived here. Cross-checked against the HOPF-01
+# PREDICTED-shift table (same formula — an algebraic cross-check, not an
+# empirical benchmark; the table is predictions, antenna measurement
+# pending per doc 20 §7 item 5).
 #
 # Refactored 2026-05-02 to expose κ̃ as separate dimensionless constant for
 # emergence testing per doc 108 §11.5 + Grant directive 2026-05-02:

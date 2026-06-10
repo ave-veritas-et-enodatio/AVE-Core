@@ -61,6 +61,30 @@ $\xi_{topo}$ & Topological transduction constant & $\num{4.149e-7}$ & \si{\coulo
 \noindent
 \textit{Conditions for every row above:} cold lattice, $S(0) = 1$, $T \to 0$, no operating-point bias, no internal impedance boundary at finite $\Gamma$. The cold-lattice limit is the substrate-physics reference frame against which all finite-temperature, finite-amplitude, and finite-boundary corrections (Ch.~\ref{ch:vol9_temperature_characteristics}, Ch.~\ref{ch:vol9_saturation_characteristics}, Ch.~\ref{ch:vol9_breakdown_characteristics}) are quoted.
 
+\subsection{Scope, Provenance, and Bench-Access}
+\label{subsec:vol9_dc_scope_provenance}
+
+\begin{table}[htbp]
+\centering\footnotesize
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}p{0.09\linewidth} p{0.16\linewidth} p{0.34\linewidth} p{0.27\linewidth}@{}}
+\toprule
+\textbf{Symbol} & \textbf{Scope} & \textbf{Provenance} & \textbf{Bench-access} \\
+\midrule
+$\varepsilon_0$ & per-bond & DERIVED (SI primitive; substrate capacitance density) & --- \\
+$\mu_0$ & per-bond & DERIVED (SI primitive; substrate inductance density) & --- \\
+$Z_0$ & per-bond & DERIVED ($\sqrt{\mu_0/\varepsilon_0}$) & --- \\
+$c_0$ & per-bond & DERIVED ($1/\sqrt{\mu_0\varepsilon_0}$) & --- \\
+$\ell_{node}$ & per-node & \textbf{CALIBRATION-INPUT} (framework's single scale primitive $\hbar/m_e c$) & --- \\
+$T_{EM}$ & per-node & DERIVED ($m_e c^2/\ell_{node}$) & --- \\
+$\alpha$ & COLLECTIVE (cosmic LC-tank $S_{11}$-min) & \textbf{CALIBRATION-INPUT} (Class-B closed-form $4\pi^3+\pi^2+\pi$; $\alpha$-circular per \kbleaf{trace-reversal-mechanism.md}:20--22) & HOPF-01/02 (consistency-class; CODATA-$\alpha$ injected) \\
+$\xi_{topo}$ & per-node & DERIVED ($e/\ell_{node}$) & CLEAVE-01 ($Q = \xi_{topo}\,x = 0.415$ pC/$\mu$m) \\
+\bottomrule
+\end{tabular}
+\caption{Scope / provenance / bench-access for the DC primitives. The only genuine calibration inputs are $\ell_{node}$ and $\alpha$ (Class-B closed-form); $\varepsilon_0, \mu_0, c_0, Z_0$ are SI primitives, and $T_{EM}, \xi_{topo}$ derive from $\{m_e, c, \ell_{node}, e\}$. The HOPF slope=$\alpha$ readout is consistency-class (CODATA-$\alpha$ injected, then read back), per the A1-HOPF walk-back.}
+\label{tab:vol9_dc_scope}
+\end{table}
+
 \section{Substrate-Primitive Parameter Notes}
 \label{sec:vol9_dc_param_notes}
 

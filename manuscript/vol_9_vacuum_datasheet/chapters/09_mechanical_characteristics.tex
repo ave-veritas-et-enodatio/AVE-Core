@@ -60,13 +60,16 @@ Transverse / mechanical wave speed. From $v_T = \sqrt{G_{vac}/\rho_{bulk}} = c_0
 $v_L$ & $\sqrt{2}\, c_0$ & \si{\metre\per\second} &
 Longitudinal wave speed, from $K_{vac} = 2 G_{vac}$. Source: \kbleaf{src/ave/core/constants.py:591} (\texttt{V\_LONG}). \\
 
-$l_c$ & $\sqrt{\gamma_c / G_{vac}}$ ($\approx r_W \sim 10^{-18}$~m) & \si{\metre} &
-Cosserat characteristic length; weak-force range scale. Couple-stress-to-shear-modulus ratio. Source: KB leaf \kbleaf{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} line~39 (\texttt{clm-5zuo7g}). \\
+$l_c^{\text{(weak)}}$ & $\sqrt{\gamma_c / G_{vac}}$ ($\approx r_W \sim 10^{-18}$~m) & \si{\metre} &
+\textbf{Weak-force-range} Cosserat characteristic length; couple-stress-to-shear-modulus ratio identified with $r_W$. Source: KB leaf \kbleaf{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} line~39 (\texttt{clm-5zuo7g}). \emph{See disambiguation note below --- not the same object as $\ell_c^{\text{(K4)}}$.} \\
+
+$\ell_c^{\text{(K4)}}$ & $\sqrt{6}\,\ell_{node} \approx \num{9.46e-13}$ & \si{\metre} &
+\textbf{Lattice} Cosserat coupling length --- the substrate-continuous discrete$\leftrightarrow$continuum length ratio of the K4 micropolar lattice, $\ell_c^2 = (\beta+\gamma)/[2(\mu+\kappa)] = 6\,\ell_{node}^2$ (Q-G47 Session~19: $\xi_{K1}=8/3$, $\xi_{K2}=32$). Source: \kbleaf{src/ave/core/constants.py} (\texttt{ELL\_C}); \kbleaf{claim-quality-closure-roadmap.md}:149; \kbleaf{continuous-springs-reframing.md}:36. \\
 
 \bottomrule
 \end{tabular}
 \renewcommand{\arraystretch}{1.0}
-\caption{Bulk mechanical primitives of $\mathcal{M}_A$ at the cold-lattice operating point ($T\to 0$, $A_0=0$, $S=1$).}
+\caption{Bulk mechanical primitives of $\mathcal{M}_A$ at the cold-lattice operating point ($T\to 0$, $A_0=0$, $S=1$). The two characteristic lengths $l_c^{\text{(weak)}}$ and $\ell_c^{\text{(K4)}}$ are \emph{distinct objects} --- see the disambiguation note in \S\ref{sec:vol9_mech_two_lc}.}
 \label{tab:vol9_mech_bulk}
 \end{table}
 
@@ -75,6 +78,52 @@ Cosserat characteristic length; weak-force range scale. Couple-stress-to-shear-m
 
 \noindent
 \textbf{Min/Max} columns are omitted: every primitive in this table is a substrate-axiomatic value at the cold-lattice limit, not a characterized engineering range. Engineering tolerances enter via operating-point ($A_0$, $T$) modulation, documented chapter-by-chapter.
+
+\section{Two Cosserat Characteristic Lengths --- Disambiguation (flagged)}
+\label{sec:vol9_mech_two_lc}
+
+The substrate carries \textbf{two distinct lengths that share the symbol ``$\ell_c$'' and the same formula structure} $\sqrt{\text{couple-stress}/\text{shear}}$, separated by roughly six orders of magnitude. This datasheet records both and keeps them separate; the collision is surfaced (not silently resolved) for auditor adjudication.
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{@{}p{0.14\linewidth} p{0.20\linewidth} p{0.13\linewidth} p{0.43\linewidth}@{}}
+\toprule
+\textbf{Symbol} & \textbf{Value} & \textbf{Scale} & \textbf{Referent / canonical source} \\
+\midrule
+$\ell_c^{\text{(K4)}}$ & $\sqrt{6}\,\ell_{node} \approx \num{9.46e-13}$~m & $\approx 2.45\,\ell_{node}$ (lattice) & K4 discrete$\leftrightarrow$continuum coupling length; $\ell_c^2 = (\beta+\gamma)/[2(\mu+\kappa)] = 6\,\ell_{node}^2$. \kbleaf{constants.py} \texttt{ELL\_C}; \kbleaf{closure-roadmap.md}:149; \kbleaf{continuous-springs-reframing.md}:36. \\
+$l_c^{\text{(weak)}}$ & $\sqrt{\gamma_c/G_{vac}} \approx 10^{-18}$~m & weak-force range $r_W$ (sub-node) & Evanescent-cutoff length of the W/Z rotation sector. \kbleaf{gauge-boson-masses.md}:39 (\texttt{clm-5zuo7g}). \\
+\bottomrule
+\end{tabular}
+\caption{The two ``$\ell_c$'' objects. Same name, same formula structure ($\sqrt{\text{couple-stress}/\text{shear}}$), different physical referent and $\sim$6~OOM apart.}
+\label{tab:vol9_two_lc}
+\end{table}
+
+\noindent
+\textbf{Why this is a genuine flag (\texttt{flag-don't-fix}).} The lattice $\ell_c^{\text{(K4)}} = \sqrt{6}\,\ell_{node}$ is fixed by the K4 micropolar constitutive tensor (Q-G47 Session~19; $\xi_{K2}/(2\xi_{K1}) = 6$) and sits \emph{above} the node spacing. The weak-force $l_c^{\text{(weak)}} = \sqrt{\gamma_c/G_{vac}} \approx r_W$ sits six orders of magnitude \emph{below} the node spacing. A single Cosserat couple-stress/shear ratio cannot evaluate to both; either the two use different $(\gamma_c, G)$ operating points (lattice-scale vs.\ the electroweak-sector projection), or one identification is an over-loading of the symbol. This datasheet does not adjudicate which --- it records both with distinct symbols and routes the question to the auditor. Downstream Vol~9 references: Ch.~\ref{ch:vol9_magnetic_microrotational_characteristics} (magnetic) uses $l_c^{\text{(weak)}}$ for the W/Z range; the temporal section (Ch.~\ref{ch:vol9_ac_electrical_characteristics}) and the K=2G operating-point discussion use $\ell_c^{\text{(K4)}}$.
+
+\section{Scope, Provenance, and Bench-Access}
+\label{sec:vol9_mech_scope_provenance}
+
+\begin{table}[htbp]
+\centering\footnotesize
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}p{0.11\linewidth} p{0.18\linewidth} p{0.34\linewidth} p{0.22\linewidth}@{}}
+\toprule
+\textbf{Symbol} & \textbf{Scope} & \textbf{Provenance} & \textbf{Bench-access} \\
+\midrule
+$G_{vac}$ & COLLECTIVE & DERIVED ($\rho_{bulk}c_0^2$) & --- \\
+$K_{vac}$ & COLLECTIVE (K=2G operating point) & DERIVED at $p^* = 8\pi\alpha$; the operating point is \textbf{$\alpha$-circular-OPEN} ($z_0 \approx 51.25$, \kbleaf{trace-reversal-mechanism.md}:20--22) & --- \\
+$\nu_{vac} = 2/7$ & COLLECTIVE & DERIVED (algebraic at $K=2G$) & --- \\
+$\gamma_c$ & per-bond & DERIVED (set by $r_W = l_c^{\text{(weak)}}$) & --- \\
+$\rho_{bulk}$ & COLLECTIVE & DERIVED ($\xi_{topo}^2\mu_0/(P_C\ell_{node}^2)$) & Sagnac-RLVE (rotor / bulk coupling) \\
+$v_T$, $v_L$ & COLLECTIVE & DERIVED ($c_0$, $\sqrt{2}c_0$) & --- \\
+$l_c^{\text{(weak)}}$ & sub-node (weak range) & DERIVED ($\sqrt{\gamma_c/G_{vac}}$) --- \textbf{collides with $\ell_c^{\text{(K4)}}$, OPEN} & --- \\
+$\ell_c^{\text{(K4)}}$ & COLLECTIVE (lattice) & DERIVED ($\sqrt{6}\,\ell_{node}$, \texttt{ELL\_C}) & --- \\
+\bottomrule
+\end{tabular}
+\caption{Scope / provenance / bench-access for the mechanical primitives. The $K=2G$ operating point ($p_c = 8\pi\alpha$), $\nu_{vac}$, and $\ell_c^{\text{(K4)}}$ are COLLECTIVE; the $z_0 \approx 51.25$ coordination that locates $p^* = 8\pi\alpha$ is $\alpha$-circular-OPEN (not an independent $\alpha$ determination). The two-$\ell_c$ collision (\S\ref{sec:vol9_mech_two_lc}) is OPEN/auditor-gated.}
+\label{tab:vol9_mech_scope}
+\end{table}
 
 \section{Vacuum Poisson Ratio $\nu_{vac} = 2/7$}
 \label{sec:vol9_mech_poisson}

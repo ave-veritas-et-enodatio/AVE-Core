@@ -37,6 +37,7 @@ from ave.core.constants import (
     HIGGS_VEV_MEV,
     ISOTROPIC_PROJECTION,
     KAPPA_FS_COLD,
+    ELL_C,
     L_NODE,
     LAMBDA_CKM,
     LAMBDA_HIGGS,
@@ -91,6 +92,12 @@ class TestTopologicalDerivations:
 
     def test_l_node_is_reduced_compton(self) -> None:
         assert L_NODE == pytest.approx(HBAR / (M_E * C_0), rel=1e-12)
+
+    def test_ell_c_is_sqrt6_lnode(self) -> None:
+        # Lattice Cosserat coupling length ℓ_c = √6·ℓ_node (Q-G47 Session 19;
+        # ℓ_c²/ℓ_node² = ξ_K2/(2·ξ_K1) = 6). NOT the weak-force-range l_c.
+        assert ELL_C == pytest.approx(math.sqrt(6.0) * L_NODE, rel=1e-12)
+        assert ELL_C / L_NODE == pytest.approx(math.sqrt(6.0), rel=1e-12)
 
     def test_xi_topo(self) -> None:
         assert XI_TOPO == pytest.approx(e_charge / L_NODE, rel=1e-12)

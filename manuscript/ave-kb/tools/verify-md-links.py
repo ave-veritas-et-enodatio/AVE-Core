@@ -3,8 +3,8 @@
 
 Crawls every tracked `.md` file in the repo, extracts Markdown links
 `[text](target)`, and reports broken file targets. Also folds in a
-consumer-side id-validity check: hashed claim/experiment/support ids
-(`clm-`/`exp-`/`sup-` + 6 [a-z0-9]) cited in prose must resolve to a node
+consumer-side id-validity check: hashed claim/experiment/support/definition ids
+(`clm-`/`exp-`/`sup-`/`def-` + 6 [a-z0-9]) cited in prose must resolve to a node
 in `manuscript/ave-kb/.index/claims.jsonl`.
 
 Pure standard library. See `make verify-md-links` / `make verify-inter-repo-links`.
@@ -125,9 +125,11 @@ _SCHEME_RE = re.compile(r"^(?:[a-z][a-z0-9+.\-]*:)?//|^(?:https?|mailto):", re.I
 _LINK_RE = re.compile(r"\[[^\]]*\]\(\s*([^)\s]+)\s*\)")
 
 # Hashed id citation. `xxxxxx` literal placeholders are excluded downstream.
-# Pattern is single-sourced from kb_index_lib (see import above).
+# Pattern is single-sourced from kb_index_lib (see import above) and now spans
+# clm- / exp- / sup- / def- (INVARIANT-S12 extended ANY_NODE_ID_RE to include
+# the def- prefix so the vocabulary register's def- ids are id-validity checked).
 _ID_RE = kb_index_lib.ANY_NODE_ID_RE
-_ID_PLACEHOLDERS = {"clm-xxxxxx", "exp-xxxxxx", "sup-xxxxxx"}
+_ID_PLACEHOLDERS = {"clm-xxxxxx", "exp-xxxxxx", "sup-xxxxxx", "def-xxxxxx"}
 
 
 @dataclass(frozen=True)
