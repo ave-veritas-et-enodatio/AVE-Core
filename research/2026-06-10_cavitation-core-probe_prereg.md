@@ -74,6 +74,8 @@ With approximate mass conservation (mean ρ̄ ≈ 0 over the column), the **core
 
 ## 3. APPARATUS INVENTORY — the CLIP suspects (the rarefaction analog of S_min / A_cap)
 
+> 🔴 **POST-RUN AMENDMENT (2026-06-10) — see [§3 AMENDMENT](#3-amendment--2026-06-10-post-run-rule-12) at the end of this file (Rule 12: appended, the §3 table below is preserved verbatim). It records (a) a post-freeze inventory addition (`rho_diff`), (b) two inventoried-but-UNSWEPT knobs (`eps_den`, `cfl`/`dt`), (c) the "all clips swept 4× each" coverage overstatement corrected to 5-of-7-swept, and (d) the single-commit ordering caveat.**
+
 Every numerical floor/clip/epsilon on `ρ̄` and `c_bulk²` is enumerated here BEFORE any run. The verdict must clear these (STEP 3 gate sweeps them):
 
 | # | knob | default | what it could secretly set | how it's a CLIP |
@@ -143,3 +145,20 @@ The ONLY free parameter is the **drive amplitude** `M_edge` (the energizing of t
 - **No existing compressible-flow / circulation-with-conserved-Γ / cavitation solver** in `src/ave/` (scalar `MasterEquationFDTD` irrotational; `lbm_3d.py` incompressible; gargantua "vortex" is a ray-march renderer). Green-field engine; treat results with extra skepticism + cross-check (the matched control + the linear-regime analytic known-positive serve as cross-validation).
 
 **Corpus state:** OPEN (the floor is derived; the circulation-vs-beam reach + the FLASH/LOCK/CLIP/NO-REACH classification are unrun).
+
+---
+
+## §3 AMENDMENT — 2026-06-10 (post-run, Rule 12)
+
+Appended after the run (commit `b8143b7c`) per the 2026-06-10 cavitation-core-probe panel review. The frozen §3 K1–K6 table above is **preserved verbatim and NOT rewritten**; these are the post-freeze record corrections.
+
+**(a) `rho_diff` was added to the clip inventory POST-FREEZE.** Conservative (mass) diffusion `rho_diff` is **not** in the frozen §3 K1–K6 table (K1 `c2_floor`, K2 `rho_floor`, K3 `eps_den`, K4 `nu_art`, K5 `cfl`/`dt`, K6 `N`); it appears only in the result-doc gate sweep. It **was** swept (sub-floor M=0.5): `rho_diff` 1e-4 → 5e-3 shallows the deficit **−0.298 → −0.271** (run-JSON `B_gate.sub_floor.rho_diff`). Direction is **conservative** (more diffusion ⇒ shallower deficit ⇒ it can only suppress, never manufacture, the reach), so the post-freeze addition does not threaten the floor-crossing.
+
+**(b) `eps_den` (K3) and `cfl`/`dt` (K5) were inventoried but NEVER SWEPT.** Non-binding rationale, recorded for honesty:
+- `eps_den` guards `(1−ρ̄²)` only as `ρ̄ → ±1`; the deepest physical reach is `≈ −0.93` (`|ρ̄| ≤ 0.93`), far from the guard — so `eps_den` is irrelevant in the achieved regime.
+- `cfl`/`dt` was left at default. An unswept (possibly too-large) `dt` biases toward **false-FLASH** (blow-up read as a flash event, per the §3 K5 note). Since the verdict landed on the LOCK/CLIP side, leaving `cfl`/`dt` unswept is **conservative** — it could only have manufactured a flash we did NOT claim.
+- (Note on numbering: the review brief labeled `cfl`/`dt` as "K6"; the frozen §3 table numbers it **K5**, with `N` as K6. The frozen numbering governs this doc.)
+
+**(c) Coverage correction — "all clips swept 4× each" is an OVERSTATEMENT.** The §3 closing line ("K1–K6 are apparatus knobs (swept in STEP 3)", §7) and the result-doc §1 ("every clip … swept 4× each way") imply full coverage of the inventory. Counting the post-freeze `rho_diff`, the inventory totals **seven** knobs; the run swept only **five 4× each** — `c2_floor`, `rho_floor`, `nu_art`, `N` (four of the six frozen) **+** `rho_diff` (the post-freeze addition). `eps_den` (K3) and `cfl`/`dt` (K5) were **not** swept. Corrected statement: *five knobs swept 4× each; two inventoried-but-unswept, both conservative-direction per (b).*
+
+**(d) Process note — prereg-before-run ordering is doc-structural, not git-provable.** The prereg, the result doc, the engine (`cavitation_flow.py`), the driver, the run-JSON and all four figures landed in a **single commit** (`b8143b7c`, 10 files). Git history therefore cannot prove the prereg was frozen before the run; the ordering rests only on the doc's "frozen" dating. **Process fix for future probes: commit the frozen prereg in its OWN commit BEFORE running**, so prereg-before-run ordering is git-provable.
