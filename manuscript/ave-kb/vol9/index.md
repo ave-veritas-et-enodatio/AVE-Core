@@ -47,6 +47,7 @@ Vol 9 is a **synthesis volume**: no chapter contains a primary substrate-physics
 | 14 | [Phase Diagrams](ch14-phase-diagrams/index.md) | four-regimes.md; Vol 3 cosmology |
 | 15 | [Falsification Tests](ch15-falsification-tests/index.md) | Vol 4 Ch 11 experimental programme; kill-switch tests |
 | 16 | [Cross-Volume Reference Index](ch16-cross-volume-reference/index.md) | Auto-generated parameter → derivation map |
+| 17 | [Engine Requirements for Faithful Simulation](ch17-engine-requirements/index.md) | Datasheet read as a simulator spec; per-line requirement ← documented engine-failure lesson |
 
 ## Multi-PR sequencing
 
