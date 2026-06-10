@@ -12,11 +12,59 @@
 
 ## 0. VERDICT — **LOCK** (with a clip-cleared floor-crossing)
 
+> 🔴 **SUPERSEDED — 2026-06-10 PANEL REVIEW (Rule 12 / A47 v11b: header added, body below preserved verbatim — NOT rewritten). The standing verdict is now CLIP, not LOCK; this LOCK is DEMOTED. Read §0-bis (PANEL VERDICT ADDENDUM, immediately below this section) for the final verdict and its driver. Do not cite the §0 LOCK body as the standing result.**
+
 > **A genuinely circulating bulk-density core, rarefied by its OWN rotation (centrifugal pressure deficit), REACHES and CROSSES the candidate cavitation floor `ρ̄_cav = −1/φ ≈ −0.618` at a critical drive `M_edge* ≈ 0.75–0.8` — decisively beating the prior-art counter-propagating-beam floor of −0.26. The bulk stiffness collapses through zero into the tensile-failure region (`c_bulk²_core` goes from +0.25 at M=0.7 to −0.86, −2.78, −5.53 at M=0.8, 0.9, 1.0). BUT the three discriminating FLASH signatures are all NEGATIVE: (ii) the energy partition is SMOOTH across the crossing (no latent-release discontinuity); (iii) `pocket_cells_final = 0` (no persistent tensile-failure defect); (iv) on de-energize the core REFILLS (−0.93 → −0.07; reversible). The core RINGS and REBOUNDS — bounded oscillation, not runaway. That is the prereg's LOCK bin: pocket-COMPLIANCE, not a discontinuous phase-change. At over-drive (`M_edge ≥ 1.1`) the deepest reading pins at the apparatus clip `rho_floor = −0.95` (CLIP regime — flagged as apparatus, not physics).**
 
 **One-line FLASH/LOCK/CLIP/NO-REACH tally:** reach = YES (not NO-REACH); discontinuity = NO; persistence/hysteresis = NO (reversible); over-drive depth = CLIP. → **LOCK** for the physical drive band `M_edge ∈ [0.8, 1.0]`; CLIP for `M_edge ≥ 1.1`.
 
 This is reported as the discipline at full strength (Rule 11): **the data were NOT debugged toward FLASH.** The floor-crossing is real and clip-cleared; the irreversibility/latent-heat signatures a FLASH requires are simply absent in the canonical rarefaction-stiffness EOS.
+
+---
+
+## 0-bis. PANEL VERDICT ADDENDUM — 2026-06-10 (cavitation-core-probe adversarial review)
+
+**Final verdict: CLIP.** The §0 LOCK verdict is **DEMOTED** (preserved verbatim above per Rule 12 / A47 v11b; this addendum supersedes it, it is not rewritten). Panel two-lens disposition **converges on a single root defect**: **Lens-1 (LOCK-as-a-physics-event) is REFUTED** (= true; the LOCK verdict does not survive); **Lens-2 returns WARN, with finding F5 converging on the same defect** named in (a) below.
+
+### (a) The demotion driver — the dynamics never integrated `c²<0`
+
+The momentum RHS ran on the **FLOORED** wave speed `c_eff² = max(c_bulk²_raw, +1e-3·c₀²)` (`src/ave/core/cavitation_flow.py:159–163`, `c_bulk2()` with default `c2_floor=1e-3`; consumed in the RHS at `:180`, `c2 = self.c_bulk2(rho)`). The floor is strictly **positive**. The negative readings headlined in §0 as load-bearing — `c_bulk²_core = −0.86 / −2.78 / −5.53` at M = 0.8/0.9/1.0 — are `c_bulk2_raw` **DIAGNOSTIC** values only (`:155–157`; the run-JSON `c2_core_raw` series). They were **never integrated.** The floor fired hard, in exactly the LOCK band: `clip_c2_hits = 42,788 / 267,236 / 676,336` interior cell-steps at M = 0.8/0.9/1.0 (run-JSON `C_probe.rows`).
+
+A strictly-positive `c²` can produce **only reversible compliance** — a stiff/soft acoustic medium that rings and rebounds — and is mathematically incapable of a tensile runaway. **FLASH was therefore excluded BY CONSTRUCTION, not by evidence.** The de-spin "recovery" (`rc_deepest −0.927 → rc_final −0.068` at M=1.0; `E_hysteresis`) and `pocket_cells_final = 0` are **scheme-pre-determined consequences of the positive floor**, not discriminating measurements. Decisively: **reversibility was never swept over `c2_floor`** — `E_hysteresis` ran at the default floor only — so the one knob that could expose the defect was held fixed in the only test that mattered.
+
+### (b) WHAT SURVIVES (load-bearing positive — the reach/crossing)
+
+The CLIP demotion does **not** touch the reach result, which is clip-invariant and stands:
+
+- A genuinely circulating core (solid-body column, vorticity `ζ = 2Ω`; the density deficit **emerges dynamically via continuity**, CP9, not the algebraic centrifugal formula; angular momentum **energized + locked**, free-drift floor **0.044%**) **crosses** the candidate floor `ρ̄_cav = −1/φ ≈ −0.618` at `M_edge* ≈ 0.75–0.8` and **reaches ≈ −0.93** (M=1.0).
+- The reach is **clip-invariant**: `c2_floor` 1e-4→5e-2 (−0.927→−0.908), `rho_floor` −0.99→−0.95 (−0.927, both), `N` 128→224 (−0.924→−0.912) — run-JSON `B_gate.super_floor`. The depth is physics, not apparatus.
+- It **decisively beats the prior-art beam floor −0.26** (which stalled there because it was sub-yield, `A²_focal = 0.05`).
+- The `∝ M_edge²` **exponent is confirmed** (known-positive `deepest/M² = −1.35 / −1.32 / −1.28`).
+- Over-drive `M ≥ 1.1` pins at **exactly −0.950 = `rho_floor`** (`C_probe` rows; `clip_rho_hits = 552 / 57,532 / 232,340`) — correctly self-attributed CLIP in §2 already.
+
+What this probe legitimately advances, and the **only** load-bearing claim it carries forward: **the EOS `c²=0` root `ρ̄_cav=−1/φ` is dynamically reachable by circulation.** Nothing about the *kind* of event.
+
+### (c) Relabel the FLASH signatures: STRUCTURALLY UNAVAILABLE, not NEGATIVE
+
+§0, §2.2, §2.3 and §7 read the three discriminating FLASH signatures as **negative findings**. Per defect (a) they must be relabeled **"structurally unavailable in this engine"** (not "negative"):
+
+- **(ii) latent-release** — structurally unavailable: a positive-floored `c²` has no below-floor branch to release from.
+- **(iii) persistent `c²≤0` pocket** — structurally unavailable: `c_eff²` is floored ≥ +1e-3·c₀² everywhere, so `pocket_cells = 0` is *enforced by the scheme*, not measured.
+- **(iv) hysteresis** — structurally unavailable: reversible compliance is the only behavior a strictly-positive-stiffness medium can exhibit; recovery on de-spin is guaranteed, not discovered.
+
+These are not evidence against FLASH; the experiment could not have produced them.
+
+### (d) Known-positive prefactor miss (carried over, sharpened)
+
+The known-positive confirms the **M² exponent** but the **magnitude is under-predicted**: observed prefactor `deepest/M² ≈ −1.3` vs the pre-frozen `−(¼ … ½)` (prereg §2.1) — under-predicted **2.6–5.4×**. This is *why* the crossing lands at `M* ≈ 0.8` rather than the pre-frozen `M ~ O(1)`: the deeper-than-predicted prefactor pulls the −0.618 crossing down from M≈1.1 to M≈0.7–0.8. Exponent confirmed; magnitude (and hence the critical drive) was mis-pre-registered.
+
+### (e) FLASH-vs-LOCK is UNDECIDED — gated, not refilled
+
+Because the dynamics never integrated a genuine `c²<0`, **whether the event is FLASH or LOCK is UNDECIDED** by this probe. §6 (the "needs a named below-floor closure" paragraph) is hereby **promoted to load-bearing**: a real FLASH/LOCK discrimination requires a **NAMED below-floor closure** (a latent-heat term, metastable-void nucleation, or a hardened `Γ=−1` wall) integrated into the dynamics, **with `c2_floor` swept inside the reversibility test.** The plumber-physical question — **what does the medium physically do at genuine `c²<0`** (does it rupture/cavitate, or is `c²<0` unreachable because something else yields first?) — is **surfaced to Grant as a gate.** This slot is **NOT** refilled with a new hypothesis (Rule 12 / A47 v11b: substitution-not-retraction).
+
+### (f) ρ̄_cav status unchanged — still CANDIDATE-CLAIM
+
+`ρ̄_cav = −1/φ` remains a **CANDIDATE-CLAIM** (`AVE-Propulsion/.../04_superluminal_transit.tex:86,89`; zero KB / `constants.py` hits). This probe does **not** promote it. It advances only that the EOS stiffness-collapse root is dynamically reachable by circulation; the physical interpretation (cavitation / vapor-lock) still needs the §6 mechanism + Grant adjudication.
 
 ---
 
