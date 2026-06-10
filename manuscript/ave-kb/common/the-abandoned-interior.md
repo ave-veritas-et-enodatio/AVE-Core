@@ -51,7 +51,31 @@ This two-spaces split is why AVE can claim Kelvin's *topology* without inheritin
 
 ## Thread B — Poincaré's stress = the lock problem
 
-<!-- stub: filled in commit 3 -->
+**The historical question (stated at full strength).** Try to make the electron *be* its own electromagnetic field — the electromagnetic-mass program (J.J. Thomson 1881; Abraham 1902; Lorentz 1899/1904). Two things break, and they are not small:
+
+1. **The 4/3 problem.** The momentum and energy of the self-field give a mass ratio of **4/3**, not 1 — a purely electromagnetic electron has the *wrong* relation between its energy and its inertia. This is an internal arithmetic failure, not a matter of taste.
+2. **It flies apart.** A ball of like charge is held together by *nothing* — Coulomb self-repulsion blows it open. So Poincaré (1905–06) introduced **non-electromagnetic binding stresses** — the **"Poincaré stresses"** — a postulated cohesive pressure that holds the charge together *and* happens to repair the 4/3 factor (contributing exactly the missing 1/3).
+
+And alongside both: the **Abraham–Lorentz self-force** gives an equation of motion with **runaway / pre-acceleration solutions** — a free electron that accelerates itself exponentially, or twitches *before* a force arrives. The self-interacting classical electron was, on its own terms, internally inconsistent.
+
+**The honest reading of what Poincaré did.** The Poincaré stress is a real and serious move — it *works*, in that it makes the books balance. But it answers *"what holds the charge together?"* by **naming a stress that must exist**, not by **deriving one from a mechanism.** "What holds it together" was **defined away**, not explained. When the medium was then removed (Michelson–Morley 1887; special relativity 1905), even that postulated stress lost its arena, and the point-particle definition + renormalization (late 1940s) **absorbed** the resulting self-energy infinity into a measured mass rather than resolving it. The lock problem was not solved; it was retired.
+
+**The AVE answer-candidate (2026-06-10 adjudication — HYPOTHESIS-CLASS): the lock is the MOTION.** Where Poincaré needed a *static* cohesive stress added by hand, the candidate here is that nothing static is added — the electron is held together by a property of its own *motion*, a three-part dynamic lock:
+
+- **conserved circulation** — Helmholtz/Kelvin frozen-in vorticity (the same 1858 theorem that gave Kelvin topological permanence); the circulation is an energize-and-lock invariant, not a pumped store. → `research/2026-06-10_cavitation-core-probe_result.md:99,167` (`L` conserved to **0.044%** free-evolution drift, the ledger noise floor — the clean energize+lock invariant);
+- **losslessness** — the `Γ=−1` confinement is a *reactive* mirror with zero dissipation, so the circulation does not decay (the substrate-native lossless lock);
+- **topological quantization** — the winding cannot continuously unwind (the `(2,q)` topology Thread A restores), so the lock is discrete, not a tunable equilibrium.
+
+The **snap** — the saturation phase-change that *creates* the `Γ=−1` wall — is the proposed **birth mechanism**: the lock comes into existence at the moment the medium crosses its phase boundary, not by assembly of pre-existing parts. **Class: HYPOTHESIS-CLASS.** This is a *candidate* answer (THE MOTION) to a 120-year-old question, not a settled one.
+
+**Two adversarial panels, both negative-or-undecided — the named hole, lived out.** The candidate has been put to two 2026-06-10 adversarial panels, and the discipline (Rule 11) is that neither was debugged toward a rescue:
+
+- **The graft-v4 4-lens panel → LOCK-FAIL.** Verbatim, `research/2026-06-10_graft-v4-photon-helicity_result.md:10`: *"a 4-lens adversarial panel demoted the run C → LOCK-FAIL (3/4 lenses refuted; the lock-saturation lens FATAL)"* — the lock does **not** earn the word "saturates"; the doubling ratios are η-invariant.
+- **The cavitation-core-probe panel → CLIP** (the snap-channel sweep). Verbatim, `research/2026-06-10_cavitation-core-probe_result.md` §0-bis: *"Final verdict: CLIP … FLASH-vs-LOCK is UNDECIDED — gated, not refilled."* The circulation **reaches and crosses** the candidate floor (clip-invariant — physics, not apparatus, `:93`), but **whether the birth event is a FLASH (irreversible phase-change) or a LOCK (reversible compliance) is undecided** because the dynamics never integrated a genuine `c²<0` (`:31–33`) — the snap channel is **structurally unavailable in that engine**, not falsified.
+
+So the honest standing is: **120 years separate Poincaré's postulated stress from a falsifiable motion-lock candidate — and the snap channel that would birth the lock is, as of 2026-06-10, UNRESOLVED.** That is one of the thesis's three named holes, surfaced here in full, not papered over.
+
+> **`flag-don't-fix` (citation-labels).** Per `verify-before-cite`, the 2026-06-10 labels **"motion-lock"** and **"v5 panel"** do **not** appear as literal phrases in the tracked corpus (grep of `research/` + `_orchestration/` + `manuscript/`). The motion-lock *discipline* is the `ave-conserved-vs-pumped` invariant (energize+lock, never pump), anchored empirically in the cavitation-core-probe `L`-conservation above; the two anchored adjudications are the graft-v4 panel and the cavitation-core-probe panel cited above. The "v5 panel" label is carried descriptively (the same flagging the channel-ledger framing doc applies to the un-anchored v5 Tier-1 gate-labels at `research/2026-06-10_matter-as-vapor-locked-pump_framing.md` §11.5); the auditor lane resolves the labels to landed names on return.
 
 ## Thread C — the definition epistemology
 
