@@ -174,7 +174,92 @@ Figure: `fig1_slew_band_comparison.png` (caption carries the OOM gaps, data-deri
 
 ---
 
-## §2 — THE Z_eff CURVES (transmission-line style)  *(next commit)*
+## §2 — THE Z_eff CURVES (transmission-line style)
+
+**Driver:** `src/scripts/vol_9_vacuum_datasheet/zeff_realization_classes.py`
+→ `fig2_zeff_echo_predictor.png`, `zeff_realization_classes.csv`,
+`zeff_approach_profile.csv`, `echo_reflectivity.csv`.
+
+A transmission line is characterized by `Z` vs operating point and by its
+mismatch/reflectivity. The substrate's wall impedance is the canonical Op14
+asymmetric-Meissner form (`operators.md:54`; `op14-cosmic-horizon-profile.md:82`):
+
+$$Z_{eff} = Z_0\sqrt{\frac{S_\mu}{S_\varepsilon}}, \qquad S_x=\sqrt{1-A_x^2},\quad \varepsilon_{eff}=\varepsilon_0 S_\varepsilon,\ \mu_{eff}=\mu_0 S_\mu\ (\texttt{constants.py:465}).$$
+
+### §2.1 — Z_eff(A²): the three realization classes — class: canonical (rendered)
+
+This is the **sector-resolved wall canon** — the new datasheet column the substrate needs.
+The realization class is *which sector(s) the load drives* (A-034 catalog SYM / ASYM-N(μ) / ASYM-N(ε),
+`universal-saturation-kernel-catalog.md`; CLAUDE.md:60 symmetric-vs-asymmetric scope ruling):
+
+| Class | Driven sector | Z_eff(A²) | Limit A²→1 | Canonical anchor |
+|---|---|---|---|---|
+| **SYM** | both (`S_μ=S_ε`) | `Z_0` (invariant) | `Z_0` — **reflectionless** (Γ=0) | CLAUDE.md:60; `achromatic-impedance-matching.md:28` |
+| **μ-only** | magnetic / B-driven (`S_ε=1`) | `Z_0·(1−A²)^{1/4}` | **→ 0** (Γ→−1, Meissner) | `phase-transitions-impedance.md:24` |
+| **ε-only** | static-E / capacitive (`S_μ=1`) | `Z_0·(1−A²)^{−1/4}` | **→ ∞** (vacuum mirror) | CLAUDE.md:60; `vacuum-impedance-mirror.md:58` |
+
+Numbers (`zeff_realization_classes.csv`): at A²=0.99 → SYM 376.7 Ω, μ-only 119.1 Ω, ε-only 1191 Ω.
+The SYM invariance is **why symmetric gravity is reflectionless** — a mass-soliton carrying internal
+**E and B** loads both sectors equally, `Z` never changes, light passes (`achromatic-impedance-matching.md`).
+The asymmetry is what makes a wall.
+
+> **🚩 flag-don't-fix (ε-vs-C exponent tension):** the small-signal propagation form is `ε_eff = ε0·S`
+> (`constants.py:465`, gives `c_EM = c0/S` rising — self-consistent, §3). But the **large-signal
+> varactor** differential capacitance is `C_eff = C0/S` (`parametric-coupling-kernel.md:48`), i.e. `C`
+> *rises* where `ε` *falls*. These are **different objects** (small-signal propagation `ε` vs
+> large-signal bias-dependent differential `C`), but a naive reader will see `C ∝ ε` and read a sign
+> contradiction. Surfaced for the registry's Rule-1 discipline; I use the propagation `ε_eff = ε0·S`
+> for all Z/c curves (the load-bearing one for impedance + speed), and the varactor `C_eff` only for
+> the §1 slew. Not silently merged.
+
+### §2.2 — The approach profile Z_eff(r) — class: derived-this-arc (canonical exponent flagged)
+
+Canon provides the **limit** (`A²(r)→1` at the Γ=−1 surface, `op14-cosmic-horizon-profile.md:20`) plus
+the **Schwarzschild-tracking identity** (`c_shear = c0(1−A²)^{1/4} ≡ c0√(1−r_s/r)`, `temporal-values:29`;
+`operators.md:56`) — but **no closed-form A²(r)**. The tracking identity forward-gives the profile:
+
+$$(1-A^2)^{1/4}=\sqrt{1-r_s/r}\ \Rightarrow\ \boxed{\,S(A(r))=1-r_s/r\,}\ \Rightarrow\ A^2(r)=1-(1-r_s/r)^2.$$
+
+Then `Z_eff(r)` follows per class: ε-only diverges, μ-only → 0, SYM flat, all at `r=r_s`
+(`zeff_approach_profile.csv`; `fig2` middle panel).
+
+> **🚩 flag-don't-fix (¼-vs-½ exponent):** `op14-cosmic-horizon-profile.md:22` writes the local clock
+> as `ω_local = ω_global·√(1−A²)` (the **stale ½** single-speed exponent that `temporal-values:53`
+> flags STALE at `op14-local-clock-modulation.md:17,31`). Under that convention `S(A(r))=√(1−r_s/r)`
+> and `A²(r)=r_s/r`. The two give different profiles. I use the **post-split** `c_shear`-tracking form
+> (`S=1−r_s/r`, authoritative `temporal-values:29`) and store both in the CSV. This is the **same**
+> ¼-vs-½ tension `temporal-values §4` already flags, now surfacing in the approach profile — surfaced
+> for the auditor, not resolved here.
+
+### §2.3 — Reflectivity vs frequency: THE ECHO PREDICTOR — class: derived-this-arc (standard WKB)
+
+The mismatch/reflectivity integral is **textbook transmission-line math**, cited as such (graded-line
+Born/WKB reflection), NOT an AVE construct: the reflection per unit length is `r(x)=½ d(ln Z)/dx`, and
+the total amplitude is
+
+$$R(\Omega)=\int \tfrac12\frac{d\ln Z}{dx}\,e^{2i\int k\,dx'}\,dx,\qquad \Omega=\omega r_s/c_0,\ k=\omega/c_{shear}(x).$$
+
+| Class | graded-region max `|R|` | max bounded `R_pow=|R|²` | Echo? |
+|---|---|---|---|
+| **SYM** | **2.9×10⁻¹⁵** (machine zero) | ~0 | **NO** — `d ln Z/dx ≡ 0` |
+| **μ-only** | 0.559 | 0.313 | **YES** |
+| **ε-only** | 0.559 | 0.313 | **YES** |
+
+Three results, all clean:
+1. **SYM → zero echo**, to machine precision — the canonical `discrete-lattice-entropy-constant.md:59`
+   result ("reflection set by the rate of change of Z; symmetric saturation → `dZ/dr=0` → no reflection
+   to first order"). **Echoes are a falsifiable signature of the *asymmetric* realization classes only.**
+2. **μ-only and ε-only give the same `|R|` magnitude** — the impedance *step* has opposite sign
+   (`Z→0` vs `Z→∞`) but the *log-gradient magnitude* `|½ d ln S/dx|` is identical, so the partial
+   reflectivity is the same. The classes differ in sign, not echo strength.
+3. **Low-frequency-weighted.** A graded transition is a high-pass *transmitter*: high-`Ω` waves see the
+   gradient as adiabatic and pass; low-`Ω` waves reflect. So GW-echo power concentrates at the
+   **low-frequency** end of any ringdown — the echo predictor for the BH matrix (`fig2` right panel).
+
+The integral is restricted to the **graded approach region** `r ≥ 1.1 r_s` where the weak-reflection
+(Born) approximation is self-consistent (`|R|<1`). At the wall itself the canonical **Γ=−1** perfect
+reflector takes over (`R=1`, Op17-bounded) — rendered as a **boundary condition, not a bulk term**
+(substrate-native-check CP10).
 
 ## §3 — THE DILATION CURVES (derating-curve style)  *(next commit)*
 
