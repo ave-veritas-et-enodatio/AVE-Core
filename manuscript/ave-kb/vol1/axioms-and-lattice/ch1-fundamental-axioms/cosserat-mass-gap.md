@@ -107,6 +107,8 @@ The Cosserat rotational sector's massive mode at $m^2 = 4 G_c / I_\omega$ inheri
 
 The Cosserat $\rho$ and $I_\omega$ set the **mass scale of the rotational sector**; the K4 scalar sector remains **separately massless** (the photon per [photon-identification](../../dynamics/ch4-continuum-electrodynamics/photon-identification.md)). The photon = T₂-only canonical confirms this split: $A_1$ (scalar/longitudinal/translational $u$) is massless, $T_2$ (transverse/microrotational $\omega$) carries the mass-gap content.
 
+> **↗ Cross-link (2026-06-10, Rule 12, Grant rename-queue R1 — line above preserved):** the "$A_1$ scalar massless / $T_2$ carries the mass" split is the same split read at [`photon-identification.md:11`](../../dynamics/ch4-continuum-electrodynamics/photon-identification.md) as PROVENANCE-vs-STATE: "self-trapped photon" is provenance; the electron STATE is the condensed phase whose order parameter is the **A1 standing-V** that re-engages at saturation (the A1 here is "separately massless" only in the *unbroken* free-wave phase). Registry §5 R1.
+
 ## §5 — Phase-I scope (what this test validated / did not)
 
 - **Axiom 1** (K4 substrate): NOT tested here. Cosserat-alone is not Axiom-1-compliant as a physics substitute (per Vol 4 Ch 1 §solver selection — the electron is a chirality observable requiring K4). This was a DEV step in the roadmap toward the full coupled K4 ⊗ Cosserat simulator.

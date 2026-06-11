@@ -733,6 +733,8 @@ The substrate's apparent "compression" near matter is a refractive-index / imped
 
 When the Cosserat-sector voltage drops through V_yield slowly enough (crossing time ≥ τ_relax), a diverging effective inductance L_eff near S→0 generates a diverging Lenz back-EMF that freezes any topologically non-trivial ω configuration present at the crossing — derived from Axiom 1 + Op14 + Lenz, with no SM/QFT machinery.
 
+> **Field/port retag note (2026-06-10, Grant rename-queue adjudication R2, classical lexicon — claim body above preserved unedited):** the **"Lenz Back-EMF"** named in this claim's title and body is the **PORT** object — the Faraday–Lenz terminal reaction (induced only against changes), the *mechanism* that freezes ω. It must **not** be conflated with the dark-wake $\tau_{zx}$ **WAKE FIELD** (shear channel), whose own port signature is the **radiation resistance** $R_{rad,L}$ (wave-making drag). Field and port are **distinct objects, NOT interchangeable** (corr $0.117$ receipt, `2026-06-10_bemf-feedback-smoke_result.md:79`). This claim is correct as a *port-mechanism* statement; the annotation only fences it off from the field/port conflation flagged at `vacuum_engine.py:46,1478,1487` and `dark-wake-bemf-foc-synthesis.md:125`. Registry §5 R2 (Rule 2).
+
 - _Specific Claims_
   - When V(t) drops through V_yield in the Cosserat sector such that the crossing takes ≥ τ_relax, any topologically non-trivial ω configuration present at the start of the window FREEZES — it cannot unwind because the diverging L_eff (Op14 near S = 0) generates a diverging Lenz back-EMF that blocks dω/dt during the τ_relax window.
   - The frozen residues persist for ≥ 100 Compton periods in the post-heal solid regime.
@@ -1034,6 +1036,7 @@ The tetrahedral rotation group order $|T| = 12$ appears in K4 physics via four i
   - The proper tetrahedral rotation group $T$ has order $|T| = 12$.
   - Route 1 (baseline coordination): K4 path-count geometry — 4 B-neighbors × 3 other-A sublattices = 12 secondary paths per node.
   - Route 2 (Cosserat dimensional): $(\ell_c/d)^2 \times 2 = 12$ (Cosserat characteristic length squared × bilateral factor).
+    - _Naming note (2026-06-10, Grant rename-queue adjudication R4; line above preserved unedited):_ "Cosserat characteristic length" is a first-use alias for the **normative name "Cosserat coupling length"** ($\ell_c = \sqrt{6}\,\ell_{\text{node}}$). One object, three names in canon ("coupling" normative; "couple-stress" at `substrate-temporal-values-definition.md:32`; "characteristic" here). Registry §5 R4; Rule 1.
   - Route 3 (magic-angle unity): $f_{\text{Cosserat}}(u_0^*) = 1$ at the substrate saturation boundary, an orbit-count multiplicity of 12.
   - Route 4 (axiom-level constitutive ratio): $\xi_{K2}/\xi_{K1} = 12$, the K4-symmetry-forced ratio of substrate-scale Cosserat prefactors.
   - Four independent calculations converging on the same integer is strong evidence that $\chi_K = 12$ is structurally forced by K4 symmetry, not a calibration coincidence.

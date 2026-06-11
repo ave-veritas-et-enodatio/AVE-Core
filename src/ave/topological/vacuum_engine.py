@@ -43,8 +43,11 @@ Observer types
 - `TopologyObserver`          — Q_H (Hopf invariant), soliton centroid count,
                                 shell radii (for (2,3) structures)
 - `EnergyBudgetObserver`      — E_K4, E_cos, T_cos, E_coupling, H_total
-- `DarkWakeObserver`          — τ_zx longitudinal shear strain (back-EMF
-                                signature); ports formula from AVE-Propulsion's
+- `DarkWakeObserver`          — τ_zx longitudinal-shear (shear-channel) strain: the
+                                WAKE FIELD, whose port signature is the radiation
+                                resistance R_rad,L (wave-making drag), NOT the back-EMF
+                                (a separate Faraday–Lenz port reaction; corr 0.117 =
+                                distinct objects); ports formula from AVE-Propulsion's
                                 simulate_warp_metric_tensors.py. Uses
                                 tetrahedral gradient (NOT np.gradient) because
                                 K4 active sites alternate sublattices.
@@ -1455,7 +1458,7 @@ class PairNucleationGate(Observer):
 
 
 class DarkWakeObserver(Observer):
-    """Dark wake diagnostic — the longitudinal shear strain τ_zx wave that
+    """Dark wake diagnostic — the longitudinal-shear (shear-channel) strain τ_zx wave that
     propagates backward from any coherent V excitation (per AVE-PONDER
     vol_ponder/ch01 and AVE-Propulsion simulate_warp_metric_tensors.py:84-85).
 
@@ -1474,9 +1477,11 @@ class DarkWakeObserver(Observer):
         principle) → Noether currents → momentum conservation. The dark
         wake IS the field-theoretic form of the
         Newton-3rd-law back-reaction: every forward soliton/photon must
-        carry an equal-and-opposite longitudinal-shear-strain wave behind
-        it, mass-equivalent to the inductive back-EMF (M_inertial ≡ L_drag,
-        per higgs_impedance_mapping.py:48-52).
+        carry an equal-and-opposite longitudinal-shear (shear-channel) strain wave behind
+        it. The backward wake's RADIATED momentum is the WAKE FIELD's wave-making port
+        drag — the radiation resistance R_rad,L (the resistive, radiated part of Z_L).
+        The soliton's inertial mass is the SEPARATE reactive self-inductance L_self
+        (X_L), read as the Lenz back-EMF vs Z_0 (M_inertial ≡ L_drag, higgs_impedance_mapping.py:44-48; corr 0.117).
       • Ax 4 (Op14 saturation kernel S(A) = √(1 − A²)) modulates Z_local
         spatially: at A² → A²_yield, Z_eff steepens locally, creating the
         gradient that drives ∂|V|²/∂x → τ_zx. Without saturation modulation,
@@ -1484,9 +1489,13 @@ class DarkWakeObserver(Observer):
         structure.
 
     Physical interpretation (per doc 49_):
-        The dark wake IS the mutual-inductance back-EMF response of the
-        K4 lattice. Any propagating coherent V creates a shear-strain
-        wave behind it, carrying the Newton-3rd-law reaction momentum.
+        The dark wake is the WAKE FIELD (shear channel) of the K4 lattice;
+        its port signature is the radiation resistance R_rad,L (wave-making
+        drag). It is METERED BY — not identical to — the mutual-inductance
+        back-EMF (a separate Faraday–Lenz port reaction, induced only against
+        changes; corr 0.117 = distinct objects). Any propagating coherent V
+        creates a shear-strain wave behind it, carrying the Newton-3rd-law
+        reaction momentum.
 
     Captures:
         tau_zx_slab(y, z): the x-axis-averaged τ_zx, sliced through the
@@ -1617,6 +1626,25 @@ class EngineConfig:
     # the coupling term is double-counting and Cosserat needs its self-terms
     # BACK for topology-stabilizing dynamics. Default False preserves legacy.
     enable_cosserat_self_terms: bool = False
+    # Saturation-TIR moving Γ=−1 impedance boundary, COUPLED (KEEP-BOTH, default
+    # OFF → byte-identical to the legacy coupled engine). When True, Axiom-4
+    # saturation is rendered as a moving reflective short at the SHARED front,
+    # confining BOTH the K4 V-sector "3" (z_local→0 bond Γ→−1) and the Cosserat
+    # "2" (ω node-clamp) — the coupled port of the standalone (II) mechanism
+    # (research/2026-06-06_optionD-impose-under-reflective-confinement-result.md).
+    # impedance_implicit bundles the exact reactance-pair rotation (CP6) + a
+    # CFL-safe sub-dt (impedance_cfl_safety) that is the operative anti-pumping fix.
+    use_impedance_boundary: bool = False
+    impedance_clamp_strength: float = 200.0
+    impedance_skin_smoothing: int = 2
+    impedance_implicit: bool = True
+    impedance_cfl_safety: float = 0.4
+    # Sector-coupling toggle (the one new variable for the Option-D-impose
+    # re-test). True → the Cosserat-ω wall sees the live K4 V_sq (full sector
+    # coupling, the §9 fix); False → V_sq=0 forced (decoupled (II)-standalone
+    # wall). Lets the driver isolate moving-boundary-alone vs +sector-coupling.
+    # Only active when use_impedance_boundary=True.
+    couple_v_sector: bool = True
 
 
 class VacuumEngine3D:
@@ -1654,6 +1682,12 @@ class VacuumEngine3D:
             use_lagrangian_emf_coupling=config.use_lagrangian_emf_coupling,
             disable_cosserat_lc_force=config.disable_cosserat_lc_force,
             enable_cosserat_self_terms=config.enable_cosserat_self_terms,
+            use_impedance_boundary=config.use_impedance_boundary,
+            impedance_clamp_strength=config.impedance_clamp_strength,
+            impedance_skin_smoothing=config.impedance_skin_smoothing,
+            impedance_implicit=config.impedance_implicit,
+            impedance_cfl_safety=config.impedance_cfl_safety,
+            couple_v_sector=config.couple_v_sector,
         )
 
         self.k4 = self._coupled.k4

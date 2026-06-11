@@ -21,7 +21,7 @@ Canonical AVE-native description of the $(2, q)$ stable-particle family ($q$ odd
 | $m_{\text{Cosserat}} = 2 m_e$ from bipartite K4 | Lobe-count factor — same geometric content as SU(2)→SO(3) double cover; NOT compounding factors |
 | Three-layer chirality structure | Layer 1 (substrate twist), Layer 2 ($\chi = \alpha \cdot pq/(p+q)$ parallel-impedance), Layer 3 (lobe-count factor) |
 | Electron chirality coupling | $\chi_{(2,3)} = \alpha \cdot 6/5 = 1.2\alpha$ — AVE-HOPF birefringence notch $\Delta f / f = 1.2\alpha \approx 8.76 \times 10^{-3}$ |
-| Meissner-asymmetric mechanism | $S_\mu = \sqrt{1 - A_\mu^2}$ vs $S_\varepsilon = \sqrt{1 - A_\varepsilon^2}$ asymmetric collapse picks $\Gamma \to -1$ wall direction and spin sign |
+| Meissner-asymmetric mechanism | $S_\mu = \sqrt{1 - A_\mu^2}$ vs $S_\varepsilon = \sqrt{1 - A_\varepsilon^2}$ asymmetric collapse picks the wall SIGN ($|\Gamma| = 1$ in both branches; $\Gamma = -1$ short/$\mu$-collapse, $\Gamma = +1$ open/$\varepsilon$-collapse) and spin sign |
 | Substrate-native Pauli (PROVISIONAL) | Per-node $A^2 \leq 1$ budget → one bound state per saturated node-pair; atomic shells = multiple bond-pairs within envelope |
 | L3 closure shape | Mode III canonical across 10 pre-registered tests + 1 structural partial positive (100% CCW chirality in $(\Phi_{\text{link}}, \|\omega\|)$ magnitude view; 8 of 8 bonds) |
 
@@ -129,7 +129,7 @@ with $p = 2$ (bipartite-cycle / lobe-traversal motion, K4-LC oscillation between
 
 ## §6 — Meissner-asymmetric saturation: substrate-native magnetic-moment generator
 
-The $\Gamma = -1$ walls that contain the soliton's reactance form via **asymmetric magnetic/electric saturation** — the magnetic sector $S_\mu$ collapses BEFORE the electric sector $S_\varepsilon$ (or vice versa, set by chirality). This isn't optional; it is THE mechanism that distinguishes confinement (asymmetric, $Z \to 0$ or $\infty$, $\Gamma = -1$ walls) from gravity (symmetric, $Z$ preserved, refractive bending).
+The $\Gamma = -1$ walls that contain the soliton's reactance form via **asymmetric magnetic/electric saturation** — the magnetic sector $S_\mu$ collapses BEFORE the electric sector $S_\varepsilon$ (or vice versa, set by chirality). This isn't optional; it is THE mechanism that distinguishes confinement (asymmetric, $Z \to 0$ short or $Z \to \infty$ open — $|\Gamma| = 1$ walls in both branches: $\Gamma = -1$ for $\mu$-collapse/short, $\Gamma = +1$ for $\varepsilon$-collapse/open) from gravity (symmetric, $Z$ preserved, refractive bending).
 
 ### §6.1 The mechanism
 
@@ -141,11 +141,13 @@ $$Z_{\text{eff}} = \sqrt{\mu_{\text{eff}} / \varepsilon_{\text{eff}}} = Z_0 \cdo
 
 When chirality biases $A_\mu^2$ to grow faster than $A_\varepsilon^2$: $S_\mu \to 0$ first, $Z_{\text{eff}} \to 0$, $\Gamma \to -1$.
 
+**Sign invariant (2026-06-10 apparatus-floors wall-sign audit).** $|\Gamma| = 1$ in BOTH collapse branches — the wall is totally reflecting either way (total confinement); only the SIGN differs, set by which sector collapses. $\mu$-collapse ($S_\mu \to 0 \Rightarrow Z_{\text{eff}} \to 0$, short) gives $\Gamma \to -1$; $\varepsilon$-collapse ($S_\varepsilon \to 0 \Rightarrow Z_{\text{eff}} \to +\infty$, open) gives $\Gamma \to +1$. The opposite sign physically encodes the opposite spin/chirality. (Prior text labeled the $\varepsilon$-collapse branch $\Gamma \to -1$; corrected via the $Z_{\text{eff}} = Z_0\sqrt{S_\mu/S_\varepsilon}$ algebra above.)
+
 ### §6.2 Magnetic-moment generator (substrate-native)
 
 The Meissner-asymmetric mechanism connects Layer 1 substrate chirality to the electron's **magnetic moment** observable:
 
-- Mirror image ($S_\varepsilon \to 0$ first instead of $S_\mu$): $\Gamma \to -1$ still forms, but with OPPOSITE sector-dominance → opposite spin direction
+- Mirror image ($S_\varepsilon \to 0$ first instead of $S_\mu$): $Z_{\text{eff}} \to +\infty \Rightarrow \Gamma \to +1$ (open) forms, with OPPOSITE sector-dominance → opposite spin direction (a totally-reflecting wall, $|\Gamma| = 1$, just as in the $\mu$-collapse branch — see §6.1 sign invariant)
 - The chirality of WALL FORMATION = the electron's spin direction
 - Same K4 right-handed substrate that picks the $(2, q)$ twist direction picks WHICH SECTOR saturates first per chirality bias
 

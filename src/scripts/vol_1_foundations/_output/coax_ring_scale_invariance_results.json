@@ -1,0 +1,123 @@
+{
+  "known_null_amp0": {
+    "f_exch": "nan/0 (no field)",
+    "note": "amp=0 -> no winding -> no slosh (false-positive floor=0)"
+  },
+  "known_positive_extractor": {
+    "r=4": {
+      "w_tor": 2,
+      "w_pol": 3,
+      "w_tor_rel": 0.73,
+      "w_pol_rel": 0.62,
+      "is_2_3": true
+    },
+    "r=6": {
+      "w_tor": 2,
+      "w_pol": 3,
+      "w_tor_rel": 0.734,
+      "w_pol_rel": 0.629,
+      "is_2_3": true
+    },
+    "r=8": {
+      "w_tor": 2,
+      "w_pol": 3,
+      "w_tor_rel": 0.744,
+      "w_pol_rel": 0.629,
+      "is_2_3": true
+    }
+  },
+  "scale_sweep_carrier_reactance_pair": {
+    "r=4": {
+      "N": 38,
+      "r": 4,
+      "R": 8.0,
+      "f_exch": 1.0519096227404512,
+      "omega_field": 1.0929377304774728,
+      "ncyc": 6,
+      "ledger_drift": 0.2365028963400787,
+      "L_over_C": 1.2878403259588274
+    },
+    "r=6": {
+      "N": 50,
+      "r": 6,
+      "R": 12.0,
+      "f_exch": 0.9986214057357033,
+      "omega_field": 1.0741080916752301,
+      "ncyc": 5,
+      "ledger_drift": 0.123180542692131,
+      "L_over_C": 1.1341556973650333
+    },
+    "r=8": {
+      "N": 62,
+      "r": 8,
+      "R": 16.0,
+      "f_exch": 0.988810863519442,
+      "omega_field": 1.0524288457882096,
+      "ncyc": 5,
+      "ledger_drift": 0.07106951254160045,
+      "L_over_C": 1.0763633633623946
+    }
+  },
+  "grid_sweep_r6": {
+    "N=44": {
+      "N": 44,
+      "r": 6,
+      "R": 12,
+      "f_exch": 1.0000532964478352,
+      "omega_field": 1.0781460920198738,
+      "ncyc": 5,
+      "ledger_drift": 0.12466427171302445,
+      "L_over_C": 1.133190141139387
+    },
+    "N=50": {
+      "N": 50,
+      "r": 6,
+      "R": 12,
+      "f_exch": 0.9986214057357033,
+      "omega_field": 1.0741080916752301,
+      "ncyc": 5,
+      "ledger_drift": 0.123180542692131,
+      "L_over_C": 1.1341556973650333
+    },
+    "N=62": {
+      "N": 62,
+      "r": 6,
+      "R": 12,
+      "f_exch": 0.9985848574855352,
+      "omega_field": 1.0741080916752301,
+      "ncyc": 5,
+      "ledger_drift": 0.12315107815454812,
+      "L_over_C": 1.1340673508261556
+    }
+  },
+  "cross_sector_V_omega": {
+    "Hcouple_max_abs": 1.888037664092335,
+    "Eomega_mean": 352332.4650539769,
+    "cross_frac_Hcouple_over_Eomega": 5.358682072635827e-06,
+    "EV_ppk_over_mean": 0.09698367873960391,
+    "reads_RIGHT_dof": "the buckle channel V<->omega; in this non-overlapping geometry (central breather wall vs the planted-(2,3) torus shell) H_couple is far below the omega-tank energy -> the cross-sector channel does NOT clear the ledger floor (UNRESOLVED for the literal u<->omega); the CARRIER reactance pair (omega<->pi_omega) is the resolved DOF pair."
+  },
+  "VERDICT": {
+    "BIN": "SCALE-FREE",
+    "f_exch_by_scale_r4_r6_r8": [
+      1.0519096227404512,
+      0.9986214057357033,
+      0.988810863519442
+    ],
+    "f_exch_spread": 0.06228199537589295,
+    "ledger_floor_worst": 0.2365028963400787,
+    "f_exch_invariant_within_floor": true,
+    "omega_field_by_scale_r4_r6_r8": [
+      1.0929377304774728,
+      1.0741080916752301,
+      1.0524288457882096
+    ],
+    "omega_monotone_decreasing_with_size": true,
+    "L_over_C_by_scale": [
+      1.2878403259588274,
+      1.1341556973650333,
+      1.0763633633623946
+    ],
+    "honest_caveat": "f_exch ~= 1.0 is the generic FULL-slosh value of a clean LC oscillator, so its scale-invariance is necessary-not-sufficient; the LOAD-BEARING scale-free signal is (a) the planted (2,3) reads back + sloshes coherently at all 3 scales, and (b) omega_field scales DOWN toward the mass-gap floor omega_0=1.0 as LC predicts (1.093->1.074->1.052). The <L>/<C> virial ratio relaxes 1.29->1.08 toward equipartition (gradient term yielding to the mass-gap term with size) -- consistent with, not contradicting, LC."
+  }
+}

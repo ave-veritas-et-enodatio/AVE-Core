@@ -80,6 +80,7 @@ Two SOURCE variants are run and reported SEPARATELY, with the replant-distance o
 **SMOKE (all must pass to proceed; STOP + localize honestly otherwise):**
 - **S1 wall:** Γ_min still HARDENS on the dilatation sector with the Beltrami source active (v2 baseline
   −0.849); PASS if Γ_min < −0.7 and the breather confines. (Regression: the source must not break the wall.)
+  - **RECORD-HONESTY qualifier (2026-06-10 · apparatus-floors · `ave-apparatus-floor-attribution`; `research/2026-06-10_apparatus-floors_note.md`):** the `Γ_min < −0.7` gate is reachable ONLY by static seeds with NON-binding clips (the source of the v2 baseline −0.849). As a *dynamical-wall* gate at the frozen engine clips (`A_cap=0.999`, `S_min=0.05`) it is **unsatisfiable-by-construction** — the apparatus floor is **−0.37** (`max(√(1−A_cap²), S_min)^(1/4)→(n−1)/(n+1)`; corr 1.0000, residual 0.0000 across the 10-cell A_cap×S_min sweep). The regression PASS therefore certifies the SIGN + hardening trend (the source did not break the wall), not the −0.7 magnitude.
 - **S2 Beltrami source:** the helical source deposits ω with (a) NONZERO net helicity structure
   H_bel ≠ 0 (vs v2's ≈0 coherent-axis), (b) λ→−λ FLIPS H_bel sign (sign flips and magnitude match within
   ~25%), (c) centrosymmetric λ→0 baseline H_bel → 0 (|H_bel(λ=0)| ≪ |H_bel(λ)|), (d) CONSERVED — no

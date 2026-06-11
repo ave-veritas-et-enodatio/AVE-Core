@@ -7,6 +7,14 @@ claims: [clm-exjfai, clm-jwyy6l, clm-533gvm]
 
 # Dark Wake + Back-EMF + FOC d-q: Core Synthesis (Grant directive 2026-05-16)
 
+> **Title clarification (2026-06-10, Grant rename-queue adjudication R3 — H1 + filename preserved; this is a Rule-12 title note, not a rename).** The title lumps a **field** and a **port**; by the **antenna-zone taxonomy** this leaf actually covers four distinct objects, class-tagged per the dark-sector registry (`research/2026-06-10_field-symbol-registry.md`):
+> - **(a) the wake FIELD** — far-field, **shear** channel ($\tau^{far}_{zx}$); the radiated dark wake. _Class: field (shear)._
+> - **(b) the reactive NEAR-FIELD store** — the near-field reactive energy $X_L$ (non-radiating, stored). _Class: near-field reactance._
+> - **(c) the PORTS** — radiation resistance $R_{rad,L}$ (wave-making drag), near-field reactance $X_L$, and the Faraday–Lenz **back-EMF** (the terminal Lenz reaction). These are **distinct port objects** (Rule 2: a port meters a field, it is not the field). _Class: ports._
+> - **(d) the FOC d-q frame** — the drive/control rotating frame (with its retraction caveat). _Class: control frame._
+>
+> The **filename is kept** (link-stable — referenced across volumes). A filename rename (e.g. `dark-wake / BEMF-port / FOC synthesis`) is an **optional auditor follow-up** (link-breaking — noted, NOT done here). Registry §5 R3.
+
 > **Vocabulary note:** "dark wake" here is the **thrust** species (real-space motion-trail; the $\tau_{zx}$ in this leaf is the thrust object). It is distinct from the **dark resonance** species (the at-rest $g$-2 retarded self-$\Gamma$), which shares the $\tau_{zx}$ signature but is a different substrate object. See [Dark Back-Reaction Taxonomy](dark-back-reaction-taxonomy.md).
 
 Per Grant directive 2026-05-16: *"core derivations belong in core, if they are in sibling repos, duplicate in a core kb leaf."* This leaf is the Core canonical synthesis of the **dark-wake + back-EMF + FOC d-q** bundle: it consolidates the canonical back-EMF chain, records the FOC d-q decomposition with its retraction caveat, cross-references the sibling hardware-engineering compendia where the engineering instances live, and flags one substantive open derivation (the dark-wake $\tau_{zx}$ chain itself). The substrate noun is the Chiral LC Network, corresponding to a chiral Laves K4 Cosserat crystal at the substrate level.
@@ -123,6 +131,8 @@ This is the **load-bearing analytical work** that would close the dark-wake deri
 ### §3.3 Connection to back-EMF and Op14 trading
 
 The dark wake $\tau_{zx}$ is **plausibly the substrate-scale manifestation of the same Lenz back-EMF mechanism** that Op14 derives at the bond-pair scale:
+
+> **Field/port retag note (2026-06-10, Grant rename-queue adjudication R2, classical lexicon — sentence above preserved unedited):** keep the **field** and the **port** distinct (Rule 2). The dark wake $\tau_{zx}$ is the **WAKE FIELD** (shear channel); its **port signature** is the **radiation resistance** $R_{rad,L}$ — its drag is the **wave-making resistance** (the hydrodynamics term). The **back-EMF** is the *separate* **Faraday–Lenz port reaction**, induced only **against changes** (zero at steady circulation). They are **distinct objects, NOT interchangeable** — the $\mathrm{corr}(\mathrm{bemf\_emf},\tau_{zx}) = +0.117$ receipt (`2026-06-10_bemf-feedback-smoke_result.md:79`) is a near-zero, coincidence-magnet correlation, not an identity. The "same mechanism" reading above is the *plausible-manifestation* hypothesis, not a field=port identity. Registry §3.8 BEMF/$Z_L$ rows + §5 R2.
 
 - **Op14 trading** (bond-pair scale): Cosserat $\omega$ ↔ K4-inductive $\Phi_{\text{link}}$ trades energy via $L_{\text{eff}}$ modulation at $\sim 0.020$ rad/unit trading frequency.
 - **Dark wake** (soliton scale): an accelerating soliton transfers momentum to a backward-propagating substrate shear via the SAME mutual-inductance mechanism.

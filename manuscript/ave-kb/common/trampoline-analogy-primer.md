@@ -266,6 +266,8 @@ At $A = 1$, the bond is fully straight. It has **zero remaining elastic capacity
 
 **Beyond $A = 1$: Regime IV.** The bond does not break. Instead, the substrate **phase-transitions** to a different state — **Regime IV pre-geodesic plasma** (the K4 lattice's parent medium). This is the same plasma found in BH interiors and pre-K4 cosmology (cosmology "bottle in freezer" framework). The substrate beyond $A = 1$ is **not damaged; it is in a different phase**.
 
+> **[FLAG 2026-06-11 clarification — Vol 9 Ch 14 §True Phase Diagram]** This sentence equates "Regime IV" with "pre-geodesic plasma." These are **distinct coordinates**, and conflating them is the issue Vol 9 Ch 14 §True Phase Diagram resolves: *pre-geodesic plasma* is a **thermodynamic phase** (the parent medium the crystal froze out of — it **predates** the crystal, per [`cosmic-axes-and-frames-glossary.md:73`](cosmic-axes-and-frames-glossary.md), "supercooled pre-geodesic plasma"); *Regime IV* is the **excitation-path endpoint** *within* the solid ($r \to 1$, $S \to 0$, the local rupture terminus). They **coincide** at the BH-interior rupture trajectory — driving local strain to $A = 1$ lands on the melt boundary — but the regime axis cannot *label* a phase that exists before the crystal it is built on. The substrate's true thermodynamic phase diagram (solid / melt / candidate cavitated, on the $(T, \bar\rho)$ plane) carries the melt and the candidate cavitated phase as regions, with the four-regime $r$-map a sub-structure of the solid only. Body preserved (Rule 12).
+
 ### The universal horizon
 
 The same total-reflection wall at $A = 1$ ($|\Gamma| = 1$; legacy "$\Gamma = -1$") is the mechanism that produces:
