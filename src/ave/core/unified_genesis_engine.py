@@ -101,6 +101,18 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         # u_adv = the PHASE-2 smoke / keeper byte-identical path. A NEW knob ⇒
         # inventoried + swept (ave-apparatus-floor-attribution v1.1; §210).
         omega_recipient_frac: float = 0.0,
+        # --- v7 D13 QUADRATURE DEPOSIT (poloidal-projecting δπ_ω); OFF by default ---
+        # quadrature_deposit=False ⇒ the v6 RIGID-azimuthal ω-deposit path is
+        # byte-identical (the D-INHERIT keeper). When True the ω-deposit branch
+        # ADDS a poloidal LC-quadrature winding on the g_wall shell (winding-capable
+        # in the w_pol read coordinate — derived in the prereg §3 + this session's
+        # plant-at-scale prototype). NEW knobs ⇒ inventoried + swept (§5).
+        quadrature_deposit: bool = False,
+        alpha_pol: float = 1.0,   # deposit-SHAPE knob: 0 ⇒ no poloidal (v6 rigid); 1 ⇒ full poloidal winding
+        q_dep: int = 3,           # target poloidal winding order (the "3")
+        p_dep: int = 2,           # toroidal director order (the "2")
+        pol_R: float | None = None,  # reading-torus major radius (None ⇒ 0.22·N at build)
+        pol_r: float | None = None,  # reading-torus minor radius (None ⇒ R/φ²)
         **kwargs,
     ):
         """
@@ -170,6 +182,20 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         self.bounce_thresh = float(bounce_thresh)
         self.transduce_axis = transduce_axis  # int or None
         self.omega_recipient_frac = float(min(max(omega_recipient_frac, 0.0), 1.0))
+        # --- v7 D13 quadrature-deposit config (default OFF = v6 byte-identical) ---
+        self.quadrature_deposit = bool(quadrature_deposit)
+        self.alpha_pol = float(min(max(alpha_pol, 0.0), 1.0))
+        self.q_dep = int(q_dep)
+        self.p_dep = int(p_dep)
+        _phi2 = ((1.0 + np.sqrt(5.0)) / 2.0) ** 2
+        self.pol_R = float(pol_R) if pol_R is not None else 0.22 * self.N
+        self.pol_r = float(pol_r) if pol_r is not None else self.pol_R / _phi2
+        # v7 D13 ledgers (the poloidal winding is a SEPARATE, zero-net-axial-AM
+        # helicity imprint added ON TOP of the v6 1:1 rigid AM transfer; its
+        # accumulator is BOOKKEEPING, never the headline — the gross-vs-field rule):
+        self.pol_deposit_accum = 0.0    # cumulative deposited poloidal amplitude tally (signed, helicity-odd)
+        self.E_pol_deposit = 0.0        # cumulative energy placed in the poloidal winding (drawn from photon, ≥0)
+        self.pol_deposit_events = 0     # steps the poloidal branch fired
         # D9 ledgers (the AM channel closes 1:1 BY CONSTRUCTION; energy TRACKED):
         self.L_transferred = 0.0          # cumulative ΔL deposited (u_adv + ω, = removed)
         self.L_transferred_u = 0.0        # cumulative ΔL into u_adv orbital circulation
@@ -449,6 +475,101 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         gw = self._wall_window() * self.interior_mask()
         return float(np.sum(gw * np.sum(piw ** 2, axis=-1)) * self.dx ** 3)
 
+    # ===================================================== v7 D13 quadrature deposit
+    def _quadrature_deposit_pattern(self, amp, s_h, window):
+        """Build the (δω, δπ_ω) LC-quadrature winding increment on `window` (the
+        g_wall shell), about the z spin-axis, IN THE SAME (φ,ψ,d̂) coordinate the
+        w_pol extractor reads (phase-space-coordinate-check A46):
+
+          φ = arctan2(y,x) ;  ρ = √(x²+y²) ;  ψ = arctan2(z, ρ−pol_R)
+          D = cos(p·φ)·ρ̂ + sin(p·φ)·ẑ           (the canonical unit director, |D|=1)
+          δω    = amp·window·D·cos(q·ψ)           (C-state ω increment)
+          δπ_ω  = amp·window·D·s_h·sin(q·ψ)        (L-state π_ω increment; quadrature)
+
+        DERIVED + plant-at-scale-validated this session: this is the SAME functional
+        form as the canonical planted-(2,3) (`seed_omega_known_2_3`) that the
+        extractor is bit-validated to read as w_pol=q. The read coordinate PROVABLY
+        requires the co-deposited C-state — a pure δπ_ω (the prereg §3.3 sketch)
+        plants no ω·d̂ and reads w_pol=0 (validated: w_pol 3 with C-state vs 0
+        without). So the v7 deposit is the FULL LC quadrature, NOT δπ_ω-only — a
+        DERIVED strengthening of the prereg sketch (surfaced, flag-don't-fix).
+
+        Zero net axial AM (the cos/sin(qψ) winding integrates out around ψ) ⇒ the
+        lock's net-L removal does not drain it (the structural-block mechanism §3.4).
+        s_h = sign(extracted dL) = handedness ⇒ the winding sign reverses RH↔LH
+        (helicity-odd). Restricted to the z spin-axis (the extractor's torus axis;
+        the genesis foc_axis=2) so the deposit + read share the coordinate."""
+        p, q = self.p_dep, self.q_dep
+        x, y, z = self._bx, self._by, self._bz
+        rho = np.sqrt(x ** 2 + y ** 2)
+        safe = rho > 1e-9
+        inv = np.where(safe, 1.0 / np.where(safe, rho, 1.0), 0.0)
+        phi = np.arctan2(y, x)
+        psi = np.arctan2(z, rho - self.pol_R)
+        dRr = np.cos(p * phi)
+        dz = np.sin(p * phi)
+        director = np.empty_like(self.omega)
+        director[..., 0] = dRr * x * inv     # cos(pφ)·x̂·(x/ρ) = cos(pφ)·cosφ
+        director[..., 1] = dRr * y * inv     # cos(pφ)·sinφ
+        director[..., 2] = dz                # sin(pφ)
+        base = (amp * window)[..., None] * director
+        d_omega = base * np.cos(q * psi)[..., None]
+        d_pi = base * (s_h * np.sin(q * psi))[..., None]
+        return d_omega, d_pi
+
+    def poloidal_quadrature_content(self, axis: int = 2, q: int | None = None):
+        """The NET-FIELD poloidal-winding quantity the v7 survival gate measures
+        (gross-vs-field §10), read in the MATCHING phase-space coordinate (A46):
+        the signed chiral q-harmonic amplitude of the ω-tank LC quadrature
+        Z=(ω·d̂)+i(π_ω·d̂) on the reading torus (pol_R, pol_r).
+
+        Per toroidal walk: Park-project (ω,π_ω) onto the principal axis d̂ of the ω
+        covariance over the minor circle (the extractor's d̂), form Z(ψ), take the
+        ±q Fourier coefficients A_±q = ⟨Z·e∓iqψ⟩_ψ. Returns the median-over-walks
+        C_pol = |A_+q|−|A_−q| (helicity-odd: +q vs −q dominance = the winding
+        chirality). This is a FIELD measurement (MAIN−OFF of it = the net deposit),
+        NOT the accumulator. axis kept for signature symmetry; z-torus per the
+        extractor."""
+        from ave.utils.fast_winding_extractor import interp_vec_batch
+        if q is None:
+            q = self.q_dep
+        N = self.N
+        c = (N - 1) / 2.0
+        R, r = self.pol_R, self.pol_r
+        n_walks, n_ang = 12, 240
+        phi0 = np.linspace(0.0, 2 * np.pi, n_walks, endpoint=False)
+        psis = np.linspace(0.0, 2 * np.pi, n_ang, endpoint=False)
+        PHI0 = np.broadcast_to(phi0[:, None], (n_walks, n_ang))
+        PSI2 = np.broadcast_to(psis[None, :], (n_walks, n_ang))
+        pw = (self.omega - self.omega_prev) / self.dt
+        op, vmask_o = interp_vec_batch(self.omega, c, R, r, PHI0, PSI2, N)
+        pp, vmask_p = interp_vec_batch(pw, c, R, r, PHI0, PSI2, N)
+        vmask = vmask_o & vmask_p
+        cphi0, sphi0 = np.cos(phi0), np.sin(phi0)
+        OeR = op[..., 0] * cphi0[:, None] + op[..., 1] * sphi0[:, None]
+        Oz = op[..., 2]
+        PeR = pp[..., 0] * cphi0[:, None] + pp[..., 1] * sphi0[:, None]
+        Pz = pp[..., 2]
+        eipq = np.exp(-1j * q * psis)   # for A_+q
+        eimq = np.exp(+1j * q * psis)   # for A_-q
+        c_list = []
+        for wlk in range(n_walks):
+            idx = np.nonzero(vmask[wlk])[0]
+            if len(idx) < 16:
+                continue
+            O = np.stack([OeR[wlk, idx], Oz[wlk, idx]], axis=1)
+            P = np.stack([PeR[wlk, idx], Pz[wlk, idx]], axis=1)
+            cov = O.T @ O
+            evals, evecs = np.linalg.eigh(cov)
+            dhat = evecs[:, np.argmax(evals)]
+            Z = (O @ dhat) + 1j * (P @ dhat)
+            full = np.zeros(n_ang, dtype=complex)
+            full[idx] = Z
+            Apq = np.mean(full * eipq)
+            Amq = np.mean(full * eimq)
+            c_list.append(abs(Apq) - abs(Amq))
+        return float(np.median(c_list)) if c_list else 0.0
+
     def _transducer_step(self):
         """D9 — the chiral-boundary spin-orbit exchange BC (prereg §6.1; CP10).
 
@@ -493,6 +614,7 @@ class UnifiedGenesisEngine(CrystalGraftV4):
             dL_om = f_om * dL
             ke_delta = 0.0
             e_omega_gain = 0.0
+            e_pol_gain = 0.0  # v7 D13 poloidal-winding energy (drawn from photon-loss budget)
             # --- (2a) DEPOSIT dL_u into u_adv (orbital), wall-localized azimuthal ---
             if dL_u != 0.0:
                 Omega_u = dL_u / I_wall
@@ -526,6 +648,40 @@ class UnifiedGenesisEngine(CrystalGraftV4):
                     # increase π_ω by dpi: ω_prev ← ω − (π_ω+dpi)·dt = ω_prev − dpi·dt
                     self.omega_prev = self.omega_prev - dpi * self.dt
                     self.L_transferred_omega += dL_om
+                    # --- (2c) v7 D13: the POLOIDAL QUADRATURE WINDING (added ON TOP
+                    # of the rigid 1:1 AM transfer above, so the v6 AM ledger is
+                    # untouched). A zero-net-axial-AM (δω,δπ_ω) LC-quadrature on the
+                    # g_wall shell, winding-capable in the w_pol read coordinate
+                    # (DERIVED §3 + plant-at-scale-validated). The photon's mechanical
+                    # axial AM still goes to the rigid mode (lock-drained, v6); its
+                    # HELICITY is imprinted here as the poloidal winding the lock's
+                    # net-L removal cannot drain (the structural-block mechanism). The
+                    # poloidal energy is drawn from the photon-loss budget (passive:
+                    # E_absorbed≥0 tracked). amp = α_pol·Ω_om·pol_r; sign = sign(dL_om)
+                    # = handedness ⇒ helicity-odd winding. CP10 boundary-local. ---
+                    if self.quadrature_deposit and self.alpha_pol > 0.0 and n == 2:
+                        s_h = 1.0 if dL_om >= 0.0 else -1.0
+                        amp_pol = self.alpha_pol * Omega_om * self.pol_r
+                        d_om_pol, d_pi_pol = self._quadrature_deposit_pattern(
+                            amp_pol, s_h, gw)
+                        piw_om2 = (self.omega - self.omega_prev) / self.dt
+                        e_pol_gain = float(np.sum(
+                            np.sum(piw_om2 * d_pi_pol, axis=-1)
+                            + 0.5 * np.sum(d_pi_pol ** 2, axis=-1)
+                            + (self.omega_gap ** 2) * (
+                                np.sum(self.omega * d_om_pol, axis=-1)
+                                + 0.5 * np.sum(d_om_pol ** 2, axis=-1))
+                        ) * self.dx ** 3)
+                        # apply BOTH the C-state (δω) and L-state (δπ_ω) increments:
+                        # ω ← ω+δω ;  ω_prev ← ω_prev+δω−δπ_ω·dt  (preserves π_ω+=δπ_ω)
+                        self.omega = self.omega + d_om_pol
+                        self.omega_prev = self.omega_prev + d_om_pol - d_pi_pol * self.dt
+                        self.E_pol_deposit += abs(e_pol_gain)
+                        self.E_transduce_omega_gain += e_pol_gain
+                        # signed bookkeeping accumulator (NEVER the headline — §10)
+                        self.pol_deposit_accum += s_h * amp_pol * float(
+                            np.sum(gw) * self.dx ** 3)
+                        self.pol_deposit_events += 1
                 else:
                     dL_om = 0.0
             self.E_transduce_bulk_gain += ke_delta
@@ -541,7 +697,7 @@ class UnifiedGenesisEngine(CrystalGraftV4):
                 np.sum(piw ** 2, axis=-1) * (1.0 - (1.0 - extract_frac) ** 2)
             ) * self.dx ** 3)
             self.E_transduce_photon_loss += piw_loss
-            self.E_transduce_absorbed += (piw_loss - ke_delta - e_omega_gain)
+            self.E_transduce_absorbed += (piw_loss - ke_delta - e_omega_gain - e_pol_gain)
             self.w_prev = self.w - (self.w - self.w_prev) * (
                 1.0 - pay_scale * extract_frac)[..., None]
             self.transduce_events += 1
@@ -569,6 +725,15 @@ class UnifiedGenesisEngine(CrystalGraftV4):
             "L_bulk_axial": self.angular_momentum_bulk(self._transduce_axis()),
             "L_omega_axial": self.angular_momentum_omega_axial(self._transduce_axis()),
             "S_photon_axial": self.photon_spin_axial(),
+            # --- v7 D13 poloidal-winding channel (accumulator = BOOKKEEPING; the
+            # headline is poloidal_quadrature_content (FIELD) — gross-vs-field §10) ---
+            "quadrature_deposit": self.quadrature_deposit,
+            "alpha_pol": self.alpha_pol,
+            "q_dep": self.q_dep,
+            "pol_deposit_accum": self.pol_deposit_accum,
+            "E_pol_deposit": self.E_pol_deposit,
+            "pol_deposit_events": self.pol_deposit_events,
+            "C_pol_field": self.poloidal_quadrature_content(),
         }
 
     def angular_momentum_omega_axial(self, axis: int | None = None) -> float:
