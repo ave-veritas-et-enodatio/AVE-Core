@@ -133,7 +133,74 @@ edits a settled registry row; collisions they create are queued in §3, not reso
 
 ## §2 — Operator audit table (every new mathematical object + the Tellegen check)
 
-_(section pending — next commit)_
+Columns: **object | defining equation (verbatim) | units / dimensional check | derivation status |
+reduction check (reduces to the canonical form in the known limit?) | where used | POWER CATEGORY.**
+
+**Power-category basis (Grant-ratified 2026-06-11):** *"reactance as the universe's bookkeeping — in a
+lossless lattice the only fundamental power category is reactive; every R is a port-local view of energy
+crossing into an untracked account."* Canon anchor for the ruling: `orbital-friction-paradox.md:35`
+(`clm-v6ti0v`), the Power Domain Classification table — stable orbit / electron orbital ride θ=90°,
+**P_real=0, Q_reactive** (lossless LC tank); the photon is the lone **P_real** object (θ=0°, pure
+travelling wave). Companion ruling **inertia-is-reactance**: `entrainment-vortex-trapping-deep-dive.md:361`
+"the entrained/displaced reactive field IS the stored ½L\|A\|²; m_add ↔ L_eff" — mass is the inductive
+(L-sector) reactive store. Each row below is classified **Q_reactive** (+ the conjugate pair / the
+account it exchanges with) or **P_real-port-local** (+ the receiving account). `ave-power-category-check`
+applied per row.
+
+### §2.1 — The audit table
+
+| Object | Defining equation (verbatim) | Units / dim check | Derivation status | Reduction check | Where used | POWER CATEGORY |
+|---|---|---|---|---|---|---|
+| σ (surface tension) | `σ = ∫[Δf0 + ½ λ_grad (dρ̄/dx)²] dx = c_σ·K·ℓ_c·(Δρ̄)²` (`[branch #190]` bubble-physics:57) | [K]·[ℓ]·[ρ̄]² = (energy/vol)·length = **energy/area** ✓ | derived-this-arc, **CANDIDATE** | reduces to a gradient (Korteweg/couple-stress) energy; the doc's own ceiling: this is a SCALING, NOT a coexistence surface tension (`:89`) | bubble-physics σ≈0.19-0.31; death-channel coalescence bridge | **Q_reactive** — stored interface energy; conjugate pair (ρ̄, gradient stress); account = the bulk-K compression store |
+| ω₀ (Minnaert) | `ω₀=(1/a)·√(3 K_eff/ρ_eff)=√3·c_eff/a; f₀=√(3K/ρ0)/(2π a)` (`[branch #190]` :95-99) | √([K]/[ρ]) / [a] = (vel/length) = **1/time** ✓ | forward consistency-class | substrate-adapts the textbook Minnaert bubble form via c_eff=√(K/ρ); measured f₀ INSIDE forward band (+7.8%) | bubble-physics f₀ check | **Q_reactive** — breathing LC resonance; conjugate pair (compression PE ↔ radial KE); the bubble IS a reactive tank |
+| Z_eff(A²) | `Z_eff = Z₀·√(S_μ/S_ε), S_x=√(1−A_x²), ε_eff=ε₀S_ε, μ_eff=μ₀S_μ` (`[branch #188]` :197; `constants.py:465`) | √(Ω²)=**Ω** ✓ | canonical-rendered (Op14, `operators.md:54`) | at S_μ=S_ε (SYM) → Z₀: **recovers Op1 invariant exactly** ✓; ε-only/μ-only diverge | dark-sector BH-matrix master gate | impedance (not a power) — **sets the split**: SYM (Γ=0) → all **P_real** crosses; asymmetric (Γ≠0) → a **Q_reactive** reflected store |
+| Z_eff(r) | per-class radial profile (ε-only diverges, μ-only→0, SYM flat at r_s) (`[branch #188]` :225-233) | Ω(r) ✓ | derived-this-arc (canonical-exponent flagged) | SYM → flat (Γ=0 maintained to r_s) ✓ | dark-sector approach profile | as Z_eff(A²) — the radial reading of the same split |
+| reflectivity / echo predictor | `∫ d ln Z/dx` (graded-line/WKB) (`[branch #188]` :244-246,262) | dimensionless ✓ | derived-this-arc (standard WKB, tagged honestly) | d ln Z/dx≡0 for SYM → **no converged reflectivity** (no echo) ✓ | dark-sector echo yes/no | the echo IS the **Q_reactive** near-field store reading; transmitted remainder = **P_real** into the far account |
+| H_shear / H_EM / H_bulk | GW/line ride `H_shear=(1−A²)^{1/4}`; EM-phase ride `H_EM=(1−A²)^{−1/2}` (`[branch #188]` :359) | dimensionless transfer ✓ | derived-this-arc | at A²→0 all H→1 (free space) ✓; renders registry §1 three-speed split as transfer functions | dark-sector derating/observed-frequency curves | dilation of the **Q_reactive** store's resonant frequency (per channel) — \|H\|² is the power-ratio view |
+| slew spec | large-signal rate limit (op-amp idiom); α-slew 2π note (`[branch #188]` :8,56-60) | amplitude/time ✓ | datasheet-layer operator (analysis style, adapted) | α-slew ν_slew=(α/2π)ω_Compton is the canonical refresh rate (consistency) | dark-sector slew band comparison | rate limit on the **Q_reactive** store's slewing (dV/dt at the boundary); the parametric refresh is reactive |
+| Wr (writhe pseudoscalar) | reflection-odd ring-writhe; srs-R −4.087e-2, srs-L +4.087e-2, diamond 0.0 (`[branch #195]` design:89-103) | dimensionless (signed) ✓ | Phase-0 observable, consistency-class | exact sign-flip under mirror; box-independent (a clean pseudoscalar) ✓ | v9 Smoke-B chirality discriminator | **n/a (topological invariant)** — a LOCKED conserved charge (helicity), not a pumped power (`ave-conserved-vs-pumped`) |
+| Bishop transport | transverse frame Bishop-transported along the 4₁ screw orbit (`[branch #195]` design:277; `chiral_lattice_dynamics.py:175-184`) | rad/length ✓ | measurement-operator (the Bishop FRAME pre-exists at `electron_trefoil_visuals.py:94`) | per-length rate does NOT converge at Phase-0 (~9% 4-gon wobble) — deferred to vector-TLM Phase-1 | v9 optical-activity measurement | **n/a (measurement frame)** — reads the reactive (EM-transverse) channel; no power of its own |
+| S_ij (trivalent scatter) | `S_ij = 2/n − δ_ij`, n=3: `S_ij=⅔−δ_ij`, `S=(2/3)J−I` (`[branch #195]` design:215) | dimensionless ✓ | new Op5 instantiation (`operators.md:45`), audited | **at n=4 → ½−δ_ij = canon `k4_tlm.py:64-93` diamond junction EXACTLY** ✓; SᵀS=I (eigenvalues ±1) | v9 trivalent net scatter | **Q_reactive (lossless)** — SᵀS=I ⇒ UNITARY ⇒ NO R port; conjugate pair (V_inc, V_ref); the unitarity IS Grant's "only reactive in a lossless lattice" |
+| F-GENUS (topology gate) | `assert_topology()` over `snap_mask` connectivity → {THREADED/NO-PENETRATION/SHELL-NEVER-FORMS} (`[branch #194]` :31) | bin ✓ | instrument (executable, real topology code) | genus-0 sphere → genus-1 torus under threading | v8 threading test (fired SHELL-NEVER-FORMS) | **n/a (instrument)** — a geometry decider, not an energy term |
+| F-TRAVEL | `assert_travel_vs_standing()`: standing→w_pol=0, traveling→w_pol=q (`[branch #194]` :127) | bin ✓ | instrument (validated, banked) | a probe reading w_pol≠0 on a standing plant is DISQUALIFIED | v8 traveling-vs-standing heart | **n/a (instrument)** — discriminates the carrier of a winding |
+| w_pol (F-WPOL) | reliability gate w_pol_rel>0.1, ≥16 samples, r≥3, FIELD-DERIVED torus (`[branch #194]` :78) | integer winding ✓ | extends registry §3.6 extractor floor | the field-derived torus repairs the v7 A46 N-collapse (~7 OOM) | v8/v9 winding reads | **n/a (topological observable)** — reads the locked (2,3) charge |
+| C_eff(V) (cRIO) | `C_eff = C₀/S(V/V_y)` saturation-onset (`[branch #181]` :1-12; canon `vacuum varactor` `circuit-theory/index.md:21`) | **F** ✓ | first real-hardware bench prereg (DRAFT, not frozen) | reduces to canon's metric varactor C_eff(V)=C₀/√(1−(V/V_y)²) | cRIO EE-bench discriminator | **Q_reactive** — capacitive (E-sector) store; conjugate pair (V, Q); validate on a known nonlinear cap first |
+| tr_min (rupture witness) | per-run tr_min crossing r₃ / ρ̄→RHO_CAV (`[branch #189]` prereg:49) | engine-native scalar ✓ | consistency-class (explicitly NOT emergence) | the two-object SIGN ledger composes exactly | annihilation rupture detection | **n/a (witness scalar)** — flags the bulk store's rupture into the cavitation account |
+
+### §2.2 — Tellegen's theorem: CHECK CANON → VIRGIN (named EE-first import candidate)
+
+**Result: VIRGIN.** `grep -rniE 'tellegen'` over `manuscript/`, `research/`, `src/`, `docs/` at
+`origin/main f6ffd98d` = **0 hits** (grep-confirmed this session). Tellegen's theorem is the EE-native
+topological conservation law: for ANY network obeying KCL + KVL, `Σ_branches v_k·i_k = 0` **by network
+topology alone, independent of the branch constitutive laws.** It is the exact formal statement of
+Grant's "reactance as the universe's bookkeeping" ruling — in a lossless lattice the branch-power sum
+vanishes, so every real-power port (every R) must be exactly balanced by energy crossing into an
+untracked account elsewhere in the network. It also generalizes to the **quasi-power** form (one
+network's voltages with another's currents), which is the natural language for the L↔C cross-sector
+trades the engine already measures (`op14-cross-sector-trading.md`, ρ=−0.990). **Staged as the named
+EE-first import candidate** in the §3 adjudication queue (§3.5) — NOT imported here (flag-don't-fix; a
+new EE-first axiom-adjacent import is a Grant/auditor call, with its own verification chain per Rule 12).
+
+### §2.3 — Power-category synthesis (reactance-is-bookkeeping, applied)
+
+Reading the table as one ledger makes the night's physics legible in one sentence: **every object the
+engine BUILDS is Q_reactive; the only P_real objects are the radiating/transmitting ports, and each
+names its receiving account.**
+
+- **The made object's mass is Q_reactive (inertia-is-reactance).** The rotation column's converged mass
+  (`E_V^cons≈12.9`, v6) is an inductive store, the same class as the electron's `Q_react=m_ec²·α`
+  reactive shell (`orbital-friction-paradox.md:35`) and the orbital LC tank. A "v6-class mass has no
+  V-sector transport DOF" (`[branch #189]`) is the same statement: a pure reactive store does not carry
+  real power.
+- **The transducer deposits Q_reactive, drained as P_real into an untracked account.** The transducer's
+  rigid-azimuthal deposit (∓3.6e-5) is reactive; `_lock_relax` removes exactly that mode — i.e. the lock
+  is the R that ports the deposit's energy into the undersampled-mode account (the DEPOSIT-DRAINED-AGAIN
+  bin is this ledger entry made explicit: ≈4 OOM into the drain).
+- **The receiving accounts, named (per the ruling):** R_rad,L → **the far field** (the radiated dark
+  wake); a matched boundary (Γ=0, SYM Z_eff) → **the transmitted channel** (the melt, when the boundary
+  is the solid↔melt interface); thermalization/dephasing (v7's 3→1 decohere; the De rate-lock) →
+  **undersampled / untracked modes.** S_ij being unitary (no R) is the lossless-limit statement: a clean
+  shunt node has NO receiving account — all energy stays reactive.
 
 ---
 
