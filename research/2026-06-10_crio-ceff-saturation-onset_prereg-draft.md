@@ -103,7 +103,7 @@ Let `x ≡ V/V_yield` (the per-node operating-point ratio). The canonical Taylor
 **The frozen forward prediction the bench would test:** the small-signal `C_eff(V)/C_0` follows a
 **quarter-arc kernel** with leading **V² coefficient of magnitude ½** (in per-node units `x = V/V_yield`),
 **sign per Grant's §0 adjudication.** The second-harmonic (2ω) generation coefficient is the canonical
-companion observable: `δC/C = ¼ x²` at 2ω (yield-knee prereg:48, `parametric-coupling-kernel.md:70-78`).
+companion observable: `δC/C = ¼ x²` at 2ω (yield-knee prereg:48, `parametric-coupling-kernel.md:70-80`).
 
 **The AVE-distinct fingerprint vs standard phenomenology (§2):** (i) the specific `(1−x²)^(±1/2)`
 **quarter-arc shape** (a √-form, with a vertical-tangent **knee** at `x→1`), not a power-law or
@@ -210,3 +210,185 @@ The bench band (DC–40 kHz) is **~16 OOM below** the canonical thixotropic cros
 The vacuum is therefore **fully relaxed / quasi-static** at bench frequencies — **no vacuum memristive
 hysteresis** is possible (that needs `f ≫ 10²⁰ Hz`). Any hysteresis the bench sees is the **material's**
 (dielectric absorption / ferroelectric domain loss) — a systematic to characterize, not a vacuum signal.
+
+---
+
+## §4 — THE VALIDATION LADDER FIRST (`ave-apparatus-floor-attribution`)
+
+This bench is where the apparatus-floor discipline was *encoded from*. The ladder runs **before any
+discriminating read** — characterize the chain on knowns at the run's own scale/config. No DUT-of-interest
+C(V) is interpreted as physics until A, B, and C have passed.
+
+| Stage | Device | Role | Pass criterion | What a fail means |
+|---|---|---|---|---|
+| **A — known-null** | Known **LINEAR** cap: C0G/NP0 ceramic or PP film, ~1–10 nF | Must read **flat** C(V) across ±10 V | `\|ΔC/C\|` across full bias ≤ stated floor (target: ≤ 0.1%, set by stage C) | A bias-dependent systematic exists (AO bias-tee leakage, AI input-bias current, sense-R thermal drift, dielectric absorption) — that slope IS the C(V) false-positive floor; subtract or fix before B |
+| **B — known-positive** | Known **NONLINEAR** cap with a **datasheet C-V curve**: a Class-2 X7R/X5R MLCC (DC-bias derating curve) OR a varactor diode (C-V table) | Must **recover the datasheet** C(V) within tolerance | Recovered C(V) matches datasheet within stated datasheet tol (typ. ±10–20% MLCC; ±5% varactor) over the bias range | The extraction is biased (wrong sense-R, lock-in phase error, probe-amp out of small-signal) — the chain mis-reads a *known* nonlinearity, so it cannot be trusted on an unknown |
+| **C — instrument floor** | Open-channel / stable-reference: shorted, open, and a stable known cap, recorded over the full integration window | **Free-drift noise floor**, stated BEFORE any discriminating read | Report `σ_C` (C-extraction drift) and its allan-variance vs integration time | This IS the bench's resolution floor; any C(V) feature within ~3× of it is UNRESOLVED, never a result (apparatus-floor A-bis: floor gate adjudicates FIRST) |
+
+**A-ter probe-capability note:** the known-positive (Stage B) must exercise the *discrimination axis* the
+bench claims to measure — i.e. it must have a **shape** the extraction can resolve, not just a magnitude
+offset. A datasheet MLCC derating curve (a real falling arc) is the right known-positive; a second linear
+cap is not (it can't confirm the chain reads *shape*).
+
+---
+
+## §5 — Measurement design (lock-in quadrature C extraction)
+
+**Principle.** At each DC bias `V_DC`, superpose a small AC probe `v_ac·sin(ωt)` and measure the DUT
+current. The **quadrature** (90°, leading V) component is capacitive: `I_Q = ω·C_eff(V_DC)·v_ac`, so
+`C_eff(V_DC) = I_Q / (ω·v_ac)`. The **in-phase** component gives the loss `G = I_I/v_ac`. Sweep `V_DC`.
+This reads the **small-signal differential capacitance** `dQ/dV` — the §0 observable (a), NOT the bulk
+rupture-compliance (b).
+
+**4×4 phase-coherent channel plan (NI-9263 AO ×4, NI-9215 AI ×4, common 100 kS/s clock):**
+
+| Ch | Signal | Purpose |
+|---|---|---|
+| AO0 | `V_DC + v_ac·sin(ωt)` → DUT | bias + probe drive (summed in software, single AO) |
+| AO1 | `v_ac·sin(ωt)` → reference cap | ratiometric reference drive (phase-locked to AO0) |
+| AO2 | guard / cancellation drive (optional) | common-mode / cable-capacitance null |
+| AO3 | spare | reserved (e.g. temperature-cell drive) |
+| AI0 | DUT current sense (across sense-R or TIA) | the measured `I(V_DC, t)` |
+| AI1 | reference-cap current sense | ratiometric denominator (cancels lock-in gain + clock drift) |
+| AI2 | DUT voltage monitor | true applied V (closes the bias loop; corrects AO loading) |
+| AI3 | spare / temperature monitor | drift attribution |
+
+**Ratiometric extraction** (DUT vs reference cap) cancels common-mode gain/clock/thermal drift — the
+single most important systematic reducer; report `C_DUT/C_ref`, not raw `C_DUT`.
+
+**Expected SNR (canonical bench params, computed this session):** with `v_ac = 0.1 V`, `C ~ 1–100 nF`,
+`ω/2π = 1–40 kHz`: `I_Q = ω·C·v_ac` spans **6.3 µA → 2.5 mA** — comfortably inside NI-9215 ±10 V with a
+sense resistor (e.g. `I_Q·R_sense` set to ~1 V full-scale). 16-bit AI over ±10 V → ~0.3 mV LSB; with
+lock-in integration (`N` samples) the C-extraction SNR improves as `√N`, putting sub-0.1% `ΔC/C`
+within reach at multi-second integration (to be confirmed empirically as Stage C, not assumed).
+
+**Probe-amplitude linearity (the S11 lesson, A-Rule small-signal corollary):** sweep `v_ac` (§7) and
+confirm extracted `C_eff` is **probe-amplitude-independent**. If `C` depends on `v_ac`, the probe is
+NOT small-signal (it is itself driving the nonlinearity) and the "C(V)" is a large-signal average, not a
+differential capacitance — a contamination that must be excluded before any FORM comparison.
+
+---
+
+## §6 — ORDERED BINS (floor gates FIRST, per apparatus-floor A-bis)
+
+The floor gate adjudicates **before** any AVE-vs-standard form claim is evaluated. A sub-floor "match"
+is UNRESOLVED, never a form verdict.
+
+1. **APPARATUS (floor gate — evaluated FIRST).** Did Stage A read flat to floor, Stage B recover the
+   datasheet, and is the candidate C(V) feature **> 3× the Stage-C drift floor**? If NO on any →
+   **UNRESOLVED / APPARATUS.** Stop; the read is the bench, not physics. (No AVE/STANDARD verdict is
+   even computed.)
+2. **AVE-FORM.** Above floor AND the material C(V) arc matches the `(1−x²)^(±1/2)` kernel form (sign
+   per §0, shape over the reachable x-range) **distinguishably better** than the standard forms, with a
+   self-consistent fit `V_local` → **consistency-class support** for the kernel SHAPE (Class C, §8).
+   NOT an emergence claim.
+3. **STANDARD-FORM.** Above floor AND the C(V) arc matches a standard varactor / Devonshire-ferroelectric
+   form **better** than the AVE kernel form → the AVE form is **not supported** for this material.
+4. **INDISTINGUISHABLE-AT-PRECISION.** Above floor BUT both AVE and standard forms fit within bench
+   precision over the reachable bias range → **cannot separate.** (This is the *expected* outcome for
+   Branch F at modest x, and the *certain* outcome for the vacuum claim per §3.)
+
+**Pre-registered expectation:** vacuum claim → bin 1/4 by construction (§3). Material analog → most
+likely bin 4 (Branch F shape-degeneracy) unless the bench reaches `x ≳ 0.5` of `V_local` with
+sub-0.1% precision, in which case bins 2/3 become decidable at consistency-class.
+
+---
+
+## §7 — Knob inventory + sweep plans (`ave-sweep-audit`)
+
+Every knob that could *set* the number is inventoried; each is swept or bounded.
+
+| Knob | Range / plan | What it controls / could masquerade as |
+|---|---|---|
+| **Probe amplitude `v_ac`** | sweep 10 mV → 1 V (≥1 decade) | small-signal linearity gate (§5); a `C(v_ac)` dependence = large-signal contamination |
+| **DC bias `V_DC`** | 0 → ±10 V, bidirectional (hysteresis check), step ≤ 0.1 V near features | the C(V) sweep axis itself; bidirectional sweep separates material hysteresis from a static arc |
+| **Frequency `ω/2π`** | 1, 3, 10, 30, 40 kHz | dielectric-relaxation dispersion (a `C(ω)` slope = material Debye relaxation, NOT a kernel feature); also separates series-R/ESL artifacts |
+| **Integration time `τ_int`** | 0.1 → 10 s (Allan-variance) | the Stage-C noise floor vs speed tradeoff; sets the resolved `σ_C` |
+| **Sense-R / TIA gain** | choose for ~1 V full-scale `I_Q` at nominal C | current SNR; a gain-dependent C = extraction-chain error |
+| **Reference cap value** | match to DUT order | ratiometric common-mode cancellation quality |
+| **Temperature** | record (AI3); bound drift | a `C(T)` drift mistaken for `C(V)` (thermal coupling to bias) — Class-2 caps are strongly `C(T)` |
+
+---
+
+## §8 — Honest scope: what a positive would and would NOT mean (emergence criterion)
+
+**A positive (material C(V) matches the AVE kernel FORM) WOULD mean:** the material's
+voltage-coefficient-of-capacitance is **consistent with the saturation-kernel quarter-arc SHAPE** — a
+**Class-C consistency** result (an alternative-mechanism reproduction; the PONDER-05 reading at
+`op14:106` / INVARIANT-S2). The novelty is that AVE *predicts the shape class* of nonlinear-dielectric
+saturation; the bench would confirm a real material lands in that class.
+
+**A positive WOULD NOT mean:** (i) the **vacuum** Axiom-4 kernel was measured — it is ~20 OOM out of
+reach (§3); (ii) the kernel form is **parameter-free-validated** — `V_local` is a fit parameter for a
+real material, so the match is degenerate with any one-parameter saturating arc unless the SHAPE is
+distinguished at high precision over wide `x`; (iii) anything about the §0 sign tension is resolved by
+the data alone — the bin boundary depends on Grant's adjudication, not the measurement.
+
+**Emergence criterion (state explicitly, per `consistency-vs-emergence`):** the FORM result would rise
+to **Class D / emergence** only if BOTH (a) `V_local` were **derived parameter-free** from the material's
+own substrate properties (NOT fit to the C-V data) AND (b) the `(1−x²)^(±1/2)` form were **distinguished
+from all competing saturating arcs** (power-law, Devonshire-tanh) at the bench's precision over
+`x ∈ [0, ~0.9]`. Absent both, the headline is **consistency-class, full stop** — and saying so is the
+discipline working, not a weakness.
+
+---
+
+## §9 — Classifications (consistency/emergence · phase-space · regime/phase-state)
+
+**`consistency-vs-emergence` class tags (per observable):**
+
+| Observable | Class | Rationale |
+|---|---|---|
+| Vacuum kernel `δε/ε₀(V)` on the cRIO | (untestable) | ~20 OOM below floor; no class — not a test (§3) |
+| Material C(V) **shape**-match to kernel FORM | **C — consistency** | alternative-mechanism reproduction; `V_local` fit; PONDER-05 reading |
+| Stage-A flatness, Stage-B datasheet recovery | **identity / calibration** | instrument qualification, not a physics claim |
+| Kernel FORM itself (as a prediction *about* saturation media) | **B — axiom manifestation** | the quarter-arc is Axiom 4 expressed at material scale; not derived-from-scratch here |
+
+No Class-D / emergence headline is available from this bench. Per A47 family: this test's inputs route
+through the material's own (fit) `V_local`, so it cannot be emergence-class — flagged so it is never
+promoted as "AVE derives capacitor C(V)."
+
+**`phase-space-coordinate-check` note (A46):** the kernel coordinate `A = A/A_yield` is a **per-node
+operating-point amplitude** (phase-space-like), not the lab voltage. The dielectric specialization
+`A = V/V_yield` is a *per-node* identity, and the bench measures lab voltage across `~10³–10⁷` node
+lengths. The prereg keeps these explicit (§3.1) — the lab-voltage C(V) is compared to the kernel form
+**only after** the per-node `x` mapping is stated, never lab-V directly against an `A`-coordinate
+prediction. (This is the same per-node-vs-apparatus conflation the corpus flags at
+`op14-local-clock-modulation.md:106` + `manuscript/ave-kb/CLAUDE.md` INVARIANT-S2, cross-referenced
+to the `vol4/claim-quality.md:51` V_yield-vs-V_snap reading hazard.)
+
+**`ave-regime-phase-state-check` declaration:** MODE = capacitive / ε-sector (static-E-only =
+**ASYMMETRIC** load, INVARIANT-S2: `S_ε<1, S_μ=1`). REGIME (vacuum sector) = **deep Regime I (linear)**,
+~9 OOM below `R_I` (§3.1). REGIME (material sector) = the material's own near-saturation, reachable.
+PHASE-STATE = quasi-static / fully-relaxed (~16 OOM below thixotropic crossover, §3.3). A null on the
+*vacuum* kernel here is an **artifact-of-regime** (the effect can't exist at this field), NOT a
+falsification — exactly the dark-wake-Phases-1-5 lesson.
+
+---
+
+## §10 — Corpus citations (verify-before-cite, grepped this session)
+
+- Frozen form Branch R: `manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md:21,27,32-39` (clm-vjv4zf, clm-8nkvwy)
+- Frozen form Branch F + per-node discipline: `manuscript/ave-kb/CLAUDE.md` INVARIANT-S2; `2026-06-03_yield-knee-map-prereg.md:8,41,44,48`
+- Kernel → wave-speed → clock: `op14-local-clock-modulation.md:29,31,61,106` (clm-1eg13f)
+- 2ω even-harmonic companion: `parametric-coupling-kernel.md:70-80`
+- V_yield vs V_snap + per-node-vs-apparatus reading hazard: `vol4/claim-quality.md:51` (clm-0vxzfu); LIVING_REFERENCE Critical Distinction #1
+- Apparatus-floor / validate-on-known-cap-first: this bench is the encoding anchor of `ave-apparatus-floor-attribution` (SKILL.md:109)
+- Constants: `src/ave/core/constants.py` — `V_YIELD, V_SNAP, E_YIELD, L_NODE, ALPHA, R_I, R_II, R_III`
+
+## §11 — Open decisions for Grant (gate to freeze)
+
+1. **§0 sign-of-slope adjudication** (Branch R rising vs Branch F falling) — sets the AVE-FORM/STANDARD-FORM
+   bin boundary. **Blocking** for §6 bin pinning.
+2. **Is Branch R a rupture-compliance observable the small-signal bench does not measure?** (§0 physical
+   note) — if yes, the bench-relevant prediction is Branch F only, and the R/F tension is *scope*, not
+   contradiction.
+3. **Bench framing confirmation:** accept the honest scope that the cRIO first experiment is a
+   **validation-ladder + material-analog consistency bench** (the calibration rung for a future
+   high-field AVE C-V / autoresonant bench per Q-G42), NOT a vacuum-kernel discriminator.
+4. **DUT selection for Stage B/material analog:** Class-2 MLCC (X7R/X5R) vs varactor diode — which
+   datasheet anchors the known-positive.
+
+**This document does not freeze until Grant schedules bench time.** Per substitution-not-retraction
+(Rule 12): if the §0 tension resolves against the bench's observable, this prereg is amended (preserve
+body, add header), not refilled with a new untested claim.
