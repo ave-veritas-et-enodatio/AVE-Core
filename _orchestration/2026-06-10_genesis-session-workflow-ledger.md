@@ -113,6 +113,26 @@ mistaken for a dropped arc.
 
 ---
 
+### (e) THE 20:59:06 MASS-STOP — accidental user-interrupt killed ALL in-flight workflows (orchestrator addendum, 2026-06-11 ~21:15)
+
+The §2(d) "accidental user-stop of an orchestrator chat turn (no workflow impact)" entry was WRONG
+and is corrected here (appended, not rewritten): the interrupt killed EVERY in-flight background
+workflow — seven arcs (genesis-v8, s11-de-novo, dark-sector-response, bubble-physics,
+nyquist-binding scout, fbd-v2, blackness-mechanism scout) all show last-write timestamps of
+exactly 20:59:06, a single-event kill signature. The orchestrator initially misread the uniform
+timestamps as slot-contention queuing ("all alive"); the USER's question ("the background
+tasks/workstreams that you stopped") prompted the re-check that exposed the misread. All seven
+were RESUMED ~21:15 via Workflow resumeFromRunId against their persisted run journals: completed
+phases (frozen preregs, finished scouts) returned from cache; killed mid-flight agents restarted
+against their own committed worktree state (branch tips survived — verified in §3/§4). Rule-11
+integrity unaffected (preregs git-frozen). This also resolves the §1 rows 17/19 UNVERIFIED
+ambiguity's running-status side: those scouts were dead at write-time, not running — now resumed.
+LESSONS: (1) a user interrupt during an orchestrator turn kills the background fleet, not just
+the turn — the fleet must be health-swept after ANY interrupt; (2) byte-identical last-write
+timestamps across independent workflows = a kill signature, NEVER queue contention; (3) the
+run-journal + committed-worktree architecture made the mass-kill cheaply recoverable — the same
+discipline that froze preregs in git is what made resume safe.
+
 ## §3 The decision rule
 
 The orchestration discipline the four events instantiate. The governing question at every
