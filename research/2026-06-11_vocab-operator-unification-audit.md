@@ -206,7 +206,126 @@ names its receiving account.**
 
 ## §3 — The conflict / adjudication queue for Grant
 
-_(section pending — next commit)_
+Everything here is **surfaced, not resolved** (flag-don't-fix). Both records of every conflict are
+quoted verbatim so the tension is visible without reframing either side. Grant adjudicates the framing
+calls (§3.1, §3.5); the auditor lands the bin/term harmonizations (§3.2–§3.4) as registry §4 additions.
+
+### §3.1 — THE BIG ONE: the srs (z=3) vs diamond (z=4) lattice collision
+
+v9 (`[branch #195]`) builds a **chiral trivalent (degree-3) srs net**. `origin/main` carries a
+**resolution-of-record that settled against exactly this object.** Both texts verbatim:
+
+**Side A — the canon resolution-of-record (the side v9 challenges)**
+`_orchestration/2026-06-07_lattice-net-resolution.md` (main):
+> *"**Resolution: z=4 diamond.** It is the net the framework actually computes on."* (line 4)
+> *"The computational weight is **entirely z=4** — λ_G=4/21 → α, the foreword Lorentz-suppression, the
+> trampoline moduli are **all computed on diamond; no z=3 computation exists.** The z=3 'srs' leaves are
+> **unbacked numerology — the outliers.**"* (Conclusion 1)
+> *"Chirality = a `k_χ` Cosserat order-parameter on the diamond … The cold lattice is achiral;
+> chirality is **excited**."* (Conclusion 3)
+> *"**Engine action:** none — the engine is the grounded choice. **Do NOT rebuild on z=3 srs** (would
+> invalidate the α + Lorentz chains)."* (line 24)
+
+**Side B — the v9 design's own flag (it quotes Side A and does not reframe it)**
+`[branch #195]` `genesis-v9-chiral-lattice_design.md:§0`:
+> *"This is surfaced for Grant, not resolved here. Phase-1 MUST NOT be frozen until this is adjudicated."*
+> Two honest framings, **Grant picks one**: **(A) deliberate challenge** — a passing Smoke B (signed
+> optical activity per enantiomorph, zero on the diamond control) is positive structural evidence the
+> srs reading carries physics the diamond cannot inject, "and the resolution's α/Lorentz-chain-
+> invalidation warning becomes the explicit cost to weigh"; **(B) reconcile** — the trivalent net is a
+> *model of* the excited `k_χ` decoration's geometric content, the substrate stays diamond, nothing is
+> "rebuilt on z=3."
+
+**The unpropagated canon self-contradiction sitting underneath (both readings live on main at once)**
+`manuscript/common_equations/eq_axiom_1.tex:20` (main), quoted in both texts:
+> *"a **chiral Laves K4 Cosserat crystal** … governed by the right-handed `I4_1 32` chiral space group,
+> with **4-fold K4 nearest-neighbor connectivity** at each node."*
+
+The Laves/`I4₁32` name implies degree-3 (srs); the stated connectivity is degree-4 (diamond). The
+z4-coordination walk-back that drops the "permanently bipartite ⇒ natively chiral" non-sequitur is
+**PR #143, UNMERGED** (`origin/analysis/2026-06-08-vacuum-z4-coordination-walkback @ 28026bed`), its
+naming gate held for Grant. **Status: OPEN COLLISION — Phase-1 frozen pending Grant.** This audit takes
+no side; it presents both records and the underlying axiom tension. The clean discriminator v9 already
+built — the **signed reflection-odd writhe** (§2 Wr row: srs-R −4.087e-2 / srs-L +4.087e-2 / diamond
+0.0) — is the instrument that would make framing (A) decidable IF Grant authorizes reading a passing
+Smoke B as substrate evidence.
+
+### §3.2 — The bubble→column ontology propagation list
+
+PR #194 body (verbatim): *"the converged ~13.0-class object is a V-sector saturated seed, not a void
+wrapped in a shell — the 'bubble' vocabulary inherited from v6/v7 described a structure this recipe
+never builds (independently confirmed by the S11 arc's pocket_cells=0 [= PR #193])"* and *"The ontology
+correction: the converged-mass 'bubble' was never a bubble — KB vocabulary re-examination queued for
+promotion time."* The replacement carrier vocabulary already in the v8 prereg: **"the energized rotation
+column"** (`prereg:19`), "the rotation column's axial flux must THREAD the shell" (`prereg:29`).
+
+**Proposed Rule-12 treatment (NOT executed here — promotion-time, auditor-landed):** frozen prereg
+bodies stay UNTOUCHED (Rule 11); the correction lands as a dated Rule-12 annotation at the KB/result
+level, exactly as the rename-queue R1–R8 executions did.
+
+| Site (file:line) | current "bubble" usage | proposed annotation | class |
+|---|---|---|---|
+| `[branch #194]` v8 prereg:29 (D16 header) | "THREAD THE BUBBLE (the superconducting-bubble step)" | Rule-12 note: "the converged object is the energized rotation column, not a void-bubble (PR #194 SHELL-NEVER-FORMS)" | frozen prereg — annotate only |
+| `[branch #190]` bubble-physics doc (title + §1) | "Bubble-physics completion … the snapped shell" | Rule-12 note distinguishing the STIFFENING saturated-core breather (the measured object) from the SOFTENING cavitation void (the Minnaert object) — the §3.4 two-pockets firewall | branch doc — annotate at promotion |
+| novel-objects N5 (pocket/void) | "pocket" lens spanning both EOS branches | split N5 into N5a stiffening-breather / N5b cavitation-void (the firewall is `cavitation_flow.py:28`) | report row — auditor |
+| Vol-9 / KB "photon bubble" / "superconducting bubble" leaves (promotion targets) | inherited "bubble" identity | re-examine at promotion time per PR #194; the carrier term is "rotation column" | KB leaves — promotion-gated |
+
+**Companion flag for Grant (NOT resolved):** `[branch #190]` bubble-physics §4 surfaces *"Are these the
+same bubble … or two different objects whose breathing pitches merely land in the same band?"* — the
+Minnaert match is **consistent-not-confirmatory**; "Do not headline it as the bubble identity's
+confirmation." Surfaced, not silently resolved.
+
+### §3.3 — Bin-language harmonization proposals
+
+Two task-brief / PR-title names are **paraphrases** of the committed coinages (naming drift — Grant-queue
+for which form is normative; flag-don't-fix, not silently unified):
+
+| Task / PR-title term | Committed in-doc name | Anchor | Proposal |
+|---|---|---|---|
+| "the genus gate" | **THE TOPOLOGY GATE** / **F-GENUS** | `[branch #194]` prereg:31,124-125 (exact phrase "genus gate" = 0 hits) | adopt F-GENUS as normative (it is the executable assertion's name); "genus gate" = informal alias |
+| "gate-as-docstring" | **the "gate-as-comment" failure class** | `[branch #184]` v7 result:195 (the PR title uses "gate-as-docstring") | pick ONE for the auditor's process-skill lane; "gate-as-comment" is the in-doc coinage |
+
+**Verdict-class register proposal (a controlled bin vocabulary):** the session minted a coherent set of
+outcome bins that should land as a single normative register (extends the pre-existing UNDERDETERMINED
+bin from the mfg-flow/coax-ring docs). Two harmonization calls for the auditor:
+- **The `UNRESOLVED(reason)` schema.** Two sub-bins fired this session — `UNRESOLVED (apparatus-floor)`
+  (`[branch #193]`) and `UNRESOLVED (wrong-regime artifact)` (`[branch #189]`). Propose the normative
+  form `UNRESOLVED (<reason>)` with reason ∈ {apparatus-floor, wrong-regime artifact, r-floor-VOID,
+  under-resolved} so the cause is always carried in the bin name (the `ave-evidence-framing-discipline`
+  pattern of carrying the lean/reason IN the name, as `UNDERDETERMINED-leaning-CONSISTENT` already does).
+- **Keep the compound bin forms.** `UNDERDETERMINED-leaning-CONSISTENT` and `DEPOSIT-DRAINED-AGAIN`
+  carry their lean/history in the name by design — do NOT silently flatten to the base bin (that would
+  be the post-hoc upgrade `ave-evidence-framing-discipline` forbids).
+
+### §3.4 — Term collisions (additions to the merged registry §4 ledger)
+
+These EXTEND the registry §4 collision ledger (C-Γ, C-0.117, C-φ, C-ν, C-z0, C-ℓc, C-Park, C-L, C-w,
+C-two-3s). New rows, staged for the auditor — **flagged, not renamed** (Rule 1 split candidates):
+
+| New tag | Glyph / word | Referents (with channel) | Live? | Anchors |
+|---|---|---|---|---|
+| C-σ | σ | (a) surface tension `σ=c_σ·K·ℓ_c·(Δρ̄)²` (bulk) **vs** (b) Gaussian seed width σ=3.5 (`a=σ√2=4.95 cells`) **vs** (c) N3's proposed snap-state `σ_cell` — (a) and (b) collide **inside the same #190 doc** | LIVE | `[branch #190]` bubble-physics:57 vs :28,:110 vs novel-objects N3 |
+| C-mirror | "mirror" | (a) chiral-AoA boundary-mirror (EM/boundary) **vs** (b) v6 passive lossy `E_absorb` sink **vs** (c) #193 "no mirror claim" (resonance-coupling sense) **vs** (d) v9 "mirror operation" (parity/reflection-odd discriminator) | LIVE (≥4 senses) | `[LOCAL-ONLY]` chiral-AoA:35,286-288 / `[branch #180]` prereg:90 / `[branch #193]` result:1 / `[branch #195]` prereg DRAFT:~40 |
+| C-z0 (extend) | z/Z | the existing cluster (Z₀ impedance / z₀ coordination ≈51.25 / z_local bond impedance) gains a **fourth** member: **Z_eff** (Op14 dynamic impedance, dark-sector) | LIVE | adds `[branch #188]` :197 to the existing registry C-z0 row |
+| W6 (extend) | S | the existing five-way S-cluster (S(A) kernel / Op5 [S] / S11 / S_d,S_q / S_min) gains a **sixth** member: **S_ij=⅔−δ** (trivalent scatter) | LIVE | adds `[branch #195]` design:215 to the existing registry W6 row |
+| C-column | "column" | the genesis **rotation column** (Cosserat ω + bulk, engine-construct) **vs** fluid-bench **Taylor columns** (classical-fluid analog, §4) — same glyph, distinct objects | near-miss | `[branch #194]` prereg:19 vs `[branch #183]` fluid-bench §4 |
+| C-De | De | the **Deborah ratio** De (rate-lock, SESSION-RECORD) **vs** the **D13–D17** design-decision IDs **vs** the **F0d** floor — Rule-1 subscripting advised at De's first committed use | near-miss (pre-emptive) | SESSION-RECORD vs `[branch #194]` D13-D17 vs floor F0d |
+
+### §3.5 — The named EE-first import candidate: Tellegen's theorem
+
+Per §2.2, Tellegen's theorem is **VIRGIN** in canon (grep=0). It is staged here as the named EE-first
+import candidate for Grant/auditor adjudication:
+
+- **What it imports:** `Σ_branches v_k·i_k = 0` for any KCL+KVL network, **by topology alone**,
+  constitutive-law-independent — plus the quasi-power generalization (cross-network v·i).
+- **Why it fits the corpus:** it is the formal closure of the Grant-ratified "reactance is the
+  universe's bookkeeping" ruling (`orbital-friction-paradox.md:35`) and the natural conservation law for
+  the L↔C cross-sector trades the engine already measures (`op14-cross-sector-trading.md`, ρ=−0.990).
+- **Why it is NOT imported here:** an axiom-adjacent EE-first import is a Grant/auditor framing call
+  (Rule 16), and any import gets its own version number + verification chain (Rule 12). Flag-don't-fix:
+  staged, not landed. **Candidate prereg:** verify the engine's per-step branch-power sum vanishes
+  to floor on a lossless config (a Tellegen consistency check on the K4 TLM scatter+connect), as the
+  empirical entry-point before any axiom-level adoption.
 
 ---
 
