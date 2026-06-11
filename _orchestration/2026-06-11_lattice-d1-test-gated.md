@@ -31,10 +31,12 @@ Writhe-on-srs (Phase-0) is **necessary-condition** evidence only. The symmetric 
 - **D1 PARTIAL BIN: D1-A** (R3-P5 FAIL — decoration ρ≈0.057% of srs Bishop; κ sign-flips)
 - **Gate:** Phase-1 P4/P6 still required for full D1
 
-### Phase 2 — v9 Phase-1 prereg freeze (PENDING, after R3 thresholds)
+### Phase 2 — v9 Phase-1 prereg freeze (PROPOSED — Grant ratify)
 
-- **Doc:** `research/2026-06-11_genesis-v9-phase1-prereg_DRAFT.md` (header revised — framing deferred)
-- **Gate:** thresholds + A1–A4 amendments; **not** §0 framing pick
+- **Doc:** `research/2026-06-11_genesis-v9-phase1-prereg_DRAFT.md` (PROPOSED FREEZE thresholds 2026-06-11)
+- **Visual model:** `research/2026-06-11_helicity-visual-model.md`
+- **T4 (parallel):** `research/2026-06-11_electron-mirror-vs-bh-helicity_prereg_DRAFT.md`
+- **Gate:** Grant ratify or amend thresholds; **not** §0 framing pick
 
 ### Phase 3 — v9 Phase-1 genesis run (PENDING, after freeze)
 
