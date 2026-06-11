@@ -48,10 +48,17 @@ Writhe-on-srs (Phase-0) is **necessary-condition** evidence only. The symmetric 
 - P1 drift ≤1e−8; isotropy ≤2% @ L=8; P2 signed enantiomorph flip; P3 writhe-concordant; P4 diamond null + κ=0 geometry channel
 - **Gate for D1:** still need Phase-2 P5/P6 before full adjudication
 
-### Phase 3b — v9 Phase-2 genesis (PENDING)
+### Phase 3b — v9 Phase-2 prereg (IN PROGRESS — branch `analysis/2026-06-12-genesis-v9-phase2-prereg`)
 
-- P5 soliton persistence + P6 genesis-by-precursor (Op14 ON, CVR-SET bins)
-- **Gate:** Phase-2 prereg freeze
+- **DRAFT:** `research/2026-06-12_genesis-v9-phase2-prereg_DRAFT.md` (PROPOSED FREEZE 2026-06-12)
+- **Op14 choice (KB 2026-06-12):** $z_{\text{local}}(A^2)$ + **Op3 @ CONNECT** — not scatter
+  retune (inert on srs shunt) or bond-delay clock; A-027 engine-class tag on BIN-D
+- P5 hosting + P6 genesis-by-precursor (Op14 ON, CVR-SET bins, A1–A4 inherited)
+- **Gate:** Grant freeze → then implementor branch after PR #201 merge
+
+### Phase 3c — v9 Phase-2 implementor (PENDING, after Phase-2 freeze + PR #201 merge)
+
+- Op14 vector-TLM extension + P5/P6 drivers + result doc
 
 ### Phase 4 — D1 adjudication memo (PENDING, after Phase 1 + 3)
 
@@ -166,5 +173,6 @@ Phase-1 prereg freeze (thresholds) ◄──────────────
 
 - v9 design: `research/2026-06-11_genesis-v9-chiral-lattice_design.md`
 - v9 Phase-1 FROZEN: `research/2026-06-11_genesis-v9-phase1-prereg_FROZEN.md`
+- v9 Phase-2 DRAFT: `research/2026-06-12_genesis-v9-phase2-prereg_DRAFT.md`
 - CVR framing: `research/2026-06-11_chiral-vacuum-reactor-framing.md`
 - Branch plan: `_orchestration/2026-06-11_orchestration-branch-plan.md` (R3 row — **update after this epic merges**)
