@@ -163,11 +163,44 @@ Two sentences are mandatory in every entry and are stated explicitly: **"what a 
 
 ## §7 — FLUME ANALOG HORIZON — RANK 7
 
-<!-- filled in §7 commit -->
+**Bench setup.** An open-channel water flume with a controllable obstacle (bump/weir) creating a **transcritical** flow region where the local flow speed crosses the surface-gravity-wave speed. Surface waves sent upstream cannot propagate past the point where flow speed = wave speed — an **analog horizon**. Drive with a wave maker; measure wave-blocking and mode-conversion (the stimulated-emission "partner" wave). A **draining-vortex** (bathtub) variant gives a *rotating* horizon.
+**Materials class:** flume + recirculation, wave maker, profiled obstacle, surface-elevation probes / optical free-surface measurement. **Difficulty:** **HIGH** — the canonical setup is a serious flume rig with careful free-surface metrology.
+
+**Literature class.** Weinfurtner, Tedford, Penrice, Unruh & Lawrence 2011, "Measurement of stimulated Hawking emission in an analogue system" (water-channel analog horizon). The analog-horizon class.
+
+**AVE arc it maps to.** The **sonic-horizon class** — [`2026-06-10_sonic-horizon-closure_result.md`](2026-06-10_sonic-horizon-closure_result.md) (+ [`_prereg.md`](2026-06-10_sonic-horizon-closure_prereg.md)): the `c²=0` surface forms a clean **reflecting** horizon (`Z_bulk → 0 ⇒ Γ → −1`), verdict **LOCK = reversible spring**; the **rotating-horizon handedness arm is UNRESOLVED** — the `±m` OAM probe was **degenerate** (`sonic_horizon_flow.py:184` set `cos(mφ)`, even in `m`, so `m=+1` and `m=−1` were bit-identical: `R_co = R_counter` to 18 digits). Related rows in [`divergence-test-substrate-map.md`](../manuscript/ave-kb/common/divergence-test-substrate-map.md).
+
+**The falsifiable surface.** The class is: *a flow region where local flow speed crosses the wave speed forms an analog horizon that blocks and mode-converts incident waves (a reflecting horizon).* A flume result CONTRADICTS it if the analog horizon does **not** reflect/mode-convert — waves pass through the crossing unimpeded. **The handedness sub-test is where the flume can do what the sim could not:** a draining-vortex (rotating) horizon supplies a genuine `e^{imφ}` surface-mode probe — does it show **frame-dragging-selective** transmission for co- vs counter-rotating modes (`m=+1` vs `m=−1`)? The corpus sim's `BLIND` was a **probe artifact** (even-in-`m`), so a non-degenerate flume probe **RESOLVES** what the sim left UNRESOLVED.
+
+**5-line prereg skeleton.**
+1. **Frozen observable:** the reflection/mode-conversion coefficient `R(ω)` of surface waves incident on the transcritical region (blocking ratio + converted-partner amplitude); for the draining-vortex horizon, the co-vs-counter transmission asymmetry `A_m`.
+2. **Bin CONSISTENT:** clean blocking + partner-mode conversion at the crossing.
+3. **Bin CONTRADICT:** no blocking — waves transmit through the crossing.
+4. **Bin RESOLVE-HANDEDNESS:** `A_m ≠ 0` for the rotating horizon → frame-dragging-selective (resolves the sim's UNRESOLVED arm with a non-degenerate probe); `A_m = 0` → handedness-blind, but now from a genuine `e^{imφ}` probe.
+5. **Stop rule:** verify the `e^{imφ}` probe is genuinely chiral (NOT a `cos(mφ)` standing pattern — the exact degeneracy that nulled the sim) before scoring `A_m`.
+
+**What a positive means.** Confirms the mechanism class that a transcritical flow forms a wave-blocking analog horizon — and, with a rotating horizon, supplies the **non-degenerate `±m` probe the sim could not build**.
+**What it does NOT mean.** Does **not** confirm the vacuum `c²=0` horizon (analog ≠ vacuum — consistency-class); a flume `A_m` measures **frame-dragging acoustic selectivity ONLY**, exactly as the sim's *repaired* probe would — it does **not** test the **I4₁32 cholesteric-Bragg lattice selection rule**, the OTHER, **non-representable** chirality mechanism (that needs the chiral-crystal engine, not a flume, per the sonic-horizon result's representation-capability flag). So a flume cannot speak to the cholesteric mechanism even with a perfect chiral probe.
 
 ## §8 — Shared instrumentation + the validation ladder
 
-<!-- filled in §8 commit -->
+One instrument kit serves the whole program. The point of a shared kit is that the **DAQ chain is validated once, against known references, and then reused** — so a fluid result is never confused with an instrument artifact (`ave-apparatus-floor-attribution`).
+
+**The kit.**
+- **High-speed camera** — vortex-ring daughter spectra (§1), walker landing-statistics (§3), Taylor-column dye structure (§4), SBSL `R(t)` via Mie scattering (§6), flume free-surface (§7).
+- **Strobe / stroboscopic illumination** — phase-locks the walker bounce sub-Faraday (§3), freezes vortex-ring timing (§1), gates the phase-locked SBSL flash (§6).
+- **Polarimeter / crossed polarizers** — L/D crystal sign and optical-rotation counts for Kondepudi (§2).
+- **cRIO as DAQ** — NI cRIO-9014 + NI-9263 (4ch AO, ±10 V, 100 kS/s) + NI-9215 (4ch AI, ±10 V, 100 kS/s) = a **DC-40 kHz, 4×4 phase-coherent lock-in**. It drives the piezo transducers (SBSL §6) and the Faraday shaker (§3), reads the PMT / flow meter / thermocouples (§5, §6), and does quadrature lock-in extraction. This is the same bench Grant owns for the first real-hardware electrical experiment.
+
+**The validation ladder (cross-link: PR [#181](https://github.com/ave-veritas-et-enodatio/AVE-Core/pull/181)).** PR #181 (the cRIO `C_eff(V)` saturation-onset prereg) fixes the discipline: **never read physics through an unvalidated chain.** Its three-rung ladder — applied here **per fluid bench**, on the *fluid* side, before any physics read:
+
+| Rung | Generic (PR #181) | Fluid-bench instance |
+|---|---|---|
+| **A — known-null** | linear cap, flat `C(V)` to ≤ 0.1% floor | a config where the effect *cannot* exist (e.g. same-handed leapfrog with rings far apart §1; unstirred-and-uncooled §2; off-resonance acoustic drive §6) → must read flat |
+| **B — known-positive** | Class-2 MLCC / varactor, recover datasheet | a textbook-robust positive (Taylor column at deep low-`Ro` §4; SBSL at canonical Ar-seed drive §6) → must recover the literature result |
+| **C — instrument floor** | open/short/stable-ref; report `σ` drift BEFORE any read | report camera/PMT/probe noise floor + drift over the integration window BEFORE scoring any bin |
+
+This is `ave-apparatus-floor-attribution` applied to fluids: **validate-on-known-null, then known-positive, then quote the floor first** — exactly the cRIO "validate-on-known-cap" discipline. A bench that has not cleared rungs A-C does not get to score CONSISTENT/CONTRADICT.
 
 ## §9 — Cost / difficulty matrix + program framing + verification ledger
 
