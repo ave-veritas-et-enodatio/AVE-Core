@@ -1,14 +1,19 @@
 # Genesis v9 — Phase-1 Pre-Registration (DRAFT — NOT FROZEN)
 
 > **STATUS: DRAFT. Returned by the implementer lane for Grant to freeze.**
-> This is NOT a frozen pre-registration. It is gated on TWO things, both of which
-> precede any freeze:
-> 1. **The §0 adjudication** (design doc `2026-06-11_genesis-v9-chiral-lattice_design.md`):
->    v9 re-opens the 2026-06-07 lattice-net resolution-of-record, which settled
->    z=4 achiral diamond as the computed substrate and ordered "Do NOT rebuild on
->    z=3 srs (would invalidate the α + Lorentz chains)." Grant must pick framing
->    **(A) deliberate challenge** or **(B) decoration-model** before freeze.
-> 2. **Grant's freeze** of the predictions + thresholds below.
+> This is NOT a frozen pre-registration. It is gated on THREE things (test-not-pick
+> discipline, epic `_orchestration/2026-06-11_lattice-d1-test-gated.md`):
+>
+> 1. **R3 decoration discriminator** (`research/2026-06-11_lattice-decoration-discriminator_prereg.md`)
+>    — three-arm battery (bare srs, bare diamond, decorated diamond) through the same
+>    signed-observable suite. **No §0 framing pick before this runs.**
+> 2. **Grant's freeze** of the predictions + thresholds below (⟨…⟩ placeholders).
+>    Framing **(A) substrate-challenge** vs **(B) decoration-diagnostic** is an
+>    **outcome bin** assigned post-R3 + post-Phase-1 (P4/P6), per R3 prereg §7 and
+>    the D1 adjudication memo — not a pre-test Grant call.
+> 3. **Design-doc §0 flag** (`2026-06-11_genesis-v9-chiral-lattice_design.md`) stays
+>    **flag-don't-fix** until the adjudication memo lands; do not propagate A or B into
+>    axiom text or index until bins are filled.
 >
 > Per Rule 16 (ask BEFORE design), this draft is surfaced now, pre-freeze, not
 > after 30 commits. Per substitution-not-retraction (Rule 12), if any prediction
@@ -119,12 +124,11 @@ Grant to set/confirm at freeze.
   adjudication criteria post-hoc.
 
 ## What Grant decides at freeze
-1. §0 framing: **(A)** challenge the resolution-of-record (and accept the α/Lorentz-chain-invalidation
-   warning as the explicit cost), or **(B)** treat the srs net as a decoration-model diagnostic (substrate
-   stays diamond).
-2. The thresholds in ⟨…⟩.
-3. `N_grid`, `N_steps`, the P6 outcome-bin boundaries (the frozen bins), and whether P5/P6 (genesis)
+1. The thresholds in ⟨…⟩ (P1–P6, including A1–A4 amendment queue).
+2. `N_grid`, `N_steps`, the P6 outcome-bin boundaries (the frozen bins), and whether P5/P6 (genesis)
    run in Phase-1 or split to a Phase-2.
+3. **NOT at freeze:** §0 framing (A) vs (B) — deferred to D1 adjudication memo after R3 + Phase-1 bins
+   (`_orchestration/2026-06-11_lattice-d1-test-gated.md`).
 
 ## §FREEZE-AMENDMENT-QUEUE (2026-06-11 — helicity-as-acquired amendments)
 
@@ -211,4 +215,4 @@ failure ladder maps as:
 **Grant decides at freeze (added to the existing freeze list):** whether to adopt
 A1–A4 as-stated, the reversed-direction control's place in the frozen control set,
 and whether CVR-SET / the failure-ladder names replace or annotate the BIN-G/T/D
-labels.
+labels. **Framing (A) vs (B) is explicitly excluded** — see header gate 2.
