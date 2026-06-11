@@ -91,4 +91,36 @@ The original A-031 "God's Hand fundamentally inaccessible" framing was refined (
 
 This is precisely the answer to Feynman's "we don't know *how* He pushed His pencil": the **kind** of pencil-stroke (a strain-snap freeze) is observable at 21 orders of magnitude of smaller instances; only the **specific** stroke for our universe is behind the horizon and must be read off via its fingerprint α (plus G, plus $\mathcal{J}_{\text{cosmic}}$ — the three routes that must agree).
 
-<!-- SECTION-ANCHOR: §3 input ledger to follow -->
+## §3 — The input ledger: one unit + one measured number + geometry
+
+Grant's "the one … we have to measure" is an *input-count* statement. It says the framework's empirical debt is **one dimensionless number**. The corpus ledger matches this, and the matching took a documented reconciliation to reach.
+
+### §3.1 The ledger as it stands
+
+The structural-closure framing reduces the empirical inputs to:
+
+- **ONE unit** — the spatial cutoff $\ell_{\text{node}}$ (operationally entered as $m_e$, since $\ell_{\text{node}} \equiv \hbar/(m_e c)$; $m_e$ is then the unknot ground-state energy, not an independent input). `src/ave/core/constants.py:128-131`: "Input 1: The spatial cutoff (from which $m_e$ is derived via the unknot) … $m_e$ is operationally used as the input because $\ell_{\text{node}} \equiv \hbar/(m_e c)$." [CANONICAL]
+- **ONE measured dimensionless number** — α. `src/ave/core/constants.py:132-133`: "Input 2: The dielectric bound … `ALPHA … # Fine-structure constant (dimensionless)`." [CANONICAL]
+- **GEOMETRY + axioms** — the K4/Cosserat substrate primitives and the four axioms, which carry no free numerical knobs.
+
+That is exactly Grant's ledger: one scale to fix the units, one dimensionless number to fix the medium's fingerprint, and geometry for everything else.
+
+### §3.2 Reconciliation against the historical "three calibration inputs"
+
+The ledger was **not** always one number. The corpus logs an explicit fork and its reconciliation, and honesty requires carrying both halves (Rule 12 — preserve the prior framing, mark the supersession):
+
+- **Historical framing (pre-2026-05-15): three calibration inputs $\{m_e, \alpha, G\}$.** `src/ave/core/constants.py:11` ("STANDARD framing (pre-2026-05-15): three calibration inputs (ℓ_node, α, G)") and `:114` ("Historically labeled 'three calibration inputs' {m_e, α, G}"). The archive doc is literally titled "α is a Calibration Input, Not an Axiom-Derived Quantity" (`research/_archive/L3_electron_soliton/39_alpha_is_calibration.md:1`). [CANONICAL — fork logged]
+- **Structural-closure framing (current): one scale + one cosmological IC.** `src/ave/core/constants.py:12-16`: "STRUCTURAL CLOSURE framing (current): one scale ($\ell_{\text{node}}$) + one cosmological initial-data parameter ($\Omega_{\text{freeze}} = \mathcal{J}_{\text{cosmic}}/I_{\text{cosmic}}$) + four axioms. α and G are JOINTLY cosmologically anchored — both derive from $u_0^*$ at the magic-angle operating point, which derives from $\Omega_{\text{freeze}}$." [CANONICAL]
+
+The reduction from three to one is the §2 chain doing work: $G$ stops being independent because $G \leftarrow u_0^*$ alongside $\alpha$ (`trampoline-framework.md:121`), and $m_e \leftarrow \ell_{\text{node}}$ is a unit, not a dimensionless input. What remains genuinely measured-and-free is the single dimensionless fingerprint — α — exactly Grant's claim.
+
+### §3.3 The ONE-SCALE + GATED reconciliation (and the gate's resolution)
+
+The reduction was, for a window, **gated**. The structural closure was declared 2026-05-15 (`manuscript/ave-kb/claim-quality-closure-roadmap.md:9`: "The AVE framework reached **structural closure** on 2026-05-15 per `trampoline-framework.md` §11.0"), but a 2026-05-28 gating clause made the one-number framing contingent on a ropelength-minimality embedding-selection that had not been derived. That gate is logged as **resolved**:
+
+- `src/ave/core/constants.py:18-25` (GATING-CLAUSE RESOLUTION, 2026-05-31, Q-EMBED-SEL-1 Phase 1+2+3): "the 2026-05-28 gating clause that made the structural-closure framing contingent on ropelength-minimality embedding-selection is RESOLVED. The $\Omega_{\text{freeze}} \to u_0^* \to \alpha$ chain's electromagnetic route now derives the substrate-mechanism for $R \cdot r = 1/4$ via Axiom-4 self-saturation + Op14 Meissner-asymmetric + named phasor-area-equals-Nyquist-cell-area identification … The closure now sits at **Class B substrate-mechanism manifestation** level." [CANONICAL]
+- `manuscript/ave-kb/claim-quality-closure-roadmap.md:23` (Tier 0, status): "🟡 PARTIALLY SUPERSEDED 2026-05-31 — Q-EMBED-SEL-1 Phase 1+2+3 RESOLVES the 2026-05-28 ropelength-minimality embedding-selection gating clause … (Class B substrate-mechanism manifestation; cross-particle universal + cross-domain universal); **Class 2 lift candidate workstream identified per Phase 1 result §7.3 but out of scope.**" [CANONICAL]
+
+**The Class-B caveat is the load-bearing residue** (and it is what §4 reframes): the $R \cdot r = 1/4$ that closes the electromagnetic route is a **named substrate-canonical INPUT, not a Class-2 axiom-emergence from K4 + Cosserat primitives alone** (`constants.py:124-127`). So the ledger reads, precisely: *one measured dimensionless number (α), reached through a chain whose final geometric step (R·r = 1/4) is identified-but-not-yet-independently-derived.* That residue is not a contradiction of Grant's "one number" claim — it is the open seam between "one measured number" and "zero measured numbers," and it is exactly the seam the §4 hypothesis addresses.
+
+<!-- SECTION-ANCHOR: §4 tension + polymorph resolution to follow -->
