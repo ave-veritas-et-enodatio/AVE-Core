@@ -285,6 +285,98 @@ upper limit — which is why pinning its owed magnitude is the highest-leverage 
 
 ## 3. THE MIRROR FROM INSIDE
 
+**Grant's framing (2026-06-11): "what would the slats look like from the inside? this is the mirror."** §1 looked at
+the slats from OUTSIDE — an admission filter, `handedness × angle-of-attack vs pitch`. Turn around and stand inside
+the trapped region: the same slats are now a **handedness-preserving mirror**. One structure, two faces — the
+admission filter from outside, the **one-way valve / asymmetric-grip** boundary from inside. The wave that was
+*admitted* at the chiral angle is now *retained* by the same chiral angle, bounce after bounce. The slats ARE the
+particle's cavity wall, seen from within.
+
+### 3.1 The decisive optical fact (consistency-class — standard optics, cited as analog)
+
+This is textbook polarization optics, carried as a **validated analog**, not an AVE claim:
+
+- **A normal (achiral) mirror FLIPS circular polarization per bounce.** On reflection, the helicity of a
+  circularly-polarized wave reverses (right-circular → left-circular) — the propagation direction reverses while the
+  lab-frame sense of `E`-rotation is preserved, so helicity flips. **Consequence:** in a cavity bounded by *normal*
+  mirrors, a circulating wave alternates handedness every bounce; the round trip forces an **equal-handedness
+  mixture** → a standing wave with **ZERO net chirality**.
+- **A chiral (cholesteric-class) mirror reflects the co-handed band WITHOUT flipping.** The defining optical property
+  of cholesteric reflection — the property that distinguishes it from a metal mirror — is that the reflected co-handed
+  circular wave **keeps its handedness**. **Consequence:** a cavity bounded by *chiral* mirrors **preserves the
+  circulating handedness** → a **persistent net chirality** that survives every round trip.
+
+That contrast is the whole hinge: **only a chiral cavity can hold a circulating handedness.** A normal-mirror cavity
+launders chirality to zero by construction.
+
+### 3.2 The unifying hypothesis (hypothesis-class — do NOT overclaim)
+
+> **⚠ THIS IS A COMPETING HYPOTHESIS, NOT A VERDICT (flag-don't-fix).** The v5–v7 genesis panel already has its own
+> standing diagnosis for the de-novo failures: **A46 phase-space-vs-real-space coordinate dilution** (well-anchored:
+> the (2,3) lives in the `(V_inc, V_ref)` phasor phase-space, real-space measurements of it are uninformative —
+> `research/2026-06-04_full-electron-transverse-selftrap-result.md:50,70`; `research/2026-05-18_phase3f-…:8` "A46
+> real-space-vs-phase-space failure") **plus LC dephasing** (the panel's named second mechanism). The chiral-cavity
+> reading below **must compete with that diagnosis on a discriminator (§5), not silently replace it.** Tagged
+> hypothesis-class throughout; the existing diagnosis is preserved, not overwritten.
+
+**The reading.** v5–v7 built their trapping wall by *achiral* wall-replace ("snap" genesis — full
+`seed_sech_v_inc` + unknot-sector replace at core, `research/2026-06-08_electron-genesis-snap-prereg.md:65`). An
+achiral `Γ=−1` wall is a **NORMAL mirror**. If §3.1 holds, then a normal-mirror cavity **launders the circulating
+handedness to zero every bounce** — and the three separate v5–v7 failures collapse into **one mechanism**:
+
+1. **`w_pol ≡ 0`** — the de-novo poloidal "3" never self-assembles (`research/2026-06-10_graft-v4-photon-helicity_result.md:40,120,183`,
+   "12/12 zeros"; graft-v2 full run gives `(w_tor, w_pol) = (0,0)`, `datasheet_draft.md:141`);
+2. **the 3→1 decoherence** — the (2,3) winding collapses to `(4,0)` / `(0,0)`, the poloidal-3 not persisting (same
+   reads);
+3. **the v7 standing-wave failure** — "no clean de-novo `L_ω` lock yet" (`datasheet_draft.md:166`).
+
+If the wall is a normal mirror, all three are the **same** statement: *the circulating handedness that IS the
+winding cannot survive in an achiral cavity.* The handedness averages to zero per round trip, so `w_pol` reads zero,
+the "3" decoheres, and no chiral standing wave locks. **The hypothesis:** the electron requires a **CHIRAL cavity**
+(a cholesteric-class wall), because only a chiral mirror preserves the circulating handedness — and that circulating
+handedness **is** the (2,3) winding and **is** the charge sign. The achiral snap shell was the wrong mirror.
+
+**Why this is not yet a verdict:** §3.1 is optics for *electromagnetic* circular polarization; the (2,3) winding is a
+*Cosserat-fibre* quantity (`full-electron-transverse-selftrap-result.md:41,43` — "structurally not a Maxwell-field
+(E,H) observable … a Cosserat-fibre quantity"). That the EM handedness-laundering theorem transfers to the Cosserat
+sector is **assumed, not shown** — exactly the kind of cross-sector transfer §2.2 also flags. So this competes with
+A46+dephasing on equal footing until the §5 probe is run.
+
+### 3.3 The datasheet map (one table — hypothesis-class mapping)
+
+Reading the electron as a **chiral Fabry–Perot cavity**, every device property maps to a cavity property:
+
+| device property | chiral-cavity reading | class / anchor |
+|---|---|---|
+| **wall** | the **chiral mirror** (cholesteric-class `Γ=−1` boundary) | hypothesis-class; the mode-selecting `Γ=−1` wall is canonical (`66:87` via graft prereg `:84`) |
+| **(2,3) winding** | the **bounce pattern** at the slat/pitch angle `ψ` (§2.3) | hypothesis-class; `ψ = arctan(3/(2φ²))` phasor / `arctan(3/(2·2.27))` real-space |
+| **mass** | the **round-trip** — the Compton clock `ω_C = c/ℓ_node` = the cavity **free spectral range** | Compton clock canonical (`theorem-3-1-q-factor.md`); FSR identification hypothesis-class |
+| **charge sign** | the **mirror's preserved handedness** | canonical: "Charge sign **= handedness**" (`datasheet_draft.md:47`) |
+| **α** | the **per-bounce leak** = `Z₀/(4π)` per spinor cycle = the cavity **finesse** statement | canonical (verbatim below) |
+| **precedent** | the **H₂⁺ two-mirror Fabry–Perot** = licensed canon language | canonical (verbatim below) |
+
+**α as a mirror-finesse statement (Theorem 3.1', verbatim, `manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md:36,38,40`):**
+
+> "Therefore the Q-factor at the impedance-matched boundary `R = Z₀/(4π)`: $Q_{\text{tank}} = \frac{Z_0/(4\pi\alpha)}{Z_0/(4\pi)} = \frac{1}{\alpha}$ … the tank's reactance divided by its natural-per-cycle dissipation impedance is exactly the reciprocal of the fine-structure constant."
+
+The radiation impedance is `Z₀/(4π)` **"averaged over one full observable Compton cycle"** (`dama-matched-lc-coupling.md:80-83`,
+verbatim). Read as a cavity: the **finesse is `1/α`**, and `α` is the **per-bounce (per-spinor-cycle) leak fraction**
+— the fraction of the circulating energy that escapes the chiral mirror each round trip. The electron is a cavity of
+finesse `≈ 137`.
+
+**The H₂⁺ two-mirror precedent (licensed canon language, verbatim, `first-principles-bond-force-constants.md:19,25`):**
+
+> ":19 A covalent bond is a **loaded Fabry–Perot cavity** formed between two atomic resonators. The bond distance
+> `d_eq` is the *eigenvalue* — the cavity length at which a standing electron wave satisfies the round-trip phase
+> condition … :25 For a single electron bouncing between two atomic mirrors (e.g., H$_2^+$), the standing wave
+> condition gives … (one-electron Fabry–Perot eigenvalue)."
+
+The corpus **already** describes a bound electron as an electron *bouncing between two mirrors* in a Fabry–Perot
+cavity — the H₂⁺ one-electron eigenvalue. The chiral-cavity reading of §3.2 is the **single-particle** version of
+exactly that licensed picture: the electron is its own one-mirror cavity, the mirror chiral, the round trip the
+Compton clock, the finesse `1/α`. **What §3.2 adds is the one word the H₂⁺ picture does not need but the free
+electron does: the mirror must be *chiral*.**
+
 <!-- SECTION 3 -->
 
 ## 4. THE DARK-SECTOR ONE-LINER
