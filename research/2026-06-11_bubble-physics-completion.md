@@ -1,7 +1,7 @@
 # Bubble-physics completion — σ-from-ℓ_c, the forward-first Minnaert check, and the death-channel design note
 
 **Date:** 2026-06-11
-**Branch:** `analysis/2026-06-11-bubble-physics` (worktree off `analysis/2026-06-10-genesis-v6-transducer` @ `7484dd0b`; not pushed/merged)
+**Branch:** `analysis/2026-06-11-bubble-physics` (worktree off `analysis/2026-06-10-genesis-v6-transducer` @ `7484dd0b`; pushed — PR #190, base `analysis/2026-06-10-genesis-v6-transducer` (stacked on the parent that holds the v6 pocket engine+data, not direct-to-main); not merged)
 **Check script:** `src/scripts/vol_1_foundations/bubble_physics_completion_check.py` (every number below is printed by it; forward-first ordering is git-provable in the file)
 **Governing discipline (HARD stack):** pure-AVE-corpus · canonical-AVE-only · verify-before-cite · ave-canonical-source · **ave-live-fire-derivation-provenance** (the Minnaert forward is computed + stated BEFORE the comparison — Rule 11, no retrofitting) · consistency-vs-emergence · coincidence-magnet discipline · substrate-native-check · flag-don't-fix.
 
@@ -102,6 +102,8 @@ f₀ = √(3 K / ρ0) / (2π a)
 
 The surrounding-medium linear speed is `c_bulk(ρ̄=0) = c0 = 1` in **both** EOS branches (the softening and stiffening EOS agree at ambient ρ̄=0), so the inertia loading is `c0`-set regardless of branch.
 
+**Which modulus is the Minnaert spring (audit Finding 6, resolved KEEP-BOTH).** The breathing mode is a radial *dilatational* (P-wave) deformation, and the stiffness the EOS actually encodes is `K_eff = ρ0·c_bulk²(ρ̄=0) = ρ0c0² = M` (the P-wave / longitudinal modulus = 1), **not** the static bulk modulus `K = 2G = 0.6`. So the **physically-indicated** single-point Minnaert forward is the **M branch**, `f₀_fwd[M] = 0.05569` (a sharp **+7.8 %** to the measured 0.05164). The `K = 2G` row is retained **only as a deliberately-conservative lower band edge** (it widens the band in the non-over-claiming direction, −16.5 %), **not** as the indicated radial-breathing stiffness. Both rows are kept (audit-trail continuity); the indicated number is the M-branch.
+
 **The boundary-condition question (task-flagged): the snapped shell is a REFLECTOR, not a free surface — does that change the mode form?** Partially. The Γ=−1 shell is an **impedance collapse** `Z_bulk = ρ·c → 0` (`…sonic-horizon-closure_result.md §7`), which is a **pressure-release** boundary (`p = 0` at the wall) — the **SAME** boundary condition as a free gas-liquid surface. So the √3 Minnaert prefactor (global sub-wavelength pulsation against the external inertia) carries over. What the reflector *does* change is **radiation vs confinement**: a free bubble radiates into an infinite liquid (Minnaert, ω=√3 c/a); a Γ=−1 reflector *confines* the mode, whose lowest pressure-release standing wave is `ω = π c/a` (a factor `π/√3 ≈ 1.81` higher). The two forms bracket the physics; which one the trapped breather realizes is a *measured-mode-shape* question (named as the missing input in §2.4).
 
 ### 2.2 The forward number (COMPUTED — no access to the measured f₀)
@@ -129,7 +131,7 @@ forward band (a=σ√2):  [0.04314, 0.05569]      measured 0.05164  → INSIDE t
 ### 2.4 THE BIN — **UNDERDETERMINED** (leaning CONSISTENT)
 
 The measured f₀ sits **INSIDE** the forward Minnaert band at the principled radius → the bubble-breathing identity is **NOT refuted**. But it is **NOT a tight MATCH**, for four honest reasons:
-1. **Modulus**: the spring is K=2G *or* M=P-wave — ±15% on f₀.
+1. **Modulus**: the physically-indicated spring is the P-wave modulus M (the EOS `c_bulk²` stiffness → +7.8%); K=2G is kept only as a conservative lower edge (−16.5%) — see §2.1. The indicated single-point forward is the M branch; the band is asymmetric about it, not a symmetric ±15%.
 2. **Radius**: σ vs σ√2 vs 2σ — a factor ~2 on f₀ (the forward band spans 0.031–0.079 across these).
 3. **Boundary form**: free-surface √3 vs confined-cavity π — ×1.81.
 4. **The measured spectrum is itself multi-mode** — there is no single clean Q to match.
