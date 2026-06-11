@@ -454,7 +454,18 @@ discriminators.** Concretely:
   and the **`κ_chiral = 0`** geometry-only ablation.
 - **Medium:** σ-equipped (Op14 saturation ON, `A → 1` accessible) so the
   exchange-active regime (§4.3) is reachable — with the loop-candidate kernel
-  that lets a bound reactive state close on itself.
+  that lets a bound reactive state close on itself. **Three-channel discipline**
+  applies at readout: `Z_EM` / `Z_shear` / `Z_bulk` impedances, per-channel
+  saturation ride (`H_EM`, `H_shear`, `H_bulk`), and reactance-pair ledger
+  (`V_inc/ω`, `Φ_link/ω̇`) — not a single μ-sector map.
+- **Initial condition (Ω_freeze arm — required alongside loop kernel):** explicit
+  cosmic spin lock at lattice genesis — bond over-bracing `u_0^*`, global chirality
+  axis $\hat{\Omega}_{\mathrm{freeze}}$, and $\mathcal{J}_{\mathrm{cosmic}}$
+  direction per
+  `manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md` §2. This is
+  **initial data** (substrate-hysteresis-index §4), distinct from ferrite remanence
+  (Decision 2) and from precursor seeding (below). Charge-sign / handedness
+  inheritance must be tracked against the **Ω-free ablation** control (Decision 5).
 - **Seed:** a **bare linear (zero-helicity) transverse wave given only a
   direction** — the precursor, not the end-state (the Checkpoint-8 genesis test,
   v9 P6), so handedness must be *acquired* (§3), not planted.
@@ -469,9 +480,10 @@ discriminators.** Concretely:
 - **Outcome bins:** the §1.3 ladder — DISPERSES / TRANSIENT / SET-ACHIRAL /
   **CVR-SET** (the pre-committed PASS bin).
 
-### §5.2 The four blocking Grant decisions (verbatim, with options)
+### §5.2 The blocking Grant decisions (verbatim, with options)
 
-[charter — Grant adjudicates before any v10 run]
+[charter — Grant adjudicates before any v10 run. Decisions 1+3 closed 2026-06-12;
+Decisions 2+4+5 remain open.]
 
 **Decision 1 — lattice identity.** **✅ ADJUDICATED 2026-06-12**
 (`research/2026-06-12_lattice-d1-adjudication-memo.md`).
@@ -510,24 +522,45 @@ Does v10 carry the dark-sector dissipation treatment, and at what setting?
 > referents are distinct objects (a transfer-function row vs a dissipation knob)
 > and are flagged as such rather than collapsed.
 
+**Decision 5 — Ω_freeze initial-condition arm (cosmic lock vs local loop).** Does
+v10 carry the **cosmic one-shot freeze-in** as explicit genesis initial data,
+separate from the constitutive loop (Decision 2) and the precursor seed?
+- *Distinction (do not collapse):* Ω_freeze locks `u_0^*`, `hatΩ_freeze`, and
+  `mathcalJ_cosmic` **once at genesis** (polarized-TL bias / horizon input
+  impedance — `translation-circuit` rows 16–17). Ferrite `B_r` (R2 bench) is
+  **local cyclic remanence** in the μ-sector. Phase-2 Op14 trap is **reactive
+  under drive**, not a replay of cosmic freeze-in.
+- *Options:* **(a) canonical Ω_freeze IC ON** — load cascade constants as initial
+  data; run paired **Ω-free ablation** (no explicit cosmic IC; κ_chiral geometry
+  only) as control · **(b) Ω-free only** (ablation-first — tests whether cosmic
+  lock is load-bearing before loop kernel lands) · **(c) defer** (not
+  recommended — conflates Decision 2 remanence with cosmic initial data).
+- *Pairing:* Decision 5 (a) runs **with** R2 constitutive-loop characterization
+  and the α-boundary-energy forward check (`Z_bulk` channel); none substitutes
+  for the others.
+
 ### §5.3 Sequencing
 
 [charter] The pre-committed order (updated 2026-06-12):
 
 1. ~~**Audit**~~ — vocab/operator audit landed (genesis mega-session).
 2. ~~**R3 + v9 Phase-1/2**~~ — D1 adjudicated; walk-back P0–P1 executed.
-3. **Remaining before v10 build:**
-   - **`E_boundary = α·mc²` check** — does the boundary/binding energy of any
-     formed state equal the electron orbital's reactive-shell energy `m_e c² · α`
-     (`orbital-friction-paradox.md:~35`, VERIFIED: "Electron orbital … `m_e c² ·
-     α` … Quantized reactive shell")? A cheap consistency screen on the reactive
-     ledger. [consistency-class — to be pre-registered]
+3. **Remaining before v10 build** (three-wave + memory stack — parallel where noted):
+   - **R2 constitutive-loop prereg** — cRIO ferrite B–H bench; μ-sector anchor for
+     Decision 2 (`research/2026-06-12_constitutive-loop-r2-prereg_DRAFT.md`).
+     Explicit **non-goals:** Ω_freeze adjudication, per-channel `H_*` sim.
+   - **`E_boundary = α·mc²` forward check** (R1 sibling) — `Z_bulk` longitudinal
+     wall; α as transformer secondary (`research/2026-06-11_alpha-boundary-energy_prereg.md`).
+     [consistency-class]
+   - **Ω_freeze IC specification** — integrator initial-data arm per Decision 5;
+     paired Ω-free ablation control documented in v10 prereg before freeze.
    - **Layer-8** — the named paper-cheap prereg item from the session (the
-     eighth-layer check). [session-record — carried as a named item; its exact
-     content freezes with Grant's Decision 3.]
-4. **Open calls** (§5.2) — **Decision 2** (loop scope: σ-only vs σ+snap), **Decision 4**
-   (`chi_shock` / saturation-ride). Decision 1 ✅ · Decision 3 ✅.
-5. **v10** — build and run only after R2 constitutive-loop prereg + open calls.
+     eighth-layer check). [session-record — exact content still open]
+4. **Open calls** (§5.2) — **Decision 2** (loop scope), **Decision 4**
+   (`chi_shock` vs `H_shear/H_EM/H_bulk`), **Decision 5** (Ω_freeze IC arm).
+   Decision 1 ✅ · Decision 3 ✅.
+5. **v10** — build and run only after R2 freeze (or Grant waiver), α forward check
+   scheduled, Ω_freeze IC arm picked, and Decisions 2+4+5 adjudicated.
 
 > **CVR-SET is the pre-committed PASS-bin name** for the v10 outcome (§1.3),
 > frozen *before* any run, with the DISPERSES / TRANSIENT / SET-ACHIRAL failure
@@ -539,8 +572,9 @@ Does v10 carry the dark-sector dissipation treatment, and at what setting?
 ## Lane note
 
 Implementer-lane output. This document **records** Grant-ratified naming and
-framing decisions and **stages** the v10 charter + the four blocking calls; it
-adjudicates none of them. The auditor lands any `common/`-leaf or registry
-entries; Grant makes the four calls and freezes the v9 Phase-1 pre-registration.
-Cross-refs to PR #195 (v9 Phase-0) and PR #196 (vocab/operator audit) point at
-in-flight branches and are not restated or upgraded here.
+framing decisions and **stages** the v10 charter + blocking calls (Decisions
+1–5); it adjudicates none of the open ones. The auditor lands any `common/`-leaf
+or registry entries; Grant makes Decisions 2+4+5 and freezes R2 / v10 preregs.
+Cross-refs: D1 memo (`research/2026-06-12_lattice-d1-adjudication-memo.md`),
+R2 prereg (`research/2026-06-12_constitutive-loop-r2-prereg_DRAFT.md`),
+Ω_freeze cascade (`manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md`).
