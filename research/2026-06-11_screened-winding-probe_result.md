@@ -17,6 +17,8 @@ The apparatus reads a known-planted `(2,3)` ω winding FAITHFULLY through a form
 
 `keeper.passes=True` · `G_CAL=True` · `ARM1=NO-SCREENING` · `ENVELOPE_overlay=None`
 
+> **PANEL-DEMOTED (2026-06-11 — see §8, appended; §1–§7 preserved as written).** The BIN stands at GATE level, but the headline "reads a planted (2,3) FAITHFULLY through a formed shell / EXONERATED" is demoted: ARM 1 is a tautological calibration (transducer-OFF ⇒ the ω read channel is structurally decoupled from everything the snap touches, so T≡1.0 BY CONSTRUCTION), the plant sat AT the shell's outer edge (`R=R_shell=shell_rho_max`, nominal), and no ARM-1 field map was rendered. The genuine-absence conclusion rests on **ARM 2 interior reads + the code-proven snap/ω decouple**, NOT on ARM 1. Empirical through-shell screening in a COUPLED config: **UNTESTED**. Panel not clean (1/2 lenses refuted) ⇒ branch NOT pushed.
+
 ---
 
 ## 1. THE APPARATUS CONFESSION + SNAP-ERASURE INVENTORY — CONFIRMED AT THE ARRAY LEVEL
@@ -123,3 +125,34 @@ G_ENV = False                                   → no ENVELOPE overlay
 - **Lane:** implementer surfaces the empirical finding + the §6 flags; the auditor lands any manuscript / `COLLABORATION_NOTES` entry.
 
 **Figures:** `research/figures/fig_swp_arm1_transfer.png`, `fig_swp_arm2_interior_fields.png` (the money figure), `fig_swp_arm2_product_read.png`, `fig_swp_arm3_envelope.png`.
+
+---
+
+## 8. PANEL ADJUDICATION (2026-06-11) — VERDICT DEMOTED (appended per Rule 12; §1–§7 preserved as written)
+
+**Panel: 2 lenses. CALIBRATION INTEGRITY → refuted=TRUE. TIME-RESOLUTION + RE-SCOPE DISCIPLINE → refuted=FALSE.** Panel NOT clean ⇒ per the panel-clean rule this branch is **NOT pushed, NO PR**. The demotion below is the final honest verdict. All panel cites re-verified against driver + JSON this session (verify-before-cite).
+
+### 8.1 What the panel refuted (lens 1 — three findings)
+
+1. **ARM 1 is a TAUTOLOGY, not an empirical screening calibration.** With the transducer OFF, the ω read channel has zero back-coupling to the snap-controlled bulk (the §1 decouple proof: `max|Δω|=0.00e+00` while the snap-OFF control bulk detonates 13824/13824 nonfinite). The snap-ON/OFF transfer is therefore forced to T≡1.0000 **BY CONSTRUCTION**; the thickness sweep (thin/nominal/thick, §210-executed) **cannot discriminate** (`T_tracks_shell_thickness=False`, T=1.0 at all three). ARM 1 is hereby **re-labeled: a code-level decouple proof (the snap writes ZERO to ω/π_ω/w/V — `unified_genesis_engine.py:304–419`), NOT an empirical through-shell read calibration.**
+2. **The plant was AT the shell edge, not INSIDE it.** Driver `screened_winding_probe_run.py:175`: `seed_omega_known_2_3(R=R_shell, …)`; JSON nominal `R_shell = 6.9642 = shell_rho_max` (the OUTER edge of the 6.04–6.96 snapped band); thin (M=2.6) is degenerate (`shell_rho_min = shell_rho_max = R_shell = 6.5192`, zero radial thickness); thick (M=3.4) puts the plant at the INNER edge (`R_shell = 6.5192 = shell_rho_min`). "Planted INSIDE a formed shell" is **not certified**.
+3. **No ARM-1 field map exists.** `dump_fields` fires only at driver `:366` inside `arm2()` on the PRODUCT engine (transducer ON, no plant) — the rendered fields figure is of a different engine than the one carrying the plant. The plant-in-shell geometry is asserted, not shown.
+
+Corollary (extends §6 flag 2): the frozen cross-radius `T_a=2.224` clears `G_OUT_T` only via cross-radius normalization, and the same-contour T=1.0 corroboration is itself **vacuous** — the snap-OFF "control" ω field is byte-identical to the snap-ON field, so it is not an independent free-space control.
+
+### 8.2 The DEMOTED verdict
+
+- **BIN = NO-SCREENING stands at GATE level** (Rule 11: the frozen gates fired as frozen; no post-hoc criterion drop). The HEADLINE claim is demoted into three honest tiers:
+  1. **CODE-PROVEN (stands):** the snap erases the bulk circulation Γ=∮u_adv·dl (`:396` `self.u_adv[cm]=0.0`; `:344` shock strip at crossing) and clamps ρ̄ (`:393`/`:395`) — and writes **nothing** to ω/π_ω/w/V (`:304–419`; array-confirmed `max|Δω|=max|Δw|=max|ΔV|=0.00e+00`). The directive's "circulation erased by bookkeeping" is **exactly true for `u_adv` and exactly false for the Cosserat ω read channel**.
+  2. **EMPIRICALLY UNTESTED (the demotion):** through-shell read of a winding in a **COUPLED** config (transducer ON — the only bulk→ω path in this engine). ARM 1 ran in the one regime where indirect screening is identically zero; no known-positive was run coupled. "The apparatus does not screen" is over-generalized as stated in the §-headline.
+  3. **LOAD-BEARING EMPIRICAL CONTENT (stands, re-attributed to ARM 2):** the coupled product itself reads `w_pol=0` on **reliable** contours (`best_rel=0.813`) at ALL radii **including interior fracs 0.5/0.7/0.9 — interior reads cannot be through-shell screened** — and the read is insensitive to `omega_recipient_frac` to 6 significant figures across 0/0.5/1.0, with inter-shell `median|ω|=7.0e-05` at the transducer-OFF floor. Genuine absence rests on **ARM 2 + tier 1**, not on ARM 1's tautological transfer.
+
+- **Honest corpus entry (per panel residual-risk):** *"snap writes zero ω (code-proven); the v6 product's readable ω is a topologically-trivial core blob reading w_pol=0 on reliable interior contours; empirical through-shell screening untested in any coupled config."* Do **NOT** propagate the "EXONERATED" framing to manuscript / `COLLABORATION_NOTES` until ARM 1 is either re-run in a coupled regime or re-rendered with a plant-in-shell field map (plant moved interior: `R < shell_rho_min`).
+
+- **Scope boundary the demotion makes explicit (the v8-relevant question):** this probe answered the **READ** question (is a formed winding hidden from the extractor?). It did NOT answer the **FORMATION** question — whether the snap's `u_adv` erasure at the wall (`:396`) *prevents* orbital circulation from ever twisting into poloidal winding. The prior `w_pol≡0` verdicts stand as READ verdicts (the winding truly is not in the ω field); apparatus-caused formation-suppression remains open.
+
+### 8.3 What stands of §4/§7 (lens 2 — PASS)
+
+- **ARM 3 stands as declared-moot** (§210 deviation honestly disclosed; `f0_well_defined=False`, FFT peak = 1/window). `G_ENV=False` is **not** evidence of "no envelope structure" — do not cite it as such. A probative re-run requires the internal oscillator resolved (period ≪ window) at N=48 BEFORE phase-binning.
+- **Rule 12 unchanged:** no 🔴 re-scope header (SCREENED-READ-CONFIRMED did not fire); prior `w_pol≡0` verdicts (v5–v7) STAND — supported by ARM 2 interior reads + the tier-1 code decouple.
+- **Disposition:** committed on-branch, `make verify` green, **unpushed, review-gated** (panel not clean).
