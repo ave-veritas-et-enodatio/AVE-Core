@@ -492,13 +492,12 @@ discriminators.** Concretely:
   miss blocks migration). Production engine substrate **stays z=4 diamond**; α/Lorentz
   srs re-derivation **not queued**.
 
-**Decision 2 — loop scope.** **✅ ADJUDICATED 2026-06-11** (Grant).
-- **Ruling:** **(a) σ-only** — Op14 saturation (`S(A)=√(1−A²)`), **no rate-gated snap**
-  in the v10 constitutive kernel. R2 ferrite bench remains the diagnostic for whether
-  remanence is needed later; v10 does **not** ship snap until a future build.
-- *Trade accepted:* without snap, zero-drive persistence relies on Ω_freeze IC (Decision 5)
-  + reactive trapping under drive — not ferrite-class remanence. Honest closure if
-  CVR-SET fails: loop kernel may need revisiting (Decision 2 reopen).
+**Decision 2 — loop scope.** **✅ ADJUDICATED 2026-06-11** (Grant; **amended** same session).
+- **Ruling:** **(b) σ + rate-gated snap** — Op14 saturation **plus** irreversible snap
+  channel on saturation crossing (latent release / one-way KE removal, rate-gated per
+  `tau-relax-derivation` Level 2). v10 is the first discrete srs integrator to ship snap.
+- *Trade accepted:* reopens §4.4 loss seam — reactance-pair ledger **mandatory**. R2 ferrite
+  bench runs in parallel as remanence diagnostic; snap is the v10 kernel path.
 
 **Decision 3 — Phase-1 freeze items + helicity amendments.** **✅ FROZEN + EXECUTED**
 (Phase-1 prereg FROZEN 2026-06-11; P1–P4 **ALL PASS** on main). Phase-2 prereg
@@ -520,8 +519,8 @@ FROZEN + production battery landed (P5 FAIL, P6 inconclusive — no CVR-SET prom
   v10 integrator extends to tri-channel with **equality constraint** unless an
   apparatus ablation explicitly breaks symmetry.
 - *Ledger:* reactance-pair accounting (`V_inc/ω`, `Φ_link/ω̇`) **required** to
-  separate one-way dissipation from reactive exchange (§4.4) — especially under
-  σ-only (Decision 2) where snap is absent.
+  separate one-way dissipation from reactive exchange (§4.4) — mandatory with snap ON
+  (Decision 2b) + equal tri-channel $\chi$.
 
 **Decision 5 — Ω_freeze initial-condition arm.** **✅ ADJUDICATED 2026-06-11** (Grant).
 - **Ruling:** **(a) canonical Ω_freeze IC ON** — load $u_0^*$, $\hat{\Omega}_{\mathrm{freeze}}$,
@@ -552,9 +551,8 @@ FROZEN + production battery landed (P5 FAIL, P6 inconclusive — no CVR-SET prom
    - **Layer-8** — the named paper-cheap prereg item from the session (the
      eighth-layer check). [session-record — exact content still open]
 4. ~~**Open calls**~~ — Decisions 1–5 ✅ (2026-06-11).
-5. **v10** — v10 prereg freeze next: documents σ-only kernel, equal tri-channel
-   $\chi$, `H_*` ON, Ω_freeze IC + ablation. R2 bench + R1 α-check parallel, not
-   hard gates on prereg freeze.
+5. **v10** — prereg **FROZEN** (`research/2026-06-12_genesis-v10-cvr-convergence_prereg_FROZEN.md`);
+   implementor build + production battery next. R2 bench + R1 α-check parallel.
 
 > **CVR-SET is the pre-committed PASS-bin name** for the v10 outcome (§1.3),
 > frozen *before* any run, with the DISPERSES / TRANSIENT / SET-ACHIRAL failure
@@ -568,7 +566,7 @@ FROZEN + production battery landed (P5 FAIL, P6 inconclusive — no CVR-SET prom
 Implementer-lane output. This document **records** Grant-ratified naming and
 framing decisions and **stages** the v10 charter + blocking calls (Decisions
 1–5); it adjudicates none of the open ones. The auditor lands any `common/`-leaf
-or registry entries; Grant adjudicated Decisions 1–5; v10 prereg freeze is next. R2 **FROZEN**.
+or registry entries; Grant adjudicated Decisions 1–5 (D2 amended to snap). v10 prereg **FROZEN**.
 Cross-refs: D1 memo (`research/2026-06-12_lattice-d1-adjudication-memo.md`),
 R2 FROZEN (`research/2026-06-12_constitutive-loop-r2-prereg_FROZEN.md`),
 Ω_freeze cascade (`manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md`).

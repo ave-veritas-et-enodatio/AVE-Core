@@ -27,7 +27,7 @@ Electron = **Class A/B consistency structure** (`research/2026-06-08_ave-electro
 | # | Call | Ruling |
 |---|---|---|
 | D1 | srs-vs-diamond | ✅ B-primary / A-partial (D1 memo) |
-| D2 | Loop scope | ✅ **σ-only** (no rate-gated snap in v10) |
+| D2 | Loop scope | ✅ **σ + rate-gated snap** (amended 2026-06-11) |
 | D3 | Phase-1/2 freeze | ✅ FROZEN + executed |
 | D4 | `chi_shock` / `H_*` | ✅ **Per-channel χ equal** + `H_*` ON |
 | D5 | Ω_freeze IC | ✅ Canonical IC ON + ablation |

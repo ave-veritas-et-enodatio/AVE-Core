@@ -83,13 +83,16 @@ Writhe-on-srs (Phase-0) is **necessary-condition** evidence only. The symmetric 
   fundamentality plan R3 ✅
 - **Not in scope:** α/Lorentz srs re-derivation; full KB P2 grep-sweep (deferred batch)
 
-### Phase 5 — v10 spine (UNBLOCKED — charter updated 2026-06-12)
+### Phase 5 — v10 spine (COMPLETE — charter + decisions 2026-06-11)
 
-- **Charter:** `research/2026-06-11_chiral-vacuum-reactor-framing.md` §5 — Decisions 1+3 ✅
-- **Blocked on:** v10 prereg freeze + implementor build (all Decisions 1–5 ✅ 2026-06-11)
-- **v10 kernel spec:** **σ-only** (no snap); **χ_EM=χ_shear=χ_bulk** per-channel shock;
-  `H_*` transfer functions ON; Ω_freeze IC + ablation
-- **Parallel:** R2 bench execution, R1 α forward check (not hard gates on v10 prereg)
+- **Charter:** `research/2026-06-11_chiral-vacuum-reactor-framing.md` §5 — Decisions 1–5 ✅
+
+### Phase 6 — v10 CVR convergence (ACTIVE — 2026-06-11)
+
+- **Prereg FROZEN:** `research/2026-06-12_genesis-v10-cvr-convergence_prereg_FROZEN.md`
+- **Kernel:** σ + rate-gated snap; χ_EM=χ_shear=χ_bulk; H_* ON; Ω_freeze IC + ablation
+- **Implementor branch:** `analysis/2026-06-12-genesis-v10-cvr-implementor` off `main` (post-#206)
+- **Parallel:** R2 bench, R1 α forward check
 - **R2:** FROZEN (`research/2026-06-12_constitutive-loop-r2-prereg_FROZEN.md`)
 - **Platform:** diamond engine + srs instrument; three-channel readout + Ω_freeze IC
 
