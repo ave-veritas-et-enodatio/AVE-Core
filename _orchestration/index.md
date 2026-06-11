@@ -3,7 +3,68 @@
 **Audit trail (2026-05-23 Benn → 2026-05-25 merge):** This directory was ported from `analysis/integration` (D7 curation, KB claim-DAG integration) on 2026-05-23, and completed-work snapshots were moved to [`_archive/index-stale.md`](_archive/index-stale.md). Merged with integration live state on 2026-05-25 — treat this doc as the current live tracker; consult git log for recent updates.
 **EDIT** - 2026-05-23 Benn - document deprecated. Do not do any sweeping work from this document without evaluating current repo state. KB claim DAG has received many improvements and the KB has had many fixups in the process. This directory was ported over from `analysis/integration` branch, which has now been superseded. Work that was clearly already done has been extracted and moved to _archive/. What remains may still be relevant, but again, *check first*.
 
-> **Staleness notice (2026-06-02; refreshed 2026-06-08)**: Sections below (active epics, adjudication queue, priority ladder, open decisions) reflect 2026-05-20 EOD state, with reconciliations catalogued through **2026-06-08** (newest first). The **2026-06-08 reconciliation** immediately below carries the current priority ladder (21-PR review backlog + soliton-size adoption), open decisions (#21–#27), active-epic, PR-queue, and worktree-prune state — it SUPERSEDES the immediate-tier ladder in the 2026-05-28 static sections. Items not addressed in the reconciliation sections should be re-verified against current corpus before relying on details below. Verify-before-cite v1.4 applies.
+> **Staleness notice (2026-06-11)**: Sections below (active epics table, adjudication queue, 2026-05-28 priority ladder, open decisions #1–#20) remain **2026-05-20 / 2026-05-28 baseline** unless superseded by a reconciliation block. The **2026-06-11 reconciliation** immediately below is authoritative for HEAD, PR queue, fundamentality plan, Grant decision stack, and next-branch plan. Verify-before-cite v1.4 applies.
+
+## 2026-06-11 reconciliation (genesis mega-session merge close-out — COMPLETE)
+
+Orchestration merge session. **`origin/main` HEAD `0b4b9d5c`** (Merge PR #184). **0 open PRs.** 20 PRs merged (#180–#199 except #143 closed, #175 absorbed via #180); 20 audit tags pushed (`audit/2026-06-11_*`); implementor branches deleted. Capstone docs on main: [`2026-06-11_session-handoff.md`](2026-06-11_session-handoff.md), [`2026-06-10_genesis-session-workflow-ledger.md`](2026-06-10_genesis-session-workflow-ledger.md), [`research/2026-06-11_next-step-fundamentality-plan.md`](../research/2026-06-11_next-step-fundamentality-plan.md).
+
+### Theory SOTA (post-merge, one paragraph)
+Electron = **Class A/B consistency structure** (`research/2026-06-08_ave-electron-definitive.md`): (2,3) phase-space topology + cubic T_d envelope on **z=4 diamond**; genesis **planted not emergent**. **α = Class B / calibration** — R1 forward check **DIFFERENT-RATIO** (α/13.9 at partition (a); PR #198); turns-ratio route dead at (a); a3 successor resumable on `origin/analysis/2026-06-11-alpha-a3-reservoir`. **Genesis:** 9 architectures tested (#180–#195); **no mass retention without lock**; central diagnosis = **LOOP GAP** (anhysteretic kernel, no B-H remanence). **Engine gap:** no boost-covariant transport (4× confirmed). **Lattice:** z=4 diamond on main; srs-vs-diamond **reopened** — blocks v9 Phase-1. **Experimental round-2 survivors unchanged:** Cleave-01 GO, Q-G42 V²-sign, birefringence coefficient, HOPF reciprocity.
+
+### CLOSED this session
+- **PR queue #180–#199** — all merged or closed (#143 superseded).
+- **#184 conflict** — `unified_genesis_engine.py`: retained v7 quadrature + v8 polyphase init paths (additive layers).
+- **Audit + branch hygiene** — +20 tags (133 total on origin); 20 implementor branches deleted.
+
+### Active epic (updated)
+| Epic | Doc | Status | Next |
+|---|---|---|---|
+| Electron-structure / genesis | [`2026-06-07_electron-synthesis-epic.md`](2026-06-07_electron-synthesis-epic.md) + [`2026-06-11_session-handoff.md`](2026-06-11_session-handoff.md) | **ACTIVE — genesis v6–v9 record landed; v10 chartered (CVR)** | Grant decision stack (below); then fundamentality plan R2→R8 |
+| Experimental Arc | [`experimental/experimental-arc.md`](experimental/experimental-arc.md) | **ACTIVE — round-2 survivors** | Cleave Phase 1b (Grant manual); HOPF reciprocity; cRIO prereg (#181 landed) |
+
+### Grant decision stack (blocking v10 — leverage order)
+1. **srs-vs-diamond** — framing A (challenge) vs B (decoration diagnostic). **v9 Phase-1 must not start before this.** Recommended: decoration discriminator first.
+2. **Constitutive-loop scope for v10** — σ-only vs σ + rate-gated snap. Recommended: latter (LOOP GAP).
+3. **v9 Phase-1 freeze** — helicity amendments + thresholds (#195 prereg DRAFT).
+4. **Three-impedance law ratification** (#198 repair landed).
+5. **χ_shock at snap onset** — render vs spare vs keep.
+6. **Proton body scale** — Resolution A (sub-node) vs B (supra-node envelope) — epic §45–§47.
+
+### Fundamentality plan (ranked — Grant-greenlit, on main)
+| Rank | Item | Gate |
+|---|---|---|
+| R1 ✅ | Impedance repair + α forward check (#198) | Ratify three-impedance law |
+| **R2** | Constitutive-loop prereg + cRIO ferrite B-H bench | Grant: is loop THE missing piece? |
+| **R3** | srs-vs-diamond adjudication | Blocks R8 |
+| R4 | Layer-8 mₑ-free smallest-stable-soliton | — |
+| R5 | Boost-covariant transport (master-unblocker) | Expensive |
+| R6 | σ-equipped shell formation | — |
+| R7 | V↔ρ̄ death channel | Gated on R5 |
+| R8 | v9 Phase-1 genesis | **Gated on R3** |
+
+**Branch plan:** [`2026-06-11_orchestration-branch-plan.md`](2026-06-11_orchestration-branch-plan.md).
+
+### Resumable branches (kept on origin)
+| Branch | Workstream |
+|---|---|
+| `analysis/2026-06-11-alpha-a3-reservoir` | a3 α-successor (reservoir partition) |
+| `analysis/2026-06-11-chiral-angle-of-attack` | chiral AoA scouts |
+| `analysis/2026-06-11-fbd-v2-bubble` | FBD-v2 (column not bubble re-scope) |
+| `analysis/2026-06-11-screened-winding-probe` | Panel-demoted; Grant decides |
+
+### Carry-forward
+- Soliton-size vocab disambiguation (14 terms, epic §47) — canon gated on Grant review.
+- r_opt → κ_share propagation (14 sites still surfaced; #132 open).
+- Orchestration index body (active-epics table §, adjudication queue) — still 2026-05-28; re-verify before relying.
+- Untracked locally: `experimental/c15-cleave-01/exp-c15-cleave-01-state-audit-2026-06-06.md` — triage on orch branch or separate.
+- **Audit tag count:** **133** (`git tag -l "audit/*" | wc -l`).
+
+---
+
+## 2026-06-08 reconciliation (electron-synthesis + α-route + soliton-size arc) — SUPERSEDED for PR queue
+
+> **Superseded 2026-06-11:** the "21 open PRs (#117–#137)" state below is stale. PRs #117–#199 merged through the 2026-06-11 orchestration session. Retained for arc history (α-route sweep, soliton-size §46–§47, proton mass §39–§41).
 
 ## 2026-06-08 reconciliation (electron-synthesis + α-route + soliton-size arc)
 
@@ -464,16 +525,15 @@ Below table refreshed to 2026-05-28 EOD by filesystem mtime on `~/.claude/skills
 
 ## Playbook for the next orchestration session
 
-1. **First read**: this file (`index.md`) — particularly the **2026-05-31 reconciliation** at the top + the **carry-forward to next session** list. Then the relevant active epic doc(s) — `soliton-lattice-coupling-operator.md` + `cosmic-epsilon-de-projection-scoping.md` (both multi-session, Sessions 3+ queued).
+1. **First read**: this file (`index.md`) — **2026-06-11 reconciliation** at top + [`2026-06-11_orchestration-branch-plan.md`](2026-06-11_orchestration-branch-plan.md) + [`2026-06-11_session-handoff.md`](2026-06-11_session-handoff.md) + [`research/2026-06-11_next-step-fundamentality-plan.md`](../research/2026-06-11_next-step-fundamentality-plan.md).
 2. **Phase 0 state verification**:
-   - `git log origin/main -1 --oneline` should match `06161da6` (or have advanced — PR #61 will have landed on top).
-   - `git tag -l "audit/*" | wc -l` should match **70** (or higher).
-   - `git branch --show-current` should report `main` — and per memory v2 (`feedback_branch_discipline_colleagues`), all new work goes on a branch + PR, no direct main commits.
-   - Verify no leftover worktrees at `.claude/worktrees/` (locked worktrees from agent sessions don't auto-clean; harmless local-ref vestiges).
-3. **Don't trust corpus-state claims here without re-verifying** (per `verify-before-cite` v1.4 triggers 7c + 8 + 9): facts here are accurate as of 2026-05-19 EOD+; re-verify if days/weeks later. For any merge decision, fire trigger 9 — attempt `git merge --no-commit --no-ff` with audit-tag safety BEFORE generating adjudication options.
-4. **Ask Grant**: which adjudication item to action first. Default if not specified: priority ladder item 1 (Soliton-coupling Session 3 with Neptune sub-class refinement). The methodology-systematic adjudication (item 1) is the most physically interesting but has multi-session downstream cascade.
-5. **For implementor-session kickoff**: append a `## Phase X (PENDING)` section to the relevant epic doc with assumptions A1-AN, scope boundary, phase plan, adjudication criteria, verification — that's the implementor briefing. Spawn `ave-implementer` agent with `isolation: "worktree"`. **Immediately after spawn, run `git checkout analysis/integration` to defensively avoid the worktree-spawn branch-state leak failure (3rd recurrence this session — pattern, not instance)**.
-6. **At session close**: update this file (`index.md`) — bump HEAD ref, audit count, active-epic statuses, closed-epic table, adjudication queue. Per `ave-handoff-canonical-locale` v1.0 discipline.
+   - `git log origin/main -1 --oneline` → **`0b4b9d5c`** (or advanced).
+   - `git tag -l "audit/*" | wc -l` → **133** (or higher).
+   - `gh pr list --state open` → **0** (or new branches only).
+   - `git branch --show-current` → work on **`analysis/<date>-<topic>`** branches; merge via reviewed PR only.
+3. **Grant calls first** (before spawning implementors): srs-vs-diamond (D1) + constitutive-loop scope (D2) + three-impedance ratification (D7).
+4. **Spawn implementors** per branch plan with `isolation: "worktree"`; audit-tag before branch delete.
+5. **At session close**: update this reconciliation block + branch plan; never commit orchestration directly to `main`.
 
 ## Pure-AVE-corpus rule
 
