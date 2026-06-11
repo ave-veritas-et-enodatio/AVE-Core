@@ -18,10 +18,30 @@
 - **Smoke A (consistency gate): PASS.** Trivalent scatter `S_ij = ⅔ − δ_ij` (derived from Op5, n=3)
   unitary to `8.3e-17`; n=4 reduces exactly to canon `½ − δ_ij`; closed-system energy drift `2.2e-14`;
   scalar dispersion isotropy ratio `1.000`. The lattice change did not break the achiral physics.
+- **Smoke A (REAL-DYNAMICS extension): PASS.** Standing-wave scalar dispersion `ω(k)` measured by
+  scatter+connect time-stepping reproduces the canonical **3D link-line TLM network-velocity invariant
+  `c₀/c_link = 1/√3 ≈ 0.5774`** on the chiral srs net (`0.5764`, 0.17% from analytic) AND the cubic
+  diamond reference (`0.5774`, 3e-12 from analytic), **identically between enantiomorphs**
+  (`|f_R − f_L| = 0`), linear at small k. The CONNECT map is a verified permutation (⇒ the step is unitary
+  ⇒ exact energy conservation, analytic backbone). The achiral observable is chirality-invariant — the
+  load-bearing "did-not-break-it" gate, now as live dynamics vs the cubic engine vs analytic `c₀`.
+  *(driver `chiral_lattice_smoke_dynamics.py`; gates `test_chiral_lattice_dynamics.py`; consistency-class,
+  not emergence.)*
 - **Smoke B (optical-activity source): PASS.** srs-right ring-writhe `−4.0867e-02`, srs-left `+4.0867e-02`
   (exact sign-flip), diamond control `0.0`; box-independent. The chiral geometry carries signed helicity
   into its shortest circuits — the necessary-condition source of optical activity — natively, with **no**
   injected `κ_chiral = α·pq/(p+q)`.
+- **Smoke B (REAL-DYNAMICS transverse channel): ROTATES-ENANTIOMORPH-ODD, with a load-bearing limitation.**
+  A transverse polarization frame Bishop-transported along the **exact 4₁ screw orbit** carries a nonzero
+  rotation that is **exactly MIRROR-ODD** (`Δθ/L = +75.5°/unit` on srs-R, `−75.5°/unit` on its mirror;
+  signed torsion `+0.52 → −0.52` rad). **Two honest limitations refine design §3 and feed P1/P2:**
+  (i) the per-length transport **RATE does not cleanly converge at Phase-0** — the discrete 4-gon-per-turn
+  orbit gives ~9% end/discreteness wobble; a converged dynamical rate requires the **full vector-TLM
+  (Phase-1)**, so the Phase-1 deliverable is now evidence-based, not just asserted; (ii) **a single
+  independently-found screw axis is handedness-ambiguous** (srs-R `4₁` and srs-L `4₃` orbit-helices share
+  sign, because each enantiomorph space group contains screw axes of both senses) — the clean SIGNED
+  discriminator is the **reflection-odd writhe / the mirror operation**, an A46 phase-space-coordinate
+  lesson that the Phase-1 controls must respect (the enantiomorph-PAIR difference, not a single ray).
 
 ## Phase-1 hypothesis (the genesis question — OUT OF SCOPE for Phase-0)
 **H1:** A stable, topologically-charged breathing soliton (the electron ansatz, `(2,3)`) nucleates and
