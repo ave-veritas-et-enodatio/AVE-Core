@@ -80,6 +80,19 @@ Recovery was clean **from committed artifacts**, with no re-litigation of the sc
 The socket dropped the *agent*, not the *work*. Because the prereg and the run artifacts
 were committed before the failure, recovery was a read, not a redo.
 
+### (b-bis) α-flux-circulation scout agent — SOCKET FAILURE, synthesis ran on the partial (orchestrator addendum, 2026-06-11)
+
+The α-flux-circulation fence-check scout (read-only; no worktree by design) lost ONE of its two
+parallel scout agents (`scout-canon-fence`) to the same socket-failure class as §2(b). The
+workflow's synthesis phase ran on the surviving scout plus its own live re-verification of the
+fence anchors, and delivered the full verdict (PARTIAL, leaning RECONSTRUCTION on the
+radiation-ladder half; the geometric identities exact; the φ census corrected). Recorded per the
+same principle as §2(b): the socket drops the agent, not the work — but unlike §2(b), here the
+lost agent's lane was COVERED by the synthesis's own re-verification rather than by committed
+artifacts, a weaker recovery class worth distinguishing. The verdict is recorded in the session
+transcript only (read-only scout; no branch). Surfaced by the orchestrator after the ledger's
+first commit; added as a follow-up commit rather than a rewrite (Rule-12 style).
+
 ### (c) genesis-v7 — PANEL DEMOTION post-completion
 
 genesis-v7 (row 5, #184) **completed**, then the panel **demoted it** post-hoc: three
@@ -159,6 +172,13 @@ orchestrator's word but their branches are **not independently confirmed**.
 
 **FAILED verification (0):** nothing cited as existing turned out to be false. The three
 UNVERIFIED scouts are *unconfirmable*, which is distinct from *contradicted* — no claimed
+fact failed. Orchestrator clarification (follow-up commit): the Nyquist-binding and
+blackness-mechanism scouts are READ-ONLY BY DESIGN — their dispatch constraints forbid commits
+and worktrees, so no branch will EVER exist for them; their deliverables return in the session
+record and land only on Grant's blessing. The chiral-AoA arc DOES create a worktree
+(`/tmp/ave-chiralaoa`, branch `analysis/2026-06-11-chiral-angle-of-attack`) in its Draft phase,
+which had not begun at the ledger's write-time. "Unconfirmable" for the two read-only scouts is
+therefore the CORRECT permanent state, not a pending one. No claimed
 PR, branch, or commit was found to be wrong.
 
 **One flag-don't-fix note (#189):** the dispatch brief framed row 8 as "two named missing
