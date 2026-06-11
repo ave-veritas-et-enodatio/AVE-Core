@@ -116,11 +116,50 @@ Two sentences are mandatory in every entry and are stated explicitly: **"what a 
 
 ## §5 — PUMP-LOOP VAPOR LOCK — RANK 5
 
-<!-- filled in §5 commit -->
+**Bench setup.** A **closed** fluid loop (tubing) with a circulation pump and a localized heater. Raise heater power until the working fluid boils locally and the vapor pocket blocks flow (vapor lock). Record the **snap** (flow-stall onset), the **latent plateau**, and the **refill hysteresis** — does flow resume at the same heater power it stalled, or only at a lower power (a hysteresis loop in the `Q`-`ṁ` plane)?
+**Materials class:** circulation pump, tubing, cartridge heater, flow meter, thermocouples; working fluid (water, or a low-boiling-point fluid for accessible powers). **Difficulty:** moderate — this is *closed-loop plumbing*, squarely the electron-plumber's home turf.
+
+**Literature class.** Vapor lock / two-phase flow-boiling instability: the **Ledinegg instability** and **density-wave oscillations** in heated channels; classical boiling/cavitation hysteresis. Canonical thermal-hydraulics, pure physics.
+
+**AVE arc it maps to.** The snap/latent/refill hysteresis = the **rim-PE barrier class**:
+- **The LOCK-is-mass-conservation mechanism** — [`2026-06-10_sonic-horizon-closure_result.md:202`](2026-06-10_sonic-horizon-closure_result.md) & `:232`: *"the LOCK mechanism is mass-conservation: the rim over-pressure (a PE reservoir) refills the void; the horizon dissipates KE but does not vent the rim PE. … A genuine vapor-LOCK would require the rim mass to LEAVE the system (radiate away) or a hardened `Γ=−1`-type topological wall that forbids refill."* The closure verdict was **LOCK = reversible spring**.
+- **FLASH-vs-LOCK undecided** — [`2026-06-10_cavitation-core-probe_result.md:173`](2026-06-10_cavitation-core-probe_result.md): the crossing is *smooth and reversible*; the irreversibility "is NOT in the candidate EOS and must come from a separate, named, dynamical mechanism."
+- **The vapor-locked-pump framing (hypothesis-class)** — [`2026-06-10_matter-as-vapor-locked-pump_framing.md`](2026-06-10_matter-as-vapor-locked-pump_framing.md): "the FLASH detector = a longitudinal-burst detector" (`:278`); the rim-PE reservoir is **bulk** (`:267`).
+
+**The falsifiable surface.** The class is: *a tensile/boiling pocket in a bounded pumped loop is either a REVERSIBLE spring (rim PE refills the void when drive is removed) or an IRREVERSIBLE lock (needs the pocket mass to leave, or a hard wall to freeze it).* The corpus claim is that **in a mass-conserving system the pocket is reversible** (rim PE refills it). The **sharp** contradiction: a sealed loop **conserves mass**, so per the corpus a vapor lock there *should* heal. If a simple heated closed loop shows **irreversible** hysteresis (stalls at power `P_up`, resumes only at `P_down ≪ P_up`) **with no mass leaving and no hard geometric trap**, that CONTRADICTS the corpus "mass-conservation refills the void" mechanism — the rim mass is still in the loop, yet the lock does not heal.
+
+**5-line prereg skeleton.**
+1. **Frozen observable:** the hysteresis area in the (heater power `Q`, mass-flow `ṁ`) plane — specifically `P_up` (stall onset) and `P_down` (resume on cool-down), and whether the latent plateau shows a discontinuous step.
+2. **Bin REVERSIBLE:** `P_down = P_up`, smooth refill → CONSISTENT with the corpus rim-PE-refill / sonic-horizon LOCK verdict.
+3. **Bin CONTRADICT:** `P_down < P_up`, finite hysteresis loop in a *sealed* loop → flags that rim-PE-refill is not the whole story even with mass conserved.
+4. **Bin FLASH-PROBE:** a discontinuous latent step at stall → probes the FLASH-vs-LOCK distinction the cavitation-core probe left undecided.
+5. **Stop rule:** sweep `Q` up and down ≥ 5 cycles; verify loop is genuinely sealed (no vapor venting) before scoring hysteresis.
+
+**What a positive (Bin REVERSIBLE) means.** Supports the corpus mechanism class that a mass-conserving bounded pocket is a reversible spring (rim PE refills it) — the sonic-horizon LOCK verdict has a tabletop analog.
+**What Bin CONTRADICT would mean, and what it does NOT mean.** Bin CONTRADICT would CONTRADICT the borrowed reversibility-from-mass-conservation argument — a genuine flag for Grant. But it does **not** prove the *vacuum* vapor-locks irreversibly: two-phase boiling hysteresis carries its own nucleation/superheat physics absent from the vacuum EOS. Either way this does **not** confirm "matter is a vapor-locked pump" (hypothesis-class, untested per `matter-as-vapor-locked-pump_framing.md`); does **not** test the vacuum. It tests **whether the borrowed reversibility argument is generically true in a real bounded loop** — a clean, bounded question.
 
 ## §6 — SINGLE-BUBBLE SONOLUMINESCENCE — RANK 6
 
-<!-- filled in §6 commit -->
+**Bench setup.** Degassed water in an acoustic resonator driven at its standing-wave resonance (~20-30 kHz) by piezo transducers. A single Ar-seeded gas bubble is trapped at a pressure antinode; it collapses each acoustic cycle and emits a picosecond flash. Measure flash timing/intensity (PMT) and the wall trajectory `R(t)` (Mie scattering).
+**Materials class:** degassed water, piezo transducers, function generator + power amplifier, PMT, photodiode for Mie `R(t)`. **Difficulty:** **HIGH** — degassing, single-bubble trapping, and acoustic tuning are finicky, but the apparatus is extremely well-documented (Gaitan/Crum/Putterman lineage).
+
+**Literature class + CANONICAL CORPUS ANCHOR.** Single-bubble sonoluminescence (SBSL) / Rayleigh-Plesset collapse (Gaitan, Crum, Putterman et al.). This is **already canonical in the corpus** — Vol 3 Ch 14: [`sonoluminescence-derivation.md`](../manuscript/ave-kb/vol3/applied-physics/ch14-sonoluminescence/sonoluminescence-derivation.md), **claim `clm-91adfe`** (registered [`vol3/claim-quality.md:390`](../manuscript/ave-kb/vol3/claim-quality.md)). The corpus mechanism: the **Saturated Rayleigh-Plesset ODE** with `ρ_eff = ρ_0/(1−M²)^{3/2}`, `M = |Ṙ|/c_sound`; as `M → 1`, `ρ_eff → ∞`, `R̈ → 0`, and the collapse "autonomously halts before `R = 0`" — the acoustic instantiation of `m_eff = m_0 γ`.
+
+**⚠ THE FIREWALL (state explicitly — this is the load-bearing discipline of this entry).** SBSL is **the firewall's OTHER mechanism.** Per [`double-slit-ee-mapping.md:101`](../manuscript/ave-kb/vol1/dynamics/ch3-quantum-signal-dynamics/double-slit-ee-mapping.md) (verbatim, verified this session): *"the sonoluminescence cavitation bubble proper is a DIFFERENT mechanism — saturated Rayleigh-Plesset inertia (`ρ_eff = ρ_0/(1−M²)^{3/2}`), NOT the `Γ=−1` impedance cavity. The three must never merge."* So this experiment tests the **RP-inertial-saturation mechanism class ONLY**. It is firewalled from **(a)** the electron's `Γ=−1` impedance cavity (the matter core) and **(b)** the **tensile pocket** of the cavitation-core / vapor-lock arc (§5). **RP inertial collapse ≠ the tensile pocket.** (Minor cite-hygiene flag, ledger §9: the same firewall text is duplicated in `_orchestration/double-slit-ee-mapping.md` at a *different* line number; the sonic-horizon prereg cites the `_orchestration` copy as `:92`. The **canonical KB leaf** carries it at `:101` — cited here.)
+
+**AVE arc it maps to.** Vol 3 Ch 14 sonoluminescence (`clm-91adfe`) — the **Axiom-4 saturation-as-inertial-halt** mechanism class (`ρ_eff → ∞` halts collapse before `R = 0`).
+
+**The falsifiable surface.** The class is: *as the collapsing wall Mach number `M = |Ṙ|/c_sound → 1`, the effective inertia diverges and the collapse autonomously halts before `R = 0`, the halt set by the `M → 1` saturation rather than by gas-pressure stiffness alone.* A fluid result CONTRADICTS it if the measured minimum radius `R_min` and the halt timing are **fully** explained by ordinary gas compression (a van-der-Waals hard core) with **no** Mach-saturation contribution — i.e., the deceleration near minimum shows no inertial-divergence signature beyond gas stiffness. The discriminating observable is whether the deceleration onset tracks `M → 1` *independently* of gas-content variation.
+
+**5-line prereg skeleton.**
+1. **Frozen observable:** `R_min` and the wall-deceleration profile `Ṙ(t), R̈(t)` near minimum radius, vs drive amplitude and dissolved-gas content; specifically whether deceleration onset tracks `M = |Ṙ|/c_sound → 1`.
+2. **Bin CONSISTENT:** deceleration onset tracks `M → 1` saturation, robust to gas-stiffness variation.
+3. **Bin CONTRADICT:** `R_min` + halt fully accounted by gas-compression van-der-Waals core, no `M`-saturation signature.
+4. **Bin PARTITION:** both contribute → measure the partition.
+5. **Stop rule:** vary dissolved-gas content across ≥ 3 levels at fixed drive; freeze bins before fitting `R(t)`.
+
+**What a positive means.** The SBSL collapse-halt mechanism class — diverging effective inertia at `M → 1` preventing the RP singularity — has a real tabletop instance, supporting the Axiom-4 saturation-as-inertial-halt *borrowing* (`clm-91adfe`).
+**What it does NOT mean.** Does **not** confirm vacuum Axiom-4 saturation (water acoustic saturation ≠ vacuum lattice saturation — consistency-class only); does **not** confirm the electron `Γ=−1` cavity (**FIREWALLED** — different mechanism); does **not** confirm the tensile-pocket / vapor-lock arc of §5 (**FIREWALLED** — RP inertial collapse ≠ tensile pocket, per `double-slit-ee-mapping.md:101`). The firewall is the load-bearing discipline here — a positive on RP inertia says nothing about the other two cavities.
 
 ## §7 — FLUME ANALOG HORIZON — RANK 7
 
