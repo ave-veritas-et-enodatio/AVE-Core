@@ -55,20 +55,28 @@ Writhe-on-srs (Phase-0) is **necessary-condition** evidence only. The symmetric 
 - P5 hosting + P6 genesis-by-precursor (CVR-SET bins, A1–A4 inherited)
 - §0 D1 framing still deferred
 
-### Phase 3c — v9 Phase-2 implementor (IN PROGRESS — branch `analysis/2026-06-12-genesis-v9-phase2-implementor`)
+### Phase 3c — v9 Phase-2 implementor (COMPLETE — PR #203 merged @ `d753fc11`)
 
 - **Module:** `src/ave/core/chiral_lattice_vector_sat.py` (Op14 + Op3 @ CONNECT)
 - **Tests:** `src/tests/test_chiral_lattice_phase2.py` (6/6)
 - **Driver:** `chiral_lattice_phase2_genesis.py` (`--smoke` for CI-scale)
-- **Result (smoke):** `research/2026-06-12_genesis-v9-phase2_result.md` — P5 FAIL, P6 smoke only
-- **Pending:** production L≥10 / 800-step battery before D1 input
+- **CI:** workflow timeout raised to 30m (#203)
 
-### Phase 4 — D1 adjudication memo (PENDING, after Phase 1 + 3)
+### Phase 3d — v9 Phase-2 production battery (COMPLETE — branch `analysis/2026-06-12-genesis-v9-phase2-production`)
 
-- Write ruling from bins only
-- Trigger corpus walk-back (`eq_axiom_1.tex`, lattice resolution, engine default) **after** memo
+- **Run:** L=10, P5 500 steps, P6 800 steps, amp `{0.25,0.5,1.0}`, diamond + Op3/Op14 ablations
+- **Result:** `research/2026-06-12_genesis-v9-phase2_result.md` — **P5 FAIL**; P6 partial CVR-SET
+  at amp=0.25 only; matched-baseline **FAIL**; no BIN-G genesis promotion
+- **Gate:** production bins landed — **D1 memo unblocked**
 
-### Phase 5 — v10 spine (PENDING, after D1 memo)
+### Phase 4 — D1 adjudication memo (COMPLETE — 2026-06-12)
+
+- **Memo:** `research/2026-06-12_lattice-d1-adjudication-memo.md`
+- **Ruling:** **D1-FINAL: B-primary / A-partial** — structural srs chirality confirmed (D1-A);
+  hosting/genesis miss on discrete TLM+Op14; **diamond stays engine substrate**
+- **Walk-back:** queue §5 in memo — **authorized, not executed** (Grant greenlight + `ave-walk-back`)
+
+### Phase 5 — v10 spine (PENDING — after walk-back greenlight)
 
 - Integrator choice follows D1 bin, not pre-test preference
 
@@ -151,7 +159,7 @@ Phase-1 prereg freeze (thresholds) ◄──────────────
 
 | ID | Was | Now |
 |----|-----|-----|
-| D1 | Pick framing A or B | **Bin from R3 §7 + Phase-1 P4/P6** |
+| D1 | Pick framing A or B | **Ruled: B-primary / A-partial** (`research/2026-06-12_lattice-d1-adjudication-memo.md`) |
 | D3 | v9 freeze | Freeze **thresholds** after R3; genesis after |
 | v10 spine | Pre-pick srs | **After** D1 memo |
 

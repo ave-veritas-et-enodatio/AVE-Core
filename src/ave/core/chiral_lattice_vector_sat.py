@@ -213,6 +213,10 @@ def run_p5_hosting(
     )
 
 
+P6_AMP_SWEEP = (0.25, 0.5, 1.0)
+_BIN_RANK = {"CVR-SET": 0, "TRANSIENT": 1, "SET-ACHIRAL": 2, "DISPERSES": 3}
+
+
 @dataclass(frozen=True)
 class P6RunResult:
     label: str
@@ -221,6 +225,10 @@ class P6RunResult:
     e_loc_ratio_driveoff: float
     theta_sign_ok: bool
     bin_label: str
+    n_nodes: int = 0
+    dtheta: float = 0.0
+    writhe: float = 0.0
+    max_A2: float = 0.0
 
 
 def run_p6_cell(
@@ -247,10 +255,11 @@ def run_p6_cell(
     theta0 = clv.mean_polarization_angle(V)
     radii: list[float] = []
     e_loc_trace: list[float] = []
+    last_diag: dict = {}
 
     for t in range(n_steps):
         add_drive(V, packet, t, n_drive, amp=1.0)
-        V, _ = vector_tlm_step_sat(net, V, S, op14=op14, op3=op3)
+        V, last_diag = vector_tlm_step_sat(net, V, S, op14=op14, op3=op3)
         radii.append(energy_radius(net, V, axis=axis))
         e_loc_trace.append(clv.vector_energy(V))
 
@@ -260,7 +269,7 @@ def run_p6_cell(
     p6_L = plateau_pct < 5.0
 
     w, _, _, _ = cl.net_ring_writhe(net)
-    dtheta = clv.mean_polarization_angle(V) - theta0
+    dtheta = float(clv.mean_polarization_angle(V) - theta0)
     theta_sign_ok = abs(dtheta) > 1e-8 and np.sign(dtheta) == np.sign(w * direction_sign)
 
     drive_off_start = n_drive
@@ -292,48 +301,146 @@ def run_p6_cell(
         e_loc_ratio_driveoff=float(e_ratio),
         theta_sign_ok=bool(theta_sign_ok),
         bin_label=bin_label,
+        n_nodes=net.n_nodes,
+        dtheta=dtheta,
+        writhe=float(w),
+        max_A2=last_diag.get("max_A2", 0.0),
     )
 
 
-def phase2_gates(*, L: int = 8, smoke: bool = False) -> dict:
+def _best_p6_sweep(runs: list[P6RunResult]) -> P6RunResult:
+    return min(runs, key=lambda r: (_BIN_RANK.get(r.bin_label, 9), r.amp_frac))
+
+
+def run_p6_sweep(
+    net: cl.LatticeNet,
+    label: str,
+    *,
+    amps: tuple[float, ...] = P6_AMP_SWEEP,
+    n_steps: int = 800,
+    n_drive: int = 400,
+    direction_sign: float = 1.0,
+    op14: bool = True,
+    op3: bool = True,
+) -> tuple[P6RunResult, list[P6RunResult]]:
+    runs = [
+        run_p6_cell(
+            net,
+            label,
+            amp_frac=a,
+            n_steps=n_steps,
+            n_drive=n_drive,
+            direction_sign=direction_sign,
+            op14=op14,
+            op3=op3,
+        )
+        for a in amps
+    ]
+    return _best_p6_sweep(runs), runs
+
+
+def _matched_baseline_ok(srs_on: P6RunResult, *baselines: P6RunResult) -> bool:
+    base = max(b.e_loc_ratio_driveoff for b in baselines)
+    return srs_on.e_loc_ratio_driveoff >= 2.0 * base
+
+
+def phase2_gates(*, L: int = 10, smoke: bool = False) -> dict:
     """Evaluate P5 + P6 executable gates (honest bins, may fail)."""
     L_p5 = max(L, 8)
     L_p6 = 8 if smoke else max(L, 10)
     net_p5 = cl.build_srs_net(L_p5, "right")
-    out: dict = {"engine_class": "discrete srs TLM + Op14/Op3", "smoke": smoke}
+    out: dict = {
+        "engine_class": "discrete srs TLM + Op14/Op3",
+        "smoke": smoke,
+        "kappa_chiral": 0.0,
+        "L_p5": L_p5,
+        "L_p6": L_p6,
+    }
 
     p5 = run_p5_hosting(net_p5, n_steps=300 if smoke else 500)
     out["P5"] = p5
     out["P5_pass"] = p5.pass_T
 
     p6_steps = 200 if smoke else 800
-    cells = []
+    n_drive = min(100, p6_steps // 2) if smoke else 400
+    amps: tuple[float, ...] = (0.5,) if smoke else P6_AMP_SWEEP
+
+    cells: list[P6RunResult] = []
+    sweeps: dict[str, list[P6RunResult]] = {}
     for en, name in [("right", "srs-R"), ("left", "srs-L")]:
         for dsign, dlab in [(1.0, "+z"), (-1.0, "-z")]:
             n = cl.build_srs_net(L_p6, en)
-            cells.append(
-                run_p6_cell(
-                    n,
-                    f"{name}:{dlab}",
-                    amp_frac=0.5,
-                    n_steps=p6_steps,
-                    n_drive=min(100, p6_steps // 2),
-                    direction_sign=dsign,
-                )
+            best, runs = run_p6_sweep(
+                n,
+                f"{name}:{dlab}",
+                amps=amps,
+                n_steps=p6_steps,
+                n_drive=n_drive,
+                direction_sign=dsign,
             )
+            cells.append(best)
+            sweeps[best.label] = runs
+
+    diamond_cells: list[P6RunResult] = []
+    if not smoke:
+        for dsign, dlab in [(1.0, "+z"), (-1.0, "-z")]:
+            n = cl.build_diamond_net(L_p6)
+            best, runs = run_p6_sweep(
+                n,
+                f"diamond:{dlab}",
+                amps=amps,
+                n_steps=p6_steps,
+                n_drive=n_drive,
+                direction_sign=dsign,
+            )
+            diamond_cells.append(best)
+            sweeps[best.label] = runs
+
     out["P6_cells"] = cells
+    out["P6_diamond_cells"] = diamond_cells
+    out["P6_sweeps"] = sweeps
     out["P6_pass"] = any(c.bin_label == "CVR-SET" for c in cells)
     out["P6_bins"] = {c.label: c.bin_label for c in cells}
 
-    # Op3 ablation on one cell
-    ablation = run_p6_cell(
+    ablation_best, ablation_runs = run_p6_sweep(
         cl.build_srs_net(L_p6, "right"),
         "srs-R:+z op3-OFF",
-        amp_frac=0.5,
+        amps=amps,
         n_steps=p6_steps,
-        n_drive=min(100, p6_steps // 2),
+        n_drive=n_drive,
+        direction_sign=1.0,
         op3=False,
     )
-    out["P6_op3_ablation"] = ablation
+    out["P6_op3_ablation"] = ablation_best
+    out["P6_op3_ablation_sweep"] = ablation_runs
+
+    if not smoke:
+        op14_off_best, op14_off_runs = run_p6_sweep(
+            cl.build_srs_net(L_p6, "right"),
+            "srs-R:+z op14-OFF",
+            amps=amps,
+            n_steps=p6_steps,
+            n_drive=n_drive,
+            direction_sign=1.0,
+            op14=False,
+        )
+        out["P6_op14_ablation"] = op14_off_best
+        out["P6_op14_ablation_sweep"] = op14_off_runs
+
+        ref = next(c for c in cells if c.label == "srs-R:+z")
+        diamond_ref = diamond_cells[0] if diamond_cells else None
+        matched = _matched_baseline_ok(ref, ablation_best, op14_off_best)
+        if diamond_ref is not None:
+            matched = matched and _matched_baseline_ok(ref, diamond_ref)
+        srs_theta = max(abs(c.dtheta) for c in cells)
+        dia_theta = max(abs(c.dtheta) for c in diamond_cells) if diamond_cells else 0.0
+        out["P6_matched_baseline"] = {
+            "srs_R_z_e_retention": ref.e_loc_ratio_driveoff,
+            "op3_off_e_retention": ablation_best.e_loc_ratio_driveoff,
+            "op14_off_e_retention": op14_off_best.e_loc_ratio_driveoff,
+            "diamond_e_retention": diamond_ref.e_loc_ratio_driveoff if diamond_ref else None,
+            "structure_driven_2x": matched,
+            "diamond_theta_frac_of_srs": dia_theta / (srs_theta + 1e-30),
+        }
 
     return out

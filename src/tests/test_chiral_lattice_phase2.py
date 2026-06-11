@@ -56,7 +56,9 @@ def test_phase2_smoke_gates_complete():
     g = phase2_gates(L=6, smoke=True)
     assert "P5" in g and "P6_cells" in g
     assert g["engine_class"] == "discrete srs TLM + Op14/Op3"
+    assert g["kappa_chiral"] == 0.0
     assert len(g["P6_cells"]) == 4
+    assert g["P6_diamond_cells"] == []
 
 
 def test_plant_23_has_chirality_charge():
