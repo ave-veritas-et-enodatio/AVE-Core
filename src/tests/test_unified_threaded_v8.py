@@ -424,3 +424,81 @@ def test_d15_amplitude_scales_with_extracted_dl():
     l_lo = abs(e_lo.polyphase_ledger()["L_deposit_poloidal"])
     l_hi = abs(e_hi.polyphase_ledger()["L_deposit_poloidal"])
     assert l_lo > 0 and l_hi > l_lo, (l_lo, l_hi)  # more extraction => more deposit
+
+
+# ===================================================== D18 INSTRUMENTATION (read-only)
+def test_d18_resolve_internal_period_recovers_known():
+    """RESOLVE THE OSCILLATOR FIRST: the FFT period-resolver recovers a known
+    injected period to ~1% (parabolic peak interpolation), so the phase-lock cadence
+    is the true traveling frequency (not an FFT-bin guess)."""
+    from ave.utils.v8_instrumentation import resolve_internal_period
+    for T0 in (80.0, 137.0, 250.0):
+        n = 900
+        t = np.arange(n)
+        y = np.cos(2 * np.pi * t / T0) + 0.1 * np.random.default_rng(0).standard_normal(n)
+        T_steps, _, _ = resolve_internal_period(y, dt=1.0)
+        assert abs(T_steps - T0) / T0 < 0.03, (T0, T_steps)
+
+
+def test_d18_resolve_period_flat_is_infinite():
+    """A flat / non-oscillating L-state series resolves NO internal period (inf) —
+    the read then cannot be phase-locked; the driver bins UNRESOLVED rather than
+    sampling at an arbitrary phase (the honest no-period return)."""
+    from ave.utils.v8_instrumentation import resolve_internal_period
+    T_steps, _, _ = resolve_internal_period(np.ones(200), dt=1.0)
+    assert not np.isfinite(T_steps)
+
+
+def test_d18_phase_lock_steps_even_over_period():
+    """Phase-locked snapshots are evenly spaced over ONE resolved period (so a
+    standing wave caught at peak cannot masquerade as a traveling winding)."""
+    from ave.utils.v8_instrumentation import phase_lock_sample_steps
+    steps = phase_lock_sample_steps(120.0, 4, start_step=1000)
+    assert steps == [1000, 1030, 1060, 1090]
+    # an unresolved period falls back to a single read (not a crash)
+    assert phase_lock_sample_steps(float("inf"), 4, 0) == [0]
+
+
+def test_d18_interior_contour_read_threaded_vs_void():
+    """The de-novo interior-contour read on the FIELD-DERIVED torus: a planted
+    traveling winding in a THREADED geometry reads w_pol=q (robust across the
+    swept minor radii r in {3,4,5}); a standing plant reads 0; a NON-threaded
+    (sphere) geometry returns VOID (no field-defined R — the v7 obstruction
+    honestly returned, not guessed)."""
+    from ave.utils.v8_instrumentation import interior_contour_wpol
+    N = 48
+    interior = _interior(N)
+    topo = measure_topology(make_torus_shell_mask(N, R=12.0, a=4.0), interior,
+                            axis=2, f_shell=200)
+    om_t, pi_t = planted_winding_field(N, 12.17, 3.5, q=3, p=2, amplitude=0.3,
+                                       mode="traveling", helicity=1)
+    om_s, pi_s = planted_winding_field(N, 12.17, 3.5, q=3, p=2, amplitude=0.3,
+                                       mode="standing", helicity=1)
+    rt = interior_contour_wpol(om_t, pi_t, topo, N, axis=2)
+    rs = interior_contour_wpol(om_s, pi_s, topo, N, axis=2)
+    assert (not rt["void"]) and rt["w_pol_modal"] == 3 and rt["robust"]
+    assert rt["w_pol_rel_median"] > 0.1
+    assert rs["w_pol_modal"] == 0, rs
+    topo_sph = measure_topology(make_sphere_shell_mask(N, r_in=8.0, r_out=12.0),
+                                interior, axis=2, f_shell=200)
+    assert interior_contour_wpol(om_t, pi_t, topo_sph, N)["void"] is True
+
+
+def test_d18_known_positive_in_channel_passes_at_scale():
+    """F-WPOL(b): the extractor known-positive — the v8 deposit planted INSIDE the
+    threaded channel at the run's own scale reads back w_pol=q_dep (traveling) on a
+    DEEPCOPY (the live field untouched). A de-novo read on an extractor not shown
+    known-positive at scale inside THIS geometry is UNRESOLVED."""
+    from ave.utils.v8_instrumentation import known_positive_in_channel
+    N = 48
+    topo = measure_topology(make_torus_shell_mask(N, R=12.0, a=4.0), _interior(N),
+                            axis=2, f_shell=200)
+    e = UnifiedGenesisEngine(N, bulk_density_on=True, snap_on=False,
+                             omega_sector_on=True, buckle_on=True,
+                             photon_coupling=True, q_dep=3, p_dep=2,
+                             dep_R=12.0, dep_r=3.5, dep_axis=2)
+    om_before = e.omega.copy()
+    kp = known_positive_in_channel(e, topo, q_dep=3, mode="traveling")
+    assert kp["pass"] and kp["w_pol"] == 3, kp
+    # the plant is on a COPY — the live engine field is untouched
+    assert np.array_equal(e.omega, om_before), "known-positive must not mutate the live field"
