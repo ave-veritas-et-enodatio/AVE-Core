@@ -55,9 +55,13 @@ Writhe-on-srs (Phase-0) is **necessary-condition** evidence only. The symmetric 
 - P5 hosting + P6 genesis-by-precursor (CVR-SET bins, A1–A4 inherited)
 - §0 D1 framing still deferred
 
-### Phase 3c — v9 Phase-2 implementor (READY — dispatch)
+### Phase 3c — v9 Phase-2 implementor (IN PROGRESS — branch `analysis/2026-06-12-genesis-v9-phase2-implementor`)
 
-- Op14 vector-TLM extension + P5/P6 drivers + result doc
+- **Module:** `src/ave/core/chiral_lattice_vector_sat.py` (Op14 + Op3 @ CONNECT)
+- **Tests:** `src/tests/test_chiral_lattice_phase2.py` (6/6)
+- **Driver:** `chiral_lattice_phase2_genesis.py` (`--smoke` for CI-scale)
+- **Result (smoke):** `research/2026-06-12_genesis-v9-phase2_result.md` — P5 FAIL, P6 smoke only
+- **Pending:** production L≥10 / 800-step battery before D1 input
 
 ### Phase 4 — D1 adjudication memo (PENDING, after Phase 1 + 3)
 
