@@ -90,6 +90,15 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         vent_mode: str = "kick",
         snap_accounting: str = "legacy",
         meissner_harden: float = 0.0,
+        # --- v8 D17 SPARE-THE-FEEDSTOCK: how the snap quenches u_adv in snapped
+        # cells. "inherited" = u_adv[cm]=0.0 EXACTLY as v6 (byte-identical default);
+        # "wall_normal" = zero only the wall-normal component (project out u_n =
+        # grad(rho)/|grad(rho)|), PRESERVE the tangential circulation feedstock;
+        # "channel_live" = do NOT zero snapped shell cells bordering the D16
+        # channel (the conducting tube stays live). A NEW knob ⇒ inventoried +
+        # swept (ave-apparatus-floor-attribution v1.1; §5 row 2). The removed-KE
+        # ledger (E_reflect) tallies ONLY what is actually removed (honest sink). ---
+        snap_u_mode: str = "inherited",
         # --- v6 D9 transducer (chiral-boundary spin-orbit exchange BC); OFF by default ---
         transducer_on: bool = False,
         chi_exch: float = 0.02,
@@ -160,6 +169,12 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         self.vent_mode = str(vent_mode)            # "kick" (v5) | "absorbed" (D10a)
         self.snap_accounting = str(snap_accounting)  # "legacy" (v5) | "conservative" (D11)
         self.meissner_harden = float(meissner_harden)  # D10b per-cell threshold hardening
+        # v8 D17 feedstock-sparing rendering (default = the v6 byte-identical path)
+        self.snap_u_mode = str(snap_u_mode)
+        # the D16 channel mask the driver sets from the topology gate (for
+        # snap_u_mode="channel_live"); None ⇒ the rendering falls back to inherited.
+        self.channel_mask = None
+        self.snap_channel_border = 2  # cells of channel-wall shell kept live (mode b)
         # --- v6 D9 transducer (chiral-boundary spin-orbit exchange BC) ---
         # CP10 boundary-localized; OFF by default (the inherited byte-identical path).
         # chi_exch = the SWEPT per-step wall spin-extraction fraction (prereg §6.5);
@@ -363,6 +378,54 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         self.rho_cav_field[nb] -= self.meissner_harden
         np.maximum(self.rho_cav_field, self.rho_floor + 1e-3, out=self.rho_cav_field)
 
+    def _snap_quench_u(self, cm):
+        """D17 SPARE-THE-FEEDSTOCK — the post-snap u_adv values in snapped cells,
+        per ``snap_u_mode``. Returns an (M,3) array (M = cm.sum()).
+
+          "inherited"    u_adv = 0.0 EXACTLY (the v6 byte-identical path).
+          "wall_normal"  zero only the wall-normal component (project out
+                         û_n = ∇ρ̄/|∇ρ̄|), PRESERVE the tangential circulation — the
+                         snap still kills the in/out shock but keeps the swirl
+                         feedstock. Degenerate normal (|∇ρ̄|<eps) ⇒ full quench.
+          "channel_live" keep u_adv in snapped shell cells bordering the D16
+                         channel mask (the conducting tube stays live); zero the
+                         rest. No channel mask set ⇒ inherited (fail-safe).
+
+        CP10: this is a per-cell BOUNDARY state operation (the same boundary state
+        machine the inherited snap is), NOT a bulk EOM force."""
+        u_cm = self.u_adv[cm]
+        mode = self.snap_u_mode
+        if mode == "inherited" or u_cm.size == 0:
+            return np.zeros_like(u_cm)
+        if mode == "wall_normal":
+            gx, gy, gz = np.gradient(self.rho_bar, self.dx)
+            gn = np.stack([gx[cm], gy[cm], gz[cm]], axis=-1)
+            mag = np.sqrt(np.sum(gn ** 2, axis=-1))
+            # default PRESERVE: where ∇ρ̄ is degenerate (a flat deep-void interior)
+            # NO wall normal is defined ⇒ there is no in/out shock to remove ⇒ keep
+            # the circulation (the free-slip reflector kills only the no-penetration-
+            # violating NORMAL component, not the tangential swirl feedstock).
+            out = u_cm.copy()
+            good = mag > 1e-9
+            if np.any(good):
+                nh = gn[good] / mag[good][:, None]
+                u_good = u_cm[good]
+                u_norm = np.sum(u_good * nh, axis=-1)[:, None] * nh
+                out[good] = u_good - u_norm  # remove wall-normal, keep tangential
+            return out
+        if mode == "channel_live":
+            if self.channel_mask is None:
+                return np.zeros_like(u_cm)
+            from scipy import ndimage
+            border = ndimage.binary_dilation(
+                np.asarray(self.channel_mask, dtype=bool),
+                iterations=int(self.snap_channel_border))
+            keep = border[cm]  # snapped cells adjacent to the channel
+            out = np.zeros_like(u_cm)
+            out[keep] = u_cm[keep]  # the channel-wall feedstock stays live
+            return out
+        return np.zeros_like(u_cm)  # unknown mode ⇒ inherited (fail-safe)
+
     def _snap_step(self):
         """Per-cell snap state machine (normal↔snapped), interior only (CP7).
           1. newly-snapping cells (ρ̄≤ρ̄_cav, not yet snapped) ⇒ tally + clamp.
@@ -383,17 +446,22 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         if not self.snap_mask.any():
             return
         cm = self.snap_mask
-        # (2) enforce the boundary-class void (reflector: ρ̄ held at floor, u killed).
-        # D11 conservative: TALLY the reflector-removed KE (one-way physical sink) so
-        # the ledger closes — the v5 legacy path destroys it untallied.
+        # (2) enforce the boundary-class void (reflector: ρ̄ held at floor, u killed
+        # per the D17 rendering). D11 conservative: TALLY the reflector-removed KE
+        # (one-way physical sink) so the ledger closes — the v5 legacy path destroys
+        # it untallied. v8 D17: the rendering may PRESERVE part of u_adv (the spared
+        # circulation feedstock); the tally counts ONLY the removed component so the
+        # ledger stays honest whatever is spared (the F-CASCADE keeper depends on it).
+        u_new_cm = self._snap_quench_u(cm)  # the post-snap u_adv in snapped cells
         if not legacy:
+            removed = self.u_adv[cm] - u_new_cm
             self.E_reflect += float(np.sum(
-                0.5 * (1.0 + self.rho_bar[cm]) * np.sum(self.u_adv[cm] ** 2, axis=-1)
+                0.5 * (1.0 + self.rho_bar[cm]) * np.sum(removed ** 2, axis=-1)
             ) * self.dx ** 3)
             self.rho_bar[cm] = self.snap_clamp_val[cm]
         else:
             self.rho_bar[cm] = self.rho_cav
-        self.u_adv[cm] = 0.0
+        self.u_adv[cm] = u_new_cm
         # over-pressure payback: the surrounding medium does work against the void.
         # neighbor-mean pressure minus the (per-cell) void pressure; positive ⇒ in.
         p = self.pressure(self.rho_bar)

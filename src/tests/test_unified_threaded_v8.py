@@ -24,12 +24,40 @@ from __future__ import annotations
 
 import numpy as np
 
+from ave.core.unified_genesis_engine import UnifiedGenesisEngine, RHO_CAV
 from ave.utils.topology_genus import (
     measure_topology,
     derive_read_torus_from_channel,
     make_sphere_shell_mask,
     make_torus_shell_mask,
 )
+
+F_EV = 13.0          # the quiet-build E_V plateau (v5 §0; the deflagration floor)
+F_EV_GATE = 10.0     # F-CASCADE bound: deflagration = E_V >= 10x F-EV
+
+
+def _cascade_engine(snap_u_mode, *, N=32, channel=False, seed=1):
+    """A v6-conservative bubble carrying circulation, with a forced snapped pocket
+    that holds the column swirl — the executable cascade probe (the natural snap
+    onset is too slow for a unit test; this forces the snapped-cell-with-circulation
+    state the D17 rendering governs)."""
+    np.random.seed(seed)
+    e = UnifiedGenesisEngine(
+        N, bulk_density_on=True, snap_on=True, c2_floor=0.0,
+        nu_art_bulk=5e-4, rho_diff=5e-4, rho_cav=RHO_CAV, lock_on=True,
+        lock_eta=0.08, vent_mode="absorbed", snap_accounting="conservative",
+        meissner_harden=0.05, snap_u_mode=snap_u_mode)
+    e.seed_lane1(frac=0.85, sigma=4.0, vent_into_seed=True, vent_near_frac=0.5)
+    e.energize_rotation_column(M_edge=2.5, R_core=0.18 * e.N * e.dx, axis=2)
+    e.freeze_wall_window()
+    cc = (N - 1) / 2.0
+    i, j, k = np.indices((N, N, N))
+    rho = np.sqrt((i - cc) ** 2 + (j - cc) ** 2)
+    if channel:
+        e.channel_mask = (rho < 3.0)
+    ball = (rho < 5.0) & (np.abs(k - cc) < 6.0)
+    e.hand_snap_region(ball, rho_set=e.rho_cav - 0.05)
+    return e
 
 
 def _interior(N, pad=2):
@@ -147,3 +175,103 @@ def test_read_torus_none_for_non_threaded():
     sph = make_sphere_shell_mask(N, r_in=8.0, r_out=12.0)
     res = measure_topology(sph, _interior(N), axis=2, f_shell=200)
     assert derive_read_torus_from_channel(res) is None
+
+
+# ============================================ D17 SPARE-THE-FEEDSTOCK (F-CASCADE)
+def test_d17_inherited_is_byte_identical_default():
+    """The snap_u_mode default ("inherited") quenches u_adv to EXACTLY 0 in snapped
+    cells — the v6 byte-identical path (no v8 knob perturbs the inherited dynamics
+    when off; the D-INHERIT regression gate's u-channel half)."""
+    e = UnifiedGenesisEngine(16, bulk_density_on=True, snap_on=True,
+                             snap_accounting="conservative")
+    assert e.snap_u_mode == "inherited"
+    e.energize_rotation_column(M_edge=2.0, R_core=2.0, axis=2)
+    cm = np.zeros((16, 16, 16), dtype=bool)
+    cm[6:10, 6:10, 6:10] = True
+    q = e._snap_quench_u(cm)
+    assert np.allclose(q, 0.0), "inherited must fully quench u_adv (byte-identical)"
+
+
+def test_d17_renderings_spare_circulation_at_levels():
+    """The three D17 renderings preserve DIFFERENT amounts of the circulation
+    feedstock (the sparing machinery is LIVE, not a no-op): inherited removes all;
+    wall_normal preserves the tangential swirl where the wall normal is degenerate
+    (a flat deep-void interior — nothing to remove); channel_live preserves the
+    channel-border feedstock. (Validates the rendering axis is real before the
+    matrix sweeps it; §5 row 2.)"""
+    N = 32
+    cc = (N - 1) / 2.0
+    i, j, k = np.indices((N, N, N))
+    rho = np.sqrt((i - cc) ** 2 + (j - cc) ** 2)
+    ball = (rho < 5.0) & (np.abs(k - cc) < 6.0)
+
+    def quench_mag(mode, channel):
+        e = UnifiedGenesisEngine(N, bulk_density_on=True, snap_on=True,
+                                 snap_accounting="conservative", snap_u_mode=mode)
+        e.energize_rotation_column(M_edge=2.5, R_core=0.18 * N * e.dx, axis=2)
+        if channel:
+            e.channel_mask = (rho < 3.0)
+        cm = ball & e.interior_mask()
+        return float(np.sqrt((e._snap_quench_u(cm) ** 2).sum(-1)).mean())
+
+    m_inh = quench_mag("inherited", False)
+    m_wn = quench_mag("wall_normal", False)
+    m_ch = quench_mag("channel_live", True)
+    assert m_inh == 0.0, "inherited must remove all circulation"
+    assert m_wn > 0.5, f"wall_normal must spare the tangential swirl, got {m_wn}"
+    assert m_ch > 0.5, f"channel_live must spare the channel feedstock, got {m_ch}"
+
+
+def test_d17_channel_live_falls_back_to_inherited_without_mask():
+    """channel_live with NO channel mask set (the topology gate has not run) is a
+    fail-safe: it quenches fully, exactly as inherited (no silent sparing without a
+    field-derived channel)."""
+    N = 32
+    cc = (N - 1) / 2.0
+    i, j, k = np.indices((N, N, N))
+    rho = np.sqrt((i - cc) ** 2 + (j - cc) ** 2)
+    ball = (rho < 5.0) & (np.abs(k - cc) < 6.0)
+    e = UnifiedGenesisEngine(N, bulk_density_on=True, snap_on=True,
+                             snap_accounting="conservative", snap_u_mode="channel_live")
+    e.energize_rotation_column(M_edge=2.5, R_core=0.18 * N * e.dx, axis=2)
+    assert e.channel_mask is None
+    cm = ball & e.interior_mask()
+    assert np.allclose(e._snap_quench_u(cm), 0.0)
+
+
+def test_d17_cascade_bounded_each_rendering():
+    """K-CASCADE-EACH-RENDER (F-CASCADE): NO D17 rendering reopens the v5
+    deflagration. With a circulating snapped pocket carrying the column swirl,
+    every rendering keeps E_V bounded (< 10x F-EV), the field finite, and does NOT
+    pump the conserved total (H never rises above its start) — the feedstock-
+    sparing does not become an energy source (ave-conserved-vs-pumped)."""
+    for mode, channel in (("inherited", False), ("wall_normal", False),
+                          ("channel_live", True)):
+        e = _cascade_engine(mode, channel=channel)
+        H0 = float(e.total_energy_unified(conserved=True))
+        ev_max, H_max = 0.0, -1e30
+        for _ in range(500):
+            e.step()
+            ev_max = max(ev_max, float(e.bulk_energy(True)))
+            H_max = max(H_max, float(e.total_energy_unified(conserved=True)))
+        assert np.all(np.isfinite(e.rho_bar)), f"{mode}: field went non-finite"
+        assert ev_max < F_EV * F_EV_GATE, f"{mode}: E_V={ev_max} reopened the cascade"
+        # no pump: the conserved total must not RISE (a passive lossy mirror only
+        # sinks; sparing circulation must not manufacture energy)
+        assert H_max <= H0 + 1e-6 * abs(H0) + 1e-6, f"{mode}: H pumped {H_max-H0:+.4e}"
+
+
+def test_d17_reflect_ledger_honest_only_removed():
+    """The removed-KE ledger (E_reflect) is honest: it tallies ONLY what the
+    rendering actually removes. A sparing rendering removes <= what inherited
+    removes, so its E_reflect is <= inherited's (never more) — the ledger cannot
+    over-count a sink to hide spared energy."""
+    e_inh = _cascade_engine("inherited", channel=False)
+    e_wn = _cascade_engine("wall_normal", channel=False)
+    for _ in range(200):
+        e_inh.step()
+        e_wn.step()
+    assert e_inh.E_reflect >= -1e-12
+    assert e_wn.E_reflect >= -1e-12
+    # the spared rendering's reflector sink is no larger than inherited's
+    assert e_wn.E_reflect <= e_inh.E_reflect + 1e-9, (e_wn.E_reflect, e_inh.E_reflect)
