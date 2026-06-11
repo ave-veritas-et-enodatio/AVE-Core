@@ -300,12 +300,18 @@ def run_encounter_worker(*, cfg, v_approach, n_build=N_BUILD, n_persist=N_PERSIS
         "enc_series": enc_series,
         "final": final,
         "bursts": det.scan(),
-        "burst_history_released": [h["released"] for h in det.history[:: max(1, len(det.history) // 200)]],
+        # FULL per-step released history (DEV-5 post-scan must not decimate —
+        # a decimated diff could merge/miss bursts; ~n_enc floats per arm)
+        "burst_history_released": [h["released"] for h in det.history],
         "total_burst_energy": float(det.total_burst_energy()),
         "H_pos_excursion_frac": float((H_max - H0) / (abs(H0) + 1e-30)),
         "regime_witness": {"strain_max_run": float(strain_max_run),
+                           "strain_max_build": float(max(s["strain_max"] for s in build_series)),
                            "rho_min_run": float(rho_min_run),
                            "dilatation_rupture_reached": bool(strain_max_run >= 1.0),
+                           "dilatation_rupture_reached_incl_build": bool(
+                               max(strain_max_run,
+                                   max(s["strain_max"] for s in build_series)) >= 1.0),
                            "cavitation_rupture_reached": bool(rho_min_run <= RHO_CAV)},
         "F0c_complete": bool(f0c.shape[0] == (len(det.history) - 1)
                              and np.all(np.isfinite(f0c))),
@@ -542,13 +548,24 @@ def analyze(results):
 
     # ---------- classification per frozen §7 bins ----------
     def classify(arm, label):
+        """§7 ordering: (1) wrong-regime gate FIRST — an approach arm whose
+        objects never MET (overlap-rupture never reached in the encounter, no
+        centroid convergence) is UNRESOLVED (wrong-regime artifact, §1.5),
+        NEVER a verdict bin; (2) then the frozen verdict bins."""
         rw = arm["regime_witness"]
         burst_fired = len(arm["bursts"]) > 0
         mass_to_bg = arm["final"]["E_V_cons"] <= max(f0a, 1e-12)
         peaks = arm["final"]["peaks_x"]
         mass_f = arm["final"]["E_V_cons"]
         mass_b = arm["post_imprint"]["E_V_cons"]
-        if burst_fired and mass_to_bg:
+        had_approach = arm["v_approach"] > 0.0 and not arm["cfg"].get("single")
+        # did the two blobs actually meet? encounter-window rupture OR the
+        # x-profile collapsing to a single central blob from two
+        met = bool(rw["dilatation_rupture_reached"]
+                   or (had_approach and arm["post_imprint"]["peaks_x"] >= 2 and peaks <= 1))
+        if had_approach and not met and not burst_fired:
+            cand = "UNRESOLVED-wrong-regime(never-met; transport structurally absent)"
+        elif burst_fired and mass_to_bg:
             cand = "ANNIHILATE-candidate"
         elif peaks <= 1 and mass_f > max(f0a, 1e-12):
             cand = "MERGE"
@@ -558,7 +575,9 @@ def analyze(results):
             cand = "UNRESOLVED-mixed"
         return {"label": label, "burst_fired": burst_fired, "mass_to_background": mass_to_bg,
                 "peaks_x_final": peaks, "mass_final": mass_f, "mass_post_imprint": mass_b,
-                "dilatation_rupture": rw["dilatation_rupture_reached"],
+                "met": met, "had_approach": had_approach,
+                "dilatation_rupture_enc": rw["dilatation_rupture_reached"],
+                "dilatation_rupture_incl_build": rw.get("dilatation_rupture_reached_incl_build"),
                 "cavitation_rupture": rw["cavitation_rupture_reached"],
                 "candidate_bin": cand}
 
