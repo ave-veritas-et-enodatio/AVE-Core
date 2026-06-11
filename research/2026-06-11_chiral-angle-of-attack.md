@@ -99,6 +99,44 @@ is real but weak and off-mechanism. Everything in §2 inherits exactly this tier
 
 ### 2.1 Surface A — black-hole Stokes-V spin-correlation
 
+**Class: hypothesis-owing-the-amplitude.** Corpus state: **virgin** — `Stokes-V` / `Stokes V` returns zero
+content workspace-wide (the only `Stokes` hits are Navier–Stokes). No AVE number exists.
+
+**The external anchor (verified-external, WebFetch-confirmed this session, source named).** EHT Collaboration,
+*First M87 EHT Results IX: Detection of Near-horizon Circular Polarization*, ApJL 2023 (DOI
+`10.3847/2041-8213/acff70`; arXiv:2311.10976, abstract fetched verbatim 2026-06-11):
+
+- resolved circular-polarization fraction **⟨|v|⟩ < 3.7 %** (all imaging methods),
+- ALMA image-integrated **|v_int| < 1 %**,
+- **"Faraday conversion is likely the dominant production mechanism for circular polarization at 230 GHz in M87*"**;
+  the result "reinforces the previously reported preference for magnetically arrested accretion flow models."
+
+So the published number class is an **upper limit + presence evidence**, not a resolved CP map. (Sgr A* unresolved
+CP is also published — Bower et al. 1999, DOI `10.1086/312246` — but no *horizon-scale* Sgr A* Stokes-V map was
+confirmed this session; carried **requires-verification**.)
+
+**The SM-counterfactual, carried honestly (do NOT bury it).** A bare "AVE predicts nonzero Stokes V at the percent
+level" is **not discriminating**: GRMHD synchrotron emission + Faraday conversion already lives exactly there, and
+the EHT abstract *itself* endorses that as the dominant mechanism. Per the slats picture the chiral boundary radiates
+a handedness-biased component — but synchrotron/Faraday make Stokes V too. **The discriminator is not the level; it
+is the correlation STRUCTURE.**
+
+**The owed number (the live discriminator axis).** The slats hypothesis owes:
+
+1. **a SIGN RULE** — a v-asymmetry component whose sign is *locked to the BH spin axis* and **flips under spin-axis
+   reversal** (the slat pitch is set by the freeze/rotation handedness; reverse the rotation, reverse the admitted
+   handedness — §2.4). Faraday conversion's sign is set by the *line-of-sight field geometry + electron
+   thermodynamics*, which is **not** rigidly spin-locked. A spin-axis-correlated, spin-flip-odd v-component is the
+   structure synchrotron/Faraday does not natively produce.
+2. **a MAGNITUDE** for that spin-locked component, to be compared against the verified ceilings ⟨|v|⟩ < 3.7 %
+   (resolved) / |v_int| < 1 % (integrated) — it must sit *under* both.
+3. **the explicit null/structure contrast vs Faraday conversion** — the statement of what the spin-locked component
+   does that the field-geometry component cannot mimic (sign-flip-odd under Ω̂ reversal at fixed field geometry).
+
+Until (1)–(3) carry actual numbers this surface is **hypothesis-owing-the-amplitude**, not a prediction. The
+honest one-liner: *the EHT can already see percent-level circular polarization; the slats hypothesis only goes live
+when it owns a spin-axis-correlated SIGN that Faraday conversion does not.*
+
 <!-- SECTION 2.1 -->
 
 ### 2.2 Surface B — gravitational-wave amplitude birefringence
