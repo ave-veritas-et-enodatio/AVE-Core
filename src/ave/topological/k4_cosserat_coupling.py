@@ -60,6 +60,7 @@ from ave.core.constants import V_SNAP as _V_SNAP_CONST
 from ave.core.k4_tlm import K4Lattice3D
 from ave.topological.cosserat_field_3d import (
     KAPPA_CHIRAL_ELECTRON,
+    TETRA_OFFSETS,
     CosseratField3D,
     _compute_curvature,
     _compute_strain,
@@ -211,6 +212,12 @@ class CoupledK4Cosserat:
         use_lagrangian_emf_coupling: bool = False,
         disable_cosserat_lc_force: bool = False,
         enable_cosserat_self_terms: bool = False,
+        use_impedance_boundary: bool = False,
+        impedance_clamp_strength: float = 200.0,
+        impedance_skin_smoothing: int = 2,
+        impedance_implicit: bool = True,
+        impedance_cfl_safety: float = 0.4,
+        couple_v_sector: bool = True,
     ):
         self.N = int(N)
         self.pml = int(pml)
@@ -327,8 +334,66 @@ class CoupledK4Cosserat:
         self.V_SNAP = resolved_V_SNAP
         self.time = 0.0
 
-        # Sub-stepping: Cosserat needs N_sub sub-steps per K4 outer dt
-        self._n_sub = max(1, int(np.ceil(self.k4.dt / self.cos.cfl_dt)))
+        # ---------------------------------------------------------------
+        # Saturation-TIR moving Γ=−1 impedance boundary, COUPLED (KEEP-BOTH,
+        # default OFF → byte-identical to the pre-mechanism coupled engine).
+        # ---------------------------------------------------------------
+        # Ports the standalone (II) `use_impedance_boundary` mechanism into the
+        # coupled K4 ⊗ Cosserat engine so BOTH windings of the (2,3) are present
+        # and confined at ONE shared moving Γ=−1 front (substrate-native-check
+        # CP2). When True:
+        #   • V-sector "3" (K4 U(1) fibre, (V_inc,Φ_link)): confined by the Op14
+        #     z_local→0 short — `_update_z_local_total` already routes the SHARED
+        #     (S_μ,S_ε) front to z_local, and `op3_bond_reflection=True` turns
+        #     z_local→0 into a bond Γ→−1 reflective short (k4_tlm.py:402-424).
+        #   • Cosserat "2" (ω-shear): confined by the reactive node-clamp
+        #     ω̈ = −Ω₀²ω at the SAME shared front (the (II) mechanism), integrated
+        #     by the exact reactance-pair rotation (CP6) at a CFL-safe sub-dt.
+        # The shared front is the SAME `_update_saturation_kernels(u, ω, V_sq)`
+        # kernel for both sectors → one wall, both reactances. This closes the
+        # §9 architecture gap (coupled engine modulated saturation V-only:
+        # Cosserat use_saturation=False + zero ω-coupling force).
+        self.use_impedance_boundary = bool(use_impedance_boundary)
+        self.impedance_clamp_strength = float(impedance_clamp_strength)
+        self.impedance_skin_smoothing = int(impedance_skin_smoothing)
+        self.impedance_implicit = bool(impedance_implicit)
+        self.impedance_cfl_safety = float(impedance_cfl_safety)
+        # Sector-coupling toggle (which-fix-mattered isolation, the new variable
+        # for the Option-D-impose-under-(II)-confinement re-test). When True
+        # (default), the shared front sees the live K4 V_sq → the Cosserat-ω wall
+        # is co-determined by the V-sector "3" (full §9 sector coupling). When
+        # False, V_sq=0 is forced into the shared front → the Cosserat wall is
+        # the DECOUPLED (II)-standalone behavior (moving-boundary-alone), so the
+        # driver can attribute persistence to the wall vs the sector-coupling.
+        self.couple_v_sector = bool(couple_v_sector)
+        if self.use_impedance_boundary:
+            # Configure the Cosserat sector so its helpers (_bulk_accel,
+            # _rotate_clamp, impedance_hamiltonian) and cfl_dt fold in the clamp
+            # stiffness. The cos bulk stays the matched LINEAR elastic wave
+            # (k_op10=k_refl=k_hopf=0, use_saturation=False already set above) —
+            # confinement attributable to the wall alone (CP8 mechanism isolation,
+            # as in (II)). The V→ω W_refl gradient force is NOT used in this path
+            # (it is the A28 double-counting/runaway channel); the sectors couple
+            # ONLY through the shared front.
+            self.cos.use_impedance_boundary = True
+            self.cos.impedance_clamp_strength = self.impedance_clamp_strength
+            self.cos.impedance_skin_smoothing = self.impedance_skin_smoothing
+            self.cos.impedance_implicit = self.impedance_implicit
+            self.cos.impedance_cfl_safety = self.impedance_cfl_safety
+            self.cos.k_op10 = 0.0
+            self.cos.k_refl = 0.0
+            self.cos.k_hopf = 0.0
+            self._clamp_omega0 = None  # frozen per outer step in step()
+
+        # Sub-stepping: Cosserat needs N_sub sub-steps per K4 outer dt. With the
+        # impedance wall on, cos.cfl_dt folds c_clamp = √(K/I_ω)·dx AND we apply
+        # the impedance_cfl_safety margin (the operative anti-pumping fix — the
+        # engine's clamp-aware cfl_dt under-resolves the wall-confined wave ~2×).
+        if self.use_impedance_boundary:
+            dt_safe = self.impedance_cfl_safety * self.cos.cfl_dt
+            self._n_sub = max(1, int(np.ceil(self.k4.dt / max(dt_safe, 1e-30))))
+        else:
+            self._n_sub = max(1, int(np.ceil(self.k4.dt / self.cos.cfl_dt)))
         self._dt_sub = self.k4.dt / self._n_sub
 
         # Store diagnostics history (opt-in via step_with_history)
@@ -458,6 +523,94 @@ class CoupledK4Cosserat:
         return np.asarray(dEc_du * mask), np.asarray(dEc_dw * mask)
 
     # -----------------------------------------------------------------
+    # Saturation-TIR moving Γ=−1 impedance boundary — coupled
+    # -----------------------------------------------------------------
+    def _impedance_gamma_shared(self) -> np.ndarray:
+        """Op3 Γ(r) from the SHARED Op14 asymmetric (Meissner) impedance
+        Z_eff = Z₀·√(S_μ/S_ε), where (S_μ, S_ε) come from the SAME
+        `_update_saturation_kernels(u, ω, V_sq)` that drives the V-sector
+        z_local short (`_update_z_local_total`). One front, both sectors (CP2):
+        the K4 V-sector reflects via z_local→0 (bond Γ→−1), the Cosserat-ω via
+        the node-clamp gated on this same Γ. V_sq is the live K4 voltage, so the
+        wall sees BOTH the V-sector "3" and the Cosserat "2" saturation.
+
+        When `couple_v_sector=False`, V_sq=0 is forced (the DECOUPLED
+        (II)-standalone wall) so the driver can isolate the moving-boundary
+        contribution from the sector-coupling contribution (which-fix-mattered)."""
+        if self.couple_v_sector:
+            V_sq = _v_squared_per_site(self.k4.V_inc)
+        else:
+            V_sq = np.zeros((self.N, self.N, self.N), dtype=self.cos.u.dtype)
+        S_mu, S_eps = _update_saturation_kernels(
+            jnp.asarray(self.cos.u),
+            jnp.asarray(self.cos.omega),
+            jnp.asarray(V_sq),
+            self.cos.dx,
+            self.V_SNAP,
+            self.cos.omega_yield,
+            self.cos.epsilon_yield,
+            self.kappa_chiral,
+        )
+        Z_eff = jnp.sqrt(S_mu / jnp.maximum(S_eps, 1e-12))  # Z₀ = 1
+        gamma = (Z_eff - 1.0) / (Z_eff + 1.0)
+        return np.asarray(gamma)
+
+    def _freeze_clamp_omega0_shared(self) -> np.ndarray:
+        """Freeze the Cosserat ω node-clamp angular frequency Ω₀(r) =
+        √((K/I_ω)·relu(−Γ_shared)) once per outer step, with skin smoothing.
+
+        relu(−Γ) keeps the μ-side short ONLY (Γ<0 → node/confining); the ε-side
+        open (Γ>0) is an antinode and is not clamped (CP2 sector subtlety, as in
+        (II)). The smoothed weight is also stored on `self.cos._clamp_weight` so
+        `cos.impedance_hamiltonian()` reads the correct reactive wall energy."""
+        gamma = self._impedance_gamma_shared()
+        weight = np.maximum(0.0, -gamma)
+        for _ in range(self.impedance_skin_smoothing):
+            acc = weight.copy()
+            for p in TETRA_OFFSETS:
+                acc = acc + np.roll(weight, shift=(-p[0], -p[1], -p[2]), axis=(0, 1, 2))
+            weight = acc / (1 + len(TETRA_OFFSETS))
+        weight = weight * self.cos.mask_alive.astype(weight.dtype)
+        self.cos._clamp_weight = weight
+        return np.sqrt((self.impedance_clamp_strength / self.cos.I_omega) * np.maximum(weight, 0.0))
+
+    def _cosserat_impedance_substep(self, dt: float, omega0: np.ndarray) -> None:
+        """One Cosserat sub-step under the moving Γ=−1 wall: linear-elastic bulk
+        (matched shear wave) by velocity-Verlet kicks + the reactive node-clamp
+        by EXACT reactance-pair rotation (Strang split: kick / rotate-drift /
+        kick). The frozen `omega0` is the shared-front clamp (advances once per
+        outer step). NO coupling W_refl force (CP8 isolation; A28 runaway channel
+        avoided) — the sectors couple only through the shared front."""
+        cos = self.cos
+        a_u, a_w = cos._bulk_accel()
+        cos.u_dot = cos.u_dot + 0.5 * dt * a_u
+        cos.omega_dot = cos.omega_dot + 0.5 * dt * a_w
+        cos._zero_velocities_outside_alive()
+        cos.u = cos.u + dt * cos.u_dot
+        cos._rotate_clamp(omega0, dt)
+        cos._zero_outside_alive()
+        a_u_new, a_w_new = cos._bulk_accel()
+        cos.u_dot = cos.u_dot + 0.5 * dt * a_u_new
+        cos.omega_dot = cos.omega_dot + 0.5 * dt * a_w_new
+        cos._zero_velocities_outside_alive()
+        cos.time += dt
+
+    def impedance_hamiltonian(self) -> dict:
+        """Conserved energy for the COUPLED impedance path (CP6): the K4
+        V-sector energy (incl. the z_local short) + the Cosserat reactive bulk +
+        the Γ=−1 wall storage. Reuses `cos.impedance_hamiltonian()` (T + linear
+        elastic + ½K·relu(−Γ)·|ω|²) and adds E_K4."""
+        h = self.cos.impedance_hamiltonian()
+        E_k4 = self.k4_energy()
+        return {
+            "E_k4": E_k4,
+            "T_cos": h["T"],
+            "W_linear_cos": h["W_linear"],
+            "V_clamp": h["V_clamp"],
+            "H": E_k4 + h["H"],
+        }
+
+    # -----------------------------------------------------------------
     # Stepping (S5-B unified leapfrog with sub-stepping)
     # -----------------------------------------------------------------
     def _cosserat_sub_step(self, dt: float) -> None:
@@ -579,9 +732,23 @@ class CoupledK4Cosserat:
             emf = self._compute_emf_per_port()
             self.k4.V_inc += emf * self.k4.dt
 
-        # (4) Cosserat sub-steps with V → ω coupling force
-        for _ in range(self._n_sub):
-            self._cosserat_sub_step(self._dt_sub)
+        # (4) Cosserat sub-steps.
+        if self.use_impedance_boundary:
+            # Moving Γ=−1 wall: the V-sector short is applied via z_local in (1);
+            # the Cosserat-ω node-clamp is RE-FROZEN every sub-step (the moving
+            # reflective wall must track the focusing field — the operative
+            # anti-pumping requirement) and integrated by the exact reactance
+            # rotation at the CFL-safe sub-dt. BOTH sectors confined at the one
+            # shared front (CP2). V_sq is constant across the cos sub-loop (K4
+            # steps once per outer dt), so the V-side of the shared front is
+            # frozen while the ω-side advances — the wall tracks the ω-focus.
+            for _ in range(self._n_sub):
+                omega0 = self._freeze_clamp_omega0_shared()
+                self._cosserat_impedance_substep(self._dt_sub, omega0)
+        else:
+            # Default path: V → ω coupling force (byte-identical to legacy).
+            for _ in range(self._n_sub):
+                self._cosserat_sub_step(self._dt_sub)
 
         self.time += self.outer_dt
 

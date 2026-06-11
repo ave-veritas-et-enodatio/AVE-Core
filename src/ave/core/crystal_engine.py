@@ -421,6 +421,14 @@ class CrystalEngine:
     def refractive_index(self) -> np.ndarray:
         """n(r)=c0/c_eff=S(A)^{1/4} → 0 in the saturated core (the canonical
         Master-Equation refractive index)."""
+        # FLAG (2026-06-10, apparatus-floors char.): exponent defect — the
+        # wave-speed identity c_eff²=c0²/S (master_equation_fdtd.py:148-151)
+        # implies physical n=c0/c_eff=S^0.5, NOT S^0.25. The docstring above
+        # and the gamma_bulk() diagnostic disagree by a power; downstream
+        # Γ=(n-1)/(n+1) magnitudes UNDERSTATE the wall depth (corrected
+        # exponent deepens, does not flip the sign). Comment-only flag per
+        # flag-don't-fix; FIX IS A PHYSICS-REVIEW ITEM (Grant/auditor), not
+        # landed here. The tracks-knob-vs-plateau verdict is power-independent.
         return self.saturation_kernel(self.V) ** 0.25
 
     def gamma_bulk(self) -> dict:

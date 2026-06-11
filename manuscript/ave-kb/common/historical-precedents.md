@@ -44,3 +44,4 @@ The two roots meet in the electron — **in AVE's framing**: a topological **kno
 - → [torus-knot-ladder](../vol2/particle-physics/ch01-topological-matter/torus-knot-ladder.md) · [l3-electron-soliton-synthesis](../vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md)
 - → [operators](operators.md) (Op3 `Γ`, Op14 `Z_eff`, Op21 `Q=ℓ` at the `Γ=−1` TIR boundary)
 - Long-form: `research/2026-06-06_maxwell-quaternion-longitudinal-context.md` · `research/2026-06-06_biquaternion-node-algebra-result.md` · `research/2026-06-06_saturation-tir-moving-boundary-prereg.md`
+- *(added 2026-06-10)* → **Companion synthesis leaf: [`the-abandoned-interior.md`](the-abandoned-interior.md)** — the "two deletions, one restoration" thesis + four threads (Kelvin resumed; Poincaré's stress = the lock problem; the definition epistemology; the g-2 observation). Develops the convergence above into the constitutive-question arc (1867–1948); same consistency-class ceiling.

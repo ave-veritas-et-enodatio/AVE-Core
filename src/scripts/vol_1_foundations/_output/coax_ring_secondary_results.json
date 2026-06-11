@@ -1,0 +1,112 @@
+{
+  "ARM_1": {
+    "block1_loci": {
+      "inner_a_cavitation_rho": -0.6180339887498948,
+      "inner_a_is_minus_1_over_phi": true,
+      "inner_c_eff_sq_at_a_over_c0sq": 2.220446049250313e-16,
+      "outer_b_rupture_rho_A_to_1": 1.0,
+      "both_alpha_free": true,
+      "note": "a = c^2=0 root (Z_bulk->0, Gamma->-1); b = A->1 saturation (S=sqrt(1-rho^2)->0, R_III=1.0). Neither locus contains alpha."
+    },
+    "block23_coax_ratio": {
+      "ln_ba_form": "ln(b/a) = G(rho_b) - G(rho_a)  [substrate radial-balance integral = coax log-factor]",
+      "ln_ba_at_A_to_1": "diverges (+inf): G(rho->1) ~ -1/4 ln(1-rho) -> +inf",
+      "ba_at_A_to_1_exact": "+inf (DIVERGES)",
+      "ba_vs_A_cap_clip": {
+        "A_cap=0.9": 5.235367540878733,
+        "A_cap=0.99": 9.74771258543749,
+        "A_cap=0.999": 17.41249803426236,
+        "A_cap=0.9999": 30.97822667211781,
+        "A_cap=0.99999": 55.090421714935445
+      },
+      "tracks_A_cap": true,
+      "apparatus_reading": "b/a is DIVERGENT at the exact alpha-free A->1 wall and, when regularized, GROWS with the saturation clip A_cap (0.9->5.24, 0.99->9.75, 0.999->17.41). Per ave-apparatus-floor-attribution this is an APPARATUS-limited number, not a physical b/a."
+    },
+    "block4_slosh": {
+      "definition": "f_slosh = 1/ln(b/a) (Op21 per-cycle reactive release for a radial mode with wavelength-count ell ~ ln(b/a)); Z_coax/Z0 = ln(b/a)/2pi",
+      "slosh_vs_A_cap": {
+        "A_cap=0.9": {
+          "ln_b_over_a": 1.655437050239809,
+          "Z_coax_over_Z0 = ln(b/a)/2pi": 0.2634709895231319,
+          "f_slosh = 1/ln(b/a)": 0.604070085211116
+        },
+        "A_cap=0.99": {
+          "ln_b_over_a": 2.2770326508635215,
+          "Z_coax_over_Z0 = ln(b/a)/2pi": 0.3624010019665714,
+          "f_slosh = 1/ln(b/a)": 0.43916805480183563
+        },
+        "A_cap=0.999": {
+          "ln_b_over_a": 2.857188226213591,
+          "Z_coax_over_Z0 = ln(b/a)/2pi": 0.45473562954585744,
+          "f_slosh = 1/ln(b/a)": 0.3499944423770856
+        },
+        "A_cap=0.9999": {
+          "ln_b_over_a": 3.433284592295446,
+          "Z_coax_over_Z0 = ln(b/a)/2pi": 0.5464242139050628,
+          "f_slosh = 1/ln(b/a)": 0.29126627086029416
+        },
+        "A_cap=0.99999": {
+          "ln_b_over_a": 4.008975866473214,
+          "Z_coax_over_Z0 = ln(b/a)/2pi": 0.6380483258853261,
+          "f_slosh = 1/ln(b/a)": 0.24944026437348513
+        }
+      },
+      "at_A_to_1": "f_slosh -> 0 (infinite-Q); Z_coax/Z0 -> +inf",
+      "vs_alpha_chain": {
+        "alpha_inv_canon": 137.0363037758784,
+        "coax_Z_or_slosh_reproduces_137": false,
+        "note": "neither ln(b/a)/2pi nor 1/ln(b/a) lands near 4pi^3+pi^2+pi =137.04 at any clip; the values track A_cap and diverge at A->1."
+      }
+    },
+    "block5_dead_input": {
+      "a_inner_floor_sweep": {
+        "rho_cav=-0.4000": 8.602336753321731,
+        "rho_cav=-0.5000": 9.30467888028896,
+        "rho_cav=-0.6180": 9.74771258543749,
+        "rho_cav=-0.7000": 9.334092223205955,
+        "rho_cav=-0.8000": 6.830932423594299
+      },
+      "a_inner_floor_MOVES_output": true,
+      "b_alpha_sweep_canonical_BC": {
+        "alpha x0.01": 9.74771258543749,
+        "alpha x1.0": 9.74771258543749,
+        "alpha x100.0": 9.74771258543749
+      },
+      "b_alpha_MOVES_canonical_output": false,
+      "c_REJECTED_sqrt2alpha_BC_sweep": {
+        "alpha x0.5 -> rho_wall=sqrt(2a)=0.08542": 1.821667875832215,
+        "alpha x1.0 -> rho_wall=sqrt(2a)=0.12081": 1.8873485992923025,
+        "alpha x2.0 -> rho_wall=sqrt(2a)=0.17085": 1.984477442420448
+      },
+      "c_rejected_BC_MOVES_with_alpha": true,
+      "verdict": "canonical A->1 b/a is CIRCULARITY-FREE (alpha-independent) and responds to the physical inner floor; the rejected sqrt(2alpha) onset BC WOULD inject alpha -- demonstrating why the alpha-free A->1 locus is the correct outer BC."
+    },
+    "BIN": "RATIO-DERIVED",
+    "subrecord": "b/a emerges ALPHA-FREE from the two floors (RATIO-DERIVED), BUT the derived ratio DIVERGES at the exact A->1 wall and TRACKS the A_cap regularization clip when regularized (apparatus). The implied coax Z/slosh therefore does NOT reproduce a finite alpha-relevant value: Z_coax/Z0->inf, f_slosh->0. The static coax profile does not yield alpha."
+  },
+  "ARM_2": {
+    "rr_with_A_to_1_BC": {
+      "A_cap=0.9": 5.235367540878733,
+      "A_cap=0.99": 9.74771258543749,
+      "A_cap=0.999": 17.41249803426236,
+      "A_cap=0.9999": 30.97822667211781,
+      "A_cap=0.99999": 55.090421714935445
+    },
+    "rr_at_exact_A_to_1": "+inf (DIVERGES; G(rho->1) -> +inf)",
+    "comparison": {
+      "real_space_canon_RR": 2.27,
+      "phase_space_phi2_NOT_the_target": 2.618033988749895,
+      "rr_at_A_cap_0.99": 9.74771258543749,
+      "residual_vs_2.27_at_A_cap_0.99": 3.2941465134085863,
+      "within_pm10pct_tol": false,
+      "exact_A_to_1_within_tol": false
+    },
+    "fit_tell": {
+      "rho_wall_that_forces_2.27": 0.3036402647287676,
+      "is_canonical": false,
+      "note": "R/r=2.27 needs rho_wall ~= 0.304 -- NOT a canonical density and NOT the A->1 rupture locus (rho_wall=1). Forcing 2.27 is FITTED, not the A->1 derivation. The A->1 BC gives a DIVERGENT R/r."
+    },
+    "BIN": "DIFFERENT",
+    "bin_rationale": "the alpha-free A->1 outer BC gives a DIVERGENT R/r (and, regularized, an A_cap-clip-tracking value: 9.75 at 0.99, 17.41 at 0.999) -- NOT the real-space canon 2.27. DIFFERENT."
+  }
+}
