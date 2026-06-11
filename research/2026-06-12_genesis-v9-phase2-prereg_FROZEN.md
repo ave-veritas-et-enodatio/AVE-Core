@@ -1,17 +1,16 @@
-# Genesis v9 — Phase-2 Pre-Registration (DRAFT — SUPERSEDED)
+# Genesis v9 — Phase-2 Pre-Registration (FROZEN 2026-06-11)
 
-> **STATUS: SUPERSEDED by `research/2026-06-12_genesis-v9-phase2-prereg_FROZEN.md` (2026-06-11).**
-> **Was:** DRAFT returned for Grant freeze. Supersedes the P5/P6 stubs in
-> `research/2026-06-11_genesis-v9-phase1-prereg_FROZEN.md` (Phase-2 scope only).
+> **STATUS: FROZEN.** Ratified by Grant session 2026-06-11 ("proceed").
+> Supersedes `research/2026-06-12_genesis-v9-phase2-prereg_DRAFT.md` and P5/P6 stubs in
+> `research/2026-06-11_genesis-v9-phase1-prereg_FROZEN.md`.
 >
-> **Arms from (must be on `main` or merged PR before implementor runs):**
-> - Phase-1 FROZEN + P1–P4 PASS (`chiral_lattice_vector.py`, PR #201)
-> - R3 decoration discriminator result (D1 partial bin D1-A)
-> - CVR framing bins (`research/2026-06-11_chiral-vacuum-reactor-framing.md` §1.3)
-> - A1–A4 amendments (ratified at Phase-1 freeze)
+> **Gates satisfied before freeze:**
+> 1. PR #201 merged — Phase-1 FROZEN + P1–P4 PASS on `main`.
+> 2. R3 decoration discriminator — D1 partial bin D1-A.
+> 3. Op14 implementation — **Op14 `z_local(A²)` + Op3 @ CONNECT** (KB 2026-06-12).
+> 4. P5/P6 thresholds + CVR-SET bins — no ⟨…⟩ placeholders.
 >
-> **NOT at freeze:** §0 D1 framing (A) substrate vs (B) decoration — adjudication memo
-> after Phase-2 bins land (`_orchestration/2026-06-11_lattice-d1-test-gated.md`).
+> **NOT at freeze:** §0 D1 framing (A) vs (B) — adjudication memo after Phase-2 bins.
 
 ---
 
@@ -104,8 +103,8 @@ Extend `chiral_lattice_vector.py` (or sibling module) with:
      bond map). This is how spatial $Z_{\text{eff}}$ gradients produce trap physics on
      discrete TLM.
 
-4. **Optional:** memristive Op14 (`S(t)` lags `S_eq` via `τ_relax`) — tag if used;
-   default instantaneous Op14 for Phase-2 v1.
+4. **Memristive Op14:** **deferred to Phase-2b.** Phase-2 v1 uses **instantaneous Op14**
+   (`S = S_eq` each step). Tag in result doc if a run uses memristive extension.
 
 5. **Diagnostics (required every run):** `max(A²)`, fraction with `A² ≥ √(2α)`, spatial
    `std(z_local)`, peak $|\Gamma|$ on bonds, and whether trap sites show $\Gamma \to -1$.
@@ -127,13 +126,13 @@ $(1-A^2)^{1/4}$ as the P6 mechanism (matter-clock sector). Report it as diagnost
   seed, no handed boundary forcing. External drive = **linear packet launch only** (+ taper
   to zero for drive-off / P6-D).
 
-- **Topological charge proxy (discrete):** Window-weighted mean `ring_writhe` in the
-  trapped region (or implementor-documented Op10 crossing count if Cosserat sector is
-  coupled in Phase-2b). **Same proxy** for P5 and P6.
+- **Topological charge proxy (discrete) — FROZEN v1:** Window-weighted mean `ring_writhe`
+  in the trapped region. Op10 crossing / Cosserat coupling deferred to **Phase-2b** if needed.
+  **Same proxy** for P5 and P6.
 
 ---
 
-## Pre-registered predictions — PROPOSED FREEZE
+## Frozen predictions (P5–P6)
 
 ### P5 — soliton hosting (consistency-class, NOT genesis)
 
@@ -238,19 +237,19 @@ Launch via `launch_linear_packet` (A1) on **srs-R, srs-L, diamond** × **{+z, �
 
 ---
 
-## What Grant decides at freeze
+## Frozen ratifications (2026-06-11)
 
-1. Ratify or amend thresholds above (P5/P6 tables, `L`, `N_steps`, `N_drive`).
-2. **Op14 implementation — PROPOSED RATIFIED:** Op14 $z_{\text{local}}(A^2)$ + **Op3 at
-   CONNECT** (not bond-delay clock; not scatter retune on uniform shunt). Amend only if
-   Grant overrides KB adjudication 2026-06-12.
-3. Approve topological-charge proxy (ring writhe window vs Op10 crossing if Phase-2b).
-4. Approve optional memristive Op14 (`τ_relax`) as Phase-2b extension vs instantaneous v1.
-5. **NOT at freeze:** D1 framing (A)/(B).
+| Item | Ratified choice |
+|------|-----------------|
+| P5/P6 thresholds | Tables above (unchanged from DRAFT) |
+| Op14 on srs net | `z_local(A²)` + **Op3 @ CONNECT** |
+| Charge proxy | `ring_writhe` window (v1) |
+| Op14 dynamics | Instantaneous v1; memristive → Phase-2b |
+| D1 framing | **Deferred** to adjudication memo |
 
 ---
 
-## Implementor deliverables (post-freeze)
+## Implementor deliverables (armed — dispatch now)
 
 | Artifact | Path (proposed) |
 |---|---|
@@ -261,7 +260,7 @@ Launch via `launch_linear_packet` (A1) on **srs-R, srs-L, diamond** × **{+z, �
 | Driver | `src/scripts/vol_1_foundations/chiral_lattice_phase2_genesis.py` |
 | Result doc | `research/2026-06-12_genesis-v9-phase2_result.md` |
 
-**Branch:** `analysis/2026-06-12-genesis-v9-phase2-implementor` (off `main` after PR #201 merge).
+**Branch:** `analysis/2026-06-12-genesis-v9-phase2-implementor` (off `main` @ PR #201 merge).
 
 ---
 
