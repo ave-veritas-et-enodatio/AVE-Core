@@ -76,9 +76,18 @@ Writhe-on-srs (Phase-0) is **necessary-condition** evidence only. The symmetric 
   hosting/genesis miss on discrete TLM+Op14; **diamond stays engine substrate**
 - **Walk-back:** queue §5 in memo — **authorized, not executed** (Grant greenlight + `ave-walk-back`)
 
-### Phase 5 — v10 spine (PENDING — after walk-back greenlight)
+### Phase 4b — D1 corpus walk-back (COMPLETE — 2026-06-12)
 
-- Integrator choice follows D1 bin, not pre-test preference
+- **Branch:** `analysis/2026-06-12-lattice-d1-walkback`
+- **Sites:** `eq_axiom_1.tex`, `lattice-net-resolution.md` amendment, design doc §0 ADJUDICATED,
+  fundamentality plan R3 ✅
+- **Not in scope:** α/Lorentz srs re-derivation; full KB P2 grep-sweep (deferred batch)
+
+### Phase 5 — v10 spine (UNBLOCKED — charter updated 2026-06-12)
+
+- **Charter:** `research/2026-06-11_chiral-vacuum-reactor-framing.md` §5 — Decisions 1+3 ✅
+- **Blocked on:** R2 constitutive-loop prereg + Decisions 2+4 (loop scope, `chi_shock`)
+- **Platform:** diamond engine + srs **instrument** controls; σ-equipped medium + loop kernel
 
 ---
 

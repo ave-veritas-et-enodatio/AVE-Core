@@ -83,9 +83,11 @@
 
 ---
 
-## 5. Corpus walk-back queue (authorized — NOT executed in this memo)
+## 5. Corpus walk-back queue
 
-Execute only via `ave-walk-back` after Grant greenlights propagation. Q1 preserved-historical / Q2 frozen-snapshot rules apply.
+**Status (2026-06-12):** Grant greenlit post-merge. **P0–P1 executed** on branch
+`analysis/2026-06-12-lattice-d1-walkback`. Q1 preserved-historical / Q2 frozen-snapshot rules apply
+to untouched historical docs (electron-synthesis epic, vocab audit).
 
 | Priority | Site | Action |
 |----------|------|--------|

@@ -473,16 +473,13 @@ discriminators.** Concretely:
 
 [charter — Grant adjudicates before any v10 run]
 
-**Decision 1 — lattice identity.** Is the v9 chiral `srs` net a **(A) deliberate
-substrate challenge** to the 2026-06-07 lattice-net resolution-of-record (accept
-the explicit α/Lorentz-chain-invalidation cost), or **(B) a decoration-model
-diagnostic** (substrate stays the z=4 achiral diamond; `srs` is a probe)? This is
-the v9 prereg's §0 adjudication, unresolved.
-- *Options:* (A) substrate-challenge · (B) decoration-model · **(recommended:
-  decoration-discriminator-first)** — run the chiral net as a *discriminator* on
-  the achiral baseline first; only promote to substrate-challenge if the
-  discriminator fires. This defers the α/Lorentz-chain cost until there is a
-  signal worth paying it for.
+**Decision 1 — lattice identity.** **✅ ADJUDICATED 2026-06-12**
+(`research/2026-06-12_lattice-d1-adjudication-memo.md`).
+- **Ruling:** **(B) decoration-model / structural instrument — PRIMARY.** Bare srs is
+  the canonical discrete instrument for structural chirality (R3 D1-A + Phase-1 P4).
+  **(A) substrate-challenge — PARTIAL only** (static channel confirmed; Phase-2 P5/P6
+  miss blocks migration). Production engine substrate **stays z=4 diamond**; α/Lorentz
+  srs re-derivation **not queued**.
 
 **Decision 2 — loop scope.** What loop-candidate kernel does v10 carry?
 - *Options:* **(a) σ-only** (Op14 saturation, no rate-gated snap) · **(b) σ +
@@ -491,15 +488,9 @@ the v9 prereg's §0 adjudication, unresolved.
   can show genesis-with-irreversibility, but it reopens the loss/ledger seam (§4.4)
   and needs the reactance-pair accounting armed to tell exchange from dissipation.
 
-**Decision 3 — Phase-1 freeze items + helicity amendments.** Which items freeze
-into the v9 Phase-1 pre-registration (currently DRAFT)?
-- *Options / items:* the `⟨bracketed⟩` thresholds (P2 enantiomorph `|sum|`, P2
-  diamond `≤5%`, P4 `κ_chiral=0` collapse, the BIN-G/T/D boundaries); **plus the
-  helicity-as-acquired amendments** now staged into the prereg's
-  §FREEZE-AMENDMENT-QUEUE (P6 seed = plain linear packet / zero injected helicity /
-  direction only; new reversed-launch-direction control → sign flip; P4 strengthened
-  = no helicity-odd term anywhere in the drive chain; CVR-SET as the P6 PASS bin
-  name). Grant freezes or revises these.
+**Decision 3 — Phase-1 freeze items + helicity amendments.** **✅ FROZEN + EXECUTED**
+(Phase-1 prereg FROZEN 2026-06-11; P1–P4 **ALL PASS** on main). Phase-2 prereg
+FROZEN + production battery landed (P5 FAIL, P6 inconclusive — no CVR-SET promotion).
 
 **Decision 4 — `chi_shock` (the dissipation / saturation-ride knob), anchor `:359`.**
 Does v10 carry the dark-sector dissipation treatment, and at what setting?
@@ -521,13 +512,11 @@ Does v10 carry the dark-sector dissipation treatment, and at what setting?
 
 ### §5.3 Sequencing
 
-[charter] The pre-committed order:
+[charter] The pre-committed order (updated 2026-06-12):
 
-1. **Audit** — close the vocab/operator audit (PR #196) so the registry-v2 rows,
-   the three-impedance law, and the reactance ledger are landed before v10 leans
-   on them.
-2. **Discriminator + the two paper-cheap preregs** (run before the expensive
-   build, per parallel-pressure-test discipline):
+1. ~~**Audit**~~ — vocab/operator audit landed (genesis mega-session).
+2. ~~**R3 + v9 Phase-1/2**~~ — D1 adjudicated; walk-back P0–P1 executed.
+3. **Remaining before v10 build:**
    - **`E_boundary = α·mc²` check** — does the boundary/binding energy of any
      formed state equal the electron orbital's reactive-shell energy `m_e c² · α`
      (`orbital-friction-paradox.md:~35`, VERIFIED: "Electron orbital … `m_e c² ·
@@ -536,8 +525,9 @@ Does v10 carry the dark-sector dissipation treatment, and at what setting?
    - **Layer-8** — the named paper-cheap prereg item from the session (the
      eighth-layer check). [session-record — carried as a named item; its exact
      content freezes with Grant's Decision 3.]
-3. **The four calls** (§5.2) — Grant adjudicates.
-4. **v10** — build and run only after 1–3.
+4. **Open calls** (§5.2) — **Decision 2** (loop scope: σ-only vs σ+snap), **Decision 4**
+   (`chi_shock` / saturation-ride). Decision 1 ✅ · Decision 3 ✅.
+5. **v10** — build and run only after R2 constitutive-loop prereg + open calls.
 
 > **CVR-SET is the pre-committed PASS-bin name** for the v10 outcome (§1.3),
 > frozen *before* any run, with the DISPERSES / TRANSIENT / SET-ACHIRAL failure
