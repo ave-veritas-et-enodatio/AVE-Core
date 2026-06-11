@@ -280,3 +280,35 @@ ever been extracted (§0.1 glimpse disclosure), so this is a genuinely forward n
 (7 functional evaluations per sample) + one GATE-X zero-clone per leg — estimated minutes-scale per leg
 on this machine (the banked full sweep, including 24000-step ringdowns and 20-point windows, took
 3110 s). If a leg exceeds ~30 min it is killed and binned NEEDS-RERUN with the measured cost.
+
+---
+
+## AMENDMENT-1 (pre-run; committed alone BEFORE the driver exists and BEFORE any engine instantiation)
+
+**What is amended:** GATE-X's excluded-term assertion "evaluates to **exactly 0.0** on the zero-clone".
+
+**Why (apparatus floor, found by TEXTUAL analysis only — no computation has been run):** the engine's
+exact-EOS internal energy is a table interpolation (`_build_U_table`,
+`570b50d7:src/ave/core/unified_genesis_engine.py:224-239`): the ρ̄-grid `linspace(-0.999, 3.0, 40001)`
+has step `9.9975e-5` and does **not** contain ρ̄ = 0 as a node (`0.999/9.9975e-5` is not an integer), so
+`np.interp(0, ·)` between the zero-crossing nodes returns a strictly positive O(c₀²·ρ̄_node²)
+interpolation epsilon, and `bulk_internal_energy` on the zero-clone is a tiny positive float, not
+bit-zero. Asserting bit-zero would convert a float-interp epsilon into a NEEDS-RERUN — an
+apparatus-floor misattribution (`ave-apparatus-floor-attribution`: that number is the bench, not the
+physics).
+
+**Amended GATE-X (frozen now, still before any computation):**
+- `bulk_kinetic_energy(zero-clone) == 0.0` **exactly** (it is `½∫(1+ρ̄)|u_adv|²` with `u_adv ≡ 0` — a
+  product with a zeroed factor, bit-zero by construction);
+- `snap_energy_ledger_total(zero-clone) == 0.0` **exactly** (accumulators; must already be zero on
+  these objects per banked `pocket_cells = 0`);
+- `bulk_internal_energy(zero-clone) ≤ 1e-9 · |H_cons(original)|` (the interp-epsilon floor, relative
+  to the object's own total — value-blind: the bound references the measured total only as a scale,
+  never any target);
+- every LIVE term bit-unchanged between original and zero-clone (unamended).
+
+**Freeze-integrity statement:** at the time of this amendment the driver does not exist, no engine has
+been instantiated in this workstream, and no ledger value — `r_a3`, any sector energy, for either
+object — has been computed or seen. The amendment is reachable from the gate's own text plus the
+engine source; it moves no bin boundary, no tolerance on `r_a3`, no α-comparison quantity. Logged as
+its own commit so the panel can audit the diff (KEEP-BOTH: the original §2 text above is unedited).
