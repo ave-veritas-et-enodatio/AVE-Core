@@ -1,14 +1,20 @@
-# Genesis v9 — Phase-1 Pre-Registration (DRAFT — NOT FROZEN)
+# Genesis v9 — Phase-1 Pre-Registration (DRAFT — SUPERSEDED)
 
-> **STATUS: DRAFT. Returned by the implementer lane for Grant to freeze.**
-> This is NOT a frozen pre-registration. It is gated on TWO things, both of which
-> precede any freeze:
-> 1. **The §0 adjudication** (design doc `2026-06-11_genesis-v9-chiral-lattice_design.md`):
->    v9 re-opens the 2026-06-07 lattice-net resolution-of-record, which settled
->    z=4 achiral diamond as the computed substrate and ordered "Do NOT rebuild on
->    z=3 srs (would invalidate the α + Lorentz chains)." Grant must pick framing
->    **(A) deliberate challenge** or **(B) decoration-model** before freeze.
-> 2. **Grant's freeze** of the predictions + thresholds below.
+> **STATUS: SUPERSEDED by `research/2026-06-11_genesis-v9-phase1-prereg_FROZEN.md` (2026-06-11).**
+> **Was:** DRAFT. Returned by the implementer lane for Grant to freeze.
+> This is NOT a frozen pre-registration. It is gated on THREE things (test-not-pick
+> discipline, epic `_orchestration/2026-06-11_lattice-d1-test-gated.md`):
+>
+> 1. **R3 decoration discriminator** (`research/2026-06-11_lattice-decoration-discriminator_prereg.md`)
+>    — three-arm battery (bare srs, bare diamond, decorated diamond) through the same
+>    signed-observable suite. **No §0 framing pick before this runs.**
+> 2. **Grant's freeze** of the predictions + thresholds below (⟨…⟩ placeholders).
+>    Framing **(A) substrate-challenge** vs **(B) decoration-diagnostic** is an
+>    **outcome bin** assigned post-R3 + post-Phase-1 (P4/P6), per R3 prereg §7 and
+>    the D1 adjudication memo — not a pre-test Grant call.
+> 3. **Design-doc §0 flag** (`2026-06-11_genesis-v9-chiral-lattice_design.md`) stays
+>    **flag-don't-fix** until the adjudication memo lands; do not propagate A or B into
+>    axiom text or index until bins are filled.
 >
 > Per Rule 16 (ask BEFORE design), this draft is surfaced now, pre-freeze, not
 > after 30 commits. Per substitution-not-retraction (Rule 12), if any prediction
@@ -53,16 +59,22 @@ injected one-parameter `κ_chiral`** (`cosserat_field_3d.py:115,131,522-523`).
 the srs net is **signed per enantiomorph and zero on the diamond control**, and its sign matches the
 sign of the Phase-0 circuit writhe.
 
-## Pre-registered predictions (EXECUTABLE gates — to be frozen by Grant)
-Each is an executable test with a stated threshold. Thresholds in ⟨angle brackets⟩ are placeholders for
-Grant to set/confirm at freeze.
+## Visual model cross-ref
+
+Grant helicity cartoon (slats, mirror-well, BH) → `research/2026-06-11_helicity-visual-model.md`.
+Electron-vs-BH helicity at Γ=−1 → `research/2026-06-11_electron-mirror-vs-bh-helicity_prereg_DRAFT.md` (T4, parallel).
+
+## Pre-registered predictions (EXECUTABLE gates — PROPOSED FREEZE 2026-06-11)
+
+Thresholds below use **delegated defaults from Phase-0 floors** (`helicity-visual-model.md`).
+Grant may amend at freeze; framing (A)/(B) remains **excluded**.
 
 - **P1 — vector-TLM consistency.** The transverse 2-component vector-TLM on the srs net conserves energy
-  (closed) to ⟨1e-8⟩ and reproduces Smoke A's isotropy on its achiral observables. *Falsifier:* drift or
+  (closed) to **≤ 1e-8** relative and reproduces Smoke A's isotropy on its achiral observables. *Falsifier:* drift or
   anisotropy beyond threshold ⇒ the vector scatter/connect is broken; fix-or-close before H2.
 - **P2 — dynamical optical rotation, signed.** `Δθ_pol/L` measured on a launched transverse packet is
-  nonzero on srs, **opposite-sign** on the two enantiomorphs (`|sum| ≤ ⟨10%⟩` of magnitude), and **≤
-  ⟨5%⟩** of the srs magnitude on the diamond control. *Falsifier:* control comparable to chiral, or no
+  nonzero on srs, **opposite-sign** on the two enantiomorphs (`|sum| ≤ 10%` of magnitude), and **≤ 5%**
+  of the srs magnitude on the diamond control. *Falsifier:* control comparable to chiral, or no
   enantiomorph flip ⇒ H2 falsified.
 - **P3 — sign concordance.** `sign(Δθ_pol/L)` on srs-right matches `sign(writhe_R)` from Phase-0 (and
   flips together under enantiomorph swap). *Falsifier:* sign mismatch ⇒ the writhe is not the optical-
@@ -72,7 +84,8 @@ Grant to set/confirm at freeze.
   handedness is still injected, not structural ⇒ v9's central hypothesis fails; close the branch.
 - **P5 — soliton stability (persistence check — consistency-class, NOT the genesis claim).** A seeded
   `(2,3)` ansatz on the srs net is a stable closed-system eigenmode (topological charge conserved,
-  energy bounded) over ⟨N⟩ steps at ⟨N_grid⟩. *Falsifier:* decays / unbinds ⇒ the srs substrate does
+  energy bounded) over **≥ 500** steps at **N_grid ≥ 32** (srs scaffold; implementor documents actual grid).
+  *Falsifier:* decays / unbinds ⇒ the srs substrate does
   not support the electron soliton ⇒ a structural hit against substrate-migration framing (A).
   *Checkpoint-8 caveat (synthesis-lane amendment, KEEP-BOTH — P5 preserved unchanged in substance,
   P6 added alongside):* planting the finished composite and testing persistence is the pattern
@@ -119,12 +132,11 @@ Grant to set/confirm at freeze.
   adjudication criteria post-hoc.
 
 ## What Grant decides at freeze
-1. §0 framing: **(A)** challenge the resolution-of-record (and accept the α/Lorentz-chain-invalidation
-   warning as the explicit cost), or **(B)** treat the srs net as a decoration-model diagnostic (substrate
-   stays diamond).
-2. The thresholds in ⟨…⟩.
-3. `N_grid`, `N_steps`, the P6 outcome-bin boundaries (the frozen bins), and whether P5/P6 (genesis)
+1. The thresholds in ⟨…⟩ (P1–P6, including A1–A4 amendment queue).
+2. `N_grid`, `N_steps`, the P6 outcome-bin boundaries (the frozen bins), and whether P5/P6 (genesis)
    run in Phase-1 or split to a Phase-2.
+3. **NOT at freeze:** §0 framing (A) vs (B) — deferred to D1 adjudication memo after R3 + Phase-1 bins
+   (`_orchestration/2026-06-11_lattice-d1-test-gated.md`).
 
 ## §FREEZE-AMENDMENT-QUEUE (2026-06-11 — helicity-as-acquired amendments)
 
@@ -211,4 +223,4 @@ failure ladder maps as:
 **Grant decides at freeze (added to the existing freeze list):** whether to adopt
 A1–A4 as-stated, the reversed-direction control's place in the frozen control set,
 and whether CVR-SET / the failure-ladder names replace or annotate the BIN-G/T/D
-labels.
+labels. **Framing (A) vs (B) is explicitly excluded** — see header gate 2.
