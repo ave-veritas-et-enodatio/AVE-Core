@@ -381,6 +381,21 @@ electron does: the mirror must be *chiral*.**
 
 ## 4. THE DARK-SECTOR ONE-LINER
 
+**The sector slips between the slats of transverse-coupled instruments — mis-angled AND undersampled.** Every
+detector we build is *transverse-coupled* (Maxwell-vector EM, the `c_EM` band). The slats picture says such an
+instrument has its own admission angle: it admits only what arrives at the transverse handedness-and-angle its
+front is cut for. A longitudinal / shear sector — the real `V`-grade "3", the Heaviside-excised scalar that a
+saturated mass carries as standing longitudinal `V_inc` — arrives at the **wrong angle of attack** (mis-angled: it
+is not a transverse wave, so it does not present at the slat the transverse front admits) **and** below the
+sampling rate (undersampled: the original entanglement→aliasing spark — the A46 phase-space content read by a
+real-space-transverse instrument aliases to zero, exactly the `w_pol ≡ 0` laundering of §3 one rung out). The dark
+sector is not faint; it is **off-angle and under-Nyquist** to the only kind of mirror we have so far built. It
+couples where it is impedance-matched (the matched-LC channel — `manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/dm-mechanism-unification.md:102`,
+"matched-impedance coupling at substrate-receiver interface") and is dark everywhere else. **One-liner:** *dark
+matter is not dim — it slips between the slats of a transverse-coupled, undersampled instrument.* (Cross-ref the
+parallel live **blackness / dark-observability** scout arc, which works the undersampling half; this doc supplies
+the mis-angled half — the chiral angle-of-attack the transverse front rejects.)
+
 <!-- SECTION 4 -->
 
 ## 5. OWED-NUMBERS TABLE
