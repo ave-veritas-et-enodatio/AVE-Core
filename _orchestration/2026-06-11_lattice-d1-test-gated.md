@@ -69,12 +69,14 @@ Writhe-on-srs (Phase-0) is **necessary-condition** evidence only. The symmetric 
   at amp=0.25 only; matched-baseline **FAIL**; no BIN-G genesis promotion
 - **Gate:** production bins landed — **D1 memo unblocked**
 
-### Phase 4 — D1 adjudication memo (PENDING — next)
+### Phase 4 — D1 adjudication memo (COMPLETE — 2026-06-12)
 
-- Write ruling from bins only
-- Trigger corpus walk-back (`eq_axiom_1.tex`, lattice resolution, engine default) **after** memo
+- **Memo:** `research/2026-06-12_lattice-d1-adjudication-memo.md`
+- **Ruling:** **D1-FINAL: B-primary / A-partial** — structural srs chirality confirmed (D1-A);
+  hosting/genesis miss on discrete TLM+Op14; **diamond stays engine substrate**
+- **Walk-back:** queue §5 in memo — **authorized, not executed** (Grant greenlight + `ave-walk-back`)
 
-### Phase 5 — v10 spine (PENDING, after D1 memo)
+### Phase 5 — v10 spine (PENDING — after walk-back greenlight)
 
 - Integrator choice follows D1 bin, not pre-test preference
 
@@ -157,7 +159,7 @@ Phase-1 prereg freeze (thresholds) ◄──────────────
 
 | ID | Was | Now |
 |----|-----|-----|
-| D1 | Pick framing A or B | **Bin from R3 §7 + Phase-1 P4/P6** |
+| D1 | Pick framing A or B | **Ruled: B-primary / A-partial** (`research/2026-06-12_lattice-d1-adjudication-memo.md`) |
 | D3 | v9 freeze | Freeze **thresholds** after R3; genesis after |
 | v10 spine | Pre-pick srs | **After** D1 memo |
 

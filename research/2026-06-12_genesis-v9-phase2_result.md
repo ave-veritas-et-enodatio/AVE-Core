@@ -96,6 +96,7 @@ regime; interpret bins under A-027 engine-class ceiling.
 
 ## Next
 
-1. **Phase 4 — D1 adjudication memo** (bins only; no corpus walk-back before memo).
-2. Optional Phase-2b: memristive Op14, Op10 crossing proxy, Master-Equation follow-on (A-027).
-3. v10 spine — after D1 memo.
+1. ~~**Phase 4 — D1 adjudication memo**~~ → **DONE:** `research/2026-06-12_lattice-d1-adjudication-memo.md`
+2. Corpus walk-back queue (memo §5) — Grant greenlight + `ave-walk-back`.
+3. Optional Phase-2b: memristive Op14, Op10 crossing proxy, Master-Equation follow-on (A-027).
+4. v10 spine — after walk-back greenlight.
