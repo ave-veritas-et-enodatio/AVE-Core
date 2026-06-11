@@ -74,6 +74,17 @@ Workflow({scriptPath: "/Users/grantlindblom/.claude/projects/-Users-grantlindblo
 `/tmp/ave-lookinside` (panel 1/2 refuted its calibration headline — Grant decides: coupled-regime
 re-run on-branch vs land-demoted). **This handoff branch** (push pending network).
 
+## §2b POST-MERGE UPDATE (2026-06-11 orchestration session — Grant merge close-out)
+
+**All rows in §2 OPEN table are MERGED or CLOSED.** `#143` closed (superseded). `#175` absorbed via
+`#180`. Final main HEAD: **`0b4b9d5c`** (PR #184). **0 open PRs.**
+
+- **20 audit tags** pushed: `audit/2026-06-11_*` (implementor tips preserved).
+- **20 implementor branches** deleted (remote + local).
+- **#184 conflict** resolved: `unified_genesis_engine.py` retains v7 quadrature + v8 polyphase init.
+- **Next-branch plan:** [`2026-06-11_orchestration-branch-plan.md`](2026-06-11_orchestration-branch-plan.md).
+- **Index reconciliation:** [`index.md`](index.md) §2026-06-11.
+
 ## §3 THE GRANT DECISION STACK (blocking v10, in leverage order)
 
 1. **srs-vs-diamond lattice identity** — framing (A) substrate-challenge vs (B) decoration-diagnostic;
