@@ -149,5 +149,8 @@ ax.set_title("Substrate true thermodynamic phase diagram  (Vol 9 Ch 14, "
              "$\\S$ True Phase Diagram)", fontsize=11)
 fig.tight_layout()
 out = "true_phase_diagram.pdf"
-fig.savefig(out)
+# Omit the embedded CreationDate so the artifact is byte-for-byte reproducible
+# (no wall-clock timestamp leaks into the committed PDF; supports the audit's
+# deterministic-regeneration check).
+fig.savefig(out, metadata={"CreationDate": None})
 print(f"wrote {out}: T_melt={T_MELT:.3e} K, rho_cav={RHO_CAV:.6f}, T_CMB={T_CMB} K")
