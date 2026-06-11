@@ -27,7 +27,10 @@ PHASE-0 scaffold. NO genesis run. See
 research/2026-06-11_genesis-v9-chiral-lattice_design.md.
 """
 
+from itertools import permutations, product
+
 import numpy as np
+from scipy.spatial import cKDTree
 
 from ave.core import chiral_lattice as cl
 
@@ -122,3 +125,157 @@ def test_cubic_reference_degree4_achiral_distinct():
     assert nr > 0 and abs(mean) < 1e-9, f"cubic-reference handedness must be 0; got {mean:.2e}"
     # explicitly a different graph from the chiral net (degree + girth both differ)
     assert dn.degree == 4 and cl.build_srs_net(4, "right").degree == 3
+
+
+# ─── 4_1 screw-axis helpers (test-local — chiral_lattice.py stays the graph library) ──
+def _proper_4fold_rotations():
+    """Proper signed-permutation matrices that are 4-fold (90deg about a cubic axis)."""
+    out = []
+    for perm in permutations(range(3)):
+        P = np.zeros((3, 3))
+        for i, p in enumerate(perm):
+            P[i, p] = 1.0
+        for signs in product((1, -1), repeat=3):
+            M = np.diag(signs).astype(float) @ P
+            if np.linalg.det(M) <= 0:
+                continue
+            M2 = M @ M
+            if (not np.allclose(M, np.eye(3)) and not np.allclose(M2, np.eye(3))
+                    and np.allclose(M2 @ M2, np.eye(3))):
+                out.append(M)
+    return out
+
+
+def _rotation_axis(R):
+    """Unit eigenvector of R with eigenvalue +1 (the 4-fold rotation axis)."""
+    w, v = np.linalg.eig(R)
+    for i in range(3):
+        if np.isclose(w[i].real, 1.0) and abs(w[i].imag) < 1e-9:
+            a = np.real(v[:, i])
+            return a / np.linalg.norm(a)
+    return None
+
+
+def _motif_translation(R, motif, tol=1e-6):
+    """The in-cell translation t with R·motif + t ≡ motif (mod 1) as a set, or None."""
+    Rm = (R @ motif.T).T
+    for j in range(len(motif)):
+        t = np.mod(motif[j] - Rm[0], 1.0)
+        cand = np.mod(Rm + t, 1.0)
+        used = [False] * len(motif)
+        ok = True
+        for c in cand:
+            hit = False
+            for k, m in enumerate(motif):
+                if not used[k] and np.all(np.abs(((c - m + 0.5) % 1.0) - 0.5) < tol):
+                    used[k] = True
+                    hit = True
+                    break
+            if not hit:
+                ok = False
+                break
+        if ok and all(used):
+            return t
+    return None
+
+
+def _graph_automorphism(net, R, t):
+    """Apply (R, t) in cell units to the FULL net; return
+    (dmax, is_bijection, edge_preserving). A genuine automorphism has dmax≈0,
+    is a bijection on the node set, and preserves every edge."""
+    pts = net.pos / net.a_cell
+    Lb = net.box / net.a_cell
+    img = np.mod((R @ pts.T).T + t, Lb)
+    tree = cKDTree(np.mod(pts, Lb), boxsize=Lb)
+    d, sigma = tree.query(img, k=1)
+    dmax = float(d.max())
+    is_bij = len(set(sigma.tolist())) == net.n_nodes
+    edge_ok = is_bij
+    if is_bij:
+        for u in range(net.n_nodes):
+            mapped = {int(sigma[v]) for v in net.neighbors[u]}
+            target = {int(x) for x in net.neighbors[int(sigma[u])]}
+            if mapped != target:
+                edge_ok = False
+                break
+    return dmax, is_bij, edge_ok
+
+
+def _find_graph_screw_ops(net, motif):
+    """All 4-fold proper ops (R, t) mapping this net's motif to itself, each
+    validated as a full-graph automorphism. Returns
+    [(axis, along_axis_frac, dmax, is_bijection, edge_preserving), ...]."""
+    ops = []
+    for R in _proper_4fold_rotations():
+        t = _motif_translation(R, motif)
+        if t is None:
+            continue
+        axis = _rotation_axis(R)
+        along = float(np.dot(t, np.abs(axis))) % 1.0
+        dmax, is_bij, edge_ok = _graph_automorphism(net, R, t)
+        ops.append((axis, along, dmax, is_bij, edge_ok))
+    return ops
+
+
+# ─── keeper 4 — the 4_1 screw axis maps the GRAPH to itself ───────────────────
+def test_screw_axis_4_1_maps_graph_to_itself():
+    """The 4_1 screw symmetry of I4_1 32 / I4_3 32: a 4-fold proper rotation plus a
+    quarter-pitch translation along the axis, mapping the GRAPH (positions AND
+    adjacency) to itself. Each candidate is FOUND by search, then verified as a
+    genuine edge-preserving graph automorphism. The 1/4 (or 3/4 = -1/4) along-axis
+    translation is the SCREW signature — a pure 4-fold rotation would give 0."""
+    for hand in ("right", "left"):
+        net = cl.build_srs_net(4, hand)
+        motif = cl.srs_motif(hand)
+        ops = _find_graph_screw_ops(net, motif)
+        assert len(ops) >= 3, (
+            f"srs[{hand}]: expected >=3 four-fold screw axes (the 3 cubic <100>); found {len(ops)}"
+        )
+        for (axis, along, dmax, is_bij, edge_ok) in ops:
+            assert is_bij and edge_ok, (
+                f"srs[{hand}] 4-fold op (axis {np.round(axis, 3)}) is not a graph automorphism"
+            )
+            assert dmax < 1e-9, f"srs[{hand}] screw op not exact: position dmax={dmax:.2e}"
+            quarter = min(abs(along - 0.25), abs(along - 0.75))
+            assert quarter < 1e-6, (
+                f"srs[{hand}] 4-fold op is not a 1/4-screw (4_1); along-axis frac={along:.4f}"
+            )
+
+
+# ─── keeper 5 — enantiomorph mirror: same invariants, opposite handedness ─────
+def test_enantiomorph_mirror_same_invariants_opposite_handedness():
+    """The two enantiomorphs (I4_1 32 / I4_3 32) are mirror images: IDENTICAL graph
+    invariants (degree sequence, girth, distinct-ring count, bond-angle multiset)
+    but OPPOSITE handedness measure (shortest-circuit writhe — sign flips, magnitude
+    matches)."""
+    right = cl.build_srs_net(6, "right")
+    left = cl.build_srs_net(6, "left")
+
+    # identical graph invariants
+    assert sorted(len(a) for a in right.neighbors) == sorted(len(a) for a in left.neighbors), \
+        "enantiomorphs must share the degree sequence"
+    # girth (min,max) is the cross-enantiomorph invariant; the distinct-ring COUNT
+    # from a truncated BFS sample is node-labeling dependent (the mirror relabels
+    # the node indices, so a 64-start sample discovers a different ring subset), so
+    # only the girth is compared here, not the sampled ring count.
+    gr, gl = _bfs_girth(right), _bfs_girth(left)
+    assert gr[:2] == gl[:2], f"enantiomorph girth must match: {gr[:2]} vs {gl[:2]}"
+
+    def _angle_multiset(net):
+        out = []
+        for v in np.where(net.interior_mask)[0][:24]:
+            vv = net.bond_unit[v]
+            for a in range(3):
+                for b in range(a + 1, 3):
+                    out.append(round(np.degrees(np.arccos(np.clip(np.dot(vv[a], vv[b]), -1, 1))), 3))
+        return sorted(out)
+
+    assert _angle_multiset(right) == _angle_multiset(left), \
+        "enantiomorph bond-angle multiset must match"
+
+    # OPPOSITE handedness measure: writhe sign-flip, equal magnitude (the mirror)
+    wr = cl.net_ring_writhe(right)[0]
+    wl = cl.net_ring_writhe(left)[0]
+    assert wr * wl < 0, f"enantiomorph handedness must be opposite-sign; got {wr:.4e}, {wl:.4e}"
+    assert abs(wr + wl) < 1e-2 * abs(wr), \
+        f"enantiomorph |handedness| must match (mirror); sum={wr + wl:.2e}"
