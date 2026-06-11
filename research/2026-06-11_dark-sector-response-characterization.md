@@ -20,8 +20,11 @@
 > file:line grep-verified this session against `AVE-Core @ origin/main f6ffd98d`; the α-slew 2π
 > notational slip is surfaced §1.4, **not** silently reconciled); `consistency-vs-emergence` (each row
 > class-tagged); `substrate-native-check` (CP10 saturation rendered as a Γ boundary, not a bulk force);
-> `flag-don't-fix` (the ε-vs-C exponent tension §2.1 and the c_EM-rises imaging question §3.4 are
-> surfaced for Grant/BH-matrix, not resolved ad hoc); Rule 12.
+> `flag-don't-fix` (the ε-vs-C exponent tension §2.1, the c_EM-rises imaging question §3.3, the **c_bulk
+> floor-value candidate/CONTESTED** §3.1, the **√3/2 spin-2-vs-scalar sector scope** §1.2/§1.3, and the
+> **SYM first-order-null + second-order-residual** echo qualifier §2.3 are surfaced for Grant/auditor,
+> not resolved ad hoc); `phase-space-coordinate-check` (sector/channel discipline on the √3/2 boundary);
+> Rule 12.
 
 ## Class-tag legend (per row / per curve)
 
@@ -43,7 +46,7 @@
 | `V_SNAP` = m_e c²/e | 510.999 kV | :400 |
 | `V_YIELD` = √α·V_snap | 43.6519 kV | :409 |
 | `PHI` | 1.6180339887 | :199 |
-| `RHO_CAV` = −1/φ | −0.6180339887 | `cavitation_flow.py:64` (NOT constants.py — registry R8) |
+| `RHO_CAV` = −1/φ **(floor-value candidate/CONTESTED)** | −0.6180339887 | `cavitation_flow.py:64` (NOT constants.py — registry R8); floor-VALUE flagged CANDIDATE `cavitation_flow.py:62`, registry §3.10 |
 
 Derived (this doc, forward): `omega_node = c0/ell_node`, `nu_node = omega_node/2π`,
 `tau0 = ell_node/c0`, `SR_max = V_yield·omega_node`, `S(A)=√(1−A²)`.
@@ -82,9 +85,9 @@ the vacuum can slew a full 43.65 kV node-swing in ~1.3 zeptoseconds.
 |---|---|
 | Drive sector | bond-LC longitudinal-V (the channel `V_yield` lives in) |
 | Operating temperature | cold-lattice `A=0` (the `SR_max` quoted is the unstrained ceiling) |
-| Small-signal ↔ large-signal boundary | `A = √(2α) ≈ 0.1208` (regime I→II, `four-regimes.md:26,33`) |
-| Large-signal validity | regimes II–III, `√(2α) ≤ A < 1`; Axiom-4 kernel active |
-| Rupture (absolute-max) | `A = 1` (`V = V_yield`), S→0, topology destroyed (`four-regimes.md:56`) |
+| Small-signal ↔ large-signal boundary | `A = √(2α) ≈ 0.1208` (regime I→II, **universal**, `four-regimes.md:26,33`) |
+| Large-signal validity | `√(2α) ≤ A < 1`; Axiom-4 kernel active. **Sector caveat:** the four-regime II/III split at `√3/2` is the **spin-2** map (`four-regimes.md:52`); this slew channel is **scalar** (bond-LC longitudinal-V, ℓ_min=0) and has **no avalanche-onset sub-boundary** (`four-regimes.md:48`) — its only intrinsic large-signal boundary is rupture at `V_yield`. |
+| Rupture (absolute-max) = scalar onset | `A = 1` (`V = V_yield`), S→0, topology destroyed; the **scalar-channel** avalanche onset (`four-regimes.md:48,56`) |
 | Load | per-node bond impedance `Z_0 = 376.73 Ω` (the slew sources into the lattice line) |
 
 ### §1.3 — Onset / compression near the limit — class: derived-this-arc (from canonical kernel)
@@ -99,9 +102,16 @@ $$SR(A) = SR_{max}\cdot S(A), \qquad S(A)=\sqrt{1-A^2},\quad A=V/V_{yield}.$$
 
 The slew **freezes to zero at the rupture wall** `A→1` — the gear seizes. This is the same `S(A)→0`
 freeze that stops the local clock (`op14-cosmic-horizon-profile.md:22`), seen from the rate side.
-Curve in `fig1b_slew_compression.png` / `slew_compression_curve.csv`. The regime boundaries
-(`√(2α)`, `√3/2`, `1`) are the canonical four-regime phase-diagram tags (`four-regimes.md:26-29`,
-Vol-9 ch14).
+Curve in `fig1b_slew_compression.png` / `slew_compression_curve.csv`.
+
+> **🚩 sector-scope (phase-space-coordinate-check / registry Rule 3):** of the canonical four-regime
+> boundaries, only `√(2α)` (regime I→II, **universal** small-signal limit, `four-regimes.md:33`) and
+> `A=1` (rupture, the **scalar-channel** onset = `V_yield`, `four-regimes.md:48,56`) apply to this
+> **scalar** (bond-LC longitudinal-V) slew curve. The **`√3/2` boundary is spin-2/shear-sector-specific**
+> (`four-regimes.md:41,50`; the scalar sector ℓ_min=0 has **no** avalanche-onset boundary,
+> `four-regimes.md:48`). It is drawn on `fig1b` as a **spin-2 reference line only**, explicitly **not** a
+> boundary of the scalar slew curve. Mislabelling it "avalanche onset" on a scalar channel is the W5-adjacent
+> sector overload; relabeled, not silently dropped.
 
 > **Live-fire provenance (`ave-live-fire-derivation-provenance`):** `SR_max` is **forward** from
 > `{V_yield, ℓ_node, c0}` — no target in the loop (there is no observed "lattice slew rate" to fit to).
@@ -241,14 +251,22 @@ $$R(\Omega)=\int \tfrac12\frac{d\ln Z}{dx}\,e^{2i\int k\,dx'}\,dx,\qquad \Omega=
 
 | Class | graded-region max `|R|` | max bounded `R_pow=|R|²` | Echo? |
 |---|---|---|---|
-| **SYM** | **2.9×10⁻¹⁵** (machine zero) | ~0 | **NO** — `d ln Z/dx ≡ 0` |
+| **SYM** | **2.9×10⁻¹⁵** (first-order Born floor: `d ln Z/dx ≡ 0` → floating-point zero) | ~0 | **NO to first order** (2nd-order residual below) |
 | **μ-only** | 0.559 | 0.313 | **YES** |
 | **ε-only** | 0.559 | 0.313 | **YES** |
 
 Three results, all clean:
-1. **SYM → zero echo**, to machine precision — the canonical `discrete-lattice-entropy-constant.md:59`
+1. **SYM → zero echo to FIRST order** — the canonical `discrete-lattice-entropy-constant.md:59`
    result ("reflection set by the rate of change of Z; symmetric saturation → `dZ/dr=0` → no reflection
-   to first order"). **Echoes are a falsifiable signature of the *asymmetric* realization classes only.**
+   *to first order*"). The script's `2.9×10⁻¹⁵` is the **first-order Born floating-point floor**
+   (`d ln Z/dx` is identically 0 for SYM), **not** a converged true reflectivity.
+   **🚩 second-order residual (carried, not dropped):** `discrete-lattice-entropy-constant.md:61` states a
+   **non-zero second-order discrete reflection survives** when `n(r)` is non-linear across the bond
+   (`d²n/dr² ≠ 0`), of order `|Γ|² ∼ (ℓ_node/r_sat)²` (`:65`). So SYM echo is **suppressed, not strictly
+   absent** — the right claim is *first-order null + a small granularity-scale second-order residual*, not
+   "0%". **Echoes remain a falsifiable signature of the *asymmetric* classes (`R_pow~0.31`, orders of
+   magnitude above the SYM second-order residual); the discriminator is the echo *amplitude class*, not a
+   strict present/absent.**
 2. **μ-only and ε-only give the same `|R|` magnitude** — the impedance *step* has opposite sign
    (`Z→0` vs `Z→∞`) but the *log-gradient magnitude* `|½ d ln S/dx|` is identical, so the partial
    reflectivity is the same. The classes differ in sign, not echo strength.
@@ -270,15 +288,26 @@ reflector takes over (`R=1`, Op17-bounded) — rendered as a **boundary conditio
 A datasheet derates a part vs operating point. The substrate derates **three speeds** — and the
 **three-speed split IS the figure** (the load-bearing content is that they go three different ways).
 
-### §3.1 — The three sector speeds — class: canonical (rendered)
+### §3.1 — The three sector speeds — class: canonical forms (rendered); c_bulk **floor-value candidate/CONTESTED**
 
 | Channel | Speed | Behavior at A²→1 | Canonical anchor |
 |---|---|---|---|
 | **EM-transverse** | `c_EM = c0(1−A²)^{−1/2}` | **RISES → ∞** (Maxwell phase / α-speed) | `substrate-temporal-values:28`; registry §3.1 |
 | **shear (matter clock)** | `c_shear = c0(1−A²)^{+1/4}` | **FREEZES → 0** (group / rest-mass speed) | `substrate-temporal-values:29`; `operators.md:56` |
-| **bulk (compressional)** | `c_bulk = c0√(1+ρ̄/(1−ρ̄²))` | **FREEZES at ρ̄_cav=−1/φ**; stiffens at ρ̄→+1 | `substrate-temporal-values:30`; `cavitation_flow.py:64` |
+| **bulk (compressional)** | `c_bulk = c0√(1+ρ̄/(1−ρ̄²))` | **FREEZES at ρ̄_cav** (floor-VALUE **candidate/CONTESTED**); stiffens at ρ̄→+1 | form: `substrate-temporal-values:30`; floor: `cavitation_flow.py:64` (value), `:62` ("floor is CANDIDATE") |
 
-Verified: `c_bulk(ρ̄_cav) = 0.0000` exactly at `ρ̄_cav = −1/φ = −0.618034` (the cavitation freeze floor).
+`c_bulk(ρ̄_cav) = 0` at `ρ̄_cav = −1/φ = −0.618034` is the **defining root** of `c_bulk²=0` — an
+**algebraic identity** (ρ̄_cav is *by construction* the root), **not an independent check**.
+
+> **🚩 flag-don't-fix (c_bulk floor is CONTESTED, carried not resolved):** the c_bulk **form** is canonical
+> (`substrate-temporal-values:30`), but the floor **VALUE** `ρ̄_cav=−1/φ` is **CANDIDATE/CONTESTED**, not
+> canonical: `cavitation_flow.py:62` comment reads "floor is CANDIDATE" and `v5 prereg:74` says "cite as
+> candidate, never canonical", vs a "Q2 resolved" reading at `substrate-temporal-values:61`. The
+> field-symbol-registry this doc sits under flags exactly this (registry row `ρ̄_cav`, line 139 + §3.10:
+> "floor-VALUE epistemic status CONTESTED … surfaced not resolved"). I render the freeze curve but tag the
+> floor value **candidate**; I do **not** promote it to canonical. Routed to the auditor with the registry
+> flag, not collapsed here.
+
 Curves: `three_speed_split.csv` (c_EM, c_shear vs A²), `bulk_speed_vs_rho.csv` (c_bulk vs ρ̄). The bulk
 speed is plotted on its **own** axis (ρ̄, density) because it rides a distinct strain variable from the
 shear/EM amplitude A — whether `A` and `ρ̄` share a strain budget is the `temporal-values §5` residual
@@ -325,7 +354,7 @@ hole in AVE is a **melted / saturated lattice region** bounded by a Γ=−1 surf
 
 | Modifier (this doc) | BH-matrix row it feeds | What it changes | Realization-class / regime gate |
 |---|---|---|---|
-| **§2.3 reflectivity curve** `|R(Ω)|` | **echoes** | sets echo amplitude + spectrum: GW-echo power = the graded-region partial reflectivity off the near-wall impedance gradient; **low-Ω-weighted** | **gated on class**: SYM → **no echo** (R=0, machine-zero); μ-only / ε-only → echo (R_pow~0.31). The echo's *existence* discriminates the realization class. |
+| **§2.3 reflectivity curve** `|R(Ω)|` | **echoes** | sets echo amplitude + spectrum: GW-echo power = the graded-region partial reflectivity off the near-wall impedance gradient; **low-Ω-weighted** | **gated on class**: SYM → **first-order null** echo (`d ln Z/dx≡0`), with a small **second-order** granularity residual for non-linear `n(r)` (`|Γ|²∼(ℓ_node/r_sat)²`, `discrete-lattice-entropy-constant.md:61`); μ-only / ε-only → strong echo (`R_pow~0.31`). The discriminator is the echo **amplitude class** (asymmetric `R_pow~0.31` ≫ SYM second-order residual), **not** a strict present/absent. |
 | **§1 slew spec** `SR_max`, `ν_node` | **ringdown overtones** | sets the substrate's frequency ceiling for overtone support: `ν_node=1.24e20 Hz` ≥16 OOM above any QNM overtone → the lattice supports **arbitrarily high overtone n without slew-limiting**; overtone cutoff is set by the wall geometry, **not** the substrate rate | **CLEAN-NULL gate**: no observed overtone row can be a slew-rate artifact (§1.5). Any overtone damping is geometric/impedance, not rate. |
 | **§3.2 transfer functions** `H_shear, H_EM, H_bulk` | **every frequency row** (ringdown freq, QPO freq, line shifts) | each frequency row carries the **channel-specific** redshift of its source region: GW/line rows ride `H_shear=(1−A²)^{1/4}`; EM-phase rows ride `H_EM=(1−A²)^{−1/2}` | per-channel column: a frequency row must declare its channel (registry Rule 3) before the transfer function applies. |
 | **§3.1 three-speed split** + **§3.3 c_EM flag** | **shadow / lensing** | shadow size + photon-ring + lensing geometry depend on which speed light tracks near the wall; the **shear** clock gives GR-like shadow, but `c_EM` **rises** `(1−A²)^{−1/2}` → 🚩 **unresolved**: does imaging follow the matter clock or carry an EM-phase-speed correction? | **OPEN discriminator** routed here from §3.3 — the BH matrix must adjudicate; channels diverge by `(1−A²)^{3/4}`. |
@@ -368,11 +397,15 @@ classification past its canonical-source ceiling. The Schwarzschild-redshift rec
 **Class C consistency** (GR number via the matter-clock mechanism), explicitly tagged, not headlined as
 emergence.
 
-**Lane note.** Implementer-lane output: surfaces the curves + the three flagged tensions (the
-ε-vs-C exponent §2.1, the ¼-vs-½ profile exponent §2.2, the c_EM-imaging discriminator §3.3) and the
-α-slew 2π notational slip (§1.4). The **auditor** lands the Vol-9 ch5/ch7/ch14 sections + the registry
-cross-links and adjudicates the three tensions; **Grant** owns the c_EM-imaging discriminator (§3.3 / §4
-shadow-lensing row) and the α-slew coherence flag. Nothing here is canon.
+**Lane note.** Implementer-lane output: surfaces the curves + the flagged tensions — the
+ε-vs-C exponent §2.1, the ¼-vs-½ profile exponent §2.2, the c_EM-imaging discriminator §3.3, the
+**c_bulk floor-value candidate/CONTESTED** §3.1, the **√3/2 spin-2-vs-scalar sector scope** §1.2/§1.3,
+and the **SYM first-order-null + second-order-residual** echo qualifier §2.3 — plus the α-slew 2π
+notational slip (§1.4). The **auditor** lands the Vol-9 ch5/ch7/ch14 sections + the registry
+cross-links and adjudicates the tensions; **Grant** owns the c_EM-imaging discriminator (§3.3 / §4
+shadow-lensing row) and the α-slew coherence flag. Nothing here is canon. *(Three Class-A audit findings
+applied this revision: c_bulk floor → candidate; √3/2 → spin-2-sector reference only; SYM echo →
+first-order-null + second-order residual.)*
 
 ---
 
@@ -383,8 +416,8 @@ shadow-lensing row) and the α-slew coherence flag. Nothing here is canon.
 | constants | imported from `ave.core.constants`, cross-checked ≥6 sig figs | PASS (all 3 scripts) |
 | `SR_max` | forward, no target in loop; dead-input on band edges (±3 OOM invariant) | derived (not fit) |
 | α-slew value | `9.02e17 Hz = α·ν_node`; `(α/2π)·ν_Compton = 1.435e17` | **FLAG surfaced** §1.4 |
-| SYM echo | reflectivity machine-zero (asserted in script) | PASS (2.9e-15) |
-| c_bulk floor | `c_bulk(ρ̄_cav)=0` at `−1/φ` | PASS (exact) |
+| SYM echo | **first-order** Born floor `d ln Z/dx≡0` (2nd-order residual carried §2.3) | first-order null (2.9e-15); 2nd-order ∼(ℓ_node/r_sat)² survives |
+| c_bulk floor | `c_bulk(ρ̄_cav)=0` is the **defining root** (algebraic identity, not a check); floor-VALUE **candidate/CONTESTED** | identity holds; floor value flagged §3.1 |
 | Schwarzschild track | `c_shear(r)/c0 ≡ √(1−r_s/r)` | PASS (max|diff|=0) |
 | `make verify` | worktree + main checkout, per commit | GREEN ×4 |
 

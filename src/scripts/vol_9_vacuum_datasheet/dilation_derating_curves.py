@@ -72,7 +72,11 @@ for a2 in (0.0, 0.117, 0.5, 0.9, 0.99):
     print(f"  A^2={a2:5.3f} | c_EM={(1-a2)**-0.5:7.3f}  c_shear={(1-a2)**0.25:6.4f}")
 print(f"  c_bulk(rho=0)      = {np.sqrt(1+0/(1-0)):.4f}")
 print(f"  c_bulk(rho=+0.5)   = {np.sqrt(1+0.5/(1-0.25)):.4f}  (stiffens)")
-print(f"  c_bulk(rho_cav)    = {np.sqrt(max(0,1+RHO_CAV/(1-RHO_CAV**2))):.4f}  (FREEZES at floor)")
+# rho_cav=-1/phi is the DEFINING ROOT of c_bulk^2=0 (algebraic identity, not an
+# independent check); the floor-VALUE epistemic status is CONTESTED/CANDIDATE
+# (cavitation_flow.py:62; field-symbol-registry.md:139, sec 3.10).
+print(f"  c_bulk(rho_cav)    = {np.sqrt(max(0,1+RHO_CAV/(1-RHO_CAV**2))):.4f}  "
+      f"(=0 by construction at the CANDIDATE floor rho_cav=-1/phi)")
 
 csv1 = os.path.join(FIGDIR, "three_speed_split.csv")
 with open(csv1, "w", newline="") as fh:

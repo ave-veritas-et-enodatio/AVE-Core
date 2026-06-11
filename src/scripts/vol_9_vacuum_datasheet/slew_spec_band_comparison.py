@@ -194,11 +194,17 @@ fig2, ax2 = plt.subplots(figsize=(8, 5))
 ax2.plot(A, SR_curve / SR_max, color="#c44e52", lw=2.2,
          label=r"$SR(A)/SR_{max}=S(A)=\sqrt{1-A^2}$")
 ax2.axvline(A_onset, color="#4c72b0", ls="--",
-            label=fr"small/large-signal boundary $A=\sqrt{{2\alpha}}={A_onset:.3f}$")
+            label=fr"small/large-signal boundary $A=\sqrt{{2\alpha}}={A_onset:.3f}$ (universal)")
+# NB: sqrt(3)/2 is the SPIN-2 / shear-sector avalanche-onset boundary
+# (four-regimes.md:41,50). The slew DRIVE here is bond-LC longitudinal-V =
+# SCALAR sector (ell_min=0), which has NO avalanche-onset boundary
+# (four-regimes.md:48); the scalar-channel onset is V_yield (A=1). Drawn as a
+# reference for the spin-2 sector only, NOT a boundary of THIS scalar curve.
 ax2.axvline(np.sqrt(3) / 2, color="#dd8452", ls=":",
-            label=r"avalanche onset $A=\sqrt{3}/2$")
+            label="$A=\\sqrt{3}/2$ — spin-2/shear avalanche onset\n"
+                  "(reference only; NOT a scalar-channel boundary)")
 ax2.axvline(1.0, color="black", ls="-", alpha=0.6,
-            label=r"rupture wall $A=1$ (slew freezes)")
+            label=r"rupture = scalar onset $A=1$ ($V=V_{yield}$; slew freezes)")
 ax2.set_xlabel(r"operating-point strain $A = V/V_{yield}$ (= $r$)")
 ax2.set_ylabel(r"normalized slew $SR(A)/SR_{max}$")
 ax2.set_title("§1 onset/compression — slew freezes at the wall (canonical varactor kernel)")
