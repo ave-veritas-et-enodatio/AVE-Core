@@ -1,11 +1,20 @@
-# R2 — Constitutive Loop Pre-Registration (DRAFT)
+# R2 — Constitutive Loop Pre-Registration (FROZEN 2026-06-11)
 
-**Status:** `DRAFT-FOR-GRANT-REVIEW` (2026-06-12). **NOT FROZEN.**  
+> **STATUS: FROZEN.** Ratified by Grant session 2026-06-11 ("Decision 5 IC on; ratify R2 freeze").
+> Supersedes `research/2026-06-12_constitutive-loop-r2-prereg_DRAFT.md`.
+>
+> **Gates satisfied at freeze:**
+> 1. LOOP GAP adopted as **working diagnosis** for bench (fundamentality plan §0b).
+> 2. **R2-R** threshold ratified: `B_r/B_sat ≥ 0.05` at quasi-static ramp.
+> 3. v10 **Decision 5** adjudicated: canonical Ω_freeze IC ON + Ω-free ablation control.
+>
+> **NOT at freeze:** ferrite DUT part number, sense geometry, cRIO bench schedule — filled at execution.
+
 **Tier:** R2 / fundamentality plan §0b — prereg + cRIO ferrite B-H bench **before** any v10 sim.  
-**Lane:** implementer. First deliverable is **framing + bench protocol**, not a genesis integrator.  
+**Lane:** implementer. First deliverable is **bench protocol + run**, not a genesis integrator.  
 **Governing diagnosis:** LOOP GAP (`research/2026-06-11_vocab-operator-unification-audit.md` §4c2).
 
-**Skills fired at draft time:** `ave-prereg`, `pre-test-physics-check`, `substrate-native-check`,
+**Skills fired at freeze:** `ave-prereg`, `pre-test-physics-check`, `substrate-native-check`,
 `consistency-vs-emergence`, `ave-discrimination-check`, `ave-evidence-framing-discipline`,
 `ave-apparatus-floor-attribution`, `verify-before-cite`.
 
@@ -229,12 +238,15 @@ If a **real ferrite** shows **`B_r ≠ 0`** but the canon kernel cannot express 
 
 ---
 
-## 10. Freeze gates (Grant)
+## 10. Freeze gates (Grant) — ✅ RATIFIED 2026-06-11
 
-1. Adjudicate: is LOOP GAP **THE** missing piece? (fundamentality plan §0b)
-2. Pick ferrite DUT + sense geometry
-3. Schedule cRIO bench time (pairs with C_eff prereg if desired)
-4. Ratify R2-R threshold `B_r/B_sat ≥ 5%` or revise
+| Gate | Status |
+|---|---|
+| LOOP GAP as working diagnosis | ✅ Grant — proceed to bench |
+| R2-R `B_r/B_sat ≥ 5%` | ✅ Ratified |
+| v10 Decision 5 (Ω_freeze IC) | ✅ **(a) canonical IC ON** + Ω-free ablation |
+| Ferrite DUT + sense geometry | **At execution** |
+| cRIO bench schedule | **At execution** (may pair with C_eff prereg) |
 
 ---
 
@@ -246,7 +258,7 @@ If a **real ferrite** shows **`B_r ≠ 0`** but the canon kernel cannot express 
 - α boundary-energy (R1 sibling): `research/2026-06-11_alpha-boundary-energy_prereg.md`
 - Dark-sector $H_*$: `research/2026-06-11_dark-sector-response-characterization.md` §3.2
 - LOOP GAP: `research/2026-06-11_vocab-operator-unification-audit.md` §4c2
-- v10 charter: `research/2026-06-11_chiral-vacuum-reactor-framing.md` §5.2 Decisions 2+4
+- v10 charter: `research/2026-06-11_chiral-vacuum-reactor-framing.md` §5.2 — Decision 5 ✅; 2+4 open
 - cRIO ladder: `research/2026-06-10_crio-ceff-saturation-onset_prereg-draft.md`
 - D1 ruling: `research/2026-06-12_lattice-d1-adjudication-memo.md` (v10 uses diamond + srs instrument)
 - Fundamentality R2: `research/2026-06-11_next-step-fundamentality-plan.md` §0b

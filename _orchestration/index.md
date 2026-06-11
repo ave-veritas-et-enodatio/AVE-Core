@@ -35,7 +35,7 @@ Electron = **Class A/B consistency structure** (`research/2026-06-08_ave-electro
 | Rank | Item | Gate |
 |---|---|---|
 | R1 ✅ | Impedance repair + α forward check (#198) | Ratify three-impedance law |
-| **R2** | Constitutive-loop prereg + cRIO ferrite B-H bench | Grant: is loop THE missing piece? |
+| **R2** ✅ | Constitutive-loop prereg + cRIO ferrite B-H bench | **FROZEN 2026-06-11** — bench execution next |
 | **R3** | srs-vs-diamond adjudication | Blocks R8 |
 | R4 | Layer-8 mₑ-free smallest-stable-soliton | — |
 | R5 | Boost-covariant transport (master-unblocker) | Expensive |

@@ -303,7 +303,7 @@ cost breaks remaining ties (cheaper-first when equally fundamental).
 | Rank | Candidate | Why here |
 |---|---|---|
 | **R1** | **0 — impedance-scoping repair + α forward-check prereg** | Cheap, no integrator, unblocks the consistent language every downstream sim writes in (the `Z_EM/Z_shear/Z_bulk` subscripts, the `Q_react=m_ec²·α` anchor). Grant's "more important than any next simulation" names this directly. The α forward test is the one cheap discriminator that could move α from consistency- toward emergence-class. |
-| **R2** | **0b — the CONSTITUTIVE LOOP prereg + cRIO ferrite bench** | The **deepest open-physics question** the genesis record points at (no-remanence ⇒ stores-but-can't-retain ⇒ the nine-architecture "no architecture kept mass without a lock" in one canon-anchored diagnosis). First deliverable is a prereg + bench, NOT a sim — so it belongs in Tier I on both fundamentality and cost. Slightly below R1 only because R1 is even cheaper and unblocks more downstream sims' vocabulary. |
+| **R2** ✅ | **0b — the CONSTITUTIVE LOOP prereg + cRIO ferrite bench** | **Prereg FROZEN 2026-06-11** (`research/2026-06-12_constitutive-loop-r2-prereg_FROZEN.md`); bench execution next. LOOP GAP = working diagnosis; `B_r/B_sat ≥ 5%` ratified. |
 | **R3** ✅ | **1 — srs-vs-diamond ADJUDICATION** | **COMPLETE 2026-06-12** — D1-FINAL B-primary / A-partial (`research/2026-06-12_lattice-d1-adjudication-memo.md`). Diamond stays engine; srs = instrument. α/Lorentz srs re-derivation **not queued**. |
 
 ### Tier II — SIM (the post-audit world; fundamentality-first, then cheap-unblockers)
