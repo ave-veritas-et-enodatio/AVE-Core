@@ -303,12 +303,6 @@ resolved.
 
 ---
 
-## §3 — The combination analysis (parallel-pressure-test premise-coupling check)
-
-<!-- SKELETON: matrix lands in a following commit -->
-
----
-
 ## §4 — The recommendation (ranked sequence + reasoning)
 
 **Principle: fundamentality-first, then cheap-unblockers — stacked under §0** (pre-sim layer above the
