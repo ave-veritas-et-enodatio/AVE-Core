@@ -482,8 +482,7 @@ discriminators.** Concretely:
 
 ### §5.2 The blocking Grant decisions (verbatim, with options)
 
-[charter — Grant adjudicates before any v10 run. Decisions 1+3+5 closed;
-Decisions 2+4 remain open.]
+[charter — Grant adjudicates before any v10 run. **Decisions 1–5 closed** 2026-06-11.]
 
 **Decision 1 — lattice identity.** **✅ ADJUDICATED 2026-06-12**
 (`research/2026-06-12_lattice-d1-adjudication-memo.md`).
@@ -493,34 +492,36 @@ Decisions 2+4 remain open.]
   miss blocks migration). Production engine substrate **stays z=4 diamond**; α/Lorentz
   srs re-derivation **not queued**.
 
-**Decision 2 — loop scope.** What loop-candidate kernel does v10 carry?
-- *Options:* **(a) σ-only** (Op14 saturation, no rate-gated snap) · **(b) σ +
-  rate-gated snap** (add the irreversible snap channel) · **(c) defer** (Phase-1
-  vector-TLM consistency first, loop in Phase-2). Trade: (b) is the only one that
-  can show genesis-with-irreversibility, but it reopens the loss/ledger seam (§4.4)
-  and needs the reactance-pair accounting armed to tell exchange from dissipation.
+**Decision 2 — loop scope.** **✅ ADJUDICATED 2026-06-11** (Grant).
+- **Ruling:** **(a) σ-only** — Op14 saturation (`S(A)=√(1−A²)`), **no rate-gated snap**
+  in the v10 constitutive kernel. R2 ferrite bench remains the diagnostic for whether
+  remanence is needed later; v10 does **not** ship snap until a future build.
+- *Trade accepted:* without snap, zero-drive persistence relies on Ω_freeze IC (Decision 5)
+  + reactive trapping under drive — not ferrite-class remanence. Honest closure if
+  CVR-SET fails: loop kernel may need revisiting (Decision 2 reopen).
 
 **Decision 3 — Phase-1 freeze items + helicity amendments.** **✅ FROZEN + EXECUTED**
 (Phase-1 prereg FROZEN 2026-06-11; P1–P4 **ALL PASS** on main). Phase-2 prereg
 FROZEN + production battery landed (P5 FAIL, P6 inconclusive — no CVR-SET promotion).
 
-**Decision 4 — `chi_shock` (the dissipation / saturation-ride knob), anchor `:359`.**
-Does v10 carry the dark-sector dissipation treatment, and at what setting?
-- *Referents (both flagged — not silently merged):* `chi_shock` = the
-  sonic-horizon dissipation fraction knob (`sonic_horizon_flow.py:52`, default
-  `1.0`, apparatus-swept) — the one-way KE-removal model; and **`:359`** =
-  `research/2026-06-11_dark-sector-response-characterization.md:359`, the
-  `H_shear / H_EM / H_bulk` per-channel saturation transfer-function row. Decision:
-  whether v10's σ-equipped medium uses the saturation-ride transfer functions
-  and/or any nonzero `chi_shock`, or runs `chi_shock = 0` (elastic, fully
-  reversible — the cleanest control for the §4.4 loss seam).
-- *Options:* (a) `chi_shock = 0`, transfer-functions ON (reversible exchange,
-  loss seam clean) · (b) `chi_shock > 0` swept (irreversibility opt-in, tests the
-  seam) · (c) defer the dark-sector coupling entirely to a later build.
-
-> The `:359` ↔ `chi_shock` pairing is reproduced as Grant labeled it; the two
-> referents are distinct objects (a transfer-function row vs a dissipation knob)
-> and are flagged as such rather than collapsed.
+**Decision 4 — `chi_shock` (dissipation) + `H_*` (saturation ride), anchor `:359`.**
+**✅ ADJUDICATED 2026-06-11** (Grant).
+- **Ruling:** **Per-channel `chi_shock` ON, channel-equal** — one medium parameter
+  $\chi$ sets $\chi_{\mathrm{EM}}=\chi_{\mathrm{shear}}=\chi_{\mathrm{bulk}}=\chi$
+  (fraction of crossing KE one-way dissipated in each channel). **Rationale:** if
+  dissipation is **intrinsic to the saturated medium** (not apparatus channel bias),
+  the shock fraction should not favor one impedance leg. Default v10 sweep follows
+  sonic-horizon prereg (`chi_shock` $\in\{0, 0.25, 0.5, 1.0\}$ applied equally to
+  all three). **Plus:** `H_{\mathrm{EM}}`, `H_{\mathrm{shear}}`, `H_{\mathrm{bulk}}`
+  transfer functions **ON** (`dark-sector-response-characterization` §3.2) — these
+  carry the channel-specific saturation **shape** from $S(A)$; they are **not**
+  collapsed into $\chi$.
+- *Engine note:* canon today exposes scalar `chi_shock` (`sonic_horizon_flow.py`);
+  v10 integrator extends to tri-channel with **equality constraint** unless an
+  apparatus ablation explicitly breaks symmetry.
+- *Ledger:* reactance-pair accounting (`V_inc/ω`, `Φ_link/ω̇`) **required** to
+  separate one-way dissipation from reactive exchange (§4.4) — especially under
+  σ-only (Decision 2) where snap is absent.
 
 **Decision 5 — Ω_freeze initial-condition arm.** **✅ ADJUDICATED 2026-06-11** (Grant).
 - **Ruling:** **(a) canonical Ω_freeze IC ON** — load $u_0^*$, $\hat{\Omega}_{\mathrm{freeze}}$,
@@ -542,7 +543,7 @@ Does v10 carry the dark-sector dissipation treatment, and at what setting?
 3. **Remaining before v10 build** (three-wave + memory stack — parallel where noted):
    - **R2 constitutive-loop prereg** — **✅ FROZEN 2026-06-11**; cRIO ferrite B–H bench
      execution next (`research/2026-06-12_constitutive-loop-r2-prereg_FROZEN.md`).
-     Explicit **non-goals:** per-channel `H_*` sim (Decision 4).
+     Informs whether Decision 2 (σ-only) needs reopening; does not block v10 start.
    - **`E_boundary = α·mc²` forward check** (R1 sibling) — `Z_bulk` longitudinal
      wall; α as transformer secondary (`research/2026-06-11_alpha-boundary-energy_prereg.md`).
      [consistency-class]
@@ -550,10 +551,10 @@ Does v10 carry the dark-sector dissipation treatment, and at what setting?
      v10 prereg before v10 freeze.
    - **Layer-8** — the named paper-cheap prereg item from the session (the
      eighth-layer check). [session-record — exact content still open]
-4. **Open calls** (§5.2) — **Decision 2** (loop scope), **Decision 4**
-   (`chi_shock` vs `H_shear/H_EM/H_bulk`). Decision 1 ✅ · Decision 3 ✅ · Decision 5 ✅.
-5. **v10** — build and run only after R2 **bench** lands, α forward check scheduled,
-   v10 prereg documents Ω_freeze IC + ablation, and Decisions 2+4 adjudicated.
+4. ~~**Open calls**~~ — Decisions 1–5 ✅ (2026-06-11).
+5. **v10** — v10 prereg freeze next: documents σ-only kernel, equal tri-channel
+   $\chi$, `H_*` ON, Ω_freeze IC + ablation. R2 bench + R1 α-check parallel, not
+   hard gates on prereg freeze.
 
 > **CVR-SET is the pre-committed PASS-bin name** for the v10 outcome (§1.3),
 > frozen *before* any run, with the DISPERSES / TRANSIENT / SET-ACHIRAL failure
@@ -567,7 +568,7 @@ Does v10 carry the dark-sector dissipation treatment, and at what setting?
 Implementer-lane output. This document **records** Grant-ratified naming and
 framing decisions and **stages** the v10 charter + blocking calls (Decisions
 1–5); it adjudicates none of the open ones. The auditor lands any `common/`-leaf
-or registry entries; Grant makes Decisions 2+4 and freezes v10 prereg. R2 **FROZEN**.
+or registry entries; Grant adjudicated Decisions 1–5; v10 prereg freeze is next. R2 **FROZEN**.
 Cross-refs: D1 memo (`research/2026-06-12_lattice-d1-adjudication-memo.md`),
 R2 FROZEN (`research/2026-06-12_constitutive-loop-r2-prereg_FROZEN.md`),
 Ω_freeze cascade (`manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md`).

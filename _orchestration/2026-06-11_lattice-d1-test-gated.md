@@ -86,12 +86,12 @@ Writhe-on-srs (Phase-0) is **necessary-condition** evidence only. The symmetric 
 ### Phase 5 — v10 spine (UNBLOCKED — charter updated 2026-06-12)
 
 - **Charter:** `research/2026-06-11_chiral-vacuum-reactor-framing.md` §5 — Decisions 1+3 ✅
-- **Blocked on:** R2 **bench execution** + Decisions **2+4** (loop scope, `chi_shock`/`H_*`);
-  R1 α forward check scheduled in parallel
-- **Closed:** Decision 5 ✅ canonical Ω_freeze IC ON + Ω-free ablation; R2 prereg **FROZEN**
-  2026-06-11 (`research/2026-06-12_constitutive-loop-r2-prereg_FROZEN.md`)
-- **Platform:** diamond engine + srs **instrument** controls; σ-equipped medium + loop kernel
-  + **three-channel readout** + explicit Ω_freeze initial data (not ferrite remanence)
+- **Blocked on:** v10 prereg freeze + implementor build (all Decisions 1–5 ✅ 2026-06-11)
+- **v10 kernel spec:** **σ-only** (no snap); **χ_EM=χ_shear=χ_bulk** per-channel shock;
+  `H_*` transfer functions ON; Ω_freeze IC + ablation
+- **Parallel:** R2 bench execution, R1 α forward check (not hard gates on v10 prereg)
+- **R2:** FROZEN (`research/2026-06-12_constitutive-loop-r2-prereg_FROZEN.md`)
+- **Platform:** diamond engine + srs instrument; three-channel readout + Ω_freeze IC
 
 ---
 
