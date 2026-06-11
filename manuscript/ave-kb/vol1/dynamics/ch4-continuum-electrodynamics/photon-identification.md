@@ -10,6 +10,29 @@ path-stable: "referenced from vol1 ch3-quantum-signal-dynamics + vol2 ch01 + vol
 
 The AVE-native canonical identification of the photon: under the K4 tetrahedral group $T_d$, the 4-port amplitude space decomposes as $A_1 \oplus T_2$. The $A_1$ scalar/longitudinal sector dissipates monotonically (Gauss's law: $\nabla \cdot \mathbf{E} = 0$ in vacuum forbids longitudinal EM); the $T_2$ transverse triplet survives as the photon. **The photon is the K4-TLM's stable T₂-only bound state** — a knotted transverse Cosserat shear wave with $u = 0$ and $\omega \neq 0$. The electron is **this object plus Axiom 4 saturation confinement**: when the photon's amplitude crosses $V_{\text{yield}} = \sqrt{\alpha} \cdot V_{\text{snap}}$, the lattice self-creates a $\Gamma = -1$ TIR cavity that traps the photon into a standing wave. **The electron is a self-trapped photon.**
 
+> **🔴 PROVENANCE-vs-STATE annotation (2026-06-10, Rule 12 — paragraph above PRESERVED unedited; Grant rename-queue adjudication R1, the load-bearing ruling).**
+>
+> "**The electron is a self-trapped photon**" is **PROVENANCE** — what the electron is *made from* — **not STATE**. The state is the **CONDENSED PHASE of transverse wave content**: a **first-order-class phase change** (condensation / deposition class; **NOT** a Bose–Einstein condensate). In this ontology:
+> - the **A1 standing-V is the order parameter** of the freeze — nonzero only in the broken (saturated) phase (ratified framing, `research/2026-06-10_matter-as-vapor-locked-pump_framing.md` §11.1 L3 + §11.2, PR#151);
+> - the **(2,3) winding rides the condensed state** — the electron is the unknot **dilatation-mass carrying** the (2,3) winding: **two distinct, orthogonal objects** (A1 mass ⊥ T2 winding), not one (cross-link `master-equation.md:20`);
+> - the **nucleation barrier is MEASURED** — free-space genesis heals; seeded can vent (the v5 / sonic-horizon results);
+> - the **latent-heat NUMBER (= $m_e c^2$) remains HYPOTHESIS-class** — the "how much" is not derived;
+> - the **hysteresis / snap channel remains UNRESOLVED** — the irreversible LOCK is supplied by neither the EOS nor the sonic-horizon shock; it needs a separate rim-venting / hardened-$\Gamma{=}{-}1$-wall mechanism (Rule 12, not a refill of this slot).
+
+**R1 evidence table (per-signature class tags; `ave-evidence-framing-discipline` — accuracy/specificity over rhetoric):**
+
+| Signature | Reading | Class tag | Anchor (verified 2026-06-10) |
+|---|---|---|---|
+| "electron = self-trapped photon" | PROVENANCE (made-from), not STATE | ratified-framing | `photon-identification.md:11` (this leaf) |
+| electron STATE = condensed phase of transverse wave content; 1st-order-class (condensation/deposition; **NOT** BEC) | the ontology recorded here | ratified-framing | this note (Grant 2026-06-10) |
+| A1 standing-V = order parameter of the freeze | nonzero only in the broken phase | ratified-framing | framing §11.1 L3 + §11.2 (PR#151) |
+| (2,3) winding rides the condensed state — two orthogonal objects (A1 mass ⊥ T2 winding) | provenance carries a 2nd object | ratified-framing / engine-grounded | `master-equation.md:20`; crystal-graft-v2 result §0 |
+| nucleation barrier | free-space genesis heals (`V≡0`); seeded vents (rim over-pressure handoff) | **measured** | `2026-06-10_sonic-horizon-closure_result.md:49,92`; genesis-23 `V≡0` (PR#152) |
+| latent-heat number (= $m_e c^2$) | the "how much" of the freeze | **hypothesis-class** | framing §11.2 / §6 NS–YM / §7 N6 |
+| hysteresis / snap (the irreversible LOCK) | NOT in the EOS nor the sonic-horizon shock; needs rim-venting / hardened $\Gamma{=}{-}1$ wall | **unresolved** | `2026-06-10_sonic-horizon-closure_result.md:202` (Rule 11) |
+
+_R1 cross-links (one dated line each): `master-equation.md:20` (the two-"3"s box), `cosserat-mass-gap.md:108` (the massless-scalar / mass-gap split). Registry §5 R1._
+
 Here "substrate" refers to the Chiral LC Network of Axiom 1, corresponding to a chiral Laves K4 Cosserat crystal at the substrate level.
 
 > → Primary: [K4 4-Port Irrep Decomposition](../../operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md) — the canonical group-theoretic $A_1 \oplus T_2$ decomposition of the K4 4-port space, the $S = (1/2)\mathbf{1} - I$ eigenvalue derivation, and the Op3 asymmetric-dissipation mechanism. §1 below summarizes that decomposition for context; the irrep group theory is owned and derived there.

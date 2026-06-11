@@ -145,3 +145,11 @@ real-flux extractor + first-pass smoke numbers with explicit convergence caveats
 If the longitudinal-shear mode is provably evanescent at all sub-yield operating
 points (no real far-field momentum), the dark-wake-as-radiation premise — and the
 ion-antenna thruster built on it — fails (Outcome C).
+
+---
+
+## §8 AMENDMENT — 2026-06-10 (channel-subscript clarification, Rule 12)
+
+Appended post-freeze per the Grant rename-queue adjudication 2026-06-10, ruling **R5** (registry §5 R5, `research/2026-06-10_field-symbol-registry.md:306`). This prereg is **FROZEN** (`**Status**: FROZEN prereg (pre-derivation)`, line 5); the title (line 1) and all §-bodies are **preserved verbatim and NOT rewritten** — this is a record-level channel annotation only.
+
+**Channel-subscript:** the bare "longitudinal" in the title — *"Z_rad,L = R_rad,L + jX_L (dark-wake longitudinal-shear radiation impedance)"* (line 1) — is the **SHEAR channel** read at the **port** ($Z_L = R_{rad,L} + jX_L$, the longitudinal-shear **radiation impedance**; $R_{rad,L}$ = wake drag, $X_L$ = near-field reactive store). It is **NOT** the bulk-volumetric/dilatational longitudinal-V grade (the "3"). Per the dark-sector registry the channel-subscript at this site is **port-$R_{rad,L}$ / shear** (Rule 3); registry §3.8 $Z_L$ row + §5 R5. No value or claim changes.

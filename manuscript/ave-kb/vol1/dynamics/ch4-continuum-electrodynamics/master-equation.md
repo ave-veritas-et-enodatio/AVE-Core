@@ -19,6 +19,8 @@ Before discussing the bulk properties of the universe, the transport mechanism i
 
 > **🔴 TWO-"3"s DISAMBIGUATION (2026-06-10, Rule 12 — line above PRESERVED unedited; pre-adjudicated, Grant-ratified).** The phrase "the longitudinal re-engages at saturation = the electron" names the **A1 dilatation-MASS** "3" only — the Heaviside-excised longitudinal compression scalar (the A1 breather; `mₑc²` = trapped acoustic compression energy). It must **NOT** be conflated with the **second, orthogonal "3"**: the Cosserat **micro-rotation `(2,3)` WINDING** (T2 couple-stress, the Axiom-1 intrinsic-spin DOF; charge = Beltrami helicity `H_bel = ∫ω·(∇×ω)`). The "3" is **TWO DISTINCT objects, orthogonal (A1 ⊥ T2)** — Grant-ratified, recorded verbatim at the crystal-graft-v2 result §0 ("The two distinct '3's", branch `analysis/2026-06-09-crystal-graft-v2`; the n-exponent qualifier addendum at `9fdba6fe`). Load-bearing consequence (same source): **never wire the winding into the breather's own phasor `(V_inc, V_ref)`** — `V_ref` is a read-only projection of the same scalar `V`, not an independent DOF; doing so self-inflicts the genesis-24/crystal `w_pol = 0` double-count. The electron is the unknot dilatation-mass **carrying** the `(2,3)` winding — two objects, not one.
 
+> **↗ Cross-link (2026-06-10, Rule 12, Grant rename-queue R1 — note above preserved):** this two-objects content is the STATE-side companion to the PROVENANCE-vs-STATE ontology at [`photon-identification.md:11`](photon-identification.md) — the (2,3) winding *rides* the condensed phase (the A1 standing-V order parameter); "self-trapped photon" is provenance, not state. Registry §5 R1.
+
 > **[Resultbox]** *Maxwell-Heaviside Acoustic Wave Equation*
 >
 > $$
