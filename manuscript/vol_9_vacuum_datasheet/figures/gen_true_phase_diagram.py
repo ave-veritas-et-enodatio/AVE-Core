@@ -5,11 +5,17 @@ Axes:   thermal occupation T (vertical, log)  x  bulk dilatation rho_bar (horizo
 Phases: SOLID (K4-Cosserat crystal)  /  MELT (pre-geodesic plasma)  /  CAVITATED (candidate).
 Lines:  melt line  T_melt = m_e c^2 / k_B          (CANONICAL; 02_absolute_maximum_ratings.tex:38,60)
         cavitation line  rho_bar_cav = -1/phi      (CANDIDATE, CONTESTED; cavitation_flow.py:62-64)
-Path:   the Regime I->IV excitation map drawn as a TRAJECTORY WITHIN the solid (not an axis);
-        its terminus r->1 (local rupture) lands ON the melt line (the BH-interior crossing).
+Excit.: the Regime I->IV excitation r=A/A_c is a THIRD coordinate, orthogonal to BOTH
+        plotted axes (driving r at a point raises neither bath-T nor rho_bar). It is drawn
+        as a SEPARATE inset axis, NOT as a climb up the bath-T axis; the excursion is taken
+        at a fixed bath state and local rupture at r->1 reaches the MELT phase at ANY bath T
+        (the BH-interior crossing).
 
-All scalar thresholds derive from canonical constants (ave.core.constants); this script
-hardcodes NO observable target. Run:  python gen_true_phase_diagram.py
+The two phase-boundary thresholds (T_melt, rho_cav) derive ONLY from canonical constants
+(ave.core.constants); no fundamental/CODATA literal sits in their derivation path (the DAG
+anti-cheat scan forbids smuggled SM constants). T_CMB is a non-load-bearing reference marker
+for the standard cosmic operating point -- it feeds neither threshold.
+Run:  python gen_true_phase_diagram.py
 Output: true_phase_diagram.pdf  (vector, committed alongside this script).
 """
 from __future__ import annotations
@@ -89,31 +95,55 @@ ax.text(RHO_CAV - 0.012, 8.0e6,
 # --- standard cosmic operating point ---------------------------------------------
 ax.plot([0.0], [T_CMB], marker="*", ms=15, color="#1b6b1b", zorder=6)
 ax.annotate(r"standard cosmic phase  ($T_{CMB}=2.725$ K)",
-            xy=(0.0, T_CMB), xytext=(0.10, 60),
+            xy=(0.0, T_CMB), xytext=(-0.15, 22), ha="right", va="center",
             fontsize=8.5, color="#1b6b1b",
             arrowprops=dict(arrowstyle="->", color="#1b6b1b", lw=1.0))
 
-# --- the excitation PATH (Regime I->IV) drawn WITHIN the solid --------------------
-# A trajectory of local-strain excitation r=A/A_c: a path inside the solid region,
-# NOT a thermodynamic axis. Its terminus r->1 (local rupture) lands on the melt line.
-px = np.array([0.06, 0.05, 0.035, 0.015, 0.0])
-py = np.array([2.0e2, 5.0e4, 8.0e6, 4.0e8, T_MELT])
-ax.plot(px, py, color="#222222", lw=1.6, zorder=5)
-ax.annotate("", xy=(px[-1], py[-1]), xytext=(px[-2], py[-2]),
-            arrowprops=dict(arrowstyle="-|>", color="#222222", lw=1.6), zorder=5)
-for (x, y, lab) in [
-    (px[0], py[0], "I"), (px[1], py[1], "II"), (px[2], py[2], "III"), (px[3], py[3], "IV"),
-]:
-    ax.plot([x], [y], marker="o", ms=5, color="#222222", zorder=6)
-    ax.text(x + 0.022, y, lab, fontsize=9, weight="bold", va="center", color="#222222")
-ax.text(0.30, 2.0e8,
-        "excitation path  $r=A/A_c$ : I$\\to$II$\\to$III$\\to$IV\n"
-        "a TRAJECTORY within the solid, not an axis",
-        ha="center", va="center", fontsize=8.5, style="italic", color="#222222")
-ax.annotate("r$\\to$1 local rupture\n= melt (BH interior)",
-            xy=(0.0, T_MELT), xytext=(-0.33, 1.4e8),
-            fontsize=8, color="#8a2b12", ha="center",
-            arrowprops=dict(arrowstyle="->", color="#8a2b12", lw=1.0))
+# --- the excitation COORDINATE r=A/A_c : a THIRD axis, orthogonal to the plane ------
+# r is the Axiom-4 deviatoric/shear excitation amplitude. It is NOT a direction in this
+# (T, rho_bar) plane: driving r at a point raises NEITHER the bath temperature T NOR the
+# mean dilatation rho_bar. So it is drawn as a SEPARATE inset coordinate, NOT as a climb
+# up the bath-T axis (the old climbing-path render re-encoded "regime = temperature", the
+# exact conflation the chapter demotes). The excursion is taken at a FIXED bath state
+# (here the cosmic operating point: T_CMB, rho_bar~0); local rupture at r->1 reaches the
+# MELT phase locally -- at ANY bath T (the BH-interior crossing).
+
+# (a) mark, on the main plane, WHERE r is driven: a fixed point; r runs into the page.
+ax.annotate("local excitation $r$ driven here\n(into page $\\to$ inset)",
+            xy=(0.0, T_CMB), xytext=(0.07, 7.5), fontsize=7.3, color="#222222",
+            va="center", ha="left",
+            arrowprops=dict(arrowstyle="->", color="#222222", lw=0.9))
+# (b) the physical content of the terminus, stated on the plane WITHOUT a climbing path.
+ax.text(-0.25, 4.0e6,
+        "local rupture ($r\\to1$) reaches\nthe MELT phase at ANY bath $T$\n-- not a climb up this axis\n(see inset for the $r$ axis)",
+        ha="center", va="center", fontsize=8.0, style="italic", color="#8a2b12")
+
+# (c) inset: the excitation coordinate r as its OWN axis, orthogonal to (T, rho_bar).
+axin = ax.inset_axes([0.55, 0.46, 0.42, 0.17])
+axin.set_xlim(-0.04, 1.20)
+axin.set_ylim(0.0, 1.0)
+axin.set_yticks([])
+axin.set_xticks([0.0, 0.25, 0.5, 0.75, 1.0])
+axin.tick_params(labelsize=6.5)
+axin.set_facecolor("#fbf6df")
+for spine in axin.spines.values():
+    spine.set_edgecolor("#999999")
+axin.set_xlabel("excitation  $r=A/A_c$  (3rd coord $\\perp\\,T,\\bar{\\rho}$; fixed bath state)",
+                fontsize=7.0)
+# r increases left->right with T and rho_bar held FIXED (a horizontal track, no bath-T climb)
+axin.plot([0.0, 1.0], [0.5, 0.5], color="#222222", lw=1.5, zorder=2)
+for rx, lab in [(0.10, "I"), (0.40, "II"), (0.68, "III"), (0.92, "IV")]:
+    axin.plot([rx], [0.5], marker="o", ms=5, color="#222222", zorder=3)
+    axin.text(rx, 0.80, lab, ha="center", va="center", fontsize=8, weight="bold", color="#222222")
+# terminus r->1 -> into a MELT swatch (the phase reached, drawn off the r-axis end)
+axin.add_patch(mpatches.Rectangle((1.0, 0.16), 0.18, 0.68, facecolor="#f7d2c4",
+                                  edgecolor="#b22222", lw=1.0, zorder=1))
+axin.annotate("", xy=(1.02, 0.5), xytext=(0.92, 0.5),
+              arrowprops=dict(arrowstyle="-|>", color="#b22222", lw=1.6), zorder=4)
+axin.text(1.09, 0.5, "MELT\nphase", ha="center", va="center", fontsize=6.4,
+          weight="bold", color="#8a2b12")
+axin.text(0.5, 0.05, "$r\\!\\to\\!1$ local rupture $\\to$ melt, at any bath $T$",
+          ha="center", va="bottom", fontsize=6.2, color="#8a2b12")
 
 ax.set_title("Substrate true thermodynamic phase diagram  (Vol 9 Ch 14, "
              "$\\S$ True Phase Diagram)", fontsize=11)
