@@ -204,4 +204,46 @@ This is `ave-apparatus-floor-attribution` applied to fluids: **validate-on-known
 
 ## §9 — Cost / difficulty matrix + program framing + verification ledger
 
-<!-- filled in §9 commit -->
+### §9.1 Cost / difficulty matrix (ranking rationale)
+
+Ranked by **(discriminating value) × (feasibility) × (fit to the existing kit + Keith's fluids arm)**. Vortex rings lead because they are Keith's domain and ride a *live* arc; the three HIGH-difficulty rigs (walking droplets, SBSL, flume) rank last not for low value but for build cost.
+
+| Rank | Experiment | Materials cost | Build difficulty | Keith-domain fit | Discriminating value | Live-arc coupling |
+|---|---|---|---|---|---|---|
+| 1 | Vortex-ring collisions | low-moderate | moderate (sync) | **high** | high (orientation-selective reconnection) | **live** (annihilation-evaporation, in-flight) |
+| 2 | Kondepudi crystallization | **low** | **low** | moderate | high (driven-vs-stochastic; sign-blind gap) | canon (Ω_freeze) |
+| 3 | Walking droplets | moderate | **HIGH** | high | high but **contested** (replication dispute) | open (pilot-mode fork) |
+| 4 | Taylor columns | low-moderate | moderate | high | moderate-high (quantitative `L_col(Ω)`) | canon + **flagged label** |
+| 5 | Pump-loop vapor lock | low-moderate | moderate | high (plumbing) | high (sealed-loop reversibility test) | recent (rim-PE / sonic-horizon) |
+| 6 | Single-bubble sonoluminescence | moderate | **HIGH** | moderate | high (RP saturation; firewalled) | canon (`clm-91adfe`) |
+| 7 | Flume analog horizon | moderate-high | **HIGH** | high | high (supplies the non-degenerate `±m` probe) | recent (sonic-horizon) |
+
+**Suggested first build:** §2 (cheapest, undergraduate-robust, validates the polarimeter + the whole DAQ ladder on a forgiving system) in parallel with §1 (Keith's domain, live arc). Defer the three HIGH-difficulty rigs until the kit + ladder are proven on §1/§2.
+
+### §9.2 Program framing — the falsification lab, extended to the bench
+
+The AVE identity is a **standing falsification lab**, not a campaign to prove AVE right. This program extends that identity from sim and corpus to **real hardware**, with **Keith's fluids expertise as the program's experimental fluid arm** and Grant's plumbing/thermal-hydraulics instinct anchoring §5/§8. The bench's job is to **try to break the borrowed mechanism classes** — every entry above states the fluid result that would CONTRADICT the class the corpus relies on.
+
+The governing law (§0) is what keeps this honest: **every experiment is consistency-class.** A positive constrains the *analogy* (the borrowed mechanism behaves as assumed); it never confirms the vacuum. The program's value is **asymmetric and negative-leaning**: a CONTRADICT result is a real, transferable flag against a corpus mechanism class (e.g. §5's sealed-loop irreversibility would directly challenge the sonic-horizon LOCK argument); a CONSISTENT result merely *fails to break* the borrowed analogy and earns it continued use. That asymmetry is the falsification-lab discipline doing its job.
+
+### §9.3 Verification ledger (verify-before-cite — all anchors grep-checked 2026-06-11)
+
+| Anchor | Cited as | Status |
+|---|---|---|
+| `trampoline-framework.md:97-105` | Ω_freeze freeze-in handedness (§2, §4) | **VERIFIED** verbatim |
+| archive `59_…:252-267` + `:394` | driven-vs-stochastic falsifier (§2) | **VERIFIED** (§5.3 dichotomy + experimental implication) |
+| `the-abandoned-interior.md:50` | Kelvin pair-shedding / collapse→confinement (§1) | **VERIFIED** verbatim (CONSISTENCY-CLASS tag confirmed) |
+| `novel-objects-report.md:110,117` | twin-pocket N8 (§1) | **VERIFIED** — carried honestly as *geometric, not chiral* (`:117`) |
+| `pilotwake-bhphase-survey_note.md` §2,§3 | pilot-mode fork + sim-never-run (§3) | **VERIFIED** verbatim |
+| `double-slit-ee-mapping.md:101` | SBSL firewall (§6) | **VERIFIED** verbatim — *minor flag:* `_orchestration/` duplicate carries it at a different line; sonic-horizon prereg cites `:92` (the duplicate). Canonical KB = `:101`. |
+| `sonoluminescence-derivation.md` + `clm-91adfe` (`vol3/claim-quality.md:390`) | SBSL canonical anchor (§6) | **VERIFIED** — claim id registered |
+| `sonic-horizon-closure_result.md:202,232` | rim-PE LOCK = mass-conservation (§5, §7) | **VERIFIED** verbatim |
+| `cavitation-core-probe_result.md:173` | FLASH/LOCK undecided (§5) | **VERIFIED** verbatim |
+| `matter-as-vapor-locked-pump_framing.md:267,278` | vapor-locked-pump hypothesis-class (§5) | **VERIFIED** — hypothesis-class tag confirmed |
+| `first-principles-predictions.md:16-29` | polar-impedance jet collimation (§4) | **VERIFIED** verbatim |
+| PR #181 | cRIO validation ladder (§8) | **VERIFIED** — OPEN, A/B/C ladder confirmed in PR body |
+| **"collimation sequence (D3) / imposed-rotation sim couldn't test it"** | parent framing for §4 | **❌ FAILED VERIFICATION** — no named corpus arc; the `D3` row in `divergence-test-substrate-map.md:462` is **D3-GEOM-ENTROPY** (geometric entropy), unrelated. §4 stands on the verified polar-collimation anchor; the D3/imposed-rotation-sim label is surfaced to Grant to point at the real arc or strike it. |
+
+---
+
+*End of DRAFT. Nothing here freezes until Grant + Keith ratify the class-tags and schedule bench time. Per lane discipline: the auditor lands any manual/COLLABORATION_NOTES entry; this doc surfaces the empirical program, it does not adjudicate it.*
