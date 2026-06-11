@@ -133,6 +133,35 @@ timestamps across independent workflows = a kill signature, NEVER queue contenti
 run-journal + committed-worktree architecture made the mass-kill cheaply recoverable — the same
 discipline that froze preregs in git is what made resume safe.
 
+### (f) THE SECOND MASS-STOP — monthly/window SPEND LIMIT killed 6 workflows mid-phase (~22:00; orchestrator addendum 2026-06-11)
+
+Distinct failure class from §2(e) (user interrupt): the API spend limit (5-hour-window per Grant)
+refused all NEW agent spawns. Died-at-phase: v8 (build), s11-de-novo (run agent — see below),
+bubble-physics (fix/PR tail only), fbd-v2 (derive), blackness scout (synthesis), chiral-AoA (draft).
+TWO NOTABLE RECOVERY CLASSES, both stronger than §2(b)'s: (1) ORPHANED-PROCESS COMPLETION — the
+s11-de-novo SIMULATION (a detached python process on the worktree) OUTLIVED its dead agent and wrote
+the complete results JSON (the made object's ring-down f_dom≈0.0481 resolution-limited, the full
+20-pt driven sweep, pocket_cells=0, max ρ̄=+0.949, linearity R²≈1) — the physics completed with no
+agent watching; recovered by direct file read. (2) COMMITTED-DERIVE SURVIVAL — bubble-physics had
+committed its derivation + audit (σ≈0.187 candidate-class; forward Minnaert band [0.0431,0.0557]
+containing the measured 0.052; bin UNDERDETERMINED-leaning-CONSISTENT) before the wall; only the
+PR tail died. RESUME LEDGER (~22:30, window reset): v8, s11, bubble-physics resumed via
+resumeFromRunId; v9 Phase-0 (chiral lattice) newly dispatched; chiral-AoA + blackness + fbd-v2
+STAGED (fbd-v2 requires a premise edit first — see the no-pocket flag below). LESSON: simulations
+launched as detached processes on worktrees survive agent death — the run artifacts, not the agent
+transcript, are the recovery surface; design drivers to write results incrementally.
+
+### (g) THE NO-POCKET RE-SCOPE FLAG (from the orphaned S11 results; routed to Grant + the affected arcs)
+
+The de-novo rebuild of the v6 MAIN product shows **pocket_cells = 0**: the made object never crosses
+the cavitation floor — it settles COMPRESSED (max ρ̄ +0.949), an energy-settled column+transducer
+assembly, NOT a tensile bubble. The "superconducting bubble" identification re-scopes to the objects
+that DO pocket (v5's 5077-cell pocket; the sonic-horizon vortex pocket). Affected premises: fbd-v2's
+bubble-FBD geometry inputs (staged pending edit); the bubble-physics Minnaert radius caveat (its own
+doc already used the planted-seed radius — consistent); v8's D16 threading premise (its frozen
+prereg's SHELL-NEVER-FORMS bin handles this honestly — if it fires, the named follow-up is
+re-prereg on the v5-class pocketing config).
+
 ## §3 The decision rule
 
 The orchestration discipline the four events instantiate. The governing question at every
