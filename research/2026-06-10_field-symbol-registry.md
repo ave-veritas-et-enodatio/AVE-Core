@@ -200,7 +200,7 @@ a blessed row; those remain in the companion report pending the §Promotion gate
 
 | Symbol | Normative name | Anchor (`src/ave/core/constants.py`, main) | NOT-this |
 |---|---|---|---|
-| $Z_0$ | characteristic (vacuum) impedance $\approx376.73\,\Omega$ | `constants.py:98` | NOT $z_0$ coordination ($\approx51.25$); NOT $z_{local}$ |
+| $Z_0$ | characteristic (vacuum) impedance $\approx376.73\,\Omega$ — **transverse-EM only** ($Z_0 \equiv Z_{EM}$; three-impedance law §3.11) | `constants.py:98` | NOT $z_0$ coordination ($\approx51.25$); NOT $z_{local}$; **NOT** $Z_{shear}$ / $Z_{bulk}$ (the shear/bulk acoustic impedances — §3.11) |
 | $\ell_{node}$ | node pitch $=\hbar/(m_ec)$ (reduced Compton; the voxel tick) | `constants.py:239` | NOT $\ell_c$ |
 | $\ell_c$ | Cosserat coupling length $=\sqrt6\,\ell_{node}$ | `constants.py:255` | one object, **three names** in canon (§4 C-ℓc): "lattice Cosserat coupling length" / "couple-stress length" / "characteristic length"; $\ell_c/d=\sqrt6$-from-K4 still OPEN |
 | $\xi_{topo}$ | topological charge-density bridge $=e/\ell_{node}$ | `constants.py:267` | NOT the integer linking charge $\mathcal{Q}$ |
@@ -221,6 +221,43 @@ a blessed row; those remain in the companion report pending the §Promotion gate
 > / grep-configs-not-conclusions* failure — corrected this session against the cavitation-core-probe PR#161
 > merge that **is** the baseline. (2) `constants.py:1012` comment "NU_VAC already defined at line 127" is a
 > **stale internal anchor** — `NU_VAC` is at line 508.
+
+### 3.11 The three-impedance law (channel-subscript LAW rows)
+
+> **THE LAW (Grant-ratified 2026-06-11):** *every $Z$/$\Gamma$/boundary symbol carries a channel
+> subscript.* **$Z_0 \equiv Z_{EM}$ is the TRANSVERSE-EM impedance only** — it is NOT the shear or bulk
+> impedance. The corpus already owns the three-channel ledger (§1, §3.1–3.3) and the $K \equiv 2G_{vac}$
+> bulk-vs-shear relation (`cauchy-implosion-resolution.md:14`); this makes the subscript discipline
+> NORMATIVE for every impedance/reflection statement. Source of record: vocab-operator-unification audit
+> §4(a) (`2026-06-11_vocab-operator-unification-audit.md`).
+
+| Channel | LAW symbol | $Z$ formula | dimension | cold value ($A^2\to0$) | speed (saturation) | wall $\Gamma$ | anchor |
+|---|---|---|---|---|---|---|---|
+| **EM-transverse** | $Z_{EM} \equiv Z_0$ | $\sqrt{\mu/\varepsilon}$ | $\Omega$ (electrical) | $376.73\,\Omega$ (`constants.py:98`) | $c_{EM}=c_0(1-A^2)^{-1/2}$ (**rises**) | $\Gamma_{EM}=0$ under SYM scaling | §3.1; `operators.md:41` (Op1); `electron-bh-isomorphism.md:24` |
+| **Shear (deviatoric)** | $Z_{shear}$ | $\rho\,c_{shear}=\rho c_0(1-A^2)^{1/4}$ | $\mathrm{Pa\cdot s/m}$ (acoustic) | $\rho_0 c_0$ | $c_{shear}=c_0(1-A^2)^{1/4}$ (**freezes**) | $G\to0\Rightarrow Z_{shear}\to0\Rightarrow \Gamma_{shear}\to-1$ | §3.2; `operators.md:56` (Op16); `electron-bh-isomorphism.md:30-34` |
+| **Bulk-longitudinal** | $Z_{bulk}$ | $\rho\,c_{bulk}$ ($K\equiv2G_{vac}$) | $\mathrm{Pa\cdot s/m}$ (acoustic) | $\rho_0 c_0$ | $c_{bulk}=c_0\sqrt{1+\bar\rho/(1-\bar\rho^2)}$ (**freezes at $\bar\rho_{cav}$; $\to0$ at snap**) | $c_{bulk}\to0\Rightarrow Z_{bulk}\to0\Rightarrow \Gamma_{bulk}\to-1$ (sonic-horizon reflector) | §3.3; §3.9 snap-state machine; `cauchy-implosion-resolution.md:14`; engine `bubble-physics:107` |
+
+**Channel-subscript law statement (normative):** henceforth every $Z$, $\Gamma$, reflection, or boundary
+symbol is written with its channel subscript ($Z_{EM}$ / $Z_{shear}$ / $Z_{bulk}$; $\Gamma_{EM}$ /
+$\Gamma_{shear}$ / $\Gamma_{bulk}$). An unsubscripted $Z_0$ defaults to $Z_{EM}$ (the transverse-EM
+impedance, $376.73\,\Omega$), NEVER the shear or bulk impedance. The three-valued saturated-wall boundary
+(EM-transparent $\Gamma_{EM}=0$, shear-reflecting $\Gamma_{shear}=-1$, bulk-reflecting $\Gamma_{bulk}=-1$)
+is three channels' views of ONE boundary (audit §4(d) candidate-resolution; the astrophysical case is the
+open Grant question below).
+
+**AMBIGUOUS-channel assignment (Harvest-D, vocab audit §4(b); verified absence, NOT a fabricated claim):**
+
+| Site | gap | assigned channel | one-line justification |
+|---|---|---|---|
+| `manuscript/ave-kb/vol3/{cosmology,gravity}` BH/horizon leaves | NO leaf states $Z_{bulk}$ at $r_s$/$r_{sat}$ (grep-confirmed) | **bulk-longitudinal** ($Z_{bulk}\to0\Rightarrow\Gamma_{bulk}=-1$) | the only corpus $Z_{bulk}\to0\Rightarrow\Gamma_{bulk}=-1$ statements are engine-scale (§3.9 snap, `bubble-physics:107`); the heliopause acoustic-matching + `cauchy-implosion:14` $K\equiv2G$ are the only astrophysical bulk-channel statements — the horizon $Z_{bulk}$ is the unwritten third value. **ASSIGNMENT records the channel; ASSERTING it at a leaf is the §4(d) Grant question** (flag-don't-fix). |
+
+> **Provenance / KEEP-BOTH:** these LAW rows EXTEND the registry (they add §3.11; they do not edit the
+> §3.1–3.3 sector rows or the §4 ledger). Source of record: the 2026-06-11 vocab-operator-unification
+> audit §4(a)/(b) (Harvest-D). The two CONCLUSION-CHANGING MIS-SCOPED sites — #1
+> `invariant-gravitational-impedance.md` (reverses "zero reflection") and #3
+> `electron-bh-isomorphism.md:30-34` (reverses "NOT through $\Gamma$") — are §4(d)-entangled and are
+> FLAGGED to Grant, NOT edited. The editable MIS-SCOPED notes (#2 `gw-impedance-perturbation.md`, #4
+> `03_pin_port_configuration.tex`, #5 `de-broglie-standing-wave.md`) cite this §3.11.
 
 ---
 
