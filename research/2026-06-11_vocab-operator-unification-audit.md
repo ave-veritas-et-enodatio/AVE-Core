@@ -470,4 +470,104 @@ distinction remains (flag-don't-fix).
 
 ## §5 — The consistent-language conclusions digest
 
-_(section pending — next commit)_
+The night's major conclusions, each restated **once** in the unified vocabulary established above
+(channel subscripts `Z_EM`/`Z_shear`/`Z_bulk`; power categories `Q_reactive`/`P_real`; the registry-v2
+terms; the verdict bins) with its class tag. This digest is the deliverable Grant asked for —
+"consistent language unified across these efforts for the conclusions." Class tags per
+`consistency-vs-emergence` + `ave-evidence-framing-discipline`.
+
+1. **The de-novo MADE object is an energized rotation column, not a bubble.** The converged ~12.9-class
+   object is a V-sector saturated, COMPRESSED (max ρ̄ +0.949) rotation-column + transducer assembly; no
+   snapped shell forms (SHELL-NEVER-FORMS, pocket_cells=0, independently confirmed by the S11 arc). The
+   inherited "bubble" vocabulary described a structure this recipe never builds. *Class: engine-finding
+   + ontology-correction (Grant-queue, §3.2).* `[branch #194, #191, #193]`
+
+2. **The rotation column's mass is a converged reactive store (inertia-is-reactance); its AM deposit is
+   a drained chiral boundary coupling.** v6 T1 converges (`E_V^cons` 11.70→12.91, drift 0.86%, N-robust)
+   — the first mass-convergence of the program — but the verdict is DEMOTED-PARTIAL: the headline ∓0.539
+   was a by-construction accumulator ~4 OOM above the net field (∓3.6e-5), a `Q_reactive` deposit that
+   `_lock_relax` drains. *Class: consistency-class (mass) + KEEP-BOTH demotion.* `[branch #180]`
+
+3. **A standing winding has no quantizer; v7 closed DEPOSIT-DRAINED-AGAIN.** The deposited integer
+   winding decoheres `3→1` within one LC quarter-period (~907 steps); the net field drained ≈4 OOM below
+   the survival gate. The deposit is `Q_reactive` ported as `P_real` into undersampled modes. v8's answer
+   — a polyphase rotating-field stator (a TRAVELING wave) — is the named fix. *Class: clean Rule-11
+   closure.* `[branch #184]`
+
+4. **The Meissner / type-II threading hypothesis is UNTESTED because its precondition never formed.**
+   v8's topology gate (F-GENUS) fired SHELL-NEVER-FORMS at every drive `M`; with no snapped shell there
+   is no genus-0 ball to thread into a torus. The prereg's own bin handled it honestly. *Class: honest
+   floor result.* `[branch #194]`
+
+5. **The measured f₀ object and the Minnaert/σ object sit on OPPOSITE bulk-EOS branches.** The ring-down
+   f₀ is the STIFFENING saturated-core V-dilatation breather (`c_eff²→∞`, self-creating `Γ_bulk=−1`
+   wall); the Minnaert/σ "bubble" is the SOFTENING cavitation void (`c_bulk²→0` at `ρ̄_cav`). Treating
+   both under one "bubble" lens is a TEST; the Minnaert match is consistent-not-confirmatory. *Class:
+   flag-don't-fix disambiguation; bin UNDERDETERMINED-leaning-CONSISTENT.* `[branch #190]`
+
+6. **σ-from-ℓ_c is a `Q_reactive` bulk gradient-energy scaling, not a coexistence surface tension.**
+   `σ=c_σ·K·ℓ_c·(Δρ̄)²`; the honest ceiling (gradient-energy SCALING) is stated in-doc; no golden
+   identity claimed (coincidence-magnet check applied). *Class: derived-this-arc, CANDIDATE.* `[branch #190]`
+
+7. **This architecture cannot pose the annihilation question dynamically (UNRESOLVED, wrong-regime
+   artifact), though the two-object SIGN ledger composes exactly.** A v6-class mass is a pure `Q_reactive`
+   store with no V-sector transport DOF; the encounter never happens (transport-absent, release-channel-
+   absent, handedness-inert). The death channel needs a near-yield bulk regime, not the achiral linear
+   one. *Class: regime/architecture scoping (consistency-class on the sign-ledger).* `[branch #189]`
+
+8. **The moving-defect double-slit binned ENGINE-GAP — the a-priori most probable bin.** The engine lacks
+   the `c_eff(V)` self-trapping capability the fork needs; a capability gate failed, so the fork is held
+   open (a clean Rule-11 closure, not a debug-around). *Class: capability-gate / clean closure.* `[branch #186]`
+
+9. **v9's z=3 srs net re-opens the z=4-diamond resolution-of-record — the big OPEN collision.** The
+   clean discriminator is the signed reflection-odd writhe `Wr` (srs-R −4.087e-2 / srs-L +4.087e-2 /
+   diamond 0.0; Smoke B = ROTATES-ENANTIOMORPH-ODD). Whether a passing Smoke B is read as substrate
+   evidence (migrate) or decoration evidence (stays diamond) is Grant's call; Phase-1 is frozen pending
+   it. *Class: OPEN collision, Grant-gated (§3.1).* `[branch #195]`
+
+10. **The Nyquist-binding route is CLOSED (Rule-12 closure record).** Demolished on four independent
+    grounds (`k_C=k_max/π`, factor-π below the zone edge — "constructed, not observed"); carries an
+    ⚠ ANTI-PATTERN MARKER; the successor is canon's Layer-8 acceptance test (named, not frozen). *Class:
+    Rule-12 closure / challenge-canonical-negative discipline.* `[branch #192]`
+
+11. **The dark-sector response is now a datasheet layer keyed by realization class.** `Z_eff=Z₀√(S_μ/S_ε)`
+    with the SYM / μ-only / ε-only realization class as the master gate; the dilation transfer functions
+    `H_shear`/`H_EM`/`H_bulk`, the slew spec, and the echo predictor render the three-speed split as
+    frequency-domain observables. The BH echo inherits the realization class → "does the BH echo?" is a
+    CHANNEL question (Γ_EM=0 no / Γ_shear=−1 yes). *Class: canonical-rendered + new taxonomy.* `[branch #188]`
+
+12. **THE THREE-IMPEDANCE LAW: `Z₀` is the transverse-EM impedance only; every Z/Γ/boundary carries a
+    channel subscript.** The corpus's "three-valued boundary" and "BH-echo yes/no" contradictions are
+    missing-subscript artifacts: one boundary, three channel views — EM-transparent (`Γ_EM=0`),
+    shear-reflecting (`Γ_shear=−1`), bulk-reflecting (`Γ_bulk=−1`). Five MIS-SCOPED sites + one AMBIGUOUS
+    gap carry proposed Rule-12 corrections. *Class: normative framing (candidate-resolution, §4d).*
+    `(main)` + `[branch #185/#187]`
+
+13. **The α-turns-ratio transformer framing unifies the `Q⁻¹`/`k²`/turns-ratio readings of α.** Anchored
+    to the canonical reactive store `Q_react=m_ec²·α` (`orbital-friction-paradox.md:35`): α is the
+    transformer turns-ratio² between the transverse content (primary) and the longitudinal boundary-layer
+    mode (secondary), `E_boundary/E_content=α`. The forward test (derive `E_boundary` from the wall's own
+    standing-`V` energy) is a prereg-CANDIDATE, not derived here. *Class: framing + hypothesis.* `(main)`
+
+14. **THE LOOP GAP: canon's `S(A)=√(1−A²)` is anhysteretic, so the rendered medium can STORE matter under
+    drive but cannot RETAIN it.** No loop → no remanence → no zero-drive persistence (= mass). The canon
+    anchor is explicit — the "Memristor (Thixotropic Hysteresis)" is documented-but-not-implemented, "the
+    hysteresis loop has zero enclosed area" (`06_spice_verification_manual.tex:127-133`). This is the
+    nine-architecture genesis record in one diagnosis; the constitutive loop is THE missing piece, and the
+    rate-lock/thixotropy candidate and the ferrite B-H loop are plausibly ONE mechanism (a cRIO ferrite
+    bench row is staged, consistency-class). *Class: diagnosis (hypothesis-class, sharp).* `(main)` + `[branch #181/#183]`
+
+15. **The historical-arc framings are retired-not-refuted, consistency-class.** The constitutive question
+    (abandoned, not answered), the two-deletions/one-restoration thesis, and the third-deletion ("the
+    frame" = the CMB-isotropic freeze frame; the CMB dipole = "the visible wind gauge") are foreword
+    proposals with self-declared consistency-class ceilings and their own anti-triumphalism fences.
+    *Class: framing (consistency-class).* `(main #177/#179)` + `[branch #182]`
+
+---
+
+> **Closing lane note.** This is implementer-lane output: it stages the registry-v2 extension rows, the
+> operator audit, the three-impedance law, and the unification digest, and it surfaces the conflict queue.
+> The auditor lands the `common/`-leaf + Vol-9 manual entries and the registry §4 collision additions;
+> Grant adjudicates the framing calls — the srs-vs-diamond collision (§3.1), the α-turns-ratio forward
+> test (§4c), the saturable-core LOOP GAP and its EE-import (§4c2 / Tellegen §3.5), and the
+> three-valued-boundary channel re-frame (§4d). Nothing here renames canon or refills a falsified slot.
