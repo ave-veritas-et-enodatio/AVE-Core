@@ -18,7 +18,6 @@ lattice-net resolution-of-record).
 from itertools import permutations, product
 
 import numpy as np
-import pytest
 
 from ave.core import chiral_lattice as cl
 

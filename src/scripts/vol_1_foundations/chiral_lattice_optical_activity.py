@@ -44,7 +44,7 @@ def smoke_a(L=6, steps=200):
     print("=" * 70)
     print("SMOKE A — CONSISTENCY GATE (lattice change must not break the physics)")
     print("=" * 70)
-    print(f"  trivalent scatter S_ij = 2/3 - delta_ij  (derived from Op5, n=3)")
+    print("  trivalent scatter S_ij = 2/3 - delta_ij  (derived from Op5, n=3)")
     print(f"  unitarity |SᵀS - I|max         = {unit:.2e}   (canon diamond: 2.2e-16)")
     print(f"  eigenvalue moduli              = {np.round(eig, 6)}   (target all 1.000)")
     print(f"  n=4 reduces to canon ½-δ       = {reduces}")
@@ -77,7 +77,12 @@ def smoke_b(L=6):
     print(f"  enantiomorphs opposite+equal   : {flipped}")
     print(f"  achiral control ~ zero         : {control0}")
     passB = nonzero and flipped and control0
-    print(f"  --> SMOKE B: {'PASS — slats are real, Phase-1 armed (pending §0 + Grant)' if passB else 'FAIL — lattice-chirality hypothesis takes a structural hit (report honestly)'}")
+    verdict_b = (
+        "PASS — slats are real, Phase-1 armed (pending §0 + Grant)"
+        if passB
+        else "FAIL — lattice-chirality hypothesis takes a structural hit (report honestly)"
+    )
+    print(f"  --> SMOKE B: {verdict_b}")
     return passB
 
 
