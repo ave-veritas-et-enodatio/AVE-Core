@@ -123,4 +123,58 @@ The reduction was, for a window, **gated**. The structural closure was declared 
 
 **The Class-B caveat is the load-bearing residue** (and it is what §4 reframes): the $R \cdot r = 1/4$ that closes the electromagnetic route is a **named substrate-canonical INPUT, not a Class-2 axiom-emergence from K4 + Cosserat primitives alone** (`constants.py:124-127`). So the ledger reads, precisely: *one measured dimensionless number (α), reached through a chain whose final geometric step (R·r = 1/4) is identified-but-not-yet-independently-derived.* That residue is not a contradiction of Grant's "one number" claim — it is the open seam between "one measured number" and "zero measured numbers," and it is exactly the seam the §4 hypothesis addresses.
 
-<!-- SECTION-ANCHOR: §4 tension + polymorph resolution to follow -->
+## §4 — The tension, and the polymorph resolution
+
+### §4.1 The tension stated cleanly
+
+The framework holds two statements that look mutually exclusive:
+
+- **(T-a) The exact geometric formula.** $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363038$ from pure substrate geometry (`manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md:128`). If geometry *derives* α to nine figures, then α is **not** a free initial condition — it is forced, and there is nothing to "measure" except a thermal correction. [CANONICAL]
+- **(T-b) α as the one IC / God's Hand.** Grant's §1 statement and the §2 chain: α is the **measured** fingerprint of an inaccessible freeze, a number set once by $\Omega_{\text{freeze}}$ that we can only read off. If α is an IC, then geometry *cannot* fully fix it — something about the freeze had to be free, or there would be no IC to speak of. [ratified-framing / Lane-1]
+
+You cannot have both at full strength: a number cannot be simultaneously *derived from geometry alone* and *a free initial condition we have to measure*. This is a real tension, not a wording artifact — and the corpus already feels it as the §3.3 Class-B residue (the geometric formula closes only *through* a named-but-underived $R \cdot r = 1/4$).
+
+### §4.2 The polymorph resolution (hypothesis-class)
+
+**Hypothesis (the "menu").** The tension dissolves *if* the freeze selects among a **discrete set of allowed operating points** rather than landing on a continuum. Under that reading:
+
+- **The geometric formula derives the MENU** — the discrete spectrum of allowed $(R, r, d)$ operating points (equivalently, the discrete allowed-α values) that the substrate's K4 + Cosserat geometry admits as stable saturated fixed points. [hypothesis-class]
+- **The freeze (history / $\Omega_{\text{freeze}}$) picked the ITEM** — which element of the discrete menu our universe's genesis actually realized. That *selection* is the initial condition; it is what we measure and cannot derive from outside the horizon. [ratified-framing / Lane-1 on the selection; hypothesis-class on the menu's discreteness]
+
+This is "polymorph" in the materials sense: one substrate chemistry (K4 + Cosserat) admits **several** crystalline operating points (polymorphs / allowed fixed points); the freeze conditions select **which** polymorph crystallizes, the way cooling rate and seed select calcite vs. aragonite from one CaCO₃ chemistry. The formula tells you the catalogue of polymorphs; it does not tell you which one this run of the universe froze into. Geometry is necessary (it bounds α to the menu) but not sufficient (it does not pick the item) — and that is exactly the room an IC needs to exist.
+
+Under this resolution both statements survive intact:
+- (T-a) is true *modulo selection*: the formula is exact **for the realized item**, and the realized item is on a geometry-derived discrete list. The nine-figure match is the fingerprint of *which* menu-item froze.
+- (T-b) is true *as selection*: α-the-IC is the *index into the menu*, set by the freeze, readable only by measurement.
+
+### §4.3 The R·r = 1/4 named input, reframed
+
+§3.3 flagged $R \cdot r = 1/4$ as the load-bearing Class-B residue — a named substrate-canonical input that is not (yet) derived from K4 + Cosserat primitives alone. The menu hypothesis **reframes** it: $R \cdot r = 1/4$ is not a free knob and not an independent input — it is **the measurement's geometric residue**, i.e. the geometric shadow of *the menu-item the freeze selected*. On this reading the corpus has not "smuggled in" a free parameter; it has written down the realized operating point's geometry. The honest obligation then changes shape:
+
+- **Old obligation (Class-2 lift):** derive $R \cdot r = 1/4$ from K4 + Cosserat primitives alone (`constants.py:124-127`; `ch8-alpha-golden-torus.md:196` Class-2 lift candidate "derive the phasor↔real-space area bijection … from K4 + Cosserat substrate primitives alone").
+- **Reframed obligation (the menu):** derive the **discrete set** of allowed $R \cdot r$ values (the menu) from K4 + Cosserat primitives, and show the realized $R \cdot r = 1/4$ is **one element of it**. Deriving the *menu* is strictly weaker than deriving the *value* — you do not have to explain why the freeze chose this item, only that it chose from a geometry-fixed list. [hypothesis-class]
+
+### §4.4 The testable consequence: the allowed-α spectrum as a derivable discrete object
+
+The menu hypothesis is not free — it owes a falsifiable object:
+
+> **The allowed-α spectrum is a derivable discrete object.** [hypothesis-class — owes a number/object]
+
+If the menu is real, then K4 + Cosserat geometry should yield a *finite, computable list* of allowed operating points (discrete $(R,r,d)$ fixed points of the Axiom-4 self-saturation map at the $(2,q)$ eigenmodes), and the realized $\alpha^{-1} \approx 137.036$ must sit **on** that list. That is a sharp, falsifiable prediction with a clean failure mode:
+- **Falsifier 1:** if the saturation map admits a *continuum* of stable operating points (no discreteness), the menu hypothesis is dead — α would be a continuous IC and the geometric formula's exactness would be coincidental.
+- **Falsifier 2:** if the discrete spectrum exists but $137.036$ is **not** on it, the formula and the IC framing are inconsistent and one must yield.
+
+This is the §3.3 "Class-2 lift candidate workstream" re-pointed: instead of deriving one number, derive the discrete spectrum and locate the realized number within it.
+
+### §4.5 The derivation program's goal, restated
+
+With the menu hypothesis the program's goal sharpens to two halves:
+
+1. **Derive the menu** — the discrete allowed-α spectrum, from K4 + Cosserat primitives alone (the Class-2 object, in spectrum form).
+2. **Everything-from-α** — once the freeze's selection of α is taken as the single measured IC, derive *everything else* (G via the Machian integral, the mass spectrum via the $(2,q)$ ladder, the thermal $\delta_{\text{strain}}$ running) downstream of it. The §2 chain already asserts G and $\mathcal{J}_{\text{cosmic}}$ are co-anchored; "everything-from-α" is that assertion taken to its full extent.
+
+### §4.6 Gate (mandatory — do not skip)
+
+The menu hypothesis is **Grant-gated and reconstruction-stop-fenced.** A "discrete operating points selected at freeze" story is *one keystroke away* from the twice-falsified seeded-crystallization / α-¼-selection anti-pattern (§5). It is licensed **only** if its discriminating-secondary prediction — the *derivable discrete spectrum* with the realized α located on it — is produced and the substrate confirms it. Absent that derived spectrum, the menu is Class-B pedagogy that must not be headlined as α-emergence. The discreteness claim is **hypothesis-class until the spectrum is computed**; it does not get to borrow the canonical status of the §2 chain. [FLAG / Grant-gated]
+
+<!-- SECTION-ANCHOR: §5 alpha-flux fence verdict cross-ref to follow -->
