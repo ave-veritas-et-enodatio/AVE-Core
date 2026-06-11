@@ -1,0 +1,130 @@
+{
+  "verdict": "ENGINE-GAP",
+  "prereg": "research/2026-06-11_moving-defect-doubleslit_prereg.md",
+  "floors": {
+    "blur_floor_V": 0.62,
+    "width_growth_max": 2.0,
+    "peak_retention_min": 0.5
+  },
+  "c4_boost_apparatus": {
+    "rows": [
+      [
+        0.0,
+        0.019042462935552982
+      ],
+      [
+        0.3,
+        0.22017778681006195
+      ],
+      [
+        0.6,
+        0.38552697223944765
+      ],
+      [
+        0.9,
+        0.4988178363466354
+      ]
+    ],
+    "boost_apparatus_valid": true
+  },
+  "master_equation_dispersion": {
+    "sweep": [
+      {
+        "A0": 0.85,
+        "S_min": 0.05,
+        "v_meas": 0.3312350932155484,
+        "width_growth": 3.470296863719387,
+        "peak_retention": 0.08612598610074279,
+        "localized": false
+      },
+      {
+        "A0": 0.85,
+        "S_min": 0.02,
+        "v_meas": 0.33116052975750376,
+        "width_growth": 3.473790435045465,
+        "peak_retention": 0.08619640582209463,
+        "localized": false
+      },
+      {
+        "A0": 0.85,
+        "S_min": 0.005,
+        "v_meas": 0.33108030344530337,
+        "width_growth": 3.4733065039321867,
+        "peak_retention": 0.0862189745901117,
+        "localized": false
+      },
+      {
+        "A0": 0.95,
+        "S_min": 0.05,
+        "v_meas": 0.32166198179447414,
+        "width_growth": 3.490567975074133,
+        "peak_retention": 0.08684614444401487,
+        "localized": false
+      },
+      {
+        "A0": 0.95,
+        "S_min": 0.02,
+        "v_meas": 0.3215605043340743,
+        "width_growth": 3.494301649793445,
+        "peak_retention": 0.08687003386517345,
+        "localized": false
+      },
+      {
+        "A0": 0.95,
+        "S_min": 0.005,
+        "v_meas": 0.3214550117602858,
+        "width_growth": 3.493965636561842,
+        "peak_retention": 0.08690095854633399,
+        "localized": false
+      },
+      {
+        "A0": 0.99,
+        "S_min": 0.05,
+        "v_meas": 0.31682001693698947,
+        "width_growth": 3.5011155440589072,
+        "peak_retention": 0.08708711609812593,
+        "localized": false
+      },
+      {
+        "A0": 0.99,
+        "S_min": 0.02,
+        "v_meas": 0.31671584202910463,
+        "width_growth": 3.5049374545125014,
+        "peak_retention": 0.08708785479930478,
+        "localized": false
+      },
+      {
+        "A0": 0.99,
+        "S_min": 0.005,
+        "v_meas": 0.316602209712891,
+        "width_growth": 3.504661495197748,
+        "peak_retention": 0.08712390748862847,
+        "localized": false
+      }
+    ],
+    "c_localize_pass": false
+  },
+  "vacuum_engine_readout": {
+    "long_div_u_max": 0.0017061336079806375,
+    "trans_V_inc_max": 0.010000181368333494,
+    "omega_present": true,
+    "c_readout_pass": true,
+    "c_transport_pass": false,
+    "pin_evidence": "research/2026-06-04_motion-stability-bemf-longitudinal-result.md (PIN-even-longitudinal)"
+  },
+  "gate_matrix": {
+    "C-readout (per-channel)": {
+      "VacuumEngine3D": true,
+      "MasterEquationFDTD": false
+    },
+    "C-transport (self-consistent translation)": {
+      "VacuumEngine3D": false,
+      "MasterEquationFDTD": true
+    },
+    "C-localize (bounded spread, beat blur floor)": {
+      "VacuumEngine3D": null,
+      "MasterEquationFDTD": false
+    }
+  },
+  "missing_capability": "multi-channel engine (V \u2297 u \u2297 \u03c9) with c_eff(V) on the V-sector whose bound state is boost-covariant (moving Master-Equation solution, not rest-soliton + momentum kick that dispersion immediately undoes)"
+}
