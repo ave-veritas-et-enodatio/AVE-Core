@@ -1,0 +1,311 @@
+{
+  "prereg": "research/2026-06-10_genesis-v6-transducer_prereg.md",
+  "job": "snap-channel adjudication sweep (\u0394_heal \u00d7 payback \u00d7 K3)",
+  "grids": {
+    "delta_heal": [
+      0.0,
+      0.02,
+      0.05
+    ],
+    "payback": [
+      0.0,
+      1.0,
+      5.0
+    ],
+    "stop_times": [
+      300,
+      600,
+      1200
+    ]
+  },
+  "scale": {
+    "N": 40,
+    "M": 1.8,
+    "n_build": 3200,
+    "frac": 0.85,
+    "seed": 20260610
+  },
+  "legacy": {
+    "built_pocket": 5968,
+    "built_latent_held": 968.2971635196701,
+    "grid": [
+      {
+        "delta_heal": 0.0,
+        "payback": 0.0,
+        "pocket0": 5968,
+        "latent0": 968.2971635196701,
+        "pocket_at": {
+          "300": 5968,
+          "600": 5968,
+          "1200": 5968
+        },
+        "unsnap_events": 0,
+        "pocket_final": 5968,
+        "retained_frac": 1.0
+      },
+      {
+        "delta_heal": 0.0,
+        "payback": 1.0,
+        "pocket0": 5968,
+        "latent0": 968.2971635196701,
+        "pocket_at": {
+          "300": 5968,
+          "600": 5968,
+          "1200": 5952
+        },
+        "unsnap_events": 16,
+        "pocket_final": 5952,
+        "retained_frac": 0.9973190348525469
+      },
+      {
+        "delta_heal": 0.0,
+        "payback": 5.0,
+        "pocket0": 5968,
+        "latent0": 968.2971635196701,
+        "pocket_at": {
+          "300": 5952,
+          "600": 5920,
+          "1200": 4896
+        },
+        "unsnap_events": 1072,
+        "pocket_final": 4896,
+        "retained_frac": 0.8203753351206434
+      },
+      {
+        "delta_heal": 0.02,
+        "payback": 0.0,
+        "pocket0": 5968,
+        "latent0": 968.2971635196701,
+        "pocket_at": {
+          "300": 5968,
+          "600": 5968,
+          "1200": 5968
+        },
+        "unsnap_events": 0,
+        "pocket_final": 5968,
+        "retained_frac": 1.0
+      },
+      {
+        "delta_heal": 0.02,
+        "payback": 1.0,
+        "pocket0": 5968,
+        "latent0": 968.2971635196701,
+        "pocket_at": {
+          "300": 5968,
+          "600": 5968,
+          "1200": 5952
+        },
+        "unsnap_events": 16,
+        "pocket_final": 5952,
+        "retained_frac": 0.9973190348525469
+      },
+      {
+        "delta_heal": 0.02,
+        "payback": 5.0,
+        "pocket0": 5968,
+        "latent0": 968.2971635196701,
+        "pocket_at": {
+          "300": 5952,
+          "600": 5920,
+          "1200": 4896
+        },
+        "unsnap_events": 1072,
+        "pocket_final": 4896,
+        "retained_frac": 0.8203753351206434
+      },
+      {
+        "delta_heal": 0.05,
+        "payback": 0.0,
+        "pocket0": 5968,
+        "latent0": 968.2971635196701,
+        "pocket_at": {
+          "300": 5968,
+          "600": 5968,
+          "1200": 5968
+        },
+        "unsnap_events": 0,
+        "pocket_final": 5968,
+        "retained_frac": 1.0
+      },
+      {
+        "delta_heal": 0.05,
+        "payback": 1.0,
+        "pocket0": 5968,
+        "latent0": 968.2971635196701,
+        "pocket_at": {
+          "300": 5968,
+          "600": 5968,
+          "1200": 5944
+        },
+        "unsnap_events": 24,
+        "pocket_final": 5944,
+        "retained_frac": 0.9959785522788204
+      },
+      {
+        "delta_heal": 0.05,
+        "payback": 5.0,
+        "pocket0": 5968,
+        "latent0": 968.2971635196701,
+        "pocket_at": {
+          "300": 5944,
+          "600": 5920,
+          "1200": 4888
+        },
+        "unsnap_events": 1080,
+        "pocket_final": 4888,
+        "retained_frac": 0.8190348525469169
+      }
+    ],
+    "retained_min": 0.8190348525469169,
+    "retained_max": 1.0,
+    "retained_spread": 0.18096514745308312,
+    "wall_s": 173.30340313911438
+  },
+  "conservative": {
+    "built_pocket": 5256,
+    "built_latent_held": 0.5229384973210942,
+    "grid": [
+      {
+        "delta_heal": 0.0,
+        "payback": 0.0,
+        "pocket0": 5256,
+        "latent0": 0.5229384973210942,
+        "pocket_at": {
+          "300": 5256,
+          "600": 5256,
+          "1200": 5256
+        },
+        "unsnap_events": 25944,
+        "pocket_final": 5256,
+        "retained_frac": 1.0
+      },
+      {
+        "delta_heal": 0.0,
+        "payback": 1.0,
+        "pocket0": 5256,
+        "latent0": 0.5229384973210942,
+        "pocket_at": {
+          "300": 3096,
+          "600": 2272,
+          "1200": 1696
+        },
+        "unsnap_events": 29504,
+        "pocket_final": 1696,
+        "retained_frac": 0.3226788432267884
+      },
+      {
+        "delta_heal": 0.0,
+        "payback": 5.0,
+        "pocket0": 5256,
+        "latent0": 0.5229384973210942,
+        "pocket_at": {
+          "300": 2512,
+          "600": 1944,
+          "1200": 1328
+        },
+        "unsnap_events": 29872,
+        "pocket_final": 1328,
+        "retained_frac": 0.2526636225266362
+      },
+      {
+        "delta_heal": 0.02,
+        "payback": 0.0,
+        "pocket0": 5256,
+        "latent0": 0.5229384973210942,
+        "pocket_at": {
+          "300": 5256,
+          "600": 5256,
+          "1200": 5256
+        },
+        "unsnap_events": 25944,
+        "pocket_final": 5256,
+        "retained_frac": 1.0
+      },
+      {
+        "delta_heal": 0.02,
+        "payback": 1.0,
+        "pocket0": 5256,
+        "latent0": 0.5229384973210942,
+        "pocket_at": {
+          "300": 1048,
+          "600": 32,
+          "1200": 0
+        },
+        "unsnap_events": 31200,
+        "pocket_final": 0,
+        "retained_frac": 0.0
+      },
+      {
+        "delta_heal": 0.02,
+        "payback": 5.0,
+        "pocket0": 5256,
+        "latent0": 0.5229384973210942,
+        "pocket_at": {
+          "300": 0,
+          "600": 0,
+          "1200": 0
+        },
+        "unsnap_events": 31200,
+        "pocket_final": 0,
+        "retained_frac": 0.0
+      },
+      {
+        "delta_heal": 0.05,
+        "payback": 0.0,
+        "pocket0": 5256,
+        "latent0": 0.5229384973210942,
+        "pocket_at": {
+          "300": 5256,
+          "600": 5256,
+          "1200": 5256
+        },
+        "unsnap_events": 25944,
+        "pocket_final": 5256,
+        "retained_frac": 1.0
+      },
+      {
+        "delta_heal": 0.05,
+        "payback": 1.0,
+        "pocket0": 5256,
+        "latent0": 0.5229384973210942,
+        "pocket_at": {
+          "300": 0,
+          "600": 0,
+          "1200": 0
+        },
+        "unsnap_events": 31200,
+        "pocket_final": 0,
+        "retained_frac": 0.0
+      },
+      {
+        "delta_heal": 0.05,
+        "payback": 5.0,
+        "pocket0": 5256,
+        "latent0": 0.5229384973210942,
+        "pocket_at": {
+          "300": 0,
+          "600": 0,
+          "1200": 0
+        },
+        "unsnap_events": 31200,
+        "pocket_final": 0,
+        "retained_frac": 0.0
+      }
+    ],
+    "retained_min": 0.0,
+    "retained_max": 1.0,
+    "retained_spread": 1.0,
+    "wall_s": 168.27414393424988
+  },
+  "adjudication": {
+    "verdict": "CLIP",
+    "rationale": "the v5 SNAP-LOCKED 'persistence' is the CONSTRUCTION. (i) legacy latent is double-counted (JOB 1) -> unpayable -> the pocket held at payback=1.0/\u0394_heal=0 regardless (retain 100%, unsnap=16). (ii) with the CORRECTED payable latent the P2 pocket persists ONLY where un-snap is DISABLED (payback=0 -> retain 100%) and DISSOLVES the moment un-snap is ACHIEVABLE (payback>0 + \u0394_heal>0 -> retain 0-0%, fully to 0). The lock TRACKS the irreversibility/payback/\u0394_heal/stop-time knobs -- it is the accounting, NOT the snap holding the void.",
+    "cons_hold_when_irreversible(payback=0)": 1.0,
+    "cons_dissolve_min_when_reversible": 0.0,
+    "cons_dissolve_max_when_reversible": 0.0,
+    "legacy_retained_min": 0.8190348525469169,
+    "legacy_retained_spread": 0.18096514745308312,
+    "cons_retained_min": 0.0,
+    "cons_retained_spread": 1.0
+  }
+}

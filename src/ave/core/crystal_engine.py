@@ -133,10 +133,21 @@ class CrystalEngine:
 
     def interior_mask(self) -> np.ndarray:
         """PML-excluded interior (A-Rule 10 corollary — PML cells are frozen-
-        absorbing artifact, never interior physics)."""
-        p = self.pml_thickness
-        i, j, k = np.indices((self.N, self.N, self.N))
-        return (i >= p) & (i < self.N - p) & (j >= p) & (j < self.N - p) & (k >= p) & (k < self.N - p)
+        absorbing artifact, never interior physics).
+
+        CACHED (speedup, bit-identical): the mask depends only on N and
+        pml_thickness, both fixed at construction and never mutated, so it is
+        built once on first call and the SAME array returned thereafter. Every
+        caller reads it (multiply / boolean-index) — none mutate it. getattr
+        with a None default makes the cache work for every subclass without an
+        __init__ change."""
+        m = getattr(self, "_interior_mask_cache", None)
+        if m is None:
+            p = self.pml_thickness
+            i, j, k = np.indices((self.N, self.N, self.N))
+            m = (i >= p) & (i < self.N - p) & (j >= p) & (j < self.N - p) & (k >= p) & (k < self.N - p)
+            self._interior_mask_cache = m
+        return m
 
     # ------------------------------------------------------------ operators
     @staticmethod
@@ -151,6 +162,29 @@ class CrystalEngine:
             + F[1:-1, 1:-1, 2:]
             + F[1:-1, 1:-1, :-2]
             - 6.0 * F[1:-1, 1:-1, 1:-1]
+        ) / (dx**2)
+        return L
+
+    @staticmethod
+    def _laplacian_vec(F: np.ndarray, dx: float) -> np.ndarray:
+        """7-point Laplacian over the 3 LEADING spatial axes of a (N,N,N,C)
+        vector field, in one pass.
+
+        BIT-IDENTICAL to looping ``_laplacian(F[..., c], dx)`` over the trailing
+        component axis: same stencil, same float64 operands, same per-element
+        op order (the arithmetic is component-independent), boundary left 0.
+        Replaces the ``for comp in range(3)`` per-component calls in the vector
+        (w, ω) sectors of step() — a speedup (fewer Python calls / temporaries),
+        NOT a physics change."""
+        L = np.zeros_like(F)
+        L[1:-1, 1:-1, 1:-1, :] = (
+            F[2:, 1:-1, 1:-1, :]
+            + F[:-2, 1:-1, 1:-1, :]
+            + F[1:-1, 2:, 1:-1, :]
+            + F[1:-1, :-2, 1:-1, :]
+            + F[1:-1, 1:-1, 2:, :]
+            + F[1:-1, 1:-1, :-2, :]
+            - 6.0 * F[1:-1, 1:-1, 1:-1, :]
         ) / (dx**2)
         return L
 
@@ -230,9 +264,8 @@ class CrystalEngine:
         conserving), NOT as a velocity rescale."""
         c_eff_sq = self.c_eff_squared(self.V)
         a_V = c_eff_sq * self._laplacian(self.V, self.dx)
-        a_w = np.empty_like(self.w)
-        for comp in range(3):
-            a_w[..., comp] = (self.c_T**2) * self._laplacian(self.w[..., comp], self.dx)
+        # vectorized shear Laplacian (bit-identical to the per-component loop)
+        a_w = (self.c_T**2) * self._laplacian_vec(self.w, self.dx)
 
         if self.converter_on:
             f_V, f_w = self._converter_forces()
