@@ -177,4 +177,35 @@ With the menu hypothesis the program's goal sharpens to two halves:
 
 The menu hypothesis is **Grant-gated and reconstruction-stop-fenced.** A "discrete operating points selected at freeze" story is *one keystroke away* from the twice-falsified seeded-crystallization / α-¼-selection anti-pattern (§5). It is licensed **only** if its discriminating-secondary prediction — the *derivable discrete spectrum* with the realized α located on it — is produced and the substrate confirms it. Absent that derived spectrum, the menu is Class-B pedagogy that must not be headlined as α-emergence. The discreteness claim is **hypothesis-class until the spectrum is computed**; it does not get to borrow the canonical status of the §2 chain. [FLAG / Grant-gated]
 
-<!-- SECTION-ANCHOR: §5 alpha-flux fence verdict cross-ref to follow -->
+## §5 — The α-flux fence verdict cross-ref (radiation-ladder reading died 2026-06-10)
+
+The menu hypothesis (§4) must not reopen a closed lane. Grant's order points at an "α-flux fence" verdict in which "the radiation-ladder reading died 2026-06-10" and flags "the contested 4π as the probe-worthy factor." This section cross-references the closed lanes and surfaces a cite that did not re-verify (flag-don't-fix).
+
+### §5.1 What "died 2026-06-10" — the verifiable scout verdicts
+
+Two read-only scout verdicts on the `analysis/2026-06-10-survey-verdicts-consolidation` branch closed α-reading attempts on 2026-06-10. Both are in origin/main and re-verify:
+
+- **The ¼-selection lane is reconstruction-stopped.** `research/2026-06-10_quarter-fence-verdict_note.md:12` (§0 Verdict): "Grant's billiard / mirror-quantization ¼ candidate is a **RECONSTRUCTION-STOP** … it is the **same mechanism class** as the 2026-06-04-falsified 'half-wave cavity in both quadratures.' It does not get a third pass." [CLOSED-NEGATIVE] The anti-pattern marker that pre-bans a third pass is `research/2026-06-04_alpha-quarter-adversarial-rechallenge.md:7` ("reconstructed twice … falsified twice … not … a **third** time").
+- **The "torus-is-the-cut" / quartz-k² reading is coincidence-class.** `research/2026-06-10_quartz-alpha-bucket-survey_note.md:45` (§5): "$k^2_{\text{quartz}} \approx 0.0077$ vs $\alpha \approx 0.00730$ is a loose (~5%) match of a small dimensionless number — exactly the over-determination pattern … **'α from quartz-$k^2$' ABSORBS α; it cannot predict it** … consistency/coincidence-class, NOT emergence." [CLOSED-NEGATIVE] And `:12` (§0): the literal "the crystal cut/torus *is* α" move is "VIRGIN + RISKY: it re-enters a twice-falsified anti-pattern."
+
+Both verdicts converge on the same discipline the §4 gate already imposes: any reading that **absorbs** α (substitutes the measured value somewhere and recovers it) is consistency/coincidence-class, not emergence. The phasor↔real-space bijection is the canonical instance: closing it "**requires substituting the empirical value of α** … forces $R\cdot r \to 4\pi^2\alpha \approx 0.288$ … B3 FAILS → Class B" (`research/2026-06-04_alpha-class2-bijection-result.md:10`, cited by both verdicts). [CLOSED-NEGATIVE]
+
+### §5.2 The contested 4π as the probe-worthy factor
+
+The "radiation-ladder reading" treats $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ as a multipole/solid-angle ladder in which the leading $4\pi$ is a radiation-flux solid-angle factor. The corpus gives the $4\pi$ a **different, substrate-native** referent, and *that* is the probe-worthy factor:
+
+- `manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md:144`: "the ratio $\Lambda_{\text{vol}} / \Lambda_{\text{surf}} = 4\pi$ IS the substrate $4\pi$ temporal-phase closure per observable Compton cycle (bipartite K4 lobe-count × $2\pi$ phasor rotation per lobe)." [CANONICAL]
+- `manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md:121`: "Both are substrate-native: the $4\pi$ via K4 bipartite lobe-count … The standard-physics-community names ('SU(2)→SO(3) double cover', 'spinor half-cover') are **translation references** to the substrate-mechanism content, NOT the substrate-mechanism content itself." [CANONICAL]
+
+So the AVE reading of the $4\pi$ is **temporal-phase closure (bipartite K4 lobe traversal × 2π)**, *not* a spatial radiation solid angle. The "radiation-ladder" reading (4π = emission solid angle / flux factor) is the one Grant's order records as **dead** — it is a QED-flavored re-skin (the $4\pi$ that shows up in radiation normalization) imported onto a factor the substrate already explains by lobe-count. It dies for the same reason the §5.1 readings die: it re-describes a number the substrate derives geometrically, adds no discriminating prediction, and risks importing a non-substrate-native interpretation (`no-QED-garbage`). The factor is "probe-worthy" only in the §4.4 sense — *if* a derivation can show the $4\pi$ lobe-count is forced (not chosen) by K4 + Cosserat primitives, that is a menu-derivation step; reading it as a radiation solid angle is not.
+
+### §5.3 FLAG — the named "α-flux fence / radiation-ladder" scout verdict did not re-verify
+
+**[FLAG / flag-don't-fix — Grant adjudication needed.]** Grant's order cites "the α-flux fence verdict" with "the radiation-ladder reading died 2026-06-10." I could **not** locate a doc by that name or with that verbatim content in origin/main as of this worktree:
+
+- `grep -ri 'radiation.ladder'` and `grep -ri 'flux.fence'` over `research/` + `manuscript/ave-kb/` → **0 hits.**
+- `git log --all --since=2026-06-09 --until=2026-06-11` filtered for `radiation|ladder|flux|fence|scout|4pi` → only the quarter-fence verdict commit (`b3f41eea`), the Crystal-Graft-v4 "smoke ladder" commit (`8a9d5ba6`, unrelated), and the cRIO prereg "ladder" commit (`b6b7949f`, unrelated). **No radiation-ladder / α-flux-fence verdict commit.**
+
+The two §5.1 verdicts (quarter-fence + quartz-α-bucket) are the verifiable 2026-06-10 scout verdicts that closed α-reading lanes; the "contested 4π" referent is verifiable at `ch8-alpha-golden-torus.md:121,144`. But the *specific* "radiation-ladder reading died 2026-06-10" verdict, as named, is **not locatable in origin/main**. Per verify-before-cite I did not invent a cite for it. **Grant: confirm whether (a) the intended verdict is one of the two §5.1 scout notes under a working name, (b) the radiation-ladder verdict lives on an unmerged branch / live worktree not visible from origin/main, or (c) it is an oral verdict yet to be written up.** The §5.2 cross-ref stands on the verifiable `ch8` cites regardless of which.
+
+<!-- SECTION-ANCHOR: §6 honest ceiling to follow -->
