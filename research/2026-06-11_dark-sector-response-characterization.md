@@ -315,6 +315,76 @@ the opposite of the usual `n>1` gravitational-lens picture, and I will **not** r
 > at the operating point. This is a discriminator the BH matrix must adjudicate — `flag-don't-fix`,
 > routed to §4, not collapsed here.
 
-## §4 — BH-MATRIX HOOKS  *(next commit)*
+## §4 — BH-MATRIX HOOKS
 
-## §5 — Promotion note  *(next commit)*
+These curves are the **quantitative substrate-response layer** the BH-modifier matrix reads off. A black
+hole in AVE is a **melted / saturated lattice region** bounded by a Γ=−1 surface (H2 SUPPORTED,
+`2026-06-10_pilotwake-bhphase-survey_note.md:0`; the horizon is the `A²→1` Γ=−1 saturation surface,
+`op14-cosmic-horizon-profile.md:20,31`; `boundary-observables-m-q-j.md:21`). Each curve here is a
+**substrate modifier** that sets a BH-matrix row. Per-modifier hooks:
+
+| Modifier (this doc) | BH-matrix row it feeds | What it changes | Realization-class / regime gate |
+|---|---|---|---|
+| **§2.3 reflectivity curve** `|R(Ω)|` | **echoes** | sets echo amplitude + spectrum: GW-echo power = the graded-region partial reflectivity off the near-wall impedance gradient; **low-Ω-weighted** | **gated on class**: SYM → **no echo** (R=0, machine-zero); μ-only / ε-only → echo (R_pow~0.31). The echo's *existence* discriminates the realization class. |
+| **§1 slew spec** `SR_max`, `ν_node` | **ringdown overtones** | sets the substrate's frequency ceiling for overtone support: `ν_node=1.24e20 Hz` ≥16 OOM above any QNM overtone → the lattice supports **arbitrarily high overtone n without slew-limiting**; overtone cutoff is set by the wall geometry, **not** the substrate rate | **CLEAN-NULL gate**: no observed overtone row can be a slew-rate artifact (§1.5). Any overtone damping is geometric/impedance, not rate. |
+| **§3.2 transfer functions** `H_shear, H_EM, H_bulk` | **every frequency row** (ringdown freq, QPO freq, line shifts) | each frequency row carries the **channel-specific** redshift of its source region: GW/line rows ride `H_shear=(1−A²)^{1/4}`; EM-phase rows ride `H_EM=(1−A²)^{−1/2}` | per-channel column: a frequency row must declare its channel (registry Rule 3) before the transfer function applies. |
+| **§3.1 three-speed split** + **§3.3 c_EM flag** | **shadow / lensing** | shadow size + photon-ring + lensing geometry depend on which speed light tracks near the wall; the **shear** clock gives GR-like shadow, but `c_EM` **rises** `(1−A²)^{−1/2}` → 🚩 **unresolved**: does imaging follow the matter clock or carry an EM-phase-speed correction? | **OPEN discriminator** routed here from §3.3 — the BH matrix must adjudicate; channels diverge by `(1−A²)^{3/4}`. |
+| **§2.1 Z_eff(A²) classes** + **§2.2 Z_eff(r)** | **all of the above** (the common substrate column) | the realization class (SYM / μ-only / ε-only) is the **master gate**: it sets whether the wall reflects (echo), how `Z` approaches the horizon, and the sign of every impedance step | the matrix's **realization-class column**: every BH-modifier row inherits SYM (reflectionless) vs ASYM (wall) from here. |
+
+**Net wiring for the matrix:** the **realization class** (§2.1) is the master switch; the **reflectivity**
+(§2.3) feeds echoes; the **slew ceiling** (§1) clamps the ringdown-overtone row to a clean null; the
+**transfer functions** (§3.2) modify every frequency row by channel; the **three-speed split** (§3.1)
++ the **c_EM-rises flag** (§3.3) feed shadow/lensing with one **open discriminator** the matrix owns.
+The live BH-matrix scouts consume these CSVs; this doc does **not** write the matrix rows (lane
+discipline — the matrix scouts + auditor land those).
+
+## §5 — Promotion note (auditor-gated)
+
+These curves are the **quantitative layer** beneath two existing assets — the vocabulary and the
+datasheet format — and supply the numbers neither currently carries:
+
+1. **Under the field-symbol-registry** (`research/2026-06-10_field-symbol-registry.md`). The registry's
+   §3.1–§3.3 rows name `c_EM`, `c_shear`, `c_bulk`, `Z_eff`, `Γ`, `ρ̄_cav` and declare their channels;
+   this doc supplies the **curves** under those names (the registry says *what `c_shear` is*; §3.1 here
+   says *how fast it freezes*). Candidate cross-link: registry §3.1/§3.2/§3.5 rows → these CSV curves.
+
+2. **Under the Vol-9 datasheet candidate sections** (auditor-gated):
+   - **ch5 AC electrical characteristics** (`vol9/ch5-ac-electrical-characteristics/index.md`) already
+     names `ω_C = c0/ℓ_node`, the three sector speeds, and `Z_eff` — §1 (ω_node ceiling) + §3 (the
+     three-speed derating curves) are its quantitative figures.
+   - **ch7 saturation characteristics** (`vol9/ch7-saturation-characteristics/index.md`) already names
+     the four-regime map **and an "op-amp slew rate → Axiom 4" translation row** — §1 (the slew spec)
+     is the quantitative content of that row; §1.3's `SR(A)=SR_max·S(A)` compression sits on its
+     four-regime phase diagram.
+   - **ch14 phase diagrams** (`manuscript/vol_9_vacuum_datasheet/chapters/14_phase_diagrams.tex`) — the
+     realization-class gating (§2.1) + regime tags (§1.2) are phase-diagram content; pairs with the
+     pending ch14 rebuild spec (`2026-06-10_pilotwake-bhphase-survey_note.md`).
+
+**Class (per `consistency-vs-emergence` v1.3):** this doc is **Class B / Class C synthesis** — it
+**renders** canonical forms (the three speeds, `Z_eff`, the kernel) as datasheet curves and
+**forward-derives** two items this arc (the approach profile `S=1−r_s/r`; the slew spec `SR_max`), both
+from canonical primitives with **no new substrate primitive** introduced. It does **not** promote any
+classification past its canonical-source ceiling. The Schwarzschild-redshift recovery (§3.2) is
+**Class C consistency** (GR number via the matter-clock mechanism), explicitly tagged, not headlined as
+emergence.
+
+**Lane note.** Implementer-lane output: surfaces the curves + the three flagged tensions (the
+ε-vs-C exponent §2.1, the ¼-vs-½ profile exponent §2.2, the c_EM-imaging discriminator §3.3) and the
+α-slew 2π notational slip (§1.4). The **auditor** lands the Vol-9 ch5/ch7/ch14 sections + the registry
+cross-links and adjudicates the three tensions; **Grant** owns the c_EM-imaging discriminator (§3.3 / §4
+shadow-lensing row) and the α-slew coherence flag. Nothing here is canon.
+
+---
+
+### Verification ledger (this doc)
+
+| Item | Check | Result |
+|---|---|---|
+| constants | imported from `ave.core.constants`, cross-checked ≥6 sig figs | PASS (all 3 scripts) |
+| `SR_max` | forward, no target in loop; dead-input on band edges (±3 OOM invariant) | derived (not fit) |
+| α-slew value | `9.02e17 Hz = α·ν_node`; `(α/2π)·ν_Compton = 1.435e17` | **FLAG surfaced** §1.4 |
+| SYM echo | reflectivity machine-zero (asserted in script) | PASS (2.9e-15) |
+| c_bulk floor | `c_bulk(ρ̄_cav)=0` at `−1/φ` | PASS (exact) |
+| Schwarzschild track | `c_shear(r)/c0 ≡ √(1−r_s/r)` | PASS (max|diff|=0) |
+| `make verify` | worktree + main checkout, per commit | GREEN ×4 |
+
