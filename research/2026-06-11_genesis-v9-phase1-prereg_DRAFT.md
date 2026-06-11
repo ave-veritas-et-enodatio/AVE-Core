@@ -1,6 +1,7 @@
-# Genesis v9 — Phase-1 Pre-Registration (DRAFT — NOT FROZEN)
+# Genesis v9 — Phase-1 Pre-Registration (DRAFT — SUPERSEDED)
 
-> **STATUS: DRAFT. Returned by the implementer lane for Grant to freeze.**
+> **STATUS: SUPERSEDED by `research/2026-06-11_genesis-v9-phase1-prereg_FROZEN.md` (2026-06-11).**
+> **Was:** DRAFT. Returned by the implementer lane for Grant to freeze.
 > This is NOT a frozen pre-registration. It is gated on THREE things (test-not-pick
 > discipline, epic `_orchestration/2026-06-11_lattice-d1-test-gated.md`):
 >

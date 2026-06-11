@@ -31,17 +31,27 @@ Writhe-on-srs (Phase-0) is **necessary-condition** evidence only. The symmetric 
 - **D1 PARTIAL BIN: D1-A** (R3-P5 FAIL — decoration ρ≈0.057% of srs Bishop; κ sign-flips)
 - **Gate:** Phase-1 P4/P6 still required for full D1
 
-### Phase 2 — v9 Phase-1 prereg freeze (PROPOSED — Grant ratify)
+### Phase 2 — v9 Phase-1 prereg freeze (COMPLETE — 2026-06-11)
 
-- **Doc:** `research/2026-06-11_genesis-v9-phase1-prereg_DRAFT.md` (PROPOSED FREEZE thresholds 2026-06-11)
+- **FROZEN:** `research/2026-06-11_genesis-v9-phase1-prereg_FROZEN.md`
+- **Scope:** P1–P4 + A1–A4 ratified; **P5/P6 deferred to Phase-2** (separate freeze)
 - **Visual model:** `research/2026-06-11_helicity-visual-model.md`
 - **T4 (parallel):** `research/2026-06-11_electron-mirror-vs-bh-helicity_prereg_DRAFT.md`
-- **Gate:** Grant ratify or amend thresholds; **not** §0 framing pick
+- §0 framing (A)/(B) **not** picked at freeze
 
-### Phase 3 — v9 Phase-1 genesis run (PENDING, after freeze)
+### Phase 3 — v9 Phase-1 vector-TLM (COMPLETE — P1–P4 ALL PASS)
 
-- P1–P6 + CVR-SET bins
-- **Gate:** frozen prereg
+- **Module:** `src/ave/core/chiral_lattice_vector.py`
+- **Tests:** `src/tests/test_chiral_lattice_vector_phase1.py` (5/5)
+- **Driver:** `src/scripts/vol_1_foundations/chiral_lattice_phase1_vector_tlm.py`
+- **Artifact:** `assets/sim_outputs/genesis_v9_phase1_vector_tlm.json`
+- P1 drift ≤1e−8; isotropy ≤2% @ L=8; P2 signed enantiomorph flip; P3 writhe-concordant; P4 diamond null + κ=0 geometry channel
+- **Gate for D1:** still need Phase-2 P5/P6 before full adjudication
+
+### Phase 3b — v9 Phase-2 genesis (PENDING)
+
+- P5 soliton persistence + P6 genesis-by-precursor (Op14 ON, CVR-SET bins)
+- **Gate:** Phase-2 prereg freeze
 
 ### Phase 4 — D1 adjudication memo (PENDING, after Phase 1 + 3)
 
@@ -155,6 +165,6 @@ Phase-1 prereg freeze (thresholds) ◄──────────────
 ## Cross-refs
 
 - v9 design: `research/2026-06-11_genesis-v9-chiral-lattice_design.md`
-- v9 Phase-1 DRAFT: `research/2026-06-11_genesis-v9-phase1-prereg_DRAFT.md`
+- v9 Phase-1 FROZEN: `research/2026-06-11_genesis-v9-phase1-prereg_FROZEN.md`
 - CVR framing: `research/2026-06-11_chiral-vacuum-reactor-framing.md`
 - Branch plan: `_orchestration/2026-06-11_orchestration-branch-plan.md` (R3 row — **update after this epic merges**)
