@@ -208,4 +208,57 @@ So the AVE reading of the $4\pi$ is **temporal-phase closure (bipartite K4 lobe 
 
 The two §5.1 verdicts (quarter-fence + quartz-α-bucket) are the verifiable 2026-06-10 scout verdicts that closed α-reading lanes; the "contested 4π" referent is verifiable at `ch8-alpha-golden-torus.md:121,144`. But the *specific* "radiation-ladder reading died 2026-06-10" verdict, as named, is **not locatable in origin/main**. Per verify-before-cite I did not invent a cite for it. **Grant: confirm whether (a) the intended verdict is one of the two §5.1 scout notes under a working name, (b) the radiation-ladder verdict lives on an unmerged branch / live worktree not visible from origin/main, or (c) it is an oral verdict yet to be written up.** The §5.2 cross-ref stands on the verifiable `ch8` cites regardless of which.
 
-<!-- SECTION-ANCHOR: §6 honest ceiling to follow -->
+## §6 — Honest ceiling
+
+This document is **framing plus one hypothesis.** Nothing in it upgrades a number-claim. Stated plainly so the skim-impression equals the careful-read impression:
+
+- **What is Grant-ratified framing (not derived, not predicted):** α is the vacuum's one intrinsic dimensionless property; it is the *measured* fingerprint of an inaccessible genesis IC ("God's Hand" = $\Omega_{\text{freeze}}$, behind the cosmic horizon); the AVE completion of Feynman is "the pencil was pushed at the freeze." These are §1–§2 and they are **framing** — internally consistent, intuition-bearing, corpus-anchored at `path:line`, but **not a derivation and not a forward prediction.** [ratified-framing / Lane-1]
+
+- **What is corpus-canonical (re-verified, not new here):** the two-link chain α ⟵ $u_0^*$ ⟵ $\Omega_{\text{freeze}}$ (§2); the input ledger's reduction from "three calibration inputs" to one-scale + one-IC and its 2026-05-31 gate resolution (§3); the Class-B status of the α closure (the $R \cdot r = 1/4$ named identification is substrate-canonical input, not Class-2 emergence); the substrate-native $4\pi$ = bipartite-K4 lobe-count (§5.2). This document *cites* these; it does not re-derive or strengthen them. [CANONICAL]
+
+- **What is hypothesis-class (owes an object, headlines nothing):** the "menu" — that the freeze selects among a **discrete** set of allowed operating points, that the geometric formula derives the menu while history picks the item, that $R \cdot r = 1/4$ is the realized item's geometric residue, and that the allowed-α spectrum is a derivable discrete object (§4). This is **one hypothesis.** It owes a computed discrete spectrum with $137.036$ located on it; until that exists it is Class-B pedagogy, Grant-gated, and fenced by the §5 reconstruction-stop. It does **not** borrow the §2 chain's canonical status. [hypothesis-class]
+
+- **What is flagged for Grant (not silently resolved):** the named "α-flux fence / radiation-ladder" verdict (§5.3) is not locatable in origin/main; no cite was invented for it. The menu hypothesis is one keystroke from the twice-falsified ¼-selection anti-pattern and is licensed only through the discriminating-secondary bar. [FLAG]
+
+**Ceiling sentence.** This is the corpus's existing α-provenance, retold around Grant's "one number we have to measure / hand of God" framing and Feynman's pencil — with exactly one new, falsifiable, currently-unmet hypothesis (the discrete menu) carried at hypothesis-class. No emergence-class claim is made; the headline number ($\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$) remains Class-B-closed-at-an-identification, exactly as the corpus already classifies it (`ch8-alpha-golden-torus.md:148`: "The numerical match … remains **Class 4 observable consistency**").
+
+---
+
+## §7 — Class-tag summary
+
+| Item | §  | Class |
+|---|---|---|
+| Grant's "α = the one number / hand of God / one IC" | §1.1 | Grant-statement / ratified-framing |
+| Feynman "magic number / pushed His pencil" (QED 1985, p.129) | §1.2 | fact (verified) |
+| AVE completion "the pencil was pushed at the freeze" | §1.2 | ratified-framing / Lane-1 |
+| Chain α ⟵ u₀\* ⟵ Ω̂_freeze | §2.1 | CANONICAL |
+| α = measurable fingerprint of inaccessible IC (God's Hand) | §2.2 | ratified-framing / Lane-1 |
+| A-031 refinement (parameter inaccessible, mechanism observable) | §2.3 | CANONICAL |
+| One-scale + one-number ledger vs historical three-input | §3.1–3.2 | CANONICAL (fork logged) |
+| ONE-SCALE + GATED reconciliation + 2026-05-31 gate resolution | §3.3 | CANONICAL |
+| R·r=1/4 = Class-B named input (not Class-2 emergence) | §3.3 | CANONICAL (caveat) |
+| The "menu" (discrete allowed operating points; formula→menu, freeze→item) | §4.2 | **hypothesis-class** |
+| R·r=1/4 reframed as the measurement's geometric residue | §4.3 | hypothesis-class (reframe) |
+| Allowed-α spectrum as a derivable discrete object | §4.4 | hypothesis-class (owes object) |
+| Program goal restated (derive the menu + everything-from-α) | §4.5 | framing |
+| Menu gate (reconstruction-stop-fenced, Grant-gated) | §4.6 | FLAG / gate |
+| ¼-selection lane reconstruction-stopped | §5.1 | CLOSED-NEGATIVE |
+| quartz-k²/torus-is-the-cut = coincidence/risky | §5.1 | CLOSED-NEGATIVE |
+| 4π = bipartite-K4-lobe temporal-phase closure (not radiation solid angle) | §5.2 | CANONICAL |
+| "radiation-ladder / α-flux fence" verdict not locatable | §5.3 | FLAG / flag-don't-fix |
+
+---
+
+## §Verification (verify-before-cite, re-grepped live 2026-06-11)
+
+- `trampoline-framework.md:120-121` — A-001 α-as-calibration + "Newton's G joins α as cosmologically anchored": verbatim verified.
+- `trampoline-framework.md:129,135-137` — §1.3.7 "God's Hand" Figure-7 caption + $\Omega_{\text{freeze}} = \mathcal{J}_{\text{cosmic}}/I_{\text{cosmic}}$: verbatim verified.
+- `omega-freeze-cosmic-grain-cascade.md:34,42-49` — single $u_0^* \approx 0.187$ operating point + genesis freeze inheritance: verbatim verified.
+- `cosmic-parameter-horizon-a031-refinement.md` — A-031 refinement (parameter-inaccessible / mechanism-observable split): verbatim verified.
+- `constants.py:11-25,114-133` — three-input vs one-scale framing, Input-1/Input-2 ledger, gating-clause resolution: verbatim verified.
+- `claim-quality-closure-roadmap.md:9,23` — structural closure declaration + Tier-0 gate-resolution row: verbatim verified.
+- `ch8-alpha-golden-torus.md:121,128,144,148,196` — $\alpha^{-1}$ formula, $4\pi$=lobe-count, Class-4 consistency, Class-2 lift candidate: verbatim verified.
+- `quarter-fence-verdict_note.md:12`, `quartz-alpha-bucket-survey_note.md:12,45`, `alpha-class2-bijection-result.md:10`, `alpha-quarter-adversarial-rechallenge.md:7` — closed-negative scout verdicts: verbatim verified.
+- **Feynman quote** — verified against *QED: The Strange Theory of Light and Matter* (Princeton UP, 1985), p. 129 (external source confirmation this session). [fact]
+- **FAILED CITE (flagged §5.3):** no doc in origin/main matches "radiation-ladder reading" / "α-flux fence verdict"; `grep -ri 'radiation.ladder'` / `'flux.fence'` over `research/` + `manuscript/ave-kb/` = 0 hits; `git log --all 06-09..06-11` = no matching verdict commit. No cite invented; surfaced for Grant.
+
