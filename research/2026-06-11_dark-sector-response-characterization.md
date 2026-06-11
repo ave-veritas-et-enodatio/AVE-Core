@@ -261,7 +261,59 @@ The integral is restricted to the **graded approach region** `r ≥ 1.1 r_s` whe
 reflector takes over (`R=1`, Op17-bounded) — rendered as a **boundary condition, not a bulk term**
 (substrate-native-check CP10).
 
-## §3 — THE DILATION CURVES (derating-curve style)  *(next commit)*
+## §3 — THE DILATION CURVES (derating-curve style)
+
+**Driver:** `src/scripts/vol_9_vacuum_datasheet/dilation_derating_curves.py`
+→ `fig3_dilation_derating.png`, `three_speed_split.csv`, `bulk_speed_vs_rho.csv`,
+`observed_frequency_transfer.csv`.
+
+A datasheet derates a part vs operating point. The substrate derates **three speeds** — and the
+**three-speed split IS the figure** (the load-bearing content is that they go three different ways).
+
+### §3.1 — The three sector speeds — class: canonical (rendered)
+
+| Channel | Speed | Behavior at A²→1 | Canonical anchor |
+|---|---|---|---|
+| **EM-transverse** | `c_EM = c0(1−A²)^{−1/2}` | **RISES → ∞** (Maxwell phase / α-speed) | `substrate-temporal-values:28`; registry §3.1 |
+| **shear (matter clock)** | `c_shear = c0(1−A²)^{+1/4}` | **FREEZES → 0** (group / rest-mass speed) | `substrate-temporal-values:29`; `operators.md:56` |
+| **bulk (compressional)** | `c_bulk = c0√(1+ρ̄/(1−ρ̄²))` | **FREEZES at ρ̄_cav=−1/φ**; stiffens at ρ̄→+1 | `substrate-temporal-values:30`; `cavitation_flow.py:64` |
+
+Verified: `c_bulk(ρ̄_cav) = 0.0000` exactly at `ρ̄_cav = −1/φ = −0.618034` (the cavitation freeze floor).
+Curves: `three_speed_split.csv` (c_EM, c_shear vs A²), `bulk_speed_vs_rho.csv` (c_bulk vs ρ̄). The bulk
+speed is plotted on its **own** axis (ρ̄, density) because it rides a distinct strain variable from the
+shear/EM amplitude A — whether `A` and `ρ̄` share a strain budget is the `temporal-values §5` residual
+flag (OPEN; not assumed here).
+
+### §3.2 — Observed-frequency transfer functions per channel — class: derived-this-arc
+
+A signal emitted at proper frequency `ω_source` in a saturated region (operating point A²) arrives at
+an unsaturated observer shifted by the local clock ratio of **that channel** (`temporal-values:40-42`):
+
+| Channel | `H = ω_obs/ω_source` | At A²=0.9 | Physical |
+|---|---|---|---|
+| **shear** (spectral lines, GW) | `(1−A²)^{1/4}` | **×0.562** (redshift) | atomic transitions/GW run on the matter clock → standard gravitational **redshift** |
+| **EM phase** | `(1−A²)^{−1/2}` | **×3.162** (blue) | the EM **phase** advances faster — the α-speed, not a proper matter clock |
+| **bulk** | `√(1+ρ̄/(1−ρ̄²))` | (ρ̄-set) | compressional pilot frequency, freezes toward ρ̄_cav |
+
+This is the **c_shear/Schwarzschild tracking made quantitative**: spectral-line redshift `= (1−A²)^{1/4}`
+and, via the canonical identity `c_shear/c0 = (1−A²)^{1/4} ≡ √(1−r_s/r)` (`operators.md:56`,
+verified `max|diff| = 0`), the redshift `= √(1−r_s/r)` — the GR result, recovered as the **matter-clock**
+projection (consistency-class: the mechanism is substrate-native, the number is the GR weak-field redshift).
+
+### §3.3 — The c_EM-rises consequence — 🚩 FLAGGED for the BH matrix, NOT resolved
+
+The two channels carry **opposite-sign** frequency shifts from the same saturated region: spectral
+lines (shear) **redshift** `×0.562`, but the EM **phase** speed **rises** `×3.162` (A²=0.9). The
+matter-clock redshift is the one observed in spectral lines and is unambiguous. **What the rising EM
+phase speed `c_EM = c0(1−A²)^{−1/2}` does to *imaging* — lensing geometry, the BH shadow size, photon-ring
+structure — is a genuine open question.** A medium where the EM phase speed *rises* toward the wall is
+the opposite of the usual `n>1` gravitational-lens picture, and I will **not** resolve it ad hoc:
+
+> **Surfaced to the BH matrix (shadow/lensing row):** does the observed BH image track the **shear**
+> matter clock (giving GR-like shadow/lensing), or does the rising `c_EM` impose an EM-phase-speed
+> correction on the photon trajectories near saturation? The two channels diverge by `(1−A²)^{3/4}`
+> at the operating point. This is a discriminator the BH matrix must adjudicate — `flag-don't-fix`,
+> routed to §4, not collapsed here.
 
 ## §4 — BH-MATRIX HOOKS  *(next commit)*
 
