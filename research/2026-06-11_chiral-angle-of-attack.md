@@ -240,6 +240,47 @@ never average the two to ~31.6°.**
 
 ### 2.4 Surface D — the freeze sign-selection mechanism (the slat-setting)
 
+**Class: mechanism canonical; the sign-selectivity strength owes a number (hypothesis-owing-a-number).** §1's slats
+have a pitch; **this surface names what *sets* it.** The slat-setting is `Ω̂_freeze`'s chiral angle projected onto
+the freezing front. Canonical, `manuscript/ave-kb/common/trampoline-framework.md:105`:
+
+> "**Direction of `Ω_freeze` → direction of bowing → right-handed chirality** by the right-hand rule applied to
+> centrifugal pseudo-force × bond-axis. Mirror-image freeze-in gives left-handed universe with identical magnitude
+> `|u_0|` and identical physics."
+
+with `u_0 = ρ Ω_freeze² r_node² / (2 K_0)` (`:102`). So the substrate handedness is **not** a coin-flip frozen by
+chance — it is *set by the direction of the cosmic-spin vector at genesis*, via the centrifugal-pseudo-force ×
+bond-axis right-hand rule. This is the **sign-SELECTIVE** statement: `Ω̂_freeze` direction **determines** the sign
+of the slat pitch (and `vol_9_…/11_topological_characteristics.tex:95` makes it the substrate-mechanism for **ALL**
+observed parity violation).
+
+**Why naming it matters — it distinguishes AVE from the sign-BLIND null (the discriminator, carried honestly).**
+The standard chemistry benchmark for stir-induced homochirality is **Kondepudi, Kaufman & Singh 1990** (NaClO₃
+crystallization, *Science*, DOI `10.1126/science.250.4983.975` — **existence verified-external**; the
+sign-blindness *content* is paywalled, carried **requires-verification**). The canonical Kondepudi result is:
+stirring drives each batch to near-total **single** handedness (autocatalytic secondary nucleation), **but the sign
+is random batch-to-batch — stir direction CW vs CCW does NOT select which handedness wins.** That is *drive →
+single domain* but **not** *drive-direction → sign*. The AVE `Ω_freeze` claim is **strictly stronger**: it is
+*direction-SETS-sign*. **Canonical Kondepudi neither supports nor contradicts it** — sign-blind ≠ sign-selective;
+the experiment that would discriminate has a different mechanism class. The matching literature class is **Ribó et
+al. 2001** (vortex-direction sign-selection in stirred J-aggregate mesophases, *Science*, DOI
+`10.1126/science.1060835` — **existence verified-external**; replication status **requires-verification**), a
+*different system and mechanism* from NaClO₃ secondary nucleation. The `Ω_freeze` claim is **Ribó-class
+(direction-sets-sign), not Kondepudi-class (sign-blind).**
+
+**The owed number (feeds the fluid-analog bench's discriminator).** The bench program's discriminator bin (its
+"STRONGER" outcome) is: **stirred enantiomeric-excess sign correlates with stir direction** — the Ribó-class result,
+*not expected from canonical Kondepudi*. `trampoline-framework.md:105` gives the **mechanism** (right-hand rule,
+`u_0`) but **no predicted ee-sign-vs-direction correlation MAGNITUDE** for any bench-realizable analog. So the owed
+number is:
+
+> **the predicted ee-sign / stir-direction correlation strength under the centrifugal-bond-stretch mechanism** — the
+> quantitative value of the bench's STRONGER bin, so the bench can separate *AVE-mechanism-present* (direction-sets-
+> sign) from *canonical-sign-blind*. Without it, even a STRONGER observation is unquantified.
+
+This is the one surface where the slats picture touches a **bench-realizable** test rather than an astrophysical
+upper limit — which is why pinning its owed magnitude is the highest-leverage of the four.
+
 <!-- SECTION 2.4 -->
 
 ## 3. THE MIRROR FROM INSIDE
