@@ -36,7 +36,68 @@ __all__ = [
     "interp_vec_batch",
     "extract_2_3_omega_fast",
     "verify_equivalence",
+    "planted_winding_field",
 ]
+
+
+def planted_winding_field(N, R, r, *, q=3, p=2, amplitude=0.3, mode="traveling",
+                          helicity=1, omega_gap=1.0, dt=1.732e-3, axis=2,
+                          t_phase=0.3):
+    """The D15 plant — a (p,q) ω + π_ω knot on a torus shell, in one of two
+    representation classes (the traveling-vs-standing discriminator, prereg §3.2):
+
+      mode="traveling"  ω·d̂ ∝ cos(qψ), π_ω·d̂ ∝ helicity·sin(qψ) — the C-state and
+                        L-state in advancing SPATIAL quadrature ⇒ arg(Z) winds q
+                        times around the minor circle ⇒ w_pol = q, SIGN = helicity
+                        (the rotating-stator / traveling-wave class; N_phase>=2).
+      mode="standing"   ω·d̂ ∝ cos(qψ)·cos(φ_t), π_ω·d̂ ∝ cos(qψ)·Δ_t — the C and L
+                        states share ONE spatial profile, the phase lives in a
+                        GLOBAL temporal factor ⇒ arg(Z) does NOT wind in ψ ⇒
+                        w_pol = 0 (the pulsating single-phase class; N_phase=1, the
+                        v7 reproduction — DOF-incapable of a sustained winding).
+
+    helicity ∈ {+1,-1,0}: +/-1 flip the traveling winding SIGN; 0 (achiral) gives
+    π_ω ≡ 0 ⇒ no L-state ⇒ structural null (w_pol=0). The representation-capability
+    (C) check made constructive (CP2). axis = the torus symmetry / spin axis."""
+    c = (N - 1) / 2.0
+    idx = np.indices((N, N, N))
+    others = [a for a in range(3) if a != axis]
+    t1 = idx[others[0]] - c   # transverse-1
+    t2 = idx[others[1]] - c   # transverse-2
+    ax = idx[axis] - c        # axial
+    rho = np.sqrt(t1 ** 2 + t2 ** 2)
+    phi = np.arctan2(t2, t1)
+    psi = np.arctan2(ax, rho - R)
+    rtube = np.sqrt((rho - R) ** 2 + ax ** 2)
+    env = np.exp(-(rtube ** 2) / (2.0 * (0.6 * r) ** 2)) * (rho > 2)
+    beta = p * phi
+    Theta = q * psi
+    dR = np.cos(beta)
+    dax = np.sin(beta)
+    base = amplitude * env
+    s_h = int(np.sign(helicity)) if helicity != 0 else 0
+    delta = omega_gap * dt
+    if mode == "traveling":
+        f_now = np.cos(Theta)
+        f_prev = np.cos(Theta + s_h * delta)  # s_h=0 (achiral) ⇒ f_prev=f_now ⇒ π_ω=0
+    elif mode == "standing":
+        f_now = np.cos(Theta) * np.cos(t_phase)
+        f_prev = np.cos(Theta) * np.cos(t_phase + delta)
+    else:
+        raise ValueError(f"mode must be 'traveling' or 'standing', got {mode!r}")
+
+    def _assemble(f):
+        out = np.zeros((N, N, N, 3))
+        # director in the transverse plane (dR along ê_ρ) + axial (dax)
+        out[..., others[0]] = base * f * dR * np.cos(phi)
+        out[..., others[1]] = base * f * dR * np.sin(phi)
+        out[..., axis] = base * f * dax
+        return out
+
+    omega = _assemble(f_now)
+    omega_prev = _assemble(f_prev)
+    pi_omega = (omega - omega_prev) / dt
+    return omega, pi_omega
 
 
 # ──────────────────────────────────────────────────────────────────────────
