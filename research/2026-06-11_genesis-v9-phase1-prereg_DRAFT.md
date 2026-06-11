@@ -70,10 +70,30 @@ Grant to set/confirm at freeze.
 - **P4 — native chirality, no injected α.** The measured optical rotation magnitude is reproduced with
   `κ_chiral = 0` (geometry-only). *Falsifier:* rotation collapses to ~0 when `κ_chiral → 0` ⇒ the
   handedness is still injected, not structural ⇒ v9's central hypothesis fails; close the branch.
-- **P5 — soliton stability (the genesis target).** A seeded `(2,3)` ansatz on the srs net is a stable
-  closed-system eigenmode (topological charge conserved, energy bounded) over ⟨N⟩ steps at ⟨N_grid⟩.
-  *Falsifier:* decays / unbinds ⇒ the srs substrate does not support the electron soliton ⇒ a structural
-  hit against substrate-migration framing (A).
+- **P5 — soliton stability (persistence check — consistency-class, NOT the genesis claim).** A seeded
+  `(2,3)` ansatz on the srs net is a stable closed-system eigenmode (topological charge conserved,
+  energy bounded) over ⟨N⟩ steps at ⟨N_grid⟩. *Falsifier:* decays / unbinds ⇒ the srs substrate does
+  not support the electron soliton ⇒ a structural hit against substrate-migration framing (A).
+  *Checkpoint-8 caveat (synthesis-lane amendment, KEEP-BOTH — P5 preserved unchanged in substance,
+  P6 added alongside):* planting the finished composite and testing persistence is the pattern
+  substrate-native-check Checkpoint 8 warns against; P5 alone can show **hosting**, never **genesis**.
+- **P6 — genesis-by-precursor (Checkpoint-8 PRIMARY emergence test — the genesis claim).** Seed the
+  **generative precursor, not the end-state**: launch a transverse (photon-class) packet — the simplest
+  autonomous action the lattice supports — along a screw axis with **Op14 saturation ON** (`A → 1`
+  accessible), closed-system, on srs-right, srs-left, AND the diamond control, plus the `κ_chiral = 0`
+  ablation. Let the dynamics build (or fail to build) the bound state. **Outcome bins (frozen by Grant
+  BEFORE any run):**
+  - **BIN-G (genesis):** the packet self-traps — energy-localization length saturates to a finite
+    plateau over ⟨N⟩ steps (not monotone spreading), a nonzero conserved topological charge emerges in
+    the trapped region, and the trapped state is **enantiomorph-signed** (chirality inherited from the
+    lattice, surviving the `κ_chiral = 0` ablation).
+  - **BIN-T (transient):** localization forms then decays — record lifetime vs launch amplitude;
+    hosting-adjacent, NOT genesis.
+  - **BIN-D (dispersal):** linear-like spreading at every sub-rupture amplitude ⟨bins⟩ — the srs net
+    does not self-trap the photon precursor ⇒ structural hit against framing (A).
+  *Signed channel per the Phase-0 lesson:* the enantiomorph-PAIR difference (and the mirror operation),
+  never a single screw-axis ray. *Relation to P5:* P5-pass + P6-BIN-D = hosting-but-no-genesis — that
+  combination MUST NOT be reported as a genesis pass.
 
 ## Controls (frozen with the predictions)
 - **Enantiomorph pair (srs-right / srs-left)** — the primary discriminator. Any achiral artifact
@@ -103,4 +123,5 @@ Grant to set/confirm at freeze.
    warning as the explicit cost), or **(B)** treat the srs net as a decoration-model diagnostic (substrate
    stays diamond).
 2. The thresholds in ⟨…⟩.
-3. `N_grid`, `N_steps`, and whether P5 (genesis) runs in Phase-1 or splits to a Phase-2.
+3. `N_grid`, `N_steps`, the P6 outcome-bin boundaries (the frozen bins), and whether P5/P6 (genesis)
+   run in Phase-1 or split to a Phase-2.
