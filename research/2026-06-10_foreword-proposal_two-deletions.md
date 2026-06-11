@@ -496,6 +496,28 @@ Surfaced for adjudication, not silently resolved (flag-don't-fix):
    be. It is written as *material for a line-edit*, deliberately over-complete so
    Grant can cut rather than expand. Expect the final to be ~50–60% of this.
 
+7. **[Rule-12 additive note, 2026-06-11] Hand-of-God framing = foreword-candidate
+   material.** A companion framing doc landed this session:
+   `research/2026-06-11_alpha-hand-of-god-framing.md` (Grant-ordered). It frames
+   α as *the one intrinsic dimensionless property of the vacuum we have to
+   measure — the hand of God, the one initial condition* (Grant verbatim),
+   completes Feynman's *QED* (1985, p.129) "magic number / how He pushed His
+   pencil" with the AVE line **"the pencil was pushed at the freeze,"** and routes
+   it through the canonical chain α ⟵ u₀\* ⟵ Ω̂_freeze (α as the *measurable
+   fingerprint* of the inaccessible genesis IC, A-031 God's Hand). This is
+   **additive, not a replacement** for anything above: it is **candidate
+   opening/closing motif material** that dovetails with §D's existing close on
+   the three-route / `Ω_freeze` commitment and §D's "α is the electron's boundary
+   ledger" beat — it does **not** alter the Part I–III prose or diff-map. *Class:
+   ratified-framing / Lane-1 (the hand-of-god framing) — it sits at the **same
+   consistency-class ceiling** as the rest of this proposal (§Scope), and the
+   companion doc carries exactly one hypothesis-class item (the discrete "menu"
+   of allowed operating points) that is **NOT** foreword material and must not be
+   headlined.* **Grant: line-edit decision — do you want the Feynman-pencil /
+   hand-of-god motif as the opening hook, the closing note (next to the
+   three-route commitment), both, or neither?** Surfaced for adjudication, not
+   inserted into §A–§D (flag-don't-fix).
+
 ---
 
 ### Landing checklist (when/if Grant approves the prose)
