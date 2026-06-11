@@ -66,11 +66,53 @@ Two sentences are mandatory in every entry and are stated explicitly: **"what a 
 
 ## §3 — WALKING DROPLETS (Couder-Fort) — RANK 3
 
-<!-- filled in §3 commit -->
+**Bench setup.** A bath of silicone oil vibrated vertically just **below** the Faraday instability threshold. A millimetric droplet bounces on the surface and self-propels, guided by the standing-wave field it itself creates each bounce — a hydrodynamic pilot-wave "walker."
+**Materials class:** silicone oil, electromagnetic shaker, function generator + amplifier, precision accelerometer, high-speed camera, stroboscope. **Difficulty:** **HIGH** — sub-Faraday acceleration must be held flat to ~1%; this is the hardest rig in the program to make quantitatively clean.
+
+**Literature class (CARRY THE DISPUTE HONESTLY).** Couder & Fort, ~2005 onward — walking droplets as a macroscopic pilot-wave analog; robustly reproduce **orbital quantization, Zeeman-like level splitting, and tunneling statistics** in several geometries. **BUT** the celebrated Couder-Fort 2006 single-particle **double-slit diffraction/interference** claim has **FAILED independent replication**: careful re-runs (Andersen et al. 2015; Pucci, Harris, Bush, and the Bohr/Andersen group) found **no** robust QM-matching interference for single walkers passing slits — the original apparent "diffraction" is attributed to boundary/systematic effects. **The double-slit statistics claim specifically is contested.** This program does not treat it as established.
+
+**AVE arc it maps to.** The **pilot-mode fork** and the **moving-defect double-slit** arc:
+- **Pilot-mode fork (Grant-gated, OPEN)** — [`2026-06-10_pilotwake-bhphase-survey_note.md`](2026-06-10_pilotwake-bhphase-survey_note.md) §2: the corpus disagrees with itself about which sector the pilot's wake lives in — **transverse-inductive** ([`ohmic-decoherence-born.md:11`](../manuscript/ave-kb/vol1/dynamics/ch3-quantum-signal-dynamics/ohmic-decoherence-born.md)) vs **longitudinal-bulk** ([`de-broglie-standing-wave.md:50`](../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md)). Surfaced verbatim, adjudication pending Grant.
+- **The discriminating sim was NEVER run** — same note §3: no extant sim isolates a *dynamically moving defect that simultaneously carries a near-field store AND radiates a far-field wake*; named there as **not-yet-run**.
+- **The double-slit EE mapping** — [`double-slit-ee-mapping.md`](../manuscript/ave-kb/vol1/dynamics/ch3-quantum-signal-dynamics/double-slit-ee-mapping.md) §5: the AVE discriminating content is a **continuous** visibility curve `V(Z_det)` (Ohmic-tap decoherence) where Copenhagen predicts a binary step.
+
+**The falsifiable surface (double-edged, and that is the point).** The class is: *a localized excitation co-moving with a real physical guiding-wave field reproduces interference statistics.* The honest surface has two edges:
+- **(i)** for the class to support the AVE pilot picture, a walker must build up multi-fringe interference statistics from its pilot field; **but**
+- **(ii)** the replication dispute means the most-cited positive (slit statistics) does **not** robustly reproduce. A clean re-run that **again** fails slit-statistics is the **expected, honest** outcome — and it is **instructive for sim design**: it warns that a classical pilot-wave does **not** generically yield QM slit-statistics, so the AVE moving-defect sim must *earn* its `V(Z_det)` signature, not assume interference falls out of a guiding field for free.
+
+**5-line prereg skeleton.**
+1. **Frozen observable:** transverse landing-position distribution `P(x)` for walkers passing a single aperture and a double aperture, accumulated over N ≥ 500 passes; compared against the QM Fraunhofer pattern AND the corpus continuous-decoherence prediction.
+2. **Bin (i) CONSISTENT-with-pilot:** `P(x)` shows statistically-significant multi-fringe structure tracking QM (note: replication risk — pre-commit the systematic-controls list).
+3. **Bin (ii) EXPECTED-NULL:** `P(x)` single-lobe / no robust fringes — matches the contested re-runs; *constrains* the AVE sim (classical pilot ≠ QM statistics for free).
+4. **Bin (iii) NEW DISCRIMINATOR:** fringe visibility varies **continuously** with a controllable boundary/damping analog → matches the AVE `V(Z_det)` continuous-decoherence prediction.
+5. **Stop rule:** freeze the systematic-controls list (boundary reflections, air currents, bath-depth gradient) **before** the first run; N ≥ 500/configuration.
+
+**What a positive (Bin iii) means.** A hydrodynamic pilot wave can exhibit *continuously-tunable* decoherence — supporting the mechanism class behind the AVE continuous-`V(Z_det)` prediction (the discriminating content vs Copenhagen's binary collapse).
+**What it does NOT mean.** Does **not** resolve the pilot-mode fork (water is single-sector — it cannot tell transverse-inductive from longitudinal-bulk); does **not** confirm the vacuum is a pilot-wave medium; does **not** validate the contested Couder-Fort double-slit claim (carried as **DISPUTED**). The deepest value here is **methodological**: it disciplines the moving-defect sim to not assume QM statistics emerge automatically from a classical guiding field — the dispute itself is the lesson.
 
 ## §4 — TAYLOR COLUMNS — RANK 4
 
-<!-- filled in §4 commit -->
+**Bench setup.** A tank of water on a turntable spun up to solid-body rotation. Place a small obstacle on the bottom (or tow one slowly across the floor). At low Rossby number the dye reveals a **Taylor-Proudman column** — a stagnant fluid column above the obstacle that translates *rigidly with it*, the flow self-organizing into two-dimensional columns aligned with the rotation axis even with no physical wall confining them.
+**Materials class:** turntable / rotating platform, cylindrical tank, dye, small obstacle. **Difficulty:** moderate — requires steady solid-body rotation and genuinely low Rossby number; spin-up transients must be allowed to decay.
+
+**Literature class.** Taylor-Proudman theorem; G.I. Taylor's 1920s rotating-tank column experiments. Geostrophic, columnar, quasi-2D self-organization at low Rossby number.
+
+**AVE arc it maps to.** The **rotation-axis collimation / self-organization** mechanism class:
+- **Polar-impedance jet collimation** — [`first-principles-predictions.md:16-29`](../manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/first-principles-predictions.md): "the rotation axis is the only direction where the azimuthal Op14 topological strain gradient (`ε_{11,rot}=0`) vanishes … the polar axis is the 'least strained' escape channel … The predicted jet opening angle scales with `a_*`." Engine `black_hole_jets.py`.
+- **Ω_freeze imposed-rotation genesis** — [`trampoline-framework.md:97-105`](../manuscript/ave-kb/common/trampoline-framework.md) (the rotation imposed at freeze, §2 above).
+- **⚠ VERIFICATION FLAG (flag-don't-fix):** the parent framing for this entry — *"the collimation sequence (D3) self-organization the imposed-rotation sim couldn't test"* — **did NOT verify as a named corpus arc.** A whole-repo grep finds no leaf/research-doc "D3 collimation sequence" and no "imposed-rotation sim" documented as having a self-organized-collimation gap; the `D3` row in `divergence-test-substrate-map.md:462` is **D3-GEOM-ENTROPY** (geometric entropy — *unrelated*). This entry therefore stands on the **verified** polar-impedance-collimation anchor (`first-principles-predictions.md:16-29`) + Ω_freeze; the "D3/imposed-rotation-sim-gap" label is carried as **parent-framing, UNVERIFIED**, and surfaced for Grant to either point at the real arc or strike the label. See ledger §9.
+
+**The falsifiable surface.** The class is: *imposed rotation forces flow to self-organize into structures collimated along the rotation axis (columns/jets) without an explicit guiding wall.* A fluid result CONTRADICTS it if, at low Rossby number, the flow does **not** form rotation-axis-aligned columns, or if column coherence-length is **independent** of rotation rate. (Taylor-Proudman is textbook-robust, so a flat contradiction would be surprising — the real value is **quantitative**: does column coherence-length scale with `Ω` the way the corpus jet-opening-vs-`a_*` analog implies?)
+
+**5-line prereg skeleton.**
+1. **Frozen observable:** axial coherence length `L_col` of the columnar structure above the obstacle, and whether the column translates *rigidly* with the obstacle, as a function of Rossby number `Ro = U/(2ΩL)`.
+2. **Bin CONSISTENT:** `L_col` grows as `Ro → 0` and the column moves rigidly with the obstacle.
+3. **Bin CONTRADICT:** no column forms, or `L_col` independent of `Ω`.
+4. **Bin QUANTITATIVE:** record `L_col(Ω)` scaling exponent; compare to the corpus jet-opening-angle-vs-`a_*` analog.
+5. **Stop rule:** ≥ 4 `Ro` values spanning the geostrophic regime; allow spin-up transient to decay before each run.
+
+**What a positive means.** Imposed rotation self-organizes flow into axis-aligned collimated structure — the borrowed picture behind the corpus's rotation-collimates-the-jet prediction is real and quantifiable in a continuum fluid.
+**What it does NOT mean.** Does **not** confirm that BH jets collimate by polar-impedance matching (Taylor-Proudman is incompressible-geostrophic; the corpus mechanism is saturation-impedance — same **class**, different mechanism); does **not** confirm the Ω_freeze genesis; does **not** test the vacuum. And it does **not** retroactively validate the unverified "D3/imposed-rotation-sim" label — that remains a flag for Grant.
 
 ## §5 — PUMP-LOOP VAPOR LOCK — RANK 5
 
