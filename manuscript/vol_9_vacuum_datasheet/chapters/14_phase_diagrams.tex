@@ -9,13 +9,122 @@
     \item Document the cosmic phase diagram with the canonical AVE framing preserved verbatim: lattice-genesis single-seed (NOT multiverse); BH interior = Regime IV ruptured plasma (NOT a separate B-sublattice); Machian $G$ DERIVED (NOT a primitive axiom).
     \item Map the cross-phase transitions (Regime I$\to$II at $r_1 = \sqrt{2\alpha}$, II$\to$III at $r_2 = \sqrt{3}/2$ in the spin-2 sector, III$\to$IV at $r_3 = 1$) and identify the engineering observables that mark each crossing.
     \item Translate the substrate's phase organization into the canonical EE phase-diagram analog (semiconductor I-V operating regions, varactor C-vs-V curve, Stribeck tribology curve, cavity-QED coupling regimes) per \texttt{ave-discipline-translate} v1.1 cross-disciplinary tables.
+    \item Distinguish the substrate's \emph{true thermodynamic phase diagram} --- the (thermal $\times$ $\bar\rho$) plane on which the solid, melt, and candidate cavitated phases are distinct regions, bounded by two failure lines (the canonical melt line $T_{melt}$ and the candidate cavitation line $\bar\rho_{cav}$) --- from the four-regime $r = A/A_c$ partition, which is demoted to the \emph{excitation map of the solid phase} (a path within the solid, not an axis of the phase plane). New section \S\ref{sec:vol9_true_phase_diagram}, 2026-06-11.
 \end{itemize}
 \end{objectivebox}
+
+\section{The True Thermodynamic Phase Diagram}
+\label{sec:vol9_true_phase_diagram}
+
+\textbf{Why this section precedes the regime map.} A phase diagram, in the thermodynamic sense, partitions a plane of \emph{independent state variables} into regions of distinct material phase. The four-regime map of \S\ref{sec:vol9_phase_operating_point} is routinely \emph{called} the substrate's phase diagram, but its control parameter $r \equiv A/A_c$ is not an independent state variable --- it is an \emph{excitation} parameter (the local strain amplitude to which the solid crystal is driven along the Axiom 4 kernel). Driving $r$ upward is a \emph{trajectory} the solid is taken along; it is not a coordinate that separates one phase of matter from another. This section establishes the substrate's actual thermodynamic phase diagram --- the plane on which the solid, the melt, and the candidate cavitated phase are distinct regions, bounded by two failure lines --- after which \S\ref{sec:vol9_phase_operating_point} reads for what it is: the \emph{excitation map of the solid phase}.
+
+\subsection{The axes argument: state variables vs.\ the excitation path}
+\label{subsec:vol9_true_phase_axes}
+
+The substrate is a saturable elastic K4--Cosserat crystal (Vol 1 Chs.~1--7). Like any crystal, its phase organization is set by independent thermodynamic state variables, not by how hard a given region is locally excited. Two state variables span the substrate's phase plane:
+
+\begin{itemize}
+    \item \textbf{Thermal occupation $T$} (vertical axis) --- the bath temperature setting the mode population. At $T_{CMB} = \qty{2.725}{\kelvin}$ the substrate sits deep in its cold-lattice ground state (the standard cosmic phase, \S\ref{subsec:vol9_phase_standard}); raising $T$ toward $\sim m_e c^2/k_B$ thermally unfreezes the lightest topological excitation and the crystal loses coherent order.
+    \item \textbf{Bulk dilatation $\bar\rho$} (horizontal axis) --- the mean compression/rarefaction of the substrate relative to its cold-lattice reference. Rarefying $\bar\rho$ toward the EOS softening root drives the bulk (compressional) wave speed $c_{bulk}^2 \to 0$, past which the medium can no longer support a compressional restoring force.
+\end{itemize}
+
+The control parameter $r = A/A_c$ is \emph{neither} of these. It is the operating-point amplitude of the Axiom 4 saturation kernel $S(r) = \sqrt{1 - r^2}$, which is a property the crystal exhibits \emph{at a point} when locally strained. The Regime I--IV progression is therefore a \emph{path drawn within the solid region} of the $(T, \bar\rho)$ plane --- the locus of how hard a point in the crystal is being driven --- and its terminus ($r \to 1$, $S \to 0$, local topology destroyed) lands \emph{on} the solid's phase boundary, where the locally ruptured material is in the melt phase. The path is not an axis; its endpoint is a boundary crossing. Figure~\ref{fig:vol9_true_phase_diagram} draws the full plane: the solid region, the two failure lines, and the Regime I--IV excitation path as a trajectory \emph{within} the solid whose terminus lands on the melt line.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{true_phase_diagram.pdf}
+\caption{The substrate's true thermodynamic phase diagram, on the independent state variables thermal occupation $T$ (vertical, log) $\times$ bulk dilatation $\bar\rho$ (horizontal). \textbf{Solid} (K4--Cosserat crystal; blue) is bounded above by the \textbf{melt line} $T_{melt} \approx \qty{5.93e9}{\kelvin}$ ($k_B T = m_e c^2$; canonical, \kbleaf{02\_absolute\_maximum\_ratings.tex}:38) and to the left by the \textbf{cavitation line} $\bar\rho_{cav} = -1/\varphi \approx -0.618$ ($c_{bulk}^2 = 0$; candidate/contested, \kbleaf{cavitation\_flow.py}:64). Above the melt line is the \textbf{melt} phase (pre-geodesic plasma); left of the cavitation line is the \textbf{candidate cavitated/vapor} phase (hatched). The Regime I--IV $r = A/A_c$ progression is drawn as an \emph{excitation trajectory within the solid} (not an axis of the plane); its terminus $r \to 1$ (local rupture) lands on the melt line --- the black-hole-interior crossing. The standard cosmic phase ($T_{CMB}$) sits deep in the solid. All thresholds derive from canonical constants $\{m_e, c, k_B, \varphi\}$ via \kbleaf{figures/gen\_true\_phase\_diagram.py}; no observable target is hardcoded.}
+\label{fig:vol9_true_phase_diagram}
+\end{figure}
+
+\subsection{Proof: the regime axis is defined only inside the crystal}
+\label{subsec:vol9_true_phase_proof}
+
+The saturation kernel $S(r) = \sqrt{1 - r^2}$ is the Axiom 4 response of the K4--Cosserat \emph{solid}, parametrized by the solid's own local strain amplitude $r = A/A_c$. There is no K4 bond, no critical threshold $A_c$, and therefore no $r$ and no $S$, in the absence of the lattice. The regime axis presupposes the crystal.
+
+But the substrate has a phase that \emph{predates} the crystal. At lattice genesis the K4 crystal crystallized \emph{out of} a hotter, disordered parent medium --- the pre-geodesic plasma. Per canonical \kbleaf{manuscript/ave-kb/common/cosmic-axes-and-frames-glossary.md}:73 (quoting \kbleaf{04\_generative\_cosmology.tex}:405--413):
+
+\begin{quote}
+\itshape ``\ldots the inside region is our universe's pre-crystallization phase (supercooled pre-geodesic plasma).''
+\end{quote}
+
+A coordinate that is defined only \emph{after} the crystal exists cannot be the axis on which the \emph{pre-crystal} phase is located. The melt (pre-geodesic plasma) has no $r$, no $A_c$, no Regime number --- it is the phase the regime axis itself is built on top of. Therefore the four-regime $r$-map \textbf{cannot} be the substrate's thermodynamic phase diagram; it is the excitation map of a single phase, the solid. The true phase diagram must be drawn on axes ($T$, $\bar\rho$) on which the solid, the melt, and the cavitated phase are all simultaneously representable as regions.
+
+\subsection{The three substrate phases}
+\label{subsec:vol9_true_phase_set}
+
+On the $(T, \bar\rho)$ plane the substrate carries two canonical phases (solid, melt) and one candidate phase (cavitated/vapor). The Regime I--IV excitation map lives \emph{entirely inside} the solid region.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}p{0.17\linewidth} p{0.18\linewidth} p{0.30\linewidth} p{0.21\linewidth}@{}}
+\toprule
+\textbf{Phase} & \textbf{Region on $(T,\bar\rho)$} & \textbf{Substrate state} & \textbf{Class} \\
+\midrule
+Solid (K4--Cosserat crystal) & $T < T_{melt}$ and $\bar\rho > \bar\rho_{cav}$ & Ordered chiral K4 crystal; supports the full Regime I--IV excitation map; the canonical AVE vacuum & \textbf{CANONICAL} (Vol 1 Chs.~1--7) \\
+Melt (pre-geodesic plasma) & $T \ge T_{melt}$ (or local strain rupture) & Disordered; no coherent K4 order; the crystal's parent medium; the BH-interior ruptured-plasma sink; the pre-K4 cosmological phase & \textbf{CANONICAL-anchored} (\texttt{clm-ir8h78}; \kbleaf{cosmic-axes-and-frames-glossary.md}:73) \\
+Cavitated / vapor & $\bar\rho \le \bar\rho_{cav}$ & Rarefied past the bulk softening root $c_{bulk}^2 = 0$; no compressional restoring force; FLASH-vs-LOCK irreversibility UNRESOLVED & \textbf{CANDIDATE} (value CONTESTED; \kbleaf{cavitation\_flow.py}:62--64) \\
+\bottomrule
+\end{tabular}
+\caption{The substrate's three thermodynamic phases on the $(T, \bar\rho)$ plane. Two are canonical (solid, melt); the cavitated/vapor phase is candidate-class with a contested boundary value. The Regime I--IV $r$-map is a sub-structure of the solid phase only.}
+\label{tab:vol9_true_phase_set}
+\end{table}
+
+\subsection{The two failure lines}
+\label{subsec:vol9_true_phase_failure_lines}
+
+The solid phase is bounded by two failure lines, one on each thermodynamic axis. Each line carries a latent threshold row, anchored verbatim to its canonical source.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}p{0.13\linewidth} p{0.20\linewidth} p{0.32\linewidth} p{0.17\linewidth}@{}}
+\toprule
+\textbf{Failure line} & \textbf{Latent threshold} & \textbf{Verbatim anchor} & \textbf{Class} \\
+\midrule
+Melt line (thermal axis) & $T_{melt} \sim \qty{5.93e9}{\kelvin}$; $k_B T_{melt} \approx m_e c^2$ & \kbleaf{02\_absolute\_maximum\_ratings.tex}:38 \emph{``$T_{melt}$ \& $\sim$\num{5.93e9} \ldots lightest topological excitation (electron-positron pair) thermally accessible''}; scope row :60--61 \emph{``DERIVED ($m_e c^2/k_B$)''} & \textbf{CANONICAL} \\
+Cavitation line ($\bar\rho$ axis) & $\bar\rho_{cav} = -1/\varphi \approx -0.6180$; $c_{bulk}^2(\bar\rho_{cav}) = 0$ & \kbleaf{src/ave/core/cavitation\_flow.py}:64 \texttt{RHO\_CAV = -1.0 / PHI}, i.e.\ $\bar\rho_{cav} = (1-\sqrt5)/2 \approx -0.6180339887$ with $c_{bulk}^2(\bar\rho_{cav}) = 0$; comment :62 \emph{``floor is CANDIDATE''} & \textbf{CANDIDATE} (CONTESTED) \\
+\bottomrule
+\end{tabular}
+\caption{The two failure lines bounding the solid phase, with their latent-row thresholds anchored verbatim. The melt line is canonical (derived from $\{m_e, c, k_B\}$); the cavitation line is candidate-class --- the engine comment itself tags the value CANDIDATE, and \kbleaf{02\_absolute\_maximum\_ratings.tex}:61 tags $\bar\rho_{cav}$ a CANDIDATE-CLAIM.}
+\label{tab:vol9_true_phase_failure_lines}
+\end{table}
+
+\textbf{The melt line (canonical).} When the thermal bath reaches $k_B T \approx m_e c^2$ (i.e.\ $T_{melt} \sim \qty{5.93e9}{\kelvin}$, derived from $\{m_e, c, k_B\}$ at \kbleaf{02\_absolute\_maximum\_ratings.tex}:38,60), the lightest topological excitation --- the electron--positron pair --- becomes thermally accessible, K4 mode-freezeout ends, the vacuum heat capacity falls (Debye-class), and the crystal loses coherent order: it \emph{melts} into pre-geodesic plasma. This is the same phase the black-hole interior reaches \emph{locally} (the melted-BH thread, \texttt{clm-ir8h78}; \S\ref{subsec:vol9_true_phase_crosslinks}): \kbleaf{constructive-destructive-paradox.md} ``\emph{melting back into unstructured pre-geometric plasma}.'' The melt line is therefore crossed two ways --- globally by raising $T$ past $T_{melt}$ (the thermal axis), or locally by driving the strain to rupture at the Schwarzschild radius (the excitation path's terminus $r \to 1$ coinciding with the melt boundary).
+
+\textbf{The cavitation line (candidate, contested).} When the bulk dilatation $\bar\rho$ falls to $\bar\rho_{cav} = -1/\varphi \approx -0.6180$, the rarefaction-softening EOS root $c_{bulk}^2(\bar\rho_{cav}) = 0$ is reached and the substrate can no longer support a compressional restoring force --- a candidate vapor/cavitated phase. The epistemic status of this boundary is \textbf{contested, and the contest is carried verbatim rather than resolved}: the engine's own comment tags the value CANDIDATE (\kbleaf{cavitation\_flow.py}:62 ``\emph{Candidate cavitation floor, from PHI (the only canonical anchor; floor is CANDIDATE)}''), the absolute-maximum-ratings scope table tags $\bar\rho_{cav}$ a CANDIDATE-CLAIM (\kbleaf{02\_absolute\_maximum\_ratings.tex}:61), and whether crossing it is an irreversible phase-change (FLASH) or reversible compliance (LOCK) is \textbf{UNRESOLVED} per the 2026-06-10 cavitation-core-probe panel (\kbleaf{research/2026-06-10\_cavitation-core-probe\_result.md}, CLIP verdict; the snap channel was structurally unavailable in that engine, gated not falsified).
+
+\subsection{Cross-links}
+\label{subsec:vol9_true_phase_crosslinks}
+
+\begin{itemize}
+    \item \textbf{The melted-BH thread.} The black-hole interior is the \emph{local} realization of crossing the melt line: beyond the event horizon the dielectric strain exceeds the Axiom 4 saturation limit and the lattice ``\emph{melts back into unstructured pre-geometric plasma; topology is destroyed}'' (\kbleaf{manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/constructive-destructive-paradox.md}, \texttt{clm-ir8h78}). The cosmic-phases table (\S\ref{sec:vol9_phase_cosmic}, Tab.~\ref{tab:vol9_cosmic_phases}) labels this ``Regime IV'' --- that label is the excitation-path \emph{terminus}; the resulting \emph{state} is the melt phase of this section.
+    \item \textbf{The channel ledger.} The electron as a condensed phase of transverse wave content carries a standing longitudinal $V$ whose genesis-direction reading is $m_e c^2$ (Grant-ratified framing, \kbleaf{research/2026-06-10\_matter-as-vapor-locked-pump\_framing.md} \S 11; $m_e c^2$ stays HYPOTHESIS-class per \S 11.2).
+    \item \textbf{The abandoned interior.} \kbleaf{manuscript/ave-kb/common/the-abandoned-interior.md} Thread C carries a ``phase diagram with two failure lines'' --- but those are $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx \qty{43.65}{\kilo\volt}$ and $V_{snap} = m_e c^2/e \approx \qty{511}{\kilo\volt}$, the \emph{electron condensed-phase} bounds on the \emph{excitation/voltage} axis.
+\end{itemize}
+
+\begin{warningbox}[\texttt{flag-don't-fix}: ``two failure lines'' is an overloaded phrase (surfaced, not resolved)]
+The phrase ``two failure lines'' names \textbf{two distinct objects} in the corpus, and they sit on \textbf{orthogonal axes}:
+\begin{itemize}
+    \item \textbf{This section ($T_{melt}$, $\bar\rho_{cav}$):} the \emph{substrate's} thermodynamic phase boundaries (solid $\to$ melt; solid $\to$ cavitated) on the $(T, \bar\rho)$ plane.
+    \item \textbf{\kbleaf{the-abandoned-interior.md} Thread C ($V_{yield}$, $V_{snap}$):} the \emph{electron's} condensed-phase onset/completion bounds on the excitation/voltage ($r = A/A_c$) axis --- i.e.\ two points along a \emph{path within the solid}, not two thermodynamic-phase boundaries.
+\end{itemize}
+Both framings are correct on their own axes; they are \textbf{not} the same two lines. This is surfaced for Grant/auditor adjudication, not silently merged.
+\end{warningbox}
+
+\textbf{Scope and classification (\texttt{consistency-vs-emergence}).} This section is a \textbf{consolidation + reframing} of canonical content; it introduces \emph{no} new substrate primitive. The excitation-map-vs-phase-diagram distinction is \textbf{CONSISTENCY-CLASS framing} (same ceiling as its source leaves). The melt line $T_{melt} = m_e c^2/k_B$ is a \textbf{Class-B manifestation} (the Axiom 4 saturation kernel at thermal scale; a derived threshold, not an emergence test --- inputs $\{m_e, c, k_B\}$ are canonical). The cavitated third phase and its boundary $\bar\rho_{cav}$ are \textbf{CANDIDATE-class} with the contest carried verbatim. No emergence-class claim is headlined.
 
 \section{Substrate Operating-Point Phase Diagram}
 \label{sec:vol9_phase_operating_point}
 
 The substrate's bulk response to local strain is the Axiom 4 universal saturation kernel $S(A) = \sqrt{1 - (A/A_{yield})^2}$ (Vol 9 Ch.~\ref{ch:vol9_saturation_characteristics}, restating the canonical statement at \kbleaf{manuscript/common\_equations/eq\_axiom\_4.tex}; INVARIANT-S2 mirror at \kbleaf{manuscript/ave-kb/CLAUDE.md}). The dimensionless normalized operating point $r \equiv A/A_c$ partitions the kernel's domain into four universal regimes (canonical at \kbleaf{manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md}, \texttt{clm-2dwzib} + \texttt{clm-b2anl4}). The partition is substrate-natural --- the boundaries are derived from first principles, not chosen by convention.
+
+\begin{warningbox}[Rule-12 demotion note (2026-06-11): this is the excitation map OF the solid phase]
+The four-regime $r$-partition tabulated below is the \textbf{excitation map of the solid phase} --- a contour of how hard a point in the K4--Cosserat crystal is locally driven along the Axiom 4 kernel --- \emph{not} a partition of the substrate's thermodynamic phase plane. The substrate's true thermodynamic phase diagram (solid / melt / candidate cavitated, on the $(T, \bar\rho)$ plane) is \S\ref{sec:vol9_true_phase_diagram}. \textbf{The table body below is preserved verbatim per Rule 12}; this note is a re-label only. In particular, Regime IV ($r \ge 1$, $S = 0$) is the solid's \emph{local rupture endpoint} along the excitation trajectory --- the locus where K4 topology is locally destroyed --- and the resulting \emph{state} coincides with the melt phase (pre-geodesic plasma) at the BH interior; but the ``Regime IV'' label is an \emph{excitation coordinate}, not a thermodynamic-phase coordinate. The melt phase predates the crystal (\S\ref{subsec:vol9_true_phase_proof}; \kbleaf{cosmic-axes-and-frames-glossary.md}:73) and therefore predates the $r$-axis itself.
+\end{warningbox}
 
 \begin{resultbox}{Universal Operating-Point Phase Diagram (verbatim from \texttt{four-regimes.md})}
 \begin{equation}
@@ -61,7 +170,7 @@ Each AVE substrate domain reduces to a single dimensionless control parameter $r
 \toprule
 \textbf{Domain} & \textbf{Amplitude $A$} & \textbf{Critical $A_c$} & \textbf{Representative operating-point locations} \\
 \midrule
-Electromagnetic (dielectric) & Applied voltage $V$ & $V_{yield} = \sqrt{\alpha}\, V_{snap} \approx \qty{43.65}{\kilo\volt}$ \emph{(per-node, across $\ell_{node}$)} & \emph{[⚑ 2026-06-04: $V/V_{yield}$ here is an apparatus-voltage \textbf{misreading} of the per-node $r$ — $V_{yield}$ is the voltage across ONE node, so bench voltages give vacuum per-node $r\sim10^{-9}$ (Regime~I; consistent with the field-strength row). PONDER-05's $r=0.687$ is the \textbf{quartz material's} ratio, NOT the vacuum (INVARIANT-S2). Reaching vacuum Regime~II–IV needs facility fields $\sim10^{16}$–$10^{17}$ V/m, not bench voltages.]} \\
+Electromagnetic (dielectric) & Applied voltage $V$ & $V_{yield} = \sqrt{\alpha}\, V_{snap} \approx \qty{43.65}{\kilo\volt}$ \emph{(per-node, across $\ell_{node}$)} & \emph{[FLAG 2026-06-04: $V/V_{yield}$ here is an apparatus-voltage \textbf{misreading} of the per-node $r$ — $V_{yield}$ is the voltage across ONE node, so bench voltages give vacuum per-node $r\sim10^{-9}$ (Regime~I; consistent with the field-strength row). PONDER-05's $r=0.687$ is the \textbf{quartz material's} ratio, NOT the vacuum (INVARIANT-S2). Reaching vacuum Regime~II–IV needs facility fields $\sim10^{16}$–$10^{17}$ V/m, not bench voltages.]} \\
 Electromagnetic (field strength) & Local field $E$ & $E_{yield} = V_{yield}/\ell_{node} \approx \qty{1.13e17}{\volt\per\metre}$ & Lab field \qty{e6}{\volt\per\metre}: I ($r \sim 10^{-11}$); Schwinger $E_S$: IV ($r = 1/\sqrt{\alpha} \approx 11.7$) \\
 Gravitational & Principal radial strain $\varepsilon_{11} = 7GM/(c^2 r)$ & Unitary strain $A_c = 1$ & Solar surface: I ($\varepsilon_{11} = \num{2.1e-6}$); white dwarf: I ($\sim \num{3e-4}$); neutron star 1.4 $M_\odot$ at $R = \qty{10}{\kilo\metre}$: IV ($\varepsilon_{11} \approx 1.46$); BH at $r_s = 2GM/c^2$: IV ($\varepsilon_{11} = 7/2 = 3.5$) \\
 BCS / superconducting & Temperature $T$ (or magnetic field $B$) & $T_c$ (or $B_{c0}$) & Below $T_c$: I-III superconducting; at $T_c$: IV (Meissner-collapse boundary; $\mu_{eff} \to 0$ on the $\mu$-branch) \\
@@ -101,6 +210,9 @@ Cosmic-genesis (lattice-genesis crystallization) & III$\to$I cascade & $\hat{\Om
 \caption{The three cosmic phases of the substrate (standard cosmic / ruptured-plasma / cosmic-genesis), their regime, control parameter, and canonical sources.}
 \label{tab:vol9_cosmic_phases}
 \end{table}
+
+\noindent
+\textit{[FLAG 2026-06-11 clarification (see \S\ref{sec:vol9_true_phase_diagram}): the ``Regime'' column above is an \textbf{excitation coordinate}, not a thermodynamic-phase coordinate.} The ruptured-plasma (BH-interior) row's ``Regime IV'' is the solid's \emph{local rupture endpoint} along the $r = A/A_c$ excitation axis; the resulting \emph{state} is the substrate's \textbf{melt phase} (pre-geodesic plasma) on the $(T, \bar\rho)$ plane of \S\ref{sec:vol9_true_phase_diagram}. The three \emph{cosmic} phases are a distinct (cosmological-evolution) classification; mixing the excitation-regime label into them is the conflation \S\ref{sec:vol9_true_phase_diagram} resolves. \textit{Re-label per Rule 12; table body preserved.}
 
 \subsection{Standard cosmic phase}
 \label{subsec:vol9_phase_standard}
@@ -156,7 +268,7 @@ The cosmic-genesis-to-standard-cosmic transition is the cosmic-scale instance of
 \subsection{Cosmic-scale phase transition: BH-interior substrate rupture}
 \label{subsec:vol9_phase_transition_bh}
 
-The standard-cosmic-to-ruptured-plasma transition is the cosmic-scale instance of the operating-point Regime III$\to$IV transition. At the Schwarzschild radius $r_s = 2GM/c^2$ around a sufficient mass concentration, the substrate's refractive strain $\varepsilon_{11}$ reaches unity (Axiom 4 saturation limit); interior to $r_s$ the substrate is in Regime IV with $G_{shear} \to 0$. The transition is observationally bracketed by the LIGO ring-down quasi-normal-mode spectrum at $\omega_R M_g = 18/49$ in the spin-2 sector (canonical at \kbleaf{vol3/cosmology/ch15-black-hole-orbitals/}). The BH-formation crossing is the cosmic-scale instance of the same Axiom 4 kernel at $r \to 1$ governing every engineering-scale Schwinger pair-production event.
+The standard-cosmic-to-ruptured-plasma transition is the cosmic-scale instance of the operating-point Regime III$\to$IV transition. \textit{[FLAG 2026-06-11: ``Regime III$\to$IV'' here is the \textbf{excitation path}'s terminus within the solid; the solid$\to$melt crossing it coincides with is the true thermodynamic-phase boundary of \S\ref{sec:vol9_true_phase_diagram}. The melt phase predates the crystal (\S\ref{subsec:vol9_true_phase_proof}) and so predates the $r$-axis; the labels are not interchangeable.]} At the Schwarzschild radius $r_s = 2GM/c^2$ around a sufficient mass concentration, the substrate's refractive strain $\varepsilon_{11}$ reaches unity (Axiom 4 saturation limit); interior to $r_s$ the substrate is in Regime IV with $G_{shear} \to 0$. The transition is observationally bracketed by the LIGO ring-down quasi-normal-mode spectrum at $\omega_R M_g = 18/49$ in the spin-2 sector (canonical at \kbleaf{vol3/cosmology/ch15-black-hole-orbitals/}). The BH-formation crossing is the cosmic-scale instance of the same Axiom 4 kernel at $r \to 1$ governing every engineering-scale Schwinger pair-production event.
 
 \section{EE Phase-Diagram Translation}
 \label{sec:vol9_phase_ee_translation}
