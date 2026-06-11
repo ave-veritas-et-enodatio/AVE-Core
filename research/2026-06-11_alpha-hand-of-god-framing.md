@@ -2,8 +2,8 @@
 
 **Date:** 2026-06-11
 **Branch:** `analysis/2026-06-11-melt-coupling-handofgod`
-**Provenance:** Grant-ordered documentation pass. No engine runs, no corpus mutation of canonical leaves. Every `path:line` cite re-verified live in this worktree (verify-before-cite governing). External quote (Feynman) verified against a cited published source. Cites use backtick `path:line` code-spans (no markdown links) so `verify-md-links` has nothing to resolve.
-**Status:** FRAMING DRAFT (Grant-ratified framing + ONE hypothesis). No number-claim is upgraded by this document. The "menu" hypothesis (§4) is hypothesis-class and Grant-gated; it owes a derivable discrete object and must clear the §5 reconstruction-stop fence before any α-emergence framing.
+**Provenance:** Grant-ordered documentation pass. No engine runs, no corpus mutation of canonical leaves. Every `path:line` cite re-verified live in this worktree (verify-before-cite governing). External quote (Feynman) verified verbatim this session via WebFetch against the Wikipedia "Fine-structure constant" article (which sources it to *QED* 1985 p. 129); external-source-verified, not print-exact-stamped. Cites use backtick `path:line` code-spans (no markdown links) so `verify-md-links` has nothing to resolve.
+**Status:** FRAMING DRAFT (Grant-ratified framing + ONE α-side hypothesis + the branch's melt-coupling thread folded in as §6). No number-claim is upgraded by this document. The "menu" hypothesis (§4) is hypothesis-class and Grant-gated; it owes a derivable discrete object and must clear the §5 reconstruction-stop fence before any α-emergence framing. The §6 melt-coupling thread is carried at canon-cite / VIRGIN / hypothesis class with three owed numbers, none upgraded.
 
 ---
 
@@ -30,7 +30,7 @@ The load-bearing content of that sentence, unpacked into three distinct claims t
 
 1. **α is intrinsic to the vacuum** — not a property of any particle living in it, but a property of the medium itself (its one dimensionless fingerprint). [ratified-framing / Lane-1]
 2. **α is the one number we have to *measure*** — it is not handed to us by deeper theory; it is read off the medium the way you read a serial number off a manufactured part. [ratified-framing / Lane-1]
-3. **α is *the* initial condition** — singular. One number set once, at the medium's genesis, and frozen. [ratified-framing / Lane-1]
+3. **α is *the* initial condition** — singular. One number set once, at the medium's genesis, and frozen. (Scoped to the **genesis freeze-in**; whether the value stays constant under the NOW-ongoing cosmic crystallization is an open canon question — §6.5 / Chain B'.) [ratified-framing / Lane-1]
 
 The corpus already carries the substrate-mechanical referent for "the hand of god": the cosmic $\Gamma = -1$ boundary's frozen winding $\mathcal{J}_{\text{cosmic}}$, set by the genesis event and inaccessible from inside (§2, A-031). Grant's sentence is the plumber-physical statement of that referent: the one number you measure *is* the one number the freeze set.
 
@@ -38,12 +38,15 @@ The corpus already carries the substrate-mechanical referent for "the hand of go
 
 Feynman framed the same number as a mystery and reached for the same metaphor **[fact]**:
 
-> "It is a magic number that comes to us with no understanding by humans. You
-> might say the 'hand of God' wrote that number, and 'we don't know how He
-> pushed His pencil.'"
+> "It's one of the greatest damn mysteries of physics: a magic number that comes
+> to us with no understanding by humans. You might say the 'hand of God' wrote
+> that number, and 'we don't know how He pushed His pencil.'"
 > — R. P. Feynman, *QED: The Strange Theory of Light and Matter* (Princeton
-> University Press, 1985), p. 129. **[fact — verified against the published
-> source this session.]**
+> University Press, 1985), p. 129. **[fact — wording verified verbatim this
+> session via WebFetch against the Wikipedia "Fine-structure constant" article,
+> which sources it to *QED* (1985) p. 129. Reproduced in full, no elision.
+> First-edition print transcriptions are known to vary on "by humans" / "by
+> man," so this is external-source-verified, NOT print-exact-stamped.]**
 
 Feynman's sentence has two halves: (a) the hand of God *wrote* the number — and (b) *we don't know how He pushed his pencil* — i.e. we have no mechanism for the writing. The AVE framing completes the second half without contradicting the first:
 
@@ -51,11 +54,13 @@ Feynman's sentence has two halves: (a) the hand of God *wrote* the number — an
 
 The "writing" of α is the genesis crystallization event — the phase-transition-while-spinning that locked the substrate over-bracing $u_0^*$ and the global chirality (§2). Feynman's "we don't know *how* He pushed his pencil" is, in this framing, answered at the level of *mechanism-class* (a saturation-kernel strain-snap freeze, observable at smaller scales — A-031 refined, §2.3) while remaining honest that the *specific* pencil-stroke — the exact value of $\Omega_{\text{freeze}}$ for *our* instance — is behind the cosmic horizon and can only be *measured*, never *derived from outside*. The completion is a framing claim, not a derivation: it names where the pencil moved, not a number that forces the stroke.
 
-*(Quote-accuracy note: the wording above is the form attributed to the 1985 first
-edition, p. 129. Feynman's text immediately precedes it with the inverse-square
-mnemonic "about 137.03597"; the "magic number / hand of God / pushed His pencil"
-sentence is the canonical citation. Tagged [fact]; if a line-edit wants the
-fuller surrounding passage it is on the same page.)*
+*(Quote-accuracy note: the sentence above is reproduced in full, no elision, as
+the form sourced to the 1985 first edition, p. 129. Wording was checked this
+session against an external source (Wikipedia, "Fine-structure constant," which
+sources it to QED 1985 p. 129); print first-edition transcriptions are known to
+vary between "by humans" and "by man," which is why the [fact] stamp claims
+external-source verification, not print-exact verification. No surrounding-text
+claim is made beyond the quoted sentence. Tagged [fact].)*
 
 ## §2 — The canonical chain: α ⟵ u₀\* ⟵ Ω̂_freeze
 
@@ -208,7 +213,55 @@ So the AVE reading of the $4\pi$ is **temporal-phase closure (bipartite K4 lobe 
 
 The two §5.1 verdicts (quarter-fence + quartz-α-bucket) are the verifiable 2026-06-10 scout verdicts that closed α-reading lanes; the "contested 4π" referent is verifiable at `ch8-alpha-golden-torus.md:121,144`. But the *specific* "radiation-ladder reading died 2026-06-10" verdict, as named, is **not locatable in origin/main**. Per verify-before-cite I did not invent a cite for it. **Grant: confirm whether (a) the intended verdict is one of the two §5.1 scout notes under a working name, (b) the radiation-ladder verdict lives on an unmerged branch / live worktree not visible from origin/main, or (c) it is an oral verdict yet to be written up.** The §5.2 cross-ref stands on the verifiable `ch8` cites regardless of which.
 
-## §6 — Honest ceiling
+## §6 — The melt-coupling thread (branch context: canon-cites, VIRGIN tags, three owed numbers)
+
+This document's branch (`analysis/2026-06-11-melt-coupling-handofgod`) sits inside a broader thread: **how the solid lattice couples to the topology-melted phase across the saturated Γ-boundary, in matching channels.** A read-only corpus scout (AVE-Core, foundations authority; sibling repos not deep-searched) mapped four question clusters against canon. This section folds that map in — canon-cites re-verified live in this worktree, **VIRGIN** tags where canon is silent, two unreconciled canon **contradictions** surfaced (flag-don't-fix, NOT resolved here), and the **three numbers the thread owes.** Nothing here is upgraded; the α chain of §2 does not depend on any of it.
+
+### §6.1 What canon HOLDS (re-verified)
+
+- **Shear cannot propagate in the melt.** [CANONICAL] `manuscript/ave-kb/vol2/appendices/app-f-solver-toolchain/regime-eigenvalue-method.md:61` (duplicated `common/solver-toolchain.md:72`): "the elastic solid (shear modulus $G > 0$) becomes a ruptured, topology-melted fluid ($G \to 0$). Gravitational waves are *transverse shear waves*; they cannot propagate in a medium with zero shear modulus, precisely as transverse acoustic waves cannot propagate in a fluid."
+- **GWs ARE the shear channel.** [CANONICAL] `manuscript/ave-kb/vol3/claim-quality.md:75` (clm-07kd5v, conf 0.9): "GWs are transverse inductive shear waves in the LC lattice; under Symmetric Scaling … the macroscopic impedance is invariant and the reflection coefficient … is identically zero. Lossless propagation matches LIGO."
+- **The BH melt boundary is matched in the TRANSVERSE/EM channel.** [CANONICAL] `manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md:24`: "the transverse impedance $Z(r) = \sqrt{\mu'/\varepsilon'} = Z_0$ is *invariant* at all radii … no impedance mismatch and no reflection coefficient ($\Gamma = 0$ everywhere)." The matched channel is the symmetric-scaling transverse one — **not** the longitudinal one.
+- **The cosmic melt boundary carries the OPPOSITE coefficient.** [CANONICAL] `manuscript/ave-kb/common/trampoline-framework.md:129` (§2.2): the cosmic crystallization-front boundary is $\Gamma = -1$, while the BH boundary is $\Gamma = 0$. Two solid↔melt boundaries, opposite reflection coefficients — any melt-coupling unification must carry both.
+- **Longitudinal waves: canon only HEDGES.** [CANONICAL — hedge] `manuscript/ave-kb/vol2/appendices/app-f-solver-toolchain/lattice-phase-transition.md:18`: the phase-transition table row reads "Longitudinal waves | Propagate | May propagate" (elastic | ruptured). K-finite / compression-only inside the melt is *implied* by $G = 0$ + the "Fluid (no shear)" analogue (`:19`) but never asserted.
+- **The QNM is already canon as a solid↔melt INTERFACE wave.** [CANONICAL] `manuscript/ave-kb/vol2/appendices/app-f-solver-toolchain/lattice-phase-transition.md:21`: "the QNM is a *surface wave* at the elastic–ruptured phase boundary, identical in character to a Stoneley wave at a solid–fluid interface." Zero-free-parameter chain `manuscript/ave-kb/vol3/claim-quality.md:164`: $\omega_R M_g = \ell(1 + \nu_{vac})/x_{sat} = 18/49 \approx 0.3673$ ($\ell = 2$; 1.7% below GR; Kerr extension disclosed-phenomenological, `:185`).
+
+### §6.2 Two canon CONTRADICTIONS on the melt boundary (flag-don't-fix — NOT resolved here)
+
+The scout surfaced two unreconciled canon statements directly on the melt-coupling channel-bookkeeping axis. Per flag-don't-fix I surface both with verbatim cites and do **not** reframe one to match the other:
+
+- **[FLAG 1 — shear-channel boundary condition is three-valued.]** The SAME channel (shear) at the SAME boundary (solid↔melt) is canonically described three ways:
+  - "perfect **reflector** for shear waves … not through impedance mismatch ($\Gamma$), but through the phase transition that eliminates the shear restoring force" — `manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md:34`
+  - "perfect **conductor** for GW modes: the QNM is a surface wave … Stoneley" — `manuscript/ave-kb/vol2/appendices/app-f-solver-toolchain/lattice-phase-transition.md:21`
+  - "perfect **absorber** (dissipative sink for shear waves entering the saturated region)" — `manuscript/ave-kb/vol3/gravity/ch02-general-relativity/einstein-field-equation.md:49`
+
+  Reflector vs conductor vs absorber for one channel at one boundary is unreconciled. The plausible reconciliation axis — that the EM/transverse channel ($\Gamma = 0$, no reflection) is a *different* channel from the shear channel ($\Gamma = -1$ / reflector), and the Stoneley QNM is an interface mode rather than a bulk reflection — is itself the channel-bookkeeping this thread exists to settle, so it is a Grant/auditor call, not an implementer silent-fix.
+- **[FLAG 2 — BH echoes: yes or no.]** `manuscript/ave-kb/vol3/gravity/ch02-general-relativity/einstein-field-equation.md:49`: "there are no black hole echoes in this framework" ($\Gamma = 0$ everywhere) vs `manuscript/ave-kb/claim-quality-closure-roadmap.md:111`: "potential post-merger GW echoes from shear-mode reflection at $r_{sat}$ are surviving matter-or-shear discriminators." Load-bearing for any melt-event GW-emission claim, and they conflict. Surfaced, not resolved.
+
+### §6.3 What is VIRGIN (canon silent)
+
+- **"The longitudinal channel = the sole solid↔melt propagating channel."** [VIRGIN] Not stated anywhere in canon (scout grep for compression-only / sole-channel / only-longitudinal over manuscript + research = 0 on-point hits). This is the thread's central NEW assembly (see owed-number 1).
+- **The over-bracing tension anchored to the crystallization FRONT.** [VIRGIN] Canon anchors $u_0^*$ to the **rotating frame at the genesis instant** (`omega-freeze-cosmic-grain-cascade.md:42`, §2.1 — a freeze-in IC), NOT to an ongoing front. The front is canon but is never named as the tension's frame. (The over-bracing tension ITSELF is **CANONICAL**: `manuscript/ave-kb/common/trampoline-framework.md:89-105`, $u_0 = (L_0 - d)/d = \rho \Omega^2_{freeze} r^2_{node}/2K_0$.)
+- **$u_0^*$ constancy under ongoing crystallization.** [VIRGIN — Chain B' open] Canon simultaneously holds (a) $u_0^*$ locked at genesis by $\Omega_{freeze}$ (§2.1); (b) DE = the crystallization happening NOW at the cosmic horizon (`manuscript/ave-kb/vol3/cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md:76` "DYNAMIC … the crystallization happening NOW at the cosmic horizon"; `manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md:64` "the thermodynamic latent heat of the vacuum's continuous macroscopic crystallisation"); (c) crystallization thermodynamics OPEN (`manuscript/ave-kb/claim-quality-closure-roadmap.md:42`, Chain B' "blocking on quantitative derivation of crystallization thermodynamics from substrate axioms"). Whether NOW-crystallizing volume re-locks the SAME $u_0^*$ is unaddressed — this is the §1.1-claim-3 / §2.2 "frozen forever" scope seam (§6.5).
+- **Breathing / monopole GW emission from a melt event.** [VIRGIN] No leaf predicts it. Closest canon: `manuscript/ave-kb/vol3/claim-quality.md:81` names the polarization-test CLASS ("Distinguishing AVE from GR requires … near-merger nonlinear waveform residuals or polarization tests") with no breathing-mode content.
+
+### §6.4 The three owed numbers
+
+The thread owes three numbers before any of it can leave hypothesis-class. Tabled with the class the directive fixes (channel-coupling identification = consistency-class NEW assembly; over-bracing tension = canonical; GW-breathing = hypothesis owing a number):
+
+| # | Owed number | What it is | Class | Canon obstacle it must clear |
+|---|---|---|---|---|
+| 1 | $\Gamma_{\text{long}}$ / $T_{\text{long}}$ at the solid↔melt boundary | the longitudinal/compressional transmission coefficient at the saturated $\Gamma$-wall ($G \to 0$, $K$ finite) — the quantity that would turn "longitudinal = sole melt-coupling channel" from VIRGIN assembly (§6.3) into a computed identification | **consistency-class NEW assembly** (owes the coefficient) | canon fixes $\Gamma$ for the transverse/EM channel ($\Gamma = 0$, `electron-bh-isomorphism.md:24`) and asserts $\Gamma = -1$ for the cosmic front (`trampoline-framework.md:129`); $\Gamma_{\text{long}}$ is unstated. Must also clear FLAG-1 / FLAG-2 (§6.2). |
+| 2 | breathing-mode GW amplitude + polarization fraction from a melt event | the scalar/longitudinal ("breathing") GW amplitude a melt / crystallization event radiates, and its fraction of the waveform | **hypothesis OWING a number** | canon assigns GWs to the transverse shear channel only (clm-07kd5v) and predicts no scalar emission; the LIGO scalar-polarization bound is named as a test CLASS with NO values (`vol3/claim-quality.md:81`). **[requires-verification]**: any bound number must be WebFetch-verified before citing, NOT invented. |
+| 3 | front-growth-keyed α-drift magnitude $d\alpha/\alpha$ per crystallized-volume-fraction | if ongoing crystallization re-locks a *different* $u_0^*$, α drifts as the front grows — a different keying than the canonical temperature-keyed drift | **hypothesis owing a magnitude (must beat a closed canon negative)** | canon's α-drift is temperature-keyed and **magnitude-dead**: FT-1 (2026-05-31) closed it NEGATIVE — "the genuine α-T drift is $\sim 10^{-38}$, unobservable" (`manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md:15`); mechanism survives in SIGN only (clm-009nkt conf 0.55, clm-hp7nlm). A front-growth-keyed drift is a *different* mechanism, but any observable-drift claim must beat or bypass this closure or it is dead on arrival. |
+
+None of the three is upgraded by this document; all three are carried at the class shown, owing the number shown.
+
+### §6.5 Scope note — the "frozen forever" motif inherits an open seam (audit FINDING-6 WARN)
+
+§1.1-claim-3 and §2.2 use "one number set once … and frozen" / "frozen forever." That phrasing is accurate to canon's freeze-in IC (`omega-freeze-cosmic-grain-cascade.md:42-49`, "Survives forever as the cosmological initial condition") — but its constancy under the NOW-ongoing cosmic crystallization (owed-number 3 / §6.3 $u_0^*$-constancy VIRGIN) is an **open canon question** (Chain B', `claim-quality-closure-roadmap.md:42`). The motif is therefore scoped to the **genesis freeze-in**; it does NOT claim constancy-against-front-growth. If the foreword elevates the "one number set once / frozen forever" line, it inherits this seam and should carry the §6.3 / §6.4-#3 caveat with it. [scope note, flag-don't-fix]
+
+## §7 — Honest ceiling
 
 This document is **framing plus one hypothesis.** Nothing in it upgrades a number-claim. Stated plainly so the skim-impression equals the careful-read impression:
 
@@ -216,20 +269,20 @@ This document is **framing plus one hypothesis.** Nothing in it upgrades a numbe
 
 - **What is corpus-canonical (re-verified, not new here):** the two-link chain α ⟵ $u_0^*$ ⟵ $\Omega_{\text{freeze}}$ (§2); the input ledger's reduction from "three calibration inputs" to one-scale + one-IC and its 2026-05-31 gate resolution (§3); the Class-B status of the α closure (the $R \cdot r = 1/4$ named identification is substrate-canonical input, not Class-2 emergence); the substrate-native $4\pi$ = bipartite-K4 lobe-count (§5.2). This document *cites* these; it does not re-derive or strengthen them. [CANONICAL]
 
-- **What is hypothesis-class (owes an object, headlines nothing):** the "menu" — that the freeze selects among a **discrete** set of allowed operating points, that the geometric formula derives the menu while history picks the item, that $R \cdot r = 1/4$ is the realized item's geometric residue, and that the allowed-α spectrum is a derivable discrete object (§4). This is **one hypothesis.** It owes a computed discrete spectrum with $137.036$ located on it; until that exists it is Class-B pedagogy, Grant-gated, and fenced by the §5 reconstruction-stop. It does **not** borrow the §2 chain's canonical status. [hypothesis-class]
+- **What is hypothesis-class (owes an object, headlines nothing):** (a) the α-side "menu" — that the freeze selects among a **discrete** set of allowed operating points, that the geometric formula derives the menu while history picks the item, that $R \cdot r = 1/4$ is the realized item's geometric residue, and that the allowed-α spectrum is a derivable discrete object (§4). This is **one α-side hypothesis.** It owes a computed discrete spectrum with $137.036$ located on it; until that exists it is Class-B pedagogy, Grant-gated, and fenced by the §5 reconstruction-stop. It does **not** borrow the §2 chain's canonical status. (b) the **§6 melt-coupling thread's three owed numbers** — $\Gamma_{\text{long}}$ at the solid↔melt boundary (consistency-class NEW assembly; the "longitudinal = sole melt-coupling channel" claim is VIRGIN in canon), the breathing-mode GW amplitude from a melt event (hypothesis owing a number; LIGO scalar-polarization bound is requires-verification, NOT invented here), and the front-growth-keyed α-drift magnitude (owes a number that must beat FT-1's $\sim 10^{-38}$ canon closure). None upgraded. [hypothesis-class]
 
-- **What is flagged for Grant (not silently resolved):** the named "α-flux fence / radiation-ladder" verdict (§5.3) is not locatable in origin/main; no cite was invented for it. The menu hypothesis is one keystroke from the twice-falsified ¼-selection anti-pattern and is licensed only through the discriminating-secondary bar. [FLAG]
+- **What is flagged for Grant (not silently resolved):** (a) the named "α-flux fence / radiation-ladder" verdict (§5.3) is not locatable in origin/main; no cite was invented for it. The menu hypothesis is one keystroke from the twice-falsified ¼-selection anti-pattern and is licensed only through the discriminating-secondary bar. (b) **Two §6 melt-coupling canon contradictions:** the shear-channel boundary condition is three-valued in canon (reflector / conductor / absorber for the same channel at the same boundary, §6.2 FLAG-1) and BH echoes are simultaneously asserted absent and named as surviving discriminators (§6.2 FLAG-2). Both surfaced with verbatim cites, neither resolved here. (c) the §6.5 "frozen forever" scope seam (Chain B' open). [FLAG]
 
-**Ceiling sentence.** This is the corpus's existing α-provenance, retold around Grant's "one number we have to measure / hand of God" framing and Feynman's pencil — with exactly one new, falsifiable, currently-unmet hypothesis (the discrete menu) carried at hypothesis-class. No emergence-class claim is made; the headline number ($\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$) remains Class-B-closed-at-an-identification, exactly as the corpus already classifies it (`ch8-alpha-golden-torus.md:148`: "The numerical match … remains **Class 4 observable consistency**").
+**Ceiling sentence.** This is the corpus's existing α-provenance, retold around Grant's "one number we have to measure / hand of God" framing and Feynman's pencil — with exactly one new α-side hypothesis (the discrete menu) at hypothesis-class, plus the branch's melt-coupling thread folded in (§6) as canon-cites + VIRGIN tags + three owed numbers + two surfaced canon contradictions, all carried at canon / VIRGIN / hypothesis / FLAG class. No emergence-class claim is made; the headline number ($\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$) remains Class-B-closed-at-an-identification, exactly as the corpus already classifies it (`ch8-alpha-golden-torus.md:148`: "The numerical match … remains **Class 4 observable consistency**").
 
 ---
 
-## §7 — Class-tag summary
+## §8 — Class-tag summary
 
 | Item | §  | Class |
 |---|---|---|
 | Grant's "α = the one number / hand of God / one IC" | §1.1 | Grant-statement / ratified-framing |
-| Feynman "magic number / pushed His pencil" (QED 1985, p.129) | §1.2 | fact (verified) |
+| Feynman "magic number / pushed His pencil" (QED 1985, p.129) | §1.2 | fact (external-source-verified) |
 | AVE completion "the pencil was pushed at the freeze" | §1.2 | ratified-framing / Lane-1 |
 | Chain α ⟵ u₀\* ⟵ Ω̂_freeze | §2.1 | CANONICAL |
 | α = measurable fingerprint of inaccessible IC (God's Hand) | §2.2 | ratified-framing / Lane-1 |
@@ -246,6 +299,19 @@ This document is **framing plus one hypothesis.** Nothing in it upgrades a numbe
 | quartz-k²/torus-is-the-cut = coincidence/risky | §5.1 | CLOSED-NEGATIVE |
 | 4π = bipartite-K4-lobe temporal-phase closure (not radiation solid angle) | §5.2 | CANONICAL |
 | "radiation-ladder / α-flux fence" verdict not locatable | §5.3 | FLAG / flag-don't-fix |
+| Shear can't propagate in melt; GWs = shear channel; QNM = Stoneley interface wave (18/49) | §6.1 | CANONICAL |
+| BH boundary $\Gamma=0$/$Z=Z_0$ (transverse) vs cosmic front $\Gamma=-1$ | §6.1 | CANONICAL |
+| Over-bracing tension $u_0=(L_0-d)/d=\rho\Omega^2_{freeze}r^2_{node}/2K_0$ | §6.3 | CANONICAL |
+| Shear-channel boundary three-valued (reflector/conductor/absorber) | §6.2 | **FLAG / contradiction** |
+| BH echoes absent vs surviving-discriminator | §6.2 | **FLAG / contradiction** |
+| "Longitudinal = sole solid↔melt channel" | §6.3 | **VIRGIN** |
+| Tension anchored to crystallization front (not rotating-frame-at-genesis) | §6.3 | **VIRGIN** |
+| $u_0^*$ constancy under ongoing crystallization (Chain B' open) | §6.3 | **VIRGIN** |
+| Breathing/monopole GW emission from a melt event | §6.3 | **VIRGIN** |
+| Owed #1: $\Gamma_{\text{long}}$ at solid↔melt boundary | §6.4 | consistency-class NEW assembly (owes number) |
+| Owed #2: breathing-mode GW amplitude + polarization fraction | §6.4 | hypothesis (owes number); LIGO bound requires-verification |
+| Owed #3: front-growth-keyed α-drift magnitude | §6.4 | hypothesis (owes number; must beat FT-1 $10^{-38}$) |
+| "Frozen forever" motif scope seam (genesis freeze-in vs front growth) | §6.5 | scope note / flag-don't-fix |
 
 ---
 
@@ -259,6 +325,9 @@ This document is **framing plus one hypothesis.** Nothing in it upgrades a numbe
 - `claim-quality-closure-roadmap.md:9,23` — structural closure declaration + Tier-0 gate-resolution row: verbatim verified.
 - `ch8-alpha-golden-torus.md:121,128,144,148,196` — $\alpha^{-1}$ formula, $4\pi$=lobe-count, Class-4 consistency, Class-2 lift candidate: verbatim verified.
 - `quarter-fence-verdict_note.md:12`, `quartz-alpha-bucket-survey_note.md:12,45`, `alpha-class2-bijection-result.md:10`, `alpha-quarter-adversarial-rechallenge.md:7` — closed-negative scout verdicts: verbatim verified.
-- **Feynman quote** — verified against *QED: The Strange Theory of Light and Matter* (Princeton UP, 1985), p. 129 (external source confirmation this session). [fact]
+- **§6 melt-coupling cites (re-grepped live in this worktree off origin/main):** `regime-eigenvalue-method.md:61` (dup `common/solver-toolchain.md:72`) shear can't propagate in melt; `vol3/claim-quality.md:75` clm-07kd5v GWs = shear, `:81` polarization-test class (no values), `:164,185` QNM 18/49 + Kerr-phenomenological; `electron-bh-isomorphism.md:24` $Z=Z_0$/$\Gamma=0$, `:34` "perfect reflector for shear waves"; `lattice-phase-transition.md:18` longitudinal Propagate/May-propagate, `:21` "perfect conductor"/Stoneley; `einstein-field-equation.md:49` "no black hole echoes"/"perfect absorber"; `claim-quality-closure-roadmap.md:111` GW-echo surviving-discriminator, `:42` Chain B' open; `trampoline-framework.md:89-105,129` over-bracing tension + $\Gamma=-1$ cosmic front; `op14-cosmic-horizon-profile.md:76` DYNAMIC crystallization-now; `cosmological-constant-closure.md:64` DE = latent heat of continuous crystallisation; `delta-strain-cosmic-tcc.md:15` FT-1 α-T drift $\sim 10^{-38}$ unobservable / sign-only (clm-009nkt 0.55, clm-hp7nlm): all verbatim verified.
+- **§6 VIRGIN tags** — scout greps for compression-only / sole-channel / only-longitudinal and for tension-anchored-to-front / breathing-monopole-GW returned 0 on-point hits; carried as VIRGIN, not as canon.
+- **§6 requires-verification** — LIGO scalar-polarization bound values: NOT cited; any number must be WebFetch-verified before use.
+- **Feynman quote** — wording verified verbatim this session via WebFetch against the Wikipedia "Fine-structure constant" article, which sources it to *QED: The Strange Theory of Light and Matter* (Princeton UP, 1985), p. 129. Reproduced in full (no elision). Print first-edition transcriptions vary on "by humans" / "by man"; this stamp is external-source-verified, NOT print-exact. [fact]
 - **FAILED CITE (flagged §5.3):** no doc in origin/main matches "radiation-ladder reading" / "α-flux fence verdict"; `grep -ri 'radiation.ladder'` / `'flux.fence'` over `research/` + `manuscript/ave-kb/` = 0 hits; `git log --all 06-09..06-11` = no matching verdict commit. No cite invented; surfaced for Grant.
 
