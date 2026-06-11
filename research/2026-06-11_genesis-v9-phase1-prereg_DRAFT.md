@@ -1,0 +1,86 @@
+# Genesis v9 — Phase-1 Pre-Registration (DRAFT — NOT FROZEN)
+
+> **STATUS: DRAFT. Returned by the implementer lane for Grant to freeze.**
+> This is NOT a frozen pre-registration. It is gated on TWO things, both of which
+> precede any freeze:
+> 1. **The §0 adjudication** (design doc `2026-06-11_genesis-v9-chiral-lattice_design.md`):
+>    v9 re-opens the 2026-06-07 lattice-net resolution-of-record, which settled
+>    z=4 achiral diamond as the computed substrate and ordered "Do NOT rebuild on
+>    z=3 srs (would invalidate the α + Lorentz chains)." Grant must pick framing
+>    **(A) deliberate challenge** or **(B) decoration-model** before freeze.
+> 2. **Grant's freeze** of the predictions + thresholds below.
+>
+> Per Rule 16 (ask BEFORE design), this draft is surfaced now, pre-freeze, not
+> after 30 commits. Per substitution-not-retraction (Rule 12), if any prediction
+> falsifies, it retracts via 🔴 header; the slot is not refilled in place.
+
+## Phase-0 result that arms this (committed, this branch)
+- **Smoke A (consistency gate): PASS.** Trivalent scatter `S_ij = ⅔ − δ_ij` (derived from Op5, n=3)
+  unitary to `8.3e-17`; n=4 reduces exactly to canon `½ − δ_ij`; closed-system energy drift `2.2e-14`;
+  scalar dispersion isotropy ratio `1.000`. The lattice change did not break the achiral physics.
+- **Smoke B (optical-activity source): PASS.** srs-right ring-writhe `−4.0867e-02`, srs-left `+4.0867e-02`
+  (exact sign-flip), diamond control `0.0`; box-independent. The chiral geometry carries signed helicity
+  into its shortest circuits — the necessary-condition source of optical activity — natively, with **no**
+  injected `κ_chiral = α·pq/(p+q)`.
+
+## Phase-1 hypothesis (the genesis question — OUT OF SCOPE for Phase-0)
+**H1:** A stable, topologically-charged breathing soliton (the electron ansatz, `(2,3)`) nucleates and
+persists on the **bare chiral srs net** under the full **vector-TLM + Op14 saturation** dynamics, **with
+its chirality (optical rotation, spin handedness) inherited from the lattice geometry rather than from the
+injected one-parameter `κ_chiral`** (`cosserat_field_3d.py:115,131,522-523`).
+
+**H2 (the discriminating claim):** The dynamical optical rotation `Δθ_pol / L` of a transverse packet on
+the srs net is **signed per enantiomorph and zero on the diamond control**, and its sign matches the
+sign of the Phase-0 circuit writhe.
+
+## Pre-registered predictions (EXECUTABLE gates — to be frozen by Grant)
+Each is an executable test with a stated threshold. Thresholds in ⟨angle brackets⟩ are placeholders for
+Grant to set/confirm at freeze.
+
+- **P1 — vector-TLM consistency.** The transverse 2-component vector-TLM on the srs net conserves energy
+  (closed) to ⟨1e-8⟩ and reproduces Smoke A's isotropy on its achiral observables. *Falsifier:* drift or
+  anisotropy beyond threshold ⇒ the vector scatter/connect is broken; fix-or-close before H2.
+- **P2 — dynamical optical rotation, signed.** `Δθ_pol/L` measured on a launched transverse packet is
+  nonzero on srs, **opposite-sign** on the two enantiomorphs (`|sum| ≤ ⟨10%⟩` of magnitude), and **≤
+  ⟨5%⟩** of the srs magnitude on the diamond control. *Falsifier:* control comparable to chiral, or no
+  enantiomorph flip ⇒ H2 falsified.
+- **P3 — sign concordance.** `sign(Δθ_pol/L)` on srs-right matches `sign(writhe_R)` from Phase-0 (and
+  flips together under enantiomorph swap). *Falsifier:* sign mismatch ⇒ the writhe is not the optical-
+  activity source (the Phase-0 necessary-condition reading was wrong) ⇒ flag, do not rescue.
+- **P4 — native chirality, no injected α.** The measured optical rotation magnitude is reproduced with
+  `κ_chiral = 0` (geometry-only). *Falsifier:* rotation collapses to ~0 when `κ_chiral → 0` ⇒ the
+  handedness is still injected, not structural ⇒ v9's central hypothesis fails; close the branch.
+- **P5 — soliton stability (the genesis target).** A seeded `(2,3)` ansatz on the srs net is a stable
+  closed-system eigenmode (topological charge conserved, energy bounded) over ⟨N⟩ steps at ⟨N_grid⟩.
+  *Falsifier:* decays / unbinds ⇒ the srs substrate does not support the electron soliton ⇒ a structural
+  hit against substrate-migration framing (A).
+
+## Controls (frozen with the predictions)
+- **Enantiomorph pair (srs-right / srs-left)** — the primary discriminator. Any achiral artifact
+  (transport mis-scaling, numerical bias) is common-mode and cancels in the native−mirror difference.
+- **Diamond achiral control** — the zero-rotation reference. A genuine null here (a pseudoscalar from a
+  centrosymmetric net) vs the chiral signal is the second discriminator.
+- **`κ_chiral = 0` ablation** — isolates structural vs injected chirality (P4).
+
+## Op14 / empirical-driver discipline carried into Phase-1
+- **Local-clock modulation re-enters scope** (Op14 ON, `A → 1`): report eigvec localization vs
+  `A²_local` at load-bearing sites; compute `ω_local(r) = ω_global·√(1 − A²(r))`; do not eigsolve at a
+  single global σ.
+- **PML cell exclusion** on every density extraction (`pml_thickness ≤ idx ≤ N − pml_thickness − 1`),
+  density-peak (top-K `|field|²`) sampling, reactance-pair (V_inc/ω AND Φ_link/ω̇) recording.
+- **Phase-space coordinate discipline (A46):** optical rotation measured in the polarization-plane /
+  chirality coordinate, never real-space lattice-Cartesian vs φ².
+
+## Honest-closure / kill conditions (Rule 11)
+- P4 fail (rotation needs injected `κ_chiral`) **or** P3 fail (sign mismatch) ⇒ the lattice-chirality
+  hypothesis is falsified; record the mechanism, retract via Rule 12, close the branch. Do not debug
+  toward a rescue.
+- A single mechanism explaining multiple failures is the discipline working; name it, don't drop the
+  adjudication criteria post-hoc.
+
+## What Grant decides at freeze
+1. §0 framing: **(A)** challenge the resolution-of-record (and accept the α/Lorentz-chain-invalidation
+   warning as the explicit cost), or **(B)** treat the srs net as a decoration-model diagnostic (substrate
+   stays diamond).
+2. The thresholds in ⟨…⟩.
+3. `N_grid`, `N_steps`, and whether P5 (genesis) runs in Phase-1 or splits to a Phase-2.
