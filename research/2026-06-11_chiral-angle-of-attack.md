@@ -141,6 +141,48 @@ when it owns a spin-axis-correlated SIGN that Faraday conversion does not.*
 
 ### 2.2 Surface B — gravitational-wave amplitude birefringence
 
+**Class: hypothesis owing a number against an existing bound.** Corpus state: **virgin** for GW parity — the four
+Vol-3 Ch-08 gravitational-wave leaves (`gw-propagation-lossless.md`, `gw-impedance-perturbation.md`,
+`gw-detection-antenna.md`, `ligo-gw-saturation-ratio.md`) carry **zero** chiral / parity / handedness /
+birefringence content; `amplitude birefringence` returns zero hits workspace-wide. No AVE κ exists.
+
+**The external anchor (verified-external, WebFetch-confirmed this session, source named).** Okounkova, Farr, Isi &
+Stein, *Constraining gravitational wave amplitude birefringence and Chern–Simons gravity with GWTC-2*, Phys. Rev. D
+**106**, 044067 (2022); arXiv:2101.11153 (abstract fetched 2026-06-11):
+
+- amplitude birefringence = "left versus right circularly polarized modes of gravitational waves are exponentially
+  enhanced and suppressed during propagation … absent in GR";
+- published bound: **opacity parameter κ ≲ 0.74 Gpc⁻¹**;
+- derived **Chern–Simons lengthscale ℓ₀ ≲ 1.0 × 10³ km** (factor-2 improvement on prior long-distance results),
+  dataset GWTC-2.
+
+There is a **bound already waiting**; AVE owes a number to put against it.
+
+**The parity-odd lattice mechanism that already exists in-corpus (canonical).** The slats are not new here — the
+substrate is chiral at the dispersion level. `manuscript/ave-kb/vol2/particle-physics/ch03-neutrino-sector/chiral-screening.md:11`
+(**canonical**): the chiral dispersion relation `ω² = c²k² ∓ γ_c k` is parity-odd — the `∓` is the handedness. The
+same leaf (`:22`) gives the evanescent-gap selection rule: "Modes with `Δc > 3`: the compliance channel is screened
+(evanescent — same mechanism as right-handed neutrino parity violation)," with `Δc_crit = 3` = K4 connectivity =
+trefoil crossing number. Crucially, `γ_c` is **not a free knob**: the same coefficient jointly constrains the
+weak-force range (`gauge-boson-masses.md`) and the `δ_strain` sign-mechanism (`vol1/claim-quality.md`), so it is in
+principle *pinnable* — which is what would make κ_AVE a forward prediction rather than a fit.
+
+**The owed number.** A GW is a **transverse-shear** mode of the substrate (shear sector, matter-clock band — the
+mode-taxonomy note: shear `G` / bulk `K` / EM transverse `c_EM`). The owed derivation:
+
+1. carry the parity-odd `ω² = c²k² ∓ γ_c k` dispersion onto the **GW transverse-shear band** (the step that needs
+   doing — `chiral-screening.md` derives it for *torsional* coupling; that it applies to the GW band is **not yet
+   shown**, flag-don't-fix), and
+2. integrate the resulting L/R attenuation asymmetry over a cosmological propagation distance to get a single
+   **κ_AVE in Gpc⁻¹**, then
+3. check `κ_AVE ≲ 0.74 Gpc⁻¹`.
+
+If `κ_AVE` lands well below 0.74 the surface is consistent-but-weak; if it lands *near* 0.74 it is a live,
+near-term-falsifiable forward prediction (GWTC-3-era bounds are tighter and were **not** fetched this session —
+**requires-verification** before any "passes/fails" claim). Until step 2 produces a number this is
+**hypothesis-owing-a-number**: the mechanism is canonical, the magnitude is virgin, the bound is published and
+waiting.
+
 <!-- SECTION 2.2 -->
 
 ### 2.3 Surface C — the v8/v9 injection blade angle (exact algebra)
