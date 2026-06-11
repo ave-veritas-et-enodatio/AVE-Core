@@ -28,6 +28,8 @@ This chapter establishes the regime classification as a **prerequisite gate**: n
 | III | Yield | $\frac{\sqrt{3}}{2} \leq r < 1$ | $0 < S < 0.500$ | Phase transition | Avalanche ($M \geq 2$) |
 | IV | Ruptured | $r \geq 1.0$ | $S = 0$ | Topology destroyed | Breakdown ($M \to \infty$) |
 
+> **[FLAG 2026-06-11 clarification — Vol 9 Ch 14 §True Phase Diagram]** Regime IV ($r \geq 1$, $S = 0$) is the solid's **local rupture endpoint** along the excitation axis $r = A/A_c$ — the locus where K4 topology is locally destroyed. Its resulting **state** coincides with the substrate's **melt phase** (pre-geodesic plasma), but it is a distinct *coordinate*: this four-regime map is the **excitation map of the solid phase**, whereas the melt is a thermodynamic phase that **predates the crystal** (per [`cosmic-axes-and-frames-glossary.md:73`](../../../common/cosmic-axes-and-frames-glossary.md), "supercooled pre-geodesic plasma") and therefore predates the $r$-axis itself. A coordinate defined only inside the crystal cannot be the axis on which the pre-crystal phase is located. The substrate's *true* thermodynamic phase diagram (solid / melt / candidate cavitated, on the $(T, \bar\rho)$ plane) is Vol 9 Ch 14 §True Phase Diagram. Re-label per Rule 12; the table body above is preserved.
+
 The boundary values are **derived from first principles**, not chosen by convention:
 
 - **$r_1 = \sqrt{2\alpha} \approx 0.1208$ (Small-Signal Limit):** The perturbative expansion (Eq. below) gives a first-order correction $\Delta S = r^2/2$. The lattice's own self-coupling is $\alpha$ (the fine-structure constant = packing fraction / $8\pi$). When $\Delta S = \alpha$:
