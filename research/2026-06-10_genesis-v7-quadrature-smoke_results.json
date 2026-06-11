@@ -1,0 +1,80 @@
+{
+  "F_EXCHANGE_C_pol_off": 0.0,
+  "poloidal": {
+    "C_pol_lock_on": -6.122008973721907e-06,
+    "C_pol_lock_off": -6.114652767524463e-06,
+    "net_field_main_minus_off": -6.122008973721907e-06,
+    "accumulator_bookkeeping": 0.44275987942583506,
+    "survive_ratio_on_over_off": 1.0012030456147099,
+    "above_floor_mult": 6.122008973721906e+24,
+    "E_pol_deposit": 0.00026688399648888364,
+    "pol_events": 200
+  },
+  "rigid_control_v6": {
+    "L_om_axial_lock_on": -0.021688782556585268,
+    "L_om_axial_lock_off": -0.9714872513802733,
+    "drain_ratio_on_over_off": 0.022325339345184613,
+    "accumulator_L_transferred_omega": -1.0026358233560824
+  },
+  "helicity": {
+    "RH": -6.122008973721907e-06,
+    "LH": 6.122008973721908e-06,
+    "achiral": 0.0,
+    "odd_frac": 1.0
+  },
+  "ledger": {
+    "ratio_removed_over_transferred": 1.0,
+    "L_eq_Lu_plus_Lom": 0.0,
+    "passive_no_pump": true,
+    "E_absorbed": 0.2572522545781341
+  },
+  "sweeps": {
+    "alpha_pol": {
+      "0.00": -8.867203757599155e-25,
+      "0.25": -1.5174918357095794e-06,
+      "0.50": -3.0510623468915453e-06,
+      "0.75": -4.5865744276160334e-06,
+      "1.00": -6.122008973721907e-06
+    },
+    "q_dep": {
+      "2": -4.0277382962503105e-06,
+      "3": -6.122008973721907e-06,
+      "4": -6.506345671246184e-06
+    },
+    "chi_exch": {
+      "9e-04": -7.298519455522051e-07,
+      "5e-03": -3.0857081815522416e-06,
+      "2e-02": -6.122008973721907e-06,
+      "8e-02": -8.151085493718029e-06
+    },
+    "lock_eta": {
+      "0.00": -6.114652767524463e-06,
+      "0.05": -6.121921932227115e-06,
+      "0.08": -6.122008973721907e-06,
+      "0.12": -6.12204975924836e-06
+    },
+    "omega_recipient_frac": {
+      "0.0": 0.0,
+      "0.5": -3.0610044868609535e-06,
+      "1.0": -6.122008973721907e-06
+    },
+    "wall_width": {
+      "0.06": -1.4235303925433796e-10,
+      "0.12": -6.122008973721907e-06,
+      "0.20": -3.793416431013541e-05
+    }
+  },
+  "checks": {
+    "net_field_above_floor": true,
+    "poloidal_survives_lock": true,
+    "rigid_control_drains": true,
+    "helicity_odd": true,
+    "achiral_null": true,
+    "ledger_1to1": true,
+    "passive": true,
+    "alpha0_is_rigid_control": true,
+    "survival_eta_independent": true
+  },
+  "verdict": "QUADRATURE-LIVE",
+  "wall_time_s": 33.6
+}
