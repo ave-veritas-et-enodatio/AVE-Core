@@ -187,6 +187,55 @@ waiting.
 
 ### 2.3 Surface C — the v8/v9 injection blade angle (exact algebra)
 
+**Class: exact algebra** (no number invented, no external bound — a closed-form consequence of canonical geometry).
+This is the *angle-of-attack* of §1 made literal: the pitch angle at which a wave must be presented to the (2,3)
+slats. For a `(p, q)` torus knot wound `p` times toroidally (major radius `R`) and `q` times poloidally (minor
+radius `r`), the helix pitch angle measured from the toroidal (azimuthal) direction is
+
+$$\tan\psi \;=\; \frac{q\,r}{p\,R}.$$
+
+The electron is the `(2, 3)` winding (**canonical**: `p = 2` toroidal, `q = 3` poloidal —
+`research/2026-06-10_electron-device-datasheet_draft.md:73`), so `q/p = 3/2` and `tan ψ = (3/2)(r/R)`. The geometry
+supplies `r/R` — and here the **A46 fence bites**: there are **two** canonical aspect ratios living in **two
+different coordinate systems**, and they must **not** be cross-compared (`datasheet_draft.md:61`, the explicit
+phase-space/real-space settlement fence).
+
+**(a) Phase-space (phasor) coordinates — `R/r = φ²`.** R and r are the Clifford-torus phasor semi-axes in the
+`(V_inc, V_ref)` impedance plane (`constants.py:196` "the Clifford-torus (R, r) phase-space coordinates"; aspect
+`R/r = φ² ≈ 2.618`, `datasheet_draft.md:70,175`). Then
+
+$$\boxed{\;\psi_{\text{phasor}} = \arctan\!\frac{3}{2\varphi^{2}} = \arctan(0.5729490169) = 29.8105^{\circ}\;}
+\qquad (\varphi^{2} = 2.6180339887).$$
+
+**(b) Real-space (envelope) coordinates — `R/r ≈ 2.27`.** The real-space envelope ratio is a **different canonical
+quantity** (the TLM convergence attractor, `datasheet_draft.md:80`, archive `26_step5_phase_space_RR.md:193` /
+`78_canonical_phase_space_phasor.md:88`), explicitly `≠ φ²`. Then
+
+$$\boxed{\;\psi_{\text{real}} = \arctan\!\frac{3}{2\cdot 2.27} = \arctan(0.6607929515) = 33.4564^{\circ}\;}.$$
+
+The two pitch angles differ by **Δψ = 3.65°** — they are the *same A46 split* as `φ² = 2.618` vs `2.27`, now read as
+an angle. **Cross-comparing them is the coordinate-dilution trap** (`datasheet_draft.md:61`).
+
+> **⚠ COINCIDENCE-MAGNET (the flag promised in the header).** `ψ_phasor = 29.81°` is **0.19° short of 30°**. The
+> claim is the *exact* `arctan(3/(2φ²))`; the proximity to 30° is **logged and quarantined**, used as an anchor
+> NOWHERE. (`arctan(3/(2φ²)) = 30°` would require `tan 30° = 1/√3 = 0.57735` vs the actual `0.57295` — close but
+> false; the 30° is a numerical near-miss, not an identity.)
+
+**Design implication for the polyphase injector (engineering-choice, tagged as such).** The injector that deposits
+the (2,3) winding is a **polyphase** drive — `q = 3` poloidal phases threaded across `p = 2` toroidal poles. Two
+distinct blade angles fall out, and they govern **two different parts of the same machine**, which is why the A46
+fence is load-bearing for the build, not just for the bookkeeping:
+
+- the **drive phasing** (the temporal angle in the `(V_inc, V_ref)` impedance plane — the angle-of-attack the slats
+  actually admit) is set by **`ψ_phasor = 29.81°`**, because the (2,3) winding the injector is trying to launch is a
+  **phase-space object** (A46: test/build in the coordinate the claim lives in);
+- the **physical blade pitch** (the machined helix angle of the real-space envelope shaping) is **`ψ_real = 33.46°`**.
+
+Getting these crossed — phasing the drive at the real-space 33.46° or machining the blade at the phasor 29.81° —
+is **exactly the coordinate-dilution failure** §3 argues sank v5–v7. The injection blade angle is therefore the
+first place the chiral-AoA picture issues a falsifiable build instruction: **phase at 29.81°, machine at 33.46°,
+never average the two to ~31.6°.**
+
 <!-- SECTION 2.3 -->
 
 ### 2.4 Surface D — the freeze sign-selection mechanism (the slat-setting)
