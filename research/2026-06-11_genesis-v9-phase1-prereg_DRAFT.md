@@ -125,3 +125,90 @@ Grant to set/confirm at freeze.
 2. The thresholds in ⟨…⟩.
 3. `N_grid`, `N_steps`, the P6 outcome-bin boundaries (the frozen bins), and whether P5/P6 (genesis)
    run in Phase-1 or split to a Phase-2.
+
+## §FREEZE-AMENDMENT-QUEUE (2026-06-11 — helicity-as-acquired amendments)
+
+> **LEGAL STATUS: this is a DRAFT amendment queue, NOT a freeze.** This prereg is
+> still a DRAFT (see the header). **Rule 11 (honest closure) binds at FREEZE, not
+> here** — these amendments are *staged for Grant's freeze*, alongside the §0
+> adjudication and the ⟨bracketed⟩ thresholds. Nothing in this section is locked;
+> it is the queue of changes the implementer lane recommends Grant fold in *when*
+> he freezes. Editing a DRAFT prereg before freeze is legal; editing after freeze
+> would not be. Per substitution-not-retraction (Rule 12), if any amended
+> prediction later falsifies, it retracts via 🔴 header; the slot is not refilled.
+
+**Source / cross-ref:** the helicity-as-acquired framing and its Phase-0 evidence
+are captured in `research/2026-06-11_chiral-vacuum-reactor-framing.md` (branch
+`analysis/2026-06-11-cvr-framing`, PR #197), §3. Grant-ratified session-record
+2026-06-11: *"a photon's helicity actually comes from the incident angles and the
+conjugate reflection of each of the slats … we don't even need to inject helicity
+… We give it the first initial direction."* The amendments below carry that
+framing into the executable predictions.
+
+### A1 — P6 seed = plain LINEAR-polarized packet (zero injected helicity, direction only)
+
+**Amends P6 (genesis-by-precursor).** The P6 seed is **a plain linear-polarized
+transverse packet carrying ZERO injected helicity** — only a propagation
+direction is supplied. The point of P6 is to test whether the lattice *builds*
+handedness from its own geometry (the §3 acquired-helicity claim); seeding a
+helical/circularly-polarized packet would inject the very thing under test and
+confound BIN-G. Concretely: the launch state is linear polarization + a launch
+direction along the screw axis; no circular/elliptical component, no helical
+phase ramp at t=0.
+
+### A2 — NEW control: reversed launch direction → sign flip
+
+**Adds a control to P6 (and to P2/P3 where the signed channel applies).** Beyond
+the existing controls (enantiomorph pair / diamond / `κ_chiral = 0`), add the
+**reversed-launch-direction control**: launch the same linear packet along the
+**−screw direction** on the *same* enantiomorph. Per `helicity = enantiomorph ×
+launch-direction` (§3.1), the acquired rotation / emergent chirality must **flip
+sign** under launch-direction reversal at fixed enantiomorph, exactly as it flips
+under enantiomorph swap at fixed direction.
+- *Falsifier:* if reversing the launch direction does NOT flip the sign of the
+  acquired chirality (while the enantiomorph swap does), then the handedness is
+  NOT direction-acquired in the §3 sense — flag, do not rescue.
+- *Discriminator hygiene:* the four-cell signed grid is {srs-R, srs-L} ×
+  {+dir, −dir}; BIN-G (genesis) requires the sign to track the product
+  enantiomorph × direction across all four, with the diamond control null and the
+  `κ_chiral = 0` ablation surviving.
+
+### A3 — P4 strengthened: no helicity-odd term ANYWHERE in the drive chain
+
+**Strengthens P4 (native chirality, no injected α).** P4 currently requires the
+optical rotation to survive `κ_chiral = 0` (geometry-only). The amendment
+strengthens it to a **drive-chain audit**: there must be **no helicity-odd term
+anywhere in the drive chain** — not just `κ_chiral = 0`, but no chiral source
+term, no handed boundary forcing, no circularly-polarized injection, no
+parity-odd numerical seed in the integrator. The measured chirality must be
+attributable to the **lattice geometry alone**.
+- *Falsifier:* if any helicity-odd term remains in the drive chain when the
+  rotation is measured, the P4 claim ("native chirality, no injected α") is not
+  yet tested — the measurement is confounded and must be re-run with the term
+  removed before BIN-G can be claimed.
+
+### A4 — CVR-SET as the P6 outcome-bin name (candidate)
+
+**Names the P6 outcome bins.** The P6 BIN-G (genesis) PASS outcome is the
+candidate **CVR-SET** bin from `…chiral-vacuum-reactor-framing.md` §1.3: a state
+that is **formed** (condensation ran; geometry-supplied handedness; enantiomorph-
+odd AND direction-odd per A2) **AND set** (persists with the drive off). The P6
+failure ladder maps as:
+
+| v9 P6 bin | CVR framing bin (§1.3) | Meaning |
+|---|---|---|
+| BIN-D (dispersal) | **DISPERSES** | linear-like spreading at every sub-rupture amplitude |
+| BIN-T (transient) | **TRANSIENT** | forms then decays drive-off; hosting-adjacent, NOT genesis |
+| (new structured partial) | **SET-ACHIRAL** | forms AND persists drive-off, but NOT geometry-handed / not enantiomorph-odd / chirality collapses under `κ_chiral = 0` |
+| BIN-G (genesis) | **CVR-SET** | formed [condensation ran, geometry-handed, enantiomorph-odd + direction-odd] AND set [persists drive-off] |
+
+> **The SET-ACHIRAL rung is the load-bearing addition.** It names the persist-but-
+> not-chiral failure that separates *hosting a persistent state* (P5-class) from
+> *genesis of a chiral state* (the H2 claim). This makes the existing P5+BIN-D =
+> "hosting-but-no-genesis" caveat sharper: P5-pass + (DISPERSES or SET-ACHIRAL) is
+> NOT a CVR-SET / genesis pass, and MUST NOT be reported as one.
+
+**Grant decides at freeze (added to the existing freeze list):** whether to adopt
+A1–A4 as-stated, the reversed-direction control's place in the frozen control set,
+and whether CVR-SET / the failure-ladder names replace or annotate the BIN-G/T/D
+labels.
