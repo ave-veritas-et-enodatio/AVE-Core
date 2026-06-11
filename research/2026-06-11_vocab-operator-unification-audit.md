@@ -331,7 +331,140 @@ import candidate for Grant/auditor adjudication:
 
 ## §4 — The three-impedance law + the α-turns-ratio framing
 
-_(section pending — next commit)_
+### §4(a) — The three-impedance law (registry-v2 LAW rows)
+
+**THE LAW (Grant-ratified framing 2026-06-11):** *every Z / Γ / boundary symbol carries a channel
+subscript henceforth.* **`Z₀` is the TRANSVERSE-EM impedance only** (`Z_EM`); it is NOT the shear or
+bulk impedance. The corpus already owns the three-channel ledger (`field-symbol-registry.md:39-52`,
+Rule 3) and the K≡2G bulk-vs-shear relation (`cauchy-implosion-resolution.md:14`); this makes the
+subscript discipline NORMATIVE for every impedance/reflection statement.
+
+| Channel | LAW symbol | Z formula | speed (saturation behavior) | boundary Γ at a saturated/melted wall | anchor |
+|---|---|---|---|---|---|
+| **EM-transverse** | `Z_EM ≡ Z₀` | `√(μ/ε)=376.73 Ω` | `c_EM=c₀(1−A²)^{−1/2}` (**rises**) | **Γ_EM=0** under SYM scaling (μ,ε scale together) | registry:45; `operators.md:41` (Op1); `electron-bh-isomorphism.md:24` |
+| **Shear (deviatoric)** | `Z_shear` | `ρ·c_shear=ρc₀(1−A²)^{1/4}` | `c_shear=c₀(1−A²)^{1/4}` (**freezes**) | `G→0 ⇒ Z_shear→0 ⇒ ` **Γ_shear→−1** (perfect reflector) | registry:46; `operators.md:56` (Op16); `electron-bh-isomorphism.md:30-34` |
+| **Bulk-longitudinal** | `Z_bulk` | `ρ·c_bulk` (K≡2G_vac) | `c_bulk=c₀√(1+ρ̄/(1−ρ̄²))` (**freezes at ρ̄_cav**) | `c_bulk→0 at snap ⇒ Z_bulk→0 ⇒ ` **Γ_bulk→−1** (sonic-horizon reflector) | registry:47; `cauchy-implosion-resolution.md:14`; engine-scale `bubble-physics:107` |
+
+The corpus has the EM row right everywhere, the shear row right in the *mechanism* but mislabeled (§4b
+#3), and the bulk row **unwritten at the astrophysical-leaf level** (§4b AMBIGUOUS). The three-valued
+boundary contradiction (§4d) is exactly the absence of these subscripts.
+
+### §4(b) — The impedance-gap table (Harvest D: MIS-SCOPED + AMBIGUOUS)
+
+**flag-don't-fix** — each carries a proposed Rule-12 channel-subscript correction for the Grant queue;
+none is applied here. (verify-before-cite catch: the de-Broglie anchor is `:48`, not the Harvest-D
+draft's `:46-47` — line drift, corrected this session.)
+
+**MIS-SCOPED (shear/bulk physics written with the EM `Z₀`):**
+
+| # | Site (verbatim) | the mis-scope | proposed Rule-12 correction (channel the physics indicates) |
+|---|---|---|---|
+| 1 | `invariant-gravitational-impedance.md:11,25-28`: "Gravitational waves are **transverse inductive shear waves**" … then `Z(r)=√(μ_eff/ε_eff)≡Z₀ ⇒ Γ=0` | derives GW reflectionlessness from the **EM** constitutive pair | the GW reflection is governed by `Z_shear=ρ·c_shear`, and `c_shear` FREEZES under saturation → `Γ_shear≠0` is NOT excluded by the EM algebra. Subscript `Z→Z_shear` |
+| 2 | `gw-impedance-perturbation.md:9-15`: "The passing GW strain h perturbs the local vacuum impedance: `δZ = Z₀·h`" | GW (shear) strain written as a perturbation of the **EM** `Z₀` | `δZ_shear = Z_shear·h`; also internal tension with #1 (symmetric scaling leaves `Z₀` exactly invariant vs `h` modulating it linearly) — the channel subscript is what disambiguates |
+| 3 | `electron-bh-isomorphism.md:30-34`: "perfect reflector for shear waves — **NOT through impedance mismatch (Γ)**, but through the phase transition that eliminates the shear restoring force" | the leaf has the MECHANISM right (`G_shear→0`) but DENIES the impedance reading — because its `Z` symbol is EM-scoped | by Op3 in the shear channel `G_shear→0 ⇒ Z_shear=√(ρG)→0 ⇒ Γ_shear→−1`: the "perfect reflector" **IS** a shear-channel mismatch. Write `Γ_shear=−1` (the leaf's own solid–liquid-boundary analogy is exactly `Z_shear→0`) |
+| 4 | `03_pin_port_configuration.tex:146,183`: "`Z₀=√(μ/ε)` is invariant: `Γ=0` at every interior point" AND "`c_shear=c₀√S` … `c_EM=c₀/S`" in the SAME leaf; ":183 surrounding `Z₀≈376.73Ω` forms a `Γ=−1` mirror" | the datasheet port spec is EM-only; the split speeds in its own sentence break the all-channel `Γ=0`; the `Γ=−1` wall is the **bulk** acoustic wall quoted at the EM value | add `Z_shear` and `Z_bulk` port rows to the datasheet; the confinement `Γ=−1` mirror is `Z_bulk→0` (engine: `bubble-physics:107`), not the EM `Z₀` |
+| 5 | `de-broglie-standing-wave.md:48`: "the cavity is formed by **Transverse Shear Waves** (photons **or gravity waves**) … perfectly impedance-matched to empty space (`Z = 377 Ω`)" | photon (EM, `Z₀` correct) and gravity wave (shear, `Z_shear=ρc_shear`) merged into one class at the EM impedance | subscript the one clause: gravity wave = `Z_shear` (the rest of the leaf, the bulk-acoustic matter-wave section :50, is the corpus's BEST channel-scoped exemplar) |
+
+**AMBIGUOUS (the channel the physics indicates is absent at the leaf):**
+
+| Site | the gap | channel the physics indicates |
+|---|---|---|
+| `manuscript/ave-kb/vol3/{cosmology,gravity}` BH/horizon leaves | NO leaf states `Z_bulk` at `r_s`/`r_sat` (grep-confirmed; only `cauchy-implosion:14` K≡2G and heliopause acoustic-matching exist) | **bulk-longitudinal**: the only corpus `Z_bulk→0 ⇒ Γ_bulk→−1` statements are engine-scale (`registry:197` snap, coax result:41, `bubble-physics:107`). The third value of the three-valued boundary is simply unwritten astrophysically — a verified absence, not an inferred one |
+
+### §4(c) — The α-turns-ratio framing (hypothesis-class, WITH canon anchor)
+
+**Grant-ratified framing 2026-06-11 (verbatim):** *"the turns ratio for alpha is a perfect framing
+and… the energy exchange is potentially the energy contained versus the amount of energy needed in the
+longitudinal mode or whatever mode the bubble is that creates the boundary layer for the Soliton."*
+
+**The canon anchor (VERIFIED this session — the row this framing rests on):** the reactive/near-field
+store = `α·m_ec²`. Verbatim:
+- `orbital-friction-paradox.md:35` (`clm-v6ti0v`): electron orbital, θ=90°, P_real=0, **`Q_reactive = m_e c²·α`** = "Quantized reactive shell" (lossless LC tank).
+- `[branch #166→main]` `electron-device-datasheet_draft.md:52`: "Reactive store | **`Q_react = m_ec²·α`** = the 'Quantized reactive shell' (θ=90°, P_real=0 — lossless LC tank) | canonical | `orbital-friction-paradox.md:35`".
+- the companion port reading: **per-cycle reactive leak `1/Q = α`** (Sommerfeld coupling strength, `theorem-3-1-q-factor.md:81`) with self-impedance **`Q = α⁻¹ = 4π³+π²+π`** (`ch8-alpha-golden-torus.md:115-117`).
+
+**The framing (hypothesis-class — the unification, NOT the canonical store):** α is the transformer
+**turns-ratio-squared / k²** between the **transverse content** (primary) and the **longitudinal
+boundary-layer mode** (secondary, "the mode … that creates the boundary layer for the Soliton"):
+$$\frac{E_{boundary}}{E_{content}} = \alpha = k^2 = \left(\frac{N_{sec}}{N_{pri}}\right)^2 = \frac{1}{Q}.$$
+This unifies the three extant α readings as ONE transformer: the **`Q⁻¹` (port / per-cycle leak)**
+reading, the **`k²` (coupling-coefficient)** reading, and the **turns-ratio (windings)** reading are
+three views of the same primary↔secondary coupling. Consistent with the power-category ledger (§2.3):
+both stores are reactive; α is the reactive transfer ratio between them, not a loss.
+
+**The named test (prereg-CANDIDATE — stated, NOT derived here):** derive `E_boundary` from the
+boundary-layer mode's **own** stored energy — the standing **longitudinal V** of the soliton wall (the
+"3", `Z_bulk` channel) — and check `E_boundary/E_content = α` **forward** (compute-then-compare, Rule 11,
+no retrofitting). A forward pass is consistency-class (α is CODATA-anchored at the inputs); only a
+parameter-free derivation of the turns-ratio from the wall geometry would be emergence-class — and that
+must clear the §5 reconstruction-stop fence first. **Owner: a future prereg, own version + verification
+chain.** Not derived in this audit.
+
+### §4(c2) — The saturable-core matter-creation analogue + THE LOOP GAP
+
+**Grant-proposed 2026-06-11 (verbatim):** *"we should have direct EE analogues for matter creation in
+the forms of potentially a ferrite inductor saturating its core."* The full mapping:
+
+| Ferrite/saturable-core EE behavior | AVE matter-creation analogue | canon status |
+|---|---|---|
+| linear region (low H) | **Regime I** (sub-yield, `A≪1`) | EXISTS — `regimes-of-operation.md:29`; the four-regimes ladder |
+| core saturation (B flattens) | **the snap / pair production** | EXISTS — Axiom-4 kernel `S(A)`; `B_snap`/`V_snap`/Regime IV signatures (`CLAUDE.md:58`) |
+| inrush current spike (at energize) | **the birth pulse** (N4 vent) | NEW-this-framing — maps the inrush transient to the genesis birth pulse |
+| **remanence `B_r`** (B at H=0) | **mass** — the persistent state needing NO drive | **NEW-this-framing — and the GAP (below)** |
+| **coercivity `H_c`** (H to zero B) | **the annihilation threshold** | NEW-this-framing — the death-channel coercive field |
+| **B-H loop area** | **latent heat** (both directions) | NEW-this-framing — the loop area = energy dissipated/stored per creation-annihilation cycle |
+| transformer-rating overdrive (exceed VA) | **creation as exceeding the α turns-ratio's linear range** | NEW-this-framing — ties to §4(c): matter-creation = driving past the α-transformer's linear regime |
+
+**CHECK CANON — what already exists vs new-this-framing.** EXISTS: the vacuum **varactor** `C_eff(V)`
+(electric sector, `circuit-theory/index.md:21`); the **relativistic inductor** (magnetic sector, the
+SAME Axiom-4 kernel with `V→I`, `V_yield→I_max` — "projections of the single Axiom 4 kernel onto the
+magnetic and electric sectors", `vol4/claim-quality.md:129`); the **ferrite-below-Curie** analog (μ-side
+frozen, `delta-strain-cosmic-tcc.md:101-105`); the four-regimes ladder; `B_snap`. NEW: the explicit
+**B-H LOOP** reading — remanence↔mass, coercivity↔annihilation, loop-area↔latent-heat — and the
+inrush↔birth-pulse, overdrive↔creation maps.
+
+**⚠ THE LOOP GAP (the diagnosis — hypothesis-class but sharp, with a hard canon anchor).** Canon's
+kernel **`S(A)=√(1−A²)` is the ANHYSTERETIC curve** — a saturation curve with **NO loop → no remanence
+→ the medium as canonically rendered cannot RETAIN matter, only store it under drive.** The canon
+anchor is exact and explicit: `06_spice_verification_manual.tex:127-133` — the "**Memristor
+(Thixotropic Hysteresis)**" is *"documented but not implemented"*, and *"the lattice responds purely
+elastically — **the hysteresis loop has zero enclosed area.**"* This is **exactly** the nine-architecture
+genesis record: every made object stores mass under drive (the reactive `Q_react`) but no architecture
+RETAINED it without a quantizer/lock (v6/v7 `w_pol≡0`, the v7 `3→1` decohere, v5 snap = CLIP /
+hysteresis-by-bookkeeping). **The constitutive loop is THE missing piece** — remanence is the
+zero-drive persistence the kernel cannot currently express. And the canon memristor's `τ_relax=ℓ_node/c`
+RATE parameter ties the two candidates together: **the rate-lock / thixotropy candidate and the ferrite
+loop are plausibly ONE mechanism** (real ferrite loops ARE rate / domain-wall dynamics; canon's missing
+loop is literally named "Thixotropic Hysteresis"). The De≈10³ rate-lock (§1.4, SESSION-RECORD) is the
+rate-dependence of this same loop.
+
+**The bench row (consistency-class):** run a **ferrite-core B-H loop on the cRIO** as the matter-creation
+analogue experiment — saturation-onset / remanence / coercivity / loop-area mapping to
+genesis / mass / annihilation / latent-heat. Cross-ref the fluid-bench program (`[branch #183]` §8) and
+the cRIO C_eff(V) validation ladder (`[branch #181]`); validate on a known nonlinear core first (the
+cRIO discipline). Class: consistency — it characterizes the EE analogue, it does not emerge the kernel.
+
+### §4(d) — The three-valued-boundary re-frame (candidate-resolution for Grant)
+
+`[branch #187]` surfaced two unresolved canon contradictions: the shear-BC is **three-valued** (:233)
+and BH echoes are **yes-vs-no** (:239). The channel-subscript law (§4a) dissolves the first into a
+clean per-channel reading of ONE boundary — **candidate-resolution for Grant, with per-pole evidence:**
+
+| "Pole" / view | Channel | Γ at the saturated/melted wall | evidence |
+|---|---|---|---|
+| **transparent (matched)** | EM-transverse `Z_EM` | **Γ_EM = 0** (DERIVED) | `Z(r)=√(μ'/ε')=Z₀` invariant under SYM scaling — `electron-bh-isomorphism.md:24`; `03_pin_port_configuration.tex:146` |
+| **reflector** | shear `Z_shear` | **Γ_shear = −1** (IMPLIED, currently unwritten as Γ) | `G_shear→0 ⇒ Z_shear→0`; "perfect reflector for shear waves" `electron-bh-isomorphism.md:34` (= a shear mismatch, §4b#3) |
+| **reflector / horizon** | bulk `Z_bulk` | **Γ_bulk = −1** (engine-scale; astrophysically UNSTATED) | snap `Z_bulk=ρc→0` `registry:197`; `bubble-physics:107`; the §4b AMBIGUOUS gap |
+
+**The candidate resolution:** the "three-valued boundary" is **three channels' views of ONE boundary** —
+EM-transparent (Γ_EM=0), shear-reflecting (Γ_shear=−1), bulk-reflecting (Γ_bulk=−1). The contradiction
+is an artifact of the missing channel subscripts; under the §4(a) law it dissolves. The **BH-echo
+yes/no** then inherits the realization class (§2 reflectivity row): the echo is **EM-channel NO**
+(Γ_EM=0, transparent) but **shear/bulk-channel YES** (Γ=−1) — so "does the BH echo?" is itself a
+channel question, and the `[branch #187]` FLAG-2 contradiction is the same missing-subscript artifact.
+**Surfaced as candidate-resolution; the BH-echo and shear-BC contradictions are NOT closed here** —
+Grant adjudicates whether the channel-subscript reading is the resolution or whether a deeper physics
+distinction remains (flag-don't-fix).
 
 ---
 
