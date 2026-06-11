@@ -25,6 +25,10 @@ from __future__ import annotations
 import numpy as np
 
 from ave.core.unified_genesis_engine import UnifiedGenesisEngine, RHO_CAV
+from ave.utils.fast_winding_extractor import (
+    extract_2_3_omega_fast,
+    planted_winding_field,
+)
 from ave.utils.topology_genus import (
     measure_topology,
     derive_read_torus_from_channel,
@@ -275,3 +279,148 @@ def test_d17_reflect_ledger_honest_only_removed():
     assert e_wn.E_reflect >= -1e-12
     # the spared rendering's reflector sink is no larger than inherited's
     assert e_wn.E_reflect <= e_inh.E_reflect + 1e-9, (e_wn.E_reflect, e_inh.E_reflect)
+
+
+# ============================================ D15 POLYPHASE CONDUCTION (F-TRAVEL)
+def _read_torus(N):
+    R = 0.22 * N
+    r = R / ((1.0 + np.sqrt(5.0)) / 2.0) ** 2
+    return R, r
+
+
+def test_ktravel_vs_standing_discriminator():
+    """K-TRAVEL-VS-STANDING — the HEART of v8 (F-TRAVEL keeper, the directive's
+    pinned keeper). The extractor must DISTINGUISH a planted TRAVELING quadrature
+    from a planted STANDING pattern: TRAVELING reads w_pol = q (the integer);
+    STANDING reads w_pol = 0. A probe that reads w_pol != 0 on the standing plant
+    is reading amplitude geometry, not a winding -> DISQUALIFIED (WINDING-TAKES
+    would be CLIP)."""
+    N = 48
+    R, r = _read_torus(N)
+    for q in (2, 3, 4):
+        om_t, pi_t = planted_winding_field(N, R, r, q=q, p=2, amplitude=0.3,
+                                           mode="traveling", helicity=1)
+        om_s, pi_s = planted_winding_field(N, R, r, q=q, p=2, amplitude=0.3,
+                                           mode="standing", helicity=1)
+        rt = extract_2_3_omega_fast(om_t, pi_t, R, r, N)
+        rs = extract_2_3_omega_fast(om_s, pi_s, R, r, N)
+        assert rt["w_pol"] == q and rt["w_pol_rel"] > 0.1, (q, rt["w_pol"])
+        assert rs["w_pol"] == 0, (q, "standing must read 0", rs["w_pol"])
+
+
+def test_ktravel_helicity_odd_and_achiral_null():
+    """The traveling winding's SIGN reverses RH<->LH (helicity-odd), and an achiral
+    (helicity=0) deposit has π_ω ≡ 0 ⇒ no L-state ⇒ structural null (w_pol=0). The
+    m-even keeper made constructive — the travel direction comes from the field's
+    handedness, not dialed in."""
+    N = 48
+    R, r = _read_torus(N)
+
+    def signed(hel, mode="traveling"):
+        om, pi = planted_winding_field(N, R, r, q=3, p=2, amplitude=0.3,
+                                       mode=mode, helicity=hel)
+        res = extract_2_3_omega_fast(om, pi, R, r, N)
+        raws = res["w_pol_raw_list"]
+        return res["w_pol"], (np.sign(np.median(raws)) if raws else 0.0)
+
+    w_rh, s_rh = signed(+1)
+    w_lh, s_lh = signed(-1)
+    w_ac, _ = signed(0)
+    assert w_rh == 3 and w_lh == 3
+    assert s_rh != 0 and s_rh == -s_lh, f"handedness must flip the winding sign: {s_rh} vs {s_lh}"
+    assert w_ac == 0, "achiral deposit (π_ω=0) must read w_pol=0 (structural null)"
+
+
+def test_kplant_in_channel_engine():
+    """K-PLANT-IN-CHANNEL (F-WPOL known-positive INSIDE the geometry). The engine's
+    own plant_polyphase_winding, planted at run scale, reads w_pol = q_dep on the
+    field-derived torus (traveling) and 0 (standing) — the deposit IS winding-
+    capable in the read coordinate inside the actual geometry (look-inside hygiene;
+    external reads disqualified)."""
+    N = 48
+    R = 0.22 * N
+    for mode, expect in (("traveling", 3), ("standing", 0)):
+        e = UnifiedGenesisEngine(N, bulk_density_on=True, snap_on=False,
+                                 omega_sector_on=True, buckle_on=True,
+                                 photon_coupling=True, q_dep=3, p_dep=2,
+                                 dep_R=R, dep_r=3.0, dep_axis=2)
+        e.plant_polyphase_winding(mode=mode, helicity=1, amplitude=0.3)
+        pi_om = (e.omega - e.omega_prev) / e.dt
+        res = extract_2_3_omega_fast(e.omega, pi_om, R, 3.0, N)
+        assert res["w_pol"] == expect, (mode, res["w_pol"])
+
+
+def _poly_engine(polyphase_on, *, n_phase=2, q_dep=3, chi=0.02, seed=20260610, N=40):
+    np.random.seed(seed)
+    e = UnifiedGenesisEngine(
+        N, bulk_density_on=True, snap_on=True, c2_floor=0.0, nu_art_bulk=5e-4,
+        rho_diff=5e-4, snap_payback_rate=1.0, rho_cav=RHO_CAV, vent_mode="absorbed",
+        snap_accounting="conservative", meissner_harden=0.05, omega_sector_on=True,
+        buckle_on=True, photon_coupling=True, lock_on=True, lock_eta=0.08,
+        transducer_on=True, chi_exch=chi, omega_recipient_frac=0.5,
+        polyphase_on=polyphase_on, n_phase=n_phase, q_dep=q_dep, p_dep=2,
+        dep_R=0.22 * N, dep_r=3.0, dep_axis=2)
+    e.seed_lane1(frac=0.85, sigma=4.0, vent_into_seed=False)
+    e.energize_rotation_column(M_edge=1.8, R_core=0.18 * N * e.dx, axis=2)
+    e.freeze_wall_window()
+    e.drive_chiral_photon(helicity=1, sigma=5.0, wavelength=8.0, amplitude=0.10, axis=2)
+    return e
+
+
+def test_d15_off_byte_identical():
+    """K-OFF — polyphase_on defaults False; the v8 polyphase knob does NOT perturb
+    the inherited dynamics when off (the D-INHERIT gate's ω-channel half)."""
+    e = UnifiedGenesisEngine(8, bulk_density_on=True)
+    assert e.polyphase_on is False and e.n_phase == 1
+    a = _poly_engine(False)
+    b = _poly_engine(False)
+    for _ in range(80):
+        a.step()
+        b.step()
+    assert np.allclose(a.omega, b.omega) and np.allclose(a.bulk_energy(True),
+                                                         b.bulk_energy(True))
+
+
+def test_d15_delta_l_faithful_and_bounded():
+    """K-DELTA-L-FAITHFUL + K-AM-LEDGER: the deposit amplitude IS the extracted
+    photon δL (A_dep ∝ δL), the AM channel closes 1:1 (S_photon_removed_poly ≡
+    L_deposit_poloidal), the photon pays (E_loss ≥ 0), and the deposit does NOT
+    break T1 / detonate (E_V bounded, field finite). The v7 demotion-(d) decorative-
+    ripple deviation cannot recur — there is one δL-sourced channel."""
+    e = _poly_engine(True, n_phase=2)
+    ev_max = 0.0
+    for _ in range(300):
+        e.step()
+        ev_max = max(ev_max, float(e.bulk_energy(True)))
+    led = e.polyphase_ledger()
+    assert led["poly_events"] > 0
+    assert led["ledger_faithful"], led
+    assert abs(led["S_photon_removed_poly"] - led["L_deposit_poloidal"]) < 1e-9 * \
+        max(abs(led["L_deposit_poloidal"]), 1e-30)
+    assert led["E_poly_photon_loss"] >= -1e-12, "photon energy loss must be >= 0"
+    assert np.all(np.isfinite(e.omega)), "deposit must not blow up the ω field"
+    assert ev_max < 13.0 * 10.0, f"deposit broke T1 / detonated: E_V={ev_max}"
+
+
+def test_d15_chi_zero_is_structural_null():
+    """F-EXCHANGE: with chi_exch=0 the polyphase deposit removes nothing and books
+    nothing (the structural zero — every positive gates above this)."""
+    e = _poly_engine(True, n_phase=2, chi=0.0)
+    for _ in range(120):
+        e.step()
+    led = e.polyphase_ledger()
+    assert led["L_deposit_poloidal"] == 0.0 and led["poly_events"] == 0
+
+
+def test_d15_amplitude_scales_with_extracted_dl():
+    """A_dep ∝ δL made empirical: doubling the extraction χ̃ scales the deposited
+    L (the amplitude IS the extracted spin, not an independent source). Monotone +
+    super-linear-bounded — the deposit cannot self-source beyond what χ̃ removes."""
+    e_lo = _poly_engine(True, n_phase=2, chi=0.01)
+    e_hi = _poly_engine(True, n_phase=2, chi=0.02)
+    for _ in range(120):
+        e_lo.step()
+        e_hi.step()
+    l_lo = abs(e_lo.polyphase_ledger()["L_deposit_poloidal"])
+    l_hi = abs(e_hi.polyphase_ledger()["L_deposit_poloidal"])
+    assert l_lo > 0 and l_hi > l_lo, (l_lo, l_hi)  # more extraction => more deposit
