@@ -90,6 +90,15 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         vent_mode: str = "kick",
         snap_accounting: str = "legacy",
         meissner_harden: float = 0.0,
+        # --- v8 D17 SPARE-THE-FEEDSTOCK: how the snap quenches u_adv in snapped
+        # cells. "inherited" = u_adv[cm]=0.0 EXACTLY as v6 (byte-identical default);
+        # "wall_normal" = zero only the wall-normal component (project out u_n =
+        # grad(rho)/|grad(rho)|), PRESERVE the tangential circulation feedstock;
+        # "channel_live" = do NOT zero snapped shell cells bordering the D16
+        # channel (the conducting tube stays live). A NEW knob ⇒ inventoried +
+        # swept (ave-apparatus-floor-attribution v1.1; §5 row 2). The removed-KE
+        # ledger (E_reflect) tallies ONLY what is actually removed (honest sink). ---
+        snap_u_mode: str = "inherited",
         # --- v6 D9 transducer (chiral-boundary spin-orbit exchange BC); OFF by default ---
         transducer_on: bool = False,
         chi_exch: float = 0.02,
@@ -113,6 +122,18 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         p_dep: int = 2,           # toroidal director order (the "2")
         pol_R: float | None = None,  # reading-torus major radius (None ⇒ 0.22·N at build)
         pol_r: float | None = None,  # reading-torus minor radius (None ⇒ R/φ²)
+        # --- v8 D15 POLYPHASE CONDUCTION (the rotating-field stator on the threaded
+        # channel; OFF by default ⇒ the v6/v7 byte-identical path). A per-step
+        # BOUNDARY deposit (CP10) of a TRAVELING poloidal π_ω wave on the channel-
+        # wall contour, amplitude set BY the extracted photon δL (D13-FAITHFUL),
+        # travel direction set BY the photon helicity (helicity-odd). N_phase=1 ⇒
+        # the STANDING/pulsating single-phase control (the v7 reproduction). ---
+        polyphase_on: bool = False,
+        n_phase: int = 1,
+        Omega_stator: float | None = None,  # default = q_dep*omega_gap (the §3.5(2) fast re-imprint)
+        dep_R: float | None = None,          # the channel-derived major radius (driver sets from D16)
+        dep_r: float = 3.0,                  # the minor circle (channel-wall thickness)
+        dep_axis: int | None = None,         # the spin/threading axis (None ⇒ transduce axis)
         **kwargs,
     ):
         """
@@ -172,6 +193,12 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         self.vent_mode = str(vent_mode)            # "kick" (v5) | "absorbed" (D10a)
         self.snap_accounting = str(snap_accounting)  # "legacy" (v5) | "conservative" (D11)
         self.meissner_harden = float(meissner_harden)  # D10b per-cell threshold hardening
+        # v8 D17 feedstock-sparing rendering (default = the v6 byte-identical path)
+        self.snap_u_mode = str(snap_u_mode)
+        # the D16 channel mask the driver sets from the topology gate (for
+        # snap_u_mode="channel_live"); None ⇒ the rendering falls back to inherited.
+        self.channel_mask = None
+        self.snap_channel_border = 2  # cells of channel-wall shell kept live (mode b)
         # --- v6 D9 transducer (chiral-boundary spin-orbit exchange BC) ---
         # CP10 boundary-localized; OFF by default (the inherited byte-identical path).
         # chi_exch = the SWEPT per-step wall spin-extraction fraction (prereg §6.5);
@@ -196,6 +223,20 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         self.pol_deposit_accum = 0.0    # cumulative deposited poloidal amplitude tally (signed, helicity-odd)
         self.E_pol_deposit = 0.0        # cumulative energy placed in the poloidal winding (drawn from photon, ≥0)
         self.pol_deposit_events = 0     # steps the poloidal branch fired
+        # --- v8 D15 polyphase conduction state (OFF default = byte-identical) ---
+        self.polyphase_on = bool(polyphase_on)
+        self.n_phase = int(n_phase)
+        self.Omega_stator = (float(Omega_stator) if Omega_stator is not None
+                             else None)  # resolved lazily against omega_gap
+        self.dep_R = (float(dep_R) if dep_R is not None else None)
+        self.dep_r = float(dep_r)
+        self.dep_axis = dep_axis
+        # D15 ledgers (the AM channel: amplitude IS the extracted photon δL)
+        self.L_deposit_poloidal = 0.0   # cumulative δL routed into the traveling poloidal deposit
+        self.S_photon_removed_poly = 0.0  # cumulative photon spin removed by the polyphase BC
+        self.E_poly_photon_loss = 0.0   # energy removed from the photon (≥0)
+        self.poly_events = 0            # steps the polyphase deposit fired
+        self._poly_phase = 0.0          # the traveling temporal phase accumulator s_h·Ω·t
         # D9 ledgers (the AM channel closes 1:1 BY CONSTRUCTION; energy TRACKED):
         self.L_transferred = 0.0          # cumulative ΔL deposited (u_adv + ω, = removed)
         self.L_transferred_u = 0.0        # cumulative ΔL into u_adv orbital circulation
@@ -389,6 +430,54 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         self.rho_cav_field[nb] -= self.meissner_harden
         np.maximum(self.rho_cav_field, self.rho_floor + 1e-3, out=self.rho_cav_field)
 
+    def _snap_quench_u(self, cm):
+        """D17 SPARE-THE-FEEDSTOCK — the post-snap u_adv values in snapped cells,
+        per ``snap_u_mode``. Returns an (M,3) array (M = cm.sum()).
+
+          "inherited"    u_adv = 0.0 EXACTLY (the v6 byte-identical path).
+          "wall_normal"  zero only the wall-normal component (project out
+                         û_n = ∇ρ̄/|∇ρ̄|), PRESERVE the tangential circulation — the
+                         snap still kills the in/out shock but keeps the swirl
+                         feedstock. Degenerate normal (|∇ρ̄|<eps) ⇒ full quench.
+          "channel_live" keep u_adv in snapped shell cells bordering the D16
+                         channel mask (the conducting tube stays live); zero the
+                         rest. No channel mask set ⇒ inherited (fail-safe).
+
+        CP10: this is a per-cell BOUNDARY state operation (the same boundary state
+        machine the inherited snap is), NOT a bulk EOM force."""
+        u_cm = self.u_adv[cm]
+        mode = self.snap_u_mode
+        if mode == "inherited" or u_cm.size == 0:
+            return np.zeros_like(u_cm)
+        if mode == "wall_normal":
+            gx, gy, gz = np.gradient(self.rho_bar, self.dx)
+            gn = np.stack([gx[cm], gy[cm], gz[cm]], axis=-1)
+            mag = np.sqrt(np.sum(gn ** 2, axis=-1))
+            # default PRESERVE: where ∇ρ̄ is degenerate (a flat deep-void interior)
+            # NO wall normal is defined ⇒ there is no in/out shock to remove ⇒ keep
+            # the circulation (the free-slip reflector kills only the no-penetration-
+            # violating NORMAL component, not the tangential swirl feedstock).
+            out = u_cm.copy()
+            good = mag > 1e-9
+            if np.any(good):
+                nh = gn[good] / mag[good][:, None]
+                u_good = u_cm[good]
+                u_norm = np.sum(u_good * nh, axis=-1)[:, None] * nh
+                out[good] = u_good - u_norm  # remove wall-normal, keep tangential
+            return out
+        if mode == "channel_live":
+            if self.channel_mask is None:
+                return np.zeros_like(u_cm)
+            from scipy import ndimage
+            border = ndimage.binary_dilation(
+                np.asarray(self.channel_mask, dtype=bool),
+                iterations=int(self.snap_channel_border))
+            keep = border[cm]  # snapped cells adjacent to the channel
+            out = np.zeros_like(u_cm)
+            out[keep] = u_cm[keep]  # the channel-wall feedstock stays live
+            return out
+        return np.zeros_like(u_cm)  # unknown mode ⇒ inherited (fail-safe)
+
     def _snap_step(self):
         """Per-cell snap state machine (normal↔snapped), interior only (CP7).
           1. newly-snapping cells (ρ̄≤ρ̄_cav, not yet snapped) ⇒ tally + clamp.
@@ -409,17 +498,22 @@ class UnifiedGenesisEngine(CrystalGraftV4):
         if not self.snap_mask.any():
             return
         cm = self.snap_mask
-        # (2) enforce the boundary-class void (reflector: ρ̄ held at floor, u killed).
-        # D11 conservative: TALLY the reflector-removed KE (one-way physical sink) so
-        # the ledger closes — the v5 legacy path destroys it untallied.
+        # (2) enforce the boundary-class void (reflector: ρ̄ held at floor, u killed
+        # per the D17 rendering). D11 conservative: TALLY the reflector-removed KE
+        # (one-way physical sink) so the ledger closes — the v5 legacy path destroys
+        # it untallied. v8 D17: the rendering may PRESERVE part of u_adv (the spared
+        # circulation feedstock); the tally counts ONLY the removed component so the
+        # ledger stays honest whatever is spared (the F-CASCADE keeper depends on it).
+        u_new_cm = self._snap_quench_u(cm)  # the post-snap u_adv in snapped cells
         if not legacy:
+            removed = self.u_adv[cm] - u_new_cm
             self.E_reflect += float(np.sum(
-                0.5 * (1.0 + self.rho_bar[cm]) * np.sum(self.u_adv[cm] ** 2, axis=-1)
+                0.5 * (1.0 + self.rho_bar[cm]) * np.sum(removed ** 2, axis=-1)
             ) * self.dx ** 3)
             self.rho_bar[cm] = self.snap_clamp_val[cm]
         else:
             self.rho_bar[cm] = self.rho_cav
-        self.u_adv[cm] = 0.0
+        self.u_adv[cm] = u_new_cm
         # over-pressure payback: the surrounding medium does work against the void.
         # neighbor-mean pressure minus the (per-cell) void pressure; positive ⇒ in.
         p = self.pressure(self.rho_bar)
@@ -752,6 +846,117 @@ class UnifiedGenesisEngine(CrystalGraftV4):
             Ln = self._by * pw[..., 2] - self._bz * pw[..., 1]
         return float(np.sum(Ln * m) * self.dx ** 3)
 
+    # ===================================== D15 POLYPHASE CONDUCTION (CP10 stator BC)
+    def _poly_geom(self):
+        """The channel-wall torus window g_chan + the (p,q)-knot director D the
+        extractor reads, in the deposit frame. R = the D16 channel-derived major
+        radius (driver-set ``dep_R``), r = the channel-wall minor radius."""
+        axis = int(self.dep_axis) if self.dep_axis is not None else self._transduce_axis()
+        R = self.dep_R if self.dep_R is not None else (0.22 * self.N * self.dx)
+        r = self.dep_r * self.dx
+        others = [a for a in range(3) if a != axis]
+        bx = [self._bx, self._by, self._bz]
+        t1, t2, ax = bx[others[0]], bx[others[1]], bx[axis]
+        rho = np.sqrt(t1 ** 2 + t2 ** 2)
+        phi = np.arctan2(t2, t1)
+        psi = np.arctan2(ax, rho - R)
+        rtube = np.sqrt((rho - R) ** 2 + ax ** 2)
+        g_chan = (np.exp(-(rtube ** 2) / (2.0 * (0.6 * r) ** 2))
+                  * (rho > 2.0 * self.dx) * self.interior_mask())
+        dR = np.cos(self.p_dep * phi)
+        dax = np.sin(self.p_dep * phi)
+        D = np.zeros(self.omega.shape)
+        D[..., others[0]] = dR * np.cos(phi)
+        D[..., others[1]] = dR * np.sin(phi)
+        D[..., axis] = dax
+        return axis, g_chan, psi, D
+
+    def _polyphase_deposit_step(self):
+        """D15 — the rotating-field STATOR boundary BC (CP10, prereg §3.2). Extract
+        photon spin δL on the channel window (the photon PAYS), deposit a TRAVELING
+        poloidal π_ω increment whose amplitude IS the extracted δL (D13-FAITHFUL,
+        ``A_dep ∝ δL``) and whose travel direction is set by the photon helicity
+        (helicity-odd: sign(δL) ⇒ +ψ vs −ψ travel). N_phase=1 ⇒ a STANDING pulsating
+        single ψ-site (the v7 reproduction: DOF-incapable of a sustained winding).
+        Boundary-local (the channel-wall window only) — NOT a bulk EOM term, so the
+        v5 indefinite-Hamiltonian pump cannot recur. The AM channel closes 1:1 BY
+        CONSTRUCTION (S_photon_removed_poly ≡ L_deposit_poloidal)."""
+        axis, g_chan, psi, D = self._poly_geom()
+        if not np.any(g_chan > 0.0) or self.chi_exch == 0.0:
+            return
+        piw = (self.w - self.w_prev) / self.dt
+        s_dens = np.cross(self.w, piw)[..., axis]
+        extract = self.chi_exch * g_chan
+        dL = float(np.sum(extract * s_dens) * self.dx ** 3)  # signed = handedness
+        if dL == 0.0:
+            return
+        s_h = 1.0 if dL > 0.0 else -1.0  # the photon helicity sets the phase sequence
+        Omega = (self.Omega_stator if self.Omega_stator is not None
+                 else self.q_dep * self.omega_gap)
+        self._poly_phase = s_h * Omega * (self.step_count * self.dt)
+        if self.n_phase >= 2:
+            # the traveling poloidal wave cos(qψ − s_h Ω t) — the rotating field
+            spatial = np.cos(self.q_dep * psi - self._poly_phase)
+        else:
+            # N_phase=1: a single pulsating ψ-site, no traveling ⇒ no ψ-winding
+            dpsi = np.angle(np.exp(1j * psi))  # ψ wrapped to (−π,π]
+            site = np.exp(-(dpsi ** 2) / (2.0 * (np.pi / 3.0) ** 2))
+            spatial = site * np.cos(self._poly_phase)
+        I_pol = float(np.sum(g_chan * np.sum(D ** 2, axis=-1)) * self.dx ** 3)
+        if abs(I_pol) < 1e-30:
+            return
+        A_dep = dL / I_pol  # D13-FAITHFUL: the deposit amplitude IS the extracted δL
+        dpi = (A_dep * g_chan * spatial)[..., None] * D
+        # deposit into π_ω by lowering ω_prev (π_ω = (ω − ω_prev)/dt)
+        self.omega_prev = self.omega_prev - dpi * self.dt
+        # the photon PAYS exactly: scale π_w by (1 − χ̃·g_chan) on the window
+        self.E_poly_photon_loss += 0.5 * float(np.sum(
+            np.sum(piw ** 2, axis=-1) * (1.0 - (1.0 - extract) ** 2)) * self.dx ** 3)
+        self.w_prev = self.w - (self.w - self.w_prev) * (1.0 - extract)[..., None]
+        self.L_deposit_poloidal += dL
+        self.S_photon_removed_poly += dL
+        self.poly_events += 1
+
+    def plant_polyphase_winding(self, *, mode="traveling", helicity=1,
+                                amplitude=0.3, R=None, r=None, q=None, p=None,
+                                axis=None):
+        """CALIBRATION plant (D18 known-positive / K-PLANT-IN-CHANNEL) — add a clean
+        (p,q) traveling/standing ω winding INTO the field at scale and set ω_prev so
+        π_ω matches in the window. NOT a dynamical deposit; the look-inside known-
+        positive the de-novo read is calibrated against (plant-at-scale INSIDE the
+        geometry per the A46 hygiene)."""
+        from ave.utils.fast_winding_extractor import planted_winding_field
+        axis = (int(axis) if axis is not None
+                else (int(self.dep_axis) if self.dep_axis is not None
+                      else self._transduce_axis()))
+        R = R if R is not None else (self.dep_R if self.dep_R is not None
+                                     else 0.22 * self.N * self.dx)
+        r = r if r is not None else self.dep_r
+        q = int(q) if q is not None else self.q_dep
+        p = int(p) if p is not None else self.p_dep
+        om, piw = planted_winding_field(
+            self.N, R / self.dx, r, q=q, p=p, amplitude=amplitude, mode=mode,
+            helicity=helicity, omega_gap=self.omega_gap, dt=self.dt, axis=axis)
+        self.omega = self.omega + om
+        self.omega_prev = self.omega_prev + (om - piw * self.dt)
+        return om, piw
+
+    def polyphase_ledger(self) -> dict:
+        """The D15 deposit ledger (conservation-by-channel; numbers FROM the field).
+        S_photon_removed_poly ≡ L_deposit_poloidal BY CONSTRUCTION (1:1 closure)."""
+        return {
+            "L_deposit_poloidal": self.L_deposit_poloidal,
+            "S_photon_removed_poly": self.S_photon_removed_poly,
+            "E_poly_photon_loss": self.E_poly_photon_loss,
+            "poly_events": self.poly_events,
+            "n_phase": self.n_phase, "q_dep": self.q_dep,
+            "Omega_stator": (self.Omega_stator if self.Omega_stator is not None
+                             else self.q_dep * self.omega_gap),
+            "ledger_faithful": bool(self.poly_events == 0 or abs(
+                self.S_photon_removed_poly - self.L_deposit_poloidal)
+                <= 1e-9 * max(abs(self.L_deposit_poloidal), 1e-30)),
+        }
+
     def hand_snap_region(self, mask: np.ndarray, rho_set: float | None = None):
         """CALIBRATION (D6 F0d — 'a known case'): hand-open a snapped pocket. Sets
         the region below the floor and runs ONE snap detection so it tallies +
@@ -1023,6 +1228,11 @@ class UnifiedGenesisEngine(CrystalGraftV4):
             # orbital AM; a per-cell BOUNDARY operation (CP10), not a bulk EOM term.
             if self.transducer_on:
                 self._transducer_step()
+            # D15 polyphase conduction: the traveling poloidal stator on the channel
+            # wall; AFTER the transducer (its δL is the deposit amplitude source,
+            # D13-FAITHFUL). A per-step BOUNDARY BC (CP10), never a bulk EOM term.
+            if self.polyphase_on:
+                self._polyphase_deposit_step()
 
     # ------------------------------------------- energize (ENERGIZE+LOCK; never pump)
     def energize_rotation_column(self, M_edge: float, R_core: float,
