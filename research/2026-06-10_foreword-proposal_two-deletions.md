@@ -510,3 +510,34 @@ Surfaced for adjudication, not silently resolved (flag-don't-fix):
 - [ ] `make verify` green; foreword is `\input` into all volumes, so a build of
       each volume's frontmatter is the integration test.
 
+---
+
+## THESIS UPGRADE CANDIDATE (2026-06-10, Rule-12 note — proposal body above PRESERVED unedited)
+
+**Two deletions → THREE (the frame).** A later Grant adjudication
+(2026-06-10, the lattice-rest-frame exchange) added a **third deletion** to the
+same ~25-year arc this proposal opens on: alongside the **channel**
+(Heaviside–Gibbs) and the **interior** (the point-particle retreat), the
+**frame** was deleted in 1905 when Einstein recast the FitzGerald–Lorentz–Larmor
+constructive transformations as a principle theory — winning on parsimony, **not
+refuting** the medium route (the two are observationally equivalent for
+velocity; Bell, "How to teach special relativity," 1976, kept the constructive
+pedagogy alive). The restoration restores all three together: the lattice is the
+channel's **carrier**, the interior's **constituent**, and the frame's **owner**
+(`Ω̂_freeze` / the CMB rest frame). The frame restoration carries its own honest
+bite — the velocity construction protects *velocity only*; lattice **structure**
+(386-fm pitch, chiral space group) owes a forward anisotropy/dispersion campaign
+against the Hughes–Drever / vacuum-birefringence / GRB / SME bounds.
+
+**For Grant's line-edit (not actioned here):** on the upgrade, the proposal
+**title and spine would become "the three deletions"** (the one-liner, Part 0,
+and §A–§B would gain the frame as the third deleted face of the same medium).
+**This note does not rewrite the proposal body** — the two-deletions prose above
+stands as written; the upgrade is surfaced as a candidate for Grant's line-edit.
+
+→ Source extension: `manuscript/ave-kb/common/the-abandoned-interior.md`
+§"THE THIRD DELETION — THE FRAME (Rule-12 dated extension, 2026-06-10)";
+cross-linked from `manuscript/ave-kb/common/historical-precedents.md`. Class
+ceiling unchanged (consistency-class; the velocity theorem is identity-class;
+the structure bounds are an open owed campaign).
+
