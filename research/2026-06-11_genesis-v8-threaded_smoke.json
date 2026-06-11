@@ -1,0 +1,1028 @@
+{
+  "title": "genesis-v8 TOPOLOGY GATE SMOKE (D16)",
+  "prereg": "research/2026-06-11_genesis-v8-threaded_prereg.md @ 2d43a1bf",
+  "config": {
+    "N": 48,
+    "n_build": 2400,
+    "F_SHELL": 200,
+    "F_EV": 13.0,
+    "M_grid": [
+      1.8,
+      2.5,
+      3.0,
+      3.5
+    ],
+    "meissner_grid": [
+      0.0,
+      0.05,
+      0.1
+    ],
+    "nu_stabilize": [
+      0.002,
+      0.005,
+      0.02
+    ]
+  },
+  "arms": [
+    {
+      "N": 48,
+      "M": 1.8,
+      "meissner": 0.0,
+      "nu_art": 0.0005,
+      "n_build": 2400,
+      "snap_onset": null,
+      "broke_at": null,
+      "pocket_built": 0,
+      "pocket_max": 0,
+      "rho_min": -0.43027021453350167,
+      "rho_cav": -0.6180339887498948,
+      "t1": {
+        "finite": true,
+        "E_V_cons": 12.996427488268168,
+        "t1_ok": true
+      },
+      "topology": {
+        "axis": 2,
+        "f_shell": 200,
+        "dominance_frac": 0.3,
+        "total_snap": 0,
+        "shell_cells": 0,
+        "n_snap_components": 0,
+        "largest_frac_of_snap": 0.0,
+        "bin": "SHELL-NEVER-FORMS",
+        "reason": "no coherent shell: largest connected snap component = 0 cells (F-SHELL 200); it holds 0.0% of 0 snapped cells across 0 disconnected components (dominance floor 30%)"
+      },
+      "gate_bin": "SHELL-NEVER-FORMS",
+      "series": [
+        {
+          "step": 400,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 800,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1200,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1600,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 2000,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 2400,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        }
+      ],
+      "wall_s": 61.6
+    },
+    {
+      "N": 48,
+      "M": 2.5,
+      "meissner": 0.0,
+      "nu_art": 0.0005,
+      "n_build": 2400,
+      "snap_onset": 2114,
+      "broke_at": null,
+      "pocket_built": 2032,
+      "pocket_max": 2032,
+      "rho_min": -0.6180339887498948,
+      "rho_cav": -0.6180339887498948,
+      "t1": {
+        "finite": true,
+        "E_V_cons": 12.996427488268168,
+        "t1_ok": true
+      },
+      "topology": {
+        "axis": 2,
+        "f_shell": 200,
+        "dominance_frac": 0.3,
+        "total_snap": 2032,
+        "shell_cells": 208,
+        "n_snap_components": 153,
+        "largest_frac_of_snap": 0.10236220472440945,
+        "bin": "SHELL-NEVER-FORMS",
+        "reason": "no coherent shell: largest connected snap component = 208 cells (F-SHELL 200); it holds 10.2% of 2032 snapped cells across 153 disconnected components (dominance floor 30%)"
+      },
+      "gate_bin": "SHELL-NEVER-FORMS",
+      "series": [
+        {
+          "step": 400,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 800,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1200,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1600,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 2000,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 2400,
+          "pocket": 2032,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 208,
+          "largest_frac": 0.10236220472440945,
+          "n_components": 153
+        }
+      ],
+      "wall_s": 63.1
+    },
+    {
+      "N": 48,
+      "M": 3.0,
+      "meissner": 0.0,
+      "nu_art": 0.0005,
+      "n_build": 2400,
+      "snap_onset": 1493,
+      "broke_at": 1627,
+      "pocket_built": null,
+      "pocket_max": 448,
+      "rho_min": -0.6180339887498948,
+      "rho_cav": -0.6180339887498948,
+      "t1": {
+        "finite": false,
+        "E_V_cons": null,
+        "t1_ok": false
+      },
+      "topology": {
+        "bin": "NONFINITE",
+        "reason": "bulk detonated at step 1627"
+      },
+      "gate_bin": "T1-BROKEN",
+      "series": [
+        {
+          "step": 400,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 800,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1200,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1600,
+          "pocket": 8,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 1,
+          "largest_frac": 0.125,
+          "n_components": 8
+        }
+      ],
+      "wall_s": 42.8
+    },
+    {
+      "N": 48,
+      "M": 3.5,
+      "meissner": 0.0,
+      "nu_art": 0.0005,
+      "n_build": 2400,
+      "snap_onset": 1302,
+      "broke_at": 1601,
+      "pocket_built": null,
+      "pocket_max": 3279,
+      "rho_min": -0.6180339887498948,
+      "rho_cav": -0.6180339887498948,
+      "t1": {
+        "finite": false,
+        "E_V_cons": null,
+        "t1_ok": false
+      },
+      "topology": {
+        "bin": "NONFINITE",
+        "reason": "bulk detonated at step 1601"
+      },
+      "gate_bin": "T1-BROKEN",
+      "series": [
+        {
+          "step": 400,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 800,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1200,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1600,
+          "pocket": 3006,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 212,
+          "largest_frac": 0.07052561543579508,
+          "n_components": 278
+        }
+      ],
+      "wall_s": 42.5
+    },
+    {
+      "N": 48,
+      "M": 1.8,
+      "meissner": 0.05,
+      "nu_art": 0.0005,
+      "n_build": 2400,
+      "snap_onset": null,
+      "broke_at": null,
+      "pocket_built": 0,
+      "pocket_max": 0,
+      "rho_min": -0.43027021453350167,
+      "rho_cav": -0.6180339887498948,
+      "t1": {
+        "finite": true,
+        "E_V_cons": 12.996427488268168,
+        "t1_ok": true
+      },
+      "topology": {
+        "axis": 2,
+        "f_shell": 200,
+        "dominance_frac": 0.3,
+        "total_snap": 0,
+        "shell_cells": 0,
+        "n_snap_components": 0,
+        "largest_frac_of_snap": 0.0,
+        "bin": "SHELL-NEVER-FORMS",
+        "reason": "no coherent shell: largest connected snap component = 0 cells (F-SHELL 200); it holds 0.0% of 0 snapped cells across 0 disconnected components (dominance floor 30%)"
+      },
+      "gate_bin": "SHELL-NEVER-FORMS",
+      "series": [
+        {
+          "step": 400,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 800,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1200,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1600,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 2000,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 2400,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        }
+      ],
+      "wall_s": 62.6
+    },
+    {
+      "N": 48,
+      "M": 2.5,
+      "meissner": 0.05,
+      "nu_art": 0.0005,
+      "n_build": 2400,
+      "snap_onset": 2114,
+      "broke_at": null,
+      "pocket_built": 624,
+      "pocket_max": 728,
+      "rho_min": -0.949,
+      "rho_cav": -0.6180339887498948,
+      "t1": {
+        "finite": true,
+        "E_V_cons": 12.996427488268168,
+        "t1_ok": true
+      },
+      "topology": {
+        "axis": 2,
+        "f_shell": 200,
+        "dominance_frac": 0.3,
+        "total_snap": 624,
+        "shell_cells": 28,
+        "n_snap_components": 232,
+        "largest_frac_of_snap": 0.04487179487179487,
+        "bin": "SHELL-NEVER-FORMS",
+        "reason": "no coherent shell: largest connected snap component = 28 cells (F-SHELL 200); it holds 4.5% of 624 snapped cells across 232 disconnected components (dominance floor 30%)"
+      },
+      "gate_bin": "SHELL-NEVER-FORMS",
+      "series": [
+        {
+          "step": 400,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 800,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1200,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1600,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 2000,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 2400,
+          "pocket": 624,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 28,
+          "largest_frac": 0.04487179487179487,
+          "n_components": 232
+        }
+      ],
+      "wall_s": 63.1
+    },
+    {
+      "N": 48,
+      "M": 3.0,
+      "meissner": 0.05,
+      "nu_art": 0.0005,
+      "n_build": 2400,
+      "snap_onset": 1493,
+      "broke_at": 1866,
+      "pocket_built": null,
+      "pocket_max": 1273,
+      "rho_min": -0.949,
+      "rho_cav": -0.6180339887498948,
+      "t1": {
+        "finite": false,
+        "E_V_cons": null,
+        "t1_ok": false
+      },
+      "topology": {
+        "bin": "NONFINITE",
+        "reason": "bulk detonated at step 1866"
+      },
+      "gate_bin": "T1-BROKEN",
+      "series": [
+        {
+          "step": 400,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 800,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1200,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1600,
+          "pocket": 8,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 1,
+          "largest_frac": 0.125,
+          "n_components": 8
+        }
+      ],
+      "wall_s": 49.8
+    },
+    {
+      "N": 48,
+      "M": 3.5,
+      "meissner": 0.05,
+      "nu_art": 0.0005,
+      "n_build": 2400,
+      "snap_onset": 1302,
+      "broke_at": 1596,
+      "pocket_built": null,
+      "pocket_max": 1303,
+      "rho_min": -0.949,
+      "rho_cav": -0.6180339887498948,
+      "t1": {
+        "finite": false,
+        "E_V_cons": null,
+        "t1_ok": false
+      },
+      "topology": {
+        "bin": "NONFINITE",
+        "reason": "bulk detonated at step 1596"
+      },
+      "gate_bin": "T1-BROKEN",
+      "series": [
+        {
+          "step": 400,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 800,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1200,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        }
+      ],
+      "wall_s": 42.3
+    },
+    {
+      "N": 48,
+      "M": 1.8,
+      "meissner": 0.1,
+      "nu_art": 0.0005,
+      "n_build": 2400,
+      "snap_onset": null,
+      "broke_at": null,
+      "pocket_built": 0,
+      "pocket_max": 0,
+      "rho_min": -0.43027021453350167,
+      "rho_cav": -0.6180339887498948,
+      "t1": {
+        "finite": true,
+        "E_V_cons": 12.996427488268168,
+        "t1_ok": true
+      },
+      "topology": {
+        "axis": 2,
+        "f_shell": 200,
+        "dominance_frac": 0.3,
+        "total_snap": 0,
+        "shell_cells": 0,
+        "n_snap_components": 0,
+        "largest_frac_of_snap": 0.0,
+        "bin": "SHELL-NEVER-FORMS",
+        "reason": "no coherent shell: largest connected snap component = 0 cells (F-SHELL 200); it holds 0.0% of 0 snapped cells across 0 disconnected components (dominance floor 30%)"
+      },
+      "gate_bin": "SHELL-NEVER-FORMS",
+      "series": [
+        {
+          "step": 400,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 800,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1200,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1600,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 2000,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 2400,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        }
+      ],
+      "wall_s": 62.4
+    },
+    {
+      "N": 48,
+      "M": 2.5,
+      "meissner": 0.1,
+      "nu_art": 0.0005,
+      "n_build": 2400,
+      "snap_onset": 2114,
+      "broke_at": null,
+      "pocket_built": 624,
+      "pocket_max": 728,
+      "rho_min": -0.949,
+      "rho_cav": -0.6180339887498948,
+      "t1": {
+        "finite": true,
+        "E_V_cons": 12.996427488268168,
+        "t1_ok": true
+      },
+      "topology": {
+        "axis": 2,
+        "f_shell": 200,
+        "dominance_frac": 0.3,
+        "total_snap": 624,
+        "shell_cells": 28,
+        "n_snap_components": 232,
+        "largest_frac_of_snap": 0.04487179487179487,
+        "bin": "SHELL-NEVER-FORMS",
+        "reason": "no coherent shell: largest connected snap component = 28 cells (F-SHELL 200); it holds 4.5% of 624 snapped cells across 232 disconnected components (dominance floor 30%)"
+      },
+      "gate_bin": "SHELL-NEVER-FORMS",
+      "series": [
+        {
+          "step": 400,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 800,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1200,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1600,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 2000,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 2400,
+          "pocket": 624,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 28,
+          "largest_frac": 0.04487179487179487,
+          "n_components": 232
+        }
+      ],
+      "wall_s": 63.2
+    },
+    {
+      "N": 48,
+      "M": 3.0,
+      "meissner": 0.1,
+      "nu_art": 0.0005,
+      "n_build": 2400,
+      "snap_onset": 1493,
+      "broke_at": 1734,
+      "pocket_built": null,
+      "pocket_max": 464,
+      "rho_min": -0.949,
+      "rho_cav": -0.6180339887498948,
+      "t1": {
+        "finite": false,
+        "E_V_cons": null,
+        "t1_ok": false
+      },
+      "topology": {
+        "bin": "NONFINITE",
+        "reason": "bulk detonated at step 1734"
+      },
+      "gate_bin": "T1-BROKEN",
+      "series": [
+        {
+          "step": 400,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 800,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1200,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1600,
+          "pocket": 8,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 1,
+          "largest_frac": 0.125,
+          "n_components": 8
+        }
+      ],
+      "wall_s": 45.8
+    },
+    {
+      "N": 48,
+      "M": 3.5,
+      "meissner": 0.1,
+      "nu_art": 0.0005,
+      "n_build": 2400,
+      "snap_onset": 1302,
+      "broke_at": 1596,
+      "pocket_built": null,
+      "pocket_max": 1287,
+      "rho_min": -0.949,
+      "rho_cav": -0.6180339887498948,
+      "t1": {
+        "finite": false,
+        "E_V_cons": null,
+        "t1_ok": false
+      },
+      "topology": {
+        "bin": "NONFINITE",
+        "reason": "bulk detonated at step 1596"
+      },
+      "gate_bin": "T1-BROKEN",
+      "series": [
+        {
+          "step": 400,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 800,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1200,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        }
+      ],
+      "wall_s": 42.3
+    },
+    {
+      "N": 48,
+      "M": 3.5,
+      "meissner": 0.05,
+      "nu_art": 0.002,
+      "n_build": 2400,
+      "snap_onset": 1302,
+      "broke_at": 1436,
+      "pocket_built": null,
+      "pocket_max": 920,
+      "rho_min": -0.7512048241922923,
+      "rho_cav": -0.6180339887498948,
+      "t1": {
+        "finite": false,
+        "E_V_cons": null,
+        "t1_ok": false
+      },
+      "topology": {
+        "bin": "NONFINITE",
+        "reason": "bulk detonated at step 1436"
+      },
+      "gate_bin": "T1-BROKEN",
+      "series": [
+        {
+          "step": 400,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 800,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1200,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        }
+      ],
+      "wall_s": 37.6
+    },
+    {
+      "N": 48,
+      "M": 3.5,
+      "meissner": 0.05,
+      "nu_art": 0.005,
+      "n_build": 2400,
+      "snap_onset": 1305,
+      "broke_at": 1415,
+      "pocket_built": null,
+      "pocket_max": 880,
+      "rho_min": -0.949,
+      "rho_cav": -0.6180339887498948,
+      "t1": {
+        "finite": false,
+        "E_V_cons": null,
+        "t1_ok": false
+      },
+      "topology": {
+        "bin": "NONFINITE",
+        "reason": "bulk detonated at step 1415"
+      },
+      "gate_bin": "T1-BROKEN",
+      "series": [
+        {
+          "step": 400,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 800,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1200,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        }
+      ],
+      "wall_s": 37.0
+    },
+    {
+      "N": 48,
+      "M": 3.5,
+      "meissner": 0.05,
+      "nu_art": 0.02,
+      "n_build": 2400,
+      "snap_onset": 1301,
+      "broke_at": 1339,
+      "pocket_built": null,
+      "pocket_max": 1088,
+      "rho_min": -0.868033988749895,
+      "rho_cav": -0.6180339887498948,
+      "t1": {
+        "finite": false,
+        "E_V_cons": null,
+        "t1_ok": false
+      },
+      "topology": {
+        "bin": "NONFINITE",
+        "reason": "bulk detonated at step 1339"
+      },
+      "gate_bin": "T1-BROKEN",
+      "series": [
+        {
+          "step": 400,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 800,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        },
+        {
+          "step": 1200,
+          "pocket": 0,
+          "bin": "SHELL-NEVER-FORMS",
+          "shell_cells": 0,
+          "largest_frac": 0.0,
+          "n_components": 0
+        }
+      ],
+      "wall_s": 34.8
+    }
+  ],
+  "shell_coherence_finite_snapped": [
+    {
+      "M": 2.5,
+      "ms": 0.0,
+      "nu": 0.0005,
+      "snap_total": 2032,
+      "largest_component": 208,
+      "largest_frac": 0.10236220472440945,
+      "n_components": 153
+    },
+    {
+      "M": 2.5,
+      "ms": 0.05,
+      "nu": 0.0005,
+      "snap_total": 624,
+      "largest_component": 28,
+      "largest_frac": 0.04487179487179487,
+      "n_components": 232
+    },
+    {
+      "M": 2.5,
+      "ms": 0.1,
+      "nu": 0.0005,
+      "snap_total": 624,
+      "largest_component": 28,
+      "largest_frac": 0.04487179487179487,
+      "n_components": 232
+    }
+  ],
+  "VERDICT": "SHELL-NEVER-FORMS",
+  "run_gated_on_THREADED": false,
+  "wall_s_total": 751.0
+}
