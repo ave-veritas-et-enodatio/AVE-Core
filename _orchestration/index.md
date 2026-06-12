@@ -17,15 +17,15 @@ Electron = **Class A/B consistency structure** on **z=4 diamond K4** (`research/
 
 | Priority | Epic | Doc | Phase | Next step |
 |:---:|:---|:---|:---|:---|
-| **P0** | LOOP GAP orchestration plan | [`2026-06-12_loop-gap-orchestration-plan.md`](2026-06-12_loop-gap-orchestration-plan.md) | **A** (ledger) | A1–A4 this session → PR |
-| **P1** | Unified K4 harness | [`2026-06-12_loop-gap-unified-harness.md`](2026-06-12_loop-gap-unified-harness.md) | **B** (2b land) | Fast tests → `--smoke --bulk` → commit split → PR |
-| **P2** | Corpus discipline | Plan §Phase C | **C** | D1 reframe + regime quarantine banners |
-| **P3** | Rank-1 regime charter | Plan §Phase D | **D** | `gamma_bulk` + `A_LOCK` yield-band sweep |
+| **P0** | LOOP GAP orchestration plan | [`2026-06-12_loop-gap-orchestration-plan.md`](2026-06-12_loop-gap-orchestration-plan.md) | **A** ✅ | Merged #207 |
+| **P1** | Unified K4 harness | [`2026-06-12_loop-gap-unified-harness.md`](2026-06-12_loop-gap-unified-harness.md) | **B** (2b) ✅ | **LANDED** #207 @ `98ec9270`; audit `audit/2026-06-12_loop-gap-harness-phase2b` |
+| **P2** | Corpus discipline | Plan §Phase C | **C** | D1 reframe + v9/v10 quarantine banners (parallel PR) |
+| **P3** | Rank-1 regime charter | Plan §Phase D | **D** | `gamma_bulk` + seed/`A_LOCK` sweep — implementor branch off `main` |
 | **P4** | Electron synthesis (record) | [`2026-06-07_electron-synthesis-epic.md`](2026-06-07_electron-synthesis-epic.md) | — | Ranks via harness only |
 | **P5** | R2 constitutive loop | `research/2026-06-12_constitutive-loop-r2-prereg_FROZEN.md` | **G2** (parallel) | Ferrite bench when Grant schedules |
 | — | Experimental arc | [`experimental/experimental-arc.md`](experimental/experimental-arc.md) | — | Unchanged |
 
-**Working branch:** `analysis/2026-06-12-genesis-v10-cvr-implementor` (Phase 2b uncommitted on disk).
+**Session handoff:** [`2026-06-12_loop-gap-orchestration-session-handoff.md`](2026-06-12_loop-gap-orchestration-session-handoff.md) · **`main` HEAD:** `98ec9270` (PR #207 merged). **Next:** PR2 handoff docs → PR1 vol9 KB → Phase C ∥ PR1 → PR4 genesis archive.
 
 ### Decision stack (2026-06-12 physics read — supersedes 2026-06-11 CLOSED rows for execution)
 
@@ -59,10 +59,10 @@ Electron = **Class A/B consistency structure** on **z=4 diamond K4** (`research/
 
 ### Carry-forward
 
-- Phase B–G per orchestration plan (strict order after A PR)
-- Untracked: `_orchestration/experimental/c15-cleave-01/exp-c15-cleave-01-state-audit-2026-06-06.md` — triage separate
-- Mixed working tree: **split commits** (2b harness vs genesis/vol9 sprawl)
-- Audit tags: verify `git tag -l "audit/*" | wc -l` at PR time
+- Phase C–G per orchestration plan (C ∥ PR1; then D implementor off `main`)
+- Vol9 KB + genesis v12–v17 archive: **split PRs** — see session handoff §5
+- Audit tag `audit/2026-06-12_loop-gap-harness-phase2b` on `98ec9270` — pushed origin
+- Delete merged implementor branch `analysis/2026-06-12-genesis-v10-cvr-implementor` after tag verify
 
 ---
 
