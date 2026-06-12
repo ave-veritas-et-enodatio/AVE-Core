@@ -44,6 +44,10 @@ The `AVE_VACUUM_CELL` contains three behavioral elements between nodes A and B:
 | $I_{MAX}$ | 124.4 A | $\xi_{topo} \times c$ |
 | $Z_0$ | 376.73 Ω | $\sqrt{\mu_0 / \varepsilon_0}$ |
 
+### Datasheet device schematic (Vol 9 render)
+
+Vol 9 device-level equivalent circuit and bench protocol: [`vol9/ch3-pin-port-configuration/device-circuit-models.md`](../../../vol9/ch3-pin-port-configuration/device-circuit-models.md) §1 (KB source of truth; PDF figure `fig:vol9_circuit_vacuum_cell`).
+
 ### SPICE Netlist Compiler
 
 The `spice_netlist_compiler.py` module translates AVE solver outputs (L, C, R, coupling) into cascaded `AVE_VACUUM_CELL` netlists:

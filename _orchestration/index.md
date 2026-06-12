@@ -3,7 +3,68 @@
 **Audit trail (2026-05-23 Benn → 2026-05-25 merge):** This directory was ported from `analysis/integration` (D7 curation, KB claim-DAG integration) on 2026-05-23, and completed-work snapshots were moved to [`_archive/index-stale.md`](_archive/index-stale.md). Merged with integration live state on 2026-05-25 — treat this doc as the current live tracker; consult git log for recent updates.
 **EDIT** - 2026-05-23 Benn - document deprecated. Do not do any sweeping work from this document without evaluating current repo state. KB claim DAG has received many improvements and the KB has had many fixups in the process. This directory was ported over from `analysis/integration` branch, which has now been superseded. Work that was clearly already done has been extracted and moved to _archive/. What remains may still be relevant, but again, *check first*.
 
-> **Staleness notice (2026-06-11)**: Sections below (active epics table, adjudication queue, 2026-05-28 priority ladder, open decisions #1–#20) remain **2026-05-20 / 2026-05-28 baseline** unless superseded by a reconciliation block. The **2026-06-11 reconciliation** immediately below is authoritative for HEAD, PR queue, fundamentality plan, Grant decision stack, and next-branch plan. Verify-before-cite v1.4 applies.
+> **Staleness notice (2026-06-12)**: The **2026-06-12 reconciliation** below is authoritative for **execution order**, active epics, decision-stack physics read, and harness phases. The **2026-06-11** block below remains valid for PR-merge history only; its Grant decision stack (D1/D2 **CLOSED** rows) is **superseded for execution** by §2026-06-12. Older sections (2026-05-28 priority ladder, open decisions #1–#20) remain historical unless touched by §2026-06-12. Verify-before-cite v1.4 applies.
+
+## 2026-06-12 reconciliation (LOOP GAP harness pivot + audit discipline — ACTIVE)
+
+**Authoritative execution plan:** [`2026-06-12_loop-gap-orchestration-plan.md`](2026-06-12_loop-gap-orchestration-plan.md) (pedantic phases A→G).
+
+### Theory SOTA (one paragraph)
+
+Electron = **Class A/B consistency structure** on **z=4 diamond K4** (`research/2026-06-08_ave-electron-definitive.md`). **LOOP GAP** = anhysteretic Level-1 kernel cannot retain mass at zero drive — ranks 1–4 closure on **one harness** (`loop_gap_harness.py`), not new srs genesis versions. **α** = Class B calibration (R1 forward check DIFFERENT-RATIO). **srs** = discrete **chirality instrument** (R3 structural D1-A landed); **not** demonstrated substrate migration (P5/P6 at post-rupture regime — **quarantined**). **Channel discipline:** `Γ_EM`, `Γ_shear`, Op14 `proxy` `gamma_min`, and `Γ_bulk` are distinct Smith charts. **Rank 4 crux:** R2 ferrite B–H bench + memristive harness P11.
+
+### Active epics (execution order)
+
+| Priority | Epic | Doc | Phase | Next step |
+|:---:|:---|:---|:---|:---|
+| **P0** | LOOP GAP orchestration plan | [`2026-06-12_loop-gap-orchestration-plan.md`](2026-06-12_loop-gap-orchestration-plan.md) | **A** (ledger) | A1–A4 this session → PR |
+| **P1** | Unified K4 harness | [`2026-06-12_loop-gap-unified-harness.md`](2026-06-12_loop-gap-unified-harness.md) | **B** (2b land) | Fast tests → `--smoke --bulk` → commit split → PR |
+| **P2** | Corpus discipline | Plan §Phase C | **C** | D1 reframe + regime quarantine banners |
+| **P3** | Rank-1 regime charter | Plan §Phase D | **D** | `gamma_bulk` + `A_LOCK` yield-band sweep |
+| **P4** | Electron synthesis (record) | [`2026-06-07_electron-synthesis-epic.md`](2026-06-07_electron-synthesis-epic.md) | — | Ranks via harness only |
+| **P5** | R2 constitutive loop | `research/2026-06-12_constitutive-loop-r2-prereg_FROZEN.md` | **G2** (parallel) | Ferrite bench when Grant schedules |
+| — | Experimental arc | [`experimental/experimental-arc.md`](experimental/experimental-arc.md) | — | Unchanged |
+
+**Working branch:** `analysis/2026-06-12-genesis-v10-cvr-implementor` (Phase 2b uncommitted on disk).
+
+### Decision stack (2026-06-12 physics read — supersedes 2026-06-11 CLOSED rows for execution)
+
+| ID | Session record (2026-06-11) | Physics read (2026-06-12) | Plan action |
+|:---|:---|:---|:---|
+| D1 structural | (via R3) | **LANDED** — decoration ρ ≈ 0.057% | Keep |
+| D1 framing | B-primary / A-partial | **REOPEN** — over-closed on quarantined P5/P6 | Phase C |
+| D2 snap | σ + rate-gated snap | **DOWNGRADE** — v10: not load-bearing | σ-only harness default |
+| D3 | Phase-1/2 freeze | Keep | — |
+| D4/D5 | χ equal; Ω_freeze IC | Ω_freeze ≠ remanence (ablation falsified) | Ablation arms only |
+| Pivot | — | srs v17 **FROZEN**; harness **ACTIVE** | Plan §5 do-not-do |
+
+**Grant confirm queue (non-blocking):** voice on D1-B / D2 / D5 — record in PR body.
+
+### Fundamentality plan (re-ranked for harness world)
+
+| Rank | Item | Status | Notes |
+|:---|:---|:---|:---|
+| R1 | Impedance + α forward | ✅ | Three-impedance law normative |
+| **R2** | Constitutive-loop ferrite bench | FROZEN | **Parallel Phase G2** — rank-4 ground truth |
+| R3 | srs structural test | ✅ D1-A | Framing open; not blocking harness |
+| R5 | Boost-covariant transport | OPEN | Deferred — v12/v14 transport class |
+| **Harness** | LOOP GAP ranks 1–4 | **ACTIVE** | Replaces R8 "v9 Phase-1 genesis" as primary sim path |
+
+### Anti-patterns (2026-06-12)
+
+- New `chiral_lattice_v{N}` / `genesis_v{N}` without DAG rank advance
+- Proxy-only N=14 harness production without `--bulk` + regime gate
+- Promoting `gamma_min` as `Γ_bulk` or rank-1 PASS as bulk PASS
+- Adjudicating D1 migration from `max(A²) ≫ 1` bins
+
+### Carry-forward
+
+- Phase B–G per orchestration plan (strict order after A PR)
+- Untracked: `_orchestration/experimental/c15-cleave-01/exp-c15-cleave-01-state-audit-2026-06-06.md` — triage separate
+- Mixed working tree: **split commits** (2b harness vs genesis/vol9 sprawl)
+- Audit tags: verify `git tag -l "audit/*" | wc -l` at PR time
+
+---
 
 ## 2026-06-11 reconciliation (genesis mega-session merge close-out — COMPLETE)
 

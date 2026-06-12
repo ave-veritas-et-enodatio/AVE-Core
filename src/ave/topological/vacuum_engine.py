@@ -1645,6 +1645,19 @@ class EngineConfig:
     # wall). Lets the driver isolate moving-boundary-alone vs +sector-coupling.
     # Only active when use_impedance_boundary=True.
     couple_v_sector: bool = True
+    # Cross-sector trilinear / gyrotropic converter (cross_sector_coupling.py).
+    # Default False — opt-in closes genesis-23 GAP-1 ω/shear → V_inc source.
+    use_trilinear_converter: bool = False
+    converter_mode: str = "trilinear"
+    converter_photon_deplete: bool = False
+    # Phase 2b — rarefaction bulk-density sector (GAP-A port; KEEP-BOTH default OFF).
+    # Prereg: research/2026-06-12_loop-gap-harness-bulk-channel_prereg_DRAFT.md
+    bulk_density_on: bool = False
+    bulk_c2_floor: float = 1e-3
+    bulk_rho_floor: float = -0.95
+    bulk_eps_den: float = 1e-6
+    bulk_nu_art: float = 5e-4
+    bulk_rho_diff: float = 5e-4
 
 
 class VacuumEngine3D:
@@ -1688,6 +1701,9 @@ class VacuumEngine3D:
             impedance_implicit=config.impedance_implicit,
             impedance_cfl_safety=config.impedance_cfl_safety,
             couple_v_sector=config.couple_v_sector,
+            use_trilinear_converter=config.use_trilinear_converter,
+            converter_mode=config.converter_mode,
+            converter_photon_deplete=config.converter_photon_deplete,
         )
 
         self.k4 = self._coupled.k4
@@ -1697,6 +1713,28 @@ class VacuumEngine3D:
 
         self._sources: list[Source] = []
         self._observers: list[Observer] = []
+
+        self._bulk = None
+        if config.bulk_density_on:
+            from ave.core.bulk_rarefaction_sector import (
+                BulkRarefactionConfig,
+                BulkRarefactionSector,
+            )
+
+            bulk_cfg = BulkRarefactionConfig(
+                c0=1.0,  # engine natural units (genesis-program-status §2)
+                c2_floor=config.bulk_c2_floor,
+                rho_floor=config.bulk_rho_floor,
+                eps_den=config.bulk_eps_den,
+                nu_art_bulk=config.bulk_nu_art,
+                rho_diff=config.bulk_rho_diff,
+            )
+            self._bulk = BulkRarefactionSector(
+                config.N,
+                self._coupled.cos.dx,
+                config.pml,
+                bulk_cfg,
+            )
 
         # Apply thermal initialization per C1
         self.initialize_thermal(config.temperature)
@@ -1868,6 +1906,49 @@ class VacuumEngine3D:
     def outer_dt(self) -> float:
         return self._coupled.outer_dt
 
+    def freeze_converter_wall(self) -> None:
+        """Snapshot saturation-front shell for conservative cross-sector converter."""
+        self._coupled.freeze_converter_wall()
+
+    @property
+    def bulk(self):
+        """Rarefaction bulk sector (None when bulk_density_on=False)."""
+        return self._bulk
+
+    def apply_bulk_probe_ic(self, *, amp: float = 0.08) -> None:
+        """Localized ρ̄ probe — only when bulk_density_on."""
+        if self._bulk is not None:
+            self._bulk.apply_probe_ic(amp=amp)
+
+    def apply_bulk_circulation_ic(
+        self,
+        *,
+        m_edge: float = 0.75,
+        r_core_frac: float = 0.22,
+        axis: int = 2,
+    ) -> float:
+        """OP-3 motor seed: solid-body bulk circulation column (GAP-D)."""
+        if self._bulk is None:
+            return 0.0
+        r_core = max(r_core_frac * self.N * self._bulk.dx, self._bulk.dx)
+        return self._bulk.energize_rotation_column(
+            m_edge=m_edge,
+            r_core=r_core,
+            axis=axis,
+        )
+
+    def bulk_snapshot(self) -> dict[str, float]:
+        if self._bulk is None:
+            return {
+                "rho_bar_min": 0.0,
+                "rho_bar_max": 0.0,
+                "c_bulk2_min": 0.0,
+                "c_bulk2_max": 0.0,
+                "max_abs_u_adv": 0.0,
+                "bulk_steps": 0.0,
+            }
+        return self._bulk.snapshot()
+
     def step(self) -> None:
         """Advance one outer timestep. Order: sources inject V, then
         CoupledK4Cosserat steps K4+Cosserat+coupling, then observers record."""
@@ -1879,6 +1960,8 @@ class VacuumEngine3D:
         # if κ != 1.0. For now, default κ=1.0 matches CoupledK4Cosserat baseline.
         # TODO: expose κ knob to _coupled if Phase III-B shows we need it.
         self._coupled.step()
+        if self._bulk is not None:
+            self._bulk.step(self.outer_dt)
         self.time = self._coupled.time
         self.step_count += 1
 

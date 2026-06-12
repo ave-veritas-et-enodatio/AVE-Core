@@ -23,7 +23,7 @@ KB_VERIFY = verify-kb-metadata
 # Volume list — public volumes (0–6) + Vol 9 datasheet (synthesis volume)
 VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_macroscopic vol_4_engineering vol_5_biology vol_6_periodic_table vol_9_vacuum_datasheet
 
-.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links framing-audit test test-tools pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup
+.PHONY: all clean distclean verify $(KB_VERIFY) $(KB_REFRESH) refresh-predictions kb-claim-stats verify-md-links verify-inter-repo-links framing-audit test test-genesis test-tools pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 vol9 setup
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -127,6 +127,16 @@ test: test-tools
 	# non-fixture positional args like test_wave_speed(N, ...)). Drivers run
 	# standalone / via `make verify`, not here.
 	$(PYTEST) $(SOURCE_DIR)/tests
+
+test-genesis:
+	@echo "[Test] Running genesis / srs research drivers (opt-in, not default CI)..."
+	@files=$$(find $(SOURCE_DIR)/tests -maxdepth 1 \( \
+		-name 'test_chiral_lattice_v*.py' -o \
+		-name 'test_chiral_lattice_phase*.py' -o \
+		-name 'test_chiral_lattice_vector_phase*.py' -o \
+		-name 'test_genesis_*.py' \) 2>/dev/null); \
+	if [ -z "$$files" ]; then echo "[Test] No genesis test files present."; exit 0; fi; \
+	$(PYTEST) $$files
 
 test-tools:
 	@echo "[Test] Running KB tools tests..."

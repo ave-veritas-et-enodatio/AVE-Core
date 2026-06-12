@@ -56,7 +56,18 @@ import jax
 import jax.numpy as jnp
 import numpy as np
 
-from ave.core.constants import V_SNAP as _V_SNAP_CONST
+from ave.core.constants import R_II, V_SNAP as _V_SNAP_CONST
+from ave.core.cross_sector_coupling import (
+    KAPPA_TILDE,
+    combined_strain_amplitude,
+    distribute_scalar_to_k4_ports,
+    effective_shear_director,
+    gyrotropic_converter_forces,
+    saturation_front_window,
+    trilinear_buckle_forces,
+    trilinear_coupling_energy,
+    v_scalar_from_v_inc,
+)
 from ave.core.k4_tlm import K4Lattice3D
 from ave.topological.cosserat_field_3d import (
     KAPPA_CHIRAL_ELECTRON,
@@ -218,6 +229,13 @@ class CoupledK4Cosserat:
         impedance_implicit: bool = True,
         impedance_cfl_safety: float = 0.4,
         couple_v_sector: bool = True,
+        use_trilinear_converter: bool = False,
+        converter_mode: str = "trilinear",
+        converter_kappa_tilde: float = KAPPA_TILDE,
+        converter_freeze_wall: bool = False,
+        converter_photon_deplete: bool = False,
+        converter_wall_center: float = R_II,
+        converter_wall_width: float = 0.18,
     ):
         self.N = int(N)
         self.pml = int(pml)
@@ -366,6 +384,21 @@ class CoupledK4Cosserat:
         # the DECOUPLED (II)-standalone behavior (moving-boundary-alone), so the
         # driver can attribute persistence to the wall vs the sector-coupling.
         self.couple_v_sector = bool(couple_v_sector)
+
+        # Cross-sector gyrotropic / trilinear converter (ADD-2 / graft-v4).
+        # Conservative Hamiltonian ω→V source; closes genesis-23 GAP-1 when
+        # combined A² localizes g_wall away from V≡0 alone. Default OFF.
+        self.use_trilinear_converter = bool(use_trilinear_converter)
+        if converter_mode not in ("trilinear", "gyrotropic"):
+            raise ValueError(f"converter_mode must be 'trilinear' or 'gyrotropic', got {converter_mode!r}")
+        self.converter_mode = converter_mode
+        self.converter_kappa_tilde = float(converter_kappa_tilde)
+        self.converter_freeze_wall = bool(converter_freeze_wall)
+        self.converter_photon_deplete = bool(converter_photon_deplete)
+        self.converter_wall_center = float(converter_wall_center)
+        self.converter_wall_width = float(converter_wall_width)
+        self._g_wall_frozen: np.ndarray | None = None
+
         if self.use_impedance_boundary:
             # Configure the Cosserat sector so its helpers (_bulk_accel,
             # _rotate_clamp, impedance_hamiltonian) and cfl_dt fold in the clamp
@@ -419,6 +452,92 @@ class CoupledK4Cosserat:
     # -----------------------------------------------------------------
     # Coupling computations
     # -----------------------------------------------------------------
+    def freeze_converter_wall(self) -> None:
+        """Snapshot g_wall(A) for energy-conserving converter (bilinear H_couple)."""
+        g = self._converter_wall_window(live=True)
+        self._g_wall_frozen = g.copy()
+
+    def _interior_mask(self) -> np.ndarray:
+        """PML-excluded interior (all sublattice sites — not k4.mask_active)."""
+        n = self.N
+        p = self.pml
+        m = np.ones((n, n, n), dtype=np.float64)
+        if p > 0:
+            m[:p, :, :] = 0.0
+            m[-p:, :, :] = 0.0
+            m[:, :p, :] = 0.0
+            m[:, -p:, :] = 0.0
+            m[:, :, :p] = 0.0
+            m[:, :, -p:] = 0.0
+        return m
+
+    def _combined_A_field(self) -> np.ndarray:
+        """K4 + Cosserat dimensionless strain for converter front localization."""
+        V_sq = _v_squared_per_site(self.k4.V_inc)
+        A_cos_sq = _cosserat_A_squared(
+            self.cos.u,
+            self.cos.omega,
+            self.cos.dx,
+            self.cos.omega_yield,
+            self.cos.epsilon_yield,
+        )
+        return combined_strain_amplitude(V_sq, A_cos_sq, self.V_SNAP)
+
+    def _converter_wall_window(self, *, live: bool = False) -> np.ndarray:
+        if self._g_wall_frozen is not None and not live:
+            return self._g_wall_frozen
+        A = self._combined_A_field()
+        return saturation_front_window(
+            A,
+            center=self.converter_wall_center,
+            width=self.converter_wall_width,
+        )
+
+    def _compute_converter_forces(self) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+        """Per-site (f_V, f_w, f_omega) from cross-sector coupling module."""
+        g = self._converter_wall_window()
+        V_scalar = v_scalar_from_v_inc(self.k4.V_inc)
+        w = effective_shear_director(self.cos.u, self.cos.omega, self.cos.omega_dot)
+        omega = self.cos.omega
+        dx = self.cos.dx
+        k = self.converter_kappa_tilde
+        if self.converter_mode == "gyrotropic":
+            f_V, f_w = gyrotropic_converter_forces(V_scalar, w, g, dx, kappa_tilde=k)
+            return f_V, f_w, np.zeros_like(omega)
+        return trilinear_buckle_forces(
+            V_scalar,
+            w,
+            omega,
+            g,
+            dx,
+            kappa_tilde=k,
+            photon_deplete=self.converter_photon_deplete,
+        )
+
+    def converter_coupling_energy(self) -> float:
+        """H_couple ledger for active converter mode."""
+        if not self.use_trilinear_converter:
+            return 0.0
+        g = self._converter_wall_window()
+        mask = self.k4.mask_active.astype(np.float64)
+        V_scalar = v_scalar_from_v_inc(self.k4.V_inc)
+        w = effective_shear_director(self.cos.u, self.cos.omega, self.cos.omega_dot)
+        if self.converter_mode == "gyrotropic":
+            from ave.core.cross_sector_coupling import gyrotropic_coupling_energy
+
+            return gyrotropic_coupling_energy(
+                V_scalar, w, g, self.cos.dx, kappa_tilde=self.converter_kappa_tilde, mask=mask
+            )
+        return trilinear_coupling_energy(
+            V_scalar,
+            w,
+            self.cos.omega,
+            g,
+            self.cos.dx,
+            kappa_tilde=self.converter_kappa_tilde,
+            mask=mask,
+        )
+
     def _update_z_local_total(self) -> None:
         """Set k4.z_local_field from the active saturation model.
 
@@ -583,6 +702,10 @@ class CoupledK4Cosserat:
         avoided) — the sectors couple only through the shared front."""
         cos = self.cos
         a_u, a_w = cos._bulk_accel()
+        if self.use_trilinear_converter:
+            _fV, f_w, f_omega = self._compute_converter_forces()
+            a_u = a_u + f_w / cos.rho
+            a_w = a_w + f_omega / cos.I_omega
         cos.u_dot = cos.u_dot + 0.5 * dt * a_u
         cos.omega_dot = cos.omega_dot + 0.5 * dt * a_w
         cos._zero_velocities_outside_alive()
@@ -590,6 +713,10 @@ class CoupledK4Cosserat:
         cos._rotate_clamp(omega0, dt)
         cos._zero_outside_alive()
         a_u_new, a_w_new = cos._bulk_accel()
+        if self.use_trilinear_converter:
+            _fV, f_w, f_omega = self._compute_converter_forces()
+            a_u_new = a_u_new + f_w / cos.rho
+            a_w_new = a_w_new + f_omega / cos.I_omega
         cos.u_dot = cos.u_dot + 0.5 * dt * a_u_new
         cos.omega_dot = cos.omega_dot + 0.5 * dt * a_w_new
         cos._zero_velocities_outside_alive()
@@ -624,6 +751,10 @@ class CoupledK4Cosserat:
         dE_du_c, dE_dw_c = self._compute_coupling_force_on_cosserat()
         a_u = -(dE_du_s + dE_du_c) / self.cos.rho
         a_w = -(dE_dw_s + dE_dw_c) / self.cos.I_omega
+        if self.use_trilinear_converter:
+            _fV, f_w, f_omega = self._compute_converter_forces()
+            a_u = a_u + f_w / self.cos.rho
+            a_w = a_w + f_omega / self.cos.I_omega
 
         # Half-kick
         self.cos.u_dot = self.cos.u_dot + 0.5 * dt * a_u
@@ -640,6 +771,10 @@ class CoupledK4Cosserat:
         dE_du_c_new, dE_dw_c_new = self._compute_coupling_force_on_cosserat()
         a_u_new = -(dE_du_s_new + dE_du_c_new) / self.cos.rho
         a_w_new = -(dE_dw_s_new + dE_dw_c_new) / self.cos.I_omega
+        if self.use_trilinear_converter:
+            _fV, f_w, f_omega = self._compute_converter_forces()
+            a_u_new = a_u_new + f_w / self.cos.rho
+            a_w_new = a_w_new + f_omega / self.cos.I_omega
 
         # Second half-kick
         self.cos.u_dot = self.cos.u_dot + 0.5 * dt * a_u_new
@@ -731,6 +866,14 @@ class CoupledK4Cosserat:
         if self.use_lagrangian_emf_coupling:
             emf = self._compute_emf_per_port()
             self.k4.V_inc += emf * self.k4.dt
+
+        # (3b) Cross-sector converter: ω/shear → K4 V_inc source (GAP-1).
+        if self.use_trilinear_converter:
+            f_V, _f_w, _f_omega = self._compute_converter_forces()
+            # Interior mask (not k4.mask_active): coupling can peak on B-sites
+            # where the Cosserat photon has support but K4 A-sites are sparse.
+            inj = distribute_scalar_to_k4_ports(f_V, mask=self._interior_mask())
+            self.k4.V_inc += inj * (self.k4.dt**2)
 
         # (4) Cosserat sub-steps.
         if self.use_impedance_boundary:
