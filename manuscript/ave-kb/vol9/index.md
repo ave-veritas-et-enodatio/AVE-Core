@@ -7,7 +7,7 @@ subtree-experiments: []
 bootstrap: true
 -->
 
-> ⛔ **Bootstrap.** Leaves are canonical; this index and the entry-point are *derived* summaries. Vol 9 is a **synthesis volume** — every load-bearing claim is cited back to its canonical-derivation location in Vols 1–6. Before forming any claim about results documented in this datasheet, load [`./claim-quality.md`](./claim-quality.md) (volume scope) and [`../claim-quality.md`](../claim-quality.md) (cross-cutting), then follow the datasheet citation to the canonical leaf in the source volume.
+> ⛔ **Bootstrap.** **KB leaves are canonical; LaTeX is the render.** Vol 9 `ave-kb/vol9/**` leaves (e.g. [`device-circuit-models.md`](ch3-pin-port-configuration/device-circuit-models.md), [`three-channel-impedances.md`](ch4-dc-electrical-characteristics/three-channel-impedances.md)) are the **source of truth** for Vol-9-scoped synthesis content. `manuscript/vol_9_vacuum_datasheet/` supplies the PDF (figures, `\kbleaf{}` wiring) and must not be edited ahead of the KB leaf. Primary substrate-physics derivations still live in Vols 1–6. Before forming any claim, load [`./claim-quality.md`](./claim-quality.md) and follow citations to the canonical leaf.
 
 # Vol 9: The Vacuum Datasheet
 
@@ -33,8 +33,8 @@ Vol 9 is a **synthesis volume**: no chapter contains a primary substrate-physics
 |---|---|---|
 | 1  | [General Description and Features](ch1-general-description/index.md) | Axiom 1 (CLAUDE.md INVARIANT-S2); Vol 1 Ch 1 |
 | 2  | [Absolute Maximum Ratings](ch2-absolute-maximum-ratings/index.md) | Vol 1 + Vol 4 canonical constants; four-regimes Regime IV |
-| 3  | [Pin and Port Configuration](ch3-pin-port-configuration/index.md) | Op17, Op21 universal operators; $\Gamma$ boundary classes |
-| 4  | [DC Electrical Characteristics](ch4-dc-electrical-characteristics/index.md) | `src/ave/core/constants.py`; natural-units cheatsheet |
+| 3  | [Pin and Port Configuration](ch3-pin-port-configuration/index.md) | Op17, Op21; $\Gamma$ boundary classes; [**device-circuit-models**](ch3-pin-port-configuration/device-circuit-models.md) leaf |
+| 4  | [DC Electrical Characteristics](ch4-dc-electrical-characteristics/index.md) | `constants.py`; [**three-channel-impedances**](ch4-dc-electrical-characteristics/three-channel-impedances.md) leaf |
 | 5  | [AC Electrical Characteristics](ch5-ac-electrical-characteristics/index.md) | translation-circuit.md §1; Op14 / Op16; Vol 1 Ch 5 |
 | 6  | [Temperature Characteristics](ch6-temperature-characteristics/index.md) | Cosserat-Curie $\delta_{strain}$; translation-circuit.md §9 |
 | 7  | [Saturation Characteristics](ch7-saturation-characteristics/index.md) | Axiom 4 kernel; Vol 0 backmatter Ch 7 |

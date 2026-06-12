@@ -267,5 +267,19 @@ Ranked by how hard each blocks the next electron-genesis build (**v5**). Owner �
 
 ---
 
+## §7 — LOOP GAP closure map (2026-06-12 addendum)
+
+This traveler’s open QC gates (OP-2, OP-4, OP-5) align with the ranked plumber closure doctrine consolidated after genesis v10 production:
+
+| Traveler OP | Closure rank | v10 status | v11 target |
+|:---|:---:|:---|:---|
+| OP-2 CLOSE-THE-LOOP | 1 | OPEN (genesis-23 $V\equiv 0$) | v11b (A44-gated) |
+| OP-4 FLASH | 3 | LOCK not FLASH (cavprobe) | unchanged |
+| OP-5 LOCK | 3–4 | pump falsified; remanence open | **P11** in v11a |
+
+Full synthesis + lattice implementation audit: `research/2026-06-12_loop-gap-electron-resonator-synthesis.md`. KB: `manuscript/ave-kb/common/loop-gap-electron-resonator-closure-doctrine.md`. Orchestration: `_orchestration/2026-06-12_loop-gap-v11-charter.md`.
+
+---
+
 *Disciplines fired, retroactive pass: `ave-fundamental-ground-up-implementation` (§4 attempted from canon, not deferred — verdict UNDERDETERMINED with the closing input named); `ave-live-fire-derivation-provenance` (§4 ran the code: dead-input + forward-vs-fit residual; the `ρ̄_wall≈0.440` fit-tell is the live-fire catch); `consistency-vs-emergence` (§4 outcome = cannot-grade-emergence; OP steps class-tagged); `ave-canonical-source` (numeric check imports `ave.core.constants` only); `ave-apparatus-floor-attribution` (every QC gate carries its instrument floor; OP-6 α gate honest about dispersion contamination); `ave-representation-capability-check` (real-space `O₁` ring vs `(2,3)` phase winding kept distinct; the FOURTH-object firewall held); `verify-before-cite` (every file:line grep-confirmed; unpushed cited by branch+commit, untracked by branch+working-tree); `ave-evidence-framing-discipline` + `flag-don't-fix` (the φ-link flagged not claimed; the two-"3"s conflation surfaced for the auditor, not edited).*
 

@@ -1,0 +1,37 @@
+% circuit_electron_barrier.tex — Electron TIR-confined LC tank (Vol 9 Ch.3)
+\begin{figure}[htbp]
+\centering
+\begin{circuitikz}[american, scale=0.9, transform shape]
+    % Cold vacuum transmission lines (Z_EM = Z_0)
+    \draw (0,0) node[left, align=right, font=\scriptsize] {vacuum\\$Z_{\mathrm{EM}}=Z_0$}
+        to[short, o-] (1.2,0);
+    \draw (10.8,0) to[short, o-] (12,0)
+        node[right, align=left, font=\scriptsize] {vacuum\\$Z_{\mathrm{EM}}=Z_0$};
+
+    % Left saturation barrier (bulk-channel TIR)
+    \draw[thick, red!70!black] (1.2,0) -- (1.2,0.9) -- (2.0,0.9) -- (2.0,-0.9) -- (1.2,-0.9) -- (1.2,0);
+    \node[font=\scriptsize, red!70!black, align=center] at (1.6, 1.55) {$\Gamma_{\mathrm{bulk}}=-1$\\$Z_{\mathrm{bulk}}\!\to\!0$};
+
+    % Right barrier
+    \draw[thick, red!70!black] (10.0,0) -- (10.0,0.9) -- (10.8,0.9) -- (10.8,-0.9) -- (10.0,-0.9) -- (10.0,0);
+    \node[font=\scriptsize, red!70!black, align=center] at (10.4, 1.55) {$\Gamma_{\mathrm{bulk}}=-1$\\$Z_{\mathrm{bulk}}\!\to\!0$};
+
+    % Confined LC tank (bond pair at ell_node)
+    \draw (2.0,0) to[short] (4.0,0);
+    \draw (4.0,0) to[L, l=$L_{\mathrm{cell}}$, i=$i$] (6.0,0);
+    \draw (6.0,0) to[short] (8.0,0);
+    \draw (7.0,0) to[C, l=$C_{\mathrm{eff}}$, *-] (7.0,-1.6) node[ground] {};
+    \draw (8.0,0) to[short] (10.0,0);
+
+    % Tank labels
+    \node[align=center, font=\scriptsize] at (6.0, 1.35) {Electron LC tank at $\ell_{\mathrm{node}}$};
+    \node[align=center, font=\scriptsize] at (6.0, -2.35) {$\omega_C = c_0/\ell_{\mathrm{node}}$ \quad $Q_{\mathrm{tank}} \approx \alpha^{-1}$};
+    \node[align=center, font=\scriptsize, blue!60!black] at (6.0, -3.05) {Phase-space $(2,3)$ winding on Clifford torus; real-space $0_1$ unknot body};
+
+    % Reactive store callout
+    \draw[dashed, gray] (7.0,-1.6) -- (7.0,-3.8);
+    \node[align=center, font=\scriptsize, gray] at (9.2, -3.8) {$Q_{\mathrm{react}} = m_e c^2 \cdot \alpha$};
+\end{circuitikz}
+\caption{Electron $\Gamma_{\mathrm{bulk}}=-1$ LC tank (Vol.~9 Ch.~3 \S2). Astrophysical bulk impedance at saturation boundary: Vol.~3 Ch.~15 KB leaf (see \S\ref{sec:vol9_device_circuit_models}).}
+\label{fig:vol9_circuit_electron_barrier}
+\end{figure}

@@ -29,6 +29,7 @@ Extends the $1/d$ impedance topology to its ultimate macroscopic limit. The elec
 | Document | Contents |
 |---|---|
 | [Electron--BH Isomorphism](electron-bh-isomorphism.md) | Confinement boundary comparison, symmetric gravity, saturation phase transition |
+| [Bulk Impedance at Saturation Boundary](bulk-impedance-at-saturation-boundary.md) | Astrophysical $Z_{bulk}$ at $r_{\text{sat}}$; $\Gamma_{bulk} = -1$; three-channel boundary table |
 | [Accretion Disk Resonance](accretion-disk-resonance.md) | Standing-wave quantisation, impedance band radii, QPO frequency predictions (GRS 1915+105) |
 | [QPO Frequency](qpo-frequency-impedance-resonance.md) | Standalone resultbox: QPO frequency from impedance resonance |
 | [Constructive vs. Destructive Paradox](constructive-destructive-paradox.md) | Electron preserves topology; black hole destroys it |
