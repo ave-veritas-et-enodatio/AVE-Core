@@ -15,13 +15,11 @@ from typing import Any, Literal
 
 import numpy as np
 
-from ave.core.chiral_lattice_v11 import (
-    P11_A_PERSIST_MIN,
-    P11_E_PERSIST_MIN,
-)
 from ave.core.constants import ALPHA
 from ave.core.bulk_rarefaction_sector import ENGINE_C0
 from ave.core.genesis_v18_coupled import (
+    P11_A_PERSIST_MIN,
+    P11_E_PERSIST_MIN,
     COMPTON_DRIVE_MULTS,
     DEFAULT_QUIET_MULT,
     IMPEDANCE_CFL_SAFE,

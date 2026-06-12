@@ -17,12 +17,12 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from ave.core.chiral_lattice_v11 import (
-    P11_A_PERSIST_MIN,
-    P11_E_PERSIST_MIN,
-    P11_THETA_PERSIST_MIN,
-)
 from ave.core.constants import ALPHA, R_II
+
+# P11 quiescence thresholds — prereg proposed (genesis-v11-loop-closure); not CI-gated.
+P11_E_PERSIST_MIN = 0.85
+P11_A_PERSIST_MIN = 0.80
+P11_THETA_PERSIST_MIN = 0.75
 from ave.core.cross_sector_coupling import scale_cosserat_to_front
 from ave.topological.k4_cosserat_coupling import (
     CoupledK4Cosserat,
