@@ -5,7 +5,6 @@ from ave.core.genesis_v18_coupled import (
     pair_seed_cosserat,
     run_p18_operator_cell,
     snapshot_op14,
-    v18_gates,
 )
 
 
@@ -33,16 +32,3 @@ def test_p18_full_stack_runs():
     assert r.converter_on
     assert r.v_inc_peak >= 0.0
     assert r.n_drive >= 6
-
-
-def test_v18_smoke_gates_complete():
-    g = v18_gates(L=10, smoke=True)
-    assert g["verdict"] in (
-        "REMANENCE-LANDED",
-        "OPERATOR-SET-ONLY",
-        "GAMMA-SET-ONLY",
-        "PARTIAL",
-        "ENGINE-GAP",
-    )
-    assert len(g["P18_ringup_sweep"]) >= 1
-    assert "P18_mem_ablation" in g

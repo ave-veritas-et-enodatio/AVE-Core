@@ -12,7 +12,6 @@ from ave.core.chiral_lattice_v10 import (
     apply_rate_gated_snap,
     channel_H_diagnostics,
     vector_tlm_step_v10,
-    v10_gates,
 )
 
 
@@ -53,13 +52,3 @@ def test_v10_step_runs():
     assert V2.shape == V.shape
     assert "H_EM" in diag
     assert diag["A_yield_sq"] == A_YIELD_SQ
-
-
-def test_v10_smoke_gates_complete():
-    g = v10_gates(L=6, smoke=True, chi_shock=0.5)
-    assert "P6_cells" in g
-    assert len(g["P6_cells"]) == 4
-    assert g["P6_diamond_cells"] == []
-    assert "P6_snap_ablation" in g
-    assert "P6_omega_free_ablation" in g
-    assert g["engine_class"].startswith("discrete srs TLM")

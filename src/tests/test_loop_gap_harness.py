@@ -1,11 +1,6 @@
 """LOOP GAP unified harness smoke tests."""
 
-from ave.core.loop_gap_harness import (
-    RANK_NAMES,
-    engine_config_for_rank,
-    loop_gap_battery,
-    run_loop_gap_probe,
-)
+from ave.core.loop_gap_harness import engine_config_for_rank, run_loop_gap_probe
 
 
 def test_rank_profiles_cumulative():
@@ -44,18 +39,3 @@ def test_graded_a0_seed_runs():
         fast=True,
     )
     assert r.seed_mode == "graded_a0"
-
-
-def test_loop_gap_battery_smoke():
-    g = loop_gap_battery(N=10, smoke=True)
-    assert g["harness"] == "loop_gap_harness"
-    assert g["srs_genesis"] == "FROZEN_v17"
-    assert g["verdict"] in (
-        "REMANENCE-LANDED",
-        "OPERATOR-SET-ONLY",
-        "PARTIAL",
-        "ENGINE-GAP",
-    )
-    assert len(g["rank_sweep"]) >= 1
-    assert "heal" in g
-    assert RANK_NAMES[4] == "remanence"

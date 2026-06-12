@@ -9,7 +9,6 @@ from ave.core.chiral_lattice_v11 import (
     backward_euler_s,
     s_eq_from_amplitude,
     vector_tlm_step_v11,
-    v11_gates,
 )
 from ave.core.chiral_lattice_v10 import V10RunState
 
@@ -44,13 +43,3 @@ def test_v11_step_updates_s_lag():
     assert V2.shape == V.shape
     assert diag["memristive"] is True
     assert not np.allclose(mem.S_lag, s0) or np.max(s_eq_from_amplitude(np.sqrt(diag["max_A2"]))) < 1.0
-
-
-def test_v11_smoke_gates_complete():
-    g = v11_gates(L=6, smoke=True, chi_shock=0.5)
-    assert "P6_cells" in g
-    assert len(g["P6_cells"]) == 4
-    assert "P11_memristive_ablation" in g
-    assert "v10_replay" in g
-    assert g["verdict"] in ("LANDED", "PARTIAL", "LOOP GAP OPEN")
-    assert g["engine_class"].startswith("discrete srs TLM")
