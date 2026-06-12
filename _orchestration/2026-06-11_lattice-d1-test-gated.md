@@ -69,11 +69,11 @@ Writhe-on-srs (Phase-0) is **necessary-condition** evidence only. The symmetric 
   at amp=0.25 only; matched-baseline **FAIL**; no BIN-G genesis promotion
 - **Gate:** production bins landed — **D1 memo unblocked**
 
-### Phase 4 — D1 adjudication memo (COMPLETE — 2026-06-12)
+### Phase 4 — D1 adjudication memo (COMPLETE — 2026-06-12; framing REOPENED post-#207)
 
 - **Memo:** `research/2026-06-12_lattice-d1-adjudication-memo.md`
-- **Ruling:** **D1-FINAL: B-primary / A-partial** — structural srs chirality confirmed (D1-A);
-  hosting/genesis miss on discrete TLM+Op14; **diamond stays engine substrate**
+- **Structural:** **D1-A LANDED** — decoration ρ ≈ 0.057%; Phase-1 P4 κ=0 channel
+- **Framing:** **OPEN** (SESSION-RECORD) — §2.3 over-closed on quarantined P5/P6; Grant confirm queue
 - **Walk-back:** queue §5 in memo — **authorized, not executed** (Grant greenlight + `ave-walk-back`)
 
 ### Phase 4b — D1 corpus walk-back (COMPLETE — 2026-06-12)
@@ -175,7 +175,7 @@ Phase-1 prereg freeze (thresholds) ◄──────────────
 
 | ID | Was | Now |
 |----|-----|-----|
-| D1 | Pick framing A or B | **Ruled: B-primary / A-partial** (`research/2026-06-12_lattice-d1-adjudication-memo.md`) |
+| D1 | Pick framing A or B | **STRUCTURAL-LANDED (D1-A)** / **FRAMING-OPEN** — memo §2.3 SESSION-RECORD; quarantined v9/v10 P5/P6 excluded from FINAL (`research/2026-06-12_lattice-d1-adjudication-memo.md`) |
 | D3 | v9 freeze | Freeze **thresholds** after R3; genesis after |
 | v10 spine | Pre-pick srs | **After** D1 memo |
 

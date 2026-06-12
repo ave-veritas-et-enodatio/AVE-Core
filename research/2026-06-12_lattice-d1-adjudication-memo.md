@@ -4,6 +4,8 @@
 **Epic:** `_orchestration/2026-06-11_lattice-d1-test-gated.md`  
 **Principle:** D1 is an **outcome bin**, not a pre-test Grant pick. This memo rules from landed bins only.
 
+> **STATUS (2026-06-12 post-#207 audit):** **SESSION-RECORD** — structural bins (§2.1) stand on R3 + Phase-1 evidence. **§2.3 framing is OVER-CLOSED** pending Grant confirm: v9/v10 P5/P6 production used **POST-RUPTURE** regime (`max(A²) ≫ 1`; see quarantine banners on result docs). Do **not** cite §2.3 as **D1-FINAL** for substrate-migration or framing closure. Execution read: `_orchestration/2026-06-12_loop-gap-orchestration-plan.md` §2–§3.
+
 **Inputs (all executed):**
 
 | Phase | Artifact | Headline bins |
@@ -49,18 +51,20 @@
 
 **Engine-class honesty:** BIN-D / SET-ACHIRAL / partial localization remain **consistent with A-027 ceiling** (no Master-Equation `c_eff(V)`). Op3 is **not uniquely load-bearing** for localization at production amp=0.25.
 
-### 2.3 §0 framing (A) vs (B) — **B-primary, A-partial**
+### 2.3 §0 framing (A) vs (B) — **SESSION-RECORD (framing OPEN)**
+
+> **Regime quarantine:** P5/P6 inputs for this subsection come from v9/v10 production at `max(A²) ≈ 13–38` — **POST-RUPTURE** bins. Structural read (§2.1) does not depend on these cells; **framing default (B) is provisional** until Grant confirms or regime-valid P5/P6 re-run lands.
 
 | Framing | Text (design doc §0) | Test read |
 |---------|----------------------|-----------|
 | **(A) Substrate challenge** | srs pass ⇒ migrate substrate; pay α/Lorentz cost | **Partial only** — static chirality channel **confirmed**; **hosting/genesis miss** blocks migration |
-| **(B) Decoration diagnostic** | srs = model of excited `k_χ` geometry; diamond stays engine | **Primary** — matches landed bins: srs is a **validated chiral-lattice instrument**; diamond remains **computed substrate** |
+| **(B) Decoration diagnostic** | srs = model of excited `k_χ` geometry; diamond stays engine | **Provisional default** — matches structural bins; **not FINAL** without Grant confirm on quarantined dynamical inputs |
 
-**Grant-facing ruling (test-gated, not taste):**
+**Session-record ruling (test-gated, pending Grant confirm on framing):**
 
-> **Adopt framing (B) as the operational default.** Treat the bare srs net as the **canonical discrete instrument** for structural chirality / optical-activity discrimination (R3 + Phase-1). **Do not** migrate the production engine substrate to z=3 srs on these bins. **Do not** cite Phase-2 partial P6 as genesis confirmation.
+> **Provisional operational default: (B).** Treat bare srs as **discrete instrument** for structural chirality (R3 + Phase-1). **Do not** migrate production engine to z=3 srs on these bins. **Do not** cite Phase-2 partial P6 as genesis confirmation.
 
-**(A) remains a live falsification axis** if a future engine class (Master-Equation FDTD, memristive Op14, constitutive loop / lock) lands P5/P6 at production depth — that is **v10+ work**, not re-litigation of this memo.
+**(A) remains a live falsification axis** on a **regime-valid** engine class (harness ranks, memristive loop) — not re-litigation from quarantined POST-RUPTURE cells alone.
 
 ---
 
@@ -68,9 +72,12 @@
 
 | Label | Meaning |
 |-------|---------|
-| **D1-FINAL: B-primary / A-partial** | Structural srs chirality **confirmed** (D1-A); dynamical electron hosting/genesis **not demonstrated** on current engine class; **diamond stays engine substrate** |
+| **D1 structural** | **LANDED** — srs structural chiral channel confirmed (D1-A); diamond stays engine substrate for α/Lorentz |
+| **D1 framing** | **OPEN** — provisional (B); §2.3 SESSION-RECORD pending Grant confirm; quarantined P5/P6 excluded from FINAL |
 
-**Short form for orchestration index:** `D1 → B-primary (structural instrument), not substrate migration`
+**Short form for orchestration index:** `D1 → STRUCTURAL-LANDED / FRAMING-OPEN` (not D1-FINAL)
+
+**Superseded label (do not use for new corpus):** ~~D1-FINAL: B-primary / A-partial~~ — retained here as session history only.
 
 ---
 
