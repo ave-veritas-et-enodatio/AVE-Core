@@ -4,7 +4,22 @@
 **Opened:** 2026-06-12  
 **Branch:** `analysis/2026-06-12-genesis-v10-cvr-implementor` (pending PR)  
 **DAG:** [`2026-06-12_loop-gap-engine-dag.md`](2026-06-12_loop-gap-engine-dag.md)  
-**Ledger:** [`research/2026-06-12_genesis-program-status.md`](../research/2026-06-12_genesis-program-status.md)
+**Ledger:** [`research/2026-06-12_genesis-program-status.md`](../research/2026-06-12_genesis-program-status.md)  
+**Execution plan (authoritative order):** [`2026-06-12_loop-gap-orchestration-plan.md`](2026-06-12_loop-gap-orchestration-plan.md)
+
+---
+
+## Plan map (phases A→G — detail in orchestration plan)
+
+| Phase | Scope | Harness epic slice |
+|:---|:---|:---|
+| **A** | Orchestration ledger | This doc + index reconciliation |
+| **B** | Phase 2b GAP-A land | §Phase 2b below |
+| **C** | D1 reframe + regime quarantine | Corpus only |
+| **D** | Rank-1 regime charter + `gamma_bulk` | §Phase 2 completion |
+| **E** | ±k seed fix | `loop_gap_seeds.py` / vector launch |
+| **F** | Ranks 2–3 Compton + GAP-1 | Post–rank-1 |
+| **G** | Rank 4 P11 + R2 bench | §Phase 3 |
 
 ---
 
@@ -50,28 +65,35 @@
 
 ---
 
-## Phase 2b — Bulk channel port (Rank 1b, PENDING)
+## Phase 2b — Bulk channel port (Rank 1b, IN PROGRESS 2026-06-12)
 
 **Goal:** Three-channel fidelity on the active harness — dynamical $\bar\rho$ sector (GAP-A) without conflating EM / shear / bulk reads.
 
 **Prereg (DRAFT):** [`research/2026-06-12_loop-gap-harness-bulk-channel_prereg_DRAFT.md`](../research/2026-06-12_loop-gap-harness-bulk-channel_prereg_DRAFT.md)
 
-**Corpus rule:** Port `UnifiedGenesisEngine.bulk_density_on` into `VacuumEngine3D` (KEEP-BOTH default OFF). **Do not** open snap/GAP-C in this phase.
+**Corpus rule:** Port `UnifiedGenesisEngine.bulk_density_on` into `VacuumEngine3D` (KEEP-BOTH default OFF). **Do not** open snap/GAP-C in this phase. Motor seed = `energize_rotation_column` (OP-3), not `dω/dt` injection.
 
 **Increments:**
 | Inc | Deliverable | Status |
 |:---|:---|:---|
-| A | GAP-A port + F0 byte-identical regression | [ ] |
-| B | Channel-tagged `LoopGapResult` + bulk ablation arms | [ ] |
+| A | GAP-A port + F0 byte-identical regression | [x] |
+| B | Channel-tagged `LoopGapResult` + `rank1b_pass` + bulk ablation arms | [x] |
+| B+ | `bulk_circulation` motor arm (GAP-D seed) | [x] |
 | C | GAP-C / snap — **out of scope** (separate prereg) | — |
 
 **Tasks:**
-- [ ] `EngineConfig.bulk_density_on` on `VacuumEngine3D`
-- [ ] Harness `--bulk` flag; bulk fields in battery JSON
-- [ ] `test_loop_gap_harness_bulk_channel.py` (F0 + F1 smoke)
-- [ ] Result doc §production table
+- [x] `EngineConfig.bulk_density_on` on `VacuumEngine3D`
+- [x] `bulk_rarefaction_sector.py` + circulation IC
+- [x] Harness `--bulk` flag; bulk fields in battery JSON
+- [x] `test_loop_gap_harness_bulk_channel.py` (F0/F1/F2)
+- [x] `--smoke --bulk` battery + result doc §2b table
+- [x] B0 `c0` natural-units fix + `bulk_f1` dict bugfix
+- [x] pytest F0–F2 green (9 tests)
+- [ ] PR + `make verify` (Phase B per orchestration plan)
 
-**Acceptance:** F0 PASS; F1 bulk_ON ≠ bulk_OFF at $t_{\mathrm{end}}$ without detonation; rank-1 JSON carries channel tags when bulk enabled.
+**Phase A (ledger):** [x] orchestration plan doc; [x] index §2026-06-12; [x] program status §10
+
+**Acceptance:** F0 PASS; F1 bulk_ON ≠ bulk_OFF; F2 channel-tagged when bulk enabled; **rank-1 EM proxy FAIL is not bulk PASS**.
 
 ---
 

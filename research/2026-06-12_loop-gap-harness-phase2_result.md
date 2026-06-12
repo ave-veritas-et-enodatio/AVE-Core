@@ -40,14 +40,45 @@
 
 **Read:** `photon_lock` moves $\Gamma$ toward engagement (7× vs pair) and raises $E_{\mathrm{persist}}$; $V_{\mathrm{inc}}$ nucleation still needs converter+pair path or longer production grid. **Verdict (smoke):** ENGINE-GAP — rank-1 wall still open.
 
-Production (N=14) pending — full seed ablation + `A_LOCK` sweep.
+Production (N=14) proxy-only run **cancelled** — ENGINE-GAP unchanged; rank-1b bulk work in Phase 2b.
 
 ```bash
-./.venv/bin/python src/scripts/vol_1_foundations/loop_gap_harness_genesis.py
 ./.venv/bin/python src/scripts/vol_1_foundations/loop_gap_harness_genesis.py --smoke
+./.venv/bin/python src/scripts/vol_1_foundations/loop_gap_harness_genesis.py --smoke --bulk
 ```
 
 **JSON:** `assets/sim_outputs/loop_gap_harness_battery.json`
+
+---
+
+## §6 — Phase 2b (GAP-A bulk channel, 2026-06-12)
+
+| Item | Detail |
+|:---|:---|
+| Module | `src/ave/core/bulk_rarefaction_sector.py` |
+| Engine hook | `VacuumEngine3D.bulk_density_on` (KEEP-BOTH default OFF) |
+| Seeds | `probe` (sector-live IC) \| `circulation` (OP-3 motor column) |
+| Channel tags | `EM` / `shear` / `bulk` / `proxy` in `LoopGapResult.channel_tags` |
+| Rank 1b | `rank1b_pass` — bulk sector live (`ρ̄_min` or `c_bulk²` drop); **not** EM proxy Γ |
+
+### §2b smoke table (N=10, `--smoke --bulk`, 2026-06-12)
+
+| Arm | $\rho_{\mathrm{bar,min}}$ | $\Gamma_{\min}$ (proxy) | R1 | R1b | Channel |
+|:---|---:|---:|:---:|:---:|:---|
+| bulk_OFF | 0 | −0.069 | FAIL | — | EM+shear |
+| bulk_ON (probe) | **−0.0075** | −0.069 | FAIL | **PASS** | bulk+EM+shear |
+| bulk_circulation (motor) | **−0.3942** (drive) | — | — | **PASS** | bulk+EM+shear |
+
+| Gate | Result |
+|:---|:---|
+| F0 bulk_OFF legacy path | PASS (pytest) |
+| F1 bulk_ON ≠ bulk_OFF | **PASS** |
+| F2 channel-tagged + rank1b | **PASS** |
+| Rank-1 proxy Γ | **FAIL** ($\Gamma_{\min}=-0.069 > -0.25$) — expected; not bulk PASS |
+
+**Bugfix (B0):** `BulkRarefactionConfig.c0` must be engine natural units (`1.0`), not SI `C_0` — SI caused CFL substep runaway (~8h pytest hang).
+
+**Verdict (2b smoke):** **F1/F2 PASS**; rank-1 proxy still **ENGINE-GAP** (channel discipline honored).
 
 ---
 

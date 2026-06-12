@@ -191,6 +191,24 @@ All v15+ provenance uses **vacuum native units** per `natural-units-cheatsheet.m
 
 ---
 
+## §10 — Orchestration execution plan (2026-06-12)
+
+**Authoritative pedantic sequence:** `_orchestration/2026-06-12_loop-gap-orchestration-plan.md`
+
+| Phase | Deliverable | Status |
+|:---|:---|:---|
+| A | Index reconciliation + plan doc | **DONE** (pending PR) |
+| B | Phase 2b harness merge (GAP-A, channel tags) | **VERIFY DONE** — F0–F2 + smoke `--bulk`; PR pending |
+| C | D1 reframe + post-rupture quarantine | PENDING |
+| D | Regime-gated rank-1 + `gamma_bulk` | PENDING |
+| E | ±k seed (not sign-flip proxy) | PENDING |
+| F | Harness ranks 2–3 | PENDING |
+| G | P11 + R2 ferrite bench | PENDING |
+
+**Regime gate (all future production):** if `max(A²) > 10 · 2α` → suffix `_POST_RUPTURE`; exclude from framing tables.
+
+---
+
 ## §8 — Prereg freeze queue
 
 | Prereg | Status |
