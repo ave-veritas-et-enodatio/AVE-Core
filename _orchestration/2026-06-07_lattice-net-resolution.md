@@ -22,3 +22,17 @@
 - `closure-roadmap:191` → note the **coordination** axis is now resolved (was left open; only the space-group axis had been adjudicated).
 
 **Engine action:** none — the engine is the grounded choice. **Do NOT rebuild on z=3 srs** (would invalidate the α + Lorentz chains).
+
+---
+
+## 2026-06-12 amendment (D1 adjudication — `research/2026-06-12_lattice-d1-adjudication-memo.md`)
+
+**Ruling:** **D1-FINAL: B-primary / A-partial** — diamond stays engine substrate; bare srs is a **test-gated structural-chirality instrument**.
+
+| Conclusion | 2026-06-07 text | 2026-06-12 scope |
+|------------|-----------------|------------------|
+| 1 (net = z=4) | z=3 srs leaves = **unbacked numerology** | **Scoped:** static/kinematic srs chirality (R3 D1-A + Phase-1 P4) is **test-gated**, not numerology. **Unchanged:** no z=3 **engine** migration; α/Lorentz remain on diamond. |
+| 3 (excited chirality) | `k_χ` on diamond | **Unchanged** — production chirality remains excited order-parameter on diamond. |
+| Engine action | Do NOT rebuild on z=3 | **Unchanged** — Phase-2 P5/P6 miss does not reopen migration. |
+
+**Instrument path:** `src/ave/core/chiral_lattice*.py` modules = discrete srs **diagnostic** scaffold, not default engine.

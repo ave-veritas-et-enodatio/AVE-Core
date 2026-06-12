@@ -23,19 +23,21 @@ Electron = **Class A/B consistency structure** (`research/2026-06-08_ave-electro
 | Electron-structure / genesis | [`2026-06-07_electron-synthesis-epic.md`](2026-06-07_electron-synthesis-epic.md) + [`2026-06-11_session-handoff.md`](2026-06-11_session-handoff.md) | **ACTIVE — genesis v6–v9 record landed; v10 chartered (CVR)** | Grant decision stack (below); then fundamentality plan R2→R8 |
 | Experimental Arc | [`experimental/experimental-arc.md`](experimental/experimental-arc.md) | **ACTIVE — round-2 survivors** | Cleave Phase 1b (Grant manual); HOPF reciprocity; cRIO prereg (#181 landed) |
 
-### Grant decision stack (blocking v10 — leverage order)
-1. **srs-vs-diamond** — framing A (challenge) vs B (decoration diagnostic). **v9 Phase-1 must not start before this.** Recommended: decoration discriminator first.
-2. **Constitutive-loop scope for v10** — σ-only vs σ + rate-gated snap. Recommended: latter (LOOP GAP).
-3. **v9 Phase-1 freeze** — helicity amendments + thresholds (#195 prereg DRAFT).
-4. **Three-impedance law ratification** (#198 repair landed).
-5. **χ_shock at snap onset** — render vs spare vs keep.
-6. **Proton body scale** — Resolution A (sub-node) vs B (supra-node envelope) — epic §45–§47.
+### Grant decision stack (v10 — **CLOSED 2026-06-11**)
+| # | Call | Ruling |
+|---|---|---|
+| D1 | srs-vs-diamond | ✅ B-primary / A-partial (D1 memo) |
+| D2 | Loop scope | ✅ **σ + rate-gated snap** (amended 2026-06-11) |
+| D3 | Phase-1/2 freeze | ✅ FROZEN + executed |
+| D4 | `chi_shock` / `H_*` | ✅ **Per-channel χ equal** + `H_*` ON |
+| D5 | Ω_freeze IC | ✅ Canonical IC ON + ablation |
+| — | Proton body scale | Still open — epic §45–§47 |
 
 ### Fundamentality plan (ranked — Grant-greenlit, on main)
 | Rank | Item | Gate |
 |---|---|---|
 | R1 ✅ | Impedance repair + α forward check (#198) | Ratify three-impedance law |
-| **R2** | Constitutive-loop prereg + cRIO ferrite B-H bench | Grant: is loop THE missing piece? |
+| **R2** ✅ | Constitutive-loop prereg + cRIO ferrite B-H bench | **FROZEN 2026-06-11** — bench execution next |
 | **R3** | srs-vs-diamond adjudication | Blocks R8 |
 | R4 | Layer-8 mₑ-free smallest-stable-soliton | — |
 | R5 | Boost-covariant transport (master-unblocker) | Expensive |

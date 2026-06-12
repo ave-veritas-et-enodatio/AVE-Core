@@ -14,13 +14,15 @@ This document does four things, in order:
 
 ---
 
-## 0. ADJUDICATION FLAG (flag-don't-fix) — v9 re-opens the 2026-06-07 lattice-net resolution-of-record
+## 0. ADJUDICATION FLAG — **ADJUDICATED 2026-06-12** (`research/2026-06-12_lattice-d1-adjudication-memo.md`)
 
-**This is surfaced for Grant, not resolved here. Phase-1 MUST NOT be frozen until this is adjudicated.**
+> **STATUS: CLOSED.** D1-FINAL: **B-primary / A-partial** — srs = validated structural-chirality
+> **instrument**; diamond = production engine substrate. Phase-1 frozen and executed; Phase-2
+> production bins landed (P5 FAIL, P6 inconclusive). Historical conflict quotes retained below.
 
-The v9 premise is a **chiral trivalent (degree-3) lattice**. Canon at `origin/main` carries a
-**resolution-of-record that settled against exactly this object.** Both texts are quoted verbatim so
-the conflict is visible without reframing either side.
+The v9 premise is a **chiral trivalent (degree-3) lattice** used as a **discrete test scaffold**.
+Canon at `origin/main` carries a **resolution-of-record** that the **engine computes on z=4 diamond**.
+Both texts were quoted verbatim at design time so the conflict was visible without reframing either side.
 
 **Canon resolution (the side v9 challenges)** —
 `_orchestration/2026-06-07_lattice-net-resolution.md`:
@@ -53,11 +55,9 @@ naming gate held for Grant.
   `k_χ` decoration's geometric content, not a replacement substrate — in which case the trivalent net is
   a diagnostic instrument, the α/Lorentz chains stay on diamond, and nothing is "rebuilt on z=3."
 
-The scaffold below is **neutral to that call**: it builds and validates the trivalent net and runs the
-smokes either way. What is gated on Grant is whether a *passing* Smoke B is read as (A) evidence to
-migrate the substrate or (B) evidence about the decoration. **Per the challenge-canonical-negative
-discipline, this scaffold does not cite canon as straightforwardly "trivalent-chiral" — canon's computed
-object is degree-4 achiral diamond, and the trivalent claims are the flagged outlier leaves.**
+**Adjudicated read (2026-06-12):** Smoke B / Phase-1 **confirmed** structural chirality on bare srs at
+κ=0 (partial (A)). Phase-2 **did not** demonstrate hosting/genesis on discrete TLM+Op14 → **(B) primary**:
+instrument + decoration-diagnostic framing; **no substrate migration**. Engine default remains diamond.
 
 ---
 

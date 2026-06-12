@@ -97,27 +97,16 @@ Candidates **0** and **0b** are the two ADDED pre-sim candidates that §0 ranks 
   not a kernel property) — which is precisely what the prereg would expose. Class: consistency (the bench
   characterizes the EE analogue; it does not emerge the kernel).
 
-### 1 — The srs (z=3) vs diamond (z=4) lattice adjudication + its consequences
+### 1 — The srs (z=3) vs diamond (z=4) lattice adjudication + its consequences — **✅ COMPLETE (2026-06-12)**
 
-- **What it tests:** THE substrate-identity question. Is the vacuum's computational net **z=4 diamond**
-  (the resolution-of-record, `_orchestration/2026-06-07_lattice-net-resolution.md:4` — *"Resolution: z=4
-  diamond. It is the net the framework actually computes on"*) or **z=3 srs** (v9's challenge,
-  `[branch #195]`)? **Framing A** — deliberate challenge: re-derive the α + Lorentz chains on srs and weigh
-  the resolution's explicit invalidation warning as the cost. **Framing B** — reconcile: srs as a
-  *diagnostic instrument / model-of* the excited `k_χ` decoration, substrate stays diamond.
-- **Depends on:** GRANT picks framing A or B. The clean discriminator is already built — the signed
-  reflection-odd writhe `Wr` (srs-R −4.087e-2 / srs-L +4.087e-2 / diamond 0.0, audit §2/§3.1). The
-  Axiom-1 self-contradiction (`eq_axiom_1.tex:20`: "chiral Laves K4" name = degree-3 vs stated 4-fold
-  connectivity = degree-4) and the UNMERGED z4-walkback PR #143 sit underneath.
-- **Unblocks:** v9 Phase-1 (cand 6, FROZEN pending this); the Axiom-1 relabel; potentially **invalidates
-  OR confirms the α + Lorentz chains** (framing A) — the highest-stakes single ruling on the board.
-- **Fundamentality class:** **axiom/substrate** (the deepest substrate-identity question).
-- **Cost class:** the decision is **cheap** (Grant picks a framing). Framing-A's CONSEQUENCE (re-derive
-  α/Lorentz on srs) is **expensive** and is itself gated on the decision.
-- **Risk:** HIGH stakes, asymmetric. Framing A puts the α + Lorentz chains at risk by the resolution's own
-  warning (`:24` — *"Do NOT rebuild on z=3 srs (would invalidate the α + Lorentz chains)"*); framing B is
-  cheap-reconcile. **Parallel-pressure-test: do NOT build v9 Phase-1 (cand 6) on this unadjudicated
-  premise.**
+- **Ruling:** `research/2026-06-12_lattice-d1-adjudication-memo.md` — **D1-FINAL: B-primary / A-partial**.
+  Structural srs chirality **confirmed** (R3 D1-A + Phase-1 P4); **diamond stays engine substrate**;
+  srs = discrete **instrument**; Phase-2 P5 FAIL / P6 inconclusive → **no genesis migration**.
+- **What it tested:** substrate-identity via R3 + v9 Phase-1/2 bins (test-gated, not Grant prose-pick).
+- **Unblocked:** Axiom-1 lattice-identity clarification (`eq_axiom_1.tex` walk-back); v10 spine charter
+  under framing (B); **does NOT** queue α/Lorentz re-derivation on srs.
+- **Fundamentality class:** **axiom/substrate** — **decided** at instrument-vs-engine level.
+- **Residual risk:** future Master-Equation / lock engine class could reopen (A) at dynamical depth only.
 
 ### 2 — σ-equipped shell formation (the `#194` SHELL-NEVER-FORMS successor)
 
@@ -314,8 +303,8 @@ cost breaks remaining ties (cheaper-first when equally fundamental).
 | Rank | Candidate | Why here |
 |---|---|---|
 | **R1** | **0 — impedance-scoping repair + α forward-check prereg** | Cheap, no integrator, unblocks the consistent language every downstream sim writes in (the `Z_EM/Z_shear/Z_bulk` subscripts, the `Q_react=m_ec²·α` anchor). Grant's "more important than any next simulation" names this directly. The α forward test is the one cheap discriminator that could move α from consistency- toward emergence-class. |
-| **R2** | **0b — the CONSTITUTIVE LOOP prereg + cRIO ferrite bench** | The **deepest open-physics question** the genesis record points at (no-remanence ⇒ stores-but-can't-retain ⇒ the nine-architecture "no architecture kept mass without a lock" in one canon-anchored diagnosis). First deliverable is a prereg + bench, NOT a sim — so it belongs in Tier I on both fundamentality and cost. Slightly below R1 only because R1 is even cheaper and unblocks more downstream sims' vocabulary. |
-| **R3** | **1 — srs-vs-diamond ADJUDICATION (the decision, not the consequence)** | The substrate-identity question — the single most fundamental ruling on the board. The DECISION is cheap (Grant picks a framing) and it **gates candidate 6** and conditionally re-scopes candidate 0's α test. Belongs in the pre-sim tier because it is a framing call, not a build. (Framing-A's *consequence* — re-deriving α/Lorentz on srs — is an expensive Tier-II-or-beyond build, gated on this decision.) |
+| **R2** ✅ | **0b — the CONSTITUTIVE LOOP prereg + cRIO ferrite bench** | **Prereg FROZEN 2026-06-11** (`research/2026-06-12_constitutive-loop-r2-prereg_FROZEN.md`); bench execution next. LOOP GAP = working diagnosis; `B_r/B_sat ≥ 5%` ratified. |
+| **R3** ✅ | **1 — srs-vs-diamond ADJUDICATION** | **COMPLETE 2026-06-12** — D1-FINAL B-primary / A-partial (`research/2026-06-12_lattice-d1-adjudication-memo.md`). Diamond stays engine; srs = instrument. α/Lorentz srs re-derivation **not queued**. |
 
 ### Tier II — SIM (the post-audit world; fundamentality-first, then cheap-unblockers)
 
@@ -325,7 +314,7 @@ cost breaks remaining ties (cheaper-first when equally fundamental).
 | **R5** | **4 — boost-covariant transport** | The **master-unblocker**: it gates the most downstream arcs (cand 5 + the moving-defect fork + all motion/de-Broglie/double-slit/collision physics). Expensive, but its expense buys the widest unblock — fundamentality-of-consequence puts it ahead of the cheaper engine-capability builds. |
 | **R6** | **2 — σ-equipped shell formation** | Engine-capability; unblocks BOTH birth-topology (F-GENUS testable) and the annihilation release geometry (cand 5's surface). Medium cost. Ranks below transport because transport gates more, but it is the cheaper of the two interface/dynamics builds and feeds R7. |
 | **R7** | **5 — V↔ρ̄ release / death channel** | Gated on R5 (transport) and fed by R6 (the shell surface); needs the near-yield bulk regime. Naturally sequences after both its inputs. |
-| **R8** | **6 — v9 Phase-1** | **Gated on R3 (cand 1).** Run only if Grant picks framing A (or green-lights a reconciled B). PREMISE-FROZEN until then — see §3. |
+| **R8** ✅ | **6 — v9 Phase-1/2** | **COMPLETE** — Phase-1 P1–P4 PASS; Phase-2 production bins landed (P5 FAIL, P6 inconclusive). Instrument validation under R3 ruling (B-primary). |
 | **R-fold** | **7 — small rulings** | Cheap cleanup; fold into any slack slot (e.g. alongside R1/R2 in Tier I, or while a Tier-II build runs). Must not displace a fundamentality candidate. |
 
 ### The reasoning in one paragraph
@@ -334,8 +323,7 @@ Grant's re-prioritization stacks a **pre-sim layer above the sim layer**; within
 **fundamentality-first, then cheap-unblockers.** Tier I is cheap and fundamental at once: the impedance
 repair (R1) gives every later result a consistent language and carries the one cheap α discriminator; the
 constitutive-loop prereg (R2) names the deepest open physics and only costs a prereg + bench; the
-srs-vs-diamond *decision* (R3) is the most fundamental ruling and is itself cheap (Grant picks a framing),
-even though its framing-A consequence is expensive. Tier II then runs in fundamentality order: the one-scale
+srs-vs-diamond decision (R3) is **complete** (B-primary / A-partial, 2026-06-12). Tier II then runs in fundamentality order: the one-scale
 Layer-8 test (R4) first because it conditions how to read every genesis result; the master-unblocker
 transport (R5) next because it gates the widest downstream set; the σ-shell (R6) and death-channel (R7)
 engine-capability builds after, in their dependency order; v9 Phase-1 (R8) last and only behind the cand-1
