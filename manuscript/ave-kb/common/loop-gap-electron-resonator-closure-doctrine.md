@@ -128,3 +128,4 @@ srs findings retained as channel-tagged falsifiers (CVR-SET ≠ mass; `add_drive
 | [`2026-06-12_loop-gap-electron-resonator-synthesis.md`](../../../research/2026-06-12_loop-gap-electron-resonator-synthesis.md) | Full synthesis + implementation audit matrix |
 | [`2026-06-12_loop-gap-engine-dag.md`](../../../_orchestration/2026-06-12_loop-gap-engine-dag.md) | Engine capability DAG + ablation arms |
 | [`2026-06-12_loop-gap-unified-harness.md`](../../../_orchestration/2026-06-12_loop-gap-unified-harness.md) | Harness epic + phase log |
+| [`2026-06-12_loop-gap-harness-bulk-channel_prereg_DRAFT.md`](../../../research/2026-06-12_loop-gap-harness-bulk-channel_prereg_DRAFT.md) | Rank 1b bulk-channel port (GAP-A); channel-tagged gates |

@@ -36,6 +36,12 @@ flowchart TD
     GAMMA["Γ_bulk wall (impedance_boundary)"]
   end
 
+  subgraph r1b["Rank 1b — bulk channel (Phase 2b)"]
+    BULK["bulk_density_on (GAP-A port)"]
+    RHO["ρ̄ + u_adv rarefaction EOS"]
+    CHTAG["Channel-tagged observables"]
+  end
+
   subgraph r2["Rank 2 — Compton ring-up"]
     TAU["n_drive ∝ τ_relax / dt"]
     NOEXT["No external add_drive / CW pump"]
@@ -61,7 +67,10 @@ flowchart TD
   A28 --> GAP1
   GAP1 --> VINC
   GAMMA --> VINC
-  VINC --> TAU
+  VINC --> BULK
+  BULK --> RHO
+  RHO --> CHTAG
+  CHTAG --> TAU
   TAU --> FREEZE
   FREEZE --> SEED
   COUPLE --> GAMMA
@@ -89,8 +98,12 @@ Cumulative: rank *N* enables all flags for ranks ≤ *N*.
 | `use_memristive_saturation` | — | — | — | ✓ | instant Op14 for P11 claim |
 | External `Source` injectors | — | — | **✗** | **✗** | CW / pump (genesis-24 falsified) |
 | `seed_mode` (`loop_gap_seeds.py`) | pair | photon_lock | photon_lock / graded_a0 | same | uniform IC without ∇A |
+| `bulk_density_on` (GAP-A) | — | opt-in | opt-in | opt-in | **Default False** (KEEP-BOTH); prereg `research/2026-06-12_loop-gap-harness-bulk-channel_prereg_DRAFT.md` |
+| `snap_on` / GAP-C couplings | — | **✗** | **✗** | **✗** | genesis-v5 D1 / Increment C — separate prereg |
 
 **Seed modes:** `pair` (v15b) | `photon_lock` (genesis-23 `A_LOCK` ω precursor) | `graded_a0` (∇A₀ tanh ramp toward buffered yield). **Impedance gradient = ∇A strain, not node density.**
+
+**Rank 1b rule:** `use_impedance_boundary` is a **Γ proxy** (CP10 boundary). `bulk_density_on` adds **dynamical** $\bar\rho$ (CP9). Rank-1 PASS with bulk enabled must cite **bulk-tagged** reads — not EM $S_{11}$ at $Z_0$ alone (doctrine §3 fool mode #4).
 
 Impedance defaults (genesis-23): `impedance_clamp_strength=60`, `impedance_cfl_safety=0.25`, `impedance_implicit=True`.
 
@@ -101,6 +114,7 @@ Impedance defaults (genesis-23): `impedance_clamp_strength=60`, `impedance_cfl_s
 | Rank | Primary reads | Wrong read (retired) |
 |:---:|:---|:---|
 | **1** | `max|V_inc|`, `gamma_min`, `max_A_sq_total` | srs transverse peak / `S_11` at Z₀ |
+| **1b** | `min(rho_bar)`, `min(c_bulk2)`, `max|ω|`, `max_tau_zx` + **channel tag** on PASS | proxy `gamma_min` without bulk read / EM-only promotion |
 | **2** | drive duration vs `τ_relax`, `H` at drive-off | fixed 50-step srs scatter |
 | **3** | `Σ|Φ_link|²`, `ρ_cross` at saturation front, `H_couple` | `e_end/e_driveoff` on transverse only |
 | **4** | `H` persist, `Φ_link` persist, `S_field` Δ, P11 gate | CVR-SET under continuing drive |
@@ -117,6 +131,10 @@ Instrument via `ObservableBattery` + harness `snapshot_rank()` — not ad-hoc pe
 | `impedance_OFF` | `use_impedance_boundary=False` | Γ_bulk wall |
 | `memristive_OFF` | `use_memristive_saturation=False` | Level-2 lag (rank 4) |
 | `heal` | zero seed | false-positive nucleation |
+| `bulk_OFF` | `bulk_density_on=False` | GAP-A $\bar\rho$ dynamics |
+| `bulk_ON_impedance_OFF` | bulk on, wall off | bulk vs impedance proxy |
+
+**Prereg (DRAFT):** [`research/2026-06-12_loop-gap-harness-bulk-channel_prereg_DRAFT.md`](../research/2026-06-12_loop-gap-harness-bulk-channel_prereg_DRAFT.md)
 
 ---
 

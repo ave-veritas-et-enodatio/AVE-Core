@@ -50,6 +50,31 @@
 
 ---
 
+## Phase 2b — Bulk channel port (Rank 1b, PENDING)
+
+**Goal:** Three-channel fidelity on the active harness — dynamical $\bar\rho$ sector (GAP-A) without conflating EM / shear / bulk reads.
+
+**Prereg (DRAFT):** [`research/2026-06-12_loop-gap-harness-bulk-channel_prereg_DRAFT.md`](../research/2026-06-12_loop-gap-harness-bulk-channel_prereg_DRAFT.md)
+
+**Corpus rule:** Port `UnifiedGenesisEngine.bulk_density_on` into `VacuumEngine3D` (KEEP-BOTH default OFF). **Do not** open snap/GAP-C in this phase.
+
+**Increments:**
+| Inc | Deliverable | Status |
+|:---|:---|:---|
+| A | GAP-A port + F0 byte-identical regression | [ ] |
+| B | Channel-tagged `LoopGapResult` + bulk ablation arms | [ ] |
+| C | GAP-C / snap — **out of scope** (separate prereg) | — |
+
+**Tasks:**
+- [ ] `EngineConfig.bulk_density_on` on `VacuumEngine3D`
+- [ ] Harness `--bulk` flag; bulk fields in battery JSON
+- [ ] `test_loop_gap_harness_bulk_channel.py` (F0 + F1 smoke)
+- [ ] Result doc §production table
+
+**Acceptance:** F0 PASS; F1 bulk_ON ≠ bulk_OFF at $t_{\mathrm{end}}$ without detonation; rank-1 JSON carries channel tags when bulk enabled.
+
+---
+
 ## Phase 3 — P11 remanence at rank 4 (PENDING)
 
 **Goal:** P11 PASS on pinned quiescence (lesson from v17: no comoving during quiet).
