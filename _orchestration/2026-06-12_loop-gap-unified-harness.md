@@ -2,10 +2,26 @@
 
 **Status:** ACTIVE  
 **Opened:** 2026-06-12  
-**Branch:** `analysis/2026-06-12-genesis-v10-cvr-implementor` (pending PR)  
+**Harness land:** PR **#207** merged → `main` @ `98ec9270` (2026-06-12)  
+**Next work:** branch off `main` (e.g. `analysis/2026-06-12-loop-gap-phase-d`)  
 **DAG:** [`2026-06-12_loop-gap-engine-dag.md`](2026-06-12_loop-gap-engine-dag.md)  
 **Ledger:** [`research/2026-06-12_genesis-program-status.md`](../research/2026-06-12_genesis-program-status.md)  
-**Execution plan (authoritative order):** [`2026-06-12_loop-gap-orchestration-plan.md`](2026-06-12_loop-gap-orchestration-plan.md)
+**Execution plan (authoritative order):** [`2026-06-12_loop-gap-orchestration-plan.md`](2026-06-12_loop-gap-orchestration-plan.md)  
+**Session handoff (spawn other agent):** [`2026-06-12_loop-gap-orchestration-session-handoff.md`](2026-06-12_loop-gap-orchestration-session-handoff.md)  
+**Full plan + implementor brief:** [`2026-06-12_loop-gap-first-principles-implementor-brief.md`](2026-06-12_loop-gap-first-principles-implementor-brief.md) (Part I = orchestrator; Part II = implementor)
+
+---
+
+## Session log (2026-06-12 — updated post-#207)
+
+| Item | Read |
+|:---|:---|
+| Harness + Phase 2b | **LANDED** — PR #207 → `main` @ `98ec9270` |
+| Audit tag | ✅ `audit/2026-06-12_loop-gap-harness-phase2b` on `98ec9270` → origin |
+| Smoke `--bulk` | **ENGINE-GAP** — rank-1 $\Gamma$ open → **Phase D** |
+| Uncommitted | ~70 paths on old branch — **PR2** handoff / **PR1** vol9 / **Phase C** / **PR4** archive |
+| Blocker B1 | `common/index.md:59` — fixed in PR2 orchestration pass |
+| P11 constants | `genesis_v18_coupled.py` on main (`chiral_lattice_v11` removed at merge) |
 
 ---
 
@@ -65,7 +81,7 @@
 
 ---
 
-## Phase 2b — Bulk channel port (Rank 1b, IN PROGRESS 2026-06-12)
+## Phase 2b — Bulk channel port (Rank 1b, LANDED 2026-06-12)
 
 **Goal:** Three-channel fidelity on the active harness — dynamical $\bar\rho$ sector (GAP-A) without conflating EM / shear / bulk reads.
 
@@ -89,11 +105,12 @@
 - [x] `--smoke --bulk` battery + result doc §2b table
 - [x] B0 `c0` natural-units fix + `bulk_f1` dict bugfix
 - [x] pytest F0–F2 green (9 tests)
-- [ ] PR + `make verify` (Phase B per orchestration plan)
+- [x] PR #207 merged (2026-06-12)
+- [ ] Audit tag `audit/2026-06-12_loop-gap-harness-phase2b` on `98ec9270` + push origin
 
 **Phase A (ledger):** [x] orchestration plan doc; [x] index §2026-06-12; [x] program status §10
 
-**Acceptance:** F0 PASS; F1 bulk_ON ≠ bulk_OFF; F2 channel-tagged when bulk enabled; **rank-1 EM proxy FAIL is not bulk PASS**.
+**Acceptance:** F0 PASS; F1 bulk_ON ≠ bulk_OFF; F2 channel-tagged — **LANDED on main**. Rank-1 $\Gamma$ gate remains **open** (Phase 2 / Phase D).
 
 ---
 
