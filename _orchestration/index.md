@@ -18,14 +18,15 @@ Electron = **Class A/B consistency structure** on **z=4 diamond K4** (`research/
 | Priority | Epic | Doc | Phase | Next step |
 |:---:|:---|:---|:---|:---|
 | **P0** | LOOP GAP orchestration plan | [`2026-06-12_loop-gap-orchestration-plan.md`](2026-06-12_loop-gap-orchestration-plan.md) | **A** ✅ | Merged #207 |
-| **P1** | Unified K4 harness | [`2026-06-12_loop-gap-unified-harness.md`](2026-06-12_loop-gap-unified-harness.md) | **B** (2b) ✅ | **LANDED** #207 @ `98ec9270`; audit `audit/2026-06-12_loop-gap-harness-phase2b` |
-| **P2** | Corpus discipline | Plan §Phase C | **C** | D1 reframe + v9/v10 quarantine banners (parallel PR) |
-| **P3** | Rank-1 regime charter | Plan §Phase D | **D** | `gamma_bulk` + seed/`A_LOCK` sweep — implementor branch off `main` |
+| **P1** | Unified K4 harness | [`2026-06-12_loop-gap-unified-harness.md`](2026-06-12_loop-gap-unified-harness.md) | **B** (2b) ✅ | **LANDED** #207 + #208 handoff |
+| **P1b** | Vol 9 three-channel KB | [`2026-06-12_vol9-kb-discipline-pass.md`](2026-06-12_vol9-kb-discipline-pass.md) | ✅ | **LANDED** #209 |
+| **P2** | Corpus discipline | Plan §Phase C | **C** | D1 reframe + v9/v10 quarantine (this PR) |
+| **P3** | Rank-1 regime charter | Plan §Phase D | **D** | `gamma_bulk` + seed/`A_LOCK` sweep — implementor off `main` |
 | **P4** | Electron synthesis (record) | [`2026-06-07_electron-synthesis-epic.md`](2026-06-07_electron-synthesis-epic.md) | — | Ranks via harness only |
 | **P5** | R2 constitutive loop | `research/2026-06-12_constitutive-loop-r2-prereg_FROZEN.md` | **G2** (parallel) | Ferrite bench when Grant schedules |
 | — | Experimental arc | [`experimental/experimental-arc.md`](experimental/experimental-arc.md) | — | Unchanged |
 
-**Session handoff:** [`2026-06-12_loop-gap-orchestration-session-handoff.md`](2026-06-12_loop-gap-orchestration-session-handoff.md) · **`main` HEAD:** `98ec9270` (PR #207 merged). **Next:** PR2 handoff docs → PR1 vol9 KB → Phase C ∥ PR1 → PR4 genesis archive.
+**Session handoff:** [`2026-06-12_loop-gap-orchestration-session-handoff.md`](2026-06-12_loop-gap-orchestration-session-handoff.md) · **`main` HEAD:** post-#209. **Next:** Phase C (this slice) → PR4 genesis archive → Phase D implementor.
 
 ### Decision stack (2026-06-12 physics read — supersedes 2026-06-11 CLOSED rows for execution)
 

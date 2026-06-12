@@ -1,5 +1,7 @@
 # Genesis v9 — Phase-2 Result (PRODUCTION — 2026-06-12)
 
+> **REGIME QUARANTINE (`_POST_RUPTURE`):** Production `max(A²) ≈ 13–14` (srs) / `≈ 38` (diamond) — deep past yield (`V_SNAP=1`). Bins are **ENGINE-CLASS / post-rupture** only. **Exclude** from D1 framing adjudication and substrate-migration claims (`_orchestration/2026-06-12_loop-gap-orchestration-plan.md` §3). P6 CVR-SET = **reactive under drive**, not remanence / mass.
+
 > **Prereg:** `research/2026-06-12_genesis-v9-phase2-prereg_FROZEN.md`
 > **Engine class:** discrete srs TLM + Op14 `z_local(A²)` + Op3 @ CONNECT (instantaneous v1)
 > **Run class:** **PRODUCTION** — P5: L=10, 500 steps; P6: L=10, 800 steps, N_drive=400,

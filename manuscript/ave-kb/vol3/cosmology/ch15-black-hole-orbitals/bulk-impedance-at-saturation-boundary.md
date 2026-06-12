@@ -73,6 +73,10 @@ The "three-valued boundary" (vocab-operator-unification audit §4d, 2026-06-11) 
 | Bulk channel | $Z_{bulk} \to 0$ at TIR wall $\Rightarrow \Gamma_{bulk} = -1$ | $Z_{bulk} \to 0$ at rupture $\Rightarrow \Gamma_{bulk} = -1$ |
 | Interior physics | Constructive (topology preserved) | Destructive (topology melts) |
 
+### Channel discipline — tensile vs compressive bulk (FLAG)
+
+**Do not conflate** astrophysical BH **compressive melt** ($c_{bulk} \to 0$ at exterior rupture) with electron **constructive interior** TIR / cavitation wall ($\Gamma_{bulk} \to -1$ at confinement boundary). Same $Z_{bulk} = \rho\,c_{bulk}$ law; **opposite thermodynamic branch** on the bulk EOS. This leaf assigns **BH exterior at $r_{\text{sat}}$** only. Electron confinement bulk reads route through harness rank-1b + [`device-circuit-models.md`](../../../vol9/ch3-pin-port-configuration/device-circuit-models.md) — not this melt assignment.
+
 > ↗ See also: [`electron-bh-isomorphism.md`](electron-bh-isomorphism.md) — shear phase transition (updated with $\Gamma_{shear}$); [`ave-bh-horizon-area-theorem.md`](ave-bh-horizon-area-theorem.md) — $r_{\text{sat}}$ derivation; [`substrate-hysteresis-index.md`](../../../common/substrate-hysteresis-index.md) §5b — LOOP GAP vs $\Omega_{\text{freeze}}$ (engine memory vs remanence).
 
 ### Discipline audit (2026-06-12)
