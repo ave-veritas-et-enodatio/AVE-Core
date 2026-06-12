@@ -21,7 +21,9 @@ As established in Chapter ch:relativity, gravity is a refractive gradient: the l
 
 where the factor 7 emerges from the Machian stress boundary $T_{max} = c^4/(7G)$.
 
-Critically, gravity is **Symmetric**: the transverse impedance $Z(r) = \sqrt{\mu'(r)/\varepsilon'(r)} = Z_0$ is *invariant* at all radii, because both $\mu'$ and $\varepsilon'$ scale identically with $n(r)$. There is **no impedance mismatch** and **no reflection coefficient** ($\Gamma = 0$ everywhere). This is the fundamental distinction between the electron's confinement ($\Gamma = -1$ at the knot boundary, where $Z \to 0$) and the black hole's confinement.
+Critically, gravity is **Symmetric** in the **EM-transverse channel**: the characteristic impedance $Z_{EM}(r) = \sqrt{\mu'(r)/\varepsilon'(r)} = Z_0$ is *invariant* at all radii, because both $\mu'$ and $\varepsilon'$ scale identically with $n(r)$. There is **no EM impedance mismatch** and **no EM reflection coefficient** ($\Gamma_{EM} = 0$ everywhere under SYM scaling). Per the three-impedance law (field-symbol registry §3.11), $Z_0 \equiv Z_{EM}$ only; shear and bulk channels carry separate impedances $Z_{shear}$ and $Z_{bulk}$.
+
+The electron's confinement is **bulk-channel** TIR ($Z_{bulk} \to 0 \Rightarrow \Gamma_{bulk} = -1$ at the knot core). The black hole's confinement at $r_{\text{sat}}$ is **shear- and bulk-channel** phase transition ($G_{shear} \to 0$, $c_{bulk} \to 0$) while the EM channel remains matched ($\Gamma_{EM} = 0$). See [`bulk-impedance-at-saturation-boundary.md`](bulk-impedance-at-saturation-boundary.md) for the astrophysical $Z_{bulk}$ assignment.
 
 ### The Saturation Boundary as a Phase Transition
 
@@ -31,15 +33,15 @@ When $\varepsilon_{11}(r) = 1$ (at $r_{sat} = 7\,M_g = 3.5\,r_s$), the lattice r
 - The group velocity $c_g = c(1-\varepsilon^2)^{1/4} \to 0$ (energy freezes)
 - Gravitational waves, being *transverse shear waves*, **cannot propagate** in the ruptured interior
 
-The saturated interior therefore acts as a **perfect reflector for shear waves**---not through impedance mismatch ($\Gamma$), but through the phase transition that eliminates the shear restoring force. This is identical to the vanishing of transverse acoustic modes at a solid--liquid boundary.
+The saturated interior therefore acts as a **perfect reflector for shear waves**. The phase transition eliminates the shear restoring force ($G_{shear} \to 0$, $c_{shear} \to 0$), which **is** a shear-channel impedance collapse: $Z_{shear} = \rho\,c_{shear} \to 0 \Rightarrow \Gamma_{shear} = -1$ (Op3). The earlier "not through impedance mismatch" wording predated the three-impedance-law channel subscripts (vocab audit §4b #3); the solid--liquid-boundary analogy is exactly $Z_{shear} \to 0$ at the interface.
 
 | **Property** | **Electron** | **Black Hole** |
 |---|---|---|
 | Confinement Boundary | $\ell_{node} \approx 3.86 \times 10^{-13}$ m | $r_{sat} = 7\,GM/c^2 = 3.5\,r_s$ |
-| Confinement Mechanism | Impedance mismatch ($\Gamma = -1$) | Lattice phase transition ($G_{shear} \to 0$) |
+| Confinement Mechanism | Bulk TIR ($\Gamma_{bulk} = -1$, $Z_{bulk} \to 0$) | Shear + bulk phase transition ($\Gamma_{shear} = \Gamma_{bulk} = -1$; $\Gamma_{EM} = 0$) |
 | "Ground-State" Orbital | Bohr radius $a_0 = \ell_{node}/\alpha$ | Saturation cavity $r_{eff} = 49M_g/9$ |
 | Shell Gaps | Spectral emission lines | Accretion disk QPOs |
 | Interior Physics | Constructive (topology preserved) | Destructive (topology melts) |
-| Impedance | $Z \to 0$ at knot core | $Z = Z_0$ always (Symmetric Gravity) |
+| Impedance (per channel) | $Z_{bulk} \to 0$ at knot core | $Z_{EM} = Z_0$ (SYM); $Z_{shear}, Z_{bulk} \to 0$ at $r_{\text{sat}}$ |
 
 ---

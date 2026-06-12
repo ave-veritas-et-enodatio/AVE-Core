@@ -125,8 +125,31 @@ Everything in the class tables below is a manifestation of Level 2 — the dynam
 
 ---
 
+## §5b — Genesis v10 discipline: LOOP GAP vs $\Omega_{\text{freeze}}$ (2026-06-11)
+
+**WHEN TO USE:** adjudicating whether a genesis/kernel change "closes the LOOP GAP" or only adds a different memory class. The nine-architecture record diagnosed **remanence = mass** (zero-drive persistence) as the missing constitutive piece; v10 adds $\sigma$ + rate-gated snap + $\Omega_{\text{freeze}}$ IC. These are **not the same mechanism**.
+
+| Mechanism | What it stores | Level | Canon / engine status |
+|---|---|---|---|
+| $S_{\text{eq}}(A)=\sqrt{1-A^2}$ | Reversible sub-yield envelope | Level 1 (memoryless) | Canon kernel; zero loop area (`06_spice_verification_manual.tex:127-133`) |
+| $\tau_{\text{relax}}$ ODE lag | Dynamic-crossing hysteresis loop $\oint S\,dr$ | Level 2 (memristive) | Derived in `tau-relax-derivation.md` §3; SPICE memristor **placeholder** (below any timestep) |
+| $\Omega_{\text{freeze}}$ IC | Frozen cosmic spin / phase at $t=0$ | Initial-data memory | v10 kernel + ablation arm; **not** a B–H remanence loop |
+| $\sigma$ + rate-gated snap | Dynamic crossing / latching at rupture | Level 2 candidate | v10 kernel (Decision 2); tests mass **retention**, not ferrite remanence |
+| Ferrite B–H loop (R2 bench) | $B_r$ at $H=0$ = remanence analogue | EE consistency bench | `2026-06-12_constitutive-loop-r2-prereg_FROZEN.md`; **bench not run** |
+
+**The LOOP GAP remains open until a mechanism supplies zero-drive persistence with nonzero enclosed loop area** — either (a) the v10 snap verdict shows retention without drive, and/or (b) the R2 ferrite B–H bench maps remanence/coercivity/loop-area to mass/annihilation/latent-heat. $\Omega_{\text{freeze}}$ alone is **initial-condition** memory (ablatable); it does not replace thixotropic/ferrite **constitutive** hysteresis.
+
+**v10 production read (2026-06-12; `research/2026-06-12_genesis-v10-cvr-convergence_result.md`):** snap+IC machinery executes; partial CVR-SET on 2/4 srs cells; **snap-OFF and Ω-free ablations still CVR-SET** at matched retention — snap is **not** bin-isolating; **LOOP GAP unchanged** (no zero-drive remanence demonstrated).
+
+**v11 charter (2026-06-12):** prereg DRAFT `research/2026-06-12_genesis-v11-loop-closure_prereg_DRAFT.md` — primary falsifier **P11 zero-drive persistence** via ported $\tau_{\mathrm{relax}}$ ODE on discrete srs; orchestration `_orchestration/2026-06-12_loop-gap-v11-charter.md`.
+
+> ↗ See also: [`loop-gap-electron-resonator-closure-doctrine.md`](loop-gap-electron-resonator-closure-doctrine.md); [`2026-06-11_chiral-vacuum-reactor-framing.md`](../../../research/2026-06-11_chiral-vacuum-reactor-framing.md) §5 v10 charter (Grant decisions D2/D5); vocab audit §4(c2) LOOP GAP diagnosis.
+
+---
+
 ## §6 — Cross-references
 
+- **LOOP GAP closure doctrine (2026-06-12):** [`loop-gap-electron-resonator-closure-doctrine.md`](loop-gap-electron-resonator-closure-doctrine.md) — plumber closure order, channel routing, fool modes, v11 direction; full audit in `research/2026-06-12_loop-gap-electron-resonator-synthesis.md`; charter `_orchestration/2026-06-12_loop-gap-v11-charter.md`.
 - **Companion indexes**: [`ave-analytical-toolkit-index.md`](ave-analytical-toolkit-index.md) §4 Time-domain (τ_relax, memristive ODE, BEMF, cooling-rate scaling) is the problem-class entry point; this leaf is the memory-physics-specific consolidation under it.
 - **Kernel catalog**: [`universal-saturation-kernel-catalog.md`](universal-saturation-kernel-catalog.md) — the spatial-instantaneous kernel across 26 scales; the Sine-Gordon kink-memory + sine-Gordon engineered rows are its memory-relevant entries.
 - **Temporal companion**: [`temporal-saturation-regime-classifier.md`](temporal-saturation-regime-classifier.md) — the orthogonal temporal axis; the lossless/cyclic/lossy trichotomy is the time-domain partner of this index's reversible/hysteretic axis.

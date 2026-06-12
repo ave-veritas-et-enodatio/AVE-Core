@@ -1,0 +1,28 @@
+% circuit_vacuum_cell.tex — AVE_VACUUM_CELL schematic (Vol 9 Ch.3)
+% Included from chapters/03_pin_port_configuration.tex
+\begin{figure}[htbp]
+\centering
+\begin{circuitikz}[american, scale=0.95, transform shape]
+    % Terminals
+    \draw (0,0) node[left] {A} to[short, o-] (1,0);
+    \draw (7,0) node[right] {B} to[short, o-] (8,0);
+
+    % Relativistic inductor branch (series L + behavioral correction)
+    \draw (1,0) to[L, l=$L_0$, i=$I$] (3.5,0);
+
+    % Metric varactor (shunt nonlinear C)
+    \draw (3.5,0) to[short] (5.5,0);
+    \draw (4.5,0) to[C, l=$C_{\mathrm{eff}}(V)$, *-] (4.5,-1.8) node[ground] {};
+
+    % Optional damping (dashed)
+    \draw[dashed, gray] (1,0) to[R, l=\scriptsize $R_0$] (1,-1.2) node[ground] {};
+    \draw (5.5,0) to[short] (7,0);
+
+    % Annotations
+    \node[align=center, font=\scriptsize] at (4.5, 1.35) {Metric varactor: $C_{\mathrm{eff}} = C_0/S(V)$};
+    \node[align=center, font=\scriptsize] at (2.25, 1.0) {Relativistic inductor: $L_{\mathrm{eff}}(I)$};
+    \node[align=center, font=\scriptsize] at (4.5, -2.55) {TVS / rupture at $|V| \ge V_{\mathrm{yield}}$ (optional)};
+\end{circuitikz}
+\caption{\texttt{AVE\_VACUUM\_CELL} schematic (Vol.~9 Ch.~3 device-circuit-models \S1; SPICE subcircuit Vol.~4 Ch.~18). Canonical leaves cited in \S\ref{sec:vol9_device_circuit_models}.}
+\label{fig:vol9_circuit_vacuum_cell}
+\end{figure}

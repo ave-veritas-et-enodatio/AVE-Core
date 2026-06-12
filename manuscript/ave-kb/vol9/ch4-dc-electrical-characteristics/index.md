@@ -37,6 +37,12 @@ The chapter content is **Class B substrate-mechanism manifestation** per `consis
 - **INVARIANT-C2 ($\xi_{topo} = e/\ell_{node}$)**: cross-volume electromechanical transduction constant; canonical at the Ch.4 coupling-primitives cluster.
 - **INVARIANT-N3 (Op-numbering)**: Op1 (Universal Impedance) and Op16 (Universal Wave Speed) cited as the cross-scale operator forms of $Z_0$ and $c_0$.
 
+## Canonical leaves (this chapter)
+
+| Leaf | Role |
+|---|---|
+| [`three-channel-impedances.md`](three-channel-impedances.md) | $Z_{\mathrm{EM}}$, $Z_{\mathrm{shear}}$, $Z_{\mathrm{bulk}}$ cold-lattice table (**source of truth** for §Three-channel acoustic impedances) |
+
 ## Forward-pointers (Ch.4 → other Vol 9 chapters)
 
 - **Ch.5 AC Electrical Characteristics**: $S(A_0)$-modulated effective parameters $\varepsilon_{eff}$, $\mu_{eff}$, $c_{EM}$, $c_{shear}$.
@@ -44,8 +50,8 @@ The chapter content is **Class B substrate-mechanism manifestation** per `consis
 - **Ch.7 Saturation Characteristics**: Ax 4 kernel $S(A_0)$ characteristic curves; PONDER-05 (quartz 27.4% at ~30 kV) as a consistency-class material varactor analog of the kernel SHAPE — "$V_{DC}/V_{yield} = 0.687$" is a per-node ratio, not a vacuum-kernel reading (`vol4/claim-quality.md:51`).
 - **Ch.8 Breakdown Characteristics**: $V_{snap}$, $V_{yield}$, $E_S$ Schwinger limit (downstream consequences of the cold-lattice DC primitives at finite-amplitude regimes).
 
-## Manuscript counterpart
+## Manuscript counterpart (render)
 
-`manuscript/vol_9_vacuum_datasheet/chapters/04_dc_electrical_characteristics.tex` (canonical Vol 9 chapter file).
+`manuscript/vol_9_vacuum_datasheet/chapters/04_dc_electrical_characteristics.tex` (PDF render; cites KB leaves via `\kbleaf{}`).
 
 ---

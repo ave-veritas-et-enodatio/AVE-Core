@@ -98,8 +98,31 @@ These three constants together characterize the substrate as a Trace-Reversed Ch
 \begin{itemize}
     \item $\varepsilon_0$ is the capacitance density of the translational (E-field) sector of the K4-node 6-DOF structure. Each bond carries a per-cell capacitance $C_{cell} = \varepsilon_0 \ell_{node}$ (per Vol~9 Ch.~\ref{ch:vol9_general_description} Features and the natural-units cheatsheet \S 2). At cold-lattice $S(0) = 1$, no operating-point modulation acts on $\varepsilon_0$; finite-$A_0$ modulation $\varepsilon_{eff} = \varepsilon_0\,S(A_0)$ appears in Ch.~\ref{ch:vol9_ac_electrical_characteristics} and Ch.~\ref{ch:vol9_saturation_characteristics}.
     \item $\mu_0$ is the inductance density of the microrotational (B-field) sector. Each bond carries a per-cell inductance $L_{cell} = \mu_0 \ell_{node}$. The substrate-native value $\mu_0 = 4\pi \times 10^{-7}$~\si{\henry\per\metre} carries the $4\pi$ from spherical-harmonic field geometry, not from engineering convention. At cold-lattice $S(0) = 1$, no modulation acts; the Cosserat-Curie thermal-freeze of B-modes documented in Ch.~\ref{ch:vol9_temperature_characteristics} keeps $\mu$ effectively frozen even at $T = T_{CMB}$.
-    \item $Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx \qty{376.73}{\ohm}$ is the substrate-native bond TLM characteristic impedance --- the impedance an EM wave sees propagating along an isolated cold-lattice bond. This value is invariant under SYM-class scaling of $\mu$ and $\varepsilon$ (canonical at Vol~3 \kbleaf{ch01-gravity-yield/alpha-invariance-symmetric-gravity.md}), which is the structural origin of $\alpha$-invariance under gravitational fields. Op1 (Universal Impedance) in \kbleaf{common/operators.md} is the cross-scale operator form of this primitive; the canonical Vol~4 derivation lives at \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md}.
+    \item $Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx \qty{376.73}{\ohm}$ is the substrate-native bond TLM characteristic impedance --- the impedance an EM wave sees propagating along an isolated cold-lattice bond. Per the three-impedance law (registry \S3.11), $Z_0 \equiv Z_{\mathrm{EM}}$ is the \emph{transverse-EM channel only}. This value is invariant under SYM-class scaling of $\mu$ and $\varepsilon$ (canonical at Vol~3 \kbleaf{ch01-gravity-yield/alpha-invariance-symmetric-gravity.md}), which is the structural origin of $\alpha$-invariance under gravitational fields. Op1 (Universal Impedance) in \kbleaf{common/operators.md} is the cross-scale operator form of this primitive; the canonical Vol~4 derivation lives at \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md}.
 \end{itemize}
+
+\subsection{Three-channel acoustic impedances: $Z_{\mathrm{shear}}$, $Z_{\mathrm{bulk}}$}
+\label{subsec:vol9_dc_three_channel_impedances}
+
+\noindent\textbf{Canonical source (KB).} \kbleaf{ave-kb/vol9/ch4-dc-electrical-characteristics/three-channel-impedances.md}. The EM trio above is one row of the three-impedance law. The shear and bulk channels carry distinct device-port impedances (Ch.~\ref{ch:vol9_pin_port_configuration}~\S\ref{sec:vol9_three_channel_circuit}; \kbleaf{ave-kb/vol3/cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md}):
+
+\begin{table}[htbp]
+\centering\footnotesize
+\begin{tabular}{@{}l l l l@{}}
+\toprule
+\textbf{Channel} & \textbf{Impedance} & \textbf{Typical (cold lattice)} & \textbf{$\Gamma$ at saturation} \\
+\midrule
+EM-transverse & $Z_{\mathrm{EM}} \equiv Z_0$ & $\qty{376.73}{\ohm}$ & $\Gamma_{\mathrm{EM}} = 0$ (SYM gravity) \\
+Shear / GW & $Z_{\mathrm{shear}} = \rho_{\mathrm{bulk}}\,c_{\mathrm{shear}}$ & $\rho_{\mathrm{bulk}}\,c_0$ at $S=1$ & $\Gamma_{\mathrm{shear}} \to -1$ \\
+Bulk-longitudinal & $Z_{\mathrm{bulk}} = \rho_{\mathrm{bulk}}\,c_{\mathrm{bulk}}$ & $\sqrt{2}\,\rho_{\mathrm{bulk}}\,c_0$ & $\Gamma_{\mathrm{bulk}} \to -1$ \\
+\bottomrule
+\end{tabular}
+\caption{Three-channel impedance assignments at $K/G = 2$ operating point ($c_{\mathrm{bulk}} = \sqrt{2}\,c_0$ at cold lattice). Electron confinement uses the bulk channel; horizons assign $\Gamma_{\mathrm{bulk}} = -1$ at $r_{\mathrm{sat}}$.}
+\label{tab:vol9_dc_three_channel}
+\end{table}
+
+\noindent
+Mechanical moduli backing $\rho_{\mathrm{bulk}}$ and $G_{\mathrm{vac}} = \rho_{\mathrm{bulk}}\,c_0^2$ are documented in Ch.~\ref{ch:vol9_mechanical_characteristics}. The electron device's TIR barriers are bulk-channel ports (Fig.~\ref{fig:vol9_circuit_electron_barrier}), not EM short circuits at $Z_0$.
 
 \subsection{Propagation primitives: $c_0$, $\ell_{node}$, $T_{EM}$}
 \label{subsec:vol9_dc_propagation_primitives}

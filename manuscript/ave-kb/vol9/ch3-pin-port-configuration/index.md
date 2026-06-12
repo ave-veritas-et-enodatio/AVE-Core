@@ -21,6 +21,7 @@ The chapter content is **Class B/C synthesis** per `consistency-vs-emergence` v1
 - **Boundary-saturation conditions table.** $\Gamma = -1$ (saturation TIR / Pauli exclusion / particle confinement; Op21 $Q = \ell$ endpoint), $\Gamma = 0$ (matched impedance; Op17 $T^2 \to 1$ endpoint), $\Gamma = +1$ (open-circuit / less common at substrate primitives).
 - **Operator-level port behavior.** Op17 ($T^2 = 1 - \Gamma^2$, Vol 1 Ch 6 §1.16) and Op21 ($Q = \ell$ per Nyquist-cell-resolved confined mode at $\Gamma = -1$) as the two endpoints of substrate $\Gamma$-space — substrate-mechanically complementary (open-boundary energy transfer vs closed-boundary energy quantization).
 - **Engineering translation table.** Standard EE port quantities ($S_{11}$, $|S_{11}|^2$, return loss, VSWR, $Z_0$, port admittance $Y$) mapped to substrate-mechanism inputs of Axiom 3 + Op3 + Op17 + Op21 per the `clm-eemap1` EE-as-substrate-native identity statements (not approximations).
+- **Device circuit models (§Device Circuit Models, 2026-06-11).** Canonical leaf: [`device-circuit-models.md`](device-circuit-models.md) — `AVE_VACUUM_CELL`, electron $\Gamma_{\mathrm{bulk}}=-1$ LC tank, three-channel boundary port, cascaded cell string, operating-point coefficient table. LaTeX figures are **renders only** (`manuscript/vol_9_vacuum_datasheet/figures/circuit_*.tex`).
 
 ## Primary canonical sources
 
@@ -34,8 +35,14 @@ The chapter content is **Class B/C synthesis** per `consistency-vs-emergence` v1
 | `vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md` (`clm-3zz0f6`) | SYM-class α-invariance proof — load-bearing for the SYM-class port classification |
 | `common/translation-tables/translation-circuit.md` §2 (`clm-eemap1`) | EE-as-substrate-native META framework; engineering-translation table is identity, not approximation |
 
-## Manuscript counterpart
+## Canonical leaves (this chapter)
 
-`manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex` (canonical Vol 9 chapter file)
+| Leaf | Role |
+|---|---|
+| [`device-circuit-models.md`](device-circuit-models.md) | Device equivalent circuits + port semantics (**source of truth** for §Device Circuit Models) |
+
+## Manuscript counterpart (render)
+
+`manuscript/vol_9_vacuum_datasheet/chapters/03_pin_port_configuration.tex` + `chapters/03a_device_circuit_models.tex` (PDF figures; cites KB leaves via `\kbleaf{}`)
 
 ---

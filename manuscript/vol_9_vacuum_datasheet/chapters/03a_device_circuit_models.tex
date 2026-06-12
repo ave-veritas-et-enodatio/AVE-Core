@@ -1,0 +1,68 @@
+% 03a_device_circuit_models.tex
+% Manuscript RENDER of KB leaf ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md
+% Source of truth: the KB leaf. This file supplies PDF figures + \kbleaf{} wiring only.
+
+\section{Device Circuit Models}
+\label{sec:vol9_device_circuit_models}
+
+\noindent\textbf{Canonical source (KB).} All spec tables, port assignments, and discipline notes for this section live in \kbleaf{ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md}. The subsections below reproduce the figure set for the PDF; edit the KB leaf first, then sync any numeric table rows here if the render must stay byte-identical.
+
+\subsection{Universal Vacuum Cell (\texttt{AVE\_VACUUM\_CELL})}
+\label{sec:vol9_ave_vacuum_cell_circuit}
+
+\input{figures/circuit_vacuum_cell.tex}
+
+\subsection{Electron Device: TIR-Confined LC Tank}
+\label{sec:vol9_electron_device_circuit}
+
+\input{figures/circuit_electron_barrier.tex}
+
+\subsubsection{Operating-point coefficients at $A^2 \approx 0.23$}
+\label{subsec:vol9_electron_op_coefficients}
+
+Values from \kbleaf{ave-kb/vol9/ch3-pin-port-configuration/device-circuit-models.md} (driver \texttt{operating\_point\_coefficients.py}; consistency-class):
+
+\begin{table}[htbp]
+\centering\footnotesize
+\begin{tabular}{@{}l l l@{}}
+\toprule
+\textbf{Quantity} & \textbf{Value} & \textbf{Regime / note} \\
+\midrule
+$A^2$ & $0.23$ & Regime II (nonlinear tensor) \\
+$S(A)$ & $0.877$ & Sub-yield, pre-rupture \\
+$C_{\mathrm{eff}}/C_0$ & $1.140$ & Metric varactor slope active \\
+$\mathrm{d}(C_{\mathrm{eff}}/C_0)/\mathrm{d}A$ & $0.710$ & Datasheet nonlinearity column \\
+$Q$ (at $\gamma = \alpha\,\omega_C$) & $\approx 137$ & Loss carries $\alpha$ (consistency) \\
+$V_{\mathrm{op}}$ & $\approx 20.9$~kV & $48\%$ of $V_{\mathrm{yield}}$ \\
+\bottomrule
+\end{tabular}
+\caption{Electron-device operating-point coefficients (KB-sourced). Emergence gate for $Q = 1/\alpha$: real dark-wake $\tau_{zx}$, not toy loss.}
+\label{tab:vol9_electron_op_coefficients}
+\end{table}
+
+\subsection{Three-Channel Boundary Port}
+\label{sec:vol9_three_channel_circuit}
+
+\input{figures/circuit_three_channel_boundary.tex}
+
+\subsection{Cascaded Vacuum Line (Device String)}
+\label{sec:vol9_cascaded_vacuum_line}
+
+\begin{figure}[htbp]
+\centering
+\begin{circuitikz}[american, scale=0.85, transform shape]
+    \draw (0,0) node[left] {IN} to[short, o-] (0.8,0);
+    \node[draw, minimum width=1.6cm, minimum height=0.9cm, font=\scriptsize] (x1) at (2.0,0) {cell};
+    \draw (0.8,0) -- (x1.west);
+    \node[draw, minimum width=1.6cm, minimum height=0.9cm, font=\scriptsize] (x2) at (4.5,0) {cell};
+    \draw (x1.east) -- (x2.west);
+    \node[draw, minimum width=1.6cm, minimum height=0.9cm, font=\scriptsize] (x3) at (7.0,0) {cell};
+    \draw (x2.east) -- (x3.west);
+    \draw (x3.east) to[short, o-] (8.2,0) node[right] {OUT};
+    \node[font=\scriptsize] at (4.5, -1.1) {$N$ cascaded \texttt{AVE\_VACUUM\_CELL} bonds $\Rightarrow$ distributed K4-TLM line};
+    \draw[dashed, gray] (0.8,-1.8) -- (8.2,-1.8);
+    \node[font=\scriptsize, gray] at (4.5, -2.35) {Each cell: $L_0=\mu_0\ell_{\mathrm{node}}$, $C_0=\varepsilon_0\ell_{\mathrm{node}}$, $Z_0=\sqrt{L_0/C_0}$};
+\end{circuitikz}
+\caption{Cascaded vacuum-cell device string (Vol.~9 Ch.~3 device-circuit-models \S4).}
+\label{fig:vol9_cascaded_vacuum_line}
+\end{figure}
