@@ -1,9 +1,9 @@
 # SESSION HANDOFF — 2026-06-12 LOOP GAP audit + harness land (orchestrator / implementor)
 
 **Written:** 2026-06-12  
-**Updated:** 2026-06-12 post-#207 merge reconciliation  
-**`main` HEAD:** `98ec9270` (Merge PR **#207** — LOOP GAP harness + Phase 2b)  
-**Next branch:** `main` → new `analysis/2026-06-12-loop-gap-phase-*` (do **not** continue on merged implementor branch)  
+**Updated:** 2026-06-13 — restoration-first reorder; D-lite + C′ preregs **FROZEN**  
+**`main` HEAD:** `47b72ca8` (Merge PR **#212** — index post-PR4)  
+**Next branch:** `analysis/2026-06-12-loop-gap-phase-d` (D-lite) → `analysis/2026-06-13-loop-gap-scalar-grade` (C′ primary)  
 **Full detail:** [`2026-06-12_loop-gap-first-principles-implementor-brief.md`](2026-06-12_loop-gap-first-principles-implementor-brief.md)  
 **Harness epic:** [`2026-06-12_loop-gap-unified-harness.md`](2026-06-12_loop-gap-unified-harness.md)  
 **Execution plan:** [`2026-06-12_loop-gap-orchestration-plan.md`](2026-06-12_loop-gap-orchestration-plan.md)
@@ -31,16 +31,19 @@ Fool modes: CVR-SET, Ω_freeze IC, snap alone, cosmic stream, bulk GAP-A as rank
 (2,3) = coordinate discipline (plan I4) for launch/identification — NOT a gap-closure lever.
 Active path = loop_gap_harness.py on VacuumEngine3D. srs v9–v17 FROZEN (archive only).
 
-STATE (post-#207):
-- Harness + Phase 2b GAP-A MERGED on main @ 98ec9270
-- P11 constants: genesis_v18_coupled.py (NOT chiral_lattice_v11 — removed at merge)
-- Default CI: harness keepers only; genesis v12–v17 = opt-in (make test-genesis / 34-test tier)
-- smoke --bulk: ENGINE-GAP (rank-1 Γ open)
-- ~70 uncommitted on OLD implementor branch if still checked out — land via split PRs below
+STATE (post-#212):
+- Harness + Phase 2b GAP-A LANDED (#207); Phase C LANDED (#210); srs archive LANDED (#211)
+- Preregs FROZEN: D-lite + C′ scalar-grade restoration (Grant 2026-06-13)
+- Execution order: D-lite → C′ → D-full → E → F → G
+- smoke --bulk: ENGINE-GAP on V_inc (expected — motivates C′)
 
 YOUR ROLE — pick one:
-ORCHESTRATOR: audit tag on 98ec9270 → PR2 handoff docs → PR1 vol9 KB (fix B1) + Phase C parallel → PR4 archive
-IMPLEMENTOR: branch off main → Phase D rank-1 Γ + seed/A_LOCK sweep → F → G
+ORCHESTRATOR: merge this PR (preregs + orchestration refresh)
+COVERAGE: `_orchestration/2026-06-13_loop-gap-corpus-engine-coverage.md` — cite row IDs in prereg/PR
+
+IMPLEMENTOR (pick phase):
+  D-lite: gamma_bulk_min + smoke baseline — `research/2026-06-12_loop-gap-harness-rank1-regime_prereg_FROZEN.md`
+  C′ (PRIMARY after D-lite): scalar seed + V→ω source — `research/2026-06-13_loop-gap-scalar-grade-restoration_prereg_FROZEN.md`
 
 HARD REJECT:
 - New chiral_lattice_v19+

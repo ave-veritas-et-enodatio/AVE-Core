@@ -197,15 +197,17 @@ All v15+ provenance uses **vacuum native units** per `natural-units-cheatsheet.m
 
 | Phase | Deliverable | Status |
 |:---|:---|:---|
-| A | Index reconciliation + plan doc | **DONE** (pending PR) |
-| B | Phase 2b harness merge (GAP-A, channel tags) | **VERIFY DONE** — F0–F2 + smoke `--bulk`; PR pending |
-| C | D1 reframe + post-rupture quarantine | PENDING |
-| D | Regime-gated rank-1 + `gamma_bulk` | PENDING |
+| A | Index reconciliation + plan doc | **DONE** (#207–#212) |
+| B | Phase 2b harness merge (GAP-A, channel tags) | **LANDED** #207 |
+| C | D1 reframe + post-rupture quarantine | **LANDED** #210 |
+| D-lite | OP-2 instrument + smoke baseline | **FROZEN** prereg — implementor NEXT |
+| C′ | Scalar-grade restoration (standing $V$ + $V\to\omega$) | **FROZEN** prereg — **primary** after D-lite |
+| D-full | Rational seed sweep on restored engine | Gated on C′ |
 | E | ±k seed (not sign-flip proxy) | PENDING |
 | F | Harness ranks 2–3 | PENDING |
 | G | P11 + R2 ferrite bench | PENDING |
 
-**Regime gate (all future production):** if `max(A²) > 10 · 2α` → suffix `_POST_RUPTURE`; exclude from framing tables.
+**Regime gate (all future production):** $A_{\mathrm{yield}}=\sqrt{\alpha}$; if $\max(A^2) > 1$ → suffix `_POST_RUPTURE`; exclude from framing tables.
 
 ---
 
@@ -217,4 +219,6 @@ All v15+ provenance uses **vacuum native units** per `natural-units-cheatsheet.m
 | v14 cavity-transport | DRAFT — CAVITY-BREAK landed |
 | v15 nucleation-latent | DRAFT — HEAL-CONFIRMED landed; native units §12 pending Grant |
 | v15a-ablation | **NOT DRAFTED** — scope F1 |
+| loop-gap D-lite | **FROZEN** 2026-06-13 — `research/2026-06-12_loop-gap-harness-rank1-regime_prereg_FROZEN.md` |
+| loop-gap C′ scalar | **FROZEN** 2026-06-13 — `research/2026-06-13_loop-gap-scalar-grade-restoration_prereg_FROZEN.md` |
 | v14b pocket peak | **NOT DRAFTED** — scope F2 |

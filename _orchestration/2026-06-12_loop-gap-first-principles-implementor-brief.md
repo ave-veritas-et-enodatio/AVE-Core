@@ -93,7 +93,7 @@ Electron closure on the **active path** = advance LOOP GAP **ranks 1→4** on `l
 | **B2** | `three-channel-impedances.md` untracked, cited | Stage in PR1 | Corpus |
 | **B3** | LaTeX 03a + circuit figures untracked | Stage in PR1 | Corpus |
 | **B4** | Audit tag not on origin | `audit/2026-06-12_loop-gap-harness-phase2b` @ `98ec9270` | Orchestration |
-| **B5** | Rank-1 $\Gamma$ **ENGINE-GAP** | Phase D — implementor after corpus PRs | Implementor |
+| **B5** | Rank-1 $V_{\mathrm{inc}}$ **ENGINE-GAP** on transverse-only engine | C′ scalar restoration — **primary** after D-lite instrument | Implementor |
 
 ### I.6 — Orchestrator PR queue (post-#207)
 
@@ -115,8 +115,10 @@ Electron closure on the **active path** = advance LOOP GAP **ranks 1→4** on `l
 | **A** Ledger | Partial | Plan doc + index on branch; **this brief** adds orchestrator slice | Merge PR2/PR3 |
 | **B** Phase 2b GAP-A | **LANDED** | PR #207 merged @ `98ec9270` | Audit tag + delete branch |
 | **C** D1 reframe | PENDING | Uncommitted vol3/vol9 channel edits **support** quarantine narrative | Land PR1 |
-| **D** Rank-1 $\Gamma$ | PENDING | Smoke battery **ENGINE-GAP** — seed/$\nabla A$ engagement open | Implementor after PR3 |
-| **E** ±k seed | PENDING | Unchanged | Post–Phase D |
+| **D-lite** OP-2 instrument | PENDING | Prereg **FROZEN** 2026-06-13 — smoke baseline only | Implementor **NEXT** |
+| **C′** Scalar restoration | PENDING | Prereg **FROZEN** — standing $V$ + $V\to\omega$; **primary** after D-lite | Implementor |
+| **D-full** Seed sweep | PENDING | Gated on C′ SCALAR-LANDED/PARTIAL | Post-C′ |
+| **E** ±k seed | PENDING | Unchanged | Post–D-full |
 | **F** Ranks 2–3 | PENDING | v16 Compton tested on srs; harness rank profile ready | Post–rank-1 |
 | **G** Rank-4 P11 + R2 | PENDING | Best $E_{\mathrm{persist}}=0.71$; memristive on harness untested at production scale | Phase 3 epic |
 
@@ -143,7 +145,7 @@ Record in PR3 body: D1-B framing voice, D2 snap scope, D5 IC canon. Harness land
 - [ ] Land **PR2** (handoff docs)
 - [ ] Land **PR1** + **Phase C** (parallel OK)
 - [ ] Queue **PR4** genesis archive
-- [ ] Harness epic Phase 2b → **LANDED**; Phase 2 $\Gamma$ → open (Phase D)
+- [ ] Harness epic Phase 2b → **LANDED**; D-lite instrument → **NEXT**; C′ scalar restoration **primary**
 
 ---
 
@@ -305,7 +307,7 @@ $H$ = total Hamiltonian. **Not** $\omega$ persistence.
 | v16 best | 0.71 | FAIL |
 | v17 comoving+quiet | 0.00 | FAIL |
 | v17 pinned ref | 0.66 | FAIL |
-| Harness smoke `--bulk` | — | **ENGINE-GAP** (rank-1) |
+| Harness smoke `--bulk` | — | **ENGINE-GAP** on $V_{\mathrm{inc}}$ — motivates C′ |
 
 ---
 
@@ -325,7 +327,7 @@ $H$ = total Hamiltonian. **Not** $\omega$ persistence.
 
 1. Confirm branch `analysis/2026-06-12-genesis-v10-cvr-implementor`
 2. After PR3 merges: `pytest src/tests/test_loop_gap_harness*.py -q`
-3. Phase D: seed + `A_LOCK` sweep → rank-1 $\Gamma$
+3. D-lite: `gamma_bulk_min` + smoke baseline → C′ scalar restoration → D-full seed sweep → F → G
 4. Phase F: Compton mult battery
 5. Phase G: P11 production + memristive ablation
 
