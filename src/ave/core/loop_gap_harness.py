@@ -32,7 +32,7 @@ from ave.core.genesis_v18_coupled import (
     tau_steps_k4,
 )
 from ave.core.loop_gap_seeds import A_LOCK_DEFAULT, A_YIELD, SeedMode, apply_seed
-from ave.core.scalar_grade_seed import ScalarSeedMode, apply_scalar_seed_if_enabled
+from ave.core.scalar_grade_seed import ScalarSeedMode, apply_scalar_seed_if_enabled, scalar_seed_certificate
 from ave.topological.k4_cosserat_coupling import _cosserat_A_squared
 from ave.topological.vacuum_engine import EngineConfig, VacuumEngine3D
 
@@ -56,6 +56,8 @@ C_BULK2_LIVE_FRAC = 0.99
 OP2_VINC_FLOOR = 1e-2
 OP2_GAMMA_BULK_MAX = P18_GAMMA_MAX
 DLITE_PREREG = "research/2026-06-12_loop-gap-harness-rank1-regime_prereg_FROZEN.md"
+CPRIME_PREREG = "research/2026-06-13_loop-gap-scalar-grade-restoration_prereg_FROZEN.md"
+H_DRIFT_MAX_REL = 1e-6  # F2 conservative-window ceiling (prereg §4 F2)
 
 
 @dataclass(frozen=True)
@@ -98,6 +100,15 @@ class LoopGapResult:
     achieved_a_front_seed: float = 0.0
     regime_valid: bool = True
     op2_bin: str = "ENGINE-GAP"
+    scalar_seed_on: bool = False
+    scalar_seed_frac: float = 0.0
+    v_to_omega_source_on: bool = False
+    gap_c_coupling_on: bool = False
+    bulk_force_v_to_omega: bool = False
+    a2_v_peak: float = 0.0
+    h_drift_rel: float = 0.0
+    cp8_topology_null: bool = False
+    scalar_bin: str = ""
 
 
 def engine_config_for_rank(rank: int, **overrides: Any) -> EngineConfig:
@@ -227,6 +238,7 @@ def run_loop_gap_probe(
     scalar_seed_mode: ScalarSeedMode = "lane1_standing",
     v_to_omega_source_on: bool = False,
     bulk_force_v_to_omega: bool = False,
+    gap_c_coupling_on: bool = False,
     fast: bool = False,
 ) -> LoopGapResult:
     """Conservative ring-up + quiescence on VacuumEngine3D (no external sources)."""
@@ -271,6 +283,13 @@ def run_loop_gap_probe(
                 r_core_frac=bulk_r_core_frac,
             )
     engine.freeze_converter_wall()
+
+    cp8_topology_null = False
+    a2_v_peak = 0.0
+    if scalar_seed_on:
+        cert = scalar_seed_certificate(engine, frac=scalar_seed_frac)
+        cp8_topology_null = bool(cert["topology_null"])
+        a2_v_peak = float(cert["A2_peak"])
 
     tau = tau_steps_k4(coupled, fast=fast)
     n_drive = max(6 if fast else 10, int(round(n_drive_mult * tau)))
@@ -334,6 +353,7 @@ def run_loop_gap_probe(
     H_end = obs_end["H"]
     S_drive = obs_driveoff["S_mean"]
     S_end = obs_end["S_mean"]
+    h_drift_rel = abs(H_end - H_drive) / H_drive
 
     phi_growth = phi_drive / phi_baseline
     E_persist = H_end / H_drive
@@ -426,6 +446,14 @@ def run_loop_gap_probe(
         achieved_a_front_seed=achieved_a_seed,
         regime_valid=regime_valid,
         op2_bin=op2_bin,
+        scalar_seed_on=scalar_seed_on,
+        scalar_seed_frac=scalar_seed_frac if scalar_seed_on else 0.0,
+        v_to_omega_source_on=v_to_omega_source_on,
+        gap_c_coupling_on=gap_c_coupling_on,
+        bulk_force_v_to_omega=bulk_force_v_to_omega,
+        a2_v_peak=a2_v_peak,
+        h_drift_rel=h_drift_rel,
+        cp8_topology_null=cp8_topology_null,
     )
 
 
@@ -584,6 +612,274 @@ def loop_gap_battery(
     }
 
 
+def _scalar_f1_pass(row: dict) -> bool:
+    """F1 — scalar seed live (CP8 + A²_V floor)."""
+    if not row.get("scalar_seed_on"):
+        return False
+    floor = 0.25 * float(A_YIELD**2)
+    return bool(row.get("cp8_topology_null")) and float(row.get("a2_v_peak", 0.0)) > floor
+
+
+def _scalar_f2_pass(s2: dict, s3: dict) -> bool:
+    """F2 — V→ω source fires vs S2; H drift bounded; not bulk-force detonation."""
+    if s3.get("bulk_force_v_to_omega"):
+        return False
+    omega_ok = float(s3.get("max_omega_end", 0.0)) > float(s2.get("max_omega_end", 0.0))
+    h_ok = float(s3.get("h_drift_rel", 1.0)) <= H_DRIFT_MAX_REL
+    # v_inc nucleation is F2 PARTIAL metric — full F2 PASS needs omega lift only at smoke
+    return omega_ok and h_ok
+
+
+def _scalar_f3_pass(row: dict) -> bool:
+    """F3 — OP-2 composite on restored engine."""
+    if not row.get("regime_valid", True):
+        return False
+    f1_bulk = float(row.get("gamma_bulk_min_drive", 0.0)) <= OP2_GAMMA_BULK_MAX
+    f2_v = float(row.get("v_inc_peak", 0.0)) > OP2_VINC_FLOOR
+    return f1_bulk and f2_v
+
+
+def _scalar_arm_bin(
+    *,
+    arm: dict,
+    s1: dict | None = None,
+    s2: dict | None = None,
+) -> str:
+    """Per-arm SCALAR sub-bin (primary arms S1–S3)."""
+    label = arm.get("label", "")
+    if label == "S0":
+        return "BASELINE"
+    if label == "S1":
+        return "SCALAR-IC-LANDED" if _scalar_f1_pass(arm) else "REPRESENTATION-GAP"
+    if label in ("S2", "S3", "S4") and s2 is not None:
+        f1 = _scalar_f1_pass(arm)
+        if not f1:
+            return "REPRESENTATION-GAP"
+        if label == "S2":
+            return "ABSORB-ARM"
+        f2 = _scalar_f2_pass(s2, arm)
+        f3 = _scalar_f3_pass(arm)
+        if f2 and f3:
+            return "SCALAR-LANDED"
+        if f2 or f3 or arm.get("op2_bin") == "OP-2-PARTIAL":
+            return "SCALAR-PARTIAL"
+        return "REPRESENTATION-GAP"
+    return ""
+
+
+def _scalar_battery_verdict(
+    *,
+    s0: dict,
+    s1: dict,
+    s2: dict,
+    s3: dict,
+) -> str:
+    """Program-level SCALAR bin from prereg §4 F1–F3 on S3 primary arm."""
+    if not s3.get("regime_valid", True):
+        return "ENGINE-GAP_POST_RUPTURE"
+    f1_s1 = _scalar_f1_pass(s1)
+    f1_s3 = _scalar_f1_pass(s3)
+    if not (f1_s1 and f1_s3):
+        return "REPRESENTATION-GAP"
+    f2 = _scalar_f2_pass(s2, s3)
+    f3 = _scalar_f3_pass(s3)
+    if f2 and f3:
+        return "SCALAR-LANDED"
+    if f2 or f3 or s3.get("op2_bin") in ("OP-2-PARTIAL", "OP-2-LANDED"):
+        return "SCALAR-PARTIAL"
+    if f2:
+        return "SCALAR-PARTIAL"
+    return "REPRESENTATION-GAP"
+
+
+def loop_gap_scalar_battery(
+    *,
+    N: int = 10,
+    frac: float = 0.85,
+    include_frac_sweep: bool = False,
+) -> dict:
+    """C′ smoke battery S0–S4 + ablations per scalar-grade prereg §3."""
+    fast = True
+    quiet_mult = 1.0
+    drive_mult = 0.75
+    base = dict(
+        N=N,
+        rank_target=1,
+        bulk_density_on=True,
+        bulk_seed="probe",
+        front_target=A_YIELD,
+        n_drive_mult=drive_mult,
+        n_quiet_mult=quiet_mult,
+        fast=fast,
+        scalar_seed_frac=frac,
+    )
+
+    s0 = run_loop_gap_probe(
+        "S0",
+        seed_mode="photon_lock",
+        scalar_seed_on=False,
+        v_to_omega_source_on=False,
+        **base,
+    )
+    s1 = run_loop_gap_probe(
+        "S1",
+        seed_mode="pair",
+        amp=0.0,
+        scalar_seed_on=True,
+        v_to_omega_source_on=False,
+        **base,
+    )
+    s2 = run_loop_gap_probe(
+        "S2",
+        seed_mode="photon_lock",
+        scalar_seed_on=True,
+        v_to_omega_source_on=False,
+        **base,
+    )
+    s3 = run_loop_gap_probe(
+        "S3",
+        seed_mode="photon_lock",
+        scalar_seed_on=True,
+        v_to_omega_source_on=True,
+        **base,
+    )
+    s4 = run_loop_gap_probe(
+        "S4",
+        seed_mode="photon_lock",
+        scalar_seed_on=True,
+        v_to_omega_source_on=True,
+        gap_c_coupling_on=True,
+        **base,
+    )
+
+    ablation_kw = dict(
+        N=N,
+        rank_target=1,
+        bulk_density_on=True,
+        bulk_seed="probe",
+        front_target=A_YIELD,
+        n_drive_mult=drive_mult,
+        n_quiet_mult=quiet_mult,
+        fast=fast,
+        scalar_seed_frac=frac,
+        seed_mode="photon_lock",
+    )
+    ablations = {
+        "scalar_OFF": run_loop_gap_probe(
+            "scalar_OFF",
+            scalar_seed_on=False,
+            v_to_omega_source_on=True,
+            **ablation_kw,
+        ),
+        "source_OFF": run_loop_gap_probe(
+            "source_OFF",
+            scalar_seed_on=True,
+            v_to_omega_source_on=False,
+            **ablation_kw,
+        ),
+        "gap_c_OFF": run_loop_gap_probe(
+            "gap_c_OFF",
+            scalar_seed_on=True,
+            v_to_omega_source_on=True,
+            gap_c_coupling_on=False,
+            **ablation_kw,
+        ),
+        "bulk_OFF": run_loop_gap_probe(
+            "bulk_OFF",
+            bulk_density_on=False,
+            scalar_seed_on=True,
+            v_to_omega_source_on=True,
+            **{k: v for k, v in ablation_kw.items() if k != "bulk_density_on"},
+        ),
+        "converter_OFF": run_loop_gap_probe(
+            "converter_OFF",
+            scalar_seed_on=True,
+            converter_on=False,
+            v_to_omega_source_on=True,
+            **ablation_kw,
+        ),
+        "impedance_OFF": run_loop_gap_probe(
+            "impedance_OFF",
+            scalar_seed_on=True,
+            impedance_on=False,
+            v_to_omega_source_on=False,
+            **ablation_kw,
+        ),
+        "bulk_force_ON": run_loop_gap_probe(
+            "bulk_force_ON",
+            scalar_seed_on=True,
+            v_to_omega_source_on=False,
+            bulk_force_v_to_omega=True,
+            **ablation_kw,
+        ),
+    }
+
+    frac_sweep: list[dict] = []
+    if include_frac_sweep:
+        for f in (0.5, 1.0, 1.5):
+            r = run_loop_gap_probe(
+                f"S3_frac_{f}",
+                seed_mode="photon_lock",
+                scalar_seed_on=True,
+                v_to_omega_source_on=True,
+                scalar_seed_frac=f,
+                **{k: v for k, v in base.items() if k != "scalar_seed_frac"},
+            )
+            frac_sweep.append(_to_dict(r))
+
+    primary = [_to_dict(s0), _to_dict(s1), _to_dict(s2), _to_dict(s3), _to_dict(s4)]
+    s2d = _to_dict(s2)
+    s3d = _to_dict(s3)
+    for row in primary:
+        row["scalar_bin"] = _scalar_arm_bin(
+            arm=row,
+            s1=_to_dict(s1),
+            s2=s2d,
+        )
+
+    verdict = _scalar_battery_verdict(
+        s0=_to_dict(s0),
+        s1=_to_dict(s1),
+        s2=s2d,
+        s3=s3d,
+    )
+
+    f1_pass = _scalar_f1_pass(_to_dict(s1))
+    f2_pass = _scalar_f2_pass(s2d, s3d)
+    f3_pass = _scalar_f3_pass(s3d)
+    gap_c_wired = False  # C′5 — harness stub; S4 ≡ S3 until vent ledger ported
+
+    return {
+        "harness": "loop_gap_harness",
+        "harness_phase": "C-prime",
+        "platform": "VacuumEngine3D",
+        "prereg": CPRIME_PREREG,
+        "N": N,
+        "scalar_seed_frac": frac,
+        "target_a_front": A_YIELD,
+        "verdict": verdict,
+        "scalar_bin": verdict,
+        "op2_bin": s3d["op2_bin"],
+        "primary_arm": "S3",
+        "falsifiers": {
+            "F1_scalar_seed": f1_pass,
+            "F2_v_to_omega_source": f2_pass,
+            "F3_op2_composite": f3_pass,
+        },
+        "arms": primary,
+        "frac_sweep": frac_sweep,
+        "ablations": {k: _to_dict(v) for k, v in ablations.items()},
+        "gap_c_coupling_wired": gap_c_wired,
+        "classification": {
+            "H1": "consistency-check — S0 transverse-only baseline",
+            "H2": "consistency-check — S1 scalar IC without source",
+            "H3": "emergence-test — S3 scalar + V→ω vs S0",
+            "H4": "consistency-check — GAP-C channel separation (pending C′5)",
+            "H5": "consistency-check — bulk_force detonation control",
+        },
+    }
+
+
 def loop_gap_dlite_battery(*, N: int = 10) -> dict:
     """D-lite smoke baseline per rank-1 FROZEN charter (§3)."""
     fast = True
@@ -724,4 +1020,15 @@ def _to_dict(r: LoopGapResult) -> dict:
         "achieved_a_front_seed": r.achieved_a_front_seed,
         "regime_valid": r.regime_valid,
         "op2_bin": r.op2_bin,
+        "scalar_seed_on": r.scalar_seed_on,
+        "scalar_seed_frac": r.scalar_seed_frac,
+        "v_to_omega_source_on": r.v_to_omega_source_on,
+        "gap_c_coupling_on": r.gap_c_coupling_on,
+        "bulk_force_v_to_omega": r.bulk_force_v_to_omega,
+        "a2_v_peak": r.a2_v_peak,
+        "h_drift_rel": r.h_drift_rel,
+        "cp8_topology_null": r.cp8_topology_null,
+        "omega_peak": r.omega_peak,
+        "omega_peak_evolved": r.omega_peak_evolved,
+        "scalar_bin": r.scalar_bin,
     }

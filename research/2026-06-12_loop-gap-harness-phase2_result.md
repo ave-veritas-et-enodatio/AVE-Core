@@ -130,3 +130,52 @@ v18 production (pair, uniform): $\Gamma_{\min} \approx -4\times 10^{-4}$, $E_{\m
 **Composite verdict:** **ENGINE-GAP** on primary arm (expected by thesis). B2 pair path shows **OP-2-PARTIAL** ($V_{\mathrm{inc}}$ only) — consistency arm, not emergence on transverse $\omega$ packet.
 
 **Next:** Phase C′ implementor — `research/2026-06-13_loop-gap-scalar-grade-restoration_prereg_FROZEN.md`
+
+---
+
+## §8 — Phase C′ scalar-grade restoration (2026-06-13)
+
+**Prereg:** `research/2026-06-13_loop-gap-scalar-grade-restoration_prereg_FROZEN.md`  
+**Driver:** `./.venv/bin/python src/scripts/vol_1_foundations/loop_gap_harness_genesis.py --smoke-scalar`  
+**JSON:** `assets/sim_outputs/loop_gap_harness_scalar_battery.json`  
+**Runtime:** ~15 min (N=10, S0–S4 + ablations)
+
+| Item | Detail |
+|:---|:---|
+| C′1 | `scalar_grade_seed.py` — Lane-1 standing $V$, CP8 on S1 |
+| C′2 | `scalar_grade_source.py` — B′ Beltrami bootstrap (relu(−Γ) rejected) |
+| C′5 | GAP-C **not wired** — S4 ≡ S3 |
+
+### §8.1 Primary arms (frac=0.85, $A_{\mathrm{yield}}$ front)
+
+| Arm | $V_{\mathrm{inc,peak}}$ | $\Gamma_{\mathrm{bulk,min}}$ | $\|\omega\|_{\mathrm{end}}$ | $A^2_V$ | $H_{\mathrm{drift}}$ | OP-2 | SCALAR |
+|:---|---:|---:|---:|---:|---:|:---|:---|
+| S0 | 0 | −0.190 | 0.043 | 0 | 0.145 | ENGINE-GAP | BASELINE |
+| S1 | 0.289 | −0.190 | 0 | 0.321 | 0.517 | OP-2-PARTIAL | SCALAR-IC-LANDED |
+| S2 | 0.289 | −0.190 | 0.043 | 0.321 | 0.492 | OP-2-PARTIAL | REPRESENTATION-GAP |
+| **S3** | **0.289** | **−0.190** | **0.043** | **0.321** | **0.492** | **OP-2-PARTIAL** | REPRESENTATION-GAP |
+| S4 | 0.289 | −0.190 | 0.043 | 0.321 | 0.492 | OP-2-PARTIAL | REPRESENTATION-GAP |
+
+### §8.2 Falsifiers (primary S3)
+
+| ID | Result | Read |
+|:---|:---:|:---|
+| F1 scalar seed | **PASS** | S1: CP8 null, $A^2_V=0.32 > 0.25\,A_{\mathrm{yield}}^2$ |
+| F2 $V\to\omega$ source | **FAIL** | S3 $\|\omega\|$ ≈ S2; $H_{\mathrm{drift}}\approx 0.49 \gg 10^{-6}$ |
+| F3 OP-2 composite | **FAIL** | $\Gamma_{\mathrm{bulk}}=-0.19 > -0.25$; $V_{\mathrm{inc}}$ high but **IC-attributable** on S1 (not dynamic nucleation) |
+
+### §8.3 Hypothesis read
+
+| ID | Verdict |
+|:---|:---|
+| H1 | **CONFIRMED** — S0 $V_{\mathrm{inc}}=0$ (transverse-only baseline) |
+| H2 | **CONFIRMED** — S1 scalar IC lands without source; $\omega=0$ at $t=0$ |
+| H3 | **NOT SUPPORTED** — S3 does not deepen $\Gamma_{\mathrm{bulk}}$ or lift $\|\omega\|$ vs S2 at smoke budget |
+| H4 | **DEFERRED** — GAP-C not wired |
+| H5 | **INCONCLUSIVE** at battery scale — `bulk_force_ON` arm matches S3 $\|\omega\|$; keeper detonation test passes at reduced budget |
+
+**Composite verdict:** **REPRESENTATION-GAP** (program bin). **Physics read:** **SCALAR-PARTIAL** — scalar IC restoration lands (F1); conservative source + OP-2 dynamic closure **not** demonstrated at √α smoke. Do **not** promote S1/S3 $V_{\mathrm{inc}}\approx 0.29$ as OP-2 LANDED (seed scatter into transverse readout).
+
+**D-full gate:** SCALAR-PARTIAL documented — rational `a_lock` / saturation-front sweep may proceed; expect Grant adjudication on χ lock leg if source stays weak.
+
+**Next:** PR `analysis/2026-06-13-loop-gap-scalar-grade`; optional C′5 GAP-C; D-full on restored engine.

@@ -13,7 +13,11 @@ import json
 import sys
 from pathlib import Path
 
-from ave.core.loop_gap_harness import loop_gap_battery, loop_gap_dlite_battery
+from ave.core.loop_gap_harness import (
+    loop_gap_battery,
+    loop_gap_dlite_battery,
+    loop_gap_scalar_battery,
+)
 from ave.core.loop_gap_seeds import A_YIELD, SeedMode
 
 PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").exists())
@@ -21,14 +25,51 @@ OUT = PROJECT_ROOT / "assets" / "sim_outputs"
 
 
 def main() -> None:
+    scalar = "--smoke-scalar" in sys.argv or "--scalar" in sys.argv
     dlite = "--dlite" in sys.argv
-    smoke = "--smoke" in sys.argv or dlite
-    bulk = "--bulk" in sys.argv or dlite
+    smoke = "--smoke" in sys.argv or dlite or scalar
+    bulk = "--bulk" in sys.argv or dlite or scalar
     seed: SeedMode = "photon_lock"
     for arg in sys.argv[1:]:
         if arg.startswith("--seed="):
             seed = arg.split("=", 1)[1]
     N = 10 if smoke else 14
+    if scalar:
+        result = loop_gap_scalar_battery(N=N)
+        result["smoke"] = True
+        result["scalar"] = True
+        print("=" * 72)
+        print("LOOP GAP UNIFIED HARNESS (C′ SMOKE-SCALAR)")
+        print(
+            f"N={N} platform=VacuumEngine3D phase=C-prime "
+            f"frac={result.get('scalar_seed_frac', 0.85)} bulk=True srs=FROZEN@v17"
+        )
+        for row in result["arms"]:
+            print(
+                f"  {row['label']}: V_inc={row['v_inc_peak']:.3e} "
+                f"Γ_bulk={row['gamma_bulk_min_drive']:.3f} "
+                f"|ω|={row['max_omega_end']:.3e} "
+                f"A²_V={row['a2_v_peak']:.4f} "
+                f"H_drift={row['h_drift_rel']:.3e} "
+                f"OP2={row['op2_bin']} SCALAR={row.get('scalar_bin', '')}"
+            )
+        fals = result.get("falsifiers", {})
+        print(
+            f"  F1={fals.get('F1_scalar_seed')} "
+            f"F2={fals.get('F2_v_to_omega_source')} "
+            f"F3={fals.get('F3_op2_composite')}"
+        )
+        print("=" * 72)
+        print("VERDICT:", result["verdict"], "| OP2:", result["op2_bin"])
+        print("Primary:", result["primary_arm"])
+        if not result.get("gap_c_coupling_wired"):
+            print("NOTE: GAP-C (S4) not wired — C′5 pending")
+        print("=" * 72)
+        OUT.mkdir(parents=True, exist_ok=True)
+        path = OUT / "loop_gap_harness_scalar_battery.json"
+        path.write_text(json.dumps(result, indent=2))
+        print(f"Wrote {path}")
+        return
     if dlite:
         result = loop_gap_dlite_battery(N=N)
         result["smoke"] = True
