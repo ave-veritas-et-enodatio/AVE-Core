@@ -20,20 +20,21 @@ Electron = **Class A/B consistency structure** on **z=4 diamond K4** (`research/
 | **P0** | LOOP GAP orchestration plan | [`2026-06-12_loop-gap-orchestration-plan.md`](2026-06-12_loop-gap-orchestration-plan.md) | **A** ✅ | Merged #207 |
 | **P1** | Unified K4 harness | [`2026-06-12_loop-gap-unified-harness.md`](2026-06-12_loop-gap-unified-harness.md) | **B** (2b) ✅ | **LANDED** #207 + #208 handoff |
 | **P1b** | Vol 9 three-channel KB | [`2026-06-12_vol9-kb-discipline-pass.md`](2026-06-12_vol9-kb-discipline-pass.md) | ✅ | **LANDED** #209 |
-| **P2** | Corpus discipline | Plan §Phase C | **C** | D1 reframe + v9/v10 quarantine (this PR) |
-| **P3** | Rank-1 regime charter | Plan §Phase D | **D** | `gamma_bulk` + seed/`A_LOCK` sweep — implementor off `main` |
+| **P1c** | srs genesis archive | Plan §PR4 | ✅ | **LANDED** #211 @ `7cf5cdd6`; audit `audit/2026-06-13_loop-gap-genesis-archive` |
+| **P2** | Corpus discipline | Plan §Phase C | **C** ✅ | **LANDED** #210 — D1 reframe + regime quarantine |
+| **P3** | Rank-1 regime charter | Plan §Phase D | **D** | **NEXT** — `gamma_bulk` + seed/`A_LOCK` sweep; branch `analysis/2026-06-12-loop-gap-phase-d` |
 | **P4** | Electron synthesis (record) | [`2026-06-07_electron-synthesis-epic.md`](2026-06-07_electron-synthesis-epic.md) | — | Ranks via harness only |
 | **P5** | R2 constitutive loop | `research/2026-06-12_constitutive-loop-r2-prereg_FROZEN.md` | **G2** (parallel) | Ferrite bench when Grant schedules |
 | — | Experimental arc | [`experimental/experimental-arc.md`](experimental/experimental-arc.md) | — | Unchanged |
 
-**Session handoff:** [`2026-06-12_loop-gap-orchestration-session-handoff.md`](2026-06-12_loop-gap-orchestration-session-handoff.md) · **`main` HEAD:** post-#209. **Next:** Phase C (this slice) → PR4 genesis archive → Phase D implementor.
+**Session handoff:** [`2026-06-12_loop-gap-orchestration-session-handoff.md`](2026-06-12_loop-gap-orchestration-session-handoff.md) · **`main` HEAD:** `31c4235c` (PR #211 merged). **Next:** Phase D implementor (`gamma_bulk` + seed/`A_LOCK` ablation).
 
 ### Decision stack (2026-06-12 physics read — supersedes 2026-06-11 CLOSED rows for execution)
 
 | ID | Session record (2026-06-11) | Physics read (2026-06-12) | Plan action |
 |:---|:---|:---|:---|
 | D1 structural | (via R3) | **LANDED** — decoration ρ ≈ 0.057% | Keep |
-| D1 framing | B-primary / A-partial | **REOPEN** — over-closed on quarantined P5/P6 | Phase C |
+| D1 framing | B-primary / A-partial | **REOPEN** — SESSION-RECORD; quarantined P5/P6 bins | **LANDED** #210 (Phase C) |
 | D2 snap | σ + rate-gated snap | **DOWNGRADE** — v10: not load-bearing | σ-only harness default |
 | D3 | Phase-1/2 freeze | Keep | — |
 | D4/D5 | χ equal; Ω_freeze IC | Ω_freeze ≠ remanence (ablation falsified) | Ablation arms only |
@@ -60,10 +61,10 @@ Electron = **Class A/B consistency structure** on **z=4 diamond K4** (`research/
 
 ### Carry-forward
 
-- Phase C–G per orchestration plan (C ∥ PR1; then D implementor off `main`)
-- Vol9 KB + genesis v12–v17 archive: **split PRs** — see session handoff §5
-- Audit tag `audit/2026-06-12_loop-gap-harness-phase2b` on `98ec9270` — pushed origin
-- Delete merged implementor branch `analysis/2026-06-12-genesis-v10-cvr-implementor` after tag verify
+- **Phase D** implementor off `main` — rank-1 regime charter (`research/2026-06-12_loop-gap-harness-rank1-regime_prereg_DRAFT.md` → FROZEN)
+- Phases E–G per orchestration plan (seed ±k fix, ranks 2–3, rank-4 + R2 bench)
+- Audit tags on origin: `audit/2026-06-12_loop-gap-harness-phase2b` (`98ec9270`), `audit/2026-06-13_loop-gap-genesis-archive` (`7cf5cdd6`)
+- Merged LOOP GAP branches deleted (local + origin)
 
 ---
 
