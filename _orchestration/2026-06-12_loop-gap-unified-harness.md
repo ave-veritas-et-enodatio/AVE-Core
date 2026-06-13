@@ -139,3 +139,11 @@
 | v16/v17 P11 fail | Quiescence protocol + K4 observables |
 | v15b V_INC-LANDED | Rank 1 partial — converter path validated |
 | v18 smoke PARTIAL | Γ + metric fixes → Phase 2 |
+
+---
+
+## 2026-06-13 addendum — engine capability map + the C′ platform decision
+
+**The C′ scalar-grade diagnosis closed a deeper question than the seed bug.** This harness (`VacuumEngine3D`) **cannot host the A1 stiffening cage** — its scalar is a `v_scalar_from_v_inc(V_inc)` projection (softening-bulk only; def `cross_sector_coupling.py:226`, used at `k4_cosserat_coupling.py:499`), so the cage's engine-confirmed home is the longitudinal-bulk engine (`crystal_engine.py` / `master_equation_fdtd.py`). The full engine×DOF picture — the 7 DOF, the three canon-derived firewalls, and the substrate-complete-engine **design proposal** — is now a tracked KB artifact: [`engine-capability-map.md`](../manuscript/ave-kb/common/engine-capability-map.md) + a living-tracker figure.
+
+**Platform decision (Option A — PENDING Grant ratification; block in [`index.md`](index.md) §2026-06-13 addendum).** The C′ cage test runs on `crystal_engine` / `master_equation_fdtd`, **not** this harness; `ave-loop-gap-harness-discipline` needs amending to *"one platform per firewalled branch"* (out-of-band, user-level skill). Until ratified, Phase C′-on-the-harness is **HELD**. The harness continues to own the doctrine §2 ranks (softening-bulk + Cosserat + transport); the stiffening cage is a separate firewalled branch.
