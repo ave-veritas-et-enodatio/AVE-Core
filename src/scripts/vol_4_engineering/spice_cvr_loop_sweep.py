@@ -92,7 +92,11 @@ def main() -> int:
     print("[*] SPICE-CVR constitutive-loop sweep (omega*tau grid)")
     result = run_ladder_battery()
     print(f"    verdict = {result['verdict']}")
+    print(f"    L2 read  = {result['l2_emergence_read']}")
     print(f"    D2 read  = {result['d2_read']}")
+    print(
+        f"    L2 B_r peak = {result['l2_max_br']:.4f} @ omega*tau={result['l2_max_br_omega_tau']}"
+    )
     print(f"    omega*tau grid = {result['omega_tau_grid']}")
     if result["l1_surprise_br"]:
         print(f"    FLAG: L1 max B_r = {result['l1_max_br']:.4f} (prereg predicted pinched)")
@@ -131,8 +135,11 @@ def main() -> int:
         "DISSIPATIVE-ONLY",
         "REMANENT-LOOP",
         "REGIME-LIMITED",
+        "IMPOSED-LATCH",
     }
     assert gates[f"bin_{result['verdict'].replace('-', '_')}"]
+    if result["verdict"] == "DISSIPATIVE-ONLY":
+        assert "IMPOSED-LATCH" in result["l2_emergence_read"]
     return 0
 
 

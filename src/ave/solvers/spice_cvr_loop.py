@@ -6,7 +6,8 @@ research/2026-06-13_spice-cvr-constitutive-loop_prereg.md:
 
   L0 — instantaneous S_eq(r) (anhysteretic null)
   L1 — memristor ODE dS/dt = (S_eq - S) / tau
-  L2 — L1 + rate-gated snap latch (D2 discriminator)
+  L2 — L1 + imposed software latch (audit: NOT canonical remanence;
+        see result doc §0 auditor addendum — min(S,S_latched) tautology)
 
 Observables per cycle:
   loop_area = ∮ S dr  (shoelace in (r, S) plane)
@@ -23,7 +24,7 @@ from typing import Literal
 
 import numpy as np
 
-from ave.core.constants import TAU_RELAX_SI
+from ave.core.constants import ALPHA, TAU_RELAX_SI
 
 ArmLabel = Literal["L0", "L1", "L2"]
 BinLabel = Literal[
@@ -31,6 +32,7 @@ BinLabel = Literal[
     "DISSIPATIVE-ONLY",
     "REMANENT-LOOP",
     "REGIME-LIMITED",
+    "IMPOSED-LATCH",
 ]
 
 EPS_LOOP = 1e-6
@@ -199,21 +201,35 @@ def classify_bin(
     l1_rows: list[CycleMetrics],
     l2_rows: list[CycleMetrics],
 ) -> BinLabel:
-    """Apply frozen prereg bins to ladder sweep."""
+    """
+    Apply frozen prereg bins to L0/L1 physics.
+
+    L2 uses an imposed ``min(S, S_latched)`` software ratchet (not in ``.lib``,
+    no double-well / EOS collapse). Auditor adjudication (PR #215): that arm
+    does **not** close the loop gap — see ``l2_emergence_read`` separately.
+    """
     if l0.loop_area >= EPS_LOOP or l0.b_r >= EPS_BR:
         return "REGIME-LIMITED"
 
     l1_any_area = any(m.loop_area >= EPS_LOOP for m in l1_rows)
     l2_any_area = any(m.loop_area >= EPS_LOOP for m in l2_rows)
-    l2_any_br = any(m.b_r >= EPS_BR for m in l2_rows)
 
     if not l1_any_area and not l2_any_area:
         return "ANHYSTERETIC"
-    if l2_any_br:
-        return "REMANENT-LOOP"
     if l1_any_area or l2_any_area:
         return "DISSIPATIVE-ONLY"
     return "REGIME-LIMITED"
+
+
+def l2_emergence_read(l2_rows: list[CycleMetrics]) -> str:
+    """Auditor-facing read on the imposed L2 clamp — not a frozen prereg bin."""
+    l2_any_br = any(m.b_r >= EPS_BR for m in l2_rows)
+    if l2_any_br:
+        return (
+            "IMPOSED-LATCH — min(S,S_latched) software ratchet; "
+            "hardcoded snap thresholds; not canonical remanence; emergence inconclusive"
+        )
+    return "L2 latch inert on grid"
 
 
 def frozen_bin_gates(
@@ -241,6 +257,7 @@ def frozen_bin_gates(
         "bin_ANHYSTERETIC": verdict == "ANHYSTERETIC",
         "bin_DISSIPATIVE_ONLY": verdict == "DISSIPATIVE-ONLY",
         "bin_REMANENT_LOOP": verdict == "REMANENT-LOOP",
+        "bin_IMPOSED_LATCH": verdict == "IMPOSED-LATCH",
         "bin_REGIME_LIMITED": verdict == "REGIME-LIMITED",
     }
 
@@ -255,6 +272,8 @@ def run_ladder_battery(
     l1_rows = [simulate_arm("L1", omega_tau=w, r_amp=r_amp)[2] for w in omega_tau_grid]
     l2_rows = [simulate_arm("L2", omega_tau=w, r_amp=r_amp)[2] for w in omega_tau_grid]
     verdict = classify_bin(l0=l0m, l1_rows=l1_rows, l2_rows=l2_rows)
+    l2_read = l2_emergence_read(l2_rows)
+    l2_max_br_row = max(l2_rows, key=lambda m: m.b_r)
     gates = frozen_bin_gates(l0=l0m, l1_rows=l1_rows, l2_rows=l2_rows, verdict=verdict)
     l1_max_br = max(m.b_r for m in l1_rows)
 
@@ -262,6 +281,7 @@ def run_ladder_battery(
         "prereg": "research/2026-06-13_spice-cvr-constitutive-loop_prereg.md",
         "tau_relax_si": TAU_RELAX_SI,
         "tau_eff_native": 1.0,
+        "sqrt_alpha": float(math.sqrt(ALPHA)),
         "omega_tau_grid": list(omega_tau_grid),
         "r_amp": r_amp,
         "L0": {
@@ -272,21 +292,33 @@ def run_ladder_battery(
         "L1_sweep": [m.__dict__ for m in l1_rows],
         "L2_sweep": [m.__dict__ for m in l2_rows],
         "verdict": verdict,
-        "d2_read": _d2_read(verdict),
+        "l2_emergence_read": l2_read,
+        "l2_imposed_clamp": True,
+        "l2_max_br": l2_max_br_row.b_r,
+        "l2_max_br_omega_tau": l2_max_br_row.omega_tau,
+        "d2_read": _d2_read(verdict, l2_read),
         "frozen_gates": gates,
         "l1_surprise_br": l1_max_br >= EPS_BR,
         "l1_max_br": l1_max_br,
+        "spice_executed": False,
         "thresholds": {"epsilon_loop": EPS_LOOP, "epsilon_br": EPS_BR},
     }
 
 
-def _d2_read(verdict: BinLabel) -> str:
+def _d2_read(verdict: BinLabel, l2_read: str = "") -> str:
     if verdict == "ANHYSTERETIC":
         return "D2a sigma-only — constitutive law cannot supply remanence"
     if verdict == "DISSIPATIVE-ONLY":
+        if "IMPOSED-LATCH" in l2_read:
+            return (
+                "D2 undecided — L1 pinched dissipation only; "
+                "L2 remanence is imposed-latch tautology, not substrate emergence"
+            )
         return "D2a — loss tangent / reactive only; no B_r memory"
     if verdict == "REMANENT-LOOP":
         return "D2b vindicated — rate-gated snap gives B_r at H=0 in silico"
+    if verdict == "IMPOSED-LATCH":
+        return "D2 undecided — latch imposed by hand; emergence inconclusive"
     return "REGIME-LIMITED — harness or grid; no physics bin"
 
 

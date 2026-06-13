@@ -56,21 +56,24 @@ class TestL1Memristor:
 
 
 class TestL2Snap:
-    def test_l2_remanence_at_h_zero(self) -> None:
-        _, _, m = simulate_arm("L2", omega_tau=1.0)
+    def test_l2_imposed_clamp_produces_br(self) -> None:
+        """Imposed min(S,S_latched) ratchet — auditor: tautology, not emergence."""
+        _, _, m = simulate_arm("L2", omega_tau=0.7)
         assert m.b_r >= EPS_BR
-        assert m.loop_area >= EPS_LOOP
 
 
 class TestFrozenBattery:
-    def test_battery_fires_remanent_loop_bin(self) -> None:
+    def test_physics_bin_dissipative_only(self) -> None:
         r = run_ladder_battery()
-        assert r["verdict"] == "REMANENT-LOOP"
+        assert r["verdict"] == "DISSIPATIVE-ONLY"
+        assert "IMPOSED-LATCH" in r["l2_emergence_read"]
         assert r["frozen_gates"]["H0_L0_area_zero"]
         assert r["frozen_gates"]["H0_L0_br_zero"]
         assert r["frozen_gates"]["H1_L1_area_monotone"]
-        assert r["frozen_gates"]["bin_REMANENT_LOOP"]
-        assert r["frozen_gates"]["H2_L2_br_when_verdict_remanent"]
+        assert r["frozen_gates"]["bin_DISSIPATIVE_ONLY"]
+        assert not r["frozen_gates"]["bin_REMANENT_LOOP"]
+        assert r["l2_max_br_omega_tau"] == pytest.approx(0.7, rel=1e-6)
+        assert r["l2_max_br"] == pytest.approx(0.2877418292124396, rel=1e-4)
 
     def test_branch_area_zero_for_single_valued_l0(self) -> None:
         r = np.linspace(0, 0.8, 50)

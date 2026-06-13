@@ -2,6 +2,7 @@
   "prereg": "research/2026-06-13_spice-cvr-constitutive-loop_prereg.md",
   "tau_relax_si": 1.2880886674083153e-21,
   "tau_eff_native": 1.0,
+  "sqrt_alpha": 0.08542454313193604,
   "omega_tau_grid": [
     0.01,
     0.05,
@@ -204,8 +205,12 @@
       "n_cycles": 3
     }
   ],
-  "verdict": "REMANENT-LOOP",
-  "d2_read": "D2b vindicated \u2014 rate-gated snap gives B_r at H=0 in silico",
+  "verdict": "DISSIPATIVE-ONLY",
+  "l2_emergence_read": "IMPOSED-LATCH \u2014 min(S,S_latched) software ratchet; hardcoded snap thresholds; not canonical remanence; emergence inconclusive",
+  "l2_imposed_clamp": true,
+  "l2_max_br": 0.2877418292124396,
+  "l2_max_br_omega_tau": 0.7,
+  "d2_read": "D2 undecided \u2014 L1 pinched dissipation only; L2 remanence is imposed-latch tautology, not substrate emergence",
   "frozen_gates": {
     "H0_L0_area_zero": true,
     "H0_L0_br_zero": true,
@@ -213,12 +218,14 @@
     "H1_L1_pinched_at_slow_rate": true,
     "H2_L2_br_when_verdict_remanent": true,
     "bin_ANHYSTERETIC": false,
-    "bin_DISSIPATIVE_ONLY": false,
-    "bin_REMANENT_LOOP": true,
+    "bin_DISSIPATIVE_ONLY": true,
+    "bin_REMANENT_LOOP": false,
+    "bin_IMPOSED_LATCH": false,
     "bin_REGIME_LIMITED": false
   },
   "l1_surprise_br": true,
   "l1_max_br": 0.01667973603833761,
+  "spice_executed": false,
   "thresholds": {
     "epsilon_loop": 1e-06,
     "epsilon_br": 0.001
