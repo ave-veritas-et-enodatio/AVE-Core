@@ -43,19 +43,31 @@ _ENGINE_SIM_TESTS = {
     "test_loop_gap_harness_bulk_channel.py::test_f2_channel_tags_on_bulk_probe", # T1 (flag/tag presence; mistagged T0 in ledger)
 }
 # EXCEPTIONS — kept in the GATING lane despite living in a whole-file engine_sim
-# module: the D-INHERIT inheritance-CONTRACT keepers ("a new vN knob OFF
-# reproduces the inherited path byte-for-byte"), which research/2026-06-10_
-# genesis-v7-quadrature_result.md:5 calls "the D-INHERIT keeper ... must stay
-# green". These are CHEAP relative identities (vN OFF == parent/vN-1, ~<1-2s
-# each) that gate the genesis INHERITANCE CONTRACT during active v7/v8 dev.
-# NOTE (scope, honest): being relative, they are common-mode-blind to a silent
-# crystal_engine BASE shift -- the base REGIME is gated separately and already,
-# by test_master_equation_v14_mode_i.py + test_cosserat_master_equation_op14.py
-# (loose regime bounds, NOT goldens -- a tight golden would violate the
-# apparatus-qualified-magnitude discipline). So this gates the contract, not the
-# base. (Per-test granularity fix; 2026-06-13 audit of the unified_* whole-file marks.)
+# module: the genesis INHERITANCE/DORMANCY-CONTRACT keepers, which
+# research/2026-06-10_genesis-v7-quadrature_result.md:5 calls "the D-INHERIT
+# keeper ... must stay green". They gate the contract during active v7/v8 dev.
+#
+# SCOPING PRINCIPLE (draw the boundary by CONFIG, not by the test's NAME — the
+# name carries a salience bias that has mis-drawn this line twice):
+#   keep-gating == a STRICT default-off contract: feature-OFF (`*_on=False`,
+#   `frac=0`, snap_u_mode="inherited", ...) ⇒ inherited sectors UNCHANGED
+#   (byte/bit-identical to parent/vN-1) AND the new sector INERT (stays zero).
+#   The two halves are distinct: null1 asserts V/w/omega==parent (inheritance);
+#   null2 asserts rho_bar/u_adv/step_count==0 (dormancy) — null1 passes a
+#   new-sector-activates-by-default regression straight through, so BOTH gate.
+# DELIBERATELY NOT here (recorded, not missed): the PROBE-FLOOR / reading
+#   controls — `chi0_is_the_known_null_floor`, `k_rigid_null`, `d15_chi_zero`.
+#   They are also default-off but assert a PROBE's null reading (apparatus-floor
+#   class), not the inheritance/dormancy contract — they stay opt-in.
+# NOTE (scope, honest): these are RELATIVE identities ⇒ common-mode-blind to a
+#   silent crystal_engine BASE shift. The base REGIME is gated separately and
+#   already, by test_master_equation_v14_mode_i.py + test_cosserat_master_
+#   equation_op14.py (LOOSE regime bounds, NOT goldens — a tight golden would
+#   violate the apparatus-qualified-magnitude discipline). So this gates the
+#   contract, not the base. (2026-06-13 audit of the unified_* whole-file marks.)
 _ENGINE_SIM_KEEP_GATING = {
-    "test_unified_genesis_engine.py::test_null1_bit_identical_to_parent",
+    "test_unified_genesis_engine.py::test_null1_bit_identical_to_parent",       # inheritance half
+    "test_unified_genesis_engine.py::test_null2_dormant_bulk_stays_zero",       # dormancy half (config-signal 8th)
     "test_unified_quadrature_v7.py::test_k_off_quadrature_defaults_off_byte_identical_to_v6",
     "test_unified_transducer_v6.py::test_v6_transducer_defaults_off_byte_identical",
     "test_unified_transducer_v6.py::test_v6_omega_recipient_frac0_is_byte_identical_pure_u_adv",
