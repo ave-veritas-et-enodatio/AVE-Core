@@ -122,6 +122,53 @@ R1 N1 GND 1G
 
 
 @ngspice_required
+class TestMemristorSubcircuit:
+    """Verify Level-2 memristor subcircuits parse in ngspice."""
+
+    def test_memristor_state_subcircuit(self) -> None:
+        test_netlist = f"""\
+* Memristor state integrator syntax check
+{'.INCLUDE ' + str(lib_path())}
+V1 N1 GND SIN(0 10000 1Meg)
+X1 N1 GND N_S AVE_MEMRISTOR_S_STATE TAU_REL=1n V_YLD=43653.7
+R1 N_S GND 1G
+.TRAN 1n 10u
+.END
+"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            cir_path = Path(tmpdir) / "memristor.cir"
+            cir_path.write_text(test_netlist, encoding="utf-8")
+            result = subprocess.run(
+                ["ngspice", "-b", str(cir_path)],
+                capture_output=True,
+                text=True,
+                timeout=30,
+            )
+            assert result.returncode == 0, f"Memristor subcircuit failed:\n{result.stderr[:500]}"
+
+    def test_vacuum_cell_l1_subcircuit(self) -> None:
+        test_netlist = f"""\
+* L1 vacuum cell syntax check
+{'.INCLUDE ' + str(lib_path())}
+V1 N1 GND SIN(0 5000 1Meg)
+X1 N1 GND AVE_VACUUM_CELL_L1 L0=1n C0=1p TAU_REL=1n
+R1 N1 GND 1Meg
+.TRAN 1n 5u
+.END
+"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            cir_path = Path(tmpdir) / "l1_cell.cir"
+            cir_path.write_text(test_netlist, encoding="utf-8")
+            result = subprocess.run(
+                ["ngspice", "-b", str(cir_path)],
+                capture_output=True,
+                text=True,
+                timeout=30,
+            )
+            assert result.returncode == 0, f"L1 cell failed:\n{result.stderr[:500]}"
+
+
+@ngspice_required
 class TestNgspiceACResonance:
     """
     Verify the single-cell resonant frequency matches f = 1/(2π√LC).

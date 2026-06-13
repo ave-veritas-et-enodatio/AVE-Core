@@ -112,6 +112,10 @@ assets/sim_outputs/*
 !assets/sim_outputs/vacuum_birefringence_E4.png
 !assets/sim_outputs/vacuum_dielectric_saturation.png
 !assets/sim_outputs/vacuum_mirror_sensitivities.png
+!assets/sim_outputs/spice_cvr_loop_L0_anhysteretic.png
+!assets/sim_outputs/spice_cvr_loop_L1_memristor.png
+!assets/sim_outputs/spice_cvr_loop_L2_snap.png
+!assets/sim_outputs/spice_cvr_loop_sweep_metrics.png
 
 # Canonical external research data — explicit allowlist (override of data/* above)
 # External research artifacts (not simulation outputs) tracked for reproducibility.

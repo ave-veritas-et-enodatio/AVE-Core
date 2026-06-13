@@ -69,7 +69,7 @@ Functions:
 | [SPICE Subcircuit Specification](./spice-subcircuit.md) | Full behavioral source equations, numerical stability notes, usage examples |
 
 *Cross-references*:
-- `src/ave/hardware/spice_models/ave_vacuum_cell.lib`
+- `src/ave/solvers/spice_models/ave_vacuum_cell.lib`
 - `src/ave/solvers/spice_netlist_compiler.py`
 - Backmatter App 6 — SPICE Verification Manual
 - [Nonlinear Constitutive Models](../../circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md) — varactor, inductor, TVS theory
