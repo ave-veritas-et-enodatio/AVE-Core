@@ -101,3 +101,47 @@ Off-diagonal = winding handedness (`S_LR ≠ S_RL*` = parity-odd, the (2,3) wind
 every figure re-runs+matches · DERIVED/STATED/CONSISTENCY/AVE-DISTINCT tags · H(s) poles ↔ Q=1/α ·
 |Γ|²=1−α ↔ per-cycle leak · exponent-defect (S^0.5-vs-S^0.25) + S_min clip carried · magnetic branch (Z→0)
 not Z→∞ · discrimination-check applied · gravity-vs-GW channel split honored · pure-AVE · Rule-11/12.
+
+---
+
+## COMPLETION + AUDITOR HANDOFF (2026-06-13)
+
+**Status: P1–P6 COMPLETE.** Branch `analysis/2026-06-13-cvr-ee-sweep-doc` (worktree
+`/Users/grantlindblom/AVE-staging/AVE-Core-cvrdoc-wt`), 5 commits off clean origin/main 79fae7ed, tree clean,
+**unpushed** (Grant decides push/PR; main protected). Commit range `4c94cb4e..8d25eac5`.
+
+| Phase | Commit | Deliverable |
+|---|---|---|
+| P1 | 4c94cb4e | scripts (`cvr_model.py` spine + `cvr_ee_sweep.py`) + 6 figures + metrics JSON |
+| P2 | 5763fe4b | 5 KB leaves vol4/circuit-theory/ch1 (cvr-transfer-function/dc-operating-point/reflection-smith/phasor-reactance/stability-eigenmode) + ch1 index |
+| P3 | 5df65fb6 | NEW ch15 leaf `lattice-extreme-bh-rationality.md` + clm-ir8h78 2GM/7GM channel walk-back (dielectric-rupture-event-horizon.md) + ch15 index |
+| P4 | 17a40780 | Vol 9 datasheet: ch5 CVR section (3 hero figures) + ch14 extreme-map cross-link + graphicspath |
+| P5 | 8d25eac5 | toolkit-index §2 worked-instance + translation-circuit §4.5 row flips (15✓/9⚠/2✗) |
+
+**Audit gates — all satisfied (evidence):**
+- ✅ figures re-run+match: re-run byte-identical metrics JSON AND PNGs (deterministic, tree clean)
+- ✅ H(s) poles ↔ Q=1/α: `pole_real/ω₀ = −0.00364868 = −α/2` exactly (metrics JSON)
+- ✅ |Γ|²=1−α ↔ leak: `0.9927026 = 1−α` exactly; the AVE-distinct radiative-gap-to-unit-circle result
+- ✅ exponent defect (S^0.5 vs S^0.25) + S_min/A_cap clip: drawn on fig1, flagged in dc-operating-point §3 + datasheet warningbox
+- ✅ magnetic branch (Z→0) not Z→∞: every leaf cites master-equation.md:78-79 (clm-lv3uw1); electric branch (Z→∞) named as the DIFFERENT object (dielectric rupture)
+- ✅ discrimination-check: CONSISTENCY (ringdown 18/49, Q=1/α-as-Sommerfeld) vs AVE-DISTINCT (|Γ|²=1−α, chiral S_LR≠S_RL*, echoes, 2/7, Iron-Kα) tagged per leaf
+- ✅ gravity-vs-GW channel split: the clm-ir8h78 reconciliation — EM/transverse 2GM (Z_EM=Z₀, Γ_EM=0) vs shear+bulk 7GM (Γ=−1)
+- ✅ pure-AVE; Rule-12 (walk-back preserves the 2GM historical result, additive)
+- ✅ Vol 9 compiles: latexmk exit 0, 197pp, 3 CVR figures confirmed embedded (main.fls INPUT lines)
+- ✅ verify-kb-metadata PASS; verify-md-links clean for all 11 new/edited source files
+
+**🔴 ONE LOAD-BEARING PHYSICS ADJUDICATION FOR GRANT (the only thing that needs his physics eye):**
+the clm-ir8h78 walk-back direction. I resolved 2GM-vs-7GM as a CHANNEL split (EM/transverse horizon at r_s=2GM,
+Γ_EM=0 no-reflection; shear+bulk rupture at r_sat=7GM, Γ=−1) — forced by the canonical three-impedance law
+(electron-bh-isomorphism.md:24,26; existing-signatures.md:34), applied conservatively (KEEP-BOTH, Rule-12,
+additive, trivially revertible). The 2026-06-06 pass explicitly DEFERRED this as "needs physics adjudication."
+**Grant ratifies or redirects at merge.**
+
+**Residual flags carried (NOT resolved — by design):** (1) sector-attribution μ→0 vs C→∞ (FLAG-2, both→Z₀√S,
+magnetic PRIMARY); (2) chiral off-diagonal χ magnitude STATED (needs chiral-crystal engine); (3) the SYM-row
+Γ=−1 mechanism-label sites (universal-saturation-kernel-catalog.md:53) — the separate follow-up adjudication,
+NOT touched here; (4) autoresonance self-lock still ✗ (only the eigenmode structure mapped).
+
+**Auditor: verify via** — re-run `PYTHONPATH=$PWD/src python src/scripts/vol_9_device/cvr_ee_sweep/cvr_ee_sweep.py`
+(figures+metrics regenerate byte-identical); `make verify-kb-metadata` + `make verify-md-links`; spot-check the
+DERIVED/STATED tags against claim-quality (clm-rtdmsn/lv3uw1/kezk9z/eemap1/ir8h78/law1ho).
