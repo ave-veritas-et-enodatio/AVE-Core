@@ -5,7 +5,8 @@
 **Physics anchor:** `manuscript/ave-kb/common/loop-gap-electron-resonator-closure-doctrine.md`  
 **Program ledger:** `research/2026-06-12_genesis-program-status.md`  
 **Harness epic:** `_orchestration/2026-06-12_loop-gap-unified-harness.md`  
-**Capability DAG:** `_orchestration/2026-06-12_loop-gap-engine-dag.md`
+**Capability DAG:** `_orchestration/2026-06-12_loop-gap-engine-dag.md`  
+**Coverage ledger (corpus↔engine↔test):** `_orchestration/2026-06-13_loop-gap-corpus-engine-coverage.md` — row IDs `CVG-*`; orchestrator updates each session
 
 **Working branch (implementor):** `analysis/2026-06-12-genesis-v10-cvr-implementor`  
 **Integration target:** `main` via reviewed PR only (2026-06-05 workflow)
@@ -14,7 +15,9 @@
 
 ## §0 — One-sentence objective
 
-Close the **LOOP GAP** by advancing **ranks 1→4** on the unified K4 harness (`VacuumEngine3D` + `loop_gap_harness.py`), with **channel-tagged** observables at **valid regime** (`A²` near yield cusp), while **R2 ferrite B–H bench** runs in parallel for rank-4 ground truth — **not** by adding srs genesis versions or agent-adjudicated framing closures.
+Close the **LOOP GAP** by advancing **ranks 1→4** on the unified K4 harness (`VacuumEngine3D` + `loop_gap_harness.py`), with **channel-tagged** observables at **valid regime** ($A_{\mathrm{yield}}=\sqrt{\alpha}$), while **R2 ferrite B–H bench** runs in parallel for rank-4 ground truth — **not** by adding srs genesis versions or agent-adjudicated framing closures.
+
+**Restoration-first reorder (Grant 2026-06-13):** scalar-grade restoration (Phase C′) precedes the full OP-2 seed sweep (D-full). D-lite instruments the transverse-only baseline; C′ restores the Heaviside-deleted longitudinal grade; D-full sweeps on the restored engine.
 
 ---
 
@@ -119,19 +122,57 @@ POST-RUN: if max_A² > 10 · A²_yield → bin suffix _POST_RUPTURE; exclude fro
 
 ---
 
-### Phase D — Regime-gated rank-1 charter (harness Phase 2 completion)
+### Phase D-lite — OP-2 baseline instrument (smoke only)
 
-**Goal:** Rank 1 proxy `gamma_min ≤ -0.25` **or** honest ENGINE-GAP with ablation attribution — at **valid regime**.
+**Goal:** Instrument $\Gamma_{\mathrm{bulk}}$ + $V_{\mathrm{inc}}$ reads; document ENGINE-GAP on transverse-only engine as C′ motivation.
+
+**Prereg:** `research/2026-06-12_loop-gap-harness-rank1-regime_prereg_FROZEN.md` (D-lite scope)
 
 | Step | Task | Acceptance |
 |:---|:---|:---|
-| D1 | Prereg amend / charter | `research/2026-06-12_loop-gap-harness-rank1-regime_prereg_DRAFT.md` — `A_LOCK` sweep bounded to yield band; log `max_A_sq` every run |
-| D2 | Seed ablation battery | `photon_lock` vs `graded_a0` vs `pair` — production or `--smoke` with regime gate |
-| D3 | `gamma_bulk_min` observable (new) | `Γ_bulk = (Z_bulk - Z_ref)/(Z_bulk + Z_ref)` from live `ρ̄`, `c_bulk`; channel tag `bulk` not `proxy` |
-| D4 | Rank-1 bin | `rank1_pass` OR `ENGINE-GAP` doc with which ablation isolates |
-| D5 | Phase 2 epic close | Harness epic Phase 2 tasks checked |
+| D0 | `gamma_bulk_min` observable | Live bulk Smith read; channel tag `bulk` |
+| D1 | Smoke baseline | B0/B1/B2 + ablation subset; $N=10$ only |
+| D2 | Result §7 D-lite | ENGINE-GAP on $V_{\mathrm{inc}}$ documented **by thesis** |
+| D3 | Keeper tests | `test_loop_gap_harness_rank1_regime.py` fast green |
 
-**Do not:** N=14 full production without regime gate and `--bulk` channel tags.
+**Do not:** full `a_lock` sweep; `--production` N=14; claim OP-2 LANDED on truncated engine.
+
+---
+
+### Phase C′ — Scalar-grade restoration (NEXT implementor)
+
+**Goal:** Restore Heaviside-deleted standing longitudinal $V$ + conservative $V\to\omega$ Option-D source on harness; test OP-2 closure where 2b failed.
+
+**Prereg:** `research/2026-06-13_loop-gap-scalar-grade-restoration_prereg_FROZEN.md`
+
+| Step | Task | Acceptance |
+|:---|:---|:---|
+| C′1 | Standing $V$ seed (Lane-1) | `scalar_seed_on` KEEP-BOTH; CP8 certificate |
+| C′2 | $V\to\omega$ reactive source | Option-D boundary; bulk-force control detonates |
+| C′3 | Smoke battery S0–S4 | SCALAR-LANDED / PARTIAL / REPRESENTATION-GAP / ENGINE-GAP |
+| C′4 | Result §8 | Ablation matrix; $H_{\mathrm{drift}}$ ledger |
+| C′5 | Optional GAP-C ablation | `gap_c_coupling_on` OFF default; S4 arm only |
+
+**Gated on:** D-lite merged (instrument exists). **Parallel with:** D-lite if separate files.
+
+**Out of scope:** full biquaternion (Phase H); D1 snap machine.
+
+---
+
+### Phase D-full — OP-2 seed sweep (post-C′)
+
+**Goal:** Rational `a_lock` sweep + full arm matrix on **restored** engine.
+
+**Prereg:** extend rank-1 charter or separate D-full amendment.
+
+| Step | Task | Acceptance |
+|:---|:---|:---|
+| D4 | Rational sweep | $\{0.5, 1.0\}A_{\mathrm{yield}}$ + $R_{\mathrm{II}}$ front targets |
+| D5 | Full ablation | `photon_lock` / `graded_a0` / `pair` matrix |
+| D6 | OP-2 bin | LANDED / PARTIAL / ENGINE-GAP on restored engine |
+| D7 | Phase 2 epic close | Harness epic Phase 2 tasks checked |
+
+**Prereq:** C′ SCALAR-LANDED or SCALAR-PARTIAL documented.
 
 ---
 
@@ -143,7 +184,7 @@ POST-RUN: if max_A² > 10 · A²_yield → bin suffix _POST_RUPTURE; exclude fro
 | E2 | Keeper test | Reversed k flips acquired rotation sign; global sign-flip does not |
 | E3 | Re-run R3 Phase-1 P4 cell if magnitudes shift | Document delta; do not auto-reopen D1 |
 
-**Gated on:** Phase D charter merged or parallel if seed module owned separately.
+**Gated on:** D-full or C′ merged if seed module owned separately.
 
 ---
 
@@ -154,7 +195,7 @@ POST-RUN: if max_A² > 10 · A²_yield → bin suffix _POST_RUPTURE; exclude fro
 | **2** | `n_drive_mult` sweep in units of `τ_relax`; Compton carrier | `phi_growth` or `ρ_cross` per DAG; matched-baseline 2× |
 | **3** | GAP-1 trilinear on harness; genesis-23 replay metrics | `v_inc_peak > floor`; no pump; `cross_sector_gap1_closure.py` parity |
 
-**Prereq:** Phase D rank-1 ENGINE-GAP or PARTIAL documented.
+**Prereq:** Phase D-full ENGINE-GAP or PARTIAL documented (on restored engine).
 
 ---
 
@@ -164,7 +205,8 @@ POST-RUN: if max_A² > 10 · A²_yield → bin suffix _POST_RUPTURE; exclude fro
 |:---|:---|:---|
 | **G1 Harness** | Phase 3: pinned quiescence (`n_quiet` no translate); memristive ablation changes `S_persist_delta` | P11 or `OPERATOR-SET-ONLY` honest |
 | **G2 R2 bench** | Execute `research/2026-06-12_constitutive-loop-r2-prereg_FROZEN.md` ferrite B–H protocol | Enclosed loop area measured |
-| **G3 GAP-C** | Separate prereg — ω↔ρ̄ coupling, snap on bulk branch | **Not** until G1+G2 read |
+| **G3 GAP-C / snap** | D1 snap + full GAP-C — **deferred**; minimal $V\leftrightarrow\bar\rho$ ablation in C′ | **Not** until G1+G2 read |
+| **G4 Phase H** | Full biquaternion $\mathbb{H}\otimes\mathbb{C}$ per-node engine | Only if C′ PARTIAL |
 
 ---
 
@@ -175,8 +217,10 @@ POST-RUN: if max_A² > 10 · A²_yield → bin suffix _POST_RUPTURE; exclude fro
 | New `chiral_lattice_v18+` / `genesis_v19+` | srs FROZEN; harness ranks replace version treadmill |
 | srs substrate migration | No valid-regime hosting/genesis; α/Lorentz on diamond |
 | Proxy-only N=14 production harness | ENGINE-GAP known; waste without bulk + regime gate |
+| D-full sweep before C′ scalar restoration | Tests truncated representation; pre-ordained ENGINE-GAP |
+| Full biquaternion in C′ PR | Scope creep — Phase H only |
 | D1 re-adjudication from quarantined bins | Regime-invalid |
-| GAP-C / snap on harness Phase 2b | Prereg scope exclusion |
+| GAP-C / snap on harness Phase 2b | Prereg scope exclusion — **minimal GAP-C ablation in C′ only** |
 | R5 boost-covariant transport | Expensive; blocks v12/v14 class only; parallel fund plan |
 | Proton body scale | Epic §45–47; does not unblock electron ranks |
 
@@ -186,7 +230,7 @@ POST-RUN: if max_A² > 10 · A²_yield → bin suffix _POST_RUPTURE; exclude fro
 
 | Epic | Doc | Status | Next step |
 |:---|:---|:---|:---|
-| **LOOP GAP harness** | `2026-06-12_loop-gap-unified-harness.md` | ACTIVE Phase 2/2b | **Phase B** after A |
+| **LOOP GAP harness** | `2026-06-12_loop-gap-unified-harness.md` | ACTIVE D-lite / C′ | **D-lite** instrument → **C′** scalar restoration |
 | Electron synthesis | `2026-06-07_electron-synthesis-epic.md` | ACTIVE — record landed | Rank closure via harness, not new genesis |
 | Lattice D1 | `2026-06-11_lattice-d1-test-gated.md` | STRUCTURAL done; framing open | Phase C |
 | Constitutive loop R2 | `research/2026-06-12_constitutive-loop-r2-prereg_FROZEN.md` | FROZEN | Phase G2 parallel |
@@ -199,8 +243,9 @@ POST-RUN: if max_A² > 10 · A²_yield → bin suffix _POST_RUPTURE; exclude fro
 | Phase | Skills |
 |:---|:---|
 | A, C | `ave-handoff-canonical-locale`, `verify-before-cite`, `ave-walk-back` (Rule 12) |
-| B, D, F, G1 | `substrate-native-check`, `phase-space-coordinate-check`, `consistency-vs-emergence`, `ave-driver-script-honesty`, `ave-regime-phase-state-check` |
-| B, D | `ave-multi-falsifier-triangulation-discipline` (channel tags) |
+| B, D-lite, D-full, C′, F, G1 | `substrate-native-check`, `phase-space-coordinate-check`, `consistency-vs-emergence`, `ave-driver-script-honesty`, `ave-regime-phase-state-check` |
+| C′ | `ave-conserved-vs-pumped` (no CW pump; energize+lock) |
+| B, D-lite, D-full, C′ | `ave-multi-falsifier-triangulation-discipline` (channel tags) |
 | D, G1 | `pre-test-physics-check`, `ave-dimensional-provenance-check` (Γ_bulk) |
 | G2 | `ave-engineering-program-rigor` |
 | All commits | `ave-ip-divide-discipline` (public repo) |

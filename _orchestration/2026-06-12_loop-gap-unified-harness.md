@@ -3,12 +3,13 @@
 **Status:** ACTIVE  
 **Opened:** 2026-06-12  
 **Harness land:** PR **#207** merged → `main` @ `98ec9270` (2026-06-12)  
-**Next work:** branch off `main` (e.g. `analysis/2026-06-12-loop-gap-phase-d`)  
+**Next work:** D-lite (`analysis/2026-06-12-loop-gap-phase-d`) → C′ scalar restoration (`analysis/2026-06-13-loop-gap-scalar-grade`)  
 **DAG:** [`2026-06-12_loop-gap-engine-dag.md`](2026-06-12_loop-gap-engine-dag.md)  
 **Ledger:** [`research/2026-06-12_genesis-program-status.md`](../research/2026-06-12_genesis-program-status.md)  
 **Execution plan (authoritative order):** [`2026-06-12_loop-gap-orchestration-plan.md`](2026-06-12_loop-gap-orchestration-plan.md)  
 **Session handoff (spawn other agent):** [`2026-06-12_loop-gap-orchestration-session-handoff.md`](2026-06-12_loop-gap-orchestration-session-handoff.md)  
-**Full plan + implementor brief:** [`2026-06-12_loop-gap-first-principles-implementor-brief.md`](2026-06-12_loop-gap-first-principles-implementor-brief.md) (Part I = orchestrator; Part II = implementor)
+**Full plan + implementor brief:** [`2026-06-12_loop-gap-first-principles-implementor-brief.md`](2026-06-12_loop-gap-first-principles-implementor-brief.md) (Part I = orchestrator; Part II = implementor)  
+**Coverage ledger:** [`2026-06-13_loop-gap-corpus-engine-coverage.md`](2026-06-13_loop-gap-corpus-engine-coverage.md) — belief tiers T0–T4; keeper backlog §6
 
 ---
 
@@ -18,7 +19,7 @@
 |:---|:---|
 | Harness + Phase 2b | **LANDED** — PR #207 → `main` @ `98ec9270` |
 | Audit tag | ✅ `audit/2026-06-12_loop-gap-harness-phase2b` on `98ec9270` → origin |
-| Smoke `--bulk` | **ENGINE-GAP** — rank-1 $\Gamma$ open → **Phase D** |
+| Smoke `--bulk` | **ENGINE-GAP** on $V_{\mathrm{inc}}$ — motivates **Phase C′** scalar restoration |
 | Uncommitted | ~70 paths on old branch — **PR2** handoff / **PR1** vol9 / **Phase C** / **PR4** archive |
 | Blocker B1 | `common/index.md:59` — fixed in PR2 orchestration pass |
 | P11 constants | `genesis_v18_coupled.py` on main (`chiral_lattice_v11` removed at merge) |
@@ -31,10 +32,12 @@
 |:---|:---|:---|
 | **A** | Orchestration ledger | This doc + index reconciliation |
 | **B** | Phase 2b GAP-A land | §Phase 2b below |
-| **C** | D1 reframe + regime quarantine | Corpus only |
-| **D** | Rank-1 regime charter + `gamma_bulk` | §Phase 2 completion |
+| **C** | D1 reframe + regime quarantine | Corpus only — **LANDED** #210 |
+| **D-lite** | OP-2 instrument + smoke baseline | §Phase 2 — `gamma_bulk_min` |
+| **C′** | Scalar-grade restoration | Standing $V$ + $V\to\omega$ source |
+| **D-full** | Rational seed sweep (post-C′) | §Phase 2 completion |
 | **E** | ±k seed fix | `loop_gap_seeds.py` / vector launch |
-| **F** | Ranks 2–3 Compton + GAP-1 | Post–rank-1 |
+| **F** | Ranks 2–3 Compton + GAP-1 | Post–D-full |
 | **G** | Rank 4 P11 + R2 bench | §Phase 3 |
 
 ---
