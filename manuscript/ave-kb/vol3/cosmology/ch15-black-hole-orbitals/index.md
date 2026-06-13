@@ -15,6 +15,8 @@ Extends the $1/d$ impedance topology to its ultimate macroscopic limit. The elec
 | Result | Statement |
 |---|---|
 | Principal Radial Strain | $\varepsilon_{11}(r) = 7\,GM/(c^2\,r)$ |
+| Lattice extreme-map (rationality test) | one kernel $S(A)$: compression ($\Gamma=-1$: electron/BH) vs rarefaction ($\bar\rho=-1/\varphi$: cavitation); BH reproduces GR $<2\%$ zero-parameter |
+| Horizon channel split (clm-ir8h78) | $r_s=2GM/c^2$ = EM/transverse horizon ($\Gamma_{EM}=0$, no reflection); $r_{sat}=7GM/c^2$ = shear+bulk rupture ($\Gamma=-1$ reflector) |
 | Impedance Band Quantisation | $\int_{r_{ph}}^{r_n} n(r')\,dr' = n \cdot \lambda_0/2$ |
 | QPO Frequency from Impedance Resonance | $\nu_n = \frac{1}{2\pi}\sqrt{GM/r_n^3}$ |
 | Hawking Temperature as Impedance Noise | $T_H = \frac{\hbar c^3}{8\pi G M k_B}$ |
@@ -29,6 +31,7 @@ Extends the $1/d$ impedance topology to its ultimate macroscopic limit. The elec
 | Document | Contents |
 |---|---|
 | [Electron--BH Isomorphism](electron-bh-isomorphism.md) | Confinement boundary comparison, symmetric gravity, saturation phase transition |
+| [Lattice Extreme-Map / BH Rationality Test](lattice-extreme-bh-rationality.md) | One kernel, two extremes (compression→electron/BH, rarefaction→cavitation); BH$<2\%$ GR (rationality test); ties the CVR electron-wall sweep to the BH extreme; houses the $2GM$-vs-$7GM$ channel reconciliation (clm-ir8h78) |
 | [Bulk Impedance at Saturation Boundary](bulk-impedance-at-saturation-boundary.md) | Astrophysical $Z_{bulk}$ at $r_{\text{sat}}$; $\Gamma_{bulk} = -1$; three-channel boundary table |
 | [Accretion Disk Resonance](accretion-disk-resonance.md) | Standing-wave quantisation, impedance band radii, QPO frequency predictions (GRS 1915+105) |
 | [QPO Frequency](qpo-frequency-impedance-resonance.md) | Standalone resultbox: QPO frequency from impedance resonance |
