@@ -76,7 +76,13 @@ def render(data: dict, out: str) -> None:
         "(matrix = verified-state; substrate-complete engine = design proposal)",
         fontsize=9, pad=12,
     )
-    legend = [Patch(facecolor=STATUS_COLOR[k], label=f"{STATUS_GLYPH[k]} {k}")
+    _label = {
+        "have": "have = mechanism (not magnitude)",
+        "partial": "partial",
+        "absent": "absent",
+        "na": "n/a",
+    }
+    legend = [Patch(facecolor=STATUS_COLOR[k], label=f"{STATUS_GLYPH[k]} {_label[k]}")
               for k in ("have", "partial", "absent", "na")]
     ax.legend(handles=legend, loc="upper left", bbox_to_anchor=(1.01, 1.0), fontsize=8, frameon=False)
 
