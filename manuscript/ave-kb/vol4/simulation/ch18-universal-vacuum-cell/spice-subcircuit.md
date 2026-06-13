@@ -71,4 +71,15 @@ R1 A B {R0 + 1e15}
 
 Any deviation between `AVE_VACUUM_CELL` and `AVE_VACUUM_CELL_LINEAR` runs is due to Axiom 4 saturation effects.
 
-*Implementation*: `src/ave/hardware/spice_models/ave_vacuum_cell.lib`
+## Level-2 memristor arm (`AVE_VACUUM_CELL_L1`)
+
+```spice
+.subckt AVE_MEMRISTOR_S_STATE A B N_S
++ params: TAU_REL=1n V_YLD=43653.7
+* dS/dt = (S_eq - S) / TAU_REL; S_eq = sqrt(1 - (V/V_YLD)^2)
+.ends AVE_MEMRISTOR_S_STATE
+```
+
+`TAU_REL` is **simulation-scaled** (default 1 ns). Canonical vacuum $\tau_{\mathrm{relax}}=\ell_{\mathrm{node}}/c\approx 1.288\times 10^{-21}$ s is below ngspice timestep — constitutive-loop tests use the Python ODE harness with dimensionless $\omega\tau$.
+
+*Implementation*: `src/ave/solvers/spice_models/ave_vacuum_cell.lib`

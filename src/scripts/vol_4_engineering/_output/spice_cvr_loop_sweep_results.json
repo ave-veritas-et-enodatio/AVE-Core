@@ -1,0 +1,239 @@
+{
+  "prereg": "research/2026-06-13_spice-cvr-constitutive-loop_prereg.md",
+  "tau_relax_si": 1.2880886674083153e-21,
+  "tau_eff_native": 1.0,
+  "sqrt_alpha": 0.08542454313193604,
+  "omega_tau_grid": [
+    0.01,
+    0.05,
+    0.1,
+    0.2,
+    0.35,
+    0.5,
+    0.7,
+    0.9,
+    1.0,
+    1.25
+  ],
+  "r_amp": 0.85,
+  "L0": {
+    "loop_area": 0.0,
+    "b_r": 0.0,
+    "pinched": true
+  },
+  "L1_sweep": [
+    {
+      "arm": "L1",
+      "omega_tau": 0.01,
+      "loop_area": 0.0024871287926147554,
+      "b_r": 2.886579864025407e-15,
+      "pinched": true,
+      "r_amp": 0.85,
+      "n_cycles": 3
+    },
+    {
+      "arm": "L1",
+      "omega_tau": 0.05,
+      "loop_area": 0.012011008301805232,
+      "b_r": 2.886579864025407e-15,
+      "pinched": true,
+      "r_amp": 0.85,
+      "n_cycles": 3
+    },
+    {
+      "arm": "L1",
+      "omega_tau": 0.1,
+      "loop_area": 0.023003729512963783,
+      "b_r": 3.9720449152014226e-12,
+      "pinched": true,
+      "r_amp": 0.85,
+      "n_cycles": 3
+    },
+    {
+      "arm": "L1",
+      "omega_tau": 0.2,
+      "loop_area": 0.04225241601700426,
+      "b_r": 2.180324671918754e-07,
+      "pinched": true,
+      "r_amp": 0.85,
+      "n_cycles": 3
+    },
+    {
+      "arm": "L1",
+      "omega_tau": 0.35,
+      "loop_area": 0.06499521434641853,
+      "b_r": 3.9813520448239714e-05,
+      "pinched": true,
+      "r_amp": 0.85,
+      "n_cycles": 3
+    },
+    {
+      "arm": "L1",
+      "omega_tau": 0.5,
+      "loop_area": 0.08106096748930194,
+      "b_r": 0.00041601081061992673,
+      "pinched": true,
+      "r_amp": 0.85,
+      "n_cycles": 3
+    },
+    {
+      "arm": "L1",
+      "omega_tau": 0.7,
+      "loop_area": 0.09344207656250833,
+      "b_r": 0.0023240023786105235,
+      "pinched": false,
+      "r_amp": 0.85,
+      "n_cycles": 3
+    },
+    {
+      "arm": "L1",
+      "omega_tau": 0.9,
+      "loop_area": 0.098142902090459,
+      "b_r": 0.006224237572516111,
+      "pinched": false,
+      "r_amp": 0.85,
+      "n_cycles": 3
+    },
+    {
+      "arm": "L1",
+      "omega_tau": 1.0,
+      "loop_area": 0.09852865949764975,
+      "b_r": 0.008864998431539095,
+      "pinched": false,
+      "r_amp": 0.85,
+      "n_cycles": 3
+    },
+    {
+      "arm": "L1",
+      "omega_tau": 1.25,
+      "loop_area": 0.09587977232552511,
+      "b_r": 0.01667973603833761,
+      "pinched": false,
+      "r_amp": 0.85,
+      "n_cycles": 3
+    }
+  ],
+  "L2_sweep": [
+    {
+      "arm": "L2",
+      "omega_tau": 0.01,
+      "loop_area": 0.0024871287926147554,
+      "b_r": 2.886579864025407e-15,
+      "pinched": true,
+      "r_amp": 0.85,
+      "n_cycles": 3
+    },
+    {
+      "arm": "L2",
+      "omega_tau": 0.05,
+      "loop_area": 0.012011008301805232,
+      "b_r": 2.886579864025407e-15,
+      "pinched": true,
+      "r_amp": 0.85,
+      "n_cycles": 3
+    },
+    {
+      "arm": "L2",
+      "omega_tau": 0.1,
+      "loop_area": 0.023003729512963783,
+      "b_r": 3.9720449152014226e-12,
+      "pinched": true,
+      "r_amp": 0.85,
+      "n_cycles": 3
+    },
+    {
+      "arm": "L2",
+      "omega_tau": 0.2,
+      "loop_area": 0.04225241601700426,
+      "b_r": 2.180324671918754e-07,
+      "pinched": true,
+      "r_amp": 0.85,
+      "n_cycles": 3
+    },
+    {
+      "arm": "L2",
+      "omega_tau": 0.35,
+      "loop_area": 0.06499521434641853,
+      "b_r": 3.9813520448239714e-05,
+      "pinched": true,
+      "r_amp": 0.85,
+      "n_cycles": 3
+    },
+    {
+      "arm": "L2",
+      "omega_tau": 0.5,
+      "loop_area": 0.08106096748930194,
+      "b_r": 0.00041601081061992673,
+      "pinched": true,
+      "r_amp": 0.85,
+      "n_cycles": 3
+    },
+    {
+      "arm": "L2",
+      "omega_tau": 0.7,
+      "loop_area": 0.1322164495510588,
+      "b_r": 0.2877418292124396,
+      "pinched": false,
+      "r_amp": 0.85,
+      "n_cycles": 3
+    },
+    {
+      "arm": "L2",
+      "omega_tau": 0.9,
+      "loop_area": 0.11305787824220265,
+      "b_r": 0.2640731948709252,
+      "pinched": false,
+      "r_amp": 0.85,
+      "n_cycles": 3
+    },
+    {
+      "arm": "L2",
+      "omega_tau": 1.0,
+      "loop_area": 0.10517055057446242,
+      "b_r": 0.25360742493747923,
+      "pinched": false,
+      "r_amp": 0.85,
+      "n_cycles": 3
+    },
+    {
+      "arm": "L2",
+      "omega_tau": 1.25,
+      "loop_area": 0.0899206117869327,
+      "b_r": 0.2331767642107625,
+      "pinched": false,
+      "r_amp": 0.85,
+      "n_cycles": 3
+    }
+  ],
+  "verdict": "DISSIPATIVE-ONLY",
+  "l2_emergence_read": "IMPOSED-LATCH \u2014 min(S,S_latched) software ratchet; hardcoded snap thresholds; not canonical remanence; emergence inconclusive",
+  "l2_imposed_clamp": true,
+  "l2_max_br": 0.2877418292124396,
+  "l2_max_br_omega_tau": 0.7,
+  "d2_read": "D2 undecided \u2014 L1 pinched dissipation only; L2 remanence is imposed-latch tautology, not substrate emergence",
+  "frozen_gates": {
+    "H0_L0_area_zero": true,
+    "H0_L0_br_zero": true,
+    "H1_L1_area_monotone": true,
+    "H1_L1_pinched_at_slow_rate": true,
+    "H2_L2_br_when_verdict_remanent": true,
+    "bin_ANHYSTERETIC": false,
+    "bin_DISSIPATIVE_ONLY": true,
+    "bin_REMANENT_LOOP": false,
+    "bin_IMPOSED_LATCH": false,
+    "bin_REGIME_LIMITED": false
+  },
+  "l1_surprise_br": true,
+  "l1_max_br": 0.01667973603833761,
+  "spice_executed": false,
+  "thresholds": {
+    "epsilon_loop": 1e-06,
+    "epsilon_br": 0.001
+  },
+  "figures": [
+    "/Users/grantlindblom/AVE-staging/AVE-Core/assets/sim_outputs/spice_cvr_loop_L0_anhysteretic.png",
+    "/Users/grantlindblom/AVE-staging/AVE-Core/assets/sim_outputs/spice_cvr_loop_L1_memristor.png",
+    "/Users/grantlindblom/AVE-staging/AVE-Core/assets/sim_outputs/spice_cvr_loop_L2_snap.png",
+    "/Users/grantlindblom/AVE-staging/AVE-Core/assets/sim_outputs/spice_cvr_loop_sweep_metrics.png"
+  ]
+}

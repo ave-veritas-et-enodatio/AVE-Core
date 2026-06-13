@@ -61,7 +61,7 @@ The `ave_vacuum_cell.lib` file provides three subcircuits:
 - Python ≥ 3.10
 
 *Cross-references*:
-- `src/ave/hardware/spice_models/ave_vacuum_cell.lib`
+- `src/ave/solvers/spice_models/ave_vacuum_cell.lib`
 - `src/ave/solvers/spice_netlist_compiler.py`
 - [Universal AVE Vacuum Cell](../vol4/simulation/ch18-universal-vacuum-cell/index.md)
 - [Solver Toolchain](./solver-toolchain.md) — universal solver architecture
