@@ -29,7 +29,8 @@ The Vacuum Circuit Analysis (VCA) framework establishes a single, exact dimensio
 | Propagation velocity | $v_g = 1/\sqrt{\mu_0 \epsilon_0} \equiv c$ |
 | IM3 frequencies | $f_{IM3} = 2f_1 - f_2$ and $2f_2 - f_1$ |
 | IP3 | $V_{IP3} = \sqrt{4/3}\; V_{yield} \approx 50.4$ kV |
-| Particle confinement | $\Gamma = -1$ at saturated boundary ($Z_{core} \to 0\;\Omega$) |
+| Particle confinement | $\Gamma = -1$ at saturated boundary ($Z_{core} \to 0\;\Omega$), magnetic branch $\mu_{eff}\to0$ |
+| CVR EE-sweep — electron wall reflectivity | $\boxed{\|\Gamma\|^2 = 1-\alpha}$ (the wall falls short of the unit circle by exactly $\alpha$ = per-cycle radiative leak); $H(s)$ pole at $-\alpha\omega_0/2$, $Q=1/\alpha$ |
 | [Q-G24 Newtonian-Limit Closure](relativistic-inductor-newtonian-limit.md) | Full $E = \gamma m_0 c^2$ relativistic dispersion from LC tank + virial equipartition + relativistic-inductor mapping; three independent Derrick-bypass mechanisms (lattice floor / Faddeev-Skyrme / bilateral chiral); no fit parameters |
 | [Q-G22 Strain Convention (Geometric vs Field-Ratio)](q-g22-strain-convention.md) | Clarification: corpus uses $A_{geom} = \ell_{node}/r$ ($\propto 1/r$, geometric confinement ratio) for kernel applications; IVIM bench uses $A_{field} = E\ell_{node}/V_{yield}$ ($\propto 1/r^2$, field ratio) for apparatus calculations; both internally consistent, different physical measures |
 
@@ -45,6 +46,11 @@ The Vacuum Circuit Analysis (VCA) framework establishes a single, exact dimensio
 | [Q-G22 Strain Convention (Geometric vs Field-Ratio)](q-g22-strain-convention.md) | Clarification: corpus uses $A_{geom} = \ell_{node}/r$ ($\propto 1/r$, geometric confinement ratio) for kernel applications; IVIM bench uses $A_{field} = E\ell_{node}/V_{yield}$ ($\propto 1/r^2$, field ratio) for apparatus calculations; both internally consistent, different physical measures |
 | [TVS Transition](tvs-transition.md) | Solid-to-slipstream phase transition as TVS Zener diode |
 | [Resonant LC Solitons](resonant-lc-solitons.md) | Particles as LC tanks; Virial theorem; total internal reflection; Pauli exclusion |
+| [CVR Transfer Function $H(s)$](cvr-transfer-function.md) | The electron tank as a 2×2 chiral resonator; pole pair $s=-\alpha\omega_0/2\pm j\omega_d$, $Q=1/\alpha$, BW$=\alpha\omega_0$; fills the $H(s)$ mapping gap |
+| [CVR DC Operating Point](cvr-dc-operating-point.md) | Vacuum varactor C-V characteristic; $C_{eff}/Z/c$ vs $A_0$; load-line + electron operating point; carries the $S^{0.5}$-vs-$S^{0.25}$ exponent defect |
+| [CVR Reflection on the Smith Chart](cvr-reflection-smith.md) | $\Gamma(A_0)$ matched→short locus; **$\|\Gamma\|^2=1-\alpha$** (AVE-distinct radiative leak); chiral 2×2 $S_{LR}\ne S_{RL}^*$ |
+| [CVR Phasor & Reactance](cvr-phasor-reactance.md) | I/Q quadrature $E\sim(V_{inc}+V_{ref})$, $B\sim(V_{inc}-V_{ref})/Z$; the C↔L Virial-balanced breather |
+| [CVR Stability & Eigenmode](cvr-stability-eigenmode.md) | Root-locus ($Q\to1/\alpha$) + Nyquist eigenmode loop; genesis-by-matching; structural region-of-attraction; autoresonance gap flagged |
 | [Orbital Friction Paradox](orbital-friction-paradox.md) | Real vs. reactive power; lossless orbit as LC tank at $\theta = 90°$ |
 | [Intermodulation Distortion](intermodulation-distortion.md) | Vacuum IMD spectroscopy; IM3 prediction; IP3 derivation; QED comparison |
 | [Translation Circuit](translation-circuit.md) | Cross-reference to common translation table |
