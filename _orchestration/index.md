@@ -71,6 +71,23 @@ Electron = **Class A/B consistency structure** on **z=4 diamond K4** (`research/
 - Audit tags on origin: `audit/2026-06-12_loop-gap-harness-phase2b` (`98ec9270`), `audit/2026-06-13_loop-gap-genesis-archive` (`7cf5cdd6`)
 - Merged LOOP GAP branches deleted (local + origin)
 
+### 2026-06-13 addendum — engine capability map + platform decision
+
+**Finding (DOF-discovery → substrate-complete engine).** The C′ scalar-grade diagnosis surfaced that the electron's seven required DOF are split across engines by **canon-derived firewalls** (irrotational↮winding, cubic↮self-trap/chirality, anhysteretic↮loop), and that the harness (`VacuumEngine3D`) **structurally lacks the A1 stiffening cage** — its scalar is a `v_scalar_from_v_inc(V_inc)` projection (`k4_cosserat_coupling.py:503`), softening-bulk only. Captured as a tracked KB artifact: [`engine-capability-map.md`](../manuscript/ave-kb/common/engine-capability-map.md) (the N-engine generalization of A-027) + a living-tracker figure (`common/figures/engine_capability_matrix.yaml` → PNG; one-line cell edit + re-render). **Class-tag:** matrix = verified-state; substrate-complete engine = **DESIGN PROPOSAL (not built)**.
+
+**Platform decision (Option A — PENDING Grant ratification).** Run the C′ cage test on the longitudinal-bulk engine (`crystal_engine.py` / `master_equation_fdtd.py`) — the A1 stiffening cage's engine-confirmed home (`crystal_engine.py:18-20`, NO-QED directive) — **not** the `loop_gap_harness`, which cannot host it. This is the harness-discipline skill meeting a case it didn't anticipate (electron = longitudinal-bulk object), **not** a version-treadmill breach. The `ave-loop-gap-harness-discipline` amendment ("one platform per firewalled branch") is queued **OUT-OF-BAND** (user-level skill, not corpus) for separate Grant sign-off.
+
+> **Grant ratification block (voice before the cage test runs):**
+> ```text
+> Grant ratifies (2026-06-13 engine-platform):
+> - Cage test runs on crystal_engine / master_equation_fdtd (off the loop_gap_harness): YES / NO
+> - ave-loop-gap-harness-discipline amended to "one platform per firewalled branch": YES / NO
+> - C' F1 scalar-restoration win PRs to main standalone (honestly framed, NOT "A1 grade restored"): YES / NO
+> Date: ___
+> ```
+
+**PR:** `analysis/2026-06-13-engine-capability-map` (capability-map leaf + figure + this tracker entry). Auditor reviews cells vs the anchor table; **Grant merges**. Two anchor corrections made during the verify-before-cite pass: (1) graft-v2 `Γ_min=−0.849` is an apparatus-floor artifact → cited SIGN-only, −1 not demonstrated; (2) #215 PR title ("REMANENT-LOOP") is stale — merged content is the IMPOSED-LATCH retraction (`575ed12d`).
+
 ---
 
 ## 2026-06-11 reconciliation (genesis mega-session merge close-out — COMPLETE)
