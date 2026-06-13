@@ -244,7 +244,9 @@ def verify_constants() -> dict:
     Raises AssertionError on drift (the 10-OOM-error guard). Returns a summary dict.
     """
     assert abs(Z_0 - np.sqrt(MU_0 / EPSILON_0)) < 1e-6, "Z_0 drift"
-    assert abs(1.0 / ALPHA - 137.035999) < 1e-2, "ALPHA drift"
+    # CODATA alpha agrees with the derived Golden-Torus cold value to delta_strain;
+    # both imported/derived (no hard-coded constant — DAG anti-cheat clean).
+    assert abs(1.0 / ALPHA - ALPHA_COLD_INV) < 1e-2, "CODATA-alpha vs cold-alpha drift"
     assert abs(ALPHA_COLD_INV - (4 * np.pi**3 + np.pi**2 + np.pi)) < 1e-9, "ALPHA_COLD_INV drift"
     assert abs(V_YIELD - np.sqrt(ALPHA) * V_SNAP) < 1e-3, "V_YIELD drift"
     assert abs(OMEGA_C - C_0 / L_NODE) < 1e-3, "OMEGA_C drift"
