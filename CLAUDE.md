@@ -102,6 +102,15 @@ This verifies the target branch matches the intended orchestration branch (typic
 
 **Related skill**: `verify-before-cite` v1.3 trigger 8 (commit-application claims) catches the upstream version of the same failure axis — assuming a commit was applied to the current branch without running `git branch --contains <hash>`. Both fire on agent-claim-about-branch-state-without-verifying-via-git but at different timing points (trigger 8 at brief-drafting time; this section at orchestration-commit time).
 
+### Worktree-aware local validation
+
+`ave` is installed editable via a path `.pth` that pins it to the **main checkout's** `src/` (worktrees have no `.venv` of their own — they share the main one). Without compensation, `pytest` / `make` run from any worktree would import the *main checkout's* `ave/*`, so the local gate could report green for code it never ran (or red for correct code). CI is unaffected — it checks out the branch in a clean env — so this is a purely-local false signal. Compensation now in place:
+
+- **pytest / `make test` / `make verify` from a worktree exercise that worktree's own `src/`.** `pyproject.toml` `[tool.pytest.ini_options] pythonpath = ["src"]` (front of `sys.path`, ahead of the `.pth`) covers pytest; the `Makefile` prepends `$(CURDIR)/src` to `PYTHONPATH` and resolves the interpreter to the shared main `.venv` for the non-pytest `make verify` driver scripts. Both are tracked, so every worktree gets them automatically.
+- **The commit gate runs `make verify` in the worktree being committed**, not a hardcoded main-checkout path. `.claude/hooks/precommit-verify.sh` is dual-context: the Claude PreToolUse interlock resolves the target from the command / payload `.cwd`; the git-native `pre-commit` hook uses its cwd (the committing worktree). The git-native hook now actually gates CLI commits (it was a silent no-op before) — bypass a CLI commit with `git commit --no-verify` if needed; the Claude interlock cannot be bypassed that way. A staged-tree fingerprint stops the two gates from double-verifying the same commit.
+- **Ad-hoc scripts outside `make`**: prepend `PYTHONPATH=<worktree>/src` to a bare `python some_script.py` so it imports the worktree's `ave`, e.g. `PYTHONPATH=$PWD/src ./.venv/bin/python src/scripts/...`.
+- **Deployment**: the hook script that actually executes is the **main checkout's working-tree copy** (symlink target + absolute path in `settings.json`), so the gate fix is live only when the main checkout is on a branch/commit that carries it.
+
 ## Cross-references
 
 - **AVE workspace layout** (multi-repo map): memory entry `reference_ave_workspace.md`
