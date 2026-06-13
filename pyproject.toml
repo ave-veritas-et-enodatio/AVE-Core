@@ -37,3 +37,16 @@ target-version = "py310"
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I"]
+
+[tool.pytest.ini_options]
+# Worktree-aware import resolution. `ave` is installed editable via a path
+# .pth that pins it to the MAIN checkout's src/ (see _editable_impl_ave.pth),
+# so without this every git worktree would import the main checkout's ave/*,
+# not its own. `pythonpath` is resolved relative to pytest's rootdir (this
+# file's dir == the current worktree) and inserted at sys.path[0], ahead of
+# the .pth path — so pytest/`make test` exercise THIS tree's code. In the main
+# checkout the two paths coincide, so behavior is unchanged.
+pythonpath = ["src"]
+# A bare `pytest` from a worktree root then collects the unit-test tree only
+# (matches `make test`; honors src/tests/conftest.py collect_ignore_glob).
+testpaths = ["src/tests"]

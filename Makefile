@@ -1,8 +1,34 @@
 # Applied Vacuum Engineering (AVE-Core) — Master Build System
 # Public release — Volumes 0–6 + Vol 9 Datasheet
 
-PYTHON ?= ./.venv/bin/python
-PYTEST ?= ./.venv/bin/pytest
+# Interpreter resolution (worktree-aware). Git worktrees share the main
+# checkout's .venv — each worktree has none of its own (.venv is gitignored).
+# Resolve in priority order so `make` works from a worktree as well as the
+# main checkout, with NO hardcoded path:
+#   1. a repo-local ./.venv (the main checkout, or a worktree that ran setup)
+#   2. the .venv in the main working tree, derived from git's common dir
+#      (git rev-parse --git-common-dir -> <main>/.git -> <main>/.venv)
+#   3. python3 / pytest on PATH (CI clean checkout, or a self-contained venv)
+_LOCAL_VENV := $(wildcard ./.venv/bin/python)
+_MAIN_VENV  := $(patsubst %/.git,%/.venv,$(abspath $(shell git rev-parse --git-common-dir 2>/dev/null)))
+ifneq ($(_LOCAL_VENV),)
+  PYTHON ?= ./.venv/bin/python
+  PYTEST ?= ./.venv/bin/pytest
+else ifneq ($(wildcard $(_MAIN_VENV)/bin/python),)
+  PYTHON ?= $(_MAIN_VENV)/bin/python
+  PYTEST ?= $(_MAIN_VENV)/bin/pytest
+else
+  PYTHON ?= python3
+  PYTEST ?= python3 -m pytest
+endif
+
+# Make THIS working tree's src/ win over the editable-install .pth (which pins
+# `ave` to the main checkout's src/). Prepended so `make verify` driver scripts
+# import the worktree's OWN ave/* rather than the main checkout's. pytest also
+# gets src/ via pyproject.toml [tool.pytest.ini_options] pythonpath. $(CURDIR)
+# is the worktree when run from inside it or via `make -C <worktree>`.
+export PYTHONPATH := $(CURDIR)/src$(if $(PYTHONPATH),:$(PYTHONPATH),)
+
 LATEX = pdflatex -interaction=nonstopmode -halt-on-error
 BIBTEX = bibtex
 
