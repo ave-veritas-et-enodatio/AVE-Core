@@ -6,6 +6,10 @@ on:
     branches: [main]
 
 jobs:
+  # PR-blocking gate: physics verify + the bedrock keeper suite (engine-sims
+  # excluded by `make test`'s `-m "not engine_sim"`). Fast (~6-7 min) so it
+  # stays well under timeout. This is the job to mark "required" in branch
+  # protection. (CI partition: research/2026-06-13_ci-engine-sim-partition_prereg.md)
   validators:
     name: make verify + make test
     runs-on: ubuntu-latest
@@ -34,3 +38,33 @@ jobs:
 
       - name: make test
         run: make test
+
+  # Opt-in lane: the slow tier-1/2 engine-simulation tests (`-m engine_sim`).
+  # Runs on the same triggers so engine PRs get coverage feedback, but it is a
+  # SEPARATE job — keep it NON-required in branch protection so its latency
+  # never blocks PR merges or risks the gate timeout.
+  engine-sims:
+    name: make test-engine (opt-in)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      MPLBACKEND: Agg
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: make test-engine
+        run: make test-engine
