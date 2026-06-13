@@ -1,0 +1,45 @@
+{
+  "_canonical_constants": {
+    "Z_0_ohm": 376.73031346177066,
+    "alpha_inv": 137.0359990836958,
+    "alpha_cold_inv": 137.0363037758784,
+    "V_yield_kV": 43.65185184432136,
+    "V_snap_kV": 510.9989499961642,
+    "omega_C_rad_s": 7.76344071105011e+20,
+    "Q_tank": 137.0359990836958,
+    "gamma_mag_sq_leak": 0.9927026474307,
+    "A_at_electron_wall": 0.9999999999943798
+  },
+  "_alpha": 0.0072973525693,
+  "_alpha_inv": 137.0359990836958,
+  "view1_dc_operating_point": {
+    "A_grid_max": 0.99,
+    "Ceff_over_C0_at_A0.9": 2.294157338705618,
+    "Zcore_over_Z0_at_A0.9": 0.6602195804079635,
+    "n_engine_minus_n_physical_max_gap": 0.23726409904882956
+  },
+  "view2_transfer_function": {
+    "omega_C_rad_s": 7.76344071105011e+20,
+    "Q_tank": 137.0359990836958,
+    "pole_real_over_w0": -0.0036486762846499998,
+    "minus_alpha_over_2": -0.00364867628465,
+    "bandwidth_rad_s": 5.665256401938974e+18,
+    "peak_mag_dB": 42.73669340877569
+  },
+  "view3_reflection_smith": {
+    "gamma_mag_sq_leak_1_minus_alpha": 0.9927026474307,
+    "gamma_mag_electron": 0.9963446428975768,
+    "nonreciprocity_peak": 0.5297314699302095
+  },
+  "view4_phasor_reactance": {
+    "phasor_quadrature": "E~(Vinc+Vref), B~(Vinc-Vref)/Z",
+    "breather": "C<->L virial-balanced"
+  },
+  "view5_stability_eigenmode": {
+    "Q_max": 137.0359990836958,
+    "locus": "poles approach j\u03c9 axis as Q\u21921/\u03b1"
+  },
+  "view6_parameter_basin": {
+    "basin": "structural region-of-attraction proxy (|Gamma|>drive)"
+  }
+}
