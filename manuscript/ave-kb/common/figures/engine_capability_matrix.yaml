@@ -1,0 +1,123 @@
+# Engine × DOF capability matrix — SOURCE OF TRUTH for engine-capability-map.md + the figure.
+#
+# CLASS-TAG (load-bearing honesty):
+#   - This matrix is VERIFIED-STATE (every cell audit-grounded against the anchor, 2026-06-13).
+#   - The substrate-complete engine (see the leaf) is a DESIGN PROPOSAL — NOT a built/validated engine.
+#
+# Cell status vocabulary:
+#   have    — the engine carries this DOF, validated.
+#   partial — present but incomplete / not emergent / proxy-only.
+#   absent  — structurally missing on this engine (often a firewall consequence).
+#   na      — not applicable (the DOF is out of this engine's domain, e.g. spatial cage in a circuit model).
+#
+# verify-before-cite: anchors confirmed 2026-06-13 against the cited file:line / PR. Update a cell + re-render.
+
+meta:
+  title: "AVE engine × DOF capability map"
+  generalizes: "two-engine-architecture-a027.md"
+  verified: "2026-06-13"
+  note: "the firewalls (mutual incompatibilities) ARE the spec — see the leaf §3"
+
+# The 7 DOF a complete electron needs SIMULTANEOUSLY, and why.
+dof:
+  - key: a1_cage
+    name: "A1 mass-cage (stiffening c_eff->inf)"
+    why: "rest mass = self-trapped LONGITUDINAL-bulk wall; c_eff->inf at the saturated core self-creates the Gamma=-1 TIR cage"
+  - key: winding
+    name: "Cosserat winding (charge)"
+    why: "charge = the (2,3) Beltrami micro-rotation helicity the cage must carry"
+  - key: three_channel
+    name: "3-channel coupling (EM/shear/bulk)"
+    why: "the electron lives across all three impedance channels; a complete engine must carry & couple them"
+  - key: loop
+    name: "constitutive loop (remanence)"
+    why: "mass persists at zero drive (ferrite B_r analogue); the canonical kernel is anhysteretic, so this is the open R10 gap"
+  - key: boost
+    name: "boost-covariance (motion)"
+    why: "a moving electron must Lorentz-transform; transport/boost is absent from every engine"
+  - key: chiral_grid
+    name: "chiral grid (srs handedness)"
+    why: "structural parity is set by the I4_1 32 srs grid; a cubic grid is achiral and cannot carry it"
+  - key: node_creation
+    name: "node-creation (genesis)"
+    why: "pair production / lattice node birth; no engine hosts it (cosmological front)"
+
+# Engines (rows). cells: <dof_key>: {status, anchor, note}
+engines:
+  - key: master_eq
+    name: "Master Equation FDTD"
+    source: "src/ave/core/master_equation_fdtd.py"
+    cells:
+      a1_cage:       {status: have,    anchor: "master_equation_fdtd.py:13,148-151; two-engine-architecture-a027.md:19,32-37", note: "v14 Mode I PASS; c_eff(V)=c0*(1-A^2)^(-1/4)->inf"}
+      winding:       {status: absent,  anchor: "cavitation_flow.py:12", note: "scalar V is irrotational (curl grad V == 0) -> cannot host circulation"}
+      three_channel: {status: absent,  anchor: "master_equation_fdtd.py:8-13", note: "single scalar longitudinal-bulk wave only"}
+      loop:          {status: absent,  anchor: "loop-gap-electron-resonator-closure-doctrine.md:18", note: "anhysteretic kernel S(A)=sqrt(1-A^2)"}
+      boost:         {status: absent,  anchor: "PR#186; PR#189", note: "no transport/boost"}
+      chiral_grid:   {status: absent,  anchor: "two-engine-architecture-a027.md:24", note: "cubic-grid FDTD, achiral"}
+      node_creation: {status: absent,  anchor: "(no engine)", note: "cosmological front"}
+  - key: crystal_engine
+    name: "crystal_engine / graft-v2..v4"
+    source: "src/ave/core/crystal_engine.py"
+    cells:
+      a1_cage:       {status: partial, anchor: "crystal_engine.py:18-20; crystal-graft-v2_result.md:22,32", note: "cage SIGN confirmed (Gamma<0 short, monotone-with-depth); magnitude apparatus/exponent-bound -- the -0.849 read sits ON the clip floor (corr 1.0, resid 0.0 over 10 cells), deepest dynamical -0.37 (->-0.65 exponent-corrected); -1 NOT demonstrated"}
+      winding:       {status: partial, anchor: "crystal_engine.py:9,224", note: "transverse-shear -> longitudinal-bulk mode conversion + gyrotropic coupling; (2,3) not self-assembled"}
+      three_channel: {status: partial, anchor: "crystal_engine.py:9", note: "transverse-shear + longitudinal-bulk via mode conversion"}
+      loop:          {status: absent,  anchor: "loop-gap-electron-resonator-closure-doctrine.md:18", note: "anhysteretic"}
+      boost:         {status: absent,  anchor: "PR#186; PR#189", note: "no transport/boost"}
+      chiral_grid:   {status: partial, anchor: "crystal_engine.py:224", note: "gyrotropic chirality coupling on a cubic grid; structural handedness is srs/v9's"}
+      node_creation: {status: absent,  anchor: "(no engine)", note: "cosmological front"}
+  - key: k4_tlm
+    name: "K4-TLM"
+    source: "src/ave/core/k4_tlm.py"
+    cells:
+      a1_cage:       {status: absent,  anchor: "master_equation_fdtd.py:15-18; two-engine-architecture-a027.md:24", note: "Z(V) not c_eff(V) -> cannot self-trap; v14a-e returned Mode III"}
+      winding:       {status: partial, anchor: "two-engine-architecture-a027.md:18", note: "K4 transverse + bond coupling; no self-trap"}
+      three_channel: {status: partial, anchor: "two-engine-architecture-a027.md:18", note: "K4 transverse + bond transmission line"}
+      loop:          {status: absent,  anchor: "loop-gap-electron-resonator-closure-doctrine.md:18", note: "anhysteretic"}
+      boost:         {status: absent,  anchor: "PR#186; PR#189", note: "no transport/boost"}
+      chiral_grid:   {status: absent,  anchor: "two-engine-architecture-a027.md:24", note: "cubic K4, achiral"}
+      node_creation: {status: absent,  anchor: "(no engine)", note: "cosmological front"}
+  - key: harness
+    name: "VacuumEngine3D / loop_gap_harness"
+    source: "src/ave/topological/vacuum_engine.py"
+    cells:
+      a1_cage:       {status: absent,  anchor: "vacuum_engine.py:1486; k4_cosserat_coupling.py:503", note: "Z(V) + SOFTENING bulk only; scalar = v_scalar_from_v_inc(V_inc) projection -- no independent A1 field"}
+      winding:       {status: partial, anchor: "k4_cosserat_coupling.py:503,527", note: "Cosserat omega carrier present; (2,3) not emergent"}
+      three_channel: {status: partial, anchor: "three-channel-impedances.md:18-24", note: "EM-transverse + shear + softening-bulk rho_bar (GAP-A); channel-tagged"}
+      loop:          {status: absent,  anchor: "loop-gap-electron-resonator-closure-doctrine.md:18", note: "anhysteretic; CVR-SET is reactive not B_r"}
+      boost:         {status: absent,  anchor: "PR#186; PR#189", note: "double-slit ENGINE-GAP; annihilation transport-absent"}
+      chiral_grid:   {status: absent,  anchor: "master_equation_fdtd.py:15-18", note: "cubic, achiral"}
+      node_creation: {status: absent,  anchor: "(no engine)", note: "cosmological front"}
+  - key: cavitation_flow
+    name: "cavitation_flow (the 'fourth object')"
+    source: "src/ave/core/cavitation_flow.py"
+    cells:
+      a1_cage:       {status: absent,  anchor: "cavitation_flow.py:28", note: "SOFTENING rarefaction pocket -- explicitly 'a FOURTH object - NOT Gamma=-1' (firewalled from the stiffening cage)"}
+      winding:       {status: have,    anchor: "cavitation_flow.py:16-17,33", note: "vector velocity u + circulation; Kelvin-conserved (energize-once, not pumped)"}
+      three_channel: {status: partial, anchor: "cavitation_flow.py:6-17", note: "compressible density rho_bar + vector velocity"}
+      loop:          {status: absent,  anchor: "loop-gap-electron-resonator-closure-doctrine.md:18", note: "anhysteretic"}
+      boost:         {status: absent,  anchor: "PR#186; PR#189", note: "no transport/boost"}
+      chiral_grid:   {status: absent,  anchor: "cavitation_flow.py:6", note: "achiral"}
+      node_creation: {status: absent,  anchor: "(no engine)", note: "cosmological front"}
+  - key: srs_v9
+    name: "chiral srs lattice (v9)"
+    source: "src/ave/core/chiral_lattice_v9.py (FROZEN)"
+    cells:
+      a1_cage:       {status: absent,  anchor: "loop-gap-electron-resonator-closure-doctrine.md:28", note: "srs transverse-only Lane A HEAL-confirmed; frozen falsifier"}
+      winding:       {status: partial, anchor: "PR#195", note: "structural chirality scaffold; no genesis run"}
+      three_channel: {status: absent,  anchor: "loop-gap-electron-resonator-closure-doctrine.md:43", note: "discrete srs transverse-only; bulk channel absent"}
+      loop:          {status: absent,  anchor: "loop-gap-electron-resonator-closure-doctrine.md:18", note: "anhysteretic"}
+      boost:         {status: absent,  anchor: "PR#186; PR#189", note: "P12 transport deferred to R5 boost-covariant"}
+      chiral_grid:   {status: have,    anchor: "PR#195 (Phase-0 optical-activity +/-75.46 deg/unit)", note: "srs I4_1 32 chiral space group, validated"}
+      node_creation: {status: absent,  anchor: "(no engine)", note: "cosmological front"}
+  - key: spice_cvr
+    name: "SPICE-CVR constitutive cell"
+    source: "src/ave/solvers/spice_models/ave_vacuum_cell.lib + spice_cvr_loop.py"
+    cells:
+      a1_cage:       {status: na,      anchor: "translation-circuit.md", note: "circuit-domain constitutive law, not a spatial cage"}
+      winding:       {status: na,      anchor: "translation-circuit.md", note: "lumped element, no spatial topology"}
+      three_channel: {status: partial, anchor: "ave_vacuum_cell.lib", note: " epsilon-varactor C_eff(V) present; mu-inductor + bulk channel NOT in the .lib"}
+      loop:          {status: partial, anchor: "spice_cvr_loop.py:224; PR#215 (retraction 575ed12d)", note: "IMPOSED-LATCH only -- min(S,S_latched) software ratchet; canonical kernel predicts B_r=0; emergence inconclusive"}
+      boost:         {status: na,      anchor: "translation-circuit.md", note: "lumped, no transport"}
+      chiral_grid:   {status: na,      anchor: "translation-circuit.md", note: "lumped, no lattice"}
+      node_creation: {status: na,      anchor: "translation-circuit.md", note: "lumped, no node birth"}
