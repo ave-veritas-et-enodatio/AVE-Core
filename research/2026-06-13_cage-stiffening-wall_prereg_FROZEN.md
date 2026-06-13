@@ -143,7 +143,7 @@ The master-equation bulk-V self-trap is **v14-Mode-I-VALIDATED** (`two-engine-ar
 - [x] crystal_engine is stiffening-only here (no ρ̄ dual-wall); softening ρ̄ = firewalled control.
 - [x] Fork off a clean `origin/main` worktree (auditor #3); driver-not-build; Rule-11 prereg frozen before code.
 - [x] Auditor pre-driver review folded → **Amendment 1** below.
-- [ ] Auditor final audit of the **amended** frozen prereg **before** any driver code.
+- [x] Auditor final audit CLEARED (2026-06-13) — one required fix (re-add the PLANTED-ONLY bin) folded as **Amendment 2** below; driver clear thereafter.
 
 ---
 
@@ -164,3 +164,21 @@ The master-equation bulk-V self-trap is **v14-Mode-I-VALIDATED** (`two-engine-ar
 **A4 — the frac-sweep's PRIMARY read is the CRITICAL-FRAC (nucleation threshold), not monotonicity.** Sweep `frac` to find the **critical-frac** where behaviour switches: DISPERSES below, SELF-FOCUS above. A nucleation threshold is the cleanest bound-state-emergence signature (a real soliton has a critical seed amplitude), and that critical-frac **is** the nucleation barrier the genesis program has chased — more diagnostic than "monotone-deepens." Sweep fine enough to bracket it (bisect between the highest-dispersing and lowest-self-focusing frac; this subsumes §2's S3 disperse-control). The production budget must run long enough to distinguish **TRANSIENT** from persistent **SELF-FOCUS**.
 
 **A5 — ratification:** Grant + auditor confirmed `self.V` (2026-06-13); this amendment folds the auditor's pre-driver review. The auditor audits THIS amended frozen prereg — success bin = self-focus-dynamics + critical-frac, framing = consistency-with-v14 — before any driver code.
+
+---
+
+## Amendment 2 — auditor final-audit fix (2026-06-13)
+
+> **Rule-12 dated addendum, pre-run.** Adds a *discriminating* bin (a new way to FAIL) — cannot be debugging-toward-success. Closes the one gap the final audit caught: Amendment 1's A3 dropped the plant-not-create bin while §4 F3 still routes to it.
+
+**A2.1 — re-add PLANTED-ONLY; A3 is now FIVE bins.** A3's four bins had **no home** for the *planted-only* state (`gamma_bulk<0` at t=0 from the seed, `max|A|` **flat**, no deepening): it doesn't grow (≠SELF-FOCUS), shrink (≠DISPERSES), form-then-decay (≠TRANSIENT), or run out of budget (≠UNRESOLVED) — yet §4 F3 names it as its FAIL outcome. It is the home for the exact **plant-masquerading-as-emergence** failure this test exists to catch (#215 / CP9). Frozen bins are now:
+> **SELF-FOCUS / TRANSIENT / PLANTED-ONLY / DISPERSES / UNRESOLVED**
+- **PLANTED-ONLY** — `gamma_bulk<0` at t=0 (the seed amplitude read through the kernel) but `max|A|` stays flat and `gamma_bulk_min` does NOT deepen below t=0 = **F3-FAIL, the plant-not-create negative**. (Distinct from DISPERSES: neither self-traps nor disperses — the "wall" is just the instrument re-reading the plant.)
+
+**A2.2 — tighten SELF-FOCUS so "persists" alone cannot admit a plant.** SELF-FOCUS now REQUIRES BOTH `max|A|` **grows** beyond the seed AND `gamma_bulk_min` **deepens below its t=0 value** (F1-PASS ∧ F3-PASS) — *then* persists. "Persists" is necessary, not sufficient: a flat planted-only wall persists yet is PLANTED-ONLY, not SELF-FOCUS.
+
+**A2.3 (clarity) — F1 ∧ F4 co-occurrence IS the self-focus-vs-pump discriminator.** `max|A|` growing **with `total_energy` flat** = energy *concentrating* → genuine self-focus (the soliton signature). Growing **with energy drift** = energy *created* → the genesis-24 pump, not self-focus. SELF-FOCUS requires F1-PASS ∧ F4-PASS together; "the field amplifies" and "energy is conserved" are not in tension — together they are the bound-state signature.
+
+**A2.4 (clarity) — "persists" reports the amplitude-envelope TREND** (flat vs slow-decay over the budget), not just "survived N periods" — a slow decay masquerades as persistent over a finite window. That envelope trend is the SELF-FOCUS-vs-TRANSIENT edge; the production budget must run long enough to resolve it.
+
+**A2.5 — auditor cleared this amended prereg to driver (2026-06-13).**
