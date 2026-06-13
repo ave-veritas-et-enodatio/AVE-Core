@@ -34,6 +34,24 @@ The electron is the **unknot dilatation-mass carrying the $(2,3)$ winding — tw
 
 Each spring's rest length slightly exceeds the bond spacing, so it is compressed and **bows** past the Euler buckling threshold; the **bow direction (CW/CCW about the bond axis) is helicity** ([trampoline-framework.md](trampoline-framework.md):85). The bow drives the microrotation $\boldsymbol\omega$ — its own Cosserat DOF, "an inductive coupling, **not a stretch**" ([trampoline-framework.md](trampoline-framework.md):348) — which sets the cell's **bounding-face orientation**. That oriented face is the window-blind slat: tilt the blind and you gate which way the substrate's microrotational wave is aimed (the chirality / propagation-selection gate). The blind is the **frame** (the gyroscope); the bowed spring **aims** it.
 
+## §3.5 — The charge-"3"'s EE scattering form: the $(L,R)$ chiral 2×2
+
+The winding's EE expression — relocated here 2026-06-13 as the charge-"3"'s scattering form (it does **not** belong in the mass-"3" $H(s)$, [cvr-transfer-function.md](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/cvr-transfer-function.md)). A scalar object has a $1\times1$ response; the $(2,3)$ winding makes the charge-"3" a **2-port in the circular-handedness $(L,R)$ basis** with a **non-reciprocal** scattering matrix:
+
+$$
+\mathbf{S}(s) \sim \begin{pmatrix} S_{co} & \chi\,S_{\times} \\[2pt] -\chi\,S_{\times} & S_{co} \end{pmatrix}, \qquad S_{LR}\ne S_{RL}^{*}\quad\text{(parity-odd)} .
+$$
+
+The skew off-diagonal is the parity-odd signature: left→right conversion is **not reciprocal** with right→left — the AVE-distinct EE fingerprint of the winding handedness. Computed: $|S_{LR}-S_{RL}^*|$ peaks at resonance ($0.53$, `cvr_ee_sweep_metrics.json`; plotted in [cvr-reflection-smith.md](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/cvr-reflection-smith.md), the reflection-plane view).
+
+> **[Resultbox]** *STATED — the chiral magnitude is the named frontier*
+>
+> The **structure** (skew off-diagonal = non-reciprocal = parity-odd) is the AVE-distinct candidate signature. The
+> **coupling magnitude $\chi$ is STATED, not derived** — a structural placeholder. The cubic FDTD engine averages
+> chirality out (Fd$\bar3$m achiral $\supset$ I4$_1$32 chiral); a quantitative $\chi$ needs the **K4-TLM /
+> chiral-crystal engine** (AUDITOR_STATE FLAG-4). Do not cite a $\chi$ value as derived. This is the one
+> engine-pending frontier of the two-"3"s — now isolated here, in the charge-"3" leaf.
+
 ## §4 — Sector ⊥ gauge (why this is physical and the $Z\to0/\infty$ churn was not)
 
 The window-blind lives on the **sector** axis (which "3" / which DOF), which is a **physical, gauge-invariant** distinction: *which sector loads* is observable (an $\varepsilon$-only static load reflects; both-sectors loading keeps $Z=Z_0$ reflectionless — INVARIANT-S2, Symmetric Gravity). It does **not** live on the **gauge** axis.

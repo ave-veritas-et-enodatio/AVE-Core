@@ -44,9 +44,11 @@ On the Smith chart the locus runs straight along the real axis from the centre (
 
 This is the same $\alpha$ as the $H(s)$ pole's distance from the $j\omega$ axis ([cvr-transfer-function.md](cvr-transfer-function.md) §2): the radiative linewidth, the per-cycle leak, and the Smith-chart gap to the unit circle are three views of one number. Computed: `gamma_mag_sq_leak = 0.9927026 = 1-α` (`cvr_ee_sweep_metrics.json`).
 
-## §4 — The chiral 2×2 scattering matrix (STATED — winding handedness)
+## §4 — The chiral 2×2 on the reflection plane (the charge-"3", documented separately)
 
-A scalar electron would have a $1\times1$ $\Gamma$. The $(2,3)$ winding makes it a 2-port in the $(L,R)$ handedness basis with a **non-reciprocal** scattering matrix: $S_{LR}\ne S_{RL}^{*}$ (parity-odd). Computed non-reciprocity peaks at resonance ($|S_{LR}-S_{RL}^*|=0.53$). As with [cvr-transfer-function.md](cvr-transfer-function.md) §3, the **structure** is the AVE-distinct candidate signature; the **magnitude** is STATED (needs the chiral-crystal engine; cubic FDTD averages chirality out).
+A scalar object would have a $1\times1$ $\Gamma$. The $(2,3)$ winding makes the **charge-"3"** a 2-port in the $(L,R)$ handedness basis with a **non-reciprocal** scattering matrix ($S_{LR}\ne S_{RL}^{*}$, parity-odd; computed peak $|S_{LR}-S_{RL}^*|=0.53$). This is **charge-"3" content** — orthogonal to the mass-dilatation reflection above — whose canonical home is the charge-"3" leaf; fig3 (right panel, §5) is the reflection-plane *view* of it.
+
+> → Primary: [Window-Blind / Bounding-Plane — the Charge-Winding "3"](../../../common/window-blind-bounding-plane.md) §3.5 — the $(L,R)$ chiral 2×2 form, $S_{LR}\ne S_{RL}^*$, the STATED $\chi$ (needs the chiral-crystal engine; cubic FDTD averages chirality out). Never wired into the mass-"3" (no-phasor-wire rule, master-equation.md:20).
 
 ## §5 — Computed figure
 

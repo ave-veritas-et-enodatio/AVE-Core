@@ -123,7 +123,7 @@ The operating-point machinery above (\S\ref{sec:vol9_operating_point}) is the bi
 \subsection{The transfer-function spine $H(s)$}
 \label{subsec:vol9_cvr_hs}
 
-The cell's AC response is a 2$\times$2 chiral transfer function. Its co-polarized component is the canonical lossy resonator
+The cell's AC response --- the \textbf{mass-dilatation ``3''} (\kbleaf{vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md}:20) --- is a scalar lossy resonator
 \begin{equation}
 H(s) = \frac{\omega_0^2}{s^2 + (\omega_0/Q)\,s + \omega_0^2}, \qquad \omega_0 = \omega_C\,S(A_0), \qquad Q = \frac{1}{\alpha} = 137.036
 \end{equation}
@@ -131,7 +131,7 @@ with the pole pair
 \begin{equation}
 s_\pm = -\frac{\omega_0}{2Q} \pm j\,\omega_d = -\frac{\alpha\,\omega_0}{2} \pm j\,\omega_d .
 \end{equation}
-The pole's distance from the $j\omega$ axis, $\alpha\omega_0/2$, IS the per-cycle radiative leak $1/Q = \alpha$ through the TIR boundary (\kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md}:81, \texttt{clm-rtdmsn}). Bode: peak $20\log_{10}Q = \qty{42.7}{\decibel}$ at $\omega_C$, bandwidth $\Delta\omega = \alpha\omega_0$. The off-diagonal of the full matrix is the parity-odd winding coupling ($S_{LR}\ne S_{RL}^*$); its magnitude is STATED, pending the chiral-crystal engine.
+The pole's distance from the $j\omega$ axis, $\alpha\omega_0/2$, IS the per-cycle radiative leak $1/Q = \alpha$ through the TIR boundary (\kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md}:81, \texttt{clm-rtdmsn}). Bode: peak $20\log_{10}Q = \qty{42.7}{\decibel}$ at $\omega_C$, bandwidth $\Delta\omega = \alpha\omega_0$. The $(2,3)$ winding's chiral scattering ($S_{LR}\ne S_{RL}^*$, parity-odd) is the \textbf{orthogonal charge-``3''}, documented separately (\kbleaf{window-blind-bounding-plane.md}) and never wired into this mass-``3'' $H(s)$ (the no-phasor-wire rule, master-equation.md:20); its $\chi$ is STATED, pending the chiral-crystal engine.
 
 \begin{figure}[htbp]
 \centering
@@ -197,7 +197,7 @@ Parameter basin & bias$\times$drive region of attraction (structural) & (folds i
 \label{tab:vol9_cvr_views}
 \end{table}
 
-\textbf{Scope and classification (\texttt{consistency-vs-emergence}).} The CVR sweep is a \textbf{consolidation / consistency} re-expression of already-derived canon (the LC tank, $\alpha=1/Q$, the magnetic-branch $\Gamma=-1$); it introduces no new substrate primitive. The one AVE-distinct corollary is $|\Gamma|^2=1-\alpha$ (the radiative leak made geometric) and the parity-odd chiral $S$; the $Q=1/\alpha$ Bode peak and the LC$\to E=mc^2$ recovery are CONSISTENCY (re-expressions). \textbf{Carried flags:} the sector-attribution question (magnetic $\mu_{eff}\to0$ PRIMARY vs capacitive $C_{eff}\to\infty$ --- same $Z=Z_0\sqrt S$ trajectory, \texttt{clm-lv3uw1} vs \texttt{clm-kezk9z}); the exponent defect; the chiral-coupling magnitude STATED. The compression-extreme wall here is one end of the lattice extreme-map (\S the phase-diagram chapter; \kbleaf{vol3/cosmology/ch15-black-hole-orbitals/lattice-extreme-bh-rationality.md}).
+\textbf{Scope and classification (\texttt{consistency-vs-emergence}).} The CVR sweep is a \textbf{consolidation / consistency} re-expression of already-derived canon (the LC tank, $\alpha=1/Q$, the magnetic-branch $\Gamma=-1$); it introduces no new substrate primitive. The one AVE-distinct corollary is $|\Gamma|^2=1-\alpha$ (the radiative leak made geometric) and the parity-odd chiral $S$; the $Q=1/\alpha$ Bode peak and the LC$\to E=mc^2$ recovery are CONSISTENCY (re-expressions). \textbf{Carried flags:} sector vs gauge --- the $\mu_{eff}\to0$-vs-$C_{eff}\to\infty$ spread is partly the two gauge sides of one wall ($Z\to0$ inside $\leftrightarrow Z\to\infty$ outside, M\"obius $Z\leftrightarrow1/Z$, $|\Gamma|=1$; \kbleaf{trampoline-framework.md}:641), not a physical branch; the physical axis is the two-``3''s (mass-dilatation $\perp$ charge-winding, \kbleaf{vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md}:20). Plus the exponent defect; the chiral-coupling magnitude STATED (now in the charge-``3'' leaf). The compression-extreme wall here is one end of the lattice extreme-map (\S the phase-diagram chapter; \kbleaf{vol3/cosmology/ch15-black-hole-orbitals/lattice-extreme-bh-rationality.md}).
 
 \section{Dispersion}
 \label{sec:vol9_dispersion}
