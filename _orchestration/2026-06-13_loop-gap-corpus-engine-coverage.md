@@ -6,7 +6,7 @@
 **Harness DAG:** [`2026-06-12_loop-gap-engine-dag.md`](2026-06-12_loop-gap-engine-dag.md)  
 **Doctrine:** [`manuscript/ave-kb/common/loop-gap-electron-resonator-closure-doctrine.md`](../manuscript/ave-kb/common/loop-gap-electron-resonator-closure-doctrine.md)
 
-**Last verified `main` HEAD:** `5761afad` (orchestrator: refresh each session via `git rev-parse --short HEAD`)
+**Last verified branch HEAD:** `analysis/2026-06-13-loop-gap-scalar-grade` @ C′1+C′2 commit (orchestrator: refresh each session via `git rev-parse --short HEAD`)
 
 ---
 
@@ -47,13 +47,13 @@
 
 | Tier | Count | LOOP GAP ranks 1–4 |
 |:---:|:---:|:---|
-| T0 KEEPER | 18 | Bedrock + partial rank plumbing |
+| T0 KEEPER | 22 | Bedrock + C′ scalar seed/source keepers |
 | T1 WIRING | 12 | Harness + bulk port |
 | T2 DRIVER | 9 | v15b–v18 + smoke battery |
 | T3 NARRATIVE | 8 | Identification / cosmology |
 | T4 FALSIFIED | 6 | Retired levers |
 
-**Rank closure (belief, 2026-06-13):** Rank **1** partial · Rank **1b** channel live · Ranks **2–4** **open** · LOOP GAP **not closed**.
+**Rank closure (belief, 2026-06-13):** Rank **1** partial · Rank **1b** channel live · **C′** scalar IC + source **WIRING→KEEPER** (C′1–C′2) · OP-2 composite **open** · Ranks **2–4** **open** · LOOP GAP **not closed**.
 
 ---
 
@@ -90,7 +90,7 @@
 |:---|:---|:---:|:---|:---|:---|:---:|:---|:---:|
 | CVG-R1-001 | $V_{\mathrm{inc,peak}}>P18$ floor | EM+conv | v15b charter | `loop_gap_harness` | — | **T2** | v15b **LANDED** (`genesis_v15b_k4_nucleation.json`) | D |
 | CVG-R1-002 | Proxy `gamma_min ≤ -0.25` (Op14 μ-short) | proxy | harness Phase 2 | `use_impedance_boundary` | — | **T1** | smoke **ENGINE-GAP** | D |
-| CVG-R1-003 | $\Gamma_{\mathrm{bulk}}$ from live $\bar\rho$, $c_{\mathrm{bulk}}$ | bulk | vol9 §3, bulk leaf | **missing on harness** (`CrystalEngine.gamma_bulk` only) | — | **T3→T1** | not run | **D — blocker** |
+| CVG-R1-003 | $\Gamma_{\mathrm{bulk}}$ from live $\bar\rho$, $c_{\mathrm{bulk}}$ | bulk | vol9 §3, bulk leaf | `loop_gap_harness.gamma_bulk_min` | `test_loop_gap_harness_rank1_regime.py` | **T0** | D-lite smoke **PARTIAL** ($\approx -0.19$) | D-lite ✅ |
 | CVG-R1-004 | `rank1_pass` composite gate | multi | harness | `_rank_gates` | — | **T1** | not asserted in CI | D |
 | CVG-R1-005 | Seed `pair` conservative IC | — | genesis pair | `loop_gap_seeds.pair` | `test_loop_gap_probe_runs` (partial) | **T1** | smoke only | D |
 | CVG-R1-006 | Seed `photon_lock` @ $A_{\mathrm{LOCK}}$ | — | genesis-23 | `loop_gap_seeds.photon_lock` | `test_loop_gap_probe_runs` | **T1** | 7× proxy Γ vs pair (result §2) | D |
@@ -99,9 +99,19 @@
 | CVG-R1-009 | `impedance_OFF` ablation kills Γ proxy | proxy | DAG ablation | harness battery | — | **T2** | driver JSON only | D |
 | CVG-R1-010 | `converter_OFF` ablation kills $V_{\mathrm{inc}}$ | conv | DAG ablation | harness battery | — | **T2** | driver JSON only | D |
 
-**Phase D-lite closes:** CVG-R1-003 (instrument), CVG-R1-002/004 (keeper or ENGINE-GAP), CVG-R1-008 (regime gate in test).
+**Phase D-lite closes:** CVG-R1-003 (instrument), CVG-R1-002/004 (keeper or ENGINE-GAP), CVG-R1-008 (regime gate in test). — **D-lite LANDED** `05fa9e4f`.
 
-**Phase C′ closes:** standing longitudinal $V$ seed; $V\to\omega$ Option-D source; S3 vs S0 $V_{\mathrm{inc}}$ nucleation; new rows CVG-C′-001..005 (to be added on implementor PR).
+**Phase C′ closes:** standing longitudinal $V$ seed; $V\to\omega$ Option-D source; S3 vs S0 $V_{\mathrm{inc}}$ nucleation — rows below.
+
+| ID | Claim | Ch | Corpus | Engine | Keeper | Tier | Production | Phase |
+|:---|:---|:---:|:---|:---|:---|:---:|:---|:---:|
+| CVG-C′-001 | Standing $V$ seed (Lane-1) on K4 $V_{\mathrm{inc}}$ | scalar | genesis-24 / abandoned-interior | `scalar_grade_seed.py` | `test_loop_gap_harness_scalar_grade.py` | **T0** | keeper only | C′1 ✅ |
+| CVG-C′-002 | CP8 topology-null certificate at $t=0$ | scalar | prereg F1 | `scalar_seed_certificate` | `test_scalar_seed_cp8_topology_null` | **T0** | keeper only | C′1 ✅ |
+| CVG-C′-003 | $V\to\omega$ Option-D source (B′ bootstrap) | conv | tracereversal + reactive-entrainment | `scalar_grade_source.py` | `test_loop_gap_harness_scalar_grade.py` | **T0** | weak at smoke; not F3 PASS | C′2 ✅ |
+| CVG-C′-004 | `bulk_force_v_to_omega` detonation control | conv | prereg ablation | harness + engine | `test_bulk_force_detonates` | **T0** | detonates ~9× | C′2 ✅ |
+| CVG-C′-005 | S0–S4 smoke + SCALAR verdict bin | multi | prereg §3 | driver `--smoke-scalar` | — | **T2** | **not run** | **C′3 — NEXT** |
+| CVG-C′-006 | Result §8 ablation + $H_{\mathrm{drift}}$ ledger | — | phase2 result | — | — | **T2** | **not written** | **C′4 — NEXT** |
+| CVG-C′-007 | GAP-C `gap_c_coupling_on` ablation (S4) | bulk | 2b prereg Inc C | harness | — | **T1** | not wired | **C′5 — PENDING** |
 
 ### Rank 1b — bulk channel (GAP-A containment)
 
@@ -182,9 +192,10 @@ Ordered work that **promotes rows** from T1/T2 → T0. Implementor PR must cite 
 
 | Priority | Row ID(s) | Deliverable | Owner phase | Acceptance |
 |:---:|:---|:---|:---:|:---|
-| **P0** | CVG-R1-003, CVG-R1-002, CVG-R1-004 | `gamma_bulk_min` on harness + keeper or ENGINE-GAP | **D** | `test_loop_gap_harness_rank1_gamma_bulk.py` or extend bulk tests |
-| **P0** | CVG-R1-008 | Regime gate in pytest + `_POST_RUPTURE` exclude | **D** | PRE/POST $A^2$ asserts |
-| **P1** | CVG-R1-009, CVG-R1-010 | Ablation keepers in harness CI | **D** | `impedance_OFF` / `converter_OFF` flip gates |
+| **P0** | CVG-C′-005, CVG-C′-006 | `--smoke-scalar` S0–S4 + result §8 | **C′3–C′4** | SCALAR bin + ablation matrix |
+| **P0** | CVG-C′-007 | GAP-C ablation arm S4 | **C′5** | `gap_c_coupling_on` OFF default |
+| **P1** | CVG-R1-002, CVG-R1-004, CVG-R1-008 | Proxy Γ + composite + regime gate keepers | **D-full** | on restored engine |
+| **P1** | CVG-R1-009, CVG-R1-010 | Ablation keepers in harness CI | **D-full** | `impedance_OFF` / `converter_OFF` flip gates |
 | **P2** | CVG-R2-003 | Rank-2 keeper at valid regime | **F** | Compton sweep smoke |
 | **P3** | CVG-R4-001, CVG-R4-008 | P11 keeper (PASS or honest FAIL) | **G** | assert floor or `OPERATOR-SET-ONLY` |
 | **P4** | CVG-R4-006 | R2 bench execution | **G2** | bench result doc |

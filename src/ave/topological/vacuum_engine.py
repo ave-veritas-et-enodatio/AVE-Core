@@ -1658,6 +1658,10 @@ class EngineConfig:
     bulk_eps_den: float = 1e-6
     bulk_nu_art: float = 5e-4
     bulk_rho_diff: float = 5e-4
+    # C′ Increment B — Option-D V→ω boundary source (KEEP-BOTH default OFF).
+    v_to_omega_source_on: bool = False
+    # Detonation control: enables A28 bulk ∂L_c/∂ω (must FAIL or detonate).
+    bulk_force_v_to_omega: bool = False
 
 
 class VacuumEngine3D:
@@ -1693,7 +1697,9 @@ class VacuumEngine3D:
             use_asymmetric_saturation=config.use_asymmetric_saturation,
             use_memristive_saturation=config.use_memristive_saturation,
             use_lagrangian_emf_coupling=config.use_lagrangian_emf_coupling,
-            disable_cosserat_lc_force=config.disable_cosserat_lc_force,
+            disable_cosserat_lc_force=(
+                False if config.bulk_force_v_to_omega else config.disable_cosserat_lc_force
+            ),
             enable_cosserat_self_terms=config.enable_cosserat_self_terms,
             use_impedance_boundary=config.use_impedance_boundary,
             impedance_clamp_strength=config.impedance_clamp_strength,
@@ -1704,6 +1710,7 @@ class VacuumEngine3D:
             use_trilinear_converter=config.use_trilinear_converter,
             converter_mode=config.converter_mode,
             converter_photon_deplete=config.converter_photon_deplete,
+            v_to_omega_source_on=config.v_to_omega_source_on,
         )
 
         self.k4 = self._coupled.k4

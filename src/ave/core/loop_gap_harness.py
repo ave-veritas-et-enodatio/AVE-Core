@@ -32,6 +32,7 @@ from ave.core.genesis_v18_coupled import (
     tau_steps_k4,
 )
 from ave.core.loop_gap_seeds import A_LOCK_DEFAULT, A_YIELD, SeedMode, apply_seed
+from ave.core.scalar_grade_seed import ScalarSeedMode, apply_scalar_seed_if_enabled
 from ave.topological.k4_cosserat_coupling import _cosserat_A_squared
 from ave.topological.vacuum_engine import EngineConfig, VacuumEngine3D
 
@@ -85,6 +86,8 @@ class LoopGapResult:
     c_bulk2_min_end: float = 0.0
     c_bulk2_min_drive: float = 0.0
     max_omega_end: float = 0.0
+    omega_peak: float = 0.0
+    omega_peak_evolved: float = 0.0
     max_a_sq_k4_end: float = 0.0
     channel_primary: str = "EM+shear"
     channel_tags: dict[str, dict[str, float]] = field(default_factory=dict)
@@ -219,6 +222,11 @@ def run_loop_gap_probe(
     bulk_m_edge: float = 0.75,
     bulk_r_core_frac: float = 0.22,
     front_target: float | None = None,
+    scalar_seed_on: bool = False,
+    scalar_seed_frac: float = 0.85,
+    scalar_seed_mode: ScalarSeedMode = "lane1_standing",
+    v_to_omega_source_on: bool = False,
+    bulk_force_v_to_omega: bool = False,
     fast: bool = False,
 ) -> LoopGapResult:
     """Conservative ring-up + quiescence on VacuumEngine3D (no external sources)."""
@@ -226,7 +234,12 @@ def run_loop_gap_probe(
         memristive_on = rank_target >= 4
 
     cfg_kw = dict(N=N, bulk_density_on=bulk_density_on)
-    if not impedance_on:
+    if v_to_omega_source_on:
+        cfg_kw["v_to_omega_source_on"] = True
+        cfg_kw["use_impedance_boundary"] = True
+    if bulk_force_v_to_omega:
+        cfg_kw["bulk_force_v_to_omega"] = True
+    if not impedance_on and not v_to_omega_source_on:
         cfg_kw["use_impedance_boundary"] = False
     if not converter_on:
         cfg_kw["use_trilinear_converter"] = False
@@ -241,6 +254,12 @@ def run_loop_gap_probe(
         amp=amp,
         a_lock=a_lock,
         front_target=front_target,
+    )
+    apply_scalar_seed_if_enabled(
+        engine,
+        scalar_seed_on=scalar_seed_on,
+        scalar_seed_frac=scalar_seed_frac,
+        scalar_seed_mode=scalar_seed_mode,
     )
     achieved_a_seed = _seed_a_front(engine)
     if bulk_density_on:
@@ -260,6 +279,8 @@ def run_loop_gap_probe(
 
     obs0 = snapshot_op14(coupled)
     v_peak = obs0["v_inc_max"]
+    omega_peak = float(np.max(np.linalg.norm(coupled.cos.omega, axis=-1)))
+    omega_peak_evolved = 0.0
     gamma_min_drive = obs0["gamma_min"] if impedance_on else 0.0
     phi_baseline = max(obs0["phi_link_sq"], PHI_BASELINE_FLOOR)
     obs_driveoff = obs0
@@ -273,6 +294,14 @@ def run_loop_gap_probe(
         engine.step()
         obs_t = snapshot_op14(coupled)
         v_peak = max(v_peak, obs_t["v_inc_max"])
+        omega_peak = max(
+            omega_peak, float(np.max(np.linalg.norm(coupled.cos.omega, axis=-1)))
+        )
+        if t >= 1:
+            omega_peak_evolved = max(
+                omega_peak_evolved,
+                float(np.max(np.linalg.norm(coupled.cos.omega, axis=-1))),
+            )
         if t == 1:
             phi_baseline = max(obs_t["phi_link_sq"], PHI_BASELINE_FLOOR)
         bulk_t = engine.bulk_snapshot()
@@ -380,6 +409,8 @@ def run_loop_gap_probe(
         c_bulk2_min_end=bulk_end["c_bulk2_min"],
         c_bulk2_min_drive=c_bulk2_min_drive,
         max_omega_end=max_omega_end,
+        omega_peak=omega_peak,
+        omega_peak_evolved=omega_peak_evolved,
         max_a_sq_k4_end=max_a_sq_k4_end,
         channel_primary=_bulk_channel_tag(
             bulk_on=bulk_density_on,

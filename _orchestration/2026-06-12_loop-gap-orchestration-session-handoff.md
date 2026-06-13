@@ -1,9 +1,9 @@
 # SESSION HANDOFF — 2026-06-12 LOOP GAP audit + harness land (orchestrator / implementor)
 
 **Written:** 2026-06-12  
-**Updated:** 2026-06-13 — restoration-first reorder; D-lite + C′ preregs **FROZEN**  
-**`main` HEAD:** `47b72ca8` (Merge PR **#212** — index post-PR4)  
-**Next branch:** `analysis/2026-06-12-loop-gap-phase-d` (D-lite) → `analysis/2026-06-13-loop-gap-scalar-grade` (C′ primary)  
+**Updated:** 2026-06-13 — C′1+C′2 landed on `analysis/2026-06-13-loop-gap-scalar-grade`; C′3 smoke battery **NEXT**  
+**Branch HEAD:** `analysis/2026-06-13-loop-gap-scalar-grade` (off D-lite `05fa9e4f`)  
+**Next step:** C′3 `--smoke-scalar` S0–S4 battery → C′4 result §8 → PR  
 **Full detail:** [`2026-06-12_loop-gap-first-principles-implementor-brief.md`](2026-06-12_loop-gap-first-principles-implementor-brief.md)  
 **Harness epic:** [`2026-06-12_loop-gap-unified-harness.md`](2026-06-12_loop-gap-unified-harness.md)  
 **Execution plan:** [`2026-06-12_loop-gap-orchestration-plan.md`](2026-06-12_loop-gap-orchestration-plan.md)
@@ -31,19 +31,22 @@ Fool modes: CVR-SET, Ω_freeze IC, snap alone, cosmic stream, bulk GAP-A as rank
 (2,3) = coordinate discipline (plan I4) for launch/identification — NOT a gap-closure lever.
 Active path = loop_gap_harness.py on VacuumEngine3D. srs v9–v17 FROZEN (archive only).
 
-STATE (post-#212):
-- Harness + Phase 2b GAP-A LANDED (#207); Phase C LANDED (#210); srs archive LANDED (#211)
-- Preregs FROZEN: D-lite + C′ scalar-grade restoration (Grant 2026-06-13)
-- Execution order: D-lite → C′ → D-full → E → F → G
-- smoke --bulk: ENGINE-GAP on V_inc (expected — motivates C′)
+STATE (post-C′1+C′2 on analysis/2026-06-13-loop-gap-scalar-grade):
+- D-lite LANDED (gamma_bulk_min + smoke baseline)
+- C′1 standing V seed + CP8 certificate LANDED (scalar_grade_seed.py)
+- C′2 V→ω source LANDED (B′ — relu(-Γ) rejected; Beltrami bootstrap)
+- 12/12 keeper tests green (test_loop_gap_harness_scalar_grade.py)
+- MISSING: C′3 smoke battery S0-S4, C′4 result §8, C′5 GAP-C ablation
+- Execution order: C′3-C′5 → D-full → E → F → G
 
 YOUR ROLE — pick one:
-ORCHESTRATOR: merge this PR (preregs + orchestration refresh)
-COVERAGE: `_orchestration/2026-06-13_loop-gap-corpus-engine-coverage.md` — cite row IDs in prereg/PR
+ORCHESTRATOR: review C′ PR when C′3-C′4 complete
+COVERAGE: _orchestration/2026-06-13_loop-gap-corpus-engine-coverage.md — CVG-C′-001..007
 
 IMPLEMENTOR (pick phase):
-  D-lite: gamma_bulk_min + smoke baseline — `research/2026-06-12_loop-gap-harness-rank1-regime_prereg_FROZEN.md`
-  C′ (PRIMARY after D-lite): scalar seed + V→ω source — `research/2026-06-13_loop-gap-scalar-grade-restoration_prereg_FROZEN.md`
+  C′3 (NEXT): --smoke-scalar driver + S0-S4 battery + SCALAR verdict bin
+  C′4: result §8 append to loop-gap-harness-phase2_result.md
+  C′5: gap_c_coupling_on GAP-C ablation (optional)
 
 HARD REJECT:
 - New chiral_lattice_v19+

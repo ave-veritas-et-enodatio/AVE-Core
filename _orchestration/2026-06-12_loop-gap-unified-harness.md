@@ -3,13 +3,25 @@
 **Status:** ACTIVE  
 **Opened:** 2026-06-12  
 **Harness land:** PR **#207** merged → `main` @ `98ec9270` (2026-06-12)  
-**Next work:** D-lite (`analysis/2026-06-12-loop-gap-phase-d`) → C′ scalar restoration (`analysis/2026-06-13-loop-gap-scalar-grade`)  
+**Next work:** C′3 smoke battery on `analysis/2026-06-13-loop-gap-scalar-grade` (C′1+C′2 landed)  
 **DAG:** [`2026-06-12_loop-gap-engine-dag.md`](2026-06-12_loop-gap-engine-dag.md)  
 **Ledger:** [`research/2026-06-12_genesis-program-status.md`](../research/2026-06-12_genesis-program-status.md)  
 **Execution plan (authoritative order):** [`2026-06-12_loop-gap-orchestration-plan.md`](2026-06-12_loop-gap-orchestration-plan.md)  
 **Session handoff (spawn other agent):** [`2026-06-12_loop-gap-orchestration-session-handoff.md`](2026-06-12_loop-gap-orchestration-session-handoff.md)  
 **Full plan + implementor brief:** [`2026-06-12_loop-gap-first-principles-implementor-brief.md`](2026-06-12_loop-gap-first-principles-implementor-brief.md) (Part I = orchestrator; Part II = implementor)  
 **Coverage ledger:** [`2026-06-13_loop-gap-corpus-engine-coverage.md`](2026-06-13_loop-gap-corpus-engine-coverage.md) — belief tiers T0–T4; keeper backlog §6
+
+---
+
+## Session log (2026-06-13 — C′1+C′2)
+
+| Item | Read |
+|:---|:---|
+| D-lite | **LANDED** `05fa9e4f` — `gamma_bulk_min` + smoke baseline |
+| C′1 standing $V$ | **LANDED** — `scalar_grade_seed.py`; CP8 certificate |
+| C′2 $V\to\omega$ source | **LANDED (B′)** — `scalar_grade_source.py`; relu(−Γ) gate rejected |
+| Keeper tests | 12/12 `test_loop_gap_harness_scalar_grade.py` |
+| **NEXT** | C′3 `--smoke-scalar` S0–S4 · C′4 result §8 · C′5 GAP-C |
 
 ---
 
@@ -113,7 +125,45 @@
 
 **Phase A (ledger):** [x] orchestration plan doc; [x] index §2026-06-12; [x] program status §10
 
-**Acceptance:** F0 PASS; F1 bulk_ON ≠ bulk_OFF; F2 channel-tagged — **LANDED on main**. Rank-1 $\Gamma$ gate remains **open** (Phase 2 / Phase D).
+**Acceptance:** F0 PASS; F1 bulk_ON ≠ bulk_OFF; F2 channel-tagged — **LANDED on main**. Rank-1 $\Gamma$ gate remains **open** (Phase D-lite / C′).
+
+---
+
+## Phase D-lite — OP-2 instrument (LANDED 2026-06-13)
+
+**Goal:** Instrument $\Gamma_{\mathrm{bulk}}$ + $V_{\mathrm{inc}}$ on transverse-only baseline; document ENGINE-GAP as C′ motivation.
+
+**Prereg:** `research/2026-06-12_loop-gap-harness-rank1-regime_prereg_FROZEN.md`
+
+| Inc | Deliverable | Status |
+|:---|:---|:---|
+| A | `gamma_bulk_min` observable | [x] |
+| B | Smoke baseline B0/B1/B2 | [x] |
+| C | Result §7 D-lite | [x] ENGINE-GAP on $V_{\mathrm{inc}}$ by thesis |
+| D | `test_loop_gap_harness_rank1_regime.py` | [x] |
+
+**Commit:** `05fa9e4f` on `analysis/2026-06-13-loop-gap-scalar-grade` (branched after D-lite).
+
+---
+
+## Phase C′ — Scalar-grade restoration (IN PROGRESS 2026-06-13)
+
+**Goal:** Standing longitudinal $V$ + conservative $V\to\omega$ source; test OP-2 where 2b failed.
+
+**Prereg:** `research/2026-06-13_loop-gap-scalar-grade-restoration_prereg_FROZEN.md`
+
+| Inc | Deliverable | Status |
+|:---|:---|:---|
+| A | `scalar_grade_seed.py` — Lane-1 standing $V$ + CP8 | [x] |
+| B′ | `scalar_grade_source.py` — Beltrami bootstrap (not relu(−Γ)) | [x] |
+| B+ | Engine hook `v_to_omega_source_on` on `CoupledK4Cosserat` | [x] |
+| C | `--smoke-scalar` S0–S4 battery + SCALAR bin | [ ] **NEXT** |
+| D | Result §8 ablation matrix | [ ] |
+| E | GAP-C `gap_c_coupling_on` ablation (S4) | [ ] optional |
+
+**Keeper tests:** `test_loop_gap_harness_scalar_grade.py` — 12/12 green.
+
+**Honest smoke read:** $\omega$ nucleates weakly from scalar-only; `bulk_force` detonates; F3 OP-2 composite **not** claimed LANDED.
 
 ---
 

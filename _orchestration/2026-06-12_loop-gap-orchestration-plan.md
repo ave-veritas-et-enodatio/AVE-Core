@@ -139,23 +139,48 @@ POST-RUN: if max_A² > 10 · A²_yield → bin suffix _POST_RUPTURE; exclude fro
 
 ---
 
-### Phase C′ — Scalar-grade restoration (NEXT implementor)
+### Phase C′ — Scalar-grade restoration (IN PROGRESS — branch `analysis/2026-06-13-loop-gap-scalar-grade`)
 
 **Goal:** Restore Heaviside-deleted standing longitudinal $V$ + conservative $V\to\omega$ Option-D source on harness; test OP-2 closure where 2b failed.
 
 **Prereg:** `research/2026-06-13_loop-gap-scalar-grade-restoration_prereg_FROZEN.md`
 
-| Step | Task | Acceptance |
-|:---|:---|:---|
-| C′1 | Standing $V$ seed (Lane-1) | `scalar_seed_on` KEEP-BOTH; CP8 certificate |
-| C′2 | $V\to\omega$ reactive source | Option-D boundary; bulk-force control detonates |
-| C′3 | Smoke battery S0–S4 | SCALAR-LANDED / PARTIAL / REPRESENTATION-GAP / ENGINE-GAP |
-| C′4 | Result §8 | Ablation matrix; $H_{\mathrm{drift}}$ ledger |
-| C′5 | Optional GAP-C ablation | `gap_c_coupling_on` OFF default; S4 arm only |
+| Step | Task | Acceptance | Status (2026-06-13) |
+|:---|:---|:---|:---|
+| C′1 | Standing $V$ seed (Lane-1) | `scalar_seed_on` KEEP-BOTH; CP8 certificate | ✅ **LANDED** — `scalar_grade_seed.py`; keeper tests green |
+| C′2 | $V\to\omega$ reactive source | Option-D boundary; bulk-force control detonates | ✅ **LANDED (B′)** — `scalar_grade_source.py`; relu(−Γ) gate **rejected** (category error); Beltrami bootstrap from trapped $V$ + `g_wall` |
+| C′3 | Smoke battery S0–S4 | SCALAR-LANDED / PARTIAL / REPRESENTATION-GAP / ENGINE-GAP | ❌ **NEXT** — no `--smoke-scalar` CLI; no production JSON |
+| C′4 | Result §8 | Ablation matrix; $H_{\mathrm{drift}}$ ledger | ❌ **NEXT** — append `loop-gap-harness-phase2_result.md` |
+| C′5 | Optional GAP-C ablation | `gap_c_coupling_on` OFF default; S4 arm only | ❌ **PENDING** — Increment C not wired |
 
-**Gated on:** D-lite merged (instrument exists). **Parallel with:** D-lite if separate files.
+**Gated on:** D-lite merged (instrument exists) — **✅** `05fa9e4f` on branch tip.
 
 **Out of scope:** full biquaternion (Phase H); D1 snap machine.
+
+#### C′ progress notes (implementor session 2026-06-13)
+
+**Keeper tests:** `src/tests/test_loop_gap_harness_scalar_grade.py` — 12/12 green (~8–9 min).
+
+**B′ physics fix (load-bearing):** first Increment B gated source on `relu(−Γ)` (confinement clamp). V lives in $A^2_\varepsilon$ → $\Gamma>0$ at seed → gate ≈ 0. **Fundamental fix:** source = trapped $V$ reservoir × `g_wall(A_combined)` × seed window × Beltrami direction from CP geometry; clamp stays separate.
+
+**Smoke-scale read (honest, not verdict):** S1 nucleates $\omega$ from 0 (~$1.5\times10^{-3}$); S3 vs S2 slightly higher `max_omega_end`; `bulk_force_v_to_omega` detonates (~9×). **Does not yet claim** F3 OP-2 LANDED ($V_{\mathrm{inc}}>10^{-2}$, $\Gamma_{\mathrm{bulk}}\leq -0.25$).
+
+#### C′ missing items checklist (before D-full / next implementor)
+
+| ID | Item | Owner | Blocker for |
+|:---|:---|:---|:---|
+| M-C′-01 | `--smoke-scalar` driver + S0–S4 battery JSON | C′3 | SCALAR verdict bin |
+| M-C′-02 | `frac` sweep $\{0.5, 1.0, 1.5\}\times A_{\mathrm{yield}}$ in battery | C′3 | prereg §3.1 |
+| M-C′-03 | Result §8 ablation matrix + `H_drift` ledger | C′4 | D-full gate |
+| M-C′-04 | Program status C′ row + CVG-C′-001..005 in coverage ledger | orchestration | PR body cite |
+| M-C′-05 | GAP-C (`gap_c_coupling_on`) ablation arm S4 | C′5 | channel separation F4 |
+| M-C′-06 | Production N=14 run | C′3 | only if smoke S3 **PARTIAL** |
+| M-C′-07 | Beltrami **χ self-trapping** lock leg | corpus gap | OP-2 magnitude hold (`reactive-entrainment-source` Block 2/3) |
+| M-C′-08 | Saturation-front regime ($R_{\mathrm{II}}$, not √α smoke) | D-full / adjudication | μ-short Γ engagement |
+| M-C′-09 | Phase-space $(2,3)$ dynamic closure | downstream | named hole — not C′ scope |
+| M-C′-10 | Rank-4 remanence (LOOP GAP crux) | Phase G | $E_{\mathrm{persist}}\approx 0.71$ unchanged |
+
+**Corpus holes (pre-existing — C′ does not close):** ε-side vs μ-side gate mismatch (`cross-sector-pump-confirmation` §9.2); reactive ι ($\Phi_{\mathrm{link}}$ slosh) = Phase H; full gyroscopic ledger (source = confinement unified) not closed in engine.
 
 ---
 
@@ -230,7 +255,7 @@ POST-RUN: if max_A² > 10 · A²_yield → bin suffix _POST_RUPTURE; exclude fro
 
 | Epic | Doc | Status | Next step |
 |:---|:---|:---|:---|
-| **LOOP GAP harness** | `2026-06-12_loop-gap-unified-harness.md` | ACTIVE D-lite / C′ | **D-lite** instrument → **C′** scalar restoration |
+| **LOOP GAP harness** | `2026-06-12_loop-gap-unified-harness.md` | ACTIVE C′ | **C′3** smoke battery → result §8 → PR |
 | Electron synthesis | `2026-06-07_electron-synthesis-epic.md` | ACTIVE — record landed | Rank closure via harness, not new genesis |
 | Lattice D1 | `2026-06-11_lattice-d1-test-gated.md` | STRUCTURAL done; framing open | Phase C |
 | Constitutive loop R2 | `research/2026-06-12_constitutive-loop-r2-prereg_FROZEN.md` | FROZEN | Phase G2 parallel |
@@ -311,4 +336,5 @@ make verify
 
 | Date | Change |
 |:---|:---|
+| 2026-06-13 | C′1+C′2 landed on `analysis/2026-06-13-loop-gap-scalar-grade`; missing-items checklist §Phase C′; B′ relu(−Γ) rejection documented |
 | 2026-06-12 | Initial pedantic plan — post audit synthesis + harness pivot |

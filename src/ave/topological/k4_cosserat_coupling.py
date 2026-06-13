@@ -236,6 +236,7 @@ class CoupledK4Cosserat:
         converter_photon_deplete: bool = False,
         converter_wall_center: float = R_II,
         converter_wall_width: float = 0.18,
+        v_to_omega_source_on: bool = False,
     ):
         self.N = int(N)
         self.pml = int(pml)
@@ -389,6 +390,9 @@ class CoupledK4Cosserat:
         # Conservative Hamiltonian ω→V source; closes genesis-23 GAP-1 when
         # combined A² localizes g_wall away from V≡0 alone. Default OFF.
         self.use_trilinear_converter = bool(use_trilinear_converter)
+        # C′ Increment B — Option-D V→ω boundary source (μ-short × R=Γ²).
+        # Default OFF (KEEP-BOTH). Requires use_impedance_boundary=True.
+        self.v_to_omega_source_on = bool(v_to_omega_source_on)
         if converter_mode not in ("trilinear", "gyrotropic"):
             raise ValueError(f"converter_mode must be 'trilinear' or 'gyrotropic', got {converter_mode!r}")
         self.converter_mode = converter_mode
@@ -700,12 +704,21 @@ class CoupledK4Cosserat:
         kick). The frozen `omega0` is the shared-front clamp (advances once per
         outer step). NO coupling W_refl force (CP8 isolation; A28 runaway channel
         avoided) — the sectors couple only through the shared front."""
+        from ave.core.scalar_grade_source import boundary_v_to_omega_accel
+
         cos = self.cos
         a_u, a_w = cos._bulk_accel()
         if self.use_trilinear_converter:
             _fV, f_w, f_omega = self._compute_converter_forces()
             a_u = a_u + f_w / cos.rho
             a_w = a_w + f_omega / cos.I_omega
+        if self.v_to_omega_source_on:
+            f_src = boundary_v_to_omega_accel(self)
+            a_w = a_w + f_src / cos.I_omega
+        if not self.disable_cosserat_lc_force:
+            dE_du_c, dE_dw_c = self._compute_coupling_force_on_cosserat()
+            a_u = a_u - dE_du_c / cos.rho
+            a_w = a_w - dE_dw_c / cos.I_omega
         cos.u_dot = cos.u_dot + 0.5 * dt * a_u
         cos.omega_dot = cos.omega_dot + 0.5 * dt * a_w
         cos._zero_velocities_outside_alive()
@@ -717,6 +730,9 @@ class CoupledK4Cosserat:
             _fV, f_w, f_omega = self._compute_converter_forces()
             a_u_new = a_u_new + f_w / cos.rho
             a_w_new = a_w_new + f_omega / cos.I_omega
+        if self.v_to_omega_source_on:
+            f_src = boundary_v_to_omega_accel(self)
+            a_w_new = a_w_new + f_src / cos.I_omega
         cos.u_dot = cos.u_dot + 0.5 * dt * a_u_new
         cos.omega_dot = cos.omega_dot + 0.5 * dt * a_w_new
         cos._zero_velocities_outside_alive()

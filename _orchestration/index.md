@@ -22,14 +22,14 @@ Electron = **Class A/B consistency structure** on **z=4 diamond K4** (`research/
 | **P1b** | Vol 9 three-channel KB | [`2026-06-12_vol9-kb-discipline-pass.md`](2026-06-12_vol9-kb-discipline-pass.md) | ✅ | **LANDED** #209 |
 | **P1c** | srs genesis archive | Plan §PR4 | ✅ | **LANDED** #211 @ `7cf5cdd6`; audit `audit/2026-06-13_loop-gap-genesis-archive` |
 | **P2** | Corpus discipline | Plan §Phase C | **C** ✅ | **LANDED** #210 — D1 reframe + regime quarantine |
-| **P3a** | D-lite OP-2 instrument | Plan §Phase D-lite | **D-lite** | **NEXT** — `gamma_bulk_min` smoke baseline; prereg **FROZEN** |
-| **P3b** | Scalar-grade restoration (C′) | Plan §Phase C′ | **C′** | **PRIMARY** after D-lite — standing $V$ + $V\to\omega$ source; prereg **FROZEN** |
-| **P3c** | D-full seed sweep | Plan §Phase D-full | **D-full** | Gated on C′ SCALAR-LANDED/PARTIAL |
+| **P3a** | D-lite OP-2 instrument | Plan §Phase D-lite | **D-lite** ✅ | **LANDED** `05fa9e4f` on scalar branch |
+| **P3b** | Scalar-grade restoration (C′) | Plan §Phase C′ | **C′** | **IN PROGRESS** — C′1+C′2 landed; **NEXT:** C′3 smoke battery |
+| **P3c** | D-full seed sweep | Plan §Phase D-full | **D-full** | Gated on C′3–C′4 documented |
 | **P4** | Electron synthesis (record) | [`2026-06-07_electron-synthesis-epic.md`](2026-06-07_electron-synthesis-epic.md) | — | Ranks via harness only |
 | **P5** | R2 constitutive loop | `research/2026-06-12_constitutive-loop-r2-prereg_FROZEN.md` | **G2** (parallel) | Ferrite bench when Grant schedules |
 | — | Experimental arc | [`experimental/experimental-arc.md`](experimental/experimental-arc.md) | — | Unchanged |
 
-**Session handoff:** [`2026-06-12_loop-gap-orchestration-session-handoff.md`](2026-06-12_loop-gap-orchestration-session-handoff.md) · **`main` HEAD:** `47b72ca8` (PR #212). **Next:** D-lite implementor → **C′ scalar restoration** (restoration-first reorder, Grant 2026-06-13).
+**Session handoff:** [`2026-06-12_loop-gap-orchestration-session-handoff.md`](2026-06-12_loop-gap-orchestration-session-handoff.md) · **Branch:** `analysis/2026-06-13-loop-gap-scalar-grade` (C′1+C′2). **Next:** C′3 `--smoke-scalar` battery + result §8.
 
 ### Decision stack (2026-06-12 physics read — supersedes 2026-06-11 CLOSED rows for execution)
 
@@ -63,10 +63,10 @@ Electron = **Class A/B consistency structure** on **z=4 diamond K4** (`research/
 
 ### Carry-forward
 
-- **Restoration-first order (Grant 2026-06-13):** D-lite → C′ → D-full → E → F → G
+- **Restoration-first order (Grant 2026-06-13):** D-lite ✅ → **C′3–C′5** → D-full → E → F → G
 - **FROZEN preregs:** `research/2026-06-12_loop-gap-harness-rank1-regime_prereg_FROZEN.md` (D-lite); `research/2026-06-13_loop-gap-scalar-grade-restoration_prereg_FROZEN.md` (C′)
-- **D-lite** implementor: `gamma_bulk_min` + smoke baseline on branch `analysis/2026-06-12-loop-gap-phase-d`
-- **C′** implementor (primary): scalar seed + Option-D $V\to\omega$ source — branch `analysis/2026-06-13-loop-gap-scalar-grade` off `main`
+- **C′ branch:** `analysis/2026-06-13-loop-gap-scalar-grade` — C′1 standing $V$ + C′2 B′ source **landed**; missing: C′3 smoke battery, C′4 result §8, C′5 GAP-C (see plan §Phase C′ checklist)
+- **D-lite** LANDED `05fa9e4f` (`gamma_bulk_min` + smoke baseline)
 - Phases E–G per orchestration plan (±k, ranks 2–3, rank-4 + R2 bench)
 - Audit tags on origin: `audit/2026-06-12_loop-gap-harness-phase2b` (`98ec9270`), `audit/2026-06-13_loop-gap-genesis-archive` (`7cf5cdd6`)
 - Merged LOOP GAP branches deleted (local + origin)
