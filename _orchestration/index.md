@@ -63,7 +63,8 @@ Electron = **Class A/B consistency structure** on **z=4 diamond K4** (`research/
 
 ### Carry-forward
 
-- **Restoration-first order (Grant 2026-06-13):** D-lite ✅ → **C′3–C′5** → D-full → E → F → G
+- **Fresh D-stack (Grant 2026-06-12):** [`2026-06-12_fresh-d-stack-adjudication.md`](2026-06-12_fresh-d-stack-adjudication.md) + [`AUDITOR_STATE.md`](../AUDITOR_STATE.md) §E — D5/D4/D2/D1 re-decided; H1 archive hygiene; Grant owes D4 knob + K-call
+- **Restoration-first order (Grant 2026-06-13):** D-lite ✅ → C′3 documented → **D-full** (gated) → E → F → G
 - **FROZEN preregs:** `research/2026-06-12_loop-gap-harness-rank1-regime_prereg_FROZEN.md` (D-lite); `research/2026-06-13_loop-gap-scalar-grade-restoration_prereg_FROZEN.md` (C′)
 - **C′ branch:** `analysis/2026-06-13-loop-gap-scalar-grade` — C′1 standing $V$ + C′2 B′ source **landed**; missing: C′3 smoke battery, C′4 result §8, C′5 GAP-C (see plan §Phase C′ checklist)
 - **D-lite** LANDED `05fa9e4f` (`gamma_bulk_min` + smoke baseline)
