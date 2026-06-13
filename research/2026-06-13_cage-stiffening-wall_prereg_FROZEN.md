@@ -142,4 +142,25 @@ The master-equation bulk-V self-trap is **v14-Mode-I-VALIDATED** (`two-engine-ar
 - [x] Success bin = sign + self-create + monotone-trend; **magnitude apparatus-qualified (NOT `Γ=−1`)** — auditor #1.
 - [x] crystal_engine is stiffening-only here (no ρ̄ dual-wall); softening ρ̄ = firewalled control.
 - [x] Fork off a clean `origin/main` worktree (auditor #3); driver-not-build; Rule-11 prereg frozen before code.
-- [ ] Grant + auditor review of this frozen prereg **before** any driver code.
+- [x] Auditor pre-driver review folded → **Amendment 1** below.
+- [ ] Auditor final audit of the **amended** frozen prereg **before** any driver code.
+
+---
+
+## Amendment 1 — auditor pre-driver review (2026-06-13)
+
+> **Rule-12 dated addendum** (the frozen body above is preserved). Folds the auditor's pre-driver review; **supersedes the §3 verdict bins**. No data has been seen — this remains a pre-run pre-registration.
+
+**A1 — self-focus is the PRIMARY signal, robust to BOTH traps.** The discriminator is **`max|A|_interior` GROWTH** (the `c_eff(V)` self-steepening dynamics — does the field amplify toward `A→1`), **NOT** the `gamma_bulk` magnitude. This dodges *both* the plant-vs-emerge trap (it's the dynamic, not the t=0 read) *and* the `n=S^{1/4}`-vs-`S^{1/2}` exponent defect (which lives in `gamma_bulk()`, a downstream read of A — not in A itself). `gamma_bulk_min` deepening *below* its t=0 value is **corroborating**; its magnitude stays apparatus-qualified, never a verdict axis.
+
+**A2 — framing is CONSISTENCY-with-v14, not new-emergence (pre-empts the #215 consistency-as-emergence error).** v14 Mode I PASS *already* validated that the longitudinal-bulk scalar self-traps into a breathing soliton with a `Γ≈−1` TIR shell — that **is** the cage (the one green `have` cell). This test does **not** discover the cage. What is new and worth the run: **does the de-contaminated A1 seed (`self.V`, the correctly-pinned "which V" — not `V_inc`) reproduce the v14 self-trap** — closing the "which V" question and validating that the F1 plumbing routed the right grade. **Report a positive as "confirms `self.V` is the self-trapping grade, consistent with v14 Mode I" — NOT "built the electron cage" (v14 built it), NOT "scalar beats transverse" (the harness thesis, now structurally moot: the harness cannot host the cage at all).**
+
+**A3 — frozen verdict bins (supersede §3):**
+- **SELF-FOCUS** — `max|A|` grows toward 1, the wall deepens below t=0, and the bound state **persists** (v14-consistent: `self.V` is the self-trapping grade). *The positive.*
+- **TRANSIENT** — forms then decays (distinct from never-formed; informative — a partial self-trap that doesn't hold).
+- **DISPERSES** — `max|A|` shrinks; `self.V` does NOT self-trap for this seed = a **clean honest negative** (grade-self-trap falsified for this seed/frac).
+- **UNRESOLVED** — budget/regime inconclusive.
+
+**A4 — the frac-sweep's PRIMARY read is the CRITICAL-FRAC (nucleation threshold), not monotonicity.** Sweep `frac` to find the **critical-frac** where behaviour switches: DISPERSES below, SELF-FOCUS above. A nucleation threshold is the cleanest bound-state-emergence signature (a real soliton has a critical seed amplitude), and that critical-frac **is** the nucleation barrier the genesis program has chased — more diagnostic than "monotone-deepens." Sweep fine enough to bracket it (bisect between the highest-dispersing and lowest-self-focusing frac; this subsumes §2's S3 disperse-control). The production budget must run long enough to distinguish **TRANSIENT** from persistent **SELF-FOCUS**.
+
+**A5 — ratification:** Grant + auditor confirmed `self.V` (2026-06-13); this amendment folds the auditor's pre-driver review. The auditor audits THIS amended frozen prereg — success bin = self-focus-dynamics + critical-frac, framing = consistency-with-v14 — before any driver code.
