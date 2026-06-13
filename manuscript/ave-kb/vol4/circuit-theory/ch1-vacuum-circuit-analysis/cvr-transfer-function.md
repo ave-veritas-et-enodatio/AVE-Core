@@ -65,6 +65,12 @@ The **skew (sign-flipped) off-diagonal** is the parity-odd signature: $S_{LR} \n
 > the winding handedness. The **coupling magnitude $\chi$ is STATED, not derived** — it is a structural placeholder.
 > The cubic FDTD engine averages chirality out (Fd$\bar3$m achiral $\supset$ I4$_1$32 chiral); a quantitative $\chi$
 > needs the **K4-TLM / chiral-crystal engine** (AUDITOR_STATE FLAG-4). Do not cite a $\chi$ value as derived.
+>
+> **No-wire rule (the two-"3"s).** The winding is the **charge-"3"** — a *separate* object, documented in
+> [window-blind-bounding-plane.md](../../../common/window-blind-bounding-plane.md), orthogonal to this leaf's
+> **mass-dilatation "3"** $H_{co}$. The off-diagonal here is the STATED *projection* of the winding's chiral
+> scattering, **NOT** the winding wired into the breather's phasor $(V_{inc},V_{ref})$ — that wiring is the
+> genesis-24 / $w_{pol}=0$ double-count ([master-equation.md](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20). Keep the window-blind orthogonal; never merge it into $H_{co}$.
 
 ## §4 — Computed figure
 

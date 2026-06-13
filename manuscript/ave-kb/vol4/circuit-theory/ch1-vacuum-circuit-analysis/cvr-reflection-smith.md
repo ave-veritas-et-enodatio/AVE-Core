@@ -62,7 +62,7 @@ Re-runnable: `PYTHONPATH=$PWD/src python src/scripts/vol_9_device/cvr_ee_sweep/c
 ## §7 — Honest-status flags
 
 - **Exponent defect (carried):** the engine computes $\Gamma$ from $n=S^{0.25}$, which **understates** wall depth vs the physical $n=S^{0.5}$ ([cvr-dc-operating-point.md](cvr-dc-operating-point.md) §3, `master_equation_fdtd.py:165`). The $|\Gamma|^2=1-\alpha$ relation here is anchored to the **per-cycle leak** ($\alpha=1/Q$, clm-rtdmsn), not to the defective $n$ — so it is unaffected; but any $\Gamma$-from-$n$ magnitude on the engine side is shallow. Physics-review item.
-- **Sector-attribution flag (FLAG-2):** $Z_{core}=Z_0\sqrt{S}$ is robust to the magnetic-vs-capacitive sector question ([cvr-dc-operating-point.md](cvr-dc-operating-point.md) §6); the Smith locus is convention-independent. Magnetic is PRIMARY.
+- **Sector vs gauge (FLAG-2 recontextualized, 2026-06-13):** the apparent $\mu_{eff}\to0$-vs-$C_{eff}\to\infty$ split is partly the two **gauge** sides of one wall ($Z\to0$ inside $\leftrightarrow$ $Z\to\infty$ outside, Möbius $Z\leftrightarrow1/Z$, $|\Gamma|=1$; [trampoline-framework.md](../../../common/trampoline-framework.md):641 §6.1) — **not** a physical branch. The physical, gauge-invariant axis is the **two-"3"s** (mass-dilatation $\perp$ charge-winding; [master-equation.md](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20). This leaf's $Z_{core}=Z_0\sqrt{S}\to0$, $\Gamma=-1$ is the electron's **inside** reading (canonical, §6.1); the Smith locus is convention-independent.
 - **Chiral $\chi$ magnitude STATED** (§4).
 
 ## Cross-references

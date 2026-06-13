@@ -351,6 +351,8 @@ A **K4-bipartite tetrahedral Cosserat micropolar elastic continuum**. Three clai
 
 **Trampoline mapping (gyroscope-primary).** The **fabric itself is the gyroscope** — the micropolar continuum whose microrotation is the inductance; the **springs are its compliance**; the handed twist-lacing between weaves is the chirality. The nodes are the K4 *sampling* points of this continuum, **not** discrete rotor-beads (the substrate is continuous everywhere — §1.2); A/B sublattices are the two interleaved weaves of opposite handedness. The flat trampoline-sheet shows only the compliance (C) half — the gyroscope (L) is the medium's primary character (→ primer Step 3.5).
 
+> ↗ See also: [Window-Blind / Bounding-Plane](window-blind-bounding-plane.md) — the gyroscope (L / μ) half drawn as the **window blind**: the **charge-winding "3"** (Cosserat microrotation), the orthogonal companion to this compliance sheet (the **mass-dilatation "3"**). The visual a flat sheet cannot depict (the two-"3"s, master-equation.md:20).
+
 ![K4 bipartite tetrahedral lattice](../../../assets/sim_outputs/trampoline_framework/01_k4_bipartite_lattice.png)
 
 *Figure 1 — K4 bipartite tetrahedral lattice. Blue nodes (A sublattice) connect to orange nodes (B sublattice) along the four port vectors $p_0, p_1, p_2, p_3$ (each at 109.47° from the others). Each bond carries three storage modes (Figure 3). The right-handed port vector chirality is the substrate's genesis chirality.*
