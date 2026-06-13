@@ -1944,6 +1944,7 @@ class VacuumEngine3D:
                 "rho_bar_max": 0.0,
                 "c_bulk2_min": 0.0,
                 "c_bulk2_max": 0.0,
+                "gamma_bulk_min": 0.0,
                 "max_abs_u_adv": 0.0,
                 "bulk_steps": 0.0,
             }

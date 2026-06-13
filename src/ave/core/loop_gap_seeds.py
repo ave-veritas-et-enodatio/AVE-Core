@@ -13,8 +13,8 @@ from typing import Literal
 
 import numpy as np
 
-from ave.core.constants import ALPHA, N_PHI_PACK, R_II
-from ave.core.cross_sector_coupling import scale_cosserat_to_front
+from ave.core.constants import ALPHA, N_PHI_PACK, R_II, R_III
+from ave.core.cross_sector_coupling import normalize_cosserat_amplitude, scale_cosserat_to_front
 from ave.core.genesis_v18_coupled import pair_seed_cosserat
 from ave.topological.k4_cosserat_coupling import CoupledK4Cosserat, _cosserat_A_squared
 from ave.topological.vacuum_engine import VacuumEngine3D
@@ -23,6 +23,7 @@ SeedMode = Literal["pair", "photon_lock", "graded_a0"]
 
 # genesis-23 energize-lock defaults (reflection_genesis_23_self_assembly.py).
 A_LOCK_DEFAULT = 3.0
+A_YIELD = float(np.sqrt(ALPHA))
 PHOTON_SIGMA_FRAC = 3.0 / 24.0  # scale σ with N
 PHOTON_LAM_FRAC = 6.0 / 24.0
 
@@ -41,8 +42,13 @@ def seed_photon_lock(
     *,
     a_lock: float = A_LOCK_DEFAULT,
     helicity: float = 1.0,
-) -> None:
-    """Transverse ω-photon precursor at soft-moderate wall engagement (CP8)."""
+    front_target: float | None = None,
+) -> float:
+    """Transverse ω-photon precursor at soft-moderate wall engagement (CP8).
+
+    If ``front_target`` is set (D-lite: ``A_YIELD``), normalize peak Cosserat
+    strain to that canon landmark after packet launch.
+    """
     coupled = engine._coupled
     N = coupled.N
     _clear_k4_ports(coupled)
@@ -63,6 +69,23 @@ def seed_photon_lock(
         axis=2,
         helicity=helicity,
     )
+    if front_target is not None:
+        A_cos_sq = _cosserat_A_squared(
+            coupled.cos.u,
+            coupled.cos.omega,
+            coupled.cos.dx,
+            coupled.cos.omega_yield,
+            coupled.cos.epsilon_yield,
+        )
+        coupled.cos.u, coupled.cos.omega, _ = normalize_cosserat_amplitude(
+            coupled.cos.u,
+            coupled.cos.omega,
+            A_cos_sq,
+            target=float(front_target),
+        )
+        coupled.cos.u_dot[:] = 0.0
+        coupled.cos.omega_dot[:] = 0.0
+    return float(front_target if front_target is not None else a_lock)
 
 
 def seed_graded_a0(
@@ -117,6 +140,7 @@ def apply_seed(
     *,
     amp: float | None = None,
     a_lock: float = A_LOCK_DEFAULT,
+    front_target: float | None = None,
 ) -> None:
     """Apply conservative IC; caller must freeze_converter_wall() after."""
     if mode == "pair":
@@ -130,7 +154,7 @@ def apply_seed(
             return
         pair_seed_cosserat(engine._coupled, amp=amp_val)
     elif mode == "photon_lock":
-        seed_photon_lock(engine, a_lock=a_lock)
+        seed_photon_lock(engine, a_lock=a_lock, front_target=front_target)
     elif mode == "graded_a0":
         seed_graded_a0(engine, amp=amp)
     else:

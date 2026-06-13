@@ -95,3 +95,38 @@ Production (N=14) proxy-only run **cancelled** — ENGINE-GAP unchanged; rank-1b
 ## §5 — Read-through (pre-production)
 
 v18 production (pair, uniform): $\Gamma_{\min} \approx -4\times 10^{-4}$, $E_{\mathrm{persist}} \approx 0.60 \to 0.47$ as Compton mult increases — **more drive hurts**. Phase 2 tests whether **graded impedance approach** (photon_lock / graded_a0) engages rank-1 wall without pump detonation.
+
+---
+
+## §7 — Phase D-lite (OP-2 instrument + smoke baseline, 2026-06-13)
+
+**Prereg:** `research/2026-06-12_loop-gap-harness-rank1-regime_prereg_FROZEN.md`  
+**Driver:** `./.venv/bin/python src/scripts/vol_1_foundations/loop_gap_harness_genesis.py --dlite`  
+**JSON:** `assets/sim_outputs/loop_gap_harness_dlite_battery.json`
+
+| Item | Detail |
+|:---|:---|
+| Instrument | `gamma_bulk_min` live Smith read on $Z_{\mathrm{bulk}}=\rho_{\mathrm{bulk}} c_{\mathrm{bulk}}$ (bulk sector snapshot) |
+| Regime | `photon_lock` normalized to canon $A_{\mathrm{yield}}=\sqrt{\alpha}$ via `normalize_cosserat_amplitude` (not `a_lock` sweep) |
+| Primary arm | B1 `photon_lock` + bulk probe IC |
+
+### §7.1 Smoke table (N=10, `--dlite`)
+
+| Arm | $V_{\mathrm{inc,peak}}$ | $\Gamma_{\mathrm{bulk,min}}$ | proxy $\Gamma_{\min}$ | $A_{\mathrm{seed}}$ | OP-2 bin |
+|:---|---:|---:|---:|---:|:---|
+| B0 heal bulk_OFF | 0 | — | 0 | 0 | ENGINE-GAP |
+| B0 heal bulk_ON | 0 | −0.190 | 0 | 0 | ENGINE-GAP |
+| **B1 photon_yield** | **0** | **−0.190** | ≈0 | **0.0854** | **ENGINE-GAP** |
+| B2 pair $\sqrt{\alpha}$ | $1.22\times 10^{-2}$ | −0.190 | ≈0 | 0.866 | OP-2-PARTIAL |
+
+### §7.2 Hypothesis read (`consistency-vs-emergence`)
+
+| ID | Verdict |
+|:---|:---|
+| H1 | **CONFIRMED** — bulk $\bar\rho$ live ($\Gamma_{\mathrm{bulk}}\approx -0.19$); B1 $V_{\mathrm{inc}}=0$ on transverse-only engine |
+| H2 | **CONFIRMED** — `gamma_bulk_min` tracks bulk port independently of proxy (proxy flat at ≈0 under yield-front seed) |
+| H3 | **CONFIRMED** — ENGINE-GAP on primary B1 motivates **Phase C′** scalar restoration (not louder transverse sweep) |
+
+**Composite verdict:** **ENGINE-GAP** on primary arm (expected by thesis). B2 pair path shows **OP-2-PARTIAL** ($V_{\mathrm{inc}}$ only) — consistency arm, not emergence on transverse $\omega$ packet.
+
+**Next:** Phase C′ implementor — `research/2026-06-13_loop-gap-scalar-grade-restoration_prereg_FROZEN.md`
