@@ -50,3 +50,10 @@ pythonpath = ["src"]
 # A bare `pytest` from a worktree root then collects the unit-test tree only
 # (matches `make test`; honors src/tests/conftest.py collect_ignore_glob).
 testpaths = ["src/tests"]
+# CI partition (research/2026-06-13_ci-engine-sim-partition_prereg.md): slow,
+# research-tier engine-simulation tests are marked `engine_sim` and routed to the
+# opt-in `make test-engine` lane; default `make test` runs `-m "not engine_sim"`.
+# Selection is by test cost/role ONLY — never by capability-matrix grade (§7 invariant).
+markers = [
+    "engine_sim: slow/research-tier engine-simulation test (tier-1 wiring or tier-2 driver); opt-in via `make test-engine`",
+]
