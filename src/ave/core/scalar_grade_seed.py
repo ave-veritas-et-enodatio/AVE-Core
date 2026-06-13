@@ -26,7 +26,6 @@ from typing import Literal
 
 import numpy as np
 
-from ave.core.constants import ALPHA
 from ave.core.loop_gap_seeds import A_YIELD
 from ave.topological.cosserat_field_3d import TETRA_OFFSETS, _beltrami_helicity
 from ave.topological.k4_cosserat_coupling import CoupledK4Cosserat
