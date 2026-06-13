@@ -115,6 +115,90 @@ Under SYM-class scaling (gravity-class realization) --- $\mu(r)$ and $\varepsilo
 \end{itemize}
 \end{warningbox}
 
+\section{Vacuum Circuit Analysis --- the Full CVR Sweep}
+\label{sec:vol9_cvr_sweep}
+
+The operating-point machinery above (\S\ref{sec:vol9_operating_point}) is the bias; this section is the full small-signal characterization of the substrate cell as a self-made nonlinear resonant cavity --- the \emph{Vacuum Circuit Analysis} (VCA) sweep. The electron mass-cage is a high-$Q$ resonant LC tank closed by a $\Gamma = -1$ wall on the \textbf{magnetic branch} ($\mu_{eff} \to 0 \Rightarrow Z \to 0$; canonical \kbleaf{vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md}:78-79, \texttt{clm-lv3uw1}) --- \emph{not} the electric branch ($\varepsilon_{eff}\to0$, $Z\to\infty$, $\Gamma=+1$, open = dielectric rupture, a different object). All six views below are projections of one constitutive spine; every curve is computed by the re-runnable driver \texttt{src/scripts/vol\_9\_device/cvr\_ee\_sweep/cvr\_ee\_sweep.py}.
+
+\subsection{The transfer-function spine $H(s)$}
+\label{subsec:vol9_cvr_hs}
+
+The cell's AC response is a 2$\times$2 chiral transfer function. Its co-polarized component is the canonical lossy resonator
+\begin{equation}
+H(s) = \frac{\omega_0^2}{s^2 + (\omega_0/Q)\,s + \omega_0^2}, \qquad \omega_0 = \omega_C\,S(A_0), \qquad Q = \frac{1}{\alpha} = 137.036
+\end{equation}
+with the pole pair
+\begin{equation}
+s_\pm = -\frac{\omega_0}{2Q} \pm j\,\omega_d = -\frac{\alpha\,\omega_0}{2} \pm j\,\omega_d .
+\end{equation}
+The pole's distance from the $j\omega$ axis, $\alpha\omega_0/2$, IS the per-cycle radiative leak $1/Q = \alpha$ through the TIR boundary (\kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md}:81, \texttt{clm-rtdmsn}). Bode: peak $20\log_{10}Q = \qty{42.7}{\decibel}$ at $\omega_C$, bandwidth $\Delta\omega = \alpha\omega_0$. The off-diagonal of the full matrix is the parity-odd winding coupling ($S_{LR}\ne S_{RL}^*$); its magnitude is STATED, pending the chiral-crystal engine.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{fig2_transfer_function_bode}
+\caption{The electron tank transfer function $H(s)$: Bode magnitude (peak $20\log_{10}(1/\alpha)$ at $\omega_C$), phase ($0\degree\to-180\degree$ short-circuit inversion), and pole pair at $\mathrm{Re}/\omega_0 = -\alpha/2$. Computed; \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/cvr-transfer-function.md}.}
+\label{fig:vol9_cvr_hs}
+\end{figure}
+
+\subsection{The DC operating point and the two speeds}
+\label{subsec:vol9_cvr_dc}
+
+The varactor C--V characteristic and the impedance/speed trajectories as the bias $A_0$ sweeps toward the wall:
+\begin{equation}
+C_{eff}/C_0 = 1/S(A_0), \quad Z_{core}/Z_0 = \sqrt{S(A_0)} \to 0, \quad c_{EM}/c_0 = 1/S \to \infty, \quad c_{shear}/c_0 = \sqrt{S} \to 0 .
+\end{equation}
+
+\begin{warningbox}[\texttt{flag-don't-fix}: refractive-index exponent defect (carried, not fixed)]
+The engine \texttt{master\_equation\_fdtd.py:165} returns $n = S^{0.25}$, but its own in-code flag records that $c_{eff}^2 = c_0^2/S \Rightarrow n = c_0/c_{eff} = S^{0.5}$ --- the physical exponent. The as-coded $S^{0.25}$ \textbf{understates} wall depth; downstream $\Gamma$-from-$n$ magnitudes are shallow. Figure~\ref{fig:vol9_cvr_dc} draws both (max gap $0.237$). Physics-review item (Grant/auditor).
+\end{warningbox}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{fig1_dc_operating_point}
+\caption{DC operating point: the vacuum varactor $C_{eff}/C_0$, the magnetic-branch $Z_{core}/Z_0 \to 0$, the two substrate speeds, and the $S^{0.5}$-vs-$S^{0.25}$ exponent-defect band. Apparatus clip ($A_{CAP}=0.99$, $S_{MIN}=0.05$) drawn. Computed; \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/cvr-dc-operating-point.md}.}
+\label{fig:vol9_cvr_dc}
+\end{figure}
+
+\subsection{Reflection: $|\Gamma|^2 = 1-\alpha$ (the AVE-distinct result)}
+\label{subsec:vol9_cvr_reflection}
+
+On the Smith chart $\Gamma(A_0)$ runs from the centre ($A_0=0$, matched, the free photon) to the left rim ($A_0\to1$, short). The wall is \emph{not} a perfect short:
+\begin{equation}
+\boxed{\; |\Gamma|^2 = 1 - \alpha \approx 0.99270, \qquad |\Gamma| = \sqrt{1-\alpha} \approx 0.99635 \;}
+\end{equation}
+It leaks exactly $\alpha = 1/Q$ per cycle, so the reflected power is $1-\alpha$ and $|\Gamma|$ sits just \emph{inside} the unit circle --- \textbf{the hair by which $\Gamma$ falls short of $|\Gamma|=1$ is $\alpha$}, the fine-structure constant read directly off the chart. A perfect-conductor QED boundary gives $|\Gamma|=1$ identically; the AVE wall predicts a measurable radiative leak $=\alpha$ built into the reflection.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{fig3_reflection_smith}
+\caption{Left: the $\Gamma(A_0)$ locus matched$\to$short with the electron wall at $|\Gamma|^2=1-\alpha$ marked just inside the unit circle. Right: the non-reciprocal chiral off-diagonal ($S_{LR}\ne S_{RL}^*$, the winding handedness, STATED). Computed; \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/cvr-reflection-smith.md}.}
+\label{fig:vol9_cvr_reflection}
+\end{figure}
+
+\subsection{The six views and their leaves}
+\label{subsec:vol9_cvr_views}
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+View & Content & KB leaf \\
+\midrule
+DC operating point & varactor C--V, load-line, exponent defect & \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/cvr-dc-operating-point.md} \\
+AC transfer function & $H(s)$, Bode, pole $-\alpha\omega_0/2$, $Q=1/\alpha$ & \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/cvr-transfer-function.md} \\
+Reflection / Smith & $|\Gamma|^2=1-\alpha$, chiral $S$ & \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/cvr-reflection-smith.md} \\
+Phasor / reactance & I/Q quadrature, C$\leftrightarrow$L breather & \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/cvr-phasor-reactance.md} \\
+Stability / eigenmode & root-locus, Nyquist, genesis-by-matching & \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/cvr-stability-eigenmode.md} \\
+Parameter basin & bias$\times$drive region of attraction (structural) & (folds into stability-eigenmode) \\
+\bottomrule
+\end{tabular}
+\caption{The six computed CVR views and their canonical KB leaves (Vol~4 Ch.~1).}
+\label{tab:vol9_cvr_views}
+\end{table}
+
+\textbf{Scope and classification (\texttt{consistency-vs-emergence}).} The CVR sweep is a \textbf{consolidation / consistency} re-expression of already-derived canon (the LC tank, $\alpha=1/Q$, the magnetic-branch $\Gamma=-1$); it introduces no new substrate primitive. The one AVE-distinct corollary is $|\Gamma|^2=1-\alpha$ (the radiative leak made geometric) and the parity-odd chiral $S$; the $Q=1/\alpha$ Bode peak and the LC$\to E=mc^2$ recovery are CONSISTENCY (re-expressions). \textbf{Carried flags:} the sector-attribution question (magnetic $\mu_{eff}\to0$ PRIMARY vs capacitive $C_{eff}\to\infty$ --- same $Z=Z_0\sqrt S$ trajectory, \texttt{clm-lv3uw1} vs \texttt{clm-kezk9z}); the exponent defect; the chiral-coupling magnitude STATED. The compression-extreme wall here is one end of the lattice extreme-map (\S the phase-diagram chapter; \kbleaf{vol3/cosmology/ch15-black-hole-orbitals/lattice-extreme-bh-rationality.md}).
+
 \section{Dispersion}
 \label{sec:vol9_dispersion}
 
