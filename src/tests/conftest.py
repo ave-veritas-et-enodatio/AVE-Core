@@ -42,11 +42,34 @@ _ENGINE_SIM_TESTS = {
     "test_loop_gap_harness_bulk_channel.py::test_f1_bulk_on_differs_from_off",   # borderline-wiring + redundant w/ fast keepers
     "test_loop_gap_harness_bulk_channel.py::test_f2_channel_tags_on_bulk_probe", # T1 (flag/tag presence; mistagged T0 in ledger)
 }
+# EXCEPTIONS — kept in the GATING lane despite living in a whole-file engine_sim
+# module: the D-INHERIT inheritance-CONTRACT keepers ("a new vN knob OFF
+# reproduces the inherited path byte-for-byte"), which research/2026-06-10_
+# genesis-v7-quadrature_result.md:5 calls "the D-INHERIT keeper ... must stay
+# green". These are CHEAP relative identities (vN OFF == parent/vN-1, ~<1-2s
+# each) that gate the genesis INHERITANCE CONTRACT during active v7/v8 dev.
+# NOTE (scope, honest): being relative, they are common-mode-blind to a silent
+# crystal_engine BASE shift -- the base REGIME is gated separately and already,
+# by test_master_equation_v14_mode_i.py + test_cosserat_master_equation_op14.py
+# (loose regime bounds, NOT goldens -- a tight golden would violate the
+# apparatus-qualified-magnitude discipline). So this gates the contract, not the
+# base. (Per-test granularity fix; 2026-06-13 audit of the unified_* whole-file marks.)
+_ENGINE_SIM_KEEP_GATING = {
+    "test_unified_genesis_engine.py::test_null1_bit_identical_to_parent",
+    "test_unified_quadrature_v7.py::test_k_off_quadrature_defaults_off_byte_identical_to_v6",
+    "test_unified_transducer_v6.py::test_v6_transducer_defaults_off_byte_identical",
+    "test_unified_transducer_v6.py::test_v6_omega_recipient_frac0_is_byte_identical_pure_u_adv",
+    "test_unified_threaded_v8.py::test_d17_inherited_is_byte_identical_default",
+    "test_unified_threaded_v8.py::test_d15_off_byte_identical",
+    "test_unified_snap_machine.py::test_null_byte_identical_under_snap_when_no_crossing",
+}
 
 
 def pytest_collection_modifyitems(config, items):
     """Apply the ``engine_sim`` marker to the partition above (cost+role, not physics)."""
     for item in items:
+        if any(item.nodeid.endswith(k) for k in _ENGINE_SIM_KEEP_GATING):
+            continue  # inheritance-contract keeper: stays in the gating lane
         if item.path.name in _ENGINE_SIM_FILES or any(
             item.nodeid.endswith(t) for t in _ENGINE_SIM_TESTS
         ):

@@ -94,3 +94,14 @@ Remedy legend: **SHRINK** = stays gating, cut grid/steps (resolution-independent
 ## §7 — Invariant (the one-line soundness test)
 
 *If someone re-grades a capability-matrix cell tomorrow, does CI coverage change?* **Must be NO.** Enforced structurally: the matrix is referenced only in comments/justification, never in `conftest`/marker/Makefile selection. CI tracks fast+stable+asserting (test-role); the matrix tracks physically-confirmed; the two are never wired.
+
+## §8 — Post-freeze audit refinement (2026-06-13, append-only)
+
+Audit of the implementation (`83595484`) caught a granularity miss in the `unified_*` whole-file marks: those 5 files are **mixed-tier**, not uniformly research. Each carries a **D-INHERIT inheritance-CONTRACT keeper** ("a new vN knob OFF reproduces the inherited path byte-for-byte") that `research/2026-06-10_genesis-v7-quadrature_result.md:5` calls *"the D-INHERIT keeper … must stay green"* — and whole-file-marking swept them to the advisory lane. My "uncited as bedrock" check was scoped to the CVG ledger only (missed `research/`), and I'd actually read the "D-INHERIT regression gate" docstring and marked anyway — the per-test discipline I applied to the loop-gap files, lapsed one layer down.
+
+Convergent resolution (three layers, each catching the next's over-correction):
+- **Contract keepers → GATING** (this fix, `_ENGINE_SIM_KEEP_GATING`, 7 tests, ~+6 s): they gate the genesis *inheritance contract* during active v7/v8 dev. A **thorough grep** (not eyeball) found **7, not the 5 I'd have listed** — incl. `transducer_v6::test_v6_omega_recipient_frac0_is_byte_identical_pure_u_adv`.
+- **Base regime → already GATING**: verified `test_master_equation_v14_mode_i.py` (5) + `test_cosserat_master_equation_op14.py` (3) are in the gating lane with **loose regime bounds** (`v_peak_mean>0.2`, `std/mean∈(0.05,0.5)`, `n_refractive<0.97`), not goldens.
+- **No base golden** (rejected): the contract keepers are *relative* (vN OFF ≡ parent) → **common-mode-blind** to a silent `crystal_engine` base shift, so they don't gate the base — but a *tight* base golden would **violate the apparatus-qualified-magnitude discipline** (canonize a bench-capped number). The base is correctly gated *qualitatively* (regime), magnitude left free. The cage driver's base risk is covered by the existing regime gates + its own prereg keepers.
+
+Net line: **gate the contract (relative keepers, blocking) · gate the regime (qualitative base keepers, already there) · leave the magnitude free (no golden).** Lane counts after: default **1436** / engine **60** / total 1496 (closes); fast lane green ~130 s local.
