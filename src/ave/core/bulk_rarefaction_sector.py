@@ -44,6 +44,32 @@ def bulk_pressure(rho: np.ndarray, *, c0: float, eps_den: float) -> np.ndarray:
     return (c0**2) * (rho - 0.5 * np.log(arg))
 
 
+def gamma_bulk_smith_min(
+    rho_bar: np.ndarray,
+    interior: np.ndarray,
+    *,
+    c0: float,
+    c2_floor: float,
+    eps_den: float,
+) -> float:
+    """Live bulk Smith read: Γ_bulk = (Z_bulk − Z_ref)/(Z_bulk + Z_ref).
+
+    Z_bulk = ρ_bulk c_bulk with ρ_bulk = 1 + ρ̄; Z_ref = √2 ρ_bulk c₀ (K/G = 2).
+    """
+    c2 = c_bulk2_clipped(rho_bar, c0=c0, c2_floor=c2_floor, eps_den=eps_den)
+    rho_full = 1.0 + rho_bar
+    c_bulk = np.sqrt(np.maximum(c2, 0.0))
+    z_bulk = rho_full * c_bulk
+    z_ref = np.sqrt(2.0) * rho_full * c0
+    denom = z_bulk + z_ref
+    denom = np.where(np.abs(denom) < 1e-30, 1e-30, denom)
+    gamma = (z_bulk - z_ref) / denom
+    gi = gamma[interior & np.isfinite(gamma)]
+    if gi.size == 0:
+        return 0.0
+    return float(np.min(gi))
+
+
 def _d(f: np.ndarray, axis: int, dx: float) -> np.ndarray:
     return (np.roll(f, -1, axis=axis) - np.roll(f, 1, axis=axis)) / (2.0 * dx)
 
@@ -263,10 +289,18 @@ class BulkRarefactionSector:
         )
         c2_int = c2[m & np.isfinite(c2)]
         rho_fin = rho_int[finite] if finite.any() else rho_int
+        gamma_min = gamma_bulk_smith_min(
+            self.rho_bar,
+            m,
+            c0=self.cfg.c0,
+            c2_floor=self.cfg.c2_floor,
+            eps_den=self.cfg.eps_den,
+        )
         return {
             "rho_bar_min": float(np.min(rho_fin)) if rho_fin.size else 0.0,
             "rho_bar_max": float(np.max(rho_fin)) if rho_fin.size else 0.0,
             "c_bulk2_min": float(np.min(c2_int)) if c2_int.size else self.cfg.c0**2,
+            "gamma_bulk_min": gamma_min,
             "c_bulk2_max": float(np.max(c2_int)) if c2_int.size else self.cfg.c0**2,
             "max_abs_u_adv": float(np.max(np.abs(self.u_adv[m]))) if m.any() else 0.0,
             "bulk_steps": float(self.step_count),

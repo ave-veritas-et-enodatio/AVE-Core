@@ -13,34 +13,62 @@ import json
 import sys
 from pathlib import Path
 
-from ave.core.loop_gap_harness import loop_gap_battery
-from ave.core.loop_gap_seeds import SeedMode
+from ave.core.loop_gap_harness import loop_gap_battery, loop_gap_dlite_battery
+from ave.core.loop_gap_seeds import A_YIELD, SeedMode
 
 PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").exists())
 OUT = PROJECT_ROOT / "assets" / "sim_outputs"
 
 
 def main() -> None:
-    smoke = "--smoke" in sys.argv
-    bulk = "--bulk" in sys.argv
+    dlite = "--dlite" in sys.argv
+    smoke = "--smoke" in sys.argv or dlite
+    bulk = "--bulk" in sys.argv or dlite
     seed: SeedMode = "photon_lock"
     for arg in sys.argv[1:]:
         if arg.startswith("--seed="):
             seed = arg.split("=", 1)[1]
     N = 10 if smoke else 14
-    result = loop_gap_battery(
-        N=N,
-        smoke=smoke,
-        primary_seed=seed,  # type: ignore[arg-type]
-        bulk_density_on=bulk,
-    )
-    # seed validated by loop_gap_battery; CLI passes pair|photon_lock|graded_a0
-    result["smoke"] = smoke
-    result["N"] = N
+    if dlite:
+        result = loop_gap_dlite_battery(N=N)
+        result["smoke"] = True
+        result["dlite"] = True
+    else:
+        result = loop_gap_battery(
+            N=N,
+            smoke=smoke,
+            primary_seed=seed,  # type: ignore[arg-type]
+            bulk_density_on=bulk,
+        )
+        result["smoke"] = smoke
+        result["N"] = N
 
-    tag = "(SMOKE)" if smoke else "(PRODUCTION)"
+    tag = "(D-LITE)" if dlite else ("(SMOKE)" if smoke else "(PRODUCTION)")
     print("=" * 72)
     print("LOOP GAP UNIFIED HARNESS", tag)
+    if dlite:
+        print(
+            f"N={N} platform=VacuumEngine3D phase=D-lite "
+            f"target_A_front={A_YIELD:.6f} bulk=True srs=FROZEN@v17"
+        )
+        for row in result["arms"]:
+            print(
+                f"  {row['label']}: V_inc={row['v_inc_peak']:.3e} "
+                f"Γ_bulk_min={row['gamma_bulk_min_drive']:.3f} "
+                f"proxy_Γ={row['proxy_gamma_min']:.3f} "
+                f"A_seed={row['achieved_a_front_seed']:.4f} "
+                f"OP2={row['op2_bin']} ch={row.get('channel_primary', '')}"
+            )
+        print("=" * 72)
+        print("VERDICT:", result["verdict"], "| OP2:", result["op2_bin"])
+        print("Primary:", result["primary_arm"])
+        print("=" * 72)
+        OUT.mkdir(parents=True, exist_ok=True)
+        path = OUT / "loop_gap_harness_dlite_battery.json"
+        path.write_text(json.dumps(result, indent=2))
+        print(f"Wrote {path}")
+        return
+
     print(
         f"N={N} platform=VacuumEngine3D rank_profile=4 "
         f"seed={result.get('primary_seed', seed)} "

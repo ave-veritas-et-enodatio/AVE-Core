@@ -200,8 +200,8 @@ All v15+ provenance uses **vacuum native units** per `natural-units-cheatsheet.m
 | A | Index reconciliation + plan doc | **DONE** (#207–#212) |
 | B | Phase 2b harness merge (GAP-A, channel tags) | **LANDED** #207 |
 | C | D1 reframe + post-rupture quarantine | **LANDED** #210 |
-| D-lite | OP-2 instrument + smoke baseline | **FROZEN** prereg — implementor NEXT |
-| C′ | Scalar-grade restoration (standing $V$ + $V\to\omega$) | **FROZEN** prereg — **primary** after D-lite |
+| D-lite | OP-2 instrument + smoke baseline | **LANDED** — ENGINE-GAP on B1 (thesis); see phase2 result §7 |
+| C′ | Scalar-grade restoration (standing $V$ + $V\to\omega$) | **FROZEN** prereg — **NEXT implementor** |
 | D-full | Rational seed sweep on restored engine | Gated on C′ |
 | E | ±k seed (not sign-flip proxy) | PENDING |
 | F | Harness ranks 2–3 | PENDING |

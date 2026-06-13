@@ -188,6 +188,23 @@ def scale_cosserat_to_front(
     return u * scale, omega * scale
 
 
+def normalize_cosserat_amplitude(
+    u: np.ndarray,
+    omega: np.ndarray,
+    A_cos_sq: np.ndarray,
+    *,
+    target: float,
+) -> tuple[np.ndarray, np.ndarray, float]:
+    """Scale (u, ω) to place peak Cosserat strain at a canon landmark (bidirectional).
+
+    Used for regime placement (e.g. D-lite ``A_yield = √α``) — not an ``a_lock`` sweep."""
+    A_max = float(np.sqrt(np.max(A_cos_sq)))
+    if A_max < 1e-12:
+        return u, omega, 0.0
+    scale = float(target) / A_max
+    return u * scale, omega * scale, A_max
+
+
 def effective_shear_director(
     u: np.ndarray,
     omega: np.ndarray,

@@ -15,7 +15,7 @@ from typing import Any, Literal
 
 import numpy as np
 
-from ave.core.constants import ALPHA
+from ave.core.constants import ALPHA, R_III
 from ave.core.bulk_rarefaction_sector import ENGINE_C0
 from ave.core.genesis_v18_coupled import (
     P11_A_PERSIST_MIN,
@@ -31,7 +31,8 @@ from ave.core.genesis_v18_coupled import (
     snapshot_op14,
     tau_steps_k4,
 )
-from ave.core.loop_gap_seeds import A_LOCK_DEFAULT, SeedMode, apply_seed
+from ave.core.loop_gap_seeds import A_LOCK_DEFAULT, A_YIELD, SeedMode, apply_seed
+from ave.topological.k4_cosserat_coupling import _cosserat_A_squared
 from ave.topological.vacuum_engine import EngineConfig, VacuumEngine3D
 
 # Rank labels align with doctrine §2 plumber order.
@@ -51,6 +52,9 @@ IMPEDANCE_DEFAULTS = dict(
 PHI_BASELINE_FLOOR = 1e-18
 BulkSeedMode = Literal["probe", "circulation", "none"]
 C_BULK2_LIVE_FRAC = 0.99
+OP2_VINC_FLOOR = 1e-2
+OP2_GAMMA_BULK_MAX = P18_GAMMA_MAX
+DLITE_PREREG = "research/2026-06-12_loop-gap-harness-rank1-regime_prereg_FROZEN.md"
 
 
 @dataclass(frozen=True)
@@ -85,6 +89,12 @@ class LoopGapResult:
     channel_primary: str = "EM+shear"
     channel_tags: dict[str, dict[str, float]] = field(default_factory=dict)
     rank1b_pass: bool = False
+    gamma_bulk_min_drive: float = 0.0
+    gamma_bulk_min_end: float = 0.0
+    target_a_front: float = 0.0
+    achieved_a_front_seed: float = 0.0
+    regime_valid: bool = True
+    op2_bin: str = "ENGINE-GAP"
 
 
 def engine_config_for_rank(rank: int, **overrides: Any) -> EngineConfig:
@@ -142,6 +152,36 @@ def _rank_gates(
     return rank1, rank3, rank4
 
 
+def _op2_bin(
+    *,
+    gamma_bulk_min: float,
+    v_inc_peak: float,
+    regime_valid: bool,
+    bulk_on: bool,
+) -> str:
+    f1 = bulk_on and gamma_bulk_min <= OP2_GAMMA_BULK_MAX
+    f2 = v_inc_peak > OP2_VINC_FLOOR
+    if not regime_valid:
+        return "ENGINE-GAP_POST_RUPTURE"
+    if f1 and f2:
+        return "OP-2-LANDED"
+    if f1 or f2:
+        return "OP-2-PARTIAL"
+    return "ENGINE-GAP"
+
+
+def _seed_a_front(engine: VacuumEngine3D) -> float:
+    coupled = engine._coupled
+    A_cos_sq = _cosserat_A_squared(
+        coupled.cos.u,
+        coupled.cos.omega,
+        coupled.cos.dx,
+        coupled.cos.omega_yield,
+        coupled.cos.epsilon_yield,
+    )
+    return float(np.sqrt(np.max(A_cos_sq)))
+
+
 def _bulk_channel_tag(
     *,
     bulk_on: bool,
@@ -178,6 +218,7 @@ def run_loop_gap_probe(
     bulk_probe_amp: float = 0.08,
     bulk_m_edge: float = 0.75,
     bulk_r_core_frac: float = 0.22,
+    front_target: float | None = None,
     fast: bool = False,
 ) -> LoopGapResult:
     """Conservative ring-up + quiescence on VacuumEngine3D (no external sources)."""
@@ -193,7 +234,15 @@ def run_loop_gap_probe(
 
     engine = make_engine(rank_target, **cfg_kw)
     coupled = engine._coupled
-    apply_seed(engine, seed_mode, amp=amp, a_lock=a_lock)
+    target_a = float(front_target) if front_target is not None else 0.0
+    apply_seed(
+        engine,
+        seed_mode,
+        amp=amp,
+        a_lock=a_lock,
+        front_target=front_target,
+    )
+    achieved_a_seed = _seed_a_front(engine)
     if bulk_density_on:
         if bulk_seed == "probe":
             engine.apply_bulk_probe_ic(amp=bulk_probe_amp)
@@ -217,6 +266,7 @@ def run_loop_gap_probe(
     bulk0 = engine.bulk_snapshot()
     rho_bar_min_drive = bulk0["rho_bar_min"]
     c_bulk2_min_drive = bulk0["c_bulk2_min"]
+    gamma_bulk_min_drive = bulk0.get("gamma_bulk_min", 0.0)
     c0_sq = float(ENGINE_C0**2)
 
     for t in range(1, n_total + 1):
@@ -228,6 +278,10 @@ def run_loop_gap_probe(
         bulk_t = engine.bulk_snapshot()
         rho_bar_min_drive = min(rho_bar_min_drive, bulk_t["rho_bar_min"])
         c_bulk2_min_drive = min(c_bulk2_min_drive, bulk_t["c_bulk2_min"])
+        if bulk_density_on:
+            gamma_bulk_min_drive = min(
+                gamma_bulk_min_drive, bulk_t.get("gamma_bulk_min", 0.0)
+            )
         if t <= n_drive:
             if impedance_on:
                 gamma_min_drive = min(gamma_min_drive, obs_t["gamma_min"])
@@ -236,6 +290,14 @@ def run_loop_gap_probe(
     bulk_end = engine.bulk_snapshot()
     max_omega_end = float(np.max(np.linalg.norm(coupled.cos.omega, axis=-1)))
     max_a_sq_k4_end = float(obs_end["max_A_sq"])
+    regime_valid = max_a_sq_k4_end <= float(R_III) ** 2 + 1e-12
+    gamma_bulk_min_end = bulk_end.get("gamma_bulk_min", 0.0)
+    op2_bin = _op2_bin(
+        gamma_bulk_min=gamma_bulk_min_drive if bulk_density_on else 0.0,
+        v_inc_peak=v_peak,
+        regime_valid=regime_valid,
+        bulk_on=bulk_density_on,
+    )
 
     phi_drive = max(obs_driveoff["phi_link_sq"], phi_baseline)
     phi_end = obs_end["phi_link_sq"]
@@ -281,6 +343,8 @@ def run_loop_gap_probe(
             "rho_bar_min_drive": rho_bar_min_drive,
             "c_bulk2_min_drive": c_bulk2_min_drive,
             "max_abs_u_adv": bulk_end["max_abs_u_adv"],
+            "gamma_bulk_min": gamma_bulk_min_drive,
+            "gamma_bulk_min_end": gamma_bulk_min_end,
         },
         "proxy": {"gamma_min": gamma_min_drive},
     }
@@ -325,6 +389,12 @@ def run_loop_gap_probe(
         ),
         channel_tags=channel_tags,
         rank1b_pass=bool(rank1b),
+        gamma_bulk_min_drive=gamma_bulk_min_drive,
+        gamma_bulk_min_end=gamma_bulk_min_end,
+        target_a_front=target_a,
+        achieved_a_front_seed=achieved_a_seed,
+        regime_valid=regime_valid,
+        op2_bin=op2_bin,
     )
 
 
@@ -483,6 +553,107 @@ def loop_gap_battery(
     }
 
 
+def loop_gap_dlite_battery(*, N: int = 10) -> dict:
+    """D-lite smoke baseline per rank-1 FROZEN charter (§3)."""
+    fast = True
+    quiet_mult = 1.5
+    heal_kw = dict(
+        N=N,
+        rank_target=1,
+        n_drive_mult=1.0,
+        n_quiet_mult=quiet_mult,
+        fast=fast,
+    )
+    yield_kw = dict(**heal_kw, front_target=A_YIELD)
+
+    b0_off = run_loop_gap_probe(
+        "B0_heal_bulk_OFF", seed_mode="pair", amp=0.0, bulk_density_on=False, **heal_kw
+    )
+    b0_on = run_loop_gap_probe(
+        "B0_heal_bulk_ON",
+        seed_mode="pair",
+        amp=0.0,
+        bulk_density_on=True,
+        bulk_seed="probe",
+        **heal_kw,
+    )
+    b1 = run_loop_gap_probe(
+        "B1_photon_yield",
+        seed_mode="photon_lock",
+        bulk_density_on=True,
+        bulk_seed="probe",
+        **yield_kw,
+    )
+    b2 = run_loop_gap_probe(
+        "B2_pair_sqrt_alpha",
+        seed_mode="pair",
+        amp=float(np.sqrt(ALPHA)),
+        bulk_density_on=True,
+        bulk_seed="probe",
+        **heal_kw,
+    )
+
+    ablation_base = dict(
+        N=N,
+        rank_target=1,
+        seed_mode="photon_lock",
+        n_drive_mult=1.0,
+        n_quiet_mult=quiet_mult,
+        fast=fast,
+        front_target=A_YIELD,
+    )
+    bulk_off = run_loop_gap_probe(
+        "bulk_OFF", bulk_density_on=False, bulk_seed="probe", **ablation_base
+    )
+    wall_off = run_loop_gap_probe(
+        "impedance_OFF",
+        bulk_density_on=True,
+        bulk_seed="probe",
+        impedance_on=False,
+        **ablation_base,
+    )
+    conv_off = run_loop_gap_probe(
+        "converter_OFF",
+        bulk_density_on=True,
+        bulk_seed="probe",
+        converter_on=False,
+        **ablation_base,
+    )
+
+    primary = _to_dict(b1)
+    arms = [_to_dict(b0_off), _to_dict(b0_on), _to_dict(b1), _to_dict(b2)]
+    if primary["op2_bin"] == "OP-2-LANDED":
+        verdict = "OP-2-LANDED"
+    elif primary["op2_bin"] == "OP-2-PARTIAL":
+        verdict = "OP-2-PARTIAL"
+    elif primary["op2_bin"] == "ENGINE-GAP_POST_RUPTURE":
+        verdict = "ENGINE-GAP_POST_RUPTURE"
+    else:
+        verdict = "ENGINE-GAP"
+
+    return {
+        "harness": "loop_gap_harness",
+        "harness_phase": "D-lite",
+        "platform": "VacuumEngine3D",
+        "prereg": DLITE_PREREG,
+        "N": N,
+        "target_a_front": A_YIELD,
+        "verdict": verdict,
+        "primary_arm": primary["label"],
+        "op2_bin": primary["op2_bin"],
+        "arms": arms,
+        "ablations": {
+            "bulk_OFF": _to_dict(bulk_off),
+            "impedance_OFF": _to_dict(wall_off),
+            "converter_OFF": _to_dict(conv_off),
+        },
+        "classification": {
+            "H1": "consistency-check — transverse-only ENGINE-GAP on V_inc expected",
+            "H3": "consistency-check — motivates Phase C′ scalar restoration",
+        },
+    }
+
+
 def _to_dict(r: LoopGapResult) -> dict:
     return {
         "label": r.label,
@@ -515,4 +686,11 @@ def _to_dict(r: LoopGapResult) -> dict:
         "channel_primary": r.channel_primary,
         "channel_tags": r.channel_tags,
         "rank1b_pass": r.rank1b_pass,
+        "gamma_bulk_min_drive": r.gamma_bulk_min_drive,
+        "gamma_bulk_min_end": r.gamma_bulk_min_end,
+        "proxy_gamma_min": r.gamma_min_drive,
+        "target_a_front": r.target_a_front,
+        "achieved_a_front_seed": r.achieved_a_front_seed,
+        "regime_valid": r.regime_valid,
+        "op2_bin": r.op2_bin,
     }
