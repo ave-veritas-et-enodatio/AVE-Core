@@ -5,19 +5,6 @@ kind: leaf
 claims: [clm-kezk9z, clm-p5cf3t, clm-fd1e7a]
 -->
 
-<!-- DO-NOT-MERGE / DIVERGENT-COPY ADJUDICATION (field-def pilot, 2026-06-14):
-     A divergent second copy of this leaf exists at the SAME path on branch
-     research/l3-electron-soliton. The two MUST NOT be reconciled or merged.
-     The l3 copy STRIPPED its kb-frontmatter — where THIS (main, canonical) copy
-     carries `<!-- kb-frontmatter kind: leaf claims: [...] -->`, the l3 copy
-     carries only `<!-- leaf: verbatim -->` (no kind:, no claims:). The marker a
-     prior adjudication assumed distinguished the copies does NOT actually exist;
-     the real distinguisher is THIS frontmatter block (present here, absent there).
-     This MAIN copy is canonical. -->
-<!-- pointer: the §"Electron field-component bundle" below hosts clm-fd1e7a
-     (CONSISTENCY re-expression as R/X/Q/L/C SubstrateExcitation instance-1;
-     def-7a3f1c / def-b42e9d in common/vocabulary-register.md) -->
-
 ## Topological Defects as Resonant LC Solitons
 
 A fundamental particle is a stable topological defect---a highly tensioned phase vortex permanently locked into the discrete graph structure. In classical electrical engineering, a localized, trapped electromagnetic standing wave that permanently cycles reactive energy without radiative loss is defined as a **Resonant LC Tank Circuit**.
@@ -75,6 +62,18 @@ In standard quantum mechanics, the inability of fermions to occupy the same quan
 When massless Bosons (photons) propagate, they act as linear transverse shear waves. Because they do not possess a static inductive core, they do not geometrically saturate the dielectric lattice ($\Delta\phi \ll \alpha$). The local metric impedance remains perfectly matched at $Z_{0} \approx 376.7\,\Omega$. With a reflection coefficient of $\Gamma \approx 0$, boson waves pass cleanly through one another, permitting infinite superposition.
 
 Conversely, Fermions are massive topological defects bounded by strictly saturated $Z_{core} = 0\,\Omega$ envelopes. If two fermions are forced into the same spatial volume, their boundaries collide. Because both boundaries possess a reflection coefficient of strictly $\Gamma = -1$, their internal localized wave-functions cannot mathematically penetrate one another. The kinetic energy of Fermion A perfectly reflects off the infinite-compliance wall of Fermion B. The Pauli Exclusion Principle is therefore physically identical to the hard-sphere collision of perfectly impedance-mismatched dielectric bubbles.
+
+<!-- DO-NOT-MERGE / DIVERGENT-COPY ADJUDICATION (field-def pilot, 2026-06-14;
+     placed at the foot of the leaf so it shifts no body line-numbers — several
+     engine/corpus citations index this leaf by line):
+     A divergent second copy of this leaf exists at the SAME path on branch
+     research/l3-electron-soliton. The two MUST NOT be reconciled or merged.
+     The l3 copy STRIPPED its kb-frontmatter — where THIS (main, canonical) copy
+     carries `<!-- kb-frontmatter kind: leaf claims: [...] -->`, the l3 copy
+     carries only `<!-- leaf: verbatim -->` (no kind:, no claims:). The marker a
+     prior adjudication assumed distinguished the copies does NOT actually exist;
+     the real distinguisher is THIS frontmatter block (present here, absent there).
+     This MAIN copy is canonical. -->
 
 ### The Electron Field-Component Bundle (R/X/Q/L/C) as a `SubstrateExcitation` instance
 <!-- claim-quality: clm-fd1e7a (the electron's R/X/Q/L/C field bundle as instance-1 of the SubstrateExcitation class-tree — a CONSISTENCY re-expression of the LC-tank canon above, NOT an emergence claim; see common/vocabulary-register.md def-7a3f1c / def-b42e9d) -->
