@@ -16,6 +16,8 @@ $$\boxed{\, \alpha^{-1} = Q_{\text{tank}} = Q_{\text{vol}} + Q_{\text{surf}} + Q
 
 at the Golden Torus geometry $R = \varphi/2$, $r = (\varphi - 1)/2$, $d = 1\,\ell_{\text{node}}$.
 
+> **Value-scoped status (2026-06-14, keystone $\alpha$-verdict, auditor-gated).** This Key Result is the **Q-factor reframe** of $\alpha^{-1}$, not a first-principles derivation of the number 137. Path A below (§"LC-tank path") obtains $Q_{\text{tank}} = 1/\alpha$ *using* $\alpha = e^2 Z_0/(4\pi\hbar)$ — a **definitional identity** that predicts no independent value. The **value** $4\pi^3 + \pi^2 + \pi$ (Path B, multipole) is a **Class-B named geometric identification**: its *scale* ($\sim$1/137) is forced by the Compton-resonance trap, but its *exact value* rests on the one identification $R \cdot r = 1/4$ — shared across the $(2,q)$ bound-resonator ladder (not electron-specific) — which **the substrate does not independently select** (both lift-routes closed; the honest kinematic route absorbs $\alpha$, forcing $R \cdot r \to 4\pi^2\alpha \neq 1/4$). A value-scoped synonym is **"echo at the value level,"** recorded *beneath* the canonical Class-B label and never as a bare standalone "echo." Canonical scope: [`ch8-alpha-golden-torus.md:11`](../../../vol1/ch8-alpha-golden-torus.md). Box text preserved per Rule 12.
+
 ## Two independent paths
 
 ### Path A — LC-tank path (Vol 4 Ch 1, plumber shortcut)
@@ -112,6 +114,8 @@ The Q-factor decomposition generalizes via Op21 multi-mode form: at the saturati
 |---|---|
 | Doc 14 — Classical Neumann mutual-inductance integral for $(2, 3)$ at Golden Torus | **FALSIFIED** (numerical test does not reproduce $\pi^2$ or $137$) |
 | Doc 17 (this) — Q-factor at TIR boundary, two independent paths | **CONFIRMED** (machine-precision agreement to $\delta_{\text{strain}}$) |
+
+> **Scope of "CONFIRMED" and of §"two paths agree" (2026-06-14, keystone $\alpha$-verdict).** "CONFIRMED" here means the **two paths agree** at the cold-lattice asymptote — a *consistency check* between Path A and Path B — and the §"two paths agree" reading of the $2.225\times10^{-6}$ residual as "real physics, not a methodology gap" holds **in sign/direction only**. It does **NOT** mean the *value* $4\pi^3+\pi^2+\pi$ is a first-principles derivation of 137. The residual $\delta_{\text{strain}}$ is a **definitional back-substitution** ($\delta_{\text{strain}} \equiv 1 - \text{CODATA}/\alpha_{\text{cold}}$; see the "HONEST SCOPE" note at `DELTA_STRAIN` in `src/ave/core/constants.py`), whose magnitude derivation **closed NEGATIVE** (Q-DELTA-MAP-1-quant, $\sim$31 OOM undershoot); the closure is **Class-B named identification** ([`ch8-alpha-golden-torus.md:11`](../../../vol1/ch8-alpha-golden-torus.md)), not a "derivation." Table rows + framing preserved per Rule 12.
 
 ## Cross-references
 

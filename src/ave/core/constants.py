@@ -188,6 +188,24 @@ G: float = 6.67430e-11  # Gravitational constant [m³/(kg·s²)]
 #
 #       α⁻¹_ideal = Λ_vol + Λ_surf + Λ_line = 4π³ + π² + π ≈ 137.0363038
 #
+# ⚠ HONEST SCOPE (2026-06-14, keystone α-verdict, auditor-gated) — read step 2
+#   above AND the "Defining identities" note below with this correction. The
+#   "S₁₁ minimization ENFORCES R·r=1/4 (holomorphic screening at the π² surface
+#   optimum)" phrasing is STALE and CIRCULAR:
+#     • STALE: the S₁₁ landscape was found FLAT in R·r (doc-34 + 4 dynamic engine
+#       tests, audit/2026-06-02_alpha-lift-*); S₁₁ minimization does NOT select
+#       R·r=1/4. Both named lift-routes closed 2026-06-04 (dynamical selection
+#       FLAT; kinematic bijection forces R·r→4π²α — ABSORBS α, cannot predict it).
+#     • CIRCULAR: "π² surface optimum" names R·r=1/4 by the value (π²) it produces.
+#   R·r=1/4 is a Class-B NAMED IDENTIFICATION (πRr=π(d/2)²), shared across the
+#   (2,q) bound-resonator ladder (not electron-specific), which the substrate does
+#   NOT independently select. Its scale ~1/137 is forced (Compton trap); its exact
+#   value is a calibration identity ("echo at the value level", recorded beneath
+#   the canonical Class-B label, never a bare standalone "echo"). Canonical:
+#   ch8-alpha-golden-torus.md:11; see the HONEST SCOPE note at DELTA_STRAIN below.
+#   Original comments preserved per Rule 12.
+#   [doc-lane edit; engine lane owns constants.py — coordinate on merge.]
+#
 # Golden Torus geometric constants — canonical (R, r, R·r) and golden ratio φ.
 # Defining identities (lines 132-133 above):
 #     R − r = 1/2  (self-avoidance of internal strands)
