@@ -225,6 +225,7 @@
 {"source": "clm-djpx2v", "target": "clm-uu1qbo", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the √2 = √(K/G) at magic-angle K=2G underpinning the cardinal-axis kinematic", "fraction": null}
 {"source": "clm-dsb560", "target": "clm-a7cbqq", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the single u₀*/Ω_freeze source the three routes all map to", "fraction": null}
 {"source": "clm-dsb560", "target": "clm-vnp57s", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "Route 1 EM closure to u₀*", "fraction": null}
+{"source": "clm-dsb560", "target": "ilk-gravmb", "relation": "interlocks", "target_kind": "interlock-mechanism", "target_solidity_recorded": null, "strength": null, "context": "mixed", "fraction": null}
 {"source": "clm-dxdsvt", "target": "clm-gz7ryg", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the one-kernel premise the catalog enumerates instances of", "fraction": null}
 {"source": "clm-e1pdfd", "target": "clm-5zuo7g", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-e1pdfd", "target": "clm-67jn9o", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
@@ -328,6 +329,7 @@
 {"source": "clm-io8hft", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "A", "fraction": null}
 {"source": "clm-io8hft", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "A", "fraction": null}
 {"source": "clm-iouqn9", "target": "clm-bjceop", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the constitutive constants behind K(u₀),G(u₀)", "fraction": null}
+{"source": "clm-iouqn9", "target": "ilk-gravmb", "relation": "interlocks", "target_kind": "interlock-mechanism", "target_solidity_recorded": null, "strength": null, "context": "mixed", "fraction": null}
 {"source": "clm-iouqn9", "target": "ilk-rr14gt", "relation": "interlocks", "target_kind": "interlock-mechanism", "target_solidity_recorded": null, "strength": null, "context": "fitted-identification", "fraction": null}
 {"source": "clm-ir8h78", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "r_{sat}", "fraction": null}
 {"source": "clm-ir8h78", "target": "clm-07kd5v", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
