@@ -99,3 +99,20 @@ Plan written BEFORE touching engine/KB. Applied-set will be retroactively audite
 8. `ave-canonical-leaf-pull` — leaf-extension format for resonant-lc-solitons.md; canonical-source for constants (import from ave.core.constants, no hardcoded numerics).
 
 Stop-and-surface triggers (do NOT decide): Γ-homonym resolution, universal-vs-electron scope of 1−α, anything touching the proton, any framing fork not covered by the brief.
+
+---
+
+## ADDENDUM (2026-06-14, Rule-12 dated — body above preserved)
+
+The brief body above was written PRE-reconciliation. §3 ("The Γ-homonym — disambiguate + label, do NOT resolve") and §11(f) framed the Γ-homonym as an OPEN item to surface for the auditor, NOT to resolve. That instruction was correct for the pilot run. It has since been **adjudicated and is no longer open** — recorded here per Rule-12 (preserve the original body; append the resolution, do not rewrite §3).
+
+**RESOLVED RULING (Grant-ratified 2026-06-14):** Γ is **TWO DISTINCT objects**, not one homonym to be collapsed:
+
+- **Γ_impedance = −1** — the impedance-short reflection at Z_core → 0. This is the **A1 dilatation-mass** sector (Pauli/TIR; resonant-lc-solitons.md:45–48).
+- **Γ_spinor = −1** — the topological 2π→4π spinor-sign STABILITY wall. This is the **T2 Cosserat micro-rotation** sector (finkelstein-misner-spin-half-derivation.md:58–59).
+
+They are numerically coincident at −1 and share the glyph "Γ" but are **distinct objects: A1 ⊥ T2** (master-equation.md:20). They are NOT the same wall and must not be conflated. (|Γ_EM|² = 1−α — the EM radiative-leak reflection — remains the third, electron-scoped corollary; the "three Γ's" are spinor / impedance / EM.)
+
+**Reconciled in-corpus per PR #230** (merge commit 262bd49c; the three-Γ TWO-DISTINCT block now lives at cvr_model.py THE THREE Γ's comment, ~:269–287, with the spinor cite re-pointed). Commit: "field-def reconcile: three-Γ TWO-DISTINCT (A1⊥T2) + re-point spinor cite — Rule-12 reconciliation" (3f3de407).
+
+GAP unchanged: the spin-statistics derivation tying the topological spinor sign to fermion-exclusion statistics is NOT claimed (per A47; vol1/claim-quality.md:721).
