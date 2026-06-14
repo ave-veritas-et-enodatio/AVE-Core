@@ -129,10 +129,22 @@ _CANONICAL_ILK_ID_RE = re.compile(r"<!--\s*id:\s*(ilk-[a-z0-9]{6})\s*-->")
 # entries (INVARIANT-S13), the ilk- analog of the def- vocabulary register.
 INTERLOCK_REGISTER_NAME = "interlock-register.md"
 # The chord/echo classification enum for an interlock-mechanism node
-# (SCHEMA "real_or_fitted is the chord/echo axis"). `real-geometric-constraint`
-# = a chord (removes a DOF, lowers the independent-parameter count);
-# `fitted-identification` = an echo (a consistency match, removes none).
-INTERLOCK_TAGS = ("real-geometric-constraint", "fitted-identification")
+# (SCHEMA "real_or_fitted is the chord/echo axis"). THREE values as of the
+# 2026-06-14 G-ruling:
+#   `real-geometric-constraint` = a chord (removes a DOF, lowers the
+#       independent-parameter count via its derived_endpoint);
+#   `mixed`                     = form-derived / value-fitted (e.g. G — gravity's
+#       FORM is derived (Achromatic-Lens SYM scaling, /7 PPN) but G's VALUE is a
+#       calibration input (Machian-boundary-impedance ξ back-solved from CODATA
+#       G); for COUNTING it behaves like an echo — removes none — until its
+#       flip-test (Chain B') closes form-first and lifts it `mixed→real`;
+#   `fitted-identification`     = an echo (a consistency match, removes none).
+# COUNT RULE (load-bearing): only `real-geometric-constraint` reduces the count;
+# `mixed` and `fitted-identification` both leave it unchanged.
+INTERLOCK_REAL_TAG = "real-geometric-constraint"
+INTERLOCK_MIXED_TAG = "mixed"
+INTERLOCK_FITTED_TAG = "fitted-identification"
+INTERLOCK_TAGS = (INTERLOCK_REAL_TAG, INTERLOCK_MIXED_TAG, INTERLOCK_FITTED_TAG)
 # Adjudication-status enum for an `ilk-` node (SCHEMA "Status semantics").
 INTERLOCK_STATUSES = ("SOLID", "proposed", "retired")
 # A clm-id reference inside an interlock register `- **interlocks:**` /
@@ -340,13 +352,16 @@ class InterlockMechanismNode:
     shared target (hub-node encoding), not mirrored directed pairs — so the
     loader's directed-edge assumption is unchanged.
 
-    ``real_or_fitted`` is the chord/echo axis: ``real-geometric-constraint`` (a
-    chord — removes a DOF, lowers the independent-parameter count via
-    ``derived_endpoint``) vs ``fitted-identification`` (an echo — a consistency
-    match, removes none). ``derived_endpoint`` is the constant made dependent iff
-    the mechanism is real (the DOF the chord removes); on a fitted mechanism it
-    is informational. ``cited_leaf`` grounds the mechanism in an EXISTING corpus
-    leaf (``path:line``, the ave-canonical-leaf-pull anchor).
+    ``real_or_fitted`` is the chord/echo axis (THREE values as of the 2026-06-14
+    G-ruling): ``real-geometric-constraint`` (a chord — removes a DOF, lowers the
+    independent-parameter count via ``derived_endpoint``); ``mixed`` (form-derived
+    / value-fitted, e.g. G — counts as an echo until its flip-test closes
+    form-first); ``fitted-identification`` (an echo — a consistency match). Only a
+    ``real`` chord reduces the count; ``mixed`` and ``fitted`` both remove none.
+    ``derived_endpoint`` is the constant made dependent iff the mechanism is real
+    (the DOF the chord removes); on a ``mixed`` or ``fitted`` mechanism it is
+    informational. ``cited_leaf`` grounds the mechanism in an EXISTING corpus leaf
+    (``path:line``, the ave-canonical-leaf-pull anchor).
 
     ``interlocked`` is the tuple of interlocked constant clm-ids parsed from the
     register entry's ``interlocks:`` field — used to emit the ``interlocks``
@@ -2972,26 +2987,46 @@ def interlock_channels(
 
 
 def compute_independent_parameter_count(
-    claims_records: list[dict], depends_on_records: list[dict]
+    claims_records: list[dict],
+    depends_on_records: list[dict],
+    calibration_param_ids: "set[str] | None" = None,
 ) -> int:
     """LIVE independent-parameter count (INVARIANT-S13), pure over the index.
 
-    ``count = |input-only claim nodes| − |{ derived_endpoint(m) : m is a
-    REAL-tagged, WIRED interlock-mechanism whose derived_endpoint resolves to an
-    input-only claim }|``.
+    ``count = |node set| − |{ derived_endpoint(m) : m is a REAL-tagged, WIRED
+    interlock-mechanism whose derived_endpoint resolves to a claim in the node
+    set }|``.
 
-    A ``fitted-identification`` mechanism (an echo) removes nothing — the count
-    is unchanged; a ``real-geometric-constraint`` mechanism (a chord) removes one
-    DOF (its ``derived_endpoint`` becomes dependent). The node set ("input-only
-    claim nodes") is deliberately a single comprehension so a future adjudication
-    can swap the denominator (see SCHEMA semantics caveat) without touching the
-    chord/echo reduction logic.
+    **Node set (2026-06-14 G-ruling):** when ``calibration_param_ids`` is given,
+    the node set is the explicitly-marked CALIBRATION set {m_e, α, G} — each id
+    that resolves to a ``claim`` node (referential integrity for the markers is
+    enforced separately by the verifier). This is Grant's adjudicated denominator
+    (the calibration-parameter enumeration of ``clm-5xon03``, =3), replacing the
+    earlier ``build_band == "input-only"`` build-readiness band (=143, two
+    meanings of "input" — see the resolved SCHEMA caveat). When
+    ``calibration_param_ids`` is ``None`` the count falls back to the legacy
+    input-only band (the pre-G-ruling default, for KB states without the marker).
+
+    Only a ``real-geometric-constraint`` mechanism (a chord) removes one DOF (its
+    ``derived_endpoint`` becomes dependent). A ``mixed`` (form-derived /
+    value-fitted) or ``fitted-identification`` (echo) mechanism removes NONE —
+    the count is unchanged ("an echo buys no parameter reduction; only a chord
+    does"; a mixed mechanism's value-fitted half counts as an echo until its
+    flip-test closes form-first). The node set is a single comprehension so the
+    denominator stays swappable without touching the chord/echo reduction logic.
     """
-    input_only = {
-        r["id"]
-        for r in claims_records
-        if r.get("node_type") == "claim" and r.get("build_band") == INPUT_ONLY_BAND
-    }
+    if calibration_param_ids is not None:
+        claim_ids = {
+            r["id"] for r in claims_records if r.get("node_type") == "claim"
+        }
+        node_set = {cid for cid in calibration_param_ids if cid in claim_ids}
+    else:
+        node_set = {
+            r["id"]
+            for r in claims_records
+            if r.get("node_type") == "claim"
+            and r.get("build_band") == INPUT_ONLY_BAND
+        }
     wired_mech_ids = {
         r.get("target")
         for r in depends_on_records
@@ -3001,14 +3036,14 @@ def compute_independent_parameter_count(
     for r in claims_records:
         if r.get("node_type") != "interlock-mechanism":
             continue
-        if r.get("real_or_fitted") != "real-geometric-constraint":
+        if r.get("real_or_fitted") != INTERLOCK_REAL_TAG:
             continue
         if r.get("id") not in wired_mech_ids:
             continue
         de = r.get("derived_endpoint")
-        if de and de in input_only:
+        if de and de in node_set:
             reductions.add(de)
-    return len(input_only) - len(reductions)
+    return len(node_set) - len(reductions)
 
 
 def falsification_net_violations(
