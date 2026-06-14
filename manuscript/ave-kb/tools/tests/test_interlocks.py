@@ -100,6 +100,22 @@ class TestInterlockParser(unittest.TestCase):
         self.assertEqual(rmr.interlocked, ())
         self.assertIsNone(rmr.derived_endpoint)
 
+    def test_mixed_tag_parses(self):
+        # 2026-06-14 G-ruling: `mixed` is a valid third real_or_fitted value.
+        body = _REGISTER.replace(
+            "- **real-or-fitted:** fitted-identification",
+            "- **real-or-fitted:** mixed",
+            1,
+        )
+        with tempfile.TemporaryDirectory() as td:
+            kb = _write(Path(td), body)
+            nodes = lib.parse_interlock_entries(
+                kb / "common" / lib.INTERLOCK_REGISTER_NAME, kb
+            )
+        by_id = {n.id: n for n in nodes}
+        self.assertEqual(by_id["ilk-rr14gt"].real_or_fitted, "mixed")
+        self.assertIn("mixed", lib.INTERLOCK_TAGS)
+
     def test_malformed_entries_raise(self):
         bad_cases = [
             # invalid real-or-fitted tag
@@ -199,6 +215,16 @@ class TestDerivedQuantities(unittest.TestCase):
             lib.compute_independent_parameter_count(claims, deps), 2
         )
 
+    def test_mixed_does_not_reduce_count(self):
+        # G-ruling: a `mixed` (form-derived/value-fitted) mechanism removes no
+        # DOF — counts like an echo until its flip-test closes form-first.
+        claims = [_claim("clm-a", "input-only"), _claim("clm-b", "input-only"),
+                  _mech("ilk-x", "mixed", "clm-b")]
+        deps = [_edge("clm-a", "ilk-x"), _edge("clm-b", "ilk-x")]
+        self.assertEqual(
+            lib.compute_independent_parameter_count(claims, deps), 2
+        )
+
     def test_real_wired_reduces_count(self):
         claims = [_claim("clm-a", "input-only"), _claim("clm-b", "input-only"),
                   _mech("ilk-x", "real-geometric-constraint", "clm-b")]
@@ -233,6 +259,99 @@ class TestDerivedQuantities(unittest.TestCase):
         self.assertEqual(
             lib.falsification_net_violations(refuted, deps, "clm-iouqn9"),
             [("clm-0ktpcn", "clm-iouqn9")],
+        )
+
+
+# 2026-06-14 G-ruling: the LIVE count's node set is the explicitly-marked
+# calibration set {m_e, α, G} (=3), not the build_band:"input-only" band (=143).
+_CALIB = {"clm-0ktpcn", "clm-5xon03", "clm-dsb560"}
+
+
+def _g_ruling_state(rr_tag="fitted-identification", g_tag="mixed",
+                    g_band="input-only"):
+    """The live G-ruling instance: α brace (ilk-rr14gt) + G node (ilk-gravmb),
+    both wired into the operating-point root clm-iouqn9.
+
+    rr_tag / g_tag flip the chord/echo classification; g_band lets a demo refute
+    G's calibration node (clm-dsb560).
+    """
+    claims = [
+        _claim("clm-iouqn9", "input-only"),       # operating-point root
+        _claim("clm-0ktpcn", "input-only"),       # α
+        _claim("clm-5xon03", "ok-with-caveats"),  # m_e mass-scale (NOT input-only)
+        _claim("clm-dsb560", g_band),             # G (its Route-2)
+        _mech("ilk-rr14gt", rr_tag, "clm-0ktpcn"),
+        _mech("ilk-gravmb", g_tag, "clm-dsb560"),
+    ]
+    deps = [
+        _edge("clm-iouqn9", "ilk-rr14gt"), _edge("clm-0ktpcn", "ilk-rr14gt"),
+        _edge("clm-iouqn9", "ilk-gravmb"), _edge("clm-dsb560", "ilk-gravmb"),
+    ]
+    return claims, deps
+
+
+class TestGRulingCalibrationCount(unittest.TestCase):
+    def test_calibration_set_baseline_is_three(self):
+        # All three calibration params fitted/mixed-value, none real-reduced → 3.
+        # (Note clm-5xon03 is ok-with-caveats, NOT input-only — the calibration
+        # marker, not the band, is what counts it.)
+        claims, deps = _g_ruling_state()
+        self.assertEqual(
+            lib.compute_independent_parameter_count(claims, deps, _CALIB), 3
+        )
+
+    def test_demo_a_alpha_fitted_to_real_drops_to_two(self):
+        # (a) flip α's ilk-rr14gt fitted→real → derived_endpoint clm-0ktpcn is
+        # reduced → count 3→2.
+        claims, deps = _g_ruling_state(rr_tag="real-geometric-constraint")
+        self.assertEqual(
+            lib.compute_independent_parameter_count(claims, deps, _CALIB), 2
+        )
+
+    def test_demo_b_g_mixed_to_real_drops_to_two(self):
+        # (b) flip the G node ilk-gravmb mixed→real (Chain B′ lands) →
+        # derived_endpoint clm-dsb560 is reduced → count 3→2.
+        claims, deps = _g_ruling_state(g_tag="real-geometric-constraint")
+        self.assertEqual(
+            lib.compute_independent_parameter_count(claims, deps, _CALIB), 2
+        )
+
+    def test_demo_c_mixed_and_fitted_both_hold_at_three(self):
+        # (c) mixed (G) and fitted (α) both leave the count at 3 — only a real
+        # chord reduces.
+        claims, deps = _g_ruling_state(rr_tag="fitted-identification",
+                                       g_tag="mixed")
+        self.assertEqual(
+            lib.compute_independent_parameter_count(claims, deps, _CALIB), 3
+        )
+
+    def test_demo_d_refuting_g_names_operating_point_root(self):
+        # (d) refuting G's calibration node (clm-dsb560) propagates a
+        # falsification-net failure naming the operating-point root clm-iouqn9.
+        clean, deps = _g_ruling_state()
+        self.assertEqual(
+            lib.falsification_net_violations(clean, deps, "clm-iouqn9"), []
+        )
+        refuted, deps = _g_ruling_state(g_band="refuted")
+        self.assertEqual(
+            lib.falsification_net_violations(refuted, deps, "clm-iouqn9"),
+            [("clm-dsb560", "clm-iouqn9")],
+        )
+
+    def test_calibration_marker_resolution_independent_of_band(self):
+        # A calibration param need not be input-only: clm-5xon03 (ok-with-caveats)
+        # is counted because it is marked, not because of its band.
+        claims, deps = _g_ruling_state()
+        self.assertIn(
+            "clm-5xon03",
+            {r["id"] for r in claims if r.get("node_type") == "claim"},
+        )
+        # Dropping the marker for it lowers the calibration count to 2.
+        self.assertEqual(
+            lib.compute_independent_parameter_count(
+                claims, deps, {"clm-0ktpcn", "clm-dsb560"}
+            ),
+            2,
         )
 
 
