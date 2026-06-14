@@ -33,8 +33,8 @@ A consolidated, **tagged and diagnosed** record of finished negative efforts acr
 ### genesis-armB-flywheel-seed — the bare ω-flywheel does not collimate into the (2,3) (III)
 - **Hypothesis:** the electron is just three numbers `{ω, R, chirality}` — a bare collimated B-flywheel (Lundquist force-free flux rope in the Cosserat ω field) relaxes under force-free dynamics into the `(2,3)` electron.
 - **Verdict:** III — no collimation into `(2,3)`.
-- **Diagnostic:** the seed was the **ω/B-flywheel alone** — the inductive microrotational-B / **charge-"3"** half. But the electron is the **A1 dilatation-MASS "3" carrying the (2,3) charge-winding "3"** (two orthogonal objects; [master-equation.md](../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20). Seeding only the charge-half, with no A1 mass, is an **incomplete IC** — the force-free relaxation has nothing to confine.
-- **Tag:** **WRONG-CARRIER / SUPERSEDED** by the two-"3"s — the electron needs the A1 mass too; the three-numbers-from-the-flywheel-alone framing is the pre-two-"3"s picture.
+- **Diagnostic (source's own finding, §4/§6):** the seeded force-free Beltrami flux rope is **NOT a dynamical attractor** — under the engine's own dynamics the energy-weighted force-free residual **grows** (electron-pt 0.60→0.92; even the well-collimated `k·R=3` control 0.20→0.82): a localized flywheel **de-collimates and disperses**, it does not tighten. It carried the right *quantities* (≈3× the mass, ≈70× the coherent L of the matched baseline) but never a quantized soliton. The source names the failure as **right sector (ω), wrong geometry (flywheel vs WAVE), wrong mechanism (force-free relaxation vs saturation-confinement)**; its immediate re-aim was "seed the ω-shear WAVE" → the **genesis-omega-wave** entry above (which then also returned III).
+- **Tag:** **WRONG-CARRIER / SUPERSEDED.** Source's own carry-forward: re-aim to the canonical ω-shear-WAVE genesis (done — also III). The deeper cross-arc lesson, **in the *later* two-"3"s framing** ([master-equation.md](../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20): the ω-flywheel is the microrotational-B **charge-"3"** half, and self-assembly needs the **A1 dilatation-MASS "3"** carrier (cf. the genesis-omega-wave entry's "re-test the A1/V-sector"). The three-numbers-from-the-flywheel-alone framing is the pre-two-"3"s picture — a re-interpretation layered on top of the source, not the source's own diagnosis.
 - **Recovery:** `analysis/2026-06-06-genesis-armB-flywheel-seed` @ `5cf1a03e` (pushed)
 
 ### electron-genesis-drop — pinch-off geometry hosted, (2,3) not (III)
@@ -44,12 +44,15 @@ A consolidated, **tagged and diagnosed** record of finished negative efforts acr
 - **Tag:** **INCONCLUSIVE** — the geometry is hosted; the `(2,3)` is blocked by the ω≡0 Q0 fixed point (an engine ω-seeding limitation), not a physical falsification.
 - **Recovery:** `analysis/2026-06-06-electron-genesis-drop` @ `71fdb9a2` (pushed)
 
-### screened-winding-probe — the v6 w_pol≡0 absence is genuine (exonerated)
+### screened-winding-probe — v6 `w_pol≡0` READ-absence genuine; through-shell screening UNTESTED (panel-demoted)
 - **Hypothesis:** the genesis-v6 null (`w_pol ≡ 0`, the poloidal "3" never forms) might be an **apparatus screen** (a reader that cannot see the winding inside the snap shell), not a genuine absence.
-- **Verdict:** BIN = NO-SCREENING — the absence is genuine.
-- **Diagnostic:** the apparatus reads a **known-planted** `(2,3)` ω-winding **faithfully through a formed snap shell** → the prior v6 verdict stands and is **exonerated of the screening confound**. `w_pol ≡ 0` is a real absence, not a blind reader.
-- **Tag:** **GENUINE-FALSIFICATION** (methodological) — confirms the genesis-v6 `(2,3)`-self-assembly null is physical, not an artifact.
-- **Recovery:** `analysis/2026-06-11-screened-winding-probe` @ `836ee6de` (pushed)
+- **Verdict:** BIN = NO-SCREENING **at the GATE level** (Rule 11 — the frozen gates fired as frozen), but the §0 headline ("reads a planted `(2,3)` faithfully through a formed shell / **EXONERATED**") was **PANEL-DEMOTED** (source §8, appended; 1/2 lenses refuted ⇒ branch review-gated).
+- **Diagnostic — three honest tiers (per the source §8.2):**
+  - **CODE-PROVEN (stands):** the snap writes **ZERO** to `ω/π_ω/w/V` (`unified_genesis_engine.py:304–419`; array-confirmed `max|Δω|=max|Δw|=max|ΔV|=0.00e+00`) — it erases the **bulk `u_adv` circulation** (`:396`) but does **not** screen the **Cosserat-ω read channel**. The "circulation erased by bookkeeping" directive is exactly true for `u_adv`, exactly false for the ω read.
+  - **LOAD-BEARING (stands, re-attributed to ARM 2):** the coupled v6 product itself reads `w_pol=0` on **reliable interior contours** (`best_rel=0.813`, fracs 0.5/0.7/0.9 — interior reads cannot be through-shell-screened), insensitive to `omega_recipient_frac` to 6 sig figs. The **read-absence is genuine**.
+  - **EMPIRICALLY UNTESTED (the demotion):** through-shell read of a winding in a **COUPLED** config. ARM 1's "exoneration" ran **transducer-OFF**, where the ω channel is decoupled from the snap **by construction** → its transfer is forced to `T≡1.0` (a **tautology**, not a screening calibration); the plant sat **AT** the shell edge, not inside; no ARM-1 field map exists. **Do NOT propagate the "EXONERATED" framing.**
+- **Tag:** 🟡 **INCONCLUSIVE / PARTIAL** — the v6 `w_pol≡0` **read**-absence is genuine (ARM 2 interior reads + the code-decouple), but the *screening exoneration* is panel-demoted: coupled through-shell screening is **UNTESTED**, and apparatus-caused **formation-suppression** (does the `:396` `u_adv` erasure at the wall prevent orbital→poloidal twist from ever forming?) remains **OPEN**. **NOT a GENUINE-FALSIFICATION.**
+- **Recovery:** `analysis/2026-06-11-screened-winding-probe` @ `836ee6de` (pushed as an **archival recovery pointer**; the source's own disposition is **unpushed / review-gated — panel not clean**, so this is *not* a merge candidate).
 
 ### crystal-k4-graft — real-space trap and phase-space winding decouple (SMOKE-FAIL)
 - **Hypothesis:** grafting the `c_eff(V)` bond-Γ wall + the conserved ADD-2 port-rotation converter onto the K4 4-port traps the longitudinal monopole **and** assembles the `(2,3)` winding coherently.
@@ -71,7 +74,7 @@ A consolidated, **tagged and diagnosed** record of finished negative efforts acr
 - **Hypothesis:** coordination-preserving amorphous disorder of the K4 lattice derives the EMT `z₀ = 51.25` (→ α) **α-free**.
 - **Verdict:** Outcome D — α not derived (directional signal only).
 - **Diagnostic:** disorder **does** reduce `z₀` into a band `[50.87, 51.67]` straddling 51.25 (α-free, via 4-ring formation merging 2-hop endpoints), but **no α-free principle selects 51.25** — the value is set by the (free) disorder strength; the disorder-independent high-disorder steady-state lands at `z₀ ≈ 51.65` (1/α = 138.0), not 51.25. Hitting 51.25 needs an un-derived disorder amount.
-- **Tag:** **GENUINE-FALSIFICATION** — the amorphous-z₀ route to α is model-dependent (Outcome D), not a fixed point.
+- **Tag:** **GENUINE-FALSIFICATION** of the *topological-random* (WWW) amorphous selection of 51.25 — the maximally-randomized ensemble's steady-state lands at `z₀ ≈ 51.65`, not 51.25 (Outcome D, model-dependent, not a fixed point). **Scope caveat (source "Path forward" §1 + Caveat #1):** the **energy-relaxed CRN** (Keating/WWW strain-minimized a-Si-class network) is the *decisive* Path-C test and is **NOT yet run** — this first pass is explicitly its "scaffold + null bracket." The topological-random route is closed; all of Path C is **not**.
 - **Recovery:** `analysis/2026-06-08-pathc-z0-amorphous-emt` @ `e9976bfc` (pushed)
 
 ### rectifier-stage1-biased-diode — engineered-gravity chord falsified by chromaticity (Outcome C)
@@ -86,15 +89,15 @@ A consolidated, **tagged and diagnosed** record of finished negative efforts acr
 ### motion-stability-bemf — stability-from-motion not supported (NULL)
 - **Hypothesis:** the moving electron is stabilized by its motion via BEMF (stability **from** motion), in the full-vector Maxwell FDTD engine.
 - **Verdict:** NULL (leaning CONTRADICTS) — not supported.
-- **Diagnostic:** the base transverse-photon self-trap is validated (retention 0.580 vs 0.389 matched baseline), but the boosted/moving configuration shows no motion-stabilization signature. The PML-clean co-moving re-run (the first was PML-confounded) leaves it NULL — the observable does not cleanly decide.
-- **Tag:** **INCONCLUSIVE / NULL** (leaning CONTRADICTS) — regime/observable-limited; see the cleaner companion below.
+- **Diagnostic:** the base transverse-photon self-trap is validated (retention 0.580 vs 0.389 matched baseline), but the boosted/moving config shows **no motion-stabilization signature**. The co-moving retention *does* rise with v — but a sub-saturation **LINEAR control rises as much**, so the rise is **generic transport, not the back-EMF** (the AVE-distinct discriminator fails); meanwhile saturation depth *falls* with v and `τ_zx` **anti-correlates** with the gain (−0.81). NULL on the transport metric, leaning CONTRADICTS on every trap-integrity metric. **Engine-scoped:** `fdtd_3d.py` carries only the **E/H projection** of the Cosserat `τ_zx` — a Cosserat-sector back-reaction would be invisible here, which is exactly what the native-carrier companion below re-ran.
+- **Tag:** **INCONCLUSIVE / NULL** (leaning CONTRADICTS) — regime/observable-limited (E/H-projection engine); the cleaner native-carrier companion below resolves it to GENUINE-FALSIFICATION (CONTRADICTS-via-PIN).
 - **Recovery:** `analysis/motion-stability-bemf` @ `059ae318` (pushed)
 
 ### motion-stability-bemf-cosserat — stability-from-motion contradicted via PIN
 - **Hypothesis:** Grant's stability-FROM-motion — the saturated `(2,3)` knot's stability comes from its motion (BEMF), on the durable VacuumEngine3D Arm-C host.
-- **Verdict:** CONTRADICTS-via-PIN — cleanly (the boost was fixed + validated on a linear pulse first).
-- **Diagnostic:** on the engine the saturated knot is **pinned** (native `τ_zx` shear holds it in place) — its stability is **the pin, not the motion**. The validated coherent-phasor boost confirms the probe works; the decisive run contradicts the hypothesis.
-- **Tag:** **GENUINE-FALSIFICATION** — stability-from-motion is contradicted; the knot's persistence is the pin (native shear), not its motion.
+- **Verdict:** CONTRADICTS-via-PIN — cleanly (the boost was fixed + validated on a linear pulse first; all four forward-predicted signs confirmed).
+- **Diagnostic:** under the validated coherent-phasor boost a sub-saturation **LINEAR pulse advects** (sign-symmetric ±0.053 cell/τ) but the saturated `(2,3)` self-trap **does not move** — its residual velocity is boost-direction-independent self-drift (no sign-flip, 0.10× the linear response). The knot is **pinned by its own frozen clock**: the deeply-saturated core (A²≈3.07 ≫ 1 ⇒ `S=√(1−A²)=0` ⇒ `c_eff=c·√S→0`) **cannot advect**. Retention does not rise with v, and the native back-EMF **does not** stabilize: `corr(τ_zx, gain) = −0.40 ≤ 0` — the large `τ_zx ≈ 6×10⁵` is the **static rupture-floor stress** of the frozen core, *not* a motion-induced stabilizer.
+- **Tag:** **GENUINE-FALSIFICATION** — stability-from-motion is contradicted; the knot's persistence is the **frozen-clock pin** (`S=0 ⇒ c_eff→0`, it is stable *because it is static*), **not** its motion — and not `τ_zx`, which anti-tracks stability. The native-`τ_zx` engine agrees with the Maxwell-projection companion below.
 - **Recovery:** `analysis/motion-stability-bemf-cosserat` @ `c6613c26` (pushed)
 
 ---
