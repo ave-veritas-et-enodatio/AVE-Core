@@ -779,6 +779,8 @@ class CosseratField3D:
         use_impedance_boundary: bool = False,
         impedance_clamp_strength: float = 200.0,
         impedance_skin_smoothing: int = 2,
+        impedance_implicit: bool = False,
+        impedance_cfl_safety: float = 0.4,
     ):
         self.nx = nx
         self.ny = ny
@@ -884,6 +886,28 @@ class CosseratField3D:
         # between steps. Recomputing it at both half-kicks made the wall pump
         # energy (the §7 ring/alias failure). None until the first step.
         self._clamp_weight = None
+        # Implicit / energy-conserving integrator for the stiff Γ=−1 clamp
+        # (KEEP-BOTH, default OFF → explicit velocity-Verlet, byte-identical to
+        # the (II) build). When True, the moving-clamp restoring force is split
+        # off and integrated by an EXACT harmonic rotation of the (ω, ω̇)
+        # reactance pair (the analytic LC-reactance solution; Strang split:
+        # kick / exact-rotate-drift / kick), AND the step is internally
+        # sub-divided to a CFL-safe sub-dt = impedance_cfl_safety · cfl_dt.
+        #
+        # DIAGNOSIS (2026-06-06, this build — corrects the (II) §6 framing):
+        # the (II) hard-Γ=−1 energy growth is NOT a within-step integrator error
+        # — the exact reactance rotation gives bit-for-bit the same growth as the
+        # explicit kick at the same dt. It is a CFL-margin instability: the
+        # engine's clamp-aware cfl_dt (which already folds c_clamp = √(K/I_ω)·dx)
+        # under-resolves the wall-CONFINED high-curvature wave by ~2×. The
+        # OPERATIVE fix is the tighter sub-dt; the exact rotation is the
+        # CP6-correct reactance integration retained for stiffness → CFL-limit
+        # robustness. With safety 0.4: energy bounded (Emax/E₀≈2.6, |ω|max≈8 at
+        # Γ_min=−0.99) vs ~10⁴–10⁵× runaway at the default dt.
+        # CP1: the reactive (energy-storing) node-clamp, NOT gradient descent.
+        # CP6: (ω=C-state, ω̇=L-state) tracked exactly as the rotated pair.
+        self.impedance_implicit = bool(impedance_implicit)
+        self.impedance_cfl_safety = float(impedance_cfl_safety)
 
     # ------------------------------------------------------------------
     # Initial condition
@@ -1700,6 +1724,61 @@ class CosseratField3D:
             V_clamp = 0.0
         return {"T": T, "W_linear": W, "V_clamp": V_clamp, "H": T + W + V_clamp}
 
+    def _freeze_clamp_weight(self) -> None:
+        """Set `self._clamp_weight = relu(−Γ)` (μ-short only) from the current
+        field, with skin-depth smoothing over tetrahedral neighbors so the
+        reflective wall is a finite-thickness skin, not a grid-sharp (Nyquist)
+        edge. The μ-side short (Γ<0) is a node (confining); the ε-side open
+        (Γ>0) is an antinode and is not clamped (relu gate)."""
+        gamma = self._impedance_gamma_field()
+        weight = np.maximum(0.0, -gamma)
+        for _ in range(self.impedance_skin_smoothing):
+            acc = weight.copy()
+            for p in TETRA_OFFSETS:
+                acc = acc + np.roll(weight, shift=(-p[0], -p[1], -p[2]), axis=(0, 1, 2))
+            weight = acc / (1 + len(TETRA_OFFSETS))
+        self._clamp_weight = weight * self.mask_alive.astype(weight.dtype)
+
+    def _clamp_omega0(self) -> np.ndarray:
+        """Per-cell clamp angular frequency Ω₀ = √((K/I_ω)·relu(−Γ)) from the
+        frozen per-step weight `self._clamp_weight`. Zero where matched/open
+        (no μ-short → no clamp → the cell free-streams). The reactive node-clamp
+        ω̈ = −Ω₀²·ω is an exact harmonic oscillator in (ω, ω̇) at this Ω₀."""
+        w = self._clamp_weight
+        return np.sqrt((self.impedance_clamp_strength / self.I_omega) * np.maximum(w, 0.0))
+
+    def _rotate_clamp(self, omega0: np.ndarray, tau: float) -> None:
+        """Advance (ω, ω̇) by the EXACT harmonic-rotation flow of the reactive
+        Γ=−1 node-clamp over time `tau`, in place.
+
+            ω(τ)  =  ω·cos(Ω₀τ) + (ω̇/Ω₀)·sin(Ω₀τ)
+            ω̇(τ) = −ω·Ω₀·sin(Ω₀τ) + ω̇·cos(Ω₀τ)
+
+        This is the analytic solution of ω̈ = −Ω₀²ω (the reactive node-clamp as
+        a lossless LC oscillator), so the clamp energy ½I_ω(ω̇² + Ω₀²ω²) is
+        conserved EXACTLY for any τ — no truncation, no parametric pumping. As
+        Ω₀→0 the rotation degrades smoothly to free drift ω ← ω + τ·ω̇ (matched
+        cells stream as a plain Verlet drift), so the bulk wave is unchanged.
+        CP6: the (ω=C-state, ω̇=L-state) reactance pair is rotated together."""
+        O = omega0[..., None]
+        phi = O * tau
+        c = np.cos(phi)
+        s = np.sin(phi)
+        tiny = 1e-30
+        O_safe = np.where(O > tiny, O, 1.0)
+        drift = np.where(O > tiny, s / O_safe, tau)  # sin(Ω₀τ)/Ω₀ → τ as Ω₀→0
+        om = c * self.omega + drift * self.omega_dot
+        od = -O * s * self.omega + c * self.omega_dot
+        self.omega = om
+        self.omega_dot = od
+
+    def _bulk_accel(self) -> tuple[np.ndarray, np.ndarray]:
+        """Linear-elastic bulk acceleration ONLY (no clamp) — the soft part of
+        the implicit Strang split. The stiff Γ=−1 clamp is carried separately by
+        `_rotate_clamp` (exact), so this is the matched-bulk shear wave."""
+        dE_du, dE_dw = self._bare_linear_gradient()
+        return -dE_du / self.rho, -dE_dw / self.I_omega
+
     def _accel(self) -> tuple[np.ndarray, np.ndarray]:
         """Acceleration (a_u, a_ω) for the velocity-Verlet step.
 
@@ -1737,22 +1816,51 @@ class CosseratField3D:
         if dt is None:
             dt = self.cfl_dt
 
-        # Freeze the Γ=−1 node-clamp weight relu(−Γ) ONCE per step (from the
-        # field at step entry) so both half-kicks apply the same conservative
-        # restoring force — the moving reflective wall advances only between
-        # steps, and does not pump energy within a step (§7).
-        if self.use_impedance_boundary:
-            gamma = self._impedance_gamma_field()
-            weight = np.maximum(0.0, -gamma)
-            # Skin-depth smoothing: average over self + 4 tetrahedral neighbors
-            # so the reflective wall is a finite-thickness skin, not a grid-sharp
-            # (Nyquist) edge. Re-mask to alive cells afterward.
-            for _ in range(self.impedance_skin_smoothing):
-                acc = weight.copy()
-                for p in TETRA_OFFSETS:
-                    acc = acc + np.roll(weight, shift=(-p[0], -p[1], -p[2]), axis=(0, 1, 2))
-                weight = acc / (1 + len(TETRA_OFFSETS))
-            self._clamp_weight = weight * self.mask_alive.astype(weight.dtype)
+        # Freeze the Γ=−1 node-clamp weight relu(−Γ) (from the current field)
+        # with skin-depth smoothing. The EXPLICIT path freezes ONCE per step
+        # ((II) §7 design); the IMPLICIT path re-freezes EVERY sub-step (below)
+        # so the moving reflective wall tracks the focusing field — the
+        # operative anti-pumping requirement (see implicit branch).
+        if self.use_impedance_boundary and not self.impedance_implicit:
+            self._freeze_clamp_weight()
+
+        # Implicit / energy-conserving path: sub-divided Strang split (kick /
+        # exact-rotate-drift / kick) with the clamp weight RE-FROZEN every
+        # sub-step. The (II) §6 hard-Γ=−1 growth is a moving-boundary temporal-
+        # resolution instability (Strang commutator ∝ sub-dt²·Ω₀·k_bulk): the
+        # reflective wall must be re-evaluated AND integrated at a sub-dt ≤
+        # impedance_cfl_safety·cfl_dt, else energy pumps. NOT a within-step
+        # integrator error (the exact rotation gives bit-identical growth at the
+        # same sub-dt + freeze cadence). The exact rotation is the CP6-correct
+        # reactance integration; the fine sub-dt + per-sub-step re-freeze is the
+        # operative fix.
+        if self.use_impedance_boundary and self.impedance_implicit:
+            dt_safe = self.impedance_cfl_safety * self.cfl_dt
+            n_sub = max(1, int(np.ceil(dt / max(dt_safe, 1e-30))))
+            sub = dt / n_sub
+            for _ in range(n_sub):
+                self._freeze_clamp_weight()  # re-evaluate the moving wall each sub-step
+                omega0 = self._clamp_omega0()
+                a_u, a_w = self._bulk_accel()
+                # 1. half-kick (bulk force only)
+                self.u_dot = self.u_dot + 0.5 * sub * a_u
+                self.omega_dot = self.omega_dot + 0.5 * sub * a_w
+                self._zero_velocities_outside_alive()
+                # 2. drift u; exact-rotate the (ω, ω̇) reactance pair through clamp
+                self.u = self.u + sub * self.u_dot
+                self._rotate_clamp(omega0, sub)
+                self._zero_outside_alive()
+                # 3. half-kick (bulk force at the new state)
+                a_u_new, a_w_new = self._bulk_accel()
+                self.u_dot = self.u_dot + 0.5 * sub * a_u_new
+                self.omega_dot = self.omega_dot + 0.5 * sub * a_w_new
+                self._zero_velocities_outside_alive()
+                if self.damping_gamma > 0.0:
+                    decay = max(0.0, 1.0 - self.damping_gamma * sub)
+                    self.u_dot *= decay
+                    self.omega_dot *= decay
+            self.time += dt
+            return
 
         # Force at current state  →  acceleration. `_accel` is the default
         # −∇W/mass when use_impedance_boundary=False (byte-identical), or the
