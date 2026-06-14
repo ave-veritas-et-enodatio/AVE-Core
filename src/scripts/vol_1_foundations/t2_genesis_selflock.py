@@ -103,6 +103,20 @@ PUMP_SIGMA = 3.0
 A0_SWEEP = [0.69, 0.78, R_II, 0.95]          # all >= g_front floor, all < R_III
 A0_BELOW_FLOOR = [0.40]                       # F6: confirm the valve-shut false-negative
 
+# ── SECH POSITIVE-CONTROL (instrument validation — NOT a frozen-prereg arm).
+#    The cage's v14 Mode-I sech eigen-profile (1/cosh(r/R)) that the cage ANCHOR
+#    arm SELF-FOCUSED, run in the cage's self-focus box (N_SECH, dx_SECH), converter
+#    OFF, NO photon. It is the KNOWN-POSITIVE: the LOCK-detector MUST fire on it,
+#    else a photon-arm DISPERSE is a can't-detect-anything artifact rather than a
+#    real negative (ave-apparatus-floor-attribution validate-on-known-positive).
+#    Box mirrors cage_stiffening_wall.py SECH_ANCHOR (test_master_equation_v14_mode_i
+#    box). Amps stay in the cage self-focus range AND A²≤1 (near-yield forming) —
+#    the cage's 0.70/0.85 ring up to A²>1 (RUPTURE-EXCLUDED, out of the LOCK regime).
+N_SECH = 24
+DX_SECH = 0.5
+RADIUS_SECH = 2.5
+SECH_AMPS = [0.20, 0.30, 0.50]               # cage-self-focus range, all A²pk<1
+
 # ── verdict tolerances (frozen here; the disperse/lock separation is large) ──
 GROW_TOL = 0.05        # peak must exceed seed by >5% to count as "grew"
 PERSIST_FRAC = 0.50    # post-transient envelope must retain >50% of seed to "persist"
@@ -146,9 +160,34 @@ ARM_C = "C"        # photon + generic field, converter ON
 ARM_AP = "A_prime"  # generic field, converter ON, NO photon
 ARM_A = "A"        # generic field, converter OFF, NO photon
 ARM_PUMP = "PUMP"  # generic field + fixed-omega CW drive on V
+ARM_SECH = "SECH"  # cage v14 sech eigen-profile, converter OFF, NO photon (POSITIVE CONTROL)
+
+
+def _seed_sech(e: CrystalEngine, amp: float, width: float, dx: float) -> None:
+    """Direct-assign the v14 Mode-I sech eigen-profile 1/cosh(r/R) — the cage
+    ANCHOR seed (cage_stiffening_wall.py `_seed` 'sech' branch), the KNOWN
+    self-focusing profile. Stationary start (∂_tV=0): V_prev=V. This is the
+    detector positive-control: deliberately planting the known self-focusing
+    end-state is CORRECT for a detector/positive-control (substrate-native-check —
+    CP8's seed-the-precursor guard governs the EMERGENCE-test arms, NOT the
+    detector check; the cage proved THIS profile self-focuses)."""
+    c = e.N // 2
+    coords = np.arange(e.N) - c
+    xx, yy, zz = np.meshgrid(coords, coords, coords, indexing="ij")
+    r = np.sqrt(xx**2 + yy**2 + zz**2) * dx
+    seed = amp * (1.0 / np.cosh(r / width))
+    e.V[:] = seed
+    e.V_prev[:] = seed.copy()
 
 
 def _build_engine(arm: str, A0: float, helicity: float) -> CrystalEngine:
+    if arm == ARM_SECH:
+        # POSITIVE-CONTROL: cage v14 sech in the cage self-focus box, converter
+        # OFF, NO photon — the known-positive the LOCK-detector must fire on.
+        e = CrystalEngine(N=N_SECH, dx=DX_SECH, S_min=S_MIN, A_cap=A_CAP,
+                          converter_on=False, pml_thickness=PML)
+        _seed_sech(e, amp=A0, width=RADIUS_SECH, dx=DX_SECH)
+        return e
     converter_on = arm in (ARM_C, ARM_AP, ARM_PUMP)  # (A) is the converter-OFF control
     e = CrystalEngine(N=N_BOX, dx=DX, S_min=S_MIN, A_cap=A_CAP,
                       converter_on=converter_on, pml_thickness=PML)
@@ -402,6 +441,32 @@ def run_arm(arm: str, A0: float, nsteps: int, helicity: float = PHOTON_HELICITY)
 
 # leapfrog dt is fixed by the engine config; capture once for the carrier FFT.
 _DT = CrystalEngine(N=N_BOX, dx=DX, S_min=S_MIN, A_cap=A_CAP, pml_thickness=PML).dt
+# v14-box dt for the SECH positive-control (dx_SECH≠DX ⇒ dt differs by 2×); the
+# carrier FFT MUST use this dt or ω_local is mis-scaled and PLV is mis-predicted.
+_DT_SECH = CrystalEngine(N=N_SECH, dx=DX_SECH, S_min=S_MIN, A_cap=A_CAP, pml_thickness=PML).dt
+
+
+def run_sech_control(amp: float, nsteps: int) -> dict:
+    """SECH POSITIVE-CONTROL: run the cage v14 sech eigen-profile (converter OFF,
+    no photon) through the EXACT T2 detector — same `evolve` loop, same
+    `_carrier_omega0`/phasor, same `classify()` + LOCK criterion (UNCHANGED).
+    validate-on-known-positive (ave-apparatus-floor-attribution): a genuine
+    self-focus MUST trip LOCK, else a photon-arm DISPERSE is can't-detect noise.
+    Uses the v14-box dt (`_DT_SECH`), NOT the T2-box `_DT`. Reports the ring-up
+    apk/a0 + the F1 `grew` flag ALONGSIDE the bin so the auditor sees the sech
+    BOTH grows AND persists (the stricter F1 grow+coherent read)."""
+    p1 = evolve(ARM_SECH, amp, nsteps, omega0=None)
+    omega0, omega_dom, conc, zc = _carrier_omega0(p1["_vcore"], p1["_score"], _DT_SECH, p1["_n_trans"])
+    rec = evolve(ARM_SECH, amp, nsteps, omega0=omega0)
+    rec["carrier_omega_dom"] = float(omega_dom)
+    rec["carrier_spectral_conc"] = float(conc)
+    rec["carrier_zero_crossings"] = int(zc)
+    rec["ring_up_apk_over_a0"] = float(rec["max_A_peak"] / max(rec["max_A_t0"], 1e-30))
+    rec["grew_F1"] = bool(rec["max_A_peak"] > rec["max_A_t0"] * (1.0 + GROW_TOL))
+    rec["dt_sech"] = float(_DT_SECH)
+    for k in ("_vcore", "_pvcore", "_score", "_n_trans"):
+        rec.pop(k, None)
+    return rec
 
 
 # ──────────────────────────────────────────────────────────────────────────
@@ -487,6 +552,45 @@ def main():
     print(fmt(r, b, g_front_at(R_II, front_center, front_width)))
     out["ablation_helicity"][f"{R_II:.3f}_h-1"] = {"record": r, "bin": b}
 
+    # ── SECH POSITIVE-CONTROL (instrument validation; NOT a frozen-prereg arm) ──
+    # validate-on-known-positive (ave-apparatus-floor-attribution): the cage v14
+    # sech SELF-FOCUSES — the LOCK-detector MUST fire on it, else a photon-arm
+    # DISPERSE is a can't-detect-anything artifact, not a real negative. We report
+    # the ring-up apk/a0 + grew_F1 ALONGSIDE the bin (grow AND persist). Run in the
+    # cage sech-arm box + budget (the configuration where the known-positive holds).
+    print("\n[POSITIVE-CONTROL] SECH eigen-profile (cage v14 self-focus; converter OFF, NO photon) "
+          "through the EXACT LOCK-detector:")
+    nsteps_sech = 300 if smoke else 600  # cage sech-arm budget (the known-positive)
+    out["sech_positive_control"] = {
+        "box": {"N": N_SECH, "dx": DX_SECH, "radius": RADIUS_SECH}, "nsteps": nsteps_sech,
+        "role": "detector-validation / positive-control (consistency-vs-emergence: DETECTOR-VALIDATION class)",
+        "amps": {},
+    }
+    for amp in SECH_AMPS:
+        rs = run_sech_control(amp, nsteps_sech)
+        bs = classify(rs); rs["bin"] = bs
+        print(f"  SECH  amp={amp:.2f} | A0={rs['max_A_t0']:.3f} Apk={rs['max_A_peak']:.3f} "
+              f"ringup={rs['ring_up_apk_over_a0']:.3f}x grew_F1={rs['grew_F1']} "
+              f"Apersist={rs['max_A_persist']:.3f} A2pk={rs['A2_peak']:.3f} maxV={rs['max_V_max']:.2f} | "
+              f"PLV={rs['phase_coherence_PLV']:.3f} radpersist={rs['phasor_radius_persist']:.3f} -> {bs}")
+        out["sech_positive_control"]["amps"][f"{amp:.2f}"] = rs
+    sech_bins = {a: out["sech_positive_control"]["amps"][a]["bin"] for a in out["sech_positive_control"]["amps"]}
+    sech_all_lock = all(b == "LOCK" for b in sech_bins.values())
+    out["sech_positive_control"]["bins"] = sech_bins
+    out["sech_positive_control"]["all_lock"] = bool(sech_all_lock)
+    if sech_all_lock:
+        pc_msg = ("✅ DETECTOR VALIDATED — the known-positive sech returns LOCK; the LOCK-detector "
+                  "fires on a genuine self-focus, so the (C) DISPERSE is a real negative.")
+    else:
+        pc_msg = ("🔴 DETECTOR FLAG — the known-positive sech does NOT return LOCK "
+                  f"(bins {sech_bins}). It self-focuses (rings up + persists + bounded, grew_F1=True) "
+                  f"but PLV<{PLV_LOCK} -> UNRESOLVED: the PLV phase-coherence LOCK-gate does NOT fire "
+                  "on a genuine self-focus. The (C) DISPERSE verdict rests on the VALIDATED ring-up/"
+                  "persistence legs (photon arms show neither), NOT the PLV/F3 leg. flag-don't-fix: "
+                  "do NOT tune the gate; auditor+Grant adjudicate.")
+    out["sech_positive_control"]["message"] = pc_msg
+    print(f"    => {pc_msg}")
+
     # ── headline four-way verdict (HONEST; no chord claim) ──────────────────
     cases = {k: v["case"] for k, v in out["discriminator"].items()}
     any_target = any(c == "TARGET-POSITIVE-PENDING-AUDIT" for c in cases.values())
@@ -512,6 +616,8 @@ def main():
     jpath.write_text(json.dumps(out, indent=2, default=float))
     print("\n" + "=" * 96)
     print(f"HEADLINE: {headline}")
+    print(f"  POSITIVE-CONTROL (sech): all_lock={out['sech_positive_control']['all_lock']} "
+          f"bins={out['sech_positive_control']['bins']}")
     print(f"  PUMP detonates at every tested A0: {out['pump_all_detonate']} (conserved-vs-pumped control)")
     print(f"  per-A0 cases: {cases}")
     print(f"  wrote {jpath.name} | elapsed {out['elapsed_s']:.1f}s")

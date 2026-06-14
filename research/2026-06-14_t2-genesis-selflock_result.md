@@ -1,12 +1,19 @@
 # T2 — genesis self-lock (photon-at-a-field → autoresonant bulk breather) — RESULT
 
-> **STATUS: NEGATIVE (clean, Rule-11 honest closure).** Prereg
+> **STATUS: NEGATIVE (clean, Rule-11 honest closure) — with a 🔴 DETECTOR FLAG on the
+> LOCK bin (§0.5), pending auditor+Grant adjudication.** Prereg
 > `research/2026-06-13_t2-genesis-selflock_prereg_FROZEN.md` (FROZEN, auditor-cleared).
 > Driver `src/scripts/vol_1_foundations/t2_genesis_selflock.py` (DRIVER-NOT-BUILD on
 > `crystal_engine.py`). Data `src/scripts/vol_1_foundations/t2_genesis_selflock_results.json`
-> (production, 700 steps).
+> (production, 700 steps; sech positive-control 600 steps).
 > **🔴 NO CHORD / GENESIS CLAIM.** This doc reports the four-way bin HONESTLY; a
 > READ-ONLY auditor verifies against the discriminator before any framework move.
+> **🔴 The SECH positive control (§0.5) did NOT validate the LOCK detector** (the
+> known self-focusing v14 sech bins **UNRESOLVED**, not LOCK — PLV-gate too strict).
+> The NEGATIVE's **load-bearing legs (ring-up + persistence) ARE validated**; the
+> **PLV/F3 coherence leg is NOT** and is downgraded to uninformative. The verdict is
+> reported as-is (flag-don't-fix); the LOCK-detector limitation is surfaced for
+> adjudication, **not tuned away**.
 
 ---
 
@@ -28,6 +35,82 @@ field-self-genesis cell.
 A null **is** meaningful here (prereg §4: the self-lock effect *can* exist in
 near-yield forming; this is not a wrong-regime artifact). This is a valid result;
 **no knobs were tuned to force a lock** (`ave-driver-script-honesty`, Rule 11).
+
+---
+
+## 0.5 Instrument validation — SECH positive control (🔴 DETECTOR FLAG)
+
+> **Role (`consistency-vs-emergence`): DETECTOR-VALIDATION / positive-control — NOT a
+> frozen-prereg arm, NOT part of the four-way discriminator.** `ave-apparatus-floor-
+> attribution` validate-on-**known-positive**: before reading the (C) DISPERSE as a
+> real negative, the LOCK-detector must be shown to **fire on a genuine self-focus**.
+> The cage proved the v14 Mode-I **sech eigen-profile self-focuses** (cage `SECH_ANCHOR`,
+> PR #222). So we seed **that exact sech** (`1/cosh(r/R)`, direct-assign to `V`,
+> ∂ₜV=0) in the cage's self-focus box (N=24, dx=0.5, R=2.5), **converter OFF, NO
+> photon**, and run it through the **EXACT committed detector** (same `evolve` loop,
+> same `_carrier_omega0`/phasor, same `classify()` + LOCK criterion — unchanged), with
+> the v14-box `dt` (`_DT_SECH`, half the T2-box dt; mis-using the T2 dt would mis-scale
+> ω_local and *worsen* PLV — this is the best-case read). **substrate-native-check:**
+> deliberately planting the known self-focusing end-state is **correct** for a detector
+> check (CP8's seed-the-precursor guard governs the *emergence*-test arms, not the
+> detector validation).
+
+**Result — the sech SELF-FOCUSES but bins UNRESOLVED, NOT LOCK** (production, 600 steps):
+
+| amp | A₀ | Apk | **ring-up apk/a0** | grew_F1 | Apersist | (Apersist/A₀) | A²pk | maxV | PLV | radpersist | **bin** |
+|---:|---:|---:|---:|:---:|---:|---:|---:|---:|---:|---:|:---|
+| 0.20 | 0.200 | 0.396 | **1.979×** | True | 0.185 | 93 % | 0.157 | 0.40 | 0.538 | 0.954 | **UNRESOLVED** |
+| 0.30 | 0.300 | 0.583 | **1.942×** | True | 0.270 | 90 % | 0.339 | 0.58 | 0.530 | 0.934 | **UNRESOLVED** |
+| 0.50 | 0.500 | 0.899 | **1.798×** | True | 0.411 | 82 % | 0.808 | 0.90 | 0.530 | 0.850 | **UNRESOLVED** |
+
+**Robustness (pre-report characterization).** The sech bins UNRESOLVED across amp
+0.20–0.50 **and** nsteps 600/1000/1400; ring-up is invariant (1.80–1.98×) and PLV
+peaks at **0.770** (amp 0.50, n=1000) — **never crossing the 0.80 gate**, and
+non-monotonic (drops to ~0.45–0.52 at n=1400). So the sub-lock PLV is **structural**,
+not an under-resolution artifact.
+
+**What this validates (the load-bearing legs — ✅):**
+
+1. **Ring-up discriminates.** The sech grows (Apk = **1.8–2.0× A₀**, grew_F1=True);
+   the (C)/(A′)/(A) photon arms show **no ring-up** (Apk = seed to float precision).
+2. **Persistence discriminates.** The sech persists (Apersist = **82–93 % of A₀**,
+   radpersist 0.85–0.95); the photon arms shed to **~13 % of seed** (Apersist 0.09–0.12).
+   The (C) **DISPERSE** verdict is produced by `classify()`'s `not persisted` branch —
+   **this is the validated leg.** The sech, being `persisted=True`, is correctly **not**
+   binned DISPERSE.
+
+**What this does NOT validate (🔴 the detector flag):**
+
+3. **The PLV phase-coherence LOCK-gate does NOT fire on a genuine self-focus.** The
+   sech's PLV (**0.530–0.538**) is **statistically indistinguishable from the disperse
+   photon arms' PLV (0.55–0.60)** — the metric does **not** separate self-focus from
+   disperse. The forming/breathing sech is not a clean single-tone carrier
+   (spectral concentration ≈ 0.17–0.22), so its core phasor does not advance
+   coherently at the predicted ω_local. **The LOCK bin (which requires PLV ≥ 0.80) is
+   therefore unreachable by even a genuine self-focus.**
+
+**Consequences (flag-don't-fix; do NOT tune; auditor+Grant adjudicate):**
+
+- **The harness could not have certified a TARGET-POSITIVE via LOCK.** Had the photon
+  actually induced a self-focus, it would have binned **UNRESOLVED** (self-focus the
+  PLV-gate refuses to certify), not LOCK / TARGET-POSITIVE. The positive control lands
+  **exactly in the UNRESOLVED bin** that §Cleanup-queue item 1 flagged as "reached by
+  no arm" — so UNRESOLVED is **live**, the "self-focus the PLV-gate won't certify" bin,
+  not dead.
+- **The NEGATIVE still stands on its load-bearing legs.** (C) DISPERSE is driven by
+  *persistence* (validated, legs 1–2 above), so "photon adds nothing" is sound:
+  the photon arms neither ring up nor persist, the known-positive does both.
+- **The F3 / PLV "autoresonance-signature-absent" leg is downgraded to UNINFORMATIVE.**
+  §2 point 3, §3 row F3, and FLAG-3 read sub-lock PLV as anti-lock evidence; the
+  positive control shows the **known-positive also has sub-lock PLV**, so PLV<0.80 is
+  **not** a negative discriminator here. Those passages are **left intact** (flag-don't-
+  fix) and cross-flagged to this section; the auditor adjudicates whether to rest the
+  negative on ring-up/persistence **only** (recommended) and whether the PLV-gate /
+  ω_local-phasor instrument needs a redesign before any future positive could be read.
+- **Per task discipline: STOP + report; do NOT proceed** to "detector validated →
+  NO-GENESIS confirmed." The negative is reported as-is with this flag attached; the
+  LOCK-detector limitation is an auditor+Grant decision, **not the implementer's** to
+  resolve (Rule 15/16 lane discipline).
 
 ---
 
@@ -88,6 +171,11 @@ opened; apparatus artifact, NOT a physics null — `ave-apparatus-floor-attribut
    moderate (not ~0) PLV is the slowly-dispersing field retaining *some* phase
    relation to the *rising* ω_local; it is not an autoresonant lock (the (C)=(A′)=(A)
    equality is decisive).
+   **🔴 DOWNGRADED (see §0.5):** the known-positive sech *also* reads sub-lock PLV
+   (~0.53), indistinguishable from these arms — so sub-lock PLV is **not** a negative
+   discriminator. The decisive read in this point is the **(C)=(A′)=(A) equality + the
+   absence of ring-up/persistence**, NOT the absolute PLV value. (Body left intact;
+   flag-don't-fix.)
 
 4. **ω_local RISES — the anti-lock signature.** In every forming arm ω_local climbs
    (e.g. 0.328→0.461 at R_II) because A *drops* as the field sheds → S_core rises →
@@ -111,7 +199,7 @@ opened; apparatus artifact, NOT a physics null — `ave-apparatus-floor-attribut
 | **F0** baseline (no seed → no wall) | inherited from cage; (A) converter-OFF disperses | consistent ✓ |
 | **F1** (C) lock (grow + coherent + bounded + persist) | Apk=seed, PLV<0.80, Apersist≪seed | **NOT met → ❌** |
 | **F2** (A′) discriminator (field+converter, no photon DISPERSES) | (A′) DISPERSES at all A₀ | **holds ✓** (⚠️ self-genesis row pre-excluded, confirmed dynamically) |
-| **F3** autoresonance signature (CP9 phase-coherence sustained as ω_local drops) | ω_local RISES; PLV sub-lock; (C)=(A′)=(A) | **ABSENT → ✗** (the GAP, now tested-negative) |
+| **F3** autoresonance signature (CP9 phase-coherence sustained as ω_local drops) | ω_local RISES; PLV sub-lock; (C)=(A′)=(A) | **ABSENT → ✗** (🔴 see §0.5: PLV-leg uninformative — the known-positive sech is *also* PLV-sub-lock; the **ω_local-RISES + (C)=(A′)=(A)** sub-reads carry F3, NOT the PLV value) |
 | **F4** conserved-not-pumped (PUMP detonates/pumps) | PUMP DETONATES at all A₀ (control) | **fires ✓** |
 | **F5** regime (lock in near-yield forming A²≤1; post-rupture excluded) | (C)/(A′)/(A) A²≤0.90 (in-regime); PUMP A²≈6000 excluded | **in-regime, valid null ✓** |
 | **F6** g_front floor (below-floor (C) = valve-never-opened, EXCLUDED) | A₀=0.40 g_front=0.035 → EXCLUDED-VALVE-SHUT | **floor confirmed ✓** |
@@ -149,12 +237,27 @@ sech eigen-profile self-focuses).
   is robust because (C)≈(A′)≈(A) and the phasor radius collapses; but the absolute
   PLV floor is a property of the metric on a slowly-shedding field, flagged so the
   auditor reads "sub-lock + photon-independent," not "low absolute coherence."
+  **🔴 ESCALATED by §0.5:** the metric's sub-lock floor is now shown to apply to a
+  **genuine self-focus** too (the v14 sech PLV ≈ 0.53, radpersist 0.85–0.95) — so the
+  PLV-gate cannot certify *any* positive, not just these disperse arms. The
+  discriminator's robustness rests entirely on ring-up/persistence (validated, §0.5),
+  not on PLV.
 
-- **FLAG-4 — negative is robust to photon config (pre-freeze characterization).**
-  The disperse verdict is unchanged across photon amplitude 0→4×, σ (dwell) 3→15,
-  wavelength 6→12, and offset-incidence — so the null is not a too-weak / too-brief
-  / too-localized-photon artifact. One fixed config (amp=1.0, wl=6, σ=3, h=+1) is
-  reported, chosen for energy-parity with the seed, **not** swept to force a lock.
+- **FLAG-4 — POST-DATA robustness characterization (NOT a frozen-prereg arm).**
+  *(`ave-evidence-framing-discipline` reframe — this is post-data supporting evidence,
+  not a pre-registered "robust" claim.)* The single **headline** photon config
+  (amp=1.0, wl=6, σ=3, h=+1) is the **only** frozen-prereg config; it was chosen for
+  **energy-parity with the seed**, **not** swept to lock. Separately, **after** the
+  data, the disperse verdict was checked to be unchanged across photon amplitude
+  0→4×, σ (dwell) 3→15, wavelength 6→12, and offset-incidence. **The mechanism that
+  makes this null structural** (not a too-weak / too-brief / too-localized-photon
+  artifact): the **front-gated converter sources too little bulk-V from the photon's
+  Ω_w *regardless of photon amplitude*** — `f_V = −κ̃·g_front·Ω_w` injects only a thin
+  saturation-front transient, which the generic Gaussian's dispersive shedding
+  dominates by orders of magnitude (§3 single-mechanism). Scaling the photon scales
+  that small injection but does not change the regime, so the null **persists by
+  construction**, not because the swept photons happened to be too weak. Read this as
+  **post-data support + a named mechanism**, NOT as a pre-registered robustness sweep.
 
 ---
 
@@ -185,6 +288,42 @@ re-test (different engine/regime) gets its own prereg + version + verification c
 
 ---
 
+## 5.5 Cleanup queue (deferred — NOT retrofitted)
+
+Surfaced during the §0.5 positive-control work; **not fixed here** (they do not change
+the current result, and the LOCK-criterion is frozen-as-committed per task discipline —
+`flag-don't-fix`). For auditor+Grant review:
+
+1. **The `UNRESOLVED` bin** (`classify()` `t2_genesis_selflock.py:382`, "persistent but
+   not phase-coherent") was reached by **no four-way arm** — was it a needed safety bin
+   or dead code? **§0.5 answers this empirically:** the sech positive control lands
+   **exactly** in UNRESOLVED (self-focus + persist + grow + bounded, but PLV<0.80). So
+   the bin is **live and load-bearing** — it is where a genuine self-focus that the
+   PLV-gate refuses to certify falls. Keep; review whether a true positive *should* be
+   routed here vs LOCK (i.e. whether the PLV-gate belongs in the LOCK condition at all).
+
+2. **`grew` is computed but OMITTED from the LOCK condition.** `grew` is evaluated at
+   `t2_genesis_selflock.py:372` but is **absent** from the LOCK test at
+   `t2_genesis_selflock.py:378` (`if persisted and bounded and coherent and not
+   decaying`). The committed LOCK criterion is therefore **weaker than prereg F1**,
+   which requires **max|A| GROWS + coherent + bounded + persists** (`prereg §6 F1`).
+   Queue: **add `grew` to the LOCK condition** to match F1. *Not fixed now* — it does
+   not change the current result (no arm reaches LOCK regardless; and the §0.5 sech
+   *does* satisfy `grew`, so adding it would not rescue the sech's bin — the binding
+   gate is `coherent`/PLV, item 3).
+
+3. **(escalated by §0.5) The `coherent`/PLV-gate in the LOCK condition is the binding
+   defect.** `coherent = PLV ≥ 0.80 ∧ radpersist ≥ 0.50` (`t2_genesis_selflock.py:378`
+   neighborhood) does **not** fire on a genuine self-focus (§0.5: sech PLV ≈ 0.53). Even
+   F1-corrected (item 2), the sech would still bin UNRESOLVED on this gate. Queue for
+   adjudication: does the ω_local-phasor PLV instrument need a redesign (e.g. an
+   instantaneous-frequency / chirp-tolerant coherence metric) before *any* positive
+   (TARGET-POSITIVE LOCK) could be read on `crystal_engine`? **This is the gate that
+   makes the LOCK bin currently unreachable** — the auditor+Grant call, not the
+   implementer's (Rule 15/16).
+
+---
+
 ## 6. Reproduce
 
 ```
@@ -192,6 +331,9 @@ PYTHONPATH=src .venv/bin/python src/scripts/vol_1_foundations/t2_genesis_selfloc
 ```
 
 Outputs `t2_genesis_selflock_results.json` next to the driver (repo convention,
-mirrors `cage_stiffening_wall_results.json`). `--smoke` for CI budget. Canonical
-constants cross-check (`verify_constants`) runs before any output and **aborts on a
-bad bench** (no output on a failed cross-check). `make verify` passes.
+mirrors `cage_stiffening_wall_results.json`). The four-way arms are deterministic and
+reproduce byte-identically; the **SECH positive control** (§0.5) is under the JSON key
+`sech_positive_control` (box, per-amp records, `bins`, `all_lock`, `message`). `--smoke`
+for CI budget. Canonical constants cross-check (`verify_constants`) runs before any
+output and **aborts on a bad bench** (no output on a failed cross-check). `make verify`
+passes.
