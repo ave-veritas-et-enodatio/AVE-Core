@@ -267,17 +267,24 @@ def H_chiral(
 # different instance (different Q / omega_c) produces correspondingly different
 # outputs; the electron reproduces today's numbers by plugging in its own values.
 #
-# THE Gamma-HOMONYM (LOAD-BEARING — labelled distinctly, NOT resolved here):
-#   * GAMMA_SPINOR = -1  -> the topological 2pi->4pi spinor-sign / perfect-short
-#       STABILITY wall (resonant-lc-solitons.md:64). Class-invariant: ALL
-#       fermions have it (electron AND proton). This is NOT the EM leak.
+# THE THREE Gamma's (LOAD-BEARING — labelled distinctly; the spinor/impedance
+# identity is RESOLVED two-distinct, Grant-ratified 2026-06-14):
+#   * GAMMA_SPINOR = -1  -> the topological 2pi->4pi spinor-sign STABILITY wall
+#       (the T2 Cosserat micro-rotation sector; finkelstein-misner-spin-half-
+#       derivation.md:58-59, the SU(2) -I sign-flip / 4pi double-cover).
+#       Class-invariant: ALL fermions have it (electron AND proton). NOT the EM leak.
+#   * Gamma_impedance = -1 -> the impedance-short reflection at Z_core -> 0 (the
+#       A1 dilatation-mass sector, Pauli/TIR derivation; resonant-lc-solitons.md:45-48).
+#       A DISTINCT object from GAMMA_SPINOR: A1 _|_ T2 (master-equation.md:20),
+#       numerically coincident at -1, not the same wall.
 #   * |Gamma_EM|^2 = 1 - alpha -> the EM RADIATIVE reflection (the wall falls
 #       short of the unit circle by exactly alpha, the per-cycle leak;
 #       cvr-reflection-smith.md:36). DEFAULT electron-scoped corollary.
-#   The electron has BOTH. They share the glyph "Gamma" and the value -1/near-1
-#   but are distinct objects; do not conflate. (See report open-item: whether the
-#   resonant-lc-solitons.md impedance-short Gamma=-1 is identically the spinor
-#   2pi->4pi sign is a pending human physics ruling — NOT decided in code.)
+#   The electron has all three. The spinor (-1) and the impedance-short (-1) share
+#   the glyph "Gamma" and the value but are distinct objects (A1 _|_ T2); do not
+#   conflate. GAP (not a substituted identity, per A47): the spin-statistics
+#   derivation tying the topological spinor sign to fermion-exclusion statistics is
+#   NOT claimed (vol1/claim-quality.md:721).
 
 
 @dataclass(frozen=True)
@@ -298,8 +305,10 @@ class SubstrateExcitation:
 
     omega_c: float = OMEGA_C
 
-    # Gamma_spinor = -1: the topological / perfect-short STABILITY wall (class-
-    # invariant; ALL fermions). Distinct from the EM radiative leak |Gamma_EM|^2.
+    # GAMMA_SPINOR = -1: the topological 2pi->4pi spinor-sign STABILITY wall (the
+    # T2 micro-rotation sector; finkelstein-misner-spin-half-derivation.md:58-59).
+    # Class-invariant; ALL fermions. Distinct from the EM radiative leak
+    # |Gamma_EM|^2 AND from the A1 impedance-short Gamma=-1 (A1 _|_ T2).
     GAMMA_SPINOR: float = field(default=-1.0, init=False)
 
     def saturation_kernel(self, A: np.ndarray, *, clip: bool = True) -> np.ndarray:
