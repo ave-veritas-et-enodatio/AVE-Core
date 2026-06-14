@@ -989,9 +989,12 @@ def check_index_referential_integrity(index_dir: Path):
 def _load_interlock_meta() -> dict | None:
     """Parse the interlock register's ``<!-- interlock-meta ... -->`` block.
 
-    Returns the meta dict (``operating-point-root`` / ``expected-independent-count``)
-    or ``None`` if no interlock register / meta block is present (the interlock
-    structure is optional — a KB without it skips the count + net checks).
+    Returns the meta dict (``operating-point-root`` / ``expected-independent-count``
+    / ``calibration-params`` — the last added by the 2026-06-14 G-ruling, a
+    whitespace/comma-separated clm-id list naming the calibration set {m_e, α, G}
+    the live count is taken over) or ``None`` if no interlock register / meta
+    block is present (the interlock structure is optional — a KB without it skips
+    the count + net checks).
     """
     meta: dict | None = None
     for ir in KB.rglob(kb_index_lib.INTERLOCK_REGISTER_NAME):
@@ -1047,7 +1050,36 @@ def check_independent_parameter_count(index_dir: Path) -> list[str]:
         ]
     claims = _load_index_records(index_dir, "claims")
     deps = _load_index_records(index_dir, "depends-on")
-    live = kb_index_lib.compute_independent_parameter_count(claims, deps)
+    # 2026-06-14 G-ruling: when the register declares a `calibration-params:`
+    # marker, the count's node set is the explicitly-marked calibration set
+    # {m_e, α, G}, NOT the build-readiness band. Each marked id must resolve to
+    # a claim node (referential integrity — a typo'd / non-claim marker is a hard
+    # failure, not a silently-dropped count term). Absent the marker the count
+    # falls back to the legacy input-only band.
+    calibration_param_ids: "set[str] | None" = None
+    raw_calib = meta.get("calibration-params")
+    if raw_calib:
+        marked = kb_index_lib._ILK_CLAIM_REF_RE.findall(raw_calib)
+        if not marked:
+            return [
+                f"interlock-meta calibration-params {raw_calib!r} contains no "
+                f"well-formed clm- ids"
+            ]
+        claim_ids = {
+            r["id"] for r in claims if r.get("node_type") == "claim"
+        }
+        orphans = [cid for cid in marked if cid not in claim_ids]
+        if orphans:
+            return [
+                f"interlock-meta calibration-params reference(s) do not resolve "
+                f"to a claim node: {', '.join(sorted(orphans))} — fix the marker "
+                f"(a calibration param must be an existing calibration-constant "
+                f"claim, not a fabricated input-only node)"
+            ]
+        calibration_param_ids = set(marked)
+    live = kb_index_lib.compute_independent_parameter_count(
+        claims, deps, calibration_param_ids
+    )
     if live != expected:
         return [
             f"live independent-parameter count {live} != asserted "
