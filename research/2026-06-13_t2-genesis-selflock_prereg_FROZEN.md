@@ -106,7 +106,7 @@ On `crystal_engine` (the A1-dilatation stiffening cage), does a **flowing transv
 
 - **F0 — KEEP-BOTH:** converter OFF ∧ photon OFF ∧ generic field sub-critical ⇒ disperses (cage-consistent baseline).
 - **F1 — (C) lock:** `max|A|` grows + phasor phase-coherence tracks $\omega_{\text{local}}$ + bounded + persists.
-- **F2 — discriminator:** (A) field-alone **DISPERSES** (else field-self-genesis, photon-passenger — the ⚠️ row).
+- **F2 — discriminator:** (A′) (field + converter-ON, **no photon**) **DISPERSES** (else the field self-genesises via the converter and the photon is a passenger — the ⚠️ row).
 - **F3 — autoresonance signature (CP9):** the phase-coherence is **dynamically sustained** as $\omega_{\text{local}}$ drops (not an algebraic read).
 - **F4 — conserved-not-pumped:** bounded + persistent (the ratified **boundedness** criterion, **NOT energy-flat** — superseded in cage Amendment 3); the **PUMP** arm detonates/pumps (control).
 - **F5 — regime:** the lock occurs in **near-yield forming** ($A^2\le1$); post-rupture excluded.
@@ -114,7 +114,7 @@ On `crystal_engine` (the A1-dilatation stiffening cage), does a **flowing transv
 
 ## 7. Success criterion
 
-**Bounded + persistent breather** (the ratified FLAG-2 boundedness criterion — **not** energy-flat, the clause cage Action A just superseded), realized in the **(C) LOCK ∧ (A) DISPERSE** cell, in the near-yield forming regime.
+**Bounded + persistent breather** (the ratified FLAG-2 boundedness criterion — **not** energy-flat, the clause cage Amendment 3 just superseded), realized in the **(C) LOCK ∧ (A/A′) DISPERSE** cell, in the near-yield forming regime.
 
 ## 8. Hypotheses (`consistency-vs-emergence`)
 
