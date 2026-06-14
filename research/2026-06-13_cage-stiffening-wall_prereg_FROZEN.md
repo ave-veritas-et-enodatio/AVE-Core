@@ -94,6 +94,8 @@ The cage is the V's **own self-saturation**: as the seed's core saturates (`A→
 | **F3** created-not-planted | `gamma_bulk_min_end < gamma_bulk_min_t0` | only the t=0 seeded read → `CAGE-PLANTED-ONLY` |
 | **F4** conservation | `total_energy` flat; `converter_work ≈ 0`; `bulk_energy_conserved` flat (energize-LOCK) | secular drift / detonation → pump (genesis-24 failure) |
 
+> **⚠ F4's energy-flat clause is SUPERSEDED → Amendment 3 (2026-06-13).** The master-equation leapfrog grows the energy ledger ~+880% even with `converter_on=False` while the field stays bounded at ≈ `V_yield`; the conservation proxy is **amplitude-boundedness + persistence**, not ledger-flatness. `converter_work ≈ 0` retained.
+
 ---
 
 ## 5. Hypotheses (`consistency-vs-emergence`)
@@ -178,7 +180,25 @@ The master-equation bulk-V self-trap is **v14-Mode-I-VALIDATED** (`two-engine-ar
 **A2.2 — tighten SELF-FOCUS so "persists" alone cannot admit a plant.** SELF-FOCUS now REQUIRES BOTH `max|A|` **grows** beyond the seed AND `gamma_bulk_min` **deepens below its t=0 value** (F1-PASS ∧ F3-PASS) — *then* persists. "Persists" is necessary, not sufficient: a flat planted-only wall persists yet is PLANTED-ONLY, not SELF-FOCUS.
 
 **A2.3 (clarity) — F1 ∧ F4 co-occurrence IS the self-focus-vs-pump discriminator.** `max|A|` growing **with `total_energy` flat** = energy *concentrating* → genuine self-focus (the soliton signature). Growing **with energy drift** = energy *created* → the genesis-24 pump, not self-focus. SELF-FOCUS requires F1-PASS ∧ F4-PASS together; "the field amplifies" and "energy is conserved" are not in tension — together they are the bound-state signature.
+> **[SUPERSEDED → Amendment 3 (2026-06-13):** the discriminator is amplitude-**BOUNDEDNESS** (concentrating at ≈ `V_yield`) vs **UNBOUNDED** detonation (pump) — **NOT** energy-flat. On this engine the leapfrog grows the ledger ~+880% on a *genuine bounded* self-focus, so ledger-flatness is the wrong proxy.**]**
 
 **A2.4 (clarity) — "persists" reports the amplitude-envelope TREND** (flat vs slow-decay over the budget), not just "survived N periods" — a slow decay masquerades as persistent over a finite window. That envelope trend is the SELF-FOCUS-vs-TRANSIENT edge; the production budget must run long enough to resolve it.
 
 **A2.5 — auditor cleared this amended prereg to driver (2026-06-13).**
+
+---
+
+## Amendment 3 — F4 conservation criterion (post-result correction, Rule-12) (2026-06-13)
+
+> **Rule-12 dated addendum, POST-RESULT — NOT a Rule-11 freeze violation.** This corrects a *mis-specified criterion*, not a verdict. Two independent proofs it is not debugging-toward-success: **(1) external anchor** — the frozen F4 "energy-flat" clause, applied to the *already-canonical* v14 Mode I breather (same engine, same sech eigen-profile), would FALSELY FALSIFY v14; a criterion that falsifies accepted canon is wrong independent of this run. **(2) result-invariant** — the driver's classifier never gated SELF-FOCUS on energy-flatness (it gated on boundedness + persistence and *reported* the drift as a flag; result §FLAG-2), so the bins are identical with or without this amendment (sech = SELF-FOCUS, Gaussian = DISPERSES). The amendment reconciles the frozen text to what the classifier correctly did.
+
+**A3.1 — supersede the energy-flat clause of F4 (and its A2.3 restatement).** The master-equation leapfrog grows BOTH `total_energy` (1.767 → 17.32, +880% at amp 0.20) AND `bulk_E_conserved` (+484% → +907% across the sweep) on the self-focusing sech **even with `converter_on=False`** — a numerical leapfrog-at-saturation-front artifact, not physical energy creation. **The conservation proxy is amplitude-BOUNDEDNESS + PERSISTENCE, not ledger-flatness:**
+- **F4 PASS (not-a-pump):** `max|A|` stays **bounded** at ≈ `V_yield` (cage: ≤ 1.22 ≪ the genesis-24 detonation ~1e4) **and** `converter_work ≈ 0` / bounded (no one-way runaway) **and** the amplitude envelope **persists** (A2.4 trend).
+- **F4 FAIL (pump):** **unbounded detonation** (`max|A| → ~1e4`, genesis-24) **or** converter one-way runaway.
+- **Energy-ledger drift is REPORTED, not binned** (logged: `total_energy_drift_pct`, `bulk_E_conserved_drift_pct`).
+
+**A3.2 — pump-exclusion triad (so a bounded pump cannot masquerade as self-focus).** The ledger growth is provably the leapfrog artifact, not a pump, by THREE signatures a real pump would each violate: **(a)** it occurs with `converter_on=False` — no source term in the pure master equation; **(b)** the field stays **bounded** at ≈ `V_yield` — a real pump is unbounded; **(c)** it **decreases** with seed amplitude (+879% at amp 0.20 → +484% at amp 0.85) — the **inverse** of a saturation-driven pump (which grows with drive). Boundedness (b) is the load-bearing discriminator: a pump must show unbounded amplitude.
+
+**A3.3 — referential integrity (`ave-prereg` v1.2 Step 3.6, verified).** This supersede touches exactly **two** sites — F4 (§4) and its A2.3 restatement — both re-routed here with in-place pointers. **No bin is dropped or added** (SELF-FOCUS / TRANSIENT / PLANTED-ONLY / DISPERSES / UNRESOLVED stand); F1/F2/F3 routing and the Amendment-2 PLANTED-ONLY fix are untouched (F4 is orthogonal — conservation, not deepening). Masquerade-direction check: the superseded clause was a pump-GUARD; its replacement keeps the guard (detonation / runaway → pump) and adds the a/b/c triad, so a pump still cannot wear the SELF-FOCUS bin.
+
+**A3.4 — retained, unchanged:** `converter_work ≈ 0` (the converter-OFF energize-LOCK check; result: bounded [−1.40, −2.4e-6]) and the apparatus-qualified magnitude (A3 / −0.2400 clip floor, never a verdict axis).
