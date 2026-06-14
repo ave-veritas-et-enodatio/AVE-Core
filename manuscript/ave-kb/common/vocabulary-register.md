@@ -272,11 +272,44 @@ parse it):
 
 ---
 
+## SubstrateExcitation *(proposed)*
+<!-- id: def-7a3f1c -->
+
+- **term:** SubstrateExcitation
+- **adjudicated-meaning:** *(PROPOSED, gated)* the **class** (base of a class-tree) of any localized excitation of the $\mathcal{M}_A$ substrate — the class-invariant FORMS (the resonator pole shape $s_\pm=-\omega_0/(2Q)\pm j\omega_d$, the root-locus, the Axiom-4 kernel $S(A)$, the $\Gamma_{spinor}=-1$ wall) that carry NO instance operating point. Concrete instances supply their own geometry / $(p,q)$ / mass / $L/C$ / $\omega_0$ / $Q$.
+- **axis:** other (class label / type, not a glyph on a physical axis)
+- **dimension/type:** class (n/a — a type, not a quantity)
+- **status:** proposed
+- **canonical-home:** *(none — coinage; field-def electron pilot 2026-06-14, engine class in `src/scripts/vol_9_device/cvr_ee_sweep/cvr_model.py`)*
+- **clm-cross-links:** clm-fd1e7a (the electron field-bundle instance-1 it abstracts)
+- **canon-noun map:** abstracts the family whose electron member is the **unknot dilatation-mass / Mass-Dilatation Resonator / Resonant LC Tank / $0_1$ unknot + $(2,3)$ winding**. The label is a non-canon ENGINEERING class name; it MUST map to those canon nouns and must NOT drift into a noun-swap. ("vortex ring" / "lossless pivot" stay research-only.)
+- **open-ambiguity-flag:** no (a fresh coinage carries no prior overloading)
+- **verification:** VERIFIED **0 prior corpus hits** for `SubstrateExcitation` (clean to coin; only this pilot's new engine code uses it). **GATED on auditor + Grant review — NOT adopted, NOT SOLID.**
+
+---
+
+## BoundResonator *(proposed)*
+<!-- id: def-b42e9d -->
+
+- **term:** BoundResonator
+- **adjudicated-meaning:** *(PROPOSED, gated)* the **bound sub-class** of `SubstrateExcitation` (def-7a3f1c) — a closed, high-$Q$, TIR-confined LC cavity whose poles ride toward (never cross) the $j\omega$ axis as $Q\to1/\alpha$. The **electron is instance-1**. Distinguished by the cavity-class discriminator (ave-cavity-class-identification) from an *OpenCosseratScrew* (a radiating longitudinal Cosserat shear mode, $\oint\neq0$), which the electron is NOT.
+- **axis:** other (class label / type)
+- **dimension/type:** class (n/a — a type); its instance carries $Q$ [dimensionless], $L$ [H], $C$ [F], $\omega_0$ [T⁻¹]
+- **status:** proposed
+- **canonical-home:** *(none — coinage; field-def electron pilot 2026-06-14, engine class in `src/scripts/vol_9_device/cvr_ee_sweep/cvr_model.py`)*
+- **clm-cross-links:** clm-fd1e7a (the electron R/X/Q/L/C bundle = instance-1), clm-rtdmsn ($Q_e=1/\alpha$), clm-kezk9z (the LC-tank / $\Gamma=-1$ wall)
+- **canon-noun map:** the electron instance = **unknot dilatation-mass / Mass-Dilatation Resonator / Resonant LC Tank / $0_1$ unknot + $(2,3)$ winding**. Non-canon engineering class name; maps to those canon nouns, no noun-swap.
+- **open-ambiguity-flag:** no (a fresh coinage carries no prior overloading). *(Distinct caveat — NOT an open-ambiguity of THIS term:* the two $\Gamma$'s the electron carries, $\Gamma_{spinor}=-1$ [class-invariant wall, ALL fermions] vs $|\Gamma_{EM}|^2=1-\alpha$ [electron-scoped EM leak], are a separate homonym surfaced for adjudication at clm-fd1e7a / [cvr-reflection-smith.md](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/cvr-reflection-smith.md):36 — do not conflate them.)
+- **verification:** VERIFIED **0 prior corpus hits** for `BoundResonator` (clean to coin; only this pilot's new engine code uses it). **GATED on auditor + Grant review — NOT adopted, NOT SOLID.**
+
+---
+
 ## Seed coverage + follow-up
 
-**Seeded (12):** 1 SOLID (`node`), 8 ambiguous (`carrier`, `Nyquist`,
-`phase-space`, `size`, `radius`, `r_opt`, `Compton`, `winding`), 3 proposed
-(`κ_share`, `r_env`, `node-Nyquist-size-boundary`).
+**Seeded (14):** 1 SOLID (`node`), 8 ambiguous (`carrier`, `Nyquist`,
+`phase-space`, `size`, `radius`, `r_opt`, `Compton`, `winding`), 5 proposed
+(`κ_share`, `r_env`, `node-Nyquist-size-boundary`, `SubstrateExcitation`,
+`BoundResonator`).
 
 **Over-read guards applied (verify-before-cite):** two §47 paraphrases did NOT
 survive re-grep and are recorded as corrections rather than seeded as fact —

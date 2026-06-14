@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [clm-kezk9z, clm-p5cf3t]
+claims: [clm-kezk9z, clm-p5cf3t, clm-fd1e7a]
 -->
 
 ## Topological Defects as Resonant LC Solitons
@@ -62,5 +62,43 @@ In standard quantum mechanics, the inability of fermions to occupy the same quan
 When massless Bosons (photons) propagate, they act as linear transverse shear waves. Because they do not possess a static inductive core, they do not geometrically saturate the dielectric lattice ($\Delta\phi \ll \alpha$). The local metric impedance remains perfectly matched at $Z_{0} \approx 376.7\,\Omega$. With a reflection coefficient of $\Gamma \approx 0$, boson waves pass cleanly through one another, permitting infinite superposition.
 
 Conversely, Fermions are massive topological defects bounded by strictly saturated $Z_{core} = 0\,\Omega$ envelopes. If two fermions are forced into the same spatial volume, their boundaries collide. Because both boundaries possess a reflection coefficient of strictly $\Gamma = -1$, their internal localized wave-functions cannot mathematically penetrate one another. The kinetic energy of Fermion A perfectly reflects off the infinite-compliance wall of Fermion B. The Pauli Exclusion Principle is therefore physically identical to the hard-sphere collision of perfectly impedance-mismatched dielectric bubbles.
+
+<!-- DO-NOT-MERGE / DIVERGENT-COPY ADJUDICATION (field-def pilot, 2026-06-14;
+     placed at the foot of the leaf so it shifts no body line-numbers — several
+     engine/corpus citations index this leaf by line):
+     A divergent second copy of this leaf exists at the SAME path on branch
+     research/l3-electron-soliton. The two MUST NOT be reconciled or merged.
+     The l3 copy STRIPPED its kb-frontmatter — where THIS (main, canonical) copy
+     carries `<!-- kb-frontmatter kind: leaf claims: [...] -->`, the l3 copy
+     carries only `<!-- leaf: verbatim -->` (no kind:, no claims:). The marker a
+     prior adjudication assumed distinguished the copies does NOT actually exist;
+     the real distinguisher is THIS frontmatter block (present here, absent there).
+     This MAIN copy is canonical. -->
+
+### The Electron Field-Component Bundle (R/X/Q/L/C) as a `SubstrateExcitation` instance
+<!-- claim-quality: clm-fd1e7a (the electron's R/X/Q/L/C field bundle as instance-1 of the SubstrateExcitation class-tree — a CONSISTENCY re-expression of the LC-tank canon above, NOT an emergence claim; see common/vocabulary-register.md def-7a3f1c / def-b42e9d) -->
+
+The LC-tank picture above can be factored into a **class-invariant form** plus an **electron-specific instance**. The class is `SubstrateExcitation` (def-7a3f1c); the electron is instance-1 of its bound sub-class `BoundResonator` (def-b42e9d). The labels map to the canon nouns one-to-one: **unknot dilatation-mass / Mass-Dilatation Resonator / Resonant LC Tank / $0_1$ unknot + $(2,3)$ winding**. ("vortex ring" / "lossless pivot" remain research-only, not canon.) This is a **CONSISTENCY** re-expression (consistency-vs-emergence) of the canon above — it originates no new derivation and reproduces the engine's numbers byte-identically.
+
+**Class-invariant FORMS (carry no electron value):** the pole shape $s_\pm = -\omega_0/(2Q) \pm j\omega_d$ ([cvr-transfer-function.md](cvr-transfer-function.md):37-38), the root-locus, the Axiom-4 kernel $S(A) = \sqrt{1-(A/A_c)^2}$ ([saturation-operator.md](../../../vol1/operators-and-regimes/ch6-universal-operators/saturation-operator.md):22; note the symbol is $A_c$), and the $\Gamma_{spinor} = -1$ wall.
+
+**Electron-specific INSTANCE fields (factored out):** geometry / $(p,q) = (2,3)$ ([electron-identification.md](../../../vol2/particle-physics/ch01-topological-matter/electron-identification.md):27) / mass / $L_e = \xi_{topo}^{-2} m_e$ ([topological-kinematics.md](topological-kinematics.md):76, with $\xi_{topo} = e/\ell_{node}$ the electromechanical transduction constant in C/m, clm-i9l284) / $C_e = \xi_{topo}^{2} k^{-1}$ / $\omega_0 = \omega_C S(A_0)$ / and the **electron's $Q$ VALUE** $Q_e = 1/\alpha = 4\pi^3+\pi^2+\pi \approx 137.036$ (clm-rtdmsn). Plug the electron's $Q_e$ into the class form and it reproduces today's numbers; a different instance ($Q$, $\omega_0$, $L/C$) produces correspondingly different outputs.
+
+> **[Resultbox]** *Two distinct $\Gamma$'s — labelled, not conflated (the electron has BOTH)*
+>
+> - **$\Gamma_{spinor} = -1$** — the topological $2\pi\to4\pi$ spinor-sign **stability** wall (the **T2** Cosserat micro-rotation sector; [finkelstein-misner-spin-half-derivation.md](../../../vol2/particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md):58-59, the $SU(2)$ $-I$ sign-flip / $4\pi$ double-cover). **Class-invariant: ALL fermions have it** (electron AND proton). It is a **DISTINCT object** from the impedance-short $\Gamma=-1$ of the Pauli/TIR derivation above (the **A1** dilatation-mass wall from $Z_{core}\to0$): $A1 \perp T2$ per [master-equation.md](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20 — **not the same wall** (Grant-ratified 2026-06-14). It is NOT the EM leak.
+> - **$|\Gamma_{EM}|^2 = 1 - \alpha$** — the EM **radiative** reflection: the wall falls short of the unit circle by exactly $\alpha$, the per-cycle radiative leak ([cvr-reflection-smith.md](cvr-reflection-smith.md):36). **Default electron-scoped corollary** — NOT promoted to a universal class law (that is gated on a pending human physics ruling).
+>
+> $\alpha$ here is the **UNIVERSAL** EM coupling — it is NOT renamed $1/Q$ and NOT factored out as a per-instance variable. Only the electron's $Q$ VALUE is the instance field. **Resolved (two distinct $-1$'s, $A1 \perp T2$; Grant-ratified 2026-06-14):** the impedance-short $\Gamma=-1$ derived above (from $Z_{core}\to0$, the **A1** dilatation-mass sector) and the topological $2\pi\to4\pi$ spinor sign (the **T2** micro-rotation sector) are **distinct objects**, numerically coincident at $-1$, not the same wall ([master-equation.md](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20). *(Tracked GAP, not a substituted identity: the spin-statistics derivation that would tie the topological spinor sign to fermion-exclusion statistics is NOT claimed — [vol1/claim-quality.md](../../../vol1/claim-quality.md):721.)*
+
+**Field components.** The real part $R$ is the per-cycle **radiative leak** — the pole's distance $-\alpha\omega_0/2$ from the $j\omega$ axis ($R \leftrightarrow \alpha = 1/Q_e$). The reactive part $jX$ is the lossless $C\leftrightarrow L$ breather, virial-balanced ($\langle E_C\rangle = \langle E_L\rangle = \tfrac12 m_e c^2$, the $E=mc^2$ ledger above).
+
+**Ontology fence (preserved).** This $H(s)$/phasor view is the **A1 dilatation MASS-"3" only**. The $(2,3)$ Cosserat micro-rotation **charge-"3"** winding is orthogonal ($A1 \perp T2$) and is **never** wired into the breather's $(V_{inc}, V_{ref})$ phasor — $V_{ref}$ is a read-only projection of the same scalar $V$, not an independent DOF ([master-equation.md](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20).
+
+**Provisional / carried flags.** The **sector attribution** (which constitutive parameter moves at the wall — capacitive $C_{eff}\to\infty$ vs magnetic $\mu_{eff}\to0$) is **PROVISIONAL**: it rests on the input-only clm-lv3uw1 and the still-open FLAG-2 ([cvr-dc-operating-point.md](cvr-dc-operating-point.md):55); both routes give the same $Z=Z_0\sqrt{S}$ curve, so the bundle is robust but the attribution is unsettled. Also carried: the $S^{0.25}$-vs-$S^{0.5}$ exponent defect ([cvr-reflection-smith.md](cvr-reflection-smith.md):66) and the $S_{MIN}/A_{CAP}$ apparatus clip ([cvr-dc-operating-point.md](cvr-dc-operating-point.md):51).
+
+> **[Circuitbox]** *Cavity-class discriminator (ave-cavity-class-identification)*
+>
+> The electron is a **BoundResonator** — a closed, high-$Q$, TIR-confined LC cavity whose poles ride toward (but never cross) the $j\omega$ axis as $Q\to1/\alpha$ — **not** an **OpenCosseratScrew** (a radiating longitudinal Cosserat shear mode, $\oint\neq0$). Confirmed before minting the class label.
 
 ---

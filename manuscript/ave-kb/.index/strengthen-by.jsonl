@@ -232,6 +232,8 @@
 {"claim_id": "clm-f8k2um", "item_idx": 0, "text": "Derive the Silicon $V_{bi}=1.0496$ V from the topological matrix explicitly (show the calculation)", "mentioned_ids": []}
 {"claim_id": "clm-f8k2um", "item_idx": 1, "text": "Produce one quantitative material constant (e.g. a band gap) from the topology", "mentioned_ids": []}
 {"claim_id": "clm-f8k2um", "item_idx": 2, "text": "Demonstrate falsifiable distinction from the standard chemistry account for one element", "mentioned_ids": []}
+{"claim_id": "clm-fd1e7a", "item_idx": 0, "text": "Resolve the $\\Gamma$-homonym (is the impedance-short $\\Gamma=-1$ identically the topological $2\\pi\\to4\\pi$ spinor sign?) and the universal-vs-electron scope of $|\\Gamma_{EM}|^2=1-\\alpha$ (auditor + Grant physics ruling).", "mentioned_ids": []}
+{"claim_id": "clm-fd1e7a", "item_idx": 1, "text": "Close FLAG-2 (capacitive vs magnetic sector attribution) so the bundle's sector field is no longer provisional.", "mentioned_ids": []}
 {"claim_id": "clm-fgo20a", "item_idx": 0, "text": "Show explicitly that virial equipartition survives the Lorentz boost (Step 3 currently asserts the capacitive balance adjusts to maintain $E_{total}=\\gamma m_0c^2$).", "mentioned_ids": []}
 {"claim_id": "clm-fh6w3y", "item_idx": 0, "text": "Replace the regime-switch assertion with a derived loss curve $\\eta(V/V_{yield})$ so the linear-below / dissipative-above transition is quantitative rather than a binary switch.", "mentioned_ids": []}
 {"claim_id": "clm-fndptx", "item_idx": 0, "text": "Derive δ_χ from the χ₁/K₀ ratio at substrate scale to fix N rather than bracket it", "mentioned_ids": []}

@@ -256,6 +256,9 @@
 {"source": "clm-f8k2um", "target": "clm-f5ucdo", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-f8k2um", "target": "clm-jy8h1x", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-f8k2um", "target": "clm-o9xphr", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-fd1e7a", "target": "clm-i9l284", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.9, "strength": null, "context": null, "fraction": null}
+{"source": "clm-fd1e7a", "target": "clm-kezk9z", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.9, "strength": null, "context": null, "fraction": null}
+{"source": "clm-fd1e7a", "target": "clm-rtdmsn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.85, "strength": null, "context": null, "fraction": null}
 {"source": "clm-fgo20a", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "lattice floor / Cosserat dual-axis structure", "fraction": null}
 {"source": "clm-fgo20a", "target": "axiom-2", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "$L=\\xi_{topo}^{-2}m$ inductance-mass mapping", "fraction": null}
 {"source": "clm-fgo20a", "target": "clm-p5cf3t", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
