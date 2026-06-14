@@ -17,7 +17,7 @@ Axiom-first derivation of the AVE-native BH horizon. **$r_{\text{sat}} = 7GM/c^2
 | Strain at horizon | $\varepsilon_{11}(r_{\text{sat}}) = 7 G M / (c^2 r_{\text{sat}}) = 1$ |
 | Horizon area | $A = 4\pi r_{\text{sat}}^2 = 4\pi (7 G M / c^2)^2 = 196 \pi G^2 M^2 / c^4$ |
 | Area theorem | $\delta A = 392 \pi G^2 M \delta M / c^4 \geq 0$ for $\delta M \geq 0$ |
-| Origin of factor 7 | $7 = 1/\nu_{\text{vac}} = 1/(2/7)$ Poisson ratio (Ax 2 + Ax 3 projection) |
+| Origin of factor 7 | $7 = 2/\nu_{\text{vac}} = 2/(2/7)$ Poisson-ratio projection (Ax 2 + Ax 3), since $r_{\text{sat}} = r_s/\nu_{\text{vac}}$ and $r_s = 2GM/c^2$. *(2026-06-14 fix: corrected from "$7=1/\nu_{vac}$"; $1/\nu_{vac}=3.5$ is the **ratio** $r_{sat}/r_s$, not the coefficient.)* |
 | Vs. standard Schwarzschild | $r_s = 2 G M / c^2$ → $r_{\text{sat}} / r_s = 3.5$ |
 | Falsifiable prediction | Any high-gravity observational test of BH horizon radius can distinguish AVE ($3.5 r_s$) from standard GR ($r_s$) |
 | Stronger than 1971 theorem | AVE derives **why** horizon can only grow (Axiom 4 threshold depends linearly on $M$); Hawking's theorem assumes "horizon" generically |
@@ -32,7 +32,7 @@ Solving:
 
 $$\boxed{\, r_{\text{sat}} = \frac{7 G M}{c^2} \,}$$
 
-**The factor 7 = $1/\nu_{\text{vac}} = 1/(2/7)$** appears from Poisson ratio Ax 2 + Ax 3 projection. The Poisson ratio of the K4 substrate is $\nu_{\text{vac}} = 2/7$ (Vol 3 Ch 15:291-355 Buchdahl bound derivation), giving the strain conversion $\varepsilon_{11} = (1/\nu) \cdot \text{strain ratio} = 7 \cdot G M / (c^2 r)$.
+**The factor 7 = $2/\nu_{\text{vac}} = 2/(2/7)$** appears from the Poisson-ratio Ax 2 + Ax 3 projection ($r_{\text{sat}} = r_s/\nu_{\text{vac}}$ with $r_s = 2GM/c^2$). The Poisson ratio of the K4 substrate is $\nu_{\text{vac}} = 2/7$ (Vol 3 Ch 15:291-355 Buchdahl bound derivation), giving the strain conversion $\varepsilon_{11} = (1/\nu_{\text{vac}}) \cdot (2GM/c^2 r) = 3.5 \cdot (2GM/c^2 r) = 7 \cdot G M / (c^2 r)$ — the ratio $1/\nu_{\text{vac}}=3.5$ multiplies the Schwarzschild strain $2GM/c^2r$. *(2026-06-14 fix: the bolded coefficient was "$7=1/\nu_{vac}$", wrong — $1/\nu_{vac}=3.5$; the $r_{sat}=7GM$ coefficient is $2/\nu_{vac}$.)*
 
 This is **stricter than standard GR's Buchdahl bound** (which uses $\nu = 1/2$ for incompressible matter). AVE predicts $r_{\text{sat}} = 3.5 \cdot r_s$ — a **falsifiable prediction** for any high-gravity observational test.
 

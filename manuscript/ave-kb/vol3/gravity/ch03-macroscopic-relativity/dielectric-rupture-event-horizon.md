@@ -31,7 +31,7 @@ This identifies the Schwarzschild Radius not as a point of infinite curvature, b
 >
 > The **actual** rupture — the $\Gamma=-1$ reflector — is the **shear + bulk** boundary at the radial-strain unity
 > radius $r_{sat} = 7GM/c^2 = 3.5\,r_s$ (where $\varepsilon_{11}=7GM/(c^2r)=1$, $G_{shear}\to0$, $c_{bulk}\to0$;
-> [ave-bh-horizon-area-theorem.md](../../cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md), clm-law1ho). The factor $7=1/\nu_{vac}$ is the Poisson-ratio
+> [ave-bh-horizon-area-theorem.md](../../cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md), clm-law1ho). The factor $7=2/\nu_{vac}$ *(2026-06-14 fix from "$7=1/\nu_{vac}$"; the ratio $r_{sat}/r_s=1/\nu_{vac}=3.5$)* is the Poisson-ratio
 > conversion. Both radii are real and distinct (EM horizon $r_s$ vs shear+bulk rupture $r_{sat}$); see the full
 > two-channel table in [lattice-extreme-bh-rationality.md](../../cosmology/ch15-black-hole-orbitals/lattice-extreme-bh-rationality.md) §6.
 >
