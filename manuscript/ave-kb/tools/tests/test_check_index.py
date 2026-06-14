@@ -93,17 +93,17 @@ class TestCheckIndex(unittest.TestCase):
 
     def test_index_line_reports_node_type_breakdown(self):
         """The [index] summary reports a claims / definitions / experiments /
-        support / invariants / axioms breakdown.
+        interlock-mechanisms / support / invariants / axioms breakdown.
 
         Asserts the line's *format* — content-independent — not the specific
-        node counts.
+        node counts. (Updated for the INVARIANT-S13 interlock-mechanism group.)
         """
         result = _run_checker(self.kb_root)
         self.assertEqual(result.returncode, 0, result.stdout)
         self.assertRegex(
             result.stdout,
             r"\d+ nodes: \d+ claims / \d+ definitions / \d+ experiments / "
-            r"\d+ support / \d+ invariants / \d+ axioms",
+            r"\d+ interlock-mechanisms / \d+ support / \d+ invariants / \d+ axioms",
         )
 
     def test_check_detects_target_kind_mismatch(self):
