@@ -112,12 +112,38 @@ _SPINE_REF_ID_RE = re.compile(r"\b((?:clm|exp|sup)-[a-z0-9]{6})\b")
 # of truth for the id shape rather than re-encoding it. Note `_ANY_ID_RE`
 # above is deliberately clm|exp only (frontmatter id-list values never hold
 # sup-/def-); this one spans all four node prefixes.
-ANY_NODE_ID_RE = re.compile(r"\b((?:clm|exp|sup|def)-[a-z0-9]{6})\b")
+ANY_NODE_ID_RE = re.compile(r"\b((?:clm|exp|sup|def|ilk)-[a-z0-9]{6})\b")
 # The canonical vocabulary register filename — sole home of `def-` definition
 # entries (INVARIANT-S12), the def- analog of a `claim-quality.md` register.
 VOCAB_REGISTER_NAME = "vocabulary-register.md"
 # Adjudication-status enum for a `def-` node (SCHEMA "Status semantics").
 DEFINITION_STATUSES = ("SOLID", "ambiguous", "proposed", "retired")
+# Interlock-mechanism-ID pattern (INVARIANT-S13): `ilk-` prefix plus 6 lowercase
+# alphanumeric chars. Exact, like the clm-/exp-/sup-/def-id patterns. An `ilk-`
+# node is a joint-constraint mechanism — the seventh tracked node type.
+_ILK_ID_RE = re.compile(r"\b(ilk-[a-z0-9]{6})\b")
+# A canonical-id marker keying an `ilk-` interlock-mechanism entry in the
+# interlock register (parallel to `_CANONICAL_DEF_ID_RE` for a def- entry).
+_CANONICAL_ILK_ID_RE = re.compile(r"<!--\s*id:\s*(ilk-[a-z0-9]{6})\s*-->")
+# The canonical interlock register filename — sole home of `ilk-` mechanism
+# entries (INVARIANT-S13), the ilk- analog of the def- vocabulary register.
+INTERLOCK_REGISTER_NAME = "interlock-register.md"
+# The chord/echo classification enum for an interlock-mechanism node
+# (SCHEMA "real_or_fitted is the chord/echo axis"). `real-geometric-constraint`
+# = a chord (removes a DOF, lowers the independent-parameter count);
+# `fitted-identification` = an echo (a consistency match, removes none).
+INTERLOCK_TAGS = ("real-geometric-constraint", "fitted-identification")
+# Adjudication-status enum for an `ilk-` node (SCHEMA "Status semantics").
+INTERLOCK_STATUSES = ("SOLID", "proposed", "retired")
+# A clm-id reference inside an interlock register `- **interlocks:**` /
+# `- **derived-endpoint:**` field (the interlocked constants / the DOF-removed
+# constant). clm- only — interlock endpoints are calibration-constant claims.
+_ILK_CLAIM_REF_RE = re.compile(r"\b(clm-[a-z0-9]{6})\b")
+# Build-band string marking a node as an independent INPUT (SCHEMA build_band
+# table) — the denominator base of the live independent-parameter count, and the
+# refuted band that trips the falsification net.
+INPUT_ONLY_BAND = "input-only"
+REFUTED_BAND = "refuted"
 # A `strengthens:` block pair line: `clm-<id>: <strength>` (strength a float
 # in [0,1]). Indented under the `strengthens:` frontmatter key.
 _STRENGTHENS_PAIR_RE = re.compile(
@@ -297,6 +323,51 @@ class DefinitionNode:
 
 
 @dataclass(frozen=True)
+class InterlockMechanismNode:
+    """A joint-constraint mechanism — a register-hosted node (INVARIANT-S13).
+
+    An ``ilk-`` node names the substrate relation that mutually constrains two
+    (or more) calibration constants (e.g. R·r=1/4 linking the operating point
+    u₀* and α). It is the seventh tracked node type, a deliberate spine
+    extension per INVARIANT-S11.
+
+    Like a definition / framework node it carries **NO scoring fields** and
+    **originates no** ``depends`` / ``strengthens`` / ``supports`` edges; unlike
+    them it IS a valid edge **target** — the hub of the SYMMETRIC ``interlocks``
+    relation. Each interlocked constant emits one ``interlocks`` edge whose
+    ``target`` is this mechanism node, so the joint-constraint's endpoints are
+    the ``interlocks``-edge **sources** sharing this hub. The symmetry is the
+    shared target (hub-node encoding), not mirrored directed pairs — so the
+    loader's directed-edge assumption is unchanged.
+
+    ``real_or_fitted`` is the chord/echo axis: ``real-geometric-constraint`` (a
+    chord — removes a DOF, lowers the independent-parameter count via
+    ``derived_endpoint``) vs ``fitted-identification`` (an echo — a consistency
+    match, removes none). ``derived_endpoint`` is the constant made dependent iff
+    the mechanism is real (the DOF the chord removes); on a fitted mechanism it
+    is informational. ``cited_leaf`` grounds the mechanism in an EXISTING corpus
+    leaf (``path:line``, the ave-canonical-leaf-pull anchor).
+
+    ``interlocked`` is the tuple of interlocked constant clm-ids parsed from the
+    register entry's ``interlocks:`` field — used to emit the ``interlocks``
+    edges, NOT materialized in the node record (the edges carry it), exactly as
+    an experiment's ``strengthens`` / a support's ``supports`` drive edges
+    without entering the node record.
+    """
+
+    id: str
+    title: str
+    mechanism: str
+    real_or_fitted: str
+    status: str
+    derived_endpoint: str | None
+    canonical_path: str
+    canonical_anchor: str
+    cited_leaf: str
+    interlocked: tuple[str, ...]
+
+
+@dataclass(frozen=True)
 class FrameworkNode:
     """A structural invariant or AVE axiom — a first-class graph node.
 
@@ -386,6 +457,7 @@ class KbState:
     experiments: tuple[ExperimentNode, ...]
     supports: tuple[SupportNode, ...] = ()
     definitions: tuple[DefinitionNode, ...] = ()
+    interlock_mechanisms: tuple[InterlockMechanismNode, ...] = ()
 
 
 # ---------------------------------------------------------------------------
@@ -1259,6 +1331,154 @@ def parse_definition_entries(
     return nodes
 
 
+class InterlockEntryError(ValueError):
+    """Raised when an ``ilk-`` entry in the interlock register is malformed.
+
+    An interlock-mechanism entry under a ``## <title>`` heading must carry a
+    well-formed ``<!-- id: ilk-xxxxxx -->`` marker and a bolded field block whose
+    required fields (``mechanism``, ``real-or-fitted``, ``status``,
+    ``canonical-leaf``) are all present, whose ``real-or-fitted`` is one of
+    ``real-geometric-constraint`` / ``fitted-identification``, and whose
+    ``status`` is one of ``SOLID`` / ``proposed`` / ``retired``. A malformed
+    ``ilk-`` id, an invalid tag/status, or a missing required field is a hard
+    failure — the drift-gate that keeps a perturbed interlock entry from
+    silently materializing a wrong ``node_type: interlock-mechanism`` record
+    (INVARIANT-S11/S13).
+    """
+
+
+def parse_interlock_entries(
+    path: Path, kb_root: Path
+) -> list[InterlockMechanismNode]:
+    """Parse every ``<!-- id: ilk-xxxxxx -->`` entry in the interlock register.
+
+    An ``ilk-`` node is **register-hosted** (INVARIANT-S13), the ilk- analog of a
+    ``def-`` entry in the vocabulary register: one entry per ``## <title>``
+    heading carrying a ``<!-- id: ilk-xxxxxx -->`` marker and a bolded field
+    block (``- **mechanism:** …`` / ``- **real-or-fitted:** …`` / …). Returns one
+    :class:`InterlockMechanismNode` per entry, parsed with the SAME bolded-field
+    walker the definition parser uses (``_DEF_FIELD_RE``).
+
+    ``interlocks`` (the interlocked constant clm-ids) is OPTIONAL — a mechanism
+    with no ``interlocks:`` field is a catalogued-but-unwired mechanism (it emits
+    no ``interlocks`` edges and affects neither the independent-parameter count
+    nor the falsification net). ``derived-endpoint`` is likewise optional (only
+    meaningful on a ``real-geometric-constraint``); ``(none)`` / empty → ``None``.
+    Cross-resolution (``derived_endpoint`` ∈ interlocked; ``cited_leaf`` file
+    exists; edge endpoints resolve) is left to ``verify-kb-metadata`` — exactly
+    as a ``def-`` entry's ``clm_cross_links`` resolution is — so an orphan
+    materializes and fails the verifier's referential-integrity pass loudly
+    rather than being silently dropped.
+
+    Raises :class:`InterlockEntryError` for a malformed ``ilk-`` id, an invalid
+    ``real-or-fitted`` tag or ``status``, or a missing required field.
+    """
+    raw = path.read_text(encoding="utf-8")
+    scrubbed = _strip_code_fences(raw)
+    lines = scrubbed.splitlines()
+    canonical_rel = _posix_relative(path, kb_root)
+
+    entries_meta: list[tuple[int, str, str]] = []
+    last_heading_text: str | None = None
+    for i, line in enumerate(lines):
+        if line.startswith("## "):
+            last_heading_text = line[3:].strip()
+            continue
+        m = _CANONICAL_ILK_ID_RE.match(line.strip())
+        if m and last_heading_text is not None:
+            entries_meta.append((i, m.group(1), last_heading_text))
+
+    nodes: list[InterlockMechanismNode] = []
+    for id_line, ilk_id, hd_text in entries_meta:
+        if not _ILK_ID_RE.fullmatch(ilk_id):
+            raise InterlockEntryError(
+                f"{canonical_rel}: interlock entry has malformed id "
+                f"{ilk_id!r} (expected \\bilk-[a-z0-9]{{6}}\\b)."
+            )
+
+        block_end = len(lines)
+        for j in range(id_line + 1, len(lines)):
+            if lines[j].startswith("## "):
+                block_end = j
+                break
+        block = lines[id_line + 1 : block_end]
+
+        fields: dict[str, str] = {}
+        cur_label: str | None = None
+        buf: list[str] = []
+        for ln in block:
+            fm = _DEF_FIELD_RE.match(ln)
+            if fm:
+                if cur_label is not None:
+                    fields[cur_label] = _normalize_text(" ".join(buf))
+                cur_label = fm.group(1).strip()
+                buf = [fm.group(2)]
+                continue
+            stripped = ln.strip()
+            if cur_label is not None and stripped and not stripped.startswith("- "):
+                buf.append(stripped)
+        if cur_label is not None:
+            fields[cur_label] = _normalize_text(" ".join(buf))
+
+        mechanism = fields.get("mechanism", "").strip()
+        tag_raw = fields.get("real-or-fitted", "").strip()
+        tag = tag_raw.split()[0] if tag_raw else ""
+        status_raw = fields.get("status", "").strip()
+        status = status_raw.split()[0] if status_raw else ""
+        cited_raw = fields.get("canonical-leaf", "").strip()
+        cite_m = re.search(r"`([^`]+)`", cited_raw)
+        cited_leaf = (cite_m.group(1) if cite_m else cited_raw).strip()
+
+        missing = [
+            name
+            for name, val in (
+                ("mechanism", mechanism),
+                ("real-or-fitted", tag),
+                ("status", status),
+                ("canonical-leaf", cited_leaf),
+            )
+            if not val
+        ]
+        if missing:
+            raise InterlockEntryError(
+                f"{canonical_rel}: interlock {ilk_id} is missing required "
+                f"field(s): {', '.join(missing)}."
+            )
+        if tag not in INTERLOCK_TAGS:
+            raise InterlockEntryError(
+                f"{canonical_rel}: interlock {ilk_id} has invalid real-or-fitted "
+                f"tag {tag!r} (expected one of {', '.join(INTERLOCK_TAGS)})."
+            )
+        if status not in INTERLOCK_STATUSES:
+            raise InterlockEntryError(
+                f"{canonical_rel}: interlock {ilk_id} has invalid status "
+                f"{status!r} (expected one of {', '.join(INTERLOCK_STATUSES)})."
+            )
+
+        interlocked = tuple(
+            dict.fromkeys(_ILK_CLAIM_REF_RE.findall(fields.get("interlocks", "")))
+        )
+        de_field = fields.get("derived-endpoint", "")
+        de_match = _ILK_CLAIM_REF_RE.search(de_field)
+        derived_endpoint = de_match.group(1) if de_match else None
+
+        nodes.append(
+            InterlockMechanismNode(
+                id=ilk_id,
+                title=hd_text,
+                mechanism=mechanism,
+                real_or_fitted=tag,
+                status=status,
+                derived_endpoint=derived_endpoint,
+                canonical_path=canonical_rel,
+                canonical_anchor=_slugify_heading(hd_text),
+                cited_leaf=cited_leaf,
+                interlocked=interlocked,
+            )
+        )
+    return nodes
+
+
 # ---------------------------------------------------------------------------
 # Leaf / index discovery
 # ---------------------------------------------------------------------------
@@ -1699,6 +1919,16 @@ def discover_kb(
             continue
         definitions.extend(parse_definition_entries(vr, kb_root))
 
+    # Interlock-register `ilk-` mechanism nodes (INVARIANT-S13) — register-hosted
+    # (the ilk- analog of def- entries in the vocabulary register), parsed from
+    # each `interlock-register.md`'s `<!-- id: ilk-xxxxxx -->` markers. A
+    # malformed entry raises InterlockEntryError here (the drift-gate).
+    interlock_mechanisms: list[InterlockMechanismNode] = []
+    for ir in sorted(kb_root.rglob(INTERLOCK_REGISTER_NAME)):
+        if any(part in EXCLUDE_DIRS for part in ir.relative_to(kb_root).parts[:-1]):
+            continue
+        interlock_mechanisms.extend(parse_interlock_entries(ir, kb_root))
+
     return KbState(
         claim_entries=tuple(claim_entries),
         leaves=tuple(leaves),
@@ -1707,6 +1937,7 @@ def discover_kb(
         experiments=tuple(experiments),
         supports=tuple(supports),
         definitions=tuple(definitions),
+        interlock_mechanisms=tuple(interlock_mechanisms),
     )
 
 
@@ -2311,6 +2542,28 @@ def build_claims_records(state: KbState) -> list[dict]:
                 "conflicting_sites": list(defn.conflicting_sites),
             }
         )
+    for ilk in state.interlock_mechanisms:
+        # An interlock-mechanism is a register-hosted node (INVARIANT-S13): no
+        # scoring fields, no originated edges. The 10-field payload (field order
+        # per SCHEMA) is materialized verbatim from the interlock register; the
+        # `interlocked` tuple drives the `interlocks` edges (build_depends_on_
+        # records) but is NOT a node-record field. The sort key `(node_type, id)`
+        # slots the `interlock-mechanism` group between `experiment` and
+        # `invariant`, so no existing record's relative order changes.
+        out.append(
+            {
+                "node_type": "interlock-mechanism",
+                "id": ilk.id,
+                "title": ilk.title,
+                "mechanism": ilk.mechanism,
+                "real_or_fitted": ilk.real_or_fitted,
+                "status": ilk.status,
+                "derived_endpoint": ilk.derived_endpoint,
+                "canonical_path": ilk.canonical_path,
+                "canonical_anchor": ilk.canonical_anchor,
+                "cited_leaf": ilk.cited_leaf,
+            }
+        )
     for node in state.framework_nodes:
         out.append(
             {
@@ -2399,6 +2652,21 @@ def build_depends_on_records(state: KbState) -> list[dict]:
         for claim_id, strength in exp.strengthens:
             _emit(
                 exp.id, claim_id, "strengthens", "claim", strength=strength,
+            )
+    # Interlock (joint-constraint) edges (INVARIANT-S13). SYMMETRIC mutual
+    # constraint, hub-node encoding: each interlocked constant emits one
+    # `interlocks` edge whose target is the SHARED mechanism node — the symmetry
+    # is the shared target, not mirrored directed pairs (the loader's
+    # directed-edge assumption is unchanged). `context` carries the mechanism's
+    # real_or_fitted tag as a human-facing at-a-glance note (authoritative tag is
+    # on the mechanism node). These edges are NEVER traversed by compute_solidity
+    # (which follows only `depends`); they drive the independent-parameter count
+    # and the falsification net.
+    for ilk in state.interlock_mechanisms:
+        for constant_id in ilk.interlocked:
+            _emit(
+                constant_id, ilk.id, "interlocks", "interlock-mechanism",
+                context=ilk.real_or_fitted,
             )
     edges.sort(key=lambda r: (r["source"], r["target"], r["context"] or ""))
     return edges
@@ -2684,6 +2952,91 @@ def _assert_framework_node_coverage(
     )
 
 
+def interlock_channels(
+    depends_on_records: list[dict], operating_point_root: str
+) -> set[str]:
+    """Distinct ``interlocks``-edge source constants, EXCLUDING the root.
+
+    The falsification-net "channels" (INVARIANT-S13) are the calibration
+    constants that project from the operating-point root via interlock
+    mechanisms — every ``interlocks``-edge source other than the operating-point
+    root itself.
+    """
+    return {
+        rec.get("source")
+        for rec in depends_on_records
+        if rec.get("relation") == "interlocks"
+        and rec.get("source")
+        and rec.get("source") != operating_point_root
+    }
+
+
+def compute_independent_parameter_count(
+    claims_records: list[dict], depends_on_records: list[dict]
+) -> int:
+    """LIVE independent-parameter count (INVARIANT-S13), pure over the index.
+
+    ``count = |input-only claim nodes| − |{ derived_endpoint(m) : m is a
+    REAL-tagged, WIRED interlock-mechanism whose derived_endpoint resolves to an
+    input-only claim }|``.
+
+    A ``fitted-identification`` mechanism (an echo) removes nothing — the count
+    is unchanged; a ``real-geometric-constraint`` mechanism (a chord) removes one
+    DOF (its ``derived_endpoint`` becomes dependent). The node set ("input-only
+    claim nodes") is deliberately a single comprehension so a future adjudication
+    can swap the denominator (see SCHEMA semantics caveat) without touching the
+    chord/echo reduction logic.
+    """
+    input_only = {
+        r["id"]
+        for r in claims_records
+        if r.get("node_type") == "claim" and r.get("build_band") == INPUT_ONLY_BAND
+    }
+    wired_mech_ids = {
+        r.get("target")
+        for r in depends_on_records
+        if r.get("relation") == "interlocks"
+    }
+    reductions: set[str] = set()
+    for r in claims_records:
+        if r.get("node_type") != "interlock-mechanism":
+            continue
+        if r.get("real_or_fitted") != "real-geometric-constraint":
+            continue
+        if r.get("id") not in wired_mech_ids:
+            continue
+        de = r.get("derived_endpoint")
+        if de and de in input_only:
+            reductions.add(de)
+    return len(input_only) - len(reductions)
+
+
+def falsification_net_violations(
+    claims_records: list[dict],
+    depends_on_records: list[dict],
+    operating_point_root: str,
+) -> list[tuple[str, str]]:
+    """Refuted interlocked channels (INVARIANT-S13), pure over the index.
+
+    Per ``omega-freeze-cosmic-grain-cascade.md:11``: the substrate has ONE DOF
+    (the operating point); the channels are joint-constrained; falsification of
+    ANY one kills the operating point. Returns sorted ``(channel_id, root)``
+    pairs for each interlocked channel whose ``build_band == "refuted"`` — each
+    is a propagated failure naming the operating-point root.
+    """
+    channels = interlock_channels(depends_on_records, operating_point_root)
+    band_by_id = {
+        r["id"]: r.get("build_band")
+        for r in claims_records
+        if r.get("node_type") == "claim"
+    }
+    return sorted(
+        (cid, operating_point_root)
+        for cid in channels
+        if band_by_id.get(cid) == REFUTED_BAND
+    )
+
+
 def build_all_records(state: KbState) -> dict[str, list[dict]]:
     """Return every JSONL file's records keyed by short file name.
 
@@ -2768,6 +3121,14 @@ __all__ = [
     "DefinitionEntryError",
     "VOCAB_REGISTER_NAME",
     "DEFINITION_STATUSES",
+    "InterlockMechanismNode",
+    "InterlockEntryError",
+    "INTERLOCK_REGISTER_NAME",
+    "INTERLOCK_TAGS",
+    "INTERLOCK_STATUSES",
+    "interlock_channels",
+    "compute_independent_parameter_count",
+    "falsification_net_violations",
     "StrengthenByItem",
     "LeafRecord",
     "IndexRecord",
@@ -2779,6 +3140,7 @@ __all__ = [
     "parse_experiment_leaf",
     "parse_support_leaf",
     "parse_definition_entries",
+    "parse_interlock_entries",
     "parse_claim_quality_file",
     "parse_support_quality_entries",
     "collect_known_claim_ids",
