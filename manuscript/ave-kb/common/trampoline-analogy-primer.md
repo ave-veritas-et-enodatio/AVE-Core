@@ -455,6 +455,8 @@ The corpus currently has two distinct justifications for $K = 2G$:
 
 The Q-G47 verification turned out to have a cleaner physical interpretation than "three independent geometric factors that happen to coincide." Per Grant's plumber-language dialogue:
 
+> 🔴 **RETRACT-HEADER (2026-06-14, magic-angle-provenance audit).** The "Picture A unification" below presents u₀\*=0.187 as a forward geometric **identity** (the cavity eigenmode amplitude "IS the magic angle 0.187", "= r_secondary/d − 1 = p_c = 8πα", "is canonical"). Per the audit this is **asserted/back-fit**: (1) u₀\*=0.187 ⟺ r_secondary/d=1.187 is true **by construction** (r_secondary/d = 1 + u₀\*; the "Picture A" paragraph below concedes "by construction"); (2) equating u₀\* with the EMT threshold p_c=8πα conflates two objects `clm-iouqn9:1012` keeps **distinct**, and numerically 8πα≈0.1834 ≠ 0.187 (the primer's own "coincidence between two K4-related small numbers"). The pedagogical LC-cavity picture is retained; the **forward-identity / "is canonical"** framing is retracted to asserted/underdetermined. See `research/2026-06-14_magic-angle-provenance-bh-forward-test-audit.md`. Lines preserved per Rule 12.
+
 **The K4 substrate is an LC resonant cavity.** The over-bracing geometric structure ($r_{\text{secondary}}/d = 1.187$) sets the cavity's eigenmode wavelength. The standing-wave amplitude that locks into this cavity at equilibrium IS the magic angle $u_0^* = 0.187$.
 
 $$u_0^* = r_{\text{secondary}}/d - 1 = 0.187 = p_c = 8\pi\alpha$$
