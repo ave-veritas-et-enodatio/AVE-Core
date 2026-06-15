@@ -128,11 +128,11 @@ def view2_transfer_function() -> dict:
     A0 = 0.0  # cold reference operating point
     w0 = M.omega_local(A0)
     w = np.logspace(np.log10(w0) - 4, np.log10(w0) + 4, 2000)
-    H = M.H_scalar(1j * w, A0=A0)
+    H = M.ELECTRON.H_scalar(1j * w, A0=A0)  # electron instance binds its own Q
     mag_db = 20 * np.log10(np.abs(H))
     phase = np.degrees(np.angle(H))
 
-    p1, p2 = M.poles(A0=A0)
+    p1, p2 = M.ELECTRON.poles(A0=A0)
     BW = w0 / M.Q_TANK  # = alpha*w0
 
     fig, axes = plt.subplots(1, 3, figsize=(15, 4.5))
@@ -238,7 +238,7 @@ def view3_reflection_smith() -> dict:
     A0 = 0.0
     w0 = M.omega_local(A0)
     w = np.linspace(0.2 * w0, 1.8 * w0, 600)
-    Hc = M.H_chiral(1j * w, A0=A0)
+    Hc = M.ELECTRON.H_chiral(1j * w, A0=A0)  # electron instance binds its own Q
     S_LR = Hc[0, 1]
     S_RL = Hc[1, 0]
     nonrecip = np.abs(S_LR - np.conjugate(S_RL))  # parity-odd signature; 0 iff reciprocal
@@ -348,7 +348,7 @@ def view5_stability_eigenmode() -> dict:
     ax = axes[1]
     w = np.concatenate([-np.logspace(np.log10(3 * w0), np.log10(0.3 * w0), 800),
                         np.logspace(np.log10(0.3 * w0), np.log10(3 * w0), 800)])
-    H = M.H_scalar(1j * w, A0=A0)
+    H = M.ELECTRON.H_scalar(1j * w, A0=A0)  # electron instance binds its own Q
     ax.plot(H.real, H.imag, "b-", lw=1.2)
     ax.plot([-1], [0], "rx", ms=10, label="−1 point")
     ax.set_xlabel("Re H(jω)")

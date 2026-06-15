@@ -35,6 +35,8 @@ TWO CARRIED FLAGS (flag-don't-fix — see _orchestration/2026-06-13_cvr-ee-sweep
 
 from __future__ import annotations
 
+from dataclasses import dataclass, field
+
 import numpy as np
 
 from ave.core.constants import (
@@ -53,9 +55,21 @@ from ave.core.constants import (
 S_MIN: float = 0.05  # kernel clip floor — magnitudes below this are apparatus-capped
 A_CAP: float = 0.99  # amplitude cap A=|V|/V_yield <= A_CAP
 
-# --- Derived substrate quantities (from canonical primitives; not hard-coded) ---
+# --- Class-invariant substrate scale (shared by EVERY excitation on M_A) -----
+# OMEGA_C is the bond LC natural frequency of the lattice itself — NOT an
+# electron-specific value. It is the class scale on which any SubstrateExcitation
+# rings; it stays a module constant.
 OMEGA_C: float = C_0 / L_NODE  # bond LC natural frequency [rad/s] ~ 7.76e20 (AC ch5:37)
-Q_TANK: float = 1.0 / ALPHA  # electron tank Q = alpha^-1 ~ 137.04 (theorem-3-1-q-factor.md)
+
+# --- Electron INSTANCE value (factor-out target; NOT a universal default) -----
+# Q_TANK is the ELECTRON's instance Q VALUE (= 1/alpha, derived from the
+# electron's torus geometry 4*pi^3 + pi^2 + pi; clm-rtdmsn). It is legitimately
+# electron-specific. The class-invariant FORM functions (poles / H_scalar /
+# H_chiral) MUST NOT default to it as if it were universal — they take an
+# explicit, required, keyword-only Q. The electron operating point is supplied
+# only by the ELECTRON instance below. (alpha, by contrast, IS universal — it is
+# the EM coupling, kept in gamma_mag_sq_leak() and NEVER renamed 1/Q.)
+Q_TANK: float = 1.0 / ALPHA  # ELECTRON instance Q = alpha^-1 ~ 137.04 (clm-rtdmsn)
 
 
 # ---------------------------------------------------------------------------
@@ -180,11 +194,14 @@ def omega_local(A0: float) -> float:
     return OMEGA_C * float(saturation_kernel(np.array(A0)))
 
 
-def poles(A0: float = 0.0, Q: float = Q_TANK) -> tuple[complex, complex]:
+def poles(A0: float = 0.0, *, Q: float) -> tuple[complex, complex]:
     """Pole pair of the 2nd-order LC resonator: s = -w0/(2Q) +/- j*w0*sqrt(1-1/(4Q^2)).
 
-    With Q = 1/alpha the real part is -alpha*w0/2 (the radiative linewidth = the leak),
-    matching the AUDITOR_STATE H(s) spine. w0 = omega_local(A0).
+    CLASS-INVARIANT FORM (the pole SHAPE / root-locus). ``Q`` is a REQUIRED
+    keyword instance field — there is no electron default here: the form must
+    accept ANY Q and move the pole accordingly (gate leg 2, dead-input test).
+    With the electron's Q = 1/alpha the real part is -alpha*w0/2 (the radiative
+    linewidth = the leak); supply it via the ELECTRON instance. w0 = omega_local(A0).
     """
     w0 = omega_local(A0)
     sigma = w0 / (2.0 * Q)
@@ -192,11 +209,13 @@ def poles(A0: float = 0.0, Q: float = Q_TANK) -> tuple[complex, complex]:
     return complex(-sigma, wd), complex(-sigma, -wd)
 
 
-def H_scalar(s: np.ndarray, A0: float = 0.0, Q: float = Q_TANK) -> np.ndarray:
+def H_scalar(s: np.ndarray, A0: float = 0.0, *, Q: float) -> np.ndarray:
     """Co-polarized 2nd-order resonator H(s) = w0^2 / (s^2 + (w0/Q) s + w0^2).
 
-    DERIVED: poles at -alpha*w0/2 +/- j w_d (Q=1/alpha leak). Bode: peak Q=1/alpha at
-    w0, bandwidth BW = w0/Q = alpha*w0.
+    CLASS-INVARIANT FORM. ``Q`` is a REQUIRED keyword instance field (no electron
+    default). DERIVED: poles at -w0/(2Q) +/- j w_d; for the electron (Q=1/alpha)
+    the leak is alpha. Bode: peak Q at w0, bandwidth BW = w0/Q. Supply the
+    electron's Q via the ELECTRON instance.
     """
     w0 = omega_local(A0)
     s = np.asarray(s, dtype=complex)
@@ -206,10 +225,14 @@ def H_scalar(s: np.ndarray, A0: float = 0.0, Q: float = Q_TANK) -> np.ndarray:
 def H_chiral(
     s: complex | np.ndarray,
     A0: float = 0.0,
-    Q: float = Q_TANK,
+    *,
+    Q: float,
     chi: float = 0.30,
 ) -> np.ndarray:
     """2x2 chiral transfer matrix in the (L,R) circular-handedness basis.
+
+    CLASS-INVARIANT FORM. ``Q`` is a REQUIRED keyword instance field (no electron
+    default); supply the electron's Q via the ELECTRON instance.
 
     H = [[H_co,        chi*H_cross],
          [-chi*H_cross, H_co      ]]      (skew off-diagonal = parity-odd winding)
@@ -236,6 +259,121 @@ def H_chiral(
 
 
 # ---------------------------------------------------------------------------
+# The SubstrateExcitation class-tree (factor electron INSTANCE out of the FORMS)
+# ---------------------------------------------------------------------------
+# Field-def electron pilot (instance-1). The class-invariant FORMS above (the
+# pole shape, root-locus, S(A), the Gamma_spinor wall) carry NO electron value;
+# the electron operating point lives ONLY in the ELECTRON instance below. A
+# different instance (different Q / omega_c) produces correspondingly different
+# outputs; the electron reproduces today's numbers by plugging in its own values.
+#
+# THE THREE Gamma's (LOAD-BEARING — labelled distinctly; the spinor/impedance
+# identity is RESOLVED two-distinct, Grant-ratified 2026-06-14):
+#   * GAMMA_SPINOR = -1  -> the topological 2pi->4pi spinor-sign STABILITY wall
+#       (the T2 Cosserat micro-rotation sector; finkelstein-misner-spin-half-
+#       derivation.md:58-59, the SU(2) -I sign-flip / 4pi double-cover).
+#       Class-invariant: ALL fermions have it (electron AND proton). NOT the EM leak.
+#   * Gamma_impedance = -1 -> the impedance-short reflection at Z_core -> 0 (the
+#       A1 dilatation-mass sector, Pauli/TIR derivation; resonant-lc-solitons.md:45-48).
+#       A DISTINCT object from GAMMA_SPINOR: A1 _|_ T2 (master-equation.md:20),
+#       numerically coincident at -1, not the same wall.
+#   * |Gamma_EM|^2 = 1 - alpha -> the EM RADIATIVE reflection (the wall falls
+#       short of the unit circle by exactly alpha, the per-cycle leak;
+#       cvr-reflection-smith.md:36). DEFAULT electron-scoped corollary.
+#   The electron has all three. The spinor (-1) and the impedance-short (-1) share
+#   the glyph "Gamma" and the value but are distinct objects (A1 _|_ T2); do not
+#   conflate. GAP (not a substituted identity, per A47): the spin-statistics
+#   derivation tying the topological spinor sign to fermion-exclusion statistics is
+#   NOT claimed (vol1/claim-quality.md:721).
+
+
+@dataclass(frozen=True)
+class SubstrateExcitation:
+    """Base of the substrate-excitation class-tree.
+
+    Holds ONLY the class-invariant lattice scale (``omega_c``, the bond LC
+    natural frequency shared by every excitation on M_A) and the class-invariant
+    Gamma_spinor wall. It fixes NO operating point and NO Q — those are INSTANCE
+    fields a concrete subclass supplies.
+
+    Cavity-class discriminator (ave-cavity-class-identification): a BoundResonator
+    (closed, high-Q, TIR-confined, |Gamma|->1, poles ride toward the jw axis) vs
+    an OpenCosseratScrew (a radiating longitudinal Cosserat shear mode, contour
+    integral != 0 — e.g. the AVE-Propulsion dark-wake antenna). The electron is a
+    BoundResonator; the open-screw sibling is NOT instantiated in this pilot.
+    """
+
+    omega_c: float = OMEGA_C
+
+    # GAMMA_SPINOR = -1: the topological 2pi->4pi spinor-sign STABILITY wall (the
+    # T2 micro-rotation sector; finkelstein-misner-spin-half-derivation.md:58-59).
+    # Class-invariant; ALL fermions. Distinct from the EM radiative leak
+    # |Gamma_EM|^2 AND from the A1 impedance-short Gamma=-1 (A1 _|_ T2).
+    GAMMA_SPINOR: float = field(default=-1.0, init=False)
+
+    def saturation_kernel(self, A: np.ndarray, *, clip: bool = True) -> np.ndarray:
+        """Class method S(A) = sqrt(1 - A^2) (Axiom-4 kernel; class-invariant)."""
+        return saturation_kernel(A, clip=clip)
+
+
+@dataclass(frozen=True)
+class BoundResonator(SubstrateExcitation):
+    """A bound high-Q LC resonator instance — the electron's cavity class.
+
+    Adds the INSTANCE fields factored out of the class-invariant forms: the Q
+    VALUE, the (p,q) torus winding label, and an instance name. The form methods
+    bind ``self.Q`` into the module-level class-invariant forms — the instance is
+    the ONLY place the operating Q enters.
+
+    Canon-noun map: unknot dilatation-mass / Mass-Dilatation Resonator / Resonant
+    LC Tank / 0_1 unknot + (2,3) winding. ("vortex ring" / "lossless pivot" are
+    research-only, not canon.)
+    """
+
+    # Q is a REQUIRED keyword instance field — NO electron default at the class
+    # level (gate leg 3: the class must not silently produce an electron). The
+    # electron's Q VALUE is injected ONLY at the ELECTRON instance constructor
+    # below (the one site the residual-default gate allows to carry it).
+    Q: float = field(kw_only=True)  # INSTANCE Q value (electron = 1/alpha; clm-rtdmsn)
+    pq: tuple[int, int] = field(default=(2, 3), kw_only=True)  # (p,q) winding label (electron-identification.md:27)
+    name: str = field(default="electron", kw_only=True)
+
+    def omega_local(self, A0: float) -> float:
+        """Operating-point resonance omega_local(A0) = omega_c * S(A0)."""
+        return self.omega_c * float(saturation_kernel(np.array(A0)))
+
+    def poles(self, A0: float = 0.0) -> tuple[complex, complex]:
+        """Instance pole pair — binds self.Q into the class-invariant form."""
+        return poles(A0, Q=self.Q)
+
+    def H_scalar(self, s: np.ndarray, A0: float = 0.0) -> np.ndarray:
+        """Instance H(s) — binds self.Q into the class-invariant form."""
+        return H_scalar(s, A0, Q=self.Q)
+
+    def H_chiral(self, s: complex | np.ndarray, A0: float = 0.0, chi: float = 0.30) -> np.ndarray:
+        """Instance 2x2 chiral H — binds self.Q into the class-invariant form."""
+        return H_chiral(s, A0, Q=self.Q, chi=chi)
+
+    def gamma_em_sq(self) -> float:
+        """|Gamma_EM|^2 = 1 - alpha (electron-scoped EM radiative-leak corollary).
+
+        DISTINCT from GAMMA_SPINOR (the class-invariant -1 wall). alpha is the
+        UNIVERSAL EM coupling — this value does NOT depend on the instance Q
+        (gate leg 2 holds it fixed). Default electron-scoped; do NOT promote to a
+        universal class law (pending human physics ruling).
+        """
+        return gamma_mag_sq_leak()
+
+    def A_wall(self) -> float:
+        """Residual amplitude A* where |Gamma_EM|^2 = 1 - alpha (electron wall)."""
+        return A_at_electron_wall()
+
+
+# Instance-1 of the class-tree: the electron, plugging in its own Q value.
+ELECTRON: BoundResonator = BoundResonator(Q=Q_TANK, pq=(2, 3), name="electron")
+
+
+# ---------------------------------------------------------------------------
 # Canonical-source self-check (ave-canonical-source: verify before any output)
 # ---------------------------------------------------------------------------
 def verify_constants() -> dict:
@@ -252,6 +390,14 @@ def verify_constants() -> dict:
     assert abs(OMEGA_C - C_0 / L_NODE) < 1e-3, "OMEGA_C drift"
     # the AVE-distinct relation, sanity:
     assert abs(gamma_mag_sq_leak() - (1.0 - ALPHA)) < 1e-12
+    # ELECTRON instance reproduces the electron operating point through the
+    # factored class-invariant forms (instance == form-with-electron-Q). These
+    # assertions add NO output — the returned dict is byte-identical to pre-pilot.
+    assert ELECTRON.Q == Q_TANK, "ELECTRON instance Q drift"
+    assert ELECTRON.poles()[0].real == poles(Q=Q_TANK)[0].real, "instance/form pole drift"
+    assert ELECTRON.gamma_em_sq() == gamma_mag_sq_leak(), "instance |Gamma_EM|^2 drift"
+    # |Gamma_EM|^2 is universal-alpha, NOT instance-Q dependent (gate-leg-2 guard):
+    assert ELECTRON.gamma_em_sq() == BoundResonator(Q=50.0).gamma_em_sq(), "|Gamma_EM|^2 must not vary with Q"
     return {
         "Z_0_ohm": Z_0,
         "alpha_inv": 1.0 / ALPHA,

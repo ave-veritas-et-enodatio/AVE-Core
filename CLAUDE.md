@@ -56,7 +56,7 @@ Active skills live at `~/.claude/skills/ave-*/SKILL.md`. Key skills:
 - `ave-prereg` — corpus-grep before any new derivation
 - `ave-canonical-source` — import canonical constants from `src/ave/core/constants.py`, never hard-code
 - `ave-canonical-leaf-pull` — enumerate canonical leaves before deriving Q-factor / scaling-law / matched-coupling / energy-quantum / cross-section / propagation-speed problems
-- `ave-handoff-canonical-locale` — orchestration briefings land in `_orchestration/`, not `~/.claude/plans/`
+- Orchestration briefings land in `_orchestration/` (tracked), not `~/.claude/plans/` — handoff write-time discipline (in the orchestration-vs-implementation memory; standalone skill retired 2026-06-14)
 - `ave-loop-gap-harness-discipline` — LOOP GAP pivot: srs frozen v17, one `loop_gap_harness` on VacuumEngine3D, advance ranks not version numbers; read engine DAG before genesis engine work
 - `verify-before-cite` — verify citation content + temporal currentness + cross-branch state before referencing file:line / quote / status claims
 - `consistency-vs-emergence` — classify tests as definitional-identity / axiom-manifestation / consistency-check / emergence-test before writing

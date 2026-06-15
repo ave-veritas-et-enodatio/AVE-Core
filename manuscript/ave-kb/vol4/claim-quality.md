@@ -190,6 +190,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - The "PONDER-05 469 µN predicted thrust" wording in **`vol4/index.md` lines 12 and 23 has no leaf-level derivation** anywhere in `vol4/` and the linked `hardware-programs/` directory does not exist. Treat as a routing artifact in the index, not as a leaf-supported claim. Followup logged.
   - "Metric Streamlining and Superluminal Transit" / "warp metric" / "Alcubierre-type shock fronts" are framework-internal interpretive consequences of the non-linear scalar wave equation; Vol 4 does NOT claim experimental validation of superluminal transit, nor a quantitative warp-bubble derivation.
   - Gargantua simulation reproduces the visual D-shaped photon shadow / Doppler beaming / accretion disk via topological-saturation ray tracing — **a category (iii) consistency check** with standard GR ray-tracing results, not an independent novel prediction.
+  - **Dynamic radiative role of $\nu_{vac}=2/7$ — WALK-BACK / KEEP-BOTH (2026-06-08, `research/2026-06-08_rrad-l-darkwake_result.md` §9).** The **static** $\nu_{vac}=2/7$ helical-to-longitudinal strain-transfer coefficient in the thrust law above (the Poisson-ratio leaf [chiral-thrust-derivation](./circuit-theory/ch2-topological-thrust-mechanics/chiral-thrust-derivation.md)) is **preserved unchanged**. Separately, the *dynamic radiative* role of the same 2/7 — its reuse as the Dark-Wake $R_{rad,L}$ back-reaction prefactor — is **downgraded from asserted identity to unconfirmed**: an amplitude-level coefficient was used in a power-level role, so the candidate *radiative* value is the power-level square **$4/49 = (2/7)^2$** (an unlanded queued delta), and the absolute $R_{rad,L}$ magnitude remains uncalibrated. This scopes the radiative-prefactor reuse only; it does not touch the static thrust coefficient.
 
 > **Leaf references:** [chiral-thrust-derivation](./circuit-theory/ch2-topological-thrust-mechanics/chiral-thrust-derivation.md), [regimes-of-operation](./circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md), [open-source-hardware](./falsification/ch11-experimental-bench-falsification/open-source-hardware.md).
 
@@ -1233,5 +1234,39 @@ A-034 measurement-hierarchy framing for engineered-substrate kernel measurements
 - rationale: A framing/hierarchy claim (explicitly "does not assert a new kernel"). The single-emitter ($\propto V$) and bulk-response ($\propto\sqrt N\,V$ Gaussian-averaging) SNR scalings are standard, well-grounded EE results. The phased-array PLL $\propto\exp(N\log Q)$-near-rupture form is asserted as autoresonant amplification but not derived in-leaf (no model producing the exponential). The cross-scale unification table is illustrative. A sound organizing framework whose third (exponential) scaling is asserted rather than shown.
 - strengthen-by:
   - Derive the phased-array-PLL $\propto\exp(N\log Q)$ near-rupture SNR scaling from the autoresonant Duffing lock dynamics.
+
+---
+
+## Electron Field-Component Bundle (R/X/Q/L/C) as SubstrateExcitation instance-1
+<!-- id: clm-fd1e7a -->
+
+The electron's EE field components — a real (resistive/radiative) part $R$ and a reactive part $jX$ — together with its instance values $Q_e = 1/\alpha$, $L_e = \xi_{topo}^{-2} m_e$, and $C_e = \xi_{topo}^{2} k^{-1}$, are the **instance-1** realization of the class-invariant `BoundResonator` (def-b42e9d) forms within the `SubstrateExcitation` (def-7a3f1c) class-tree. This is a **CONSISTENCY** re-expression of already-derived canon (the electron LC tank clm-kezk9z, the Q-factor $\alpha^{-1} = Q_e$ clm-rtdmsn, the topo-kinematic $L = \xi_{topo}^{-2} m$ clm-i9l284) in matched phase-space EE coordinates — **not** an emergence or class-law claim (consistency-vs-emergence; [cvr-reflection-smith.md](./circuit-theory/ch1-vacuum-circuit-analysis/cvr-reflection-smith.md):5).
+
+- _Specific Claims_
+  - The electron is a **BoundResonator** — a closed, high-$Q$, TIR-confined LC cavity (the $0_1$ unknot dilatation-mass carrying a $(2,3)$ winding) — i.e. instance-1 of `SubstrateExcitation`, **not** an open (radiating) Cosserat screw (ave-cavity-class-identification).
+  - Instance fields: $Q_e = 1/\alpha = 4\pi^3+\pi^2+\pi \approx 137.036$ (clm-rtdmsn); $L_e = \xi_{topo}^{-2} m_e$ ([topological-kinematics.md](./circuit-theory/ch1-vacuum-circuit-analysis/topological-kinematics.md):76, clm-i9l284); $C_e = \xi_{topo}^{2} k^{-1}$ ([resonant-lc-solitons.md](./circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md):12). The class-invariant FORMS — the pole shape $s_\pm = -\omega_0/(2Q) \pm j\omega_d$, the root-locus, $S(A)=\sqrt{1-(A/A_c)^2}$, and the $\Gamma_{spinor}=-1$ wall — carry **no** electron value; the electron reproduces today's numbers (`pole_real_over_w0` $=-\alpha/2$) by plugging in its own $Q$.
+  - The real part $R$ is the per-cycle **radiative leak** (the pole's distance $-\alpha\omega_0/2$ from the $j\omega$ axis, $= \alpha = 1/Q_e$); the reactive part $jX$ is the lossless $C\leftrightarrow L$ breather (virial-balanced $\langle E_C\rangle = \langle E_L\rangle = \tfrac12 m_e c^2$).
+- _Specific Non-Claims and Caveats_
+  - **CONSISTENCY, not emergence**: re-expresses derived canon as the explicit field-instance bundle; originates no new derivation. The numerical inputs ($\alpha$, $m_e$) are CODATA-derived; this is not an emergence-class result.
+  - **$\alpha$ stays UNIVERSAL** (the EM coupling, not electron-specific). The reflection form is $|\Gamma_{EM}|^2 = 1-\alpha$ and is **NOT** generalized to $1-1/Q$ — only the electron's $Q$ VALUE is the factored instance field, never $\alpha$.
+  - **Two distinct $\Gamma$'s, labelled not resolved (homonym; open for adjudication):** $\Gamma_{spinor}=-1$ is the topological $2\pi\to4\pi$ / perfect-short class-invariant **stability** wall (ALL fermions, electron AND proton); $|\Gamma_{EM}|^2 = 1-\alpha$ is the electron-scoped EM **radiative-leak** corollary ([cvr-reflection-smith.md](./circuit-theory/ch1-vacuum-circuit-analysis/cvr-reflection-smith.md):36). Whether the impedance-short $\Gamma=-1$ ([resonant-lc-solitons.md](./circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md):42-48) is identically the spinor sign is a **pending human physics ruling** — not decided here.
+  - **$|\Gamma_{EM}|^2 = 1-\alpha$ as a UNIVERSAL class law is gated** on that pending ruling; kept DEFAULT electron-scoped.
+  - **Mass-"3" only**: the $H(s)$/phasor view is the A1 dilatation MASS-"3"; the $(2,3)$ Cosserat micro-rotation charge-"3" winding is orthogonal (A1 $\perp$ T2) and is **never** wired into the breather's $(V_{inc}, V_{ref})$ phasor ([master-equation.md](../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20).
+  - **Sector attribution PROVISIONAL**: which constitutive parameter moves at the wall (capacitive $C_{eff}\to\infty$ vs magnetic $\mu_{eff}\to0$) rests on the input-only clm-lv3uw1 and the still-open FLAG-2 ([cvr-dc-operating-point.md](./circuit-theory/ch1-vacuum-circuit-analysis/cvr-dc-operating-point.md):55); both routes give the same $Z=Z_0\sqrt{S}$ curve, so the bundle is robust but the attribution is unsettled.
+  - **Carried engine flags**: $S^{0.25}$-vs-$S^{0.5}$ exponent defect ([cvr-reflection-smith.md](./circuit-theory/ch1-vacuum-circuit-analysis/cvr-reflection-smith.md):66); $S_{MIN}$/$A_{CAP}$ apparatus clip ([cvr-dc-operating-point.md](./circuit-theory/ch1-vacuum-circuit-analysis/cvr-dc-operating-point.md):51).
+
+> **Leaf references:** [resonant-lc-solitons](./circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md).
+
+### Quality
+- confidence: 0.65
+- depends-on:
+  - clm-rtdmsn — Electron $\alpha^{-1}$ as the LC-tank Q-factor (solidity 0.85)
+  - clm-kezk9z — $Z_0$ from discrete LC ladder + the $\Gamma=-1$ confinement wall (solidity 0.90)
+  - clm-i9l284 — $\xi_{topo} = e/\ell_{node}$ + the $L=\xi_{topo}^{-2}m$ topo-kinematic mapping (solidity 0.90)
+- solidity: 0.65 (ok to build on, see caveats) [= min(0.65, 0.85)]
+- rationale: A CONSISTENCY-class re-expression: it restructures already-derived canon (the LC-tank electron, $Q_e=1/\alpha$, $L=\xi_{topo}^{-2}m$) into the explicit $R/X/Q/L/C$ field-instance bundle and is byte-identical-verified against the live engine, so the algebra is clean. It is capped below the spine because (a) the sector attribution (capacitive vs magnetic) rests on the input-only clm-lv3uw1 + the open FLAG-2, and (b) the $|\Gamma_{EM}|^2=1-\alpha$-as-universal-law and the $\Gamma$-homonym resolution are gated on a pending human physics ruling. The confidence reflects a faithful re-expression, not new physics; consistency-vs-emergence honestly tags it CONSISTENCY.
+- strengthen-by:
+  - Resolve the $\Gamma$-homonym (is the impedance-short $\Gamma=-1$ identically the topological $2\pi\to4\pi$ spinor sign?) and the universal-vs-electron scope of $|\Gamma_{EM}|^2=1-\alpha$ (auditor + Grant physics ruling).
+  - Close FLAG-2 (capacitive vs magnetic sector attribution) so the bundle's sector field is no longer provisional.
 
 ---

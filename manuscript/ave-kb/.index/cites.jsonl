@@ -234,6 +234,7 @@
 {"claim_id": "clm-f8k2um", "leaf_path": "vol6/period-3/magnesium/topological-area.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-f8k2um", "leaf_path": "vol6/period-3/silicon/topological-area.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-f8k2um", "leaf_path": "vol6/period-3/sodium/topological-area.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-fd1e7a", "leaf_path": "vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-fgo20a", "leaf_path": "vol4/circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor-newtonian-limit.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-fh6w3y", "leaf_path": "vol4/falsification/ch11-experimental-bench-falsification/horsemen-of-falsification.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-fh6w3y", "leaf_path": "vol4/falsification/ch11-experimental-bench/zero-parameter-derivations.md", "leaf_kind": "leaf", "tier2_marked": true}

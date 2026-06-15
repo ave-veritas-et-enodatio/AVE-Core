@@ -635,7 +635,7 @@ flowchart TD
     K2G --> NU
     SEVEN --> NU
 
-    NU -->|"factor 7 = 1/ν_vac"| C1["C1-BH-RING<br/>r_sat = 7 M_g<br/>ω_R M_g = 18/49 (cold, 1.7% from GR)<br/>Phase 3 v2 ω_R -0.45% mean vs LIGO<br/>Phase 4 spin sweep PASS a* < 0.85<br/>x_sat = 2 + 5·r_ph+(a*)/3M (Cosserat back-reaction)<br/>Phase 5 τ -0.47% via lattice-Q preservation<br/>(outperforms GR Kerr QNM at -6.94%)<br/>covers entire LIGO BBH catalog 2026-05-18"]
+    NU -->|"factor 7 = 2/ν_vac (2026-06-14 fix)"| C1["C1-BH-RING<br/>r_sat = 7 M_g<br/>ω_R M_g = 18/49 (cold, 1.7% from GR)<br/>Phase 3 v2 ω_R -0.45% mean vs LIGO<br/>Phase 4 spin sweep PASS a* < 0.85<br/>x_sat = 2 + 5·r_ph+(a*)/3M (Cosserat back-reaction)<br/>Phase 5 τ -0.47% via lattice-Q preservation<br/>(outperforms GR Kerr QNM at -6.94%)<br/>covers entire LIGO BBH catalog 2026-05-18"]
     NU -->|"n_s = 1 + 9/7·ε_11, n_t = 1 + 2/7·ε_11<br/>(these ARE the ν_vac numbers)"| C11["C11-MACH-ZEHNDER<br/>~250-rad shift<br/>1-m electron interferometer<br/>(factor-7 corrected 2026-05-17)"]
     NU -->|"7^3 / 4 = 85.75"| C12["C12-G-STAR<br/>g* = 85.75 vs SM 106.75<br/>+7.6% Ω_GW, -10.4% EW expansion"]
 

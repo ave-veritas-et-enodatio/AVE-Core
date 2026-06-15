@@ -102,7 +102,7 @@ The framework's "zero free parameters" headline rests on a layered closure that 
   - (Speculative future workstream) Identify a canonical substrate Hilbert space on which T = A_4 acts with irrep decomposition A + E + T (dims 1 + 2 + 3 matching codimensional ordering); if such a substrate Hilbert space can be identified and the (R, r, d)-fixed substrate kernel decomposes onto its irreps, Schur orthogonality WOULD close the additive assembly at the Class 2 axiom-manifestation level via a distinct path. This is a substantive future workstream, not a near-term tweak — Phase 3-A2 establishes it as the most promising structural-match candidate. **Note (2026-05-27, AMENDED)**: Phase 3-A4 formalized the additive-assembly substrate-mechanism path via substrate-orthogonal-channel mode-counting at Class B substrate-mechanism manifestation rigor (NOT Class 2 axiom-manifestation — Clifford-torus codimensional embedding is canonical input, not K4-substrate-primitive-derived). The $T = A_4$ workstream remains an open structural-match candidate for a deeper Class 2 substrate-mechanism alternative; it is one of (at least) two paths to Class 2 closure (the other path being K4-substrate-primitive derivation of the Clifford-torus codimensional embedding, named in the strengthen-by item above).
 ---
 
-## Vacuum Strain Coefficient $\delta_{\text{strain}}$ (CMB Thermal Running of $\alpha^{-1}$)
+## Vacuum Strain Coefficient $\delta_{\text{strain}}$ (CMB Thermal Running of $\alpha^{-1}$ — SIGN-only; magnitude a definitional residual)
 <!-- id: clm-009nkt -->
 
 - $\delta_{\text{strain}} = 1 - \alpha^{-1}_{\text{exp}}/\alpha^{-1}_{\text{ideal}} = 1 - 137.035999/137.0363038 \approx 2.225 \times 10^{-6}$

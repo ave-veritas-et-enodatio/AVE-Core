@@ -130,6 +130,8 @@ Promotion-justification (Step 8d framing): NEW substrate-physics content is the 
 
 ### §6.1 — Cosmic-temperature-dependent α drift
 
+> **Scope (FT-1, 2026-05-31 — magnitude closed-negative).** The substrate-distinct content of this forward prediction is the **SIGN / existence** of a thermal running, not its magnitude. The $\delta_{strain}(T_{CMB}) \approx 2.225 \times 10^{-6}$ anchor is a **definitional residual** ($1 -$ CODATA$/\alpha_{cold}$), not a thermally-derived observable: the candidate substrate derivation of the genuine thermal drift (Q-DELTA-MAP-1-quant) was **closed negative** (~31 OOM undershoot), so the genuine thermal α-drift is $\sim 10^{-38}$ — **unobservable**. The linear-$T$ scaling and the quasar / collider handles below therefore test the **sign** of the mechanism, **not** a ~2 ppm magnitude (which the $\sim 10^{-38}$ genuine drift cannot support). See the Summary + §5/§7 and `vol1/claim-quality.md:105` (clm-009nkt).
+
 Substrate α should drift from cold-lattice value as a function of cosmic temperature $T$. For $T \ll T_{B-gap} \sim 10^{10}$ K (i.e., for any cosmic-temperature regime where the substrate B-modes remain mass-gap-frozen), the substrate dielectric response is the only thermally-modulated side, and $\eta_\varepsilon$ scales roughly linearly with $T$ (E-mode Bose-Einstein occupation in the regime $k_B T \ll$ substrate E-mode upper cutoff):
 
 $$\delta_{strain}(T) \approx \delta_{strain}(T_{CMB}) \times \frac{T}{T_{CMB}}$$
@@ -192,7 +194,7 @@ The Class 2 emergence lift (quantitative substrate-statistical-mechanics derivat
 
 ### Downstream claim-quality entries
 
-- **clm-009nkt** ([vol1/claim-quality.md:101](../../../vol1/claim-quality.md)) — Vacuum Strain Coefficient δ_strain (CMB Thermal Running of $\alpha^{-1}$); this leaf provides the substrate-mechanism identification; clm-009nkt confidence updates 0.45 → 0.55 PARTIAL band
+- **clm-009nkt** ([vol1/claim-quality.md:105](../../../vol1/claim-quality.md)) — Vacuum Strain Coefficient δ_strain (CMB Thermal Running of $\alpha^{-1}$ — sign-only); this leaf provides the substrate-mechanism identification; clm-009nkt confidence updates 0.45 → 0.55 PARTIAL band
 - **clm-5xon03** ([vol1/claim-quality.md:43](../../../vol1/claim-quality.md)) — Zero-Parameter Closure Status; δ_strain closure-gap partially clarified by this leaf's substrate-mechanism identification (closure-status framing unchanged; this leaf provides the mechanism that the strengthen-by item references)
 - **clm-eemap1** ([common/claim-quality.md:185](../../../common/claim-quality.md)) — EE-as-Substrate-Native META Framework — Class B Consolidation of Sub-Claims; this leaf adds to the canonical means-test corpus (entry #15 in §6 of translation-circuit.md is the δ_strain TCC cross-check; this leaf hosts the mechanism)
 

@@ -1010,7 +1010,7 @@ The K4 lattice's bulk and shear moduli lock at the magic-angle operating point $
   - The vacuum Poisson ratio $\nu_{\text{vac}} = 2/7$ follows from $K = 2G$ via the standard isotropic-solid relation.
 - _Specific Non-Claims and Caveats_
   - This is the substrate-scale ($u_0^*$ over-bracing, K4 micromechanics) magic-angle claim. It is distinct from the vol1 EMT consistency entry `clm-9s9apq` ("EMT $p_c = 8\pi\alpha$"), which treats $K = 2G$ as the EMT trace-reversal *operating point* given $\alpha$ — a consistency relation at the amorphous-network scale, not the magic-angle over-bracing condition. POSSIBLE-OVERLAP FLAGGED: if a future rescore judges these the same claim, this entry should cite `clm-9s9apq` instead of standing alone.
-  - The closure is described as "structural" — the magic-angle equation is explicit and $u_0^* \approx 0.187$ is established, but the individual Cosserat prefactors are not yet derived (see clm-bjceop).
+  - The closure is described as "structural" — the magic-angle equation is explicit and $u_0^* \approx 0.187$ is **asserted, not exhibited** (this entry's own rationale; 2026-06-14 magic-angle-provenance audit), and the individual Cosserat prefactors are not yet derived (see clm-bjceop).
   - $\nu_{\text{vac}} = 2/7$ being load-bearing for $\sin^2\theta_W = 2/9$ and other downstream results is noted as a dependency direction, not derived here.
 
 > **Leaf references:** [q-g47-substrate-scale-cosserat-closure](./q-g47-substrate-scale-cosserat-closure.md).
