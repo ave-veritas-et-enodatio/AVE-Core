@@ -29,7 +29,7 @@ Solving: $R = \varphi/2$, $r = (\varphi-1)/2$ (Golden Torus; $\varphi$ = golden 
 
 A CMB-induced thermal strain coefficient $\delta_{\text{strain}} \approx 2.225 \times 10^{-6}$ bridges the cold prediction to the measured CODATA value $137.035999$.
 
-The EMT argument below is a *downstream consequence* of this closure: once $\alpha$ is derived, the Feng-Thorpe-Garboczi EMT quadratic for a 3D amorphous central-force network yields $z_0 \approx 51.25$ as a unique algebraic consequence. The bulk-to-shear ratio $K/G = 2$ at the trace-reversal operating point $p^* = 8\pi\alpha$ is a self-consistency check, not an independent derivation of $\alpha$:
+The EMT argument below is a *downstream consequence* of this closure: once $\alpha$ is fixed (the Class B named identification of Ch.8, not a first-principles derivation), the Feng-Thorpe-Garboczi EMT quadratic for a 3D amorphous central-force network yields $z_0 \approx 51.25$ as a unique algebraic consequence. <!-- 🔴 Rule-12 2026-06-15 alpha: prior "once alpha is derived" superseded per Ch.8 keystone; alpha=Class B named id. --> The bulk-to-shear ratio $K/G = 2$ at the trace-reversal operating point $p^* = 8\pi\alpha$ is a self-consistency check, not an independent derivation of $\alpha$:
 
 > **[Resultbox]** *Trace-Reversal Packing Fraction (downstream consistency)*
 >

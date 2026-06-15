@@ -31,7 +31,7 @@ The macroscopic continuous dynamics of the vacuum rest on exactly four canonical
    Charge quantisation (dislocation Burgers vectors respect the K4 lattice), charge sign (dislocation handedness in the chiral $I4_1 32$ structure), and fractional quark charges (the $\mathbb{Z}_3$ Borromean split into $\pm\tfrac{1}{3}e$ and $\pm\tfrac{2}{3}e$, the Witten effect) all follow directly.
 
    <!-- claim-quality: clm-3kzmt9 -->
-   ⚠ *Notation warning:* $\xi_{topo}$ is distinct from the dimensionless Machian hierarchy coupling $\xi$ that appears in `eq_gravity_derived.tex`. They are different quantities sharing a Greek letter. The numerical value of $\alpha$ is derived geometrically in Ch.8 from the $S_{11}$-minimum Golden Torus.
+   ⚠ *Notation warning:* $\xi_{topo}$ is distinct from the dimensionless Machian hierarchy coupling $\xi$ that appears in `eq_gravity_derived.tex`. They are different quantities sharing a Greek letter. The numerical value of $\alpha$ is a Class B named geometric identification in Ch.8 from the $S_{11}$-minimum Golden Torus (not a first-principles derivation). <!-- 🔴 Rule-12 2026-06-15 alpha: prior "is derived geometrically in Ch.8 from the S11-minimum Golden Torus" superseded per Ch.8 keystone. -->
 
 3. **Axiom 3 — Minimum Reflection Principle.** The substrate, in its continuum limit, evolves to extremise the macroscopic action $S_{AVE}$. Two mathematically equivalent forms are co-canonical. The **variational form** encodes the dynamics in the per-node vector potential $\mathbf{A}_n$:
 
