@@ -50,7 +50,7 @@ The Vacuum Circuit Analysis (VCA) framework establishes a single, exact dimensio
 | [CVR DC Operating Point](cvr-dc-operating-point.md) | Vacuum varactor C-V characteristic; $C_{eff}/Z/c$ vs $A_0$; load-line + electron operating point; carries the $S^{0.5}$-vs-$S^{0.25}$ exponent defect |
 | [CVR Reflection on the Smith Chart](cvr-reflection-smith.md) | $\Gamma(A_0)$ matched→short locus; **$\|\Gamma\|^2=1-\alpha$** (AVE-distinct radiative leak); chiral 2×2 $S_{LR}\ne S_{RL}^*$ |
 | [CVR Phasor & Reactance](cvr-phasor-reactance.md) | I/Q quadrature $E\sim(V_{inc}+V_{ref})$, $B\sim(V_{inc}-V_{ref})/Z$; the C↔L Virial-balanced breather |
-| [CVR Stability & Eigenmode](cvr-stability-eigenmode.md) | Root-locus ($Q\to1/\alpha$) + Nyquist eigenmode loop; genesis-by-matching; structural region-of-attraction; autoresonance gap flagged |
+| [CVR Stability & Eigenmode](cvr-stability-eigenmode.md) | Root-locus ($Q\to1/\alpha$) + Nyquist eigenmode loop; genesis-by-matching; structural region-of-attraction; autoresonance flagged (genesis-self-lock TESTED-NEGATIVE 2026-06-14; mapping + detector-instrument still gap) |
 | [Orbital Friction Paradox](orbital-friction-paradox.md) | Real vs. reactive power; lossless orbit as LC tank at $\theta = 90°$ |
 | [Intermodulation Distortion](intermodulation-distortion.md) | Vacuum IMD spectroscopy; IM3 prediction; IP3 derivation; QED comparison |
 | [Translation Circuit](translation-circuit.md) | Cross-reference to common translation table |

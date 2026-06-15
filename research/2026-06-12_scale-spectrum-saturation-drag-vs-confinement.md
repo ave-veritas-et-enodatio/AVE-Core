@@ -109,7 +109,7 @@ Grant's pairing DM:galaxy :: DE:electron is **not** corpus-native. DE is not the
 | Confinement = bulk TIR wall ($\Gamma_{\mathrm{bulk}}=-1$), not carrier envelope | **Canonical EE mapping** |
 | Carrier = $T_2$ oscillation; wrapper = boundary condition | Explicit split in `photon-ee-mapping.md` |
 | Discrete srs v13 bulk-wall pocket | **Engine LOCALIZATION-LANDED** — container only; not full electron ontology |
-| Autoresonance / self-lock at $\Gamma=-1$ | **GAP** per `photon-ee-mapping.md` — do not assert proved |
+| Autoresonance / self-lock at $\Gamma=-1$ | **GAP** per `photon-ee-mapping.md` — do not assert proved [2026-06-14 update: genesis self-lock now TESTED-NEGATIVE per research/2026-06-14_t2-genesis-selflock_result.md; general mapping + detector instrument still open] |
 
 **Not proved:** Latent heat $= m_ec^2$; single-cell DM analog; electron precedes all photons globally (see three-lane doc).
 

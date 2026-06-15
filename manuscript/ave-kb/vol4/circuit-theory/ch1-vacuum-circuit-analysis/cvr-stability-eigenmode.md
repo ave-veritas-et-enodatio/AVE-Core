@@ -54,7 +54,7 @@ Re-runnable: `PYTHONPATH=$PWD/src python src/scripts/vol_9_device/cvr_ee_sweep/c
 
 ## §7 — Honest-status flags (load-bearing)
 
-- **Autoresonance / self-lock UNDERIVED:** the electron's stable confinement at $\Gamma=-1$ is asserted from the saturation mechanism; the autoresonance that keeps it locked is a plausible-but-underived candidate ([photon-ee-mapping.md](../../../vol1/dynamics/ch4-continuum-electrodynamics/photon-ee-mapping.md):98; [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):207, the autoresonant-PLL leaf is ⛔ invalidated). This leaf **partially** closes the ✗ Nyquist/root-locus gap (structure mapped) but leaves the autoresonance ✗ open.
+- **Autoresonance / self-lock UNDERIVED:** the electron's stable confinement at $\Gamma=-1$ is asserted from the saturation mechanism; the autoresonance that keeps it locked — its genesis-from-a-flowing-photon-precursor *application* was **TESTED-NEGATIVE** (2026-06-14, T2 on `crystal_engine` near-yield, NO-GENESIS; [`research/2026-06-14_t2-genesis-selflock_result.md`](../../../../../research/2026-06-14_t2-genesis-selflock_result.md)), while the general mapping + the PLV/autoresonance detector instrument remain open (phasor-redesign prereg deferred) ([photon-ee-mapping.md](../../../vol1/dynamics/ch4-continuum-electrodynamics/photon-ee-mapping.md):98; [translation-circuit.md](../../../common/translation-tables/translation-circuit.md):207, the autoresonant-PLL leaf is ⛔ invalidated). This leaf **partially** closes the ✗ Nyquist/root-locus gap (structure mapped) but leaves the autoresonance ✗ open.
 - **Basin is STRUCTURAL** not dynamical (§4, substrate-native-check CP8).
 - **Magnetic branch / sector-attribution flag** carried as in the companion views.
 
