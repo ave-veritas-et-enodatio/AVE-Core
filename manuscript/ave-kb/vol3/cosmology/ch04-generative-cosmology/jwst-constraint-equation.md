@@ -29,6 +29,6 @@ Evaluating the JWST empirical data (requiring a cluster to grow to $10^{10} M_\o
 
 [Figure: jwst_exponential_accretion.png --- see manuscript/vol_3_macroscopic/chapters/]
 
-JWST does not break cosmology; it challenges the "zero-impedance void" assumption. The mutual inductance of the $\mathcal{M}_A$ network collapses primordial gas into galaxies exponentially faster than collisionless $\Lambda$CDM models permit. By establishing a $\tau \approx 65.1$ Myr inductive herding limit, the AVE framework predicts the formation of super-massive galaxies in millions, not billions, of years.
+JWST does not break cosmology; it challenges the "zero-impedance void" assumption. The mutual inductance of the $\mathcal{M}_A$ network collapses primordial gas into galaxies exponentially faster than collisionless $\Lambda$CDM models permit. With the back-solved $\tau \approx 65.1$ Myr inductive herding limit (inferred from the JWST mass-vs-time constraints, not forward-derived), the AVE framework accounts for the formation of super-massive galaxies in millions, not billions, of years.
 
 ---
