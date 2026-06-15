@@ -200,7 +200,7 @@ Because the vacuum behaves as a linear LC network, localized metric strains exhi
     \label{fig:bullet_cluster_offset}
 \end{figure}
 
-The \texttt{simulate\_\allowbreak bullet\_\allowbreak cluster\_\allowbreak fdtd.py} engine computes this entirely from the baseline unknot expansion primitive, projecting the true 2D topological wake passing symmetrically out of the collision zone (represented dynamically in the repository's rotation renderings).
+The \texttt{simulate\_\allowbreak bullet\_\allowbreak cluster\_\allowbreak fdtd.py} script computes this as a \emph{static linear superposition} of the two MOND-saturation drag-halo metrics over the baseline unknot expansion primitive --- the spatial-superposition mechanism described above. \textbf{Scope note (2026-06-15 driver-honesty re-sweep, LF-03):} despite the \texttt{fdtd} filename, the script does \emph{not} perform finite-difference time-domain field evolution or TT-tensor shockwave propagation; the ``dynamic'' rotation renderings are an illustrative kinematic prescription, not solved field dynamics.
 
 \subsection{Tabletop Falsification: Ferromagnetic Viscosity Analogue}
 To definitively prove that the Bullet Cluster offset is standard electromagnetic Mutual Inductance and not an exotic cosmological phenomenon, the framework proposes a direct macroscopic tabletop replication. 
