@@ -62,6 +62,6 @@ See [|T|=12 Universality (4 Routes)](../ch1-fundamental-axioms/tetrahedral-t-uni
   - Vol 1 Ch 1 (Four Axioms) — Axiom 1 K4 graph topology
 - **Related KB leafs:**
   - [|T|=12 Universality (4 Routes)](../ch1-fundamental-axioms/tetrahedral-t-universality.md) — A-029 is route #1
-  - [Common: Q-G47 Substrate-Scale Cosserat Closure](../../../common/q-g47-substrate-scale-cosserat-closure.md) — magic-angle equation at $u_0^* \approx 0.187$
+  - [Common: Q-G47 Substrate-Scale Cosserat Closure](../../../common/q-g47-substrate-scale-cosserat-closure.md) — magic-angle equation; the lock $K(u_0^*)=2G(u_0^*)$ is firm but the value $u_0^* \approx 0.187$ is asserted/back-fit, not forward-derived (see the Provenance block above; 2026-06-14 walk-back) <!-- 🔴 Rule-12 2026-06-15 magic-angle: parallel-site xref previously restated "u0*~0.187" uncaveated; aligned to the :36 retraction. -->
   - [Continuous-Springs Reframing](continuous-springs-reframing.md) — shared-B-node propagator is a property of the underlying continuous Cosserat field, sampled at the K4 Nyquist scale
   - [Dielectric Snap Limit](dielectric-snap-limit.md) — over-bracing factor canonical
