@@ -9,7 +9,7 @@ claims: [clm-5xon03]
 
 > **[Objectivebox]**
 > - Understand the premise of Applied Vacuum Engineering (AVE) as a Macroscopic Effective Field Theory.
-> - Identify the three canonical hardware scales ($\ell_{node}$, $\alpha$, $G$) that constrain the vacuum continuum — all three now derived from first principles (see Ch.8 α derivation from Golden Torus).
+> - Identify the three canonical hardware scales ($\ell_{node}$, $\alpha$, $G$) that constrain the vacuum continuum — the framework's three retained hardware inputs: $\alpha$ closes at **Class B** named geometric identification (not a first-principles derivation; Ch.8), $\ell_{node}$ is the electron Compton/Nyquist scale, and $G$ is **mixed** (form-derived /7 PPN family, value-fitted $\xi$; closed-form Chain B′ open). <!-- 🔴 Rule-12 2026-06-15 G+alpha: prior wording "all three now derived from first principles" superseded per 2026-06-14 interlock G-ruling (ilk-gravmb) + Ch.8 keystone (clm-0ktpcn); not "echo". -->
 > - Recognize the conceptual relationship between AVE and historical analog gravity models.
 
 The Standard Model of cosmology and particle physics provides extraordinary predictive power through high-precision mathematical abstractions, yet it requires the empirical calibration of over 26 independent free parameters. Applied Vacuum Engineering (AVE) builds on this foundation by exploring the macroscopic, deterministic physical medium that underlies these abstractions, framing the vacuum not as empty coordinate geometry, but as a physical, solid-state condensate.

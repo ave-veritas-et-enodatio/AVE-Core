@@ -52,7 +52,7 @@ This explicit two-step numerical engine enforces local gauge invariance and ener
 | $V_{yield} = \sqrt{\alpha}\,V_{snap}$ | 43.65 kV | 43.65 kV | Axiom 4 (saturation threshold) |
 | $\xi_{topo} = e/\ell_{node}$ | $4.149 \times 10^{-7}$ C/m | --- | Axiom 2 mechanism ($[Q]\equiv[L]$) |
 | $V_{snap} = m_e c^2/e$ | 511.0 kV | 511.0 kV | Definition (Axioms 1, 2) |
-| $G = \hbar c/(7\xi\,m_e^2)$ | $6.674 \times 10^{-11}$ | $6.674 \times 10^{-11}$ | Derived (Axioms 1 + 4, Machian equilibrium); $\xi \approx 8.15\times 10^{43}$ |
+| $G = \hbar c/(7\xi\,m_e^2)$ | $6.674 \times 10^{-11}$ | $6.674 \times 10^{-11}$ | Mixed: form-derived (Axioms 1 + 4, Machian); value-fitted $\xi \approx 8.15\times 10^{43}$, Chain B′ open <!-- 🔴 Rule-12 2026-06-15 G: prior "Derived (Axioms 1+4, Machian equilibrium)" superseded per 2026-06-14 G-ruling; not "echo". --> |
 | $S(A) = \sqrt{1-(A/A_{yield})^2}$ | --- | --- | Axiom 4 (Saturation Kernel) |
 
 ---
