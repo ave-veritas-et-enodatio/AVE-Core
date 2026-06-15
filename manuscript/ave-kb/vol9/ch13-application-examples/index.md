@@ -8,6 +8,8 @@ subtree-experiments: []
 
 # Ch.13 Application Examples
 
+<!-- [2026-06-15 reconciliation, Rule 12; KB-is-truth]: per the 2026-06-14 rulings, this leaf's G/α framings were relabeled in place -- "Electron LC tank -> α derivation" (table) -> "α closed-form identification (Class-B, retained input)"; "Machian-G closed form" (table) -> "(mixed: derived form, calibration-fitted ξ value; ilk-gravmb)"; "Machian G is DERIVED" (carry-forward bullet) -> "MIXED" (NOT echo). Qualifications, not deletions; prior wording recoverable at origin/main. -->
+
 Chapter 13 of the Vol 9 datasheet is the cross-chapter integration map. Each application example invokes 3–5 substrate primitives from Chs.~2–12 and walks the substrate-mechanism chain from primitives to engineering observable. No new substrate-physics is introduced here; every derivation lives at canonical leaves cited inline.
 
 > **Navigation note.** This index hosts no claims of its own; it is a navigation pointer into the canonical leaves the chapter cites. The five application examples in the manuscript counterpart each reference an existing canonical claim chain — `clm-0ktpcn` (α cold-lattice closure), `clm-3zz0f6` (SYM-class α-invariance), `clm-5zuo7g` (W/Z evanescent-cutoff derivation), `clm-ldmvwi` (Born-rule $p=2$ derivation), `clm-hp7nlm` (Cosserat-Curie thermal-asymmetry mechanism). Reader navigation begins at one of those leaves; this index lists the cross-references.
@@ -36,7 +38,7 @@ Per `consistency-vs-emergence` v1.3 + `ave-discrimination-check`:
 
 - **Lattice-genesis single-seed cosmology** — no multiverse, no baby universes (Ch.~\ref{ch:vol9_cosmological_characteristics}~§\ref{sec:vol9_cosmo_lattice_genesis} in the manuscript).
 - **BH interior = Regime IV ruptured plasma**, NOT a B-sublattice or daughter cosmology (Ch.~\ref{ch:vol9_cosmological_characteristics}~§\ref{sec:vol9_cosmo_substrate_rupture}).
-- **Machian $G$ is DERIVED** (canonical at `common/full-derivation-chain.md` `clm-9oazz0`; not a primitive axiom).
+- **Machian $G$ is MIXED** (G-ruling 2026-06-14, `ilk-gravmb`) — form-derived (the Achromatic-Lens), value-fitted ($\xi$ back-solved from CODATA $G$; Chain B$'$ open); canonical at `common/full-derivation-chain.md` `clm-9oazz0`; not a primitive axiom. NOT "echo" — the derived-form half stands. *(Mirrors the §-20 table row + 13.tex; the high-salience row was reconciled first, this carry-forward bullet follows per the parallel-site gate.)*
 - **$\nu_{vac} = 2/7$ is Ax~1 LC + Ax~2 α interlink** (canonical at `vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md` `clm-x19btt`; NOT promoted to fundamental axiom).
 - **$c_{EM}$ vs $c_{shear}$ distinction** (CLAUDE.md INVARIANT-S2 Pitfall \#5); the α formula uses $c_{EM}$, Schwarzschild reduction uses $c_{shear}$.
 
