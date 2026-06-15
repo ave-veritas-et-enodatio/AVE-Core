@@ -14,17 +14,19 @@ The chapter content is **Class B substrate-mechanism manifestation** per `consis
 
 ## Primary canonical sources
 
+<!-- [2026-06-15 honest-α reconciliation, Rule 12]: the two α rows below previously read "Golden-Torus derivation" / "α⁻¹ = 4π³+π²+π derivation". Prior wording preserved here. RECONCILED to "closed-form identification" (Class-B named-identification, retained input — the substrate does not independently select R·r=1/4), matching the canonical anchor ch8-alpha-golden-torus.md:11 and the chapter's own DC-scope provenance (α = CALIBRATION-INPUT, α-circular). KB-is-truth: α leaf wins. -->
+
 | Source | Content |
 |---|---|
 | `src/ave/core/constants.py` lines 78-81 (`C_0`, `MU_0`, `EPSILON_0`, `Z_0`) | Vacuum impedance trio + cold-lattice EM wave speed |
-| `src/ave/core/constants.py` lines 101, 164 (`ALPHA`, `ALPHA_COLD_INV`) | Fine-structure constant (CODATA + cold-lattice Golden-Torus derivation $4\pi^3 + \pi^2 + \pi$) |
+| `src/ave/core/constants.py` lines 101, 164 (`ALPHA`, `ALPHA_COLD_INV`) | Fine-structure constant (CODATA input + cold-lattice Golden-Torus closed-form identification $4\pi^3 + \pi^2 + \pi$; Class-B, retained input) |
 | `src/ave/core/constants.py` lines 194, 206, 329-330 (`L_NODE`, `XI_TOPO`, `T_EM`) | Lattice pitch + topological transduction + EM string tension |
 | CLAUDE.md INVARIANT-S2 (Axioms 1–4 + two-effective-wave-speeds clause + SYM/ASYM scaling) | Substrate-axiom anchor for every primitive |
 | `manuscript/ave-kb/common/natural-units-cheatsheet.md` | Natural-units cheatsheet; four-base convention ($\ell_{node} = c = \hbar = m_e = 1$) + SI ↔ Native conversion table |
 | `manuscript/ave-kb/common/translation-tables/translation-circuit.md` §1 (`clm-fy05jc`) | Six-row $\xi_{topo}$ EE↔mechanical identity |
 | `manuscript/ave-kb/common/translation-tables/translation-circuit.md` §2 (`clm-eemap1`) | EE-as-substrate-native META framework; canonical methodology for the chapter's EE Translation Table |
 | `manuscript/ave-kb/common/xi-topo-traceability.md` | $\xi_{topo}$ cross-domain traceability map + namespace de-collision ($\xi_{topo}$ vs Machian $\xi$) |
-| `manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md` (`clm-0ktpcn`) | Cold-lattice $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ derivation (Golden Torus geometry; Theorem 3.1 cross-link) |
+| `manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md` (`clm-0ktpcn`) | Cold-lattice $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ closed-form identification (Golden Torus geometry; Theorem 3.1 cross-link) — Class-B named-identification, retained input (substrate does not independently select $R\cdot r=1/4$; see `ch8-alpha-golden-torus.md`:11) |
 | `manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md` | Bond TLM characteristic impedance $Z_0 = \sqrt{\mu_0/\varepsilon_0}$ canonical derivation |
 | `manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md` | Cosmic-LC-tank Q-factor at $S_{11}$-minimum Golden Torus operating point |
 | `manuscript/ave-kb/vol4/claim-quality.md` `clm-i9l284` (solidity 0.90) | $\xi_{topo} = e/\ell_{node}$ Topological Conversion Constant canonical quality entry |
