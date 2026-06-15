@@ -8,7 +8,8 @@ subtree-experiments: []
 
 # Catalog of Heavy Elements (Z=15 to Z=119)
 
-This appendix catalogs the binding energies and topological configurations of elements beyond Silicon-28. All predictions utilize the semiconductor avalanche binding model with zero empirical mass-fitting parameters: the coupling constant ($K$), Coulomb strength ($\alpha\hbar c$), breakdown capacity ($V_{BR}$), avalanche exponent ($n=5$), and internal charge radius ($d$) are all derived from the topological graph structure.
+<!-- [2026-06-15 KB-reconciliation (vol_6 brief §D.3/§A.4, heavy-Z parallel) -- prior wording preserved per Rule 12]: read "All predictions utilize the semiconductor avalanche binding model with zero empirical mass-fitting parameters: the coupling constant ($K$), Coulomb strength ($\alpha\hbar c$), breakdown capacity ($V_{BR}$), avalanche exponent ($n=5$), and internal charge radius ($d$) are all derived from the topological graph structure." SUPERSEDED: the listed CONSTANTS are axiom-derived, but "zero empirical mass-fitting parameters" omits (i) the per-nucleus fitted inter-alpha distance R and (ii) the empirical Fibonacci-proxy coefficients 15/0.95 in r_core=d(15+0.95A). Twin of A_heavy_element_catalog.tex:14. -->
+This appendix catalogs the binding energies and topological configurations of elements beyond Silicon-28. All predictions utilize the semiconductor avalanche binding model with no empirical mass-fitting **constants** — the coupling constant ($K$), Coulomb strength ($\alpha\hbar c$), breakdown capacity ($V_{BR}$), avalanche exponent ($n=5$), and internal charge radius ($d$) are all derived from the topological graph structure. The one fitted geometric scalar is the per-nucleus inter-alpha distance $R$; the Fibonacci-proxy elements additionally use the empirical packing coefficients ($15$ and $0.95$) of the density-scaled radius $r_{core}=d(15+0.95A)$.
 
 ## Key Results
 
