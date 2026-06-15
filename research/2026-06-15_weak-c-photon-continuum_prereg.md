@@ -184,4 +184,59 @@ at-lattice-resolution / birefringence-class content, distinct from the retracted
 
 ## 7. Anchor-drift + clean-edit log
 
-(populated as edits land — see commit trail + the return to the auditor gate)
+**Anchor-drift from the brief's cited lines (re-verified at HEAD 4bc17c7f):**
+- §3.A `framing_and_presentation.md:144` — NO drift (exact match at :144).
+- §3.B `photon-identification.md:11, :47, :98, :114` — NO drift (all exact). The
+  2026-06-10 PROVENANCE annotation occupies :13-34 (immediately after :11), as
+  reinforcement-1 noted; the new 2026-06-15 scope-note was layered AFTER it
+  (both preserved).
+- §3.B `k4-port-irrep-decomposition.md:26, :121, :134` — NO drift (all exact).
+- §3.C `binary-kill-switches.md:13` — NO drift.
+- §3.C/D `preferred-frame-and-emergent-lorentz.md:81` (C7 row) — NO drift.
+- §3.D clm-yr6tu4 quality entry — at `vol1/claim-quality.md:1652` (the brief
+  cited solidity 0.78; confirmed 0.78).
+- §3.F clm-gw2wgc quality entry — at `vol4/claim-quality.md:521` (confirmed
+  conf 0.70).
+- **Internal stale anchor (FLAGGED, not chased):** `preferred-frame-...:223`
+  cites the C7 matrix row at `divergence-test-substrate-map.md:399`, but the C7
+  Predictions-matrix row is actually at `:456` at HEAD (the :399 anchor is
+  stale). Out of this PR's surgical scope (matrix is not in §3 edit list);
+  flagged for the reconciliation lane.
+
+**§3.G — orphan-C7 leg closure.** The wrong-carrier kill-shot retraction stands
+(per `project_orphan_chord_lane_c7_hopf.md`: the GRB "kill-switch" was a
+corroborative-null, cited the Yang-Mills nuclear mode as the photon — a
+wrong-carrier artifact, NOT a kill-shot). C7 resolves to **no-photon-dispersion
+(corroborated)**. HOPF-A1 closes independently (its own PR-1; zero dependence on
+this packet). This canonization **subsumes the orphan-chord lane's queued C7
+walk-back PR** — the "Trans-Planckian→MeV" rename is MOOT under weak-C (the
+continuum photon has no zone-edge onset to rename; its only LIV is the tiny
+(qℓ)⁴ birefringence). The orphan lane committed NO C7 canon edits, so all the C7
+edits were authored fresh here.
+
+**Downstream propagation flags (OUT of this PR's surgical scope — for the
+reconciliation lane):** an ave-walk-back Step-3h corpus-wide sweep surfaced
+C7-as-"surviving-forward-test" framing in OTHER (matter/gravity/matrix) leaves
+NOT in the brief's §3 edit list. Left UNEDITED per surgical scope + flag-don't-fix:
+- `divergence-test-substrate-map.md` C7 row (:456) + cross-refs
+  (:320, :334, :601) — the matrix C7 row is already no-dispersion-NULL-compatible
+  ("NULL = no dispersion = AVE survives"); the cross-refs call C7 "the surviving
+  Trans-Planckian discriminator where cubic symmetry no longer averages" (the
+  (qℓ)⁴-suppression-fails-at-lattice-resolution / birefringence-class content,
+  distinct from the retracted (qℓ)² zone-edge GRB dispersion).
+- `claim-quality-closure-roadmap.md:109, :203` — closure-roadmap entries naming
+  C7-GRB-DISPERSION as "the surviving forward preferred-frame test."
+- `einstein-lensing-deflection.md:8, :14`, `geo-synchronous-impedance.md:36`,
+  `sagnac-parallax.md:36` — gravity/Sagnac scope-corrections that point at
+  C7-GRB-DISPERSION as the surviving Trans-Planckian probe.
+- These should be reconciled toward the weak-C reading (C7 = corroborated NULL;
+  the surviving *photon* forward test is the (qℓ)⁴ birefringence) when the
+  reconciliation lane propagates the .tex mirrors per §6.
+- Frozen-snapshot (Q2, no-change): `research/2026-06-08_highE-winding-aliasing-prereg.md`
+  (a prior prereg's snapshot view).
+
+**make verify:** PASS at each commit (full physics protocols + KB
+metadata + md-links). `make refresh-kb-metadata` regenerated the derived
+`.index/` (claims.jsonl + strengthen-by.jsonl); 0 solidity-line / subtree /
+leaf-reference changes (confirms the "solidity UNCHANGED" claims for clm-yr6tu4
+0.78 and clm-gw2wgc 0.70).

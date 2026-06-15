@@ -238,4 +238,4 @@ The Standard Model offers NO prediction for cosmic velocities — they are initi
   - [`vol4/falsification/ch11-experimental-bench-falsification/sagnac-parallax.md`](../../../vol4/falsification/ch11-experimental-bench-falsification/sagnac-parallax.md) — needs rewrite per §5 above
 - **KB cross-cutting:**
   - [`common/divergence-test-substrate-map.md`](../../../common/divergence-test-substrate-map.md) rows A2, C7, C17, C18 — matrix-level application of this framework
-  - [`vol4/falsification/ch12-falsifiable-predictions/binary-kill-switches.md`](../../../vol4/falsification/ch12-falsifiable-predictions/binary-kill-switches.md) — Trans-Planckian GRB dispersion as surviving preferred-frame probe
+  - [`vol4/falsification/ch12-falsifiable-predictions/binary-kill-switches.md`](../../../vol4/falsification/ch12-falsifiable-predictions/binary-kill-switches.md) — ~~Trans-Planckian GRB dispersion as surviving preferred-frame probe~~ → weak-C 2026-06-15 (Rule 12): GRB dispersion is a **corroborated NULL** (continuum photon has no zone-edge dispersion), NOT a forward prediction; the kill-switch leaf now carries the weak-C reconciliation + honest-scope note (§4.1 here)
