@@ -16,6 +16,13 @@ ABCD transmission-line matrices, Y-matrix admittance networks, and FDTD
 wave propagation.  This appendix documents how those results are
 \textbf{independently verified} using industry-standard SPICE tools.
 
+\emph{Scope (2026-06-15, reconciliation):} ``derives \ldots from four axioms''
+refers to the \emph{forms} and relations; absolute values additionally ride on
+the framework's three calibration inputs $\{m_e\,(\equiv \ell_{node}), \alpha, G\}$.
+The solver-independence principle below (``traces solely to the input axioms'')
+likewise certifies that the relations are solver-independent, not that the
+values are parameter-free.
+
 SPICE does not introduce new physics.  It provides a second,
 structurally independent computation of the same observables using the
 same Axiom~4 kernel:
