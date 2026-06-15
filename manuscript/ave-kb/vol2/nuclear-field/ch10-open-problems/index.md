@@ -32,4 +32,4 @@ Chapter 10 resolves the Strong CP problem, derives the cosmological baryon asymm
 | [g-star Prediction](./g-star-prediction.md) | Falsifiable experimental consequences: LISA, CMB Stage-4, FCC-ee |
 | [Scale Invariance Table](./scale-invariance-table.md) | Complete mapping of $\nu_{vac} = 2/7$ integers across all energy scales |
 | [Quantitative Resolutions](./quantitative-resolutions.md) | Summary table of all open problem results |
-| [Unification](./unification.md) | 26 of 26 SM free parameters derived from lattice impedance |
+| [Unification](./unification.md) | 26 of 26 SM free parameters derived from lattice impedance 🔴 *[recon 2026-06-15 §A.4]* (computed *from* the 3 retained calibration inputs $\{m_e,\alpha,G\}$ + 4 axioms) |

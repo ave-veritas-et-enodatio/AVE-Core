@@ -25,7 +25,7 @@ The appendices collect cross-domain reference material: the complete interdiscip
 | Spin-1/2 resolution | Extended $0_1$ unknot on $SO(3)$ manifold generates Finkelstein-Misner kink — $SU(2)$ spinor from $SO(3)$ substrate |
 | Holographic principle | Information bandwidth bounded by 2D cross-sectional porosity $\Phi_A \equiv \alpha^2$ via Nyquist-Shannon on $\mathcal{M}_A$ graph |
 | Peierls-Nabarro resolution | Dielectric saturation-plastic network creates frictionless zero-impedance phase slipstream via localised Shear Transformation Zone |
-| Zero-parameter closure | All 25--26 SM parameters derive from ($l_{node}$, $p_c$, $G$), which themselves are geometric outcomes |
+| Zero-parameter closure (target) | All 25--26 SM parameters derive from ($l_{node}$, $p_c$, $G$), 🔴 *[recon 2026-06-15 §A.4]* ~~which themselves are geometric outcomes~~ **which remain retained calibration inputs — lifting them to geometric outcomes is the stated *target*, gated on open gaps (per `app-f-solver-toolchain/universal-constants-exchange.md` :21), not achieved** |
 
 ## Derivations and Detail
 

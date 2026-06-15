@@ -57,7 +57,7 @@ If macroscopic gravity is the radial elastic wake of the localised Strong Nuclea
 > F_g = G \frac{m_p^2}{r^2}
 > $$
 
-By substituting the derived macroscopic boundary limit of Gravity ($G = c^4 / 7\xi T_{EM}$) and the fundamental baseline vacuum tension ($T_{EM} = m_e c^2 / l_{node}$), the derivation expands the gravitational coupling:
+🔴 *[KB-reconciliation 2026-06-15 (vol_2 brief §A.1)]* By substituting the ~~derived~~ **form-derived** macroscopic boundary limit of Gravity ($G = c^4 / 7\xi T_{EM}$ — the Achromatic-Lens $/7$ PPN form is derived, with the $\xi$ termination value-fitted to $G$; the closed-form Chain B′ derivation of $G$'s *value* is OPEN, per the 2026-06-14 G-ruling, `interlock-register.md` `ilk-gravmb` (`real_or_fitted: mixed`)) and the fundamental baseline vacuum tension ($T_{EM} = m_e c^2 / l_{node}$), the derivation expands the gravitational coupling:
 
 > **[Resultbox]** *Expanded Gravitational Coupling*
 >
@@ -79,7 +79,7 @@ The bare, localised Strong Force exerted by the baryon is its mass-stiffened ind
 > \mathbf{F_g = T_{nuc} \left[ \frac{1}{7 \xi} \left(\frac{l_{node}}{r}\right)^2 \left(\frac{m_p}{m_e}\right) \right]}
 > $$
 
-This equation represents a parameter-free algebraic unification of the fundamental forces. It shows that Macroscopic Gravity ($F_g$) is the bare Strong Nuclear Force ($T_{nuc}$), diluted by four geometric properties of the spatial lattice:
+🔴 *[KB-reconciliation 2026-06-15 (vol_2 brief §A.1)]* This equation represents ~~a parameter-free algebraic unification~~ **an algebraic unification (introducing no parameters beyond the 3 calibration inputs $\{m_e,\alpha,G\}$ + 4 axioms — an algebraic substitution of the value-fitted $G$, not an independent first-principles derivation of $G$, per `claim-quality.md` :754)** of the fundamental forces. It shows that Macroscopic Gravity ($F_g$) is the bare Strong Nuclear Force ($T_{nuc}$), diluted by four geometric properties of the spatial lattice:
 
 1. **$(l_{node}/r)^2$:** The classical 3D inverse-square spatial dispersion of the elastic wake.
 2. **$1/7$:** The Trace-Reversed Chiral LC tensor projection mapping a 1D flux-tube pull into a 3D volumetric strain.

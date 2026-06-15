@@ -139,7 +139,8 @@ Three standardised guard constants prevent numerical singularities throughout th
 These constants are \emph{dimensionless} ratios applied to already-normalised quantities.  They carry no units and encode no physics.
 
 \subsection{Dimensional Analysis Chain}
-Every derived constant in the engine is expressed algebraically from the three canonical hardware scales ($m_e$, $\alpha$, $G$ --- all three themselves derived; see Vol.~1, Ch.~\ref{ch:alpha_golden_torus} for the $\alpha$ closure) plus exact SI definitions ($c_0$, $\mu_0$, $\varepsilon_0$, $\hbar$, $e$).  The dimensional algebra is as follows:
+% [2026-06-15 KB-reconciliation (vol_2 brief A.2) -- prior wording preserved per Rule 12]: read "...the three canonical hardware scales ($m_e$, $\alpha$, $G$ --- all three themselves derived; ...)". SUPERSEDED: "all three themselves derived" is false for all three --- they are RETAINED inputs ($m_e$ calibration anchor, $\alpha$ Class-B value-scoped echo, $G$ mixed/value-fitted). Relabelled per the alpha keystone register (\kbleaf{ave-kb/vol1/ch8-alpha-golden-torus.md} :11) + the 2026-06-14 G-ruling. No value change.
+Every derived constant in the engine is expressed algebraically from the three canonical hardware scales ($m_e$, $\alpha$, $G$ --- the framework's three retained calibration inputs, not first-principles derivations: $m_e$ the calibration anchor, $\alpha$ a value-scoped echo beneath the canonical Class-B identification resting on $R\cdot r = 1/4$ which the substrate does not independently select, and $G$ mixed [form-derived $/7$ form, value-fitted $\xi$]; see Vol.~1, Ch.~\ref{ch:alpha_golden_torus} for the $\alpha$ closure) plus exact SI definitions ($c_0$, $\mu_0$, $\varepsilon_0$, $\hbar$, $e$).  The dimensional algebra is as follows:
 
 \begin{resultbox}{Dimensional Traceability}
 \begin{alignat*}{3}
