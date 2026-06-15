@@ -7,7 +7,9 @@ claims: [clm-1klgo2]
 
 ---
 
-**Deriving Dirac's Large Numbers Hypothesis:** By rearranging the geometric limit, one can analytically derive Dirac's famous Large Numbers Hypothesis. Starting from the derived gravitational coupling $G = c^{4}/(7\xi T_{EM})$ and substituting the baseline tension ($T_{EM} = m_{e}c^{2}/\ell_{node}$) and the spatial cutoff ($\ell_{node} \equiv \hbar/m_{e}c$):
+> **🔴 Form-vs-value scope ($G$-ruling 2026-06-14, `ilk-gravmb`):** $G = c^4/(7\xi T_{EM})$ is **form**-derived (the Machian-impedance scaling under the $1/7$ trace-reversed bulk projection), but its **value** is a calibration input — $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$ embeds $R_H \equiv c/H_\infty$, so $\xi$ is back-solved from the empirical $G$ (equivalently $\xi = \hbar c/(7Gm_e^2)$), not forward-derived. $G$ is classified **mixed** (derived-form, calibration-fitted-value), **not** an independent first-principles determination; the forward value-derivation (Chain B$'$) is open. (Mixed, **not** echo.)
+
+**Deriving Dirac's Large Numbers Hypothesis:** By rearranging the geometric limit, one can analytically derive Dirac's famous Large Numbers Hypothesis. Starting from the form-derived gravitational coupling $G = c^{4}/(7\xi T_{EM})$ (mixed-classified per the form-vs-value scope above) and substituting the baseline tension ($T_{EM} = m_{e}c^{2}/\ell_{node}$) and the spatial cutoff ($\ell_{node} \equiv \hbar/m_{e}c$):
 
 > **[Resultbox]** *Gravitational Coupling Constant*
 >
