@@ -33,6 +33,12 @@ The AVE-native canonical identification of the photon: under the K4 tetrahedral 
 
 _R1 cross-links (one dated line each): `master-equation.md:20` (the two-"3"s box), `cosserat-mass-gap.md:108` (the massless-scalar / mass-gap split). Registry §5 R1._
 
+> **🔴 WEAK-C SCOPE-NOTE (2026-06-15, Rule 12 — the §-opening paragraph (line 11) AND the 2026-06-10 PROVENANCE-vs-STATE annotation above are BOTH PRESERVED unedited; weak-C canonization, gate `wejkhvnfb`, Grant-confirmed 2026-06-14; prereg `research/2026-06-15_weak-c-photon-continuum_prereg.md`).**
+>
+> "**Stable T₂-only bound state**" (line 11) reads as a **dynamical attractor** — the T₂ content that survives the $A_1$ monotonic dissipation (Op3) — **NOT** a spatially-trapped object. The **free** photon is **sub-saturation** ($\Delta\phi \ll \alpha$, $Z_0$-matched, $\Gamma = 0$); it does **not** lock to nodes, and its propagation description is the **continuum EM field** = the discrete LC-ladder's **long-wavelength regime** ($L \gg \ell_{node}$, where $Z_0 = \sqrt{\mu/\varepsilon}$ and $c = 1/\sqrt{LC}$ are $\ell_{node}$-independent: `z0-derivation.md:40`; `master-equation.md:16, :61`). The free photon's continuum limit **is Maxwell**.
+>
+> The discrete K4 lattice is the **matter** substrate (**matter = saturation locked to nodes**); **Axiom-4 saturation is the one-way trapping gate** (continuum-light → lattice-matter, e.g. pair production), **NOT** the photon's propagation mechanism. The split is already canon at `k4-port-irrep-decomposition.md:134`: the same $T_2$ sector is **massless when propagating freely** AND hosts the bound electron's **massive** Cosserat shell at saturation — free vs. locked, one substrate, two regimes. The continuum is a **regime** of the one substrate, NOT a coexisting field; input-count stays 3 {$m_e$, $\alpha$, $G$}. The continuum photon inherits the lattice's cubic symmetry → a tiny **$(q\ell_{node})^4$ optical anisotropy** ($\delta \approx 2.2 \times 10^{-22}$, the surviving forward prediction; `preferred-frame-and-emergent-lorentz.md:56`), and carries **no zone-edge $(q\ell_{node})^2$ dispersion** (that is a *lattice-mode* property of *matter* carriers, not of the continuum photon → no GRB Lorentz violation). Scope-note ONLY; this does **NOT** assert "the photon is not a lattice mode at all" (that would be strong-C, out of scope).
+
 Here "substrate" refers to the Chiral LC Network of Axiom 1, corresponding to a chiral Laves K4 Cosserat crystal at the substrate level.
 
 > → Primary: [K4 4-Port Irrep Decomposition](../../operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md) — the canonical group-theoretic $A_1 \oplus T_2$ decomposition of the K4 4-port space, the $S = (1/2)\mathbf{1} - I$ eigenvalue derivation, and the Op3 asymmetric-dissipation mechanism. §1 below summarizes that decomposition for context; the irrep group theory is owned and derived there.
@@ -44,7 +50,7 @@ Here "substrate" refers to the Chiral LC Network of Axiom 1, corresponding to a 
 | K4 4-port irrep decomposition | $V_{\text{4-port}} = A_1 \text{ (1D, scalar/longitudinal)} \oplus T_2 \text{ (3D, transverse/microrotational)}$ — see K4 4-Port Irrep Decomposition |
 | Scattering matrix eigenvalues | $S = (1/2) \mathbf{1} - I$ has eigenvalues $\{+1, -1, -1, -1\}$ — $+1$ on $A_1$, $-1$ triplet on $T_2$ |
 | Empirical port-correlation (steps 100/200/300) | $\{1.65, 1.22, 1.13, 0.00\}$ — $A_1$ exactly dissipated, $T_2$ survives 3-mode split |
-| Photon = $T_2$-only canonical | $u = 0$ (no Cosserat translation), $\omega \neq 0$ (pure microrotation), no saturation ($\Delta\phi \ll \alpha$), linear $Z = Z_0$ |
+| Photon = $T_2$-only canonical | $u = 0$ (no Cosserat translation), $\omega \neq 0$ (pure microrotation), no saturation ($\Delta\phi \ll \alpha$), linear $Z = Z_0$ — **this is the continuum-regime row** (weak-C 2026-06-15): the no-saturation, $Z = Z_0$-matched, $\Delta\phi \ll \alpha$ free $T_2$ whose $L \gg \ell_{node}$ limit is the Maxwell continuum EM field; see the weak-C scope-note in §1 |
 | Electron = photon + TIR confinement | At $V \to V_{\text{yield}} = \sqrt{\alpha} V_{\text{snap}}$: $C_{\text{eff}} \to \infty$, $Z \to 0$, $\Gamma \to -1$ → self-trapped standing wave |
 | Compton frequency as dynamical threshold | $\omega = \omega_C = c / \ell_{\text{node}}$ is genuine threshold for photon → electron transition (resonance + saturation) |
 | Three regimes | $\omega < \omega_C$ (transparent) / $\omega = \omega_C$ (bound → electron) / $\omega > \omega_C$ (Compton scattering) |
@@ -95,7 +101,7 @@ From Vol 4 Ch 1:491-495:
 The photon in AVE is defined by **four tightly-coupled properties** (equivalent statements; any one implies the others):
 
 1. **Purely transverse** — no longitudinal/scalar component (forbidden by Gauss's law in vacuum; realized automatically by K4 $A_1 \oplus T_2$ symmetry, $A_1$ dissipates to zero).
-2. **Microrotation sector only** — excites $\omega$ (Cosserat microrotation) with $u = 0$ (Cosserat translation). The photon lives entirely in the rotational sector of the K4 lattice's 6 DOFs per node.
+2. **Microrotation sector only** — excites $\omega$ (Cosserat microrotation) with $u = 0$ (Cosserat translation). The photon lives entirely in the rotational sector of the K4 lattice's 6 DOFs per node. [**Weak-C 2026-06-15:** this is the **free, sub-saturation, linear $T_2$ mode**; its $L \gg \ell_{node}$ continuum limit is the Maxwell field. "Lives in the rotational sector" identifies the *irrep/DOF carrier*, not a spatial trap — the free photon does not lock to nodes. See §1 weak-C scope-note.]
 3. **Sub-saturation** — $\Delta\phi \ll \alpha$, lattice stays in linear regime, no Axiom 4 kernel engagement.
 4. **Impedance-matched at $Z_0$** — local lattice impedance $Z_{\text{local}} = Z_0 \approx 376.7$ Ω perfectly matched everywhere; reflection coefficient $\Gamma = 0$ at every bond; no scattering or reflection. *This is the wave-engineer's restatement of property 3: linear regime $\Leftrightarrow$ no impedance modulation $\Leftrightarrow$ perfect impedance match.* The Vol 4 Ch 1:491-495 quote above states exactly this.
 
@@ -111,7 +117,7 @@ With $A_1$ fully dissipated ($\lambda_4 = 0$ exactly) and $T_2$ surviving ($\lam
 - Pure microrotation-sector content → property 2 ($u = 0$, $\omega \neq 0$) ✓
 - Amplitude $0.5 < V_{\text{yield}}$ → property 3 (no saturation) ✓
 
-**All three AVE-photon properties are satisfied. The TLM's stable bound state under the $(2, 3)$ ansatz is the photon.**
+**All three AVE-photon properties are satisfied. The TLM's stable bound state under the $(2, 3)$ ansatz is the photon.** [**Weak-C 2026-06-15:** "stable bound state" = the dynamical attractor surviving $A_1$ dissipation (the property-3 amplitude $0.5 < V_{yield}$ confirms it is sub-saturation, $Z_0$-matched, unlocked) — its continuum limit is Maxwell. Not a spatially-trapped object; trapping is the Axiom-4 saturation gate that makes *matter*, not the free photon's propagation. See §1 weak-C scope-note.]
 
 > **Doc 107 correction.** Doc 105's dual-sector helical-photon framing ($u \neq 0$ AND $\omega \neq 0$) is empirically wrong per the engine result. The canonical photon is **single-sector** ($T_2$ only, microrotation $\omega$, no translation $u$). The engine's empirically observed "$u$ driven by $\omega$" coupling is a sub-saturation Op14 effect, not photon-physical content.
 
