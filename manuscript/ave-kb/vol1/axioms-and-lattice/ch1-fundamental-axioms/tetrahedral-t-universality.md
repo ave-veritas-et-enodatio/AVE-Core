@@ -22,7 +22,7 @@ The proper tetrahedral rotation group $T$ (the orientation-preserving symmetries
 
 ## Why this matters
 
-Before the four-route convergence, $\chi_K = 12$ could have been a fit parameter — a coupling-strength prefactor calibrated to match the K4 magic-angle equation $K(u_0^*) = 2G(u_0^*)$ at $u_0^* \approx 0.187$. The four-route enumeration shows that $12$ is forced by tetrahedral symmetry, replacing "12 as a fit" with "12 as the tetrahedral rotation group order."
+Before the four-route convergence, $\chi_K = 12$ could have been a fit parameter — a coupling-strength prefactor calibrated to match the K4 magic-angle equation $K(u_0^*) = 2G(u_0^*)$ at $u_0^* \approx 0.187$ (the operating-point *value* $u_0^* \approx 0.187$ is itself **asserted / back-fit** to CODATA $\alpha$ and $G$, not forward-derived — 2026-06-14 walk-back; the lock $K(u_0^*)=2G(u_0^*)$ is firm). The four-route enumeration shows that $12$ is forced by tetrahedral symmetry, replacing "12 as a fit" with "12 as the tetrahedral rotation group order." <!-- 🔴 Rule-12 2026-06-15 magic-angle: the u0*~0.187 value here is back-fit, not forward-derived (2026-06-14 walk-back); the chi_K=12-is-forced point is unchanged. -->
 
 This is part of the broader **substrate-symmetry-forced framework reduction**: more and more of what had looked like calibration parameters resolves into K4 symmetry consequences. The proper tetrahedral group's appearance at four independent points (coordination, Cosserat length, magic-angle orbit, constitutive ratio) is consistent with the substrate being a chiral Laves K4 Cosserat crystal at the axiom level (per the Axiom 1 canonical rename, 2026-05-16).
 

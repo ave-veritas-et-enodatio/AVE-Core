@@ -32,6 +32,9 @@ The over-bracing parameter $u_0$ measures bond strain at the secondary-scale mid
 
 $$K(u_0^*) = 2 G(u_0^*) \quad \text{at} \quad u_0^* \approx 0.187$$
 
+<!-- 🔴 Rule-12 2026-06-15 magic-angle u0* retraction (HEADLINE; root display equation): prior wording asserted u0*~0.187 directly. Per the 2026-06-14 walk-back (claim-quality-closure-roadmap.md:436), u0*=0.187 is asserted/back-fit, not forward-derived. FIRM = the lock K(u0*)=2G(u0*)+nu=2/7 (K=2G imported from GR). Do NOT refill with 4/21. -->
+> **Provenance (2026-06-14 walk-back):** the **lock** $K(u_0^*) = 2G(u_0^*)$ (with Poisson $\nu = 2/7$) is FIRM — though $K = 2G$ is itself imported from GR — but the operating-point **value** $u_0^* \approx 0.187$ is **asserted / back-fit** to CODATA $\alpha$ and $G$, **not** forward-derived. $\alpha$ and $G$ *fix* the operating point (the fit inputs, agreement by construction); $\mathcal{J}_{\text{cosmic}}$ (CMB axis-of-evil / LSS → $\hat{\Omega}_{\text{freeze}}$) is the one *independent* test — pass = chord, fail = echo. (Do not refill $0.187$ with $4/21$.)
+
 forces the K4 lattice's bulk modulus equal to twice its shear modulus — the trace-reversal identity required by General Relativity for transverse-traceless gravitational-wave propagation. The over-bracing parameter $u_0$ at exactly this magic value puts the bond's midpoint at the saturation point $A = 1$ — the **substrate-scale instance of A-034** (Universal Saturation-Kernel Strain-Snap Mechanism applied at the K4 cell scale).
 
 **Grant's framing:** "springs are shared, how else would gravity project?" The shared-B-node propagator is what makes gravity a non-local-but-causal effect in the K4 lattice — the impedance at one A-node affects all A-nodes reachable via shared-B-nodes (the secondary-scale neighborhood). Without shared-B-node propagation, there would be no mechanism for the substrate to project a coherent gravity response across distances $> \ell_{\text{node}}$.
