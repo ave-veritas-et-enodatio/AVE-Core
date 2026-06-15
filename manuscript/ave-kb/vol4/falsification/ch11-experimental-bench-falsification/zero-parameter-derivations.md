@@ -7,6 +7,8 @@ claims: [clm-ui3m8a]
 
 ## The Zero-Parameter Derivations
 
+> **🔴 SCOPE-CLARIFICATION (2026-06-15, zero-parameter register reconciliation; Rule 12 — heading preserved).** "Zero-Parameter" in this heading is the **downstream** sense: the derivations below lock $l_{node} \equiv \hbar/m_e c$ as their input and carry **zero free parameters *beyond the 3 retained calibration inputs* $\{m_e, \alpha, G\}$ + 4 axioms** — not a parameter-free universe. $\alpha$ (entering $\nu_{vac} = \alpha\,c\,l_{node}$ here and the $\sqrt{\alpha}$ yield limit below) is a *retained input* — a Class-B named geometric identification, value-scoped echo — not a derived output. Keystone register: `vol1/ch8-alpha-golden-torus.md:11`.
+
 By locking the fundamental lattice pitch to the kinematic mass-gap of the fundamental fermion ($l_{node} \equiv \hbar/m_e c \approx 3.8616 \times 10^{-13}\,\text{m}$), the Topo-Kinematic Conversion Constant physically emerges ($\xi_{topo} \equiv e/l_{node}$).
 
 When substituted into the macroscopic Maxwell equations, the dimensions flawlessly collapse into pure network mechanics. Utilizing strictly CODATA constants, the derived bulk mass density ($\rho_{bulk}$) is exactly $\mathbf{7.91 \times 10^6\,\text{kg/m}^3}$, and the mutual inductance ($\nu_{vac} = \alpha \cdot c \cdot l_{node}$) evaluates natively to $\mathbf{8.45 \times 10^{-7}\,\text{m}^2\text{/s}}$ --- the exact macroscopic mutual inductance of liquid water.
