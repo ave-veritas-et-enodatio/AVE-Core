@@ -307,8 +307,9 @@ class TestBridge:
         assert len(nodes) > 0
         assert "claim" in set(nodes.values())
         # every id is a known spine prefix (def- = vocabulary node-type, the
-        # sixth spine node-type materialized into the index per INVARIANT-S12)
-        assert all(nid.split("-", 1)[0] in {"clm", "exp", "sup", "axiom", "INVARIANT", "def"} for nid in nodes)
+        # sixth spine node-type materialized into the index per INVARIANT-S12;
+        # ilk- = interlock-mechanism, the seventh spine node-type per INVARIANT-S13)
+        assert all(nid.split("-", 1)[0] in {"clm", "exp", "sup", "axiom", "INVARIANT", "def", "ilk"} for nid in nodes)
 
 
 # ───────────────────────────────────────────────────────────────────────────
