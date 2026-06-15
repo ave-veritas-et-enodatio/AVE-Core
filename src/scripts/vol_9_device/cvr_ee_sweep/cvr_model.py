@@ -335,8 +335,15 @@ class BoundResonator(SubstrateExcitation):
     # electron's Q VALUE is injected ONLY at the ELECTRON instance constructor
     # below (the one site the residual-default gate allows to carry it).
     Q: float = field(kw_only=True)  # INSTANCE Q value (electron = 1/alpha; clm-rtdmsn)
-    pq: tuple[int, int] = field(default=(2, 3), kw_only=True)  # (p,q) winding label (electron-identification.md:27)
-    name: str = field(default="electron", kw_only=True)
+    # pq / name carry NO default (ave-representation-capability-check sentinel,
+    # 2026-06-14 residual; proton-lane prerequisite): a non-electron excitation
+    # (muon / proton) must NOT silently inherit the electron labels. Both are now
+    # REQUIRED keyword fields — there is no class-level electron default. The
+    # ELECTRON instance below passes them explicitly. Pure METADATA (the
+    # load-bearing Q was already required; consumers never read .pq/.name), so
+    # forcing them explicit leaves the electron run byte-identical.
+    pq: tuple[int, int] = field(kw_only=True)  # (p,q) winding label; REQUIRED, no default (electron-identification.md:27)
+    name: str = field(kw_only=True)  # instance name; REQUIRED, no electron default
 
     def omega_local(self, A0: float) -> float:
         """Operating-point resonance omega_local(A0) = omega_c * S(A0)."""
@@ -397,7 +404,9 @@ def verify_constants() -> dict:
     assert ELECTRON.poles()[0].real == poles(Q=Q_TANK)[0].real, "instance/form pole drift"
     assert ELECTRON.gamma_em_sq() == gamma_mag_sq_leak(), "instance |Gamma_EM|^2 drift"
     # |Gamma_EM|^2 is universal-alpha, NOT instance-Q dependent (gate-leg-2 guard):
-    assert ELECTRON.gamma_em_sq() == BoundResonator(Q=50.0).gamma_em_sq(), "|Gamma_EM|^2 must not vary with Q"
+    # Non-electron instance: pq/name now REQUIRED (sentinel) — passes explicit
+    # NON-electron labels, proving the class no longer hands out electron metadata.
+    assert ELECTRON.gamma_em_sq() == BoundResonator(Q=50.0, pq=(1, 1), name="test-Q50").gamma_em_sq(), "|Gamma_EM|^2 must not vary with Q"
     return {
         "Z_0_ohm": Z_0,
         "alpha_inv": 1.0 / ALPHA,
