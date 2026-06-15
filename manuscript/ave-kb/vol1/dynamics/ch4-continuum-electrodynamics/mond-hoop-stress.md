@@ -127,7 +127,7 @@ The Ideal Ropelength is a TOPOLOGICAL INVARIANT (Cantarella, Kusner, Sullivan 20
 > H_\infty \times 3.086 \times 10^{19} \approx 69.32\,\text{km/s/Mpc}
 > $$
 >
-> This result falls exactly within the tension bound of modern TRGB and Cepheid observations, providing zero-parameter closure to the Hubble Tension.
+> This result falls exactly within the tension bound of modern TRGB and Cepheid observations, providing a **Class E operating-point-projection** closure to the Hubble Tension: $H_\infty$ rests on the $G$-conditional consistency identity $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2)$ (with $G$ a retained input), not a zero-parameter ab-initio prediction. <!-- 🔴 Rule-12 2026-06-15 zero-param: prior wording "providing zero-parameter closure to the Hubble Tension" (byte-identical twin of 04_continuum_electrodynamics.tex:343) superseded; H_inf is G-conditional (Class E). -->
 
 <!-- Figure: fig:unruh_hawking_hoop_stress — Hoop Stress and the MOND Boundary. (Simulation Output). Classical Hoop-Stress projection (T = F_r/2*pi) upon an elementary 1D Fermion topological loop. When embedded within an isotropic 3D expanding horizon (a_r = c*H_infinity), the 2*pi divisor subjects the knot to an internal drift of a_genesis ~ 1.07e-10 m/s^2. -->
 
