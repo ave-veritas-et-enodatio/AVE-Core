@@ -112,6 +112,13 @@ EXCLUDE_NAMES = {"claim-quality.md", "claim-quality-closure-roadmap.md", "CLAUDE
 FRONTMATTER_BLOCK = re.compile(
     r"<!--\s*kb-frontmatter\s*\n(.*?)\n-->", re.DOTALL
 )
+# The interlock register's meta block (INVARIANT-S13) — carries the asserted
+# `expected-independent-count:` (the CI tripwire for a chord/echo tag flip) and
+# the `operating-point-root:` (the falsification-net root). Distinct comment tag
+# so it is never confused with `kb-frontmatter`.
+INTERLOCK_META_BLOCK = re.compile(
+    r"<!--\s*interlock-meta\s*\n(.*?)\n-->", re.DOTALL
+)
 CANONICAL_ID = re.compile(r"<!-- id: (clm-[a-z0-9]{6}) -->")
 # A claim OR support entry marker — both carry a `### Quality` block, so the
 # quality-block integrity check accepts either prefix (INVARIANT-S10).
@@ -121,6 +128,7 @@ ID_RE = re.compile(r"\b(clm-[a-z0-9]{6})\b")
 EXP_ID_RE = re.compile(r"\bexp-[a-z0-9]{6}\b")
 SUP_ID_RE = re.compile(r"\bsup-[a-z0-9]{6}\b")
 DEF_ID_RE = re.compile(r"\bdef-[a-z0-9]{6}\b")
+ILK_ID_RE = re.compile(r"\bilk-[a-z0-9]{6}\b")
 # Either prefix — for id-list frontmatter values that may hold clm- ids
 # (claims:, subtree-claims:) or exp- ids (experiments:, subtree-experiments:).
 ANY_ID_RE = re.compile(r"\b((?:clm|exp)-[a-z0-9]{6})\b")
@@ -566,6 +574,7 @@ def check_index_referential_integrity(index_dir: Path):
     try:
         node_type_by_id: dict[str, str] = {}
         definition_records: list[dict] = []
+        interlock_records: list[dict] = []
         for ln in claims_path.read_text(encoding="utf-8").split("\n"):
             if not ln:
                 continue
@@ -573,6 +582,8 @@ def check_index_referential_integrity(index_dir: Path):
             node_type_by_id[rec["id"]] = rec.get("node_type", "claim")
             if rec.get("node_type") == "definition":
                 definition_records.append(rec)
+            if rec.get("node_type") == "interlock-mechanism":
+                interlock_records.append(rec)
     except (json.JSONDecodeError, KeyError):
         return []
 
@@ -753,6 +764,41 @@ def check_index_referential_integrity(index_dir: Path):
                          f"line {lineno}, depends edge has non-null strength "
                          f"{strength!r}")
                     )
+            elif relation == "interlocks":
+                # SYMMETRIC mutual-constraint edge (INVARIANT-S13), hub-node
+                # encoding: source is a calibration-constant CLAIM; target is the
+                # shared interlock-mechanism hub; strength / fraction /
+                # target_solidity_recorded all null. NEVER traversed for solidity.
+                if src_type is not None and src_type != "claim":
+                    violations.append(
+                        ("depends-on", source,
+                         f"line {lineno}, interlocks edge source resolves to "
+                         f"{src_type!r}, expected claim")
+                    )
+                if tgt_type is not None and tgt_type != "interlock-mechanism":
+                    violations.append(
+                        ("depends-on", target,
+                         f"line {lineno}, interlocks edge target resolves to "
+                         f"{tgt_type!r}, expected interlock-mechanism")
+                    )
+                if kind != "interlock-mechanism":
+                    violations.append(
+                        ("depends-on", target,
+                         f"line {lineno}, interlocks edge target_kind {kind!r} "
+                         f"!= 'interlock-mechanism'")
+                    )
+                if strength is not None:
+                    violations.append(
+                        ("depends-on", source,
+                         f"line {lineno}, interlocks edge has non-null strength "
+                         f"{strength!r}")
+                    )
+                if fraction is not None:
+                    violations.append(
+                        ("depends-on", source,
+                         f"line {lineno}, interlocks edge has non-null fraction "
+                         f"{fraction!r}")
+                    )
             else:
                 violations.append(
                     ("depends-on", source or "?",
@@ -775,6 +821,11 @@ def check_index_referential_integrity(index_dir: Path):
         if ntype == "definition" and not DEF_ID_RE.fullmatch(nid):
             violations.append(
                 ("claims", nid, "definition node id is not \\bdef-[a-z0-9]{6}\\b")
+            )
+        if ntype == "interlock-mechanism" and not ILK_ID_RE.fullmatch(nid):
+            violations.append(
+                ("claims", nid,
+                 "interlock-mechanism node id is not \\bilk-[a-z0-9]{6}\\b")
             )
 
     # Definition (`def-`) clm_cross_links referential integrity (INVARIANT-S12).
@@ -799,6 +850,69 @@ def check_index_referential_integrity(index_dir: Path):
                     ("claims", cid,
                      f"definition {did} clm_cross_links id resolves to {tgt!r}, "
                      f"expected claim / experiment / support")
+                )
+
+    # Interlock-mechanism (`ilk-`) node validity (INVARIANT-S13). Each mechanism
+    # node carries a `real_or_fitted` tag and `status` (their enums), an optional
+    # `derived_endpoint` (which when present must resolve to a claim that is one
+    # of THIS mechanism's interlocked sources — the DOF a real chord removes),
+    # and a `cited_leaf` whose file part must resolve to an existing KB leaf
+    # (the ave-canonical-leaf-pull anchor, machine-enforced). A perturbed
+    # register entry fails here loudly.
+    if interlock_records:
+        # Map mechanism id -> set of interlocked source constants (from the
+        # interlocks edges sharing that mechanism as their hub target).
+        interlocked_by_mech: dict[str, set] = {}
+        dep_path_ilk = index_dir / "depends-on.jsonl"
+        if dep_path_ilk.exists():
+            for line in dep_path_ilk.read_text(encoding="utf-8").split("\n"):
+                if not line:
+                    continue
+                try:
+                    e = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                if e.get("relation") == "interlocks":
+                    interlocked_by_mech.setdefault(
+                        e.get("target"), set()
+                    ).add(e.get("source"))
+        for rec in interlock_records:
+            iid = rec.get("id", "?")
+            if rec.get("real_or_fitted") not in kb_index_lib.INTERLOCK_TAGS:
+                violations.append(
+                    ("claims", iid,
+                     f"interlock-mechanism {iid} real_or_fitted "
+                     f"{rec.get('real_or_fitted')!r} not in "
+                     f"{kb_index_lib.INTERLOCK_TAGS}")
+                )
+            if rec.get("status") not in kb_index_lib.INTERLOCK_STATUSES:
+                violations.append(
+                    ("claims", iid,
+                     f"interlock-mechanism {iid} status {rec.get('status')!r} "
+                     f"not in {kb_index_lib.INTERLOCK_STATUSES}")
+                )
+            de = rec.get("derived_endpoint")
+            if de is not None:
+                if node_type_by_id.get(de) != "claim":
+                    violations.append(
+                        ("claims", de,
+                         f"interlock-mechanism {iid} derived_endpoint resolves "
+                         f"to {node_type_by_id.get(de)!r}, expected claim")
+                    )
+                elif de not in interlocked_by_mech.get(iid, set()):
+                    violations.append(
+                        ("claims", de,
+                         f"interlock-mechanism {iid} derived_endpoint {de} is "
+                         f"not one of its interlocked sources "
+                         f"{sorted(interlocked_by_mech.get(iid, set()))}")
+                    )
+            cited = rec.get("cited_leaf") or ""
+            cited_path = cited.split(":", 1)[0].strip()
+            if cited_path and not (KB / cited_path).exists():
+                violations.append(
+                    ("claims", iid,
+                     f"interlock-mechanism {iid} cited_leaf path "
+                     f"{cited_path!r} does not resolve to an existing KB leaf")
                 )
 
     experiment_ids = {
@@ -870,6 +984,146 @@ def check_index_referential_integrity(index_dir: Path):
                 )
 
     return violations
+
+
+def _load_interlock_meta() -> dict | None:
+    """Parse the interlock register's ``<!-- interlock-meta ... -->`` block.
+
+    Returns the meta dict (``operating-point-root`` / ``expected-independent-count``
+    / ``calibration-params`` — the last added by the 2026-06-14 G-ruling, a
+    whitespace/comma-separated clm-id list naming the calibration set {m_e, α, G}
+    the live count is taken over) or ``None`` if no interlock register / meta
+    block is present (the interlock structure is optional — a KB without it skips
+    the count + net checks).
+    """
+    meta: dict | None = None
+    for ir in KB.rglob(kb_index_lib.INTERLOCK_REGISTER_NAME):
+        if any(part in EXCLUDE_DIRS for part in ir.relative_to(KB).parts[:-1]):
+            continue
+        m = INTERLOCK_META_BLOCK.search(ir.read_text(encoding="utf-8"))
+        if not m:
+            continue
+        meta = {}
+        for line in m.group(1).splitlines():
+            line = line.strip()
+            if not line or ":" not in line:
+                continue
+            k, _, v = line.partition(":")
+            meta[k.strip()] = v.strip()
+    return meta
+
+
+def _load_index_records(index_dir: Path, short: str) -> list[dict]:
+    path = index_dir / f"{short}.jsonl"
+    if not path.exists():
+        return []
+    out: list[dict] = []
+    for line in path.read_text(encoding="utf-8").split("\n"):
+        if not line:
+            continue
+        try:
+            out.append(json.loads(line))
+        except json.JSONDecodeError:
+            continue
+    return out
+
+
+def check_independent_parameter_count(index_dir: Path) -> list[str]:
+    """LIVE independent-parameter count freshness (INVARIANT-S13).
+
+    The interlock register asserts ``expected-independent-count:``; the verifier
+    recomputes the live count from the index and hard-fails on mismatch. A
+    chord/echo tag flip (fitted↔real) moves the live count and breaks the
+    assertion until the author deliberately updates it — loud-on-drift applied to
+    the framework's headline parameter-economy claim. No-ops when no interlock
+    register / assertion is present.
+    """
+    meta = _load_interlock_meta()
+    if not meta or "expected-independent-count" not in meta:
+        return []
+    try:
+        expected = int(meta["expected-independent-count"])
+    except (TypeError, ValueError):
+        return [
+            f"interlock-meta expected-independent-count "
+            f"{meta.get('expected-independent-count')!r} is not an integer"
+        ]
+    claims = _load_index_records(index_dir, "claims")
+    deps = _load_index_records(index_dir, "depends-on")
+    # 2026-06-14 G-ruling: when the register declares a `calibration-params:`
+    # marker, the count's node set is the explicitly-marked calibration set
+    # {m_e, α, G}, NOT the build-readiness band. Each marked id must resolve to
+    # a claim node (referential integrity — a typo'd / non-claim marker is a hard
+    # failure, not a silently-dropped count term). Absent the marker the count
+    # falls back to the legacy input-only band.
+    calibration_param_ids: "set[str] | None" = None
+    raw_calib = meta.get("calibration-params")
+    if raw_calib:
+        marked = kb_index_lib._ILK_CLAIM_REF_RE.findall(raw_calib)
+        if not marked:
+            return [
+                f"interlock-meta calibration-params {raw_calib!r} contains no "
+                f"well-formed clm- ids"
+            ]
+        claim_ids = {
+            r["id"] for r in claims if r.get("node_type") == "claim"
+        }
+        orphans = [cid for cid in marked if cid not in claim_ids]
+        if orphans:
+            return [
+                f"interlock-meta calibration-params reference(s) do not resolve "
+                f"to a claim node: {', '.join(sorted(orphans))} — fix the marker "
+                f"(a calibration param must be an existing calibration-constant "
+                f"claim, not a fabricated input-only node)"
+            ]
+        calibration_param_ids = set(marked)
+    live = kb_index_lib.compute_independent_parameter_count(
+        claims, deps, calibration_param_ids
+    )
+    if live != expected:
+        return [
+            f"live independent-parameter count {live} != asserted "
+            f"expected-independent-count {expected} — a chord/echo tag flip moved "
+            f"the count; update the interlock register's expected-independent-count "
+            f"only after confirming the parameter-economy change is intended"
+        ]
+    return []
+
+
+def check_falsification_net(index_dir: Path) -> list[str]:
+    """Falsification-net wiring (INVARIANT-S13) — the model's strongest claim.
+
+    Per ``omega-freeze-cosmic-grain-cascade.md:11``: the substrate has ONE DOF
+    (the operating point); the interlocked channels are joint-constrained;
+    falsification of ANY one kills the operating point. The interlock register
+    declares ``operating-point-root:``; the verifier hard-fails (naming the root)
+    if any interlocked channel claim is ``refuted``. No-ops when no interlock
+    register / root is present.
+    """
+    meta = _load_interlock_meta()
+    if not meta or "operating-point-root" not in meta:
+        return []
+    root = meta["operating-point-root"]
+    claims = _load_index_records(index_dir, "claims")
+    deps = _load_index_records(index_dir, "depends-on")
+    out: list[str] = []
+    root_type = next(
+        (r.get("node_type") for r in claims if r.get("id") == root), None
+    )
+    if root_type != "claim":
+        out.append(
+            f"operating-point-root {root!r} resolves to {root_type!r}, "
+            f"expected claim"
+        )
+    for channel, rt in kb_index_lib.falsification_net_violations(
+        claims, deps, root
+    ):
+        out.append(
+            f"interlocked channel {channel} is REFUTED → operating-point root "
+            f"{rt} is invalidated (the single-DOF u₀* dies; the substrate model "
+            f"falls — omega-freeze-cosmic-grain-cascade.md:11)"
+        )
+    return out
 
 
 LEAF_REFERENCES_PREFIX = kb_index_lib.LEAF_REFERENCES_PREFIX
@@ -1220,6 +1474,12 @@ def main(argv: list[str] | None = None) -> int:
     fresh_drift, expected_records = check_index_fresh(index_dir)
     ref_violations = check_index_referential_integrity(index_dir)
 
+    # Interlock structure (INVARIANT-S13): the LIVE independent-parameter count
+    # must match the register's asserted value (a chord/echo tag flip is loud),
+    # and no interlocked channel may be refuted (falsification net → root).
+    indep_count_failures = check_independent_parameter_count(index_dir)
+    falsification_net_failures = check_falsification_net(index_dir)
+
     # Solidity-graph checks. ``solidity`` is a derived field; these verify the
     # claim depends-on graph is acyclic and the on-disk solidity content
     # matches what ``compute_solidity`` derives.
@@ -1256,6 +1516,7 @@ def main(argv: list[str] | None = None) -> int:
         f"{node_type_counts.get('claim', 0)} claims / "
         f"{node_type_counts.get('definition', 0)} definitions / "
         f"{node_type_counts.get('experiment', 0)} experiments / "
+        f"{node_type_counts.get('interlock-mechanism', 0)} interlock-mechanisms / "
         f"{node_type_counts.get('support', 0)} support / "
         f"{node_type_counts.get('invariant', 0)} invariants / "
         f"{node_type_counts.get('axiom', 0)} axioms, "
@@ -1438,6 +1699,25 @@ def main(argv: list[str] | None = None) -> int:
             "  → Not refresh-fixable. Indicates a bug in the index builder "
             "(refresh should never emit an orphan reference)."
         )
+
+    if indep_count_failures:
+        has_failures = True
+        print(
+            f"\n[FAIL] {len(indep_count_failures)} independent-parameter-count "
+            f"assertion failure(s) (INVARIANT-S13):"
+        )
+        for msg in indep_count_failures:
+            print(f"  {msg}")
+
+    if falsification_net_failures:
+        has_failures = True
+        print(
+            f"\n[FAIL] {len(falsification_net_failures)} falsification-net "
+            f"violation(s) (INVARIANT-S13) — a refuted interlocked channel "
+            f"invalidates the operating point:"
+        )
+        for msg in falsification_net_failures:
+            print(f"  {msg}")
 
     if solidity_cycle:
         has_failures = True
