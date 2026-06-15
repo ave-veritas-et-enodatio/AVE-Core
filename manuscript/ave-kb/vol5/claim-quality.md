@@ -305,7 +305,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 
 - _Specific Claims_
   - The Molecular Chiral FRET Parallax test is proposed to map the AVE-predicted chiral metric bias underlying L-amino-acid dominance in terrestrial biology.
-  - The predicted relaxation under microgravity for a 5 nm Cy3/Cy5 fluorophore baseline is sub-attometer ($\sim 10^{-20}$ m) — below current single-molecule detection thresholds.
+  - The predicted relaxation under microgravity for a 5 nm Cy3/Cy5 fluorophore baseline is sub-attometer ($\sim 1.8 \times 10^{-19}$ m) — below current single-molecule detection thresholds.
   - The leaf is explicit: this test is "currently unfalsifiable at terrestrial gravitational baselines" and is catalogued as a future falsification target requiring either compact-object environments (e.g., Sirius B at $\varepsilon_{11} \sim 10^{-4}$) or a coherent resonant amplification mechanism.
 - _Specific Non-Claims and Caveats_
   - Does NOT claim experimental validation of the chiral metric bias from FRET data.
