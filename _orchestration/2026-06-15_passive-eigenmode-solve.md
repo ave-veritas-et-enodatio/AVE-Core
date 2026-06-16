@@ -570,7 +570,9 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   prereg + version) — the implementer correctly did NOT make that call. **🟢 SHARPENED (terminology-
   guide review, Phase 4): FLAG-WIND is a TOPOLOGY-CATEGORY ERROR, not merely an apparatus floor.**
   Per `substrate-native-terminology.md` ("EE owns dynamics, **topology owns the integers**"), the
-  (2,3) winding is a **conserved topological INTEGER** (charge = `def-3638f2`), not a continuous field
+  (2,3) winding is a **conserved topological INTEGER** (charge = the phase-space (p,q) winding,
+  `ch8-alpha-golden-torus.md:31` / `electron-identification.md` — cite the (p,q) home, NOT `def-3638f2`
+  which the updated guide flags as the `ambiguous` homonym node), not a continuous field
   — a topological integer is **held by definition**, it does not "evolve and disperse." Seed-and-
   evolve mis-categorizes it as a continuous IC; its smoothing-to-garbage is the predicted result, not
   a physics null. **→ holding the winding is the only categorically-correct test** (reinforces the
@@ -610,3 +612,23 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   the held-BC re-scope). (3) **"detonate" → "energy diverges / +λ gain"** (loose explosion-metaphor
   for a numerical instability; tightened). Frozen prereg carries a Rule-12 terminology annotation
   (body preserved). No physics-result change; no walk-back.
+- **2026-06-15 (Phase 4b — re-review of the REGIME-SCOPED guide rewrite)** — The guide was rewritten
+  from a hard PASS/FAIL retire-list into a **regime-scoped default-register guide** ("declare the
+  regime, then leak-check; scope, don't blanket-retire"; the substrate is **not globally lossless** —
+  radiative Q=1/α, Op3 A1-mode monotonic decay, boundary-Joule/Ohmic-decoherence, Regime-IV rupture
+  are real loss channels; what it lacks is only *internal viscous friction → heat in the reactive
+  regime*). **Impact on this lane (small, all confirming):** (i) the **high-Q / Q=1/α** framing is
+  *more* canonical — the rewrite lists the electron's per-cycle Q=1/α leak as THE radiative channel
+  (`resonant-lc-solitons.md:96`); the F2 "stable/non-decaying" read is the **bound, sub-yield interior
+  mode** (the reference regime), distinct from the *free* A1 mode's Op3 monotonic loss — a regime
+  distinction worth carrying. (ii) **Corrected the def cite:** charge → the (p,q) home, NOT
+  `def-3638f2` (now the `ambiguous` homonym). (iii) **"amorphous" nuance:** the lane's only "amorphous"
+  is the **secondary-EMT z₀≈51.25 route** (the α-echo cross-lane finding) — the rewrite puts that
+  under the **open D3 amorphous-retirement adjudication → do NOT classify either way**; so my Phase-4
+  "no amorphous leak" was imprecise — the lane *names* the secondary-EMT route (correct, not the
+  primary-lattice geometric-disorder leak), it does not clear it. (iv) **"detonate" regime-scope:** it
+  was a near-yield over-driven *numerical* runaway (+λ gain), NOT the canonical Regime-IV irreversible
+  rupture (which the rewrite confirms is a real phase). (v) The rewrite's **"photon IS transverse"**
+  precision (transverse-true; the trap is the inference "⇒ no longitudinal grade") — the lane
+  **respected it**: the longitudinal A1 mass-wall and the T2 winding were kept orthogonal, never wired
+  into the photon. Q1=(B) (case-law #4) and topology-owns-the-integers are unchanged.
