@@ -119,6 +119,34 @@ prereg [`research/2026-06-15_k2g-constitutive-provenance_prereg_FROZEN.md`](../r
   GR-identification clause; `:22` L↔mass tension; `01_appendices:131` softened to tuned-sim). Auditor's
   ρ=1-vs-ρ=2 question resolved (factor=1 ⟹ ρ=𝒢_geom; corpus ρ=2 asserted, needs Phase-1-NEGATIVE 𝒢=2).
 
-## Status: ACTIVE — both phases landed + both auditor-gates PASS; K=2G provenance = GR-IMPORTED (end of line); PR #261 awaiting Grant merge
+## Grant RATIFICATION (2026-06-15)
+
+Grant reviewed the load-bearing step himself and **ratified the two-phase NEGATIVE**: "The bridge is
+genuinely derived, not assumed; the punchline checks out — ρ=k_a/k_s=Z_eff², on the SYM branch the S
+cancels so the operating-point factor is invariant. Imported, both legs. End of line." Directives:
+
+1. **Merge #261; log Q-G41 closed-NEGATIVE.** Done — Q-G41 row in `claim-quality-closure-roadmap.md`
+   marked CLOSED-NEGATIVE (Rule-12 preserved); magic-angle audit §2 gains the doubly-grounded note.
+2. **Cite the two-phase NEGATIVE prominently in D2** — it's the ironclad piece of the *value-imported*
+   half (α echo + m_e hypothesis-class + K=2G failing BOTH geometric and constitutive forcing, with a
+   derived bridge). Strongest single result for the form-derived / value-imported framework verdict.
+3. **Magic-angle retraction is now doubly-grounded** — the reconciliation wave retracted u₀*=0.187 as a
+   back-fit (an *evidence* argument); Phase 2 adds a *constitutive* argument (SYM ρ-invariance ⟹ no
+   operating point selects K=2G). One-line note landed in the 2026-06-14 audit §2.
+4. **Four-lane convergence (orchestration payoff):** the open crio **Branch-R-vs-F** monotonicity Q =
+   **SYM-vs-ASYM** = **does-saturation-tune-ρ** = the **C_eff/ε_eff Q1** (ruled Q1=B). One physical fork,
+   four hats: SYM (ε,μ co-scale, Z=Z₀, Γ=0) = gravity null = Branch F; ASYM (one sector leads, Z→0/∞,
+   Γ=±1) = matter wall = chirality-set sign ([[project_wall_branch_fork]] DEGENERATE) = Branch R;
+   compliance(C₀/S, A1)-vs-permittivity(ε₀S, T2) = Q1=B axis. **The crio bench lane is now largely
+   pre-answered** from the theory side; ruling it is a two-for-one (bench monotonicity sign + off-SYM ρ).
+5. **HAND-OFF → D1 (field-definition lane):** the `k_s∝1/L` "mild tension" with the canonical L↔mass row
+   is a *signal* of a **dual name-collision on the inductive side**, parallel to the C-side split D1 is
+   doing. **C** overloaded = {compliance 1/k_a (A1)} ⊥ {capacitance/charge (ε)}; **L** overloaded =
+   {inertance mass/Lenz (A1)} ⊥ {inductance/reluctance 1/k_s (T2/μ)}. **D1 should split BOTH reactances
+   symmetrically** → the full TKI four-reactance sector map {C-compliance / C-capacitance} ⊥ {L-inertance
+   / L-reluctance}. That is what makes the `k_s∝1/L` step clean rather than tension-laden. Added to D1
+   scope (see [[project_ave_field_definition_lane]]).
+
+## Status: RATIFIED + MERGED — K=2G provenance = GR-IMPORTED, end of line. Q-G41 closed-NEGATIVE logged.
 </content>
 </invoke>
