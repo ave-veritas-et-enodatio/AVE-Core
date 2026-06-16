@@ -713,6 +713,21 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   auditor-asserted, not a canonical leaf; load-bearing for a phase-space hold). + persist the missing
   soft-sweep artifact (A47). **NEXT: Grant adjudicates — C′ (hold H_bel) / phase-space rep / defer.**
 
+- **2026-06-16 (Phase 6 — C′ DISPATCHED: hold the conserved H_bel via a no-work constraint)** —
+  Grant greenlit C′ (§9.1 amendment, commit `47b25c0c`). Pre-dispatch verification (3rd-slip guard):
+  `_beltrami_helicity` confirmed `cosserat_field_3d.py:450` (LOCAL density, integral NOT tracked);
+  the real (2,3)-pair readout is `extract_2_3_omega_fast` at `src/ave/utils/fast_winding_extractor.py:165`
+  (signature `(omega,pi_omega,R,r,N,n_ang=240,n_walks=12)->Dict`; usage `electron_spec_suite.py:58`) —
+  NOT a field method (§9.1's symbol name was slightly off, corrected in the dispatch brief). heldbc-wt
+  clean on `analysis/2026-06-15-eigenmode-heldbc` at the C result `adbffb20`. **Dispatched** background
+  `ave-implementer` (`a8c699dca7…`) to: build H_bel = Σ`_beltrami_helicity`·dx³; a NO-WORK constraint
+  (correction projected ⊥ the energy gradient via Gram-Schmidt `g_perp = g − (⟨g,e⟩/⟨e,e⟩)e`,
+  energy-neutral BY CONSTRUCTION); ω-carrier ONLY (never A1 phasor — G0-clean); co-resolving lattice;
+  full-Hamiltonian ledger FIRST (not `sum(ω²)`); KEY CHECK = does scalar-H_bel conservation MAINTAIN the
+  (2,3) pair (if too coarse → FINDING, don't force); bin POSITIVE→A / NEGATIVE-earned / DISQUALIFY;
+  KEEP-BOTH (new class alongside `WindingHold`, new `--hold-helicity` flag, C path stays runnable).
+  **NEXT: C′ returns → adversarial-verify panel → Option A (residual→0 eigensolve, target Q=α⁻¹≈137) iff clean.**
+
 ---
 
 ## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
