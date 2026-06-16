@@ -115,7 +115,7 @@ The equilibrium Z curve is degenerate (§2a). Candidate discriminators that are 
 
 **The fork is NOT an independent substrate-forced physical branch.** Layers, none yielding a unique sector:
 1. **DEGENERATE on the equilibrium observables (Z, |Γ|)** (Z=Z₀√S, |Γ|=1 both ways; FLAG-2 + `cvr_model.py`:146 "SAME trajectory — only the moved parameter differs"). The non-equilibrium residues — Γ-sign, formation-order, non-reciprocity — are what a discriminator targets; the equilibrium-Z discriminator is dead by construction. [A1/A6]
-2. **Substrate DEFAULT = co-saturation (symmetric), locked by trace-free K=2G** (`A-034`:14 ε,μ saturate at same A; `crystal_engine` single symmetric kernel; `l3-synthesis`:144 both give |Γ|=1). Absent chirality bias the sectors are LOCKED — genuinely degenerate.
+2. **Substrate DEFAULT = symmetric co-saturation — but that is the GRAVITY NULL, not the wall** (corrected 2026-06-15 post-Grant; earlier "co-built" framing was imprecise). Symmetric `S_μ=S_ε` → `Z=Z₀√(S_μ/S_ε)=Z₀` invariant, Γ=0 = impedance-matched gravity lens, does NOT confine (`A-034`:14; `l3-synthesis`:144). **The `Z→0` wall REQUIRES the chirality-broken asymmetry** — "degenerate" = neither sector substrate-privileged absent a chirality convention (spin-conjugate pair), NOT a co-built single wall.
 3. **The asymmetry (which-first) is a CHIRALITY-SET SIGN/SPIN selector, not a derived branch.** μ-first→Γ=−1 (one chirality); ε-first→Γ=+1 (conjugate). Canonical electron conventionally μ-first but **asserted-not-derived** (clm-lv3uw1 confidence 0.65 / solidity 0.50 / rest-mass-mechanism 0.32 [A3]; clm-5fu303 0.45; cvr "PRIMARY by mandate"; `54_*`:250 "either sector CAN fire first… chirality picks which").
 4. **Pre-thesis "static-loading→capacitive" REFUTED** — ε-only static state is the Z→∞ rupture branch, not confinement; soliton rings (∂B/∂t present), static premise fails. (Phase-0 anchoring caught by the adversarial gate.)
 5. **Engine cannot independently resolve it** — `crystal_engine` single-kernel/degenerate; Cosserat magnetic-first **hand-assigned by (1±κh) sign**; no temporal first-cross observer. An engine driver reconstructs an assumption-baked/degenerate path. NOT warranted.
@@ -134,3 +134,20 @@ The equilibrium Z curve is degenerate (§2a). Candidate discriminators that are 
 **Result doc:** [`research/2026-06-15_wall-branch-fork_result.md`](../research/2026-06-15_wall-branch-fork_result.md) — verdict B3 + flag-don't-fix recommendation to Grant. Arc COMPLETE; awaiting Grant ratification + PR review (Grant merges).
 
 > NOTE on line-number drift: claim-quality/taxonomy cite `master-equation.md`:78-79,81 for the branch text; the live `.md` carries it at :84-87. Content verified; cite the live `.md` lines.
+
+---
+
+## 10. Grant rulings applied (2026-06-15) + cross-lane handoff
+
+**Grant ratified** B3 + the demotion + mute-on-mass-sector + "fix the 2 defects in-lane." Applied:
+- **Dimensional bug FIXED** — `resonant-lc-solitons.md`:35-39 broken `√(μ₀/C_eff)` → canonical convention-independent `Z₀√S`.
+- **"Magnetic PRIMARY" DEMOTED** to chirality-conventional SIGN at the FLAG-2 sites (`cvr-dc-operating-point.md`:55, `resonant-lc-solitons.md`:98) + scope-pointer on clm-lv3uw1 (`vol1/claim-quality.md`).
+- **Mechanism corrected** (mine): "co-built" → chirality-broken asymmetry; symmetric co-saturation = gravity `Z=Z₀` null, NOT the wall. Verdict B3 unchanged; cleaner.
+
+**Two verify-before-cite catches (re-reading the actual sites before editing):**
+1. **Defect #2 was ALREADY RESOLVED** — the impedance-operator ambiguity (`vol1/claim-quality.md`:731) carries a "RESOLVED (2026-06-06 doc-reconcile)" strengthen-by at `:734` (disambiguated by sector via `electron-bh-isomorphism.md`:23-34). Phase-1 flagged the stale *rationale prose*, not a live defect. NOT re-fixed.
+2. **DEEPER ROOT flagged to Grant** — the dimensional bug is the tip of an INVARIANT-S2 inconsistency: `C_eff=C₀/S` (↑) while `ε_eff=ε₀S` (↓) is **inverse monotonicity** (violates `C∝ε`), which is *why* the ε-route reads `Z→0` (C-form) vs `Z→∞` (ε-form). A μ₀→L cosmetic fix would paper over it; routed through `Z₀√S` instead + flagged.
+
+**Provenance≠state reconciliation (Grant):** Lane-3 "mute on sector" (state = A1, `master-equation.md`:20) and Lane-2 "live flag" (provenance = T2, `cosserat-mass-gap.md`:108) are two frames of one hybrid mode — not a contradiction.
+
+**Cross-lane handoff → Lane 2 (eigenmode):** this lane fixes Lane-2's operating point. Lane 2 should impose the **chirality-signed winding as the odd-drive BC** at the **K=2G-locked** point and solve for the dissipationless stable hybrid (V,ω) mode, then **measure its radiative Q** (≈137, = 1/α — NOT solve for Q=∞/lossless, which is the α=0 decoupled limit = the false-negative). Lane-2's measured Q wires into Lane-1 as the cross-check; agreement at the measured α = the chord. (Per Grant's tri-lane synthesis: Lane 3 sets the point, Lane 2 measures Q=1/α, Lane 1 derives it.)

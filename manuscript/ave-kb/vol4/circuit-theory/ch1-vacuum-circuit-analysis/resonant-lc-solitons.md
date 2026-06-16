@@ -32,11 +32,13 @@ $$
 \lim_{\Delta\phi \to \alpha} C_{eff}(\Delta\phi) = \lim_{\Delta\phi \to \alpha} \frac{C_{0}}{\sqrt{1-\left(\frac{\Delta\phi}{\alpha}\right)^{2}}} = \infty
 $$
 
-Because the characteristic impedance of a spatial cell is dictated by $Z=\sqrt{L/C}$, this massive spike in boundary capacitance drives the localized impedance of the particle boundary strictly to zero:
+Because the characteristic impedance of a spatial cell is $Z=\sqrt{L_{eff}/C_{eff}}$, this spike in boundary capacitance drives the boundary impedance toward zero. In canonical, convention-independent form the wall follows the saturation kernel directly:
 
 $$
-\lim_{C_{eff} \to \infty} Z_{core} = \lim_{C_{eff} \to \infty} \sqrt{\frac{\mu_{0}}{C_{eff}}} = 0\,\Omega
+Z_{core} = Z_0\,\sqrt{S(A)} \;\xrightarrow[A\to 1]{}\; 0\,\Omega
 $$
+
+> *(Wall-fork H3, 2026-06-15: the legacy $\sqrt{\mu_0/C_{eff}}$ form was dimensionally irregular — $\mu_0$ is inductance-per-length, not $L$ — and is replaced by the canonical $Z_0\sqrt{S}$ trajectory. The deeper $C_{eff}=C_0/S$ (↑) vs $\varepsilon_{eff}=\varepsilon_0 S$ (↓) inverse-monotonicity that makes the $\varepsilon$-route read $Z\to0$ in the $C$-form vs $Z\to\infty$ in the $\varepsilon$-form — INVARIANT-S2 — is flagged for Grant.)*
 
 <!-- claim-quality: clm-kezk9z (the "unperturbed ambient vacuum $Z_0 \approx 376.7\,\Omega$" baseline used here is the discrete-LC-ladder $Z_0$ derived in $Z_0$ from Discrete LC Ladder, and Gravitational Stealth) -->
 In standard wave mechanics, the Reflection Coefficient ($\Gamma$) governing the transmission of energy across a boundary is defined by the impedance differential between the two media. Evaluating the boundary between the saturated particle core ($0\,\Omega$) and the unperturbed ambient vacuum ($Z_{0}\approx376.7\,\Omega$) yields:
@@ -95,7 +97,7 @@ The LC-tank picture above can be factored into a **class-invariant form** plus a
 
 **Ontology fence (preserved).** This $H(s)$/phasor view is the **A1 dilatation MASS-"3" only**. The $(2,3)$ Cosserat micro-rotation **charge-"3"** winding is orthogonal ($A1 \perp T2$) and is **never** wired into the breather's $(V_{inc}, V_{ref})$ phasor — $V_{ref}$ is a read-only projection of the same scalar $V$, not an independent DOF ([master-equation.md](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20).
 
-**Provisional / carried flags.** The **sector attribution** (which constitutive parameter moves at the wall — capacitive $C_{eff}\to\infty$ vs magnetic $\mu_{eff}\to0$) is **PROVISIONAL**: it rests on the input-only clm-lv3uw1 and the still-open FLAG-2 ([cvr-dc-operating-point.md](cvr-dc-operating-point.md):55); both routes give the same $Z=Z_0\sqrt{S}$ curve, so the bundle is robust but the attribution is unsettled. Also carried: the $S^{0.25}$-vs-$S^{0.5}$ exponent defect ([cvr-reflection-smith.md](cvr-reflection-smith.md):66) and the $S_{MIN}/A_{CAP}$ apparatus clip ([cvr-dc-operating-point.md](cvr-dc-operating-point.md):51).
+**Sector attribution (RESOLVED — wall-fork H3, 2026-06-15).** Which constitutive parameter moves at the wall — capacitive $C_{eff}\to\infty$ vs magnetic $\mu_{eff}\to0$ — is a **chirality-set SIGN** (which sector leads under the symmetry-breaking chirality bias = the electron's spin), **not** a substrate-privileged branch: both routes reach the same inside $Z=Z_0\sqrt{S}\to0$, $\Gamma=-1$ wall. The **symmetric** co-saturation limit ($S_\mu=S_\varepsilon$) is the impedance-matched **gravity** case ($Z=Z_0$, $\Gamma=0$), NOT this wall — the wall requires the chirality-broken asymmetry. The fork is **mute on the mass sector** (mass = the A1 dilatation, [master-equation.md](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20). **Still carried:** the $S^{0.25}$-vs-$S^{0.5}$ exponent defect ([cvr-reflection-smith.md](cvr-reflection-smith.md):66) and the $S_{MIN}/A_{CAP}$ apparatus clip ([cvr-dc-operating-point.md](cvr-dc-operating-point.md):51).
 
 > **[Circuitbox]** *Cavity-class discriminator (ave-cavity-class-identification)*
 >
