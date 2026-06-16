@@ -1223,6 +1223,30 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   build on the (correct) multi-cell Cosserat arena — a real build, NOT a representation/engine swap. No
   intentionality ruling needed from Grant. dx-normalize + the π-defect are non-blocking side-items.**
 
+- **2026-06-16 (Phase 21 — 🟢 Q3 AUTHORIZED + DISPATCHED: the K4-TLM bounded-wall build)** — Grant gave the
+  go. Dispatched a background worktree-isolated `ave-implementer` (`a056475de24c6853f`) on branch
+  `analysis/2026-06-16-stage16-k4tlm-bounded-wall` off the amendments tip `2a83808c`. **Spec = the #273
+  pre-flight 5-amendment brief with amendment-4 UPGRADED to a real build**, under the Phase-20 corrected
+  framing (multi-cell arena CORRECT; readout A46-clean; this is a bounded-wall BUILD, NOT an engine/representation
+  swap). The build: **port the K4-TLM unitary-scatter reflector** (`k4_tlm.py:402-423` `op3_bond_reflection`:
+  per-bond Γ/T, `Γ²+T²=1`, power-conserving, |ω|-bounded by construction) as the Stage-1.6 moving-wall BC,
+  replacing the unbounded `_rotate_clamp` (`cosserat_field_3d.py:1760-1783`, no |ω| ceiling → forms Γ→−0.993
+  WHILE H climbs 4.3×10⁶). This resolves the posable-vs-meaningful catch-22: unitary reflection bounds |ω|
+  WITHOUT clamping the reactive exchange the loop test measures. Amendments 1/2/3/5 already folded in on the
+  base branch (`a5a34f7c` two-sided tetra swap; `64d64e47` two-sided fire + H-ledger gate + K_wall sweep +
+  known-null meter). The K_wall sweep is KEPT as the motivating diagnostic (unbounded clamp → AMBIGUOUS, which
+  is why the unitary wall is needed). **Bin gate = the FROZEN 4** (LOOP-CLOSES / WALL-CONFINES-BUT-LOOP-INERT /
+  WALL-ALSO-FAILS / PUMPS); LOOP-CLOSES requires two-sided fire (fV AND f_omega both >0 on alive) AND
+  H-ledger flat/decaying AND conserved-redistribution AND the known-null meter calibrated. Side-riders:
+  dx=0.5→ℓ_node normalize (cleanliness); COMMIT the validation JSON (the arc's validation currently lives
+  only in commit-message prose). **GATE ON RETURN: the auditor lane re-verifies the bin verdict + pre-flight
+  clearance BEFORE this banks (auditor-not-exempt) — a false LOOP-CLOSES is the one outcome worse than the
+  delay.** Implementer instructed to flag (not decide) any framing-level fork in how the unitary scatter
+  couples the (ω,π_ω) pair. **STILL OPEN (Grant, separate from Q3): the #248/DEC-01 fork** — (a) close DEC-01
+  (weak-C = the regime reading, register:388 stale) vs (b) scope-down #248 (canonize Branch-C-supersedes-A/B
+  but keep primitive-vs-regime OPEN per the 2026-06-14 ruling; ACT-02 discriminates). #248 stays UNMERGED until
+  ruled.
+
 ## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
 
 **🟢 HELD OBJECT (explicit, per Grant — so a verifier cannot misread):** the held object is the
