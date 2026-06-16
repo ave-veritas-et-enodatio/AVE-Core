@@ -969,3 +969,52 @@ not `sum(ω²)`, the C false-positive) · `substrate-native-check` · `phase-spa
 `ave-driver-script-honesty` · `ave-apparatus-floor-attribution`. **C′ result → adversarial-verify →
 A iff clean.** Persist the (still-missing) C soft-sweep artifact or scope its "no-window" claim to
 hard-hold (A47, deferred-not-blocking).
+
+---
+
+## §11 — EE DIAGNOSTIC + SWEEP PROGRAM (2026-06-16, workflow `wknrs0aal`)
+
+**Are we using the full EE toolkit? NO.** Recon (grep-confirmed): the drivers emit the impedance/reflection
+NUMBERS — `Z_eff=√(S_μ/S_ε)` + `Γ=(Z_eff−1)/(Z_eff+1)` (`k4_cosserat_coupling.py:577,673-674`;
+`cosserat_field_3d.py:1638-1639`), an explicit "TRUE Smith reflection coefficient" `Γ_true=(n−1)/(n+1)`
+(`passive_eigenmode_driver.py:357-366`, off-main), field-level `S11=Σ|Γ|²` (`cosserat_field_3d.py:1285`),
+a GENUINE ring-down Q (`measure_Q_from_decay:602-615`, off-main), geometric Q (`extract_quality_factor:2208`),
+Hopf charge, winding — **but ZERO matplotlib anywhere; every read is reduced to medians/scalars/JSON,
+never kept as a swept LOCUS.** Genuine ABSENT diagnostics: **dispersion ω(k)** (the 3 existing FFTs are
+period-only / phase-scramble / Poisson-inverse-curl — none a band read), **TDR**, **S21/S12/S22** (only
+S11 exists), and a **continuous amplitude-bifurcation** trace (only `_pick_stable_amplitude` stability-pick).
+
+**🔴 THE ECHO-TRAP (load-bearing):** EVERY instrument agrees on α / 137 because they all read ONE
+baked-in number — `Q_TANK=1/ALPHA` at `cvr_model.py:58/:64-72` (the electron-instance bake). Smith
+gap=1−α, Bode peak=20·log(1/α), S21 notch=α, Nyquist pole-offset=α/2 are the SAME number on different
+displays. **Plotting more instruments does NOT escape echo.** The chord is earned ONLY by (a) DELETING
+the `cvr_model.py:58` Q-bake and recovering Q from a cold generic precursor, (b) the genesis bifurcation
+LATCHING from a non-planted T2 precursor, (c) a wide IC basin converging to the (2,3) form, (d) a bound
+branch self-splitting below the band-edge — FORM-emergence, not magnitude-readback.
+
+**🔴 INSTRUMENT-FLOOR CATCH (apparatus-floor):** the PLV/autoresonance **LOCK-detector is DEFECTIVE** —
+it bins a KNOWN self-focusing sech as UNRESOLVED at PLV≈0.53 (the 2026-06-14 NO-GENESIS verdict). So the
+corpus's existing bifurcation NO-GENESIS result is **currently UNINTERPRETABLE** — the emergence question
+is NOT settled-negative; the bench may be broken. Repair + validate the detector on a known-positive
+BEFORE trusting any emergence verdict (Sweep 7, P1).
+
+**Prioritized sweep matrix (targeted at α-free emergence, NOT echo magnitudes):**
+- **P0 — Genesis bifurcation diagram** (Stage 1.5): GENERIC T2 precursor A₀→past-yield (up+down), plot
+  A1-standing-V order-parameter; LATCHED hysteretic switch-on = chord, flat A1-V=0 = the 2026-06-14
+  FAIL/echo signature. THE headline — only tool testing FORM-emergence dynamically AND α-free. *Asterisk:
+  trustworthy only after the LOCK-detector repair.*
+- **P0 — α-free Q-extraction** (Stage 3): DELETE the `cvr_model.py:58` Q-bake first, ring-down the
+  self-formed cavity, does Q≈137 EMERGE untold? (Running it on the as-built tank = pure echoTrap.)
+- **P1 — Smith / Γ-plane self-trap LOCUS** (cheap, re-plot existing Z/Γ as a trajectory, not a median):
+  does a generic precursor's Γ migrate center→rim and terminate at a MEASURED |Γ|²=1−α?
+- **P1 — Dispersion ω(k) bound-mode** (new observer): does a flat/localized branch split below the band-edge
+  (existence leg, α-free by construction)?
+- **P1 — Precursor-IC basin sweep**: fraction of GENERIC ICs converging to the same (2,3)+Γ=−1 (wide basin
+  = attractor/chord; knife-edge = planted/echo) — most direct test of criterion (1).
+- **P1 — LOCK-detector repair + known-positive validation** (instrument-floor gate for P0).
+- **P2 — TDR moving-wall**, **3-Γ disambiguation tag** (Γ_spinor/Γ_impedance/|Γ_EM|²=1−α — guards the
+  genesis-24 double-count), **S21 stopband-notch** (confinement corroboration; floor is the 1−α echo).
+
+**Fold-in:** the running Stage-1.5 agent (`aebbc99dbd`) is already instructed α-free + report α-leaks — verify
+it does NOT inherit the `cvr_model.py:58` Q-bake on return. The P0/P1 sweeps + the detector-repair are the
+Stage-1.5+ analysis emit-list. Full matrix: workflow `wknrs0aal` output.
