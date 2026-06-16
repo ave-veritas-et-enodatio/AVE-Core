@@ -30,7 +30,7 @@ The full narrative is the orchestration tracker [`_orchestration/2026-06-15_pass
 | Option C′ NEGATIVE | passive FROZEN | `…cprime_helicity-hold_result.md` | `passive_eigenmode_cprime_helicity_N26.json` | heldbc | **STALE**: doc banks "NEGATIVE-earned"; Phase-7 re-binned DISQUALIFY-WRONG-OBJECT | 🔴 re-bin pending |
 | Stage-1.5 layer-a (A1 self-trap) | `…stage15…-prereg.md` *(body FROZEN; filename lacks `_FROZEN`)* | `…stage15…_result.md` (combined) | `stage15_layer_a…_results.json` | stage15 | PASS (Z_tank→0.376) | ✅ complete |
 | Stage-1.5 layer-b (coupled stability) | (shared stage15) | (combined) | `stage15_layer_b…_results.json` | stage15 | STABLE | ✅ complete |
-| Stage-1.5 layer-c (emergence probe) | (shared stage15) | (combined) | `stage15_layer_c…_results.json` | stage15 | **STALE**: doc reads clean EMERGENCE-NEGATIVE; Phase-14 OVERTURNED (grid-registration artifact) | 🔴 retraction pending — **LOAD-BEARING** |
+| Stage-1.5 layer-c (emergence probe) | (shared stage15) | (combined) | `stage15_layer_c…_results.json` | stage15 + amendments | Phase-14 OVERTURNED (grid-registration artifact) → loop-closure UNTESTED | ✅ **RETRACTION LANDED** `2a83808c` (Rule-12 header, body preserved) on the amendments branch |
 | Stage-1.6 moving-wall (Sector B) | `…stage16…-prereg.md` (FROZEN) | **MISSING** (500-killed; narrative in tracker Phase-13 only) | `stage16_moving_wall_sectorB_results.json` + 5 figs | stage16 | WALL-CONFINES-BUT-LOOP-INERT → verify found grid-registration artifact (vacuous) | 🔴 result MD pending |
 | Boundary M/Q/J reframe | — (KB doc) | `manuscript/ave-kb/common/boundary-observables-m-q-j.md` | — | zwall (KB) | 𝓠=linking / 𝓙=winding | ⚠️ arc-application narrative tracker-only |
 | Dimensional analysis (M/J/Q spine) | — | — (tracker §refs only) | — | — | α⁻¹=𝓜+𝓙+𝓠 (Class-B) | ⚠️ no committed artifact |
@@ -40,7 +40,7 @@ The full narrative is the orchestration tracker [`_orchestration/2026-06-15_pass
 ## 🔴 STALE LEAVES — corrections pending before any merge (Grant-gate)
 
 A corpus reader grepping these committed leaves banks a superseded verdict as live; the tracker prose carries the correction but the leaf does not. **Land before merge:**
-1. **Stage-1.5(c)** — Rule-12 retraction header (preserve body) on `…stage15…_result.md:18,85-90` citing the Phase-14 `w9q6nv9gm` grid-registration diagnostic + the Stage-1.6 `overlap_cells_cartesian=0` vs `_tetrahedral=1024` finding. *(owner: amendments-implementer; the stage16-amendments branch contains the inherited stage15 doc.)* **THE load-bearing one.**
+1. ✅ **Stage-1.5(c) — LANDED** (`2a83808c`, amendments branch): Rule-12 retraction header on `…stage15…_result.md:18,85`, body preserved, re-scoped to "loop-closure UNTESTED (Cartesian-stencil artifact zeroed the coupling)." The load-bearing one — **done.**
 2. **C′** — re-scope the doc header + JSON `C_reading` from "NEGATIVE (earned)" → "scalar-route CLOSED-NEGATIVE; sector-cohabitation UNTESTED" (demotion header, preserve original per Rule-12). *(owner: heldbc-branch edit.)*
 3. **Driver NEGATIVE-A** — annotate `…2026-06-15_passive-eigenmode_result.md:3,72`: mis-binned per `w92ft1gkc` (F1+F2 PASS = breather exists) AND superseded at Phase-8. *(owner: driver-branch edit.)*
 

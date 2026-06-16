@@ -1097,7 +1097,30 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   the Stage-1.6 result MD + the C′/driver corrections into the amendments / a doc-backfill pass; Grant rules
   Q1/Q2.**
 
----
+- **2026-06-16 (Phase 17 — amendments `acea7c7f20` IN + VALIDATED: Ckpt-2 fix works (GAP 1 closed); but
+  K_wall sweep = AMBIGUOUS-pending-stable-BC + the wall-OFF baseline DETONATES → Q3 NOT clean-fire-ready)** —
+  the 5 amendments applied on `analysis/2026-06-16-stage16-rerun-amendments` (engine `a5a34f7c` + driver
+  `64d64e47` + retraction `2a83808c`; 129 pytest pass, 0 regressions; pushed). **VALIDATION (scope-guarded,
+  NOT Q3):** **GAP 1 CLOSED** — the two-sided tetra swap (new `_cosserat_axial_curl_tet` + `f_omega` →
+  `adjoint_tetrahedral_divergence`) makes `f_omega_alive_max` = 0.6–1.9 (was identically 0 on alive); overlap
+  128 tet vs 0 Cartesian; adjoint verified (⟨grad V,T⟩=⟨V,adj_div T⟩ ratio 1.0000). Known-null meter = 0
+  (−5.97e-9). **Reciprocity FD-clean** (f_V=−dH/dV ratio 1.0000; f_ω ratio 0.95) → the WALL-ON ledger climb is
+  genuinely the wall BC, NOT a coupling sign bug. **🔴 K_wall sweep = AMBIGUOUS-pending-stable-BC:** NO K bounds
+  the wall — low-K doesn't form (Γ≈0, H+50–90%); K=400 forms (Γ→−0.993) but H+110–1800%; K=800 runs away.
+  `_rotate_clamp` has **NO |ω| ceiling** → confinement + pumping rise TOGETHER (GAP-3 "Op17-bound" premise
+  confirmed FALSE). So Q3 at amp=2.0 PUMPS regardless of the (correct) stencil fix. **🔴 6th finding
+  (implementer-flagged): the wall-OFF baseline DETONATES at amp=2.0** with the corrected stencil
+  (`couple_on=False` → |ω|≈1926) — Stage-1.5(c)'s "inert-spectator coupling_work=0" was **DOUBLY an artifact**
+  (the Cartesian stencil zeroed the coupling AND masked that the bare super-yield photon detonates). The prereg
+  §1 / FIG-2 "inert-spectator" wall-OFF REFERENCE is broken → the meaningful comparison is now **WALL-ON
+  conserved-ledger flatness** (the H-ledger gate), NOT ON-minus-OFF `coupling_work` magnitude. **Stage-1.5(c)
+  retraction LANDED** (`2a83808c`, stale-leaf #1 CLOSED; arc INDEX updated). Provenance: no-op (`230579b6` in 0
+  tracked docs). FROZEN 4 bins confirmed in driver (`:551/567/571/577`). **Q3 IS NOT CLEAN-FIRE-READY — needs
+  a 6th amendment: (a) a genuinely bounded wall BC (an Op17 |ω| ceiling, NEW — `_rotate_clamp` has none),
+  (b) sub-yield amplitude (so wall-OFF doesn't detonate), (c) the WALL-ON-ledger-flatness verdict (not
+  ON-vs-OFF).** **NEXT: signal the audit-lane `ww8x96sci` pre-flight on the corrected engine — but the
+  implementer's own validation already shows AMBIGUOUS-BC + the broken baseline → expect a 2nd
+  FIX-BEFORE-DISPATCH (bound the wall + sub-yield + re-frame) before Q3. Surface to Grant + the audit lane.**
 
 ## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
 
