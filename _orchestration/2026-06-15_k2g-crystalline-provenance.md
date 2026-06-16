@@ -52,13 +52,35 @@ pinned to 2 → K=2G is NOT crystalline-geometric → it's GR-imported (b) and/o
 
 ---
 
+## Result (2026-06-15) — Outcome A: crystal does NOT force K=2G
+
+Driver [`src/scripts/verify/k2g_crystalline_provenance.py`](../src/scripts/verify/k2g_crystalline_provenance.py)
+(standard diamond Keating lattice dynamics, **validated vs carbon diamond C44 to −0.36%**):
+
+- **z=4 is sub-isostatic** (Maxwell z<2d=6). Central-force only → all shear moduli → 0 (floppy); bulk
+  survives. Shear rigidity is **entirely bond-bending** → **K/G is a one-parameter family in ρ=k_a/k_s**.
+- **Real z=4 diamond: ν≈0.067, K/G≈0.82** (bending-dominated, K<G) — **far from** K=2G (ν=2/7=0.286).
+- K=2G requires a **tuned, averaging-dependent ρ\*** ∈ {3.67 (C′), 5.30 (Voigt), 6.62 (C44)} — none
+  geometrically forced; cubic K4 anisotropy (A=1.21) makes "a single G" itself a choice.
+- ν=2/7 ⟺ K=2G exact (the one firm link) — but the **consequent** of K=2G, not a derivation of it.
+
+**Fork verdict (computation):** (a) crystalline-forced **REFUTED**; (b) GR-imported **SUPPORTED** (indep.
+corroboration of the 2026-06-14 audit's IMPORTED grade); (c) amorphous FTG-EMT stands as a *consistency
+illustration* only (α-circular, on the z₀≈51.25 amorphous net). Resolves the corpus's flagged 7-vs-2
+ratio split (= relaxed-vs-clamped internal-strain modelling choice). Result doc:
+[`research/2026-06-15_k2g-crystalline-provenance_result.md`](../research/2026-06-15_k2g-crystalline-provenance_result.md).
+
+**To Grant (flag-don't-fix):** the provenance verdict is his call. Recommended: ratify (b), log Q-G41
+closed-NEGATIVE ("K=2G is the GR trace-reversal operating point, not a K4 topological inevitability"),
+cite this driver. The gravity sector already reads K=2G as IMPORTED on main — no canonical edit needed.
+
 ## Lane log
 
-- **2026-06-15** — Lane opened. Corpus-grep prereg complete (this doc + frozen prereg). Worktree +
-  branch created. Cross-repo sweep: NO forward crystalline K=2G derivation in any of 9 repos;
-  K=2G IMPOSED everywhere, only the consequent bond-ratio is forward-derived. Prereg frozen →
-  auditor-gate → driver.
+- **2026-06-15** — Lane opened. Corpus-grep prereg complete. Worktree + branch off origin/main.
+  Cross-repo sweep: NO forward crystalline K=2G derivation in any of 9 repos; K=2G IMPOSED everywhere.
+  Prereg frozen (Rule-11, `cdaecb63`) → auditor-gate (running) ∥ driver → result (`6937c8c0`),
+  Outcome A confirmed. Awaiting auditor-gate, then PR (Grant merges).
 
-## Status: ACTIVE — prereg freeze
+## Status: ACTIVE — result landed, auditor-gate pending, PR-ready
 </content>
 </invoke>
