@@ -1,7 +1,12 @@
 # Passive winding-protected electron eigenmode — the structural keystone (ORCHESTRATION)
 
-> **STATUS: VERIFY PANEL `w92ft1gkc` UNANIMOUS — do NOT bank NEGATIVE-A (mis-binning + the keystone
-> is UN-TESTED). Held for Grant: held-BC re-scope / cheap held-BC probe / bank-what's-solid + defer.**
+> **STATUS: Grant chose C-then-A. OPTION C (held-BC breather-persistence PROBE) IN FLIGHT** (build the
+> conservative (2,3)-hold mechanism + test whether the charge-carrying mass-breather persists). A
+> (full held-BC + residual→0 eigensolve, new frozen prereg) follows IF C is clean. C pre-registration
+> at Phase 5 below.**
+>
+> _(prior status, retained:)_ **VERIFY PANEL `w92ft1gkc` UNANIMOUS — do NOT bank NEGATIVE-A (mis-binning + the keystone
+> is UN-TESTED).**
 > Lane worktree `AVE-Core-eigenmode-wt`, branch `analysis/2026-06-15-passive-eigenmode-solve` off
 > `main@40a2a2e7`. **main is PROTECTED — Grant merges; this lane does NOT merge. Result NOT banked.**
 > **SOLID (bankable):** the first NEGATIVE-A is REFUTED (false negative); the **wall-half breather is
@@ -632,3 +637,45 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   precision (transverse-true; the trap is the inference "⇒ no longitudinal grade") — the lane
   **respected it**: the longitudinal A1 mass-wall and the T2 winding were kept orthogonal, never wired
   into the photon. Q1=(B) (case-law #4) and topology-owns-the-integers are unchanged.
+
+---
+
+## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
+
+**Physical question:** with the (2,3) charge-winding **HELD** (enforced as a conserved topological
+constraint each step — charge conservation, the law the seed-and-evolve driver violated), on the
+co-resolving lattice where the A1 mass-breather is real (N=26-class, dx=0.5, ≥5–10 cells), does the
+**charge-carrying mass-breather PERSIST** as a bounded, recurrent, non-decaying (except the Q=1/α
+radiative leak) mode over many breaths? *(Plumber: pin the conserved circulation on the ω-tank,
+energize the LC mass-tank, watch whether it keeps ringing or the pinned charge fights it into
+collapse.)*
+
+**What I expect (honest):** uncertain. The mass-breather alone persists (wall-half VINDICATED). The
+open question is whether the held charge is **compatible** with it — does the breather carry the
+conserved winding stably, or does the constraint destabilize the mode (or vice-versa)?
+
+**Discriminator:**
+- **POSITIVE (C-clear → proceed to A):** the held-winding mass-breather **persists** (bounded,
+  recurrent, F2-stable over many breaths), the winding stays (2,3) **by construction** (the hold
+  works), AND the hold is **CONSERVATIVE** (energy-neutral). → the mass-cavity carries the conserved
+  charge stably; strong evidence the electron is a coherent winding-protected mode → build the full
+  A self-consistent eigensolve (find-the-pole).
+- **NEGATIVE (C-fails):** even with charge held, the breather **decays / destabilizes**, OR the only
+  way to keep it standing is to PUMP it → the two sectors do not cohabit → keystone leans negative
+  (cheaply, before paying for A).
+- **🔴 DISQUALIFY (`ave-conserved-vs-pumped`):** if the (2,3)-hold **injects energy** (a pump, not a
+  conservative constraint), a "persistent" result is a **pumped artifact**, NOT bankable as positive.
+  The hold MUST be energy-neutral; verify via the energy ledger BEFORE reading persistence.
+
+**Mechanism (`substrate-native-check` + `phase-space-coordinate-check`):** "hold the winding" =
+re-project / enforce the (2,3) on the **independent Cosserat-ω carrier** in **PHASE-SPACE** coords
+(the (ω, ω̇) phasor / Clifford torus, NOT real-space; A46) each step — a **conservative** projection
+(a constraint, not a drive). Never wire it into the A1 (V_inc,V_ref) phasor (the double-count;
+G0-clean — preserve it). **C builds this held-BC machinery — which A then reuses + adds the
+residual→0 eigensolve.**
+
+**Guards:** `ave-conserved-vs-pumped` (the hold is a conserved constraint, energy-neutral) ·
+`substrate-native-check` (hold a topological integer, don't seed-and-evolve it) ·
+`phase-space-coordinate-check` (phasor, not real-space) · `ave-driver-script-honesty` (report the
+energy ledger + persistence as measured; do not tune) · `ave-apparatus-floor-attribution`
+(persistence = physics or a pump/box artifact). **C result → adversarial-verify panel → A iff clean.**
