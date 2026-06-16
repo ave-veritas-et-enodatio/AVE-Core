@@ -951,6 +951,36 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   statement, then Fork 1's gated confined precursor) / PUMPS. Ckpt 8+10 + full-H witness + apparatus-floor
   known-positive + α-free inherited. **NEXT: Stage 1.6 returns → verify panel → adjudicate.**
 
+- **2026-06-16 (Phase 13 — Stage 1.6 RESULT [recovered after a 500 killed the agent's final commit]:
+  PUMPS [numerical] + physics = WALL-CONFINES-BUT-LOOP-INERT; load-bearing sublattice-registration open;
+  verify dispatched)** — the agent ran 42 min / 79 tool-calls then died on a 500 Internal Server Error
+  before committing its driver/JSON/figures + writing the result doc. **Recovered from the uncommitted
+  artifacts; committed + pushed** to `origin/analysis/2026-06-16-boundary-mqj-stage16-moving-wall-sectorB`
+  (recovery commit). **Result (from `stage16_moving_wall_sectorB_results.json`):** `verdict="PUMPS"` — but
+  that is a **numerical BC issue**: K_wall=400 stiff wall NOT Op17-bounded at the operating amp=2.0, so
+  |ω| diverges (omega_max→20032, diverged step 2530; the no-wall run also diverges →20006 — the photon at
+  amp=2.0 is over-driven). **The PHYSICS = WALL-CONFINES-BUT-LOOP-INERT:** the moving wall **does confine**
+  (Γ→−0.993 forms; `known_positive_PASS=true` — bounds a known photon, ω 3.6 with-wall vs 3954 without),
+  but **`coupling_work=0.0` the ENTIRE trace** (from t=0, before divergence; `loop_fires=false`) — SAME as
+  Stage-1.5 (c). The external wall confined the photon but its curl still did not couple to the cage.
+  **CP8-spatial-provenance CLEAN:** generic seed (no plant), wall = Γ-field argmin recomputed every substep
+  (generic rule), and the **generic-offset sweep is INERT-EVERYWHERE (0/6 fire)** → the inertness is
+  generic, not a missed plant. α-free held (κ_chiral=0 override). The **figure-emit WORKED** (5 real
+  figures: moving-wall TDR, coupling_work/f_V, Sector-B Γ Smith, winding, apparatus-floor — the lane's
+  first plots). **🔴 THE LOAD-BEARING OPEN QUESTION (the agent's own `coupling_curl_sublattice` diagnostic):**
+  the gate g and the curl Ξ register on **DIFFERENT sublattices** — `overlap_cells_cartesian=0` vs
+  `overlap_cells_tetrahedral=1024` (gXi_cartesian=0, gXi_tetrahedral=2.92). So `coupling_work=0` may be
+  **PHYSICAL** (curl genuinely does not co-locate, even confined) **OR a CARTESIAN-vs-TETRAHEDRAL
+  grid-registration ARTIFACT** (the deflationary third option — if the coupling integral is computed on the
+  sublattice where it is structurally zeroed, the experiment did NOT test the loop, structurally like
+  Stage-1.5's ruled-out disabled-flag worry but now a grid bug). **DO NOT bank** — verify panel `w9q6nv9gm`
+  dispatched (grid-registration: artifact-vs-structural · physics/PUMPS: separable-BC + does-the-wall-confine
+  + does-WALL-CONFINES-BUT-LOOP-INERT-promote-to-the-substrate-statement). **Toolkit-audit note (§12):** the
+  real-vs-reactive `coupling_work` classification is MOOT here (coupling_work=0, no work to classify); the
+  applicable cross-check is **Op17 T²=1−Γ²** on the PUMPS (does the wall BC violate |Γ|≤1) — folded into the
+  panel. **NEXT: panel returns → (artifact ⇒ re-run with matched registration / structural+PUMPS-separable
+  ⇒ BC-fix re-run then the substrate statement) → Grant.**
+
 ---
 
 ## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
