@@ -173,10 +173,12 @@ The 9 recognized analytical-problem classes (any AVE derivation that maps to ≥
 | **Op19 Refractive Index** | n(r) = 1 + ν_vac ε₁₁; ν_vac = 2/7 | [`operators.md` Op19 line 49](operators.md) | Gravity as refractive-index variation |
 | **Resonant LC Solitons** | particles as LC tanks; Virial | [`resonant-lc-solitons.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md) | Soliton-as-eigenmode framing |
 | **Relativistic Inductor** | $L_{eff}(I) = L_0/\sqrt{1 - (I/I_{max})^2}$ | [`relativistic-inductor.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor.md) | Current-dependent inductance; E = mc² from inductor energy |
+| **K4 dispersion ω(k) extractor** | Bloch-seed commensurate $k$, read ω(k) off the FFT peak | `src/ave/core/chiral_lattice_dynamics.py:85` (`measure_dispersion`) | **MEASURED** K4/srs band structure on the actual chiral net; sweep to the zone edge to read the lattice $k_{max}$ empirically |
+| **Analytic lattice dispersion + Brillouin edge** | $\omega(k)=(2c/\ell)\lvert\sin(k\ell/2)\rvert$, $k_{max}=\pi/\ell$ | `src/ave/axioms/spectral_gap.py:66,:102` (`lattice_dispersion`, `brillouin_zone_edge`) | **IDEALIZED** continuum-cubic ω(k) + zone-edge wavenumber (contrast the measured extractor above — see the $k_{max}$ pitfall below) |
 
 **Common pitfalls**:
 - Substrate-mode propagation at c_shear (Op16) vs vacuum c (different regimes per saturation state)
-- K4 discrete vs continuum Maxwell — discrete dispersion has Nyquist cutoff at k_max = π/ℓ_node
+- K4 discrete vs continuum Maxwell — discrete dispersion has Nyquist cutoff at k_max = π/ℓ_node. **⚠ $k_{max}$ is corpus-contested (unresolved — flag-don't-fix):** this π/ℓ_node value is the *idealized continuum-cubic* Brillouin edge (also [`paley-wiener-hilbert.md`](../vol1/dynamics/ch3-quantum-signal-dynamics/paley-wiener-hilbert.md):10), whereas [`boundary-observables-m-q-j.md`](boundary-observables-m-q-j.md):87 uses $k_{max}=0.577/\ell_{node}=1/\sqrt3$ — the *empirically-measured K4 propagating-mode cutoff* (the TLM network-velocity factor). These are **different physical bounds sharing one label** (~5.4× apart), not a unit-convention difference. Which one binds (e.g. for the clm-sjjvhf interior-Nyquist-exemption argument) is a Grant adjudication; the **MEASURED** `measure_dispersion` extractor (above) settles it by sweeping to the zone edge.
 - Substrate-native check (pre-derivation skill) applies: don't default to SM/QED Lagrangians
 
 ---
