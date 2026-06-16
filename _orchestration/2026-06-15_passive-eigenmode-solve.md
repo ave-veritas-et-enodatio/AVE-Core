@@ -761,6 +761,35 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   Option A) **or the (2,3) integer PAIR** (→ C′ is wrong-object → C″)? Connects to the
   `boundary-observables-m-q-j.md` winding→𝓙 / linking→𝓠 split surfaced in the dimensional-analysis lane.
 
+- **2026-06-16 (Phase 8 — Grant RESOLVED the ontology ONE LEVEL UP: not scalar-vs-pair, but the
+  BOUNDARY-OBSERVABLE (𝓜/𝓠/𝓙) test; keystone reframed; Stage 1 GATE dispatched)** — Grant's thread
+  (chirality workflow `wbjjtt6o3`, 3 refute lenses conf 0.86–0.93; PR #268 rewritten v2; v1 retained
+  below-the-line Rule-12 w/ its 2 errors owned) dissolved the C′ blocker. **The substrate-correct test
+  is NOT "hold an interior invariant" (scalar OR pair) — it is READING the three boundary observables
+  𝓜/𝓠/𝓙 at ∂Ω of a self-trapped Γ=−1 region** (`boundary-observables-m-q-j.md`). Prior arc negatives
+  (passive/held-BC/genesis-23) measured **invisible INTERIOR plumbing = a category error** (clm-sjjvhf);
+  NOT echo evidence — the substrate-correct test never ran. **Verified (verify-before-cite, all green):**
+  `BoundaryInvariants` `boundary_invariants.py:70` (compute_M real; **compute_Q/J = first-pass PROXIES** —
+  Q=local-max count, J=inertia-anisotropy =0 for spherical; rigorous 𝓠=Link/𝓙=Wind DEFERRED, "needs
+  full Cosserat-coupled engine, doc 113 §5.4"); `extract_hopf_charge` `cosserat_field_3d.py:2010` (a
+  linking number — scaffold for rigorous 𝓠); `HelicityObserver` `helicity_observer.py:39`; `k4`/diamond
+  net is the corpus's own **achiral CONTROL** (`chiral_lattice.py:228`, capability-map `:58` "Cubic ↮
+  chirality"); **clm-sjjvhf strengthen-by[2] = "Confirm the (M,Q,J) boundary test recovers the electron
+  observables"** (canon names this test as its validator); coupled `VacuumEngine3D` (`vacuum_engine.py`
+  wraps `CoupledK4Cosserat`) carries K4-photon + **Cosserat (u,ω) winding** + S1-D Axiom-4 saturation +
+  the Γ=−1 saturated-bond observer `:440`. (2,3) topology = knot-theory-forced (chirality-independent);
+  chirality = sign-only (e⁻/e⁺), PARKED. Magnitudes achiral-OK on a rigid grid → **the §4 "engine that
+  doesn't exist" is NOT needed for existence.** **Keystone = 3 staged steps (gate-first; 2–3 moot if 1
+  fails):** (1) GATE = self-trap integrator-stability on the coupled engine (no |ω| blow-up, no pump,
+  saturated channel persists ≥10 Compton periods); (2) implement rigorous 𝓠=Link (on extract_hopf_charge)
+  + 𝓙=Wind (doc-113-§5.4 deferred); (3) read (𝓜,𝓠,𝓙) → (m_e, e, ℏ/2)? **DISPATCHED Stage 1** background
+  `ave-implementer` (`ae3c707c0d…`, isolated worktree, branch `analysis/2026-06-16-boundary-mqj-selftrap-integrator`
+  off main) — Checkpoint-10 (Γ=−1 as Op17-bounded BC not bulk force = the blow-up discipline) +
+  Checkpoint-8 (seed precursor, don't plant end-state) + full-Hamiltonian witness. **Stages 2–3 HELD for
+  Grant GO** (Stage 2 = real new implementation, scope against Stage-1 result). C/C′/C″ now SUPERSEDED by
+  the boundary test (C′ scalar-route-closure still banked narrow). **NEXT: Stage 1 returns → verify →
+  Grant GO on Stage 2.**
+
 ---
 
 ## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
