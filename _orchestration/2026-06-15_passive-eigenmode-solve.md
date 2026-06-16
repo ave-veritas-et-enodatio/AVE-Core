@@ -1115,3 +1115,50 @@ homonym was a false alarm).
 PLV-detector-repair + the audit-lane stability-classifier `|ω|→1144` jw-axis gate) + the dual-sector Smith
 are the **Stage-1.6+ analysis emit-list**, gated on Grant's TWO adjudications (the Stage-1.5 precursor fork
 [confined-vs-propagating] + the genesis-requires-coherence-leg question). Full matrix: workflow `wknrs0aal`.
+
+---
+
+## §12 — Analytical-toolkit application audit (workflow `wy0sfe4jm`, 2026-06-16)
+
+**Verdict: applying the toolkit's REFLEXES, not its DISCIPLINE.** The obvious per-class tools are APPLIED +
+grep-confirmed (Op2 saturation kernel; Γ_true Smith reflection `passive_eigenmode_driver.py:357-366`;
+dual-sector Z=√(S_μ/S_ε) vs Z_long=√(L/C_comp); the full-Hamiltonian pump-witness = Op14 cross-sector;
+(2,3)/Hopf/Beltrami topology reads) — they did real work (bucket-2 + LOCK-vs-PUMP at Phase 9). But the full
+canonical SET an index-consult would surface was NOT pulled. **Six MISSED-but-applicable tools:**
+1. **🔴 §6 Mode — dispersion ω(k) band-read (HIGHEST-value miss).** The keystone is EXISTENCE; ω(k) is the
+   α-free-by-construction existence instrument, more direct than the breather-persistence proxy. Its absence
+   FORCED existence-by-stability-proxy (the NEGATIVE-A/REFUTED/DISQUALIFY churn Phases 3b-7) AND left the
+   `k_max`=0.577 vs π/ℓ_node ~5.4× corpus contradiction open. No extractor exists in any driver.
+2. **🔴 §1/§5 — orbital-friction real-vs-reactive classification of `coupling_work` (LOAD-BEARING FOR STAGE 1.6).**
+   `coupling_work` is a bare scalar (`a1_cosserat_convergence_engine.py:162,422`), never tagged P_real(cosθ)
+   vs Q_reactive(sinθ). The electron bond is REACTIVE (lossless LC, P_real=0); a nonzero-REAL coupling_work =
+   a dissipative category error masquerading as the conservative winding↔cage exchange. **If Stage 1.6
+   returns LOOP-CLOSES, the coupling_work MUST be real-vs-reactive classified BEFORE banking success** — else
+   a real-power leak is mis-read as the chord. (`ave-power-category-check` Axis A.)
+3. §1/§5 — Op17 `T²=1−Γ²` as a transmitted-fraction LEAK instrument (EXISTS `universal_operators.py:833`,
+   battery-wrapped; ZERO arc driver calls it — "Op17" appears only as a CP10 rendering LABEL). A 2nd
+   independent read of the α-leak the lane only measured via decay-envelope. (THE exact failure the index
+   was built to prevent — the matched-LC Op17 miss.)
+4. §1/§2 — Theorem 3.1' radiation impedance Z₀/(4π) per spinor cycle (cited only to set Q_TARGET=1/α, never
+   instantiated). A 3rd independent α read; the Op17/Z₀-4π/decay triad cross-checks a wrong-prefactor error.
+5. §2/§8 — the dual-sector Smith swept LOCUS (per-cell Γ exists, median-collapsed; zero matplotlib) — queued
+   for Stage-1.6 figure-emit; lower-value (the locus terminal is itself the bake-(ii) 1−α echo).
+6. §9/keystone — the M/Q/J read (𝓜/𝓠/𝓙→m_e/e/ℏ/2) was DECLARED the substrate-correct test (Phase 8) but
+   never RAN (`computes_MQJ:False`); the arc redirected to emergence (Phase 10). **OPEN ROUTING → Grant: is
+   M/Q/J RETIRED or merely PARKED behind the emergence question?** Stage-1.6 needs one sentence.
+
+**Toolkit UPDATES the arc surfaces (to land in `ave-analytical-toolkit-index.md` via branch+PR on Grant's
+go — corpus, main-protected):** (a) §6 add a dispersion-ω(k) tool ROW + the k_max-contradiction GATE
+(currently §6 has only the Nyquist pitfall, no extractor); (b) §2/§5 add the TWO-BAKES ECHO-TRAP pitfall
+(α-tank carries α twice: Q=1/α planted + the 1−α Smith-short by construction; deleting bake-(i) ≠ escaping
+echo); (c) §1 add the SPECTATOR-CAGE / f_V=0-structural diagnostic (bit-identical across variants ⇒
+spectator, not a physical null; classify reactive/real before binning); (d) §9/§8 bank the EE diagnostic
+sweep matrix as a reusable network-diagnostic template; (e) §9/§7 add the CP8-spatial-provenance gate as a
+methodology note. **3 INDEX GAPS exposed:** (i) a MOVING Γ=−1 wall has NO §7 entry (only static TIR); (ii)
+Topology (Hopf/Vakulenko-Kapitanski/Beltrami/(2,3)) has NO consolidated tool table — the arc pulled from KB
+leaves directly, even found an engine-vs-corpus normalized-helicity conflict; (iii) Cosserat/micropolar has
+no dedicated class. **NOTE: skill-vs-index DRIFT** — the `ave-analytical-tool-selection` skill body lists
+classes 10-12 (Topology/Cosserat/Statistical, added by adversarial-probe #17) but the actual INDEX stops at
+§9; the probe amended the skill, never the index. **NEXT (this lane): fold misses #2/#3/#4 into the Stage-1.6
+ADJUDICATION (real-vs-reactive coupling_work + the Op17/Z₀-4π/decay α-triad cross-check); the index-update
+PR + the M/Q/J routing are Grant calls.**
