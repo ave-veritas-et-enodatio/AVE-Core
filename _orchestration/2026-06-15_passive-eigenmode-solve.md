@@ -1140,6 +1140,43 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   the arc branches, no falsified verdict rides into main. **Q3 unchanged: held for the bounded-wall build
   (auditor v2 `w8qwhtslt` pending fold-in-vs-build + the catch-22).**
 
+- **2026-06-16 (Phase 19 — 🔴🔴 SCALE/ARENA finding `wperakoc6`: the cavity IS one Nyquist voxel in the
+  corpus but the engine runs MULTI-CELL — a FIRST-ORDER scale+representation mismatch BENEATH the stencil bug;
+  GATES Q3)** — Grant's two questions, answered verbatim-grounded both sides. **(1) Cavity one voxel? CORPUS
+  YES, ENGINE NO.** Corpus: the electron is a **single-Nyquist-cell, sub-cell** object — `ℓ_node`=reduced
+  Compton=lattice pitch=spatial natural unit (`constants.py:255-257,302`); "the entire electron geometry fits
+  inside ONE K4 cell," "a **sub-cell phase-space soliton: NOT a multi-cell extended structure**"
+  (`electron-unknot-cosserat-seeder.md:22,63,67`; loop radius ≈0.159 ℓ_node, circumference=ℓ_node=one pitch);
+  **"forcing a multi-cell propagating-eigenmode test on the bounded interior is a CATEGORY ERROR"**
+  (`boundary-observables-m-q-j.md:87`); one mode per Nyquist cell, sub-cell structure unphysical
+  (`op21:120`, `ch8:94`). Engine: **dx=0.5** (one cell = ½ ℓ_node) in BOTH engine defaults
+  (`a1_cosserat_convergence_engine.py:82`, `…moving_wall…:109`) + all 4 drivers (`stage15_layer_a:47`,
+  `…layer_c:53`, `stage16:54`, `boundary_mqj gate KP_DX:133`); N=24-28 (box=12-14 ℓ_node); soliton spread
+  ~10-20 cells; saturated front `g_alive_cells=1024`. So the engine's "cavity" is a multi-cell breather, NOT
+  one voxel. **(2) Scale correct? NO — mismatch on BOTH axes:** REAL-SPACE — dx=0.5 oversamples Compton 2×
+  and renders a many-cell breather what the corpus says is single-cell/sub-Nyquist; the inline comment
+  `boundary_mqj_selftrap_zwall_gate.py:94` "natural units: dx = ℓ_node" is **FALSE** (KP_DX=0.5 one line
+  below → dx=ℓ_node/2) — smoking gun for unexamined drift. WINDING — the (2,3) is a phase-space intra-cell
+  `(V_inc,V_ref)` bond-phasor winding with **NO real-space torus** (`electron-identification.md:23,77`;
+  `master-equation.md:20`), but `extract_2_3_omega_fast` reads it on a **multi-cell real-space torus contour**
+  (R,r in CELLS, `fast_winding_extractor.py:135-161`, R≈4.3-11.4 r≈1-4.4). **CREDIT:** the engine got the
+  wound QUANTITY right (a phasor pair — it DODGED the A46 real-space-field trap); the defect is the SPATIAL
+  carrier (multi-cell real-space at dx=0.5), not phasor-vs-field. **🔴 ORDERING — FIRST-ORDER, gates the
+  stencil work:** the Cartesian-stencil bug (Phase 14) is SECOND-ORDER — it presupposes the multi-cell
+  real-space lattice is the right arena. This says the arena itself is wrong. **Fixing the stencil to make
+  the multi-cell real-space (2,3) coupling order-unity would VALIDATE A REPRESENTATION ARTIFACT** — the
+  structural-null-stencil-lesson ONE LEVEL UP (wrong ARENA, not just wrong operator). **So the stencil fork +
+  the bounded-wall build (Q3) must NOT be adjudicated as physics until the arena is resolved — this finding
+  GATES Q3, not the reverse.** **THE INTENTIONALITY FORK → GRANT (flag-don't-fix, the one genuinely open
+  question):** is the multi-cell lattice a DELIBERATE emergence arena (you need room for a generic precursor
+  to self-LOCALIZE to one cell — CP8; the single-cell claim is then what the emergence test SHOULD PRODUCE,
+  and multi-cell is correct FOR EMERGENCE while a category error for a boundary-observable EXISTENCE read) —
+  OR unexamined DRIFT (dx=0.5 off the natural unit; the multi-cell breather + real-space torus is the wrong
+  object)? Note: **the winding-READ category error (real-space torus vs intra-cell phasor) holds REGARDLESS
+  of the arena answer.** **NEXT: Grant rules the intentionality fork (emergence-arena-by-design vs drift; is
+  dx=0.5 intended?); if drift/category-error, the next engine tests the electron as a SINGLE Nyquist cell with
+  an INTRA-cell (V_inc,V_ref) phase-space winding — NOT a multi-cell real-space breather + real-space torus.**
+
 ## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
 
 **🟢 HELD OBJECT (explicit, per Grant — so a verifier cannot misread):** the held object is the
