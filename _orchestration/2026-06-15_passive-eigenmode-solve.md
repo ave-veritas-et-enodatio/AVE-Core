@@ -642,6 +642,13 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
 
 ## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
 
+**🟢 HELD OBJECT (explicit, per Grant — so a verifier cannot misread):** the held object is the
+**PHASE-SPACE (2,3) Clifford-torus winding** (charge) on the **(ω, ω̇) phasor** — **NOT a real-space
+knot**, and **NOT** the A1 `(V_inc,V_ref)` breather phasor. The (2,3) is the toroidal-2 + poloidal-3
+*phase-space* winding number (`ch8-alpha-golden-torus.md:31` / `electron-identification.md`); cite the
+(p,q) phase-space home, NOT `def-3638f2` (the `ambiguous` homonym node on exactly this real-vs-phase
+axis). "Re-project the conserved (2,3) topology" = the phase-space reading.
+
 **Physical question:** with the (2,3) charge-winding **HELD** (enforced as a conserved topological
 constraint each step — charge conservation, the law the seed-and-evolve driver violated), on the
 co-resolving lattice where the A1 mass-breather is real (N=26-class, dx=0.5, ≥5–10 cells), does the
