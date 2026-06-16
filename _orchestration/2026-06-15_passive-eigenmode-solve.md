@@ -1,15 +1,21 @@
 # Passive winding-protected electron eigenmode — the structural keystone (ORCHESTRATION)
 
 > **STATUS: OPTION C RETURNED (recovery `a89a0c883912c60cd`) — BIN = DISQUALIFY. The hard-projection
-> (2,3)-hold on the Cosserat-ω carrier PUMPS energy (ω-sector Hamiltonian ramps 56×); a soft/hard
-> sweep found NO conservative window. DISQUALIFY ≠ NEGATIVE — the pump MASKS the persistence
+> (2,3)-hold on the Cosserat-ω carrier PUMPS energy (ω-sector Hamiltonian ramps 56×, reproduced).
+> DISQUALIFY ≠ NEGATIVE — the pump MASKS the persistence
 > question. The implementer caught its OWN false-positive (the `sum(ω²)` pump-witness was blind to the
-> pump — magnitude-locked by construction; fixed to read the full ω-Hamiltonian).** Verify panel
-> `wvd0c2oib` running on the crux: **is the pump FUNDAMENTAL (any hold of the (2,3) on the ω-carrier
-> fights the free dynamics → pumps → keystone leans negative / echo-signal) or METHOD-SPECIFIC (a
-> symplectic/Lagrangian/phase-space hold could be conservative → A re-designs the hold)?** **A-as-
-> specified (reuse this hold) inherits the pump → re-design needed before A.** C-then-A held.
-> §9 pre-reg + the CLEAN pre-landing sweep below.
+> pump — magnitude-locked by construction; fixed to read the full ω-Hamiltonian).** **PANEL `wvd0c2oib`
+> RETURNED: DISQUALIFY SOUND but METHOD-OPEN — do NOT conclude echo/negative.** The hard hold pumps
+> 56× (reproduced) — but (1) the **"no conservative window" generalization is UNBACKED** (the soft
+> sweep was NEVER run; header-prose only — I took it at face value and leaned echo: premature,
+> corrected); (2) the hold enforced the **WRONG object** — a real-space director PHASE TEMPLATE, NOT
+> the conserved **Beltrami helicity H_bel = ∫ω·(∇×ω)** the corpus says IS the charge
+> (`master-equation.md:20`; the engine doesn't even compute H_bel). FUNDAMENTAL for THIS construction
+> (hard director-overwrite of a non-free-conserved phase pattern → fights the gradient flow → does
+> work); METHOD-OPEN for an **H_bel-Lagrange-constraint hold** (symplectic-orthogonal / no-work) + a
+> **phase-space (V_inc,V_ref) representation** (DEC-01 tension). **A-as-specified is dead; ontology
+> question → Grant: hold the conserved H_bel, not the director template? → C′.** §9 + the CLEAN
+> pre-landing sweep below.
 >
 > _(prior status, retained:)_ **VERIFY PANEL `w92ft1gkc` UNANIMOUS — do NOT bank NEGATIVE-A (mis-binning + the keystone
 > is UN-TESTED).**
@@ -685,6 +691,27 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   dynamics → pumps → keystone leans negative/echo) vs METHOD-SPECIFIC (a symplectic/Lagrangian or
   PHASE-SPACE-representation hold could be conservative + double-count-clean → A re-designs the hold)**.
   **NEXT: panel → adjudicate to Grant.**
+- **2026-06-15 (Phase 5c — verify panel `wvd0c2oib`: DISQUALIFY SOUND but METHOD-OPEN; do NOT conclude
+  echo)** — **Dim-1 (DISQUALIFY-sound) FLAG:** the pump is REAL + reproduced (H_total 56.76×; `sum(ω²)`
+  genuinely blind, bounded 0.84×; witness fix correct; magnitude-lock ~1e-13; winding maintained 0.77
+  vs 0.0 free; ω-carrier-only, never the A1 phasor). **BUT the "no conservative window / structural"
+  GENERALIZATION is UNBACKED** — no soft-hold g-blend in the code, no sweep script, no extra-corner
+  JSON; header-prose only (`held_bc_winding.py:12-15`). DISQUALIFY sound **at the single N26 corner**;
+  the structural claim is asserted. (⚠ I took that prose at face value last turn and leaned "echo" —
+  premature; **2nd unverified-prose face-value slip this session** [1st = C-liveness]. Corrected.)
+  **Dim-2 (FUNDAMENTAL vs METHOD) FLAG:** the free Cosserat-ω dynamics do NOT conserve the (2,3) (it's
+  a **phase pattern in a gradient-energy field**, not a conserved charge; hold-OFF frac=0.0) → a hard
+  director-overwrite must do gradient-W work → FUNDAMENTAL *for THIS construction*. **BUT the geometry
+  does NOT forbid a no-work hold, and the hold enforced the WRONG object:** the corpus's conserved
+  charge is **Beltrami helicity H_bel = ∫ω·(∇×ω)** (`master-equation.md:20`), which the **engine
+  doesn't even compute** — the hold pinned a real-space director TEMPLATE, not the helicity integral.
+  **A Lagrange-constraint on the conserved H_bel (symplectic-orthogonal / no-work) is UNTESTED + could
+  be conservative.** **VERDICT: do NOT promote "the hard hold pumps" → "keystone leans echo" (over-read
+  trap). Keystone STILL OPEN.** Ontology question → Grant: **hold the (2,3) as a constraint on the
+  conserved H_bel, not a per-cell director overwrite? → C′.** + DEC-01 (theory.md:16 "(2,3) lives in
+  (V_inc,V_ref) phasor" vs master-equation.md:20 "never wire it there" — signature-vs-DOF bridge
+  auditor-asserted, not a canonical leaf; load-bearing for a phase-space hold). + persist the missing
+  soft-sweep artifact (A47). **NEXT: Grant adjudicates — C′ (hold H_bel) / phase-space rep / defer.**
 
 ---
 
