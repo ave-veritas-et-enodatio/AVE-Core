@@ -10,6 +10,8 @@ subtree-experiments: []
 
 Physical LTspice netlists for actual tabletop AVE hardware. These are engineering blueprints with component values derived directly from the zero-parameter framework. Ch.17 uses codebox environments only (no resultboxes).
 
+> **🔴 SCOPE-CORRECTION (2026-06-15, zero-parameter register reconciliation; Rule 12 — the description above is preserved unedited).** "Derived directly from the zero-parameter framework" reads in the **downstream** sense: the netlist component values follow with **zero free parameters *beyond the 3 interlocked calibration inputs* $\{m_e, \alpha, G\}$ + 4 axioms** — they are not parameter-free outputs. Per the keystone register, $\alpha$, $m_e$, and $G$ are *retained inputs* (with $\alpha$ a Class-B named geometric identification, value-scoped echo), not derived values; AVE reduces the SM's $\sim$26 empirical parameters to those 3 inputs, which it does not yet lift to pure geometry. Canonical scope: `vol1/ch8-alpha-golden-torus.md:11` (manuscript `backmatter/03_geometric_inevitability.tex` Scope-correction 2026-06-14).
+
 ## Key Results
 
 | Result | Expression | Source |

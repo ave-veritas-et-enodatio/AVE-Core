@@ -9,6 +9,8 @@ claims: [clm-oiw6cb]
 
 Anomalies already observed in standard physics that AVE explains as exact mechanical consequences of the LC lattice.
 
+> **🔴 SCOPE-CORRECTION (2026-06-15, driver-honesty / fit-as-prediction reconciliation; Rule 12 — bullets below preserved).** Per this leaf's claim-quality verdict (`clm-oiw6cb`, solidity **0.40**), these are **retrospective consistency / coverage explanations — already-observed anomalies AVE explains, not forward predictions or independent confirmations.** "Exact mechanical consequences" reads in that consistency sense. $H_\infty \approx 69.32$ km/s/Mpc is sourced to Vol 3 (not natively derived); the proton-radius Kerr integration is asserted (no zero-free-parameter step-by-step shown). The vortex-core item is a clean negative kill-check, untouched. Fuller treatment: the parallel leaf [`existing-experimental-signatures.md`](../ch11-experimental-bench-falsification/existing-experimental-signatures.md).
+
 ### Proton Radius Puzzle
 
 Standard: muonic hydrogen proton radius ($0.84$ fm) $\neq$ electronic ($0.88$ fm) — violates lepton universality.

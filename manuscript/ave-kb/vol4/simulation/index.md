@@ -12,6 +12,8 @@ subtree-experiments: []
 
 SPICE circuit simulations that model AVE vacuum phenomena as analog transmission-line transients. Each chapter defines a physical mechanism — particle decay, autoresonant dielectric breakdown, Sagnac inductive drag — and provides a complete, runnable SPICE netlist derived from zero free parameters.
 
+> **🔴 SCOPE-CORRECTION (2026-06-15, zero-parameter register reconciliation; Rule 12 — the description above is preserved unedited).** "Derived from zero free parameters" reads in the **downstream** sense: the netlist component values follow with **zero free parameters *beyond the 3 interlocked calibration inputs* $\{m_e, \alpha, G\}$ + 4 axioms** — they are not parameter-free outputs. Per the keystone register, $\alpha$, $m_e$, and $G$ are *retained inputs* (with $\alpha$ a Class-B named geometric identification, value-scoped echo), not derived values; AVE reduces the SM's $\sim$26 empirical parameters to those 3 inputs. Same correction as the child leaf `ch17-hardware-netlists/index.md`. Canonical scope: `vol1/ch8-alpha-golden-torus.md:11` (manuscript `backmatter/03_geometric_inevitability.tex` Scope-correction 2026-06-14).
+
 ## Key Results
 
 | Result | Expression | Source |

@@ -7,6 +7,8 @@ claims: [clm-fh6w3y, clm-qagkgy, clm-ui3m8a]
 
 ## Zero-Parameter Derivations & Resolving the Horsemen
 
+> **🔴 SCOPE-CLARIFICATION (2026-06-15, zero-parameter register reconciliation; Rule 12 — heading preserved).** "Zero-Parameter" in this heading is the **downstream** sense: the derivations below lock $l_{node} \equiv \hbar/m_e c$ as their input and carry **zero free parameters *beyond the 3 retained calibration inputs* $\{m_e, \alpha, G\}$ + 4 axioms** — not a parameter-free universe. $\alpha$ (entering the $\sqrt{\alpha}$ yield limit below) is a *retained input* — a Class-B named geometric identification, value-scoped echo — not a derived output. Keystone register: `vol1/ch8-alpha-golden-torus.md:11`.
+
 > → Primary: [Regimes of Operation](../../circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md) — $V_{yield}$ vs $V_{snap}$ threshold definitions
 > ↗ See also: [Nonlinear Vacuum Capacitance](../../circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md) — Axiom 4 saturation kernel
 
