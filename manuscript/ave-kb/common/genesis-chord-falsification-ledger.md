@@ -23,6 +23,22 @@ A consolidated, **tagged and diagnosed** record of finished negative efforts acr
 
 ## Genesis (electron self-assembly) negatives
 
+> **🔴 2026-06-16 SECTION REFRAME — boundary-observable category-error (`boundary-observables-m-q-j.md` clm-sjjvhf).** Every "self-assembly" negative in this section tested whether the **INTERIOR (2,3) field** forms/persists on a multi-cell lattice. Per clm-sjjvhf that is a **CATEGORY ERROR**: a Γ=−1 soliton's interior is causally-disconnected + sub-Nyquist ($k\approx6.36/\ell_{node} \gg k_{max}=0.577/\ell_{node}$) + phase-space → **invisible**; only the boundary observables 𝓜/𝓠/𝓙 are measurable. **So these negatives rule out the interior-field route, NOT the electron's existence.** The substrate-correct test — does a self-trapped Γ=−1 region carry 𝓜=m_e, 𝓠=e, 𝓙=ℏ/2 with the winding EMERGING α-free — was **never run**; it is the open re-aim (`engine-capability-map.md` §4 two-sector engine + the `BoundaryInvariants` extractor). And per the chord/echo audit, reading the *magnitudes alone* re-derives the α-echo (m_e is a calibration input; the α=𝓜+𝓙+𝓠 decomposition is Class-B, `../vol1/ch8-alpha-golden-torus.md:135`) — the chord axis is **α-free FORM-emergence** of the winding.
+
+### genesis-23 — the (2,3) does not self-assemble in the coupled engine (NEGATIVE; category-error-scoped, 2026-06-16)
+- **Hypothesis:** a seeded photon precursor self-assembles the (2,3) winding + Γ=−1 confinement in the coupled engine.
+- **Verdict:** NEGATIVE — GAP-1 (V-sector never energizes; **since closed** by the 2026-06-12 κ̃=6/5 converter) + GAP-2 (verdict-II confinement does NOT port coupled: soft wall under-engages Γ=−0.003, hard wall |ω|→1144).
+- **Diagnostic (2026-06-16 reframe):** GAP-2's |ω| growth is **not a physical pump** (a lossless-reactive substrate can't self-pump) — it is the explicit integrator unstable on the stiff Γ=−1 wall, run on the **achiral cubic-diamond grid that is SOFTENING-only** (reads transverse-Meissner Z≈Z₀, not the longitudinal Z→0 stiffening confinement; `engine-capability-map.md:45,:79`). And it measured **interior** self-assembly = the section category error. **NOT echo evidence.**
+- **Re-aim:** `engine-capability-map.md` §4 two-sector engine (c_eff(V) stiffening + Cosserat-ω, the two-grid reconciliation) + the α-free boundary-observable test.
+- **Recovery:** `research/2026-06-09_reflection-genesis-23-self-assembly_result.md` (on main).
+
+### held-BC — the externally-held (2,3) winding pumps (DISQUALIFY; category-error-scoped, 2026-06-16)
+- **Hypothesis:** externally re-project the conserved (2,3) winding on an A1 breather each step → test persistence.
+- **Verdict:** DISQUALIFY (energy-ledger first, `ave-conserved-vs-pumped`) — **no conservative window** (soft = doesn't hold, hard = pumps 56.8×; structural, not a code bug).
+- **Diagnostic (2026-06-16 reframe):** the "pump" is the **external phase-projection doing work** (a Checkpoint-8 plant-the-finished-composite artifact), not a physical pump; and externally HOLDING the winding + reading **interior persistence** is the section category error. **NOT echo evidence** — it re-discovers genesis-23 GAP-2 six days later.
+- **Re-aim:** same as genesis-23 — the α-free boundary-observable emergence test, NOT external holding.
+- **Recovery:** `analysis/2026-06-15-eigenmode-heldbc` @ `adbffb20` (pushed).
+
 ### genesis-omega-wave — the ω-shear photon does not self-trap under wave dynamics (III)
 - **Hypothesis:** the canonical ω-shear photon (transverse Cosserat-ω wave) self-traps into the electron under Axiom-4 saturation — the "right object, right mechanism."
 - **Verdict:** III — no self-trap, in both engine realizations.

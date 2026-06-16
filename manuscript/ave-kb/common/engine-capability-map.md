@@ -66,6 +66,13 @@ The engines do not merely *happen* to split the DOF — three of the splits are 
 
 > **This engine does not exist.** It is the convergence target the incompatibilities define — a forward spec, not a validated result.
 
+> **🔴 2026-06-16 STAGE-1 VERIFICATION + KEYSTONE FINDINGS (Rule 12 — §1–§5 PRESERVED; source: keystone-lane Stage-1 gate + chord/echo audit workflow `wenqg7x94` + INVARIANT-S2 Q1=B).**
+> - **Bucket-2 is now EMPIRICALLY VERIFIED, not just inferred:** the Stage-1 gate measured the coupled `VacuumEngine3D` wall at the **transverse-Meissner Z≈Z₀** (the softening proxy), while the standalone `c_eff(V)` cage gives **Z_long→0 and HELD** (solver adequate). So the "softening-only / cannot host the stiffening cage" finding (`:45`, `:79`) is a **measured result**, not just a structural inference.
+> - **The §4 load-bearing engineering challenge is the TWO-GRID RECONCILIATION** — the continuum-scalar-FDTD grid the `c_eff(V)` cage lives on vs the K4-tetrahedral grid the Cosserat ω lives on. The "union of pieces" below is buildable; this grid-bridge is the hard part.
+> - **The stiffening⊥softening firewall (`:61`) is IMPLEMENTATION, not fundamental:** per INVARIANT-S2 Q1=(B) (Grant-ratified) every real node carries BOTH the A1-stiffening (C_eff→∞, Z→0) AND the T2-softening (ε_eff→0, Z→∞) as **orthogonal reactances driven by the same S** — the engines split what the substrate unifies; coupling them is faithful, not a violation. (Firewall §3.1, ∇×∇V≡0, still holds: the scalar cage needs a SEPARATE coupled vector sector — which the Cosserat engine provides.)
+> - **SUCCESS CRITERION for the §4 engine (chord/echo audit):** "it works" = it DEMONSTRATES **α-free FORM-emergence** (the (2,3) winding self-forms from generic IC, α-free, the α-free Q emerges), **NOT** a 𝓜/𝓠/𝓙 magnitude readout — m_e is a calibration input, |Q|=1 is generic-for-any-soliton, and the α=𝓜+𝓙+𝓠 decomposition is Class-B echo (`../vol1/ch8-alpha-golden-torus.md:135`; `boundary-observables-m-q-j.md:70`).
+> - **R10 (anhysteretic↔loop / remanence, §3.3) stays the SEPARATE retention wall** — whether the formed electron STAYS, not whether it forms. Parked from the existence test.
+
 A single K4-Cosserat engine that simultaneously:
 - runs on the **chiral srs grid** (hosts handedness — from v9),
 - carries the **`c_eff(V)` stiffening kernel** (hosts the A1 cage — from Master-Equation FDTD),
