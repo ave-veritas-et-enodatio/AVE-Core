@@ -65,6 +65,15 @@ the V-tank/A1 scalar engine as the wall host, ω-carrier as the orthogonal windi
 two-engine clip-floor+runaway as mounting evidence the stable Z→0 matter wall is not a renderable
 fixed point (suggestive structural negative, but the coordinate-mismatch blocks banking it clean).
 
+**GRANT RULED (2026-06-15): option 1 — run the V-tank pre-flight before any build commitment.**
+NOT (c) (the cage SECH_ANCHOR already shows the V-tank self-focuses → calling a structural negative
+now is the over-closure trap); NOT (b′)-sign-off-direct (the cage persistence was the `gamma_bulk_min`
+PROXY, not the actual impedance Γ — the V-tank could also clip-floor; committing the build before the
+cheap probe is the anti-pattern). **V-tank pre-flight DISPATCHED (agent `a9ce00462badb0d85`):** reads
+the ACTUAL impedance Γ on `crystal_engine`'s sech self-focus. **Decisive either way** — STABLE Z→0 →
+wall-half real → (b′) bounded build + sign-off; CLIP-FLOOR+RUNAWAY → (c), the honest structural
+negative (the THIRD engine → it stops being a coordinate problem and becomes a real keystone signal).
+
 ---
 
 ## §0 — Derivation target (charter + the high-Q correction)
@@ -258,6 +267,27 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
 > is the cross-lane agreement of two **independent** geometric routes to Q, not Lane 2 alone.
 > The result must tag its Q with the echo/chord classification.
 
+### §5.6 — Cross-lane records from the pre-flight (Grant 2026-06-15; NOT Lane-2's to resolve)
+
+1. **First ENGINE-level Flag-A discriminant → points to A1.** Converging: Lane 3 (mass = A1 state),
+   THIS pre-flight (the V-tank/A1 wall self-focuses — cage SECH_ANCHOR; the ω-curvature object is
+   PROTON-family 5₁/5₂), `master-equation.md:20`, and the two-"3"s — all say **the electron's
+   wall/mass is A1 (read in the `(V_inc,V_ref)` phasor); charge/spin is the orthogonal T2 winding.**
+   **Evidence, NOT resolution** (m_ec² still hypothesis-class) — but the first concrete discriminant
+   beyond leaf prose. Recorded as cross-lane state; Lane-2 still reports Flag-A as bears-on-not-resolve.
+2. **Chirality contradiction → belongs to the K=2G lane (NOT Lane 2's call).** This pre-flight found
+   chiral OFF-vs-ON differ <10% and the magnetic sign is already there at κ_chiral=0 (structural
+   curvature-vs-strain split) — contradicting Lane-3's "the Z→0 wall *requires* the chirality-broken
+   asymmetry." Grant's read: most likely an **off-K=2G artifact** (CoupledK4Cosserat isn't at the
+   K=2G symmetric co-saturation point, so μ/ε saturate at structurally different rates) → routes to
+   the **K=2G lane** as arbiter; alternatives (chirality only *signs* the wall; or clip-floor
+   contamination) are also K=2G-lane scope. **Flagged there, not resolved here.**
+3. **WATCH-ITEM — the third-engine threshold.** Two engines now clip-floor on the Z→0 wall
+   (CoupledK4Cosserat + graft-v2). **If the V-tank probe makes it THREE, that stops being a
+   coordinate problem and becomes a real structural signal that the stable Z→0 wall does not render**
+   — which IS keystone-relevant (= option (c), the honest negative). The V-tank probe is decisive
+   either way: it confirms the wall-half or converts the coordinate caveat into a structural finding.
+
 ---
 
 ## §6 — Skill-selection plan
@@ -350,3 +380,12 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   + production driver blocked on a Grant platform/coordinate decision — (b) build-as-posed / (b′)
   V-tank-phasor coordinate-faithful re-scope / (c) mounting-negative-but-untestable. Surfaced to
   Grant; entangled with the unresolved Flag-A.**
+- **2026-06-15 (Phase 1c — Grant RULED option 1; V-tank pre-flight dispatched)** — Grant: run the
+  V-tank pre-flight before any build (not (c) over-closure, not (b′) build-before-probe). **Dispatched
+  agent `a9ce00462badb0d85`** (own worktree `analysis/2026-06-15-vtank-preflight`): reads the ACTUAL
+  impedance Γ on `crystal_engine`'s sech self-focus (vs the cage's `gamma_bulk_min` PROXY) — STABLE
+  Z→0 → wall-half real → (b′)+sign-off; CLIP-FLOOR+RUNAWAY → (c), the third engine = honest structural
+  negative. Cross-lane records (§5.6): (1) first engine-level Flag-A discriminant → A1 (evidence, not
+  resolution); (2) chirality contradiction → K=2G lane (likely off-K=2G artifact); (3) watch-item:
+  third-engine clip-floor would convert the coordinate caveat into a keystone structural signal.
+  **NEXT: V-tank pre-flight result → (b′)+sign-off OR (c) honest negative.**
