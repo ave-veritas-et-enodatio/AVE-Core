@@ -15,7 +15,7 @@
 | Layer | Status | What it showed |
 |---|---|---|
 | **(a)** α-free A1 c_eff(V) self-trap | **PASS** | the INDEPENDENT α-free longitudinal cage self-traps; longitudinal **Z_tank=√S formation_floor=0.376** (the stiffening wall FORMS) — the confinement the Stage-1 coupled VacuumEngine3D could NOT show |
-| **(b)** two-grid coupled stability | **STABLE** (CP10 front coupling) | coupled system bounded (|ω|max/seed=1.00, no blow-up); BUT the energize-LOCK loop is **INERT** on the winding — a precisely-localized two-grid obstruction |
+| **(b)** two-grid coupled stability | **STABLE** (CP10 front coupling); **🔴 INERT-claim RETRACTED 2026-06-16 (Rule-12) → loop-closure UNTESTED** | coupled system bounded (|ω|max/seed=1.00, no blow-up); ~~the energize-LOCK loop is **INERT** on the winding~~ — **the f_V=0 / loop-INERT read was a Cartesian-stencil ARTIFACT**: the inherited `_cosserat_axial_curl` (np.roll±1) placed Ξ entirely on the K4 DEAD sublattice (alive \|Ξ\|=0) while the front window g is alive-masked, so g·Ξ≡0 for ANY field. With the substrate-native `_tetrahedral_curl` + the `adjoint_tetrahedral_divergence` back-reaction (two-sided fix, `analysis/2026-06-16-stage16-rerun-amendments`), the coupling fires on alive (f_V, f_ω_alive > 0). **Loop-closure is therefore UNTESTED here, not falsified** — re-scoped to Stage-1.6 under the corrected stencil + the H-ledger / K_wall gates. See §3 retraction header below. |
 | **(c)** α-free emergence probe | **EMERGENCE-NEGATIVE** | the (2,3) does NOT self-form (bulk w_tor=w_pol=0 on reliable contours; Cosserat ω radiates out); no α-free Q; α NOT inserted. Seed-audit non-circular (CP8) |
 
 **The chord (FORM-emergence) does NOT appear in this engine layer.** The negative is
@@ -81,6 +81,10 @@ rotating leapfrog (½-step) `∂_tV` against Verlet (full-step) `ω̇` at mismat
 time-centering. Replaced with the position-coupled Hamiltonian force (both coupled
 quantities position-like → forces on each sector's own Verlet) → NO blow-up
 (|ω|max/seed=1.00, = the Sector-B-alone floor).
+
+> ### 🔴 RETRACTED 2026-06-16 (Rule-12, substitution-not-retraction) — the "loop is INERT" claim below was a **Cartesian-stencil discretization ARTIFACT**, not a substrate finding. Re-scope: **loop-closure UNTESTED here.**
+>
+> **Mechanism of the retraction** (the `coupling_curl_sublattice` / two-sided-stencil diagnostic, `analysis/2026-06-16-stage16-rerun-amendments`, engine-rerun-preflight `ww8x96sci`): the `f_V=0` read below was produced by the **inherited Cartesian `_cosserat_axial_curl` (np.roll±1)**, which straddles the K4 diamond's DEAD cells and places the winding curl Ξ **entirely on the dead sublattice** (alive \|Ξ\|=0, dead \|Ξ\|≈1.6). The front window `g` is **alive-masked**, so `g·Ξ ≡ 0` for **ANY** ω-field — confined or not, co-located or not. The "disjoint support" / "extended-vs-compact" sub-findings below are **downstream of this zero**, not independent causes: they were measured against a coupling that was already identically zero by discretization. With the substrate-native `_tetrahedral_curl` forward operator AND the exact `adjoint_tetrahedral_divergence` reciprocal back-reaction (two-sided fix), the coupling **fires on the alive sublattice** (f_V_alive≈2.0, f_ω_alive≈0.6, overlap_cells 128 vs 0). **The energize-LOCK loop was never tested here** — it was disabled by a substrate-native-check Ckpt-2 violation in the inherited stencil. Re-scoped to Stage-1.6 under the corrected stencil + the H-ledger / two-sided-fire / K_wall-sweep gates (which then surfaced a *separate*, genuine bounded-wall-pump finding — see the Stage-1.6 result). **The body below is preserved verbatim per Rule-12; do NOT read it as a live falsification of loop-closure.**
 
 **DID NOT — the energize-LOCK loop is INERT on the winding (the localized obstruction).**
 The bulk source `f_V=−κ̃·g·Ξ` is **0 over the entire run** (`fV_source_live_max=0.0`,
