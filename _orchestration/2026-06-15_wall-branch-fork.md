@@ -81,9 +81,9 @@ The equilibrium Z curve is degenerate (§2a). Candidate discriminators that are 
 ## 5. Arc plan (phases)
 
 - **Phase 1 — corpus map + prereg** ✅ DONE (workflow `wf_c8a6cb2d-a99`, 10 agents): see §8. Prereg FROZEN at [`research/2026-06-15_wall-branch-fork_prereg_FROZEN.md`](../research/2026-06-15_wall-branch-fork_prereg_FROZEN.md).
-- **Phase 2 — auditor-gate** (NEXT): ave-auditor independently verifies the §8 synthesis + frozen prereg against corpus (auditor-not-exempt).
-- **Phase 3 — driver:** the analytical/corpus-map workflow IS the driver (§6 of prereg). A fresh engine driver is NOT run — justified: it reconstructs a degenerate (crystal_engine single-kernel) or assumption-baked (Cosserat (1±κh) sign) path.
-- **Phase 4 — result + adjudicate to Grant:** result doc; flag-don't-fix; inline options.
+- **Phase 2 — auditor-gate** ✅ DONE: ave-auditor PASS-WITH-AMENDMENTS (A1–A6 applied). See §9.
+- **Phase 3 — driver:** the analytical/corpus-map workflow IS the driver (§6 of prereg). A fresh engine driver NOT run — justified (degenerate/assumption-baked engines). See §9.
+- **Phase 4 — result + adjudicate to Grant** ✅ DONE: [`result`](../research/2026-06-15_wall-branch-fork_result.md). Flag to Grant = §6. Arc COMPLETE.
 
 ## 6. Open questions for Grant (flag-don't-fix — populated from Phase 1)
 
@@ -114,15 +114,23 @@ The equilibrium Z curve is degenerate (§2a). Candidate discriminators that are 
 ## 8. Phase-1 synthesis (verified; workflow `wf_c8a6cb2d-a99`, 10 agents, verbatim-grounded)
 
 **The fork is NOT an independent substrate-forced physical branch.** Layers, none yielding a unique sector:
-1. **DEGENERATE on every equilibrium observable** (Z=Z₀√S, |Γ|=1 both ways; FLAG-2 + `cvr_model.py`:144 "SAME trajectory — only the moved parameter differs"). Naive discriminator dead by construction.
+1. **DEGENERATE on the equilibrium observables (Z, |Γ|)** (Z=Z₀√S, |Γ|=1 both ways; FLAG-2 + `cvr_model.py`:146 "SAME trajectory — only the moved parameter differs"). The non-equilibrium residues — Γ-sign, formation-order, non-reciprocity — are what a discriminator targets; the equilibrium-Z discriminator is dead by construction. [A1/A6]
 2. **Substrate DEFAULT = co-saturation (symmetric), locked by trace-free K=2G** (`A-034`:14 ε,μ saturate at same A; `crystal_engine` single symmetric kernel; `l3-synthesis`:144 both give |Γ|=1). Absent chirality bias the sectors are LOCKED — genuinely degenerate.
-3. **The asymmetry (which-first) is a CHIRALITY-SET SIGN/SPIN selector, not a derived branch.** μ-first→Γ=−1 (one chirality); ε-first→Γ=+1 (conjugate). Canonical electron conventionally μ-first but **asserted-not-derived** (clm-lv3uw1 0.50/0.32; clm-5fu303 0.45; cvr "PRIMARY by mandate"; `54_*`:250 "either sector CAN fire first… chirality picks which").
+3. **The asymmetry (which-first) is a CHIRALITY-SET SIGN/SPIN selector, not a derived branch.** μ-first→Γ=−1 (one chirality); ε-first→Γ=+1 (conjugate). Canonical electron conventionally μ-first but **asserted-not-derived** (clm-lv3uw1 confidence 0.65 / solidity 0.50 / rest-mass-mechanism 0.32 [A3]; clm-5fu303 0.45; cvr "PRIMARY by mandate"; `54_*`:250 "either sector CAN fire first… chirality picks which").
 4. **Pre-thesis "static-loading→capacitive" REFUTED** — ε-only static state is the Z→∞ rupture branch, not confinement; soliton rings (∂B/∂t present), static premise fails. (Phase-0 anchoring caught by the adversarial gate.)
 5. **Engine cannot independently resolve it** — `crystal_engine` single-kernel/degenerate; Cosserat magnetic-first **hand-assigned by (1±κh) sign**; no temporal first-cross observer. An engine driver reconstructs an assumption-baked/degenerate path. NOT warranted.
 6. **Live corpus tensions** (flag-don't-fix): `resonant-lc-solitons.md`:38 capacitive-route defect (μ₀-for-L, contradicts taxonomy); impedance-operator ambiguity (`vol1/claim-quality.md`:731).
 
-**Adversarial verdicts:** contradiction-real = CONFIRMED-REAL (high); gauge-dissolution = PARTIAL (high, formation-order residue survives); static-loading = REFUTED-RECONCILED (high).
+**Adversarial verdicts** (auditor-assessed confidence, NOT claim-quality solidity [A5]): contradiction-real = CONFIRMED-REAL (high); gauge-dissolution = PARTIAL (high, formation-order residue survives); static-loading = REFUTED-RECONCILED (high).
 
-**Knock-on to A1-vs-T2:** mass=A1 SETTLED by ontology (`master-equation.md`:20, Grant-ratified). Wall is **co-built** (not uniquely T2) → fork does NOT independently decide which "3" carries mass; mass already A1; only live residue = wall's **chirality-SIGN**. "Magnetic PRIMARY" IF ratified ⇒ T2/charge-winding builds the wall confining the A1/mass — but a labeling default, not derived.
+**Knock-on to A1-vs-T2** [A2 — mass=A1 is the independent premise, not derived from "co-built"]: mass=A1 SETTLED *independently* by ontology (`master-equation.md`:20, Grant-ratified; the `electron-identification.md`:121-125 open flag is citation-wording, NOT the mass-sector). Therefore the wall-formation-order fork CANNOT re-assign the mass sector — mass is A1; the wall *confines* it, does not *constitute* it. Under B3 the wall is co-built, so there's no unique wall-sector to identify with mass anyway. Only live residue = wall's **chirality-SIGN** (which sector chirality amplifies = spin). "Magnetic PRIMARY" IF ratified ⇒ T2/charge-winding builds the sign-−1 wall confining the A1/mass — a labeling default, not derived.
+
+---
+
+## 9. Phase-2 auditor-gate + Phase-4 result (DONE)
+
+**Auditor-gate (ave-auditor, independent):** **PASS-WITH-AMENDMENTS.** All load-bearing pillars of B3 confirmed verbatim; six framing/precision amendments (A1–A6), none flips the verdict. Notable catch: the `electron-identification.md`:121-125 open flag is citation-wording (not mass-sector) → mass=A1 genuinely settled (strengthens the knock-on). A1–A6 applied to the result doc + this §8.
+
+**Result doc:** [`research/2026-06-15_wall-branch-fork_result.md`](../research/2026-06-15_wall-branch-fork_result.md) — verdict B3 + flag-don't-fix recommendation to Grant. Arc COMPLETE; awaiting Grant ratification + PR review (Grant merges).
 
 > NOTE on line-number drift: claim-quality/taxonomy cite `master-equation.md`:78-79,81 for the branch text; the live `.md` carries it at :84-87. Content verified; cite the live `.md` lines.

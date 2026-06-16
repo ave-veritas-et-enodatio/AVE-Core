@@ -51,3 +51,13 @@ MODE: longitudinal-bulk dielectric (ε/A1/X_C) + microrotational inductive (μ/T
 ---
 
 **FREEZE.** No edits below this line after the freeze commit; amendments per Rule 12 in a dated addendum.
+
+---
+
+## Rule-12 amendment addendum (2026-06-15, post-auditor-gate)
+
+Auditor-gate (ave-auditor, independent): **PASS-WITH-AMENDMENTS** — verdict **B3 DEGENERATE confirmed**; falsifiers F1/F2/F3 ABSENT/surviving as predicted. Precision fixes (do NOT alter the frozen body; recorded here):
+- **A3:** wherever §2/§4 write clm-lv3uw1 as "0.50/0.32," read it as **confidence 0.65 / solidity 0.50 / rest-mass-mechanism 0.32**.
+- **A4:** the K=2G co-saturation lock (§3 B3) is **operating-point-true, not axiom-forced** (K=2G is a downstream consistency the lattice sits at given α; `dual-reactance-storage-taxonomy.md`:62-67).
+- **A6:** the `cvr_model.py:144` quote ("SAME trajectory…") is at **:146**.
+Full result + flag-don't-fix to Grant: [`2026-06-15_wall-branch-fork_result.md`](2026-06-15_wall-branch-fork_result.md).
