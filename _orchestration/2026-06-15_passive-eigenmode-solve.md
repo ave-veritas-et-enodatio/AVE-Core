@@ -1,7 +1,8 @@
 # Passive winding-protected electron eigenmode — the structural keystone (ORCHESTRATION)
 
-> **STATUS: PHASE 1 GRANT-GATED ✅ (2026-06-15) → PHASE 2 (prereg freeze) + PHASE 3
-> (auditor-gate).** Lane worktree `AVE-Core-eigenmode-wt`, branch
+> **STATUS: PHASE 3 AUDITOR-GATE DONE ✅ (panel `wyxwc215e`, 4 dims, all FLAG/freeze-after-fix;
+> prereg v2 addresses every must-fix) → PHASE 2 FREEZE blocked on a 3-fork GRANT FRAMING-GATE
+> (prereg §11).** Lane worktree `AVE-Core-eigenmode-wt`, branch
 > `analysis/2026-06-15-passive-eigenmode-solve` off `main@40a2a2e7`. **main is PROTECTED —
 > Grant merges; this lane does NOT merge.** Prereg: `research/2026-06-15_passive-eigenmode_prereg.md`.
 >
@@ -59,9 +60,12 @@ null and says nothing about whether the **passive fixed-point exists.**
    Phase 5). Seeded AT Golden Torus, **both objectives drift away at iteration 1**: *"GT is
    NOT a stationary point of either … selected by topological-quantization ANSATZ, not by
    gradient flow on any objective the engine knows"* (`…abcd-handoff…retrofit.md:24,50`).
-   Methodology verdict: energy stationary-point = SM-leakage, AVOID (`VACUUM_ENGINE_MANUAL.md:1692`).
+   Methodology verdict: energy stationary-point = SM/QM-style energy-stationarity (Rule 6, avoid)
+   (`72_vacuum_impedance_design_space.md:238` — auditor-corrected; VEM:1692 is the *replacement*
+   method, not the avoid-verdict).
 2. **Decoupled wave-eigensolve (V = output eigenvector) → Mode III, no bound state at ω_C**
-   (`72_vacuum_impedance_design_space.md:21,158`).
+   (`74_r7_k4tlm_lctank_run_result.md:57`; `126_…standing_wave_eigenmode…:17`; the hybrid-untried
+   residue at `72_vacuum_impedance_design_space.md:158`).
 3. **ABCD direct eigensolver → proposed-then-retired, no code written.**
 
 ### 2b — The ONE untried residue (the target)
@@ -86,9 +90,11 @@ question"* (`72_…:158`); the open Layer-8 "smallest stable soliton, m_e nowher
 ### 2e — Winding carrier + coordinate discipline (hazard-free)
 - Winding on the **independent Cosserat-ω carrier**: `fast_winding_extractor.py:165`
   `extract_2_3_omega_fast(omega, pi_omega,…)`; charge = Beltrami helicity
-  (`cosserat_field_3d.py:450`); winding→coupling `kappa_tilde_torus(p,q)=pq/(p+q)` →
-  (2,3)→`1.2·α` (`cosserat_field_3d.py:98`). **Phasor SHAPE (R/r=φ²) is necessary-not-
-  sufficient** (`…transverse-selftrap-result.md:90,144`).
+  (`cosserat_field_3d.py:450`); the **α-FREE** topological factor `kappa_tilde_torus(p,q)=pq/(p+q)`
+  → (2,3)→`κ̃=1.2` (`cosserat_field_3d.py:98`, docstring: "α should NOT be an input"); the
+  **α-bearing** coupling `κ_chiral = α·κ̃` is `KAPPA_CHIRAL_ELECTRON` (`:131`; α injected `:124`) —
+  this is the line that makes α an **input** (→ echo, §5.5). **Phasor SHAPE (R/r=φ²) is
+  necessary-not-sufficient** (`…transverse-selftrap-result.md:90,144`).
 - **HARD HAZARD** (`master-equation.md:20`): never wire winding into `(V_inc,V_ref)` — `V_ref`
   is a read-only projection of `V` (`k4_tlm.py:346`); `w_pol=0` double-count.
 
@@ -138,22 +144,30 @@ on energy/S11 — falsified + SM-leakage, §2a):
 Gaussian **disperses** (negative control, `:13`). Plus a **decoupled (α=0) control** that
 finds nothing → confirms the coupling is load-bearing (the false-negative guard is real).
 
-**Platform** (per `ave-loop-gap-harness-discipline`): the hybrid mode spans the A1/bulk Γ=−1
-cavity (`crystal_engine.py`/`master_equation_fdtd.py`) ⊗ the Cosserat-ω carrier
-(`CosseratField3D` + coupled `VacuumEngine3D`/`CoupledK4Cosserat`). Spanning both **is** the
-open physics. No new `*_vN` file.
+**Platform** (per `ave-loop-gap-harness-discipline` — auditor-flagged FIREWALL issue, resolved to
+option (a), Grant framing-gate prereg §11): the A1/bulk Γ=−1 stiffening cage lives ONLY on branch-1
+(`crystal_engine`) and **canonically cannot carry the Cosserat winding** (irrotational↮winding
+firewall, `engine-capability-map.md` §3.1); the coupled engine cannot host that cage. Spanning both
+= the non-existent "substrate-complete engine" (needs Grant sign-off). **Default = option (a):**
+run on `CoupledK4Cosserat` with the Γ=−1 wall as the engine's **own impedance-Γ clamp**
+(`k4_cosserat_coupling.py:674-686`), firewall-legal, **no `crystal_engine`** — at the cost that its
+scalar is a `v_scalar_from_v_inc` **projection** (restricted hybrid, not the full A1-cage⊗T2; a
+NEGATIVE may reflect the projection's limit). No new `*_vN` file. **Grant's call: (a) restricted vs
+(b) cross-firewall full cage + sign-off.**
 
 ---
 
 ## §5 — Flags (RATIFIED by Grant 2026-06-15)
 
 - **Flag-A — A1-vs-T2 mass sector: hybrid object ACCEPTED; bears-on but does NOT resolve.**
-  Frame the solve on the hybrid (V,ω) mode. Grant's frame-reconciliation: **provenance = T2**
-  (`cosserat-mass-gap.md:108`, the photon-origin/charge leaf) · **state = A1**
-  (`master-equation.md:20`, the rest-mass leaf) — both unretracted, both right in their
-  frame; the hybrid mode's rest energy sits on **A1 (state)**, T2 is its **provenance**. Two
-  frames of one mode. The lane reports this as a **note**, NOT a derivation ($m_ec²$ magnitude
-  is hypothesis-class, `photon-identification.md:19`). **Do not claim resolution.**
+  Frame the solve on the hybrid (V,ω) mode. Grant's frame-reconciliation is a **SYNTHESIS, not
+  corpus-verbatim** (auditor flag): **provenance = T2** (the PROVENANCE-vs-STATE ruling is at
+  `photon-identification.md:11,13` — "self-trapped photon is PROVENANCE not STATE") · **state = A1**
+  (`master-equation.md:20`, the A1-dilatation rest-mass). ⚠ `cosserat-mass-gap.md:108` is itself a
+  T2-mass-**STATE** claim ("T2 carries the mass-gap content"), so the A1-vs-T2 tension is genuinely
+  **unreconciled at the leaf-body level**; "two frames of one mode" is the lane's reading, not corpus
+  text. The lane reports this as a **note**, NOT a derivation ($m_ec²$ magnitude hypothesis-class,
+  `photon-identification.md:19`). **Do not claim resolution.**
 - **Flag-B — SCOPING: B1 (run the hybrid-coupled solve). RATIFIED.** B2 is the over-closure
   trap. Both outcomes are results.
 - **Flag-C — detector: residual + stability eigenvalue + radiative Q (3rd output = α). RATIFIED.**
@@ -170,13 +184,18 @@ point.** This lane is the middle leg:
   wall, hybrid A1⊗T2.
 - **Lane 2 (THIS) solves the hybrid eigenmode at that point — and measures its radiative
   Q = 1/α.**
-- **Lane 1 (post crystalline pivot)** derives that same Q = 1/α = 137 from geometry
-  (z₀=52 + the 2α gap).
+- **Lane 1 (post crystalline pivot)** is *to* derive that same Q = 1/α from geometry — **but
+  that α-free leg is the OPEN frontier (Path C), NOT an established route** (auditor flag,
+  correcting the headline): z₀=52 → α⁻¹≈**138.9**, **1.5% off** 137.036, and "z₀=52 is not
+  physically forced" (`2026-06-08_ave-electron-definitive.md:40,45`;
+  `2026-05-18_z0-first-principles-attempt-result.md:90`). Both lift-routes closed NEGATIVE.
 
 **The orchestration move (downstream dependency of THIS lane's result):** wire Lane 2's
-**measured Q** into Lane 1 as a cross-check. **If the two independent routes to Q agree at
-the measured α, that is the CHORD.** This lane's deliverable is therefore not just a
-yes/no — it is a **measured Q** that becomes a chord-input.
+**measured Q** into Lane 1 as a cross-check. **The CHORD is CONTINGENT — it fires ONLY IF Lane-1
+Path C closes** (α-free z₀≈51.25); a Lane-2 positive banked against the present z₀=52 leg would
+**manufacture an apparent chord from two α-absorbing routes** (forbidden). This lane's deliverable
+is a **measured Q** that becomes a chord *candidate*, not an immediate cross-check. (The chord also
+needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently exceeds.)
 
 > **Echo-vs-chord discipline on the Q value (`ave-discrimination-check` + memory
 > `project_alpha_keystone_echo_resolved`):** `Q_TANK = 1/α` is a **calibration identity, NOT
@@ -209,11 +228,13 @@ yes/no — it is a **measured Q** that becomes a chord-input.
 |:---|:---|:---|:---|
 | 0. Corpus-grep prereg | sweep `wte7dhv5v` → inventory | THIS lane | ✅ |
 | 1. Ontology + flags | **GRANT GATE** | Grant | ✅ (B1 + high-Q) |
-| 2. Prereg draft + Rule-11 freeze | discriminator/bins/falsifiers | THIS lane | **← drafting** |
-| 3. Auditor-gate | READ-ONLY `ave-auditor` verifies prereg vs corpus | auditor | next |
-| 4. Driver | ave-implementer, own worktree, §4 + stability + radiative-Q layers | implementer | gated on 2–3 |
-| 5. Result | honest bin + measured Q (echo/chord tag) | implementer | — |
-| 6. Adjudicate + cross-lane | result → Grant; wire Q into Lane 1 | Grant | — |
+| 2a. Prereg draft (v1→v2) | discriminator/bins/falsifiers + auditor fixes | THIS lane | ✅ (v2) |
+| 3. Auditor-gate | READ-ONLY `ave-auditor` panel `wyxwc215e` (4 dims) | auditor | ✅ all FLAG/freeze-after-fix; v2 addresses must-fix |
+| 1b. Framing-gate | **GRANT GATE** — prereg §11: platform fork · F3 137-vs-114 · chord contingency | Grant | **← HERE** |
+| 2b. Rule-11 freeze | → `_FROZEN` + re-gate confirm | THIS lane | blocked on 1b |
+| 4. Driver | ave-implementer, own worktree, §7 + stability/Q layers + G1–G4 gates | implementer | gated on 1b–2b |
+| 5. Result | honest bin + measured Q (137/114, echo/chord tag) | implementer | — |
+| 6. Adjudicate + cross-lane | result → Grant; Q → Lane 1 **iff Path C closes** | Grant | — |
 
 ---
 
@@ -226,5 +247,23 @@ yes/no — it is a **measured Q** that becomes a chord-input.
 - **2026-06-15 (Phase 1)** — **Grant-gated.** B1 green-lit; **"lossless" dropped → high-Q
   (Q=1/α=137), measure Q, false-negative guard on Q=∞**; radiative Q = 3rd detector output;
   shear clock confirmed; hybrid object accepted (bears-on not resolves Flag-A); cross-lane
-  triangulation (Lane 2 measures Q → Lane 1 cross-check = the chord). **NEXT: draft prereg,
-  auditor-gate, then freeze + dispatch driver.**
+  triangulation (Lane 2 measures Q → Lane 1 cross-check = the chord). Prereg v1 + brief
+  committed `39f5d425`.
+- **2026-06-15 (Phase 3 auditor-gate)** — Read-only adversarial panel `wyxwc215e` (4 dims:
+  discriminator, citations, echo/chord, hazard/platform). **All FLAG (freeze-after-fix), none
+  FAIL** — core verified verbatim (untried residue, high-Q reframe, scope discipline, echo/chord
+  all corpus-grounded). Load-bearing must-fix landed in **prereg v2**: (1) **platform-firewall** —
+  the Γ=−1 cavity is the A1 stiffening cage (branch-1 `crystal_engine`) which canonically cannot
+  carry Cosserat winding; spanning both = the non-existent substrate-complete engine → resolved to
+  **option (a)** (CoupledK4Cosserat + Γ-impedance-clamp BC, firewall-legal, with honest
+  projected-scalar scope caveat) but flagged to Grant; (2) **find_eigenstate `f_fn` pinned to the
+  wave-operator residual** (not energy/S11 — closes the gradient-flow loophole); (3) **F3 Q binned
+  137 (bare-α) vs 114 (κ_chiral=α·1.2) with ±5% tolerance** (was ambiguous by κ̃=1.2); (4)
+  **EXCLUDED operationalized** to the α=0 control only (no coupled run can be EXCLUDED) + bind=leak=α
+  demoted to hypothesis-under-test (no corpus anchor); (5) **chord re-framed CONTINGENT** on Lane-1
+  Path C (z₀=52 is the open frontier, 1.5% off, not an established α-free leg); (6) **G1–G4
+  instrument-validation gates** added (plant-at-scale winding gate at this (N,R,r); known-pos/neg for
+  stability-eig; analytic-resonator + Nyquist for radiative-Q) — closes the t2-genesis
+  detector-can't-certify defect; (7) citation fixes (`:98`→`:131` α-input; SM-leakage→`72_:238`;
+  Mode-III→`74_:57`; shear-clock→Op16; Flag-A provenance→`photon-id:11`). **NEXT: Grant framing-gate
+  (prereg §11, 3 forks) → freeze → dispatch driver.**
