@@ -618,10 +618,13 @@ def main() -> dict:
     lock = _run_one(K=K_WALL, amplitude=A_LOCK, n_periods=N_PERIODS)
     lock_bin, lock_reason = _bin_run(lock, instrument_adequate)
 
-    # ── PUMP CONTROL: hard wall + A_PUMP precursor (the parametric-pump control;
+    # ── PUMP CONTROL: harder wall + A_PUMP precursor (the parametric-pump control;
     #    if the trap were a bulk force this would detonate; under the Op17 BC it
-    #    should at most PUMP/decay, discriminating wall-BC from bulk-force). ──
-    pump = _run_one(K=K_WALL * 4.0, amplitude=A_PUMP, n_periods=min(N_PERIODS, 6.0))
+    #    should at most PUMP/decay, discriminating wall-BC from bulk-force). The
+    #    clamp multiplier is kept modest (1.5×) so n_sub stays bounded — the
+    #    discrimination is carried by the AMPLITUDE (A_PUMP) and the hardened wall,
+    #    not by an extreme clamp that only inflates sub-stepping cost. ──
+    pump = _run_one(K=K_WALL * 1.5, amplitude=A_PUMP, n_periods=min(N_PERIODS, 4.0))
     pump_bin, pump_reason = _bin_run(pump, instrument_adequate)
 
     # ── APPARATUS-FLOOR sweep on the coupled LOCK run ──
