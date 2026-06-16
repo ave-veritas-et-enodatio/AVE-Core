@@ -1142,7 +1142,17 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
 
 - **2026-06-16 (Phase 19 — 🔴🔴 SCALE/ARENA finding `wperakoc6`: the cavity IS one Nyquist voxel in the
   corpus but the engine runs MULTI-CELL — a FIRST-ORDER scale+representation mismatch BENEATH the stencil bug;
-  GATES Q3)** — Grant's two questions, answered verbatim-grounded both sides. **(1) Cavity one voxel? CORPUS
+  GATES Q3)** — ⚠️ **SUPERSEDED-IN-PART by Phase 20 (Rule-12, 2026-06-16). The three DECISIVE claims below
+  are OVERTURNED by direct code read: (a) the "real-space torus readout category error" is FALSE —
+  `extract_2_3_omega_fast` and `poloidal_quadrature_content` build the SAME phasor `Z=(ω·d̂)+i(π_ω·d̂)` via
+  the SAME `interp_vec_batch` sampler + Park-projection, differing ONLY in reducer (integer winding vs ±q
+  Fourier); the (R,r) torus is the SAMPLING LOCUS, not the wound quantity — the readout is A46-clean; (b) the
+  multi-cell arena is CORRECT-for-emergence (the frozen discrimination prereg DEFINES the chord axis as α-free
+  emergence from generic IC, which needs a multi-cell box); (c) Q3 is therefore NOT frozen beneath an arena
+  question — it is held on the bounded-wall build (pre-flight v2). What SURVIVES, scoped: dx=0.5 = 2×
+  OVERsampling (finer resolution, NOT a sub-Nyquist fiction — minor cleanliness, normalize to dx=ℓ_node), the
+  stale `dx=ℓ_node` comment, and the π flux-tube corpus-defect flag (→ reconciliation lane). Original text
+  preserved below for the audit trail.** Grant's two questions, answered verbatim-grounded both sides. **(1) Cavity one voxel? CORPUS
   YES, ENGINE NO.** Corpus: the electron is a **single-Nyquist-cell, sub-cell** object — `ℓ_node`=reduced
   Compton=lattice pitch=spatial natural unit (`constants.py:255-257,302`); "the entire electron geometry fits
   inside ONE K4 cell," "a **sub-cell phase-space soliton: NOT a multi-cell extended structure**"
@@ -1176,6 +1186,42 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   of the arena answer.** **NEXT: Grant rules the intentionality fork (emergence-arena-by-design vs drift; is
   dx=0.5 intended?); if drift/category-error, the next engine tests the electron as a SINGLE Nyquist cell with
   an INTRA-cell (V_inc,V_ref) phase-space winding — NOT a multi-cell real-space breather + real-space torus.**
+
+- **2026-06-16 (Phase 20 — ✅ REVERSAL of the Phase-19 SCALE/ARENA reframe; grep-grounded, both lanes
+  self-corrected)** — The auditor lane ran an adversarial grounding (`w6lhjhsxn` + SCALE/readout/tie-break
+  lenses) precisely to challenge its own enthusiasm for the Phase-19 "three-way convergence" (corpus + reframe
+  + bounded-wall all naming the K4-TLM/LC-phasor engine). It **reversed**, and this lane **independently
+  verified the decisive point by direct code read** before amending — NOT on the auditor's say-so (the original
+  sin was banking `wperakoc6`'s reframe without reading the operative reader code; same lesson as `wpqwmrms0`).
+  **DECISIVE — the readout is A46-clean (verified `808b8320` working tree):** `extract_2_3_omega_fast`
+  (`fast_winding_extractor.py:198-234`) and `poloidal_quadrature_content` (`unified_genesis_engine.py:639-664`)
+  both sample `omega` AND `pi_omega` via the SAME `interp_vec_batch`, Park-project onto the SAME ω-covariance
+  principal axis `d̂`, and build the SAME phasor `Z=(ω·d̂)+i(π_ω·d̂)`; they differ ONLY in the final reducer
+  (integer winding number vs the ±q Fourier coefficient `|A₊q|−|A₋q|`). The (R,r) torus is the spatial
+  **sampling locus**, not the wound quantity. So `extract_2_3` IS the same A46-clean phasor read the engine lane
+  itself cited as clean for the C′ panel — **the "real-space torus category error" is FALSE.** **Consequence:**
+  the arena "gate" dissolves. The multi-cell box is the CORRECT stage for the α-free emergence test (the frozen
+  discrimination prereg, `research/2026-06-16_electron-existence-discrimination-prereg.md:19,22-26`, defines the
+  chord axis as the (2,3)/Γ=−1 FORM self-generating from generic IC — which needs room; N=24 is the BOX, not
+  the object). **Q3 is NOT frozen beneath an arena question — the arena is fine; the only live structural item
+  remains pre-flight v2's bounded wall** (the genuine finding, untouched by this reversal). **The Phase-19
+  intentionality fork (deliberate-arena vs drift) is MOOT for the path forward** — multi-cell-for-emergence is
+  fine either way. **What legitimately SURVIVES Phase 19 (scoped, credit):** (1) `dx=0.5` on the A1/stage15
+  engines = 2× **OVERsampling** (resolves the cell finer; does NOT fabricate a multi-cell object — minor
+  cleanliness, normalize to `dx=ℓ_node`, NOT load-bearing); (2) the stale inline comment
+  `boundary_mqj_selftrap_zwall_gate.py:94` "dx=ℓ_node" vs `KP_DX=0.5` — a real comment/code mismatch; (3) a
+  **real pre-existing corpus defect** (verified this lane): the flux-tube real-space geometry is internally
+  inconsistent by exactly π — `electron-identification.md:22` sets tube CIRCUMFERENCE=ℓ_node (→ diameter
+  ℓ_node/π≈0.318) while `electron-unknot.md:59` sets tube DIAMETER=ℓ_node ("d≡1 l_node"); one leaf confused
+  circumference with diameter. Predates the arc → **FLAG to the reconciliation lane** (not this arc's to fix);
+  (4) the narrow rider: gate de-novo `w_pol=0` reads behind the r≳3 contour-resolution floor before counting
+  them physical. **META-LESSON (banked):** the Phase-19 three-way convergence was a coincidence-magnet — it
+  re-explained the already-closed genesis-23→24→crystal negatives with a NEW unverified cause, the
+  `challenge-canonical-negative` tell. BOTH lanes were swept; the adversarial grounding workflow + a direct
+  read of the operative code caught it. The discipline worked — `feedback_challenge_canonical_negative` +
+  `feedback_structural_null_needs_stencil_lens` validated. **CORRECTED NEXT: Q3 = pre-flight v2's bounded-wall
+  build on the (correct) multi-cell Cosserat arena — a real build, NOT a representation/engine swap. No
+  intentionality ruling needed from Grant. dx-normalize + the π-defect are non-blocking side-items.**
 
 ## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
 
