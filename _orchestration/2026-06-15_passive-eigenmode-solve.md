@@ -848,6 +848,36 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   into the brief. Checkpoints 8+10 + full-H witness + known-positive floor. **NEXT: Stage 1.5 returns →
   verify → (Z→0 ⇒ Stage 2 / still-Z≈Z₀ ⇒ characterize / blows-up ⇒ two-grid stiff-instability finding).**
 
+- **2026-06-16 (Phase 10 — DISCRIMINATION REDIRECT: magnitudes are ECHO; the chord is α-FREE
+  winding-EMERGENCE; Stage 1.5 re-scoped + re-dispatched)** — audit-lane discrimination workflow
+  `wenqg7x94` (6 agents; 2/3 refute lenses confirm conf 0.86/0.90) banked the worth-gate pre-reg
+  `reconciliation-handoffs/2026-06-16_electron-existence-discrimination-prereg.md`. **VERDICT: the
+  𝓜/𝓠/𝓙 MAGNITUDE test is ECHO** — 𝓜=m_e is a calibration INPUT (ℓ_node≡ℏ/m_e c; "M out" = consistency
+  check, `electron-identification.md:50,64`); 𝓠=e is PARTIAL chord (|Q|=1 generic-for-any-soliton; only
+  the lattice-PINNED quantization + chiral sign is AVE-distinct); 𝓙=ℏ/2 is the STRONGEST chord but MIXED
+  (SU(2)/Finkelstein-Misner scaffolding IMPORTED). **The α=𝓜+𝓙+𝓠 decomposition it rests on is ECHO** —
+  verified `ch8-alpha-golden-torus.md:135` ("identification"), `:148` (Λ_vol=16π³(R·r), Λ_surf=4π²(R·r) →
+  (R,r,d)→Λ map only 2-D image = COLLINEAR), `:150` (T_d gives A₁⊕T₂=1+3, the 1+2+3 codim ordering has NO
+  substrate Hilbert-space realization), `:152` (Class-B, NOT Class-2; magnitude match = Class-4
+  observable consistency). **⚠ ORCHESTRATOR OVER-READ OWNED:** I earlier headlined α⁻¹=𝓜+𝓙+𝓠 as a
+  striking "not coincidental" result (dimensional-analysis delivery) leaning on the boundary-observables
+  leaf without surfacing its Class-B/collinear/no-Hilbert-realization status — a verify-before-cite slip;
+  the audit corrected it. **THE ONLY CHORD AXIS = α-free winding-EMERGENCE** (does the (2,3)/Γ=−1 FORM
+  self-generate from a precursor, α-free, with Q~137 emerging?) — and this discriminating lane was
+  **NEVER EXECUTED** (no engine carries bound-state dynamics + the bond-phasor observer simultaneously;
+  the current genesis suite measures a PLANTED ansatz, `2026-06-08_…-finish-adjudication.md:11`). Meta:
+  FORM self-generating = the CHORD (deepest); VALUE (m_e, α) = echo. **ACTION:** STOPPED the prior
+  Stage-1.5 (`a2317c9a3df`, was building to the Z→0/α-imported target — its last note already confirmed
+  the `v_scalar_from_v_inc` projection-not-field gap, no ∂²V/∂t²=c_eff²∇²V integration); **RE-DISPATCHED**
+  (`aebbc99dbd…`, branch `analysis/2026-06-16-boundary-mqj-stage15-alphafree-emergence`) with the
+  **4-part pre-registered (Rule-11) success criterion**: (1) (2,3)+Γ=−1 self-FORM from generic IC (no
+  planted (2,3), CP8); (2) WITHOUT α inserted (α-free; else calibration model); (3) α-free Q EMERGES
+  (~137 untold); (4) Z→0 longitudinal confinement NECESSARY-not-SUFFICIENT. Magnitudes (m_e/e/ℏ/2) are
+  NOT success. Engine must be α-FREE-CAPABLE (real A1 c_eff(V) field replacing the projection +
+  two-grid reconcile, minus chiral-srs). First commit = the Stage-1.5 prereg-freeze. R10 (remanence) =
+  separate retention wall, parked. **NEXT: Stage 1.5 (α-free emergence engine) returns → verify →
+  EMERGENCE (Q self-generates α-free) = the keystone CHORD / no-emergence = echo-or-build-incomplete.**
+
 ---
 
 ## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
