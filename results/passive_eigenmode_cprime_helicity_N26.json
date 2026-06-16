@@ -167,6 +167,7 @@
     },
     "C_BIN": "NEGATIVE",
     "C_reading": "even with H_bel held CONSERVATIVELY (energy-neutral), the breather decays/destabilizes OR the (2,3) pair is not maintained -> the sectors do not cohabit -> keystone leans negative (EARNED, not pump-masked; \u00a79.1 NEGATIVE).",
+    "C_reading_rule12_correction": "RULE-12 RE-BIN (2026-06-16, verify panel w4wkm2erq, tracker Phase 7): the original NEGATIVE-earned reading above is RE-SCOPED to 'scalar-route CLOSED-NEGATIVE; sector-cohabitation UNTESTED'. The no-work hold was genuine (cos 1.86e-17, ramp 0.999x, no pump) but C-prime held a single GLOBAL SCALAR (Beltrami helicity H_bel); the electron charge is the (2,3) INTEGER PAIR (master-equation.md:20 'the unknot dilatation-mass CARRYING the (2,3) winding -- two objects, not one'). A single scalar cannot pin a two-integer winding, so the panel RE-BINNED this DISQUALIFY-WRONG-OBJECT (method-artifact, NOT an earned keystone-negative). Durable verdict: scalar-hold route CLOSED-negative; sector-cohabitation UNTESTED. Original C_reading preserved per Rule 12 (substitution-not-retraction).",
     "held_breather_persists": true
   }
 }

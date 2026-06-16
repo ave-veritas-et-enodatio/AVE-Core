@@ -1,5 +1,7 @@
 # OPTION C′ — the NO-WORK Beltrami-helicity hold: BIN = NEGATIVE (earned)
 
+> **🔴 RULE-12 DEMOTION (2026-06-16 — verify panel `w4wkm2erq`, tracker Phase 7; original verdict text below PRESERVED unedited).** The headline "BIN = NEGATIVE (earned)" / "keystone leans negative EARNED" is **RE-SCOPED** to: **the scalar-route is CLOSED-NEGATIVE; sector-cohabitation is UNTESTED.** The no-work H_bel hold was genuine (orthogonality `cos(g_perp,e)=1.86e-17`, full-Hamiltonian ramp 0.999×, NO pump — the conservativeness below stands) BUT C′ held a single **global SCALAR** (Beltrami helicity), and the electron charge is the **(2,3) integer PAIR** (`master-equation.md:20`: *"the unknot dilatation-mass **carrying** the (2,3) winding — two objects, not one"*). A single scalar cannot pin a two-integer winding, so the panel **RE-BINNED this DISQUALIFY-WRONG-OBJECT** — a method-artifact, not an earned keystone-negative. The durable verdict is therefore *"the scalar-hold route is CLOSED-negative; sector-cohabitation is UNTESTED,"* **NOT** "keystone leans negative earned." The original NEGATIVE-earned framing below is preserved per Rule 12 (substitution-not-retraction); read it through this re-scope.
+>
 > **STATUS:** OPTION C′ probe of the passive winding-protected electron eigenmode lane
 > (prereg `2026-06-15_passive-eigenmode_prereg_FROZEN.md` + the C′ amendment §9.1 of
 > `_orchestration/2026-06-15_passive-eigenmode-solve.md`, Grant-greenlit 2026-06-16). Branch
@@ -127,6 +129,8 @@ scalar-helicity constraint.
 ---
 
 ## §5 — BIN = NEGATIVE (earned), per §9.1
+
+> **🔴 RULE-12 CORRECTION (2026-06-16 — verify panel `w4wkm2erq`, tracker Phase 7; verdict text below PRESERVED).** This "NEGATIVE (earned)" verdict is **RE-BINNED to DISQUALIFY-WRONG-OBJECT** and re-scoped to *"scalar-route CLOSED-NEGATIVE; sector-cohabitation UNTESTED."* The hold's conservativeness (NOT-DISQUALIFY-on-energy) is real, but the held object is a **global scalar (H_bel)** while the electron charge is the **(2,3) integer PAIR** (`master-equation.md:20`); a single scalar cannot pin a two-integer winding, so the negative is a **method-artifact of holding the wrong object**, not an earned keystone-negative. The §5 text below is preserved per Rule 12.
 
 - **NOT DISQUALIFY:** the hold is energy-neutral by construction (ramp 0.999×, cos 1.86e-17) — the
   C pump is cleared.
