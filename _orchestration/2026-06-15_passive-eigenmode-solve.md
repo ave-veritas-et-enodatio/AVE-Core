@@ -902,9 +902,38 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   is the C(director)/C′(scalar) WRONG-OBJECT pattern at one level deeper — a clean, well-disciplined negative
   that is likely a WRONG-PRECURSOR-CLASS artifact (propagating-vs-confined), NOT an earned echo. Do NOT bank
   echo.** Rule-11 prereg-freeze first commit `6e5529a1`; 4 corrections folded; result doc + engine + 3 layer
-  drivers on branch. **NEXT: (1) Grant rules the precursor fork (confined-vs-propagating) + the
-  genesis-requires-coherence-leg question (§11 instrument-floor); (2) adversarial-verify panel (earned-negative
-  vs precursor-class-artifact vs the CP10-anti-pump-vs-co-location structural tension) before banking.**
+  drivers on branch. (Provenance: `aebbc99dbd` is the AGENT-ID, **NOT a commit** — `git cat-file` invalid;
+  the build is **`be459b7e`**. Result-doc build-cite needs the same fix when landed.)
+
+- **2026-06-16 (Phase 11.1 — Stage-1.5 (c) verdict CONFIRMED by verify panel `wpqwmrms0`:
+  PRECURSOR-CLASS-ARTIFACT, validated + scoped; my TWO forks were both wrong-next-moves)** — 4 adversarial
+  lenses (earned-advocate / re-discovery / CP8-plant / CP10-vs-co-location) all landed **LEANS-EARNED
+  (0.68/0.85/0.82/0.82)**, facts grep-confirmed vs committed JSON; both pre-banking gates PASS (frozen-bin
+  referential integrity — result bins to the frozen `EMERGENCE-NEGATIVE`, no post-hoc drop; provenance fixed
+  above). **The `f_V=0` is STRUCTURAL, not a disabled-flag artifact** (the auditor's sharpest worry, ruled
+  out — genesis-omega-wave's `disable_cosserat_lc_force` precedent does NOT apply): the coupling force is
+  LIVE every step but evaluates to zero because the deep-saturated cage core is pure A1 dilatation =
+  **irrotational** (∇×∇V≡0, `engine-capability-map.md:57`), so the winding curl Ξ is structurally zero there;
+  the curl lives only in the rotational photon sector, which radiates out. **The A1 cage is a PROVABLE
+  SPECTATOR:** `ω_C_max=0.29916` bit-identical across coupling-OFF / front / interior variants,
+  `coupling_work=0` everywhere — even the "obvious fix" (interior-coupling variant) gave `f_V=0`; you can't
+  tune to a coupling event. **REFRAME (corrects my over-read):** Layer (c) is NOT a fresh falsification — it
+  **RE-RUNS the closed `genesis-omega-wave` (`cc19416d`) / crystal_engine→graft-v4 arc** for the charge-"3"
+  ω-photon with the new cage as a spectator. **Foreground Layer (a) as THE earned advance (α-free A1 cage
+  self-traps, mass-"3" longitudinal wall forms); scope (c) as a deeper re-confirmation of an already-banked
+  negative — do NOT double-count as a new falsification.** **BOTH MY FORKS WERE WRONG (owned):** Fork 1
+  (re-seed confined precursor) = **CP8 PLANT HAZARD** — `seed_audit` gates topology but NOT spatial config,
+  and (c) proved spatial co-location is load-bearing → hand-placing a confined co-located precursor installs
+  the answer (the held-BC C′ sin one level up); needs a 4-prong CP8-confinement gate before any yes-branch.
+  Fork 2 (genesis-requires-coherence-leg) = **MOOT for Stage-1.5** — `coupling_work=0` → the loop never
+  closes → nothing to phase-lock (unreachable, not answered-NO; still live for the older t2 NO-GENESIS).
+  **THE RIGHT NEXT EXPERIMENT (CP8-safe, auditor-surfaced): a moving Γ=−1 / Op17-bounded reflecting wall on
+  SECTOR B (the photon sector, NOT Sector A), co-moving with the cage front, SAME generic photon seed
+  unchanged** (no seed change → cannot bank the spatial plant; α-free by inheritance). Wall confines photon +
+  loop closes → (c) was a fixable mechanism-gap; wall ALSO fails → obstruction promotes toward a real
+  substrate statement ("a free propagating massless precursor can't become a bound resonator even with an
+  external wall"), and ONLY THEN is Fork 1's gated confined precursor the remaining probe. **NEXT: Grant go
+  on the moving-wall-on-Sector-B dispatch (replaces both forks).**
 
 ---
 
