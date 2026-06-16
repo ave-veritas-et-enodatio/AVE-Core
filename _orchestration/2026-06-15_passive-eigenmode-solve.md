@@ -840,6 +840,13 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   electron *stays*, not whether it *forms*; parked from the existence test. **NEXT: Grant GO on the
   two-sector-convergence build → Stage 1.5 (add c_eff(V)/A1 cage, reconcile grids, re-run gate for Z→0) →
   Stage 2 (rigorous 𝓠=Link/𝓙=Wind) → Stage 3 (read 𝓜/𝓠/𝓙 → m_e,e,ℏ/2).**
+  **GRANT GO'd 2026-06-16 → Stage 1.5 DISPATCHED** (`a2317c9a3df…`, isolated worktree, branch
+  `analysis/2026-06-16-boundary-mqj-stage15-ceff-converge` off `origin/…-zwall`): port the
+  Master-Equation `c_eff(V)/A1` stiffening cage into the coupled engine + reconcile the
+  continuum-scalar-FDTD ⊗ K4-tetrahedral grids (shared front, §4 spec, minus chiral-srs) + re-run the
+  gate measuring the **longitudinal** Z_tank=√(L/C_comp) (does it →0?); 4 result-doc corrections folded
+  into the brief. Checkpoints 8+10 + full-H witness + known-positive floor. **NEXT: Stage 1.5 returns →
+  verify → (Z→0 ⇒ Stage 2 / still-Z≈Z₀ ⇒ characterize / blows-up ⇒ two-grid stiff-instability finding).**
 
 ---
 
