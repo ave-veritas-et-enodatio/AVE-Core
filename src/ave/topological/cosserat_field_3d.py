@@ -786,6 +786,7 @@ class CosseratField3D:
         impedance_skin_smoothing: int = 2,
         impedance_implicit: bool = False,
         impedance_cfl_safety: float = 0.4,
+        impedance_unitary: bool = False,
     ):
         self.nx = nx
         self.ny = ny
@@ -913,6 +914,17 @@ class CosseratField3D:
         # CP6: (ω=C-state, ω̇=L-state) tracked exactly as the rotated pair.
         self.impedance_implicit = bool(impedance_implicit)
         self.impedance_cfl_safety = float(impedance_cfl_safety)
+        # ── amendment-4 (2026-06-16): K4-TLM UNITARY-SCATTER reflector ──
+        # When True, the moving Γ=−1 wall is realized NOT as the harmonic
+        # node-clamp `_rotate_clamp` (ω̈=−Ω₀²ω, a bulk restoring force with NO
+        # |ω| ceiling — it confines AND pumps, the #273 ww8x96sci finding) but
+        # as the K4-TLM Op3 unitary scatter (k4_tlm.py:402-423) ADAPTED to the
+        # Cosserat (ω, ω̇/Ω₀) reactance pair: at the wall cells the incident
+        # characteristic amplitude is rotated through [[Γ,T],[T,−Γ]] (Γ²+T²=1),
+        # so |reflected| ≤ |incident| BY CONSTRUCTION (a rotation) — energy-honest,
+        # |ω|-bounded, NO injection. CP10: a boundary reflection (R=Γ²≤1), not a
+        # bulk force. The (2,3) winding read is untouched (A46-clean).
+        self.impedance_unitary = bool(impedance_unitary)
 
     # ------------------------------------------------------------------
     # Initial condition
@@ -1725,6 +1737,14 @@ class CosseratField3D:
                 self.epsilon_yield,
             )
         )
+        # amendment-4: the UNITARY-SCATTER wall stores NO separable reactive
+        # potential — it is a pure boundary reflection (the energy stays in the
+        # ω-WAVE, the scatter just turns it around, |output|=|input|). So
+        # V_clamp ≡ 0 and the conserved witness is H = T + W_linear; any rise in
+        # THAT is a genuine pump (not reactive wall-slosh). For the harmonic
+        # node-clamp path the reactive spring potential V_clamp is real (below).
+        if self.impedance_unitary:
+            return {"T": T, "W_linear": W, "V_clamp": 0.0, "H": T + W}
         if self._clamp_weight is not None:
             mask = self.mask_alive[..., None].astype(self.omega.dtype)
             V_clamp = 0.5 * self.impedance_clamp_strength * float(
@@ -1781,6 +1801,75 @@ class CosseratField3D:
         od = -O * s * self.omega + c * self.omega_dot
         self.omega = om
         self.omega_dot = od
+
+    def _unitary_scatter(self, omega0: np.ndarray) -> None:
+        """K4-TLM UNITARY-SCATTER reflector at the moving Γ=−1 wall (amendment-4).
+
+        The substrate-native, energy-honest, |ω|-BOUNDED-by-construction wall.
+        Ports the Op3 bond-reflection (`k4_tlm.py:402-423`,
+        `V_inc = Γ·V_ref_A + T·V_ref_B`, `Γ²+T²=1`, `|Γ|≤1`) onto the Cosserat
+        (ω, ω̇) reactance pair, in place.
+
+        WHY (the #273 ww8x96sci finding): `_rotate_clamp` integrates the harmonic
+        node-clamp ω̈=−Ω₀²ω EXACTLY but Ω₀=√((K/I_ω)·relu(−Γ)) is a STIFFENING
+        SPRING with NO |ω| ceiling — as the front sharpens (relu(−Γ)→1) it stores
+        unbounded reactive energy, so the wall forms (Γ→−1) AND pumps (H climbs
+        4.3×10⁶) together. A spring is a BULK restoring force (CP10 violation).
+
+        THE FIX — reflect the WAVE, don't pump a spring. At each wall cell decompose
+        the reactance pair into d'Alembert incident/reflected CHARACTERISTIC
+        amplitudes on the dimensionless reactance plane (ω, ω̇/Ω₀):
+
+            a_in  = ½(ω + ω̇/Ω₀)        (one travelling-wave characteristic)
+            a_ref = ½(ω − ω̇/Ω₀)        (the counter-propagating partner)
+
+        and apply the UNITARY 2×2 scatter (rotation, det=−1, orthogonal):
+
+            [a_in' ]   [ Γ_w   T_w ] [a_in ]      Γ_w = relu(−Γ_field) ∈ [0,1]
+            [a_ref']  =[ T_w  −Γ_w ] [a_ref],     T_w = √(1 − Γ_w²)
+
+        then recompose ω = a_in' + a_ref', ω̇ = Ω₀·(a_in' − a_ref'). Because the
+        scatter matrix is ORTHOGONAL (Γ_w²+T_w²=1), it PRESERVES a_in²+a_ref²
+        = ½(ω² + ω̇²/Ω₀²) — the reactance-pair norm — EXACTLY, and maps the
+        amplitude vector to one of EQUAL length: |output| = |input|. So the wall
+        can NEVER inject energy (no pumping) and ω is bounded by the incident
+        amplitude (no |ω| blow-up). At the μ-short Γ_w→1, T_w→0 ⇒ a_in↔Γ_w·a_in:
+        the wave reflects with the corpus Γ=−1 inversion (a_ref picks up −Γ_w);
+        at matched/open Γ_w→0, T_w→1 ⇒ the pair swaps (free-stream pass-through,
+        the bulk wave is unchanged). CP6: (ω=C-state, ω̇=L-state) scattered as ONE
+        pair. CP10: a boundary reflection R=Γ_w²≤1, not a bulk spring.
+
+        Distinct from `_rotate_clamp`: the rotation there is in the (ω, ω̇) DYNAMICAL
+        plane at angle Ω₀τ (time-advance of a spring, energy ½I_ω(ω̇²+Ω₀²ω²) grows
+        as the spring stiffens); the scatter here is in the (a_in, a_ref)
+        CHARACTERISTIC plane at the reflection angle (a wave bouncing off a mirror,
+        norm conserved, amplitude bounded). The bulk linear-elastic propagation
+        (`_bulk_accel`) carries the ω-wave between scatters; the scatter only turns
+        it around at the wall — exactly the K4-TLM scatter+connect split."""
+        O = omega0  # Ω₀ = √((K/I_ω)·relu(−Γ)); 0 where matched/open (no wall)
+        tiny = 1e-30
+        active = O > tiny  # wall cells only; elsewhere the pair free-streams (bulk)
+        if not np.asarray(active).any():
+            return
+        O_safe = np.where(active, O, 1.0)[..., None]
+        # Γ_w = relu(−Γ) is exactly the frozen per-step clamp weight (μ-short only,
+        # ∈[0,1]); T_w = √(1−Γ_w²) (power-conserving complement, |Γ_w|≤1 always).
+        gamma_w = np.clip(self._clamp_weight, 0.0, 1.0)[..., None]
+        T_w = np.sqrt(np.maximum(1.0 - gamma_w**2, 0.0))
+        # characteristic (incident/reflected) amplitudes on the (ω, ω̇/Ω₀) plane
+        wd_norm = self.omega_dot / O_safe
+        a_in = 0.5 * (self.omega + wd_norm)
+        a_ref = 0.5 * (self.omega - wd_norm)
+        # unitary scatter [[Γ,T],[T,−Γ]] — orthogonal, |output|=|input| (no pump)
+        a_in_new = gamma_w * a_in + T_w * a_ref
+        a_ref_new = T_w * a_in - gamma_w * a_ref
+        omega_new = a_in_new + a_ref_new
+        omega_dot_new = O_safe * (a_in_new - a_ref_new)
+        # apply ONLY at wall cells (active); free-stream cells untouched (the bulk
+        # propagation in `_bulk_accel`/drift carries them — scatter+connect split)
+        act3 = np.broadcast_to(active[..., None], self.omega.shape)
+        self.omega = np.where(act3, omega_new, self.omega)
+        self.omega_dot = np.where(act3, omega_dot_new, self.omega_dot)
 
     def _bulk_accel(self) -> tuple[np.ndarray, np.ndarray]:
         """Linear-elastic bulk acceleration ONLY (no clamp) — the soft part of
@@ -1856,9 +1945,16 @@ class CosseratField3D:
                 self.u_dot = self.u_dot + 0.5 * sub * a_u
                 self.omega_dot = self.omega_dot + 0.5 * sub * a_w
                 self._zero_velocities_outside_alive()
-                # 2. drift u; exact-rotate the (ω, ω̇) reactance pair through clamp
+                # 2. drift u; turn the (ω, ω̇) reactance pair at the wall. The
+                #    UNITARY scatter (amendment-4, |ω|-bounded, no pump) replaces
+                #    the harmonic node-clamp `_rotate_clamp` (no |ω| ceiling) when
+                #    impedance_unitary=True; the scatter is a connect-step (turns
+                #    the wave around), not a sub-dt-advance, so it is τ-independent.
                 self.u = self.u + sub * self.u_dot
-                self._rotate_clamp(omega0, sub)
+                if self.impedance_unitary:
+                    self._unitary_scatter(omega0)
+                else:
+                    self._rotate_clamp(omega0, sub)
                 self._zero_outside_alive()
                 # 3. half-kick (bulk force at the new state)
                 a_u_new, a_w_new = self._bulk_accel()

@@ -123,6 +123,9 @@ class A1CosseratMovingWallEngine(A1CosseratConvergenceEngine):
         impedance_clamp_strength: float = 400.0,
         impedance_skin_smoothing: int = 2,
         impedance_cfl_safety: float = 0.4,
+        # ── amendment-4: K4-TLM UNITARY-SCATTER wall (energy-honest, |ω|-bounded)
+        #    vs the harmonic node-clamp (no |ω| ceiling — confines AND pumps) ──
+        impedance_unitary: bool = True,
     ):
         # Build the parent (Sector A cage + Sector B Cosserat + coupling). The
         # parent constructs self.B as a plain CosseratField3D; we REPLACE it with
@@ -139,6 +142,7 @@ class A1CosseratMovingWallEngine(A1CosseratConvergenceEngine):
 
         self.wall_on = bool(wall_on)
         self.impedance_clamp_strength = float(impedance_clamp_strength)
+        self.impedance_unitary = bool(impedance_unitary)
 
         # ── REPLACE Sector B with an impedance-boundary CosseratField3D ──
         # Same N³ extent, same K4 A/B masks, same saturation. The wall lives on
@@ -151,6 +155,7 @@ class A1CosseratMovingWallEngine(A1CosseratConvergenceEngine):
             impedance_skin_smoothing=int(impedance_skin_smoothing),
             impedance_implicit=True,                  # energy-conserving (§7-fixed) path
             impedance_cfl_safety=float(impedance_cfl_safety),
+            impedance_unitary=self.impedance_unitary, # amendment-4 unitary scatter
         )
         # α-FREE ROUTING: bind the kappa_chiral=0 Γ field to THIS instance, so the
         # moving wall is driven by the geometric curvature saturation κ²/ω_yield²
@@ -326,9 +331,15 @@ class A1CosseratMovingWallEngine(A1CosseratConvergenceEngine):
             B.u_dot = B.u_dot + 0.5 * sub * a_u
             B.omega_dot = B.omega_dot + 0.5 * sub * a_w
             B._zero_velocities_outside_alive()
-            # 2. drift u; exact-rotate the (ω, ω̇) reactance pair through the clamp
+            # 2. drift u; turn the (ω, ω̇) reactance pair at the wall. amendment-4:
+            #    the UNITARY scatter (|ω|-bounded, no pump — |output|=|input|)
+            #    replaces the harmonic node-clamp `_rotate_clamp` (no |ω| ceiling,
+            #    confines AND pumps) when impedance_unitary is set on Sector B.
             B.u = B.u + sub * B.u_dot
-            B._rotate_clamp(omega0, sub)
+            if B.impedance_unitary:
+                B._unitary_scatter(omega0)
+            else:
+                B._rotate_clamp(omega0, sub)
             B._zero_outside_alive()
             # 3. half-kick (bulk force + front back-reaction at the new state)
             a_u_new, a_w_new = B._bulk_accel()
