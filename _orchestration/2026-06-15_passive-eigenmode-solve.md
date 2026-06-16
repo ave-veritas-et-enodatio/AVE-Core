@@ -790,6 +790,26 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   the boundary test (C′ scalar-route-closure still banked narrow). **NEXT: Stage 1 returns → verify →
   Grant GO on Stage 2.**
 
+- **2026-06-16 (Phase 8.1 — auditor flag absorbed: Stage 1 re-dispatched as a THREE-WAY gate, not
+  binary)** — auditor endorsed the staging + clm-sjjvhf find, but flagged a binary blind spot: a Stage-1
+  **BLOW-UP** would collapse three distinct conclusions. **Verified the load-bearing tension
+  (verify-before-cite, all green):** `engine-capability-map.md:45`+`:79` say `VacuumEngine3D` is
+  **softening-only** — its scalar is a **projection** `v_scalar_from_v_inc(V_inc)`
+  (`cross_sector_coupling.py:226`, used `k4_cosserat_coupling.py:499`), **no independent A1 field**, so it
+  "structurally cannot host the stiffening cage." But the electron self-trap IS the stiffening route
+  (C_eff→∞ ⇒ Z→0 ⇒ |Γ|=1, INVARIANT-S2 Q1=B A1 matter-wall). So the `:440` Γ=−1 wall is **likely the
+  softening proxy, not the A1 stiffening confinement** — must be determined empirically. **STOPPED** the
+  binary agent (`ae3c707c0d…`, killed; orphaned worktree cleaned), **RE-DISPATCHED** (`a24e2aecd…`, same
+  branch) with a THREE-WAY gate: (1) **integrator-inadequate** — validate the stiff solver on a
+  known-stable STANDALONE verdict-II self-trap FIRST (apparatus-floor known-positive); (2) **🔧 c_eff(V)
+  structural gap** — wall forms but Z does NOT →0 (softening proxy) → NOT echo, a BOUNDED build (couple
+  the master-equation cage's c_eff(V) into the Cosserat-coupled engine; chiral-srs half stays unneeded);
+  (3) **🔴 physical no-trap** — solver-fine + Z→0 present + still no stable trap → the ONLY echo bucket.
+  **Key instrument: MEASURE Z AT THE SATURATED WALL** (Z→0 = stiffening confinement vs not = proxy) — the
+  bucket-2-vs-3 discriminator; without it BLOW-UP is unroutable. (Note: the killed binary agent's last
+  internal note already hit a "V-sector-zero flag" — i.e. it was bumping into the no-A1-field reality;
+  the re-dispatch derives it properly.) **NEXT: Stage 1 (3-way) returns → verify → Grant GO on Stage 2.**
+
 ---
 
 ## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
