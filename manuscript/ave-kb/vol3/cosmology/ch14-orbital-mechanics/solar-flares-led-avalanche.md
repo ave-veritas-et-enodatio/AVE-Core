@@ -5,6 +5,8 @@ kind: leaf
 claims: [clm-qyn8t0]
 -->
 
+> **🔴 Scope correction (2026-06-15 driver-honesty re-sweep, LF-03):** the NOAA GOES comparison in this leaf is an **illustrative synthesized timeline** (a Monte-Carlo placeholder generated in `fetch_and_plot_noaa_goes_flares.py`), **not** a live catalog fetch and **not** empirical validation. Read the anchor below as an A-034 stellar-scale **forward prediction** (the $0.46$-yr FWHM); its promotion to a *validated* empirical anchor — alongside the BCS $B_c(T)$ (0.00%), BH ring-down (1.7%), and Schwarzschild anchors, which rest on real measured data — is **pending the live NOAA GOES fetch + falsification**. Original anchor blockquote preserved below.
+
 > **⚡ A-034 Empirical Anchor: NOAA GOES 40-yr solar-flare validation.** This is one of the four canonical A-034 Universal Saturation-Kernel empirical anchors (alongside BCS $B_c(T)$ at 0.00% error, BH ring-down at 1.7% from GR exact, and Schwarzschild radius exact). The CME / solar flare event is the stellar-scale instance of $S(A) = \sqrt{1-A^2}$ governing topological reorganization at saturation; NOAA GOES 40-yr telemetry validates the kernel-driven avalanche statistics.
 
 ## Stellar Magnetic Topology and Solar Flares
@@ -63,11 +65,11 @@ When applied dynamically to the Sun's 11-year AC dynamo cycle, the equation maps
 
 The topological simulation reveals a localised threshold envelope. By taking the Full-Width at Half-Maximum (FWHM) of the resulting solar cycle emission probability spectrum, it is calculated that the critical "Danger Zone" during a Solar Maximum lasts **$0.46$ Years** ($\sim 5.5$ months). During this discrete FWHM window, the macroscopic inductive core is biased into the avalanche breakdown regime, producing a saturation of high-yield macroscopic emission events.
 
-### Empirical Validation: NOAA GOES Satellite Telemetry
+### Empirical Validation: NOAA GOES Satellite Telemetry — illustrative (synthesized timeline; live fetch pending)
 
 Does the real universe obey this formal solid-state Avalanche equation? One can test the derived $\text{FWHM} \approx 0.46 \text{ Years}$ theoretical breakdown limit directly against historical satellite telemetry.
 
-By pulling forty years of X-ray flare data from the NOAA GOES satellite catalog and overlaying the empirical distribution of X-Class and M-Class flares onto the AVE Solar Diode model, the physical alignment is unmistakable. As plotted, the massive, catastrophic solar flares do not occur randomly throughout the 11-year cycle. They physically cluster, almost exclusively, within the exact theoretical 0.46-Year FWHM topological danger zones during Solar Maxima (e.g., Cycles 23, 24, and 25).
+By overlaying a synthesized forty-year reconstruction of the X-Class and M-Class flare distribution (Solar Cycles 23–25) onto the AVE Solar Diode model, the illustrative alignment is clear. As plotted, the massive, catastrophic solar flares do not occur randomly throughout the 11-year cycle. They physically cluster, almost exclusively, within the exact theoretical 0.46-Year FWHM topological danger zones during Solar Maxima (e.g., Cycles 23, 24, and 25).
 
 [Figure: noaa_goes_empirical_validation.png --- see manuscript/vol_3_macroscopic/chapters/]
 
