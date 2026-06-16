@@ -935,6 +935,22 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   external wall"), and ONLY THEN is Fork 1's gated confined precursor the remaining probe. **NEXT: Grant go
   on the moving-wall-on-Sector-B dispatch (replaces both forks).**
 
+- **2026-06-16 (Phase 12 — Stage 1.6 DISPATCHED: moving Γ=−1 wall on Sector B, the CP8-safe OPEN route;
+  Grant GO)** — dispatched `ave-implementer` `a474535a6f` (isolated worktree, branch
+  `analysis/2026-06-16-boundary-mqj-stage16-moving-wall-sectorB` off `be459b7e` = the Stage-1.5 α-free
+  engine). **Tests:** can an EXTERNAL moving Γ=−1 / Op17-bounded wall on **Sector B** (the photon's own
+  sector, NOT the spectator Sector-A cage) confine the **propagating photon** so the energize-LOCK loop
+  closes (`coupling_work ≠ 0`, vs (c)'s structural `f_V=0`) — with the **SAME generic seed UNCHANGED**
+  (CP8-safety; re-seeding a confined precursor = the held-BC C′ plant hazard). Reuses the
+  `saturation-tir-moving-boundary` precedent + Op17 infra. **NEW gate: CP8-SPATIAL-PROVENANCE** (seed_audit
+  gates topology not spatial config; generic-offset sweep → loop-closure across a generic range = earned,
+  one-tuned-offset = plant). **NEW: figure-emit** — the lane's first real matplotlib figures (moving-wall
+  TDR, coupling_work-vs-(c)-baseline, dual-sector Sector-B Smith locus with the 1−α bake-(ii) leak marked
+  echo-not-emergence, winding-vs-time, apparatus-floor known-positive). Bins: LOOP-CLOSES (→ emergence read
+  → EMERGENCE-CANDIDATE) / WALL-CONFINES-BUT-LOOP-INERT / WALL-ALSO-FAILS (→ promotes to the substrate
+  statement, then Fork 1's gated confined precursor) / PUMPS. Ckpt 8+10 + full-H witness + apparatus-floor
+  known-positive + α-free inherited. **NEXT: Stage 1.6 returns → verify panel → adjudicate.**
+
 ---
 
 ## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
