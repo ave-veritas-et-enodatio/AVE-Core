@@ -810,6 +810,37 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   internal note already hit a "V-sector-zero flag" — i.e. it was bumping into the no-A1-field reality;
   the re-dispatch derives it properly.) **NEXT: Stage 1 (3-way) returns → verify → Grant GO on Stage 2.**
 
+- **2026-06-16 (Phase 9 — Stage-1 verdict VERIFIED + BANKED: bucket-2 c_eff(V)-STRUCTURAL-GAP, NOT echo;
+  scoped build = §4 two-sector convergence; R10 = separate retention wall)** — verify panel `wvvx6y6zb`
+  (code-lens + physics-lens + adjudicator; **physics lens INDEPENDENTLY RE-RAN the gate**) → **GATE
+  UPHELD**. Echo would require a LONGITUDINAL Z→0 read coming back ~Z₀ (failed trap); the coupled engine
+  instead measures the **TRANSVERSE Meissner Z_eff=√(S_μ/S_ε)** (`cosserat_field_3d.py:491,498`;
+  `resonant-lc-solitons.md:41`, Grant-ratified 2026-06-15) — with V_inc=0 (V_sector_energized=false every
+  step) + chirality split κ_chiral·h<1.8% → S_μ≈S_ε → achromatic-symmetric → **Z≈Z₀ is the PREDICTED
+  reading for a no-independent-A1-field engine, NOT a no-trap signal.** Bucket-1 cleared (standalone
+  c_eff(V) cage HELD, instrument_adequate=true). LOCK passive (H_total_ramp=0.906<2.0 on the genuine
+  full-H witness `total_hamiltonian()`=k4+T_cos+E_cos(gradient)+coupling, NOT sum(ω²); PUMP control A=6
+  trips ramp=163 → witness discriminates). **VERDICT BANKED.** **4 corrections for the `-zwall` result doc
+  (none invert the verdict):** (1) committed JSON is **N=18 "fast artifact"** not N=24 default — label or
+  re-run (bin N-robust, panel re-ran); (2) committed persistence=3.94P<10P min — panel full-window re-run
+  = **11.9P**; cite the long-window run for any ≥10P claim (persistence doesn't gate bucket-2); (3)
+  mechanism micro-numbers (S_μ=0.915/S_ε=0.830→Z=1.05) auditor-illustrative, NOT in JSON — emit S_μ/S_ε
+  split if load-bearing; (4) known-positive Z_long=0.376 is the **A_cap=0.99 CLAMP floor** (not asymptotic
+  Z→0; direction genuine, magnitude clip-set) — annotate.
+  **THE SCOPED BUILD (GO pending Grant):** physics SETTLED — one node carries **A1-mass ⊥ T2-winding from
+  the same S** (ratified: `photon-identification.md:16-17` PR#151 + `master-equation.md:20` + INVARIANT-S2
+  Q1=B); the engines split what the substrate unifies. Engineering = the **§4 TWO-SECTOR convergence
+  build**, NOT a one-line c_eff(V) graft: couple the Master-Equation **c_eff(V)/A1 stiffening cage** + the
+  **Cosserat-ω winding** through a shared front, AND **reconcile the continuum-scalar-FDTD grid with the
+  K4-tetrahedral Cosserat grid** (capability-map §3.1 irrotational↮winding, ∇×∇V≡0, forces two coupled
+  sectors not one field). Design-class ("engine does not exist") **MINUS chiral-srs** (chirality parked =
+  sign-only e⁻/e⁺; magnitudes achiral-OK). **No DEEPER obstruction** — Z→0 + winding firewalled into
+  different sectors the §4 spec bridges. Stage per the §5 build-order DAG (grow one layer, validate each).
+  **R10 (anhysteretic↔loop / remanence) = the SEPARATE retention wall** — governs whether the formed
+  electron *stays*, not whether it *forms*; parked from the existence test. **NEXT: Grant GO on the
+  two-sector-convergence build → Stage 1.5 (add c_eff(V)/A1 cage, reconcile grids, re-run gate for Z→0) →
+  Stage 2 (rigorous 𝓠=Link/𝓙=Wind) → Stage 3 (read 𝓜/𝓠/𝓙 → m_e,e,ℏ/2).**
+
 ---
 
 ## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
