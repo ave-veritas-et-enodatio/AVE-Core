@@ -1,8 +1,10 @@
 # Passive winding-protected electron eigenmode — the structural keystone (ORCHESTRATION)
 
-> **STATUS: 🔴 NEGATIVE-A REFUTED by the adversarial-verify panel (`ww03eo0v5`) — it is a FALSE
-> NEGATIVE (under-resolved seed + a defective G1 gate). The keystone is STILL OPEN. Held for Grant on
-> a corrected re-run + the wall/winding co-resolvability framing question.** Lane worktree
+> **STATUS: NEGATIVE-A REFUTED (false negative) → Grant ratified option (a): CORRECTED RE-RUN
+> DISPATCHED (agent `ad08960e56e04bca8`) at a co-resolving lattice (G1→absolute known-positive;
+> V-tank seed at the v14 eigen-resolution dx=0.5/≥5 cells; v_width/dx/box sweep; commit JSON). Option
+> (b) — the wall/winding scale-incompatibility (real-space R/r vs phase-space winding) — HELD as the
+> follow-up if co-resolution fails. The keystone is STILL OPEN.** Lane worktree
 > `AVE-Core-eigenmode-wt`, branch `analysis/2026-06-15-passive-eigenmode-solve` off `main@40a2a2e7`.
 > **main is PROTECTED — Grant merges; this lane does NOT merge. Result NOT banked** (driver branch
 > `analysis/2026-06-15-eigenmode-driver`, result doc REFUTED-pending-re-run). **Panel:** dim-1
@@ -524,3 +526,15 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   or is that incompatibility itself the structural obstruction? **My last-turn "consolidating toward
   echo" read is RETRACTED** (the negative that would support it is false). **HELD for Grant. Cross-lane:
   cage scope-annotation → auditor COLLABORATION_NOTES queue.**
+- **2026-06-15 (Phase 3d — Grant ratified (a); corrected re-run DISPATCHED)** — Grant: **option (a)**
+  (co-resolving re-run), hold **(b)** (wall/winding scale-incompatibility) as the follow-up if needed.
+  **Corrected re-run DISPATCHED** (agent `ad08960e56e04bca8`, on driver branch
+  `analysis/2026-06-15-eigenmode-driver`): (1) **G1 → ABSOLUTE** known-positive (sech must reach the
+  v14 retention ~0.68, not just beat the Gaussian — if it can't at the chosen resolution, G1 FAILS →
+  don't bank a negative); (2) **V-tank seed at the v14 eigen-resolution** (dx=0.5, ≥5 cells, amp≈0.85);
+  (3) **co-resolving lattice** — BOTH G1 (wall) AND G4 (winding) must pass on ONE lattice, else STOP +
+  report the **(b) structural finding**; (4) **sweep v_width/dx/box** as a first-class robustness axis;
+  (5) **commit JSON** (SHA-pin). Reuses the working G2/G3/G0/unknot infra — only G1 + seed-resolution +
+  sweep change. Re-bin per §4 (POSITIVE iff the breather exists at the correct resolution with a
+  VALIDATED absolute-G1; NEGATIVE only with the validated detector; option-(b) if no co-resolution).
+  **NEXT: re-run result → adversarial-verify panel again → adjudicate to Grant.**
