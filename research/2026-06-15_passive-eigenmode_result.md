@@ -32,6 +32,9 @@ This is a **clean negative with a single explanatory mechanism** (Rule 11 / hone
 disperses from whatever depth it is seeded at — and the winding-BC coupling does not change
 that.* No knobs were tuned to force a result.
 
+**Reproduced at two independent lattices** (N=48/R=10/r=4 and N=40/R=8.5/r=3.5), both
+NEGATIVE-A, all gates PASS at both — the bin is robust to lattice choice (§6).
+
 **Classification (`consistency-vs-emergence`):** EXISTENCE + STABILITY was the **emergence
 test** (the keystone). It returned a negative: the eigencavity structure is NOT a renderable
 passive breather on this platform/regime. (Scope: this is "no stable passive hybrid breather
@@ -105,5 +108,116 @@ derivation**; the cross-lane chord is **contingent on Lane-1 Path C (not availab
 any Q here would be **ECHO**, never a chord input. With the mode itself absent, the Q is
 doubly uninformative.
 
-## 5 — placeholder (flag-don't-fix) — filled next commit
-## 6 — placeholder (scope + discipline tags) — filled next commit
+## 5 — Flag-don't-fix (surfaced for Grant adjudication; not silently resolved)
+
+### FLAG 1 (load-bearing) — the production driver CONTRADICTS the V-tank pre-flight's "recurrent breather" claim
+
+**The orchestration doc's pre-flight (the basis for the (b′) sign-off) claims a sustained
+breather. The production driver finds pure dispersion. These conflict — surfaced, not reframed.**
+
+- **Pre-flight claim** (`_orchestration/2026-06-15_passive-eigenmode-solve.md:84-86`, verbatim):
+  > "`crystal_engine`'s V-tank self-focuses to a **GENUINE deep TIR wall** (Γ_TRUE≈−0.43 on
+  > **fully-UNCLIPPED** cells; … with **ZERO clips ever**), **bounded, NO runaway** … **recurrent**
+  > (re-focuses at steps 375–450)."
+  and (`:411-417`): "a **genuine, bounded, recurrent BREATHING TIR wall**."
+
+- **Production driver finding** (`passive_eigenmode_driver.py`, this run): across the entire
+  seed-amplitude/width space (amp 0.85→0.99, width 1.2→3.0), the TRUE Γ minimum is **always at
+  step 0** and **never deepens** (`deepens=False` in every case). At amp=0.99/w=1.8 the seed
+  *starts* at Γ_true=−0.454 (the analytic floor) — i.e. the "−0.43 unclipped" figure is the
+  **seeded** wall depth — and it relaxes monotonically to Γ_true≈−0.002. There is **no
+  self-focusing and no recurrent re-focus**; the V-tank disperses from whatever depth it is seeded at.
+
+- **Reconciliation hypothesis (for Grant, NOT asserted):** the pre-flight's "Γ_TRUE≈−0.43" is
+  the **seed-time** wall depth (correct — the seed *is* that deep), and its "recurrent re-focus
+  at steps 375–450" appears to be **transient ringing of the dispersing field** (the noisy floor
+  this driver also sees: V_peak oscillates 0.08–0.25 in the tail), **mis-read as self-focusing**.
+  If so, the (b′) "wall-half is real" premise holds only in the trivial sense that *a seeded deep
+  wall is deep at t=0* — it does NOT establish a **self-sustaining** breather, which is what the
+  keystone requires. **This does not change the bin** (NEGATIVE-A stands on F1 either way), but it
+  bears on whether the (b′) platform was correctly characterized as a viable breather host.
+  **Grant adjudicates;** the driver does not silently "fix" the pre-flight doc.
+
+### FLAG 2 (apparatus-floor attribution — `ave-apparatus-floor-attribution`)
+
+Is the NEGATIVE-A *physics* or *the bench*? The evidence says **physics floor (`WALL-physics`),
+not a solver artifact:**
+- **Known-positive certified:** all five gates PASS, including G1 (the sech-converges detector)
+  and G4 (the extractor reads the planted (2,3) at rel 0.73/0.94). The detectors can see a mode
+  if one is there.
+- **Known-null behaves:** the decoupled (α=0) control (F0) disperses identically — the coupling
+  is not masking a mode.
+- **Free-drift / regularization sweep:** reproduced at two independent lattices (N=48/R=10/r=4 and
+  N=40/R=8.5/r=3.5), both NEGATIVE-A; the dispersion is intrinsic across the seed-parameter sweep
+  (no amp/width self-focuses). The Q read flips sign between lattices (363.8 vs −67.1) — the
+  signature of a **non-bound, dispersing** field, not a stable cavity.
+- **Honest residual:** the V-tank here is run with the engine's PML + its intrinsic c_eff trap and
+  **no added confinement**. The prereg's whole hypothesis was that the **winding-BC coupling**
+  would supply the missing confinement — it did not (F0 ≈ coupled, the coupling is ≲ load-bearing
+  for the wall, echoing pre-flight #1's "chiral term <10%" finding). So the floor is "this passive
+  platform/regime, with this coupling strength, does not bind a breather" — a genuine
+  `WALL-physics` result, scoped to the platform (prereg §9), not "no electron."
+
+### FLAG 3 (bears-on, does NOT resolve — prereg §8 item 6 / Flag-A)
+
+The lane **bears on but does NOT resolve** the A1-vs-T2 mass-sector question (m_e c² hypothesis-
+class). A NEGATIVE here is "no passive hybrid breather on the A1/V-tank ⊗ Cosserat-ω platform" —
+it is **evidence the A1/V-tank scalar alone does not host the bound electron as a passive
+fixed-point breather**, consistent with (but not proving) the open question of whether the mass
+sector needs the T2 channel. **No resolution claimed.**
+
+---
+
+## 6 — Scope, discipline tags, and what this does / does not establish
+
+**What it establishes (honest scope, prereg §9):**
+- On the (b′) `crystal_engine` V-tank wall ⊗ Cosserat-ω carrier platform, with the G0
+  double-count-clean Op14 coupling (KAPPA_TILDE=6/5, α-free), at the tested lattices/regime,
+  **no stable passive winding-protected hybrid breather exists** (BIN = NEGATIVE-A). The
+  V-tank disperses; the winding does not survive; the coupling does not rescue it.
+- This is the **first hybrid-on-Cosserat** test of the imposed-BC (V,ω) mode (the prereg's
+  "one untried residue"). The untried framing was tried; it returned a clean negative.
+
+**What it does NOT establish:**
+- NOT "no electron" (scope is platform/regime, prereg §9).
+- NOT a resolution of the A1-vs-T2 mass sector (Flag 3 / prereg §8.6).
+- NOT a Q measurement worth banking (no bound mode → the Q is a dispersing-remnant artifact;
+  the headline never rested on Q — Grant 2026-06-15).
+
+**Substitution-not-retraction (Rule 12):** this result does not refill the "winding-protected
+breather exists" slot with a new hypothesis. The clean negative is recorded; any re-test on a
+different engine/regime (e.g. a T2-native carrier per the open engine-pivot, or a driven/
+autoresonant arm — explicitly OUT of this passive prereg's scope) gets its **own prereg + version
++ verification chain.**
+
+**Robustness:** NEGATIVE-A reproduced at two independent lattices (N=48 and N=40), all gates
+PASS at both. The bin is robust to lattice choice.
+
+**Discipline tags:**
+- `substrate-native-check` (CP1 time-domain wave engine not Helmholtz; CP6 reactance pair
+  recorded both sectors; CP8 imposed-BC framing; CP9 every F-read off the engines' own step();
+  CP10 Γ as the c_eff boundary + front-window coupling, never a bulk term) — walked BEFORE the code.
+- `phase-space-coordinate-check` (A46) — winding read on the (ω, ω̇) phasor, never real-space
+  Cartesian, never the (V_inc,V_ref) A1 phasor.
+- `ave-conserved-vs-pumped` — F5 keystone is the passive no-drive run; energize-LOCK coupling,
+  no gain/pump.
+- `ave-representation-capability-check` — traveling-(2,3) seeder (NOT the z-flat rotor that fails
+  G4); unknot-envelope asserted (the (2,3) is internal polarization+phasor, not an envelope knot).
+- `ave-canonical-source` — constants by direct-import cross-check (NO verify_constants fn in this
+  corpus; identities asserted: 1/ALPHA=137.036, 1/(α·1.2)=114.20, KAPPA_TILDE=6/5).
+- `ave-module-library-discipline` — REUSED both engines + the G0 coupling + the extractor; no new
+  engine, no `*_vN` file. Built only the G2 (stability) + G3 (radiative-Q) layers, each
+  known-positive/known-negative validated.
+- `ave-driver-script-honesty` — every reported number is read from the evolved engine state
+  (print-what-you-compute); the Q is honestly labeled a dispersing-remnant artifact, not a Q.
+- `consistency-vs-emergence` — existence/stability tagged emergence (the keystone, negative);
+  the Q value tagged a separate (echo) characterization.
+- `ave-discrimination-check` — the F0 decoupled control + the sech-vs-Gaussian G1 pair confirm
+  the negative is structural, not an SM-default artifact.
+- `ave-apparatus-floor-attribution` — Flag 2: physics floor (`WALL-physics`), not the bench.
+
+**Corpus-state consequence (for the auditor to land, not this lane):** the (b′) platform's
+"viable breather host" characterization (orchestration doc §1d/§0.5) is in tension with this
+production result (Flag 1) — the auditor's manuscript / `COLLABORATION_NOTES` queue should carry
+the NEGATIVE-A bin + the pre-flight-vs-production breather contradiction for Grant's adjudication.
+This lane surfaces it; it does not land the manual entry.
