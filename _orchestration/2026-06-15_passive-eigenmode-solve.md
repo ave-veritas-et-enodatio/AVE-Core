@@ -1,9 +1,11 @@
 # Passive winding-protected electron eigenmode — the structural keystone (ORCHESTRATION)
 
-> **STATUS: Grant chose C-then-A. OPTION C (held-BC breather-persistence PROBE) IN FLIGHT** (build the
-> conservative (2,3)-hold mechanism + test whether the charge-carrying mass-breather persists). A
-> (full held-BC + residual→0 eigensolve, new frozen prereg) follows IF C is clean. C pre-registration
-> at Phase 5 below.**
+> **STATUS: OPTION C — first implementer (`a9fc078b54026a57c`) DIED silently mid-build (wrote the
+> 332-line `held_bc_winding.py` hold module, uncommitted, then died before integration/run; verified
+> via TaskOutput "no task found" + 23-min-stale 147-byte transcript — NOT a clean completion).
+> RECOVERY dispatched (`a89a0c883912c60cd`): audit the inherited module → integrate → run, COMMIT
+> INCREMENTALLY.** C-then-A (A = full held-BC + residual→0 eigensolve, new frozen prereg, IF C clean).
+> Pre-registration §9 + the pre-landing consistency sweep (CLEAN) below.
 >
 > _(prior status, retained:)_ **VERIFY PANEL `w92ft1gkc` UNANIMOUS — do NOT bank NEGATIVE-A (mis-binning + the keystone
 > is UN-TESTED).**
