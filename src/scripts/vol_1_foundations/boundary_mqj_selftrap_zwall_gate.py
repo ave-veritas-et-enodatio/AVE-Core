@@ -579,8 +579,140 @@ def _bin_run(r: dict, instrument_adequate: bool) -> tuple[str, str]:
     )
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# APPARATUS-FLOOR sweep on the COUPLED run (ave-apparatus-floor-attribution):
+# is the Z-at-wall reading + the bin physics or a dx/dt floor? Vary the CFL
+# sub-dt (the operative resolution knob). A verdict that holds across resolution
+# is physics; one that flips is a floor.
+# ══════════════════════════════════════════════════════════════════════════
+def _coupled_floor_sweep(instrument_adequate, amplitude=A_LOCK, n_periods=3.0):
+    out = []
+    for cfl in (CFL_SAFE, CFL_SAFE * 0.5):
+        r = _run_one(K=K_WALL, amplitude=amplitude, cfl=cfl, n_periods=n_periods,
+                     sample_every=4, bond_cadence=8)
+        b, reason = _bin_run(r, instrument_adequate)
+        out.append({
+            "cfl": float(cfl), "n_sub": r["n_sub"], "dt_sub": r["dt_sub"],
+            "bin": b, "Z_wall_post_median": r["Z_wall_post_median"],
+            "Z_wall_floor": r["Z_wall_floor"], "omega_C_max": r["omega_C_max"],
+            "H_total_ramp": r["H_total_ramp"], "max_A2_cos_final": r["max_A2_cos_final"],
+        })
+    bins = {p["bin"] for p in out}
+    Zs = [p["Z_wall_post_median"] for p in out if np.isfinite(p["Z_wall_post_median"])]
+    return {
+        "points": out,
+        "bin_resolution_stable": len(bins) == 1,
+        "bins_seen": sorted(bins),
+        "Z_wall_resolution_stable": bool(Zs and (max(Zs) - min(Zs)) < 0.3),
+    }
+
+
 def main() -> dict:
-    raise NotImplementedError("skeleton — sections land incrementally")
+    _canonical_source_gate()
+
+    # ── STEP 1: KNOWN-POSITIVE validation (bucket-1 gate) ──
+    kp = _known_positive_gate()
+    instrument_adequate = kp["instrument_adequate"]
+
+    # ── THE GATE: coupled LOCK run (soft wall, A_LOCK precursor) ──
+    lock = _run_one(K=K_WALL, amplitude=A_LOCK, n_periods=N_PERIODS)
+    lock_bin, lock_reason = _bin_run(lock, instrument_adequate)
+
+    # ── PUMP CONTROL: hard wall + A_PUMP precursor (the parametric-pump control;
+    #    if the trap were a bulk force this would detonate; under the Op17 BC it
+    #    should at most PUMP/decay, discriminating wall-BC from bulk-force). ──
+    pump = _run_one(K=K_WALL * 4.0, amplitude=A_PUMP, n_periods=min(N_PERIODS, 6.0))
+    pump_bin, pump_reason = _bin_run(pump, instrument_adequate)
+
+    # ── APPARATUS-FLOOR sweep on the coupled LOCK run ──
+    floor = _coupled_floor_sweep(instrument_adequate, amplitude=A_LOCK,
+                                 n_periods=min(N_PERIODS, 4.0))
+
+    result = {
+        "stage": "Stage-1 GATE (boundary-MQJ self-trap integrator + Z-at-wall)",
+        "computes_MQJ": False,
+        "geometry": {"N": N, "PML": PML, "sigma": SIGMA, "lambda": LAM,
+                     "K_wall": K_WALL, "cfl_safe": CFL_SAFE,
+                     "T_compton_natural": float(T_COMPTON)},
+        "checkpoint10": {
+            "trap_rendering": "Op17-bounded moving Γ=−1 BOUNDARY CONDITION",
+            "mechanism": "_rotate_clamp exact reactance rotation + Op14 z_local→0 bond Γ→−1",
+            "bulk_force_runaway_channel": "OFF (use_impedance_boundary=True path)",
+        },
+        "checkpoint8": {
+            "seed": "transverse helical ω-photon (generative precursor)",
+            "scope": "integrator-stability + Z-at-wall of a precursor-GROWN trap; NOT an electron emergence claim",
+        },
+        "step1_known_positive": kp,
+        "Z_at_wall_caveat": (
+            "ENGINE-REALITY (INVARIANT-S2 Q1=B): the coupled Z_eff=√(S_μ/S_ε) is the "
+            "TRANSVERSE Meissner impedance, NOT the longitudinal A1 tank √(L/C_comp). "
+            "Per engine-capability-map.md:45/:79 VacuumEngine3D has no independent A1 "
+            "field. The standalone known-positive carries the genuine longitudinal "
+            "Z_long=√S (step1 Z_long_core_min). Compare: coupled Z_wall vs cage Z_long."
+        ),
+        "v_sector_flag": (
+            "the ω-photon precursor seeds the Cosserat sector only (V_inc=0); no ω→V "
+            "channel on the impedance path, so K4 Φ_link stays 0 and the BondObserver "
+            "saturated-bond channel is empty. The Cosserat confined-energy channel is "
+            "the populated persistence witness. Surfaced, not papered."
+        ),
+        "witness_flag": (
+            "total_hamiltonian() (brief-mandated full-H witness) carries the legacy "
+            "S1=D coupling + saturated functional the impedance dynamics do NOT "
+            "integrate; impedance_hamiltonian() is the engine's own conserved invariant. "
+            "Both ramps reported (KEEP-BOTH)."
+        ),
+        "lock_run": {"bin": lock_bin, "reason": lock_reason,
+                     **{k: v for k, v in lock.items() if k != "trajectory"}},
+        "pump_control": {"bin": pump_bin, "reason": pump_reason,
+                         **{k: v for k, v in pump.items() if k != "trajectory"}},
+        "apparatus_floor_sweep": floor,
+        "GATE_VERDICT": lock_bin,
+    }
+
+    out_path = os.path.join(HERE, "boundary_mqj_selftrap_zwall_gate_results.json")
+    with open(out_path, "w") as f:
+        json.dump({**result, "lock_trajectory": lock["trajectory"]}, f, indent=2)
+    result["results_json"] = out_path
+
+    # ── Console summary (ave-driver-script-honesty: actual numbers, no hidden gate) ──
+    print("=" * 78)
+    print("STAGE-1 GATE — boundary-MQJ self-trap integrator + Z-at-wall")
+    print("=" * 78)
+    print(f"STEP 1  known-positive (bucket-1): instrument_adequate={instrument_adequate}")
+    print(f"        cage held base={kp['base']['held']} v_peak_mean={kp['base']['v_peak_mean']:.3f} "
+          f"Z_long_core(min over sweep)={kp['Z_long_core_min']:.3f} (→0=stiffening)")
+    print(f"CP10 trap rendering : {result['checkpoint10']['trap_rendering']}")
+    print(f"CP8  seed           : {result['checkpoint8']['seed']}")
+    print(f"geometry            : N={N} PML={PML} K_wall={K_WALL} n_sub={lock['n_sub']} dt_sub={lock['dt_sub']:.4f}")
+    print("-" * 78)
+    print(f"LOCK  bin={lock_bin}")
+    print(f"      |ω|: seed={lock['omega_C_seed']:.3e} max={lock['omega_C_max']:.3e} final={lock['omega_C_final']:.3e}")
+    print(f"      |ω̇|max={lock['omega_dot_L_max']:.3e}  (reactance pair)")
+    print(f"      H_total ramp={lock['H_total_ramp']:.3f}  H_impedance ramp={lock['H_impedance_ramp']:.3f}")
+    print(f"  >>> Z-AT-WALL post_median={lock['Z_wall_post_median']:.4f} floor={lock['Z_wall_floor']:.4f}  "
+          f"(A²_cos_final={lock['max_A2_cos_final']:.1f} n_sat_peak={lock['n_sat_peak']})")
+    print(f"      coupled Z_wall vs cage Z_long={kp['Z_long_core_min']:.3f}  (Z→0=stiffening A1; Z≈Z₀=softening proxy)")
+    print(f"      persistence (Cosserat trap)={lock['cos_confined_persist_periods']:.1f}P  "
+          f"(E_cos peak={lock['E_cos_confined_peak']:.2e} final={lock['E_cos_confined_final']:.2e})")
+    print(f"      V_sector_energized={lock['V_sector_energized']}  sat_persist={lock['sat_persist_periods']:.1f}P")
+    print(f"      reason: {lock_reason}")
+    print("-" * 78)
+    print(f"PUMP-CONTROL bin={pump_bin}  |ω|max/seed={pump['omega_C_max']/max(pump['omega_C_seed'],1e-6):.1f}  "
+          f"H_total ramp={pump['H_total_ramp']:.2f}  Z_wall={pump['Z_wall_post_median']:.3f}")
+    print(f"      reason: {pump_reason}")
+    print("-" * 78)
+    print(f"APPARATUS-FLOOR sweep: bin_resolution_stable={floor['bin_resolution_stable']} "
+          f"Z_resolution_stable={floor['Z_wall_resolution_stable']} bins_seen={floor['bins_seen']}")
+    for p in floor["points"]:
+        print(f"      cfl={p['cfl']:.3f} n_sub={p['n_sub']} -> {p['bin']}  "
+              f"Z_wall={p['Z_wall_post_median']:.3f} |ω|max={p['omega_C_max']:.2e} ramp={p['H_total_ramp']:.2f}")
+    print("=" * 78)
+    print(f"GATE VERDICT: {lock_bin}")
+    print(f"results -> {out_path}")
+    print("=" * 78)
+    return result
 
 
 if __name__ == "__main__":
