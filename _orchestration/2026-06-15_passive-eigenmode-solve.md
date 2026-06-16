@@ -1,11 +1,15 @@
 # Passive winding-protected electron eigenmode — the structural keystone (ORCHESTRATION)
 
-> **STATUS: OPTION C — first implementer (`a9fc078b54026a57c`) DIED silently mid-build (wrote the
-> 332-line `held_bc_winding.py` hold module, uncommitted, then died before integration/run; verified
-> via TaskOutput "no task found" + 23-min-stale 147-byte transcript — NOT a clean completion).
-> RECOVERY dispatched (`a89a0c883912c60cd`): audit the inherited module → integrate → run, COMMIT
-> INCREMENTALLY.** C-then-A (A = full held-BC + residual→0 eigensolve, new frozen prereg, IF C clean).
-> Pre-registration §9 + the pre-landing consistency sweep (CLEAN) below.
+> **STATUS: OPTION C RETURNED (recovery `a89a0c883912c60cd`) — BIN = DISQUALIFY. The hard-projection
+> (2,3)-hold on the Cosserat-ω carrier PUMPS energy (ω-sector Hamiltonian ramps 56×); a soft/hard
+> sweep found NO conservative window. DISQUALIFY ≠ NEGATIVE — the pump MASKS the persistence
+> question. The implementer caught its OWN false-positive (the `sum(ω²)` pump-witness was blind to the
+> pump — magnitude-locked by construction; fixed to read the full ω-Hamiltonian).** Verify panel
+> `wvd0c2oib` running on the crux: **is the pump FUNDAMENTAL (any hold of the (2,3) on the ω-carrier
+> fights the free dynamics → pumps → keystone leans negative / echo-signal) or METHOD-SPECIFIC (a
+> symplectic/Lagrangian/phase-space hold could be conservative → A re-designs the hold)?** **A-as-
+> specified (reuse this hold) inherits the pump → re-design needed before A.** C-then-A held.
+> §9 pre-reg + the CLEAN pre-landing sweep below.
 >
 > _(prior status, retained:)_ **VERIFY PANEL `w92ft1gkc` UNANIMOUS — do NOT bank NEGATIVE-A (mis-binning + the keystone
 > is UN-TESTED).**
@@ -658,6 +662,29 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   `vol1/claim-quality.md:1323-1324` (clm-i4p11y strengthen-by: "Derive (not assert)... as a
   self-consistent eigenvalue of the self-created cavity" — the keystone strengthen-by). These all say
   OPEN now and receive the verdict on landing.
+- **2026-06-15 (Phase 5a — Option C v1 DIED silently mid-build; recovery dispatched)** — First C
+  implementer (`a9fc078b54026a57c`) wrote `held_bc_winding.py` (332 lines, the hold module) then died
+  WITHOUT a completion notification (verified: TaskOutput "no task found" + 147-byte 23-min-stale
+  transcript). I'd over-confidently reported it "still building" — **lesson: verify liveness
+  (TaskOutput + transcript mtime), don't infer it from silence.** Recovery `a89a0c883912c60cd`
+  dispatched into the same worktree (commit the orphan module first; audit; integrate; run; COMMIT
+  INCREMENTALLY).
+- **2026-06-15 (Phase 5b — OPTION C result: BIN = DISQUALIFY; the held-BC hold PUMPS)** — Recovery
+  completed (branch `analysis/2026-06-15-eigenmode-heldbc`, `make verify` passes). **Audit:** winding-
+  maintenance TRUE (hold reads (2,3) 100% vs 15% free; kinetic magnitude-lock exact ~5e-14);
+  **energy-neutral claim FALSIFIED** — the hard per-cell phase-projection re-aligns *evolved*
+  ω-directions to the smooth template each step → ω-sector `total_hamiltonian` ramps **56× (12.2→691)**
+  vs a flat free run. **NO conservative window** (soft g∈[0.01,0.5] fails to maintain, frac~0.05; hard
+  pumps) — structural, not a code bug. **Implementer caught its OWN false-positive:** first pump-witness
+  read `sum(ω²)` (held bounded by the magnitude-lock → blind to the pump, printed false POSITIVE
+  0.84×); fixed to `HoldLedger.total_after = eng_w.total_hamiltonian()` (the 56× pump). **BIN =
+  DISQUALIFY** (3 corners, ramp 43–56×). F1/F2 *appear* to persist (0.681, λ −0.011) but DISQUALIFY is
+  decided BEFORE persistence (§9). **DISQUALIFY ≠ NEGATIVE** (the pump prevents reaching "decays when
+  held CONSERVATIVELY" — no conservative hold exists for this construction). **A-as-specified inherits
+  the pump → re-design needed.** Verify panel `wvd0c2oib`: **FUNDAMENTAL (any hold fights the free
+  dynamics → pumps → keystone leans negative/echo) vs METHOD-SPECIFIC (a symplectic/Lagrangian or
+  PHASE-SPACE-representation hold could be conservative + double-count-clean → A re-designs the hold)**.
+  **NEXT: panel → adjudicate to Grant.**
 
 ---
 
