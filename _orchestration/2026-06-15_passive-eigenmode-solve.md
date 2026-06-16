@@ -878,6 +878,34 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   separate retention wall, parked. **NEXT: Stage 1.5 (α-free emergence engine) returns → verify →
   EMERGENCE (Q self-generates α-free) = the keystone CHORD / no-emergence = echo-or-build-incomplete.**
 
+- **2026-06-16 (Phase 11 — Stage 1.5 RETURNED: EMERGENCE-NEGATIVE, but layer-a PASS closes bucket-2 +
+  two-grid coupling STABLE; the negative is a precursor-class fork, NOT echo)** — Stage 1.5 (`aebbc99dbd`,
+  branch `analysis/2026-06-16-boundary-mqj-stage15-alphafree-emergence`, **pushed to origin** as backup,
+  tip `be459b7e`, NOT merged) built the α-free two-sector engine through all 3 layers. **Layer (a) PASS:**
+  the independent α-free A1 c_eff(V) field self-traps a generic sub-yield blob → longitudinal **Z_tank=√S
+  →0.376** (the stiffening wall FORMS, breather persists 12 Compton periods) — **the longitudinal
+  confinement the Stage-1 coupled engine COULDN'T show → bucket-2 closed at the Sector-A level.** **Layer
+  (b) STABLE:** the two-grid (continuum-FDTD ⊗ K4-tetrahedral) coupling is bounded (|ω|max/seed=1.00); an
+  earlier velocity-rotation coupling PUMPED (|ω|→276), diagnosed as a leapfrog/Verlet time-centering
+  mismatch, replaced with a conservative position-coupled Hamiltonian force → **the multi-week two-grid
+  reconciliation WORKS.** **Layer (c) EMERGENCE-NEGATIVE:** the (2,3)+Γ=−1 do NOT self-form (bulk reactance
+  w_tor=w_pol=0 on reliable contours = pure breathing, no winding; the ω-winding w_tor=−1 only on
+  unreliable contours = the untrapped photon radiated out); no α-free Q emerged. α-FREE held end-to-end
+  (grep-confirmed). CP8 PASS (generic precursor, no planted (2,3)); CP10 front-localized BC. **THE
+  OBSTRUCTION (precisely localized, extends the arc one level):** the energize-LOCK loop is INERT because
+  `f_V=−κ̃·g·Ξ=0` all run — the saturation FRONT shell and the winding curl have **DISJOINT SUPPORT**: a
+  generic *propagating* photon's curl is extended-axial, the cage core compact-centered, they never
+  co-locate (photon radiates out). Notably the **CP10 anti-pump front-localization is EXACTLY what spatially
+  decouples the winding from the cage core.** **DESIGN FORK → GRANT (Rule 16, NOT an implementer pivot):**
+  CP10 front-localization (anti-pump) vs the winding co-locating with the trap (transfer) — does the winding
+  need to be a **CONFINED (not propagating) ω-precursor co-located with the cage core FIRST**? **READ: this
+  is the C(director)/C′(scalar) WRONG-OBJECT pattern at one level deeper — a clean, well-disciplined negative
+  that is likely a WRONG-PRECURSOR-CLASS artifact (propagating-vs-confined), NOT an earned echo. Do NOT bank
+  echo.** Rule-11 prereg-freeze first commit `6e5529a1`; 4 corrections folded; result doc + engine + 3 layer
+  drivers on branch. **NEXT: (1) Grant rules the precursor fork (confined-vs-propagating) + the
+  genesis-requires-coherence-leg question (§11 instrument-floor); (2) adversarial-verify panel (earned-negative
+  vs precursor-class-artifact vs the CP10-anti-pump-vs-co-location structural tension) before banking.**
+
 ---
 
 ## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
@@ -984,29 +1012,51 @@ never kept as a swept LOCUS.** Genuine ABSENT diagnostics: **dispersion ω(k)** 
 period-only / phase-scramble / Poisson-inverse-curl — none a band read), **TDR**, **S21/S12/S22** (only
 S11 exists), and a **continuous amplitude-bifurcation** trace (only `_pick_stable_amplitude` stability-pick).
 
-**🔴 THE ECHO-TRAP (load-bearing):** EVERY instrument agrees on α / 137 because they all read ONE
-baked-in number — `Q_TANK=1/ALPHA` at `cvr_model.py:58/:64-72` (the electron-instance bake). Smith
-gap=1−α, Bode peak=20·log(1/α), S21 notch=α, Nyquist pole-offset=α/2 are the SAME number on different
-displays. **Plotting more instruments does NOT escape echo.** The chord is earned ONLY by (a) DELETING
-the `cvr_model.py:58` Q-bake and recovering Q from a cold generic precursor, (b) the genesis bifurcation
-LATCHING from a non-planted T2 precursor, (c) a wide IC basin converging to the (2,3) form, (d) a bound
-branch self-splitting below the band-edge — FORM-emergence, not magnitude-readback.
+**🔴 THE ECHO-TRAP (load-bearing; bake structure CORRECTED by audit-lane 2026-06-16, grep-verified):**
+there are **TWO distinct α-bakes** in `cvr_model.py` (`src/scripts/vol_9_device/cvr_ee_sweep/cvr_model.py`):
+**(i) Q=1/α — instance-level**, `Q_TANK=1.0/ALPHA` at **`:72`** (NOT `:58` — that's a section comment;
+orchestrator slip, fixed) injected via `M.ELECTRON` (`:380`); the form functions `poles/H_scalar/H_chiral`
+are keyword-only `*, Q: float` with **no default** → REMOVABLE by feeding a *measured* Q into the clean
+forms (don't route through `M.ELECTRON` / `M.Q_TANK`). **(ii) |Γ_EM|²=1−α — universal, Q-INVARIANT**, in
+`gamma_em_sq()` (asserted "must not vary with Q") — a SEPARATE bake that staying Q-α-free does **NOT**
+remove. Consequence: every instrument agrees on α/137 because they read bake (i) (Smith gap, Bode peak,
+S21 notch, Nyquist offset = the SAME number on different displays → **plotting more instruments does NOT
+escape echo**); AND even after deleting bake (i), the dual-sector Smith STILL shows the wall **1−α short of
+the rim** (bake (ii)) — reading THAT gap as emergence is the echo. The chord is earned ONLY by (a) DELETING
+bake (i) (measured-Q into the clean forms) + recovering Q from a cold generic precursor, (b) the genesis
+bifurcation LATCHING from a non-planted T2 precursor, (c) a wide IC basin converging to the (2,3) form,
+(d) a bound branch self-splitting below the band-edge — FORM-emergence, never the 1−α gap (bake (ii)).
 
-**🔴 INSTRUMENT-FLOOR CATCH (apparatus-floor):** the PLV/autoresonance **LOCK-detector is DEFECTIVE** —
-it bins a KNOWN self-focusing sech as UNRESOLVED at PLV≈0.53 (the 2026-06-14 NO-GENESIS verdict). So the
-corpus's existing bifurcation NO-GENESIS result is **currently UNINTERPRETABLE** — the emergence question
-is NOT settled-negative; the bench may be broken. Repair + validate the detector on a known-positive
-BEFORE trusting any emergence verdict (Sweep 7, P1).
+**🔴 INSTRUMENT-FLOOR CATCH (apparatus-floor; SOFTENED by audit-lane 2026-06-16 — prior "uninterpretable /
+bench may be broken" was an ORCHESTRATOR OVERSTATEMENT, owned):** the PLV/autoresonance LOCK **leg** IS
+floored — `t2_genesis_selflock.py:585-590` in-code DETECTOR FLAG: the known-positive self-focusing sech
+bins UNRESOLVED at PLV<0.80 despite ringing-up + persisting. **BUT NO-GENESIS is WEAKENED-not-INVALIDATED:**
+the t2 doc already self-scopes — verbatim "the (C) DISPERSE verdict rests on the VALIDATED ring-up/persistence
+legs, NOT the PLV/F3 leg" (legs the photon arms fail independently). The floored leg was already set aside;
+NO-GENESIS stands on the independent legs. **The real (narrower) adjudication → GRANT (in-code flagged
+"auditor+Grant adjudicate"):** does a legitimate *genesis* call REQUIRE the phase-coherence/autoresonance
+leg (→ floored PLV leaves NO-GENESIS ambiguous, PLV-repair load-bearing) OR do ring-up + persistence alone
+suffice (→ NO-GENESIS holds, PLV-repair is hygiene)? The repair is worth doing but does NOT by itself reopen
+NO-GENESIS. **TWO independent apparatus-floor benches** (neither inherits the other): this PLV detector
+(`t2_genesis_selflock._phase_coherence`, free-running) is DISTINCT from the audit-lane jw-adjudicator's
+lock-IN amplifier (`s11_probe_unified.lockin`, driven I/Q) — different code, no shared path (the "lock"
+homonym was a false alarm).
 
 **Prioritized sweep matrix (targeted at α-free emergence, NOT echo magnitudes):**
 - **P0 — Genesis bifurcation diagram** (Stage 1.5): GENERIC T2 precursor A₀→past-yield (up+down), plot
   A1-standing-V order-parameter; LATCHED hysteretic switch-on = chord, flat A1-V=0 = the 2026-06-14
   FAIL/echo signature. THE headline — only tool testing FORM-emergence dynamically AND α-free. *Asterisk:
   trustworthy only after the LOCK-detector repair.*
-- **P0 — α-free Q-extraction** (Stage 3): DELETE the `cvr_model.py:58` Q-bake first, ring-down the
-  self-formed cavity, does Q≈137 EMERGE untold? (Running it on the as-built tank = pure echoTrap.)
-- **P1 — Smith / Γ-plane self-trap LOCUS** (cheap, re-plot existing Z/Γ as a trajectory, not a median):
-  does a generic precursor's Γ migrate center→rim and terminate at a MEASURED |Γ|²=1−α?
+- **P0 — α-free Q-extraction** (Stage 3): feed a MEASURED Q into the clean form functions (delete bake (i):
+  no `M.ELECTRON`/`Q_TANK=1/α` at `cvr_model.py:72`), ring-down the self-formed cavity — does Q≈137 EMERGE
+  untold? (Running it on the as-built tank = pure echoTrap; the separate 1−α leak (bake (ii)) survives regardless.)
+- **P1 — Smith / Γ-plane self-trap LOCUS** (cheap, re-plot existing Z/Γ as a trajectory, not a median;
+  **DUAL-SECTOR** per the H3 wall-branch fork / PR#260 — the dual-sector Smith is the instrument that forces
+  the magnetic-vs-longitudinal wall label, an audit-lane unique-add): does a generic precursor's Γ migrate
+  center→rim? CAVEAT: the terminal |Γ|²=1−α is bake (ii), NOT an emergence read — the locus shows the trap
+  FORMS, not that α emerged.
+- **GATE (elevated P1→gate, audit-lane add) — Dispersion ω(k)** also settles the `k_max` corpus contradiction
+  (`0.577/ℓ_node` vs `π/ℓ_node`, ~5.4×) by reading k_max off the Brillouin edge — load-bearing, not just corroborating.
 - **P1 — Dispersion ω(k) bound-mode** (new observer): does a flat/localized branch split below the band-edge
   (existence leg, α-free by construction)?
 - **P1 — Precursor-IC basin sweep**: fraction of GENERIC ICs converging to the same (2,3)+Γ=−1 (wide basin
@@ -1015,6 +1065,8 @@ BEFORE trusting any emergence verdict (Sweep 7, P1).
 - **P2 — TDR moving-wall**, **3-Γ disambiguation tag** (Γ_spinor/Γ_impedance/|Γ_EM|²=1−α — guards the
   genesis-24 double-count), **S21 stopband-notch** (confinement corroboration; floor is the 1−α echo).
 
-**Fold-in:** the running Stage-1.5 agent (`aebbc99dbd`) is already instructed α-free + report α-leaks — verify
-it does NOT inherit the `cvr_model.py:58` Q-bake on return. The P0/P1 sweeps + the detector-repair are the
-Stage-1.5+ analysis emit-list. Full matrix: workflow `wknrs0aal` output.
+**Fold-in:** Stage 1.5 RETURNED (Phase 11) **α-free end-to-end** (grep-confirmed: no `M.ELECTRON`/`Q_TANK`/
+`V_yield=√α` leak). The P0/P1 sweeps + **figure-emit** + the **TWO-bench apparatus floor** (this lane's
+PLV-detector-repair + the audit-lane stability-classifier `|ω|→1144` jw-axis gate) + the dual-sector Smith
+are the **Stage-1.6+ analysis emit-list**, gated on Grant's TWO adjudications (the Stage-1.5 precursor fork
+[confined-vs-propagating] + the genesis-requires-coherence-leg question). Full matrix: workflow `wknrs0aal`.
