@@ -1,10 +1,13 @@
 # Passive winding-protected electron eigenmode — the structural keystone (ORCHESTRATION)
 
-> **STATUS: PRE-FLIGHT DONE ✅ → option (a) DEAD + a deeper COORDINATE-MISMATCH reframe (§0.5).
-> FREEZE + production driver HELD on a Grant platform/coordinate decision.** Lane worktree
-> `AVE-Core-eigenmode-wt`, branch `analysis/2026-06-15-passive-eigenmode-solve` off `main@40a2a2e7`.
-> **main is PROTECTED — Grant merges; this lane does NOT merge.** Prereg:
-> `research/2026-06-15_passive-eigenmode_prereg.md` (DRAFT v3).
+> **STATUS: ALL GATES PASSED — Grant CONFIRMED the breather framing + GRANTED (b′) (2026-06-15).
+> Prereg FREEZE-READY, pending a final referential-integrity auditor pass; then dispatch the (b′)
+> build (G0 double-count smoke-gate = build-step-zero).** Lane worktree `AVE-Core-eigenmode-wt`,
+> branch `analysis/2026-06-15-passive-eigenmode-solve` off `main@40a2a2e7`. **main is PROTECTED —
+> Grant merges; this lane does NOT merge.** Prereg: `research/2026-06-15_passive-eigenmode_prereg.md`
+> (DRAFT v3 → _FROZEN after the integrity pass). **Platform: (a) DEAD; (b′) `crystal_engine` V-tank
+> wall ⊗ Cosserat-ω winding GRANTED (eyes-open precedent — first substrate-complete engine). Deliverable
+> = EXISTENCE of the winding-protected hybrid breather (the form); Q is the echo.**
 >
 > **KEYSTONE REFRAME (Grant 2026-06-15):** the lane rests on **EXISTENCE + STABILITY** of the
 > passive high-Q hybrid mode (PRIMARY); the measured **Q is SECONDARY** — **α is an ECHO for the
@@ -290,20 +293,19 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
    THIS pre-flight (the V-tank/A1 wall self-focuses — cage SECH_ANCHOR; the ω-curvature object is
    PROTON-family 5₁/5₂), `master-equation.md:20`, and the two-"3"s — all say **the electron's
    wall/mass is A1 (read in the `(V_inc,V_ref)` phasor); charge/spin is the orthogonal T2 winding.**
-   **Evidence, NOT resolution** (m_ec² still hypothesis-class) — but the first concrete discriminant
-   beyond leaf prose. Recorded as cross-lane state; Lane-2 still reports Flag-A as bears-on-not-resolve.
-2. **Chirality contradiction → belongs to the K=2G lane (NOT Lane 2's call).** This pre-flight found
-   chiral OFF-vs-ON differ <10% and the magnetic sign is already there at κ_chiral=0 (structural
-   curvature-vs-strain split) — contradicting Lane-3's "the Z→0 wall *requires* the chirality-broken
-   asymmetry." Grant's read: most likely an **off-K=2G artifact** (CoupledK4Cosserat isn't at the
-   K=2G symmetric co-saturation point, so μ/ε saturate at structurally different rates) → routes to
-   the **K=2G lane** as arbiter; alternatives (chirality only *signs* the wall; or clip-floor
-   contamination) are also K=2G-lane scope. **Flagged there, not resolved here.**
-3. **WATCH-ITEM — the third-engine threshold.** Two engines now clip-floor on the Z→0 wall
-   (CoupledK4Cosserat + graft-v2). **If the V-tank probe makes it THREE, that stops being a
-   coordinate problem and becomes a real structural signal that the stable Z→0 wall does not render**
-   — which IS keystone-relevant (= option (c), the honest negative). The V-tank probe is decisive
-   either way: it confirms the wall-half or converts the coordinate caveat into a structural finding.
+   **Evidence, NOT resolution** (m_ec² still hypothesis-class) — but **now THREE converging signals**
+   (Lane 3, this pre-flight, the two-"3"s — Grant 2026-06-15), real weight toward mass=A1. Lane-2 still
+   reports Flag-A as **bears-on-not-resolve** (correct).
+2. **Chirality contradiction → K=2G lane: FORK CLOSING.** This pre-flight found chiral OFF-vs-ON differ
+   <10%, magnetic sign present at κ_chiral=0 (structural curvature/strain split) — contradicting Lane-3's
+   "Z→0 wall *requires* chirality-broken." **The K=2G lane CONFIRMED (Grant 2026-06-15): likely an
+   off-K=2G artifact** — the crystal doesn't sit at the symmetric co-saturation point; **K=2G is a TUNED
+   operating point, not a geometric one**, so the coupled engine reading a structural asymmetry at κ=0
+   is consistent with simply not being at K=2G. Fork **closing**, in the K=2G lane (not Lane 2's).
+3. **WATCH-ITEM — RESOLVED: the third-engine threshold did NOT cross.** The V-tank does **NOT**
+   clip-floor (genuine breather, no runaway) — so **(c) is OFF** and the two-engine clip-floor pattern
+   stays a coordinate problem (the two coupled engines read the wrong sector), not a structural negative.
+   The wall-half is real on the A1/V-tank wire.
 
 ---
 
@@ -419,3 +421,17 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   wall). **EXPONENT-DEFECT FLAG:** the production read must use the TRUE n=√S impedance, NOT the
   proxy `gamma_bulk`=S^{1/4} (`crystal_engine.py:421-432`). **NEXT: Grant framing-confirm + (b′)
   sign-off → freeze → production driver.**
+- **2026-06-15 (Phase 1e — Grant ADJUDICATED: breather CONFIRMED + (b′) GRANTED)** — Grant confirmed
+  the breather/limit-cycle framing (checked the post-hoc-bin-shift risk himself: NOT a rescue — a
+  stable real-eigenvalue mode IS a non-decaying oscillation, corpus-canonical). **(b′) GRANTED** (skip
+  the cheap A1-only-Q probe — it wouldn't predict the hybrid Q, and the wall-half is established by two
+  converging results) **with two conditions:** (1) **the G0 double-count smoke-gate is build-step-zero**
+  (hard, before any production run — does Op14 keep the winding strictly ⊥ the A1 `(V_inc,V_ref)`
+  phasor, the exact genesis-24 failure?); (2) **eyes-open precedent** — this authorizes the FIRST
+  substrate-complete cross-firewall engine (the anti-loophole guard's exact target), justified by
+  empirical force but a precedent future lanes will over-trust. **Deliverable framed on EXISTENCE (the
+  form / structural chord-candidate); Q is the echo — headline must not drift to "we measured Q."**
+  Cross-lane: Flag-A now 3 converging signals → mass=A1 (still bears-on-not-resolve); chirality fork
+  CLOSING (K=2G lane confirmed off-K=2G artifact — K=2G is a tuned, not geometric, point); exponent
+  defect (TRUE n=√S) logged. **NEXT: final referential-integrity auditor pass → freeze (`_FROZEN`) →
+  dispatch (b′) build (G0 gate first).**

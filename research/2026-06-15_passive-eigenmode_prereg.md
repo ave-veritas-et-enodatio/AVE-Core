@@ -1,12 +1,13 @@
 # Passive winding-protected electron eigenmode — the hybrid (V,ω) high-Q standing mode — PREREG (Rule-11)
 
-> **STATUS: DRAFT v3 — 2 PRE-FLIGHTS DONE: (a) `CoupledK4Cosserat` DEAD (wrong sector); (b′)
-> `crystal_engine` V-tank VIABLE as a genuine BREATHER ((c) OFF). FREEZE held on Grant: confirm the
-> BREATHER/LIMIT-CYCLE framing (not static-Z→0) + grant the (b′) cross-firewall anti-loophole
-> sign-off (§11 fork 1).** Forks 2–3 ruled: Q is SECONDARY (137/114); α is an ECHO for the z₀ route.
-> **The keystone = EXISTENCE + STABILITY of the passive high-Q hybrid mode (§4), reframed: the mode
-> is a LIMIT CYCLE / BREATHER (read time-averaged/cyclic, TRUE n=√S impedance), not a static frozen
-> core.** Grant-gated 2026-06-15 (B1; high-Q; existence-primary). Lane:
+> **STATUS: DRAFT v3 — ALL GATES PASSED, FREEZE-READY (pending a final referential-integrity auditor
+> pass).** Pre-flights done: (a) `CoupledK4Cosserat` DEAD (wrong sector); (b′) `crystal_engine` V-tank
+> VIABLE as a genuine BREATHER ((c) OFF). **Grant 2026-06-15: breather/limit-cycle framing CONFIRMED;
+> (b′) cross-firewall coupling GRANTED (eyes-open precedent) with the G0 double-count smoke-gate as
+> build-step-zero.** Forks 2–3 ruled: Q SECONDARY (the echo); α an ECHO for the z₀ route. **The
+> keystone deliverable = EXISTENCE + STABILITY of the winding-protected hybrid breather (the form /
+> structural chord-candidate); Q is the echo — do NOT let the headline drift to "we measured Q."**
+> Grant-gated 2026-06-15 (B1; high-Q; existence-primary; breather; b′). Lane:
 > `_orchestration/2026-06-15_passive-eigenmode-solve.md`.
 > **Rule 11 — commitment written BEFORE the driver; no knobs tuned to force a result.**
 
@@ -84,8 +85,12 @@ existence + stability + radiative Q of an **imposed-BC** mode (§9).
 the cross-lane chord almost certainly will not fire (**α is an echo for the z₀ route** — §6), so the
 lane must NOT hang on Q-agreement.
 
-**THE MODE IS A LIMIT CYCLE / BREATHER, NOT A STATIC FROZEN CORE (pre-flight #2 reframe; Grant-gated
-pending §11).** The V-tank renders a genuine deep TIR wall that **breathes** (self-focuses to
+**THE MODE IS A LIMIT CYCLE / BREATHER, NOT A STATIC FROZEN CORE (pre-flight #2; Grant-CONFIRMED
+2026-06-15).** *(Grant checked the one risk — post-hoc bin-shift / ave-prereg referential-integrity:
+this is NOT a rescue. The ratified discriminator was a "stable real-eigenvalue mode with finite Q" —
+which IS a non-decaying oscillation, i.e. a breather; "static Z→0" was a sub-target of the PRE-FLIGHT
+[does the engine reach the wall], answered "at the breath peak, recurrently" = what a high-Q resonator
+does. The breather reading is the FAITHFUL one, corpus-canonical.)* The V-tank renders a genuine deep TIR wall that **breathes** (self-focuses to
 Γ_TRUE≈−0.43, relaxes, re-focuses — bounded, recurrent, no runaway), exactly the cage's ratified
 "persistent breathing cage" and the corpus electron = limit cycle (`selftrap` phasor limit-cycle;
 `master-equation.md:20` "A1 breather"). So **"stable real-eigenvalue mode" = a NON-DECAYING
@@ -124,6 +129,17 @@ primary; Q→∞ on a coupled stable mode is a finding, not a failure.)
 | **F3** | **radiative Q finite, binned** | $Q=\omega_C\cdot E_\text{stored}/P_\text{radiated}$ (radiated **POWER**), finite; **±5% band** around **137.0 (bare-α)** OR **114.2 (κ_chiral=α·1.2)** — these are DISTINCT, discriminating reads; **Q→∞ on a coupled run = NEGATIVE-B**, not EXCLUDED |
 | **F4** | winding conserved on the **ω-carrier** | (2,3): toroidal-2 + poloidal-3 via `extract_2_3_omega_fast` — **NOT** the `(V_inc,V_ref)` phasor (double-count guard); **gated on G4** |
 | **F6** | conserved-not-pumped | mode stands with **NO drive**; drive-sustained = NEGATIVE |
+
+**🔴 G0 — DOUBLE-COUNT ORTHOGONALITY SMOKE-GATE = BUILD-STEP-ZERO (HARD gate, Grant 2026-06-15).**
+The #1 build risk of the (b′) cross-firewall coupling is **NOT** the wall — it is the **two-"3"s
+double-count** (the exact genesis-24 failure: wiring the winding into the A1 `(V_inc,V_ref)` phasor;
+`master-equation.md:20`; `k4_tlm.py:346`). **Before any production run**, smoke-test the Op14 coupling:
+does it keep the (2,3) winding strictly on the **independent Cosserat-ω carrier ⊥ the A1 breather**,
+or does it **leak into the `(V_inc,V_ref)` phasor**? **PASS** = winding stays on the ω-carrier,
+`w_pol` nonzero, **zero leak into `V_ref`** (which is a read-only projection of `V`). **FAIL** =
+abort the build — the coupling is self-inflicting the genesis-24/crystal `w_pol=0` double-count.
+This is a **hard gate, not a post-hoc check** — it catches the double-count for a smoke-test instead
+of a contaminated production driver.
 
 **Instrument-validation gates — MUST pass BEFORE any production read is credible** (the corpus
 plant-at-scale-before-de-novo discipline; the t2-genesis "detector-can't-certify-the-known-positive"
@@ -202,26 +218,24 @@ existence + stability.
 7. **Controls:** G1 sech-converges/Gaussian-disperses **+** the **decoupled (α=0)** control (the
    only EXCLUDED-eligible arm; confirms the coupling is load-bearing).
 
-**PLATFORM — Grant framing-gate (§11 fork 1; the prereg CANNOT freeze with this unresolved):**
-- **Default = option (a):** run the hybrid purely on **`CoupledK4Cosserat`** (branch 2), rendering
-  the $\Gamma=-1$ wall as the engine's **own impedance-Γ clamp** (`k4_cosserat_coupling.py:674-686`)
-  — **firewall-legal, NO `crystal_engine`.**
-- **HONEST SCOPE CAVEAT:** the coupled engine's scalar is a `v_scalar_from_v_inc` projection (**no
-  independent A1 `c_eff→∞` cage**; `engine-capability-map.md` §2, §3.1 irrotational↮winding firewall).
-  So option (a) tests the **RESTRICTED hybrid** (projected-scalar ⊗ ω with a Γ-BC), **NOT** the full
-  A1-cage⊗T2. A NEGATIVE on (a) **may reflect the projected-scalar limitation, not a true structural
-  absence** — bounds what (a) can conclude.
-- **GATING PRE-FLIGHT DISPATCHED (Grant-greenlit 2026-06-15; agent `a12b397d4d347be90`):** before
-  (a) locks, a 1-run diagnostic checks whether `CoupledK4Cosserat`'s Op14 saturation reaches the
-  **MAGNETIC branch (Z→0, Γ→−1, the matter wall**, `master-equation.md:85`) on the sech
-  known-positive **with the chiral coupling ON** — NOT the symmetric gravity lens (Z=Z₀, Γ=0, Lane-3)
-  nor the electric/softening branch (Z→∞). **(a)-VIABLE iff it reaches Z→0**; if it only reaches Z→∞
-  / Z₀ it is clamping the wrong wall → (a)-DEAD. **Do NOT take the (b) sign-off until the pre-flight
-  says (a) is DEAD** (Grant 2026-06-15).
-- **Option (b)** = the full A1-cage⊗T2 cross-firewall **"substrate-complete engine that does not
-  exist"** (`engine-capability-map.md` §4) — **needs Grant sign-off** per the
-  `ave-loop-gap-harness-discipline` anti-loophole guard **+** building a new engine.
-- **No new `chiral_lattice_v{N}` / `genesis_v{N}` either way.**
+**PLATFORM — RESOLVED by two pre-flights; option (b′) GRANTED (Grant 2026-06-15).**
+- **(a) `CoupledK4Cosserat` — DEAD** (pre-flight #1): clip-floor pseudo-Γ→−1 + runaway, and it reads
+  Γ off **Cosserat ω-curvature** = the **wrong sector** (the (2,3) ω-knot is canon-flagged
+  PROTON-family; the canonical unknot electron gave no wall).
+- **(b′) `crystal_engine` V-tank wall ⊗ Cosserat-ω winding — GRANTED.** Pre-flight #2 confirmed
+  `crystal_engine`'s A1/V-tank renders a **genuine, bounded, recurrent BREATHING TIR wall** (the right
+  sector). The build **couples** the existing Cosserat-ω winding carrier to the existing
+  `crystal_engine` breathing V-tank wall (the Op14 cross-coupling); reads the hybrid breather's
+  existence + cyclic stability + per-cycle Q. **REUSE both validated halves — no new `*_vN` file, no
+  from-scratch engine.** Read the wall with the **TRUE n=√S** impedance (`crystal_engine.py:197-200`),
+  not the proxy (§8.9).
+- **🔴 PRECEDENT (Grant, eyes-open):** this authorizes the **first substrate-complete (cross-firewall)
+  engine** — the exact thing the `ave-loop-gap-harness-discipline` anti-loophole guard was built to
+  gate. Justified because the need is **empirically forced** (the two pre-flights proved the
+  electron's two sectors live in two different engines), but it is a **PRECEDENT, not a one-off** —
+  future lanes will reach for it and over-trust it; that is the real cost of the sign-off.
+- **BUILD-STEP-ZERO:** the **G0 double-count smoke-gate** (§5) runs FIRST, a hard gate, before any
+  production run.
 
 ---
 
@@ -263,10 +277,16 @@ eigencavity structure is a real passive radiating eigenstructure with finite Q"*
 - Driver in `src/scripts/vol_1_foundations/` (own worktree); reuse-not-rebuild §7 infra; build only
   the stability + radiative-Q layers (with their G2/G3 validation). Canonical constants via
   `from ave.core.constants import …` (`ave-canonical-source`); `verify_constants` before output.
-- Result reports: the bin (§4); the **measured Q** binned 137-vs-114 with its **echo/chord tag** and
-  the **driver-binding declaration** (§6); the winding on the ω-carrier **after G4** (§5); the G1–G4
-  gate outcomes; the decoupled control. Tag `ave-driver-script-honesty` + `consistency-vs-emergence`
-  + `ave-discrimination-check` + `ave-apparatus-floor-attribution`.
+- **HEADLINE framing (Grant 2026-06-15):** the result's headline is **EXISTENCE + STABILITY of the
+  winding-protected hybrid breather** (the form — the structural chord-candidate, the keystone). The
+  **Q is the echo** (α value-imported per Lane-1 + the K=2G result) — report it, but **do NOT let the
+  headline drift to "we measured Q."** "The hybrid winding-protected breather exists (or doesn't)" is
+  the result; Q is a secondary characterization.
+- Result reports: **build-step-zero G0 double-count smoke-gate outcome (§5)**; the bin (§4); the
+  **measured Q** binned 137-vs-114 with its **echo/chord tag** and the **driver-binding declaration**
+  (§6); the winding on the ω-carrier **after G4** (§5); the G1–G4 gate outcomes; the decoupled
+  control. Tag `ave-driver-script-honesty` + `consistency-vs-emergence` + `ave-discrimination-check`
+  + `ave-apparatus-floor-attribution`.
 
 ---
 
@@ -274,18 +294,14 @@ eigencavity structure is a real passive radiating eigenstructure with finite Q"*
 
 The auditor surfaced three **physics-framing forks**; **Grant RULED (2026-06-15):**
 
-1. **Platform — RESOLVING: (a) DEAD; V-tank (b′) VIABLE as a BREATHER; (c) OFF.** Pre-flight #1
-   (`CoupledK4Cosserat`, agent `a12b397d4d347be90`): (a) DEAD — clip-floor pseudo-Γ→−1 + runaway,
-   wrong sector (ω-curvature, proton-family). Pre-flight #2 (`crystal_engine` V-tank, agent
-   `a9ce00462badb0d85`): a **genuine, bounded, recurrent BREATHING TIR wall** (Γ_TRUE≈−0.43 unclipped;
-   amp=0.50 walls −0.19 zero-clip; no runaway), **right sector** (A1/V-tank Z=1/c_eff). **(c) is OFF**
-   (third-engine watch-item did NOT trigger). NOT a stable static Z→0 — but **"static" was a
-   mis-framing: the eigenmode is a LIMIT CYCLE / BREATHER** (cage "persistent breathing cage";
-   `master-equation.md:20` "A1 breather"; high-Q real-eigenvalue = non-decaying oscillation). **→ V-tank
-   = the VIABLE wall host; (b′) = couple Cosserat-ω winding to the crystal_engine breathing V-tank
-   wall, read time-averaged/cyclic with the TRUE n=√S impedance (NOT the proxy `gamma_bulk`=S^{1/4},
-   exponent-defect flag §8.9). FREEZE held on: Grant confirm the breather framing + grant the (b′)
-   anti-loophole sign-off (cross-firewall = the substrate-complete engine).**
+1. **Platform — RESOLVED (Grant 2026-06-15): (a) DEAD; (b′) GRANTED; (c) OFF.** Pre-flight #1
+   (`CoupledK4Cosserat`): (a) DEAD — clip-floor + runaway, wrong sector (ω-curvature = proton-family).
+   Pre-flight #2 (`crystal_engine` V-tank): a **genuine, bounded, recurrent BREATHING TIR wall**, right
+   sector. **(c) OFF** (third-engine watch-item did not trigger). **Breather framing CONFIRMED** (not a
+   post-hoc bin-shift — a stable real-eigenvalue mode IS a non-decaying oscillation). **(b′) GRANTED**:
+   couple the Cosserat-ω winding to the `crystal_engine` breathing V-tank wall (reuse both halves; no
+   new engine), read time-averaged/cyclic with TRUE n=√S. **Build-step-zero = the G0 double-count
+   smoke-gate (§5, hard).** Eyes-open precedent: first substrate-complete cross-firewall engine (§7).
 2. **F3 mechanism (§5) — RULED: pre-registered, awareness only.** 137 (bare-α) vs 114 (κ_chiral=α·1.2
    = the (2,3) factor κ̃); a 114 result = the chiral coupling sets the leak (a real finding). **Not
    bin-deciding** (§4 — Q is secondary).
