@@ -90,6 +90,7 @@ class A1CosseratConvergenceEngine:
         front_center: float = R_II,
         front_width: float = 0.18,
         couple_on: bool = True,
+        coupling_support: str = "front",
     ):
         """
         Args (Sector A inherits MasterEquationFDTD's; new ones are coupling):
@@ -115,6 +116,9 @@ class A1CosseratConvergenceEngine:
         self.front_center = float(front_center)
         self.front_width = float(front_width)
         self.couple_on = bool(couple_on)
+        if coupling_support not in ("front", "saturated_interior"):
+            raise ValueError("coupling_support must be 'front' or 'saturated_interior'")
+        self.coupling_support = coupling_support
         self.pml_thickness = int(pml_thickness)
 
         # Branch-speed tie (α-free, geometric): the bulk c_L and the transverse
@@ -147,6 +151,9 @@ class A1CosseratConvergenceEngine:
         # (the two-grid temporal reconciliation: each grid integrated stably).
         c_omega_max = self.c0 / np.sqrt(self.cL2_over_cT2 * self.S_min)
         dt_cos = cfl_safety * self.dx / (c_omega_max * np.sqrt(3.0))
+        # Cosserat sub-cycle: enough sub-steps that the Cosserat CFL is satisfied
+        # at the (smaller) bulk outer dt. The force-based coupling (frozen once
+        # per outer step) does NOT need an additionally-fine exchange sub-cycle.
         self.n_sub_cos = max(1, int(np.ceil(self.dt / max(dt_cos, 1e-30))))
         self.dt_sub_cos = self.dt / self.n_sub_cos
 
@@ -291,4 +298,171 @@ class A1CosseratConvergenceEngine:
         self.A.step()
         self.time += self.A.dt
         self.step_count += 1
+
+    # ══════════════════════════════════════════════════════════════════════
+    # SHARED-FRONT COUPLING — the two-grid reconciliation (Layer (b))
+    # ══════════════════════════════════════════════════════════════════════
+    def _front_window(self) -> np.ndarray:
+        """g_coupling(A_V): the support where the cross-sector exchange engages,
+        restricted to alive K4 sites (the second grid; two-grid reconciliation).
+
+        coupling_support='front' (DEFAULT, CP10 boundary-localized): a thin band
+          at A_V≈R_II=√3/2 (the Non-Linear→Saturated boundary). Zero in vacuum
+          and in the deep frozen core — NOT a bulk-volume coupling (anti-pump).
+          FINDING (Layer b): this shell and the winding curl Ξ have DISJOINT
+          support (the curl lives at the trap interior, not the front), so the
+          bulk source f_V=−κ̃·g·Ξ ≡ 0 — the front coupling is inert on the winding.
+
+        coupling_support='saturated_interior' (controlled variant, labeled): a
+          smooth ramp over the SATURATED region (A_V above the front center),
+          so the coupling support OVERLAPS the winding curl at the trap interior.
+          Tests whether interior-overlap coupling is stable (the front-vs-interior
+          design fork the Layer-b finding surfaces — for Grant/auditor, NOT an
+          implementer pivot)."""
+        A_V = self.strain_A_V()
+        if self.coupling_support == "front":
+            g = np.exp(-((A_V - self.front_center) ** 2) / (2.0 * self.front_width**2))
+        else:  # saturated_interior: smooth sigmoid ramp on for A_V ≳ front_center
+            g = 0.5 * (1.0 + np.tanh((A_V - self.front_center) / self.front_width))
+        return g * self.B.mask_alive.astype(g.dtype)
+
+    def _axial_unit(self) -> int:
+        """The Cosserat micro-rotation component the bulk reactance couples to —
+        the axial (propagation-direction) micro-rotation ω_z, the U(1)-fibre /
+        poloidal-'3' carrier (the carrier the SCALAR bulk lacked,
+        crystal_engine_result.md §5). Fixed to axis z (the photon seed's
+        helicity axis); chirality sign parked (achiral-OK)."""
+        return 2
+
+    def _cosserat_axial_curl(self) -> np.ndarray:
+        """Ξ = (∇×ω)·n̂ along the photon axis n̂=ẑ — the Cosserat micro-rotation
+        CURL, the poloidal-'3' / U(1)-fibre carrier the SCALAR bulk lacked. For
+        n̂=ẑ: (∇×ω)_z = ∂_x ω_y − ∂_y ω_x. This is a POSITION-like field (a
+        spatial derivative of ω), so coupling the bulk POTENTIAL V to it gives a
+        CONSERVATIVE potential coupling (forces on accelerations — the
+        crystal_engine ADD-2 energize-LOCK structure), NOT a velocity rotation
+        across two mismatched-time integrators (which pumped)."""
+        wy_x = (np.roll(self.B.omega[..., 1], -1, axis=0) - np.roll(self.B.omega[..., 1], 1, axis=0)) / (2.0 * self.dx)
+        wx_y = (np.roll(self.B.omega[..., 0], -1, axis=1) - np.roll(self.B.omega[..., 0], 1, axis=1)) / (2.0 * self.dx)
+        return wy_x - wx_y
+
+    def _coupling_forces(self):
+        """The CONSERVATIVE shared-front coupling — ONE Hamiltonian term
+            H_c = κ̃ ∫ g_front(A_V) · V · Ξ  d³r,   Ξ = (∇×ω)·ẑ,
+        with g_front>0 ONLY at the saturation front (CP10 boundary; α-free κ̃=6/5).
+        The reciprocal forces are its functional derivatives (energize-LOCK — the
+        continuum energy cancellation is EXACT; the genesis-24/velocity-rotation
+        pump AVOIDED because BOTH coupled quantities are POSITION-like, so the
+        force enters each sector's OWN Verlet acceleration at a consistent
+        time-centering):
+            f_V       = −δH_c/δV   = −κ̃ g Ξ        (sources V from the winding curl)
+            f_ω_y     = −δH_c/δω_y = −κ̃ ∂_x(g V)   (reciprocal back-reaction onto ω,
+            f_ω_x     = −δH_c/δω_x = +κ̃ ∂_y(g V)    from δΞ/δω = the curl adjoint)
+        Returns (f_V scalar field, f_omega (...,3) vector field). f_ω lives on
+        the K4 alive sublattice via g_front's mask (two-grid spatial restriction).
+        """
+        g = self._front_window()                 # already masked to alive sites
+        gV = g * self.A.V
+        Xi = self._cosserat_axial_curl()
+        f_V = -self.kappa_tilde * g * Xi
+        f_omega = np.zeros_like(self.B.omega)
+        dgV_dx = (np.roll(gV, -1, axis=0) - np.roll(gV, 1, axis=0)) / (2.0 * self.dx)
+        dgV_dy = (np.roll(gV, -1, axis=1) - np.roll(gV, 1, axis=1)) / (2.0 * self.dx)
+        f_omega[..., 1] = -self.kappa_tilde * dgV_dx
+        f_omega[..., 0] = +self.kappa_tilde * dgV_dy
+        return f_V, f_omega
+
+    def _coupling_energy(self) -> float:
+        """H_c = κ̃∫ g·V·Ξ over the interior (the conversion ledger term, kept
+        for the joint H = E_bulk + H_cosserat + H_c conservation check)."""
+        g = self._front_window()
+        Xi = self._cosserat_axial_curl()
+        return float((self.kappa_tilde * g * self.A.V * Xi * self._interior).sum())
+
+    def step_coupled(self):
+        """One coupled outer step (Layer (b) two-grid reconciliation) — the
+        CONSERVATIVE force-based coupling (crystal_engine ADD-2 energize-LOCK
+        structure, NOT the pumping velocity-rotation):
+
+          1. compute the reciprocal front-coupling forces (f_V, f_ω) from the
+             SINGLE Hamiltonian term H_c = κ̃∫ g·V·Ξ (functional derivatives);
+          2. advance Sector A (c_eff(V) cage) one bulk Verlet step WITH f_V added
+             to its acceleration (the winding curl sources the bulk at the front);
+          3. advance Sector B (vector Cosserat) its sub-cycled Verlet steps WITH
+             f_ω added each sub-step (the bulk back-reacts onto ω at the front).
+
+        Both forces enter each sector's OWN Verlet acceleration — a conservative
+        potential coupling at consistent time-centering. Two-grid reconciliation:
+        TEMPORAL = Cosserat sub-cycled at its own stable dt; SPATIAL = the
+        coupling forces are front-localized + alive-masked (CP10, two grids)."""
+        f_V, f_omega = self._coupling_forces()
+        if self.couple_on:
+            # Sector A: leapfrog with the extra front source on the acceleration.
+            c_eff_sq = self.A.c_eff_squared(self.A.V)
+            L = self.A._laplacian(self.A.V)
+            a_V = c_eff_sq * L + f_V
+            V_new = 2.0 * self.A.V - self.A.V_prev + (self.A.dt**2) * a_V
+            V_new *= self.A.damping
+            self.A.V_prev = self.A.V.copy()
+            self.A.V = V_new
+            self.A.time += self.A.dt
+            self.A.step_count += 1
+        else:
+            self.A.step()
+
+        # Sector B: sub-cycled Verlet; inject the (frozen-this-outer-step) f_ω as
+        # a constant front force each sub-step via a direct half-kick wrapper
+        # (a_ω += f_ω/I_ω). The force is frozen once per outer step (the
+        # moving-front anti-pump cadence — recomputing it every sub-step pumps,
+        # cosserat step docstring §7), matching the bulk's once-per-outer cadence.
+        a_omega_ext = (f_omega / self.B.I_omega) if self.couple_on else None
+        for _ in range(self.n_sub_cos):
+            self._cosserat_substep_with_force(a_omega_ext)
+
+        self.coupling_work += float((self._coupling_energy()))
+        self.time += self.A.dt
+        self.step_count += 1
+
+    def _cosserat_substep_with_force(self, a_omega_ext):
+        """One Cosserat velocity-Verlet sub-step with an EXTERNAL constant ω-force
+        a_omega_ext (the frozen front back-reaction) added to both half-kicks —
+        a conservative augmentation of CosseratField3D.step (the force is a
+        gradient of the potential H_c, so it integrates conservatively in Verlet).
+        If a_omega_ext is None (couple_off), reduces to the bare Cosserat step."""
+        if a_omega_ext is None:
+            self.B.step(dt=self.dt_sub_cos)
+            return
+        dt = self.dt_sub_cos
+        a_u, a_w = self.B._accel()
+        a_w = a_w + a_omega_ext
+        self.B.u_dot = self.B.u_dot + 0.5 * dt * a_u
+        self.B.omega_dot = self.B.omega_dot + 0.5 * dt * a_w
+        self.B._zero_velocities_outside_alive()
+        self.B.u = self.B.u + dt * self.B.u_dot
+        self.B.omega = self.B.omega + dt * self.B.omega_dot
+        self.B._zero_outside_alive()
+        a_u_new, a_w_new = self.B._accel()
+        a_w_new = a_w_new + a_omega_ext
+        self.B.u_dot = self.B.u_dot + 0.5 * dt * a_u_new
+        self.B.omega_dot = self.B.omega_dot + 0.5 * dt * a_w_new
+        self.B._zero_velocities_outside_alive()
+        self.B.time += dt
+
+    # ── coupled-system witnesses (ave-conserved-vs-pumped) ──
+    def omega_max_interior(self) -> float:
+        """peak |ω| over alive interior sites (the C-state blow-up witness)."""
+        w = np.asarray(self.B.omega) * self._interior[..., None]
+        return float(np.abs(w).max())
+
+    def omega_dot_max_interior(self) -> float:
+        """peak |ω̇| (the L-state of the reactance pair, A-Rule 10)."""
+        wd = np.asarray(self.B.omega_dot) * self._interior[..., None]
+        return float(np.abs(wd).max())
+
+    def total_hamiltonian(self) -> float:
+        """The FULL coupled Hamiltonian witness: the Cosserat sector's own
+        total_hamiltonian() (kinetic + gradient potential, NOT sum(ω²)) PLUS the
+        bulk cage's conserved energy. ave-conserved-vs-pumped: a flat/decaying
+        ledger = passive (energize-LOCK); a climbing ledger = PUMP."""
+        return float(self.B.total_hamiltonian()) + self.bulk_energy_conserved()
 
