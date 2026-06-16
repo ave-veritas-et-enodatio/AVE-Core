@@ -302,6 +302,129 @@ parse it):
 - **open-ambiguity-flag:** no (a fresh coinage carries no prior overloading). *(Distinct caveat — NOT an open-ambiguity of THIS term:* the two $\Gamma$'s the electron carries, $\Gamma_{spinor}=-1$ [class-invariant wall, ALL fermions] vs $|\Gamma_{EM}|^2=1-\alpha$ [electron-scoped EM leak], are a separate homonym surfaced for adjudication at clm-fd1e7a / [cvr-reflection-smith.md](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/cvr-reflection-smith.md):36 — do not conflate them.)
 - **verification:** VERIFIED **0 prior corpus hits** for `BoundResonator` (clean to coin; only this pilot's new engine code uses it). **GATED on auditor + Grant review — NOT adopted, NOT SOLID.**
 
+
+
+---
+
+## K4
+<!-- id: def-4b1a2c -->
+
+- **term:** K4 (the "K4" name — three distinct overloaded referents)
+- **adjudicated-meaning:** *(no single locked sense — the overload IS the content: one name spans three distinct objects across the corpus, and the production engine does NOT use the object the Axiom-1 name denotes)*. The unadjudicated name-overload is itself the open item; the P0 walk-back of the "Laves K4" name is queued.
+- **axis:** other (cross-file name overload spanning a real-space crystal name and a group label)
+- **dimension/type:** n/a (a name) — its referents are: a graph/lattice (length-scale $\ell_{node}$), and a finite group (dimensionless)
+- **status:** ambiguous
+- **canonical-home:** *(no single home — the name-identity is adjudicated by the D1 memo and restated in-axiom at `manuscript/common_equations/eq_axiom_1.tex:35`; the name-overload is flagged unresolved at `the-abandoned-interior.md:183`)*
+- **clm-cross-links:** *(none verified-specific yet)*
+- **open-ambiguity-flag:** YES — three distinct referents share the name "K4":
+  - (a) the **axiom NAME "chiral Laves K4"** — the degree-3 srs / Sunada-K4 net, $I4_1 32$ chiral space group (the historical object Sunada called K4). Home: `manuscript/common_equations/eq_axiom_1.tex:23-24` (the "chiral Laves K4 Cosserat crystal" identity) + `:18-21` (D1 adjudication tying the name to srs); the srs builder at `src/ave/core/chiral_lattice.py:11-13,199-217`. [structural-chirality instrument]
+  - (b) the **engine "K4"** — the degree-4 (z=4) bipartite-FCC **DIAMOND** lattice (achiral $Fd\bar{3}m$), on which the production $\alpha$ / Lorentz / photon drivers compute. Home: `src/ave/core/k4_tlm.py:101-119` (`K4Lattice3D`, the `# K4 (DIAMOND) LATTICE` banner at `:97`); the in-axiom split at `eq_axiom_1.tex:35` ("The production computational net is z=4 diamond"). [production engine substrate]
+  - (c) the **rotation GROUP $K4 \to A_4$** — the tetrahedral-group chain used in the spin-1/2 derivation. Home: `finkelstein-misner-spin-half-derivation.md:52,56` (the $K_4 \to A_4 \to 2T \subset SU(2)$ chain); `vol2/.../ch01-topological-matter/electron-identification.md:52`. [finite group, dimensionless]
+  - **The load-bearing tension:** the **axiom NAME (a) denotes the chiral srs net, but the PRODUCTION engine runs the achiral diamond (b)** — a structural-vs-named mismatch. Per the D1 memo (2026-06-12, `research/2026-06-12_lattice-d1-adjudication-memo.md:44`) the engine + axiom AGREE on diamond for production; the residual mismatch is the retained name "Laves K4" itself. The **P0 walk-back of the name is queued** (provenance comment `manuscript/common_equations/eq_axiom_1.tex:20`, D1-adjudication block), and the broader crystalline-vs-amorphous structural tension is flagged a "real open seam" at `the-abandoned-interior.md:183` (auditor lane + Grant adjudicate). The D1 memo's framing default (B) (srs = instrument, diamond = engine) is PROVISIONAL; the (A) substrate-challenge axis remains live.
+    - conflicting sites: axiom name / srs `eq_axiom_1.tex:23-24,18-21`; engine diamond `src/ave/core/k4_tlm.py:97-119`; group $K4\to A_4$ `finkelstein-misner-spin-half-derivation.md:52,56`; name-overload open seam `the-abandoned-interior.md:183`; P0 walk-back queued `eq_axiom_1.tex:20`.
+- **verification:** VERIFIED the three referents at their cited sites (axiom name + srs builder, diamond `K4Lattice3D`, the $K4\to A_4$ chain). Status **ambiguous** — the name-overload is unadjudicated (P0 walk-back queued, not yet applied); the production engine demonstrably runs object (b) while the Axiom-1 name denotes object (a). Recorded as a seam, not resolved — do not pick a referent for an un-qualified "K4".
+
+---
+
+## chirality
+<!-- id: def-7c3f9e -->
+
+- **term:** chirality (chiral / handedness)
+- **adjudicated-meaning:** *(no single locked sense — two distinct realizations the corpus is emphatic NOT to conflate; whether the production realization is GENUINELY a chiral space group is OPEN)*.
+- **axis:** other — split across a dimensionless dynamical order-parameter and a real-space crystallographic motif
+- **dimension/type:** dimensionless (the $\kappa_{chiral}$ scalar) for the dynamical reading; n/a / space-group label ($I4_1 32$ vs $I4_3 32$) for the geometric reading
+- **status:** ambiguous
+- **canonical-home:** *(no single home — the production-vs-instrument split is stated at `manuscript/common_equations/eq_axiom_1.tex:35`; the broader realization question is flagged OPEN at `the-abandoned-interior.md:183`)*
+- **clm-cross-links:** *(none verified-specific yet)*
+- **open-ambiguity-flag:** YES — two distinct chirality realizations:
+  - (a) **DYNAMICAL chirality**: an excited $k_\chi$ Cosserat order-parameter realized as the scalar $\kappa_{chiral} = \alpha\,\tilde{\kappa}(p,q)$ on the **ACHIRAL $Fd\bar{3}m$ diamond** (the production engine), asymmetrically loading $\mu$-up / $\varepsilon$-down by local helicity. Home: `eq_axiom_1.tex:35` ("Cold-lattice handedness on diamond is an excited $k_\chi$ Cosserat order-parameter"); `src/ave/topological/cosserat_field_3d.py:115-124` ($\kappa_{chiral}=\alpha\cdot\tilde\kappa$), `:522-523` (asymmetric loading); the diamond port-handedness at `src/ave/core/k4_tlm.py:535-548` (`get_helicity_density`). The strength inherits the $\alpha$ calibration. [dynamical order-parameter, dimensionless]
+  - (b) **GEOMETRIC / STRUCTURAL chirality**: the literal $I4_1 32$ Wyckoff-8a srs atomic motif (right-handed = $I4_1 32$, left-mirror = $I4_3 32$) — the **INSTRUMENT** path, not the substrate. Home: `src/ave/core/chiral_lattice.py:45-46,215`. [crystallographic space-group motif]
+  - **The OPEN question (do NOT pick a side):** whether the port-handed bipartite **achiral diamond** (a) genuinely **realizes Axiom-1's CHIRAL $I4_1 32$ space group**, or is an achiral diamond carrying a dynamical port-handedness, is **NOT settled in any code read**. The corpus closes the NARROWER chiral-vs-centrosymmetric space-group question as a FALSE POSITIVE ($Fd\bar{3}m$ is the supergroup of $I4_1 32$; $k_\chi=0 \Rightarrow Fd\bar{3}m$, $k_\chi>0 \Rightarrow I4_1 32$ — `claim-quality-closure-roadmap.md:191`, Foundation Item 10; corroborated `manuscript/ave-kb/common/translation-tables/translation-circuit.md:652`), but the BROADER crystalline-vs-amorphous structural model doing the isotropy work is "**not unified**" and named a "**real open seam**" at `the-abandoned-interior.md:183` (auditor lane + Grant adjudicate).
+    - conflicting sites: dynamical $\kappa_{chiral}$ on achiral diamond `eq_axiom_1.tex:35` + `src/ave/topological/cosserat_field_3d.py:115-124,522-523`; geometric $I4_1 32$ srs motif `src/ave/core/chiral_lattice.py:45-46,215`; supergroup FALSE-POSITIVE close `claim-quality-closure-roadmap.md:191` (corroborated `manuscript/ave-kb/common/translation-tables/translation-circuit.md:652`); broader open seam `the-abandoned-interior.md:183`.
+- **verification:** VERIFIED both realizations verbatim at their cited sites; VERIFIED that "chirality / chiral / handedness / enantiomorph" carried **ZERO prior def-node** (the load-bearing vocabulary gap, confirmed by grep of this register). Status **ambiguous** — the production-vs-instrument split is real and corpus-documented, but whether the achiral diamond genuinely realizes a chiral space group is unadjudicated. Recorded as a seam, not resolved.
+
+---
+
+## c
+<!-- id: def-2e8d61 -->
+
+- **term:** c (the substrate wave speed(s))
+- **adjudicated-meaning:** *(no single number — distinct substrate-native speeds share the symbol $c$, and the cold-lattice value enters as a CALIBRATION IDENTITY ($G_{vac} \equiv \rho_{bulk}\,c^2$), NOT a grid-derived output)*. Conflating the speeds is the canonical Pitfall #5 framework-leakage error.
+- **axis:** other — distinct effective speeds (all $L\,T^{-1}$), separated by operating-point dependence and by mode
+- **dimension/type:** velocity ($L\,T^{-1}$); the listed forms are distinct quantities, not interchangeable
+- **status:** ambiguous
+- **canonical-home:** *(no single home — Pitfall #5 / two-effective-speeds discipline at `manuscript/ave-kb/CLAUDE.md`; mode speeds at `vol1/dynamics/ch4-continuum-electrodynamics/photon-propagation-baseline.md:38`)*
+- **clm-cross-links:** clm-8nkvwy
+- **open-ambiguity-flag:** YES — the symbol $c$ spans multiple distinct substrate speeds, and the photon's propagation ontology is itself OPEN:
+  - (a) $c_{EM}(A_0) = c_0/S(A_0)$ — the **Maxwell phase velocity** that enters $\alpha = e^2/(4\pi\varepsilon_0\hbar c)$ (canonical clm-8nkvwy:111).
+  - (b) $c_{shear}(A_0) = c_0\sqrt{S(A_0)}$ — the **substrate mechanical / group / rest-mass speed** that tracks the Schwarzschild reduction (canonical clm-8nkvwy:113). Substituting $c_{shear}$ into the $\alpha$ formula is the documented Phase 3-A3 walk-back error — use $c_{EM}$ in $\alpha$, $c_{shear}$ in time-dilation.
+  - (c) the K4 **$A_1$ bulk-modulus port-mode** $\sqrt{K_{bulk}/\rho} = \sqrt{2}\,c$ (pure-dilatation; measured cardinal-axis $v/c \approx 1.45$). The $\sqrt{2}$ mode-ratio $v_{A_1}/v_{T_2} = \sqrt{K/G} = \sqrt{2}$ holds at $K=2G$; the cardinal-axis $\sqrt{2}$ is **also** a port-step-vs-Euclidean lattice-projection convention ($dt=dx/(c\sqrt{2})$), distinct from a physical anisotropy. Home: `vol1/dynamics/ch4-continuum-electrodynamics/photon-propagation-baseline.md:38`; `src/ave/core/k4_tlm.py:181-189`.
+  - (d) the isotropic-solid **longitudinal P-wave** $c_L = \sqrt{(K+\tfrac{4}{3}G)/\rho} = \sqrt{10/3}\,c \approx 1.83c$ at $K=2G$ ($\nu=2/7$). This is DISTINCT from the $\sqrt{2}\,c$ bulk-modulus dilatational speed (which drops the $4G/3$ shear term) — the 2026-06-08 c_L reconciliation (Rule 12). Home: `vol1/dynamics/index.md:28`; `vol1/dynamics/ch4-continuum-electrodynamics/photon-propagation-baseline.md:38`.
+  - **CALIBRATION IDENTITY:** the cold-lattice $c$ enters as $G_{vac} \equiv \rho_{bulk}\,c^2$ (from $v_{transverse}=\sqrt{G/\rho}=c$), a definitional identity NOT independently grid-derived. Home: `src/ave/core/constants.py:670-672` ($G\_VAC = RHO\_BULK \cdot C\_0^2$).
+  - **FLAG — OPEN (do NOT pre-judge):** the **continuum-vs-discrete photon ontology (DEC-01 / #248)** is **unadjudicated** — whether light is a continuous transverse-energy mode (Branch C) that the discrete substrate merely *samples* (imprinting the $\sqrt{2}$ as an observation fingerprint) vs literal discrete transport is an OPEN ruling. The $\sqrt{2}c$ front's mode-identity (bulk-precursor vs T₂-photon group velocity) is empirically unisolated. Home: `_orchestration/2026-06-14_photon-ontology-vocabulary-adjudication-handoff.md:41,50` ("needs your ruling" / "OPEN").
+    - conflicting sites: $c_{EM}$ vs $c_{shear}$ clm-8nkvwy:111,113 + `manuscript/ave-kb/CLAUDE.md` (Pitfall #5); $\sqrt{2}c$ bulk mode + lattice-projection `photon-propagation-baseline.md:38` + `src/ave/core/k4_tlm.py:181-189`; $\sqrt{10/3}c$ P-wave `vol1/dynamics/index.md:28`; calibration identity `src/ave/core/constants.py:670-672`; DEC-01 OPEN `_orchestration/2026-06-14_photon-ontology-vocabulary-adjudication-handoff.md:41,50`.
+- **verification:** VERIFIED the speed-set and the $G_{vac}=\rho c^2$ calibration identity at their cited sites; VERIFIED the $\sqrt{10/3}c$-vs-$\sqrt{2}c$ distinction (2026-06-08 c_L reconciliation, Rule 12) at `vol1/dynamics/index.md:28`. Status **ambiguous** — multiple distinct speeds under one symbol, cold-value is a calibration identity, and the photon ontology (DEC-01) is OPEN and explicitly NOT pre-judged here.
+
+---
+
+## longitudinal
+<!-- id: def-9a4f07 -->
+
+- **term:** longitudinal (the V-sector scalar grade)
+- **adjudicated-meaning:** the **real V-sector scalar grade** — the Heaviside/Gibbs-excised longitudinal compression scalar that is **physical, NOT Gauss-deleted**. It is "the 3" in its A1 dilatation-MASS sense (the Heaviside-demoted scalar/longitudinal grade that re-engages at saturation = the electron). It must **never** be framed in QED-vector terms.
+- **axis:** other — the longitudinal scalar V grade (a substrate field grade, not a transverse-vector component)
+- **dimension/type:** scalar potential grade $V$ (the A1 dilatation channel); dimensionless winding for the orthogonal Cosserat sense (see open-ambiguity)
+- **status:** ambiguous
+- **canonical-home:** `vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:18` (the Maxwell–Heaviside note: the scalar/longitudinal grade demoted by Heaviside–Gibbs, "re-engages at saturation = the electron")
+- **clm-cross-links:** *(none verified-specific yet)*
+- **open-ambiguity-flag:** YES — "longitudinal" is overloaded (the field-symbol registry locks four readings); the load-bearing distinction is:
+  - (a) the **bulk-volumetric / V-sector scalar** longitudinal grade — the Heaviside-excised compression scalar, the **A1 dilatation-mass "3"** (`master-equation.md:18,20`). This is the real, physical, Gauss-undeleted grade. [scalar V grade]
+  - (b) **shear-in-the-longitudinal-direction** — the Cosserat longitudinal-shear sense (the substrate-mechanical $\tau_{zx}$ family used in the dark-wake / thrust arc), a genuine Maxwell/Cauchy shear stress. [stress, $N\,m^{-2}$]
+  - (c) the **EM-forbidden** longitudinal photon (transverse-only EM mode) — the sense in which the photon has no longitudinal component.
+  - (d) the **port / lattice** $A_1$ longitudinal port-mode ($\sqrt{2}c$ bulk-modulus dilatation; see `def-2e8d61` c).
+  - **Load-bearing guard:** the A1 longitudinal scalar (a) is the **dilatation-mass "3"** and is ORTHOGONAL to the Cosserat $(2,3)$ micro-rotation winding (charge); never frame (a) in QED-vector terms, and never wire the winding into the breather's $(V_{inc},V_{ref})$ phasor (`master-equation.md:20`; see `def-1f6e34` the-3).
+    - conflicting sites: Heaviside-excised scalar grade `master-equation.md:18,20`; the four-way registry lock `research/2026-06-10_field-symbol-registry.md` (Rule 3, not-canon draft) + `_orchestration/2026-06-14_photon-ontology-vocabulary-adjudication-handoff.md:92`; longitudinal-shear $\tau_{zx}$ `common/dark-back-reaction-taxonomy.md:25`.
+- **verification:** VERIFIED the V-sector / Heaviside-excised scalar reading at `master-equation.md:18,20` (the scalar/longitudinal grade demoted by Heaviside–Gibbs, physical, re-engages at saturation). The four-way overload is documented in the not-canon field-symbol registry (no prior def-node) per the handoff table `:92`. Status **ambiguous** — multiple readings under one word; the V-sector scalar sense is the canonical primary but the surface form is overloaded and was unregistered until now.
+
+---
+
+## the-3
+<!-- id: def-5d2b8a -->
+
+- **term:** the-3 (the two homonymous "3"s)
+- **adjudicated-meaning:** *(the disambiguation IS the content — Rule-12 ratified at `master-equation.md:20`)*: the "3" names **TWO DISTINCT, ORTHOGONAL objects (A1 $\perp$ T2)**: the **A1 dilatation MASS** (the Heaviside-excised longitudinal compression scalar $V$; $m_e c^2$ = trapped acoustic compression energy) vs the **Cosserat micro-rotation $(2,3)$ WINDING** (the Axiom-1 intrinsic-spin DOF; charge = Beltrami helicity $H_{bel}=\int\omega\cdot(\nabla\times\omega)$). The electron is the unknot dilatation-mass **carrying** the $(2,3)$ winding — two objects, not one.
+- **axis:** other — A1 scalar V grade (mass) vs phase-carrier $(2,3)$ Cosserat winding (charge), declared orthogonal
+- **dimension/type:** scalar V grade / energy ($m_e c^2$) for the A1 mass "3"; integer winding pair $(2,3)$ / dimensionless helicity for the Cosserat charge "3"
+- **status:** ambiguous
+- **canonical-home:** `vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20` (the Rule-12, Grant-ratified TWO-"3"s disambiguation box — the canonical anchor)
+- **clm-cross-links:** *(none verified-specific yet)*
+- **open-ambiguity-flag:** YES — two distinct objects under the one numeral "3":
+  - (a) the **A1 dilatation-MASS "3"** — the Heaviside-excised longitudinal compression scalar $V$ (the A1 breather; $m_e c^2$ = trapped acoustic compression energy). The longitudinal grade of `def-9a4f07`. [scalar V grade]
+  - (b) the **Cosserat micro-rotation $(2,3)$ WINDING "3"** — the T2 couple-stress, Axiom-1 intrinsic-spin DOF; charge = Beltrami helicity $H_{bel}=\int\omega\cdot(\nabla\times\omega)$. [phase-carrier winding / dimensionless helicity]
+  - **Load-bearing FORBIDDEN-wiring guard (Rule 12, Grant-ratified):** the two are ORTHOGONAL (A1 $\perp$ T2); **never wire the winding (b) into the breather's own phasor $(V_{inc},V_{ref})$** — $V_{ref}$ is a read-only projection of the same scalar $V$, not an independent DOF; doing so self-inflicts the genesis-24 / crystal $w_{pol}=0$ double-count. The TWO-objects disambiguation is canon (the `master-equation.md:20` Rule-12 box) but carried **no def-node** until now. (The `status: ambiguous` tag refers to the surface numeral "3" itself, which remains overloaded across two objects — NOT to the disambiguation, which is settled.)
+    - conflicting sites: the canonical disambiguation box `master-equation.md:20` (A1 dilatation-mass scalar vs Cosserat $(2,3)$ winding, "never wire the winding into the breather's own phasor"); A1 scalar $V$ engine `src/ave/core/master_equation_fdtd.py:42-47`; Cosserat winding / helicity readout `src/ave/topological/cosserat_field_3d.py:2122` + `src/ave/topological/helicity_observer.py:39-59`.
+- **verification:** VERIFIED the two-orthogonal-objects content and the forbidden-wiring guard verbatim at `master-equation.md:20` (Rule 12, Grant-ratified). Status **ambiguous** — the disambiguation is settled in canon, but the surface numeral "3" remains overloaded across two objects (it is the *overload*, not the *meaning*, that the ambiguous tag flags) and the wiring-guard must be qualified at every cite; recorded so the verifier-gated watch-list can catch its mis-use. Do not collapse the A1 "3" and the Cosserat "3" into one object.
+
+---
+
+## dark-wake
+<!-- id: def-1f6e34 -->
+
+- **term:** dark-wake (dark wake)
+- **adjudicated-meaning:** *(a vocabulary collision the corpus has split under a shared genus — `common/dark-back-reaction-taxonomy.md`)*: the name "dark wake" historically named TWO physically distinct substrate back-reaction phenomena (written with one shared $\tau_{zx}$ symbol on a longitudinal-shear signature resemblance); the canonical taxonomy now reserves "dark wake" for the **thrust species only** and renames the other.
+- **axis:** other — a far-field radiated shear-stress phenomenon vs a near-field reactive self-energy rate
+- **dimension/type:** shear stress ($N\,m^{-2}$) for the thrust species ($\tau^{far}_{zx}$); reactive power per time ($V^2/\text{time}$) for the dark-resonance species ($-\dot\Sigma_{near}$)
+- **status:** ambiguous
+- **canonical-home:** `common/dark-back-reaction-taxonomy.md:21` (Species 1 — dark wake / thrust / $\tau^{far}_{zx}$)
+- **clm-cross-links:** clm-7tynm2, clm-v2sg8z
+- **open-ambiguity-flag:** YES — the name historically spanned two distinct objects (a symbol-level category error, forced by the 2026-05-31 FT-Dark-Wake-Cross-Scale Outcome C):
+  - (a) **dark wake (thrust) → $\tau^{far}_{zx}$** — the **far-field radiated longitudinal-shear stress**, the real-space motion-trail behind a *moving* soliton (no motion, no wake), carrying the Newton-3rd reaction momentum ($P_{wake}=F\cdot c_0$). A genuine Maxwell/Cauchy shear stress. Home: `common/dark-back-reaction-taxonomy.md:21-27`; canonical leaf `vol4/circuit-theory/ch2-topological-thrust-mechanics/chiral-thrust-derivation.md` (clm-7tynm2). [stress, $N\,m^{-2}$]
+  - (b) **dark resonance (g-2) → $\Sigma_{near}$ / $-\dot\Sigma_{near}$** — the electron's **near-field reactive self-energy** (at rest, in the Cosserat $(2,3)$ phase space), the QED self-energy analogue feeding $A_2$. Previously mislabeled "dark wake" with $\tau_{zx}$. Home: `common/dark-back-reaction-taxonomy.md:29-37`; canonical leaf `vol2/.../ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md` (clm-v2sg8z). [reactive power rate, $V^2/\text{time}$]
+  - **AMO-overlap guard:** "dark resonance" (b) is ALSO an established atomic-physics term (CPT / EIT dark state) — a DIFFERENT phenomenon; qualify as "AVE dark resonance (substrate self-$\Gamma$)" when precision is needed (`dark-back-reaction-taxonomy.md:39`).
+  - **Cross-repo status (peripheral to AVE-Core canon):** the dark-wake thrust species (a) is the subject of an exploratory **AVE-Propulsion** arc (chiral plasma antenna radiating longitudinal Cosserat shear), where the corpus self-flagged a separate "dark-wave" coordinate-sense mis-definition (one of the handoff's catalogued vocabulary errors). Within AVE-Core the term is a settled definitional taxonomy (a no-claim leaf), though the surface form "dark wake" remains overloaded (see status note); the singular "dark wave" has **0 corpus hits**. Cross-repo: `AVE-Propulsion/manuscript/vol_propulsion/chapters/01_ave_resolutions.tex`. The vocabulary-debt classification of "dark wake" is surface-level + producer-mis-premise per `_orchestration/2026-06-14_photon-ontology-vocabulary-adjudication-handoff.md:94`.
+    - conflicting sites: thrust species $\tau^{far}_{zx}$ `dark-back-reaction-taxonomy.md:21-27`; dark-resonance species $\Sigma_{near}$ `dark-back-reaction-taxonomy.md:29-37`; AMO overlap `dark-back-reaction-taxonomy.md:39`; cross-repo arc `AVE-Propulsion/manuscript/vol_propulsion/chapters/01_ave_resolutions.tex`.
+- **verification:** VERIFIED the genus/species split, both symbols, both canonical-home leaves, and the AMO-overlap guard at `common/dark-back-reaction-taxonomy.md:11,21-39`; VERIFIED the cross-repo AVE-Propulsion footprint by grep. Status **ambiguous** — the taxonomy split is settled in canon, but the surface form "dark wake" historically collided two objects and the AMO "dark resonance" sense further overloads the renamed species (it is the *surface overload* the ambiguous tag flags, not the taxonomy); recorded so the watch-list catches the mis-use. The split is the content, not resolved here.
+
 ---
 
 ## Seed coverage + follow-up
