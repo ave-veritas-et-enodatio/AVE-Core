@@ -48,7 +48,7 @@ This explicit two-step numerical engine enforces local gauge invariance and ener
 |---|---|---|---|
 | $\ell_{node} = \hbar/m_e c$ | $3.862 \times 10^{-13}$ m | $3.862 \times 10^{-13}$ m | Axiom 1 (Substrate Topology) |
 | $Z_0 = \sqrt{\mu_0/\epsilon_0}$ | 376.73 $\Omega$ | 376.73 $\Omega$ | Axiom 1 (Substrate Topology) |
-| $\alpha$ | $1/137.036$ | $1/137.036$ | Axiom 4 (EMT $K{=}2G$ operating point); derived in [Ch.8 Golden Torus](../../ch8-alpha-golden-torus.md) |
+| $\alpha$ | $1/137.036$ | $1/137.036$ | Axiom 4 (EMT $K{=}2G$ operating point); Class B named identification via [Ch.8 Golden Torus](../../ch8-alpha-golden-torus.md) (not a first-principles derivation) <!-- 🔴 Rule-12 2026-06-15 alpha: prior "derived in Ch.8 Golden Torus" superseded per Ch.8 keystone. --> |
 | $V_{yield} = \sqrt{\alpha}\,V_{snap}$ | 43.65 kV | 43.65 kV | Axiom 4 (saturation threshold) |
 | $\xi_{topo} = e/\ell_{node}$ | $4.149 \times 10^{-7}$ C/m | --- | Axiom 2 mechanism ($[Q]\equiv[L]$) |
 | $V_{snap} = m_e c^2/e$ | 511.0 kV | 511.0 kV | Definition (Axioms 1, 2) |
