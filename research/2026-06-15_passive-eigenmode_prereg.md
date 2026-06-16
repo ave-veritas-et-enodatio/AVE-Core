@@ -1,10 +1,11 @@
 # Passive winding-protected electron eigenmode — the hybrid (V,ω) high-Q standing mode — PREREG (Rule-11)
 
-> **STATUS: DRAFT v3 — auditor-FLAG addressed (panel `wyxwc215e`) + Grant §11 RULED (2026-06-15).
-> Freeze (→ `_FROZEN`) BLOCKED ONLY on the magnetic-branch PRE-FLIGHT (agent `a12b397d4d347be90`)
-> resolving the platform (fork 1).** Forks 2–3 ruled: Q is SECONDARY (137/114, awareness); α is an
-> ECHO for the z₀ route (chord won't fire). **The keystone = EXISTENCE + STABILITY of the passive
-> high-Q hybrid mode (§4).** Grant-gated 2026-06-15 (B1; high-Q; existence-primary). Lane:
+> **STATUS: DRAFT v3 — PRE-FLIGHT RETURNED option (a) DEAD + a COORDINATE-MISMATCH reframe (§11
+> fork 1). FREEZE + PRODUCTION DRIVER HELD on a Grant platform/coordinate decision (b / b′ / c).**
+> Forks 2–3 ruled: Q is SECONDARY (137/114, awareness); α is an ECHO for the z₀ route (chord won't
+> fire). **The keystone = EXISTENCE + STABILITY of the passive high-Q hybrid mode (§4)** — but no
+> faithful platform to test it on yet (the pre-flight found the matter wall is read in the wrong
+> coordinates on existing engines). Grant-gated 2026-06-15 (B1; high-Q; existence-primary). Lane:
 > `_orchestration/2026-06-15_passive-eigenmode-solve.md`.
 > **Rule 11 — commitment written BEFORE the driver; no knobs tuned to force a result.**
 
@@ -253,10 +254,16 @@ eigencavity structure is a real passive radiating eigenstructure with finite Q"*
 
 The auditor surfaced three **physics-framing forks**; **Grant RULED (2026-06-15):**
 
-1. **Platform (§7) — RULED: run the magnetic-branch pre-flight, decide from the fact.** Greenlit the
-   1-run diagnostic (dispatched, agent `a12b397d4d347be90`); **(a)-VIABLE iff `CoupledK4Cosserat`
-   reaches Z→0 / Γ→−1 (the matter wall) with chiral ON.** **Do NOT take the (b) cross-firewall
-   sign-off until the pre-flight says (a) is DEAD.** Freeze is blocked on the pre-flight result.
+1. **Platform (§7) — PRE-FLIGHT RETURNED: option (a) DEAD (agent `a12b397d4d347be90`).**
+   `CoupledK4Cosserat` reaches the magnetic SIGN but only **clip-floors a pseudo-Γ→−1 wall that
+   runs away** (deepest genuine Γ≈−0.49, non-persistent) — reproducing graft-v2's clip-bound "−1 NOT
+   demonstrated" on a SECOND engine. Two deeper findings: the **chiral term is <10% / not the wall
+   driver** (structural curvature/strain split is — contradicts the docstring + Lane-3), and a
+   **COORDINATE-MISMATCH**: the engine reads Γ from Cosserat ω-curvature, but the canonical electron
+   winding lives in the **K4 V-tank `(V_inc,V_ref)` phasor**; the ω wall it found is **proton-family**,
+   the canonical unknot electron gave **no wall**. **→ The platform decision is now (b) build-as-posed
+   / (b′) re-scope to the V-tank phasor (coordinate-faithful — points back to `crystal_engine`) / (c)
+   mounting-negative-but-untestable. FREEZE + DRIVER HELD on Grant; entangled with Flag-A.**
 2. **F3 mechanism (§5) — RULED: pre-registered, awareness only.** 137 (bare-α) vs 114 (κ_chiral=α·1.2
    = the (2,3) factor κ̃); a 114 result = the chiral coupling sets the leak (a real finding). **Not
    bin-deciding** (§4 — Q is secondary).

@@ -1,9 +1,9 @@
 # Passive winding-protected electron eigenmode — the structural keystone (ORCHESTRATION)
 
-> **STATUS: AUDITOR-GATE DONE ✅ + GRANT §11 RULED ✅ (2026-06-15). FREEZE blocked ONLY on the
-> magnetic-branch PRE-FLIGHT (agent `a12b397d4d347be90`, running) resolving the platform.** Lane
-> worktree `AVE-Core-eigenmode-wt`, branch `analysis/2026-06-15-passive-eigenmode-solve` off
-> `main@40a2a2e7`. **main is PROTECTED — Grant merges; this lane does NOT merge.** Prereg:
+> **STATUS: PRE-FLIGHT DONE ✅ → option (a) DEAD + a deeper COORDINATE-MISMATCH reframe (§0.5).
+> FREEZE + production driver HELD on a Grant platform/coordinate decision.** Lane worktree
+> `AVE-Core-eigenmode-wt`, branch `analysis/2026-06-15-passive-eigenmode-solve` off `main@40a2a2e7`.
+> **main is PROTECTED — Grant merges; this lane does NOT merge.** Prereg:
 > `research/2026-06-15_passive-eigenmode_prereg.md` (DRAFT v3).
 >
 > **KEYSTONE REFRAME (Grant 2026-06-15):** the lane rests on **EXISTENCE + STABILITY** of the
@@ -22,6 +22,48 @@
 > shear clock `(1−A²)^{1/4}` confirmed. (5) Flag-A: hybrid (V,ω) is the right object and
 > **bears on** the A1-vs-T2 sector but does **NOT resolve** it — don't let the lane claim
 > resolution.
+
+---
+
+## §0.5 — PRE-FLIGHT RESULT (agent `a12b397d4d347be90`, 2026-06-15): option (a) DEAD + coordinate-mismatch reframe
+
+**Verdict: option (a)-DEAD.** `CoupledK4Cosserat` reaches the magnetic-branch SIGN (Γ<0, S_μ<S_ε)
+but **cannot render a stable Z→0/Γ→−1 wall**: the only Γ≈−1 reads are **clip-floor artifacts** (S_μ
+pinned at the 1e-5 numerical floor, A²_μ>1 clipped) that exist **only at step 0**; the first
+evolution step **runs away** (energy explodes 6–11 OOM, the A28 coupling-runaway channel). The
+deepest *genuine* sub-clip wall is **Γ≈−0.45…−0.49 (Z≈0.14·Z₀)** and it does not persist.
+**This independently reproduces the canonical graft-v2 "−1 NOT demonstrated, clip-bound" status
+(`engine-capability-map.md:113`) on a SECOND engine.**
+
+**Three load-bearing findings (flag-don't-fix; Grant adjudicates):**
+
+1. **(a) dead — no stable self-consistent matter wall.** Two engines now clip-floor + run away
+   toward Z→0. Accessor: `_impedance_gamma_shared` (`k4_cosserat_coupling.py:647,673`); clip source
+   `cosserat_field_3d.py:585`; runaway `k4_cosserat_coupling.py:265`.
+2. **The chiral term does NOT drive the wall (CONTRADICTION-flag, touches Lane 3).** Chiral OFF vs
+   ON differ <10% (~0.9% perturbation; κ_chiral≈1.2α too small). The magnetic SIGN comes from the
+   **structural curvature-vs-strain asymmetry** (∇×ω vs strain), NOT κ_chiral. This **contradicts
+   the engine docstring** (`cosserat_field_3d.py:148-153`, which claims the chiral drive creates the
+   wall) **AND** Lane-3's "matter wall = chiral-broken." → Lane-3's call; flag.
+3. **COORDINATE-MISMATCH (the deepest — A46, `phase-space-coordinate-check`).** The engine reads Γ
+   from **Cosserat ω-curvature**; the canonical electron winding lives in the **K4 V-tank
+   `(V_inc,V_ref)` PHASE-SPACE** (`theory.md:16`, `ch8:29`). The pre-flight drove the wall with a
+   **real-space (2,3) ω seed** — which the canon flags as **PROTON-family (5₁/5₂)**, NOT the
+   electron — because the canonical **unknot** electron seed gave **NO wall** (Γ≳−0.10). The K4
+   V-sector contributed **nothing** (`|V_inc|=0`, S_ε≡1). **So the engine's wall read is in the
+   wrong sector/coordinates for the electron**, and even the DEAD verdict is about the *ω-curvature*
+   impedance, not a faithful independent-μ / V-tank-phasor read this engine structurally cannot give.
+
+**Consequence:** the platform question is NOT just "(a) vs build-(b)" — the pre-flight surfaced that
+the electron's wall must be read in the **K4 V-tank `(V_inc,V_ref)` phasor**, not Cosserat
+ω-curvature, AND that the ω-curvature wall is proton-family. **This re-scopes (b) and entangles the
+platform with the unresolved Flag-A (which sector carries the electron's wall).** Freeze +
+production driver HELD for Grant. **Decision options surfaced to Grant (2026-06-15) — see the
+session thread:** (b) build cross-firewall A1-cage⊗Cosserat as-posed · (b′) re-scope the platform to
+read impedance in the K4 V-tank phasor (coordinate-faithful; points back toward `crystal_engine` =
+the V-tank/A1 scalar engine as the wall host, ω-carrier as the orthogonal winding) · (c) treat the
+two-engine clip-floor+runaway as mounting evidence the stable Z→0 matter wall is not a renderable
+fixed point (suggestive structural negative, but the coordinate-mismatch blocks banking it clean).
 
 ---
 
@@ -294,3 +336,17 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   GRAVITY lens (Z=Z₀, Γ=0); MATTER WALL = chiral-broken (Z→0, Γ=−1); K=2G = the symmetric/gravity
   lock (provenance on the amorphous EMT, under reconstruction — separate lane). **NEXT: pre-flight
   result → resolve Fork-1 → freeze (`_FROZEN`) → dispatch production driver.**
+- **2026-06-15 (Phase 1b — PRE-FLIGHT RESULT: option (a) DEAD; §0.5)** — Background diagnostic
+  `a12b397d4d347be90` returned: `CoupledK4Cosserat` reaches the magnetic SIGN but **clip-floors a
+  pseudo-Γ→−1 wall that is a numerical artifact and immediately runs away** (deepest genuine wall
+  Γ≈−0.49, non-persistent) — **reproducing graft-v2's clip-bound "−1 NOT demonstrated" on a SECOND
+  engine.** Three findings: (1) (a) dead; (2) the chiral term is **<10% / not load-bearing** for the
+  wall — the structural curvature-vs-strain split drives the sign, **contradicting both the engine
+  docstring and Lane-3's chiral-broken claim** (cross-lane flag); (3) **COORDINATE-MISMATCH** — the
+  engine reads Γ from Cosserat ω-curvature, but the canonical electron winding lives in the K4 V-tank
+  `(V_inc,V_ref)` phasor; the real-space (2,3) ω seed that produced a wall is canon-flagged
+  PROTON-family, and the canonical unknot electron gave NO wall. **Pre-flight-before-driver discipline
+  earned its cost** (saved a coordinate-mismatched, clip-contaminated production run). **HELD: freeze
+  + production driver blocked on a Grant platform/coordinate decision — (b) build-as-posed / (b′)
+  V-tank-phasor coordinate-faithful re-scope / (c) mounting-negative-but-untestable. Surfaced to
+  Grant; entangled with the unresolved Flag-A.**
