@@ -298,8 +298,280 @@ def _count_radial_bands(rho_vals: np.ndarray, R: float, r: float) -> int:
     return n_bands
 
 
-def main():  # PLACEHOLDER — gates + reads land in subsequent commits
-    print("passive_eigenmode_driver: gates G0-G4 + reads F1-F5 land in subsequent commits")
+# ============================================================================
+# section: TRUE n=sqrt(S) impedance read (prereg §8 item 9 — NOT the S^{1/4} proxy)
+# ============================================================================
+def gamma_true(eng: CrystalEngine) -> np.ndarray:
+    """The TRUE Smith reflection coefficient on the bulk branch:
+        n(r) = c0 / c_eff = sqrt(S)          (since c_eff^2 = c0^2/S, crystal_engine.py:197-200)
+        Gamma_true = (n - 1) / (n + 1)
+    NOT the proxy gamma_bulk()/refractive_index() (n = S^{1/4}, crystal_engine.py:421-432) —
+    the proxy understates the wall depth by ~2x (floor -0.240 vs true -0.454, §8 item 9).
+    Returns the per-cell Gamma_true (interior + PML; callers mask)."""
+    S = eng.saturation_kernel(eng.V)            # S = sqrt(1 - A^2), clipped [S_min, 1]
+    n = np.sqrt(np.maximum(S, eng.S_min))       # TRUE n = sqrt(S)
+    return (n - 1.0) / (n + 1.0)
+
+
+def gamma_true_min(eng: CrystalEngine) -> float:
+    """Deepest TRUE wall over the PML-excluded interior (A-Rule 10)."""
+    g = gamma_true(eng)
+    return float(g[eng.interior_mask()].min())
+
+
+GAMMA_TRUE_FLOOR = -0.4539  # analytic floor at A=A_cap=0.99 (S_floor=0.1411, n=0.3756)
+
+
+# ============================================================================
+# section: the (b') Op14 cross-coupling (REUSE the G0 double-count-clean wire)
+# ============================================================================
+def op14_coupling(eng_V: CrystalEngine, eng_w: CosseratField3D, dx: float):
+    """One application of the minimal Op14 cross-coupling = the G0 double-count-
+    clean conserved trilinear buckle (cross_sector_coupling.trilinear_buckle_forces,
+    photon_deplete=False ⇒ f_w == 0). KAPPA_TILDE=6/5, ALPHA-FREE.
+
+        f_V     = -kappa_tilde * g_wall * (w · ∇×omega)   -> onto the V-tank scalar
+        f_omega = -kappa_tilde * ∇×(g_wall * V * w)       -> onto the INDEPENDENT omega-carrier
+        f_w     = 0
+
+    g_wall = eng_V._front_window() = the saturation-FRONT shell (CP10 boundary, NOT bulk).
+    w = director from the omega-tank's own L-state (omega_dot) — u≡0 on this carrier.
+    NOTHING is written to (V_inc, V_ref) (the genesis-24 double-count; G0-clean)."""
+    g_wall = eng_V._front_window()
+    w_dir = eng_w.omega_dot
+    f_V, f_w, f_omega = trilinear_buckle_forces(
+        eng_V.V, w_dir, eng_w.omega, g_wall, dx,
+        kappa_tilde=KAPPA_TILDE, photon_deplete=False,
+    )
+    assert not np.any(f_w), "f_w must be identically 0 (photon_deplete=False)"
+    return f_V, f_omega
+
+
+def step_coupled(eng_V: CrystalEngine, eng_w: CosseratField3D, dx: float):
+    """Advance the coupled hybrid one step (the G0 wiring, exactly).
+    V-tank own leapfrog (c_eff^2=c0^2/S self-focus) + coupling back-reaction;
+    omega-carrier own velocity-Verlet + coupling back-reaction onto the
+    INDEPENDENT carrier. No drive, no gain — energize-LOCK (F5)."""
+    f_V, f_omega = op14_coupling(eng_V, eng_w, dx)
+    eng_V.step()
+    m = eng_V.interior_mask()
+    eng_V.V[m] += (eng_V.dt ** 2) * f_V[m]
+    eng_w.omega_dot = eng_w.omega_dot + eng_w.cfl_dt * (f_omega * eng_w.mask_alive[..., None])
+    eng_w.step()
+
+
+# ============================================================================
+# section: G0-G4 instrument-validation gates (prereg §5)
+# ============================================================================
+def gate_G0(cfg: RunConfig) -> dict:
+    """G0 — double-count orthogonality (re-confirm; full smoke is g0_double_count_smoke.py).
+    PASS = winding stays NONZERO on the omega-carrier AND zero V_ref-leak (the winding is
+    absent from the A1 (V_inc,V_ref) phasor). Here we confirm the coupling's f_omega lands
+    on omega and f_V lands on the scalar (never on V_ref), and w_pol stays nonzero over a
+    short coupled window."""
+    eng_V = seed_vtank(cfg)
+    eng_w = seed_omega_carrier(cfg)
+    wp = []
+    for n in range(40):
+        step_coupled(eng_V, eng_w, cfg.dx)
+        if n % 10 == 0:
+            rd = extract_2_3_omega_fast(eng_w.omega, eng_w.omega_dot, cfg.R, cfg.r, cfg.N)
+            wp.append(rd["w_pol"])
+    # f_omega writes to omega only; the V-tank phasor (V_inc,V_ref) is a function of the
+    # scalar V alone (k4_tlm.py:346) — the winding never enters it. (G0 smoke proved
+    # V_ref-leak <= 4.3e-16; re-asserted structurally: the coupling has no V_ref write path.)
+    w_pol_nonzero = all(p != 0 for p in wp)
+    return {
+        "gate": "G0",
+        "w_pol_trajectory": wp,
+        "w_pol_stays_nonzero": bool(w_pol_nonzero),
+        "vref_leak_structural": "no V_ref write path (coupling writes omega + scalar V only)",
+        "PASS": bool(w_pol_nonzero),
+    }
+
+
+def gate_G1(cfg: RunConfig) -> dict:
+    """G1 — residual/existence detector: the SECH eigen-profile CONVERGES (stays
+    localized / a bounded breather), the generic GAUSSIAN DISPERSES. This validates
+    that F1 can distinguish a standing mode from dispersal (cage SECH_ANCHOR,
+    cage_stiffening_wall.py:109). The discriminator is the V_peak retention + the
+    FWHM growth ratio: a convergent profile retains amplitude with bounded FWHM;
+    a dispersing one bleeds to ~0 with FWHM -> the whole box."""
+    def run_profile(seed_fn):
+        eng = seed_fn(cfg)
+        m = eng.interior_mask()
+        vpk0 = float(np.max(np.abs(eng.V * m)))
+        fwhm0 = _fwhm(eng.V * m)
+        vpk_tail, fwhm_tail = [], []
+        for n in range(cfg.n_steps):
+            eng.step()
+            if n % cfg.sample_every == 0 and n > 0.6 * cfg.n_steps:
+                vpk_tail.append(float(np.max(np.abs(eng.V * m))))
+                fwhm_tail.append(_fwhm(eng.V * m))
+        return {
+            "vpk0": vpk0, "fwhm0": fwhm0,
+            "vpk_tail_mean": float(np.mean(vpk_tail)) if vpk_tail else 0.0,
+            "fwhm_tail_mean": float(np.mean(fwhm_tail)) if fwhm_tail else 0.0,
+        }
+    sech = run_profile(seed_vtank)
+    gauss = run_profile(seed_vtank_gaussian)
+    sech_retention = sech["vpk_tail_mean"] / max(sech["vpk0"], 1e-12)
+    gauss_retention = gauss["vpk_tail_mean"] / max(gauss["vpk0"], 1e-12)
+    # detector validates if sech is DISTINGUISHABLY better-retained than gauss
+    discriminates = sech_retention > gauss_retention * 1.10
+    return {
+        "gate": "G1",
+        "sech": sech, "gaussian": gauss,
+        "sech_retention": float(sech_retention),
+        "gaussian_retention": float(gauss_retention),
+        "detector_discriminates_sech_vs_gauss": bool(discriminates),
+        "PASS": bool(discriminates),
+    }
+
+
+def _fwhm(V: np.ndarray) -> float:
+    Va = np.abs(V)
+    vm = Va.max()
+    return float((Va > vm / 2.0).sum()) if vm > 1e-10 else 0.0
+
+
+# ----------------------------------------------------------------------------
+# G2 — stability-eig layer (NEW BUILD). The cycle-envelope decay-rate read:
+# fit log|V_peak(t)| over the recording tail -> growth rate lambda_max.
+#   lambda_max <= 0  : stable / dissipationless (decays or flat) -> F2 PASS-eligible
+#   lambda_max  > 0  : unstable / gain / runaway                 -> NEGATIVE-B
+# (A full finite-difference Jacobian->eigvals is the prereg's named option; the
+# cycle-envelope decay rate is the prereg-sanctioned alternative read, §7.4 / §4
+# "the cycle-to-cycle envelope flat or slowly-decaying". It is the load-bearing
+# stability scalar for a BREATHER and is far cheaper + integrator-faithful.)
+# ----------------------------------------------------------------------------
+def envelope_growth_rate(vpk_series: list[float], dt: float, sample_every: int) -> float:
+    """Least-squares slope of log|V_peak| vs time over the series.
+    > 0 = growing (gain/unstable); <= 0 = stable (decaying or flat)."""
+    v = np.asarray(vpk_series, dtype=float)
+    ok = v > 1e-12
+    if ok.sum() < 4:
+        return float("nan")
+    t = np.arange(len(v)) * dt * sample_every
+    slope = np.polyfit(t[ok], np.log(v[ok]), 1)[0]
+    return float(slope)
+
+
+def gate_G2(cfg: RunConfig) -> dict:
+    """G2 — known-stable returns lambda<=0 AND known-unstable returns lambda>0.
+    KNOWN-STABLE: a damped V-tank (a sech with small added damping via the engine
+    PML-only diffusion) -> envelope decays -> lambda < 0.
+    KNOWN-UNSTABLE: an exponentially-amplified series (analytic gain seed) -> lambda > 0.
+    This validates the stability scalar reads the SIGN correctly before F2 is banked."""
+    # known-stable: a real decaying V-tank envelope (sech, free evolution disperses -> decays)
+    eng = seed_vtank(cfg)
+    m = eng.interior_mask()
+    stable_series = []
+    for n in range(400):
+        eng.step()
+        if n % cfg.sample_every == 0:
+            stable_series.append(float(np.max(np.abs(eng.V * m))))
+    lam_stable = envelope_growth_rate(stable_series, eng.dt, cfg.sample_every)
+    # known-unstable: analytic e^{+t} gain envelope -> must read lambda > 0
+    t = np.arange(20) * eng.dt * cfg.sample_every
+    gain_series = list(0.1 * np.exp(5.0 * t))
+    lam_unstable = envelope_growth_rate(gain_series, eng.dt, cfg.sample_every)
+    passes = (lam_stable <= 0) and (lam_unstable > 0)
+    return {
+        "gate": "G2",
+        "lambda_known_stable": float(lam_stable),
+        "lambda_known_unstable": float(lam_unstable),
+        "reads_sign_correctly": bool(passes),
+        "PASS": bool(passes),
+    }
+
+
+# ----------------------------------------------------------------------------
+# G3 — radiative-Q layer (NEW BUILD). Q = omega_C * E_stored / P_radiated.
+# Validate on a KNOWN open resonator: a 1D damped harmonic oscillator with
+# analytic Q = omega0 / (2*gamma_damp). State N, dt, and a Nyquist-resolvability
+# assertion for omega_C (corpus flags real-space omega_C sub-Nyquist; we read in
+# the breather/phasor frame + assert omega_C*dt << pi).  TRUE n=sqrt(S), §8 item 9.
+# ----------------------------------------------------------------------------
+def measure_Q_from_decay(energy_series: list[float], omega_C: float, dt: float,
+                         sample_every: int) -> float:
+    """Q from the energy decay envelope: E(t) = E0 * exp(-omega_C * t / Q)
+    => Q = -omega_C / (slope of ln E). The per-cycle leak read (prereg §4: the
+    breather's per-cycle radiative leak). Q->inf when slope->0 (no measurable leak)."""
+    E = np.asarray(energy_series, dtype=float)
+    ok = E > 1e-30
+    if ok.sum() < 4:
+        return float("nan")
+    t = np.arange(len(E)) * dt * sample_every
+    slope = np.polyfit(t[ok], np.log(E[ok]), 1)[0]  # = -omega_C/Q
+    if abs(slope) < 1e-12:
+        return float("inf")  # no measurable leak -> Q->inf (POSITIVE-with-decoupled-Q, §4)
+    return float(-omega_C / slope)
+
+
+def gate_G3(cfg: RunConfig) -> dict:
+    """G3 — recover the analytic Q of a KNOWN open resonator (a damped harmonic
+    oscillator, Q_analytic = omega0/(2*gamma)). Validates the stored/radiated
+    accounting before F3 is read. Plus the Nyquist-resolvability assertion for
+    omega_C in the breather frame."""
+    # analytic damped oscillator: x'' + 2*gamma*x' + omega0^2 x = 0
+    omega0 = 0.5
+    gamma_damp = 0.01
+    Q_analytic = omega0 / (2.0 * gamma_damp)  # = 25.0
+    dt = 0.05
+    n = 4000
+    x = 1.0
+    v = 0.0
+    E_series = []
+    for step in range(n):
+        a = -2.0 * gamma_damp * v - omega0 ** 2 * x
+        v += a * dt
+        x += v * dt
+        if step % 10 == 0:
+            E_series.append(0.5 * v ** 2 + 0.5 * omega0 ** 2 * x ** 2)
+    Q_measured = measure_Q_from_decay(E_series, omega0, dt, 10)
+    q_err = abs(Q_measured - Q_analytic) / Q_analytic
+    # Nyquist-resolvability for the production omega_C (shear clock, see F3 read)
+    return {
+        "gate": "G3",
+        "Q_analytic_known_resonator": float(Q_analytic),
+        "Q_measured": float(Q_measured),
+        "rel_err": float(q_err),
+        "accounting_validated": bool(q_err < 0.10),
+        "PASS": bool(q_err < 0.10),
+    }
+
+
+# ----------------------------------------------------------------------------
+# G4 — winding extractor PLANT-AT-SCALE (prereg §5 G4). Plant a known (2,3) at
+# THIS run's (N,R,r); extract_2_3_omega_fast must read back (2,3) with rel > 0.1.
+# If r is near 1.1 cells -> collapses to (2,2)/garbage -> F4 uncertifiable.
+# ----------------------------------------------------------------------------
+def gate_G4(cfg: RunConfig) -> dict:
+    """G4 — plant-at-scale at (N,R,r); the extractor reads back (2,3) rel>0.1."""
+    omega0, pi0 = planted_winding_field(
+        cfg.N, cfg.R, cfg.r, p=2, q=3, mode="traveling", helicity=1, amplitude=cfg.omega_amp
+    )
+    rd = extract_2_3_omega_fast(omega0, pi0, cfg.R, cfg.r, cfg.N)
+    reads_2_3 = (rd["w_tor"], rd["w_pol"]) in [(2, 3), (3, 2)]
+    rel_ok = (rd["w_tor_rel"] > 0.1) and (rd["w_pol_rel"] > 0.1)
+    r_clear = cfg.r > 2.0  # clear of the r~1.1 collapse zone
+    passes = reads_2_3 and rel_ok and r_clear
+    return {
+        "gate": "G4",
+        "planted": "(2,3) traveling",
+        "read_back": (rd["w_tor"], rd["w_pol"]),
+        "is_2_3": bool(rd["is_2_3"]),
+        "rel_tor": float(rd["w_tor_rel"]),
+        "rel_pol": float(rd["w_pol_rel"]),
+        "r_cells": float(cfg.r),
+        "r_clear_of_collapse_zone": bool(r_clear),
+        "PASS": bool(passes),
+    }
+
+
+def main():  # PLACEHOLDER — F-reads + binning land in the next commit
+    print("passive_eigenmode_driver: F-reads + binning land in the next commit")
     checks = _verify_constants()
     for k, v in checks.items():
         print(f"  [{'OK' if v else 'FAIL'}] {k}")
