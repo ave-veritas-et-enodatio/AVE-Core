@@ -1,10 +1,14 @@
 # Passive winding-protected electron eigenmode — the structural keystone (ORCHESTRATION)
 
-> **STATUS: NEGATIVE-A REFUTED (false negative) → Grant ratified option (a): CORRECTED RE-RUN
-> DISPATCHED (agent `ad08960e56e04bca8`) at a co-resolving lattice (G1→absolute known-positive;
-> V-tank seed at the v14 eigen-resolution dx=0.5/≥5 cells; v_width/dx/box sweep; commit JSON). Option
-> (b) — the wall/winding scale-incompatibility (real-space R/r vs phase-space winding) — HELD as the
-> follow-up if co-resolution fails. The keystone is STILL OPEN.** Lane worktree
+> **STATUS: CORRECTED RE-RUN RETURNED — wall-half VINDICATED (first NEGATIVE-A was a resolution false
+> negative, confirmed); co-resolution WORKS (option (b) not triggered, N=26). BIN=NEGATIVE-A on the
+> F4 path — BUT 🔴 FLAG-WIND: the driver imposed the winding as a SEEDED IC, NOT the HELD topological
+> BC the prereg §7.1/§8.3 charters → F4=False is plausibly the un-held-BC APPARATUS FLOOR, not a
+> physics null → the keystone may be UN-TESTED. VERIFY PANEL RUNNING (`w92ft1gkc`) before banking;
+> the held-BC re-run would be a RE-SCOPE (Grant's call).** Lane worktree `AVE-Core-eigenmode-wt`,
+> branch `analysis/2026-06-15-passive-eigenmode-solve` off `main@40a2a2e7`. **main is PROTECTED —
+> Grant merges; this lane does NOT merge. Result NOT banked.** Re-run on driver branch
+> `analysis/2026-06-15-eigenmode-driver` (JSON SHA-pinned, `make verify` passes). Lane worktree
 > `AVE-Core-eigenmode-wt`, branch `analysis/2026-06-15-passive-eigenmode-solve` off `main@40a2a2e7`.
 > **main is PROTECTED — Grant merges; this lane does NOT merge. Result NOT banked** (driver branch
 > `analysis/2026-06-15-eigenmode-driver`, result doc REFUTED-pending-re-run). **Panel:** dim-1
@@ -538,3 +542,20 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   sweep change. Re-bin per §4 (POSITIVE iff the breather exists at the correct resolution with a
   VALIDATED absolute-G1; NEGATIVE only with the validated detector; option-(b) if no co-resolution).
   **NEXT: re-run result → adversarial-verify panel again → adjudicate to Grant.**
+- **2026-06-15 (Phase 3e — CORRECTED RE-RUN: wall-half VINDICATED; FLAG-WIND = keystone un-tested?)**
+  — Re-run `ad08960e56e04bca8` (driver `3565a660`, JSON `4f7cc7e5`, result `803e2263`). **G1-absolute
+  CERTIFIES** (sech 0.687, matching v14 0.670 — the t2-genesis detector defect is CLOSED). **Co-
+  resolution SUCCEEDS** (G1 wall + G4 winding both PASS on N=26/R=5/r=2.5/dx=0.5 → option (b) NOT
+  triggered). **WALL-HALF VINDICATED:** F1=TRUE (0.681), F2=TRUE — the V-tank breather is REAL+STABLE
+  at ≥5–10 cells; **the first NEGATIVE-A was a resolution false negative (confirmed).** BIN=NEGATIVE-A
+  banked on the **F4 path** (winding not conserved, frac_tail_2_3=0.00). Q=56.0 (wall-half leak, echo,
+  no keystone mode). **🔴 FLAG-WIND (bin-controlling, implementer self-flagged):** the driver imposes
+  the winding as a **SEEDED IC, NOT the HELD topological BC** the prereg §7.1/§8.3 charters — the
+  attribution probe shows the bare ω-carrier disperses the winding **bit-identically with/without the
+  coupling**, so **F4=False is the un-held-BC APPARATUS FLOOR, not a coupling-physics null → the
+  keystone's imposed-BC thesis is UN-TESTED by seed-and-evolve.** A held-BC re-run = a RE-SCOPE (new
+  prereg + version) — the implementer correctly did NOT make that call. FLAG-RES (F1 resolution-
+  dependent: False@5 cells, True@10); FLAG-APPARATUS (~0.68 retention partly small-box). **Result NOT
+  banked — verify panel `w92ft1gkc` (wall-half / FLAG-WIND attribution / bin-appropriateness)
+  scrutinizing.** NEXT: panel → adjudicate to Grant (bank-with-flags vs held-BC re-scope). Cross-lane:
+  retract first NEGATIVE-A + cage scope-annotation → auditor queue.
