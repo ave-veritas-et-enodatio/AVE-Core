@@ -78,6 +78,8 @@ The derivation does not pick A vs B by itself; it proves they are the **only sur
 
 ## ADJUDICATION BLOCK (Grant)
 
+> **✅ RESOLVED 2026-06-15 — Q1 = (B)** (Grant, TKI sector picture). `C_comp=C₀/S=1/k` = longitudinal/A1/mass reactance; `ε_eff=ε₀S` = transverse/T2/charge reactance — orthogonal, not the same object; the `:89` weld is a SAME-WALL coincidence, not a same-object identity. Propagation (Tasks 1-4) applied as Rule-12 annotations across INVARIANT-S2 + 7 leaves; **Task 5 (K=2G constitutive) = NEGATIVE → GR-imported** (PR #261, confirmed). One new flag to Grant: the **EE-bench LCR measurement-sector** (spike-vs-rolloff = a (B)-surfaced discriminator). See the lane tracker's [Ratification + propagation log](../_orchestration/2026-06-15_ceff-epsilon-monotonicity.md#ratification--propagation-log-2026-06-15). The original (pre-ratification) fork below is preserved for the audit trail.
+
 > **Q1 — ontology of the LC-tank "C".** The corpus's own hinge (`topological-kinematics.md:89`) says the bond-compliance C's yield *is* dielectric breakdown ("$x>\ell_{node}$ isomorphic to capacitor voltage exceeding breakdown"). Is that weld binding (→ one object → A), or is it just the name-collision restated (→ B)?
 > - [ ] **(B) bond compliance** $1/k$, distinct DOF → keep `C_0/S`, rename "compliance," document the name-collision. *(author's lean — most corpus-consistent; survives only if the :89 weld is NOT binding)*
 > - [ ] **(A) dielectric capacitance** $\varepsilon A/d$, same DOF as ε (the `:89` weld is binding) → `C_0/S` is a SIGN ERROR, fix to `C_0·S`.

@@ -27,6 +27,8 @@ $$
 C_{eff}(E) = \frac{C_0}{\sqrt{1 - \left(\frac{E}{E_{yield}}\right)^2}} \;\to\; \infty
 $$
 
+> **Sector note (Q1 = (B), Grant-ratified 2026-06-15; `research/2026-06-15_ceff-epsilon-monotonicity_result.md`) — OPEN measurement-sector flag.** Under the (B) sector split (INVARIANT-S2), $C_0/S$ (↑) is the **longitudinal-A1 bond compliance** and $\varepsilon_{eff}=\varepsilon_0 S$ (↓) the **transverse dielectric** — orthogonal reactances. The interferometry prediction (step 2, $n\propto\sqrt{\varepsilon\mu}\propto S$, refractive-index *drop*) is unambiguously the transverse measurement and **stands**. The **LCR capacitance prediction (step 1, "spike") is sector-dependent**: a static-E LCR coupling to the transverse dielectric reads $C_{diel}\propto S$ (a *rolloff*, the bench-netlist $C_0\!\cdot\!S$ form; INVARIANT-S2:60 — "a static-E-only drive loads the ε-sector"), while one coupling to the longitudinal compliance reads $C_0/S$ (the *spike* shown). **Which sector a physical precision-LCR probes is flagged to Grant** — and that makes the spike-vs-rolloff sign itself an EE-bench discriminator between the two sectors. The "spike" prediction is **NOT silently flipped** pending that ruling.
+
 ### The Falsification Protocol
 
 To explicitly measure this, an ultra-stiff localized dielectric gap (engineered near the Paschen curve minimum in hard vacuum to avoid atomic plasma arcing) is swept incrementally toward extreme field gradients ($> 10^{16}\,\text{V/m}$) utilizing sharp, asymmetrical emission tips.

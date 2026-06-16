@@ -9,9 +9,11 @@ claims: [clm-8nkvwy, clm-vjv4zf]
 
 Standard circuit simulators rely on ideal, linear RLC components. However, the physical $\mathcal{M}_A$ condensate exhibits precise non-linear behaviors under extreme mechanical stress, each governed by the Axiom 4 saturation kernel $S(V) = \sqrt{1-(V/V_{yield})^2}$. This section derives the exact non-linear equivalent circuit component for each physical regime.
 
-### The Metric Varactor (Dielectric Yield)
+### The Metric Varactor — Longitudinal Bond Compliance (Dielectric Yield)
 
-As defined by Axiom 4, the effective compliance (capacitance) of the spatial substrate is bounded by the dielectric saturation limit at $V_{yield} = \sqrt{\alpha}\, V_{snap} \approx 43.65$ kV. The constitutive equation follows directly from the saturation kernel applied to the electric sector:
+> **Sector note (Q1 = (B), Grant-ratified 2026-06-15; `research/2026-06-15_ceff-epsilon-monotonicity_result.md`).** The diverging $C_0/S$ below is the **longitudinal-A1 bond compliance** ($1/k_a$, the stretch-reactance), **NOT** the transverse dielectric capacitance. The transverse permittivity $\varepsilon_{eff}=\varepsilon_0 S$ and the LCR-measured cell capacitance $C_{diel}=\varepsilon_{eff}A/d\propto S$ *roll off* (the bench-netlist $C_0\!\cdot\!S$ form, [ee-bench-netlist.md](../../simulation/ch17-hardware-netlists/ee-bench-netlist.md):15). The two are **orthogonal reactances** (A1 ⊥ T2) that share the EE name "capacitance"; identifying them is the genesis-24 double-count (`master-equation.md:20`). See INVARIANT-S2 sector split.
+
+As defined by Axiom 4, the effective **bond compliance** of the spatial substrate is bounded by the saturation limit at $V_{yield} = \sqrt{\alpha}\, V_{snap} \approx 43.65$ kV. The constitutive equation follows directly from the saturation kernel applied to the **longitudinal (A1) stretch sector**:
 
 <!-- claim-quality: clm-vjv4zf -->
 <!-- claim-quality: clm-8nkvwy (Asymmetric saturation case: only $\varepsilon$ scales by $S$ → $C_{eff} \to \infty$, $Z_{asym} = Z_0/\sqrt{S} \to \infty$; this is the canonical statement of the asymmetric branch of the Universal Saturation Kernel) -->

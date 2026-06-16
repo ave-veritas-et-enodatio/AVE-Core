@@ -4,7 +4,34 @@
 
 **Lane:** ONE derivation. Arc: corpus-grep prereg → Rule-11 freeze → auditor-gate → derivation → result → adjudicate to Grant.
 **Branch:** `analysis/2026-06-15-ceff-epsilon-monotonicity` off `main` (worktree `AVE-Core-ceffeps-wt`). **PR, not merge — main PROTECTED, Grant merges.**
-**Status (2026-06-15):** evidence map VERIFIED · derivation DONE · prereg FROZEN · auditor-gate DONE (5 corrections folded — F-A/F-B/F-C; all 6 citations + Lemma verified; flag-don't-fix clean) · Grant-adjudication PENDING.
+**Status (2026-06-15):** evidence map VERIFIED · derivation DONE · prereg FROZEN · auditor-gate DONE · **Q1 = (B) RATIFIED (Grant, TKI sector picture)** · propagation DONE (Tasks 1-4) · **Task 5 (K=2G constitutive) = NEGATIVE/GR-imported, confirmed via PR #261** · 1 new flag to Grant (EE-bench measurement-sector). See **[Ratification + propagation log](#ratification--propagation-log-2026-06-15)** below.
+
+---
+
+## Ratification + propagation log (2026-06-15)
+
+**Grant ruling:** Q1 = **(B)**. Under TKI (Axiom 2): `C_comp = C₀/S = 1/k` is the **longitudinal/A1/mass** reactance (bond stretch-compliance, ↑ at yield); `ε_eff = ε₀S` is the **transverse/T2/charge** reactance (dielectric, ↓). NOT the same object; "C_eff" is the EE name-collision; identifying them = genesis-24 double-count (`master-equation.md:20`).
+
+**Context discovered (verify-before-cite):** my branch was 6 commits behind origin/main; rebased. The **wall-fork (PR #260, merged)** already fixed the `resonant-lc-solitons.md:35` √(μ₀/C_eff) bug → Z₀√S (Task 3 done) and resolved FLAG-2 as a chirality-sign (Task 2 partial). **PR #261 (OPEN) already built + ran the Task-5 constitutive route** (`k2g_constitutive_rho.py`). So this pass = the (B) sector-split *documentation* + superseding cross-links, not net-new derivation.
+
+**Tasks executed (all Rule-12 annotations; nothing silently flipped):**
+| # | Task | Sites edited | Status |
+|---|---|---|---|
+| 1 | Sector-split doc + rename C₀/S → "bond compliance / longitudinal-A1" | `CLAUDE.md:58` (INVARIANT-S2), `nonlinear-vacuum-capacitance.md:12-14`, `master-equation.md:69`, `topological-kinematics.md:89` (weld = SAME-WALL not same-object) | ✅ |
+| 2 | FLAG-2 → sector-distinguished (supersede chirality-sign, cross-link) | `cvr-dc-operating-point.md:57` (+ :55 cross-link) | ✅ |
+| 3 | resonant-lc bug + flag→RESOLVED(B) | `resonant-lc-solitons.md:41` (bug already fixed by wall-fork; flag updated) | ✅ |
+| 4 | Ragged ×S/÷S split + clm-vjv4zf | `vol4/claim-quality.md` clm-vjv4zf sector caveat; `dielectric-plateau-prediction.md` sector note | ✅ (label collision resolved; bench-measurement-sector FLAGGED, not flipped) |
+| 5 | K=2G constitutive follow-on | confirmed via PR #261 `k2g_constitutive_rho.py` (arithmetic re-verified by inspection) | ✅ NEGATIVE |
+
+**Scope note (ave-evidence-framing):** Task 1's rename was applied at the **load-bearing collision anchors**, NOT blindly to all ~30 C₀/S sites. The ~25 peripheral **kernel-shape** usages (protein-folding `C_eff(d)`, Higgs `C_node`, DM `C_eff(t)`, op21, intermodulation, parametric-coupling, index/summary tables) use the form generically and make **no** compliance-vs-dielectric claim — they are correct as-is and were left. The ×S bench leaves (`ee-bench-netlist` etc.) are the transverse dielectric and were confirmed correct (Grant: "already right"), annotated where the claim collides.
+
+### Task 5 verdict — K=2G is NOT constitutively forced → GR-imported (END OF LINE)
+
+PR #261 Phase 2 already ran the exact bridge the directive specifies: `k_a = ξ²/C_comp` (longitudinal-A1, → bulk **K**), `k_s ∝ 1/L_eff` (μ-sector bend, → shear **G**), `ρ = k_a/k_s = L_eff/C_eff = Z_eff²`. **The (B) ruling CONFIRMS its sector mapping** (k_a=longitudinal=K, k_s=bend/μ=G). On the SYM (K=2G) branch ε,μ co-scale → `Z_eff=Z₀` → ρ = 𝒢_geo·(Z_eff/Z₀)² is **operating-point-invariant** (re-verified by inspection: S cancels). So the 2:1 must live in the cold geometric prefactor 𝒢_geo — Phase-1's **unforced one-parameter family** (real z=4 gives 𝒢_geo≈1.52, K/G≈1.76, not 2). **K=2G is NOT forced by the constitutive law (Phase 2) NOR the geometry (Phase 1) → GR-imported, end of line.** Robust to Keating-vs-Cosserat (flag-don't-fix; sets only the target ρ*). This is the last route; closes the K=2G-provenance question.
+
+### NEW FLAG to Grant — EE-bench measurement-sector (a (B)-surfaced discriminator)
+
+Resolving the ragged split surfaced that `dielectric-plateau-prediction.md` predicts the EE-bench LCR sees a capacitance **spike** (C₀/S, ÷S) while its own step-2 interferometry predicts a refractive-index **drop** (ε∝S, ×S). Under (B) these are **two sectors**: a static-E LCR coupling to the **transverse dielectric** reads a **rolloff** (×S; INVARIANT-S2:60 "static-E loads the ε-sector"); coupling to the **longitudinal compliance** reads a **spike** (÷S; TKI `C=ξ²/k`). **Which sector a physical precision-LCR probes is Grant's call** — and the spike-vs-rolloff sign is itself an **EE-bench discriminator** between the longitudinal-compliance and transverse-dielectric readings. NOT silently flipped; flagged at `dielectric-plateau-prediction.md` + clm-vjv4zf caveat. The metadata footer (clm-vjv4zf citing both signs) is left intact pending this ruling (no leaf-frontmatter split).
 
 ---
 
