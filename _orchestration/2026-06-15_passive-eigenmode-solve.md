@@ -1045,6 +1045,32 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   parity-AND-dynamical-overlap verdict + the Stage-1.5(c) 🔴 retraction); both the no-wall Stage-1.5(c) config
   and the moving-wall config.**
 
+- **2026-06-16 (Phase 15 — audit-lane PRE-FLIGHT `ww8x96sci` (#273) caught 3 MORE gaps in my re-run framing;
+  amendments DISPATCHED; my framing CORRECTED)** — the audit lane handed a tracked corpus brief
+  ([#273](https://github.com/ave-veritas-et-enodatio/AVE-Core/pull/273),
+  `_orchestration/2026-06-16_engine-rerun-preflight-handoff.md`, branch …-engine-rerun-preflight-handoff) —
+  **FIX-BEFORE-DISPATCH.** It pre-flighted the re-run I was about to dispatch and caught 3 verified gaps (2
+  blockers), **two of which correct claims I made:** **(1) the tetra swap is TWO-SIDED, not one-site** — my
+  "confined to one site" was the *curl* fn, but the reciprocal `f_omega` (`a1_cosserat_convergence_engine.py:369-372`)
+  uses the same Cartesian `np.roll±1` on alive-masked `gV` and ALSO self-zeros on alive → a curl-only fix is a
+  **source-only half-loop**; `f_omega` must swap to `adjoint_tetrahedral_divergence` (`cosserat_field_3d.py:161`).
+  **(2) PUMPS is NOT separable** (I had it wrong; the physics-lens 500'd and never confirmed) — the wall
+  **forms AND pumps together** (Γ→−0.993 WHILE H climbs 4.3e6), wall-coupled; `_rotate_clamp:1760-1783` has
+  **NO |ω| ceiling** so "Op17-bound" was a false premise. **(3) BLOCKER — `coupling_work` is a signed
+  energy-functional sum, not a measured transfer** — a bounded wall-pump reads LOOP-CLOSES unless gated on
+  the conserved `coupling_hamiltonian_full()` ledger (computed, never gated). **+ my 3-bin framing DROPPED the
+  frozen 4th bin** (`WALL-ALSO-FAILS`/wall-forms-and-pumps — driver:396-419 already uses the frozen 4; only my
+  brief drifted) and cited the **phantom commit `230579b6`** (the engine lives on `a233f9ed`). **5 amendments**
+  (all grep-anchored implementer fixes, not new physics): two-sided tetra swap · two-sided fire assertion
+  (`fV_live_max>0 AND f_omega_alive_max>0`) · H-ledger bin gate · K_wall sweep (no ceiling exists →
+  AMBIGUOUS-pending-stable-BC if none separates) · known-null meter + FROZEN-4-bins. **DISPATCHED** engine-lane
+  implementer `acea7c7f20` (branch `analysis/2026-06-16-stage16-rerun-amendments` off `a233f9ed`) to fold in
+  the 5 amendments + the Stage-1.5(c) 🔴 retraction + the provenance fix, VALIDATE the corrected engine
+  (known-null=0, `f_omega_alive_max>0`, K_wall sweep) — but **NOT run the Q3 physics** (a false LOOP-CLOSES is
+  worse than the delay). **GATE SEQUENCE:** amendments in → audit lane re-runs `ww8x96sci` pre-flight (GO-AS-IS)
+  → **Grant authorizes Q3** → dispatch (both configs). **NEXT: implementer reports "amendments in" → signal the
+  audit-lane pre-flight → Grant Q3.**
+
 ---
 
 ## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
