@@ -1,14 +1,15 @@
 # Passive winding-protected electron eigenmode — the hybrid (V,ω) high-Q standing mode — PREREG (Rule-11)
 
-> **STATUS: DRAFT v3 — ALL GATES PASSED, FREEZE-READY (pending a final referential-integrity auditor
-> pass).** Pre-flights done: (a) `CoupledK4Cosserat` DEAD (wrong sector); (b′) `crystal_engine` V-tank
-> VIABLE as a genuine BREATHER ((c) OFF). **Grant 2026-06-15: breather/limit-cycle framing CONFIRMED;
-> (b′) cross-firewall coupling GRANTED (eyes-open precedent) with the G0 double-count smoke-gate as
-> build-step-zero.** Forks 2–3 ruled: Q SECONDARY (the echo); α an ECHO for the z₀ route. **The
-> keystone deliverable = EXISTENCE + STABILITY of the winding-protected hybrid breather (the form /
-> structural chord-candidate); Q is the echo — do NOT let the headline drift to "we measured Q."**
-> Grant-gated 2026-06-15 (B1; high-Q; existence-primary; breather; b′). Lane:
-> `_orchestration/2026-06-15_passive-eigenmode-solve.md`.
+> **STATUS: 🔒 FROZEN (Rule-11) 2026-06-15 — auditor-cleared.** Integrity pass `aff859d8759e39bae`
+> FLAG→cleared (2 must-fix landed: the Q→∞ cage-A3 orphan pinned to §4 POSITIVE-with-decoupled-Q
+> across §2/§4/§5; dangling §-pointers repointed; F-ledger made contiguous F0–F5). Pre-flights: (a)
+> `CoupledK4Cosserat` DEAD (wrong sector); (b′) `crystal_engine` V-tank VIABLE as a genuine BREATHER
+> ((c) OFF). **Grant 2026-06-15: breather/limit-cycle framing CONFIRMED; (b′) cross-firewall coupling
+> GRANTED (eyes-open precedent) with the G0 double-count smoke-gate as build-step-zero.** Forks 2–3
+> ruled: Q SECONDARY (the echo); α an ECHO for the z₀ route. **Keystone deliverable = EXISTENCE +
+> STABILITY of the winding-protected hybrid breather (the form); Q is the echo — headline must NOT
+> drift to "we measured Q."** **FROZEN = no knobs tuned to force a result; any re-scope gets a new
+> prereg + version + verification chain.** Lane: `_orchestration/2026-06-15_passive-eigenmode-solve.md`.
 > **Rule 11 — commitment written BEFORE the driver; no knobs tuned to force a result.**
 
 ---
@@ -42,11 +43,11 @@ lossless **Q=∞** mode is the **α=0 *decoupled* limit** — the wrong object. 
 dissipationless, stable (real-eigenvalue) COUPLED mode AND measures its radiative Q.**
 
 **EXCLUDED is OPERATIONAL, not ontological (auditor fix):** the **EXCLUDED** bin applies **ONLY to
-the explicit α=0 decoupled CONTROL arm** (§7.7 / F0). **A coupled-α production run can NEVER be
+the explicit α=0 decoupled CONTROL arm** (§7 item 7 / F0). **A coupled-α production run can NEVER be
 binned EXCLUDED** — it can only be POSITIVE / NEGATIVE-A / NEGATIVE-B. A coupled run that converges,
-is stable, but returns **Q→∞ (no measurable leak)** is **NEGATIVE-B-adjacent (no radiative channel
-found)**, NOT "wrong object." This closes the loophole where "decoupled artifact" could relabel a
-real coupled-solve negative.
+is stable, but returns **Q→∞ (no measurable leak)** is **POSITIVE on the keystone with a decoupled-Q
+finding** (per §4 — it refutes bind=leak=α), **NOT EXCLUDED** ("wrong object") and not a negative.
+This closes the loophole where "decoupled artifact" could relabel a real coupled-solve negative.
 
 ---
 
@@ -98,7 +99,7 @@ oscillation**, and **EXISTENCE/STABILITY (F1/F2) is read on the CYCLIC / time-av
 instantaneous static Γ**: F1 = a bounded recurrent breather exists (self-focuses each cycle);
 **F2 = it does not DECAY (low-Q) or BLOW UP (runaway/gain) over many breaths** (the breather's
 cycle-to-cycle envelope is flat/slowly-decaying = dissipationless/high-Q). The radiative Q (F3) is
-the breather's **per-cycle leak** (TRUE n=√S, not the proxy S^{1/4}, §8.9).
+the breather's **per-cycle leak** (TRUE n=√S, not the proxy S^{1/4}, §8 item 9).
 
 **Classification (`consistency-vs-emergence`):** EXISTENCE + STABILITY = **emergence test** (genuine,
 the keystone). The **Q VALUE** is a separate characterization (§6 echo).
@@ -126,9 +127,9 @@ primary; Q→∞ on a coupled stable mode is a finding, not a failure.)
 | **F0** | baseline / decoupled control: α=0 (or V=0/ω=0) returns no bound state | reproduces Mode-III; **this is the only EXCLUDED-eligible arm** |
 | **F1** | existence: hybrid coupled solve converges | residual → 0 |
 | **F2** | stability: dissipationless / no gain | max Jacobian-eigenvalue real-part ≤ 0 |
-| **F3** | **radiative Q finite, binned** | $Q=\omega_C\cdot E_\text{stored}/P_\text{radiated}$ (radiated **POWER**), finite; **±5% band** around **137.0 (bare-α)** OR **114.2 (κ_chiral=α·1.2)** — these are DISTINCT, discriminating reads; **Q→∞ on a coupled run = NEGATIVE-B**, not EXCLUDED |
+| **F3** | **radiative Q finite, binned** | $Q=\omega_C\cdot E_\text{stored}/P_\text{radiated}$ (radiated **POWER**), finite; **±5% band** around **137.0 (bare-α)** OR **114.2 (κ_chiral=α·1.2)** — these are DISTINCT, discriminating reads; **Q→∞ on a coupled stable mode = POSITIVE-with-decoupled-Q** (per §4 — refutes bind=leak=α), **NOT NEGATIVE-B and NOT EXCLUDED** |
 | **F4** | winding conserved on the **ω-carrier** | (2,3): toroidal-2 + poloidal-3 via `extract_2_3_omega_fast` — **NOT** the `(V_inc,V_ref)` phasor (double-count guard); **gated on G4** |
-| **F6** | conserved-not-pumped | mode stands with **NO drive**; drive-sustained = NEGATIVE |
+| **F5** | conserved-not-pumped | mode stands with **NO drive**; drive-sustained = NEGATIVE |
 
 **🔴 G0 — DOUBLE-COUNT ORTHOGONALITY SMOKE-GATE = BUILD-STEP-ZERO (HARD gate, Grant 2026-06-15).**
 The #1 build risk of the (b′) cross-firewall coupling is **NOT** the wall — it is the **two-"3"s
@@ -175,7 +176,7 @@ the OPEN frontier (Path C), not an established route:** the α-free K4 path-coun
 `theorem-3-1-q-factor.md:118` — "two paths agree" is a consistency check, NOT a first-principles
 derivation). **The chord fires ONLY IF Lane-1 Path C closes (α-free z₀≈51.25).** A Lane-2 positive
 banked against the present z₀=52 leg would **manufacture an apparent chord from two α-absorbing
-routes** — forbidden. (Note: the chord needs ~1.5% Q precision; the §7.6 shear-clock evaluation
+routes** — forbidden. (Note: the chord needs ~1.5% Q precision; the §7 item 6 shear-clock evaluation
 carries a ~3.2% ω_C systematic of the same order — another reason the chord is not yet reachable.)
 
 **UPDATE (Grant + Lane-1 grounding, 2026-06-15) — α is an ECHO for the z₀ route; the chord will
@@ -228,7 +229,7 @@ existence + stability.
   `crystal_engine` breathing V-tank wall (the Op14 cross-coupling); reads the hybrid breather's
   existence + cyclic stability + per-cycle Q. **REUSE both validated halves — no new `*_vN` file, no
   from-scratch engine.** Read the wall with the **TRUE n=√S** impedance (`crystal_engine.py:197-200`),
-  not the proxy (§8.9).
+  not the proxy (§8 item 9).
 - **🔴 PRECEDENT (Grant, eyes-open):** this authorizes the **first substrate-complete (cross-firewall)
   engine** — the exact thing the `ave-loop-gap-harness-discipline` anti-loophole guard was built to
   gate. Justified because the need is **empirically forced** (the two pre-flights proved the
@@ -254,7 +255,7 @@ existence + stability.
 9. **Do NOT** read the impedance Γ from the proxy `gamma_bulk` = S^{1/4} (`crystal_engine.py:421-432`,
    `master_equation_fdtd.py:165-168`) — use the **TRUE n=√S** (`Z=1/c_eff`, `c_eff²=c0²/S`,
    `crystal_engine.py:197-200`). **Exponent-defect FLAG (pre-flight #2):** proxy floor −0.240 vs true
-   −0.454 (~2×); same exponent-defect family as the clock exponent (§7.6 / Flag-D). Engine/cross-lane
+   −0.454 (~2×); same exponent-defect family as the clock exponent (§7 item 6 / Flag-D). Engine/cross-lane
    item — flag, the production driver uses the TRUE form.
 10. **Do NOT** read EXISTENCE/STABILITY off an instantaneous static Γ — the mode BREATHES; read the
     **cyclic / time-averaged** mode (§4): F1 = a bounded recurrent breather exists; F2 = it does not
@@ -264,8 +265,8 @@ existence + stability.
 
 ## §9 — Scope (`consistency-vs-emergence` honest scope)
 
-A negative here is **"no stable passive hybrid eigenmode on this platform/regime"** (and, under
-option (a), bounded by the projected-scalar limitation), NOT "no electron." A positive is **"the
+A negative here is **"no stable passive hybrid breather on this platform/regime"** (the (b′)
+`crystal_engine` V-tank wall ⊗ Cosserat-ω host), NOT "no electron." A positive is **"the
 eigencavity structure is a real passive radiating eigenstructure with finite Q"** — **bearing on**
 (not resolving) the mass sector, and a **candidate** input to the cross-lane Q triangulation
 **contingent on Lane-1 Path C**. Any re-test on a different engine/regime gets its own prereg.

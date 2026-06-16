@@ -1,13 +1,13 @@
 # Passive winding-protected electron eigenmode — the structural keystone (ORCHESTRATION)
 
-> **STATUS: ALL GATES PASSED — Grant CONFIRMED the breather framing + GRANTED (b′) (2026-06-15).
-> Prereg FREEZE-READY, pending a final referential-integrity auditor pass; then dispatch the (b′)
-> build (G0 double-count smoke-gate = build-step-zero).** Lane worktree `AVE-Core-eigenmode-wt`,
-> branch `analysis/2026-06-15-passive-eigenmode-solve` off `main@40a2a2e7`. **main is PROTECTED —
-> Grant merges; this lane does NOT merge.** Prereg: `research/2026-06-15_passive-eigenmode_prereg.md`
-> (DRAFT v3 → _FROZEN after the integrity pass). **Platform: (a) DEAD; (b′) `crystal_engine` V-tank
-> wall ⊗ Cosserat-ω winding GRANTED (eyes-open precedent — first substrate-complete engine). Deliverable
-> = EXISTENCE of the winding-protected hybrid breather (the form); Q is the echo.**
+> **STATUS: 🔒 PREREG FROZEN (Rule-11) + auditor-cleared (2026-06-15). NEXT = dispatch the (b′) build
+> (G0 double-count smoke-gate = build-step-zero).** Lane worktree `AVE-Core-eigenmode-wt`, branch
+> `analysis/2026-06-15-passive-eigenmode-solve` off `main@40a2a2e7`. **main is PROTECTED — Grant
+> merges; this lane does NOT merge.** Frozen prereg:
+> `research/2026-06-15_passive-eigenmode_prereg_FROZEN.md`. **Platform: (a) DEAD; (b′)
+> `crystal_engine` V-tank wall ⊗ Cosserat-ω winding GRANTED (eyes-open precedent — first
+> substrate-complete engine). Deliverable = EXISTENCE of the winding-protected hybrid breather (the
+> form); Q is the echo.**
 >
 > **KEYSTONE REFRAME (Grant 2026-06-15):** the lane rests on **EXISTENCE + STABILITY** of the
 > passive high-Q hybrid mode (PRIMARY); the measured **Q is SECONDARY** — **α is an ECHO for the
@@ -435,3 +435,15 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   CLOSING (K=2G lane confirmed off-K=2G artifact — K=2G is a tuned, not geometric, point); exponent
   defect (TRUE n=√S) logged. **NEXT: final referential-integrity auditor pass → freeze (`_FROZEN`) →
   dispatch (b′) build (G0 gate first).**
+- **2026-06-15 (Phase 2 — integrity pass + 🔒 FREEZE)** — Final read-only referential-integrity
+  auditor (`aff859d8759e39bae`) returned **FLAG** and caught **exactly the cage-A3 superseding-
+  amendment orphan** it was commissioned to find: the breather reframe pinned §4 (Q→∞ on a coupled
+  stable mode = POSITIVE-with-decoupled-Q) but left the OPPOSITE verdict standing in F3 (NEGATIVE-B)
+  and a third in §2 (NEGATIVE-B-adjacent) — one observation → three bins. **Fixed:** pinned §2/§5-F3 to
+  the §4-ratified disposition; repointed dangling §-pointers (§8.9→§8 item 9; §7.6/§7.7→§7 item 6/7);
+  closed the F5 numbering gap (F6→F5, ledger now contiguous F0–F5); reworded the stale dead-(a) scope
+  clause. PASS items confirmed: G0 anchors verified verbatim (`master-equation.md:20`, `k4_tlm.py:346`),
+  (b′) scope bounded + TRUE n=√S, stale-language sweep clean, A47 obligations correctly gated into
+  G3/G4. **Prereg FROZEN** (Rule-11) → `research/2026-06-15_passive-eigenmode_prereg_FROZEN.md`.
+  **NEXT: dispatch the (b′) build to an implementer (own worktree) — G0 double-count smoke-gate FIRST
+  (hard), then the hybrid production driver only if G0 passes.**
