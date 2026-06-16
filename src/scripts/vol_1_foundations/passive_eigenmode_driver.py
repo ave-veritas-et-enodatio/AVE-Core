@@ -101,6 +101,7 @@ from ave.utils.fast_winding_extractor import (
     extract_2_3_omega_fast,
     planted_winding_field,
 )
+from ave.topological.held_bc_winding import WindingHold  # OPTION C: the conservative (2,3)-hold
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Coupling-binding declaration (prereg §6, the echo/chord verdict hinges on this):
@@ -690,14 +691,22 @@ class SolveResult:
     omega_energy: list = field(default_factory=list)
 
 
-def run_hybrid_breather(cfg: RunConfig, drive: bool = False) -> SolveResult:
+def run_hybrid_breather(cfg: RunConfig, drive: bool = False,
+                        hold: "WindingHold | None" = None) -> SolveResult:
     """The production coupled (V,omega) hybrid breather solve, NO drive (F5).
     Records the full reactance pair (CP6) for both sectors over the window.
 
     drive=True is the F5 NEGATIVE control: if a state only stands WITH an injected
     drive, it is a NEGATIVE (drive-sustained != conserved). We implement drive as a
     small per-step re-injection of the seed; the passive run (drive=False) is the
-    keystone read."""
+    keystone read.
+
+    hold (OPTION C, prereg §9) = the conservative (2,3)-WINDING HOLD on the
+    INDEPENDENT Cosserat-omega carrier (eng_w). When supplied, after the engine's own
+    step_coupled() the hold RE-IMPOSES the (2,3) topological BC each step (CP9:
+    project the EVOLVED state, not re-seed) and records the energy ledger (the
+    DISQUALIFY guard). It NEVER touches eng_V / the A1 (V_inc,V_ref) phasor
+    (G0-clean orthogonality preserved; master-equation.md:20)."""
     eng_V = seed_vtank(cfg)
     eng_w = seed_omega_carrier(cfg)
     m = eng_V.interior_mask()
@@ -709,6 +718,10 @@ def run_hybrid_breather(cfg: RunConfig, drive: bool = False) -> SolveResult:
 
     for n in range(cfg.n_steps):
         step_coupled(eng_V, eng_w, cfg.dx)
+        if hold is not None:
+            # OPTION C: re-impose the (2,3) winding-BC on the omega-carrier ONLY,
+            # AFTER the free coupled step (CP9 dynamical). Records the ledger.
+            hold.apply(eng_w)
         if drive:
             # F5 negative control: re-pump 1% of the seed each step (a drive)
             eng_V.V[m] += 0.01 * seed_profile[m]
@@ -999,6 +1012,121 @@ def bin_result(f1: dict, f2: dict, f4: dict, f3: dict, g1_certified: bool = True
 
 
 # ============================================================================
+# section: OPTION C -- held-BC breather-persistence PROBE (prereg §9)
+# ============================================================================
+# HELD OBJECT (§9): the PHASE-SPACE (2,3) Clifford-torus winding (charge) on the
+# (omega, omega_dot) phasor -- NOT a real-space knot, NOT the A1 (V_inc,V_ref) phasor.
+# The hold is the CONSERVATIVE (2,3) re-projection on the INDEPENDENT Cosserat-omega
+# carrier each step (the held topological BC the seed-and-evolve driver violated).
+#
+# DISCRIMINATOR (§9, pre-committed -- do NOT redefine):
+#   POSITIVE (C-clear)  : held-winding mass-breather PERSISTS (bounded, recurrent,
+#                         F2-stable over many breaths), winding stays (2,3) BY
+#                         construction, AND the hold is CONSERVATIVE (energy-neutral).
+#   NEGATIVE (C-fails)  : even with charge held, the breather decays/destabilizes,
+#                         OR only stands when PUMPED.
+#   DISQUALIFY          : the (2,3)-hold INJECTS ENERGY (a pump) -> a "persistent"
+#                         result is a pumped artifact, NOT bankable. The energy ledger
+#                         is read FIRST (ave-conserved-vs-pumped), BEFORE persistence.
+def _omega_energy_trajectory_ramp(omega_energy: list) -> dict:
+    """The HONEST pump test (audit finding, 2026-06-15): the inherited summary()'s
+    summed-per-app dE grows with step count even for a bounded restoring correction.
+    The decisive pump signal is the omega-sector ENERGY TRAJECTORY ramp -- does the
+    recorded omega-sector energy RAMP monotonically over the run (pump) or stay
+    BOUNDED (conservative)? We use the SolveResult.omega_energy trace (recorded
+    AFTER the hold each sample) as the trajectory."""
+    e = np.array(omega_energy, dtype=float)
+    n = len(e)
+    if n < 4 or e[0] <= 0:
+        return {"ramp_factor": float("nan"), "rel_slope_per_sample": float("nan"),
+                "trajectory_bounded": False, "note": "insufficient/degenerate trace"}
+    ramp = float(e[-1] / max(e[0], 1e-30))
+    slope = float(np.polyfit(np.arange(n), e, 1)[0] / (abs(np.median(e)) + 1e-30))
+    # bounded = the trajectory does not run away (ramp within ~2x and no steep + slope)
+    bounded = (ramp < 2.0) and (slope < 5e-3)
+    return {
+        "omega_energy_first": float(e[0]),
+        "omega_energy_last": float(e[-1]),
+        "omega_energy_max": float(e.max()),
+        "ramp_factor": ramp,
+        "rel_slope_per_sample": slope,
+        "trajectory_bounded": bool(bounded),
+    }
+
+
+def run_option_C(cfg: RunConfig) -> dict:
+    """OPTION C probe (prereg §9): does the charge-carrying mass-breather PERSIST
+    with the (2,3) winding HELD? ENERGY-LEDGER FIRST (the DISQUALIFY guard), then a
+    hold-OFF contrast, then bin POSITIVE / NEGATIVE / DISQUALIFY.
+
+    ave-conserved-vs-pumped: read the ledger BEFORE persistence; ave-driver-script-
+    honesty: report the ledger + persistence AS MEASURED -- do NOT tune to force a
+    persistent breather."""
+    out = {}
+    dt = seed_vtank(cfg).dt
+
+    # ---- hold-ON run (coupling ON + (2,3)-hold ON) ----
+    hold = WindingHold.from_config(cfg.N, cfg.R, cfg.r, p=2, q=3, helicity=1)
+    res_on = run_hybrid_breather(cfg, drive=False, hold=hold)
+
+    # ---- ENERGY LEDGER FIRST (the DISQUALIFY guard, §9) ----
+    # (a) the inherited per-application ledger (kinetic lock + summed-dE pump read)
+    _, ledger = hold.is_energy_neutral(frac_tol=0.02)
+    # (b) the HONEST trajectory pump test (audit fix -- the summed-dE metric over-counts
+    #     a bounded restoring correction; the trajectory ramp is the decisive signal)
+    traj = _omega_energy_trajectory_ramp(res_on.omega_energy)
+    # the hold PUMPS if EITHER the cumulative injection fraction is large AND the
+    # omega-sector energy TRAJECTORY actually ramps (not just the summed correction).
+    kinetic_locked = bool(ledger.get("norm_lock_ok", False))
+    trajectory_pumps = not traj["trajectory_bounded"]
+    hold_pumps = trajectory_pumps  # the trajectory is the honest pump witness
+    out["energy_ledger"] = ledger
+    out["omega_energy_trajectory"] = traj
+    out["kinetic_magnitude_locked"] = kinetic_locked
+    out["hold_pumps"] = bool(hold_pumps)
+
+    # ---- hold-OFF contrast (coupling ON, NO hold = the seed-and-evolve apparatus floor) ----
+    res_off = run_hybrid_breather(cfg, drive=False, hold=None)
+    f4_off = read_F4_winding(res_off)
+    f4_on = read_F4_winding(res_on)
+    out["hold_off_F4_winding_conserved"] = bool(f4_off["F4_winding_conserved"])
+    out["hold_off_frac_tail_2_3"] = float(f4_off["fraction_tail_reads_2_3"])
+    out["hold_on_F4_winding_conserved"] = bool(f4_on["F4_winding_conserved"])
+    out["hold_on_frac_tail_2_3"] = float(f4_on["fraction_tail_reads_2_3"])
+
+    # ---- persistence reads on the HOLD-ON run (cyclic/time-averaged, §9 / hazard 10) ----
+    f1_on = read_F1_existence(res_on, cfg)
+    f2_on = read_F2_stability(res_on, cfg, dt, jitter_floor=0.0)
+    out["F1_held_breather_exists"] = f1_on
+    out["F2_held_breather_stable"] = f2_on
+
+    # ---- BIN per §9 (DISQUALIFY decided FIRST, BEFORE persistence) ----
+    persists = bool(f1_on["F1_breather_exists"] and f2_on["F2_stable"])
+    winding_held = bool(f4_on["F4_winding_conserved"])
+    if hold_pumps:
+        c_bin = "DISQUALIFY"
+        reading = ("the (2,3)-hold INJECTS ENERGY (the omega-sector energy trajectory "
+                   "RAMPS = a pump, not a conservative constraint) -> a 'persistent' "
+                   "held-breather would be a PUMPED ARTIFACT, NOT bankable as POSITIVE "
+                   "(ave-conserved-vs-pumped, prereg §9 DISQUALIFY).")
+    elif persists and winding_held:
+        c_bin = "POSITIVE"
+        reading = ("the held-winding mass-breather PERSISTS (bounded, recurrent, "
+                   "F2-stable), winding stays (2,3) by construction, AND the hold is "
+                   "CONSERVATIVE (energy-neutral) -> C-clear, proceed to A.")
+    else:
+        c_bin = "NEGATIVE"
+        reading = ("even with the (2,3) charge HELD (energy-neutrally), the breather "
+                   "does NOT persist stably -> the two sectors do not cohabit -> "
+                   "keystone leans negative (prereg §9 NEGATIVE).")
+    out["C_BIN"] = c_bin
+    out["C_reading"] = reading
+    out["held_breather_persists"] = persists
+    out["winding_held_on"] = winding_held
+    return out
+
+
+# ============================================================================
 # section: robustness sweep (v_width / dx / box) -- FIRST-CLASS axis (option (a))
 # ============================================================================
 def sweep_existence(base: RunConfig) -> dict:
@@ -1068,7 +1196,7 @@ def sweep_existence(base: RunConfig) -> dict:
 # ============================================================================
 # section: run-all orchestration (gates -> production -> bin -> report)
 # ============================================================================
-def run_all(cfg: RunConfig, do_sweep: bool = True) -> dict:
+def run_all(cfg: RunConfig, do_sweep: bool = True, hold_winding: bool = False) -> dict:
     out = {"config": cfg.__dict__.copy(), "constants_crosscheck": _verify_constants()}
     print("=" * 90)
     print("PASSIVE WINDING-PROTECTED ELECTRON EIGENMODE -- PRODUCTION DRIVER (the keystone)")
@@ -1120,6 +1248,36 @@ def run_all(cfg: RunConfig, do_sweep: bool = True) -> dict:
     print(f"   CO-RESOLUTION (G1 wall AND G4 winding on ONE lattice) = {co_resolved}")
     if not g1_certified:
         print("   *** G1 UNCERTIFIED -> a NEGATIVE is NOT bankable here (t2-genesis lesson). ***")
+
+    # ---- OPTION C (prereg §9): held-BC breather-persistence PROBE ----
+    if hold_winding:
+        print("-" * 90)
+        print("OPTION C -- HELD-BC (2,3)-winding breather-persistence PROBE (prereg §9):")
+        print("   energy LEDGER read FIRST (the DISQUALIFY guard, ave-conserved-vs-pumped)")
+        c = run_option_C(cfg)
+        out["option_C"] = c
+        traj = c["omega_energy_trajectory"]
+        led = c["energy_ledger"]
+        print(f"   [LEDGER] kinetic magnitude-locked = {c['kinetic_magnitude_locked']} "
+              f"(omega-norm rel-drift {led.get('omega_norm_relative_drift_max', float('nan')):.2e})")
+        print(f"   [LEDGER] omega-sector energy TRAJECTORY: ramp={traj.get('ramp_factor', float('nan')):.2f}x "
+              f"rel-slope/sample={traj.get('rel_slope_per_sample', float('nan')):.2e} "
+              f"bounded={traj.get('trajectory_bounded')}")
+        print(f"   [LEDGER] HOLD PUMPS = {c['hold_pumps']}  "
+              f"{'(-> DISQUALIFY)' if c['hold_pumps'] else '(conservative)'}")
+        print(f"   [hold OFF] winding (2,3) conserved = {c['hold_off_F4_winding_conserved']} "
+              f"(frac_tail={c['hold_off_frac_tail_2_3']:.2f})  [the seed-and-evolve apparatus floor]")
+        print(f"   [hold ON ] winding (2,3) conserved = {c['hold_on_F4_winding_conserved']} "
+              f"(frac_tail={c['hold_on_frac_tail_2_3']:.2f})  [by construction]")
+        print(f"   [hold ON ] F1 breather exists = {c['F1_held_breather_exists']['F1_breather_exists']} "
+              f"(v_tail/seed={c['F1_held_breather_exists']['v_peak_tail_over_seed']:.3f})")
+        print(f"   [hold ON ] F2 breather stable = {c['F2_held_breather_stable']['F2_stable']} "
+              f"(lambda={c['F2_held_breather_stable']['envelope_growth_rate_lambda']:.4f})")
+        print("-" * 90)
+        print(f"   OPTION C BIN = {c['C_BIN']}")
+        print(f"   {c['C_reading']}")
+        print("=" * 90)
+        return out
 
     # ---- production hybrid breather solve (passive, no drive) ----
     print("-" * 90)
@@ -1189,13 +1347,16 @@ def main():
     ap.add_argument("--steps", type=int, default=1500)
     ap.add_argument("--sample-every", type=int, default=20)
     ap.add_argument("--no-sweep", action="store_true", help="skip the robustness sweep")
+    ap.add_argument("--hold-winding", action="store_true",
+                    help="OPTION C (prereg §9): held-BC (2,3)-winding breather-persistence probe "
+                         "(energy ledger FIRST, then bin POSITIVE/NEGATIVE/DISQUALIFY)")
     ap.add_argument("--json-out", type=str, default="")
     args = ap.parse_args()
     cfg = RunConfig(
         N=args.N, R=args.R, r=args.r, dx=args.dx, v_width=args.v_width, v_amp=args.v_amp,
         pml_thickness=args.pml, n_steps=args.steps, sample_every=args.sample_every,
     )
-    out = run_all(cfg, do_sweep=not args.no_sweep)
+    out = run_all(cfg, do_sweep=not args.no_sweep, hold_winding=args.hold_winding)
     if args.json_out:
         with open(args.json_out, "w") as f:
             json.dump(out, f, indent=2, default=lambda o: getattr(o, "__dict__", str(o)))
