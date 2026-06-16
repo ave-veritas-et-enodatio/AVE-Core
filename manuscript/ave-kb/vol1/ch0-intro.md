@@ -9,7 +9,7 @@ claims: [clm-5xon03]
 
 > **[Objectivebox]**
 > - Understand the premise of Applied Vacuum Engineering (AVE) as a Macroscopic Effective Field Theory.
-> - Identify the three canonical hardware scales ($\ell_{node}$, $\alpha$, $G$) that constrain the vacuum continuum — all three now derived from first principles (see Ch.8 α derivation from Golden Torus).
+> - Identify the three canonical hardware scales ($\ell_{node}$, $\alpha$, $G$) that constrain the vacuum continuum — the framework's three retained hardware inputs: $\alpha$ closes at **Class B** named geometric identification (not a first-principles derivation; Ch.8), $\ell_{node} \equiv \hbar/(m_e c)$ is the electron reduced-Compton length (definitional identity, not a derived parameter), and $G$ is **mixed** (form-derived /7 PPN family, value-fitted $\xi$; closed-form Chain B′ open). <!-- 🔴 Rule-12 2026-06-15 G+alpha: prior wording "all three now derived from first principles" superseded per 2026-06-14 interlock G-ruling (ilk-gravmb) + Ch.8 keystone (clm-0ktpcn); not "echo". ell_node = definitional reduced-Compton identity (NOT the gated grid-pitch/Nyquist sense). -->
 > - Recognize the conceptual relationship between AVE and historical analog gravity models.
 
 The Standard Model of cosmology and particle physics provides extraordinary predictive power through high-precision mathematical abstractions, yet it requires the empirical calibration of over 26 independent free parameters. Applied Vacuum Engineering (AVE) builds on this foundation by exploring the macroscopic, deterministic physical medium that underlies these abstractions, framing the vacuum not as empty coordinate geometry, but as a physical, solid-state condensate.
@@ -45,7 +45,7 @@ The AVE framework synthesizes several historically siloed theoretical breakthrou
 >
 > **Problem:** How does the AVE framework's fundamental cutoff scale differ conceptually from the Planck length used in many quantum gravity approaches?
 >
-> **Solution:** While traditional approaches define the UV cutoff at the Planck length ($\ell_P \approx 1.6 \times 10^{-35}\,\text{m}$) using the macroscopic gravitational constant $G$, AVE argues that $G$ is an emergent, holographically scaled thermodynamic property. Un-shielding $G$ shifts the structural cutoff exactly to the reduced Compton wavelength of the electron ($\ell_{node} \approx 3.86 \times 10^{-13}\,\text{m}$). This anchors the emergent continuum specifically to the kinematic scale of the ground-state fermion.
+> **Solution:** While traditional approaches define the UV cutoff at the Planck length ($\ell_P \approx 1.6 \times 10^{-35}\,\text{m}$) using the macroscopic gravitational constant $G$, AVE argues that $G$ is an emergent, holographically scaled thermodynamic property. (This describes $G$'s **form** — the Machian thermodynamic mechanism — which is derived; per the 2026-06-14 interlock G-ruling (ilk-gravmb) $G$'s status is **mixed**: its *value* is value-fitted as Bounding Limit 3 (CODATA input), with the closed-form Chain B′ derivation open work. Not "echo".) <!-- 🔴 Rule-12 2026-06-15 G: caveat added to match the .tex twin 00_intro.tex:41 (G form-derived / value-fitted mixed); KB truth-source parallel-site. --> Un-shielding $G$ shifts the structural cutoff exactly to the reduced Compton wavelength of the electron ($\ell_{node} \approx 3.86 \times 10^{-13}\,\text{m}$). This anchors the emergent continuum specifically to the kinematic scale of the ground-state fermion.
 
 ---
 
