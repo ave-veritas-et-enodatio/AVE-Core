@@ -48,6 +48,8 @@ In standard General Relativity, the effective macroscopic mass of a localized de
 
 In the AVE framework, macroscopic gravity ($G$) is derived by scaling the 1D quantum electromagnetic tension ($T_{EM}$) by the Machian Hierarchy Coupling ($\xi$). This dimensionless coupling represents the total structural impedance of the macroscopic universe evaluated out to the cosmic causal horizon ($R_{H}$).
 
+> **🔴 Form-vs-value scope ($G$-ruling 2026-06-14, `ilk-gravmb`):** the **form** of this relation is derived — gravity is the Machian-impedance scaling of $T_{EM}$ by $\xi$ under the $1/7$ trace-reversed bulk projection. Its **value** is a calibration input: $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$ embeds $R_H \equiv c/H_\infty$, so $\xi$ is back-solved from the empirical $G$ (equivalently $\xi = \hbar c/(7Gm_e^2)$), not forward-derived. $G$ is classified **mixed** (derived-form, calibration-fitted-value), **not** an independent first-principles determination of Newton's constant; the forward value-derivation (Chain B$'$) is open. (Mixed, **not** echo — the derived-form half stands.)
+
 To define this boundary condition from the continuous spatial integration of the discrete $\mathcal{M}_{A}$ graph geometry, the analysis evaluates the cross-sectional porosity of the lattice. Because macroscopic wave transmission must pass through the discrete structural nodes, the effective differential solid angle is modified by the cross-sectional porosity ($\Phi_{A} \equiv \alpha^{2}$).
 
 Integrating the dimensionless radial distance ($r/\ell_{node}$) out to the topological horizon $R_{H}$ over this effective porous solid angle ($d\Omega_{eff} = d\Omega/\alpha^{2}$) yields:
@@ -70,7 +72,7 @@ By applying the $1/7$ tensor projection, Macroscopic Gravity is defined as $G = 
 This equation does not "predict" the Hubble constant from first principles alone; rather, it represents a consistency proof. It shows that Macroscopic Gravity ($G$) and the Cosmological Horizon ($H_{\infty}$) are not independent physical phenomena---they are the same geometric limit evaluated from different topological reference frames.
 
 <!-- claim-quality: clm-1klgo2 -->
-**Deriving Dirac's Large Numbers Hypothesis:** By rearranging this geometric limit, one can analytically derive Dirac's famous Large Numbers Hypothesis. Starting from the derived gravitational coupling $G = c^{4}/(7\xi T_{EM})$ and substituting the baseline tension ($T_{EM} = m_{e}c^{2}/\ell_{node}$) and the spatial cutoff ($\ell_{node} \equiv \hbar/m_{e}c$):
+**Deriving Dirac's Large Numbers Hypothesis:** By rearranging this geometric limit, one can analytically derive Dirac's famous Large Numbers Hypothesis. Starting from the form-derived gravitational coupling $G = c^{4}/(7\xi T_{EM})$ (mixed-classified per the form-vs-value scope above) and substituting the baseline tension ($T_{EM} = m_{e}c^{2}/\ell_{node}$) and the spatial cutoff ($\ell_{node} \equiv \hbar/m_{e}c$):
 
 > **[Resultbox]** *Gravitational Coupling Constant*
 >
