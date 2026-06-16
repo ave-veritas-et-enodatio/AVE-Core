@@ -57,10 +57,15 @@ TWO-GRID RECONCILIATION (the core challenge):
 from __future__ import annotations
 
 import numpy as np
+import jax.numpy as jnp
 
 from ave.core.constants import NU_VAC, R_II
 from ave.core.master_equation_fdtd import MasterEquationFDTD
-from ave.topological.cosserat_field_3d import CosseratField3D
+from ave.topological.cosserat_field_3d import (
+    CosseratField3D,
+    _tetrahedral_curl,
+    adjoint_tetrahedral_divergence as _adjoint_tet_div,
+)
 from ave.topological.vacuum_engine import _cosserat_A_squared
 
 
@@ -346,6 +351,19 @@ class A1CosseratConvergenceEngine:
         wx_y = (np.roll(self.B.omega[..., 0], -1, axis=1) - np.roll(self.B.omega[..., 0], 1, axis=1)) / (2.0 * self.dx)
         return wy_x - wx_y
 
+    def _cosserat_axial_curl_tet(self) -> np.ndarray:
+        """SUBSTRATE-NATIVE Ξ = (∇×ω)·ẑ on the K4 diamond lattice — the
+        tetrahedral-stencil analog of `_cosserat_axial_curl`. Uses the SAME
+        `_tetrahedral_curl` operator the Cosserat energy / `_impedance_gamma_field`
+        already use, so the coupling lives on the SAME (alive) sublattice as the
+        rest of Sector B's dynamics. The inherited Cartesian np.roll(±1) curl
+        straddles the K4 DEAD cells (alive |Ξ|=0; substrate-native-check Ckpt-2
+        violation, coupling_curl_sublattice diagnostic) — this is the corrected
+        operator the two-sided swap routes through. Axis ẑ (the photon helicity
+        axis), consistent with `_cosserat_n_index → 2`."""
+        curl = np.asarray(_tetrahedral_curl(jnp.asarray(self.B.omega), self.dx))
+        return curl[..., 2]
+
     def _coupling_forces(self):
         """The CONSERVATIVE shared-front coupling — ONE Hamiltonian term
             H_c = κ̃ ∫ g_front(A_V) · V · Ξ  d³r,   Ξ = (∇×ω)·ẑ,
@@ -356,27 +374,57 @@ class A1CosseratConvergenceEngine:
         force enters each sector's OWN Verlet acceleration at a consistent
         time-centering):
             f_V       = −δH_c/δV   = −κ̃ g Ξ        (sources V from the winding curl)
-            f_ω_y     = −δH_c/δω_y = −κ̃ ∂_x(g V)   (reciprocal back-reaction onto ω,
-            f_ω_x     = −δH_c/δω_x = +κ̃ ∂_y(g V)    from δΞ/δω = the curl adjoint)
+            f_ω_y     = −δH_c/δω_y = −κ̃ ∂_x†(g V)  (reciprocal back-reaction onto ω,
+            f_ω_x     = −δH_c/δω_x = +κ̃ ∂_y†(g V)   from δΞ/δω = the EXACT curl adjoint)
         Returns (f_V scalar field, f_omega (...,3) vector field). f_ω lives on
         the K4 alive sublattice via g_front's mask (two-grid spatial restriction).
+
+        SUBSTRATE-NATIVE-CHECK (Ckpt-2, 2026-06-16 TWO-SIDED fix): BOTH the forward
+        curl Ξ AND the reciprocal back-reaction must use the K4-diamond tetrahedral
+        stencil, NOT the Cartesian np.roll(±1) single-axis stencil. The Cartesian
+        curl placed |Ξ| ENTIRELY on the K4 DEAD sublattice (alive |Ξ|=0; the
+        coupling_curl_sublattice diagnostic), AND the Cartesian f_ω gradient
+        self-zeroed on alive (∂_x gV / ∂_y gV = 0 on alive) — so a curl-only swap
+        would restore f_V but leave f_ω≡0 on alive = a SOURCE-ONLY HALF-LOOP. The
+        substrate-native forward curl `_cosserat_axial_curl_tet` places |Ξ| on
+        alive; the reciprocal uses `adjoint_tetrahedral_divergence`
+        (cosserat_field_3d.py:161, the EXACT discrete adjoint of the SAME
+        `_tetrahedral_gradient` the curl is built from) so H_c reciprocity closes
+        on the alive sublattice (numerically verified: <s,Ξ>=<adj(s),ω> to float32).
         """
         g = self._front_window()                 # already masked to alive sites
         gV = g * self.A.V
-        Xi = self._cosserat_axial_curl()
+        Xi = self._cosserat_axial_curl_tet()
         f_V = -self.kappa_tilde * g * Xi
+        # Reciprocal back-reaction f_ω = −δH_c/δω via the EXACT tetrahedral-curl
+        # adjoint (substrate-native). With Ξ=(curl ω)_z = ∂_x ω_y − ∂_y ω_x on the
+        # tetrahedral stencil, δH_c/δω_y = +∂_x†(gV) and δH_c/δω_x = −∂_y†(gV),
+        # where ∂_j†(·) = adjoint_tetrahedral_divergence of the single-slot vector
+        # (· in slot j) = the discrete adjoint of the tetrahedral gradient's
+        # j-component. Same sign convention as the prior Cartesian form, now on the
+        # native stencil so the back-reaction fires on the SAME alive cells as Ξ.
+        gV_j = jnp.asarray(gV)
+        zero = jnp.zeros_like(gV_j)
+        Tx = jnp.stack([gV_j, zero, zero], axis=-1)   # gV in slot 0 (x)
+        Ty = jnp.stack([zero, gV_j, zero], axis=-1)   # gV in slot 1 (y)
+        adj_dx_gV = np.asarray(_adjoint_tet_div(Tx)) / self.dx  # ∂_x†(gV)
+        adj_dy_gV = np.asarray(_adjoint_tet_div(Ty)) / self.dx  # ∂_y†(gV)
         f_omega = np.zeros_like(self.B.omega)
-        dgV_dx = (np.roll(gV, -1, axis=0) - np.roll(gV, 1, axis=0)) / (2.0 * self.dx)
-        dgV_dy = (np.roll(gV, -1, axis=1) - np.roll(gV, 1, axis=1)) / (2.0 * self.dx)
-        f_omega[..., 1] = -self.kappa_tilde * dgV_dx
-        f_omega[..., 0] = +self.kappa_tilde * dgV_dy
+        f_omega[..., 1] = -self.kappa_tilde * adj_dx_gV   # f_ω_y = −∂_x†(gV)
+        f_omega[..., 0] = +self.kappa_tilde * adj_dy_gV   # f_ω_x = +∂_y†(gV)
         return f_V, f_omega
 
     def _coupling_energy(self) -> float:
         """H_c = κ̃∫ g·V·Ξ over the interior (the conversion ledger term, kept
-        for the joint H = E_bulk + H_cosserat + H_c conservation check)."""
+        for the joint H = E_bulk + H_cosserat + H_c conservation check).
+
+        SUBSTRATE-NATIVE (2026-06-16): uses the tetrahedral curl `Ξ` so the
+        energy functional whose functional derivatives are `_coupling_forces`
+        is the SAME H_c — the forward force, the energy, and the back-reaction
+        all reference one K4-native Ξ (reciprocity is exact, not Cartesian-vs-tet
+        mismatched)."""
         g = self._front_window()
-        Xi = self._cosserat_axial_curl()
+        Xi = self._cosserat_axial_curl_tet()
         return float((self.kappa_tilde * g * self.A.V * Xi * self._interior).sum())
 
     def step_coupled(self):
