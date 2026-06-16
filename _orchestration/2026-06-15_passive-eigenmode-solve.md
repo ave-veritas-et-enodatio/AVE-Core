@@ -1,13 +1,13 @@
 # Passive winding-protected electron eigenmode — the structural keystone (ORCHESTRATION)
 
-> **STATUS: 🔒 PREREG FROZEN (Rule-11) + auditor-cleared (2026-06-15). NEXT = dispatch the (b′) build
-> (G0 double-count smoke-gate = build-step-zero).** Lane worktree `AVE-Core-eigenmode-wt`, branch
+> **STATUS: 🔒 PREREG FROZEN + G0 DOUBLE-COUNT GATE PASSED (2026-06-15). PRODUCTION DRIVER HELD on a
+> representation-capability flag (which (2,3) seeder is canonical for the (b′) electron winding) —
+> surfaced to Grant.** Lane worktree `AVE-Core-eigenmode-wt`, branch
 > `analysis/2026-06-15-passive-eigenmode-solve` off `main@40a2a2e7`. **main is PROTECTED — Grant
 > merges; this lane does NOT merge.** Frozen prereg:
 > `research/2026-06-15_passive-eigenmode_prereg_FROZEN.md`. **Platform: (a) DEAD; (b′)
-> `crystal_engine` V-tank wall ⊗ Cosserat-ω winding GRANTED (eyes-open precedent — first
-> substrate-complete engine). Deliverable = EXISTENCE of the winding-protected hybrid breather (the
-> form); Q is the echo.**
+> `crystal_engine` V-tank wall ⊗ Cosserat-ω winding GRANTED + G0-clean. Deliverable = EXISTENCE of the
+> winding-protected hybrid breather (the form); Q is the echo.**
 >
 > **KEYSTONE REFRAME (Grant 2026-06-15):** the lane rests on **EXISTENCE + STABILITY** of the
 > passive high-Q hybrid mode (PRIMARY); the measured **Q is SECONDARY** — **α is an ECHO for the
@@ -447,3 +447,20 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   G3/G4. **Prereg FROZEN** (Rule-11) → `research/2026-06-15_passive-eigenmode_prereg_FROZEN.md`.
   **NEXT: dispatch the (b′) build to an implementer (own worktree) — G0 double-count smoke-gate FIRST
   (hard), then the hybrid production driver only if G0 passes.**
+- **2026-06-15 (Phase 2b — G0 PASS + representation-capability flag)** — G0 smoke-gate
+  (`a048bd279cd6741d1`) **PASSED**: the minimal Op14 cross-coupling (`trilinear_buckle_forces`,
+  CrystalGraft-v4 — `cross_sector_coupling.py:110-139`; `f_w≡0`; g_wall = CP10 boundary window) is
+  **double-count-clean** — `w_pol` stays nonzero on the ω-carrier (the step-59 drift to 2 is
+  free-evolution, confirmed by the κ̃→0 control giving identical drift), and **V_ref-leak ≤ 4.3e-16**
+  (the winding is wholly absent from the A1 `(V_inc,V_ref)` phasor; reading the extractor on the V-tank
+  phasor returns (0,0)). Coupling-binding declaration: `KAPPA_TILDE=6/5`, **α-FREE** (α imported only
+  to declare it is NOT a coupling input). **🔴 REPRESENTATION-CAPABILITY FLAG (`ave-representation-
+  capability-check`):** the brief-named seeder `initialize_electron_2_3_sector` writes a **z-flat
+  rotor** (ω·ê_z≡0), so `extract_2_3_omega_fast`'s toroidal projection is **structurally w_tor=0** —
+  a G4 plant/read MISMATCH, NOT a coupling collapse. The extractor is SOUND on its **matched** plant
+  `planted_winding_field(traveling)` (the D15 class certified by the FROZEN prereg's G4 anchor
+  `test_unified_quadrature_v7.py:142,153`) → reads (2,3), rel 0.73–0.98; G0 PASS used that carrier.
+  **So the FROZEN prereg's G4 already specifies the `planted_winding_field`-class carrier; the
+  "electron"-named z-flat-rotor seeder would fail G4 instrumentally.** Surfaced to Grant: is the
+  traveling-(2,3) the physical electron winding (proceed), or is the z-flat rotor canonical (→
+  re-scope: extend extractor / new prereg)? **PRODUCTION DRIVER HELD on this representation call.**
