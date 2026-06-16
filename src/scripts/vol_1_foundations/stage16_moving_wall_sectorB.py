@@ -51,7 +51,11 @@ FIGDIR = os.path.abspath(os.path.join(HERE, "..", "..", "..", "research", "figur
 
 N = int(os.environ.get("S16_N", "24"))
 PML = 4
-DX = 0.5
+# dx = ℓ_node (natural unit; Phase-20 dx-normalize 2026-06-16). Was 0.5 = 2×
+# OVERsampling (finer resolution of the SAME object, NOT a sub-Nyquist fiction);
+# the verdict is dx-invariant (reported at both 0.5 and 1.0 in the result doc).
+# S16_DX override retained so the dx-invariance can be re-checked.
+DX = float(os.environ.get("S16_DX", "1.0"))
 SEED_FRAC = 0.85
 SEED_SIGMA = 2.5
 PHOTON_SIGMA = 3.0

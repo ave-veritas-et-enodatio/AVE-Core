@@ -50,7 +50,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 N = int(os.environ.get("S15_N", "24"))
 PML = 4
-DX = 0.5
+# dx = ℓ_node (natural unit; Phase-20 dx-normalize 2026-06-16). Was 0.5 = 2×
+# OVERsampling of the SAME cell-set object (seed geometry is in cells; dx only
+# rescales the lattice pitch). NOT re-run on this branch; S15_DX override retained.
+DX = float(os.environ.get("S15_DX", "1.0"))
 SEED_FRAC = 0.85
 SEED_SIGMA = 2.5
 PHOTON_AMP = 0.3

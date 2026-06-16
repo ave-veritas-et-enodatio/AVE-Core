@@ -41,9 +41,17 @@ vs both collapse and dispersion):
   geometric. This is the same routing discipline Stage-1.5 used to route around the
   α-bearing VacuumEngine3D paths.
 
-CP10 (Op17-bounded BC, not bulk force): the wall is |Γ|→1 as A→1, realized as the
-reactive node-clamp a_ω = −(K/I_ω)·relu(−Γ)·ω, energy-storing via the exact
-_rotate_clamp LC rotation (NOT a bulk force; no |ω| blow-up). The wall co-moves
+CP10 (Op17-bounded BC, not bulk force): the wall is |Γ|→1 as A→1. AMENDMENT-4
+(2026-06-16, #273 ww8x96sci): realized as the K4-TLM UNITARY-SCATTER reflector
+(impedance_unitary=True, default) — at the wall cells the (ω, ω̇/Ω₀) reactance
+pair is decomposed into incident/reflected characteristic amplitudes and rotated
+through the ORTHOGONAL [[Γ_w,T_w],[T_w,−Γ_w]] (Γ_w=relu(−Γ)∈[0,1], Γ_w²+T_w²=1),
+so |output|=|input| EXACTLY — energy-honest, |ω|-bounded BY CONSTRUCTION, NO pump.
+This SUPERSEDES the prior reactive node-clamp a_ω=−(K/I_ω)·relu(−Γ)·ω integrated
+by _rotate_clamp: that harmonic spring (ω̈=−Ω₀²ω) has NO |ω| ceiling (Ω₀ stiffens
+as the front sharpens), so it confined (Γ→−0.994) AND PUMPED (H climbs 4.3×10⁶)
+together — a bulk restoring force (CP10 violation), kept selectable
+(impedance_unitary=False) only as the motivating diagnostic. The wall co-moves
 with the cage front: Γ is recomputed from the focusing ω-field every sub-step
 (_freeze_clamp_weight re-frozen per sub-step) — a GENERIC rule (tracks the
 saturation threshold), NOT hand-placed where the answer is.
@@ -106,7 +114,8 @@ class A1CosseratMovingWallEngine(A1CosseratConvergenceEngine):
     def __init__(
         self,
         N: int,
-        dx: float = 0.5,
+        dx: float = 1.0,  # = ℓ_node (natural unit; Phase-20 dx-normalize). Was 0.5
+                          # (2× OVERsampling of the SAME object, not load-bearing).
         V_yield: float = 1.0,
         c0: float = 1.0,
         cfl_safety: float = 0.30,

@@ -84,7 +84,9 @@ class A1CosseratConvergenceEngine:
     def __init__(
         self,
         N: int,
-        dx: float = 0.5,
+        dx: float = 1.0,  # = ℓ_node (natural unit). Was 0.5 (2× OVERsampling —
+                          # finer resolution of the SAME object, not a sub-Nyquist
+                          # fiction; Phase-20 scoped-credit dx-normalize 2026-06-16).
         V_yield: float = 1.0,
         c0: float = 1.0,
         cfl_safety: float = 0.30,

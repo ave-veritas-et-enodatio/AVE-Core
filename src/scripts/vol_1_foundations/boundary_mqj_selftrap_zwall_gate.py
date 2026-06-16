@@ -91,7 +91,14 @@ def _canonical_source_gate() -> None:
 
 
 # ──────────────────────────────────────────────────────────────────────────
-# Geometry + units (natural units: dx = ℓ_node, c₀ = 1)
+# Geometry + units (c₀ = 1). NOTE (Phase-20 dx-normalize 2026-06-16): KP_DX=0.5
+# below is 2× OVERsampling (ℓ_node = 1; dx = ℓ_node/2), NOT dx = ℓ_node — the
+# prior "natural units: dx = ℓ_node" claim was FALSE. NOT flipped to 1.0 here
+# because this gate's seed radius r = (cell-distance)·KP_DX (line ~149) is dx-
+# COUPLED: doubling KP_DX would DOUBLE the physical sech seed (a different
+# object), unlike the cell-set Stage-15/16 geometry. FLAG → boundary_mqj owner:
+# normalize KP_DX→1.0 only alongside a matching radius/extent rescale, on a
+# re-run of this gate (not silently changed cross-workstream here).
 # ──────────────────────────────────────────────────────────────────────────
 N = int(os.environ.get("MQJ_N", "24"))
 PML = 4

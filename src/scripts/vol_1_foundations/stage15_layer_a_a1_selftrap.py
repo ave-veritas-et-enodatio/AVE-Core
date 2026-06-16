@@ -44,7 +44,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 N = int(os.environ.get("S15_N", "28"))
 PML = 4
-DX = 0.5
+# dx = ℓ_node (natural unit; Phase-20 dx-normalize 2026-06-16). Was 0.5 = 2×
+# OVERsampling of the SAME cell-set object (seed geometry is in cells, so dx only
+# rescales the lattice pitch — not load-bearing). NOT re-run on this branch;
+# S15_DX override retained for the owner's re-validation.
+DX = float(os.environ.get("S15_DX", "1.0"))
 SEED_FRAC = 0.85           # sub-yield seed depth A_V=0.85 (v14 canonical band)
 SEED_SIGMA = 2.5
 A_CAP = 0.99               # numerical clamp (correction 4: this floors Z_tank=√S)
