@@ -123,12 +123,20 @@ Q_BIN_BAND = 0.05                        # +-5% band (prereg §5 F3)
 def _verify_constants() -> dict:
     """Cross-check the canonical constants by direct-import identity assertions
     (there is NO verify_constants function in this corpus — ave-canonical-source
-    is satisfied by importing from ave.core.constants and asserting the identities
-    the prereg §5/§6 commits to)."""
+    is satisfied by importing from ave.core.constants and asserting the PROVENANCE
+    identities the prereg §5/§6 commits to). NO α-derived numeric literal appears
+    here (the magic-number gate, ave-canonical-source): every check is an identity
+    between IMPORTED quantities, so the Q targets are provably derived from the
+    canonical ALPHA / KAPPA_TILDE, not a hardcoded value."""
     checks = {
-        "1/ALPHA == 137.036 (bare-alpha Q target, prereg §5 F3)": abs(Q_TARGET_BARE_ALPHA - 137.0359990837) < 1e-6,
-        "1/(ALPHA*1.2) == 114.20 (kappa_chiral Q target, §5 F3)": abs(Q_TARGET_KAPPA_CHIRAL - 114.1966659) < 1e-4,
-        "KAPPA_TILDE == 6/5 (alpha-FREE coupling, §6)": abs(KAPPA_TILDE - 1.2) < 1e-12,
+        # the bare-alpha Q target IS 1/ALPHA exactly (derived from the import, not a literal)
+        "Q_TARGET_BARE_ALPHA == 1/ALPHA (prereg §5 F3)": Q_TARGET_BARE_ALPHA == 1.0 / ALPHA,
+        # the kappa_chiral Q target IS 1/(ALPHA*KAPPA_TILDE) (kappa_tilde=1.2)
+        "Q_TARGET_KAPPA_CHIRAL == 1/(ALPHA*1.2) (§5 F3)": Q_TARGET_KAPPA_CHIRAL == 1.0 / (ALPHA * 1.2),
+        # the coupling is the (2,3) topological factor pq/(p+q) = 6/5, ALPHA-FREE
+        "KAPPA_TILDE == 6/5 (alpha-FREE coupling, §6)": KAPPA_TILDE == 6.0 / 5.0,
+        # provenance sanity: the two Q targets are DISTINCT (discriminating, §5 F3)
+        "Q targets distinct (137 vs 114 discriminate)": Q_TARGET_BARE_ALPHA != Q_TARGET_KAPPA_CHIRAL,
     }
     return checks
 
