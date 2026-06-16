@@ -1247,6 +1247,50 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   but keep primitive-vs-regime OPEN per the 2026-06-14 ruling; ACT-02 discriminates). #248 stays UNMERGED until
   ruled.
 
+- **2026-06-16 (Phase 22 — 🟡 Q3 RESULT = PUMPS, but the loop is WIRED + the wall is HONEST + the pump is
+  PRE-EXISTING; auditor-verified `a8232246`, NOT merged)** — Build `c5595558` returned, auditor re-verified
+  adversarially (reproduced the load-bearing numbers by running the engine code, not on say-so). **5/6 claims
+  CONFIRMED; bin = PUMPS (frozen 4, Rule-12 — corrected attribution is a qualifier, NOT a 5th bin).**
+  **VERIFIED FACTS (bankable):** (1) **THE LOOP IS WIRED two-sided on alive — the stencil saga is RESOLVED.**
+  Auditor RAN the operator: `adjoint_tetrahedral_divergence` puts `|f_ω|=1.31` on 117/128 alive cells, old
+  Cartesian `np.roll` gives `0.0` on alive (GAP-1 self-zero reproduced), discrete adjoint closes
+  `⟨grad s,T⟩=⟨s,adj_div T⟩=23.317` to float precision. `f_V=133.1` + `f_ω_alive=1.502`; tetra `|Ξ|=2.932`
+  on alive w/ 1024 overlap (Cartesian 0). (2) **The K4-TLM unitary wall is energy-honest:** `MᵀM=I` to
+  2.2e-16, `|ω|`=279.9 (vs `_rotate_clamp` 20918), `V_clamp≡0`, norm 1.0, α-free, (2,3) readout zero-diff.
+  (3) **The PUMPS is NOT the wall — REATTRIBUTION EARNED:** H-pump is K-independent (798/887/798/807% at
+  K=100/200/400/800, persists at K=400 where wall barely forms Γ_min=−0.053) AND present wall-OFF (control
+  4.86×, |ω|max=20004; `_rotate_clamp` baseline cross-check 20008; coupling byte-inherited from `f4c91bd8`,
+  the Stage-1.5 parent). The unbounded wall was MASKING a pre-existing pump in the energize-LOCK coupling +
+  the two-grid bulk integration; amendment-4 removed the mask. (4) Driver `verdict_reason` "|ω| blow-up /
+  divergence" is CONFIRMED mis-attributed (|ω| bounded 279.9, `diverged=null`; `50·amp` threshold mis-fires).
+  **🔴 THE GATE — Finding 3, UNPROVEN:** the "continuum `H_c` cancellation is EXACT" claim — the ENTIRE
+  license for "fixable discretization bug" over "substrate negative" — lives ONLY in engine docstring
+  `a1_cosserat_convergence_engine.py:374` (quoted by the result doc); NO derivation, NO KB leaf, NO proof.
+  **🔴 CHALLENGE-CANONICAL-NEGATIVE (prospective, on our own result):** `loop-gap-electron-resonator-closure-
+  doctrine.md:30` records energize-LOCK as a CANDIDATE path with **"genesis-24: pump FALSIFIED"** on the same
+  row — **this PUMP may be genesis-24's falsified pump RESURFACING.** "Two-grid time-centering bug" is the
+  live hypothesis AND the explain-away shape; given this pump already killed one incarnation, the bar to call
+  it "just a bug" is HIGH (the cavity-reframe lesson applied prospectively). **NOT banking "it's a bug."**
+  **THE OPEN FORK (NOT yet rule-able — gated on earning the premise):** fixable two-grid coupling-integrator
+  time-centering bug (`step_coupled:444-470` — `f_ω` frozen across `n_sub_cos` Sector-B substeps, a known
+  discrete-coupling pump source) vs GENUINE SUBSTRATE STATEMENT (a free massless precursor cannot losslessly
+  close the loop even with a perfect wall → keystone leans NEGATIVE). **THE DISCRIMINATOR (auditor-identified,
+  cheap + decisive, gated on Grant authorization):** (a) the continuum `dH_c/dt=0` integration-by-parts proof
+  (highest leverage — converts the fork's premise from asserted→forced); (b) a time-centering known-positive:
+  re-run with `n_sub_cos=1` (single-grid, `f_ω` recomputed every step/half-step-centered) + a recompute-
+  cadence sweep + a `dt` sweep of the H-climb rate — if H flattens as centering matches → bug (keystone stays
+  open, fix + re-test); if H climbs even at matched single-grid centering → substrate (keystone negative).
+  **No conservation known-positive currently exists** (the `known_null_meter` −1.76e-7 is a METER calibration,
+  not a conservation control). **TWO HYGIENE CALLS → Grant:** (i) continuum-exact language — have the
+  implementer write the `dH_c/dt=0` proof as a `sup-` node before banking, OR downgrade to "conservative-by-
+  structure, cancellation-proof-pending"; (ii) the `verdict_reason` string — bank with the §5 FLAG as
+  authoritative override, or fix the `diverged_note` threshold first. Side-rider: dx-normalize applied to
+  stage15 a/c (flagged for owner re-validation), `boundary_mqj` KP_DX left 0.5 (dx-coupled to seed radius)
+  with corrected comment; primary verdict stays dx=0.5 (apparatus floor passes there, F-1 SOUND). F-2:
+  property-3 (`electron-identification.md:24,25`) forces the TIR-reflector FORM but NOT the `Ω₀` reactance-
+  plane normalization (one honest free sub-choice). Branch `analysis/2026-06-16-stage16-k4tlm-bounded-wall`
+  tip `c5595558`, 4 commits ahead of `2a83808c`, NOT merged.
+
 ## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
 
 **🟢 HELD OBJECT (explicit, per Grant — so a verifier cannot misread):** the held object is the
