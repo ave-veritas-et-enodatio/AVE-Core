@@ -88,6 +88,8 @@ For the electron: $L_e = \xi_{topo}^{-2}\, m_e = m_e / \xi_{topo}^{2} \approx 5.
 
 where $\kappa = x/F = 1/k$ is the mechanical compliance (inverse spring constant). Dielectric breakdown occurs when the lattice displacement exceeds its absolute yield limit ($x > \ell_{node}$), which is structurally isomorphic to capacitor voltage exceeding the breakdown threshold.
 
+> **Sector note (Q1 = (B), Grant-ratified 2026-06-15).** This isomorphism is a **SAME-WALL / shared-yield** observation — both the longitudinal compliance $C=\xi_{topo}^2/k=C_0/S$ (↑ at yield) and the transverse dielectric reach Axiom-4 yield at the same $A\to1$ boundary — **NOT a same-*object* identity**. The compliance $C=\xi_{topo}^2/k$ (longitudinal-A1) and the dielectric permittivity $\varepsilon_{eff}=\varepsilon_0 S$ (transverse-T2, ↓) are **orthogonal reactances**; identifying them is the genesis-24 double-count (`master-equation.md:20`). See INVARIANT-S2 sector split + `research/2026-06-15_ceff-epsilon-monotonicity_result.md`.
+
 **Row 6: Resistance $\leftrightarrow$ Viscosity.** Resistance dissipates power as $P = I^2 R$. Substituting:
 
 > **[Resultbox]** *Resistance--Viscosity Identity*

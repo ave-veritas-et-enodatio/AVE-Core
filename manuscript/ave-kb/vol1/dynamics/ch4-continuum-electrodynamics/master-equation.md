@@ -66,7 +66,7 @@ The substitution is direct: wherever the standard wave equation contains the con
 > c_{eff}(V) = c_0 \left(1 - \left(\frac{V}{V_{yield}}\right)^2\right)^{-1/4}
 > $$
 
-Note: the wave speed *increases* as permittivity drops (thinner dielectric $\to$ faster propagation), while the measured capacitance *diverges* ($C_{eff} = C_0/S \to \infty$). The resulting non-linear wave equation is the **Unifying AVE Master Equation**:
+Note: the wave speed *increases* as permittivity drops (thinner dielectric $\to$ faster propagation), while the **longitudinal-A1 bond compliance** $C_{eff} = C_0/S \to \infty$ (the stretch-reactance softening at yield). Per the Q1 = (B) sector split (INVARIANT-S2, Grant-ratified 2026-06-15) this $C_0/S$ is a DISTINCT sector from the transverse permittivity — orthogonal reactances (A1 ⊥ T2, line 20 above), not one object; the LCR-measured *transverse* capacitance $C_{diel}=\varepsilon_{eff}A/d\propto S$ rolls off, it does **not** diverge. The resulting non-linear wave equation is the **Unifying AVE Master Equation**:
 
 > **[Resultbox]** *The Unifying AVE Master Equation*
 >
