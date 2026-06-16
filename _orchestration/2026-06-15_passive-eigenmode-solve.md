@@ -1,10 +1,15 @@
 # Passive winding-protected electron eigenmode — the structural keystone (ORCHESTRATION)
 
-> **STATUS: PHASE 3 AUDITOR-GATE DONE ✅ (panel `wyxwc215e`, 4 dims, all FLAG/freeze-after-fix;
-> prereg v2 addresses every must-fix) → PHASE 2 FREEZE blocked on a 3-fork GRANT FRAMING-GATE
-> (prereg §11).** Lane worktree `AVE-Core-eigenmode-wt`, branch
-> `analysis/2026-06-15-passive-eigenmode-solve` off `main@40a2a2e7`. **main is PROTECTED —
-> Grant merges; this lane does NOT merge.** Prereg: `research/2026-06-15_passive-eigenmode_prereg.md`.
+> **STATUS: AUDITOR-GATE DONE ✅ + GRANT §11 RULED ✅ (2026-06-15). FREEZE blocked ONLY on the
+> magnetic-branch PRE-FLIGHT (agent `a12b397d4d347be90`, running) resolving the platform.** Lane
+> worktree `AVE-Core-eigenmode-wt`, branch `analysis/2026-06-15-passive-eigenmode-solve` off
+> `main@40a2a2e7`. **main is PROTECTED — Grant merges; this lane does NOT merge.** Prereg:
+> `research/2026-06-15_passive-eigenmode_prereg.md` (DRAFT v3).
+>
+> **KEYSTONE REFRAME (Grant 2026-06-15):** the lane rests on **EXISTENCE + STABILITY** of the
+> passive high-Q hybrid mode (PRIMARY); the measured **Q is SECONDARY** — **α is an ECHO for the
+> z₀ route** (Lane-1: z₀=52 is a path-product, honest count ≈16→α⁻¹≈49; neither 137 nor 49 is an
+> α-free map), so the cross-lane chord very likely will NOT fire. Don't hang the lane on Q.
 >
 > **GRANT RULINGS (2026-06-15):** (1) **B1 green-lit** — run the hybrid-coupled solve; B2
 > ("nothing to find, negative pre-loaded") is the α-lane over-closure trap (conflates "no
@@ -100,18 +105,21 @@ question"* (`72_…:158`); the open Layer-8 "smallest stable soliton, m_e nowher
 
 ---
 
-## §3 — Discriminator (high-Q; full bins/falsifiers in the prereg)
+## §3 — Discriminator (keystone = existence+stability; full bins/falsifiers in the prereg)
 
-**Classification (`consistency-vs-emergence`):** EXISTENCE + STABILITY = emergence test
-(genuine). The **Q VALUE** is classified separately (echo/chord — §5.5).
+**KEYSTONE = EXISTENCE + STABILITY (PRIMARY, decided by F1+F2+F4); Q = SECONDARY (Grant
+2026-06-15).** The lane's verdict is *does a stable passive high-Q hybrid mode EXIST* — NOT
+Q-agreement (the chord won't fire, §5.5).
 
-- **POSITIVE:** a **stable real-eigenvalue** hybrid (V,ω) mode exists at ω_C; (2,3) winding
-  conserved on the ω-carrier; **finite radiative Q ≈ 1/α ≈ 137** → eigencavity STRUCTURE real.
+- **POSITIVE:** a **stable real-eigenvalue** hybrid (V,ω) mode EXISTS at ω_C; (2,3) winding
+  conserved on the ω-carrier (F4, G4-gated) → eigencavity STRUCTURE real. **(The radiative Q
+  is measured + binned 137/114 as a SECONDARY characterization, tagged echo — not bin-deciding.
+  A stable mode with Q→∞ is still POSITIVE — "exists but radiatively decoupled" — and refutes
+  bind=leak=α.)**
 - **NEGATIVE-A** (no mode / disperses) · **NEGATIVE-B** (unstable / requires gain) →
   structural eigenmode fails.
-- **FALSE-NEGATIVE GUARD (Grant):** Q=∞ / α=0 / decoupled-limit "finds nothing" — that is
-  the WRONG object, **excluded**, NOT a real negative (the bind and the leak are one
-  coupling; demanding zero leak demands zero bind).
+- **EXCLUDED** = ONLY the explicit α=0 decoupled control "finds nothing"; **no coupled run can
+  be EXCLUDED** (auditor fix — closes the relabel-a-real-negative loophole).
 
 ---
 
@@ -180,10 +188,14 @@ NEGATIVE may reflect the projection's limit). No new `*_vN` file. **Grant's call
 **All three lanes measure/derive ONE number — the electron's α = 1/Q — at ONE operating
 point.** This lane is the middle leg:
 
-- **Lane 3 (wall)** fixes the operating point: K=2G co-saturation lock, chirality-signed
-  wall, hybrid A1⊗T2.
+- **Lane 3 (wall)** fixes the operating point. **SHARPENED (Lane 3, 2026-06-15):** SYMMETRIC
+  co-saturation = the **GRAVITY lens** (Z=Z₀, Γ=0); the **MATTER WALL requires the CHIRAL
+  asymmetry** (Z→0, Γ=−1). So **K=2G is the symmetric/GRAVITY lock**, and matter *breaks* it. →
+  **load-bearing for THIS lane's pre-flight: it must check the engine reaches the chirally-broken
+  Z→0 wall, not the symmetric Z=Z₀ lens** (and K=2G's provenance rests on the amorphous EMT, now
+  under reconstruction — a separate lane).
 - **Lane 2 (THIS) solves the hybrid eigenmode at that point — and measures its radiative
-  Q = 1/α.**
+  Q** (SECONDARY — α is echo, §3).
 - **Lane 1 (post crystalline pivot)** is *to* derive that same Q = 1/α from geometry — **but
   that α-free leg is the OPEN frontier (Path C), NOT an established route** (auditor flag,
   correcting the headline): z₀=52 → α⁻¹≈**138.9**, **1.5% off** 137.036, and "z₀=52 is not
@@ -267,3 +279,18 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   detector-can't-certify defect; (7) citation fixes (`:98`→`:131` α-input; SM-leakage→`72_:238`;
   Mode-III→`74_:57`; shear-clock→Op16; Flag-A provenance→`photon-id:11`). **NEXT: Grant framing-gate
   (prereg §11, 3 forks) → freeze → dispatch driver.**
+- **2026-06-15 (Phase 1b — Grant §11 RULED + cross-lane immune-system catch)** — All three lanes
+  (incl. this orchestrator) caught the chord overstatement. **Grant owned it: α is an ECHO for the
+  z₀ route** (z₀=52 is a path-PRODUCT coincidence dressed with 8πα; honest additive count ≈16 →
+  α⁻¹≈49, off 3×; neither 137 nor 49 is an α-free map). Rulings → prereg **v3**: (1) **Fork-1
+  platform: run the magnetic-branch PRE-FLIGHT** before locking — dispatched as background
+  ave-implementer `a12b397d4d347be90` (own worktree `analysis/2026-06-15-eigenmode-preflight`):
+  does `CoupledK4Cosserat` reach Z→0/Γ→−1 (the matter wall, chiral ON) on the sech, or only Z→∞ /
+  Z₀? **(a)-VIABLE iff Z→0; don't take (b) sign-off until (a) is DEAD.** (2) **Fork-2:** 137-vs-114
+  pre-registered, awareness only, **not bin-deciding**. (3) **Fork-3:** chord confirmed contingent →
+  **Q demoted to SECONDARY; the KEYSTONE = EXISTENCE + STABILITY** of the passive high-Q hybrid mode
+  (§3/§4 reframed; F3 no longer decides the bin; Q→∞ on a coupled stable mode = POSITIVE-with-
+  decoupled-Q, refutes bind=leak=α). Cross-lane sharpening recorded: SYMMETRIC co-saturation =
+  GRAVITY lens (Z=Z₀, Γ=0); MATTER WALL = chiral-broken (Z→0, Γ=−1); K=2G = the symmetric/gravity
+  lock (provenance on the amorphous EMT, under reconstruction — separate lane). **NEXT: pre-flight
+  result → resolve Fork-1 → freeze (`_FROZEN`) → dispatch production driver.**

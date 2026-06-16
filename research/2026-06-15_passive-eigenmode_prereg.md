@@ -1,9 +1,11 @@
 # Passive winding-protected electron eigenmode — the hybrid (V,ω) high-Q standing mode — PREREG (Rule-11)
 
-> **STATUS: DRAFT v2 — auditor-FLAG addressed (panel `wyxwc215e`, 4 dims, all FLAG/freeze-after-fix);
-> THREE physics-framing forks open to Grant (§11) before freeze.** Freeze (→ `_FROZEN`) only after
-> Grant's §11 voice + a re-gate confirms the must-fix items landed. Grant-gated 2026-06-15 (B1
-> green-lit; high-Q refinement). Lane: `_orchestration/2026-06-15_passive-eigenmode-solve.md`.
+> **STATUS: DRAFT v3 — auditor-FLAG addressed (panel `wyxwc215e`) + Grant §11 RULED (2026-06-15).
+> Freeze (→ `_FROZEN`) BLOCKED ONLY on the magnetic-branch PRE-FLIGHT (agent `a12b397d4d347be90`)
+> resolving the platform (fork 1).** Forks 2–3 ruled: Q is SECONDARY (137/114, awareness); α is an
+> ECHO for the z₀ route (chord won't fire). **The keystone = EXISTENCE + STABILITY of the passive
+> high-Q hybrid mode (§4).** Grant-gated 2026-06-15 (B1; high-Q; existence-primary). Lane:
+> `_orchestration/2026-06-15_passive-eigenmode-solve.md`.
 > **Rule 11 — commitment written BEFORE the driver; no knobs tuned to force a result.**
 
 ---
@@ -74,15 +76,28 @@ existence + stability + radiative Q of an **imposed-BC** mode (§9).
 
 ## §4 — Discriminator + bins
 
-**Classification (`consistency-vs-emergence`):** EXISTENCE + STABILITY = **emergence test**
-(genuine). The **Q VALUE** is classified separately (§6 echo/chord).
+**THE KEYSTONE IS EXISTENCE + STABILITY (PRIMARY); Q IS A SECONDARY CHARACTERIZATION (Grant
+2026-06-15).** The lane's verdict — *does a stable passive high-Q hybrid mode EXIST* — is decided by
+**F1 + F2 + F4 ONLY**. The radiative **Q (F3) is measured and reported but does NOT decide the bin**:
+the cross-lane chord almost certainly will not fire (**α is an echo for the z₀ route** — §6), so the
+lane must NOT hang on Q-agreement.
 
-| Bin | Condition | Reading |
+**Classification (`consistency-vs-emergence`):** EXISTENCE + STABILITY = **emergence test** (genuine,
+the keystone). The **Q VALUE** is a separate characterization (§6 echo).
+
+| Bin (decided by F1+F2+F4) | Condition | Reading |
 |:---|:---|:---|
-| **POSITIVE** | stable real-eigenvalue hybrid (V,ω) mode; (2,3) conserved on ω-carrier (F4 gate passed); **finite radiative Q**, binned 137 vs 114 (F3) | **eigencavity STRUCTURE is real** |
+| **POSITIVE** | stable real-eigenvalue hybrid (V,ω) mode EXISTS (F1+F2); (2,3) conserved on ω-carrier (F4, G4-gated) | **eigencavity STRUCTURE is real (the keystone)** |
 | **NEGATIVE-A** | coupled solve does not converge / disperses | no standing mode → structure fails |
-| **NEGATIVE-B** | converges but unstable (max-eig real-part > 0 / requires gain) **OR** stable but **Q→∞** (no radiative channel) | not a passive radiating eigenstructure |
-| **EXCLUDED** | **ONLY** the explicit α=0 decoupled control "finds nothing" | wrong object — EXCLUDED is unavailable to any coupled run |
+| **NEGATIVE-B** | converges but unstable (max-eig real-part > 0 / requires gain) | not a passive eigenstructure |
+| **EXCLUDED** | **ONLY** the explicit α=0 decoupled control "finds nothing" | wrong object — unavailable to any coupled run |
+
+**SECONDARY characterization (NOT bin-deciding):** the radiative Q (F3), binned 137 (bare-α) vs 114
+(κ_chiral=α·1.2), tagged echo (§6). A stable mode that exists but reads **Q→∞ (no radiative leak
+despite the coupling on)** is still a **POSITIVE on the keystone** — reported as "exists but
+radiatively decoupled," which would itself **refute the bind=leak=α hypothesis** (§2), NOT a
+NEGATIVE. (This supersedes prereg-v2's "Q→∞ = NEGATIVE-B": Grant's reframe makes existence+stability
+primary; Q→∞ on a coupled stable mode is a finding, not a failure.)
 
 ---
 
@@ -134,6 +149,16 @@ banked against the present z₀=52 leg would **manufacture an apparent chord fro
 routes** — forbidden. (Note: the chord needs ~1.5% Q precision; the §7.6 shear-clock evaluation
 carries a ~3.2% ω_C systematic of the same order — another reason the chord is not yet reachable.)
 
+**UPDATE (Grant + Lane-1 grounding, 2026-06-15) — α is an ECHO for the z₀ route; the chord will
+very likely NOT fire.** z₀=52 = 4·13 is a **multiplicative path-PRODUCT** (4 ports × 13 paths), but a
+Maxwell–Calladine constraint count is **additive** (≈ 4 primary + 12 secondary ≈ **16 → α⁻¹≈49**,
+off by 3×). The "1.46%-to-137" was a path-count coincidence dressed with the 8πα identity, never a
+constraint count. **Neither amorphous-137 (α-circular fit) nor crystalline-49 is an α-free map → α
+is an echo for the z₀/coordination route**, and retiring amorphous makes α *worse*, not better.
+Triangulation consequence: even Lane-2's 114 (κ_chiral) vs Lane-1's 49 disagree → **echo regardless**.
+**∴ Lane-2's Q is a SECONDARY characterization, not a chord-input** (§4); the lane rests on
+existence + stability.
+
 ---
 
 ## §7 — Method (the driver brief)
@@ -173,6 +198,13 @@ carries a ~3.2% ω_C systematic of the same order — another reason the chord i
   So option (a) tests the **RESTRICTED hybrid** (projected-scalar ⊗ ω with a Γ-BC), **NOT** the full
   A1-cage⊗T2. A NEGATIVE on (a) **may reflect the projected-scalar limitation, not a true structural
   absence** — bounds what (a) can conclude.
+- **GATING PRE-FLIGHT DISPATCHED (Grant-greenlit 2026-06-15; agent `a12b397d4d347be90`):** before
+  (a) locks, a 1-run diagnostic checks whether `CoupledK4Cosserat`'s Op14 saturation reaches the
+  **MAGNETIC branch (Z→0, Γ→−1, the matter wall**, `master-equation.md:85`) on the sech
+  known-positive **with the chiral coupling ON** — NOT the symmetric gravity lens (Z=Z₀, Γ=0, Lane-3)
+  nor the electric/softening branch (Z→∞). **(a)-VIABLE iff it reaches Z→0**; if it only reaches Z→∞
+  / Z₀ it is clamping the wrong wall → (a)-DEAD. **Do NOT take the (b) sign-off until the pre-flight
+  says (a) is DEAD** (Grant 2026-06-15).
 - **Option (b)** = the full A1-cage⊗T2 cross-firewall **"substrate-complete engine that does not
   exist"** (`engine-capability-map.md` §4) — **needs Grant sign-off** per the
   `ave-loop-gap-harness-discipline` anti-loophole guard **+** building a new engine.
@@ -219,16 +251,16 @@ eigencavity structure is a real passive radiating eigenstructure with finite Q"*
 
 ## §11 — Open framing-gate to Grant (pre-freeze; flag-don't-fix)
 
-The auditor surfaced three **physics-framing forks** the lane cannot resolve in-discipline:
+The auditor surfaced three **physics-framing forks**; **Grant RULED (2026-06-15):**
 
-1. **Platform (§7):** option (a) **restricted** hybrid on `CoupledK4Cosserat` (projected scalar +
-   Γ-BC clamp, firewall-legal, no independent A1 cage — a NEGATIVE may be the projection's limit,
-   not a true absence) **vs** option (b) **full** A1-cage⊗T2 cross-firewall engine (needs your
-   sign-off + building the substrate-complete engine, which does not exist). Default (a); your call.
-2. **F3 mechanism (§5):** does the radiative leak go as **bare α (Q≈137)** or the engine's
-   **κ_chiral=α·1.2 (Q≈114)**? Pre-registered as discriminating; flagging because which one fires is
-   load-bearing for the echo/chord read.
-3. **Chord contingency (§6) — correction to the 2026-06-15 headline:** Lane-1's α-free Q leg is the
-   **OPEN Path C** (z₀=52 → 138.9, 1.5% off; both lift-routes closed NEGATIVE), not an established
-   route. The cross-lane chord is **contingent on Path C closing** — not a cross-check available the
-   moment Lane-2 produces a Q.
+1. **Platform (§7) — RULED: run the magnetic-branch pre-flight, decide from the fact.** Greenlit the
+   1-run diagnostic (dispatched, agent `a12b397d4d347be90`); **(a)-VIABLE iff `CoupledK4Cosserat`
+   reaches Z→0 / Γ→−1 (the matter wall) with chiral ON.** **Do NOT take the (b) cross-firewall
+   sign-off until the pre-flight says (a) is DEAD.** Freeze is blocked on the pre-flight result.
+2. **F3 mechanism (§5) — RULED: pre-registered, awareness only.** 137 (bare-α) vs 114 (κ_chiral=α·1.2
+   = the (2,3) factor κ̃); a 114 result = the chiral coupling sets the leak (a real finding). **Not
+   bin-deciding** (§4 — Q is secondary).
+3. **Chord contingency (§6) — RULED: confirmed; α is an ECHO for the z₀ route.** Lane-1 grounding:
+   z₀=52 is a path-PRODUCT coincidence (additive count ≈16 → α⁻¹≈49, off 3×); neither 137 nor 49 is
+   an α-free map → echo. The chord very likely will NOT fire. **∴ Lane-2's deliverable is
+   EXISTENCE + STABILITY (the keystone); Q is secondary** (§4).
