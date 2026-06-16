@@ -761,3 +761,46 @@ residual→0 eigensolve.**
 `phase-space-coordinate-check` (phasor, not real-space) · `ave-driver-script-honesty` (report the
 energy ledger + persistence as measured; do not tune) · `ave-apparatus-floor-attribution`
 (persistence = physics or a pump/box artifact). **C result → adversarial-verify panel → A iff clean.**
+
+---
+
+## §9.1 — OPTION C′ pre-registration amendment (hold the conserved H_bel, NOT the director template; Grant-greenlit 2026-06-16)
+
+**Why the amendment:** C (the per-cell director-template hold) **DISQUALIFIED** — it pumped 56× by
+**overwriting local ω-directions** against the free gradient flow (the verify panel `wvd0c2oib` found
+it held the WRONG object). The corpus's conserved charge is **Beltrami helicity** `H_bel = ∫ω·(∇×ω)`
+(`master-equation.md:20`, verified verbatim), which the engine has as a **local density**
+(`_beltrami_helicity`, `cosserat_field_3d.py:450`, used :521/:581) but does **NOT** track/constrain as
+an integral. C′ holds the **conserved H_bel integral**, the corpus's actual charge.
+
+**HELD OBJECT (corrected):** the conserved **H_bel = ∫ω·(∇×ω)** (a single global topological invariant),
+NOT the per-cell director template. On the **independent Cosserat-ω carrier** (phase-space; NEVER the
+A1 `(V_inc,V_ref)` phasor — G0-clean preserved).
+
+**MECHANISM:** a **NO-WORK constraint** that holds H_bel at its (2,3) target — **energy-neutral BY
+CONSTRUCTION** (a Lagrange-multiplier / symplectic-orthogonal correction projected ⊥ the energy
+gradient; the gentle global constraint, NOT the brute per-cell overwrite). Build the integral on
+`_beltrami_helicity`; the correction must do **zero work by design** (verify via the ledger, but
+design it neutral — unlike C where neutrality was only *measured*, and failed).
+
+**PHYSICS:** conserving H_bel **protects the (2,3) topology** — the winding cannot disperse without
+changing the helicity, which the constraint forbids. **KEY DESIGN CHECK:** verify that conserving the
+*scalar* H_bel actually **maintains the (2,3) winding PAIR** (toroidal-2 + poloidal-3 via
+`extract_2_3_omega_fast`). If H_bel-conservation does NOT maintain (2,3), that is a **finding** (the
+scalar helicity is too coarse to pin the pair) — report it, do not force.
+
+**DISCRIMINATOR (same §9 bins; NEGATIVE is now EARNED because the hold is conservative):**
+- **POSITIVE (C′-clear → A):** the H_bel-held mass-breather **persists** (bounded, recurrent,
+  F2-stable over many breaths), the **(2,3) is maintained**, AND the hold is **energy-neutral** (ledger
+  flat by construction). → the mass-cavity carries the conserved charge stably → build A (the
+  residual→0 eigensolve; target eigenvalue **Q = α⁻¹ ≈ 137**, chord/echo per §6).
+- **NEGATIVE (now meaningful):** even with H_bel held **conservatively**, the breather decays /
+  destabilizes → the sectors do not cohabit → keystone leans negative (EARNED, not the pump-masked C).
+- **🔴 DISQUALIFY:** even the H_bel constraint **pumps** (it shouldn't, if built no-work) → the
+  mechanism is still wrong; report + do not bank.
+
+**Guards:** `ave-conserved-vs-pumped` (energy-neutral BY CONSTRUCTION, the full-Hamiltonian witness —
+not `sum(ω²)`, the C false-positive) · `substrate-native-check` · `phase-space-coordinate-check` ·
+`ave-driver-script-honesty` · `ave-apparatus-floor-attribution`. **C′ result → adversarial-verify →
+A iff clean.** Persist the (still-missing) C soft-sweep artifact or scope its "no-window" claim to
+hard-hold (A47, deferred-not-blocking).
