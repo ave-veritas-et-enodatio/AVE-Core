@@ -90,6 +90,7 @@ import argparse
 import json
 from dataclasses import dataclass, field
 
+import jax.numpy as jnp
 import numpy as np
 
 from ave.core.constants import ALPHA
@@ -101,7 +102,12 @@ from ave.utils.fast_winding_extractor import (
     extract_2_3_omega_fast,
     planted_winding_field,
 )
-from ave.topological.held_bc_winding import WindingHold  # OPTION C: the conservative (2,3)-hold
+from ave.topological.held_bc_winding import WindingHold  # OPTION C: the per-cell director-template hold (DISQUALIFIED, kept for audit)
+from ave.topological.held_helicity_winding import (  # OPTION C': the NO-WORK Beltrami-helicity hold
+    HelicityHold,
+    H_bel_raw,
+    H_bel_normalized_sum,
+)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Coupling-binding declaration (prereg §6, the echo/chord verdict hinges on this):
@@ -1141,6 +1147,107 @@ def run_option_C(cfg: RunConfig) -> dict:
     return out
 
 
+def run_option_Cprime(cfg: RunConfig) -> dict:
+    """OPTION C′ probe (prereg §9.1): does the H_bel-held mass-breather PERSIST when the
+    conserved Beltrami-helicity charge H_bel = ∫ω·(∇×ω)dV is held NO-WORK (energy-neutral
+    BY CONSTRUCTION)? ENERGY-LEDGER FIRST (the DISQUALIFY guard, the FULL total_hamiltonian
+    trajectory — NOT sum(ω²)), then the (2,3)-PAIR maintenance KEY DESIGN CHECK, then bin.
+
+    Differs from run_option_C: the held object is the conserved H_bel INTEGRAL (the corpus
+    charge), held via the Gram-Schmidt energy-orthogonal correction (held_helicity_winding.
+    HelicityHold) — NOT the per-cell director template (held_bc_winding.WindingHold, which
+    pumped 56× → DISQUALIFY).
+
+    ave-conserved-vs-pumped: read the ledger BEFORE persistence; ave-driver-script-honesty:
+    report the ledger + persistence + the (2,3)-maintenance AS MEASURED -- do NOT tune."""
+    out = {}
+
+    # ---- hold-ON run (coupling ON + NO-WORK H_bel hold ON) ----
+    eng_w_seed = seed_omega_carrier(cfg)
+    hold = HelicityHold.from_engine(eng_w_seed, cfg.dx)
+    out["H_bel_target"] = float(hold.H_bel_target)
+    out["H_bel_normalized_sum_seed"] = float(
+        H_bel_normalized_sum(jnp.asarray(eng_w_seed.omega), cfg.dx)
+    )
+    out["held_charge"] = "H_bel_raw = INT omega.(curl omega) dV (corpus charge, master-equation.md)"
+    out["FLAG_spec_vs_code"] = (
+        "prereg §9.1 LITERAL formula sum(_beltrami_helicity)*dx^3 sums the NORMALIZED "
+        "handedness (91.5% vacuum-cell artifact, ~137 coincidental); C′ holds the RAW "
+        "integral the corpus charge=helicity claim + §9.1 PROSE name. Both recorded."
+    )
+    res_on = run_hybrid_breather(cfg, drive=False, hold=hold)
+
+    # ---- ENERGY LEDGER FIRST (the DISQUALIFY guard, §9.1) ----
+    # The decisive pump witness = the FULL omega-sector total_hamiltonian TRAJECTORY ramp
+    # (ledger.H_total_after = eng_w.total_hamiltonian() AFTER each no-work correction),
+    # NOT sum(omega^2) (the C false-positive guard-bug, fixed 86c1a641).
+    led = hold.ledger.summary()
+    traj = _omega_energy_trajectory_ramp(hold.ledger.H_total_after)
+    _, neutral_design = hold.is_energy_neutral()
+    trajectory_pumps = not traj["trajectory_bounded"]
+    hold_pumps = trajectory_pumps
+    out["energy_ledger"] = led
+    out["omega_energy_trajectory"] = traj
+    out["no_work_orthogonality_cos_max"] = float(led.get("orthogonality_cos_max_abs", float("nan")))
+    out["charge_held_to_target_rel_err_max"] = float(led.get("charge_rel_err_to_target_max", float("nan")))
+    out["hold_pumps"] = bool(hold_pumps)
+
+    # ---- hold-OFF contrast (coupling ON, NO hold = the seed-and-evolve apparatus floor) ----
+    res_off = run_hybrid_breather(cfg, drive=False, hold=None)
+    f4_off = read_F4_winding(res_off)
+    f4_on = read_F4_winding(res_on)
+    out["hold_off_F4_winding_conserved"] = bool(f4_off["F4_winding_conserved"])
+    out["hold_off_frac_tail_2_3"] = float(f4_off["fraction_tail_reads_2_3"])
+
+    # ---- KEY DESIGN CHECK (§9.1): does holding the SCALAR H_bel MAINTAIN the (2,3) PAIR? ----
+    # Read the (toroidal-2, poloidal-3) pair on the HELD run via extract_2_3_omega_fast.
+    # If the scalar constraint is too coarse to pin the pair (it drifts off (2,3) while
+    # H_bel stays flat), that is a FINDING -- report it, do NOT force.
+    out["hold_on_F4_winding_conserved"] = bool(f4_on["F4_winding_conserved"])
+    out["hold_on_frac_tail_2_3"] = float(f4_on["fraction_tail_reads_2_3"])
+    pair_maintained = bool(f4_on["F4_winding_conserved"])
+    out["pair_2_3_maintained_by_scalar_hold"] = pair_maintained
+    out["pair_maintenance_reading"] = (
+        "holding the SCALAR H_bel MAINTAINS the (2,3) pair (frac_tail %.2f >= 0.5)"
+        % f4_on["fraction_tail_reads_2_3"]
+        if pair_maintained else
+        "FINDING: the SCALAR H_bel is TOO COARSE to pin the (2,3) PAIR -- it drifts off "
+        "(2,3) (frac_tail %.2f < 0.5) while H_bel stays held (charge rel-err %.1e). "
+        "Reported, NOT forced (§9.1 KEY DESIGN CHECK)."
+        % (f4_on["fraction_tail_reads_2_3"], out["charge_held_to_target_rel_err_max"])
+    )
+
+    # ---- persistence reads on the HOLD-ON run (cyclic/time-averaged, §9.1 / hazard 10) ----
+    dt = seed_vtank(cfg).dt
+    f1_on = read_F1_existence(res_on, cfg)
+    f2_on = read_F2_stability(res_on, cfg, dt, jitter_floor=0.0)
+    out["F1_held_breather_exists"] = f1_on
+    out["F2_held_breather_stable"] = f2_on
+
+    # ---- BIN per §9.1 (DISQUALIFY decided FIRST, BEFORE persistence) ----
+    persists = bool(f1_on["F1_breather_exists"] and f2_on["F2_stable"])
+    if hold_pumps:
+        c_bin = "DISQUALIFY"
+        reading = ("even the NO-WORK H_bel constraint PUMPS (the omega-sector total_hamiltonian "
+                   "trajectory RAMPS) -> the mechanism is still wrong; report, do NOT bank a "
+                   "physics verdict (prereg §9.1 DISQUALIFY).")
+    elif persists and pair_maintained:
+        c_bin = "POSITIVE"
+        reading = ("the H_bel-held mass-breather PERSISTS (bounded, recurrent, F2-stable), the "
+                   "(2,3) pair is MAINTAINED, AND the hold is ENERGY-NEUTRAL (ledger flat by "
+                   "construction) -> the mass-cavity carries the conserved charge stably -> "
+                   "C′-clear, build A (prereg §9.1 POSITIVE).")
+    else:
+        c_bin = "NEGATIVE"
+        reading = ("even with H_bel held CONSERVATIVELY (energy-neutral), the breather decays/"
+                   "destabilizes OR the (2,3) pair is not maintained -> the sectors do not "
+                   "cohabit -> keystone leans negative (EARNED, not pump-masked; §9.1 NEGATIVE).")
+    out["C_BIN"] = c_bin
+    out["C_reading"] = reading
+    out["held_breather_persists"] = persists
+    return out
+
+
 # ============================================================================
 # section: robustness sweep (v_width / dx / box) -- FIRST-CLASS axis (option (a))
 # ============================================================================
@@ -1211,7 +1318,8 @@ def sweep_existence(base: RunConfig) -> dict:
 # ============================================================================
 # section: run-all orchestration (gates -> production -> bin -> report)
 # ============================================================================
-def run_all(cfg: RunConfig, do_sweep: bool = True, hold_winding: bool = False) -> dict:
+def run_all(cfg: RunConfig, do_sweep: bool = True, hold_winding: bool = False,
+            hold_helicity: bool = False) -> dict:
     out = {"config": cfg.__dict__.copy(), "constants_crosscheck": _verify_constants()}
     print("=" * 90)
     print("PASSIVE WINDING-PROTECTED ELECTRON EIGENMODE -- PRODUCTION DRIVER (the keystone)")
@@ -1295,6 +1403,41 @@ def run_all(cfg: RunConfig, do_sweep: bool = True, hold_winding: bool = False) -
         print("=" * 90)
         return out
 
+    # ---- OPTION C′ (prereg §9.1): NO-WORK Beltrami-helicity hold breather-persistence ----
+    if hold_helicity:
+        print("-" * 90)
+        print("OPTION C' -- NO-WORK Beltrami-helicity (H_bel) hold breather-persistence (prereg §9.1):")
+        print("   held charge = H_bel = INT omega.(curl omega) dV (the corpus charge); energy")
+        print("   LEDGER read FIRST = the FULL total_hamiltonian trajectory (DISQUALIFY guard)")
+        c = run_option_Cprime(cfg)
+        out["option_Cprime"] = c
+        traj = c["omega_energy_trajectory"]
+        print(f"   [FLAG] {c['FLAG_spec_vs_code']}")
+        print(f"   [held] H_bel_target = {c['H_bel_target']:.4e}  "
+              f"(spec-literal normalized-sum seed = {c['H_bel_normalized_sum_seed']:.2f}, NOT held)")
+        print(f"   [no-work] orthogonality cos(g_perp,e) max = {c['no_work_orthogonality_cos_max']:.2e} "
+              f"(want ~0; energy-neutral BY CONSTRUCTION)")
+        print(f"   [held] charge held to target, rel-err max = {c['charge_held_to_target_rel_err_max']:.2e}")
+        print(f"   [LEDGER] omega-sector total_hamiltonian TRAJECTORY: "
+              f"ramp={traj.get('ramp_factor', float('nan')):.3f}x "
+              f"bounded={traj.get('trajectory_bounded')}")
+        print(f"   [LEDGER] HOLD PUMPS = {c['hold_pumps']}  "
+              f"{'(-> DISQUALIFY)' if c['hold_pumps'] else '(conservative -- NEGATIVE is now EARNED)'}")
+        print(f"   [hold OFF] winding (2,3) conserved = {c['hold_off_F4_winding_conserved']} "
+              f"(frac_tail={c['hold_off_frac_tail_2_3']:.2f})  [seed-and-evolve apparatus floor]")
+        print(f"   [KEY DESIGN CHECK] scalar H_bel MAINTAINS the (2,3) pair = "
+              f"{c['pair_2_3_maintained_by_scalar_hold']} (frac_tail={c['hold_on_frac_tail_2_3']:.2f})")
+        print(f"      {c['pair_maintenance_reading']}")
+        print(f"   [hold ON ] F1 breather exists = {c['F1_held_breather_exists']['F1_breather_exists']} "
+              f"(v_tail/seed={c['F1_held_breather_exists']['v_peak_tail_over_seed']:.3f})")
+        print(f"   [hold ON ] F2 breather stable = {c['F2_held_breather_stable']['F2_stable']} "
+              f"(lambda={c['F2_held_breather_stable']['envelope_growth_rate_lambda']:.4f})")
+        print("-" * 90)
+        print(f"   OPTION C' BIN = {c['C_BIN']}")
+        print(f"   {c['C_reading']}")
+        print("=" * 90)
+        return out
+
     # ---- production hybrid breather solve (passive, no drive) ----
     print("-" * 90)
     print("PRODUCTION coupled (V,omega) hybrid breather solve (passive, NO drive):")
@@ -1365,14 +1508,19 @@ def main():
     ap.add_argument("--no-sweep", action="store_true", help="skip the robustness sweep")
     ap.add_argument("--hold-winding", action="store_true",
                     help="OPTION C (prereg §9): held-BC (2,3)-winding breather-persistence probe "
-                         "(energy ledger FIRST, then bin POSITIVE/NEGATIVE/DISQUALIFY)")
+                         "(per-cell director template; DISQUALIFIED, kept for audit)")
+    ap.add_argument("--hold-helicity", action="store_true",
+                    help="OPTION C' (prereg §9.1): NO-WORK Beltrami-helicity (H_bel=INT omega.curl omega) "
+                         "hold breather-persistence probe (full-Hamiltonian ledger FIRST, (2,3)-pair "
+                         "maintenance KEY DESIGN CHECK, then bin POSITIVE/NEGATIVE/DISQUALIFY)")
     ap.add_argument("--json-out", type=str, default="")
     args = ap.parse_args()
     cfg = RunConfig(
         N=args.N, R=args.R, r=args.r, dx=args.dx, v_width=args.v_width, v_amp=args.v_amp,
         pml_thickness=args.pml, n_steps=args.steps, sample_every=args.sample_every,
     )
-    out = run_all(cfg, do_sweep=not args.no_sweep, hold_winding=args.hold_winding)
+    out = run_all(cfg, do_sweep=not args.no_sweep, hold_winding=args.hold_winding,
+                  hold_helicity=args.hold_helicity)
     if args.json_out:
         with open(args.json_out, "w") as f:
             json.dump(out, f, indent=2, default=lambda o: getattr(o, "__dict__", str(o)))
