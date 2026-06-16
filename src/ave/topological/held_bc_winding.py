@@ -1,5 +1,25 @@
 """The CONSERVATIVE (2,3)-winding HOLD — the held-BC machinery (OPTION C; A-reusable).
 
+🔴 AUDIT HEADER (2026-06-15, OPTION C live-fire — Rule-12, body preserved below):
+    The "ENERGY-NEUTRAL / CONSERVATIVE constraint" claim is FALSIFIED for the POTENTIAL
+    (gradient/curvature) term. The magnitude-lock DOES hold the KINETIC energy + |omega|
+    norm EXACTLY (verified to ~1e-14 / ~1e-16 — the kinetic guarantee is real). But the
+    hard per-cell phase projection re-aligns the EVOLVED directions back to the smooth
+    (2,3) template each step, which (a) injects gradient-potential energy, and (b) feeds a
+    perpetual off-free-evolution state that the engine step() amplifies: the omega-sector
+    total_hamiltonian RAMPS ~56x over a 1500-step coupled run (vs a FLAT free run) —
+    a PUMP. Per the energy ledger summary()'s OWN cumulative-injection read, DISQUALIFY
+    fires (correctly). A partial-blend (soft) hold was swept (g∈[0.01,0.5]) and finds NO
+    conservative window: soft holds fail to MAINTAIN the (2,3) (frac~0.05) while hard holds
+    PUMP — so this is NOT a fixable code bug but a structural property of hard-projecting
+    the winding against free Cosserat-omega dynamics on this carrier.
+    CONSEQUENCE: the DISQUALIFY pump-witness MUST be eng_w.total_hamiltonian() (the FULL
+    kinetic+potential ledger, = HoldLedger.total_after), NOT sum(omega^2) / |omega| (the
+    amplitude, which the magnitude-lock holds bounded BY CONSTRUCTION → blind to the pump).
+    OPTION C BIN = DISQUALIFY. A (re)user (OPTION A) must NOT treat this hold as a
+    conservative constraint; it is a hard projection that pumps. The body is preserved for
+    the kinetic-lock machinery + the (correctly-firing) ledger guard.
+
 PURPOSE (lane brief / prereg §9, OPTION C):
     The (2,3) winding is a CONSERVED TOPOLOGICAL INTEGER (charge — a topological
     boundary condition, held by definition; `substrate-native-terminology.md`

@@ -1,0 +1,170 @@
+{
+  "config": {
+    "N": 26,
+    "dx": 0.5,
+    "R": 5.0,
+    "r": 2.5,
+    "v_amp": 0.85,
+    "v_width": 2.5,
+    "omega_amp": 0.3,
+    "pml_thickness": 4,
+    "cfl_safety": 0.4,
+    "n_steps": 1500,
+    "sample_every": 20
+  },
+  "constants_crosscheck": {
+    "Q_TARGET_BARE_ALPHA == 1/ALPHA (prereg \u00a75 F3)": true,
+    "Q_TARGET_KAPPA_CHIRAL == 1/(ALPHA*1.2) (\u00a75 F3)": true,
+    "KAPPA_TILDE == 6/5 (alpha-FREE coupling, \u00a76)": true,
+    "Q targets distinct (137 vs 114 discriminate)": true
+  },
+  "unknot_envelope": {
+    "central_hole_empty": true,
+    "ring_present": true,
+    "n_radial_bands": 1,
+    "single_tube": true,
+    "is_torus_shell": true,
+    "is_0_1_unknot_envelope": true,
+    "support_frac": 0.01456531634046427,
+    "note": "winding nodes fragment |omega|; envelope skeleton is the 0_1 torus"
+  },
+  "gates": {
+    "G0": {
+      "gate": "G0",
+      "w_pol_trajectory": [
+        3,
+        3,
+        3,
+        2
+      ],
+      "w_pol_stays_nonzero": true,
+      "vref_leak_structural": "no V_ref write path (coupling writes omega + scalar V only)",
+      "PASS": true
+    },
+    "G1": {
+      "gate": "G1",
+      "sech": {
+        "vpk0": 0.85,
+        "fwhm0": 1213.0,
+        "vpk_tail_mean": 0.5840542723025501,
+        "fwhm_tail_mean": 1264.9310344827586
+      },
+      "gaussian": {
+        "vpk0": 0.85,
+        "fwhm0": 93.0,
+        "vpk_tail_mean": 0.2412698532807372,
+        "fwhm_tail_mean": 832.0
+      },
+      "sech_retention": 0.6871226732971178,
+      "gaussian_retention": 0.283846886212632,
+      "G1_abs_retention_floor": 0.6,
+      "reproduces_v14_known_positive": true,
+      "detector_discriminates_sech_vs_gauss": true,
+      "core_cells": 5.0,
+      "PASS": true,
+      "NOTE_if_fail": "sech cannot reach the v14 ~0.68 absolute retention at this resolution -> detector UNCERTIFIED -> a NEGATIVE is NOT bankable (t2-genesis lesson). Increase resolution (lower dx / raise core_cells) or shrink the box."
+    },
+    "G2": {
+      "gate": "G2",
+      "lambda_known_decaying": -1.9999999999999996,
+      "lambda_free_breather_reference": -0.0023828467168198657,
+      "jitter_floor_abs": 0.0023828467168198657,
+      "lambda_known_unstable": 5.0,
+      "sign_discriminated": true,
+      "gain_separated_from_floor": true,
+      "reads_sign_correctly": true,
+      "PASS": true,
+      "note": "F2 'no gain' uses lambda <= +jitter_floor (the bounded-breather jitter), not strictly <= 0 -- a near-flat breather is stable, not a gain mode."
+    },
+    "G3": {
+      "gate": "G3",
+      "Q_analytic_known_resonator": 25.0,
+      "Q_measured": 24.985764541204286,
+      "rel_err": 0.0005694183518285456,
+      "accounting_validated": true,
+      "PASS": true
+    },
+    "G4": {
+      "gate": "G4",
+      "planted": "(2,3) traveling",
+      "read_back": [
+        2,
+        3
+      ],
+      "is_2_3": true,
+      "rel_tor": 0.7112623825719864,
+      "rel_pol": 0.8582583415412228,
+      "r_cells": 2.5,
+      "r_clear_of_collapse_zone": true,
+      "PASS": true
+    }
+  },
+  "all_gates_pass": true,
+  "G1_absolute_certified": true,
+  "co_resolution": {
+    "G1_wall_certified": true,
+    "G4_winding_certified": true,
+    "co_resolved_on_one_lattice": true,
+    "sech_retention": 0.6871226732971178,
+    "G1_abs_floor": 0.6,
+    "note": "G1 (wall self-focuses to the v14 ~0.68 absolute) AND G4 (winding reads (2,3)) on the SAME lattice. If NOT co-resolved -> option-(b) structural finding (wall + winding at incompatible length scales)."
+  },
+  "option_C": {
+    "energy_ledger": {
+      "n_applications": 1500,
+      "kinetic_delta_max_abs": 2.2737367544323206e-13,
+      "kinetic_delta_mean": -3.432809592140984e-16,
+      "total_injection_per_app_mean": 0.47531497739332157,
+      "total_injection_per_app_max": 0.869214570925692,
+      "total_injection_cumulative": 712.9724660899824,
+      "total_injection_fraction_per_app_mean": 0.0010811211884683162,
+      "total_injection_fraction_cumulative": 1.6216817827024745,
+      "omega_norm_delta_max_abs": 7.105427357601002e-15,
+      "omega_norm_relative_drift_max": 2.3457810642572296e-16,
+      "energy_scale_median": 439.6500433653755,
+      "norm_lock_ok": true,
+      "cumulative_neutral": false,
+      "frac_tol": 0.02,
+      "energy_neutral": false,
+      "DISQUALIFY_if_pumps": true
+    },
+    "omega_energy_trajectory": {
+      "trajectory_quantity": "eng_w.total_hamiltonian (kinetic + gradient potential)",
+      "omega_H_first": 12.200527695506912,
+      "omega_H_last": 692.5622163229156,
+      "omega_H_max": 692.5622163229156,
+      "ramp_factor": 56.76493948519665,
+      "rel_slope_per_sample": 0.00122167527448844,
+      "trajectory_bounded": false
+    },
+    "kinetic_magnitude_locked": true,
+    "hold_pumps": true,
+    "hold_off_F4_winding_conserved": false,
+    "hold_off_frac_tail_2_3": 0.0,
+    "hold_on_F4_winding_conserved": true,
+    "hold_on_frac_tail_2_3": 0.7666666666666667,
+    "F1_held_breather_exists": {
+      "falsifier": "F1",
+      "bounded_no_blowup": true,
+      "fwhm_bounded": true,
+      "sustains_self_focused_core": true,
+      "true_wall_persists": true,
+      "v_peak_tail_over_seed": 0.6808500111673813,
+      "gamma_true_tail_median": -0.05250182758378287,
+      "fwhm_tail_frac_of_box": 0.07193900773782431,
+      "F1_breather_exists": true
+    },
+    "F2_held_breather_stable": {
+      "falsifier": "F2",
+      "envelope_growth_rate_lambda": -0.011186439522092272,
+      "energy_ledger_growth_rate": -0.012860470681538665,
+      "jitter_floor_used": 0.0,
+      "no_gain_no_runaway": true,
+      "F2_stable": true
+    },
+    "C_BIN": "DISQUALIFY",
+    "C_reading": "the (2,3)-hold INJECTS ENERGY (the omega-sector energy trajectory RAMPS = a pump, not a conservative constraint) -> a 'persistent' held-breather would be a PUMPED ARTIFACT, NOT bankable as POSITIVE (ave-conserved-vs-pumped, prereg \u00a79 DISQUALIFY).",
+    "held_breather_persists": true,
+    "winding_held_on": true
+  }
+}
