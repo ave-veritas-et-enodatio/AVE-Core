@@ -1291,6 +1291,26 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   plane normalization (one honest free sub-choice). Branch `analysis/2026-06-16-stage16-k4tlm-bounded-wall`
   tip `c5595558`, 4 commits ahead of `2a83808c`, NOT merged.
 
+- **2026-06-16 (Phase 23 — 🟢 DISPATCHED: the bug-vs-substrate DISCRIMINATOR per #274, two parallel builds)** —
+  Grant authorized + handed a corrected/sharper spec (#274, `_orchestration/2026-06-16_keystone-discriminator-
+  spec.md`, pre-flight `wyxd80ct2`). Three sharpenings over the Phase-22 recommendation: (1) genesis-24's pump
+  is grep-corrected to the **EMF-reciprocal** channel — mechanistically DISTINCT from Phase-22's conservative-
+  potential `V·Ξ` — so the prior leans fixable-artifact (prime suspect = the mid-Verlet **mask projection**
+  `_zero_outside_alive`) but the burden is UNDISCHARGED (2nd time this pump-family called "a bug" → must be
+  FORCED); (2) the proof must account the **boundary flux `∮(gV)(ω×n̂)dS` on the active Γ=−1 wall** — bulk-
+  cancels-but-boundary-pumps = **BOUNDARY-INJECTION**, a 3rd outcome; (3) the ladder is **nested** on a closed
+  interior box `B_int` (guard band ≥ stencil_radius + n_sub_cos·c·dt), with **RUNG-0 BASELINE-CLEAN the gate
+  the Phase-22 build SKIPPED**. **5 frozen bins:** HARNESS-DIRTY / PROJECTION-PUMP / INTEGRATOR-ARTIFACT /
+  SUBSTRATE-PUMP / BOUNDARY-INJECTION. Dispatched as TWO parallel worktree-isolated `ave-implementer`s off
+  `c5595558`: **PIECE 2 ladder** (`a06ad935`, branch `…-keystone-discriminator-ladder`) = RUNG-0 baseline-clean
+  → RUNG-1 +projection → RUNG-2 +coupling forced-overlap dt→0 climb-rate (→0=BUG/keystone-open, plateau=
+  SUBSTRATE/keystone-negative); **PIECE 1 proof** (`aaa95f9d`, branch `…-keystone-discriminator-proof`) = the
+  IBP `dH_c/dt` with the boundary term, outcome CLEAN-CONTINUUM-CONSERVATIVE / BOUNDARY-INJECTION /
+  CONTINUUM-PUMPS. **GATE (ultracode, keystone-verdict-grade): on return, an ADVERSARIAL WORKFLOW re-verify
+  panel** (independent skeptics on each rung + the dt→0 fit + the boundary-flux proof, tasked to refute the
+  "bug" reading — the genesis-24 prior demands the verdict be stress-tested, not accepted) → THEN fork to Grant
+  with the deciding numbers. **No Phase-23 RESULT bank, no merge, until the re-verify clears.**
+
 ## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
 
 **🟢 HELD OBJECT (explicit, per Grant — so a verifier cannot misread):** the held object is the
