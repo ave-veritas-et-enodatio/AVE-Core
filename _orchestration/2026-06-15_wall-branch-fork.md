@@ -80,13 +80,17 @@ The equilibrium Z curve is degenerate (§2a). Candidate discriminators that are 
 
 ## 5. Arc plan (phases)
 
-- **Phase 1 — corpus map + prereg** (IN PROGRESS): exhaustively verify the fork's full corpus state (close gaps: `translation-circuit.md`:464,526; `trampoline-framework.md`:641 §6.1 Möbius; cvr-ee-sweep handoff; vol3 `bulk-impedance-at-saturation-boundary` + `electron-bh-isomorphism`; L3 archive); ADVERSARIALLY verify the §2d contradiction + the §2e gauge-dissolution; check engine reality (does crystal_engine/cosserat evolve C_eff vs L_eff independently?). Then write + **Rule-11 freeze** the prereg.
-- **Phase 2 — auditor-gate:** ave-auditor reviews the frozen prereg + contradiction map against verified corpus state.
-- **Phase 3 — driver:** analytical adjudication (constitutive law + static-field loading + gauge test) + optional engine formation-order probe; adversarially verified.
-- **Phase 4 — result + adjudicate to Grant:** result doc; flag-don't-fix the precise state + recommendation + A1-vs-T2 knock-on; inline options for Grant.
+- **Phase 1 — corpus map + prereg** ✅ DONE (workflow `wf_c8a6cb2d-a99`, 10 agents): see §8. Prereg FROZEN at [`research/2026-06-15_wall-branch-fork_prereg_FROZEN.md`](../research/2026-06-15_wall-branch-fork_prereg_FROZEN.md).
+- **Phase 2 — auditor-gate** (NEXT): ave-auditor independently verifies the §8 synthesis + frozen prereg against corpus (auditor-not-exempt).
+- **Phase 3 — driver:** the analytical/corpus-map workflow IS the driver (§6 of prereg). A fresh engine driver is NOT run — justified: it reconstructs a degenerate (crystal_engine single-kernel) or assumption-baked (Cosserat (1±κh) sign) path.
+- **Phase 4 — result + adjudicate to Grant:** result doc; flag-don't-fix; inline options.
 
-## 6. Open questions for Grant (stub — populated at Phase 4)
-- (pending Phase 3)
+## 6. Open questions for Grant (flag-don't-fix — populated from Phase 1)
+
+1. **Ratify the verdict: B3 DEGENERATE.** The magnetic-vs-capacitive fork is NOT a substrate-forced independent branch — at trace-free K=2G the ε and μ sectors CO-SATURATE (A-034:14); the asymmetry is a **chirality-set SIGN/spin selector** (μ-first→Γ−1, ε-first→Γ+1; `l3-synthesis`:144), not a derived branch. Accept B3? Or do you read a substrate-forced first-sector (B1/B2)?
+2. **"Magnetic PRIMARY" is asserted, not derived** (clm-lv3uw1 0.50/0.32; cvr handoff "PRIMARY by mandate"). Recommend DEMOTING it from a quasi-derived claim to an explicit chirality-conventional sign-assignment. Agree?
+3. **A1-vs-T2 knock-on:** mass=A1 is settled (ontology, `master-equation.md`:20). Since the wall is co-built (not uniquely T2/charge-winding), the fork does NOT independently decide "which 3 carries mass." Confirm the fork is mute on the mass-sector question (mass already A1), and the only live residue is the wall's chirality-SIGN.
+4. **Two fixable corpus defects surfaced** (flag-don't-fix → your call whether this lane fixes them or spawns): (a) `resonant-lc-solitons.md`:38 derives the right Z→0 by a dimensionally-irregular capacitive route (μ₀-for-L) that contradicts the taxonomy's capacitive→Z→∞; (b) the impedance-operator ambiguity self-flagged at `vol1/claim-quality.md`:731 (Z→0 knot-core vs Z=Z₀-invariant SYM).
 
 ## 7. Verified-citation ledger (verify-before-cite)
 | Claim | Source | Verified |
@@ -98,7 +102,27 @@ The equilibrium Z curve is degenerate (§2a). Candidate discriminators that are 
 | 2026-06-02 dual-branch table | `dual-reactance-storage-taxonomy.md`:193-206 | ✅ |
 | 2026-06-13 gauge recontextualization | `cvr-reflection-smith.md`:67 | ✅ |
 | varactor C_eff + varinductor L_eff (two reactances) | `cosserat_field_3d.py`:411-413 | ✅ |
-| branch↔sector "canonical" | `translation-circuit.md`:464,526 | ⏳ Phase 1 |
-| Möbius gauge pair | `trampoline-framework.md`:641 §6.1 | ⏳ Phase 1 |
+| branch↔sector "canonical" | `translation-circuit.md`:**491** (NOT :464/:526 = table separators) | ✅ APPLIED back-cite to clm-lv3uw1, not derived; "canonical, not asserted" lives in `dual-reactance-storage-taxonomy.md`:198, self-classed Class-B near-definitional (:219-223) |
+| Möbius gauge pair | `trampoline-framework.md`:**643** (cited :641 §6.1; heading reads §4.1) | ✅ rigorous BUT for INSIDE/OUTSIDE Γ-sign axis, ORTHOGONAL to μ-vs-C route axis; does NOT dissolve formation-order residue |
+| L3 originating adjudication (μ-first, chirality-set) | `_archive/L3_electron_soliton/54_*`:167,199,250; `A-034`:14 | ✅ |
+| trace-free K=2G locks ε↔μ (co-saturate) | `A-034`:14; `crystal_engine` single-kernel | ✅ |
+| crystal_engine = single symmetric kernel (no μ/ε split) | `crystal_engine.py`:18-20,191-200 | ✅ |
+| Cosserat μ-first = hand-set by (1±κh) sign | `cosserat_field_3d.py`:522-530 | ✅ |
+| NO varinductor L_eff(I) in executed code | grep L_eff/varinductor/I_max = ∅ | ✅ comment-only at `cosserat_field_3d.py`:411-413 |
+| impedance-operator ambiguity self-flag | `vol1/claim-quality.md`:731 | ✅ |
+
+## 8. Phase-1 synthesis (verified; workflow `wf_c8a6cb2d-a99`, 10 agents, verbatim-grounded)
+
+**The fork is NOT an independent substrate-forced physical branch.** Layers, none yielding a unique sector:
+1. **DEGENERATE on every equilibrium observable** (Z=Z₀√S, |Γ|=1 both ways; FLAG-2 + `cvr_model.py`:144 "SAME trajectory — only the moved parameter differs"). Naive discriminator dead by construction.
+2. **Substrate DEFAULT = co-saturation (symmetric), locked by trace-free K=2G** (`A-034`:14 ε,μ saturate at same A; `crystal_engine` single symmetric kernel; `l3-synthesis`:144 both give |Γ|=1). Absent chirality bias the sectors are LOCKED — genuinely degenerate.
+3. **The asymmetry (which-first) is a CHIRALITY-SET SIGN/SPIN selector, not a derived branch.** μ-first→Γ=−1 (one chirality); ε-first→Γ=+1 (conjugate). Canonical electron conventionally μ-first but **asserted-not-derived** (clm-lv3uw1 0.50/0.32; clm-5fu303 0.45; cvr "PRIMARY by mandate"; `54_*`:250 "either sector CAN fire first… chirality picks which").
+4. **Pre-thesis "static-loading→capacitive" REFUTED** — ε-only static state is the Z→∞ rupture branch, not confinement; soliton rings (∂B/∂t present), static premise fails. (Phase-0 anchoring caught by the adversarial gate.)
+5. **Engine cannot independently resolve it** — `crystal_engine` single-kernel/degenerate; Cosserat magnetic-first **hand-assigned by (1±κh) sign**; no temporal first-cross observer. An engine driver reconstructs an assumption-baked/degenerate path. NOT warranted.
+6. **Live corpus tensions** (flag-don't-fix): `resonant-lc-solitons.md`:38 capacitive-route defect (μ₀-for-L, contradicts taxonomy); impedance-operator ambiguity (`vol1/claim-quality.md`:731).
+
+**Adversarial verdicts:** contradiction-real = CONFIRMED-REAL (high); gauge-dissolution = PARTIAL (high, formation-order residue survives); static-loading = REFUTED-RECONCILED (high).
+
+**Knock-on to A1-vs-T2:** mass=A1 SETTLED by ontology (`master-equation.md`:20, Grant-ratified). Wall is **co-built** (not uniquely T2) → fork does NOT independently decide which "3" carries mass; mass already A1; only live residue = wall's **chirality-SIGN**. "Magnetic PRIMARY" IF ratified ⇒ T2/charge-winding builds the wall confining the A1/mass — but a labeling default, not derived.
 
 > NOTE on line-number drift: claim-quality/taxonomy cite `master-equation.md`:78-79,81 for the branch text; the live `.md` carries it at :84-87. Content verified; cite the live `.md` lines.
