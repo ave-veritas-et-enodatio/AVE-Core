@@ -826,7 +826,7 @@ The following Q-G## items are **structurally open** (foundational or QED-loop de
 |---|---|---|---|
 | **Q-G34** | Axiom 0: pre-geodesic plasma axiomatization | 2-3 sessions | Foundational — deepest open piece; needed for Q-G31, Q-G33, Q-G35 |
 | **Q-G40** | First-principles K4 → 7-mode derivation (not reverse-interpretation) | 2-3 sessions | Foundational; separates 7 as derivative vs primary; underlies $\nu_{\text{vac}} = 2/7$ |
-| **Q-G41** | Derive $K = 2G$ from K4 topology as topological inevitability | multi-week | Parent question to Q-G47; deepest substrate invariant |
+| **Q-G41** 🔴 **CLOSED-NEGATIVE 2026-06-15** | ~~Derive $K = 2G$ from K4 topology as topological inevitability~~ — **NOT a topological inevitability, NOR a chiral-LC constitutive one.** Two-phase forward computation (PR #261, both auditor-gates PASS): (Ph1) z=4 K4 is sub-isostatic (Maxwell $z<2d=6$) ⟹ $K/G$ is an unforced one-parameter family in $\rho=k_a/k_s$ (real diamond $\nu\approx0.067\neq2/7$); (Ph2) the constitutive bridge $\rho=k_a/k_s=Z_{\rm eff}^2$, and on the SYM / $\Gamma{=}0$ gravity-null branch where K=2G lives ($\varepsilon,\mu$ co-scale, $Z_{\rm eff}=Z_0$) the operating-point factor is **invariant** ⟹ neither the geometry nor the operating point selects K=2G. **K=2G is the GR trace-reversal — IMPORTED.** Row text preserved per Rule 12. | — (closed) | `research/2026-06-15_k2g-crystalline-provenance_result.md` + `…_k2g-constitutive-provenance_result.md`; independently corroborates the 2026-06-14 magic-angle audit (K=2G IMPORTED) |
 
 ### QED loop observables (remaining pieces)
 
