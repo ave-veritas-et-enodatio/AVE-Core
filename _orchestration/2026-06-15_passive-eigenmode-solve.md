@@ -1122,6 +1122,24 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   implementer's own validation already shows AMBIGUOUS-BC + the broken baseline → expect a 2nd
   FIX-BEFORE-DISPATCH (bound the wall + sub-yield + re-frame) before Q3. Surface to Grant + the audit lane.**
 
+- **2026-06-16 (Phase 18 — DOC-BACKFILL COMPLETE [Grant ruled Q1=land-before-merge, Q2=result-MD-per-gate-step];
+  arc now auditor-reconstructable FROM THE LEAVES)** — workflow `wnzalqm02` (3 worktree-isolated agents, `make
+  verify` PASS each): **(1) heldbc** — C′ re-bin `6f4da77c` (Rule-12 demotion header top+§5 + JSON sibling
+  `C_reading_rule12_correction`: "NEGATIVE-earned" → DISQUALIFY-WRONG-OBJECT / scalar-route CLOSED-NEGATIVE,
+  cohabitation UNTESTED) + driver NEGATIVE-A annotation `7d1341ac` (mis-binned per `w92ft1gkc` + superseded
+  Phase-8); all additive, original text preserved. **(2) stage16** — the missing Stage-1.6 result MD
+  `d61e6530` (`research/2026-06-16_stage16-moving-wall-sectorB_result.md`): the PUMPS + WALL-CONFINES-BUT-LOOP-INERT
+  + the grid-registration-artifact diagnostic, grounded vs the JSON. **(3) zwall** — Stage-1 gate result MD
+  `55d27c04` (`research/2026-06-16_stage1-gate-boundary-mqj_result.md`): bucket-2 + the 4 corrections (incl.
+  the 11.9P long-window number, was tracker-only). With the Stage-1.5(c) retraction (`2a83808c`) already in,
+  **all 3 stale leaves are corrected + both gate-steps have result MDs — a corpus-grep reader now hits the
+  CORRECTED verdict on every leaf.** Arc INDEX flipped to COMPLETE-from-leaves. **REMAINING (non-blocking,
+  separate PR — Q3-dispatch owner):** §11 EE-sweep + §12 toolkit-audit + the dimensional-analysis lane still
+  live only in the tracker → land in `ave-analytical-toolkit-index.md` via the queued toolkit-index PR. **The
+  Grant-merge gate is now SATISFIED for the stale-leaf precondition** — when Grant runs #271→#270→#269 +
+  the arc branches, no falsified verdict rides into main. **Q3 unchanged: held for the bounded-wall build
+  (auditor v2 `w8qwhtslt` pending fold-in-vs-build + the catch-22).**
+
 ## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
 
 **🟢 HELD OBJECT (explicit, per Grant — so a verifier cannot misread):** the held object is the
