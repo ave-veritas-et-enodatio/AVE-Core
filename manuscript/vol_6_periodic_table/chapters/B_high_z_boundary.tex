@@ -8,7 +8,8 @@ This section quantifies the accuracy frontier rigorously. The engine was run acr
 \subsection{Regime Classification}
 
 \begin{enumerate}
-    \item \textbf{Analytic Regime ($Z \leq 14$):} Each nucleus is solved with a hand-crafted, physically motivated geometry (tetrahedral alpha clusters, bipyramids, octahedra). Mean accuracy: $|\Delta| = 0.055\%$. Maximum error: $0.12\%$ (Si-28). Zero free parameters.
+    % [2026-06-15 KB-reconciliation (vol_6 brief §A.4) -- prior wording preserved per Rule 12]: read "...Maximum error: $0.12\%$ (Si-28). Zero free parameters." SUPERSEDED: the analytic regime solves each nucleus at a per-nucleus fitted inter-alpha distance R (e.g. R_bipyramid=81.181d, 12_neon.tex:23); the topology is zero-parameter but R is the one fitted scalar, so these accuracies are fitting tolerances on R, not ab-initio prediction errors (00_introduction.tex:21; mass-defect-summary.md:14).
+    \item \textbf{Analytic Regime ($Z \leq 14$):} Each nucleus is solved with a hand-crafted, physically motivated geometry (tetrahedral alpha clusters, bipyramids, octahedra). Mean accuracy: $|\Delta| = 0.055\%$. Maximum error: $0.12\%$ (Si-28). Topology zero-parameter (forced by $(Z,A)$); one fitted scalar $R$ per nucleus (the quoted accuracies are fitting tolerances on $R$).
     \item \textbf{Fibonacci Heuristic ($15 \leq Z \leq 82$):} Alpha clusters are placed on a spherical Fibonacci lattice with a density-scaled radius $r_{core} = d(15 + 0.95A)$. Mean accuracy: $|\Delta| = 0.24\%$. Maximum error: $0.41\%$ (S-32). This regime covers the entire transition metal series, lanthanides, and all elements through Lead.
     \item \textbf{Superheavy Extrapolation ($Z > 82$):} Same Fibonacci model extended beyond the last stable element. Mean accuracy: $|\Delta| = 0.39\%$. The monotonic degradation is gradual---no cliff edge is observed.
 \end{enumerate}
@@ -19,7 +20,8 @@ The accuracy degrades \emph{logarithmically}, not linearly, with $Z$. Plotting $
 
 Even at $Z = 118$ (Oganesson, $A = 294$), the total mass prediction error is only $0.46\%$---corresponding to $\sim 1260$ MeV out of $273{,}890$ MeV total nuclear mass. This is remarkable given that:
 \begin{itemize}
-    \item The model uses \textbf{zero fitted parameters} beyond the axiom-derived $K_{mutual}$, $d_{proton}$, and $\alpha\hbar c$.
+    % [2026-06-15 KB-reconciliation (vol_6 brief §D.3) -- prior wording preserved per Rule 12]: read "The model uses \textbf{zero fitted parameters} beyond the axiom-derived $K_{mutual}$, $d_{proton}$, and $\alpha\hbar c$." SUPERSEDED: omits the two empirical packing coefficients (15 and 0.95) in the Fibonacci-regime density-scaled radius $r_{core}=d(15+0.95A)$ (this section, item 2 above) -- those coefficients are NOT axiom-derived. The Fibonacci/superheavy regime carries no PER-NUCLEUS fit (the radius is a closed-form function of A), but the two global packing coefficients are empirical.
+    \item The model uses \textbf{no per-nucleus fitted parameter} in this Fibonacci/superheavy regime beyond the axiom-derived $K_{mutual}$, $d_{proton}$, and $\alpha\hbar c$; its only empirical inputs are the two global Fibonacci-packing coefficients ($15$ and $0.95$) in the density-scaled radius $r_{core}=d(15+0.95A)$ above, which are not axiom-derived.
     \item The geometry is a crude spherical Fibonacci lattice, not an optimized structure.
     \item No shell corrections, pairing terms, or surface tension adjustments are applied.
 \end{itemize}
