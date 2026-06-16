@@ -466,3 +466,46 @@ class A1CosseratConvergenceEngine:
         ledger = passive (energize-LOCK); a climbing ledger = PUMP."""
         return float(self.B.total_hamiltonian()) + self.bulk_energy_conserved()
 
+    # ══════════════════════════════════════════════════════════════════════
+    # PHASE-SPACE (V_inc, V_ref) coordinates for the (2,3) winding read (A46).
+    # Layer (c) emergence probe. Measured in PHASE-SPACE, NOT real-space lattice
+    # (the A46 trap that voided 30+ prior tests).
+    # ══════════════════════════════════════════════════════════════════════
+    def bulk_phase_space_vinc_vref(self, omega_char: float):
+        """Sector A's bulk reactance pair (V, ∂_tV/ω_char) IS the Clifford-torus
+        coordinate (CP6): V_inc = V + i·(∂_tV/ω_char), V_ref = V − i·(...).
+        Returns (Vinc_x, Vinc_y, Vref_x, Vref_y). A pure breathing mode has NO
+        spatial phase winding (oscillation phase uniform in space); only a HELICAL
+        bulk resonance winds — the scalar-bulk limitation crystal_engine hit."""
+        pV = (self.A.V - self.A.V_prev) / self.A.dt
+        y = pV / max(omega_char, 1e-12)
+        return self.A.V.copy(), y.copy(), self.A.V.copy(), (-y).copy()
+
+    def cosserat_phase_space_vinc_vref(self, omega_char: float):
+        """Sector B's VECTOR Cosserat winding phase-space — the genuinely NEW
+        carrier (the U(1)-fibre the scalar bulk lacked, crystal_engine_result.md
+        §5). The transverse micro-rotation pair (ω_⊥, ω̇_⊥/ω_char) on the two
+        axes perpendicular to the photon propagation (ω_x, ω_y for axis-z
+        helicity): V_inc = ω_x + i·ω_y (the circular-polarization phasor whose
+        spatial winding around the trap IS the (2,3) topological winding).
+        Returns (Vinc_x, Vinc_y, Vref_x, Vref_y)."""
+        wx = np.asarray(self.B.omega[..., 0])
+        wy = np.asarray(self.B.omega[..., 1])
+        return wx.copy(), wy.copy(), wx.copy(), (-wy).copy()
+
+    def density_peak_interior(self) -> tuple:
+        """Top-|V|² interior cell (CP7 density-peak sampling, PML-excluded — NOT
+        centroid; the centroid of a shell is the empty middle)."""
+        dens = (self.A.V**2) * self._interior
+        if dens.max() < 1e-30:
+            return (self.N // 2, self.N // 2, self.N // 2)
+        return tuple(int(x) for x in np.unravel_index(int(np.argmax(dens)), dens.shape))
+
+    def omega_density_peak_interior(self) -> tuple:
+        """Top-|ω|² interior alive cell (the winding-carrier density peak —
+        where the Cosserat winding, if any, concentrates). PML-excluded."""
+        w2 = np.sum(np.asarray(self.B.omega) ** 2, axis=-1) * self._interior
+        if w2.max() < 1e-30:
+            return (self.N // 2, self.N // 2, self.N // 2)
+        return tuple(int(x) for x in np.unravel_index(int(np.argmax(w2)), w2.shape))
+

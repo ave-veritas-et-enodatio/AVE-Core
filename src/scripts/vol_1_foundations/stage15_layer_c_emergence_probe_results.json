@@ -1,0 +1,79 @@
+{
+  "stage": "Stage-1.5 LAYER (c) \u2014 \u03b1-free winding-emergence probe",
+  "alpha_free": true,
+  "alpha_in_dynamics": "NONE (\u03ba\u0303=6/5; V_yield=1.0; \u03c9_yield=\u03c0; ALPHA/ALPHA_COLD_INV comparison-only)",
+  "run_N_explicit": 24,
+  "long_window_periods": 12.0,
+  "diverged_at": null,
+  "seed_audit": {
+    "t0_closes_23": false,
+    "non_circular": true,
+    "seed_read": {
+      "bulk_reactance": {
+        "peak": [
+          12,
+          12,
+          12
+        ],
+        "w_tor": 0.0,
+        "rel_tor": 0.996,
+        "w_pol": 0.0,
+        "rel_pol": 0.759,
+        "amp": 0.8182316095570166,
+        "closes_23": false
+      },
+      "cosserat_winding": {
+        "peak": [
+          12,
+          12,
+          12
+        ],
+        "w_tor": 0.0,
+        "rel_tor": 0.0,
+        "w_pol": 0.0,
+        "rel_pol": 0.0,
+        "amp": 0.1830731582291913,
+        "closes_23": false
+      },
+      "any_closes_23": false
+    }
+  },
+  "emergence_read": {
+    "bulk_reactance": {
+      "peak": [
+        12,
+        12,
+        12
+      ],
+      "w_tor": -0.0,
+      "rel_tor": 0.631,
+      "w_pol": 0.0,
+      "rel_pol": 0.59,
+      "amp": 0.6200794680529861,
+      "closes_23": false
+    },
+    "cosserat_winding": {
+      "peak": [
+        17,
+        7,
+        11
+      ],
+      "w_tor": -1.0,
+      "rel_tor": 0.0,
+      "w_pol": 0.0,
+      "rel_pol": 0.0,
+      "amp": 0.016124081405326382,
+      "closes_23": false
+    },
+    "any_closes_23": false
+  },
+  "self_formed_23_from_generic_IC": false,
+  "alpha_free_Q_emerged": false,
+  "alpha_free_Q_note": "NO (2,3) resonator self-formed \u2192 there is NO resonator whose Q an \u03b1-free leak could be. '\u03b1=Q\u207b\u00b9 of the (2,3) Golden-Torus' presupposes a (2,3); absent it, NO \u03b1-free Q to read (joint-ledger guard, crystal_engine_result.md \u00a73.4). \u03b1 NOT emergent \u2014 and NOT inserted.",
+  "alpha_comparison_only": {
+    "ALPHA_inv_CODATA": 137.0359990836958,
+    "ALPHA_COLD_INV": 137.0363037758784
+  },
+  "layer_b_gate_note": "GATED on Layer (b): the energize-LOCK loop is INERT for a generic untrapped transverse photon (front-vs-interior + extended-vs-compact co-location obstruction). The winding does NOT source the cage, so it is not trapped/concentrated to self-form the (2,3). A negative here is the EXPECTED consequence of the Layer-(b) obstruction, reported honestly (Rule 11) \u2014 NOT a forced result. Closing the loop (the design fork for Grant/auditor) is the precondition for a meaningful emergence positive.",
+  "verdict": "LAYER-C-EMERGENCE-NEGATIVE"
+}
