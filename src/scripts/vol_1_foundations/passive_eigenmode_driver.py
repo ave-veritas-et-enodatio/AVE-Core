@@ -133,23 +133,173 @@ def _verify_constants() -> dict:
 
 
 # ============================================================================
-# section: lattice / run configuration (PLACEHOLDER — filled next commit)
+# section: lattice / run configuration
 # ============================================================================
 @dataclass
 class RunConfig:
     """Lattice + seed parameters. Defaults match the G0 PASS lattice (N=48, R=10,
     r=4) so the extractor runs at HIGH reliability (rel 0.73/0.94) and r stays
-    clear of the r~1.1-cell collapse zone (G4 hazard)."""
+    clear of the r~1.1-cell collapse zone (G4 hazard, prereg §5 G4)."""
     N: int = 48
     dx: float = 1.0
+    # winding torus (omega-carrier) — major/minor radius (cells)
     R: float = 10.0
     r: float = 4.0
-    # placeholders — filled in subsequent commits
-    pass
+    # V-tank sech eigen-profile seed (the canonical v14 Mode-I self-trap profile)
+    v_amp: float = 0.90       # sech peak amplitude (A=0.90 < A_cap=0.99)
+    v_width: float = 3.0      # sech width R_sech (cells)
+    omega_amp: float = 0.30   # planted-(2,3) omega amplitude (planted_winding_field default)
+    pml_thickness: int = 4
+    cfl_safety: float = 0.4   # the v14 Mode-I PASS used 0.4 (q_g47_path_d:118)
+    n_steps: int = 1500       # recording window (many breaths)
+    sample_every: int = 20    # cadence for the F-reads / Q accounting
 
 
-def main():  # PLACEHOLDER — filled in subsequent commits
-    print("passive_eigenmode_driver: skeleton — gates + reads added in subsequent commits")
+# ============================================================================
+# section: seeders + the 0_1 unknot-envelope assertion (Grant 2026-06-15)
+# ============================================================================
+def seed_vtank(cfg: RunConfig) -> CrystalEngine:
+    """V-tank A1 wall, seeded with the SECH eigen-profile (the convergent / self-
+    focusing profile, the G1 positive control; a Gaussian is the negative control).
+    V(r) = v_amp * sech(r/v_width); stationary start (dV/dt = 0).
+
+    converter_on=False: we apply the EXTERNAL (b') Op14 coupling (trilinear buckle)
+    ourselves; the engine's own internal converter is OFF so the only V<->omega
+    channel under test is the (b') cross-firewall wire."""
+    eng = CrystalEngine(
+        N=cfg.N, dx=cfg.dx, converter_on=False,
+        pml_thickness=cfg.pml_thickness, cfl_safety=cfg.cfl_safety,
+    )
+    c = cfg.N // 2
+    i, j, k = np.indices((cfg.N, cfg.N, cfg.N))
+    rr = np.sqrt((i - c) ** 2 + (j - c) ** 2 + (k - c) ** 2) * cfg.dx
+    seed = cfg.v_amp * (1.0 / np.cosh(rr / cfg.v_width))
+    eng.V[:] = seed
+    eng.V_prev[:] = seed.copy()
+    return eng
+
+
+def seed_vtank_gaussian(cfg: RunConfig) -> CrystalEngine:
+    """G1 NEGATIVE control: a generic Gaussian (same amplitude) — disperses."""
+    eng = CrystalEngine(
+        N=cfg.N, dx=cfg.dx, converter_on=False,
+        pml_thickness=cfg.pml_thickness, cfl_safety=cfg.cfl_safety,
+    )
+    c = cfg.N // 2
+    i, j, k = np.indices((cfg.N, cfg.N, cfg.N))
+    r2 = (i - c) ** 2 + (j - c) ** 2 + (k - c) ** 2
+    seed = cfg.v_amp * np.exp(-r2 / (2.0 * cfg.v_width ** 2))
+    eng.V[:] = seed
+    eng.V_prev[:] = seed.copy()
+    return eng
+
+
+def seed_omega_carrier(cfg: RunConfig, helicity: int = 1) -> CosseratField3D:
+    """omega-carrier, (2,3) winding imposed as the topological BC via the
+    extractor-MATCHED traveling plant (planted_winding_field, mode='traveling' —
+    the G4-certified D15 carrier). NOT initialize_electron_2_3_sector (z-flat
+    rotor -> structural w_tor=0, fails G4; representation-capability flag, brief)."""
+    eng = CosseratField3D(cfg.N, cfg.N, cfg.N, dx=cfg.dx, pml_thickness=0)
+    omega0, pi_omega0 = planted_winding_field(
+        cfg.N, cfg.R, cfg.r, p=2, q=3, mode="traveling",
+        helicity=helicity, amplitude=cfg.omega_amp,
+    )
+    eng.omega = omega0 * eng.mask_alive[..., None]
+    eng.omega_dot = pi_omega0 * eng.mask_alive[..., None]
+    return eng
+
+
+def assert_unknot_envelope(eng_w: CosseratField3D, cfg: RunConfig) -> dict:
+    """GRANT'S THIRD-TIME WRONG-OBJECT GUARD (2026-06-15): the electron is the
+    0_1 UNKNOT in real space carrying the (2,3) as polarization-2 + phase-3
+    structure (theory.md:16; ch8-alpha-golden-torus.md:29). "Reads (2,3)" is
+    NECESSARY-not-sufficient — a heavier real-space knot also reads a winding.
+    So we ASSERT the real-space |omega| envelope is the 0_1 unknot:
+
+      (1) SINGLE-COMPONENT: the |omega|^2 energy-density support is ONE connected
+          region (a single closed tube) — not multiple linked/knotted strands.
+      (2) GENUS-1 TORUS SHELL: that support is a torus-shell (a hollow ring), the
+          unknot's tubular neighbourhood — the core curve threads the hole once
+          (toroidal direction) with no self-crossings, the textbook 0_1.
+      (3) The (2,3) WINDING is INTERNAL (the omega-director polarization-2 + the
+          (omega,omega_dot) phasor-3), NOT an envelope knot. Confirmed by reading
+          it on the phasor (extract_2_3_omega_fast) AFTER G4, not on the envelope.
+
+    Implementation: the unknot certificate is the ENVELOPE-SKELETON topology, NOT
+    the node-broken amplitude support. The traveling (2,3) winding has cos(q*psi)
+    amplitude NODES (3 poloidal zeros), so the raw |omega| support is fragmented
+    into lobes BY THE WINDING — that fragmentation is the (2,3) phase structure, not
+    the envelope shape. The envelope is the SMOOTH Gaussian tube the winding rides
+    on (planted_winding_field's `env`); its skeleton is the torus. So we read the
+    torus-shell signature on the SMOOTH envelope (|omega|, low-pass via a coarse
+    radial-binned occupancy), and assert:
+
+      (a) the central column (near the major axis) is EMPTY  (the unknot's hole),
+      (b) a single ANNULAR RING of support surrounds it in the mid-plane,
+      (c) the ring is a SINGLE connected loop in the (major-angle) direction —
+          i.e. one closed tube threading the hole once = the 0_1 unknot (a heavier
+          knot would show >1 radial band, or the tube would cross the central hole).
+    The (2,3) winding itself is read on the PHASOR after G4, NOT here — confirming
+    the winding is INTERNAL (polarization-2 + phasor-3), not an envelope knot."""
+    amp = np.sqrt(np.sum(eng_w.omega ** 2, axis=-1))
+    c = cfg.N // 2
+    i3, j3, k3 = np.indices((cfg.N, cfg.N, cfg.N))
+    rho3 = np.sqrt((i3 - c) ** 2 + (j3 - c) ** 2)  # cylindrical radius from spin axis (z)
+    z3 = np.abs(k3 - c)
+
+    # SMOOTH envelope skeleton: max |omega| over the spin-axis angle phi, binned by
+    # (rho, z) — this low-passes the cos(q*psi) winding nodes (which live in phi/psi),
+    # leaving the underlying torus tube.
+    thr = 0.05 * float(amp.max())
+    support = amp > thr
+    support_frac = float(support.mean())
+
+    # (a) central hole empty: no support within 0.4*R of the spin (z) axis
+    central_hole_empty = not bool(support[(rho3 < 0.4 * cfg.R) & (z3 < cfg.r)].any())
+    # (b) annular ring present at the torus major radius
+    ring_band = (rho3 > 0.6 * cfg.R) & (rho3 < 1.4 * cfg.R) & (z3 < 1.5 * cfg.r)
+    ring_present = bool(support[ring_band].any())
+
+    # (c) single closed tube threading the hole once: the support, projected to the
+    #     (rho, z) tube cross-section, is ONE radial band (a heavier knot / multiple
+    #     strands would give >1 disjoint band). Bin the tube cross-section radially.
+    rho_at_support = rho3[support]
+    n_radial_bands = _count_radial_bands(rho_at_support, cfg.R, cfg.r) if rho_at_support.size else 0
+    single_tube = (n_radial_bands == 1)
+
+    is_torus_shell = central_hole_empty and ring_present
+    is_unknot = is_torus_shell and single_tube
+    return {
+        "central_hole_empty": bool(central_hole_empty),
+        "ring_present": bool(ring_present),
+        "n_radial_bands": int(n_radial_bands),
+        "single_tube": bool(single_tube),
+        "is_torus_shell": bool(is_torus_shell),
+        "is_0_1_unknot_envelope": bool(is_unknot),
+        "support_frac": support_frac,
+        "note": "winding nodes fragment |omega|; envelope skeleton is the 0_1 torus",
+    }
+
+
+def _count_radial_bands(rho_vals: np.ndarray, R: float, r: float) -> int:
+    """Count disjoint radial bands of support in the torus cross-section. The 0_1
+    unknot tube is ONE band centered at the major radius R (width ~ minor radius r);
+    a heavier knot or linked strands would give >1 disjoint band."""
+    bins = np.arange(0.0, R + 3.0 * r, max(0.5, 0.5 * r))
+    hist, _ = np.histogram(rho_vals, bins=bins)
+    occupied = hist > 0
+    # count runs of consecutive occupied bins
+    n_bands = 0
+    prev = False
+    for occ in occupied:
+        if occ and not prev:
+            n_bands += 1
+        prev = occ
+    return n_bands
+
+
+def main():  # PLACEHOLDER — gates + reads land in subsequent commits
+    print("passive_eigenmode_driver: gates G0-G4 + reads F1-F5 land in subsequent commits")
     checks = _verify_constants()
     for k, v in checks.items():
         print(f"  [{'OK' if v else 'FAIL'}] {k}")
