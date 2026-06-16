@@ -96,7 +96,8 @@ a **GENUINE deep TIR wall** (Γ_TRUE≈−0.43 on **fully-UNCLIPPED** cells; amp
 **ZERO clips ever**), **bounded, NO runaway** (max|V|≈V_yield then relaxes), **recurrent** (re-focuses
 at steps 375–450). **Right sector** (A1/V-tank longitudinal Z=1/c_eff — the electron's matter wall;
 distinct from pre-flight #1's wrong-sector ω-curvature). Categorically HEALTHIER than the two coupled
-engines: genuine unclipped physics that BREATHES, vs a clip-artifact that DETONATES. It is **NOT a
+engines: genuine unclipped physics that BREATHES, vs a clip-artifact whose energy DIVERGES (a +λ
+gain/runaway — an integrator instability, not a substrate event; cf. terminology note, Phase 4). It is **NOT a
 STABLE STATIC Z→0** (the deep wall flashes, Γ_persist≈−0.03, then relaxes) — **but "stable static"
 was a MIS-FRAMING.** The electron eigenmode is a **LIMIT CYCLE / BREATHER**, not a frozen core (cage
 ratified "persistent breathing cage" 2026-06-13; `selftrap` limit-cycle; `master-equation.md:20` "the
@@ -215,8 +216,8 @@ on energy/S11 — falsified + SM-leakage, §2a):
 1. **Impose** the (2,3) winding as a topological BC on the **independent Cosserat-ω carrier**
    (clears the ω=0 trap). Never wire into `(V_inc,V_ref)`.
 2. **Closed-cavity hybrid eigensolve:** Op14 saturation $z(x)=S[\psi]$ → Γ=−1 cavity rendered
-   as a **boundary condition** (`substrate-native-check` CP10 — NOT a bulk term, which
-   detonates); solve the coupled (V,ω) wave-eigenproblem (both sectors nonzero, Op14
+   as a **boundary condition** (`substrate-native-check` CP10 — NOT a bulk term, which is
+   singular at the wall and blows up); solve the coupled (V,ω) wave-eigenproblem (both sectors nonzero, Op14
    cross-coupling load-bearing) → eigenmode φ + **real** eigenfrequency ω_C (= dissipationless,
    stable).
 3. **Self-consistency** $\psi\leftarrow\phi$ (winding-preserving) → fixed point (residual→0;
@@ -259,7 +260,17 @@ NEGATIVE may reflect the projection's limit). No new `*_vN` file. **Grant's call
   T2-mass-**STATE** claim ("T2 carries the mass-gap content"), so the A1-vs-T2 tension is genuinely
   **unreconciled at the leaf-body level**; "two frames of one mode" is the lane's reading, not corpus
   text. The lane reports this as a **note**, NOT a derivation ($m_ec²$ magnitude hypothesis-class,
-  `photon-identification.md:19`). **Do not claim resolution.**
+  `photon-identification.md:19`). **Do not claim resolution** of the mass-magnitude.
+  > **🟢 IMPEDANCE-SECTOR HALF RESOLVED (terminology-guide review, 2026-06-15; Phase 4):** the
+  > `INVARIANT-S2` "Q1 = (B)" ratification (Grant 2026-06-15, `2026-06-15_ceff-epsilon-monotonicity_result.md`)
+  > canonically splits the two sectors at the IMPEDANCE level: **Z→0 = the A1 LONGITUDINAL bond-
+  > compliance tank √(L/C_comp)** ($C_{comp}=C_0/S$ diverges as the bond yields) = **CONFINEMENT** =
+  > this lane's electron matter-wall; **Z→∞ = the T2 transverse permittivity** ($\varepsilon_0 S$) =
+  > RUPTURE — both $|\Gamma|=1$, differing only in boundary phase. So **the wall-half = the canonical
+  > A1 Z→0 confinement** (pre-flight #2 finding now = ratified invariant, not a one-off probe), and the
+  > pre-flight #1 ω-curvature object is a different (proton) sector. The A1⊥T2 orthogonality (= the
+  > genesis-24 double-count) is canon. **Only the mass-MAGNITUDE provenance (A1 confinement vs T2
+  > rotational gap) stays hypothesis-class** — the impedance-sector attribution no longer is.
 - **Flag-B — SCOPING: B1 (run the hybrid-coupled solve). RATIFIED.** B2 is the over-closure
   trap. Both outcomes are results.
 - **Flag-C — detector: residual + stability eigenvalue + radiative Q (3rd output = α). RATIFIED.**
@@ -556,7 +567,14 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   attribution probe shows the bare ω-carrier disperses the winding **bit-identically with/without the
   coupling**, so **F4=False is the un-held-BC APPARATUS FLOOR, not a coupling-physics null → the
   keystone's imposed-BC thesis is UN-TESTED by seed-and-evolve.** A held-BC re-run = a RE-SCOPE (new
-  prereg + version) — the implementer correctly did NOT make that call. FLAG-RES (F1 resolution-
+  prereg + version) — the implementer correctly did NOT make that call. **🟢 SHARPENED (terminology-
+  guide review, Phase 4): FLAG-WIND is a TOPOLOGY-CATEGORY ERROR, not merely an apparatus floor.**
+  Per `substrate-native-terminology.md` ("EE owns dynamics, **topology owns the integers**"), the
+  (2,3) winding is a **conserved topological INTEGER** (charge = `def-3638f2`), not a continuous field
+  — a topological integer is **held by definition**, it does not "evolve and disperse." Seed-and-
+  evolve mis-categorizes it as a continuous IC; its smoothing-to-garbage is the predicted result, not
+  a physics null. **→ holding the winding is the only categorically-correct test** (reinforces the
+  held-BC re-scope). FLAG-RES (F1 resolution-
   dependent: False@5 cells, True@10); FLAG-APPARATUS (~0.68 retention partly small-box). **Result NOT
   banked — verify panel `w92ft1gkc` (wall-half / FLAG-WIND attribution / bin-appropriateness)
   scrutinizing.** NEXT: panel → adjudicate to Grant (bank-with-flags vs held-BC re-scope). Cross-lane:
@@ -578,3 +596,17 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   cheap held-BC PROBE first (hold the winding on the co-resolving driver, de-risk) / (B) bank-what's-
   solid + defer.** Cross-lane (auditor queue): retract the first NEGATIVE-A; bank the wall-half
   vindication; record keystone UN-TESTED; cage scope-annotation.
+- **2026-06-15 (Phase 4 — terminology-guide review against `substrate-native-terminology.md`)** —
+  Grant-prompted leak-check of the lane's vocabulary against the EE-native discipline. **Net: the
+  register PASSED** — Γ/Z/impedance/reflection/resonance/Q/breather/soliton/saturation/winding-as-
+  topology are all substrate-native; no dissipation/amorphous/QFT/GR leak. The **high-Q / Q=1/α /
+  breather** reframe is the *literal* canonical statement (guide: "the only loss channel is the
+  controlled radiative leak Q=1/α, NOT internal friction"; "soliton/breather = EE-compatible PASS") —
+  the reframe was substrate-native, not just a good call. **THREE clarifications folded in:** (1)
+  **Flag-A impedance half RESOLVED** → cite `INVARIANT-S2` Q1=(B) (Z→0 = A1 longitudinal compliance
+  confinement = the wall-half; Z→∞ = T2 permittivity rupture); only the mass-magnitude stays
+  hypothesis-class. (2) **FLAG-WIND sharpened → topology-category error** (the (2,3) winding is a
+  conserved topological integer, held by definition; seed-and-evolve mis-categorizes it; reinforces
+  the held-BC re-scope). (3) **"detonate" → "energy diverges / +λ gain"** (loose explosion-metaphor
+  for a numerical instability; tightened). Frozen prereg carries a Rule-12 terminology annotation
+  (body preserved). No physics-result change; no walk-back.

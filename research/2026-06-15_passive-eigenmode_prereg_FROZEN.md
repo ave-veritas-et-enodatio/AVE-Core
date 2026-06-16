@@ -12,6 +12,20 @@
 > prereg + version + verification chain.** Lane: `_orchestration/2026-06-15_passive-eigenmode-solve.md`.
 > **Rule 11 — commitment written BEFORE the driver; no knobs tuned to force a result.**
 
+> **🟢 RULE-12 TERMINOLOGY ANNOTATION (2026-06-15, post-freeze; frozen body below PRESERVED unedited —
+> no falsifier/bin change).** Reconciliation against `common/substrate-native-terminology.md` (the
+> EE-native leak-check). (a) **Flag-A impedance half is now CANONICAL:** `INVARIANT-S2` "Q1 = (B)"
+> (Grant-ratified 2026-06-15) splits the sectors at the impedance level — **Z→0 = A1 longitudinal
+> bond-compliance confinement** (the matter-wall this prereg targets); **Z→∞ = T2 transverse
+> permittivity rupture**; both $|\Gamma|=1$. The §5/§7/§8.2 wall-and-winding split + the §8.2
+> double-count guard are the genesis-24 A1⊥T2 orthogonality, now invariant-backed. **Only the
+> mass-MAGNITUDE provenance stays hypothesis-class** (§8.6 unchanged). (b) The §7.1/§8.3 **held-BC**
+> requirement is the topologically-correct framing: per the guide ("topology owns the integers") the
+> (2,3) winding is a conserved topological integer, **held by definition** — a seed-and-evolve IC
+> mis-categorizes it (this is the post-result FLAG-WIND, recorded in the brief). (c) Prose note: the
+> "**detonates**" in §7.2/§8 hazards reads as "energy diverges / +λ gain" (a numerical instability,
+> not a substrate event). The frozen falsifiers, gates, bins, and method are unchanged.**
+
 ---
 
 ## §1 — The question (Rule-11 what-I-expect-and-why)
