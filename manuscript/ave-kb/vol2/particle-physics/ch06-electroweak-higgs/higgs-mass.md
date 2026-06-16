@@ -89,6 +89,6 @@ $$
 | $\sum m_\nu$ | $\sim 0.054$ eV | $<0.12$ eV | Within bound |
 | $a_e$ (Schwinger) | $\alpha/(2\pi) = 0.001161$ | 0.001160 | $+0.09\%$ |
 
-Every entry in this table is computed from the same three canonical hardware scales ($m_e$, $\alpha$, $G$ — all three themselves derived; see [Vol 1 Ch.8 Golden Torus α derivation](../../../vol1/ch8-alpha-golden-torus.md)) plus the Poisson ratio $\nu_{vac} = 2/7$ and the packing fraction $p_c = 8\pi\alpha$. No Standard Model parameters (Yukawa couplings, CKM matrix elements, or Higgs VEV) are used.
+Every entry in this table is computed from the same three canonical hardware scales ($m_e$, $\alpha$, $G$ — 🔴 *[KB-reconciliation 2026-06-15 (vol_2 brief §A.2)]* ~~all three themselves derived~~ **the framework's three retained calibration inputs, not first-principles derivations: $m_e$ the calibration anchor, $\alpha$ a value-scoped echo beneath the canonical Class-B identification resting on $R\cdot r=1/4$ which the substrate does not independently select, and $G$ mixed (form-derived $/7$ form, value-fitted $\xi$)**; see [Vol 1 Ch.8 Golden Torus α derivation](../../../vol1/ch8-alpha-golden-torus.md)) plus the Poisson ratio $\nu_{vac} = 2/7$ and the packing fraction $p_c = 8\pi\alpha$. No Standard Model parameters (Yukawa couplings, CKM matrix elements, or Higgs VEV) are used.
 
 ---

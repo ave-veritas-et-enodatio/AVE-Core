@@ -28,7 +28,7 @@ The tension is $\Delta H_0 \approx 5.6$ km/s/Mpc ($>4\sigma$).
 > H_\infty = \frac{28\pi\,m_e^3\,c\,G}{\hbar^2\,\alpha^2}
 > $$
 >
-> Evaluating this using CODATA $G$ + lattice-derived $\alpha$ yields:
+> Evaluating this using CODATA $G$ + 🔴 *[KB-reconciliation 2026-06-15 (vol_2 brief §A.2)]* ~~lattice-derived $\alpha$~~ **the retained input $\alpha$ (a value-scoped echo beneath the canonical Class-B identification, resting on $R\cdot r=1/4$ which the substrate does not independently select; per `ch8-alpha-golden-torus.md` :11)** yields:
 >
 > $$
 > H_\infty \approx 69.32\;\text{km/s/Mpc}

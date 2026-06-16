@@ -13,7 +13,7 @@ claims: [clm-4vwsjc, clm-gfs4j8, clm-mroghg, clm-xhdai6]
 |---|---|---|---|
 | Strong CP | $\theta = 0$ (unique vacuum topology) | Exact | **Framework-derived** | <!-- claim-quality: clm-gfs4j8 -->
 | Baryon asymmetry | $\eta = \delta_{CP} \alpha_W^4 C_{sph}/g_*$ | 0.38% | **Solved** | <!-- claim-quality: clm-4vwsjc -->
-| Standard Model | 26 of 26 parameters derived | $< 4.1\%$ | **Complete** | <!-- claim-quality: clm-xhdai6 -->
+| Standard Model | 26 of 26 parameters derived | $< 4.1\%$ | **Complete** 🔴 *[recon 2026-06-15 §A.4]* (the 26 computed *from* the 3 retained inputs $\{m_e,\alpha,G\}$ + 4 axioms — no further free parameters beyond those three; per-parameter caveats per `clm-xhdai6`) | <!-- claim-quality: clm-xhdai6 -->
 | Hubble tension | $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2)$ | 2.9% | **Predicted** | <!-- claim-quality: clm-mroghg -->
 | $g_*$ prediction | $7^3/4 = 85.75$ (12 Weyl missing) | --- | **Testable** | <!-- claim-quality: clm-4vwsjc -->
 

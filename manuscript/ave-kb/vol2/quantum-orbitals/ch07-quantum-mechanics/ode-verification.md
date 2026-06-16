@@ -40,7 +40,7 @@ The Bohr radius relationship deserves emphasis as a dimensional identity:
 > a_0 = \frac{l_{node}}{\alpha} = \frac{\hbar/(m_e c)}{\alpha} \approx 5.29 \times 10^{-11} \text{ m}
 > $$
 
-This proves that the Bohr radius is exactly $1/\alpha$ lattice pitches. The hydrogen atom's ground state occupies a cavity of radius $137\,l_{node}$, establishing the fine-structure constant as the ratio of the lattice pitch to the electromagnetic screening length. This is the *same* $\alpha$ that governs dielectric saturation (Axiom 4), string tension, and electroweak mixing.
+This proves that the Bohr radius is exactly $1/\alpha$ lattice pitches. The hydrogen atom's ground state occupies a cavity of radius $137\,l_{node}$, establishing the fine-structure constant as the ratio of the lattice pitch to the electromagnetic screening length — 🔴 *[KB-reconciliation 2026-06-15 (vol_2 brief §A.2, soft)]* a Class-B geometric *identification* (a value-scoped echo resting on the $R\cdot r=1/4$ normalization, which the substrate does not independently select; per `ch8-alpha-golden-torus.md` :11), not a first-principles derivation of $\alpha$'s value. This is the *same* $\alpha$ that governs dielectric saturation (Axiom 4), string tension, and electroweak mixing.
 
 ### Regime Identification of Atomic Orbitals
 

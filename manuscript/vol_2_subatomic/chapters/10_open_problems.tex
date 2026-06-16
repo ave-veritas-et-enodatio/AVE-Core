@@ -211,7 +211,8 @@ The tension is $\Delta H_0 \approx 5.6$~km/s/Mpc ($>4\sigma$).
 
 \textbf{Solution:} AVE's geometric closure of $G$ in Vol~3 Ch~\ref{ch:gravity_and_yield} routes the Machian-impedance integration through $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$, with the cosmological horizon $R_H \equiv c/H_\infty$ substituted in. Rearranging the closure produces the algebraic identity:
 \[ H_\infty = \frac{28\pi\,m_e^3\,c\,G}{\hbar^2\,\alpha^2} \]
-Evaluating this using CODATA $G$ + lattice-derived $\alpha$ yields:
+% [2026-06-15 KB-reconciliation (vol_2 brief A.2) -- prior wording preserved per Rule 12]: read "Evaluating this using CODATA $G$ + lattice-derived $\alpha$ yields:". SUPERSEDED: $\alpha$ is a RETAINED input (a value-scoped echo beneath the canonical Class-B identification, resting on $R\cdot r = 1/4$ which the substrate does not independently select; \kbleaf{ave-kb/vol1/ch8-alpha-golden-torus.md} :11), not "lattice-derived". No value change.
+Evaluating this using CODATA $G$ and the retained input $\alpha$ (both calibration inputs) yields:
 \[ H_\infty \approx 69.32\;\text{km/s/Mpc} \]
 This is \textbf{not an independent first-principles prediction} of $H_\infty$; it is a geometric self-consistency identity rearrangement of $G$'s Machian-impedance derivation (the same algebraic relation written two ways) --- per the corpus-honest framing at Vol~3 Ch~\ref{ch:gravity_and_yield}: this equation \emph{does not} predict the Hubble constant from first principles alone; it represents a \emph{consistency proof} showing that $G$ and $H_\infty$ are not independent physical phenomena but the same geometric limit evaluated from different topological reference frames. That the consistency identity lands inside the Planck-SH0ES tension band (interior, within $1\sigma$ of TRGB) is the substantive empirical observation: the framework's geometric constraint between $G$ and $H_\infty$ is internally compatible with measured $H_0$. Promoting to an emergence-class (Class~D) prediction requires a closed-form derivation of $G$ from substrate-local thermodynamics (lattice tension, equipartition, generation rate per node) that does not route through $R_H$; that Chain~B$'$ derivation is currently open. \textbf{Refinement per \texttt{consistency-vs-emergence} v1.1 (Grant canonized 2026-05-19 EOD)}: more precisely, the relation is a \textbf{Class E operating-point projection} that includes Class C consistency-check sub-structure --- $\{G, H_\infty, \hat{\Omega}_{\text{freeze}}, \alpha\}$ are joint-constrained at substrate operating point $u_0^* \approx 0.187$ via the $R_H/\ell_{\text{node}} \sim 10^{39}$ topological bridge; falsification of any one observable kills the operating-point and therefore the entire substrate model.
 \end{examplebox}
@@ -348,10 +349,12 @@ masses, and gauge couplings.}
 \label{tab:scale_invariance}
 \end{table}
 
+% [2026-06-15 KB-reconciliation (vol_2 brief A.4, PARTIAL) -- prior wording preserved per Rule 12]: read "...to compute \textbf{all 26 free parameters of the Standard Model} without any phenomenological curve fitting, structurally eliminating $\theta_{QCD}$ and deriving the remaining 25 from the lattice impedance." Augmented with the input acknowledgment (the 26 are computed FROM the 3 retained calibration inputs $\{m_e,\alpha,G\}$ + 4 axioms, per \kbleaf{ave-kb/common/full-derivation-chain.md} :850), not derived ex nihilo. No count/accuracy change.
 This principle allows the AVE physics engine (Volume 1, Appendix B)
 to compute \textbf{all 26 free parameters of the Standard Model}
 without any phenomenological curve fitting, structurally eliminating
-$\theta_{QCD}$ and deriving the remaining 25 from the lattice impedance.
+$\theta_{QCD}$ and deriving the remaining 25 from the lattice impedance ---
+all computed \emph{from} the framework's three retained calibration inputs $\{m_e, \alpha, G\}$ and four axioms (no \emph{further} free parameters beyond those three).
 
 %======================================================================
 \section{Quantitative Resolutions}
@@ -366,7 +369,8 @@ $\theta_{QCD}$ and deriving the remaining 25 from the lattice impedance.
 \midrule
 Strong CP   & $\theta = 0$ (unique vacuum topology) & Exact & \textbf{Framework-derived}\footnote{Not a Clay-rigorous proof; this is the engineering-physics lattice-conditional resolution. See Ch.~\ref{ch:millennium_prizes} scope caveat.} \\
 Baryon asymmetry & $\eta = \delta_{CP} \alpha_W^4 C_{sph}/g_*$ & 0.38\% & \textbf{Solved} \\
-Standard Model & 26 of 26 parameters derived & $< 4.1\%$ & \textbf{Complete} \\
+% [2026-06-15 KB-reconciliation (vol_2 brief A.4, PARTIAL) -- prior wording preserved per Rule 12]: read "Standard Model & 26 of 26 parameters derived & $< 4.1\%$ & \textbf{Complete} \\". Augmented with an input-acknowledgment footnote (the 26 are computed FROM the 3 retained calibration inputs; per-parameter caveats per \kbleaf{ave-kb/vol2/claim-quality.md} \texttt{clm-xhdai6}). No count/accuracy change.
+Standard Model & 26 of 26 parameters derived & $< 4.1\%$ & \textbf{Complete}\footnote{The 26 are computed \emph{from} the framework's three retained calibration inputs $\{m_e,\alpha,G\}$ + four axioms (no further free parameters beyond those three), not derived ex nihilo; per-parameter caveats (e.g.\ on-shell vs $\overline{MS}$ for $\sin^2\theta_W$; framework-conditional SU(3) mass-gap results) apply per \texttt{clm-xhdai6}.} \\
 Hubble tension & $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2)$ & 2.9\% & \textbf{Predicted} \\
 $g_*$ prediction & $7^3/4 = 85.75$ (12 Weyl missing) & --- & \textbf{Testable} \\
 \bottomrule

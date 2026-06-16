@@ -18,7 +18,7 @@ Volume 2 derives the properties of subatomic particles — fermion generations, 
 | Result | Statement |
 |---|---|
 | Faddeev-Skyrme Energy Functional | $E = \int \left( \frac{1}{2}\partial_\mu \vec{n} \cdot \partial^\mu \vec{n} + \frac{1}{4e^2}(\partial_\mu \vec{n} \times \partial_\nu \vec{n})^2 \right) d^3x$ |
-| Proton mass eigenvalue | $m_p/m_e \approx 1836.12$ from zero-parameter self-consistent eigenvalue equation |
+| Proton mass eigenvalue | $m_p/m_e \approx 1836.12$ from 🔴 *[recon 2026-06-15 §D.2]* ~~zero-parameter~~ **1-residual (zero baryon-data-tuned; per `self-consistent-mass-oscillator.md` :64)** self-consistent eigenvalue equation |
 | Torus Knot Baryon Ladder | $m(c) = \frac{\mathcal{I}_{scalar}(\kappa_{FS}/c)}{1 - \mathcal{V}_{total} \cdot p_c} + 1$ |
 | Topological Fractionalization | $q_{eff} = n + \frac{\theta}{2\pi}e$ via Witten Effect on $\mathbb{Z}_3$ Borromean linkage |
 | PMNS mixing angles | $\sin^2\theta_{12} = 2/7 + 1/45$, $\sin^2\theta_{23} = 1/2 + 2/45$, $\sin^2\theta_{13} = 1/45$ |

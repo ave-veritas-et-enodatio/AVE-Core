@@ -9,16 +9,16 @@ claims: [clm-e1pdfd]
 
 # App C: Summary of Exact Analytical Derivations
 
-App C collects the mathematical bounds and identities derived from first-principles continuum elastodynamics, thermodynamic boundary conditions, and finite-element graph limits, requiring zero arbitrary phenomenological parameters. The content is organised into three sections.
+App C collects the mathematical bounds and identities derived from first-principles continuum elastodynamics, thermodynamic boundary conditions, and finite-element graph limits, 🔴 *[KB-reconciliation 2026-06-15 (vol_2 brief §A.4; mirrors vol_0 ch02:4 / PR #235)]* ~~requiring zero arbitrary phenomenological parameters~~ **given the framework's three retained calibration inputs $\{m_e, \alpha, G\}$ (which replace the ~26 SM free parameters) and four axioms — introducing zero further free parameters beyond those three**. The content is organised into three sections.
 
 ## The Hardware Substrate
 
 - **Spatial Lattice Pitch:** $l_{node} \equiv \frac{\hbar}{m_e c} \approx 3.8616 \times 10^{-13}$ m
 - **Topological Conversion Constant:** $\xi_{topo} \equiv \frac{e}{l_{node}} \approx 4.149 \times 10^{-7}$ C/m
-- **Dielectric Saturation Limit:** $V_0 \equiv \alpha \approx p_c / 8\pi \implies 1/137.036$
+- **Dielectric Saturation Limit:** 🔴 *[KB-reconciliation 2026-06-15 (vol_2 brief §A.2; mirrors vol_0 ch02:10 / PR #235)]* ~~$V_0 \equiv \alpha \approx p_c / 8\pi \implies 1/137.036$~~ **$V_0 \equiv \alpha = 1/137.036$ — a retained calibration input (the packing fraction follows as $p_c = 8\pi\alpha \approx 0.1834$, not the reverse; a value-scoped echo beneath the canonical Class-B identification, resting on $R\cdot r = 1/4$ which the substrate does not independently select, per `vol1/ch8-alpha-golden-torus.md` :11)**
 - **Geometric Packing Fraction:** $p_c \approx 0.1834$
 - **Macroscopic Bulk Density:** $\rho_{bulk} = \frac{\xi_{topo}^2 \mu_0}{p_c \, l_{node}^2} \approx 7.92 \times 10^6$ kg/m$^3$
-- **Kinematic Network Mutual Inductance:** $\nu_{vac} = \alpha c \, l_{node} \approx 8.45 \times 10^{-7}$ m$^2$/s
+- **Kinematic Network Mutual Inductance:** 🔴 *[KB-reconciliation 2026-06-15 (vol_2 brief §D, symbol collision; mirrors vol_0 ch02:13 / PR #235)]* ~~$\nu_{vac}$~~ **$\nu_{kin}$** $= \alpha c \, l_{node} \approx 8.45 \times 10^{-7}$ m$^2$/s **(renamed to the canonical viscosity symbol $\nu_{kin}$ per `constants.py` `NU_KIN`, resolving the in-file collision with the Poisson ratio $\nu_{vac}\equiv 2/7$ used at :29/:37/:38; value and formula unchanged)**
 - **Macroscopic Rheological Yield Stress (Bingham-Plastic Limit):** $\tau_{yield} = \frac{\hbar c}{l_{node}^4} \left( \frac{1}{\alpha^2} \right) \approx 7.21 \times 10^{34}$ Pa
 
 ## Signal Dynamics and Topological Matter
