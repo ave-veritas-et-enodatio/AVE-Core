@@ -1,16 +1,19 @@
 \chapter{Summary of Exact Analytical Derivations}
 \label{ch:analytical_summaries}
 
-The following mathematical bounds and identities were derived within the text from first-principles continuum elastodynamics, thermodynamic boundary conditions, and finite-element graph limits, requiring zero arbitrary phenomenological parameters.
+% [2026-06-14 KB-reconciliation (vol_0 brief A.4) -- prior wording preserved per Rule 12]: read (verbatim): "The following mathematical bounds and identities were derived within the text from first-principles continuum elastodynamics, thermodynamic boundary conditions, and finite-element graph limits, requiring zero arbitrary phenomenological parameters." SUPERSEDED: self-contradictory umbrella -- the list it heads itself takes m_e (Spatial Lattice Pitch item, l_node = hbar/m_e c), G (Cosmological Dynamics items) and alpha (Dielectric Saturation Limit item) as inputs. Rescoped to the canonical parameter-reduction framing (26 SM params -> 3 interlocked calibration inputs {m_e, alpha, G} + 4 axioms), per backmatter/03_geometric_inevitability.tex (keystone scope correction) and ave-kb/common/appendices-overview.md "Three-Parameter Theory".
+The following mathematical bounds and identities were derived within the text from first-principles continuum elastodynamics, thermodynamic boundary conditions, and finite-element graph limits, given the framework's three interlocked calibration inputs $\{m_e, \alpha, G\}$ (which replace the $\sim$26 free parameters of the Standard Model) and the four axioms --- introducing zero further free parameters beyond those three.
 
 \section{The Hardware Substrate}
 \begin{itemize}
     \item \textbf{Spatial Lattice Pitch:} $\ell_{node} \equiv \frac{\hbar}{m_e c} \approx 3.8616 \times 10^{-13}$ m
     \item \textbf{Topological Conversion Constant:} $\xi_{topo} \equiv \frac{e}{\ell_{node}} \approx 4.149 \times 10^{-7}$ C/m
-    \item \textbf{Dielectric Saturation Limit:} $V_0 \equiv \alpha \approx p_c / 8\pi \implies 1/137.036$
+    % [2026-06-14 KB-reconciliation (vol_0 brief A.2) -- prior wording preserved per Rule 12]: read "$V_0 \equiv \alpha \approx p_c / 8\pi \implies 1/137.036$" (presents alpha as the OUTPUT of the packing fraction). SUPERSEDED: canonical directionality is p_c = 8*pi*alpha with alpha a RETAINED input (ch8-alpha-golden-torus.md:11). Flipped; value unchanged.
+    \item \textbf{Dielectric Saturation Limit:} $V_0 \equiv \alpha = 1/137.036$ --- a retained calibration input (the geometric packing fraction follows as $p_c = 8\pi\alpha \approx 0.1834$; a value-scoped echo beneath the canonical Class-B identification, resting on $R\cdot r = 1/4$ which the substrate does not independently select, per \kbleaf{ave-kb/vol1/ch8-alpha-golden-torus.md:11})
     \item \textbf{Geometric Packing Fraction:} $p_c \approx 0.1834$
     \item \textbf{Macroscopic Bulk Density:} $\rho_{bulk} = \frac{\xi_{topo}^2 \mu_0}{p_c \ell_{node}^2} \approx 7.92 \times 10^6 \text{ kg/m}^3$
-    \item \textbf{Kinematic Network Mutual Inductance:} $\nu_{vac} = \alpha c \ell_{node} \approx 8.45 \times 10^{-7} \text{ m}^2/\text{s}$
+    % [2026-06-14 KB-reconciliation (vol_0 brief D.2) -- prior symbol preserved per Rule 12]: was $\nu_{vac}$; renamed to canonical $\nu_{kin}$ (per src/ave/core/constants.py NU_KIN and ave-kb/vol1/.../lc-electrodynamics.md:54) to resolve the in-chapter symbol collision with the Poisson ratio $\nu_{vac} \equiv 2/7$ (Vacuum Poisson's Ratio item below). Value and formula unchanged.
+    \item \textbf{Kinematic Network Mutual Inductance:} $\nu_{kin} = \alpha c \ell_{node} \approx 8.45 \times 10^{-7} \text{ m}^2/\text{s}$
     \item \textbf{Macroscopic Rheological Yield Stress (Bingham-Plastic Limit):} $\tau_{yield} = \frac{\hbar c}{\ell_{node}^4} \left( \frac{1}{\alpha^2} \right) \approx 7.21 \times 10^{34}\text{ Pa}$
 \end{itemize}
 
@@ -18,6 +21,7 @@ The following mathematical bounds and identities were derived within the text fr
 \begin{itemize}
     \item \textbf{Continuous Action Lagrangian:} $\mathcal{L}_{AVE} = \frac{1}{2}\epsilon_0 |\partial_t \mathbf{A}|^2 - \frac{1}{2\mu_0} |\nabla \times \mathbf{A}|^2$ (Evaluates to continuous spatial stress [N/m$^2$])
     \item \textbf{Topological Mass functional:} $E_{rest} = \min_{\mathbf{n}} \int_{\mathcal{M}_A} d^3x \left[ \frac{1}{2} (\partial_\mu \mathbf{n})^2 + \frac{1}{4} \kappa_{FS}^2 \frac{(\partial_\mu \mathbf{n} \times \partial_\nu \mathbf{n})^2}{\sqrt{1 - (\Delta\phi / \alpha)^2}} \right]$
+    % [2026-06-14 KB-reconciliation (vol_0 brief A.2 PARTIAL) -- retained, NO relabel]: $\kappa_{FS} = p_c/\alpha = 8\pi$ is a geometric identity, independent of $\alpha$'s value ($p_c = 8\pi\alpha$ cancels); the input-vs-output directionality is reconciled upstream at the Dielectric Saturation Limit item. Per brief A.2: do not relabel the identity itself.
     \item \textbf{Faddeev-Skyrme Coupling (Cold):} $\kappa_{FS} = p_c / \alpha = 8\pi \approx 25.133$
     \item \textbf{Thermal Lattice Softening:} $\delta_{th} = \frac{\nu_{vac}}{\kappa_{FS}} \cdot \frac{2}{\pi} = \frac{2/7}{8\pi} \cdot \frac{2}{\pi} = \frac{1}{14\pi^2} \approx 0.00724$ (residual RMS noise averaging after Axiom~4 gradient saturation)
     \item \textbf{Effective Coupling:} $\kappa_{eff} = \kappa_{FS}(1-\delta_{th}) \approx 24.951$
