@@ -1,14 +1,16 @@
 # Passive winding-protected electron eigenmode — the structural keystone (ORCHESTRATION)
 
-> **STATUS: CORRECTED RE-RUN RETURNED — wall-half VINDICATED (first NEGATIVE-A was a resolution false
-> negative, confirmed); co-resolution WORKS (option (b) not triggered, N=26). BIN=NEGATIVE-A on the
-> F4 path — BUT 🔴 FLAG-WIND: the driver imposed the winding as a SEEDED IC, NOT the HELD topological
-> BC the prereg §7.1/§8.3 charters → F4=False is plausibly the un-held-BC APPARATUS FLOOR, not a
-> physics null → the keystone may be UN-TESTED. VERIFY PANEL RUNNING (`w92ft1gkc`) before banking;
-> the held-BC re-run would be a RE-SCOPE (Grant's call).** Lane worktree `AVE-Core-eigenmode-wt`,
-> branch `analysis/2026-06-15-passive-eigenmode-solve` off `main@40a2a2e7`. **main is PROTECTED —
-> Grant merges; this lane does NOT merge. Result NOT banked.** Re-run on driver branch
-> `analysis/2026-06-15-eigenmode-driver` (JSON SHA-pinned, `make verify` passes). Lane worktree
+> **STATUS: VERIFY PANEL `w92ft1gkc` UNANIMOUS — do NOT bank NEGATIVE-A (mis-binning + the keystone
+> is UN-TESTED). Held for Grant: held-BC re-scope / cheap held-BC probe / bank-what's-solid + defer.**
+> Lane worktree `AVE-Core-eigenmode-wt`, branch `analysis/2026-06-15-passive-eigenmode-solve` off
+> `main@40a2a2e7`. **main is PROTECTED — Grant merges; this lane does NOT merge. Result NOT banked.**
+> **SOLID (bankable):** the first NEGATIVE-A is REFUTED (false negative); the **wall-half breather is
+> VINDICATED** (real+stable, qualified to **≥10 core cells**; the banked N=26/5-cell F1=True is a
+> step-count knife-edge; G1 cert is box-scoped); G0 double-count-clean. **UN-TESTED:** the keystone —
+> the driver seed-and-evolved the winding as an IC + did forward-integration, NOT the **held-BC +
+> residual→0 eigensolve** the charter/§7.1-7.3/§8.3 specify. F4=False = un-held-BC apparatus floor
+> (coupling-independent), NOT a winding-physics null. **A faithful keystone test = a RE-SCOPE (new
+> prereg + version).** Lane worktree
 > `AVE-Core-eigenmode-wt`, branch `analysis/2026-06-15-passive-eigenmode-solve` off `main@40a2a2e7`.
 > **main is PROTECTED — Grant merges; this lane does NOT merge. Result NOT banked** (driver branch
 > `analysis/2026-06-15-eigenmode-driver`, result doc REFUTED-pending-re-run). **Panel:** dim-1
@@ -559,3 +561,20 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   banked — verify panel `w92ft1gkc` (wall-half / FLAG-WIND attribution / bin-appropriateness)
   scrutinizing.** NEXT: panel → adjudicate to Grant (bank-with-flags vs held-BC re-scope). Cross-lane:
   retract first NEGATIVE-A + cage scope-annotation → auditor queue.
+- **2026-06-15 (Phase 3f — VERIFY PANEL on the re-run: do NOT bank NEGATIVE-A)** — Panel `w92ft1gkc`
+  (3/3): **dim-1 wall-half FLAG** (vindication real but FRAGILE — the banked N=26 F1=True is a
+  step-count knife-edge straddling the −0.05 γ-gate by 3 parts in 10⁴, `driver:752,1036`; robust only
+  at **≥10 cells**; G1 cert is **box-scoped** — the same sech falls below the 0.60 floor at N=48);
+  **dim-2 FLAG-WIND CONFIRM** (the implementer's self-flag is correct: the driver seeds the winding as
+  a one-shot IC + free-evolves, zero held-BC enforcement; F4=False is coupling-independent
+  (bit-identical) → the un-held-BC **apparatus floor**; the keystone's imposed-BC thesis is
+  **UN-TESTED** — it ran the "withhold→disperse" arm §3 already predicts; **deeper gap: §7.2/§7.3
+  charter a residual→0 EIGENSOLVE, the driver did forward-integration with no root-finder**);
+  **dim-3 bin-appropriateness FLAG — do NOT bank as NEGATIVE-A** (a MIS-BINNING: §4 NEGATIVE-A = "the
+  solve disperses / no standing mode", but F1+F2 PASS — a stable breather EXISTS; the (F1-pass,
+  F4-fail) outcome §4 never provisioned). **HONEST corpus-state: first-negative REFUTED + wall-half
+  VINDICATED (≥10 cells, box-scoped) + keystone UN-TESTED (held-BC + eigensolve not implemented).**
+  **Held for Grant: (A) held-BC re-scope (new prereg/version + held-BC + residual→0 eigensolve) / (C)
+  cheap held-BC PROBE first (hold the winding on the co-resolving driver, de-risk) / (B) bank-what's-
+  solid + defer.** Cross-lane (auditor queue): retract the first NEGATIVE-A; bank the wall-half
+  vindication; record keystone UN-TESTED; cage scope-annotation.
