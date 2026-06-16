@@ -1,11 +1,12 @@
 # Passive winding-protected electron eigenmode — the hybrid (V,ω) high-Q standing mode — PREREG (Rule-11)
 
-> **STATUS: DRAFT v3 — PRE-FLIGHT RETURNED option (a) DEAD + a COORDINATE-MISMATCH reframe (§11
-> fork 1). FREEZE + PRODUCTION DRIVER HELD on a Grant platform/coordinate decision (b / b′ / c).**
-> Forks 2–3 ruled: Q is SECONDARY (137/114, awareness); α is an ECHO for the z₀ route (chord won't
-> fire). **The keystone = EXISTENCE + STABILITY of the passive high-Q hybrid mode (§4)** — but no
-> faithful platform to test it on yet (the pre-flight found the matter wall is read in the wrong
-> coordinates on existing engines). Grant-gated 2026-06-15 (B1; high-Q; existence-primary). Lane:
+> **STATUS: DRAFT v3 — 2 PRE-FLIGHTS DONE: (a) `CoupledK4Cosserat` DEAD (wrong sector); (b′)
+> `crystal_engine` V-tank VIABLE as a genuine BREATHER ((c) OFF). FREEZE held on Grant: confirm the
+> BREATHER/LIMIT-CYCLE framing (not static-Z→0) + grant the (b′) cross-firewall anti-loophole
+> sign-off (§11 fork 1).** Forks 2–3 ruled: Q is SECONDARY (137/114); α is an ECHO for the z₀ route.
+> **The keystone = EXISTENCE + STABILITY of the passive high-Q hybrid mode (§4), reframed: the mode
+> is a LIMIT CYCLE / BREATHER (read time-averaged/cyclic, TRUE n=√S impedance), not a static frozen
+> core.** Grant-gated 2026-06-15 (B1; high-Q; existence-primary). Lane:
 > `_orchestration/2026-06-15_passive-eigenmode-solve.md`.
 > **Rule 11 — commitment written BEFORE the driver; no knobs tuned to force a result.**
 
@@ -82,6 +83,17 @@ existence + stability + radiative Q of an **imposed-BC** mode (§9).
 **F1 + F2 + F4 ONLY**. The radiative **Q (F3) is measured and reported but does NOT decide the bin**:
 the cross-lane chord almost certainly will not fire (**α is an echo for the z₀ route** — §6), so the
 lane must NOT hang on Q-agreement.
+
+**THE MODE IS A LIMIT CYCLE / BREATHER, NOT A STATIC FROZEN CORE (pre-flight #2 reframe; Grant-gated
+pending §11).** The V-tank renders a genuine deep TIR wall that **breathes** (self-focuses to
+Γ_TRUE≈−0.43, relaxes, re-focuses — bounded, recurrent, no runaway), exactly the cage's ratified
+"persistent breathing cage" and the corpus electron = limit cycle (`selftrap` phasor limit-cycle;
+`master-equation.md:20` "A1 breather"). So **"stable real-eigenvalue mode" = a NON-DECAYING
+oscillation**, and **EXISTENCE/STABILITY (F1/F2) is read on the CYCLIC / time-averaged mode, not an
+instantaneous static Γ**: F1 = a bounded recurrent breather exists (self-focuses each cycle);
+**F2 = it does not DECAY (low-Q) or BLOW UP (runaway/gain) over many breaths** (the breather's
+cycle-to-cycle envelope is flat/slowly-decaying = dissipationless/high-Q). The radiative Q (F3) is
+the breather's **per-cycle leak** (TRUE n=√S, not the proxy S^{1/4}, §8.9).
 
 **Classification (`consistency-vs-emergence`):** EXISTENCE + STABILITY = **emergence test** (genuine,
 the keystone). The **Q VALUE** is a separate characterization (§6 echo).
@@ -225,6 +237,14 @@ existence + stability.
    $m_ec²$ magnitude hypothesis-class, `photon-identification.md:19`).
 7. **Do NOT** bank a winding read (F4) or a stability/Q read (F2/F3) before its gate (G4/G2/G3) passes.
 8. **Do NOT** present the cross-lane chord as available — it is contingent on Lane-1 Path C (§6).
+9. **Do NOT** read the impedance Γ from the proxy `gamma_bulk` = S^{1/4} (`crystal_engine.py:421-432`,
+   `master_equation_fdtd.py:165-168`) — use the **TRUE n=√S** (`Z=1/c_eff`, `c_eff²=c0²/S`,
+   `crystal_engine.py:197-200`). **Exponent-defect FLAG (pre-flight #2):** proxy floor −0.240 vs true
+   −0.454 (~2×); same exponent-defect family as the clock exponent (§7.6 / Flag-D). Engine/cross-lane
+   item — flag, the production driver uses the TRUE form.
+10. **Do NOT** read EXISTENCE/STABILITY off an instantaneous static Γ — the mode BREATHES; read the
+    **cyclic / time-averaged** mode (§4): F1 = a bounded recurrent breather exists; F2 = it does not
+    decay (low-Q) or blow up (gain) over many breaths.
 
 ---
 
@@ -254,16 +274,18 @@ eigencavity structure is a real passive radiating eigenstructure with finite Q"*
 
 The auditor surfaced three **physics-framing forks**; **Grant RULED (2026-06-15):**
 
-1. **Platform (§7) — PRE-FLIGHT RETURNED: option (a) DEAD (agent `a12b397d4d347be90`).**
-   `CoupledK4Cosserat` reaches the magnetic SIGN but only **clip-floors a pseudo-Γ→−1 wall that
-   runs away** (deepest genuine Γ≈−0.49, non-persistent) — reproducing graft-v2's clip-bound "−1 NOT
-   demonstrated" on a SECOND engine. Two deeper findings: the **chiral term is <10% / not the wall
-   driver** (structural curvature/strain split is — contradicts the docstring + Lane-3), and a
-   **COORDINATE-MISMATCH**: the engine reads Γ from Cosserat ω-curvature, but the canonical electron
-   winding lives in the **K4 V-tank `(V_inc,V_ref)` phasor**; the ω wall it found is **proton-family**,
-   the canonical unknot electron gave **no wall**. **→ The platform decision is now (b) build-as-posed
-   / (b′) re-scope to the V-tank phasor (coordinate-faithful — points back to `crystal_engine`) / (c)
-   mounting-negative-but-untestable. FREEZE + DRIVER HELD on Grant; entangled with Flag-A.**
+1. **Platform — RESOLVING: (a) DEAD; V-tank (b′) VIABLE as a BREATHER; (c) OFF.** Pre-flight #1
+   (`CoupledK4Cosserat`, agent `a12b397d4d347be90`): (a) DEAD — clip-floor pseudo-Γ→−1 + runaway,
+   wrong sector (ω-curvature, proton-family). Pre-flight #2 (`crystal_engine` V-tank, agent
+   `a9ce00462badb0d85`): a **genuine, bounded, recurrent BREATHING TIR wall** (Γ_TRUE≈−0.43 unclipped;
+   amp=0.50 walls −0.19 zero-clip; no runaway), **right sector** (A1/V-tank Z=1/c_eff). **(c) is OFF**
+   (third-engine watch-item did NOT trigger). NOT a stable static Z→0 — but **"static" was a
+   mis-framing: the eigenmode is a LIMIT CYCLE / BREATHER** (cage "persistent breathing cage";
+   `master-equation.md:20` "A1 breather"; high-Q real-eigenvalue = non-decaying oscillation). **→ V-tank
+   = the VIABLE wall host; (b′) = couple Cosserat-ω winding to the crystal_engine breathing V-tank
+   wall, read time-averaged/cyclic with the TRUE n=√S impedance (NOT the proxy `gamma_bulk`=S^{1/4},
+   exponent-defect flag §8.9). FREEZE held on: Grant confirm the breather framing + grant the (b′)
+   anti-loophole sign-off (cross-firewall = the substrate-complete engine).**
 2. **F3 mechanism (§5) — RULED: pre-registered, awareness only.** 137 (bare-α) vs 114 (κ_chiral=α·1.2
    = the (2,3) factor κ̃); a 114 result = the chiral coupling sets the leak (a real finding). **Not
    bin-deciding** (§4 — Q is secondary).

@@ -74,6 +74,23 @@ the ACTUAL impedance Γ on `crystal_engine`'s sech self-focus. **Decisive either
 wall-half real → (b′) bounded build + sign-off; CLIP-FLOOR+RUNAWAY → (c), the honest structural
 negative (the THIRD engine → it stops being a coordinate problem and becomes a real keystone signal).
 
+**V-TANK PRE-FLIGHT RETURNED (agent `a9ce00462badb0d85`): a genuine BREATHER, NOT a clip-floor —
+(c) is OFF, the third-engine watch-item did NOT trigger.** `crystal_engine`'s V-tank self-focuses to
+a **GENUINE deep TIR wall** (Γ_TRUE≈−0.43 on **fully-UNCLIPPED** cells; amp=0.50 walls to −0.19 with
+**ZERO clips ever**), **bounded, NO runaway** (max|V|≈V_yield then relaxes), **recurrent** (re-focuses
+at steps 375–450). **Right sector** (A1/V-tank longitudinal Z=1/c_eff — the electron's matter wall;
+distinct from pre-flight #1's wrong-sector ω-curvature). Categorically HEALTHIER than the two coupled
+engines: genuine unclipped physics that BREATHES, vs a clip-artifact that DETONATES. It is **NOT a
+STABLE STATIC Z→0** (the deep wall flashes, Γ_persist≈−0.03, then relaxes) — **but "stable static"
+was a MIS-FRAMING.** The electron eigenmode is a **LIMIT CYCLE / BREATHER**, not a frozen core (cage
+ratified "persistent breathing cage" 2026-06-13; `selftrap` limit-cycle; `master-equation.md:20` "the
+A1 breather"; the high-Q "stable real-eigenvalue mode" = a **NON-DECAYING oscillation**, not a static
+wall). **So the V-tank renders the RIGHT object → crystal_engine V-tank is the VIABLE wall host
+(b′ confirmed).** Read the eigenmode **time-averaged/cyclic** with the **TRUE n=√S** impedance, NOT
+the proxy `gamma_bulk`=S^{1/4} (**exponent-defect FLAG**, `crystal_engine.py:421-432`,
+`master_equation_fdtd.py:165-168` — proxy floor −0.240 vs true −0.454, ~2×). **Surfaced to Grant:
+confirm the breather/limit-cycle framing + the (b′) bounded-build anti-loophole sign-off.**
+
 ---
 
 ## §0 — Derivation target (charter + the high-Q correction)
@@ -389,3 +406,16 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   resolution); (2) chirality contradiction → K=2G lane (likely off-K=2G artifact); (3) watch-item:
   third-engine clip-floor would convert the coordinate caveat into a keystone structural signal.
   **NEXT: V-tank pre-flight result → (b′)+sign-off OR (c) honest negative.**
+- **2026-06-15 (Phase 1d — V-TANK PRE-FLIGHT: a BREATHER, (c) OFF; breather reframe)** — `crystal_engine`
+  V-tank renders a **genuine, bounded, recurrent BREATHING TIR wall** (Γ_TRUE≈−0.43 unclipped; amp=0.50
+  walls to −0.19 with zero clips; no runaway) — categorically HEALTHIER than the two coupled engines.
+  **Third-engine watch-item did NOT trigger → option (c) is OFF.** NOT a stable static Z→0, but that
+  was a **mis-framing**: the electron eigenmode is a **LIMIT CYCLE / BREATHER** (cage "persistent
+  breathing cage", `selftrap` limit-cycle, `master-equation.md:20` "A1 breather", high-Q
+  real-eigenvalue = non-decaying oscillation). **→ V-tank is the VIABLE wall host (b′ confirmed).**
+  Surfaced to Grant: (i) confirm the breather/limit-cycle framing (the implementer's flag-don't-fix:
+  read the eigenmode time-averaged/cyclic, not instantaneous-static); (ii) the **(b′) bounded
+  cross-firewall build sign-off** (couple Cosserat-ω winding to the crystal_engine breathing V-tank
+  wall). **EXPONENT-DEFECT FLAG:** the production read must use the TRUE n=√S impedance, NOT the
+  proxy `gamma_bulk`=S^{1/4} (`crystal_engine.py:421-432`). **NEXT: Grant framing-confirm + (b′)
+  sign-off → freeze → production driver.**
