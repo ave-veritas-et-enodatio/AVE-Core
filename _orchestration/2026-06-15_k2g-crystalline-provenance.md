@@ -113,6 +113,12 @@ prereg [`research/2026-06-15_k2g-constitutive-provenance_prereg_FROZEN.md`](../r
   Cosserat(native)+Keating(x-check) both show impedance-matched ρ doesn't reach K=2G. **Verdict: NOT
   constitutively forced — GR-imported, end of line.** Pushed to PR #261.
 
-## Status: ACTIVE — both phases landed; K=2G provenance = GR-IMPORTED (end of line); PR #261 awaiting Grant merge
+- **2026-06-15** — **Phase-2 auditor-gate PASS**: 4 citations verbatim; SYM-invariance SOUND (survives
+  open crio sign, F+R forms both cancel); `k_s∝1/L` honestly flagged + robustly dispensable (same-co-
+  scaling fallback corpus-clean); flag-don't-fix confirmed. 4 refinements folded (path-qualify;
+  GR-identification clause; `:22` L↔mass tension; `01_appendices:131` softened to tuned-sim). Auditor's
+  ρ=1-vs-ρ=2 question resolved (factor=1 ⟹ ρ=𝒢_geom; corpus ρ=2 asserted, needs Phase-1-NEGATIVE 𝒢=2).
+
+## Status: ACTIVE — both phases landed + both auditor-gates PASS; K=2G provenance = GR-IMPORTED (end of line); PR #261 awaiting Grant merge
 </content>
 </invoke>

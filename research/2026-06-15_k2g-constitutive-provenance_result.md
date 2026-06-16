@@ -16,7 +16,7 @@
 
 | Step | Statement | Provenance |
 |---|---|---|
-| capacitive sector | `k_a = ξ²/C_eff` (elastance) | **corpus-canonical** — `translation-circuit.md:23` `C=ξ²·compliance=ξ²/stiffness` |
+| capacitive sector | `k_a = ξ²/C_eff` (elastance) | **corpus-canonical** — `common/translation-tables/translation-circuit.md:23` `C=ξ²·compliance=ξ²/stiffness` |
 | inductive sector (the new step) | `k_s ∝ 1/L_eff` (magnetic reluctance ℛ=1/permeance; microrotation↔flux, E=½ℛΦ²) | **derived by EE duality** — flag for scrutiny |
 | ⟹ | **ρ = k_a/k_s ∝ L_eff/C_eff = Z_eff²** | the bond-stiffness ratio IS local impedance, squared |
 
@@ -28,9 +28,13 @@ sector. The exact reluctance prefactor is not load-bearing.
 
 A cold **geometric prefactor 𝒢** × an **operating-point impedance factor** (Z_eff/Z₀)².
 
-- **K=2G IS the SYM operating point** (`backmatter/07:40` "SYM = vacuum K=2G; ε,μ saturate together")
-  — the impedance-matched, reflectionless **Γ=0 gravity null** where ε_eff=ε₀S, μ_eff=μ₀S co-scale so
-  **Z_eff=Z₀ stays invariant**.
+- **K=2G is IDENTIFIED with the SYM operating point** (`backmatter/07:40` "SYM = vacuum K=2G; ε,μ
+  saturate together") — the impedance-matched, reflectionless **Γ=0 gravity null** where ε_eff=ε₀S,
+  μ_eff=μ₀S co-scale so **Z_eff=Z₀ stays invariant**. **This identification is itself the GR-imported
+  trace-reversal** (`q-g47-…closure.md:28` "required by GR"; 2026-06-14 audit:18) — NOT a substrate
+  derivation of where K=2G sits. The SYM-invariance argument below is therefore *"given the GR
+  identification, the operating point adds nothing,"* not an independent derivation of the locus — which
+  is exactly why the verdict is "imported."
 - **On the K=2G branch, ρ = L_eff/C_eff = (μ₀S)/(ε₀S) = Z₀² for ALL S** (the common scaling cancels —
   driver §2, ρ=1.000 across S=1.0→0.05). **The saturation operating point cannot tune ρ.** The 2:1 of
   K=2G must therefore live in 𝒢 — and Phase 1 showed 𝒢 is an **unforced one-parameter family**.
@@ -38,18 +42,30 @@ A cold **geometric prefactor 𝒢** × an **operating-point impedance factor** (
   "magic-angle operating point" cannot be where K=2G is forced, because on the SYM branch ρ is
   operating-point-invariant. The corpus had no such argument (grep-confirmed) — this is new.
 
-## 3. The decisive read (driver §3)
+## 3. The decisive read (driver §3) — and the ρ=1-vs-ρ=2 resolution
 
-| ρ = Z_eff² | Cosserat (native) K/G, ν | Keating (x-check) K/G, ν | meaning |
+**Be precise about which "1" is pinned.** ρ = 𝒢_geom · (Z_eff/Z₀)². The OPERATING-POINT FACTOR
+(Z_eff/Z₀)² is pinned to **1** on the SYM branch (this result). ρ itself = 𝒢_geom, the **cold geometric
+prefactor** = the Phase-1 free ratio. So the table below sweeps ρ=𝒢_geom; the operating point is NOT a
+knob on it.
+
+| ρ = 𝒢_geom | Cosserat (native) K/G, ν | Keating (x-check) K/G, ν | meaning |
 |---|---|---|---|
-| **1.00** (Z_eff=Z₀, balanced/matched) | **1.50, ν=0.227** | 0.67, ν=0.000 | substrate's natural impedance-matched point |
-| 2.00 | **2.00, ν=2/7** | 0.97, ν=0.117 | Cosserat K=2G — needs Z_eff=√2·Z₀ (2:1 ε/μ mismatch) |
-| 5.30 | 3.65, ν=0.375 | **2.00, ν=2/7** | Keating K=2G (Voigt) — needs Z_eff=2.3·Z₀ |
+| **1.00** | 1.50, ν=0.227 | 0.67, ν=0.000 | 𝒢_geom=1 reference — a *pure balanced LC line* (no geometric ε/μ asymmetry); illustrative, NOT a claim the substrate sits here |
+| **2.00** | **2.00, ν=2/7** | 0.97, ν=0.117 | Cosserat K=2G — the corpus's ASSERTED point (`k_a=2/7,k_s=1/7`); needs 𝒢_geom=2 |
+| 1.52 | 1.76, ν=0.261 | **0.82, ν=0.068** | real z=4 diamond (Phase-1 reference) — 𝒢_geom≈1.5 |
+| 5.30 | 3.65, ν=0.375 | **2.00, ν=2/7** | Keating K=2G (Voigt) — needs 𝒢_geom=5.3 |
 
-At the impedance-matched point (Z_eff=Z₀, ρ=1) the substrate-native Cosserat model gives **ν=0.227 —
-the closest natural approach to 2/7, but not it.** K=2G requires the ε- and μ-sector elastances to
-differ by **≥2:1** (Z_eff≥√2·Z₀), which the SYM impedance-matched substrate (Z_eff=Z₀, by definition of
-the gravity null) **does not have**.
+**Resolving the auditor's question (is the substrate at the corpus ρ=2 or this result's ρ=1?).** Neither
+is "forced." The operating-point factor is 1 either way, so **ρ = 𝒢_geom**. The corpus *posits* ρ=2
+(`k_a=2/7, k_s=1/7`; `clm-bjceop:1073` — k_s=1/7 an explicit "normalization choice," taken as given to
+land K=2G). My analysis shows ρ=2 cannot come from the operating-point factor (SYM-pinned to 1); it
+would have to come from **𝒢_geom=2 — the Phase-1 cold-geometry question, answered NEGATIVE** (unforced
+one-parameter family; real z=4 gives 𝒢_geom≈1.5, ν≈0.07–0.23). The ρ=1 row is the *illustrative
+𝒢_geom=1 limit* (a featureless balanced LC line gives ν=0.227 in the native model, the nearest natural
+miss of 2/7), **not** a claim the substrate sits at ρ=1. **Bottom line: the corpus's ρ=2 is asserted,
+not forced — neither by the operating point (factor=1) nor by the geometry (Phase-1). Imported either
+way.**
 
 ## 4. Model choice (Grant's flag) — verdict is robust
 
@@ -79,8 +95,11 @@ linkage is itself a finding:
 **K=2G is NOT constitutively forced.** ρ = 𝒢·(Z_eff/Z₀)²: the constitutive law's only handle (the
 operating-point impedance factor) is **SYM-pinned to 1** on the K=2G branch and so contributes nothing
 to selecting it; the residual 𝒢 is the **Phase-1 unforced geometric ratio**. The chiral coupling does
-not rescue it (corpus: λ_G=4/21 chirality-blind; `01_appendices.tex:131` "emergent from Chiral LC" is a
-bare assertion, grep-confirmed). **Both the geometry (Phase 1) and the constitutive law (Phase 2) fail
+not rescue it: `01_appendices.tex:131` "K=2G emergent from Chiral LC coupling" is backed only by a **tuned
+simulation** (lines 132–135: low coupling → K/G≈1.67 Cauchy; high coupling → K/G≈1.78–2.0) that reaches
+the range only at high `k_couple`, with **no first-principles fixing of `k_couple` and no clean landing on
+2.0** — corroborated by the corpus's own **chirality-blind λ_G=4/21** (`closure-roadmap.md:32,191`,
+invariant to 14 dp across k_χ∈[0,1]). **Both the geometry (Phase 1) and the constitutive law (Phase 2) fail
 to force K=2G ⟹ it is GR-imported, end of line.** Forks (a) and the constitutive route both resolve to
 IMPORTED, consistent with the standing 2026-06-14 audit.
 
@@ -98,10 +117,30 @@ IMPORTED, consistent with the standing 2026-06-14 audit.
 
 ## 7. Honest scope / limits
 
-- The `k_s ∝ 1/L_eff` dual is the one **derived** (non-corpus) step; flagged for scrutiny. The verdict
-  survives a weaker bridge (only needs same-functional-form sector elastances → SYM cancellation).
+- The `k_s ∝ 1/L_eff` dual is the one **derived** (non-corpus) step; flagged for scrutiny. It is not
+  merely absent from the corpus — it is in **mild tension with the canonical `translation-circuit.md:22`
+  row L↔mass** (inductance as the *inertial* analog, not a stiffness). So the verdict does **not** lean on
+  it: it rests on the **same-co-scaling fallback** (k_a, k_s are the ε/μ-sector elastances scaling the
+  same way under SYM ⟹ the common factor cancels ⟹ operating-point-invariance), which is corpus-clean and
+  needs no L↔stiffness identification. The `ρ=Z_eff²` reading is the interpretive picture, not load-bearing.
 - This is the **linear small-signal** constitutive law. The chiral κ_chiral channel is nonlinear
   above-yield (corpus) and does not enter the linear K/G ratio; if a future derivation shows the chiral
   cross-term forces 𝒢=2 at the *cold linear* level, that would lift the verdict — none exists.
 - The off-SYM (ASYM) ρ direction is **not resolved** here (it is the open crio Grant Q); the verdict is
   built to not need it.
+
+## 8. Auditor-gate (2026-06-15) — PASS
+
+Read-only ave-auditor, against worktree HEAD: **all 4 load-bearing citations verbatim-VERIFIED**
+(`translation-circuit.md:23` C=ξ²/stiffness, `backmatter/07:40` SYM=K=2G, INVARIANT-S2 ε/μ scaling,
+`q-g47-…closure.md:58` Cosserat moduli). **SYM-invariance argument judged SOUND** — the S-cancellation
+is structural and confirmed for BOTH the F-form and the corpus R-form (`C_eff=C₀/S`), so it survives the
+open crio sign. **The derived `k_s∝1/L` step judged honestly flagged AND robustly dispensable** — the
+same-co-scaling fallback is genuinely sufficient; the verdict does not secretly depend on the dual.
+**flag-don't-fix confirmed** (commit touched only the 4 lane files; no canonical edit). Four refinements
+folded in here: (i) path-qualified `translation-circuit.md:23`; (ii) §2 now states K=2G=SYM is the
+GR-imported identification (not an independent locus derivation); (iii) §7 sharpened the `k_s∝1/L` flag
+to the `:22` L↔mass tension + leans on the fallback; (iv) §6 softened `01_appendices.tex:131` from "bare
+assertion" to "tuned simulation, no first-principles `k_couple`." The auditor's sharp question (substrate
+at ρ=1 or corpus ρ=2?) is resolved in §3: **operating-point factor=1 ⟹ ρ=𝒢_geom; ρ=2 is asserted, needs
+𝒢_geom=2 = Phase-1 NEGATIVE.** No verdict change.

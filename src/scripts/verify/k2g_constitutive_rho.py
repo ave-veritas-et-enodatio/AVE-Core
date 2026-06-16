@@ -74,20 +74,23 @@ print(f"      OPEN crio Branch-R-vs-F monotonicity Q, and K=2G is undefined off-
 #    -> operating-point factor = 1 -> rho_cold = G_geo. The natural BALANCED point is rho=1.
 # ---------------------------------------------------------------------------------------------------
 print("\n" + "-"*88)
-print("DECISIVE READ -- constitutive operating point (Z_eff=Z0 -> factor=1 -> balanced rho=1):")
+print("DECISIVE READ -- rho = G_geo * (Z_eff/Z0)^2; operating-point FACTOR=1 on SYM, so rho=G_geo.")
+print("(The sweep is over the COLD GEOMETRIC ratio G_geo; the operating point is NOT a knob on it.)")
 f_nu_cos = sp.lambdify(rho, nu_of_KG(KG_cos), 'numpy')
 f_nu_kea = sp.lambdify(rho, nu_of_KG(KG_kea), 'numpy')
 f_KG_cos = sp.lambdify(rho, KG_cos, 'numpy')
 f_KG_kea = sp.lambdify(rho, KG_kea, 'numpy')
-print(f"  {'rho':>6} | {'Cosserat K/G':>13} {'nu':>8} | {'Keating K/G':>12} {'nu':>8} | note")
-for rv, note in [(1.0,  "Z_eff=Z0 (impedance-matched / balanced LC) <- substrate's natural point"),
-                 (2.0,  "Cosserat K=2G needs Z_eff=sqrt(2)*Z0 -- a 2:1 eps/mu mismatch"),
-                 (5.305,"Keating K=2G (Voigt) needs Z_eff=2.30*Z0")]:
-    print(f"  {rv:>6.2f} | {f_KG_cos(rv):>13.3f} {f_nu_cos(rv):>8.4f} | "
+print(f"  {'rho=G_geo':>9} | {'Cosserat K/G':>13} {'nu':>8} | {'Keating K/G':>12} {'nu':>8} | note")
+for rv, note in [(1.0,  "G_geo=1 REFERENCE: pure balanced LC (no geo asymmetry); illustrative, NOT the substrate"),
+                 (1.52, "real z=4 diamond (Phase-1): G_geo~1.5"),
+                 (2.0,  "Cosserat K=2G: corpus-ASSERTED point (k_a=2/7,k_s=1/7); needs G_geo=2"),
+                 (5.305,"Keating K=2G (Voigt): needs G_geo=5.3")]:
+    print(f"  {rv:>9.2f} | {f_KG_cos(rv):>13.3f} {f_nu_cos(rv):>8.4f} | "
           f"{f_KG_kea(rv):>12.3f} {f_nu_kea(rv):>8.4f} | {note}")
-print(f"\n  nu(2/7) = {2/7:.4f}. At the impedance-matched rho=1: Cosserat nu=0.227, Keating nu=0.000 --")
-print(f"  neither is 2/7. K=2G requires the eps- and mu-sector elastances to differ by >=2:1")
-print(f"  (Z_eff >= sqrt(2)*Z0), which the SYM impedance-matched substrate (Z_eff=Z0) does NOT have.")
+print(f"\n  nu(2/7) = {2/7:.4f}. The operating-point factor is pinned to 1 (SYM), so rho=G_geo. K=2G needs")
+print(f"  G_geo=2 (Cosserat) / 5.3 (Keating) -- the Phase-1 cold-geometry question, answered NEGATIVE")
+print(f"  (unforced; real z=4 gives G_geo~1.5). The corpus's rho=2 is ASSERTED, not forced by either the")
+print(f"  operating point (factor=1) or the geometry (Phase-1). The rho=1 row is the G_geo=1 limit only.")
 
 # ---------------------------------------------------------------------------------------------------
 # 4. Verdict.
