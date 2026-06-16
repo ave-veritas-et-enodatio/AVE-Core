@@ -1,0 +1,75 @@
+[↑ Common Resources](index.md)
+
+<!-- kb-frontmatter
+kind: leaf
+no-claim: "Terminology-selection discipline (the EE-native leak-check): which discipline's vocabulary is substrate-native for the vacuum medium, and how to test a borrowed word — REGIME-scoped — before it enters a derivation or prose. References existing axioms, def- nodes, and the translation infrastructure; originates no new physical claim."
+path-stable: "the canonical term-selection-discipline leaf; companion to vocabulary-register.md (per-term def- adjudications) — this leaf gives the regime-scoped selection RULE, the register adjudicates individual terms"
+-->
+
+# Substrate-Native Terminology Discipline — the EE-Native Leak-Check
+
+This is a **definitional / no-claim** leaf. It introduces no new physical result. It records the discipline for *which language to describe the vacuum medium $\mathcal{M}_A$ in*, and how to test a borrowed word before it enters a derivation or load-bearing prose. It is a **default-register guide**, not a hard retire-list: reach for the EE-native primitive first, and where you do borrow a materials/fluid word, **scope it to the regime where it is literally true**. It is the companion to the [vocabulary register](vocabulary-register.md) (the register adjudicates *individual* terms via `def-` nodes; this leaf gives the *selection rule*) and to the `ave-discipline-translate` skill + [analytical-toolkit index](ave-analytical-toolkit-index.md) (which enumerate *where to look*).
+
+## The principle — EE is the reference language
+
+**Electrical engineering is the least-leaky language for $\mathcal{M}_A$ — because EE's bedrock constants ARE vacuum constants.** Every engineering discipline is built on the constitutive constants of its medium. A materials engineer's bedrock (yield strength, modulus, viscosity) is matter-specific; an EE's bedrock — $\varepsilon_0$, $\mu_0$, $Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx 377\,\Omega$, $c$ — was measured off empty space. So Axiom 1's identification of the vacuum as a chiral LC network ($Z_0 = \sqrt{\mu_0/\varepsilon_0}$, intrinsic node LC oscillators) is **not a borrowing: EE was already a vacuum theory.** This is why the "electron-plumber" / EE-native register is the primary instrument, not a folksy analogy.
+
+This is **operational primacy (minimal-DOF, least-leaky), NOT ontological primacy.** Axiom 1's substrate-noun is the *Cosserat crystal* and the LC network is the model-*of* it; the Cosserat microrotation is an **independent primary DOF** (`translation-circuit.md:269`), and "E and B are real-space mechanical motions of the substrate" (`electron-plumbing-primer.md:24`). Axiom 2 — the Topo-Kinematic Isomorphism (`translation-circuit.md`; the `def-tk1xfm` node is **proposed**, PR #265) — makes the mechanical and electrical descriptions an exact isomorphism, formally co-equal. EE wins because it adds the fewest abstraction DOFs over the axioms (`translation-circuit.md:79,87`), not because it is more fundamental. Correspondingly, **EE-first is itself regime-conditional**: EE is primary for *dynamics* (Q-factor, saturation, impedance gradient, mode-counting, breakdown); for *geometric/topological/axiomatic* content, substrate-topology is primary and EE is the consistency check (`translation-circuit.md:383`; see §"Division of labor").
+
+## The leak-check — declare the REGIME first, then test the word's defining property
+
+A primitive carries default connotations. A borrowed word **leaks** when it imports a property the substrate lacks *in the regime under discussion* — and the regime is the crux, because most materials words are wrong in one regime and exactly right in another. So:
+
+> **First declare the regime** (per the [four-regimes map](../vol1/operators-and-regimes/ch7-regime-map/four-regimes.md) + the `ave-regime-phase-state-check` discipline): linear sub-yield (I) / near-yield (II–III) / **ruptured (IV)**; **bound-interior** vs **boundary/loaded**; **primary-lattice** vs **secondary-EMT** scale. **Then** ask: does the word's defining property hold *in that regime*?
+
+The reference regime — where the EE-native register is cleanest — is the **bound, sub-yield, interior mode**: there the substrate is **lossless / reactive** (Ax 3), **discrete + propagating** (Ax 1, K4 LC ladder), **boundary-reflective** (Ax 3, $|\Gamma|^2$), **saturable** (Ax 4, varactor $S(A)$). The single sharpest test there is **internal-friction dissipation**: in EE, losslessness is the *default* (storage in L/C; loss is a separate element R you set to zero); in materials/fluids, dissipation is the default. So a materials word usually smuggles in *internal viscous heating* the bound reactive mode does not have.
+
+**But the substrate is not globally lossless.** Beyond the sub-yield interior, the corpus carries genuine loss/irreversibility: **radiative** channels (the electron's per-cycle $Q=1/\alpha$ leak `resonant-lc-solitons.md:96`; the far-field dark-wake $\tau^{far}_{zx}$ `dark-back-reaction-taxonomy.md:23`; GW/curvature radiative damping `orbital-friction-paradox.md:34`), **substrate-intrinsic mode-decay** (Op3 $A_1$-mode monotonic loss `k4-port-irrep-decomposition.md:28`), **boundary-Joule extraction** (irreversible thermalization at a resistive/detector load — the Ohmic-decoherence / Born-rule mechanism `ohmic-decoherence-born.md:36`), and **phase-transition-irreversible rupture** (Regime IV / past $V_{snap}$ / the $\Gamma=-1$ wall `four-regimes.md:29`). What the substrate lacks is **internal viscous friction → heat in the reactive regime** — not loss as such. Scope the leak-check accordingly.
+
+## Term register — default to EE-native; scope the borrows by regime
+
+**Reach for these first (EE-native — the default register):** impedance $Z$ / $Z_0$; reactance $X_L,X_C$ (lossless storage); reflection $\Gamma$, $|\Gamma|^2$, $S_{11}$ (boundary, Ax 3); transmission line / LC ladder / ABCD (Ax 1); varactor / saturable reactance ($C_{eff}=C_0/S$, Ax 4); resonance, $Q$-factor, pole, root-locus; matched/mismatched, **phase**, phase velocity (a "phase slipstream" = a co-moving $\Gamma\to0$ match); soliton / breather.
+
+**Mechanical/elastic — PASS *in the linear sub-yield regime* (clean reactive storage via the TKI dictionary):** elastic ($=$ reactive storage), stiffness/modulus ($=$ impedance/reactance), strain ($=$ field gradient), inertance/mass ($L=\xi^{-2}m$), compliance ($C=\xi^2\kappa$ — mind the Q1=(B) split below), coordination / Cosserat micro-rotation (lattice geometry, clean). *Scope:* "elastic" and "strain" are clean **below the elastic limit**; past it (Regime IV) they correctly take an irreversible/permanent qualifier.
+
+**Materials / fluid words — leak in the reactive regime, but are CORRECT in another regime. Scope, don't blanket-retire:**
+
+| word | leaks (regime) → replace with | but CORRECT (regime) → keep |
+|---|---|---|
+| **plastic / plastic yield** | sub-yield: reactive **saturation knee** / nonlinear reactance. AVE "yield" $=$ reversible saturation $\neq$ plastic flow | **Regime IV / past $V_{snap}$**: "irreversible plastic deformation" is canonical (neutron-star permanent defect `07_stellar_interiors.tex:159`; GW memory `first-principles-predictions.md:35`) |
+| **viscous / viscosity** | dynamic $\eta$ (internal-friction $R=\xi^{-2}\eta$): the **radiative leak** / mismatch, NOT internal heating | **kinematic** $\nu_{kin}=\alpha\,c\,\ell_{node}$ is a *derived* substrate quantity (`constants.py` `NU_KIN`, `full-derivation-chain.md:631`) |
+| **thixotropic / liquefy / melt** | thixotropic sub-yield re-freeze is *reversible* softening ($S\downarrow$) — fine as such | **melt / liquefy** names a real Regime-IV **phase** ($G\to0$ ruptured fluid `four-regimes.md:31`, `solver-toolchain.md:72`) |
+| **hysteresis** | reversible Axiom-4 envelope: no loop area | **memristive Level-2** loop area $=$ dissipated energy/cycle (`nonlinear-vacuum-capacitance.md:61`); the electron LOCK is *irreversible* |
+| **friction / drag** | internal-friction drag: reflection / mismatch ($\Gamma\neq0$) | **radiation resistance** $R_{rad}\equiv Z_0$ (wave-making drag, a real port `dark-wake-bemf-foc-synthesis.md:13`) |
+| **amorphous** | *primary-lattice* geometric-disorder → **ordered chiral K4 crystal** | ⚠ *secondary-EMT-scale* "amorphous network" ($z_0\approx51.25$) is **under the open D3 amorphous-retirement adjudication** — do **not** classify either way here |
+
+**QFT/QED — FAIL (replace):** point particle / renormalization / self-energy → extended **soliton** ($0_1$ unknot); virtual particle / Feynman exchange → reactive near-field / standing longitudinal $V$.
+
+**GR — FAIL as the primitive (OK as a reproduced equivalent):** smooth metric manifold / geodesic → discrete K4 medium + **impedance gradient** (gravity $=$ Machian boundary impedance / SYM $\varepsilon\!\cdot\!\mu$ co-scaling). "Geodesic" is acceptable *only* when explicitly framed as the reproduced GR-equivalent (Gordon optical metric), never the substrate primitive.
+
+## Closest ≠ complete — restore the deleted grades (without breaking the transverse photon)
+
+Textbook EE is the **transverse** Maxwell sector only. The substrate-native language is **EE restored to its full grade structure**: transverse ($\mathbf{E},\mathbf{B}$) **+ longitudinal scalar** (the "3" / V-sector — Heaviside & Gibbs excised it from Maxwell's quaternions; AVE says it is real and load-bearing, `master-equation.md:18,20`) **+ Cosserat microrotation** (the spin DOF beyond $\nabla\times$).
+
+**Precision (do not over-correct).** "The photon **is** transverse" is **TRUE and load-bearing** — a photon is a purely transverse Cosserat shear wave with no longitudinal component (`02_general_relativity_and_gravity.tex:185`; drives the 2/7 double-deflection and the GRB-dispersion kill-switch). The QED-garbage trap is **not** the word "transverse" — it is the *inference* "the photon is transverse $\Rightarrow$ the substrate has **no** longitudinal grade at all." The longitudinal scalar is a **separate** mode (the electron's $A_1$ dilatation-mass "3"), **never** a longitudinal component of the transverse photon — wiring it into the photon sector is the two-"3"s double-count (`master-equation.md:20`).
+
+## Division of labor — EE owns dynamics, topology owns the integers
+
+EE is closest for what the substrate **does**: energy flow, impedance, reflection, storage, resonance. The conserved **labels** are **topological**, which EE scalarizes: charge $=$ the $(2,3)$ phase-space winding number, the electron $=$ the $0_1$ unknot (canonical at `electron-identification.md` / `ch8-alpha-golden-torus.md:31`; note the corpus enforces *phase-space*-winding, NOT a real-space knot — `def-3638f2` is the `ambiguous` homonym node, cite the (p,q) home directly). Use the **EE register** for dynamics; the **knot/topology register** for the quantized conserved quantities. EE is the spine, not the whole skeleton.
+
+## Case law (worked precedents)
+
+1. **Peierls-Nabarro no-Bremsstrahlung (sub-yield).** ✓ "(zero-impedance) **phase slipstream**" (a co-moving $\Gamma\to0$ matched channel — reversible, reactive, a soliton's self-matched envelope). ✗ "thixotropic STZ / liquefies / plastic" *as the load-bearing mechanism* — in the lossless sub-yield regime that imports dissipation, which would radiate, contradicting the result.
+2. **Plastic — regime split.** Sub-yield electron translation: "plastic" leaks → saturation knee. **Regime IV** (neutron star, GW memory, pair-production): "irreversible plastic deformation" is the *correct* canonical term. Same word, opposite verdict by regime — the reason this leaf is regime-scoped.
+3. **Amorphous.** *Primary scale*: "amorphous" (geometric disorder) → "ordered chiral K4 crystal." *Secondary-EMT scale* ($z_0\approx51.25$): **open D3 adjudication** — flagged, not classified.
+4. **$C_{eff}$ vs $\varepsilon_{eff}$ (Q1 $=$ (B), INVARIANT-S2).** One EE word "capacitance" → **two orthogonal reactances**: longitudinal-A1 **compliance** ($C_0/S$, $\uparrow$) $\neq$ transverse-T2 **permittivity** ($\varepsilon_0 S$, $\downarrow$). Split, don't collapse.
+
+## How to apply
+
+1. **Declare the regime** (sub-yield / near-yield / ruptured; bound-interior / boundary; primary / secondary scale).
+2. Reach for the **EE-native primitive** first.
+3. **Leak-check** any borrowed word *against that regime*: does its defining property (internal-friction dissipation, geometric disorder) hold there? It usually leaks in the linear sub-yield bound-interior mode and is often *correct* in the ruptured / boundary / secondary-scale regime.
+4. If you must borrow, **find the canonical substrate-native equivalent first** (`ave-discipline-translate` enumerates the lookup tables). This leaf is the *criterion*; those are the *tables*.
+5. Don't over-read the rule: by the TKI isomorphism, mechanical words are valid *where they don't leak*. The rule is "use the primitive that doesn't import a property the substrate lacks *in this regime*," not "EE good, mechanics bad."
+
+> **Cross-references:** axioms + the Q1=(B) sector split → [`CLAUDE.md`](../CLAUDE.md) (INVARIANT-S2); regime taxonomy → [four-regimes](../vol1/operators-and-regimes/ch7-regime-map/four-regimes.md); the TKI dictionary → [`translation-circuit.md`](translation-tables/translation-circuit.md) (clm-fy05jc; the `def-tk1xfm` node is proposed, PR #265); the reactance-storage taxonomy → [dual-reactance-storage-taxonomy](dual-reactance-storage-taxonomy.md); the adjudicated-term index → [vocabulary-register](vocabulary-register.md); cross-disciplinary lookup → [analytical-toolkit index](ave-analytical-toolkit-index.md).
