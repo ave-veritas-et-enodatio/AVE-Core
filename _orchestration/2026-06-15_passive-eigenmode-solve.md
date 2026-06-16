@@ -1071,6 +1071,32 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   → **Grant authorizes Q3** → dispatch (both configs). **NEXT: implementer reports "amendments in" → signal the
   audit-lane pre-flight → Grant Q3.**
 
+- **2026-06-16 (Phase 16 — DOCUMENTATION-COMPLETENESS audit `w0optx9ae`: NOT auditor-reconstructable today;
+  backup gaps CLOSED, stale-leaf + index gaps queued)** — audit of every arc derivation vs its durable
+  artifacts. **Verdict: an external auditor CANNOT reconstruct the arc from the committed record today**, two
+  compounding reasons: **(1) BACKUP** — the entire adjudication NARRATIVE was off-origin (this tracker branch
+  + the in-flight amendments branch local-only; the FROZEN discrimination prereg untracked). **CLOSED THIS
+  PHASE (orchestrator-now):** pushed `analysis/2026-06-15-passive-eigenmode-solve` (this branch — the whole
+  arc narrative, was unbacked) + `analysis/2026-06-16-stage16-rerun-amendments` to origin; copied the frozen
+  discrimination prereg into tracked `research/2026-06-16_electron-existence-discrimination-prereg.md`; wrote
+  the consolidated **arc INDEX** `research/2026-06-16_electron-existence-arc_INDEX.md` (the auditor-facing
+  map — every derivation → prereg/result/JSON/branch/verdict/status). **(2) STALE LEAVES** — three committed
+  result docs carry verdicts the arc SUPERSEDED, NOT flagged in the docs (corpus-grep visibility asymmetry —
+  reader hits the leaf, not the tracker): 🔴 **Stage-1.5(c)** still reads clean wpqwmrms0-validated
+  EMERGENCE-NEGATIVE (Phase-14 overturned it = grid-registration artifact) — THE load-bearing one, Rule-12
+  retraction pending (amendments branch); **C′** banks "NEGATIVE-earned" (Phase-7 re-binned
+  DISQUALIFY-WRONG-OBJECT) — re-bin pending (heldbc); **driver NEGATIVE-A** mis-binned (Phase-3f) + superseded
+  (Phase-8) — annotation pending (driver branch). **Plus: Stage-1.6 result MD never written** (500-killed; the
+  grid-registration diagnostic that DRIVES the Stage-1.5(c) overturn lives only in Phase-13). **Owners:**
+  amendments-implementer (`acea7c7f20`) lands the Stage-1.5(c) retraction (tasked) + should write the
+  Stage-1.6 result MD; the C′ re-bin + driver annotation are separate-branch edits; §11/§12/dimensional-analysis
+  → land via the toolkit-index PR (Q3-dispatch). **GRANT-GATE (merge):** do NOT merge any arc branch until the
+  3 stale-leaf corrections + the Stage-1.6 result MD land. **2 open Qs → Grant: (Q1)** land all 3 header
+  corrections before merge vs tracker-authoritative + branch-docs-scratch? **(Q2)** is JSON+tracker the
+  intended durable record for gate-class steps, or do Stage-1 / Stage-1.6 each get a result MD? **NEXT: fold
+  the Stage-1.6 result MD + the C′/driver corrections into the amendments / a doc-backfill pass; Grant rules
+  Q1/Q2.**
+
 ---
 
 ## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
