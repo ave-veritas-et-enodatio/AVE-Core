@@ -728,6 +728,39 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   KEEP-BOTH (new class alongside `WindingHold`, new `--hold-helicity` flag, C path stays runnable).
   **NEXT: C′ returns → adversarial-verify panel → Option A (residual→0 eigensolve, target Q=α⁻¹≈137) iff clean.**
 
+- **2026-06-16 (Phase 7 — C′ RAN + verify panel `w4wkm2erq`: NOT clean → re-binned DISQUALIFY-WRONG-OBJECT;
+  keystone reshaped to C″ "hold the PAIR"; A NOT triggered)** — C′ built+ran on the heldbc branch
+  (commits `d8a3d2f9`/`5c17e8ab`/`4ea054cf`/`d79fbcbb`; module `held_helicity_winding.py`, driver
+  `--hold-helicity`, result `research/2026-06-16_…cprime_helicity-hold_result.md`, JSON
+  `results/passive_eigenmode_cprime_helicity_N26.json`). Implementer reported **NEGATIVE (earned)**; the
+  2-lens code+structural panel **VERIFIED every number against source** and **re-binned it
+  DISQUALIFY-WRONG-OBJECT (method-artifact)**. What's REAL+verified: (a) the **no-work construction is
+  genuine** — `held_helicity_winding.py:264` `g_perp=g−(⟨g,e⟩/⟨e,e⟩)e` ⊥ the *full-Hamiltonian* energy
+  gradient (cos=1.86e-17), ramp **0.999×** = the free 0.998× (DECAYING, **no pump** — clears C's 56×
+  DISQUALIFY bar); (b) **the 137 IS an artifact** — `_beltrami_helicity` (`cosserat_field_3d.py:450`)
+  returns NORMALIZED handedness ∈[−1,1] (91.5% vacuum-cell from the `eps_h=1e-12` regularizer);
+  C′ correctly held the **RAW** corpus integral (target 5.296e-5), the 137.19 is a box-cell-count
+  coincidence, **flagged-not-resolved**; (c) the **scalar-can't-pin-the-pair is sound + has a smoking
+  gun** — H_bel pinned to 9.4e-9 while (2,3)→(1,1)→(1,0)… drifts **BIT-IDENTICALLY to the hold-OFF run**
+  (frac_tail_2_3=0.0 both): the codim-1 scalar constraint is geometrically ⊥ the two pair-preserving
+  integer directions, so the hold did **exactly nothing** to the pair. **THE RE-BIN:** C held a director
+  template (wrong object→pumped→DISQUALIFY); C′ held a global **scalar** H_bel (still wrong object — a
+  scalar, not the PAIR). `master-equation.md:20` (Grant-ratified Rule-12): the electron is "the unknot
+  dilatation-mass **CARRYING** the (2,3) winding — **two objects, not one**." Two wrong-object misses do
+  NOT sum to a tested negative on sector-cohabitation. **BANK (narrow, earned): the §9.1 SCALAR-HOLD
+  route is CLOSED-NEGATIVE** (a single global scalar invariant cannot pin a two-integer winding;
+  energy-clean, verified). **DO NOT bank "keystone leans negative / sectors don't cohabit" — the keystone
+  is UNTESTED.** Option A **NOT triggered** (the "iff clean → A" gate is unmet). **TO-FIX (heldbc branch,
+  uncommitted-to-main):** the result-JSON `C_reading` overclaims "keystone leans negative EARNED" past
+  the implementer's own "TOO COARSE… Reported NOT forced" caveat — re-scope to "scalar-route
+  closed-negative; sector-cohabitation UNTESTED." **NEXT: C″ = hold the (p,q) PAIR as TWO linked
+  invariants** (toroidal w_tor + poloidal w_pol, or Γ_tor+Γ_pol; reuse the verified no-work Gram-Schmidt
+  apply(), project against TWO gradients, 2-D line-solve; read pair via same `extract_2_3_omega_fast`).
+  **BLOCKED on Grant ONTOLOGY ruling (DEC, pre-test-physics-check T8):** is the electron's conserved
+  charge the **scalar helicity H_bel** (→ C′ is ~POSITIVE: breather persisted + charge held + neutral →
+  Option A) **or the (2,3) integer PAIR** (→ C′ is wrong-object → C″)? Connects to the
+  `boundary-observables-m-q-j.md` winding→𝓙 / linking→𝓠 split surfaced in the dimensional-analysis lane.
+
 ---
 
 ## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
