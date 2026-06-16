@@ -1,268 +1,205 @@
 # Passive winding-protected electron eigenmode — the structural keystone (ORCHESTRATION)
 
-> **STATUS: PHASE 0 COMPLETE (corpus-grep prereg) → PHASE 1 GRANT GATE (ontology + flags).**
-> Lane worktree `AVE-Core-eigenmode-wt`, branch `analysis/2026-06-15-passive-eigenmode-solve`
-> off `main@40a2a2e7`. **main is PROTECTED — Grant merges; this lane does NOT merge.**
-> Arc: corpus-grep prereg ✅ → **ontology+flags surface to Grant (GATE — HERE)** →
-> Rule-11 freeze → auditor-gate → driver → result → adjudicate to Grant.
+> **STATUS: PHASE 1 GRANT-GATED ✅ (2026-06-15) → PHASE 2 (prereg freeze) + PHASE 3
+> (auditor-gate).** Lane worktree `AVE-Core-eigenmode-wt`, branch
+> `analysis/2026-06-15-passive-eigenmode-solve` off `main@40a2a2e7`. **main is PROTECTED —
+> Grant merges; this lane does NOT merge.** Prereg: `research/2026-06-15_passive-eigenmode_prereg.md`.
 >
-> **HEADLINE (the prereg payload):** the passive fixed-point solve is **NOT greenfield**.
-> The energy/S11 stationary-point version is **FALSIFIED**; the *decoupled* wave-eigensolve
-> returned **Mode III (no bound state)**; the **ONE untried residue** is the **fully-coupled
-> hybrid (V≠0 ∧ ω≠0) wave-eigensolve** with the (2,3) winding **imposed as a topological BC**
-> on the independent ω-carrier. The charter's "winding as topological BC" is exactly what
-> **rescues** the question from the prior negatives (which all let the winding be *selected*).
+> **GRANT RULINGS (2026-06-15):** (1) **B1 green-lit** — run the hybrid-coupled solve; B2
+> ("nothing to find, negative pre-loaded") is the α-lane over-closure trap (conflates "no
+> eigen-principle SELECTS the winding" [true] with "no stable mode EXISTS given the winding"
+> [untested]). (2) **DROP "lossless" — the electron is HIGH-Q, Q = 1/α = 137; the residual
+> leak IS α** (radiative coupling to the photon continuum). Solve for the **dissipationless,
+> stable (real-eigenvalue) COUPLED mode AND measure its radiative Q**; **a finite Q≈137 is
+> the POSITIVE.** Q=∞ (truly lossless) = the α=0 decoupled limit = wrong object = false
+> negative. (3) Flag-C: **add radiative Q as the third detector output** (it's α). (4) Flag-D:
+> shear clock `(1−A²)^{1/4}` confirmed. (5) Flag-A: hybrid (V,ω) is the right object and
+> **bears on** the A1-vs-T2 sector but does **NOT resolve** it — don't let the lane claim
+> resolution.
 
 ---
 
-## §0 — Derivation target (the charter, verbatim)
+## §0 — Derivation target (charter + the high-Q correction)
 
 Does a self-consistent nonlinear **STANDING** eigenmode exist — find $\psi$ such that the
 saturation $S[\psi]$ forms a $\Gamma=-1$ cavity whose **own eigenmode IS $\psi$** — with the
 conserved $(2,3)$ winding as a **TOPOLOGICAL boundary condition**, in the **T2 / phase-space
-channel**, **LOSSLESS/PASSIVE** (a fixed-point, NOT autoresonant gain-driven)?
+channel**, as a **fixed-point** (NOT autoresonant gain-driven)?
 
-Not "can a flowing photon dynamically lock into mass" (genesis, banked negative — §1) but
-"does a passive, topology-protected standing fixed-point **exist + is it stable**." A
-**boundary-value / self-consistency** problem, not an initial-value evolution.
+**Grant's correction to his own charter (2026-06-15):** drop **"lossless."** The electron is
+**high-Q (Q = 1/α = 137)**, not lossless. The bound mode is **dissipationless and stable
+(real eigenvalue)** but **radiatively COUPLED to the photon continuum**, and that residual
+leak **is α**. So the object is the **dissipationless, stable, coupled mode with a finite
+radiative Q ≈ 137** — NOT a Q=∞ decoupled mode (that is the α=0 limit and finds nothing).
 
 ---
 
 ## §1 — Why this is DIFFERENT from the banked *genesis* negative
 
-**BANKED — `research/2026-06-14_t2-genesis-selflock_result.md` (PR #233):** the ACTIVE
-autoresonant self-lock tested **NO-GENESIS at every $A_0$** on `crystal_engine`/near-yield;
-anti-lock signature **$\omega_{local}$ RISING**. It **explicitly scopes its null** to "this
-engine/regime/precursor; does NOT prove photon→mass impossible." That is an **initial-value**
-null; it says nothing about whether the **passive fixed-point exists.**
+`research/2026-06-14_t2-genesis-selflock_result.md` (PR #233): the ACTIVE autoresonant
+self-lock tested NO-GENESIS at every $A_0$; anti-lock signature $\omega_{local}$ RISING. It
+**explicitly scopes its null** to "this engine/regime/precursor." That is an **initial-value**
+null and says nothing about whether the **passive fixed-point exists.**
 
 | Axis | Genesis self-lock (banked) | THIS effort (passive eigenmode) |
 |:---|:---|:---|
 | Problem class | initial-value (seed→evolve→watch) | boundary-value / fixed-point |
-| Energetics | active, gain loop | passive/lossless fixed-point |
-| Question | does it *dynamically form*? | does the standing solution *exist + is it stable*? |
-| Winding | (not the discriminator) | **imposed** as a topological BC on $\psi$ |
-| Detector | PLV (DEFECTIVE) | self-consistency residual + stability eigenvalue |
+| Energetics | active, gain loop | dissipationless fixed-point, **finite radiative Q** |
+| Question | does it *dynamically form*? | does the standing mode *exist + is it stable*, and **what is Q**? |
+| Winding | (not the discriminator) | **imposed** as a topological BC on the ω-carrier |
+| Detector | PLV (DEFECTIVE) | self-consistency residual + stability eigenvalue + **radiative Q** |
 
 ---
 
-## §2 — Prior-work inventory (corpus sweep `wte7dhv5v`, 8 angles, grep-confirmed)
+## §2 — Prior-work inventory (corpus sweep `wte7dhv5v`, grep-confirmed) — NOT greenfield
 
-**This is the load-bearing prereg finding. The passive solve has been worked in three forms;
-two are closed-negative, one is the live-open residue.**
+### 2a — DONE and NEGATIVE
+1. **Energy/S11 gradient-flow stationary-point solve → FALSIFIED.** `cosserat_field_3d.py:1453`
+   `relax_to_ground_state`, `:1317` `relax_s11`; coupled `coupled_s11_eigenmode.py` (F17-K
+   Phase 5). Seeded AT Golden Torus, **both objectives drift away at iteration 1**: *"GT is
+   NOT a stationary point of either … selected by topological-quantization ANSATZ, not by
+   gradient flow on any objective the engine knows"* (`…abcd-handoff…retrofit.md:24,50`).
+   Methodology verdict: energy stationary-point = SM-leakage, AVOID (`VACUUM_ENGINE_MANUAL.md:1692`).
+2. **Decoupled wave-eigensolve (V = output eigenvector) → Mode III, no bound state at ω_C**
+   (`72_vacuum_impedance_design_space.md:21,158`).
+3. **ABCD direct eigensolver → proposed-then-retired, no code written.**
 
-### 2a — What was DONE and FALSIFIED / NEGATIVE
+### 2b — The ONE untried residue (the target)
+**Fully-coupled HYBRID eigenmode — V≠0 AND ω≠0 simultaneously, Op14 cross-coupling the
+load-bearing binder** — *"the decoupled-block solve CANNOT find it by construction … Round 8
+question"* (`72_…:158`); the open Layer-8 "smallest stable soliton, m_e nowhere in inputs"
+(`2026-06-11_nyquist-binding-route_CLOSED.md:54-58`).
 
-1. **Energy / S11 gradient-flow stationary-point solve → DONE, FALSIFIED.** Live solvers
-   exist: `cosserat_field_3d.py:1453` `relax_to_ground_state`, `:1317` `relax_s11`; coupled
-   `src/scripts/vol_1_foundations/coupled_s11_eigenmode.py` (F17-K Phase 5, commits
-   `6158465`→`2c873cf`→`4c9fbea`). Seeded **AT** Golden Torus geometry, **both objectives
-   drift away at iteration 1** (energy →R/r=3.40, S11 →R/r=1.03; target φ²=2.62). Corpus
-   verdict (`2026-05-18_abcd-handoff-prereg-outcome-corpus-state-retrofit.md:24,50`):
-   **"Golden Torus is NOT a stationary point of either Cosserat-energy or coupled-S11
-   gradient flow … GT is selected by topological-quantization ANSATZ, not by gradient flow
-   on any objective the engine knows."** Plus the corpus's own **methodological** verdict
-   (`VACUUM_ENGINE_MANUAL.md:1692`): energy stationary-point = **SM/QM-leakage, AVOID**;
-   the correct passive object is a **wave eigenmode** (V = OUTPUT eigenvector, not a seed).
-2. **Decoupled wave-eigensolve (the RIGHT object) → PARTIALLY RUN → Mode III.** Helmholtz
-   form `div(z(x)∇V)+k²V=0`, `z(x)=`Op14 saturation profile (`72_vacuum_impedance_design_space.md:21`).
-   R7.1 ran the **decoupled V=0 block + bottom-100 Cos-block at fixed cavity** → **Mode III,
-   no electron bound state at ω_C** (`…retrofit.md:76-85`).
-3. **ABCD-matrix direct eigensolver ("stationary by construction, no time evolution") →
-   PROPOSED-then-RETIRED, no code written** (`2026-05-18_abcd-eigensolver-workstream-handoff.md:1-14`):
-   retired because the gradient-flow falsification "applies equally to the proposed ABCD
-   eigensolve."
+### 2c — Constraints the imposed-BC framing clears
+- **ω≡0 exact-fixed-point trap:** `W_refl` even in ω → pure-V seed can't break ω=0
+  (`simulation-assumptions-audit.md:13`). The imposed winding-BC supplies the odd ω.
+- **Binder-must-be-nucleated:** impose (2,3) → 91% retention; withhold → disperses
+  (`option-B-discrete-emergence-result.md:348,358`). The charter imposes it. ✓
 
-> **Currency caveat (verify-before-cite):** the L3 stationary-point closure is spring-2026;
-> the 2026-06 arcs (option-B, nyquist-binding) **carry the negatives forward as canon** (the
-> binder-must-be-nucleated finding), so they are live — but the **hybrid-coupled variant is
-> the one explicitly left open.**
+### 2d — Infrastructure (and the gap)
+- **Fixed-point half EXISTS:** `eigenvalue_root_finder.py:60` `find_eigenstate`;
+  `universal_operators.py:347` λ_min(S†S); `cosserat_field_3d.py:1453/1317` relax_*.
+- **Stability + radiative-Q half MUST BE BUILT:** no Jacobian-eig / growth-rate / sparse-eigsh
+  exists (`electron_spec_suite.py:85` is only a perturb-kick). The gradient + Verlet stepper
+  to build a finite-difference Jacobian→eigvals layer DO exist.
 
-### 2b — The ONE genuinely-untried residue (the real target)
-
-**The fully-coupled HYBRID eigenmode: V≠0 AND ω≠0 simultaneously, where the Op14 saturation
-cross-coupling is the load-bearing BINDING (not a perturbation).** Named explicitly and
-**never run** (`72_vacuum_impedance_design_space.md:158` — "genuinely hybrid (V,ω)
-eigenmodes that require V-nonzero AND omega-nonzero simultaneously … the decoupled-block
-solve CANNOT find by construction … Round 8 question"; `…retrofit.md:76-85` item 2;
-restated as the open Layer-8 "smallest stable soliton from K4+Axiom-4 with $m_e$ NOWHERE in
-inputs" at `2026-06-11_nyquist-binding-route_CLOSED.md:54-58`).
-
-### 2c — Two load-bearing CONSTRAINTS any passive solve MUST clear
-
-- **The ω≡0 exact-fixed-point trap.** K4↔Cosserat coupling `W_refl` is **even in ω** → ω=0
-  is an **exact fixed point**; a **pure-V seed can never break the ω=0 symmetry**
-  (`option-B-discrete-emergence-result.md:181,210,356`; `2026-06-06_simulation-assumptions-audit.md:13`
-  A1.1 — "the entire electron-genesis (III) verdict is a direct consequence of this one
-  assumption"). **→ a passive relaxation seeded pure-V lands at the trivial ω=0 solution.**
-  The fix: an explicit ω content / odd symmetry-breaker — **which the charter's imposed
-  winding-BC supplies.**
-- **The (2,3) winding is the BINDER and must be NUCLEATED/IMPOSED.** Impose it (Arm C) →
-  binds at **91% retention**; withhold it (Arm A) → **disperses like noise (1.7% ≈ baseline)**
-  (`option-B-discrete-emergence-result.md:348,358`). **→ the charter is right to impose the
-  winding as a BC, not let it emerge.**
-
-**Consequence for the ontology (the rescue):** every prior negative let the winding be
-*selected/emergent* (gradient flow on an objective; or a pure-V seed hitting the ω=0 trap).
-The charter **imposes** the (2,3) winding as a topological BC and asks only: *given that BC,
-does the coupled (V,ω) wave-eigensolve have a **stable, lossless** bound eigenmode at ω_C?*
-That is **well-posed and genuinely open** — and distinct from the falsified "is GT a
-stationary point of an objective."
-
-### 2d — Reusable infrastructure (and the gap)
-
-- **Fixed-point half EXISTS:** `solvers/eigenvalue_root_finder.py:60` `find_eigenstate`
-  (domain-agnostic Newton-Raphson on a λ_min(S†S)·G residual, "ZERO domain-specific
-  physics" + JAX variant); `universal_operators.py:347` λ_min(S†S) primitive;
-  `cosserat_field_3d.py:1453/1317` relax_*; self-consistent idioms at
-  `radial_eigenvalue.py:1031` (brentq + screening loop) and `cosserat.py:133`
-  (parameter-free Δ-iteration).
-- **Stability half MUST BE BUILT:** there is **no** Jacobian-eigenvalue / growth-rate /
-  sparse-eigsh linear-stability routine anywhere in `src/ave` (grep empty). The only
-  "stability" is a perturb-then-re-verify **kick** (`electron_spec_suite.py:85`
-  `spec_T4_stability_kick`) — empirical, not an eigenvalue. The gradient + Verlet stepper
-  primitives to build a finite-difference Jacobian → eigvals layer DO exist.
-
-### 2e — Winding carrier + coordinate discipline (the correct, hazard-free representation)
-
-- **Winding lives on the INDEPENDENT Cosserat-ω carrier, NOT the breather phasor.** Reuse
-  `src/ave/utils/fast_winding_extractor.py:165` `extract_2_3_omega_fast(omega, pi_omega,…)`
-  (toroidal-2 from the ω-major circle, poloidal-3 from the ω-tank LC phase). Charge =
-  **Beltrami helicity** `_beltrami_helicity` (`cosserat_field_3d.py:450`); winding→coupling
-  `kappa_tilde_torus(p,q)=pq/(p+q)` → (2,3)→`1.2·α` (`cosserat_field_3d.py:98`).
-- **Coordinate discipline (A46, load-bearing).** The (2,3) Clifford-torus winding is a
-  **phase-space** object (`theory.md:16`, `ch8-alpha-golden-torus.md:29`). The phasor
-  **SHAPE** (aspect R/r=φ²) is **necessary-not-sufficient**, NOT the winding pair
-  (`2026-06-04_full-electron-transverse-selftrap-result.md:90,144`). Instrument in phasor
-  coords (`V_inc=E+ZH`, `V_ref=E−ZH`) — but the **winding DOF is read off the ω-carrier**,
-  per below.
-- **HARD HAZARD verbatim** (`master-equation.md:20`; code basis `k4_tlm.py:346`,
-  `master_fdtd_phasor_bridge.py:14-18`): "**never wire the winding into the breather's own
-  phasor `(V_inc, V_ref)`** — `V_ref` is a read-only projection of the same scalar `V`, not
-  an independent DOF; doing so self-inflicts the genesis-24/crystal `w_pol=0` double-count."
+### 2e — Winding carrier + coordinate discipline (hazard-free)
+- Winding on the **independent Cosserat-ω carrier**: `fast_winding_extractor.py:165`
+  `extract_2_3_omega_fast(omega, pi_omega,…)`; charge = Beltrami helicity
+  (`cosserat_field_3d.py:450`); winding→coupling `kappa_tilde_torus(p,q)=pq/(p+q)` →
+  (2,3)→`1.2·α` (`cosserat_field_3d.py:98`). **Phasor SHAPE (R/r=φ²) is necessary-not-
+  sufficient** (`…transverse-selftrap-result.md:90,144`).
+- **HARD HAZARD** (`master-equation.md:20`): never wire winding into `(V_inc,V_ref)` — `V_ref`
+  is a read-only projection of `V` (`k4_tlm.py:346`); `w_pol=0` double-count.
 
 ---
 
-## §3 — Discriminator + classification
+## §3 — Discriminator (high-Q; full bins/falsifiers in the prereg)
 
-**Classification (`consistency-vs-emergence`):** an **EXISTENCE test** — does the substrate
-support a **stable lossless** self-consistent passive standing mode, given the imposed (2,3)
-BC? **Non-redundant over the dynamical Arm-C imposed-winding run** (which bound at 91%
-*retention*, i.e. a *decaying* dynamical state): the passive solve adds **(i) lossless
-existence** (a true standing eigenmode, not a slow leak) and **(ii) the linear-stability
-eigenvalue** (stable fixed point vs metastable).
+**Classification (`consistency-vs-emergence`):** EXISTENCE + STABILITY = emergence test
+(genuine). The **Q VALUE** is classified separately (echo/chord — §5.5).
 
-- **POSITIVE:** a stable, lossless, self-consistent hybrid (V,ω) standing mode exists at
-  ω_C, (2,3) winding conserved on the ω-carrier, largest stability eigenvalue ≤ 0 (no gain
-  required) → **the eigencavity STRUCTURE is real.**
-- **NEGATIVE:** no self-consistent solution / disperses / a stable solution **requires gain**
-  → **the structural eigenmode fails** (stronger than the genesis null — the standing
-  mass-mode does not exist as a passive fixed-point even with the winding imposed).
+- **POSITIVE:** a **stable real-eigenvalue** hybrid (V,ω) mode exists at ω_C; (2,3) winding
+  conserved on the ω-carrier; **finite radiative Q ≈ 1/α ≈ 137** → eigencavity STRUCTURE real.
+- **NEGATIVE-A** (no mode / disperses) · **NEGATIVE-B** (unstable / requires gain) →
+  structural eigenmode fails.
+- **FALSE-NEGATIVE GUARD (Grant):** Q=∞ / α=0 / decoupled-limit "finds nothing" — that is
+  the WRONG object, **excluded**, NOT a real negative (the bind and the leak are one
+  coupling; demanding zero leak demands zero bind).
 
 ---
 
-## §4 — Method skeleton (for the driver brief; NOT yet dispatched, GATE-blocked)
+## §4 — Method skeleton (driver brief; the prereg §7 carries detail)
 
-The substrate-native passive solve = a **wave eigenmode** with V as OUTPUT (NOT gradient
-descent on an energy/S11 objective — that route is falsified + SM-leakage, §2a):
+Substrate-native passive solve = a **wave eigenmode** with V as OUTPUT (NOT gradient descent
+on energy/S11 — falsified + SM-leakage, §2a):
 
 1. **Impose** the (2,3) winding as a topological BC on the **independent Cosserat-ω carrier**
-   (supplies the odd ω that clears the ω=0 trap; `extract_2_3_omega_fast` for read-out).
-   Never wire it into `(V_inc,V_ref)`.
-2. **Coupled self-consistency:** given the trial ω-winding + V profile, compute the Op14
-   saturation $z(x)=S[\psi]$ → the $\Gamma=-1$ cavity rendered as a **boundary condition**
-   ($\Gamma$, Op17-bounded), **NOT** a bulk energy/force term (`substrate-native-check` CP10
-   — bulk term is singular at the wall and detonates; cf. the PUMP DETONATE arm).
-3. **Solve the coupled (V,ω) wave-eigenproblem** in that cavity — both sectors nonzero, Op14
-   cross-coupling load-bearing — for eigenmode φ + eigenfrequency.
-4. **Self-consistency update** $\psi\leftarrow\phi$ (winding-preserving); iterate to fixed
-   point. Convergence = residual→0 (reuse `find_eigenstate` / relax_* machinery, §2d).
-5. **Stability (BUILD this):** finite-difference Jacobian of the map about the fixed point →
-   eigenvalues; largest real part decides **stable lossless** vs **requires gain / unstable**.
-6. **`ave-conserved-vs-pumped`:** the converged state must be a **passive fixed point** —
-   a drive-sustained state is a NEGATIVE, not a positive.
+   (clears the ω=0 trap). Never wire into `(V_inc,V_ref)`.
+2. **Closed-cavity hybrid eigensolve:** Op14 saturation $z(x)=S[\psi]$ → Γ=−1 cavity rendered
+   as a **boundary condition** (`substrate-native-check` CP10 — NOT a bulk term, which
+   detonates); solve the coupled (V,ω) wave-eigenproblem (both sectors nonzero, Op14
+   cross-coupling load-bearing) → eigenmode φ + **real** eigenfrequency ω_C (= dissipationless,
+   stable).
+3. **Self-consistency** $\psi\leftarrow\phi$ (winding-preserving) → fixed point (residual→0;
+   reuse `find_eigenstate`/relax_*).
+4. **Stability (BUILD):** finite-difference Jacobian about the fixed point → eigenvalues;
+   largest real-part ≤ 0 = stable/dissipationless.
+5. **Open-cavity radiative Q (BUILD):** the Γ=−1 wall is the self-induced impedance boundary;
+   its **residual transmission = the radiative coupling = α**. Measure $Q = \omega_C\cdot
+   (\text{stored}/\text{radiated})$. **Predict Q ≈ 137 = 1/α.** (The same Op14 cross-coupling
+   that BINDS the mode also LEAKS it — bind and leak are one coupling.)
+6. **`ave-conserved-vs-pumped`:** the mode must stand with NO drive; a drive-sustained state
+   = NEGATIVE.
+7. ω_C rides the **shear** clock `c_shear = c₀(1−A²)^{1/4}` (INVARIANT-S2), NOT the stale ½.
 
-**Detector reframe (replaces the defective PLV):** validation pair = **converge to the
-known sech eigen-profile** (positive control; cage `SECH_ANCHOR` PR #222, `self.V`
-self-focuses, F1/F3-PASS, persists bounded — `cage-stiffening-wall_result.md:12`,
-`cage_stiffening_wall.py:109`) and **a generic Gaussian fails to converge / disperses**
-(negative control, same result:13). This is profile-selectivity at the fixed-point level,
-not a time-series coherence gate.
+**Detector validation pair:** sech eigen-profile **converges** (positive control, cage
+`SECH_ANCHOR`, `cage_stiffening_wall.py:109`, `cage-stiffening-wall_result.md:12`) / generic
+Gaussian **disperses** (negative control, `:13`). Plus a **decoupled (α=0) control** that
+finds nothing → confirms the coupling is load-bearing (the false-negative guard is real).
 
-**Platform (per `ave-loop-gap-harness-discipline`):** the A1/longitudinal-bulk Γ=−1 cavity
-is `crystal_engine.py`/`master_equation_fdtd.py`'s confirmed home; the ω-carrier needs
-`CosseratField3D` (which hosts the relax_* fixed-point finders) + the coupled
-`VacuumEngine3D`/`CoupledK4Cosserat`. **The hybrid-coupled solve spans both — exactly the
-A1⊗T2 cross-coupling that is the open physics. This is Flag-A; platform is GATE-blocked.**
-
----
-
-## §5 — Flags to Grant (flag-don't-fix; the Phase-1 GATE)
-
-**Flag-A — A1-vs-T2 mass sector (UNRESOLVED, load-bearing for the solve's channel).**
-Both sides live, neither retracted at HEAD:
-- **SIDE A (T2-mass):** `cosserat-mass-gap.md:108` — "$A_1$ … is massless, $T_2$ … carries
-  the mass-gap content"; `:106` $m_ec²$ inherits from the Cosserat (T2) mass-gap formula.
-- **SIDE B (A1-mass):** `master-equation.md:20` — "$m_ec²$ = trapped acoustic compression =
-  **A1 dilatation-MASS**"; T2 carries the **winding/charge**, NOT the mass.
-- The **provenance-vs-state** reframe (`cosserat-mass-gap.md:110`, `photon-identification.md:17`)
-  sides with B (A1 standing-V = the saturated-phase order parameter) but **does not retract
-  SIDE A's body line**; `photon-identification.md` hosts THREE framings in one file (`:11`
-  T2-photon, `:17` A1-dilatation, `:151` sector-agnostic standing wave). $m_ec²$ magnitude is
-  **hypothesis-class** (`photon-identification.md:19`).
-- **The question:** is $\psi$ an A1 object, a T2 object, or the **hybrid (V,ω)** object (the
-  charter's "T2 channel" with the cavity reading A1/bulk)? The §2b residue says **hybrid** —
-  which would make the contradiction a **false dichotomy** the solve could *resolve*: mass =
-  the coupled standing energy, A1 amplitude ⊗ T2 winding, bound by Op14. **Does Grant accept
-  framing the solve on the hybrid (V,ω) mode (so it bears on Flag-A), or hold the sector call
-  fixed first?**
-
-**Flag-B — the SCOPING call (the decisive one).** The corpus has already falsified the
-gradient-flow stationary-point route and returned Mode-III on the decoupled wave-eigensolve;
-its own diagnosis is "**GT is selected by topological ANSATZ, not by any eigen/objective
-principle.**" Two readings:
-- **(B1) Proceed, scoped to the untried hybrid-coupled wave-eigensolve** with the winding
-  imposed as a BC (§2b/§4). Rationale: the imposed-BC framing is precisely what the prior
-  negatives did NOT test, and it is the named-open Round-8/Layer-8 target.
-- **(B2) The "topological ANSATZ, not eigen-principle" diagnosis is itself the answer** — i.e.
-  a NEGATIVE here is already strongly expected, and the structural keystone may be "the
-  winding is quantized/imposed, full stop; there is no further self-selecting eigen-principle
-  to find." Under this reading the effort's value is a **clean confirmation** (the structure
-  is imposed, not emergent), not a discovery.
-
-  **My read (orchestration, not a decision):** B1 is worth running *because* the discriminator
-  cuts both ways — a stable lossless hybrid eigenmode would be a real positive (structure is a
-  genuine passive eigenstructure), and a clean negative would *upgrade* B2 from "expected" to
-  "tested." But it is your physics call whether B1 is a new test or a re-skin of the closed
-  stationary-point negative.
-
-**Flag-C — detector reframe.** PLV LOCK is dropped for **self-consistency residual +
-stability eigenvalue**, validated by the **sech-converges / Gaussian-disperses** control pair
-(§4). Confirm this is the right instrument (the PLV defect, `t2_…_result.md` §0.5, is why).
-
-**Flag-D — clock exponent (3-way contradicted; sets the cavity-mode frequency).** Matter
-clock = `c_shear = c₀(1−A²)^{+1/4}` (CORRECT, `CLAUDE.md` INVARIANT-S2); `op14-local-clock-
-modulation.md:17` `^{1/2}` STALE (off ×2); `04_superluminal_transit.tex:41` `c_EM` MISLABELED
-(`2026-06-09_substrate-temporal-values-definition.md:48`). Resolution proposed (p=1/4) but
-stale leaves remain in-corpus. The eigensolve's ω_C must use the **shear** exponent; flag so
-it does not silently inherit a stale ½.
-
-(Inline-prose surface per `feedback_inline_questions` — no multi-choice UI.)
+**Platform** (per `ave-loop-gap-harness-discipline`): the hybrid mode spans the A1/bulk Γ=−1
+cavity (`crystal_engine.py`/`master_equation_fdtd.py`) ⊗ the Cosserat-ω carrier
+(`CosseratField3D` + coupled `VacuumEngine3D`/`CoupledK4Cosserat`). Spanning both **is** the
+open physics. No new `*_vN` file.
 
 ---
 
-## §6 — Skill-selection plan (60-sec, per `feedback_skill_selection_planning`)
+## §5 — Flags (RATIFIED by Grant 2026-06-15)
 
-| Skill | Where it fires | Why load-bearing |
+- **Flag-A — A1-vs-T2 mass sector: hybrid object ACCEPTED; bears-on but does NOT resolve.**
+  Frame the solve on the hybrid (V,ω) mode. Grant's frame-reconciliation: **provenance = T2**
+  (`cosserat-mass-gap.md:108`, the photon-origin/charge leaf) · **state = A1**
+  (`master-equation.md:20`, the rest-mass leaf) — both unretracted, both right in their
+  frame; the hybrid mode's rest energy sits on **A1 (state)**, T2 is its **provenance**. Two
+  frames of one mode. The lane reports this as a **note**, NOT a derivation ($m_ec²$ magnitude
+  is hypothesis-class, `photon-identification.md:19`). **Do not claim resolution.**
+- **Flag-B — SCOPING: B1 (run the hybrid-coupled solve). RATIFIED.** B2 is the over-closure
+  trap. Both outcomes are results.
+- **Flag-C — detector: residual + stability eigenvalue + radiative Q (3rd output = α). RATIFIED.**
+- **Flag-D — shear clock `(1−A²)^{1/4}`. RATIFIED.**
+
+---
+
+## §5.5 — Cross-lane triangulation (the headline — Grant 2026-06-15)
+
+**All three lanes measure/derive ONE number — the electron's α = 1/Q — at ONE operating
+point.** This lane is the middle leg:
+
+- **Lane 3 (wall)** fixes the operating point: K=2G co-saturation lock, chirality-signed
+  wall, hybrid A1⊗T2.
+- **Lane 2 (THIS) solves the hybrid eigenmode at that point — and measures its radiative
+  Q = 1/α.**
+- **Lane 1 (post crystalline pivot)** derives that same Q = 1/α = 137 from geometry
+  (z₀=52 + the 2α gap).
+
+**The orchestration move (downstream dependency of THIS lane's result):** wire Lane 2's
+**measured Q** into Lane 1 as a cross-check. **If the two independent routes to Q agree at
+the measured α, that is the CHORD.** This lane's deliverable is therefore not just a
+yes/no — it is a **measured Q** that becomes a chord-input.
+
+> **Echo-vs-chord discipline on the Q value (`ave-discrimination-check` + memory
+> `project_alpha_keystone_echo_resolved`):** `Q_TANK = 1/α` is a **calibration identity, NOT
+> a derivation**. If α enters the solve as an input (the coupling `κ ∝ α`), then Q≈137 is a
+> **consistency identity (ECHO)** — the lane must NOT overclaim it "derives α." The **CHORD**
+> is the cross-lane agreement of two **independent** geometric routes to Q, not Lane 2 alone.
+> The result must tag its Q with the echo/chord classification.
+
+---
+
+## §6 — Skill-selection plan
+
+| Skill | Where | Why |
 |:---|:---|:---|
-| `ave-prereg` | Phase 0 ✅ | corpus-grep inventory — **caught the non-greenfield finding** |
-| `phase-space-coordinate-check` | prereg + driver | winding read in phasor/ω-carrier, not real-space (A46) |
-| `substrate-native-check` (CP8/9/10) | driver brief | impose winding-BC (CP8 with the ω=0-trap caveat); Γ as BC not bulk (CP10); dynamical not algebraic (CP9) |
-| `ave-conserved-vs-pumped` | driver + result | passive/lossless fixed-point; drive-sustained = NEGATIVE |
-| `consistency-vs-emergence` | result | existence/emergence test, non-redundant over Arm-C |
-| `pre-test-physics-check` (T7+T8) | **GATE (now)** | 2+ prior negatives on adjacent routes → surface reframe; ontology before dispatch |
+| `ave-prereg` | Phase 0 ✅ | caught the non-greenfield finding |
+| `phase-space-coordinate-check` | prereg + driver | winding on ω-carrier/phasor, not real-space (A46) |
+| `substrate-native-check` (CP8/9/10) | driver | impose winding-BC; Γ as BC not bulk; dynamical not algebraic |
+| `ave-conserved-vs-pumped` | driver + result | dissipationless fixed-point; drive-sustained = NEGATIVE |
+| `consistency-vs-emergence` | result | existence/stability = emergence; Q value classified separately |
+| `ave-discrimination-check` | result | **echo/chord tag on the measured Q** (don't overclaim α-derivation) |
+| `pre-test-physics-check` (T7/T8) | gate ✅ | surfaced the reframe + ontology before dispatch |
 | `ave-loop-gap-harness-discipline` | platform | hybrid spans crystal_engine ⊗ Cosserat; no new `*_vN` |
-| `ave-driver-script-honesty` + `ave-apparatus-floor-attribution` | result | convergence/floor = physics or solver artifact |
+| `ave-driver-script-honesty` + `ave-apparatus-floor-attribution` | result | convergence/Q = physics or solver artifact |
 
 ---
 
@@ -270,24 +207,24 @@ it does not silently inherit a stale ½.
 
 | Phase | Gate | Owner | State |
 |:---|:---|:---|:---|
-| **0. Corpus-grep prereg** | sweep `wte7dhv5v` → inventory | THIS lane | ✅ DONE |
-| **1. Ontology + flags** | **GRANT GATE** (Flags A–D; B = scoping) | Grant | **← HERE** |
-| **2. Rule-11 freeze** | prereg frozen (discriminator + bins + falsifiers) | THIS lane | blocked on 1 |
-| **3. Auditor-gate** | READ-ONLY `ave-auditor` verifies prereg vs corpus | auditor | — |
-| **4. Driver** | ave-implementer, own worktree, §4 hybrid-coupled wave-eigensolve + controls + stability layer | implementer | — |
-| **5. Result** | honest bin vs discriminator; flag-don't-fix | implementer | — |
-| **6. Adjudicate** | result → Grant | Grant | — |
+| 0. Corpus-grep prereg | sweep `wte7dhv5v` → inventory | THIS lane | ✅ |
+| 1. Ontology + flags | **GRANT GATE** | Grant | ✅ (B1 + high-Q) |
+| 2. Prereg draft + Rule-11 freeze | discriminator/bins/falsifiers | THIS lane | **← drafting** |
+| 3. Auditor-gate | READ-ONLY `ave-auditor` verifies prereg vs corpus | auditor | next |
+| 4. Driver | ave-implementer, own worktree, §4 + stability + radiative-Q layers | implementer | gated on 2–3 |
+| 5. Result | honest bin + measured Q (echo/chord tag) | implementer | — |
+| 6. Adjudicate + cross-lane | result → Grant; wire Q into Lane 1 | Grant | — |
 
 ---
 
 ## §8 — Phase log
 
-- **2026-06-15** — Lane founded. Read charter + `_orchestration/index.md` +
-  `manuscript/ave-kb/CLAUDE.md` + `ave-loop-gap-harness-discipline`. Verified grounded-state
-  anchors. Worktree off `main@40a2a2e7`. **Phase 0 corpus sweep `wte7dhv5v` (8
-  ave-corpus-grep agents) COMPLETE** → inventory §2: passive solve is NOT greenfield
-  (gradient-flow FALSIFIED, decoupled wave-eigensolve Mode-III, ABCD retired); ONE untried
-  residue = hybrid-coupled (V,ω) wave-eigensolve with imposed (2,3) BC; two constraints
-  (ω=0 trap, binder-must-be-nucleated) that the imposed-BC framing clears; infra exists for
-  the fixed-point half, stability layer must be built. **NEXT: Phase-1 Grant gate — Flags
-  A–D + the B scoping call. Driver dispatch is GATE-blocked.**
+- **2026-06-15 (Phase 0)** — Lane founded; read charter + index + KB CLAUDE.md + harness skill;
+  verified grounded anchors; worktree off `main@40a2a2e7`. Corpus sweep `wte7dhv5v` (8 agents)
+  → §2 inventory: NOT greenfield; one untried residue = hybrid-coupled (V,ω) imposed-BC
+  eigenmode. Brief committed `347d67d1`.
+- **2026-06-15 (Phase 1)** — **Grant-gated.** B1 green-lit; **"lossless" dropped → high-Q
+  (Q=1/α=137), measure Q, false-negative guard on Q=∞**; radiative Q = 3rd detector output;
+  shear clock confirmed; hybrid object accepted (bears-on not resolves Flag-A); cross-lane
+  triangulation (Lane 2 measures Q → Lane 1 cross-check = the chord). **NEXT: draft prereg,
+  auditor-gate, then freeze + dispatch driver.**
