@@ -90,6 +90,121 @@ def _canonical_source_gate() -> None:
     _ = (C_0, V_SNAP)  # referenced for provenance
 
 
+# ──────────────────────────────────────────────────────────────────────────
+# Geometry + units (natural units: dx = ℓ_node, c₀ = 1)
+# ──────────────────────────────────────────────────────────────────────────
+N = int(os.environ.get("MQJ_N", "24"))
+PML = 4
+SIGMA, LAM = 3.0, 6.0
+A_LOCK = 3.0          # peak |ω| seed for the LOCK regime (engages a soft Γ=−1 wall)
+A_PUMP = 6.0          # peak |ω| seed for the PUMP control (hard wall, parametric pump)
+K_WALL = 60.0         # soft clamp → engaged + stable + few sub-steps
+CFL_SAFE = 0.25       # anti-pump margin on the implicit reactance-rotation
+CENTER = (N / 2.0, N / 2.0, N / 2.0)
+
+OMEGA_C_NATURAL = 1.0                        # = c_R/dx ring scale
+T_COMPTON = 2.0 * np.pi / OMEGA_C_NATURAL    # one Compton period in natural-time
+N_PERIODS = float(os.environ.get("MQJ_PERIODS", "12"))   # ≥10P persistence target + margin
+
+
+def _steps_for_periods(eng, n_periods: float) -> int:
+    """# outer steps to evolve `n_periods` Compton periods (apparatus-floor honest:
+    derived from the engine's own outer_dt, not a hard-coded step count)."""
+    return int(np.ceil(n_periods * T_COMPTON / eng.outer_dt))
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# STEP 1 — KNOWN-POSITIVE VALIDATION (ave-apparatus-floor-attribution).
+# Run the STANDALONE verdict-II self-trap that DOES have c_eff(V): the
+# MasterEquationFDTD v14 breathing soliton (master_equation_fdtd.py:13 —
+# c_eff(V)=c0·(1−A²)^(−1/4)→∞; v14 Mode I PASS, test_master_equation_v14_mode_i.py).
+# This is the cap-map's "the only engine with the A1 cage" (engine-capability-map.md:42).
+#
+# If the solver CANNOT hold this known-stable standalone trap → bucket (1)
+# INTEGRATOR-INADEQUATE: any coupled blow-up downstream is numerical, not physics.
+# Validate the INSTRUMENT on a known-positive before trusting any coupled null.
+#
+# Z-at-wall on the cage: the A1 longitudinal tank has C_eff = C_0/S, so
+# Z_long = √(L/C_eff) = √(L·S/C_0) ∝ √S → 0 as S→0 (A→1). The engine exposes
+# refractive_index() = S^(1/4), so Z_long/Z_0 = √S = refractive_index()². The
+# MIN over the lattice is the deepest saturation (cage core). Z_long→0 there IS
+# the stiffening-confinement signature this gate looks for.
+# ══════════════════════════════════════════════════════════════════════════
+KP_DX = 0.5
+KP_SEED_AMP = 0.85     # v14 canonical seed (test_master_equation_v14_mode_i.py:35)
+KP_SEED_RADIUS = 2.5
+KP_STEPS = 600
+KP_TRANSIENT = 200
+
+
+def _run_known_positive(amplitude=KP_SEED_AMP, cfl=0.4, N_kp=24, nsteps=KP_STEPS):
+    """Run the standalone MasterEquationFDTD v14 verdict-II cage and report
+    whether the solver HELDS it (bucket-1 gate) + its longitudinal Z-at-core."""
+    eng = MasterEquationFDTD(
+        N=N_kp, dx=KP_DX, V_yield=1.0, c0=1.0, cfl_safety=cfl, pml_thickness=4
+    )
+    c = N_kp // 2
+    coords = np.arange(N_kp) - c
+    X, Y, Z = np.meshgrid(coords, coords, coords, indexing="ij")
+    r = np.sqrt(X**2 + Y**2 + Z**2) * KP_DX
+    seed = amplitude * (1.0 / np.cosh(r / KP_SEED_RADIUS))
+    eng.V[:] = seed
+    eng.V_prev[:] = seed.copy()
+
+    v_peak, n_min, diverged = [], [], None
+    for s in range(nsteps):
+        eng.step()
+        vmax = float(np.abs(eng.V).max())
+        if not np.isfinite(vmax) or vmax > 1e3:
+            diverged = s
+            break
+        if s >= nsteps // 3:
+            v_peak.append(vmax)
+            n_min.append(float(eng.refractive_index().min()))
+    if diverged is not None or not v_peak:
+        return {
+            "held": False, "diverged_at": diverged, "cfl": float(cfl), "N": int(N_kp),
+            "v_peak_mean": float("nan"), "std_over_mean": float("nan"),
+            "S_core": float("nan"), "Z_long_core": float("nan"),
+        }
+    vp = np.asarray(v_peak)
+    nm = np.asarray(n_min)
+    som = float(vp.std() / max(vp.mean(), 1e-9))
+    S_core = float(nm.min() ** 4)          # refractive_index = S^(1/4)
+    Z_long = float(np.sqrt(max(S_core, 0.0)))  # Z_long/Z_0 = √S
+    held = bool(vp.mean() > 0.2 and 0.05 < som < 0.5 and nm.min() < 0.97)
+    return {
+        "held": held, "diverged_at": diverged, "cfl": float(cfl), "N": int(N_kp),
+        "v_peak_mean": float(vp.mean()), "std_over_mean": som,
+        "S_core": S_core, "Z_long_core": Z_long,
+    }
+
+
+def _known_positive_gate() -> dict:
+    """Bucket-1 gate + apparatus-floor sweep on the KNOWN-POSITIVE cage.
+    Held across amplitude × cfl → the instrument is adequate; a coupled failure
+    cannot then be blamed on the integrator."""
+    base = _run_known_positive(amplitude=KP_SEED_AMP, cfl=0.4)
+    sweep = []
+    for amp in (0.85, 0.97):
+        for cfl in (0.4, 0.2):
+            sweep.append(_run_known_positive(amplitude=amp, cfl=cfl))
+    held_all = base["held"] and all(p["held"] for p in sweep)
+    Z_trend = [p["Z_long_core"] for p in sweep if np.isfinite(p["Z_long_core"])]
+    return {
+        "instrument_adequate": bool(held_all),
+        "base": base,
+        "sweep": sweep,
+        "Z_long_core_min": float(min(Z_trend)) if Z_trend else float("nan"),
+        "note": (
+            "KNOWN-POSITIVE = standalone MasterEquationFDTD v14 cage (the engine "
+            "with c_eff(V); master_equation_fdtd.py:13). Z_long/Z_0=√S→0 at core IS "
+            "the stiffening-confinement signature. If instrument_adequate is True, "
+            "any coupled-engine blow-up is NOT numerical (bucket-1 cleared)."
+        ),
+    }
+
+
 def main() -> dict:
     raise NotImplementedError("skeleton — sections land incrementally")
 
