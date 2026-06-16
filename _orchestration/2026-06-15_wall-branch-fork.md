@@ -150,4 +150,20 @@ The equilibrium Z curve is degenerate (§2a). Candidate discriminators that are 
 
 **Provenance≠state reconciliation (Grant):** Lane-3 "mute on sector" (state = A1, `master-equation.md`:20) and Lane-2 "live flag" (provenance = T2, `cosserat-mass-gap.md`:108) are two frames of one hybrid mode — not a contradiction.
 
-**Cross-lane handoff → Lane 2 (eigenmode):** this lane fixes Lane-2's operating point. Lane 2 should impose the **chirality-signed winding as the odd-drive BC** at the **K=2G-locked** point and solve for the dissipationless stable hybrid (V,ω) mode, then **measure its radiative Q** (≈137, = 1/α — NOT solve for Q=∞/lossless, which is the α=0 decoupled limit = the false-negative). Lane-2's measured Q wires into Lane-1 as the cross-check; agreement at the measured α = the chord. (Per Grant's tri-lane synthesis: Lane 3 sets the point, Lane 2 measures Q=1/α, Lane 1 derives it.)
+**Cross-lane handoff → Lane 2 (eigenmode):** this lane fixes Lane-2's operating point. Lane 2 should impose the **chirality-signed winding as the odd-drive BC** at the **K=2G-locked** point and solve for the dissipationless stable hybrid (V,ω) mode, then **measure its radiative Q** (= 1/α — NOT solve for Q=∞/lossless, the α=0 decoupled false-negative). (Per Grant's tri-lane synthesis: Lane 3 sets the point, Lane 2 measures Q=1/α, Lane 1 derives it — **but see §11: Grant 2026-06-15b corrected the geometric leg; the α-chord is most likely CLOSING AS AN ECHO, so the keystone is Lane-2's eigenmode EXISTENCE, not Q-agreement.**)
+
+---
+
+## 11. Grant ratification (2026-06-15b) + triangulation correction
+
+**Lane 3 RATIFIED, closed.** Grant: the co-saturation=gravity / chirality-broken=matter-wall sharpening is correct and load-bearing.
+
+**RECORDED (Grant: "record it") — K=2G IS the symmetric/gravity-lock operating point.** Symmetric co-saturation = the gravity lens (Z=Z₀, Γ=0); **matter is the chirality-broken excitation that breaks the lock** (Z→0, Γ=−1). So the triangulation's operating point IS the gravity (symmetric) lock, and matter breaks it. **Knock-on:** K=2G's provenance is **α-downstream** (`dual-reactance-storage-taxonomy.md`:62-67: "downstream consistency the lattice sits at *given* α, NOT the driver of α") → the operating-point anchor is itself α-circular, which **reinforces α=echo**.
+
+**Triangulation correction (Grant owns it; I walk back my recorded version).** My §10 "Lane-1 derives Q=1/α=137 from geometry → agreement = chord" was OVERSTATED (inherited from the earlier tri-lane synthesis). Grant's grounding: z₀=52=4·13 is a **multiplicative path-product**, not an additive Maxwell–Calladine constraint count (honest crystalline count ≈ 4+12 = 16 → 1/α≈49, **not** 137); the "1.46%→137" rode the 8πα identity (α-circular). **The z₀/coordination route to α is CLOSED as an ECHO.** This re-confirms `[[project_alpha_keystone_echo_resolved]]` (α=ECHO at value level, scale forced) from the electron-operating-point angle: **chord = FORM** (hybrid-eigenmode existence + chirality-signed wall + gravity-lock operating point), **echo = VALUE** (α=137).
+
+**Lane-3 → Lane-2 pre-flight discriminator (refinement of the handoff).** Lane 3 confirmed wall = **magnetic** branch (S_μ→0 leads → Z→0, Γ→−1); symmetric = gravity (Z=Z₀, Γ=0, NO wall); electric = rupture (S_ε→0 → Z→∞, Γ→+1). So Lane-2's platform pre-flight must verify Op14 drives the projected scalar to the **inductive/magnetic short** (S_μ→0 leads, Z→0, Γ→−1) on the sech — discriminator: **sign of (S_ε−S_μ) > 0 at the wall**. If it only reaches the capacitive/softening **open** (Z→∞), it is clamping the WRONG wall → escalate; do NOT take the cross-firewall (b) sign-off.
+
+**Two future-lane candidates registered (flag-don't-fix; Grant's calls 4 + the C-flag):**
+- **(C-flag)** `C_eff=C₀/S`(↑) vs `ε_eff=ε₀S`(↓) inverse-monotonicity (INVARIANT-S2) — compliance-softening picture or sign error? Roots the whole Z→0-vs-Z→∞ contradiction. Small future lane.
+- **(K=2G provenance)** crystalline (α-free) re-derivation of K=2G — tests whether the operating-point anchor is α-free (chord) or α-circular (echo). **Recommend YES**, pre-registered to likely land ECHO (taxonomy:62-67 already flags K=2G as α-downstream); value = settling whether ANY triangulation leg is α-free.
