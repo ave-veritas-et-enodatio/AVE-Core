@@ -74,6 +74,30 @@ ratio split (= relaxed-vs-clamped internal-strain modelling choice). Result doc:
 closed-NEGATIVE ("K=2G is the GR trace-reversal operating point, not a K4 topological inevitability"),
 cite this driver. The gravity sector already reads K=2G as IMPORTED on main — no canonical edit needed.
 
+## Phase 2 (2026-06-15) — constitutive route: chiral LC tank does NOT force K=2G either
+
+Grant scope-addendum (folded into PR #261): the last route to a *substrate-forced* K=2G — does the
+chiral LC tank's OWN constitutive law pin ρ=k_a/k_s to the K=2G value? Driver
+[`src/scripts/verify/k2g_constitutive_rho.py`](../src/scripts/verify/k2g_constitutive_rho.py),
+prereg [`research/2026-06-15_k2g-constitutive-provenance_prereg_FROZEN.md`](../research/2026-06-15_k2g-constitutive-provenance_prereg_FROZEN.md).
+
+- **Bridge derived** (Grant's load-bearing flag): canonical EE identity `C=ξ²/stiffness`
+  (`translation-circuit.md:23`) ⟹ `k_a=ξ²/C_eff`; EE dual ⟹ `k_s∝1/L_eff` ⟹ **ρ=k_a/k_s∝L_eff/C_eff
+  =Z_eff²** (bond-stiffness ratio = local impedance squared).
+- **Decomposition ρ=𝒢·(Z_eff/Z₀)².** K=2G IS the SYM (Γ=0 gravity-null, Z_eff=Z₀) branch ⟹ on it
+  **ρ=Z₀² INVARIANT for all S** (driver §2) ⟹ the saturation operating point CANNOT tune ρ. The 2:1
+  must live in the cold 𝒢 = the Phase-1 unforced ratio. **Independent constitutive-side corroboration
+  of the u₀*≈0.187 ECHO retraction** (new; corpus had no such argument).
+- **Decisive read:** at the impedance-matched ρ=1, native Cosserat ν=0.227 / Keating ν=0 — neither 2/7;
+  K=2G needs Z_eff≥√2·Z₀ (≥2:1 ε/μ mismatch) the matched substrate lacks.
+- **Model choice (Grant flag):** Cosserat (native, K=2G⟺ρ=2) vs Keating (validated x-check, ρ*=3.67–6.62);
+  verdict ROBUST to it.
+- **New linkage flagged:** the open crio Branch-R-vs-F monotonicity Q = SYM-vs-ASYM = does-saturation-
+  tune-ρ Q (same question); verdict built to not need it.
+
+**Verdict:** K=2G NOT constitutively forced ⟹ both geometry (Ph1) and constitutive law (Ph2) fail ⟹
+**GR-imported, END OF LINE.** Result [`research/2026-06-15_k2g-constitutive-provenance_result.md`](../research/2026-06-15_k2g-constitutive-provenance_result.md).
+
 ## Lane log
 
 - **2026-06-15** — Lane opened. Corpus-grep prereg complete. Worktree + branch off origin/main.
@@ -84,6 +108,11 @@ cite this driver. The gravity sector already reads K=2G as IMPORTED on main — 
   primer:476 "delivered closure" neutralized (prereg Rule-12 A1 + result §3); diamond reference
   quantified via VRH spread + Zener A. Result SHA-pinned to `40a2a2e7`. **PR opened, Grant merges.**
 
-## Status: ACTIVE — result landed + auditor-PASS; PR open, awaiting Grant merge
+- **2026-06-15** — **Phase 2 (constitutive route)** added per Grant scope-addendum. EE-first-mapping +
+  corpus-grep: bridge derived (ρ=Z_eff²); SYM-invariance ⟹ operating point can't select K=2G;
+  Cosserat(native)+Keating(x-check) both show impedance-matched ρ doesn't reach K=2G. **Verdict: NOT
+  constitutively forced — GR-imported, end of line.** Pushed to PR #261.
+
+## Status: ACTIVE — both phases landed; K=2G provenance = GR-IMPORTED (end of line); PR #261 awaiting Grant merge
 </content>
 </invoke>
