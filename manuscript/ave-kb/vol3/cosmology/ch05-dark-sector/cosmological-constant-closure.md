@@ -29,7 +29,7 @@ Equivalently (using $\alpha = p_c/8\pi$):
 
 $$H_\infty = \frac{1792\,\pi^3\, m_e^3\, c\, G}{\hbar^2\, p_c^2}$$
 
-Numerical value: $H_\infty \approx 2.247 \times 10^{-18}$ s⁻¹ $\approx 69.33$ km/s/Mpc.
+Numerical value: $H_\infty \approx 2.2466 \times 10^{-18}$ s⁻¹ $\approx 69.32$ km/s/Mpc.
 
 This is corpus-closed — `manuscript/predictions.yaml` entry P23, 0.7% off TRGB-measured $H_0 = 69.8$ km/s/Mpc. Classification: **Class E operating-point projection** at $u_0^* \approx 0.187$ per `consistency-vs-emergence` v1.1 (Grant canonized 2026-05-19 EOD); see [`omega-freeze-cosmic-grain-cascade.md`](../../../common/omega-freeze-cosmic-grain-cascade.md) for the joint-constraint structure. The 0.7% TRGB residual is structural consistency at the joint-constrained operating point with $\{G, \hat{\Omega}_{\text{freeze}}, \alpha\}$, not an independent prediction. Falsification of any one of $\{G, H_\infty, \hat{\Omega}_{\text{freeze}}, \alpha\}$ kills the operating-point and therefore the entire substrate model.
 
@@ -43,7 +43,7 @@ $$\rho_\Lambda = \frac{\Lambda c^2}{8\pi G} = \frac{3 H_\infty^2}{8\pi G}$$
 
 ### Step 3 — Plug in
 
-$$\rho_\Lambda^{\text{AVE}} = \frac{3 \times (2.247 \times 10^{-18})^2}{8\pi \times 6.674 \times 10^{-11}} = 9.03 \times 10^{-27}\,\text{kg/m}^3$$
+$$\rho_\Lambda^{\text{AVE}} = \frac{3 \times (2.2466 \times 10^{-18})^2}{8\pi \times 6.674 \times 10^{-11}} = 9.03 \times 10^{-27}\,\text{kg/m}^3$$
 
 ### Step 4 — Compare to measurement
 
@@ -88,7 +88,7 @@ The corpus's latent-heat framework predicts $w_{\text{vac}} \approx -1.0001$ (sl
 |---|---|---|
 | Planck CMB | $67.4 \pm 0.5$ | Early-universe inverse-distance ladder |
 | SH0ES Cepheid+SN | $73.0 \pm 1.0$ | Local distance ladder |
-| **AVE asymptote** | **69.33** | **Corpus-derived (Vol 3 Ch 1 §3)** |
+| **AVE asymptote** | **69.32** | **Corpus-derived (Vol 3 Ch 1 §3)** |
 | TRGB | $69.8 \pm 1.7$ | Tip of red giant branch (intermediate) |
 
 **AVE's $H_\infty$ sits between Planck and SH0ES, closest to TRGB at 0.7% deviation.** The AVE interpretation: $H_\infty$ is the de Sitter asymptote, currently-observed $H_0$ values are samples of an evolving $H(t)$ approaching $H_\infty$. The Planck-vs-SH0ES tension reflects different epochs' Hubble rates measured by different methods, not a contradiction in cosmology.
