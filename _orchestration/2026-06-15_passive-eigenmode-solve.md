@@ -1,15 +1,16 @@
 # Passive winding-protected electron eigenmode — the structural keystone (ORCHESTRATION)
 
-> **STATUS: 🔒 PREREG FROZEN + G0 PASSED (banked standalone) + representation RESOLVED → HYBRID
-> PRODUCTION DRIVER DISPATCHED (agent `a42cabffd2989fa1b`, running).** Lane worktree
-> `AVE-Core-eigenmode-wt`, branch `analysis/2026-06-15-passive-eigenmode-solve` off `main@40a2a2e7`.
-> **main is PROTECTED — Grant merges; this lane does NOT merge.** Frozen prereg:
-> `research/2026-06-15_passive-eigenmode_prereg_FROZEN.md`; G0 result
-> `research/2026-06-15_g0-double-count-clean_result.md`. **Grant 2026-06-15: proceed with the
-> traveling-(2,3) (the z-flat seeder is a corpus-deprecated PROTON part) + assert the 0₁ unknot
-> envelope (third-time wrong-object guard). Driver on `analysis/2026-06-15-eigenmode-driver`.
-> Deliverable = EXISTENCE of the winding-protected hybrid breather (the form, the last open chord);
-> Q is the echo. NEXT: driver result → adversarial-verify Workflow → adjudicate to Grant.**
+> **STATUS: PRODUCTION DRIVER RETURNED — BIN = NEGATIVE-A (the winding-protected hybrid breather
+> does NOT exist on the (b′) platform). ADVERSARIAL-VERIFY PANEL RUNNING (`ww03eo0v5`) BEFORE
+> BANKING** — because the result surfaced a load-bearing contradiction with the lane's own prior
+> results (FLAG 1: the production TRUE-Γ read says the V-tank disperses from seed / no self-focus,
+> contradicting pre-flight #2's "bounded recurrent breather"). Lane worktree `AVE-Core-eigenmode-wt`,
+> branch `analysis/2026-06-15-passive-eigenmode-solve` off `main@40a2a2e7`. **main is PROTECTED —
+> Grant merges; this lane does NOT merge.** Result doc (driver branch
+> `analysis/2026-06-15-eigenmode-driver`): `research/2026-06-15_passive-eigenmode_result.md`. **All
+> gates G0–G4 + unknot PASS → credible physics, not a detector artifact; two-lattice; decoupled
+> (α=0) control also disperses → dispersion INTRINSIC to the V-tank, not the coupling.** Headline =
+> EXISTENCE (NEGATIVE); Q (363.8, neither band) is a dispersing-remnant echo, carries no weight.
 >
 > **KEYSTONE REFRAME (Grant 2026-06-15):** the lane rests on **EXISTENCE + STABILITY** of the
 > passive high-Q hybrid mode (PRIMARY); the measured **Q is SECONDARY** — **α is an ECHO for the
@@ -481,3 +482,19 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   + the §4 bins; headline EXISTENCE, Q the echo. **NEXT: driver result → adversarial-verify Workflow
   → adjudicate to Grant. (This is the one genuinely-open physics question left; the rest is docs +
   merges.)**
+- **2026-06-15 (Phase 3b — PRODUCTION RESULT: BIN = NEGATIVE-A; adversarial-verify running)** —
+  Driver `a42cabffd2989fa1b` returned **NEGATIVE-A**: the passive winding-protected hybrid (V,ω)
+  breather **does NOT exist** on the (b′) platform. **F1 existence = FALSE** (V_peak tail/seed=0.181,
+  Γ_true_tail=−0.003 — wall vanishes, FWHM grows 64×); **F4 winding = FALSE** (w_pol 3→1→0). **ALL
+  gates G0–G4 + unknot PASS** (G2 sign-read ✓, G3 Q_analytic to 0.06% ✓, G4 (2,3) rel 0.73/0.94 ✓)
+  → the negative is **credible physics, not a detector artifact**; two-lattice reproduction; **F0
+  decoupled (α=0) control ALSO disperses → the dispersion is INTRINSIC to the V-tank, not the
+  coupling.** Q=363.8 (neither band) = dispersing-remnant echo, no weight. (`make verify` passes;
+  the EFT magic-number gate caught + the implementer fixed a hardcoded 137.036 literal → import
+  identity.) **FLAG 1 (load-bearing):** contradicts pre-flight #2's "bounded recurrent breather
+  (Γ≈−0.43, re-focus 375–450)" — the production TRUE-Γ min is always at step 0, never deepens
+  (the −0.43 was the SEEDED depth); reconciliation hypothesis = the pre-flight mis-read dispersing
+  ringing as self-focus. Bears on whether (b′) was correctly characterized as a viable breather host.
+  **Result NOT yet banked — adversarial-verify panel `ww03eo0v5` (4 auditors: bin-conformance /
+  pre-flight contradiction / cage tension / floor-not-artifact) scrutinizing first.** NEXT: panel →
+  adjudicate to Grant.
