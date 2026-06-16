@@ -205,6 +205,380 @@ def _known_positive_gate() -> dict:
     }
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# STEP 2/3/4 — COUPLED ENGINE: Op17-bounded Γ=−1 BC (CP10) + precursor seed (CP8)
+# ══════════════════════════════════════════════════════════════════════════
+def _make_engine(K=K_WALL, cfl=CFL_SAFE, couple_v=True, implicit=True):
+    """COUPLED K4⊗Cosserat engine with the moving reflective Γ=−1 boundary.
+
+    CP10 (no-blow-up discipline): use_impedance_boundary=True renders Axiom-4
+    saturation as a saturable BOUNDARY CONDITION (Op17-bounded |Γ|→1 as A→1):
+      • V-sector "3": Op14 z_local→0 short → bond Γ→−1 (k4_tlm op3_bond_reflection)
+      • Cosserat "2": reactive node-clamp by the EXACT reactance-pair rotation
+        (_rotate_clamp; energy conserved any τ; cosserat_field_3d.py).
+    The bulk V→ω W_refl gradient force (_compute_coupling_force_on_cosserat — the
+    documented runaway channel) is NOT on this path; the sectors couple ONLY
+    through the shared front. This is the Op17-bounded-wall rendering, NOT a
+    bulk energy/force term (the CP10 requirement)."""
+    cfg = EngineConfig(
+        N=N, pml=PML,
+        use_impedance_boundary=True,
+        couple_v_sector=couple_v,
+        impedance_implicit=implicit,
+        impedance_clamp_strength=K,
+        impedance_cfl_safety=cfl,
+        use_asymmetric_saturation=True,   # κ_chiral chirality bias (default)
+    )
+    return VacuumEngine3D(cfg)
+
+
+def _seed_photon(eng, amplitude, helicity=1.0):
+    """CP8 — seed the GENERATIVE PRECURSOR: a transverse Z₀-matched helical
+    ω-photon. NOT a planted finished electron end-state. The K4 V-sector is left
+    at 0; the moving Γ=−1 wall must FORM from the confining photon's own
+    self-saturation. Scope (honest): tests whether a PRECURSOR-GROWN trap is
+    integrator-stable + reads its Z; does NOT claim the (2,3) electron emerges
+    (that is the Stage-2 topology read)."""
+    eng.cos.initialize_gaussian_wavepacket_omega(
+        CENTER, sigma=SIGMA, direction=(1, 0, 0), wavelength=LAM,
+        amplitude=amplitude, axis=2, helicity=helicity,
+    )
+
+
+# ──────────────────────────────────────────────────────────────────────────
+# THE LOAD-BEARING MEASUREMENT — Z AT THE SATURATED WALL (bucket-2-vs-3 discrim.)
+# ──────────────────────────────────────────────────────────────────────────
+def _interior_mask(eng) -> np.ndarray:
+    """PML-excluded interior (A-Rule 10 corollary — PML cells are frozen-absorbing
+    artifact, never interior physics). All Cosserat-alive sites minus PML shell."""
+    Nn, pml = eng.N, eng.config.pml
+    m = np.zeros((Nn, Nn, Nn), dtype=bool)
+    m[pml:Nn - pml, pml:Nn - pml, pml:Nn - pml] = True
+    return m & eng.cos.mask_alive
+
+
+# ──────────────────────────────────────────────────────────────────────────
+# Witnesses (ave-conserved-vs-pumped + A-Rule 10 reactance pair)
+# ──────────────────────────────────────────────────────────────────────────
+def _omega_max(eng) -> float:
+    """C-state amplitude — peak |ω| (the blow-up witness)."""
+    return float(np.abs(np.asarray(eng.cos.omega)).max())
+
+
+def _omega_dot_max(eng) -> float:
+    """L-state — peak |ω̇| (A-Rule 10 reactance pair: snapshot of ω alone can't
+    distinguish a static config from an oscillator caught at peak; record BOTH)."""
+    return float(np.abs(np.asarray(eng.cos.omega_dot)).max())
+
+
+def _H_total(eng) -> float:
+    """THE FULL-HAMILTONIAN WITNESS the brief mandates — total_hamiltonian() =
+    E_K4 + T_cos(kinetic) + E_cos(GRADIENT POTENTIAL) + E_coupling. NOT sum(ω²)
+    (the C-arc false positive, passive_eigenmode_driver.py:1044-1051: amplitude-
+    only is blind to the gradient-potential pump). KEEP-BOTH with _H_impedance."""
+    return float(eng._coupled.total_hamiltonian())
+
+
+def _H_impedance(eng) -> float:
+    """The engine's OWN conserved invariant on the impedance-boundary path:
+    H = E_K4 + T_cos + W_linear(bulk) + V_clamp (the reactive Γ=−1 wall storage,
+    k4_cosserat_coupling.py:725). What the dynamics actually integrate; energy
+    sloshes between kinetic / linear-elastic / wall-reactive storage (the
+    reactance pair). Reported alongside total_hamiltonian() so wall-storage
+    exchange is not mis-read as a pump."""
+    try:
+        return float(eng._coupled.impedance_hamiltonian()["H"])
+    except Exception:
+        return float("nan")
+
+
+def _cosserat_confined_energy(eng) -> float:
+    """Interior (PML-excluded) Cosserat trap energy: ½I_ω|ω|² + ½ρ|u|² + kinetic.
+    The channel an ω-photon precursor actually populates (the K4 Φ_link bond
+    channel stays 0 when V_inc=0 on this path — surfaced below)."""
+    interior = _interior_mask(eng)[..., None]
+    w = np.asarray(eng.cos.omega) * interior
+    u = np.asarray(eng.cos.u) * interior
+    wd = np.asarray(eng.cos.omega_dot) * interior
+    ud = np.asarray(eng.cos.u_dot) * interior
+    return float(
+        0.5 * eng.cos.I_omega * np.sum(w**2)
+        + 0.5 * eng.cos.rho * np.sum(u**2)
+        + 0.5 * eng.cos.I_omega * np.sum(wd**2)
+        + 0.5 * eng.cos.rho * np.sum(ud**2)
+    )
+
+
+def _record_step(eng) -> dict:
+    """One witness sample: reactance PAIR (ω C-state, ω̇ L-state) + BOTH
+    Hamiltonian witnesses + Z-at-wall + the Cosserat confined-energy channel."""
+    z = _z_at_wall(eng)
+    return {
+        "t": float(eng.time),
+        "step": int(eng.step_count),
+        "omega_C": _omega_max(eng),
+        "omega_dot_L": _omega_dot_max(eng),
+        "H_total": _H_total(eng),
+        "H_impedance": _H_impedance(eng),
+        "max_V_inc": float(np.abs(np.asarray(eng.k4.V_inc)).max()),
+        "E_cos_confined": _cosserat_confined_energy(eng),
+        "Z_wall_med": z.get("Z_eff_at_wall_median", float("nan")),
+        "Z_wall_min": z.get("Z_eff_at_wall_min", float("nan")),
+        "Z_peakA2": z.get("Z_eff_at_peakA2", float("nan")),
+        "n_sat": z.get("n_saturated", 0),
+        "max_A2_cos": z.get("max_A2_cos_interior", 0.0),
+    }
+
+
+def _ledger_ramp(series) -> float:
+    """ave-conserved-vs-pumped ramp metric: tail/baseline of a positive-definite
+    energy series (post-transient). ramp ≈ 1 → flat (passive); < 1 → decaying;
+    >> 1 → PUMP. Uses post-transient baseline (wall forms over ~1 Compton period)
+    so the seed→trap transient is not mis-counted as a pump."""
+    arr = np.asarray([h for h in series if np.isfinite(h)], dtype=float)
+    if arr.size < 3:
+        return float("nan")
+    k = max(1, arr.size // 5)
+    base = float(np.median(np.abs(arr[:k])))
+    tail = float(np.median(np.abs(arr[-k:])))
+    if base < 1e-30:
+        return float("inf") if tail > 1e-30 else 1.0
+    return tail / base
+
+
+def _z_at_wall(eng, sat_frac=0.5) -> dict:
+    """Measure the local impedance Z_eff = Z₀·√(S_μ/S_ε) AT the saturated
+    bond(s) of the COUPLED engine — the bucket-2-vs-3 discriminator.
+
+    Reuses the engine's OWN wall infrastructure:
+      • _impedance_gamma_shared() → Γ(r) = (Z_eff−1)/(Z_eff+1) at every cell
+        (k4_cosserat_coupling.py:647-675), from which Z_eff = (1+Γ)/(1−Γ).
+      • the saturated set = cells where Cosserat A² ≥ sat_frac (the wall).
+
+    READING (INVARIANT-S2 Q1=B, Grant-ratified):
+      Z_eff → 0  at the wall  ⇒ |Γ|→1 with Γ<0 (μ-short)  ⇒ TRUE stiffening A1
+                  confinement (the electron route). bucket → PORTS / NO-TRAP.
+      Z_eff → ∞ (or not collapsing) ⇒ ε-side rupture / softening proxy, NOT the
+                  A1 stiffening cage. bucket → c_eff(V)-STRUCTURAL-GAP.
+
+    CRITICAL CAVEAT (engine-reality, surfaced not papered): this Z_eff is the
+    TRANSVERSE Meissner impedance √(S_μ/S_ε) (k4_cosserat_coupling.py:548,
+    INVARIANT-S2 "transverse-T2 √(μ/ε)"), NOT the LONGITUDINAL A1 tank
+    √(L/C_comp). The capability-map (engine-capability-map.md:45,79) says
+    VacuumEngine3D has NO independent A1 field — so a Z_eff→0 here is the
+    TRANSVERSE sector's confinement, and whether that IS the A1 stiffening cage
+    or merely its transverse proxy is exactly the bucket-2 question. The
+    standalone known-positive (step 1) carries the genuine LONGITUDINAL Z_long=√S;
+    comparing the two is what distinguishes a true cage from the projection."""
+    coupled = eng._coupled
+    gamma = coupled._impedance_gamma_shared()          # Γ(r) over the lattice
+    # Z_eff from Γ: Z_eff = (1+Γ)/(1−Γ); clamp denom for Γ→1
+    Z_eff = (1.0 + gamma) / np.maximum(1.0 - gamma, 1e-12)
+
+    # Cosserat A² per site (the wall = cells at/above sat_frac).
+    from ave.topological.vacuum_engine import _cosserat_A_squared
+    A2_cos = _cosserat_A_squared(
+        eng.cos.u, eng.cos.omega, eng.cos.dx,
+        eng.cos.omega_yield, eng.cos.epsilon_yield,
+    )
+    # PML-excluded interior only (A-Rule 10 corollary).
+    interior = _interior_mask(eng)
+    sat = (A2_cos >= sat_frac) & interior
+    n_sat = int(np.sum(sat))
+
+    if n_sat == 0:
+        # no wall yet → report the deepest-saturation cell's Z as the proto-wall
+        idx = np.unravel_index(np.argmax(np.where(interior, A2_cos, -1.0)), A2_cos.shape)
+        return {
+            "n_saturated": 0,
+            "max_A2_cos_interior": float(A2_cos[interior].max()) if interior.any() else 0.0,
+            "Z_eff_at_peakA2": float(Z_eff[idx]),
+            "gamma_at_peakA2": float(gamma[idx]),
+            "Z_eff_at_wall_median": float("nan"),
+            "Z_eff_at_wall_min": float("nan"),
+            "gamma_at_wall_median": float("nan"),
+        }
+    return {
+        "n_saturated": n_sat,
+        "max_A2_cos_interior": float(A2_cos[interior].max()),
+        "Z_eff_at_wall_median": float(np.median(Z_eff[sat])),
+        "Z_eff_at_wall_min": float(Z_eff[sat].min()),
+        "Z_eff_at_wall_max": float(Z_eff[sat].max()),
+        "gamma_at_wall_median": float(np.median(gamma[sat])),
+        "gamma_at_wall_min": float(gamma[sat].min()),
+    }
+
+
+# ──────────────────────────────────────────────────────────────────────────
+# Persistence read — saturated vs unsaturated channel (the engine's own signal)
+# ──────────────────────────────────────────────────────────────────────────
+def _persistence_periods(hist, key, drop=1.0 / np.e) -> float:
+    """# Compton periods the channel `key` stays above 1/e of its peak. After
+    the trap forms, the saturated channel should persist ≥10 periods while the
+    unsaturated decays in ~3 (the Phase-3 persistence asymmetry)."""
+    if not hist:
+        return 0.0
+    ts = np.asarray([d["t"] for d in hist], dtype=float)
+    vals = np.asarray([d.get(key, 0.0) for d in hist], dtype=float)
+    if vals.max() < 1e-30:
+        return 0.0
+    pk = int(np.argmax(vals))
+    thr = vals[pk] * drop
+    after = vals[pk:]
+    below = np.where(after < thr)[0]
+    survive = (ts[-1] - ts[pk]) if below.size == 0 else (ts[pk + int(below[0])] - ts[pk])
+    return float(survive / T_COMPTON)
+
+
+def _run_one(K=K_WALL, amplitude=A_LOCK, cfl=CFL_SAFE, n_periods=N_PERIODS,
+             sample_every=4, bond_cadence=4):
+    """Seed the photon precursor in a fresh Op17-bounded engine, evolve
+    n_periods Compton periods, record the witness trajectory + Z-at-wall + the
+    saturated/unsaturated channels."""
+    eng = _make_engine(K=K, cfl=cfl)
+    _seed_photon(eng, amplitude=amplitude, helicity=1.0)
+    bond_obs = BondObserver(cadence=bond_cadence, saturation_frac=0.5)
+    energy_obs = EnergyBudgetObserver(cadence=sample_every)
+    eng.add_observer(bond_obs)
+    eng.add_observer(energy_obs)
+
+    nsteps = _steps_for_periods(eng, n_periods)
+    traj = [_record_step(eng)]
+    diverged = None
+    for s in range(nsteps):
+        eng.step()
+        if (s % sample_every == 0) or (s == nsteps - 1):
+            rec = _record_step(eng)
+            traj.append(rec)
+            if (not np.isfinite(rec["omega_C"])) or rec["omega_C"] > 1e4 * max(amplitude, 1e-6):
+                diverged = s
+                break
+
+    oc = [r["omega_C"] for r in traj]
+    odl = [r["omega_dot_L"] for r in traj]
+    Ht = [r["H_total"] for r in traj]
+    Hi = [r["H_impedance"] for r in traj]
+
+    # Z-at-wall trajectory (the discriminator). Median over saturated cells
+    # while ≥1 cell is saturated; the post-transient median is the headline.
+    z_med = [r["Z_wall_med"] for r in traj if np.isfinite(r["Z_wall_med"])]
+    z_min = [r["Z_wall_min"] for r in traj if np.isfinite(r["Z_wall_min"])]
+    z_wall_post = (float(np.median(z_med[len(z_med) // 5:])) if z_med else float("nan"))
+    z_wall_floor = (float(np.nanmin(z_min)) if z_min else float("nan"))
+
+    cos_traj = [{"t": r["t"], "E_cos_confined": r["E_cos_confined"]} for r in traj]
+    cos_persist = _persistence_periods(cos_traj, "E_cos_confined")
+    sat_p = _persistence_periods(bond_obs.history, "phi_at_saturated_bonds_rms")
+    unsat_p = _persistence_periods(bond_obs.history, "phi_at_unsaturated_bonds_rms")
+
+    return {
+        "K_wall": float(K), "amplitude": float(amplitude), "cfl": float(cfl),
+        "nsteps": int(nsteps), "outer_dt": float(eng.outer_dt),
+        "n_sub": int(eng._coupled.n_sub), "dt_sub": float(eng._coupled.dt_sub),
+        "diverged_at_step": diverged,
+        "omega_C_seed": float(oc[0]) if oc else 0.0,
+        "omega_C_max": float(np.nanmax(oc)) if oc else 0.0,
+        "omega_C_final": float(oc[-1]) if oc else 0.0,
+        "omega_dot_L_max": float(np.nanmax(odl)) if odl else 0.0,
+        "H_total_ramp": _ledger_ramp(Ht), "H_impedance_ramp": _ledger_ramp(Hi),
+        "H_total_series": [float(h) for h in Ht],
+        "H_impedance_series": [float(h) for h in Hi],
+        # ── THE Z-AT-WALL DISCRIMINATOR ──
+        "Z_wall_post_median": z_wall_post,
+        "Z_wall_floor": z_wall_floor,
+        "Z_wall_series": [float(r["Z_wall_med"]) for r in traj],
+        "max_A2_cos_final": float(traj[-1]["max_A2_cos"]) if traj else 0.0,
+        "n_sat_peak": int(max((r["n_sat"] for r in traj), default=0)),
+        # ── persistence ──
+        "cos_confined_persist_periods": cos_persist,
+        "E_cos_confined_peak": float(max((r["E_cos_confined"] for r in traj), default=0.0)),
+        "E_cos_confined_final": float(traj[-1]["E_cos_confined"]) if traj else 0.0,
+        "sat_persist_periods": sat_p, "unsat_persist_periods": unsat_p,
+        "V_sector_energized": bool(float(np.nanmax([r["max_V_inc"] for r in traj])) > 1e-9),
+        "trajectory": traj,
+    }
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# FOUR-WAY BINNING — the auditor-mandated buckets (NOT collapsed to binary).
+# Pre-registered adjudication thresholds (frozen; NOT dropped post-hoc, Rule 11):
+# ══════════════════════════════════════════════════════════════════════════
+RAMP_PUMP_CEIL = 2.0        # H_total ramp > this → PUMPS
+OMEGA_BLOWUP_FACTOR = 1e3   # |ω|max / seed > this → numerical blow-up flag
+Z_STIFFENING_CEIL = 0.5     # Z_wall ≤ this (→0) = TRUE stiffening confinement
+SAT_PERSIST_MIN = 10.0      # confined channel must persist ≥ this many periods
+
+
+def _bin_run(r: dict, instrument_adequate: bool) -> tuple[str, str]:
+    """Resolve a coupled run into one of the FOUR auditor buckets + reason.
+    A naive 'BLOW-UP' is NOT a bucket — it is resolved via the known-positive
+    gate (bucket 1) + the Z-at-wall measurement (buckets 2/3)."""
+    seed = max(r["omega_C_seed"], 1e-6)
+    blew = (r["diverged_at_step"] is not None) or (not np.isfinite(r["omega_C_max"])) \
+        or (r["omega_C_max"] / seed > OMEGA_BLOWUP_FACTOR)
+
+    # ── Bucket 1: INTEGRATOR-INADEQUATE — only if the known-positive FAILED ──
+    if blew and not instrument_adequate:
+        return "INTEGRATOR-INADEQUATE", (
+            f"|ω|max/seed={r['omega_C_max']/seed:.1e} blew up AND the known-positive "
+            f"standalone cage did NOT hold → numerical, not physics."
+        )
+
+    ramp = r["H_total_ramp"]
+    Zw = r["Z_wall_post_median"]
+    Zf = r["Z_wall_floor"]
+    z_stiffening = np.isfinite(Zw) and (Zw <= Z_STIFFENING_CEIL or Zf <= Z_STIFFENING_CEIL)
+
+    # ── PUMPS: full-Hamiltonian ledger climbs (checked before the Z buckets so a
+    #    pumping run is named as an ontology finding, not mis-binned) ──
+    if np.isfinite(ramp) and ramp > RAMP_PUMP_CEIL:
+        return "PUMPS", (
+            f"full-Hamiltonian ledger ramp={ramp:.2f} > {RAMP_PUMP_CEIL} "
+            f"(H_impedance ramp={r['H_impedance_ramp']:.2f}) → trap not passive; "
+            f"Z_wall={Zw:.3f}"
+        )
+
+    # ── If it blew up but the instrument is adequate → physics blow-up; route by Z ──
+    persists = r["cos_confined_persist_periods"] >= SAT_PERSIST_MIN
+    zdetail = (
+        f"Z_wall_post={Zw:.3f} floor={Zf:.3f} (A²_cos_final={r['max_A2_cos_final']:.1f}, "
+        f"n_sat_peak={r['n_sat_peak']}); |ω|max/seed={r['omega_C_max']/seed:.2f}; "
+        f"H_total ramp={ramp:.2f}; cos_persist={r['cos_confined_persist_periods']:.1f}P"
+    )
+
+    # ── Bucket 2: c_eff(V)-STRUCTURAL-GAP — wall forms (A²≫1, n_sat>0) but Z does
+    #    NOT →0. The softening proxy, not C_eff→∞. Confirms cap-map :45/:79. ──
+    wall_formed = r["n_sat_peak"] > 0 or r["max_A2_cos_final"] >= 0.5
+    if wall_formed and not z_stiffening:
+        return "c_eff(V)-STRUCTURAL-GAP", (
+            "🔧 wall forms but Z does NOT collapse to 0 — the TRANSVERSE softening "
+            f"proxy (Z_eff=√(S_μ/S_ε)≈Z₀), NOT the C_eff→∞/Z→0 longitudinal A1 "
+            f"stiffening cage. Confirms engine-capability-map.md:45/:79. → coupled "
+            f"engine needs a true c_eff(V)/independent-A1 field (a BOUNDED build). "
+            f"{zdetail}"
+        )
+
+    # ── From here Z IS stiffening (Z→0) — buckets 3 / PORTS depend on stability ──
+    if z_stiffening and (blew or not persists):
+        return "PHYSICAL-NO-TRAP", (
+            "🔴 Z→0 stiffening confinement IS present AND the known-positive held, "
+            f"but the trap does NOT remain bounded/persistent ({'diverged' if blew else 'dispersed'}). "
+            f"ECHO candidate (the only bucket that bears on echo). {zdetail}"
+        )
+
+    if z_stiffening and not blew and persists:
+        return "PORTS-STABLE", (
+            "Z→0 stiffening confinement + |ω| bounded + ledger flat + trap persists "
+            f"≥10P → boundary readable, Stage 2 greenlit. {zdetail}"
+        )
+
+    # bounded, passive, no wall, no stiffening Z → integrator-stable but no trap
+    return "c_eff(V)-STRUCTURAL-GAP", (
+        "🔧 no Z→0 stiffening confinement formed (Z stays ≈Z₀); integrator-stable "
+        f"and passive but no longitudinal A1 cage. {zdetail}"
+    )
+
+
 def main() -> dict:
     raise NotImplementedError("skeleton — sections land incrementally")
 
