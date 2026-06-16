@@ -169,3 +169,86 @@ flagged plant, reported as such.
 - Do NOT merge (main is PROTECTED).
 - Honest "WALL-CONFINES-BUT-LOOP-INERT, here's why" is a GOOD report; a forced
   emergence claim is NOT.
+
+---
+
+## 🔧 AMENDMENT A4 — APPARATUS SUBSTITUTION (Rule-12, NOT retraction) — 2026-06-16
+
+> **Rule-12 apparatus-substitution.** This amendment is appended; the FROZEN body
+> above (§0–§7, the 4 bins, the discriminator, the verdict-space) is UNCHANGED.
+> Only the wall *mechanism* (the apparatus) is substituted. The bins and the
+> adjudication criteria are PRESERVED. This is **not** a retraction (the hypothesis
+> stands) and **not** a rescue (no criterion dropped, no post-hoc bin remap).
+
+**Branch:** `analysis/2026-06-16-stage16-k4tlm-bounded-wall` (off the amendments
+base `analysis/2026-06-16-stage16-rerun-amendments`, which already carries the
+#273 amendments 1/2/3/5). **Source:** the #273 pre-flight `ww8x96sci`, GAP 3 (the
+"Op17-bound" premise is false).
+
+### What is substituted (the apparatus only)
+
+The §1.3 / §5 Op17-bounded wall was specified as the reactive node-clamp
+`a_ω = −(K/I_ω)·relu(−Γ)·ω`, integrated by the exact LC rotation `_rotate_clamp`
+(`cosserat_field_3d.py:1760`), with the FROZEN claim "|ω| bounded" / "no |ω|
+blow-up." **That premise is FALSE.** `_rotate_clamp` integrates the harmonic
+node-clamp `ω̈ = −Ω₀²ω` EXACTLY, but `Ω₀ = √((K/I_ω)·relu(−Γ))` is a *stiffening
+spring* with **no |ω| ceiling**: as the saturation front sharpens (`relu(−Γ)→1`)
+it stores unbounded reactive energy, so the wall **forms (Γ→−0.994) AND pumps
+(H climbs 4.3×10⁶) together** (#273 banked data; reproduced this branch at the
+operating point: `|ω|max→20918`, `H_minus_Vclamp` peak-rise `+7.4×10⁶`). A spring
+is a **bulk restoring force** — `substrate-native-check` Checkpoint-10 says render
+confinement as a **boundary reflection** (`R = Γ² ≤ 1`), NOT a bulk force (singular
+at the wall, detonates). The amend-4 `K_wall` sweep confirms the gap is unfixable
+by value: **no K** separates pump-suppression from confinement-loss (verdict
+`AMBIGUOUS-pending-stable-BC`) — because no *value* of a no-ceiling clamp can add
+a ceiling.
+
+**Substituted apparatus:** the **K4-TLM Op3 unitary-scatter reflector**
+(`k4_tlm.py:402-423`, `V_inc = Γ·V_ref_A + T·V_ref_B`, `Γ²+T²=1`, `|Γ|≤1`)
+adapted to the Cosserat `(ω, ω̇/Ω₀)` reactance pair (`_unitary_scatter`,
+`cosserat_field_3d.py`). At the wall cells the incident/reflected d'Alembert
+characteristic amplitudes are rotated through the **orthogonal** `[[Γ_w,T_w],
+[T_w,−Γ_w]]` (`Γ_w = relu(−Γ) ∈ [0,1]`, `T_w = √(1−Γ_w²)`). Orthogonality
+preserves the reactance-pair norm `½(ω²+ω̇²/Ω₀²)` EXACTLY and maps `|output|=
+|input|` — so the wall **cannot inject energy (no pump)** and `|ω|` is bounded by
+the incident amplitude **by construction (no blow-up)**. At the μ-short
+`Γ_w→1,T_w→0` the wave reflects with the corpus `Γ=−1` inversion
+(`electron-identification.md:24` property-3 TIR cavity: "a perfect TIR mirror at
+the wave's location, trapping it as a standing wave"; `:25` "only the boundary
+condition flips from impedance-matched Γ=0 to TIR Γ=−1"); at matched/open
+`Γ_w→0,T_w→1` the pair
+free-streams (bulk wave unchanged). This is the CP10-correct boundary rendering
+of the SAME physical wall the frozen prereg specified — it bounds `|ω|` *without*
+suppressing the reactive sector-to-sector exchange the loop test measures
+(resolving the posable-vs-meaningful catch-22).
+
+### What is PRESERVED (unchanged)
+
+- **The 4 FROZEN bins** (§4): `LOOP-CLOSES / WALL-CONFINES-BUT-LOOP-INERT /
+  WALL-ALSO-FAILS / PUMPS`. Verdict-space unchanged.
+- **All adjudication criteria** (§4 + #273 amendments 2/3/5): two-sided fire
+  (`fV_live_max>0` AND `f_omega_alive_max>0` on alive), the H-ledger bin gate
+  (`coupling_hamiltonian_full` flat/decaying, V_clamp held separable), the
+  conserved-redistribution gate, the generic-offset plant discriminator, the
+  known-null meter. None dropped, none relaxed.
+- **The seed** (§1.1, CP8-safe, α-free), **the success criterion** (inherited),
+  **the scope guards** (§7).
+
+### Rationale for substitution-not-retraction
+
+The §0 hypothesis ("can an external moving Γ=−1 / Op17-bounded wall on Sector B
+confine the photon so the loop closes") is UNCHANGED — only the realization of
+"Op17-bounded" is corrected from a (falsely-bounded) bulk node-clamp to a
+(genuinely-bounded) boundary scatter. The frozen-clamp run is RETAINED in the
+driver as the **motivating diagnostic** (it lands `PUMPS` / `AMBIGUOUS`, which is
+*why* the unitary wall is needed). Per Rule-12: the apparatus that cannot test the
+hypothesis honestly is replaced; the hypothesis, bins, and criteria are preserved
+so the verdict remains comparable to the frozen verdict-space.
+
+### Note (non-physics): dx normalization
+
+Side-rider (does not alter the object, only the sampling): the engine + driver
+`dx` defaults are normalized `0.5 → ℓ_node = 1.0` (the §1 stale comment
+`boundary_mqj_selftrap_zwall_gate.py:94` "dx=ℓ_node" was FALSE with `KP_DX=0.5`).
+`dx=0.5` was 2× *oversampling* (Phase-20 scoped credit), not a sub-Nyquist fiction
+— the result doc reports both so the verdict is not dx-dependent.
