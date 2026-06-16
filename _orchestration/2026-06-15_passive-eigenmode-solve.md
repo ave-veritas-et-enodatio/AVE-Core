@@ -637,6 +637,25 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   precision (transverse-true; the trap is the inference "⇒ no longitudinal grade") — the lane
   **respected it**: the longitudinal A1 mass-wall and the T2 winding were kept orthogonal, never wired
   into the photon. Q1=(B) (case-law #4) and topology-owns-the-integers are unchanged.
+- **2026-06-15 (Phase 5 — pre-landing consistency sweep `wnzdlzndz`: CLEAN; + propagation map)** —
+  Read-only sweep (3 ave-corpus-grep angles, parallel to C). **ZERO prematurely-RESOLVED sites** across
+  the KB leaves (12 says-OPEN / 6 neutral-structure-only), the merged sibling PRs #260/#261/#262 + L3
+  archive (7 / 6; the three PRs establish wall/operating-point/sector and are MUTE on eigenmode
+  existence — exactly correct), and the orchestration trackers + this lane's docs (10 / 5; the index
+  doesn't list the un-merged lane; the electron is framed STRUCTURE-only). **The landing zone is
+  verified OPEN-consistent — the C/A verdict can land without contradicting any canonical site.**
+  Corroboration: the corpus **already** flags the held-BC route as the open re-aim
+  (`genesis-chord-falsification-ledger.md:30`: "impose the saturation-TIR as a boundary-impedance /
+  moving Γ=−1 wall ... a different, untested mechanism ... the boundary-impedance route is open").
+  **PROPAGATION MAP (the canonical sites the C/A verdict UPDATES when it lands — auditor/walk-back
+  queue):** (1) `genesis-chord-falsification-ledger.md:29-30` (the boundary-impedance/held-BC route =
+  open); (2) `cvr-stability-eigenmode.md:5,57` (autoresonance/self-lock UNDERIVED); (3)
+  `breathing-soliton-v14-mode-i.md:52,115` ("strict stationary eigenmode not found — needs
+  imaginary-time / Newton-Raphson" = the A eigensolve); (4) `electron-unknot-cosserat-seeder.md:102`
+  ("a self-consistent ground-state search would tune to canonical" = the A eigensolve); (5)
+  `vol1/claim-quality.md:1323-1324` (clm-i4p11y strengthen-by: "Derive (not assert)... as a
+  self-consistent eigenvalue of the self-created cavity" — the keystone strengthen-by). These all say
+  OPEN now and receive the verdict on landing.
 
 ---
 
