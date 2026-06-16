@@ -78,9 +78,12 @@ cite this driver. The gravity sector already reads K=2G as IMPORTED on main — 
 
 - **2026-06-15** — Lane opened. Corpus-grep prereg complete. Worktree + branch off origin/main.
   Cross-repo sweep: NO forward crystalline K=2G derivation in any of 9 repos; K=2G IMPOSED everywhere.
-  Prereg frozen (Rule-11, `cdaecb63`) → auditor-gate (running) ∥ driver → result (`6937c8c0`),
-  Outcome A confirmed. Awaiting auditor-gate, then PR (Grant merges).
+  Prereg frozen (Rule-11, `cdaecb63`) → auditor-gate ∥ driver → result (`6937c8c0`), Outcome A confirmed.
+- **2026-06-15** — **Auditor-gate PASS** (read-only): all 5 load-bearing citations verbatim-verified;
+  discriminator SOUND + corpus-corroborated; scope correctly flag-don't-fix. Two WARNs resolved:
+  primer:476 "delivered closure" neutralized (prereg Rule-12 A1 + result §3); diamond reference
+  quantified via VRH spread + Zener A. Result SHA-pinned to `40a2a2e7`. **PR opened, Grant merges.**
 
-## Status: ACTIVE — result landed, auditor-gate pending, PR-ready
+## Status: ACTIVE — result landed + auditor-PASS; PR open, awaiting Grant merge
 </content>
 </invoke>

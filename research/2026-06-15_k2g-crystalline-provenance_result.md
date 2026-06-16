@@ -1,6 +1,10 @@
 # RESULT — K=2G crystalline provenance: the z=4 K4 crystal does NOT force K=2G
 
 **Date:** 2026-06-15. **Branch:** `analysis/2026-06-15-k2g-crystalline-provenance`.
+**SHA-pinned:** AVE-Core `origin/main` @ `40a2a2e7` (`40a2a2e74cef0f3edb77f4e9e73c02466e25fd96`);
+cited lines re-verified at this HEAD by the auditor-gate (2026-06-15). The 2026-06-14 magic-angle audit's
+"K=2G IMPORTED" grade (self-pinned to `26f27966`) is current — `q-g47-…closure.md:28` ("required by GR")
+verbatim-confirmed at `40a2a2e7`.
 **Prereg:** [`2026-06-15_k2g-crystalline-provenance_prereg_FROZEN.md`](2026-06-15_k2g-crystalline-provenance_prereg_FROZEN.md) (Rule-11).
 **Driver:** [`src/scripts/verify/k2g_crystalline_provenance.py`](../src/scripts/verify/k2g_crystalline_provenance.py).
 **Outcome:** **A** (predicted) — K=2G is NOT a crystalline geometric inevitability.
@@ -23,7 +27,9 @@ common Keating prefactor cancels, so the result is dimensionless and needs no SI
 
 **Model validated against carbon diamond** (the z=4 reference crystal) before any provenance claim:
 inferred (k_a, k_s) from measured C11, C12 → **predicted relaxed C44 = 575.9 GPa vs measured 578.0
-(−0.36%)**. The model is correct.
+(−0.36%)**. The model is correct. Diamond's Zener anisotropy is **A=1.21≠1**, so "a single G" requires
+an averaging choice; the isotropic shear spread (Voigt/Reuss/Hill) is **ν = 0.0674 / 0.0701 / 0.0687**
+(K/G = 0.822 / 0.830 / 0.826) — all far from ν=2/7, each self-consistent within its own average.
 
 ## 2. The five results (all predicted by the frozen prereg)
 
@@ -65,6 +71,15 @@ It also resolves the corpus's flagged **7-vs-2 ratio inconsistency**: that split
 relaxed-vs-clamped (internal-strain) ambiguity — a *modelling* choice, confirming the operating point
 is not geometrically pinned.
 
+**Neutralizing the "delivered closure" objection (auditor-gate WARN).** `trampoline-analogy-primer.md:476`
+calls the "two-engine canonical closure of K=2G" *delivered* — but the same primer concedes at
+**`:439`: "Neither is a first-principles K4-topology derivation,"** and its two engines are the
+**amorphous FTG-EMT** (fork c) + the **operating-point-via-α** FDTD, not a crystalline derivation. The
+discrete primary-K4 route the primer itself points to (`:489`, soft-shear E-irrep = 4/21, chirality-blind)
+is exactly what this driver computes — and it yields a one-parameter family, not a forced K=2G. So the
+"delivered closure" is the amorphous/operating-point convergence, fully consistent with this lane's
+NEGATIVE on the *crystalline* route. (Flag-don't-fix: no primer edit.)
+
 ## 4. Mapping to the three-way fork
 
 - **(a) crystalline-forced — REFUTED.** The crystal yields a one-parameter family, not K=2G. The
@@ -105,4 +120,18 @@ open. Recommended dispositions for Grant to choose among:
    "geometry-alone insufficient, constitutive route untested."
 3. Leave the gravity sector untouched (it already reads K=2G as IMPORTED); land only this result doc +
    driver as the corroborating computation.
+
+## 7. Auditor-gate (2026-06-15) — PASS
+
+Read-only ave-auditor verified, at `origin/main` lineage, every load-bearing citation: `q-g47-…closure.md:28`
+(GR-required), `…magic-angle-provenance-audit.md:18` (IMPORTED), `01_appendices.tex:186` (Cauchy K=5/3 G),
+`closure-roadmap.md:829` (Q-G41 unstarted), `127_…:273-300` (imposes K=2G, back-solves ratio) — **all PASS,
+verbatim.** Discriminator (sub-isostatic z=4 ⟹ free K/G ratio) judged **SOUND and corpus-corroborated**
+(doc-127 relaxed G→0 as k_s→0; Session-13 G₀=8k_s has no k_a term). Scope judged **correctly flag-don't-fix**.
+Two WARNs, both resolved here: (i) the primer:476 "delivered closure" objection — neutralized in §3 + prereg
+Rule-12 A1; (ii) diamond reference isotropic-consistency — addressed by the VRH spread in §1 (driver derives
+from Cᵢⱼ with Zener A stated). Open question (SHA re-pin) resolved: result pinned to `40a2a2e7`.
+
+**Two open questions surfaced FOR GRANT (process, not physics):** the auditor asks whether the primer:476
+neutralization belonged in-prereg (done: Rule-12 A1) or result-only — I did both. No physics dispute.
 </content>

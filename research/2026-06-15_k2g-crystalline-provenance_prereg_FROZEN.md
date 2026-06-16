@@ -100,4 +100,19 @@ my sub-isostatic premise is wrong.
 ---
 
 *Rule-12 amendments (post-freeze, dated) below this line:*
+
+**A1 (2026-06-15, post-auditor-gate) — neutralize the "delivered closure" objection.**
+A hostile reader will cite `common/trampoline-analogy-primer.md:476` — *"The two-engine canonical
+closure of K=2G itself is **delivered** (Path B→D, 2026-05-16)"* — against this prereg's premise that
+no forward *crystalline* derivation of K=2G exists. It is not a counterexample: the same primer
+concedes at **`:439` verbatim "Neither is a first-principles K4-topology derivation,"** and the "two
+engines" are (i) **FTG-EMT on the amorphous z₀≈51.25 network** (fork c) and (ii) **Master-Equation
+FDTD** confirming the *operating point* via α — neither derives K=2G from the crystalline z=4 K4
+geometry. The corpus is internally split (`:476` rhetorical-closure vs `:439` "neither is
+first-principles"); the 2026-06-14 audit already drove a 🔴 RETRACT-header over the adjacent
+`:458` "forward identity" framing. The primary-K4 discrete route the primer points to (`:489`,
+soft-shear E-irrep = **4/21**, chirality-blind) is exactly what this lane's driver computes, and it
+yields a one-parameter family, not a forced K=2G. **No edit to the primer — flag-don't-fix.** This
+amendment adds a citation only; it does not alter the frozen §Prediction / §Discriminating outcomes /
+§Falsifier (Outcome A is unchanged).
 </content>

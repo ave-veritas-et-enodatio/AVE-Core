@@ -67,17 +67,24 @@ b_d = (C11_d - C12_d)/4.0                        # from C11-C12 = 4b
 a_d = C12_d + b_d                                # from C12 = a - b
 C44_pred = 4*a_d*b_d/(a_d + b_d)
 K_d  = (C11_d + 2*C12_d)/3.0
-Gv_d = (C11_d - C12_d + 3*C44_d)/5.0             # Voigt G from measured C_ij
-nu_d = (3*K_d - 2*Gv_d)/(2*(3*K_d + Gv_d))
+# Voigt-Reuss-Hill isotropic shear averages from measured cubic C_ij (the spread IS Outcome C):
+Gv_d = (C11_d - C12_d + 3*C44_d)/5.0                                   # Voigt
+Gr_d = 5*(C11_d - C12_d)*C44_d/(4*C44_d + 3*(C11_d - C12_d))           # Reuss
+Gh_d = 0.5*(Gv_d + Gr_d)                                               # Hill
+def nu_of(K, G): return (3*K - 2*G)/(2*(3*K + G))
 rho_d = a_d/b_d
+A_zener = 2*C44_d/(C11_d - C12_d)
 print("\n" + "-"*84)
 print("VALIDATION vs carbon diamond (z=4 reference crystal):")
 print(f"  inferred k_a={a_d:.1f}, k_s={b_d:.1f}  ->  rho=k_a/k_s = {rho_d:.3f}")
 print(f"  C44 relaxed: predicted {C44_pred:.1f} GPa  vs measured {C44_d:.1f} GPa "
       f"(err {100*(C44_pred-C44_d)/C44_d:+.2f}%)  <- model validated")
-print(f"  K={K_d:.1f}  G_voigt={Gv_d:.1f}  ->  K/G = {K_d/Gv_d:.3f},  nu = {nu_d:.4f}")
-print(f"  Zener anisotropy A = 2*C44/(C11-C12) = {2*C44_d/(C11_d-C12_d):.3f}")
-print(f"  *** real z=4 diamond gives nu~{nu_d:.3f} (K<G, bending-dominated) -- "
+print(f"  Zener anisotropy A = 2*C44/(C11-C12) = {A_zener:.3f}  (!=1 -> 'a single G' is a choice)")
+print(f"  K={K_d:.1f};  isotropic-avg shear spread (Outcome C, quantified):")
+print(f"    Voigt: K/G={K_d/Gv_d:.3f}, nu={nu_of(K_d,Gv_d):.4f}  |  "
+      f"Reuss: K/G={K_d/Gr_d:.3f}, nu={nu_of(K_d,Gr_d):.4f}  |  "
+      f"Hill: K/G={K_d/Gh_d:.3f}, nu={nu_of(K_d,Gh_d):.4f}")
+print(f"  *** real z=4 diamond gives nu~{nu_of(K_d,Gh_d):.3f} (K<G, bending-dominated) -- "
       f"FAR from K=2G (nu=2/7={2/7:.4f}) ***")
 
 # ----------------------------------------------------------------------------------------
