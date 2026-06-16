@@ -1,0 +1,56 @@
+{
+  "stage": "Stage-1.5 LAYER (a) \u2014 \u03b1-free A1 c_eff(V) longitudinal self-trap",
+  "alpha_free": true,
+  "alpha_in_dynamics": "NONE (V_yield=1.0 generic natural unit; ALPHA provenance-asserted only)",
+  "run_N_explicit": 28,
+  "long_window_periods": 12.0,
+  "base": {
+    "N": 28,
+    "nsteps": 2921,
+    "n_periods": 12.0,
+    "dt": 0.025819888974716113,
+    "seed_frac": 0.85,
+    "diverged_at": null,
+    "v_peak_mean": 0.525328231963972,
+    "v_peak_std_over_mean": 0.3850375803499588,
+    "n_eff_min": 0.724663441811663,
+    "S_core": 0.2757689778907207,
+    "Z_tank_long_post_median": 0.9149609930846784,
+    "Z_tank_long_floor": 0.5251371038983255,
+    "Z_tank_long_formation_floor": 0.3755893499510588,
+    "S_mu_S_eps_split": {
+      "S_eps_min_interior": 0.6786818370711433,
+      "S_mu_interior": 1.0,
+      "Z_eff_transverse_max_interior": 1.2138552098210642,
+      "Z_tank_long_min_interior": 0.823821483739738
+    },
+    "held": true,
+    "z_stiffens": true,
+    "A_cap_clamp_note": "Z_tank_floor=0.5251 is the A_cap=0.99 numerical CLAMP floor (Z_tank=\u221aS, S clamped at \u221a(1\u2212A_cap\u00b2)=0.1411), NOT asymptotic Z\u21920 (which needs A_V\u21921 exactly). [correction 4]"
+  },
+  "resolution_alt": {
+    "N": 24,
+    "nsteps": 1461,
+    "n_periods": 6.0,
+    "dt": 0.025819888974716113,
+    "seed_frac": 0.85,
+    "diverged_at": null,
+    "v_peak_mean": 0.6501452653488629,
+    "v_peak_std_over_mean": 0.30706526162199527,
+    "n_eff_min": 0.6128534489998884,
+    "S_core": 0.14106735979665888,
+    "Z_tank_long_post_median": 0.8561640783508924,
+    "Z_tank_long_floor": 0.3755893499510588,
+    "Z_tank_long_formation_floor": 0.3755893499510588,
+    "S_mu_S_eps_split": {
+      "S_eps_min_interior": 0.9220911576667933,
+      "S_mu_interior": 1.0,
+      "Z_eff_transverse_max_interior": 1.0413892045561046,
+      "Z_tank_long_min_interior": 0.9602557772108394
+    },
+    "held": true,
+    "z_stiffens": true,
+    "A_cap_clamp_note": "Z_tank_floor=0.3756 is the A_cap=0.99 numerical CLAMP floor (Z_tank=\u221aS, S clamped at \u221a(1\u2212A_cap\u00b2)=0.1411), NOT asymptotic Z\u21920 (which needs A_V\u21921 exactly). [correction 4]"
+  },
+  "verdict": "LAYER-A-PASS"
+}
