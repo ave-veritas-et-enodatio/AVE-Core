@@ -1,13 +1,15 @@
 # Passive winding-protected electron eigenmode — the structural keystone (ORCHESTRATION)
 
-> **STATUS: 🔒 PREREG FROZEN + G0 DOUBLE-COUNT GATE PASSED (2026-06-15). PRODUCTION DRIVER HELD on a
-> representation-capability flag (which (2,3) seeder is canonical for the (b′) electron winding) —
-> surfaced to Grant.** Lane worktree `AVE-Core-eigenmode-wt`, branch
-> `analysis/2026-06-15-passive-eigenmode-solve` off `main@40a2a2e7`. **main is PROTECTED — Grant
-> merges; this lane does NOT merge.** Frozen prereg:
-> `research/2026-06-15_passive-eigenmode_prereg_FROZEN.md`. **Platform: (a) DEAD; (b′)
-> `crystal_engine` V-tank wall ⊗ Cosserat-ω winding GRANTED + G0-clean. Deliverable = EXISTENCE of the
-> winding-protected hybrid breather (the form); Q is the echo.**
+> **STATUS: 🔒 PREREG FROZEN + G0 PASSED (banked standalone) + representation RESOLVED → HYBRID
+> PRODUCTION DRIVER DISPATCHED (agent `a42cabffd2989fa1b`, running).** Lane worktree
+> `AVE-Core-eigenmode-wt`, branch `analysis/2026-06-15-passive-eigenmode-solve` off `main@40a2a2e7`.
+> **main is PROTECTED — Grant merges; this lane does NOT merge.** Frozen prereg:
+> `research/2026-06-15_passive-eigenmode_prereg_FROZEN.md`; G0 result
+> `research/2026-06-15_g0-double-count-clean_result.md`. **Grant 2026-06-15: proceed with the
+> traveling-(2,3) (the z-flat seeder is a corpus-deprecated PROTON part) + assert the 0₁ unknot
+> envelope (third-time wrong-object guard). Driver on `analysis/2026-06-15-eigenmode-driver`.
+> Deliverable = EXISTENCE of the winding-protected hybrid breather (the form, the last open chord);
+> Q is the echo. NEXT: driver result → adversarial-verify Workflow → adjudicate to Grant.**
 >
 > **KEYSTONE REFRAME (Grant 2026-06-15):** the lane rests on **EXISTENCE + STABILITY** of the
 > passive high-Q hybrid mode (PRIMARY); the measured **Q is SECONDARY** — **α is an ECHO for the
@@ -464,3 +466,18 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   "electron"-named z-flat-rotor seeder would fail G4 instrumentally.** Surfaced to Grant: is the
   traveling-(2,3) the physical electron winding (proceed), or is the z-flat rotor canonical (→
   re-scope: extend extractor / new prereg)? **PRODUCTION DRIVER HELD on this representation call.**
+- **2026-06-15 (Phase 3 — representation RESOLVED + G0 banked + production driver DISPATCHED)** —
+  Grant: **proceed with the traveling-(2,3)** — the z-flat `initialize_electron_2_3_sector` is
+  **corpus-DEPRECATED for the electron** (its docstring `cosserat_field_3d.py:932-945` flags it
+  "misleading", valid for the **proton 5₁/5₂**, redirects to the unknot); the traveling-(2,3) is the
+  G4-certified carrier the FROZEN prereg already specifies, so this **corrects a loose dispatch ref to
+  match the frozen spec, NOT a re-scope.** **GUARD (third-time wrong-object check):** the production
+  seed **asserts the 0₁ UNKNOT envelope** — "reads (2,3)" backed by "on the unknot = electron, not a
+  heavier knot" (the G4 mixed-frame read is correct, NOT the A46 real-space trap). **G0 banked as a
+  standalone result** (`research/2026-06-15_g0-double-count-clean_result.md`): the first
+  substrate-complete engine is double-count-clean — the authorized precedent does NOT re-inflict the
+  genesis-24 failure. **Production driver DISPATCHED** (`a42cabffd2989fa1b`, branch
+  `analysis/2026-06-15-eigenmode-driver` off the lane branch): the hybrid breather solve + G0–G4 gates
+  + the §4 bins; headline EXISTENCE, Q the echo. **NEXT: driver result → adversarial-verify Workflow
+  → adjudicate to Grant. (This is the one genuinely-open physics question left; the rest is docs +
+  merges.)**
