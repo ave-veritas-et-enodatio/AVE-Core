@@ -170,17 +170,23 @@ def _winding_read(eng, omega_char=1.0) -> dict:
     }
 
 
-def _build(amp, wall_on, launch_offset=(0, 0, 0)):
+def _build(amp, wall_on, launch_offset=(0, 0, 0), K=None, no_bulk=False):
     """Build an engine with the SAME generic seed (CP8-safety), optionally with the
-    wall, and an optional launch offset (for the generic-offset sweep)."""
+    wall, an optional launch offset (for the generic-offset sweep), an optional
+    clamp strength K (for the amend-4 K_wall sweep), and an optional no_bulk flag
+    (the amend-5 forced-zero coupling-meter null: with the bulk seed omitted, V≡0
+    so H_c=κ̃∫g·V·Ξ ≡ 0 by construction — a CALIBRATED zero distinct from a
+    diverged-before-overlap 0)."""
     eng = A1CosseratMovingWallEngine(
         N=N, dx=DX, V_yield=1.0, c0=1.0, cfl_safety=0.4,
         pml_thickness=PML, A_cap=0.99, S_min=0.05, couple_on=True,
-        coupling_support="front", wall_on=wall_on, impedance_clamp_strength=K_WALL,
+        coupling_support="front", wall_on=wall_on,
+        impedance_clamp_strength=(K_WALL if K is None else float(K)),
     )
     c = N / 2.0
     ox, oy, oz = launch_offset
-    eng.seed_bulk_blob(center=(c, c, c), sigma=SEED_SIGMA, frac=SEED_FRAC)
+    if not no_bulk:
+        eng.seed_bulk_blob(center=(c, c, c), sigma=SEED_SIGMA, frac=SEED_FRAC)
     eng.seed_cosserat_photon(
         center=(c + ox, c + oy, c + oz), sigma=PHOTON_SIGMA,
         wavelength=PHOTON_LAM, amplitude=amp, direction=(1, 0, 0),
@@ -190,19 +196,32 @@ def _build(amp, wall_on, launch_offset=(0, 0, 0)):
 
 
 def _run(eng, nsteps, record=False):
-    """Advance, recording the reactance pair + coupling trajectory + ledger."""
-    trace = {"t": [], "coupling_work": [], "fV_live": [], "loc": [],
+    """Advance, recording the reactance pair + coupling trajectory + ledger.
+
+    amend-2/3 (ww8x96sci): also records the RECIPROCAL back-reaction f_ω on the
+    ALIVE sublattice (the half-loop guard), the FULL conserved H ledger AND its
+    V_clamp wall-storage part separately (the H-ledger bin gate; V_clamp held
+    separable so a reactive wall-store is not mis-read as a pump), every recorded
+    step over the long window."""
+    trace = {"t": [], "coupling_work": [], "fV_live": [], "fw_alive": [], "loc": [],
              "gamma_min": [], "omega_max": [], "omega_dot_max": [], "H": [],
-             "wall_peak": [], "omega_peak": []}
+             "V_clamp": [], "H_minus_Vclamp": [], "wall_peak": [], "omega_peak": []}
     om_seed = eng.omega_max_interior()
     diverged = None
     fV_live_steps = 0
     fV_live_max = 0.0
+    f_omega_alive_max = 0.0   # amend-2: the RECIPROCAL back-reaction on alive (GAP 1/2)
+    alive_m = eng.B.mask_alive & eng._interior
     for s in range(nsteps):
         eng.step_coupled()
-        fV, _ = eng._coupling_forces()
+        fV, f_omega = eng._coupling_forces()
         fvmax = float(np.abs(fV * eng._interior).max())
         fV_live_max = max(fV_live_max, fvmax)
+        # the back-reaction must ALSO be live on alive for a true CLOSED loop — a
+        # source-only f_V is a half-loop (amend-2 / two-sided fire assertion).
+        fwmag = np.sqrt(np.sum(f_omega ** 2, axis=-1))
+        fwmax = float(fwmag[alive_m].max()) if alive_m.sum() else 0.0
+        f_omega_alive_max = max(f_omega_alive_max, fwmax)
         if fvmax > 1e-12:
             fV_live_steps += 1
         oc = eng.omega_max_interior()
@@ -210,20 +229,33 @@ def _run(eng, nsteps, record=False):
             diverged = s
             break
         if record and (s % max(1, nsteps // 60) == 0 or s == nsteps - 1):
+            # amend-3: keep V_clamp (the reactive wall storage) SEPARABLE from H so
+            # a wall-store is not read as a pump; gate on H_minus_Vclamp flatness.
+            if eng.wall_on:
+                imp = eng.B.impedance_hamiltonian()
+                V_clamp = imp["V_clamp"]
+                H_full = imp["H"] + eng.bulk_energy_conserved() + eng._coupling_energy()
+            else:
+                V_clamp = 0.0
+                H_full = eng.coupling_hamiltonian_full()
             trace["t"].append(s)
             trace["coupling_work"].append(eng.coupling_work)
             trace["fV_live"].append(fvmax)
+            trace["fw_alive"].append(fwmax)
             trace["loc"].append(eng.omega_localization())
             trace["gamma_min"].append(eng.wall_gamma_min_interior())
             trace["omega_max"].append(oc)
             trace["omega_dot_max"].append(eng.omega_dot_max_interior())
-            trace["H"].append(eng.coupling_hamiltonian_full())
+            trace["H"].append(H_full)
+            trace["V_clamp"].append(V_clamp)
+            trace["H_minus_Vclamp"].append(H_full - V_clamp)
             trace["wall_peak"].append(list(eng.wall_front_peak()))
             trace["omega_peak"].append(list(eng.omega_density_peak_interior()))
     return {
         "diverged": diverged,
         "coupling_work": eng.coupling_work,
         "fV_live_max": fV_live_max,
+        "f_omega_alive_max": f_omega_alive_max,
         "fV_live_frac": fV_live_steps / max(nsteps, 1),
         "loc_f": eng.omega_localization(),
         "gamma_min_f": eng.wall_gamma_min_interior(),
@@ -302,6 +334,7 @@ def main() -> dict:
         gated[f"wall_{wall}"] = {
             "coupling_work": r["coupling_work"],
             "fV_live_max": r["fV_live_max"],
+            "f_omega_alive_max": r["f_omega_alive_max"],
             "fV_live_frac": r["fV_live_frac"],
             "loc_f": r["loc_f"],
             "gamma_min_f": r["gamma_min_f"],
@@ -314,15 +347,21 @@ def main() -> dict:
             "trace": r["trace"],
         }
         print(f"  wall={wall}: coupling_work={r['coupling_work']:+.4e}  f_V_live_max={r['fV_live_max']:.3e}"
-              f"  f_V_live_frac={r['fV_live_frac']:.2f}  loc→{r['loc_f']:.3f}  Γ_min→{r['gamma_min_f']:+.3f}"
-              f"  |ω|max→{r['omega_max_f']:.2f}")
+              f"  f_ω_alive_max={r['f_omega_alive_max']:.3e}"
+              f"  loc→{r['loc_f']:.3f}  Γ_min→{r['gamma_min_f']:+.3f}  |ω|max→{r['omega_max_f']:.2f}")
     # the (c) baseline coupling_work=0 / f_V=0 is the wall=False row (same engine,
     # wall off) AND is consistent with the Stage-1.5 (c) result.
     result["gated_test"] = gated
     cw_wall = gated["wall_True"]["coupling_work"]
     fV_wall = gated["wall_True"]["fV_live_max"]
-    loop_fires = abs(cw_wall) > 1e-9 and fV_wall > 1e-9
-    print(f"  → LOOP FIRES under the wall? {loop_fires}  (coupling_work={cw_wall:+.3e}, f_V={fV_wall:.3e})")
+    fw_wall = gated["wall_True"]["f_omega_alive_max"]
+    # amend-2 TWO-SIDED FIRE ASSERTION: a CLOSED energize-LOCK loop requires BOTH
+    # the source f_V>0 (sources V from the winding curl) AND the reciprocal
+    # back-reaction f_ω>0 on the ALIVE sublattice (sources ω from the bulk). A
+    # source-only f_V is a HALF-LOOP (the GAP-1 self-zeroing back-reaction).
+    loop_fires = abs(cw_wall) > 1e-9 and fV_wall > 1e-9 and fw_wall > 1e-9
+    print(f"  → LOOP FIRES under the wall (TWO-SIDED)? {loop_fires}  "
+          f"(coupling_work={cw_wall:+.3e}, f_V={fV_wall:.3e}, f_ω_alive={fw_wall:.3e})")
 
     # ── §2 CP8-SPATIAL-PROVENANCE (the NEW gate) ──
     print("\n[§2 CP8-SPATIAL-PROVENANCE] (a) seed-provenance (b) wall-provenance "
@@ -393,21 +432,147 @@ def main() -> dict:
     print("  → the inherited Cartesian np.roll(±1) curl places Ξ ENTIRELY on the K4 DEAD "
           "sublattice; g is masked to ALIVE → g·Ξ≡0 for ANY field (confined or not).")
 
+    # ── §M amend-5 KNOWN-NULL METER CONTROL (ave-apparatus-floor-attribution) ──
+    # A forced-zero coupling-meter reference: with the bulk seed omitted, V≡0, so
+    # H_c=κ̃∫g·V·Ξ ≡ 0 BY CONSTRUCTION — a calibrated zero distinct from a
+    # diverged-before-overlap 0. If the meter does NOT read ≈0 here, a 0 at the
+    # operating point cannot be trusted. (NOTE: matched-Γ wall-OFF is NOT a forced
+    # zero post-tetra-swap — the alive-sublattice coupling is nonzero for a
+    # free-streaming photon — so the V≡0 disjoint-support config is used.)
+    print("\n[§M KNOWN-NULL METER CONTROL] forced-zero (V≡0, no bulk) — coupling_work MUST read ≈0:")
+    eng_null = _build(PHOTON_AMP, True, no_bulk=True)
+    r_null = _run(eng_null, min(80, nsteps))
+    null_cw = r_null["coupling_work"]
+    null_reads_zero = bool(abs(null_cw) < 1e-6)
+    result["known_null_meter"] = {
+        "config": "V≡0 (bulk seed omitted) → H_c=κ̃∫g·V·Ξ≡0 by construction",
+        "coupling_work_null": null_cw,
+        "null_reads_zero": null_reads_zero,
+        "tolerance": 1e-6,
+        "note": ("matched-Γ wall-OFF is NOT a forced zero after the tetra swap (alive "
+                 "coupling is nonzero for a free-streaming photon); the V≡0 config is the "
+                 "calibrated zero-reference."),
+    }
+    print(f"  coupling_work (null) = {null_cw:+.3e}  → reads-zero(<1e-6)={null_reads_zero}")
+
+    # ── §4 amend-4 K_WALL SWEEP (the 'Op17-bound' premise is FALSE — no |ω| ceiling) ──
+    # _rotate_clamp is an EXACT harmonic rotation with NO amplitude ceiling, so the
+    # wall can confine AND pump together. Sweep K and ask: does ANY K hold the
+    # conserved ledger H_minus_Vclamp FLAT (<10% rise) AND preserve Γ→−1 + loc-held?
+    # If none separates pump-suppression from confinement-loss → the BC verdict is
+    # AMBIGUOUS-pending-stable-BC, NOT a substrate statement.
+    print("\n[§4 K_WALL SWEEP] does any K hold H flat AND preserve Γ→−1 + loc-held?")
+    kw_steps = min(120, nsteps)
+    k_rows = []
+    for K in (100, 200, 400, 800):
+        eng_k = _build(PHOTON_AMP, True, K=K)
+        imp0 = eng_k.B.impedance_hamiltonian()
+        Hnv0 = imp0["H"] - imp0["V_clamp"] + eng_k.bulk_energy_conserved() + eng_k._coupling_energy()
+        Hnv_series = []
+        for _ in range(kw_steps):
+            eng_k.step_coupled()
+            imp = eng_k.B.impedance_hamiltonian()
+            Hnv_series.append(imp["H"] - imp["V_clamp"] + eng_k.bulk_energy_conserved() + eng_k._coupling_energy())
+            if eng_k.omega_max_interior() > 1e4 * PHOTON_AMP:
+                break
+        Hnv_arr = np.array(Hnv_series) if Hnv_series else np.array([Hnv0])
+        rise = float((Hnv_arr.max() - Hnv0) / max(abs(Hnv0), 1e-30))
+        gmin = eng_k.wall_gamma_min_interior()
+        locf = eng_k.omega_localization()
+        wall_forms = bool(gmin < -0.5)        # Γ→−1 = the μ-short rim
+        loc_held = bool(locf > 0.5)
+        H_flat_k = bool(rise < 0.10)
+        clean_k = bool(H_flat_k and wall_forms and loc_held)
+        k_rows.append({"K": K, "Hnv_peak_rise_frac": rise, "gamma_min_f": gmin,
+                       "loc_f": locf, "wall_forms": wall_forms, "loc_held": loc_held,
+                       "H_flat": H_flat_k, "clean_separation": clean_k,
+                       "omega_max_f": eng_k.omega_max_interior()})
+        print(f"  K={K:>4}: Hnv rise={100*rise:>7.1f}%  Γ_min={gmin:+.3f}  loc={locf:.3f}  "
+              f"forms={wall_forms} held={loc_held} H_flat={H_flat_k} → clean={clean_k}")
+    any_clean = any(r["clean_separation"] for r in k_rows)
+    bc_verdict = "STABLE-BC-FOUND" if any_clean else "AMBIGUOUS-pending-stable-BC"
+    result["k_wall_sweep"] = {
+        "rows": k_rows,
+        "any_K_separates_pump_from_confinement": any_clean,
+        "bc_verdict": bc_verdict,
+        "note": ("_rotate_clamp (cosserat_field_3d.py:1760) is an exact harmonic rotation "
+                 "with NO |ω| ceiling — the 'Op17-bound' premise is FALSE; the wall can "
+                 "confine (Γ→−1, loc-held) AND pump (conserved ledger climbs) together."),
+    }
+    print(f"  → BC verdict: {bc_verdict} (any-clean-K={any_clean})")
+
+    # ── amend-3 H-LEDGER BIN GATE (ave-conserved-vs-pumped) ──
+    # coupling_work is a SIGNED running sum of an energy-functional, NOT a measured
+    # transfer — a bounded wall-pump that injects energy without diverging |ω| would
+    # read coupling_work≠0. LOOP-CLOSES therefore ALSO requires the CONSERVED ledger
+    # H_minus_Vclamp (full H minus the reactive wall storage V_clamp, held separable)
+    # to be FLAT/decaying over the long window, AND the ON-minus-OFF coupling_work
+    # excess to be a bounded conserved REDISTRIBUTION (not a climbing injection).
+    trW = gated["wall_True"]["trace"]
+    H_nv = np.array(trW["H_minus_Vclamp"]) if trW["H_minus_Vclamp"] else np.array([0.0])
+    H_full_tr = np.array(trW["H"]) if trW["H"] else np.array([0.0])
+    H0 = float(H_nv[0]) if H_nv.size else 0.0
+    H_ledger_drift = float((H_nv[-1] - H_nv[0]) / max(abs(H0), 1e-30)) if H_nv.size > 1 else 0.0
+    H_ledger_peak_rise = float((H_nv.max() - H_nv[0]) / max(abs(H0), 1e-30)) if H_nv.size > 1 else 0.0
+    # FLAT/decaying = the conserved (non-wall-storage) ledger does not climb past a
+    # 10% reactive-slosh band over the window (a pump climbs orders of magnitude).
+    H_flat = bool(H_ledger_peak_rise < 0.10)
+    cw_off = gated["wall_False"]["coupling_work"]
+    cw_excess = float(cw_wall - cw_off)
+    # the excess must be a bounded conserved redistribution: |excess| comparable to
+    # the conserved ledger scale, NOT a runaway. (A wall-pump shows |excess| growing
+    # with H_full climbing — caught by H_flat above.)
+    H_full_rise = float((H_full_tr.max() - H_full_tr[0]) / max(abs(float(H_full_tr[0])), 1e-30)) if H_full_tr.size > 1 else 0.0
+    coupling_redistribution_conserved = bool(H_flat and np.isfinite(cw_excess))
+    result["h_ledger_gate"] = {
+        "H_minus_Vclamp_drift_frac": H_ledger_drift,
+        "H_minus_Vclamp_peak_rise_frac": H_ledger_peak_rise,
+        "H_full_peak_rise_frac": H_full_rise,
+        "H_flat_or_decaying": H_flat,
+        "coupling_work_ON": cw_wall,
+        "coupling_work_OFF": cw_off,
+        "coupling_work_excess_ON_minus_OFF": cw_excess,
+        "coupling_redistribution_conserved": coupling_redistribution_conserved,
+        "V_clamp_held_separable": True,
+    }
+    print(f"\n[H-LEDGER GATE] H_minus_Vclamp peak-rise={H_ledger_peak_rise:+.3e} "
+          f"(flat<0.10={H_flat}) | H_full peak-rise={H_full_rise:+.3e} | "
+          f"coupling_work excess ON−OFF={cw_excess:+.3e} | conserved-redist={coupling_redistribution_conserved}")
+
     # ── BIN (frozen, prereg §4) ──
     wall_confines = (gated["wall_True"]["loc_f"] > 0.5 and
                      gated["wall_True"]["loc_f"] > gated["wall_False"]["loc_f"] + 0.2)
     pumps = (gated["wall_True"]["diverged"] is not None or
-             gated["wall_True"]["omega_max_f"] > 50 * PHOTON_AMP)
+             gated["wall_True"]["omega_max_f"] > 50 * PHOTON_AMP or
+             not H_flat)   # amend-3: a bounded wall-pump (|ω| not diverged but the
+                           # conserved ledger climbs) is STILL a pump — the H gate
+                           # catches it where the |ω|-ceiling test cannot.
     if pumps:
-        verdict = "PUMPS"
-        reason = "the wall is not Op17-bounded (|ω| blow-up / divergence) — fix the BC"
+        verdict = "PUMPS"   # FROZEN bin (prereg §4) — kept; the K_wall-sweep
+                            # AMBIGUOUS-pending-stable-BC is a QUALIFIER on this
+                            # bin's interpretation, NOT a 5th bin.
+        diverged_note = (gated["wall_True"]["diverged"] is not None or
+                         gated["wall_True"]["omega_max_f"] > 50 * PHOTON_AMP)
+        bc_tail = (f" K_wall sweep: {bc_verdict} (no K holds H flat while preserving Γ→−1 "
+                   f"+ loc-held — confinement and pumping rise together because _rotate_clamp "
+                   f"has no |ω| ceiling) ⇒ this PUMPS is BC-attributable, NOT a substrate "
+                   f"statement." if not any_clean else
+                   f" K_wall sweep: a stable BC exists at K={[r['K'] for r in k_rows if r['clean_separation']]}.")
+        reason = (("the wall is not Op17-bounded (|ω| blow-up / divergence) — fix the BC."
+                   if diverged_note else
+                   "the conserved ledger H_minus_Vclamp CLIMBS (bounded wall-pump: |ω| "
+                   "stays finite but energy is injected, not redistributed) — fix the BC.")
+                  + bc_tail)
     elif not wall_confines:
         verdict = "WALL-ALSO-FAILS"
         reason = ("the moving wall cannot confine the propagating photon "
                   "(radiates through/past) → obstruction promotes to a substrate statement")
-    elif loop_fires and sweep_verdict == "EARNED":
+    elif loop_fires and sweep_verdict == "EARNED" and coupling_redistribution_conserved:
         verdict = "LOOP-CLOSES"
-        reason = "wall confines AND coupling_work≠0 AND generic-offset sweep EARNED"
+        reason = ("wall confines AND coupling_work≠0 (TWO-SIDED: f_V AND f_ω_alive) AND "
+                  "generic-offset sweep EARNED AND the conserved ledger H_minus_Vclamp is "
+                  "FLAT/decaying (the coupling_work excess is a conserved redistribution, "
+                  "NOT a wall-pump injection; V_clamp held separable)")
     else:
         verdict = "WALL-CONFINES-BUT-LOOP-INERT"
         reason = ("the wall traps the photon (Sector-B Γ→−1, loc held) but coupling_work=0 "
@@ -416,8 +581,13 @@ def main() -> dict:
                   "alive → g·Ξ≡0 independent of confinement)")
     result["verdict"] = verdict
     result["verdict_reason"] = reason
+    result["bc_verdict"] = bc_verdict   # amend-4 K_wall-sweep qualifier
     result["loop_fires"] = bool(loop_fires)
+    result["loop_fires_two_sided"] = bool(loop_fires)  # amend-2: f_V AND f_ω_alive
+    result["f_omega_alive_max_wall_on"] = float(fw_wall)
     result["wall_confines"] = bool(wall_confines)
+    result["frozen_bins"] = ["LOOP-CLOSES", "WALL-CONFINES-BUT-LOOP-INERT",
+                             "WALL-ALSO-FAILS", "PUMPS"]  # FROZEN prereg §4 — 4 bins
     result["alpha_comparison_only"] = {"ALPHA_inv_CODATA": float(1.0 / ALPHA),
                                        "ALPHA_COLD_INV": float(ALPHA_COLD_INV)}
 
