@@ -1,16 +1,18 @@
 # Passive winding-protected electron eigenmode — the structural keystone (ORCHESTRATION)
 
-> **STATUS: PRODUCTION DRIVER RETURNED — BIN = NEGATIVE-A (the winding-protected hybrid breather
-> does NOT exist on the (b′) platform). ADVERSARIAL-VERIFY PANEL RUNNING (`ww03eo0v5`) BEFORE
-> BANKING** — because the result surfaced a load-bearing contradiction with the lane's own prior
-> results (FLAG 1: the production TRUE-Γ read says the V-tank disperses from seed / no self-focus,
-> contradicting pre-flight #2's "bounded recurrent breather"). Lane worktree `AVE-Core-eigenmode-wt`,
-> branch `analysis/2026-06-15-passive-eigenmode-solve` off `main@40a2a2e7`. **main is PROTECTED —
-> Grant merges; this lane does NOT merge.** Result doc (driver branch
-> `analysis/2026-06-15-eigenmode-driver`): `research/2026-06-15_passive-eigenmode_result.md`. **All
-> gates G0–G4 + unknot PASS → credible physics, not a detector artifact; two-lattice; decoupled
-> (α=0) control also disperses → dispersion INTRINSIC to the V-tank, not the coupling.** Headline =
-> EXISTENCE (NEGATIVE); Q (363.8, neither band) is a dispersing-remnant echo, carries no weight.
+> **STATUS: 🔴 NEGATIVE-A REFUTED by the adversarial-verify panel (`ww03eo0v5`) — it is a FALSE
+> NEGATIVE (under-resolved seed + a defective G1 gate). The keystone is STILL OPEN. Held for Grant on
+> a corrected re-run + the wall/winding co-resolvability framing question.** Lane worktree
+> `AVE-Core-eigenmode-wt`, branch `analysis/2026-06-15-passive-eigenmode-solve` off `main@40a2a2e7`.
+> **main is PROTECTED — Grant merges; this lane does NOT merge. Result NOT banked** (driver branch
+> `analysis/2026-06-15-eigenmode-driver`, result doc REFUTED-pending-re-run). **Panel:** dim-1
+> bin-conformance **CONFIRM** (honestly *derived* — reproduces exactly, clean code, Rule-11 holds);
+> dim-4 floor-not-artifact **REFUTE** (the breather EXISTS at the v14/cage eigen-resolution
+> dx=0.5/~5 cells → retention 0.75; the driver ran ~3 cells/dx=1.0/4× box → disperses; AND G1 was a
+> *relative* gate that passed while the sech dispersed = the t2-genesis detector-can't-certify defect
+> recurring); dim-3 cage-tension **FLAG** (box-size-scoped, not coupling, not the n-exponent → cage
+> gets a Rule-12 scope-annotation, not a walk-back). **The pre-flight #2 breather was REAL; the
+> production under-resolved it. My last-turn "consolidating toward echo" read is RETRACTED.**
 >
 > **KEYSTONE REFRAME (Grant 2026-06-15):** the lane rests on **EXISTENCE + STABILITY** of the
 > passive high-Q hybrid mode (PRIMARY); the measured **Q is SECONDARY** — **α is an ECHO for the
@@ -498,3 +500,27 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   **Result NOT yet banked — adversarial-verify panel `ww03eo0v5` (4 auditors: bin-conformance /
   pre-flight contradiction / cage tension / floor-not-artifact) scrutinizing first.** NEXT: panel →
   adjudicate to Grant.
+- **2026-06-15 (Phase 3c — ADVERSARIAL-VERIFY PANEL: NEGATIVE-A REFUTED as a FALSE NEGATIVE)** —
+  Panel `ww03eo0v5` (3/4 returned; pre-flight-contradiction dim died on a socket but is COVERED by
+  dims 3+4). **Dim-1 bin-conformance CONFIRM:** honestly *derived* — a live re-run reproduced every
+  bin-deciding number EXACTLY; all hazards precluded in code; TRUE n=√S exact; Rule-11 holds (fails by
+  17×, no tuned knob). **Dim-4 floor-not-artifact REFUTE (load-bearing):** a **FALSE NEGATIVE from
+  seed/grid UNDER-RESOLUTION.** The A1/V-tank breather is a corpus-established positive
+  (`test_master_equation_v14_mode_i.py:29-36`; cage `:53`) on this exact engine, and PASSES the
+  driver's OWN F1 (retention 0.75, Γ_true median −0.069) at the **v14 eigen-resolution (dx=0.5, ≥5
+  core cells)**. The driver ran `v_width=3.0/dx=1.0/N=48` = **~3 core cells in a 4×-larger box** → the
+  sech under-resolves → disperses to 0.18. **AND G1 is DEFECTIVE** — coded *relative* (`sech>1.1×Gauss`,
+  `driver:430`), banked PASS while the sech retained 10% (breather needs ~68%): **the exact t2-genesis
+  "detector-can't-certify-the-known-positive" defect the G-gates were built to prevent.** The "two
+  lattices" + F0 inherit the identical under-resolved seed (R/r vary the ω-torus, not the V-tank seed
+  resolution). **Dim-3 cage-tension FLAG:** box-physical-size (cage 12-phys confined vs production
+  48-phys isolated), NOT coupling (F0), NOT the n-exponent (cage self-focus = max|A| growth,
+  exponent-immune by Amendment-A1) → cage gets a **Rule-12 SCOPE-ANNOTATION**, NOT a walk-back; the
+  FLAG-1 "transient ringing" attribution was WRONG (the pre-flight breather was REAL). **CONSEQUENCE:
+  result NOT banked; the keystone is STILL OPEN.** Path = a **corrected re-run** (G1 → absolute
+  known-positive; V-tank seed at its eigen-resolution; sweep v_width/dx/box; commit JSON) — fixing
+  driver defects within the FROZEN prereg, **NOT a re-scope**. Auditor's open framing question → Grant:
+  are the wall (eigen-res dx=0.5/~5 cells) and the winding (R=10/r=4) **co-resolvable on one lattice**,
+  or is that incompatibility itself the structural obstruction? **My last-turn "consolidating toward
+  echo" read is RETRACTED** (the negative that would support it is false). **HELD for Grant. Cross-lane:
+  cage scope-annotation → auditor COLLABORATION_NOTES queue.**
