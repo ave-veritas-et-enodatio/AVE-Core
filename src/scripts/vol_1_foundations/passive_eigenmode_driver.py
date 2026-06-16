@@ -1028,14 +1028,25 @@ def bin_result(f1: dict, f2: dict, f4: dict, f3: dict, g1_certified: bool = True
 #   DISQUALIFY          : the (2,3)-hold INJECTS ENERGY (a pump) -> a "persistent"
 #                         result is a pumped artifact, NOT bankable. The energy ledger
 #                         is read FIRST (ave-conserved-vs-pumped), BEFORE persistence.
-def _omega_energy_trajectory_ramp(omega_energy: list) -> dict:
-    """The HONEST pump test (audit finding, 2026-06-15): the inherited summary()'s
-    summed-per-app dE grows with step count even for a bounded restoring correction.
-    The decisive pump signal is the omega-sector ENERGY TRAJECTORY ramp -- does the
-    recorded omega-sector energy RAMP monotonically over the run (pump) or stay
-    BOUNDED (conservative)? We use the SolveResult.omega_energy trace (recorded
-    AFTER the hold each sample) as the trajectory."""
-    e = np.array(omega_energy, dtype=float)
+def _omega_energy_trajectory_ramp(H_trajectory: list) -> dict:
+    """The HONEST pump test (audit findings, 2026-06-15 -- TWO corrections):
+
+    (1) the inherited summary()'s summed-per-app dE grows with step count even for a
+        bounded restoring correction -> the summed metric over-counts. The decisive
+        pump signal is the omega-sector ENERGY TRAJECTORY ramp.
+
+    (2) CRITICAL: the trajectory MUST be the FULL omega-sector total_hamiltonian
+        (kinetic + GRADIENT POTENTIAL), NOT sum(omega^2) (the C-state AMPLITUDE only).
+        The hold's magnitude-lock makes sum(omega^2) ~bounded BY CONSTRUCTION, so an
+        amplitude-only trajectory is STRUCTURALLY BLIND to the pump: the live cross-
+        check (audit_coupled_energy) reads sum(omega^2) ramp 0.84x [bounded] while the
+        full total_hamiltonian ramps 56.65x [PUMP] on the SAME coupled hold-ON run.
+        => we pass the ledger's `total_after` list (= eng_w.total_hamiltonian() AFTER
+        each hold) as the trajectory. Using sum(omega^2) here was a FALSE-POSITIVE bug.
+
+    Does the FULL omega-sector total_hamiltonian RAMP monotonically (pump) or stay
+    BOUNDED (conservative constraint)?"""
+    e = np.array(H_trajectory, dtype=float)
     n = len(e)
     if n < 4 or e[0] <= 0:
         return {"ramp_factor": float("nan"), "rel_slope_per_sample": float("nan"),
@@ -1045,9 +1056,10 @@ def _omega_energy_trajectory_ramp(omega_energy: list) -> dict:
     # bounded = the trajectory does not run away (ramp within ~2x and no steep + slope)
     bounded = (ramp < 2.0) and (slope < 5e-3)
     return {
-        "omega_energy_first": float(e[0]),
-        "omega_energy_last": float(e[-1]),
-        "omega_energy_max": float(e.max()),
+        "trajectory_quantity": "eng_w.total_hamiltonian (kinetic + gradient potential)",
+        "omega_H_first": float(e[0]),
+        "omega_H_last": float(e[-1]),
+        "omega_H_max": float(e.max()),
         "ramp_factor": ramp,
         "rel_slope_per_sample": slope,
         "trajectory_bounded": bool(bounded),
@@ -1073,8 +1085,11 @@ def run_option_C(cfg: RunConfig) -> dict:
     # (a) the inherited per-application ledger (kinetic lock + summed-dE pump read)
     _, ledger = hold.is_energy_neutral(frac_tol=0.02)
     # (b) the HONEST trajectory pump test (audit fix -- the summed-dE metric over-counts
-    #     a bounded restoring correction; the trajectory ramp is the decisive signal)
-    traj = _omega_energy_trajectory_ramp(res_on.omega_energy)
+    #     a bounded restoring correction; the trajectory ramp is the decisive signal).
+    #     Use the ledger's `total_after` (= eng_w.total_hamiltonian() AFTER each hold),
+    #     NOT res_on.omega_energy (= sum(omega^2), C-state amplitude only -> BLIND to the
+    #     gradient-potential pump the magnitude-lock leaves uncontrolled; audit 2026-06-15).
+    traj = _omega_energy_trajectory_ramp(hold.ledger.total_after)
     # the hold PUMPS if EITHER the cumulative injection fraction is large AND the
     # omega-sector energy TRAJECTORY actually ramps (not just the summed correction).
     kinetic_locked = bool(ledger.get("norm_lock_ok", False))
@@ -1260,7 +1275,8 @@ def run_all(cfg: RunConfig, do_sweep: bool = True, hold_winding: bool = False) -
         led = c["energy_ledger"]
         print(f"   [LEDGER] kinetic magnitude-locked = {c['kinetic_magnitude_locked']} "
               f"(omega-norm rel-drift {led.get('omega_norm_relative_drift_max', float('nan')):.2e})")
-        print(f"   [LEDGER] omega-sector energy TRAJECTORY: ramp={traj.get('ramp_factor', float('nan')):.2f}x "
+        print(f"   [LEDGER] omega-sector total_hamiltonian TRAJECTORY: "
+              f"ramp={traj.get('ramp_factor', float('nan')):.2f}x "
               f"rel-slope/sample={traj.get('rel_slope_per_sample', float('nan')):.2e} "
               f"bounded={traj.get('trajectory_bounded')}")
         print(f"   [LEDGER] HOLD PUMPS = {c['hold_pumps']}  "
