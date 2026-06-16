@@ -905,6 +905,9 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   drivers on branch. (Provenance: `aebbc99dbd` is the AGENT-ID, **NOT a commit** — `git cat-file` invalid;
   the build is **`be459b7e`**. Result-doc build-cite needs the same fix when landed.)
 
+- **🔴 OVERTURNED by Phase 14 (2026-06-16):** the "structural f_V=0 / precursor-class-artifact" verdict
+  below was itself the Cartesian-curl-on-dead-sublattice grid-registration artifact — `wpqwmrms0`'s ×4-lens
+  validation was fooled (no lens checked the curl STENCIL). The loop was never tested. See Phase 14.
 - **2026-06-16 (Phase 11.1 — Stage-1.5 (c) verdict CONFIRMED by verify panel `wpqwmrms0`:
   PRECURSOR-CLASS-ARTIFACT, validated + scoped; my TWO forks were both wrong-next-moves)** — 4 adversarial
   lenses (earned-advocate / re-discovery / CP8-plant / CP10-vs-co-location) all landed **LEANS-EARNED
@@ -980,6 +983,67 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   applicable cross-check is **Op17 T²=1−Γ²** on the PUMPS (does the wall BC violate |Γ|≤1) — folded into the
   panel. **NEXT: panel returns → (artifact ⇒ re-run with matched registration / structural+PUMPS-separable
   ⇒ BC-fix re-run then the substrate statement) → Grant.**
+
+- **2026-06-16 (Phase 14 — verify panel `w9q6nv9gm`: coupling_work=0 is a GRID-REGISTRATION ARTIFACT;
+  Stage 1.6 VACUOUS *and* Stage-1.5 (c) RETROACTIVELY OVERTURNED; the loop was NEVER tested)** — the
+  grid-registration lens + adjudicator (physics-lens 500'd but moot) returned **VACUOUS on the gated
+  question**, grep+arithmetic-confirmed. **THE BUG:** the cross-sector coupling `f_V=−κ̃·g·Ξ` and the
+  `coupling_work` accumulator use the **CARTESIAN curl** `_cosserat_axial_curl` (single-axis np.roll±1,
+  `a1_cosserat_convergence_engine.py:337-347,366,379`); the moving-wall engine inherits it unchanged. But
+  `mask_alive=(all-even)|(all-odd)` (`cosserat_field_3d.py:798-802`) → from any ALIVE cell every single-axis
+  ±1 neighbor is **DEAD**, so the Cartesian curl Ξ is nonzero ONLY on dead cells, while g is alive-masked →
+  **`g·Ξ_cart ≡ 0` for ANY ω field, confined or not = a disabled flag.** The engine's OWN coupling_overlap
+  diagnostic proves it: cartesian overlap=0 vs tetrahedral overlap=1024 = `g_alive_cells` (the FULL
+  alive-interior). On the substrate-native lattice g and the physical curl co-locate on EVERY alive cell —
+  the supports are **NOT disjoint.** **Substrate-native-check Ckpt-2 violation:** the coupling Ξ is the ONLY
+  operator still Cartesian — the wall Γ-field, `_beltrami_helicity`, and the saturation curvature all run on
+  `_tetrahedral_curl`/`_tetrahedral_gradient`. **🔴 RETROACTIVE OVERTURN — Stage-1.5 (c) [Phase 11.1] was the
+  SAME artifact:** its "STRUCTURAL irrotational / disjoint-support spectator" verdict — which `wpqwmrms0`
+  VALIDATED ×4 lenses LEANS-EARNED, and which I BANKED — was the Cartesian-curl-on-dead-cells artifact, NOT
+  physics. The "cage is a provable spectator (coupling_work bit-identical across variants)" evidence was
+  ALSO fooled — g·Ξ_cart≡0 regardless of the variant. **None of the 4 prior lenses checked the curl STENCIL
+  against the substrate-native operator (the missed substrate-native-check Ckpt-2).** Per Rule-12 /
+  substitution-not-retraction the Stage-1.5 (c) disjoint-support mechanism paragraph + matrix row
+  (`…stage15…_result.md:18,85-90`) need a 🔴 retraction header citing this diagnostic, NOT a silent
+  re-narration. **WHAT SURVIVES:** the wall GENUINELY confines (Γ→−0.993, known-positive PASS — uncontaminated,
+  from the Γ-field + photon dynamics, not g·Ξ). **PUMPS is separable** (K_wall=400 not Op17-bounded at amp=2.0;
+  no-wall diverges too = over-drive) — fix independently. **DOES NOT promote to the substrate statement** (the
+  wall DID confine → the WALL-ALSO-FAILS bin isn't hit; the loop-inert bin is unreadable, the test was
+  disabled). **NET: the energize-LOCK loop-closure question is GENUINELY UNTESTED across BOTH Stage-1.5 (c)
+  AND Stage-1.6 — the keystone is NOT leaning-negative; it was never tested.** **3 DECISIONS → GRANT:** (1)
+  AUTHORIZE the dynamics amendment — re-run with Ξ on `_tetrahedral_curl` in `_coupling_forces`+`_coupling_energy`
+  (one-line stencil swap, but a dynamics change → flagged amendment); (2) BOUND the wall (Op17 T²=1−Γ² cap, or
+  sub-yield amp) before re-reading; (3) RETRACT-don't-re-narrate the Stage-1.5 (c) mechanism paragraph + row,
+  hold Stage-1.6 OPEN (bank nothing). **NEXT: Grant authorizes the tetrahedral-curl re-run (the FIRST real
+  loop-test) + the Stage-1.5 (c) 🔴 retraction.**
+
+- **2026-06-16 (Phase 14.1 — breadth `aed621454`: CONFINED-TO-STAGE15-16; the re-run is NARROW + DUAL-GATED;
+  lesson banked both lanes)** — audit-lane breadth-check resolved the systematic-vs-confined question:
+  **CONFINED.** The Cartesian-single-axis-curl-on-parity-mask exists at **exactly ONE site**
+  (`a1_cosserat_convergence_engine.py:345-347` `_cosserat_axial_curl`); `grep` returns nothing outside a1.
+  Every other coupling engine is stencil-clean (`cross_sector_coupling`/`k4_cosserat_coupling` use full-axis
+  `curl_central`, not alive-masked; `cosserat_field_3d`/`vacuum_engine` use the parity-respecting tetrahedral
+  stencil). **#269 genesis-23 NOT contaminated** (GAP-1 = the missing-converter mechanism on `CoupledK4Cosserat`
+  full-axis, closed by κ̃=6/5 — distinct; genesis-omega-wave = deliberate `disable_cosserat_lc_force`
+  flag-zero — distinct). Bug confirmed 3 ways (incl. the auditor's 8³ reproduction: `g·Ξ_cart≡0` over 200
+  random alive-masked ω). Audit-lane PRs `#269/#270/#271` = 0 files carry the verdict. → **NARROW one-spot
+  fix, no coupling-layer-wide sweep, no re-opened negatives in the audit queue.**
+  **🔴 THE DUAL-GATE CAVEAT (load-bearing — the re-run must NOT conflate stencil-fixed with loop-fires):**
+  a1's `f_V≡0` has TWO STACKED causes — (i) the stencil bug (`g·Ξ≡0` for ANY ω) AND (ii) the SEPARATE
+  committed layer-b PHYSICAL disjoint-support claim (the saturation front-shell g and the winding curl Ξ
+  don't co-locate; the untrapped photon radiates out before the cage breathes deep). Fixing the stencil makes
+  the disjoint-support question **TESTABLE FOR THE FIRST TIME** — and it can come back EITHER way. **The
+  re-run gates on BOTH:** (a) `g·Ξ` now has alive support (parity fixed — overlap by construction) AND (b)
+  the supports PHYSICALLY/DYNAMICALLY co-locate so `coupling_work` is ACTUALLY nonzero over the run. Outcomes:
+  **overlap + loop FIRES → the bug WAS masking a real coupling → keystone ADVANCES** (then chord/echo); **supports
+  still don't co-locate → disjoint-support is the REAL, now-properly-tested obstruction (a genuine negative,
+  NOT a bug).** A stencil-only "it's fixed" read would be the same over-claim one level up. **Lesson banked
+  (both lanes, shared memory `feedback_structural_null_needs_stencil_lens`):** an adversarial panel
+  adjudicating a "structural null" MUST include a substrate-native-operator-stencil lens, or it validates
+  discretization bugs as physics (substrate-native-check Ckpt-2 extended into the audit layer). **NEXT: Grant
+  GO → dispatch the NARROW re-run (tetra-curl swap at the one site + Op17-bounded wall + the dual-gate
+  parity-AND-dynamical-overlap verdict + the Stage-1.5(c) 🔴 retraction); both the no-wall Stage-1.5(c) config
+  and the moving-wall config.**
 
 ---
 
