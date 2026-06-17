@@ -1,9 +1,37 @@
-"""Ground-up substrate-engine acceptance suite — L0 (medium) + L1 (photon).
+"""Ground-up substrate-engine acceptance suite — L0 + L1 + L2.
 
 Each test is a FALSIFIABLE PHYSICS CLAIM with a pre-registered pass/fail bin in
 its docstring. The suite is the engine's regression gate per the 2026-06-16
 ground-up acceptance-test-driven build plan
 (`_orchestration/2026-06-16_groundup-engine-acceptance-plan.md`, §1-§2).
+
+LAYER MAP (test files):
+  * test_l0_medium.py   — L0-MEDIUM: T0.1 energy conservation, T0.2 Z₀ identity,
+                          T0.3 isotropy (the bare medium is valid).
+  * test_l0_axioms.py   — L0-AXIOMS: one compliance gate PER AXIOM (the #1 gap):
+                          A1a Axiom-1 topology (srs connectivity + DOF-capability
+                          FINDING: carries 2 transverse DOF, not 6 Cosserat);
+                          A1b Axiom-1 chirality EXPRESSED losslessly;
+                          A2 Axiom-2 TKI dimensional identity [Q]≡[L] + defect-host
+                          (charge INTEGER is L4, out of scope — minimal L0 form);
+                          A3b Axiom-3 min-reflection (matched region drives Γ→0);
+                          A4 Axiom-4 saturation kernel S(A)=√(1−A²) constitutive.
+  * test_l1_photon.py   — L1: T1.1-T1.4 free transverse photon + T1.5 (FLIPPED
+                          2026-06-17 from a FINDING into the Axiom-3 chiral-
+                          optical-activity LOSSLESS gate after the copy-first
+                          view-aliasing fix).
+  * test_l1_multiwave.py— L1-MULTIWAVE: the free-mode tests (T1.6 shear, T1.7
+                          bulk, T1.8 Cosserat) OR the medium-extension findings
+                          where the srs medium does not carry a given wave type.
+  * test_l2_em_in_media.py — L2: EM in a biased medium (T2.1-T2.4).
+
+PART-1 ENGINE FIX (2026-06-17): the chiral optical-activity rotation in
+`chiral_lattice_vector.vector_tlm_step` (and 3 sister sites _sat/_v11/_v13) was
+non-unitary due to a NumPy view-aliasing bug (v0=V_ref[...,0] took a VIEW; the
+first in-place write corrupted v0 before the second read). Copy-first fix
+restored Axiom-3 losslessness: rotation-ON energy drift 0.93→1.8e-13 over 1600
+steps, with the angle observable dθ/step UNCHANGED (== geometric writhe). This
+is WHY T1.5 could flip from a FINDING to a consistency gate.
 
 GRID (ratified D-A): the **chiral srs grid** — the v9 chiral Laves / Sunada-K4
 trivalent (degree-3, I4_1 32) lattice (`ave.core.chiral_lattice`,
