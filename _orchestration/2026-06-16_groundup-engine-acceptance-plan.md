@@ -20,6 +20,14 @@ Every layer ships with **unit tests that are physics claims** (pass/fail). Two l
 
 Low layers (L0–L2) are mostly CONSISTENCY — the foundation. The CHORDS live at L3–L5. A run that passes L0–L2 (valid medium) **and** forces a dimensionless number at L4/L5 is the real chord.
 
+## §1.5 — ID-scheme (locked default)
+
+The KB metadata spine is the **single identification system** (INVARIANT-S11: extend, don't reinvent). The verified node-id regex (`tools/kb_index_lib.py:115`) admits exactly `clm | exp | sup | def | ilk`. For the acceptance suite:
+
+- **Sims / acceptance-tests register as `sup-` nodes, NOT `exp-`.** Per **INVARIANT-S9** (`CLAUDE.md:182`): a simulation is NOT an experiment — it feeds a claim's *derivation* confidence (the min-branch), never its *experimental* solidity; `exp-` is reserved for a physical apparatus **we design, originate, and control**. A sim is categorically a `sup-` (INVARIANT-S10).
+- **Figures carry NO spine id.** There is no `fig-` prefix in the regex, and S11 says don't spin one up for a non-knowledge entity. Figures are REFERENCED, not ID'd — each debug PNG is named by its **test-id stem** (that IS its identifier; it inherits the test's `sup-` provenance through the leaf). KB markdown uses an image-embed; Vol 9 `.tex` uses `\includegraphics`.
+- **Engine code is cited via `\kbleaf{src/ave/...:line}` + the Vol 9 Canonical-Source column.** The "code-provenance index" named in INVARIANT-S12 / `SCHEMA.md` is **NAMED-NOT-BUILT** — grep confirms no `sim-` / `code-` node-type is materialized anywhere in the tools. Do **NOT** mint one ad-hoc: a first-class code-provenance node-type is a deliberate SCHEMA-extension decision **reserved for Grant**, not an implementer default. Track engine DOF-coverage via the existing `common/figures/engine_capability_matrix.yaml`.
+
 ## §2 — The build ladder (each = a fundamental block + its acceptance tests)
 
 ### L0 — The medium (LC/TLM lattice)
@@ -62,6 +70,34 @@ Block: the energize-LOCK / mode-conversion coupling (transverse photon → longi
 - **T5.1** coupling conserves energy — the keystone, re-run on the *unified* engine (the K4 result was scoped to the wrong grid). *[CONSISTENCY/Axiom-3]*
 - **T5.2** electron self-assembles — generic seed → trapped longitudinal bulk (mass) + (2,q) winding (charge), no planting. *[CHORD — genesis]*
 - **T5.3 forced mass ratio** — m_μ/m_e falls out of the (2,q) family, forced not fit. **THE chord-decider.** *[CHORD]*
+
+## §2.5 — Target/precursor claims for the GAP layers (the chord-hunt's aim points)
+
+The GAP layers L3–L5 are unbuilt; these are the verified KB precursor/target claims each layer would have to validate against (all ids grep-confirmed at KB HEAD). They are the aim points, **not** present backing — the §9 Spine column flags them `(precursor)`.
+
+**L3 mass-cage / Γ=−1 / cutoff-mass:**
+- `clm-rtdmsn` "Theorem 3.1′ — Electron Q-Factor from LC Tank at TIR Boundary" (vol4:1193, sol **0.85**, OK-TO-BUILD) — **strongest** TIR-boundary backing.
+- `clm-i4p11y` "Electron = Photon + TIR Confinement" (vol1:1296, sol 0.45, INPUT-ONLY) — weak cage-as-TIR precursor.
+- `clm-ka5zdx` "Mass-Closure Theorem mc²=E_reactive" (vol2:1200, sol 0.50, INPUT-ONLY) — the cutoff-mass = trapped-reactive-energy precursor.
+- `clm-crbl60` "Vacuum Bulk Mass Density + Shear Modulus" (vol1:636, sol 0.62) + `clm-iouqn9` "K4 Magic-Angle K=2G" (common:1002, sol 0.55; provenance MERGED PR#261) — the c_bulk=√(K/ρ) constitutive T1.7 names as missing.
+- **CAUTION (Γ=−1 wall):** `clm-lv3uw1` "Magnetic-Branch Confinement vs Electric-Branch Rupture" (vol1:260, sol 0.50, INPUT-ONLY) — the magnetic-branch is **B3-DEGENERATE** and "magnetic PRIMARY" is **asserted-not-derived** (H3 wall-branch fork, PR#260). Do NOT scope L3 on a settled magnetic-primary.
+
+**L4 charge = winding / the (2,3):**
+- `clm-67jn9o` "Quark Charges via Witten Effect on ℤ₃ Borromean" (vol2:272, sol **0.75**) — highest-solidity charge-quantization target.
+- `clm-8c3yhs` "(2,3) Torus-Knot Uniqueness" (vol2:1310, sol 0.70) — strongest (2,3) backing.
+- `clm-h9aqmt` "Electron as Topological Unknot 0₁" (vol2:10, sol 0.70).
+- `clm-unk0bd` "Electron Body Topology 0₁ + (2,3) Winding" (vol1:10, sol 0.65, OK-WITH-CAVEATS) — primary charge=winding seat.
+- `clm-oygz1i` "Topological Mass: Faddeev-Skyrme + Hopf Charge" (vol2:640, sol 0.60).
+- Locked vocabulary: `def-3638f2` winding (:195) + `def-5d2b8a` the-3 (:416) + `def-9a4f07` longitudinal (:395). The micro-rotation charge seat is `master-equation.md:20` (the Grant-ratified TWO-3s disambiguation).
+
+**L5 genesis / mass-spectrum (WEAKEST layer — NO solid precursor today):**
+- `clm-8zpicx` "L3 (2,q) Particle Family" (vol2:1169, confidence **0.40**, **DO-NOT-BUILD-REWORK-NEEDED**) — the family-spectrum target, currently in rework; it is the **closest** target and it is below the build threshold.
+- `clm-c54kdd` "SPICE Particle Decay — Qualitative Muon Model" (vol4:442, sol 0.70) — best muon backing but only QUALITATIVE.
+- `clm-zw6mut` "Universal Spatial-Tension Mass Scaling" (vol1:516, sol 0.60) — the mass-ratio scaling target.
+- `clm-pf84ng` "Genesis Algorithm + Chiral LC Over-Bracing" (vol2:995, sol 0.50).
+- `clm-llqd1n` "Mass-Defect: Fitted Geometry NOT Ab-Initio" (vol6:10, sol 0.60) — the HONEST-LIMITS anchor (masses are fitted-geometry, not ab-initio).
+- `clm-8niffj` "Q-G27 Muon Cosserat Torsion" (vol2:1450, sol 0.45).
+- **CAUTION (genesis dynamics):** `common/genesis-chord-falsification-ledger.md` records the genesis **self-trap dynamics-class as FALSIFIED** — only the boundary-confinement operator is untested (engine-gap, not missing-axiom). An L5 acceptance layer has **no solid precursor to validate against today**.
 
 ## §3 — Key decisions for Grant (the orchestration choices)
 
@@ -128,55 +164,84 @@ L0 axiom-test groups:
 
 **STANDING PER-LAYER COMPLETION RITUAL** (run before each layer's PR):
 1. tests green (frozen pre-registered bins; tag each axiom-compliance/emergent/consistency/chord);
+1.5. **MAP-TO-SPINE** — wire each green test into the KB claim-DAG as a derivation-support node (KB = source of truth). For each test in the layer:
+   1. grep the corpus for the clm-/def- id(s) the test bears on (per `verify-before-cite` + `ave-prereg` corpus-grep) — the §9 Spine column is the human-readable index of these;
+   2. author a `sup-` node in the suite's KB leaf with a `supports:` fan-out (`clm-<id>: <fraction>` per beneficiary), authoring **quality + every fan-out fraction as `*pending*`** until the test's local rigor + on-point relevance is scored (a `*pending*` support contributes NOTHING to a beneficiary and **must NEVER drag a beneficiary with otherwise-valid quality to pending** — cite **INVARIANT-S10** CRITICAL clause, `manuscript/ave-kb/CLAUDE.md:235`);
+   3. add the matching `<!-- id: sup-xxxxxx -->` `### Quality` entry in a `claim-quality.md` register (the same register shape as a claim, `quality:` in place of `confidence:`);
+   4. run `make refresh-kb-metadata` + `make verify-kb-metadata` so the `sup-` node materializes and the `.index/` regenerates clean.
 2. figures captured (`KF_VIZ=1` regen off the same stepper);
 3. Vol 9 doc — write the characteristic-chapter leaf(s) the layer populates + add the Ch17 requirement row(s);
 4. manuscript figure capture — copy figures into `manuscript/vol_9_vacuum_datasheet/figures/` + `\includegraphics` in the chapter `.tex` (NOTE: close the wiring gap first — `main.tex:7 \graphicspath` does not include `research/figures/engine_acceptance/`);
 5. engine-capability-map update — flip the now-tested DOF/characteristic row in `engine-capability-map.md` (+ the `engine_capability_matrix.yaml` cell `status: have|partial|absent`, re-render the PNG);
-6. **Vol 9 LaTeX rebuild-to-validate** — `make vol9` from repo root (Makefile:255-256; pdflatex 3-pass + margin check) — clean build is the gate;
+6. **Vol 9 LaTeX rebuild-to-validate** — `make vol9` from repo root (Makefile:255-256; pdflatex 3-pass + margin check) — clean build is the gate; **AND** `make verify-kb-metadata` (the spine drift-gate) so an orphan/dangling `sup-` or `def-` fails loudly alongside `make vol9`;
 7. PR (branch off main, no self-merge); flag any chord-vs-echo verdict for Grant.
 
 **Recommended plan edits applied / pending:** §7 T1.5 "fixed" claim CORRECTED above (designed+monkeypatch-verified, not applied); fix the dangling `__init__.py:6` plan-pointer when the plan merges; adopt the T2.2/T2.3 consistency downgrades; the L0-medium/L0-axioms split + the multi-wave L1 + the ritual are recorded here.
 
 **FORKS → Grant:** (a) **ladder scope** — add temperature/breakdown/cosmological layers for full-datasheet coverage, or scope to L0–L5 + leave those as Vols 1–6 cites? (b) **7-vs-5 DOF** — L6+ frontier for constitutive-loop + boost-covariance, or de-scope? (c) charge-sign (BIN-G/CVR) + engine-token rename (from §7).
 
+**FLAGS / open-items (KB-claim-ID spine mapping arc, 2026-06-17 — record, do not resolve):**
+
+- **(i) fork #1 RESOLVED-as-stale.** The earlier "plan doc absent on the suite branch" finding (cited at `__init__.py:6`) was a **stale-ref artifact**: the plan was MERGED to `main` (PR #276) and the suite branch was simply ~7 commits behind. Merged `origin/main` into `analysis/2026-06-16-engine-acceptance-l0l1` here; the plan doc is now present on the suite branch. No action needed beyond this merge.
+- **(ii) fork OPEN → Grant: refractive_index exponent (flag-don't-fix).** `master_equation_fdtd.py:165-168` returns `S**0.25` while `c_eff_squared` (`:148-151`) implies n = `S**0.5`. **Do not fix** — adjudicate first. Must be resolved **before any L3/L4 build that consumes n or c_shear**, and it collides with the **T1.6 `c_shear=c₀·S^(1/4)` def-lock** (the same 1/4-vs-1/2 ambiguity). Physics-review item for Grant/auditor.
+- **(iii) fork OPEN → Grant: are engines first-class on the spine?** Keep the `\kbleaf{src/ave/...:line}` default (per §1.5), OR mint a code-provenance node-type via a deliberate SCHEMA extension. The "code-provenance index" is named in S12/`SCHEMA.md` but NOT materialized — minting a `sim-`/`code-` prefix is a Grant decision, not an implementer default.
+- **(iv) fork OPEN → Grant: is L5-genesis in-scope now?** Its closest target `clm-8zpicx` is sol **0.40 / DO-NOT-BUILD** and the genesis self-trap **dynamics-class is FALSIFIED** in the ledger (only the boundary-confinement operator is untested). There is **no solid precursor** to validate an L5 acceptance layer against today.
+
+## §8.5 — Per-layer skill-selection (the 60-sec plan, mandatory per rung)
+
+Per `feedback_skill_selection_planning`: write a **60-sec skill-selection plan BEFORE each rung is dispatched**, and run a **retroactive pass before commit if the applied set drifts** from the plan. The built L0–L2 files already DEMONSTRATE this discipline (the per-file `substrate-native-check` walk + consistency/chord class tags + the A46 coordinate note ARE the written-down plan); the plan doc mandates the same header on every future L3–L5 rung. The per-layer recommended firing map:
+
+- **L0-medium (T0.1/T0.2/T0.3):** `substrate-native-check` (already walked, `__init__.py:96-119`); `ave-canonical-source` (Z₀, constants import); `consistency-vs-emergence` (T0.2 Class-A identity, T0.1/T0.3 Class-C); `phase-space-coordinate-check` (real-space correct here); `verify-before-cite`; `ave-apparatus-floor-attribution` (grid back-scatter floor).
+- **L0-axioms (A1a/A1b/A2/A3b/A4):** `substrate-native-check` (CP6/7/9/10); `ave-representation-capability-check` (A1a carried_dof==2 vs axiom_dof==6 carrier-DOF FINDING); `consistency-vs-emergence` (per-axiom class tags; charge INTEGER = L4-out-of-scope); `ave-dimensional-provenance-check` (A2 [Q]≡[L] ξ_topo round-trip); `ave-apparatus-floor-attribution` (A4 S_min/A_cap sweep, R_SYM back-scatter floor); `ave-canonical-source` (A4 reads the canonical c_eff_squared kernel); `verify-before-cite`. NB: this layer's S\*\*0.25-vs-S\*\*0.5 flag (A4) is a live physics-review item (see FLAGS).
+- **L1 free-modes (T1.1–T1.8):** `substrate-native-check`; `ave-regime-phase-state-check` (MODE/DOF/SPEED table + c_EM-vs-c_shear category guard — declares linear/achromatic so dispersion/rectification correctly ABSENT-by-construction); `ave-discipline-translate` (the c_shear=c₀·S^(1/4) corpus-form catch); `ave-representation-capability-check` (which-mode-on-which-DOF, two-3s); `consistency-vs-emergence` (all Class-C); `phase-space-coordinate-check`; `ave-apparatus-floor-attribution` (amplitude-decay/cross-pol-leak/front-edge floors); `ave-analytical-tool-selection` (Mode-analysis class).
+- **L2 EM-in-media (T2.1–T2.4):** `ave-regime-phase-state-check` (operating-point A₀, SYM Γ=0 vs ASYM static-E Γ≠0); `ave-asymmetric-grip` (T2.3 static-E-ONLY = the asymmetric element breaking the SYM match); `consistency-vs-emergence` (T2.4 cites clm-3zz0f6; lensing MAGNITUDE left chord-OPEN); `ave-discrimination-check` (T2.2 achromatic-lensing = gravity bridge, magnitude OPEN not headlined); `ave-discipline-translate` (n=1/S(A₀) varactor framing); `ave-canonical-source`; `verify-before-cite` (clm-3zz0f6); `ave-cavity-class-identification` (precursor to L3).
+- **L3 mass-cage (GAP — HIGH-VALUE skill cluster, NOT exercised in built L0–L2):** `substrate-native-check` (CP8 generative-precursor + CP10 boundary-not-bulk — the cage is a Γ-bounded boundary NOT a detonating bulk well); `ave-cavity-class-identification` (which sub-network hosts the bound eigenmode — load-bearing rung-specific); `ave-analytical-tool-selection` (pull Resonance + Boundary/TIR + Mode classes as a SET); `ave-resonant-amplification-check` (Q=α⁻¹ cavity must be BUILT or the A²≈O(α) stuck-floor recurs — founding failure of every prior L3 attempt); `ave-conserved-vs-pumped` (mass = A1 dilatation is energize+lock, not pump-to-threshold); `ave-regime-phase-state-check` (near-yield Regime-II); `ave-apparatus-floor-attribution` (winding-extractor poloidal r≈1.1-cell floor); `phase-space-coordinate-check` (R/r, (2,3), Clifford-torus = PHASE-SPACE not lattice-Cartesian); `consistency-vs-emergence` + `ave-discrimination-check` (cage chord tagging).
+- **L4 charge (GAP):** `ave-representation-capability-check` (charge = winding INTEGER ±1, the (2,3) "second 3" micro-rotation NOT the A1 scalar — a scalar can't wind); `ave-conserved-vs-pumped` (charge/helicity/winding = conserved topological invariant, energize+lock, pumping nulls/detonates); `phase-space-coordinate-check` ((2,3) + writhe/helicity in phasor coords); `ave-cavity-class-identification` (charge sub-network vs mass sub-network); `substrate-native-check` (CP8 seed precursor, don't plant finished winding); `consistency-vs-emergence` (charge-quantization chord tag); `ave-asymmetric-grip` (Γ=−1 hardened-wall chiral buckle); `verify-before-cite` (two-threes / SECTOR⊥GAUGE anchors at `master-equation.md:20`).
+- **L5 genesis (GAP — WEAKEST-backed layer, target clm-8zpicx confidence 0.40 / DO-NOT-BUILD):** `substrate-native-check` CP8 (seed the simplest autonomous action, let dynamics build the composite — do NOT plant the finished electron and test persistence); `ave-conserved-vs-pumped` (the entire 2026-06-09 V→ω-pump detonation arc was THIS one error); `ave-resonant-amplification-check` (Q=α⁻¹ self-lock cavity); `ave-cavity-class-identification` (which eigenmode self-generates); `ave-loop-gap-harness-discipline` (frozen-platform, advance-ranks, mandatory engine DAG ablations); `ave-regime-phase-state-check` (Regime-IV rupture, pair-production boundary); `ave-discriminator-before-synthesis` ("one device N observables" convergence-feeling = stop + name the splitter); `ave-engineering-program-rigor` (sensitivity sweep = robust-self-lock vs tuned-knife-edge); `consistency-vs-emergence` + `ave-discrimination-check` (genesis IS the chord — SM-counterfactual mandatory). PRECURSOR REALITY: the genesis self-trap dynamics-class is FALSIFIED in the ledger; only the boundary-confinement operator is untested.
+- **Op-primitive/scale tier (BUILT, `test_operators.py`):** `substrate-native-check`; `ave-canonical-source` (Op22 canonical M=1/S² NOT doc-81's 1/(1−S), A43-v11 flag honored); `consistency-vs-emergence` (CODATA sub-targets consistency-class NOT headlined emergence); `ave-analytical-tool-selection` (toolkit-index 11-class taxonomy IS the Op-class map); `ave-power-category-check` (real-vs-reactive Axis-A); `ave-regime-phase-state-check` (scale-invariance instance: same Op path electron-scale + BH-scale); `ave-independence-check` (cross-scale instances = SAME kernel, not N independent confirmations); `verify-before-cite`.
+
+**HIGH-VALUE note (do not let clean L0–L2 create false confidence the skill-baking is done):** the cavity/resonance/regime/conserved-vs-pumped cluster — `ave-cavity-class-identification`, `ave-resonant-amplification-check`, `ave-conserved-vs-pumped`, `ave-regime-phase-state-check` — is **correctly DORMANT in the linear/sub-yield/achromatic L0–L2 rungs** (those effects are absent-by-construction there) but becomes **FIRST-CLASS load-bearing the moment the L3 cage / L4 charge / L5 genesis rungs are built**. Those skills' FOUNDING failure-modes (the A²≈O(α) stuck-floor, the V→ω pump detonations, the winding-extractor poloidal floor) all live precisely at the unbuilt rungs, and nothing in the current suite forces them. The clean L0–L2 discipline must NOT inherit the "these don't fire here" posture into L3–L5.
+
 ## §9 — COMPLETENESS MATRIX (LIVE CHECKLIST)
 
 **This is the single live tracker.** Status updated per the §8 completion ritual (a row flips to ✅ only after: tests green + figures + Vol 9 leaf/Ch17 row + engine-map flip + `make vol9` clean). Legend: ✅ built-green · 🔧 fix-pending · ⬜ GAP (not built) · 🚩 frontier (gated on Grant). Tag = axiom-compliance / emergent / consistency / chord.
 
-| Layer | Test | Tag | Characteristic / DOF | Vol 9 | Status |
-|---|---|---|---|---|---|
-| **L0-medium** | T0.1 energy/unitary-scatter | axiom (Ax3 lossless) | medium unitarity | Ch4/Ch3 | ✅ |
-| L0-medium | T0.2 Z₀=√(μ₀/ε₀) | axiom (Ax1 LC identity) | port impedance | Ch4 | ✅ |
-| L0-medium | T0.3 isotropy | consistency | medium validity | Ch4/Ch9 | ✅ |
-| **L0-axioms** | A1a 6-DOF/node + I4₁32 connectivity | axiom (Ax1 topology) | 6 DOF, chiral grid | Ch1/Ch3/Ch11 | ⬜ |
-| L0-axioms | A1b chirality lossless (rotation ON) | axiom (Ax1 chirality) | optical-activity DOF | Ch1/Ch11 | 🔧 (.copy() fix) |
-| L0-axioms | A2 TKI [Q]≡[L], ξ_topo, dislocation | axiom (Ax2) | charge=geometry | Ch4/Ch11 | ⬜ |
-| L0-axioms | A3b \|Γ\|²-minimization (matched→Γ→0) | axiom (Ax3 min-refl) | min-reflection | Ch3 | ⬜ |
-| L0-axioms | A4 saturation kernel S(A) verified | axiom (Ax4) | saturation | Ch7/Ch14 | ⬜ |
-| **L1 free modes** | T1.1 transverse-EM (photon) lossless | consistency | photon, c_EM | Ch5/Ch4 | ✅ (hardened) |
-| L1 free modes | T1.2 dispersionless band ω=ck | consistency | photon dispersion | Ch5 | ✅ |
-| L1 free modes | T1.3 transversality (2-pol, no leak) | consistency | 2 transverse DOF | Ch3 | ✅ |
-| L1 free modes | T1.4 causality / front-speed | consistency | no superluminal | Ch4 | ✅ |
-| L1 free modes | T1.5 optical-activity (chiral channel) | consistency-gate (post-fix) | optical activity | Ch5/Ch10/Ch11 | 🔧 |
-| L1 free modes | T1.6 transverse-SHEAR wave (c_shear=c₀√S) | consistency | shear mode | Ch5/Ch9 | ⬜ (multi-wave) |
-| L1 free modes | T1.7 longitudinal-BULK wave (the "3") | chord/consistency | bulk mode, c_bulk | Ch5/Ch9 | ⬜ (multi-wave) |
-| L1 free modes | T1.8 Cosserat micro-rotation wave (gapped) | consistency | micro-rotation mode | Ch5/Ch10 | ⬜ (multi-wave) |
-| **L2 EM-in-media** | T2.1 refractive index c_EM=c₀/S | consistency (Op14) | operating-point | Ch5/Ch7 | ✅ |
-| L2 EM-in-media | T2.2 achromatic lensing | consistency-of-mechanism | SYM gradient (gravity) | Ch12/Ch5 | ✅ |
-| L2 EM-in-media | T2.3 asymmetric mirror Γ≠0 | consistency | Meissner-asym | Ch3/Ch7 | ✅ |
-| L2 EM-in-media | T2.4 α-invariance under SYM | consistency (clm-3zz0f6) | α-invariance | Ch5/Ch12 | ✅ |
-| **L3 mass-cage** | T3.1 longitudinal-mode-is-real | chord (vs QED) | A1 bulk DOF | Ch9/Ch4 | ⬜ |
-| L3 mass-cage | T3.2 c_eff(V) stiffening →∞ | emergent (Ax4) | mass-cage | Ch8/Ch14 | ⬜ |
-| L3 mass-cage | T3.3 binding-wall Γ=−1 (make-or-break) | chord | Γ=−1 TIR wall | Ch3/Ch2 | ⬜ ⭐ |
-| L3 mass-cage | T3.4 mass = cutoff freq ω₀ | emergent | mass observable | Ch2/Ch9 | ⬜ |
-| **L4 charge/winding** | T4.1 (2,q) winding forms/persists | consistency-of-existence | winding DOF | Ch11 | ⬜ |
-| L4 charge/winding | T4.2 charge = integer winding ±1 | chord (unfakeable int) | charge | Ch11/Ch10 | ⬜ ⭐ |
-| L4 charge/winding | T4.3 handedness e⁻/e⁺ | chord (candidate-c) | charge sign | Ch11/Ch10 | ⬜ (→fork c) |
-| **L5 coupling/genesis** | T5.1 coupling conserves energy (keystone, unified) | consistency (Ax3) | mode-conversion | Ch17 | ⬜ |
-| L5 coupling/genesis | T5.2 electron self-assembles (no plant) | chord (genesis) | mass+charge co-emerge | Ch11 | ⬜ |
-| L5 coupling/genesis | T5.3 forced m_μ/m_e from (2,q) | chord (THE decider) | forced mass ratio | Ch11/Ch13 | ⬜ ⭐ |
-| **L6+ frontier** | constitutive-loop / remanence (R10) | — | DOF (7-of-7) | Ch10 | 🚩 (fork b) |
-| L6+ frontier | boost-covariance (Lorentz) | — | DOF (7-of-7) | — | 🚩 (fork b) |
-| L6+ frontier | node-creation (pair production) | — | DOF / genesis | Ch8 | 🚩 (fork a) |
+| Layer | Test | Tag | Characteristic / DOF | Vol 9 | Spine (clm-/def- backing) | Status |
+|---|---|---|---|---|---|---|
+| **L0-medium** | T0.1 energy/unitary-scatter | axiom (Ax3 lossless) | medium unitarity | Ch4/Ch3 | clm-hd9bee | ✅ |
+| L0-medium | T0.2 Z₀=√(μ₀/ε₀) | axiom (Ax1 LC identity) | port impedance | Ch4 | — (medium-validity, no clm-) | ✅ |
+| L0-medium | T0.3 isotropy | consistency | medium validity | Ch4/Ch9 | — (medium-validity, no clm-) | ✅ |
+| **L0-axioms** | A1a 6-DOF/node + I4₁32 connectivity | axiom (Ax1 topology) | 6 DOF, chiral grid | Ch1/Ch3/Ch11 | — (medium-validity, no clm-) | ⬜ |
+| L0-axioms | A1b chirality lossless (rotation ON) | axiom (Ax1 chirality) | optical-activity DOF | Ch1/Ch11 | def-7c3f9e | 🔧 (.copy() fix) |
+| L0-axioms | A2 TKI [Q]≡[L], ξ_topo, dislocation | axiom (Ax2) | charge=geometry | Ch4/Ch11 | clm-dfaiwj | ⬜ |
+| L0-axioms | A3b \|Γ\|²-minimization (matched→Γ→0) | axiom (Ax3 min-refl) | min-reflection | Ch3 | clm-8nkvwy | ⬜ |
+| L0-axioms | A4 saturation kernel S(A) verified | axiom (Ax4) | saturation | Ch7/Ch14 | clm-gz7ryg; clm-8nkvwy | ⬜ |
+| **L1 free modes** | T1.1 transverse-EM (photon) lossless | consistency | photon, c_EM | Ch5/Ch4 | clm-3npynp; clm-djpx2v | ✅ (hardened) |
+| L1 free modes | T1.2 dispersionless band ω=ck | consistency | photon dispersion | Ch5 | clm-djpx2v | ✅ |
+| L1 free modes | T1.3 transversality (2-pol, no leak) | consistency | 2 transverse DOF | Ch3 | clm-3npynp; clm-j550uh | ✅ |
+| L1 free modes | T1.4 causality / front-speed | consistency | no superluminal | Ch4 | clm-yr6tu4 | ✅ |
+| L1 free modes | T1.5 optical-activity (chiral channel) | consistency-gate (post-fix) | optical activity | Ch5/Ch10/Ch11 | def-7c3f9e; def-0pt1ac | 🔧 |
+| L1 free modes | T1.6 transverse-SHEAR wave (c_shear=c₀√S) | consistency | shear mode | Ch5/Ch9 | clm-crbl60; clm-8nkvwy | ⬜ (multi-wave) |
+| L1 free modes | T1.7 longitudinal-BULK wave (the "3") | chord/consistency | bulk mode, c_bulk | Ch5/Ch9 | finding (no positive clm-); precursor clm-iouqn9, clm-crbl60 | ⬜ (multi-wave) |
+| L1 free modes | T1.8 Cosserat micro-rotation wave (gapped) | consistency | micro-rotation mode | Ch5/Ch10 | finding (no positive clm-); precursor clm-3npynp; def-0pt1ac | ⬜ (multi-wave) |
+| **L2 EM-in-media** | T2.1 refractive index c_EM=c₀/S | consistency (Op14) | operating-point | Ch5/Ch7 | clm-8nkvwy | ✅ |
+| L2 EM-in-media | T2.2 achromatic lensing | consistency-of-mechanism | SYM gradient (gravity) | Ch12/Ch5 | clm-k9up5c; clm-07kd5v | ✅ |
+| L2 EM-in-media | T2.3 asymmetric mirror Γ≠0 | consistency | Meissner-asym | Ch3/Ch7 | clm-8nkvwy; clm-5s5b0d | ✅ |
+| L2 EM-in-media | T2.4 α-invariance under SYM | consistency (clm-3zz0f6) | α-invariance | Ch5/Ch12 | clm-3zz0f6; clm-8nkvwy | ✅ |
+| **L3 mass-cage** | T3.1 longitudinal-mode-is-real | chord (vs QED) | A1 bulk DOF | Ch9/Ch4 | clm-crbl60 (precursor) | ⬜ |
+| L3 mass-cage | T3.2 c_eff(V) stiffening →∞ | emergent (Ax4) | mass-cage | Ch8/Ch14 | clm-gz7ryg (precursor) | ⬜ |
+| L3 mass-cage | T3.3 binding-wall Γ=−1 (make-or-break) | chord | Γ=−1 TIR wall | Ch3/Ch2 | clm-rtdmsn; clm-lv3uw1 (precursor) | ⬜ ⭐ |
+| L3 mass-cage | T3.4 mass = cutoff freq ω₀ | emergent | mass observable | Ch2/Ch9 | clm-ka5zdx (precursor) | ⬜ |
+| **L4 charge/winding** | T4.1 (2,q) winding forms/persists | consistency-of-existence | winding DOF | Ch11 | clm-unk0bd; clm-8c3yhs (precursor) | ⬜ |
+| L4 charge/winding | T4.2 charge = integer winding ±1 | chord (unfakeable int) | charge | Ch11/Ch10 | clm-67jn9o; def-3638f2 (precursor) | ⬜ ⭐ |
+| L4 charge/winding | T4.3 handedness e⁻/e⁺ | chord (candidate-c) | charge sign | Ch11/Ch10 | clm-h9aqmt; def-h3l1c7 (precursor) | ⬜ (→fork c) |
+| **L5 coupling/genesis** | T5.1 coupling conserves energy (keystone, unified) | consistency (Ax3) | mode-conversion | Ch17 | clm-pf84ng (precursor) | ⬜ |
+| L5 coupling/genesis | T5.2 electron self-assembles (no plant) | chord (genesis) | mass+charge co-emerge | Ch11 | clm-8zpicx (precursor; sol 0.40 DO-NOT-BUILD) | ⬜ |
+| L5 coupling/genesis | T5.3 forced m_μ/m_e from (2,q) | chord (THE decider) | forced mass ratio | Ch11/Ch13 | clm-zw6mut; clm-c54kdd (precursor) | ⬜ ⭐ |
+| **L6+ frontier** | constitutive-loop / remanence (R10) | — | DOF (7-of-7) | Ch10 | — (medium-validity, no clm-) | 🚩 (fork b) |
+| L6+ frontier | boost-covariance (Lorentz) | — | DOF (7-of-7) | — | clm-yr6tu4 (precursor) | 🚩 (fork b) |
+| L6+ frontier | node-creation (pair production) | — | DOF / genesis | Ch8 | — (medium-validity, no clm-) | 🚩 (fork a) |
+
+> **Spine cell = theoretical backing (clm-/def-).** The sup-\<id\> that materializes each test as a derivation-support node is minted at completion-ritual time (see §8 step 1.5), not here.
 
 ⭐ = the three chord-deciders (Γ=−1 mass wall · integer charge · forced mass ratio). **Vol 9 chapters with no ladder row** (fork a): Ch6 temperature, Ch8 breakdown-rupture, Ch12 cosmological-values, Ch15 falsification (orthogonal bench axis), Ch16 lookup. **Score: 12 ✅ / 2 🔧 / 16 ⬜ / 3 🚩 — valid medium, zero chords forced yet.**

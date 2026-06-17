@@ -69,7 +69,7 @@ The srs engine has exactly TWO field representations (verified empirically):
                        separate ω (micro-rotation) field.
 The `_optical_activity_per_node` channel is a per-node polarization-plane SO(2)
 twist of the SAME transverse field (OPTICAL ACTIVITY / gyrotropy, A1b/T1.5;
-def-optical-activity), NOT a propagating Cosserat micro-rotation DOF with its own
+def-0pt1ac), NOT a propagating Cosserat micro-rotation DOF with its own
 gapped branch (the def-fenced "rotation" collision: optical activity ⊥ the (2,3)
 winding = charge). There is NO saturation modulation in the free linear regime
 (S=1).
@@ -346,7 +346,7 @@ def test_t1_8_cosserat_microrotation_wave_medium_extension_finding():
     propagating Cosserat micro-rotation wave. The only rotation in the engine is
     `_optical_activity_per_node` — a per-node polarization-plane SO(2) twist
     applied to the SAME transverse 2-DOF field after scatter (OPTICAL ACTIVITY /
-    gyrotropy; the A1b / T1.5 channel; def-optical-activity). That is a
+    gyrotropy; the A1b / T1.5 channel; def-0pt1ac). That is a
     constitutive twist of the transverse field, NOT an
     independent micro-rotation DOF with its own field, its own scatter/connect,
     and its own GAPPED dispersion branch. There is no ω field (no micropolar
