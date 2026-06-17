@@ -57,4 +57,31 @@ is therefore operationalised as: the fraction of energy that REVERSES its net
 propagation direction (back-scatter off lattice discreteness / numerical
 interface) stays at the numerical floor. A uniform PBC lattice has no physical
 reflector; any measurable back-scatter would be a spurious lattice artifact.
+
+────────────────────────────────────────────────────────────────────────────────
+VISUAL-DEBUG LAYER (additive instrumentation — does NOT change any pass/fail bin)
+────────────────────────────────────────────────────────────────────────────────
+Each test can emit a `<test_id>_debug.png` into research/figures/engine_acceptance/
+so the run is visually debuggable: the standard set is an x-t spacetime heatmap
+(propagation-axis position × timestep, energy-density color), a filmstrip (1D
+profile at t=0,¼,½,¾,T), and an energy-vs-time trace with the max-drift annotated;
+per-test extras add the dispersion ω(k) curve (T1.2), the cross-pol leak trace
+(T1.3), and the causal-cone info-front slope (T1.4). The figures are recorded off
+the SAME engine stepper the functional test runs (`_viz.py`); they are a passive
+recorder, not a re-simulation.
+
+Figure emission is GATED on `KF_VIZ` (OFF for a plain `pytest` run, so the physics
+path and `make verify` are untouched). REGENERATE ALL FIGURES with one command:
+
+    PYTHONPATH=<worktree>/src KF_VIZ=1 \\
+        /Users/grantlindblom/AVE-staging/AVE-Core/.venv/bin/python \\
+        -m tests.engine_acceptance.regen
+
+(equivalently, `KF_VIZ=1 pytest src/tests/engine_acceptance/ -s`). FLAGSHIP T1.1
+note: the functional T1.1 seed is a DELOCALIZED cos(k·z) Bloch wave (fills the
+periodic box), so its native x-t view is a standing/beating fringe, NOT a traveling
+diagonal band — a real cosine carries equal ±k content. The T1.1 figure therefore
+shows TWO rows: the actual test seed (honest: standing fringe) AND a localized-
+envelope companion on the SAME medium/stepper that exposes the clean diagonal
+photon-path band + its slight dispersive broadening.
 """

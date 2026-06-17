@@ -20,6 +20,7 @@ from ave.core import chiral_lattice_dynamics as cld
 from ave.core import chiral_lattice_vector as clv
 
 from . import _medium as M
+from . import _viz as VZ
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -96,6 +97,23 @@ def test_t1_1_photon_propagates_losslessly():
         f"FAIL: spurious strong reflection — Γ_eff {gamma_eff:.4f} > 0.30"
     )
 
+    # ── visual-debug layer (additive; never affects pass/fail) ──
+    if VZ.viz_enabled():
+        rec_actual = VZ.record_axis_profile(
+            net, V0, n_steps, axis=2, chiral_rotation=False, every=10
+        )
+        V_loc = VZ.localized_envelope(net, V0, axis=2, width_frac=0.08)
+        rec_loc = VZ.record_axis_profile(
+            net, V_loc, n_steps, axis=2, chiral_rotation=False, every=10
+        )
+        path = VZ.save_t1_1_flagship_figure(
+            "T1.1",
+            rec_actual,
+            rec_loc,
+            drift_floor_label=f"lossless: drift {drift:.3e} (integrator floor ~1e-13)",
+        )
+        print(f"  [viz] flagship figure -> {path}")
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # T1.2 — different frequencies supported (dispersionless across the usable band)
@@ -130,6 +148,37 @@ def test_t1_2_dispersionless_band():
     assert spread < 0.05, (
         f"FAIL: dispersive in usable band — c(k) spread {spread:.4f} >= 0.05"
     )
+
+    # ── visual-debug layer (additive; never affects pass/fail) ──
+    if VZ.viz_enabled():
+        # one representative m=2 packet for the spacetime/filmstrip/energy triptych
+        V0 = M.directional_packet(net, axis=2, sign=+1.0, m=2, pol=0)
+        rec = VZ.record_axis_profile(
+            net, V0, 800, axis=2, chiral_rotation=False, every=5
+        )
+        # the dispersion omega(k) curve read off the dynamically-evolved field
+        disp = cld.measure_dispersion(net, axis=2, m_values=(1, 2, 3, 4), n_steps=800)
+        kk = np.array([d[0] for d in disp])
+        ww = np.array([d[1] for d in disp])
+        cc = np.array([d[2] for d in disp])
+
+        def _disp_panel(ax):
+            ax.plot(kk, ww, "o-", color="#2ca02c", label="ω(k) measured")
+            cmean = cc.mean()
+            ax.plot(kk, cmean * kk, "k--", lw=1.0, label=f"linear ω=c·k (c̄={cmean:.3f})")
+            ax.set_xlabel("k (rad / cartesian)")
+            ax.set_ylabel("ω (rad / step)")
+            ax.set_title(f"dispersion ω(k): c(k) spread {spread:.3f} (PASS<0.05)")
+            ax.legend(fontsize=8)
+            axt = ax.twinx()
+            axt.plot(kk, cc, "s:", color="#9467bd", lw=0.9)
+            axt.set_ylabel("c(k)=ω/k (cartesian/step)", color="#9467bd")
+
+        path = VZ.save_propagation_figure(
+            "T1.2", "dispersionless band (ω=c·k)", rec,
+            drift_floor_label="κ=0 lossless", extra=_disp_panel,
+        )
+        print(f"  [viz] dispersion figure -> {path}")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -178,6 +227,32 @@ def test_t1_3_transversality_two_polarizations():
 
     assert leak < 1e-10, f"FAIL: spurious polarization mixing — leak {leak:.3e}"
     assert drift < 1e-8, f"FAIL: energy not conserved — drift {drift:.3e}"
+
+    # ── visual-debug layer (additive; never affects pass/fail) ──
+    if VZ.viz_enabled():
+        rec = VZ.record_axis_profile(
+            net, V0, 1500, axis=2, chiral_rotation=False, every=10
+        )
+        e_pol0, e_pol1 = VZ.record_crosspol(net, V0, 1500, chiral_rotation=False)
+
+        def _leak_panel(ax):
+            tt = np.arange(len(e_pol0))
+            tot = e_pol0 + e_pol1
+            ax.plot(tt, e_pol0 / tot, color="#1f77b4", label="pol-0 (seeded)")
+            ax.plot(tt, np.maximum(e_pol1 / tot, 1e-18), color="#d62728",
+                    label="pol-1 (cross-pol leak)")
+            ax.set_yscale("log")
+            ax.set_ylim(1e-18, 2.0)
+            ax.set_xlabel("timestep")
+            ax.set_ylabel("energy fraction (log)")
+            ax.set_title(f"cross-pol leak: max {leak:.2e} (PASS<1e-10)")
+            ax.legend(fontsize=8, loc="center right")
+
+        path = VZ.save_propagation_figure(
+            "T1.3", "transversality (2 pol, no longitudinal leak)", rec,
+            drift_floor_label=f"drift {drift:.2e}", extra=_leak_panel,
+        )
+        print(f"  [viz] transversality figure -> {path}")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -243,6 +318,27 @@ def test_t1_4_causality_front_speed():
         f"FAIL: superluminal lattice front — {cells_per_step:.4f} cells/step > 1"
     )
 
+    # ── visual-debug layer (additive; never affects pass/fail) ──
+    if VZ.viz_enabled():
+        # re-seed the SAME sharp slab and record its spacetime profile (separate
+        # recorder run — the assertion loop above already mutated V); identical seed.
+        V_seed = np.zeros((net.n_nodes, net.degree, 2))
+        V_seed[slab, 0, 0] = 1.0
+        rec = VZ.record_axis_profile(
+            net, V_seed, n_steps, axis=2, chiral_rotation=False, every=1
+        )
+        # the measured info-front (leading lit plane) per step = the causal cone
+        front = {
+            "z": np.array(front_z),
+            "t": np.arange(len(front_z)),
+            "label": f"info front ({cells_per_step:.2f} cell/step ≤ c_link)",
+        }
+        path = VZ.save_propagation_figure(
+            "T1.4", "causality / info-front rides at lattice c", rec,
+            front=front, drift_floor_label="sharp on/off seed (causal cone)",
+        )
+        print(f"  [viz] causality figure -> {path}")
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # T1.5 — FINDING: the chiral optical-activity rotation channel is NOT lossless
@@ -282,3 +378,36 @@ def test_t1_5_finding_chiral_rotation_energy():
         "FINDING regression anchor: chiral-rotation channel should drift "
         "noticeably (if this fails, the channel was fixed — update the finding)"
     )
+
+    # ── visual-debug layer (additive; never affects pass/fail) ──
+    if VZ.viz_enabled():
+        S = cl.scatter_matrix(net.degree)
+        conn = net.connect_index()
+        rot = clv._rotation_per_node(net)
+        # full per-step energy trace for OFF vs ON (re-seed identically each run)
+        def _trace(use_rot):
+            Vt = clv.launch_linear_packet(net, axis=2, pol_axis=0, width_frac=0.12)
+            E0 = clv.vector_energy(Vt)
+            tr = [1.0]
+            for _ in range(1500):
+                Vt = clv.vector_tlm_step(net, Vt, S, conn, rot if use_rot else None)
+                tr.append(clv.vector_energy(Vt) / E0)
+            return np.array(tr)
+
+        tr_off = _trace(False)
+        tr_on = _trace(True)
+
+        def _draw(fig):
+            ax = fig.subplots(1, 1)
+            tt = np.arange(len(tr_off))
+            ax.plot(tt, tr_off, color="#2ca02c", label=f"rot OFF (free photon) drift {drift_off:.1e}")
+            ax.plot(tt, tr_on, color="#d62728", label=f"rot ON (optical-activ) drift {drift_on:.1e}")
+            ax.axhline(1.0, color="k", ls=":", lw=0.8)
+            ax.set_xlabel("timestep")
+            ax.set_ylabel("energy ratio H/H₀")
+            ax.set_title("FINDING: chiral-rotation+connect COMPOSITION is NOT energy-conserving")
+            ax.legend(fontsize=9)
+
+        path = VZ.save_simple_figure(
+            "T1.5", "FINDING — chiral-rotation channel energy (non-conserving)", _draw)
+        print(f"  [viz] finding figure -> {path}")

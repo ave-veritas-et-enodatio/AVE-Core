@@ -21,6 +21,7 @@ from ave.core import chiral_lattice_dynamics as cld
 from ave.core.constants import EPSILON_0, MU_0, Z_0
 
 from . import _medium as M
+from . import _viz as VZ
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -76,6 +77,34 @@ def test_t0_1_energy_conservation_unitary_scatter():
     assert is_perm, "FAIL: connect is not a port permutation"
     assert drift < 1e-10, f"FAIL: bare medium not energy-conserving — drift {drift:.3e}"
 
+    # ── visual-debug layer (additive; never affects pass/fail) ──
+    if VZ.viz_enabled():
+        V_seed = np.zeros((net.n_nodes, net.degree))
+        V_seed[seed] = 1.0
+        e_trace = VZ.record_scalar_energy(net, V_seed, 2000)
+        # a final-state field snapshot: energy per z-plane after the run
+        Vf = V_seed.copy()
+        for _ in range(2000):
+            Vf = cl.scalar_tlm_step(net, Vf, S, conn)
+        z = net.pos[:, 2]
+        planes = np.unique(np.round(z, 6))
+        pidx = np.searchsorted(planes, np.round(z, 6))
+        prof = np.zeros(len(planes))
+        np.add.at(prof, pidx, np.sum(Vf * Vf, axis=1))
+
+        def _draw(fig):
+            ax1, ax2 = fig.subplots(1, 2)
+            VZ._panel_energy(ax1, e_trace,
+                             drift_floor_label=f"point-source seed, 2000 steps")
+            ax2.plot(planes, prof, color="#1f77b4")
+            ax2.set_xlabel("z (cartesian)")
+            ax2.set_ylabel("|V|^2 per plane")
+            ax2.set_title("field snapshot at t=2000 (spread point source)")
+
+        path = VZ.save_simple_figure(
+            "T0.1", "energy conservation / unitary scatter (scalar TLM)", _draw)
+        print(f"  [viz] energy figure -> {path}")
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # T0.2 — characteristic impedance Z₀ = √(μ₀/ε₀), uniform
@@ -118,6 +147,31 @@ def test_t0_2_characteristic_impedance():
     assert rel_z_lc < 1e-9, f"FAIL: √(L/C) != Z₀ — rel {rel_z_lc:.2e}"
     assert rel_z_def < 1e-9, f"FAIL: Z₀ != √(μ₀/ε₀) — rel {rel_z_def:.2e}"
     assert rel_c < 1e-9, f"FAIL: 1/√(LC) != c₀ — rel {rel_c:.2e}"
+
+    # ── visual-debug layer (additive; never affects pass/fail) ──
+    if VZ.viz_enabled():
+        labels = ["Z₀ canonical\n(√μ₀/ε₀)", "√(L/C)\nfrom bond-LC", "√(μ₀/ε₀)\nidentity"]
+        vals = [Z_0, z_from_lc, z_from_mu_eps]
+        rels = [0.0, rel_z_lc, rel_z_def]
+
+        def _draw(fig):
+            ax = fig.subplots(1, 1)
+            bars = ax.bar(labels, vals, color=["#1f77b4", "#2ca02c", "#9467bd"])
+            ax.set_ylabel("characteristic impedance (Ω)")
+            ax.set_ylim(0, max(vals) * 1.15)
+            ax.set_title(
+                "Class-A IDENTITY (consistency-vs-emergence): "
+                "value is CODATA-pinned via ave.core.constants, NOT an emergence"
+            )
+            for b, v, r in zip(bars, vals, rels):
+                ax.annotate(f"{v:.4f} Ω\nrel {r:.1e}",
+                            xy=(b.get_x() + b.get_width() / 2, v),
+                            xytext=(0, 4), textcoords="offset points",
+                            ha="center", fontsize=9)
+
+        path = VZ.save_simple_figure(
+            "T0.2", "characteristic impedance Z₀ = √(μ₀/ε₀)", _draw)
+        print(f"  [viz] impedance-identity figure -> {path}")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -171,3 +225,29 @@ def test_t0_3_isotropy_no_spurious_anisotropy():
     assert factor_err < 0.02, (
         f"FAIL: network factor off the known 1/√3 projection — rel {factor_err:.4f}"
     )
+
+    # ── visual-debug layer (additive; never affects pass/fail) ──
+    if VZ.viz_enabled():
+        # E and d are in scope from the point-pulse spread above
+        cks = np.array(nf["c_of_k"])
+        kks = np.array(nf["k"])
+
+        def _draw(fig):
+            ax1, ax2 = fig.subplots(1, 2)
+            ax1.bar(["x", "y", "z"], rms, color=["#1f77b4", "#2ca02c", "#9467bd"])
+            ax1.set_ylabel("rms spread (cartesian)")
+            ax1.set_title(f"point-pulse spread — isotropy ratio {iso:.3f} (PASS>0.9)")
+            for i, r in enumerate(rms):
+                ax1.annotate(f"{r:.3f}", xy=(i, r), xytext=(0, 3),
+                             textcoords="offset points", ha="center", fontsize=9)
+            ax2.plot(kks, cks, "o-", color="#2ca02c", label="c(k) measured")
+            ax2.axhline(cld.ANALYTIC_NETWORK_FACTOR * nf["c_link"], color="k", ls="--",
+                        lw=1.0, label="1/√3 · c_link (analytic)")
+            ax2.set_xlabel("k (rad/cartesian)")
+            ax2.set_ylabel("c(k) (cartesian/step)")
+            ax2.set_title(f"k→0 factor {nf['factor']:.4f} vs 1/√3 (rel {factor_err:.1e})")
+            ax2.legend(fontsize=8)
+
+        path = VZ.save_simple_figure(
+            "T0.3", "isotropy / no spurious anisotropy (scalar TLM)", _draw)
+        print(f"  [viz] isotropy figure -> {path}")
