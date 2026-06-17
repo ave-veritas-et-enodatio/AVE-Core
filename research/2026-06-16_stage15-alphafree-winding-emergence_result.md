@@ -22,6 +22,8 @@
 **clean, with a named mechanism**, and the magnitude readout was **NOT forced**
 (m_e/e/ℏ/2 not read; α not inserted — the α-free discipline held end-to-end).
 
+> **⚠️ CONTESTED 2026-06-16 — layer (c) EMERGENCE-NEGATIVE is suspect-as-bug-downstream; do NOT cite as a live falsification.** The (c) probe ran on the **SAME Cartesian-stencil-disabled coupling** as the now-retracted layer (b): the trap-coupling was identically off on the alive sublattice (`g·Ξ≡0`, the inherited `np.roll±1` curl placed Ξ entirely on K4 DEAD cells), so the Cosserat ω had **no trap to lock into and radiated out** (amp 0.3→0.016) — the one hint of structure (`w_tor=−1.0`) died on unreliable contours *because* the wave radiated before locking. Under the corrected tetrahedral stencil + a conservative (freeze-g) coupling, whether the (2,3) winding self-forms is being **RE-RUN** (winding-emergence-under-corrected-stencil, mode-conversion criterion per the NO-QED directive: longitudinal bulk self-traps = mass + a Cosserat (2,3) microrotation winding locks *inside* it = charge — NOT a self-trapped transverse photon). **Status: UNTESTED-under-corrected-stencil, NOT falsified.** This is a FLAG to the rerun, **not** a Rule-12 retraction — the rerun banks it either way.
+
 ---
 
 ## §1 — The α-free emergence read (the four-part success criterion)
