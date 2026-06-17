@@ -99,6 +99,31 @@ The GAP layers L3–L5 are unbuilt; these are the verified KB precursor/target c
 - `clm-8niffj` "Q-G27 Muon Cosserat Torsion" (vol2:1450, sol 0.45).
 - **CAUTION (genesis dynamics):** `common/genesis-chord-falsification-ledger.md` records the genesis **self-trap dynamics-class as FALSIFIED** — only the boundary-confinement operator is untested (engine-gap, not missing-axiom). An L5 acceptance layer has **no solid precursor to validate against today**.
 
+## §2.6 — Strain/yield regime taxonomy (the "can this effect exist here?" gate)
+
+**Why this section exists:** an acceptance test that runs in the WRONG REGIME for the effect it asks about returns a null that is an **ARTIFACT, not a falsification** (the dark-wake lesson: Phases 1–5 ran sub-yield-linear, where the rate-asymmetric / chiral effect cannot exist by construction — `ave-regime-phase-state-check`). Each layer's tests must declare which regime they operate in BEFORE the bins are frozen, and a null only falsifies if the effect could have existed in that regime.
+
+**Strain coordinate + kernel (Axiom 4).** Strain coordinate `r = A / A_yield ∈ [0,1]`; the saturation kernel `S(r) = √(1 − r²)` (so `S=1` at `r=0`, `S=0` at `r=1`). The boundaries below are **grounded in `src/ave/core/regime_map.py`** (verify-before-cite — NOT invented):
+
+- **Regime I — linear / sub-yield** (`r < r1 = √(2α) ≈ 0.1208`, `regime_map.py:68`). `S → 1`; all sector exponents collapse to `c/c₀ = 1`; the nonlinear correction `ΔS ≈ r²/2` is sub-α (unresolvable). Small-signal / DC-bias regime (EE: linearized `g_m`). **Rectification, asymmetric-grip, near-yield stiffening are ABSENT here by construction** — a null is expected, not informative.
+- **Regime II — near-yield** (`r1 < r < r2 = √3/2 ≈ 0.8660`, `regime_map.py:69`). The cage stiffens (`c_eff → ∞` as `r → r_yield`); the sector exponents fan out monotonically. **This is the ONLY regime where rectification + asymmetric-grip live** (large-signal / switching, saturation onset; EE: Miller multiplication onset). A bulk near-yield compression cycle is the regime the L3 mass-cage actually exercises.
+- **Regime III–IV — rupture** (`r ≥ r2`; `r3 = 1.0` exact at `regime_map.py:70`). `S → 0`; the binding wall reaches `Γ = −1` (the saturated short); the avalanche factor `M = 1/S²` (Op22 canonical, A43-v11 — NOT doc-81's `1/(1−S)`) `→ ∞`; topology destroyed at `r=1`. EE: junction breakdown, `M → ∞`. The Op-tier black-hole operating point is a Regime-IV instance.
+
+**MODE × REGIME grid (can-this-effect-exist-here).** Three substrate MODES × four regimes. `✓` = the effect can exist + is meaningful to test; `lin` = present but linear/degenerate (the distinguishing constitutive is dormant); `—` = absent-by-construction (a null here is an artifact, not a falsification):
+
+| MODE \ REGIME | I (linear) | II (near-yield) | III (avalanche) | IV (rupture) |
+|---|---|---|---|---|
+| **EM-transverse** (`c_EM = c₀/S`) | lin (`c≈c₀`) | ✓ index bends, achromatic SYM lens | ✓ high-Z wall builds | ✓ `Z → ∞` |
+| **shear** (`c_shear = c₀√S`) | lin (`c≈c₀`) | ✓ `c_shear` freezes (mass-clock) | ✓ `Γ_shear → −1` | ✓ `c_shear → 0` |
+| **bulk** (`c_bulk = √(K/ρ)`, `K=2G`) | lin (`c≈√2·c₀`) | ✓ rectification + asym-grip ONLY here | ✓ cavitation onset | ✓ `Γ = −1` short, avalanche `M=1/S²` |
+
+**Standing guard (load-bearing):** *a null where the effect cannot exist in that regime is an ARTIFACT, not a falsification.* Before freezing any layer's bins, name the MODE, the REGIME, and the PHASE-STATE; if the pre-registered effect lives only in Regime II/III–IV, a Regime-I run cannot falsify it (it can only confirm the dormancy). This is the dark-wake correction made first-class.
+
+**Regime-coverage map (tested vs gap, as of the 2026-06-17 L0–L2 + Op-tier arc):**
+- **Tested — Regime I (linear/sub-yield):** L0-medium, L0-axioms (A1a/A1b/A2/A3b; A4 sweeps the kernel as a constitutive identity across operating points but the *downstream* modes run linear), L1 (all free modes, `S=1`), L2 (operating-point `A₀` modulation — the EM-transverse index does bend, but the SYM/ASYM contrast is the Regime-II-edge it reaches).
+- **Tested — Regime IV (rupture) instance:** the Op-tier black-hole operating point (`test_operators.py`, `r ≥ 1 → S = 0`) — but as a **closed-form Op kernel evaluation**, not a time-domain bulk integrator (no detonation risk; CP10).
+- **GAP — the load-bearing cells:** Regime-II **bulk** rectification + asymmetric-grip (the L3 mass-cage near-yield compression cycle) and the Regime-III–IV **bulk** `Γ=−1` short (T3.3, the make-or-break chord-decider) are entirely UNTESTED. The cavity/resonance/conserved-vs-pumped skill cluster (§8.5) is correctly dormant in the linear L0–L2 rungs and becomes first-class exactly at these Regime-II/III–IV bulk cells.
+
 ## §3 — Key decisions for Grant (the orchestration choices)
 
 - **D-A (grid):** build on the **chiral srs grid from L0** (chirality native), not K4-then-retrofit. The srs grid (v9) is "transverse-only / frozen" — so L0–L1 may run on it largely as-is; the build is *adding the longitudinal+cage (L3)* and the *winding dynamics (L4)* to it. RECOMMEND: yes, srs from L0.
@@ -167,6 +192,7 @@ The **0.92 → 1.6e-13** figure is the investigation's *monkeypatched* copy-firs
 **Ch17 rows to ADD (this arc's lessons):** (1) chiral-rotation must be unitary (no view-aliasing) + losslessness gate must run rotation-ON; (2) chirality/charge on the chiral srs grid, not achiral K4; (3) propagation tests use a localized one-way packet, not a Bloch standing wave; (4) use c_EM=c₀/S for the transverse photon — do NOT import the A1 1/S varactor as the EM index; (5) the keystone conserved-coupling confirmation.
 
 **STANDING PER-LAYER COMPLETION RITUAL** (run before each layer's PR):
+0. **DECLARE MODE + REGIME + PHASE-STATE before freezing the layer's tests** (`ave-regime-phase-state-check` first-class). For each test, name (a) the MODE (EM-transverse / shear / bulk), (b) the REGIME per §2.6 (I linear · II near-yield · III avalanche · IV rupture), and (c) the PHASE-STATE (saturation ON/OFF, seeded/cold). Cross-check the §2.6 MODE×REGIME grid: if the pre-registered effect cannot exist in the declared regime (e.g. rectification / asymmetric-grip outside Regime II–IV), a null is an ARTIFACT, not a falsification — re-scope the test or the regime BEFORE freezing the bins (the dark-wake lesson). Record the declaration in the §9 Regime column + the test docstring.
 1. tests green (frozen pre-registered bins; tag each axiom-compliance/emergent/consistency/chord);
 1.5. **MAP-TO-SPINE** — wire each green test into the KB claim-DAG as a derivation-support node (KB = source of truth). For each test in the layer:
    1. grep the corpus for the clm-/def- id(s) the test bears on (per `verify-before-cite` + `ave-prereg` corpus-grep) — the §9 Spine column is the human-readable index of these;
@@ -209,43 +235,43 @@ Per `feedback_skill_selection_planning`: write a **60-sec skill-selection plan B
 
 ## §9 — COMPLETENESS MATRIX (LIVE CHECKLIST)
 
-**This is the single live tracker.** Status updated per the §8 completion ritual (a row flips to ✅ only after: tests green + figures + Vol 9 leaf/Ch17 row + engine-map flip + `make vol9` clean). Legend: ✅ built-green (positive: a mode/value confirmed PRESENT) · ⊘ absence-finding (the test PASSES iff a DOF/mode is confirmed ABSENT — an honest gap-record, NOT a positive; inverted-regression semantics) · 🔧 fix-pending · ⬜ GAP (not built) · 🚩 frontier (gated on Grant). Tag = axiom-compliance / emergent / consistency / chord / finding (DOF-absence).
+**This is the single live tracker.** Status updated per the §8 completion ritual (a row flips to ✅ only after: tests green + figures + Vol 9 leaf/Ch17 row + engine-map flip + `make vol9` clean). Legend: ✅ built-green (positive: a mode/value confirmed PRESENT) · ⊘ absence-finding (the test PASSES iff a DOF/mode is confirmed ABSENT — an honest gap-record, NOT a positive; inverted-regression semantics) · 🔧 fix-pending · ⬜ GAP (not built) · 🚩 frontier (gated on Grant). Tag = axiom-compliance / emergent / consistency / chord / finding (DOF-absence). **Regime column (§2.6, KEEP-BOTH):** the strain/yield regime each test operates in — I linear/sub-yield · II near-yield · III avalanche · IV rupture; the built L0–L2 rungs are Regime I (L2 reaches the Regime-II operating-point/SYM-bias edge), the Op-tier is a Regime-IV instance, and the L3–L5 GAP rows are tagged with the regime they WILL exercise (the standing guard: a null where the effect cannot exist in that regime is an ARTIFACT, not a falsification).
 
-| Layer | Test | Tag | Characteristic / DOF | Vol 9 | Spine (clm-/def- backing) | Status |
-|---|---|---|---|---|---|---|
-| **L0-medium** | T0.1 energy/unitary-scatter | axiom (Ax3 lossless) | medium unitarity | Ch4/Ch3 | clm-hd9bee | ✅ |
-| L0-medium | T0.2 Z₀=√(μ₀/ε₀) | axiom (Ax1 LC identity) | port impedance | Ch4 | — (medium-validity, no clm-) | ✅ |
-| L0-medium | T0.3 isotropy | consistency | medium validity | Ch4/Ch9 | — (medium-validity, no clm-) | ✅ |
-| **L0-axioms** | A1a 6-DOF/node + I4₁32 connectivity | axiom (Ax1 topology) | 6 DOF, chiral grid | Ch1/Ch3/Ch11 | — (medium-validity, no clm-) | ✅ (DOF finding) |
-| L0-axioms | A1b chirality lossless (rotation ON) | axiom (Ax1 chirality) | optical-activity DOF | Ch1/Ch11 | def-7c3f9e | ✅ (sup-zf5d1t; .copy() fix applied) |
-| L0-axioms | A2 TKI [Q]≡[L], ξ_topo, dislocation | axiom (Ax2) | charge=geometry | Ch4/Ch11 | clm-dfaiwj | ✅ (sup-u7r3vu) |
-| L0-axioms | A3b \|Γ\|²-minimization (matched→Γ→0) | axiom (Ax3 min-refl) | min-reflection | Ch3 | clm-8nkvwy | ✅ (sup-l2ah0k) |
-| L0-axioms | A4 saturation kernel S(A) verified | axiom (Ax4) | saturation | Ch7/Ch14 | clm-gz7ryg; clm-8nkvwy | ✅ (sup-2qja9z) |
-| **L1 free modes** | T1.1 transverse-EM (photon) lossless | consistency | photon, c_EM | Ch5/Ch4 | clm-3npynp; clm-djpx2v | ✅ (hardened) |
-| L1 free modes | T1.2 dispersionless band ω=ck | consistency | photon dispersion | Ch5 | clm-djpx2v | ✅ |
-| L1 free modes | T1.3 transversality (2-pol, no leak) | consistency | 2 transverse DOF | Ch3 | clm-3npynp; clm-j550uh | ✅ |
-| L1 free modes | T1.4 causality / front-speed | consistency | no superluminal | Ch4 | clm-yr6tu4 | ✅ |
-| L1 free modes | T1.5 optical-activity (chiral channel) | consistency-gate (post-fix) | optical activity | Ch5/Ch10/Ch11 | def-7c3f9e; def-0pt1ac | ✅ (sup-w6tjvs; .copy() fix applied) |
-| L1 free modes | T1.6 transverse-SHEAR wave (c_shear=c₀√S) | consistency | shear mode | Ch5/Ch9 | clm-crbl60; clm-8nkvwy | ✅ (sup-oicgzy; constitutive gap REPORTED) |
-| L1 free modes | T1.7 longitudinal-BULK wave (the "3") | finding (DOF-absence) | bulk mode, c_bulk | Ch5/Ch9 | finding (no positive clm-); precursor clm-iouqn9, clm-crbl60 | ⊘ (absence-finding: mode NOT carried = L3 gap) |
-| L1 free modes | T1.8 Cosserat micro-rotation wave (gapped) | finding (DOF-absence) | micro-rotation mode | Ch5/Ch10 | finding (no positive clm-); precursor clm-3npynp; def-0pt1ac | ⊘ (absence-finding: mode NOT carried = L4 gap) |
-| **L2 EM-in-media** | T2.1 refractive index c_EM=c₀/S | consistency (Op14) | operating-point | Ch5/Ch7 | clm-8nkvwy | ✅ |
-| L2 EM-in-media | T2.2 achromatic lensing | consistency-of-mechanism | SYM gradient (gravity) | Ch12/Ch5 | clm-k9up5c; clm-07kd5v | ✅ |
-| L2 EM-in-media | T2.3 asymmetric mirror Γ≠0 | consistency | Meissner-asym | Ch3/Ch7 | clm-8nkvwy; clm-5s5b0d | ✅ |
-| L2 EM-in-media | T2.4 α-invariance under SYM | consistency (clm-3zz0f6) | α-invariance | Ch5/Ch12 | clm-3zz0f6; clm-8nkvwy | ✅ |
-| **L3 mass-cage** | T3.1 longitudinal-mode-is-real | chord (vs QED) | A1 bulk DOF | Ch9/Ch4 | clm-crbl60 (precursor) | ⬜ |
-| L3 mass-cage | T3.2 c_eff(V) stiffening →∞ | emergent (Ax4) | mass-cage | Ch8/Ch14 | clm-gz7ryg (precursor) | ⬜ |
-| L3 mass-cage | T3.3 binding-wall Γ=−1 (make-or-break) | chord | Γ=−1 TIR wall | Ch3/Ch2 | clm-rtdmsn; clm-lv3uw1 (precursor) | ⬜ ⭐ |
-| L3 mass-cage | T3.4 mass = cutoff freq ω₀ | emergent | mass observable | Ch2/Ch9 | clm-ka5zdx (precursor) | ⬜ |
-| **L4 charge/winding** | T4.1 (2,q) winding forms/persists | consistency-of-existence | winding DOF | Ch11 | clm-unk0bd; clm-8c3yhs (precursor) | ⬜ |
-| L4 charge/winding | T4.2 charge = integer winding ±1 | chord (unfakeable int) | charge | Ch11/Ch10 | clm-67jn9o; def-3638f2 (precursor) | ⬜ ⭐ |
-| L4 charge/winding | T4.3 handedness e⁻/e⁺ | chord (candidate-c) | charge sign | Ch11/Ch10 | clm-h9aqmt; def-h3l1c7 (precursor) | ⬜ (→fork c) |
-| **L5 coupling/genesis** | T5.1 coupling conserves energy (keystone, unified) | consistency (Ax3) | mode-conversion | Ch17 | clm-pf84ng (precursor) | ⬜ |
-| L5 coupling/genesis | T5.2 electron self-assembles (no plant) | chord (genesis) | mass+charge co-emerge | Ch11 | clm-8zpicx (precursor; sol 0.40 DO-NOT-BUILD) | ⬜ |
-| L5 coupling/genesis | T5.3 forced m_μ/m_e from (2,q) | chord (THE decider) | forced mass ratio | Ch11/Ch13 | clm-zw6mut; clm-c54kdd (precursor) | ⬜ ⭐ |
-| **L6+ frontier** | constitutive-loop / remanence (R10) | — | DOF (7-of-7) | Ch10 | — (medium-validity, no clm-) | 🚩 (fork b) |
-| L6+ frontier | boost-covariance (Lorentz) | — | DOF (7-of-7) | — | clm-yr6tu4 (precursor) | 🚩 (fork b) |
-| L6+ frontier | node-creation (pair production) | — | DOF / genesis | Ch8 | — (medium-validity, no clm-) | 🚩 (fork a) |
+| Layer | Test | Tag | Characteristic / DOF | Vol 9 | Spine (clm-/def- backing) | Regime (§2.6) | Status |
+|---|---|---|---|---|---|---|---|
+| **L0-medium** | T0.1 energy/unitary-scatter | axiom (Ax3 lossless) | medium unitarity | Ch4/Ch3 | clm-hd9bee | I (linear) | ✅ |
+| L0-medium | T0.2 Z₀=√(μ₀/ε₀) | axiom (Ax1 LC identity) | port impedance | Ch4 | — (medium-validity, no clm-) | I (linear) | ✅ |
+| L0-medium | T0.3 isotropy | consistency | medium validity | Ch4/Ch9 | — (medium-validity, no clm-) | I (linear) | ✅ |
+| **L0-axioms** | A1a 6-DOF/node + I4₁32 connectivity | axiom (Ax1 topology) | 6 DOF, chiral grid | Ch1/Ch3/Ch11 | — (medium-validity, no clm-) | I (structural) | ✅ (DOF finding) |
+| L0-axioms | A1b chirality lossless (rotation ON) | axiom (Ax1 chirality) | optical-activity DOF | Ch1/Ch11 | def-7c3f9e | I (linear) | ✅ (sup-zf5d1t; .copy() fix applied) |
+| L0-axioms | A2 TKI [Q]≡[L], ξ_topo, dislocation | axiom (Ax2) | charge=geometry | Ch4/Ch11 | clm-dfaiwj | I (identity) | ✅ (sup-u7r3vu) |
+| L0-axioms | A3b \|Γ\|²-minimization (matched→Γ→0) | axiom (Ax3 min-refl) | min-reflection | Ch3 | clm-8nkvwy | I (linear) | ✅ (sup-l2ah0k) |
+| L0-axioms | A4 saturation kernel S(A) verified | axiom (Ax4) | saturation | Ch7/Ch14 | clm-gz7ryg; clm-8nkvwy | I→IV (kernel sweep) | ✅ (sup-2qja9z) |
+| **L1 free modes** | T1.1 transverse-EM (photon) lossless | consistency | photon, c_EM | Ch5/Ch4 | clm-3npynp; clm-djpx2v | I (linear) | ✅ (hardened) |
+| L1 free modes | T1.2 dispersionless band ω=ck | consistency | photon dispersion | Ch5 | clm-djpx2v | I (linear) | ✅ |
+| L1 free modes | T1.3 transversality (2-pol, no leak) | consistency | 2 transverse DOF | Ch3 | clm-3npynp; clm-j550uh | I (linear) | ✅ |
+| L1 free modes | T1.4 causality / front-speed | consistency | no superluminal | Ch4 | clm-yr6tu4 | I (linear) | ✅ |
+| L1 free modes | T1.5 optical-activity (chiral channel) | consistency-gate (post-fix) | optical activity | Ch5/Ch10/Ch11 | def-7c3f9e; def-0pt1ac | I (linear) | ✅ (sup-w6tjvs; .copy() fix applied) |
+| L1 free modes | T1.6 transverse-SHEAR wave (c_shear=c₀√S) | consistency | shear mode | Ch5/Ch9 | clm-crbl60; clm-8nkvwy | I (linear; c_shear dormant) | ✅ (sup-oicgzy; constitutive gap REPORTED) |
+| L1 free modes | T1.7 longitudinal-BULK wave (the "3") | finding (DOF-absence) | bulk mode, c_bulk | Ch5/Ch9 | finding (no positive clm-); precursor clm-iouqn9, clm-crbl60 | I (linear; DOF absent) | ⊘ (absence-finding: mode NOT carried = L3 gap) |
+| L1 free modes | T1.8 Cosserat micro-rotation wave (gapped) | finding (DOF-absence) | micro-rotation mode | Ch5/Ch10 | finding (no positive clm-); precursor clm-3npynp; def-0pt1ac | I (linear; DOF absent) | ⊘ (absence-finding: mode NOT carried = L4 gap) |
+| **L2 EM-in-media** | T2.1 refractive index c_EM=c₀/S | consistency (Op14) | operating-point | Ch5/Ch7 | clm-8nkvwy | II (operating-point A₀) | ✅ |
+| L2 EM-in-media | T2.2 achromatic lensing | consistency-of-mechanism | SYM gradient (gravity) | Ch12/Ch5 | clm-k9up5c; clm-07kd5v | II (SYM bias) | ✅ |
+| L2 EM-in-media | T2.3 asymmetric mirror Γ≠0 | consistency | Meissner-asym | Ch3/Ch7 | clm-8nkvwy; clm-5s5b0d | II (ASYM bias) | ✅ |
+| L2 EM-in-media | T2.4 α-invariance under SYM | consistency (clm-3zz0f6) | α-invariance | Ch5/Ch12 | clm-3zz0f6; clm-8nkvwy | II (SYM scaling) | ✅ |
+| **L3 mass-cage** | T3.1 longitudinal-mode-is-real | chord (vs QED) | A1 bulk DOF | Ch9/Ch4 | clm-crbl60 (precursor) | I→II (bulk) | ⬜ |
+| L3 mass-cage | T3.2 c_eff(V) stiffening →∞ | emergent (Ax4) | mass-cage | Ch8/Ch14 | clm-gz7ryg (precursor) | II (near-yield) | ⬜ |
+| L3 mass-cage | T3.3 binding-wall Γ=−1 (make-or-break) | chord | Γ=−1 TIR wall | Ch3/Ch2 | clm-rtdmsn; clm-lv3uw1 (precursor) | III–IV (rupture, Γ=−1) | ⬜ ⭐ |
+| L3 mass-cage | T3.4 mass = cutoff freq ω₀ | emergent | mass observable | Ch2/Ch9 | clm-ka5zdx (precursor) | II→III (near-yield→trap) | ⬜ |
+| **L4 charge/winding** | T4.1 (2,q) winding forms/persists | consistency-of-existence | winding DOF | Ch11 | clm-unk0bd; clm-8c3yhs (precursor) | II–III (near-yield buckle) | ⬜ |
+| L4 charge/winding | T4.2 charge = integer winding ±1 | chord (unfakeable int) | charge | Ch11/Ch10 | clm-67jn9o; def-3638f2 (precursor) | III (hardened wall) | ⬜ ⭐ |
+| L4 charge/winding | T4.3 handedness e⁻/e⁺ | chord (candidate-c) | charge sign | Ch11/Ch10 | clm-h9aqmt; def-h3l1c7 (precursor) | III (hardened wall) | ⬜ (→fork c) |
+| **L5 coupling/genesis** | T5.1 coupling conserves energy (keystone, unified) | consistency (Ax3) | mode-conversion | Ch17 | clm-pf84ng (precursor) | II (near-yield lock) | ⬜ |
+| L5 coupling/genesis | T5.2 electron self-assembles (no plant) | chord (genesis) | mass+charge co-emerge | Ch11 | clm-8zpicx (precursor; sol 0.40 DO-NOT-BUILD) | II→III (genesis cycle) | ⬜ |
+| L5 coupling/genesis | T5.3 forced m_μ/m_e from (2,q) | chord (THE decider) | forced mass ratio | Ch11/Ch13 | clm-zw6mut; clm-c54kdd (precursor) | III (family spectrum) | ⬜ ⭐ |
+| **L6+ frontier** | constitutive-loop / remanence (R10) | — | DOF (7-of-7) | Ch10 | — (medium-validity, no clm-) | II (hysteresis loop) | 🚩 (fork b) |
+| L6+ frontier | boost-covariance (Lorentz) | — | DOF (7-of-7) | — | clm-yr6tu4 (precursor) | I (linear) | 🚩 (fork b) |
+| L6+ frontier | node-creation (pair production) | — | DOF / genesis | Ch8 | — (medium-validity, no clm-) | IV (rupture) | 🚩 (fork a) |
 
 > **Spine cell = theoretical backing (clm-/def-).** The sup-\<id\> that materializes each test as a derivation-support node is minted at completion-ritual time (see §8 step 1.5), not here.
 
