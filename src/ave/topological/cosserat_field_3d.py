@@ -787,7 +787,17 @@ class CosseratField3D:
         impedance_implicit: bool = False,
         impedance_cfl_safety: float = 0.4,
         impedance_unitary: bool = False,
+        project_alive: bool = True,
     ):
+        # project_alive (default True = byte-identical legacy): when False, the
+        # mid-Verlet alive-mask projections (_zero_outside_alive /
+        # _zero_velocities_outside_alive) become no-ops. The keystone
+        # bug-vs-substrate discriminator's RUNG-0 (projection OFF) vs RUNG-1
+        # (projection ON) isolates whether the mid-Verlet mask projection pumps
+        # the conserved H (prereg: 2026-06-16_keystone-discriminator-ladder-prereg.md).
+        # Default True so EVERY existing caller (every other engine + test) is
+        # unchanged; only the ladder driver sets it False for RUNG-0.
+        self.project_alive = bool(project_alive)
         self.nx = nx
         self.ny = ny
         self.nz = nz
@@ -1204,6 +1214,8 @@ class CosseratField3D:
         )
 
     def _zero_outside_alive(self) -> None:
+        if not self.project_alive:
+            return  # keystone RUNG-0: mid-Verlet projection OFF (no-op)
         mask = self.mask_alive[..., None].astype(self.u.dtype)
         self.u = self.u * mask
         self.omega = self.omega * mask
@@ -1603,6 +1615,8 @@ class CosseratField3D:
         pml_thickness=0 this is a pure mask_alive zero-out (legacy behavior).
         Per doc 58_ Cosserat PML derivation.
         """
+        if not self.project_alive:
+            return  # keystone RUNG-0: mid-Verlet velocity projection OFF (no-op)
         mask = self.mask_alive[..., None].astype(self.u_dot.dtype)
         combined = mask * self.cos_pml_mask.astype(self.u_dot.dtype)
         self.u_dot = self.u_dot * combined

@@ -98,6 +98,7 @@ class A1CosseratConvergenceEngine:
         front_width: float = 0.18,
         couple_on: bool = True,
         coupling_support: str = "front",
+        project_alive: bool = True,
     ):
         """
         Args (Sector A inherits MasterEquationFDTD's; new ones are coupling):
@@ -127,6 +128,10 @@ class A1CosseratConvergenceEngine:
             raise ValueError("coupling_support must be 'front' or 'saturated_interior'")
         self.coupling_support = coupling_support
         self.pml_thickness = int(pml_thickness)
+        # project_alive (default True = legacy): forwarded to Sector B so the
+        # keystone discriminator's RUNG-0 can turn the mid-Verlet alive-mask
+        # projection OFF (prereg: 2026-06-16_keystone-discriminator-ladder-prereg.md).
+        self.project_alive = bool(project_alive)
 
         # Branch-speed tie (α-free, geometric): the bulk c_L and the transverse
         # Cosserat shear speed relate by ν_vac=2/7 at K=2G (c_L²/c_T²=10/3).
@@ -153,6 +158,7 @@ class A1CosseratConvergenceEngine:
         self.B = CosseratField3D(
             self.N, self.N, self.N, dx=self.dx,
             use_saturation=True, pml_thickness=self.pml_thickness,
+            project_alive=self.project_alive,
         )
         # Sub-cycle the Cosserat sector if its CFL is tighter than the bulk dt
         # (the two-grid temporal reconciliation: each grid integrated stably).
@@ -305,6 +311,63 @@ class A1CosseratConvergenceEngine:
         self.A.step()
         self.time += self.A.dt
         self.step_count += 1
+
+    # ══════════════════════════════════════════════════════════════════════
+    # CLOSED-INTERIOR-BOX H-WITNESS (the keystone discriminator's B_int)
+    # ══════════════════════════════════════════════════════════════════════
+    # H = E_bulk + H_cosserat + H_c summed ONLY over a closed box B_int that
+    # sits strictly inside mask_alive with a guard band, so NO roll/wall/PML
+    # cell can influence any B_int cell within the recording window. The density
+    # formulas are byte-identical to bulk_energy_conserved / kinetic_energy +
+    # total_energy / _coupling_energy — only the summation region changes (no new
+    # physics in the witness). Prereg: 2026-06-16_keystone-discriminator-ladder-prereg.md §1.
+    def make_box_mask(self, center, half_extent: int) -> np.ndarray:
+        """A closed cubic box mask B_int = [c−h, c+h]³ (cell-inclusive). Used as
+        the H-witness summation region. Does NOT touch the dynamics."""
+        cx, cy, cz = (int(round(c)) for c in center)
+        h = int(half_extent)
+        m = np.zeros((self.N, self.N, self.N), dtype=bool)
+        lo_x, hi_x = max(0, cx - h), min(self.N, cx + h + 1)
+        lo_y, hi_y = max(0, cy - h), min(self.N, cy + h + 1)
+        lo_z, hi_z = max(0, cz - h), min(self.N, cz + h + 1)
+        m[lo_x:hi_x, lo_y:hi_y, lo_z:hi_z] = True
+        return m
+
+    def bulk_energy_conserved_box(self, box) -> float:
+        """E_bulk over B_int — same variable-coefficient conserved density as
+        bulk_energy_conserved, summed only over the box (NOT _interior)."""
+        pV = (self.A.V - self.A.V_prev) / self.A.dt
+        c_eff_sq = self.A.c_eff_squared(self.A.V)
+        gx, gy, gz = np.gradient(self.A.V, self.dx)
+        dens = 0.5 * pV**2 / np.maximum(c_eff_sq, 1e-30) + 0.5 * (gx**2 + gy**2 + gz**2)
+        return float((dens * box).sum())
+
+    def cosserat_energy_box(self, box) -> float:
+        """H_cosserat over B_int — kinetic (½ρ|u̇|² + ½I_ω|ω̇|²) + potential
+        (energy_density) summed only over the box. Same densities the
+        CosseratField3D total_hamiltonian uses; box-restricted."""
+        B = self.B
+        K_u = 0.5 * B.rho * np.sum((np.asarray(B.u_dot) ** 2).sum(axis=-1) * box)
+        K_w = 0.5 * B.I_omega * np.sum((np.asarray(B.omega_dot) ** 2).sum(axis=-1) * box)
+        V_pot = float((B.energy_density() * box).sum())
+        return float(K_u + K_w) + V_pot
+
+    def coupling_energy_box(self, box) -> float:
+        """H_c = κ̃∫g·V·Ξ over B_int — same tetrahedral-curl density as
+        _coupling_energy, summed only over the box."""
+        g = self._front_window()
+        Xi = self._cosserat_axial_curl_tet()
+        return float((self.kappa_tilde * g * self.A.V * Xi * box).sum())
+
+    def H_witness_box(self, box) -> dict:
+        """The closed-box conserved witness H = E_bulk + H_cosserat + H_c over
+        B_int, with its three components broken out (so the result doc can report
+        which component carries any drift). PML-excluded by box construction."""
+        E_bulk = self.bulk_energy_conserved_box(box)
+        H_cos = self.cosserat_energy_box(box)
+        H_c = self.coupling_energy_box(box)
+        return {"H": E_bulk + H_cos + H_c, "E_bulk": E_bulk,
+                "H_cosserat": H_cos, "H_c": H_c}
 
     # ══════════════════════════════════════════════════════════════════════
     # SHARED-FRONT COUPLING — the two-grid reconciliation (Layer (b))

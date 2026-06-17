@@ -135,6 +135,7 @@ class A1CosseratMovingWallEngine(A1CosseratConvergenceEngine):
         # ── amendment-4: K4-TLM UNITARY-SCATTER wall (energy-honest, |ω|-bounded)
         #    vs the harmonic node-clamp (no |ω| ceiling — confines AND pumps) ──
         impedance_unitary: bool = True,
+        project_alive: bool = True,
     ):
         # Build the parent (Sector A cage + Sector B Cosserat + coupling). The
         # parent constructs self.B as a plain CosseratField3D; we REPLACE it with
@@ -144,6 +145,7 @@ class A1CosseratMovingWallEngine(A1CosseratConvergenceEngine):
             pml_thickness=pml_thickness, A_cap=A_cap, S_min=S_min,
             kappa_tilde=kappa_tilde, front_width=front_width,
             couple_on=couple_on, coupling_support=coupling_support,
+            project_alive=project_alive,
         )
         if front_center is not None:
             parent_kwargs["front_center"] = front_center
@@ -165,6 +167,7 @@ class A1CosseratMovingWallEngine(A1CosseratConvergenceEngine):
             impedance_implicit=True,                  # energy-conserving (§7-fixed) path
             impedance_cfl_safety=float(impedance_cfl_safety),
             impedance_unitary=self.impedance_unitary, # amendment-4 unitary scatter
+            project_alive=self.project_alive,         # keystone RUNG-0 projection toggle
         )
         # α-FREE ROUTING: bind the kappa_chiral=0 Γ field to THIS instance, so the
         # moving wall is driven by the geometric curvature saturation κ²/ω_yield²
