@@ -772,34 +772,63 @@ def universal_dynamic_impedance(
     Z_0: float | np.ndarray,
     S: float | np.ndarray,
     eps: float = EPS_NUMERICAL,
+    load: str = "electric",
 ) -> float | np.ndarray:
     """
     Operator 14: The Universal Dynamic Impedance (Z_eff)
 
     Transforms the linear characteristic impedance Z_0 into the dynamic
-    non-linear impedance of a strained medium. As the medium approaches
-    saturation (S -> 0), the effective impedance diverges towards infinity,
-    forming the Pauli exclusion wall (physical) or the token routing wall (virtual).
+    non-linear impedance of a strained medium.
 
-    Z_eff = Z_0 / sqrt(S)
+    ⚠ LOAD-TYPE GUARD (sign-lock w35sn2bq3, 2026-06-17, task #12) ⚠
+    Two OPPOSITE-SIGN Z conventions coexist in the engine and they reflect with
+    OPPOSITE Γ sign at |Γ|=1 — a single scalar S underdetermines which, so the
+    load type MUST be named at the call site:
+
+      * load="electric" (DEFAULT, the OPEN form — UNCHANGED legacy behavior):
+            Z_eff = Z_0 / √S  → ∞ as S → 0.
+        An ε-load (only ε strained, μ fixed): the impedance RISES, Γ = +1, the
+        OPEN-circuit anti-trap (token-routing wall / Pauli-exclusion wall in the
+        ε-sector). This is the historical Op14 form (universal_operators.py
+        prior default; scale_invariant.impedance_at_strain; cosserat_field_3d
+        :340-342).
+      * load="magnetic" (the SHORT form — the MATTER wall):
+            Z_eff = Z_0 · √S  → 0 as S → 0.
+        A μ-load (the magnetic μ-load matter convention): the impedance FALLS,
+        Γ = −1, the SHORT-circuit reflective wall (the electron's confinement
+        short). This is the canonical live wall form Z_eff = Z_0·√(S_μ/S_ε) with
+        S_ε = 1 (cosserat_field_3d.py:500,1647-1648; crystal_engine.gamma_bulk).
+
+    THE GUARD'S PURPOSE: a future matter-wall import must NOT silently grab the
+    OPEN form (the default) and build a Γ=+1 anti-trap where it intends a Γ=−1
+    short. Pass load="magnetic" for the matter/μ-load short. The string is
+    asserted; a typo raises rather than silently returning the wrong-sign wall.
 
     Args:
         Z_0: Linear characteristic base impedance (scalar or array)
         S: The saturation factor from universal_saturation, S in [0, 1]
         eps: Small numerical constant to prevent div-by-zero at complete yield
+        load: "electric" (ε-load, OPEN, Z_0/√S→∞, Γ=+1; DEFAULT) or
+              "magnetic" (μ-load, SHORT, Z_0·√S→0, Γ=−1, the matter wall).
 
     Returns:
-        Z_eff: The dynamic characteristic impedance
+        Z_eff: The dynamic characteristic impedance for the named load type.
     """
+    if load not in ("electric", "magnetic"):
+        raise ValueError(
+            f"universal_dynamic_impedance: load must be 'electric' (ε-load, OPEN, "
+            f"Z_0/√S→∞, Γ=+1) or 'magnetic' (μ-load, SHORT, Z_0·√S→0, Γ=−1, the "
+            f"matter wall); got {load!r}. Naming the load type prevents silently "
+            f"grabbing the wrong-sign wall at |Γ|=1 (sign-lock w35sn2bq3)."
+        )
     is_jax = _is_jax_array(S)
 
     if is_jax:
-
         S_safe = jnp.maximum(S, eps)
-        return Z_0 / jnp.sqrt(S_safe)
+        return Z_0 * jnp.sqrt(S_safe) if load == "magnetic" else Z_0 / jnp.sqrt(S_safe)
     else:
         S_safe = np.maximum(S, eps)
-        return Z_0 / np.sqrt(S_safe)
+        return Z_0 * np.sqrt(S_safe) if load == "magnetic" else Z_0 / np.sqrt(S_safe)
 
 
 def universal_virtual_strain(x: float | np.ndarray) -> float | np.ndarray:
