@@ -367,7 +367,140 @@ def _run_rung1(result, box):
 
 
 def _run_rung2(result, box, dt_base):
-    raise NotImplementedError("RUNG-2 — added next commit")
+    """RUNG-2: the actual bug-vs-substrate read. Coupling on, wall off, projection
+    on, supports FORCED to overlap (coupling_support='saturated_interior' so g
+    overlaps Ξ at the trap interior; the 'front' shell has disjoint support and
+    f_V≡0 = vacuous). A sub-yield bulk blob co-located with the ω-seed provides V.
+    Sweep dt→0 over the FROZEN grid; measure the H-climb RATE (dH/dt of the box
+    witness over the SAME physical window). Climb-rate → 0 as dt→0 ⇒
+    INTEGRATOR-ARTIFACT (bug). Climb-rate plateaus ⇒ SUBSTRATE-PUMP (keystone
+    leans negative). The dt→0 extrapolation is the decider (prereg §4: Richardson
+    + OLS-intercept cross-check; thresholds FROZEN)."""
+    print("\n[RUNG-2 +COUPLING FORCED-OVERLAP dt→0] coupling on, supports overlap "
+          "(saturated_interior), sub-yield bulk blob — sweep dt→0, measure the H-climb RATE")
+    # FROZEN dt grid: dt_base / 2^k, k = 0..N_DT−1.
+    dts = [dt_base / (2.0 ** k) for k in range(N_DT)]
+    sweep = []
+    for k, dt in enumerate(dts):
+        eng = _build_rung_engine(couple_on=True, wall_on=False, project_alive=True,
+                                 coupling_support="saturated_interior", with_bulk=True, dt=dt)
+        # confirm the coupling fires at this dt (overlap + f_V live).
+        fV, _ = eng._coupling_forces()
+        fV_max = float(np.abs(fV).max())
+        ov = int(eng.coupling_support_overlap()["overlap_cells_tetrahedral"])
+        tr = _record_box_H(eng, box, dt, coupled=True)
+        fl = _flatness(tr)
+        # COUPLE-OFF CONTROL (the decisive isolation): the SAME bulk+ω seed with the
+        # coupling switched OFF. If the box-H climbed from the bulk seed's own slow
+        # self-trap redistribution (NOT the cross-sector coupling), couple-OFF would
+        # climb identically. The climb-rate EXCESS (ON−OFF) is the pure coupling pump.
+        eng_off = _build_rung_engine(couple_on=False, wall_on=False, project_alive=True,
+                                     coupling_support="saturated_interior", with_bulk=True, dt=dt)
+        tr_off = _record_box_H(eng_off, box, dt, coupled=False)
+        rate_off = _flatness(tr_off)["climb_rate_abs"]
+        rate = fl["climb_rate_abs"]              # dH/dt over the physical window (coupling ON)
+        rate_excess = float(rate - rate_off)     # the pure coupling contribution
+        H0 = fl["H0"]
+        row = {"k": k, "dt": dt, "n_sub_cos": eng.n_sub_cos,
+               "H0": H0, "climb_rate_abs": rate,
+               "climb_rate_off_abs": rate_off, "climb_rate_excess_on_minus_off": rate_excess,
+               "climb_rate_frac_per_T": fl["climb_rate_frac_per_T"],
+               "peak_rise_frac": fl["peak_rise_frac"], "end_drift_frac": fl["end_drift_frac"],
+               "fV_max": fV_max, "overlap_cells": ov, "diverged": tr["diverged"],
+               "frac_in_box_end": tr["frac_in_box"][-1],
+               "omega_max_end": tr["omega_max"][-1], "omega_dot_max_end": tr["omega_dot_max"][-1],
+               "trace": tr}
+        sweep.append(row)
+        print(f"  k={k} dt={dt:.4e} (n_sub={eng.n_sub_cos}): rate_ON={rate:+.5e}  "
+              f"rate_OFF={rate_off:+.5e}  EXCESS={rate_excess:+.5e}  "
+              f"f_V={fV_max:.2e} overlap={ov}  |ω|max→{tr['omega_max'][-1]:.3e}  div={tr['diverged']}")
+
+    # ── dt→0 extrapolation (prereg §4) ── on the EXCESS (ON−OFF) climb-rate = the
+    #    pure coupling pump, isolated from the bulk seed's own (couple-OFF) dynamics.
+    dts_arr = np.array([r["dt"] for r in sweep])
+    rates = np.array([r["climb_rate_excess_on_minus_off"] for r in sweep])
+    rates_on = np.array([r["climb_rate_abs"] for r in sweep])
+    R0 = float(rates[0])
+    # Richardson (primary): from the two FINEST dt (k=N_DT−1, k=N_DT−2), linear-in-dt
+    # extrapolation to dt=0:  R∞ ≈ R_fine − (R_coarse − R_fine)·dt_fine/(dt_coarse − dt_fine).
+    dt_fine, dt_coarse = dts_arr[-1], dts_arr[-2]
+    R_fine, R_coarse = rates[-1], rates[-2]
+    if abs(dt_coarse - dt_fine) > 1e-30:
+        R_inf_rich = float(R_fine - (R_coarse - R_fine) * dt_fine / (dt_coarse - dt_fine))
+    else:
+        R_inf_rich = float(R_fine)
+    # OLS cross-check (secondary): intercept of rate-vs-dt line over all points.
+    if dts_arr.size >= 2:
+        A = np.vstack([dts_arr, np.ones_like(dts_arr)]).T
+        slope_ols, intercept_ols = np.linalg.lstsq(A, rates, rcond=None)[0]
+        R_inf_ols = float(intercept_ols)
+    else:
+        R_inf_ols = float(R_fine)
+    # the extrapolation uncertainty = spread between the two intercept estimates.
+    delta = abs(R_inf_rich - R_inf_ols)
+    R_inf = R_inf_rich                          # Richardson is primary
+    ratio_inf = abs(R_inf) / max(abs(R0), 1e-30)
+    # monotone-decreasing |R_k| in k (each halving cuts the rate)?
+    abs_rates = np.abs(rates)
+    monotone_decr = bool(np.all(np.diff(abs_rates) <= 1e-30 * max(abs(R0), 1e-30) + 1e-15) or
+                         np.all(np.diff(abs_rates) < 0))
+    # finest-two agreement (do the two finest dt agree on a finite plateau?)
+    finest_spread = abs(abs_rates[-1] - abs_rates[-2]) / max(abs_rates[-1], 1e-30)
+
+    # ── FROZEN decision (prereg §4) ──
+    THRESH = 0.10
+    agree_sign = bool(np.sign(R_inf_rich) == np.sign(R_inf_ols) or
+                      (abs(R_inf_rich) < 1e-12 and abs(R_inf_ols) < 1e-12))
+    ambiguous = bool(delta > abs(R_inf) and abs(R_inf) > 1e-12)
+    if ratio_inf < THRESH and monotone_decr:
+        bin_ = "INTEGRATOR-ARTIFACT"
+        reason = (f"RUNG-2 coupling H-climb-rate EXCESS (ON−OFF) → 0 as dt→0 (|R∞|/|R0|="
+                  f"{ratio_inf:.3e} < {THRESH}, |R_k| monotone-decreasing) — a fixable "
+                  f"integrator/coupling discretization artifact. The keystone stays OPEN (fix the "
+                  f"discrete coupling time-centering, re-test loop-closure).")
+    elif ratio_inf >= THRESH:
+        bin_ = "SUBSTRATE-PUMP"
+        reason = (f"RUNG-2 coupling H-climb-rate EXCESS (ON−OFF) PLATEAUS at a finite value as "
+                  f"dt→0 (|R∞|/|R0|={ratio_inf:.3e} ≥ {THRESH}; the continuum coupling pumps even "
+                  f"at dt→0, isolated from the couple-OFF bulk dynamics) — the keystone leans "
+                  f"NEGATIVE (a free precursor cannot losslessly close the energize-LOCK loop).")
+    else:
+        # ratio < THRESH but NOT monotone — ambiguous shrink pattern; report, do not force.
+        bin_ = "INTEGRATOR-ARTIFACT"
+        reason = (f"RUNG-2 coupling H-climb-rate EXCESS decreases toward 0 (|R∞|/|R0|="
+                  f"{ratio_inf:.3e} < {THRESH}) but the |R_k| sequence is non-monotone — leans "
+                  f"integrator-artifact; flagged for auditor re-check of the fit.")
+    if ambiguous:
+        reason += (f" ⚠ FIT-AMBIGUOUS: Richardson/OLS intercepts disagree by Δ={delta:.3e} "
+                   f"> |R∞|={abs(R_inf):.3e} — auditor must re-check the dt→0 fit.")
+
+    result["rung2"] = {
+        "config": "couple_on=True, wall_off, projection ON, coupling_support="
+                  "'saturated_interior' (FORCED-OVERLAP), sub-yield co-located bulk blob",
+        "dt_grid": dts,
+        "sweep": [{kk: vv for kk, vv in r.items() if kk != "trace"} for r in sweep],
+        "traces": {f"k{r['k']}": r["trace"] for r in sweep},
+        "climb_rates_excess_on_minus_off": rates.tolist(),
+        "climb_rates_on": rates_on.tolist(),
+        "decision_basis": "EXCESS (coupling ON − coupling OFF) climb-rate — isolates "
+                          "the pure cross-sector coupling pump from the bulk seed's own "
+                          "(couple-OFF) self-trap redistribution",
+        "R0": R0,
+        "dt_to_zero": {
+            "R_inf_richardson": R_inf_rich, "R_inf_ols": R_inf_ols,
+            "R_inf": R_inf, "ratio_R_inf_over_R0": ratio_inf,
+            "extrapolation_uncertainty_delta": delta,
+            "richardson_ols_sign_agree": agree_sign,
+            "abs_rates_monotone_decreasing": monotone_decr,
+            "finest_two_spread_frac": finest_spread,
+            "fit_ambiguous": ambiguous,
+        },
+        "threshold": THRESH,
+        "bin": bin_, "reason": reason,
+    }
+    print(f"  → dt→0: R0={R0:+.5e}  R∞(Rich)={R_inf_rich:+.5e}  R∞(OLS)={R_inf_ols:+.5e}  "
+          f"|R∞|/|R0|={ratio_inf:.3e}  Δ={delta:.3e}  monotone↓={monotone_decr}  sign-agree={agree_sign}")
+    print(f"  → RUNG-2 BIN: {bin_}")
 
 
 if __name__ == "__main__":
