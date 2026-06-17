@@ -349,14 +349,20 @@ def impedance_at_strain(
     clip: bool = True,
 ) -> float | np.ndarray:
     r"""
-    Local characteristic impedance under dielectric saturation.
+    Local characteristic impedance under dielectric saturation (ε-LOAD / OPEN).
 
     .. math::
         Z_{eff}(A) = \frac{Z_{base}}{(1 - (A/A_{yield})^2)^{1/4}}
 
-    As strain increases, impedance rises (the medium becomes opaque
+    As strain increases, impedance RISES (the medium becomes opaque
     to transverse waves).  At exact saturation the impedance formally
     diverges — but physically the lattice ruptures first.
+
+    LOAD-TYPE SCOPE (sign-lock w35sn2bq3, 2026-06-17): this is the ε-LOAD /
+    OPEN convention (Z↑→∞, Γ=+1). It is NOT the magnetic μ-load matter wall
+    (Z↓→0, Γ=−1). For the matter confinement short call
+    ``universal_dynamic_impedance(Z_base, S, load="magnetic")`` or
+    ``crystal_engine.gamma_bulk`` — do not reuse this ε-load form for a μ-load.
 
     Args:
         amplitude: Local strain amplitude.
@@ -365,12 +371,13 @@ def impedance_at_strain(
         clip: See ``saturation_factor``.
 
     Returns:
-        Local impedance [Ω].
+        Local impedance [Ω] (ε-load / OPEN sense).
     """
     from ave.core.universal_operators import universal_dynamic_impedance
 
     S = saturation_factor(amplitude, yield_limit, clip=clip)
-    return universal_dynamic_impedance(Z_base, S)
+    # explicit load type: this helper is the ε-load / OPEN form (Z↑, Γ=+1).
+    return universal_dynamic_impedance(Z_base, S, load="electric")
 
 
 # ────────────────────────────────────────────────────────────────────
