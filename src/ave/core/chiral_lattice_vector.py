@@ -3,7 +3,7 @@ Genesis v9 Phase-1 — vector-TLM on chiral / control lattice nets.
 
 Transverse 2-component field on each port. Scatter uses the same Op5 shunt matrix
 on both components (orthogonal, lossless). Optional per-node OPTICAL-ACTIVITY
-rotation (a transverse polarization-plane SO(2) twist, def-optical-activity;
+rotation (a transverse polarization-plane SO(2) twist, def-0pt1ac;
 gyrotropy) after scatter encodes lattice chirality via the Phase-0 ring-writhe
 sign (geometry only — no κ_chiral injection). This per-node twist is EXPLICITLY
 NOT the Cosserat micro-rotation = the (2,3) winding = charge (A1 ⊥ T2,
@@ -42,7 +42,7 @@ def vector_tlm_step(
     """One vector scatter+connect step. V_inc shape (N, degree, 2).
 
     `optical_activity` is a per-node polarization-plane SO(2) twist angle
-    (def-optical-activity / gyrotropy) — a TRANSVERSE-field observable, NOT the
+    (def-0pt1ac / gyrotropy) — a TRANSVERSE-field observable, NOT the
     Cosserat micro-rotation (= the (2,3) winding = charge). A1 ⊥ T2.
     """
     V_ref = np.einsum("ij,njk->nik", S, V_inc)
@@ -87,7 +87,7 @@ def energy_drift_vector(
 
 def _optical_activity_per_node(net: cl.LatticeNet) -> np.ndarray:
     """Per-node OPTICAL-ACTIVITY angle from global mean writhe (κ=0 geometry
-    channel). This is the gyrotropic polarization-plane twist (def-optical-activity),
+    channel). This is the gyrotropic polarization-plane twist (def-0pt1ac),
     NOT the Cosserat micro-rotation winding (charge). A1 ⊥ T2."""
     w, _, _, _ = cl.net_ring_writhe(net)
     return np.full(net.n_nodes, ETA_ROT_PER_WRITHE * w)
@@ -141,7 +141,7 @@ def measure_optical_activity(
 ) -> PolarizationRotationResult:
     """P2 observable: OPTICAL-ACTIVITY (gyrotropy) — polarization-plane angle
     change per step (dynamical vector-TLM). A transverse SO(2) observable
-    (def-optical-activity), NOT the Cosserat micro-rotation winding (charge)."""
+    (def-0pt1ac), NOT the Cosserat micro-rotation winding (charge)."""
     S = cl.scatter_matrix(net.degree)
     conn = net.connect_index()
     rot = _optical_activity_per_node(net) if chiral_rotation else None
