@@ -91,7 +91,7 @@ def record_axis_profile(
     """
     S = cl.scatter_matrix(net.degree)
     conn = net.connect_index()
-    rot = clv._rotation_per_node(net) if chiral_rotation else None
+    rot = clv._optical_activity_per_node(net) if chiral_rotation else None
 
     coord = net.pos[:, axis]
     # the srs lattice sits on a small number of discrete axis-planes; use them
@@ -129,7 +129,7 @@ def record_crosspol(
     """Per-step total energy in pol-0 vs pol-1 (the cross-pol leak trace)."""
     S = cl.scatter_matrix(net.degree)
     conn = net.connect_index()
-    rot = clv._rotation_per_node(net) if chiral_rotation else None
+    rot = clv._optical_activity_per_node(net) if chiral_rotation else None
     V = V0.copy()
     e0 = [float(np.sum(V[..., 0] ** 2))]
     e1 = [float(np.sum(V[..., 1] ** 2))]

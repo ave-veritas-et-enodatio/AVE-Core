@@ -82,7 +82,7 @@ def vector_tlm_step_sat(
 ) -> tuple[np.ndarray, dict]:
     """Scatter + optional geometry rotation + Op14/Op3 connect."""
     V_ref = np.einsum("ij,njk->nik", S, V_inc)
-    rot = clv._rotation_per_node(net) if chiral_rotation else None
+    rot = clv._optical_activity_per_node(net) if chiral_rotation else None
     if rot is not None:
         c = np.cos(rot)[:, None]
         s = np.sin(rot)[:, None]

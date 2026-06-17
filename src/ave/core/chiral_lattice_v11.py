@@ -116,7 +116,7 @@ def vector_tlm_step_v11(
         a2_old = a_old * a_old
 
     V_ref = np.einsum("ij,njk->nik", S, V)
-    rot = clv._rotation_per_node(net) if chiral_rotation else None
+    rot = clv._optical_activity_per_node(net) if chiral_rotation else None
     if rot is not None:
         c = np.cos(rot)[:, None]
         s = np.sin(rot)[:, None]

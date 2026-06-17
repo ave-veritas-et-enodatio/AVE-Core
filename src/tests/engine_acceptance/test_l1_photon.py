@@ -434,7 +434,7 @@ def test_t1_5_chiral_rotation_energy_conserving():
     drift_on = M.max_energy_drift(net, V.copy(), 1600, chiral_rotation=True)
 
     # angle observable: dθ/step must be preserved == geometric writhe
-    res = clv.measure_dynamical_rotation(net, n_steps=1600, chiral_rotation=True)
+    res = clv.measure_optical_activity(net, n_steps=1600, chiral_rotation=True)
     dtheta = res.dtheta_per_step
     writhe = res.writhe
     angle_err = abs(dtheta - writhe)
@@ -463,7 +463,7 @@ def test_t1_5_chiral_rotation_energy_conserving():
     if VZ.viz_enabled():
         S = cl.scatter_matrix(net.degree)
         conn = net.connect_index()
-        rot = clv._rotation_per_node(net)
+        rot = clv._optical_activity_per_node(net)
 
         # full per-step energy trace for OFF vs ON (re-seed identically each run)
         def _trace(use_rot):

@@ -2,9 +2,12 @@
 Genesis v9 Phase-1 — vector-TLM on chiral / control lattice nets.
 
 Transverse 2-component field on each port. Scatter uses the same Op5 shunt matrix
-on both components (orthogonal, lossless). Optional per-node polarization rotation
-after scatter encodes lattice chirality via the Phase-0 ring-writhe sign (geometry
-only — no κ_chiral injection).
+on both components (orthogonal, lossless). Optional per-node OPTICAL-ACTIVITY
+rotation (a transverse polarization-plane SO(2) twist, def-optical-activity;
+gyrotropy) after scatter encodes lattice chirality via the Phase-0 ring-writhe
+sign (geometry only — no κ_chiral injection). This per-node twist is EXPLICITLY
+NOT the Cosserat micro-rotation = the (2,3) winding = charge (A1 ⊥ T2,
+master-equation.md:20); the shared word "rotation" is the def-fenced collision.
 
 Pre-reg: research/2026-06-11_genesis-v9-phase1-prereg_FROZEN.md
 """
@@ -18,8 +21,9 @@ import numpy as np
 from ave.core import chiral_lattice as cl
 from ave.core import chiral_lattice_dynamics as cld
 
-# Rotation per scatter step = ETA * mean_ring_writhe (radians). Tagged engineering
-# choice: sets dynamical rotation rate scale for Phase-1 P2 (apparatus-floor).
+# Optical-activity rotation per scatter step = ETA * mean_ring_writhe (radians).
+# Tagged engineering choice: sets the optical-activity (gyrotropy) rate scale for
+# Phase-1 P2 (apparatus-floor). NOT a micro-rotation DOF.
 ETA_ROT_PER_WRITHE = 1.0
 
 
@@ -33,13 +37,18 @@ def vector_tlm_step(
     V_inc: np.ndarray,
     S: np.ndarray,
     conn: tuple[np.ndarray, np.ndarray],
-    rot_per_node: np.ndarray | None = None,
+    optical_activity: np.ndarray | None = None,
 ) -> np.ndarray:
-    """One vector scatter+connect step. V_inc shape (N, degree, 2)."""
+    """One vector scatter+connect step. V_inc shape (N, degree, 2).
+
+    `optical_activity` is a per-node polarization-plane SO(2) twist angle
+    (def-optical-activity / gyrotropy) — a TRANSVERSE-field observable, NOT the
+    Cosserat micro-rotation (= the (2,3) winding = charge). A1 ⊥ T2.
+    """
     V_ref = np.einsum("ij,njk->nik", S, V_inc)
-    if rot_per_node is not None:
-        c = np.cos(rot_per_node)[:, None]
-        s = np.sin(rot_per_node)[:, None]
+    if optical_activity is not None:
+        c = np.cos(optical_activity)[:, None]
+        s = np.sin(optical_activity)[:, None]
         # copy-first: V_ref[...,0]/[...,1] are VIEWS; without .copy() the first
         # in-place write mutates v0's backing store before the second read,
         # making the 2x2 rotation NON-orthogonal (breaks Axiom-3 losslessness).
@@ -63,7 +72,7 @@ def energy_drift_vector(
     """Max relative closed-system energy drift (P1 gate)."""
     S = cl.scatter_matrix(net.degree)
     conn = net.connect_index()
-    rot = _rotation_per_node(net) if chiral_rotation else None
+    rot = _optical_activity_per_node(net) if chiral_rotation else None
     if seed_node is None:
         seed_node = int(np.where(net.interior_mask)[0][0])
     V = np.zeros((net.n_nodes, net.degree, 2))
@@ -76,8 +85,10 @@ def energy_drift_vector(
     return drift
 
 
-def _rotation_per_node(net: cl.LatticeNet) -> np.ndarray:
-    """Per-node rotation angle from global mean writhe (κ=0 geometry channel)."""
+def _optical_activity_per_node(net: cl.LatticeNet) -> np.ndarray:
+    """Per-node OPTICAL-ACTIVITY angle from global mean writhe (κ=0 geometry
+    channel). This is the gyrotropic polarization-plane twist (def-optical-activity),
+    NOT the Cosserat micro-rotation winding (charge). A1 ⊥ T2."""
     w, _, _, _ = cl.net_ring_writhe(net)
     return np.full(net.n_nodes, ETA_ROT_PER_WRITHE * w)
 
@@ -122,16 +133,18 @@ class PolarizationRotationResult:
     n_steps: int
 
 
-def measure_dynamical_rotation(
+def measure_optical_activity(
     net: cl.LatticeNet,
     n_steps: int = 400,
     *,
     chiral_rotation: bool = True,
 ) -> PolarizationRotationResult:
-    """P2 observable: polarization angle change per step (dynamical vector-TLM)."""
+    """P2 observable: OPTICAL-ACTIVITY (gyrotropy) — polarization-plane angle
+    change per step (dynamical vector-TLM). A transverse SO(2) observable
+    (def-optical-activity), NOT the Cosserat micro-rotation winding (charge)."""
     S = cl.scatter_matrix(net.degree)
     conn = net.connect_index()
-    rot = _rotation_per_node(net) if chiral_rotation else None
+    rot = _optical_activity_per_node(net) if chiral_rotation else None
     V = launch_linear_packet(net)
     theta0 = mean_polarization_angle(V)
     thetas = [theta0]
@@ -173,7 +186,7 @@ def phase1_gates(L: int = 8, *, isotropy_steps: int = 600) -> dict:
     }
     out["P1_isotropy_pass"] = all(v < 0.02 for v in out["P1_isotropy"].values())
     # P2–P4 (chiral rotation from writhe, κ=0)
-    rot = {k: measure_dynamical_rotation(n) for k, n in nets.items()}
+    rot = {k: measure_optical_activity(n) for k, n in nets.items()}
     out["rotation"] = rot
     rR = rot["srs-R"].dtheta_per_step
     rL = rot["srs-L"].dtheta_per_step

@@ -80,7 +80,7 @@ def centroid_translation(
     """
     S = cl.scatter_matrix(net.degree)
     conn = net.connect_index()
-    rot = clv._rotation_per_node(net) if chiral_rotation else None
+    rot = clv._optical_activity_per_node(net) if chiral_rotation else None
     V = V0.copy()
     z0 = float(np.median(net.pos[net.interior_mask, axis]))
     anchor = energy_centroid_min_image(net, V, z0, axis=axis)
@@ -205,7 +205,7 @@ def run_steps(
     """
     S = cl.scatter_matrix(net.degree)
     conn = net.connect_index()
-    rot = clv._rotation_per_node(net) if chiral_rotation else None
+    rot = clv._optical_activity_per_node(net) if chiral_rotation else None
     snaps = [V.copy()] if record else None
     for _ in range(n_steps):
         V = clv.vector_tlm_step(net, V, S, conn, rot)
@@ -224,7 +224,7 @@ def max_energy_drift(
     """Max relative drift of the closed-system transverse energy over n_steps."""
     S = cl.scatter_matrix(net.degree)
     conn = net.connect_index()
-    rot = clv._rotation_per_node(net) if chiral_rotation else None
+    rot = clv._optical_activity_per_node(net) if chiral_rotation else None
     E0 = clv.vector_energy(V)
     drift = 0.0
     for _ in range(n_steps):

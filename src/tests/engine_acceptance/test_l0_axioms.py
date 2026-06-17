@@ -249,7 +249,7 @@ def test_a1b_axiom1_chirality_expressed_losslessly():
         net = cl.build_srs_net(8, hand)
         V = clv.launch_linear_packet(net, axis=2, pol_axis=0, width_frac=0.12)
         drift = M.max_energy_drift(net, V.copy(), 1600, chiral_rotation=True)
-        res = clv.measure_dynamical_rotation(net, n_steps=1600, chiral_rotation=True)
+        res = clv.measure_optical_activity(net, n_steps=1600, chiral_rotation=True)
         out[hand] = {
             "drift": drift,
             "dtheta": res.dtheta_per_step,
@@ -287,7 +287,7 @@ def test_a1b_axiom1_chirality_expressed_losslessly():
             net = cl.build_srs_net(8, hand)
             S = cl.scatter_matrix(net.degree)
             conn = net.connect_index()
-            rot = clv._rotation_per_node(net)
+            rot = clv._optical_activity_per_node(net)
             Vt = clv.launch_linear_packet(net, axis=2, pol_axis=0, width_frac=0.12)
             E0 = clv.vector_energy(Vt)
             ang = [clv.mean_polarization_angle(Vt)]

@@ -67,10 +67,12 @@ The srs engine has exactly TWO field representations (verified empirically):
   * vector_tlm_step : (N, degree, 2) — 2 TRANSVERSE components per port (the
                        photon). NO 3rd (bond-axial / longitudinal) component; NO
                        separate ω (micro-rotation) field.
-The `_rotation_per_node` channel is a per-node polarization ROTATION of the SAME
-transverse field (optical activity, A1b/T1.5), NOT a propagating micro-rotation
-DOF with its own gapped branch. There is NO saturation modulation in the free
-linear regime (S=1).
+The `_optical_activity_per_node` channel is a per-node polarization-plane SO(2)
+twist of the SAME transverse field (OPTICAL ACTIVITY / gyrotropy, A1b/T1.5;
+def-optical-activity), NOT a propagating Cosserat micro-rotation DOF with its own
+gapped branch (the def-fenced "rotation" collision: optical activity ⊥ the (2,3)
+winding = charge). There is NO saturation modulation in the free linear regime
+(S=1).
 
 CONSEQUENCE for the three new modes:
   T1.6 transverse-SHEAR    — the transverse 2-DOF wave IS present, but it is the
@@ -342,9 +344,10 @@ def test_t1_8_cosserat_microrotation_wave_medium_extension_finding():
     SUBSTRATE-NATIVE FINDING (Rule 10 empirical DOF-capability audit; the brief's
     STOP-and-report — do NOT force the mode): the srs engine DOES NOT CARRY a
     propagating Cosserat micro-rotation wave. The only rotation in the engine is
-    `_rotation_per_node` — a per-node polarization ROTATION applied to the SAME
-    transverse 2-DOF field after scatter (optical activity; the A1b / T1.5
-    channel). That is a constitutive twist of the transverse field, NOT an
+    `_optical_activity_per_node` — a per-node polarization-plane SO(2) twist
+    applied to the SAME transverse 2-DOF field after scatter (OPTICAL ACTIVITY /
+    gyrotropy; the A1b / T1.5 channel; def-optical-activity). That is a
+    constitutive twist of the transverse field, NOT an
     independent micro-rotation DOF with its own field, its own scatter/connect,
     and its own GAPPED dispersion branch. There is no ω field (no micropolar
     grade), so there is no gapped optical branch to measure.
@@ -383,7 +386,7 @@ def test_t1_8_cosserat_microrotation_wave_medium_extension_finding():
     # the engine's only "rotation": a per-node polarization twist of the transverse
     # field. Confirm dθ/step is the k-INDEPENDENT global writhe (optical activity),
     # NOT a gapped ω(k) micro-rotation branch.
-    res = clv.measure_dynamical_rotation(net, n_steps=800, chiral_rotation=True)
+    res = clv.measure_optical_activity(net, n_steps=800, chiral_rotation=True)
     dtheta = res.dtheta_per_step
     writhe = res.writhe
     is_global_writhe_twist = abs(dtheta - writhe) < 1e-6
@@ -417,7 +420,7 @@ def test_t1_8_cosserat_microrotation_wave_medium_extension_finding():
         # NOT a gapped k-dependent branch)
         S = cl.scatter_matrix(net.degree)
         conn = net.connect_index()
-        rot = clv._rotation_per_node(net)
+        rot = clv._optical_activity_per_node(net)
         Vt = clv.launch_linear_packet(net)
         ang = [clv.mean_polarization_angle(Vt)]
         for _ in range(800):
