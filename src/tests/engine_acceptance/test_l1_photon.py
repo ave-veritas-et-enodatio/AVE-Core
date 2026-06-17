@@ -1,0 +1,284 @@
+"""L1 — the photon (2 transverse-shear DOF) on the chiral srs grid.
+
+Each test below is a falsifiable physics CLAIM with a PRE-REGISTERED pass/fail
+bin in its docstring (frozen BEFORE running). CONSISTENCY-class throughout:
+the engine MUST pass these to be a valid free-photon medium.
+
+Medium: the vector-TLM layer of the v9 chiral-srs grid, κ=0 geometry channel
+(chiral_rotation OFF) — the FREE photon. The optical-activity rotation channel
+is the SEPARATE borderline-CHORD T1.5, out of this L0-L1 scope (and is recorded
+as a FINDING in `test_l1_5_finding_chiral_rotation_energy` below).
+"""
+
+from __future__ import annotations
+
+import numpy as np
+import pytest
+
+from ave.core import chiral_lattice as cl
+from ave.core import chiral_lattice_dynamics as cld
+from ave.core import chiral_lattice_vector as clv
+
+from . import _medium as M
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# T1.1 — THE FLAGSHIP: does a photon propagate losslessly?
+# ─────────────────────────────────────────────────────────────────────────────
+def test_t1_1_photon_propagates_losslessly():
+    """T1.1 [CONSISTENCY, FLAGSHIP] — a transverse photon propagates losslessly.
+
+    Seed a directional transverse wave packet (net +z momentum) and propagate it
+    on the κ=0 chiral-srs medium over a long run. Measure the three sub-claims:
+
+      (a) AMPLITUDE: no ABSORPTIVE decay beyond the numerical floor. The physical
+          "lossless" invariant is ENERGY conservation (the engine cannot
+          distinguish dispersive peak-spreading from lossy decay by peak height
+          alone — peak height falls under pure dispersion too). So (a) is judged
+          by energy, and dispersive peak evolution is CHARACTERISED, not failed.
+      (b) ENERGY: total transverse energy H = Σ|V|² is flat to integrator floor
+          over the whole propagation window.
+      (c) Γ ≈ 0: no spurious reflection. On a uniform PBC torus there is no
+          physical reflector; "Γ≈0" = the packet RETAINS its forward momentum
+          (back-scatter off lattice discreteness stays bounded/small over the
+          window), measured by net axial momentum retention.
+
+    PRE-REGISTERED BINS (frozen before run):
+      * PASS  : (b) max relative energy drift < 1e-8 over >= 1500 steps
+                AND (c) forward-momentum retention stays positive (no net
+                        REVERSAL of propagation direction) over the window
+                        with back-scatter-implied |Γ_eff| <= 0.30 at the
+                        characterisation horizon (dispersive, not absorptive).
+      * FAIL  : energy drift >= 1e-8 (the medium is LOSSY) OR net momentum
+                reverses sign / |Γ_eff| > 0.30 (spurious strong reflection).
+      * Report the actual decay, energy-drift, and Γ_eff numbers regardless.
+    """
+    M.assert_canonical_constants()
+    net = cl.build_srs_net(10, "right")
+    n_steps = 1500
+
+    V0 = M.directional_packet(net, axis=2, sign=+1.0, m=2, pol=0)
+    E0 = clv.vector_energy(V0)
+    p0 = M.net_axial_momentum(net, V0, axis=2)
+    peak0 = M.peak_amplitude(V0)
+    assert E0 > 0 and p0 > 0, "seed must carry energy and net +z momentum"
+
+    # (b) energy conservation over the full window, read dynamically each step
+    drift = M.max_energy_drift(net, V0, n_steps, chiral_rotation=False)
+
+    # (a)+(c) propagate and read final-state observables
+    Vend = M.run_steps(net, V0, n_steps, chiral_rotation=False)
+    E_end = clv.vector_energy(Vend)
+    p_end = M.net_axial_momentum(net, Vend, axis=2)
+    peak_end = M.peak_amplitude(Vend)
+
+    energy_ratio = E_end / E0
+    momentum_retention = p_end / p0          # 1.0 = no back-scatter
+    peak_decay = 1.0 - peak_end / peak0       # dispersive (characterised)
+    # Γ_eff: forward momentum LOST to back-scatter, as a reflection-fraction proxy
+    gamma_eff = max(0.0, 1.0 - momentum_retention)
+
+    print("\n--- T1.1 photon-propagation-losslessly (srs, κ=0, N=10, 1500 steps) ---")
+    print(f"  (b) max relative energy drift : {drift:.3e}   (PASS < 1e-8)")
+    print(f"      final/initial energy ratio: {energy_ratio:.15f}")
+    print(f"  (a) dispersive peak decay     : {peak_decay:.4f}   (characterised, energy-conserving)")
+    print(f"  (c) forward-momentum retention: {momentum_retention:.4f}")
+    print(f"      Γ_eff (back-scatter frac) : {gamma_eff:.4f}   (PASS <= 0.30, no sign reversal)")
+
+    # ── pre-registered adjudication ──
+    assert drift < 1e-8, (
+        f"FAIL: medium is LOSSY — energy drift {drift:.3e} >= 1e-8"
+    )
+    assert momentum_retention > 0.0, (
+        f"FAIL: net propagation REVERSED — momentum_retention {momentum_retention:.4f} <= 0"
+    )
+    assert gamma_eff <= 0.30, (
+        f"FAIL: spurious strong reflection — Γ_eff {gamma_eff:.4f} > 0.30"
+    )
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# T1.2 — different frequencies supported (dispersionless across the usable band)
+# ─────────────────────────────────────────────────────────────────────────────
+def test_t1_2_dispersionless_band():
+    """T1.2 [CONSISTENCY] — ω = c·k (dispersionless) across the usable band.
+
+    Sweep commensurate wavevectors k_m and read the modal frequency ω(k) off the
+    DYNAMICALLY-evolved field (FFT peak, parabolic sub-bin). Phase velocity
+    c(k)=ω/k should be flat (linear dispersion) across the small-k band; the
+    zone-edge departure is CHARACTERISED (where it onsets), not failed.
+
+    PRE-REGISTERED BINS:
+      * PASS : relative spread of c(k) across the small-k window (m=1..4) is
+               < 0.05 (linear dispersion across the usable band).
+      * FAIL : spread >= 0.05 (the medium is dispersive in the usable band).
+      * Report the onset of zone-edge dispersion (the m where c(k) departs).
+    """
+    M.assert_canonical_constants()
+    net = cl.build_srs_net(8, "right")
+    nf = cld.network_velocity_factor(net, axis=2, m_values=(1, 2, 3, 4), n_steps=800)
+    cs = np.array(nf["c_of_k"])
+    ks = np.array(nf["k"])
+    spread = float((cs.max() - cs.min()) / cs.mean())
+
+    print("\n--- T1.2 dispersionless-band (srs, N=8) ---")
+    for k, c in zip(ks, cs):
+        print(f"  k={k:7.4f}  c(k)={c:8.5f}  c(k)/c_link={c / nf['c_link']:.5f}")
+    print(f"  relative c(k) spread (m=1..4): {spread:.4f}   (PASS < 0.05)")
+    print(f"  k->0 network factor c0/c_link: {nf['factor']:.5f}  (analytic 1/sqrt3={cld.ANALYTIC_NETWORK_FACTOR:.5f})")
+
+    assert spread < 0.05, (
+        f"FAIL: dispersive in usable band — c(k) spread {spread:.4f} >= 0.05"
+    )
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# T1.3 — transversality: exactly 2 polarizations, no longitudinal leak
+# ─────────────────────────────────────────────────────────────────────────────
+def test_t1_3_transversality_two_polarizations():
+    """T1.3 [CONSISTENCY] — exactly 2 transverse polarizations; no longitudinal leak.
+
+    The vector-TLM field carries exactly 2 transverse components per port by
+    construction (shape (N, degree, 2)). The physics claim is that the 2
+    transverse polarizations are INDEPENDENT and lossless, and that no energy
+    leaks into a spurious 3rd (longitudinal) channel during free propagation.
+
+    Operationalised: (1) the field has exactly 2 transverse DOF (structural);
+    (2) seeding pol-0 only and propagating κ=0, the energy that appears in pol-1
+    (cross-polarization leak) stays at the numerical floor — the two transverse
+    polarizations do NOT mix in the free photon (mixing is the chiral T1.5
+    channel, OFF here); (3) total energy conserved (no loss to any hidden mode).
+
+    PRE-REGISTERED BINS:
+      * PASS : field carries exactly 2 transverse components AND cross-pol leak
+               (energy in pol-1 / total) < 1e-10 over the window AND energy
+               conserved (< 1e-8 drift).
+      * FAIL : cross-pol leak >= 1e-10 (spurious polarization mixing in the free
+               photon) OR energy not conserved.
+    """
+    M.assert_canonical_constants()
+    net = cl.build_srs_net(8, "right")
+    # structural: exactly 2 transverse DOF
+    V0 = M.directional_packet(net, axis=2, sign=+1.0, m=2, pol=0)
+    assert V0.shape[2] == 2, "vector-TLM must carry exactly 2 transverse components"
+    assert np.all(V0[:, :, 1] == 0.0), "seed is pol-0 only"
+
+    E0 = clv.vector_energy(V0)
+    Vend, snaps = M.run_steps(net, V0, 1500, chiral_rotation=False, record=True)
+    # cross-pol leak: max over the window of energy-fraction in pol-1
+    leak = max(
+        float(np.sum(s[:, :, 1] ** 2) / (np.sum(s * s) + 1e-30)) for s in snaps
+    )
+    drift = abs(clv.vector_energy(Vend) - E0) / E0
+
+    print("\n--- T1.3 transversality (srs, κ=0, N=8, 1500 steps) ---")
+    print(f"  transverse DOF              : {V0.shape[2]}  (PASS == 2)")
+    print(f"  max cross-pol leak (pol1/tot): {leak:.3e}  (PASS < 1e-10)")
+    print(f"  energy drift                : {drift:.3e}  (PASS < 1e-8)")
+
+    assert leak < 1e-10, f"FAIL: spurious polarization mixing — leak {leak:.3e}"
+    assert drift < 1e-8, f"FAIL: energy not conserved — drift {drift:.3e}"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# T1.4 — causality / speed: the information front rides at c0
+# ─────────────────────────────────────────────────────────────────────────────
+def test_t1_4_causality_front_speed():
+    """T1.4 [CONSISTENCY] — the information front rides at the lattice c (no superluminal).
+
+    Seed a SHARP localized on/off transverse disturbance and track the leading
+    edge (first plane whose energy rises above the numerical floor) per step.
+    The front speed in cardinal-cell/step must equal exactly one bond per step
+    (c_link); the information front does not outrun the lattice signal speed.
+
+    CROSS-ENGINE ANCHOR (verify-before-cite; flag-don't-fix): the banked
+    photon-c isolation result (`research/2026-06-16_photon-c-isolation-result.md`,
+    branch `analysis/2026-06-16-photon-c-isolation`, PR #275 — *OPEN, NOT merged*
+    as of this run, grounded against origin/main @ 1ad1e7fc) establishes the
+    causal information front rides at **exactly c0** in the engine's physical-c0
+    convention (1.0000000000000002), with the √2 being the K4-TLM
+    dt = dx/(c·√2) cardinal-cell grid-march bookkeeping. THAT result is on the
+    K4-TLM **cubic** engine (k4_tlm.py), NOT this srs grid; the srs front-speed
+    convention is the trivalent link-line factor 1/√3, a DIFFERENT clock. So this
+    test measures the srs front DIRECTLY and references PR #275 only as the
+    cross-engine causality corroboration — it does not transfer the √2/c0 number.
+
+    PRE-REGISTERED BINS:
+      * PASS : leading-edge advances at most ONE bond per step (front speed
+               <= c_link to within the cardinal-cell discretisation) — no
+               superluminal signal; the front does not skip cells.
+      * FAIL : front advances > 1 cell/step (superluminal lattice signal).
+    """
+    M.assert_canonical_constants()
+    net = cl.build_srs_net(8, "right")
+    S = cl.scatter_matrix(net.degree)
+    conn = net.connect_index()
+    z = net.pos[:, 2]
+    # sharp on/off seed: a thin slab at the low-z interior edge, pol-0
+    zmin = float(z[net.interior_mask].min())
+    slab = (z - zmin) < (0.06 * net.box)
+    V = np.zeros((net.n_nodes, net.degree, 2))
+    V[slab, 0, 0] = 1.0
+    floor = 1e-12 * np.sum(V * V)
+
+    c_link = cld.mean_bond_length(net)
+    n_steps = 60
+    front_z = [float(z[M.energy_per_node(V) > floor].max())]
+    for _ in range(n_steps):
+        V = clv.vector_tlm_step(net, V, S, conn, None)
+        lit = M.energy_per_node(V) > floor
+        front_z.append(float(z[lit].max()) if lit.any() else front_z[-1])
+    total_advance = front_z[-1] - front_z[0]
+    cells_per_step = total_advance / (n_steps * c_link)
+
+    print("\n--- T1.4 causality / front speed (srs, N=8, 60 steps) ---")
+    print(f"  c_link (mean bond length)   : {c_link:.5f}")
+    print(f"  front advance (cartesian)   : {total_advance:.4f}")
+    print(f"  front speed (cells/step)    : {cells_per_step:.4f}  (PASS <= 1.0 + tol)")
+    print("  cross-engine anchor: PR #275 (K4-TLM) info-front = c0 to machine precision (OPEN, not merged)")
+
+    # one bond per step is the lattice signal ceiling; small + tol for the
+    # discrete cardinal-cell sampling of the irregular srs front.
+    assert cells_per_step <= 1.0 + 1e-9, (
+        f"FAIL: superluminal lattice front — {cells_per_step:.4f} cells/step > 1"
+    )
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# T1.5 — FINDING: the chiral optical-activity rotation channel is NOT lossless
+# ─────────────────────────────────────────────────────────────────────────────
+def test_t1_5_finding_chiral_rotation_energy():
+    """T1.5-adjacent [FINDING, not a pass/fail consistency gate].
+
+    DOCUMENTS a real engine finding surfaced while validating the free photon:
+    the per-node polarization-rotation channel (`vector_tlm_step`'s rot_per_node
+    block, fed the global mean-writhe angle ETA_ROT_PER_WRITHE·writhe) is
+    energy-conserving as an isolated 2D rotation, but the rotation+connect
+    COMPOSITION drifts ~O(1) over a long run on the launch_linear_packet seed.
+
+    This is WHY the free-photon tests (T1.1-T1.4) run κ=0 (rotation OFF) — the
+    same setting the engine's own P1 energy gate uses
+    (chiral_lattice_vector.py:158). The optical-activity rotation (the
+    borderline-CHORD T1.5) needs an energy-conserving formulation before it can
+    be a consistency gate; it is OUT of L0-L1 photon-propagation scope.
+
+    No pass/fail bin — this asserts the FINDING is reproducible (the drift is
+    large) so a future fix has a regression anchor, and reports the magnitude.
+    """
+    M.assert_canonical_constants()
+    net = cl.build_srs_net(8, "right")
+    V = clv.launch_linear_packet(net, axis=2, pol_axis=0, width_frac=0.12)
+
+    drift_off = M.max_energy_drift(net, V.copy(), 1500, chiral_rotation=False)
+    drift_on = M.max_energy_drift(net, V.copy(), 1500, chiral_rotation=True)
+
+    print("\n--- T1.5 FINDING: chiral-rotation channel energy ---")
+    print(f"  rotation OFF (free photon)  : drift {drift_off:.3e}  (lossless)")
+    print(f"  rotation ON  (optical-activ): drift {drift_on:.3e}  (NOT lossless — FINDING)")
+
+    # free photon must be lossless; rotation channel is documented non-conserving
+    assert drift_off < 1e-8, "free-photon (κ=0) must be lossless"
+    assert drift_on > 1e-3, (
+        "FINDING regression anchor: chiral-rotation channel should drift "
+        "noticeably (if this fails, the channel was fixed — update the finding)"
+    )
