@@ -36,6 +36,26 @@ The $c_{EM}$ vs $c_{shear}$ disambiguation is preserved verbatim from CLAUDE.md 
 
 PONDER-05 (DC-biased quartz, 27.4% $\varepsilon_{eff}$ collapse at ~30 kV) is a **material-scale consistency analog of the operating-point $A_0$ kernel SHAPE** (the quartz / Class-II-ceramic voltage-coefficient-of-capacitance), **NOT a vacuum-kernel falsifier**. ⚠ Per-node-conflation correction (2026-06-04): $A_0 = V_{DC}/V_{yield}$ is a **per-node** ratio (field across ONE cell $\ell_{node} = 0.386$ pm relative to $E_{yield} = V_{YIELD}/\ell_{node} \approx 1.13\times10^{17}$ V/m); reaching $A_0 = 0.687$ needs 30 kV across 1.0 node-lengths. Across real quartz (mm–µm) the vacuum per-node $A_0 = 10^{-7}$–$10^{-10}$ → vacuum collapse ~0; the 27.4% is the quartz material's own response. The quartz LC-resonance shift vs zero-bias is the bench observable of the **material's** $C(V)$ arc (consistency-class), not the vacuum kernel; a genuine vacuum reading needs facility fields ($\sim 8\times10^{16}$ V/m). Per `vol4/claim-quality.md:51` + Q-G42 $V_{yield}^{(apparatus)} = E_{yield}^{(substrate)}/G_{geom}$. Canonical pointer at CLAUDE.md INVARIANT-S2 small-signal block (corrected). Hardened build artifacts live in the `ave-veritas-et-enodatio` private repository per `vol4/index.md` repo-scope note; the AC-characteristic spec that PONDER-05 tests is documented in this chapter. Cross-reference: Vol 9 Ch.15 falsification programme.
 
+## Engine-acceptance suite coverage (L1 free modes + L2 EM-in-media, GREEN 2026-06-16/17)
+
+The AC / propagation primitives this chapter specifies are gated GREEN by the
+ground-up engine-acceptance suite (`src/tests/engine_acceptance/`, wired in
+[`../ch17-engine-requirements/engine-acceptance-suite.md`](../ch17-engine-requirements/engine-acceptance-suite.md)):
+
+- **L1 free modes** — T1.1 lossless transverse-EM propagation (`sup-su0h1a` →
+  `clm-3npynp`, `clm-djpx2v`), T1.2 dispersionless band ω=ck (`sup-iryl5d`), T1.3
+  transversality (`sup-xn9y6c`), T1.4 causality/front-speed (`sup-xey8a8`), T1.5
+  lossless chiral optical activity (`sup-w6tjvs` → `def-7c3f9e`, `def-0pt1ac`), T1.6
+  transverse-shear mode (`sup-oicgzy`). T1.7/T1.8 are STOP-and-report medium-extension
+  FINDINGS (longitudinal-bulk + Cosserat micro-rotation modes NOT carried — the L3/L4
+  gaps; tracked by test-id, not wired).
+- **L2 EM-in-media** — T2.1 refractive index c_EM=c₀/S (`sup-1sq5c1`), T2.4
+  α-invariance under SYM (`sup-ftxwil` → `clm-3zz0f6`). (T2.2 achromatic lensing →
+  Ch.12; T2.3 asymmetric mirror → Ch.3/Ch.7.)
+- **c_EM/c_shear/c_bulk DEF-LOCK** carried in the suite docstrings; the suite ⚑FLAGS
+  the brief √S vs corpus S^(1/4) c_shear discrepancy (dormant at S=1; adjudicate before
+  any saturated-shear test).
+
 ## Manuscript counterpart
 
 `manuscript/vol_9_vacuum_datasheet/chapters/05_ac_electrical_characteristics.tex` (canonical Vol 9 chapter file).

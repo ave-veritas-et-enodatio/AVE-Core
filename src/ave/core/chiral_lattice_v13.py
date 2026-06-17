@@ -131,11 +131,13 @@ def vector_tlm_step_v13(
 
     a2_old = v10_state.a2_prev.copy()
     V_ref = np.einsum("ij,njk->nik", S, V)
-    rot = clv._rotation_per_node(net) if chiral_rotation else None
+    rot = clv._optical_activity_per_node(net) if chiral_rotation else None
     if rot is not None:
         c = np.cos(rot)[:, None]
         s = np.sin(rot)[:, None]
-        v0, v1 = V_ref[..., 0], V_ref[..., 1]
+        # copy-first: views into V_ref; the first in-place write would otherwise
+        # corrupt v0 before the second read (non-orthogonal rotation; A3 leak).
+        v0, v1 = V_ref[..., 0].copy(), V_ref[..., 1].copy()
         V_ref[..., 0] = c * v0 - s * v1
         V_ref[..., 1] = s * v0 + c * v1
 
