@@ -46,7 +46,32 @@ Furthermore, the mathematical Metric Tensor ($g_{\mu\nu}$) describing the curvat
 > Z(r) = \sqrt{\frac{\mu_{eff}}{\varepsilon_{eff}}} = Z_0 \;\text{(invariant)}
 > $$
 
-The Schwarzschild radius $r_s = 2GM/c^2$ marks the point where $n(r) \to \infty$ and the local strain reaches the Axiom 4 saturation limit ($S \to 0$). Under Symmetric Gravity, both $\mu_{eff}$ and $\varepsilon_{eff}$ scale together by the same factor $n(r)$, so their ratio — the constitutive impedance $Z = \sqrt{\mu_{eff}/\varepsilon_{eff}}$ — **remains invariant at $Z_0$ everywhere**, including at $r_s$. The reflection coefficient $\Gamma(r) = (Z(r) - Z_0)/(Z(r) + Z_0) = 0$ everywhere; **there are no black hole echoes in this framework**. This is the physical Event Horizon — not a coordinate singularity, and not an impedance boundary, but a **refractive singularity** ($n \to \infty$, $c_{local} = c/n \to 0$). The horizon acts as a perfect absorber (dissipative sink for shear waves entering the saturated region), not a reflective boundary. The $\Gamma = -1$ total-confinement mechanism is the **electron** confinement pattern (asymmetric magnetic-branch saturation, see Symmetric vs Asymmetric Saturation in [`claim-quality.md`](../../../claim-quality.md) and the magnetic-branch confinement passage in [`master-equation.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md)), distinct from the BH symmetric-saturation pattern. Engine-canonical reference: [`src/ave/gravity/gw_propagation.py`](../../../../../src/ave/gravity/gw_propagation.py) (`gravitational_impedance()`, `horizon_reflection()`).
+The Schwarzschild radius $r_s = 2GM/c^2$ marks the point where $n(r) \to \infty$ and the local strain reaches the Axiom 4 saturation limit ($S \to 0$). Under Symmetric Gravity, both $\mu_{eff}$ and $\varepsilon_{eff}$ scale together by the same factor $n(r)$, so their ratio — the **EM-transverse** constitutive impedance $Z_{EM} = \sqrt{\mu_{eff}/\varepsilon_{eff}}$ — **remains invariant at $Z_0$ everywhere**, including at $r_s$. The EM reflection coefficient $\Gamma_{EM}(r) = (Z_{EM}(r) - Z_0)/(Z_{EM}(r) + Z_0) = 0$ everywhere; **there are no EM-channel echoes** (light is transparent / index-gradient-captured). This is the physical Event Horizon — not a coordinate singularity, and not an EM impedance boundary, but a **refractive singularity** ($n \to \infty$, $c_{local} = c/n \to 0$).
+
+> 🔴 **SCOPED 2026-06-17 (BH shear-reflect walk-back, Rule-12).** The prior
+> sentence (struck through below) extended the EM-channel result ("no black
+> hole echoes … perfect absorber … $\Gamma=-1$ is electron-only") to the
+> shear/bulk channels — a **channel conflation**. The substrate-forced result
+> is the **channel-split**, per the three-impedance law (field-symbol registry
+> §3.11) and the canonical leaf
+> [`electron-bh-isomorphism.md`](../../cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md):34–42:
+> - **EM-transverse channel:** $Z_{EM} \equiv Z_0$ (SYM scaling), $\Gamma_{EM}
+>   = 0$ — light transparent / index-captured, **no EM echoes** (correct, retained above).
+> - **Shear + bulk channels:** at $r_{sat} = 7GM/c^2 = 3.5\,r_s$ the lattice
+>   phase-transitions, $G_{shear} \to 0$, so $Z_{shear} = \rho\,c_{shear} \to
+>   0$ (and $Z_{bulk} \to 0$) — an Op3 short giving $\Gamma_{shear} =
+>   \Gamma_{bulk} = -1$. GW are **transverse shear** modes, so they **reflect
+>   totally** off $r_{sat}$: **gravitational ringdown echoes ARE predicted**
+>   (reflect $\Rightarrow$ echo; retrospective — reflect off a $Z\to0$ free
+>   surface — not yet a SHA-pinned forward prereg). The $\Gamma = -1$ short is
+>   the **universal** $Z\to0$ kernel (not electron-only): the electron applies
+>   it in the bulk channel at the knot core; the BH applies it in the
+>   shear+bulk channels at $r_{sat}$. Corroborated by
+>   [`existing-signatures.md`](../../../vol4/falsification/ch11-experimental-bench/existing-signatures.md):36,
+>   [`bulk-impedance-at-saturation-boundary.md`](../../cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md):51,
+>   [`lattice-extreme-bh-rationality.md`](../../cosmology/ch15-black-hole-orbitals/lattice-extreme-bh-rationality.md):75.
+
+~~The horizon acts as a perfect absorber (dissipative sink for shear waves entering the saturated region), not a reflective boundary. The $\Gamma = -1$ total-confinement mechanism is the **electron** confinement pattern (asymmetric magnetic-branch saturation, see Symmetric vs Asymmetric Saturation in [`claim-quality.md`](../../../claim-quality.md) and the magnetic-branch confinement passage in [`master-equation.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md)), distinct from the BH symmetric-saturation pattern.~~ *(superseded 2026-06-17 — channel conflation; see SCOPED banner above. Preserved per Rule-12.)* The asymmetric magnetic-branch passage in [`master-equation.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md) describes the electron's *bulk*-channel knot-core short; the BH realises the same $Z\to0$ short in its *shear+bulk* channels. Engine-canonical reference: [`src/ave/gravity/gw_propagation.py`](../../../../../src/ave/gravity/gw_propagation.py) (`gravitational_impedance()` / `horizon_reflection()` = EM channel $\Gamma_{EM}=0$; `shear_impedance()` / `shear_horizon_reflection()` = shear channel $\Gamma_{shear}=-1$).
 
 When localised topological energy (mass) is present, it draws continuous phase-locked energy from the surrounding LC grid. This creates an inductive deficit in the adjacent vacuum, analogous to a density gradient in fluid dynamics. This impedance gradient ($Z = \sqrt{\mu/\epsilon}$) acts as an optical refractive index, bending the propagation trajectories of passing light and accelerating other mass-bearing geometric knots down the gradient. "Gravity" is macroscopic dielectric refraction.
 
