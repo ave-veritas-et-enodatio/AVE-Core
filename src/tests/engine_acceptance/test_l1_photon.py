@@ -4,10 +4,20 @@ Each test below is a falsifiable physics CLAIM with a PRE-REGISTERED pass/fail
 bin in its docstring (frozen BEFORE running). CONSISTENCY-class throughout:
 the engine MUST pass these to be a valid free-photon medium.
 
-Medium: the vector-TLM layer of the v9 chiral-srs grid, κ=0 geometry channel
-(chiral_rotation OFF) — the FREE photon. The optical-activity rotation channel
-is the SEPARATE borderline-CHORD T1.5, out of this L0-L1 scope (and is recorded
-as a FINDING in `test_l1_5_finding_chiral_rotation_energy` below).
+Medium: the vector-TLM layer of the v9 chiral-srs grid. T1.1-T1.4 run on the κ=0
+geometry channel (chiral_rotation OFF) — the FREE photon. The optical-activity
+rotation channel is T1.5 (`test_t1_5_chiral_rotation_energy_conserving` below):
+as of the 2026-06-17 copy-first view-aliasing fix it is IN scope and PASSING — it
+FLIPPED from a leak-asserting FINDING to an Axiom-3 CONSISTENCY gate (rotation-ON
+energy drift < 1e-8, angle observable preserved).
+
+Beneficiary clm-/def- ids (mirror of the engine-acceptance-suite.md wiring leaf,
+for grep-bidirectional test->claim mapping):
+    T1.1 (sup-su0h1a) -> clm-3npynp, clm-djpx2v
+    T1.2 (sup-iryl5d) -> clm-djpx2v
+    T1.3 (sup-xn9y6c) -> clm-3npynp, clm-j550uh
+    T1.4 (sup-xey8a8) -> clm-yr6tu4
+    T1.5 (sup-w6tjvs) -> def-7c3f9e, def-0pt1ac
 """
 
 from __future__ import annotations

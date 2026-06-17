@@ -77,6 +77,12 @@ THIS tier too. `test_cross_scale.py` is deliberately NOT referenced: it is a
 `__main__` print-DRIVER (no `test_` callables; prints at import), not a pytest
 module. The acceptance-native physics this tier ADDS is the scale-invariance
 instance test (`test_scaleinv_same_op_electron_and_blackhole`).
+
+Beneficiary clm-/def- ids (mirror of the engine-acceptance-suite.md wiring leaf,
+for grep-bidirectional test->claim mapping):
+    Op-primitive + scale-invariance tier (sup-evhfcd) -> clm-sysqaf, clm-m7qd0w
+    (clm-sysqaf = Universal Operator Catalog Op1-Op22; clm-m7qd0w = Universal
+     Solver Toolchain — Operator Reuse, Not Per-Domain Derivation).
 """
 
 from __future__ import annotations

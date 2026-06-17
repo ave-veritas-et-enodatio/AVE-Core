@@ -63,6 +63,15 @@ consistency-vs-emergence tags (frozen per test, in each docstring):
   * A4  : axiom-compliance (the constitutive kernel S(A) verified directly — the
           form is canonical, the test confirms the engine instantiates it).
 
+Beneficiary clm-/def- ids (mirror of the engine-acceptance-suite.md wiring leaf,
+for grep-bidirectional test->claim mapping):
+    A1b (sup-zf5d1t) -> def-7c3f9e
+    A2  (sup-u7r3vu) -> clm-dfaiwj
+    A3b (sup-l2ah0k) -> clm-8nkvwy
+    A4  (sup-2qja9z) -> clm-gz7ryg, clm-8nkvwy
+    A1a — STRUCTURE / DOF-capability FINDING (carried_dof==2 vs axiom_dof==6),
+          NO positive clm- beneficiary, NO sup- node (tracked by test-id, plan §9).
+
 VISUAL-DEBUG LAYER (additive; never changes a pass/fail bin) — each test emits a
 `<A?>_debug.png` into research/figures/engine_acceptance/ when KF_VIZ=1; the
 regen entrypoint (`python -m tests.engine_acceptance.regen`) sets it.

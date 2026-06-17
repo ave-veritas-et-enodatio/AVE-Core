@@ -10,6 +10,12 @@ bond-LC mapping (`bond_lc`) for the impedance identity. These OVERLAP with the
 existing Phase-0 smokes (`test_chiral_lattice_smokes.py`) by design — the
 acceptance suite re-asserts them as the engine's L0 regression gate with frozen
 bins, NOT as new physics.
+
+Beneficiary clm-/def- ids (mirror of the engine-acceptance-suite.md wiring leaf,
+for grep-bidirectional test->claim mapping):
+    T0.1 (sup-uiny42) -> clm-hd9bee
+    T0.2 (Z₀=√(μ₀/ε₀)) and T0.3 (isotropy) — medium-validity / Class-A identity,
+         NO clm- beneficiary, NO sup- node (tracked by test-id in the plan §9).
 """
 
 from __future__ import annotations

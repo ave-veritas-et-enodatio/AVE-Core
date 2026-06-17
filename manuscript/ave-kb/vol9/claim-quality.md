@@ -287,13 +287,19 @@ Simulation support (INVARIANT-S9/S10): the T1.6 acceptance test
 (`src/tests/engine_acceptance/test_l1_multiwave.py:127`) confirms the transverse-shear
 mode the srs medium carries propagates losslessly (drift < 1e-8), with linear dispersion
 (c(k) spread < 0.05) and a well-defined speed on the known srs projection — and REPORTS
-the constitutive gap (at S=1 c_shear=c₀·S^(1/4) collapses onto c_EM; the distinguishing
-G_shear modulation is a saturated-medium extension). The consistency content lifts the
-DERIVATION branch of `clm-crbl60` ("Vacuum Bulk Mass Density and Shear Modulus", the
-transverse-mechanical mode family) and `clm-8nkvwy` (the saturation kernel governing the
-mode speeds). Carries the module ⚑FLAG (brief √S vs corpus S^(1/4), surfaced not
-reconciled). Free-standing. Local rigor `quality` and both on-point fractions are
-`*pending*`. Figure: `research/figures/engine_acceptance/T1.6_debug.png`.
+the constitutive gap (at S=1 the transverse-shear mode collapses onto c_EM; the
+distinguishing G_shear modulation is a saturated-medium extension). The consistency
+content lifts the DERIVATION branch of `clm-crbl60` ("Vacuum Bulk Mass Density and Shear
+Modulus") **scoped to the bulk-density / transverse-MODE aspect ONLY** (the mode is present
+and propagates losslessly) and `clm-8nkvwy` (the saturation kernel governing the mode
+speeds). **SHEAR-MODULUS half gap-reported, NOT credited (2026-06-17 per verify `w0855uvzt`):**
+the G_shear constitutive channel is ABSENT at S=1 (no separate shear-modulus DOF in the
+engine) — by this leaf's own absence-rule (an absent aspect gets no `sup-` credit, as
+applied to T1.7/T1.8), the shear-modulus half of `clm-crbl60` is NOT strengthened by this
+test; only the bulk-density/transverse-mode half is. Carries the module ⚑FLAG (the brief
+√S vs corpus (1−A²)^(1/4) surface form — RESOLVED 2026-06-17 as the same curve, see the
+plan §FLAGS c_shear discharge). Free-standing. Local rigor `quality` and both on-point
+fractions are `*pending*`. Figure: `research/figures/engine_acceptance/T1.6_debug.png`.
 
 > **Leaf references:** [engine-acceptance-suite](./ch17-engine-requirements/engine-acceptance-suite.md).
 
@@ -302,7 +308,7 @@ reconciled). Free-standing. Local rigor `quality` and both on-point fractions ar
 - solidity: *pending*
 - rationale: *pending*
 - supports:
-  - clm-crbl60 (f=*pending*) — Vacuum bulk mass density + shear modulus (transverse-mode family)
+  - clm-crbl60 (f=*pending*) — Vacuum bulk mass density (transverse-MODE aspect ONLY; shear-modulus half gap-reported, NOT credited — G_shear constitutive absent at S=1)
   - clm-8nkvwy (f=*pending*) — Symmetric vs Asymmetric Saturation (mode-speed kernel)
 
 ---
@@ -418,7 +424,8 @@ operating point (30+ OOM apart), returning the same functional form — Op2 S=�
 Op22 M=1/S² (A43 v11 canonical, NOT doc-81's 1/(1−S)), Op3 Γ, and the mass-INDEPENDENT
 regime-boundary eigenvalue ω_R·M=18/49 at both electron-mass and BH-mass inputs. It lifts
 the DERIVATION branch of `clm-sysqaf` ("Universal Operator Catalog (Op1–Op22)") and
-`clm-m7qd0w` ("Regime-Boundary Eigenvalue Method", the cross-domain operator-reuse claim).
+`clm-m7qd0w` ("Universal Solver Toolchain — Operator Reuse, Not Per-Domain Derivation",
+its canonical title; the cross-domain operator-reuse claim).
 CODATA-anchored sub-targets are consistency-class, not headlined emergence. Free-standing.
 Local rigor `quality` and both on-point fractions are `*pending*`.
 
@@ -430,6 +437,6 @@ Local rigor `quality` and both on-point fractions are `*pending*`.
 - rationale: *pending*
 - supports:
   - clm-sysqaf (f=*pending*) — Universal Operator Catalog (Op1–Op22)
-  - clm-m7qd0w (f=*pending*) — Regime-Boundary Eigenvalue Method (cross-domain reuse)
+  - clm-m7qd0w (f=*pending*) — Universal Solver Toolchain — Operator Reuse, Not Per-Domain Derivation (cross-domain reuse)
 
 ---
