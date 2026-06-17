@@ -169,9 +169,145 @@ def main() -> dict:
     return result
 
 
-# ── RUNG section-builders (filled in subsequent commits) ─────────────────────
+# ── shared rung runner ───────────────────────────────────────────────────────
+def _build_rung_engine(couple_on, wall_on, project_alive, coupling_support, with_bulk, dt):
+    """Build a ladder engine at a given dt with the compact sub-yield ω-seed (and an
+    optional co-located sub-yield bulk blob for RUNG-2's FORCED-OVERLAP coupling).
+    pml=0 on every rung (PML off; the box guard band handles the domain edge)."""
+    eng = A1CosseratMovingWallEngine(
+        N=N, dx=DX, pml_thickness=PML, couple_on=couple_on, wall_on=wall_on,
+        coupling_support=coupling_support, project_alive=project_alive,
+    )
+    if with_bulk:
+        eng.seed_bulk_blob(center=(CENTER, CENTER, CENTER), sigma=BULK_SIGMA, frac=BULK_FRAC)
+    eng.seed_cosserat_photon(
+        center=(CENTER, CENTER, CENTER), sigma=SEED_SIGMA, wavelength=SEED_LAM,
+        amplitude=SEED_AMP, direction=(1, 0, 0), helicity=1.0, axis=2,
+    )
+    # honor the requested dt (default = engine CFL dt); the dt-sweep at RUNG-2
+    # rebuilds with a halved dt — re-derive the sub-cycle at the new dt so the
+    # outer step still advances one bulk dt.
+    if abs(dt - eng.dt) > 1e-30:
+        eng.dt = float(dt)
+        eng.A.dt = float(dt)
+        c_omega_max = eng.c0 / np.sqrt(eng.cL2_over_cT2 * eng.A.S_min)
+        dt_cos = 0.30 * eng.dx / (c_omega_max * np.sqrt(3.0))
+        eng.n_sub_cos = max(1, int(np.ceil(eng.dt / max(dt_cos, 1e-30))))
+        eng.dt_sub_cos = eng.dt / eng.n_sub_cos
+    return eng
+
+
+def _record_box_H(eng, box, dt, n_record=60, coupled=False):
+    """Advance over the FROZEN physical window T_WIN, recording the closed-box
+    witness H(t) (+ its 3 components), the energy-fraction in-box (transport vs
+    pump attribution), and the reactance pair (|ω|, |ω̇|) at each recorded step."""
+    nsteps = int(np.ceil(T_WIN / dt))
+    every = max(1, nsteps // n_record)
+    t_phys, H, E_bulk, H_cos, H_c = [], [], [], [], []
+    frac_in, om_max, omdot_max = [], [], []
+    diverged = None
+    H0_scale = abs(eng.H_witness_box(box)["H"]) + 1e-30
+    for s in range(nsteps + 1):
+        if s > 0:
+            if coupled:
+                eng.step_coupled()
+            else:
+                eng.B.step(dt=dt)
+        if s % every == 0 or s == nsteps:
+            w = eng.H_witness_box(box)
+            t_phys.append(s * dt)
+            H.append(w["H"]); E_bulk.append(w["E_bulk"])
+            H_cos.append(w["H_cosserat"]); H_c.append(w["H_c"])
+            w2 = np.sum(np.asarray(eng.B.omega) ** 2, axis=-1)
+            frac_in.append(float((w2 * box).sum() / max(w2.sum(), 1e-30)))
+            om_max.append(float(np.abs(eng.B.omega).max()))
+            omdot_max.append(float(np.abs(eng.B.omega_dot).max()))
+            if not np.isfinite(w["H"]) or abs(w["H"]) > 1e6 * H0_scale:
+                diverged = s
+                break
+    return {"t": t_phys, "H": H, "E_bulk": E_bulk, "H_cosserat": H_cos, "H_c": H_c,
+            "frac_in_box": frac_in, "omega_max": om_max, "omega_dot_max": omdot_max,
+            "nsteps": nsteps, "diverged": diverged}
+
+
+def _flatness(tr):
+    """Drift diagnostics of a box-H trajectory: signed end-drift + peak-rise +
+    OLS climb-rate, all relative to H0."""
+    H = np.asarray(tr["H"], dtype=float)
+    t = np.asarray(tr["t"], dtype=float)
+    H0 = float(H[0]) if H.size else 0.0
+    scale = max(abs(H0), 1e-30)
+    drift = float((H[-1] - H0) / scale) if H.size > 1 else 0.0
+    peak_rise = float((H.max() - H0) / scale) if H.size > 1 else 0.0
+    rate = _ols_slope(t, H)
+    return {"H0": H0, "end_drift_frac": drift, "peak_rise_frac": peak_rise,
+            "climb_rate_abs": rate, "climb_rate_frac_per_T": float(rate * T_WIN / scale)}
+
+
+# ── RUNG-0 — BASELINE-CLEAN ───────────────────────────────────────────────────
 def _run_rung0(result, box):
-    raise NotImplementedError("RUNG-0 — added next commit")
+    """RUNG-0: couple_off, wall_off, PML off, single grid, projection OFF, compact
+    sub-yield smooth seed inside B_int. H over B_int must be FLAT to O(dt²).
+
+    The O(dt²) gate: run at dt_base AND dt_base/2; the box-H must be flat at BOTH,
+    AND any residual drift must SHRINK ~4× under dt-halving (the integrator's O(dt²)
+    truncation, not a pump). A pump would NOT shrink with dt. Flat tolerance: the
+    peak-rise stays below 1e-3 (a pump climbs orders of magnitude; cf Phase-22 856→8.2e9)."""
+    print("\n[RUNG-0 BASELINE-CLEAN] couple_off wall_off PML-off single-grid projection-OFF "
+          "sub-yield seed inside B_int — H over B_int must be FLAT to O(dt²)")
+    dt0 = result["b_int_geometry"]["dt_base"]
+    rows = {}
+    for label, dt in (("dt_base", dt0), ("dt_half", dt0 / 2.0)):
+        eng = _build_rung_engine(couple_on=False, wall_on=False, project_alive=False,
+                                 coupling_support="front", with_bulk=False, dt=dt)
+        # seed-containment audit: the >1%-peak ω support must be inside B_int at t0.
+        w2 = np.sum(np.asarray(eng.B.omega) ** 2, axis=-1)
+        seed_idx = np.argwhere(w2 > 0.01 * w2.max())
+        seed_in_box = bool(box[tuple(seed_idx.T)].all())
+        tr = _record_box_H(eng, box, dt, coupled=False)
+        fl = _flatness(tr)
+        rows[label] = {"dt": dt, "flatness": fl, "trace": tr,
+                       "seed_support_in_box": seed_in_box,
+                       "frac_in_box_start": tr["frac_in_box"][0],
+                       "frac_in_box_end": tr["frac_in_box"][-1]}
+        print(f"  {label} (dt={dt:.4e}): H0={fl['H0']:.6e}  peak-rise={fl['peak_rise_frac']:+.3e}  "
+              f"end-drift={fl['end_drift_frac']:+.3e}  rate/T={fl['climb_rate_frac_per_T']:+.3e}  "
+              f"frac_in_box {tr['frac_in_box'][0]:.4f}→{tr['frac_in_box'][-1]:.4f}  seed⊂box={seed_in_box}")
+
+    pr_base = abs(rows["dt_base"]["flatness"]["peak_rise_frac"])
+    pr_half = abs(rows["dt_half"]["flatness"]["peak_rise_frac"])
+    FLAT_TOL = 1e-3
+    flat_base = pr_base < FLAT_TOL
+    flat_half = pr_half < FLAT_TOL
+    # O(dt²): halving dt should cut any residual drift ~4× (ratio ≈ 4 for 2nd-order).
+    # Guard the ratio when both are at machine-precision floor (0/0 → treat as clean).
+    floor = 1e-12
+    if pr_base < floor and pr_half < floor:
+        dt2_ratio = 4.0  # both at machine precision — trivially O(dt²)-clean
+        dt2_ok = True
+    else:
+        dt2_ratio = float(pr_base / max(pr_half, floor))
+        dt2_ok = bool(dt2_ratio >= 2.0)  # at least shrinks (≥2×); ideal 4× for 2nd-order
+    H_flat = bool(flat_base and flat_half)
+    result["rung0"] = {
+        "config": "couple_off, wall_off, PML off (pml=0), n_sub_cos=1, projection OFF, "
+                  "compact sub-yield smooth ω-seed inside B_int",
+        "rows": {k: {kk: vv for kk, vv in v.items() if kk != "trace"} for k, v in rows.items()},
+        "trace_dt_base": rows["dt_base"]["trace"],
+        "trace_dt_half": rows["dt_half"]["trace"],
+        "peak_rise_dt_base": pr_base, "peak_rise_dt_half": pr_half,
+        "flat_tolerance": FLAT_TOL, "H_flat_both_dt": H_flat,
+        "Odt2_shrink_ratio": dt2_ratio, "Odt2_consistent": dt2_ok,
+        "seed_support_in_box": rows["dt_base"]["seed_support_in_box"],
+        "PASS": bool(H_flat and dt2_ok and rows["dt_base"]["seed_support_in_box"]),
+        "bin_if_fail": "HARNESS-DIRTY" if not (H_flat and dt2_ok) else None,
+    }
+    print(f"  → RUNG-0: H_flat(both dt, <{FLAT_TOL})={H_flat}  O(dt²) shrink-ratio={dt2_ratio:.2f} "
+          f"(≥2 ⇒ truncation not pump)={dt2_ok}  seed⊂box={rows['dt_base']['seed_support_in_box']}  "
+          f"→ PASS={result['rung0']['PASS']}")
+    if not result["rung0"]["PASS"] and result["rung0"]["bin_if_fail"] != "HARNESS-DIRTY":
+        # H flat + O(dt²) ok but seed not fully in box → a geometry warning, not dirty.
+        print("  ⚠ seed support not fully inside B_int — geometry warning (H still flat)")
 
 
 def _run_rung1(result, box):
