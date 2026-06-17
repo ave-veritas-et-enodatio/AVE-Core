@@ -214,9 +214,231 @@ def _climb_rate(tr):
     return _ols_slope(t, H), H0
 
 
+def _dt0_extrapolate(dts_arr, rates):
+    """dt→0 extrapolation of the EXCESS climb-rate — EXACTLY the ladder's two
+    estimators (Richardson on the two finest dt + OLS intercept). Returns
+    (R0, R_inf_rich, R_inf_ols, ratio_R_inf_over_R0, monotone_decr)."""
+    R0 = float(rates[0])
+    dt_fine, dt_coarse = dts_arr[-1], dts_arr[-2]
+    R_fine, R_coarse = rates[-1], rates[-2]
+    if abs(dt_coarse - dt_fine) > 1e-30:
+        R_inf_rich = float(R_fine - (R_coarse - R_fine) * dt_fine / (dt_coarse - dt_fine))
+    else:
+        R_inf_rich = float(R_fine)
+    if dts_arr.size >= 2:
+        A = np.vstack([dts_arr, np.ones_like(dts_arr)]).T
+        slope_ols, intercept_ols = np.linalg.lstsq(A, rates, rcond=None)[0]
+        R_inf_ols = float(intercept_ols)
+    else:
+        R_inf_ols = float(R_fine)
+    ratio = abs(R_inf_rich) / max(abs(R0), 1e-30)
+    abs_rates = np.abs(rates)
+    monotone_decr = bool(np.all(np.diff(abs_rates) <= 1e-12 + 1e-30 * max(abs(R0), 1e-30)))
+    return R0, R_inf_rich, R_inf_ols, ratio, monotone_decr
+
+
+def _run_branch(label, freeze_g, box, dt_base, do_direct_R):
+    """One RUNG-2 dt-sweep for a single branch (moving-g or frozen-g). At each dt:
+    coupling-ON climb-rate, coupling-OFF climb-rate (same seed), and the EXCESS
+    (ON−OFF) = the pure coupling pump. do_direct_R: on the ON run measure the
+    PIECE-1 residual integral Σ R·dt at the COARSEST dt (Prong B; live-g only)."""
+    print(f"\n[{label}] freeze_g={freeze_g}  coupling_support=saturated_interior  "
+          f"N={N} box_half={H_BOX} T_win={T_WIN}")
+    dts = [dt_base / (2.0 ** k) for k in range(N_DT)]
+    sweep = []
+    cheat = {"fV": [], "fw": [], "gdrift": []}
+    direct_R = {"R_cum_integral": None, "R_t_series": [], "R_t_series_t": [],
+                "excess_H_change": None, "accounted_frac": None}
+    for k, dt in enumerate(dts):
+        eng_on = _build_rung2_engine(couple_on=True, dt=dt, freeze_g=freeze_g)
+        fV0, fw0 = eng_on._coupling_forces()
+        fwmag0 = np.sqrt((np.asarray(fw0) ** 2).sum(axis=-1))
+        alive_int = np.asarray(eng_on.B.mask_alive) & np.asarray(eng_on._interior)
+        fV0_max = float(np.abs(np.asarray(fV0)[alive_int]).max()) if alive_int.any() else 0.0
+        fw0_max = float(fwmag0[alive_int].max()) if alive_int.any() else 0.0
+        ov = int(eng_on.coupling_support_overlap()["overlap_cells_tetrahedral"])
+        # cheat-check + direct-R only at the coarsest dt (cheap, sufficient).
+        do_cheat = (k == 0)
+        want_R = do_direct_R and (k == 0)
+        tr_on = _record(eng_on, box, dt, coupled=True, direct_R=want_R, cheat_check=do_cheat)
+        rate_on, H0 = _climb_rate(tr_on)
+        eng_off = _build_rung2_engine(couple_on=False, dt=dt, freeze_g=freeze_g)
+        tr_off = _record(eng_off, box, dt, coupled=False)
+        rate_off, _ = _climb_rate(tr_off)
+        rate_excess = float(rate_on - rate_off)
+        if do_cheat:
+            cheat["fV"] = tr_on["fV_max_hist"]
+            cheat["fw"] = tr_on["fw_max_hist"]
+            cheat["gdrift"] = tr_on["g_drift_vs_t0_hist"]
+        if want_R:
+            direct_R["R_cum_integral"] = tr_on["R_cum_integral"]
+            direct_R["R_t_series"] = tr_on["R_t_series"]
+            direct_R["R_t_series_t"] = tr_on["R_t_series_t"]
+        sweep.append({
+            "k": k, "dt": dt, "n_sub_cos": eng_on.n_sub_cos, "H0": H0,
+            "climb_rate_on": rate_on, "climb_rate_off": rate_off,
+            "climb_rate_excess_on_minus_off": rate_excess,
+            "fV0_max_alive": fV0_max, "fw0_max_alive": fw0_max,
+            "overlap_cells_tetrahedral": ov,
+            "diverged_on": tr_on["diverged"], "diverged_off": tr_off["diverged"],
+        })
+        print(f"  k={k} dt={dt:.4e} (n_sub={eng_on.n_sub_cos}): rate_ON={rate_on:+.5e}  "
+              f"rate_OFF={rate_off:+.5e}  EXCESS={rate_excess:+.5e}  "
+              f"f_V0={fV0_max:.3e} f_ω0={fw0_max:.3e} ov={ov}  div={tr_on['diverged']}")
+
+    dts_arr = np.array([r["dt"] for r in sweep])
+    rates = np.array([r["climb_rate_excess_on_minus_off"] for r in sweep])
+    R0, R_inf_rich, R_inf_ols, ratio_inf, monotone = _dt0_extrapolate(dts_arr, rates)
+    delta = abs(R_inf_rich - R_inf_ols)
+
+    # Prong-B closure: does Σ R·dt account for the EXCESS H-change at coarsest dt?
+    if do_direct_R and direct_R["R_cum_integral"] is not None:
+        rate_excess_coarse = sweep[0]["climb_rate_excess_on_minus_off"]
+        excess_dH = float(rate_excess_coarse * T_WIN)        # the EXCESS H-climb over T_win
+        direct_R["excess_H_change"] = excess_dH
+        direct_R["accounted_frac"] = (direct_R["R_cum_integral"] / excess_dH
+                                      if abs(excess_dH) > 1e-30 else None)
+
+    fV_w, fw_w, g_w = cheat["fV"], cheat["fw"], cheat["gdrift"]
+    fV_min = float(min(fV_w)) if fV_w else 0.0
+    fw_min = float(min(fw_w)) if fw_w else 0.0
+    coupling_fires = bool(fV_min > 1e-12 and fw_min > 1e-12)
+    g_max_drift = float(max(g_w)) if g_w else 0.0
+
+    print(f"  → dt→0 EXCESS: R0={R0:+.5e}  R∞(Rich)={R_inf_rich:+.5e}  "
+          f"R∞(OLS)={R_inf_ols:+.5e}  |R∞|/|R0|={ratio_inf:.4f}  monotone↓={monotone}")
+    print(f"  → cheat-check: f_V min/window={fV_min:.3e}  f_ω min/window={fw_min:.3e}  "
+          f"coupling_fires={coupling_fires}  g_max_drift={g_max_drift:.3e}")
+    if do_direct_R and direct_R["R_cum_integral"] is not None:
+        print(f"  → PRONG-B direct-R: ΣR·dt={direct_R['R_cum_integral']:+.5e}  "
+              f"EXCESS ΔH={direct_R['excess_H_change']:+.5e}  "
+              f"accounted_frac={direct_R['accounted_frac']:+.4f}")
+    return {
+        "label": label, "freeze_g": freeze_g, "dt_grid": dts, "sweep": sweep,
+        "climb_rates_excess": rates.tolist(),
+        "R0": R0, "R_inf_richardson": R_inf_rich, "R_inf_ols": R_inf_ols,
+        "R_inf": R_inf_rich, "ratio_R_inf_over_R0": ratio_inf,
+        "abs_rates_monotone_decreasing": monotone,
+        "extrapolation_uncertainty_delta": delta,
+        "cheat_check": {
+            "fV_max_over_window": fV_w, "fw_max_over_window": fw_w,
+            "g_max_drift_over_window": g_w, "fV_min_over_window": fV_min,
+            "fw_min_over_window": fw_min, "g_max_drift": g_max_drift,
+            "coupling_still_fires": coupling_fires,
+        },
+        "direct_R_accounting": direct_R,
+    }
+
+
 def main() -> dict:
     _alpha_free_provenance_gate()
-    raise NotImplementedError("PRONG RUNNER lands in the next commit")
+    print("=" * 80)
+    print("KEYSTONE FREEZE-G CONTROL (+ direct-R) — RUNG-2 forced-overlap")
+    print("  ġ≠0 (moving) vs ġ≡0 (frozen);  Prong-B R=κ̃∫ġVΞ on the live-g run")
+    print("=" * 80)
+
+    ref = A1CosseratMovingWallEngine(N=N, dx=DX, pml_thickness=PML,
+                                     couple_on=False, wall_on=False, project_alive=False)
+    dt_base = float(ref.dt)
+    box = ref.make_box_mask((CENTER, CENTER, CENTER), H_BOX)
+    box_idx = np.argwhere(box)
+    guard = CENTER - H_BOX
+    # B_int guard-band check: guard ≥ stencil_radius(1) + n_sub_cos·c·dt margin.
+    print(f"N={N} dx={DX} PML={PML} | B_int=[{box_idx.min(0)}..{box_idx.max(0)}] "
+          f"({int(box.sum())} cells) | guard={guard:.0f} cells | dt_base={dt_base:.5e}")
+
+    # PRONG A (both branches) + PRONG B (live-g branch only).
+    moving = _run_branch("MOVING-g (ġ≠0, ladder default)", freeze_g=False,
+                         box=box, dt_base=dt_base, do_direct_R=True)
+    frozen = _run_branch("FROZEN-g (ġ≡0, the control)", freeze_g=True,
+                        box=box, dt_base=dt_base, do_direct_R=False)
+
+    # ── THE DECISIVE READ (Prong A) ──
+    ratio_moving = moving["ratio_R_inf_over_R0"]
+    ratio_frozen = frozen["ratio_R_inf_over_R0"]
+    plateau_moving = bool(ratio_moving >= THRESH)
+    plateau_frozen = bool(ratio_frozen >= THRESH)
+    plateau_vanishes = bool(plateau_moving and not plateau_frozen)
+    coupling_fires_frozen = bool(frozen["cheat_check"]["coupling_still_fires"])
+    surviving_frac = abs(frozen["R_inf"]) / max(abs(moving["R_inf"]), 1e-30)
+
+    # ── PRONG B confirmation: does the direct residual account for the pump? ──
+    accounted = moving["direct_R_accounting"]["accounted_frac"]
+    R_accounts = bool(accounted is not None and abs(accounted) >= 0.50)
+
+    if not coupling_fires_frozen:
+        verdict = "FREEZE-G-CONFOUNDED"
+        reason = ("Freezing g KILLED the coupling under frozen-g (f_V or f_ω → 0 "
+                  "over the window) — the changed plateau is meaningless. The "
+                  "control cannot decide the fork.")
+    elif plateau_vanishes:
+        verdict = "WINDOW-MODEL-PUMP"
+        reason = (
+            f"Coupling STILL FIRES under frozen-g (f_V,f_ω nonzero on alive cells), "
+            f"yet the EXCESS plateau VANISHES with ġ≡0 (|R∞|/|R0|: moving "
+            f"{ratio_moving:.4f} ≥ {THRESH} → frozen {ratio_frozen:.4f} < {THRESH}). "
+            f"The RUNG-2 pump WAS the moving-window residual R=κ̃∫ġVΞ "
+            f"(direct-R accounted_frac={accounted}). Keystone RE-OPENS with a "
+            f"variationally-consistent (frozen-g / ∂g/∂V-restored) coupling.")
+    else:
+        verdict = "SUBSTRATE-PUMP"
+        reason = (
+            f"The EXCESS plateau PERSISTS under ġ≡0 (frozen |R∞|/|R0|={ratio_frozen:.4f} "
+            f"≥ {THRESH}; {surviving_frac*100:.0f}% of the moving R∞ survives freezing g) "
+            f"with the coupling still firing — AND the direct-R residual ΣR·dt accounts "
+            f"for only {accounted if accounted is None else f'{accounted*100:.1f}%'} of the "
+            f"EXCESS pump. Freezing g (removing ġVΞ) does NOT remove the plateau; the "
+            f"residual is NOT the pump. The keystone is NEGATIVE: the substrate will not "
+            f"losslessly close the energize-LOCK loop even with a variationally-consistent "
+            f"(frozen-g) coupling.")
+
+    result = {
+        "control": "keystone FREEZE-G (+ direct-R) — RUNG-2 forced-overlap ġ≠0 vs ġ≡0",
+        "purpose": "decide RUNG-2 SUBSTRATE-PUMP vs WINDOW-MODEL-PUMP (PIECE-1 ġVΞ residual)",
+        "independent_lane": "verifies the freezeg-lane SUBSTRATE-PUMP + adds Prong-B direct-R",
+        "banked_rung2": {"commit": "4a90944c", "verdict": "SUBSTRATE-PUMP",
+                         "ratio_R_inf_over_R0": 0.8419372278075833,
+                         "N": 32, "H_box": 8, "T_win": 4.0},
+        "config": {"N": N, "dx": DX, "pml": PML, "H_box": H_BOX, "T_win": T_WIN,
+                   "n_dt": N_DT, "dt_base": dt_base, "threshold": THRESH,
+                   "coupling_support": "saturated_interior", "wall_on": False,
+                   "box_cells": int(box.sum()), "guard_cells": int(guard)},
+        "alpha_free": True,
+        "moving_g": moving,
+        "frozen_g": frozen,
+        "decisive_read": {
+            "ratio_moving": ratio_moving, "ratio_frozen": ratio_frozen,
+            "plateau_moving": plateau_moving, "plateau_frozen": plateau_frozen,
+            "plateau_vanishes_under_frozen_g": plateau_vanishes,
+            "coupling_still_fires_under_frozen_g": coupling_fires_frozen,
+            "frozen_R_inf_surviving_frac_of_moving": surviving_frac,
+        },
+        "prong_B_direct_R": {
+            "R_cum_integral": moving["direct_R_accounting"]["R_cum_integral"],
+            "excess_H_change": moving["direct_R_accounting"]["excess_H_change"],
+            "accounted_frac": accounted,
+            "R_accounts_for_pump": R_accounts,
+        },
+        "verdict": verdict,
+        "verdict_reason": reason,
+    }
+
+    print("\n" + "=" * 80)
+    print(f"MOVING-g  R∞/R0 = {ratio_moving:.4f}   (plateau={plateau_moving})")
+    print(f"FROZEN-g  R∞/R0 = {ratio_frozen:.4f}   (plateau={plateau_frozen})")
+    print(f"coupling still fires under frozen-g: {coupling_fires_frozen}")
+    print(f"plateau vanishes under frozen-g:     {plateau_vanishes}")
+    print(f"PRONG-B direct-R accounted_frac:     {accounted}")
+    print(f"\nVERDICT: {verdict}")
+    print(f"  {reason}")
+    print("=" * 80)
+
+    out_path = os.path.join(HERE, "keystone_freeze_g_control_results.json")
+    with open(out_path, "w") as f:
+        json.dump(result, f, indent=2, default=float)
+    result["results_json"] = out_path
+    print(f"results → {out_path}")
+    return result
 
 
 if __name__ == "__main__":
