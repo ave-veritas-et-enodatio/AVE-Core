@@ -353,3 +353,42 @@ def save_simple_figure(test_id: str, title: str, draw):
     fig.savefig(path, dpi=110, bbox_inches="tight")
     plt.close(fig)
     return path
+
+
+# ── L2 (EM-in-media) panels: the 1D graded EM-line x-t + the achromatic plot ──
+def _panel_em_spacetime(ax, line: dict, *, region=None, title="x-t spacetime"):
+    """x-t of a 1D graded EM line (run_em_line output): cell index × step, color
+    = energy density. A constant-speed band whose SLOPE changes in the biased
+    region; the optional `region`=(lo,hi) cell window is outlined."""
+    st = line["spacetime"]
+    N = line["N"]
+    times = line["times"]
+    im = ax.imshow(
+        st, origin="lower", aspect="auto",
+        extent=[0, N, times.min(), times.max()], cmap="magma",
+    )
+    ax.set_xlabel("cell index (propagation axis)")
+    ax.set_ylabel("timestep")
+    ax.set_title(title)
+    cb = ax.figure.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+    cb.set_label("energy density |V|²·C")
+    if region is not None:
+        lo, hi = region
+        ax.axvline(lo, color="cyan", lw=1.0, ls="--")
+        ax.axvline(hi, color="cyan", lw=1.0, ls="--")
+        ax.text(0.5 * (lo + hi), times.max() * 0.96, "biased region",
+                color="cyan", ha="center", va="top", fontsize=8)
+    return im
+
+
+def save_l2_figure(test_id: str, title: str, draw):
+    """Generic L2 figure composer — `draw(fig)` owns its axes/panels."""
+    plt = _mpl()
+    fig = plt.figure(figsize=(15.5, 4.8))
+    fig.suptitle(f"{test_id} — {title}", fontsize=12, y=1.03)
+    draw(fig)
+    fig.tight_layout()
+    path = _fig_path(test_id)
+    fig.savefig(path, dpi=110, bbox_inches="tight")
+    plt.close(fig)
+    return path
