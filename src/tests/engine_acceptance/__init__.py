@@ -78,10 +78,14 @@ path and `make verify` are untouched). REGENERATE ALL FIGURES with one command:
         -m tests.engine_acceptance.regen
 
 (equivalently, `KF_VIZ=1 pytest src/tests/engine_acceptance/ -s`). FLAGSHIP T1.1
-note: the functional T1.1 seed is a DELOCALIZED cos(k·z) Bloch wave (fills the
-periodic box), so its native x-t view is a standing/beating fringe, NOT a traveling
-diagonal band — a real cosine carries equal ±k content. The T1.1 figure therefore
-shows TWO rows: the actual test seed (honest: standing fringe) AND a localized-
-envelope companion on the SAME medium/stepper that exposes the clean diagonal
-photon-path band + its slight dispersive broadening.
+note (HARDENED 2026-06-17): the T1.1 seed is now a LOCALIZED, ONE-WAY Gaussian
+wave packet (`_medium.oneway_packet`) — single-sign port occupancy suppresses the
+counter-propagating partner, so the x-t view is a SINGLE clean diagonal band
+translating at the srs network velocity c_net = c_link/√3, and the test ASSERTS
+the energy-centroid translates by ≈ c·t (a genuine propagation-distance check),
+not just energy conservation. The PRIOR seed (`directional_packet`, a delocalized
+cos(k·z) Bloch wave) carries equal ±k content = a STANDING fringe that did NOT
+propagate; it is kept as the bottom-row x-t CONTRAST in the T1.1 figure so the fix
+is visible side-by-side. The propagation assertion + the clean-diagonal R² are the
+new pass/fail content.
 """

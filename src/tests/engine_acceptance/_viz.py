@@ -252,14 +252,14 @@ def save_propagation_figure(
 def localized_envelope(net: cl.LatticeNet, V0: np.ndarray, *, axis=2, width_frac=0.08):
     """Multiply a seed by a Gaussian envelope (centred on the interior median).
 
-    The functional T1.1 seed (`directional_packet`) is a DELOCALIZED cos(k.z)
-    Bloch wave that fills the whole periodic box, so its energy-density x-t view
-    is a STANDING/beating fringe pattern, not a traveling diagonal band (a real
-    cosine carries equal +/-k content; the directional weighting biases amplitude
-    but does not remove the counter-propagating partner). To expose the "clean
-    diagonal photon-path band" the figure brief asks for, we localize the SAME
-    seed on the SAME medium with the SAME stepper for a companion view. This does
-    NOT touch the functional test's pass/fail seed — it is a viz companion only.
+    SUPERSEDED 2026-06-17 by `_medium.oneway_packet`: localizing the OLD
+    `directional_packet` (a delocalized cos(k·z) Bloch wave) with this envelope
+    still leaves the equal ±k counter-propagating content underneath, so the
+    localized companion DISPERSED bidirectionally rather than translating one-way.
+    The hardened T1.1 seed instead suppresses the counter-propagating partner at
+    SEED time (single-sign port occupancy in `oneway_packet`), giving a genuine
+    one-way translating diagonal. Retained for callers that want a quick envelope
+    multiply; not used by the hardened T1.1 path.
     """
     coord = net.pos[:, axis]
     z0 = float(np.median(coord[net.interior_mask]))
@@ -269,41 +269,68 @@ def localized_envelope(net: cl.LatticeNet, V0: np.ndarray, *, axis=2, width_frac
 
 def save_t1_1_flagship_figure(
     test_id: str,
-    rec_actual: dict,
-    rec_localized: dict,
+    rec_oneway: dict,
+    rec_bloch: dict,
     *,
+    centroid=None,
+    speed=None,
+    c_net=None,
+    r2=None,
     drift_floor_label=None,
 ):
     """The flagship T1.1 composite: TWO rows on the SAME medium / stepper.
 
-      row 1 — the ACTUAL functional-test seed (delocalized directional Bloch
-              wave): the x-t view is a standing/beating fringe (honest depiction
-              of what the pass/fail test runs), filmstrip, energy trace.
-      row 2 — the localized-envelope COMPANION (same seed * Gaussian): the clean
-              diagonal photon-path band the brief wants to see, + filmstrip.
+    HARDENED 2026-06-17 — row 1 is now the ACTUAL hardened test seed.
+
+      row 1 — the HARDENED one-way localized packet (`M.oneway_packet`, what the
+              pass/fail test now asserts on): the x-t view is a SINGLE clean
+              diagonal photon-path band translating at constant speed, with the
+              measured energy-centroid line overlaid (slope = c_net), the
+              filmstrip of the translating envelope, and the energy trace.
+      row 2 — the OLD delocalized directional Bloch seed (the standing fringe it
+              replaced): kept as the side-by-side contrast so the fix is visible.
 
     Energy conservation is annotated on row 1 (the test's seed). Returns the path.
     """
     plt = _mpl()
     fig, axes = plt.subplots(2, 3, figsize=(16.0, 9.4))
-    fig.suptitle(
-        f"{test_id} — photon propagation (lossless, kappa=0): "
-        "ACTUAL test seed (top) + localized companion (bottom)",
-        fontsize=12,
-        y=1.005,
-    )
-    # row 1 — actual delocalized directional Bloch seed (what the test asserts on)
-    _panel_spacetime(axes[0, 0], rec_actual)
-    axes[0, 0].set_title("x-t: ACTUAL seed (delocalized Bloch = standing fringe)")
-    _panel_filmstrip(axes[0, 1], rec_actual)
-    axes[0, 1].set_title("filmstrip: ACTUAL directional Bloch seed")
-    _panel_energy(axes[0, 2], rec_actual["energy"], drift_floor_label=drift_floor_label)
-    # row 2 — localized companion (the clean diagonal photon-path band)
-    _panel_spacetime(axes[1, 0], rec_localized)
-    axes[1, 0].set_title("x-t: LOCALIZED companion (diagonal photon-path band)")
-    _panel_filmstrip(axes[1, 1], rec_localized)
-    axes[1, 1].set_title("filmstrip: localized packet (envelope translating)")
-    _panel_energy(axes[1, 2], rec_localized["energy"])
+    sub = "photon PROPAGATION (lossless, kappa=0): HARDENED one-way packet (top) vs OLD Bloch fringe (bottom)"
+    fig.suptitle(f"{test_id} — {sub}", fontsize=12, y=1.005)
+
+    # row 1 — hardened one-way packet (the clean diagonal photon-path band)
+    _panel_spacetime(axes[0, 0], rec_oneway)
+    ttl = "x-t: HARDENED one-way packet — SINGLE clean diagonal"
+    if speed is not None and c_net is not None:
+        ttl += f"\nspeed {speed:+.4f} ≈ c_net {c_net:.4f}"
+        if r2 is not None:
+            ttl += f"  (R²={r2:.4f})"
+    axes[0, 0].set_title(ttl, fontsize=10)
+    # overlay the measured energy-centroid line (the propagation-distance check).
+    # Plot only the segment BEFORE the packet first wraps the box, so the cyan
+    # line is a single clean diagonal (no fold-back rungs) showing centroid ≈ c·t.
+    if centroid is not None:
+        planes = rec_oneway["planes"]
+        span = planes.max() - planes.min()
+        c = np.asarray(centroid)
+        wrapped = np.abs(c - c[0]) >= span
+        last = int(np.argmax(wrapped)) if wrapped.any() else len(c)
+        if last <= 1:
+            last = len(c)
+        seg = c[:last]
+        axes[0, 0].plot(seg, np.arange(last), color="cyan", lw=1.6, ls="--",
+                        label="measured energy-centroid (≈ c·t, pre-wrap)")
+        axes[0, 0].legend(loc="upper right", fontsize=7, framealpha=0.5)
+    _panel_filmstrip(axes[0, 1], rec_oneway)
+    axes[0, 1].set_title("filmstrip: one-way envelope translating")
+    _panel_energy(axes[0, 2], rec_oneway["energy"], drift_floor_label=drift_floor_label)
+
+    # row 2 — old delocalized directional Bloch seed (the standing fringe)
+    _panel_spacetime(axes[1, 0], rec_bloch)
+    axes[1, 0].set_title("x-t: OLD seed (delocalized Bloch = standing fringe)")
+    _panel_filmstrip(axes[1, 1], rec_bloch)
+    axes[1, 1].set_title("filmstrip: OLD directional Bloch seed")
+    _panel_energy(axes[1, 2], rec_bloch["energy"])
+
     fig.tight_layout()
     path = _fig_path(test_id)
     fig.savefig(path, dpi=110, bbox_inches="tight")

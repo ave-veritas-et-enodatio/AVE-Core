@@ -41,6 +41,66 @@ def energy_centroid_z(net: cl.LatticeNet, V: np.ndarray, axis: int = 2) -> float
     return float(np.sum(net.pos[:, axis] * e) / tot) if tot > 0 else 0.0
 
 
+def energy_centroid_min_image(
+    net: cl.LatticeNet, V: np.ndarray, anchor: float, axis: int = 2
+) -> float:
+    """PBC-safe energy centroid along `axis`, measured relative to `anchor`.
+
+    On the periodic srs torus the raw centroid wraps; a one-way packet that
+    crosses the box edge would show a spurious −box jump. We fold each node's
+    axis-coordinate into the minimum-image window centred on the running
+    `anchor` (the previous-step centroid) BEFORE the energy-weighted average,
+    so the returned centroid tracks a translating packet continuously across
+    wraps. The first call passes the seed centre as `anchor`.
+    """
+    e = energy_per_node(V)
+    tot = e.sum()
+    if tot <= 0:
+        return anchor
+    coord = net.pos[:, axis]
+    dz = ((coord - anchor + net.box / 2.0) % net.box) - net.box / 2.0
+    return anchor + float(np.sum(dz * e) / tot)
+
+
+def centroid_translation(
+    net: cl.LatticeNet,
+    V0: np.ndarray,
+    n_steps: int,
+    *,
+    axis: int = 2,
+    chiral_rotation: bool = False,
+) -> dict:
+    """Track the PBC-unwrapped energy-centroid trajectory of a propagating packet.
+
+    Returns the per-step centroid trajectory, the least-squares fitted centroid
+    SPEED (cells/step), and the net signed displacement over the window — the
+    genuine propagation-distance observable for T1.1 (does the packet TRANSLATE
+    at ≈ c·t, not just sit as a standing fringe). Reads the dynamically-evolved
+    field every step (CP9); the speed is robust to box wrap via min-image folding.
+    """
+    S = cl.scatter_matrix(net.degree)
+    conn = net.connect_index()
+    rot = clv._rotation_per_node(net) if chiral_rotation else None
+    V = V0.copy()
+    z0 = float(np.median(net.pos[net.interior_mask, axis]))
+    anchor = energy_centroid_min_image(net, V, z0, axis=axis)
+    traj = [anchor]
+    for _ in range(n_steps):
+        V = clv.vector_tlm_step(net, V, S, conn, rot)
+        anchor = energy_centroid_min_image(net, V, anchor, axis=axis)
+        traj.append(anchor)
+    traj_arr = np.asarray(traj)
+    t = np.arange(len(traj_arr))
+    A = np.vstack([t, np.ones_like(t)]).T
+    slope, _ = np.linalg.lstsq(A, traj_arr, rcond=None)[0]
+    return {
+        "trajectory": traj_arr,
+        "speed": float(slope),  # signed cells/step
+        "displacement": float(traj_arr[-1] - traj_arr[0]),
+        "n_steps": n_steps,
+    }
+
+
 def net_axial_momentum(net: cl.LatticeNet, V: np.ndarray, axis: int = 2) -> float:
     """Net axial momentum proxy: Σ (per-port energy)·(bond_unit·axis).
 
@@ -84,6 +144,48 @@ def directional_packet(
         for p in range(len(bu)):
             w = max(0.0, sign * bu[p][axis])
             V[u, p, pol] = w * np.cos(ph)
+    return V
+
+
+def oneway_packet(
+    net: cl.LatticeNet,
+    *,
+    axis: int = 2,
+    sign: float = +1.0,
+    width_frac: float = 0.08,
+    m: int = 3,
+    pol: int = 0,
+) -> np.ndarray:
+    """A LOCALIZED, ONE-WAY transverse wave packet — the T1.1-hardened seed.
+
+    Unlike `directional_packet` (a delocalized cos(k·z) Bloch wave = a standing
+    fringe with equal ±k content that does NOT translate), this packet is a
+    Gaussian ENVELOPE × carrier whose counter-propagating partner is suppressed
+    by SINGLE-SIGN port occupancy: only the ports whose bond direction projects
+    with the chosen `sign` onto `axis` are seeded, so the packet carries net
+    one-way momentum and its x-t spacetime shows a SINGLE clean diagonal band
+    translating at the srs network velocity c_net = c_link/√3 (with the slight
+    dispersive broadening of a lattice-sampled packet visible).
+
+    The envelope is centred on the interior median plane and uses min-image
+    folding so it is well-defined on the periodic box. Linearly polarized on
+    component `pol`. (Empirically the engine's connect convention maps +axis
+    port occupancy to −axis group motion and vice-versa; the test reads the
+    SIGNED centroid speed and only requires |speed| ≈ c_net, so either sign is a
+    valid one-way packet — see `centroid_translation`.)
+    """
+    V = np.zeros((net.n_nodes, net.degree, 2))
+    coord = net.pos[:, axis]
+    z0 = float(np.median(coord[net.interior_mask]))
+    dz = ((coord - z0 + net.box / 2.0) % net.box) - net.box / 2.0
+    env = np.exp(-0.5 * (dz / (width_frac * net.box)) ** 2)
+    k = 2.0 * np.pi * m / net.box
+    for u in range(net.n_nodes):
+        bu = net.bond_unit[u]
+        carrier = np.cos(k * coord[u]) if m else 1.0
+        for p in range(len(bu)):
+            w = max(0.0, sign * bu[p][axis])
+            V[u, p, pol] = w * env[u] * carrier
     return V
 
 

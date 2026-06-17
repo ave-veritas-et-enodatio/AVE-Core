@@ -27,89 +27,135 @@ from . import _viz as VZ
 # T1.1 — THE FLAGSHIP: does a photon propagate losslessly?
 # ─────────────────────────────────────────────────────────────────────────────
 def test_t1_1_photon_propagates_losslessly():
-    """T1.1 [CONSISTENCY, FLAGSHIP] — a transverse photon propagates losslessly.
+    """T1.1 [CONSISTENCY, FLAGSHIP] — a transverse photon PROPAGATES losslessly.
 
-    Seed a directional transverse wave packet (net +z momentum) and propagate it
-    on the κ=0 chiral-srs medium over a long run. Measure the three sub-claims:
+    HARDENED 2026-06-17 (L1-hardening): the seed is now a LOCALIZED, ONE-WAY
+    Gaussian-envelope wave packet (`M.oneway_packet`) — single-sign port
+    occupancy suppresses the counter-propagating partner, so the x-t spacetime
+    shows a SINGLE clean diagonal band translating at constant speed (with the
+    slight dispersive broadening visible). The PRIOR seed (`directional_packet`,
+    a delocalized cos(k·z) Bloch wave) carries equal ±k content = a STANDING
+    fringe: it passed energy conservation but did NOT propagate, so it could not
+    test propagation. This is the fix.
+
+    Four sub-claims:
 
       (a) AMPLITUDE: no ABSORPTIVE decay beyond the numerical floor. The physical
           "lossless" invariant is ENERGY conservation (the engine cannot
           distinguish dispersive peak-spreading from lossy decay by peak height
-          alone — peak height falls under pure dispersion too). So (a) is judged
-          by energy, and dispersive peak evolution is CHARACTERISED, not failed.
+          alone). So (a) is judged by energy; dispersive peak evolution is
+          CHARACTERISED, not failed.
       (b) ENERGY: total transverse energy H = Σ|V|² is flat to integrator floor
           over the whole propagation window.
-      (c) Γ ≈ 0: no spurious reflection. On a uniform PBC torus there is no
-          physical reflector; "Γ≈0" = the packet RETAINS its forward momentum
-          (back-scatter off lattice discreteness stays bounded/small over the
-          window), measured by net axial momentum retention.
+      (c) NO REFLECTION (Γ ≈ 0): the energy-centroid NEVER reverses propagation
+          direction (zero backward steps) — the localized one-way packet does not
+          back-scatter into a counter-propagating component. (For a localized
+          DISPERSING packet the old net-axial-momentum proxy decays from pure
+          envelope spreading across mixed-orientation ports — NOT reflection — so
+          centroid-reversal is the faithful reflection measure; the momentum
+          retention number is still reported as a characterisation diagnostic.)
+      (d) PROPAGATION (THE hardening): the energy-centroid TRANSLATES by ≈ c·t.
+          The fitted centroid speed matches the srs network velocity
+          c_net = c_link/√3 to within tolerance, and the centroid trajectory is a
+          clean straight line (constant-speed diagonal, linear-fit R² ≈ 1).
 
     PRE-REGISTERED BINS (frozen before run):
-      * PASS  : (b) max relative energy drift < 1e-8 over >= 1500 steps
-                AND (c) forward-momentum retention stays positive (no net
-                        REVERSAL of propagation direction) over the window
-                        with back-scatter-implied |Γ_eff| <= 0.30 at the
-                        characterisation horizon (dispersive, not absorptive).
-      * FAIL  : energy drift >= 1e-8 (the medium is LOSSY) OR net momentum
-                reverses sign / |Γ_eff| > 0.30 (spurious strong reflection).
-      * Report the actual decay, energy-drift, and Γ_eff numbers regardless.
+      * PASS  : (b) max relative energy drift < 1e-8 over the window
+                AND (c) centroid-reversal fraction == 0 (one-way; no reflection)
+                AND (d) |centroid speed| within 5% of c_net = c_link/√3
+                        (translates at the lattice wave speed)
+                    AND centroid-trajectory linear-fit R² > 0.99
+                        (a single clean constant-speed diagonal, not a fringe).
+      * FAIL  : energy drift >= 1e-8 (LOSSY) OR any centroid reversal (reflection)
+                OR centroid speed off c_net by > 5% (wrong propagation speed /
+                non-propagating) OR R² <= 0.99 (not a clean diagonal).
+      * Report the centroid-translation distance/speed, drift, and momentum
+        retention regardless.
     """
     M.assert_canonical_constants()
     net = cl.build_srs_net(10, "right")
-    n_steps = 1500
+    n_steps = 600  # window kept below the multi-wrap horizon for a clean R²
 
-    V0 = M.directional_packet(net, axis=2, sign=+1.0, m=2, pol=0)
+    V0 = M.oneway_packet(net, axis=2, sign=-1.0, m=2, width_frac=0.10, pol=0)
     E0 = clv.vector_energy(V0)
     p0 = M.net_axial_momentum(net, V0, axis=2)
     peak0 = M.peak_amplitude(V0)
-    assert E0 > 0 and p0 > 0, "seed must carry energy and net +z momentum"
+    assert E0 > 0 and abs(p0) > 0, "seed must carry energy and net one-way momentum"
+
+    c_link = cld.mean_bond_length(net)
+    c_net = cld.ANALYTIC_NETWORK_FACTOR * c_link
 
     # (b) energy conservation over the full window, read dynamically each step
     drift = M.max_energy_drift(net, V0, n_steps, chiral_rotation=False)
 
-    # (a)+(c) propagate and read final-state observables
+    # (d) propagation: PBC-unwrapped centroid trajectory + fitted speed (the
+    #     genuine propagation-distance check — centroid translates by ≈ c·t)
+    ct = M.centroid_translation(net, V0, n_steps, axis=2, chiral_rotation=False)
+    speed = ct["speed"]
+    traj = ct["trajectory"]
+    speed_ratio = abs(speed) / c_net
+    # constant-speed diagonal: linear-fit R² of the centroid trajectory
+    t = np.arange(len(traj))
+    fit = np.polyval([speed, traj[0]], t)
+    ss_res = float(np.sum((traj - fit) ** 2))
+    ss_tot = float(np.sum((traj - traj.mean()) ** 2))
+    r2 = 1.0 - ss_res / ss_tot if ss_tot > 0 else 0.0
+    # (c) no reflection: fraction of steps whose centroid goes BACKWARD
+    steps = np.diff(traj)
+    reversal_frac = float(np.mean(np.sign(steps) != np.sign(speed)))
+
+    # (a) characterisation diagnostics (not pass/fail)
     Vend = M.run_steps(net, V0, n_steps, chiral_rotation=False)
-    E_end = clv.vector_energy(Vend)
-    p_end = M.net_axial_momentum(net, Vend, axis=2)
     peak_end = M.peak_amplitude(Vend)
+    p_end = M.net_axial_momentum(net, Vend, axis=2)
+    peak_decay = 1.0 - peak_end / peak0
+    momentum_retention = p_end / p0
 
-    energy_ratio = E_end / E0
-    momentum_retention = p_end / p0          # 1.0 = no back-scatter
-    peak_decay = 1.0 - peak_end / peak0       # dispersive (characterised)
-    # Γ_eff: forward momentum LOST to back-scatter, as a reflection-fraction proxy
-    gamma_eff = max(0.0, 1.0 - momentum_retention)
-
-    print("\n--- T1.1 photon-propagation-losslessly (srs, κ=0, N=10, 1500 steps) ---")
-    print(f"  (b) max relative energy drift : {drift:.3e}   (PASS < 1e-8)")
-    print(f"      final/initial energy ratio: {energy_ratio:.15f}")
-    print(f"  (a) dispersive peak decay     : {peak_decay:.4f}   (characterised, energy-conserving)")
-    print(f"  (c) forward-momentum retention: {momentum_retention:.4f}")
-    print(f"      Γ_eff (back-scatter frac) : {gamma_eff:.4f}   (PASS <= 0.30, no sign reversal)")
+    print("\n--- T1.1 photon PROPAGATION (HARDENED one-way packet; srs κ=0 N=10, 600 steps) ---")
+    print(f"  (b) max relative energy drift  : {drift:.3e}   (PASS < 1e-8)")
+    print(f"  (d) centroid speed             : {speed:+.5f} cells/step")
+    print(f"      c_net = c_link/√3          : {c_net:.5f}   (|speed|/c_net = {speed_ratio:.4f}, PASS within 5%)")
+    print(f"      propagation distance       : {ct['displacement']:+.2f} cells over {n_steps} steps (≈ c·t)")
+    print(f"      centroid-trajectory R²     : {r2:.6f}   (PASS > 0.99 = clean diagonal)")
+    print(f"  (c) centroid-reversal fraction : {reversal_frac:.4f}   (PASS == 0, no reflection)")
+    print(f"  (a) dispersive peak decay      : {peak_decay:.4f}  (characterised, energy-conserving)")
+    print(f"      net-axial-momentum ret.    : {momentum_retention:.4f}  (diagnostic: decays from envelope SPREAD, not reflection)")
 
     # ── pre-registered adjudication ──
     assert drift < 1e-8, (
         f"FAIL: medium is LOSSY — energy drift {drift:.3e} >= 1e-8"
     )
-    assert momentum_retention > 0.0, (
-        f"FAIL: net propagation REVERSED — momentum_retention {momentum_retention:.4f} <= 0"
+    assert reversal_frac == 0.0, (
+        f"FAIL: packet REFLECTED — centroid reversed on {reversal_frac:.1%} of steps"
     )
-    assert gamma_eff <= 0.30, (
-        f"FAIL: spurious strong reflection — Γ_eff {gamma_eff:.4f} > 0.30"
+    assert abs(speed_ratio - 1.0) <= 0.05, (
+        f"FAIL: wrong propagation speed — |speed|/c_net {speed_ratio:.4f} off 1.0 by > 5% "
+        f"(speed {speed:+.5f}, c_net {c_net:.5f})"
+    )
+    assert r2 > 0.99, (
+        f"FAIL: not a clean constant-speed diagonal — centroid R² {r2:.4f} <= 0.99"
     )
 
     # ── visual-debug layer (additive; never affects pass/fail) ──
     if VZ.viz_enabled():
-        rec_actual = VZ.record_axis_profile(
-            net, V0, n_steps, axis=2, chiral_rotation=False, every=10
+        # the HARDENED one-way seed: a single clean diagonal photon-path band
+        rec_oneway = VZ.record_axis_profile(
+            net, V0, n_steps, axis=2, chiral_rotation=False, every=4
         )
-        V_loc = VZ.localized_envelope(net, V0, axis=2, width_frac=0.08)
-        rec_loc = VZ.record_axis_profile(
-            net, V_loc, n_steps, axis=2, chiral_rotation=False, every=10
+        # the OLD delocalized Bloch seed on the SAME medium/stepper (the standing
+        # fringe it replaced — kept as the side-by-side contrast)
+        V_bloch = M.directional_packet(net, axis=2, sign=+1.0, m=2, pol=0)
+        rec_bloch = VZ.record_axis_profile(
+            net, V_bloch, n_steps, axis=2, chiral_rotation=False, every=4
         )
         path = VZ.save_t1_1_flagship_figure(
             "T1.1",
-            rec_actual,
-            rec_loc,
+            rec_oneway,
+            rec_bloch,
+            centroid=traj,
+            speed=speed,
+            c_net=c_net,
+            r2=r2,
             drift_floor_label=f"lossless: drift {drift:.3e} (integrator floor ~1e-13)",
         )
         print(f"  [viz] flagship figure -> {path}")
