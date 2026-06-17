@@ -3,9 +3,34 @@
 **Audit trail (2026-05-23 Benn → 2026-05-25 merge):** This directory was ported from `analysis/integration` (D7 curation, KB claim-DAG integration) on 2026-05-23, and completed-work snapshots were moved to [`_archive/index-stale.md`](_archive/index-stale.md). Merged with integration live state on 2026-05-25 — treat this doc as the current live tracker; consult git log for recent updates.
 **EDIT** - 2026-05-23 Benn - document deprecated. Do not do any sweeping work from this document without evaluating current repo state. KB claim DAG has received many improvements and the KB has had many fixups in the process. This directory was ported over from `analysis/integration` branch, which has now been superseded. Work that was clearly already done has been extracted and moved to _archive/. What remains may still be relevant, but again, *check first*.
 
-> **Staleness notice (2026-06-12)**: The **2026-06-12 reconciliation** below is authoritative for **execution order**, active epics, decision-stack physics read, and harness phases. The **2026-06-11** block below remains valid for PR-merge history only; its Grant decision stack (D1/D2 **CLOSED** rows) is **superseded for execution** by §2026-06-12. Older sections (2026-05-28 priority ladder, open decisions #1–#20) remain historical unless touched by §2026-06-12. Verify-before-cite v1.4 applies.
+> **Staleness notice (2026-06-16)**: The **2026-06-16 reconciliation** below is authoritative for **execution order + active epic**. It supersedes the 2026-06-12 LOOP-GAP harness pivot and the genesis-on-K4 arc *for execution* (those remain valid as the negative-result record). The 2026-06-13 engine-capability-map addendum (under §2026-06-12) is the load-bearing terrain the 2026-06-16 pivot stands on. Older sections are historical. Verify-before-cite v1.4 applies.
 
-## 2026-06-12 reconciliation (LOOP GAP harness pivot + audit discipline — ACTIVE)
+## 2026-06-16 reconciliation (ground-up acceptance-test engine pivot — ACTIVE)
+
+**Authoritative execution plan:** [`2026-06-16_groundup-engine-acceptance-plan.md`](2026-06-16_groundup-engine-acceptance-plan.md).
+
+### What happened (the 2026-06-16 genesis arc + its reorientation)
+
+The electron-genesis keystone arc ran and closed-negative — but on the wrong grid:
+
+- **Keystone (energize-LOCK from a free precursor) = SUBSTRATE-PUMP.** The coupling pumps H at dt→0; closed across freeze-g (∂g/∂V residual ~1%, N=20 + banked N=32, 99.98% survives), wrong-operator (a stale/branch-retracted read, refuted), and handedness-flip (symmetric). Banked on `analysis/2026-06-16-keystone-freezeg` (`348b4241`); memory `project_keystone_energize_lock_negative`. **SCOPED:** real for the energize-LOCK loop *on the achiral K4-diamond convergence engine*, NOT the last word on genesis. (Folds into the new plan as L5.1-on-K4.)
+- **Reorientation (engine map + grep):** the genesis tests ran on `a1_cosserat_convergence_engine` = K4-diamond with **chirality parked** (`:334` "achiral-OK"). By the engine-capability-map's incompatibility #2, an achiral grid **cannot carry the (2,q) winding's handedness = the charge.** Consequences: the handedness-flip "reference-independent" result is **confounded → candidate-(c) RE-OPENED**; winding-emergence on K4 tests geometry, not charge. The Q2 scrutiny also confirmed the orbital solvers are **CONSISTENCY-IMPORT** (m_e/α imported; "AVE IS standard QM" by its own admission), "m_e from the unknot" is algebraically circular, and there is **no forward-predicted-and-confirmed dimensionless electron number** (muon g-2 is the lone forward bet, 4.6σ off + on a refuted fit).
+- **Pivot (Grant-ratified 2026-06-16):** stop patching incompatible engines; **build one engine ground-up on the chiral srs grid, acceptance-test-driven** (every test labeled CONSISTENCY vs CHORD), photon-first. Decisions: **D-A** srs grid from L0 · **D-B** pytest acceptance suite as the regression spine · **D-C** consume validated pieces (Master-Eq cage / srs grid / harness channels) where they pass, rebuild where they fail · **D-D** L0–L1 first (photon-lossless flagship), L2 achromatic-lensing the first chord, stop+report after L1.
+
+### Active epic (supersedes the LOOP-GAP harness pivot for execution)
+
+| Priority | Epic | Doc | Phase | Next |
+|:---:|:---|:---|:---|:---|
+| **P0** | Ground-up acceptance engine | [`2026-06-16_groundup-engine-acceptance-plan.md`](2026-06-16_groundup-engine-acceptance-plan.md) | **L0–L1** | implementer building `engine_acceptance/` on srs (branch `analysis/2026-06-16-engine-acceptance-l0l1`); **T1.1 "photon propagates losslessly"** is the first gate |
+
+### Carry-forward / recording / merge queue
+
+- **MERGE PENDING (Grant):** `analysis/2026-06-16-stage16-rerun-amendments` (`54fa23cd`) — the Stage-1.5 (b) Rule-12 retraction + (c) CONTESTED marker — **UNMERGED**; `main` still shows the stale emergence-negative (the stale-read root cause that produced ≥3 near-misses this session). Pre-merge audit → Grant merges. The durable fix for the recurring stale-read is merging branch-stranded retractions.
+- **Open PRs:** #275 (photon-c isolation → folds in as L1.4 causality), #248 (weak-C continuum photon → DEC-01, still open).
+- **Superseded — do NOT run as the path forward:** the queued K4 winding-emergence (wrong grid for charge); the engine-lane K4 freeze-g re-confirm (`aedf3b45`) is a scoped re-check, not the build.
+- **Keystone-freezeg branch** (`348b4241`): the scoped K4 negative + the freeze-g/handedness drivers; preserve, do not merge as a genesis verdict.
+
+## 2026-06-12 reconciliation (LOOP GAP harness pivot — SUPERSEDED for execution by §2026-06-16; historical + 2026-06-13 engine-map addendum still load-bearing)
 
 **Authoritative execution plan:** [`2026-06-12_loop-gap-orchestration-plan.md`](2026-06-12_loop-gap-orchestration-plan.md) (pedantic phases A→G).
 
