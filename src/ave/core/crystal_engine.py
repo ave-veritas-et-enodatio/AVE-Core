@@ -418,26 +418,65 @@ class CrystalEngine:
         return float(np.sqrt(Lx**2 + Ly**2 + Lz**2))
 
     # ---------------------------------------------------- the Γ=-1 wall
+    #
+    # WAVE-TYPED INDEX (sign-lock w35sn2bq3, landed 2026-06-17 task #12):
+    # n=√(εμ) tracks the εμ PRODUCT; a single scalar CANNOT serve both wave
+    # types because the EM-transverse and shear/gravitational indices are
+    # RECIPROCAL. The wave-speed identity c_eff²=c0²/S (master_equation_fdtd
+    # .py:148-151) is the kernel-base anchor:
+    #   * EM-transverse  n_EM    = c0/c_eff = S^{+1/2} → 0  (core STIFFENS;
+    #                    the saturated core is transparent/fast to the photon)
+    #   * shear / grav   n_shear = c0/c_eff = S^{−1/2} → ∞  (light SLOWS;
+    #                    the Shapiro/lensing gravitational analog)
+    # The legacy magnitude was S^{1/4} (an exponent defect — half the physical
+    # power). Corrected to ½ here: SIGN-SAFE (deepens the Γ=−1 wall, never
+    # flips it). See the wave-type FLAGs in the task-12 PR for the KB n_eff
+    # overload (vacuum-birefringence-e4.md:12 √S vs substrate-perspective-
+    # electron.md:58 1/√S) — a KB-OWNER decision, surfaced not silently fixed.
+    def n_em_index(self) -> np.ndarray:
+        """EM-transverse refractive index n_EM = S(A)^{+1/2} → 0 in the
+        saturated core (the photon channel; core stiffens, n falls toward 0)."""
+        return self.saturation_kernel(self.V) ** 0.5
+
+    def n_shear_index(self) -> np.ndarray:
+        """Shear / gravitational refractive index n_shear = S(A)^{−1/2} → ∞ in
+        the saturated core (the Shapiro/lensing channel; light slows). The
+        RECIPROCAL of n_em_index — a single scalar cannot serve both."""
+        return self.saturation_kernel(self.V) ** (-0.5)
+
     def refractive_index(self) -> np.ndarray:
-        """n(r)=c0/c_eff=S(A)^{1/4} → 0 in the saturated core (the canonical
-        Master-Equation refractive index)."""
-        # FLAG (2026-06-10, apparatus-floors char.): exponent defect — the
-        # wave-speed identity c_eff²=c0²/S (master_equation_fdtd.py:148-151)
-        # implies physical n=c0/c_eff=S^0.5, NOT S^0.25. The docstring above
-        # and the gamma_bulk() diagnostic disagree by a power; downstream
-        # Γ=(n-1)/(n+1) magnitudes UNDERSTATE the wall depth (corrected
-        # exponent deepens, does not flip the sign). Comment-only flag per
-        # flag-don't-fix; FIX IS A PHYSICS-REVIEW ITEM (Grant/auditor), not
-        # landed here. The tracks-knob-vs-plateau verdict is power-independent.
-        return self.saturation_kernel(self.V) ** 0.25
+        """Back-compat alias = the EM-transverse index n_EM = S(A)^{+1/2} → 0 in
+        the saturated core. The historical callers (gamma_bulk, the v14 Mode-I /
+        cage / apparatus-floor diagnostics) all read the "n→0 in core" sense, so
+        this preserves that direction at the CORRECTED ½ magnitude. New code
+        should call the wave-typed n_em_index() / n_shear_index() explicitly."""
+        return self.n_em_index()
 
     def gamma_bulk(self) -> dict:
-        """Smith-Γ on the BULK branch: Γ=(n-1)/(n+1) with n=S^{1/4}. In the
-        saturated core n→0 ⇒ Γ→-1 (the electron's reflective short = THE WALL);
-        in vacuum n→1 ⇒ Γ→0. SMOKE-1 asks: does Γ_min drive toward -1? (genesis-
-        24's coupled engine had no c_eff trap, so it drifted to Γ=0/matched.)"""
-        n = self.refractive_index()
-        gamma = (n - 1.0) / (n + 1.0)
+        """Smith-Γ on the BULK branch, IMPEDANCE-ROUTED + μ-LOAD-SCOPED.
+
+        Routes Γ through the impedance Z_eff (matching the canonical live wall
+        cosserat_field_3d.py:500,1647-1648  Z_eff=Z0·√(S_μ/S_ε), Γ=(Z−1)/(Z+1)),
+        NOT the mode-degenerate n-based Γ=(n−1)/(n+1) that is sign-correct only
+        by coincidence for a μ-load. CrystalEngine carries a SINGLE bulk-
+        dilatation kernel S (one scalar V), so this models the MAGNETIC μ-LOAD:
+        Z_eff = Z0·√S → 0 (Z0≡1 engine units), giving Γ → −1, the electron's
+        reflective short = THE WALL. In vacuum S→1 ⇒ Z_eff→1 ⇒ Γ→0.
+
+        SCOPE ASSERTION (load-type guard): this is the μ-load branch ONLY. An
+        ε-load (Z_eff=Z0/√S→∞) would give Γ=+1 (the OPEN anti-trap). A future
+        ε-load import MUST NOT reuse this method's Z_eff form — see the Z-
+        convention guard in universal_operators.universal_dynamic_impedance.
+
+        Identical to the old n-based Γ in SIGN and at the matched/short limits
+        (Γ=0 at S=1, Γ→−1 at S→0); differs in interior MAGNITUDE because Z=√S
+        vs n=√S enter (Z−1)/(Z+1) the same way here (μ-load: n_EM=√S=Z_eff/Z0),
+        so the bulk μ-load Γ is numerically the EM-index Γ — by construction,
+        not coincidence. SMOKE-1 asks: does Γ_min drive toward −1?"""
+        S = self.saturation_kernel(self.V)
+        # μ-load impedance, Z0 ≡ 1 in engine units: Z_eff = Z0·√S → 0 short.
+        Z_eff = S ** 0.5
+        gamma = (Z_eff - 1.0) / (Z_eff + 1.0)
         m = self.interior_mask()
         gi = gamma[m]
         return {
