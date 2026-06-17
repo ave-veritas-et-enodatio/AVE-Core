@@ -102,6 +102,35 @@
 <!-- id: clm-ir8h78 -->
 
 - $r_{sat} = 7GM/c^2 = 3.5\,r_s$ (saturation boundary); interior: $G_{shear} \to 0$, $c_g \to 0$
+
+> 🔴 **SUPERSEDED 2026-06-17 (BH shear-reflect walk-back, Rule-12).** The
+> "dissipative sink / perfect absorber, no reflection ($\Gamma = 0$)" framing
+> below was a **channel conflation**: it took the EM-channel result
+> ($\Gamma_{EM} = 0$, symmetric gravity $Z_{EM} \equiv Z_0$) and wrongly
+> extended it to the shear/bulk channels. This entry was internally
+> self-conflicting — its own canonical leaf body
+> ([`electron-bh-isomorphism.md`](./cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md):34–42)
+> already states $\Gamma_{shear} = \Gamma_{bulk} = -1$ (REFLECT). The
+> substrate-forced result is the **channel-split**: $\Gamma_{EM} = 0$ (light
+> transparent / index-gradient-captured) AND $\Gamma_{shear} = \Gamma_{bulk}
+> = -1$ (Axiom-4 melt $G_{shear} \to 0 \Rightarrow Z_{shear} = \rho c_{shear}
+> \to 0 \Rightarrow$ Op3 short $\Rightarrow$ reflect). Corrected bullets are
+> below the banner; the original bullets are preserved beneath them.
+
+- _Specific Claims (corrected — channel-split)_
+  - The event horizon at $r_s = 2GM/c^2$ marks the **EM-transverse** saturation limit ($n \to \infty$, $\varepsilon_{11}(r_s) = 1$ in the GW-gauge transverse formulation); the **shear/bulk** rupture boundary is deeper, at $r_{sat} = 7GM/c^2 = 3.5\,r_s$ where the radial strain $\varepsilon_{11} = 1$; the interior beyond $r_{sat}$ is in **Regime IV** (ruptured topology).
+  - Confinement of the BH interior is a **lattice phase transition** ($G_{shear} \to 0$, shear restoring force vanishes). This **is** a shear-channel impedance collapse: $Z_{shear} = \rho\,c_{shear} \to 0 \Rightarrow \Gamma_{shear} = -1$ (Op3), and likewise $Z_{bulk} \to 0 \Rightarrow \Gamma_{bulk} = -1$ at the dielectric rupture. The earlier "NOT an impedance mismatch / $\Gamma = 0$" wording is the **EM channel only** ($Z_{EM} \equiv Z_0$ under SYM scaling, $\Gamma_{EM} = 0$); it does not govern the shear/bulk channels.
+  - The shear/bulk channels **reflect totally** ($|\Gamma| = 1$): a solid$\to$liquid free surface ($G_{shear} \to 0$) is exactly a $Z_{shear} \to 0$ short. GW (transverse shear) modes therefore reflect off $r_{sat}$ — gravitational ringdown **echoes are predicted** (reflect $\Rightarrow$ echo; retrospective, no SHA-pinned forward prereg yet). The $\Gamma \to -1$ mechanism is **not electron-only** — it is the universal $Z \to 0$ short applied in the shear/bulk channels here; the electron applies it in the bulk channel at the knot core.
+  - The classical singularity is replaced by a topological halting: $\rho_{eff} \to \infty$ as $\varepsilon_{11} \to 1$ freezes infalling matter at $r \approx r_{sat}$, forming a hollow / densely compact shell.
+- _Specific Non-Claims and Caveats (corrected — channel-split)_
+  - Does **not** claim the EM channel reflects. In the EM-transverse channel $\Gamma_{EM} = 0$ (symmetric gravity, $Z_{EM} \equiv Z_0$): light is transparent / index-gradient-captured, no EM echoes.
+  - Does claim the **shear/bulk** channels reflect ($\Gamma_{shear} = \Gamma_{bulk} = -1$): GW/shear echoes are predicted. This is **not** the electron mechanism imported — it is the same universal $Z \to 0$ short, channel-resolved (electron: bulk channel at knot core; BH: shear+bulk channels at $r_{sat}$).
+  - Does NOT claim BH and electron use the *identical* confinement geometry. The cross-scale "isomorphism" (Master Prediction Table #45) is operator-level (same $Z \to 0 \Rightarrow \Gamma = -1$ kernel) at different saturation symmetries and different channels — BH is symmetric (shell / topology destruction, shear+bulk reflect, EM matched), electron is asymmetric (knot / topology preservation, bulk reflect). Conflating the *channels* is the reading error this walk-back corrects.
+  - Does NOT claim a numerical match to BH interior observations. The interior is observationally inaccessible; the structural claim (a shear/bulk phase-transition reflector exists at $r_{sat}$) is not a numerical interior solution. The GW-echo prediction is **retrospective** (reflect $\Rightarrow$ echo), **not validated** — a SHA-pinned forward prereg is a separate deliverable.
+  - The "pre-geometric plasma" and "information loss siding with Hawking" framings are interpretive consequences of the lattice picture, not independent results.
+
+<details><summary>🔴 SUPERSEDED 2026-06-17 — original (channel-conflated) bullets, preserved per Rule-12</summary>
+
 - _Specific Claims_
   - The event horizon at $r_s = 2GM/c^2$ marks the dielectric saturation limit ($\varepsilon_{11}(r_s) = 1$ in the GW-gauge formulation); the interior beyond $r_{sat}$ is in **Regime IV** (ruptured topology).
   - Confinement of the BH interior is via a **phase transition** ($G_{shear} \to 0$, shear restoring force vanishes) — NOT via an impedance mismatch. Under Symmetric Gravity $Z(r) = Z_0$ everywhere and $\Gamma = 0$.
@@ -113,6 +142,8 @@
   - Does NOT claim a numerical match to BH interior observations. The interior is observationally inaccessible; the claim is structural (a phase transition exists at $r_{sat}$), not numerical.
   - The "pre-geometric plasma" and "information loss siding with Hawking" framings are interpretive consequences of the lattice picture, not independent results.
 
+</details>
+
 > **Leaf references:** [black-holes-impedance-mismatch](./cosmology/ch04-generative-cosmology/black-holes-impedance-mismatch.md), [constructive-destructive-paradox](./cosmology/ch15-black-hole-orbitals/constructive-destructive-paradox.md), [electron-bh-isomorphism](./cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md), [interior-singularity-resolution](./cosmology/ch15-black-hole-orbitals/interior-singularity-resolution.md), [dielectric-rupture-event-horizon](./gravity/ch03-macroscopic-relativity/dielectric-rupture-event-horizon.md).
 
 ### Quality
@@ -123,10 +154,11 @@
   - `clm-rd9cjm` (Vol 3 refractive index / radial strain, solidity X)
   - `clm-07kd5v` (Vol 3 symmetric impedance $Z = Z_0$, solidity X)
 - solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
-- rationale: The confinement mechanism ($G_{shear}\to0$, $c_g\to0$ at $r_{sat} = 7GM/c^2$) follows cleanly from $\varepsilon_{11}(r_{sat}) = 1$ plus the symmetric-impedance result ($\Gamma = 0$). The electron-vs-BH contrast (knot $\Gamma=-1$ vs hole phase-transition) is structural and internally consistent. Band sits at disclosed-bound rather than clean-derivation because the interior is explicitly **observationally inaccessible** — the claim is structural (a phase transition exists), and the saturation picture it rests on is an imported/asserted regime rather than a closed interior solution.
+- rationale: The confinement mechanism ($G_{shear}\to0$, $c_g\to0$ at $r_{sat} = 7GM/c^2$) follows cleanly from $\varepsilon_{11}(r_{sat}) = 1$ plus the channel-resolved impedance result. The channel-split is internally consistent: EM channel matched ($Z_{EM} \equiv Z_0$, $\Gamma_{EM} = 0$, light transparent) while shear/bulk channels short ($Z_{shear}, Z_{bulk} \to 0$, $\Gamma = -1$, GW/shear reflect). Band sits at disclosed-bound rather than clean-derivation because the interior is explicitly **observationally inaccessible** — the claim is structural (a shear/bulk phase-transition reflector exists), and the saturation picture it rests on is an imported/asserted regime rather than a closed interior solution. **Confidence held at 0.70 across the 2026-06-17 walk-back:** the correction *removed an internal self-conflict* (the entry had asserted $\Gamma = 0$/absorb while its own leaf body said $\Gamma_{shear} = -1$) — resolving a contradiction does not lower confidence. Solidity remains $0.55 = \min(0.70, 0.55)$, floored unchanged by the dependency cone, not by this reconciliation.
 - strengthen-by:
   - Provide a worked interior solution (even schematic) showing $G_{shear}(r)\to0$ continuously across $r_{sat}$.
-  - **RESOLVED (2026-06-06 doc-reconcile):** the sibling leaf [`black-holes-impedance-mismatch.md`](./cosmology/ch04-generative-cosmology/black-holes-impedance-mismatch.md) was retitled "Black Holes — Lattice Phase Transition, Not Impedance Mismatch" (no longer "$\Gamma=-1$"-titled), and the canonical "$\Gamma=0$"-vs-"$\Gamma=-1$" reconciliation is at [`electron-bh-isomorphism.md` lines 23–34](./cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md): BH = SHEAR-mode phase transition ($G_{shear}\to0$, $Z=Z_0$, $\Gamma=0$); electron = EM mismatch ($\Gamma=-1$). Inter-leaf tension removed.
+  - 🔴 **CORRECTED 2026-06-17 (BH shear-reflect walk-back, Rule-12).** The 2026-06-06 stamp below **misquoted its own cite** (an A47-v11b substitution-not-retraction hazard: RESOLVED-stamped without the leaf actually agreeing). It claimed the reconciliation resolved to "BH = SHEAR-mode phase transition … $\Gamma=0$" — but the cited leaf body [`electron-bh-isomorphism.md`](./cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md):34–42 says the **opposite** for the shear channel: $G_{shear}\to0 \Rightarrow Z_{shear} = \rho c_{shear} \to 0 \Rightarrow \Gamma_{shear} = -1$ (REFLECT). The correct reconciliation is the **channel-split**: $\Gamma_{EM}=0$ (symmetric gravity, $Z_{EM}\equiv Z_0$, light transparent) AND $\Gamma_{shear}=\Gamma_{bulk}=-1$ (shear/bulk short at $r_{sat}$, GW reflect $\Rightarrow$ echoes predicted). Corroborated by [`bulk-impedance-at-saturation-boundary.md`](./cosmology/ch15-black-hole-orbitals/bulk-impedance-at-saturation-boundary.md):51 (three-channel table), [`lattice-extreme-bh-rationality.md`](./cosmology/ch15-black-hole-orbitals/lattice-extreme-bh-rationality.md):75, and [`existing-signatures.md`](../vol4/falsification/ch11-experimental-bench/existing-signatures.md):36. **The "$\Gamma=0$ everywhere, inter-leaf tension removed" stamp is the channel conflation — the tension was *papered over*, not removed.**
+  - <s>**RESOLVED (2026-06-06 doc-reconcile):** the sibling leaf [`black-holes-impedance-mismatch.md`](./cosmology/ch04-generative-cosmology/black-holes-impedance-mismatch.md) was retitled "Black Holes — Lattice Phase Transition, Not Impedance Mismatch" (no longer "$\Gamma=-1$"-titled), and the canonical "$\Gamma=0$"-vs-"$\Gamma=-1$" reconciliation is at [`electron-bh-isomorphism.md` lines 23–34](./cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md): BH = SHEAR-mode phase transition ($G_{shear}\to0$, $Z=Z_0$, $\Gamma=0$); electron = EM mismatch ($\Gamma=-1$). Inter-leaf tension removed.</s> *(superseded 2026-06-17 — see correction above; preserved per Rule-12)*
 
 ---
 

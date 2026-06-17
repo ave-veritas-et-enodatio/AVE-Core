@@ -63,8 +63,11 @@ def v14_run_result():
     engine.V_prev[:] = seed.copy()
 
     # Run + record V_peak and n_refractive_min per step in post-transient window
-    # Engine convention: refractive_index() = S^(1/4), goes from 1 (A=0) → 0 (A=1).
-    # MIN of n_eff over the lattice captures the deepest saturation point (soliton core).
+    # Engine convention (sign-lock w35sn2bq3, 2026-06-17): refractive_index() =
+    # n_EM = S^(1/2), goes from 1 (A=0) → 0 (A=1). MIN of n_EM over the lattice
+    # captures the deepest saturation point (soliton core). Threshold below is
+    # < 0.97; the ½ power only DEEPENS the dip (S^0.5 < S^0.25 for S<1), so the
+    # frozen bin is unmoved — sign-safe and threshold-safe.
     v_peak_history = []
     n_refractive_min_history = []
     for step in range(N_STEPS_TOTAL):
@@ -109,12 +112,15 @@ def test_v14_mode_i_not_diverging(v14_run_result):
 
 
 def test_v14_mode_i_saturation_engaged(v14_run_result):
-    """min n_eff = S^(1/4) over recorded window < 0.97 → saturation kernel is engaged at soliton core.
+    """min n_EM = S^(1/2) over recorded window < 0.97 → saturation kernel is engaged at soliton core.
 
-    Engine convention: refractive_index() = S(A)^(1/4) = (1 - A²)^(1/4)/sqrt — goes from 1.0 (no
-    saturation, A=0) toward 0.0 (full saturation, A→1). MIN over the lattice captures the deepest
-    saturation point (soliton core). For v14 canonical seed amplitude 0.85 with breathing
-    dynamics settling to A ≈ 0.5-0.7 at core, expect min n_eff ≈ (1-0.5²)^(1/4) ≈ 0.93.
+    Engine convention (sign-lock w35sn2bq3, 2026-06-17): refractive_index() = n_EM
+    = S(A)^(1/2) = (1 - A²)^(1/4) — goes from 1.0 (no saturation, A=0) toward 0.0
+    (full saturation, A→1). MIN over the lattice captures the deepest saturation
+    point (soliton core). For v14 canonical seed amplitude 0.85 with breathing
+    dynamics settling to A ≈ 0.5-0.7 at core, expect min n_EM ≈ (1-0.5²)^(1/2) ≈ 0.87
+    (the ½ power deepens the dip vs the legacy S^(1/4)≈0.93; the <0.97 bin holds
+    in both — sign-safe).
     """
     assert v14_run_result["n_refractive_min_over_window"] < 0.97, (
         f"min n_refractive over window = {v14_run_result['n_refractive_min_over_window']:.4f}, "

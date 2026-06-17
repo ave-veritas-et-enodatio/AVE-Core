@@ -16,7 +16,10 @@ Locks in the empirical result of `research/2026-06-13_cage-stiffening-wall_resul
      plant-not-create guard, prereg A2.1), proven on synthetic records.
 
 Magnitude is APPARATUS-QUALIFIED, never binned on Γ=−1: A_cap=0.99 floors
-gamma_bulk_min at −0.2400 (S^{1/4} index).
+gamma_bulk_min at −0.4539 (the S^{1/2} μ-load impedance Z_eff=Z0·√S→0; sign-lock
+w35sn2bq3, 2026-06-17 — the index magnitude was corrected ¼→½ and gamma_bulk was
+Z-routed; the deepening is sign-safe). The legacy −0.2400 (S^{1/4}) value is the
+regression anchor in test_clip_floor_apparatus_qualified.
 """
 
 import numpy as np
@@ -93,15 +96,20 @@ def test_converter_does_not_rescue_gaussian():
 
 
 def test_clip_floor_apparatus_qualified(sech_anchor):
-    """Magnitude is APPARATUS-QUALIFIED: A_cap=0.99 floors gamma_min at −0.2400
-    (S^{1/4} index); the deep self-focusing seed sits ON that floor, so the depth
-    is bench-limited, NOT physics (never bin on Γ=−1)."""
+    """Magnitude is APPARATUS-QUALIFIED: A_cap=0.99 floors gamma_min at −0.4539
+    (the S^{1/2} μ-load impedance, sign-lock w35sn2bq3, 2026-06-17 — the index
+    magnitude was corrected ¼→½; gamma_bulk is now Z-routed Z_eff=Z0·√S→0); the
+    deep self-focusing seed sits ON that floor, so the depth is bench-limited,
+    NOT physics (never bin on Γ=−1). The legacy −0.2400 (S^{1/4}) floor is kept
+    as a regression anchor — the ½ power deepens the wall, does NOT flip it."""
     fl = naive_gamma_floor(0.05, 0.99)
     assert fl["binds"] == "A_cap"
-    assert fl["gamma_floor_S0.25"] == pytest.approx(-0.2400, abs=1e-3)
-    assert fl["gamma_floor_S0.50"] == pytest.approx(-0.4539, abs=1e-3)  # exponent-defect FLAG
-    # the amp=0.85 sech reaches the clip floor -> magnitude is apparatus-limited
-    assert sech_anchor["gamma_min_deepest"] == pytest.approx(fl["gamma_floor_S0.25"], abs=0.01)
+    assert fl["gamma_floor_S0.25"] == pytest.approx(-0.2400, abs=1e-3)  # legacy regression anchor
+    assert fl["gamma_floor_S0.50"] == pytest.approx(-0.4539, abs=1e-3)  # CORRECTED ½-power floor
+    # the amp=0.85 sech reaches the clip floor -> magnitude is apparatus-limited.
+    # gamma_bulk() now uses the ½-power μ-load impedance, so the deepest sits on
+    # the S^{1/2} floor (sign-safe: deeper, never flipped).
+    assert sech_anchor["gamma_min_deepest"] == pytest.approx(fl["gamma_floor_S0.50"], abs=0.01)
 
 
 # ------------------------------------------------------ classifier soundness

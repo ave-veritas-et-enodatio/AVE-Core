@@ -14,8 +14,10 @@ THE DIAGNOSIS (verified this session, prereg §0):
 
 THE FIX — THREE ORTHOGONAL SECTORS (A1 ⊥ T2):
     (V)  bulk DILATATION breather = MASS. c_eff(V)=c0·S^{−1/2}→∞ in the
-         saturated core (n=S^{1/4}→0) self-creates a HARDENED Γ=−1 acoustic
-         wall. Reused from CrystalEngine. The "3"-as-MASS object.
+         saturated core (EM-transverse index n_EM=S^{+1/2}→0; sign-lock
+         w35sn2bq3, 2026-06-17 — ½ power, the legacy S^{1/4} was an exponent
+         defect) self-creates a HARDENED Γ=−1 acoustic wall. Reused from
+         CrystalEngine. The "3"-as-MASS object.
     (w)  transverse SHEAR photon (c_T). Carries the seed helicity h (chirality).
     (ω)  Cosserat MICRO-ROTATION winding sector — NEW, INDEPENDENT U(1). Its
          OWN 3-vector field + OWN conjugate momentum π_ω=∂_tω + OWN mass-gap
