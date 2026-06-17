@@ -25,6 +25,22 @@ LAYER MAP (test files):
                           bulk, T1.8 Cosserat) OR the medium-extension findings
                           where the srs medium does not carry a given wave type.
   * test_l2_em_in_media.py — L2: EM in a biased medium (T2.1-T2.4).
+  * test_l3_mass_cage.py — L3-MASS-CAGE FOUNDATION (the longitudinal-bulk / A1
+                          dilatation scalar grade = the "mass-3"): the MEDIUM
+                          EXTENSION (adds the longitudinal-bulk DOF the srs
+                          vector-TLM lacked, via the canonical Master-Equation
+                          scalar engine — see `_bulk.py`) + T3.1 longitudinal-
+                          mode-is-real [CHORD, AVE-distinct existence vs QED's
+                          gauge-deleted scalar; FLIPS the T1.7 ⊘ absence-finding]
+                          and T3.2 c_eff(V) stiffening → ∞ at A→A_yield
+                          [Axiom-4 MANIFESTATION / consistency]. STOPS before
+                          T3.3 (binding wall Γ=−1) and T3.4 (mass = cutoff freq) —
+                          the make-or-break CHORD-DECIDERS, DEFERRED to a ratified
+                          second pass (they need the seed-DON'T-plant CP8 protocol
+                          + the Q=α⁻¹ resonant-amplification gate the genesis arc
+                          failed at). The L3 step-0 MODE/REGIME/PHASE-STATE
+                          declaration + the §8.5 60-sec skill-selection plan are in
+                          the test_l3_mass_cage.py module docstring.
   * test_operators.py   — OP-PRIMITIVE + SCALE-INVARIANCE TIER (ADDED 2026-06-17;
                           runs ALONGSIDE L0-L5, does NOT replace it). Gates the
                           framework's DISTINGUISHING claim — the 22 Universal
@@ -75,11 +91,16 @@ is transverse, so it runs on the vector-TLM layer of the srs grid natively.
 Running acceptance tests on the FROZEN srs (loop-gap "v17, transverse-only") does
 NOT advance a genesis version — these are CONSISTENCY tests of an existing medium.
 
-CLASS: every test here is CONSISTENCY (reproduce known physics; the engine MUST
-pass to be a valid medium) — NOT a chord (a forced dimensionless number). The
-chords live at L3-L5 and are out of scope for this L0-L1 build. T0.2 (Z₀) is the
-single Class-A identity (Z₀ = √(μ₀/ε₀) by definition); the rest are Class-C
-consistency checks via the srs-medium mechanism.
+CLASS: L0-L2 tests are CONSISTENCY (reproduce known physics; the engine MUST pass
+to be a valid medium) — NOT a forced-dimensionless-number chord. T0.2 (Z₀) is the
+single Class-A identity (Z₀ = √(μ₀/ε₀) by definition); the rest of L0-L2 are
+Class-C consistency checks via the srs-medium mechanism. L3 (test_l3_mass_cage.py)
+adds the FIRST AVE-distinct-EXISTENCE content: T3.1 is tagged CHORD (the
+longitudinal-bulk mode QED gauge-DELETES, AVE keeps — an AVE-vs-QED existence
+distinction, NOT a forced-number chord); T3.2 is Axiom-4-MANIFESTATION /
+consistency (the kernel's stiffening, no forced number). The FORCED-DIMENSIONLESS
+chord-deciders (Γ=−1 mass wall, integer charge, forced mass ratio) live at
+T3.3/T3.4 (DEFERRED) + L4/L5 and are NOT in this build.
 
 substrate-native-check walk (done before any code, Operating Principle 1):
   * Dynamics  : discrete srs-TLM **scatter + connect** wave propagation
