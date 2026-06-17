@@ -451,6 +451,53 @@ parse it):
 
 ---
 
+## optical-activity
+<!-- id: def-0pt1ac -->
+
+- **term:** optical-activity (alias **gyrotropy**)
+- **adjudicated-meaning:** a **transverse-field SO(2) polarization-plane rotation** observable — the handed lattice rotates the plane of polarization of a transmitted transverse wave by an angle per unit path, sourced by the reflection-odd ring-writhe pseudoscalar (a reciprocal-Faraday **gyrator**, lossless per Axiom-3). This is the chiral srs-grid result $\pm75.46°$/unit ([#195]).
+- **axis:** phase-carrier (a transverse 2-DOF polarization-plane angle) — explicitly NOT spatial-Brillouin and NOT a Cosserat rotational grade.
+- **dimension/type:** angle (dimensionless, rad or °) per unit propagation; rate $d\theta/\text{step}$
+- **status:** SOLID — the chiral-grid optical-activity result is validated ($\pm75.46°$/unit, #195); the engine token is now definition-fenced (`measure_optical_activity` / `_optical_activity_per_node` / the `optical_activity` kwarg in `chiral_lattice_vector.vector_tlm_step`).
+- **canonical-home:** `common/engine-capability-map.md:44` ("the only engine with the validated chiral grid (srs $I4_1 32$, optical-activity $\pm75.46°$/unit, [#195])")
+- **clm-cross-links:** *(none verified-specific yet — #195 is an engine-result tag, not a clm node)*
+- **open-ambiguity-flag:** YES — the surface word **"rotation"** is the definition-fenced collision. Optical activity is a **transverse polarization-plane twist of the SAME 2-DOF field** (A1b / T1.5), and is **EXPLICITLY ORTHOGONAL to the Cosserat micro-rotation = the (2,3) WINDING = charge** (A1 ⊥ T2, `master-equation.md:20`, `def-5d2b8a`). Despite the shared word, optical-activity is NOT a micro-rotation DOF: it has no independent ω field, no separate scatter/connect, and no gapped dispersion branch (`engine_acceptance/test_l1_multiwave.py` DOF-capability finding). The pre-rename engine token `rot_per_node` / `_rotation_per_node` / `measure_dynamical_rotation` made this collision grep-visible; renamed 2026-06-17 to remove it.
+  - conflicting sites: the orthogonal Cosserat micro-rotation winding `master-equation.md:20` (`def-5d2b8a` the two-"3"s); the optical-activity result `common/engine-capability-map.md:44`; the definition-fenced engine path `src/ave/core/chiral_lattice_vector.py:36,79,136`.
+- **verification:** VERIFIED the $\pm75.46°$/unit #195 result verbatim at `engine-capability-map.md:44`; VERIFIED the engine mechanism is a 2×2 rotation of the two transverse components $V_{ref}[\dots,0]/[\dots,1]$ with angle sourced from `net_ring_writhe` (`chiral_lattice_vector.py`), i.e. a polarization-plane twist, NOT a micro-rotation DOF; VERIFIED the A1 ⊥ T2 orthogonality anchor at `master-equation.md:20`. SOLID for the locked optical-activity sense; the open-ambiguity-flag records the "rotation" surface-form collision the rename + this def-node fence.
+
+---
+
+## writhe
+<!-- id: def-wr1th3 -->
+
+- **term:** writhe (ring-writhe / mean ring-writhe pseudoscalar)
+- **adjudicated-meaning:** the **reflection-odd geometric SOURCE pseudoscalar** of the lattice's closed circuits — the mean signed self-crossing measure over the net's distinct shortest rings. It is the κ=0 *geometry-only* channel (no κ_chiral injection) that sources the optical-activity rotation; nonzero + sign-flipped between enantiomorphs, identically zero on the achiral diamond control.
+- **axis:** other — a signed geometric (topological-geometric) pseudoscalar of the lattice circuits; box-independent.
+- **dimension/type:** dimensionless (signed pseudoscalar; reverses sign under mirror)
+- **status:** SOLID — the reflection-odd ring-writhe is the load-bearing **signed discriminator** of the Phase-0 chirality smoke (clean sign-flip on the mirror operation; zero on the achiral control).
+- **canonical-home:** `src/ave/core/chiral_lattice.py:387` (`net_ring_writhe` — "nonzero + sign-flipped between enantiomorphs; identically zero on the achiral control"); described at `src/ave/core/chiral_lattice_dynamics.py:18`.
+- **clm-cross-links:** *(none verified-specific yet)*
+- **open-ambiguity-flag:** no — "writhe" carries the single locked reflection-odd-pseudoscalar sense throughout the chiral-lattice engine. (It is the SOURCE; the optical-activity rotation `def-0pt1ac` is the field RESPONSE it drives. Distinct from **helicity** `def-h3l1c7`: writhe is a property of the lattice *geometry/circuits*; helicity is a property of the *wave* it carries.)
+- **verification:** VERIFIED the reflection-odd pseudoscalar definition + the sign-flip / achiral-null discriminator semantics at `chiral_lattice.py:387-412` (`net_ring_writhe` docstring) and `chiral_lattice_dynamics.py:18` ("the SIGNED, converged Phase-0 channel is the reflection-odd ring-writhe pseudoscalar"). SOLID — single locked sense.
+
+---
+
+## helicity
+<!-- id: def-h3l1c7 -->
+
+- **term:** helicity (wave helicity / kinetic helicity sign)
+- **adjudicated-meaning:** the **handedness SIGN of the WAVE** — the sign of a wave's circulation alignment (the kinetic-helicity reading $\int \mathbf{A}\cdot\mathbf{B}\,dV$ for an EM emitter; the wave's handedness for a transverse mode). This is a property of the **propagating excitation**, distinct from **chirality** (`def-7c3f9e`), which is the handedness of the **lattice** ($\mathcal{M}_A$ / srs / K4 vacuum, set by parent-BH spin).
+- **axis:** phase-carrier (a sign on the wave's circulation/polarization handedness)
+- **dimension/type:** sign / dimensionless for the wave-handedness reading; $\int\mathbf{A}\cdot\mathbf{B}\,dV$ has dimension of (vector-potential·flux) for the kinetic-helicity reading.
+- **status:** SOLID for the locked sense (wave handedness ≠ lattice chirality); the kinetic-helicity matching condition (Hopf/torus-knot $\mathbf{A}\parallel\mathbf{B}$) is a corpus-supported coupling sketch.
+- **canonical-home:** `vol4/claim-quality.md:922` (kinetic helicity $\int\mathbf{A}\cdot\mathbf{B}\,dV\neq0$ as the wave-side matching condition to the chiral vacuum); the lattice-side **chirality** counterpart is `def-7c3f9e`.
+- **clm-cross-links:** *(none verified-specific yet)*
+- **open-ambiguity-flag:** YES — the surface form is overloaded against the LATTICE handedness term **chirality** (`def-7c3f9e`): (a) **helicity** = the WAVE's handedness sign (this node); (b) **chirality** = the LATTICE's handedness (`def-7c3f9e`). The corpus also uses "kinetic helicity" $\int\mathbf{A}\cdot\mathbf{B}$ specifically for the emitter-coupling matching condition (Hopf coil). Do NOT conflate the wave's helicity with the lattice's chirality, nor either with the writhe pseudoscalar (`def-wr1th3`, a lattice-circuit geometry source). Also note an **AMO/optics overlap**: "helicity" elsewhere is the spin-projection-on-momentum of a photon — the same physical handedness sign, but qualify when precision is needed.
+  - conflicting sites: wave/kinetic helicity `vol4/claim-quality.md:922,926`; the LATTICE-chirality counterpart `def-7c3f9e` (and `computational-solver-selection.md:19` "handedness of the vacuum"); the geometry-source writhe `def-wr1th3`.
+- **verification:** VERIFIED the kinetic-helicity matching condition $\int\mathbf{A}\cdot\mathbf{B}\,dV\neq0$ at `vol4/claim-quality.md:922,926`; VERIFIED that "chirality / handedness of the vacuum" is the LATTICE-side term (`computational-solver-selection.md:19`, `def-7c3f9e`), distinct from the wave's helicity. SOLID for the wave-vs-lattice distinction; open-ambiguity-flag records the chirality overload + the AMO photon-helicity overlap.
+
+---
+
 ## Seed coverage + follow-up
 
 **Seeded (14):** 1 SOLID (`node`), 8 ambiguous (`carrier`, `Nyquist`,
