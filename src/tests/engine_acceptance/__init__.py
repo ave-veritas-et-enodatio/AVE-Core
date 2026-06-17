@@ -1,4 +1,5 @@
-"""Ground-up substrate-engine acceptance suite — L0 + L1 + L2.
+"""Ground-up substrate-engine acceptance suite — L0 + L1 + L2 + the Op-primitive
+/ scale-invariance tier (runs ALONGSIDE the L-ladder).
 
 Each test is a FALSIFIABLE PHYSICS CLAIM with a pre-registered pass/fail bin in
 its docstring. The suite is the engine's regression gate per the 2026-06-16
@@ -24,6 +25,40 @@ LAYER MAP (test files):
                           bulk, T1.8 Cosserat) OR the medium-extension findings
                           where the srs medium does not carry a given wave type.
   * test_l2_em_in_media.py — L2: EM in a biased medium (T2.1-T2.4).
+  * test_operators.py   — OP-PRIMITIVE + SCALE-INVARIANCE TIER (ADDED 2026-06-17;
+                          runs ALONGSIDE L0-L5, does NOT replace it). Gates the
+                          framework's DISTINGUISHING claim — the 22 Universal
+                          Operators used IDENTICALLY across all scales
+                          (operators.md:13,85,91; Vol 1 Ch 6 §1.1). REFERENCES
+                          (does not duplicate) the existing Op-primitive +
+                          scale-invariance test classes:
+                            tests.test_universal_operators (Op1 Z, Op2 S, Op3 Γ,
+                              U(r) 3-regime potential),
+                            tests.test_scale_invariant (Z/S/Γ boundary values +
+                              the cross-scale-identity class: saturation.py ≡
+                              scale_invariant ≡ seismic),
+                            tests.test_cross_domain_operators (the SAME kernel at
+                              BH / electron / nuclear domains + mass-independence).
+                          Plus the acceptance-NATIVE scale-invariance INSTANCE
+                          test: the IDENTICAL Op code path at electron-scale
+                          (bound/sub-yield, Regime I/II) AND black-hole-scale
+                          (Regime IV rupture, r≥1, S=0) gives the SAME functional
+                          form — A₀ varies, the operator does not. Op22 uses the
+                          CANONICAL M=1/S² (= universal_avalanche_factor n=2), NOT
+                          doc-81's 1/(1−S) (A43 v11 flag honored). NB
+                          test_cross_scale.py is a __main__ print-DRIVER (no
+                          test_ callables) and is deliberately NOT referenced.
+                          TAGS: axiom-compliance (the Ops are Op1/Axiom-3/Axiom-4
+                          derived) + scale-invariance; CODATA-anchored sub-targets
+                          (a₀, 13.6 eV, GR 0.3737) are consistency-class, not
+                          headlined emergence.
+
+TIER STRUCTURE NOTE. The Op-primitive / scale-invariance tier is ORTHOGONAL to
+the L0-L5 medium ladder, not a rung of it: L0-L5 build UP a single medium
+(bare medium → axioms → photon → EM-in-media → … → chords), whereas the Op tier
+asserts the constitutive OPERATORS that every rung (and every domain solver)
+delegates to are the canonical axiom-derived forms AND are scale-invariant. Both
+run under one `pytest src/tests/engine_acceptance/`.
 
 PART-1 ENGINE FIX (2026-06-17): the chiral optical-activity rotation in
 `chiral_lattice_vector.vector_tlm_step` (and 3 sister sites _sat/_v11/_v13) was
