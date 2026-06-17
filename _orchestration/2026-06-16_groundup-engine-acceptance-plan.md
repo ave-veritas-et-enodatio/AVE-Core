@@ -211,19 +211,19 @@ Per `feedback_skill_selection_planning`: write a **60-sec skill-selection plan B
 | **L0-medium** | T0.1 energy/unitary-scatter | axiom (Ax3 lossless) | medium unitarity | Ch4/Ch3 | clm-hd9bee | ✅ |
 | L0-medium | T0.2 Z₀=√(μ₀/ε₀) | axiom (Ax1 LC identity) | port impedance | Ch4 | — (medium-validity, no clm-) | ✅ |
 | L0-medium | T0.3 isotropy | consistency | medium validity | Ch4/Ch9 | — (medium-validity, no clm-) | ✅ |
-| **L0-axioms** | A1a 6-DOF/node + I4₁32 connectivity | axiom (Ax1 topology) | 6 DOF, chiral grid | Ch1/Ch3/Ch11 | — (medium-validity, no clm-) | ⬜ |
-| L0-axioms | A1b chirality lossless (rotation ON) | axiom (Ax1 chirality) | optical-activity DOF | Ch1/Ch11 | def-7c3f9e | 🔧 (.copy() fix) |
-| L0-axioms | A2 TKI [Q]≡[L], ξ_topo, dislocation | axiom (Ax2) | charge=geometry | Ch4/Ch11 | clm-dfaiwj | ⬜ |
-| L0-axioms | A3b \|Γ\|²-minimization (matched→Γ→0) | axiom (Ax3 min-refl) | min-reflection | Ch3 | clm-8nkvwy | ⬜ |
-| L0-axioms | A4 saturation kernel S(A) verified | axiom (Ax4) | saturation | Ch7/Ch14 | clm-gz7ryg; clm-8nkvwy | ⬜ |
+| **L0-axioms** | A1a 6-DOF/node + I4₁32 connectivity | axiom (Ax1 topology) | 6 DOF, chiral grid | Ch1/Ch3/Ch11 | — (medium-validity, no clm-) | ✅ (DOF finding) |
+| L0-axioms | A1b chirality lossless (rotation ON) | axiom (Ax1 chirality) | optical-activity DOF | Ch1/Ch11 | def-7c3f9e | ✅ (sup-zf5d1t; .copy() fix applied) |
+| L0-axioms | A2 TKI [Q]≡[L], ξ_topo, dislocation | axiom (Ax2) | charge=geometry | Ch4/Ch11 | clm-dfaiwj | ✅ (sup-u7r3vu) |
+| L0-axioms | A3b \|Γ\|²-minimization (matched→Γ→0) | axiom (Ax3 min-refl) | min-reflection | Ch3 | clm-8nkvwy | ✅ (sup-l2ah0k) |
+| L0-axioms | A4 saturation kernel S(A) verified | axiom (Ax4) | saturation | Ch7/Ch14 | clm-gz7ryg; clm-8nkvwy | ✅ (sup-2qja9z) |
 | **L1 free modes** | T1.1 transverse-EM (photon) lossless | consistency | photon, c_EM | Ch5/Ch4 | clm-3npynp; clm-djpx2v | ✅ (hardened) |
 | L1 free modes | T1.2 dispersionless band ω=ck | consistency | photon dispersion | Ch5 | clm-djpx2v | ✅ |
 | L1 free modes | T1.3 transversality (2-pol, no leak) | consistency | 2 transverse DOF | Ch3 | clm-3npynp; clm-j550uh | ✅ |
 | L1 free modes | T1.4 causality / front-speed | consistency | no superluminal | Ch4 | clm-yr6tu4 | ✅ |
-| L1 free modes | T1.5 optical-activity (chiral channel) | consistency-gate (post-fix) | optical activity | Ch5/Ch10/Ch11 | def-7c3f9e; def-0pt1ac | 🔧 |
-| L1 free modes | T1.6 transverse-SHEAR wave (c_shear=c₀√S) | consistency | shear mode | Ch5/Ch9 | clm-crbl60; clm-8nkvwy | ⬜ (multi-wave) |
-| L1 free modes | T1.7 longitudinal-BULK wave (the "3") | chord/consistency | bulk mode, c_bulk | Ch5/Ch9 | finding (no positive clm-); precursor clm-iouqn9, clm-crbl60 | ⬜ (multi-wave) |
-| L1 free modes | T1.8 Cosserat micro-rotation wave (gapped) | consistency | micro-rotation mode | Ch5/Ch10 | finding (no positive clm-); precursor clm-3npynp; def-0pt1ac | ⬜ (multi-wave) |
+| L1 free modes | T1.5 optical-activity (chiral channel) | consistency-gate (post-fix) | optical activity | Ch5/Ch10/Ch11 | def-7c3f9e; def-0pt1ac | ✅ (sup-w6tjvs; .copy() fix applied) |
+| L1 free modes | T1.6 transverse-SHEAR wave (c_shear=c₀√S) | consistency | shear mode | Ch5/Ch9 | clm-crbl60; clm-8nkvwy | ✅ (sup-oicgzy; constitutive gap REPORTED) |
+| L1 free modes | T1.7 longitudinal-BULK wave (the "3") | chord/consistency | bulk mode, c_bulk | Ch5/Ch9 | finding (no positive clm-); precursor clm-iouqn9, clm-crbl60 | ✅ (finding: mode NOT carried = L3 gap) |
+| L1 free modes | T1.8 Cosserat micro-rotation wave (gapped) | consistency | micro-rotation mode | Ch5/Ch10 | finding (no positive clm-); precursor clm-3npynp; def-0pt1ac | ✅ (finding: mode NOT carried = L4 gap) |
 | **L2 EM-in-media** | T2.1 refractive index c_EM=c₀/S | consistency (Op14) | operating-point | Ch5/Ch7 | clm-8nkvwy | ✅ |
 | L2 EM-in-media | T2.2 achromatic lensing | consistency-of-mechanism | SYM gradient (gravity) | Ch12/Ch5 | clm-k9up5c; clm-07kd5v | ✅ |
 | L2 EM-in-media | T2.3 asymmetric mirror Γ≠0 | consistency | Meissner-asym | Ch3/Ch7 | clm-8nkvwy; clm-5s5b0d | ✅ |
@@ -244,4 +244,4 @@ Per `feedback_skill_selection_planning`: write a **60-sec skill-selection plan B
 
 > **Spine cell = theoretical backing (clm-/def-).** The sup-\<id\> that materializes each test as a derivation-support node is minted at completion-ritual time (see §8 step 1.5), not here.
 
-⭐ = the three chord-deciders (Γ=−1 mass wall · integer charge · forced mass ratio). **Vol 9 chapters with no ladder row** (fork a): Ch6 temperature, Ch8 breakdown-rupture, Ch12 cosmological-values, Ch15 falsification (orthogonal bench axis), Ch16 lookup. **Score: 12 ✅ / 2 🔧 / 16 ⬜ / 3 🚩 — valid medium, zero chords forced yet.**
+⭐ = the three chord-deciders (Γ=−1 mass wall · integer charge · forced mass ratio). **Vol 9 chapters with no ladder row** (fork a): Ch6 temperature, Ch8 breakdown-rupture, Ch12 cosmological-values, Ch15 falsification (orthogonal bench axis), Ch16 lookup. **Score (completion-ritual run 2026-06-17): 20 ✅ / 0 🔧 / 10 ⬜ / 3 🚩 — valid medium, zero chords forced yet.** The ritual flipped the 8 green-confirmed L0-axioms + L1-multiwave cells (A1a, A1b, A2, A3b, A4, T1.5, T1.6, T1.7, T1.8) to ✅ — the copy-first `.copy()` fix is APPLIED (A1b/T1.5 green with rotation ON), the two multi-wave FINDING rows (T1.7/T1.8: mode NOT carried) are green as honest L3/L4-gap records. **The Op-primitive + scale-invariance tier (`test_operators.py`, `sup-evhfcd` → `clm-sysqaf`, `clm-m7qd0w`) is also GREEN-confirmed** (it is not a §9 matrix row — it runs ALONGSIDE the L-ladder). The chord-deciders ⭐ (T3.3 Γ=−1 · T4.2 integer charge · T5.3 forced mass ratio) and all L3/L4/L5 GAP rows remain ⬜/🚩 — Grant-gated, NOT flipped.
