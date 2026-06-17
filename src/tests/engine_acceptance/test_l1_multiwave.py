@@ -24,10 +24,10 @@ field-symbol registry §3.11; ave-kb three-impedance-law channel corrections
     the α-bearing optical  (the 2 polariza-     (slows under       A4-test; ave-kb/
     channel; Z_EM ≡ Z₀     tions)               saturation)        CLAUDE.md:71
   ──────────────────────────────────────────────────────────────────────────────
-  SHEAR (gravity wave)   2 transverse-shear   c_shear =          gw-impedance-
-    transverse inductive   (the micropolar      c₀·(1−A²)^(1/4)    perturbation.md:30;
-    shear; Z_shear=ρc_sh   shear grades)        = c₀·S^(1/4)       invariant-grav-
-                                                (freezes G→0)      impedance.md:30
+  SHEAR (gravity wave)   2 transverse-shear   c_shear =          invariant-grav-
+    transverse inductive   (the micropolar      c₀·√S            impedance.md:30
+    shear; Z_shear=ρc_sh   shear grades)        = c₀·(1−A²)^(1/4)
+                                                (freezes G→0)
   ──────────────────────────────────────────────────────────────────────────────
   BULK-longitudinal      1 longitudinal-      c_bulk             bulk-impedance-at-
     (the A1 "3" / mass     dilatation           (dilatational;     saturation-
@@ -40,37 +40,49 @@ field-symbol registry §3.11; ave-kb three-impedance-law channel corrections
 
 DEF-LOCK (frozen so the conflation cannot recur — each appears verbatim in the
 relevant test docstring):
-    c_EM    = c₀ / S            (EM-transverse photon — slows under saturation)
-    c_shear = c₀ · S^(1/4)      (transverse SHEAR / GW — corpus form, NOT c₀√S)
-    c_bulk  = √(K/ρ)            (longitudinal dilatation; K=2G bulk modulus)
+    c_EM    = c₀ / S                    (EM-transverse photon — slows; 1/S)
+    c_shear = c₀·√S = c₀·(1−A²)^(1/4)   (transverse SHEAR / GW — kernel-base √S)
+    c_bulk  = √(K/ρ)                    (longitudinal dilatation; K=2G bulk modulus)
 with S = √(1−(A/A_yield)²). NOTE the EM channel slows as 1/S while the shear
-channel slows as S^(1/4) — they are DIFFERENT channels of the SAME 2-transverse
-field, distinguished by which modulus (ε,μ vs G_shear) responds; substituting
-c_shear into the α formula is the canonical category error (CLAUDE.md:71).
+channel slows as √S — they are DIFFERENT channels of the SAME 2-transverse field,
+distinguished by which modulus (ε,μ vs G_shear) responds; substituting c_shear
+into the α formula is the canonical category error (CLAUDE.md:71). The two forms
+c₀·√S and c₀·(1−A²)^(1/4) are the SAME curve (kernel-base S vs amplitude-base
+(1−A²), since S=(1−A²)^(1/2)) — the surface "(1/4)" is the AMPLITUDE exponent,
+NOT a power conflict with √S.
 
 ⚑ FLAG (flag-don't-fix; surfaced to Grant/auditor, NOT silently reconciled):
-   The build brief def-locked "c_shear = c₀√S". The CORPUS canonical form is
-   c_shear = c₀·S^(1/4) = c₀·(1−A²)^(1/4) (invariant-gravitational-impedance.md:30).
-   √S ≠ S^(1/4). This file uses the CORPUS form
-   and FLAGS the brief↔corpus mismatch rather than picking one silently. (Both
-   collapse to c₀ in the linear S=1 regime where these free-mode tests run, so
-   the discrepancy is dormant at L1 and only bites at the saturated wall — but it
-   must be adjudicated before any saturated-shear test.)
+   The build brief def-locked "c_shear = c₀√S"; the corpus writes the amplitude
+   form c₀·(1−A²)^(1/4) (invariant-gravitational-impedance.md:30). These AGREE —
+   they are the same curve in two bases (kernel-base √S = amplitude-base
+   (1−A²)^(1/4)). Both collapse to c₀ in the linear S=1 regime where these
+   free-mode tests run, so the def-lock value is dormant at L1 and only the
+   constitutive (the S-modulation slope) bites at the saturated wall.
 
-   🔴 [2026-06-17 — CITE-FIXED + FRAMING SUPERSEDED, fork-1 `wkuou8n2l`, Rule-12]:
-   (1) CITE: the wrong leaf "gw-impedance-perturbation.md:30" (a 20-line file with
-       no line 30) is removed; the amplitude form lives at
-       invariant-gravitational-impedance.md:30 (the cite above, corrected).
-   (2) FRAMING: the "√S ≠ S^(1/4)" claim above is BACKWARDS and is superseded.
-       fork-1 discharged this as a non-contradiction: c₀√S ≡ c₀·(1−A²)^(1/4)
-       (the SAME curve, kernel-base S vs amplitude-base (1−A²), since
-       S=(1−A²)^(1/2)). So the brief's "c₀√S" and the corpus amplitude form
-       AGREE; the surface "S^(1/4)" here is the AMPLITUDE exponent, not a second
-       value. The bins below are FROZEN and unchanged (the tests run at S=1 where
-       both collapse to c₀, so no pass/fail moves); this banner records that the
-       def-lock prose should read c₀√S ≡ c₀·(1−A²)^(1/4), pending a Grant-ratified
-       def-lock rewrite (NOT done here — out of this doc-edit scope). See plan
-       §FLAGS (ii-a) for the discharge.
+   🔴 [2026-06-17 — DEF-LOCK PROSE CORRECTED, sign-lock w35sn2bq3 / fork-1
+   `wkuou8n2l`, Rule-12]:
+   (1) CITE (prior fix, retained): the wrong leaf "gw-impedance-perturbation.md
+       :30" (a 20-line file with no line 30) was removed; the amplitude form
+       lives at invariant-gravitational-impedance.md:30.
+   (2) FRAMING (now LANDED, was deferred): the earlier "√S ≠ S^(1/4)" def-lock
+       prose was BACKWARDS — it read the amplitude-base (1/4) exponent as a
+       second VALUE rather than the same curve. fork-1 discharged it as a
+       non-contradiction; THIS edit lands the Grant-greenlit def-lock rewrite
+       (the prose above + each test docstring now read c₀·√S ≡ c₀·(1−A²)^(1/4)).
+       The FROZEN bins are UNCHANGED — every test still runs at S=1 where both
+       forms collapse to c₀, so no pass/fail moves; only the prose is corrected.
+
+LOCKED-TABLE FOOTNOTES (sign-lock w35sn2bq3, 2026-06-17 — the Γ/wall convention):
+  [†1] The matter wall is a magnetic-μ load (Z=Z0·√S→0, Γ=−1). magnetic-μ is ONE
+       chirality — the ε-first spin-conjugate gives Γ=+1, which is ALSO |Γ|=1. It
+       is NOT a substrate-privileged branch: the magnetic-vs-electric Γ=−1 wall is
+       a chirality-set sign/spin selector, degenerate on (Z, |Γ|) (wall-branch-
+       fork B3-degenerate; K=2G locks co-saturation). So "matter = μ-load Γ=−1
+       short" fixes a CONVENTION/sign frame, not a privileged physical branch.
+  [†2] A single short is a REFLECTOR, not a confiner: |Γ|=1 at one boundary
+       reflects but does not bind. Confinement needs |Γ|=1 around a CLOSED knot /
+       cavity geometry (the standing-wave round-trip), not a lone planar wall —
+       the wall depth alone is necessary, not sufficient, for a bound mode.
 
 ════════════════════════════════════════════════════════════════════════════════
 WHAT THE ENGINE ACTUALLY CARRIES (empirical DOF-capability audit, Rule 10)
@@ -92,8 +104,8 @@ winding = charge). There is NO saturation modulation in the free linear regime
 CONSEQUENCE for the three new modes:
   T1.6 transverse-SHEAR    — the transverse 2-DOF wave IS present, but it is the
        SAME field as the EM-transverse photon and, at S=1 (linear), c_shear =
-       c₀·S^(1/4) = c₀ collapses onto c_EM. The shear MODE (transverse) exists;
-       the c_shear CONSTITUTIVE (the G_shear-driven S^(1/4) modulation that
+       c₀·√S = c₀ collapses onto c_EM. The shear MODE (transverse) exists;
+       the c_shear CONSTITUTIVE (the G_shear-driven √S modulation that
        distinguishes it from c_EM=c₀/S) is NOT realized — it needs the saturated
        medium + a separate G_shear modulus channel. → PARTIAL: mode present,
        distinguishing constitutive ABSENT (reported, not forced).
@@ -142,12 +154,12 @@ from . import _viz as VZ
 def test_t1_6_transverse_shear_wave():
     """T1.6 [consistency + FINDING] — the transverse-SHEAR mode.
 
-    DEF-LOCK (frozen): c_shear = c₀·S^(1/4)  [the transverse SHEAR / gravitational
-    wave; CORPUS form per invariant-gravitational-impedance.md:30 — see the module
-    ⚑FLAG, which records the cite fix + the 2026-06-17 fork-1 discharge that
-    c₀√S ≡ c₀·(1−A²)^(1/4) is the SAME curve, so the "NOT c₀√S" framing is
-    superseded]. Contrast: the EM-transverse photon is c_EM = c₀/S; the
-    bulk-longitudinal is c_bulk = √(K/ρ).
+    DEF-LOCK (frozen): c_shear = c₀·√S = c₀·(1−A²)^(1/4)  [the transverse SHEAR /
+    gravitational wave; corpus amplitude form per invariant-gravitational-
+    impedance.md:30 — the kernel-base √S and amplitude-base (1−A²)^(1/4) are the
+    SAME curve, see the module ⚑FLAG / 🔴 def-lock-corrected banner]. Contrast:
+    the EM-transverse photon is c_EM = c₀/S; the bulk-longitudinal is
+    c_bulk = √(K/ρ).
 
     GROUNDED SCOPE (substrate-native-check, NOT asserted): the srs vector-TLM
     carries a TRANSVERSE 2-DOF wave. In the corpus, light itself is "a purely
@@ -155,11 +167,11 @@ def test_t1_6_transverse_shear_wave():
     mode the engine carries IS the shear/transverse family. This test verifies
     the mode that IS present (lossless transverse propagation + linear dispersion
     + transverse character + a well-defined speed), and REPORTS the constitutive
-    gap: at S=1 (linear, free regime) c_shear = c₀·S^(1/4) = c₀ collapses onto
-    c_EM, so the c_shear↔c_EM DISTINCTION (the S^(1/4) vs 1/S modulation, which
-    lives in the SATURATED medium via a separate G_shear modulus) is NOT realized
-    at L1. The DISTINGUISHING constitutive is a saturated-medium + G_shear-channel
-    extension; the MODE is present.
+    gap: at S=1 (linear, free regime) c_shear = c₀·√S = c₀ collapses onto c_EM,
+    so the c_shear↔c_EM DISTINCTION (the √S vs 1/S modulation, which lives in the
+    SATURATED medium via a separate G_shear modulus) is NOT realized at L1. The
+    DISTINGUISHING constitutive is a saturated-medium + G_shear-channel extension;
+    the MODE is present.
 
     PRE-REGISTERED BINS (frozen 2026-06-17):
       * PASS : the transverse mode propagates LOSSLESSLY (energy drift < 1e-8)
@@ -171,7 +183,7 @@ def test_t1_6_transverse_shear_wave():
                    the field has exactly 2 components).
       * FAIL : lossy OR dispersive in-band OR wrong speed.
       * REPORT (not pass/fail): the c_shear vs c_EM constitutive gap — at S=1 both
-               = c₀; the S^(1/4) shear modulation is absent (needs the saturated
+               = c₀; the √S shear modulation is absent (needs the saturated
                medium + a G_shear modulus channel, a medium extension).
     """
     M.assert_canonical_constants()
@@ -193,20 +205,23 @@ def test_t1_6_transverse_shear_wave():
     # (3) transverse character: the field carries exactly 2 transverse DOF
     transverse_dof = int(V0.shape[2])
 
-    # constitutive gap report (S=1 linear regime): c_shear = c0·S^(1/4) = c0 = c_EM
+    # constitutive gap report (S=1 linear regime): c_shear = c0·√S = c0 = c_EM.
+    # kernel-base √S (= amplitude-base (1−A²)^(1/4)); at S=1 both = 1 so this
+    # collapse gate is power-invariant (the frozen bin does not move with the
+    # def-lock prose correction).
     S_linear = 1.0
-    c_shear_over_c0 = S_linear ** 0.25     # = 1 at S=1
+    c_shear_over_c0 = S_linear ** 0.5      # = 1 at S=1 (kernel-base √S)
     c_EM_over_c0 = 1.0 / S_linear          # = 1 at S=1
     collapse = abs(c_shear_over_c0 - c_EM_over_c0) < 1e-12
 
     print("\n--- T1.6 transverse-SHEAR mode (srs, N=8) [consistency + FINDING] ---")
-    print(f"  DEF-LOCK: c_shear = c₀·S^(1/4) (corpus form; NOT c₀√S — see module FLAG)")
+    print(f"  DEF-LOCK: c_shear = c₀·√S = c₀·(1−A²)^(1/4) (corpus amplitude form; same curve)")
     print(f"  (1) lossless drift            : {drift:.3e}  (PASS < 1e-8)")
     print(f"      transverse speed |c|/c_net: {speed_ratio:.4f}  (PASS within 5% of 1)")
     print(f"  (2) dispersion c(k) spread    : {spread:.4f}  (PASS < 0.05, linear)")
     print(f"  (3) transverse DOF            : {transverse_dof}  (the 2-component transverse field)")
     print(f"  REPORT — constitutive gap at S=1: c_shear/c₀={c_shear_over_c0:.3f}, c_EM/c₀={c_EM_over_c0:.3f}")
-    print(f"      → collapse onto c₀: {collapse}; the S^(1/4) shear modulation (vs EM 1/S) is ABSENT")
+    print(f"      → collapse onto c₀: {collapse}; the √S shear modulation (vs EM 1/S) is ABSENT")
     print("      → distinguishing c_shear needs the SATURATED medium + a G_shear modulus channel (extension)")
 
     assert drift < 1e-8, f"FAIL: transverse shear mode lossy — drift {drift:.3e}"
@@ -229,11 +244,11 @@ def test_t1_6_transverse_shear_wave():
             ax.set_xlabel("k (rad/cartesian)")
             ax.set_ylabel("ω (rad/step)")
             ax.set_title(f"shear dispersion (linear, spread {spread:.3f})\n"
-                         "DEF-LOCK c_shear=c₀·S^(1/4); at S=1 → c₀")
+                         "DEF-LOCK c_shear=c₀·√S; at S=1 → c₀")
             ax.legend(fontsize=8)
 
         path = VZ.save_propagation_figure(
-            "T1.6", "transverse-SHEAR mode (c_shear=c₀·S^(1/4); S=1→c₀)", rec,
+            "T1.6", "transverse-SHEAR mode (c_shear=c₀·√S; S=1→c₀)", rec,
             drift_floor_label=f"lossless drift {drift:.1e}; speed |c|/c_net {speed_ratio:.3f}",
             extra=_disp,
         )
@@ -250,7 +265,7 @@ def test_t1_7_longitudinal_bulk_wave_medium_extension_finding():
     "3" / mass precursor; K = 2G the bulk modulus (K=2G provenance MERGED,
     PR#261); Z_bulk = ρ·c_bulk; freezes c_bulk→0 at dielectric rupture per
     bulk-impedance-at-saturation-boundary.md:24,31]. Distinct from c_EM = c₀/S
-    (EM-transverse) and c_shear = c₀·S^(1/4) (transverse shear).
+    (EM-transverse) and c_shear = c₀·√S (transverse shear).
 
     SUBSTRATE-NATIVE FINDING (Rule 10 empirical DOF-capability audit; the brief's
     STOP-and-report — do NOT force the mode): the srs vector-TLM medium DOES NOT
