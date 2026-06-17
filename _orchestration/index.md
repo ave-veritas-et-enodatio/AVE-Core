@@ -21,7 +21,42 @@ The electron-genesis keystone arc ran and closed-negative — but on the wrong g
 
 | Priority | Epic | Doc | Phase | Next |
 |:---:|:---|:---|:---|:---|
-| **P0** | Ground-up acceptance engine | [`2026-06-16_groundup-engine-acceptance-plan.md`](2026-06-16_groundup-engine-acceptance-plan.md) | **L0–L1** | implementer building `engine_acceptance/` on srs (branch `analysis/2026-06-16-engine-acceptance-l0l1`); **T1.1 "photon propagates losslessly"** is the first gate |
+| **P0** | Ground-up acceptance engine | [`2026-06-16_groundup-engine-acceptance-plan.md`](2026-06-16_groundup-engine-acceptance-plan.md) | **L0–L2 + Op-tier COMPLETE** ✅ | completion ritual run 2026-06-17 (branch `analysis/2026-06-16-engine-acceptance-l0l1`); **PR open (base main), Grant-merge-gated**; next = the L3 mass-cage rung (Grant-gated; the S-exponent fork blocks it) |
+
+### L0–L2 + Op-tier acceptance layers COMPLETE (ritual run 2026-06-17)
+
+The §8 STANDING PER-LAYER COMPLETION RITUAL ran on the green-confirmed layers
+(31 tests green: L0-medium ×3, L0-axioms ×5, L1-photon ×5, L1-multiwave ×3,
+L2-em-media ×4, Op/scale tier ×11; `make verify` + `make verify-kb-metadata` +
+`make vol9` all green, 209-page PDF):
+
+- **MAP-TO-SPINE:** 16 `sup-` derivation-support nodes minted in
+  [`vol9/ch17-engine-requirements/engine-acceptance-suite.md`](../manuscript/ave-kb/vol9/ch17-engine-requirements/engine-acceptance-suite.md),
+  every quality + on-point fraction `*pending*` (INVARIANT-S9/S10). Five tests
+  (T0.2, T0.3, A1a, T1.7, T1.8) get no `sup-` (medium-validity / absence-findings).
+- **Ch17:** 5 new engine-requirement rows (11–15) from this arc's lessons, in both
+  the KB index leaf and the Vol 9 `.tex` chapter (+ T1.1/A1a/T2.2 figures embedded).
+- **§9 matrix:** 8 cells flipped ✅ (A1a/A1b/A2/A3b/A4 + T1.5/T1.6/T1.7/T1.8);
+  score **20 ✅ / 0 🔧 / 10 ⬜ / 3 🚩**. Chord-deciders ⭐ + L3/L4/L5 GAP remain ⬜/🚩.
+- **NO capability-matrix cell flip** (flag-don't-fix): L0-L2 establishes
+  medium-VALIDITY, not chord-DOF coverage; flipping a chord-DOF cell would over-claim.
+- **Honest scorecard:** the suite proves the srs engine is a **valid medium** and
+  forces **ZERO chords** — the chords live at the unbuilt L3–L5 rungs.
+
+**Three carried-forward forks (→ Grant; do NOT auto-resolve):**
+
+1. **S-exponent gates L3.** `master_equation_fdtd.py:165-168` returns n=S^0.25 while
+   `c_eff_squared` (:148-151) implies n=S^0.5 — they disagree; collides with the
+   T1.6 c_shear=c₀·S^(1/4)-vs-√S def-lock. A4 verifies the internally-consistent
+   c_eff²=c₀²/S form and surfaces the flag. **Must be adjudicated BEFORE any L3/L4
+   build that consumes n or c_shear** (Ch17 requirement 13).
+2. **Engines-on-spine.** Keep the `\kbleaf{src/ave/...:line}` default (per §1.5), OR
+   mint a first-class code-provenance node-type via a deliberate SCHEMA extension
+   (named in S12/SCHEMA.md but NOT materialized — a Grant decision, not an
+   implementer default).
+3. **L5-scope.** Closest target `clm-8zpicx` is sol 0.40 / DO-NOT-BUILD and the
+   genesis self-trap dynamics-class is FALSIFIED in the ledger — no solid precursor
+   to validate an L5 acceptance layer against today. Is L5-genesis in-scope now?
 
 ### Carry-forward / recording / merge queue
 

@@ -46,6 +46,14 @@ Each row: the requirement, the datasheet line it enforces, the documented engine
 9 & Observers strictly \textbf{read-only} & Ch.~\ref{ch:vol9_pin_port_configuration} \S Per-port wave content (observer bridge) & Observer mutating state contaminates the dynamics it measures & observer-read-only \\
 10 & \textbf{Regime-reachability}: the engine must reach the regime the test targets & Ch.~\ref{ch:vol9_absolute_maximum_ratings} regimes; Ch.~\ref{ch:vol9_saturation_characteristics} four-regime map & Sub-yield-linear run returns a null --- an \emph{artifact} (wrong regime), not a falsification (dark-wake Phases 1--5) & \kbleaf{ave-regime-phase-state-check} \\
 \midrule
+\multicolumn{5}{@{}l}{\textbf{\emph{Acceptance-suite lessons (2026-06-16/17 ground-up L0--L2 + Op/scale tier arc)}}} \\
+\midrule
+11 & \textbf{Chiral / optical-activity rotation must be unitary (copy-first, no NumPy view-aliasing)}; the losslessness gate must run with rotation \emph{ON} & Ch.~\ref{ch:vol9_topological_characteristics} chirality; Ch.~\ref{ch:vol9_magnetic_microrotational_characteristics} & In-place $2\times2$ rotation on NumPy views (\kbleaf{chiral\_lattice\_vector.py}:49--58, pre-fix): the first write corrupts $v_0$ before the second read $\Rightarrow$ non-orthogonal rotation $\Rightarrow$ $\sim$O(1) energy drift (Axiom-3 leak). The $\kappa=0$ free-photon gates never hit it; an energy gate \emph{with rotation ON} (A1b / T1.5) does & \kbleaf{substrate-native-check}; A1b/T1.5 \\
+12 & \textbf{The medium must carry the DOF the excitation needs}: the transverse-only carrier ($2$ DOF) cannot host mass (L3 longitudinal) or charge (L4 micro-rotation); those need the full $6$-DOF Cosserat node & Ch.~\ref{ch:vol9_pin_port_configuration} DOF table; Ch.~\ref{ch:vol9_mechanical_characteristics} & The srs vector-TLM renders $2$ transverse DOF only (\texttt{(N,degree,2)}); A1a reports \texttt{carried\_dof==2} vs \texttt{axiom\_dof==6}. ``No single engine carries more than one or two'' (\kbleaf{engine-capability-map.md}:19) --- testing charge-genesis on a $2$-DOF carrier is structurally void & \kbleaf{ave-representation-capability-check}; A1a, T1.7/T1.8 \\
+13 & \textbf{The $S$-exponent must be single-sourced}: a sector's $n \propto S^{p}$ (and $c \propto S^{q}$) cannot disagree between two code paths & Ch.~\ref{ch:vol9_ac_electrical_characteristics} ($c_{EM}, c_{shear}$); Ch.~\ref{ch:vol9_saturation_characteristics} kernel & \kbleaf{master\_equation\_fdtd.py}:169 returns $n=S^{0.25}$ (the :165--168 block above it is the flag-don't-fix comment) while its own \texttt{c\_eff\_squared} (:148--151) implies $n=S^{0.5}$; the two disagree. A4 verifies the internally-consistent $c_{eff}^2=c_0^2/S$ form and surfaces the exponent defect (flag-don't-fix) --- \emph{physics-review item for adjudication before any L3/L4 build that consumes $n$} & \kbleaf{ave-canonical-source}; A4 (flag) \\
+14 & \textbf{Achromatic deflection ($\Gamma=0$) under a SYM bias must reproduce}: a co-scaled $\varepsilon\!\cdot\!\mu$ gradient keeps $Z=Z_0$ ($\Gamma\to0$) and bends light \emph{frequency-independently} & Ch.~\ref{ch:vol9_cosmological_characteristics} gravity FORM-bridge; Ch.~\ref{ch:vol9_ac_electrical_characteristics} & A chromatic-medium engine (frequency-dependent index) or one that loads $\varepsilon$ only ($\Gamma\neq0$) cannot render gravitational lensing: the AVE-distinct mechanism is achromatic + reflectionless (T2.2; \kbleaf{clm-k9up5c}). The deflection MAGNITUDE rides the input $A_0(x)$ --- chord-vs-echo of the magnitude left OPEN, not headlined & \kbleaf{ave-discrimination-check}; T2.2 \\
+15 & \textbf{The same operator code path must run at every scale}; and \textbf{a simulation is a derivation-support, never an experiment} & Ch.~\ref{ch:vol9_cross_volume_reference} (Op catalog); \kbleaf{operators.md}:91 & A per-scale code branch breaks the framework's distinguishing scale-invariance claim: the SAME callable forces $\omega_R\!\cdot\!M=18/49$ at electron-mass AND BH-mass inputs ($30{+}$ OOM apart), $A_0$ varies, the operator does not (\kbleaf{test\_operators.py}). Per INVARIANT-S10 every acceptance test registers as a \kbleaf{sup-} node (derivation branch), and per INVARIANT-S9 never as an \kbleaf{exp-} (a simulation is not an experiment) & \kbleaf{ave-regime-phase-state-check}; INVARIANT-S9/S10 \\
+\midrule
 C & \textbf{(Candidate --- characterization-in-flight)} wall sharpness / leak must be shown \textbf{NOT regularization-limited} (sweep $S_{min}$ / $A_{cap}$) before any leak $\to$ physical-constant attribution & Ch.~\ref{ch:vol9_pin_port_configuration} \S Boundary semantics ($\Gamma$-wall); Ch.~\ref{ch:vol9_absolute_maximum_ratings} & Wall sharpness $\Gamma_{min}\approx-0.85$ (carried across graft-v2/v3) is currently \emph{unattributed}: it may be set by the saturation kernel (physics) or by the $S_{min}$ floor / $A_{cap}$ cap (regularization). Characterization in flight on \kbleaf{analysis/2026-06-10-apparatus-floors} ($S_{min}$/$A_{cap}$ wall attribution $+$ $H_{bel}$ ledger floor $+$ wall-sign audit) & \kbleaf{ave-apparatus-floor-attribution} (in flight) \\
 \bottomrule
 \end{longtable}
@@ -56,6 +64,32 @@ Requirements~1--5 are the structural ones (they decide whether the simulated obj
 
 \noindent
 \textbf{Candidate requirement~C --- not yet adjudicated (characterization-in-flight).} Row~C is a \emph{candidate}, not a closed requirement: before any wall-sharpness / leak number (e.g.\ $\Gamma_{min}\approx-0.85$, carried unchanged across graft-v2/v3) is attributed to a physical constant --- $\alpha$ above all --- the apparatus-floor characterization must first establish it is \textbf{not} set by a regularization knob (the $S_{min}$ saturation floor, the $A_{cap}$ amplitude cap): a number that tracks a knob is apparatus, not physics. The characterization runs on \kbleaf{analysis/2026-06-10-apparatus-floors} ($S_{min}$/$A_{cap}$ wall attribution, $H_{bel}$ ledger floor, wall-sign audit); the discipline is \kbleaf{ave-apparatus-floor-attribution}. Row~C is listed here so the gate is \emph{visible}, not asserted as met --- promote it to a numbered requirement only on that branch's verdict.
+
+\section{Acceptance-Suite Evidence (L0--L2 + Op/scale tier)}
+\label{sec:vol9_engine_acceptance_suite}
+
+Requirements~11--15 are grounded in the 2026-06-16/17 ground-up engine-acceptance arc: a pytest regression suite (\kbleaf{src/tests/engine\_acceptance/}) built from the medium up, one excitation-layer at a time, each test a falsifiable physics claim with a frozen pre-registered pass/fail bin. The L0--L2 layers plus the Op-primitive / scale-invariance tier are GREEN, proving the engine is a \emph{valid medium}; they force \emph{zero} chords --- the chords (the $\Gamma=-1$ binding wall, the integer charge, the forced mass ratio) live at the unbuilt L3--L5 rungs. Each green test that strengthens a canonical claim is wired into the claim-DAG as a \kbleaf{sup-} derivation-support node (INVARIANT-S10 for the \kbleaf{sup-} registration; INVARIANT-S9 for the never-an-\kbleaf{exp-} bright-line; the suite map is \kbleaf{vol9/ch17-engine-requirements/engine-acceptance-suite.md}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\linewidth]{{T1.1_debug}.png}
+\caption{L1 flagship (T1.1): a transverse photon propagates losslessly on the chiral srs grid. A localized one-way packet conserves energy to the integrator floor, never back-scatters, and translates on a single clean constant-speed diagonal at the lattice wave speed $c_{net}=c_{link}/\sqrt{3}$ ($R^2>0.99$) --- contrasted against the delocalized Bloch seed (a standing fringe) it replaced. Regenerated off the same stepper the functional test runs.}
+\label{fig:vol9_acceptance_t1_1}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\linewidth]{{A1a_debug}.png}
+\caption{L0-axioms DOF-capability finding (A1a, requirement~12): the srs graph is the chiral degree-3 (10,3)-a net (girth~10, enantiomorphs sign-flipped in mean writhe), but the implemented vector-TLM carries only the $2$ transverse (photon) DOF, not the full $6$ Cosserat DOF Axiom-1 specifies. The $3+3$ translational/micro-rotational grades that host mass (L3) and the winding=charge (L4) are an explicit medium-extension --- surfaced as an honest finding (flag-don't-fix), not faked.}
+\label{fig:vol9_acceptance_a1a}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\linewidth]{{T2.2_debug}.png}
+\caption{L2 headline (T2.2, requirement~14): a SYM gradient ($\varepsilon,\mu$ co-scaled) bends/retards a wave \emph{frequency-independently} (excess group-delay spread below $10^{-3}$ across the band) while keeping $Z=Z_0$ ($\lvert\Gamma\rvert<10^{-6}$, reflectionless) --- the AVE-distinct achromatic gravitational-lensing mechanism. The deflection magnitude is form-derived from the path integral $\int(S-1)\,dx$ but rides the input $A_0(x)$ profile, so the chord-vs-echo of the \emph{magnitude} is left OPEN, not asserted as a chord (\kbleaf{clm-k9up5c}).}
+\label{fig:vol9_acceptance_t2_2}
+\end{figure}
 
 \section{Conservation Canaries}
 \label{sec:vol9_engine_conservation_canaries}

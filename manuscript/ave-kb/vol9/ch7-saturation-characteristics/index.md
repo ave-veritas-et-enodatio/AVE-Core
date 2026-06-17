@@ -33,6 +33,19 @@ The Axiom 4 kernel governs **26 canonical cross-scale instances** per the canoni
 
 `manuscript/vol_9_vacuum_datasheet/chapters/07_saturation_characteristics.tex` (populated Vol 9 PR-E sub-PR — Ch 7 buildout).
 
+## Engine-acceptance suite coverage (Axiom-4 kernel gate, GREEN 2026-06-16/17)
+
+The saturation kernel S(A)=√(1−(A/A_yield)²) this chapter specifies is verified
+directly as an L0 constitutive gate by the engine-acceptance suite's **A4** test
+(`src/tests/engine_acceptance/test_l0_axioms.py:555`, `sup-2qja9z` → `clm-gz7ryg`,
+`clm-8nkvwy`, wired in [`../ch17-engine-requirements/engine-acceptance-suite.md`](../ch17-engine-requirements/engine-acceptance-suite.md)):
+the quarter-arc identity, the EM projection (ε_eff=ε₀S, μ_eff=μ₀S, c_EM=c₀/S, Z_EM=Z₀),
+and the canonical longitudinal c_eff²=c₀²/S all to <1e-12, with cold limit S(0)=1 and the
+stiffening wall as A→A_yield. The L2 operating-point manifestations (T2.1 c_EM, T2.3 ASYM
+mirror) ride the SAME kernel. The A4 test surfaces the **S\*\*0.25-vs-S\*\*0.5 exponent
+flag** (`master_equation_fdtd.py:165-168` refractive_index vs :148-151 c_eff_squared) as
+a physics-review item (flag-don't-fix; Ch.17 requirement 13).
+
 ## Volume-scope classification
 
 Per Vol 9 charter (synthesis volume; no primary derivations), this chapter's content is Class B (synthesis consolidation of canonical content) per `consistency-vs-emergence` v1.3. No emergence-class claims; no new substrate primitives proposed. All numerical entries in the chapter's characteristic-curve table derive directly from $S(r) = \sqrt{1 - r^2}$ at cold-lattice limit with no corrections; the table is a definitional identity of the kernel, not a measurement or emergence test.
