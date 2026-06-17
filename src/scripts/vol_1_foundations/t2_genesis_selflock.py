@@ -32,7 +32,9 @@ THE FOUR-WAY DISCRIMINATOR (prereg §6, LOAD-BEARING)
   - omega_local = omega0 * sqrt(S_core), S = `engine.saturation_kernel()`
     (= sqrt(1-A^2)), S_core = min over interior. NOT omega0*sqrt(1-A^2) (the
     canon-STALE form, op14-local-clock-modulation:13) and NOT
-    `engine.refractive_index()` (the separate S^0.25 carried defect).
+    `engine.refractive_index()` (which is the EM-transverse index n_EM=S^{1/2}
+    → 0, a wave-speed-typed quantity, NOT the clock-modulation factor √S — the
+    distinction stands; the legacy S^0.25 defect was fixed sign-lock w35sn2bq3).
   - The autoresonance read is the carrier phase vs omega_local(t) in the
     (V, ∂_tV/omega_local) phasor via `phase_space_vinc_vref(ω_char=ω_local(t))`,
     feeding the DYNAMIC omega_local each step (CP9 — dynamically evolved, NOT an
