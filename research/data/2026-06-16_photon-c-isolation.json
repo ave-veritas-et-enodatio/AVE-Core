@@ -1,0 +1,52 @@
+{
+  "test": "T2-photon group-velocity isolation from \u221a2c A\u2081 precursor",
+  "class": "DOCUMENTATION (DEC-01 / weak-C ruled)",
+  "sqrt2c_ref": 1.4142135623730951,
+  "convention_note": "v/c reported in the C_0 convention (physical-c = C_0). The engine's physical junction-crossing speed is c0 = dx/(dt\u00b7\u221a2) = C_0 (k4_tlm.py:181); a cardinal-cell-per-step grid march = dx/dt = \u221a2\u00b7c0. A \u221a2 reading is the bare grid march, not a superluminal signal.",
+  "T2": {
+    "mode": "T2",
+    "step_mode": false,
+    "x_a": 36,
+    "x_b": 76,
+    "dt_s": 2.3586543367496838e-09,
+    "v_group_over_c": 1.4142135623730951,
+    "v_front_over_c": 1.4142135623730951
+  },
+  "A1": {
+    "mode": "A1",
+    "step_mode": false,
+    "x_a": 36,
+    "x_b": 76,
+    "dt_s": 2.3586543367496838e-09,
+    "v_group_over_c": 1.4142135623730951,
+    "v_front_over_c": 1.4142135623730951
+  },
+  "MIXED": {
+    "mode": "MIXED",
+    "step_mode": false,
+    "x_a": 36,
+    "x_b": 76,
+    "dt_s": 2.3586543367496838e-09,
+    "v_group_over_c": 1.4142135623730951,
+    "v_front_over_c": 1.4142135623730951
+  },
+  "causality_step": {
+    "mode": "T2",
+    "step_mode": true,
+    "x_a": 36,
+    "x_b": 76,
+    "dt_s": 2.3586543367496838e-09,
+    "v_group_over_c": 1.2035860105302938,
+    "v_front_over_c": 1.3797205486566781,
+    "info_front_over_c": 1.4142135623730956,
+    "info_front_n_planes": 57
+  },
+  "R_T2_group_over_c": 1.4142135623730951,
+  "R_A1_front_over_c": 1.4142135623730951,
+  "R_MIXED_group_over_c": 1.4142135623730951,
+  "information_front_over_c": 1.4142135623730956,
+  "information_front_over_c0_junction": 1.0000000000000002,
+  "BIN": "UNISOLABLE-ON-THIS-ENGINE",
+  "CAUSALITY": "CAUSAL-VIOLATION",
+  "CAUSALITY_is_coordinate_flag": true
+}
