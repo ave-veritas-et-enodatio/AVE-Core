@@ -557,3 +557,68 @@ fractions are `*pending*`. Figure: `research/figures/engine_acceptance/T3.4_pers
   - clm-uatcql (f=*pending*) — Electron canonical identification (stability/non-decay property)
 
 ---
+
+## Support: T3.1 longitudinal-bulk mode is real (L3-existence precursor)
+<!-- id: sup-3kq9w7 -->
+
+Simulation support (INVARIANT-S9/S10): the T3.1 acceptance test
+(`src/tests/engine_acceptance/test_l3_mass_cage.py:214`) confirms that a propagating
+longitudinal-BULK (A1 dilatation) compression mode IS REAL on the extended medium — the
+Heaviside-Gibbs-EXCISED scalar grade (def-9a4f07) that textbook EM / QED gauge-DELETES
+(Gupta-Bleuler leaves exactly 2 transverse on-shell DOF), and AVE keeps as a physical
+acoustic branch. Measured (not asserted) on the PML-excluded interior: the launched
+compression PROPAGATES (one-way pulse-peak speed > 0.3·c₀), has a RISING acoustic dispersion
+ω(k) (dω/dk > 0), and runs at the K=2G dilatation speed `c_bulk = √(2G/ρ) = √2·c₀`
+(|c_bulk/c₀ − √2| < 1e-9) — a SECOND, faster channel distinct from the c₀ transverse photon.
+This FLIPS the T1.7 ⊘ absence-finding (the srs vector-TLM carried 2 transverse DOF only; the
+canonical Master-Equation scalar engine now carries the longitudinal grade). CHORD —
+AVE-distinct EXISTENCE (the QED-counterfactual), NOT a forced-number chord: the DOF is
+added-by-design (the corpus says it is physical, def-9a4f07), but propagation/dispersion/speed
+are READ off the integrator. It lifts the DERIVATION branch of `clm-crbl60` (vacuum bulk mass
+density + shear modulus): the mode propagates at exactly the `c_bulk = √(K/ρ) = √(2G/ρ)` speed
+that claim's `K_vac = 2G_vac` Cauchy relation + `G_vac = ρ_bulk·c₀²` construction predict, so
+the `√2·c₀` measurement is the empirical (α-FREE) confirmation of that bulk-modulus → bulk-speed
+cross-check. Free-standing. Local rigor `quality` and the on-point fraction are `*pending*`.
+Figure: `research/figures/engine_acceptance/T3.1_debug.png`.
+
+> **Leaf references:** [engine-acceptance-suite](./ch17-engine-requirements/engine-acceptance-suite.md).
+
+### Quality
+- quality: *pending*
+- solidity: *pending*
+- rationale: *pending*
+- supports:
+  - clm-crbl60 (f=*pending*) — Vacuum bulk mass density + shear modulus (K=2G; c_bulk=√(2G/ρ)=√2·c₀ confirmed)
+
+---
+
+## Support: T3.2 c_eff(V) stiffening → ∞ at yield (L3-existence precursor)
+<!-- id: sup-mz4t0p -->
+
+Simulation support (INVARIANT-S9/S10): the T3.2 acceptance test
+(`src/tests/engine_acceptance/test_l3_mass_cage.py:388`) confirms that the longitudinal-bulk
+effective speed STIFFENS, `c_eff(V) = c₀·S^(−1/2) → ∞` as A → A_yield (S → 0), driven by the
+canonical Axiom-4 kernel `S(A) = √(1−A²)` read DIRECTLY from the engine's authoritative
+`c_eff_squared` (`master_equation_fdtd.py:148-151`, the #278-corrected ½-power form). Measured
+across the sweep A ∈ {0…0.99}: cold limit c_eff/c₀(0)=1 (<1e-12), monotone-rising, matches
+`(1−A²)^(−1/4)` to <1e-9 (an S^0.25 read would FAIL bin 3, catching the refractive_index
+exponent-defect), and diverges past the I→II and II→III regime edges toward the wall. This is
+the CAGE PRECURSOR (CP8 generative-precursor): the bond stiffens C_eff=C₀/S→∞ at yield, and the
+T3.3 Γ=−1 wall is the END of this stiffening. consistency-vs-emergence: Axiom-4 MANIFESTATION /
+consistency — NOT a chord (no forced dimensionless number falls out; the stiffening is the
+axiom's constitutive law expressed in the longitudinal sector). It lifts the DERIVATION branch
+of `clm-gz7ryg` (the single Axiom-4 kernel S(A)=√(1−A²) governing every topological-reorganization
+event at every scale): T3.2 confirms the SAME dimensionless kernel manifesting in the
+longitudinal-bulk sector. Free-standing. Local rigor `quality` and the on-point fraction are
+`*pending*`. Figure: `research/figures/engine_acceptance/T3.2_debug.png`.
+
+> **Leaf references:** [engine-acceptance-suite](./ch17-engine-requirements/engine-acceptance-suite.md).
+
+### Quality
+- quality: *pending*
+- solidity: *pending*
+- rationale: *pending*
+- supports:
+  - clm-gz7ryg (f=*pending*) — A-034 single Axiom-4 kernel S(A)=√(1−A²) (manifested in the longitudinal sector)
+
+---
