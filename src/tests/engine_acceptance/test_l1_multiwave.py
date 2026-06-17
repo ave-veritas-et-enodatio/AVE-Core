@@ -50,12 +50,27 @@ c_shear into the α formula is the canonical category error (CLAUDE.md:71).
 
 ⚑ FLAG (flag-don't-fix; surfaced to Grant/auditor, NOT silently reconciled):
    The build brief def-locked "c_shear = c₀√S". The CORPUS canonical form is
-   c_shear = c₀·S^(1/4) = c₀·(1−A²)^(1/4) (gw-impedance-perturbation.md:30;
-   invariant-grav-impedance.md:30). √S ≠ S^(1/4). This file uses the CORPUS form
+   c_shear = c₀·S^(1/4) = c₀·(1−A²)^(1/4) (invariant-gravitational-impedance.md:30).
+   √S ≠ S^(1/4). This file uses the CORPUS form
    and FLAGS the brief↔corpus mismatch rather than picking one silently. (Both
    collapse to c₀ in the linear S=1 regime where these free-mode tests run, so
    the discrepancy is dormant at L1 and only bites at the saturated wall — but it
    must be adjudicated before any saturated-shear test.)
+
+   🔴 [2026-06-17 — CITE-FIXED + FRAMING SUPERSEDED, fork-1 `wkuou8n2l`, Rule-12]:
+   (1) CITE: the wrong leaf "gw-impedance-perturbation.md:30" (a 20-line file with
+       no line 30) is removed; the amplitude form lives at
+       invariant-gravitational-impedance.md:30 (the cite above, corrected).
+   (2) FRAMING: the "√S ≠ S^(1/4)" claim above is BACKWARDS and is superseded.
+       fork-1 discharged this as a non-contradiction: c₀√S ≡ c₀·(1−A²)^(1/4)
+       (the SAME curve, kernel-base S vs amplitude-base (1−A²), since
+       S=(1−A²)^(1/2)). So the brief's "c₀√S" and the corpus amplitude form
+       AGREE; the surface "S^(1/4)" here is the AMPLITUDE exponent, not a second
+       value. The bins below are FROZEN and unchanged (the tests run at S=1 where
+       both collapse to c₀, so no pass/fail moves); this banner records that the
+       def-lock prose should read c₀√S ≡ c₀·(1−A²)^(1/4), pending a Grant-ratified
+       def-lock rewrite (NOT done here — out of this doc-edit scope). See plan
+       §FLAGS (ii-a) for the discharge.
 
 ════════════════════════════════════════════════════════════════════════════════
 WHAT THE ENGINE ACTUALLY CARRIES (empirical DOF-capability audit, Rule 10)
@@ -128,9 +143,11 @@ def test_t1_6_transverse_shear_wave():
     """T1.6 [consistency + FINDING] — the transverse-SHEAR mode.
 
     DEF-LOCK (frozen): c_shear = c₀·S^(1/4)  [the transverse SHEAR / gravitational
-    wave; CORPUS form per gw-impedance-perturbation.md:30 and invariant-grav-
-    impedance.md:30 — NOT c₀√S, see the module ⚑FLAG]. Contrast: the EM-transverse
-    photon is c_EM = c₀/S; the bulk-longitudinal is c_bulk = √(K/ρ).
+    wave; CORPUS form per invariant-gravitational-impedance.md:30 — see the module
+    ⚑FLAG, which records the cite fix + the 2026-06-17 fork-1 discharge that
+    c₀√S ≡ c₀·(1−A²)^(1/4) is the SAME curve, so the "NOT c₀√S" framing is
+    superseded]. Contrast: the EM-transverse photon is c_EM = c₀/S; the
+    bulk-longitudinal is c_bulk = √(K/ρ).
 
     GROUNDED SCOPE (substrate-native-check, NOT asserted): the srs vector-TLM
     carries a TRANSVERSE 2-DOF wave. In the corpus, light itself is "a purely
