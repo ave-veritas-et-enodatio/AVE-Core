@@ -18,7 +18,7 @@ AVE has **four physically distinct entropy quantities** for a black hole, measur
 | **Microstate count** $S_{\mu}$ (hypothetical) | $2^{A / \ell_{\text{node}}^2}$ total states | Binary A-B choice per horizon cell | **Doc 61 §3.2 original** (informal microstate-counting framing) |
 | **Volume thermalization $S_v$** | $\approx 4 \cdot A / (4 \ell_P^2)$ | Interior thermalization of ruptured-plasma dissipative sink | **Approximately matches $S_{BH}$; uses Boltzmann counting AVE rejects** |
 | Ratio $\hat S_{\text{geo}} / S_{BH}$ | $4 \log 2 / (7\xi) \approx 2.8 \times 10^{-44}$ | Machian dilution factor | — |
-| Corpus ruptured-plasma | $\hat S_{\text{corpus}} = 0$ via Op14 with $\Gamma_{\text{horizon}} = 0$ | Symmetric saturation: $Z(r) = Z_0$ everywhere; no impedance mismatch at horizon | Vol 3 Ch 15:19-29 + Ch 21:114 |
+| Corpus ruptured-plasma | $\hat S_{\text{corpus}} = 0$ via Op14 with $\Gamma_{\text{horizon}} = 0$ **(EM channel only — see §2 FLAG)** | **EM-channel** symmetric saturation: $Z_{EM}(r) = Z_0$; no *EM* mismatch at horizon. Shear/bulk channels short ($\Gamma_{shear}=-1$) — entropy operator channel-sensitivity FLAGGED 2026-06-17 | Vol 3 Ch 15:19-29 + Ch 21:114 |
 
 ## §1 — Vol 3 Ch 11's $\hat S$-operator
 
@@ -36,7 +36,13 @@ For each cell we need $|\Gamma|^2$ at the horizon interface.
 
 ## §2 — Under corpus ruptured-plasma picture: $\hat S_{\text{corpus}} = 0$
 
-Per Vol 3 Ch 15:19-29 + Vol 3 Ch 21:114, **gravity is symmetric saturation**: $\mu'(r) = \mu_0 \cdot n(r)$ and $\varepsilon'(r) = \varepsilon_0 \cdot n(r)$ scale together. Characteristic impedance is invariant:
+> 🔴 **FLAG → Grant (BH shear-reflect walk-back, 2026-06-17, Rule-12 — flag-don't-fix; NOT recomputed).** This §2 derivation sets $\Gamma_{\text{horizon}} = 0$ from the **EM-channel** invariance $Z_{EM}=Z_0$ — but the 2026-06-17 walk-back established that $\Gamma=0$ is the **EM channel only**; the **shear/bulk** channels short ($Z_{shear}=\rho c_{shear}\to0\Rightarrow\Gamma_{shear}=\Gamma_{bulk}=-1$, see [`electron-bh-isomorphism.md`](../../cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md):34–42). The entropy operator $\hat S = -k_B\sum_i\ln(1-|\Gamma_i|^2)$ is **channel-sensitive at the horizon**:
+> - EM channel ($\Gamma_{EM}=0$): $\hat S_{EM} = -k_B N\ln(1-0) = 0$ (the result below).
+> - Shear/bulk channel ($|\Gamma_{shear}|=1$): $\ln(1-1)=\ln 0 = -\infty$ — the operator **diverges / is out of domain** for *total* reflection (its summand counts *partial*-reflection scattering irreversibility, and $\Gamma=-1$ is lossless total reflection, not partial scattering).
+>
+> **Open physics question (do not silently resolve):** which channel's $\Gamma$ enters the geometric/Op14 horizon-cell entropy — is BH horizon-cell entropy an EM-scattering quantity (→ 0, as below) or a shear-scattering quantity (→ operator out-of-domain, requiring a different formulation for total-reflection boundaries)? The "$\hat S_{\text{corpus}}=0$ via $\Gamma=0$" result below is **EM-channel-scoped** pending Grant adjudication. Preserved per Rule-12 (no recompute).
+
+Per Vol 3 Ch 15:19-29 + Vol 3 Ch 21:114, **gravity is symmetric saturation** (**EM channel** — see FLAG above): $\mu'(r) = \mu_0 \cdot n(r)$ and $\varepsilon'(r) = \varepsilon_0 \cdot n(r)$ scale together. The **EM-transverse** characteristic impedance is invariant:
 
 $$Z(r) = \sqrt{\mu' / \varepsilon'} = \sqrt{\mu_0 / \varepsilon_0} = Z_0 \quad \text{everywhere, interior and exterior}$$
 
@@ -48,7 +54,7 @@ $$\Gamma_{\text{horizon}} = (Z_{\text{int}} - Z_{\text{ext}}) / (Z_{\text{int}} 
 
 $$\hat S_{\text{corpus}} = -k_B \cdot N_{\text{cells}} \cdot \ln(1 - 0^2) = 0$$
 
-**Corpus picture gives ZERO entropy at the BH horizon via Ch 11's framework.** Consistent with Vol 3 Ch 21's "dissipative sink, information erased" — there's no structure at the horizon to be entropic.
+**Corpus picture gives ZERO entropy at the BH horizon via Ch 11's framework — in the EM channel ($\Gamma_{EM}=0$).** *(2026-06-17 FLAG, see §2 banner: this is EM-channel-scoped; the shear/bulk channels reflect totally ($\Gamma_{shear}=-1$), for which the partial-reflection entropy operator is out of domain — open question to Grant whether horizon-cell entropy is an EM- or shear-scattering quantity.)* In the EM channel this is consistent with Vol 3 Ch 21's "dissipative sink, information erased" — there's no EM structure at the horizon to be entropic.
 
 ## §3 — Under A-B interface picture: $\hat S_{\text{geo}} = A \log 2 / \ell_{\text{node}}^2$
 

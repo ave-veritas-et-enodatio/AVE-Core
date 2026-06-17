@@ -337,7 +337,16 @@ def _s11_density(
     A_sq = eps_sq / (epsilon_yield * epsilon_yield) + kappa_sq / (omega_yield * omega_yield)
     A_sq_clipped = jnp.clip(A_sq, 0.0, 1.0 - 1e-10)
     S = jnp.sqrt(1.0 - A_sq_clipped)  # Op2 saturation, (nx, ny, nz)
-    # Op14 dynamic impedance Z_eff = Z_0 / sqrt(S), with Z_0 = 1 per `10_`
+    # Op14 dynamic impedance Z_eff = Z_0 / sqrt(S), with Z_0 = 1 per `10_`.
+    # LOAD-TYPE SCOPE (sign-lock w35sn2bq3, 2026-06-17): this is the ε-load /
+    # OPEN form (Z↑→∞). It is the SYMMETRIC-S S11 objective (a |Γ| magnitude for
+    # impedance-MATCHING, mode-blind), NOT the μ-load matter SHORT (Z↓→0) used by
+    # W_refl_asymmetric:500 / step:1647 (Z_eff=Z0·√(S_μ/S_ε)).
+    # ⚑ FLAG (2nd-impedance conflict, task #12, NOT resolved here): this OPEN
+    # Z=Z0/√S coexists with the live-wall SHORT Z=Z0·√(S_μ/S_ε) in this SAME
+    # file, and with operators.md:54 (Z0/√S) vs k4-tlm-lensing-validation.md:22
+    # (Z0/S^{1/4}). The exponent/sign reconciliation across Op14 forms is a
+    # separate physics-review item (see the task-12 PR FLAGs).
     S_safe = jnp.maximum(S, 1e-6)
     Z_eff = 1.0 / jnp.sqrt(S_safe)
 

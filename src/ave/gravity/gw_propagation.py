@@ -14,25 +14,51 @@ Physical picture (from Ch. 19):
   - At h ~ 10⁻²¹, the strain is 10¹⁹× below V_SNAP → no saturation
   - Therefore: perfectly linear, lossless, c-speed propagation
 
-Key identities (SYMMETRIC GRAVITY):
+──────────────────────────────────────────────────────────────────────
+CHANNEL-SPLIT (the substrate-forced result — three-impedance law).
+The horizon's reflection behaviour is a CHANNEL question. Two channels,
+two answers (NOT one "absorber" answer):
+
+EM-transverse channel (Symmetric Gravity):
   Refractive index: n(r) = 1 / (1 − r_s/r)
-  ε_eff(r) = ε₀ · n(r)
-  μ_eff(r) = μ₀ · n(r)
-  Z(r) = √(μ_eff/ε_eff) = √(μ₀·n / ε₀·n) ≡ Z₀ (CONSTANT!)
+  ε_eff(r) = ε₀ · n(r),  μ_eff(r) = μ₀ · n(r)
+  Z_EM(r) = √(μ_eff/ε_eff) = √(μ₀·n / ε₀·n) ≡ Z₀ (CONSTANT!)
+  → Γ_EM = 0 everywhere — perfect EM matching, light transparent /
+    index-gradient-captured. NO EM-channel echoes. The event horizon is
+    a refractive singularity (n → ∞, c_local → 0) in the EM channel.
+  Functions: gravitational_impedance() / horizon_reflection().
 
-  Symmetric Gravity enforces Z ≡ Z₀ everywhere.
-  Γ = 0 everywhere — no reflection, perfect impedance matching.
-  The local speed of light slows: c_local = c/n(r).
-  Light bending and time dilation are REFRACTIVE effects.
+Shear (+ bulk) channel (lattice phase transition at r_sat):
+  At r_sat = 7GM/c² = 3.5·r_s the radial strain ε₁₁ = 7GM/(c²r) → 1,
+  the lattice phase-transitions and the shear modulus G_shear → 0.
+  Shear speed:     c_shear(r) = c · (1 − ε₁₁²)^(1/4)  → 0 at r_sat
+  Shear impedance: Z_shear(r) = ρ · c_shear(r)        → 0 at r_sat
+  A Z_shear → 0 free surface is an Op3 SHORT:
+  → Γ_shear = (Z_int − Z_ext)/(Z_int + Z_ext) → (0 − ρc)/(0 + ρc) = −1.
+  GW are TRANSVERSE SHEAR modes, so they REFLECT totally off r_sat:
+  gravitational ringdown ECHOES ARE PREDICTED (reflect ⇒ echo;
+  retrospective — not a SHA-pinned forward prereg).
+  Functions: shear_impedance() / shear_horizon_reflection().
 
-  There are NO black hole echoes. The event horizon is a refractive
-  singularity (n → ∞, c_local → 0), not an impedance boundary.
+The Γ = −1 short is the UNIVERSAL Z→0 kernel, not electron-only: the
+electron applies it in the bulk channel at the knot core; the BH applies
+it in the shear+bulk channels at r_sat. Canonical leaf:
+manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/
+electron-bh-isomorphism.md:34-42. Corroborated by
+bulk-impedance-at-saturation-boundary.md:51,
+lattice-extreme-bh-rationality.md:75, existing-signatures.md:36.
+
+(Walk-back 2026-06-17: the prior "Γ = 0 everywhere / no black hole
+echoes / not an impedance boundary" docstring was a CHANNEL CONFLATION —
+right number, wrong channel — taking the EM Γ_EM=0 and extending it to
+shear. Superseded by the channel-split above.)
+──────────────────────────────────────────────────────────────────────
 """
 
 import numpy as np
 
-from ave.axioms.scale_invariant import impedance, reflection_coefficient
-from ave.core.constants import C_0, EPSILON_0, L_NODE, M_SUN, MU_0, V_SNAP, Z_0, G
+from ave.axioms.scale_invariant import impedance, reflection_coefficient, saturation_factor
+from ave.core.constants import C_0, EPSILON_0, L_NODE, M_SUN, MU_0, RHO_BULK, V_SNAP, Z_0, G
 
 # ═══════════════════════════════════════════════════════════════
 # Schwarzschild refractive profile — gravity as symmetric refraction
@@ -133,26 +159,31 @@ def mu_eff_schwarzschild(r: float | np.ndarray, r_s: float) -> float | np.ndarra
 
 def gravitational_impedance(r: float | np.ndarray, r_s: float) -> float | np.ndarray:
     r"""
-    Characteristic impedance at radius r in a Schwarzschild field.
+    EM-CHANNEL characteristic impedance at radius r in a Schwarzschild field.
 
-    Under Symmetric Gravity, Z is strictly invariant:
+    Under Symmetric Gravity, the EM-transverse impedance is strictly
+    invariant (μ and ε scale together):
 
     .. math::
-        Z(r) = \sqrt{\mu_{eff} / \varepsilon_{eff}}
+        Z_{EM}(r) = \sqrt{\mu_{eff} / \varepsilon_{eff}}
              = \sqrt{\mu_0 \cdot n / (\varepsilon_0 \cdot n)}
              = Z_0
 
-    The impedance is CONSTANT everywhere. There is no impedance
-    mismatch, no reflection boundary, and no black hole echoes.
+    The EM impedance is CONSTANT everywhere → no EM mismatch, no EM
+    reflection, no EM-channel echoes (light transparent / index-captured).
+
+    NOTE (channel-split): this is the EM channel ONLY. The shear channel
+    is governed by ``shear_impedance()`` and goes Z_shear → 0 at r_sat
+    (Γ_shear = −1, GW reflect). See module docstring.
 
     Args:
         r: Radial distance [m].
         r_s: Schwarzschild radius [m].
 
     Returns:
-        Impedance [Ω] (always Z₀).
+        EM impedance [Ω] (always Z₀).
     """
-    # Impedance is strictly Z₀ under symmetric gravity.
+    # EM impedance is strictly Z₀ under symmetric gravity.
     # We compute it explicitly to verify numerical consistency.
     mu = mu_eff_schwarzschild(r, r_s)
     eps = epsilon_eff_schwarzschild(r, r_s)
@@ -161,25 +192,168 @@ def gravitational_impedance(r: float | np.ndarray, r_s: float) -> float | np.nda
 
 def horizon_reflection(r: float | np.ndarray, r_s: float) -> float | np.ndarray:
     r"""
-    Reflection coefficient at radius r in a Schwarzschild field.
+    EM-CHANNEL reflection coefficient at radius r in a Schwarzschild field.
 
-    Under Symmetric Gravity, Γ = 0 everywhere (perfect matching):
+    Under Symmetric Gravity, Γ_EM = 0 everywhere (perfect EM matching):
 
     .. math::
-        \Gamma(r) = \frac{Z(r) - Z_0}{Z(r) + Z_0} = 0
+        \Gamma_{EM}(r) = \frac{Z_{EM}(r) - Z_0}{Z_{EM}(r) + Z_0} = 0
 
-    There is NO reflection at the event horizon. GW energy propagates
-    inward without scattering.
+    There is NO EM reflection at the event horizon: light is transparent /
+    index-gradient-captured, no EM-channel echoes.
+
+    NOTE (channel-split): the SHEAR/GW channel REFLECTS — use
+    ``shear_horizon_reflection()``, which returns Γ_shear = −1 at r_sat.
+    GW are transverse shear modes; gravitational ringdown echoes are
+    predicted (reflect ⇒ echo). See module docstring.
 
     Args:
         r: Radial distance [m].
         r_s: Schwarzschild radius [m].
 
     Returns:
-        Reflection coefficient (always ~0).
+        EM reflection coefficient (always ~0).
     """
     Z_r = gravitational_impedance(r, r_s)
     return reflection_coefficient(Z_0, Z_r)
+
+
+# ═══════════════════════════════════════════════════════════════
+# Shear (GW) channel — lattice phase transition at r_sat → REFLECT
+# ═══════════════════════════════════════════════════════════════
+
+# r_sat / r_s = 1 / ν_vac = 7/2 = 3.5 (the shear/bulk rupture boundary
+# sits deeper than the EM r_s; radial strain ε₁₁ = 7GM/(c²r) reaches 1
+# at r_sat = 7GM/c² = 3.5·r_s).
+R_SAT_OVER_RS: float = 3.5
+
+
+def saturation_radius(r_s: float) -> float:
+    r"""
+    Shear/bulk rupture boundary r_sat = 7GM/c² = 3.5·r_s.
+
+    This is where the radial strain ε₁₁ = 7GM/(c²r) → 1, the lattice
+    phase-transitions, and the shear modulus G_shear → 0. It sits DEEPER
+    than the EM event horizon r_s = 2GM/c² (ratio 1/ν_vac = 3.5).
+
+    Args:
+        r_s: Schwarzschild radius [m].
+
+    Returns:
+        Saturation (shear/bulk rupture) radius [m].
+    """
+    return R_SAT_OVER_RS * r_s
+
+
+def radial_strain(r: float | np.ndarray, r_s: float) -> float | np.ndarray:
+    r"""
+    Radial (ε₁₁) strain in the shear/bulk gauge.
+
+    .. math::
+        \varepsilon_{11}(r) = \frac{7 G M}{c^2 r} = \frac{r_{sat}}{r}
+
+    Reaches unity at r_sat = 3.5·r_s (shear/bulk rupture). Clipped to
+    [0, 1] for the saturation kernel (interior is ruptured, ε₁₁ ≡ 1).
+
+    Args:
+        r: Radial distance [m].
+        r_s: Schwarzschild radius [m].
+
+    Returns:
+        Radial strain ε₁₁ ∈ [0, 1].
+    """
+    r = np.asarray(r, dtype=float)
+    r_sat = saturation_radius(r_s)
+    return np.minimum(r_sat / r, 1.0)
+
+
+def shear_wave_speed(r: float | np.ndarray, r_s: float) -> float | np.ndarray:
+    r"""
+    Local shear (GW) propagation speed in a Schwarzschild field.
+
+    The shear-channel group velocity uses the canonical Axiom-4 melt
+    (electron-bh-isomorphism.md line 33):
+
+    .. math::
+        c_{shear}(r) = c \cdot (1 - \varepsilon_{11}^2)^{1/4}
+                     = c \cdot \sqrt{S(\varepsilon_{11})}
+
+    where S = √(1 − ε₁₁²) is the universal saturation factor. As
+    r → r_sat, ε₁₁ → 1, G_shear → 0, and c_shear → 0 (shear restoring
+    force vanishes — the topology melts).
+
+    Args:
+        r: Radial distance [m].
+        r_s: Schwarzschild radius [m].
+
+    Returns:
+        Local shear-wave speed [m/s] (→ 0 at r_sat).
+    """
+    eps11 = radial_strain(r, r_s)
+    S = saturation_factor(eps11, yield_limit=1.0)  # S = √(1 − ε₁₁²)
+    return C_0 * np.sqrt(S)  # c·(1 − ε₁₁²)^(1/4)
+
+
+def shear_impedance(r: float | np.ndarray, r_s: float) -> float | np.ndarray:
+    r"""
+    SHEAR-CHANNEL characteristic impedance Z_shear = ρ·c_shear.
+
+    Unlike the EM channel (Z_EM ≡ Z₀, invariant), the shear impedance
+    COLLAPSES at the rupture boundary because c_shear → 0:
+
+    .. math::
+        Z_{shear}(r) = \rho \cdot c_{shear}(r) \to 0 \quad (r \to r_{sat})
+
+    A Z_shear → 0 free surface is exactly a solid→liquid interface: an
+    Op3 short. ρ is the bulk vacuum mass density (ρ_bulk); only the RATIO
+    of interior-to-exterior Z_shear sets Γ_shear, so the absolute ρ scale
+    cancels in the reflection coefficient.
+
+    Args:
+        r: Radial distance [m].
+        r_s: Schwarzschild radius [m].
+
+    Returns:
+        Shear impedance [kg·m⁻²·s⁻¹] (→ 0 at r_sat).
+    """
+    return RHO_BULK * shear_wave_speed(r, r_s)
+
+
+def shear_horizon_reflection(r: float | np.ndarray, r_s: float) -> float | np.ndarray:
+    r"""
+    SHEAR-CHANNEL (GW) reflection coefficient at radius r.
+
+    A GW (transverse shear mode) incident from the unsaturated exterior
+    (Z_shear ≈ ρc) onto the saturated interior (Z_shear → 0) reflects via
+    the SAME universal operator used at every scale:
+
+    .. math::
+        \Gamma_{shear}(r) = \frac{Z_{shear}(r) - Z_{shear,\,ext}}
+                                  {Z_{shear}(r) + Z_{shear,\,ext}}
+                          \;\xrightarrow{\;r \to r_{sat}\;}\; -1
+
+    where Z_shear,ext is the far-field shear impedance (ρc). At/inside
+    r_sat, Z_shear(r) → 0 ⇒ Γ_shear → −1 (TOTAL reflection). GW reflect
+    totally off the horizon: gravitational ringdown echoes are predicted
+    (reflect ⇒ echo; retrospective, not a forward prereg).
+
+    This is the channel that REFLECTS — contrast ``horizon_reflection()``
+    (EM channel, Γ_EM = 0). Both are the same operator on different
+    channel impedances.
+
+    Args:
+        r: Radial distance [m].
+        r_s: Schwarzschild radius [m].
+
+    Returns:
+        Shear reflection coefficient (→ −1 at r_sat).
+    """
+    # Far-field exterior shear impedance: ε₁₁ → 0 ⇒ c_shear → c ⇒ Z = ρc.
+    Z_ext = RHO_BULK * C_0
+    Z_int = shear_impedance(r, r_s)
+    # reflection_coefficient(Z1, Z2) = (Z2 − Z1)/(Z2 + Z1); incident from
+    # exterior (Z1 = Z_ext) into interior (Z2 = Z_int) ⇒ (Z_int − Z_ext)/(…).
+    return reflection_coefficient(Z_ext, Z_int)
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -269,6 +443,7 @@ def gw_propagation_summary(
     results = {
         "M_kg": M,
         "r_s_m": r_s,
+        "r_sat_m": saturation_radius(r_s),
         "linear_propagation": is_linear_propagation(h),
         "V_gw_over_V_snap": gw_strain_to_voltage(h) / V_SNAP,
         "profiles": [],
@@ -283,8 +458,13 @@ def gw_propagation_summary(
                 "n_refract": float(refractive_index(r, r_s)),
                 "epsilon_eff": float(epsilon_eff_schwarzschild(r, r_s)),
                 "mu_eff": float(mu_eff_schwarzschild(r, r_s)),
-                "Z_ohm": float(gravitational_impedance(r, r_s)),
-                "gamma": float(horizon_reflection(r, r_s)),
+                # EM channel: Z_EM ≡ Z₀, Γ_EM = 0 (light transparent).
+                "Z_em_ohm": float(gravitational_impedance(r, r_s)),
+                "gamma_em": float(horizon_reflection(r, r_s)),
+                # Shear/GW channel: Z_shear → 0, Γ_shear → −1 (GW reflect).
+                "Z_shear": float(shear_impedance(r, r_s)),
+                "gamma_shear": float(shear_horizon_reflection(r, r_s)),
+                "c_shear": float(shear_wave_speed(r, r_s)),
                 "c_local": gw_local_speed(r, r_s),
             }
         )

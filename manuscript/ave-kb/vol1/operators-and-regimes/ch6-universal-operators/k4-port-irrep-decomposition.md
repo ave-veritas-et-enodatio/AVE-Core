@@ -23,7 +23,7 @@ Here "substrate" refers to the Chiral LC Network of Axiom 1, corresponding to a 
 | $T_2$ eigenvalue | $-1$, triply degenerate (basis spans traceless 3D subspace — vector-like/transverse) |
 | Eigenvalue sum | $4 \cdot 1 = 4$ (trace of 4×4 correlation matrix) |
 | $A_1$ Cosserat mapping | Translational $u$ (isotropic, longitudinal) — propagates at $c \sqrt{2}$ |
-| $T_2$ Cosserat mapping | Microrotational $\omega$ (anisotropic, transverse) — propagates at $c$; **THIS IS THE PHOTON** |
+| $T_2$ Cosserat mapping | Microrotational $\omega$ (anisotropic, transverse) — propagates at $c$; **THIS IS THE PHOTON** (weak-C 2026-06-15: the **free / sub-saturation / continuum-limit** $T_2$ — its $L \gg \ell_{node}$ limit is the Maxwell field; the *same* $T_2$ sector hosts the bound electron's massive mode at saturation, per §6 line 134) |
 | Bare scattering unitarity | Without Op3 dissipation, $A_1$ propagates forever, $T_2$ reflects forever, no energy loss |
 | Op3 asymmetric dissipation | $A_1$ loses energy monotonically; $T_2$ settles into quasi-stable pattern |
 | Physical origin of asymmetry | Gauss's law forbids longitudinal EM in vacuum: $\nabla \cdot \mathbf{E} = 0$ |
@@ -121,6 +121,8 @@ The two irreps propagate at different speeds on the K4 substrate:
 | $T_2$ (transverse photon) | $c = \sqrt{G / \rho}$ | Shear modulus $G$ governs transverse shear |
 
 The K4 magic-angle condition $K = 2G$ (Vol 1 Ch 2 macroscopic moduli) makes the substrate's $A_1$ and $T_2$ speeds related by $v_{A_1} / v_{T_2} = \sqrt{2}$ — the same $\sqrt{2}$ that shows up in cardinal-axis kinematics (see [Photon Propagation Baseline](../../dynamics/ch4-continuum-electrodynamics/photon-propagation-baseline.md)).
+
+> **🔴 WEAK-C SCOPE-NOTE (2026-06-15, Rule 12 — tables above PRESERVED unedited; weak-C canonization, gate `wejkhvnfb`, Grant-confirmed 2026-06-14; prereg at repo-root `research/2026-06-15_weak-c-photon-continuum_prereg.md`).** The "$T_2$ = transverse photon at $c = \sqrt{G/\rho}$" rows (§5 line 26, §6 line 121) name the **free / sub-saturation / continuum-limit** $T_2$ mode. Its long-wavelength regime ($L \gg \ell_{node}$) IS the **Maxwell continuum EM field** — $Z_0 = \sqrt{\mu/\varepsilon}$ and $c = 1/\sqrt{LC}$ are $\ell_{node}$-independent (`z0-derivation.md:40`; `master-equation.md:16, :61`), so the free photon's propagation description does not depend on the lattice pitch. This is the **free** half of the free-vs-locked split already canon in §7 below (the reconciliation sentence): the *same* $T_2$ sector is **massless when propagating freely** AND hosts the bound electron's **massive** Cosserat shell **at saturation** (the locked / matter half). One substrate, two regimes — the continuum is a *regime*, not a coexisting field; input-count stays 3 {$m_e$, $\alpha$, $G$}.
 
 ## §7 — Cosserat sector mapping
 

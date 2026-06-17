@@ -22,8 +22,13 @@ from ave.gravity.gw_propagation import (
     horizon_reflection,
     is_linear_propagation,
     mu_eff_schwarzschild,
+    radial_strain,
     refractive_index,
+    saturation_radius,
     schwarzschild_radius,
+    shear_horizon_reflection,
+    shear_impedance,
+    shear_wave_speed,
 )
 
 M_SUN = 1.989e30  # Solar mass [kg]
@@ -66,13 +71,17 @@ class TestSymmetricGravity:
             Z = float(gravitational_impedance(r, r_s))
             assert Z == pytest.approx(Z_0, rel=1e-3), f"Z({mult}·r_s) = {Z:.2f}, expected {Z_0:.2f}"
 
-    def test_gamma_zero_everywhere(self) -> None:
-        """Γ = 0 at ALL radii — no reflection, no echoes."""
+    def test_gamma_em_zero_everywhere(self) -> None:
+        """EM-channel Γ_EM = 0 at ALL radii — light transparent, no EM echoes.
+
+        NOTE (channel-split): this is the EM channel ONLY. The shear/GW
+        channel REFLECTS (Γ_shear = −1) — see TestChannelSplitReflection.
+        """
         r_s = schwarzschild_radius(30 * M_SUN)
         for mult in [1.01, 1.1, 2, 5, 10, 100, 1000]:
             r = mult * r_s
             gamma = float(horizon_reflection(r, r_s))
-            assert abs(gamma) < 0.01, f"Γ({mult}·r_s) = {gamma:.6f}, expected ~0"
+            assert abs(gamma) < 0.01, f"Γ_EM({mult}·r_s) = {gamma:.6f}, expected ~0"
 
     def test_epsilon_mu_scale_symmetrically(self) -> None:
         """ε and μ must scale by the SAME factor n(r)."""
@@ -177,7 +186,98 @@ class TestSummary:
         assert len(result["profiles"]) > 0
         assert result["r_s_m"] > 0
 
-    def test_summary_no_echo_key(self) -> None:
-        """Summary should NOT contain echo_delay (scrapped)."""
+    def test_summary_no_em_echo_delay_key(self) -> None:
+        """Summary should NOT contain an EM echo_delay key (EM Γ_EM = 0).
+
+        The shear/GW channel reflects (Γ_shear = −1) and echoes ARE
+        predicted, but the GW-echo is retrospective (reflect ⇒ echo) — no
+        SHA-pinned forward prereg, so no numeric echo_delay_s is emitted.
+        """
         result = gw_propagation_summary(30.0, 1e-21)
         assert "echo_delay_s" not in result
+
+    def test_summary_carries_both_channels(self) -> None:
+        """Each profile must surface BOTH channels (channel-split, not one)."""
+        result = gw_propagation_summary(30.0, 1e-21)
+        prof = result["profiles"][0]
+        for key in ("gamma_em", "gamma_shear", "Z_em_ohm", "Z_shear", "c_shear"):
+            assert key in prof, f"summary profile missing channel key {key!r}"
+        assert "r_sat_m" in result
+
+
+class TestChannelSplitReflection:
+    """SIGN-GATE (analog of the #278 sign-gate): the substrate-forced
+    channel-split at the BH horizon.
+
+    EM-transverse channel:  Γ_EM = 0      (symmetric gravity, light transparent)
+    Shear / GW channel:     Γ_shear = −1  (G_shear→0 ⇒ Z_shear→0 ⇒ Op3 short)
+
+    Asserting BOTH simultaneously is the discriminator the old engine
+    failed: it computed only the EM Γ=0 (right number, wrong channel) and
+    declared "no black hole echoes." The shear channel reflects, so GW
+    ringdown echoes are predicted (reflect ⇒ echo).
+    """
+
+    def test_r_sat_is_3p5_rs(self) -> None:
+        """Shear/bulk rupture boundary r_sat = 7GM/c² = 3.5·r_s."""
+        r_s = schwarzschild_radius(30 * M_SUN)
+        assert saturation_radius(r_s) == pytest.approx(3.5 * r_s, rel=1e-12)
+
+    def test_radial_strain_unity_at_r_sat(self) -> None:
+        """ε₁₁ → 1 at r_sat (the rupture condition)."""
+        r_s = schwarzschild_radius(30 * M_SUN)
+        r_sat = saturation_radius(r_s)
+        assert float(radial_strain(r_sat, r_s)) == pytest.approx(1.0, abs=1e-12)
+
+    def test_shear_speed_collapses_at_r_sat(self) -> None:
+        """c_shear → 0 at r_sat (shear restoring force vanishes)."""
+        r_s = schwarzschild_radius(30 * M_SUN)
+        r_sat = saturation_radius(r_s)
+        assert float(shear_wave_speed(r_sat, r_s)) == pytest.approx(0.0, abs=1.0)
+        # Far field: shear speed recovers to ~c.
+        assert float(shear_wave_speed(1e6 * r_s, r_s)) == pytest.approx(C_0, rel=1e-3)
+
+    def test_shear_impedance_collapses_at_r_sat(self) -> None:
+        """Z_shear → 0 at r_sat (free surface / Op3 short)."""
+        r_s = schwarzschild_radius(30 * M_SUN)
+        r_sat = saturation_radius(r_s)
+        Z_sat = float(shear_impedance(r_sat, r_s))
+        Z_far = float(shear_impedance(1e6 * r_s, r_s))
+        assert Z_sat < 1e-6 * Z_far, f"Z_shear(r_sat)={Z_sat:.3e} not collapsed vs far {Z_far:.3e}"
+
+    def test_CHANNEL_SPLIT_em_zero_shear_minus_one_at_horizon(self) -> None:
+        """THE SIGN-GATE: at the horizon Γ_EM = 0 AND Γ_shear = −1.
+
+        This is the whole walk-back in one assertion. A single-channel
+        "absorber" engine cannot pass this: it gives one Γ, not two.
+        """
+        r_s = schwarzschild_radius(30 * M_SUN)
+        r_sat = saturation_radius(r_s)
+
+        # EM channel: matched everywhere, including at r_sat.
+        gamma_em = float(horizon_reflection(r_sat, r_s))
+        assert abs(gamma_em) < 1e-3, f"Γ_EM(r_sat) = {gamma_em:.6f}, expected 0"
+
+        # Shear channel: total reflection at r_sat.
+        gamma_shear = float(shear_horizon_reflection(r_sat, r_s))
+        assert gamma_shear == pytest.approx(-1.0, abs=1e-3), (
+            f"Γ_shear(r_sat) = {gamma_shear:.6f}, expected −1 (GW reflect)"
+        )
+
+        # The two channels DISAGREE — that is the point (not one absorber).
+        assert abs(gamma_em - gamma_shear) > 0.9
+
+    def test_shear_gamma_negative_inside_horizon(self) -> None:
+        """Γ_shear stays at the −1 short across the saturated interior."""
+        r_s = schwarzschild_radius(30 * M_SUN)
+        r_sat = saturation_radius(r_s)
+        for mult in [1.0, 0.8, 0.5, 0.2]:  # at and inside r_sat
+            r = mult * r_sat
+            g = float(shear_horizon_reflection(r, r_s))
+            assert g == pytest.approx(-1.0, abs=1e-3), f"Γ_shear({mult}·r_sat) = {g:.6f}"
+
+    def test_shear_gamma_recovers_to_zero_far_field(self) -> None:
+        """Far from the mass, the shear channel is matched too (Γ_shear → 0)."""
+        r_s = schwarzschild_radius(30 * M_SUN)
+        g = float(shear_horizon_reflection(1e6 * r_s, r_s))
+        assert abs(g) < 1e-3, f"Γ_shear(far) = {g:.6f}, expected ~0"
