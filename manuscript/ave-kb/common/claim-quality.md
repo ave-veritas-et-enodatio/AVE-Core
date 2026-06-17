@@ -681,7 +681,7 @@ An interior eigenmode of a soliton bounded by a Γ=−1 wall lives entirely insi
 
 - _Specific Claims_
   - Any interior Beltrami / phase-space eigenmode of a bounded soliton (e.g., the electron's horn-torus interior at k ≈ 6.36/ℓ_node) lives entirely inside the Γ=−1 wall and is causally disconnected from the exterior substrate.
-  - The K4 Nyquist limit k_max = 0.577/ℓ_node does NOT apply to interior structure, because the substrate never propagates that wave through the lattice — it lives only in the bounded interior cell.
+  - The K4 propagating-mode Nyquist wavevector edge k_max ~ π/ℓ_node (measured √2·π ≈ 4.44/ℓ_node on the srs axis) does NOT apply to interior structure, because the substrate never propagates that wave through the lattice — it lives only in the bounded interior cell. _(Relabeled 2026-06-16 from "0.577/ℓ_node": that was the network-velocity factor 1/√3 = c(k→0)/c_link mislabeled as a wavevector; empirical settle b72045d4.)_
   - Forcing a multi-cell propagating-eigenmode test on a bounded interior is a category error; the substrate-correct test measures the integrated boundary observables M, Q, J.
 - _Specific Non-Claims and Caveats_
   - Does NOT claim the interior wavenumber is unphysical — it is a real interior eigenmode; the claim is that it is exempt from the lattice Nyquist bound because it does not propagate through the lattice.
@@ -694,7 +694,7 @@ An interior eigenmode of a soliton bounded by a Γ=−1 wall lives entirely insi
 - depends-on:
   - clm-ofys5v — Substrate-observability rule [supplies causal/impedance disconnection of the Γ=−1 interior]
 - solidity: 0.55 (use as input only, don't build deeper) [= min(0.65, 0.55)]
-- rationale: Given the substrate-observability rule (interior of a Γ=−1 wall is causally and impedance-disconnected), the conclusion that interior eigenmodes (e.g. k≈6.36/ℓ_node) are exempt from the K4 Nyquist bound k_max=0.577/ℓ_node follows cleanly — the lattice never propagates that wave, so the propagating-mode bound does not bind. The local logic is tight; the one caveat is that "the mode lives entirely inside and never couples to the lattice" is taken from the boundary-observability rule rather than shown for the specific horn-torus interior mode.
+- rationale: Given the substrate-observability rule (interior of a Γ=−1 wall is causally and impedance-disconnected), the conclusion that interior eigenmodes (e.g. k≈6.36/ℓ_node) are exempt from the K4 propagating-mode Nyquist wavevector edge k_max~π/ℓ_node (measured √2·π≈4.44/ℓ_node on the srs axis; relabeled 2026-06-16 from the earlier "0.577/ℓ_node", which was the 1/√3 network-velocity factor mislabeled as a wavevector — empirical settle b72045d4) follows cleanly — the lattice never propagates that wave, so the propagating-mode bound does not bind. The local logic is tight; the one caveat is that "the mode lives entirely inside and never couples to the lattice" is taken from the boundary-observability rule rather than shown for the specific horn-torus interior mode.
 - strengthen-by:
   - Demonstrate for the specific electron horn-torus interior mode that it has zero projection onto propagating K4 lattice modes
   - State the boundary condition under which an interior mode would leak and thus re-acquire the Nyquist constraint
