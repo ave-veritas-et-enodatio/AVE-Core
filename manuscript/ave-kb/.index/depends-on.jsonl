@@ -702,6 +702,8 @@
 {"source": "exp-po1a0v", "target": "clm-5s5b0d", "relation": "strengthens", "target_kind": "claim", "target_solidity_recorded": null, "strength": 0.5, "context": null, "fraction": null}
 {"source": "exp-rth12t", "target": "clm-qx9bb8", "relation": "strengthens", "target_kind": "claim", "target_solidity_recorded": null, "strength": 1.0, "context": null, "fraction": null}
 {"source": "exp-v6nzcq", "target": "clm-ui3m8a", "relation": "strengthens", "target_kind": "claim", "target_solidity_recorded": null, "strength": 1.0, "context": null, "fraction": null}
+{"source": "sup-1ecv2m", "target": "clm-kezk9z", "relation": "supports", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": "*pending*"}
+{"source": "sup-1ecv2m", "target": "clm-uatcql", "relation": "supports", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": "*pending*"}
 {"source": "sup-1sq5c1", "target": "clm-8nkvwy", "relation": "supports", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": "*pending*"}
 {"source": "sup-2qja9z", "target": "clm-8nkvwy", "relation": "supports", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": "*pending*"}
 {"source": "sup-2qja9z", "target": "clm-gz7ryg", "relation": "supports", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": "*pending*"}
@@ -724,6 +726,11 @@
 {"source": "sup-su0h1a", "target": "clm-djpx2v", "relation": "supports", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": "*pending*"}
 {"source": "sup-u7r3vu", "target": "clm-dfaiwj", "relation": "supports", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": "*pending*"}
 {"source": "sup-uiny42", "target": "clm-hd9bee", "relation": "supports", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": "*pending*"}
+{"source": "sup-wuy333", "target": "clm-rtdmsn", "relation": "supports", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": "*pending*"}
+{"source": "sup-x7h9yh", "target": "clm-ka5zdx", "relation": "supports", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": "*pending*"}
+{"source": "sup-x7h9yh", "target": "clm-uatcql", "relation": "supports", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": "*pending*"}
 {"source": "sup-xey8a8", "target": "clm-yr6tu4", "relation": "supports", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": "*pending*"}
+{"source": "sup-xgx063", "target": "clm-ka5zdx", "relation": "supports", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": "*pending*"}
+{"source": "sup-xgx063", "target": "clm-unk0bd", "relation": "supports", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": "*pending*"}
 {"source": "sup-xn9y6c", "target": "clm-3npynp", "relation": "supports", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": "*pending*"}
 {"source": "sup-xn9y6c", "target": "clm-j550uh", "relation": "supports", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": "*pending*"}
