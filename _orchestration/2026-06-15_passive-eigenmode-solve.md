@@ -1311,6 +1311,33 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   "bug" reading — the genesis-24 prior demands the verdict be stress-tested, not accepted) → THEN fork to Grant
   with the deciding numbers. **No Phase-23 RESULT bank, no merge, until the re-verify clears.**
 
+- **2026-06-16 (Phase 24 — 🟡 ladder = SUBSTRATE-PUMP (PRELIMINARY); freeze-g disambiguator + winding-emergence
+  rerun DISPATCHED; LENS C contested-marker landed)** — **Ladder result** (`a06ad935`, killed after 4h on an
+  extra N=32 wide-sweep; verdict banked `4a90944c`): RUNG-0 PASS (harness clean), RUNG-1 FLAT (**mask projection
+  EXONERATED** — the genesis-24 prime suspect is NOT the pump), RUNG-2 **SUBSTRATE-PUMP** (forced-overlap EXCESS
+  climb-rate plateaus R∞/R0=0.842 as dt→0). **PRELIMINARY** — the PIECE-1 proof (`f5672881`, derived in-session
+  after 2 sub-agent infra deaths) shows the plateau is EXACTLY the dropped-∂g/∂V moving-window residual
+  `R=κ̃∫ġVΞ` (dt-independent, FIXABLE), which the ladder can't distinguish from a genuine substrate pump.
+  **DISPATCHED the freeze-g control** (`aedf3b45`, lean N≤24, branch `…-keystone-freeze-g-control`): re-run
+  RUNG-2 live-g vs frozen-g → plateau vanishes = WINDOW-MODEL-PUMP (fixable, keystone re-opens) / persists =
+  SUBSTRATE-PUMP (negative); + direct-R accounting (proof's numerical confirmation). **Winding-emergence rerun
+  dispatches on freeze-g return** (mode-conversion criterion, **NO-QED noun corrected** per Grant directive +
+  auditor catch: longitudinal-bulk-self-traps=MASS [Layer-a ✓] + Cosserat (2,3) microrotation winding locks
+  INSIDE=CHARGE — NOT a self-trapped transverse photon; my "self-trapped photon" noun was the banned QED-trap
+  framing). **Freeze-g FIRST is corpus-grounded**: standalone-Cosserat won't self-organize (genesis-omega-wave
+  disperses, armB-flywheel de-collimates) → the winding needs the trap → the trap needs the coupling correct +
+  conservative. Guards: CP8 generic seed, α-free, **phase-space `extract_2_3` readout** (NOT real-space —
+  Phase-20 lesson), adversarial refute-panel. **LENS C correction** (from the Q2 scrutiny, `wmbn2kogo`):
+  Stage-1.5 layer-(c) EMERGENCE-NEGATIVE is **suspect-as-bug-downstream** (rode the same Cartesian-disabled
+  coupling: no trap → ω radiated out before locking), NOT falsified → **CONTESTED marker landed** on the
+  amendments branch (`54fa23cd`); winding-emergence rerun banks it either way. The strongest chord candidate
+  (charge=integer-winding self-forming) is **UNTESTED, not failed** — this rerun is the cleanest chord-or-echo
+  decider. **🔴 3rd-time stale-read pattern** (freeze-g N=32, keystone Cartesian, now LENS C): retractions
+  stranded on unmerged branches, agents read main/headline. **Durable fix = Grant merges the retraction-bearing
+  branches to main** (esp. `…-stage16-rerun-amendments`, now carrying the Stage-1.5 (b) retraction + (c)
+  CONTESTED marker) — only that stops the next stale-read at source. **HOLDS:** nothing banks/merges until
+  freeze-g + winding-emergence clear an adversarial re-verify. #248/DEC-01 still Grant's open call.
+
 ## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
 
 **🟢 HELD OBJECT (explicit, per Grant — so a verifier cannot misread):** the held object is the
