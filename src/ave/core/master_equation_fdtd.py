@@ -154,19 +154,37 @@ class MasterEquationFDTD:
         """Local strain A = |V|/V_yield at each cell."""
         return np.abs(self.V) / self.V_yield
 
-    def refractive_index(self):
-        """n(r) = c₀/c_eff(V) = S(A)^(1/4) → 0 as A → 1.
-
-        This is the substrate-native refractive index from the Master
-        Equation. In standard physics, this is the gravity-flavored
-        refractive-index gradient n(r) = 1 + 2GM/(rc²).
-        """
+    # WAVE-TYPED INDEX (sign-lock w35sn2bq3, landed 2026-06-17 task #12):
+    # n=√(εμ) tracks the εμ PRODUCT; the EM-transverse and shear/gravitational
+    # indices are RECIPROCAL, so a single scalar cannot serve both. The wave-
+    # speed identity c_eff²=c0²/S (c_eff_squared, :148-151) is the kernel anchor.
+    # Legacy magnitude was S^{1/4} (an exponent defect — half the physical
+    # power); corrected to ½ here. SIGN-SAFE (deepens, never flips). The KB
+    # symbol n_eff is OVERLOADED (√S EM at vacuum-birefringence-e4.md:12 vs
+    # 1/√S gravitational at substrate-perspective-electron.md:58) — FLAGGED to
+    # the KB owner in the task-12 PR, not silently reconciled.
+    def n_em_index(self):
+        """EM-transverse refractive index n_EM = c₀/c_eff = S(A)^(+1/2) → 0 as
+        A → 1 (the photon channel; the saturated core stiffens, n falls to 0)."""
         S = self.saturation_kernel(self.V)
-        # FLAG (2026-06-10, apparatus-floors char.): exponent defect — c_eff_squared
-        # at :148-151 sets c_eff²=c0²/S, so physical n=c0/c_eff=S^0.5, NOT S^0.25.
-        # Downstream Γ=(n-1)/(n+1) magnitudes understate the wall depth. Comment-only
-        # flag per flag-don't-fix; FIX IS A PHYSICS-REVIEW ITEM (Grant/auditor).
-        return S**0.25
+        return S**0.5
+
+    def n_shear_index(self):
+        """Shear / gravitational refractive index n_shear = S(A)^(−1/2) → ∞ as
+        A → 1 (the Shapiro/lensing analog; light slows, n→∞). The RECIPROCAL of
+        n_em_index. In standard physics this is the gravity-flavored gradient
+        n(r) = 1 + 2GM/(rc²)."""
+        S = self.saturation_kernel(self.V)
+        return S ** (-0.5)
+
+    def refractive_index(self):
+        """Back-compat alias = the EM-transverse index n_EM = S(A)^(+1/2) → 0.
+
+        Historical callers read the "n→0 in saturated core" sense; this
+        preserves that direction at the CORRECTED ½ magnitude. New code should
+        call the wave-typed n_em_index() / n_shear_index() explicitly.
+        """
+        return self.n_em_index()
 
     def step(self):
         """One leapfrog timestep of the Master Equation."""

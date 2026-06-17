@@ -102,9 +102,15 @@ def compute_M(V: np.ndarray, dx: float, V_yield: float = 1.0, A_cap: float = 0.9
 
     Defined as the volume integral of (n_grav(r) - 1) where n_grav is the
     gravitational-flavored refractive index. For the engine's substrate-native
-    convention where n_eff = S^(1/4) goes from 1 (no strain) to 0 (full saturation),
-    the gravity-equivalent n_grav = 1/n_eff = S^(-1/4) goes from 1 (no strain) to
-    ∞ (full saturation), matching standard physics' "n increases with mass" form.
+    convention (sign-lock w35sn2bq3, 2026-06-17) the EM-transverse index
+    n_EM = S^(1/2) goes from 1 (no strain) to 0 (full saturation), and the
+    gravity-equivalent n_grav = 1/n_EM = S^(-1/2) goes from 1 (no strain) to
+    ∞ (full saturation), matching standard physics' "n increases with mass"
+    (Shapiro/lensing) form. [Lockstep with master_equation_fdtd.n_shear_index /
+    crystal_engine.n_shear_index; the legacy S^(-1/4) was an exponent defect —
+    half the physical power. The shift deepens the strained integrand
+    monotonically, so M stays 0 unstrained, >0 for strain, and additive over
+    disjoint solitons (test_boundary_invariants relational bins unchanged).]
 
     Per A-028 canonical definition; per Vol 4 Ch 1:175-184 Virial sum
     interpretation, this gives the rest-mass-equivalent of a localized soliton.
@@ -120,9 +126,10 @@ def compute_M(V: np.ndarray, dx: float, V_yield: float = 1.0, A_cap: float = 0.9
     """
     A = np.abs(V) / V_yield
     A_clipped = np.minimum(A, A_cap)
-    # S(A) = sqrt(1 - A²); engine n_eff = S^(1/4); gravity n_grav = S^(-1/4)
+    # S(A) = sqrt(1 - A²); engine n_EM = S^(1/2); gravity n_grav = S^(-1/2)
+    # (sign-lock w35sn2bq3, 2026-06-17 — ½ power, RECIPROCAL of n_EM).
     S = np.sqrt(np.maximum(1.0 - A_clipped**2, 1e-12))
-    n_grav = S ** (-0.25)
+    n_grav = S ** (-0.5)
     integrand = n_grav - 1.0  # zero where unstrained, positive where strained
     M = float(np.sum(integrand) * dx**3)
     return M

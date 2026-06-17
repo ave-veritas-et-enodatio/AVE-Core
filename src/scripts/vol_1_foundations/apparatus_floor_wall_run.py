@@ -32,12 +32,15 @@ genesis-perf parallel runner). ave-driver-script-honesty: every number is read
 from the evolved/seeded field; the naive bound is computed from the clips alone
 (no fit to the measurement).
 
-FLAG (flag-don't-fix, surfaced not resolved): `refractive_index()`
-(crystal_engine.py:391) returns S**0.25, but the wave-speed identity
-c_eff²=c0²/S (line 164) ⇒ physical n=c0/c_eff=S**0.5. The Γ diagnostic and the
-docstring (line 388 "n=c0/c_eff=S^{1/4}") disagree by a power. We compute Γ with
-the engine's own diagnostic (to match the v2/v3 record) and report both the
-S^{1/4} and the S^{1/2} floor so the auditor can adjudicate the power.
+FLAG — RESOLVED 2026-06-17 (sign-lock w35sn2bq3, task #12; Rule-12 — body
+preserved below for the audit trail): `refractive_index()` previously returned
+S**0.25, but the wave-speed identity c_eff²=c0²/S ⇒ physical n=c0/c_eff=S**0.5.
+The exponent defect is now FIXED: the index is magnitude-corrected to ½ and
+wave-typed (crystal_engine.n_em_index = S^{+1/2}→0, n_shear_index = S^{−1/2}→∞;
+refractive_index() is the back-compat EM alias). gamma_bulk() is now Γ-routed
+through the μ-load impedance Z_eff=Z0·√S→0. We still report BOTH the S^{1/4}
+(legacy regression anchor) and the S^{1/2} (corrected) floor; the corrected
+power DEEPENS the wall (sign-safe), it does not flip it.
 """
 
 import json
@@ -72,8 +75,8 @@ def naive_gamma_floor(S_min, A_cap):
     sA = float(np.sqrt(1.0 - A_cap**2))
     S_floor = max(sA, S_min)
     binds = "A_cap" if sA >= S_min else "S_min"
-    n_quarter = S_floor**0.25  # engine refractive_index() power
-    n_half = S_floor**0.5  # physical c0/c_eff power (the FLAG)
+    n_quarter = S_floor**0.25  # legacy S^{1/4} regression anchor
+    n_half = S_floor**0.5  # CORRECTED engine refractive_index() / gamma_bulk power (½)
     g_q = (n_quarter - 1.0) / (n_quarter + 1.0)
     g_h = (n_half - 1.0) / (n_half + 1.0)
     return {

@@ -80,8 +80,9 @@ DETONATION_MAX_V = 10.0  # max|V| beyond this = genesis-24 detonation (was ~1.08
 def naive_gamma_floor(s_min: float, a_cap: float) -> dict:
     """The DEEPEST Γ the clipped kernel can produce (the apparatus prediction;
     NOT a fit). S_floor = max(sqrt(1−A_cap²), S_min); reported with BOTH index
-    powers (the S^{1/4} engine diagnostic AND the S^{1/2} physical-c_eff power —
-    the exponent-defect FLAG, crystal_engine.py:421-432)."""
+    powers — the S^{1/2} CORRECTED engine power (now the gamma_bulk default,
+    sign-lock w35sn2bq3, 2026-06-17) AND the legacy S^{1/4} (regression anchor;
+    was the exponent defect, now fixed in crystal_engine.gamma_bulk)."""
     s_a = float(np.sqrt(1.0 - a_cap**2))
     s_floor = max(s_a, s_min)
     binds = "A_cap" if s_a >= s_min else "S_min"
