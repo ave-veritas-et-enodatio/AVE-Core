@@ -138,3 +138,45 @@ L0 axiom-test groups:
 **Recommended plan edits applied / pending:** §7 T1.5 "fixed" claim CORRECTED above (designed+monkeypatch-verified, not applied); fix the dangling `__init__.py:6` plan-pointer when the plan merges; adopt the T2.2/T2.3 consistency downgrades; the L0-medium/L0-axioms split + the multi-wave L1 + the ritual are recorded here.
 
 **FORKS → Grant:** (a) **ladder scope** — add temperature/breakdown/cosmological layers for full-datasheet coverage, or scope to L0–L5 + leave those as Vols 1–6 cites? (b) **7-vs-5 DOF** — L6+ frontier for constitutive-loop + boost-covariance, or de-scope? (c) charge-sign (BIN-G/CVR) + engine-token rename (from §7).
+
+## §9 — COMPLETENESS MATRIX (LIVE CHECKLIST)
+
+**This is the single live tracker.** Status updated per the §8 completion ritual (a row flips to ✅ only after: tests green + figures + Vol 9 leaf/Ch17 row + engine-map flip + `make vol9` clean). Legend: ✅ built-green · 🔧 fix-pending · ⬜ GAP (not built) · 🚩 frontier (gated on Grant). Tag = axiom-compliance / emergent / consistency / chord.
+
+| Layer | Test | Tag | Characteristic / DOF | Vol 9 | Status |
+|---|---|---|---|---|---|
+| **L0-medium** | T0.1 energy/unitary-scatter | axiom (Ax3 lossless) | medium unitarity | Ch4/Ch3 | ✅ |
+| L0-medium | T0.2 Z₀=√(μ₀/ε₀) | axiom (Ax1 LC identity) | port impedance | Ch4 | ✅ |
+| L0-medium | T0.3 isotropy | consistency | medium validity | Ch4/Ch9 | ✅ |
+| **L0-axioms** | A1a 6-DOF/node + I4₁32 connectivity | axiom (Ax1 topology) | 6 DOF, chiral grid | Ch1/Ch3/Ch11 | ⬜ |
+| L0-axioms | A1b chirality lossless (rotation ON) | axiom (Ax1 chirality) | optical-activity DOF | Ch1/Ch11 | 🔧 (.copy() fix) |
+| L0-axioms | A2 TKI [Q]≡[L], ξ_topo, dislocation | axiom (Ax2) | charge=geometry | Ch4/Ch11 | ⬜ |
+| L0-axioms | A3b \|Γ\|²-minimization (matched→Γ→0) | axiom (Ax3 min-refl) | min-reflection | Ch3 | ⬜ |
+| L0-axioms | A4 saturation kernel S(A) verified | axiom (Ax4) | saturation | Ch7/Ch14 | ⬜ |
+| **L1 free modes** | T1.1 transverse-EM (photon) lossless | consistency | photon, c_EM | Ch5/Ch4 | ✅ (hardened) |
+| L1 free modes | T1.2 dispersionless band ω=ck | consistency | photon dispersion | Ch5 | ✅ |
+| L1 free modes | T1.3 transversality (2-pol, no leak) | consistency | 2 transverse DOF | Ch3 | ✅ |
+| L1 free modes | T1.4 causality / front-speed | consistency | no superluminal | Ch4 | ✅ |
+| L1 free modes | T1.5 optical-activity (chiral channel) | consistency-gate (post-fix) | optical activity | Ch5/Ch10/Ch11 | 🔧 |
+| L1 free modes | T1.6 transverse-SHEAR wave (c_shear=c₀√S) | consistency | shear mode | Ch5/Ch9 | ⬜ (multi-wave) |
+| L1 free modes | T1.7 longitudinal-BULK wave (the "3") | chord/consistency | bulk mode, c_bulk | Ch5/Ch9 | ⬜ (multi-wave) |
+| L1 free modes | T1.8 Cosserat micro-rotation wave (gapped) | consistency | micro-rotation mode | Ch5/Ch10 | ⬜ (multi-wave) |
+| **L2 EM-in-media** | T2.1 refractive index c_EM=c₀/S | consistency (Op14) | operating-point | Ch5/Ch7 | ✅ |
+| L2 EM-in-media | T2.2 achromatic lensing | consistency-of-mechanism | SYM gradient (gravity) | Ch12/Ch5 | ✅ |
+| L2 EM-in-media | T2.3 asymmetric mirror Γ≠0 | consistency | Meissner-asym | Ch3/Ch7 | ✅ |
+| L2 EM-in-media | T2.4 α-invariance under SYM | consistency (clm-3zz0f6) | α-invariance | Ch5/Ch12 | ✅ |
+| **L3 mass-cage** | T3.1 longitudinal-mode-is-real | chord (vs QED) | A1 bulk DOF | Ch9/Ch4 | ⬜ |
+| L3 mass-cage | T3.2 c_eff(V) stiffening →∞ | emergent (Ax4) | mass-cage | Ch8/Ch14 | ⬜ |
+| L3 mass-cage | T3.3 binding-wall Γ=−1 (make-or-break) | chord | Γ=−1 TIR wall | Ch3/Ch2 | ⬜ ⭐ |
+| L3 mass-cage | T3.4 mass = cutoff freq ω₀ | emergent | mass observable | Ch2/Ch9 | ⬜ |
+| **L4 charge/winding** | T4.1 (2,q) winding forms/persists | consistency-of-existence | winding DOF | Ch11 | ⬜ |
+| L4 charge/winding | T4.2 charge = integer winding ±1 | chord (unfakeable int) | charge | Ch11/Ch10 | ⬜ ⭐ |
+| L4 charge/winding | T4.3 handedness e⁻/e⁺ | chord (candidate-c) | charge sign | Ch11/Ch10 | ⬜ (→fork c) |
+| **L5 coupling/genesis** | T5.1 coupling conserves energy (keystone, unified) | consistency (Ax3) | mode-conversion | Ch17 | ⬜ |
+| L5 coupling/genesis | T5.2 electron self-assembles (no plant) | chord (genesis) | mass+charge co-emerge | Ch11 | ⬜ |
+| L5 coupling/genesis | T5.3 forced m_μ/m_e from (2,q) | chord (THE decider) | forced mass ratio | Ch11/Ch13 | ⬜ ⭐ |
+| **L6+ frontier** | constitutive-loop / remanence (R10) | — | DOF (7-of-7) | Ch10 | 🚩 (fork b) |
+| L6+ frontier | boost-covariance (Lorentz) | — | DOF (7-of-7) | — | 🚩 (fork b) |
+| L6+ frontier | node-creation (pair production) | — | DOF / genesis | Ch8 | 🚩 (fork a) |
+
+⭐ = the three chord-deciders (Γ=−1 mass wall · integer charge · forced mass ratio). **Vol 9 chapters with no ladder row** (fork a): Ch6 temperature, Ch8 breakdown-rupture, Ch12 cosmological-values, Ch15 falsification (orthogonal bench axis), Ch16 lookup. **Score: 12 ✅ / 2 🔧 / 16 ⬜ / 3 🚩 — valid medium, zero chords forced yet.**
