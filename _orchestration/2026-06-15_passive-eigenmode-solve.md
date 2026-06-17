@@ -1338,6 +1338,38 @@ needs ~1.5% Q precision, which the ~3.2% shear-clock ω_C systematic currently e
   CONTESTED marker) — only that stops the next stale-read at source. **HOLDS:** nothing banks/merges until
   freeze-g + winding-emergence clear an adversarial re-verify. #248/DEC-01 still Grant's open call.
 
+- **2026-06-16 (Phase 25 — 🔴→🟡 SUBSTRATE-PUMP OVERTURNED → SCOPED/UNADJUDICATED by the adversarial panel
+  `wxzl90eic`; keystone RE-OPENED at the methodology level, NOT negative)** — Freeze-g returned SUBSTRATE-PUMP
+  (`aedf3b45`; window-model escape-hatch genuinely killed: 99.6% of the plateau survives freezing g, direct-R
+  = 0.77%), corroborated by a sibling lane (`…-keystone-freezeg`). I reported it to Grant as "leaning
+  confirmed-negative, well-triangulated." **The 5-skeptic adversarial panel OVERTURNS that — 2 REFUTED on
+  load-bearing angles, both CODE-CONFIRMED, both uncontrolled in all three lanes:** (1) **the OFF baseline
+  FREEZES Sector A** (`ladder.py:215`, `freezeg:168` = `eng.B.step` only) → the ON run's full c_eff(V)
+  bulk-leapfrog **breather** (bounded ±10% oscillation) is UNSUBTRACTED → the EXCESS (ON−OFF) mis-attributes
+  Sector-A's own dynamics to the coupling; windowing the rising half over T_win=2.0 fakes a dt-independent
+  plateau. Proper co-evolving baseline → EXCESS collapses ~30× + SIGN-FLIPS (+0.127 → −0.004), shrinking past
+  one osc period (asserted by the angle-4 skeptic, NOT independently re-executed — the residual doubt). (2)
+  **the coupled step splits a once-per-outer Gauss-Seidel reciprocal force across TWO DIFFERENT integrators**
+  (Sector-A leapfrog `engine:517` + Sector-B velocity-Verlet `:551-559`) → a non-symmetric operator-split with
+  **O(dt⁰) energy flux that PLATEAUS BY CONSTRUCTION** → the prereg's `dt→0-plateau=substrate` binary CANNOT
+  distinguish scheme-pump from substrate-pump. My PIECE-1 proof's premise "self-sectors conserve under their
+  own symplectic integrators" (`proof:27`, already self-flagged `[VERIFY]`) is the EXACT assumption that fails.
+  **HONEST STATUS: the WINDOW-MODEL + PROJECTION bins are correctly RETIRED (freeze-g's real contribution
+  stands); the SUBSTRATE-vs-SCHEME fork was NEVER RUN → keystone UNADJUDICATED, NOT negative, NOT positive.**
+  **🔴 SHARED-HARNESS BLIND SPOT (2nd instance this session, stronger):** 3 lanes all built on the same engine
+  + same EXCESS-basis + same asymmetric integrator → **redundancy across lanes cannot catch a confound baked
+  into the SHARED harness**; only adversarial re-derivation from raw fields did. **4 ARTIFACT-LAYERS now**
+  (Cartesian-stencil → window-model → frozen-Sector-A-baseline → integrator-split) — every keystone "verdict"
+  (INERT / PUMPS / SUBSTRATE-PUMP) has been the BENCH, not the physics (ave-apparatus-floor-attribution at the
+  deepest level). **DECISIVE re-run (synth-specified):** (a) proper **co-evolving Sector-A OFF baseline**
+  (`eng.A.step` each outer step, coupling off) so the bulk free-evolution is common-mode + subtracted; (b)
+  re-run RUNG-2 with a **symmetric Strang split / single consistent symplectic integrator** of the one coupling
+  → re-read dt→0 EXCESS. If it STILL plateaus → SUBSTRATE rehabilitated; if it collapses → artifact confirmed.
+  **HOLDS:** keystone unadjudicated; winding-emergence premise RE-OPENED (a conservative coupling may exist
+  after all — the continuum conserves for any window per the proof); nothing banks. **GRANT CALL:** dispatch
+  the methodology-clean re-run, vs step back and reconsider whether the Gauss-Seidel-split two-grid engine can
+  measure loop-closure conservation AT ALL (4 artifact-layers argues for a fundamentally symplectic coupling).
+
 ## §9 — OPTION C pre-registration (held-BC breather-persistence PROBE; Rule-11 spirit, pre-committed)
 
 **🟢 HELD OBJECT (explicit, per Grant — so a verifier cannot misread):** the held object is the
