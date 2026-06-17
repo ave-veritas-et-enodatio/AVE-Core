@@ -311,7 +311,59 @@ def _run_rung0(result, box):
 
 
 def _run_rung1(result, box):
-    raise NotImplementedError("RUNG-1 — added next commit")
+    """RUNG-1: identical to RUNG-0 EXCEPT projection ON (project_alive=True — the
+    mid-Verlet alive-mask _zero_outside_alive / _zero_velocities_outside_alive
+    applied between the two half-kicks every substep, the genesis-24 prime suspect).
+    Everything else as RUNG-0. If H was FLAT at RUNG-0 but DRIFTS here → the
+    projection is the pump → PROJECTION-PUMP (a fixable harness bug, isolated)."""
+    print("\n[RUNG-1 +PROJECTION] same as RUNG-0 but projection ON (mid-Verlet alive-mask "
+          "projection — the genesis-24 prime suspect) — does it pump H over B_int?")
+    dt0 = result["b_int_geometry"]["dt_base"]
+    rows = {}
+    for label, dt in (("dt_base", dt0), ("dt_half", dt0 / 2.0)):
+        eng = _build_rung_engine(couple_on=False, wall_on=False, project_alive=True,
+                                 coupling_support="front", with_bulk=False, dt=dt)
+        tr = _record_box_H(eng, box, dt, coupled=False)
+        fl = _flatness(tr)
+        rows[label] = {"dt": dt, "flatness": fl, "trace": tr,
+                       "frac_in_box_start": tr["frac_in_box"][0],
+                       "frac_in_box_end": tr["frac_in_box"][-1]}
+        print(f"  {label} (dt={dt:.4e}): H0={fl['H0']:.6e}  peak-rise={fl['peak_rise_frac']:+.3e}  "
+              f"end-drift={fl['end_drift_frac']:+.3e}  rate/T={fl['climb_rate_frac_per_T']:+.3e}  "
+              f"frac_in_box {tr['frac_in_box'][0]:.4f}→{tr['frac_in_box'][-1]:.4f}")
+
+    pr_base = abs(rows["dt_base"]["flatness"]["peak_rise_frac"])
+    pr_half = abs(rows["dt_half"]["flatness"]["peak_rise_frac"])
+    FLAT_TOL = result["rung0"]["flat_tolerance"]
+    # DRIFTS = a genuine RISE above the flat tolerance that does NOT shrink like
+    # transport (a projection pump injects energy; it climbs and persists). We
+    # compare peak-RISE (signed up) specifically — a negative drift is transport.
+    rise_base = rows["dt_base"]["flatness"]["peak_rise_frac"]
+    rise_half = rows["dt_half"]["flatness"]["peak_rise_frac"]
+    drifts = bool(pr_base >= FLAT_TOL or pr_half >= FLAT_TOL)
+    # contrast vs RUNG-0 (which was flat): the projection is the ONLY change.
+    rung0_flat = result["rung0"]["H_flat_both_dt"]
+    is_projection_pump = bool(drifts and rung0_flat)
+    result["rung1"] = {
+        "config": "RUNG-0 config but projection ON (project_alive=True)",
+        "rows": {k: {kk: vv for kk, vv in v.items() if kk != "trace"} for k, v in rows.items()},
+        "trace_dt_base": rows["dt_base"]["trace"],
+        "trace_dt_half": rows["dt_half"]["trace"],
+        "peak_rise_dt_base": rise_base, "peak_rise_dt_half": rise_half,
+        "flat_tolerance": FLAT_TOL,
+        "H_drifts_with_projection": drifts,
+        "rung0_was_flat": rung0_flat,
+        "bin": "PROJECTION-PUMP" if is_projection_pump else None,
+        "note": ("RUNG-0 flat + RUNG-1 drift ⇒ the projection is the pump (fixable). "
+                 "RUNG-1 also flat ⇒ the projection is NOT the pump; the coupling read "
+                 "(RUNG-2) is licensed."),
+    }
+    if is_projection_pump:
+        print(f"  → RUNG-1: H DRIFTS with projection (peak-rise {rise_base:+.3e}) while RUNG-0 "
+              f"was FLAT → PROJECTION-PUMP (the mid-Verlet mask projection is the pump)")
+    else:
+        print(f"  → RUNG-1: H stays FLAT with projection (peak-rise {rise_base:+.3e} < {FLAT_TOL}) "
+              f"→ projection is NOT the pump; RUNG-2 (coupling read) licensed")
 
 
 def _run_rung2(result, box, dt_base):
