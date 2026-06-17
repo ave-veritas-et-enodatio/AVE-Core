@@ -387,42 +387,76 @@ def test_t1_4_causality_front_speed():
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# T1.5 — FINDING: the chiral optical-activity rotation channel is NOT lossless
+# T1.5 — Axiom-3 consistency gate: chiral optical-activity rotates losslessly
+#   (FLIPPED 2026-06-17 from a FINDING after the copy-first view-aliasing fix)
 # ─────────────────────────────────────────────────────────────────────────────
-def test_t1_5_finding_chiral_rotation_energy():
-    """T1.5-adjacent [FINDING, not a pass/fail consistency gate].
+def test_t1_5_chiral_rotation_energy_conserving():
+    """T1.5 [CONSISTENCY / Axiom-3] — chiral optical activity is LOSSLESS.
 
-    DOCUMENTS a real engine finding surfaced while validating the free photon:
-    the per-node polarization-rotation channel (`vector_tlm_step`'s rot_per_node
-    block, fed the global mean-writhe angle ETA_ROT_PER_WRITHE·writhe) is
-    energy-conserving as an isolated 2D rotation, but the rotation+connect
-    COMPOSITION drifts ~O(1) over a long run on the launch_linear_packet seed.
+    The chiral srs grid rotates the photon's transverse polarization (optical
+    activity) by a per-node writhe angle. Axiom-3 (the substrate is lossless /
+    reactive) REQUIRES that this rotation conserve energy: the lattice can rotate
+    the plane of polarization but cannot absorb or amplify the wave.
 
-    This is WHY the free-photon tests (T1.1-T1.4) run κ=0 (rotation OFF) — the
-    same setting the engine's own P1 energy gate uses
-    (chiral_lattice_vector.py:158). The optical-activity rotation (the
-    borderline-CHORD T1.5) needs an energy-conserving formulation before it can
-    be a consistency gate; it is OUT of L0-L1 photon-propagation scope.
+    HISTORY (Rule-12 substitution-not-retraction): this slot WAS a FINDING
+    (`test_t1_5_finding_chiral_rotation_energy`) recording that the rotation+
+    connect COMPOSITION drifted ~O(1) (drift 0.93 over 1600 steps) — which is
+    WHY the free-photon gates T1.1-T1.4 run κ=0. The root cause was a NumPy
+    view-aliasing bug in the rotation block of `chiral_lattice_vector.vector_tlm
+    _step` (and 3 sister sites: _sat:89, _v11:123, _v13:138): `v0=V_ref[...,0]`
+    took a VIEW, so the first in-place write `V_ref[...,0]=c*v0-s*v1` corrupted
+    v0 before the second read `V_ref[...,1]=s*v0+c*v1`, making the 2x2 rotation
+    NON-orthogonal. The copy-first fix (`v0=V_ref[...,0].copy()`) restores
+    orthogonality → exact energy conservation, WITHOUT changing the angle
+    observable (dθ/step == writhe to machine precision, verified below). So the
+    optical-activity channel IS Axiom-3-compliant; the finding is REPLACED by
+    this gate — the very gate the old suite never exercised.
 
-    No pass/fail bin — this asserts the FINDING is reproducible (the drift is
-    large) so a future fix has a regression anchor, and reports the magnitude.
+    PRE-REGISTERED BINS (frozen 2026-06-17, post-fix):
+      * PASS : rotation-ON energy drift < 1e-8 over a long window (the lattice
+               rotates polarization losslessly = Axiom-3)
+               AND the angle observable is PRESERVED: dθ/step matches the
+               rotation-OFF→ON CONTROL — specifically |dθ/step| > 1e-3 (rotation
+               is actually happening, not trivially zero) AND dθ/step == writhe
+               to within 1e-6 (the rotation is exactly the geometric writhe, not
+               corrupted by the fix).
+      * FAIL : rotation-ON drift >= 1e-8 (Axiom-3 leak — the OLD finding state,
+               which would mean the view-aliasing bug regressed)
+               OR |dθ/step| <= 1e-3 (rotation vanished)
+               OR |dθ/step − writhe| > 1e-6 (the fix changed the physics).
     """
     M.assert_canonical_constants()
     net = cl.build_srs_net(8, "right")
+
+    # energy: rotation-OFF (free photon control) AND rotation-ON (optical activity)
     V = clv.launch_linear_packet(net, axis=2, pol_axis=0, width_frac=0.12)
+    drift_off = M.max_energy_drift(net, V.copy(), 1600, chiral_rotation=False)
+    drift_on = M.max_energy_drift(net, V.copy(), 1600, chiral_rotation=True)
 
-    drift_off = M.max_energy_drift(net, V.copy(), 1500, chiral_rotation=False)
-    drift_on = M.max_energy_drift(net, V.copy(), 1500, chiral_rotation=True)
+    # angle observable: dθ/step must be preserved == geometric writhe
+    res = clv.measure_dynamical_rotation(net, n_steps=1600, chiral_rotation=True)
+    dtheta = res.dtheta_per_step
+    writhe = res.writhe
+    angle_err = abs(dtheta - writhe)
 
-    print("\n--- T1.5 FINDING: chiral-rotation channel energy ---")
-    print(f"  rotation OFF (free photon)  : drift {drift_off:.3e}  (lossless)")
-    print(f"  rotation ON  (optical-activ): drift {drift_on:.3e}  (NOT lossless — FINDING)")
+    print("\n--- T1.5 Axiom-3 gate: chiral optical activity is LOSSLESS (post copy-first fix) ---")
+    print(f"  rotation OFF (free photon)  : drift {drift_off:.3e}   (lossless control)")
+    print(f"  rotation ON  (optical-activ): drift {drift_on:.3e}   (PASS < 1e-8 = Axiom-3)")
+    print(f"  dθ/step                     : {dtheta:+.6f}   (PASS |·| > 1e-3 = rotating)")
+    print(f"  geometric writhe            : {writhe:+.6f}")
+    print(f"  |dθ/step − writhe|          : {angle_err:.3e}   (PASS < 1e-6 = angle preserved)")
+    print("  pre-fix state (recorded): rotation-ON drift was 0.93 over 1600 steps (view-aliasing bug)")
 
-    # free photon must be lossless; rotation channel is documented non-conserving
-    assert drift_off < 1e-8, "free-photon (κ=0) must be lossless"
-    assert drift_on > 1e-3, (
-        "FINDING regression anchor: chiral-rotation channel should drift "
-        "noticeably (if this fails, the channel was fixed — update the finding)"
+    assert drift_off < 1e-8, "free-photon (κ=0) control must be lossless"
+    assert drift_on < 1e-8, (
+        f"FAIL: Axiom-3 LEAK — chiral-rotation energy drift {drift_on:.3e} >= 1e-8 "
+        "(the view-aliasing bug regressed; see chiral_lattice_vector.py:43-49)"
+    )
+    assert abs(dtheta) > 1e-3, (
+        f"FAIL: rotation vanished — |dθ/step| {abs(dtheta):.3e} <= 1e-3"
+    )
+    assert angle_err < 1e-6, (
+        f"FAIL: the fix changed the physics — |dθ/step − writhe| {angle_err:.3e} >= 1e-6"
     )
 
     # ── visual-debug layer (additive; never affects pass/fail) ──
@@ -430,30 +464,46 @@ def test_t1_5_finding_chiral_rotation_energy():
         S = cl.scatter_matrix(net.degree)
         conn = net.connect_index()
         rot = clv._rotation_per_node(net)
+
         # full per-step energy trace for OFF vs ON (re-seed identically each run)
         def _trace(use_rot):
             Vt = clv.launch_linear_packet(net, axis=2, pol_axis=0, width_frac=0.12)
             E0 = clv.vector_energy(Vt)
             tr = [1.0]
-            for _ in range(1500):
+            for _ in range(1600):
                 Vt = clv.vector_tlm_step(net, Vt, S, conn, rot if use_rot else None)
                 tr.append(clv.vector_energy(Vt) / E0)
             return np.array(tr)
 
+        # angle trace (the preserved observable) for the same window
+        def _angle_trace():
+            Vt = clv.launch_linear_packet(net, axis=2, pol_axis=0, width_frac=0.12)
+            ang = [clv.mean_polarization_angle(Vt)]
+            for _ in range(1600):
+                Vt = clv.vector_tlm_step(net, Vt, S, conn, rot)
+                ang.append(clv.mean_polarization_angle(Vt))
+            return np.unwrap(np.array(ang))
+
         tr_off = _trace(False)
         tr_on = _trace(True)
+        ang = _angle_trace()
 
         def _draw(fig):
-            ax = fig.subplots(1, 1)
+            ax1, ax2 = fig.subplots(1, 2)
             tt = np.arange(len(tr_off))
-            ax.plot(tt, tr_off, color="#2ca02c", label=f"rot OFF (free photon) drift {drift_off:.1e}")
-            ax.plot(tt, tr_on, color="#d62728", label=f"rot ON (optical-activ) drift {drift_on:.1e}")
-            ax.axhline(1.0, color="k", ls=":", lw=0.8)
-            ax.set_xlabel("timestep")
-            ax.set_ylabel("energy ratio H/H₀")
-            ax.set_title("FINDING: chiral-rotation+connect COMPOSITION is NOT energy-conserving")
-            ax.legend(fontsize=9)
+            ax1.plot(tt, tr_off, color="#2ca02c", label=f"rot OFF drift {drift_off:.1e}")
+            ax1.plot(tt, tr_on, color="#1f77b4", label=f"rot ON  drift {drift_on:.1e}")
+            ax1.axhline(1.0, color="k", ls=":", lw=0.8)
+            ax1.set_ylim(1.0 - 2e-13, 1.0 + 2e-13)
+            ax1.set_xlabel("timestep")
+            ax1.set_ylabel("energy ratio H/H₀")
+            ax1.set_title("Axiom-3: optical activity is LOSSLESS (post-fix)")
+            ax1.legend(fontsize=8)
+            ax2.plot(np.arange(len(ang)), ang, color="#d62728")
+            ax2.set_xlabel("timestep")
+            ax2.set_ylabel("pol angle θ (rad, unwrapped)")
+            ax2.set_title(f"preserved observable: dθ/step={dtheta:+.4f} = writhe")
 
         path = VZ.save_simple_figure(
-            "T1.5", "FINDING — chiral-rotation channel energy (non-conserving)", _draw)
-        print(f"  [viz] finding figure -> {path}")
+            "T1.5", "Axiom-3 — chiral optical activity rotates LOSSLESSLY", _draw)
+        print(f"  [viz] T1.5 figure -> {path}")

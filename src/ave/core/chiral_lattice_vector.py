@@ -40,8 +40,11 @@ def vector_tlm_step(
     if rot_per_node is not None:
         c = np.cos(rot_per_node)[:, None]
         s = np.sin(rot_per_node)[:, None]
-        v0 = V_ref[..., 0]
-        v1 = V_ref[..., 1]
+        # copy-first: V_ref[...,0]/[...,1] are VIEWS; without .copy() the first
+        # in-place write mutates v0's backing store before the second read,
+        # making the 2x2 rotation NON-orthogonal (breaks Axiom-3 losslessness).
+        v0 = V_ref[..., 0].copy()
+        v1 = V_ref[..., 1].copy()
         V_ref[..., 0] = c * v0 - s * v1
         V_ref[..., 1] = s * v0 + c * v1
     src_flat, dst_flat = conn
