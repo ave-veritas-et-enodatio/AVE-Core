@@ -52,6 +52,16 @@ The chapter content is **Class B substrate-mechanism manifestation** per `consis
 - **Ch.7 Saturation Characteristics**: Ax 4 kernel $S(A_0)$ characteristic curves; PONDER-05 (quartz 27.4% at ~30 kV) as a consistency-class material varactor analog of the kernel SHAPE — "$V_{DC}/V_{yield} = 0.687$" is a per-node ratio, not a vacuum-kernel reading (`vol4/claim-quality.md:51`).
 - **Ch.8 Breakdown Characteristics**: $V_{snap}$, $V_{yield}$, $E_S$ Schwinger limit (downstream consequences of the cold-lattice DC primitives at finite-amplitude regimes).
 
+## Engine-acceptance suite coverage (L0-medium, GREEN 2026-06-16/17)
+
+The DC primitives this chapter specifies are gated GREEN by the ground-up
+engine-acceptance suite's L0-medium layer (`src/tests/engine_acceptance/test_l0_medium.py`,
+wired in [`../ch17-engine-requirements/engine-acceptance-suite.md`](../ch17-engine-requirements/engine-acceptance-suite.md)):
+**T0.1** energy/unitary-scatter (`sup-uiny42` → `clm-hd9bee`), **T0.2** Z₀=√(μ₀/ε₀)
+Class-A identity, **T0.3** isotropy. T0.2/T0.3 are medium-validity (no `clm-`
+beneficiary). Plus the **A2** TKI dimensional identity [Q]≡[L] (`sup-u7r3vu` →
+`clm-dfaiwj`).
+
 ## Manuscript counterpart (render)
 
 `manuscript/vol_9_vacuum_datasheet/chapters/04_dc_electrical_characteristics.tex` (PDF render; cites KB leaves via `\kbleaf{}`).
