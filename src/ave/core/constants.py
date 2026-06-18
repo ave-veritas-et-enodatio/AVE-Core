@@ -762,7 +762,7 @@ CROSSING_NUMBER_CINQUEFOIL: int = CROSSING_NUMBER_PROTON
 # ---- Thermal softening of κ_FS ----
 #
 # Physical origin:
-#   The proton is a localized thermal hotspot inside the LC condensate.
+#   The proton is a localized thermal hotspot inside the LC network.
 #   Its core temperature ~ m_p c² / k_B ≈ 10^13 K.  RMS thermal noise
 #   softens the quartic Skyrme coupling by averaging the gradient tensor.
 #

@@ -7,7 +7,7 @@ claims: [clm-5zuo7g, clm-q8un7j]
 
 ## Electrodynamics: The Gradient of Topological Phase
 
-A localized charged node exerts a continuous rotational phase twist ($\theta$) on the surrounding LC condensate. Because the unsaturated vacuum acts as a linear dielectric in the far-field, the static structural phase strain obeys the 3D **Laplace Equation** ($\nabla^2 \theta = 0$).
+A localized charged node exerts a continuous rotational phase twist ($\theta$) on the surrounding LC network. Because the unsaturated vacuum acts as a linear dielectric in the far-field, the static structural phase strain obeys the 3D **Laplace Equation** ($\nabla^2 \theta = 0$).
 
 The spherically symmetric geometric solution dictates that the twist amplitude decays inversely with distance ($\theta(r) \propto 1/r$). The continuous electric displacement field ($\mathbf{D}$) is the spatial gradient of this structural phase twist ($\mathbf{D} = \nabla\theta \propto -1/r^2 \mathbf{\hat{r}}$), deriving Coulomb's Law.
 
@@ -23,7 +23,7 @@ When a twisted node translates at a velocity $\mathbf{v}$, it induces a convecti
 
 Equating this to the Maxwell-Ampere law derives the macroscopic magnetic field from network dynamics: $\mathbf{H} = \mathbf{v} \times \mathbf{D}$.
 
-This relationship is supported by dimensional analysis. Applying the topological conversion constant ($\xi_{topo} \equiv e/l_{node}$), the displacement field reduces to $[\mathbf{D}] = \xi_{topo}[1/\text{m}]$. Evaluating the cross product $[\mathbf{v} \times \mathbf{D}]$ yields $\xi_{topo}[1/\text{s}]$. Standard SI units for magnetic field intensity $\mathbf{H}$ ($[\text{A/m}]$) reduce to this same dimensional basis ($\xi_{topo}[1/\text{s}]$). Magnetism is thereby dimensionally shown to represent the continuous kinematic vorticity of the vacuum condensate.
+This relationship is supported by dimensional analysis. Applying the topological conversion constant ($\xi_{topo} \equiv e/l_{node}$), the displacement field reduces to $[\mathbf{D}] = \xi_{topo}[1/\text{m}]$. Evaluating the cross product $[\mathbf{v} \times \mathbf{D}]$ yields $\xi_{topo}[1/\text{s}]$. Standard SI units for magnetic field intensity $\mathbf{H}$ ($[\text{A/m}]$) reduce to this same dimensional basis ($\xi_{topo}[1/\text{s}]$). Magnetism is thereby dimensionally shown to represent the continuous kinematic vorticity of the vacuum medium.
 
 ### The Inductive Origin of Gauge Invariance
 

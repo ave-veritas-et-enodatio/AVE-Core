@@ -29,7 +29,7 @@ The four fundamental axioms define the vacuum as an electromagnetic LC resonant 
 |---|---|
 | [Calibration and Cutoff Scales](./calibration-cutoff-scales.md) | Three canonical hardware scales: $\ell_{node}$, $\alpha$, $G$ (the 3 retained inputs; $\ell_{node} \equiv \hbar/(m_e c)$ definitional reduced-Compton identity, $\alpha$ Class B named identification via Ch.8 Golden Torus, $G$ mixed/value-fitted $\xi$ Chain B′ open) <!-- 🔴 Rule-12 2026-06-15 G+alpha: prior "all derived from first principles" superseded per 2026-06-14 G-ruling; ell_node definitional, alpha Class-B, G mixed; not "echo". --> |
 | [Axiom Definitions](./axiom-definitions.md) | The four fundamental axioms with resultboxes for $\xi_{topo}$, $\mathcal{L}_{node}$, $C_{eff}$ |
-| [LC Condensate Vacuum](./lc-condensate-vacuum.md) | Planck scale artifact, true gravitational coupling, vacuum porosity ratio |
+| [LC Resonant Network Vacuum](./lc-resonant-network-vacuum.md) | Planck scale artifact, true gravitational coupling, vacuum porosity ratio |
 | [Zero-Parameter Universe](./zero-parameter-universe.md) | $\alpha$ via Golden Torus S₁₁-min (Ch.8; Class B named identification), $G$ form-derived via thermodynamic equilibrium but value-fitted (mixed; Chain B′ open), $\ell_{node}$ via scale invariance <!-- 🔴 Rule-12 2026-06-15 G+alpha: prior "Deriving alpha..., G via thermodynamic equilibrium" superseded; alpha=Class B id, G=mixed; not "echo". --> |
 | [Kirchhoff Network Method](./kirchhoff-network-method.md) | Discrete Kirchhoff solver, edge/node update equations, master constants pipeline |
 | [Lattice Structure (stub)](./lattice-structure.md) | Redirect to Kirchhoff network method |

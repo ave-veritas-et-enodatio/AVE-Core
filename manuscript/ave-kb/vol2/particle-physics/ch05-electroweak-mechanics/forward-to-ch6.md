@@ -49,6 +49,6 @@ To parallel-transport the continuous phase field $\mathbf{A}$ smoothly across a 
 - The three fundamental flux loops of the Borromean linkage transform under the fundamental representation (**3**) of $SU(3)$.
 - The $\mathbb{Z}_3$ center of $SU(3)$ enforces the strict topological constraint that only color-singlet (**1**) composite states---where all three loops are linked---can propagate as free particles. This is confinement.
 
-**SU(3) Color Charge** is derived as the effective field theory limit of a three-loop topological defect traversing a discrete condensate grid. The "colour" quantum number is the permutation label of which flux loop carries the dominant phase winding at any given lattice site.
+**SU(3) Color Charge** is derived as the effective field theory limit of a three-loop topological defect traversing a discrete substrate grid. The "colour" quantum number is the permutation label of which flux loop carries the dominant phase winding at any given lattice site.
 
 ---

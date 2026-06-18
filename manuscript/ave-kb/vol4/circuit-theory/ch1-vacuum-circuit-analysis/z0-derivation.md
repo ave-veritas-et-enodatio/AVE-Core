@@ -89,7 +89,7 @@ The substrate is mathematically and perfectly Impedance-Matched to itself everyw
 
 [Figure: log_impedance_s_parameters.png — see manuscript/vol_4_engineering/chapters/]
 
-### The Condensate Transmission Line (Emergence of $c$)
+### The Substrate Transmission Line (Emergence of $c$)
 
 To computationally prove that macroscopic Special Relativity emerges deterministically from these discrete components, the 1D spatial vacuum grid as a cascaded LC transmission line. By normalizing the discrete Inductors ($\mu_0 \ell_{node}$) and Capacitors ($\epsilon_0 \ell_{node}$) to the hardware pitch, the injection of a transient topological voltage pulse confirms that the signal propagates through the discrete components at exactly the continuous group velocity $v_g = 1/\sqrt{LC} \equiv c$. The continuous, invariant speed of light is mathematically identically the macroscopic slew-rate of a discrete transmission line.
 

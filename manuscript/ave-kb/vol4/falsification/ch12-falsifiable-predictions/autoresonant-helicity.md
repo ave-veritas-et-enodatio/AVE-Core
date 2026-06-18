@@ -13,7 +13,7 @@ Standard approach to Schwinger limit: brute-force petawatt laser.
 
 AVE insight: vacuum is a **non-linear capacitor** (Duffing oscillator). Fixed-frequency laser *detunes* as metric stiffens → power reflected, cascade stalls.
 
-**Solution**: Autoresonant PLL tracks the dropping resonant frequency of the strained condensate:
+**Solution**: Autoresonant PLL tracks the dropping resonant frequency of the strained substrate region:
 
 1. Monitor transient optical phase-shift at focal point
 2. Phase-locked loop sweeps driving frequency downward in real-time

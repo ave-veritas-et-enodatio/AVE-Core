@@ -194,7 +194,7 @@ The Ch.2 dielectric-rupture argument shows that the AVE lattice's packing fracti
   - These are **different quantities sharing a Greek letter**. CLAUDE.md Axiom 3 explicitly flags this and the axiom-definitions leaf carries an inline notation warning.
   - Does NOT claim $\xi$ is independently observable; the Machian dilution factor of $\sim 10^{45}$ between $G_{true}$ and macroscopic $G$ is the "staggering" ratio that motivates the Machian framing — it is a derivation step, not a measurement.
 
-> **Leaf references:** [axiom-definitions](./axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md), [lc-condensate-vacuum](./axioms-and-lattice/ch1-fundamental-axioms/lc-condensate-vacuum.md).
+> **Leaf references:** [axiom-definitions](./axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md), [lc-resonant-network-vacuum](./axioms-and-lattice/ch1-fundamental-axioms/lc-resonant-network-vacuum.md).
 
 ### Quality
 - confidence: 0.90
@@ -221,7 +221,7 @@ The Ch.2 dielectric-rupture argument shows that the AVE lattice's packing fracti
   - The interpretive claim ("$\ell_{node}$ is the true microscopic cutoff, the standard Planck length is a macroscopic-$G$ artifact") is a **framework-internal ontological** statement; it does not introduce new observables vs the standard Planck-length picture at the formula level.
   - See cross-cutting [vol3 Dirac Large Numbers and Planck Mass entry](../vol3/claim-quality.md) for the same algebraic-identity caveat applied to $m_P = m_e\sqrt{7\xi}$.
 
-> **Leaf references:** [lc-condensate-vacuum](./axioms-and-lattice/ch1-fundamental-axioms/lc-condensate-vacuum.md).
+> **Leaf references:** [lc-resonant-network-vacuum](./axioms-and-lattice/ch1-fundamental-axioms/lc-resonant-network-vacuum.md).
 
 ### Quality
 - confidence: 0.95

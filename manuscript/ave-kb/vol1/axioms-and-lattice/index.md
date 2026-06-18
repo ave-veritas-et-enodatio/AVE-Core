@@ -35,5 +35,5 @@ The AVE framework rests on four topological axioms defining the vacuum as a non-
 
 | Document | Contents |
 |---|---|
-| [Ch.1 Fundamental Axioms](./ch1-fundamental-axioms/index.md) | Four axioms, LC condensate vacuum, zero-parameter pathway, Kirchhoff network method |
+| [Ch.1 Fundamental Axioms](./ch1-fundamental-axioms/index.md) | Four axioms, LC resonant network vacuum, zero-parameter pathway, Kirchhoff network method |
 | [Ch.2 Macroscopic Moduli](./ch2-macroscopic-moduli/index.md) | Implosion paradox, constitutive moduli, dielectric rupture, packing fraction, snap limit |

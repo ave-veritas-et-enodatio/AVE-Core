@@ -68,7 +68,7 @@ def simulate_birefringence_e4() -> None:
     k_qed_norm = 1.0 / (E_BREAKDOWN) ** 2
     delta_n_qed = k_qed_norm * (e_fields**2)
 
-    # 2. AVE Structural Condensate (Axiom 4 Non-Linearity)
+    # 2. AVE Structural Substrate (Axiom 4 Non-Linearity)
     # The optical metric shrinks according to the saturation operator:
     # n_eff = n_0 * (1 - (E/E_yield)^2)^{1/4}
     # Taylor expanded, this yields: 1 - 1/4(E/Ey)^2 - 3/32(E/Ey)^4

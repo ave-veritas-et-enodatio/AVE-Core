@@ -81,7 +81,7 @@ def vacuum_angle_quantization() -> dict:
         On the AVE lattice, the vacuum angle θ is NOT a free parameter.
         It is determined by the torus knot topology:
 
-        (1) The vacuum is a torus knot condensate with winding q.
+        (1) The vacuum is a torus knot substrate with winding q.
         (2) The vacuum angle is the total phase modulo 2π:
                 θ_vacuum = (qπ) mod 2π
 

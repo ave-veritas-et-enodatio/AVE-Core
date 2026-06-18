@@ -5,6 +5,33 @@
 
 > **Staleness notice (2026-06-16)**: The **2026-06-16 reconciliation** below is authoritative for **execution order + active epic**. It supersedes the 2026-06-12 LOOP-GAP harness pivot and the genesis-on-K4 arc *for execution* (those remain valid as the negative-result record). The 2026-06-13 engine-capability-map addendum (under §2026-06-12) is the load-bearing terrain the 2026-06-16 pivot stands on. Older sections are historical. Verify-before-cite v1.4 applies.
 
+## 2026-06-18 reconciliation (engine merges landed + manuscript stack active)
+
+**Authoritative for current board state.** Supplements §2026-06-16; does not reopen the genesis arc.
+
+### Landed on `main` since §2026-06-16 was drafted
+
+| PR | Landed | Notes |
+|:---:|:---|:---|
+| **#276** | 2026-06-17 | Orchestration plan + 2026-06-16 genesis arc record |
+| **#277** | 2026-06-17 | L0–L2 + Op/scale-invariance acceptance suite (`04bcb4ac`) |
+| **#278** | 2026-06-17 | Refractive-index wave-typing + Γ-convention fix (stacked on #277) |
+| **#281** | 2026-06-17 | L3 foundation: T3.1/T3.2; T3.3/T3.4 chord-deciders **deferred** |
+| **#275** | merged | T₂-photon isolation → UNISOLABLE-ON-THIS-ENGINE (folds as L1.4 causality) |
+| **#248** | merged | Weak-C continuum photon canonization (DEC-01) |
+
+**`origin/main` HEAD:** `12e69b2c` (2026-06-18). **Audit tags on origin:** 140.
+
+### Active lanes (orthogonal — may proceed in parallel)
+
+| Priority | Lane | Status | Next |
+|:---:|:---|:---|:---|
+| **P0 engine** | Ground-up acceptance | L0–L2 + Op **MERGED** (#277); L3 foundation **partial** (#281) | L3 mass-cage — **Grant-gated** (S-exponent fork; §2026-06-16 fork #1) |
+| **P1 corpus** | Manuscript notation + build hygiene | **#290 OPEN** (CI ✅) → **#291 OPEN** stacked (CI ✅) | Grant review → merge #290 → merge #291 |
+
+- **#290** `analysis/2026-06-17-pdf-build-consistency` — full-build consistency pass (foreword reconciliation, xref repair, abstract tone).
+- **#291** `analysis/substrate-noun-retirement` (base #290) — retire `$\mathcal{M}_A$` substrate object glyph; prose-only INVARIANT-N1 + `def-91c4e8`.
+
 ## 2026-06-16 reconciliation (ground-up acceptance-test engine pivot — ACTIVE)
 
 **Authoritative execution plan:** [`2026-06-16_groundup-engine-acceptance-plan.md`](2026-06-16_groundup-engine-acceptance-plan.md).
@@ -21,7 +48,7 @@ The electron-genesis keystone arc ran and closed-negative — but on the wrong g
 
 | Priority | Epic | Doc | Phase | Next |
 |:---:|:---|:---|:---|:---|
-| **P0** | Ground-up acceptance engine | [`2026-06-16_groundup-engine-acceptance-plan.md`](2026-06-16_groundup-engine-acceptance-plan.md) | **L0–L2 + Op-tier COMPLETE** ✅ | completion ritual run 2026-06-17 (branch `analysis/2026-06-16-engine-acceptance-l0l1`); **PR open (base main), Grant-merge-gated**; next = the L3 mass-cage rung (Grant-gated; the S-exponent fork blocks it) |
+| **P0** | Ground-up acceptance engine | [`2026-06-16_groundup-engine-acceptance-plan.md`](2026-06-16_groundup-engine-acceptance-plan.md) | **L0–L2 + Op-tier MERGED** ✅ (#277, 2026-06-17) · **L3 foundation partial** (#281) | next = **L3 mass-cage** rung (Grant-gated; S-exponent fork blocks — see fork #1 below) |
 
 ### L0–L2 + Op-tier acceptance layers COMPLETE (ritual run 2026-06-17)
 
@@ -61,7 +88,7 @@ L2-em-media ×4, Op/scale tier ×11; `make verify` + `make verify-kb-metadata` +
 ### Carry-forward / recording / merge queue
 
 - **MERGE PENDING (Grant):** `analysis/2026-06-16-stage16-rerun-amendments` (`54fa23cd`) — the Stage-1.5 (b) Rule-12 retraction + (c) CONTESTED marker — **UNMERGED**; `main` still shows the stale emergence-negative (the stale-read root cause that produced ≥3 near-misses this session). Pre-merge audit → Grant merges. The durable fix for the recurring stale-read is merging branch-stranded retractions.
-- **Open PRs:** #275 (photon-c isolation → folds in as L1.4 causality), #248 (weak-C continuum photon → DEC-01, still open).
+- **Open PRs (manuscript stack — merge #290 then #291):** #290 pdf-build-consistency (base `main`, CI ✅) · #291 substrate-noun-retirement (base #290, CI ✅). **Merged since §2026-06-16 draft:** #275, #248, #276–#278, #281 — see §2026-06-18.
 - **Superseded — do NOT run as the path forward:** the queued K4 winding-emergence (wrong grid for charge); the engine-lane K4 freeze-g re-confirm (`aedf3b45`) is a scoped re-check, not the build.
 - **Keystone-freezeg branch** (`348b4241`): the scoped K4 negative + the freeze-g/handedness drivers; preserve, do not merge as a genesis verdict.
 

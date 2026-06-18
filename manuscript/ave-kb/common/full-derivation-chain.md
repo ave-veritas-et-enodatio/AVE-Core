@@ -629,7 +629,7 @@ $$
 (Approximately the density of a white-dwarf core.)
 
 **Step 5: Kinematic Mutual Inductance.**
-The quantum geometric kinematic viscosity of the vacuum condensate:
+The quantum geometric kinematic viscosity of the vacuum medium:
 
 $$
 \nu_{kin}

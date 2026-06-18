@@ -64,7 +64,7 @@ $$
 \varepsilon_{eff}(V) = \varepsilon_0 \sqrt{1 - \left(\frac{V}{V_{yield}}\right)^2}
 $$
 
-where $V_{yield}$ is the absolute dynamic point-yield threshold of the condensate (derived as $\sqrt{\alpha} \cdot m_e c^2 \approx 43.65\,\text{kV}$).
+where $V_{yield}$ is the absolute dynamic point-yield threshold of the substrate (derived as $\sqrt{\alpha} \cdot m_e c^2 \approx 43.65\,\text{kV}$).
 
 Because the static electric field is heavily polarizing the capacitive link-variables of the graph *without* inducing a corresponding steady-state magnetic circulation loop, the local macroscopic inductance remains fundamentally unperturbed ($\mu_{local} = \mu_0$).
 

@@ -19,7 +19,7 @@ $$
 using $e^2 = 4\pi\varepsilon_0\alpha\hbar c$ (Axiom 2). The derivation is given in full in the macroscopic moduli chapter (Schwinger yield). The factor $8\pi = 2 \times 4\pi$ has the geometric interpretation established in the baryon chapter (where it appears as the Faddeev-Skyrme coupling $\kappa_{FS} = p_c/\alpha = 8\pi$):
 
 - $4\pi$ --- the solid-angle normalisation of the spherical Gauss-law integral.
-- $2$ --- the bilateral symmetry of the chiral LC condensate: two orthogonal principal strain axes jointly stabilize any topological defect against Derrick-type collapse.
+- $2$ --- the bilateral symmetry of the chiral LC network: two orthogonal principal strain axes jointly stabilize any topological defect against Derrick-type collapse.
 
 The same $8\pi$ governs three distinct physical sectors:
 

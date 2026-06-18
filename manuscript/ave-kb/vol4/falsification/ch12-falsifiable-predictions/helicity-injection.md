@@ -5,7 +5,7 @@ kind: leaf
 claims: [clm-i02mhk]
 -->
 
-## Electromagnetic Coupling to the Chiral LC Condensate (Helicity Injection)
+## Electromagnetic Coupling to the Chiral LC Network (Helicity Injection)
 
 To transfer energy into the spatial metric with maximum efficiency, an electromagnetic emitter must satisfy strict **Polarization Matching**.
 

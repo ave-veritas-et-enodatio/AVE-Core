@@ -16,7 +16,7 @@
 {"claim_id": "clm-1klgo2", "leaf_path": "vol3/gravity/ch01-gravity-yield/gravitational-coupling-constant.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-1klgo2", "leaf_path": "vol3/gravity/ch01-gravity-yield/optical-refraction-gravity.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-1klgo2", "leaf_path": "vol3/gravity/ch01-gravity-yield/planck-mass.md", "leaf_kind": "leaf", "tier2_marked": false}
-{"claim_id": "clm-219e8j", "leaf_path": "vol1/axioms-and-lattice/ch1-fundamental-axioms/lc-condensate-vacuum.md", "leaf_kind": "leaf", "tier2_marked": true}
+{"claim_id": "clm-219e8j", "leaf_path": "vol1/axioms-and-lattice/ch1-fundamental-axioms/lc-resonant-network-vacuum.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-239tr4", "leaf_path": "vol5/molecular-foundations/biophysics-intro/chiral-fret-parallax.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-2dwzib", "leaf_path": "vol1/axioms-and-lattice/ch2-macroscopic-moduli/dielectric-snap-limit.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-2dwzib", "leaf_path": "vol1/dynamics/ch3-quantum-signal-dynamics/zero-impedance-boundary.md", "leaf_kind": "leaf", "tier2_marked": true}
@@ -45,7 +45,7 @@
 {"claim_id": "clm-3kmt3p", "leaf_path": "vol3/cosmology/ch06-solar-system/planetary-magnetospheres.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-3kmt3p", "leaf_path": "vol3/cosmology/ch06-solar-system/plasma-standoff-vs-gravitational-stator.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-3kzmt9", "leaf_path": "vol1/axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md", "leaf_kind": "leaf", "tier2_marked": true}
-{"claim_id": "clm-3kzmt9", "leaf_path": "vol1/axioms-and-lattice/ch1-fundamental-axioms/lc-condensate-vacuum.md", "leaf_kind": "leaf", "tier2_marked": true}
+{"claim_id": "clm-3kzmt9", "leaf_path": "vol1/axioms-and-lattice/ch1-fundamental-axioms/lc-resonant-network-vacuum.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-3npynp", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/photon-identification.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-3zz0f6", "leaf_path": "vol1/ch8-alpha-golden-torus.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-3zz0f6", "leaf_path": "vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md", "leaf_kind": "leaf", "tier2_marked": true}

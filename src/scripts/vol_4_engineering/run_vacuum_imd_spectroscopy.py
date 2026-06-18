@@ -48,7 +48,7 @@ def simulate_condensate_imd_spectroscopy() -> None:
     ax.set_xlabel("Frequency (Hz)", color="white", weight="bold")
     ax.set_ylabel("Magnitude (dBc)", color="white", weight="bold")
     ax.set_title(
-        "Condensate IMD Spectroscopy: The EFT Harmonic Fingerprint",
+        "Substrate IMD Spectroscopy: The EFT Harmonic Fingerprint",
         color="white",
         fontsize=14,
         weight="bold",
@@ -59,7 +59,7 @@ def simulate_condensate_imd_spectroscopy() -> None:
         + "\n"
         + r"Because standard mechanical materials feature 2nd or 3rd-order elasticity,"
         + "\n"
-        + r"and the EFT mandates an exact 4th-order condensate saturation limit ($1 - V^4$),"
+        + r"and the EFT mandates an exact 4th-order substrate saturation limit ($1 - V^4$),"
         + "\n"
         + r"the analog substrate acts as a unique RF mixer. It mathematically generates"
         + "\n"

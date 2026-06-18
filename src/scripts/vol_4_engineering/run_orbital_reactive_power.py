@@ -17,14 +17,14 @@ def simulate_orbital_ac_power() -> None:
     ax1.set_facecolor("#0a0a12")
     ax2.set_facecolor("#0a0a12")
 
-    ax1.plot(t, I_y, color="#00ffcc", lw=3, label=r"Tangential Current ($I_{condensate} \propto v$)")
+    ax1.plot(t, I_y, color="#00ffcc", lw=3, label=r"Tangential Current ($I_{substrate} \propto v$)")
     ax1.plot(
         t,
         V_y,
         color="#ff3366",
         lw=3,
         linestyle="--",
-        label=r"Radial Voltage ($V_{condensate} \propto F_g$)",
+        label=r"Radial Voltage ($V_{substrate} \propto F_g$)",
     )
     ax1.set_title(r"Orbital AC Phase Shift ($\theta = 90^\circ$)", color="white", fontsize=14, weight="bold")
     ax1.set_xlabel("Orbital Phase (Radians)", color="white")
@@ -41,7 +41,7 @@ def simulate_orbital_ac_power() -> None:
         label="Reactive Power $Q$ (Conserved VARs)",
     )
     ax2.fill_between(t, 0, Reactive_Power, color="#4FC3F7", alpha=0.15)
-    ax2.set_title("Analog Condensate Power Dissipation", color="white", fontsize=14, weight="bold")
+    ax2.set_title("Analog Substrate Power Dissipation", color="white", fontsize=14, weight="bold")
     ax2.set_xlabel("Orbital Phase (Radians)", color="white")
     ax2.set_ylabel("Power Amplitude", color="white")
     ax2.legend(loc="center", facecolor="#111111", edgecolor="white", labelcolor="white")
@@ -54,7 +54,7 @@ def simulate_orbital_ac_power() -> None:
         + "\n"
         + r"Because force and velocity are mathematically orthogonal, the planetary body dissipates"
         + "\n"
-        + r"exactly zero Real Power into the spatial condensate. The orbit is a lossless"
+        + r"exactly zero Real Power into the spatial substrate. The orbit is a lossless"
         + "\n"
         + r"reactive LC tank circuit maintaining constant energy."
     )

@@ -159,7 +159,7 @@
 
 - _Specific Claims_
   - AVE identifies the Standard Model VEV $v = 246$ GeV with the **characteristic impedance of free space** $Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx 376.73\,\Omega$. Inertial mass is reinterpreted as Lenz's-law induction drag against this baseline impedance.
-  - The empirical $125$ GeV LHC resonance is interpreted as a **transient acoustic relaxation mode** of the LC condensate, not a fundamental scalar field excitation.
+  - The empirical $125$ GeV LHC resonance is interpreted as a **transient acoustic relaxation mode** of the LC network, not a fundamental scalar field excitation.
   - $m_H/v = 1/\sqrt{N_{K4}}$ with $N_{K4} = 4$ (K4 cell breathing), consistent with Master Prediction Table #25 ($-0.55\%$).
 - _Specific Non-Claims and Caveats_
   - This is an **ontological reinterpretation**: the same numerical $v = 246$ GeV underlies all SM electroweak predictions. AVE does not produce a Higgs-free Standard Model with different observable predictions at the EW scale.
@@ -171,7 +171,7 @@
 ### Quality
 - confidence: 0.3
 - depends-on:
-  - INVARIANT-S2 / Axiom 1 (LC condensate; $Z_0=\sqrt{\mu_0/\varepsilon_0}$ baseline impedance)
+  - INVARIANT-S2 / Axiom 1 (LC network; $Z_0=\sqrt{\mu_0/\varepsilon_0}$ baseline impedance)
   - INVARIANT-S2 / Axiom 4 (saturation/relaxation framing for the 125 GeV acoustic mode)
 - solidity: 0.30 (do not build on, rework needed) [= min(0.30, 1.00)]
 - rationale: An ontological reinterpretation asserted at the mechanism level: VEV $\leftrightarrow Z_0=376.73\,\Omega$, inertia as Lenz-law induction drag, the 125 GeV peak as an acoustic relaxation mode, and $m_H/v=1/\sqrt{N_{K4}}$ with $N_{K4}=4$. The numerical $v=246$ GeV is unchanged from the SM and no new distinguishable observable is produced; the $1/\sqrt{4}$ mass ratio is a structural identification, not a closed derivation. Claimed mechanism without derivation.
@@ -775,10 +775,10 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 - U(1): $S_{lattice} = \sum_P (1 - \cos\Phi_P) \to \int \tfrac{1}{4} F_{\mu\nu}F^{\mu\nu}\,d^4x$ in the $\ell_{node}\to 0$ limit. SU(3): $S_3$ permutation symmetry of three indistinguishable Borromean flux loops $\to$ Weyl group of SU(3); $\mathbb{Z}_3$ centre enforces colour-singlet confinement.
 - _Specific Claims_
-  - **U(1) electromagnetism.** Constructing the standard Wilson lattice action from unitary link variables $U_{ij} = e^{i\theta_{ij}}$ over triangular plaquettes recovers $-\tfrac{1}{4}F_{\mu\nu}F^{\mu\nu}$ in the continuum limit. AVE's contribution is the *physical* identification of the lattice as the substrate (rather than a numerical regularisation): U(1) is reinterpreted as enforcement of unitary topological continuity across a discrete physical condensate graph.
+  - **U(1) electromagnetism.** Constructing the standard Wilson lattice action from unitary link variables $U_{ij} = e^{i\theta_{ij}}$ over triangular plaquettes recovers $-\tfrac{1}{4}F_{\mu\nu}F^{\mu\nu}$ in the continuum limit. AVE's contribution is the *physical* identification of the lattice as the substrate (rather than a numerical regularisation): U(1) is reinterpreted as enforcement of unitary topological continuity across a discrete physical substrate graph.
   - **SU(3) colour charge.** The three indistinguishable interlocked flux loops of the proton ($6^3_2$ Borromean) are governed by the symmetric group $S_3$. Since $S_3$ is the Weyl group of SU(3), the smallest continuous Lie group whose discrete quotient contains $S_3$ as its Weyl is SU(3). The fundamental flux loops transform in the **3** of SU(3); the $\mathbb{Z}_3$ centre enforces topological confinement (only colour-singlet composites propagate as free particles).
 - _Specific Non-Claims and Caveats_
-  - The Wilson-action argument is **standard lattice-gauge-theory mathematics**; AVE's claim is the physical interpretation that the lattice is a real condensate, not a computational regulator. The Wilson construction itself is not original to AVE.
+  - The Wilson-action argument is **standard lattice-gauge-theory mathematics**; AVE's claim is the physical interpretation that the lattice is a real substrate lattice, not a computational regulator. The Wilson construction itself is not original to AVE.
   - "Smallest continuous Lie group whose discrete quotient contains $S_3$ as a Weyl-subgroup is SU(3)" is asserted as the structural identification. The leaf does not enumerate alternative continuous embeddings (e.g., higher-rank groups whose Weyl groups also contain $S_3$) or formally rule them out via additional topological constraints. The identification with SU(3) is supported by the three-loop fundamental-representation count and $\mathbb{Z}_3$ centre / confinement match, but is not a uniqueness theorem.
   - Does NOT claim a derivation of the QCD running coupling $\alpha_s(\mu)$ or the gluon spectrum from this leaf. The "colour quantum number = which loop carries the dominant phase winding" is an ontological identification, not a calculational replacement for QCD perturbation theory.
   - The chapter's title "Forward to Ch.6" indicates the gauge-emergence content is positioned as a bridge into the electroweak chapter; downstream quantitative results (Weinberg angle, $W$/$Z$ masses) are indexed under their own entries (`clm-5zuo7g`, `clm-q8un7j`).
@@ -791,7 +791,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - INVARIANT-S2 / Axiom 1 (lattice plaquette / Wilson link variables; $S_3$ symmetry of the three Borromean loops)
   - clm-67jn9o (Borromean $\mathbb{Z}_3$ / quark structure underpinning the SU(3) identification)
 - solidity: 0.55 (use as input only, don't build deeper) [= min(0.55, 0.75)]
-- rationale: The U(1) half is clean, standard lattice-gauge math: the Wilson plaquette action $\sum_P(1-\cos\Phi_P)\to\int\frac14 F_{\mu\nu}F^{\mu\nu}$ in the continuum limit (correct, and disclosed as not original to AVE — AVE adds the physical-condensate interpretation). The SU(3) half rests on the asserted "smallest continuous Lie group whose Weyl group contains $S_3$ is SU(3)" — supported by the three-loop fundamental-rep count and $\mathbb{Z}_3$-centre confinement, but explicitly not a uniqueness theorem (alternative embeddings not ruled out). Half clean-standard, half asserted structural identification.
+- rationale: The U(1) half is clean, standard lattice-gauge math: the Wilson plaquette action $\sum_P(1-\cos\Phi_P)\to\int\frac14 F_{\mu\nu}F^{\mu\nu}$ in the continuum limit (correct, and disclosed as not original to AVE — AVE adds the physical-substrate interpretation). The SU(3) half rests on the asserted "smallest continuous Lie group whose Weyl group contains $S_3$ is SU(3)" — supported by the three-loop fundamental-rep count and $\mathbb{Z}_3$-centre confinement, but explicitly not a uniqueness theorem (alternative embeddings not ruled out). Half clean-standard, half asserted structural identification.
 - strengthen-by:
   - Rule out higher-rank Lie groups whose Weyl groups also contain $S_3$, converting the SU(3) identification into a uniqueness result.
   - Derive the QCD running coupling $\alpha_s(\mu)$ from the lattice to go beyond the structural symmetry match.

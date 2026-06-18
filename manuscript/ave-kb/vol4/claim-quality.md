@@ -919,7 +919,7 @@ The framework-level epistemological claim binding the kill-switch leaves: AVE is
 
 ---
 
-## Helicity Injection: Polarization Matching to the Chiral LC Condensate
+## Helicity Injection: Polarization Matching to the Chiral LC Network
 <!-- id: clm-i02mhk -->
 
 To couple maximally to the chiral vacuum substrate, an EM emitter must carry non-zero kinetic helicity $\int \mathbf{A} \cdot \mathbf{B}\,dV \neq 0$ — equivalent to wiring the emitter as a $(p,q)$ Hopf / torus knot rather than a flat toroid.

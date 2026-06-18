@@ -77,6 +77,21 @@ parse it):
 
 ---
 
+## condensate (substrate noun — RETIRED)
+<!-- id: def-c0nd3ns -->
+
+- **term:** condensate (as vacuum/substrate noun)
+- **adjudicated-meaning:** **RETIRED 2026-06-18** for substrate ontology. Implies BEC/QFT field condensation or Volovik superfluid — contradicts Axiom 1 **chiral Laves K4 Cosserat crystal** + **LC network**. Use INVARIANT-N1 prose nouns instead.
+- **axis:** notation / vocabulary
+- **dimension/type:** n/a
+- **status:** RETIRED (substrate sense); **KEEP** for BCS/BEC/pair-condensate (standard CM) and Meissner-*class* (bounded engine lens)
+- **canonical-home:** [`CLAUDE.md`](../CLAUDE.md) INVARIANT-N1
+- **clm-cross-links:** (cross-cutting)
+- **open-ambiguity-flag:** no
+- **verification:** grep pass 2026-06-18; ~102 substrate-noun replacements canonical manuscript + KB + selected `src/` labels
+
+---
+
 ## node
 <!-- id: def-cc2196 -->
 

@@ -17,6 +17,8 @@ The vacuum medium has **no dedicated object symbol**. Retired 2026-06-18: `$\mat
 | General prose | **the substrate** or **the vacuum lattice** |
 | Discrete / Nyquist / graph | **the lattice** |
 
+**Retired 2026-06-18 (condensate):** do **not** use *condensate* as a substrate/vacuum-medium noun (conflicts with Axiom 1 crystal identity and implies BEC/QFT condensation). Keep *condensate* only for standard CM references (BCS/BEC/pair-condensate in the A-034 ladder) or explicitly bounded engine lenses (Meissner-*class*).
+
 First mention in a chapter may spell out the axiom name once, then drop to "substrate" or "lattice". Do **not** reintroduce `$\mathcal{M}_A$`, `$\mathcal{M}_C$`, or any Greek letter as a substrate object. Boundary observables `$\mathcal{M}$`, `$\mathcal{Q}$`, `$\mathcal{J}$`; alpha-decomposition `$\Lambda_{\text{vol/surf/line}}$`; and Einstein `$\Lambda$` / `$\rho_\Lambda$` are unchanged.
 
 Do NOT use the `\vacuum` macro (exists but unused in chapter bodies). KB distillers follow the prose table above.
