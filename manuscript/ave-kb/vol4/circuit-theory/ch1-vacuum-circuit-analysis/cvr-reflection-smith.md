@@ -24,6 +24,8 @@ $$
 \Gamma(A_0) = \frac{Z_{core}(A_0) - Z_0}{Z_{core}(A_0) + Z_0}, \qquad Z_{core}(A_0) = Z_0\sqrt{S(A_0)}
 $$
 
+> **🔴 MAGNETIC-BRANCH = SIGN-SELECTOR, NOT CAGE-MECHANISM (2026-06-18, Rule 12 / PR#260 B3-DEGENERATE — bullets below PRESERVED unedited; Grant-ratified).** The "magnetic branch $\mu_{eff}\to0$" labelling the $\Gamma\to-1$ wall below is the **chirality/spin SIGN-selector** (μ-first $\Rightarrow \Gamma=-1$ vs ε-first $\Rightarrow \Gamma=+1$ are spin-conjugate signs) and is **MUTE on the mass sector** — NOT the cage *mechanism*. The mass-cage is the **A1 longitudinal dilatation** ($Z_{bulk}\to0 \Rightarrow \Gamma_{bulk}=-1$); the μ-vs-ε fork is DEGENERATE on the equilibrium observables ($Z=Z_0\sqrt{S}$, $|\Gamma|=1$ both ways) — exactly the convention-independent locus this leaf already uses — the asymmetry chirality-set not substrate-forced. Wiring confinement into the magnetic/charge sector would break the two-"3"s orthogonality (A1 ⊥ T2, [`master-equation.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20). Body preserved per Rule-12.
+
 - $A_0=0$ (cold lattice): $Z_{core}=Z_0$, $\Gamma=0$ — **matched, the free photon** ([photon-ee-mapping.md](../../../vol1/dynamics/ch4-continuum-electrodynamics/photon-ee-mapping.md) §2, $\Gamma=0$ at every bond, no core).
 - $A_0\to1$ (saturation): $Z_{core}\to0$, $\Gamma\to-1$ — **the short-circuit TIR wall** (magnetic branch $\mu_{eff}\to0$, [master-equation.md](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):78-79, clm-lv3uw1; [resonant-lc-solitons.md](resonant-lc-solitons.md):42-46).
 

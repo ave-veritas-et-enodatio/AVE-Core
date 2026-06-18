@@ -34,6 +34,8 @@ The Vacuum Circuit Analysis (VCA) framework establishes a single, exact dimensio
 | [Q-G24 Newtonian-Limit Closure](relativistic-inductor-newtonian-limit.md) | Full $E = \gamma m_0 c^2$ relativistic dispersion from LC tank + virial equipartition + relativistic-inductor mapping; three independent Derrick-bypass mechanisms (lattice floor / Faddeev-Skyrme / bilateral chiral); no fit parameters |
 | [Q-G22 Strain Convention (Geometric vs Field-Ratio)](q-g22-strain-convention.md) | Clarification: corpus uses $A_{geom} = \ell_{node}/r$ ($\propto 1/r$, geometric confinement ratio) for kernel applications; IVIM bench uses $A_{field} = E\ell_{node}/V_{yield}$ ($\propto 1/r^2$, field ratio) for apparatus calculations; both internally consistent, different physical measures |
 
+> **🔴 MAGNETIC-BRANCH = SIGN-SELECTOR, NOT CAGE-MECHANISM (2026-06-18, Rule 12 / PR#260 B3-DEGENERATE — "Particle confinement" row above PRESERVED unedited; Grant-ratified).** The "magnetic branch $\mu_{eff}\to0$" in the Particle-confinement summary row is the **chirality/spin SIGN-selector** (μ-first $\Rightarrow \Gamma=-1$ vs ε-first $\Rightarrow \Gamma=+1$ are spin-conjugate signs) and is **MUTE on the mass sector** — NOT the cage *mechanism*. The mass-cage is the **A1 longitudinal dilatation** ($Z_{bulk}\to0 \Rightarrow \Gamma_{bulk}=-1$); the μ-vs-ε fork is DEGENERATE on the equilibrium observables ($Z=Z_0\sqrt{S}$, $|\Gamma|=1$ both ways), the asymmetry chirality-set not substrate-forced. Wiring confinement into the magnetic/charge sector would break the two-"3"s orthogonality (A1 ⊥ T2, [`master-equation.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20). Row preserved per Rule-12.
+
 ## Derivations and Detail
 
 | Document | Contents |
