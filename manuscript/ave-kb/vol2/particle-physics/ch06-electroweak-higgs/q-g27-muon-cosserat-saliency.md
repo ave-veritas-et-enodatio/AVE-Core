@@ -82,7 +82,7 @@ giving $a_\tau$ shifted by approximately $+1000 \times 10^{-11}$ from the SM (do
   - [Lepton Spectrum](lepton-spectrum.md) — three-generation Cosserat sector chain
 - **Canonical manuscript anchors:**
   - Vol 2 Ch 6 (Electroweak and Higgs) lines 154–176 — Cosserat constants $\alpha\sqrt{3/7}$, $\sqrt{3/7}$, $\nu_{\text{vac}} = 2/7$, $\Phi_{\text{twist}}$
-  - Common Foreword §"Three Falsifiable Predictions" — empirical-test queue including Fermilab Muon g−2 Run-4/5
+  - Common Foreword §"The Falsifiable Standard" — empirical-test queue including Fermilab Muon g−2 Run-4/5
 - **Empirical test queue:**
   - Fermilab Muon g−2 Run-4/5 (2026–2027) — $\pm 10$ ppm precision; discriminates AVE Cosserat-saliency from SM + new-physics alternatives
   - Tau g−2 (long-term) — generation-distinguishing prediction $+1000 \times 10^{-11}$ for $n_{\text{Cosserat}} = 2$ scaling (corrected per 2026-05-18 walk-back; prior $+490$ was the same factor-2 conversion error that affected the muon)
