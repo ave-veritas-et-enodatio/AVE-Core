@@ -186,6 +186,8 @@ numerical value ($1.04\times 10^{22}$ Pa) stays canonical and mass-confirmed.
 The prior "FEM-verified Borromean halo volume" provenance on the $\tau_{yield}$
 sites was fabricated and is dropped.
 
+> **🔴 MAGNETIC-BRANCH = SIGN-SELECTOR, NOT CAGE-MECHANISM (2026-06-18, Rule 12 / PR#260 B3-DEGENERATE — paragraph above ("…IS the magnetic branch = rest mass") and the table below PRESERVED unedited; Grant-ratified).** Where this leaf identifies the **Magnetic** branch ($\mu_{eff}\to0$, $\Gamma=-1$) with **rest mass / Fermion confinement**, the "magnetic branch" is the **chirality/spin SIGN-selector** (μ-first $\Rightarrow \Gamma=-1$ vs ε-first $\Rightarrow \Gamma=+1$ are spin-conjugate signs) and is **MUTE on the mass sector** — NOT the cage *mechanism*. The mass-cage is the **A1 longitudinal dilatation** ($Z_{bulk}\to0 \Rightarrow \Gamma_{bulk}=-1$); the magnetic-vs-electric fork is DEGENERATE on the equilibrium observables ($Z=Z_0\sqrt{S}$, $|\Gamma|=1$ both ways), the asymmetry chirality-set not substrate-forced. The $X_C+X_L$ dual-reactance *count* (the load-bearing point of this leaf) is unaffected; only the "magnetic-branch *builds* the mass" reading is demoted, since wiring confinement into the $X_L$/charge-winding sector would break the two-"3"s orthogonality (A1 ⊥ T2, `master-equation.md:20`). Body preserved per Rule-12.
+
 **The landing (the real result): the dual-branch unification.** The count-2
 *does* live at the yield scale — as the **two mutually-exclusive saturation
 branches of the same Axiom-4 kernel**, which **are** the two reactance sectors:

@@ -39,6 +39,8 @@ Only $\varepsilon$ scales by $S$; $\mu$ is unchanged. The EM impedance diverges 
 | $Q$ | $\sim 1$ | $1/\sqrt{1-r^2}$ | $\gg 1$ | $\infty$ |
 
 <!-- claim-quality: clm-lv3uw1 -->
+> **🔴 MAGNETIC-BRANCH = SIGN-SELECTOR, NOT CAGE-MECHANISM (2026-06-18, Rule 12 / PR#260 B3-DEGENERATE — body below PRESERVED unedited; Grant-ratified).** The "magnetic branch" named below is the **chirality/spin SIGN-selector** (μ-first $\Rightarrow \Gamma=-1$ vs ε-first $\Rightarrow \Gamma=+1$ are spin-conjugate signs) and is **MUTE on the mass sector** — NOT the cage *mechanism*. The electron mass-cage is the **A1 longitudinal dilatation** ($Z_{bulk}\to0 \Rightarrow \Gamma_{bulk}=-1$); the magnetic-vs-electric fork is DEGENERATE on the equilibrium observables ($Z=Z_0\sqrt{S}$, $|\Gamma|=1$ both ways), the asymmetry chirality-set not substrate-forced. Wiring confinement into the magnetic/charge sector would break the two-"3"s orthogonality (A1 ⊥ T2, [`master-equation.md`](../../dynamics/ch4-continuum-electrodynamics/master-equation.md):20). Body preserved per Rule-12.
+
 **Particle confinement** proceeds via the magnetic branch (a third sub-case of the symmetric sector): at a torus-knot self-intersection, the magnetic field saturates $\mu$ first, driving $Z = \sqrt{\mu_{eff}/\varepsilon_0} \to 0$ and $\Gamma \to -1$ (short-circuit). The standing wave that results is rest mass.
 
 ---
