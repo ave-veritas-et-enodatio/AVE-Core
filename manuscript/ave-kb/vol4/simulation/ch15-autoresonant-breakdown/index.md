@@ -8,7 +8,7 @@ subtree-experiments: []
 
 # Ch.15: Autoresonant Dielectric Breakdown — Bypassing the Schwinger Limit
 
-The $\mathcal{M}_A$ vacuum is a nonlinear dielectric LC lattice. Fixed-frequency high-intensity drives detune as the local capacitance drops under strain, reflecting power instead of breaching the yield limit. An autoresonant phase-locked loop (PLL) tracks the shifting resonance and pumps the metric past $60\,\text{kV}$ at a fraction of brute-force power.
+The vacuum substrate is a nonlinear dielectric LC lattice. Fixed-frequency high-intensity drives detune as the local capacitance drops under strain, reflecting power instead of breaching the yield limit. An autoresonant phase-locked loop (PLL) tracks the shifting resonance and pumps the metric past $60\,\text{kV}$ at a fraction of brute-force power.
 
 ## Key Results
 
@@ -22,7 +22,7 @@ The $\mathcal{M}_A$ vacuum is a nonlinear dielectric LC lattice. Fixed-frequency
 
 | Document | Contents |
 |---|---|
-| [Theory](theory.md) | Nonlinear $\mathcal{M}_A$ lattice detuning; fixed-frequency failure; autoresonant PLL solution |
+| [Theory](theory.md) | Nonlinear substrate lattice detuning; fixed-frequency failure; autoresonant PLL solution |
 | [SPICE Netlist](spice-netlist.md) | Verbatim `pll_breakdown.cir` netlist with behavioral sources |
 
 > **Note:** `summarybox` and `exercisebox` environments in the source chapter are not extracted as leaves in this KB.

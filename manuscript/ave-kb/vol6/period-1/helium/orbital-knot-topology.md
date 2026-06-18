@@ -17,7 +17,7 @@ To satisfy macroscopic electrical neutrality, two electrons (each the $0_1$ unkn
 
 By possessing opposite topological chiralities and maintaining a strict $180^\circ$ phase-locked antipodal separation along the continuous orbital track, the two unknot solitons minimize their mutual spatial strain. Their collective LC wake forms a perfectly balanced continuous standing wave.
 
-Crucially, because both solitons are highly localized sources of metric strain ($\propto 1/\sqrt{1-V^2}$), their superimposed spatial tensor footprint pushes the localized $\mathcal{M}_A$ metric along the $1s$ track to the absolute threshold of dielectric saturation ($V_{tot} \to 1.0$). The spatial capacitance diverges, and the local RF impedance drops toward zero. The $1s$ orbital is now physically, structurally, and topologically "full."
+Crucially, because both solitons are highly localized sources of metric strain ($\propto 1/\sqrt{1-V^2}$), their superimposed spatial tensor footprint pushes the localized substrate metric along the $1s$ track to the absolute threshold of dielectric saturation ($V_{tot} \to 1.0$). The spatial capacitance diverges, and the local RF impedance drops toward zero. The $1s$ orbital is now physically, structurally, and topologically "full."
 
 [Figure: helium_4_topology.png — see manuscript/vol_6_periodic_table/figures/]
 

@@ -1,3 +1,5 @@
+> **Notation (2026-06-18):** Substrate object symbol `$\mathcal{M}_A$` **retired** (Grant adjudication). Use prose: *substrate*, *chiral LC network*, *chiral Laves K4 Cosserat crystal*. Body below preserved per Rule-12.
+
 # Result — clm-zuf7g1 Phase 3a: Z₀ ≈ 377 Ω substrate-mechanism derivation
 
 **Workstream**: clm-zuf7g1 strengthening epic Phase 3a (substrate-impedance Z₀ structural identification)

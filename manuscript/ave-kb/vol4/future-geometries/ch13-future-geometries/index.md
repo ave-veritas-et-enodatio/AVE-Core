@@ -8,7 +8,7 @@ subtree-experiments: []
 
 # Ch.13: Future Geometries — Hopf Coils and Phased Arrays
 
-Electromagnetic knot engineering for the chiral $\mathcal{M}_A$ vacuum. The chapter develops Hopf coil topology (toroidal-poloidal fusion with nonzero magnetic helicity density $h = \mathbf{E} \cdot \mathbf{B} \neq 0$), establishes the Chiral Figure of Merit for antenna optimization, surveys six CEM solvers and maps each to the AVE lattice framework, and presents the K4-TLM Diamond lattice simulator.
+Electromagnetic knot engineering for the chiral vacuum substrate. The chapter develops Hopf coil topology (toroidal-poloidal fusion with nonzero magnetic helicity density $h = \mathbf{E} \cdot \mathbf{B} \neq 0$), establishes the Chiral Figure of Merit for antenna optimization, surveys six CEM solvers and maps each to the AVE lattice framework, and presents the K4-TLM Diamond lattice simulator.
 
 ## Key Results
 

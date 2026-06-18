@@ -24,7 +24,7 @@ App C collects the mathematical bounds and identities derived from first-princip
 ## Signal Dynamics and Topological Matter
 
 - **Continuous Action Lagrangian:** $\mathcal{L}_{AVE} = \frac{1}{2}\epsilon_0 |\partial_t \mathbf{A}|^2 - \frac{1}{2\mu_0} |\nabla \times \mathbf{A}|^2$ (Evaluates to continuous spatial stress [N/m$^2$])
-- **Topological Mass functional:** $E_{rest} = \min_{\mathbf{n}} \int_{\mathcal{M}_A} d^3x \left[ \frac{1}{2} (\partial_\mu \mathbf{n})^2 + \frac{1}{4} \kappa_{FS}^2 \frac{(\partial_\mu \mathbf{n} \times \partial_\nu \mathbf{n})^2}{\sqrt{1 - (\Delta\phi / \alpha)^2}} \right]$
+- **Topological Mass functional:** $E_{rest} = \min_{\mathbf{n}} \int d^3x \left[ \frac{1}{2} (\partial_\mu \mathbf{n})^2 + \frac{1}{4} \kappa_{FS}^2 \frac{(\partial_\mu \mathbf{n} \times \partial_\nu \mathbf{n})^2}{\sqrt{1 - (\Delta\phi / \alpha)^2}} \right]$
 - **Faddeev-Skyrme Coupling (Cold):** $\kappa_{FS} = p_c / \alpha = 8\pi \approx 25.133$
 - **Thermal Lattice Softening:** $\delta_{th} = \frac{\nu_{vac}}{\kappa_{FS}} \cdot \frac{2}{\pi} = \frac{2/7}{8\pi} \cdot \frac{2}{\pi} = \frac{1}{14\pi^2} \approx 0.00724$
 - **Effective Coupling:** $\kappa_{eff} = \kappa_{FS}(1-\delta_{th}) \approx 24.951$

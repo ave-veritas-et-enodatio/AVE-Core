@@ -10,7 +10,7 @@ claims: [clm-wx5324, clm-rd9cjm, clm-1klgo2]
 ## Macroscopic Gravity as Optical Refraction
 <!-- claim-quality: clm-rd9cjm (this section establishes the refractive-index gravity ontology; the explicit $n(r) = 1 + 2GM/(c^2 r)$ form is invoked at the start in eq. for $n_{\perp}$) -->
 
-Gravity is traditionally modeled as the geometric curvature of spacetime resulting from mass. However, in the Electromagnetic $\mathcal{M}_A$ framework, "Mass" is simply localized, tightly confined electromagnetic wave energy (Hopfions), and "Gravity" is the phenomenological illusion of **Optical Refraction**.
+Gravity is traditionally modeled as the geometric curvature of spacetime resulting from mass. However, in the Electromagnetic the substrate framework, "Mass" is simply localized, tightly confined electromagnetic wave energy (Hopfions), and "Gravity" is the phenomenological illusion of **Optical Refraction**.
 
 A massive fundamental particle (a bound EM wave) generates intense localized polarization of the surrounding vacuum's impedance layer. It locally alters the dielectric compliance ($\epsilon$) and inductive inertia ($\mu$). Because the local speed of light is rigidly defined by the vacuum impedance ($c_{local} = 1/\sqrt{\epsilon_{local} \mu_{local}}$), this polarization creates a continuous spherical gradient in $c$.
 

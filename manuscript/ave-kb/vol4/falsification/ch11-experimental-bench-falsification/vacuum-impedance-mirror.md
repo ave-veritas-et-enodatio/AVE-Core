@@ -42,7 +42,7 @@ path-stable: "referenced from vol3 as sec:induced_vacuum_impedance_mirror"
 
 The most profound theoretical claim of the Applied Vacuum Engineering (AVE) framework is that the spacetime vacuum operates structurally as a non-linear dielectric transmission line with a characteristic impedance of $Z_0 \approx 376.7\,\Omega$.
 
-As mathematically proven in the topological defects section, macroscopic gravity operates strictly as a symmetric volumetric compression of the local $\mathcal{M}_A$ LC network. Because gravity scales local Capacitance ($\varepsilon$) and Inductance ($\mu$) equally, the characteristic impedance of a gravitational gradient remains perfectly matched to $Z_0$. This explains why a photon entering a black hole diffracts (bends) without generating $S_{11}$ Return Loss (reflection).
+As mathematically proven in the topological defects section, macroscopic gravity operates strictly as a symmetric volumetric compression of the local substrate LC network. Because gravity scales local Capacitance ($\varepsilon$) and Inductance ($\mu$) equally, the characteristic impedance of a gravitational gradient remains perfectly matched to $Z_0$. This explains why a photon entering a black hole diffracts (bends) without generating $S_{11}$ Return Loss (reflection).
 
 However, this rigorous definition exposes a fundamentally falsifiable hardware loophole: If a photon's lack of reflection is predicated strictly on a perfect $376.7\,\Omega$ impedance match, it is possible to actively force light to bounce off of "empty space" by intentionally engineering an **asymmetric impedance mismatch**.
 
@@ -163,6 +163,6 @@ A tabletop electrodynamic experiment to test the **phase-slope** structural disc
 
 [Figure: vacuum_mirror_sensitivities.png — see manuscript/vol_4_engineering/chapters/]
 
-The detection of the AVE tree-level phase-slope (or the absence of QED birefringence) cleanly distinguishes the non-linear discrete LC bounds of the $\mathcal{M}_A$ continuum from the QED loop vacuum — but only at fields where $\Delta\phi$ clears the shot-noise floor ($E \sim 10^{16}$ V/m). 🔴 **(retired:** the original protocol used a single-photon APD back-scatter trap and claimed a *"sudden non-linear exponential spike past 35 kV"* — that magnitude relied on the per-node/apparatus conflation and is undetectable; see Re-scope box.**)**
+The detection of the AVE tree-level phase-slope (or the absence of QED birefringence) cleanly distinguishes the non-linear discrete LC bounds of the substrate continuum from the QED loop vacuum — but only at fields where $\Delta\phi$ clears the shot-noise floor ($E \sim 10^{16}$ V/m). 🔴 **(retired:** the original protocol used a single-photon APD back-scatter trap and claimed a *"sudden non-linear exponential spike past 35 kV"* — that magnitude relied on the per-node/apparatus conflation and is undetectable; see Re-scope box.**)**
 
 ---

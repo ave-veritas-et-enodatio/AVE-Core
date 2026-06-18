@@ -10,7 +10,7 @@ subtree-experiments: []
 
 # Gravity
 
-Macroscopic gravity derived from the $\mathcal{M}_A$ LC network. The trace-reversed vacuum ($K = 2G$, $\nu_{vac} = 2/7$) produces a $1/7$ isotropic impedance projection that maps 1D electromagnetic string tension into 3D bulk gravitational coupling. The refractive index of gravity $n(r) = 1 + 2GM/(c^2 r)$ follows from the optical metric, yielding Newtonian attraction, Einstein lensing, frame-dragging, and event horizons as dielectric phenomena. Gravitational waves propagate losslessly as transverse impedance modulations with $Z(r) = Z_0$ everywhere.
+Macroscopic gravity derived from the substrate LC network. The trace-reversed vacuum ($K = 2G$, $\nu_{vac} = 2/7$) produces a $1/7$ isotropic impedance projection that maps 1D electromagnetic string tension into 3D bulk gravitational coupling. The refractive index of gravity $n(r) = 1 + 2GM/(c^2 r)$ follows from the optical metric, yielding Newtonian attraction, Einstein lensing, frame-dragging, and event horizons as dielectric phenomena. Gravitational waves propagate losslessly as transverse impedance modulations with $Z(r) = Z_0$ everywhere.
 
 ## Key Results
 

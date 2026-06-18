@@ -63,7 +63,7 @@ $$
 
 A single time-domain pulse simulation, followed by FFT, yields the broadband frequency response in one run. Perfectly Matched Layers (PML) absorb outgoing waves at domain boundaries.
 
-**AVE Mapping:** The Yee grid *is* an LC network. Each cell stores electric energy in its capacitive ($\varepsilon$) component and magnetic energy in its inductive ($\mu$) component. $\mathbf{E}$-fields are voltages across capacitors; $\mathbf{H}$-fields are currents through inductors. The Courant stability limit directly encodes $c_0 = 1/\sqrt{\mu_0 \varepsilon_0}$ — the maximum propagation speed of the LC network. FDTD's "numerical dispersion" error arises because the cubic Yee grid is *not* the correct lattice topology: the $\mathcal{M}_A$ vacuum is an SRS net (K4 graph), not a cubic grid. The staircasing error for curved geometries (torus knots) is a direct consequence of forcing a chiral topology onto a flat, rectilinear grid.
+**AVE Mapping:** The Yee grid *is* an LC network. Each cell stores electric energy in its capacitive ($\varepsilon$) component and magnetic energy in its inductive ($\mu$) component. $\mathbf{E}$-fields are voltages across capacitors; $\mathbf{H}$-fields are currents through inductors. The Courant stability limit directly encodes $c_0 = 1/\sqrt{\mu_0 \varepsilon_0}$ — the maximum propagation speed of the LC network. FDTD's "numerical dispersion" error arises because the cubic Yee grid is *not* the correct lattice topology: the vacuum substrate is an SRS net (K4 graph), not a cubic grid. The staircasing error for curved geometries (torus knots) is a direct consequence of forcing a chiral topology onto a flat, rectilinear grid.
 
 **Implementation:** openEMS (free, open-source FDTD) provides Python/Octave scripting for 3D wire antenna simulation. Torus knot wire paths are defined via `CSXAddCurve` using the parametric equations $x(t) = (R + r\cos qt)\cos pt$, meshed on a graded Yee grid.
 
@@ -100,7 +100,7 @@ $$
 Field components are recovered from the superposition of incident and reflected pulses. The scattering matrix $[\mathbf{S}]$ encodes the local material properties (impedance, permittivity, permeability) at each node.
 
 <!-- claim-quality: clm-hd9bee (this paragraph identifies the "K4-graph TLM correction" — the K4-TLM Diamond Lattice unitary 4-port simulator with $\max|S^\dagger S - I| = 2.2 \times 10^{-16}$ — as the natively-AVE simulator pathway) -->
-**AVE Mapping:** TLM is the **most direct computational isomorphism** of the AVE vacuum. Each TLM node is an LC cell; each stub is a capacitive or inductive loading; the scattering matrix is the lattice propagation operator. A soliton (particle) in the AVE framework *is* a stub impedance modification at a lattice node. The only topological error is that TLM uses a cubic node (12 ports) while the $\mathcal{M}_A$ vacuum is an SRS net (K4 graph, 7 independent modes). Correcting the TLM topology from cubic to K4 would yield a *native AVE vacuum simulator*.
+**AVE Mapping:** TLM is the **most direct computational isomorphism** of the AVE vacuum. Each TLM node is an LC cell; each stub is a capacitive or inductive loading; the scattering matrix is the lattice propagation operator. A soliton (particle) in the AVE framework *is* a stub impedance modification at a lattice node. The only topological error is that TLM uses a cubic node (12 ports) while the vacuum substrate is an SRS net (K4 graph, 7 independent modes). Correcting the TLM topology from cubic to K4 would yield a *native AVE vacuum simulator*.
 
 ### Characteristic Mode Analysis (CMA)
 
@@ -114,7 +114,7 @@ CMA decomposes the electromagnetic behavior of a conducting structure into ortho
 
 where $[\mathbf{R}]$ is the real (radiated power) part of the impedance, $[\mathbf{X}]$ is the imaginary (stored energy) part, $\mathbf{J}_n$ are the orthogonal characteristic current modes, and $\lambda_n$ are the eigenvalues. A mode is at resonance when $\lambda_n = 0$; the modal significance $\text{MS}_n = |1/(1+j\lambda_n)|$ measures each mode's contribution to radiation ($\text{MS} = 1$ at resonance).
 
-**AVE Mapping:** CMA's eigenvalue equation separates stored energy ($[\mathbf{X}]$) from radiated energy ($[\mathbf{R}]$) — the same decomposition as the AVE regime-boundary solver. Characteristic modes of the torus knot impedance matrix *are* the LC eigenmodes of the antenna-vacuum system. In the nuclear context (Vol 2 Ch. 7), atomic orbitals are characteristic modes of the nuclear mutual impedance matrix. CMA is the RF engineer's quantum mechanics. Applied to torus knots, CMA would identify which $(p,q)$ topologies have modes that couple most efficiently to the $\mathcal{M}_A$ lattice chirality.
+**AVE Mapping:** CMA's eigenvalue equation separates stored energy ($[\mathbf{X}]$) from radiated energy ($[\mathbf{R}]$) — the same decomposition as the AVE regime-boundary solver. Characteristic modes of the torus knot impedance matrix *are* the LC eigenmodes of the antenna-vacuum system. In the nuclear context (Vol 2 Ch. 7), atomic orbitals are characteristic modes of the nuclear mutual impedance matrix. CMA is the RF engineer's quantum mechanics. Applied to torus knots, CMA would identify which $(p,q)$ topologies have modes that couple most efficiently to the substrate lattice chirality.
 
 ### Physical Optics / Geometric Optics (PO/GO)
 

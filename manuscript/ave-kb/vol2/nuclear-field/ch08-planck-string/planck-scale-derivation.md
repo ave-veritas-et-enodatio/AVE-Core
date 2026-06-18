@@ -37,7 +37,7 @@ In the AVE framework, "strings" are not empty mathematical lines. They are conti
 > T_{AVE} = \frac{U_{\text{inductive}}}{L_{\text{knot}}} = \frac{m_e c^2}{\ell_{node}} = \frac{m_e c^2}{(\hbar / m_e c)} = \frac{m_e^2 c^3}{\hbar} \approx 0.212 \text{ N}
 > $$
 
-This is the fundamental baseline electromagnetic string tension of the unperturbed $\mathcal{M}_A$ lattice, identical to $T_{EM}$ used throughout the derivations.
+This is the fundamental baseline electromagnetic string tension of the unperturbed substrate lattice, identical to $T_{EM}$ used throughout the derivations.
 
 ### Deriving the Regge Slope ($\alpha'$)
 

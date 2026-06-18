@@ -64,12 +64,12 @@ C3 post-walk-back stands as PASS-conditional with deeper-on-BMW tension; C5 stan
 
 AVE corpus carries TWO physically distinct cosmological direction concepts (canonical leaf: [`cosmic-axes-and-frames-glossary.md`](../../manuscript/ave-kb/common/cosmic-axes-and-frames-glossary.md) — landed on `analysis/cosmic-axis-glossary` branch, pending merge to `analysis/integration`):
 
-1. **K4 lattice rest frame** — where the substrate $\mathcal{M}_A$ sits at rest. Sun's velocity vector through this frame = CMB dipole at $(l \approx 264°, b \approx 48°)$, $\sim 370$ km/s. Local kinematics. **NOT a fundamental cosmological axis.**
+1. **K4 lattice rest frame** — where the substrate the substrate sits at rest. Sun's velocity vector through this frame = CMB dipole at $(l \approx 264°, b \approx 48°)$, $\sim 370$ km/s. Local kinematics. **NOT a fundamental cosmological axis.**
 2. **$\hat{\Omega}_{\text{freeze}}$** — parent-BH spin axis preserved through K4 crystallization at lattice genesis. Cosmic chirality direction from $I4_132$ space group lock-in. Empirically pinned at $(l = 60.28°, b = 50.48°)$ via Planck PR3 SMICA axis-of-evil. **Cosmological initial condition.**
 
-Angular separation $|\hat{v}_{\odot \to \mathcal{M}_A}, \hat{\Omega}_{\text{freeze}}| \approx 79°$ (minimum, accounting for 180° axis degeneracy).
+Angular separation $|\hat{v}_{\odot \to the substrate}, \hat{\Omega}_{\text{freeze}}| \approx 79°$ (minimum, accounting for 180° axis degeneracy).
 
-**Pantheon+ peculiar-velocity correction subtracts $\hat{v}_{\odot \to \mathcal{M}_A}$ at the CMB DIPOLE direction.** It does NOT touch $\hat{\Omega}_{\text{freeze}}$. The two are nearly orthogonal observables of the same substrate at different scales (local kinematics vs. cosmic-genesis chirality). Standard pipeline is therefore structurally non-circular for the test "does Hubble bulk-flow direction align with $\hat{\Omega}_{\text{freeze}}$?"
+**Pantheon+ peculiar-velocity correction subtracts $\hat{v}_{\odot \to the substrate}$ at the CMB DIPOLE direction.** It does NOT touch $\hat{\Omega}_{\text{freeze}}$. The two are nearly orthogonal observables of the same substrate at different scales (local kinematics vs. cosmic-genesis chirality). Standard pipeline is therefore structurally non-circular for the test "does Hubble bulk-flow direction align with $\hat{\Omega}_{\text{freeze}}$?"
 
 **Implementor uses standard Pantheon+ pipeline** (heliocentric → CMB-rest-frame transform + 2M++ LSS peculiar-velocity correction). Defense-in-depth: also report a parallel sub-analysis using heliocentric velocities with 2M++ LSS correction only (no CMB-rest-frame transform). Both analyses must give consistent bulk-flow direction (1σ contour overlap) for the result to count as a valid PASS. Divergence between the two is itself diagnostic.
 

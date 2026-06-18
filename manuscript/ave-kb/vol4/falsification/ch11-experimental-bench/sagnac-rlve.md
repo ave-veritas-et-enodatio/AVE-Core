@@ -10,7 +10,7 @@ experiments: [exp-rth12t]
 
 ## Sagnac-RLVE: rotor-local mutual-inductance (corroborative null)
 
-> → Primary: [Regimes of Operation](../../circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md) — $V_{yield}$ threshold and $\mathcal{M}_A$ bulk density definitions
+> → Primary: [Regimes of Operation](../../circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md) — $V_{yield}$ threshold and the substrate bulk density definitions
 
 The Sagnac Rotational Lattice Mutual Inductance Experiment bypasses the $G/c^2$ scalar gap by coupling *magnetically* and measuring *interferometrically*.
 

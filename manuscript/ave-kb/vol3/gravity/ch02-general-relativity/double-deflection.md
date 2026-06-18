@@ -11,7 +11,7 @@ claims: [clm-zf8eah]
 
 In 1801 Johann Georg von Soldner, treating light as a massive ballistic corpuscle, computed the Newtonian deflection of starlight grazing the Sun as $\delta_{\text{matter}} = 2GM/(bc^2)$. In 1915 Einstein showed the actual deflection is exactly twice this: $\delta_{\text{light}} = 4GM/(bc^2)$. The factor of 2 is the historically decisive signature of General Relativity.
 
-Within the AVE framework this factor of 2 is neither geometric curvature nor a 4D manifold artefact. It is a direct consequence of how two different kinds of wave packet couple to the strained LC lattice $\mathcal{M}_A$, and it is fully determined by the trace-reversed vacuum Poisson ratio $\nu_{vac} \equiv 2/7$ derived in Ch.1 ([vacuum-poisson-ratio](../ch01-gravity-yield/vacuum-poisson-ratio.md)).
+Within the AVE framework this factor of 2 is neither geometric curvature nor a 4D manifold artefact. It is a direct consequence of how two different kinds of wave packet couple to the strained LC lattice the substrate, and it is fully determined by the trace-reversed vacuum Poisson ratio $\nu_{vac} \equiv 2/7$ derived in Ch.1 ([vacuum-poisson-ratio](../ch01-gravity-yield/vacuum-poisson-ratio.md)).
 
 ## Two Coupling Channels, Two Projections
 

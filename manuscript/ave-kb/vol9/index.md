@@ -11,7 +11,7 @@ bootstrap: true
 
 # Vol 9: The Vacuum Datasheet
 
-Volume 9 documents the natural vacuum substrate ($\mathcal{M}_A$) in engineering datasheet format. The substrate is the universe's own vacuum — a 3D chiral Laves K4 Cosserat crystal of intrinsic LC oscillators (Axiom 1). Engineering practice is the process of empirically measuring the substrate's limits and corrections; AVE substrate-physics derives the substrate-mechanism behind each measurable parameter; this volume consolidates both into a single canonical datasheet.
+Volume 9 documents the natural vacuum substrate (the substrate) in engineering datasheet format. The substrate is the universe's own vacuum — a 3D chiral Laves K4 Cosserat crystal of intrinsic LC oscillators (Axiom 1). Engineering practice is the process of empirically measuring the substrate's limits and corrections; AVE substrate-physics derives the substrate-mechanism behind each measurable parameter; this volume consolidates both into a single canonical datasheet.
 
 Vol 9 is a **synthesis volume**: no chapter contains a primary substrate-physics derivation. Every spec table cites the canonical derivation in Vols 1–6. The corresponding KB tree under `vol9/` carries chapter-index stubs that route to the canonical leaves and (where applicable) host Vol-9-scoped synthesis content (e.g., the datasheet-format integration table for a chapter's substrate primitives, or a Vol-9-scoped consolidation note explicitly classified Class B per `consistency-vs-emergence` v1.3).
 

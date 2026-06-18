@@ -27,7 +27,7 @@ Canonical AVE-native description of the $(2, q)$ stable-particle family ($q$ odd
 
 ## §1 — $(2,q)$ family object class (lemniscate-with-$q$-half-twists)
 
-A stable particle in $\mathcal{M}_A$ is a **lemniscate** (figure-8 curve) with $q$ half-twists wrapping around its propagation axis, threaded through a saturated K4 node, oscillating between two adjacent A-B sublattice neighbors. The lemniscate's two lobes alternate between the A and B nodes; the central crossing sits at one of the saturated nodes. The half-twist count $q$ is the particle-distinguishing parameter:
+A stable particle in the substrate is a **lemniscate** (figure-8 curve) with $q$ half-twists wrapping around its propagation axis, threaded through a saturated K4 node, oscillating between two adjacent A-B sublattice neighbors. The lemniscate's two lobes alternate between the A and B nodes; the central crossing sits at one of the saturated nodes. The half-twist count $q$ is the particle-distinguishing parameter:
 
 | $q$ | Particle | Lobe-count (universal) | Half-twist count |
 |---|---|---|---|

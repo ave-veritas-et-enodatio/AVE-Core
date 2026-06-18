@@ -16,8 +16,8 @@ Measure the charge liberated on an isolated floating conductor when a facing gro
 
 ## §1.5 — Physical picture (Axiom 2, mechanical terms)
 
-- Charge **is** topological displacement in $\mathcal{M}_A$ (Axiom 2, $[Q]\equiv[L]$): a dislocation Burgers-vector count in the K4 lattice. $\xi_{topo} = e/\ell_{node}$ is the charge-per-node-length.
-- Mechanically pulling the gap apart **drives the discrete $\mathcal{M}_A$ LC-network capacitance**; the displacement exposes topological charge natively from the spatial metric (one $e$ per $\ell_{node}$ of relative displacement, integrated over the plate's node-front).
+- Charge **is** topological displacement in the substrate (Axiom 2, $[Q]\equiv[L]$): a dislocation Burgers-vector count in the K4 lattice. $\xi_{topo} = e/\ell_{node}$ is the charge-per-node-length.
+- Mechanically pulling the gap apart **drives the discrete substrate LC-network capacitance**; the displacement exposes topological charge natively from the spatial metric (one $e$ per $\ell_{node}$ of relative displacement, integrated over the plate's node-front).
 - $\Gamma = -1$ boundary: the floating-plate/vacuum interface; the electrometer reads the node-charge **reactively** ($\theta \to 90°$, no dissipation). **Regime I** (sub-yield, $S(A)\to 1$) — far below $V_{yield}$, linear.
 - Scales **linearly with displacement $x$** — NOT with the dielectric $d_{ij}$, NOT with $V^2$. The discriminator IS the linearity-in-$x$ + dielectric-independence.
 - No discrete onset at this scale: a smooth linear charge-vs-displacement (no saturation events during the PZT step; lossless).

@@ -10,7 +10,7 @@ subtree-experiments: []
 
 # App A: The Interdisciplinary Translation Matrix
 
-The AVE framework roots physical reality in the deterministic continuum mechanics of a discrete $\mathcal{M}_A$ graph; its foundational equations project symmetrically outward into multiple established disciplines of applied engineering and mathematics. This appendix collects the complete set of domain-specific translation tables, each defined once in a canonical location and referenced from the relevant chapter.
+The AVE framework roots physical reality in the deterministic continuum mechanics of a discrete substrate graph; its foundational equations project symmetrically outward into multiple established disciplines of applied engineering and mathematics. This appendix collects the complete set of domain-specific translation tables, each defined once in a canonical location and referenced from the relevant chapter.
 
 ## Key Results
 

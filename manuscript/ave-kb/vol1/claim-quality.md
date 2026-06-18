@@ -638,7 +638,7 @@ The Ch.7.2 domain catalog tabulates $r$ values across EM, gravitational, BCS, ma
 - $\rho_{bulk} = \xi_{topo}^2\mu_0/(p_c\ell_{node}^2) \approx 7.92\times 10^6$ kg/m³; $G_{vac} = \rho_{bulk}c^2 \approx 7.11\times 10^{23}$ Pa
 - _Specific Claims_
   - The dimensionally-corrected bulk mass density is derived via $L = \xi_{topo}^{-2}m$ inductance-mass isomorphism + Voronoi cell volume $V_{node} = p_c\ell_{node}^3$.
-  - $G_{vac}$ is the macroscopic 3D shear modulus of $\mathcal{M}_A$; the Cauchy bulk modulus is fixed at $K_{vac} = 2G_{vac}$ (Cauchy relation for the isotropic lattice).
+  - $G_{vac}$ is the macroscopic 3D shear modulus of the substrate; the Cauchy bulk modulus is fixed at $K_{vac} = 2G_{vac}$ (Cauchy relation for the isotropic lattice).
   - Kinematic mutual inductance $\nu_{kin} = \alpha c\,\ell_{node} \approx 8.45\times 10^{-7}$ m²/s — close to liquid water's value, asserted as parameter-free with the identification $\kappa \equiv \alpha$.
 - _Specific Non-Claims and Caveats_
   - $G_{vac}$ (3D continuum shear modulus, $\sim 10^{23}$ Pa) must NOT be confused with $G_{string} = T_{EM}/\ell_{node} \approx 5.49\times 10^{11}$ N/m (1D string tension modulus, governing single-edge stiffness). These differ by $\sim 10^{12}$; the leaf flags this distinction explicitly.
@@ -770,7 +770,7 @@ Vol 1 Ch.1 §1.5 specifies the explicit-discrete numerical engine that maps the 
 
 - $\mathcal{L}_{AVE} = \tfrac{1}{2}\epsilon_0|\partial_t\mathbf{A}|^2 - \tfrac{1}{2\mu_0}|\nabla\times\mathbf{A}|^2$; $[\mathbf{A}] = \xi_{topo}^{-1}\,[\text{kg/s}]$
 - _Specific Claims_
-  - The standard QFT electromagnetic Lagrangian density is recast as bulk continuous mechanical stress (Pa) on the $\mathcal{M}_A$ manifold via the topological conversion $\xi_{topo} = e/\ell_{node}$; capacitive edge energy plays the role of kinetic, inductive node energy the role of potential.
+  - The standard QFT electromagnetic Lagrangian density is recast as bulk continuous mechanical stress (Pa) on the substrate via the topological conversion $\xi_{topo} = e/\ell_{node}$; capacitive edge energy plays the role of kinetic, inductive node energy the role of potential.
   - Dimensional analysis with $\xi_{topo}$ substitution shows $[\mathbf{A}] = \xi_{topo}^{-1}\,[\text{kg/s}]$ (mass flow rate scaled by $\xi_{topo}^{-1}$), and the kinetic-energy density $\tfrac{1}{2}\epsilon_0|\partial_t\mathbf{A}|^2$ reduces to $[\text{N/m}^2]$ once $\epsilon_0 \equiv \xi_{topo}^2[\text{N}^{-1}]$ cancels the topological factor.
   - Minimizing the quantum action is therefore mathematically equivalent to minimizing inductive bulk stress in Pa.
 - _Specific Non-Claims and Caveats_
@@ -798,7 +798,7 @@ Vol 1 Ch.1 §1.5 specifies the explicit-discrete numerical engine that maps the 
 
 - $\Psi(\mathbf{x},t) = \mathbf{A}(\mathbf{x},t) + i\,\mathcal{H}_{transform}[\mathbf{A}(\mathbf{x},t)]$
 - _Specific Claims_
-  - The $\mathcal{M}_A$ lattice acts as a spatial Nyquist sampling grid; band-limited signals on it form a Reproducing Kernel Hilbert Space — the Paley-Wiener space $PW_{\pi/\ell_{node}}$ with maximum spatial frequency $k_{max} = \pi/\ell_{node}$.
+  - The substrate lattice acts as a spatial Nyquist sampling grid; band-limited signals on it form a Reproducing Kernel Hilbert Space — the Paley-Wiener space $PW_{\pi/\ell_{node}}$ with maximum spatial frequency $k_{max} = \pi/\ell_{node}$.
   - The complex quantum state vector $\Psi(\mathbf{x},t)$ is constructed from the real lattice potential $\mathbf{A}(\mathbf{x},t)$ via the standard signal-processing Hilbert transform (analytic-signal extension).
   - The complex Hilbert space of standard QM is **formally identical** to the Paley-Wiener / analytic-signal representation of the discrete vacuum hardware.
 - _Specific Non-Claims and Caveats_
@@ -888,7 +888,7 @@ Vol 1 Ch.1 §1.5 specifies the explicit-discrete numerical engine that maps the 
 - _Specific Non-Claims and Caveats_
   - The "no virtual photons needed" claim is **mechanism-level** (continuous Maxwellian update vs. perturbative QED quanta exchange); it does not derive QED scattering cross-sections from the FDTD update at a quantitative level. Operational equivalence with QED at the level of measurable scattering observables is asserted, not demonstrated, in this leaf.
   - The "ontological probability is an illusion" framing is an **interpretive ontological** claim. It does not produce a falsifiable distinction between FDTD determinism and standard QM at any current laboratory scale; falsifiability rests on unrelated AVE predictions (running $\alpha$, GUP cutoff, decoherence-onset $T_{pair}$ — see `clm-zuf7g1`), not on the determinism reframe per se.
-  - The Yee lattice is a **standard computational electrodynamics** scheme; the AVE-specific claim is the identification of the physical $\mathcal{M}_A$ lattice with the Yee grid, not the Yee scheme itself. Methodological details (numerical stability, Courant condition $c\Delta t \le \Delta x/\sqrt{D}$) are not derived in this leaf.
+  - The Yee lattice is a **standard computational electrodynamics** scheme; the AVE-specific claim is the identification of the physical substrate lattice with the Yee grid, not the Yee scheme itself. Methodological details (numerical stability, Courant condition $c\Delta t \le \Delta x/\sqrt{D}$) are not derived in this leaf.
 
 > **Leaf references:** [fdtd-yee-proof](./operators-and-regimes/ch5-universal-spatial-tension/fdtd-yee-proof.md).
 
@@ -1651,7 +1651,7 @@ In lattice natural units the engineering yield threshold is $V_{\text{YIELD}} = 
 ## Cubic-Symmetry Suppression of Lorentz-Violating Signatures (Emergent Lorentz Invariance from K4)
 <!-- id: clm-yr6tu4 -->
 
-The K4 lattice $\mathcal{M}_A$ has a preferred rest frame (identified empirically with the CMB rest frame to high precision), yet strict Lorentz invariance at observable wavelengths is consistent with current cavity-comparison bounds. These two facts are not in tension: the diamond-cubic ($Fd\bar{3}m$) symmetry of the K4-bipartite tetrahedral lattice suppresses observable anisotropy at low momentum $q \ll \pi/\ell_{node}$ to $\delta_{aniso} \sim (q\ell_{node})^4$ — at optical wavelengths ($\lambda = 633$ nm), $\delta_{aniso} \approx 2.2 \times 10^{-22}$, two to three orders of magnitude below the tightest current cavity-comparison bound. **Strict Lorentz invariance at observable wavelengths is an EMERGENT consequence of K4 cubic symmetry, not an AVE axiom.** The framework derives Lorentz invariance at observable scales, predicts the precise momentum scale at which it must break down ($q \sim \pi/\ell_{node}$, i.e. Trans-Planckian wavelengths), and names the empirical signature (GRB dispersion at $\lambda \to \ell_{node}$). The leaf classifies every preferred-frame / Sagnac test in the AVE divergence matrix by probe scale (rotor-local Sagnac, bulk preferred-frame, scalar gradient, Trans-Planckian, Regime-IV planetary-mass-saturated drag) under this synthesis.
+The K4 lattice the substrate has a preferred rest frame (identified empirically with the CMB rest frame to high precision), yet strict Lorentz invariance at observable wavelengths is consistent with current cavity-comparison bounds. These two facts are not in tension: the diamond-cubic ($Fd\bar{3}m$) symmetry of the K4-bipartite tetrahedral lattice suppresses observable anisotropy at low momentum $q \ll \pi/\ell_{node}$ to $\delta_{aniso} \sim (q\ell_{node})^4$ — at optical wavelengths ($\lambda = 633$ nm), $\delta_{aniso} \approx 2.2 \times 10^{-22}$, two to three orders of magnitude below the tightest current cavity-comparison bound. **Strict Lorentz invariance at observable wavelengths is an EMERGENT consequence of K4 cubic symmetry, not an AVE axiom.** The framework derives Lorentz invariance at observable scales, predicts the precise momentum scale at which it must break down ($q \sim \pi/\ell_{node}$, i.e. Trans-Planckian wavelengths), and names the empirical signature (GRB dispersion at $\lambda \to \ell_{node}$). The leaf classifies every preferred-frame / Sagnac test in the AVE divergence matrix by probe scale (rotor-local Sagnac, bulk preferred-frame, scalar gradient, Trans-Planckian, Regime-IV planetary-mass-saturated drag) under this synthesis.
 
 - _Specific Claims_
   - The K4 lattice has a preferred rest frame, identified empirically with the CMB rest frame per AVE-QED Q-G24; Earth moves at $\sim 370$ km/s through it, measurable as the CMB dipole anisotropy.

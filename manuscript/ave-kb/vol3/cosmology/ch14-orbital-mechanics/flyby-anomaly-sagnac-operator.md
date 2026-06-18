@@ -40,7 +40,7 @@ The AVE-PONDER Sagnac-RLVE protocol (`AVE-PONDER/manuscript/vol_ponder/chapters/
 - **Bulk scale**: K4 lattice at rest in CMB; Earth's center-of-mass moves at ~370 km/s through it. Uniform bulk flow integrates to zero around any closed Sagnac loop (PONDER scope note's point — bulk preferred-frame tests predict NULL via K4 cubic-symmetry suppression $\delta_{aniso} \sim (q\ell_{node})^4 \approx 10^{-22}$).
 - **Local scale**: Within $R_\oplus$, the LC vacuum is dragged by Earth's Regime-IV mass saturation and co-rotates with the planet at $v_{eq} = 465$ m/s. The $R_\oplus$ shear layer is where this saturated co-rotation meets the bulk lattice frame.
 
-The PONDER scope note specifically walks back "bulk co-rotation of $\mathcal{M}_A$ with the Earth's mass" — i.e., the (wrong) claim that Earth drags ALL nearby LC. The Regime-IV boundary-lock mechanism here is BOUNDED at $R_\oplus$, which is fully consistent with PONDER's scope correction.
+The PONDER scope note specifically walks back "bulk co-rotation of the substrate with the Earth's mass" — i.e., the (wrong) claim that Earth drags ALL nearby LC. The Regime-IV boundary-lock mechanism here is BOUNDED at $R_\oplus$, which is fully consistent with PONDER's scope correction.
 
 ## Sibling-observable corroboration
 

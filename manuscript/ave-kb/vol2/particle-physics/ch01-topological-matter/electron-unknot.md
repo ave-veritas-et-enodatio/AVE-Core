@@ -54,7 +54,7 @@ By enforcing the geometric ropelength bound mapped to the intrinsic topology of 
 
 ### The Dielectric Ropelength Limit
 
-Because the $\mathcal{M}_A$ manifold possesses a discrete minimum pitch (Axiom 1), a topological flux tube cannot be infinitely thin. The elastic lattice tension ($T_{max,g}$) pulls the unknot loop as tight as possible against the substrate, bounded by the fundamental hardware limits.
+Because the substrate possesses a discrete minimum pitch (Axiom 1), a topological flux tube cannot be infinitely thin. The elastic lattice tension ($T_{max,g}$) pulls the unknot loop as tight as possible against the substrate, bounded by the fundamental hardware limits.
 
 The minimum discrete diameter of the flux tube is normalised to one fundamental lattice pitch ($d \equiv 1 l_{node}$). The unknot, being the simplest closed loop, achieves a minimum ropelength of $2\pi$---the circumference of a circle with unit tube diameter. This is the most compact non-intersecting geometry for a volume-bearing flux tube on a discrete grid, establishing the electron's physical role as the structural mass-gap of the spatial medium.
 

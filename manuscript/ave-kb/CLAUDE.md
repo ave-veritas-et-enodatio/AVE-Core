@@ -6,11 +6,22 @@ The following invariants are confirmed genuinely cross-cutting: each appears in 
 
 ## Notation and Rendering
 
-### INVARIANT-N1: Vacuum medium notation
+### INVARIANT-N1: Substrate noun — prose only (no object glyph)
 
-$\mathcal{M}_A$ denotes the vacuum medium. Written directly in body text; do NOT use `\vacuum` macro (macro exists but is not used in chapter bodies across any volume). KB distillers must render as `$\mathcal{M}_A$` throughout.
+The vacuum medium has **no dedicated object symbol**. Retired 2026-06-18: `$\mathcal{M}_A$` (collided with boundary-observable `$\mathcal{M}$`, implied "manifold", and carried stale "amorphous" subscript semantics). Use context-appropriate **prose nouns** instead:
 
-*Confirmed by: vol1, vol2, vol3, vol4, vol5, vol6, vol7, vol8 (unanimous)*
+| Context | Preferred noun |
+|---|---|
+| Axiom / formal | **chiral Laves K4 Cosserat crystal** |
+| EE / circuit / impedance | **chiral LC network** or **substrate LC network** |
+| General prose | **the substrate** or **the vacuum lattice** |
+| Discrete / Nyquist / graph | **the lattice** |
+
+First mention in a chapter may spell out the axiom name once, then drop to "substrate" or "lattice". Do **not** reintroduce `$\mathcal{M}_A$`, `$\mathcal{M}_C$`, or any Greek letter as a substrate object. Boundary observables `$\mathcal{M}$`, `$\mathcal{Q}$`, `$\mathcal{J}$`; alpha-decomposition `$\Lambda_{\text{vol/surf/line}}$`; and Einstein `$\Lambda$` / `$\rho_\Lambda$` are unchanged.
+
+Do NOT use the `\vacuum` macro (exists but unused in chapter bodies). KB distillers follow the prose table above.
+
+*Confirmed by: vol1–vol9 + KB (2026-06-18 substrate-noun retirement adjudication)*
 
 ### INVARIANT-N2: Lattice node spacing notation (vol-split)
 
@@ -52,8 +63,8 @@ Individual volumes may use only a subset; resultbox is the most common. Vol 5 us
 
 The four AVE axioms carry stable meanings across all volumes. Canonical source of truth: [`manuscript/common_equations/eq_axiom_[1-4].tex`](../common_equations/). KB documents must use these labels; volume-specific re-instantiations may add a parenthetical domain alias but the canonical name is primary.
 
-- Axiom 1: **Substrate Topology** — vacuum is a 3D chiral Laves K4 Cosserat crystal $\mathcal{M}_A$, with micropolar nodes (6 DOFs each: 3 translational → E, 3 microrotational → B; Cosserat rotational DOF IS the substrate-native origin of intrinsic spin), $I4_1 32$ chiral space group, intrinsic LC oscillators at each node, modeled in continuum as a Trace-Reversed Chiral LC Network. Legacy aliases: *Chiral Laves K4 Crystal*, *LC Network*. Operational signatures: K4 graph, ABCD cascade, $\ell_{node}$, $Z_0 = \sqrt{\mu_0/\varepsilon_0}$.
-- Axiom 2: **Topo-Kinematic Isomorphism** — charge as discrete geometric dislocation in $\mathcal{M}_A$; $[Q] \equiv [L]$; $\xi_{topo} = e/\ell_{node}$. Operational signatures: TKI, $(2,q)$ torus knot, topological phase dislocation, chiral SRS.
+- Axiom 1: **Substrate Topology** — vacuum is a 3D chiral Laves K4 Cosserat crystal, with micropolar nodes (6 DOFs each: 3 translational → E, 3 microrotational → B; Cosserat rotational DOF IS the substrate-native origin of intrinsic spin), $I4_1 32$ chiral space group, intrinsic LC oscillators at each node, modeled in continuum as a Trace-Reversed Chiral LC Network. Legacy aliases: *Chiral Laves K4 Crystal*, *LC Network*. Operational signatures: K4 graph, ABCD cascade, $\ell_{node}$, $Z_0 = \sqrt{\mu_0/\varepsilon_0}$.
+- Axiom 2: **Topo-Kinematic Isomorphism** — charge as discrete geometric dislocation in the substrate; $[Q] \equiv [L]$; $\xi_{topo} = e/\ell_{node}$. Operational signatures: TKI, $(2,q)$ torus knot, topological phase dislocation, chiral SRS.
 - Axiom 3: **Minimum Reflection Principle** — substrate minimizes the boundary reflection $|\Gamma|^2$ at every internal impedance boundary (substrate-native, names the externally-observable quantity); equivalently extremizes hardware action $S_{AVE}$ with $\mathcal{L}_{node} = \tfrac{1}{2}\varepsilon_0|\partial_t\mathbf{A}_n|^2 - \tfrac{1}{2\mu_0}|\nabla\times\mathbf{A}_n|^2$. Legacy alias: *Effective Action Principle*. Operational signatures: minimum-$|\Gamma|^2$, least reflected action, lossless reactive cycling, $S_{11}$ minimization (EE-projection form).
 - Axiom 4: **Universal Saturation Kernel** — $S(A) = \sqrt{1 - (A/A_{yield})^2}$ — universal quarter-arc kernel governing all 26 cross-scale saturation events at zero free parameters (full catalog in Backmatter Ch. 7). Dielectric specialization (atomic / bench scale, $A = \Delta\phi/\alpha$): $C_{eff} = C_0/S$, $\varepsilon_{eff} = \varepsilon_0 S$, $\mu_{eff} = \mu_0 S$. **Sector split (Q1 = (B), Grant-ratified 2026-06-15; `research/2026-06-15_ceff-epsilon-monotonicity_result.md`):** the inverse monotonicity is **NOT a sign error** — $C_{eff}=C_0/S$ (↑) is the **longitudinal-A1 bond compliance** ($1/k_a$, the stretch-reactance that softens/diverges as the bond yields), a DISTINCT object from the **transverse-T2 permittivity** $\varepsilon_{eff}=\varepsilon_0 S$ (↓; the LCR-measured cell capacitance $C_{diel}=\varepsilon_{eff}A/d\propto S$ rolls off with it — the bench-netlist $C_0\!\cdot\!S$ form). They are **orthogonal reactances** (A1 ⊥ T2, `master-equation.md:20`) sharing the EE name "capacitance"; identifying them is the genesis-24 double-count. The $Z\to0$ (longitudinal tank $\sqrt{L/C_{comp}}$, confinement) vs $Z\to\infty$ (transverse wave $\sqrt{\mu/\varepsilon}$, rupture) readings are the two sectors' impedances — both $|\Gamma|=1$, differing only in boundary phase. Legacy alias: *Dielectric Saturation* (the atomic-scale specialization, mis-promoted to axiom-level name in earlier KB iterations). Operational signatures: saturation gate, V_snap, B_snap, Regime IV, yield boundary.
 

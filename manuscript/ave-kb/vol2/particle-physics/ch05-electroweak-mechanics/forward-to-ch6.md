@@ -37,7 +37,7 @@ The lattice action is constructed by summing over all plaquettes the deviation f
 > S_{lattice} = \sum_P \left(1 - \text{Re}\, U_P\right) = \sum_P \left(1 - \cos\Phi_P\right) \approx \sum_P \frac{1}{2}\Phi_P^2 \longrightarrow \int \frac{1}{4}F_{\mu\nu}F^{\mu\nu}\, d^4x
 > $$
 
-The continuum limit ($l_{node} \to 0$) recovers the Maxwell Lagrangian ($-\frac{1}{4}F_{\mu\nu}F^{\mu\nu}$). **U(1) Electromagnetism** is therefore the enforcement of unitary topological continuity across the discrete graph---the standard Wilson formulation of lattice gauge theory, here derived from the physical structure of the $\mathcal{M}_A$ hardware.
+The continuum limit ($l_{node} \to 0$) recovers the Maxwell Lagrangian ($-\frac{1}{4}F_{\mu\nu}F^{\mu\nu}$). **U(1) Electromagnetism** is therefore the enforcement of unitary topological continuity across the discrete graph---the standard Wilson formulation of lattice gauge theory, here derived from the physical structure of the substrate hardware.
 
 ### SU(3) Color Charge from the Borromean Linkage
 

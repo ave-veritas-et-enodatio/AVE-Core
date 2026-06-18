@@ -7,7 +7,7 @@ claims: [clm-yiyyi3]
 
 ## Section 3.1: The Dielectric Lagrangian: Hardware Mechanics
 
-Standard Quantum Field Theory (QFT) relies on a Lagrangian density ($\mathcal{L}$) describing fields as mathematical operators. In Applied Vacuum Engineering, the continuous quantum formalism is derived from the discrete finite-element signal dynamics of the $\mathcal{M}_A$ lattice.
+Standard Quantum Field Theory (QFT) relies on a Lagrangian density ($\mathcal{L}$) describing fields as mathematical operators. In Applied Vacuum Engineering, the continuous quantum formalism is derived from the discrete finite-element signal dynamics of the substrate lattice.
 
 The substitution of $\xi_{topo}$ converts the electromagnetic Lagrangian density into continuous mechanical stress ($\text{N/m}^2$), grounding Axiom 3 in bulk continuum mechanics. The total macroscopic energy density of the manifold is the sum of the energy stored in the capacitive edges (dielectric strain) and the inductive nodes (kinematic inertia). To construct a relativistically invariant action principle, the Lagrangian difference ($\mathcal{L} = \mathcal{T} - \mathcal{U}$) is evaluated.
 

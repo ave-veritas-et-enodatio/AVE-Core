@@ -1,3 +1,5 @@
+> **Notation (2026-06-18):** Substrate object symbol `$\mathcal{M}_A$` **retired** (Grant adjudication). Use prose: *substrate*, *chiral LC network*, *chiral Laves K4 Cosserat crystal*. Body below preserved per Rule-12.
+
 # AVE Field & Symbol Registry — All-Sectors Normative Nomenclature (research-doc DRAFT)
 
 > **Status: research-doc DRAFT — NOT canon. Auditor/Grant-gated.** This is a draft of a future

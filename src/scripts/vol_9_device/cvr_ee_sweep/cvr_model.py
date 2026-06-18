@@ -55,7 +55,7 @@ from ave.core.constants import (
 S_MIN: float = 0.05  # kernel clip floor — magnitudes below this are apparatus-capped
 A_CAP: float = 0.99  # amplitude cap A=|V|/V_yield <= A_CAP
 
-# --- Class-invariant substrate scale (shared by EVERY excitation on M_A) -----
+# --- Class-invariant substrate scale (shared by EVERY excitation on the substrate) -----
 # OMEGA_C is the bond LC natural frequency of the lattice itself — NOT an
 # electron-specific value. It is the class scale on which any SubstrateExcitation
 # rings; it stays a module constant.
@@ -292,7 +292,7 @@ class SubstrateExcitation:
     """Base of the substrate-excitation class-tree.
 
     Holds ONLY the class-invariant lattice scale (``omega_c``, the bond LC
-    natural frequency shared by every excitation on M_A) and the class-invariant
+    natural frequency shared by every excitation on the substrate) and the class-invariant
     Gamma_spinor wall. It fixes NO operating point and NO Q — those are INSTANCE
     fields a concrete subclass supplies.
 

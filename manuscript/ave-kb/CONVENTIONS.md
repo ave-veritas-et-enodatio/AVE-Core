@@ -289,7 +289,7 @@ Resultbox is the most common environment. Vol 5 uses only resultbox. Vol 8 uses 
 
 - Display math: `$$...$$`
 - Inline math: `$...$`
-- Do not carry LaTeX macros into KB output. Always expand to explicit notation (e.g., `$\mathcal{M}_A$` not `$\vacuum$`).
+- Do not carry LaTeX macros into KB output. Always expand to explicit notation (e.g., `the substrate` not `$\vacuum$`).
 - Preserve source notation within each volume — do not normalize across volumes. In particular, lattice node spacing uses `$\ell_{node}$` (script ell) in vols 1–5 and `$l_{node}$` (roman ell) in vols 6–7. Isolated roman-ell instances in vols 2 and 4 must be preserved as roman. See INVARIANT-N2 in `CLAUDE.md`.
 
 ---
@@ -355,7 +355,7 @@ See `CLAUDE.md` for full definitions. Quick reference:
 
 | Invariant | Rule |
 |---|---|
-| N1 | Vacuum medium is `$\mathcal{M}_A$` — never use `\vacuum` macro |
+| N1 | Vacuum medium is `the substrate` — never use `\vacuum` macro |
 | N2 | Lattice spacing: script `$\ell_{node}$` in vols 1–5, roman `$l_{node}$` in vols 6–7 |
 | N3 | Topological operators are named OpN (Op2, Op3, Op4, Op8, Op9, Op14) |
 | N4 | `$S_{11}$` means reflection coefficient in vol 4/vol 7; folding objective function in vol 5 |

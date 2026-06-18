@@ -88,7 +88,7 @@ The predicted $40\,\mu$N is well above the $1\,\mu$N detection floor of a standa
 
 A critical objection often raised against asymmetric capacitor thrust devices is that they operate as "reactionless drives," thereby violating Newton's Third Law.
 
-However, because the AVE framework identifies the vacuum itself as the physical reaction mass (the structural LC components of the $\mathcal{M}_A$ metric), the system conserves momentum. As the asymmetric gradient pumps a luminous acoustic wave forward, it simultaneously exerts an equal and opposite stress tensor against the supporting lattice.
+However, because the AVE framework identifies the vacuum itself as the physical reaction mass (the structural LC components of the substrate metric), the system conserves momentum. As the asymmetric gradient pumps a luminous acoustic wave forward, it simultaneously exerts an equal and opposite stress tensor against the supporting lattice.
 
 [Figure: ponder_01_dark_wake.png — see manuscript/vol_4_engineering/chapters/]
 

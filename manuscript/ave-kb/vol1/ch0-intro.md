@@ -14,7 +14,7 @@ claims: [clm-5xon03]
 
 The Standard Model of cosmology and particle physics provides extraordinary predictive power through high-precision mathematical abstractions, yet it requires the empirical calibration of over 26 independent free parameters. Applied Vacuum Engineering (AVE) builds on this foundation by exploring the macroscopic, deterministic physical medium that underlies these abstractions, framing the vacuum not as empty coordinate geometry, but as a physical, solid-state condensate.
 
-This work proposes the AVE framework as a **Macroscopic Effective Field Theory (EFT) of the Vacuum**. The framework models spacetime as an emergent **Discrete Amorphous Condensate ($\mathcal{M}_A$)**---a dynamic, mechanical phase of the vacuum governed by continuum elastodynamics, finite-difference topological constraints, and non-linear dielectric saturation.
+This work proposes the AVE framework as a **Macroscopic Effective Field Theory (EFT) of the Vacuum**. The framework models spacetime as an emergent **Discrete Chiral LC Network (the substrate)**---a dynamic, mechanical phase of the vacuum governed by continuum elastodynamics, finite-difference topological constraints, and non-linear dielectric saturation.
 
 In standard EFT methodologies, physical descriptions require a characteristic length scale (a cutoff) where the macroscopic effective degrees of freedom emerge from the underlying microphysics. The AVE framework anchors this topological coherence length to the kinematic scale of the fundamental ground-state fermion---the electron ($\ell_{node} \equiv \hbar / m_e c$).
 

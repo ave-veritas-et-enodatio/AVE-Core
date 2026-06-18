@@ -106,7 +106,7 @@ module Resistor:
 \subsection{Lattice Mapping Directives}
 Rather than treating a macroscopic resistor identically to classical SPICE elements, the compiler maps the \texttt{ato} syntax physically:
 \begin{enumerate}
-    \item \textbf{Interfaces ($\mathsf{Electrical}$):} An electrical pin natively translates to a localized boundary node (port) on the spatial $\mathcal{M}_A$ waveguide matrix. 
+    \item \textbf{Interfaces ($\mathsf{Electrical}$):} An electrical pin natively translates to a localized boundary node (port) on the spatial the substrate waveguide matrix. 
     \item \textbf{Modules ($\mathsf{Resistor},\mathsf{Capacitor}$):} Macroscopic components compile down to spatial arrays possessing a specific viscosity (resistance $R_{eff} \propto \eta$) or compliance (capacitance $C_{eff} \propto 1/K$).
     \item \textbf{Constraints ($\mathsf{assert}$ statements):} Parametric assertions (e.g., \texttt{assert voltage within 3V to 5V}) explicitly bind the acoustic vacuum elements to limit their non-linear Transmission ratio ($S_{11}$) inside Axiom 4's saturation curve. Exceeding these bounds flags a topological matrix tear (yield breakdown).
     \item \textbf{Bridging Operators ($\sim>$):} The \texttt{ato} directional connection logic behaves uniformly as cascaded $2\times 2$ Transfer Matrices (\texttt{ABCD\_section}).

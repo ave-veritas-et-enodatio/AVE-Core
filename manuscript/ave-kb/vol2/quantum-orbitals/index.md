@@ -10,7 +10,7 @@ subtree-experiments: []
 
 # Quantum Orbitals
 
-This domain derives atomic orbital structure — energy levels, angular momentum quantization, multi-electron coupling, and ionization energies — as acoustic standing-wave resonances of the $\mathcal{M}_A$ LC vacuum lattice. Every orbital property emerges from impedance matching conditions on discrete topological defects (electron unknots) trapped in nuclear Coulomb cavities, with zero free parameters.
+This domain derives atomic orbital structure — energy levels, angular momentum quantization, multi-electron coupling, and ionization energies — as acoustic standing-wave resonances of the substrate LC vacuum lattice. Every orbital property emerges from impedance matching conditions on discrete topological defects (electron unknots) trapped in nuclear Coulomb cavities, with zero free parameters.
 
 ## Key Results
 

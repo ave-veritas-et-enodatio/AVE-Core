@@ -11,7 +11,7 @@ claims: [clm-jpfbm6]
 
 Classical fluid thermodynamics relies on heavily empirical polynomial fits (e.g., the Kell or Malmberg formulations) to chart macroscopic properties like density or dielectric permittivity. Predictably, these phenomenological polynomials offer no structural explanation for fluid anomalies---such as water famously achieving maximum density at $4\,^{\circ}\text{C}$.
 
-Under AVE, macroscopic fluid anomalies are not mathematical quirks; they are strict mechanical **Impedance Coincidence events**. The framework replaces the empirical polynomials with a theoretical geometric two-state partition function based entirely on the $\mathcal{M}_A$ LC substrate.
+Under AVE, macroscopic fluid anomalies are not mathematical quirks; they are strict mechanical **Impedance Coincidence events**. The framework replaces the empirical polynomials with a theoretical geometric two-state partition function based entirely on the substrate LC substrate.
 
 Water topologically occupies two absolute LC structural extreme states:
 

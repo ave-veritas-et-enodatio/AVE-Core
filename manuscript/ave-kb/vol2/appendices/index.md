@@ -23,7 +23,7 @@ The appendices collect cross-domain reference material: the complete interdiscip
 | Protein backbone eigenfrequency | $f = 21.7$ THz from $\ell = 7$, $\nu_{vac} = 2/7$ (error: +0.1% vs IR spectroscopy) |
 | Quality factor | $Q = \ell$ from lattice phase transition at saturation boundary |
 | Spin-1/2 resolution | Extended $0_1$ unknot on $SO(3)$ manifold generates Finkelstein-Misner kink — $SU(2)$ spinor from $SO(3)$ substrate |
-| Holographic principle | Information bandwidth bounded by 2D cross-sectional porosity $\Phi_A \equiv \alpha^2$ via Nyquist-Shannon on $\mathcal{M}_A$ graph |
+| Holographic principle | Information bandwidth bounded by 2D cross-sectional porosity $\Phi_A \equiv \alpha^2$ via Nyquist-Shannon on substrate graph |
 | Peierls-Nabarro resolution | Dielectric saturation-plastic network creates frictionless zero-impedance phase slipstream via localised Shear Transformation Zone |
 | Zero-parameter closure (target) | All 25--26 SM parameters derive from ($l_{node}$, $p_c$, $G$), 🔴 *[recon 2026-06-15 §A.4]* ~~which themselves are geometric outcomes~~ **which remain retained calibration inputs — lifting them to geometric outcomes is the stated *target*, gated on open gaps (per `app-f-solver-toolchain/universal-constants-exchange.md` :21), not achieved** |
 

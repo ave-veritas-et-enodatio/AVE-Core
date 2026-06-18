@@ -24,7 +24,7 @@ AVE insight: vacuum is a **non-linear capacitor** (Duffing oscillator). Fixed-fr
 
 Standard toroid: $\mathbf{A} \perp \mathbf{B}$, zero kinetic helicity → polarization mismatch to chiral vacuum.
 
-**Hopf coil** (torus knot winding): forces $\mathbf{A} \parallel \mathbf{B}$ → injects kinetic helicity → meshes with $\mathcal{M}_A$ microrotations.
+**Hopf coil** (torus knot winding): forces $\mathbf{A} \parallel \mathbf{B}$ → injects kinetic helicity → meshes with the substrate microrotations.
 
 Acts as topological **power factor corrector**: matches chiral impedance of metric, maximizes geometric power transfer.
 

@@ -13,7 +13,7 @@ The Standard Model possesses empirical data that seemingly opposes an LC network
 
 **The Critique:** If 43.65 kV saturates the vacuum, why doesn't the Large Hadron Collider (LHC) permanently rupture the universe when it smashes protons together at $13.6\,\text{TeV}$?
 
-**The AVE Resolution:** Dielectrics do not polarize instantaneously; they possess a **Dielectric Relaxation Time** (Reactive Lag). The fundamental tick-rate of the $\mathcal{M}_A$ universe is $\tau_{tick} = l_{node} / c \approx 1.28 \times 10^{-21}$ seconds.
+**The AVE Resolution:** Dielectrics do not polarize instantaneously; they possess a **Dielectric Relaxation Time** (Reactive Lag). The fundamental tick-rate of the substrate universe is $\tau_{tick} = l_{node} / c \approx 1.28 \times 10^{-21}$ seconds.
 
 At the LHC, protons are severely Lorentz-contracted, crossing each other in approximately $\mathbf{10^{-28}}$ **seconds**. This physical interaction is *10 million times faster* than the vacuum's structural relaxation time.
 

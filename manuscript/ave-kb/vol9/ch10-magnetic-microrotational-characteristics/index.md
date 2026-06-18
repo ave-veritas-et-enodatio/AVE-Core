@@ -12,7 +12,7 @@ Chapter 10 of the Vol 9 datasheet documents the substrate's microrotational (B-s
 
 ## Substrate-native framing
 
-Per Axiom 1 (CLAUDE.md INVARIANT-S2 verbatim): the natural vacuum $\mathcal{M}_A$ is a 3D chiral Laves K4 Cosserat crystal with **micropolar nodes carrying 6 DOFs each: 3 translational → E, 3 microrotational → B; the Cosserat rotational DOF IS the substrate-native origin of intrinsic spin**.
+Per Axiom 1 (CLAUDE.md INVARIANT-S2 verbatim): the natural vacuum the substrate is a 3D chiral Laves K4 Cosserat crystal with **micropolar nodes carrying 6 DOFs each: 3 translational → E, 3 microrotational → B; the Cosserat rotational DOF IS the substrate-native origin of intrinsic spin**.
 
 The magnetic sector of the substrate is the rotational half of those 6 DOFs / node:
 
@@ -27,7 +27,7 @@ The magnetic sector of the substrate is the rotational half of those 6 DOFs / no
 - [`vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md`](../../vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md) line 39 — Cosserat characteristic length $l_c = \sqrt{\gamma_c / G_{vac}}$ identified with weak-force range $r_W$; $W^\pm / Z^0$ as evanescent cutoff modes (`clm-5zuo7g`, `clm-q8un7j`).
 - [`vol2/particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md`](../../vol2/particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md) — SU(2) / SO(3) double-cover spin-½ from Cosserat micro-rotation on extended closed defect (`clm-salw2h`).
 - [`common/translation-tables/translation-circuit.md`](../../common/translation-tables/translation-circuit.md) §4, `clm-eemap1` — EE-as-substrate-native META framework; magnetic / microrotational primitive → EE inductance / transformer / ferrite-Curie projection.
-- CLAUDE.md INVARIANT-S2 Axiom 1 verbatim — canonical $\mathcal{M}_A = $ 3D chiral Laves K4 Cosserat crystal; 6 DOFs / node with 3 microrotational → B; Cosserat rotational DOF IS substrate-native origin of intrinsic spin.
+- CLAUDE.md INVARIANT-S2 Axiom 1 verbatim — canonical $the substrate = $ 3D chiral Laves K4 Cosserat crystal; 6 DOFs / node with 3 microrotational → B; Cosserat rotational DOF IS substrate-native origin of intrinsic spin.
 
 ## Cross-references
 

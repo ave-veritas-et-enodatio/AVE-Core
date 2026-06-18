@@ -10,7 +10,7 @@ subtree-experiments: []
 
 > ↗ See also: [Nuclear Coupling Constant $K$](../../../vol6/framework/computational-mass-defect/mutual-coupling-constant.md) — proton $(2,5)$ knot crossings scale the nuclear $\alpha\hbar c$ coupling
 
-Matter is defined as localised, self-sustaining topological knots of confined electromagnetic waves in the $\mathcal{M}_A$ manifold. Every stable elementary particle corresponds to a discrete standing-wave topology, with physical properties derived from non-linear electrodynamics of the resonant structure. Mass emerges from distributed continuous inductance (Lenz's Law), and the fine-structure coupling constant runs via dynamic capacitive yielding.
+Matter is defined as localised, self-sustaining topological knots of confined electromagnetic waves in the substrate. Every stable elementary particle corresponds to a discrete standing-wave topology, with physical properties derived from non-linear electrodynamics of the resonant structure. Mass emerges from distributed continuous inductance (Lenz's Law), and the fine-structure coupling constant runs via dynamic capacitive yielding.
 
 ## Key Results
 

@@ -8,7 +8,7 @@ subtree-experiments: []
 
 # Ch.3: Quantum Formalism and Signal Dynamics
 
-The continuous quantum formalism is derived from discrete finite-element signal dynamics of the $\mathcal{M}_A$ lattice. The electromagnetic Lagrangian density maps to continuous mechanical stress. The Generalized Uncertainty Principle and the Schrodinger Equation follow from discrete signal bandwidth and LC circuit resonance. Wave-particle duality arises from zero-impedance boundary conditions, and quantum entanglement is modelled as a topologically protected phase-locked thread on the $K_4$ lattice.
+The continuous quantum formalism is derived from discrete finite-element signal dynamics of the substrate lattice. The electromagnetic Lagrangian density maps to continuous mechanical stress. The Generalized Uncertainty Principle and the Schrodinger Equation follow from discrete signal bandwidth and LC circuit resonance. Wave-particle duality arises from zero-impedance boundary conditions, and quantum entanglement is modelled as a topologically protected phase-locked thread on the $K_4$ lattice.
 
 ## Key Results
 

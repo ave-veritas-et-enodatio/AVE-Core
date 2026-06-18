@@ -2,7 +2,7 @@
 Axiom 2: The Topo-Kinematic Isomorphism
 ========================================
 Charge q is defined identically as a discrete geometric dislocation
-within the M_A electromagnetic network. Therefore, the fundamental
+within the substrate LC network. Therefore, the fundamental
 dimension of charge is strictly identical to length: [Q] ≡ [L].
 
 The macroscopic scaling is rigidly defined by the Topological Conversion

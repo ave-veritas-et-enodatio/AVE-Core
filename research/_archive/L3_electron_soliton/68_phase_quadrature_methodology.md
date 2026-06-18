@@ -1,3 +1,5 @@
+> **Notation (2026-06-18):** Substrate object symbol `$\mathcal{M}_A$` **retired** (Grant adjudication). Use prose: *substrate*, *chiral LC network*, *chiral Laves K4 Cosserat crystal*. Body below preserved per Rule-12.
+
 # 68 — F17-K: Phase-Quadrature S₁₁ Methodology for Single-Electron Validation
 
 **Status:** Round 6 methodology correction. Documents an Axiom-3 noncompliance in the F17-I → Path B → Op6 line of session 2026-04-25, grounds the AVE-native phase-quadrature framing in primary corpus, and lays out the corrected methodology for single-electron eigenmode validation.

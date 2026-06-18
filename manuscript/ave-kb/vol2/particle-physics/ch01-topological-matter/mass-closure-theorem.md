@@ -13,7 +13,7 @@ claims: [clm-ka5zdx]
 
 > **[Resultbox]** *Mass-Closure Theorem*
 >
-> A massive particle is a closed knotted flux tube hosted on $\mathcal{M}_A$. Its rest energy equals the reactive energy stored in the closed tube's internal LC oscillation:
+> A massive particle is a closed knotted flux tube hosted on the substrate. Its rest energy equals the reactive energy stored in the closed tube's internal LC oscillation:
 > $$
 > mc^2 = E_{\text{reactive}}
 > $$
@@ -21,7 +21,7 @@ claims: [clm-ka5zdx]
 
 ### Derivation chain (Axioms 1 + 2 + 4)
 
-**Step 1 — open regime (massless).** A transverse EM wave propagating through unsaturated $\mathcal{M}_A$ satisfies $A \ll 1$ at every node. The saturation kernel $S(A) = \sqrt{1 - A^2} \approx 1$ (Axiom 4), so the local impedance is $Z_{\text{photon}} = Z_0$ and the local reflection coefficient $\Gamma_{\text{local}} \approx 0$. The wave transmits cleanly:
+**Step 1 — open regime (massless).** A transverse EM wave propagating through unsaturated the substrate satisfies $A \ll 1$ at every node. The saturation kernel $S(A) = \sqrt{1 - A^2} \approx 1$ (Axiom 4), so the local impedance is $Z_{\text{photon}} = Z_0$ and the local reflection coefficient $\Gamma_{\text{local}} \approx 0$. The wave transmits cleanly:
 $$
 E_{\gamma} = \hbar\omega
 $$

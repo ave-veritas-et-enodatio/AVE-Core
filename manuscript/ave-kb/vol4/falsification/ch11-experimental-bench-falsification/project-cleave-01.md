@@ -29,7 +29,7 @@ A commercial Piezoelectric (PZT) linear actuator is mounted to a grounded plate 
 
 ### The Falsification Metric
 
-By mechanically pulling the spatial gap apart by $1\,\mu\text{m}$, you are actively driving the fundamental capacitance of the discrete $\mathcal{M}_A$ LC network. The induced topological charge is analytically derived as:
+By mechanically pulling the spatial gap apart by $1\,\mu\text{m}$, you are actively driving the fundamental capacitance of the discrete substrate LC network. The induced topological charge is analytically derived as:
 
 $$
 Q = \xi_{topo} \cdot x = (4.149 \times 10^{-7}\,\text{C/m}) \times 10^{-6}\,\text{m} = \mathbf{0.415\,\text{pC (picoCoulombs)}}

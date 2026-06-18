@@ -1,3 +1,5 @@
+> **Notation (2026-06-18):** Substrate object symbol `$\mathcal{M}_A$` **retired** (Grant adjudication). Use prose: *substrate*, *chiral LC network*, *chiral Laves K4 Cosserat crystal*. Body below preserved per Rule-12.
+
 # Engine Pending Changes
 
 Mirrors `src/ave/` and includes `manuscript/predictions.yaml` (the structured prediction manifest is engine-side data). Each pending change for a module sits under its file heading; if multiple research docs converge on the same file or symbol, their entries cluster together. Empty headings are placeholders — the file IS the index of the engine.

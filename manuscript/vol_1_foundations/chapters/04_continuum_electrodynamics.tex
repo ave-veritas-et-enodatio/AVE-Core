@@ -11,14 +11,14 @@
 \end{itemize}
 \end{objectivebox}
 
-If the discrete spatial vacuum is a physical LC network ($\mathcal{M}_A$) supporting momentum limits and finite wave propagation, its macroscopic low-energy effective field theory (EFT) mathematically maps to continuous network dynamics. 
+If the discrete spatial vacuum is a physical LC network (the substrate) supporting momentum limits and finite wave propagation, its macroscopic low-energy effective field theory (EFT) mathematically maps to continuous network dynamics. 
 
 \subsection*{Cosserat Continuum Mechanics: A Primer for EE Readers}
 \label{sec:cosserat_primer}
 
 The AVE lattice is a \textbf{Cosserat continuum}---a generalization of classical (Cauchy) elasticity in which each material point carries not only translational degrees of freedom but also independent rotational degrees of freedom. In standard Cauchy elasticity, stress is symmetric ($\sigma_{ij} = \sigma_{ji}$) and only six independent strain components exist. In a Cosserat medium, each node can spin independently of its neighbours, producing asymmetric stress tensors and local torque balance equations.
 
-For the $\mathcal{M}_A$ lattice, this distinction is physically critical:
+For the substrate lattice, this distinction is physically critical:
 \begin{itemize}
     \item Each LC node stores energy in \emph{both} translational (capacitive, $\epsilon_0$) and rotational (inductive, $\mu_0$) modes. This is precisely the Cosserat structure: translation $\leftrightarrow$ electric field, rotation $\leftrightarrow$ magnetic field.
     \item The Poisson ratio $\nu = 2/7$ (Axiom~2) relates translational and rotational compliance. In a Cauchy solid, $\nu$ is bounded to $[-1, 1/2]$ in 3D. The Cosserat extension permits additional internal length scales---here, $\ell_\text{node}$---that couple the rotational and translational sectors.
@@ -53,7 +53,7 @@ In standard physics, the vacuum parameters ($\epsilon_0, \mu_0$) are strictly li
 \end{equation}
 \end{resultbox}
 
-However, because the $\mathcal{M}_A$ lattice undergoes measurable, non-linear dielectric yielding as it approaches the $43.65\text{ kV}$ topological saturation bound, the constitutive permittivity physically collapses under the universal saturation kernel $S$. Axiom 4 (squared limit, $n=2$) defines:
+However, because the substrate lattice undergoes measurable, non-linear dielectric yielding as it approaches the $43.65\text{ kV}$ topological saturation bound, the constitutive permittivity physically collapses under the universal saturation kernel $S$. Axiom 4 (squared limit, $n=2$) defines:
 \begin{resultbox}{Non-Linear Permittivity Collapse}
 \begin{equation}
 \varepsilon_{eff}(V) = \varepsilon_0 \cdot \sqrt{1 - \left(\frac{V}{V_{yield}}\right)^2}
@@ -160,7 +160,7 @@ Dividing by the Voronoi geometric volume of a single spatial node ($V_{node} = p
     G_{vac} = \rho_{bulk} \cdot c^2 \approx 7.11 \times 10^{23} \text{ Pa}
 \end{equation}
 \end{resultbox}
-This is the macroscopic 3D shear modulus of the $\mathcal{M}_A$ condensate---the elastic
+This is the macroscopic 3D shear modulus of the substrate---the elastic
 resistance to transverse spatial deformation. It must not be confused with the
 1D \textbf{string tension modulus} $G_{string} = T_{EM}/\ell_{node} = m_e c^2 / \ell_{node}^2
 \approx 5.49 \times 10^{11}$~N/m, which governs individual edge stiffness (line tension per unit length, distinct from the volumetric shear modulus $G_{vac}$ in Pa above). The Cauchy bulk modulus is fixed at
@@ -220,7 +220,7 @@ III: Dielectric Rupture & $\geq 1$ & Undefined ($\eta \to 0$) & BH horizons, L-H
 
 \section{The Macroscopic Yield Limit: The Magnetic Saturation Transition}
 
-To resolve the "Mutual Inductance Paradox" (why planets do not lose orbital energy to inductive drag), it is recognized that the $\mathcal{M}_A$ LC network naturally possesses an absolute \textbf{Magnetic Saturation Limit}. Microscopically, this is a \textit{per-node energy density} threshold: each discrete lattice node can store a maximum energy in its local LC mode before overcoupling with adjacent nodes. The macroscopic Dielectric Yield Limit ($\tau_{yield}$) is the continuum expression of this microscopic saturation. It is strictly derived from: the baseline bulk energy density ($\rho_{bulk} c^2$), the mutual inductance coupling at the $6^3_2$ Borromean flux-tube crossings ($M/L = 1/\sqrt{2}$, establishing the per-node saturation threshold $\rho_{threshold} = 1 + \sigma/4 \approx 1.106$), and the dual-reactance count ($\mathcal{V}_{total} = 2.0$ --- the node's two reactance sectors $X_C + X_L$, Axiom~1; counted, not integrated; canonical at \texttt{common/dual-reactance-storage-taxonomy.md}).
+To resolve the "Mutual Inductance Paradox" (why planets do not lose orbital energy to inductive drag), it is recognized that the substrate LC network naturally possesses an absolute \textbf{Magnetic Saturation Limit}. Microscopically, this is a \textit{per-node energy density} threshold: each discrete lattice node can store a maximum energy in its local LC mode before overcoupling with adjacent nodes. The macroscopic Dielectric Yield Limit ($\tau_{yield}$) is the continuum expression of this microscopic saturation. It is strictly derived from: the baseline bulk energy density ($\rho_{bulk} c^2$), the mutual inductance coupling at the $6^3_2$ Borromean flux-tube crossings ($M/L = 1/\sqrt{2}$, establishing the per-node saturation threshold $\rho_{threshold} = 1 + \sigma/4 \approx 1.106$), and the dual-reactance count ($\mathcal{V}_{total} = 2.0$ --- the node's two reactance sectors $X_C + X_L$, Axiom~1; counted, not integrated; canonical at \texttt{common/dual-reactance-storage-taxonomy.md}).
 
 By evaluating the scalar volume summation of these topological knot crossings ($\Sigma \mathcal{V}_{crossing}$) and modulating by the geometric lattice porosity ($\alpha = p_c/8\pi$), the parameter-free macroscopic yield stress limit is:
 \begin{resultbox}{Macroscopic Yield Stress Limit}
@@ -258,7 +258,7 @@ The AVE framework predicts that macroscopic orbital systems will be bounded by w
 \end{figure}
 
 \subsection{Tabletop Falsification: High-Voltage Active Sagnac Interferometry}
-The AVE framework predicts that the $\mathcal{M}_A$ vacuum is a non-linear dielectric network possessing intrinsic reluctant drag. This yields an accessible tabletop falsification test: The \textbf{Sagnac Rotational Lattice Mutual Inductance Experiment}.
+The AVE framework predicts that the vacuum substrate is a non-linear dielectric network possessing intrinsic reluctant drag. This yields an accessible tabletop falsification test: The \textbf{Sagnac Rotational Lattice Mutual Inductance Experiment}.
 
 Because mass is an inductive coupling to the lattice, a massive macroscopic rotor spinning at high angular velocities ($v \gg 0$) will induce a localised rotational drag in the surrounding dielectric network. By passing a fibre-optic Sagnac interferometer beam around the perimeter of a high-density, rapidly spinning metallic mass, the local refractive index of the vacuum will experience microscopic kinematic entrainment.
 
@@ -366,7 +366,7 @@ Because macroscopic gravitational lensing is produced by the Gordon Optical Metr
 \subsection{Resolving the DAMA/LIBRA vs XENONnT Paradox}
 For over 20 years, the DAMA/LIBRA experiment in Italy has detected a persistent annual sinusoidal modulation in their Dark Matter detectors, peaking in June. However, large-scale liquid detectors (XENONnT, LUX) have found no evidence of this signal, reaching the ``Neutrino Floor'' sensitivity limit. Standard interpretations classify the DAMA result as a systematic artefact.
 
-\textbf{AVE Means Test:} Consider at the physical hardware. DAMA uses \textbf{Sodium Iodide (NaI)}, a solid, rigid crystal lattice. XENON uses \textbf{Liquid Xenon}, a noble network. In June, the Earth's orbital velocity aligns with the Sun's galactic velocity, maximizing the speed through the $\mathcal{M}_A$ substrate. 
+\textbf{AVE Means Test:} Consider at the physical hardware. DAMA uses \textbf{Sodium Iodide (NaI)}, a solid, rigid crystal lattice. XENON uses \textbf{Liquid Xenon}, a noble network. In June, the Earth's orbital velocity aligns with the Sun's galactic velocity, maximizing the speed through the substrate. 
 
 Because the vacuum is a \textbf{Chiral LC Network}, it transmits momentum drag via \textit{Transverse Phase-Flux}. A rigid crystal lattice (NaI) can structurally couple to and detect transverse LC grid phonons. A mobile liquid (Xenon) mathematically \textbf{cannot sustain long-range transverse shear polarization}. 
 
@@ -377,7 +377,7 @@ Because the vacuum is a \textbf{Chiral LC Network}, it transmits momentum drag v
     \item The Unifying AVE Master Equation replaces linear $\varepsilon_0$ with non-linear $\varepsilon_{eff}(V)$, naturally producing classical EM, particle assembly from $\Gamma \to -1$ reflections, and macroscopic gravity from refractive gradients.
     \item Dark Matter is identified not as a particle, but as the unbroken kinematic mutual inductance ($\eta_{eff}$) of the spatial network dragging on outer galactic stars.
     \item The empirical MOND boundary ($a_0$) is derived structurally via the 1D Hoop Stress projection of the 3D expanding horizon ($c H_\infty / 2\pi$), removing the need for modified Newtonian regimes.
-    \item Collisionless Dark Matter proofs (like the Bullet Cluster) are formally re-interpreted as decoupled transverse tensor shockwaves traversing the $\mathcal{M}_A$ substrate.
+    \item Collisionless Dark Matter proofs (like the Bullet Cluster) are formally re-interpreted as decoupled transverse tensor shockwaves traversing the substrate.
 \end{itemize}
 
 \begin{summarybox}

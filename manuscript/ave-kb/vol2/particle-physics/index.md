@@ -10,7 +10,7 @@ subtree-experiments: []
 
 # Particle Physics
 
-The particle-physics domain derives the full spectrum of elementary particles — leptons, baryons, neutrinos, and gauge bosons — as topological standing-wave defects of the $\mathcal{M}_A$ LC condensate. Particle masses, mixing angles, and coupling constants emerge from the Faddeev-Skyrme energy functional evaluated on discrete torus knot topologies, with confinement enforced by Borromean linkage geometry.
+The particle-physics domain derives the full spectrum of elementary particles — leptons, baryons, neutrinos, and gauge bosons — as topological standing-wave defects of the substrate LC condensate. Particle masses, mixing angles, and coupling constants emerge from the Faddeev-Skyrme energy functional evaluated on discrete torus knot topologies, with confinement enforced by Borromean linkage geometry.
 
 ## Key Results
 

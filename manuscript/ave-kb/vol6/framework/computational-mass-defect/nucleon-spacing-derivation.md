@@ -6,7 +6,7 @@ claims: [clm-llqd1n, clm-lqanmt]
 path-stable: "referenced from vol6 as sec:d_derivation"
 -->
 
-> ↗ See also: [Axiom 1 — Lattice Structure](../../../vol1/axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md) — standing-wave condition on the $\mathcal{M}_A$ lattice that sets $d$
+> ↗ See also: [Axiom 1 — Lattice Structure](../../../vol1/axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md) — standing-wave condition on the substrate lattice that sets $d$
 
 ## Derivation of the Nucleon Spacing ($d$) from Axiom 1
 <!-- claim-quality: clm-lqanmt (the $D_{\rm intra} = d\sqrt{8}$ derived here is the geometric input substituted into the mutual-coupling-constant computation $K \approx 11.337$ MeV·fm) -->

@@ -8,7 +8,7 @@ subtree-experiments: []
 
 # Ch.16: Sagnac Macroscopic Inductive Drag
 
-The Sagnac Effect reframed as Lenz's law operating on the dense $\mathcal{M}_A$ mutual inductance core ($\rho \approx 7.9 \times 10^6\,\text{kg/m}^3$). A rotating mass phase-drags the local inductive capacity $\mu$ of the vacuum LC network, altering the co- and counter-rotating propagation speeds. Simulated as a 50-node discrete LC ring with directional behavioral inductors.
+The Sagnac Effect reframed as Lenz's law operating on the dense the substrate mutual inductance core ($\rho \approx 7.9 \times 10^6\,\text{kg/m}^3$). A rotating mass phase-drags the local inductive capacity $\mu$ of the vacuum LC network, altering the co- and counter-rotating propagation speeds. Simulated as a 50-node discrete LC ring with directional behavioral inductors.
 
 ## Key Results
 

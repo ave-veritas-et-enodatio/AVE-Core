@@ -10,7 +10,7 @@ subtree-experiments: []
 
 # Condensed Matter
 
-Superconductivity, macroscopic material properties, and thermodynamics derived from the impedance structure of the $\mathcal{M}_A$ LC lattice. Superconductivity emerges as Kuramoto phase-locking of topological inductors; material hardness, magnetism, and bonding character derive from the nuclear Hessian eigenspectrum; and the full thermodynamic framework (entropy, FDT, heat capacity, phase transitions) reduces to electromagnetic noise and impedance matching on the lattice.
+Superconductivity, macroscopic material properties, and thermodynamics derived from the impedance structure of the substrate LC lattice. Superconductivity emerges as Kuramoto phase-locking of topological inductors; material hardness, magnetism, and bonding character derive from the nuclear Hessian eigenspectrum; and the full thermodynamic framework (entropy, FDT, heat capacity, phase transitions) reduces to electromagnetic noise and impedance matching on the lattice.
 
 ## Key Results
 

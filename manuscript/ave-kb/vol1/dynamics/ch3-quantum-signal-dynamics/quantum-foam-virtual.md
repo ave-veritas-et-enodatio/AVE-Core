@@ -14,7 +14,7 @@ The AVE framework addresses this discrepancy by replacing virtual particle const
 ### Quantum Foam as Baseline RMS Thermal Noise
 
 <!-- claim-quality: clm-t1okz0 -->
-Because the physical vacuum $\mathcal{M}_A$ is a literal LC Resonant Network, it is subject to the absolute laws of electrical engineering. In any physical inductor-capacitor (LC) network operating above absolute zero, there exists an irreducible, baseline RMS thermal noise floor.
+Because the physical vacuum the substrate is a literal LC Resonant Network, it is subject to the absolute laws of electrical engineering. In any physical inductor-capacitor (LC) network operating above absolute zero, there exists an irreducible, baseline RMS thermal noise floor.
 
 What standard physics identifies as "Quantum Foam"---the underlying geometric turbulence of empty space---is explicitly defined in the AVE framework as the continuous, irreducible electromagnetic AC transients (voltage and current ripples) propagating randomly across the discrete topological grid. It is not geometry itself boiling; it is the chaotic, baseline electrical noise floor of the universe's hardware substrate. This provides a deterministic, continuous mechanical origin for Zero-Point Energy (ZPE) bounded strictly by the finite geometry of the local spatial node.
 

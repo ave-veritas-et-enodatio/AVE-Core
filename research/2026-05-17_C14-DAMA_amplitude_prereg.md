@@ -1,3 +1,5 @@
+> **Notation (2026-06-18):** Substrate object symbol `$\mathcal{M}_A$` **retired** (Grant adjudication). Use prose: *substrate*, *chiral LC network*, *chiral Laves K4 Cosserat crystal*. Body below preserved per Rule-12.
+
 # C14-DAMA Amplitude Derivation — Pre-Registration
 
 **Status:** PREREG with WORKING HYPOTHESIS (updated 2026-05-17 evening). Refresh-rate framing per Grant physical-intuition session adjudicates the prior Q1 + Q2 foundational choices into a single substrate-native picture.

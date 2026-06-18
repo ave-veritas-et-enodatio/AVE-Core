@@ -14,8 +14,8 @@ The AVE corpus carries **two physically distinct cosmological direction concepts
 
 | Result | Statement |
 |---|---|
-| **K4 lattice rest frame** | $\mathcal{M}_A$ has a preferred rest frame identified empirically with the CMB rest frame per AVE-QED Q-G24 ([`preferred-frame-and-emergent-lorentz.md:29`](../vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md)). |
-| **Sun's velocity through $\mathcal{M}_A$ rest frame** | $\sim 370$ km/s toward CMB dipole direction $(l \approx 264°, b \approx 48°)$ — this is the Sun's local kinematic state, NOT a fundamental cosmological axis ([`flyby-anomaly-sagnac-operator.md:34`](../vol3/cosmology/ch14-orbital-mechanics/flyby-anomaly-sagnac-operator.md)). |
+| **K4 lattice rest frame** | the substrate has a preferred rest frame identified empirically with the CMB rest frame per AVE-QED Q-G24 ([`preferred-frame-and-emergent-lorentz.md:29`](../vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md)). |
+| **Sun's velocity through the substrate rest frame** | $\sim 370$ km/s toward CMB dipole direction $(l \approx 264°, b \approx 48°)$ — this is the Sun's local kinematic state, NOT a fundamental cosmological axis ([`flyby-anomaly-sagnac-operator.md:34`](../vol3/cosmology/ch14-orbital-mechanics/flyby-anomaly-sagnac-operator.md)). |
 | **Substrate equilibrium velocity floor** | $v_{\text{substrate}} = \alpha c / (2\pi) \approx 348.18$ km/s for LSR-class kinematics (Sun + thin-disk stars). Different scoping from the 370 km/s lattice rest-frame velocity ([`mond-hoop-stress.md:43-56`](../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md)). |
 | **$\hat{\Omega}_{\text{freeze}}$ (cosmic chirality direction)** | Parent-BH spin axis preserved through K4 crystallization at lattice genesis ([`omega-freeze-cosmic-grain-cascade.md:34-40`](omega-freeze-cosmic-grain-cascade.md), [`trampoline-framework.md:91-119`](trampoline-framework.md)). |
 | **Empirical pin** | $(l = 60.28°, b = 50.48°)$ from Planck PR3 SMICA 2026-05-19 ([`2026-05-19_c5-cmb-axis-executable-observer-result.md:17`](../../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md)). |
@@ -26,7 +26,7 @@ The AVE corpus carries **two physically distinct cosmological direction concepts
 
 ### K4 lattice rest frame
 
-The chiral Laves K4 Cosserat substrate $\mathcal{M}_A$ (Ax 1) has a preferred rest frame. This frame is identified empirically with the CMB rest frame to high precision per AVE-QED Q-G24.
+The chiral Laves K4 Cosserat substrate the substrate (Ax 1) has a preferred rest frame. This frame is identified empirically with the CMB rest frame to high precision per AVE-QED Q-G24.
 
 Per [`preferred-frame-and-emergent-lorentz.md:29`](../vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md):
 
@@ -34,7 +34,7 @@ Per [`preferred-frame-and-emergent-lorentz.md:29`](../vol1/dynamics/ch4-continuu
 
 Strict Lorentz invariance at observable wavelengths is EMERGENT from the K4 cubic symmetry $(Fd\bar{3}m)$ — anisotropic corrections are suppressed by $(q\ell_{node})^4 \approx 10^{-22}$ at optical scales, two to three orders of magnitude below current cavity bounds. The rest frame exists; the cubic symmetry hides it at observable scales.
 
-### Sun's velocity vector through $\mathcal{M}_A$ rest frame
+### Sun's velocity vector through the substrate rest frame
 
 The Sun moves at $\sim 370$ km/s through the K4 lattice rest frame toward the CMB dipole direction $(l \approx 264°, b \approx 48°)$. This is the Sun's local kinematic state — its instantaneous velocity vector through the lattice — and is NOT a fundamental cosmological axis. The CMB dipole anisotropy IS the detection of this velocity.
 

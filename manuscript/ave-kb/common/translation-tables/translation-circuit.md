@@ -430,7 +430,7 @@ The user-level skill `~/.claude/skills/ave-ee-first-mapping/SKILL.md` v1.0 is th
 
 ### §9.1 — Framing: the natural substrate, the engineering datasheet, the AVE derivation
 
-The AVE vacuum is a **natural** substrate: it is the universe's vacuum, a chiral Laves K4 Cosserat crystal $\mathcal{M}_A$ per Axiom 1, not an artifact built by anyone. Its native parameters ($\varepsilon_0$, $\mu_0$, $Z_0$, $c_0$, $\ell_{node}$, $\alpha$, $G$) are not adjustable controls — they are the substrate as it is. Engineering practice does NOT design the substrate; engineering practice **observes, measures, and characterizes** the substrate's behavior under operating conditions and codifies the observed behavior as datasheet specifications, design rules, and empirical fits.
+The AVE vacuum is a **natural** substrate: it is the universe's vacuum, a chiral Laves K4 Cosserat crystal per Axiom 1, not an artifact built by anyone. Its native parameters ($\varepsilon_0$, $\mu_0$, $Z_0$, $c_0$, $\ell_{node}$, $\alpha$, $G$) are not adjustable controls — they are the substrate as it is. Engineering practice does NOT design the substrate; engineering practice **observes, measures, and characterizes** the substrate's behavior under operating conditions and codifies the observed behavior as datasheet specifications, design rules, and empirical fits.
 
 This places the engineering datasheet for an EE component on the same epistemic footing as a materials datasheet for elemental copper: copper (Cu) is a natural element; the datasheet is the empirical engineering characterization of how Cu behaves as a function of $T$, $f$, processing history, geometry, etc. Engineering measures; AVE derives from substrate primitives.
 
@@ -598,7 +598,7 @@ Cross-link: the new δ_strain canonical leaf [`delta-strain-cosmic-tcc.md`](../.
 
 This section consolidates four chat-only reframes (PR #120 sec14) into the EE-as-substrate-native META framework. **Each is CONSISTENCY-CLASS — a re-framing / lens onto already-canonical substrate physics, NOT a new derivation.** They add no new substrate primitive beyond canonical axioms; per `consistency-vs-emergence` v1.3 Step 8c the classification stays at the META framework's **Class B** ceiling and is NOT promoted to Class 2. Provenance + classification ledger: [`research/2026-06-07_session-reframes-ee-fluids-mapping.md`](../../../../research/2026-06-07_session-reframes-ee-fluids-mapping.md).
 
-### §10.1 — The "fundamental constants" are transmission-line properties of $\mathcal{M}_A$ (Class A identities + Class B Lorentz-emergence)
+### §10.1 — The "fundamental constants" are transmission-line properties of the substrate (Class A identities + Class B Lorentz-emergence)
 
 The vacuum IS a K4-TLM transmission-line network (Ax 1). Its "fundamental constants" are the EE properties of that line — none is primitive-fundamental; each is an LC-network property:
 

@@ -57,7 +57,7 @@ XI_TOPO: float = e_charge / L_NODE  # ≈ 4.149e-7 C/m
 
 ### Per `ave-kb/CLAUDE.md` INVARIANT-S2 Axiom 2:
 
-> **Axiom 2 — Topo-Kinematic Isomorphism:** charge as discrete geometric dislocation in $\mathcal{M}_A$; **[Q] ≡ [L]**; **$\xi_{topo} = e/\ell_{node}$**. Operational signatures: TKI, (2,q) torus knot, topological phase dislocation, chiral SRS.
+> **Axiom 2 — Topo-Kinematic Isomorphism:** charge as discrete geometric dislocation in the substrate; **[Q] ≡ [L]**; **$\xi_{topo} = e/\ell_{node}$**. Operational signatures: TKI, (2,q) torus knot, topological phase dislocation, chiral SRS.
 
 ### Drift verification
 

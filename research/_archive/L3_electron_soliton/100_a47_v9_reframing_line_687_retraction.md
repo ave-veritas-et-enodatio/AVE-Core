@@ -1,3 +1,5 @@
+> **Notation (2026-06-18):** Substrate object symbol `$\mathcal{M}_A$` **retired** (Grant adjudication). Use prose: *substrate*, *chiral LC network*, *chiral Laves K4 Cosserat crystal*. Body below preserved per Rule-12.
+
 # L3 Doc 100 — A47 v9 Reframing + Line-687 Retraction (Methodology Artifact)
 
 **Status:** Retraction artifact + methodology lesson. Per Rule 12 (retraction-preserves-body), this doc carries the corrective findings; the originating handoff body is preserved in place with footnote markers pointing here.

@@ -8,7 +8,7 @@ subtree-experiments: []
 
 # Ch.3 Pin/Port Configuration
 
-Chapter 3 of the Vol 9 datasheet documents the substrate's external-interface specification — how $\mathcal{M}_A$ presents at its internal impedance discontinuities. Every interior boundary between two regions of distinct local $Z$ is a substrate "port" with reflection coefficient $\Gamma = (Z_2 - Z_1)/(Z_2 + Z_1)$ (Op3). Axiom 3 (Minimum Reflection Principle) is the substrate-native action principle: $\mathcal{M}_A$ minimizes $|\Gamma|^2$ at every internal impedance boundary. Engineering observables — $S_{11}$, return loss, VSWR, peak-power-transfer matching — are the EE-projection of the same minimization (per `clm-eemap1` EE-as-substrate-native META framework). The substrate is natural; engineering characterizes; AVE substrate-physics derives.
+Chapter 3 of the Vol 9 datasheet documents the substrate's external-interface specification — how the substrate presents at its internal impedance discontinuities. Every interior boundary between two regions of distinct local $Z$ is a substrate "port" with reflection coefficient $\Gamma = (Z_2 - Z_1)/(Z_2 + Z_1)$ (Op3). Axiom 3 (Minimum Reflection Principle) is the substrate-native action principle: the substrate minimizes $|\Gamma|^2$ at every internal impedance boundary. Engineering observables — $S_{11}$, return loss, VSWR, peak-power-transfer matching — are the EE-projection of the same minimization (per `clm-eemap1` EE-as-substrate-native META framework). The substrate is natural; engineering characterizes; AVE substrate-physics derives.
 
 The chapter content is **Class B/C synthesis** per `consistency-vs-emergence` v1.3 — no new substrate-physics primitives are introduced; the content consolidates the canonical Op3 / Op17 / Op21 leaves + CLAUDE.md INVARIANT-S2 Axiom 3 + the SYM-class vs ASYM-class scaling distinction (`clm-8nkvwy` / `clm-3zz0f6` / `clm-hp7nlm`) into datasheet Pin/Port-Configuration format.
 
@@ -27,7 +27,7 @@ The chapter content is **Class B/C synthesis** per `consistency-vs-emergence` v1
 
 | Source | Content |
 |---|---|
-| CLAUDE.md INVARIANT-S2 (Axiom 3) | Minimum Reflection Principle: substrate-native action; $\mathcal{M}_A$ minimizes $|\Gamma|^2$ at every internal boundary |
+| CLAUDE.md INVARIANT-S2 (Axiom 3) | Minimum Reflection Principle: substrate-native action; the substrate minimizes $|\Gamma|^2$ at every internal boundary |
 | `common/operators.md` (`clm-sysqaf` / `clm-gdd70j`) | Universal 22-operator catalogue; Op3 reflection-coefficient row; Op17 power-transmission row; Op21 quality-factor row |
 | `vol1/operators-and-regimes/ch6-universal-operators/reflection-coefficient.md` (`clm-gdd70j`) | Op3 canonical-leaf; $\Gamma$ scale-invariance across 14 orders of magnitude |
 | `vol4/circuit-theory/ch1-vacuum-circuit-analysis/op21-multi-mode-mode-counting.md` (no-claim leaf; strengthens `clm-0ktpcn`, `clm-rtdmsn`) | Op21 substrate-foundational form $Q = \ell$ at $\Gamma = -1$; single-channel vs substrate-orthogonal-channel mode multiplicity |

@@ -607,7 +607,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 - Spinning a non-metallic dense ceramic disk at 10k RPM creates $v_{vac} \approx 0.038$ m/s at $r=5$ cm; an interdigitated capacitor driven at 10 kV / 1 kHz overhead synthesizes a $B \approx 4.2$ pT alternating field via $\mathbf{B} = (1/c^2)\,\mathbf{v} \times \mathbf{E}$ acting on the induced vacuum drift.
 - _Specific Claims_
-  - Roentgen's 1888 moving-dielectric induction extended to the bulk vacuum metric: spinning a neutral mass macroscopically phase-shifts $\mathcal{M}_A$ via mutual inductance, allowing a B-field to be synthesized from the vacuum's own induced drift rather than from any embedded current.
+  - Roentgen's 1888 moving-dielectric induction extended to the bulk vacuum metric: spinning a neutral mass macroscopically phase-shifts the substrate via mutual inductance, allowing a B-field to be synthesized from the vacuum's own induced drift rather than from any embedded current.
   - The 4.2 pT prediction induces $\sim 0.26\,\mu$V in a differential planar pickup coil. Standard hardware Lock-In amplifier extracts the signal from noise floor.
   - Falsification: amplitude must scale strictly linearly with RPM and flip phase $180°$ on motor reversal. Substrate signature: failure of either scaling falsifies the inductive density $\rho_{bulk} \approx 7.9 \times 10^6$ kg/m$^3$ at this scale.
 - _Specific Non-Claims and Caveats_
@@ -922,11 +922,11 @@ The framework-level epistemological claim binding the kill-switch leaves: AVE is
 ## Helicity Injection: Polarization Matching to the Chiral LC Condensate
 <!-- id: clm-i02mhk -->
 
-To couple maximally to the chiral $\mathcal{M}_A$ vacuum, an EM emitter must carry non-zero kinetic helicity $\int \mathbf{A} \cdot \mathbf{B}\,dV \neq 0$ — equivalent to wiring the emitter as a $(p,q)$ Hopf / torus knot rather than a flat toroid.
+To couple maximally to the chiral vacuum substrate, an EM emitter must carry non-zero kinetic helicity $\int \mathbf{A} \cdot \mathbf{B}\,dV \neq 0$ — equivalent to wiring the emitter as a $(p,q)$ Hopf / torus knot rather than a flat toroid.
 
 - _Specific Claims_
   - A standard toroidal inductor produces orthogonal $\mathbf{A}$ and $\mathbf{B}$ ($\int \mathbf{A} \cdot \mathbf{B}\,dV = 0$) and is therefore polarization-mismatched to the chiral vacuum.
-  - A Hopf-configured (torus-knot) winding forces $\mathbf{A} \parallel \mathbf{B}$, injecting kinetic helicity into the lattice and meshing with the structural microrotation of $\mathcal{M}_A$.
+  - A Hopf-configured (torus-knot) winding forces $\mathbf{A} \parallel \mathbf{B}$, injecting kinetic helicity into the lattice and meshing with the structural microrotation of the substrate.
   - This acts as a *topological power factor corrector*: it maximizes geometric power transfer to the metric, reducing reactive return loss.
 - _Specific Non-Claims and Caveats_
   - "Maximizes geometric power transfer" is asserted as a structural consequence of helicity matching; the leaf does not present a quantitative comparison of toroid-vs-Hopf coupling efficiency at a specific drive frequency.
@@ -938,7 +938,7 @@ To couple maximally to the chiral $\mathcal{M}_A$ vacuum, an EM emitter must car
 ### Quality
 - confidence: 0.5
 - depends-on:
-  - Axiom 1 (chiral Cosserat microrotation of $\mathcal{M}_A$)
+  - Axiom 1 (chiral Cosserat microrotation of the substrate)
   - clm-wzezvt (HOPF-01 chiral-antenna companion prediction)
 - solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.60)]
 - rationale: The polarization-matching argument is qualitatively sound: a flat toroid has $\int\mathbf{A}\cdot\mathbf{B}\,dV=0$ (mismatched), while a Hopf $(p,q)$ winding forces $\mathbf{A}\parallel\mathbf{B}\neq0$ (matched to the chiral lattice microrotation). But "maximizes geometric power transfer / reduces reactive return loss" is asserted with no quantitative toroid-vs-Hopf coupling-efficiency comparison, and the leaf concedes this is the qualitative "why" companion to HOPF-01, not an independent falsifiable signal (helicity-mismatch is a known plasma-physics result). Sketch with structural support, no closed efficiency derivation.

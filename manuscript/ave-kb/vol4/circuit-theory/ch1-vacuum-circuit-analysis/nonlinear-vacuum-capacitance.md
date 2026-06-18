@@ -7,7 +7,7 @@ claims: [clm-8nkvwy, clm-vjv4zf]
 
 ## Constitutive Circuit Models for Vacuum Non-Linearities
 
-Standard circuit simulators rely on ideal, linear RLC components. However, the physical $\mathcal{M}_A$ condensate exhibits precise non-linear behaviors under extreme mechanical stress, each governed by the Axiom 4 saturation kernel $S(V) = \sqrt{1-(V/V_{yield})^2}$. This section derives the exact non-linear equivalent circuit component for each physical regime.
+Standard circuit simulators rely on ideal, linear RLC components. However, the physical substrate exhibits precise non-linear behaviors under extreme mechanical stress, each governed by the Axiom 4 saturation kernel $S(V) = \sqrt{1-(V/V_{yield})^2}$. This section derives the exact non-linear equivalent circuit component for each physical regime.
 
 ### The Metric Varactor — Longitudinal Bond Compliance (Dielectric Yield)
 

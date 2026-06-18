@@ -62,11 +62,26 @@ parse it):
 
 ---
 
+## substrate (vacuum medium noun)
+<!-- id: def-91c4e8 -->
+
+- **term:** substrate / vacuum medium (prose noun)
+- **adjudicated-meaning:** the vacuum has **no dedicated object symbol**. Retired 2026-06-18: `$\mathcal{M}_A$` (collided with boundary-observable `$\mathcal{M}$`, implied "manifold", carried stale "amorphous" subscript). Use context prose: **chiral Laves K4 Cosserat crystal** (axiom/formal), **chiral LC network** (EE/circuit), **the substrate** or **the lattice** (general/discrete).
+- **axis:** notation
+- **dimension/type:** n/a (noun — not a field or observable)
+- **status:** SOLID (Grant adjudication 2026-06-18)
+- **canonical-home:** [`CLAUDE.md`](../CLAUDE.md) INVARIANT-N1; [`eq_axiom_1.tex`](../../../manuscript/common_equations/eq_axiom_1.tex)
+- **clm-cross-links:** (cross-cutting — all axiom-1 claims)
+- **open-ambiguity-flag:** no
+- **verification:** grep-confirmed retirement pass on canonical manuscript + KB (`analysis/substrate-noun-retirement`, 2026-06-18)
+
+---
+
 ## node
 <!-- id: def-cc2196 -->
 
 - **term:** node
-- **adjudicated-meaning:** the spatial-Nyquist sampling boundary of the $\mathcal{M}_A$ lattice — one Brillouin cell at the fundamental pitch $\ell_{node}$, supporting a maximum spatial frequency $k_{max} = \pi/\ell_{node}$ (the Brillouin zone edge).
+- **adjudicated-meaning:** the spatial-Nyquist sampling boundary of the substrate lattice — one Brillouin cell at the fundamental pitch $\ell_{node}$, supporting a maximum spatial frequency $k_{max} = \pi/\ell_{node}$ (the Brillouin zone edge).
 - **axis:** spatial-Brillouin
 - **dimension/type:** length (L); one cell $\ell_{node} \approx 386$ fm
 - **status:** SOLID
@@ -300,7 +315,7 @@ parse it):
 <!-- id: def-7a3f1c -->
 
 - **term:** SubstrateExcitation
-- **adjudicated-meaning:** *(PROPOSED, gated)* the **class** (base of a class-tree) of any localized excitation of the $\mathcal{M}_A$ substrate — the class-invariant FORMS (the resonator pole shape $s_\pm=-\omega_0/(2Q)\pm j\omega_d$, the root-locus, the Axiom-4 kernel $S(A)$, the $\Gamma_{spinor}=-1$ wall) that carry NO instance operating point. Concrete instances supply their own geometry / $(p,q)$ / mass / $L/C$ / $\omega_0$ / $Q$.
+- **adjudicated-meaning:** *(PROPOSED, gated)* the **class** (base of a class-tree) of any localized excitation of the substrate — the class-invariant FORMS (the resonator pole shape $s_\pm=-\omega_0/(2Q)\pm j\omega_d$, the root-locus, the Axiom-4 kernel $S(A)$, the $\Gamma_{spinor}=-1$ wall) that carry NO instance operating point. Concrete instances supply their own geometry / $(p,q)$ / mass / $L/C$ / $\omega_0$ / $Q$.
 - **axis:** other (class label / type, not a glyph on a physical axis)
 - **dimension/type:** class (n/a — a type, not a quantity)
 - **status:** proposed
@@ -509,7 +524,7 @@ parse it):
 <!-- id: def-h3l1c7 -->
 
 - **term:** helicity (wave helicity / kinetic helicity sign)
-- **adjudicated-meaning:** the **handedness SIGN of the WAVE** — the sign of a wave's circulation alignment (the kinetic-helicity reading $\int \mathbf{A}\cdot\mathbf{B}\,dV$ for an EM emitter; the wave's handedness for a transverse mode). This is a property of the **propagating excitation**, distinct from **chirality** (`def-7c3f9e`), which is the handedness of the **lattice** ($\mathcal{M}_A$ / srs / K4 vacuum, set by parent-BH spin).
+- **adjudicated-meaning:** the **handedness SIGN of the WAVE** — the sign of a wave's circulation alignment (the kinetic-helicity reading $\int \mathbf{A}\cdot\mathbf{B}\,dV$ for an EM emitter; the wave's handedness for a transverse mode). This is a property of the **propagating excitation**, distinct from **chirality** (`def-7c3f9e`), which is the handedness of the **lattice** (the substrate / srs / K4 vacuum, set by parent-BH spin).
 - **axis:** phase-carrier (a sign on the wave's circulation/polarization handedness)
 - **dimension/type:** sign / dimensionless for the wave-handedness reading; $\int\mathbf{A}\cdot\mathbf{B}\,dV$ has dimension of (vector-potential·flux) for the kinetic-helicity reading.
 - **status:** SOLID for the locked sense (wave handedness ≠ lattice chirality); the kinetic-helicity matching condition (Hopf/torus-knot $\mathbf{A}\parallel\mathbf{B}$) is a corpus-supported coupling sketch.

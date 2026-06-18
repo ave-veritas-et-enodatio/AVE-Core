@@ -8,7 +8,7 @@ subtree-experiments: []
 
 # Ch.4: Generative Cosmology and Thermodynamic Attractors
 
-Derives the Hubble constant as the LC crystallisation rate of the $\mathcal{M}_A$ network, yielding $H_\infty \approx 69.32$ km/s/Mpc from $m_e$, $c$, $\hbar$, $G$, and $\alpha$ alone. Dark energy is identified as the thermodynamic latent heat of continuous lattice genesis, producing a stable phantom equation of state $w < -1$. The CMB is an asymptotic thermal floor maintained by latent heat injection. The JWST early-galaxy paradox is resolved via exponential mutual-inductive accretion with time constant $\tau_{ind} \approx 65.1$ Myr. Black holes are lattice phase transitions where topology is destroyed at the Axiom 4 dielectric saturation limit.
+Derives the Hubble constant as the LC crystallisation rate of the substrate network, yielding $H_\infty \approx 69.32$ km/s/Mpc from $m_e$, $c$, $\hbar$, $G$, and $\alpha$ alone. Dark energy is identified as the thermodynamic latent heat of continuous lattice genesis, producing a stable phantom equation of state $w < -1$. The CMB is an asymptotic thermal floor maintained by latent heat injection. The JWST early-galaxy paradox is resolved via exponential mutual-inductive accretion with time constant $\tau_{ind} \approx 65.1$ Myr. Black holes are lattice phase transitions where topology is destroyed at the Axiom 4 dielectric saturation limit.
 
 ## Key Results
 
