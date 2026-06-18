@@ -167,3 +167,72 @@
   year      = {1975},
   publisher = {Springer}
 }
+
+% --- 19th-century historical roots (AVE's two lineages) ---
+% Root 1 — the formulation (Maxwell quaternion EM -> Heaviside-Gibbs vector calculus).
+% Root 2 — the ontology (Kelvin vortex-knot atom, on Helmholtz's vortex theorems; Tait's knot tables).
+% The two most historian-contested claims (Maxwell-quaternion; Heaviside's reformulation)
+% verified 2026-06-17 against secondary sources, NOT the corpus inline "Fact" tag:
+%   - Maxwell's Treatise (1873) listed the EM equations in quaternion (Hamilton S./V.) form
+%     at chapter ends, though not written exclusively in quaternions (History of Maxwell's
+%     equations: "all the equations are listed and set in quaternion form").
+%   - The vector-calculus reformulation was Heaviside (1884), concurrently with Gibbs and
+%     Hertz; Gibbs's vector analysis was published as Wilson's Vector Analysis (1901).
+
+@book{maxwell1873treatise,
+  title     = {A Treatise on Electricity and Magnetism},
+  author    = {Maxwell, James Clerk},
+  year      = {1873},
+  publisher = {Clarendon Press},
+  address   = {Oxford},
+  volume    = {1--2},
+  note      = {EM field set in Hamilton's quaternion (scalar + vector) form at chapter ends; later reformulated to vector calculus by Heaviside}
+}
+
+@book{heaviside_emtheory,
+  title     = {Electromagnetic Theory},
+  author    = {Heaviside, Oliver},
+  year      = {1893--1912},
+  publisher = {The Electrician Printing and Publishing Company},
+  address   = {London},
+  volume    = {1--3},
+  note      = {Three volumes (1893, 1899, 1912); recast Maxwell's quaternion EM into modern vector calculus (1884), reducing the system to four vector equations}
+}
+
+@book{gibbs_wilson1901vector,
+  title     = {Vector Analysis: A Text-book for the Use of Students of Mathematics and Physics, Founded upon the Lectures of J. Willard Gibbs},
+  author    = {Wilson, Edwin Bidwell and Gibbs, J. Willard},
+  year      = {1901},
+  publisher = {Charles Scribner's Sons},
+  address   = {New York},
+  note      = {Standardized the grad/div/curl vector calculus from Gibbs's Yale lectures; the Gibbs half of the Heaviside--Gibbs reformulation}
+}
+
+@article{kelvin1867vortex,
+  title     = {On Vortex Atoms},
+  author    = {Thomson, William (Lord Kelvin)},
+  journal   = {Proceedings of the Royal Society of Edinburgh},
+  volume    = {6},
+  pages     = {94--105},
+  year      = {1867},
+  publisher = {Royal Society of Edinburgh}
+}
+
+@article{tait1877knots,
+  title     = {On Knots, I, II, III},
+  author    = {Tait, Peter Guthrie},
+  journal   = {Transactions of the Royal Society of Edinburgh},
+  year      = {1877--1885},
+  publisher = {Royal Society of Edinburgh},
+  note      = {The knot tabulation begun to classify Kelvin's vortex atoms; the origin of knot theory}
+}
+
+@article{helmholtz1858wirbel,
+  title     = {{\"U}ber Integrale der hydrodynamischen Gleichungen, welche den Wirbelbewegungen entsprechen},
+  author    = {Helmholtz, Hermann von},
+  journal   = {Journal f{\"u}r die reine und angewandte Mathematik (Crelle's Journal)},
+  volume    = {55},
+  pages     = {25--55},
+  year      = {1858},
+  note      = {The vortex theorems: vortex lines are frozen-in and topologically conserved in an ideal fluid}
+}
