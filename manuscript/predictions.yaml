@@ -366,33 +366,51 @@ predictions:
       A-034 anchor (canonical 2026-05-15 evening): this is the condensed-matter
       row (SYM symmetry class) in the 19-instance Universal Saturation-Kernel
       Catalog. The same kernel S(A) = √(1-A²) governs atomic dielectric
-      breakdown, solar flares (NOAA 40-yr), BH ring-down (1.7% from GR),
+      breakdown, solar flares (NOAA validation pending live fetch — LF-03),
+      BH ring-down (1.7% from GR),
       and cosmic K4 crystallization. BCS B_c(T) is the strongest empirical
       anchor (0.00% error) — see Backmatter Ch 7 universal_saturation_kernel
       for full catalog.
+      # [2026-06-15 LF-03]: was "solar flares (NOAA 40-yr)". Per KB leaf
+      # solar-flares-led-avalanche.md the NOAA GOES comparison is a synthesized
+      # illustrative timeline, not a live fetch; solar flare = forward prediction,
+      # not a validated anchor.
 
   # ─── A-034 cross-scale empirical anchors (canonical 2026-05-15 evening) ───
-  # The following 3 entries together with P43 (BCS) are the four
-  # most-validated members of the Universal Saturation-Kernel Catalog
-  # (19 instances spanning 21 orders of magnitude). All are axiom_manifestation
-  # entries: the kernel S(A) = √(1-A²) IS Axiom 4 at the cited scale,
-  # not a derived numerical prediction.
+  # [2026-06-15 LF-03 scope correction]: was "The following 3 entries together
+  # with P43 (BCS) are the four most-validated members". The solar-flare entry
+  # (P_A034_solar_flare) is NOT a validated anchor — per KB leaf
+  # solar-flares-led-avalanche.md its NOAA GOES comparison is a synthesized
+  # illustrative timeline (not a live fetch). The THREE validated zero-free-
+  # parameter members are P43 (BCS 0.00%), P_A034_bh_ringdown (1.7%), and
+  # P_A034_schwarzschild (exact); P_A034_solar_flare is a forward prediction
+  # (0.46-yr FWHM) with NOAA validation pending a live catalog fetch.
+  # All four are axiom_manifestation entries: the kernel S(A) = √(1-A²) IS
+  # Axiom 4 at the cited scale, not a derived numerical prediction.
 
   - id: P_A034_solar_flare
     clm: clm-cltls0
-    name: "Solar flare LED-avalanche kernel (NOAA GOES 40-yr)"
+    name: "Solar flare LED-avalanche kernel (forward prediction; NOAA GOES 40-yr validation pending live fetch)"
     type: axiom_manifestation
     derivation_label: "ch:orbital_mechanics"
     axioms_used: [1, 4]
     public_in_readme: false
     public_in_living_ref: false
     notes: |
+      [2026-06-15 LF-03 scope correction]: this entry is an A-034 FORWARD
+      PREDICTION (the 0.46-yr FWHM), NOT a validated empirical anchor. Per KB
+      leaf solar-flares-led-avalanche.md the NOAA GOES comparison is a
+      synthesized illustrative timeline (a Monte-Carlo placeholder generated in
+      fetch_and_plot_noaa_goes_flares.py), not a live catalog fetch; promotion
+      to a validated anchor is pending the live NOAA GOES fetch + falsification.
+
       A-034 catalog stellar-scale instance (SYM symmetry class).
       Solar CME / flare onset governed by S(A) = √(1-A²) when the Parker
       spiral's accumulated topological strain crosses the critical shear
       threshold (S → 0 locally) and the topology snaps via magnetic
-      reconnection. NOAA GOES 40-yr empirical validation: 0.46-yr FWHM
-      danger window per 11-yr solar cycle. Same universal kernel as BCS
+      reconnection. NOAA GOES 40-yr validation PENDING a live catalog fetch
+      (LF-03); the 0.46-yr FWHM danger window per 11-yr solar cycle is the AVE
+      forward prediction. Same universal kernel as BCS
       (P43), BH ring-down (P_A034_bh_ringdown), and cosmic K4 crystallization.
       Derivation: Vol 3 Ch 14 §"Stellar Magnetic Topology and Solar Flares"
       and Backmatter Ch 7 universal_saturation_kernel catalog.

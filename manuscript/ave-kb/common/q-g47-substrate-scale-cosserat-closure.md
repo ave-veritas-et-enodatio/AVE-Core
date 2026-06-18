@@ -14,7 +14,7 @@ The Q-G47 question — "what fixes the K4 lattice's magic-angle operating point 
 
 2. **Substrate-level (Sessions 9–18):** Cosserat $\mu_c$ dimensional resolution; $\gamma_{\text{canonical}}$ self-consistency; $\chi_G = 3$ from the $T_t$ translational triplet; numerical K4 scaffold; $|T| = 12$ universality via four independent routes; sublattice relaxation + Keating bond-bending stabilization (Cosserat couple-stress JUSTIFIED); continuous-field recasting at axiom level ("the springs are actually continuous"); $\xi_{K2}/\xi_{K1} = 12$ self-consistency.
 
-**Session 18 reframing (per A-034 canonicalization):** Q-G47 substrate-scale work is **the substrate-scale instance** of the universal saturation-kernel mechanism (A-034), not a standalone derivation. The numerical results (Sessions 9–17) are unchanged; their physical interpretation now connects to cross-scale empirical validation (BCS, BH ring-down, solar flares, cosmic crystallization).
+**Session 18 reframing (per A-034 canonicalization):** Q-G47 substrate-scale work is **the substrate-scale instance** of the universal saturation-kernel mechanism (A-034), not a standalone derivation. The numerical results (Sessions 9–17) are unchanged; their physical interpretation now connects to cross-scale empirical validation (BCS, BH ring-down, Schwarzschild; the solar-flare instance is a forward prediction with NOAA validation pending a live fetch — LF-03, and cosmic crystallization is a CMB-axis pre-registration). <!-- 🔴 Rule-12 2026-06-15 LF-03: was "(BCS, BH ring-down, solar flares, cosmic crystallization)". Superseded per KB leaf solar-flares-led-avalanche.md: solar flare = forward prediction, not a validated anchor (NOAA comparison is a synthesized illustrative timeline). -->
 
 ## The magic-angle condition
 <!-- claim-quality: clm-iouqn9 -->
@@ -84,7 +84,7 @@ Per Session 18, the Q-G47 substrate-scale work is one of the 26 instances in the
 | $\ell_c / \ell_{\text{node}} \approx \sqrt{6}$ | Spatial scale of substrate's saturation boundary |
 | $\xi_{K2}/\xi_{K1} = 12$ | K4 symmetry orbit factor inherited by saturation kernel |
 
-The empirical validation of A-034 at four other scales (BCS $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ at 0.00% error; BH ring-down at 1.7% from GR exact; NOAA GOES 40-yr solar flares; Schwarzschild radius exact) provides cross-scale support for the substrate-scale Q-G47 magic-angle result.
+The empirical validation of A-034 at three other scales (BCS $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ at 0.00% error; BH ring-down at 1.7% from GR exact; Schwarzschild radius exact) provides cross-scale support for the substrate-scale Q-G47 magic-angle result; the stellar solar-flare instance is a forward prediction, with NOAA GOES 40-yr validation pending a live catalog fetch (LF-03). <!-- 🔴 Rule-12 2026-06-15 LF-03: was "at four other scales (BCS ...; BH ring-down ...; NOAA GOES 40-yr solar flares; Schwarzschild ...)". Count four -> three; superseded per KB leaf solar-flares-led-avalanche.md: solar flare = forward prediction, not a validated anchor. -->
 
 ## Status
 

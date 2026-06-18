@@ -43,7 +43,7 @@ Per Axiom 4, the substrate dielectric saturates as $C_{\text{eff}}(A) = C_0 / \s
 This is the **same kernel** that gives:
 - BCS $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ (condensed-matter scale, **0.00% error** validated)
 - BH ring-down $\omega_R M_g = 18/49$ (cosmic-scale, 1.7% from GR exact)
-- Solar-flare CME avalanche (stellar-scale, NOAA GOES 40-yr validated)
+- Solar-flare CME avalanche (stellar-scale, forward prediction; NOAA GOES 40-yr validation pending live fetch — LF-03) <!-- 🔴 Rule-12 2026-06-15 LF-03: was "(stellar-scale, NOAA GOES 40-yr validated)". Superseded per KB leaf ../../vol3/cosmology/ch14-orbital-mechanics/solar-flares-led-avalanche.md: synthesized illustrative timeline, not a live fetch; forward prediction, not a validated anchor. -->
 - Cosmic K4 crystallization seed event (cosmological-scale, CMB axis-alignment pre-registered)
 - Water two-state LC partition (fluid-scale, Nilsson 2026 X-ray LLCP validated)
 - Pd hydrogen-loading shatter at 12.08% = $\sqrt{2\alpha}$ (LENR-scale, Fleischmann-Pons paradox resolved)

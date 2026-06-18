@@ -15,7 +15,7 @@ The proof of any unified physical framework lies in its scale-invariance. If the
 |---|---|---|---|
 | Mercury precession | II (Yield) | $\Delta\phi$ = 43''/century | Exact match with GR |
 | Saturn ring gaps | I--II | Cassini Division | Spontaneous in N-body sim |
-| Solar flare FWHM | III (Rupture) | 0.46 yr danger zone | Matches GOES telemetry |
+| Solar flare FWHM | III (Rupture) | 0.46 yr danger zone | Forward prediction; matches a synthesized illustrative GOES timeline (live NOAA fetch pending — LF-03) <!-- 🔴 Rule-12 2026-06-15 LF-03: was "Matches GOES telemetry". Superseded per leaf solar-flares-led-avalanche.md: synthesized illustrative timeline, not a live fetch; forward prediction, validation pending. --> |
 | Heliopause boundary | I (Linear) | $r \approx 120$ AU | Impedance matching |
 
 ---

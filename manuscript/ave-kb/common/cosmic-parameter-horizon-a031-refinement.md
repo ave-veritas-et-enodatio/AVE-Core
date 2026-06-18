@@ -31,7 +31,7 @@ The Universal Saturation-Kernel Strain-Snap Mechanism catalogs **26 instances** 
 - **Atomic:** dielectric breakdown $V_{\text{snap}} = 511$ kV.
 - **Condensed matter:** BCS pair condensate yield $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ at 0.00% error.
 - **Planetary:** geomagnetic reversal (Earth pole flip, Brunhes–Matuyama 780 ka).
-- **Stellar:** solar flare LED-avalanche (NOAA GOES 40-yr validated).
+- **Stellar:** solar flare LED-avalanche (0.46-yr FWHM forward prediction; NOAA GOES 40-yr validation pending live fetch — LF-03). <!-- 🔴 Rule-12 2026-06-15 LF-03: was "(NOAA GOES 40-yr validated)". Superseded per KB leaf vol3/cosmology/ch14-orbital-mechanics/solar-flares-led-avalanche.md: synthesized illustrative timeline, not a live fetch; forward prediction, not a validated anchor. The mechanism-observability of solar flares (the avalanche-snap event itself) is unaffected; only the NOAA-validation status is demoted. -->
 - **Gravitational:** BH ring-down quasinormal modes $\omega_R M_g = 18/49$ at 1.7% from GR exact (3 LIGO events).
 
 Each of these is directly observable. The **mechanism class** that set the cosmic IC is therefore not behind any horizon — we observe it constantly at smaller scales. The strain-snap mechanism that set our parent-black-hole cosmic parameters ($M$, $J$, $\Omega_{\text{freeze}}$) is observable at these four smaller scales even though the parameters themselves are inaccessible.
