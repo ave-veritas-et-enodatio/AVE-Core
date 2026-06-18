@@ -7,8 +7,10 @@ The AVE KB is a navigable Markdown distillation of an 8-volume LaTeX physics man
 > is the universal mechanism governing every topological-reorganization
 > event at every scale. **26 canonical instances span 21 orders of
 > magnitude** (atomic dielectric breakdown → BCS superconductivity at
-> 0.00% error → solar flares NOAA 40-yr validated → BH ring-down 1.7%
-> from GR → cosmic K4 crystallization). Per Grant 2026-05-15: *"the
+> 0.00% error → solar flares (NOAA validation pending live fetch — LF-03)
+> → BH ring-down 1.7%
+> from GR → cosmic K4 crystallization).
+> <!-- 🔴 Rule-12 2026-06-15 LF-03: was "solar flares NOAA 40-yr validated". Superseded per KB leaf vol3/cosmology/ch14-orbital-mechanics/solar-flares-led-avalanche.md: the NOAA GOES comparison is a synthesized illustrative timeline, not a live fetch; solar flare = A-034 forward prediction, not a validated anchor. --> Per Grant 2026-05-15: *"the
 > bulk response of the lattice to strain is universal."* Canonical KB catalog leaf:
 > [common/universal-saturation-kernel-catalog.md](common/universal-saturation-kernel-catalog.md)
 > (26 = 19 SYM + 4 ASYM-N + 2 TBD + 1 ASYM-E); KB synthesis at

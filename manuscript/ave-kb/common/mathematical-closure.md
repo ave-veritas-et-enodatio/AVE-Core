@@ -144,7 +144,7 @@ Beyond the internal DAG closure documented above, **Axiom 4's universal saturati
 | Scale | Phenomenon | AVE Prediction | Empirical Match | Error |
 |---|---|---|---|---|
 | **Condensed-matter** | BCS superconductivity $B_c(T)$ kernel | $S(T/T_c) = \sqrt{1 - (T/T_c)^2}$ | Type-I/II $B_c(T)$ datasets | **0.00%** (Vol 3 Ch 9) |
-| **Solar/Geophysical** | Solar flare LED-avalanche | Saturation kernel governs flare onset | NOAA GOES 40-yr catalog | within data scatter (Vol 3 Ch 14 (Orbital Mechanics / Solar)) |
+| **Solar/Geophysical** | Solar flare LED-avalanche | Saturation kernel governs flare onset (0.46-yr FWHM forward prediction) | NOAA GOES 40-yr (live fetch pending) | forward prediction — validation pending live NOAA fetch (LF-03; Vol 3 Ch 14 (Orbital Mechanics / Solar)) <!-- 🔴 Rule-12 2026-06-15 LF-03: Empirical-Match cell was "NOAA GOES 40-yr catalog", Error cell was "within data scatter". Superseded per KB leaf solar-flares-led-avalanche.md: the NOAA GOES comparison is a synthesized illustrative timeline, not a live fetch; forward prediction, not a validated anchor. --> |
 | **Gravitational** | BH ring-down (QNM) | $\omega_R M_g = 18/49$ | GR exact value | **1.7%** (Vol 3 Ch 15, 3 LIGO events) |
 | **Cosmological** | Schwarzschild radius | $r_s = 2GM/c^2$ from saturation boundary | Standard GR | **exact** (Vol 3 Ch 15, 20) |
 

@@ -746,7 +746,7 @@ Per Grant's framework principle: *"the bulk response of the lattice to strain is
 
 **Symmetry partition** (all 26 = 19 SYM + 4 ASYM-N + 1 ASYM-E + 2 TBD scoped Session 4/5). Per-instance classifications and the remaining 22 instances live in the catalog leaf.
 
-**Empirical anchor: 21 orders of magnitude span with multiple validated scales.** Tightest validations: BCS $B_c(T)$ at 0.00% error; BH ring-down at 1.7% from GR; solar flares 40-yr NOAA validated; Schwarzschild exact.
+**Empirical anchor: 21 orders of magnitude span with multiple validated scales.** Tightest validations: BCS $B_c(T)$ at 0.00% error; BH ring-down at 1.7% from GR; Schwarzschild exact. The stellar solar-flare instance is a forward prediction (0.46-yr FWHM), with NOAA GOES 40-yr validation pending a live catalog fetch (LF-03). <!-- 🔴 Rule-12 2026-06-15 LF-03: was "...; solar flares 40-yr NOAA validated; Schwarzschild exact." Superseded per KB leaf vol3/cosmology/ch14-orbital-mechanics/solar-flares-led-avalanche.md: synthesized illustrative timeline, not a live fetch; forward prediction, not a validated anchor. -->
 
 **Explicitly kept separate (per Grant 2026-05-15 evening direction):** LLM SiLU activation saturation. Same kernel form ($\sigma(x)^2 + r^2 = 1$ unit-circle derivation) but applied in activation space during neural-net training, not as the same physical strain-snap event. Tracked as a parallel thread.
 

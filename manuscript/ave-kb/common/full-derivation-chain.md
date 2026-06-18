@@ -107,8 +107,9 @@ $$
 $S(A) = \sqrt{1 - A^2}$ governs **every topological-reorganization event at every
 scale** — 26 catalog instances spanning 21 orders of magnitude
 (atomic dielectric breakdown $\to$ BCS superconductivity at 0.00% error $\to$
-NOAA-validated solar flares $\to$ BH ring-down at 1.7% from GR exact $\to$
-cosmic K4 crystallization). 3-way symmetry classification: SYM / ASYM-N / ASYM-E.
+solar flares (NOAA validation pending live fetch — LF-03) $\to$ BH ring-down at 1.7% from GR exact $\to$
+cosmic K4 crystallization).
+<!-- 🔴 Rule-12 2026-06-15 LF-03: was "NOAA-validated solar flares". Superseded per KB leaf vol3/cosmology/ch14-orbital-mechanics/solar-flares-led-avalanche.md: synthesized illustrative timeline, not a live fetch; A-034 forward prediction, not a validated anchor. --> 3-way symmetry classification: SYM / ASYM-N / ASYM-E.
 Full catalog: [Universal Saturation-Kernel Catalog](universal-saturation-kernel-catalog.md);
 canonical synthesis: [trampoline-framework.md §7.5](trampoline-framework.md).
 
@@ -928,7 +929,7 @@ topological-reorganization event:
 | Atomic | Dielectric breakdown | EE bench $C/C_0 \to \infty$ at $V_{yield} = 43.65$ kV |
 | Condensed-matter | BCS superconductivity | $B_c(T)$ kernel match at **0.00% error** (Vol 3 Ch 9) |
 | Geophysical | Geomagnetic reversal | Brunhes--Matuyama 780 ka pole-flip dynamics (Vol 3 Ch 13 (Geophysics)) |
-| Solar | Coronal mass ejection / flare | NOAA GOES 40-yr LED-avalanche validation (Vol 3 Ch 14 (Orbital Mechanics)) |
+| Solar | Coronal mass ejection / flare | LED-avalanche forward prediction (0.46-yr FWHM); NOAA GOES 40-yr validation pending live fetch — LF-03 (Vol 3 Ch 14 (Orbital Mechanics)) <!-- 🔴 Rule-12 2026-06-15 LF-03: was "NOAA GOES 40-yr LED-avalanche validation". Superseded per KB leaf solar-flares-led-avalanche.md: synthesized illustrative timeline, not a live fetch; forward prediction, not a validated anchor. --> |
 | Stellar | White dwarf Chandrasekhar | $M_{Ch}$ kernel boundary (Vol 3 Ch 20) |
 | Gravitational | BH ring-down (QNM) | $\omega_R M_g = 18/49$ at **1.7% from GR exact** (3 LIGO events, Vol 3 Ch 15) |
 | Cosmic | TKI strain-snap (K4 crystallization) | CMB axis-alignment prereg (2026-05-15; Vol 3 Ch 4 §TKI Strain-Snap) |
