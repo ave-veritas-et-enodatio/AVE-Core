@@ -3,11 +3,15 @@ Saturated Black Hole Core Solver (Regime III/IV Transition)
 ===========================================================
 
 A-034 instance (canonical 2026-05-15): this module implements two A-034
-catalog rows — (1) BH event horizon (Schwarzschild exact match) where
-ε_11(r) = 2GM/(c²r) = 1 marks S(A) → 0, and (2) BH merger ring-down QNM
-(Vol 3 Ch 15, 1.7% from GR exact). Same kernel S(A) = √(1−A²) as atomic
-dielectric breakdown, just at gravitational scale. See: backmatter Ch 7
-(Universal Saturation-Kernel Catalog); L5 A-034.
+catalog rows — (1) BH event horizon (Schwarzschild exact match) at the
+surface r_s = 2GM/c², where the principal radial strain is
+ε_11(r) = 7GM/(c²r) and yield (ε_11 = 1, S(A) → 0) sits at the deeper
+saturation wall r_sat = 7GM/c² = 3.5·r_s; the horizon coefficient 2GM/(c²r)
+is the temporal n=2 projection (2/7)·ε_11 = ν_vac·ε_11 (so r_s = (2/7)·r_sat),
+NOT ε_11 itself. And (2) BH merger ring-down QNM (Vol 3 Ch 15, 1.7% from GR
+exact). Same kernel S(A) = √(1−A²) as atomic dielectric breakdown, just at
+gravitational scale. See: backmatter Ch 7 (Universal Saturation-Kernel
+Catalog); L5 A-034.
 
 Classical General Relativity predicts that matter falling into a black hole
 will accelerate indefinitely until reaching a point singularity at r = 0,
