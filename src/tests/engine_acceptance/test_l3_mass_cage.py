@@ -1,10 +1,38 @@
-"""L3 mass-cage FOUNDATION — the longitudinal-bulk (A1 dilatation scalar) DOF.
+"""L3 mass-cage — the longitudinal-bulk (A1 dilatation scalar) DOF.
 
-This file builds the L3 MEDIUM EXTENSION + the first two L3 acceptance tests
-(T3.1, T3.2), the consistency/Axiom-4 foundation. It STOPS before T3.3/T3.4 (the
-make-or-break chord-deciders), which are DEFERRED to a ratified second pass (they
-need the seed-DON'T-plant CP8 protocol + the Q=α⁻¹ resonant-amplification gate the
-genesis arc failed at — designed + ratified separately).
+This file builds the L3 MEDIUM EXTENSION + the L3 acceptance tests. T3.1/T3.2 are
+the consistency/Axiom-4 FOUNDATION (the medium exists + stiffens). T3.3/T3.4 are
+the RUNG-1 EXISTENCE suite (Grant-ratified, this pass): they POSIT a saturated
+longitudinal cage (consistency-class — positing is legitimate here; this is NOT
+self-formation, that is rung-2 / DEFERRED) and test the Γ=−1 wall (T3.3) and the
+bound longitudinal eigenmode (T3.4: mass=cutoff / cold-α-free-Q / persistence).
+
+════════════════════════════════════════════════════════════════════════════════
+RUNG-1 EXISTENCE EMPIRICAL RESULTS (frozen-bin outcomes, this pass — BRUTAL HONESTY)
+════════════════════════════════════════════════════════════════════════════════
+  T3.3  Γ_bulk crosses −0.25 on the posited cage:  PASS. Γ_min(A=0.95)=−0.283
+        (crosses the OP2 engaged-gate), monotone descent toward −1, →0 in vacuum;
+        α-FREE (Z_eff=√S, NOT gamma_em_sq). Literal −1 UNREACHABLE (floors
+        ≈−0.454 at A=0.99, the S_min-clipped wall) — by design, NOT a fail.
+  T3.4a mass=cutoff (gapped bound mode EXISTS):  PASS. A discrete breathing
+        eigenmode rings under a radial-SHELL breathing kick: ω_cutoff≈2.87
+        (rad/time, natural units), gapped (>0), discrete (peak/mean≈456, 23
+        zero-crossings). HONEST CAVEAT: this needs the shell-breathing kick; a
+        pure monopole/DC kick excites only slow continuum-RELAXATION (an FFT-bin-1
+        artifact, no ring). The m_e VALUE is NEVER read off the cage (definitional,
+        constants.py:129 'Input 1'; electron-identification.md:50).
+  T3.4b cold/α-FREE Q (the ONE genuine chord-vs-echo question):  Q finite & >0 —
+        PASS on the FORM-bin. THE HEADLINE: Q_ringdown≈30.8, Q_linewidth≈3.8 —
+        **NOT α⁻¹=137**. α was NEVER baked (no Q_TANK, no M.ELECTRON, no
+        gamma_em_sq). So the α-free cold cage does NOT reproduce 137 ⇒ the corpus
+        Q=1/α is an INSTANCE-BAKED ECHO, not a cage-emergent chord. This is the
+        clean negative the brief hunted: seeding/asserting 137 would have been the
+        instrument-echo-trap (theorem-3-1-q-factor.md:21). The cold (A≪1) limit
+        rings even weaker (Q-floor, relaxation-dominated) — same verdict.
+  T3.4c zero-drive persistence (non-radiating standing mode):  PASS. After the
+        transient sheds, the interior peak |V| holds steady (late/mid≈1.31,
+        late_min≈0.34 ≫ 0). NOTE: persistence ≠ topological-winding protection
+        (winding-sector, NOT cage-testable — bucket B).
 
 ════════════════════════════════════════════════════════════════════════════════
 THE MEDIUM EXTENSION (the longitudinal-bulk / "mass-3" / A1 dilatation grade)
@@ -58,6 +86,27 @@ an ARTIFACT, not a falsification — the dark-wake correction):
                    dynamics — the stiffening is a property of the medium at each
                    operating point, the cage PRECURSOR (CP8 generative-precursor).
 
+  T3.3 Γ=−1 wall on the posited saturated cage:
+     MODE        = BULK (longitudinal A1 scalar; the impedance-routed Γ_bulk).
+     REGIME      = II→III (near-yield → the wall): the posited core sits at high A
+                   (A≈0.95–0.99) where Z_eff=√S→0 ⇒ Γ_bulk→−1. The reflective
+                   short is a Regime-II/III object — testing it at high A is the
+                   CORRECT regime (a Γ≈0 reading in vacuum/Regime-I is EXPECTED, an
+                   open match, NOT a falsification: the standing guard).
+     PHASE-STATE = saturation ON (POSITED high-A core); converter OFF (A1 scalar
+                   ONLY — no (2,3) winding; the two-3s guard). A planted cage, the
+                   consistency-class POSIT (legitimate here; self-formation = R2).
+
+  T3.4 bound longitudinal eigenmode of the posited cage (3 sub-tests):
+     MODE        = BULK (longitudinal A1 breathing of the saturated core).
+     REGIME      = II (the bound mode lives in the stiffened well; T3.4a/b excite
+                   it with a radial-shell breathing kick, T3.4c watches zero-drive
+                   persistence). The COLD sub-read (T3.4b) drives A≪1 RINGING on
+                   the high-A core (a cold ring of a saturated cavity).
+     PHASE-STATE = POSITED high-A core (planted), converter OFF (A1 scalar only).
+                   T3.4b is the cold cavity (small-amplitude ring); T3.4c is
+                   zero-drive (no kick — the bare posited core).
+
 ════════════════════════════════════════════════════════════════════════════════
 §8.5 SKILL-SELECTION PLAN (the 60-sec plan, written BEFORE the rung — mandatory
 per `feedback_skill_selection_planning`; L3 = MEDIUM EXTENSION + Regime-II
@@ -97,18 +146,44 @@ near-yield, the HIGH-VALUE cluster that was correctly DORMANT in linear L0-L2)
         exclusion (A-Rule 10 corollary: interior energy filters pml_thickness ≤
         {i,j,k} ≤ N−pml_thickness−1; PML cells are frozen-absorbing artifact).
 
-  DELIBERATELY NOT FIRED THIS PASS (they belong to T3.3/T3.4, DEFERRED):
-  ave-resonant-amplification-check (the Q=α⁻¹ cavity gate — the genesis-arc
-  A²≈O(α) stuck-floor failure mode lives at T3.4), ave-conserved-vs-pumped (mass=
-  energize+lock, the T3.3/T3.4 self-trap), ave-asymmetric-grip (the Γ=−1 hardened
-  wall = T3.3). T3.1/T3.2 are the consistency/Axiom-4 FOUNDATION beneath those.
+  NOW FIRED for the RUNG-1 EXISTENCE pass (T3.3/T3.4):
+  * ave-power-category-check  — T3.3: the Γ=−1 wall is a PURE REACTANCE (|Γ|→1 =
+        total reflection, lossless reactive short — NOT a dissipative loss). The
+        impedance route Z_eff=√S→0 is the magnetic μ-load short.
+  * ave-resonant-amplification-check  — T3.4b: the cold-Q gate. THE genuine chord
+        decider. The genesis-arc A²≈O(α) stuck-floor failure mode is watched: the
+        cold ring is measured from cold dynamics, NOT seeded toward 137. Result:
+        Q≠137 (clean negative — see the EMPIRICAL RESULTS block above).
+  * ave-conserved-vs-pumped  — T3.4c: persistence = the posited mass holding (a
+        conserved standing structure), measured zero-drive (not pumped).
+  * pre-test-physics-check CP10  — T3.3/T3.4: the cage is a Γ-bounded BOUNDARY
+        (the wall + its bound mode), NOT a detonating bulk — boundary-not-bulk.
+
+  TWO α-BAKE GUARDS (mandatory, T3.4b — enforced in code + import-audited):
+  the cold-Q measurement does NOT import Q_TANK (cvr_model.py:72 = 1/ALPHA), does
+  NOT route through M.ELECTRON, and does NOT touch gamma_em_sq (the 1−α bake at
+  cvr_model.py:364). T3.3's Γ_bulk is the α-FREE Z_eff=√S route (crystal_engine.
+  gamma_bulk, :455-486), explicitly NOT gamma_em_sq.
+
+  CONSISTENCY-vs-EMERGENCE tags (this pass):  T3.3 = CONSISTENCY / FORM-chord (the
+  Ax4 reactive wall manifests; α-free). T3.4a = FORM-chord (a gapped bound mode
+  EXISTS) / VALUE-definitional (m_e is NEVER a cage output). T3.4b = CHORD (α-free)
+  IF Q-from-cold-dynamics — and the cold cage does NOT yield 137, so the 137-match
+  is CONSISTENCY-display-only (instance-baked echo), NOT emergence. T3.4c = FORM
+  (persistence) — NOT the topological-winding protection (winding-sector, bucket B).
 
 ════════════════════════════════════════════════════════════════════════════════
 RETROACTIVE PASS (applied set vs plan — feedback_skill_selection_planning):
-the applied set MATCHES the plan above; no drift. The one ADDITION surfaced at
-build time is the #278-base-state contradiction (flag-don't-fix, recorded in the
-`_bulk.py` FLAG): the brief's premise that #278 is on main 04bcb4ac is false, but
-the c_eff stiffening kernel is unchanged by #278 so the physics is unaffected.
+the applied set MATCHES the plan above; no drift. Build-time ADDITIONS (flag-
+don't-fix): (1) the #278-base-state contradiction (recorded in the `_bulk.py`
+FLAG) — the c_eff stiffening kernel is unchanged by #278 so the physics is
+unaffected. (2) The cited OP2 gate constant OP2_GAMMA_BULK_MAX=−0.25 is defined as
+P18_GAMMA_MAX at genesis_v18_coupled.py:35 (re-exported via loop_gap_harness.py:56)
+— the brief's file:line is exact at the definition. (3) The posited-Gaussian core
+does NOT ring under a monopole/DC kick (slow continuum relaxation, an FFT-bin-1
+artifact); the discrete bound mode requires a radial-SHELL breathing kick — a
+measurement-design finding surfaced at integrator time (empirical-driver
+discipline, Rule 10), recorded in T3.4a's docstring + the coverage matrix.
 ════════════════════════════════════════════════════════════════════════════════
 
 VISUAL-DEBUG LAYER (additive; never changes a pass/fail bin) — each test emits a
@@ -119,10 +194,18 @@ from __future__ import annotations
 
 import numpy as np
 
-from ave.core.constants import C_0, V_LONG
+from ave.core.constants import ALPHA, C_0, V_LONG
+
+# OP2 engaged-gate: the canonical Γ_bulk short threshold (genesis_v18_coupled.py:35
+# P18_GAMMA_MAX = −0.25; re-exported as OP2_GAMMA_BULK_MAX, loop_gap_harness.py:56).
+from ave.core.genesis_v18_coupled import P18_GAMMA_MAX as OP2_GAMMA_BULK_MAX
 
 from . import _bulk as B
 from . import _viz as VZ
+
+ALPHA_INV = 1.0 / ALPHA  # ≈ 137.036 — a DOWNSTREAM consistency reference ONLY
+#                          (T3.4b reports Q vs this; it does NOT seed/assert it —
+#                          asserting 137 = the instrument-echo-trap, theorem-3-1:21)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -435,3 +518,341 @@ def test_t3_2_c_eff_stiffening():
         path = VZ.save_simple_figure(
             "T3.2", "c_eff(V) stiffening → ∞ at A→A_yield (Axiom-4 cage precursor)", _draw)
         print(f"  [viz] T3.2 figure -> {path}")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# T3.3 — Γ=−1 wall present on a POSITED saturated cage (α-FREE Z_eff=√S)
+# ─────────────────────────────────────────────────────────────────────────────
+def test_t3_3_gamma_wall_on_posited_cage():
+    """T3.3 [CONSISTENCY / FORM-chord] — a Γ=−1 reflective wall is PRESENT on a
+    posited saturated longitudinal cage: Γ_bulk crosses the canonical engaged-gate
+    OP2_GAMMA_BULK_MAX=−0.25, descends monotonically toward −1 as A→A_yield, and
+    →0 in vacuum (S→1). The literal −1 is UNREACHABLE (the S_min-clipped floor).
+
+    POSIT (consistency-class; legitimate here — NOT self-formation, that is rung-2
+    / DEFERRED): we PLANT a high-A saturated bulk core (a Gaussian dilatation well)
+    on the CrystalEngine BULK branch ONLY (converter_on=False ⇒ no (2,3) winding —
+    the two-3s guard, master-equation.md:20: never read charge/spin/μ off the
+    scalar cage). Then we read Γ_bulk on the PML-excluded interior.
+
+    α-FREE Γ ROUTE (the load-bearing source choice): Γ_bulk is read via
+    crystal_engine.gamma_bulk() (:455-486), the IMPEDANCE route Z_eff=√S,
+    Γ=(Z_eff−1)/(Z_eff+1) → −1 as S→0. This is α-FREE (Z_eff=√S carries NO α). We
+    do NOT use gamma_em_sq (cvr_model.py:364), which carries the 1−α bake. The
+    wall is the magnetic μ-load short (Z_eff=Z₀·√S→0); ave-power-category-check:
+    |Γ|→1 is PURE REACTANCE (total reflection, lossless reactive short — NOT a
+    dissipative loss). pre-test-physics-check CP10: the cage is a Γ-bounded
+    BOUNDARY, not a detonating bulk.
+
+    DEF-LOCK: OP2_GAMMA_BULK_MAX = −0.25 is the canonical engaged-gate
+    (genesis_v18_coupled.py:35 P18_GAMMA_MAX; re-exported loop_gap_harness.py:56
+    OP2_GAMMA_BULK_MAX). Z_eff=√S, Γ=(Z_eff−1)/(Z_eff+1).
+
+    PRE-REGISTERED BINS (frozen 2026-06-17, BEFORE the run):
+      * PASS (the Γ=−1 wall is present + α-free):
+          (1) VACUUM: Γ_min(A=0) → 0 (|Γ_min| < 1e-6) — vacuum is an OPEN match,
+              S→1 ⇒ Z_eff→1 ⇒ Γ→0 (NOT a wall; the standing-guard expected null).
+          (2) MONOTONE DESCENT: Γ_min descends (more-negative) monotonically as
+              the posited strain A rises across {0, 0.3, 0.6, 0.8, 0.9, 0.95, 0.99}
+              — the wall hardens toward the short as the core saturates.
+          (3) CROSSES THE GATE: Γ_min crosses OP2_GAMMA_BULK_MAX=−0.25 by A=0.95
+              (Γ_min(0.95) ≤ −0.25) — the engaged short forms in deep Regime II.
+          (4) HEADS TOWARD −1 (not past it): Γ_min(0.99) < Γ_min(0.95) (deeper),
+              AND the literal −1 is NEVER reached (Γ_min > −1 everywhere — the
+              S_min-clipped wall floors above −1; we do NOT bin |Γ−(−1)|<tol, that
+              is UNREACHABLE by construction).
+      * FAIL : vacuum Γ_min ≠ 0; OR not monotone in A; OR Γ_min never crosses
+              −0.25 by A=0.95 (no engaged short forms); OR Γ_min ≤ −1 somewhere
+              (the clip is broken / the wall over-shoots the physical short).
+
+    HONEST NOTE: this POSITS the cage (plants the saturated core) — it does NOT
+    show the cage SELF-FORMING (that is rung-2, gated). The chord here is that
+    GIVEN a saturated core, the impedance route produces the engaged Γ=−1 short
+    that the corpus says is the electron's reflective wall — α-free. CONSISTENCY /
+    FORM-chord (the Ax4 reactive wall manifests), NOT an emergence claim.
+    """
+    B.assert_canonical_constants()
+
+    A_posit = [0.0, 0.3, 0.6, 0.8, 0.9, 0.95, 0.99]
+    gmins = []
+    for frac in A_posit:
+        eng = B.make_cage_engine(N=40, S_min=1e-3, A_cap=0.999, pml_thickness=4)
+        if frac > 0.0:
+            B.posit_saturated_cage(eng, frac=frac, sigma=4.0)
+        gmins.append(B.gamma_bulk_min_on_cage(eng)["gamma_min"])
+    gmins = np.array(gmins)
+
+    vacuum_open = abs(gmins[0]) < 1e-6
+    monotone_descent = bool(np.all(np.diff(gmins) <= 1e-9))
+    idx_095 = A_posit.index(0.95)
+    crosses_gate = gmins[idx_095] <= OP2_GAMMA_BULK_MAX
+    deepens = gmins[-1] < gmins[idx_095]
+    above_minus_one = bool(np.all(gmins > -1.0))
+
+    print("\n--- T3.3 Γ=−1 wall on the POSITED saturated cage [CONSISTENCY / FORM-chord] ---")
+    print(f"  DEF-LOCK: α-FREE Z_eff=√S route; OP2 engaged-gate = {OP2_GAMMA_BULK_MAX} (NOT gamma_em_sq)")
+    print(f"  A posited : {np.array2string(np.array(A_posit), precision=2)}")
+    print(f"  Γ_bulk_min: {np.array2string(gmins, precision=4)}")
+    print(f"  (1) vacuum Γ_min(A=0) → 0 (open match)?     {gmins[0]:.2e}  ok? {vacuum_open}")
+    print(f"  (2) monotone descent toward short in A?     {monotone_descent}")
+    print(f"  (3) crosses OP2 gate −0.25 by A=0.95?       Γ_min(0.95)={gmins[idx_095]:.4f}  {crosses_gate}")
+    print(f"  (4) deepens at A=0.99 (heads to −1)?        Γ_min(0.99)={gmins[-1]:.4f}  {deepens}")
+    print(f"      literal −1 UNREACHABLE (Γ_min > −1)?    {above_minus_one}  (floors at S_min, by design)")
+    print("  ave-power-category-check: |Γ|→1 = PURE REACTANCE (lossless reflective short, NOT loss).")
+
+    assert vacuum_open, f"FAIL: vacuum Γ_min {gmins[0]:.2e} not → 0 (S→1 should give Z_eff→1, Γ→0)"
+    assert monotone_descent, f"FAIL: Γ_min not monotone descending in A — {gmins}"
+    assert crosses_gate, f"FAIL: Γ_min(0.95) {gmins[idx_095]:.4f} does not cross OP2 gate {OP2_GAMMA_BULK_MAX}"
+    assert deepens, f"FAIL: Γ_min does not deepen toward −1 at A=0.99 — {gmins[-1]:.4f} vs {gmins[idx_095]:.4f}"
+    assert above_minus_one, f"FAIL: Γ_min ≤ −1 somewhere (clip broken / over-shoots the physical short) — {gmins}"
+
+    # ── visual-debug layer (additive; never affects pass/fail) ──
+    if VZ.viz_enabled():
+        # a denser sweep for the curve + the analytic Z_eff=√S route
+        Afine = np.linspace(0.0, 0.99, 200)
+        S_fine = np.sqrt(np.maximum(1.0 - Afine**2, 1e-3**2))
+        Z_fine = np.sqrt(S_fine)
+        g_fine = (Z_fine - 1.0) / (Z_fine + 1.0)
+
+        def _draw(fig):
+            ax1, ax2 = fig.subplots(1, 2)
+            ax1.plot(Afine, g_fine, color="#d62728", lw=1.6, label="Γ=(√S−1)/(√S+1), α-FREE")
+            ax1.plot(A_posit, gmins, "o", color="#1f77b4", ms=7, label="engine gamma_bulk() (interior)")
+            ax1.axhline(OP2_GAMMA_BULK_MAX, color="black", ls="--", lw=1.0, label=f"OP2 gate {OP2_GAMMA_BULK_MAX}")
+            ax1.axhline(-1.0, color="purple", ls=":", lw=0.9, label="literal −1 (UNREACHABLE)")
+            ax1.set_xlabel("posited strain A = |V|/V_yield")
+            ax1.set_ylabel("Γ_bulk_min (interior, PML-excluded)")
+            ax1.set_title("T3.3 Γ=−1 wall on the posited cage\n(crosses −0.25 by A≈0.95; α-FREE)")
+            ax1.set_ylim(-1.05, 0.05)
+            ax1.legend(fontsize=7)
+            ax2.plot(Afine, S_fine, color="#2ca02c", lw=1.6, label="S(A)=√(1−A²)")
+            ax2.plot(Afine, Z_fine, color="#ff7f0e", lw=1.6, label="Z_eff=√S → 0 (μ-load short)")
+            ax2.set_xlabel("strain A")
+            ax2.set_ylabel("S, Z_eff")
+            ax2.set_title("Z_eff=√S → 0 ⇒ Γ → −1 (reflective short)\nS_min clip ⇒ Γ floors above −1")
+            ax2.legend(fontsize=7)
+
+        path = VZ.save_simple_figure(
+            "T3.3", "gamma wall profile on the posited saturated cage (α-FREE)", _draw)
+        print(f"  [viz] T3.3 figure -> {path}")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# T3.4 — bound longitudinal eigenmode of the posited cage (3 sub-tests)
+#   (a) mass=cutoff [FORM-chord]   (b) cold/α-free Q [the ONE genuine chord]
+#   (c) zero-drive persistence
+# ─────────────────────────────────────────────────────────────────────────────
+def test_t3_4_bound_eigenmode_of_posited_cage():
+    """T3.4 — the posited saturated cage hosts a BOUND longitudinal eigenmode.
+    Three sub-tests, each with its own frozen bin. A1 SCALAR ONLY (converter OFF;
+    the two-3s guard — never read charge/spin/μ off the scalar cage).
+
+    ════════════════════════════════════════════════════════════════════════════
+    (a) MASS = CUTOFF  [FORM-chord / VALUE-definitional]
+    ════════════════════════════════════════════════════════════════════════════
+    A DISCRETE bound longitudinal breathing mode with a gapped cutoff
+    eigenfrequency ω_cutoff > 0 EXISTS on the posited cage (a bound mode, NOT a
+    continuum). The mass=ground-state-cutoff-energy of the bound resonator is the
+    structural FORM (a chord). We REPORT no m_e value: m_e is a CALIBRATION ANCHOR
+    (constants.py:129 'Input 1'; electron-identification.md:50 'CALIBRATION ANCHOR
+    not derivation') — NEVER a cage-predicted number.
+
+    MEASUREMENT-DESIGN FINDING (empirical-driver discipline, Rule 10, surfaced at
+    integrator time): a posited Gaussian core under a MONOPOLE/DC kick does NOT
+    ring — it slowly RELAXES (the dominant FFT component sits at bin 1, whose ω
+    scales as 1/n_steps = a run-length artifact, NOT a physical mode). The discrete
+    bound oscillation is excited by a radial-SHELL BREATHING kick (∂_t V on the
+    wall, no monopole DC); then ω_cutoff is STABLE (not bin-1) and the spectrum is
+    sharply peaked. We use the shell kick + the DC-free ∂_t V probe at the wall
+    antinode.
+
+    PRE-REGISTERED BIN (frozen 2026-06-17):
+      * PASS: a DISCRETE GAPPED bound mode exists — ω_cutoff > 0 AND the FFT peak
+              is NOT the bin-1 relaxation artifact (ipk > 1) AND the spectrum is
+              discrete (peak/mean > 50) AND the signal oscillates (zero-crossings
+              > 10). REPORT ω_cutoff (natural units) as the FORM; NEVER an m_e.
+      * FAIL: no positive cutoff (ω_cutoff ≤ 0); OR the peak is the bin-1
+              relaxation artifact (ipk == 1 = no real mode); OR not discrete
+              (peak/mean ≤ 50 = a continuum, not a bound state); OR no oscillation.
+
+    ════════════════════════════════════════════════════════════════════════════
+    (b) COLD / α-FREE Q  [the ONE genuine CHORD-vs-ECHO question of this suite]
+    ════════════════════════════════════════════════════════════════════════════
+    Measure Q from the eigenmode's ring-down (envelope decay + −3dB FWHM linewidth)
+    in the LINEAR sub-yield regime (the cold cavity), with the α-bake REMOVED.
+
+    TWO α-BAKE GUARDS (mandatory, enforced): this test imports NEITHER Q_TANK
+    (cvr_model.py:72 = 1.0/ALPHA) NOR the ELECTRON instance; and does NOT touch
+    gamma_em_sq (cvr_model.py:364, the 1−α bake). Q is read PURELY from the cold
+    dynamics (rfft linewidth + Hilbert-envelope decay of ∂_t V). The genesis-arc
+    A²≈O(α) stuck-floor failure mode is watched.
+
+    PRE-REGISTERED BIN (frozen 2026-06-17):
+      * PASS (the FORM-bin): Q_measured is FINITE and > 0 from the cold dynamics.
+              THEN, DOWNSTREAM (a separate consistency read, NOT a bin): report
+              Q_measured vs α⁻¹=137.036. Seeding/asserting 137 would be a FAIL of
+              chord-discrimination (the instrument-echo-trap, theorem-3-1:21) — so
+              we DO NOT assert Q≈137. The chord is earned ONLY if a cold,
+              α-free-measured Q lands near 137; an echo is when 137 appears only
+              because α was baked. We report which.
+      * FAIL: Q is not finite/positive from the cold dynamics (the cavity carries
+              no well-defined ring-down — no resonator), OR the test routes through
+              any α-baked quantity (guarded against by construction).
+
+    THE HONEST RESULT (recorded in the module docstring): Q_ringdown≈30.8,
+    Q_linewidth≈3.8 — NOT 137. α was never baked, so the α-free cold cage does NOT
+    reproduce 137 ⇒ the corpus Q=1/α (cvr_model.py:72) is an INSTANCE-BAKED ECHO,
+    not a cage-emergent chord. The clean negative the brief hunted.
+
+    ════════════════════════════════════════════════════════════════════════════
+    (c) ZERO-DRIVE PERSISTENCE  [FORM — NOT topological-winding protection]
+    ════════════════════════════════════════════════════════════════════════════
+    Evolve the bare posited cage with NO drive for t≫τ_relax; the bound-mode
+    amplitude on the PML-EXCLUDED interior does not decay below threshold (a
+    non-radiating standing mode). NOTE: this shows PERSISTENCE, NOT the
+    topological-winding protection (that is winding-sector, NOT cage-testable —
+    bucket B; ave-conserved-vs-pumped: a conserved standing structure, measured
+    zero-drive, not pumped).
+
+    PRE-REGISTERED BIN (frozen 2026-06-17):
+      * PASS: after the initial non-eigen transient sheds, the interior peak |V|
+              holds steady — late-window mean (75–100%) / mid-window mean (50–75%)
+              > 0.8 AND the late-window minimum > 0.05·amp0 (the standing core
+              persists well above zero; it does not radiate away).
+      * FAIL: the interior amplitude decays away (late/mid ≤ 0.8 = still bleeding;
+              or late_min ≤ 0.05·amp0 = radiated to nothing).
+    """
+    B.assert_canonical_constants()
+
+    # ── (a) MASS = CUTOFF: gapped discrete bound breathing mode exists ──────────
+    enga = B.make_cage_engine(N=72, S_min=1e-3, A_cap=0.999, pml_thickness=12)
+    probe_idx = B.breathing_kick_cage(enga, frac=0.9, core_sigma=8.0, kick_width=2.0, kick_amp=0.01)
+    # run length: ≥ ~1047 steps to resolve the FWHM (brief); 6000 gives a clean,
+    # run-length-STABLE ω_cutoff (a real eigenmode, not the bin-1 1/n_steps drift).
+    n_steps_a = 6000
+    dVdt = B.record_breathing_dVdt(enga, probe_idx, n_steps_a)
+    ev = B.cutoff_eigenfrequency(enga, dVdt)
+    omega_cutoff = ev["omega_cutoff"]
+    gapped = omega_cutoff > 0.0
+    not_relaxation_artifact = ev["ipk"] > 1
+    discrete = ev["peak_mean"] > 50.0
+    oscillates = ev["zero_crossings"] > 10
+    mass_cutoff_pass = gapped and not_relaxation_artifact and discrete and oscillates
+
+    # ── (b) COLD / α-FREE Q from ring-down (NO Q_TANK / ELECTRON / gamma_em_sq) ──
+    rd = B.ringdown_Q(enga, dVdt, omega_cutoff)
+    Q_ringdown = rd["Q_ringdown"]
+    Q_linewidth = ev["q_linewidth"]
+    # FORM-bin: a finite, positive Q from the cold dynamics (a real resonator).
+    q_finite_positive = np.isfinite(Q_ringdown) and Q_ringdown > 0.0 and Q_linewidth > 0.0
+    # DOWNSTREAM consistency read (NOT a bin): is it 137 (chord) or not (echo)?
+    q_matches_137 = abs(Q_ringdown - ALPHA_INV) < 20.0  # tolerance for a "near-137" claim
+    # α-bake guard self-audit: confirm none of the forbidden symbols are in scope.
+    _alpha_bake_guard_clean = ("Q_TANK" not in globals()) and ("ELECTRON" not in globals())
+
+    # ── (c) ZERO-DRIVE PERSISTENCE: the bare posited cage holds steady ──────────
+    engc = B.make_cage_engine(N=72, S_min=1e-3, A_cap=0.999, pml_thickness=12)
+    B.posit_saturated_cage(engc, frac=0.9, sigma=8.0)
+    pers = B.cage_persistence_trace(engc, 3000)
+    persists = pers["late_over_mid"] > 0.8 and pers["late_min"] > 0.05 * pers["amp0"]
+
+    print("\n--- T3.4 bound longitudinal eigenmode of the POSITED cage (3 sub-tests) ---")
+    print("  [A1 SCALAR ONLY; converter OFF — two-3s guard. α-bake guards: NO Q_TANK/ELECTRON/gamma_em_sq]")
+    print("  (a) mass=cutoff [FORM-chord / VALUE-definitional]:")
+    print(f"      ω_cutoff = {omega_cutoff:.4f} rad/time (natural units; NOT an m_e — m_e is definitional)")
+    print(f"      gapped (ω>0)? {gapped}   not bin-1 relaxation artifact (ipk={ev['ipk']}>1)? {not_relaxation_artifact}")
+    print(f"      discrete (peak/mean={ev['peak_mean']:.1f}>50)? {discrete}   oscillates (zc={ev['zero_crossings']}>10)? {oscillates}")
+    print(f"      => DISCRETE GAPPED bound mode EXISTS? {mass_cutoff_pass}")
+    print(f"      [design note: needs a radial-SHELL breathing kick; a monopole/DC kick only RELAXES (bin-1 artifact)]")
+    print("  (b) cold/α-FREE Q [THE genuine chord-vs-echo question]:")
+    print(f"      Q_ringdown(env) = {Q_ringdown:.3f}   Q_linewidth(FWHM) = {Q_linewidth:.3f}   (finite & >0? {q_finite_positive})")
+    print(f"      α-bake guards clean (no Q_TANK/ELECTRON in scope)? {_alpha_bake_guard_clean}")
+    print(f"      DOWNSTREAM consistency read: Q_ringdown vs α⁻¹={ALPHA_INV:.3f}  →  Q/α⁻¹ = {Q_ringdown/ALPHA_INV:.4f}")
+    print(f"      Q ≈ 137 (would be the CHORD)? {q_matches_137}   →  it is NOT: the α-free cold cage does NOT")
+    print(f"      reproduce 137. The corpus Q=1/α (cvr_model.py:72) is an INSTANCE-BAKED ECHO, not cage-emergent.")
+    print("  (c) zero-drive persistence [FORM; NOT winding-protection]:")
+    print(f"      amp0={pers['amp0']:.4f}  mid_mean(50-75%)={pers['mid_mean']:.4f}  late_mean(75-100%)={pers['late_mean']:.4f}")
+    print(f"      late/mid = {pers['late_over_mid']:.4f} (>0.8 steady)   late_min={pers['late_min']:.4f} (>0.05·amp0)")
+    print(f"      => non-radiating standing mode persists? {persists}  (persistence ≠ topological-winding protection)")
+
+    # ── frozen-bin asserts ──
+    assert mass_cutoff_pass, (
+        f"FAIL (a) mass=cutoff: no discrete gapped bound mode — ω_cutoff={omega_cutoff:.4f}, "
+        f"ipk={ev['ipk']}, peak/mean={ev['peak_mean']:.1f}, zc={ev['zero_crossings']}"
+    )
+    assert q_finite_positive, (
+        f"FAIL (b) cold-Q: no finite/positive Q from cold dynamics — "
+        f"Q_ringdown={Q_ringdown}, Q_linewidth={Q_linewidth}"
+    )
+    assert _alpha_bake_guard_clean, "FAIL (b) α-bake guard: a forbidden α-baked symbol is in scope"
+    assert persists, (
+        f"FAIL (c) persistence: the cage decays away — late/mid={pers['late_over_mid']:.4f}, "
+        f"late_min={pers['late_min']:.4f}, amp0={pers['amp0']:.4f}"
+    )
+    # NOTE: q_matches_137 is REPORTED, never asserted (asserting 137 = the
+    # instrument-echo-trap; the honest result is that it does NOT match — echo).
+
+    # ── visual-debug layer (additive; never affects pass/fail) ──
+    if VZ.viz_enabled():
+        # rebuild the spectra/envelopes for plotting (cheap; viz-only)
+        s = dVdt - dVdt.mean()
+        spec = np.abs(np.fft.rfft(s * np.hanning(len(s))))
+        freqs = np.fft.rfftfreq(len(s), d=1.0)
+        omega_axis = 2.0 * np.pi * freqs / enga.dt
+        t_axis = np.arange(len(dVdt)) * enga.dt
+        try:
+            from scipy.signal import hilbert
+
+            env = np.abs(hilbert(s))
+        except ImportError:
+            env = np.abs(s)
+
+        def _draw_mode(fig):
+            ax1, ax2 = fig.subplots(1, 2)
+            ax1.plot(t_axis, dVdt, color="#1f77b4", lw=0.6)
+            ax1.set_xlabel("time (natural units)")
+            ax1.set_ylabel("∂ₜV at wall antinode")
+            ax1.set_title(f"T3.4a breathing ring (gapped bound mode)\nω_cutoff={omega_cutoff:.3f}, oscillates")
+            ax2.plot(omega_axis[1:], spec[1:], color="#d62728", lw=1.0)
+            ax2.axvline(omega_cutoff, color="black", ls="--", lw=0.9, label=f"ω_cutoff={omega_cutoff:.3f}")
+            ax2.set_xlabel("ω (rad/time)")
+            ax2.set_ylabel("|rfft(∂ₜV)|")
+            ax2.set_title(f"discrete gapped spectrum (peak/mean={ev['peak_mean']:.0f})\nNOT a continuum")
+            ax2.set_xlim(0, min(8.0, omega_axis[-1]))
+            ax2.legend(fontsize=8)
+
+        p1 = VZ.save_simple_figure("T3.4_mass_cutoff_eigenmode", "mass=cutoff: gapped bound breathing mode", _draw_mode)
+        print(f"  [viz] T3.4 mass-cutoff figure -> {p1}")
+
+        def _draw_q(fig):
+            ax1, ax2 = fig.subplots(1, 2)
+            ax1.plot(t_axis, np.abs(s), color="#bbbbbb", lw=0.5, label="|∂ₜV|")
+            ax1.plot(t_axis, env, color="#d62728", lw=1.2, label="Hilbert envelope")
+            ax1.set_xlabel("time (natural units)")
+            ax1.set_ylabel("envelope")
+            ax1.set_title(f"T3.4b cold ring-down (α-FREE)\nQ_ringdown={Q_ringdown:.1f}")
+            ax1.legend(fontsize=8)
+            ax2.plot(omega_axis[1:], spec[1:], color="#1f77b4", lw=1.0)
+            ax2.axvline(omega_cutoff, color="black", ls="--", lw=0.8)
+            ax2.set_xlabel("ω (rad/time)")
+            ax2.set_ylabel("|rfft| (−3dB FWHM → Q)")
+            ax2.set_title(f"linewidth Q={Q_linewidth:.2f}\nQ/α⁻¹={Q_ringdown/ALPHA_INV:.3f} — NOT 137 (echo, not chord)")
+            ax2.set_xlim(0, min(8.0, omega_axis[-1]))
+
+        p2 = VZ.save_simple_figure("T3.4_cold_Q_ringdown_linewidth", "cold α-free Q (NOT 137 — echo, not chord)", _draw_q)
+        print(f"  [viz] T3.4 cold-Q figure -> {p2}")
+
+        def _draw_pers(fig):
+            ax = fig.subplots(1, 1)
+            n = len(pers["amps"])
+            ax.plot(np.arange(n), pers["amps"], color="#2ca02c", lw=0.8)
+            ax.axvspan(int(0.5 * n), int(0.75 * n), color="#fff0e0", alpha=0.6, label="mid (50–75%)")
+            ax.axvspan(int(0.75 * n), n, color="#e8f4ff", alpha=0.6, label="late (75–100%)")
+            ax.axhline(0.05 * pers["amp0"], color="purple", ls=":", lw=0.9, label="0.05·amp0 threshold")
+            ax.set_xlabel("zero-drive step")
+            ax.set_ylabel("interior peak |V| (PML-excluded)")
+            ax.set_title(f"T3.4c zero-drive persistence (non-radiating standing mode)\nlate/mid={pers['late_over_mid']:.2f}, persists")
+            ax.legend(fontsize=8)
+
+        p3 = VZ.save_simple_figure("T3.4_persistence_trace", "zero-drive persistence (non-radiating)", _draw_pers)
+        print(f"  [viz] T3.4 persistence figure -> {p3}")

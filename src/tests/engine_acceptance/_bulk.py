@@ -334,3 +334,183 @@ def c_eff_over_c0_at(A: float, *, S_min: float = 1e-3, A_cap: float = 0.99) -> f
     V = np.array([A * lat.V_yield], dtype=np.float64)
     c_eff_sq_over_c0sq = float(lat.c_eff_squared(V)[0] / lat.c0**2)  # = 1/S (clipped)
     return float(np.sqrt(c_eff_sq_over_c0sq))
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# RUNG-1 EXISTENCE CAGE helpers (T3.3 / T3.4) — POSIT the cage; A1 SCALAR ONLY.
+# ═════════════════════════════════════════════════════════════════════════════
+# We POSIT a high-A saturated longitudinal-bulk core (consistency-class; positing
+# is legitimate here — this is NOT self-formation, that is rung-2 / DEFERRED). The
+# cage is carried by the canonical two-branch CrystalEngine driven on its BULK
+# (A1 scalar V) branch ONLY: converter_on=False (no (2,3) winding wired in — the
+# two-3s guard, master-equation.md:20: never read charge/spin/μ off the scalar
+# cage). CrystalEngine is chosen over the Master-Equation engine here because its
+# `gamma_bulk()` provides the α-FREE impedance-routed Γ_bulk (Z_eff=√S; NOT the
+# α-baked gamma_em_sq at cvr_model.py:364) that T3.3 requires, on the SAME S(A)
+# kernel. The bulk branch IS the validated Master-Equation engine (CrystalEngine
+# docstring: "the bulk branch IS that validated engine").
+from ave.core.crystal_engine import CrystalEngine
+
+
+def make_cage_engine(
+    N: int = 40, *, S_min: float = 1e-3, A_cap: float = 0.999, pml_thickness: int = 4
+) -> CrystalEngine:
+    """A CrystalEngine driven on its A1-SCALAR BULK branch ONLY (converter_on=False
+    ⇒ no (2,3) micro-rotation winding) — the posited-cage host. Same S(A)=√(1−A²)
+    kernel as the Master-Equation engine; exposes the α-FREE gamma_bulk()."""
+    return CrystalEngine(
+        N=N, S_min=S_min, A_cap=A_cap, pml_thickness=pml_thickness, converter_on=False
+    )
+
+
+def posit_saturated_cage(
+    eng: CrystalEngine, *, frac: float, sigma: float = 4.0, center=None
+) -> float:
+    """POSIT a saturated longitudinal-bulk core at strain A=frac (a Gaussian
+    dilatation well, CP8 generative-precursor style — but PLANTED, since this is
+    the consistency-class POSIT, not self-formation). Returns the interior A_max."""
+    if center is None:
+        c = eng.N // 2
+        center = (c, c, c)
+    eng.seed_bulk(center=center, sigma=sigma, frac=frac, helical=False)
+    m = eng.interior_mask()
+    return float(eng.strain_field()[m].max())
+
+
+def gamma_bulk_min_on_cage(eng: CrystalEngine) -> dict:
+    """Read Γ_bulk on the posited cage via the α-FREE impedance route Z_eff=√S
+    (crystal_engine.gamma_bulk(), :455-486). NOT gamma_em_sq (the 1−α bake,
+    cvr_model.py:364). Returns {gamma_min, gamma_mean, frac_short} on the
+    PML-excluded interior (A-Rule 10)."""
+    return eng.gamma_bulk()
+
+
+def breathing_kick_cage(
+    eng: CrystalEngine,
+    *,
+    frac: float,
+    core_sigma: float,
+    kick_width: float = 2.0,
+    kick_amp: float = 0.01,
+    center=None,
+) -> int:
+    """Posit a saturated core, then apply a RADIAL-SHELL BREATHING velocity kick
+    (∂_t V on the wall, NO monopole DC) to excite the bound longitudinal breathing
+    eigenmode. A pure monopole/DC kick excites only the slow continuum-relaxation
+    (an FFT-bin-1 artifact, NOT a mode); the shell-breathing kick is what couples
+    to the discrete bound oscillation. Returns the off-center probe index (an
+    antinode at r≈core_sigma, PML-excluded). converter_on=False (A1 scalar only)."""
+    cx = eng.N // 2
+    if center is None:
+        center = (cx, cx, cx)
+    eng.seed_bulk(center=center, sigma=core_sigma, frac=frac, helical=False)
+    i, j, k = np.indices((eng.N, eng.N, eng.N))
+    r = np.sqrt((i - center[0]) ** 2 + (j - center[1]) ** 2 + (k - center[2]) ** 2)
+    shell = (r - core_sigma) * np.exp(-((r - core_sigma) ** 2) / (2.0 * kick_width**2))
+    # V_prev = V − amp·shell ⇒ ∂_t V ≈ +amp·shell/dt: a breathing velocity kick
+    eng.V_prev = eng.V - kick_amp * shell
+    probe_off = int(round(core_sigma))
+    return int(min(cx + probe_off, eng.N - eng.pml_thickness - 1))
+
+
+def record_breathing_dVdt(eng: CrystalEngine, probe_idx: int, n_steps: int) -> np.ndarray:
+    """Evolve n_steps and record ∂_t V at the off-center antinode (the L-state of
+    the bulk reactance pair, CP6; DC-free — kills the slow core-offset relaxation
+    component so the breathing eigenmode is the resolvable signal)."""
+    p = probe_idx
+    dV = np.empty(n_steps, dtype=np.float64)
+    for n in range(n_steps):
+        v_before = float(eng.V[p, p, p])
+        eng.step()
+        dV[n] = (float(eng.V[p, p, p]) - v_before) / eng.dt
+    return dV
+
+
+def cutoff_eigenfrequency(eng: CrystalEngine, dVdt: np.ndarray) -> dict:
+    """Extract the bound-mode cutoff eigenfrequency ω_cutoff from the breathing
+    ∂_t V time-series: the dominant rfft tone (excluding DC). Returns ω_cutoff
+    (rad/time), the FFT bin index (ipk; >1 ⇒ NOT the bin-1 slow-relaxation
+    artifact), the peak/mean spectral ratio (discreteness ⇒ gapped bound mode),
+    the FWHM linewidth → Q_linewidth, and the zero-crossing count (oscillation
+    witness). α-FREE: pure rfft of the cold/finite dynamics — NO Q_TANK, NO
+    M.ELECTRON, NO gamma_em_sq routing."""
+    s = dVdt - dVdt.mean()
+    spec = np.abs(np.fft.rfft(s * np.hanning(len(s))))
+    freqs = np.fft.rfftfreq(len(s), d=1.0)  # cycles per step
+    ipk = 1 + int(np.argmax(spec[1:]))
+    f_peak = float(freqs[ipk])
+    omega_cutoff = 2.0 * np.pi * f_peak / eng.dt
+    peak_mean = float(spec[ipk] / spec[1:].mean())
+    # FWHM linewidth → Q = f0 / Δf
+    half = spec[ipk] / np.sqrt(2.0)
+    lo = ipk
+    while lo > 1 and spec[lo] > half:
+        lo -= 1
+    hi = ipk
+    while hi < len(spec) - 1 and spec[hi] > half:
+        hi += 1
+    fwhm_bins = hi - lo
+    fwhm_f = fwhm_bins * (freqs[1] - freqs[0])
+    q_linewidth = f_peak / fwhm_f if fwhm_f > 0 else float("inf")
+    zero_crossings = int(np.sum(np.diff(np.sign(s)) != 0))
+    return {
+        "omega_cutoff": float(omega_cutoff),
+        "ipk": int(ipk),
+        "peak_mean": peak_mean,
+        "fwhm_bins": int(fwhm_bins),
+        "q_linewidth": float(q_linewidth),
+        "zero_crossings": zero_crossings,
+    }
+
+
+def ringdown_Q(eng: CrystalEngine, dVdt: np.ndarray, omega0: float) -> dict:
+    """Cold/α-FREE Q from the breathing-mode ENVELOPE ring-down: fit an exponential
+    to |Hilbert(∂_t V)| after the initial transient → decay time τ → Q=ω₀·τ/2. If
+    the envelope does NOT decay (lossless reactive cage), τ=∞ ⇒ Q=∞ (reported
+    honestly). α-FREE by construction: the decay rate is read from the cold
+    dynamics, NEVER from Q_TANK (cvr_model.py:72=1/α) or the ELECTRON instance."""
+    s = dVdt - dVdt.mean()
+    try:
+        from scipy.signal import hilbert
+
+        env = np.abs(hilbert(s))
+    except ImportError:  # pragma: no cover — scipy is a hard dep here
+        env = np.abs(s)
+    t = np.arange(len(env)) * eng.dt
+    i0 = int(0.2 * len(env))  # skip the launch transient
+    seg_e, seg_t = env[i0:], t[i0:]
+    msk = seg_e > seg_e.max() * 0.1
+    if msk.sum() < 50:
+        return {"tau": float("inf"), "Q_ringdown": float("inf")}
+    slope = float(np.polyfit(seg_t[msk], np.log(seg_e[msk] + 1e-30), 1)[0])
+    if slope >= 0:
+        return {"tau": float("inf"), "Q_ringdown": float("inf")}
+    tau = -1.0 / slope
+    return {"tau": float(tau), "Q_ringdown": float(omega0 * tau / 2.0)}
+
+
+def cage_persistence_trace(
+    eng: CrystalEngine, n_steps: int, *, record_every: int = 1
+) -> dict:
+    """Zero-drive: evolve the posited cage with NO drive for n_steps; record the
+    PML-EXCLUDED interior peak |V| each step. Returns the trace + the mid-window
+    (50–75%) and late-window (75–100%) means — the steady-state persistence
+    observable AFTER the initial non-eigen transient sheds (a non-radiating
+    standing mode holds; a radiating/decaying one does not). The interior peak (not
+    the centroid) is the density-peak observable for a shell-structured field."""
+    m = eng.interior_mask()
+    amps = np.empty(n_steps, dtype=np.float64)
+    for n in range(n_steps):
+        eng.step()
+        amps[n] = float(np.abs(eng.V[m]).max())
+    a0 = float(amps[0])
+    mid = amps[int(0.5 * n_steps) : int(0.75 * n_steps)]
+    late = amps[int(0.75 * n_steps) :]
+    return {
+        "amps": amps,
+        "amp0": a0,
+        "mid_mean": float(mid.mean()),
+        "late_mean": float(late.mean()),
+        "late_min": float(late.min()),
+        "late_over_mid": float(late.mean() / mid.mean()) if mid.mean() else float("inf"),
+    }

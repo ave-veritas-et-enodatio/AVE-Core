@@ -440,3 +440,185 @@ Local rigor `quality` and both on-point fractions are `*pending*`.
   - clm-m7qd0w (f=*pending*) — Universal Solver Toolchain — Operator Reuse, Not Per-Domain Derivation (cross-domain reuse)
 
 ---
+
+## Support: T3.3 Γ=−1 wall on the posited mass-cage (L3-existence)
+<!-- id: sup-1ecv2m -->
+
+Simulation support (INVARIANT-S9/S10): the T3.3 acceptance test
+(`src/tests/engine_acceptance/test_l3_mass_cage.py:526`) confirms that a posited saturated
+A1-scalar cage exhibits the Γ=−1 reflective wall the corpus says is the electron's confining
+TIR boundary — Γ_bulk crosses the canonical OP2 engaged-gate −0.25 by A=0.95 (Γ_min(0.95)=
+−0.283, Γ_min(0.99)=−0.454), descends monotonically toward −1, →0 in vacuum (S→1), with the
+literal −1 UNREACHABLE (S_min-clipped floor, by design). Read via the **α-FREE** impedance
+route `crystal_engine.gamma_bulk()` (Z_eff=√S→0 ⇒ Γ→−1), NOT `gamma_em_sq` (the 1−α bake,
+`cvr_model.py:364`). CONSISTENCY / FORM-chord: it POSITS the cage (does NOT show self-
+formation, the gated rung-2). It lifts the DERIVATION branch of `clm-kezk9z` (the Γ=−1
+confinement wall + Z₀ from the discrete LC ladder) and `clm-uatcql` (the electron's Γ=−1 TIR-
+cavity 4-property identification). Free-standing. Local rigor `quality` and both on-point
+fractions are `*pending*`. Figure: `research/figures/engine_acceptance/T3.3_debug.png`.
+
+> **Leaf references:** [engine-acceptance-suite](./ch17-engine-requirements/engine-acceptance-suite.md).
+
+### Quality
+- quality: *pending*
+- solidity: *pending*
+- rationale: *pending*
+- supports:
+  - clm-kezk9z (f=*pending*) — Z₀ from discrete LC ladder + the Γ=−1 confinement wall
+  - clm-uatcql (f=*pending*) — Electron canonical identification (Γ=−1 TIR cavity property)
+
+---
+
+## Support: T3.4a mass=cutoff gapped bound mode (L3-existence)
+<!-- id: sup-xgx063 -->
+
+Simulation support (INVARIANT-S9/S10): the T3.4a acceptance test
+(`src/tests/engine_acceptance/test_l3_mass_cage.py:645`) confirms a DISCRETE gapped breathing
+eigenmode ω_cutoff≈2.87 (natural units; ipk=15, peak/mean≈456, 23 zero-crossings) EXISTS on
+the posited cage — the mass=ground-state-cutoff-energy of the bound resonator is the FORM (a
+chord). m_e the VALUE is NEVER read off the cage (definitional, `constants.py:129` "Input 1";
+`electron-identification.md:50` "CALIBRATION ANCHOR, not derivation"). FORM-chord / VALUE-
+definitional. Integrator-time note (Rule 10): the mode rings only under a radial-SHELL
+breathing kick, not a monopole/DC kick (the latter is the bin-1 1/n_steps relaxation
+artifact). It lifts the DERIVATION branch of `clm-ka5zdx` (the mass-closure theorem
+mc²=E_reactive, the saturation-locked standing-wave LC tank) and `clm-unk0bd` (the electron
+$0_1$ unknot body-loop hosting that standing wave). Free-standing. Local rigor `quality` and
+both on-point fractions are `*pending*`. Figure:
+`research/figures/engine_acceptance/T3.4_mass_cutoff_eigenmode_debug.png`.
+
+> **Leaf references:** [engine-acceptance-suite](./ch17-engine-requirements/engine-acceptance-suite.md).
+
+### Quality
+- quality: *pending*
+- solidity: *pending*
+- rationale: *pending*
+- supports:
+  - clm-ka5zdx (f=*pending*) — Mass-Closure Theorem mc²=E_reactive (saturation-locked standing wave)
+  - clm-unk0bd (f=*pending*) — Electron body topology ($0_1$ unknot + (2,3) phase-space winding)
+
+---
+
+## Support: T3.4b cold/α-FREE Q — ECHO corroboration (L3-existence)
+<!-- id: sup-wuy333 -->
+
+Simulation support (INVARIANT-S9/S10): the T3.4b acceptance test
+(`src/tests/engine_acceptance/test_l3_mass_cage.py:645`) measures Q from the eigenmode's cold
+ring-down with the α-bake REMOVED (two guards: no Q_TANK = `cvr_model.py:72`, no M.ELECTRON,
+no `gamma_em_sq`). The RESULT is **Q_ringdown≈30.8 (Q_linewidth≈3.8), NOT 137**. Because α was
+never baked, the α-free cold cage does NOT reproduce 137 ⇒ the corpus Q=1/α (`cvr_model.py:72`)
+is an **instance-baked ECHO**, not a cage-emergent chord — a clean chord-vs-echo NEGATIVE.
+**This support records that empirical result as CORROBORATION of the already-canonical value-
+scoped-echo framing of `clm-rtdmsn`** ([`theorem-3-1-q-factor.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md):19,
+the "echo at the value level" verdict; :21 the instrument-echo-trap, which says re-measuring Q
+from cold dynamics with the bake removed is the only way the chord could be earned — and it
+was not). The support is wired to clm-rtdmsn because the empirical evidence is on-point for
+that claim's VALUE-scope; it does **NOT** strengthen any "Q=137 is forced/derived" reading
+(there is none — clm-rtdmsn already states Q=1/α "predicts no independent value"). The local
+rigor `quality` and the on-point fraction are `*pending*`; per INVARIANT-S10 a pending support
+contributes nothing to the beneficiary's local_quality and never drags it to pending, so this
+corroboration changes no solidity. consistency-vs-emergence: the cold-Q value is a measured-
+DERIVATION-branch corroboration of a VALUE-echo classification, NOT an emergence result.
+Figure: `research/figures/engine_acceptance/T3.4_cold_Q_ringdown_linewidth_debug.png`.
+
+> **Leaf references:** [engine-acceptance-suite](./ch17-engine-requirements/engine-acceptance-suite.md).
+
+### Quality
+- quality: *pending*
+- solidity: *pending*
+- rationale: *pending*
+- supports:
+  - clm-rtdmsn (f=*pending*) — Electron Q-factor α⁻¹=Q_tank (value-scoped ECHO; cold-Q corroborates Q=1/α is calibration, NOT cage-emergent)
+
+---
+
+## Support: T3.4c zero-drive persistence (L3-existence)
+<!-- id: sup-x7h9yh -->
+
+Simulation support (INVARIANT-S9/S10): the T3.4c acceptance test
+(`src/tests/engine_acceptance/test_l3_mass_cage.py:645`) evolves the bare posited cage with NO
+drive for t≫τ_relax; the bound-mode amplitude on the PML-excluded interior holds steady
+(late/mid≈1.31, late_min≈0.34·amp0) — a non-radiating standing mode. FORM-chord: it shows
+PERSISTENCE of the saturation-locked standing structure (ave-conserved-vs-pumped: a conserved
+standing invariant measured zero-drive, not pumped). It is NOT the topological-winding
+protection (that is the winding sector, bucket B, NOT cage-testable on the A1 scalar cage). It
+lifts the DERIVATION branch of `clm-ka5zdx` (mc²=E_reactive of a stable saturation-locked
+standing wave) and `clm-uatcql` (the electron bound-resonator identification, whose stability/
+non-decay property is the persistence). Free-standing. Local rigor `quality` and both on-point
+fractions are `*pending*`. Figure: `research/figures/engine_acceptance/T3.4_persistence_trace_debug.png`.
+
+> **Leaf references:** [engine-acceptance-suite](./ch17-engine-requirements/engine-acceptance-suite.md).
+
+### Quality
+- quality: *pending*
+- solidity: *pending*
+- rationale: *pending*
+- supports:
+  - clm-ka5zdx (f=*pending*) — Mass-Closure Theorem mc²=E_reactive (stability of the standing wave)
+  - clm-uatcql (f=*pending*) — Electron canonical identification (stability/non-decay property)
+
+---
+
+## Support: T3.1 longitudinal-bulk mode is real (L3-existence precursor)
+<!-- id: sup-3kq9w7 -->
+
+Simulation support (INVARIANT-S9/S10): the T3.1 acceptance test
+(`src/tests/engine_acceptance/test_l3_mass_cage.py:214`) confirms that a propagating
+longitudinal-BULK (A1 dilatation) compression mode IS REAL on the extended medium — the
+Heaviside-Gibbs-EXCISED scalar grade (def-9a4f07) that textbook EM / QED gauge-DELETES
+(Gupta-Bleuler leaves exactly 2 transverse on-shell DOF), and AVE keeps as a physical
+acoustic branch. Measured (not asserted) on the PML-excluded interior: the launched
+compression PROPAGATES (one-way pulse-peak speed > 0.3·c₀), has a RISING acoustic dispersion
+ω(k) (dω/dk > 0), and runs at the K=2G dilatation speed `c_bulk = √(2G/ρ) = √2·c₀`
+(|c_bulk/c₀ − √2| < 1e-9) — a SECOND, faster channel distinct from the c₀ transverse photon.
+This FLIPS the T1.7 ⊘ absence-finding (the srs vector-TLM carried 2 transverse DOF only; the
+canonical Master-Equation scalar engine now carries the longitudinal grade). CHORD —
+AVE-distinct EXISTENCE (the QED-counterfactual), NOT a forced-number chord: the DOF is
+added-by-design (the corpus says it is physical, def-9a4f07), but propagation/dispersion/speed
+are READ off the integrator. It lifts the DERIVATION branch of `clm-crbl60` (vacuum bulk mass
+density + shear modulus): the mode propagates at exactly the `c_bulk = √(K/ρ) = √(2G/ρ)` speed
+that claim's `K_vac = 2G_vac` Cauchy relation + `G_vac = ρ_bulk·c₀²` construction predict, so
+the `√2·c₀` measurement is the empirical (α-FREE) confirmation of that bulk-modulus → bulk-speed
+cross-check. Free-standing. Local rigor `quality` and the on-point fraction are `*pending*`.
+Figure: `research/figures/engine_acceptance/T3.1_debug.png`.
+
+> **Leaf references:** [engine-acceptance-suite](./ch17-engine-requirements/engine-acceptance-suite.md).
+
+### Quality
+- quality: *pending*
+- solidity: *pending*
+- rationale: *pending*
+- supports:
+  - clm-crbl60 (f=*pending*) — Vacuum bulk mass density + shear modulus (K=2G; c_bulk=√(2G/ρ)=√2·c₀ confirmed)
+
+---
+
+## Support: T3.2 c_eff(V) stiffening → ∞ at yield (L3-existence precursor)
+<!-- id: sup-mz4t0p -->
+
+Simulation support (INVARIANT-S9/S10): the T3.2 acceptance test
+(`src/tests/engine_acceptance/test_l3_mass_cage.py:388`) confirms that the longitudinal-bulk
+effective speed STIFFENS, `c_eff(V) = c₀·S^(−1/2) → ∞` as A → A_yield (S → 0), driven by the
+canonical Axiom-4 kernel `S(A) = √(1−A²)` read DIRECTLY from the engine's authoritative
+`c_eff_squared` (`master_equation_fdtd.py:148-151`, the #278-corrected ½-power form). Measured
+across the sweep A ∈ {0…0.99}: cold limit c_eff/c₀(0)=1 (<1e-12), monotone-rising, matches
+`(1−A²)^(−1/4)` to <1e-9 (an S^0.25 read would FAIL bin 3, catching the refractive_index
+exponent-defect), and diverges past the I→II and II→III regime edges toward the wall. This is
+the CAGE PRECURSOR (CP8 generative-precursor): the bond stiffens C_eff=C₀/S→∞ at yield, and the
+T3.3 Γ=−1 wall is the END of this stiffening. consistency-vs-emergence: Axiom-4 MANIFESTATION /
+consistency — NOT a chord (no forced dimensionless number falls out; the stiffening is the
+axiom's constitutive law expressed in the longitudinal sector). It lifts the DERIVATION branch
+of `clm-gz7ryg` (the single Axiom-4 kernel S(A)=√(1−A²) governing every topological-reorganization
+event at every scale): T3.2 confirms the SAME dimensionless kernel manifesting in the
+longitudinal-bulk sector. Free-standing. Local rigor `quality` and the on-point fraction are
+`*pending*`. Figure: `research/figures/engine_acceptance/T3.2_debug.png`.
+
+> **Leaf references:** [engine-acceptance-suite](./ch17-engine-requirements/engine-acceptance-suite.md).
+
+### Quality
+- quality: *pending*
+- solidity: *pending*
+- rationale: *pending*
+- supports:
+  - clm-gz7ryg (f=*pending*) — A-034 single Axiom-4 kernel S(A)=√(1−A²) (manifested in the longitudinal sector)
+
+---
