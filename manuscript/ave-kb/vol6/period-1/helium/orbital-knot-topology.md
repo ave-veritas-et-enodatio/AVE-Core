@@ -21,6 +21,6 @@ Crucially, because both solitons are highly localized sources of metric strain (
 
 [Figure: helium_4_topology.png — see manuscript/vol_6_periodic_table/figures/]
 
-Helium-4 orbital knot topology. Paired trefoil lock on $n=1$. Two solitons at $180^\circ$ achieve complete dielectric saturation, closing the $1s$ shell.
+Helium-4 orbital knot topology. Paired $0_1$ unknot lock on $n=1$. Two solitons at $180^\circ$ achieve complete dielectric saturation, closing the $1s$ shell.
 
 ---

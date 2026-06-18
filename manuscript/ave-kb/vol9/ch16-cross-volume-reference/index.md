@@ -24,7 +24,7 @@ Vol 9 Ch.16 cross-references the entire substrate canonical corpus. Load-bearing
 | `vol1/ch8-alpha-golden-torus.md` (`clm-0ktpcn`) | Golden-Torus α cold-lattice closure |
 | `vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md` (`clm-ezai5b`, `clm-8nkvwy`) | Pair production + SYM/ASYM scaling + two-effective-wave-speed |
 | `vol2/particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md` (`clm-salw2h`) | FM-kink spin-½ derivation |
-| `vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md` (`clm-8c3yhs`) | $(2,3)$ trefoil electron uniqueness |
+| `vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md` (`clm-8c3yhs`) | $(2,3)$ phase-space winding / electron uniqueness |
 | `vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md` (`clm-5zuo7g`) | Cosserat couple-stress + $l_c$ weak-force range |
 | `vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md` (`clm-x19btt`) | $\nu_{vac} = 2/7$ axiomatic identity |
 | `vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md` (`clm-3zz0f6`) | SYM-class α-invariance proof |

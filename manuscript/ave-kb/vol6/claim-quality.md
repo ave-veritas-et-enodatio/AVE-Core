@@ -402,7 +402,7 @@ The cross-cutting Symmetric vs Asymmetric Saturation entry (in `../claim-quality
 ## Bohr Radius and Rydberg Energy via Topological Hydrogen
 <!-- id: clm-a95yx1 -->
 
-The Hydrogen orbital-knot leaf derives $a_0 = \ell_{node}/\alpha \approx 5.291 \times 10^{-11}$ m and $E_0 = (1/2) m_e (\alpha c)^2 \approx 13.606$ eV from topological standing-wave conditions on the trefoil-electron / Borromean-proton system.
+The Hydrogen orbital-knot leaf derives $a_0 = \ell_{node}/\alpha \approx 5.291 \times 10^{-11}$ m and $E_0 = (1/2) m_e (\alpha c)^2 \approx 13.606$ eV from topological standing-wave conditions on the electron ($0_1$ unknot + $(2,3)$ phase-space winding) / Borromean-proton system.
 
 - _Specific Claims_
   - The values match empirical Bohr radius and Rydberg energy by direct substitution of Axiom 1 ($\ell_{node} = \hbar/(m_e c)$) and Axiom 2 ($\alpha$).
@@ -410,7 +410,7 @@ The Hydrogen orbital-knot leaf derives $a_0 = \ell_{node}/\alpha \approx 5.291 \
 - _Specific Non-Claims and Caveats_
   - These derivations are **algebraic identities** within the AVE definitions of $\ell_{node}$ and $\alpha$; they follow by substitution. Treat as category (i) "identity" or category (iii) "consistency check via alternative mechanism," not as novel category-(iv) predictions.
   - LIVING_REFERENCE.md Pitfall #8 (QM Contamination — Bohr formula) is the relevant project-wide tripwire: the topological derivation here uses $E_k = (1/2) m_e (\alpha c)^2$, which is **algebraically equivalent** to the Bohr-formula Rydberg expression. The framework's claim is that the topological route arrives at the same number via classical LC standing-wave mechanics rather than via $E = Z_{\text{eff}}^2 \mathrm{Ry} / n^2$. Reviewers must not promote this single-element result into a general "AVE-derived ionization energies use the Bohr formula" reading — the multi-element solver explicitly rejects the Bohr formula (see "Period 1–3 Per-Element IE Accuracy" entry).
-  - The "trefoil electron + Borromean proton" identification is structural; does NOT claim novel observables distinguishable from the standard Hydrogen atom in low-energy QM.
+  - The "electron ($0_1$ unknot) + Borromean proton" identification is structural; does NOT claim novel observables distinguishable from the standard Hydrogen atom in low-energy QM.
 
 > **Leaf references:** [orbital-knot-topology](./period-1/hydrogen/orbital-knot-topology.md).
 
@@ -423,7 +423,7 @@ The Hydrogen orbital-knot leaf derives $a_0 = \ell_{node}/\alpha \approx 5.291 \
 - rationale: $a_0=l_{node}/\alpha\approx5.291\times10^{-11}$ m and $E_0=\tfrac12 m_e(\alpha c)^2\approx13.606$ eV follow by direct substitution of the AVE definitions of $l_{node}$ and $\alpha$, and the de Broglie closure $n=2\pi a_0/\lambda_e\equiv1.00000$ collapses algebraically — a clean closed derivation within the leaf. By the framework's own framing this is an identity / consistency-check (the values are algebraically equivalent to the Bohr-formula Rydberg, reached via classical LC standing-wave mechanics), not a novel prediction; local rigor is nonetheless high. (Pitfall #8 tripwire: do not generalize this single-element substitution into "AVE IEs use the Bohr formula" — the multi-element solver of clm-7tk051 rejects it.)
 - strengthen-by:
   - State explicitly that $E_0$ is an algebraic identity given the $l_{node}$/$\alpha$ definitions (set reader expectation against a "prediction" reading)
-  - Derive the $(2,3)$ Clifford-torus winding / trefoil-electron identification rather than asserting it
+  - Derive the $(2,3)$ Clifford-torus winding / phase-space electron portrait rather than asserting it
   - Exhibit one observable where the topological route departs from the QM result (to move beyond consistency-check)
 
 ---
@@ -652,12 +652,12 @@ Each per-element "EE Equivalent" leaf maps the nuclear topology onto a specific 
 ## Per-Element Manifestation: Orbital Knot Topology (Soliton Placement)
 <!-- id: clm-y7uvdc -->
 
-Each per-element "Orbital Knot Topology" leaf identifies the electron configuration as a placement of $3_1$ trefoil solitons on harmonic tracks ($n=1,2,3$), with the inter-soliton angular separation set by minimum-impedance packing. Hydrogen's leaf carries the load-bearing Bohr-radius / Rydberg-energy derivation (covered separately by entry `clm-a95yx1`); the remaining leaves identify per-element soliton arrangements and connect chemical-shell labels (e.g., $sp^3$, $sp^2$, $1s^2$, $2s^2 2p^k$) to topological packing geometries.
+Each per-element "Orbital Knot Topology" leaf identifies the electron configuration as a placement of $0_1$ unknot solitons on harmonic tracks ($n=1,2,3$), with the inter-soliton angular separation set by minimum-impedance packing. Hydrogen's leaf carries the load-bearing Bohr-radius / Rydberg-energy derivation (covered separately by entry `clm-a95yx1`); the remaining leaves identify per-element soliton arrangements and connect chemical-shell labels (e.g., $sp^3$, $sp^2$, $1s^2$, $2s^2 2p^k$) to topological packing geometries.
 
 - _Specific Claims_
-  - Per-element soliton placement examples: He-4 (two trefoils antipodal at $180^\circ$ on $n=1$, dielectric-saturating the $1s$); Li-7 (single $2s$ soliton on $n=2$); C-12 (four $sp^3$ solitons at $90^\circ$ on $n=2$, tetrahedral packing); O-16 (six $60^\circ$ solitons on $n=2$); Ne-20 (eight $45^\circ$ solitons completing $n=2$); Si-28 (four valence $sp^3$ solitons at $90^\circ$ on $n=3$ with $[\text{Ne}]$ inner core). Other elements carry leaf-specific arrangements.
-  - $sp^3$ hybridization is re-identified as the mechanical packing limit of four LC knots sharing the same harmonic track — no quantum-mechanical wavefunction mixing required.
-  - "Spin" is identified topologically as the helicity / chirality of the trefoil; antipodal phase-locked spin-pairing minimizes mutual strain (the AVE re-statement of the Pauli-exclusion outcome).
+  - Per-element soliton placement examples: He-4 (two $0_1$ unknot solitons antipodal at $180^\circ$ on $n=1$, dielectric-saturating the $1s$); Li-7 (single $2s$ soliton on $n=2$); C-12 (four $sp^3$ solitons at $90^\circ$ on $n=2$, tetrahedral packing); O-16 (six $60^\circ$ solitons on $n=2$); Ne-20 (eight $45^\circ$ solitons completing $n=2$); Si-28 (four valence $sp^3$ solitons at $90^\circ$ on $n=3$ with $[\text{Ne}]$ inner core). Other elements carry leaf-specific arrangements.
+  - $sp^3$ hybridization is re-identified as the mechanical packing limit of four unknot solitons sharing the same harmonic track — no quantum-mechanical wavefunction mixing required.
+  - "Spin" is identified topologically as the helicity / chirality of the unknot soliton loop; antipodal phase-locked spin-pairing minimizes mutual strain (the AVE re-statement of the Pauli-exclusion outcome).
 - _Specific Non-Claims and Caveats_
   - Does NOT claim a quantitative reproduction of multi-electron ionization energies, fine-structure splittings, or spectroscopic line positions from the soliton-packing picture alone. Quantitative IE predictions live in entry `clm-7tk051` (the radial-eigenvalue / correction-stack solver).
   - Does NOT claim the soliton-packing identification produces observables empirically distinguishable from the standard QM orbital model at the level of these leaves. The ontological re-identification is the claim; quantitative deviation is not asserted here.
@@ -673,7 +673,7 @@ Each per-element "Orbital Knot Topology" leaf identifies the electron configurat
   - clm-a95yx1 (Hydrogen Bohr/Rydberg derivation)
   - clm-jqnzz7 (chemistry-translation conventions)
 - solidity: 0.30 (do not build on, rework needed) [= min(0.30, 0.30)]
-- rationale: The per-element soliton placements (trefoils at specific angles on $n=1,2,3$ tracks; $sp^3$ as the four-knot packing limit; spin as trefoil helicity) are structural identifications, several extracted from figure captions where no source `\section` exists. The leaves explicitly disclaim quantitative multi-electron IE / fine-structure / spectral predictions (those live in clm-7tk051) and any QM-distinguishable observable. Asserted-partial structural mapping. (Hydrogen's leaf carries the clean clm-a95yx1 substitution derivation; Pitfall #8 caveat applies.)
+- rationale: The per-element soliton placements ($0_1$ unknot solitons at specific angles on $n=1,2,3$ tracks; $sp^3$ as the four-soliton packing limit; spin as unknot helicity) are structural identifications, several extracted from figure captions where no source `\section` exists. The leaves explicitly disclaim quantitative multi-electron IE / fine-structure / spectral predictions (those live in clm-7tk051) and any QM-distinguishable observable. Asserted-partial structural mapping. (Hydrogen's leaf carries the clean clm-a95yx1 substitution derivation; Pitfall #8 caveat applies.)
 - strengthen-by:
   - Derive the inter-soliton angular separations from the minimum-impedance condition (not asserted from packing)
   - Connect the soliton placements quantitatively to the clm-7tk051 IE values

@@ -19,6 +19,8 @@ The vacuum medium has **no dedicated object symbol**. Retired 2026-06-18: `$\mat
 
 **Retired 2026-06-18 (condensate):** do **not** use *condensate* as a substrate/vacuum-medium noun (conflicts with Axiom 1 crystal identity and implies BEC/QFT condensation). Keep *condensate* only for standard CM references (BCS/BEC/pair-condensate in the A-034 ladder) or explicitly bounded engine lenses (Meissner-*class*).
 
+**Knot / trefoil disambiguation (extends INVARIANT-N1):** the electron's **real-space body** is the $0_1$ **unknot**; the proton's is the $6^3_2$ **Borromean** linkage. Rolfsen names ($3_1$ trefoil, $5_1$ cinquefoil, …) and "$(2,q)$ torus knot" labels refer to **phase-space winding portraits** on the bond-pair LC tank (Clifford torus), **not** real-space body knots. Never write "trefoil electron" without an explicit *phase-space* qualifier; valence electrons in orbital topology are $0_1$ unknot solitons on harmonic tracks. See `def-kn0t01` and `def-3638f2` (winding).
+
 First mention in a chapter may spell out the axiom name once, then drop to "substrate" or "lattice". Do **not** reintroduce `$\mathcal{M}_A$`, `$\mathcal{M}_C$`, or any Greek letter as a substrate object. Boundary observables `$\mathcal{M}$`, `$\mathcal{Q}$`, `$\mathcal{J}$`; alpha-decomposition `$\Lambda_{\text{vol/surf/line}}$`; and Einstein `$\Lambda$` / `$\rho_\Lambda$` are unchanged.
 
 Do NOT use the `\vacuum` macro (exists but unused in chapter bodies). KB distillers follow the prose table above.

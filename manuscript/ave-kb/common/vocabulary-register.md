@@ -239,6 +239,21 @@ parse it):
 
 ---
 
+## electron/proton knot disambiguation
+<!-- id: def-kn0t01 -->
+
+- **term:** trefoil / cinquefoil / torus knot (particle-body usage)
+- **adjudicated-meaning:** Rolfsen knot names and $(2,q)$ torus-knot labels are **phase-space winding portraits** on the bond-pair LC tank (Clifford torus $\mathbb{T}^2$), **not** real-space body topologies. **Electron real-space body:** $0_1$ unknot. **Proton real-space body:** $6^3_2$ Borromean linkage. Valence electrons in orbital-topology leaves are $0_1$ unknot solitons on harmonic tracks — never real-space trefoils.
+- **axis:** phase-carrier (winding portrait) vs real-space topology (body knot/link)
+- **dimension/type:** topological integers / winding pairs (dimensionless)
+- **status:** SOLID — canonical since 2026-05-17 body-topology resolution (`clm-unk0bd`); extended 2026-06-18 knot/fluid audit on PR #291.
+- **canonical-home:** `vol1/ch8-alpha-golden-torus.md:29`; `electron-identification.md`; `eq_axiom_2.tex:27`
+- **clm-cross-links:** clm-unk0bd, clm-0ktpcn, clm-8c3yhs
+- **open-ambiguity-flag:** no — qualifier rule is locked: *phase-space* before any trefoil/cinquefoil/$(2,q)$ label when attached to a particle name; real-space crossings belong only to Borromean/linkage prose for baryons.
+- **verification:** VERIFIED disambiguation at `ch8-alpha-golden-torus.md:29` ("trefoil lives in phase space; soliton lives in real space") and `eq_axiom_2.tex:27` (2026-06-18 knot pass).
+
+---
+
 ## δ (delta glyph)
 <!-- id: def-de17a0 -->
 

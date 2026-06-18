@@ -138,7 +138,7 @@
 {"claim_id": "clm-a7cbqq", "item_idx": 1, "text": "Supply the crystallization-temperature estimate from the Axiom-4 yield boundary", "mentioned_ids": []}
 {"claim_id": "clm-a7cbqq", "item_idx": 2, "text": "Show why bond-bowing direction necessarily selects right-handed I4₁32 (not just \"lock at equilibrium\")", "mentioned_ids": []}
 {"claim_id": "clm-a95yx1", "item_idx": 0, "text": "State explicitly that $E_0$ is an algebraic identity given the $l_{node}$/$\\alpha$ definitions (set reader expectation against a \"prediction\" reading)", "mentioned_ids": []}
-{"claim_id": "clm-a95yx1", "item_idx": 1, "text": "Derive the $(2,3)$ Clifford-torus winding / trefoil-electron identification rather than asserting it", "mentioned_ids": []}
+{"claim_id": "clm-a95yx1", "item_idx": 1, "text": "Derive the $(2,3)$ Clifford-torus winding / phase-space electron portrait rather than asserting it", "mentioned_ids": []}
 {"claim_id": "clm-a95yx1", "item_idx": 2, "text": "Exhibit one observable where the topological route departs from the QM result (to move beyond consistency-check)", "mentioned_ids": []}
 {"claim_id": "clm-ak97cb", "item_idx": 0, "text": "Add a mechanical contamination-detector check (e.g. a unit test) that flags any downstream reuse of the forbidden $Z_{eff}^2 Ry/n^2$ form.", "mentioned_ids": []}
 {"claim_id": "clm-ak97cb", "item_idx": 1, "text": "Strengthen by closing the clm-oltvwy E2k action-consistent architecture so the discipline is satisfied end-to-end, not just stated.", "mentioned_ids": ["clm-oltvwy"]}

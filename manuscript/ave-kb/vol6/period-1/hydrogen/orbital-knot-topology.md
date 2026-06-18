@@ -53,10 +53,10 @@ $$
 
 The electron is not a smeared cloud of probability. It is a highly localized, deterministic knot that physically bites its own topological tail in phase every single orbit. It is a mathematically perfect LC standing wave in the continuous substrate medium.
 
-<!-- claim-quality: clm-y7uvdc (per-element soliton placement: single trefoil on $n=1$ harmonic) -->
+<!-- claim-quality: clm-y7uvdc (per-element soliton placement: single $0_1$ unknot on $n=1$ harmonic) -->
 
 [Figure: hydrogen_1_topology.png — see manuscript/vol_6_periodic_table/figures/]
 
-Hydrogen-1 orbital knot topology. Single trefoil soliton on the $n=1$ harmonic track. No equilibrium partner exists; the standing wave closes on itself.
+Hydrogen-1 orbital knot topology. Single $0_1$ unknot soliton on the $n=1$ harmonic track. No equilibrium partner exists; the standing wave closes on itself.
 
 ---
