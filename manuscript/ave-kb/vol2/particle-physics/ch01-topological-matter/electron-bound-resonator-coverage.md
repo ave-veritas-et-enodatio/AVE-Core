@@ -85,6 +85,39 @@ be authored for any of them.
 8. **DIMENSIONFUL ELECTRON MAGNITUDES** ($m_e$, $e$, $\mu_B$, $\lambda_C$) — FORMS exist (A/B) but the NUMBERS are calibration-imported. MISSING: any native dimensionful electron number.
 9. **CLASSICAL ELECTRON RADIUS $r_e$** — GENUINE GAP / absent-by-design (no clm-, no `constants.py` entry). Do NOT dress $\ell_{node}/2\pi$ as $r_e$.
 
+## Graded vacuum impedance network — open-gate registry (extends the A/B/C buckets)
+
+The graded vacuum impedance network ([def-gv1net](../../../common/vocabulary-register.md);
+wired-network leaf [`device-circuit-models.md`](../../../vol9/ch3-pin-port-configuration/device-circuit-models.md) §6)
+is **foundation repair carrying open gates**, not a solved framework. These gates extend the
+A/B/C FORM-chord / VALUE-echo buckets above (INVARIANT-S11 extend-don't-reinvent — NO parallel
+registry); several re-index existing GAP-register / bucket rows and are cross-linked rather than
+duplicated. Each carries a status + the defined test where one exists.
+
+| # | Gate | Bucket | Status | Defined test / cross-ref |
+|---|---|---|---|---|
+| 1 | **Containment NOT substrate-native** — Cartesian 7-pt stencil, hand-planted core, opposite native-stencil sign | C | OPEN — base-audit RANK-2 | cross-ref the base-crack reconciliation task (gate #5); structural, not yet reconciled |
+| 2 | **Q-echo** — cold-cage $Q\approx30.8\ne137$, slot EMPTY | A-FORM / VALUE-ECHO | NEGATIVE, NO refill | `test_l3_mass_cage.py`:702-703; T3.4b `sup-wuy333` (see "LC-tank cold Q" row) — preserve, do NOT refill |
+| 3 | **$\ell_{\mathrm{node}}$ CIRCULAR** — definitional, $m_e$ is the input ruler; one-ruler TARGET not achieved ($G$ makes count plausibly TWO) | C | OPEN — clm-5xon03 | cross-ref the $\ell_{\mathrm{node}}$ one-ruler task; definitional circularity |
+| 4 | **$m_p/m_e$ = one-residual FIT** not zero-parameter prediction ($V=2$ CODATA-selected) | C | OPEN | cross-ref the $m_p$ re-register task |
+| 5 | **eigenmode-driver real-space $(2,3)$ Cartesian** vs def-kn0t01 SOLID | C | OPEN — REGISTER, do not fix here | cross-ref the base-crack reconciliation task |
+| 6 | **confinement-surface shape forced-by-topology** — electron vs proton differ; proton single-vs-multi-node | C | OPEN ([def-cf1srf](../../../common/vocabulary-register.md)) | `device-circuit-models.md` §6.2; no solved BVP produces the shape from topology |
+| 7 | **TENSION-1 discriminator** — does the EM far-field reduce to the matched-port projection of the interior micropolar winding ($\mathcal{Q}$=micropolar, EM=antenna), or is there a residual EM-channel charge DOF? | C | OPEN — defined test | resolvable in the coupled-network derivation; `device-circuit-models.md` §6.5 |
+| 8 | **$\mathcal{Q}$ two-integrals reconciliation** — 1D linking number ([`boundary-observables-m-q-j.md`](../../../common/boundary-observables-m-q-j.md):20) vs 3D Beltrami helicity $H_{\mathrm{bel}}$ ([`master-equation.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20) | C | OPEN — likely closer named | almost certainly two projections of ONE charge via helicity=linking (Moffatt 1969); that identity is NOT written for the AVE case |
+| 9 | **$\Omega_{\mathrm{freeze}}$ NOT-CLOSED** — back-fit direction ($\alpha,G\to u_0^*$, B2 re-scope) + research-only electron-$\mathcal{J}$ link | C | OPEN | `device-circuit-models.md` §6.4; ties to $\mathcal{J}$ only at cosmic scale ($\Omega_{\mathrm{freeze}}=\mathcal{J}_{\mathrm{cosmic}}/I_{\mathrm{cosmic}}$, `boundary-observables-m-q-j.md`:97) |
+| 10 | **Fork-A discriminator** (isolation vs $H_{\mathrm{couple}}$) + **Fork-B chiral circulator** STATED-pending-engine | A/B/C-mix | OPEN — KEEP-BOTH (Fork-A); STATED (Fork-B) | `device-circuit-models.md` §6.5; handle = does $H_{\mathrm{couple}}$ lift $Q\approx30.8$ toward the OBSERVED $Q$ (NOT the baked 137) |
+| 11 | **exhaustiveness** ("no 4th observable") | — | ASSERTED not proven — keep ASSERTED | `common/claim-quality.md`:606 (solidity 0.55); asserted on Stokes dimensional-reduction, not formally proven |
+| 12 | **grip=loss / lossless-pivot cosmic-rotation$\leftrightarrow$soliton-spin thread** | — | research-only | KB carries "lossless pivot" only as a not-canon exclusion ([resonant-lc-solitons.md](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md):83); promote before any reframe cites it |
+
+**M, J, Q honest-map note (refuted bijection).** The clean "3 hairs = 3 channels" bijection is
+REFUTED: the Stokes-dimension triple ($\mathcal{M}/\mathcal{J}/\mathcal{Q}$ = 3D/2D/1D,
+`boundary-observables-m-q-j.md`:19-23) and the wave-channel triple (EM/shear/bulk,
+`three-channel-impedances.md`:20-22) are TWO INDEPENDENT AXES no leaf cross-identifies; the same
+unproven Stokes triple also props $\alpha^{-1}=4\pi^3+\pi^2+\pi$ ($\alpha$=echo) — double duty.
+HONEST: $\mathcal{M}$=bulk/A1 (forced); $\{\mathcal{J},\mathcal{Q}\}$ CO-LOCATE in the
+micropolar/Cosserat sector; EM=matched radiative PORT, not a hair-sector. Full map at
+[`device-circuit-models.md`](../../../vol9/ch3-pin-port-configuration/device-circuit-models.md) §6.4.
+
 ## Bucket-B deferrals (winding-sector / L4 — NOT gaps, KNOWN structural deferrals)
 
 Charge / spin / $\mu$ DERIVE (FORM-chords) but live in the (2,3) Cosserat micro-rotation
