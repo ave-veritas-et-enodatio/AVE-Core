@@ -88,7 +88,7 @@ Forward scout (`src/scripts/vol_1_foundations/operating_point_coefficients.py`; 
 
 **Classification:** Class C — definitional channel assignments from registry §3.11; no new physics.
 
-One physical saturation boundary = **three channel-specific** $\Gamma$ values (three-impedance law; `research/2026-06-10_field-symbol-registry.md` §3.11):
+One physical saturation boundary = **three channel-specific** $\Gamma$ values (three-impedance law; canonical render at [`three-channel-impedances.md`](../ch4-dc-electrical-characteristics/three-channel-impedances.md):20-22 — the registry §3.11 source is `research/2026-06-10_field-symbol-registry.md`, a **NON-CANON DRAFT**, not the canonical anchor):
 
 | Channel | Impedance | $\Gamma$ at saturation / horizon |
 |---|---|---|
