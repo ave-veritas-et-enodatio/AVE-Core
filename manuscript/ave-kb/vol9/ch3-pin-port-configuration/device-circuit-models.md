@@ -128,9 +128,21 @@ Electron manufacture requires **bulk** $\Gamma_{\mathrm{bulk}}\to -1$ confinemen
 
 **Classification:** Class C — CONSISTENCY re-expression of the three-impedance law (registry §3.11; `three-channel-impedances.md`) as a wired equivalent-circuit MODEL. Originates NO new substrate primitive. Documented as foundation repair carrying OPEN gates, not a solved framework.
 
-*(skeleton — subsections filled in dedicated commits)*
+The **graded vacuum impedance network** ([def-gv1net](../../common/vocabulary-register.md)) is the equivalent-circuit MODEL of the vacuum drawn as three WIRED reactance channels — one per substrate grade — coupled through a chiral circulator and terminated at confinement surfaces. It is a **CONSISTENCY re-expression** of the already-canonical three-impedance law ([`three-channel-impedances.md`](../ch4-dc-electrical-characteristics/three-channel-impedances.md), registry §3.11), NOT a new substrate primitive. Per INVARIANT-N1 the network is the circuit MODEL of the medium, not a new substrate-object noun (the substrate-noun slot stays prose-only). This section is **foundation repair carrying open gates** (§6.5), not a solved framework.
 
 #### 6.1 The three wired reactance channels
+
+Each channel is one substrate grade. The impedances and saturation $\Gamma$ values are reproduced verbatim from the three-impedance law ([`three-channel-impedances.md`](../ch4-dc-electrical-characteristics/three-channel-impedances.md):20-22); this leaf ADDS the two-"3"s grade tag without renaming any channel.
+
+| Channel | Grade | Impedance | $\Gamma$ at saturation | Two-"3"s tag |
+|---|---|---|---|---|
+| $Z_{\mathrm{EM}}$ | T2 transverse field | $Z_{\mathrm{EM}}\equiv Z_0=\sqrt{\mu_0/\varepsilon_0}\approx376.73\,\Omega$ | $\Gamma_{\mathrm{EM}}=0$ — **MATCHED / radiative PORT** | — (matched port, not a hair-sector) |
+| $Z_{\mathrm{shear}}$ | deviatoric $G$ | $Z_{\mathrm{shear}}=\rho_{\mathrm{bulk}}\,c_{\mathrm{shear}}$ | $\Gamma_{\mathrm{shear}}\to-1$ — CONFINED | **CHARGE-"3"** (Cosserat micro-rotation winding) |
+| $Z_{\mathrm{bulk}}$ | dilatation $K$ | $Z_{\mathrm{bulk}}=\sqrt2\,Z_0$ at $K=2G$ (i.e. $c_{\mathrm{bulk}}=\sqrt2\,c_0$) | $\Gamma_{\mathrm{bulk}}\to-1$ — CONFINED | **MASS-"3"** (A1 dilatation) |
+
+**Naming discipline (do NOT rename the channels).** Keep $Z_{\mathrm{EM}}$ named $Z_{\mathrm{EM}}$ — do **not** rename it to $Z_{\mathrm{transverse}}$: BOTH EM and shear are transverse waves, so "transverse" is ambiguous; $Z_{\mathrm{EM}}\equiv Z_0$ is the native label because $Z_0=\sqrt{\mu_0/\varepsilon_0}$ is a vacuum constant. Keep this three-grade wave-channel set DISTINCT from the coarser **Electric / Magnetic / Either** per-element constitutive tags of the `AVE_VACUUM_CELL` (§1) — those are a different (per-element constitutive) classification, not the wave-channel set.
+
+**Two-"3"s grade tag (the AMENDMENT this leaf adds).** Per the two-"3"s disambiguation ([`master-equation.md`](../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20, Grant-ratified): the **bulk** channel carries the MASS-"3" (the A1 Heaviside-excised longitudinal dilatation scalar — $m_e c^2$ = trapped acoustic compression energy), and the **shear** channel carries the CHARGE-"3" (the orthogonal Cosserat $(2,3)$ micro-rotation winding — charge = Beltrami helicity). $A1\perp T2$: the two grades are orthogonal, never wired into one shared $(V_{\mathrm{inc}},V_{\mathrm{ref}})$ phasor (the genesis-24 / $w_{\mathrm{pol}}=0$ double-count guard). The EM channel is the matched radiative PORT, **not** a hair-sector — it is how the interior couples to the far field, not where an observable lives (see the M, J, Q honest map, §6.4).
 
 #### 6.2 The confinement surface (Γ=−1 cage-wall, status OPEN)
 
