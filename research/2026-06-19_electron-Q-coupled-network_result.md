@@ -193,7 +193,8 @@ eigenframe carries two pieces of canonical content (landed in the KB leaves + Vo
    intrinsic lossless confinement (Q→∞); INTERACTION = radiative loading (loaded Q=1/α = the
    intrinsic vacuum/EM coupling coefficient). NUANCE: even loaded, the electron does NOT
    decay — 1/α is a COUPLING (self-dressing/self-energy), not a lifetime. **Retracts NO
-   α=echo prior.** Landed: `theorem-3-1-q-factor.md`:21 Rule-12 amendment.
+   α=echo prior.** Landed: `theorem-3-1-q-factor.md` §"Amendment (2026-06-19, Rule 12)"
+   (foot-placed to shift no body line numbers).
 
 3. **α STAYS ECHO at the electron — FIVE ways** (Golden-Torus R·r=¼ closed, z₀-route closed,
    4π³+π²+π calibration-identity, cold-cage 30.8≠137, eigenframe Q→∞). ANTI-SUBSTITUTION:
