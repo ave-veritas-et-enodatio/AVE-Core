@@ -566,6 +566,54 @@ parse it):
 
 ---
 
+## graded vacuum impedance network
+<!-- id: def-gv1net -->
+
+- **term:** graded vacuum impedance network
+- **adjudicated-meaning:** the vacuum equivalent-**circuit MODEL** drawn as **three WIRED reactance channels**, one per substrate grade — $Z_{EM}$ (T2 transverse field, the matched radiative port), $Z_{shear}$ (deviatoric $G$), $Z_{bulk}$ (dilatation $K$) — wired together through a chiral circulator (`def-ch1crc`) and terminated at confinement surfaces (`def-cf1srf`). It AMENDS the Grant-ratified **three-impedance law** (`vol9/ch4-dc-electrical-characteristics/three-channel-impedances.md`, registry §3.11) by ADDING a two-"3"s tag to two of the channels (bulk = MASS-"3" A1 dilatation; shear = CHARGE-"3" Cosserat winding); it does NOT rename the channels. "graded" = the Heaviside-restored longitudinal scalar grade (`master-equation.md:18,20`).
+- **axis:** other — an EE equivalent-circuit re-expression class (a CONSISTENCY object), not a substrate-object noun.
+- **dimension/type:** circuit-model schematic (per-channel $Z$ in $\Omega$; $\Gamma$ dimensionless). The MODEL has no dimensionful output the channel impedances do not already carry.
+- **status:** proposed — consistency-class re-expression. NOT a new physics result and NOT a new substrate primitive.
+- **canonical-home:** `vol9/ch3-pin-port-configuration/device-circuit-models.md` §6 (the wired-network leaf); the channel impedances themselves are canonical at `three-channel-impedances.md` (registry §3.11).
+- **clm-cross-links:** *(none — no-claim consolidation; references clm-kezk9z/clm-lv3uw1/clm-rtdmsn by cross-link)*
+- **open-ambiguity-flag:** YES — **INVARIANT-N1 substrate-noun guard.** "graded vacuum impedance network" is the equivalent-circuit MODEL of the medium, **NOT** a new substrate-object noun (the substrate-noun slot stays prose-only: *substrate / chiral LC network / chiral Laves K4 Cosserat crystal*). Do NOT promote the network to an ontological object. Keep DISTINCT from the coarser **Electric / Magnetic / Either** `AVE_VACUUM_CELL` sector vocabulary (`device-circuit-models.md` §1) — that is a per-element constitutive sector tag, not the three-grade wave-channel set. Keep $Z_{EM}$ named $Z_{EM}$ (do NOT rename to $Z_{transverse}$ — both EM and shear are transverse waves, so "transverse" is ambiguous; EM is the native label since $Z_0$ is a vacuum constant).
+  - conflicting sites: the channel-impedance law `three-channel-impedances.md:20-22` (registry §3.11); the coarser per-element sector tag `device-circuit-models.md:26-31` (`AVE_VACUUM_CELL` Electric/Magnetic/Either); the two-"3"s grade tag `master-equation.md:20`.
+- **verification:** VERIFIED the three channel impedances + $\Gamma$ values verbatim at `three-channel-impedances.md:20-22` ($Z_{EM}\equiv Z_0$, $\Gamma_{EM}=0$; $Z_{shear}=\rho c_{shear}$, $\Gamma_{shear}\to-1$; $Z_{bulk}=\sqrt2\,\rho c_0$ at $K=2G$, $\Gamma_{bulk}\to-1$). VERIFIED the two coincident-but-distinct $\Gamma=-1$ walls at `resonant-lc-solitons.md:89-94` + `master-equation.md:20`. PROPOSED — consistency re-expression, not new physics.
+
+---
+
+## confinement surface
+<!-- id: def-cf1srf -->
+
+- **term:** confinement surface
+- **adjudicated-meaning:** the $\Gamma=-1$ cage-wall $\partial\Omega$ that terminates the bulk channel of a `BoundResonator`, whose **SHAPE is FORCED by topology** — the real-space body + the phase-space winding + the node-span — and is therefore **DERIVED, never posited-spherical** (Grant D4). The electron ($0_1$ unknot) and the proton ($6^3_2$ Borromean, multi-node) get DIFFERENT derived shapes.
+- **axis:** real-space (a closed 2-surface in the substrate); its shape is set jointly with the phase-space winding label.
+- **dimension/type:** a closed orientable 2-surface (geometry); the impedance condition on it is $Z_{core}\to0\Rightarrow\Gamma_{bulk}=-1$ (dimensionless reflection coefficient).
+- **status:** proposed — status OPEN: the shape-forcing CHAIN is not derived (no solved boundary-value problem produces the electron's surface from its topology; the proton single-vs-multi-node confinement is UNADJUDICATED). The $\Gamma=-1$ TIR condition itself is canonical (clm-kezk9z, T3.3 `sup-1ecv2m`); the SHAPE is the open object.
+- **canonical-home:** `vol9/ch3-pin-port-configuration/device-circuit-models.md` §6.2; the underlying $\Gamma=-1$ TIR wall is canonical at `resonant-lc-solitons.md:25-52`.
+- **clm-cross-links:** *(none — gate-register reference; the wall claim is clm-kezk9z)*
+- **open-ambiguity-flag:** YES — **two coincident $\Gamma=-1$ walls guard.** The confinement surface is the **A1 MASS wall** ($Z_{bulk}\to0$, the impedance-short $\Gamma=-1$). It must NOT be re-collided with the **$\Gamma_{spinor}=-1$** topological $2\pi\to4\pi$ stability wall of the T2 micro-rotation sector — these are numerically coincident at $-1$ but **distinct objects** ($A1\perp T2$, `master-equation.md:20`, `resonant-lc-solitons.md:89-94`). The electron carries BOTH; the confinement surface is the mass one only.
+  - conflicting sites: the two-$\Gamma$ Resultbox `resonant-lc-solitons.md:89-94`; the A1$\perp$T2 anchor `master-equation.md:20`; the boundary-observable surface $\partial\Omega$ `common/boundary-observables-m-q-j.md:29`.
+- **verification:** VERIFIED the $\Gamma=-1$ TIR confinement at `resonant-lc-solitons.md:38,47-50`; VERIFIED the A1-mass-wall vs T2-spinor-wall distinction (both $-1$, not the same wall) at `resonant-lc-solitons.md:89-94` + `master-equation.md:20`; VERIFIED the electron $0_1$-unknot vs proton-Borromean real-space bodies at `common/boundary-observables-m-q-j.md:43-44`. OPEN — shape-forcing chain not derived.
+
+---
+
+## chiral circulator
+<!-- id: def-ch1crc -->
+
+- **term:** chiral circulator
+- **adjudicated-meaning:** the bipartite **A/B-sublattice NON-RECIPROCAL coupling** that carries the $I4_1 32$ lattice chirality between the two sublattice **TANKS** (an INTER-tank coupling, NOT a per-node C-vs-L reactance), drawn in the equivalent-circuit MODEL as a circulator element.
+- **axis:** other — a non-reciprocal two-port coupling element in the equivalent-circuit model (sourced by the lattice chirality `def-7c3f9e`).
+- **dimension/type:** circuit two-port (non-reciprocal scattering); dimensionless $S$-parameters.
+- **status:** proposed — status STATED, pending the chiral-crystal engine. The cubic-FDTD engine averages chirality out; the non-reciprocity MAGNITUDE needs the chiral-crystal engine (`cvr_model.py:243` AUDITOR_STATE note). NOT adjudicated, NOT available.
+- **canonical-home:** `vol9/ch3-pin-port-configuration/device-circuit-models.md` §6.3.
+- **clm-cross-links:** *(none — STATED frontier; no clm- node may be authored)*
+- **open-ambiguity-flag:** YES — **do NOT call it "gyrator."** The reciprocal optical-activity gyrator (`def-0pt1ac`, the lossless reciprocal-Faraday polarization-plane rotator, $\pm75.46°$/unit) is a DIFFERENT element; "circulator" is reserved here for the non-reciprocal inter-tank coupling. Also DISTINCT from the **per-particle** $S_{LR}\ne S_{RL}^*$ winding non-reciprocity (`cvr_model.py:242`), which is a single-instance scattering asymmetry, not the inter-sublattice-tank coupling.
+  - conflicting sites: the reciprocal gyrator `def-0pt1ac` (`vocabulary-register.md:522`); the per-particle winding non-reciprocity `cvr_model.py:238-243`; the lattice chirality source `def-7c3f9e`.
+- **verification:** VERIFIED the reciprocal-gyrator collision risk — `def-0pt1ac` is explicitly a *reciprocal*-Faraday gyrator (`vocabulary-register.md:526`), so "gyrator" is the wrong word for a non-reciprocal element. VERIFIED the per-particle $S_{LR}\ne S_{RL}^*$ winding non-reciprocity is a DISTINCT (single-instance) object at `cvr_model.py:242` ("the L<->R conversion NON-RECIPROCAL (S_LR != S_RL*)"), engine-pending at `cvr_model.py:243`. STATED — pending chiral-crystal engine.
+
+---
+
 ## Seed coverage + follow-up
 
 **Seeded (14):** 1 SOLID (`node`), 8 ambiguous (`carrier`, `Nyquist`,
