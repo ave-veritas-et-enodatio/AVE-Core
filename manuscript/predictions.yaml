@@ -504,7 +504,7 @@ predictions:
     observed_value: 1600.0
     observed_source: "PDG — Δ(1600); the (2,11) matches Δ(1900) at 1900 MeV"
     error_percent: 1.11
-    axioms_used: [1]
+    axioms_used: [1, 2, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |

@@ -129,16 +129,18 @@ High-intensity laser interferometry measuring the \emph{coefficient} of the (sha
 
 \section{The Torus Knot Ladder: Baryon Resonance Mass Predictions}
 
-The AVE framework's Torus Knot Ladder (Chapter 6, Section 6.4) generates a zero-parameter mass spectrum for baryon resonances using only the crossing number $c$ of the $(2,q)$ torus knots. Six retrospective matches to PDG-cataloged resonances~\cite{pdg2022} are established (Table~\ref{tab:torus_knot_predictions}), but the framework also makes \textbf{forward predictions}:
+\noindent\textbf{Scope correction (2026-06-19, crossing-ladder-overclaim walk-back; body below preserved per Rule 12).} Two framings in this section are re-scoped. (1) The ``six retrospective matches'' are \textbf{null-dominated retrospective / consistency matches}, \emph{not} an ensemble discriminator: the $J^P$ filter admits any $J \le c/2$ with either parity (so it excludes nothing the nearest-mass step did not), and the driver's own null model gives \texttt{null\_hypothesis\_random\_hits\_3pct} $= 6.0$ --- mean PDG $N/\Delta$ spacing ($\sim 67$ MeV) is smaller than the $\pm 3\%$ window, so random matching is \emph{expected} to hit all six within $3\%$; at the $1\%$ band the observed (2) underperforms the null (2.7). The load-bearing positive is the \textbf{single proton hit} + the curved ladder FORM, not the six-state ensemble. (2) The $(2,17) \to 2742$ MeV row below is matched to $\Delta(2750)$, a PDG state that \textbf{already exists} in the driver's own hardcoded catalog table (\kbleaf{src/scripts/verify/baryon\_ladder\_pdg\_2024\_anchor.py}, \texttt{PDG\_2024\_BARYONS} entries) --- it is a \textbf{postdiction / consistency} match, \textbf{not} a clean forward prediction. The genuinely-open forward row is $c = 21 \to 3199$ MeV, currently $+8.4\%$ from the nearest cataloged state ($\Delta(2950)$), failing its own $5\%$ gate. Read ``Confirmed''/``forward prediction'' for $c = 15, 17, 19$ as consistency/postdiction; the rows and the falsification window are kept, the epistemic status is relabeled. (Vol 2 \kbleaf{ave-kb/vol2/particle-physics/ch02-baryon-sector/torus-knot-ladder-baryons.md}; Vol 4 \kbleaf{ave-kb/vol4/falsification/ch12-falsifiable-predictions/torus-knot-baryon-predictions.md}.)
+
+The AVE framework's Torus Knot Ladder (Chapter 6, Section 6.4) generates a zero-parameter mass spectrum for baryon resonances using only the crossing number $c$ of the $(2,q)$ torus knots. Six retrospective matches to PDG-cataloged resonances~\cite{pdg2022} are established (Table~\ref{tab:torus_knot_predictions}) --- as null-dominated consistency matches (see scope correction above) --- and the framework's only genuinely-open forward row is $c = 21$:
 
 \begin{center}
 \begin{tabularx}{\textwidth}{@{}|c|c|c|X|@{}}
 \hline
-$(2,q)$ & $c$ & Predicted Mass (MeV) & Status \\ \hline
-$(2,15)$ & 15 & 2478 & \textbf{Confirmed:} $\Delta(2420)$, $+2.40\%$ \\
-$(2,17)$ & 17 & $\sim 2742$ & Testable prediction \\
-$(2,19)$ & 19 & $\sim 2983$ & Testable prediction \\
-$(2,21)$ & 21 & $\sim 3199$ & Testable prediction \\ \hline
+$(2,q)$ & $c$ & Predicted Mass (MeV) & Epistemic status (re-scoped 2026-06-19) \\ \hline
+$(2,15)$ & 15 & 2478 & \textbf{Consistency:} $\Delta(2420)$, $+2.40\%$ (cataloged state) \\
+$(2,17)$ & 17 & $\sim 2742$ & \textbf{Postdiction:} $\Delta(2750)$, $-0.30\%$ (pre-cataloged in driver table) \\
+$(2,19)$ & 19 & $\sim 2983$ & \textbf{Postdiction:} $\Delta(2950)$, $+1.12\%$ (pre-cataloged in driver table) \\
+$(2,21)$ & 21 & $\sim 3199$ & \textbf{Genuine forward prediction (currently missing):} nearest cataloged $\Delta(2950)$ off by $+8.4\%$, fails the $5\%$ gate \\ \hline
 \end{tabularx}
 \label{tab:torus_knot_predictions}
 \end{center}
@@ -146,7 +148,7 @@ $(2,21)$ & 21 & $\sim 3199$ & Testable prediction \\ \hline
 \subsection{The Falsification Protocol}
 \begin{enumerate}
     \item \textbf{Retrospective check:} The six confirmed matches (proton at 0.00\%, $\Delta(1232)$ at 2.35\%, $\Delta(1600)$ at 1.11\%, $\Delta(1900)$ at 0.27\%, $N(2190)$ at 0.21\%, $\Delta(2420)$ at 2.40\%) can be verified independently using any baryon spectroscopy dataset. No parameters are adjusted between states.
-    \item \textbf{Forward prediction:} The $(2,17)$ state predicts a baryon resonance near $2742$ MeV. This region is actively being explored by CLAS12 at Jefferson Lab and by the PANDA experiment at FAIR. If no resonance exists within $\pm 100$ MeV of this prediction, the torus knot ladder is falsified.
+    \item \textbf{Forward prediction (re-scoped 2026-06-19, body preserved per Rule 12):} The original wording below treats $(2,17) \to 2742$ MeV as the forward test; per the scope correction at the head of this section, $(2,17)$ lands on $\Delta(2750)$ --- a state already in the driver's hardcoded PDG table --- so it is a \textbf{postdiction}, not a clean forward prediction. The genuinely-open forward test is the \textbf{$(2,21)$ state near $3199$ MeV}: it currently misses the nearest cataloged state ($\Delta(2950)$) by $+8.4\%$, so a resonance found within $\pm 100$ MeV of $3199$ MeV (above $\sim 3000$ MeV, where no cataloged $N/\Delta$ presently sits) would confirm the ladder, and the absence of one in the searched window would falsify it. \emph{Original (walked-back) wording:} The $(2,17)$ state predicts a baryon resonance near $2742$ MeV. This region is actively being explored by CLAS12 at Jefferson Lab and by the PANDA experiment at FAIR. If no resonance exists within $\pm 100$ MeV of this prediction, the torus knot ladder is falsified.
     \item \textbf{Mass spacing:} The ladder predicts an approximately linear mass increment of $\sim 170$ MeV per crossing, consistent with the empirical Regge slope. Any departure from this linear spacing at higher $c$ falsifies the model.
 \end{enumerate}
 

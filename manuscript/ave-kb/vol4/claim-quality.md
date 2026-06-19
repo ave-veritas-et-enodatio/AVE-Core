@@ -428,15 +428,18 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 > **Leaf references:** [baryon-mass-predictions](./falsification/ch12-falsifiable-predictions/baryon-mass-predictions.md), [torus-knot-baryon-predictions](./falsification/ch12-falsifiable-predictions/torus-knot-baryon-predictions.md).
 
 ### Quality
-- confidence: 0.85
+- confidence: 0.6
 - depends-on:
   - Axiom 1 (topological-knot mass spectrum)
   - INVARIANT-C2 / CODATA $m_e$ (single physics input)
-- solidity: 0.85 (ok to build on) [= min(0.85, 1.00)]
-- rationale: The leaf is now PDG-2024-anchored with a verifiable driver (`baryon_ladder_pdg_2024_anchor.py`): 6/6 $J^P$-consistent retrospective matches (proton at $-0.002\%$), 2 of 3 forward predictions land on existing PDG $\ast\ast$ entries ($\Delta(2750)$ at $-0.30\%$, $\Delta(2950)$ at $+1.12\%$), from a zero-adjusted-parameter formula (1 CODATA input + 1 topological integer + 1 Borromean halo invariant). The claim-quality prose uses the older $(2,17)\to2742$ MeV labelling, which matches the leaf's $(2,17)$ row. These are category-(iv) derived predictions per the leaf. A closed, driver-reproducible derivation; the per-row $0.27\%$–$4.5\%$ scatter is honestly tabulated.
+  - clm-k6olj8 (the generating ladder; this forward-predictions leaf inherits its band — cannot grade higher than its source)
+- solidity: 0.60 (use as input only, don't build deeper) [= min(0.60, 0.60)]
+- 🔴 **Rule-12 SOLIDITY DEMOTION (2026-06-19, crossing-ladder-overclaim walk-back):** prior grade was **confidence 0.85 / solidity 0.85 ("ok to build on")**, justified by "2 of 3 forward predictions land on existing PDG $\ast\ast$ entries" + "6/6 $J^P$-consistent." Both supports were **retracted** in [`torus-knot-baryon-predictions.md`](./falsification/ch12-falsifiable-predictions/torus-knot-baryon-predictions.md) on 2026-06-19: (a) the $c=17/c=19$ "forward predictions" are **postdictions** against pre-existing hardcoded PDG-2024 catalog entries (driver `PDG_2024_BARYONS` lines 119–136), not forward predictions; (b) the "6/6 $J^P$-consistent" is **null-dominated** — the driver's own `null_hypothesis_random_hits_3pct = 6.0` shows random nearest-mass matching is expected to hit all 6 within $3\%$, and the $J^P$ filter excludes nothing (any $J\le c/2$, either parity). This leaf can no longer be graded **above its generating claim clm-k6olj8 (solidity 0.60)**; demoted to match. The genuine surviving chord — integer-$c$, odd/even link-exclusion, $(2,3)$ = smallest knot, curved ladder FORM, single proton $+0.74\%$ bare-topology hit — is **preserved** and is what the 0.60 band now rests on. Original rationale preserved below.
+- ~~rationale: The leaf is now PDG-2024-anchored with a verifiable driver (`baryon_ladder_pdg_2024_anchor.py`): 6/6 $J^P$-consistent retrospective matches (proton at $-0.002\%$), 2 of 3 forward predictions land on existing PDG $\ast\ast$ entries ($\Delta(2750)$ at $-0.30\%$, $\Delta(2950)$ at $+1.12\%$), from a zero-adjusted-parameter formula (1 CODATA input + 1 topological integer + 1 Borromean halo invariant). The claim-quality prose uses the older $(2,17)\to2742$ MeV labelling, which matches the leaf's $(2,17)$ row. These are category-(iv) derived predictions per the leaf. A closed, driver-reproducible derivation; the per-row $0.27\%$–$4.5\%$ scatter is honestly tabulated.~~ *(superseded 2026-06-19 — forward-confirmed + discriminator supports retracted; see demotion note above. Preserved per Rule-12.)*
+- rationale: (revised 2026-06-19) The structural core survives and is genuine: a single closed-form $m(c)$ applied across the odd-$c$ ladder with zero parameters re-tuned between states, reproducing the $S=0$ $N/\Delta$ catalog to within $5\%$, with the proton at $+0.74\%$ bare-topology ($-0.002\%$ post one contained $\delta_{th}$). What does NOT survive is the ensemble-discriminator and forward-prediction framing (see Rule-12 demotion note above). Graded **input-only** to match its generating claim clm-k6olj8.
 - strengthen-by:
-  - Resolve the convention realignment $(2,3)\to(2,5)$-for-proton fully across the prose so the claim-quality $(2,17/19/21)$ labels match the leaf's $(2,q_{odd})$ ladder exactly.
-  - Secure the $(2,21)\to3199$ MeV forward search target (no PDG entry within 5% yet) at CLAS12/PANDA.
+  - Convert $c=21\to3199$ MeV into an SHA-pinned forward prereg (the one genuinely-open row; currently misses nearest cataloged $\Delta(2950)$ by $+8.4\%$) and resolve at CLAS12/PANDA.
+  - Find a discriminator that the driver's own null model does NOT already pass (the current $J^P$ filter + $\pm3\%$ window is null-dominated).
 
 ---
 

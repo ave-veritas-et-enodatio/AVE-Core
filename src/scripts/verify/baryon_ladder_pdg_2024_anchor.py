@@ -37,9 +37,15 @@ from ave.core.constants import (
     M_E,
     P_C,
     V_TOROIDAL_HALO,
-    _compute_i_scalar_dynamic,
     e_charge,
 )
+
+# `_compute_i_scalar_dynamic` was moved out of `ave.core.constants` into
+# `ave.core._constants_compute` (constants.py now stores I_SCALAR_1D as a
+# literal to break the constants→faddeev_skyrme→universal_operators→constants
+# import cycle; see constants.py ~line 802). Import it from its new home so the
+# driver import-executes on current HEAD. Numbers are unchanged (same function).
+from ave.core._constants_compute import _compute_i_scalar_dynamic
 
 # ============================================================
 # PDG 2024 baryon table — pinned per matrix:557 task
