@@ -13,6 +13,15 @@
 \end{itemize}
 \end{objectivebox}
 
+\begin{warningbox}[PROVISIONAL / WORK-IN-PROGRESS --- kit STLs are not yet print/mate-validated]
+The emitted STLs are \textbf{geometry-faithful previews} of the engine diamond-K4 topology, but are \textbf{not yet watertight or print/mate-validated}. Known limitations:
+\begin{enumerate}
+    \item \textbf{Not welded watertight.} The boolean-CSG export is not yet welded watertight --- the node meshes reload non-manifold (\texttt{vacuum\_node\_A\_capacitive.stl} and \texttt{vacuum\_node\_B\_inductive.stl} reload \texttt{watertight=False}, \texttt{is\_volume=False}; \texttt{vacuum\_tl\_bond\_diamond.stl} reloads \texttt{watertight=True} but \texttt{is\_volume=False}). The kit driver runs an on-disk QC that reports the true reloaded state per part (report-only, non-gating).
+    \item \textbf{Zero press-fit.} Bond$\leftrightarrow$socket press-fit interference is currently $0\,\mathrm{mm}$ (the bond OD is set equal to the socket bore), so the parts will \textbf{not} mate as-is.
+\end{enumerate}
+Mesh remediation is tracked. Treat the kit as a topology preview, not print-ready hardware.
+\end{warningbox}
+
 \section{Framing: Bench-Adjacent Topology Lab}
 \label{sec:vol9_exp_prints_framing}
 
@@ -103,7 +112,7 @@ Optional particle snap-ins are \textbf{topology demos only} (\kbleaf{assets/3d\_
     \item Read manifest \texttt{counts} and \texttt{joinery} (port collar radius, bond pitch, port-0 orientation key).
     \item Place Type-A nodes at every \texttt{nodes[]} entry with \texttt{sublattice: ``A''}; Type-B at \texttt{``B''}.
     \item Insert TL bonds for each \texttt{bonds[]} pair; align port-0 key fins to fix tetrahedral orientation.
-    \item \textbf{Joinery:} press each bond barbell peg into the hollow socket at the matching port collar mouth (friction-fit; default 0.05\,mm/side radial interference).
+    \item \textbf{Joinery:} press each bond barbell peg into the hollow socket at the matching port collar mouth (friction-fit; 0.05\,mm/side radial interference is the \emph{design target} --- the shipped WIP bond OD equals the socket bore, so actual interference is $0\,\mathrm{mm}$; see PROVISIONAL banner).
     \item Checklist: degree $4$ at every node; every bond connects A$\leftrightarrow$B; bond lengths match manifest \texttt{center\_pitch\_mm} within tolerance; no anomalously long ``wrap'' struts.
 \end{enumerate}
 

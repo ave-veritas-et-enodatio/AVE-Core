@@ -7,6 +7,8 @@ no-claim: "Vol-9 Ch.18 experimental-prints routing leaf: documents FDM kit expor
 
 # Experimental Prints — Topology Laboratory Exercises
 
+> **PROVISIONAL / WORK-IN-PROGRESS.** The emitted STLs are geometry-faithful previews of the engine diamond-K4 topology, but are **not yet watertight or print/mate-validated**. Known limitations: (a) the boolean-CSG export is not yet welded watertight — the node meshes reload non-manifold (`vacuum_node_A_capacitive.stl` and `vacuum_node_B_inductive.stl` reload `watertight=False`, `is_volume=False`; the bond reloads `watertight=True` but `is_volume=False`); the kit driver now runs an on-disk QC that reports the true reloaded state per part. (b) bond↔socket press-fit interference is currently **0 mm** — the parts will **not** mate as-is. Mesh remediation is tracked.
+
 Vol.~9 Ch.~18 documents **bench-adjacent pedagogical exercises** using 3D-printable exports of the production diamond K4 vacuum lattice. These are **not** falsification experiments (Ch.~15) and **not** numerical simulations (Ch.~17). They are **hands-on consistency checks** that the exported graph matches the engine substrate (`build_diamond_net`).
 
 ## Epistemic position
@@ -44,7 +46,7 @@ Three repeatable molds + JSON manifest (`assets/3d_models/kit/`):
 
 Bond centre pitch $= \sqrt{3}\,\times$ (mm per $\ell_{node}$); insert length fits port-collar mouths on an A--B pair.
 
-**Friction-fit joinery (kit v1).** Hexagonal port collars with **hollow socket bores** (watertight boolean mesh). Bond OD matches socket inner flat-to-flat; uniform solid hex along insert length. Default radial clearance: **0.05 mm/side** (`KIT_FRICTION_INTERFERENCE_MM` env). Regenerate after tuning.
+**Friction-fit joinery (kit v1, PROVISIONAL).** Hexagonal port collars with **hollow socket bores** from a boolean mesh that is *intended* to be watertight but is **not yet** on the saved STLs (see WIP banner — node meshes reload non-manifold). Bond OD is set **equal** to the socket inner flat-to-flat (`KIT_BOND_RADIUS = KIT_SOCKET_RADIUS`), so the actual **bond↔socket interference is 0 mm** and parts will not grip as-is — the `KIT_FRICTION_INTERFERENCE_MM=0.05` default is applied only between the peg and socket, not the bond the kit actually prints. The 0.05 mm/side is the design target, not the shipped press-fit. Regenerate after watertight/press-fit remediation.
 
 ## Driver registry
 

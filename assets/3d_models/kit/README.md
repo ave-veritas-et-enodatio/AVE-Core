@@ -1,5 +1,18 @@
 # Vacuum lattice DIY kit — print exports
 
+> **PROVISIONAL / WORK-IN-PROGRESS.** The emitted STLs are geometry-faithful
+> previews of the engine diamond-K4 topology, but are **not yet watertight or
+> print/mate-validated**. Known limitations:
+> 1. The boolean-CSG export is not yet welded watertight — the node meshes
+>    reload non-manifold (`vacuum_node_A_capacitive.stl` and
+>    `vacuum_node_B_inductive.stl` both reload `watertight=False`,
+>    `is_volume=False`; the bond reloads `watertight=True` but `is_volume=False`).
+>    The kit driver's on-disk QC reports the true reloaded state per part.
+> 2. Bond↔socket press-fit interference is currently **0 mm** — the parts will
+>    **not** mate as-is.
+>
+> Mesh remediation is tracked. Do not treat these as print-ready files yet.
+
 Bed-ready STLs for the Axiom-1 diamond K4 friction-fit kit (Vol. 9 Ch. 18).
 
 ## Start here (L=4)
@@ -30,7 +43,10 @@ For the full L=16 chunk (512+512+1688 parts), regenerate with `ASSEMBLY_L=16`.
 
 Default scale: **100 mm / ℓ_node** — hex joinery, ~10.4 mm collar flat-to-flat, Prusa i3 MK3+ tuned.
 
-Meshes are exported as **single watertight solids** (boolean union + bore subtraction) so socket cavities slice empty.
+Meshes are built by boolean union + bore subtraction with the *intent* that they
+export as single watertight solids whose socket cavities slice empty. **This is
+not yet achieved on the saved files** — see the WORK-IN-PROGRESS banner above; the
+exported node STLs reload non-manifold. Watertight welding is tracked remediation.
 
 ## Prusa i3 MK3+ slicer hints
 

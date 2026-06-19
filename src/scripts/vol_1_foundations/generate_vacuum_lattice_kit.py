@@ -61,13 +61,8 @@ from vacuum_lc_geometry import (  # noqa: E402
     cell_body_mesh,
     diamond_sublattice,
     joinery_spec,
-    _kit_node_A_body_trimesh,
-    _kit_node_B_body_trimesh,
     kit_bond_insert_mesh,
-    kit_mesh_report,
     kit_node_mesh,
-    kit_port_directions,
-    kit_trimesh_report,
     kit_port_directions,
     kit_port_mouth,
     tl_bond_mesh,
@@ -198,6 +193,32 @@ def export_demo_one_bond(out_dir: pathlib.Path) -> None:
     )
 
 
+def saved_qc(stl_paths: dict[str, pathlib.Path]) -> None:
+    """Report the REAL on-disk manifold state of each saved STL (NON-GATING).
+
+    Loads each written .stl back from disk the way a slicer would (trimesh,
+    process=True + merge_vertices) and prints the true is_watertight /
+    is_volume. The kit is WORK-IN-PROGRESS: this is report-only and never
+    raises or sys.exits. The shipped meshes are not yet welded watertight —
+    see Vol 9 Ch 18 known limitations + the kit README.
+    """
+    import trimesh
+
+    print("  On-disk mesh QC (PROVISIONAL — WIP, report-only, non-gating):")
+    for label, path in stl_paths.items():
+        try:
+            tm = trimesh.load(str(path), process=True, merge_vertices=True)
+            watertight = bool(tm.is_watertight)
+            is_volume = bool(tm.is_volume)
+            print(
+                f"  {label}: watertight={watertight}, is_volume={is_volume} "
+                f"— PROVISIONAL (WIP; see Vol 9 Ch 18 known limitations)"
+            )
+        except Exception as exc:  # report-only; never fail the WIP kit
+            print(f"  {label}: on-disk QC could not run ({exc}) — PROVISIONAL (WIP)")
+    print()
+
+
 def main() -> None:
     root = pathlib.Path(__file__).resolve().parents[3]
     out_dir = root / "assets" / "3d_models" / KIT_DIR_NAME
@@ -232,22 +253,24 @@ def main() -> None:
     node_b = orient_node_b_for_print(node_b_raw)
     bond = orient_bond_for_print(bond_raw)
 
-    write_mesh(node_a, out_dir / "vacuum_node_A_capacitive.stl", report=None)
-    write_mesh(node_b, out_dir / "vacuum_node_B_inductive.stl", report=None)
-    write_mesh(bond, out_dir / "vacuum_tl_bond_diamond.stl", report=None)
+    stl_paths = {
+        "node_A": out_dir / "vacuum_node_A_capacitive.stl",
+        "node_B": out_dir / "vacuum_node_B_inductive.stl",
+        "bond": out_dir / "vacuum_tl_bond_diamond.stl",
+    }
+    write_mesh(node_a, stl_paths["node_A"], report=None)
+    write_mesh(node_b, stl_paths["node_B"], report=None)
+    write_mesh(bond, stl_paths["bond"], report=None)
     export_demo_one_bond(out_dir)
 
-    center = np.zeros(3)
-    dirs_a = kit_port_directions("A")
-    dirs_b = kit_port_directions("B")
-    for rep in (
-        kit_trimesh_report(_kit_node_A_body_trimesh(center, dirs_a), "node_A"),
-        kit_trimesh_report(_kit_node_B_body_trimesh(center, dirs_b), "node_B"),
-        kit_mesh_report(bond_raw, "bond"),
-    ):
-        ok = "OK" if rep["watertight"] and rep["volume"] else "CHECK"
-        print(f"  Mesh {rep['label']}: {rep['faces']} tris, watertight={rep['watertight']} ({ok})")
-    print()
+    # PROVISIONAL on-disk QC (WIP — report-only, NON-GATING).
+    # We check the SAVED .stl as a slicer would reload it, not the in-memory
+    # boolean object. The in-memory mesh is internally watertight, but the
+    # exported STLs reload non-manifold (boolean-CSG export is not yet welded
+    # watertight). Reporting the in-memory state would LIE about the shipped
+    # kit. See Vol 9 Ch 18 known limitations + kit README. Mesh remediation
+    # is deferred/tracked, so this never raises or exits.
+    saved_qc(stl_paths)
 
     net = cl.build_diamond_net(ASSEMBLY_L)
     manifest = build_assembly_manifest(net, ASSEMBLY_L)
