@@ -171,6 +171,46 @@ Confirmation the failure is structural, not a tuning artifact:
 
 ---
 
+## CANONICALIZED (what the eigenframe PROMOTES — consistency + reframe, NOT a chord)
+
+The GATE1 HALT above is the discriminating-test verdict and is unchanged. Beyond it, the
+eigenframe carries two pieces of canonical content (landed in the KB leaves + Vol 9):
+
+1. **ELECTRON PERSISTENCE — Class-C CONSISTENCY (consistency-vs-emergence).** A Γ→−1
+   confined reactive mode on a lossless substrate (Axiom 3) has no loss channel ⇒ intrinsic
+   Q→∞ (GATE2 closed-port Q=1.4e16) ⇒ infinite lifetime ⇒ the electron PERSISTS in an ideal
+   vacuum, MATCHING the empirically most-stable particle (>1e28 yr). MECHANISM: AVE gets
+   stability from an IMPEDANCE argument (lossless+confined) where standard physics uses a
+   SYMMETRY argument (charge conservation). **Solidity: Class-C CONSISTENCY, NOT a chord** —
+   it partly follows from the lossless axiom itself. Source paragraph: §"THE SINGLE
+   MECHANISM" above (the lossless-standing-mode paragraph). Landed: `resonant-lc-solitons.md`
+   §persistence-Resultbox.
+
+2. **1/α = LOADED/RADIATIVE Q (a REFRAME; derivability OPEN).** The intrinsic mode Q is
+   infinite (lossless/stable), so 1/α=137 is NOT the intrinsic resonator Q — it is the
+   LOADED/radiative Q (how the lossless mode couples OUT the EM port; |Γ_EM|²=1−α ⇒ fraction
+   α leaks per bounce, `cvr_model.py:161`). CLEAN SEPARATION: STABILITY/persistence =
+   intrinsic lossless confinement (Q→∞); INTERACTION = radiative loading (loaded Q=1/α = the
+   intrinsic vacuum/EM coupling coefficient). NUANCE: even loaded, the electron does NOT
+   decay — 1/α is a COUPLING (self-dressing/self-energy), not a lifetime. **Retracts NO
+   α=echo prior.** Landed: `theorem-3-1-q-factor.md`:21 Rule-12 amendment.
+
+3. **α STAYS ECHO at the electron — FIVE ways** (Golden-Torus R·r=¼ closed, z₀-route closed,
+   4π³+π²+π calibration-identity, cold-cage 30.8≠137, eigenframe Q→∞). ANTI-SUBSTITUTION:
+   both the cold-cage 30.8 negative AND the eigenframe-∞ stand as reported rows; the Q slot
+   stays EMPTY; no echo→chord promotion. Landed: `electron-bound-resonator-coverage.md`
+   GAP-register #7 + new "LC-tank eigenframe Q (Build-A)" coverage row.
+
+4. **The re-posed loaded-Q test is ADJUDICATED CIRCULAR** (do NOT re-pose to a Build-B slot):
+   the leak is literally `1.0-alpha` (`cvr_model.py:161`) = instrument-echo-trap; the α-free
+   edge-radiation answer is already the cold-cage 30.8 closed-negative; no α-free path to 137.
+   Registry load-bearing next-step STAYS the EXISTING observed-Q coupled-network step (NOT
+   137), which fuses the #37 base-crack repair; the carrier-sector audit (charge/spin-½/Pauli,
+   the (2,3) Cosserat micro-rotation grade) is RE-RANKED as the post-#37 leverage move. Landed:
+   `electron-bound-resonator-coverage.md` §registry gate B.1 + `device-circuit-models.md` §6.5.
+
+---
+
 ## REPRODUCIBILITY
 
 - Solver: `src/ave/solvers/graded_vacuum_network.py`
