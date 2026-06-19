@@ -86,7 +86,10 @@ leaked).
   (`test_tetrahedral_gradient_on_linear_field_reproduces_slope`).
   **FORBIDDEN:** the Cartesian 7-pt Laplacian (`crystal_engine.py:154` `_laplacian`;
   `master_equation_fdtd.py:124` `_laplacian`).
-- **HR2 — no baked α.** Allowed inputs ONLY: `Z_0` (`constants.py:99`), `c_0` (`:95`),
+- **HR2 — no baked α.** Allowed inputs ONLY: `Z_0` (`constants.py:98`), `c_0` (`:95`),
+  <!-- 🔧 citation-fix 2026-06-19 (verify-before-cite, no verdict change): `Z_0` is
+  `constants.py:98` (verified on branch tip), not `:99` as first transcribed. The input
+  set and the α-free verdict are untouched. -->
   `nu_vac = 2/7` (`:532`), `kappa_tilde = 6/5` (`cosserat_field_3d.py:94`
   `KAPPA_TILDE_ELECTRON`; provenance `research/2026-06-09_crystal-graft-v2_result.md`),
   `L_NODE` (`:257`), lattice geometry. **FORBIDDEN:** `Q_TANK = 1/ALPHA`
@@ -176,7 +179,7 @@ If GATE1 fails, **HALT and report** (do not push toward the coupled leg).
 |---|---|
 | `constants.py:664` RHO_BULK = ξ²μ₀/(P_C·ℓ²) | CONFIRMED |
 | `constants.py:400` P_C = 8πα | CONFIRMED (⇒ RHO_BULK ∝ 1/α) |
-| `constants.py:95` C_0, `:99` Z_0, `:532` NU_VAC=2/7, `:257` L_NODE | CONFIRMED |
+| `constants.py:95` C_0, `:98` Z_0, `:532` NU_VAC=2/7, `:257` L_NODE | CONFIRMED (Z_0 corrected `:99`→`:98` 2026-06-19, verify-before-cite) |
 | `constants.py:717` Z_RADIATION = Z_0/(4π) ≈ 29.98 | CONFIRMED |
 | `cosserat_field_3d.py:148/161/440/716` tetra grad/div/curl + public alias | CONFIRMED |
 | `cosserat_field_3d.py:94` KAPPA_TILDE_ELECTRON = 6/5 | CONFIRMED |

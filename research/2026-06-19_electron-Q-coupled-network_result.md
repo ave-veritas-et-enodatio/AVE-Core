@@ -27,6 +27,15 @@ observables.
 | Gate | Spec | Result | Verdict |
 |---|---|---|---|
 | **GATE1** | Q_isolation in [20,45], validate-on-known | Q ≫ 45 (N24→1.8e5, N32→1.2e8, N48→1.1e13). Not 137, not 3. | **FAIL → HALT** |
+
+> **Headline-config note (2026-06-19, frac discipline).** The N24/N32/N48 numbers above are
+> the **PINNED-TEST** config `_COLD = dict(frac=0.9, S_min=1e-3, sigma_port=2.0)`
+> (`test_graded_vacuum_network_isolation.py:47`), reproduced per-N in isolated processes:
+> N24→1.7e5, N32→1.2e8, N48→1.1e13 (the headline rounds 1.7e5→1.8e5). The solver *default*
+> `IsolationConfig.frac=0.999` (`graded_vacuum_network.py:292`) gives a **deeper** wall and
+> hence **larger** Q (N24→2.3e12, N32→1.2e16) — same direction, more lossless. **The GATE1
+> verdict (Q ≫ 45, lossless-confined, monotone-growing with N) is robust to both fracs**;
+> the headline cites the pinned-test config, not the solver default.
 | **GATE2** | EM port CLOSED → Q=∞ | Q = 1.4e16, Im(ω) = 4e-17 | **PASS** |
 | **GATE4** | gapped, peak>bin1, ω·dt≪π, shear resolved | ω_re>0 gapped; cross-check ω·dt=0.0157≪π; vector branch PSD-resolved | **PASS** |
 | anti-coincidence (DEC-5) | Q ≠ Z_RADIATION=29.98 | open-port Q ~ 1.8e5 (computed, not read) | **PASS** |
@@ -117,8 +126,22 @@ Confirmation the failure is structural, not a tuning artifact:
    shear G, DEC-4), the channel-correct ratio is `c_L/c_T = √(10/3) = 1.826` ALONE. Both
    are α-free and α-invariant, so the ambiguity does NOT affect any chord/echo bin (it
    would only shift the bulk/shear gap LOCATION). The solver exposes both
-   (`RATIO_BULK_SHEAR_MECH` primary, `RATIO_BULK_SHEAR_PHOTON` sensitivity). **Needs
+   (`RATIO_BULK_SHEAR_MECH = √(10/3) = 1.82574` primary, `graded_vacuum_network.py:122`;
+   `RATIO_BULK_SHEAR_PHOTON = √2·√(10/3) = 2.58199` sensitivity, `:124`). **Needs
    Grant adjudication on which reference is physical for the network coupling.**
+
+   > **Prereg-value-preservation NOTE (2026-06-19, do-not-silently-overwrite).** The
+   > **frozen prereg headline value `Z_bulk/Z_shear = √2·√(10/3) = 2.582` is PRESERVED**
+   > (not overwritten). The solver's PRIMARY `RATIO_BULK_SHEAR_MECH = √(10/3) = 1.826` is
+   > the **channel-correct two-mechanical-channel ratio** (bulk `c_L` / mechanical-shear
+   > `c_T`, DEC-4) — the physically-clean ratio when both arms are read on their own `ρc`
+   > axis (it does NOT compound the EM-photon `√2 = √(K/G)` factor). The prereg's `2.582`
+   > compounds the EM-photon transverse reference into the mechanical-shear arm. **Both are
+   > α-free and α-invariant; neither moves any chord/echo bin** (only the bulk/shear gap
+   > LOCATION). **FLAG for Grant:** `1.826` (channel-correct, mechanical-only) is the
+   > implementer's read of "physical for the network coupling"; `2.582` (frozen prereg) is
+   > retained verbatim until Grant adjudicates. Surfaced, not silently resolved
+   > (flag-don't-fix).
 
 2. **GATE1 enumerated only two failure modes (~137 leak, ~3 artifact); the actual
    failure is a third (Q→∞, lossless-confined).** The prereg's HALT instruction still
@@ -151,7 +174,10 @@ Confirmation the failure is structural, not a tuning artifact:
 ## REPRODUCIBILITY
 
 - Solver: `src/ave/solvers/graded_vacuum_network.py`
-- Tests: `src/tests/test_graded_vacuum_network_operator.py` (Stage 1, 11 tests),
-  `src/tests/test_graded_vacuum_network_isolation.py` (Stage 2/3, 9 tests). 20/20 pass.
+- Tests: `src/tests/test_graded_vacuum_network_operator.py` (Stage 1, **10 tests**),
+  `src/tests/test_graded_vacuum_network_isolation.py` (Stage 2/3, **9 tests** — 7 plain +
+  the 2 parametrized `[0.5]`/`[0.25]` exponent cases). **19/19 pass** (`pytest --collect-only`
+  reports `19 tests collected`). *(Corrected 2026-06-19: the earlier "Stage 1, 11 tests …
+  20/20" miscount is fixed to the collected 10 + 9 = 19; no verdict change.)*
 - Cold-cage cross-check anchor: `src/tests/engine_acceptance/_bulk.py` +
   `test_l3_mass_cage.py` T3.4b (Q_ringdown=30.75, reproduced exactly).
