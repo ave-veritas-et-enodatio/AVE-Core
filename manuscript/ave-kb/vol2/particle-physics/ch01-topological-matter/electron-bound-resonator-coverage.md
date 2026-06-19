@@ -119,6 +119,28 @@ duplicated. Each carries a status + the defined test where one exists.
 > coupled vs free-crossing = isolated)? *Cross-ref:* `device-circuit-models.md` §6.5 (Fork-A);
 > figure slots (i)–(iv) §6.6. **Strict anti-substitution still binds:** if the derivation does
 > NOT reach the observed $Q$, record the NEGATIVE and leave the slot EMPTY — do not refill.
+>
+> **★ Confirmed unchanged by Build-A (2026-06-19).** Build-A ran the ISOLATION leg only and
+> HALTED at GATE1 (the eigenmode-$Q$ is a DIFFERENT observable from the ringdown-$Q$ — see the
+> "LC-tank eigenframe Q (Build-A)" row). It did **NOT** run $H_{\mathrm{couple}}$ / the coupled
+> solve, so **this load-bearing step is untouched and remains THE next move** — the
+> substrate-native coupled-network $Q$ targeting the **OBSERVED** electron $Q$ (NOT $137$),
+> which fuses the gate-A.1/A.2 base-crack (the RANK-2 Cartesian-wall) repair. **No new Build-B
+> slot is minted** (the re-posed loaded-$Q$ derivation is CIRCULAR — gate B.1). **Build-A
+> surfaced the operator-design precondition** (result-doc Flag 2): for a finite isolation $Q$
+> that validates like-for-like against the ringdown $30.8$, the loss model must be the
+> **continuum-radiation coupling at the core's outer edge** (where the mode leaks past the
+> imperfect $\Gamma\approx-0.45$ wall), NOT a matched port at the box boundary.
+>
+> **Post-#37 leverage move — RE-RANKED (the carrier-sector audit).** Once the gate-A.1/A.2
+> RANK-2 base-crack is repaired (the chiral-lattice native stencil, fused into this step), the
+> highest-leverage *next* audit is the **carrier-sector audit**: charge / spin-½ / Pauli — i.e.
+> the $(2,3)$ **Cosserat micro-rotation** grade (the CHARGE-"3", $A1\perp T2$,
+> [master-equation.md](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20).
+> It is the post-#37 leverage move because the scalar A1 cage runs only the MASS sector; charge,
+> spin-½, $g=2$, and Pauli all live in the winding sector the cage does not contain (bucket-B
+> deferrals below). Re-ranked here, **not minted as a new slot** — it is the natural
+> structural-next once the carrier (the native chiral stencil) exists to host it.
 
 ### Subordinate gates (all 11 are supporting / downstream / gated behind the load-bearing step)
 
@@ -134,7 +156,9 @@ duplicated. Each carries a status + the defined test where one exists.
 
 | # | Gate | Bucket | Status | Defined test / cross-ref |
 |---|---|---|---|---|
-| B.1 | **Q-echo** — cold-cage $Q\approx30.8\ne137$, slot EMPTY | A-FORM / VALUE-ECHO | NEGATIVE, NO refill | `test_l3_mass_cage.py`:702-703; T3.4b `sup-wuy333` (see "LC-tank cold Q" row) — preserve, do NOT refill |
+| B.1 | **Q-echo** — cold-cage $Q\approx30.8\ne137$, slot EMPTY; **+ Build-A eigenframe MOVED-NEGATIVE** (intrinsic $Q\to\infty$, GATE1 lossless-confined $\gg45$) | A-FORM / VALUE-ECHO | NEGATIVE ×2, NO refill | `test_l3_mass_cage.py`:702-703; T3.4b `sup-wuy333`; + Build-A `research/2026-06-19_electron-Q-coupled-network_result.md` (see "LC-tank eigenframe Q (Build-A)" row) — preserve, do NOT refill |
+
+> **Re-posed loaded-$Q$ test ADJUDICATED CIRCULAR (gate wmighcz1z verdict, 2026-06-19 — do NOT re-pose to a Build-B slot).** After the §2 loaded-$Q$ reframe ([theorem-3-1-q-factor.md](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md):21), the obvious next move — "derive the LOADED/radiative $Q=1/\alpha$ from the EM-port admittance" — was examined and is **CIRCULAR; do NOT pose it.** Both provenance branches collapse to the echo: **(a)** the engine's radiative leak is **literally `1.0 - alpha`** (`cvr_model.py:161` `gamma_mag_sq_leak`) materialised through `M.ELECTRON` — feeding it back to "derive" $137$ is the **instrument-echo trap** ([theorem-3-1-q-factor.md](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md):21); **(b)** the genuinely α-free edge-radiation answer is **already** the cold-cage $Q\approx30.8$ closed-negative (B.1 above). There is **no α-free path to $137$** through the loaded port. The slot stays EMPTY (anti-substitution); **no new Build-B slot is minted.** The load-bearing next-step stays the EXISTING observed-$Q$ coupled-network step (see the boxed ★ step above), NOT a re-posed loaded-$Q$ derivation.
 
 **C — downstream gates (resolvable IN or AFTER the coupled-network derivation; not the first move):**
 
