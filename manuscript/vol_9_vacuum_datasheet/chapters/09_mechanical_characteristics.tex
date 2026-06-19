@@ -4,7 +4,7 @@
 
 \begin{objectivebox}
 \begin{itemize}
-    \item Document the natural vacuum substrate the substrate as a Cosserat micropolar continuum: 6~DOF per K4 node (3 translational $\to$ $\mathbf{E}$; 3 microrotational $\to$ $\mathbf{B}$), with intrinsic LC oscillators and bond couple-stress connecting nearest neighbours.
+    \item Document the natural vacuum substrate as a Cosserat micropolar continuum: 6~DOF per K4 node (3 translational $\to$ $\mathbf{E}$; 3 microrotational $\to$ $\mathbf{B}$), with intrinsic LC oscillators and bond couple-stress connecting nearest neighbours.
     \item Spec out the bulk mechanical primitives: shear modulus $G_{vac}$, bulk modulus $K_{vac} = 2 G_{vac}$, Poisson ratio $\nu_{vac} = 2/7$, Cosserat couple-stress modulus $\gamma_c$, bulk mass density $\rho_{bulk}$, transverse / mechanical wave speed $v_T$, and Cosserat characteristic length $l_c = \sqrt{\gamma_c / G_{vac}}$.
     \item Tie each primitive to its canonical Axiom~1 + Axiom~2 + Axiom~4 derivation in Vols~1--3 and to its canonical-source entry in \kbleaf{src/ave/core/constants.py}.
     \item Establish the substrate-physics framing for two engineering observables that depend on these primitives: gravitational time dilation (via $c_{shear}(A_0) = c_0 \sqrt{S(A_0)}$ in SYM-class saturation) and weak-force range $r_W \sim l_c$.
@@ -15,7 +15,7 @@
 \section{Substrate as Cosserat Micropolar Continuum}
 \label{sec:vol9_mech_cosserat_continuum}
 
-Per Axiom~1 (Ch.~\ref{ch:fundamental_axioms}, canonical equation file \kbleaf{common\_equations/eq\_axiom\_1.tex}; CLAUDE.md INVARIANT-S2), the natural vacuum the substrate is a 3D chiral Laves K4 \emph{Cosserat} crystal. Each K4 node carries six intrinsic degrees of freedom:
+Per Axiom~1 (Ch.~\ref{ch:fundamental_axioms}, canonical equation file \kbleaf{common\_equations/eq\_axiom\_1.tex}; CLAUDE.md INVARIANT-S2), the natural vacuum is a 3D chiral Laves K4 \emph{Cosserat} crystal. Each K4 node carries six intrinsic degrees of freedom:
 
 \begin{itemize}
     \item Three \textbf{translational} DOFs --- capacitive coupling $\varepsilon_0$, identified with the electric field $\mathbf{E}$.

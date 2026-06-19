@@ -69,7 +69,7 @@ $$
 ### The Four Structural Axioms
 
 **Axiom 1: Substrate Topology.**
-The physical vacuum IS a chiral Laves K4 Cosserat crystal $the substrate(V, E, t)$ — a dense, non-linear electromagnetic LC resonant network of micropolar nodes, evaluated as a **Trace-Reversed Chiral LC Network** (Cosserat micropolar continuum) in the macroscopic limit. Its calibration constants are *derived* from this substrate: characteristic impedance $Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx 376.73\;\Omega$ and lattice pitch $\ell_{node} = \hbar/(m_e c) \approx 3.86\times 10^{-13}\,\text{m}$.
+The physical vacuum IS a chiral Laves K4 Cosserat crystal evolving in $(V, E, t)$ — a dense, non-linear electromagnetic LC resonant network of micropolar nodes, evaluated as a **Trace-Reversed Chiral LC Network** (Cosserat micropolar continuum) in the macroscopic limit. Its calibration constants are *derived* from this substrate: characteristic impedance $Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx 376.73\;\Omega$ and lattice pitch $\ell_{node} = \hbar/(m_e c) \approx 3.86\times 10^{-13}\,\text{m}$.
 
 **Axiom 2: Topo-Kinematic Isomorphism.**
 Charge $q$ is identically a discrete geometric dislocation (a localized phase twist) within the substrate. The fundamental dimension of charge is *length*: $[Q] \equiv [L]$, with topological conversion constant $\xi_{topo} = e/\ell_{node}$. The fine-structure constant $\alpha = e^2/(4\pi\varepsilon_0 \hbar c) \approx 1/137.036$ and the dielectric yield voltage $V_{yield} = \sqrt{\alpha}\, m_e c^2/e \approx 43.65\;\text{kV}$ are *derived* calibration constants (Axiom 4 operating point), not axioms.

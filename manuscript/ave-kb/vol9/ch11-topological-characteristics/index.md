@@ -20,7 +20,7 @@ This is a synthesis index; no primary derivations live here. Every load-bearing 
 - [`ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md`](../../vol1/axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md) (`clm-rkisb8`) — rigorous derivation of $K_4 \to A_4 \to 2T \subset SU(2)$.
 - [`ave-kb/common/translation-tables/translation-circuit.md`](../../common/translation-tables/translation-circuit.md) (`clm-fy05jc`, `clm-eemap1`) — $\xi_{topo}$ EE-mechanical identity and the EE-as-substrate-native META framework; canonical substrate-primitive $\to$ toroidal-transformer-winding mapping (rows 121–123, 216, 437).
 - [`ave-kb/common/omega-freeze-cosmic-grain-cascade.md`](../../common/omega-freeze-cosmic-grain-cascade.md) (`clm-dsb560`) — cosmic chirality selector for substrate handedness; pointer to Vol 9 Ch 12.
-- CLAUDE.md INVARIANT-S2 Axiom 1 — canonical $the substrate = $ 3D chiral Laves K4 Cosserat crystal in $I4_1 32$ verbatim statement.
+- CLAUDE.md INVARIANT-S2 Axiom 1 — canonical verbatim statement: the substrate is the 3D chiral Laves K4 Cosserat crystal in $I4_1 32$.
 
 > **Note on coordinate-system discipline (per `phase-space-coordinate-check` v1.0).** The $(2, 3)$ winding is a substrate topological invariant on the Clifford torus $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ (phase-space). The electron's real-space body is the $0_1$ unknot on the K4 carrier. Both coordinate systems are substrate-native primary; neither is remapped into SM gauge-group coordinates. The toroidal-transformer-winding EE analog is the EE projection of the substrate primary, not a coordinate substitution.
 

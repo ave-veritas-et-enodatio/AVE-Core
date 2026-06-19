@@ -26,7 +26,7 @@ The AVE corpus carries **two physically distinct cosmological direction concepts
 
 ### K4 lattice rest frame
 
-The chiral Laves K4 Cosserat substrate the substrate (Ax 1) has a preferred rest frame. This frame is identified empirically with the CMB rest frame to high precision per AVE-QED Q-G24.
+The chiral Laves K4 Cosserat substrate (Ax 1) has a preferred rest frame. This frame is identified empirically with the CMB rest frame to high precision per AVE-QED Q-G24.
 
 Per [`preferred-frame-and-emergent-lorentz.md:29`](../vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md):
 

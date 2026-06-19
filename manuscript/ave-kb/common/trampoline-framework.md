@@ -466,7 +466,7 @@ $V_{\text{yield}} \approx 43.65 \, \text{kV}$ (Vol 4 Ch 1, INVARIANT-C1) corresp
 
 | Trampoline (real-world) | AVE substrate (canonical name) |
 |---|---|
-| Trampoline material (Cordura fabric / springs) | Substrate the substrate — K4 bipartite Cosserat micropolar lattice |
+| Trampoline material (Cordura fabric / springs) | The substrate — K4 bipartite Cosserat micropolar lattice |
 | Warp/weft crossing point | Node — 4-port tetrahedral active site |
 | Spring between crossings | Bond — carries three storage modes |
 | Standing on the trampoline | Local strain $A > 0$ |

@@ -92,7 +92,7 @@ Session 2026-06-07 reframe vocabulary. **All entries are CONSISTENCY-CLASS** (re
 
 | Term | Meaning in AVE | Class / cross-ref |
 |---|---|---|
-| **Transmission-line vacuum** | The vacuum the substrate IS a K4-TLM transmission-line network (Ax 1); its "fundamental constants" are EE properties of the line, not primitives | consistency; translation-circuit.md §10.1 |
+| **Transmission-line vacuum** | The vacuum IS a K4-TLM transmission-line network (Ax 1); its "fundamental constants" are EE properties of the line, not primitives | consistency; translation-circuit.md §10.1 |
 | **Line-property constant** | A "fundamental constant" re-read as a transmission-line property: $c$ = line velocity ($c_{EM}=c_0/S$, $c_{shear}=c_0\sqrt S$), $Z_0$ = characteristic impedance, $L=\mu_0$, $C=\varepsilon_0$, $R\leftrightarrow$ loss, $\alpha$ = coupling/loss. **None is fundamental.** Lorentz invariance ($c$ const) = EMERGENT cold-lattice ($S\to1$) limit | Class A identities + Class B (Lorentz); preferred-frame-and-emergent-lorentz.md |
 | **Screened effective precession** ($\alpha$) | $\alpha$ = the electron per-orbit spin-slip; its value $1/137$ framed as the *screened* low-energy residual of a bare coupling (running of $\alpha$). **α-VALUE DERIVATION OPEN** — Golden-Torus audit + screening-factor route are the open tests; do NOT claim derived | OPEN lens; translation-circuit.md §10.2; honest-α Class-B (clm-0ktpcn) |
 | **Slip-angle / loss-tangent-α** | $\alpha = 1/Q = \tan\delta \approx 1/137$, slip angle $\delta=\arctan\alpha\approx 0.418^\circ$. EE identity once $Q_{tank}=\alpha^{-1}$; the numeric value is a re-expression, not an independent prediction | Class A identity; translation-circuit.md §10.3; temporal-saturation-regime-classifier.md |
