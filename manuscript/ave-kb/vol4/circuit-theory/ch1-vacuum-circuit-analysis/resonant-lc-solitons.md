@@ -103,4 +103,14 @@ The LC-tank picture above can be factored into a **class-invariant form** plus a
 >
 > The electron is a **BoundResonator** — a closed, high-$Q$, TIR-confined LC cavity whose poles ride toward (but never cross) the $j\omega$ axis as $Q\to1/\alpha$ — **not** an **OpenCosseratScrew** (a radiating longitudinal Cosserat shear mode, $\oint\neq0$). Confirmed before minting the class label.
 
+### The graded vacuum impedance network (the BoundResonator's wiring environment)
+
+The BoundResonator does not sit in a structureless vacuum — it terminates the **graded vacuum impedance network** ([def-gv1net](../../../common/vocabulary-register.md)), the equivalent-circuit MODEL of the medium drawn as three WIRED reactance channels (one per substrate grade). This is a **CONSISTENCY re-expression** of the three-impedance law ([three-channel-impedances.md](../../../vol9/ch4-dc-electrical-characteristics/three-channel-impedances.md):20-22, registry §3.11), NOT a new substrate primitive (INVARIANT-N1 — the network is the circuit MODEL, not a substrate-object noun). The wired-network leaf is [`device-circuit-models.md`](../../../vol9/ch3-pin-port-configuration/device-circuit-models.md) §6.
+
+- **$Z_{\mathrm{EM}}\equiv Z_0$** (T2 transverse field, $\Gamma_{\mathrm{EM}}=0$) — the **MATCHED / radiative PORT**: how the BoundResonator couples to the far field (the per-cycle $\alpha$ leak, $|\Gamma_{EM}|^2=1-\alpha$ above). NOT a hair-sector.
+- **$Z_{\mathrm{bulk}}=\sqrt2\,Z_0$** at $K=2G$ ($\Gamma_{\mathrm{bulk}}\to-1$) — the **MASS-"3"** channel (A1 dilatation); its confinement surface ([def-cf1srf](../../../common/vocabulary-register.md)) is the $\Gamma=-1$ cage-wall derived above ($Z_{core}\to0$).
+- **$Z_{\mathrm{shear}}$** (deviatoric $G$, $\Gamma_{\mathrm{shear}}\to-1$) — the **CHARGE-"3"** channel (the Cosserat $(2,3)$ micro-rotation winding).
+
+The two-"3"s grade tag ($A1\perp T2$, [master-equation.md](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20) is exactly the **Ontology fence** stated above: the mass-dilatation $H(s)$ phasor is the bulk channel; the winding is the orthogonal shear channel; the two are never wired into one $(V_{inc},V_{ref})$ phasor. The conserved $H_{\mathrm{couple}}$ by which the grades MAY couple (energize-lock, no-pump; never a shared phasor) has one live-but-unadjudicated candidate (graft-v3 shear$\leftrightarrow$bulk $\chi$-source, demoted B$\to$C/unimplemented) — see the Fork-A isolation-vs-coupling discriminator in [`device-circuit-models.md`](../../../vol9/ch3-pin-port-configuration/device-circuit-models.md) §6.5. **The channel-impedance-mismatch $Q$ target stays EMPTY** — the $\alpha$-free cold-cage $Q\approx30.8\ne137$ ([electron-bound-resonator-coverage.md](../../../vol2/particle-physics/ch01-topological-matter/electron-bound-resonator-coverage.md) row "LC-tank cold Q", T3.4b) is the corpus clean NEGATIVE; it is not refilled.
+
 ---
