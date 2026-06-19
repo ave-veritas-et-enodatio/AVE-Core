@@ -585,6 +585,7 @@
 {"source": "clm-t05mvx", "target": "clm-gdd70j", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-to41c7", "target": "INVARIANT-C2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "single physics input", "fraction": null}
 {"source": "clm-to41c7", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "topological-knot mass spectrum", "fraction": null}
+{"source": "clm-to41c7", "target": "clm-k6olj8", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-trgqtf", "target": "INVARIANT-C1", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "$V_{yield}$ → $E_{yield}=V_{yield}/\\ell_{node}$", "fraction": null}
 {"source": "clm-trgqtf", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "E", "fraction": null}
 {"source": "clm-trgqtf", "target": "clm-vjv4zf", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}

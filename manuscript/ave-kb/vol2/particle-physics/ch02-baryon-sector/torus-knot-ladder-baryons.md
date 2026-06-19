@@ -8,6 +8,8 @@ path-stable: "referenced from vol2 as eq:torus_knot_ladder"
 
 ## The Baryon Resonance Spectrum: The Torus Knot Ladder
 
+> 🔴 **SCOPE FLAG (2026-06-19, crossing-ladder-overclaim walk-back):** "entire baryon resonance spectrum" below is **scoped to the $S=0$ $N/\Delta$ single-Regge sector ONLY**. Strange baryons ($\Lambda, \Sigma, \Xi, \Omega$) and **all mesons** are **off-ladder and NOT natively derived** (open GAP). The odd-$q$/even-$q$ link-exclusion theorem ($(2,4)$ is not a knot) is a genuine structural chord and is preserved; the "all baryons / all matter" reading is not.
+
 The cinquefoil confinement immediately generates a **1-residual** prediction of the **entire baryon resonance spectrum** (the one residual being the per-channel coupling $p_c = 8\pi\alpha$, canonical-packing-plausible but not line-by-line derived; vs standard Skyrme's two baryon-data-tuned parameters $F_\pi, e$). The $(2,q)$ torus knots form a progression using only odd $q = 3, 5, 7, 9, \ldots$---there is no stable $(2,4)$ torus knot. Each entry in this *Torus Knot Ladder* produces a distinct baryon state via the same eigenvalue equation:
 
 > **[Resultbox]** *Torus Knot Baryon Ladder*
@@ -34,7 +36,11 @@ No parameters are adjusted *between* states (only the integer crossing number $c
 
 Three features of this spectrum deserve emphasis:
 
-**1. The matches are preferentially to $\Delta$ baryons.** The $\Delta$ resonances carry isospin $I = 3/2$ and typically higher total angular momentum ($J = 3/2^+, 7/2^+, 11/2^+$). Higher $(2,q)$ torus knots carry more topological winding, corresponding to higher intrinsic spin---precisely the states the ladder selects. $J^P$ consistency check (per [`ave-discrimination-check`](https://github.com/AVE-Skills) D3): random nearest-mass matching wouldn't pass $J^P$ filter at 6/6 retrospective rate.
+**1. The matches are preferentially to $\Delta$ baryons.** The $\Delta$ resonances carry isospin $I = 3/2$ and typically higher total angular momentum ($J = 3/2^+, 7/2^+, 11/2^+$). Higher $(2,q)$ torus knots carry more topological winding, corresponding to higher intrinsic spin---precisely the states the ladder selects.
+
+> 🔴 **Rule-12 WALK-BACK (2026-06-19, $J^P$-discriminator overclaim):** The "random nearest-mass matching wouldn't pass $J^P$ filter at 6/6 retrospective rate" claim below is walked back. The $J^P$ filter (driver `expected_jp_for_crossing`) admits **any** half-integer $J$ up to $c/2$ with **either** parity (at $c=15$, 16 distinct $J^P$ values — more than the entire hardcoded PDG candidate pool), so it excludes nothing the nearest-mass step did not already exclude. The driver's own null model gives `null_hypothesis_random_hits_3pct = 6.0` — random nearest-mass matching is **expected** to hit all 6 within $3\%$ (mean PDG $N/\Delta$ spacing $\sim67$ MeV $<$ the $\pm3\%$ window); at the $1\%$ band the observed (2) **underperforms** the null (2.7). The "6/6" is **null-dominated, not a discriminator**. What survives is the **single proton $+0.74\%$ bare-topology hit** plus the curved ladder FORM — NOT the ensemble. Original body preserved below.
+
+$J^P$ consistency check (per [`ave-discrimination-check`](https://github.com/AVE-Skills) D3): random nearest-mass matching wouldn't pass $J^P$ filter at 6/6 retrospective rate.
 
 **2. The mass spacing is nearly linear: $\sim 170$ MeV per crossing.** A linear fit gives $m(c) \approx 171c + 81$ MeV, with mass increments of $\sim 340$ MeV per pair of crossings. This is consistent with the empirical Regge trajectory slope observed in baryon spectroscopy, where successive angular momentum excitations add $\sim 300$--$400$ MeV.
 
