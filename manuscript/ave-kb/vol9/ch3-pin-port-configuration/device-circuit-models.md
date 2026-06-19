@@ -146,7 +146,19 @@ Each channel is one substrate grade. The impedances and saturation $\Gamma$ valu
 
 #### 6.2 The confinement surface (Γ=−1 cage-wall, status OPEN)
 
+The two CONFINED channels terminate at a **confinement surface** ([def-cf1srf](../../common/vocabulary-register.md)) — the $\Gamma=-1$ cage-wall $\partial\Omega$ where $Z_{\mathrm{core}}\to0$ ([`resonant-lc-solitons.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md):38,47-50). Its **shape is FORCED by topology** (the real-space body + the phase-space winding + the node-span) and is therefore **DERIVED, never posited-spherical** (Grant D4).
+
+> **Status: OPEN.** The $\Gamma=-1$ TIR condition itself is canonical (clm-kezk9z; RUNG-1 T3.3 `sup-1ecv2m` — $\Gamma_{\mathrm{bulk}}$ crosses the OP2 gate by $A=0.95$, $\alpha$-FREE). What is **NOT** derived is the **shape-forcing chain**: no solved boundary-value problem produces the electron's surface from its $0_1$-unknot topology. The electron ($0_1$ unknot, single-node) and the proton ($6^3_2$ Borromean, multi-node — [`boundary-observables-m-q-j.md`](../../common/boundary-observables-m-q-j.md):43-44) get DIFFERENT derived shapes; the proton single-vs-multi-node confinement is **UNADJUDICATED**.
+
+> **Two coincident $\Gamma=-1$ walls — do NOT re-collide.** The confinement surface is the **A1 MASS wall** ($Z_{\mathrm{bulk}}\to0$, the impedance-short $\Gamma=-1$ of the Pauli/TIR derivation). It is numerically coincident with — but a **DISTINCT object** from — the **$\Gamma_{\mathrm{spinor}}=-1$** topological $2\pi\to4\pi$ stability wall of the T2 micro-rotation sector ([`resonant-lc-solitons.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md):89-94; $A1\perp T2$ per [`master-equation.md`](../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20, Grant-ratified). The electron carries BOTH; the confinement surface terminating the **bulk** channel is the MASS one only. Reading the two $-1$'s as one wall would wire the cage into the charge-winding and break the two-"3"s orthogonality.
+
 #### 6.3 The chiral circulator (inter-tank non-reciprocal coupling, STATED-pending-engine)
+
+The two sublattice TANKS (the bipartite A/B sublattices of the $I4_1 32$ chiral srs net) are coupled through a **chiral circulator** ([def-ch1crc](../../common/vocabulary-register.md)) — a **NON-RECIPROCAL inter-tank coupling** carrying the lattice chirality. It is the inter-tank element of the network schematic (§6.6 Fig. i), drawn as a circulator.
+
+> **Status: STATED — pending the chiral-crystal engine.** The cubic-FDTD engine averages chirality out, so the non-reciprocity MAGNITUDE is not yet computed (`cvr_model.py:243` AUDITOR_STATE note). This is a STATED frontier, NOT adjudicated and NOT available.
+
+> **Do NOT call it "gyrator."** The reciprocal optical-activity **gyrator** ([def-0pt1ac](../../common/vocabulary-register.md) — the lossless reciprocal-Faraday polarization-plane rotator, $\pm75.46°$/unit) is a DIFFERENT element; "circulator" is reserved here for the non-reciprocal inter-tank coupling. The chiral circulator is also DISTINCT from the **per-particle** $S_{LR}\ne S_{RL}^*$ winding non-reciprocity (`cvr_model.py:242`), which is a single-instance scattering asymmetry of one bound resonator, not the inter-sublattice-tank coupling. (`open_ambiguity:true`, conflicting sites recorded in def-ch1crc.)
 
 #### 6.4 The M, J, Q honest map (refuted bijection)
 
