@@ -42,11 +42,13 @@ $$
 
 | Quantity | Substrate-native form | Value | Provenance |
 |---|---|---|---|
-| Tank $Q$ | $1/\alpha$ | $137.036$ | DERIVED ([theorem-3-1-q-factor.md](theorem-3-1-q-factor.md):38, clm-rtdmsn) |
+| Tank $Q$ | $1/\alpha$ | $137.036$ | DERIVED-FORM / **VALUE = echo** ([theorem-3-1-q-factor.md](theorem-3-1-q-factor.md):38, clm-rtdmsn) — see scope-correction note below |
 | Resonance $\omega_0$ | $\omega_C\,S(A_0)$ | $7.76\times10^{20}\,S(A_0)$ rad/s | DERIVED (Ax 1 primitives) |
 | Pole real part | $-\alpha\omega_0/2$ | $-0.00365\,\omega_0$ | DERIVED (= the $1/Q$ leak) |
 | $-3$ dB bandwidth | $\omega_0/Q = \alpha\omega_0$ | $5.67\times10^{18}$ rad/s | DERIVED |
 | Peak $|H|$ | $20\log_{10}Q$ | $42.7$ dB | DERIVED |
+
+> **🔴 Scope correction (2026-06-19, Rule 12 — table row above PRESERVED).** The bare "DERIVED" on the **Tank $Q$** row over-stated the value's provenance. What is DERIVED is the **FORM** ($Q=1/\alpha$ as the per-cycle radiative-leak structure of the LC tank); the **VALUE** $137.036$ is an **echo at the value level** — adjudicated at [theorem-3-1-q-factor.md](theorem-3-1-q-factor.md):19 (keystone $\alpha$-verdict, value-scoped) and baked at the instance (`cvr_model.py:72` $Q_{\mathrm{TANK}}=1/\alpha$), NOT a first-principles derivation of 137. The $\alpha$-free cold cage does NOT reproduce 137 (cold-cage $Q\approx30.8$, `test_l3_mass_cage.py`:702). The other rows ($\omega_0$, pole-real, bandwidth, peak) are FORM-DERIVED but inherit the $\alpha$-echo through $Q$. This corrects the bare tag to match the canonical value-scope without altering the table.
 
 ## §3 — The winding's chiral scattering is the charge-"3" (separate leaf)
 

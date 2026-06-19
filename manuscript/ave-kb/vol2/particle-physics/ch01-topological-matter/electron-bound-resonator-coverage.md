@@ -66,7 +66,7 @@ definitional = the dimensionful number is calibration-imported. GAP = not derive
 | Mott / Rutherford scattering | **C** — HARDEST GAP, zero coverage | NONE | grep "mott" = 0 hits | NOT cage-testable |
 | vacuum polarization / running $\alpha(q^2)$ | **C-at-distinction** — RT-equivalence | clm-bqtasn | FORM=imported / VALUE=ECHO ($\alpha/3\pi$); sub-Compton diff inaccessible | NOT cage-testable |
 | classical radius $r_e$ | **C** — GENUINE GAP, absent-by-design | NONE | `the-abandoned-interior.md:22` (retired EM-mass program); do NOT dress $\ell_{node}/2\pi$ as $r_e$ | NOT cage-testable — no AVE $r_e$ to test |
-| **LC-tank cold Q** | A-for-FORM; VALUE is the α-echo | clm-rtdmsn; **sup-wuy333** | FORM=chord (clean LC algebra) / **VALUE=ECHO** (`theorem-3-1:19` "echo at the value level"; `cvr_model.py:72` $Q_{TANK}=1/\alpha$ baked at instance) | **T3.4b** — cold/α-FREE Q from ring-down: **Q≈30.8, NOT 137 → corpus $Q=1/\alpha$ is an instance-baked ECHO** (clean chord-vs-echo NEGATIVE corroborating clm-rtdmsn's value-scope) |
+| **LC-tank cold Q** | A-for-FORM; VALUE is the α-echo | clm-rtdmsn; **sup-wuy333** | FORM=chord (clean LC algebra) / **VALUE=ECHO** (`theorem-3-1:19` "echo at the value level"; `src/scripts/vol_9_device/cvr_ee_sweep/cvr_model.py`:72 $Q_{TANK}=1/\alpha$ baked at instance) | **T3.4b** — cold/α-FREE Q from ring-down: **Q≈30.8, NOT 137 → corpus $Q=1/\alpha$ is an instance-baked ECHO** (clean chord-vs-echo NEGATIVE corroborating clm-rtdmsn's value-scope) |
 | stability / lifetime | A (zero-drive persistence) + B (topological-protection reason) | clm-uatcql; clm-ka5zdx; **sup-x7h9yh** | FORM=chord (loop-can't-untangle + $\Gamma=-1$ impedance) / VALUE=N/A | **T3.4c** — zero-drive persistence PASSES (non-radiating standing mode); the topological-winding protection is winding-sector (NOT cage-testable) |
 | $\Gamma=-1$ TIR wall (Z_eff=√S) | A — stiffening (T3.2) + the wall (T3.3) | clm-kezk9z; clm-uatcql; **sup-1ecv2m** | FORM=chord (Ax4 kernel A→1 ⇒ S→0 ⇒ Z→0 ⇒ Γ→−1) / VALUE=N/A | **T3.3** — Γ_bulk crosses OP2 gate −0.25 by A=0.95 (Γ_min(0.95)=−0.283), →0 vacuum; α-FREE. PASS |
 
@@ -84,6 +84,85 @@ be authored for any of them.
 7. **FINE-STRUCTURE $\alpha$ VALUE (keystone echo)** — the α-value is a **standing echo**: closed-negative on all three NAMED routes (dynamical-selection, kinematic-unit-bridge, rigidity-percolation), with the flip-condition live (R·r = ¼ forced without α-circularity would flip it) and the route-space not provably exhausted (scoped-echo register, Grant ratified 2026-06-18). <!-- 🔴 Rule-12 2026-06-19: prior absolute phrasing "α is an echo on every route" softened to the scoped form per Grant 2026-06-18; the FORCE (three named routes genuinely closed) is retained. --> MISSING: substrate-forcing of the coupling-STRENGTH value. **Directly demonstrated by T3.4b: the α-free cold cage Q is NOT 137** (sup-wuy333).
 8. **DIMENSIONFUL ELECTRON MAGNITUDES** ($m_e$, $e$, $\mu_B$, $\lambda_C$) — FORMS exist (A/B) but the NUMBERS are calibration-imported. MISSING: any native dimensionful electron number.
 9. **CLASSICAL ELECTRON RADIUS $r_e$** — GENUINE GAP / absent-by-design (no clm-, no `constants.py` entry). Do NOT dress $\ell_{node}/2\pi$ as $r_e$.
+
+## Graded vacuum impedance network — open-gate registry (extends the A/B/C buckets)
+
+The graded vacuum impedance network ([def-gv1net](../../../common/vocabulary-register.md);
+wired-network leaf [`device-circuit-models.md`](../../../vol9/ch3-pin-port-configuration/device-circuit-models.md) §6)
+is **foundation repair carrying open gates**, not a solved framework. These gates extend the
+A/B/C FORM-chord / VALUE-echo buckets above (INVARIANT-S11 extend-don't-reinvent — NO parallel
+registry); several re-index existing GAP-register / bucket rows and are cross-linked rather than
+duplicated. Each carries a status + the defined test where one exists.
+
+### THE load-bearing next step (do this ONE thing first)
+
+> **★ Substrate-native coupled-network $Q$ derivation (Fork-A) on the chiral K4 / Cosserat lattice.**
+> This is the **single load-bearing next move** for the whole network. Everything else below is
+> **subordinate to it** — supporting, downstream, or gated behind it. It is load-bearing because
+> it does **two jobs at once**:
+>
+> 1. **Attempts the $Q$ closure** — derive the electron $Q$ from the channel impedances + the
+>    inter-grade coupling $H_{\mathrm{couple}}$ (the channel-impedance-mismatch $Q$), via the
+>    Fork-A isolation-vs-coupling discriminator. The honest target is the **OBSERVED** electron
+>    $Q$, **NOT** the baked $137$ (that is the value-echo, not an independent target). Today the
+>    cold-cage isolated number is $Q\approx30.8$ (clean NEGATIVE, slot stays EMPTY — gate B below).
+> 2. **Repairs the RANK-2 Cartesian-wall crack** — running the derivation on the
+>    **substrate-native chiral K4 / Cosserat stencil** (not the Cartesian 7-pt stencil with a
+>    hand-planted core and opposite native-stencil sign) is exactly what closes the base-audit
+>    RANK-2 structural crack and the real-space $(2,3)$ Cartesian eigenmode-driver mismatch
+>    (gates A.1 / A.2 below). The containment surface and the coupled mode-structure must be
+>    solved on the chiral lattice or the wall is a Cartesian discretization artifact, not physics.
+>
+> *Defined handle:* does engaging $H_{\mathrm{couple}}$ on the chiral-lattice network lift the
+> cold-cage $Q\approx30.8$ toward the OBSERVED electron $Q$ (mode-splitting / avoided-crossing =
+> coupled vs free-crossing = isolated)? *Cross-ref:* `device-circuit-models.md` §6.5 (Fork-A);
+> figure slots (i)–(iv) §6.6. **Strict anti-substitution still binds:** if the derivation does
+> NOT reach the observed $Q$, record the NEGATIVE and leave the slot EMPTY — do not refill.
+
+### Subordinate gates (all 11 are supporting / downstream / gated behind the load-bearing step)
+
+**A — directly subsumed by the load-bearing step** (these ARE the two jobs above; listed so the crack stays tracked):
+
+| # | Gate | Bucket | Status | Defined test / cross-ref |
+|---|---|---|---|---|
+| A.1 | **Containment NOT substrate-native** — Cartesian 7-pt stencil, hand-planted core, opposite native-stencil sign | C | OPEN — base-audit RANK-2; **repaired by the load-bearing step** | cross-ref the base-crack reconciliation task (gate A.2); structural, not yet reconciled |
+| A.2 | **eigenmode-driver real-space $(2,3)$ Cartesian** vs def-kn0t01 SOLID | C | OPEN — REGISTER, do not fix here; **repaired by the load-bearing step** | cross-ref the base-crack reconciliation task |
+| A.3 | **Fork-A discriminator** (isolation vs $H_{\mathrm{couple}}$) + **Fork-B chiral circulator** STATED-pending-engine | A/B/C-mix | OPEN — KEEP-BOTH (Fork-A); STATED (Fork-B); **Fork-A IS the load-bearing step** | `device-circuit-models.md` §6.5; handle = does $H_{\mathrm{couple}}$ lift $Q\approx30.8$ toward the OBSERVED $Q$ (NOT the baked 137) |
+
+**B — the load-bearing step's clean NEGATIVE (preserve, do NOT refill — it is the gate the step must honestly clear or record):**
+
+| # | Gate | Bucket | Status | Defined test / cross-ref |
+|---|---|---|---|---|
+| B.1 | **Q-echo** — cold-cage $Q\approx30.8\ne137$, slot EMPTY | A-FORM / VALUE-ECHO | NEGATIVE, NO refill | `test_l3_mass_cage.py`:702-703; T3.4b `sup-wuy333` (see "LC-tank cold Q" row) — preserve, do NOT refill |
+
+**C — downstream gates (resolvable IN or AFTER the coupled-network derivation; not the first move):**
+
+| # | Gate | Bucket | Status | Defined test / cross-ref |
+|---|---|---|---|---|
+| C.1 | **TENSION-1 discriminator** — does the EM far-field reduce to the matched-port projection of the interior micropolar winding ($\mathcal{Q}$=micropolar, EM=antenna), or is there a residual EM-channel charge DOF? | C | OPEN — defined test; **resolvable IN the load-bearing step** | resolvable in the coupled-network derivation; `device-circuit-models.md` §6.5 |
+| C.2 | **confinement-surface shape forced-by-topology** — electron vs proton differ; proton single-vs-multi-node | C | OPEN ([def-cf1srf](../../../common/vocabulary-register.md)); downstream of the chiral-lattice BVP | `device-circuit-models.md` §6.2; no solved BVP produces the shape from topology |
+| C.3 | **$\mathcal{Q}$ two-integrals reconciliation** — 1D linking number ([`boundary-observables-m-q-j.md`](../../../common/boundary-observables-m-q-j.md):20) vs 3D Beltrami helicity $H_{\mathrm{bel}}$ ([`master-equation.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20) | C | OPEN — likely closer named | almost certainly two projections of ONE charge via helicity=linking (Moffatt 1969); that identity is NOT written for the AVE case |
+
+**D — supporting / out-of-scope of the network proper (ruler, mass-ratio, bias, exhaustiveness, research-only thread):**
+
+| # | Gate | Bucket | Status | Defined test / cross-ref |
+|---|---|---|---|---|
+| D.1 | **$\ell_{\mathrm{node}}$ CIRCULAR** — definitional, $m_e$ is the input ruler; one-ruler TARGET not achieved ($G$ makes count plausibly TWO) | C | OPEN — clm-5xon03 | cross-ref the $\ell_{\mathrm{node}}$ one-ruler task; definitional circularity |
+| D.2 | **$m_p/m_e$ = one-residual FIT** not zero-parameter prediction ($V=2$ CODATA-selected) | C | OPEN | cross-ref the $m_p$ re-register task |
+| D.3 | **$\Omega_{\mathrm{freeze}}$ NOT-CLOSED** — back-fit direction ($\alpha,G\to u_0^*$, B2 re-scope) + research-only electron-$\mathcal{J}$ link | C | OPEN | `device-circuit-models.md` §6.4; ties to $\mathcal{J}$ only at cosmic scale ($\Omega_{\mathrm{freeze}}=\mathcal{J}_{\mathrm{cosmic}}/I_{\mathrm{cosmic}}$, `boundary-observables-m-q-j.md`:97) |
+| D.4 | **exhaustiveness** ("no 4th observable") | — | ASSERTED not proven — keep ASSERTED | `common/claim-quality.md`:606 (solidity 0.55); asserted on Stokes dimensional-reduction, not formally proven |
+| D.5 | **grip=loss / lossless-pivot cosmic-rotation$\leftrightarrow$soliton-spin thread** | — | research-only | KB carries "lossless pivot" only as a not-canon exclusion ([resonant-lc-solitons.md](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md):83); promote before any reframe cites it |
+
+*(All 12 original gates preserved: load-bearing step = old #10 Fork-A's $Q$-leg fused with old #1/#5 the Cartesian-wall crack; A.1=old #1, A.2=old #5, A.3=old #10, B.1=old #2, C.1=old #7, C.2=old #6, C.3=old #8, D.1=old #3, D.2=old #4, D.3=old #9, D.4=old #11, D.5=old #12. Re-ranked, not dropped.)*
+
+**M, J, Q honest-map note (refuted bijection).** The clean "3 hairs = 3 channels" bijection is
+REFUTED: the Stokes-dimension triple ($\mathcal{M}/\mathcal{J}/\mathcal{Q}$ = 3D/2D/1D,
+`boundary-observables-m-q-j.md`:19-23) and the wave-channel triple (EM/shear/bulk,
+`three-channel-impedances.md`:20-22) are TWO INDEPENDENT AXES no leaf cross-identifies; the same
+unproven Stokes triple also props $\alpha^{-1}=4\pi^3+\pi^2+\pi$ ($\alpha$=echo) — double duty.
+HONEST: $\mathcal{M}$=bulk/A1 (forced); $\{\mathcal{J},\mathcal{Q}\}$ CO-LOCATE in the
+micropolar/Cosserat sector; EM=matched radiative PORT, not a hair-sector. Full map at
+[`device-circuit-models.md`](../../../vol9/ch3-pin-port-configuration/device-circuit-models.md) §6.4.
 
 ## Bucket-B deferrals (winding-sector / L4 — NOT gaps, KNOWN structural deferrals)
 
