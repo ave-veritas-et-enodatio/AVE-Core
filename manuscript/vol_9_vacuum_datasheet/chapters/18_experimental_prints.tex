@@ -1,0 +1,144 @@
+% 18_experimental_prints.tex
+% Bench-adjacent topology laboratory exercises — 3D-printable K4 exports.
+% Canonical KB: ave-kb/vol9/ch18-experimental-prints/index.md
+\chapter{Experimental Prints}
+\label{ch:vol9_experimental_prints}
+
+\begin{objectivebox}
+\begin{itemize}
+    \item Register the Vol.~9 \textbf{topology laboratory exercise} track: hands-on assembly of engine-isomorphic diamond K4 exports, distinct from Ch.~\ref{ch:vol9_falsification_tests} bench falsifiers and Ch.~\ref{ch:vol9_engine_requirements} simulator requirements.
+    \item State the epistemic class: \textbf{identity-class consistency} on discrete graph topology (\texttt{consistency-vs-emergence} v1.3); \textbf{[RENDERING]} absolute scale per \kbleaf{assets/3d\_models/ACCURATE\_SCALING.md}.
+    \item Document the DIY kit SKU (Type-A / Type-B node molds, diamond TL bond insert, JSON assembly manifest), driver scripts, and default corpus-mnemonic print pitch $38.6\,\mathrm{mm}$ per $\ell_{node}$ ($386\,\mathrm{fm} \to 38.6\,\mathrm{mm}$ label).
+    \item Publish Laboratory Exercises L-EP1 (kit assembly) and L-EP2 (monolith vs kit) with explicit pass criteria tied to \texttt{build\_diamond\_net}.
+\end{itemize}
+\end{objectivebox}
+
+\section{Framing: Bench-Adjacent Topology Lab}
+\label{sec:vol9_exp_prints_framing}
+
+The preceding chapters characterize the vacuum cell in datasheet and simulator-spec form. This chapter records a complementary \textbf{pedagogical track}: 3D-printable exports that let a reader \emph{assemble} the production diamond K4 lattice from repeatable parts and verify that the printed graph matches the engine net.
+
+\textbf{What this is.} A \textbf{laboratory exercise} in discrete-topology consistency --- the same epistemic class as verifying a circuit board against its netlist. The exercise checks bipartite A/B placement, four Op5 ports per active node (Ch.~\ref{ch:vol9_pin_port_configuration}), and transmission-line bonds along tetrahedral nearest-neighbour vectors (Ch.~\ref{ch:vol9_dc_electrical_characteristics}).
+
+\textbf{What this is not.} Not a Ch.~\ref{ch:vol9_falsification_tests} falsifier (no new substrate-physics prediction is tested). Not a substitute for Ch.~\ref{ch:vol9_engine_requirements} (numerical dynamics are not exercised). Not a physically scaled replica: corpus $\ell_{node} \approx 386\,\mathrm{fm}$; millimetre-scale prints carry magnification $\sim 10^{11}$ versus physical pitch --- unavoidable for any visible model. Per INVARIANT-S9, a printed mesh is not registered as an \texttt{exp-} experiment; it is a \textbf{topology demonstration} supporting derivation navigation.
+
+\textbf{Production vs instrument.} Exercises use the \textbf{production} substrate \texttt{build\_diamond\_net} (D1 adjudication: degree-4 diamond, achiral Fd-3m). The separate \texttt{build\_srs\_net} chirality showpiece is an \textbf{acceptance instrument} for optical-activity tests (Ch.~\ref{ch:vol9_topological_characteristics} chirality sector) --- not the production engine net. Kit exercises must not conflate the two.
+
+\section{Print Scale and Mnemonic Pitch}
+\label{sec:vol9_exp_prints_scale}
+
+\begin{table}[htbp]
+\centering
+\caption{Experimental-print scale conventions (\textbf{[RENDERING]}). Topology is engine-exact; millimetre pitch is a print label.}
+\label{tab:vol9_exp_print_scale}
+\begin{tabular}{p{0.28\linewidth} p{0.18\linewidth} p{0.46\linewidth}}
+\toprule
+\textbf{Preset} & \textbf{mm / $\ell_{node}$} & \textbf{Use} \\
+\midrule
+Corpus mnemonic (kit default) & 38.6 & $386\,\mathrm{fm} \to 38.6\,\mathrm{mm}$ digit tie; FDM-friendly port collars \\
+Monolith reference & 25 & Prior Prusa-scale full-chunk exports \\
+Larger assembly & 40 & Extended macro kit (optional env override) \\
+\midrule
+\multicolumn{3}{@{}p{0.92\linewidth}@{}}{\textbf{Magnification.} At $38.6\,\mathrm{mm}/\ell_{node}$, linear magnification vs physical $\ell_{node}$ is $\sim 10^{11}$. The mnemonic preserves \emph{numbers}, not femtometre physics. Sub-node bodies ($D_p \ll \ell_{node}$) remain unresolvable in any print tier.} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Bond centre pitch $= \sqrt{3}\times(\mathrm{mm\ per\ }\ell_{node})$ along tetrahedral NN edges. TL insert length is computed port-tip to port-tip for an A--B pair (\kbleaf{vol9/ch18-experimental-prints/index.md}).
+
+\section{Kit Inventory}
+\label{sec:vol9_exp_prints_kit}
+
+Repeatable molds live under \texttt{assets/3d\_models/kit/}:
+
+\begin{itemize}
+    \item \textbf{Type-A capacitive cell} --- \texttt{vacuum\_node\_A\_capacitive.stl}: cubic LC tank (EE map: $\varepsilon$ / E-store).
+    \item \textbf{Type-B inductive cell} --- \texttt{vacuum\_node\_B\_inductive.stl}: spherical tank + equatorial L-ring (EE map: $\mu$ / B-store).
+    \item \textbf{Diamond TL bond insert} --- \texttt{vacuum\_tl\_bond\_diamond.stl}: straight corridor between port collars (not centre-to-centre tubes).
+    \item \textbf{Assembly manifest} --- \texttt{vacuum\_assembly\_L\{L\}.json}: node coordinates, sublattice labels, bond list, print counts, joinery dimensions.
+\end{itemize}
+
+Monolithic reference meshes (single-file preview):
+\begin{itemize}
+    \item \texttt{vacuum\_axiom1\_diamond\_lc\_full\_lattice.stl}
+    \item \texttt{vacuum\_axiom1\_diamond\_lc\_with\_particles.stl}
+\end{itemize}
+Optional particle snap-ins are \textbf{topology demos only} (\kbleaf{assets/3d\_models/ACCURATE\_SCALING.md}); they do not assert physical inter-particle size ratios.
+
+\section{Driver Registry}
+\label{sec:vol9_exp_prints_drivers}
+
+\begin{table}[htbp]
+\centering
+\caption{Experimental-print driver scripts (repo: \texttt{AVE-Core}).}
+\label{tab:vol9_exp_print_drivers}
+\begin{tabular}{p{0.52\linewidth} p{0.40\linewidth}}
+\toprule
+\textbf{Script} & \textbf{Primary output} \\
+\midrule
+\texttt{generate\_vacuum\_lattice\_kit.py} & Kit STLs + JSON manifest \\
+\texttt{generate\_axiom1\_diamond\_vacuum\_stl.py} & Monolithic LC lattice (+ particles) \\
+\texttt{generate\_vacuum\_lattice\_stl.py} & Tube-network previews, unit-cell excerpts \\
+\texttt{vacuum\_lc\_geometry.py} & Shared cell / bond mesh module \\
+\midrule
+\multicolumn{2}{@{}p{0.92\linewidth}@{}}{Environment: \texttt{PRINT\_MM\_PER\_L\_NODE} (kit default 38.6), \texttt{ASSEMBLY\_L} (default 16). Invoke with \texttt{PYTHONPATH=src} from repo root.} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Laboratory Exercise L-EP1: Assemble the Production Chunk}
+\label{sec:vol9_lab_LEP1}
+
+\begin{exercisebox}
+\textbf{Laboratory Exercise L-EP1 --- Assemble the production diamond chunk}
+
+\textbf{Objective.} Verify by physical assembly that the exported kit is graph-isomorphic to \texttt{build\_diamond\_net(L)} on the finite-crystal bond list (no periodic wrap edges).
+
+\textbf{Materials.} Kit parts (Sec.~\ref{sec:vol9_exp_prints_kit}); manifest \texttt{vacuum\_assembly\_L\{L\}.json}; flat surface or printed jig grid.
+
+\textbf{Procedure.}
+\begin{enumerate}
+    \item Read manifest \texttt{counts} and \texttt{joinery} (port collar radius, bond pitch, port-0 orientation key).
+    \item Place Type-A nodes at every \texttt{nodes[]} entry with \texttt{sublattice: ``A''}; Type-B at \texttt{``B''}.
+    \item Insert TL bonds for each \texttt{bonds[]} pair; align port-0 key fins to fix tetrahedral orientation.
+    \item \textbf{Joinery:} press each bond barbell peg into the hollow socket at the matching port collar mouth (friction-fit; default 0.05\,mm/side radial interference).
+    \item Checklist: degree $4$ at every node; every bond connects A$\leftrightarrow$B; bond lengths match manifest \texttt{center\_pitch\_mm} within tolerance; no anomalously long ``wrap'' struts.
+\end{enumerate}
+
+\textbf{Pass.} Assembled graph matches engine finite-crystal topology. \textbf{Fail.} Wrong degree, same-sublattice bond, or wrap-scale bond length outlier.
+
+\textbf{Discipline class.} Identity-class consistency on K4 graph (Ch.~\ref{ch:vol9_topological_characteristics} K4 valence; Ch.~\ref{ch:vol9_pin_port_configuration} Op5 ports).
+\end{exercisebox}
+
+\section{Laboratory Exercise L-EP2: Monolith vs Kit (Optional)}
+\label{sec:vol9_lab_LEP2}
+
+\begin{exercisebox}
+\textbf{Laboratory Exercise L-EP2 --- Monolith vs kit comparison}
+
+\textbf{Objective.} At fixed $L$ and \texttt{PRINT\_MM\_PER\_L\_NODE}, confirm the monolithic STL span and bond pitch agree with the kit manifest bbox and \texttt{joinery.bond\_center\_pitch\_mm}.
+
+\textbf{Pass.} Bbox and pitch consistent within print tolerance; A/B cell bodies visually distinct (cube vs sphere+ring). \textbf{Fail.} Systematic scale mismatch (indicates driver regression or double-counted \texttt{a\_cell} in export).
+\end{exercisebox}
+
+\section{Cross-Chapter Map}
+\label{sec:vol9_exp_prints_cross_chapter}
+
+\begin{table}[htbp]
+\centering
+\caption{Experimental prints $\leftrightarrow$ datasheet chapters.}
+\label{tab:vol9_exp_prints_cross_chapter}
+\begin{tabular}{p{0.34\linewidth} p{0.58\linewidth}}
+\toprule
+\textbf{Printed feature} & \textbf{Datasheet primitive} \\
+\midrule
+Bipartite A/B node molds & Ch.~\ref{ch:vol9_topological_characteristics} K4 graph; Ch.~\ref{ch:vol9_dc_electrical_characteristics} dual reactance \\
+Four port collars / node & Ch.~\ref{ch:vol9_pin_port_configuration} Op5 tetrahedral ports \\
+TL bond insert & Ch.~\ref{ch:vol9_dc_electrical_characteristics} bond transmission line \\
+Cosserat 6 DOF / node & Ch.~\ref{ch:vol9_general_description} features (not split across A/B as separate DOF tiers) \\
+Particle snap-ins (optional) & Ch.~\ref{ch:vol9_topological_characteristics} soliton topology demos \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Canonical exercise specification and open-item register: \kbleaf{ave-kb/vol9/ch18-experimental-prints/index.md}.
