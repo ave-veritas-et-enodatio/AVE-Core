@@ -9,7 +9,7 @@ claims: [clm-2e9j97, clm-wx5324]
 
 Standard cosmology often models metric expansion as the continuous stretching of an unstructured coordinate geometry. The AVE framework restricts the macroscopic stretching of this fundamental limit. Because a discrete LC network cannot stretch macroscopically without altering its fundamental capacitance ($\epsilon_0$), metric expansion is modelled as the discrete, real-time **crystallisation** of new electromagnetic nodes.
 
-To preserve the invariant optical density of the condensate globally ($\partial_t \rho_n = 0$), the Eulerian continuity equation dictates the discrete generative source term must match the macroscopic volumetric expansion divergence. The AVE framework hypothesises that the Hubble Constant ($H_0$) is not a velocity, but the **LC Crystallisation Rate** required to maintain the vacuum's structural impedance against the compressive polarisation of gravity.
+To preserve the invariant optical density of the substrate globally ($\partial_t \rho_n = 0$), the Eulerian continuity equation dictates the discrete generative source term must match the macroscopic volumetric expansion divergence. The AVE framework hypothesises that the Hubble Constant ($H_0$) is not a velocity, but the **LC Crystallisation Rate** required to maintain the vacuum's structural impedance against the compressive polarisation of gravity.
 
 ### Verification: Resolving the Hubble Tension
 

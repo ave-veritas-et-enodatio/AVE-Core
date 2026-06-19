@@ -57,7 +57,7 @@ Follow down-links to go deeper. Follow the `[↑ Parent]` up-link on line 1 of a
 
 ## Cross-Cutting Invariants
 
-`ave-kb/CLAUDE.md` documents invariants that apply across all volumes: notation ($\mathcal{M}_A$, $\ell_{node}$, Op-N operators), tcolorbox rendering rules, axiom numbering, physical constants, and cross-reference format conventions. Read it before navigating across volumes; it resolves notation ambiguities that arise from the multi-volume scope.
+`ave-kb/CLAUDE.md` documents invariants that apply across all volumes: notation (the substrate, $\ell_{node}$, Op-N operators), tcolorbox rendering rules, axiom numbering, physical constants, and cross-reference format conventions. Read it before navigating across volumes; it resolves notation ambiguities that arise from the multi-volume scope.
 
 ## Leaf Documents
 
@@ -80,7 +80,7 @@ Cross-volume reference target leaves carry a third structural annotation on line
 
 | Volume | Contents |
 |---|---|
-| [Vol 1: Foundations](vol1/index.md) | $\mathcal{M}_A$ vacuum lattice, four axioms, nonlinear dielectric saturation, transmission line mathematics. Derives $\ell_{node}$, $p_c$, $Z_0$, $H_\infty$, and the master equation. |
+| [Vol 1: Foundations](vol1/index.md) | vacuum substrate lattice, four axioms, nonlinear dielectric saturation, transmission line mathematics. Derives $\ell_{node}$, $p_c$, $Z_0$, $H_\infty$, and the master equation. |
 | [Vol 2: The Subatomic Scale](vol2/index.md) | Fermionic particles as Faddeev-Skyrme solitons. Baryon masses, lepton masses, electroweak mixing, PMNS matrix, quark fractional charges. |
 | [Vol 3: Macroscopic Physics](vol3/index.md) | Gravity, relativity, condensed matter, and cosmology as impedance-matching regimes. GR field equations from trace-reversed TLM; superconductivity, melting point of water, galactic rotation. |
 | [Vol 4: Applied Vacuum Engineering](vol4/index.md) | Engineering translation into falsifiable hardware via the Vacuum Circuit Analysis framework. Chiral antennas, ponderomotive thrusters, topological SMES, SPICE simulation suite. |

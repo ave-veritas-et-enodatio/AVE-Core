@@ -62,7 +62,7 @@ Applying the Topo-Kinematic identity, the mechanical impedance equivalent is:
 > Z_{mech} = \xi_{topo}^{2}\, Z_0 = (4.149 \times 10^{-7})^2 \times 376.73 \approx 6.485 \times 10^{-11} \text{ kg/s}
 > $$
 
-This value represents the absolute force-per-velocity ratio of a single lattice node. It is the fundamental quantum of mechanical impedance in the $\mathcal{M}_A$ condensate.
+This value represents the absolute force-per-velocity ratio of a single lattice node. It is the fundamental quantum of mechanical impedance in the substrate.
 
 ### Impedance Across Physical Regimes
 
@@ -85,11 +85,11 @@ $$
 Z_{local}(r) = \sqrt{\frac{\mu_{local}}{\epsilon_{local}}} = \sqrt{\frac{n(r) \cdot \mu_0}{n(r) \cdot \epsilon_0}} = \sqrt{\frac{\mu_0}{\epsilon_0}} \equiv Z_0 \approx 376.73\ \Omega
 $$
 
-The $\mathcal{M}_A$ condensate is mathematically and perfectly Impedance-Matched to itself everywhere, absolutely regardless of extreme gravitational strain. Because the spatial derivative of the impedance remains strictly zero ($\partial_r Z_0 = 0$), the Reflection Coefficient ($\Gamma$) is mathematically forced to zero. The universe structurally possesses an **$S_{11}$ Return Loss of $-\infty$ dB**. This provides the exact continuum-mechanics mechanism for why localized gravitational gradients act as perfect RF-absorbing stealth structures rather than optical mirrors.
+The substrate is mathematically and perfectly Impedance-Matched to itself everywhere, absolutely regardless of extreme gravitational strain. Because the spatial derivative of the impedance remains strictly zero ($\partial_r Z_0 = 0$), the Reflection Coefficient ($\Gamma$) is mathematically forced to zero. The universe structurally possesses an **$S_{11}$ Return Loss of $-\infty$ dB**. This provides the exact continuum-mechanics mechanism for why localized gravitational gradients act as perfect RF-absorbing stealth structures rather than optical mirrors.
 
 [Figure: log_impedance_s_parameters.png — see manuscript/vol_4_engineering/chapters/]
 
-### The Condensate Transmission Line (Emergence of $c$)
+### The Substrate Transmission Line (Emergence of $c$)
 
 To computationally prove that macroscopic Special Relativity emerges deterministically from these discrete components, the 1D spatial vacuum grid as a cascaded LC transmission line. By normalizing the discrete Inductors ($\mu_0 \ell_{node}$) and Capacitors ($\epsilon_0 \ell_{node}$) to the hardware pitch, the injection of a transient topological voltage pulse confirms that the signal propagates through the discrete components at exactly the continuous group velocity $v_g = 1/\sqrt{LC} \equiv c$. The continuous, invariant speed of light is mathematically identically the macroscopic slew-rate of a discrete transmission line.
 

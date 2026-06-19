@@ -109,7 +109,7 @@ The **dark wake** is the longitudinal shear-strain $\tau_{zx}$ wave propagating 
 
 ### §3.1 Phenomenology (asserted in the sibling compendia)
 
-A separate thrust-mechanics compendium gives the canonical thrust-mechanics statement: the AVE framework identifies the vacuum itself as the physical reaction mass (the structural LC components of the $\mathcal{M}_A$ metric). As the asymmetric gradient pumps a luminous acoustic wave forward, it simultaneously exerts an equal and opposite stress tensor against the supporting lattice. A 3D FDTD integration isolating the longitudinal shear tensor $\tau_{zx}$ shows a structurally compressive wave propagating backward from the array at $c$. This non-luminous structural compression is the physical "reaction mass" absorbing the thruster's momentum, preserving Newton's Third Law without expelling onboard propellant.
+A separate thrust-mechanics compendium gives the canonical thrust-mechanics statement: the AVE framework identifies the vacuum itself as the physical reaction mass (the structural LC components of the substrate metric). As the asymmetric gradient pumps a luminous acoustic wave forward, it simultaneously exerts an equal and opposite stress tensor against the supporting lattice. A 3D FDTD integration isolating the longitudinal shear tensor $\tau_{zx}$ shows a structurally compressive wave propagating backward from the array at $c$. This non-luminous structural compression is the physical "reaction mass" absorbing the thruster's momentum, preserving Newton's Third Law without expelling onboard propellant.
 
 A separate propulsion compendium asserts the warp-metric formula:
 

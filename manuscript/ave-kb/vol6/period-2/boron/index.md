@@ -20,7 +20,7 @@ Source: `07_boron.tex` | No `\label{ch:boron}` in source
 | Halo radius | $R_{halo} = 11.8404\,d$ |
 | Topological Horizon limit | $Horizon_{limit} = 4\pi - \sqrt{2}/2 \approx 11.859$ |
 | EE equivalent | Parasitic Array antenna (driven Alpha core, 7 parasitic halo elements) |
-| Orbital topology | Three trefoil solitons at $120^\circ$ on $n=2$ (trigonal planar resonance) |
+| Orbital topology | Three $0_1$ unknot solitons at $120^\circ$ on $n=2$ (trigonal planar resonance) |
 | Semiconductor regime | Core-plus-halo, two degrees of freedom, linear ($V_R/V_{BR} \ll 1$, $M = 1$) |
 
 ## Derivations and Detail

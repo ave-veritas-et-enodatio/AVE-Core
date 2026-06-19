@@ -5,7 +5,7 @@ kind: leaf
 claims: [clm-3kzmt9, clm-219e8j]
 -->
 
-## Section 1.3: The Vacuum as an LC Resonant Condensate ($\mathcal{M}_A$)
+## Section 1.3: The Vacuum as an LC Resonant Network
 
 ### 1.3.1 The Planck Scale Artifact vs. Topological Coherence
 

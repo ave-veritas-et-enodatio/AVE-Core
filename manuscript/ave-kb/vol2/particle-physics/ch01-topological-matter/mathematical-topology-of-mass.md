@@ -7,7 +7,7 @@ claims: [clm-oygz1i]
 
 ## The Mathematical Topology of Mass
 
-Before analyzing specific particle geometries, the text formally defines the foundational energy and topological constraints of the continuum. In a continuous non-linear $\mathcal{M}_A$ manifold, stable particles are defined as finite-energy soliton solutions to the generalised **Faddeev-Skyrme Energy Functional**:
+Before analyzing specific particle geometries, the text formally defines the foundational energy and topological constraints of the continuum. In a continuous non-linear substrate, stable particles are defined as finite-energy soliton solutions to the generalised **Faddeev-Skyrme Energy Functional**:
 
 > **[Resultbox]** *Faddeev-Skyrme Energy Functional*
 >

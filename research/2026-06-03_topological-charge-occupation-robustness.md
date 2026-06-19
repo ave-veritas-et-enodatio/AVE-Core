@@ -1,3 +1,5 @@
+> **Notation (2026-06-18):** Substrate object symbol `$\mathcal{M}_A$` **retired** (Grant adjudication). Use prose: *substrate*, *chiral LC network*, *chiral Laves K4 Cosserat crystal*. Body below preserved per Rule-12.
+
 # Topological charge $\mathcal{Q}$ is robust to Pauli-saturated interior occupancy — substrate-native derivation
 
 **Date:** 2026-06-03

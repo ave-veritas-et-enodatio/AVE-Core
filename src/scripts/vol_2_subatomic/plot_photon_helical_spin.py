@@ -7,7 +7,7 @@ Generates 'photon_helical_spin.png' for Book 2, Chapter 5.
 Visualizes how a propagating transverse EM wave natively winds into a
 stationary Spin-1 helical loop when encountering extreme localized
 network impedance (Z → Z_crit). The discrete sequential excitation of
-the M_A LC nodes structurally guarantees absolute charge containment.
+the substrate LC nodes structurally guarantees absolute charge containment.
 """
 
 import matplotlib.pyplot as plt

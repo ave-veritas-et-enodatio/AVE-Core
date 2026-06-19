@@ -112,7 +112,7 @@ Each of the three shape factors now carries the same substrate-mechanism structu
 
 ## Topological self-impedance shape factors at the Golden Torus
 
-At the substrate-derived Golden Torus $(R, r, d) = (\varphi/2, (\varphi-1)/2, 1)$, the electron unknot's **topological self-impedance** (the substrate-native name for the dimensionless impedance the unknot presents to itself across its three geometric codimensions — see [`lc-condensate-vacuum.md`](./axioms-and-lattice/ch1-fundamental-axioms/lc-condensate-vacuum.md) for the structural-self-impedance / Q-factor framing) carries three shape factors, one per geometric codimension of the Clifford-torus embedding $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$. With $R \cdot r = 1/4$ and $d = 1$:
+At the substrate-derived Golden Torus $(R, r, d) = (\varphi/2, (\varphi-1)/2, 1)$, the electron unknot's **topological self-impedance** (the substrate-native name for the dimensionless impedance the unknot presents to itself across its three geometric codimensions — see [`lc-resonant-network-vacuum.md`](./axioms-and-lattice/ch1-fundamental-axioms/lc-resonant-network-vacuum.md) for the structural-self-impedance / Q-factor framing) carries three shape factors, one per geometric codimension of the Clifford-torus embedding $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$. With $R \cdot r = 1/4$ and $d = 1$:
 
 | Shape factor | Codimension | Formula | Value | Substrate-mechanism content |
 |---|---|---|---|---|

@@ -8,7 +8,7 @@ subtree-experiments: []
 
 # App E: Rigorous Foundations of Discrete Chiral LC Vacuum Electrodynamics (DCVE)
 
-The AVE framework builds the universe upon four continuous elastodynamic axioms governing the $\mathcal{M}_A$ graph. To physically compile and execute these physics within a computational 3D engine (VCFD), the continuous symmetries must be formally constrained into discrete numerical operators. This appendix defines the DCVE specification: the mathematical bridge providing spatial computing architects with the exact finite-difference commutators, memory state definitions, and stability matrix constraints required to computationally instantiate the AVE universe.
+The AVE framework builds the universe upon four continuous elastodynamic axioms governing the substrate graph. To physically compile and execute these physics within a computational 3D engine (VCFD), the continuous symmetries must be formally constrained into discrete numerical operators. This appendix defines the DCVE specification: the mathematical bridge providing spatial computing architects with the exact finite-difference commutators, memory state definitions, and stability matrix constraints required to computationally instantiate the AVE universe.
 
 ## Key Results
 

@@ -1,3 +1,5 @@
+> **Notation (2026-06-18):** Substrate object symbol `$\mathcal{M}_A$` **retired** (Grant adjudication). Use prose: *substrate*, *chiral LC network*, *chiral Laves K4 Cosserat crystal*. Body below preserved per Rule-12.
+
 # Axiom & Derivation Status Tracker
 
 Tracks the framework's claims about what derives what — load-bearing claims about which quantities are **axiom-derived**, which are **calibration inputs**, which are **imported from other frameworks** (and the corpus knows it), and which are **open derivation gaps** (claimed-as-derived but the chain doesn't close).

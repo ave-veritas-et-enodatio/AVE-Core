@@ -39,7 +39,7 @@ In the standard model of quantum mechanics, an electron dropping to a lower ener
 
 **AVE Resolution (Scale Invariance):** Because the Algebraic Vacuum Equation (AVE) enforces *scale invariance* across all physical domains, a star is topologically identical to a macroscopic nucleus, and its surrounding magnetic field lines function as macroscopic electron orbitals.
 
-When a star undergoes a sudden energetic restructuring or a magnetic field line "snaps" to a lower, more stable geometric state, it must shed its excess macroscopic topological strain. A solar flare is the emission of a **Macroscopic Photon**---a quantised LC stress wave injected into the fundamental fabric of the $\mathcal{M}_A$ network, obeying the same kinetic emission laws as a microscopic electron decaying in a Hydrogen atom.
+When a star undergoes a sudden energetic restructuring or a magnetic field line "snaps" to a lower, more stable geometric state, it must shed its excess macroscopic topological strain. A solar flare is the emission of a **Macroscopic Photon**---a quantised LC stress wave injected into the fundamental fabric of the substrate network, obeying the same kinetic emission laws as a microscopic electron decaying in a Hydrogen atom.
 
 If a star is a macroscopic nucleus, its structured magnetic field lines operate as a solid-state P-N junction under continuous forward bias (driven by the kinetic dynamo). Therefore, solar flares do not follow random thermodynamic gas laws; they obey **Semiconductor Avalanche Breakdown Statistics**.
 

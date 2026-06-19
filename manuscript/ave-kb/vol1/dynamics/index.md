@@ -10,7 +10,7 @@ subtree-experiments: []
 
 # Dynamics
 
-Quantum formalism and continuum electrodynamics are derived from the discrete signal dynamics of the $\mathcal{M}_A$ lattice. The Generalized Uncertainty Principle emerges from finite-bandwidth Nyquist sampling, the Schrodinger equation from LC circuit resonance, and the Born rule from Ohmic impedance loading. The unifying AVE master equation replaces linear $\varepsilon_0$ with non-linear $\varepsilon_{eff}(V)$, producing classical EM, particle assembly, gravity, and the dark sector from a single non-linear wave equation.
+Quantum formalism and continuum electrodynamics are derived from the discrete signal dynamics of the substrate lattice. The Generalized Uncertainty Principle emerges from finite-bandwidth Nyquist sampling, the Schrodinger equation from LC circuit resonance, and the Born rule from Ohmic impedance loading. The unifying AVE master equation replaces linear $\varepsilon_0$ with non-linear $\varepsilon_{eff}(V)$, producing classical EM, particle assembly, gravity, and the dark sector from a single non-linear wave equation.
 
 ## Key Results
 
@@ -33,4 +33,4 @@ Quantum formalism and continuum electrodynamics are derived from the discrete si
 | Document | Contents |
 |---|---|
 | [Ch.3 Quantum and Signal Dynamics](./ch3-quantum-signal-dynamics/index.md) | Dielectric Lagrangian, GUP, Schrodinger from circuit resonance, zero-impedance boundary, entanglement |
-| [Ch.4 Continuum Electrodynamics](./ch4-continuum-electrodynamics/index.md) | Master equation, LC condensate density, operating regimes, MOND derivation, dark sector |
+| [Ch.4 Continuum Electrodynamics](./ch4-continuum-electrodynamics/index.md) | Master equation, LC network density, operating regimes, MOND derivation, dark sector |

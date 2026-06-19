@@ -98,7 +98,7 @@ def generate_parity_violation() -> None:
         0.05,
         r"$\mathbf{Proposed\ Structural\ Origin\ of\ Weak\ Force\ Parity\ Violation\ (illustrative)}$"
         + "\n"
-        + r"Because the discrete $\mathcal{M}_A$ LC network is physically constructed of right-handed helical"
+        + r"Because the discrete substrate LC network is physically constructed of right-handed helical"
         + r" Inductors,\n"
         + "it constitutes a naturally birefringent mechanical substrate. Left-handed input signals"
         + r" ($W^-$ equivalent) encounter massive"

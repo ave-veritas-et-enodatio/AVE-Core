@@ -50,6 +50,6 @@ This proves that the Bohr radius is exactly $1/\alpha$ lattice pitches. The hydr
 | $r \approx n^2 a_0$ (orbital shell) | I–II boundary | Impedance matching; standing wave nodes |
 | $r \gg n^2 a_0$ (classically forbidden) | I (Linear) | Evanescent decay; field sub-threshold |
 
-In this interpretation, the mathematics of quantum mechanics remain fully valid, but the ontology changes: the wavefunction describes the physical acoustic mode structure of the vacuum LC mesh rather than an irreducible probability distribution. Quantum mechanics, under this lens, is the high-frequency limit of structural fluid dynamics in the vacuum condensate.
+In this interpretation, the mathematics of quantum mechanics remain fully valid, but the ontology changes: the wavefunction describes the physical acoustic mode structure of the vacuum LC mesh rather than an irreducible probability distribution. Quantum mechanics, under this lens, is the high-frequency limit of substrate elastodynamics (acoustic modes on the vacuum LC mesh).
 
 ---

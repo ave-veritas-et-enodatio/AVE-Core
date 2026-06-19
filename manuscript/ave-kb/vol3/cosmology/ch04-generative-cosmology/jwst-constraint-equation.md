@@ -11,7 +11,7 @@ The James Webb Space Telescope (JWST) recently discovered massive, mature galaxi
 
 **AVE Resolution:** How does matter accrete in the AVE framework? As established in Book 1, the deep cosmos operates in the "Low-Voltage" regime of the dielectric vacuum, where the network acts as a reluctant Chiral LC grid (The Dark Matter mutual inductance effect).
 
-In the ultra-dense early universe, the spatial metric possessed extreme inductive inertia. Instead of relying solely on the weak $1/r^2$ gravitational attraction, the macroscopic structural mutual inductance of the $\mathcal{M}_A$ network acted as a **Cosmic Sweep** (Mutual Inductive accretion). Because the accretion rate is proportional to the mass already collected ($\frac{dM}{dt} = \lambda M$), the mutual inductive drag yields an **Exponential Growth Law**:
+In the ultra-dense early universe, the spatial metric possessed extreme inductive inertia. Instead of relying solely on the weak $1/r^2$ gravitational attraction, the macroscopic structural mutual inductance of the substrate network acted as a **Cosmic Sweep** (Mutual Inductive accretion). Because the accretion rate is proportional to the mass already collected ($\frac{dM}{dt} = \lambda M$), the mutual inductive drag yields an **Exponential Growth Law**:
 
 > **[Resultbox]** *Exponential Inductive Accretion*
 >
@@ -29,6 +29,6 @@ Evaluating the JWST empirical data (requiring a cluster to grow to $10^{10} M_\o
 
 [Figure: jwst_exponential_accretion.png --- see manuscript/vol_3_macroscopic/chapters/]
 
-JWST does not break cosmology; it challenges the "zero-impedance void" assumption. The mutual inductance of the $\mathcal{M}_A$ network collapses primordial gas into galaxies exponentially faster than collisionless $\Lambda$CDM models permit. With the back-solved $\tau \approx 65.1$ Myr inductive herding limit (inferred from the JWST mass-vs-time constraints, not forward-derived), the AVE framework accounts for the formation of super-massive galaxies in millions, not billions, of years.
+JWST does not break cosmology; it challenges the "zero-impedance void" assumption. The mutual inductance of the substrate network collapses primordial gas into galaxies exponentially faster than collisionless $\Lambda$CDM models permit. With the back-solved $\tau \approx 65.1$ Myr inductive herding limit (inferred from the JWST mass-vs-time constraints, not forward-derived), the AVE framework accounts for the formation of super-massive galaxies in millions, not billions, of years.
 
 ---

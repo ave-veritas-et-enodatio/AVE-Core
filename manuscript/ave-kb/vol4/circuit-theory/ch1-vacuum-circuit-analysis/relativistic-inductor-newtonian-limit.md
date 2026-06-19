@@ -61,9 +61,9 @@ The substrate is **not a continuous scalar field** — it is a discrete chiral L
 
 The AVE Lagrangian includes a topological $O(4)$ Faddeev–Skyrme term with coefficient derived from Op10 (Vol 2 Ch 8). This term contributes a positive-definite energy contribution that scales OPPOSITELY to the gradient energy under spatial scaling, providing the stabilizing counter-term that Derrick's argument explicitly excluded by considering only kinetic and potential terms.
 
-### Mechanism 3: Bilateral chiral LC condensate dual-axis structure
+### Mechanism 3: Bilateral chiral LC network dual-axis structure
 
-The substrate is **not isotropic** in the way Derrick's argument requires. The bilateral chiral LC condensate has a dual-axis structure (translational + microrotational DOFs per node, per Axiom 1 Cosserat structure). The electron soliton lives in this dual structure with phase-space portrait spanning both axes; Derrick's single-axis scaling argument doesn't apply to the bilateral-axis configuration.
+The substrate is **not isotropic** in the way Derrick's argument requires. The bilateral chiral LC network has a dual-axis structure (translational + microrotational DOFs per node, per Axiom 1 Cosserat structure). The electron soliton lives in this dual structure with phase-space portrait spanning both axes; Derrick's single-axis scaling argument doesn't apply to the bilateral-axis configuration.
 
 Any one of these three mechanisms is sufficient. All three are present, providing redundant stabilization.
 

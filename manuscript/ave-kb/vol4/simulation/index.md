@@ -29,7 +29,7 @@ SPICE circuit simulations that model AVE vacuum phenomena as analog transmission
 | Chapter | Contents |
 |---|---|
 | [Ch.14: Leaky Cavity Particle Decay](ch14-leaky-cavity-particle-decay/index.md) | LC tank model of fermion decay; voltage-controlled switch at $V_{yield}$; complete `leaky_cavity.cir` netlist |
-| [Ch.15: Autoresonant Breakdown](ch15-autoresonant-breakdown/index.md) | Nonlinear $\mathcal{M}_A$ lattice detuning; PLL bypass of Schwinger limit; complete `pll_breakdown.cir` netlist |
+| [Ch.15: Autoresonant Breakdown](ch15-autoresonant-breakdown/index.md) | Nonlinear substrate lattice detuning; PLL bypass of Schwinger limit; complete `pll_breakdown.cir` netlist |
 | [Ch.16: Sagnac Inductive Drag](ch16-sagnac-inductive-drag/index.md) | Rotating LC frame; directional behavioral inductor; complete `sagnac_ring.cir` netlist |
 | [Ch.17: Hardware Netlists](ch17-hardware-netlists/index.md) | EE Bench dielectric yield plateau (`ee_bench.cir`). *PONDER-01 cascaded transmission-line thrust model migrated to AVE-PONDER private repo per REPO-ARCH-8 (2026-05-17 night).* |
 | [Ch.18: Universal AVE Vacuum Cell](ch18-universal-vacuum-cell/index.md) | Canonical `AVE_VACUUM_CELL` subcircuit; metric varactor + relativistic inductor + TVS; SPICE netlist compiler |

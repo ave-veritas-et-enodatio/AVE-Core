@@ -7,7 +7,7 @@ claims: [clm-yc7fgm]
 
 ## Section 3.2.1: The Paley-Wiener Hilbert Space
 
-Because the $\mathcal{M}_A$ lattice has a fundamental pitch $\ell_{node}$, it acts as a spatial Nyquist sampling grid. The maximum spatial frequency the lattice can support without aliasing is the Brillouin boundary: $k_{max} = \pi / \ell_{node}$.
+Because the substrate lattice has a fundamental pitch $\ell_{node}$, it acts as a spatial Nyquist sampling grid. The maximum spatial frequency the lattice can support without aliasing is the Brillouin boundary: $k_{max} = \pi / \ell_{node}$.
 
 By the **Whittaker-Shannon Interpolation Theorem**, any band-limited signal $\mathbf{A}(\mathbf{x})$ propagating through this discrete lattice can be reconstructed uniquely using a superposition of orthogonal sinc functions. The set of all such band-limited functions constitutes a Reproducing Kernel Hilbert Space known as the **Paley-Wiener Space** ($PW_{\pi/\ell_{node}}$).
 

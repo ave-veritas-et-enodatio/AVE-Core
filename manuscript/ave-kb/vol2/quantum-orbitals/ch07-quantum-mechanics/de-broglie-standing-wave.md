@@ -96,7 +96,7 @@ For $n=1$: $E_1 = -13.606 \text{ eV}$. This is the standard Bohr result, here de
 
 ### Angular Momentum Quantization
 
-In standard QM, orbital angular momentum is quantized in integer multiples of $\hbar$. In the AVE framework, this emerges from the discrete rotational symmetry of the $\mathcal{M}_A$ lattice. A standing wave circulating the spherical cavity must complete an integer number of full phase cycles ($2\pi l$) per orbit to constructively interfere with itself. The angular momentum of the $l$-th harmonic is:
+In standard QM, orbital angular momentum is quantized in integer multiples of $\hbar$. In the AVE framework, this emerges from the discrete rotational symmetry of the substrate lattice. A standing wave circulating the spherical cavity must complete an integer number of full phase cycles ($2\pi l$) per orbit to constructively interfere with itself. The angular momentum of the $l$-th harmonic is:
 
 > **[Resultbox]** *Angular Momentum Quantization*
 >

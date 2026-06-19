@@ -11,7 +11,7 @@ bootstrap: true
 
 # Vol 3: Macroscopic Physics
 
-Macroscopic phenomena derived from the $\mathcal{M}_A$ LC vacuum network: gravity, general relativity, the optical metric, gravitational waves, superconductivity, material properties, thermodynamics, stellar interiors, ideal gas law, and geophysics. All domains use the same impedance operators (reflection coefficient, saturation, mode coupling) applied at macroscopic scales.
+Macroscopic phenomena derived from the substrate LC vacuum network: gravity, general relativity, the optical metric, gravitational waves, superconductivity, material properties, thermodynamics, stellar interiors, ideal gas law, and geophysics. All domains use the same impedance operators (reflection coefficient, saturation, mode coupling) applied at macroscopic scales.
 
 ## Key Results
 

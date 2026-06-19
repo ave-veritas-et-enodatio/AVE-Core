@@ -7,7 +7,7 @@ claims: [clm-hb2xmj]
 
 ## Chirality and Antimatter Disintegration
 
-Because the $\mathcal{M}_A$ LC network supports polarised transverse EM waves, it breaks geometric symmetry between left and right. Electric charge polarity is defined as the **Topological Twist Direction** of the closed magnetic standing wave. An electron ($e^-$) is a right-handed unknot; a positron ($e^+$) is physically identical, but wound as a left-handed unknot.
+Because the substrate LC network supports polarised transverse EM waves, it breaks geometric symmetry between left and right. Electric charge polarity is defined as the **Topological Twist Direction** of the closed magnetic standing wave. An electron ($e^-$) is a right-handed unknot; a positron ($e^+$) is physically identical, but wound as a left-handed unknot.
 
 By Mazur's Theorem, the connected sum of a left-handed knot and a right-handed knot produces a composite "Square Knot." In a purely continuous mathematical manifold, matter-antimatter annihilation is topologically impossible because geometrical lines cannot mechanically pass through each other.
 

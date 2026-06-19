@@ -12,7 +12,7 @@ claims: [clm-a95yx1, clm-y7uvdc]
 
 In standard quantum mechanics, the inability to define precise simultaneous coordinates for the electron gave rise to the Schrodinger equation, treating the atomic orbital as a probabilistic "cloud." Within the Applied Vacuum Engineering (AVE) framework, this probability heuristic is superseded by deterministic, continuous topology.
 
-Because the vacuum is a highly constrained $\mathcal{M}_A$ elastodynamic fluid, particles are not dimensionless points; they are localized geometric LC standing waves (Topological Solitons). The Hydrogen atom (Protium) is therefore strictly defined as a topological hierarchy: a $6^3_2$ Borromean linkage (the proton) acting as a massive central inductive core, orbited by the electron's $0_1$ unknot flux tube (carrying the canonical $(2,3)$ phase-space Clifford-torus winding per [Vol 1 Ch 8](../../../vol1/ch8-alpha-golden-torus.md)) surfing the induced refractive gradient.
+Because the vacuum is a highly constrained substrate elastodynamic medium, particles are not dimensionless points; they are localized geometric LC standing waves (Topological Solitons). The Hydrogen atom (Protium) is therefore strictly defined as a topological hierarchy: a $6^3_2$ Borromean linkage (the proton) acting as a massive central inductive core, orbited by the electron's $0_1$ unknot flux tube (carrying the canonical $(2,3)$ phase-space Clifford-torus winding per [Vol 1 Ch 8](../../../vol1/ch8-alpha-golden-torus.md)) surfing the induced refractive gradient.
 
 #### The Geometric Bohr Radius ($a_0$)
 
@@ -51,12 +51,12 @@ $$
 n = \frac{2\pi a_0}{\lambda_e} = \frac{2\pi (l_{node} / \alpha_{geom})}{2\pi\hbar / (m_e \alpha_{geom} c)} \equiv \mathbf{1.00000}
 $$
 
-The electron is not a smeared cloud of probability. It is a highly localized, deterministic knot that physically bites its own topological tail in phase every single orbit. It is a mathematically perfect LC standing wave in the continuous $\mathcal{M}_A$ fluid.
+The electron is not a smeared cloud of probability. It is a highly localized, deterministic knot that physically bites its own topological tail in phase every single orbit. It is a mathematically perfect LC standing wave in the continuous substrate medium.
 
-<!-- claim-quality: clm-y7uvdc (per-element soliton placement: single trefoil on $n=1$ harmonic) -->
+<!-- claim-quality: clm-y7uvdc (per-element soliton placement: single $0_1$ unknot on $n=1$ harmonic) -->
 
 [Figure: hydrogen_1_topology.png — see manuscript/vol_6_periodic_table/figures/]
 
-Hydrogen-1 orbital knot topology. Single trefoil soliton on the $n=1$ harmonic track. No equilibrium partner exists; the standing wave closes on itself.
+Hydrogen-1 orbital knot topology. Single $0_1$ unknot soliton on the $n=1$ harmonic track. No equilibrium partner exists; the standing wave closes on itself.
 
 ---

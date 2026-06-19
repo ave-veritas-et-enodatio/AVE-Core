@@ -7,7 +7,7 @@ claims: [clm-p12mem]
 
 ## Applied Telemetry: Boundary Layer and Cavitation Monitors
 
-If macroscopic metric engineering transitions from the tabletop into full-scale industrial aerospace (such as the YBCO Phased Array or Sapphire Phonon Centrifuge), the theoretical boundaries become severe operational hazards. A craft actively entraining a metric bubble requires specialized Solid-State telemetry to survive the $\mathcal{M}_A$ LC saturated regimes.
+If macroscopic metric engineering transitions from the tabletop into full-scale industrial aerospace (such as the YBCO Phased Array or Sapphire Phonon Centrifuge), the theoretical boundaries become severe operational hazards. A craft actively entraining a metric bubble requires specialized Solid-State telemetry to survive the substrate LC saturated regimes.
 
 ### Hull-Integrated Boundary Layer Sensors (Metric Skin Friction)
 

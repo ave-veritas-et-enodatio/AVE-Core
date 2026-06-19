@@ -9,7 +9,7 @@ claims: [clm-9sujp8]
 
 ---
 
-## The Non-Linear $\mathcal{M}_A$ Lattice
+## The Non-Linear the substrate Lattice
 
 The macroscopic vacuum is not a linear void; it is a rigid, non-linear dielectric LC lattice. As established in Axiom 4, the localized effective permittivity ($\varepsilon_{eff}$) structurally yields as the gap voltage approaches the capacity limit ($\sim 43.65\,\text{kV}$ point-yield, or the $60\,\text{kV}$ bulk-avalanche limit depending on geometry).
 

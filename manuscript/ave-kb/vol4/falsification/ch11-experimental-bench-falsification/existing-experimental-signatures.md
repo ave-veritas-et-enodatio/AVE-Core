@@ -27,7 +27,7 @@ Empirical experiments show that free Neutrons die systematically $\sim 9$ second
 
 As defined exactly in Vol 2 Ch 2 (canonical source), the Neutron is a highly tensioned, metastable "threaded" topological composite ($6^3_2 \cup 0_1$) — a proton Borromean linkage ($6^3_2$) with an electron unknot ($0_1$) topologically threaded through its central structural void. Its decay is a literal Topological Snap caused by the stochastic tunneling of the central trapped electron thread out of the Borromean core. (Stale framing $6^3_2 \cup 3_1$ corrected 2026-05-17 per `neutron-identification.md` §3 audit — prior version had trefoil $3_1$ instead of canonical unknot $0_1$ per Vol 2 Ch 2 source.)
 
-In the Bottle Method, the neutrons physically interact and bounce off the macroscopic containment walls. In the discrete AVE solid-state framework, continuous physical proximity to dense atomic lattices natively induces resonant **Phonon Coupling** between the neutron's tensioned knot topology and the wall's lattice vibrations. This ambient external vibrational noise actively shakes the $\mathcal{M}_A$ substrate, slightly lowering the effective dielectric tunneling barrier for the highly-tensioned threaded electron, mechanically and statistically accelerating the "snap" event.
+In the Bottle Method, the neutrons physically interact and bounce off the macroscopic containment walls. In the discrete AVE solid-state framework, continuous physical proximity to dense atomic lattices natively induces resonant **Phonon Coupling** between the neutron's tensioned knot topology and the wall's lattice vibrations. This ambient external vibrational noise actively shakes the substrate, slightly lowering the effective dielectric tunneling barrier for the highly-tensioned threaded electron, mechanically and statistically accelerating the "snap" event.
 
 ### Lattice Crystallization (The Hubble Tension)
 
@@ -51,7 +51,7 @@ The Event Horizon acts as a hard **shear-mode** reflective boundary (Total Inter
 
 ### Superconducting Vortex Core Limits (The Kill Check)
 
-A definitive "Theory Killer" for the AVE framework would be the empirical discovery of a physical phenomenon smaller than the $\mathcal{M}_A$ structural grid pitch ($\ell_{node} \approx 3.86 \times 10^{-13}\,\text{m}$). If the coherence length of a Topological Insulator (Quantum Spin Hall effect) or the core radius of a superconducting flux vortex were measured to be smaller than this fundamental pitch, the framework would instantly fail.
+A definitive "Theory Killer" for the AVE framework would be the empirical discovery of a physical phenomenon smaller than the substrate structural grid pitch ($\ell_{node} \approx 3.86 \times 10^{-13}\,\text{m}$). If the coherence length of a Topological Insulator (Quantum Spin Hall effect) or the core radius of a superconducting flux vortex were measured to be smaller than this fundamental pitch, the framework would instantly fail.
 
 Empirical data reveals the absolute smallest superconducting vortex cores belong to high-temperature Cuprates and Flat-Band superconductors. Their extreme low-temperature coherence lengths drop to absolute physical minimums of approximately $1$ to $2$ nanometers ($10^{-9}\,\text{m}$).
 

@@ -37,7 +37,7 @@ The lattice action is constructed by summing over all plaquettes the deviation f
 > S_{lattice} = \sum_P \left(1 - \text{Re}\, U_P\right) = \sum_P \left(1 - \cos\Phi_P\right) \approx \sum_P \frac{1}{2}\Phi_P^2 \longrightarrow \int \frac{1}{4}F_{\mu\nu}F^{\mu\nu}\, d^4x
 > $$
 
-The continuum limit ($l_{node} \to 0$) recovers the Maxwell Lagrangian ($-\frac{1}{4}F_{\mu\nu}F^{\mu\nu}$). **U(1) Electromagnetism** is therefore the enforcement of unitary topological continuity across the discrete graph---the standard Wilson formulation of lattice gauge theory, here derived from the physical structure of the $\mathcal{M}_A$ hardware.
+The continuum limit ($l_{node} \to 0$) recovers the Maxwell Lagrangian ($-\frac{1}{4}F_{\mu\nu}F^{\mu\nu}$). **U(1) Electromagnetism** is therefore the enforcement of unitary topological continuity across the discrete graph---the standard Wilson formulation of lattice gauge theory, here derived from the physical structure of the substrate hardware.
 
 ### SU(3) Color Charge from the Borromean Linkage
 
@@ -49,6 +49,6 @@ To parallel-transport the continuous phase field $\mathbf{A}$ smoothly across a 
 - The three fundamental flux loops of the Borromean linkage transform under the fundamental representation (**3**) of $SU(3)$.
 - The $\mathbb{Z}_3$ center of $SU(3)$ enforces the strict topological constraint that only color-singlet (**1**) composite states---where all three loops are linked---can propagate as free particles. This is confinement.
 
-**SU(3) Color Charge** is derived as the effective field theory limit of a three-loop topological defect traversing a discrete condensate grid. The "colour" quantum number is the permutation label of which flux loop carries the dominant phase winding at any given lattice site.
+**SU(3) Color Charge** is derived as the effective field theory limit of a three-loop topological defect traversing a discrete substrate grid. The "colour" quantum number is the permutation label of which flux loop carries the dominant phase winding at any given lattice site.
 
 ---

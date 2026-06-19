@@ -10,7 +10,7 @@ subtree-experiments: []
 
 # Axioms and Lattice
 
-The AVE framework rests on four topological axioms defining the vacuum as a non-linear electromagnetic LC resonant network ($\mathcal{M}_A$), with three emergent hardware constraints ($\ell_{node}$, $\alpha$, $G$). The macroscopic moduli of this micropolar continuum are derived from the topo-kinematic isomorphism ($[Q] \equiv [L]$). The geometric packing fraction $p_c = 8\pi\alpha$ is established here as a *consistency relation* between the QED Schwinger limit and $\alpha$'s SI definition; $\alpha$'s value closes at **Class B** named geometric identification in [Ch.8 (Golden Torus closure)](../ch8-alpha-golden-torus.md) (it rests on $R \cdot r = 1/4$, which the substrate does not independently select; not a first-principles derivation), and Ch.2 then shows the resulting $p_c$ sits at the bulk-to-shear trace-reversal operating point ($K = 2G$). <!-- 🔴 Rule-12 2026-06-15 alpha: prior "alpha's numerical value is derived from first principles in Ch.8" superseded per Ch.8 keystone; the K=2G here is the bulk-to-shear ratio (K=bulk, G=shear), NOT gravitational G -- left unchanged. -->
+The AVE framework rests on four topological axioms defining the vacuum as a non-linear electromagnetic LC resonant network (the substrate), with three emergent hardware constraints ($\ell_{node}$, $\alpha$, $G$). The macroscopic moduli of this micropolar continuum are derived from the topo-kinematic isomorphism ($[Q] \equiv [L]$). The geometric packing fraction $p_c = 8\pi\alpha$ is established here as a *consistency relation* between the QED Schwinger limit and $\alpha$'s SI definition; $\alpha$'s value closes at **Class B** named geometric identification in [Ch.8 (Golden Torus closure)](../ch8-alpha-golden-torus.md) (it rests on $R \cdot r = 1/4$, which the substrate does not independently select; not a first-principles derivation), and Ch.2 then shows the resulting $p_c$ sits at the bulk-to-shear trace-reversal operating point ($K = 2G$). <!-- 🔴 Rule-12 2026-06-15 alpha: prior "alpha's numerical value is derived from first principles in Ch.8" superseded per Ch.8 keystone; the K=2G here is the bulk-to-shear ratio (K=bulk, G=shear), NOT gravitational G -- left unchanged. -->
 
 ## Key Results
 
@@ -35,5 +35,5 @@ The AVE framework rests on four topological axioms defining the vacuum as a non-
 
 | Document | Contents |
 |---|---|
-| [Ch.1 Fundamental Axioms](./ch1-fundamental-axioms/index.md) | Four axioms, LC condensate vacuum, zero-parameter pathway, Kirchhoff network method |
+| [Ch.1 Fundamental Axioms](./ch1-fundamental-axioms/index.md) | Four axioms, LC resonant network vacuum, zero-parameter pathway, Kirchhoff network method |
 | [Ch.2 Macroscopic Moduli](./ch2-macroscopic-moduli/index.md) | Implosion paradox, constitutive moduli, dielectric rupture, packing fraction, snap limit |

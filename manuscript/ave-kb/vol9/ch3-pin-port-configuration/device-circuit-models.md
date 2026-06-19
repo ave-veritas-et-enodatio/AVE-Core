@@ -7,7 +7,7 @@ no-claim: "Vol-9 Class B/C synthesis leaf — device equivalent-circuit schemati
 
 ## Device Circuit Models (canonical leaf)
 
-Engineering datasheets for nonlinear components include an **equivalent circuit** — the smallest diagram capturing port behavior. For $\mathcal{M}_A$, that diagram is the K4-LC bond topology in EE symbols, not an imposed engineering fiction.
+Engineering datasheets for nonlinear components include an **equivalent circuit** — the smallest diagram capturing port behavior. For the substrate, that diagram is the K4-LC bond topology in EE symbols, not an imposed engineering fiction.
 
 **Discipline:** Class B/C synthesis per `consistency-vs-emergence` v1.3. Every load-bearing statement cites a canonical leaf in Vols 1–6; this leaf is the **source of truth** for Vol 9 §Device Circuit Models. The LaTeX chapter (`manuscript/vol_9_vacuum_datasheet/chapters/03a_device_circuit_models.tex`) is the **manuscript render** (figures + `\kbleaf{}` pointers).
 

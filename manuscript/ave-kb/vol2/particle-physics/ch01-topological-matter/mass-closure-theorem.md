@@ -13,7 +13,7 @@ claims: [clm-ka5zdx]
 
 > **[Resultbox]** *Mass-Closure Theorem*
 >
-> A massive particle is a closed knotted flux tube hosted on $\mathcal{M}_A$. Its rest energy equals the reactive energy stored in the closed tube's internal LC oscillation:
+> A massive particle is a closed knotted flux tube hosted on the substrate. Its rest energy equals the reactive energy stored in the closed tube's internal LC oscillation:
 > $$
 > mc^2 = E_{\text{reactive}}
 > $$
@@ -21,7 +21,7 @@ claims: [clm-ka5zdx]
 
 ### Derivation chain (Axioms 1 + 2 + 4)
 
-**Step 1 — open regime (massless).** A transverse EM wave propagating through unsaturated $\mathcal{M}_A$ satisfies $A \ll 1$ at every node. The saturation kernel $S(A) = \sqrt{1 - A^2} \approx 1$ (Axiom 4), so the local impedance is $Z_{\text{photon}} = Z_0$ and the local reflection coefficient $\Gamma_{\text{local}} \approx 0$. The wave transmits cleanly:
+**Step 1 — open regime (massless).** A transverse EM wave propagating through unsaturated the substrate satisfies $A \ll 1$ at every node. The saturation kernel $S(A) = \sqrt{1 - A^2} \approx 1$ (Axiom 4), so the local impedance is $Z_{\text{photon}} = Z_0$ and the local reflection coefficient $\Gamma_{\text{local}} \approx 0$. The wave transmits cleanly:
 $$
 E_{\gamma} = \hbar\omega
 $$
@@ -75,14 +75,14 @@ This also clarifies what vacuum is: vacuum is the absence of closed tubes. Where
 
 ### Relationship to AVE-native Higgs reinterpretation
 
-The existing [Higgs Mechanism](../ch06-electroweak-higgs/higgs-mechanism.md) leaf already canonicalizes the AVE-native reinterpretation: *"mass generation does not require a separate scalar field. Instead, it emerges naturally from the impedance structure of the LC condensate"* and *"$M_{inertial} \equiv L_{drag}(Z_0)$"* with the 246 GeV Higgs VEV physically reinterpreted as the characteristic impedance of free space $Z_0 \approx 376.73\,\Omega$.
+The existing [Higgs Mechanism](../ch06-electroweak-higgs/higgs-mechanism.md) leaf already canonicalizes the AVE-native reinterpretation: *"mass generation does not require a separate scalar field. Instead, it emerges naturally from the impedance structure of the LC network"* and *"$M_{inertial} \equiv L_{drag}(Z_0)$"* with the 246 GeV Higgs VEV physically reinterpreted as the characteristic impedance of free space $Z_0 \approx 376.73\,\Omega$.
 
 Mass-Closure is **complementary** to that leaf, not in conflict:
 
 - **Higgs leaf framing**: mass as the inductance-drag a closed knot experiences accelerating through the $Z_0$ baseline LC mesh — focuses on dynamics ($M_{inertial}$ as Lenz back-EMF on $Z_0$)
 - **Mass-Closure framing**: mass as the reactive energy stored in the closed-tube standing-wave — focuses on the static $mc^2 = E_{\text{reactive}}$ identity and the per-axiom mechanism that forms the closure
 
-The two leafs describe the same physics from complementary angles: the closure (this leaf) creates the standing-wave LC tank; the $Z_0$ drag (Higgs leaf) is what that closure feels when accelerated. The 125 GeV LHC resonance is interpreted by the Higgs leaf as a transient acoustic mode of node relaxation, consistent with this framework: it's a structural relaxation event of the LC condensate, not a coupling to a separate scalar field.
+The two leafs describe the same physics from complementary angles: the closure (this leaf) creates the standing-wave LC tank; the $Z_0$ drag (Higgs leaf) is what that closure feels when accelerated. The 125 GeV LHC resonance is interpreted by the Higgs leaf as a transient acoustic mode of node relaxation, consistent with this framework: it's a structural relaxation event of the LC network, not a coupling to a separate scalar field.
 
 ### Cross-references
 

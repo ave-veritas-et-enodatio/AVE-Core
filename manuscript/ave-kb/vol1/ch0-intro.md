@@ -12,9 +12,9 @@ claims: [clm-5xon03]
 > - Identify the three canonical hardware scales ($\ell_{node}$, $\alpha$, $G$) that constrain the vacuum continuum — the framework's three retained hardware inputs: $\alpha$ closes at **Class B** named geometric identification (not a first-principles derivation; Ch.8), $\ell_{node} \equiv \hbar/(m_e c)$ is the electron reduced-Compton length (definitional identity, not a derived parameter), and $G$ is **mixed** (form-derived /7 PPN family, value-fitted $\xi$; closed-form Chain B′ open). <!-- 🔴 Rule-12 2026-06-15 G+alpha: prior wording "all three now derived from first principles" superseded per 2026-06-14 interlock G-ruling (ilk-gravmb) + Ch.8 keystone (clm-0ktpcn); not "echo". ell_node = definitional reduced-Compton identity (NOT the gated grid-pitch/Nyquist sense). -->
 > - Recognize the conceptual relationship between AVE and historical analog gravity models.
 
-The Standard Model of cosmology and particle physics provides extraordinary predictive power through high-precision mathematical abstractions, yet it requires the empirical calibration of over 26 independent free parameters. Applied Vacuum Engineering (AVE) builds on this foundation by exploring the macroscopic, deterministic physical medium that underlies these abstractions, framing the vacuum not as empty coordinate geometry, but as a physical, solid-state condensate.
+The Standard Model of cosmology and particle physics provides extraordinary predictive power through high-precision mathematical abstractions, yet it requires the empirical calibration of over 26 independent free parameters. Applied Vacuum Engineering (AVE) builds on this foundation by exploring the macroscopic, deterministic physical medium that underlies these abstractions, framing the vacuum not as empty coordinate geometry, but as a physical, solid-state vacuum medium.
 
-This work proposes the AVE framework as a **Macroscopic Effective Field Theory (EFT) of the Vacuum**. The framework models spacetime as an emergent **Discrete Amorphous Condensate ($\mathcal{M}_A$)**---a dynamic, mechanical phase of the vacuum governed by continuum elastodynamics, finite-difference topological constraints, and non-linear dielectric saturation.
+This work proposes the AVE framework as a **Macroscopic Effective Field Theory (EFT) of the Vacuum**. The framework models spacetime as an emergent **Discrete Chiral LC Network (the substrate)**---a dynamic, mechanical phase of the vacuum governed by continuum elastodynamics, finite-difference topological constraints, and non-linear dielectric saturation.
 
 In standard EFT methodologies, physical descriptions require a characteristic length scale (a cutoff) where the macroscopic effective degrees of freedom emerge from the underlying microphysics. The AVE framework anchors this topological coherence length to the kinematic scale of the fundamental ground-state fermion---the electron ($\ell_{node} \equiv \hbar / m_e c$).
 
@@ -22,12 +22,12 @@ Historically, the framework was presented as a single-parameter EFT (taking $\al
 
 From this single calibration point, the EFT offers a unified, mechanically grounded perspective on:
 
-- **Quantum Mechanics**---recovering the Generalized Uncertainty Principle (GUP) as the effective finite-difference momentum bound of the vacuum condensate, with the Born rule arising naturally from thermodynamic impedance loading.
+- **Quantum Mechanics**---recovering the Generalized Uncertainty Principle (GUP) as the effective finite-difference momentum bound of the vacuum medium, with the Born rule arising naturally from thermodynamic impedance loading.
 - **Gravity & Cosmology**---where the continuum limit of the trace-reversed chiral Laves K4 Cosserat crystal (Chiral LC Network in continuum-EM dialect) reproduces the transverse-traceless kinematics of the Einstein field equations. By evaluating the thermodynamic latent heat of metric generation, the framework derives the **Asymptotic Hubble Time and Horizon Size (14.1 Billion Years)** from the geometric projection of the fine-structure limit.
 - **Topological Matter**---where particle mass hierarchies emerge as non-linear topological solitons. The framework computes the **Rest Mass of the Proton ($\approx 1836.14\ m_e$)** as a parameter-free geometric eigenvalue of a saturated Borromean flux linkage, while fractional quark charges emerge via the Witten effect.
 - **The Dark Sector**---where flat galactic rotation curves and accelerating cosmic expansion follow from the Navier-Stokes network dynamics of the manifold. Milgrom's empirical MOND boundary ($a_0$) is derived from the continuum Hoop Stress of the Unruh-Hawking cosmic drift.
 
-As an Effective Field Theory, AVE explicitly predicts its own phase boundaries. At extreme ultraviolet (UV) energy scales (e.g., inside high-energy colliders), the localized stress dynamically exceeds the structural yield threshold of the condensate, restoring the continuous symmetries of standard Quantum Field Theory.
+As an Effective Field Theory, AVE explicitly predicts its own phase boundaries. At extreme ultraviolet (UV) energy scales (e.g., inside high-energy colliders), the localized stress dynamically exceeds the structural yield threshold of the substrate, restoring the continuous symmetries of standard Quantum Field Theory.
 
 ---
 

@@ -21,7 +21,7 @@ The ratio of required Voronoi cell volumes to standard Delaunay cell volumes def
 > \mathcal{R}_{OB} = \frac{p_{Delaunay}}{p_c} = \frac{0.3068}{0.1834} \approx \mathbf{1.673}
 > $$
 
-This factor has a precise geometric interpretation: the effective Voronoi cell of the $\mathcal{M}_A$ lattice must be $67.3\%$ larger in volume than a standard nearest-neighbor Cauchy cell. Because the cell volume scales with the cube of the connectivity radius, the spatial graph must structurally span secondary links out to an effective reach of:
+This factor has a precise geometric interpretation: the effective Voronoi cell of the substrate lattice must be $67.3\%$ larger in volume than a standard nearest-neighbor Cauchy cell. Because the cell volume scales with the cube of the connectivity radius, the spatial graph must structurally span secondary links out to an effective reach of:
 
 > **[Resultbox]** *Secondary Link Reach*
 >
@@ -29,7 +29,7 @@ This factor has a precise geometric interpretation: the effective Voronoi cell o
 > r_{secondary} = \sqrt[3]{\mathcal{R}_{OB}} \cdot \ell_{node} \approx 1.187 \, \ell_{node}
 > $$
 
-This necessitates that the $\mathcal{M}_A$ lattice acts *macroscopically* as a **Structurally Over-Braced chiral Laves K4 Cosserat crystal** (Over-Braced Chiral LC Network in continuum-EM dialect)---not a simple nearest-neighbor graph. The physical chiral SRS net (Axiom 1 substrate, coordination $z=3$) achieves this sparse packing: its low coordination creates larger effective Voronoi volumes than a dense Delaunay triangulation ($z \approx 15$), while the extended secondary electromagnetic correlations ($r_{secondary} \approx 1.19\, \ell_{node}$) provide the non-affine stiffness required to satisfy the $K = 2G$ stability constraint that fixes Axiom 2's value of $\alpha$.
+This necessitates that the substrate lattice acts *macroscopically* as a **Structurally Over-Braced chiral Laves K4 Cosserat crystal** (Over-Braced Chiral LC Network in continuum-EM dialect)---not a simple nearest-neighbor graph. The physical chiral SRS net (Axiom 1 substrate, coordination $z=3$) achieves this sparse packing: its low coordination creates larger effective Voronoi volumes than a dense Delaunay triangulation ($z \approx 15$), while the extended secondary electromagnetic correlations ($r_{secondary} \approx 1.19\, \ell_{node}$) provide the non-affine stiffness required to satisfy the $K = 2G$ stability constraint that fixes Axiom 2's value of $\alpha$.
 
 ## Section 2.3.2: The Dielectric Snap Limit ($V_{snap} = 511.0$ kV)
 <!-- claim-quality: clm-2dwzib -->

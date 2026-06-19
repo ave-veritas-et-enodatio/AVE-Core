@@ -8,7 +8,7 @@ path-stable: "referenced from vol2 as sec:thermal_softening"
 
 ## Thermal Lattice Softening ($\delta_{th}$)
 
-The cold ($T=0$) Faddeev-Skyrme solver with $\kappa_{FS} = 8\pi$ evaluates the 1D scalar trace to $\mathcal{I}_{scalar}^{(cold)} \approx 1185\,m_e$, yielding a proton ratio of $\approx 1872$ (approximately $2\%$ above the empirical value). This systematic overestimate arises because the solver computes the ideal zero-temperature ground state, whereas the physical proton exists as a localized thermal hotspot within the LC condensate at an effective core temperature of $T_{core} \sim m_p c^2/k_B \approx 10^{13}\text{ K}$.
+The cold ($T=0$) Faddeev-Skyrme solver with $\kappa_{FS} = 8\pi$ evaluates the 1D scalar trace to $\mathcal{I}_{scalar}^{(cold)} \approx 1185\,m_e$, yielding a proton ratio of $\approx 1872$ (approximately $2\%$ above the empirical value). This systematic overestimate arises because the solver computes the ideal zero-temperature ground state, whereas the physical proton exists as a localized thermal hotspot within the LC network at an effective core temperature of $T_{core} \sim m_p c^2/k_B \approx 10^{13}\text{ K}$.
 
 The baseline RMS thermal noise of the vacuum ("quantum foam") partially averages out the sharp gradient tensor $(\partial_\mu \mathbf{n} \times \partial_\nu \mathbf{n})^2$, effectively softening the quartic Skyrme repulsion. Additionally, the Faddeev-Skyrme energy functional includes Axiom 4 gradient saturation $S(|\partial_r\phi|,\,\pi/\ell_{node})$ inside the integrand, preventing the solver from resolving sub-lattice gradients. The thermally corrected coupling is:
 
@@ -36,7 +36,7 @@ The quartic Skyrme stabilization term requires a dimensionless coupling constant
 > \kappa_{FS}^{(cold)} = \frac{p_c}{\alpha} = \frac{8\pi\alpha}{\alpha} = \mathbf{8\pi}
 > $$
 
-This is a pure geometric constant: the solid-angle normalisation ($4\pi$) of the spherical energy integral, doubled by the two orthogonal principal strain axes of the LC condensate that jointly stabilize the defect against Derrick-type collapse.
+This is a pure geometric constant: the solid-angle normalisation ($4\pi$) of the spherical energy integral, doubled by the two orthogonal principal strain axes of the LC network that jointly stabilize the defect against Derrick-type collapse.
 
 ### The 3D Orthogonal Tensor Trace ($\mathcal{I}_{tensor}$)
 

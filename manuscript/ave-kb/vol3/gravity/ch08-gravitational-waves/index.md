@@ -8,7 +8,7 @@ subtree-experiments: []
 
 # Ch.8: Gravitational Waves
 
-Gravitational waves are transverse inductive shear waves in the $\mathcal{M}_A$ LC lattice. Symmetric scaling of $\varepsilon_{eff}$ and $\mu_{eff}$ preserves the gravitational impedance $Z(r) = Z_0$ everywhere, yielding zero reflection ($\Gamma = 0$) and lossless propagation. LIGO-class detectors are modeled as impedance antennas whose Fabry--Perot cavities accumulate GW-induced phase shifts. The lattice voltage ratio $V_{GW}/V_{snap} \approx 10^{-28}$ confirms operation deep within the linear regime.
+Gravitational waves are transverse inductive shear waves in the substrate LC lattice. Symmetric scaling of $\varepsilon_{eff}$ and $\mu_{eff}$ preserves the gravitational impedance $Z(r) = Z_0$ everywhere, yielding zero reflection ($\Gamma = 0$) and lossless propagation. LIGO-class detectors are modeled as impedance antennas whose Fabry--Perot cavities accumulate GW-induced phase shifts. The lattice voltage ratio $V_{GW}/V_{snap} \approx 10^{-28}$ confirms operation deep within the linear regime.
 
 ## Key Results
 

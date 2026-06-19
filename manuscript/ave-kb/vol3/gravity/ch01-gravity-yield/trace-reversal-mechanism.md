@@ -9,7 +9,7 @@ claims: [clm-rd9cjm]
 
 ## The Mechanism of Trace-Reversal in Amorphous Solids
 
-While the $\nu_{vac} \equiv 2/7$ ratio is dictated by the macroscopic 4D metric signature, the physical mechanism enabling this state is provided by the amorphous, over-braced nature of the $\mathcal{M}_A$ graph.
+While the $\nu_{vac} \equiv 2/7$ ratio is dictated by the macroscopic 4D metric signature, the physical mechanism enabling this state is provided by the amorphous, over-braced nature of the substrate graph.
 
 In a perfect affine crystal or a standard random spring network, pure hydrostatic compression yields a baseline Cauchy solid ($K \approx \frac{5}{3}G$). However, the true macroscopic vacuum cannot support affine geometry. To satisfy the QED volumetric packing fraction ($p_c \approx 0.1834$), the spatial graph must span secondary spatial links out to $1.187 \times l_{node}$.
 

@@ -26,7 +26,7 @@ appears at every impedance boundary in the framework:
 | Laboratory | Resonant Antenna S$_{11}$ | $\|\Gamma\| < 1$ |
 | Planetary | Moho discontinuity (crust $\to$ mantle) | $\Gamma \approx 0.17$ |
 
-All seven structural applications consistently invoke *the same function* (`scale_invariant.reflection_coefficient()`), confirming that the particle physics of Pauli exclusion, the geophysics of seismic reflection, and the astrophysics of neutrino flavor conversion are structurally identical operations on the $\mathcal{M}_A$ lattice impedance.
+All seven structural applications consistently invoke *the same function* (`scale_invariant.reflection_coefficient()`), confirming that the particle physics of Pauli exclusion, the geophysics of seismic reflection, and the astrophysics of neutrino flavor conversion are structurally identical operations on the substrate lattice impedance.
 
 > **[Examplebox]** *Evaluating the Universal Reflection Coefficient*
 >

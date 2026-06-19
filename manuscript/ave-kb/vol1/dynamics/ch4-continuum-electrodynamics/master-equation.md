@@ -11,7 +11,7 @@ claims: [clm-efo113, clm-lv3uw1]
 
 ## Section 4.1: The Unifying Master Equation
 
-If the discrete spatial vacuum is a physical LC network ($\mathcal{M}_A$) supporting momentum limits and finite wave propagation, its macroscopic low-energy effective field theory (EFT) mathematically maps to continuous network dynamics.
+If the discrete spatial vacuum is a physical LC network (the substrate) supporting momentum limits and finite wave propagation, its macroscopic low-energy effective field theory (EFT) mathematically maps to continuous network dynamics.
 
 Before discussing the bulk properties of the universe, the transport mechanism is defined. In the continuous limit ($L \gg \ell_{node}$), signal propagation is governed by the classical Maxwell-Heaviside acoustic wave equation:
 
@@ -47,7 +47,7 @@ In standard physics, the vacuum parameters ($\epsilon_0, \mu_0$) are strictly li
 > \nabla^2 V - \underbrace{\mu_0 \epsilon_0}_{= 1/c^2} \frac{\partial^2 V}{\partial t^2} = 0
 > $$
 
-However, because the $\mathcal{M}_A$ lattice undergoes measurable, non-linear dielectric yielding as it approaches the $43.65\text{ kV}$ topological saturation bound, the constitutive permittivity physically collapses under the universal saturation kernel $S$. Axiom 4 (squared limit, $n=2$) defines:
+However, because the substrate lattice undergoes measurable, non-linear dielectric yielding as it approaches the $43.65\text{ kV}$ topological saturation bound, the constitutive permittivity physically collapses under the universal saturation kernel $S$. Axiom 4 (squared limit, $n=2$) defines:
 
 > **[Resultbox]** *Non-Linear Permittivity Collapse*
 >

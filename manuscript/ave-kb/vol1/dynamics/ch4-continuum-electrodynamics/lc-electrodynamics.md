@@ -5,7 +5,7 @@ kind: leaf
 claims: [clm-crbl60]
 -->
 
-## Section 4.2: Continuum Electrodynamics of the LC Condensate
+## Section 4.2: Continuum Electrodynamics of the LC Network
 
 ### The Dimensionally Exact Mass Density ($\rho_{bulk}$)
 
@@ -65,7 +65,7 @@ As established in Section 1.3.2, the geometric packing fraction ($p_c$) determin
 > \nu_{kin}=\alpha c \ell_{node}\approx8.45\times10^{-7}\text{ m}^{2}\text{/s}
 > $$
 
-This parameter-free derivation shows that the discrete vacuum condensate possesses a macroscopic kinematic network mutual inductance close to that of liquid water.
+This parameter-free derivation shows that the discrete vacuum medium possesses a macroscopic kinematic network mutual inductance close to that of liquid water.
 
 > **Audit note (2026-05-17)**: a prior `src/ave/core/lbm_3d.py` docstring listed `ν_kin = (1/(4π)) × ℓ_node × c` (factor `1/(4πα) ≈ 10.9×` off the canonical form above). Verified documentation-only bug (no downstream code used the wrong formula; LBM default `nu=0.1` is lattice-units placeholder); docstring corrected to reference the canonical `NU_KIN = α × c × ℓ_node` import path from [`src/ave/core/constants.py`](../../../../../src/ave/core/constants.py).
 

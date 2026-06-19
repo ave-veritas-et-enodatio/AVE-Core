@@ -4,8 +4,8 @@
 
 \begin{objectivebox}
 \begin{itemize}
-    \item Document the substrate's external-interface specification: every internal impedance discontinuity in $\mathcal{M}_A$ is a ``port'' characterized by reflection coefficient $\Gamma = (Z_2 - Z_1)/(Z_2 + Z_1)$ (Op3).
-    \item State the substrate-native action principle (Axiom~3, Minimum Reflection): $\mathcal{M}_A$ minimizes $|\Gamma|^2$ at every internal impedance boundary. Engineering observables ($S_{11}$, return loss, VSWR) are the EE-projection of the same minimization.
+    \item Document the substrate's external-interface specification: every internal impedance discontinuity in the substrate is a ``port'' characterized by reflection coefficient $\Gamma = (Z_2 - Z_1)/(Z_2 + Z_1)$ (Op3).
+    \item State the substrate-native action principle (Axiom~3, Minimum Reflection): the substrate minimizes $|\Gamma|^2$ at every internal impedance boundary. Engineering observables ($S_{11}$, return loss, VSWR) are the EE-projection of the same minimization.
     \item Enumerate the substrate $\Gamma$-port class taxonomy: SYM-class ($\mu$ and $\varepsilon$ scale together; $Z_0$ invariant; gravity-class realization) and three documented ASYM subclasses (ASYM-N($\varepsilon$), ASYM-N($\mu$), and Cosserat-Curie thermal-mode-population ASYM).
     \item Catalogue the three saturation-boundary $\Gamma$ values ($-1$, $0$, $+1$) and their substrate-mechanism content (TIR / matched / open-circuit).
     \item Identify Op17 ($T^2 = 1 - \Gamma^2$) and Op21 ($Q = \ell$ per Nyquist-resolved confined mode at $\Gamma = -1$) as the two operator endpoints of substrate $\Gamma$-space.
@@ -17,7 +17,7 @@
 \section{Substrate Boundary Semantics}
 \label{sec:vol9_substrate_boundary_semantics}
 
-Every internal interface between two regions of the substrate $\mathcal{M}_A$ that present distinct local characteristic impedances $Z_1$ and $Z_2$ is, by the canonical Op3 definition, a substrate \emph{port}. The reflection coefficient at every such port:
+Every internal interface between two regions of the substrate that present distinct local characteristic impedances $Z_1$ and $Z_2$ is, by the canonical Op3 definition, a substrate \emph{port}. The reflection coefficient at every such port:
 
 \begin{equation}
 \Gamma = \frac{Z_2 - Z_1}{Z_2 + Z_1}
@@ -29,7 +29,7 @@ is the substrate's native single-port figure-of-merit. The formula is Op3 (Vol~1
 Axiom~3 (\textbf{Minimum Reflection Principle}, CLAUDE.md INVARIANT-S2; canonical equation file \kbleaf{common\_equations/eq\_axiom\_3.tex}) is the substrate-native action principle:
 
 \begin{quote}
-\emph{$\mathcal{M}_A$ minimizes $|\Gamma|^2$ at every internal impedance boundary.}
+\emph{the substrate minimizes $|\Gamma|^2$ at every internal impedance boundary.}
 \end{quote}
 
 The equivalent EE-projection form is the extremization of hardware action $S_{AVE}$ with node Lagrangian $\mathcal{L}_{node} = \tfrac{1}{2}\varepsilon_0|\partial_t\mathbf{A}_n|^2 - \tfrac{1}{2\mu_0}|\nabla\times\mathbf{A}_n|^2$. Engineering practice has measured the same minimization for over a century under different EE names --- $S_{11}$ minimization, return-loss maximization, VSWR $\to 1$, peak-power-transfer matching, lossless reactive cycling. These are not approximations to a deeper SM action principle; per the EE-as-substrate-native META framework (canonical leaf \kbleaf{ave-kb/common/translation-tables/translation-circuit.md} \S 2, claim \texttt{clm-eemap1}), they are direct EE-language statements of Axiom~3.
@@ -56,7 +56,7 @@ Each K4 node carries the six Cosserat micropolar spatial DOFs of Axiom~1 (CLAUDE
 1 & Volumetric breathing ($A_1$, radial dilation) & $A_1$ trivial rep (1-dim) & K4 port voltage (pressure / stored potential) & $V^2$ & Master Equation FDTD (\kbleaf{src/ave/core/master\_equation\_fdtd.py}) \\
 \bottomrule
 \end{tabular}
-\caption{The seven per-cell kinematic modes of $\mathcal{M}_A$ (3 translational $+$ 3 microrotational $+$ 1 volumetric breathing). Storage-term column ($\varepsilon^2, \kappa^2, V^2$) and engine assignment per \kbleaf{common/trampoline-framework.md}:198, :239--241, :249.}
+\caption{The seven per-cell kinematic modes of the substrate (3 translational $+$ 3 microrotational $+$ 1 volumetric breathing). Storage-term column ($\varepsilon^2, \kappa^2, V^2$) and engine assignment per \kbleaf{common/trampoline-framework.md}:198, :239--241, :249.}
 \label{tab:vol9_per_cell_modes}
 \end{table}
 
@@ -140,13 +140,13 @@ The cell's sectors are not independent: a faithful simulation must wire the docu
 \section{Port Class Taxonomy}
 \label{sec:vol9_port_class_taxonomy}
 
-The substrate's $(\varepsilon, \mu)$ state can be modulated in distinct ways across a boundary. Two canonical scaling regimes (CLAUDE.md INVARIANT-S2 + canonical leaf \texttt{clm-8nkvwy} at \kbleaf{ave-kb/vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md}) classify the ports of $\mathcal{M}_A$:
+The substrate's $(\varepsilon, \mu)$ state can be modulated in distinct ways across a boundary. Two canonical scaling regimes (CLAUDE.md INVARIANT-S2 + canonical leaf \texttt{clm-8nkvwy} at \kbleaf{ave-kb/vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md}) classify the ports of the substrate:
 
 \subsection{SYM-class ports}
 
 Under SYM-class scaling, $\mu(r)$ and $\varepsilon(r)$ scale together by the same factor across the boundary, so the characteristic impedance $Z_0 = \sqrt{\mu/\varepsilon}$ is invariant: $\Gamma = 0$ at every interior point. The substrate's $c_{shear}(A_0) = c_0\sqrt{S(A_0)}$ tracks $\sqrt{S}$ while $c_{EM}(A_0) = c_0/S(A_0)$ tracks $1/S$, producing the gradient-index transmission-line profile characteristic of gravitational time-dilation in the weak-field limit. The fine-structure constant is \emph{exactly invariant} under SYM-class scaling (canonical proof at \kbleaf{ave-kb/vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md}, claim \texttt{clm-3zz0f6}).
 
-SYM-class is the substrate's \emph{gravity-class realization}: every macroscopic gravitational boundary in $\mathcal{M}_A$ (Schwarzschild reduction, weak-field deflection, gravitational redshift) is a SYM port at which $|\Gamma|^2$ is exactly minimized. Multi-species clock comparisons at different gravitational potentials predict a null $\Delta\alpha/\alpha$, consistent with all current experimental bounds.
+SYM-class is the substrate's \emph{gravity-class realization}: every macroscopic gravitational boundary in the substrate (Schwarzschild reduction, weak-field deflection, gravitational redshift) is a SYM port at which $|\Gamma|^2$ is exactly minimized. Multi-species clock comparisons at different gravitational potentials predict a null $\Delta\alpha/\alpha$, consistent with all current experimental bounds.
 
 \subsection{ASYM-class ports}
 

@@ -8,7 +8,7 @@ subtree-experiments: []
 
 # Ch.1: Trace-Reversal, Gravity, and Macroscopic Yield
 
-Derives macroscopic gravity from the Effective Medium Theory of the $\mathcal{M}_A$ LC network. The trace-reversed Poisson ratio $\nu_{vac} = 2/7$ (from $K = 2G$) produces a $1/7$ isotropic impedance projection that scales the 1D electromagnetic tension into 3D bulk gravity. The Machian hierarchy coupling $\xi$ binds the gravitational constant $G$, the Hubble horizon $R_H$, and the electron mass into a single geometric consistency relation. Microscopic yield thresholds govern particle stability and decay.
+Derives macroscopic gravity from the Effective Medium Theory of the substrate LC network. The trace-reversed Poisson ratio $\nu_{vac} = 2/7$ (from $K = 2G$) produces a $1/7$ isotropic impedance projection that scales the 1D electromagnetic tension into 3D bulk gravity. The Machian hierarchy coupling $\xi$ binds the gravitational constant $G$, the Hubble horizon $R_H$, and the electron mass into a single geometric consistency relation. Microscopic yield thresholds govern particle stability and decay.
 
 ## Key Results
 

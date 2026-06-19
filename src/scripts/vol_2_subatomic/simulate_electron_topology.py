@@ -66,7 +66,7 @@ def generate_electron_knot() -> None:
 
     # Formatting
     ax.set_title(
-        r"Electron Defect: Topologically Locked $\mathcal{M}_A$ Phase Dislocation",
+        r"Electron Defect: Topologically Locked Substrate Phase Dislocation",
         color="white",
         fontsize=16,
         pad=20,

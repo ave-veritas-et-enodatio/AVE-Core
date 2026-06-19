@@ -23,6 +23,6 @@ A defining feature of an engineering framework is the explicit identification of
 | II: Non-Linear Tensor | $\to 1$ | $\propto 1/\sqrt{1-x^2}$ | GR, particle accelerators, atoms |
 | III: Dielectric Rupture | $\geq 1$ | Undefined ($\eta \to 0$) | BH horizons, L-H transitions, fusion |
 
-<!-- Figure: fig:operating_regimes — The Three Operating Regimes of the LC Condensate. The scalar linear vacuum approximation holds only for low-energy acoustics. Tensor stiffening governs the intermediate state, while absolute dielectric failure limits the capacity of localized topologies. -->
+<!-- Figure: fig:operating_regimes — The Three Operating Regimes of the LC Network. The scalar linear vacuum approximation holds only for low-energy acoustics. Tensor stiffening governs the intermediate state, while absolute dielectric failure limits the capacity of localized topologies. -->
 
 ---

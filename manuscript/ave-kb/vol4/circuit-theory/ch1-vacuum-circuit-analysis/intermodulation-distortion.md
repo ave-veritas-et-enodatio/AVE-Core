@@ -5,7 +5,7 @@ kind: leaf
 claims: [clm-vjv4zf, clm-pp3qwf]
 -->
 
-## Condensate IMD Spectroscopy: The Harmonic Fingerprint
+## Substrate IMD Spectroscopy: The Harmonic Fingerprint
 
 By modelling the universe as a non-linear dielectric network, the AVE framework makes a specific, falsifiable prediction absent from standard Quantum Electrodynamics: the vacuum should produce measurable **Intermodulation Distortion (IMD)** products when driven by sufficiently intense electromagnetic fields. This section derives the expected signature analytically and specifies the experimental parameters for detection.
 

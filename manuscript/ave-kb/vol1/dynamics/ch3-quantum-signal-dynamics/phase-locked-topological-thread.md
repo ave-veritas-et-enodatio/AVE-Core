@@ -10,13 +10,13 @@ claims: [clm-zuf7g1, clm-b9eura, clm-unk0bd]
 
 A central result of standard Quantum Mechanics is "Non-Locality" — the observation that two entangled particles exhibit correlated measurement outcomes regardless of spatial separation, as formalised by Bell's Theorem and confirmed by Clauser-Horne-Shimony-Holt (CHSH) inequality violations ($|S| = 2\sqrt{2} > 2$).
 
-The AVE framework provides a **physical mechanism** for this correlation. Rather than treating non-locality as an abstract postulate, the lattice architecture reveals that entangled particles are connected by a *topological thread* — a quantised phase winding on the $\mathcal{M}_A$ graph that functions as a phase-locked gear train, mechanically identical to the Meissner effect derived in Volume III, Chapter 9.
+The AVE framework provides a **physical mechanism** for this correlation. Rather than treating non-locality as an abstract postulate, the lattice architecture reveals that entangled particles are connected by a *topological thread* — a quantised phase winding on the substrate graph that functions as a phase-locked gear train, mechanically identical to the Meissner effect derived in Volume III, Chapter 9.
 
 > **Mechanism note (keep aliasing OUT).** Entanglement is the **nonlocal, ontic** leg of the QM-foundations trio ([`research/2026-06-08_qm-foundations-trio.md`](../../../../../research/2026-06-08_qm-foundations-trio.md)): the carrier is this real $2\pi$ topological *thread*, **not** aliasing. The *aliasing* reading belongs only to the **local, epistemic** superposition leg ([`translation-qm.md:19`](../../../common/translation-tables/translation-qm.md)). A local-aliasing account of entanglement would amount to a local hidden variable and would **Bell-falsify** ($|S|=2\sqrt2$ is unreachable without signalling); AVE instead concedes *locality* and keeps determinism (nonlocal deterministic hidden-variable theory, [`statistics-under-ave.md:77`](../../../common/statistics-under-ave.md)).
 
 ### The Topological Thread
 
-When an entangled pair (e.g., $e^-e^+$) is synthesised from a single deformation of $\mathcal{M}_A$, two opposite-twist topological defects form. By conservation of topological charge on a connected graph (Axiom 1), the total phase winding along any path from particle A to particle B is quantised:
+When an entangled pair (e.g., $e^-e^+$) is synthesised from a single deformation of the substrate, two opposite-twist topological defects form. By conservation of topological charge on a connected graph (Axiom 1), the total phase winding along any path from particle A to particle B is quantised:
 
 > **[Resultbox]** *Quantised Phase Winding*
 >

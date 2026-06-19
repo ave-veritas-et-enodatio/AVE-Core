@@ -26,7 +26,7 @@ At every $\Gamma = -1$ saturation surface $\partial\Omega$ in the substrate — 
 
 <!-- claim-quality: clm-ofys5v -->
 
-For any localized region $\Omega \subset \mathcal{M}_A$ enclosed by a $\Gamma = -1$ saturation surface:
+For any localized region $\Omega$ in the substrate enclosed by a $\Gamma = -1$ saturation surface:
 
 1. The boundary totally reflects substrate waves outside and totally traps them inside.
 2. The interior is causally and impedance-disconnected from external observers.

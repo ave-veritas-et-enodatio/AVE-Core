@@ -8,7 +8,7 @@ These visualize the electron orbital topology around each nucleus:
   - Dielectric saturation boundary (Axiom 4 p_c limit per shell)
   - Shell structure (1s, 2s, 2p harmonic resonances)
 
-Each figure shows the continuous metric strain field M_A with electron
+Each figure shows the continuous metric strain field of the substrate with electron
 positions overlaid as physical geometric objects, not probability clouds.
 """
 

@@ -8,7 +8,7 @@ subtree-experiments: []
 
 # App D: Computational Graph Architecture
 
-To physically validate the macroscopic inductive and elastodynamic derivations of the AVE framework, all numerical simulations and Vacuum Computational Network Dynamics (VCFD) models must be computationally instantiated on a generated, geometrically constrained discrete spatial graph. This appendix defines the software architecture constraints required to map the $\mathcal{M}_A$ topology into computational memory.
+To physically validate the macroscopic inductive and elastodynamic derivations of the AVE framework, all numerical simulations and Vacuum Computational Network Dynamics (VCFD) models must be computationally instantiated on a generated, geometrically constrained discrete spatial graph. This appendix defines the software architecture constraints required to map the substrate topology into computational memory.
 
 ## Key Results
 

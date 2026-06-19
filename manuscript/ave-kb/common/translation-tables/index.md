@@ -10,7 +10,7 @@ subtree-experiments: []
 
 # Translation Tables
 
-Domain-specific translation tables mapping established physics disciplines to their AVE equivalents. Each table is defined once here and referenced from the relevant volume chapters. Every row in every table is derived from the four structural axioms and three bounding limits of the $\mathcal{M}_A$ framework.
+Domain-specific translation tables mapping established physics disciplines to their AVE equivalents. Each table is defined once here and referenced from the relevant volume chapters. Every row in every table is derived from the four structural axioms and three bounding limits of the substrate framework.
 
 > **Navigation note:** This index is a navigation pointer to seven domain-specific translation tables. Key results are in the destination leaves; this node carries no original results.
 

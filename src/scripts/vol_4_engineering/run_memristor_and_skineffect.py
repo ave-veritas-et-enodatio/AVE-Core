@@ -30,7 +30,7 @@ def simulate_memristor_and_skin_effect() -> None:
     I_history = V_history / R_memristor
 
     mask = t_eval > 1.0
-    ax1.plot(V_history[mask], I_history[mask], color="#00ffcc", lw=3, label="Condensate $I-V$ Trace")
+    ax1.plot(V_history[mask], I_history[mask], color="#00ffcc", lw=3, label="Substrate $I-V$ Trace")
     ax1.plot(
         V_history[mask],
         V_history[mask] / R_solid,
@@ -42,7 +42,7 @@ def simulate_memristor_and_skin_effect() -> None:
     ax1.axvline(V_yield, color="white", lw=1, alpha=0.5, linestyle=":")
     ax1.axvline(-V_yield, color="white", lw=1, alpha=0.5, linestyle=":")
 
-    ax1.set_title("The Condensate Memristor (Pinched Hysteresis)", color="white", fontsize=14, weight="bold")
+    ax1.set_title("The Substrate Memristor (Pinched Hysteresis)", color="white", fontsize=14, weight="bold")
     ax1.set_xlabel("Topological Potential / Shear Stress ($V$)", color="white", weight="bold")
     ax1.set_ylabel("Kinematic Flow Rate ($I$)", color="white", weight="bold")
     ax1.legend(loc="lower right", facecolor="#111111", edgecolor="white", labelcolor="white")

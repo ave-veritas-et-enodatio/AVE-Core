@@ -391,7 +391,7 @@ $S(A) = \sqrt{1 - A^2}$ is the "free capacity" of the bond — how much further 
 
 ### 1.4 Cross-references
 
-- **Vol 1 Ch 1:51-75** — canonical Axiom 1 (K4 substrate, $\mathcal{M}_A$ notation)
+- **Vol 1 Ch 1:51-75** — canonical Axiom 1 (K4 substrate, the substrate notation)
 - **Vol 2 Ch 1** — topological matter on K4
 - **doc 09 § Phase 2 wrap-up** — three storage modes empirically validated on cosserat_field_3d engine
 - **`src/ave/topological/cosserat_field_3d.py`** — engine implementation of the three storage modes
@@ -466,7 +466,7 @@ $V_{\text{yield}} \approx 43.65 \, \text{kV}$ (Vol 4 Ch 1, INVARIANT-C1) corresp
 
 | Trampoline (real-world) | AVE substrate (canonical name) |
 |---|---|
-| Trampoline material (Cordura fabric / springs) | Substrate $\mathcal{M}_A$ — K4 bipartite Cosserat micropolar lattice |
+| Trampoline material (Cordura fabric / springs) | The substrate — K4 bipartite Cosserat micropolar lattice |
 | Warp/weft crossing point | Node — 4-port tetrahedral active site |
 | Spring between crossings | Bond — carries three storage modes |
 | Standing on the trampoline | Local strain $A > 0$ |
@@ -646,7 +646,7 @@ This is the canonical total-reflection saturation boundary (legacy "$\Gamma = -1
 
 ### 4.2 The substrate-observability rule (canonical)
 
-The substrate observes a boundary, not its interior. For any localized region $\Omega \subset \mathcal{M}_A$ enclosed by $\partial\Omega$ with $\Gamma \to -1$:
+The substrate observes a boundary, not its interior. For any localized region $\Omega$ in the substrate enclosed by $\partial\Omega$ with $\Gamma \to -1$:
 
 1. The boundary is an impedance-mismatch surface; substrate waves are totally reflected outside, totally trapped inside.
 2. The interior is invisible. The only signals the substrate registers from $\Omega$ are the boundary itself plus its three integrated observables.
@@ -1013,4 +1013,4 @@ Updates that should NOT be made here:
 - Add speculative framings (those land in internal research tracking, not this KB doc)
 - Add new analogies (the trampoline analogy is sufficient; adding more dilutes the picture-first canonical reference)
 
-**Cross-cutting invariants** (per `manuscript/ave-kb/CLAUDE.md`): this doc uses $\mathcal{M}_A$ for the substrate (INVARIANT-N1), $\ell_{\text{node}}$ script ell for node spacing (INVARIANT-N2, Vol 1-5 convention), Scheme A axiom numbering (INVARIANT-S2). No conflicts.
+**Cross-cutting invariants** (per `manuscript/ave-kb/CLAUDE.md`): this doc uses the substrate for the substrate (INVARIANT-N1), $\ell_{\text{node}}$ script ell for node spacing (INVARIANT-N2, Vol 1-5 convention), Scheme A axiom numbering (INVARIANT-S2). No conflicts.

@@ -9,7 +9,7 @@ claims: [clm-qx9bb8]
 
 A long-debated experimental observation in modern physics is the Sagnac Effect. When two coherent light beams are sent in opposite directions around a rotating ring interferometer, a phase shift ($\Delta\Phi$) is observed. Standard Special Relativity (SR) dictates that the speed of light must be isotropic ($c$) in all inertial frames. To account for the Sagnac phase shift, SR employs coordinate transformations, arguing the paths become different lengths depending on the observer.
 
-The AVE framework rejects this geometric abstraction. The spatial vacuum ($\mathcal{M}_A$) as a dense, structured LC impedance network. When a macroscopic mass (like the Earth, or a large gyroscope) rotates, its microscopic topological defect boundaries *drag* the adjacent vacuum grid. This macroscopic metric entrainment creates a localized rotating inductive slipstream.
+The AVE framework rejects this geometric abstraction. The spatial vacuum (the substrate) as a dense, structured LC impedance network. When a macroscopic mass (like the Earth, or a large gyroscope) rotates, its microscopic topological defect boundaries *drag* the adjacent vacuum grid. This macroscopic metric entrainment creates a localized rotating inductive slipstream.
 
 The Sagnac Effect is not a relativistic path-length paradox; it is a **Macroscopic Inductive Impedance Drag**. When the counter-propagating laser waves are injected into the rotating metric, their propagation speed ($\vec{c}_{local}$) is governed entirely by standard localized inductive drag equations acting upon the LC wave:
 

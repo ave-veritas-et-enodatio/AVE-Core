@@ -68,11 +68,11 @@ def simulate_log_scale_s_parameters() -> None:
         lw=3,
         label=r"Standard Optical Dielectric Reflection ($S_{11} \gg -10$ dB)",
     )
-    ax2.plot(r, S11_eft, color="#4FC3F7", lw=4, label=r"AVE Condensate Match ($S_{11} \to -\infty$ dB)")
+    ax2.plot(r, S11_eft, color="#4FC3F7", lw=4, label=r"AVE Substrate Match ($S_{11} \to -\infty$ dB)")
 
     ax2.set_xscale("log")
     ax2.set_ylim(-160, 0)
-    ax2.set_title("Condensate Return Loss Profile ($S_{11}$)", color="white", fontsize=14, weight="bold")
+    ax2.set_title("Substrate Return Loss Profile ($S_{11}$)", color="white", fontsize=14, weight="bold")
     ax2.set_xlabel("Radial Distance from Mass Center ($r/R_s$)", color="white", weight="bold")
     ax2.set_ylabel("Reflected Power $S_{11}$ (dB)", color="white", weight="bold")
     ax2.legend(loc="center right", facecolor="#111111", edgecolor="gray", labelcolor="white")

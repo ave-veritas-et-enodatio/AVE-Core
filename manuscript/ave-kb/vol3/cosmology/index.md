@@ -10,7 +10,7 @@ subtree-experiments: []
 
 # Cosmology
 
-Cosmological and astrophysical phenomena derived from the $\mathcal{M}_A$ LC lattice: generative metric expansion (Hubble constant as crystallisation rate), the dark sector (MOND acceleration scale from Axiom 4 saturation), solar system impedance boundaries, macroscopic orbital mechanics (Saturn rings, perihelion advance, solar flares as semiconductor avalanche), and black hole orbitals (accretion disk QPOs, merger ringdown, compactness limit). All results use the same saturation operator and impedance topology applied at progressively larger scales, with zero free parameters **beyond the three interlocked inputs** $\{m_e, \alpha, G\}$ (individual results may carry further disclosed imports — e.g. $a_0$ inherits $H_\infty$ via $G$ with Chain B$'$ open; see the cited leaves' claim-quality entries).
+Cosmological and astrophysical phenomena derived from the substrate LC lattice: generative metric expansion (Hubble constant as crystallisation rate), the dark sector (MOND acceleration scale from Axiom 4 saturation), solar system impedance boundaries, macroscopic orbital mechanics (Saturn rings, perihelion advance, solar flares as semiconductor avalanche), and black hole orbitals (accretion disk QPOs, merger ringdown, compactness limit). All results use the same saturation operator and impedance topology applied at progressively larger scales, with zero free parameters **beyond the three interlocked inputs** $\{m_e, \alpha, G\}$ (individual results may carry further disclosed imports — e.g. $a_0$ inherits $H_\infty$ via $G$ with Chain B$'$ open; see the cited leaves' claim-quality entries).
 
 ## Key Results
 

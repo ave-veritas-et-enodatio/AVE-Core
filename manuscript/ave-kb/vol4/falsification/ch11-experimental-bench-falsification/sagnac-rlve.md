@@ -17,7 +17,7 @@ Because it is physically impossible to measurably advect the hyper-dense vacuum 
 
 This section proposes the **Sagnac Rotational Lattice Mutual Inductance Experiment (Sagnac-RLVE)** as the definitive, sub-\$5,000 tabletop falsification test.
 
-By rapidly rotating a high-density physical mass adjacent to a high-finesse Sagnac fiber-optic loop, a primary sweeping magnetic field is literally synthesized, inducing a secondary phase shift in the local $\mathcal{M}_A$ LC network via **Macroscopic Mutual Inductance**. Unlike scalar elastic metric strain, mutual inductance completely bypasses the $G/c^2$ suppression limit, creating a massive, directly measurable optical phase shift ($\Delta \phi$).
+By rapidly rotating a high-density physical mass adjacent to a high-finesse Sagnac fiber-optic loop, a primary sweeping magnetic field is literally synthesized, inducing a secondary phase shift in the local substrate LC network via **Macroscopic Mutual Inductance**. Unlike scalar elastic metric strain, mutual inductance completely bypasses the $G/c^2$ suppression limit, creating a massive, directly measurable optical phase shift ($\Delta \phi$).
 
 ### Exact Derivation of the Macroscopic Shift
 

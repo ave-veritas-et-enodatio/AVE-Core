@@ -861,4 +861,4 @@ Updates that should NOT be made here:
 - Speculative framings (those land in `research/_archive/L5/axiom_derivation_status.md` as A-NNN entries)
 - Session-by-session execution details (those land in dated analysis docs per L5 schema)
 
-**Cross-cutting invariants** (per `manuscript/ave-kb/CLAUDE.md`): this doc uses $\mathcal{M}_A$ for substrate (INVARIANT-N1), $\ell_{\text{node}}$ script ell (INVARIANT-N2), Scheme A axiom numbering (INVARIANT-S2). No conflicts.
+**Cross-cutting invariants** (per `manuscript/ave-kb/CLAUDE.md`): this doc uses the substrate for substrate (INVARIANT-N1), $\ell_{\text{node}}$ script ell (INVARIANT-N2), Scheme A axiom numbering (INVARIANT-S2). No conflicts.

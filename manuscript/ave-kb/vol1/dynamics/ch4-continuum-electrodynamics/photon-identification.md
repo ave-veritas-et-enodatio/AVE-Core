@@ -172,7 +172,7 @@ An electron emits a photon when the TIR condition transiently fails. Local ampli
 
 A single gamma photon at frequency $2\omega_C$ (energy $2 m_e c^2$) can trigger saturation at two distinct lattice regions simultaneously, creating two TIR bubbles. The photon's transverse field pattern splits across the two bubbles with opposite chirality, producing an electron/positron pair. **Threshold $E > 2 m_e c^2 = 1.022$ MeV** is the minimum energy to saturate the lattice at two points.
 
-Two-photon processes at $\omega < \omega_C$ can also produce pairs if their intermodulation frequency (Vol 4 Ch 1 §"Condensate IMD Spectroscopy") hits $\omega_C$. The IMD sideband serves as the effective saturation-driver frequency.
+Two-photon processes at $\omega < \omega_C$ can also produce pairs if their intermodulation frequency (Vol 4 Ch 1 §"Substrate IMD Spectroscopy") hits $\omega_C$. The IMD sideband serves as the effective saturation-driver frequency.
 
 ### §5.3 Compton scattering
 

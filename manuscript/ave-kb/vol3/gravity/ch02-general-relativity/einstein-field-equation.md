@@ -79,9 +79,9 @@ When localised topological energy (mass) is present, it draws continuous phase-l
 
 In 2015, LIGO detected "Gravitational Waves" from merging black holes. Mainstream physics describes this as "ripples in the fabric of spacetime itself."
 
-In the AVE framework, a black hole corresponds to a localized region of maximum dielectric saturation where the LC grid reaches its **topological yield point** at the Event Horizon — the saturation onset at $r_s$ where the lattice loses topology-supporting capacity (the bulk Regime IV ruptured-topology interior begins deeper still, at $r_{sat} = 7GM/c^2 = 3.5\,r_s$; see the BH-interior entry in [`vol3/claim-quality.md`](../../claim-quality.md)). When two such massive topological stress-concentrations orbit each other, they act as macroscopic impellers driving transverse shear waves through the electro-mechanical condensate.
+In the AVE framework, a black hole corresponds to a localized region of maximum dielectric saturation where the LC grid reaches its **topological yield point** at the Event Horizon — the saturation onset at $r_s$ where the lattice loses topology-supporting capacity (the bulk Regime IV ruptured-topology interior begins deeper still, at $r_{sat} = 7GM/c^2 = 3.5\,r_s$; see the BH-interior entry in [`vol3/claim-quality.md`](../../claim-quality.md)). When two such massive topological stress-concentrations orbit each other, they act as macroscopic impellers driving transverse shear waves through the electro-mechanical substrate.
 
-In this interpretation, gravitational waves are low-frequency macroscopic inductive strain-waves propagating through the structured LC condensate.
+In this interpretation, gravitational waves are low-frequency macroscopic inductive strain-waves propagating through the structured LC network.
 
 By identifying the vacuum as a physical, variable-impedance LC medium, General Relativity is placed in direct correspondence with classical Continuum Mechanics and Electrodynamics. The unification of gravity with quantum field theory reduces to recognising the electromagnetic character of the spacetime substrate.
 

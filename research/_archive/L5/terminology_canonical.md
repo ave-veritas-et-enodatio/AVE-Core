@@ -1,3 +1,5 @@
+> **Notation (2026-06-18):** Substrate object symbol `$\mathcal{M}_A$` **retired** (Grant adjudication). Use prose: *substrate*, *chiral LC network*, *chiral Laves K4 Cosserat crystal*. Body below preserved per Rule-12.
+
 # AVE-Native Terminology Canonical Translation Table
 
 **Purpose.** Single source of truth for translating common physics terms (SM / QFT / CondMat / cosmology / standard EE) into their AVE-native equivalents. Prevents framework leakage: terms like "Kibble-Zurek", "Meissner effect", "Hopfion" import their parent framework's conceptual baggage if used unreflectively in AVE derivations.

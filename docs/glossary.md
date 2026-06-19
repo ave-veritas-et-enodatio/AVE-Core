@@ -28,7 +28,7 @@ invariants + inter-cell coupling + cosmic-IC framing).
 
 | Universal substrate-native | EE projection | ME projection | Use when |
 |---|---|---|---|
-| Substrate ($\mathcal{M}_A$) | (vacuum / EM field) | (spacetime / elastic medium) | Default: substrate. Use EE/ME when discussing a specific probe type. |
+| Substrate (the substrate) | (vacuum / EM field) | (spacetime / elastic medium) | Default: substrate. Use EE/ME when discussing a specific probe type. |
 | Node | (circuit node) | (lattice point) | Default: substrate-vocabulary. K4 4-port tetrahedral active site. |
 | Bond | Transmission line | Spring | Default: bond. "Spring" acceptable when invoking Maxwell-Cremona / Q-G47 buckling pedagogy. |
 | State | Voltage / $V_{\text{inc}}$ | Force / displacement | Default: substrate-vocabulary. Specify projection when math is probe-coupled. |
@@ -92,7 +92,7 @@ Session 2026-06-07 reframe vocabulary. **All entries are CONSISTENCY-CLASS** (re
 
 | Term | Meaning in AVE | Class / cross-ref |
 |---|---|---|
-| **Transmission-line vacuum** | The vacuum $\mathcal{M}_A$ IS a K4-TLM transmission-line network (Ax 1); its "fundamental constants" are EE properties of the line, not primitives | consistency; translation-circuit.md §10.1 |
+| **Transmission-line vacuum** | The vacuum IS a K4-TLM transmission-line network (Ax 1); its "fundamental constants" are EE properties of the line, not primitives | consistency; translation-circuit.md §10.1 |
 | **Line-property constant** | A "fundamental constant" re-read as a transmission-line property: $c$ = line velocity ($c_{EM}=c_0/S$, $c_{shear}=c_0\sqrt S$), $Z_0$ = characteristic impedance, $L=\mu_0$, $C=\varepsilon_0$, $R\leftrightarrow$ loss, $\alpha$ = coupling/loss. **None is fundamental.** Lorentz invariance ($c$ const) = EMERGENT cold-lattice ($S\to1$) limit | Class A identities + Class B (Lorentz); preferred-frame-and-emergent-lorentz.md |
 | **Screened effective precession** ($\alpha$) | $\alpha$ = the electron per-orbit spin-slip; its value $1/137$ framed as the *screened* low-energy residual of a bare coupling (running of $\alpha$). **α-VALUE DERIVATION OPEN** — Golden-Torus audit + screening-factor route are the open tests; do NOT claim derived | OPEN lens; translation-circuit.md §10.2; honest-α Class-B (clm-0ktpcn) |
 | **Slip-angle / loss-tangent-α** | $\alpha = 1/Q = \tan\delta \approx 1/137$, slip angle $\delta=\arctan\alpha\approx 0.418^\circ$. EE identity once $Q_{tank}=\alpha^{-1}$; the numeric value is a re-expression, not an independent prediction | Class A identity; translation-circuit.md §10.3; temporal-saturation-regime-classifier.md |
@@ -117,7 +117,7 @@ These are **the only three integrated invariants the substrate observes at any l
 
 ## 3. Substrate-observability rule (canonical, A-026)
 
-The substrate observes a boundary, not its interior. For any localized region $\Omega \subset \mathcal{M}_A$ enclosed by a $\Gamma = -1$ saturation surface $\partial\Omega$:
+The substrate observes a boundary, not its interior. For any localized region $\Omega$ in the substrate enclosed by a $\Gamma = -1$ saturation surface $\partial\Omega$:
 
 1. The boundary is an impedance-mismatch surface — substrate waves are totally reflected outside, totally trapped inside.
 2. The interior is causally / impedance-disconnected from the substrate. Only the three integrated observables ($\mathcal{M}, \mathcal{Q}, \mathcal{J}$) are visible externally.

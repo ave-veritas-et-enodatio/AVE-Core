@@ -30,5 +30,5 @@ Helium-4 (the Alpha particle) forms the first perfectly symmetrical closed topol
 | [Continuous Vacuum Density Flux](vacuum-density-flux.md) | Refractive strain gradient from $6^3_2$ knot centers; Faddeev-Skyrme defect cores |
 | [EE Equivalent: Polyphase Resonant Transformer](ee-equivalent.md) | 4-node fully-coupled polyphase network; mass defect derivation with $K$ |
 | [Topological Area: Master Shielding and High-Q Resonance](topological-area.md) | Noble Gas inertness from extreme $Q$-factor; radiation shielding |
-| [Orbital Knot Topology](orbital-knot-topology.md) | Phase-locked spin pairing; $180^\circ$ antipodal trefoil solitons; $1s$ shell saturation |
+| [Orbital Knot Topology](orbital-knot-topology.md) | Phase-locked spin pairing; $180^\circ$ antipodal $0_1$ unknot solitons; $1s$ shell saturation |
 | [Semiconductor Regime Classification](semiconductor-regime.md) | Single alpha reference; $V_{BR}$ definition; 0.008% residual from point-nucleon approximation |

@@ -194,7 +194,7 @@ Skills mandatory (per plan doc skills firing list):
 ave-canonical-leaf-pull v1.3 Trigger 17 (pre-survey); ave-discipline-translate v1.1 Trigger 6; ave-ee-first-mapping v1.0; ave-handoff-canonical-locale; verify-before-cite v1.4; ave-canonical-source; ave-evidence-framing-discipline; consistency-vs-emergence v1.3; ave-worktree-paths v1.0.
 
 Ch 1 content priorities (~30-60 lines):
-- Substrate identity: 3D chiral Laves K4 Cosserat crystal $\mathcal{M}_A$
+- Substrate identity: 3D chiral Laves K4 Cosserat crystal
 - Features (bulleted): intrinsic LC oscillators at each node; bond transmission lines; Cosserat micropolar 6 DOF/node (3E + 3B); Ax 4 saturation kernel; $\Gamma$ boundary semantics
 - Natural-substrate framing: "What follows documents the substrate's measurable behavior — properties of the natural vacuum substrate as characterized by engineering observation and derived from AVE substrate-physics first principles"
 - "How to use this datasheet" subsection: cross-reference structure; canonical-anchor citation convention; falsification-test integration

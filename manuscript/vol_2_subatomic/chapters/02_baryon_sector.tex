@@ -59,7 +59,7 @@ Using the geometrically derived eigenvalue ($\approx 1836\ m_e$, Section~\ref{se
 The empirical mass ratio $m_p/m_e \approx 1836.15$ emerges dynamically as the exact eigenvalue of non-linear inductive resonance. The steady-state proton mass is evaluated by mapping it to the Faddeev-Skyrme non-linear Hamiltonian. Bounded by the strict squared dielectric limit ($n=2$) established in Axiom 4 to match standard QED optics, the static energy functional evaluates as:
 \begin{resultbox}{Saturated Faddeev-Skyrme Proton Energy}
 \begin{equation}
-E_{proton} = \min_{n} \int_{\mathcal{M}_A} d^3x \left[ \frac{1}{2}(\partial_\mu n)^2 + \frac{1}{4}\kappa_{FS}^2 \frac{(\partial_\mu n \times \partial_\nu n)^2}{\sqrt{1 - (\Delta\phi / \alpha)^2}} \right]
+E_{proton} = \min_{n} \int d^3x \left[ \frac{1}{2}(\partial_\mu n)^2 + \frac{1}{4}\kappa_{FS}^2 \frac{(\partial_\mu n \times \partial_\nu n)^2}{\sqrt{1 - (\Delta\phi / \alpha)^2}} \right]
 \end{equation}
 \end{resultbox}
 
@@ -72,12 +72,12 @@ The quartic Skyrme stabilization term requires a dimensionless coupling constant
 \end{equation}
 \end{resultbox}
 
-This is a pure geometric constant: the solid-angle normalisation ($4\pi$) of the spherical energy integral, doubled by the two orthogonal principal strain axes of the LC condensate that jointly stabilize the defect against Derrick-type collapse.
+This is a pure geometric constant: the solid-angle normalisation ($4\pi$) of the spherical energy integral, doubled by the two orthogonal principal strain axes of the LC network that jointly stabilize the defect against Derrick-type collapse.
 
 \subsection{Thermal Lattice Softening ($\delta_{th}$)}
 \label{sec:thermal_softening}
 
-The cold ($T=0$) Faddeev-Skyrme solver with $\kappa_{FS} = 8\pi$ evaluates the 1D scalar trace to $\mathcal{I}_{scalar}^{(cold)} \approx 1185\,m_e$, yielding a proton ratio of $\approx 1872$ (approximately $2\%$ above the empirical value). This systematic overestimate arises because the solver computes the ideal zero-temperature ground state, whereas the physical proton exists as a localized thermal hotspot within the LC condensate at an effective core temperature of $T_{core} \sim m_p c^2/k_B \approx 10^{13}\text{ K}$.
+The cold ($T=0$) Faddeev-Skyrme solver with $\kappa_{FS} = 8\pi$ evaluates the 1D scalar trace to $\mathcal{I}_{scalar}^{(cold)} \approx 1185\,m_e$, yielding a proton ratio of $\approx 1872$ (approximately $2\%$ above the empirical value). This systematic overestimate arises because the solver computes the ideal zero-temperature ground state, whereas the physical proton exists as a localized thermal hotspot within the LC network at an effective core temperature of $T_{core} \sim m_p c^2/k_B \approx 10^{13}\text{ K}$.
 
 The baseline RMS thermal noise of the vacuum (``quantum foam'') partially averages out the sharp gradient tensor $(\partial_\mu \mathbf{n} \times \partial_\nu \mathbf{n})^2$, effectively softening the quartic Skyrme repulsion.  Additionally, the Faddeev-Skyrme energy functional includes Axiom~4 gradient saturation $S(|\partial_r\phi|,\,\pi/\ell_{node})$ inside the integrand, preventing the solver from resolving sub-lattice gradients.  The thermally corrected coupling is:
 \begin{resultbox}{Thermal Lattice Softening}
@@ -182,10 +182,10 @@ The proton's phase winding passes through the \textbf{$(2,5)$ cinquefoil torus k
 \end{equation}
 \end{resultbox}
 
-This topological confinement means the proton extends over approximately five lattice spacings\textemdash a genuinely extended object in the $\mathcal{M}_A$ condensate.
+This topological confinement means the proton extends over approximately five lattice spacings\textemdash a genuinely extended object in the substrate.
 
 \subsection{The Self-Consistent Mass Oscillator (The Structural Eigenvalue)}
-To mathematically convert this pure topological volume into physical mass, it must be scaled by the discrete hardware limits of the $\mathcal{M}_A$ condensate: the topological packing limit ($p_c \approx 0.1834$) derived in Chapter 2, and the inductive mass-stiffening ratio ($x_{core} = m_{core}/m_e$).
+To mathematically convert this pure topological volume into physical mass, it must be scaled by the discrete hardware limits of the substrate: the topological packing limit ($p_c \approx 0.1834$) derived in Chapter 2, and the inductive mass-stiffening ratio ($x_{core} = m_{core}/m_e$).
 
 Because the structural tension generating the tensor mass is strictly driven by the total inductive mass of the knot, the mass generation forms a dynamic, self-consistent structural feedback loop. This is formulated as an exact linear eigenvalue equation:
 \begin{resultbox}{Self-Consistent Mass Eigenvalue Equation}

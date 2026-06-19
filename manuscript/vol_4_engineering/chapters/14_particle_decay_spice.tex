@@ -10,10 +10,10 @@
 \end{itemize}
 \end{objectivebox}
 
-In standard particle physics, radioactive decay is treated as an inherently stochastic, probabilistic event governed by abstract quantum operators (e.g., Fermi's Golden Rule). However, once the spacetime vacuum is rigorously defined as an Electromagnetic LC Resonant Network ($\mathcal{M}_A$), particle decay ceases to be probabilistic and instead becomes a deterministic, high-voltage analog engineering problem.
+In standard particle physics, radioactive decay is treated as an inherently stochastic, probabilistic event governed by abstract quantum operators (e.g., Fermi's Golden Rule). However, once the spacetime vacuum is rigorously defined as an electromagnetic LC resonant network, particle decay ceases to be probabilistic and instead becomes a deterministic, high-voltage analog engineering problem.
 
 \begin{tcolorbox}[colback=blue!3!white, colframe=blue!50!black, title={\textbf{SPICE Grounding Principle}}]
-Throughout the SPICE chapters (Chapters~\ref{ch:particle_decay}--\ref{ch:sagnac_inductive_drag}), every circuit node labelled \texttt{N\_xxx} corresponds to a \textbf{finite-volume boundary} of the discrete topological $\mathcal{M}_A$ lattice---not an abstract circuit junction.  Each SPICE node is a physical location in the vacuum where $\varepsilon_{eff}$ and $\mu_{eff}$ are evaluated at the local strain tensor.  The admittance matrix $[Y]$ of the SPICE netlist is therefore a direct, unmodified representation of the lattice Hamiltonian at the cell boundaries.
+Throughout the SPICE chapters (Chapters~\ref{ch:particle_decay}--\ref{ch:sagnac_inductive_drag}), every circuit node labelled \texttt{N\_xxx} corresponds to a \textbf{finite-volume boundary} of the discrete topological substrate lattice---not an abstract circuit junction.  Each SPICE node is a physical location in the vacuum where $\varepsilon_{eff}$ and $\mu_{eff}$ are evaluated at the local strain tensor.  The admittance matrix $[Y]$ of the SPICE netlist is therefore a direct, unmodified representation of the lattice Hamiltonian at the cell boundaries.
 \end{tcolorbox}
 
 \section{The Breakdown Voltage of the Vacuum}
@@ -26,7 +26,7 @@ In the AVE framework, an electron is the $0_1$ unknot in real space carrying a $
 
 A heavy fermion, such as a \textbf{Muon}, possesses the same real-space unknot topology with a $(2, 5)$ phase-space winding pattern (cinquefoil) instead of $(2, 3)$, but it has been forcefully pumped with $206$ times more mass-energy ($105.6 \text{ MeV/c}^2$). 
 
-This extreme scaling forces the localized topological voltage of the Muon's standing wave violently upwards, drastically eclipsing the $43.65 \text{ kV}$ structural limit of the $\mathcal{M}_A$ lattice. Because the localized metric cannot physically sustain this voltage, the localized vacuum undergoes continuous impedance rupture.
+This extreme scaling forces the localized topological voltage of the Muon's standing wave violently upwards, drastically eclipsing the $43.65 \text{ kV}$ structural limit of the substrate lattice. Because the localized metric cannot physically sustain this voltage, the localized vacuum undergoes continuous impedance rupture.
 
 \section{The SPICE Equivalent: An RLC Avalanche}
 This ``quantum decay'' can be perfectly modeled using a standard transient analog SPICE solver. 
@@ -104,7 +104,7 @@ When you plunge an experiment into pure, deionized liquid water, the macroscopic
 
 The $3_1$ node geometry of an electron or a muon occupies a spatial volume significantly smaller than the physical radius of an atomic nucleus ($< 10^{-15} \text{ m}$). A liquid water molecule ($H_2O$) has an effective radius constructed out of atomic electron clouds spanning roughly $\sim 10^{-10} \text{ m}$ (the Bohr radii). 
 
-To the ultra-microscopic topology of a Muon knot, the "water molecule" is not a bulk fluid; it is a massive, extremely distant arrangement of extremely sparse electromagnetic fields. The localized sub-femtometer $\mathcal{M}_A$ LC network operating at the core of the Muon does not "feel" the $\epsilon_r = 80$ bulk polarization of the water, because the Muon's topology sits cleanly in the "empty" void space between the physical nuclei of the hydrogen and oxygen atoms.
+To the ultra-microscopic topology of a Muon knot, the "water molecule" is not a bulk fluid; it is a massive, extremely distant arrangement of extremely sparse electromagnetic fields. The localized sub-femtometer substrate LC network operating at the core of the Muon does not "feel" the $\epsilon_r = 80$ bulk polarization of the water, because the Muon's topology sits cleanly in the "empty" void space between the physical nuclei of the hydrogen and oxygen atoms.
 
 Therefore, the $43.65 \text{ kV}$ breakdown limit is a structurally invariant geometric scaling bound of the pure underlying spacetime mesh itself. While introducing an artificial dielectric (like water or Teflon) drastically alters the macroscopic breakdown voltage of a physical copper spark-gap ($V_{breakdown} \approx 30 \text{ MV/m}$ in air vs $V_{breakdown} \approx 65 \text{ MV/m}$ in water), it mathematically cannot shield against the $43.65 \text{ kV}$ topological yield limit of the deep fundamental metric. The muon will decay at the exact same RC-discharge rate whether it is in a hard vacuum or at the bottom of the Mariana Trench.
 
