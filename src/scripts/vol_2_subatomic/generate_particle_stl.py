@@ -494,6 +494,63 @@ def make_neutrino_stl(
     return sweep_tube_open(curve, tube_r, n_radial=n_radial, cap=True)
 
 
+def _combine_stl_meshes(meshes: list[stl_mesh.Mesh]) -> stl_mesh.Mesh:
+    return stl_mesh.Mesh(np.concatenate([m.data for m in meshes]))
+
+
+def make_neutron_stl(
+    scale_mm: float = MM_PER_L_NODE, n_radial: int = 20, resolution: int = 600
+) -> stl_mesh.Mesh:
+    """
+    Generate the neutron: Borromean 6³₂ link ∪ threaded 0₁ unknot.
+
+    Topology per generate_particle_topology_suite.py (6³₂ ∪ 0₁).
+    The threaded unknot sits in the Borromean central void (β-decay-ready
+    lepton thread). Mesh scales are [RENDERING] — see ACCURATE_SCALING.md.
+    """
+    core = make_proton_borromean_stl(scale_mm, n_radial=n_radial, resolution=resolution)
+    r_opt = KAPPA_FS / 5
+    R_mm = r_opt * scale_mm
+    thread_r = R_mm * 0.28
+    thread_tube = (R_mm / (2 * np.pi)) * 0.22
+    curve = FundamentalTopologies.generate_unknot_0_1(radius=thread_r, resolution=resolution)
+    thread = sweep_tube(curve, thread_tube, n_radial=n_radial)
+    return _combine_stl_meshes([core, thread])
+
+
+def make_alpha_stl(
+    scale_mm: float = MM_PER_L_NODE, n_radial: int = 16, resolution: int = 500
+) -> stl_mesh.Mesh:
+    """
+    Generate the alpha particle (⁴He): tetrahedral 2p + 2n core.
+
+    Vertex layout matches simulate_element.get_nucleon_coordinates(Z=2, A=4)
+    up to an overall [RENDERING] scale factor.
+    """
+    r_opt = KAPPA_FS / 5
+    sep = r_opt * scale_mm * 0.55
+    unit_tet = np.array(
+        [[1, 1, 1], [-1, -1, 1], [-1, 1, -1], [1, -1, -1]], dtype=float
+    )
+    unit_tet /= np.linalg.norm(unit_tet[0])
+    verts = unit_tet * sep
+    nucleon_scale = scale_mm * 0.22
+    parts: list[stl_mesh.Mesh] = []
+    for i, offset in enumerate(verts):
+        if i in (0, 3):
+            nucleon = make_proton_borromean_stl(
+                nucleon_scale, n_radial=n_radial, resolution=max(resolution // 2, 240)
+            )
+        else:
+            nucleon = make_neutron_stl(
+                nucleon_scale, n_radial=n_radial, resolution=max(resolution // 2, 240)
+            )
+        centroid = nucleon.vectors.reshape(-1, 3).mean(axis=0)
+        nucleon.vectors = nucleon.vectors - centroid + offset
+        parts.append(nucleon)
+    return _combine_stl_meshes(parts)
+
+
 def make_proton_borromean_stl(
     scale_mm: float = MM_PER_L_NODE, n_radial: int = 20, resolution: int = 1000
 ) -> stl_mesh.Mesh:
@@ -526,9 +583,7 @@ def make_proton_borromean_stl(
         ring_mesh = sweep_tube(ring, tube_r, n_radial=n_radial)
         all_data.append(ring_mesh.data)
 
-    combined = np.concatenate(all_data)
-    combined_mesh = stl_mesh.Mesh(combined)
-    return combined_mesh
+    return _combine_stl_meshes([stl_mesh.Mesh(d) for d in all_data])
 
 
 # ═══════════════════════════════════════════════════════════════════
