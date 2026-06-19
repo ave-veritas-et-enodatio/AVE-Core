@@ -1,0 +1,655 @@
+{
+  "schema": "ave-vacuum-kit/v1",
+  "substrate": "diamond production K4 (build_diamond_net)",
+  "rendering_only": true,
+  "print_mm_per_l_node": 100.0,
+  "corpus_mnemonic_mm_per_l_node": 38.6,
+  "stl_export_frame": "print_pose",
+  "print_pose": {
+    "node_A": {
+      "bed_face": "solid cube, one face on XY",
+      "notes": "Exterior port collars at 4 corners; no wireframe weak joints."
+    },
+    "node_B": {
+      "bed_face": "equatorial L-ring in XY; port sockets radiate from hollow sphere",
+      "notes": "Sphere shell; lowest ring point on bed."
+    },
+    "bond": {
+      "bed_face": "bond axis vertical (+Z); uniform solid hex",
+      "notes": "Print standing; bond OD matches collar socket bore ID."
+    }
+  },
+  "prusa_mk3p_slicer_hints": {
+    "nozzle_mm": 0.4,
+    "layer_height_mm": 0.2,
+    "perimeters_nodes": 3,
+    "perimeters_bonds": 4,
+    "infill_nodes_pct": 20,
+    "infill_bonds_pct": 40,
+    "supports": "none (parts are print-pose oriented)",
+    "brim": "optional on node A port overhangs"
+  },
+  "lattice_L": 4,
+  "finite_chunk": true,
+  "assembled_bbox_mm": [
+    300.0,
+    300.0,
+    300.0
+  ],
+  "counts": {
+    "nodes": 16,
+    "bonds": 14,
+    "node_A_print": 8,
+    "node_B_print": 8,
+    "bond_insert_print": 14
+  },
+  "part_skus": {
+    "node_A": "vacuum_node_A_capacitive.stl",
+    "node_B": "vacuum_node_B_inductive.stl",
+    "bond": "vacuum_tl_bond_diamond.stl"
+  },
+  "joinery": {
+    "type": "friction_fit_peg_socket",
+    "bond_center_pitch_mm": 173.20508075688772,
+    "orientation_key": "A=solid cube vs B=hollow sphere+ring; match manifest sublattice labels",
+    "cross_section": "hexagon",
+    "port_collar_circumradius_mm": 6.0,
+    "port_collar_flat_to_flat_mm": 10.392304845413264,
+    "socket_inner_circumradius_mm": 3.55,
+    "socket_inner_flat_to_flat_mm": 6.148780366869514,
+    "bond_outer_circumradius_mm": 3.55,
+    "bond_outer_flat_to_flat_mm": 6.148780366869514,
+    "bond_matches": "socket_inner_bore",
+    "peg_circumradius_mm": 3.5999999999999996,
+    "peg_flat_to_flat_mm": 6.235382907247957,
+    "wall_radial_mm": 2.4,
+    "peg_length_mm": 2.6,
+    "collar_embed_mm": 3.2,
+    "collar_embed_A_mm": 10.2,
+    "attach_radius_A_mm": 14.722431864335457,
+    "attach_radius_B_mm": 7.875,
+    "friction_interference_mm": 0.05,
+    "bond_shaft_length_mm": 137.60764889255228,
+    "bond_total_length_mm": 142.80764889255227,
+    "fdm_target_printer": "Prusa i3 MK3+ (0.4 mm nozzle)"
+  },
+  "assembly_steps": [
+    "Print node_A \u00d7 counts.node_A_print, node_B \u00d7 counts.node_B_print, bond \u00d7 counts.bond_insert_print.",
+    "Place nodes at manifest.nodes[].pos_mm (A/B type per sublattice).",
+    "Press bond pegs into port sockets from outside; bore is open through collar into cell pocket.",
+    "Distinguish A (solid cube) vs B (sphere shell + L-ring) per manifest sublattice.",
+    "Tune press-fit: KIT_FRICTION_INTERFERENCE_MM env (default 0.05 mm radial; try 0.03\u20130.08 for your filament)."
+  ],
+  "nodes": [
+    {
+      "id": 0,
+      "sublattice": "A",
+      "grid_ijk": [
+        0,
+        0,
+        0
+      ],
+      "pos_mm": [
+        -150.0,
+        -150.0,
+        -150.0
+      ]
+    },
+    {
+      "id": 1,
+      "sublattice": "A",
+      "grid_ijk": [
+        0,
+        0,
+        2
+      ],
+      "pos_mm": [
+        -150.0,
+        -150.0,
+        50.0
+      ]
+    },
+    {
+      "id": 2,
+      "sublattice": "A",
+      "grid_ijk": [
+        0,
+        2,
+        0
+      ],
+      "pos_mm": [
+        -150.0,
+        50.0,
+        -150.0
+      ]
+    },
+    {
+      "id": 3,
+      "sublattice": "A",
+      "grid_ijk": [
+        0,
+        2,
+        2
+      ],
+      "pos_mm": [
+        -150.0,
+        50.0,
+        50.0
+      ]
+    },
+    {
+      "id": 4,
+      "sublattice": "B",
+      "grid_ijk": [
+        1,
+        1,
+        1
+      ],
+      "pos_mm": [
+        -50.0,
+        -50.0,
+        -50.0
+      ]
+    },
+    {
+      "id": 5,
+      "sublattice": "B",
+      "grid_ijk": [
+        1,
+        1,
+        3
+      ],
+      "pos_mm": [
+        -50.0,
+        -50.0,
+        150.0
+      ]
+    },
+    {
+      "id": 6,
+      "sublattice": "B",
+      "grid_ijk": [
+        1,
+        3,
+        1
+      ],
+      "pos_mm": [
+        -50.0,
+        150.0,
+        -50.0
+      ]
+    },
+    {
+      "id": 7,
+      "sublattice": "B",
+      "grid_ijk": [
+        1,
+        3,
+        3
+      ],
+      "pos_mm": [
+        -50.0,
+        150.0,
+        150.0
+      ]
+    },
+    {
+      "id": 8,
+      "sublattice": "A",
+      "grid_ijk": [
+        2,
+        0,
+        0
+      ],
+      "pos_mm": [
+        50.0,
+        -150.0,
+        -150.0
+      ]
+    },
+    {
+      "id": 9,
+      "sublattice": "A",
+      "grid_ijk": [
+        2,
+        0,
+        2
+      ],
+      "pos_mm": [
+        50.0,
+        -150.0,
+        50.0
+      ]
+    },
+    {
+      "id": 10,
+      "sublattice": "A",
+      "grid_ijk": [
+        2,
+        2,
+        0
+      ],
+      "pos_mm": [
+        50.0,
+        50.0,
+        -150.0
+      ]
+    },
+    {
+      "id": 11,
+      "sublattice": "A",
+      "grid_ijk": [
+        2,
+        2,
+        2
+      ],
+      "pos_mm": [
+        50.0,
+        50.0,
+        50.0
+      ]
+    },
+    {
+      "id": 12,
+      "sublattice": "B",
+      "grid_ijk": [
+        3,
+        1,
+        1
+      ],
+      "pos_mm": [
+        150.0,
+        -50.0,
+        -50.0
+      ]
+    },
+    {
+      "id": 13,
+      "sublattice": "B",
+      "grid_ijk": [
+        3,
+        1,
+        3
+      ],
+      "pos_mm": [
+        150.0,
+        -50.0,
+        150.0
+      ]
+    },
+    {
+      "id": 14,
+      "sublattice": "B",
+      "grid_ijk": [
+        3,
+        3,
+        1
+      ],
+      "pos_mm": [
+        150.0,
+        150.0,
+        -50.0
+      ]
+    },
+    {
+      "id": 15,
+      "sublattice": "B",
+      "grid_ijk": [
+        3,
+        3,
+        3
+      ],
+      "pos_mm": [
+        150.0,
+        150.0,
+        150.0
+      ]
+    }
+  ],
+  "bonds": [
+    {
+      "u": 0,
+      "v": 4,
+      "u_sublattice": "A",
+      "v_sublattice": "B",
+      "center_pitch_mm": 173.20508075688772,
+      "insert_length_mm": 137.60764889255228,
+      "direction_unit": [
+        0.5773502691892924,
+        0.5773502691892924,
+        0.5773502691892924
+      ],
+      "port_tip_u_mm": [
+        -137.74722325027452,
+        -137.74722325027452,
+        -137.74722325027452
+      ],
+      "port_tip_v_mm": [
+        -58.299410119596075,
+        -58.299410119596075,
+        -58.299410119596075
+      ]
+    },
+    {
+      "u": 1,
+      "v": 5,
+      "u_sublattice": "A",
+      "v_sublattice": "B",
+      "center_pitch_mm": 173.20508075688772,
+      "insert_length_mm": 137.60764889255228,
+      "direction_unit": [
+        0.5773502691892924,
+        0.5773502691892924,
+        0.5773502691892924
+      ],
+      "port_tip_u_mm": [
+        -137.74722325027452,
+        -137.74722325027452,
+        62.25277674972549
+      ],
+      "port_tip_v_mm": [
+        -58.299410119596075,
+        -58.299410119596075,
+        141.70058988040392
+      ]
+    },
+    {
+      "u": 2,
+      "v": 6,
+      "u_sublattice": "A",
+      "v_sublattice": "B",
+      "center_pitch_mm": 173.20508075688772,
+      "insert_length_mm": 137.60764889255228,
+      "direction_unit": [
+        0.5773502691892924,
+        0.5773502691892924,
+        0.5773502691892924
+      ],
+      "port_tip_u_mm": [
+        -137.74722325027452,
+        62.25277674972549,
+        -137.74722325027452
+      ],
+      "port_tip_v_mm": [
+        -58.299410119596075,
+        141.70058988040392,
+        -58.299410119596075
+      ]
+    },
+    {
+      "u": 3,
+      "v": 7,
+      "u_sublattice": "A",
+      "v_sublattice": "B",
+      "center_pitch_mm": 173.20508075688772,
+      "insert_length_mm": 137.60764889255228,
+      "direction_unit": [
+        0.5773502691892924,
+        0.5773502691892924,
+        0.5773502691892924
+      ],
+      "port_tip_u_mm": [
+        -137.74722325027452,
+        62.25277674972549,
+        62.25277674972549
+      ],
+      "port_tip_v_mm": [
+        -58.299410119596075,
+        141.70058988040392,
+        141.70058988040392
+      ]
+    },
+    {
+      "u": 3,
+      "v": 4,
+      "u_sublattice": "A",
+      "v_sublattice": "B",
+      "center_pitch_mm": 173.20508075688772,
+      "insert_length_mm": 137.60764889255228,
+      "direction_unit": [
+        0.5773502691892924,
+        -0.5773502691892924,
+        -0.5773502691892924
+      ],
+      "port_tip_u_mm": [
+        -137.74722325027452,
+        37.74722325027451,
+        37.74722325027451
+      ],
+      "port_tip_v_mm": [
+        -58.299410119596075,
+        -41.700589880403925,
+        -41.700589880403925
+      ]
+    },
+    {
+      "u": 4,
+      "v": 9,
+      "u_sublattice": "B",
+      "v_sublattice": "A",
+      "center_pitch_mm": 173.20508075688772,
+      "insert_length_mm": 137.60764889255228,
+      "direction_unit": [
+        0.5773502691892924,
+        -0.5773502691892924,
+        0.5773502691892924
+      ],
+      "port_tip_u_mm": [
+        -41.700589880403925,
+        -58.299410119596075,
+        -41.700589880403925
+      ],
+      "port_tip_v_mm": [
+        37.74722325027451,
+        -137.74722325027452,
+        37.74722325027451
+      ]
+    },
+    {
+      "u": 4,
+      "v": 10,
+      "u_sublattice": "B",
+      "v_sublattice": "A",
+      "center_pitch_mm": 173.20508075688772,
+      "insert_length_mm": 137.60764889255228,
+      "direction_unit": [
+        0.5773502691892924,
+        0.5773502691892924,
+        -0.5773502691892924
+      ],
+      "port_tip_u_mm": [
+        -41.700589880403925,
+        -41.700589880403925,
+        -58.299410119596075
+      ],
+      "port_tip_v_mm": [
+        37.74722325027451,
+        37.74722325027451,
+        -137.74722325027452
+      ]
+    },
+    {
+      "u": 5,
+      "v": 11,
+      "u_sublattice": "B",
+      "v_sublattice": "A",
+      "center_pitch_mm": 173.20508075688772,
+      "insert_length_mm": 137.60764889255228,
+      "direction_unit": [
+        0.5773502691892924,
+        0.5773502691892924,
+        -0.5773502691892924
+      ],
+      "port_tip_u_mm": [
+        -41.700589880403925,
+        -41.700589880403925,
+        141.70058988040392
+      ],
+      "port_tip_v_mm": [
+        37.74722325027451,
+        37.74722325027451,
+        62.25277674972549
+      ]
+    },
+    {
+      "u": 6,
+      "v": 11,
+      "u_sublattice": "B",
+      "v_sublattice": "A",
+      "center_pitch_mm": 173.20508075688772,
+      "insert_length_mm": 137.60764889255228,
+      "direction_unit": [
+        0.5773502691892924,
+        -0.5773502691892924,
+        0.5773502691892924
+      ],
+      "port_tip_u_mm": [
+        -41.700589880403925,
+        141.70058988040392,
+        -41.700589880403925
+      ],
+      "port_tip_v_mm": [
+        37.74722325027451,
+        62.25277674972549,
+        37.74722325027451
+      ]
+    },
+    {
+      "u": 8,
+      "v": 12,
+      "u_sublattice": "A",
+      "v_sublattice": "B",
+      "center_pitch_mm": 173.20508075688772,
+      "insert_length_mm": 137.60764889255228,
+      "direction_unit": [
+        0.5773502691892924,
+        0.5773502691892924,
+        0.5773502691892924
+      ],
+      "port_tip_u_mm": [
+        62.25277674972549,
+        -137.74722325027452,
+        -137.74722325027452
+      ],
+      "port_tip_v_mm": [
+        141.70058988040392,
+        -58.299410119596075,
+        -58.299410119596075
+      ]
+    },
+    {
+      "u": 9,
+      "v": 13,
+      "u_sublattice": "A",
+      "v_sublattice": "B",
+      "center_pitch_mm": 173.20508075688772,
+      "insert_length_mm": 137.60764889255228,
+      "direction_unit": [
+        0.5773502691892924,
+        0.5773502691892924,
+        0.5773502691892924
+      ],
+      "port_tip_u_mm": [
+        62.25277674972549,
+        -137.74722325027452,
+        62.25277674972549
+      ],
+      "port_tip_v_mm": [
+        141.70058988040392,
+        -58.299410119596075,
+        141.70058988040392
+      ]
+    },
+    {
+      "u": 10,
+      "v": 14,
+      "u_sublattice": "A",
+      "v_sublattice": "B",
+      "center_pitch_mm": 173.20508075688772,
+      "insert_length_mm": 137.60764889255228,
+      "direction_unit": [
+        0.5773502691892924,
+        0.5773502691892924,
+        0.5773502691892924
+      ],
+      "port_tip_u_mm": [
+        62.25277674972549,
+        62.25277674972549,
+        -137.74722325027452
+      ],
+      "port_tip_v_mm": [
+        141.70058988040392,
+        141.70058988040392,
+        -58.299410119596075
+      ]
+    },
+    {
+      "u": 11,
+      "v": 15,
+      "u_sublattice": "A",
+      "v_sublattice": "B",
+      "center_pitch_mm": 173.20508075688772,
+      "insert_length_mm": 137.60764889255228,
+      "direction_unit": [
+        0.5773502691892924,
+        0.5773502691892924,
+        0.5773502691892924
+      ],
+      "port_tip_u_mm": [
+        62.25277674972549,
+        62.25277674972549,
+        62.25277674972549
+      ],
+      "port_tip_v_mm": [
+        141.70058988040392,
+        141.70058988040392,
+        141.70058988040392
+      ]
+    },
+    {
+      "u": 11,
+      "v": 12,
+      "u_sublattice": "A",
+      "v_sublattice": "B",
+      "center_pitch_mm": 173.20508075688772,
+      "insert_length_mm": 137.60764889255228,
+      "direction_unit": [
+        0.5773502691892924,
+        -0.5773502691892924,
+        -0.5773502691892924
+      ],
+      "port_tip_u_mm": [
+        62.25277674972549,
+        37.74722325027451,
+        37.74722325027451
+      ],
+      "port_tip_v_mm": [
+        141.70058988040392,
+        -41.700589880403925,
+        -41.700589880403925
+      ]
+    }
+  ],
+  "canonical_port_hats_A": [
+    [
+      0.5773502691890484,
+      0.5773502691890484,
+      0.5773502691890484
+    ],
+    [
+      0.5773502691896258,
+      -0.5773502691896258,
+      -0.5773502691896258
+    ],
+    [
+      -0.5773502691896258,
+      0.5773502691896258,
+      -0.5773502691896258
+    ],
+    [
+      -0.5773502691896258,
+      -0.5773502691896258,
+      0.5773502691896258
+    ]
+  ]
+}
