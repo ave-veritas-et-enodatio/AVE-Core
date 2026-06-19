@@ -160,7 +160,31 @@ The two sublattice TANKS (the bipartite A/B sublattices of the $I4_1 32$ chiral 
 
 > **Do NOT call it "gyrator."** The reciprocal optical-activity **gyrator** ([def-0pt1ac](../../common/vocabulary-register.md) — the lossless reciprocal-Faraday polarization-plane rotator, $\pm75.46°$/unit) is a DIFFERENT element; "circulator" is reserved here for the non-reciprocal inter-tank coupling. The chiral circulator is also DISTINCT from the **per-particle** $S_{LR}\ne S_{RL}^*$ winding non-reciprocity (`cvr_model.py:242`), which is a single-instance scattering asymmetry of one bound resonator, not the inter-sublattice-tank coupling. (`open_ambiguity:true`, conflicting sites recorded in def-ch1crc.)
 
-#### 6.4 The M, J, Q honest map (refuted bijection)
+#### 6.4 The $\mathcal{M}$, $\mathcal{J}$, $\mathcal{Q}$ honest map (refuted bijection)
+
+A seductive reading says the three boundary observables $\mathcal{M},\mathcal{J},\mathcal{Q}$ map one-to-one onto the three wave channels ("3 hairs = 3 channels"). **That clean bijection is REFUTED.** The honest structure is:
+
+**HONEST map (what the corpus supports):**
+
+| Observable | Where it lives | Channel | Note |
+|---|---|---|---|
+| $\mathcal{M}$ (mass) | bulk / A1 dilatation | $Z_{\mathrm{bulk}}$ | **FORCED** — three leaves converge ($m_e$=ground-state cutoff energy; the MASS-"3") |
+| $\mathcal{J}$ (spin) | micropolar / Cosserat | (shear sector) | $\mathcal{J}$=FM-kink spin-½ |
+| $\mathcal{Q}$ (charge) | micropolar / Cosserat | (shear sector) | $\mathcal{Q}$=Beltrami helicity |
+| EM | matched radiative PORT | $Z_{\mathrm{EM}}$ | $\Gamma_{\mathrm{EM}}=0$ — **not a hair-sector** |
+
+$\mathcal{J}$ and $\mathcal{Q}$ **CO-LOCATE in ONE sector** (the micropolar/Cosserat $(2,3)$ micro-rotation — the CHARGE-"3" of §6.1) — they are not two separate channels. EM is the matched radiative port (how the interior couples to the far field), not a fourth observable's home.
+
+**REFUTED — the clean "3 hairs = 3 channels" bijection.** The evidence is that **two independent triples** exist and **NO leaf cross-identifies them**:
+
+1. The **Stokes-dimension triple** (3D volume / 2D surface / 1D line $=\mathcal{M}/\mathcal{J}/\mathcal{Q}$) at [`boundary-observables-m-q-j.md`](../../common/boundary-observables-m-q-j.md):19-23.
+2. The **wave-channel triple** (EM / shear / bulk) at [`three-channel-impedances.md`](../ch4-dc-electrical-characteristics/three-channel-impedances.md):20-22.
+
+These are **TWO INDEPENDENT AXES**. The Stokes axis counts integration dimensionalities of boundary integrals; the wave-channel axis counts substrate grades' wave impedances. No canonical leaf identifies "the 2D-surface observable" WITH "the shear channel," etc. **Hold the Stokes-dimension axis EXPLICITLY ORTHOGONAL to the wave-channel axis.**
+
+> **Double-duty tell (register, do not resolve).** The SAME unproven Stokes-dimension triple ALSO props the $\alpha^{-1}=4\pi^3+\pi^2+\pi$ decomposition ($\Lambda_{\mathrm{vol}}\leftrightarrow\mathcal{M}$, $\Lambda_{\mathrm{surf}}\leftrightarrow\mathcal{J}$, $\Lambda_{\mathrm{line}}\leftrightarrow\mathcal{Q}$ — [`boundary-observables-m-q-j.md`](../../common/boundary-observables-m-q-j.md):59-68; [`theorem-3-1-q-factor.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md):105). With $\alpha$ adjudicated **echo at the value level** ([`theorem-3-1-q-factor.md`](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md):19), this Stokes triple is doing **double duty** — propping both the M/J/Q catalog and the $\alpha$-decomposition. That is a coincidence-magnet tell, not a confirmation. Registered, not resolved.
+
+**$\Omega_{\mathrm{freeze}}$ is NOT a 4th hair — it is the global operating-point BIAS** (it sets $u_0^*$). Tagged **NOT-CLOSED**: the chain is a **back-fit** ($\alpha, G \to u_0^*$, the B2 re-scope), NOT a forward $\Omega_{\mathrm{freeze}}\to Q$ derivation; and the $\Omega_{\mathrm{freeze}}\leftrightarrow$electron-spin link is **research-only**. $\Omega_{\mathrm{freeze}}$ ties to $\mathcal{J}$ only at COSMIC scale ($\Omega_{\mathrm{freeze}}=\mathcal{J}_{\mathrm{cosmic}}/I_{\mathrm{cosmic}}$, [`boundary-observables-m-q-j.md`](../../common/boundary-observables-m-q-j.md):97), not at electron scale.
 
 #### 6.5 Forks and open gates
 
