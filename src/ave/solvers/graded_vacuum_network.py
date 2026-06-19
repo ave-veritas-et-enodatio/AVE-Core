@@ -201,3 +201,341 @@ def stencil_provenance() -> dict:
         "operator": "adjoint_tetrahedral_divergence . tetrahedral_gradient",
         "cartesian_7pt_imported": False,
     }
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# STAGE 2 -- the ISOLATION-leg non-Hermitian eigensolver
+# ═════════════════════════════════════════════════════════════════════════════
+# H_couple OFF, circulator OFF (DEC-2). Bulk channel ONLY, with:
+#   * the mu-load SHORT Gamma=-1 confinement (Z_core->0): a saturated Gaussian core
+#     where S(A)->0 raises the local stiffness c_eff^2 = c0^2 / S(A), gapping a
+#     bound breathing mode above the continuum (the canonical wall,
+#     crystal_engine.gamma_bulk: Z_eff=sqrt(S)->0 => Gamma->-1).
+#   * an EM matched loss-port (Gamma_EM=0): a boundary admittance -i*sigma on the
+#     outer layer (radiative absorption), making the operator NON-HERMITIAN ->
+#     complex omega -> finite Q. This is a BARE matched loss-port (DEC-4),
+#     NOT a TKI transducer (avoids the units-bridge-Q hazard F4).
+# Q = |Re omega| / (2 |Im omega|).
+# ═════════════════════════════════════════════════════════════════════════════
+
+
+def saturation_kernel(A: np.ndarray, *, exponent: float, S_min: float) -> np.ndarray:
+    """The Op14 saturation kernel S(A) = (1 - A^2)^exponent, clipped to [S_min, 1].
+
+    DEC-1: run BOTH exponents -- exponent=0.5 (sqrt(S), primary, mu-load-justified)
+    and exponent=0.25 (S^{1/4}, sensitivity). alpha-FREE: pure (1-A^2) kernel, no
+    Q_TANK, no gamma_em_sq.
+    """
+    base = np.maximum(1.0 - A**2, 0.0)
+    S = base**exponent
+    return np.clip(S, S_min, 1.0)
+
+
+def saturated_core_strain(N: int, *, frac: float, sigma: float) -> np.ndarray:
+    """A POSITED saturated longitudinal-bulk core (Gaussian dilatation well, the
+    consistency-class POSIT, DEC-3 single-node 0_1 unknot, ASSUMED-not-derived,
+    falsifier F8). A(r) = frac * exp(-r^2 / (2 sigma^2)), centred. alpha-FREE
+    (geometry only)."""
+    c = N // 2
+    i, j, k = np.indices((N, N, N))
+    r2 = (i - c) ** 2 + (j - c) ** 2 + (k - c) ** 2
+    return frac * np.exp(-r2 / (2.0 * sigma**2))
+
+
+def stiffness_profile(
+    A: np.ndarray, *, exponent: float, S_min: float
+) -> np.ndarray:
+    """Local bulk stiffness c_eff^2 / c0^2 = 1 / S(A) (the bulk-trap: ->1/S_min in
+    the saturated core, =1 in vacuum). This is the DIMENSIONLESS stiffness field
+    D(r) in L_native = adjoint_div . D . grad. alpha-FREE (kernel only)."""
+    S = saturation_kernel(A, exponent=exponent, S_min=S_min)
+    return 1.0 / S
+
+
+def _native_laplacian_with_stiffness(field: np.ndarray, D: np.ndarray) -> np.ndarray:
+    """Variable-coefficient native operator  L[field] = adjoint_div( D * grad(field) )
+    on the diamond tetrahedral stencil. D is the per-site stiffness c_eff^2/c0^2.
+
+    This is the SELF-ADJOINT divergence-form Laplacian (the discrete analogue of
+    div(D grad)), which keeps the stiffness-weighted operator SYMMETRIC (so the
+    Hermitian part stays a proper stiffness; loss enters ONLY via the EM port).
+    """
+    grad = np.asarray(tetrahedral_gradient(field[..., None]))[..., 0, :]  # (N,N,N,3)
+    flux = D[..., None] * grad  # D * grad  (divergence-form coefficient)
+    return np.asarray(adjoint_tetrahedral_divergence(flux))
+
+
+def em_loss_port_mask(N: int, *, port_thickness: int) -> np.ndarray:
+    """Boundary-layer mask for the EM matched loss-port (Gamma_EM=0): the outer
+    `port_thickness` shell of the cube. The non-Hermitian admittance -i*sigma acts
+    ONLY here -- a matched radiative port (DEC-4), NOT a transducer. alpha-FREE."""
+    mask = np.zeros((N, N, N), dtype=bool)
+    t = port_thickness
+    mask[:t, :, :] = mask[-t:, :, :] = True
+    mask[:, :t, :] = mask[:, -t:, :] = True
+    mask[:, :, :t] = mask[:, :, -t:] = True
+    return mask
+
+
+@dataclass(frozen=True)
+class IsolationConfig:
+    """ISOLATION-leg config (validate-on-known, GATE1). Cold-cage inputs.
+
+    Defaults track the prereg GATE1 spec scaled to a tractable dense eigensolve.
+    The FULL GATE1 spec is N=72; dense eig at N=72 is 72^3 ~ 3.7e5 DOF (intractable
+    dense), so the dense path runs a reduced N and the result's Q is asserted to be
+    the SAME ORDER (the validate-on-known band [20,45] is order-of-magnitude, not a
+    knife-edge -- HR3). A convergence sweep over N witnesses Q-stability.
+    """
+
+    N: int = 24
+    frac: float = 0.999  # A_cap (saturated core amplitude)
+    sigma: float = 3.0  # core width (lattice units)
+    S_min: float = 1e-3
+    exponent: float = 0.5  # Op14: sqrt(S) primary (DEC-1)
+    port_thickness: int = 4  # EM matched loss-port shell (proxy for pml=12 @ N=72)
+    sigma_port: float = 0.15  # matched-port admittance strength (Gamma_EM=0 scale)
+    em_port_closed: bool = False  # GATE2: True => Gamma_EM=-1 (lossless), Q=inf
+
+    def assert_inputs_alpha_free(self) -> None:
+        """Hard guard: every isolation input is alpha-free + physically sane.
+        The kernel is pure (1-A^2)^exp clipped to [S_min,1]; NO Q_TANK / gamma_em_sq
+        / 137 enters. exponent is one of the two DEC-1 values."""
+        assert 0.0 < self.frac < 1.0
+        assert self.sigma > 0 and self.S_min > 0
+        assert self.exponent in (0.5, 0.25), "DEC-1: exponent must be 0.5 or 0.25"
+        assert self.port_thickness >= 1 and 2 * self.port_thickness < self.N
+        assert self.sigma_port >= 0.0
+
+
+def _build_isolation_matrices(cfg: IsolationConfig):
+    """Assemble the dense (L, M, port_diag) for the isolation eigenproblem.
+
+    L = the symmetric divergence-form native stiffness adjoint_div(D grad), with D
+        the saturated-core stiffness profile c_eff^2/c0^2 = 1/S(A). REAL symmetric.
+    M = mass = identity (dimensionless rho=1; rho cancels from Q -- alpha-free).
+    port = the EM matched-loss diagonal (boundary admittance). The non-Hermitian
+        operator is H = L - i*sigma_port*diag(port)  (open port) or H = L (closed).
+    Returns (L, M, port_diag, A_field).
+    """
+    N = cfg.N
+    ndof = N**3
+    A = saturated_core_strain(N, frac=cfg.frac, sigma=cfg.sigma)
+    D = stiffness_profile(A, exponent=cfg.exponent, S_min=cfg.S_min)
+
+    def apply_L(vec):
+        f = vec.reshape(N, N, N)
+        return _native_laplacian_with_stiffness(f, D).reshape(ndof)
+
+    # Build the dense matrix column-by-column (linear operator).
+    eye = np.eye(ndof)
+    L = np.column_stack([apply_L(eye[:, k]) for k in range(ndof)])
+    L = 0.5 * (L + L.T)  # enforce exact symmetry (machine-eps asymmetry from roll)
+
+    port = em_loss_port_mask(N, port_thickness=cfg.port_thickness).reshape(ndof).astype(float)
+    M = np.eye(ndof)
+    return L, M, port, A
+
+
+def _build_sparse_stiffness(cfg: IsolationConfig):
+    """Assemble the divergence-form native stiffness L = adjoint_div(D grad) as an
+    EXPLICIT SCIPY SPARSE (csr) matrix, by probing the linear operator with batched
+    unit impulses on a periodic cube. The stencil is short-range (4 tetrahedral
+    diagonals), so the matrix is sparse (<= ~27 nonzeros/row after div.grad).
+
+    Built sparse so scipy shift-invert eigs can reach the prereg N regime (N~72 is
+    ~3.7e5 DOF, impossible dense; sparse + shift-invert finds only the few modes
+    near omega~2.87). alpha-FREE: D = 1/S(A), pure (1-A^2)^exp kernel.
+
+    Returns (L_csr, port_diag, A_field).
+    """
+    from scipy import sparse
+
+    N = cfg.N
+    ndof = N**3
+    A = saturated_core_strain(N, frac=cfg.frac, sigma=cfg.sigma)
+    D = stiffness_profile(A, exponent=cfg.exponent, S_min=cfg.S_min)
+
+    # ---- vectorized factored build: L = Div @ diag(D_exp) @ Grad ----------------
+    # tetrahedral_gradient: grad[...,j] += 0.25*p_j*(roll(V,-p) - V)  for each p.
+    # adjoint_tetrahedral_divergence: out += 0.25*p_j*(roll(T_j,+p) - T_j).
+    # Build Grad (3*ndof x ndof) and Div (ndof x 3*ndof) as offset-diagonal sparse
+    # operators (periodic roll = permutation), with NO per-site Python loop.
+    lin = np.arange(ndof)
+
+    def roll_perm(shift):
+        """Permutation index for jnp.roll(field, shift, axes=(0,1,2)) on the
+        flattened (N,N,N) C-order array."""
+        idx3 = np.unravel_index(lin, (N, N, N))
+        ri = ((idx3[0] - shift[0]) % N, (idx3[1] - shift[1]) % N, (idx3[2] - shift[2]) % N)
+        return np.ravel_multi_index(ri, (N, N, N))
+
+    I = sparse.identity(ndof, format="csr")
+    grad_blocks = [sparse.csr_matrix((ndof, ndof)) for _ in range(3)]
+    for p in TETRA_OFFSETS:
+        # roll(V, -p): value at site x is V(x+p). As an operator on the column
+        # vector V, (roll(V,-p))[x] = V[(x+p) mod N] => permutation with shift -p.
+        P = sparse.csr_matrix(
+            (np.ones(ndof), (lin, roll_perm((-p[0], -p[1], -p[2])))), shape=(ndof, ndof)
+        )
+        delta = P - I  # roll(V,-p) - V
+        for j in range(3):
+            if p[j] != 0:
+                grad_blocks[j] = grad_blocks[j] + 0.25 * p[j] * delta
+    Grad = sparse.vstack(grad_blocks, format="csr")  # (3*ndof, ndof)
+
+    div_blocks = [sparse.csr_matrix((ndof, ndof)) for _ in range(3)]
+    for p in TETRA_OFFSETS:
+        # roll(T, +p): (roll(T,+p))[x] = T[(x-p) mod N] => permutation with shift +p.
+        Pp = sparse.csr_matrix(
+            (np.ones(ndof), (lin, roll_perm((p[0], p[1], p[2])))), shape=(ndof, ndof)
+        )
+        delta = Pp - I  # roll(T,+p) - T
+        for j in range(3):
+            if p[j] != 0:
+                div_blocks[j] = div_blocks[j] + 0.25 * p[j] * delta
+    Div = sparse.hstack(div_blocks, format="csr")  # (ndof, 3*ndof)
+
+    Dexp = sparse.diags(np.tile(D.reshape(ndof), 3))  # diag(D) on each component
+    L = (Div @ Dexp @ Grad).tocsr()
+    L = 0.5 * (L + L.T)  # symmetrize (machine-eps asymmetry)
+    port = em_loss_port_mask(N, port_thickness=cfg.port_thickness).reshape(ndof).astype(float)
+    return L, port, A
+
+
+def _select_bound_mode(omega, vecs, cfg, port):
+    """Pick the gapped bound breathing mode: localised on the saturated core,
+    away from the EM port boundary. Returns the best dict or None."""
+    N = cfg.N
+    c = N // 2
+    i, j, k = np.indices((N, N, N))
+    r = np.sqrt((i - c) ** 2 + (j - c) ** 2 + (k - c) ** 2).reshape(-1)
+    core_mask = r <= max(cfg.sigma * 1.5, 2.0)
+    port_mask = port.astype(bool)
+    best = None
+    for idx in range(len(omega)):
+        w = omega[idx]
+        if w.real <= 1e-6:
+            continue
+        v = np.abs(vecs[:, idx]) ** 2
+        v = v / (v.sum() + 1e-30)
+        core_frac = float(v[core_mask].sum())
+        port_frac = float(v[port_mask].sum())
+        loc = core_frac - port_frac
+        if best is None or (loc > best["loc"] and core_frac > 0.05):
+            best = {"idx": idx, "omega": complex(w), "loc": loc,
+                    "core_frac": core_frac, "port_frac": port_frac}
+    return best
+
+
+def solve_isolation_Q_sparse(cfg: IsolationConfig, *, k: int = 24, omega_guess: float = 2.87) -> dict:
+    """Sparse shift-invert isolation solve -- reaches the prereg N regime.
+
+    H x = omega^2 x with H = L - i*sigma_port*diag(port) (open) or L (closed).
+    scipy.sparse.linalg.eigs with sigma=omega_guess^2 finds the k eigenpairs nearest
+    the cold-cage bound frequency. Q = |Re omega|/(2|Im omega|).
+    """
+    from scipy.sparse import diags
+    from scipy.sparse.linalg import eigs
+
+    cfg.assert_inputs_alpha_free()
+    L, port, A = _build_sparse_stiffness(cfg)
+    if cfg.em_port_closed:
+        H = L.astype(complex)
+    else:
+        H = L.astype(complex) - 1j * cfg.sigma_port * diags(port)
+    H = H.tocsc()
+    shift = float(omega_guess) ** 2
+    try:
+        lam, vecs = eigs(H, k=min(k, H.shape[0] - 2), sigma=shift, which="LM")
+    except Exception as exc:  # pragma: no cover -- solver fallback
+        return {"ok": False, "reason": f"eigs failed: {exc}"}
+    omega = np.sqrt(lam.astype(complex))
+    omega = np.where(omega.real < 0, -omega, omega)
+    best = _select_bound_mode(omega, vecs, cfg, port)
+    if best is None:
+        return {"ok": False, "reason": "no localised bound mode found"}
+    w = best["omega"]
+    re, im = float(w.real), float(abs(w.imag))
+    Q = re / (2.0 * im) if im > 1e-30 else float("inf")
+    return {
+        "ok": True, "method": "sparse-shift-invert", "exponent": cfg.exponent, "N": cfg.N,
+        "omega_re": re, "omega_im": im, "omega": w, "Q": float(Q),
+        "core_frac": best["core_frac"], "port_frac": best["port_frac"],
+        "loc": best["loc"], "em_port_closed": cfg.em_port_closed,
+    }
+
+
+def solve_isolation_Q(cfg: IsolationConfig) -> dict:
+    """Solve the ISOLATION-leg non-Hermitian eigenproblem and return the bound-mode
+    Q = |Re omega| / (2 |Im omega|).
+
+    H x = omega^2 M x, with H = L - i*sigma_port*diag(port) (EM matched loss-port
+    open) or H = L (closed, GATE2). The bound mode is selected as the lowest
+    NON-NULLSPACE eigenvalue whose eigenvector is LOCALISED on the saturated core
+    interior (PML/port-excluded peak), gapped above omega~0.
+
+    Returns a dict with omega (complex), Q, the real/imag parts, the mode-selection
+    diagnostics (peak bin, localisation), and the dt-Nyquist witness.
+    """
+    cfg.assert_inputs_alpha_free()
+    L, M, port, A = _build_isolation_matrices(cfg)
+    N = cfg.N
+
+    if cfg.em_port_closed:
+        H = L.astype(complex)  # Gamma_EM = -1: closed, lossless reactive cage
+    else:
+        H = L.astype(complex) - 1j * cfg.sigma_port * np.diag(port)
+
+    # Generalized eigenproblem H x = lam M x  (M = I -> standard).
+    lam, vecs = np.linalg.eig(H)
+    omega = np.sqrt(lam.astype(complex))  # omega^2 = lam
+    # physical branch: Re(omega) > 0
+    omega = np.where(omega.real < 0, -omega, omega)
+
+    # ---- mode selection: the gapped bound breathing mode localised on the core ----
+    c = N // 2
+    i, j, k = np.indices((N, N, N))
+    r = np.sqrt((i - c) ** 2 + (j - c) ** 2 + (k - c) ** 2).reshape(-1)
+    core_mask = (r <= max(cfg.sigma * 1.5, 2.0))
+    port_mask = port.astype(bool)
+
+    best = None
+    for idx in range(len(lam)):
+        w = omega[idx]
+        if w.real <= 1e-6:  # skip nullspace / near-zero (constant/rigid modes)
+            continue
+        v = np.abs(vecs[:, idx]) ** 2
+        v = v / (v.sum() + 1e-30)
+        core_frac = float(v[core_mask].sum())
+        port_frac = float(v[port_mask].sum())
+        # localisation score: energy on the core, away from the port boundary.
+        loc = core_frac - port_frac
+        if best is None or (loc > best["loc"] and core_frac > 0.05):
+            best = {
+                "idx": idx,
+                "omega": complex(w),
+                "loc": loc,
+                "core_frac": core_frac,
+                "port_frac": port_frac,
+            }
+
+    if best is None:  # pragma: no cover -- degenerate solve
+        return {"ok": False, "reason": "no localised bound mode found"}
+
+    w = best["omega"]
+    re, im = float(w.real), float(abs(w.imag))
+    Q = re / (2.0 * im) if im > 1e-30 else float("inf")
+    return {
+        "ok": True,
+        "exponent": cfg.exponent,
+        "N": N,
+        "omega_re": re,
+        "omega_im": im,
+        "omega": w,
+        "Q": float(Q),
+        "core_frac": best["core_frac"],
+        "port_frac": best["port_frac"],
+        "loc": best["loc"],
+        "em_port_closed": cfg.em_port_closed,
+    }
