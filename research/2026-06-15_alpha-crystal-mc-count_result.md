@@ -1,7 +1,7 @@
 # Result — Exact Maxwell–Calladine constraint count of α on the achiral diamond K4 crystal
 
 **Date:** 2026-06-15 · **Lane:** α (Lane 1, crystalline pivot) · **Status: COMPLETE**
-**Prereg (FROZEN, Rule-11):** [`2026-06-15_alpha-crystal-mc-count_prereg_FROZEN.md`](2026-06-15_alpha-crystal-mc-count_prereg_FROZEN.md) (on branch `analysis/2026-06-15-alpha-crn-flip-test`)
+**Prereg (FROZEN, Rule-11):** `2026-06-15_alpha-crystal-mc-count_prereg_FROZEN.md` — **OFF-CORPUS (referential-integrity note, 2026-06-19):** this FROZEN prereg lives only on the now-deleted branch `analysis/2026-06-15-alpha-crn-flip-test` (no remote, not on `main`), so the link cannot resolve on-corpus. The load-bearing falsifier-bins this result was judged against are **stated inline below** (see "Bin classification" §, the parenthetical *"Bin D condition (frozen): z_eff ≈ additive 16 (→49 only via circular EMT), OR the only map to 137 is 8πα"* at the head of this doc) — referential integrity is preserved by the inline bin-set, no on-branch lookup required. Verdict assignment (Bin D — ECHO, both disjuncts satisfied) is self-contained in this doc.
 **Driver:** [`src/scripts/vol_1_foundations/alpha_crystal_mc_count.py`](../src/scripts/vol_1_foundations/alpha_crystal_mc_count.py)
 **Raw output:** `src/scripts/vol_1_foundations/alpha_crystal_mc_count_results.json`
 
