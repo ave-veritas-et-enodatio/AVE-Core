@@ -48,7 +48,7 @@ Vol 9 is a **synthesis volume**: no chapter contains a primary substrate-physics
 | 15 | [Falsification Tests](ch15-falsification-tests/index.md) | Vol 4 Ch 11 experimental programme; kill-switch tests |
 | 16 | [Cross-Volume Reference Index](ch16-cross-volume-reference/index.md) | Auto-generated parameter → derivation map |
 | 17 | [Engine Requirements for Faithful Simulation](ch17-engine-requirements/index.md) | Datasheet read as a simulator spec; per-line requirement ← documented engine-failure lesson |
-| 18 | [Experimental Prints](ch18-experimental-prints/index.md) | Topology laboratory exercises; DIY K4 kit; [RENDERING] mnemonic scale 38.6 mm/$\ell_{node}$ |
+| 18 | [Experimental Prints](ch18-experimental-prints/index.md) | Topology laboratory exercises; DIY K4 kit; [RENDERING] default print pitch 100 mm/$\ell_{node}$ (corpus-mnemonic reference 38.6 mm/$\ell_{node}$) |
 
 ## Multi-PR sequencing
 

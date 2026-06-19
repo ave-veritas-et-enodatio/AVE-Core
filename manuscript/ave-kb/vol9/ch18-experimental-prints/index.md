@@ -40,6 +40,8 @@ Three repeatable molds + JSON manifest (`assets/3d_models/kit/`):
 | Diamond TL bond insert | `vacuum_tl_bond_diamond.stl` | 14 |
 | Assembly manifest | `vacuum_assembly_L4.json` | 1 |
 
+**A/B = bipartite sublattice, not a DOF split.** Type-A / Type-B is the diamond **bipartite sublattice** (and the print's shape / port-orientation key), **not** a partition of the substrate's degrees of freedom. Per Axiom 1 (Ch.~9: 6 DOF per K4 node = 3 translational $\to \mathbf{E}$ *and* 3 microrotational $\to \mathbf{B}$), **every** node is a full LC oscillator carrying all six DOF — both the $\varepsilon_0$ E-store and the $\mu_0$ B-store. The `_capacitive` (A) / `_inductive` (B) tags are an **E-vs-B emphasis mnemonic** giving the two bodies a distinguishable shape (cube vs sphere+ring) for hand assembly; they do **not** mean an A node stores only $\mathbf{E}$ or a B node stores only $\mathbf{B}$.
+
 Bond centre pitch $= \sqrt{3}\,\times$ (mm per $\ell_{node}$); insert length fits port-collar mouths on an A--B pair.
 
 **Friction-fit joinery (kit v1).** Hexagonal port collars with **hollow socket bores** (watertight boolean mesh). Bond OD matches socket inner flat-to-flat; uniform solid hex along insert length. Default radial clearance: **0.05 mm/side** (`KIT_FRICTION_INTERFERENCE_MM` env). Regenerate after tuning.

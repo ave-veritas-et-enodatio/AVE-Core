@@ -8,7 +8,7 @@
 \begin{itemize}
     \item Register the Vol.~9 \textbf{topology laboratory exercise} track: hands-on assembly of engine-isomorphic diamond K4 exports, distinct from Ch.~\ref{ch:vol9_falsification_tests} bench falsifiers and Ch.~\ref{ch:vol9_engine_requirements} simulator requirements.
     \item State the epistemic class: \textbf{identity-class consistency} on discrete graph topology (\texttt{consistency-vs-emergence} v1.3); \textbf{[RENDERING]} absolute scale per \kbleaf{assets/3d\_models/ACCURATE\_SCALING.md}.
-    \item Document the DIY kit SKU (Type-A / Type-B node molds, diamond TL bond insert, JSON assembly manifest), driver scripts, and default corpus-mnemonic print pitch $38.6\,\mathrm{mm}$ per $\ell_{node}$ ($386\,\mathrm{fm} \to 38.6\,\mathrm{mm}$ label).
+    \item Document the DIY kit SKU (Type-A / Type-B node molds, diamond TL bond insert, JSON assembly manifest), driver scripts, the default print pitch $100\,\mathrm{mm}$ per $\ell_{node}$ (FDM-friendly; what the shipped driver produces), and the separate corpus-mnemonic reference scale $38.6\,\mathrm{mm}$ per $\ell_{node}$ ($386\,\mathrm{fm} \to 38.6\,\mathrm{mm}$ digit tie; too fine for most FDM).
     \item Publish Laboratory Exercises L-EP1 (kit assembly) and L-EP2 (monolith vs kit) with explicit pass criteria tied to \texttt{build\_diamond\_net}.
 \end{itemize}
 \end{objectivebox}
@@ -35,11 +35,11 @@ The preceding chapters characterize the vacuum cell in datasheet and simulator-s
 \toprule
 \textbf{Preset} & \textbf{mm / $\ell_{node}$} & \textbf{Use} \\
 \midrule
-Corpus mnemonic (kit default) & 38.6 & $386\,\mathrm{fm} \to 38.6\,\mathrm{mm}$ digit tie; FDM-friendly port collars \\
-Monolith reference & 25 & Prior Prusa-scale full-chunk exports \\
-Larger assembly & 40 & Extended macro kit (optional env override) \\
+Kit default (FDM print pitch) & 100 & Shipped \texttt{KIT\_PRINT\_MM\_PER\_L\_NODE} default; $\sim 10.4\,\mathrm{mm}$ collar flat-to-flat; Prusa MK3+ \\
+Compact kit & 60 & Smaller print (optional env override; $\sim 3.8\,\mathrm{mm}$ port OD) \\
+Corpus-mnemonic reference & 38.6 & $386\,\mathrm{fm} \to 38.6\,\mathrm{mm}$ digit tie; \emph{reference label only}, too fine for most FDM (not the print default) \\
 \midrule
-\multicolumn{3}{@{}p{0.92\linewidth}@{}}{\textbf{Magnification.} At $38.6\,\mathrm{mm}/\ell_{node}$, linear magnification vs physical $\ell_{node}$ is $\sim 10^{11}$. The mnemonic preserves \emph{numbers}, not femtometre physics. Sub-node bodies ($D_p \ll \ell_{node}$) remain unresolvable in any print tier.} \\
+\multicolumn{3}{@{}p{0.92\linewidth}@{}}{\textbf{Magnification.} Even at the corpus-mnemonic $38.6\,\mathrm{mm}/\ell_{node}$ reference scale, linear magnification vs physical $\ell_{node}$ is $\sim 10^{11}$ (larger still at the $100\,\mathrm{mm}$ print default). The mnemonic preserves \emph{numbers}, not femtometre physics. Sub-node bodies ($D_p \ll \ell_{node}$) remain unresolvable in any print tier.} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -57,6 +57,8 @@ Repeatable molds live under \texttt{assets/3d\_models/kit/}:
     \item \textbf{Diamond TL bond insert} --- \texttt{vacuum\_tl\_bond\_diamond.stl}: straight corridor between port collars (not centre-to-centre tubes).
     \item \textbf{Assembly manifest} --- \texttt{vacuum\_assembly\_L\{L\}.json}: node coordinates, sublattice labels, bond list, print counts, joinery dimensions.
 \end{itemize}
+
+\textbf{A/B is the bipartite sublattice, not a DOF split.} The Type-A / Type-B distinction is the \textbf{diamond bipartite sublattice} (and the print's port-orientation / shape key for assembly), \emph{not} a partition of the substrate's degrees of freedom. Per Axiom~1 (Ch.~\ref{ch:vol9_mechanical_characteristics}: 6~DOF per K4 node = 3 translational $\to$ $\mathbf{E}$ \emph{and} 3 microrotational $\to$ $\mathbf{B}$), \textbf{every} node is a full LC oscillator carrying all six DOF --- both the $\varepsilon_0$ E-store and the $\mu_0$ B-store. The \emph{capacitive} (Type-A) / \emph{inductive} (Type-B) tags in the filenames and the EE-map labels above are an \textbf{E-vs-B emphasis mnemonic} that gives the two print bodies a visually distinguishable shape (solid cube vs sphere+L-ring) for hand assembly; they do \textbf{not} mean a Type-A node stores only $\mathbf{E}$ or a Type-B node stores only $\mathbf{B}$.
 
 Monolithic reference meshes (single-file preview):
 \begin{itemize}
@@ -81,7 +83,7 @@ Optional particle snap-ins are \textbf{topology demos only} (\kbleaf{assets/3d\_
 \texttt{generate\_vacuum\_lattice\_stl.py} & Tube-network previews, unit-cell excerpts \\
 \texttt{vacuum\_lc\_geometry.py} & Shared cell / bond mesh module \\
 \midrule
-\multicolumn{2}{@{}p{0.92\linewidth}@{}}{Environment: \texttt{PRINT\_MM\_PER\_L\_NODE} (kit default 38.6), \texttt{ASSEMBLY\_L} (default 16). Invoke with \texttt{PYTHONPATH=src} from repo root.} \\
+\multicolumn{2}{@{}p{0.92\linewidth}@{}}{Environment: \texttt{KIT\_PRINT\_MM\_PER\_L\_NODE} (kit default 100; $38.6$ is the corpus-mnemonic reference, not the default), \texttt{ASSEMBLY\_L} (default 4; full chunk 16). Invoke with \texttt{PYTHONPATH=src} from repo root.} \\
 \bottomrule
 \end{tabular}
 \end{table}

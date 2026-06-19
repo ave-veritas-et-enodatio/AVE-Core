@@ -26,6 +26,8 @@ For the full L=16 chunk (512+512+1688 parts), regenerate with `ASSEMBLY_L=16`.
 | `vacuum_kit_demo_one_bond_assembly.stl` | **Reference only** — one A+B+bond mated |
 | `vacuum_assembly_L{L}.json` | Node positions + bond list for assembly |
 
+**A/B = bipartite sublattice, not a DOF split.** Type-A vs Type-B is the diamond bipartite sublattice (and the print's shape/port-orientation key for assembly), **not** a partition of the substrate's degrees of freedom. Per Axiom 1 (Vol 9 Ch 9: 6 DOF per K4 node = 3 translational → **E** *and* 3 microrotational → **B**), **every** node is a full LC oscillator carrying all six DOF — both the ε₀ E-store and the μ₀ B-store. The `_capacitive` (A) / `_inductive` (B) tags in the filenames are an **E-vs-B emphasis mnemonic** that gives the two bodies a distinguishable shape (solid cube vs sphere+ring) for hand assembly; they do **not** mean an A node stores only E or a B node stores only B.
+
 Default scale: **100 mm / ℓ_node** — hex joinery, ~10.4 mm collar flat-to-flat, Prusa i3 MK3+ tuned.
 
 Meshes are exported as **single watertight solids** (boolean union + bore subtraction) so socket cavities slice empty.
