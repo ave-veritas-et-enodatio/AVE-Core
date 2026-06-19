@@ -713,10 +713,13 @@ integer **1**.
 > **[Resultbox]** *Result*
 > The AVE framework is a closed Topological Effective Field Theory at
 > **Class B substrate-mechanism manifestation level** per Q-EMBED-SEL-1
-> Phase 1+2+3 (2026-05-31; see gating-clause resolution at top) — with a
-> Class 2 α lift now resting on the separate z₀-from-K4 route (both named
-> golden-torus lift-routes — selection + the phasor↔real-space area bijection —
-> closed Class B 2026-06-04) and the Layer 8 $\delta_{strain}$ magnitude a
+> Phase 1+2+3 (2026-05-31; see gating-clause resolution at top) — with all three
+> NAMED Class 2 α-lift routes now closed-negative (both golden-torus lift-routes —
+> selection + the phasor↔real-space area bijection — closed Class B 2026-06-04,
+> and the separate z₀-from-K4 rigidity-percolation route closed-NEGATIVE 2026-06-15
+> via the exact z_eff → 6 Maxwell–Calladine count, `alpha_free_map_to_137_exists = False`)
+> <!-- 🔴 Rule-12 2026-06-19 z₀-route propagation: prior wording "Class 2 α lift now resting on the separate z₀-from-K4 route" superseded — that route is now closed-NEGATIVE per research/2026-06-15_alpha-crystal-mc-count_result.md; α-value = scoped standing echo (closed on all named routes, flip-condition live, route-space not provably exhausted; Grant ratified 2026-06-18). -->
+> and the Layer 8 $\delta_{strain}$ magnitude a
 > definitional residual (Q-DELTA-MAP-1-quant CLOSED NEGATIVE, FT-1 2026-05-31).
 > Physical parameters flow exclusively
 > outward from geometric bounding limits to macroscopic observables, without
