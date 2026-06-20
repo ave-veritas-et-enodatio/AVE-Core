@@ -238,16 +238,43 @@ Integrating Equation~(\ref{eq:planck_distribution}) over all frequencies yields 
 \end{equation}
 \end{resultbox}
 
-\subsection{Verification: Baryon Asymmetry}
+\subsection{Consistency-Check: Baryon Asymmetry}
 
-The value $g_* = 85.75$ can be independently verified against the observed baryon-to-photon ratio $\eta$. Substituting into the baryon asymmetry formula with all other factors derived from AVE constants:
+% [Rule-12 walk-back, 2026-06-20] D2 KB<->tex lockstep with KB leaves
+% vol3/condensed-matter/ch11-thermodynamics/baryon-asymmetry{,-derivation}.md
+\begin{warningbox}[SUPERSEDED HEADLINE (Rule-12 walk-back, 2026-06-20)]
+\footnotesize
+The ``independently verified \dots all other factors derived from AVE
+constants \dots 0.38\% error'' framing below is \textbf{RETRACTED}. Per
+auditor \textbf{FINDING 2} (2026-06-10,
+\texttt{research/2026-06-10\_freeze-handedness-survey\_note.md:50}), the
+$\eta$ result is \textbf{consistency-class with an imported
+electroweak-baryogenesis formula} ($\alpha_W^4 C_{sph}/g_*$ scaffold is
+SM-imported), \textbf{not emergence-class --- do not headline}. Corrections:
+$g_*$ is \emph{reverse-validated} against $\eta_{obs}$, not independently
+measured, so the downstream-$\eta$ agreement is a consistency check, not an
+``independent verification'' of $g_*$; and $C_{sph} = 28/79$ is the textbook
+SM Harvey-Turner factor, so ``all other factors derived'' is false. Governing
+Vol-2 claim \texttt{clm-4vwsjc} pinned conf 0.4 / do-not-build; local
+\texttt{clm-uu6dl5} already flags the composite-consistency caveat.
+\textbf{SYMMETRIC-STANDARD:} the order-of-magnitude $\eta \sim 6\times10^{-10}$
+is peer-or-ahead of the SM (no $\eta$ at all). \textbf{Non-reproducible
+number:} $6.08\times10^{-10}$ / $0.38\%$ matches no code path; engine-canonical
+(thermal $\kappa_{FS} = 24.95$) gives $6.05\times10^{-10}$ / 0.79\%; the
+displayed cold $\pi/8\pi$ gives $6.01\times10^{-10}$ / 1.51\% (cold/thermal
+split OPEN, flag-don't-fix). Body preserved per Rule 12; displayed number
+corrected in place.
+\end{warningbox}
+
+The lattice DoF count $g_* = 85.75$ is \emph{reverse-validated} against the observed baryon-to-photon ratio $\eta$ (not independently measured). Substituting into the standard electroweak-baryogenesis formula (with the SM-imported $C_{sph} = 28/79$ and $\alpha_W^4$ riding $\alpha$):
 \begin{resultbox}{The Baryon Asymmetry}
 \begin{equation}
-    \eta = \frac{(\pi / \kappa_{FS}) \cdot \alpha_W^4 \cdot C_{sph}}{g_*} = \frac{(\pi / 8\pi) \cdot \alpha_W^4 \cdot (28/79)}{85.75} = 6.08 \times 10^{-10}
+    \eta = \frac{(\pi / \kappa_{FS}) \cdot \alpha_W^4 \cdot C_{sph}}{g_*} = \frac{(\pi / 8\pi) \cdot \alpha_W^4 \cdot (28/79)}{85.75} \approx 6.05 \times 10^{-10}
     \label{eq:baryon_asymmetry}
 \end{equation}
 \end{resultbox}
-The observed value is $\eta_{obs} = 6.1 \times 10^{-10}$ (WMAP/Planck). \textbf{Error: 0.38\%.} Using the Standard Model value $g_{*,SM} = 106.75$ yields 20\% error.
+The observed value is $\eta_{obs} = 6.1 \times 10^{-10}$ (WMAP/Planck). Order-of-magnitude consistency-check (engine-canonical thermal $\kappa_{FS}$: \textbf{0.79\%}; displayed cold-$8\pi$: 1.51\%). % [Rule-12 walk-back 2026-06-20 -- prior wording preserved]: was "= 6.08 \times 10^{-10} ... \textbf{Error: 0.38\%.}" RETRACTED per FINDING 2.
+Using the Standard Model value $g_{*,SM} = 106.75$ yields 20\% error.
 
 \section{Thermal Softening of Topological Structures}
 \label{sec:thermal_softening_thermo}

@@ -1102,7 +1102,8 @@ $\Delta > 0$ (YM mass gap) & Lattice Hamiltonian + confinement & $>0$ & --- & pr
 NS smoothness & Lattice regularization + $|u|\le c$ & global & --- & proven \\
 $\theta_{QCD}$ & Unique vacuum topology & $0$ & $<10^{-10}$ & exact \\
 $g_*$ & $7^3/4$ from $\nu_{vac}=2/7$ + K4 & 85.75 & SM: 106.75 & testable \\
-$\eta$ (baryon) & $\delta_{CP}^{B}\alpha_W^4 C_{sph}/g_*$ & $6.08\!\times\!10^{-10}$ & $6.1\!\times\!10^{-10}$ & $0.38\%$ \\
+% [Rule-12 walk-back 2026-06-20 -- prior wording preserved]: was "$\eta$ (baryon) & $\delta_{CP}^{B}\alpha_W^4 C_{sph}/g_*$ & $6.08\!\times\!10^{-10}$ & $6.1\!\times\!10^{-10}$ & $0.38\%$ \\". DEMOTED per FINDING 2: consistency-class (SM-imported EW-baryogenesis formula), not emergence-class; 6.08e-10/0.38% non-reproducible -> engine-canonical 6.05e-10/0.79%; clm-4vwsjc conf 0.4 do-not-build. See \S\ref{sec:baryon_asymmetry_derivation} box.
+$\eta$ (baryon) & $\delta_{CP}^{B}\alpha_W^4 C_{sph}/g_*$ & $6.05\!\times\!10^{-10}$ & $6.1\!\times\!10^{-10}$ & $0.79\%$ (OOM) \\
 $\alpha_s$ & $\alpha^{3/7}$ (compliance projection) & 0.1214 & 0.1179 & $2.97\%$ \\
 $m_H$ & $v/\sqrt{N_{K4}} = v/2$ & 124417 MeV & 125100 MeV & $0.55\%$ \\
 \end{longtable}
@@ -1218,8 +1219,30 @@ $\theta \ne 0$ requires a topological defect costing energy
 $E \ge \Delta > 0$ (the mass gap).  Therefore $\theta = 0$ exactly.
 No axion needed.  (Vol.~III, absorbed cross-scale verification.)
 
-\paragraph{Baryon Asymmetry: $\eta = 6.08 \times 10^{-10}$.}
+\paragraph{Baryon Asymmetry: $\eta \approx 6.05 \times 10^{-10}$ (composite OOM consistency-check).}
 \label{sec:baryon_asymmetry_derivation}
+% [Rule-12 walk-back, 2026-06-20] D2 KB<->tex lockstep with KB leaf
+% common/full-derivation-chain.md
+\begin{warningbox}[SUPERSEDED HEADLINE (Rule-12 walk-back, 2026-06-20)]
+\footnotesize
+The original ``$\eta = 6.08\times10^{-10}$ \dots Error: 0.38\%. Zero free
+parameters.'' headline is \textbf{RETRACTED}. Per auditor \textbf{FINDING 2}
+(2026-06-10, \texttt{research/2026-06-10\_freeze-handedness-survey\_note.md:50}),
+this is \textbf{consistency-class with an imported electroweak-baryogenesis
+formula} ($\alpha_W^4 C_{sph}/g_*$ scaffold is SM-imported; substrate supplies
+$\delta_{CP}$, $g_*$, $C_{sph}$ assignments), \textbf{not emergence-class ---
+do not headline}. Governing claim \texttt{clm-4vwsjc} pinned conf 0.4 /
+do-not-build. \textbf{SYMMETRIC-STANDARD:} OOM $\eta \sim 6\times10^{-10}$ is
+peer-or-ahead of the SM, which produces no $\eta$ at all (CKM CP undershoots
+$\sim$8 orders; $m_H = 125$~GeV transition is a crossover; SM needs BSM
+leptogenesis fitting $\eta$ with $\sim$10 unmeasured parameters). The OOM
+consistency survives; the sub-percent precision and ``zero free parameters''
+count are retracted. \textbf{Non-reproducible number:} $6.08\times10^{-10}$ /
+$0.38\%$ matches no code path; engine-canonical (thermal $\kappa_{FS} = 24.95$)
+gives $6.05\times10^{-10}$ / 0.79\%; cold $\pi/8\pi$ gives
+$6.01\times10^{-10}$ / 1.51\% (cold/thermal split OPEN, flag-don't-fix). Body
+preserved per Rule 12; displayed number corrected in place.
+\end{warningbox}
 The SRS/K4 lattice is chiral --- not superimposable on its mirror
 image.  The CP-violating phase entering electroweak baryogenesis (distinct from the PMNS leptonic phase $\delta_{CP}^{PMNS}$ above) is:
 \begin{equation}
@@ -1229,18 +1252,16 @@ The baryon-to-photon ratio follows from electroweak baryogenesis:
 \begin{equation}
     \eta = \frac{\delta_{CP}^{B} \cdot \alpha_W^4 \cdot C_{sph}}{g_*}
     = \frac{(\pi/8\pi) \cdot (\alpha/(2/9))^4 \cdot (28/79)}{7^3/4}
-    \approx 6.08 \times 10^{-10}
+    \approx 6.05 \times 10^{-10}
 \end{equation}
 where:
 \begin{itemize}
-    \item $\alpha_W = \alpha/\sin^2\theta_W = \alpha/(2/9)$ --- weak coupling
-    \item $C_{sph} = 28/79$ --- sphaleron conversion ($N_f = 3$ torus knots,
-          $N_H = 1$ Goldstone)
-    \item $g_* = 7^3/4 = 85.75$ --- \textbf{derived from $\nu_{vac} = 2/7$}:
-          7 modes per node, cubed for 3D, divided by 4 (K4 nodes)
+    \item $\alpha_W = \alpha/\sin^2\theta_W = \alpha/(2/9)$ --- weak coupling (rides $\alpha$, an AVE echo; dominant magnitude-setter)
+    \item $C_{sph} = 28/79$ --- \textbf{textbook SM Harvey-Turner} sphaleron conversion factor (asserted $N_f = 3$ torus knots, $N_H = 1$ Goldstone)
+    \item $g_* = 7^3/4 = 85.75$ --- identified from $\nu_{vac} = 2/7$ (7 modes per node, cubed for 3D, divided by 4 K4 nodes); \textbf{asserted/reverse-validated against $\eta_{obs}$, not independently measured}
 \end{itemize}
-Observed: $\eta_{obs} = 6.1 \times 10^{-10}$.  Error: 0.38\%.
-Zero free parameters.  (Vol.~III, absorbed cross-scale verification.)
+Observed: $\eta_{obs} = 6.1 \times 10^{-10}$. Order-of-magnitude consistency-check (engine-canonical thermal $\kappa_{FS}$: 0.79\%; displayed cold-$8\pi$: 1.51\%). % [Rule-12 walk-back 2026-06-20 -- prior wording preserved]: was "Error: 0.38\%. Zero free parameters." RETRACTED per FINDING 2; see SUPERSEDED-HEADLINE box.
+(Vol.~III, absorbed cross-scale verification.)
 
 
 %======================================================================
