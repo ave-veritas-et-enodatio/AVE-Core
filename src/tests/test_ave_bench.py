@@ -292,3 +292,67 @@ class TestApparatus:
         assert fn_safe(beta=1.0, e_gap=E_FN_SAFE_CEILING) is True
         # Above the ceiling -> unsafe.
         assert fn_safe(beta=2.0, e_gap=E_FN_SAFE_CEILING) is False
+
+
+class TestSNR:
+    """snr.py <- apd_snr_sweep.py (snr_direct / t_detection / signal-vs-floor)."""
+
+    # apd_snr_sweep reference point: signal_rate(V_yield, N=1e4) detected rate,
+    # and the SPCM-AQRH-14 dark floor (apd_snr_sweep.py:44, :181). The signal
+    # rate is a LABELED known captured from the exemplar at factoring time
+    # (confirmed bit-for-bit via the exemplar's own snr_direct/t_detection).
+    SIGNAL_REF = 17487.575495998968  # Hz, exemplar signal_rate(V_yield, 1e4)
+    DARK_FLOOR = 100.0  # Hz, exemplar DARK_RATE
+
+    def test_validate_on_known_snr_direct(self):
+        """VALIDATE-ON-KNOWN: snr_shot_noise reproduces apd_snr_sweep.snr_direct.
+
+        Same (signal, dark-floor) the exemplar uses at V_yield, N=1e4; the
+        factored SNR over t=1/0.1/60 s reproduces snr_direct bit-for-bit
+        (confirmed against the live exemplar at factoring time).
+        """
+        assert bench.snr_shot_noise(self.SIGNAL_REF, self.DARK_FLOOR, 1.0) == pytest.approx(131.8641, rel=1e-5)
+        assert bench.snr_shot_noise(self.SIGNAL_REF, self.DARK_FLOOR, 0.1) == pytest.approx(41.69909, rel=1e-5)
+        assert bench.snr_shot_noise(self.SIGNAL_REF, self.DARK_FLOOR, 60.0) == pytest.approx(1021.415, rel=1e-5)
+
+    def test_validate_on_known_time_to_5sigma(self):
+        """VALIDATE-ON-KNOWN: time_to_n_sigma reproduces apd_snr_sweep.t_detection.
+
+        t(5sigma) = sigma^2 (s+d)/s^2 at the same reference signal/floor
+        (apd_snr_sweep.py:94-95). Confirmed bit-for-bit at factoring time.
+        """
+        assert bench.time_to_n_sigma(self.SIGNAL_REF, self.DARK_FLOOR, 5.0) == pytest.approx(1.437761e-03, rel=1e-5)
+        assert bench.time_to_n_sigma(self.SIGNAL_REF, self.DARK_FLOOR, 3.0) == pytest.approx(5.175941e-04, rel=1e-5)
+
+    def test_snr_inverse_consistency(self):
+        """SNR at time_to_n_sigma(sigma) equals sigma (the inversion is exact)."""
+        for sigma in (5.0, 3.0, 1.0):
+            t = bench.time_to_n_sigma(self.SIGNAL_REF, self.DARK_FLOOR, sigma)
+            assert bench.snr_shot_noise(self.SIGNAL_REF, self.DARK_FLOOR, t) == pytest.approx(sigma, rel=1e-9)
+
+    def test_time_to_n_sigma_inf_on_zero_signal(self):
+        """Zero signal -> no detection possible -> inf (apd_snr_sweep.py:92-93)."""
+        assert bench.time_to_n_sigma(0.0, self.DARK_FLOOR, 5.0) == float("inf")
+        assert np.isinf(bench.time_to_n_sigma(0.0, 0.0, 5.0))
+
+    def test_snr_zero_total_returns_zero(self):
+        """Non-positive total counted rate -> 0.0 (apd_snr_sweep.py:86 guard)."""
+        assert bench.snr_shot_noise(0.0, 0.0, 1.0) == 0.0
+        assert bench.snr_shot_noise(5.0, 5.0, 0.0) == 0.0
+
+    def test_signal_vs_floor(self):
+        """signal/floor ratio; inf when floor <= 0 (the static margin)."""
+        assert bench.signal_vs_floor(self.SIGNAL_REF, self.DARK_FLOOR) == pytest.approx(174.8757, rel=1e-5)
+        assert np.isinf(bench.signal_vs_floor(1.0, 0.0))
+
+    def test_snr_surface_matches_pointwise(self):
+        """snr_surface[i,j] == snr_shot_noise(signals[i], floor, t[j])."""
+        from ave.bench.snr import snr_surface
+
+        signals = np.array([10.0, 100.0, 1000.0])
+        t_grid = np.logspace(-3, 1, 5)
+        surf = snr_surface(signals, self.DARK_FLOOR, t_grid)
+        assert surf.shape == (3, 5)
+        for i, s in enumerate(signals):
+            for j, t in enumerate(t_grid):
+                assert surf[i, j] == pytest.approx(bench.snr_shot_noise(float(s), self.DARK_FLOOR, float(t)))
