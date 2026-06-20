@@ -15,7 +15,7 @@ in §1.3/§5/§6.)
 
 ---
 
-## §0 — Executive summary (the SOLID / PENDING split up front)
+## §0 — Executive summary (the SOLID / RESOLVED-ECHO split up front)
 
 This doc banks the **design-level finding** the mass-sector arc has established. It was written
 in PARALLEL with the Fork-B confinement build (the empirical test of the *mechanism* leg); that
