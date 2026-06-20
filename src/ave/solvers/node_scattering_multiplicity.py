@@ -2,6 +2,10 @@
 
 Prereg: research/2026-06-20_node-scattering-containment-gate_prereg.md
         (frozen commit f87914fa, the FIRST commit of this branch).
+Result: research/2026-06-20_node-scattering-containment-gate_result.md (PR #304).
+Canonical KB home (this bedrock's source-of-truth leaf):
+        manuscript/ave-kb/vol9/ch3-pin-port-configuration/node-scattering-multiplicity.md
+        (NOT device-circuit-models.md, which never contained the bedrock).
 
 ═══════════════════════════════════════════════════════════════════════════════
 WHAT THIS MODULE IS (and is NOT)

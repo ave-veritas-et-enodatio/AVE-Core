@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-no-claim: "New-operator / consistency re-expression leaf (consistency-vs-emergence: CONSISTENCY, Class-C). Documents the admittance-weighted scatter S_ij = 2 Y_j/(Σ_k Y_k) - δ_ij as the per-port-admittance generalization of the bedrock (2/n)J-I node scatter (node_scattering_multiplicity / device-circuit-models.md), wired to read the canonical Axiom-4 saturation S(A) via the varactor map Y_bond = Y0/√S(A). The operator READS saturation (scrambling per-bond S(A) changes it; per-node-uniform does not) and reproduces the bedrock at S=1 — both are CONSISTENCY (re-expression / validate-on-known), not emergence. It does NOT yet test confinement (the deferred Fork-B). Originates no new physics; the bedrock scatter, the Axiom-4 kernel, and the μ-load Z_eff=Z0√S sign are all PRE-EXISTING canonical content this leaf composes."
+no-claim: "New-operator / consistency re-expression leaf (consistency-vs-emergence: CONSISTENCY, Class-C). Documents the admittance-weighted scatter S_ij = 2 Y_j/(Σ_k Y_k) - δ_ij as the per-port-admittance generalization of the bedrock (2/n)J-I node scatter (node_scattering_multiplicity / node-scattering-multiplicity.md), wired to read the canonical Axiom-4 saturation S(A) via the varactor map Y_bond = Y0/√S(A). The operator READS saturation (scrambling per-bond S(A) changes it; per-node-uniform does not) and reproduces the bedrock at S=1 — both are CONSISTENCY (re-expression / validate-on-known), not emergence. It does NOT yet test confinement (the deferred Fork-B). Originates no new physics; the bedrock scatter, the Axiom-4 kernel, and the μ-load Z_eff=Z0√S sign are all PRE-EXISTING canonical content this leaf composes."
 -->
 
 # Vacuum-Varactor Scatter Operator — the $S(A)$-reading admittance scatter
@@ -26,7 +26,7 @@ prior `scatter_matrix(n, z_local)` ignored its impedance argument and was
 >
 > This leaf documents an **operator**, not a new physical claim. Everything it composes
 > is **pre-existing canonical content**: the bedrock $(2/n)J-I$ node scatter
-> ([device-circuit-models.md](../../../vol9/ch3-pin-port-configuration/device-circuit-models.md),
+> ([node-scattering-multiplicity.md](../../../vol9/ch3-pin-port-configuration/node-scattering-multiplicity.md),
 > `node_scattering_multiplicity.py`), the Axiom-4 saturation kernel
 > $S(V)=\sqrt{1-(V/V_{yield})^2}$ ([nonlinear-vacuum-capacitance.md](nonlinear-vacuum-capacitance.md):10,
 > engine at `crystal_engine.py`:191), and the longitudinal $\mu$-load sign
@@ -265,7 +265,7 @@ spectra are $\{+1,-1,-1\}$ (srs, degree 3) and $\{+1,-1,-1,-1\}$ (diamond, degre
 ## §7 — Cross-links
 
 - **The bedrock node scatter** (the $(2/n)J-I$ equal-admittance special case this
-  generalizes): [device-circuit-models.md](../../../vol9/ch3-pin-port-configuration/device-circuit-models.md)
+  generalizes): [node-scattering-multiplicity.md](../../../vol9/ch3-pin-port-configuration/node-scattering-multiplicity.md)
   (`node_scattering_multiplicity.py`, `assemble_global_scattering`).
 - **The Axiom-4 saturation kernel** $S(V)=\sqrt{1-(V/V_{yield})^2}$ this reads:
   [nonlinear-vacuum-capacitance.md](nonlinear-vacuum-capacitance.md):10 (the kernel's
