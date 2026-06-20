@@ -178,7 +178,14 @@ duplicated. Each carries a status + the defined test where one exists.
 | D.4 | **exhaustiveness** ("no 4th observable") | — | ASSERTED not proven — keep ASSERTED | `common/claim-quality.md`:606 (solidity 0.55); asserted on Stokes dimensional-reduction, not formally proven |
 | D.5 | **grip=loss / lossless-pivot cosmic-rotation$\leftrightarrow$soliton-spin thread** | — | research-only | KB carries "lossless pivot" only as a not-canon exclusion ([resonant-lc-solitons.md](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md):83); promote before any reframe cites it |
 
-*(All 12 original gates preserved: load-bearing step = old #10 Fork-A's $Q$-leg fused with old #1/#5 the Cartesian-wall crack; A.1=old #1, A.2=old #5, A.3=old #10, B.1=old #2, C.1=old #7, C.2=old #6, C.3=old #8, D.1=old #3, D.2=old #4, D.3=old #9, D.4=old #11, D.5=old #12. Re-ranked, not dropped.)*
+**E — network projection / transducer gates (NEW 2026-06-19; from the electrical-vs-mechanical projection-conflation audit, `research/2026-06-19_electrical-mechanical-projection-map.md`):**
+
+| # | Gate | Bucket | Status | Defined test / cross-ref |
+|---|------|--------|--------|--------------------------|
+| E.1 | **bulk/shear impedance-ratio projection-split** — `1.826 = √(10/3)` (channel-correct, two mechanical channels on their own ρc axis) vs `2.582 = √2·√(10/3)` (frozen prereg; the `√2` is the EM-photon `√(K/G)` reference compounded into the mechanical-shear arm). Both **α-free**, both **α-invariant** | — | OPEN — **Grant pick PENDING** | moves NO chord/echo bin, only the bulk/shear gap LOCATION; auditor LEAN = `1.826`; frozen prereg `2.582` PRESERVED verbatim. `2026-06-19_electron-Q-coupled-network_result.md`:112–142 (FLAG 1); solver `graded_vacuum_network.py:122`/`:124`; projection-map seam 4 |
+| E.2 | **TKI-transducer WIRING GATE** — `def-tk1xfm` (the EM↔mechanical transducer candidate, seam 2) must clear two preconditions before being wired into any compute path: (a) `status:proposed → SOLID` (Grant ratify); (b) the *"identity-by-translation, NOT a derivation"* (lossless/gain-1/pole-less) ceiling ported into `isomorphism.py`'s docstring — **CONFIRMED ABSENT today** (module docstring says only "exact dimensional conversion functions") | — | OPEN — gated; until cleared, **DEC-4's route-around (EM-as-bare-loss-port) is correct discipline** | `isomorphism.py` module docstring (lines 1–14); `device-circuit-models.md`:204 (def-tk1xfm FLAG); projection-map "TKI bridge state / WIRING GATE" |
+
+*(All 12 original gates preserved: load-bearing step = old #10 Fork-A's $Q$-leg fused with old #1/#5 the Cartesian-wall crack; A.1=old #1, A.2=old #5, A.3=old #10, B.1=old #2, C.1=old #7, C.2=old #6, C.3=old #8, D.1=old #3, D.2=old #4, D.3=old #9, D.4=old #11, D.5=old #12. Re-ranked, not dropped. **E.1/E.2 are NEW additions** from the 2026-06-19 projection-conflation audit, not re-ranked originals.)*
 
 **M, J, Q honest-map note (refuted bijection).** The clean "3 hairs = 3 channels" bijection is
 REFUTED: the Stokes-dimension triple ($\mathcal{M}/\mathcal{J}/\mathcal{Q}$ = 3D/2D/1D,
