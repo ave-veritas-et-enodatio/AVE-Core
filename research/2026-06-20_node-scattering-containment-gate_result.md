@@ -12,6 +12,15 @@ pre-committed before any operator was built).
 
 ## HEADLINE (one line)
 
+> 🔴 **RULE-12 SCOPE CORRECTION (2026-06-20):** the phrase "clean, pre-registered
+> REFUTE / discriminating test" in this headline is RETRACTED. R3 is TRUE but it is
+> a projector-algebra **tautology** (scramble-invariant, true by construction), NOT
+> a discriminating-test result; Fork-A was MISCAST (it presupposed longitudinal
+> confinement is a differential-sector question — it is not). The headline body is
+> preserved below per Rule 12; read it together with the corrected §2 and §5. Honest
+> net: the bedrock + four validate-on-known anchors are the genuine (sound)
+> deliverables; the longitudinal-containment claim was never a real test.
+
 **Stage 1 bedrock PASSED (PROCEED, no HALT); Stage 2 Fork-A test returned a clean,
 pre-registered REFUTE (outcome R3).** The lattice's node valence DOES set two
 structurally-distinct differential multiplicities (2 for srs, 3 for diamond), but
@@ -57,6 +66,33 @@ retraction in `research/2026-06-19_electron-Q-coupled-network_prereg.md:40`).
 
 ## 2. Stage 2 — the SHOWN port→grade map + the Fork-A verdict (REFUTE-R3)
 
+> 🔴 **RULE-12 SCOPE CORRECTION (2026-06-20, post-freeze, adversarial-auditor surfaced).**
+> The R3 *conclusion* below stands (the longitudinal A1 dilatation scalar IS the
+> +1 common mode, orthogonal to the −1 differential sector). What is RETRACTED is
+> the framing of R3 as a **"clean, pre-registered REFUTE / discriminating test."**
+> It is not a discriminating test result — it is a **port-space sector-orthogonality
+> FACT, true by projector construction.** An adversarial auditor verified live that
+> the verdict-driving quantities (`differential_scalar_content_mean`,
+> `common_mode_scalar_content_mean`) are **INVARIANT under arbitrary `bond_unit`
+> scrambling**: scrambling the bond directions (which destroys force-balance —
+> `bond_direction_sum` 0 → ~1.6, `common_mode_realspace_vector_norm` ~0 → ~0.9)
+> leaves `differential_scalar_content ≈ 2.7e-16` and `common_mode_scalar_content
+> = √degree` **bit-unchanged**, because those are pure `S_n = (2/n)J − I` projector
+> identities (`|a·ones| = 0` for the −1 sector by orthogonality; `√d` for the +1
+> sector by construction). The embedding `bond_unit` is GENUINELY derived and
+> SHOWN, but it does **not feed the verdict** — so the verdict could only ever come
+> out R3, for ANY lattice, with no physics in the decision. **Fork-A as posed was
+> MISCAST**: it presupposed that longitudinal confinement is a *differential-sector*
+> question; the projector algebra shows it is not — an isotropic/longitudinal scalar
+> IS the +1 common mode and is orthogonal to the entire −1 differential sector BY
+> DEFINITION. R3 is TRUE, but true by construction, not because a test discriminated
+> it. The honest net outcome of this gate is stated in the corrected §5. The
+> original §2 body is preserved unchanged below per Rule 12 (substitution-not-
+> retraction forbidden).
+>
+> Regression marker encoding this finding:
+> `src/tests/test_node_scattering_multiplicity.py::test_fork_a_verdict_is_invariant_under_bond_unit_scramble`.
+
 **The SHOWN map (`port_to_realspace_embedding`, phase-space-coordinate-check
 deliverable).** The map from n-PORT space to real-space grade is the
 bond-direction embedding `B_u` (rows = `bond_unit[u][p]`,
@@ -70,13 +106,20 @@ bond-direction embedding `B_u` (rows = `bond_unit[u][p]`,
 | differential (−1) **scalar** content | `~3e-16` | `~1e-16` | −1 carries NO scalar |
 | differential (−1) **real-space vector** | `1.225` | `1.155` | −1 carries the VECTOR/shear grade |
 
-**The verdict: REFUTE-R3.** The longitudinal A1 dilatation **scalar** is the
-**common mode (+1)** — orthogonal to the entire differential (−1) sector (which
-carries zero scalar). So the pre-committed prediction (a normalizable confined
-longitudinal mode lives in the differential sector and needs the diamond's 3rd
-differential mode) is **refuted at the sector level**: the longitudinal scalar is
-not a differential object at all. The 2-vs-3 differential-multiplicity distinction
-is REAL, but it governs the *transverse/shear* (vector) grade — srs's 2
+**The verdict: REFUTE-R3** (see the Rule-12 scope correction above — R3 is a
+projector-algebra FACT, not a discriminating-test result). The longitudinal A1
+dilatation **scalar** is the **common mode (+1)** — orthogonal to the entire
+differential (−1) sector (which carries zero scalar). This **sector assignment
+(scalar → +1 common) is a projector-algebra fact of `S_n = (2/n)J − I`
+(scramble-invariant), NOT geometry-derived**: the `bond_unit` / embedding
+quantities in the table above are genuinely derived and shown, but they do NOT
+feed the verdict — `differential_scalar_content` is `|a·ones| = 0` by orthogonality
+and `common_mode_scalar_content` is `√degree` by construction, for any lattice.
+So the pre-committed prediction (a normalizable confined longitudinal mode lives in
+the differential sector and needs the diamond's 3rd differential mode) is not
+refuted *by a test* — it was **miscast**: the longitudinal scalar is not a
+differential object at all, by construction. The 2-vs-3 differential-multiplicity
+distinction is REAL, but it governs the *transverse/shear* (vector) grade — srs's 2
 differential modes are exactly the 2 transverse photon DOF; the diamond's 3rd
 differential mode is a *spare shear channel*, not a longitudinal-scalar channel.
 The longitudinal containment question is therefore **moot** in the differential
@@ -131,6 +174,47 @@ DOF count. Assessment:
   (the thing the gate was built to test).**
 
 ## 5. CHORD / ECHO / REFUTE verdict (against the frozen prereg §4)
+
+> 🔴 **RULE-12 SCOPE CORRECTION (2026-06-20, post-freeze, adversarial-auditor
+> surfaced).** The verdict table and "Net" paragraph below are PRESERVED as
+> originally written (Rule 12 — substitution-not-retraction forbidden). What is
+> RETRACTED is the characterization of R3 as a **"discriminating test"** / a
+> **"clean, single-mechanism REFUTE."** R3 is TRUE but it is a **projector-algebra
+> tautology** (true by construction, scramble-invariant — see the §2 correction and
+> the regression marker), NOT the outcome of a test that could have gone another
+> way. The corrected honest reading of R3 and the corrected net outcome are stated
+> immediately below; the original body follows unchanged.
+>
+> **R3, reframed honestly — a PORT-SPACE SECTOR-ORTHOGONALITY FACT.** The
+> longitudinal A1 dilatation scalar IS the +1 common mode by projector construction
+> (the `S_n = (2/n)J − I` all-ones eigenvector), and it is orthogonal to the entire
+> −1 differential sector by construction. This is TRUE, but it is true **BY
+> CONSTRUCTION**, not by a discriminating test: the verdict logic reads only
+> `differential_scalar_content` / `common_mode_scalar_content`, which are
+> scramble-invariant projector identities (`|a·ones|=0`; `√degree`) that do not
+> read the lattice geometry. **Fork-A was miscast** — it presupposed longitudinal
+> confinement lives in the differential sector; it does not.
+>
+> **The honest NET OUTCOME of this gate.** NO discriminating chord emerged. What
+> the gate actually produced is three things, stated plainly:
+>   1. **A sound, reusable BEDROCK** — genuinely-distinct n-port scattering operators
+>      assembled from the real srs / diamond CONNECT map (192 vs 64 DOF; first
+>      `build_srs_net` solver call-site; the `graded_vacuum_network` TETRA_OFFSETS
+>      collapse genuinely fixed). This is a real deliverable and is UNTOUCHED by this
+>      correction. The four validate-on-known anchors (§2a spectra, §2b photon-2,
+>      §2c winding-3, §2d α-free) PASS live and are UNTOUCHED.
+>   2. **A tautological-but-USEFUL sector-orthogonality fact** — R3 correctly
+>      REDIRECTS A1 mass-containment away from the differential-multiplicity red
+>      herring and onto the +1 common mode (Grant's bulk-saturation / Fork-B
+>      framing). Useful as a redirect; not a test result.
+>   3. **An honest ECHO on the transverse 2-vs-3 count** — srs's 2 differential modes
+>      = 2 photon polarizations = peer-to-SM rep-theory DOF-counting (already labeled
+>      §4). Symmetric-standard: the SM also imports this count; AVE re-derives it from
+>      node valence (at parity on the transverse sector). The longitudinal-containment
+>      claim that would have put AVE *ahead* was **never a real test** — so AVE is not
+>      ahead here, and we say so.
+>
+> Original §5 body preserved below.
 
 | Prereg bin | Status |
 |---|---|
