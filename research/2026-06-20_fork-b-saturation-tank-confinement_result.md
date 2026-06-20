@@ -168,6 +168,25 @@ researcher-DOF disclosed and the de-confine majority measured + pinned (fig2).
 
 ## 4. GATE 3 — QUARTER-ARC SHAPE (headline): **shape-generic (gap ~0 ≪ 10%) ⇒ ECHO**
 
+> 🔵 **Rule-12 amendment (2026-06-20, GATE3 fairness follow-up — STRENGTHENS the
+> ECHO; preserves the original §4 result below unchanged).** A fairness check on
+> this gate found the original §4 leaned on the claim *"cross-family is
+> norm-infeasible (retired tanh)."* That OVER-GENERALIZED from the ONE retired
+> endpoint-tanh parameterization `0.5(1+tanh(k(0.5−A)))` (sup-norm pinned at 0.500
+> < π/4). The honest basis is **STRONGER**: genuinely-different families — plain
+> `tanh(k(1−A))`, `exp(−kA)`, Lorentzian `1/(1+kA²)`, power `(1−Aⁿ)`, linear
+> `(1−kA)` — **DO reach** the quarter-arc norm π/4 ≈ 0.785, were **enumerated AND
+> RUN** (not assumed-away), norm+depth-matched, and give Δ/L gap ≈ 0 with
+> bound-mode eigenvector overlap = **1.000000** (the SAME physical mode). Only a
+> step-DISCONTINUOUS top-hat opens a gap (≈165–302%, overlap ≈ 0.24–0.44). See the
+> new **§4a (cross-family table)** and **§4b (full-saturation re-run)**. SCOPE
+> CORRECTION: the ECHO is *shape-generic across SMOOTH saturable kernels*; a
+> step-discontinuous stiffness IS discriminable — the metric resolves shape, the
+> zero is **physical, not baked**. The original same-family §4 result stands as
+> written; this amendment only widens the comparator basis and tightens the scope.
+> Driver: `src/ave/solvers/fork_b_near_saturation.py`; tests:
+> `src/tests/test_fork_b_near_saturation.py`.
+
 The canonical AVE kernel `S = √(1−A²)` (p = 0.5) **IS the quarter-circle exactly**
 (`∫₀¹ √(1−A²) dA = π/4`). The discriminator: does its bound-mode Δ/L differ from a
 same-family comparator `(1−A²)^p`, p ≠ 0.5, matched on BOTH norm AND depth, by
@@ -194,6 +213,67 @@ same-family comparator `(1−A²)^p`, p ≠ 0.5, matched on BOTH norm AND depth,
   exceeds 10%) — verdict "floor-artifact-or-shape-generic (ECHO)".
 - **Size-convergence (fig3b):** the gap stays ~0% across the connect-map ladder
   (L = 2/4/6) — size-stably below threshold.
+
+### 4a. CROSS-FAMILY comparators (the corrected, STRONGER basis — enumerated AND run)
+
+The original §4 used a SAME-family `(1−A²)^p` comparator. The fairness follow-up
+enumerated and RAN five GENUINELY-DIFFERENT families, each **norm-matched to π/4**
+(brentq succeeds — they are norm-FEASIBLE, the opposite of the retired tanh) and
+**depth-matched** to the same well floor, on the full-saturation srs L=6 well
+(A_bond.max = 0.976, S_min = 1e-3; the steep regime, see §4b). The shapes are
+genuinely different (max |ΔS| up to 0.42 vs the quarter-arc) yet give the SAME
+Δ/L AND the SAME bound eigenvector:
+
+| comparator family | norm param | Δ/L gap vs quarter-arc | eigvec overlap | max\|ΔS\| |
+|---|---|---|---|---|
+| plain tanh `0.5(1+tanh(k(1−A)))` | k = 1.502 | 0.099% | 0.999998 | 0.234 |
+| exponential `exp(−kA)` | k = 0.504 | 0.250% | 0.999989 | 0.415 |
+| Lorentzian `1/(1+kA²)` | k = 1.000 | 0.170% | 0.999995 | 0.308 |
+| power `(1−Aⁿ)` | n = 3.660 | 0.009% | 1.000000 | 0.088 |
+| linear `(1−kA)` | k = 0.429 | 0.183% | 0.999994 | 0.359 |
+| **top-hat `step(A≥0.5)` (POSITIVE CONTROL)** | — | **165.49%** | **0.4383** | — |
+
+- **The smooth families are shape-GENERIC** (gap < 0.25%, overlap ≈ 1.0): the
+  bound-mode RMS radius is insensitive to the kernel's interior curvature once
+  norm+depth are matched. Genuinely-different smooth shapes → the SAME physical
+  bound mode.
+- **The top-hat POSITIVE CONTROL discriminates** (gap 165%, overlap 0.44): a
+  step-discontinuous stiffness changes the confining-region topology, not its
+  smooth curvature — so the metric **CAN** open a gap. The smooth zero is therefore
+  **physical (the metric resolves shape), not baked** (the metric is not blind).
+- **SCOPE:** shape-generic across SMOOTH saturable kernels. A step-discontinuous
+  stiffness IS discriminable. This corrects the original "cross-family is
+  norm-infeasible" over-generalization (which held only for the retired endpoint-tanh).
+
+### 4b. FULL-SATURATION re-run (the chord-residual — closed ECHO-FINAL)
+
+The §4 / §4a "shape-generic" verdict could be charged with holding only because the
+ORIGINAL planted well maxed at A_bond.max ≈ 0.77 (diamond L=8; only ~8/256 bonds at
+A>0.5), so the quarter-arc √(1−A²)'s distinctive STEEP region near A=1 (dS/dA→−∞)
+was never exercised. The re-run drives the core into the FULL-saturation steep
+regime and re-runs the SAME Δ/L metric (same bound-mode selector) against the SAME
+cross-family comparators + the top-hat positive control:
+
+| net | L | n_nodes | A_bond.max | S_min | max smooth gap | min overlap | top-hat gap | top-hat overlap | verdict |
+|---|---|---|---|---|---|---|---|---|---|
+| srs | 6 | 1728 | 0.976 | 1e-3 | 0.25% | 0.999989 | 165.49% | 0.4383 | **ECHO-FINAL** |
+| srs | 8 | 4096 | 0.991 | 1e-5 | 0.007% | 1.000000 | 302.18% | 0.2402 | **ECHO-FINAL** |
+
+- **The achieved A_max reaches the steep regime** (0.976 → 0.991); the kernel clip
+  (`crystal_engine.py:194`, A_cap=0.99) does NOT no-op it — GATE3's shape metric
+  builds S DIRECTLY from A_bond (no clip), so the steep tail is genuinely driven.
+- **DEEPER = MORE ECHO, not less:** at A_max = 0.991 the smooth gap SHRINKS toward
+  0 (0.007%), overlap → 1.000000, while the top-hat positive control gap GROWS
+  (302%, overlap 0.24). The metric discriminates HARDER and the smooth families
+  converge HARDER at full saturation. There is no steep-regime shape chord.
+- **Frozen binning (honest):** CHORD-PARTIAL would require a SMOOTH gap > 10% AND
+  overlap < 0.95 at full saturation (positive control confirming discrimination);
+  observed: gap ≪ 10% AND overlap ≈ 1.0 ⇒ **ECHO-FINAL**. The quarter-arc is **not
+  shape-special even in its steepest regime.**
+- **Symmetric-standard:** saturable-NLS shape-sensitivity is generic (the SM would
+  see the same), so the AVE-distinct content would have been SPECIFICALLY the
+  quarter-arc-vs-other-SMOOTH-kernel at full saturation. That content is null:
+  ECHO-FINAL, no manufactured chord.
 
 ---
 
@@ -304,6 +384,9 @@ ECHO mechanism, not a defect in the confinement finding.
   no further action needed beyond the rate-sweep + regression tests.
 - Whether a DEEPER core (frac → A_cap, fully floor-clipped) sharpens any shape gap
   is closed-negative here (floor-lift guard: gap ~0 at all S_min); a fundamentally
-  different comparator FAMILY (not `(1−A²)^p`) is the only remaining shape lever,
-  but the null-control + same-family-generic result strongly predicts shape-generic.
+  different comparator FAMILY (not `(1−A²)^p`) was the only remaining shape lever.
+  **CLOSED 2026-06-20 (§4a/§4b):** five genuinely-different smooth families AND the
+  full-saturation steep regime (A_max → 0.991) were RUN — gap ≪ 10%, overlap ≈ 1.0,
+  positive control discriminating ⇒ **ECHO-FINAL**. The shape lever is exhausted;
+  the quarter-arc is not special even where it is steepest. No open shape lever remains.
 
