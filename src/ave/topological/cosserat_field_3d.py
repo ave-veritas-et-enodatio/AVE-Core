@@ -222,6 +222,80 @@ def _project_omega_to_nhat(omega: jnp.ndarray) -> jnp.ndarray:
     return jnp.stack([n_x, n_y, n_z], axis=-1)
 
 
+# ──────────────────────────────────────────────────────────────────────────
+# Spin double-cover representability — SU(2) lift of the SO(3) micro-rotation
+# ──────────────────────────────────────────────────────────────────────────
+# Carrier-sector GATE #1 helpers (numpy, KINEMATIC — no autograd / no time-step).
+#
+# The Rodrigues PROJECTION _project_omega_to_nhat returns n_hat = R(ω)·ẑ, a
+# VECTOR on S². A vector field has SO(3) period 2π — it is the trivial-vector
+# baseline (test_cosserat_field_3d.py:315). The genuine spin-½ / double-cover
+# object is the SU(2) LIFT: the unit quaternion q(ω) = (cos(θ/2), ω̂ sin(θ/2)),
+# whose SIGN tracks the lift (q vs −q both map to the same SO(3) rotation).
+# Rigidly rotating the ω field by a body rotation R_body(φ) composes the body
+# quaternion q_body(φ) = (cos(φ/2), ẑ sin(φ/2)) onto the lift; cos(φ/2) flips
+# sign at φ=2π (→ −I-type) and returns at φ=4π — the 4π spinor signature.
+#
+# GUARDS (def-kn0t01 / master-equation.md:20): this is a REAL-SPACE SU(2)/SO(3)
+# frame holonomy on the Cosserat ω micro-rotation grade ONLY — NOT the
+# phase-space (2,3) Clifford-torus winding, and NEVER wired into the A1
+# (V_inc, V_ref) phasor. Reads ONLY the holonomy SIGN (value-echo immunity:
+# no -e / α). No Γ wall (kinematic frame holonomy, not a Γ=-1 collision).
+
+
+def _omega_to_quaternion(omega: np.ndarray) -> np.ndarray:
+    """SU(2) lift of the SO(3) micro-rotation vector ω.
+
+    Returns the unit quaternion q = (q0, q1, q2, q3) = (cos(θ/2), ω̂·sin(θ/2))
+    where θ = |ω|. This is the genuine SU(2) element (the double-cover lift),
+    distinct from the projected n_hat vector (= R(q)·ẑ, the trivial-vector
+    baseline). Shape: ω (..., 3) → q (..., 4).
+
+    Vacuum sites (ω≈0) map to the identity quaternion (1, 0, 0, 0).
+    """
+    omega = np.asarray(omega, dtype=np.float64)
+    theta = np.sqrt(np.sum(omega * omega, axis=-1))
+    half = 0.5 * theta
+    q0 = np.cos(half)
+    # sin(θ/2)/θ = 0.5·sinc(θ/(2π)); np.sinc(y)=sin(πy)/(πy), smooth at 0.
+    sin_half_over_theta = 0.5 * np.sinc(theta / (2.0 * np.pi))
+    q_vec = omega * sin_half_over_theta[..., None]
+    return np.concatenate([q0[..., None], q_vec], axis=-1)
+
+
+def _quat_mul(a: np.ndarray, b: np.ndarray) -> np.ndarray:
+    """Hamilton product a ⊗ b of two quaternions (last-axis = (w,x,y,z))."""
+    a = np.asarray(a, dtype=np.float64)
+    b = np.asarray(b, dtype=np.float64)
+    aw, ax, ay, az = a[..., 0], a[..., 1], a[..., 2], a[..., 3]
+    bw, bx, by, bz = b[..., 0], b[..., 1], b[..., 2], b[..., 3]
+    w = aw * bw - ax * bx - ay * by - az * bz
+    x = aw * bx + ax * bw + ay * bz - az * by
+    y = aw * by - ax * bz + ay * bw + az * bx
+    z = aw * bz + ax * by - ay * bx + az * bw
+    return np.stack([w, x, y, z], axis=-1)
+
+
+def _axis_angle_to_rotation(axis: np.ndarray, angle: float) -> np.ndarray:
+    """Active SO(3) rotation matrix R(axis, angle) via Rodrigues' formula.
+
+    Used to rigidly rotate the ω micro-rotation VECTORS (ω is an axial /
+    rotation-generator vector, so it transforms as ω' = R·ω under a body
+    rotation). Returns a (3, 3) numpy matrix.
+    """
+    axis = np.asarray(axis, dtype=np.float64)
+    axis = axis / np.linalg.norm(axis)
+    K = np.array(
+        [
+            [0.0, -axis[2], axis[1]],
+            [axis[2], 0.0, -axis[0]],
+            [-axis[1], axis[0], 0.0],
+        ],
+        dtype=np.float64,
+    )
+    return np.eye(3) + np.sin(angle) * K + (1.0 - np.cos(angle)) * (K @ K)
+
+
 def _op10_density(omega: jnp.ndarray, dx: float) -> jnp.ndarray:
     """AVE Op10 continuum Lagrangian density.
 
@@ -1199,6 +1273,137 @@ class CosseratField3D:
             use_hedgehog=use_hedgehog,
             amplitude_scale=amplitude_scale,
         )
+
+    def probe_spin_doublecover_holonomy(
+        self,
+        body_axis: tuple[float, float, float] = (0.0, 0.0, 1.0),
+        n_phi: int = 720,
+    ) -> dict:
+        """Carrier-sector GATE #1 — SU(2) double-cover representability probe.
+
+        KINEMATIC ONLY: no time-stepping, no energy budget, no CFL/Nyquist.
+        The currently-seeded ω micro-rotation field is rigidly rotated about a
+        body axis over φ ∈ [0, 4π]; at each φ the SU(2) lift of the frame at the
+        load-bearing site (peak-|ω| cell) is composed and its accumulated
+        holonomy SIGN is tracked by continuity in φ. Reports the lift sign at
+        φ=2π and φ=4π, and the trivial-vector n_hat baseline (which returns at
+        2π by construction).
+
+        Computes TWO physically-distinct frame transports of the SAME seeded
+        site, the explicit discriminator (flag-don't-fix — both reported, no
+        silent winner):
+
+          OP_A (re-lift of R_body(φ)·ω) — treats ω as an SO(3) rotation-VECTOR
+            and reconstructs the lift from the *resulting* rotation each φ. This
+            is the natural action of the K4 rotation group T=A4 on the stored
+            field. By construction it equals the trivial-vector n_hat baseline
+            (no memory of the 2π twist).
+
+          OP_B (SU(2) left-action q_body(φ) ⊗ q(ω)) — the body rotation acts on
+            the spinor LIFT itself. This is the binary-tetrahedral 2T⊂SU(2)
+            action (per finkelstein-misner-spin-half-derivation.md §3: physical
+            fields must transform under 2T, not T, for the double-cover). It
+            carries the 4π signature: −I at 2π, +I at 4π.
+
+        Returns a dict with both operations' lift signs at 2π/4π, the n_hat
+        baseline, and the binned verdict. See the prereg for binning.
+
+        GUARDS: reads only the ω micro-rotation grade (two-3s orthogonality);
+        REAL-SPACE SU(2) frame holonomy, NOT phase-space (2,3) winding
+        (def-kn0t01); SIGN only, no -e/α (value-echo immunity); no Γ wall
+        (kinematic frame holonomy, distinct from Γ_spinor=-1 stability wall).
+        """
+        omega0 = np.asarray(self.omega, dtype=np.float64)  # (nx,ny,nz,3)
+        axis = np.asarray(body_axis, dtype=np.float64)
+        axis = axis / np.linalg.norm(axis)
+
+        # Load-bearing site = peak-|ω| cell (density peak, NOT centroid: the
+        # unknot tube centerline; centroid of a loop is the empty middle).
+        omega_mag = np.sqrt(np.sum(omega0 * omega0, axis=-1))
+        site = np.unravel_index(int(np.argmax(omega_mag)), omega_mag.shape)
+        omega_site0 = omega0[site]  # (3,)
+
+        phis = np.linspace(0.0, 4.0 * np.pi, n_phi + 1)
+        idx_2pi = int(np.argmin(np.abs(phis - 2.0 * np.pi)))
+        idx_4pi = len(phis) - 1  # φ = 4π endpoint
+
+        # SU(2) lift of the seeded micro-rotation at the site (φ=0 reference).
+        q_ref = _omega_to_quaternion(omega_site0)
+        n_hat_ref = np.asarray(_project_omega_to_nhat(jnp.asarray(omega_site0[None])))[0]
+
+        # ── OP_A: re-lift of the SO(3) rotation-vector (T=A4 action) ──
+        qA_prev = q_ref.copy()
+        qA_track, nhat_diff = [], []
+        for phi in phis:
+            R = _axis_angle_to_rotation(axis, float(phi))
+            omega_site = R @ omega_site0
+            qA = _omega_to_quaternion(omega_site)
+            if np.dot(qA, qA_prev) < 0.0:  # continuity-resolve q vs −q
+                qA = -qA
+            qA_track.append(qA.copy())
+            qA_prev = qA
+            n_hat = np.asarray(_project_omega_to_nhat(jnp.asarray(omega_site[None])))[0]
+            nhat_diff.append(float(np.linalg.norm(n_hat - n_hat_ref)))
+        qA_track = np.array(qA_track)
+
+        # ── OP_B: SU(2) left-action on the lift (2T⊂SU(2) action) ──
+        qB_prev = q_ref.copy()
+        qB_track = []
+        for phi in phis:
+            q_body = np.array(
+                [np.cos(phi / 2.0), *(axis * np.sin(phi / 2.0))], dtype=np.float64
+            )
+            qB = _quat_mul(q_body, q_ref)
+            if np.dot(qB, qB_prev) < 0.0:  # continuity-resolve q vs −q
+                qB = -qB
+            qB_track.append(qB.copy())
+            qB_prev = qB
+        qB_track = np.array(qB_track)
+
+        liftA_sign_2pi = float(np.sign(np.dot(qA_track[idx_2pi], q_ref)))
+        liftA_sign_4pi = float(np.sign(np.dot(qA_track[idx_4pi], q_ref)))
+        liftB_sign_2pi = float(np.sign(np.dot(qB_track[idx_2pi], q_ref)))
+        liftB_sign_4pi = float(np.sign(np.dot(qB_track[idx_4pi], q_ref)))
+        nhat_baseline_2pi = float(nhat_diff[idx_2pi])
+
+        # ── Binning (frozen prereg 2026-06-19) ──
+        # VALIDATE-ON-KNOWN first: the trivial-vector n_hat baseline must return
+        # at 2π, else the calibration is broken → HALT.
+        baseline_returned_2pi = nhat_baseline_2pi < 1e-6
+        if not baseline_returned_2pi:
+            verdict = "HALT"
+        # PASS = double-cover representable: the SU(2)-lift holonomy returns to
+        # −I at 2π AND +I at 4π, AND DIFFERS from the trivial-vector baseline.
+        # The lift that DIFFERS from the baseline is OP_B (the 2T action). OP_A
+        # equals the baseline by construction, so the discriminator is OP_B.
+        elif (
+            liftB_sign_2pi < 0.0
+            and abs(liftB_sign_4pi - 1.0) < 1e-9
+            and liftA_sign_2pi > 0.0  # OP_A (=baseline) returns at 2π → DIFFERS
+        ):
+            verdict = "PASS"
+        else:
+            verdict = "FAIL"
+
+        return {
+            "site": tuple(int(s) for s in site),
+            "omega_site_mag": float(omega_mag[site]),
+            "q_at_0": q_ref,
+            # OP_A — SO(3) rotation-vector re-lift (T=A4); = trivial baseline.
+            "opA_lift_sign_2pi": liftA_sign_2pi,
+            "opA_lift_sign_4pi": liftA_sign_4pi,
+            "opA_q_2pi": qA_track[idx_2pi],
+            "opA_q_4pi": qA_track[idx_4pi],
+            # OP_B — SU(2) left-action on the lift (2T⊂SU(2); FM-on-K4 action).
+            "opB_lift_sign_2pi": liftB_sign_2pi,
+            "opB_lift_sign_4pi": liftB_sign_4pi,
+            "opB_q_2pi": qB_track[idx_2pi],
+            "opB_q_4pi": qB_track[idx_4pi],
+            # Trivial-vector calibration anchor.
+            "nhat_baseline_2pi": nhat_baseline_2pi,
+            "nhat_baseline_returned": bool(baseline_returned_2pi),
+            "verdict": verdict,
+        }
 
     def _zero_outside_alive(self) -> None:
         mask = self.mask_alive[..., None].astype(self.u.dtype)
