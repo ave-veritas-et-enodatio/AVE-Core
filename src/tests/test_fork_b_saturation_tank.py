@@ -13,7 +13,10 @@ VERDICT = ECHO (the PRE-COMMITTED, EXPECTED, SUCCESSFUL outcome).
     sign resolved (bound/lossless branch, convention-anchored).
   GATE2 (SCRAMBLE, anti-tautology): PASS — ARM-A (S->1) AND ARM-B (histogram-
     preserving permutation) BOTH de-confine (margin >= 0.30); the negative control
-    is a no-op; ARM-B does NOT survive => NOT a tautology (NOT VOID).
+    is a no-op; ARM-B does NOT survive => NOT a tautology (NOT VOID). HONEST-SCOPE:
+    the ARM-B NOT-VOID verdict is PREDOMINANTLY (measured ~94%, pooled srs L4+L6)
+    S-structure-decided, NOT a single-seed binary — ~6% of histogram-preserving
+    shuffles accidentally re-confine; the rate-sweep test pins it below 0.20.
   GATE3 (QUARTER-ARC SHAPE): shape_gap ~ 0.000 BELOW 10% (generic saturable-NLS;
     the canonical quarter-arc and the norm+depth-matched same-family comparator
     give IDENTICAL Delta/L). Null-control passes (metric reads shape not depth).
@@ -40,9 +43,11 @@ from ave.solvers.fork_b_saturation_tank import (
     gamma_from_S_floor,
     norm_match_p,
     run_fork_b_gate,
+    scramble_rate_sweep,
     solve_confinement,
     solve_quarter_arc_shape,
     solve_scramble,
+    solve_scramble_rate,
 )
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -131,6 +136,45 @@ def test_gate2_deconfinement_margin_exceeds_threshold():
     r = solve_scramble(ConfinementConfig(net="diamond", L=8))
     assert r["armA_margin"] >= 0.30
     assert r["armB_margin"] >= 0.30
+
+
+def test_gate2_armB_predominantly_deconfines_rate_pinned():
+    """HONEST-SCOPE DISCLOSURE (CI-protected): the single-seed ARM-B NOT-VOID verdict
+    is PREDOMINANTLY S-structure-decided, NOT 100%. Over an N-permutation sweep of
+    histogram-preserving shuffles, the measured RE-CONFINE rate (a random shuffle
+    accidentally reconstituting a confining core: core_frac>=0.50 AND gapped) is
+    pinned BELOW a frozen 0.20 threshold on srs L=4 (the fast verdict net).
+
+    This PROTECTS the 'predominantly de-confines' claim from silently drifting up
+    toward a tautology (rate -> 1 would mean ARM-B is BC/projector-decided = VOID).
+    The MEASURED rate at the frozen seed is ~0.05 (well below 0.20). alpha-FREE."""
+    rr = solve_scramble_rate(ConfinementConfig(net="srs", L=4), n_perm=100, seed=20260620)
+    assert rr["ok"]
+    assert rr["n_perm"] == 100
+    # the load-bearing regression guard: the measured re-confine rate is a MINORITY.
+    assert rr["reconfine_rate"] < 0.20, (
+        f"ARM-B re-confine rate {rr['reconfine_rate']:.3f} drifted >= 0.20 — the "
+        "NOT-VOID verdict is no longer predominantly S-structure-decided (tautology risk)"
+    )
+    assert rr["predominantly_deconfines"]
+    # the binding constraint is core_frac>=0.50 (gapped is ~always satisfied).
+    assert rr["n_gapped"] >= rr["n_reconfine"]
+
+
+def test_gate2_armB_pooled_reconfine_rate_sweep():
+    """The POOLED (srs L=4 + L=6) measured re-confine rate — the headline disclosure
+    number reported in the result doc GATE-2 section — is a minority (< 0.20), so the
+    NOT-VOID / S-structure-decided verdict carries a measured majority (>= ~0.80)
+    de-confine margin, not a single-seed binary. alpha-FREE."""
+    out = scramble_rate_sweep(nets=(("srs", 4), ("srs", 6)), n_perm=100, seed=20260620)
+    assert out["ok"]
+    assert out["pooled_n_perm"] == 200
+    assert out["pooled_reconfine_rate"] < 0.20, (
+        f"pooled ARM-B re-confine rate {out['pooled_reconfine_rate']:.3f} >= 0.20 "
+        "— 'predominantly de-confines' no longer holds"
+    )
+    assert out["pooled_deconfine_rate"] >= 0.80
+    assert out["predominantly_deconfines"]
 
 
 # ─────────────────────────────────────────────────────────────────────────────
