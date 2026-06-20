@@ -132,10 +132,17 @@ The discriminating question for the whole sector:
   **T_d reflection** (an element of T_d \ T, which the chiral I4₁32 net lacks)
   → **ECHO**: the structure was imported, not forced by the chiral substrate.
 
-The lattice-holonomy build (Part 2) already lands one prong of this bar: its −I
-is produced by a **C3 vertex rotation cubed** — a pure A4 rotation, no reflection.
-That is the "reflection NOT needed" half. The exchange gate must extend the same
-discriminator to the two-carrier braid.
+The lattice-holonomy build (Part 2) does **not** land a prong of THE BAR above — the
+bar is defined over the **two-particle exchange −1** (spin-statistics), and the build
+establishes only the **single-particle 2π-rotation −1**: its −I is produced by a
+**C3 vertex rotation cubed** — a pure A4 rotation, no reflection. That is
+representability of the *rotation* double-cover (π₁(SO(3))=ℤ₂ from connectivity), the
+PREREQUISITE — **not** the exchange sign. What it does establish is narrower and only
+suggestive: *for the rotation sign, no reflection was needed.* Whether that result
+**transfers to the exchange sign** is precisely the open discriminator the next gate
+must settle — the exchange gate extends the same "was a reflection needed?" question
+to the two-carrier braid, where the A↔B swap (unlike a 2π rotation) may demand a
+T_d reflection the chiral net lacks.
 
 ---
 
