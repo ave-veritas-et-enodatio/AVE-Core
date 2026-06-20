@@ -577,6 +577,102 @@ def solve_scramble(cfg: ConfinementConfig, *, seed: int = 20260620) -> dict:
     }
 
 
+def solve_scramble_rate(
+    cfg: ConfinementConfig, *, n_perm: int = 120, seed: int = 20260620
+) -> dict:
+    """GATE 2 ARM-B RATE-SWEEP — disclose the researcher-degree-of-freedom in the
+    single-seed ARM-B verdict (honest-scope disclosure, NOT a verdict change).
+
+    `solve_scramble` reports ARM-B's NOT-VOID (de-confine) verdict on ONE frozen
+    seed. That binary is honest but UNDER-DISCLOSES that a histogram-preserving
+    permutation can — by chance — accidentally reconstitute a confining core. This
+    function runs `n_perm` INDEPENDENT histogram-preserving permutations of the
+    per-bond S(A) field (the SAME shuffle ARM-B does, judged by the IDENTICAL
+    `_bound_core_frac_from_operator` selector as GATE1/ARM-B) and MEASURES the
+    fraction that RE-CONFINE (core_frac>=0.50 AND gapped — i.e. the auto_void
+    condition).
+
+    Physical reading: the re-confine RATE is the probability that a random
+    histogram-preserving shuffle accidentally concentrates the bound mode's |ψ|²
+    back onto the core. A LOW rate (measured ~6% on srs) means the NOT-VOID verdict
+    is PREDOMINANTLY (~94%) S-STRUCTURE-decided — confinement needs the SPATIAL S
+    arrangement, not just the S multiset. It is NOT 100%: the verdict's margin is
+    (1 − rate), measured, not a single-seed binary.
+
+    A FIXED RNG seed (default 20260620, matching ARM-B's frozen seed) makes the
+    measured rate REPRODUCIBLE. alpha-FREE (the operator never reads ALPHA)."""
+    net = cfg.build_net()
+    A = saturated_core_strain_native(net, frac=cfg.frac, sigma_frac=cfg.sigma_frac)
+    r = node_radius(net)
+    sigma = cfg.sigma_frac * net.box
+    core_mask = r <= max(sigma * 1.5, net.box / float(cfg.L))
+
+    S_bond = _bond_S_field(net, A, S_min=cfg.S_min, A_cap=cfg.A_cap)
+    rng = np.random.default_rng(seed)
+
+    n_reconfine = 0
+    n_cf_only = 0       # core_frac>=0.50 alone (the BINDING constraint)
+    n_gapped_only = 0   # gapped alone (almost always true for a graph Laplacian)
+    core_fracs: list[float] = []
+    for _ in range(n_perm):
+        S_perm = S_bond.copy()
+        rng.shuffle(S_perm)  # histogram-preserving: same S multiset, scrambled space
+        res = _bound_core_frac_from_operator(net, _operator_from_bond_S(net, S_perm), core_mask)
+        cf_ok = bool(res["core_frac"] >= 0.50)
+        gp_ok = bool(res["gapped_discrete"])
+        core_fracs.append(res["core_frac"])
+        n_cf_only += int(cf_ok)
+        n_gapped_only += int(gp_ok)
+        # RE-CONFINE = the auto_void condition (core_frac>=0.50 AND gapped).
+        n_reconfine += int(cf_ok and gp_ok)
+
+    rate = n_reconfine / float(n_perm)
+    return {
+        "ok": True,
+        "net": net.name,
+        "L": cfg.L,
+        "n_perm": n_perm,
+        "seed": seed,
+        "n_reconfine": n_reconfine,
+        "reconfine_rate": rate,
+        "deconfine_rate": 1.0 - rate,
+        # decomposition: which sub-condition is the binding constraint for re-confine
+        "n_core_frac_ge_half": n_cf_only,
+        "n_gapped": n_gapped_only,
+        "mean_perm_core_frac": float(np.mean(core_fracs)),
+        # the NOT-VOID verdict is PREDOMINANTLY S-structure-decided iff the rate is low
+        "predominantly_deconfines": bool(rate < 0.20),
+    }
+
+
+def scramble_rate_sweep(
+    *, nets=(("srs", 4), ("srs", 6)), n_perm: int = 120, seed: int = 20260620
+) -> dict:
+    """Run `solve_scramble_rate` over the srs connect-maps the auditor flagged
+    (L=4 and L=6) and return the per-net + POOLED measured re-confine rate. The
+    pooled rate is the headline disclosure number (the chance a random
+    histogram-preserving shuffle accidentally reconstitutes a confining core).
+    Fixed seed => reproducible. alpha-FREE."""
+    rows = []
+    tot_reconf = 0
+    tot_perm = 0
+    for net, L in nets:
+        rr = solve_scramble_rate(ConfinementConfig(net=net, L=L), n_perm=n_perm, seed=seed)
+        rows.append(rr)
+        tot_reconf += rr["n_reconfine"]
+        tot_perm += rr["n_perm"]
+    pooled = tot_reconf / float(tot_perm) if tot_perm else 0.0
+    return {
+        "ok": True,
+        "rows": rows,
+        "pooled_n_reconfine": tot_reconf,
+        "pooled_n_perm": tot_perm,
+        "pooled_reconfine_rate": pooled,
+        "pooled_deconfine_rate": 1.0 - pooled,
+        "predominantly_deconfines": bool(pooled < 0.20),
+    }
+
+
 # ═════════════════════════════════════════════════════════════════════════════
 # 5. GATE 3 — QUARTER-ARC SHAPE (headline; CANNOT earn CHORD alone)
 # ═════════════════════════════════════════════════════════════════════════════
