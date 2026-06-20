@@ -21,6 +21,8 @@ from ave.topological.k4_lattice_holonomy import (
     a4_rotation_group,
     disclination_frank_permutation,
     holonomy_of_path,
+    inverse_permutation,
+    link_rotation_permutation,
     loop_plane,
     probe_lattice_doublecover,
     quat_mul,
@@ -147,6 +149,112 @@ def test_2pi_from_links_is_minus_I():
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# THE FIX (2026-06-20, Grant option a): the holonomy is HOMOTOPY-INVARIANT and
+# CUT-GAUGE-INDEPENDENT — a direction-signed disclination holonomy, C3^(net_winding).
+# ─────────────────────────────────────────────────────────────────────────────
+def test_holonomy_is_homotopy_invariant():
+    """A there-and-back / contractible path crossing the cut twice with CANCELLING
+    direction (net winding 0) → holonomy = +I. THE FIX'S CORE ASSERTION.
+
+    Built as the encircle-1 loop traversed FORWARD then REVERSED. It crosses the
+    gauge cut twice (raw n_cut = 2) but in OPPOSITE directions, so net_winding = 0:
+    the Frank C3 applied once and its INVERSE once cancel to identity. Before the
+    fix this returned C3² ≠ I (q0 = −0.5, sign = −1) — cut-placement-dependent and
+    NOT homotopy-invariant.
+    """
+    net = build_diamond_net(L=8)
+    loop = shortest_closed_loop(net, 0)
+    centroid, normal, in_plane = loop_plane(net, loop)
+    defect = {"origin": centroid, "axis": normal, "cut_dir": in_plane, "frank_port": 0}
+
+    # Reverse a directed link (a, p) → (neighbor, reverse_port) — a connect-map walk.
+    def reverse_link(a, p):
+        return (net.neighbors[a][p], net.reverse_port[a][p])
+
+    reversed_loop = [reverse_link(u, p) for (u, p) in reversed(loop)]
+    there_and_back = loop + reversed_loop
+
+    res = holonomy_of_path(net, there_and_back, defect=defect)
+    assert res["closed"]
+    # Raw count is 2 (crosses the cut twice) — but in CANCELLING directions.
+    assert res["n_cut_crossings"] == 2
+    assert res["net_winding"] == 0  # the signed winding cancels
+    # → holonomy is +I: homotopy-invariant.
+    assert res["holonomy_sign"] == +1.0
+    assert res["so3_is_identity"] is True
+    assert np.allclose(res["R"], np.eye(3), atol=ATOL)
+    assert np.allclose(res["q"], [1.0, 0.0, 0.0, 0.0], atol=ATOL)
+
+
+def test_holonomy_cut_gauge_independent():
+    """A FIXED winding-1 loop with the defect line through it gives the SAME single
+    C3 holonomy as the gauge-cut direction is SWEPT around the axis — proving the
+    holonomy is now a TRUE topological invariant, not cut-placement-dependent.
+
+    The defect (origin = loop centroid, axis = loop normal) is FIXED; only the cut
+    half-plane's azimuth (`cut_dir`, rotated about the axis) is swept. For every
+    azimuth the winding-1 loop must give net_winding = 1 and the same |q| spinor
+    (up to overall sign — the cover lift is fixed only up to ±) and the same SO(3).
+    """
+    net = build_diamond_net(L=8)
+    loop = shortest_closed_loop(net, 0)
+    centroid, normal, in_plane = loop_plane(net, loop)
+    axis = normal / np.linalg.norm(normal)
+    # Right-handed in-plane basis to rotate cut_dir within the plane ⟂ axis.
+    e1 = in_plane - np.dot(in_plane, axis) * axis
+    e1 = e1 / np.linalg.norm(e1)
+    e2 = np.cross(axis, e1)
+
+    ref_absq = None
+    ref_R = None
+    for theta in np.linspace(0.0, 2.0 * np.pi, 9, endpoint=False):
+        cut_dir = np.cos(theta) * e1 + np.sin(theta) * e2
+        defect = {"origin": centroid, "axis": axis, "cut_dir": cut_dir, "frank_port": 0}
+        res = holonomy_of_path(net, repeat_loop(loop, 1), defect=defect)
+        # A single encirclement is winding-1 regardless of where the cut sits.
+        assert res["net_winding"] == 1, f"theta={theta}: net_winding {res['net_winding']} != 1"
+        assert not res["so3_is_identity"]  # genuine C3, not identity
+        if ref_absq is None:
+            ref_absq = np.abs(res["q"])
+            ref_R = res["R"]
+        else:
+            # |q| invariant up to overall sign; SO(3) rotation identical.
+            assert np.allclose(np.abs(res["q"]), ref_absq, atol=ATOL), f"theta={theta} |q| drift"
+            assert np.allclose(res["R"], ref_R, atol=ATOL), f"theta={theta} R drift"
+    # The single C3 spinor (½(1,1,1,1) up to sign) — independent of cut placement.
+    assert np.allclose(ref_absq, [0.5, 0.5, 0.5, 0.5], atol=ATOL)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# THE FIX — unit: the inverse Frank rotation is PROGRAMMATIC, R(inv) ≈ R(frank).T.
+# ─────────────────────────────────────────────────────────────────────────────
+def test_inverse_frank_permutation_is_rotation_inverse():
+    """`inverse_permutation` is the combinatorial inverse and gives R(inv) = R.T.
+
+    The −1-crossing branch of `link_rotation_permutation` must apply the INVERSE
+    Frank rotation, computed PROGRAMMATICALLY (not hardcoded) and verified to be
+    the rotation inverse. No analytic rotor enters — it is still a port-permutation.
+    """
+    frank = disclination_frank_permutation(0)  # (0,2,3,1)
+    inv = inverse_permutation(frank)
+    # Combinatorial inverse: perm ∘ inv = identity (index map).
+    assert tuple(inv[frank[i]] for i in range(4)) == (0, 1, 2, 3)
+    R_frank = rotation_from_port_permutation(frank)
+    R_inv = rotation_from_port_permutation(inv)
+    assert np.allclose(R_inv, R_frank.T, atol=ATOL)  # rotation inverse
+    assert np.allclose(R_frank @ R_inv, np.eye(3), atol=ATOL)
+
+    # link_rotation_permutation: +1 → Frank, −1 → inverse, 0 → identity.
+    assert link_rotation_permutation(0) == (0, 1, 2, 3)
+    assert link_rotation_permutation(+1) == frank
+    assert link_rotation_permutation(-1) == inv
+    # frank_override applies on +1, its programmatic inverse on −1.
+    c2 = (1, 0, 3, 2)  # self-inverse C2 edge element
+    assert link_rotation_permutation(+1, frank_override=c2) == c2
+    assert link_rotation_permutation(-1, frank_override=c2) == inverse_permutation(c2)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # HARDENING (2a): the headline −I is INDEPENDENT of the continuity sign-flip.
 # ─────────────────────────────────────────────────────────────────────────────
 def test_minus_I_is_flip_independent():
@@ -187,39 +295,32 @@ def test_minus_I_is_flip_independent():
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# HARDENING (2b): the holonomy SIGN is fixed by the encircling COUNT mod 6 —
-# the SU(2) lift of C3^n — not by an even/odd crossing parity.
+# HARDENING (2b): the holonomy SIGN is the SU(2) lift of C3^(net_winding) —
+# period-6 in the SIGNED winding.
 #
-# FLAG (surfaced to Grant, NOT silently resolved): the task brief asked for an
-# "EVEN-parity null" — a loop crossing the cut an even, non-zero number of times
-# giving +I, on the premise that "the holonomy is a winding invariant ... not a
-# raw crossing count." The operator does NOT support that premise, and asserting
-# it would encode a false claim. The operator applies the SAME C3 Frank rotation
-# on EVERY crossing (`link_rotation_permutation` has no orientation/inverse
-# branch), so the SU(2) holonomy is C3_quat^(n_cut), continuity-lifted — period-6
-# in the RAW crossing count (C3 has order 3 in SO(3), order 6 in SU(2)). Measured:
-#   n_cut: 0→+I  1→+½  2→−½(sign−1)  3→−I  4→−½(sign−1)  5→+½  6→+I
-# So an even count of 2 or 4 gives sign = −1, NOT +I; only multiples of 6 give +I.
-# There is no even/odd-parity invariant here; the invariant is C3^(n_cut mod 6).
-# This test hardens the ACTUAL invariant the operator computes (the period-6 sign
-# law), which is the honest extension of the n_cut ∈ {0,3} cases the suite covers.
-# See the returned note in the final agent message for the discrepancy + the open
-# physics question (does a substrate disclination's holonomy DEPEND on raw
-# crossing count, or should it be a signed Frank-winding? — adjudication needed).
+# This is the direction-signed (homotopy-invariant) operator (2026-06-20,
+# Grant-adjudicated option a). For a MONOTONE encircling path (`repeat_loop`) every
+# crossing has the SAME sign, so net_winding == raw n_cut == n and the C3^n
+# period-6 sign law is UNCHANGED. The earlier "even count of 2/4 → sign −1, not +I"
+# framing was about the RAW crossing count of NON-monotone paths; for a true
+# topological invariant the relevant quantity is the SIGNED winding, and the
+# there-and-back cancellation case (net winding 0 → +I, raw crossings 2) is now
+# covered directly by `test_holonomy_is_homotopy_invariant`.
 # ─────────────────────────────────────────────────────────────────────────────
 def test_holonomy_sign_follows_encircle_count_mod_6():
-    """Holonomy sign is the SU(2) lift of C3^(n_cut): period-6 in the raw count.
+    """Holonomy sign is the SU(2) lift of C3^(net_winding): period-6 in the winding.
 
-    Hardens the encircle-parity claim beyond n_cut ∈ {0,3}: it pins the FULL sign
-    law (incl. the n_cut=2,4 → sign −1 cases the suite did not previously assert),
-    documenting that the operator's invariant is count-mod-6, NOT even/odd parity.
+    For the MONOTONE `repeat_loop` family net_winding == raw n_cut == n, so this
+    pins the FULL period-6 sign law (incl. the n=2,4 → sign −1 cases). The signed
+    winding equals the raw count here precisely because every crossing of a
+    monotone encircling loop has the same direction sign.
     """
     net = build_diamond_net(L=8)
     loop = shortest_closed_loop(net, 0)
     centroid, normal, in_plane = loop_plane(net, loop)
     defect = {"origin": centroid, "axis": normal, "cut_dir": in_plane, "frank_port": 0}
 
-    # n_cut from 0..6 via the repeat-loop family (single encircling defect).
+    # winding from 0..6 via the repeat-loop family (single encircling defect).
     expected_q0 = {0: 1.0, 1: 0.5, 2: -0.5, 3: -1.0, 4: -0.5, 5: 0.5, 6: 1.0}
     expected_sign = {0: +1.0, 1: +1.0, 2: -1.0, 3: -1.0, 4: -1.0, 5: +1.0, 6: +1.0}
     expected_so3id = {0: True, 1: False, 2: False, 3: True, 4: False, 5: False, 6: True}
@@ -230,18 +331,19 @@ def test_holonomy_sign_follows_encircle_count_mod_6():
         else:
             res = holonomy_of_path(net, repeat_loop(loop, n), defect=defect)
             assert res["n_cut_crossings"] == n, f"n={n}: expected {n} crossings"
+            # MONOTONE loop: every crossing same sign ⇒ net_winding == raw count.
+            assert res["net_winding"] == n, f"n={n}: expected net_winding {n}"
         assert np.isclose(res["q"][0], expected_q0[n], atol=ATOL), f"n={n} q0"
         assert res["holonomy_sign"] == expected_sign[n], f"n={n} sign"
         assert res["so3_is_identity"] is expected_so3id[n], f"n={n} so3"
 
-    # The headline contrast the brief intended (even, non-zero) DOES NOT give +I:
-    # n_cut=2 and n_cut=4 both give sign = −1. Asserted explicitly so a future
-    # refactor toward a signed-winding operator (if Grant adjudicates that way)
-    # trips this test and forces a re-spec rather than silently passing.
+    # For the monotone family an even WINDING of 2 or 4 gives sign = −1, NOT +I;
+    # only windings ≡ 0 (mod 6) give +I. (A there-and-back path with net winding 0
+    # gives +I despite an even RAW count — see test_holonomy_is_homotopy_invariant.)
     res2 = holonomy_of_path(net, repeat_loop(loop, 2), defect=defect)
     res4 = holonomy_of_path(net, repeat_loop(loop, 4), defect=defect)
-    assert res2["n_cut_crossings"] == 2 and res2["holonomy_sign"] < 0.0
-    assert res4["n_cut_crossings"] == 4 and res4["holonomy_sign"] < 0.0
+    assert res2["net_winding"] == 2 and res2["holonomy_sign"] < 0.0
+    assert res4["net_winding"] == 4 and res4["holonomy_sign"] < 0.0
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -337,16 +439,34 @@ def test_probe_stable_across_lattice_size():
         assert r["encircle3_sign"] < 0.0, f"L={L} 2π-loop not −I"
 
 
-def test_2pi_minus_I_holds_even_on_small_wrapping_lattice():
-    """The load-bearing physics (encircle-3× → −I) is robust even at L = 6.
+def test_minus_I_requires_genuine_winding_3_not_wrapping_artifact():
+    """The −I is the winding-3 invariant — at L = 6 the wrapping loop is winding-1.
 
-    Documents that the L = 6 probe FAIL is purely the contractible-face geometry
-    (torus-wrapping loop), not the double-cover: the 2π-from-links −I survives.
+    CORRECTED by the homotopy-invariance fix (2026-06-20). The pre-fix test
+    asserted enc3 → −I at L = 6 ("the 2π-from-links −I survives even on the small
+    wrapping lattice"). That −I was a SIGN-BLIND RAW-COUNT ARTIFACT: at L = 6 the
+    shortest fundamental cycle WRAPS the small torus and crosses the gauge cut
+    THREE times in ONE traversal with directions [+1, −1, +1] — net winding +1, a
+    genuine single encirclement. The old operator counted all three as +C3 (raw
+    n_cut = 3) → C3³ = −I; the direction-signed operator nets them to C3¹ = the
+    single C3 (sign +1, SO(3) ≠ I), the honest holonomy of a winding-1 loop.
+    (The walker's unwrapped position then drifts off the fixed cut, so the n=3,6
+    repeats add no further crossings — another tell that this loop is not a clean
+    local encircling face.)
+
+    The load-bearing winding-3 → −I physics is robust on a NON-wrapping local face
+    (L ≥ 8): see `test_2pi_from_links_is_minus_I` and `test_probe_stable_across_
+    lattice_size`. This test pins the corrected small-lattice behavior so a future
+    regression toward the raw-count artifact is caught.
     """
     net = build_diamond_net(L=6)
     loop = shortest_closed_loop(net, 0)
     centroid, normal, in_plane = loop_plane(net, loop)
     defect = {"origin": centroid, "axis": normal, "cut_dir": in_plane, "frank_port": 0}
     enc3 = holonomy_of_path(net, repeat_loop(loop, 3), defect=defect)
-    assert enc3["holonomy_sign"] < 0.0
-    assert enc3["so3_is_identity"]
+    # Raw crossing count is 3 (the old artifact), but the SIGNED winding is 1.
+    assert enc3["n_cut_crossings"] == 3
+    assert enc3["net_winding"] == 1  # the wrapping loop is a single encirclement
+    assert enc3["holonomy_sign"] > 0.0  # C3¹, NOT −I
+    assert not enc3["so3_is_identity"]  # genuine 120° C3, not a closed 2π loop
+    assert np.allclose(np.abs(enc3["q"]), [0.5, 0.5, 0.5, 0.5], atol=ATOL)
