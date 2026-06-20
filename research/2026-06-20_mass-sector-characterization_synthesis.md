@@ -115,6 +115,45 @@ the code is `Z_eff = S ** 0.5`). This is the magnetic μ-load branch. The **reje
 SCOPE-FORBIDDEN at `crystal_engine.py:466-468`. The synthesis's mass cage is the Z→0 / Γ=−1 SHORT,
 NOT the Z→∞ / Γ=+1 rupture.
 
+**FIRMED by the Fork-B live-fire (VERDICT = ECHO; was candidate-pending, now RESOLVED).** The
+Fork-B "Saturation-Tank Mass Confinement" gate (`research/2026-06-20_fork-b-saturation-tank-confinement_result.md`,
+PR#307; built off `origin/main @ 19d55266`, solver `src/ave/solvers/fork_b_saturation_tank.py`)
+eigensolved this exact stiffness operator — extended onto the NATIVE connect-map as the graph-
+stiffness `L = Bᵀ diag(D_bond) B` (`fork_b_..._result.md` §1) — and confirms the §1.3 mechanism is
+REAL and saturation-structure-decided:
+
+- **GATE 1 CONFINEMENT = PASS** — the saturation tank genuinely confines a gapped, discrete,
+  core-localized A1-scalar bound mode (`core_frac` 0.758–1.000; gapped above the band top with a
+  cluster-aware spectral-gap witness; Im(ω) bound-branch RESOLVED via a convention-anchored open-
+  port readout, NOT assumed) (`fork_b_..._result.md` §2, GATE1 table). A **partial short binds at
+  the canonical floor** (`Γ ≈ −0.94` reachable; binds across S_min = 0.5 → 1e-4) — **no floor-
+  dropping needed** (§2 DEPTH paragraph). Stencil-robust: the native connect-map AND the Cartesian
+  cube both confine (`fork_b_..._result.md` §6 stencil table). This is the corrected Γ→−1 SHORT of
+  §1.3 above, eigensolved and confirmed.
+- **GATE 2 SCRAMBLE = PASS (NOT VOID)** — the confinement is **S-STRUCTURE-decided, NOT a Fork-A-
+  class tautology**. Both ARM-A (uniform `S→1`) and ARM-B (histogram-preserving spatial permutation,
+  the S-multiset fixed) de-confine the bound mode (de-confinement margins 0.68–1.00, all ≥ the
+  frozen 0.30 threshold; ARM-B does NOT survive ⇒ NOT VOID; the negative control permuting a
+  constant field is a verified no-op) (`fork_b_..._result.md` §3, GATE2 table). This is the
+  structural successor to PR#304's `verdict_is_projector_tautology` coming back CLEAN: the §1.3
+  confinement is a property of the *graded* `S(A)` field, exactly the saturation mechanism claimed.
+
+So the §1.3 "mechanism" claim is no longer candidate-pending — it is **FIRMED**: the confinement is
+real (GATE 1) and saturation-structure-driven (GATE 2). The mechanism FIRMS; it does NOT retract.
+
+**Seed-fragility nuance (flagged, NOT a verified Fork-B figure).** The reconciliation brief I was
+working from describes the ARM-B NOT-VOID as "predominantly true (~91% of histogram-preserving
+permutations de-confine; ~9% accidentally re-confine on srs)" rather than 100%. **`verify-before-
+cite` could NOT anchor that ~91% figure**: the committed Fork-B result doc, solver, tests, and the
+PR#307 body all report ARM-B with a SINGLE permutation seed (`solve_scramble(..., seed=20260620)`,
+`fork_b_saturation_tank.py:505,525`), with ARM-B de-confining decisively (`armB_survives = False`,
+margins 0.68–1.00) — there is **no multi-seed ensemble** measuring a de-confinement fraction in the
+committed Fork-B artifacts. This synthesis therefore states only the anchored result (single-seed
+ARM-B de-confines decisively ⇒ S-structure-decided, NOT VOID). The "~91% predominantly, not always"
+qualifier is **surfaced as a flag for Grant/auditor adjudication** (per flag-don't-fix): if a multi-
+seed ARM-B ensemble was run and disclosed in a not-yet-pushed #307 revision, it should be landed on
+the Fork-B branch first, then cited here — it is not encoded as a Fork-B finding until it is anchored.
+
 ## §2 — THE CHORD-CEILING (SOLID — design-level, the load-bearing honest finding)
 
 **The mass sector can at BEST be a FORM-chord / consistency, NOT a value-chord.** This is the
