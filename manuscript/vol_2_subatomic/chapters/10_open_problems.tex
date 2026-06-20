@@ -93,6 +93,43 @@ Free parameters& $f_a$ (axion scale)      & Zero \\
 \label{sec:baryon_asymmetry}
 %======================================================================
 
+% [Rule-12 walk-back, 2026-06-20] D2 KB<->tex lockstep with KB leaf
+% manuscript/ave-kb/vol2/nuclear-field/ch10-open-problems/baryon-asymmetry.md
+\begin{warningbox}[SUPERSEDED HEADLINE (Rule-12 walk-back, 2026-06-20)]
+\footnotesize
+The original Initial-release headline below --- ``0.38\% error, zero free
+parameters, every factor from lattice geometry'' --- is \textbf{RETRACTED}.
+Per auditor \textbf{FINDING 2} (2026-06-10,
+\texttt{research/2026-06-10\_freeze-handedness-survey\_note.md:50}), this
+result is \textbf{consistency-class with an imported electroweak-baryogenesis
+formula} (the substrate supplies the $\delta_{CP}$, $g_*$, $C_{sph}$
+assignments; the $\alpha_W^4 C_{sph}/g_*$ scaffold is SM-imported),
+\textbf{not emergence-class --- do not headline}. The governing claim
+\texttt{clm-4vwsjc} is pinned \textbf{confidence 0.4 / ``do not build on,
+rework needed''} (\texttt{vol2/claim-quality.md:483-486,491,496}).
+\par\smallskip
+\textbf{COMPOSITE CONSISTENCY-CHECK, not a zero-parameter derivation.}
+$C_{sph} = 28/79$ is the textbook SM Harvey-Turner conversion factor;
+$\alpha_W^4$ rides $\alpha$ (an AVE echo) and is the dominant
+magnitude-setter; $g_* = 7^3/4 = 85.75$ is asserted/reverse-validated, not
+independently measured; $\delta_{CP} = \pi/\kappa_{FS}$ is an asserted
+lattice-chirality fraction. \textbf{SYMMETRIC-STANDARD:} the
+order-of-magnitude $\eta \sim 6 \times 10^{-10}$ is peer-or-ahead of the SM,
+which produces no $\eta$ at all (CKM CP undershoots $\sim$8 orders; the
+$m_H = 125$~GeV electroweak transition is a crossover, no out-of-equilibrium;
+the SM needs BSM leptogenesis fitting $\eta$ with $\sim$10 unmeasured
+parameters). \textbf{The OOM consistency is the defensible result; the
+sub-percent precision and ``zero free parameters'' count are retracted.}
+\par\smallskip
+\textbf{Non-reproducible number + $\kappa_{FS}$ cold/thermal split.}
+$6.08 \times 10^{-10}$ / $0.38\%$ is reproduced by no code path. The canonical
+engine (\texttt{lattice\_chirality()}, thermal $\kappa_{FS} = 24.95$) gives
+$6.05 \times 10^{-10}$ / 0.79\%; the displayed cold $\pi/8\pi$ algebra gives
+$6.01 \times 10^{-10}$ / 1.51\%. Which $\kappa_{FS}$ is physically correct is
+OPEN for adjudication (flag-don't-fix); both give the same OOM. Body below
+preserved per Rule 12; displayed result corrected in place.
+\end{warningbox}
+
 \subsection{The Problem}
 
 The universe contains $\sim\!6 \times 10^{-10}$ baryons per photon,
@@ -144,18 +181,21 @@ The baryon-to-photon ratio follows from electroweak baryogenesis:
 \end{equation}
 \end{resultbox}
 
-\textbf{Every factor is derived from AVE lattice constants:}
+\noindent The factors entering the formula (see the SUPERSEDED-HEADLINE box
+above for which are AVE-derived vs SM-imported vs asserted):
 
 \begin{enumerate}
     \item $\alpha_W = \alpha/\sin^2\theta_W \approx 0.0328$
-    (weak coupling from impedance and lattice projection).
+    (weak coupling; rides $\alpha$, an AVE echo; dominant magnitude-setter).
 
-    \item $C_{sph} = (8N_f + 4N_H)/(22N_f + 13N_H) = 28/79$,
-    where $N_f = 3$ (torus knot generations $c=3,5,7$ below
+    \item $C_{sph} = (8N_f + 4N_H)/(22N_f + 13N_H) = 28/79$ --- the
+    \textbf{textbook SM Harvey-Turner sphaleron conversion factor}, with
+    asserted $N_f = 3$ (torus knot generations $c=3,5,7$ below
     $T_{EW}$) and $N_H = 1$ (SRS lattice Goldstone mode).
 
-    \item $g_* = 7^3/4 = 85.75$, \textbf{derived from}
-    $\boldsymbol{\nu_{vac} = 2/7}$:
+    \item $g_* = 7^3/4 = 85.75$, identified from
+    $\boldsymbol{\nu_{vac} = 2/7}$ (asserted/reverse-validated against
+    $\eta_{obs}$, not independently measured):
     \begin{itemize}
         \item The Poisson ratio $\nu_{vac} = 2/7$ reveals that
         each lattice node has \textbf{7 independent compliance modes}
@@ -173,17 +213,20 @@ The baryon-to-photon ratio follows from electroweak baryogenesis:
     \end{itemize}
 \end{enumerate}
 
-Evaluating:
+Evaluating (engine-canonical, thermal $\kappa_{FS} = 24.95 \Rightarrow
+\delta_{CP} = 0.126$):
 \begin{equation}
     \eta \approx \frac{0.126 \times (0.0328)^4 \times 0.354}{85.75}
-    \approx 6.08 \times 10^{-10}
+    \approx 6.05 \times 10^{-10}
 \end{equation}
 
 The observed value is $\eta_{obs} = 6.1 \times 10^{-10}$.
 
 \medskip\noindent
-\textbf{Result: 0.38\% error.  Zero free parameters.  Every factor
-from lattice geometry.}
+\textbf{Result: order-of-magnitude consistency-check,
+$\eta \approx 6.05 \times 10^{-10}$ (0.79\%, engine-canonical thermal
+$\kappa_{FS}$; the displayed cold-$8\pi$ algebra gives
+$6.01 \times 10^{-10}$ / 1.51\%).}  % [Rule-12 walk-back 2026-06-20 -- prior wording preserved]: was "\textbf{Result: 0.38\% error. Zero free parameters. Every factor from lattice geometry.}" RETRACTED per FINDING 2: 6.08e-10/0.38% non-reproducible + zero-free-parameters claim walked back. See SUPERSEDED-HEADLINE box.
 
 \medskip\noindent
 Note: the Standard Model uses $g_* = 106.75$ (yielding 20\% error).
@@ -369,7 +412,8 @@ all computed \emph{from} the framework's three retained calibration inputs $\{m_
 \textbf{Problem} & \textbf{AVE Resolution} & \textbf{$\Delta\%$} & \textbf{Status} \\
 \midrule
 Strong CP   & $\theta = 0$ (unique vacuum topology) & Exact & \textbf{Framework-derived}\footnote{Not a Clay-rigorous proof; this is the engineering-physics lattice-conditional resolution. See Ch.~\ref{ch:millennium_prizes} scope caveat.} \\
-Baryon asymmetry & $\eta = \delta_{CP} \alpha_W^4 C_{sph}/g_*$ & 0.38\% & \textbf{Solved} \\
+% [Rule-12 walk-back 2026-06-20 -- prior wording preserved]: was "Baryon asymmetry & $\eta = \delta_{CP} \alpha_W^4 C_{sph}/g_*$ & 0.38\% & \textbf{Solved} \\". DEMOTED per auditor FINDING 2 (consistency-class, imported EW-baryogenesis formula, not emergence-class); clm-4vwsjc conf 0.4 do-not-build. 6.08e-10/0.38% non-reproducible; engine-canonical 6.05e-10/0.79%.
+Baryon asymmetry & $\eta = \delta_{CP} \alpha_W^4 C_{sph}/g_*$ & 0.79\% (OOM) & \textbf{Consistency-check}\footnote{Demoted 2026-06-20 (Rule-12 walk-back) per auditor FINDING 2: consistency-class with an SM-imported electroweak-baryogenesis formula, NOT emergence-class. The order-of-magnitude result ($\eta \sim 6\times10^{-10}$, peer-or-ahead of the SM which produces no $\eta$ at all) survives; the sub-percent precision and ``zero free parameters'' claim are retracted. \texttt{clm-4vwsjc} pinned conf 0.4 / do-not-build.} \\
 % [2026-06-15 KB-reconciliation (vol_2 brief A.4, PARTIAL) -- prior wording preserved per Rule 12]: read "Standard Model & 26 of 26 parameters derived & $< 4.1\%$ & \textbf{Complete} \\". Augmented with an input-acknowledgment footnote (the 26 are computed FROM the 3 retained calibration inputs; per-parameter caveats per \kbleaf{ave-kb/vol2/claim-quality.md} \texttt{clm-xhdai6}). No count/accuracy change.
 Standard Model & 26 of 26 parameters derived & $< 4.1\%$ & \textbf{Complete}\footnote{The 26 are computed \emph{from} the framework's three retained calibration inputs $\{m_e,\alpha,G\}$ + four axioms (no further free parameters beyond those three), not derived ex nihilo; per-parameter caveats (e.g.\ on-shell vs $\overline{MS}$ for $\sin^2\theta_W$; framework-conditional SU(3) mass-gap results) apply per \texttt{clm-xhdai6}.} \\
 Hubble tension & $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2)$ & 2.9\% & \textbf{Predicted} \\
@@ -379,12 +423,13 @@ $g_*$ prediction & $7^3/4 = 85.75$ (12 Weyl missing) & --- & \textbf{Testable} \
 \end{center}
 
 \noindent
-\textbf{Computational verification:} 19 tests in \texttt{test\_open\_problems.py} verify all arguments. Three problems resolved quantitatively ($0.38\%$--$2.9\%$), one testable prediction for next-generation experiments, and the completion of the Standard Model derivation.
+\textbf{Computational verification:} 19 tests in \texttt{test\_open\_problems.py} verify all arguments. The baryon-asymmetry gate is order-of-magnitude + positivity (\texttt{test\_eta\_order\_of\_magnitude}, \texttt{test\_eta\_positive}) --- the correct gate for the demoted consistency-class claim (no sub-percent gate). The Hubble-tension prediction lands at $2.9\%$; one testable $g_*$ prediction for next-generation experiments; plus the parameter-reduction of the Standard Model derivation. % [Rule-12 walk-back 2026-06-20 -- prior wording preserved]: was "Three problems resolved quantitatively ($0.38\%$--$2.9\%$), one testable prediction for next-generation experiments, and the completion of the Standard Model derivation." DEMOTED: the baryon "0.38%" is retracted per FINDING 2 (consistency-class, non-reproducible figure).
 
 \section*{Chapter Summary}
 \begin{itemize}
     \item The Strong CP Problem is eliminated geometrically. The unique topology of the AVE classical vacuum ensures $\theta_{QCD} \equiv 0$ by default, rendering the Peccei-Quinn mechanism and hypothetical axions physically unnecessary.
-    \item The matter-antimatter Baryon Asymmetry maps flawlessly to the fundamental intrinsic chirality of the $K_4$ spatial lattice, evaluating algebraically to $\eta \approx 6.08 \times 10^{-10}$ with zero free scaling parameters.
+    % [Rule-12 walk-back 2026-06-20 -- prior wording preserved per FINDING 2]: read "The matter-antimatter Baryon Asymmetry maps flawlessly to the fundamental intrinsic chirality of the $K_4$ spatial lattice, evaluating algebraically to $\eta \approx 6.08 \times 10^{-10}$ with zero free scaling parameters." RETRACTED: consistency-class with an SM-imported EW-baryogenesis formula (not emergence-class); 6.08e-10 non-reproducible (engine-canonical 6.05e-10); "zero free scaling parameters" walked back; clm-4vwsjc conf 0.4 do-not-build.
+    \item The matter-antimatter Baryon Asymmetry is an \emph{order-of-magnitude consistency-check} against the standard (SM-imported) electroweak-sphaleron baryogenesis scaffold, with the lattice supplying chirality-flavored factor assignments: $\eta \approx 6.05 \times 10^{-10}$ (engine-canonical), the right order of magnitude where the SM produces no $\eta$ at all. The sub-percent precision and ``zero free parameters'' framing are retracted (Rule-12 walk-back, FINDING 2; see \S\ref{sec:baryon_asymmetry} box).
     % [2026-06-15 KB-reconciliation magic-angle (vol_2 brief A.3) -- prior wording preserved per Rule 12; HEADLINE -> primary-auditor gate]: read "...joint-constrained at $u_0^* \approx 0.187$, failure of any one falsifies...". RETRACTED per the 2026-06-14 magic-angle-provenance ruling: the VALUE u_0*=0.187 is asserted/back-fit, NOT forward-derived. FIRM = the lock K(u_0*)=2G(u_0*) + nu_vac=2/7 (K=2G imported from GR). Three-route falsifier re-scoped: alpha and G FIX the point, J_cosmic TESTS it (pass=chord, fail=echo). Do NOT refill with 4/21.
     \item The Hubble Tension is resolved by the geometric consistency identity $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2) \approx 69.32\text{ km/s/Mpc}$ landing inside the tension band (within $1\sigma$ of TRGB) --- structurally an algebraic identity rearrangement of $G$'s Machian-impedance derivation (Vol~3 Ch~\ref{ch:gravity_and_yield}), not an independent emergence-class (Class~D) prediction. The framework's geometric constraint between $G$ and $H_\infty$ being internally compatible with measured $H_0$ is the consistency claim. Refined classification per \texttt{consistency-vs-emergence} v1.1 (Grant canonized 2026-05-19 EOD): \textbf{Class E operating-point projection} --- $\{G, H_\infty, \hat{\Omega}_{\text{freeze}}, \alpha\}$ joint-constrained at a single operating point $u_0^*$ (the forward-derived \emph{value} $\approx 0.187$ is retracted as asserted/back-fit per the 2026-06-14 magic-angle-provenance audit; firm content = the lock $K(u_0^*) = 2G(u_0^*)$ with $\nu_{vac} = 2/7$, the $K=2G$ relation imported from GR; CODATA $\alpha$ and $G$ \emph{fix} the point while $\mathcal{J}_{\text{cosmic}}$ \emph{tests} it --- pass = chord, fail = echo), failure of any one falsifies the operating-point and therefore the entire substrate model. The qualitative regime-systematics interpretation (CMB-void vs Cepheid-local) stands as the AVE-distinct mechanism interpretation.
     \item The framework predicts the ultimate relativistic degrees of freedom limit at the Electroweak phase transition to be strictly bounded to $g_* = 85.75$ (derived exactly from $\nu_{vac} = 2/7$), setting up a highly falsifiable prediction for future Primordial Gravitational Wave detectors (LISA).

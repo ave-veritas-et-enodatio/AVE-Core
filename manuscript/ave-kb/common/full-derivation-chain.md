@@ -897,9 +897,11 @@ Every quantity marked $\checkmark$ is computed by the physics engine at import t
 | NS smoothness | Lattice regularization + $\|u\|\le c$ | global | --- | proven |
 | $\theta_{QCD}$ | Unique vacuum topology | $0$ | $<10^{-10}$ | exact |
 | $g_*$ | $7^3/4$ from $\nu_{vac}=2/7$ + K4 | 85.75 | SM: 106.75 | testable |
-| $\eta$ (baryon) | $\delta_{CP}^{B}\alpha_W^4 C_{sph}/g_*$ | $6.08\!\times\!10^{-10}$ | $6.1\!\times\!10^{-10}$ | $0.38\%$ |
+| $\eta$ (baryon)† | $\delta_{CP}^{B}\alpha_W^4 C_{sph}/g_*$ | $6.05\!\times\!10^{-10}$ | $6.1\!\times\!10^{-10}$ | $0.79\%$ (OOM consistency-check) |
 | $\alpha_s$ | $\alpha^{3/7}$ (compliance projection) | 0.1214 | 0.1179 | $2.97\%$ |
 | $m_H$ | $v/\sqrt{N_{K4}} = v/2$ | 124417 MeV | 125100 MeV | $0.55\%$ |
+
+**† $\eta$ (baryon) — demoted (Rule-12 walk-back, 2026-06-20):** This row was originally headlined "$6.08\times10^{-10}$ / $0.38\%$ / zero free parameters." Per auditor **FINDING 2** (2026-06-10, [`research/2026-06-10_freeze-handedness-survey_note.md:50`](../../../research/2026-06-10_freeze-handedness-survey_note.md)) it is **consistency-class with an imported electroweak-baryogenesis formula** ($\alpha_W^4 C_{sph}/g_*$ scaffold is SM-imported), **not emergence-class**. Governing claim `clm-4vwsjc` pinned conf 0.4 / "do not build on" ([`vol2/claim-quality.md:483-486`](../vol2/claim-quality.md)). The $6.08\times10^{-10}$ figure is reproduced by NO code path (engine-canonical thermal $\kappa_{FS}$: $6.05\times10^{-10}$/0.79%; cold $\pi/8\pi$: $6.01\times10^{-10}$/1.51%); table corrected to engine-canonical. The **order-of-magnitude** result is the defensible claim (SM produces no $\eta$ at all); the sub-percent precision is retracted. See the Baryon-Asymmetry SUPERSEDED-HEADLINE note below.
 
 **Empirical inputs (bounding limits):** 3 — $\{m_e, \alpha, G\}$. Each is *claimed* emergent at Layer 8 (Vol 1 Ch 8 Golden Torus, α a named geometric identification); the closure rests on the cold-lattice $\alpha^{-1}_{ideal} = 4\pi^3+\pi^2+\pi$ derivation, plus a thermal-running correction whose existence and sign are predicted but whose magnitude ($\delta_{strain}$ at $T_{CMB}$) is a definitional residual ($1-$CODATA$/\alpha_\text{cold}$; the quantitative-derivation route Q-DELTA-MAP-1-quant closed NEGATIVE, FT-1 2026-05-31) — see Vol 1 Ch 8 predicted/fitted disclosure.
 **Phenomenological per-parameter curve fits within the SM table:** 0 (one input scale propagates; no per-row tuning). Vol 6 nuclear masses are out of scope of this scorecard — see Vol 6 introduction for that methodology (one fitted scalar per nucleus, structurally disclosed).
@@ -980,7 +982,10 @@ $\theta \ne 0$ requires a topological defect costing energy
 $E \ge \Delta > 0$ (the mass gap). Therefore $\theta = 0$ exactly.
 No axion needed. (Vol. III, absorbed cross-scale verification.)
 
-**Baryon Asymmetry: $\eta = 6.08 \times 10^{-10}$.**
+**Baryon Asymmetry: $\eta \approx 6.05 \times 10^{-10}$ (composite OOM consistency-check).**
+
+> 🔴 **SUPERSEDED HEADLINE (Rule-12 walk-back, 2026-06-20).** The original "$\eta = 6.08 \times 10^{-10}$ … Error: 0.38%. Zero free parameters." headline is **RETRACTED**. Per auditor **FINDING 2** (2026-06-10, [`research/2026-06-10_freeze-handedness-survey_note.md:50`](../../../research/2026-06-10_freeze-handedness-survey_note.md)), this is **consistency-class with an imported electroweak-baryogenesis formula** ($\alpha_W^4 C_{sph}/g_*$ scaffold is SM-imported; substrate supplies $\delta_{CP}$, $g_*$, $C_{sph}$ assignments), **not emergence-class — do not headline**. Governing claim **`clm-4vwsjc`** pinned conf 0.4 / "do not build on, rework needed" ([`vol2/claim-quality.md:483-486,491,496`](../vol2/claim-quality.md)); confidence NOT altered. **SYMMETRIC-STANDARD:** OOM $\eta \sim 6 \times 10^{-10}$ is peer-or-ahead of the SM (which produces no $\eta$ at all — CKM CP undershoots $\sim$8 orders, $m_H=125$ GeV transition is a crossover, SM needs BSM leptogenesis fitting $\eta$ with $\sim$10 unmeasured parameters). The OOM consistency survives; the sub-percent precision and "zero free parameters" count are retracted. **Non-reproducible number:** $6.08 \times 10^{-10}$ / $0.38\%$ matches no code path; engine-canonical (thermal $\kappa_{FS}=24.95$, [`open_problems.py`](../../../src/ave/axioms/open_problems.py) `lattice_chirality()`) gives $6.05 \times 10^{-10}$ / 0.79%; displayed cold $\pi/8\pi$ gives $6.01 \times 10^{-10}$ / 1.51% (cold/thermal $\kappa_{FS}$ split OPEN for Grant, flag-don't-fix). *Body preserved per Rule 12; displayed number corrected in place.*
+
 The SRS/K4 lattice is chiral --- not superimposable on its mirror
 image. The CP-violating phase entering electroweak baryogenesis (distinct from the PMNS leptonic phase $\delta_{CP}^{PMNS}$ above) is:
 
@@ -993,18 +998,15 @@ The baryon-to-photon ratio follows from electroweak baryogenesis:
 $$
 \eta = \frac{\delta_{CP}^{B} \cdot \alpha_W^4 \cdot C_{sph}}{g_*}
 = \frac{(\pi/8\pi) \cdot (\alpha/(2/9))^4 \cdot (28/79)}{7^3/4}
-\approx 6.08 \times 10^{-10}
+\approx 6.05 \times 10^{-10}
 $$
 
 where:
-- $\alpha_W = \alpha/\sin^2\theta_W = \alpha/(2/9)$ --- weak coupling
-- $C_{sph} = 28/79$ --- sphaleron conversion ($N_f = 3$ torus knots,
-  $N_H = 1$ Goldstone)
-- $g_* = 7^3/4 = 85.75$ --- **derived from $\nu_{vac} = 2/7$**:
-  7 modes per node, cubed for 3D, divided by 4 (K4 nodes)
+- $\alpha_W = \alpha/\sin^2\theta_W = \alpha/(2/9)$ --- weak coupling (rides $\alpha$, an AVE echo; dominant magnitude-setter)
+- $C_{sph} = 28/79$ --- **textbook SM Harvey-Turner** sphaleron conversion factor (asserted $N_f = 3$ torus knots, $N_H = 1$ Goldstone)
+- $g_* = 7^3/4 = 85.75$ --- identified from $\nu_{vac} = 2/7$ (7 modes per node, cubed for 3D, divided by 4 K4 nodes); **asserted/reverse-validated against $\eta_{obs}$, not independently measured**
 
-Observed: $\eta_{obs} = 6.1 \times 10^{-10}$. Error: 0.38%.
-Zero free parameters. (Vol. III, absorbed cross-scale verification.)
+Observed: $\eta_{obs} = 6.1 \times 10^{-10}$. Order-of-magnitude consistency-check (engine-canonical thermal $\kappa_{FS}$: 0.79%; displayed cold-$8\pi$: 1.51%). [Original line read "*Error: 0.38%. Zero free parameters.*" — RETRACTED per FINDING 2; see SUPERSEDED-HEADLINE note above.] (Vol. III, absorbed cross-scale verification.)
 
 ## Proposed Areas of Investigation
 
