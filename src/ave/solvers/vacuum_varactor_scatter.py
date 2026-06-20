@@ -43,8 +43,10 @@ Saturation kernel:  S(A) = sqrt(1 - (A/A_yield)^2)   [crystal_engine.py:191, IMP
 
 As the core SATURATES (S -> 0):  Z_bond -> 0  =>  Gamma -> -1  (the mass cage,
 the Z->0 SHORT, the corrected sign -- NOT a Z->inf bag). This is the LONGITUDINAL
-μ-LOAD (Z_eff = Z0*sqrt(S), crystal_engine.py:466-478), NOT the FORBIDDEN ε-load
-(Z_eff = Z0/sqrt(S) -> inf, Gamma=+1; crystal_engine.py:466-468 SCOPE ASSERTION).
+μ-LOAD: the μ-load Z_eff = Z0*sqrt(S) form is at crystal_engine.py:463,477-478
+(gamma_bulk: "Z_eff = Z0·√S → 0 ... Γ → −1", then `Z_eff = S ** 0.5`). It is NOT
+the FORBIDDEN ε-load (Z_eff = Z0/sqrt(S) -> inf, Gamma=+1; the SCOPE ASSERTION /
+EPSILON-LOAD FORBID at crystal_engine.py:466-468).
 
 ═══════════════════════════════════════════════════════════════════════════════
 PER-BOND, NOT PER-NODE (load-bearing — Fork-B NO-GO Finding 2)
@@ -94,7 +96,6 @@ from ave.core.chiral_lattice import (
     LatticeNet,
     build_diamond_net,
     build_srs_net,
-    scatter_matrix,
 )
 from ave.core.constants import Z_0, Z_RADIATION
 from ave.core.crystal_engine import CrystalEngine
@@ -164,9 +165,12 @@ def admittance_scatter(Y: np.ndarray) -> np.ndarray:
         => V_i^ref = V - V_i^inc  => S_ij = 2 Y_j/(Σ_k Y_k) - δ_ij.
 
     EQUAL admittance (all Y_j = Y) gives 2 Y/(nY) - δ_ij = (2/n) - δ_ij = the
-    bedrock (2/n)J - I EXACTLY -- a UNIFORM admittance (even a saturated one)
-    CANCELS (the per-node-uniform no-op, the load-bearing Fork-B Finding 2). A
-    per-PORT-VARYING Y is what makes the scatter read saturation.
+    bedrock (2/n)J - I. TWO senses of "exact" apply: at Y = Y0·𝟙 (the S=1 vacuum,
+    A=0) the result is BIT-LEVEL exact (np.array_equal, identical float ops); for a
+    UNIFORM SATURATED Y (the common factor Y0/√S cancels through a Σ and division)
+    the agreement is EXACT-TO-ROUNDOFF (np.allclose ~1e-16), NOT bit-identical. Either
+    way a per-node-UNIFORM admittance CANCELS (the no-op, the load-bearing Fork-B
+    Finding 2). A per-PORT-VARYING Y is what makes the scatter read saturation.
 
     Returns the (n,n) scatter matrix. alpha-FREE (linear algebra on Y only)."""
     Y = np.asarray(Y, dtype=np.float64).ravel()
@@ -232,9 +236,11 @@ def assemble_varactor_scattering(net: LatticeNet, A_bond, *, Y0: float = 1.0) ->
 
     PER-BOND, NOT PER-NODE (Finding 2): if A_bond is per-NODE-uniform (a scalar, or an
     (N,) broadcast), every Y_u is uniform within the node and S_u collapses to (2/d)J-I
-    EXACTLY -- 𝓢(A) == the bedrock operator REGARDLESS of S. Only a per-BOND-VARYING
-    A_bond (ports of one node differing) makes 𝓢(A) read saturation. The validate-on-
-    known gates assert exactly this.
+    -- 𝓢(A) == the bedrock operator REGARDLESS of S. BIT-LEVEL exact only at S=1 (A=0,
+    np.array_equal); for a SATURATED-uniform field the agreement is EXACT-TO-ROUNDOFF
+    (np.allclose ~1e-13). Only a per-BOND-VARYING A_bond (ports of one node differing)
+    makes 𝓢(A) read saturation. The validate-on-known gates assert exactly this
+    (gate 1 array_equal at S=1; the per-node no-op test allclose atol=1e-13).
 
     A_bond: scalar | (N,) | (N, degree) dimensionless saturation amplitudes (see
     _normalize_A_bond). Returns the dense (N*degree, N*degree) operator. alpha-FREE."""
@@ -246,7 +252,7 @@ def assemble_varactor_scattering(net: LatticeNet, A_bond, *, Y0: float = 1.0) ->
     scatter_block = np.zeros((ndof, ndof), dtype=np.float64)
     for u in range(N):
         Y_u = bond_admittance_from_saturation(A[u], Y0=Y0)  # (d,) per-port admittance
-        scatter_block[u * d:(u + 1) * d, u * d:(u + 1) * d] = admittance_scatter(Y_u)
+        scatter_block[u * d : (u + 1) * d, u * d : (u + 1) * d] = admittance_scatter(Y_u)
 
     src_flat, dst_flat = net.connect_index()
     C = np.zeros((ndof, ndof), dtype=np.float64)
@@ -258,8 +264,10 @@ def assemble_varactor_scattering(net: LatticeNet, A_bond, *, Y0: float = 1.0) ->
 # 4. VALIDATE-ON-KNOWN runner (the four HALT gates)
 # ═════════════════════════════════════════════════════════════════════════════
 def radiative_port_reflection() -> dict:
-    """Gate-4 STRUCTURAL anchor: the radiative-Q floor Z_RADIATION = Z_0/(4π) ≈ 29.98
+    """Gate-4 STRUCTURAL radiative-Q FLOOR: Z_RADIATION = Z_0/(4π) ≈ 29.98
     (constants.py:717), recovered THROUGH the admittance scatter at a radiating port.
+    Band-consistent with the cold-cage Q_ringdown≈30.8 (both in [20,45]) but NOT an
+    identity -- DEC-5 (test_graded_vacuum_network_isolation.py:119-124) guards that.
 
     ── SCOPE HONESTY (read this) ──
     The cold-cage Q_ringdown ≈ 30.8 is a property of the engine's DYNAMICAL real-space
@@ -267,8 +275,20 @@ def radiative_port_reflection() -> dict:
     fit; test_l3_mass_cage.py:743). It is NOT a property of this STATIC scatter MATRIX --
     a scattering operator does not, by itself, produce a decay time. So this gate does
     NOT re-run that dynamical ringdown (that is engine scope; reported separately in the
-    result doc). What the OPERATOR reproduces is the STRUCTURAL radiative-load anchor the
-    ~30.8 sits on: a node port loaded by the free-space radiation impedance Z_RADIATION.
+    result doc). What the OPERATOR reproduces is the STRUCTURAL radiative-Q FLOOR: a node
+    port loaded by the free-space radiation impedance Z_RADIATION.
+
+    BAND-CONSISTENT, NOT AN IDENTITY (DEC-5). Z_RADIATION ≈ 29.98 and the dynamical
+    Q_ringdown ≈ 30.8 are BOTH in the [20,45] radiative-Q floor band, but they are
+    ~2.7% APART and are NOT the same number. A PINNED corpus anti-coincidence test
+    guards against conflating them:
+        test_graded_vacuum_network_isolation.py:119-124,
+        test_anti_coincidence_Q_is_not_Z_radiation:
+        "confirm the solver computes Q from the dynamics and is NOT silently the
+        constant Z_RADIATION = Z_0/(4π) = 29.98 (which sits in the [20,45] band)"
+        -- assert abs(r["Q"] - 29.98) > 1.0.
+    So the cold cage sits in the SAME BAND as this structural floor, NOT *on* it as an
+    identity (that identity is exactly what DEC-5 forbids).
 
     The radiation port sees admittance Y_rad relative to the bound-node admittance Y_0:
         Z_RADIATION = Z_0/(4π)  =>  Y_rad/Y_0 = Z_0/Z_RADIATION = 4π ≈ 12.566.
@@ -276,8 +296,8 @@ def radiative_port_reflection() -> dict:
     reflection seen looking INTO the bound node:
         Γ_bound = S_00 = 2 Y_0/(Y_0 + Y_rad) - 1 = (Y_0 - Y_rad)/(Y_0 + Y_rad)
                 = (1 - 4π)/(1 + 4π) ≈ -0.853   (a strong, NOT total, radiative short).
-    The radiative-Q floor itself: Q_rad ≈ Z_0/Z_RADIATION / (something O(1)) -- the
-    canonical floor number IS Z_RADIATION ≈ 29.98 ≈ the 30.8 the cold cage rings down to.
+    The radiative-Q floor itself IS Z_RADIATION ≈ 29.98 -- band-consistent with the
+    cold-cage 30.8 (both in [20,45]), NOT an identity (DEC-5).
 
     alpha-FREE: Z_0=√(μ0/ε0), Z_RADIATION=Z_0/(4π) -- no ALPHA (it lives only in the
     dimensionful V_YIELD, never touched here). Returns the anchor diagnostics."""
@@ -290,13 +310,20 @@ def radiative_port_reflection() -> dict:
         "Z_0": float(Z_0),
         "Z_RADIATION": float(Z_RADIATION),
         "Z0_over_Zrad_is_4pi": bool(abs(ratio - 4.0 * np.pi) < 1e-9),
-        "radiative_Q_floor": float(Z_RADIATION),  # ≈ 29.98, the anchor the 30.8 sits on
+        "radiative_Q_floor": float(Z_RADIATION),  # ≈ 29.98, in the [20,45] band
         "gamma_bound_into_radiation_load": gamma_bound,  # ≈ -0.853
         "reproduces_radiative_floor_~30": bool(abs(Z_RADIATION - 30.0) < 1.5),
+        "in_radiative_Q_band_20_45": bool(20.0 <= Z_RADIATION <= 45.0),
+        "band_consistent_not_identity_DEC5": (
+            "Z_RADIATION≈29.98 and cold-cage Q_ringdown≈30.8 are BOTH in [20,45] but "
+            "~2.7% apart; NOT an identity (DEC-5 guards: "
+            "test_graded_vacuum_network_isolation.py:119-124)."
+        ),
         "note": (
-            "Structural radiative-load anchor (Z_RADIATION≈29.98) reproduced via the "
-            "admittance scatter. The DYNAMICAL cold-cage Q_ringdown≈30.8 is engine FDTD "
-            "scope (test_l3_mass_cage.py), NOT this static operator -- flagged, not papered."
+            "Structural radiative-Q FLOOR (Z_RADIATION≈29.98, in [20,45]) reproduced via "
+            "the admittance scatter. The DYNAMICAL cold-cage Q_ringdown≈30.8 is engine "
+            "FDTD scope (test_l3_mass_cage.py), NOT this static operator, and is "
+            "band-consistent-NOT-identical to 29.98 (DEC-5) -- flagged, not papered."
         ),
     }
 
@@ -318,9 +345,11 @@ def varactor_validate_on_known(cfg: "VaractorConfig | None" = None) -> dict:
       2. per-PORT-distinct admittance -> scatter != (2/n)J - I (genuinely reads z).
       3. ALPHA-FREE: ALPHA never imported into the scatter path; |dQ/Q|<1e-6 under
          alpha->2alpha (the operator is bit-identical because it never reads alpha).
-      4. DRIVEN-FRAME COLD-CAGE: the radiative-Q floor Z_RADIATION≈29.98 (the structural
-         anchor the cold-cage Q_ringdown≈30.8 sits on), reproduced via the scatter.
-         (The full DYNAMICAL ringdown is engine FDTD scope -- flagged, not papered.)
+      4. DRIVEN-FRAME COLD-CAGE: the structural radiative-Q FLOOR Z_RADIATION≈29.98,
+         reproduced via the scatter. BAND-CONSISTENT with the cold-cage Q_ringdown≈30.8
+         (both in [20,45], ~2.7% apart) but NOT an IDENTITY -- DEC-5 guards that
+         (test_graded_vacuum_network_isolation.py:119-124). The full DYNAMICAL ringdown
+         is engine FDTD scope -- flagged, not papered.
 
     KEY DELIVERABLE-DEMONSTRATION (the Fork-B unblocker):
       SCRAMBLING S(A) CHANGES the assembled operator (max|dScatter|>0) -- proving the
@@ -328,8 +357,7 @@ def varactor_validate_on_known(cfg: "VaractorConfig | None" = None) -> dict:
 
     Returns a dict with each gate + the scramble demonstration + binned HALT/PASS."""
     cfg = cfg or VaractorConfig()
-    out: dict = {"config": {"L_srs": cfg.L_srs, "L_diamond": cfg.L_diamond,
-                            "scramble_seed": cfg.scramble_seed}}
+    out: dict = {"config": {"L_srs": cfg.L_srs, "L_diamond": cfg.L_diamond, "scramble_seed": cfg.scramble_seed}}
     halt_reasons: list[str] = []
 
     srs = build_srs_net(L=cfg.L_srs)
@@ -377,9 +405,7 @@ def varactor_validate_on_known(cfg: "VaractorConfig | None" = None) -> dict:
     g4 = radiative_port_reflection()
     out["gate4_cold_cage_radiative_floor"] = g4
     if not g4["reproduces_radiative_floor_~30"]:
-        halt_reasons.append(
-            f"GATE4: did NOT reproduce the radiative floor ~30 (Z_RADIATION={g4['Z_RADIATION']:.3f})"
-        )
+        halt_reasons.append(f"GATE4: did NOT reproduce the radiative floor ~30 (Z_RADIATION={g4['Z_RADIATION']:.3f})")
 
     # ── KEY DEMONSTRATION: scrambling S(A) CHANGES the operator ──────────────────
     out["scramble_changes_operator"] = _scramble_changes_operator(srs, dia, cfg)

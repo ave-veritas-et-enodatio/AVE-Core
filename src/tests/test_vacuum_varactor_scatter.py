@@ -26,7 +26,6 @@ import pytest
 from ave.core.chiral_lattice import build_diamond_net, build_srs_net, scatter_matrix
 from ave.solvers.node_scattering_multiplicity import assemble_global_scattering
 from ave.solvers.vacuum_varactor_scatter import (
-    VaractorConfig,
     admittance_scatter,
     assemble_varactor_scattering,
     bond_admittance_from_saturation,
@@ -119,12 +118,12 @@ def test_varactor_is_mu_load_not_epsilon_load():
     """EPSILON-LOAD FORBID: the varactor gives Z=sqrt(S)->0 (SHORT, Gamma->-1), NOT
     the forbidden epsilon-load Z=1/sqrt(S)->inf (OPEN, Gamma->+1)."""
     S = float(saturation_kernel(np.array(0.9)))
-    Z_mu = np.sqrt(S)            # the varactor mu-load
+    Z_mu = np.sqrt(S)  # the varactor mu-load
     Z_eps_forbidden = 1.0 / np.sqrt(S)  # the forbidden epsilon-load
-    assert Z_mu < 1.0            # heading to short
+    assert Z_mu < 1.0  # heading to short
     assert Z_eps_forbidden > 1.0  # would head to open -- NOT what we built
     # Gamma sign check
-    assert (Z_mu - 1.0) / (Z_mu + 1.0) < 0.0       # mu-load: Gamma<0 (toward -1)
+    assert (Z_mu - 1.0) / (Z_mu + 1.0) < 0.0  # mu-load: Gamma<0 (toward -1)
     assert (Z_eps_forbidden - 1.0) / (Z_eps_forbidden + 1.0) > 0.0  # eps: Gamma>0
 
 
@@ -267,3 +266,56 @@ def test_scramble_of_uniform_field_is_a_noop():
     assert np.allclose(S0, S1, atol=1e-14)
     # and it equals the bedrock (uniform -> cancels)
     assert np.allclose(S0, assemble_global_scattering(net), atol=1e-13)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 8. FLOOR-CLIP CAVEAT REGRESSION — an all-above-A_cap field clips to uniform and
+#    returns BEDROCK; encodes the floor caveat (catch a future clip of the OPERATIVE
+#    range, which would silently erase the per-bond gradient the operator reads).
+# ─────────────────────────────────────────────────────────────────────────────
+@pytest.mark.parametrize("builder,kw", [(build_srs_net, {"L": 2}), (build_diamond_net, {"L": 4})])
+def test_all_ports_above_A_cap_clip_to_uniform_returns_bedrock(builder, kw):
+    """FLOOR-CLIP CAVEAT (the floor is set by A_cap=0.99, NOT S_min=0.05): a per-bond
+    field whose RAW values DIFFER per port but are ALL above A_cap clips to a SINGLE
+    saturation value S(A_cap)=sqrt(1-0.99^2)=0.1411 (Z=sqrt(S)=0.376 => Gamma=-0.454).
+    The per-bond variation is ERASED -> the load is uniform-within-node -> the operator
+    returns the BEDROCK (max|d|=0). This encodes the documented floor caveat so a future
+    regression that ACCIDENTALLY clips the OPERATIVE range (and thereby kills the
+    saturation-reading gradient) is caught: if this test ever needs to be relaxed,
+    something is clipping where it must not."""
+    net = builder(**kw)
+    bed = assemble_global_scattering(net)
+
+    # all ports ABOVE A_cap=0.99, raw values DELIBERATELY non-uniform per bond
+    rng = np.random.default_rng(2024)
+    A_above_cap = rng.uniform(1.5, 5.0, size=(net.n_nodes, net.degree))
+    assert np.all(A_above_cap > 0.99)  # confirm every port is above the clip
+
+    # the kernel must collapse them all to the SAME clipped S = sqrt(1 - A_cap^2)
+    S_clipped = saturation_kernel(A_above_cap)
+    expected_S = np.sqrt(1.0 - 0.99**2)  # = 0.14107 (A_cap is the binding clip, NOT S_min)
+    assert np.allclose(S_clipped, expected_S, atol=1e-12)
+    assert not np.isclose(expected_S, 0.05)  # the S_min=0.05 floor is NON-binding here
+
+    # the clipped (now-uniform) field returns the bedrock EXACTLY-to-roundoff
+    op = assemble_varactor_scattering(net, A_above_cap)
+    assert np.allclose(op, bed, atol=1e-13), "all-above-A_cap field did NOT return bedrock"
+    assert np.max(np.abs(op - bed)) == pytest.approx(0.0, abs=1e-13)
+
+
+def test_floor_caps_reachable_gamma_at_minus_0p45_via_A_cap():
+    """The reachable Gamma floor ~-0.45 is set by A_cap=0.99 (NOT S_min=0.05): at the
+    clip A=A_cap, S=sqrt(1-0.99^2)=0.1411, Z=sqrt(S)=0.3756, Gamma=-0.4539. The S_min
+    path (Z=sqrt(0.05)=0.224 => Gamma=-0.635) is NON-binding -- it would give the WRONG
+    floor. Pins the corrected floor arithmetic (Part-1 fix item 3)."""
+    S_at_cap = float(saturation_kernel(np.array(0.99)))
+    assert S_at_cap == pytest.approx(np.sqrt(1.0 - 0.99**2), abs=1e-12)  # = 0.14107
+    Z = np.sqrt(S_at_cap)
+    gamma_floor = (Z - 1.0) / (Z + 1.0)
+    assert gamma_floor == pytest.approx(-0.4539, abs=1e-3)  # the A_cap-set floor
+
+    # the (non-binding) S_min=0.05 path would give a DIFFERENT, wrong floor
+    Z_smin = np.sqrt(0.05)
+    gamma_smin = (Z_smin - 1.0) / (Z_smin + 1.0)
+    assert gamma_smin == pytest.approx(-0.6345, abs=1e-3)  # NOT the observed floor
+    assert abs(gamma_floor - gamma_smin) > 0.1  # the two are distinct: A_cap binds, S_min does not
