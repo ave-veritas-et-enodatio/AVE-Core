@@ -77,7 +77,41 @@ relation* is `:169`.
 
 ## TKI bridge state
 
-*(skeleton — filled per commit)*
+The Topo-Kinematic Isomorphism (Axiom 2, `clm-dfaiwj`) is the candidate
+electro-mechanical transducer that would sit on the EM↔mechanical seam (seam 2). Its
+implementation state:
+
+- **Partially implemented as a unit-conversion dictionary.** `isomorphism.py` exposes
+  `ohms_to_kinematic` (`:49`, `Z_mech = ξ_topo² · Z_elec`), `mechanical_to_electrical`
+  (`:79`), `charge_to_length`/`length_to_charge` (`:19`/`:34`), and
+  `vector_potential_to_mass_flow` (`:88`). These are **dimensional conversion functions**
+  only.
+- **NOT wired into any compute path** as the `def-tk1xfm` gain-1 transformer. No solver
+  or eigensolve imports these to *couple* the EM port to the mechanical channels — the
+  Build-A solver explicitly routes AROUND it (DEC-4, EM-as-bare-loss-port).
+- **NOT ratified.** `def-tk1xfm` is `status:proposed`, awaiting auditor + Grant
+  ratification.
+
+### WIRING GATE (must clear BEFORE `def-tk1xfm` is ever wired into a compute path)
+
+Two preconditions, both currently UNMET:
+
+1. **`def-tk1xfm` must move `proposed → SOLID`** (Grant ratify). Until then it is a
+   candidate, not an adjudicated wire.
+2. **The ceiling must be ported into `isomorphism.py`'s docstring.** The strength
+   ceiling — *"identity-by-translation, NOT a derivation"* (the lossless / gain-1 /
+   pole-less bound; the `translation-circuit.md:660` piezo over-claim guard) — is
+   **CONFIRMED ABSENT** from the module today. The `isomorphism.py` module docstring
+   (lines 1–14) says only *"This module provides exact dimensional conversion functions
+   between electrical and mechanical domains."* — it states the dimensional identity but
+   carries **no** "not-a-derivation / no-pole / no-new-store" caveat. A future agent
+   reading the module could mistake the gain-1 unit dictionary for a derived coupling
+   mechanism. Porting the ceiling into the docstring is a hard precondition of wiring.
+
+**Until both clear, DEC-4's route-around (EM-as-bare-loss-port) is the correct
+discipline** — not a workaround to be eliminated. Wiring an un-ratified, ceiling-free
+transducer into the compute path would silently convert a units-bookkeeping identity
+into an apparent derivation (the seductive-unification trap, manufacturing a phantom α).
 
 ## #39 implication
 
