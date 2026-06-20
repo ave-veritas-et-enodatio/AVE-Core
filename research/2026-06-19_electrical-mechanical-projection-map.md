@@ -49,7 +49,31 @@ status precisely so the genuine distinctions are not silently dissolved.
 
 ## The 7-seam table
 
-*(skeleton — filled per commit)*
+Anchors re-grepped on branch tip `37c3cf20`. **Resolution status legend:**
+`RESOLVED-by-unification` = the unified-network bookkeeping genuinely closes it;
+`GENUINE-distinction` = a real physical distinction the corpus holds (do NOT collapse);
+`OPEN` = an un-adjudicated fork awaiting Grant.
+
+| # | Seam | file:line | Nature | Resolution status |
+|---|------|-----------|--------|-------------------|
+| 1 | **`Z_bulk = √2·Z_0` units mis-scope** — a bulk mechanical impedance was scoped against the EM reference `Z_0` (Ω) instead of its own ρc axis | fixed in #296 `c4632a1b`; the bookkeeping the network buys: `Z_mech = ξ_topo²·Z_elec`, `isomorphism.py:53` (`ohms_to_kinematic`, `:49`) | The **ONE genuine units artifact** — a domain-reference mis-scope, not a physics error | **RESOLVED** (units-conflation, fixed) |
+| 2 | **EM ↔ mechanical = domain boundary needing a TRANSDUCER not a wire** — two ports in different units (Ω vs ρc) cannot be directly wired; the crossing requires an electro-mechanical change-of-reference | `device-circuit-models.md`:199–202 | **GENUINE** impedance-DOMAIN boundary; the transducer changes units, does not erase the boundary | **GENUINE-distinction** |
+| 3 | **DEC-4 EM-as-bare-loss-port** — the EM channel modelled as a bare matched radiative loss-port (`Γ_EM=0`), NOT a coupled transducer; a proper coupled EM gives a DIFFERENT observable (the **loaded** Q) | prereg `DEC-4`, `2026-06-19_electron-Q-coupled-network_prereg.md`:115; solver header `graded_vacuum_network.py` (Stage-2 note, header lines ~16–23) | **GENUINE scoping choice** — the route-around is correct discipline until the transducer is ratified | **GENUINE-distinction** (scoping) |
+| 4 | **`1.826 = √(10/3)` vs `2.582 = √2·√(10/3)` bulk/shear ratio** — the `√2` IS exactly the EM-photon `√(K/G)` reference compounded into a mechanical-shear ratio (confirmed to machine zero); both **α-free**, both **α-invariant** | result `2026-06-19_electron-Q-coupled-network_result.md`:112–142; solver `RATIO_BULK_SHEAR_MECH = √(10/3)` `graded_vacuum_network.py:122`, `RATIO_BULK_SHEAR_PHOTON = √2·√(10/3)` `:124` | **GENUINE α-free projection-split** — moves NO chord/echo bin, only the bulk/shear gap LOCATION; auditor LEAN = `1.826` channel-correct for two-mechanical-channels; frozen prereg `2.582` PRESERVED verbatim | **OPEN** (Grant pick pending) |
+| 5 | **stability ⊥ interaction** — intrinsic Q→∞ (mechanical confinement, EM-port closed ⇒ Hermitian) is ORTHOGONAL to loaded Q=1/α (EM coupling). Mechanical owns the lifetime; electrical owns the coupling coefficient | `theorem-3-1-q-factor.md`:145 (Amendment), :153–154 (STABILITY/INTERACTION table) | **GENUINE** — the projection made into the right answer; `137` re-attributed to the LOADED/radiative Q, intrinsic Q is infinite/stable; **retracts NOTHING**, α stays echo | **GENUINE-distinction** |
+| 6 | **charge = `[Q] ≡ [L]`** — the TKI bridge FOUNDATION (`clm-dfaiwj`, solidity 0.80, "ok to build on, see caveats") | `master-equation.md`:20 (two-3s orthogonality fence); claim `clm-dfaiwj` `vol1/claim-quality.md` | **GENUINE** — resolving it is a **category error**: CHARGE-3 (Cosserat micro-rotation) ⊥ MASS-3 (A1 dilatation), never one `(V_inc,V_ref)` phasor (genesis-24 double-count guard) | **GENUINE-distinction** (foundation) |
+| 7 | **M/J/Q refuted bijection** — the clean "3 hairs = 3 channels" map is REFUTED: J and Q CO-LOCATE in the Cosserat sector; EM is the matched **radiative PORT**, not an observable's home | `device-circuit-models.md`:163 (§6.4 header), :165, :178 | **GENUINE / honestly-held** — two independent triples exist, NO leaf cross-identifies them | **GENUINE-distinction** |
+
+**Seam-1 naming note (verify-before-cite).** The reverse converter in `isomorphism.py`
+is named **`mechanical_to_electrical`** (`:79`), with `impedance_electrical_to_mechanical`
+(`:79`/alias of `ohms_to_kinematic` at `:70`) on the forward side — there is **no
+function literally named `kinematic_to_ohms`** on the branch tip. Cite
+`ohms_to_kinematic` (`:49`) / `mechanical_to_electrical` (`:79`) by their actual names.
+
+**Seam-1/5 leak-anchor note (verify-before-cite).** The `|Γ_EM|² = 1 − α` radiative-leak
+RETURN is at `cvr_model.py:169` (`return 1.0 - alpha`); `:161` is the `def gamma_mag_sq_leak`
+line. Existing #297 docs that cite `:161` are pointing at the function head; the *return
+relation* is `:169`.
 
 ## TKI bridge state
 
