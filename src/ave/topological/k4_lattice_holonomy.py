@@ -244,23 +244,63 @@ def disclination_frank_permutation(frank_port: int = 0) -> tuple[int, ...]:
     return _VERTEX_3CYCLE[int(frank_port)]
 
 
+def inverse_permutation(perm: tuple[int, ...]) -> tuple[int, ...]:
+    """The inverse port-permutation q such that perm ∘ q = identity.
+
+    Computed PROGRAMMATICALLY (no hardcoded inverse): q[perm[i]] = i, i.e. the
+    index map that undoes `perm`. This is the COMBINATORIAL inverse — still a pure
+    port-permutation, never an analytic angle — so feeding it through
+    `rotation_from_port_permutation` yields R(q) = R(perm)^{-1} = R(perm).T (the
+    rotation inverse), which `link_rotation_permutation` asserts. Keeping the
+    inverse permutation-derived is the anti-tautology guard: no rotor enters.
+    """
+    inv = [0] * len(perm)
+    for i, p in enumerate(perm):
+        inv[p] = i
+    return tuple(inv)
+
+
 def link_rotation_permutation(
-    crosses_cut: bool,
+    crossing: int,
     frank_port: int = 0,
     frank_override: tuple[int, ...] | None = None,
 ) -> tuple[int, ...]:
-    """A4 port-permutation carried by a link: Frank rotation if it crosses the
-    disclination's branch-cut, else identity.
+    """A4 port-permutation carried by a link, by SIGNED cut crossing.
+
+    `crossing` is the direction-signed crossing from `link_crosses_cut`:
+      0  → identity (the link does not cross the disclination's branch-cut);
+      +1 → the Frank C3 rotation (crossing the cut from −perp to +perp);
+      −1 → the INVERSE Frank rotation (crossing the cut the other way).
+
+    The inverse is computed PROGRAMMATICALLY via `inverse_permutation`, and this
+    routine ASSERTS R(inverse) ≈ R(frank).T (the rotation inverse) — never a
+    hardcoded inverse, never an analytic rotor. This direction-signed law is the
+    homotopy-invariance fix (2026-06-20): a there-and-back loop applies the Frank
+    rotation once and its inverse once, cancelling to identity.
 
     `frank_override` lets the connectivity-SCRAMBLE test substitute a DIFFERENT A4
     element (or even a reflection, which is then refused upstream) to prove the
-    holonomy depends on the actual assignment.
+    holonomy depends on the actual assignment; the override is applied on +1 and
+    its programmatic inverse on −1.
     """
-    if not crosses_cut:
+    if crossing == 0:
         return _IDENTITY_PERM
     if frank_override is not None:
-        return frank_override
-    return disclination_frank_permutation(frank_port)
+        frank = frank_override
+    else:
+        frank = disclination_frank_permutation(frank_port)
+    if crossing > 0:
+        return frank
+    # crossing < 0: apply the inverse Frank rotation so a retrace cancels.
+    inv = inverse_permutation(frank)
+    R_frank = rotation_from_port_permutation(frank)
+    R_inv = rotation_from_port_permutation(inv)
+    if not np.allclose(R_inv, R_frank.T, atol=1e-9):
+        raise AssertionError(
+            f"inverse perm {inv} of {frank} did not yield R(frank).T "
+            "(rotation-inverse check failed) — homotopy-invariance broken"
+        )
+    return inv
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -278,15 +318,27 @@ def link_crosses_cut(
     defect_origin: np.ndarray,
     defect_axis: np.ndarray,
     cut_dir: np.ndarray,
-) -> bool:
-    """True iff the directed bond from `pos_u` to `pos_v` crosses the cut half-plane.
+) -> int:
+    """SIGNED crossing of the directed bond `pos_u → pos_v` through the cut half-plane.
+
+    Returns +1, 0, or −1 by traversal DIRECTION across the cut (homotopy-invariance
+    fix, 2026-06-20). A genuine flat-connection-with-disclination has curvature ONLY
+    on the defect line; crossing the gauge cut one way applies the Frank rotation,
+    the other way its INVERSE — so a there-and-back / contractible loop cancels to
+    +I. Encoding the direction as a SIGN is what makes the holonomy a topological
+    (winding) invariant instead of a cut-placement-dependent raw count.
 
     PURE GEOMETRY (no PBC bookkeeping here): callers must pass endpoint positions
     already unwrapped into a single consistent frame (the walker tracks this).
     The cut is the half-plane through the defect line (origin `defect_origin`,
     direction `defect_axis`) on the `cut_dir` side. The bond crosses iff, in the
     plane ⟂ axis, the endpoints straddle the cut-line (perp-coord sign flips) and
-    the perp=0 crossing point lies on the half-line (cdir-coord ≥ 0).
+    the perp=0 crossing point lies on the half-line (cdir-coord ≥ 0) — the existing
+    straddle + half-line gate, UNCHANGED.
+
+    Sign convention: `perp = cross(axis, cut_dir)` is the right-handed in-plane
+    basis. The crossing is +1 when the bond goes from the −perp side to the +perp
+    side (perp-coord increases through the cut), −1 the other way, 0 if no crossing.
     """
     axis = np.asarray(defect_axis, dtype=np.float64)
     axis = axis / np.linalg.norm(axis)
@@ -304,12 +356,15 @@ def link_crosses_cut(
     sv, pv_ = np.dot(r_v, cdir), np.dot(r_v, perp)
 
     if pu_ == pv_:
-        return False
+        return 0
     if (pu_ > 0.0) == (pv_ > 0.0):
-        return False  # same side of the cut line → no crossing
+        return 0  # same side of the cut line → no crossing
     t = pu_ / (pu_ - pv_)  # parameter where perp-coord = 0
     s_cross = su + t * (sv - su)
-    return bool(s_cross >= 0.0)
+    if s_cross < 0.0:
+        return 0  # crossing point is off the half-line (other side of defect)
+    # Direction-signed: +1 if the bond crosses from −perp to +perp, else −1.
+    return +1 if (pv_ > pu_) else -1
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -318,9 +373,13 @@ def link_crosses_cut(
 # `path` is a list of directed links; each link is (u, p_out): leave node u via
 # port p_out. Arrival node v = net.neighbors[u][p_out] (a connect-map lookup).
 # Each link's SU(2) lift is the matrix-to-quaternion of its A4 rotation (Frank
-# rotation if it crosses the seeded disclination's cut, else identity), composed
-# left-to-right with continuity-resolution of the q-vs-−q cover ambiguity — which
-# is what lets a defect-encircling loop accumulate the −I of the 2T cover.
+# rotation if it crosses the seeded disclination's cut ONE way, the INVERSE Frank
+# rotation the OTHER way, else identity), composed left-to-right with
+# continuity-resolution of the q-vs-−q cover ambiguity — which is what lets a
+# defect-encircling loop accumulate the −I of the 2T cover. The direction-signed
+# Frank rotation (2026-06-20) makes the holonomy homotopy-invariant: the sign law
+# is C3^(net_winding), the signed sum of crossings, so a there-and-back path
+# cancels to +I and the result is independent of the gauge-cut placement.
 # ─────────────────────────────────────────────────────────────────────────────
 def holonomy_of_path(
     net,
@@ -341,7 +400,9 @@ def holonomy_of_path(
     `cosserat_field_3d.py`. No `cos(φ/2)`, no traversal-angle anywhere.
 
     Returns a dict: running SU(2) `q`, SO(3) `R`, `so3_is_identity`,
-    `holonomy_sign` (+1 ⇒ +I, −1 ⇒ −I), `closed`, `n_cut_crossings`,
+    `holonomy_sign` (+1 ⇒ +I, −1 ⇒ −I), `closed`, `n_cut_crossings` (RAW count of
+    cut crossings, for diagnostics), `net_winding` (SIGNED sum of crossing signs —
+    the topological invariant; the sign law is C3^(net_winding)),
     `n_continuity_flips` (diagnostic: cover-continuity sign-flips that fired;
     0 on the −I loop), and the per-link permutation trace.
     """
@@ -363,7 +424,8 @@ def holonomy_of_path(
     # box-wrapped raw coordinates.
     pos = net.pos[node].copy()
     link_perms = []
-    n_cut_crossings = 0
+    n_cut_crossings = 0  # RAW count of crossings (diagnostic + existing tests).
+    net_winding = 0  # SIGNED sum of crossing signs (the topological invariant).
     # Diagnostic-only counter: how many times the cover-continuity sign-flip
     # below actually fired. The headline encircle-3× (−I) loop must NEVER trip
     # it (the −I is flip-INDEPENDENT — see test_minus_I_is_flip_independent).
@@ -382,16 +444,17 @@ def holonomy_of_path(
         pos_v = pos + step
 
         if defect is None:
-            crosses = False
+            crossing = 0
         else:
-            crosses = link_crosses_cut(pos, pos_v, origin, axis, cut_dir)
-        if crosses:
-            n_cut_crossings += 1
+            crossing = link_crosses_cut(pos, pos_v, origin, axis, cut_dir)
+        if crossing != 0:
+            n_cut_crossings += 1  # raw count (sign-blind)
+            net_winding += crossing  # signed winding (the invariant)
 
         perm = link_rotation_permutation(
-            crosses,
+            crossing,
             frank_port=(frank_port if defect is not None else 0),
-            frank_override=frank_override if crosses else None,
+            frank_override=frank_override if crossing != 0 else None,
         )
         link_perms.append(perm)
         R_link = rotation_from_port_permutation(perm)
@@ -423,7 +486,11 @@ def holonomy_of_path(
         "holonomy_sign": sign,
         "closed": closed,
         "n_links": len(path),
+        # RAW count of cut crossings (sign-blind) — diagnostics + existing tests.
         "n_cut_crossings": n_cut_crossings,
+        # SIGNED sum of crossing signs — the topological invariant. The sign law is
+        # C3^(net_winding); a there-and-back path nets 0 → +I (homotopy-invariant).
+        "net_winding": net_winding,
         # Diagnostic: count of cover-continuity sign-flips that fired (must be 0
         # on the −I loop — proves the −I is not an artifact of the flip).
         "n_continuity_flips": n_continuity_flips,
