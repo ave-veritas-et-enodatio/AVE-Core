@@ -13,6 +13,8 @@ This leaf carries the **explicit derivation** of electron spin-½ from K4-substr
 
 **Resolves**: clm-0ktpcn strengthen-by item 2 ("Spell out the Finkelstein–Misner spin-1/2 derivation from the $K_4 \to A_4 \to 2T \subset SU(2)$ chain explicitly in the leaves").
 
+**Computational corroboration**: the $2T \subset SU(2)$ holonomy lift is exercised numerically by the spin double-cover representability gate (`research/2026-06-19_spin-doublecover-gate_result.md`; probe `probe_spin_doublecover_holonomy` in `src/ave/topological/cosserat_field_3d.py`) — the lift returns $-I$ at $2\pi$ and $+I$ at $4\pi$ (the double cover), while a trivial baseline operator returns $+I$ at $2\pi$. Scope: **representability** (the substrate *can* host the double-cover), not dynamics-selection (not that it *must*) — the gate corroborates the FM mechanism's group-theory, it does not on its own force spin-½.
+
 ## §1 The question — why is spin-½ a paradox to resolve in AVE?
 
 Standard solid-state mechanics: continuum elastic media with $SO(3)$ rotational geometry support only integer-spin point defects (spin-1, spin-2). Electrons are spin-½ ($SU(2)$ geometry, $4\pi$ rotation to return to original state). A chiral Laves K4 Cosserat crystal with $SO(3)$ continuum geometry should not support spin-½ point defects — apparent falsification.
