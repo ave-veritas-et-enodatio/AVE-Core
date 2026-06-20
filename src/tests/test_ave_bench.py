@@ -216,3 +216,79 @@ class TestSweep:
     def test_rejects_empty_grid(self):
         with pytest.raises(ValueError):
             bench.run_divergence_sweep(lambda v: v, lambda v: v, np.array([]))
+
+
+class TestApparatus:
+    """apparatus.py <- qg42_vsign_deltaf.py (G_geom / a_rms / FN ceiling)."""
+
+    # qg42 PONDER operating point (qg42_vsign_deltaf.py:162-166).
+    BETA_TIP = 1.0e3
+    Q_BUILD = 1.0e4
+    G_GEOM_PONDER = BETA_TIP * Q_BUILD  # 1e7
+    V_BENCH = 30.0e3
+    D_BENCH = 1.0e-3
+
+    def test_validate_on_known_a_rms_ponder(self):
+        """VALIDATE-ON-KNOWN: saturation_amplitude reproduces qg42 a_rms_local.
+
+        qg42 a_rms_local(G_GEOM_PONDER, V_BENCH, D_BENCH) = 2.6539...e-3 at the
+        PONDER operating point (qg42 :73-81, :193). Confirmed bit-for-bit
+        against the live exemplar at factoring time.
+        """
+        a = bench.saturation_amplitude(self.G_GEOM_PONDER, self.V_BENCH, self.D_BENCH)
+        assert a == pytest.approx(0.002653902994320631, rel=0, abs=0)
+
+    def test_g_geom_decomposition(self):
+        """G_geom = beta * Q_build (qg42 :166)."""
+        app = bench.ApparatusCoupling(beta=self.BETA_TIP, q_build=self.Q_BUILD, d_gap=self.D_BENCH)
+        assert app.g_geom == self.G_GEOM_PONDER
+        assert app.saturation_amplitude(self.V_BENCH) == pytest.approx(0.002653902994320631, rel=0, abs=0)
+
+    def test_v_yield_apparatus_inverse(self):
+        """v_yield_apparatus drives A exactly to 1.0 (the knee)."""
+        vy = bench.v_yield_apparatus(self.G_GEOM_PONDER, self.D_BENCH)
+        a_at_vy = bench.saturation_amplitude(self.G_GEOM_PONDER, vy, self.D_BENCH)
+        assert a_at_vy == pytest.approx(1.0, rel=1e-12)
+        # And via the dataclass.
+        app = bench.ApparatusCoupling(beta=self.BETA_TIP, q_build=self.Q_BUILD, d_gap=self.D_BENCH)
+        assert app.v_yield_apparatus() == pytest.approx(vy, rel=0, abs=0)
+
+    def test_v_yield_apparatus_rejects_zero_g_geom(self):
+        with pytest.raises(ValueError):
+            bench.v_yield_apparatus(0.0, self.D_BENCH)
+
+    def test_validate_on_known_fn_safe_max(self):
+        """VALIDATE-ON-KNOWN: fn_safe_max_amplitude reproduces qg42 a_fn_safe_max.
+
+        qg42 a_fn_safe_max() = E_FN_SAFE_CEILING / E_YIELD = 1.1589e-8
+        (qg42 :132-139). Confirmed bit-for-bit at factoring time.
+        """
+        assert bench.fn_safe_max_amplitude() == pytest.approx(1.1588709741866756e-08, rel=0, abs=0)
+
+    def test_validate_on_known_fn_table(self):
+        """VALIDATE-ON-KNOWN: fn_dark_current reproduces the qg42 FN table.
+
+        qg42 j_fn(beta, e_gap) at e_gap = V_YIELD/100um reproduces the canonical
+        FN table (beta=3 SAFE, beta=6 MARGINAL, beta=50 DESTRUCTIVE; qg42
+        :207-211). Confirmed bit-for-bit at factoring time.
+        """
+        e_gap = V_YIELD / 100e-6
+        assert bench.fn_dark_current(3, e_gap) == pytest.approx(1.4007e-10, rel=1e-3)
+        assert bench.fn_dark_current(6, e_gap) == pytest.approx(3.6267e1, rel=1e-3)
+        assert bench.fn_dark_current(50, e_gap) == pytest.approx(8.2209e12, rel=1e-3)
+
+    def test_fn_dark_current_monotone_and_floor(self):
+        """FN dark current rises with beta; non-positive field returns 0.0."""
+        e_gap = V_YIELD / 100e-6
+        assert bench.fn_dark_current(3, e_gap) < bench.fn_dark_current(6, e_gap) < bench.fn_dark_current(50, e_gap)
+        assert bench.fn_dark_current(0.0, e_gap) == 0.0
+        assert bench.fn_dark_current(3, 0.0) == 0.0
+
+    def test_fn_safe_field_ceiling(self):
+        """fn_safe gate at the E_FN_SAFE_CEILING field (electropolished beta~3)."""
+        from ave.bench.apparatus import E_FN_SAFE_CEILING, fn_safe
+
+        # E_local = beta * e_gap just at the ceiling -> safe.
+        assert fn_safe(beta=1.0, e_gap=E_FN_SAFE_CEILING) is True
+        # Above the ceiling -> unsafe.
+        assert fn_safe(beta=2.0, e_gap=E_FN_SAFE_CEILING) is False
