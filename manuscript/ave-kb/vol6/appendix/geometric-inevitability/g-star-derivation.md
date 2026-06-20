@@ -23,14 +23,16 @@ $$
 \boxed{g_* = \frac{7^3}{4} = \frac{343}{4} = 85.75}
 $$
 
-### Verification
+### Consistency-Check (was "Verification")
 
-Substituting into the baryon asymmetry formula with all other factors derived from AVE constants:
+> 🔴 **SUPERSEDED HEADLINE (Rule-12 walk-back, 2026-06-20).** The *"all other factors derived from AVE constants … 0.38% error"* framing below is **RETRACTED**. Per auditor **FINDING 2** (2026-06-10, [`research/2026-06-10_freeze-handedness-survey_note.md:50`](../../../../../research/2026-06-10_freeze-handedness-survey_note.md)), the $\eta$ result is **consistency-class with an imported electroweak-baryogenesis formula** ($\alpha_W^4 C_{sph}/g_*$ scaffold is SM-imported), **not emergence-class — do not headline**. Corrections: **not** "all other factors derived" ($C_{sph} = 28/79$ is the textbook SM Harvey-Turner factor, $\alpha_W^4$ rides $\alpha$ [an AVE echo]); $g_*$ is **reverse-validated against $\eta_{obs}$, not independently measured**. Governing Vol-2 claim **`clm-4vwsjc`** pinned conf 0.4 / "do not build on" ([`vol2/claim-quality.md:483-486,491,496`](../../../vol2/claim-quality.md)); this leaf's **`clm-ome498`** already flags the composite-consistency caveat ([`vol6/claim-quality.md:246`](../../claim-quality.md)). Claim confidences NOT altered. **SYMMETRIC-STANDARD:** OOM $\eta \sim 6 \times 10^{-10}$ is peer-or-ahead of the SM (no $\eta$ at all); the OOM consistency survives, the sub-percent precision and parameter-count claim do not. **Non-reproducible number:** $6.08 \times 10^{-10}$ / $0.38\%$ matches no code path; engine-canonical (thermal $\kappa_{FS} = 24.95$) gives $6.05 \times 10^{-10}$ / 0.79%, displayed cold $\pi/8\pi$ gives $6.01 \times 10^{-10}$ / 1.51% (cold/thermal split OPEN for Grant, flag-don't-fix). *Body preserved per Rule 12; displayed number corrected in place.*
+
+Substituting $g_* = 7^3/4$ into the standard electroweak-baryogenesis formula (with the SM-imported $C_{sph} = 28/79$ and $\alpha_W^4$ riding $\alpha$) gives an order-of-magnitude consistency-check, NOT an independent verification of $g_*$:
 
 $$
-\eta = \frac{(\pi/\kappa_{FS}) \cdot \alpha_W^4 \cdot (28/79)}{7^3/4} = 6.08 \times 10^{-10}
+\eta = \frac{(\pi/\kappa_{FS}) \cdot \alpha_W^4 \cdot (28/79)}{7^3/4} \approx 6.05 \times 10^{-10}
 $$
 
-Observed: $\eta_{obs} = 6.1 \times 10^{-10}$. **Error: 0.38%.** Using the SM value $g_* = 106.75$ gives 20% error.
+Observed: $\eta_{obs} = 6.1 \times 10^{-10}$. Order-of-magnitude consistency-check (engine-canonical thermal $\kappa_{FS}$: **0.79%**; displayed cold-$8\pi$: 1.51%). [Original line read "*= 6.08 × 10⁻¹⁰ … Error: 0.38%*" — RETRACTED per FINDING 2.] Using the SM value $g_* = 106.75$ gives 20% error.
 
 ---
