@@ -189,3 +189,48 @@ def test_bedrock_validate_on_known_proceeds():
     assert out["S3"]["differential_multiplicity"] == 2
     assert out["S4"]["differential_multiplicity"] == 3
     assert not out["distinctness"]["collapse_detected"]
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# STAGE 2 — the SHOWN port->grade embedding (phase-space-coordinate-check)
+# ═════════════════════════════════════════════════════════════════════════════
+def test_port_to_realspace_embedding_separates_scalar_from_vector():
+    """The SHOWN map: COMMON MODE (+1) carries the SCALAR grade (port-sum) with
+    ZERO real-space vector; the DIFFERENTIAL (-1) modes carry ZERO scalar but a
+    nonzero real-space VECTOR. Both nets are force-balanced (bond sum = 0)."""
+    from ave.solvers.node_scattering_multiplicity import port_to_realspace_embedding
+
+    for net, deg in ((build_srs_net(L=2), 3), (build_diamond_net(L=4), 4)):
+        emb = port_to_realspace_embedding(net)
+        # force-balanced node: bond directions sum to zero
+        assert emb["bond_direction_sum_max"] < 1e-9
+        # common mode = pure scalar (sqrt(degree)), no real-space vector
+        assert abs(emb["common_mode_scalar_content_mean"] - np.sqrt(deg)) < 1e-9
+        assert emb["common_mode_realspace_vector_norm_mean"] < 1e-9
+        # differential = zero scalar, nonzero real-space vector
+        assert emb["differential_scalar_content_mean"] < 1e-9
+        assert emb["differential_realspace_vector_norm_mean"] > 0.5
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# STAGE 2 — the Fork-A verdict = REFUTE-R3 (pinned pre-registered negative)
+# ═════════════════════════════════════════════════════════════════════════════
+def test_fork_a_verdict_is_refute_r3():
+    """The Fork-A test bins REFUTE-R3: the longitudinal A1 dilatation SCALAR lives
+    in the COMMON-MODE (+1) sector, NOT the differential P_{-1} sector, so the
+    pre-committed prediction (longitudinal confinement needs the diamond's 3rd
+    DIFFERENTIAL mode) is refuted at the sector level. This is a PINNED scientific
+    result (Rule 11 honest closure) -- NOT a relaxed bin. Re-binning to CHORD
+    would require the longitudinal scalar to be a differential object, which the
+    SHOWN embedding falsifies (differential scalar content ~1e-16)."""
+    from ave.solvers.node_scattering_multiplicity import fork_a_test
+
+    fa = fork_a_test()
+    assert fa["verdict"] == "REFUTE-R3"
+    sec = fa["sector_question_a"]
+    assert sec["longitudinal_A1_scalar_in_common_mode_+1"] is True
+    assert sec["longitudinal_A1_scalar_in_differential_P-1_srs"] is False
+    assert sec["longitudinal_A1_scalar_in_differential_P-1_diamond"] is False
+    # the multiplicity distinction is real (2 vs 3) but MOOT for longitudinal
+    assert fa["multiplicity_question_b"]["srs_differential_multiplicity"] == 2
+    assert fa["multiplicity_question_b"]["diamond_differential_multiplicity"] == 3
