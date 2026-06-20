@@ -1,4 +1,33 @@
 """
+🔴 SUPERSEDED (Rule 12 walk-back, 2026-06-20) — body below PRESERVED, not deleted.
+====================================================================================
+This script is SUPERSEDED by the corrected E^2-leading COEFFICIENT driver:
+
+    src/scripts/vol_4_engineering/birefringence_coefficient_discriminator.py
+
+WHY: this script's framing — an "E^4 Non-Linear Hook" / "AVE E^4 Divergence
+Signature" plotted against a "Standard QED (E^2 Linear)" reference, with the
+slope/onset as the discriminator — is the RETRACTED false-falsifier. Both AVE
+and QED give an E^2-LEADING index shift; the discriminator is the COEFFICIENT
+(AVE ~10^6x QED, a FIELD-INDEPENDENT ratio 1/(4·a_EH·α^3)), NOT the leading
+exponent. The historical "Δn ∝ E^4" was a sqrt(ε) conflation: it Taylor-expanded
+the permittivity saturation DEPTH (1-S = +A^2/2 + A^4/8, itself E^2-leading),
+not the index shift n = sqrt(S) - 1 ≈ -¼·(E/E_yield)^2.
+
+STRAWMAN QED LINE: the `k_qed_norm = 1/E_BREAKDOWN^2` reference curve below is, by
+its own scope note (line ~18), "NORMALIZED for visual divergence ... does NOT
+represent the actual QED coefficient" — i.e. a visual-only strawman, not the real
+α^2-suppressed Euler-Heisenberg coefficient. The corrected driver computes BOTH
+coefficients FORWARD from ave.core.constants and reports the field-independent
+ratio (no normalization, no strawman).
+
+The body below is RETAINED verbatim for audit-trail continuity (substitution-not-
+retraction, A47 v11b). Do NOT cite this script as the birefringence falsifier; use
+the coefficient driver. Retraction cites commit ad26d357 and claim clm-pp3qwf.
+Sibling/follow-up to PR #316 (which retracted the KB .md tree); this header covers
+the driver the .md walk-back did not reach.
+
+------------------------------------------------------------------------------------
 AVE Falsifiable Predictions: The E^4 Vacuum Birefringence Limit
 ======================================================
 A distinction between standard Quantum Electrodynamics (QED) and the
