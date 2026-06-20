@@ -575,3 +575,388 @@ def solve_scramble(cfg: ConfinementConfig, *, seed: int = 20260620) -> dict:
         "deconfines_both_arms": bool(armA_deconfines and armB_deconfines),
         "auto_void": auto_void,
     }
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 5. GATE 3 — QUARTER-ARC SHAPE (headline; CANNOT earn CHORD alone)
+# ═════════════════════════════════════════════════════════════════════════════
+# The canonical AVE kernel S(A)=√(1−A²) (p=0.5) IS the quarter-circle EXACTLY
+# (S²+A²=1; ∫₀¹√(1−A²)dA = π/4 = the quarter-circle area). The discriminator: does
+# the bound-mode Δ/L of the canonical quarter-arc DIFFER from a same-family
+# comparator (1−A²)^p, p≠0.5, matched on BOTH integral-norm AND well-depth, by
+# >10% — size-converged, monotone, passing the null-shape control, and PERSISTING
+# as the floor is lifted (S_min→0)?
+#
+# RF-5: the endpoint-tanh comparator is RETIRED (sup-norm 0.5<π/4=norm-INFEASIBLE).
+# The norm-feasible SAME-FAMILY comparator (1−A²)^p has norms that OVERLAP π/4
+# (p=0.6→0.757, p=0.75→0.719, p=1.0→0.667), so a brentq norm-match has a bracketed
+# root (asserted before freezing).
+# ═════════════════════════════════════════════════════════════════════════════
+
+
+def _shape_norm(p: float) -> float:
+    """The integral shape-norm ∫₀¹ (1−A²)^p dA (the prereg's reference norms:
+    p=0.5→π/4≈0.785, p=0.6→0.757, p=0.75→0.719, p=1.0→0.667). Pure shape (NOT
+    the bound mode); used by the brentq norm-match."""
+    from scipy.integrate import quad
+
+    val, _ = quad(lambda A: (1.0 - A**2) ** p, 0.0, 1.0)
+    return float(val)
+
+
+def norm_match_p(target_norm: float, *, bracket: tuple[float, float] = (0.3, 3.0)) -> dict:
+    """RF-5: assert the brentq norm-match SUCCEEDS (a bracketed root) before freezing
+    the comparator. Returns {ok, p, norm, target} or {ok:False} if the target is
+    outside the feasible norm range (HALT — the comparator is norm-infeasible, the
+    exact failure of the retired endpoint-tanh)."""
+    from scipy.optimize import brentq
+
+    lo, hi = bracket
+    n_lo, n_hi = _shape_norm(lo), _shape_norm(hi)
+    if not (min(n_lo, n_hi) <= target_norm <= max(n_lo, n_hi)):
+        return {"ok": False, "reason": f"target_norm {target_norm:.4f} outside feasible [{n_hi:.4f},{n_lo:.4f}]"}
+    p = brentq(lambda pp: _shape_norm(pp) - target_norm, lo, hi)
+    return {"ok": True, "p": float(p), "norm": _shape_norm(p), "target": target_norm}
+
+
+def _depth_matched_bond_S(
+    net: LatticeNet, A_node: np.ndarray, *, p: float, target_min_S: float
+) -> np.ndarray:
+    """Build a per-bond S field for shape exponent p, RESCALED so its MINIMUM S
+    (the well depth = D_max⁻¹) EQUALS target_min_S. This is the DEPTH-INVARIANT
+    construction (match BOTH norm via p AND depth via this rescale) so the Δ/L
+    metric reads CURVATURE, not floor-saturation. The rescale is an affine map of
+    the well that PRESERVES the shape exponent's curvature signature while pinning
+    the depth: S' = target_min_S + (S − S.min())·(1 − target_min_S)/(1 − S.min())."""
+    bonds = unique_bonds(net)
+    A_bond = np.array([max(A_node[u], A_node[v]) for (u, v) in bonds])
+    S = np.maximum(1.0 - A_bond**2, 0.0) ** p
+    s0 = float(S.min())
+    if abs(1.0 - s0) < 1e-12:
+        return np.clip(S, target_min_S, 1.0)
+    S_scaled = target_min_S + (S - s0) * (1.0 - target_min_S) / (1.0 - s0)
+    return np.clip(S_scaled, target_min_S, 1.0)
+
+
+def _bound_delta_over_L(net: LatticeNet, S_bond: np.ndarray, core_mask: np.ndarray, r: np.ndarray) -> dict:
+    """Δ/L = √(Σ r²|ψ|² / Σ|ψ|²) / L for the bound mode of L(S_bond). The
+    depth-invariant CURVATURE metric (the bound-mode RMS radius over box size)."""
+    L = _operator_from_bond_S(net, S_bond)
+    w, V = np.linalg.eigh(L)
+    band = _band_structure(w)
+    if not band["ok"]:
+        return {"ok": False, "reason": band["reason"]}
+    best = _select_core_bound_mode(w, V, core_mask, band)
+    psi = V[:, best["idx"]]
+    p2 = psi**2
+    rms = float(np.sqrt((p2 * r**2).sum() / (p2.sum() + 1e-300)))
+    return {
+        "ok": True,
+        "delta_over_L": rms / net.box,
+        "rms_radius": rms,
+        "core_frac": best["core_frac"],
+        "omega": best["omega"],
+        "gapped_discrete": bool(band["gap_above_sq"] > max(band["mean_continuum_spacing_sq"], 1e-9)),
+        "min_S": float(S_bond.min()),
+    }
+
+
+def solve_quarter_arc_shape(
+    cfg: ConfinementConfig, *, comparator_p: float = 0.75, null_p_pair: tuple[float, float] = (0.6, 1.0)
+) -> dict:
+    """GATE 3 — the quarter-arc shape discriminator (depth-invariant, with the
+    null-shape control + floor-artifact guard). Returns the canonical-vs-comparator
+    Δ/L gap, the null control, and the per-arm diagnostics. alpha-FREE.
+
+    The canonical quarter-arc is p=0.5 (S=√(1−A²)); the comparator is a same-family
+    p≠0.5 shape matched on BOTH norm (brentq) and well-depth (rescale). The gap is
+    |Δ/L_canon − Δ/L_comp| / Δ/L_canon; CHORD requires >10% (but the anchor is the
+    binding constraint, so >10% here is necessary-not-sufficient)."""
+    net = cfg.build_net()
+    A = saturated_core_strain_native(net, frac=cfg.frac, sigma_frac=cfg.sigma_frac)
+    r = node_radius(net)
+    sigma = cfg.sigma_frac * net.box
+    core_mask = r <= max(sigma * 1.5, net.box / float(cfg.L))
+
+    # RF-5: assert the brentq norm-match SUCCEEDS before freezing the comparator.
+    nm = norm_match_p(_shape_norm(comparator_p))
+    norm_match_ok = nm["ok"]
+
+    # the canonical quarter-arc (p=0.5) sets the depth target (its well depth).
+    S_canon = _depth_matched_bond_S(net, A, p=0.5, target_min_S=cfg.S_min)
+    target_depth = float(S_canon.min())
+    S_comp = _depth_matched_bond_S(net, A, p=comparator_p, target_min_S=target_depth)
+
+    d_canon = _bound_delta_over_L(net, S_canon, core_mask, r)
+    d_comp = _bound_delta_over_L(net, S_comp, core_mask, r)
+    if not (d_canon["ok"] and d_comp["ok"]):
+        return {"ok": False, "reason": "bound mode not found in canon/comp"}
+    gap = abs(d_canon["delta_over_L"] - d_comp["delta_over_L"]) / (d_canon["delta_over_L"] + 1e-300)
+
+    # ── NULL-SHAPE CONTROL: two SAME-family shapes matched norm+depth must give
+    # Δ/L within ≪10% (proves the metric reads SHAPE not DEPTH) BEFORE any
+    # cross-family gap counts. ──
+    p1, p2 = null_p_pair
+    S_n1 = _depth_matched_bond_S(net, A, p=p1, target_min_S=target_depth)
+    S_n2 = _depth_matched_bond_S(net, A, p=p2, target_min_S=target_depth)
+    dn1 = _bound_delta_over_L(net, S_n1, core_mask, r)
+    dn2 = _bound_delta_over_L(net, S_n2, core_mask, r)
+    null_gap = abs(dn1["delta_over_L"] - dn2["delta_over_L"]) / (dn1["delta_over_L"] + 1e-300)
+    null_control_passes = bool(null_gap < 0.10)  # metric reads shape, not depth
+
+    return {
+        "ok": True,
+        "net": net.name,
+        "L": cfg.L,
+        "S_min": cfg.S_min,
+        "norm_match_ok": norm_match_ok,
+        "comparator_p": comparator_p,
+        "comparator_norm_match": nm,
+        "target_depth_min_S": target_depth,
+        "delta_over_L_canonical": d_canon["delta_over_L"],
+        "delta_over_L_comparator": d_comp["delta_over_L"],
+        "shape_gap": gap,
+        "shape_gap_exceeds_10pct": bool(gap > 0.10),
+        "null_gap": null_gap,
+        "null_control_passes": null_control_passes,
+        "canon_min_S": d_canon["min_S"],
+        "comp_min_S": d_comp["min_S"],
+        "depth_matched": bool(abs(d_canon["min_S"] - d_comp["min_S"]) < 1e-6),
+    }
+
+
+def quarter_arc_floor_lift(cfg: ConfinementConfig, *, comparator_p: float = 0.75,
+                           S_mins=(1e-1, 1e-2, 1e-3, 1e-5)) -> dict:
+    """FLOOR-ARTIFACT GUARD (RF / GATE3): require the shape gap to PERSIST as
+    S_min → 0 (the floor lifted). If the gap VANISHES when neither shape clips, it
+    was a floor artifact → ECHO. Returns the gap vs S_min sweep + the verdict."""
+    gaps = []
+    for sm in S_mins:
+        c = ConfinementConfig(net=cfg.net, L=cfg.L, frac=cfg.frac, sigma_frac=cfg.sigma_frac, S_min=sm)
+        r = solve_quarter_arc_shape(c, comparator_p=comparator_p)
+        gaps.append((sm, r["shape_gap"] if r["ok"] else float("nan")))
+    finite = [g for _, g in gaps if np.isfinite(g)]
+    # the gap PERSISTS if it does NOT collapse toward 0 as the floor lifts.
+    persists = bool(len(finite) >= 2 and min(finite) > 0.10)
+    return {
+        "ok": True,
+        "gap_vs_S_min": gaps,
+        "gap_persists_as_floor_lifts": persists,
+        "verdict": "shape-load-bearing" if persists else "floor-artifact-or-shape-generic (ECHO)",
+    }
+
+
+def quarter_arc_size_convergence(net: str, Ls, *, comparator_p: float = 0.75,
+                                 frac: float = 0.95, S_min: float = 1e-3) -> dict:
+    """SIZE-CONVERGENCE (GATE3): the shape gap must be MONOTONE-CONVERGING over the
+    connect-map size ladder (L=2/4/6 on the connect-map; the cube N-ladder is a
+    separate Cartesian-embedded sensitivity, flagged). Returns the gap vs L curve +
+    the monotone-converging verdict."""
+    rows = []
+    for Lc in Ls:
+        c = ConfinementConfig(net=net, L=Lc, frac=frac, sigma_frac=1.0 / 6.0, S_min=S_min)
+        r = solve_quarter_arc_shape(c, comparator_p=comparator_p)
+        rows.append({"L": Lc, "shape_gap": r["shape_gap"] if r["ok"] else float("nan"),
+                     "delta_over_L_canon": r.get("delta_over_L_canonical", float("nan"))})
+    gaps = [row["shape_gap"] for row in rows if np.isfinite(row["shape_gap"])]
+    # monotone-converging: the successive differences shrink (a Cauchy tail). When
+    # the gap is converged-near-zero (all < 1% — the ECHO outcome), the Cauchy-tail
+    # test on the noise floor is moot; "size-stable below threshold" IS the
+    # convergence statement. We report BOTH.
+    if len(gaps) >= 3:
+        diffs = [abs(gaps[i + 1] - gaps[i]) for i in range(len(gaps) - 1)]
+        cauchy_tail = bool(diffs[-1] <= diffs[0] + 1e-9)
+    else:
+        diffs = []
+        cauchy_tail = False
+    converged_near_zero = bool(len(gaps) >= 2 and max(gaps) < 0.01)
+    gap_exceeds_10pct_anywhere = bool(len(gaps) >= 1 and max(gaps) > 0.10)
+    # MONOTONE-CONVERGING in the prereg sense: either a real gap with a shrinking
+    # Cauchy tail, OR the gap is size-stably below threshold (converged to ~0).
+    monotone_converging = bool(cauchy_tail or converged_near_zero)
+    return {"ok": True, "net": net, "rows": rows, "gaps": gaps, "diffs": diffs,
+            "cauchy_tail": cauchy_tail, "converged_near_zero": converged_near_zero,
+            "gap_exceeds_10pct_anywhere": gap_exceeds_10pct_anywhere,
+            "monotone_converging": monotone_converging}
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 6. ELECTRON ANCHOR (CHORD-required, NOT expected) + alpha-free + DEC-5
+# ═════════════════════════════════════════════════════════════════════════════
+COLD_CAGE_OMEGA_CUTOFF = 2.87  # FORM anchor: test_l3_mass_cage.py:18 (NOT m_e — definitional)
+Z_RADIATION_VALUE = 29.98       # DEC-5 anti-coincidence (the only ~30 is Z_RADIATION)
+
+
+def electron_anchor_check(net: str, Ls, *, frac: float = 0.95, S_min: float = 1e-3,
+                          tol: float = 0.10) -> dict:
+    """The ELECTRON ANCHOR (CHORD-required, NOT bonus, NOT expected): does the
+    CONVERGED connect-map bound mode reproduce the cold-cage ω_cutoff≈2.87 WITHOUT
+    α-import? A FORM/structural anchor, NOT m_e (which is definitional).
+
+    Honest finding (pre-committed): the connect-map bound-mode ω is set by the
+    lattice's OWN band structure (degree / geometry / normalization), NOT a
+    universal 2.87 — so it is NOT expected to converge TO 2.87. Reproduction =
+    converged AND within `tol` of 2.87. alpha-FREE."""
+    omegas = []
+    for Lc in Ls:
+        r = solve_confinement(ConfinementConfig(net=net, L=Lc, frac=frac, sigma_frac=1.0 / 6.0, S_min=S_min))
+        if r["ok"] and r["confined"]:
+            omegas.append((Lc, r["omega_bound"]))
+    if len(omegas) < 2:
+        return {"ok": True, "net": net, "omegas": omegas, "anchor_reproduced": False,
+                "reason": "too few confined sizes to assess convergence"}
+    ws = [w for _, w in omegas]
+    converged = bool(abs(ws[-1] - ws[-2]) / (abs(ws[-2]) + 1e-300) < 0.05)
+    near_anchor = bool(abs(ws[-1] - COLD_CAGE_OMEGA_CUTOFF) / COLD_CAGE_OMEGA_CUTOFF < tol)
+    return {
+        "ok": True,
+        "net": net,
+        "omegas": omegas,
+        "omega_converged_value": ws[-1],
+        "cold_cage_anchor": COLD_CAGE_OMEGA_CUTOFF,
+        "converged_in_L": converged,
+        "within_tol_of_anchor": near_anchor,
+        # the anchor is reproduced ONLY if BOTH converged AND within tol.
+        "anchor_reproduced": bool(converged and near_anchor),
+    }
+
+
+def alpha_free_invariance(cfg: ConfinementConfig) -> dict:
+    """α-FREE STRUCTURAL gate (validate-on-known iv): double ALPHA in constants,
+    re-solve, and confirm the Δ/L (and ω) are BIT-INVARIANT (|dx/x|<1e-6) — the
+    operator never reads ALPHA (dimensionless A=|V|/V_yield). Also asserts the
+    import-guards (no ALPHA/Q_TANK/ELECTRON reachable)."""
+    import importlib
+
+    import ave.core.constants as C
+    import ave.solvers.fork_b_saturation_tank as F
+
+    alpha_reachable = ("ALPHA" in vars(F)) or ("Q_TANK" in vars(F)) or ("ELECTRON" in vars(F))
+
+    def _metric():
+        r = F.solve_confinement(cfg)
+        s = F.solve_quarter_arc_shape(cfg)
+        return r["omega_bound"], s["delta_over_L_canonical"]
+
+    o0, d0 = _metric()
+    saved = C.ALPHA
+    try:
+        C.ALPHA = 2.0 * saved
+        o1, d1 = _metric()
+    finally:
+        C.ALPHA = saved
+    rel_o = abs(o1 - o0) / (abs(o0) + 1e-300)
+    rel_d = abs(d1 - d0) / (abs(d0) + 1e-300)
+    return {
+        "ok": True,
+        "alpha_reachable_in_module": bool(alpha_reachable),  # MUST be False
+        "rel_d_omega": rel_o,
+        "rel_d_delta_over_L": rel_d,
+        "alpha_free_pass": bool((not alpha_reachable) and rel_o < 1e-6 and rel_d < 1e-6),
+    }
+
+
+def dec5_anti_coincidence(cfg: ConfinementConfig) -> dict:
+    """DEC-5 anti-coincidence pin: the bound-mode ω (and any reported Q-like number)
+    is NOT silently the constant Z_RADIATION=29.98. |ω − 29.98| > 1.0 (the only ~30
+    is band-consistent Z_RADIATION, never an identity)."""
+    r = solve_confinement(cfg)
+    om = r["omega_bound"]
+    return {
+        "ok": True,
+        "omega_bound": om,
+        "Z_RADIATION": Z_RADIATION_VALUE,
+        "not_Z_radiation": bool(abs(om - Z_RADIATION_VALUE) > 1.0),
+    }
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 7. TOP-LEVEL VERDICT DRIVER (the frozen binning)
+# ═════════════════════════════════════════════════════════════════════════════
+def run_fork_b_gate(*, primary_net: str = "diamond", primary_L: int = 8,
+                    cube_anchor_Ls=None, S_min: float = 1e-3) -> dict:
+    """Run the full Fork-B gate and return the frozen-binned verdict.
+
+    Order (VOID-check first, then REFUTE, then CHORD-requires-all):
+      GATE2 ARM-B survives  -> VOID  (tautology; discarded, NOT a negative)
+      GATE1 not confined    -> REFUTE
+      CHORD = confined AND scramble-de-confines AND shape-gap>10%-converged-null-ok
+              AND electron-anchor-reproduced
+      ECHO  = confined + scramble-de-confines BUT (shape-generic OR no anchor)
+
+    alpha-FREE. Returns the full diagnostics + the verdict string."""
+    cfg = ConfinementConfig(net=primary_net, L=primary_L, S_min=S_min)
+    g1 = solve_confinement(cfg)
+    g2 = solve_scramble(cfg)
+    g3 = solve_quarter_arc_shape(cfg)
+    g3_floor = quarter_arc_floor_lift(cfg)
+    ladders = {"diamond": [4, 6, 8], "srs": [2, 4, 6]}
+    g3_size = quarter_arc_size_convergence(primary_net, ladders[primary_net])
+    anchor = electron_anchor_check(primary_net, ladders[primary_net], S_min=S_min)
+    afi = alpha_free_invariance(cfg)
+    dec5 = dec5_anti_coincidence(cfg)
+
+    confined = bool(g1["ok"] and g1["confined"])
+    deconfines = bool(g2["deconfines_both_arms"])
+    auto_void = bool(g2["auto_void"])
+    shape_gap_chord = bool(
+        g3["shape_gap_exceeds_10pct"]
+        and g3["null_control_passes"]
+        and g3_size["monotone_converging"]
+        and g3_size["gap_exceeds_10pct_anywhere"]
+        and g3_floor["gap_persists_as_floor_lifts"]
+    )
+    anchor_ok = bool(anchor["anchor_reproduced"])
+
+    # ── frozen binning ──
+    if auto_void:
+        verdict = "VOID"
+        reason = "GATE2 ARM-B survives: confinement is BC/projector-decided (tautology)"
+    elif not confined:
+        verdict = "REFUTE"
+        reason = "GATE1 not confined even at the binding-operator floor"
+    elif confined and deconfines and shape_gap_chord and anchor_ok:
+        verdict = "CHORD"
+        reason = "confined + scramble-de-confines + shape-gap>10%-converged + anchor reproduced"
+    elif confined and deconfines:
+        verdict = "ECHO"
+        reason = "confined + scramble-de-confines (real, S-dependent) BUT shape-generic and/or no anchor (FORM-chord/consistency)"
+    else:
+        verdict = "REFUTE"
+        reason = "confined but scramble did NOT de-confine and not a tautology (anomalous)"
+
+    return {
+        "verdict": verdict,
+        "reason": reason,
+        "primary_net": primary_net,
+        "primary_L": primary_L,
+        "S_min": S_min,
+        "gate1_confinement": g1,
+        "gate2_scramble": g2,
+        "gate3_shape": g3,
+        "gate3_floor_lift": g3_floor,
+        "gate3_size_convergence": g3_size,
+        "electron_anchor": anchor,
+        "alpha_free_invariance": afi,
+        "dec5_anti_coincidence": dec5,
+        "binning": {
+            "confined": confined,
+            "scramble_deconfines_both_arms": deconfines,
+            "auto_void": auto_void,
+            "shape_gap_chord": shape_gap_chord,
+            "electron_anchor_reproduced": anchor_ok,
+        },
+    }
+
+
+if __name__ == "__main__":
+    import json
+
+    print("FORK-B SATURATION-TANK MASS CONFINEMENT GATE")
+    print("=" * 72)
+    out = run_fork_b_gate()
+    # compact summary (full dict is large)
+    print(json.dumps(out["binning"], indent=2))
+    print("-" * 72)
+    print(f"VERDICT: {out['verdict']}")
+    print(f"REASON : {out['reason']}")
