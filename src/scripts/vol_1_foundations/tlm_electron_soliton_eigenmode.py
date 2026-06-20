@@ -15,6 +15,20 @@ minimum. Numerically demonstrate this by:
      has a bound state at that geometry.
 4. Extract the standing-wave envelope's (R, r) — compare to Golden Torus.
 
+KNOT-REGISTER FENCE (def-kn0t01 SOLID, common/vocabulary-register.md:243).
+The "(2,3)" in this driver is the PHASE-SPACE winding portrait on the bond-pair
+LC tank (Clifford torus T²) — NOT a real-space body knot. The electron's
+real-space body is the 0_1 UNKNOT (def-kn0t01: "Electron real-space body: 0_1
+unknot"). Accordingly the (2,3) torus-knot TANGENT computed below in real
+Cartesian coordinates is used ONLY as (a) a per-K4-port chirality PROJECTION
+WEIGHT (p̂_k · t̂) — a diagnostic shadow of the phase winding onto the
+tetrahedral ports — and (b) the winding PHASE θ = 2φ + 3ψ. It is NEVER a
+real-space body curve: the actual real-space envelope is a power-law hedgehog
+SHELL (an unknotted shell, see `initialize_2_3_voltage_ansatz`), consistent
+with def-kn0t01. This mirrors the diagnostic-shadow fence at
+`alpha_twist_framing.py:13` (its R³ (2,3) curve = "diagnostic shadow"; the
+load-bearing object is the phase-space Clifford torus).
+
 This script is a first-pass scaffolding. Success criteria (optimistic): the
 |V_inc| envelope on the shell stays localized and non-dispersive over many
 Compton periods, indicating a bound mode.
@@ -40,18 +54,35 @@ def initialize_2_3_voltage_ansatz(
     """Populate V_inc with a (2,3) chiral-phasor voltage pattern on a
     toroidal shell.
 
+    KNOT-REGISTER FENCE (def-kn0t01 SOLID): the real-space BODY built here is
+    the power-law hedgehog SHELL (attribute 1 below) — an UNKNOT (0_1),
+    matching the electron's real-space body per def-kn0t01. The "(2,3)" enters
+    ONLY as PHASE-SPACE winding diagnostics projected onto the real lattice:
+    the (2,3) tangent t̂ is a per-port PROJECTION WEIGHT (attribute 3), and
+    θ = 2φ + 3ψ is the winding PHASE (attribute 2). Neither traces a real-space
+    (2,3) knot body — the corpus denies such a body exists (def-kn0t01:
+    "(2,q) torus-knot labels are phase-space winding portraits ... not
+    real-space body topologies"). The Cartesian closed form below is the
+    diagnostic shadow of that phase winding, not a body curve (cf. the
+    diagnostic-shadow fence at `alpha_twist_framing.py:13`).
+
     Chiral-phasor attributes (all three must be encoded):
-      1. Magnitude — power-law hedgehog envelope (AVE-canonical, NOT Gaussian)
+      1. Magnitude — power-law hedgehog envelope (AVE-canonical, NOT Gaussian);
+         THIS is the real-space body: an unknotted (0_1) shell, def-kn0t01
       2. Phase — quadrature: cos(theta) on ports 0,1; sin(theta) on ports 2,3
-         gives phase-90° relationship closer to standing-wave eigenmode
+         gives phase-90° relationship closer to standing-wave eigenmode;
+         theta = 2φ + 3ψ is the PHASE-SPACE winding phase (not a body curve)
       3. Chirality — port weighting by projection of tetrahedral vector onto
-         the (2,3) knot tangent direction at each site; encodes the handedness
-         of wave flow along the winding
+         the (2,3) phase-winding tangent direction at each site; a diagnostic
+         PROJECTION WEIGHT (p̂_k · t̂), encoding the handedness of wave flow
+         along the winding — NOT a real-space (2,3) body knot (def-kn0t01)
 
     Port directions (A-sublattice -> B-sublattice tetrahedral vectors):
       p_0 = (+1,+1,+1), p_1 = (+1,-1,-1), p_2 = (-1,+1,-1), p_3 = (-1,-1,+1)
 
-    The (2,3) torus-knot tangent at (phi, psi) on the shell:
+    The (2,3) phase-winding tangent at (phi, psi) — a PHASE-SPACE portrait
+    projected to real coordinates as a diagnostic shadow (NOT a real-space
+    body curve; def-kn0t01):
       t = 2 * d(X)/d(phi) + 3 * d(X)/d(psi),
       where X(phi, psi) = ((R + r cos psi) cos phi, ..., r sin psi).
       Closed form (un-normalized):
@@ -77,7 +108,10 @@ def initialize_2_3_voltage_ansatz(
     r_opt = max(r, 1.0)
     envelope = amplitude * np.pi / (1.0 + (rho_tube / r_opt) ** 2)
 
-    # (2,3) knot tangent components (Cartesian, un-normalized)
+    # (2,3) PHASE-WINDING tangent components (Cartesian, un-normalized).
+    # def-kn0t01 FENCE: this is the diagnostic shadow of the phase-space
+    # winding projected to real coords — used only as a per-port projection
+    # weight below, NOT a real-space (2,3) body knot.
     # d/dphi
     dphi_x = -(R + r * np.cos(psi)) * np.sin(phi)
     dphi_y = (R + r * np.cos(psi)) * np.cos(phi)
@@ -86,7 +120,7 @@ def initialize_2_3_voltage_ansatz(
     dpsi_x = -r * np.sin(psi) * np.cos(phi)
     dpsi_y = -r * np.sin(psi) * np.sin(phi)
     dpsi_z = r * np.cos(psi) * np.ones_like(phi)
-    # (2,3) tangent
+    # (2,3) phase-winding tangent (projection-weight source, not a body curve)
     t_x = 2.0 * dphi_x + 3.0 * dpsi_x
     t_y = 2.0 * dphi_y + 3.0 * dpsi_y
     t_z = 2.0 * dphi_z + 3.0 * dpsi_z
