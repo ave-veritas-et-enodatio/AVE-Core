@@ -190,6 +190,33 @@ FORM-chord, because (a) confinement-existence is generic and (b) the one number 
 a FORM eigenfrequency, while the value an emergence-chord would need (`m_e`) is an input that is
 *never* a cage output. The chord-ceiling is structural, not a verdict-in-waiting.
 
+### §2.3 — The chord-ceiling CONFIRMED by the Fork-B live-fire (VERDICT = ECHO)
+
+The design-level ceiling prediction of §2.1/§2.2 **held under live-fire.** The Fork-B run
+(`research/2026-06-20_fork-b-saturation-tank-confinement_result.md`, PR#307) closed both legs of
+the ceiling exactly as predicted:
+
+- **§2.1 (confinement is generic saturable-NLS) → CONFIRMED by GATE 3 shape-generic.** The
+  quarter-arc kernel `√(1−A²)` (which IS the quarter-circle exactly, `∫₀¹√(1−A²)dA = π/4`) gives
+  the SAME bound-mode localization `Δ/L` as the norm-AND-depth-matched same-family comparator
+  `(1−A²)^p` — shape gap ~0.000 ≪ 10%, across all nets, with the null-shape control passing,
+  floor-robust (gap ~0 across S_min 1e-1 … 1e-5), and size-converged (gap ~0 across the L=2/4/6
+  ladder) (`fork_b_..._result.md` §4, GATE3 table). The shapes are genuinely different (max
+  `|ΔS| ≈ 0.022`) yet the RMS radius is insensitive to the exponent once norm+depth are matched.
+  **Confinement carries no AVE-distinct shape signature — generic saturable-NLS, exactly §2.1.**
+- **§2.2 (the only anchor is a FORM anchor, never `m_e`) → CONFIRMED: electron anchor NOT
+  reproduced.** The connect-map bound-mode `ω` is set by the lattice's OWN band structure (degree,
+  geometry, graph-Laplacian normalization), diverging upward with size on srs (2.70 → 3.26 → 3.56,
+  crossing the 2.87 line rather than converging to it), NOT the universal cold-cage 2.87. Three
+  different normalizations (FDTD 2.87, cube ≈ 1.1, connect-map ≈ 3.0–3.6) give three different
+  absolute frequencies — the 2.87 was a property of a specific Cartesian-FDTD `dx/dt`, not a
+  derived structural constant (`fork_b_..._result.md` §5–§6). **No value-chord; absolute-frequency
+  calibration is a SEPARATE question; `m_e` stays definitional.**
+
+**Net: the ceiling is exactly where §2 placed it — FORM-chord, never value-chord.** The live-fire
+did not lift it and could not (the structural argument and the empirical result agree). The ECHO is
+the SUCCESSFUL pre-committed outcome (the design-level prediction held), not a disappointment.
+
 ## §3 — SYMMETRIC-STANDARD framing (SOLID)
 
 A FORM-chord ceiling (§2) is **not** an AVE-comedown — it is peer-mapped honestly against the SM,
