@@ -4,7 +4,11 @@
 **Branch:** `analysis/2026-06-20-mass-sector-characterization` (off `origin/main` @ `19d55266`)
 **Lane:** implementer. **Auditor lands manual/KB entries; this doc surfaces the design-level finding only.**
 **Class:** **C — research synthesis. NOT a canonical KB claim** (no `clm-` id). The
-*mechanism* characterization conditions on the in-flight Fork-B build and is HELD pending it.
+*mechanism* characterization was HELD pending the Fork-B build; the Fork-B live-fire is now
+COMPLETE (VERDICT = **ECHO**, the pre-committed outcome) and **FIRMS** the mechanism leg — it
+confirms confinement is REAL and saturation-structure-decided, and confirms the FORM-chord ceiling.
+This reconciliation resolves the HELD leg; it does not retract. (Fork-B result + PR#307 cross-linked
+in §1.3/§5/§6.)
 **Disciplines applied:** `verify-before-cite`, `consensus-bias-symmetric-standard`,
 `consistency-vs-emergence`, `phase-space-coordinate-check`, `substrate-native-check`,
 `ave-discrimination-check`, `flag-don't-fix`.
@@ -13,10 +17,12 @@
 
 ## §0 — Executive summary (the SOLID / PENDING split up front)
 
-This doc banks the **design-level finding** the mass-sector arc has established, in PARALLEL
-with the live Fork-B confinement build (which is the empirical test of the *mechanism* leg).
-It does not pre-empt that build; it characterizes what is already structurally settled and
-fences off what the build will decide.
+This doc banks the **design-level finding** the mass-sector arc has established. It was written
+in PARALLEL with the Fork-B confinement build (the empirical test of the *mechanism* leg); that
+build is now COMPLETE. **The Fork-B live-fire returned VERDICT = ECHO** (the pre-committed,
+successful outcome), which **FIRMS the mechanism leg** (confinement REAL + saturation-structure-
+decided) and **CONFIRMS the chord-ceiling** (shape-generic, no electron anchor). What was once
+"SOLID / PENDING" is now "SOLID / RESOLVED-ECHO" — see §1.3, §5, and the updated §5 table.
 
 **SOLID (design-level, build-independent):**
 
@@ -33,13 +39,18 @@ fences off what the build will decide.
 4. **Form-value instance** — the mass sector is a clean instance of the framework meta-pattern:
    confinement FORM derived/structural, mass VALUE imported/definitional.
 
-**PENDING (conditional on the in-flight Fork-B build — the *mechanism* leg):**
+**RESOLVED-ECHO (was PENDING — the Fork-B live-fire decided the *mechanism* leg):**
 
-5. Whether the cold-cage confinement is genuinely **saturation-driven** (Fork-B GATE 2
-   scramble: scramble `S(A)` must de-confine; survival → VOID = boundary-decided tautology)
-   and whether it is **quarter-arc-specific** (Fork-B GATE 3 shape gate). A Fork-B VOID
-   RETRACTS the "mechanism" claim differently than a REFUTE. **The mechanism claim in §1 is
-   therefore candidate-pending-Fork-B.**
+5. The cold-cage confinement is genuinely **saturation-structure-driven** (Fork-B GATE 2 scramble
+   PASS, NOT VOID: both ARM-A `S→1` and ARM-B histogram-preserving permutation de-confine ⇒ the
+   confinement is decided by the spatial `S(A)` structure, not a boundary/projector tautology) and
+   it is **shape-GENERIC, NOT quarter-arc-specific** (Fork-B GATE 3 PASS: quarter-arc `√(1−A²)`
+   gives IDENTICAL localization `Δ/L` to the norm-feasible `(1−A²)^p` comparator, gap ~0 ≪ 10%).
+   GATE 1 confinement is REAL (a partial short binds a gapped, discrete, core-localized A1-scalar
+   bound mode at the canonical floor). The electron anchor is **NOT reproduced** (the bound-mode
+   `ω` is lattice-band-structure-set, diverging with size, NOT the universal 2.87) — so no
+   value-chord; `m_e` definitional. **VERDICT = ECHO, the pre-committed outcome — the mechanism
+   leg FIRMS to a FORM-chord at exactly the ceiling §2 names.** (Fork-B result + PR#307: §6.)
 
 ---
 
