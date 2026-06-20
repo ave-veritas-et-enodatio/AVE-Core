@@ -1,0 +1,85 @@
+"""ave.bench — shared build-once-reuse bench infrastructure.
+
+Every AVE bench repo (AVE-Bench-VacuumMirror, the cRIO EE bench, a future
+laser-facility-birefringence repo, plus the AVE-Core vol_4 engineering drivers)
+re-implements the same four load-bearing patterns by hand. Today the
+VacuumMirror Born engine is copy-pasted across ~6 scripts and the FN/Paschen
+breakdown ceilings are duplicated across qg42 + experimental_noise_floor. This
+package factors those four patterns into ONE importable source so every driver
+draws from the same contract.
+
+Each module is FACTORED from a named, proven exemplar (a contract lifted, not
+invented). The exemplars and the factoring discipline:
+
+  sweep.py     — co-vary AVE-vs-SM/null divergence sweep.
+                 FACTORED FROM AVE-Bench-VacuumMirror/scripts/
+                 analytical_gamma_v_sweep.py (gamma_bragg_2d vs gamma_sm_eh_kerr
+                 co-vary block). LOAD-BEARING INVARIANT (the no-strawman rule):
+                 the SM/null callable is evaluated over the SAME x_grid and
+                 through the same integral/profile as the AVE callable. There is
+                 NO API path to pass a pre-baked independent SM curve.
+
+  apparatus.py — geometry -> per-node saturation amplitude A_0, with a
+                 Fowler-Nordheim field-emission breakdown CEILING.
+                 FACTORED FROM AVE-Core src/scripts/vol_4_engineering/
+                 qg42_vsign_deltaf.py (a_rms_local / G_geom = beta*Q_build block
+                 + the FN-safe ceiling) cross-checked against
+                 src/scripts/peer_review/experimental_noise_floor.py
+                 (fowler_nordheim_current).
+
+  snr.py       — shot-noise-limited SNR surface + time-to-Nsigma + signal-vs-floor.
+                 FACTORED FROM AVE-Bench-VacuumMirror/scripts/apd_snr_sweep.py
+                 (snr_direct + t_detection block) and AVE-Core
+                 src/scripts/peer_review/experimental_noise_floor.py
+                 (the breakdown-envelope floors).
+
+  validate.py  — recover-a-known assertion gate (matches a computed value to a
+                 labeled PDG/CODATA/known reference within tolerance).
+                 FACTORED FROM the AVE-Core src/scripts/verify/*_anchor.py +
+                 *_results.json pattern (muon_g2_fermilab_anchor,
+                 baryon_ladder_pdg_2024_anchor): the deviation / deviation_pct /
+                 n_sigma / PASS-or-FLAG verdict contract.
+
+DISCIPLINE: all physical constants are imported from ave.core.constants. There
+are ZERO hardcoded SI literals in this package (the FN empirical coefficients
+A_FN/B_FN/PHI_W are labeled experimental-input constants, lifted verbatim from
+the canonical experimental chapter via the exemplars, NOT AVE-derived physics).
+"""
+
+from __future__ import annotations
+
+from ave.bench.apparatus import (
+    ApparatusCoupling,
+    fn_dark_current,
+    fn_safe_max_amplitude,
+    saturation_amplitude,
+    v_yield_apparatus,
+)
+from ave.bench.snr import (
+    SNRPoint,
+    signal_vs_floor,
+    snr_shot_noise,
+    time_to_n_sigma,
+)
+from ave.bench.sweep import DivergenceSweepResult, run_divergence_sweep
+from ave.bench.validate import KnownComparison, assert_recovers_known
+
+__all__ = [
+    # sweep
+    "run_divergence_sweep",
+    "DivergenceSweepResult",
+    # apparatus
+    "ApparatusCoupling",
+    "saturation_amplitude",
+    "v_yield_apparatus",
+    "fn_dark_current",
+    "fn_safe_max_amplitude",
+    # snr
+    "snr_shot_noise",
+    "time_to_n_sigma",
+    "signal_vs_floor",
+    "SNRPoint",
+    # validate
+    "assert_recovers_known",
+    "KnownComparison",
+]
