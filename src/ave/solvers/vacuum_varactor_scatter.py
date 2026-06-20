@@ -191,9 +191,60 @@ def bond_admittance_from_saturation(A_bond: np.ndarray, *, Y0: float = 1.0) -> n
 # ═════════════════════════════════════════════════════════════════════════════
 # 3. GLOBAL S(A)-READING SCATTER on the actual lattice CONNECT map
 # ═════════════════════════════════════════════════════════════════════════════
-def assemble_varactor_scattering(net: LatticeNet, A_bond) -> np.ndarray:
-    """STUB (Stage 3) — 𝓢(A) = C @ blockdiag(S_n(Y_u)), per-bond admittance."""
-    raise NotImplementedError("assemble_varactor_scattering: implemented in Stage 3")
+def _normalize_A_bond(net: LatticeNet, A_bond) -> np.ndarray:
+    """Coerce A_bond into the canonical (N, degree) per-directed-port array.
+
+    Accepts:
+      * a scalar  -> uniform A on every directed bond (the per-node-uniform case);
+      * an (N,)   -> per-NODE A broadcast to all of a node's ports (still per-node
+                     uniform AT each node -> CANCELS, the Finding-2 no-op);
+      * an (N, d) -> the genuine PER-BOND (directed-edge) field.
+    Returns (N, d) float64. Values are dimensionless saturation amplitudes A=|V|/V_yield."""
+    N, d = net.n_nodes, net.degree
+    A = np.asarray(A_bond, dtype=np.float64)
+    if A.ndim == 0:
+        return np.full((N, d), float(A))
+    if A.shape == (N,):
+        return np.repeat(A[:, None], d, axis=1)
+    if A.shape == (N, d):
+        return A.copy()
+    raise ValueError(f"A_bond must be scalar, (N,)={(N,)}, or (N,degree)={(N, d)}; got {A.shape}")
+
+
+def assemble_varactor_scattering(net: LatticeNet, A_bond, *, Y0: float = 1.0) -> np.ndarray:
+    """The S(A)-READING lattice scattering operator 𝓢(A) = C @ blockdiag(S_u).
+
+    Generalizes the bedrock assemble_global_scattering (node_scattering_multiplicity.py:
+    113-146): each node u scatters by its OWN admittance-weighted S_u(Y_u), where the
+    per-port admittance Y_u[p] = Y0/sqrt(S(A_bond[u,p])) is the VARACTOR MAP read from
+    the per-bond saturation A_bond[u,p]. Then CONNECT permutes reflected->incident along
+    the lattice's directed-edge reverse-port map (connect_index()).
+
+      1. SCATTER each node u locally by S_u = admittance_scatter(Y_u);
+      2. CONNECT: V_new.flat[dst] = V_ref.flat[src].
+
+    PER-BOND, NOT PER-NODE (Finding 2): if A_bond is per-NODE-uniform (a scalar, or an
+    (N,) broadcast), every Y_u is uniform within the node and S_u collapses to (2/d)J-I
+    EXACTLY -- 𝓢(A) == the bedrock operator REGARDLESS of S. Only a per-BOND-VARYING
+    A_bond (ports of one node differing) makes 𝓢(A) read saturation. The validate-on-
+    known gates assert exactly this.
+
+    A_bond: scalar | (N,) | (N, degree) dimensionless saturation amplitudes (see
+    _normalize_A_bond). Returns the dense (N*degree, N*degree) operator. alpha-FREE."""
+    d = net.degree
+    N = net.n_nodes
+    ndof = N * d
+    A = _normalize_A_bond(net, A_bond)
+
+    scatter_block = np.zeros((ndof, ndof), dtype=np.float64)
+    for u in range(N):
+        Y_u = bond_admittance_from_saturation(A[u], Y0=Y0)  # (d,) per-port admittance
+        scatter_block[u * d:(u + 1) * d, u * d:(u + 1) * d] = admittance_scatter(Y_u)
+
+    src_flat, dst_flat = net.connect_index()
+    C = np.zeros((ndof, ndof), dtype=np.float64)
+    C[dst_flat, src_flat] = 1.0
+    return C @ scatter_block
 
 
 # ═════════════════════════════════════════════════════════════════════════════
