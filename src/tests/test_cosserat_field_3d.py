@@ -16,9 +16,12 @@ import numpy as np
 
 from ave.topological.cosserat_field_3d import (
     CosseratField3D,
+    _axis_angle_to_rotation,
     _hopf_density,
+    _omega_to_quaternion,
     _op10_density,
     _project_omega_to_nhat,
+    _quat_mul,
     _reflection_density,
     adjoint_tetrahedral_divergence,
     tetrahedral_gradient,
@@ -681,3 +684,72 @@ def test_unknot_seeder_u_field_zero():
     solver = CosseratField3D(16, 16, 16)
     solver.initialize_electron_unknot_sector(R_target=4.0)
     np.testing.assert_allclose(solver.u, 0.0)
+
+
+# ------------------------------------------------------------------
+# Carrier-sector GATE #1 — spin double-cover representability
+# (prereg: research/2026-06-19_spin-doublecover-gate_prereg.md)
+# ------------------------------------------------------------------
+
+
+def test_quaternion_helpers_unit_and_identity():
+    """SU(2)-lift helpers: ω=0 → identity quaternion; quat-mul identity law."""
+    q0 = _omega_to_quaternion(np.zeros(3))
+    np.testing.assert_allclose(q0, np.array([1.0, 0.0, 0.0, 0.0]), atol=1e-12)
+    # q ⊗ identity = q.
+    q = _omega_to_quaternion(np.array([0.7, -0.3, 1.1]))
+    identity = np.array([1.0, 0.0, 0.0, 0.0])
+    np.testing.assert_allclose(_quat_mul(q, identity), q, atol=1e-12)
+    # Unit norm preserved.
+    assert abs(np.linalg.norm(q) - 1.0) < 1e-12
+
+
+def test_axis_angle_rotation_matches_rodrigues_baseline():
+    """_axis_angle_to_rotation about x by π flips ẑ → −ẑ (ties to the
+    test_rodrigues_projection_rotation_by_pi_around_x_flips_z calibration)."""
+    R = _axis_angle_to_rotation(np.array([1.0, 0.0, 0.0]), np.pi)
+    z_hat = np.array([0.0, 0.0, 1.0])
+    np.testing.assert_allclose(R @ z_hat, np.array([0.0, 0.0, -1.0]), atol=1e-12)
+
+
+def test_spin_doublecover_gate_verdict_pass():
+    """GATE #1: the SU(2)-lift double-cover IS representable at the lattice
+    level, and DIFFERS from the trivial-vector baseline.
+
+    Frozen-prereg discriminator (research/2026-06-19_spin-doublecover-gate_prereg.md):
+      - VALIDATE-ON-KNOWN: trivial-vector n_hat baseline returns at φ=2π.
+      - OP_A (SO(3) rotation-vector re-lift, = trivial baseline): +I at 2π.
+      - OP_B (SU(2) 2T-action lift, the FM-on-K4 mechanism): −I at 2π, +I at 4π.
+      => verdict PASS (double-cover representable; differs from baseline).
+
+    Stable across diagnostic scales R = 4, 6, 8 (lattice-resolved, NOT the
+    sub-cell ~0.16 ℓ_node canonical scale). KINEMATIC ONLY — no time-stepping.
+    """
+    for R, r in [(4.0, 2.0), (6.0, 3.0), (8.0, 4.0)]:
+        N = int(2 * R + 12)
+        solver = CosseratField3D(N, N, N, dx=1.0, use_saturation=False)
+        solver.initialize_electron_unknot_sector(R_target=R, r_target=r, amplitude_scale=1.0)
+        res = solver.probe_spin_doublecover_holonomy(body_axis=(0.0, 0.0, 1.0), n_phi=720)
+
+        # VALIDATE-ON-KNOWN: trivial-vector baseline returns at 2π (else HALT).
+        assert res["nhat_baseline_returned"], (
+            f"R={R}: trivial-vector baseline did NOT return at 2π "
+            f"(|Δ|={res['nhat_baseline_2pi']:.2e}) → HALT (solver bug)"
+        )
+        # OP_A (= trivial baseline) returns at 2π (no double-cover memory).
+        assert res["opA_lift_sign_2pi"] > 0.0, f"R={R}: OP_A should return +I at 2π"
+        assert res["opA_lift_sign_4pi"] > 0.0, f"R={R}: OP_A should return +I at 4π"
+        # OP_B (the FM-on-K4 / 2T action) carries the double-cover signature.
+        assert res["opB_lift_sign_2pi"] < 0.0, (
+            f"R={R}: OP_B SU(2) lift should be −I at 2π (double-cover signature), "
+            f"got sign {res['opB_lift_sign_2pi']:+.0f}"
+        )
+        assert abs(res["opB_lift_sign_4pi"] - 1.0) < 1e-9, (
+            f"R={R}: OP_B SU(2) lift should return +I at 4π, "
+            f"got sign {res['opB_lift_sign_4pi']:+.0f}"
+        )
+        # The discriminator: OP_B DIFFERS from the trivial-vector baseline (OP_A).
+        assert res["opB_lift_sign_2pi"] != res["opA_lift_sign_2pi"], (
+            f"R={R}: double-cover lift must DIFFER from trivial-vector baseline"
+        )
+        assert res["verdict"] == "PASS", f"R={R}: expected PASS, got {res['verdict']}"
