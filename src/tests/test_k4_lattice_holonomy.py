@@ -147,6 +147,104 @@ def test_2pi_from_links_is_minus_I():
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# HARDENING (2a): the headline −I is INDEPENDENT of the continuity sign-flip.
+# ─────────────────────────────────────────────────────────────────────────────
+def test_minus_I_is_flip_independent():
+    """The −I on the encircle-3× loop is NOT an artifact of the cover-continuity
+    sign-flip in `holonomy_of_path`.
+
+    The flip (`if np.dot(q_next, q_running) < 0.0: q_next = -q_next`) only
+    re-charts q-vs-−q for continuity of the cover lift; it must NEVER fire on the
+    encircle-3× (−I) loop. We assert both (i) the diagnostic flip counter is 0 on
+    that loop, and (ii) the holonomy is still −I. Two facts together prove the −I
+    is produced by the lattice-link A4 product, not by the re-charting step.
+
+    Belt-and-suspenders: we ALSO recompute the raw left-to-right quaternion
+    product with the flip DISABLED and confirm it equals the operator's `q` (up to
+    the global ± that the flip would only have resolved for charting) — same −I.
+    """
+    net = build_diamond_net(L=8)
+    loop = shortest_closed_loop(net, 0)
+    centroid, normal, in_plane = loop_plane(net, loop)
+    defect = {"origin": centroid, "axis": normal, "cut_dir": in_plane, "frank_port": 0}
+
+    enc3 = holonomy_of_path(net, repeat_loop(loop, 3), defect=defect)
+
+    # (i) the continuity sign-flip never fired on the −I loop.
+    assert enc3["n_continuity_flips"] == 0
+    # (ii) the holonomy is still −I.
+    assert enc3["holonomy_sign"] < 0.0
+    assert np.allclose(enc3["q"], [-1.0, 0.0, 0.0, 0.0], atol=ATOL)
+
+    # Belt-and-suspenders: recompute the RAW product with NO flip and confirm −I.
+    q_raw = np.array([1.0, 0.0, 0.0, 0.0])
+    for perm in enc3["link_perms"]:
+        R_link = rotation_from_port_permutation(perm)
+        q_link = rotation_matrix_to_quaternion(R_link)
+        q_raw = quat_mul(q_link, q_raw)
+    assert np.allclose(q_raw, enc3["q"], atol=ATOL)  # flip changed nothing
+    assert np.allclose(q_raw, [-1.0, 0.0, 0.0, 0.0], atol=ATOL)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# HARDENING (2b): the holonomy SIGN is fixed by the encircling COUNT mod 6 —
+# the SU(2) lift of C3^n — not by an even/odd crossing parity.
+#
+# FLAG (surfaced to Grant, NOT silently resolved): the task brief asked for an
+# "EVEN-parity null" — a loop crossing the cut an even, non-zero number of times
+# giving +I, on the premise that "the holonomy is a winding invariant ... not a
+# raw crossing count." The operator does NOT support that premise, and asserting
+# it would encode a false claim. The operator applies the SAME C3 Frank rotation
+# on EVERY crossing (`link_rotation_permutation` has no orientation/inverse
+# branch), so the SU(2) holonomy is C3_quat^(n_cut), continuity-lifted — period-6
+# in the RAW crossing count (C3 has order 3 in SO(3), order 6 in SU(2)). Measured:
+#   n_cut: 0→+I  1→+½  2→−½(sign−1)  3→−I  4→−½(sign−1)  5→+½  6→+I
+# So an even count of 2 or 4 gives sign = −1, NOT +I; only multiples of 6 give +I.
+# There is no even/odd-parity invariant here; the invariant is C3^(n_cut mod 6).
+# This test hardens the ACTUAL invariant the operator computes (the period-6 sign
+# law), which is the honest extension of the n_cut ∈ {0,3} cases the suite covers.
+# See the returned note in the final agent message for the discrepancy + the open
+# physics question (does a substrate disclination's holonomy DEPEND on raw
+# crossing count, or should it be a signed Frank-winding? — adjudication needed).
+# ─────────────────────────────────────────────────────────────────────────────
+def test_holonomy_sign_follows_encircle_count_mod_6():
+    """Holonomy sign is the SU(2) lift of C3^(n_cut): period-6 in the raw count.
+
+    Hardens the encircle-parity claim beyond n_cut ∈ {0,3}: it pins the FULL sign
+    law (incl. the n_cut=2,4 → sign −1 cases the suite did not previously assert),
+    documenting that the operator's invariant is count-mod-6, NOT even/odd parity.
+    """
+    net = build_diamond_net(L=8)
+    loop = shortest_closed_loop(net, 0)
+    centroid, normal, in_plane = loop_plane(net, loop)
+    defect = {"origin": centroid, "axis": normal, "cut_dir": in_plane, "frank_port": 0}
+
+    # n_cut from 0..6 via the repeat-loop family (single encircling defect).
+    expected_q0 = {0: 1.0, 1: 0.5, 2: -0.5, 3: -1.0, 4: -0.5, 5: 0.5, 6: 1.0}
+    expected_sign = {0: +1.0, 1: +1.0, 2: -1.0, 3: -1.0, 4: -1.0, 5: +1.0, 6: +1.0}
+    expected_so3id = {0: True, 1: False, 2: False, 3: True, 4: False, 5: False, 6: True}
+
+    for n in range(7):
+        if n == 0:
+            res = holonomy_of_path(net, loop, defect=None)
+        else:
+            res = holonomy_of_path(net, repeat_loop(loop, n), defect=defect)
+            assert res["n_cut_crossings"] == n, f"n={n}: expected {n} crossings"
+        assert np.isclose(res["q"][0], expected_q0[n], atol=ATOL), f"n={n} q0"
+        assert res["holonomy_sign"] == expected_sign[n], f"n={n} sign"
+        assert res["so3_is_identity"] is expected_so3id[n], f"n={n} so3"
+
+    # The headline contrast the brief intended (even, non-zero) DOES NOT give +I:
+    # n_cut=2 and n_cut=4 both give sign = −1. Asserted explicitly so a future
+    # refactor toward a signed-winding operator (if Grant adjudicates that way)
+    # trips this test and forces a re-spec rather than silently passing.
+    res2 = holonomy_of_path(net, repeat_loop(loop, 2), defect=defect)
+    res4 = holonomy_of_path(net, repeat_loop(loop, 4), defect=defect)
+    assert res2["n_cut_crossings"] == 2 and res2["holonomy_sign"] < 0.0
+    assert res4["n_cut_crossings"] == 4 and res4["holonomy_sign"] < 0.0
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # ANTI-TAUTOLOGY (a): no analytic axis-angle rotor in the holonomy code path.
 # ─────────────────────────────────────────────────────────────────────────────
 def test_no_analytic_qbody_rotor():

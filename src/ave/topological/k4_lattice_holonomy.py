@@ -341,8 +341,9 @@ def holonomy_of_path(
     `cosserat_field_3d.py`. No `cos(φ/2)`, no traversal-angle anywhere.
 
     Returns a dict: running SU(2) `q`, SO(3) `R`, `so3_is_identity`,
-    `holonomy_sign` (+1 ⇒ +I, −1 ⇒ −I), `closed`, `n_cut_crossings`, and the
-    per-link permutation trace.
+    `holonomy_sign` (+1 ⇒ +I, −1 ⇒ −I), `closed`, `n_cut_crossings`,
+    `n_continuity_flips` (diagnostic: cover-continuity sign-flips that fired;
+    0 on the −I loop), and the per-link permutation trace.
     """
     if not path:
         raise ValueError("empty path")
@@ -363,6 +364,11 @@ def holonomy_of_path(
     pos = net.pos[node].copy()
     link_perms = []
     n_cut_crossings = 0
+    # Diagnostic-only counter: how many times the cover-continuity sign-flip
+    # below actually fired. The headline encircle-3× (−I) loop must NEVER trip
+    # it (the −I is flip-INDEPENDENT — see test_minus_I_is_flip_independent).
+    # Purely additive; the flip LOGIC is unchanged.
+    n_continuity_flips = 0
 
     for (u, p_out) in path:
         if u != node:
@@ -395,6 +401,7 @@ def holonomy_of_path(
         # Continuity-resolve q vs −q against the running product (track the cover).
         if np.dot(q_next, q_running) < 0.0:
             q_next = -q_next
+            n_continuity_flips += 1
         q_running = q_next
         R_running = R_link @ R_running
         node = v
@@ -417,6 +424,9 @@ def holonomy_of_path(
         "closed": closed,
         "n_links": len(path),
         "n_cut_crossings": n_cut_crossings,
+        # Diagnostic: count of cover-continuity sign-flips that fired (must be 0
+        # on the −I loop — proves the −I is not an artifact of the flip).
+        "n_continuity_flips": n_continuity_flips,
         "link_perms": link_perms,
         # Anti-tautology self-report: this code path never touches q_body.
         "uses_analytic_qbody": False,
