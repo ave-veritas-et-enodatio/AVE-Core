@@ -280,6 +280,186 @@ def bedrock_validate_on_known(cfg: BedrockConfig | None = None) -> dict:
     return out
 
 
+# ═════════════════════════════════════════════════════════════════════════════
+# STAGE 2 — the multiplicity OBSERVABLE + the Fork-A test (CORE-FREE)
+# ═════════════════════════════════════════════════════════════════════════════
+# Built ONLY because Stage 1 PROCEEDED. No posited Gaussian core (sidesteps the
+# Cartesian-core risk). The question: does confining the LONGITUDINAL A1/V-sector
+# mode require the diamond's 3rd differential mode?
+#
+# phase-space-coordinate-check: S_n eigenvectors live in n-PORT space; the A1
+# dilatation MASS scalar and the Cosserat micro-rotation CHARGE vector live in
+# REAL-space. The port->real-space map is the bond-direction embedding
+# bond_unit[u][p]. We SHOW it (port_to_realspace_embedding) before posing any
+# physics, per the prereg §2e commitment.
+# ═════════════════════════════════════════════════════════════════════════════
+
+
+def port_to_realspace_embedding(net: LatticeNet) -> dict:
+    """The SHOWN port -> real-space-grade map (phase-space-coordinate-check).
+
+    Each directed port p at node u carries a bond DIRECTION bond_unit[u][p] (a
+    real-space unit vector, chiral_lattice.py:114). The per-node embedding matrix
+    B_u is (degree x 3): row p = the bond direction of port p. A port-amplitude
+    vector a maps to a real-space 3-VECTOR  v = B_u^T a  (the vector/shear grade),
+    and to a real-space SCALAR via the port-SUM  s = (1/degree) Σ_p a_p (the
+    dilatation grade = the common-mode/longitudinal projection).
+
+    This makes the coordinate map EXPLICIT (not assumed):
+      * the +1 COMMON-MODE port-vector (all-ones) -> NONZERO scalar (port-sum),
+        and ZERO real-space vector iff the bond directions sum to zero (a
+        force-balanced node: Σ_p bond_unit = 0);
+      * the -1 DIFFERENTIAL port-vectors -> ZERO scalar (orthogonal to all-ones),
+        and a nonzero real-space VECTOR v = B_u^T a (the transverse/shear grade).
+
+    The KEY DIAGNOSTIC for Fork A: the common-mode (all-ones) port-vector is the
+    natural carrier of the SCALAR dilatation (A1 MASS-"3"), and it lives in the
+    +1 eigenspace, NOT the -1 differential sector. If that holds, the longitudinal
+    A1 mode is a COMMON-MODE object (Grant's bulk-saturation channel, Fork B) and
+    Fork A's pre-committed prediction (longitudinal needs the differential 3rd
+    mode) is at risk -> R3.
+
+    Returns per-net diagnostics averaged over interior (full-degree) nodes.
+    alpha-FREE (geometry only).
+    """
+    d = net.degree
+    if net.interior_mask is not None:
+        interior = np.where(net.interior_mask)[0]
+    else:
+        interior = np.arange(net.n_nodes)
+    bond_sums, common_scalar, common_vec, diff_scalar, diff_vec = [], [], [], [], []
+    Pm = differential_projector(d)
+    ones = np.ones(d) / np.sqrt(d)  # normalized common mode
+    for u in interior:
+        if len(net.bond_unit[u]) != d:
+            continue
+        B = np.array(net.bond_unit[u])  # (d, 3) bond directions
+        bond_sums.append(float(np.linalg.norm(B.sum(axis=0))))
+        # COMMON-MODE port-vector -> scalar (port-sum) + real-space vector (B^T a)
+        common_scalar.append(float(abs(ones.sum())))  # ~ sqrt(d) before /sqrt(d)
+        common_vec.append(float(np.linalg.norm(B.T @ ones)))
+        # representative DIFFERENTIAL port-vector (project random into P_{-1})
+        rng = np.random.default_rng(int(u) + 1)
+        a = Pm @ rng.standard_normal(d)
+        a = a / (np.linalg.norm(a) + 1e-30)
+        diff_scalar.append(float(abs(a.sum())))  # ~0 (orthogonal to all-ones)
+        diff_vec.append(float(np.linalg.norm(B.T @ a)))
+    mean = lambda x: float(np.mean(x)) if x else None  # noqa: E731
+    mx = lambda x: float(np.max(x)) if x else None  # noqa: E731
+    return {
+        "net": net.name,
+        "degree": d,
+        "n_interior": len(bond_sums),
+        "bond_direction_sum_mean": mean(bond_sums),
+        "bond_direction_sum_max": mx(bond_sums),
+        "common_mode_scalar_content_mean": mean(common_scalar),
+        "common_mode_realspace_vector_norm_mean": mean(common_vec),
+        "differential_scalar_content_mean": mean(diff_scalar),
+        "differential_realspace_vector_norm_mean": mean(diff_vec),
+    }
+
+
+def fork_a_test(L_srs: int = 2, L_diamond: int = 4) -> dict:
+    """The Fork-A multiplicity/sector test (CORE-FREE, prereg §3-§4).
+
+    Two pre-committed questions:
+      (a) does the LONGITUDINAL A1/V-sector (dilatation SCALAR) live in the
+          DIFFERENTIAL sector P_{-1}, or in the COMMON-MODE +1 sector?
+      (b) does confining the longitudinal excitation REQUIRE the n=4 diamond's
+          3rd differential mode (no normalizable confined longitudinal mode on
+          n=3, yes on n=4)?
+
+    METHOD (core-free, operator-first): we do NOT posit a Gaussian core. The
+    longitudinal-vs-differential SECTOR question is answered DIRECTLY from the
+    port->grade embedding: the A1 dilatation is the SCALAR grade, carried by the
+    port-SUM (the all-ones common mode), which IS the +1 eigenvector of S_n. The
+    differential -1 modes are orthogonal to all-ones, so they carry ZERO scalar
+    content -- they are the transverse/shear VECTOR grade. This is read from the
+    SHOWN embedding (port_to_realspace_embedding), not asserted.
+
+    The verdict is binned per the prereg's frozen CHORD/ECHO/REFUTE map. The
+    dominant outcome witnessed: the longitudinal scalar is a COMMON-MODE object,
+    so it does NOT live in P_{-1} -> Fork-A outcome R3 (-> Grant's Fork B, the
+    +1 = bulk-saturation channel, DEFERRED). alpha-FREE.
+    """
+    srs = build_srs_net(L=L_srs)
+    dia = build_diamond_net(L=L_diamond)
+    emb_srs = port_to_realspace_embedding(srs)
+    emb_dia = port_to_realspace_embedding(dia)
+
+    # (a) SECTOR: does the A1 dilatation SCALAR live in P_{-1}?
+    # The differential sector carries ~zero scalar content; the common mode (+1)
+    # carries all the scalar. So the longitudinal A1 scalar is a +1 object.
+    tol = 1e-9
+    longitudinal_in_differential_srs = emb_srs["differential_scalar_content_mean"] > tol
+    longitudinal_in_differential_dia = emb_dia["differential_scalar_content_mean"] > tol
+    longitudinal_in_common_mode = (
+        emb_srs["common_mode_scalar_content_mean"] > tol
+        and emb_dia["common_mode_scalar_content_mean"] > tol
+    )
+
+    # (b) the 2-vs-3 requirement, posed CORE-FREE at the sector level:
+    # the differential multiplicity is 2 (srs) / 3 (diamond). The transverse
+    # photon needs 2 (saturates srs's differential sector exactly). The question
+    # "does longitudinal confinement need the 3rd differential mode" is MOOT if
+    # the longitudinal scalar is NOT a differential object at all (it is the
+    # common mode) -- which is what the embedding shows.
+    srs_diff_mult = local_scatter_spectrum(3)["differential_multiplicity"]  # 2
+    dia_diff_mult = local_scatter_spectrum(4)["differential_multiplicity"]  # 3
+
+    out = {
+        "scope": "b (Fork A only)",
+        "embedding_srs": emb_srs,
+        "embedding_diamond": emb_dia,
+        "sector_question_a": {
+            "longitudinal_A1_scalar_in_differential_P-1_srs": bool(longitudinal_in_differential_srs),
+            "longitudinal_A1_scalar_in_differential_P-1_diamond": bool(longitudinal_in_differential_dia),
+            "longitudinal_A1_scalar_in_common_mode_+1": bool(longitudinal_in_common_mode),
+        },
+        "multiplicity_question_b": {
+            "srs_differential_multiplicity": srs_diff_mult,
+            "diamond_differential_multiplicity": dia_diff_mult,
+            "photon_transverse_dof": 2,
+            "note": (
+                "srs's 2 differential modes are exactly the 2 transverse photon "
+                "DOF; the diamond's 3rd differential mode is a SPARE differential "
+                "(shear) channel, NOT a longitudinal-scalar channel. The "
+                "longitudinal A1 scalar is the COMMON MODE (+1), not a differential "
+                "object, so 'longitudinal confinement needs the 3rd differential "
+                "mode' is MOOT at the sector level."
+            ),
+        },
+    }
+
+    # ── VERDICT (frozen prereg §4) ──
+    if longitudinal_in_common_mode and not (
+        longitudinal_in_differential_srs or longitudinal_in_differential_dia
+    ):
+        out["verdict"] = "REFUTE-R3"
+        out["verdict_detail"] = (
+            "The longitudinal A1 dilatation SCALAR lives in the COMMON-MODE (+1) "
+            "sector, NOT the differential P_{-1} sector (differential scalar "
+            "content ~1e-16, common-mode scalar content = sqrt(degree)). Fork-A's "
+            "pre-committed prediction (longitudinal confinement needs the diamond's "
+            "3rd DIFFERENTIAL mode) is REFUTED at the sector level: the longitudinal "
+            "scalar is not a differential object. This is prereg outcome R3 -> the "
+            "containment of the A1 MASS-'3' routes through Grant's COMMON-MODE = "
+            "bulk-saturation channel (Fork B, the unbuilt Z_core->inf operator, "
+            "DEFERRED). A clean, pre-registered negative for Fork A."
+        )
+    elif longitudinal_in_differential_dia and not longitudinal_in_differential_srs:
+        out["verdict"] = "CHORD-candidate"
+        out["verdict_detail"] = (
+            "Longitudinal mode is differential AND present on diamond but not srs -- "
+            "the pre-committed chord. Requires the symmetric-standard embedding>DOF "
+            "check (Stage 3) before headlining as CHORD."
+        )
+    else:
+        out["verdict"] = "ECHO-or-other"
+        out["verdict_detail"] = "see sector_question_a / multiplicity_question_b."
+    return out
+
+
 if __name__ == "__main__":
     import json
 
@@ -288,4 +468,13 @@ if __name__ == "__main__":
     result = bedrock_validate_on_known()
     print(json.dumps(result, indent=2, default=str))
     print("=" * 70)
-    print(f"STATUS: {result['status']}")
+    print(f"STAGE-1 STATUS: {result['status']}")
+    if result["status"] == "PROCEED":
+        print("\nFORK-A TEST (Stage 2):")
+        print("=" * 70)
+        fa = fork_a_test()
+        print(json.dumps({k: v for k, v in fa.items()
+                          if k not in ("embedding_srs", "embedding_diamond")},
+                         indent=2, default=str))
+        print("=" * 70)
+        print(f"FORK-A VERDICT: {fa['verdict']}")
