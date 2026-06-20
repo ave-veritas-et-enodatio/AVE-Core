@@ -182,13 +182,34 @@ def test_strong_deformation_eventually_unwinds_charge():
 
     The invariance at gate strengths is real topological protection — NOT a
     numerically-frozen readout. A sufficiently strong perturbation actually cuts
-    the winding and 𝒬 steps down (3→…→0), confirming the readout CAN change.
+    the winding and 𝒬 steps down 3→2→1→0, confirming the readout CAN change —
+    and changes ONLY in integer steps (never a continuous drift). This is the
+    load-bearing "a frozen readout could not do this" evidence; it is CI-gated
+    here so the headline "discrete steps" claim cannot silently rot.
+
+    Seed/strengths reproduce the result-doc quote (smooth_noise seed=1):
+    0.5→3, 1.0→2, 2.0→1, 5.0→0, 10.0→0.
     """
     omega = seed_pq_winding(N, 2, 3, R, R_MINOR)
-    Q_weak = compute_Q_link(deform_continuous(omega, "smooth_noise", 0.3, seed=1), R, R_MINOR)["Q_link"]
-    Q_strong = compute_Q_link(deform_continuous(omega, "smooth_noise", 10.0, seed=1), R, R_MINOR)["Q_link"]
-    assert Q_weak == 3, "weak deformation preserves topology"
-    assert Q_strong != 3, "strong deformation must be able to change 𝒬 (falsifiability)"
+    strengths = [0.5, 1.0, 2.0, 5.0, 10.0]  # the result-doc's quoted sweep
+    Qs = [
+        compute_Q_link(deform_continuous(omega, "smooth_noise", s, seed=1), R, R_MINOR)["Q_link"]
+        for s in strengths
+    ]
+    # 1. starts at the topological integer, ends fully unwound
+    assert Qs[0] == 3, f"weak deformation preserves topology, got {Qs}"
+    assert Qs[-1] == 0, f"strongest deformation must fully unwind, got {Qs}"
+    # 2. MONOTONE non-increasing across the sweep (steps DOWN, never back up)
+    assert all(Qs[i + 1] <= Qs[i] for i in range(len(Qs) - 1)), (
+        f"𝒬 must be non-increasing under increasing deformation, got {Qs}"
+    )
+    # 3. passes through at least 2 DISTINCT integer values before reaching 0
+    #    (3→2→1→0 = a discrete step-down ladder, not a single 3→0 cliff that a
+    #    frozen/binary readout could fake)
+    distinct_before_zero = sorted(set(q for q in Qs if q != 0))
+    assert len(distinct_before_zero) >= 2, (
+        f"step-down must pass through ≥2 distinct integers before 0, got {Qs}"
+    )
 
 
 # ──────────────────────────────────────────────────────────────────────────
@@ -217,12 +238,39 @@ def test_full_gate_verdict_is_pass():
 
 
 def test_guard_value_echo_immunity_no_alpha_or_e_in_globals():
-    """ALPHA / Q_TANK / e_charge are ABSENT from the module globals (GUARD 1)."""
+    """Forbidden value-echo names are ABSENT from the module globals (GUARD 1).
+
+    Widened (2026-06-19) beyond the original (ALPHA, Q_TANK, e_charge, E_CHARGE)
+    to cover the docstring's full stated intent ("NEVER read α/m_e/137"):
+    kappa_chiral / V_SNAP / m_e and case variants.
+    """
     import ave.topological.charge_quantization as cq
 
     g = vars(cq)
-    for name in ("ALPHA", "Q_TANK", "e_charge", "E_CHARGE"):
+    for name in (
+        "ALPHA", "Q_TANK", "e_charge", "E_CHARGE",
+        "kappa_chiral", "KAPPA_CHIRAL", "V_SNAP",
+        "MASS_ELECTRON", "m_e", "M_E",
+    ):
         assert name not in g, f"value-echo leak: {name} in charge_quantization globals"
+
+
+def test_guard_no_alpha_literal_in_verdict_code_path():
+    """The α value (137 / 0.00729) does NOT appear in the verdict-determining
+    code path (source-level guard, GUARD 1 widened 2026-06-19)."""
+    import inspect
+
+    import ave.topological.charge_quantization as cq
+
+    code_path = (
+        inspect.getsource(cq.charge_quantization_gate)
+        + inspect.getsource(cq.compute_Q_link)
+        + inspect.getsource(cq.compute_Q_hopf)
+    )
+    for lit in ("137", "0.00729"):
+        assert lit not in code_path, f"α-literal {lit!r} leaked into verdict code path"
+    # the import-time guard must have run (helper present + callable)
+    assert callable(cq._assert_no_alpha_literal_in_code_path)
 
 
 def test_guard_module_does_not_import_constants():
