@@ -143,12 +143,24 @@ def compute_Q(V: np.ndarray, dx: float, V_yield: float = 1.0, threshold_factor: 
     soliton, returns ~1; for two well-separated solitons, returns ~2; for
     unstrained vacuum, returns 0.
 
-    RIGOROUS implementation (deferred) requires:
+    RIGOROUS implementation (deferred FOR THE SCALAR-V PROXY HERE) requires:
       - Defining the substrate flux field F (vector, derived from V via the
         Cosserat coupling)
       - Computing Link(∂Ω, F) as the integer linking number of a closed surface
         ∂Ω (level set of |V|) with the flux field
     Both require the full Cosserat-coupled engine (doc 113 §5.4 deferred work).
+
+    ✅ RIGOROUS 𝒬 NOW BUILT for the Cosserat ω-vector field (#43, GATE #2,
+    2026-06-19): `ave.topological.charge_quantization.compute_Q_link` computes
+    the genuine real-space boundary linking integer Link(∂Ω, F=curl ω) on the
+    Cosserat micro-rotation grade (the substrate-native charge carrier per
+    master-equation.md:20, charge = Beltrami helicity). It recovers the winding
+    integer, is INVARIANT under continuous deformation, and jumps only on a
+    topology change (the charge-quantization structural gate PASS). KEEP-BOTH:
+    this scalar-V proxy is retained for the scalar-field callers
+    (observable_battery, test_boundary_invariants) that pass V, not ω — the two
+    take DIFFERENT inputs (scalar V here vs Cosserat ω there). See the gate's
+    prereg research/2026-06-19_charge-quantization-gate_prereg.md.
 
     Per A-028 canonical definition; per Vol 2 Ch 1 charge identity, 𝓠 = 1 for
     canonical electron (corresponds to e charge in EE projection).
