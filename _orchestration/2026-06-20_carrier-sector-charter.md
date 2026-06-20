@@ -163,10 +163,68 @@ off `origin/main` @ `d83f77c3`)
 | Claim | Anchor | Status |
 |---|---|---|
 | A1 ⊥ T2; never wire winding into A1 phasor | `master-equation.md:20` | verified verbatim |
-| A↔B swap needs reflections (chiral net lacks them) | `k4-rotation-group.md:123` | verified verbatim |
+| A↔B swap needs reflections (chiral net lacks them) | `k4-rotation-group.md:123` | verified verbatim — ⚠️ **RETIRED for the EXCHANGE question** (see §7 closure-status); scoped to a SUBLATTICE swap, NOT the carrier braid |
 | K4 → A4 → 2T ⊂ SU(2); 2π→−I, 4π→+I | `k4-rotation-group.md:125-136` (§6) | verified |
 | A4 = 12 even permutations of {p0..p3}; the 12 rotations | `k4-rotation-group.md:61-114` (§3-§4) | verified |
 | Tetrahedral ports p0..p3 | `k4-rotation-group.md:17`; `k4_tlm.py:80-86` | verified |
 | FM-on-K4 mechanism; #299 corroborates representability | `finkelstein-misner-spin-half-derivation.md` §2-§3 | verified |
 | Charge forced-integer given TKI [Q]≡[L]; C.3 open ~18% | `charge_quantization.py:21-24,46,350` | verified |
 | #299 spin representability, OP_B analytic rotor | `cosserat_field_3d.py:1277,1353` | verified |
+
+---
+
+## 7 — CLOSURE STATUS (2026-06-20, Rule-12 ADDITION — §1-§6 above PRESERVED unedited)
+
+> **This section RECORDS the carrier-sector adjudication outcomes reached 2026-06-20. The
+> roadmap (§4), the BAR (§5), and the Part-2 scope (§6) above are PRESERVED as the founding
+> record. Full grounding + the FLAG-DON'T-FIX surfacing live in the synthesis doc
+> [`research/2026-06-20_carrier-sector-adjudication-synthesis.md`](../research/2026-06-20_carrier-sector-adjudication-synthesis.md)
+> and the FR result [`research/2026-06-20_fr-braid-spin-statistics_result.md`](../research/2026-06-20_fr-braid-spin-statistics_result.md).**
+
+### 7.1 — 🚨 SALIENCE-GUARD (durable — read before any future exchange work)
+
+**`k4-rotation-group.md:123` is RETIRED for the spin-statistics-EXCHANGE question.** That line
+("To get an A↔B SWAP … we need to include reflections (full T_d = S₄)") is scoped to a
+**SUBLATTICE A↔B swap for the bipartite-spinor argument** (`k4-rotation-group.md:121-123`) — a
+**category error** for the carrier exchange. The carrier is a real-space `$0_1$` unknot LOOP
+(`electron-identification.md:22`); identical-soliton exchange is a **real-space BRAID**, NOT a
+sublattice permutation. **It must NOT be re-cited as the exchange discriminator.** This is the
+**3rd-time regression** on this same line (the `w257o33nz` "structurally excluded" close was the
+latest); the SALIENCE-GUARD exists because the line keeps *sounding* decisive across lenses.
+The §4-§5 roadmap text above that frames the exchange via "the A↔B swap … may demand a T_d
+reflection" (lines ~96-102, ~144) is **SUPERSEDED by this section** for the exchange question —
+preserved per Rule 12 as the founding framing, but the live discriminator is the FR braid below.
+
+### 7.2 — Spin-statistics-exchange gate = CLOSED (FR braid, PASS / PEER-ahead)
+
+The FR two-loop braid gate (`src/ave/topological/fr_braid_exchange.py`, 14 tests) settles the
+charter §5 BAR question "was a reflection needed?":
+
+- **VERDICT: PASS** — the exchange σ holonomy = **−I** from **A4-only, reflection-free**
+  partner-encirclement transport, the SAME `2T` element as the single-particle 2π −I (the FR
+  homotopy "exchange ≅ 2π rotation of one soliton"). **No reflection needed.**
+- **chord-vs-peer: PEER-ahead (generic-FR), NOT an AVE-distinct chord.** The non-A4 control
+  also reaches −I → the double-cover → −1 chain is generic to any soliton/double-cover
+  framework. The §5 BAR's chord prong (A4-lattice-forced) **did not fire**.
+- All six anti-tautology guards hold; FR consistency holds. Detail: the FR result doc.
+
+### 7.3 — The other carrier sub-sectors (verdicts; sources in the synthesis doc)
+
+| Sub-sector | Verdict |
+|---|---|
+| Mass | ECHO-final (#311; mechanism ~94% saturation real, value echo / `m_e` definitional) |
+| Chirality | echo / peer-with-SM (χ imposed-to-match-parity; charge=χ·strain a relabel; piezo-reframe = duplicate Class-B) |
+| Baryogenesis | echo / consistency-class (η = imported EW-sphaleron scaffold; OOM-peer; sub-percent-retracted; PR #314 open). **FLAG:** `baryon-asymmetry.md:46` "every factor derived" vs adjudicated SM-imported/do-not-build — surfaced for Grant, NOT resolved. |
+| Charge | representability (forced-given-TKI `[Q]≡[L]` asserted; C.3 ~18% OPEN) |
+| Spin-½ | representability + topological-derivation (#299 representable, #312 from-connectivity) |
+| Spin-statistics | **derived, PEER-ahead** (FR braid §7.2) |
+| **Dynamical SELECTION** | **OPEN — no non-circular gate found** (4 mechanisms fail; charter §3(a) interior) |
+
+### 7.4 — NET + next
+
+Carrier sector = **representability-grade + spin-statistics-derived (PEER)**. The
+FORM-derived / VALUE-imported signature extends here (5th instance). Spin-statistics being
+**generic-FR PEER**, the chord-hunt re-points at the standing **FORWARD PREDICTIONS**
+(optical-activity sign-flip + achiral-null; `(q·ℓ_node)⁴` dispersion; GW-echo; birefringence
+~10⁶× QED) and at the **dynamical-SELECTION** gate (§3(a)) — the one remaining carrier-sector
+interior whose closure would be the genuine chord candidate. None found this session.
