@@ -446,3 +446,132 @@ def _readout_im_omega_sign(net: LatticeNet, L: np.ndarray, r: np.ndarray, w_boun
         "bound_branch_confirmed": bool(bound_decays_or_lossless and convention_ok),
         "im_sign": float(np.sign(im)) if abs(im) > 1e-12 else 0.0,
     }
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 4. GATE 2 — SCRAMBLE (anti-tautology, necessary): does S-STRUCTURE bind?
+# ═════════════════════════════════════════════════════════════════════════════
+# ARM-A: S->1 uniform (must de-confine).
+# ARM-B (LOAD-BEARING): spatially PERMUTE the per-bond S field holding the
+#   S-histogram FIXED (must de-confine). A mode surviving ARM-B with core_frac>=0.50
+#   gapped is BC/projector-decided = AUTO-VOID.
+# Negative control: a uniform-field scramble is a no-op.
+# Freeze the de-confinement margin >= 0.30 vs the ARM-A flat baseline.
+# ═════════════════════════════════════════════════════════════════════════════
+
+
+def _bound_core_frac_from_operator(net: LatticeNet, L: np.ndarray, core_mask: np.ndarray) -> dict:
+    """Solve L, find the bound LEVEL (top cluster), and return its best-member
+    core_frac + gap + discreteness. Shared kernel for the scramble arms (so every
+    arm is judged by the IDENTICAL bound-mode selector as GATE1)."""
+    w, V = np.linalg.eigh(L)
+    band = _band_structure(w)
+    if not band["ok"]:
+        return {"ok": False, "core_frac": 0.0, "gapped_discrete": False, "reason": band["reason"]}
+    best = _select_core_bound_mode(w, V, core_mask, band)
+    gapped_discrete = bool(band["gap_above_sq"] > max(band["mean_continuum_spacing_sq"], 1e-9))
+    return {
+        "ok": True,
+        "core_frac": best["core_frac"],
+        "omega": best["omega"],
+        "gap_above_sq": band["gap_above_sq"],
+        "continuum_spacing_sq": band["mean_continuum_spacing_sq"],
+        "gapped_discrete": gapped_discrete,
+    }
+
+
+def _bond_S_field(net: LatticeNet, A_node: np.ndarray, *, S_min: float, A_cap: float | None) -> np.ndarray:
+    """The per-bond S(A_bond) field (NOT the stiffness D=1/S). This is what the
+    scramble PERMUTES (holding its histogram fixed)."""
+    bonds = unique_bonds(net)
+    A_bond = np.array([max(A_node[u], A_node[v]) for (u, v) in bonds])
+    return saturation_kernel(A_bond, S_min=S_min, A_cap=A_cap)
+
+
+def _operator_from_bond_S(net: LatticeNet, S_bond: np.ndarray) -> np.ndarray:
+    """Assemble L=B^T diag(1/S_bond) B directly from a per-bond S field (used by the
+    scramble arms, which manipulate S_bond directly rather than via A_node)."""
+    N = net.n_nodes
+    bonds = unique_bonds(net)
+    D = 1.0 / np.maximum(S_bond, 1e-300)
+    B = np.zeros((len(bonds), N))
+    for b, (u, v) in enumerate(bonds):
+        B[b, u] = 1.0
+        B[b, v] = -1.0
+    L = B.T @ np.diag(D) @ B
+    return 0.5 * (L + L.T)
+
+
+def solve_scramble(cfg: ConfinementConfig, *, seed: int = 20260620) -> dict:
+    """GATE 2 — the scramble arms. Returns the baseline (graded) bound core_frac and
+    the three arms (ARM-A uniform-S, ARM-B histogram-preserving permutation, negative
+    control), with the de-confinement margins and the AUTO-VOID flag.
+
+    AUTO-VOID (the structural successor to Fork-A's verdict_is_projector_tautology):
+    if ARM-B SURVIVES (the permuted-S mode is still core_frac>=0.50 AND gapped), the
+    'confinement' is BC/projector-decided, NOT S-structure-decided => VOID.
+    alpha-FREE."""
+    net = cfg.build_net()
+    A = saturated_core_strain_native(net, frac=cfg.frac, sigma_frac=cfg.sigma_frac)
+    r = node_radius(net)
+    sigma = cfg.sigma_frac * net.box
+    core_mask = r <= max(sigma * 1.5, net.box / float(cfg.L))
+
+    # ── baseline: the GRADED operator (the real saturated core) ──
+    S_bond = _bond_S_field(net, A, S_min=cfg.S_min, A_cap=cfg.A_cap)
+    L_graded = _operator_from_bond_S(net, S_bond)
+    base = _bound_core_frac_from_operator(net, L_graded, core_mask)
+
+    rng = np.random.default_rng(seed)
+
+    # ── ARM-A: S -> 1 uniform (vacuum everywhere); must de-confine ──
+    L_unif = _operator_from_bond_S(net, np.ones_like(S_bond))
+    armA = _bound_core_frac_from_operator(net, L_unif, core_mask)
+
+    # ── ARM-B (LOAD-BEARING): permute the per-bond S field, histogram FIXED ──
+    S_perm = S_bond.copy()
+    rng.shuffle(S_perm)  # same multiset of S values, spatially scrambled
+    L_perm = _operator_from_bond_S(net, S_perm)
+    armB = _bound_core_frac_from_operator(net, L_perm, core_mask)
+    # histogram-preservation check (the load-bearing invariant)
+    hist_preserved = bool(np.allclose(np.sort(S_bond), np.sort(S_perm)))
+
+    # ── NEGATIVE CONTROL: permute a UNIFORM (constant) S field => no-op ──
+    S_const = np.full_like(S_bond, 0.5)
+    S_const_perm = S_const.copy()
+    rng.shuffle(S_const_perm)
+    L_const = _operator_from_bond_S(net, S_const)
+    L_const_perm = _operator_from_bond_S(net, S_const_perm)
+    control_is_noop = bool(np.allclose(L_const, L_const_perm, atol=1e-12))
+
+    base_cf = base["core_frac"]
+    armA_cf = armA["core_frac"]
+    armB_cf = armB["core_frac"]
+    margin_A = base_cf - armA_cf
+    margin_B = base_cf - armB_cf
+
+    # de-confinement: the arm must DROP core_frac by >= 0.30 OR lose the gap.
+    armA_deconfines = bool(margin_A >= 0.30 or not armA["gapped_discrete"] or armA_cf < 0.50)
+    armB_deconfines = bool(margin_B >= 0.30 or not armB["gapped_discrete"] or armB_cf < 0.50)
+    # AUTO-VOID: ARM-B SURVIVES (still confined: core_frac>=0.50 AND gapped).
+    armB_survives = bool(armB_cf >= 0.50 and armB["gapped_discrete"])
+    auto_void = armB_survives
+
+    return {
+        "ok": True,
+        "net": net.name,
+        "L": cfg.L,
+        "baseline_core_frac": base_cf,
+        "baseline_gapped": base["gapped_discrete"],
+        "armA_uniform_core_frac": armA_cf,
+        "armA_margin": margin_A,
+        "armA_deconfines": armA_deconfines,
+        "armB_permute_core_frac": armB_cf,
+        "armB_margin": margin_B,
+        "armB_deconfines": armB_deconfines,
+        "armB_histogram_preserved": hist_preserved,
+        "armB_survives_AUTO_VOID": armB_survives,
+        "negative_control_is_noop": control_is_noop,
+        "deconfines_both_arms": bool(armA_deconfines and armB_deconfines),
+        "auto_void": auto_void,
+    }
