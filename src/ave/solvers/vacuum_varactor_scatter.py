@@ -91,6 +91,7 @@ from dataclasses import dataclass
 import numpy as np
 
 from ave.core.chiral_lattice import LatticeNet, scatter_matrix
+from ave.core.crystal_engine import CrystalEngine
 
 # ─────────────────────────────────────────────────────────────────────────────
 # ANTI-LEAK IMPORT-GUARD: the varactor scatter is alpha-FREE BY CONSTRUCTION.
@@ -106,25 +107,85 @@ assert "ELECTRON" not in globals(), "alpha-leak: ELECTRON instance must NOT be i
 # ═════════════════════════════════════════════════════════════════════════════
 # 1. CANONICAL S(A) KERNEL — IMPORTED, not hardcoded (ave-canonical-source)
 # ═════════════════════════════════════════════════════════════════════════════
-def saturation_kernel(A: np.ndarray, *, A_cap: float = 0.99, S_min: float = 0.05) -> np.ndarray:
-    """STUB (Stage 1) — canonical Axiom-4 kernel S(A)=sqrt(1-A^2). Delegates to
-    crystal_engine.CrystalEngine.saturation_kernel (crystal_engine.py:191).
-    Implemented in Stage 2."""
-    raise NotImplementedError("saturation_kernel: implemented in Stage 2")
+# A single, minimal, alpha-FREE engine instance used SOLELY as the canonical
+# kernel provider. V_yield=1.0 (engine-natural units) so A is dimensionless and
+# the alpha-carrying dimensionful V_YIELD (constants.py:427) never enters. N=2 is
+# the smallest legal grid; we never step it -- we call ONLY saturation_kernel.
+_KERNEL_ENGINE = CrystalEngine(N=2, V_yield=1.0, A_cap=0.99, S_min=0.05, converter_on=False)
+
+
+def saturation_kernel(A: np.ndarray, *, A_cap: float | None = None, S_min: float | None = None) -> np.ndarray:
+    """Canonical Axiom-4 saturation kernel S(A) = sqrt(1 - A^2), clipped to
+    [S_min, 1] at A_cap (crystal_engine.py:191, the A-034 kernel).
+
+    IMPORTED, NOT hardcoded (ave-canonical-source): this delegates to
+    CrystalEngine.saturation_kernel via a minimal alpha-free engine instance, so
+    the EXACT canonical arithmetic (clip at A_cap, floor at S_min) is reused.
+
+    A is the DIMENSIONLESS saturation amplitude |V|/V_yield in [0, A_cap]. Because
+    A is dimensionless, V_yield -- and therefore ALPHA (which lives ONLY in the
+    dimensionful V_YIELD=sqrt(ALPHA)*V_SNAP) -- CANCELS. alpha-FREE.
+
+    A_cap / S_min override the engine clip/floor for testing the bare-limit
+    behaviour; default None uses the canonical engine values (0.99 / 0.05)."""
+    A = np.asarray(A, dtype=np.float64)
+    eng = _KERNEL_ENGINE
+    if A_cap is not None or S_min is not None:
+        eng = CrystalEngine(
+            N=2,
+            V_yield=1.0,
+            A_cap=eng.A_cap if A_cap is None else float(A_cap),
+            S_min=eng.S_min if S_min is None else float(S_min),
+            converter_on=False,
+        )
+    # saturation_kernel reads A = |V|/V_yield; with V_yield=1.0, pass V = A.
+    return eng.saturation_kernel(A)
 
 
 # ═════════════════════════════════════════════════════════════════════════════
 # 2. PER-PORT ADMITTANCE -> ADMITTANCE-WEIGHTED LOCAL SCATTER  (the core change)
 # ═════════════════════════════════════════════════════════════════════════════
 def admittance_scatter(Y: np.ndarray) -> np.ndarray:
-    """STUB (Stage 2) — S_ij = 2 Y_j / (Σ_k Y_k) - delta_ij.  Equal Y recovers
-    (2/n)J - I exactly (the bedrock)."""
-    raise NotImplementedError("admittance_scatter: implemented in Stage 2")
+    """Admittance-weighted shunt-junction scatter S_ij = 2 Y_j/(Σ_k Y_k) - δ_ij.
+
+    Y is the (n,) per-PORT admittance vector. Derived from the SAME Op5 shunt KCL
+    as the bedrock, with per-port admittance retained instead of factored out:
+
+        V_i = V_i^inc + V_i^ref = V  (shunt: common node voltage)
+        Σ_i Y_i (V_i^inc - V_i^ref) = 0  (KCL)
+        => V = 2 (Σ_j Y_j V_j^inc) / (Σ_k Y_k)
+        => V_i^ref = V - V_i^inc  => S_ij = 2 Y_j/(Σ_k Y_k) - δ_ij.
+
+    EQUAL admittance (all Y_j = Y) gives 2 Y/(nY) - δ_ij = (2/n) - δ_ij = the
+    bedrock (2/n)J - I EXACTLY -- a UNIFORM admittance (even a saturated one)
+    CANCELS (the per-node-uniform no-op, the load-bearing Fork-B Finding 2). A
+    per-PORT-VARYING Y is what makes the scatter read saturation.
+
+    Returns the (n,n) scatter matrix. alpha-FREE (linear algebra on Y only)."""
+    Y = np.asarray(Y, dtype=np.float64).ravel()
+    n = Y.shape[0]
+    if n < 2:
+        raise ValueError("Y must have length >= 2 (an n-port node, n>=2)")
+    Ysum = Y.sum()
+    if not np.isfinite(Ysum) or Ysum <= 0.0:
+        raise ValueError("Σ Y must be finite and positive (passive shunt junction)")
+    # S_ij = 2 Y_j / Σ_k Y_k - δ_ij : row-broadcast of the admittance fractions.
+    S = (2.0 / Ysum) * np.broadcast_to(Y, (n, n)).copy() - np.eye(n, dtype=np.float64)
+    return S
 
 
 def bond_admittance_from_saturation(A_bond: np.ndarray, *, Y0: float = 1.0) -> np.ndarray:
-    """STUB (Stage 2) — the VARACTOR MAP Y_bond = Y0 / sqrt(S(A_bond))."""
-    raise NotImplementedError("bond_admittance_from_saturation: implemented in Stage 2")
+    """The VARACTOR MAP: bond admittance Y_bond = Y0 / sqrt(S(A_bond)).
+
+    S(A) is the canonical Axiom-4 kernel (saturation_kernel, IMPORTED). As the core
+    saturates (S -> 0): Y_bond -> inf, Z_bond = Z0*sqrt(S) -> 0 => Gamma -> -1 (the
+    mass cage, the Z->0 SHORT -- the corrected sign; the LONGITUDINAL mu-load, NOT
+    the forbidden epsilon-load whose Y=Y0*sqrt(S)->0 / Z->inf gives Gamma=+1).
+
+    A_bond is the dimensionless per-bond saturation amplitude |V_bond|/V_yield.
+    Returns Y_bond, same shape as A_bond. alpha-FREE (dimensionless A)."""
+    S = saturation_kernel(np.asarray(A_bond, dtype=np.float64))
+    return Y0 / np.sqrt(S)
 
 
 # ═════════════════════════════════════════════════════════════════════════════
