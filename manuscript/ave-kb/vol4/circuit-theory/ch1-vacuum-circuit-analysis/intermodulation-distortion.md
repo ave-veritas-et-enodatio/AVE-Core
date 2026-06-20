@@ -66,7 +66,7 @@ $$
 | 0.90 | 39.29 | $-20$ | Strong |
 
 ### QED Comparison
-<!-- claim-quality: clm-pp3qwf (this section is the canonical $E^4$ vs $E^2$ discriminator: AVE's cubic IM3 / quartic Taylor term vs the QED sextic Euler-Heisenberg loop scaling) -->
+<!-- claim-quality: clm-pp3qwf (SUPERSEDED comment text, preserved per Rule 12: "this section is the canonical $E^4$ vs $E^2$ discriminator: AVE's cubic IM3 / quartic Taylor term vs the QED sextic Euler-Heisenberg loop scaling". CORRECTED 2026-06-04 (commit ad26d357): clm-pp3qwf is the COEFFICIENT discriminator, NOT the field-exponent — the refractive-index shift is $E^2$-leading for both AVE and QED, and the "$E^4$ vs $E^2$" slope is a retracted false falsifier ($\sqrt{\varepsilon}$ conflation). The IM3 / light-by-light cross-section content of THIS section (a distinct nonlinear-mixing observable) stands on its own; only the "$E^4$ vs $E^2$ discriminator" label was the conflated framing.) -->
 
 The Euler-Heisenberg effective Lagrangian predicts light-by-light scattering with cross-section:
 

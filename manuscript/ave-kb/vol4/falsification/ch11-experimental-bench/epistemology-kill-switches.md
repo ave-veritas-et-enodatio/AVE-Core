@@ -27,7 +27,9 @@ Photons in AVE are purely transverse, massless topological link-variables immune
 
 High-intensity laser interferometry measuring the $E^2$ vs $E^4$ slope provides an absolute binary discriminator.
 
+> **🔴 SUPERSEDED — the discriminator is the COEFFICIENT, not the field-exponent (2026-06-04, Rule 12 — item 3 above PRESERVED unedited; claim clm-pp3qwf, commit `ad26d357`).** The "AVE shifts $\propto E^4$" / "$E^2$ vs $E^4$ slope = binary discriminator" framing is a **false falsifier** and is RETRACTED. **Both AVE and QED are $E^2$-leading** in the refractive-index shift: AVE's index follows $n=\sqrt{\varepsilon_{eff}/\varepsilon_0}=\sqrt{S}$, so $\delta n=\sqrt{S}-1\approx-\tfrac14(E/E_{yield})^2$ ($E^2$-leading), the same leading power as QED's $\delta n\approx a_{EH}\alpha^2(E/E_{crit})^2$. The "$\propto E^4$" was a $\sqrt{\varepsilon}$ conflation (it expanded the permittivity DEPTH $1-S=+A^2/2$ — itself $E^2$-leading, not $E^4$ — not the index shift $\sqrt{S}-1$). **An $E^2$ slope does NOT falsify AVE.** The real, two-sided discriminator is the field-**INDEPENDENT COEFFICIENT** ratio $1/(4\,a_{EH}\,\alpha^3)\sim 10^6$. See corrected leaf [`vacuum-birefringence-e4.md`](../ch12-falsifiable-predictions/vacuum-birefringence-e4.md) (clm-pp3qwf) and forward driver `src/scripts/vol_4_engineering/birefringence_coefficient_discriminator.py`.
+
 > [!IMPORTANT]
-> These three tests are *binary*. A single confirmed observation of any one instantly and permanently falsifies the AVE framework with no possibility of parameter adjustment.
+> These three tests are *binary*. A single confirmed observation of any one instantly and permanently falsifies the AVE framework with no possibility of parameter adjustment. *(Note: for the birefringence test, "the test" is the COEFFICIENT discriminator per the 🔴 banner above — the retracted $E^2$-vs-$E^4$ slope is NOT the binary criterion.)*
 
 ---

@@ -8,7 +8,7 @@ subtree-experiments: []
 
 # Ch.12: Falsifiable Predictions and Experimental Blueprints
 
-Three explicit experimental blueprints designed to definitively measure the structural invariants of the topological vacuum, plus additional falsification tests: Sagnac RLVG impedance drag, helicity injection, autoresonant dielectric rupture, binary kill-switches, vacuum birefringence $E^4$ scaling, and torus knot baryon mass predictions.
+Three explicit experimental blueprints designed to definitively measure the structural invariants of the topological vacuum, plus additional falsification tests: Sagnac RLVG impedance drag, helicity injection, autoresonant dielectric rupture, binary kill-switches, vacuum birefringence ~~$E^4$ scaling~~ COEFFICIENT discriminator (both $E^2$-leading; $\sim 10^6\times$ QED — clm-pp3qwf, Rule-12 correction 2026-06-04), and torus knot baryon mass predictions.
 
 ## Key Results
 
@@ -33,7 +33,7 @@ Three explicit experimental blueprints designed to definitively measure the stru
 | [Helicity Injection](helicity-injection.md) | Polarization matching; Hopf Configuration ($\mathbf{A} \parallel \mathbf{B}$); topological power factor correction |
 | [Autoresonant Dielectric Rupture](autoresonant-dielectric-rupture.md) | Schwinger limit bypass via PLL; nonlinear detuning; low-power pair production |
 | [Binary Kill-Switches](binary-kill-switches.md) | Neutrino Parity Test; GRB Dispersion Test |
-| [Vacuum Birefringence $E^4$](vacuum-birefringence-e4.md) | $E^2$ vs $E^4$ slope; optical cavity protocol |
+| [Vacuum Birefringence COEFFICIENT](vacuum-birefringence-e4.md) | ~~$E^2$ vs $E^4$ slope~~ → COEFFICIENT ratio $\sim 10^6\times$ QED (both $E^2$-leading; Rule-12 clm-pp3qwf); optical cavity protocol |
 | [Torus Knot Baryon Predictions](torus-knot-baryon-predictions.md) | $(2,q)$ mass ladder; 6 retrospective matches; 3 forward predictions; $\sim 170\,\text{MeV}$ spacing |
 
 ## Derivations and Detail (Consolidated — Grant)

@@ -38,7 +38,7 @@ Comprehensive catalogue of tabletop falsification experiments, existing experime
 
 | Document | Contents |
 |---|---|
-| [Epistemology of Falsification](epistemology-of-falsification.md) | Three binary kill-switches: Neutrino Parity, GRB Dispersion, Birefringence ($E^2$ vs $E^4$) |
+| [Epistemology of Falsification](epistemology-of-falsification.md) | Three binary kill-switches: Neutrino Parity, GRB Dispersion, Birefringence COEFFICIENT ($\sim 10^6\times$ QED; ~~$E^2$ vs $E^4$~~ slope retracted, Rule-12 clm-pp3qwf) |
 | [Tabletop Graveyard](tabletop-graveyard.md) | VFDT null result (inertial anchor); RVR scalar gap ($G/c^2$ suppression) |
 | [Sagnac-RLVE](sagnac-rlve.md) | Definitive sub-\$5k test; exact derivation ($\Delta\phi \approx 2.07\,\text{Rad}$); hardware spec; $\Psi$ ratio |
 | [Existing Experimental Signatures](existing-experimental-signatures.md) | Proton radius puzzle; neutron lifetime anomaly; Hubble tension; LIGO echoes; vortex core limits |

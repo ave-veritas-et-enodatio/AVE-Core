@@ -25,8 +25,10 @@ Comprehensive experimental falsification portfolio for the AVE framework. Every 
 | Vacuum impedance mirror | $\Gamma(V) \to 1$ as $V \to V_{yield}$ (parameter-free prediction) | Ch.11 |
 | Macroscopic field limit | $E_{yield} \approx 1.13 \times 10^{17}\,\text{V/m}$ | Ch.12 |
 | Maxwell stress thrust scaling | $F \propto V^2 f^2$ | Ch.12 |
-| Birefringence discriminator | AVE: $E^4$; QED: $E^2$ | Ch.12 |
+| Birefringence discriminator 🔴 | ~~AVE: $E^4$; QED: $E^2$~~ → **COEFFICIENT**: $\delta n_{AVE}/\delta n_{QED}=1/(4 a_{EH}\alpha^3)\sim 10^6$ (both $E^2$-leading) | Ch.12 |
 | Forward baryon predictions | $(2,17)$: $2742\,\text{MeV}$; $(2,19)$: $2983\,\text{MeV}$; $(2,21)$: $3199\,\text{MeV}$ | Ch.12 |
+
+> **🔴 Birefringence-row correction (2026-06-04, Rule 12; clm-pp3qwf, commit `ad26d357`).** The struck "AVE: $E^4$; QED: $E^2$" framing was a **false falsifier** ($\sqrt{\varepsilon}$ conflation). Both AVE and QED are **$E^2$-leading** in the refractive-index shift; an $E^2$ slope does NOT falsify AVE. The discriminator is the field-**independent COEFFICIENT** ratio $1/(4 a_{EH}\alpha^3)\sim 10^6$. Canonical leaf: [`ch12-falsifiable-predictions/vacuum-birefringence-e4.md`](ch12-falsifiable-predictions/vacuum-birefringence-e4.md); forward driver `src/scripts/vol_4_engineering/birefringence_coefficient_discriminator.py`.
 
 ## Chapters
 
