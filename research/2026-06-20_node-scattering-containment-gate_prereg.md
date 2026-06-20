@@ -16,6 +16,27 @@ are DEFERRED (see §7).
 > symmetric-standard`, `verify-before-cite` (all file:line greps run on HEAD
 > 8fed90db), `ave-canonical-source` (import constants, never hardcode).
 
+> 🔴 **POST-FREEZE RULE-12 AMENDMENT (2026-06-20, adversarial-auditor surfaced —
+> the frozen prediction below is PRESERVED UNCHANGED; this is an appended note,
+> not an edit).** Once the Fork-A test was BUILT, it proved **NON-DISCRIMINATING**:
+> the verdict logic reads only `S_n = (2/n)J − I` projector quantities
+> (`differential_scalar_content`, `common_mode_scalar_content`), which are
+> **scramble-invariant** — randomizing every `bond_unit` vector leaves them
+> bit-unchanged — so the verdict could only ever come out **R3**, for any lattice,
+> with no physics in the decision. The Fork-A prediction frozen in §3/§4 was
+> therefore testing a **MISCAST premise**: it presupposed that longitudinal
+> confinement is a *differential-sector* question, but an isotropic/longitudinal
+> A1 scalar IS the +1 common mode by projector construction, orthogonal to the
+> entire −1 differential sector BY DEFINITION. R3 is TRUE but **true by
+> construction, not by a discriminating test.** The pre-committed Fork-A prediction
+> stands frozen as written; this amendment records that, once built, it was found
+> to test a non-discriminating premise. See the result doc
+> `research/2026-06-20_node-scattering-containment-gate_result.md` §2/§5 (Rule-12
+> corrections) and the regression marker
+> `src/tests/test_node_scattering_multiplicity.py::test_fork_a_verdict_is_invariant_under_bond_unit_scramble`.
+> The bedrock (§1) and the four validate-on-known anchors (§2a–2d) are SOUND and
+> UNAFFECTED — they remain the genuine deliverables of this gate.
+
 ---
 
 ## 0. ONE-LINE THESIS
@@ -83,8 +104,10 @@ structural distinctness. `S_n² = I` (orthogonal reflection).
 ### 2b. Photon corpus anchor (the n=3 differential multiplicity = 2)
 The srs differential multiplicity = **2** must match the photon's **2 transverse
 polarizations**. Corpus anchors (verified §8):
-- `test_l1_photon.py:243-268` — the vector-TLM on the srs grid carries **exactly
-  2 transverse polarizations**, no longitudinal leak (`V0.shape[2] == 2`).
+- `src/tests/engine_acceptance/test_l1_photon.py:243-268` — the vector-TLM on the
+  srs grid carries **exactly 2 transverse polarizations**, no longitudinal leak
+  (`V0.shape[2] == 2`). *(post-freeze path-prefix hygiene fix, 2026-06-20: the
+  `engine_acceptance/` subdir had been dropped; content + line range are correct.)*
 - `engine-acceptance-suite.md:178` / `vol9/claim-quality.md:573` — "the srs
   vector-TLM carried 2 transverse DOF only."
 
