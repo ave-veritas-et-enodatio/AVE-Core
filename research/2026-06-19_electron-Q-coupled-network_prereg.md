@@ -37,9 +37,27 @@ report honestly (moved-negative / solver-bug / re-derived-echo), NOT an error to
    tokens in the network-input / impedance / coupling / kernel code (grep-proven).
 3. Q is **α-INVARIANT** under the α→2α perturbation test (double α in constants,
    re-solve, Q must NOT move).
-4. The **isolation validate-on-known gate (GATE1) passed FIRST**.
+4. 🔴 **RETRACTED (2026-06-20, Rule 12 — original criterion PRESERVED unedited below).**
+   The original text read: *"The isolation validate-on-known gate (GATE1) passed
+   FIRST."* This is FALSE as written. GATE1 (cold-cage `Q ≈ 30.8` reproduced in the
+   `[20,45]` band) was **FAIL**, not pass — the eigenframe Q is the
+   lossless-reactive standing-mode limit (`Q → ∞`, growing with resolution:
+   N=24→1.8e5, N=32→1.2e8, N=48→1.1e13), NOT 30.8. The cold-cage `30.8` is a
+   **driven-frame** finite-grid ringdown (transient shedding + continuum coupling
+   + Hilbert-envelope fit) — a DIFFERENT OBSERVABLE from the intrinsic eigenmode
+   linewidth — so the "reproduce 30.8" cross-check is **not satisfiable in the
+   eigenframe**, recorded verbatim at
+   `src/tests/test_graded_vacuum_network_isolation.py:9-24`. Per Rule 12 the slot
+   is NOT refilled with a substituted Q number. The load-bearing
+   validate-on-known anchor is the **α-FREE INVARIANCE** anchor (criterion (3)
+   above): the Q-determining spectral quantity must be exactly α-invariant under
+   α→2α (`|dQ/Q| < 1e-6`) — a frame-independent property that holds in BOTH the
+   eigenframe and the driven frame, so it survives the eigen-vs-driven mismatch
+   that sank the original anchor.
 
-Landing in [127, 147] WITHOUT (2)(3)(4) = re-derived ECHO → binned **ECHO**.
+   > *(original, retracted)* The **isolation validate-on-known gate (GATE1) passed FIRST**.
+
+Landing in [127, 147] WITHOUT (2)(3) = re-derived ECHO → binned **ECHO**.
 
 ### ECHO bin
 - (a) Q stays ~order of the isolation band [10, 60] (couplings fail to supply the store —
