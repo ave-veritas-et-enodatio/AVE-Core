@@ -1,18 +1,28 @@
 """Charge-quantization structural gate (#43, GATE #2) — rigorous boundary 𝒬.
 
 Replaces the connected-component PROXY named DEFERRED at
-`boundary_invariants.py:146-151` with the REAL boundary topological charge 𝒬,
-computed two ways that the corpus flags as "two projections of ONE charge via
+`boundary_invariants.py:146-151` with the REAL boundary topological charge 𝒬.
+The corpus flags 𝒬's two definitions as "two projections of ONE charge via
 helicity = linking (Moffatt 1969)" (coverage gap C.3,
-`electron-bound-resonator-coverage.md:169`):
+`electron-bound-resonator-coverage.md:169`). This gate ADDRESSES that gap by
+ADOPTING the product-formula bridge — it does NOT close it by two independent
+integrals numerically agreeing (see compute_Q_hopf + C.3 disclosure below):
 
-  𝒬_hopf  = (1/4π²) ∫ A·B  — the Chern–Simons / Hopf self-linking integer of the
-            ω-derived director field (reuses `cosserat_field_3d._hopf_density`).
-            For a (p,q) torus winding, Q_H = p·q (torus-knot-uniqueness.md:23).
+  𝒬_link  = the real-space boundary linking integer (the FIELD-DEPENDENT ω-phase
+            winding around the meridian/major loops; degree↔linking identity),
+            reusing `cosserat_field_3d._tetrahedral_curl` for the F = curl ω flux
+            field. This is the genuine integer-quantized observable (exact via
+            np.unwrap). For a (p,q) winding: poloidal = q, toroidal = p.
 
-  𝒬_link  = the real-space Gauss linking integer between the boundary loop ∂Ω
-            (the |ω| level-set's major circle) and the F = curl ω flux line
-            threading it (reuses `cosserat_field_3d._tetrahedral_curl`).
+  𝒬_hopf  = the self-linking integer, computed as the arithmetic PRODUCT
+            w_tor·w_pol = p·q (torus-knot-uniqueness.md:23). This is DEFINITIONAL
+            (the product of the two windings 𝒬_link already read) — NOT an
+            independent helicity integral, so 𝒬_hopf agreeing with 𝒬_link is a
+            tautology, not a cross-check. The DIRECT Chern–Simons/Beltrami
+            helicity integral (_hopf_density) returns ~18% of p·q at this scale
+            and does NOT normalize to the integer — its sign tracks chirality,
+            its magnitude does not quantize here. C.3 therefore STAYS OPEN
+            (addressed-by-formula, not confirmed-by-two-integrals).
 
 The gate reads ONLY the integer + sign. It demonstrates that the integer is a
 TOPOLOGICAL invariant — robust to continuous deformation, jumping only when the
@@ -39,6 +49,20 @@ self-formation. A PASS is a structural advance over QED (which puts integer
 charge in by hand via hypercharge + renders the point-charge self-energy finite
 only by renormalization) on a problem QED cannot solve: AVE's charge is FINITE,
 EXACT, quantized-BY-CONSTRUCTION (no renormalization).
+
+EXPECTED-MATH CAVEAT (carried explicitly): topological invariance of a winding
+number is expected mathematics once charge ≡ ω-grade winding/linking is accepted;
+the AVE content is the [Q]≡[L] identification (asserted, conditional on the TKI
+charge ≡ winding posit) plus the engine demonstration that the integer is α-free
+and that sign = chirality on the actual K4/Cosserat operators — NOT the discovery
+of invariance itself.
+
+RESOLUTION CEILING (honest disclosure): the 𝒬 readout is lattice-faithful for
+windings up to q ≈ 4 at this diagnostic scale (a winding spends 2πr/q cells/turn;
+the K4-subsampled sampler floors at ~3 cells/wind). (2,3) → 4.82 cells/wind and
+(2,4) → 3.61 cells/wind both resolve; (2,5) misreads as Q=3 and (1,5) gives a
+half-integer (w_tor_raw ≈ 0.507), both at 2.89 cells/wind < floor. q ≥ 5 requires
+a finer lattice. The canonical (2,3) is safely resolved.
 """
 
 from __future__ import annotations
@@ -57,13 +81,36 @@ from ave.topological.cosserat_field_3d import (
 # This module must NEVER read α, Q_TANK, or e_charge. Assert they are absent
 # from this module's globals at import time (fail loud if a future edit leaks
 # one in via a transitive import or a copy-paste).
-_FORBIDDEN_VALUE_ECHO_NAMES = ("ALPHA", "Q_TANK", "e_charge", "E_CHARGE")
+_FORBIDDEN_VALUE_ECHO_NAMES = (
+    "ALPHA", "Q_TANK", "e_charge", "E_CHARGE",
+    "kappa_chiral", "KAPPA_CHIRAL", "V_SNAP",
+    "MASS_ELECTRON", "m_e", "M_E",
+)
 for _name in _FORBIDDEN_VALUE_ECHO_NAMES:
     assert _name not in globals(), (
         f"VALUE-ECHO IMMUNITY violation: '{_name}' present in "
         f"charge_quantization globals — 𝒬 reads only the integer + sign, never "
-        f"the dimensionful -e / α (prereg GUARD 1)."
+        f"the dimensionful -e / α / m_e / κ_chiral / V_snap (prereg GUARD 1)."
     )
+
+# Source-level literal guard: the α value (137 / 0.00729...) must NEVER appear
+# as a literal in the verdict-determining code path. Read this module's own
+# source (functions + module body, EXCLUDING this guard block and docstrings)
+# and assert the forbidden literals are absent. The integer-ness of 𝒬 is the
+# chord; any α-numeral hardcoded into the read would be the echo.
+_FORBIDDEN_VALUE_LITERALS = ("137", "0.00729")
+
+
+def _assert_no_alpha_literal_in_code_path() -> None:
+    import inspect
+
+    src_lines = inspect.getsource(charge_quantization_gate) + inspect.getsource(compute_Q_link)
+    src_lines += inspect.getsource(compute_Q_hopf) + inspect.getsource(_phase_winding_on_loop)
+    for lit in _FORBIDDEN_VALUE_LITERALS:
+        assert lit not in src_lines, (
+            f"VALUE-ECHO IMMUNITY violation: α-literal '{lit}' found in the "
+            f"verdict-determining code path — 𝒬 must be α-free (prereg GUARD 1)."
+        )
 
 
 __all__ = [
@@ -291,11 +338,17 @@ def compute_Q_hopf(omega: np.ndarray, R: float, r: float) -> dict:
     We read the self-linking from the two field-dependent winding integers
     (compute_Q_link), NOT from the raw _hopf_density integral — which on the
     open-boundary lattice at diagnostic scale does NOT normalize to the integer
-    (it returns ~1% of p·q; the director map's S² asymptotics are not clean at
-    R≈6 cells). HONEST: the integer-quantized observable here is the WINDING
-    PRODUCT (degree theory, exact via np.unwrap), with _hopf_density reported
-    only as a finite, non-quantized density cross-check (its sign tracks the
-    chirality). Reads ONLY integers + sign — no -e/α (GUARD 1).
+    (it returns ~18% of p·q — measured 1.08 vs p·q=6 at R≈7; the director map's
+    S² asymptotics are not clean at this resolution). HONEST: Q_hopf here is the
+    arithmetic PRODUCT w_tor·w_pol of the two windings already read by
+    compute_Q_link — this is DEFINITIONAL (adopting Q_H = p·q,
+    torus-knot-uniqueness.md:23), NOT an independent helicity integral, so it is
+    NOT a cross-check of the two integrals agreeing. The integer-quantized
+    observable is the WINDING PRODUCT (degree theory, exact via np.unwrap);
+    _hopf_density is reported only as a finite, non-quantized density diagnostic
+    (its SIGN tracks chirality, its magnitude does not quantize here). Corpus gap
+    C.3 is therefore ADDRESSED-BY-FORMULA, not closed-by-two-integrals-agreeing.
+    Reads ONLY integers + sign — no -e/α (GUARD 1).
 
     Returns dict: Q_hopf (= w_tor·w_pol self-linking integer), sign, and the
     finite _hopf_density integral (non-quantized, sign-only diagnostic).
@@ -588,6 +641,11 @@ def charge_quantization_gate(
         out["verdict"] = "ECHO/FAIL"
         out["verdict_detail"] = f"failing condition(s): {failing}"
     return out
+
+
+# Run the source-level α-literal guard now that the code-path functions exist
+# (the name guard above runs at the top of import; this one needs the defs).
+_assert_no_alpha_literal_in_code_path()
 
 
 if __name__ == "__main__":

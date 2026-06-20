@@ -4,7 +4,7 @@
 **Branch:** `analysis/2026-06-19-charge-quantization-gate`
 **Prereg:** [`2026-06-19_charge-quantization-gate_prereg.md`](2026-06-19_charge-quantization-gate_prereg.md) (frozen BEFORE the run)
 **Engine:** `src/ave/topological/charge_quantization.py`
-**Tests:** `src/tests/test_charge_quantization.py` (24, all pass)
+**Tests:** `src/tests/test_charge_quantization.py` (25, all pass)
 
 ---
 
@@ -50,9 +50,16 @@ self-linking `Q_hopf = w_tor·w_pol = 6 = p·q`, sign `+1`, reliabilities
 | 6 | local_scale  | 0.40 | **3** | 2.9926 |
 
 𝒬 holds the integer 3 through every continuous, topology-preserving wiggle; the
-raw value drifts only at the 4th decimal (2.9926–2.9932). **This invariance IS
+raw value drifts only at the 4th decimal (2.9926–2.9932). **This invariance is
 the demonstration that the quantization is topological** (not an artifact of the
-planting).
+planting). *Caveat (expected-math, see HONEST SCOPE §4):* that a winding number
+is invariant under continuous deformation is **expected mathematics** (degree
+theory) once charge ≡ winding/linking is accepted — the invariance itself is not
+a novel discovery. What the gate demonstrates is that the integer survives on the
+**actual K4/Cosserat operators** (the alive-mask trilinear sampler, the
+tetrahedral curl) — i.e. the discretization does not destroy the invariant — and
+that it is **α-free** with **sign = chirality**. The AVE content is the [Q]≡[L]
+identification (asserted), not the invariance theorem.
 
 ### Topology-changed (unwind)
 
@@ -82,11 +89,23 @@ inert constant:
 - **Sign = chirality** — RH (2,+3) → 𝒬 = +3; LH (2,−3) → 𝒬 = −3 (the charge
   sign).
 - **Counts the actual integer** — (1,1)→1, (1,2)→2, (3,2)→6, (2,3)→6 for the
-  self-linking; every case `Q_hopf = w_tor·w_pol = p·q`.
+  self-linking; every case `Q_hopf = w_tor·w_pol = p·q`. *(All cases listed are
+  below the resolution ceiling — see scope caveat next.)*
+
+> **𝒬-readout resolution ceiling (q ≲ 4 at this scale, honest disclosure).** The
+> 𝒬 readout is lattice-faithful only for windings up to **q ≈ 4** at this
+> diagnostic scale: a winding spends `2πr/q` cells per turn, and the K4-subsampled
+> sampler has a resolution floor of **~3 cells/wind**. Above the floor the readout
+> is faithful: (2,3) → 4.82 cells/wind (𝒬 = 3 ✓), (2,4) → 3.61 cells/wind
+> (𝒬 = 4 ✓). At/below it the readout fails: **(2,5) misreads as 𝒬 = 3** and
+> **(1,5) gives a half-integer** (`w_tor_raw ≈ 0.507`), both at 2.89 cells/wind <
+> floor. **q ≥ 5 requires a finer lattice.** The canonical (2,3) is safely
+> resolved (4.82 cells/wind), so the gate verdict is unaffected — but the readout
+> is NOT claimed faithful for arbitrary q at this scale.
 
 ---
 
-## What this resolves in the corpus (C.3)
+## What this addresses in the corpus (C.3) — and what STAYS OPEN
 
 The corpus carried 𝒬 with **two** definitions, flagged OPEN at
 `electron-bound-resonator-coverage.md:169` (row C.3):
@@ -95,11 +114,30 @@ helicity `H_bel = ∫ω·(∇×ω)` (`master-equation.md:20`), with the note: *"
 certainly two projections of ONE charge via helicity = linking (Moffatt 1969);
 that identity is NOT written for the AVE case."*
 
-**This gate writes that identity for the AVE case.** The self-linking integer
-`Q_hopf = w_tor·w_pol = p·q` (the helicity-side reading) agrees with the boundary
-linking `Q_link` (the linking-side reading) on every winding tested. C.3 is
-closed **conditionally on the planted-winding scope** (the engine-side
-demonstration; the manuscript-side claim entry is the auditor's to land).
+**This gate ADDRESSES C.3 by ADOPTING the product-formula — it does NOT close it
+by two independent integrals agreeing.** Be precise about what was computed:
+
+- `Q_hopf` is `int(w_tor · w_pol)` (`charge_quantization.py:305-306`) — the
+  arithmetic PRODUCT of the two winding integers *already read by*
+  `compute_Q_link`. It is **not** an independent helicity integral. Adopting
+  `Q_H = p·q` (`torus-knot-uniqueness.md:23`) and then multiplying the two
+  windings is **definitional** (3 = 3); the "self-linking agrees with the
+  linking" agreement is a tautology of the formula, not a cross-check.
+- The genuinely-independent Beltrami / Chern–Simons helicity integral
+  (`_hopf_density`, the `H_bel = ∫ω·(∇×ω)` route) returns **~18 % of p·q** at this
+  diagnostic scale (`hopf_density_integral ≈ 1.08`, p·q = 6; R≈7, the director
+  map's S² asymptotics are not clean at this lattice resolution). It does **NOT**
+  normalize to the integer. Its sign tracks the chirality; its magnitude does not
+  quantize here.
+
+So C.3 is **ADDRESSED-BY-FORMULA, not CONFIRMED-BY-TWO-INTEGRALS.** The AVE case
+adopts the `Q_H = p·q` identity (`torus-knot-uniqueness.md:23`) as the helicity =
+linking bridge; it does **not** demonstrate the two independent integrals
+numerically agreeing — because the direct helicity integral does not normalize at
+this scale. **C.3 STAYS OPEN** (status: addressed-by-formula; the numerical
+helicity = linking confirmation is not in hand). Closing it would require the
+direct `H_bel` integral to normalize to the integer (a finer lattice / clean-S²
+construction, not done here).
 
 The connected-component PROXY named DEFERRED at `boundary_invariants.py:146-151`
 is **superseded for the Cosserat ω field** by the rigorous `compute_Q_link`
@@ -141,6 +179,13 @@ AVE's charge — the topological winding/linking integer demonstrated here — i
 3. **Real-space ω-field topology**, kept distinct from the phase-space (2,3)
    Clifford-torus winding portrait (`def-kn0t01`); the ω-grade is kept orthogonal
    to the A1 `(V_inc, V_ref)` mass phasor (the two-3s, `master-equation.md:20`).
+4. **EXPECTED-MATH, not a novel discovery of invariance.** Topological invariance
+   of a winding number is **expected mathematics** (degree theory) once charge ≡
+   ω-grade winding/linking is accepted; the AVE content is the **[Q]≡[L]
+   identification** (asserted, conditional on the TKI charge ≡ winding posit) plus
+   the **engine demonstration that the integer is α-free and that sign =
+   chirality on the actual K4/Cosserat operators** — NOT the discovery of
+   invariance itself. (Carried explicitly per Grant ratification, 2026-06-19.)
 
 ---
 
