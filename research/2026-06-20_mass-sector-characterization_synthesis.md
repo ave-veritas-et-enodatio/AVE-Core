@@ -141,18 +141,16 @@ REAL and saturation-structure-decided:
 So the §1.3 "mechanism" claim is no longer candidate-pending — it is **FIRMED**: the confinement is
 real (GATE 1) and saturation-structure-driven (GATE 2). The mechanism FIRMS; it does NOT retract.
 
-**Seed-fragility nuance (flagged, NOT a verified Fork-B figure).** The reconciliation brief I was
-working from describes the ARM-B NOT-VOID as "predominantly true (~91% of histogram-preserving
-permutations de-confine; ~9% accidentally re-confine on srs)" rather than 100%. **`verify-before-
-cite` could NOT anchor that ~91% figure**: the committed Fork-B result doc, solver, tests, and the
-PR#307 body all report ARM-B with a SINGLE permutation seed (`solve_scramble(..., seed=20260620)`,
-`fork_b_saturation_tank.py:505,525`), with ARM-B de-confining decisively (`armB_survives = False`,
-margins 0.68–1.00) — there is **no multi-seed ensemble** measuring a de-confinement fraction in the
-committed Fork-B artifacts. This synthesis therefore states only the anchored result (single-seed
-ARM-B de-confines decisively ⇒ S-structure-decided, NOT VOID). The "~91% predominantly, not always"
-qualifier is **surfaced as a flag for Grant/auditor adjudication** (per flag-don't-fix): if a multi-
-seed ARM-B ensemble was run and disclosed in a not-yet-pushed #307 revision, it should be landed on
-the Fork-B branch first, then cited here — it is not encoded as a Fork-B finding until it is anchored.
+**Seed-fragility nuance — NOW ANCHORED by the #307 rate-sweep.** The earlier draft flagged the
+ARM-B NOT-VOID "predominantly" qualifier as un-anchored (the build had run ARM-B at a single seed).
+The #307 disclosure fix (commit `109f5e83`, `scramble_rate_sweep` in `fork_b_saturation_tank.py`)
+**measured** the multi-seed ensemble (N=120/net, 240 pooled): **5.83% re-confine pooled ⇒ a 94.2%
+de-confine margin** (srs L=4: 5.0%, L=6: 6.7%; diamond L=8: 0%) — measured, *below* the auditor's
+~9% estimate, so the de-confine majority is stronger than first flagged. CI-pinned (`reconfine_rate
+< 0.20`, `deconfine_rate ≥ 0.80`). So ARM-B **predominantly de-confines (~94%)**; the ~6% are the
+chance a random histogram-preserving shuffle accidentally reconstitutes a confining core. The
+verdict (NOT VOID, S-structure-decided) STANDS with a *measured* majority — the mechanism FIRMS, the
+margin is ~94% (not 100%), and this is a quantified confirmation of structure-dependence, not a flaw.
 
 ## §2 — THE CHORD-CEILING (SOLID — design-level, the load-bearing honest finding)
 
@@ -290,11 +288,9 @@ quarter-arc-specific?* — have now been **answered by the completed Fork-B live
    is NOT VOID; the negative control (permuting a constant field) is a verified no-op. The
    confinement is therefore a property of the *graded* `S(A)` field — the structural successor to
    PR#304's `verdict_is_projector_tautology` comes back CLEAN. **Saturation-driven: YES.**
-   *(Anchored caveat: the committed Fork-B artifacts report ARM-B at a single permutation seed; the
-   brief's "~91% of permutations de-confine, ~9% accidentally re-confine on srs" qualifier is NOT
-   anchored in the committed result/solver/tests/PR#307 — surfaced in §1.3 as a flag for
-   adjudication, not encoded here as a Fork-B finding. The anchored result is decisive single-seed
-   de-confinement on both arms.)*
+   *(Now anchored by the #307 rate-sweep (commit `109f5e83`, `scramble_rate_sweep`, N=240 pooled):
+   measured **5.83% re-confine ⇒ 94.2% de-confine** — below the ~9% estimate; ARM-B predominantly
+   de-confines, CI-pinned. See §1.3.)*
 2. **Quarter-arc-specific, or shape-generic? → SHAPE-GENERIC (Fork-B GATE 3 = PASS).** The
    quarter-arc `√(1−A²)` well gives IDENTICAL bound-mode localization `Δ/L` to the norm-AND-depth-
    matched same-family `(1−A²)^p` comparator (shape gap ~0.000 ≪ 10%; null-shape control passes;
@@ -380,10 +376,9 @@ at the existing one (`electron-bound-resonator-coverage.md:48`).
   (§3), GATE3 = shape-generic (§4), electron anchor = NOT reproduced (§5), VERDICT = ECHO (top).
   These docs live on the SEPARATE Fork-B branch (not on this branch's filesystem); referenced as
   inline-code paths (non-gating to `verify-md-links`), NOT touched by this synthesis.
-  *Flag (`flag-don't-fix`):* the brief's "~91% of histogram-preserving permutations de-confine"
-  ARM-B qualifier is NOT anchored in the committed Fork-B artifacts (single permutation seed
-  `fork_b_saturation_tank.py:505,525`; PR#307 body reports flat ARM-B de-confinement) — surfaced
-  for Grant/auditor adjudication, not encoded as a Fork-B result here.
+  *Resolved:* the ARM-B de-confine majority is now anchored — #307's `scramble_rate_sweep` (commit
+  `109f5e83`, N=240 pooled) measured **5.83% re-confine ⇒ 94.2% de-confine** (below the ~9%
+  estimate), CI-pinned (`reconfine_rate < 0.20`). Cited in §1.3 / §5.
 
 **Provenance.** Built off `origin/main @ 19d55266` (PR#304 node-scattering + PR#305 varactor on
 main). Worktree-isolated; PR off `origin/main`; not merged.
