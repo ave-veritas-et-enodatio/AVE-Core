@@ -5,7 +5,7 @@
 `analysis/2026-06-20-fork-b-saturation-tank-confinement`).
 **Built off:** `origin/main @ 19d55266` (PR#305 varactor scatter kernel on main).
 **Solver:** `src/ave/solvers/fork_b_saturation_tank.py`.
-**Tests:** `src/tests/test_fork_b_saturation_tank.py` (21 passed).
+**Tests:** `src/tests/test_fork_b_saturation_tank.py` (23 passed; +2 ARM-B rate-sweep guards).
 **Figures:** `research/figures/2026-06-20-fork-b-saturation-tank/` (3, from the actual run).
 **Lane:** implementer. Auditor lands the KB/manual entries.
 
@@ -14,10 +14,10 @@
 ## VERDICT: **ECHO** (the pre-committed, expected, successful outcome)
 
 > confined (canonical partial short, NOT floor-dropped) **AND** scramble
-> de-confines (ARM-A AND ARM-B, real S-dependent, NOT a tautology) **BUT**
-> shape-generic (quarter-arc Δ/L gap ~0 ≪ 10%) **AND** no electron anchor
-> (connect-map ω is lattice-band-structure-set, NOT a converged 2.87)
-> ⇒ **FORM-chord / consistency**, peer-mapped no-worse-than-SM.
+> de-confines (ARM-A AND ARM-B **predominantly** — measured ~94% pooled — real
+> S-dependent, NOT a tautology) **BUT** shape-generic (quarter-arc Δ/L gap ~0 ≪
+> 10%) **AND** no electron anchor (connect-map ω is lattice-band-structure-set,
+> NOT a converged 2.87) ⇒ **FORM-chord / consistency**, peer-mapped no-worse-than-SM.
 
 This is exactly the PRE-COMMITTED PREDICTION (prereg §0). A clean ECHO is the
 expected, successful result. **No CHORD was manufactured.**
@@ -25,8 +25,9 @@ expected, successful result. **No CHORD was manufactured.**
 | Bin item | Result |
 |---|---|
 | GATE1 confined (core_frac ≥ 0.50, gapped+discrete, Im(ω) bound, A1-scalar) | **PASS** |
-| GATE2 scramble de-confines (ARM-A AND ARM-B, margin ≥ 0.30) | **PASS** (de-confines) |
-| GATE2 ARM-B survives ⇒ AUTO-VOID | **False** (NOT a tautology) |
+| GATE2 scramble de-confines (ARM-A AND ARM-B, margin ≥ 0.30, frozen seed) | **PASS** (de-confines) |
+| GATE2 ARM-B survives ⇒ AUTO-VOID (frozen seed) | **False** (NOT a tautology) |
+| GATE2 ARM-B de-confines **predominantly** (rate-sweep, N=120/net pooled) | **PASS** (~94% de-confine, ~6% re-confine) |
 | GATE3 shape gap > 10% (size-converged, null-control, floor-persisting) | **False** (gap ~0, shape-generic) |
 | Electron anchor (ω→2.87 α-free, converged) | **False** (NOT reproduced) |
 | α-free structural (α→2α invariance) | **PASS** (rel = 0.0 exactly) |
@@ -96,10 +97,15 @@ would be a SEPARATE 3-vector operator, not built). A1 ⊥ T2 (master-equation.md
 
 ---
 
-## 3. GATE 2 — SCRAMBLE (anti-tautology, necessary): **PASS (de-confines, NOT VOID)**
+## 3. GATE 2 — SCRAMBLE (anti-tautology, necessary): **PASS (predominantly de-confines, NOT VOID)**
 
-The confinement is **S-STRUCTURE-decided**, NOT BC/projector-decided — the
-structural successor to Fork-A's `verdict_is_projector_tautology` is clean.
+The confinement is **PREDOMINANTLY (~94%) S-STRUCTURE-decided**, NOT
+BC/projector-decided — the structural successor to Fork-A's
+`verdict_is_projector_tautology` is clean. The verdict is **NOT VOID,
+S-structure-decided, NOT a Fork-A tautology**; the margin is **measured ~91–94%,
+not 100%** (rate-sweep, §3a).
+
+### 3a. SINGLE-SEED arms (the frozen-seed verdict)
 
 | net | L | baseline core_frac | ARM-A (S→1) | ARM-A margin | ARM-B (permute) | ARM-B margin | ARM-B survives | ctrl no-op |
 |---|---|---|---|---|---|---|---|---|
@@ -108,16 +114,55 @@ structural successor to Fork-A's `verdict_is_projector_tautology` is clean.
 | srs | 6 | 1.000 | 0.066 | 0.934 | 0.000 | 1.000 | **False** | True |
 
 - **ARM-A (S→1 uniform):** core_frac collapses to ~0.06 — de-confines.
-- **ARM-B (LOAD-BEARING — permute the per-bond S field, HISTOGRAM FIXED):**
-  core_frac collapses to ~0.0–0.08 — de-confines. The S-multiset is preserved
-  (`np.sort(S)` invariant asserted); only the SPATIAL S-structure is destroyed.
-  **ARM-B does NOT survive** (no mode with core_frac ≥ 0.50 gapped after the
-  permutation) ⇒ NOT a tautology ⇒ NOT VOID.
+- **ARM-B (LOAD-BEARING — permute the per-bond S field, HISTOGRAM FIXED):** on the
+  frozen seed, core_frac collapses to ~0.0–0.08 — de-confines. The S-multiset is
+  preserved (`np.sort(S)` invariant asserted); only the SPATIAL S-structure is
+  destroyed. **ARM-B does NOT survive** on this seed (no mode with core_frac ≥ 0.50
+  gapped after the permutation) ⇒ NOT a tautology ⇒ NOT VOID.
 - **Negative control (permute a CONSTANT S field):** a no-op (operator unchanged,
   atol 1e-12) — the scramble machinery is not a blunt instrument.
 - De-confinement margins (0.68–1.00) all exceed the frozen ≥ 0.30 threshold.
 
-This is the anti-tautology gate passing decisively (fig2).
+### 3b. RATE-SWEEP — honest-scope disclosure (the under-disclosed researcher DOF)
+
+The single-seed ARM-B verdict above is honest but **under-discloses one
+researcher-degree-of-freedom the adversarial pass caught: the NOT-VOID verdict was
+reported on a single frozen seed.** A histogram-preserving permutation can — by
+chance — accidentally reconstitute a confining core. To disclose this, the
+re-confine rate was **MEASURED** (`solve_scramble_rate` / `scramble_rate_sweep`,
+N = 120 permutations per net, fixed RNG seed 20260620, judged by the IDENTICAL
+bound-mode selector as ARM-B/GATE1) on the srs nets the adversarial pass flagged:
+
+| net | L | n_perm | re-confine (core_frac ≥ 0.50 AND gapped) | re-confine rate | de-confine margin |
+|---|---|---|---|---|---|
+| srs | 4 | 120 | 6 | **5.00%** | 95.00% |
+| srs | 6 | 120 | 8 | **6.67%** | 93.33% |
+| **pooled** | — | **240** | **14** | **5.83%** | **94.17%** |
+
+- The NOT-VOID verdict is **predominantly (~94% pooled) saturation-structure-decided,
+  NOT a single-seed binary.** ~6% of histogram-preserving shuffles accidentally
+  re-confine.
+- **Physical reading:** the ~6% re-confine rate is **the chance a random
+  histogram-preserving shuffle accidentally reconstitutes a confining core** — i.e.
+  accidentally concentrates the bound mode's `|ψ|²` back onto the core. The binding
+  constraint is `core_frac ≥ 0.50` (the gap is almost always present for a graph
+  Laplacian: ~94–98% of permutations are gapped, but only ~6% also re-concentrate on
+  the core).
+- **The verdict STANDS:** NOT VOID, S-structure-decided, NOT a Fork-A tautology —
+  but the margin is **~91–94%, not 100%.** This is **not a flaw**: it CONFIRMS
+  structure-dependence with a measured majority. A tautology would have a re-confine
+  rate near 1.0 (any shuffle re-confines); the measured ~6% is the opposite.
+- **Measured, not estimated:** the adversarial pass estimated ~8.5–9% from a rate-
+  check; the directly-measured rate at the frozen seed is **~5.8% pooled**
+  (empirical-driver discipline: measure the rate, do not cite the estimate). The
+  margin is if anything stronger than the estimate suggested.
+- **CI-protected:** `test_gate2_armB_predominantly_deconfines_rate_pinned` and
+  `test_gate2_armB_pooled_reconfine_rate_sweep` pin the measured rate **below a
+  frozen 0.20 threshold**, so "predominantly de-confines" cannot silently drift up
+  toward a tautology.
+
+This is the anti-tautology gate passing decisively, now with the single-seed
+researcher-DOF disclosed and the de-confine majority measured + pinned (fig2).
 
 ---
 
@@ -229,10 +274,34 @@ imports the VALUE (the absolute frequency / any 2.87).
 depth). The right reaction: record the clean ECHO, name the mechanism, close the
 branch. The tests pin the ECHO outcome so it cannot be silently re-tuned.
 
+### FLAG — the absolute-frequency calibration gap (flag-don't-fix; part of WHY the anchor is not reproduced)
+
+**Surfaced by the build, made explicit here (NOT pursued — a SEPARATE calibration
+question).** The three confinement stencils all confine a posited A1 mass, but each
+reports the bound-mode ω on a DIFFERENT absolute-frequency normalization:
+
+| stencil | bound-mode ω | normalization |
+|---|---|---|
+| Cartesian cube (N=24/32) | **~1.1** | cube `dx/dt` (FLAGGED Cartesian-embedded) |
+| native connect-map (srs/diamond) | **~3.0–3.6** | graph-Laplacian (no fixed `dx/dt`) |
+| cold-cage FDTD (the 2.87 anchor) | **2.87** | a specific FDTD `dx/dt` |
+
+There is **no single `dx/dt` that maps a connect-map (or cube) ω onto a physical
+scale** — the connect-map graph-Laplacian carries no fixed `dx/dt` to pin an
+absolute frequency, and the cube and FDTD use different ones. **This absolute-
+frequency normalization gap is exactly WHY the cold-cage 2.87 is NOT reproduced**
+(it is the ECHO ceiling, §5): confinement is stencil-robust (all three bind), but
+the absolute frequency — and hence any 2.87 anchor — is **normalization-dependent,
+not a derived structural constant.** This is a separate calibration question
+(what `dx/dt` is physically correct), **surfaced not pursued** — it is part of the
+ECHO mechanism, not a defect in the confinement finding.
+
 ### Open follow-ups (surfaced for the auditor, NOT landed here)
-- The absolute-frequency normalization question (what `dx/dt` would map the
+- The absolute-frequency calibration gap above (what `dx/dt` would map the
   connect-map ω onto a physical scale) is a SEPARATE calibration question, NOT a
   confinement question — flagged, not pursued.
+- The ARM-B single-seed researcher-DOF (§3b) is now disclosed + measured + pinned;
+  no further action needed beyond the rate-sweep + regression tests.
 - Whether a DEEPER core (frac → A_cap, fully floor-clipped) sharpens any shape gap
   is closed-negative here (floor-lift guard: gap ~0 at all S_min); a fundamentally
   different comparator FAMILY (not `(1−A²)^p`) is the only remaining shape lever,
