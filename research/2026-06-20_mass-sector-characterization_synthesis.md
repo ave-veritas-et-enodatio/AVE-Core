@@ -275,67 +275,81 @@ instance of the FORM-deriving / VALUE-importing meta-finding (α=echo, G=MIXED, 
 K=2G=GR-imported), with the same honesty discipline: **mechanism is the chord, value is the echo,
 and the two must not be conflated.**
 
-## §5 — PENDING: the mechanism leg, conditional on Fork-B (FLAGGED)
+## §5 — RESOLVED-ECHO: the mechanism leg, decided by the Fork-B live-fire
 
-**The §1.3 "mechanism" claim is candidate-pending-Fork-B.** What §1–§4 establish is the
-*architecture* and the *ceiling* — both build-independent. What is NOT yet established, and is
-being tested by the in-flight Fork-B build, is whether the cold-cage confinement is **genuinely
-saturation-driven** and whether it is **quarter-arc-specific**. Two things the build decides:
+**The §1.3 "mechanism" claim is RESOLVED — VERDICT = ECHO (was candidate-pending-Fork-B).** What
+§1–§4 establish is the *architecture* and the *ceiling* (both build-independent). The two questions
+this section flagged as PENDING — *is the confinement genuinely saturation-driven?* and *is it
+quarter-arc-specific?* — have now been **answered by the completed Fork-B live-fire**
+(`research/2026-06-20_fork-b-saturation-tank-confinement_result.md`, PR#307):
 
-1. **Saturation-driven, or boundary-decided? (Fork-B GATE 2, scramble.)** The confinement must be
-   a property of the *graded* `S(A)` stiffness field. The scramble check: scrambling `S(A)`
-   (ARM-A uniform `S→1`; ARM-B histogram-preserving spatial permutation) must **de-confine** the
-   bound mode. If a gapped localized mode SURVIVES ARM-B, the verdict is **VOID** — the
-   confinement is boundary/projector-decided (a Fork-A-class tautology, the structural successor
-   to PR#304's `verdict_is_projector_tautology`), not saturation-driven.
-2. **Quarter-arc-specific, or shape-generic? (Fork-B GATE 3, shape gate.)** Whether the quarter-arc
-   well shape produces a >10% cross-family gap vs a same-family `(1−A²)^p` comparator. §2.1
-   already predicts this is generic (no cross-family gap expected).
+1. **Saturation-driven, or boundary-decided? → SATURATION-STRUCTURE-DRIVEN (Fork-B GATE 2 = PASS,
+   NOT VOID).** Scrambling `S(A)` de-confines the bound mode on BOTH arms — ARM-A (uniform `S→1`)
+   AND ARM-B (histogram-preserving spatial permutation, S-multiset fixed) — with de-confinement
+   margins 0.68–1.00, all clearing the frozen ≥0.30 threshold; ARM-B does NOT survive ⇒ the verdict
+   is NOT VOID; the negative control (permuting a constant field) is a verified no-op. The
+   confinement is therefore a property of the *graded* `S(A)` field — the structural successor to
+   PR#304's `verdict_is_projector_tautology` comes back CLEAN. **Saturation-driven: YES.**
+   *(Anchored caveat: the committed Fork-B artifacts report ARM-B at a single permutation seed; the
+   brief's "~91% of permutations de-confine, ~9% accidentally re-confine on srs" qualifier is NOT
+   anchored in the committed result/solver/tests/PR#307 — surfaced in §1.3 as a flag for
+   adjudication, not encoded here as a Fork-B finding. The anchored result is decisive single-seed
+   de-confinement on both arms.)*
+2. **Quarter-arc-specific, or shape-generic? → SHAPE-GENERIC (Fork-B GATE 3 = PASS).** The
+   quarter-arc `√(1−A²)` well gives IDENTICAL bound-mode localization `Δ/L` to the norm-AND-depth-
+   matched same-family `(1−A²)^p` comparator (shape gap ~0.000 ≪ 10%; null-shape control passes;
+   floor-robust across S_min 1e-1…1e-5; size-converged across L=2/4/6). **Quarter-arc-specific: NO
+   — shape-generic, exactly as §2.1 predicted.**
 
-**The Fork-B build is the live-fire test** (its files, in a SEPARATE worktree:
-`research/2026-06-20_fork-b-saturation-tank-confinement_{prereg,result}.md` + a Fork-B solver —
-NOT touched by this synthesis). It is **pre-committed to expecting ECHO** (a FORM-chord /
-consistency result): its prereg §0 states "the design HONESTLY pre-commits to ECHO over CHORD ...
-the PRE-COMMITTED PREDICTION is ECHO ... A clean ECHO is the EXPECTED, SUCCESSFUL outcome ... Do
-NOT manufacture a CHORD." That matches §2's structural ceiling exactly.
+Plus the CHORD-required discriminator: the **electron anchor was NOT reproduced** (the connect-map
+bound-mode `ω` is lattice-band-structure-set, diverging with size on srs 2.70→3.26→3.56, NOT the
+universal cold-cage 2.87; three normalizations give three frequencies — `fork_b_..._result.md` §5–§6).
+So **no value-chord; `m_e` definitional.**
 
-**Retraction conditions for THIS synthesis (stated plainly, pre-result):**
+**The Fork-B build was pre-committed to expecting ECHO** (its prereg §0: "the design HONESTLY pre-
+commits to ECHO over CHORD ... the PRE-COMMITTED PREDICTION is ECHO ... A clean ECHO is the
+EXPECTED, SUCCESSFUL outcome ... Do NOT manufacture a CHORD"). **The run returned ECHO.** No CHORD
+was manufactured. That matches §2's structural ceiling exactly — the design-level prediction held.
 
-- **Fork-B VOID** (ARM-B survival) ⟹ **RETRACT the §1.3 "mechanism" claim**: the confinement
-  would be boundary-decided, not saturation-driven. The architecture facts §1.1/§1.2 and the
-  ceiling §2 survive; the "mechanism" framing in §1.3/§3/§4 demotes to "boundary-decided bound
-  mode, NOT a saturation mechanism." Retraction via Rule 12 (preserve body, add 🔴 header), not
-  refill.
-- **Fork-B REFUTE** (no confinement at all) ⟹ **RETRACT the §1.3 "mechanism" claim differently**:
-  there would be no confined mass mode to host the mechanism. §1.1/§1.2 (sector algebra + the
-  coupling channel) still hold; §2's ceiling becomes moot (no chord at all).
-- **Fork-B ECHO** (confined + real S-dependent de-confinement, shape-generic and/or no anchor) ⟹
-  **CONFIRMS §1.3 as a FORM-chord mechanism** at exactly the ceiling §2 names. This is the
-  expected, successful outcome and the one this synthesis is written against.
+**Which pre-result branch was hit (the conditions were stated plainly, pre-result; recorded here as
+the audit-trail of which one fired):**
+
+- ~~**Fork-B VOID** (ARM-B survival) ⟹ RETRACT §1.3 as boundary-decided~~ — **DID NOT FIRE**
+  (ARM-B does NOT survive; GATE 2 PASS, NOT VOID).
+- ~~**Fork-B REFUTE** (no confinement) ⟹ RETRACT §1.3 differently; §2 ceiling moot~~ — **DID NOT
+  FIRE** (GATE 1 PASS; a real bound mode confines at the canonical floor).
+- ✅ **Fork-B ECHO** (confined + real S-dependent de-confinement, shape-generic, no anchor) ⟹
+  **CONFIRMS §1.3 as a FORM-chord mechanism** at exactly the ceiling §2 names. **THIS BRANCH FIRED.**
+  This is the expected, successful outcome — the one this synthesis was written against. The
+  mechanism FIRMS (real + saturation-driven); it does NOT retract. Per substitution-not-retraction
+  (Rule 12 / A47 v11b): nothing is being refilled — a HELD leg resolved in the affirmative.
 
 **So: the architecture (§1) and the chord-ceiling / symmetric-standard / form-value reading
-(§2–§4) are design-level-SOLID and stand regardless of Fork-B. The MECHANISM claim (the §1.3
-confinement being saturation-driven) is HELD pending the build.**
+(§2–§4) are design-level-SOLID. The MECHANISM claim (§1.3 confinement being saturation-driven) is
+now RESOLVED-ECHO — FIRMED real and saturation-structure-driven by the Fork-B live-fire, ceilinged
+at FORM-chord (no value-chord), exactly as pre-committed.**
 
 ## §6 — Honesty register + cross-links
 
-**Class / status.** Class-C research synthesis. **No canonical `clm-` claim is minted here.** The
-architecture and ceiling are design-level-solid; the mechanism is candidate-pending-Fork-B. This
-doc surfaces the design-level finding; the auditor lands any manual/KB entry (lane discipline) —
-this synthesis does not draft the auditor's KB leaf, it points at the existing one
-(`electron-bound-resonator-coverage.md:48`).
+**Class / status.** Class-C research synthesis. **No canonical `clm-` claim is minted here** (the
+ECHO verdict does not change that — a FORM-chord / consistency result is not a new value-claim).
+The architecture and ceiling are design-level-solid; the mechanism leg is now **RESOLVED-ECHO**
+(FIRMED by the Fork-B live-fire, PR#307 — real + saturation-structure-driven, ceilinged at
+FORM-chord). This doc surfaces the design-level finding and its resolution; the auditor lands any
+manual/KB entry (lane discipline) — this synthesis does not draft the auditor's KB leaf, it points
+at the existing one (`electron-bound-resonator-coverage.md:48`).
 
-**SOLID vs PENDING split (as written):**
+**SOLID vs RESOLVED-ECHO split (was SOLID/PENDING; the Fork-B live-fire resolved the PENDING leg):**
 
 | § | Content | Status |
 |---|---|---|
 | §1.1 | A1 MASS = `+1` common mode (projector identity, self-flagged tautology) | **SOLID** (built, PR#304) |
 | §1.2 | EM↔MASS = saturation varactor `C_eff=C0/S`, only coupling is nonlinear `S(A)`; A1⊥T2 | **SOLID** (built, PR#305) |
-| §1.3 | Confinement in stiffness `L=adjoint_div(D∇)`, `D=1/S`; Γ→−1 SHORT corrected sign | **SOLID architecture / mechanism-leg PENDING** |
-| §2 | Chord-ceiling: FORM-chord at best (generic saturable-NLS + FORM anchor not `m_e`) | **SOLID (design-level)** |
+| §1.3 | Confinement in stiffness `L=adjoint_div(D∇)`, `D=1/S`; Γ→−1 SHORT corrected sign | **SOLID architecture / mechanism-leg RESOLVED-ECHO** (FIRMED: GATE1+GATE2 PASS, PR#307) |
+| §2 | Chord-ceiling: FORM-chord at best (generic saturable-NLS + FORM anchor not `m_e`) | **SOLID (design-level)** — CONFIRMED by live-fire (§2.3: GATE3 shape-generic + no anchor) |
 | §3 | Symmetric-standard: mechanism peer-or-ahead, value peer-echo | **SOLID (design-level)** |
 | §4 | Form-derived / value-imported instance; α=echo precedent | **SOLID (design-level)** |
-| §5 | Saturation-driven? quarter-arc-specific? | **PENDING (conditional on Fork-B)** |
+| §5 | Saturation-driven? (YES, predominantly) quarter-arc-specific? (NO, shape-generic) | **RESOLVED-ECHO** (Fork-B PR#307: GATE2 PASS-not-VOID, GATE3 shape-generic, anchor not reproduced) |
 
 **Cross-links landed (all verified by read/grep, `verify-before-cite`):**
 
@@ -357,9 +371,19 @@ this synthesis does not draft the auditor's KB leaf, it points at the existing o
   rest-mass row "CALIBRATION ANCHOR, not derivation."
 - `manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-bound-resonator-coverage.md:48`
   — the canonical rest-mass FORM/VALUE row this synthesis reads at arc level.
-- Fork-B build (SEPARATE worktree, NOT touched):
-  `research/2026-06-20_fork-b-saturation-tank-confinement_{prereg,result}.md` — the live-fire
-  mechanism test, pre-committed to ECHO.
+- **Fork-B live-fire — the test that RESOLVED the §1.3/§5 mechanism leg (VERDICT = ECHO):**
+  `research/2026-06-20_fork-b-saturation-tank-confinement_result.md` (PR#307, branch
+  `analysis/2026-06-20-fork-b-saturation-tank-confinement`, OPEN — NOT merged; built off
+  `origin/main @ 19d55266`; solver `src/ave/solvers/fork_b_saturation_tank.py`; prereg
+  `research/2026-06-20_fork-b-saturation-tank-confinement_prereg.md`). Verified by read against the
+  result doc (`verify-before-cite`): GATE1 CONFINEMENT = PASS (§2), GATE2 SCRAMBLE = PASS-not-VOID
+  (§3), GATE3 = shape-generic (§4), electron anchor = NOT reproduced (§5), VERDICT = ECHO (top).
+  These docs live on the SEPARATE Fork-B branch (not on this branch's filesystem); referenced as
+  inline-code paths (non-gating to `verify-md-links`), NOT touched by this synthesis.
+  *Flag (`flag-don't-fix`):* the brief's "~91% of histogram-preserving permutations de-confine"
+  ARM-B qualifier is NOT anchored in the committed Fork-B artifacts (single permutation seed
+  `fork_b_saturation_tank.py:505,525`; PR#307 body reports flat ARM-B de-confinement) — surfaced
+  for Grant/auditor adjudication, not encoded as a Fork-B result here.
 
 **Provenance.** Built off `origin/main @ 19d55266` (PR#304 node-scattering + PR#305 varactor on
 main). Worktree-isolated; PR off `origin/main`; not merged.
