@@ -163,7 +163,8 @@ def norm_match_family(builder, bracket: tuple[float, float], *, target_norm: flo
 
     n_lo, n_hi = _norm(lo), _norm(hi)
     if not (min(n_lo, n_hi) <= target_norm <= max(n_lo, n_hi)):
-        return {"ok": False, "reason": f"target_norm {target_norm:.4f} outside [{min(n_lo, n_hi):.4f},{max(n_lo, n_hi):.4f}]"}
+        lo_n, hi_n = min(n_lo, n_hi), max(n_lo, n_hi)
+        return {"ok": False, "reason": f"target_norm {target_norm:.4f} outside [{lo_n:.4f},{hi_n:.4f}]"}
     k = brentq(lambda kk: _norm(kk) - target_norm, lo, hi)
     return {"ok": True, "param": float(k), "norm": _norm(k), "target_norm": target_norm}
 

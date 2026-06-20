@@ -28,14 +28,12 @@ VERDICT = ECHO-FINAL (the expected, fully-acceptable outcome):
    debugging-toward-a-rescue (Rule 11 wrong-reaction).
 """
 
-import numpy as np
-
 from ave.solvers.fork_b_near_saturation import (
+    _SMOOTH_FAMILIES,
     QUARTER_ARC_NORM,
     NearSaturationConfig,
     norm_match_family,
     solve_near_saturation_shape,
-    _SMOOTH_FAMILIES,
 )
 
 # srs L=6 is the FAST verdict net (A_max≈0.976, ~2s). Used for the CI pins.
