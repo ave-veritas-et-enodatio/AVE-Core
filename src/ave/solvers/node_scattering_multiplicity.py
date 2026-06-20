@@ -371,11 +371,27 @@ def fork_a_test(L_srs: int = 2, L_diamond: int = 4) -> dict:
 
     METHOD (core-free, operator-first): we do NOT posit a Gaussian core. The
     longitudinal-vs-differential SECTOR question is answered DIRECTLY from the
-    port->grade embedding: the A1 dilatation is the SCALAR grade, carried by the
-    port-SUM (the all-ones common mode), which IS the +1 eigenvector of S_n. The
-    differential -1 modes are orthogonal to all-ones, so they carry ZERO scalar
-    content -- they are the transverse/shear VECTOR grade. This is read from the
-    SHOWN embedding (port_to_realspace_embedding), not asserted.
+    S_n = (2/n)J - I projector algebra: the A1 dilatation is the SCALAR grade,
+    carried by the port-SUM (the all-ones common mode), which IS the +1 eigenvector
+    of S_n. The differential -1 modes are orthogonal to all-ones, so they carry ZERO
+    scalar content -- they are the transverse/shear VECTOR grade.
+
+    ── RULE-12 SCOPE CORRECTION (2026-06-20, adversarial-auditor surfaced) ──
+    The SECTOR ASSIGNMENT (scalar -> +1 common) is a PROJECTOR-ALGEBRA FACT of S_n,
+    NOT geometry-derived. It is SCRAMBLE-INVARIANT: randomizing every bond_unit
+    vector (which destroys force-balance) leaves differential_scalar_content (= 0 by
+    |a.ones| orthogonality) and common_mode_scalar_content (= sqrt(degree)) BIT-
+    UNCHANGED, because the verdict reads ONLY those two projector quantities -- the
+    bond_unit / embedding quantities do NOT feed the verdict. So the embedding IS
+    genuinely derived and SHOWN (port_to_realspace_embedding), but it does NOT DRIVE
+    the R3 decision. The verdict is therefore a sector-orthogonality FACT (true by
+    construction, for any lattice), NOT a discriminating physical test. Fork-A as
+    posed was MISCAST: it presupposed longitudinal confinement is a differential-
+    sector question; the algebra shows it is not. The COMPUTATION below is correct
+    (it correctly reports the sector assignment); only its MEANING is corrected -- it
+    is an identity, not a test. See the result-doc Sec.2/Sec.5 Rule-12 corrections
+    and the scramble-invariance regression test
+    (test_fork_a_verdict_is_invariant_under_bond_unit_scramble).
 
     The verdict is binned per the prereg's frozen CHORD/ECHO/REFUTE map. The
     dominant outcome witnessed: the longitudinal scalar is a COMMON-MODE object,
@@ -436,16 +452,23 @@ def fork_a_test(L_srs: int = 2, L_diamond: int = 4) -> dict:
         longitudinal_in_differential_srs or longitudinal_in_differential_dia
     ):
         out["verdict"] = "REFUTE-R3"
+        out["verdict_is_projector_tautology"] = True  # scramble-invariant; see docstring
         out["verdict_detail"] = (
             "The longitudinal A1 dilatation SCALAR lives in the COMMON-MODE (+1) "
             "sector, NOT the differential P_{-1} sector (differential scalar "
-            "content ~1e-16, common-mode scalar content = sqrt(degree)). Fork-A's "
+            "content ~1e-16, common-mode scalar content = sqrt(degree)). NOTE "
+            "(Rule-12 scope correction): this is a PROJECTOR-ALGEBRA FACT of S_n, "
+            "SCRAMBLE-INVARIANT under arbitrary bond_unit randomization -- it is "
+            "TRUE BY CONSTRUCTION, not a discriminating-test result. Fork-A's "
             "pre-committed prediction (longitudinal confinement needs the diamond's "
-            "3rd DIFFERENTIAL mode) is REFUTED at the sector level: the longitudinal "
-            "scalar is not a differential object. This is prereg outcome R3 -> the "
-            "containment of the A1 MASS-'3' routes through Grant's COMMON-MODE = "
-            "bulk-saturation channel (Fork B, the unbuilt Z_core->inf operator, "
-            "DEFERRED). A clean, pre-registered negative for Fork A."
+            "3rd DIFFERENTIAL mode) is not refuted by a test; it was MISCAST -- it "
+            "presupposed longitudinal confinement is a differential-sector question, "
+            "and the algebra shows it is not (the longitudinal scalar IS the +1 "
+            "common mode by definition). This is prereg outcome R3, useful as a "
+            "REDIRECT: the containment of the A1 MASS-'3' routes through Grant's "
+            "COMMON-MODE = bulk-saturation channel (Fork B, the unbuilt Z_core->inf "
+            "operator, DEFERRED). NOT a clean pre-registered negative -- a sector-"
+            "orthogonality identity."
         )
     elif longitudinal_in_differential_dia and not longitudinal_in_differential_srs:
         out["verdict"] = "CHORD-candidate"
