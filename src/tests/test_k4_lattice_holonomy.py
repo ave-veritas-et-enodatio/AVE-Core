@@ -464,9 +464,15 @@ def test_minus_I_requires_genuine_winding_3_not_wrapping_artifact():
     centroid, normal, in_plane = loop_plane(net, loop)
     defect = {"origin": centroid, "axis": normal, "cut_dir": in_plane, "frank_port": 0}
     enc3 = holonomy_of_path(net, repeat_loop(loop, 3), defect=defect)
-    # Raw crossing count is 3 (the old artifact), but the SIGNED winding is 1.
+    # Raw crossing count is 3 (the old artifact), but the |winding| is 1.
     assert enc3["n_cut_crossings"] == 3
-    assert enc3["net_winding"] == 1  # the wrapping loop is a single encirclement
-    assert enc3["holonomy_sign"] > 0.0  # C3¹, NOT −I
+    # |net_winding| == 1, NOT 3 — a single encirclement. The SIGN (±1, i.e. C3 vs
+    # C3⁻¹) is an orientation GAUGE: it tracks which way shortest_closed_loop happens
+    # to traverse this torus-wrapping cycle, which is environment-dependent (the
+    # loop generator is not orientation-pinned). Only the magnitude is physical —
+    # same reason np.abs(q) is used two lines below. (The headline winding-3 → −I is
+    # orientation-robust because −I is central + self-inverse.)
+    assert abs(enc3["net_winding"]) == 1  # the wrapping loop is a single encirclement
+    assert enc3["holonomy_sign"] > 0.0  # C3¹ (either orientation has q0 = +0.5), NOT −I
     assert not enc3["so3_is_identity"]  # genuine 120° C3, not a closed 2π loop
     assert np.allclose(np.abs(enc3["q"]), [0.5, 0.5, 0.5, 0.5], atol=ATOL)
