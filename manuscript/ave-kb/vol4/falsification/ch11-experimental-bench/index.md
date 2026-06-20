@@ -14,7 +14,7 @@ Catalogues the complete set of experimentally falsifiable signatures of the AVE 
 
 | Result | Statement |
 |---|---|
-| Birefringence scaling | AVE: $E^4$; QED: $E^2$ — binary kill switch |
+| Birefringence discriminator 🔴 | ~~AVE: $E^4$; QED: $E^2$ — binary kill switch~~ → **COEFFICIENT** ratio $1/(4 a_{EH}\alpha^3)\sim 10^6$ (both $E^2$-leading; Rule-12, clm-pp3qwf) |
 | Sagnac-RLVE signal | $\Delta\phi \approx 2.07$ rad (Tungsten, 200 m fiber, 10k RPM) |
 | Metric mutual inductance ratio | $\Psi = \rho_W / \rho_{Al} \approx 7.15$ |
 | CLEAVE-01 charge | $Q = \xi_{topo} \cdot x = 0.415$ pC per $\mu$m |
@@ -24,11 +24,13 @@ Catalogues the complete set of experimentally falsifiable signatures of the AVE 
 | Metric refraction acceleration | $a = c^2 \nabla n \approx 130$ G's |
 | Sapphire centrifuge gravity | $a_{LT} = v_{vac}^2/r \approx 6.35$ G's |
 
+> **🔴 Birefringence-row correction (2026-06-04, Rule 12; clm-pp3qwf, commit `ad26d357`).** The struck "AVE: $E^4$; QED: $E^2$ — binary kill switch" framing was a **false falsifier** ($\sqrt{\varepsilon}$ conflation). Both AVE and QED are **$E^2$-leading** in the refractive-index shift; an $E^2$ slope does NOT falsify AVE. The discriminator is the field-**independent COEFFICIENT** ratio $1/(4 a_{EH}\alpha^3)\sim 10^6$. Canonical leaf: [`../ch12-falsifiable-predictions/vacuum-birefringence-e4.md`](../ch12-falsifiable-predictions/vacuum-birefringence-e4.md); forward driver `src/scripts/vol_4_engineering/birefringence_coefficient_discriminator.py`.
+
 ## Derivations and Detail
 
 | Document | Contents |
 |---|---|
-| [Epistemology & Kill Switches](epistemology-kill-switches.md) | Neutrino parity, GRB dispersion, birefringence $E^4$ vs $E^2$ |
+| [Epistemology & Kill Switches](epistemology-kill-switches.md) | Neutrino parity, GRB dispersion, birefringence COEFFICIENT ($\sim 10^6\times$ QED; ~~$E^4$ vs $E^2$~~ slope retracted, Rule-12 clm-pp3qwf) |
 | [Tabletop Null Results](tabletop-null-results.md) | VFDT magnetic drag, RVR scalar gap, why intuitive tests fail |
 | [Sagnac-RLVE](sagnac-rlve.md) | Definitive mutual inductance experiment, $\Psi$ ratio, hardware BOM |
 | [Existing Experimental Signatures](existing-signatures.md) | Proton radius puzzle, neutron lifetime, Hubble tension, LIGO echoes, vortex cores |

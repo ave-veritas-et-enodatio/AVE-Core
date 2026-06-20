@@ -20,7 +20,7 @@ $$
 
 As the absolute electric field gradient ($\mathbf{E}$) applied across a localized gap approaches this structural yield limit, the macroscopic vacuum enters nonlinear saturation. The constitutive permittivity *collapses* toward zero under the universal saturation kernel $S(E/E_{yield})$, while the observable capacitance *diverges* as its inverse:
 
-<!-- claim-quality: clm-pp3qwf (the Taylor expansion of this saturation kernel gives $\Delta n \propto E^4$ — the AVE leg of the $E^4$ vs QED $E^2$ vacuum-birefringence discriminator) -->
+<!-- claim-quality: clm-pp3qwf (SUPERSEDED comment text, preserved per Rule 12: "the Taylor expansion of this saturation kernel gives $\Delta n \propto E^4$ — the AVE leg of the $E^4$ vs QED $E^2$ vacuum-birefringence discriminator". CORRECTED 2026-06-04 (commit ad26d357): the index shift is $\delta n=\sqrt{S}-1\approx -\tfrac14(E/E_{yield})^2$, $E^2$-leading like QED; "$\propto E^4$" was a $\sqrt{\varepsilon}$ conflation of the permittivity DEPTH $1-S$. clm-pp3qwf is now the COEFFICIENT discriminator ($\sim10^6\times$ QED), not the field-exponent — an $E^2$ slope does NOT falsify AVE.) -->
 $$
 \varepsilon_{eff}(E) = \varepsilon_0 \cdot \sqrt{1 - \left(\frac{E}{E_{yield}}\right)^2} \;\to\; 0
 \qquad
