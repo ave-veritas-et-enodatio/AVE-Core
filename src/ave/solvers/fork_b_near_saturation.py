@@ -179,3 +179,248 @@ def depth_match_affine(S_raw: np.ndarray, target_min_S: float) -> np.ndarray:
         return np.clip(S_raw, target_min_S, 1.0)
     S_scaled = target_min_S + (S_raw - s0) * (1.0 - target_min_S) / (1.0 - s0)
     return np.clip(S_scaled, target_min_S, 1.0)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 2. THE BOUND-MODE READOUT (same selector + same Δ/L metric as the merged GATE3)
+# ═════════════════════════════════════════════════════════════════════════════
+def _bound_mode_full(net, S_bond: np.ndarray, core_mask: np.ndarray, r: np.ndarray) -> dict:
+    """Solve L=Bᵀ diag(1/S) B, pick the bound LEVEL's most core-localized member
+    (the IDENTICAL _select_core_bound_mode selector as GATE1/GATE3), and return BOTH
+    the depth-invariant Δ/L = √(Σr²|ψ|²/Σ|ψ|²)/L AND the bound eigenVECTOR ψ (so the
+    overlap can be measured). The eigenvector is the load-bearing addition the
+    merged GATE3 did not record (it reported only Δ/L). alpha-FREE."""
+    L = _operator_from_bond_S(net, S_bond)
+    w, V = np.linalg.eigh(L)
+    band = _band_structure(w)
+    if not band["ok"]:
+        return {"ok": False, "reason": band["reason"]}
+    best = _select_core_bound_mode(w, V, core_mask, band)
+    psi = V[:, best["idx"]].astype(np.float64)
+    p2 = psi**2
+    rms = float(np.sqrt((p2 * r**2).sum() / (p2.sum() + 1e-300)))
+    return {
+        "ok": True,
+        "psi": psi,
+        "delta_over_L": rms / net.box,
+        "core_frac": best["core_frac"],
+        "omega": best["omega"],
+        "gapped_discrete": bool(band["gap_above_sq"] > max(band["mean_continuum_spacing_sq"], 1e-9)),
+        "min_S": float(S_bond.min()),
+    }
+
+
+def _eigvec_overlap(psi_a: np.ndarray, psi_b: np.ndarray) -> float:
+    """|⟨ψ_a|ψ_b⟩| / (‖ψ_a‖‖ψ_b‖) — the absolute normalized overlap of two bound
+    eigenvectors (sign-agnostic; eigenvectors carry an arbitrary global sign). =1.0
+    means the SAME physical mode; <0.95 means a genuinely different localization."""
+    na = float(np.linalg.norm(psi_a))
+    nb = float(np.linalg.norm(psi_b))
+    if na < 1e-300 or nb < 1e-300:
+        return 0.0
+    return abs(float(psi_a @ psi_b)) / (na * nb)
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 3. THE NEAR-SATURATION SHAPE TEST (the chord-residual driver)
+# ═════════════════════════════════════════════════════════════════════════════
+@dataclass(frozen=True)
+class NearSaturationConfig:
+    """A FULL-SATURATION GATE3 config. The defaults drive A_bond.max into the steep
+    regime (~0.95–0.99) on the srs connect-map (whose nodes sit near the centroid),
+    where the quarter-arc √(1−A²)'s steep tail IS exercised — the regime the merged
+    GATE3 (A_bond.max≈0.77) never reached.
+
+    frac→1 (the planted-well amplitude → A_cap) + sigma_frac=1/6 keeps the well wide
+    enough that interior bonds saturate too; S_min sets the depth-match floor. The
+    canonical kernel CLIP (crystal_engine.py:194, A_cap=0.99) bounds A in the
+    confinement OPERATOR, but GATE3's shape metric builds S DIRECTLY from A_bond
+    (no clip) — so the steep regime is driven by A_bond.max, confirmed by the
+    achieved_A_max readout (it does NOT no-op)."""
+
+    net: str = "srs"
+    L: int = 6
+    frac: float = 0.999
+    sigma_frac: float = 1.0 / 6.0
+    S_min: float = 1e-3
+
+    def to_confinement_cfg(self) -> ConfinementConfig:
+        return ConfinementConfig(net=self.net, L=self.L, frac=self.frac, sigma_frac=self.sigma_frac, S_min=self.S_min)
+
+
+def solve_near_saturation_shape(cfg: NearSaturationConfig) -> dict:
+    """GATE3 NEAR-SATURATION re-run. Drive the core to A_bond.max≈0.95–0.99 and
+    re-run the depth-invariant Δ/L shape discriminator: quarter-arc (p=0.5) vs each
+    of the five GENUINELY-DIFFERENT smooth families (norm+depth-matched) AND the
+    top-hat POSITIVE CONTROL. Records, for EVERY comparator, BOTH the Δ/L gap AND
+    the bound-eigenvector overlap (the load-bearing addition).
+
+    Returns the achieved A_max, the per-comparator (gap, overlap), the positive
+    control, and the frozen-binned verdict (ECHO-FINAL vs CHORD-PARTIAL). alpha-FREE."""
+    cc = cfg.to_confinement_cfg()
+    net = cc.build_net()
+    A = saturated_core_strain_native(net, frac=cfg.frac, sigma_frac=cfg.sigma_frac)
+    bonds = unique_bonds(net)
+    A_bond = np.array([max(A[u], A[v]) for (u, v) in bonds])
+    achieved_A_max = float(A_bond.max())
+
+    r = node_radius(net)
+    sigma = cfg.sigma_frac * net.box
+    core_mask = r <= max(sigma * 1.5, net.box / float(cfg.L))
+
+    # ── the canonical quarter-arc sets the depth target (its own well floor) ──
+    S_canon = depth_match_affine(kernel_quarter_arc(A_bond), cfg.S_min)
+    target_depth = float(S_canon.min())
+    m_canon = _bound_mode_full(net, S_canon, core_mask, r)
+    if not m_canon["ok"]:
+        return {"ok": False, "reason": f"canonical bound mode not found: {m_canon['reason']}"}
+    psi_canon = m_canon["psi"]
+    dL_canon = m_canon["delta_over_L"]
+
+    # ── the five GENUINELY-DIFFERENT smooth families, norm+depth-matched ──
+    smooth_rows = []
+    max_smooth_gap = 0.0
+    min_smooth_overlap = 1.0
+    all_norm_feasible = True
+    max_shape_diff = 0.0  # max|ΔS| — the shapes must be genuinely DIFFERENT
+    for name, (builder, bracket) in _SMOOTH_FAMILIES.items():
+        nm = norm_match_family(builder, bracket)
+        if not nm["ok"]:
+            all_norm_feasible = False
+            smooth_rows.append({"family": name, "norm_feasible": False, "reason": nm["reason"]})
+            continue
+        S_raw = builder(A_bond, nm["param"])
+        S_comp = depth_match_affine(S_raw, target_depth)
+        shape_diff = float(np.abs(S_canon - S_comp).max())
+        max_shape_diff = max(max_shape_diff, shape_diff)
+        m_comp = _bound_mode_full(net, S_comp, core_mask, r)
+        if not m_comp["ok"]:
+            smooth_rows.append({"family": name, "norm_feasible": True, "bound_mode_found": False})
+            continue
+        gap = abs(dL_canon - m_comp["delta_over_L"]) / (dL_canon + 1e-300)
+        overlap = _eigvec_overlap(psi_canon, m_comp["psi"])
+        max_smooth_gap = max(max_smooth_gap, gap)
+        min_smooth_overlap = min(min_smooth_overlap, overlap)
+        smooth_rows.append({
+            "family": name,
+            "norm_feasible": True,
+            "norm_param": nm["param"],
+            "matched_norm": nm["norm"],
+            "delta_over_L": m_comp["delta_over_L"],
+            "shape_gap": gap,
+            "eigvec_overlap": overlap,
+            "max_abs_dS_vs_canon": shape_diff,
+            "depth_matched": bool(abs(m_comp["min_S"] - target_depth) < 1e-6),
+            "core_frac": m_comp["core_frac"],
+        })
+
+    # ── POSITIVE CONTROL: the top-hat step (MUST open a gap / drop overlap) ──
+    S_th = depth_match_affine(kernel_tophat(A_bond, 0.5), target_depth)
+    m_th = _bound_mode_full(net, S_th, core_mask, r)
+    pc_gap = abs(dL_canon - m_th["delta_over_L"]) / (dL_canon + 1e-300) if m_th["ok"] else float("nan")
+    pc_overlap = _eigvec_overlap(psi_canon, m_th["psi"]) if m_th["ok"] else float("nan")
+    # the metric DISCRIMINATES at this regime iff the positive control opens a gap
+    # AND drops the overlap (a discontinuous stiffness IS a different physical mode).
+    metric_discriminates = bool(np.isfinite(pc_gap) and pc_gap > 0.10 and pc_overlap < 0.95)
+
+    # ── frozen binning (honest) ──
+    # CHORD-PARTIAL : a SMOOTH cross-family gap >10% AND overlap <0.95 (the
+    #                 quarter-arc is shape-special where steepest) — only counts if
+    #                 the positive control confirms the metric still discriminates.
+    # ECHO-FINAL    : smooth gap ~0 AND overlap ~1 even at full saturation.
+    smooth_is_shape_special = bool(max_smooth_gap > 0.10 and min_smooth_overlap < 0.95)
+    if not metric_discriminates:
+        verdict = "VOID"
+        reason = "positive control did NOT discriminate at this regime — metric is blind, test void"
+    elif smooth_is_shape_special:
+        verdict = "CHORD-PARTIAL"
+        reason = ("a SMOOTH cross-family comparator opened a >10% Δ/L gap with eigvec "
+                  "overlap <0.95 at full saturation — the quarter-arc IS shape-special "
+                  "where it is steepest (PARTIAL mass-sector chord on the shape axis)")
+    else:
+        verdict = "ECHO-FINAL"
+        reason = ("all SMOOTH cross-family comparators give Δ/L gap ~0 (≪10%) with "
+                  "eigvec overlap ~1 even at full saturation — the quarter-arc is NOT "
+                  "shape-special even in its steep regime (generic saturable-NLS)")
+
+    return {
+        "ok": True,
+        "net": net.name,
+        "L": cfg.L,
+        "n_nodes": net.n_nodes,
+        "S_min": cfg.S_min,
+        "achieved_A_max": achieved_A_max,
+        "n_bonds_A_gt_0p9": int((A_bond > 0.9).sum()),
+        "in_steep_regime": bool(achieved_A_max >= 0.95),
+        "target_depth_min_S": target_depth,
+        "delta_over_L_canonical": dL_canon,
+        "canon_core_frac": m_canon["core_frac"],
+        "smooth_comparators": smooth_rows,
+        "all_smooth_norm_feasible": all_norm_feasible,
+        "max_smooth_shape_gap": max_smooth_gap,
+        "min_smooth_eigvec_overlap": min_smooth_overlap,
+        "max_abs_dS_smooth_vs_canon": max_shape_diff,  # shapes genuinely different
+        "positive_control_top_hat": {
+            "shape_gap": pc_gap,
+            "eigvec_overlap": pc_overlap,
+            "delta_over_L": m_th.get("delta_over_L") if m_th["ok"] else None,
+        },
+        "metric_discriminates_at_full_sat": metric_discriminates,
+        "verdict": verdict,
+        "reason": reason,
+    }
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# 4. CONFIG SWEEP (the fast verdict net + a DEEPER full-saturation confirmation)
+# ═════════════════════════════════════════════════════════════════════════════
+def near_saturation_sweep(configs=None) -> dict:
+    """Run solve_near_saturation_shape over a ladder of full-saturation configs.
+
+    The default ladder: srs L=6 (A_max≈0.976, the fast verdict net) and a DEEPER
+    srs L=8 (A_max≈0.99, S_min=1e-5 — the steepest regime reachable). If the
+    verdict is ECHO-FINAL across BOTH, the steep-regime quarter-arc is not special.
+    Returns the per-config rows + a pooled verdict. alpha-FREE."""
+    if configs is None:
+        configs = [
+            NearSaturationConfig(net="srs", L=6, frac=0.999, sigma_frac=1.0 / 6.0, S_min=1e-3),
+            NearSaturationConfig(net="srs", L=8, frac=0.9999, sigma_frac=0.20, S_min=1e-5),
+        ]
+    rows = []
+    verdicts = []
+    for cfg in configs:
+        out = solve_near_saturation_shape(cfg)
+        rows.append(out)
+        verdicts.append(out.get("verdict", "ERR"))
+    all_echo = bool(all(v == "ECHO-FINAL" for v in verdicts))
+    any_chord = bool(any(v == "CHORD-PARTIAL" for v in verdicts))
+    any_void = bool(any(v == "VOID" for v in verdicts))
+    pooled = "VOID" if any_void else ("CHORD-PARTIAL" if any_chord else ("ECHO-FINAL" if all_echo else "MIXED"))
+    return {
+        "ok": True,
+        "rows": rows,
+        "verdicts": verdicts,
+        "pooled_verdict": pooled,
+    }
+
+
+if __name__ == "__main__":
+    import json
+
+    print("FORK-B GATE3 NEAR-SATURATION RE-RUN (the chord-residual)")
+    print("=" * 72)
+    out = solve_near_saturation_shape(NearSaturationConfig())
+    compact = {
+        "achieved_A_max": round(out["achieved_A_max"], 4),
+        "in_steep_regime": out["in_steep_regime"],
+        "max_smooth_shape_gap_pct": round(out["max_smooth_shape_gap"] * 100, 4),
+        "min_smooth_eigvec_overlap": round(out["min_smooth_eigvec_overlap"], 6),
+        "positive_control_gap_pct": round(out["positive_control_top_hat"]["shape_gap"] * 100, 2),
+        "positive_control_overlap": round(out["positive_control_top_hat"]["eigvec_overlap"], 4),
+        "metric_discriminates_at_full_sat": out["metric_discriminates_at_full_sat"],
+        "verdict": out["verdict"],
+    }
+    print(json.dumps(compact, indent=2))
+    print("-" * 72)
+    print(f"VERDICT: {out['verdict']}")
+    print(f"REASON : {out['reason']}")
