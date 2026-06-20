@@ -356,3 +356,73 @@ class TestSNR:
         for i, s in enumerate(signals):
             for j, t in enumerate(t_grid):
                 assert surf[i, j] == pytest.approx(bench.snr_shot_noise(float(s), self.DARK_FLOOR, float(t)))
+
+
+class TestValidate:
+    """validate.py <- src/scripts/verify/*_anchor.py (recover-a-known gate)."""
+
+    def test_validate_on_known_muon_anchor_deviation(self):
+        """VALIDATE-ON-KNOWN: compare_to_known reproduces the muon-anchor numbers.
+
+        muon_g2_fermilab_anchor.py compare_to_fermilab_eeplus_baseline computes,
+        for ave_prediction = 5.017805951650532e-09 vs Fermilab e+e- observed
+        tension 2.45e-9 +/- 5.6e-10 (muon_g2_fermilab_anchor_results.json):
+          deviation     = +2.567805951650532e-09
+          deviation_pct = +104.80840618981763
+          n_sigma       = +4.585367770804521
+        The factored compare_to_known must reproduce these exactly.
+        """
+        from ave.bench.validate import compare_to_known
+
+        cmp = compare_to_known(
+            value=5.017805951650532e-09,
+            reference=2.45e-09,
+            tol=1.0,  # tolerance not under test here; deviation math is.
+            label="muon a_mu (Fermilab e+e- baseline)",
+            uncertainty=5.6e-10,
+        )
+        assert cmp.deviation == pytest.approx(2.567805951650532e-09, rel=0, abs=0)
+        assert cmp.deviation_pct == pytest.approx(104.80840618981763, rel=1e-12)
+        assert cmp.n_sigma == pytest.approx(4.585367770804521, rel=1e-12)
+
+    def test_recover_a_known_pass_within_tol(self):
+        """assert_recovers_known returns the record when within tol (PASS)."""
+        # qg42 :189 quotes the V^2 discrimination ratio = 2.895e6; recover it
+        # to within 0.1% as a recover-a-known PASS exemplar.
+        cmp = bench.assert_recovers_known(
+            value=2.8946e6, reference=2.895e6, tol=1e-3, label="qg42 V^2 discrimination ratio"
+        )
+        assert cmp.passed is True
+        assert "PASS" in cmp.summary()
+
+    def test_recover_a_known_raises_outside_tol(self):
+        """assert_recovers_known raises with full breakdown when outside tol (FLAG)."""
+        with pytest.raises(AssertionError) as exc:
+            bench.assert_recovers_known(value=1.10, reference=1.00, tol=1e-3, label="off-by-10pct")
+        msg = str(exc.value)
+        assert "recover-a-known FAILED" in msg
+        assert "off-by-10pct" in msg
+        assert "rel_error" in msg
+
+    def test_compare_to_known_does_not_raise(self):
+        """compare_to_known is the non-raising sibling (returns FLAG record)."""
+        from ave.bench.validate import compare_to_known
+
+        cmp = compare_to_known(value=1.10, reference=1.00, tol=1e-3, label="off")
+        assert cmp.passed is False
+        assert "FLAG" in cmp.summary()
+
+    def test_zero_reference_is_inf_not_nan(self):
+        """A zero reference yields inf rel_error (FLAG), never NaN/divide error."""
+        from ave.bench.validate import compare_to_known
+
+        cmp = compare_to_known(value=1.0, reference=0.0, tol=1e-3, label="zero-ref")
+        assert np.isinf(cmp.rel_error)
+        assert np.isinf(cmp.deviation_pct)
+        assert cmp.passed is False
+
+    def test_n_sigma_none_without_uncertainty(self):
+        """n_sigma is None when no uncertainty is supplied (PDG-anchor optional)."""
+        cmp = bench.assert_recovers_known(value=1.0001, reference=1.0, tol=1e-3, label="no-unc")
+        assert cmp.n_sigma is None
+        assert "sigma" not in cmp.summary()
