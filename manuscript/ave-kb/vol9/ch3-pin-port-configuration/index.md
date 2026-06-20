@@ -22,6 +22,7 @@ The chapter content is **Class B/C synthesis** per `consistency-vs-emergence` v1
 - **Operator-level port behavior.** Op17 ($T^2 = 1 - \Gamma^2$, Vol 1 Ch 6 §1.16) and Op21 ($Q = \ell$ per Nyquist-cell-resolved confined mode at $\Gamma = -1$) as the two endpoints of substrate $\Gamma$-space — substrate-mechanically complementary (open-boundary energy transfer vs closed-boundary energy quantization).
 - **Engineering translation table.** Standard EE port quantities ($S_{11}$, $|S_{11}|^2$, return loss, VSWR, $Z_0$, port admittance $Y$) mapped to substrate-mechanism inputs of Axiom 3 + Op3 + Op17 + Op21 per the `clm-eemap1` EE-as-substrate-native identity statements (not approximations).
 - **Device circuit models (§Device Circuit Models, 2026-06-11).** Canonical leaf: [`device-circuit-models.md`](device-circuit-models.md) — `AVE_VACUUM_CELL`, electron $\Gamma_{\mathrm{bulk}}=-1$ LC tank, three-channel boundary port, cascaded cell string, operating-point coefficient table. LaTeX figures are **renders only** (`manuscript/vol_9_vacuum_datasheet/figures/circuit_*.tex`).
+- **Per-DOF node-constitutive layer (2026-06-19).** Canonical leaf: [`per-dof-vacuum-node-circuit.md`](per-dof-vacuum-node-circuit.md) — the reactive pair $(L_i,C_i)$ made a **constitutive TENSOR** (one per translation DOF), the node layer BENEATH the scalar `AVE_VACUUM_CELL` (§1) and the graded vacuum impedance network (device-circuit-models.md §6). One node-constitutive structure derives THREE behaviors: isotropic saturation → achromatic+isotropic ($Z=Z_0$, $\Gamma=0$); deviatoric strain → birefringence FORM; high-$k$ → the matter $(q\ell)^2$ zone-edge AND photon $(q\ell)^4$ cubic-symmetry anisotropy. Class-C CONSISTENCY re-expression; predicts NO $\alpha/m_e$. CODE: `src/ave/core/vacuum_node_circuit.py`.
 
 ## Primary canonical sources
 
@@ -40,6 +41,7 @@ The chapter content is **Class B/C synthesis** per `consistency-vs-emergence` v1
 | Leaf | Role |
 |---|---|
 | [`device-circuit-models.md`](device-circuit-models.md) | Device equivalent circuits + port semantics (**source of truth** for §Device Circuit Models) |
+| [`per-dof-vacuum-node-circuit.md`](per-dof-vacuum-node-circuit.md) | Per-DOF node-constitutive layer — reactive tensor $(L_i,C_i)$ per translation DOF BENEATH the scalar `AVE_VACUUM_CELL`; one circuit → three behaviors (isotropic achromatic / deviatoric birefringence FORM / high-$k$ $(q\ell)^4$ cubic anisotropy). Class-C CONSISTENCY re-expression (**source of truth** for the per-DOF node layer) |
 
 ## Manuscript counterpart (render)
 
