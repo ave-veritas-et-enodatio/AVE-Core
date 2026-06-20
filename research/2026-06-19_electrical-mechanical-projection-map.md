@@ -115,4 +115,25 @@ into an apparent derivation (the seductive-unification trap, manufacturing a pha
 
 ## #39 implication
 
-*(skeleton — filled per commit)*
+**#39 is NOT a hard code prerequisite — it is a STRUCTURAL one, and it is already met.**
+#39 does **not** need `def-tk1xfm` wired into the compute path. It needs three structural
+conditions, all currently held:
+
+1. **`[Q] ≡ [L]` held canon** — `clm-dfaiwj`, solidity **0.80**, build_status *"ok to
+   build on, see caveats"*. HELD.
+2. **The two-3s orthogonality fence intact** — CHARGE-3 (Cosserat micro-rotation) ⊥
+   MASS-3 (A1 dilatation), `master-equation.md:20`, Grant-ratified. INTACT.
+3. **The M/J/Q refuted-bijection respected** — J and Q co-locate in the Cosserat sector;
+   EM = radiative port, not an observable's home (`device-circuit-models.md`:163–178).
+   RESPECTED.
+
+**#39 can proceed on the current honestly-held projection-split** (seam 4's `1.826` vs
+`2.582` is α-free either way and moves no bin; the EM↔mechanical transducer stays a
+route-around per DEC-4). It does **not** wait on the WIRING GATE.
+
+**GUARD (hard).** Reject any #39 framing that:
+- **collapses the two 3s** (wires CHARGE-3 winding and MASS-3 dilatation into one object), or
+- **wires charge into the A1 phasor** (`V_ref` is a read-only projection of the scalar
+  `V`, not an independent DOF — the genesis-24 / `w_pol = 0` double-count).
+
+Either move would manufacture the phantom unification this map exists to prevent.
