@@ -1139,6 +1139,29 @@ def main():
     # bound-state confinement from the strain-induced Z_eff variation.
     # Amplitude at 0.9 × V_YIELD: core at the Regime II/III boundary per
     # the canonical reflection-profile convention (three-regime A² boundaries).
+    #
+    # GRID-CELL vs ell_node MAPPING (base-crack #37 Item 2 — read before
+    # comparing this R to the corpus electron size).
+    #   This driver runs the electron as a ~24-grid-cell numerical object on a
+    #   96³ lattice with dx=1.0 (R_target=24 grid cells, r_target≈9.2 cells).
+    #   The CORPUS canonical electron is a SUB-CELL soliton of physical size
+    #   R = r = ell_node/(2π) ≈ 0.159 ell_node, fitting inside ONE K4 cell
+    #   (electron-unknot-cosserat-seeder.md:32,38,65 / §3 Bounding Limit 1).
+    #   The two sizes refer to DIFFERENT lattices: here dx is a pure grid unit
+    #   (=1.0), NOT ell_node, so the 24-cell object is a fine-grid RESOLUTION
+    #   of the same physical soliton ONLY IF this grid's spacing is taken as
+    #   dx ≈ 0.159/24 ≈ 0.0066 ell_node per cell (~151 cells per ell_node).
+    #   FLAG (flag-don't-fix, NOT asserting a clean mapping): (a) that factor
+    #   is not a clean/round grid↔ell_node ratio, and (b) resolving the
+    #   electron INTERIOR across ~24 cells sits in tension with the corpus
+    #   substrate-observability claim that the sub-cell interior is NOT
+    #   lattice-resolved — only boundary observables M,Q,J are measurable
+    #   (seeder.md:67, doc-92 Nyquist-wall resolution). This driver therefore
+    #   measures the eigenmode as a resolved-interior numerical object; the
+    #   24↔0.16 size relation is a resolution rescaling of the SAME physical
+    #   soliton, but is NOT a corpus-stated factor and should not be read as
+    #   the substrate resolving sub-ell_node structure. Surfaced for Grant
+    #   adjudication; no number changed here.
     N_grid = 96
     R_target = 24.0
     r_target = R_target / PHI_SQ
