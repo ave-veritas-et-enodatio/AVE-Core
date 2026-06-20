@@ -68,7 +68,8 @@ def test_common_mode_is_the_port_sum():
 # ─────────────────────────────────────────────────────────────────────────────
 def test_srs_differential_multiplicity_matches_photon_transverse_dof():
     """The srs (degree-3) differential multiplicity = 2 = the photon's 2 transverse
-    polarizations (test_l1_photon.py:243-268; engine-acceptance-suite.md:178)."""
+    polarizations (src/tests/engine_acceptance/test_l1_photon.py:243-268;
+    engine-acceptance-suite.md:178)."""
     srs_diff_mult = local_scatter_spectrum(3)["differential_multiplicity"]
     photon_transverse_dof = 2  # corpus anchor (verified in the prereg ledger)
     assert srs_diff_mult == photon_transverse_dof
@@ -234,3 +235,85 @@ def test_fork_a_verdict_is_refute_r3():
     # the multiplicity distinction is real (2 vs 3) but MOOT for longitudinal
     assert fa["multiplicity_question_b"]["srs_differential_multiplicity"] == 2
     assert fa["multiplicity_question_b"]["diamond_differential_multiplicity"] == 3
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# HONEST MARKER (Rule-12 scope correction, 2026-06-20, adversarial-auditor):
+# the Fork-A verdict is a PROJECTOR TAUTOLOGY, not a discriminating test.
+# ═════════════════════════════════════════════════════════════════════════════
+def test_fork_a_verdict_is_invariant_under_bond_unit_scramble():
+    """The Fork-A REFUTE-R3 verdict is INVARIANT under arbitrary bond_unit
+    scrambling -- and THIS INVARIANCE IS PRECISELY WHY THE VERDICT IS A SECTOR-
+    ALGEBRA FACT, NOT A DISCRIMINATING PHYSICAL TEST.
+
+    The verdict logic in fork_a_test reads ONLY differential_scalar_content /
+    common_mode_scalar_content, which are pure S_n = (2/n)J - I projector
+    identities: the differential (-1) sector is orthogonal to the all-ones common
+    mode so its scalar content is |a.ones| = 0 BY CONSTRUCTION; the common-mode
+    (+1) scalar content is sqrt(degree) BY CONSTRUCTION. Neither reads bond_unit.
+    Therefore scrambling every bond_unit vector -- which genuinely changes the
+    geometry (it DESTROYS force-balance: bond_direction_sum goes 0 -> nonzero and
+    common_mode_realspace_vector_norm goes ~0 -> nonzero) -- leaves the verdict-
+    driving scalar quantities BIT-UNCHANGED, so the verdict could only ever come
+    out R3, for ANY lattice, with NO physics in the decision.
+
+    This is the permanent honest marker for the adversarial-auditor finding: R3 is
+    TRUE (the isotropic/longitudinal A1 scalar IS the +1 common mode, orthogonal to
+    the differential sector), but it is true BY DEFINITION, not because a test
+    discriminated it. Fork-A was MISCAST -- it presupposed longitudinal confinement
+    lives in the differential sector; the algebra shows it does not. See the
+    result-doc Sec.2/Sec.5 Rule-12 corrections.
+    """
+    from ave.solvers.node_scattering_multiplicity import (
+        fork_a_test,
+        port_to_realspace_embedding,
+    )
+
+    # Baseline (unscrambled) verdict + verdict-driving quantities.
+    fa0 = fork_a_test()
+    base_diff_srs = fa0["embedding_srs"]["differential_scalar_content_mean"]
+    base_diff_dia = fa0["embedding_diamond"]["differential_scalar_content_mean"]
+    base_cm_srs = fa0["embedding_srs"]["common_mode_scalar_content_mean"]
+    base_cm_dia = fa0["embedding_diamond"]["common_mode_scalar_content_mean"]
+    assert fa0["verdict"] == "REFUTE-R3"
+
+    def _scramble(net, seed):
+        rng = np.random.default_rng(seed)
+        for u in range(net.n_nodes):
+            bu = net.bond_unit[u]
+            for p in range(len(bu)):
+                v = rng.standard_normal(3)
+                bu[p] = v / (np.linalg.norm(v) + 1e-30)
+        return net
+
+    srs = _scramble(build_srs_net(L=2), seed=111)
+    dia = _scramble(build_diamond_net(L=4), seed=222)
+    emb_srs = port_to_realspace_embedding(srs)
+    emb_dia = port_to_realspace_embedding(dia)
+
+    # (i) The scramble GENUINELY changed the geometry: force-balance is destroyed,
+    #     so the bond-direction sum and the common-mode real-space VECTOR are now
+    #     nonzero (they WERE ~0 on the real, force-balanced nets).
+    assert emb_srs["bond_direction_sum_mean"] > 1e-6
+    assert emb_srs["common_mode_realspace_vector_norm_mean"] > 1e-6
+
+    # (ii) Yet the verdict-driving SCALAR quantities are BIT-UNCHANGED -- they are
+    #      projector identities that do NOT read bond_unit.
+    assert emb_srs["differential_scalar_content_mean"] == base_diff_srs
+    assert emb_dia["differential_scalar_content_mean"] == base_diff_dia
+    assert emb_srs["common_mode_scalar_content_mean"] == base_cm_srs
+    assert emb_dia["common_mode_scalar_content_mean"] == base_cm_dia
+
+    # (iii) ... so the verdict is INVARIANT under the scramble (recompute the exact
+    #       verdict logic from fork_a_test on the scrambled embeddings).
+    tol = 1e-9
+    lid_srs = emb_srs["differential_scalar_content_mean"] > tol
+    lid_dia = emb_dia["differential_scalar_content_mean"] > tol
+    licm = (
+        emb_srs["common_mode_scalar_content_mean"] > tol
+        and emb_dia["common_mode_scalar_content_mean"] > tol
+    )
+    scrambled_verdict = "REFUTE-R3" if (licm and not (lid_srs or lid_dia)) else "OTHER"
+    assert scrambled_verdict == fa0["verdict"] == "REFUTE-R3", (
+        "verdict must be scramble-invariant -- it is a projector tautology"
+    )
