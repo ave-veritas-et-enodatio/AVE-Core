@@ -133,3 +133,24 @@ The Q-factor decomposition generalizes via Op21 multi-mode form: at the saturati
   - [DAMA Matched-LC-Coupling Rate Derivation](../../../vol3/cosmology/ch05-dark-sector/dama-matched-lc-coupling.md) — uses $Z_{radiation} = Z_0/(4\pi)$ spinor-cycle averaging from this leaf §"Physical interpretation" (line 65-75) as the inheritance argument for the 4π prefactor in the matched-LC-coupling efficiency formula $\epsilon_{det} = 4\pi / N_{single}^2$ (0.6% match to DAMA observed rate)
   - [DAMA α-Slew Derivation §12](../../../vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md) — uses the canonical $Q_{tank} = \alpha^{-1}$ + per-cycle reactive leak fraction $1/Q = \alpha$ from this leaf as the reactive-power categorical reframe foundation
 - **Canonical script:** `src/scripts/vol_1_foundations/electron_tank_q_factor.py` — numerical verification of two-path agreement
+
+---
+
+<!-- FOOT-PLACED AMENDMENT (2026-06-19): appended at the foot of the leaf so it
+     shifts NO body line numbers — many engine/corpus citations index this leaf
+     by line (the §"Physical interpretation" $1/Q=\alpha$ Sommerfeld line, the
+     $Q_i=\Lambda_i$ identification, the $Z_{radiation}=Z_0/(4\pi)$ block, etc.).
+     Same line-preservation discipline as the resonant-lc-solitons foot block. -->
+
+## Amendment (2026-06-19, Rule 12) — $\alpha^{-1}=137$ is the LOADED/radiative $Q$, not the intrinsic resonator $Q$
+
+**Body PRESERVED; the Build-A isolation eigensolver is added as NEW evidence; this retracts NO α=echo prior.** The native isolation eigensolver shows the **intrinsic** electron mode is **lossless** — with the EM radiative port CLOSED the operator is Hermitian, $\mathrm{Im}(\omega)\to0$, so the **intrinsic** $Q\to\infty$ (`research/2026-06-19_electron-Q-coupled-network_result.md` §"THE SINGLE MECHANISM"; GATE2 $Q=1.4\times10^{16}$). Therefore $\alpha^{-1}\approx137$ is **NOT** the intrinsic resonator $Q$ (that one is infinite/stable) — it is the **LOADED / radiative $Q$**: how the lossless confined mode **couples OUT through the EM port**. The §"Physical interpretation" reading above ($1/Q=\alpha$ leaks per cycle through the TIR boundary — "this IS $\alpha$ in its original Sommerfeld meaning") is exactly this loaded-$Q$ statement, and the engine's $|\Gamma_{\mathrm{EM}}|^2=1-\alpha$ (`cvr_model.py:161` `gamma_mag_sq_leak`) is its Smith-chart face: a fraction $\alpha$ leaks per bounce, $\sqrt{1-\alpha}$ reflects.
+
+**CLEAN SEPARATION (the AVE-distinct content this amendment adds):**
+
+| role | quantity | engine witness |
+|---|---|---|
+| **STABILITY / persistence** | intrinsic lossless confinement, $Q\to\infty$ | EM-port CLOSED ⇒ Hermitian ⇒ $\mathrm{Im}(\omega)\to0$ (GATE2) |
+| **INTERACTION / coupling** | LOADED/radiative $Q=1/\alpha$ = the intrinsic vacuum$\leftrightarrow$EM **coupling coefficient** | $|\Gamma_{\mathrm{EM}}|^2=1-\alpha$ per bounce |
+
+**NUANCE (do NOT misread $1/\alpha$ as a lifetime):** even *loaded*, the electron does **NOT** decay. $1/\alpha$ is a **COUPLING** (the per-cycle reactive dressing / self-energy — Sommerfeld's "coupling strength"), **not** an inverse lifetime: the energy that "leaks" $\alpha$-per-cycle through the matched port is reactively re-absorbed (self-dressing), not radiated away (the mode is virial-balanced and bound, §"Field components" of [resonant-lc-solitons.md](resonant-lc-solitons.md)). So the loaded-$Q$ reframe is fully consistent with §1 persistence ($Q_{\text{intrinsic}}\to\infty$, [resonant-lc-solitons.md](resonant-lc-solitons.md) §persistence-Resultbox) AND with the empirically stable electron. **This retracts NOTHING:** $\alpha$ stays an **echo** at the value level (the §"Value-scoped status" verdict and the two-bakes note above are untouched); the eigensolver merely re-attributes WHICH $Q$ the number $137$ is — loaded, not intrinsic. **Derivability of the loaded $Q$ value itself remains OPEN** (the α-free cold-cage gives $\approx30.8$, not $137$; the re-posed loaded-$Q$ test is adjudicated CIRCULAR — see [electron-bound-resonator-coverage.md](../../../vol2/particle-physics/ch01-topological-matter/electron-bound-resonator-coverage.md) §registry, gate B.1). This is a **REFRAME**, not a derivation.

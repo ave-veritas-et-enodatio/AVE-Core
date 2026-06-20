@@ -67,7 +67,8 @@ definitional = the dimensionful number is calibration-imported. GAP = not derive
 | vacuum polarization / running $\alpha(q^2)$ | **C-at-distinction** — RT-equivalence | clm-bqtasn | FORM=imported / VALUE=ECHO ($\alpha/3\pi$); sub-Compton diff inaccessible | NOT cage-testable |
 | classical radius $r_e$ | **C** — GENUINE GAP, absent-by-design | NONE | `the-abandoned-interior.md:22` (retired EM-mass program); do NOT dress $\ell_{node}/2\pi$ as $r_e$ | NOT cage-testable — no AVE $r_e$ to test |
 | **LC-tank cold Q** | A-for-FORM; VALUE is the α-echo | clm-rtdmsn; **sup-wuy333** | FORM=chord (clean LC algebra) / **VALUE=ECHO** (`theorem-3-1:19` "echo at the value level"; `src/scripts/vol_9_device/cvr_ee_sweep/cvr_model.py`:72 $Q_{TANK}=1/\alpha$ baked at instance) | **T3.4b** — cold/α-FREE Q from ring-down: **Q≈30.8, NOT 137 → corpus $Q=1/\alpha$ is an instance-baked ECHO** (clean chord-vs-echo NEGATIVE corroborating clm-rtdmsn's value-scope) |
-| stability / lifetime | A (zero-drive persistence) + B (topological-protection reason) | clm-uatcql; clm-ka5zdx; **sup-x7h9yh** | FORM=chord (loop-can't-untangle + $\Gamma=-1$ impedance) / VALUE=N/A | **T3.4c** — zero-drive persistence PASSES (non-radiating standing mode); the topological-winding protection is winding-sector (NOT cage-testable) |
+| **LC-tank eigenframe $Q$ (Build-A)** | A-for-FORM; VALUE is the α-echo | research-tier (Build-A, no clm-) | FORM=chord (lossless reactive standing mode) / **VALUE=ECHO** (the number $137$ re-attributed to the LOADED/radiative $Q$, [theorem-3-1-q-factor.md](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) §"Amendment (2026-06-19, Rule 12)") | **Build-A GATE2** — EM-port CLOSED ⇒ Hermitian ⇒ **intrinsic $Q\to\infty$** ($1.4\times10^{16}$); GATE1 isolation $Q\gg45$ (lossless-confined, NOT $137$, NOT $3$, NOT $30.8$ — eigenmode-$Q$ ≠ ringdown-$Q$). **MOVED-NEGATIVE** corroborating the echo; slot stays EMPTY (`research/2026-06-19_electron-Q-coupled-network_result.md`) |
+| stability / lifetime | A (zero-drive persistence) + B (topological-protection reason) | clm-uatcql; clm-ka5zdx; **sup-x7h9yh** | FORM=chord (loop-can't-untangle + $\Gamma=-1$ impedance) / VALUE=N/A | **T3.4c** — zero-drive persistence PASSES (non-radiating standing mode); the topological-winding protection is winding-sector (NOT cage-testable). **Build-A consistency add:** intrinsic $Q\to\infty$ ⇒ infinite lifetime ⇒ persistence, MATCHING the most-stable particle (Class-C consistency, [resonant-lc-solitons.md](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md) §persistence-Resultbox) |
 | $\Gamma=-1$ TIR wall (Z_eff=√S) | A — stiffening (T3.2) + the wall (T3.3) | clm-kezk9z; clm-uatcql; **sup-1ecv2m** | FORM=chord (Ax4 kernel A→1 ⇒ S→0 ⇒ Z→0 ⇒ Γ→−1) / VALUE=N/A | **T3.3** — Γ_bulk crosses OP2 gate −0.25 by A=0.95 (Γ_min(0.95)=−0.283), →0 vacuum; α-FREE. PASS |
 
 ## Ranked GAP register (bucket C — flagged NOT-derived-natively, NEVER as claims)
@@ -81,7 +82,7 @@ be authored for any of them.
 4. **SPIN-STATISTICS THEOREM + PAULI EXCLUSION** — spin-½ VALUE derived (clm-salw2h) but the THEOREM is PROVISIONAL (corpus's own words). MISSING: a derived spin-statistics result + exclusion (currently asserted A²≤1 antiphase-healing, not a theorem).
 5. **PAIR PRODUCTION / ANNIHILATION QUANTITATIVE** — mechanism sketched (clm-ezai5b/clm-hb2xmj) but `pair-production-axiom-derivation.md:111` admits no bond state / nucleation rule. MISSING: cross-section, rate, threshold independent of $m_e$/$e$.
 6. **VACUUM POLARIZATION / RUNNING COUPLING** — clm-bqtasn matches QED "by RT-equivalence", "no way to distinguish at accessible scales". MISSING: an AVE-DISTINCT derivation + accessible discriminator (imports α/3π, re-bakes α).
-7. **FINE-STRUCTURE $\alpha$ VALUE (keystone echo)** — the α-value is a **standing echo**: closed-negative on all three NAMED routes (dynamical-selection, kinematic-unit-bridge, rigidity-percolation), with the flip-condition live (R·r = ¼ forced without α-circularity would flip it) and the route-space not provably exhausted (scoped-echo register, Grant ratified 2026-06-18). <!-- 🔴 Rule-12 2026-06-19: prior absolute phrasing "α is an echo on every route" softened to the scoped form per Grant 2026-06-18; the FORCE (three named routes genuinely closed) is retained. --> MISSING: substrate-forcing of the coupling-STRENGTH value. **Directly demonstrated by T3.4b: the α-free cold cage Q is NOT 137** (sup-wuy333).
+7. **FINE-STRUCTURE $\alpha$ VALUE (keystone echo)** — the α-value is a **standing echo**: closed-negative on all three NAMED routes (dynamical-selection, kinematic-unit-bridge, rigidity-percolation), with the flip-condition live (R·r = ¼ forced without α-circularity would flip it) and the route-space not provably exhausted (scoped-echo register, Grant ratified 2026-06-18). <!-- 🔴 Rule-12 2026-06-19: prior absolute phrasing "α is an echo on every route" softened to the scoped form per Grant 2026-06-18; the FORCE (three named routes genuinely closed) is retained. --> MISSING: substrate-forcing of the coupling-STRENGTH value. **Directly demonstrated by T3.4b: the α-free cold cage Q is NOT 137** (sup-wuy333). **α STAYS ECHO AT THE ELECTRON — FIVE independent ways** (Build-A reaffirms; NO promotion echo→chord): (i) the Golden-Torus $R\cdot r=¼$ identification the substrate does NOT independently select (both lift-routes closed; [theorem-3-1-q-factor.md](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md):19); (ii) the $z_0$-route closed ($z_{\mathrm{eff}}=6$, [[form-value-meta-finding]]); (iii) $\alpha^{-1}=4\pi^3+\pi^2+\pi$ is a **calibration identity** (Path A uses $\alpha=e^2Z_0/4\pi\hbar$ — predicts no independent value); (iv) the **cold-cage** α-free ring-down gives $Q\approx30.8\ne137$ (sup-wuy333, T3.4b); (v) the **eigenframe** intrinsic $Q\to\infty$ (Build-A GATE2; $137$ re-attributed to the LOADED/radiative $Q$, [theorem-3-1-q-factor.md](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) §"Amendment (2026-06-19, Rule 12)"). <!-- Rule-12 2026-06-19 (Build-A): five-ways enumeration ADDED; the three-named-routes FORCE above is preserved verbatim, not replaced. ANTI-SUBSTITUTION — both the cold-cage 30.8 negative (iv) AND the eigenframe-∞ (v) stand as reported rows; the Q slot stays EMPTY; do NOT promote echo→chord. -->
 8. **DIMENSIONFUL ELECTRON MAGNITUDES** ($m_e$, $e$, $\mu_B$, $\lambda_C$) — FORMS exist (A/B) but the NUMBERS are calibration-imported. MISSING: any native dimensionful electron number.
 9. **CLASSICAL ELECTRON RADIUS $r_e$** — GENUINE GAP / absent-by-design (no clm-, no `constants.py` entry). Do NOT dress $\ell_{node}/2\pi$ as $r_e$.
 
@@ -118,6 +119,28 @@ duplicated. Each carries a status + the defined test where one exists.
 > coupled vs free-crossing = isolated)? *Cross-ref:* `device-circuit-models.md` §6.5 (Fork-A);
 > figure slots (i)–(iv) §6.6. **Strict anti-substitution still binds:** if the derivation does
 > NOT reach the observed $Q$, record the NEGATIVE and leave the slot EMPTY — do not refill.
+>
+> **★ Confirmed unchanged by Build-A (2026-06-19).** Build-A ran the ISOLATION leg only and
+> HALTED at GATE1 (the eigenmode-$Q$ is a DIFFERENT observable from the ringdown-$Q$ — see the
+> "LC-tank eigenframe Q (Build-A)" row). It did **NOT** run $H_{\mathrm{couple}}$ / the coupled
+> solve, so **this load-bearing step is untouched and remains THE next move** — the
+> substrate-native coupled-network $Q$ targeting the **OBSERVED** electron $Q$ (NOT $137$),
+> which fuses the gate-A.1/A.2 base-crack (the RANK-2 Cartesian-wall) repair. **No new Build-B
+> slot is minted** (the re-posed loaded-$Q$ derivation is CIRCULAR — gate B.1). **Build-A
+> surfaced the operator-design precondition** (result-doc Flag 2): for a finite isolation $Q$
+> that validates like-for-like against the ringdown $30.8$, the loss model must be the
+> **continuum-radiation coupling at the core's outer edge** (where the mode leaks past the
+> imperfect $\Gamma\approx-0.45$ wall), NOT a matched port at the box boundary.
+>
+> **Post-#37 leverage move — RE-RANKED (the carrier-sector audit).** Once the gate-A.1/A.2
+> RANK-2 base-crack is repaired (the chiral-lattice native stencil, fused into this step), the
+> highest-leverage *next* audit is the **carrier-sector audit**: charge / spin-½ / Pauli — i.e.
+> the $(2,3)$ **Cosserat micro-rotation** grade (the CHARGE-"3", $A1\perp T2$,
+> [master-equation.md](../../../vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md):20).
+> It is the post-#37 leverage move because the scalar A1 cage runs only the MASS sector; charge,
+> spin-½, $g=2$, and Pauli all live in the winding sector the cage does not contain (bucket-B
+> deferrals below). Re-ranked here, **not minted as a new slot** — it is the natural
+> structural-next once the carrier (the native chiral stencil) exists to host it.
 
 ### Subordinate gates (all 11 are supporting / downstream / gated behind the load-bearing step)
 
@@ -133,7 +156,9 @@ duplicated. Each carries a status + the defined test where one exists.
 
 | # | Gate | Bucket | Status | Defined test / cross-ref |
 |---|---|---|---|---|
-| B.1 | **Q-echo** — cold-cage $Q\approx30.8\ne137$, slot EMPTY | A-FORM / VALUE-ECHO | NEGATIVE, NO refill | `test_l3_mass_cage.py`:702-703; T3.4b `sup-wuy333` (see "LC-tank cold Q" row) — preserve, do NOT refill |
+| B.1 | **Q-echo** — cold-cage $Q\approx30.8\ne137$, slot EMPTY; **+ Build-A eigenframe MOVED-NEGATIVE** (intrinsic $Q\to\infty$, GATE1 lossless-confined $\gg45$) | A-FORM / VALUE-ECHO | NEGATIVE ×2, NO refill | `test_l3_mass_cage.py`:702-703; T3.4b `sup-wuy333`; + Build-A `research/2026-06-19_electron-Q-coupled-network_result.md` (see "LC-tank eigenframe Q (Build-A)" row) — preserve, do NOT refill |
+
+> **Re-posed loaded-$Q$ test ADJUDICATED CIRCULAR (gate wmighcz1z verdict, 2026-06-19 — do NOT re-pose to a Build-B slot).** After the loaded-$Q$ reframe ([theorem-3-1-q-factor.md](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) §"Amendment (2026-06-19, Rule 12)"), the obvious next move — "derive the LOADED/radiative $Q=1/\alpha$ from the EM-port admittance" — was examined and is **CIRCULAR; do NOT pose it.** Both provenance branches collapse to the echo: **(a)** the engine's radiative leak is **literally `1.0 - alpha`** (`cvr_model.py:161` `gamma_mag_sq_leak`) materialised through `M.ELECTRON` — feeding it back to "derive" $137$ is the **instrument-echo trap** ([theorem-3-1-q-factor.md](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md):21); **(b)** the genuinely α-free edge-radiation answer is **already** the cold-cage $Q\approx30.8$ closed-negative (B.1 above). There is **no α-free path to $137$** through the loaded port. The slot stays EMPTY (anti-substitution); **no new Build-B slot is minted.** The load-bearing next-step stays the EXISTING observed-$Q$ coupled-network step (see the boxed ★ step above), NOT a re-posed loaded-$Q$ derivation.
 
 **C — downstream gates (resolvable IN or AFTER the coupled-network derivation; not the first move):**
 
@@ -153,7 +178,14 @@ duplicated. Each carries a status + the defined test where one exists.
 | D.4 | **exhaustiveness** ("no 4th observable") | — | ASSERTED not proven — keep ASSERTED | `common/claim-quality.md`:606 (solidity 0.55); asserted on Stokes dimensional-reduction, not formally proven |
 | D.5 | **grip=loss / lossless-pivot cosmic-rotation$\leftrightarrow$soliton-spin thread** | — | research-only | KB carries "lossless pivot" only as a not-canon exclusion ([resonant-lc-solitons.md](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md):83); promote before any reframe cites it |
 
-*(All 12 original gates preserved: load-bearing step = old #10 Fork-A's $Q$-leg fused with old #1/#5 the Cartesian-wall crack; A.1=old #1, A.2=old #5, A.3=old #10, B.1=old #2, C.1=old #7, C.2=old #6, C.3=old #8, D.1=old #3, D.2=old #4, D.3=old #9, D.4=old #11, D.5=old #12. Re-ranked, not dropped.)*
+**E — network projection / transducer gates (NEW 2026-06-19; from the electrical-vs-mechanical projection-conflation audit, `research/2026-06-19_electrical-mechanical-projection-map.md`):**
+
+| # | Gate | Bucket | Status | Defined test / cross-ref |
+|---|------|--------|--------|--------------------------|
+| E.1 | **bulk/shear impedance-ratio projection-split** — `1.826 = √(10/3)` (channel-correct, two mechanical channels on their own ρc axis) vs `2.582 = √2·√(10/3)` (frozen prereg; the `√2` is the EM-photon `√(K/G)` reference compounded into the mechanical-shear arm). Both **α-free**, both **α-invariant** | — | OPEN — **Grant pick PENDING** | moves NO chord/echo bin, only the bulk/shear gap LOCATION; auditor LEAN = `1.826`; frozen prereg `2.582` PRESERVED verbatim. `2026-06-19_electron-Q-coupled-network_result.md`:112–142 (FLAG 1); solver `graded_vacuum_network.py:122`/`:124`; projection-map seam 4 |
+| E.2 | **TKI-transducer WIRING GATE** — `def-tk1xfm` (the EM↔mechanical transducer candidate, seam 2) must clear two preconditions before being wired into any compute path: (a) `status:proposed → SOLID` (Grant ratify); (b) the *"identity-by-translation, NOT a derivation"* (lossless/gain-1/pole-less) ceiling ported into `isomorphism.py`'s docstring — **CONFIRMED ABSENT today** (module docstring says only "exact dimensional conversion functions") | — | OPEN — gated; until cleared, **DEC-4's route-around (EM-as-bare-loss-port) is correct discipline** | `isomorphism.py` module docstring (lines 1–14); `device-circuit-models.md`:204 (def-tk1xfm FLAG); projection-map "TKI bridge state / WIRING GATE" |
+
+*(All 12 original gates preserved: load-bearing step = old #10 Fork-A's $Q$-leg fused with old #1/#5 the Cartesian-wall crack; A.1=old #1, A.2=old #5, A.3=old #10, B.1=old #2, C.1=old #7, C.2=old #6, C.3=old #8, D.1=old #3, D.2=old #4, D.3=old #9, D.4=old #11, D.5=old #12. Re-ranked, not dropped. **E.1/E.2 are NEW additions** from the 2026-06-19 projection-conflation audit, not re-ranked originals.)*
 
 **M, J, Q honest-map note (refuted bijection).** The clean "3 hairs = 3 channels" bijection is
 REFUTED: the Stokes-dimension triple ($\mathcal{M}/\mathcal{J}/\mathcal{Q}$ = 3D/2D/1D,
