@@ -28,6 +28,16 @@ record") and canonized in [`INVARIANT-S13`](../CLAUDE.md) — a deliberate spine
 extension per [`INVARIANT-S11`](../CLAUDE.md) (extend, don't reinvent), never a
 parallel local scheme.
 
+> **Prose umbrella.** This register is the CI-gated **machine home** for the
+> `real_or_fitted` chord/echo axis. The prose organizing-principle home — the
+> FORM-deriving / VALUE-importing meta-finding, with the per-constant accounting
+> ({m_e, α, G} + the K=2G and E_yield instances) and the testing consequence — is
+> [`form-deriving-value-importing.md`](form-deriving-value-importing.md). The
+> chord / echo / mixed **definitions** are `def-` nodes (`def-ch0rd1` /
+> `def-ech0v1` / `def-fmv001`) in
+> [`vocabulary-register.md`](vocabulary-register.md). This register's tags are the
+> authoritative per-mechanism classification those two leaves point back to.
+
 > **Two derived, CI-enforced quantities ride on this register (INVARIANT-S13).**
 > (1) The **LIVE independent-parameter count** = `(# calibration-param claim
 > nodes) − (DOF removed by REAL, wired chords)`. Per Grant's 2026-06-14 G-ruling
