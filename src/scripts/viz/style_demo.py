@@ -40,9 +40,13 @@ from ave.viz import style  # noqa: E402
 from ave_path_util import sim_output  # noqa: E402
 
 
-def build_figure() -> "matplotlib.figure.Figure":
-    """Build the 3-panel demo figure on the house style. Returns the figure."""
-    style.apply("print")  # white-background manuscript profile (the default)
+def build_figure(profile: str = "print") -> "matplotlib.figure.Figure":
+    """Build the 3-panel demo figure on the house style. Returns the figure.
+
+    ``profile`` selects the house profile: ``"print"`` (white background,
+    manuscript default) or ``"screen"`` (dark background, interactive/field viz).
+    """
+    style.apply(profile)
 
     fig, axes = plt.subplots(1, 3, figsize=style.figsize("wide"))
     ax_line, ax_seq, ax_div = axes
@@ -102,12 +106,14 @@ def build_figure() -> "matplotlib.figure.Figure":
 
 
 def main() -> None:
-    fig = build_figure()
-    out = sim_output("viz", "style_demo")
-    written = style.save(fig, out)
-    plt.close(fig)
-    for p in written:
-        print(f"wrote {p}")
+    # Render BOTH profiles so each is dogfooded against the figure-discipline axes
+    # (print = manuscript default; screen = dark interactive/field profile).
+    for profile, name in (("print", "style_demo"), ("screen", "style_demo_screen")):
+        fig = build_figure(profile)
+        written = style.save(fig, sim_output("viz", name))
+        plt.close(fig)
+        for p in written:
+            print(f"wrote {p}")
 
 
 if __name__ == "__main__":
