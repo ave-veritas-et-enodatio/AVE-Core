@@ -1,0 +1,230 @@
+{
+  "validate_on_known": {
+    "Z0_recovered": true,
+    "Z0_cell": 376.73031346177066,
+    "Z0_const": 376.73031346177066,
+    "c0_recovered": true,
+    "c_shear": 299792458.0,
+    "c0_const": 299792458.0,
+    "compton_clock_recovered": true,
+    "omega_LC": 7.763440711050111e+20,
+    "omega_compton_mec2_hbar": 7.76344071105011e+20
+  },
+  "ports": {
+    "em": {
+      "name": "EM-transverse",
+      "domain": "electrical",
+      "grade": "EM transverse photon (2 DOF) \u2014 matched radiative PORT",
+      "z_ref": 376.73031346177066,
+      "z_cold": 376.73031346177066,
+      "gamma_cold": "0j",
+      "confined": false,
+      "L_cell_H": 4.85262047439289e-19,
+      "C_cell_F": 3.4191266839455596e-24,
+      "omega_LC": 7.763440711050111e+20,
+      "c0_over_ell": 7.76344071105011e+20
+    },
+    "shear": {
+      "name": "shear-Cosserat",
+      "domain": "mechanical",
+      "grade": "Cosserat (2,3) micro-rotation CHARGE-3 (helicity winding)",
+      "z_ref": 2371266228551593.0,
+      "z_cold": 2371266228551593.0,
+      "gamma_cold": "0j",
+      "confined": true,
+      "c_shear": 299792458.0,
+      "c_shear_is_c0": true
+    },
+    "bulk": {
+      "name": "bulk-A1-dilatation",
+      "domain": "mechanical",
+      "grade": "A1 dilatation MASS-3 (Heaviside longitudinal scalar; m_e c\u00b2 store)",
+      "z_ref": 3353476860414962.0,
+      "z_cold": 3353476860414962.0,
+      "gamma_cold": "0j",
+      "confined": true,
+      "c_bulk_A1": 423970560.00076646,
+      "c_bulk_over_c0": 1.414213562373095,
+      "speed_object": "A1 pure-dilatation sqrt(K/rho) (confined PORT) \u2014 NOT medium P-wave"
+    }
+  },
+  "ratio_seam": {
+    "bulk_PORT_ratio_sqrt2": {
+      "value": 1.414213562373095,
+      "closed_form": "sqrt(K/G) = sqrt2",
+      "object": "A1 dilatation CONFINED bulk PORT (pure breathing common-mode)",
+      "speed": "c_bulk = sqrt(K/rho) = V_LONG = sqrt2*c0",
+      "canonical": "three-channel-impedances.md:22-24; constants.V_LONG:674-676",
+      "is_port_impedance_ratio": true,
+      "alpha_free": true
+    },
+    "medium_Pwave_ratio_sqrt10over3": {
+      "value": 1.8257418583505536,
+      "closed_form": "sqrt((K+4G/3)/G) = sqrt(2(1-nu)/(1-2nu)) = sqrt(10/3)",
+      "object": "free MEDIUM P-wave / S-wave (mixes A1 dilatation + deviatoric shear)",
+      "speed": "c_L = sqrt((K+4G/3)/rho); c_T = sqrt(G/rho) = c0",
+      "canonical": "crystal_engine.py:27,96; graded_vacuum_network.py:120-122",
+      "is_port_impedance_ratio": false,
+      "alpha_free": true
+    },
+    "prereg_double_count_2p582": {
+      "value": 2.5819888974716108,
+      "closed_form": "sqrt2 * sqrt(10/3) = (c_bulk/c0)*(c_L/c_T) = c_bulk*c_L/c0^2",
+      "object": "ERRONEOUS compound \u2014 multiplies the A1-port speed AND the P-wave speed",
+      "diagnosis": "c_T=c_shear=c0, so this mixes TWO distinct longitudinal speeds against one transverse reference \u2014 physically meaningless",
+      "flagged_at": "graded_vacuum_network.py:67-75; prereg:82 headline; device-circuit-models.md:195 (seam 4, OPEN pending Grant)",
+      "alpha_free": true
+    },
+    "recommendation_for_grant": "RATIFY: canonical bulk-PORT speed = c_bulk = sqrt(K/rho) -> sqrt2 ratio (three-channel-impedances.md:22 value, ALREADY correct). KEEP-BOTH-DISAMBIGUATE: add a one-line note distinguishing the PORT ratio (sqrt2) from the medium P-wave/S-wave ratio (sqrt(10/3)); retire 2.582 everywhere as the double-count. This driver edits NEITHER canonical leaf."
+  },
+  "transducer": {
+    "kind": "ideal-transformer",
+    "turns_ratio_squared_honest": 1.721424037158761e-13,
+    "p_c_residual": 0.18340247377893987,
+    "z_em_referred_to_mech": 2371266228551593.0,
+    "alpha_localized_here": true
+  },
+  "S_matrices": {
+    "electrical_1port": "[[0j]]",
+    "mechanical_2port_cold": "[[0j, 0j], [(-0-0j), 0j]]",
+    "mechanical_2port_saturated": "[[(-0.9275138631044726+0j), 0j], [(-0-0j), (-0.9275138631044725+0j)]]",
+    "chiral_circulator": "[[0j, (-0.22252093395631434+0.9749279121818236j)], [(0.22252093395631434+0.9749279121818236j), 0j]]",
+    "circulator_non_reciprocal": true
+  },
+  "confinement_sweep_bulk": [
+    {
+      "A": 0.0,
+      "S": 1.0,
+      "z_core_over_zref": 1.0,
+      "Gamma_re": 0.0,
+      "Gamma_im": 0.0,
+      "abs_Gamma": 0.0
+    },
+    {
+      "A": 0.5,
+      "S": 0.8660254037844386,
+      "z_core_over_zref": 0.9306048591020996,
+      "Gamma_re": -0.03594476651746087,
+      "Gamma_im": 0.0,
+      "abs_Gamma": 0.03594476651746087
+    },
+    {
+      "A": 0.9,
+      "S": 0.4358898943540673,
+      "z_core_over_zref": 0.6602195804079635,
+      "Gamma_re": -0.2046599278804691,
+      "Gamma_im": 0.0,
+      "abs_Gamma": 0.2046599278804691
+    },
+    {
+      "A": 0.99,
+      "S": 0.14106735979665894,
+      "z_core_over_zref": 0.37558934995105886,
+      "Gamma_re": -0.45392227707430033,
+      "Gamma_im": 0.0,
+      "abs_Gamma": 0.45392227707430033
+    },
+    {
+      "A": 0.999,
+      "S": 0.04471017781221601,
+      "z_core_over_zref": 0.2114478134486522,
+      "Gamma_re": -0.6509171734823317,
+      "Gamma_im": 0.0,
+      "abs_Gamma": 0.6509171734823317
+    },
+    {
+      "A": 0.9999,
+      "S": 0.014141782065918275,
+      "z_core_over_zref": 0.11891922496349476,
+      "Gamma_re": -0.7874391246296183,
+      "Gamma_im": 0.0,
+      "abs_Gamma": 0.7874391246296183
+    },
+    {
+      "A": 0.99999,
+      "S": 0.004472124774634615,
+      "z_core_over_zref": 0.06687394690486434,
+      "Gamma_re": -0.8746357109968349,
+      "Gamma_im": 0.0,
+      "abs_Gamma": 0.8746357109968349
+    },
+    {
+      "A": 0.999999,
+      "S": 0.0014142132088478148,
+      "z_core_over_zref": 0.03760602623048352,
+      "Gamma_re": -0.9275138631044726,
+      "Gamma_im": 0.0,
+      "abs_Gamma": 0.9275138631044726
+    }
+  ],
+  "confinement_sweep_shear": [
+    {
+      "A": 0.0,
+      "S": 1.0,
+      "z_core_over_zref": 1.0,
+      "Gamma_re": 0.0,
+      "Gamma_im": 0.0,
+      "abs_Gamma": 0.0
+    },
+    {
+      "A": 0.5,
+      "S": 0.8660254037844386,
+      "z_core_over_zref": 0.9306048591020996,
+      "Gamma_re": -0.03594476651746088,
+      "Gamma_im": 0.0,
+      "abs_Gamma": 0.03594476651746088
+    },
+    {
+      "A": 0.9,
+      "S": 0.4358898943540673,
+      "z_core_over_zref": 0.6602195804079635,
+      "Gamma_re": -0.2046599278804691,
+      "Gamma_im": 0.0,
+      "abs_Gamma": 0.2046599278804691
+    },
+    {
+      "A": 0.99,
+      "S": 0.14106735979665894,
+      "z_core_over_zref": 0.3755893499510588,
+      "Gamma_re": -0.4539222770743004,
+      "Gamma_im": 0.0,
+      "abs_Gamma": 0.4539222770743004
+    },
+    {
+      "A": 0.999,
+      "S": 0.04471017781221601,
+      "z_core_over_zref": 0.21144781344865218,
+      "Gamma_re": -0.6509171734823318,
+      "Gamma_im": 0.0,
+      "abs_Gamma": 0.6509171734823318
+    },
+    {
+      "A": 0.9999,
+      "S": 0.014141782065918275,
+      "z_core_over_zref": 0.11891922496349477,
+      "Gamma_re": -0.7874391246296183,
+      "Gamma_im": 0.0,
+      "abs_Gamma": 0.7874391246296183
+    },
+    {
+      "A": 0.99999,
+      "S": 0.004472124774634615,
+      "z_core_over_zref": 0.06687394690486434,
+      "Gamma_re": -0.8746357109968351,
+      "Gamma_im": 0.0,
+      "abs_Gamma": 0.8746357109968351
+    },
+    {
+      "A": 0.999999,
+      "S": 0.0014142132088478148,
+      "z_core_over_zref": 0.03760602623048352,
+      "Gamma_re": -0.9275138631044725,
+      "Gamma_im": 0.0,
+      "abs_Gamma": 0.9275138631044725
+    }
+  ],
+  "Q": {
+    "confined_lossless": "inf",
+    "em_matched_radiative": 0.0
+  }
+}
