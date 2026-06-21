@@ -614,12 +614,66 @@ parse it):
 
 ---
 
+## chord (FORM-deriving)
+<!-- id: def-ch0rd1 -->
+
+- **term:** chord
+- **adjudicated-meaning:** a **forced dimensionless FORM** — a structural / topological feature the substrate **independently forces** from its geometry (removing a degree of freedom), so its truth does not rest on any imported numerical value. The "FORM-deriving" half of the FORM-vs-VALUE organizing principle. Machine-encoded as the interlock register's `real_or_fitted = real-geometric-constraint` tag (INVARIANT-S13).
+- **axis:** dimensionless
+- **dimension/type:** dimensionless (a structural/topological form, not a magnitude)
+- **status:** SOLID (organizing-principle adjudication 2026-06-14 → 2026-06-18, Grant-ratified)
+- **canonical-home:** [`form-deriving-value-importing.md`](form-deriving-value-importing.md) "The principle"; CI-gated counterpart [`interlock-register.md`](interlock-register.md) (`real-geometric-constraint`)
+- **clm-cross-links:** *(cross-cutting organizing principle — no single load-bearing clm-; the per-mechanism chord/echo tags live on `ilk-` nodes, not `clm-`)*
+- **open-ambiguity-flag:** YES — "chord" is also used in the literal music/harmony metaphor ("real chord or echo?") of the `determinism → emergent` north-star, and as the geometric chord of a circle. The adjudicated sense here is the **forced-FORM** classification; qualify as "chord (FORM)" at first cite in a value-provenance context.
+  - conflicting sites: the harmony-metaphor north-star usage `common/genesis-chord-falsification-ledger.md` (chord/echo falsification framing); the geometric-chord usage in golden-torus geometry `vol1/ch8-alpha-golden-torus.md` (ropelength/Clifford-torus context).
+- **verification:** VERIFIED against the interlock register's `real_or_fitted` axis (`interlock-register.md:21,51-64`, INVARIANT-S13) — `real-geometric-constraint` = "the substrate independently forces the relation, so it removes one DOF" = the chord side. This `def-` locks the prose label to that CI-gated tag.
+
+---
+
+## echo (VALUE-importing)
+<!-- id: def-ech0v1 -->
+
+- **term:** echo
+- **adjudicated-meaning:** an **imported / calibrated dimensionful VALUE** — a named identification or back-solved magnitude the substrate does **NOT** independently select (it buys no parameter reduction; it is a consistency match, not an emergence). The "VALUE-importing" half of the FORM-vs-VALUE organizing principle. Machine-encoded as the interlock register's `real_or_fitted = fitted-identification` tag (INVARIANT-S13). Canonical instance: the α *value* (closed-negative on all three named lift-routes; flip-condition live, route-space not provably exhausted).
+- **axis:** dimensionless
+- **dimension/type:** classifies a dimensionful magnitude's provenance (the tag is dimensionless; the classified value carries its own dimension)
+- **status:** SOLID (organizing-principle adjudication 2026-06-14 → 2026-06-18, Grant-ratified)
+- **canonical-home:** [`form-deriving-value-importing.md`](form-deriving-value-importing.md) "Per-constant accounting"; CI-gated counterpart [`interlock-register.md`](interlock-register.md) (`fitted-identification`)
+- **clm-cross-links:** *(cross-cutting organizing principle — the per-mechanism echo tags live on `ilk-` nodes, e.g. `ilk-rr14gt` for α, not on a `clm-`)*
+- **open-ambiguity-flag:** YES — "echo" is also the literal acoustic/RF echo (a reflected wave) and the north-star harmony metaphor ("real chord or echo?"). The adjudicated sense here is the **imported-VALUE** classification; qualify as "echo (VALUE)" at first cite in a value-provenance context.
+  - conflicting sites: the harmony-metaphor north-star usage `common/genesis-chord-falsification-ledger.md`; reflected-wave usages throughout the EE/impedance corpus (e.g. `Γ` reflection contexts).
+- **verification:** VERIFIED against the interlock register's `real_or_fitted` axis (`interlock-register.md:51-64`, INVARIANT-S13) — `fitted-identification` = "a named identification the substrate does NOT independently select — a consistency match that buys NO parameter reduction" = the echo side. α's `ilk-rr14gt` carries this tag (`interlock-register.md:90`); the α-value + downstream predictions are UNCHANGED by the echo close (`vol1/ch8-alpha-golden-torus.md:13`).
+
+---
+
+## mixed (form-derived / value-fitted)
+<!-- id: def-fmv001 -->
+
+- **term:** mixed
+- **adjudicated-meaning:** a **form-derived FORM combined with a value-fitted VALUE** — the substrate derives the *form* of a mechanism but takes the *value* of its calibration termination as an input. **The canonical instance is G** (the Achromatic-Lens `/7` PPN form is derived; the ξ termination is back-solved from CODATA G). **`mixed` is NOT a pure echo** — its derived-form half is real and must be preserved; a mixed mechanism's value-fitted half counts as an echo for the parameter count only until its flip-test closes form-first. E_yield is a second `mixed` instance (saturation-field EXISTENCE = chord; the √α value = α-echo since `e = √α` in natural units).
+- **axis:** dimensionless
+- **dimension/type:** classifies a mechanism's provenance (form half + value half)
+- **status:** SOLID (G-ruling 2026-06-14, Grant-ratified; E_yield adjudication `wlmbl6d5f` 2026-06-20)
+- **canonical-home:** [`form-deriving-value-importing.md`](form-deriving-value-importing.md) "Per-constant accounting"; CI-gated counterpart [`interlock-register.md`](interlock-register.md) (`mixed`, `ilk-gravmb`)
+- **clm-cross-links:** *(cross-cutting; the G `mixed` tag lives on `ilk-gravmb`, not on a `clm-`)*
+- **open-ambiguity-flag:** no — "mixed" is used only in this form-derived/value-fitted sense across the value-provenance corpus.
+- **verification:** VERIFIED against the interlock register's `real_or_fitted` axis (`interlock-register.md:57-64`, INVARIANT-S13) — `mixed` = "form-derived / value-fitted (G): the FORM is derived … but the VALUE is a calibration input." COUNT SEMANTICS confirmed: `mixed` and `fitted-identification` BOTH do not reduce the count; only `real-geometric-constraint` reduces (`interlock-register.md:61-63`). G's `ilk-gravmb` carries `mixed` (`interlock-register.md:129`). **NEVER call G a pure echo** — the per-constant table at `form-deriving-value-importing.md` and the G-ruling both require the `mixed` verdict.
+
+---
+
 ## Seed coverage + follow-up
 
 **Seeded (14):** 1 SOLID (`node`), 8 ambiguous (`carrier`, `Nyquist`,
 `phase-space`, `size`, `radius`, `r_opt`, `Compton`, `winding`), 5 proposed
 (`κ_share`, `r_env`, `node-Nyquist-size-boundary`, `SubstrateExcitation`,
 `BoundResonator`).
+
+**Organizing-principle terms (3 SOLID, added 2026-06-20):** `chord`
+(`def-ch0rd1`, forced FORM), `echo` (`def-ech0v1`, imported VALUE), `mixed`
+(`def-fmv001`, form-derived/value-fitted) — the canonical definitions of the
+FORM-vs-VALUE axis, locking the prose labels to the interlock register's
+CI-gated `real_or_fitted` tags (INVARIANT-S13). Umbrella leaf:
+[`form-deriving-value-importing.md`](form-deriving-value-importing.md).
 
 **Over-read guards applied (verify-before-cite):** two §47 paraphrases did NOT
 survive re-grep and are recorded as corrections rather than seeded as fact —
