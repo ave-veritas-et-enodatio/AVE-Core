@@ -133,7 +133,11 @@ def collect_manuscript_labels(root: Path = REPO_ROOT) -> set[str]:
     labels: set[str] = set()
     manuscript_dir = root / "manuscript"
     for tex in manuscript_dir.rglob("*.tex"):
-        if "build/" in str(tex) or "/aux/" in str(tex):
+        # Exclude build-output / latex-aux .tex by REPO-RELATIVE path component,
+        # not an absolute-path substring: a checkout whose worktree dir contains
+        # "build" (e.g. /tmp/vol1-build/...) must not skip the real manuscript.
+        rel_parts = tex.relative_to(root).parts
+        if "build" in rel_parts or "aux" in rel_parts:
             continue
         try:
             text = tex.read_text(encoding="utf-8", errors="replace")
