@@ -59,7 +59,6 @@ class DoubleSlit2D:
         self.NX = nx
         self.NY = ny
         self.c = 1.0
-        self.dt = 0.45  # CFL < 1/√2 for 2D
         self.dx = 1.0
 
         # Fields
@@ -110,6 +109,20 @@ class DoubleSlit2D:
         self.source_x = 60
         self.source_y = ny // 2
 
+        # ── CFL-stable timestep (sized for the FASTEST local wave speed) ──
+        # Explicit 2D FDTD is stable only while c_max·dt/dx ≤ 1/√2.  The
+        # observer patch raises the local wave speed (higher stiffness c²),
+        # so a dt tuned for the c=1 vacuum is unstable there and blows up to
+        # NaN.  Scale dt down by the peak local speed so the Courant number
+        # is held at its (stable) vacuum value everywhere in the domain.
+        self.dt_ref = 0.45  # reference timestep at the c=1 vacuum
+        self.c_max = float(np.sqrt(self.c2_field.max()))
+        self.dt = self.dt_ref / self.c_max
+        # Physical source frequency, held FIXED independent of dt so the
+        # observer and no-observer runs share one wavelength + propagation
+        # (only the time resolution differs between them).
+        self.f_phys = self.freq / self.dt_ref
+
     def _build_sponge(self) -> np.ndarray:
         d = np.ones((self.NX, self.NY))
         s = self.sponge
@@ -133,6 +146,12 @@ class DoubleSlit2D:
         return mask
 
     def run(self, steps: int = 2000) -> np.ndarray:
+        # `steps` is the reference iteration count at the c=1 vacuum timestep.
+        # When dt is reduced for CFL stability (the observer patch raises the
+        # local wave speed), run proportionally more steps so the simulated
+        # physical time (n·dt) — and hence the wavefield — is unchanged.
+        n_steps = int(round(steps * self.c_max))
+
         P = self.P
         Vx = self.Vx
         Vy = self.Vy
@@ -140,9 +159,9 @@ class DoubleSlit2D:
         dt = self.dt
         dx = self.dx
 
-        integrate_start = steps // 3
+        integrate_start = n_steps // 3
 
-        for t in range(steps):
+        for t in range(n_steps):
             # Update velocities
             Vx[:-1, :] -= dt * (P[1:, :] - P[:-1, :]) / dx
             Vy[:, :-1] -= dt * (P[:, 1:] - P[:, :-1]) / dx
@@ -165,7 +184,7 @@ class DoubleSlit2D:
             Vy *= d
 
             # Source: continuous sinusoidal wave
-            P[self.source_x, self.source_y] += np.sin(2 * np.pi * self.freq * t) * 2.0
+            P[self.source_x, self.source_y] += np.sin(2 * np.pi * self.f_phys * (t * dt)) * 2.0
 
             # Integrate intensity after transient
             if t > integrate_start:
