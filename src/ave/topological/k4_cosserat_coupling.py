@@ -257,9 +257,16 @@ class CoupledK4Cosserat:
         # unchanged (axiom-correct per Vol 1 Ch 7:252) — ADDITIVE, not
         # replacement. Per doc 67_ §13.6, per-port EMF =
         # -2·V_inc[k]·∂L_c/∂V_sq.
-        # NOTE: empirically (doc 67_ §14) this AMPLIFIES the runaway;
-        # path-1 was the wrong direction — see disable_cosserat_lc_force
-        # below for the A28-corrected coupling.
+        # NOTE: the prior NOTE here ("this AMPLIFIES the runaway / path-1 was
+        # the wrong direction") was measured under a +2 sign-wiring BUG at the
+        # EMF source (_compute_emf_per_port :838). Under the corrected -2 the
+        # EMF is BOUNDED / conservative on the deep genesis-24 saturated seed
+        # (E_V reverses=True, ledger closes). The path nonetheless stays
+        # OFF-by-default: on small-amplitude mixed-mode it double-counts Op14's
+        # varactor C_eff(V) (doc 67_ §14.1-§14.4) — a SIGN-INDEPENDENT redundancy
+        # where BOTH signs blow up. So use_lagrangian_emf_coupling=False default
+        # is UNCHANGED. The disable_cosserat_lc_force (A28) channel below is a
+        # SEPARATE, distinct W_refl double-count; its reasoning is untouched.
         self.use_lagrangian_emf_coupling = bool(use_lagrangian_emf_coupling)
 
         # A28 correction (doc 67_ §15) — disable the redundant
@@ -827,15 +834,19 @@ class CoupledK4Cosserat:
             )
         dL_dVsq_np = np.asarray(dL_dVsq)  # shape (nx, ny, nz)
 
-        # Per-port: EMF[k] = +2·V_inc[k]·∂L/∂V_sq
+        # Per-port: EMF[k] = -2·V_inc[k]·∂L/∂V_sq  (matches the :792 docstring
+        # and doc 67_ §13.6 chain rule: V_sq = Σ_k V_inc[k]², so
+        # ∂L/∂V_inc[k] = 2·V_inc[k]·∂L/∂V_sq, and EMF_c = -∂L/∂V_inc[k]).
         # Broadcasting: dL_dVsq_np has shape (nx,ny,nz); add port axis.
-        # Sign convention: TLM's dΦ/dt = +V_avg (vs Hamilton's dΦ/dt = -V).
-        # Hamilton EMF correction adds positively to dΦ/dt. In TLM-equivalent
-        # the EMF adds positively to V_avg, hence positive sign here.
-        # (Empirically verified: negative sign causes runaway amplification;
-        # positive sign produces oscillatory exchange consistent with
-        # reciprocal LC dynamics.)
-        emf = +2.0 * self.k4.V_inc * dL_dVsq_np[..., None]
+        # Sign convention (Lenz back-EMF): the reaction OPPOSES the drive, so the
+        # EMF acts AGAINST V's tendency to push Φ — the negative sign gives the
+        # conservative reciprocal LC exchange (energy unwinds, not pumps).
+        # (Empirically verified on the genesis-24 deep-saturated seed: -2 is
+        # BOUNDED and reverses=True (E_V peak ~12, ledger closes); the prior +2
+        # "adds positively / oscillatory exchange" rationale was the wiring bug
+        # that DETONATES — E_V -> 6.79e8, reverses=False. See research/
+        # 2026-06-21_emf-lenz-sign-correction_result.md.)
+        emf = -2.0 * self.k4.V_inc * dL_dVsq_np[..., None]
 
         # Inactive sites get no EMF (mask_active is per-site boolean)
         emf = np.where(self.k4.mask_active[..., None], emf, 0.0)
