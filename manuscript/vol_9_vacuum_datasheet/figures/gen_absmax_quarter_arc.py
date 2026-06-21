@@ -8,27 +8,33 @@ and the lab-achievable deep-Regime-I ratios marked (E/E_S, B/B_snap, T/T_melt).
 The figure visualizes the absolute-maximum table (tab:vol9_absmax) + the operating-
 margin section: every current laboratory operating point sits ~8 OOM below r3=1.
 
-ALL boundary values derive ONLY from canonical constants (ave.core.constants);
-no CODATA/SM literal sits in the derivation path (the DAG anti-cheat scan
-src/scripts/vol_1_foundations/verify_universe.py forbids smuggled constants).
-The lab-achievable ratios are stated-in-corpus engineering reference magnitudes
-(02_absolute_maximum_ratings.tex:72), drawn as illustrative deep-Regime-I markers;
-they feed no threshold.
+Regime bands use the canonical REGIME_COLORS convention (ave.viz.style),
+single-sourced to four-regimes.md; boundaries r1/r2/r3 derive ONLY from canonical
+constants (ave.core.constants). No CODATA/SM literal sits in the derivation path
+(the DAG anti-cheat scan src/scripts/vol_1_foundations/verify_universe.py forbids
+smuggled constants). The lab-achievable ratios are stated-in-corpus engineering
+reference magnitudes (02_absolute_maximum_ratings.tex:72), drawn as illustrative
+deep-Regime-I markers; they feed no threshold.
 
 Run:    python gen_absmax_quarter_arc.py
-Output: absmax_quarter_arc.pdf  (vector, committed alongside this script).
+Output: absmax_quarter_arc.pdf + .png  (vector + raster, committed alongside).
 """
 from __future__ import annotations
 
 import matplotlib
 
 matplotlib.use("Agg")
-import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import numpy as np
 
 # --- canonical constants ---------------------------------------------------------
 from ave.core.constants import ALPHA
+
+# --- house figure style ----------------------------------------------------------
+from ave.viz import style
+
+style.apply()  # print profile (white background) — prints the profile line below.
+print("figure style: print profile (white background)")
 
 R1 = np.sqrt(2.0 * ALPHA)  # Regime I/II boundary: Delta-S = alpha  -> sqrt(2*alpha) ~ 0.1208
 R2 = np.sqrt(3.0) / 2.0    # Regime II/III boundary (spin-2 sector): Q=1/S=2  -> sqrt(3)/2 ~ 0.866
@@ -46,55 +52,60 @@ LAB_MARKERS = [
 r = np.linspace(0.0, 1.0, 1000)
 S = np.sqrt(1.0 - r**2)
 
-fig, ax = plt.subplots(figsize=(8.2, 5.4))
+fig, ax = plt.subplots(figsize=style.figsize("single"))
 ax.set_xlim(0.0, 1.02)
 ax.set_ylim(0.0, 1.04)
-ax.set_xlabel(r"normalized operating point  $r = A/A_c$")
-ax.set_ylabel(r"saturation factor  $S(r) = \sqrt{1 - r^2}$")
+ax.set_xlabel(style.axis_label("Normalized operating point", "r = A/A_c", ""))
+ax.set_ylabel(style.axis_label("Saturation factor", "S", ""))
 
-# --- four-regime bands -----------------------------------------------------------
+# --- four-regime bands (canonical REGIME_COLORS) ---------------------------------
 bands = [
-    (0.0, R1, "#cfe9d4", "I\nLinear"),
-    (R1, R2, "#fdf2c4", "II\nNonlinear"),
-    (R2, R3, "#fbd6b8", "III\nAvalanche"),
+    (0.0, R1, style.REGIME_COLORS["I"], "I\nLinear"),
+    (R1, R2, style.REGIME_COLORS["II"], "II\nNonlinear"),
+    (R2, R3, style.REGIME_COLORS["III"], "III\nAvalanche"),
 ]
 for lo, hi, color, label in bands:
-    ax.axvspan(lo, hi, facecolor=color, edgecolor="none", zorder=0)
+    ax.axvspan(lo, hi, facecolor=color, edgecolor="none", alpha=0.45, zorder=0)
     ax.text((lo + hi) / 2.0, 0.07, label, ha="center", va="bottom",
-            fontsize=8.5, weight="bold", color="#333333")
+            fontsize=8.5, weight="bold", color=style.COLORS["data"])
 # Regime IV is the rupture line r>=1 (S=0): a thin band at the right edge.
-ax.axvspan(R3, 1.02, facecolor="#f4b4b4", edgecolor="none", zorder=0)
+ax.axvspan(R3, 1.02, facecolor=style.REGIME_COLORS["IV"], edgecolor="none",
+           alpha=0.45, zorder=0)
 
 # --- the kernel arc --------------------------------------------------------------
-ax.plot(r, S, color="#13406b", lw=2.6, zorder=5,
+ax.plot(r, S, color=style.COLORS["ave"], lw=2.6, zorder=5,
         label=r"Axiom-4 kernel $S(r)=\sqrt{1-r^2}$")
 
 # --- boundary markers ------------------------------------------------------------
-for rb, lab in [
-    (R1, r"$r_1=\sqrt{2\alpha}\approx%.4f$" % R1),
-    (R2, r"$r_2=\sqrt{3}/2\approx%.4f$" % R2),
-    (R3, r"$r_3=1$ (rupture)"),
-]:
+# r_2 sits at S=0.5; its annotation is nudged DOWN-LEFT (xytext below the marker)
+# so it no longer collides with the r_1 callout that rides high on the arc.
+boundary_specs = [
+    (R1, r"$r_1=\sqrt{2\alpha}\approx%.4f$" % R1, (R1, np.sqrt(1 - R1**2) + 0.10), "center"),
+    (R2, r"$r_2=\sqrt{3}/2\approx%.4f$" % R2, (R2 - 0.04, 0.36), "right"),
+    (R3, r"$r_3=1$ (rupture)", (R3 - 0.13, 0.20), "right"),
+]
+for rb, lab, xytext, ha in boundary_specs:
     Sb = np.sqrt(max(0.0, 1.0 - rb**2))
-    ax.plot([rb], [Sb], marker="o", ms=6, color="#b22222", zorder=6)
-    ax.annotate(lab, xy=(rb, Sb), xytext=(rb, Sb + 0.10),
-                ha="center", fontsize=8.0, color="#7a1414",
-                arrowprops=dict(arrowstyle="->", color="#7a1414", lw=0.9))
+    ax.plot([rb], [Sb], marker="o", ms=6, color=style.COLORS["comparison"], zorder=6)
+    ax.annotate(lab, xy=(rb, Sb), xytext=xytext,
+                ha=ha, fontsize=8.0, color=style.COLORS["comparison"],
+                arrowprops=dict(arrowstyle="->", color=style.COLORS["comparison"], lw=0.9))
 
 # --- deep-Regime-I lab-achievable markers ----------------------------------------
-ystack = 0.96
-for ratio, lab in LAB_MARKERS:
+# The marker triangles ride at S~1 (top of the arc) where r is tiny; the text
+# block is placed in the clear whitespace UNDER the arc (lower-left triangle) so
+# it never overlaps the kernel curve.
+for ratio, _ in LAB_MARKERS:
     Sr = np.sqrt(1.0 - ratio**2)
-    ax.plot([ratio], [Sr], marker="v", ms=7, color="#1b6b1b", zorder=7)
-    ax.text(0.045, ystack, lab, ha="left", va="center", fontsize=7.6, color="#1b6b1b")
+    ax.plot([ratio], [Sr], marker="v", ms=7, color=style.COLORS["accent"], zorder=7)
+ystack = 0.60
+ax.text(0.045, ystack + 0.052, "lab-achievable (deep Regime I, $S\\approx1$):",
+        ha="left", va="center", fontsize=7.6, weight="bold", color=style.COLORS["accent"])
+for _, lab in LAB_MARKERS:
+    ax.text(0.045, ystack, lab, ha="left", va="center", fontsize=7.6,
+            color=style.COLORS["accent"])
     ystack -= 0.052
-ax.text(0.045, 0.96 + 0.052, "lab-achievable (deep Regime I, $S\\approx1$):",
-        ha="left", va="center", fontsize=7.6, weight="bold", color="#1b6b1b")
 
-ax.set_title("Axiom-4 saturation kernel: four-regime operating margin "
-             "(Vol 9 Ch 2, Absolute Maximum Ratings)", fontsize=10.5)
-ax.legend(loc="lower left", fontsize=8.5, framealpha=0.9)
-fig.tight_layout()
-out = "absmax_quarter_arc.pdf"
-fig.savefig(out, metadata={"CreationDate": None})
-print(f"wrote {out}: r1={R1:.6f}, r2={R2:.6f}, r3={R3:.1f}")
+style.legend(ax, where="below", ncol=1, fontsize=8.5)
+out = style.save(fig, "absmax_quarter_arc.pdf")
+print(f"wrote {[str(p) for p in out]}: r1={R1:.6f}, r2={R2:.6f}, r3={R3:.1f}")

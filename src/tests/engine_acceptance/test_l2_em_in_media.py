@@ -250,23 +250,30 @@ def test_t2_2_achromatic_lensing():
         prof_t = A0 * np.exp(-(((np.arange(N_t) - N_t / 2) / (N_t * 0.12)) ** 2))
         line = EM.run_em_line(N_t, prof_t, prof_t, 900, freq=0.06, src=12)
 
+        from ave.viz import style
+
+        C = style.COLORS
+
         def _draw(fig):
             ax1, ax2 = fig.subplots(1, 2)
             # the flat-line achromaticity plot (deflection vs frequency)
-            ax1.plot(w_grid, gd, "o-", color="#2ca02c", ms=3,
+            ax1.plot(w_grid, gd, "o-", color=C["accent"], ms=3,
                      label="excess group delay (deflection)")
-            ax1.axhline(path_pred, color="k", ls="--", lw=1.0,
+            ax1.axhline(path_pred, color=C["data"], ls="--", lw=1.0,
                         label=f"path-integral pred {path_pred:.3f} (freq-indep)")
-            ax1.set_xlabel("angular frequency w (rad/step)")
-            ax1.set_ylabel("excess group delay (deflection)")
-            ax1.set_title(f"ACHROMATIC: spread {gd_spread:.1e} (flat = achromatic)")
-            ax1.legend(fontsize=8)
+            ax1.set_xlabel(style.axis_label("Angular frequency", r"\omega", "rad/step"))
+            ax1.set_ylabel(style.axis_label("Excess group delay", "", "cell·step"))
+            # the achromatic spread is the load-bearing result -> in-axes annotation
+            ax1.annotate(f"spread {gd_spread:.1e} (flat = achromatic)", xy=(0.5, 0.06),
+                         xycoords="axes fraction", ha="center", fontsize=8,
+                         bbox=dict(boxstyle="round", fc="white", ec=C["muted"], alpha=0.9))
             ax12 = ax1.twinx()
-            ax12.plot(w_grid, np.maximum(gam, 1e-18), color="#d62728", lw=0.8)
+            ax12.plot(w_grid, np.maximum(gam, 1e-18), color=C["comparison"], lw=0.8)
             ax12.set_yscale("log")
-            ax12.set_ylabel("|Gamma| (log) — SYM reflectionless", color="#d62728")
-            VZ._panel_em_spacetime(ax2, line,
-                                   title="x-t: wave traverses SYM gradient (Gamma=0, no reflection)")
+            ax12.set_ylabel(style.axis_label("|Γ| — SYM reflectionless", "", ""),
+                            color=C["comparison"])
+            style.legend(ax1, fontsize=8, where="below")
+            VZ._panel_em_spacetime(ax2, line)
         path = VZ.save_l2_figure(
             "T2.2", "ACHROMATIC LENSING — deflection vs frequency (flat) + x-t", _draw)
         print(f"  [viz] achromatic-lensing figure -> {path}")

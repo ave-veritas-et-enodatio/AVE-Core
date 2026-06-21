@@ -614,23 +614,32 @@ def test_t3_3_gamma_wall_on_posited_cage():
         Z_fine = np.sqrt(S_fine)
         g_fine = (Z_fine - 1.0) / (Z_fine + 1.0)
 
+        from ave.viz import style
+
+        C = style.COLORS
+
         def _draw(fig):
             ax1, ax2 = fig.subplots(1, 2)
-            ax1.plot(Afine, g_fine, color="#d62728", lw=1.6, label="Γ=(√S−1)/(√S+1), α-FREE")
-            ax1.plot(A_posit, gmins, "o", color="#1f77b4", ms=7, label="engine gamma_bulk() (interior)")
-            ax1.axhline(OP2_GAMMA_BULK_MAX, color="black", ls="--", lw=1.0, label=f"OP2 gate {OP2_GAMMA_BULK_MAX}")
-            ax1.axhline(-1.0, color="purple", ls=":", lw=0.9, label="literal −1 (UNREACHABLE)")
-            ax1.set_xlabel("posited strain A = |V|/V_yield")
-            ax1.set_ylabel("Γ_bulk_min (interior, PML-excluded)")
-            ax1.set_title("T3.3 Γ=−1 wall on the posited cage\n(crosses −0.25 by A≈0.95; α-FREE)")
+            ax1.plot(Afine, g_fine, color=C["comparison"], lw=1.6, label="Γ=(√S−1)/(√S+1), α-FREE")
+            ax1.plot(A_posit, gmins, "o", color=C["ave"], ms=7, label="engine gamma_bulk() (interior)")
+            ax1.axhline(OP2_GAMMA_BULK_MAX, color=C["data"], ls="--", lw=1.0, label=f"OP2 gate {OP2_GAMMA_BULK_MAX}")
+            ax1.axhline(-1.0, color="#CC79A7", ls=":", lw=0.9, label="literal −1 (UNREACHABLE)")
+            ax1.set_xlabel(style.axis_label("Posited strain", "A=|V|/V_{yield}", ""))
+            ax1.set_ylabel(style.axis_label("Bulk reflection", r"\Gamma_{bulk}", ""))
+            ax1.annotate("interior min, PML-excluded; crosses −0.25 by A≈0.95; α-FREE",
+                         xy=(0.5, 0.06),
+                         xycoords="axes fraction", ha="center", fontsize=8,
+                         bbox=dict(boxstyle="round", fc="white", ec=C["muted"], alpha=0.9))
             ax1.set_ylim(-1.05, 0.05)
-            ax1.legend(fontsize=7)
-            ax2.plot(Afine, S_fine, color="#2ca02c", lw=1.6, label="S(A)=√(1−A²)")
-            ax2.plot(Afine, Z_fine, color="#ff7f0e", lw=1.6, label="Z_eff=√S → 0 (μ-load short)")
-            ax2.set_xlabel("strain A")
-            ax2.set_ylabel("S, Z_eff")
-            ax2.set_title("Z_eff=√S → 0 ⇒ Γ → −1 (reflective short)\nS_min clip ⇒ Γ floors above −1")
-            ax2.legend(fontsize=7)
+            style.legend(ax1, fontsize=7, where="below")
+            ax2.plot(Afine, S_fine, color=C["accent"], lw=1.6, label="S(A)=√(1−A²)")
+            ax2.plot(Afine, Z_fine, color="#E69F00", lw=1.6, label="Z_eff=√S → 0 (μ-load short)")
+            ax2.set_xlabel(style.axis_label("Strain", "A", ""))
+            ax2.set_ylabel(style.axis_label("S, Z_eff", "", ""))
+            ax2.annotate("Z_eff=√S→0 ⇒ Γ→−1; S_min clip floors Γ above −1",
+                         xy=(0.5, 0.92), xycoords="axes fraction", ha="center", fontsize=7,
+                         bbox=dict(boxstyle="round", fc="white", ec=C["muted"], alpha=0.9))
+            style.legend(ax2, fontsize=7, where="below")
 
         path = VZ.save_simple_figure(
             "T3.3", "gamma wall profile on the posited saturated cage (α-FREE)", _draw)
@@ -794,6 +803,9 @@ def test_t3_4_bound_eigenmode_of_posited_cage():
 
     # ── visual-debug layer (additive; never affects pass/fail) ──
     if VZ.viz_enabled():
+        from ave.viz import style
+
+        C = style.COLORS
         # rebuild the spectra/envelopes for plotting (cheap; viz-only)
         s = dVdt - dVdt.mean()
         spec = np.abs(np.fft.rfft(s * np.hanning(len(s))))
@@ -809,34 +821,44 @@ def test_t3_4_bound_eigenmode_of_posited_cage():
 
         def _draw_mode(fig):
             ax1, ax2 = fig.subplots(1, 2)
-            ax1.plot(t_axis, dVdt, color="#1f77b4", lw=0.6)
-            ax1.set_xlabel("time (natural units)")
-            ax1.set_ylabel("∂ₜV at wall antinode")
-            ax1.set_title(f"T3.4a breathing ring (gapped bound mode)\nω_cutoff={omega_cutoff:.3f}, oscillates")
-            ax2.plot(omega_axis[1:], spec[1:], color="#d62728", lw=1.0)
-            ax2.axvline(omega_cutoff, color="black", ls="--", lw=0.9, label=f"ω_cutoff={omega_cutoff:.3f}")
-            ax2.set_xlabel("ω (rad/time)")
-            ax2.set_ylabel("|rfft(∂ₜV)|")
-            ax2.set_title(f"discrete gapped spectrum (peak/mean={ev['peak_mean']:.0f})\nNOT a continuum")
+            ax1.plot(t_axis, dVdt, color=C["ave"], lw=0.6)
+            ax1.set_xlabel(style.axis_label("Time", "t", "natural units"))
+            ax1.set_ylabel(style.axis_label("∂ₜV at wall antinode", "", ""))
+            ax1.annotate(f"breathing ring; ω_cutoff={omega_cutoff:.3f}", xy=(0.5, 0.94),
+                         xycoords="axes fraction", ha="center", fontsize=8,
+                         bbox=dict(boxstyle="round", fc="white", ec=C["muted"], alpha=0.9))
+            ax2.plot(omega_axis[1:], spec[1:], color=C["comparison"], lw=1.0)
+            ax2.axvline(omega_cutoff, color=C["data"], ls="--", lw=0.9, label=f"ω_cutoff={omega_cutoff:.3f}")
+            ax2.set_xlabel(style.axis_label("Angular frequency", r"\omega", "rad/time"))
+            ax2.set_ylabel(style.axis_label("|rfft(∂ₜV)|", "", ""))
+            ax2.annotate(f"discrete gapped (peak/mean={ev['peak_mean']:.0f}), NOT continuum",
+                         xy=(0.5, 0.94), xycoords="axes fraction", ha="center", fontsize=8,
+                         bbox=dict(boxstyle="round", fc="white", ec=C["muted"], alpha=0.9))
             ax2.set_xlim(0, min(8.0, omega_axis[-1]))
-            ax2.legend(fontsize=8)
+            style.legend(ax2, fontsize=8, where="below")
 
         p1 = VZ.save_simple_figure("T3.4_mass_cutoff_eigenmode", "mass=cutoff: gapped bound breathing mode", _draw_mode)
         print(f"  [viz] T3.4 mass-cutoff figure -> {p1}")
 
         def _draw_q(fig):
             ax1, ax2 = fig.subplots(1, 2)
-            ax1.plot(t_axis, np.abs(s), color="#bbbbbb", lw=0.5, label="|∂ₜV|")
-            ax1.plot(t_axis, env, color="#d62728", lw=1.2, label="Hilbert envelope")
-            ax1.set_xlabel("time (natural units)")
-            ax1.set_ylabel("envelope")
-            ax1.set_title(f"T3.4b cold ring-down (α-FREE)\nQ_ringdown={Q_ringdown:.1f}")
-            ax1.legend(fontsize=8)
-            ax2.plot(omega_axis[1:], spec[1:], color="#1f77b4", lw=1.0)
-            ax2.axvline(omega_cutoff, color="black", ls="--", lw=0.8)
-            ax2.set_xlabel("ω (rad/time)")
-            ax2.set_ylabel("|rfft| (−3dB FWHM → Q)")
-            ax2.set_title(f"linewidth Q={Q_linewidth:.2f}\nQ/α⁻¹={Q_ringdown/ALPHA_INV:.3f} — NOT 137 (echo, not chord)")
+            ax1.plot(t_axis, np.abs(s), color=C["muted"], lw=0.5, label="|∂ₜV|")
+            ax1.plot(t_axis, env, color=C["comparison"], lw=1.2, label="Hilbert envelope")
+            ax1.set_xlabel(style.axis_label("Time", "t", "natural units"))
+            ax1.set_ylabel(style.axis_label("Envelope", "", ""))
+            ax1.annotate(f"cold ring-down (α-FREE); Q_ringdown={Q_ringdown:.1f}",
+                         xy=(0.5, 0.94), xycoords="axes fraction", ha="center", fontsize=8,
+                         bbox=dict(boxstyle="round", fc="white", ec=C["muted"], alpha=0.9))
+            style.legend(ax1, fontsize=8, where="below")
+            ax2.plot(omega_axis[1:], spec[1:], color=C["ave"], lw=1.0)
+            ax2.axvline(omega_cutoff, color=C["data"], ls="--", lw=0.8)
+            ax2.set_xlabel(style.axis_label("Angular frequency", r"\omega", "rad/time"))
+            ax2.set_ylabel(style.axis_label("|rfft| (−3dB FWHM → Q)", "", ""))
+            ax2.annotate(
+                f"linewidth Q={Q_linewidth:.2f}; Q/α⁻¹={Q_ringdown/ALPHA_INV:.3f}\n"
+                f"NOT 137 (echo, not chord)",
+                xy=(0.5, 0.90), xycoords="axes fraction", ha="center", fontsize=8,
+                bbox=dict(boxstyle="round", fc="white", ec=C["muted"], alpha=0.9))
             ax2.set_xlim(0, min(8.0, omega_axis[-1]))
 
         p2 = VZ.save_simple_figure("T3.4_cold_Q_ringdown_linewidth", "cold α-free Q (NOT 137 — echo, not chord)", _draw_q)
@@ -845,14 +867,19 @@ def test_t3_4_bound_eigenmode_of_posited_cage():
         def _draw_pers(fig):
             ax = fig.subplots(1, 1)
             n = len(pers["amps"])
-            ax.plot(np.arange(n), pers["amps"], color="#2ca02c", lw=0.8)
-            ax.axvspan(int(0.5 * n), int(0.75 * n), color="#fff0e0", alpha=0.6, label="mid (50–75%)")
-            ax.axvspan(int(0.75 * n), n, color="#e8f4ff", alpha=0.6, label="late (75–100%)")
-            ax.axhline(0.05 * pers["amp0"], color="purple", ls=":", lw=0.9, label="0.05·amp0 threshold")
-            ax.set_xlabel("zero-drive step")
-            ax.set_ylabel("interior peak |V| (PML-excluded)")
-            ax.set_title(f"T3.4c zero-drive persistence (non-radiating standing mode)\nlate/mid={pers['late_over_mid']:.2f}, persists")
-            ax.legend(fontsize=8)
+            ax.plot(np.arange(n), pers["amps"], color=C["ave"], lw=0.8)
+            ax.axvspan(int(0.5 * n), int(0.75 * n), color=C["comparison"], alpha=0.15,
+                       label="mid (50–75%)")
+            ax.axvspan(int(0.75 * n), n, color=C["accent"], alpha=0.15,
+                       label="late (75–100%)")
+            ax.axhline(0.05 * pers["amp0"], color=C["muted"], ls=":", lw=0.9,
+                       label="0.05·amp0 threshold")
+            ax.set_xlabel(style.axis_label("Zero-drive step", "", ""))
+            ax.set_ylabel(style.axis_label("Interior peak |V| (PML-excluded)", "", ""))
+            ax.annotate(f"zero-drive persistence; late/mid={pers['late_over_mid']:.2f}, persists",
+                        xy=(0.5, 0.94), xycoords="axes fraction", ha="center", fontsize=8,
+                        bbox=dict(boxstyle="round", fc="white", ec=C["muted"], alpha=0.9))
+            style.legend(ax, fontsize=8, where="right")
 
         p3 = VZ.save_simple_figure("T3.4_persistence_trace", "zero-drive persistence (non-radiating)", _draw_pers)
         print(f"  [viz] T3.4 persistence figure -> {p3}")

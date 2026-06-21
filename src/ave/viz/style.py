@@ -59,6 +59,99 @@ COLORS: dict[str, str] = {
     "muted": "#7F7F7F",      # gray        — reference lines, annotations, guides
 }
 
+# ---------------------------------------------------------------------------
+# Regime palette — the four universal saturation regimes (ONE place)
+# ---------------------------------------------------------------------------
+# The four-regime map (ave-kb/.../ch7-regime-map/four-regimes.md) partitions all
+# of physics by the single control parameter r = A/A_c through the Axiom-4 kernel
+# S(r) = sqrt(1 - r^2). Every regime-banded figure in the corpus shades these four
+# bands; they previously used an ad-hoc green/amber/red "traffic-light" fill that
+# is NOT colourblind-safe (the amber/red pair collides under deuteranopia) and
+# drifted in hex per-driver. This dict single-sources them to the colourblind-safe
+# Okabe-Ito family so a regime band is the same colour in every figure.
+#
+# Semantics (a stoplight that IS colourblind-safe):
+#   I   green       — Linear: standard equations hold, propagate / proceed.
+#   II  yellow      — Nonlinear: caution. Axiom-4 curvature switches on; metric
+#                     lensing begins (the permittivity softens as eps = S while
+#                     the Maxwell speed stiffens as c_EM = 1/S).
+#   III orange      — Avalanche / Yield: deep lensing, energy-trapping dominates
+#                     (Q = 1/S >= 2); a phase transition is underway.
+#   IV  vermillion  — Ruptured: S = 0, K4 topology destroyed, propagation is NOT
+#                     allowed.
+#
+# Boundaries (single-sourced to four-regimes.md; DERIVED, not chosen):
+#   r1 = sqrt(2*alpha) ~ 0.1208  (Regime I/II : Delta-S = alpha, sub-alpha limit)
+#   r2 = sqrt(3)/2     ~ 0.8660  (Regime II/III: spin-2 avalanche onset Q = 2)
+#   r3 = 1.0                     (Regime III/IV: Axiom-4 rupture, S -> 0)
+# A driver pairs the band fill with its boundary lines; it does NOT re-derive the
+# hex. Keep colour paired with the I/II/III/IV text label — never rely on the band
+# colour alone (ave-figure-discipline Axis 4).
+REGIME_COLORS: dict[str, str] = {
+    "I": "#009E73",    # bluish-green — Linear      (proceed)
+    "II": "#F0E442",   # yellow       — Nonlinear   (caution: lensing onset)
+    "III": "#E69F00",  # orange       — Avalanche   (deep lensing / yield)
+    "IV": "#D55E00",   # vermillion   — Ruptured    (no propagation)
+}
+
+# Semantic names for the four regimes (the traffic-light reading: proceed /
+# caution-metric-lensing / rupture). Paired with REGIME_COLORS so the band
+# colour is never the only carrier of meaning (ave-figure-discipline Axis 4).
+REGIME_LABELS: dict[str, str] = {
+    "I": "I — Linear (proceed)",
+    "II": "II — Nonlinear (caution: lensing)",
+    "III": "III — Avalanche (deep lensing)",
+    "IV": "IV — Ruptured (no propagation)",
+}
+
+
+def shade_regimes(ax, bounds, *, axis: str = "x", labels: bool = True, alpha: float = 0.15):
+    """Shade the four canonical operating regimes on ``ax`` — the single mechanic.
+
+    Every regime-banded figure calls this, so they read identically (same
+    colours, labels, ordering). Presentation tier: the regime BOUNDARIES are
+    physics and stay in ``ave.core`` — the caller passes them in, keeping this
+    module's no-``ave.core``-dependency invariant intact.
+
+    Parameters
+    ----------
+    ax:
+        Axes to shade (data already plotted, so the limits are set).
+    bounds:
+        ``(r1, r2, r3)`` — the I/II, II/III, III/IV boundaries on the plotted
+        axis, imported by the caller from the canonical source (e.g.
+        ``ave.core.constants.R_I`` = √(2α); ``four-regimes.md``). Bands run
+        ``[lo, r1)=I``, ``[r1, r2)=II``, ``[r2, r3)=III``, ``[r3, hi]=IV``.
+    axis:
+        ``"x"`` (default) → vertical bands (``axvspan``); ``"y"`` → horizontal
+        (``axhspan``).
+    labels:
+        If True, attach REGIME_LABELS to the legend (one proxy per band).
+    alpha:
+        Band fill transparency.
+
+    Returns
+    -------
+    list
+        The band artists, in I→IV order.
+    """
+    r1, r2, r3 = bounds
+    if axis == "x":
+        lo, hi = ax.get_xlim()
+        span = ax.axvspan
+    elif axis == "y":
+        lo, hi = ax.get_ylim()
+        span = ax.axhspan
+    else:
+        raise ValueError(f"axis must be 'x' or 'y', got {axis!r}")
+    arts = []
+    for a, b, key in ((lo, r1, "I"), (r1, r2, "II"), (r2, r3, "III"), (r3, hi, "IV")):
+        if b > a:
+            arts.append(span(a, b, color=REGIME_COLORS[key], alpha=alpha, zorder=0,
+                             label=(REGIME_LABELS[key] if labels else "_nolegend_")))
+    return arts
+
+
 # The ordered colour cycle for unlabelled multi-series plots. Kept distinct from
 # the semantic names above but drawn from the same colourblind-safe family so an
 # auto-cycled plot still reads on-style. Order chosen for max adjacent contrast.

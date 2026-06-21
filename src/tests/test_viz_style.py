@@ -92,6 +92,44 @@ def test_colors_has_all_semantic_keys():
         assert style.COLORS[key].startswith("#"), f"{key} not a hex colour"
 
 
+# ---------------------------------------------------------------------------
+# REGIME_COLORS — four-regime band palette (single-sourced, colourblind-safe)
+# ---------------------------------------------------------------------------
+def test_regime_colors_has_all_four_regimes():
+    for key in ("I", "II", "III", "IV"):
+        assert key in style.REGIME_COLORS, f"missing regime band colour: {key}"
+        assert style.REGIME_COLORS[key].startswith("#"), f"{key} not a hex colour"
+
+
+def test_regime_colors_are_the_canonical_okabe_ito_quad():
+    # The convention single-sourced to four-regimes.md: green / yellow / orange /
+    # vermillion, all from the Okabe-Ito colourblind-safe family. If a driver or a
+    # re-tune drifts these, the corpus regime bands diverge — pin them here.
+    assert style.REGIME_COLORS == {
+        "I": "#009E73",
+        "II": "#F0E442",
+        "III": "#E69F00",
+        "IV": "#D55E00",
+    }
+
+
+def test_regime_colors_are_distinct():
+    # Four bands must be four distinct fills (no accidental collision).
+    vals = list(style.REGIME_COLORS.values())
+    assert len(set(v.lower() for v in vals)) == 4
+
+
+def test_regime_iv_matches_semantic_comparison_vermillion():
+    # Regime IV (ruptured / no-propagation) reuses the semantic "comparison"
+    # vermillion so rupture reads consistently with the SM-overlay colour.
+    assert style.REGIME_COLORS["IV"].lower() == style.COLORS["comparison"].lower()
+
+
+def test_regime_i_matches_semantic_accent_green():
+    # Regime I (linear / proceed) reuses the semantic "accent" bluish-green.
+    assert style.REGIME_COLORS["I"].lower() == style.COLORS["accent"].lower()
+
+
 def test_colormaps_are_print_safe_names():
     # Perceptually-uniform sequential + colourblind-safe diverging; `hot` retired.
     assert style.CMAP_SEQ in ("magma", "viridis")
@@ -203,7 +241,7 @@ def test_save_clean_figure_no_warning(tmp_path):
 def test_package_reexports_api():
     import ave.viz as viz
 
-    for name in ("apply", "COLORS", "CMAP_SEQ", "CMAP_DIV", "axis_label", "save", "figsize", "legend"):
+    for name in ("apply", "COLORS", "REGIME_COLORS", "REGIME_LABELS", "shade_regimes", "CMAP_SEQ", "CMAP_DIV", "axis_label", "save", "figsize", "legend"):
         assert hasattr(viz, name), f"ave.viz missing {name}"
 
 
@@ -255,4 +293,30 @@ def test_legend_rejects_unknown_where():
     ax.plot([0, 1], [0, 1], label="series")
     with pytest.raises(ValueError):
         style.legend(ax, where="diagonal")
+    plt.close(fig)
+
+
+# ---------------------------------------------------------------------------
+# REGIME_LABELS + shade_regimes — the canonical regime-band mechanic
+# ---------------------------------------------------------------------------
+def test_regime_labels_cover_four_regimes():
+    for key in ("I", "II", "III", "IV"):
+        assert key in style.REGIME_LABELS and key in style.REGIME_COLORS
+
+
+def test_shade_regimes_returns_four_bands_in_order():
+    style.apply("print")
+    fig, ax = plt.subplots()
+    ax.plot([0, 1.2], [0, 1])
+    arts = style.shade_regimes(ax, bounds=(0.121, 0.866, 1.0), axis="x")
+    plt.close(fig)
+    assert len(arts) == 4  # I/II/III/IV
+
+
+def test_shade_regimes_rejects_bad_axis():
+    style.apply("print")
+    fig, ax = plt.subplots()
+    ax.plot([0, 1], [0, 1])
+    with pytest.raises(ValueError):
+        style.shade_regimes(ax, bounds=(0.1, 0.5, 1.0), axis="z")
     plt.close(fig)
