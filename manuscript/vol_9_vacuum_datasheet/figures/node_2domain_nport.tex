@@ -1,0 +1,51 @@
+% node_2domain_nport.tex — 2-domain N-port netlist (Vol 9 Ch.3 / 03a device-circuit-models)
+% Included from chapters/03a_device_circuit_models.tex
+% Renders the structure computed by src/scripts/vol_9_device/node_2domain_nport.py:
+% EM (Ω) sub-network = SOLE external port (Γ=0) + mechanical (Rayl) 2-port
+% (shear=charge + bulk=mass, Γ→−1 confined), joined by an ideal TRANSFORMER
+% (NOT a gyrator); α localizes to the transducer turns-ratio (p_c = 8πα residual).
+% circuitikz schematic (matches 03a cascaded-line style); not a driver plot.
+\begin{figure}[htbp]
+\centering
+\begin{circuitikz}[american, scale=0.92, transform shape]
+    % ---- EM (electrical, Ohm) sub-network : the SOLE external port ----
+    \draw (0,0.6) node[left, font=\scriptsize] {far field} to[short, o-] (1.0,0.6);
+    \draw (1.0,0.6) to[short] (1.0,-0.6);
+    \draw (0,-0.6) node[left, font=\scriptsize] {(antenna)} to[short, o-] (1.0,-0.6);
+    \draw (1.0,0.6) to[generic, l_={\scriptsize $Z_{\mathrm{EM}}\!\equiv\! Z_0$}] (1.0,-0.6);
+    \node[font=\scriptsize, align=center, blue!55!black] at (1.0,1.35)
+        {\textbf{EM port} ($\Omega$)\\ $\Gamma_{\mathrm{EM}}=0$ — sole external};
+
+    % ---- ideal transformer : the EM<->mechanical TRANSDUCER ----
+    \draw (1.0,0.6) to[short] (2.4,0.6);
+    \draw (1.0,-0.6) to[short] (2.4,-0.6);
+    \node[draw, fill=yellow!12, minimum width=1.3cm, minimum height=1.5cm,
+          align=center, font=\scriptsize] (xf) at (3.1,0) {ideal\\ transf.};
+    \draw (2.4,0.6) -- (xf.north west);
+    \draw (2.4,-0.6) -- (xf.south west);
+    \node[font=\scriptsize, align=center, orange!75!black] at (3.1,1.7)
+        {\textbf{TRANSDUCER}\\ (ideal transformer,\\ \emph{not} a gyrator)};
+    \node[font=\scriptsize, align=center, orange!75!black] at (3.1,-1.9)
+        {$\alpha$ localizes here:\\ turns-ratio $\propto\sqrt{p_c}$,\\ $p_c=8\pi\alpha$ residual};
+
+    % ---- mechanical (Rayl) 2-port : shear + bulk, both confined ----
+    \draw (xf.north east) -- (4.6,0.6);
+    \draw (xf.south east) -- (4.6,-0.6);
+    % shear branch
+    \draw (4.6,0.6) to[generic, l={\scriptsize $Z_{\mathrm{shear}}{=}\rho_b c_{\mathrm{shear}}$}] (6.6,0.6);
+    \draw (6.6,0.6) to[short] (6.6,0.25) node[ground]{};
+    \node[font=\scriptsize, align=center, red!65!black] at (5.6,1.35)
+        {\textbf{shear} = charge-``3''\\ $\Gamma_{\mathrm{shear}}\to-1$ confined};
+    % bulk branch
+    \draw (4.6,-0.6) to[generic, l_={\scriptsize $Z_{\mathrm{bulk}}{=}\sqrt2\,\rho_b c_0$}] (6.6,-0.6);
+    \draw (6.6,-0.6) to[short] (6.6,-0.95) node[ground]{};
+    \node[font=\scriptsize, align=center, red!65!black] at (5.6,-1.9)
+        {\textbf{bulk} = mass-``3''\\ $\Gamma_{\mathrm{bulk}}\to-1$ confined};
+    % H_couple between shear and bulk (same Rayl domain)
+    \draw[<->, dashed, gray!70] (5.6,0.35) -- (5.6,-0.35);
+    \node[font=\scriptsize, gray!70, align=center, rotate=90] at (5.25,0) {$H_{\mathrm{couple}}$};
+
+\end{circuitikz}
+\caption{Two-domain N-port netlist of the vacuum node (rendering the structure of \texttt{src/scripts/vol\_9\_device/node\_2domain\_nport.py}). The EM (electrical, $\Omega$) sub-network is the substrate's \emph{sole external} radiative port ($\Gamma_{\mathrm{EM}}=0$, $Z_{\mathrm{EM}}\equiv Z_0\approx376.73\,\Omega$). The two mechanical ports --- shear (charge-``3'', Cosserat $(2,3)$ micro-rotation) and bulk (mass-``3'', A1 dilatation, $Z_{\mathrm{bulk}}=\sqrt2\,\rho_b c_0$ at $K=2G$) --- are in the \emph{mechanical} (Rayl $=$ Pa$\cdot$s/m) domain, both confined ($\Gamma\to-1$, the saturated-cage short), and form ONE mechanical 2-port coupled through the conserved $H_{\mathrm{couple}}$. The EM ($\Omega$) and mechanical (Rayl) domains carry different units, so joining them requires a TRANSDUCER, not a direct wire: an ideal transformer (\emph{not} a gyrator). $\alpha$ localizes to exactly the transducer turns-ratio --- the $p_c=8\pi\alpha$ packing-fraction residual --- isolated and visible, not smeared across the network (driver header lines 84--89; $p_c=8\pi\alpha$ canonical at \kbleaf{topological-packing-fraction.md}). The transformer node is itself \texttt{def-tk1xfm}, status \emph{proposed} (gated --- flagged, not asserted).}
+\label{fig:vol9_node_2domain_nport}
+\end{figure}
