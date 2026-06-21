@@ -94,7 +94,7 @@ def phase1_sign():
 
     n_light = C_0 / c_light  # = 1/S
     n_shear = C_0 / c_shear  # = 1/sqrt(S)
-    n_EM = C_0 / c_EM  # = S  (<1, NOT a bending index)
+    n_EM_phase = C_0 / c_EM  # Maxwell PHASE index (S, <1); NOT the optical/bending observable. The GROUP/signal EM index is sqrt(S) (master_equation_fdtd.py n_em_index; vacuum-birefringence-e4.md). Taxonomy: ave-kb/CLAUDE.md:79-80, clm-8nkvwy (phase/group).
 
     # Monotonic drops (ignore A=0 where derivative is 0).
     dd = lambda x: np.all(np.diff(x[1:]) < 0)
@@ -126,7 +126,7 @@ def phase1_sign():
                 "c_EM_over_c0": float(1.0 / sat_kernel(0.5)),
                 "n_light": float(1.0 / sat_kernel(0.5)),
                 "n_shear": float(1.0 / np.sqrt(sat_kernel(0.5))),
-                "n_EM": float(sat_kernel(0.5)),
+                "n_EM_phase": float(sat_kernel(0.5)),
             },
         },
     )
