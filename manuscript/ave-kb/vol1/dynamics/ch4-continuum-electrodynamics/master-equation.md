@@ -21,6 +21,14 @@ Before discussing the bulk properties of the universe, the transport mechanism i
 
 > **↗ Cross-link (2026-06-10, Rule 12, Grant rename-queue R1 — note above preserved):** this two-objects content is the STATE-side companion to the PROVENANCE-vs-STATE ontology at [`photon-identification.md:11`](photon-identification.md) — the (2,3) winding *rides* the condensed phase (the A1 standing-V order parameter); "self-trapped photon" is provenance, not state. Registry §5 R1.
 
+> **↗ MASS = A1 DEPRESSION / FLYWHEEL = T2 ($\omega$) FREQUENCY-REGULATOR — the clean split (2026-06-20, Rule 12 framing-note, consistency-class reframe NOT a new chord; Grant-ratified mass-sector ruling).** The two-"3"s above split into **A1 = mass** and **T2 = spin/charge**; this note names *what each sector physically is* in the mass sector:
+> - **A1 (the mass "3") = the rest-mass STORE = the trampoline DEPRESSION** — the standing bulk-reactance wave's **mutual couple to the bulk lattice** ($K$ = inter-node bulk modulus; $Z_{bulk}\to0 \Rightarrow \Gamma_{bulk}=-1$ at the cage; [`lattice-extreme-bh-rationality.md`](../../../vol3/cosmology/ch15-black-hole-orbitals/lattice-extreme-bh-rationality.md):28).
+> - **T2 / Cosserat micro-rotation ($\omega$) = the FLYWHEEL = the local FREQUENCY REGULATOR** — the rotor / Park-dq field-oriented-control rotating frame / the electron's spin-clock (Compton/Larmor). The "mass-gap $m^2 = 4 G_c/I_\omega$" on this sector is the flywheel's *clock* gap, **NOT** the rest mass.
+> - **A1 ⊥ T2 = the FOC 90° orthogonal decoupling** — the substrate holds mass (A1) and spin/charge (T2) at $90°$ to eliminate mutual inductance (canonical FOC: [`helium-symmetric-cavity.md`](../../../vol2/quantum-orbitals/ch07-quantum-mechanics/helium-symmetric-cavity.md):52-56, [`de-broglie-standing-wave.md`](../../../vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md):13). **This is the MECHANISM behind the no-double-count guard** stated above ("never wire the winding into the breather's own phasor").
+> - **Lepton tower:** more Cosserat torsion → faster flywheel → higher regulated frequency → (Compton $f = mc^2/\hbar$) deeper A1 depression → more mass. The flywheel regulates the frequency that *sets* the mass; the mass stays A1.
+>
+> ⚑ **Open Grant-flag (chord-candidate, surfaced not resolved):** does the FOC mechanism *FORCE* the A1 ⊥ T2 orthogonality (i.e., a *derivation* of the no-double-count guard from mutual-inductance minimization) rather than *assert* it? If forced, that would promote the guard from asserted to derived — a chord-candidate. Not adjudicated here.
+
 > **[Resultbox]** *Maxwell-Heaviside Acoustic Wave Equation*
 >
 > $$
