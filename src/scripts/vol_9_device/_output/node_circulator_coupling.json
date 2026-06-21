@@ -1,0 +1,187 @@
+{
+  "validate_on_known": {
+    "unitary": true,
+    "rabi_formula": true,
+    "norm_conserved": true
+  },
+  "alpha_free": true,
+  "theta_chi": 1.7951958020513104,
+  "kappa_rate": 1.2,
+  "gate_A_conserve": {
+    "norm_drift": 1.1283196599265466e-12,
+    "late_slope_per_step": 2.7122508289405434e-17,
+    "j_over_N_max": 0.5972583506047543,
+    "N_initial": 0.9575557964621663,
+    "n_steps": 40000,
+    "passed": true,
+    "verdict": "PASS \u2014 norm conserved to machine precision, no pump"
+  },
+  "gate_B_transfer_resonant": {
+    "transfer_fraction": 0.9999999994593389,
+    "vs_failed_2pct": "50x the failed 2%",
+    "rabi_prediction": 1.0,
+    "rabi_match": true,
+    "shear_oscillation_crossings": 191,
+    "Delta_detuning": 0.0,
+    "passed": true,
+    "verdict": "PASS \u2014 energy flows bulk->shear, matches Rabi, oscillates"
+  },
+  "gate_B_transfer_detuned": {
+    "transfer_fraction": 0.7999999999539908,
+    "vs_failed_2pct": "40x the failed 2%",
+    "rabi_prediction": 0.7999999999999999,
+    "rabi_match": true,
+    "shear_oscillation_crossings": 214,
+    "Delta_detuning": -0.30000000000000004,
+    "passed": true,
+    "verdict": "PASS \u2014 energy flows bulk->shear, matches Rabi, oscillates"
+  },
+  "transfer_vs_detuning": [
+    {
+      "Delta": 0.0,
+      "transfer_frac": 0.9999999994593389,
+      "rabi": 1.0,
+      "match": true
+    },
+    {
+      "Delta": 0.2,
+      "transfer_frac": 0.9000000000098584,
+      "rabi": 0.8999999999999999,
+      "match": true
+    },
+    {
+      "Delta": 0.5,
+      "transfer_frac": 0.5901639342216995,
+      "rabi": 0.5901639344262295,
+      "match": true
+    },
+    {
+      "Delta": 1.0,
+      "transfer_frac": 0.26470588235272874,
+      "rabi": 0.2647058823529412,
+      "match": true
+    },
+    {
+      "Delta": 2.0,
+      "transfer_frac": 0.08256880726301657,
+      "rabi": 0.08256880733944953,
+      "match": true
+    }
+  ],
+  "gate_C_lock_on_winding": {
+    "winding_rate_ON": -0.813979543120642,
+    "winding_rate_OFF": -1.300000000000006,
+    "delta_winding_rate": 0.486020456879364,
+    "delta_winding_number": 154.70511631226435,
+    "shear_energy_diff_ON_vs_OFF": 0.549869122640221,
+    "inert_lock_detected": false,
+    "passed": true,
+    "verdict": "PASS \u2014 coupling changes the WINDING observable (not inert)"
+  },
+  "gate_D_motion_to_mass": {
+    "rows": [
+      {
+        "omega_s_circulation_rate": 0.4,
+        "detuning_abs": 0.6,
+        "mean_trapped_bulk": 0.7500705770797144,
+        "mean_shear_circulation": 0.24992942291948447,
+        "f_rabi": 0.5,
+        "retained_bulk_predicted": 0.75
+      },
+      {
+        "omega_s_circulation_rate": 0.7,
+        "detuning_abs": 0.30000000000000004,
+        "mean_trapped_bulk": 0.600057548549164,
+        "mean_shear_circulation": 0.3999424514563878,
+        "f_rabi": 0.7999999999999999,
+        "retained_bulk_predicted": 0.6000000000000001
+      },
+      {
+        "omega_s_circulation_rate": 1.0,
+        "detuning_abs": 0.0,
+        "mean_trapped_bulk": 0.499969565278254,
+        "mean_shear_circulation": 0.5000304347279397,
+        "f_rabi": 1.0,
+        "retained_bulk_predicted": 0.5
+      },
+      {
+        "omega_s_circulation_rate": 1.3,
+        "detuning_abs": 0.30000000000000004,
+        "mean_trapped_bulk": 0.600057548542372,
+        "mean_shear_circulation": 0.39994245145361546,
+        "f_rabi": 0.7999999999999999,
+        "retained_bulk_predicted": 0.6000000000000001
+      },
+      {
+        "omega_s_circulation_rate": 1.6,
+        "detuning_abs": 0.6000000000000001,
+        "mean_trapped_bulk": 0.7500705770818513,
+        "mean_shear_circulation": 0.24992942291981263,
+        "f_rabi": 0.49999999999999994,
+        "retained_bulk_predicted": 0.75
+      },
+      {
+        "omega_s_circulation_rate": 1.9,
+        "detuning_abs": 0.8999999999999999,
+        "mean_trapped_bulk": 0.8461314797652523,
+        "mean_shear_circulation": 0.15386852022709382,
+        "f_rabi": 0.3076923076923077,
+        "retained_bulk_predicted": 0.8461538461538461
+      }
+    ],
+    "corr_trappedbulk_vs_detuning": 0.9939985087708871,
+    "analytic_match_1_minus_f_over_2": true,
+    "monotone_in_detuning": true,
+    "passed": true,
+    "honest_caveat": "Trapped bulk tracks |omega_b - omega_s| (the Rabi detuning throttle), symmetric in sign(Delta) \u2014 it is the off-resonance retention, NOT a unidirectional 'more circulation => more mass'. Reported as-is.",
+    "verdict": "PASS \u2014 trapped bulk (mass) scales monotonically with the circulation-rate detuning, matches analytic"
+  },
+  "forced_vs_imposed": {
+    "non_reciprocity_measurement": {
+      "fwd_bulk_to_shear_RH": 0.7999999999539908,
+      "fwd_bulk_to_shear_LH": 0.7999999999540923,
+      "rev_shear_to_bulk_RH": 0.7999999999539996,
+      "rev_shear_to_bulk_LH": 0.7999999999540606,
+      "reciprocity_asymmetry_RH": 8.770761894538737e-15,
+      "chirality_asymmetry_fwd": 1.0147438445073931e-13,
+      "is_reciprocal_rabi": true,
+      "chirality_changes_transfer": false
+    },
+    "skew_form_forced": "TRIVIALLY (lossless => unitary => Hermitian generator; generic two-mode coupling, not AVE-distinct)",
+    "non_reciprocity_sign_source": "LATTICE-FORCED (chi sign = I4_1 32 handedness, crystal_engine.py:41)",
+    "non_reciprocity_magnitude_source": "IMPOSED (theta_chi=2pi*nu_vac + kappa plugged; the chiral-crystal engine that would DERIVE the magnitude averages chirality out \u2014 device-circuit-models.md:163, STATED-pending-engine)",
+    "is_reciprocal_rabi_2mode": true,
+    "verdict": "IMPOSED-AT-MAGNITUDE (ECHO). The skew form is forced trivially by losslessness; the non-reciprocity SIGN is lattice-sourced (chirality), but the non-reciprocity MAGNITUDE is plugged by hand. A bounded, helicity-transferring coupling EXISTS and works \u2014 but it does not derive its non-reciprocity from the lattice.",
+    "flag_for_grant": "The chiral-crystal engine (device-circuit-models.md:163) averages chirality out, so the non-reciprocity magnitude cannot be derived here \u2014 it is plugged. Deriving it is the STATED-pending-engine frontier."
+  },
+  "three_mode_nonreciprocity": {
+    "chi=+1": {
+      "max_shear_fill": 0.9997190175227761,
+      "max_EM_fill": 0.9993907410714109,
+      "net_directional_shear_minus_EM": -0.0008764630642929094
+    },
+    "chi=-1": {
+      "max_shear_fill": 0.999390741071364,
+      "max_EM_fill": 0.9997190175227635,
+      "net_directional_shear_minus_EM": 0.0008764630642933062
+    },
+    "chi=+0": {
+      "max_shear_fill": 0.4444444439216244,
+      "max_EM_fill": 0.44444444392261384,
+      "net_directional_shear_minus_EM": -1.5588130705621805e-12
+    },
+    "RH_minus_LH_directionality": 0.0017529261285862156,
+    "achiral_directionality": 1.5588130705621805e-12,
+    "genuine_nonreciprocity_3port": true,
+    "note": "3-PORT RING: the loop phase 3*chi*theta_chi is gauge-invariant => real chirality flux. genuine_nonreciprocity_3port=True means adding the EM port RECOVERS the chirality-dependent routing the 2-mode coupling lost. This is the corpus chiral circulator (>=3 element, device-circuit-models.md:161)."
+  },
+  "overall_verdict": {
+    "four_gates_pass": true,
+    "two_mode_reciprocal": true,
+    "three_port_nonreciprocity_recovered": true,
+    "non_reciprocity_magnitude_imposed": true,
+    "fork_A_verdict": "PARTIAL",
+    "scope": "A BOUNDED, lossless, helicity-transferring coupling EXISTS \u2014 all four gates pass (CONSERVE / TRANSFER / LOCK-ON-WINDING / MOTION->MASS), a genuine advance over the trilinear pump/inert dead-end. BUT (1) the 2-mode skew realization is RECIPROCAL (chirality drops out of the energy flow \u2014 a Rabi flop, not a one-way router); (2) genuine non-reciprocity needs the 3-PORT ring (EM port), where it IS recovered but small; and (3) the non-reciprocity MAGNITUDE is IMPOSED (plugged theta_chi/kappa) \u2014 the chiral-crystal engine that would derive it averages chirality out. So the coupling WORKS but is an ECHO at the non-reciprocity magnitude level.",
+    "forced_vs_imposed": "IMPOSED-AT-MAGNITUDE (ECHO). The skew form is forced trivially by losslessness; the non-reciprocity SIGN is lattice-sourced (chirality), but the non-reciprocity MAGNITUDE is plugged by hand. A bounded, helicity-transferring coupling EXISTS and works \u2014 but it does not derive its non-reciprocity from the lattice."
+  }
+}

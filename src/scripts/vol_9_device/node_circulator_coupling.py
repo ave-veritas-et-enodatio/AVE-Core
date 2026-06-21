@@ -692,8 +692,120 @@ def validate_on_known() -> dict:
 # ═════════════════════════════════════════════════════════════════════════════
 # MAIN
 # ═════════════════════════════════════════════════════════════════════════════
+def overall_verdict(A, B, C, D, fvi, nr3) -> dict:
+    """Combine the four gates + the forced-vs-imposed + 3-port test into the
+    Fork-A verdict: COUPLING-CLOSES-via-circulator / ISOLATION-WINS / PARTIAL."""
+    four_pass = A["passed"] and B["passed"] and C["passed"] and D["passed"]
+    two_mode_reciprocal = fvi["is_reciprocal_rabi_2mode"]
+    three_port_nonrecip = nr3["genuine_nonreciprocity_3port"]
+    magnitude_imposed = "IMPOSED" in fvi["non_reciprocity_magnitude_source"]
+
+    if four_pass and not two_mode_reciprocal and not magnitude_imposed:
+        verdict = "COUPLING-CLOSES-via-circulator"
+        scope = ("All four gates pass AND the coupling is genuinely non-reciprocal "
+                 "AND the non-reciprocity is lattice-derived.")
+    elif not four_pass:
+        verdict = "ISOLATION-WINS"
+        scope = ("A gate FAILED — the circulator does not realize a bounded, "
+                 "winding-acting, transferring coupling. Fork-A closes as isolation.")
+    else:
+        verdict = "PARTIAL"
+        scope = (
+            "A BOUNDED, lossless, helicity-transferring coupling EXISTS — all four "
+            "gates pass (CONSERVE / TRANSFER / LOCK-ON-WINDING / MOTION->MASS), a "
+            "genuine advance over the trilinear pump/inert dead-end. BUT (1) the "
+            "2-mode skew realization is RECIPROCAL (chirality drops out of the "
+            "energy flow — a Rabi flop, not a one-way router); (2) genuine "
+            "non-reciprocity needs the 3-PORT ring (EM port), where it IS recovered "
+            "but small; and (3) the non-reciprocity MAGNITUDE is IMPOSED (plugged "
+            "theta_chi/kappa) — the chiral-crystal engine that would derive it "
+            "averages chirality out. So the coupling WORKS but is an ECHO at the "
+            "non-reciprocity magnitude level."
+        )
+    return {
+        "four_gates_pass": bool(four_pass),
+        "two_mode_reciprocal": bool(two_mode_reciprocal),
+        "three_port_nonreciprocity_recovered": bool(three_port_nonrecip),
+        "non_reciprocity_magnitude_imposed": bool(magnitude_imposed),
+        "fork_A_verdict": verdict,
+        "scope": scope,
+        "forced_vs_imposed": fvi["verdict"],
+    }
+
+
 def main() -> None:
-    raise NotImplementedError
+    assert_alpha_free()
+    vok = validate_on_known()  # HALTs on failure
+
+    A = gate_A_conserve()
+    B_resonant = gate_B_transfer(omega_b=1.0, omega_s=1.0)
+    B_detuned = gate_B_transfer(omega_b=1.0, omega_s=1.3)
+    detune_sweep = transfer_vs_detuning()
+    C = gate_C_lock_on_winding()
+    D = gate_D_motion_to_mass()
+    fvi = forced_vs_imposed()
+    nr3 = three_mode_nonreciprocity()
+
+    # Gate B headline = the resonant complete-transfer (the strongest measured flow).
+    B = B_resonant
+    verdict = overall_verdict(A, B, C, D, fvi, nr3)
+
+    results = {
+        "validate_on_known": vok,
+        "alpha_free": True,
+        "theta_chi": THETA_CHI,
+        "kappa_rate": KAPPA_RATE,
+        "gate_A_conserve": A,
+        "gate_B_transfer_resonant": B_resonant,
+        "gate_B_transfer_detuned": B_detuned,
+        "transfer_vs_detuning": detune_sweep,
+        "gate_C_lock_on_winding": C,
+        "gate_D_motion_to_mass": D,
+        "forced_vs_imposed": fvi,
+        "three_mode_nonreciprocity": nr3,
+        "overall_verdict": verdict,
+    }
+
+    _OUT.parent.mkdir(parents=True, exist_ok=True)
+    _OUT.write_text(json.dumps(results, indent=2))
+
+    # ── report ──────────────────────────────────────────────────────────────
+    print("=" * 78)
+    print("NODE CIRCULATOR COUPLING — Fork-A: shear<->bulk as a skew rotation")
+    print("=" * 78)
+    print(f"validate-on-known: {vok}")
+    print(f"alpha-free: theta_chi=2pi*nu_vac={THETA_CHI:.4f}, kappa={KAPPA_RATE}")
+    print()
+    print("FOUR-GATE TABLE")
+    print("-" * 78)
+    rowfmt = "{:<16} {:<6} {}"
+    print(rowfmt.format("GATE", "PASS", "KEY NUMBER"))
+    print(rowfmt.format(
+        "A CONSERVE", "PASS" if A["passed"] else "FAIL",
+        f"norm drift {A['norm_drift']:.2e}, pump slope {A['late_slope_per_step']:.1e}"))
+    print(rowfmt.format(
+        "B TRANSFER", "PASS" if B["passed"] else "FAIL",
+        f"transfer {B['transfer_fraction']*100:.1f}% ({B['vs_failed_2pct']})"))
+    print(rowfmt.format(
+        "C LOCK-ON-WIND", "PASS" if C["passed"] else "FAIL",
+        f"ON-vs-OFF winding-rate delta {C['delta_winding_rate']:.3f}, "
+        f"inert={C['inert_lock_detected']}"))
+    print(rowfmt.format(
+        "D MOTION->MASS", "PASS" if D["passed"] else "FAIL",
+        f"trapped-bulk vs detuning corr {D['corr_trappedbulk_vs_detuning']:.3f}"))
+    print("-" * 78)
+    print(f"2-mode reciprocal (chirality drops out): "
+          f"{fvi['is_reciprocal_rabi_2mode']}")
+    print(f"3-port ring recovers non-reciprocity:    "
+          f"{nr3['genuine_nonreciprocity_3port']} "
+          f"(RH-LH dir {nr3['RH_minus_LH_directionality']:.2e})")
+    print(f"FORCED-vs-IMPOSED: {fvi['verdict']}")
+    print()
+    print("=" * 78)
+    print(f"FORK-A VERDICT: {verdict['fork_A_verdict']}")
+    print("=" * 78)
+    print(verdict["scope"])
+    print(f"\nwrote {_OUT}")
 
 
 if __name__ == "__main__":
