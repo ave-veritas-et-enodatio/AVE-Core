@@ -54,7 +54,7 @@ $\omega_C$ is fixed by Axiom~1 plus the SI primitives $\mu_0$, $\varepsilon_0$, 
 
 The substrate bond is a distributed transmission-line element. Its characteristic impedance is the canonical substrate-native vacuum impedance (\kbleaf{translation-circuit.md} \S 4 Op1 anchor):
 \begin{equation}
-Z_0 \;=\; \sqrt{\frac{\mu_0}{\varepsilon_0}} \;\approx\; 376.73\;\Omega \qquad \text{(canonical at \kbleaf{src/ave/core/constants.py:81})}
+Z_0 \;=\; \sqrt{\frac{\mu_0}{\varepsilon_0}} \;\approx\; 376.73\;\Omega \qquad \text{(canonical at \kbleaf{src/ave/core/constants.py:98} \texttt{Z\_0})}
 \end{equation}
 At cold-lattice limit $S(A_0 = 0) = 1$, group and phase velocities both reduce to $c_0$:
 \begin{equation}
@@ -320,7 +320,7 @@ Both are flagged for a PR-gated walk-back at their home leaves; this datasheet s
 \toprule
 \textbf{Symbol} & \textbf{Typical} & \textbf{Units} & \textbf{Conditions} & \textbf{Substrate mechanism} \\
 \midrule
-$Z_0$ & $\sqrt{\mu_0/\varepsilon_0} \approx \num{376.73}$ & \si{\ohm} & cold-lattice; $A_0 = 0$; $\omega \ll \omega_C$ & Bond TLM characteristic Z (Axiom~1; \texttt{constants.py:81}) \\
+$Z_0$ & $\sqrt{\mu_0/\varepsilon_0} \approx \num{376.73}$ & \si{\ohm} & cold-lattice; $A_0 = 0$; $\omega \ll \omega_C$ & Bond TLM characteristic Z (Axiom~1; \texttt{constants.py:98} \texttt{Z\_0}) \\
 $L_{cell}$ & $\mu_0 \ell_{node} \approx \num{4.85e-19}$ & \si{\henry} & per bond, cold-lattice & Axiom~1 per-cell inductance \\
 $C_{cell}$ & $\varepsilon_0 \ell_{node} \approx \num{3.42e-24}$ & \si{\farad} & per bond, cold-lattice & Axiom~1 per-cell capacitance \\
 $\omega_C$ & $c_0/\ell_{node} \approx \num{7.76e20}$ & \si{\radian\per\second} & cold-lattice & Bond LC natural frequency; substrate Nyquist ceiling \\
