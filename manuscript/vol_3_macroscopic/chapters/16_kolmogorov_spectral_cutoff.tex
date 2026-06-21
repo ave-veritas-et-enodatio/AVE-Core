@@ -34,7 +34,14 @@ Applying the universal Saturation Operator $S$ (Axiom 4) directly to the spectra
 \begin{equation}
     E(k) = C_K \varepsilon^{2/3} k^{-5/3} S\left(\frac{k}{k_{\max}}\right) = C_K \varepsilon^{2/3} k^{-5/3} \sqrt{1 - \left(\frac{k}{k_{\max}}\right)^2}
 \end{equation}
-For $k \ll k_{\max}$, $S \to 1.0$ and the relationship converges precisely to K41 scaling. As $k \to k_{\max}$, the available degrees of freedom for coherent vorticity vanish ($S \to 0$) terminating the cascade rigorously.
+For $k \ll k_{\max}$, $S \to 1.0$ and the relationship converges precisely to K41 scaling. As $k \to k_{\max}$, the available degrees of freedom for coherent vorticity vanish ($S \to 0$) terminating the cascade rigorously (Figure~\ref{fig:kolmogorov_cascade}).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{kolmogorov_spectral_cutoff.png}
+    \caption{The Kolmogorov Cascade Visualization. Left Panel: The exact axiomatic topological Nyquist cutoff ($k_{\max}$) terminating the classical unbounded Kolmogorov spectrum. Center Panel: Enstrophy bounds during the modal cascade demonstrating the discrete structural halt. Right Panel: The 3D Avalanche Factor $M(r)$ derived from pure Axiom 4 and Poisson scaling matching empirical measurements without soliton geometries.}
+    \label{fig:kolmogorov_cascade}
+\end{figure}
 
 \section{The 3D Avalanche Exponent}
 The turbulent cascade is a bulk non-linear transfer of energy governed by the universal avalanche factor $M$, representing the inverse of the structural compliance. By Axiom 4, the raw 1D saturation power law is directly equivalent to the relativistic Lorentz factor squared: 

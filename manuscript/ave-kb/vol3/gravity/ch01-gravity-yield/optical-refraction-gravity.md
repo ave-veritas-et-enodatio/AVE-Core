@@ -20,7 +20,8 @@ When a macro-particle (or a photon) travels through this gradient, it does not "
 
 To project the extreme confined energy of the localized 1D electromagnetic string ($T_{EM} = m_{e}c^{2}/\ell_{node}$) into the 3D isotropic bulk metric of macroscopic gravity, the evaluation requires the geometric coupling of the electromagnetic stress tensor.
 
-A fundamental topological defect inherently exerts purely 1D uniaxial **polarization stress** ($\sigma_{11}$) on the local discrete LC edges. Because the surrounding macroscopic $\mathcal{M}_{A}$ vacuum is a continuous resonant network, the lateral electromagnetic fields are not rigidly locked; they physically contract via the inherent trace-reversal kinematics ($K = 2G$ effective continuum). In standard 3D continuum dynamics, the total volumetric impedance trace ($\theta$) induced by a uniaxial stress is strictly governed by the medium's effective Poisson ratio:
+<!-- 🔴 Rule-12 2026-06-21 INVARIANT-N1 𝓜_A→prose retirement: the retired $\mathcal{M}_{A}$ glyph (Amorphous-substrate symbol, retired 2026-06-18 per INVARIANT-N1 — the "A" carried the closed geometry-leak "amorphous") is replaced in this leaf by substrate-native prose ("chiral LC network" / "lattice graph geometry" / "substrate"), mirroring the manuscript scrub. Physics unchanged. -->
+A fundamental topological defect inherently exerts purely 1D uniaxial **polarization stress** ($\sigma_{11}$) on the local discrete LC edges. Because the surrounding macroscopic chiral LC network vacuum is a continuous resonant network, the lateral electromagnetic fields are not rigidly locked; they physically contract via the inherent trace-reversal kinematics ($K = 2G$ effective continuum). In standard 3D continuum dynamics, the total volumetric impedance trace ($\theta$) induced by a uniaxial stress is strictly governed by the medium's effective Poisson ratio:
 
 > **[Resultbox]** *Volumetric Impedance Trace*
 >
@@ -50,7 +51,7 @@ In the AVE framework, macroscopic gravity ($G$) is derived by scaling the 1D qua
 
 > **🔴 Form-vs-value scope ($G$-ruling 2026-06-14, `ilk-gravmb`):** the **form** of this relation is derived — gravity is the Machian-impedance scaling of $T_{EM}$ by $\xi$ under the $1/7$ trace-reversed bulk projection. Its **value** is a calibration input: $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$ embeds $R_H \equiv c/H_\infty$, so $\xi$ is back-solved from the empirical $G$ (equivalently $\xi = \hbar c/(7Gm_e^2)$), not forward-derived. $G$ is classified **mixed** (derived-form, calibration-fitted-value), **not** an independent first-principles determination of Newton's constant; the forward value-derivation (Chain B$'$) is open. (Mixed, **not** echo — the derived-form half stands.)
 
-To define this boundary condition from the continuous spatial integration of the discrete $\mathcal{M}_{A}$ graph geometry, the analysis evaluates the cross-sectional porosity of the lattice. Because macroscopic wave transmission must pass through the discrete structural nodes, the effective differential solid angle is modified by the cross-sectional porosity ($\Phi_{A} \equiv \alpha^{2}$).
+To define this boundary condition from the continuous spatial integration of the discrete lattice graph geometry, the analysis evaluates the cross-sectional porosity of the lattice. Because macroscopic wave transmission must pass through the discrete structural nodes, the effective differential solid angle is modified by the cross-sectional porosity ($\Phi_{A} \equiv \alpha^{2}$).
 
 Integrating the dimensionless radial distance ($r/\ell_{node}$) out to the topological horizon $R_{H}$ over this effective porous solid angle ($d\Omega_{eff} = d\Omega/\alpha^{2}$) yields:
 
