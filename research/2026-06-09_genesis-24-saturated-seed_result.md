@@ -63,9 +63,10 @@ cited accurately above and match the body's own §7 (`:242`) usage.
 
 The CORRECTING HEADER's diagnosis of a *"non-conservative secular pump"* / *detonation* rested on the path-1
 EMF being wired `emf = +2·V_inc·∂L/∂V_sq`. That `+2` was a **sign-wiring bug**: the method's own docstring
-and doc 67_ §13.6 both derive **`−2`** (the Lenz back-EMF — the reaction opposes the drive). The fix is at
-`src/ave/topological/k4_cosserat_coupling.py:838` (note `:703` in the header above is now stale; the EMF
-source moved to `:838` as the file grew). Empirical head-to-head on this same deep-saturated genesis-24 seed:
+and doc 67_ §13.6 both derive **`−2`** (the Lenz back-EMF — the reaction opposes the drive). The fix is in
+the EMF assignment in `_compute_emf_per_port` (`src/ave/topological/k4_cosserat_coupling.py`; note the bare `:703` line cite in the
+preserved header above is now stale — the EMF source has drifted line-number as the file grew, which is why
+this and forward cites anchor to the `_compute_emf_per_port` symbol instead). Empirical head-to-head on this same deep-saturated genesis-24 seed:
 
 | sign | E_V peak (emit window) | reverses | V-sector | full ledger |
 |---|---|---|---|---|

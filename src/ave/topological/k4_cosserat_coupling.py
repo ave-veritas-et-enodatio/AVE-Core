@@ -259,7 +259,7 @@ class CoupledK4Cosserat:
         # -2·V_inc[k]·∂L_c/∂V_sq.
         # NOTE: the prior NOTE here ("this AMPLIFIES the runaway / path-1 was
         # the wrong direction") was measured under a +2 sign-wiring BUG at the
-        # EMF source (_compute_emf_per_port :838). Under the corrected -2 the
+        # EMF source (the assignment in _compute_emf_per_port). Under the corrected -2 the
         # V-sector energy is BOUNDED on the deep genesis-24 saturated seed
         # (E_V peak ~12, reverses=True — the +2 detonation to 6.8e8 is gone;
         # the full three-part ledger does not fully close, |L| still spikes).
@@ -836,8 +836,8 @@ class CoupledK4Cosserat:
             )
         dL_dVsq_np = np.asarray(dL_dVsq)  # shape (nx, ny, nz)
 
-        # Per-port: EMF[k] = -2·V_inc[k]·∂L/∂V_sq  (matches the :792 docstring
-        # and doc 67_ §13.6 chain rule: V_sq = Σ_k V_inc[k]², so
+        # Per-port: EMF[k] = -2·V_inc[k]·∂L/∂V_sq  (matches the _compute_emf_per_port
+        # docstring above and doc 67_ §13.6 chain rule: V_sq = Σ_k V_inc[k]², so
         # ∂L/∂V_inc[k] = 2·V_inc[k]·∂L/∂V_sq, and EMF_c = -∂L/∂V_inc[k]).
         # Broadcasting: dL_dVsq_np has shape (nx,ny,nz); add port axis.
         # Sign convention (Lenz back-EMF): the reaction OPPOSES the drive, so the

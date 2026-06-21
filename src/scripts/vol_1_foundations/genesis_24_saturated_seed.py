@@ -156,7 +156,7 @@ def _seed_audit(frac: float) -> dict:
 # ──────────────────────────────────────────────────────────────────────────
 def _build_arm(arm: int, frac: float):
     """Engine + IC per arm. emf=True (the ω→V EMF reciprocal source channel is
-    _compute_emf_per_port at k4_cosserat_coupling.py:838 — dead at V=0, live at
+    the EMF assignment in _compute_emf_per_port in k4_cosserat_coupling.py — dead at V=0, live at
     V≠0; the -2 Lenz back-EMF). Impedance boundary ON (verdict-II self-trap = the
     Smith-Γ wall). use_asymmetric_saturation=True (default; the κ_chiral·h photon
     ω is the wall, the V-seed biases the EMF)."""
@@ -359,7 +359,7 @@ def _make_figures(out, matrix, emit) -> dict:
     # ave-driver-script-honesty: captions are COMPUTED from the plotted series
     # (deepest frac 0.95) against the SAME thresholds as _ledger_closes (|H_drift|
     # <0.05, L_bounded, v_secular<3), NOT templated. Under the corrected -2 Lenz
-    # EMF (k4_cosserat_coupling.py:838) the V-SECTOR energy is BOUNDED and REVERSES
+    # EMF (the _compute_emf_per_port assignment in k4_cosserat_coupling.py) the V-SECTOR energy is BOUNDED and REVERSES
     # (E_V peak O(10) then unwinds; v_secular<1) -- the +2 detonation (E_V->6.8e8)
     # is gone. But the FULL three-part ledger still does NOT close on this run:
     # |L| transiently spikes (no longer pinned, L_last<<L_max, but L_max>5*L[0])
@@ -394,7 +394,7 @@ def _make_figures(out, matrix, emit) -> dict:
         else "does NOT fully close (V-sector bounded; |L| spike + H-drift open)"
     _evword = "bounded + reverses" if _evrev and _evpk < 1e3 else "detonates"
     fig.suptitle(f"FIG 4 — conservation ledger (Arm-1): -2 Lenz EMF -- ledger {_ledger_word}\n"
-                 f"(k4_cosserat_coupling.py:838; V-sector E_V {_evword}, peak {_evpk:.2e} "
+                 f"(_compute_emf_per_port in k4_cosserat_coupling.py; V-sector E_V {_evword}, peak {_evpk:.2e} "
                  f"over the 100-step emit window; +2 bug detonated E_V->6.8e8)")
     fig.tight_layout()
     p = os.path.join(HERE, "genesis24_fig4_ledger.png")

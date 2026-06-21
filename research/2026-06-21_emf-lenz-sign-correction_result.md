@@ -11,8 +11,8 @@ implementation is brought into consistency with its own derivation and conservat
 
 ## 0. TL;DR
 
-`src/ave/topological/k4_cosserat_coupling.py:838` (`_compute_emf_per_port`) wired the per-port Lagrangian-EMF
-source as `emf = +2.0·V_inc·∂L/∂V_sq`. The method's **own** docstring (`:792`) and doc 67_ §13.6
+The EMF assignment in `_compute_emf_per_port` (`src/ave/topological/k4_cosserat_coupling.py`) wired the per-port Lagrangian-EMF
+source as `emf = +2.0·V_inc·∂L/∂V_sq`. The method's **own** docstring (the `_compute_emf_per_port` docstring) and doc 67_ §13.6
 (`research/_archive/L3_electron_soliton/67_lc_coupling_reciprocity_audit.md:568`) both derive **`−2`**. The
 `+2` was a wiring bug. The corrected `−2` is the **Lenz back-EMF** sign: the reaction *opposes* the drive.
 With `−2` the documented `E_V → 6.79×10⁸` **detonation of the V-sector energy is eliminated** (bounded, peak
