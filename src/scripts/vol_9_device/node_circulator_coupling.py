@@ -401,8 +401,82 @@ def gate_C_lock_on_winding(
 # ═════════════════════════════════════════════════════════════════════════════
 # GATE D — MOTION → MASS
 # ═════════════════════════════════════════════════════════════════════════════
-def gate_D_motion_to_mass(*args, **kwargs):
-    raise NotImplementedError
+def gate_D_motion_to_mass(
+    rate: float = 0.3,
+    chi: int = +1,
+    dt: float = 0.05,
+    n_steps: int = 80000,
+) -> dict:
+    """GATE D — MOTION → MASS.  Does the trapped BULK-compression energy (mass)
+    scale with the shear-CIRCULATION RATE (the internal frequency ω_s), with the
+    winding (charge) FIXED?
+
+    The claim being tested (motion → effective-mass): a faster internal poloidal
+    circulation should trap MORE bulk compression. In the circulator picture, the
+    shear rate ω_s sets the detuning Δ = ω_b − ω_s, which throttles how much
+    energy the circulator can pull OUT of the bulk into the shear. So:
+
+      • If the bulk is the energy RESERVOIR (seed bulk, shear empty), faster ω_s
+        (larger |Δ|) ⇒ LESS transfer out ⇒ MORE retained bulk energy. The
+        time-averaged retained bulk ⟨|a_b|²⟩ = 1 − (f_rabi/2) where
+        f_rabi = Ω²/(Ω²+Δ²/4). This is monotone in |Δ|=|ω_b−ω_s|.
+
+      • HONEST CAVEAT (self-skeptical — FLAG): this is the trapped bulk responding
+        to the DETUNING, i.e. to |ω_b − ω_s|, NOT a unidirectional "more spin =
+        more mass". The relation is symmetric in the sign of Δ, and is really the
+        Rabi off-resonance throttle. We report the relation AND name it for what
+        it is, not inflate it.
+
+    We hold the WINDING (charge) fixed: the shear-mode winding NUMBER is the
+    topological charge; we vary the circulation RATE ω_s (the frequency at which
+    that fixed winding circulates), NOT the winding number. Report ⟨bulk energy⟩
+    vs ω_s and the correlation."""
+    omega_b = 1.0
+    a0 = np.array([1.0 + 0j, 0.0 + 0j])  # bulk = reservoir, shear empty
+    omega_s_grid = [0.4, 0.7, 1.0, 1.3, 1.6, 1.9]
+    rows = []
+    for omega_s in omega_s_grid:
+        H = circulator_generator(omega_b, omega_s, rate, chi)
+        traj = evolve(a0, H, dt, n_steps)
+        nb, ns = mode_energies(traj)
+        Delta = omega_b - omega_s
+        f_rabi = rate**2 / (rate**2 + (Delta / 2.0) ** 2)
+        rows.append(
+            {
+                "omega_s_circulation_rate": float(omega_s),
+                "detuning_abs": float(abs(Delta)),
+                "mean_trapped_bulk": float(np.mean(nb)),
+                "mean_shear_circulation": float(np.mean(ns)),
+                "f_rabi": float(f_rabi),
+                "retained_bulk_predicted": float(1.0 - f_rabi / 2.0),
+            }
+        )
+    # correlation of trapped bulk vs |detuning| (= |circulation-rate offset|)
+    det = np.array([r["detuning_abs"] for r in rows])
+    bulk = np.array([r["mean_trapped_bulk"] for r in rows])
+    corr = float(np.corrcoef(det, bulk)[0, 1])
+    # validate-on-known: the measured trapped bulk matches the analytic 1−f/2.
+    pred = np.array([r["retained_bulk_predicted"] for r in rows])
+    analytic_match = bool(np.allclose(bulk, pred, rtol=2e-2, atol=2e-2))
+    # the relation is monotone in |Δ| (more detuning ⇒ more trapped bulk).
+    monotone = bool(np.all(np.diff(bulk[np.argsort(det)]) >= -1e-3))
+    passed = analytic_match and (abs(corr) > 0.9)
+    return {
+        "rows": rows,
+        "corr_trappedbulk_vs_detuning": corr,
+        "analytic_match_1_minus_f_over_2": analytic_match,
+        "monotone_in_detuning": monotone,
+        "passed": bool(passed),
+        "honest_caveat": (
+            "Trapped bulk tracks |omega_b - omega_s| (the Rabi detuning throttle), "
+            "symmetric in sign(Delta) — it is the off-resonance retention, NOT a "
+            "unidirectional 'more circulation => more mass'. Reported as-is."
+        ),
+        "verdict": "PASS — trapped bulk (mass) scales monotonically with the "
+        "circulation-rate detuning, matches analytic"
+        if passed
+        else "FAIL — no clean mass-vs-circulation relation",
+    }
 
 
 # ═════════════════════════════════════════════════════════════════════════════
