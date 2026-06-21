@@ -99,22 +99,89 @@ def assert_alpha_free() -> None:
     """HALT if any α-bearing canonical symbol leaked into the engine constants
     this driver uses. κ̃=6/5 topology + θ_χ=2π·ν_vac (ν_vac=2/7) are the ONLY
     coupling inputs; both are α-free. (Mirrors the graft-v* CI gates.)"""
-    raise NotImplementedError
+    # κ̃ must be the topological 6/5 = pq/(p+q), NOT κ_chiral = 1.2·α.
+    if not np.isclose(KAPPA_TILDE, 6.0 / 5.0, rtol=0, atol=1e-15):
+        raise AssertionError(f"κ̃={KAPPA_TILDE} is not the α-free 6/5 topology")
+    # The chirality phase is θ_χ = 2π·ν_vac with ν_vac = 2/7 (α-free).
+    if not np.isclose(NU_VAC, 2.0 / 7.0, rtol=0, atol=1e-15):
+        raise AssertionError(f"ν_vac={NU_VAC} is not the α-free 2/7")
+    # κ̃ ≈ 1.2 numerically COINCIDES with κ_chiral=1.2α·(1/α)? No — guard the
+    # actual α-taint: 1.2·α ≈ 8.76e-3 ≪ 1, so κ̃=1.2 cannot be the α-biased value.
+    from ave.core.constants import ALPHA
+    kappa_chiral_alpha = 1.2 * ALPHA
+    if np.isclose(KAPPA_TILDE, kappa_chiral_alpha, rtol=1e-6):
+        raise AssertionError("κ̃ collapsed onto the α-tainted κ_chiral=1.2α")
+
+
+# The two α-free coupling inputs, named once.
+THETA_CHI: float = 2.0 * np.pi * NU_VAC  # chirality phase, = node_2domain_nport.py:473
+KAPPA_RATE: float = KAPPA_TILDE          # topological converter rate scale, α-free
 
 
 # ═════════════════════════════════════════════════════════════════════════════
 # 1.  THE SKEW-HERMITIAN GENERATOR  (the circulator, NOT a potential)
 # ═════════════════════════════════════════════════════════════════════════════
-def circulator_generator(omega_b, omega_s, rate, chi):
-    """Build the 2×2 Hermitian generator H with a skew (anti-Hermitian-real)
-    off-diagonal sourced from the lattice chirality χ."""
-    raise NotImplementedError
+def circulator_generator(
+    omega_b: float, omega_s: float, rate: float, chi: int
+) -> np.ndarray:
+    """The 2×2 HERMITIAN generator with a chirality-sourced SKEW off-diagonal.
+
+        H = [[ ω_b              ,  Ω·e^{+i·χ·θ_χ} ],
+             [ Ω·e^{-i·χ·θ_χ}   ,  ω_s            ]]
+
+    where Ω = rate is the circulator coupling rate and χ ∈ {+1, −1, 0} is the
+    lattice handedness (matter / antimatter / achiral). H is Hermitian
+    (H = H†) so e^{-iHt} is UNITARY — the energy/norm |a_b|²+|a_s|² is conserved
+    EXACTLY for ANY ω_b, ω_s, Ω. This is the crux: there is no indefinite
+    potential, the generator is anti-Hermitian-by-construction.
+
+    THE NON-RECIPROCITY: the off-diagonal carries the chirality PHASE χ·θ_χ
+    (θ_χ = 2π·ν_vac). The instantaneous coupling H_bs = Ω·e^{+iχθ_χ} vs
+    H_sb = Ω·e^{-iχθ_χ} differ by the SIGN of the phase — the gyrotropic phase
+    a circulator routes power around. When ωᵦ ≠ ωₛ this phase makes the
+    transfer DIRECTION (which mode fills first) chirality-dependent. χ=0 ⇒
+    real off-diagonal ⇒ reciprocal Rabi flop (no preferred direction). The
+    phase here is the time-domain GENERATOR whose unitary S-matrix shadow is
+    `node_2domain_nport.py`:376  S = [[0, e^{+iθ}], [−e^{−iθ}, 0]].
+    """
+    if chi not in (-1, 0, 1):
+        raise ValueError("chi must be -1, 0, or +1 (handedness selector)")
+    phase = chi * THETA_CHI
+    off = rate * np.exp(1j * phase)
+    H = np.array(
+        [[omega_b, off], [np.conj(off), omega_s]],
+        dtype=complex,
+    )
+    # Hermiticity is the load-bearing property — assert it.
+    assert np.allclose(H, H.conj().T), "generator is not Hermitian"
+    return H
 
 
-def evolve(a0, H, dt, n_steps):
-    """Unitary time-evolution a(t+dt) = e^{-iHdt} a(t) via the exact 2×2
-    propagator. Returns the amplitude trajectory."""
-    raise NotImplementedError
+def _propagator(H: np.ndarray, dt: float) -> np.ndarray:
+    """Exact 2×2 unitary propagator U = e^{-iHdt} via eigen-decomposition
+    (H Hermitian ⇒ U unitary to machine precision — no Trotter error)."""
+    evals, evecs = np.linalg.eigh(H)
+    phases = np.exp(-1j * evals * dt)
+    return evecs @ np.diag(phases) @ evecs.conj().T
+
+
+def evolve(a0: np.ndarray, H: np.ndarray, dt: float, n_steps: int) -> np.ndarray:
+    """Unitary trajectory a_k = U^k a0, U = e^{-iHdt}. Returns shape
+    (n_steps+1, 2) complex amplitudes [a_bulk, a_shear] at each step."""
+    U = _propagator(H, dt)
+    traj = np.empty((n_steps + 1, 2), dtype=complex)
+    a = np.asarray(a0, dtype=complex).copy()
+    traj[0] = a
+    for k in range(1, n_steps + 1):
+        a = U @ a
+        traj[k] = a
+    return traj
+
+
+def mode_energies(traj: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """|a_bulk|² (∝ trapped bulk / MASS energy) and |a_shear|² (∝ poloidal
+    winding / CHARGE-circulation energy) along the trajectory."""
+    return np.abs(traj[:, 0]) ** 2, np.abs(traj[:, 1]) ** 2
 
 
 # ═════════════════════════════════════════════════════════════════════════════
