@@ -6,13 +6,47 @@ twists the surrounding 1/d topological flux lines (impedance lattice).
 When the sheer stress exceeds a critical threshold, the lattice
 violently "snaps" back to a lower energy state, ejecting a massive
 directional density wave (Coronal Mass Ejection / Solar Flare).
+
+The simulation physics/data are unchanged from the original driver; this
+version restyles the embedded static frame through the shared AVE house figure
+style (``ave.viz.style``, print profile) instead of the previous hand-rolled
+``dark_background`` aesthetic. White print background, Okabe-Ito colourblind-safe
+palette (the previous neon hexes and the ``hot`` colormap are retired), and the
+baked figure title is dropped into the LaTeX ``\\caption{}`` of Ch~14
+(ave-figure-discipline Axis 4). The radial-coordinate axes carry quantity +
+symbol + unit via ``style.axis_label`` (the lattice radial coordinate ``r`` is a
+dimensionless model coordinate).
+
+The manuscript (Vol 3 Ch~14, Fig~``solar_flare``) embeds the single static
+frame ``solar_flare_topology_frame.png`` — a post-snap snapshot showing both the
+wound 1/d flux lattice (the Parker spiral) and the directional CME ejecta (the
+white scatter nodes the caption names). This driver renders that one frame; the
+underlying ``simulate_solar_topology`` evolution is byte-for-byte the original.
+
+Run::
+
+    PYTHONPATH=src ./.venv/bin/python \\
+        src/scripts/vol_3_macroscopic/simulate_solar_flare.py
+
+Writes ``assets/sim_outputs/solar_flare_topology_frame.png``.
 """
 
-import matplotlib.animation as animation
-import matplotlib.pyplot as plt
-import numpy as np
+import sys
+from pathlib import Path
 
-from ave_path_util import sim_output
+import matplotlib
+
+matplotlib.use("Agg")  # headless render-to-file driver
+
+import matplotlib.pyplot as plt  # noqa: E402
+import numpy as np  # noqa: E402
+
+# Resolve the repo's src/ (for `ave` + `ave_path_util`) so the imports below
+# work whether the driver is run directly or via PYTHONPATH=src.
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+from ave.viz import style  # noqa: E402
+from ave_path_util import sim_output  # noqa: E402
 
 # Simulation Parameters
 N_RADIAL = 30  # Number of shells
@@ -23,6 +57,20 @@ R_MAX = 25.0
 
 # Critical stress threshold for a flare
 SNAP_FRAME = 75
+
+# The single static frame embedded in the manuscript: a post-snap snapshot where
+# the directional CME ejecta wave is mid-propagation through the still-wound 1/d
+# flux lattice. The post-snap wave reaches radial shell index
+# ``2*(frame - SNAP_FRAME)`` and is only drawn while that is ``< N_RADIAL`` (30),
+# so the embedded frame is chosen inside that window (idx 20 at frame 85) — both
+# the wound spiral and the ejecta scatter are visible together, matching the
+# Ch~14 caption.
+EMBED_FRAME = 85
+
+# Pin the post-snap ejecta scatter (the only stochastic element) so the embedded
+# frame is a reproducible artifact. This pins the cosmetic plasma jitter only; it
+# does not change the simulation's physics model.
+_RNG_SEED = 0
 
 
 def initialize_grid() -> tuple[np.ndarray, np.ndarray]:
@@ -120,108 +168,118 @@ def simulate_solar_topology() -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     return R, history_theta, flare_wave
 
 
-def animate_flare(R: np.ndarray, history_theta: np.ndarray, flare_wave: np.ndarray) -> None:
-    print("[*] Rendering Solar Flare Evolution GIF...")
+def render_frame(
+    R: np.ndarray, history_theta: np.ndarray, flare_wave: np.ndarray, frame: int
+) -> "matplotlib.figure.Figure":
+    """Render one static topological-flare frame through the AVE house style.
 
-    fig, ax = plt.subplots(figsize=(10, 10))
-    fig.patch.set_facecolor("#050010")
-    ax.set_facecolor("#050010")
+    The previous driver rendered an animated GIF on a hand-rolled dark canvas
+    (``#050010`` background, neon ``#ffcc00`` sun, ``#ff4400`` flux lines, a
+    ``hot`` ejecta colormap, baked Axes title). This renders the single frame the
+    manuscript actually embeds, on the shared print profile: white background,
+    Okabe-Ito palette, no baked title (it lives in the LaTeX caption).
+    """
+    style.apply()  # white print profile FIRST
+
+    np.random.seed(_RNG_SEED)
+
+    current_theta = history_theta[frame]
+    X = R * np.cos(current_theta)
+    Y = R * np.sin(current_theta)
 
     lim = R_MAX + 5
+    fig, ax = plt.subplots(figsize=style.figsize("square"))
+    # Give constrained_layout extra outer padding so the rotated y-label is not
+    # cropped flush to the canvas edge by the save-time bbox_inches="tight".
+    try:
+        fig.get_layout_engine().set(w_pad=0.10, h_pad=0.12)
+    except AttributeError:
+        pass
     ax.set_xlim([-lim, lim])
     ax.set_ylim([-lim, lim])
     ax.set_aspect("equal")
-    ax.axis("off")
 
-    # Sun Core
-    sun = plt.Circle((0, 0), R_SUN, color="#ffcc00", zorder=10)
+    # Stellar core: paired colour + a clear filled disk (the macroscopic node).
+    sun = plt.Circle((0, 0), R_SUN, color=style.COLORS["accent"], zorder=10,
+                     label="Stellar node (macroscopic core)")
     ax.add_patch(sun)
-    # Sun Glow
-    glow = plt.Circle((0, 0), R_SUN * 1.3, color="#ffaa00", alpha=0.3, zorder=9)
+    glow = plt.Circle((0, 0), R_SUN * 1.3, color=style.COLORS["accent"],
+                      alpha=0.18, zorder=9)
     ax.add_patch(glow)
 
-    # We will draw "flux lines" by connecting points at constant theta (the initial spoke)
-    # across the radial shells.
-    lines = []
-    for _ in range(N_ANGULAR):
-        (line,) = ax.plot([], [], color="#ff4400", alpha=0.4, linewidth=1.2, zorder=5)
-        lines.append(line)
+    # The wound 1/d flux lattice (the Parker spiral): radial "spokes" of constant
+    # initial angular index across the radial shells. Vermillion = the "red
+    # lines" the Ch~14 caption names (Okabe-Ito comparison hue, print-safe).
+    flux_label_done = False
+    for i in range(N_ANGULAR):
+        lbl = None
+        if not flux_label_done:
+            lbl = "Wound 1/d flux lattice (Parker spiral)"
+            flux_label_done = True
+        ax.plot(X[i, :], Y[i, :], color=style.COLORS["comparison"],
+                alpha=0.45, linewidth=1.0, zorder=5, label=lbl)
 
-    # Scatter points for the lattice nodes
-    nodes = ax.scatter([], [], s=5, color="#ffffff", alpha=0.2, zorder=6)
+    # Lattice nodes (the topological resonator sites along each flux line). Kept
+    # faint so they read as a texture on the flux lines, not as the dominant
+    # series — the vermillion spiral and the CME ejecta are the figure's subject.
+    ax.scatter(X.flatten(), Y.flatten(), s=2, color=style.COLORS["muted"],
+               alpha=0.18, zorder=6, label="Lattice nodes")
 
-    # Flare ejecta overlay (a scatter of high-energy particles)
-    ejecta = ax.scatter([], [], s=20, color="#ffffff", alpha=0.9, zorder=8, cmap="hot")
+    # Directional CME ejecta — the post-snap reconnection wave (the "white
+    # scatter nodes" of the caption). Rendered as black data points on the white
+    # page (the print-profile analogue of the original white-on-black ejecta),
+    # sized by the local burst intensity.
+    wave_mask = flare_wave[frame] > 0
+    if np.any(wave_mask):
+        eX = X[wave_mask]
+        eY = Y[wave_mask]
+        # Size by local burst intensity (the wave amplitude), but capped so the
+        # ejecta reads as a directional cloud of scatter nodes on the print page
+        # rather than one saturated black blob (the original *50 scale was tuned
+        # for an animated GIF, not a static raster). Physics/data unchanged — this
+        # is the marker size only.
+        eV = np.clip(flare_wave[frame][wave_mask] * 8.0, 6.0, 36.0)
 
-    title = ax.set_title(
-        "Macroscopic Topological Flare (CME)\nDifferential Rotation vs. 1/d Lattice Tension",
-        color="white",
-        fontsize=16,
-        pad=20,
-    )
+        # Cosmetic plasma jitter (seeded above for reproducibility).
+        noise_x = np.random.normal(0, 0.6, size=len(eX))
+        noise_y = np.random.normal(0, 0.6, size=len(eY))
 
-    def update(frame: int) -> list:
-        current_theta = history_theta[frame]
+        ax.scatter(eX + noise_x, eY + noise_y, s=eV, color=style.COLORS["data"],
+                   alpha=0.85, zorder=8, edgecolor="none",
+                   label="CME ejecta (reconnection wave)")
 
-        # Calculate X, Y coordinates
-        X = R * np.cos(current_theta)
-        Y = R * np.sin(current_theta)
+    ax.set_xlabel(style.axis_label("Lattice", "x", ""))
+    ax.set_ylabel(style.axis_label("Lattice", "y", ""))
 
-        # Update lines (radial connections)
-        for i in range(N_ANGULAR):
-            lines[i].set_data(X[i, :], Y[i, :])
-            # If the lines are highly twisted, make them brighter (tension)
-            if frame < SNAP_FRAME:
-                # Color intensity scales as we approach the snap
-                intensity = 0.4 + 0.5 * (frame / SNAP_FRAME)
-                lines[i].set_color((1.0, 0.3 * (1.0 - intensity), 0.0, intensity))
-            else:
-                lines[i].set_color("#ff4400")
-                lines[i].set_alpha(0.4)
+    # Legend OUTSIDE the (square) data box so it never lands on the spiral
+    # (ave-figure-discipline Axis 3). Placed to the RIGHT of the square plot; the
+    # constrained_layout w_pad above keeps the rotated y-label off the canvas
+    # edge. Caption lives in the LaTeX \\caption{}, not the raster.
+    style.legend(ax, where="right")
 
-        # Update nodes
-        nodes.set_offsets(np.column_stack([X.flatten(), Y.flatten()]))
+    return fig
 
-        # Update ejecta (CME wave)
-        wave_mask = flare_wave[frame] > 0
-        if np.any(wave_mask):
-            eX = X[wave_mask]
-            eY = Y[wave_mask]
-            eV = flare_wave[frame][wave_mask] * 50  # Size scale
 
-            # Add some chaotic scatter to the plasma
-            noise_x = np.random.normal(0, 0.5, size=len(eX))
-            noise_y = np.random.normal(0, 0.5, size=len(eY))
+def render_static_frame() -> None:
+    """Render + save the single manuscript-embedded static frame."""
+    R, history_theta, flare_wave = simulate_solar_topology()
 
-            ejecta.set_offsets(np.column_stack([eX + noise_x, eY + noise_y]))
-            ejecta.set_sizes(eV)
+    print(f"[*] Rendering static topological-flare frame (frame {EMBED_FRAME})...")
+    fig = render_frame(R, history_theta, flare_wave, EMBED_FRAME)
 
-            # Bright flash at the snap frame
-            if frame == SNAP_FRAME:
-                ax.set_facecolor("#ffffff")
-                title.set_color("black")
-            else:
-                # Fade back to black
-                decay = min(1.0, (frame - SNAP_FRAME) / 10.0)
-                color_val = int(255 * (1.0 - decay))
-                hex_color = f"#{color_val:02x}{color_val:02x}{color_val:02x}"
-                if decay >= 1.0:
-                    hex_color = "#050010"
-                ax.set_facecolor(hex_color)
-                title.set_color("white")
+    target = sim_output("solar_flare_topology_frame.png")
+    written = style.save(fig, target)
+    plt.close(fig)
+
+    # assets/sim_outputs tracks this figure PNG-only; drop the stray companion
+    # .pdf so the regen leaves exactly the one tracked raster changed.
+    for p in written:
+        if p.suffix == ".pdf":
+            p.unlink(missing_ok=True)
+            print(f"[*] removed stray {p}")
         else:
-            ejecta.set_offsets(np.empty((0, 2)))
-
-        return lines + [nodes, ejecta, title]
-
-    anim = animation.FuncAnimation(fig, update, frames=FRAMES, interval=40, blit=False)
-
-    target = sim_output("solar_flare_topology.gif")
-
-    anim.save(target, writer="pillow", fps=25)
-    print(f"[*] Topological Solar Flare Animation Saved: {target}")
+            print(f"[*] Topological Solar Flare frame saved: {p}")
 
 
 if __name__ == "__main__":
-    R, h_theta, f_wave = simulate_solar_topology()
-    animate_flare(R, h_theta, f_wave)
+    render_static_frame()
