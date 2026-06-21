@@ -22,6 +22,10 @@ For the actual AVE derivation of H_0 and G, see:
 Title "Deriving Macroscopic Gravity (G)" was misleading; corrected to
 "Cosmological Equilibrium Visualization" 2026-05-17. The narrative still
 serves the manuscript's pedagogical purpose, with honest scope.
+
+FIGURE-STYLE: restyled to the AVE house style (ave.viz.style) 2026-06-21.
+H_∞ continues to come from ave.core.constants.H_INFINITY; the approach curve
+and normalized-G curve remain phenomenological/illustrative (no value change).
 """
 
 import sys
@@ -33,7 +37,10 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
 from ave.core.constants import H_INFINITY
+from ave.viz import style
 from ave_path_util import sim_output
+
+style.apply("print")
 
 # Megaparsec in km, for converting H_∞ from SI [s⁻¹] to astronomical [km/s/Mpc].
 # 1 Mpc = 3.0856775814913673e22 m = 3.0856775814913673e19 km (IAU 2015).
@@ -88,45 +95,52 @@ def simulate_cosmological_equilibrium() -> None:
     print("  G-derivation chain lives in simulate_cosmology_bao.py + simulate_vacuum_mirror.py)")
 
     # 2. Visualization
-    plt.style.use("dark_background")
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=style.figsize("wide"))
 
     # ----- Plot 1: The Hubble Acceleration to Equilibrium -----
-    ax1.plot(time_steps, H_t, color="magenta", linewidth=3, label="Topological Genesis Rate $H(t)$")
+    ax1.plot(
+        time_steps,
+        H_t,
+        color=style.COLORS["ave"],
+        linewidth=2.5,
+        label=r"Topological genesis rate $H(t)$",
+    )
     ax1.axhline(
         H_baseline,
-        color="white",
+        color=style.COLORS["muted"],
         linestyle="--",
-        label="Thermodynamic Limit ($H_0 \\approx 69.32$)",
+        label=r"Thermodynamic limit ($H_0 \approx 69.32$)",
     )
 
-    ax1.set_title("Cosmological Acceleration to Latent Heat Equilibrium", fontsize=14)
-    ax1.set_xlabel("Cosmological Time (Arbitrary Units)")
-    ax1.set_ylabel("Expansion Rate $H(t)$")
-    ax1.legend()
-    ax1.grid(True, alpha=0.2)
+    ax1.set_xlabel(style.axis_label("Cosmological time", "t", "arb."))
+    ax1.set_ylabel(style.axis_label("Expansion rate", "H(t)", "km/s/Mpc"))
+    style.legend(ax1, where="below", fontsize=8)
+    ax1.grid(True, alpha=0.3)
 
     # ----- Plot 2: The Stabilization of Macroscopic G -----
     ax2.plot(
         time_steps,
         G_normalized,
-        color="gold",
-        linewidth=3,
-        label="Effective Macroscopic Tensor $G(t)$",
+        color=style.COLORS["accent"],
+        linewidth=2.5,
+        label=r"Effective macroscopic tensor $G(t)$",
     )
-    ax2.axhline(1.0, color="white", linestyle="--", label="Present Day Fundamental Constant ($G_0$)")
+    ax2.axhline(
+        1.0,
+        color=style.COLORS["muted"],
+        linestyle="--",
+        label=r"Present-day fundamental constant ($G_0$)",
+    )
 
-    ax2.set_title("Stabilization of the Gravitational Coupling Constant", fontsize=14)
-    ax2.set_xlabel("Cosmological Time (Arbitrary Units)")
-    ax2.set_ylabel("Normalized Gravitational Constant")
-    ax2.legend()
-    ax2.grid(True, alpha=0.2)
-
-    plt.tight_layout()
+    ax2.set_xlabel(style.axis_label("Cosmological time", "t", "arb."))
+    ax2.set_ylabel(style.axis_label("Normalized coupling", "G(t)/G_0", ""))
+    style.legend(ax2, where="below", fontsize=8)
+    ax2.grid(True, alpha=0.3)
 
     # Save the output
     output_path = sim_output("simulate_cosmological_equilibrium.png")
-    plt.savefig(output_path, dpi=300, facecolor=fig.get_facecolor())
+    style.save(fig, output_path)
+    plt.close(fig)
 
     print(f"\nSaved cosmological equilibrium plot to {output_path}")
     print("\nNOTE: Plot is illustrative — H_∞ is a literal from simulate_cosmology_bao.py;")

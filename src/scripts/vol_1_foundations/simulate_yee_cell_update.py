@@ -4,9 +4,10 @@
 # govern the fundamental discrete limits of causality in the universe.
 import matplotlib.pyplot as plt
 
+from ave.viz import style
 from ave_path_util import sim_output
 
-plt.style.use("dark_background")
+style.apply("print")  # white-background print profile (house style)
 
 
 def generate_yee_cell() -> None:
@@ -16,9 +17,13 @@ def generate_yee_cell() -> None:
     spatial curl operations across discrete distances (delta_x).
     """
     print("Constructing 3D Spatially-Staggered Yee Hardware Cell...")
-    fig = plt.figure(figsize=(10, 10), facecolor="#050510")
+    fig = plt.figure(figsize=style.figsize("square"))
     ax = fig.add_subplot(111, projection="3d")
-    ax.set_facecolor("#050510")
+    # 3D panes are not fully governed by rcParams — set them explicitly so the
+    # print-profile white background is honoured on every face (gotcha 5).
+    ax.set_facecolor("white")
+    for pane in (ax.xaxis, ax.yaxis, ax.zaxis):
+        pane.set_pane_color((1.0, 1.0, 1.0, 1.0))
 
     # Base grid lines for spatial reference (Structural Edges)
     x = [0, 1, 1, 0, 0]
@@ -27,13 +32,14 @@ def generate_yee_cell() -> None:
     z_top = [1, 1, 1, 1, 1]
 
     # Plot the wireframe cube (The physical node volume)
-    ax.plot(x, y, z_bottom, color="#555555", linestyle="solid", alpha=0.4)
-    ax.plot(x, y, z_top, color="#555555", linestyle="solid", alpha=0.4)
+    cube_color = style.COLORS["muted"]
+    ax.plot(x, y, z_bottom, color=cube_color, linestyle="solid", alpha=0.6)
+    ax.plot(x, y, z_top, color=cube_color, linestyle="solid", alpha=0.6)
     for i in range(4):
-        ax.plot([x[i], x[i]], [y[i], y[i]], [0, 1], color="#555555", linestyle="solid", alpha=0.4)
+        ax.plot([x[i], x[i]], [y[i], y[i]], [0, 1], color=cube_color, linestyle="solid", alpha=0.6)
 
     # --- E-Field Components (Placed explicitly on the edges of the cell) ---
-    e_color = "#00ffff"  # Cyan for Electric/Strain field
+    e_color = style.COLORS["ave"]  # Electric / Structural (capacitive) field
     # E_x (bottom-front edge)
     ax.quiver(
         0.2,
@@ -54,7 +60,7 @@ def generate_yee_cell() -> None:
 
     # --- H-Field Components (Placed explicitly on the faces of the cell) ---
     # Shifted by exactly +0.5 delta_x/y/z
-    h_color = "#ff00aa"  # Magenta for Magnetic/Kinematic field
+    h_color = style.COLORS["comparison"]  # Magnetic / Kinematic (inductive) field
     # H_x (center of left face)
     ax.quiver(
         0,
@@ -83,12 +89,7 @@ def generate_yee_cell() -> None:
     ax.text(0.5, 0.5, 0.6, r"$H_z[i+1/2, j+1/2, k]$", color=h_color, fontsize=12)
 
     # --- Formatting the plot ---
-    ax.set_title(
-        "The Hardware Primitive: Spatially Staggered FDTD Matrix",
-        color="white",
-        pad=20,
-        fontsize=16,
-    )
+    # No baked title — the caption lives in the LaTeX \caption{} (house style).
 
     # Hide axis ticks but keep the grid reference volume
     ax.set_xticks([])
@@ -108,15 +109,24 @@ def generate_yee_cell() -> None:
         + r"$\partial E_y/\partial z \approx \frac{E_y[i, j, k+1] - E_y[i, j, k]}{\Delta z}$"
     )
 
-    props = dict(boxstyle="round,pad=1", facecolor="#111122", alpha=0.8, edgecolor=h_color)
-    ax.text2D(0.05, 0.85, text_box, transform=ax.transAxes, fontsize=12, color="white", bbox=props)
+    props = dict(boxstyle="round,pad=0.6", facecolor="white", alpha=0.9, edgecolor=h_color)
+    ax.text2D(
+        0.0,
+        0.92,
+        text_box,
+        transform=ax.transAxes,
+        fontsize=9,
+        color=style.COLORS["data"],
+        bbox=props,
+    )
 
-    ax.legend(loc="upper right", facecolor="#000000", edgecolor="white", labelcolor="white")
+    # Legend outside the data box (house style).
+    style.legend(ax, where="right")
 
+    # KEEP the .pdf: the Vol-1 chapter \includegraphics references the .pdf here.
     output_path = sim_output("fdtd_continuous_yee_mesh.pdf")
-    plt.tight_layout()
-    plt.savefig(output_path, facecolor=fig.get_facecolor(), bbox_inches="tight")
-    print(f"Saved mathematically staggered Yee Cell plot to: {output_path}")
+    style.save(fig, output_path, formats=("pdf", "png"))
+    print(f"Saved staggered Yee causality-cell schematic to: {output_path}")
 
 
 if __name__ == "__main__":

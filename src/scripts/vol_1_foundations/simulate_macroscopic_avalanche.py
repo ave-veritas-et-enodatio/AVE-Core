@@ -13,19 +13,24 @@ AVE scale. For physical-units saturation horizons, see
 `ave.gravity.principal_radial_strain` engine.
 
 Title "exact Yield Horizon" softened 2026-05-17.
+FIGURE-STYLE: this is a SCHEMATIC/illustrative figure (arbitrary TAU_YIELD);
+restyled to the AVE house style (ave.viz.style) 2026-06-21 — no physics/value
+change. The diagram remains schematic; see caption recommendation.
 """
 
 import matplotlib.pyplot as plt
 import numpy as np
+import scipy.ndimage
 
+from ave.viz import style
 from ave_path_util import sim_output
 
-plt.style.use("dark_background")
+style.apply("print")
 
-# ---- Macroscopic Constants (Normalized) ----
+# ---- Macroscopic Constants (Normalized — illustrative, NOT canonical) ----
 M_planet = 10.0  # Relative Mass of the central body
 R_planet = 1.0  # Radius of the visible planet
-TAU_YIELD = 1.5  # The absolute magnetic saturation limit of the lattice
+TAU_YIELD = 1.5  # The absolute magnetic saturation limit of the lattice (arbitrary)
 
 
 def run_avalanche_simulation() -> None:
@@ -35,9 +40,8 @@ def run_avalanche_simulation() -> None:
     Horizon in NORMALIZED units (NOT physical AU/meters); for physical-units
     horizons see simulate_black_hole_core.py.
     """
-    print("Evaluating Magnetic Saturation Shear Horizon...")
-    fig, ax = plt.subplots(figsize=(12, 10), facecolor="#050510")
-    ax.set_facecolor("#050510")
+    print("Evaluating Magnetic Saturation Shear Horizon (schematic, normalized units)...")
+    fig, ax = plt.subplots(figsize=style.figsize("square"))
 
     # 1. Create a 2D spatial mesh
     N = 400
@@ -61,76 +65,88 @@ def run_avalanche_simulation() -> None:
 
     # Smooth the transition slightly for visual clarity
     # (Representing a finite physical boundary layer thickness)
-    import scipy.ndimage
-
     eta_field_smooth = scipy.ndimage.gaussian_filter(eta_field, sigma=2)
 
     # 4. Plot the resulting Inductive Drag Map
     # Brighter colors = Higher mutual inductance drag
-    im = ax.imshow(eta_field_smooth, cmap="hot", extent=[-6, 6, -6, 6], origin="lower")
+    im = ax.imshow(
+        eta_field_smooth,
+        cmap=style.CMAP_SEQ,
+        extent=[-6, 6, -6, 6],
+        origin="lower",
+    )
 
     # Add a colorbar
     cbar = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
-    cbar.set_label(r"Macroscopic Mutual Inductive Drag ($\eta_{eff}$)", color="white", size=14)
-    cbar.ax.yaxis.set_tick_params(color="white")
-    cbar.ax.yaxis.set_ticklabels(["0 (Slipstream)", "High Drag (Deep Space)"], color="white")
+    cbar.set_label(r"Mutual inductive drag $\eta_{\mathrm{eff}}$ [dimensionless]")
+    cbar.set_ticks([0.0, 1.0])
+    cbar.set_ticklabels(["0\n(slipstream)", "high\n(deep space)"])
 
     # 5. Render the physical mass (The Planet)
-    planet = plt.Circle((0, 0), R_planet, color="#00aaff", fill=True, zorder=10)
+    planet = plt.Circle((0, 0), R_planet, color=style.COLORS["ave"], fill=True, zorder=10)
     ax.add_patch(planet)
     ax.text(
         0,
         0,
         "Mass\n(M)",
-        color="black",
-        fontsize=14,
+        color="white",
+        fontsize=11,
         weight="bold",
         ha="center",
         va="center",
         zorder=11,
     )
 
-    # 6. Render the exact Theoretical Yield Isocline
+    # 6. Render the Theoretical Yield Isocline (schematic)
     # Where tau == TAU_YIELD -> R_yield = sqrt(M / TAU_YIELD)
     R_yield = np.sqrt(M_planet / TAU_YIELD)
-    yield_boundary = plt.Circle((0, 0), R_yield, color="#00ff00", fill=False, linestyle="--", linewidth=3, zorder=5)
+    yield_boundary = plt.Circle(
+        (0, 0),
+        R_yield,
+        color=style.COLORS["accent"],
+        fill=False,
+        linestyle="--",
+        linewidth=2.5,
+        zorder=5,
+    )
     ax.add_patch(yield_boundary)
 
     # Annotations
     ax.annotate(
-        r"Phase Boundary: $\tau = \tau_{yield}$",
+        r"Phase boundary: $\tau = \tau_{\mathrm{yield}}$",
         xy=(R_yield * 0.7, R_yield * 0.7),
-        xytext=(3.5, 3.5),
-        arrowprops=dict(facecolor="#00ff00", shrink=0.05),
-        color="#00ff00",
-        fontsize=14,
+        xytext=(3.4, 3.4),
+        arrowprops=dict(facecolor=style.COLORS["accent"], edgecolor=style.COLORS["accent"], shrink=0.05),
+        color=style.COLORS["accent"],
+        fontsize=10,
         weight="bold",
         zorder=12,
     )
 
-    ax.text(-5.5, -5.5, r"$\eta \to \eta_0$ (Unbroken Deep Space Drag)", color="#ff9900", fontsize=12)
     ax.text(
-        -2.2,
-        -2.2,
-        r"$\eta \to 0$ (Frictionless Limit)",
-        color="#ffffff",
-        fontsize=14,
+        -5.6,
+        -5.6,
+        r"$\eta \to \eta_0$ (unbroken deep-space drag)",
+        color=style.COLORS["comparison"],
+        fontsize=9,
+    )
+    ax.text(
+        -2.0,
+        -2.0,
+        r"$\eta \to 0$ (frictionless limit)",
+        color=style.COLORS["data"],
+        fontsize=10,
         weight="bold",
     )
 
-    ax.set_title(
-        "The Dielectric Avalanche: L-H Magnetic Saturation Limit",
-        color="white",
-        pad=20,
-        fontsize=16,
-    )
+    ax.set_xlabel(style.axis_label("Position", "x", ""))
+    ax.set_ylabel(style.axis_label("Position", "y", ""))
+    ax.set_aspect("equal")
 
-    ax.axis("off")
-
-    plt.tight_layout()
     output_path = sim_output("dielectric_avalanche.png")
-    plt.savefig(output_path, dpi=300, facecolor=fig.get_facecolor(), bbox_inches="tight")
+    style.save(fig, output_path)
     print(f"Saved illustrative Dielectric Avalanche topology map (normalized units): {output_path}")
+    plt.close(fig)
 
 
 if __name__ == "__main__":

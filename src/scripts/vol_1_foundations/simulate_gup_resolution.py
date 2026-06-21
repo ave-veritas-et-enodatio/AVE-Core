@@ -1,150 +1,117 @@
 # simulate_gup_resolution.py
-# Formally simulates the Generalized Uncertainty Principle (GUP) in the AVE framework.
-# Plots the absolute minimum localization bounds created by the discrete Brillouin zone
-# of the LC lattice, preventing the Ultraviolet (UV) Singularities inherent to continuum QM.
+# Illustrates the Generalized Uncertainty Principle (GUP) in the AVE framework.
+# Plots the absolute minimum localization bound created by the discrete Brillouin
+# zone of the LC lattice, which prevents the ultraviolet (UV) singularities
+# inherent to continuum QM.
+#
+# UNIT CONVENTION (honesty note): the curves are drawn in NORMALIZED graphing
+# units (hbar = 1, ell_node = 1/2) chosen so the continuum divergence and the
+# discrete plateau are both legible on one axis. These are illustrative
+# dimensionless units, NOT the SI lattice node spacing (the canonical SI value is
+# ave.core.constants.L_NODE). Both axes are therefore labelled [normalized].
 
 import matplotlib.pyplot as plt
 import numpy as np
 
+from ave.viz import style
 from ave_path_util import sim_output
 
-plt.style.use("dark_background")
+# Normalized graphing units (dimensionless) — see UNIT CONVENTION note above.
+# These are deliberately not SI: the figure shows the *shape* of the continuum
+# divergence vs. the discrete plateau, not an SI-scaled localization length.
+HBAR_NORM = 1.0       # reduced Planck constant, normalized to 1
+L_NODE_NORM = 0.5     # fundamental lattice node spacing, normalized graphing unit
 
 
 def generate_gup_resolution() -> None:
     print("Executing Brillouin Zone Topological GUP Solver...")
 
-    # Constants (Normalized for graphing clarity rather than SI units)
-    hbar = 1.0  # Planck constant
-    l_node = 0.5  # The discrete fundamental Planck-scale lattice node distance
+    style.apply("print")
+
+    hbar = HBAR_NORM
+    l_node = L_NODE_NORM
 
     # The absolute momentum breaking point (Brillouin boundary)
     p_max = (np.pi * hbar) / l_node
 
-    # Momentum sweep
-    # We sweep from 0 up to slightly past p_max to show the physical cut-off
+    # Momentum sweep, from 0 up to past p_max to show the physical cut-off.
     p_array = np.linspace(0.01, p_max * 1.5, 1000)
 
     # -----------------------------------------------------------------
-    # 1. Standard Model Continuum Limit (Heisenberg)
-    # dx * dp >= hbar / 2
-    # dx = hbar / (2 * dp)
+    # 1. Standard Model continuum limit (Heisenberg):  dx * dp >= hbar/2
     # -----------------------------------------------------------------
     dx_continuum = hbar / (2 * p_array)
 
     # -----------------------------------------------------------------
-    # 2. AVE Discrete Matrix Limit (Generalized Uncertainty Principle)
-    # The physical momentum operator acts on a discrete grid, modifying the expectation.
-    # dx * dp_discrete >= (hbar / 2) * |cos(l_node * p / hbar)|
-    # A true finite-difference structural lattice cannot support a waveform shorter than 2*l_node.
-    # Therefore, we calculate the geometric saturation of dx.
+    # 2. AVE discrete matrix limit (GUP). A finite-difference structural
+    #    lattice cannot support a waveform shorter than 2*l_node, so the
+    #    localization saturates at the node spacing.
     # -----------------------------------------------------------------
-    # The fundamental structural limit: you cannot localize tighter than the node spacing
     min_localization = l_node / 2.0
-
-    # The AVE GUP formula forces a distinct lower bound plateau:
     dx_ave = np.sqrt((hbar / (2 * p_array)) ** 2 + min_localization**2)
 
-    # Filtering arrays strictly at the Brillouin Limit for the discrete plot
     valid_p_idx = p_array <= p_max
 
-    fig = plt.figure(figsize=(11, 8), facecolor="#050510")
-    ax = fig.add_subplot(111)
-    ax.set_facecolor("#050510")
+    fig, ax = plt.subplots(figsize=style.figsize("wide"))
 
-    # Plot Standard Model (Continuum)
     y_max_bound = float(np.max(dx_continuum[100:]))
     dy_plot_limit = y_max_bound * 2.0
+
+    # Standard Model (continuum) — comparison overlay.
     ax.plot(
         p_array,
         np.clip(dx_continuum, 0, dy_plot_limit),
-        color="#ff0055",
-        linewidth=3,
+        color=style.COLORS["comparison"],
+        linewidth=2.5,
         linestyle="--",
-        label="Standard Model Limit: Continuum Topology\n" + r"(Approaches UV Singularity $\Delta x \to 0$)",
+        label="Standard Model: continuum topology\n"
+        + r"(approaches UV singularity $\Delta x \to 0$)",
     )
 
-    # Plot AVE Matrix (Discrete)
+    # AVE discrete lattice limit — the AVE prediction.
     ax.plot(
         p_array[valid_p_idx],
         np.clip(dx_ave[valid_p_idx], 0, dy_plot_limit),
-        color="#00ffff",
-        linewidth=4,
-        label=r"AVE Discrete Lattice Limit: $\Delta x \geq \ell_{node}/2$",
+        color=style.COLORS["ave"],
+        linewidth=3,
+        label=r"AVE discrete lattice limit: $\Delta x \geq \ell_{node}/2$",
     )
 
-    # Highlight the absolute forbidden geometric zone
+    # Forbidden geometric zone (sub-lattice resolutions).
     ax.fill_between(
         p_array,
         0,
         min_localization,
-        color="#00ffff",
+        color=style.COLORS["ave"],
         alpha=0.15,
         hatch="///",
-        label="Forbidden Spatial Contraction\n(Sub-Lattice Resolutions)",
+        label="Forbidden spatial contraction\n(sub-lattice resolutions)",
     )
-    ax.axhline(min_localization, color="white", linestyle=":", alpha=0.6)
+    ax.axhline(min_localization, color=style.COLORS["muted"], linestyle=":", alpha=0.8)
 
-    # Highlight the Brillouin Momentum boundary
-    ax.axvline(p_max, color="#ffaa00", linestyle="-", linewidth=2, zorder=1)
-
-    y_max_bound = float(np.max(dx_continuum[100:]))
-    y_text_pos = y_max_bound * 0.8
-    print(f"DEBUG bounds: y_max_bound={y_max_bound}, y_text_pos={y_text_pos}")
+    # Brillouin momentum boundary.
+    ax.axvline(p_max, color=style.COLORS["accent"], linestyle="-", linewidth=2, zorder=1)
     ax.text(
-        p_max + 0.1,
-        y_text_pos,
-        "Brillouin Zone Boundary:\nAbsolute Lattice Saturation\n" + r"($\lambda_{min} \to 2\ell_{node}$)",
-        color="#ffaa00",
-        fontsize=12,
+        p_max + 0.05,
+        y_max_bound * 0.85,
+        "Brillouin zone boundary:\nabsolute lattice saturation\n"
+        + r"($\lambda_{min} \to 2\ell_{node}$)",
+        color=style.COLORS["accent"],
+        fontsize=9,
         weight="bold",
     )
 
-    # Axes Formatting
-    ax.set_ylim(0, y_max_bound * 1.5)  # Zoom in to show the divergence clearly
+    ax.set_ylim(0, y_max_bound * 1.5)
     ax.set_xlim(0, p_max * 1.2)
 
-    ax.set_title(
-        "Resolution of Ultraviolet Singularities\nvia the AVE Generalized Uncertainty Principle (GUP)",
-        color="white",
-        fontsize=18,
-        pad=20,
-        weight="bold",
-    )
+    ax.set_xlabel(style.axis_label("Kinetic momentum", "p_c", ""))
+    ax.set_ylabel(style.axis_label("Spatial localization variance", r"\Delta x", ""))
 
-    ax.set_xlabel(r"Kinetic Momentum ($p_c$)", color="white", fontsize=14)
-    ax.set_ylabel(r"Spatial Localization Variance ($\Delta x$)", color="white", fontsize=14)
+    style.legend(ax, where="right")
 
-    # Math Box overlay
-    text_box = (
-        r"$\mathbf{The\ AVE\ GUP\ Derivation}$"
-        + "\n\n"
-        + r"Continuum Limit (Heisenberg):"
-        + "\n"
-        + r"$\Delta x_{SM} = \frac{\hbar}{2 p_c}$"
-        + "\n\n"
-        + r"Discrete Matrix (Nyquist-Bounded GUP):"
-        + "\n"
-        + r"$\Delta x_{AVE} = \sqrt{(\Delta x_{SM})^2 + \left(\frac{\ell_{node}}{2}\right)^2}$"
-        + "\n\n"
-        + "As $p_c \to p_{max}$, the LC wavelength\n"
-        + "approaches the discrete Nyquist limit.\n"
-        + r"Instead of a UV singularity ($\Delta x \to 0$),"
-        + "\n"
-        + r"the localization structurally plateaus"
-        + "\n"
-        + r"at the $\ell_{node}/2$ grid resolution."
-    )
-
-    props = dict(boxstyle="round,pad=1", facecolor="#111122", alpha=0.9, edgecolor="#00ffff")
-    ax.text(0.55, 0.45, text_box, transform=ax.transAxes, fontsize=13, color="white", bbox=props)
-
-    ax.legend(loc="lower left", facecolor="black", edgecolor="white", labelcolor="white", fontsize=12)
-
-    plt.tight_layout()
-    output_path = sim_output("ave_gup_resolution.png")
-    plt.savefig(output_path, dpi=300, facecolor=fig.get_facecolor(), bbox_inches="tight")
-    print(f"Saved formal GUP mathematical limit derivation to: {output_path}")
+    out_path = sim_output("ave_gup_resolution.png")
+    style.save(fig, out_path)
+    print(f"Saved GUP localization-limit figure to: {out_path}")
 
 
 if __name__ == "__main__":
