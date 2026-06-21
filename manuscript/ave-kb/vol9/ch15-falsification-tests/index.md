@@ -18,6 +18,27 @@ The canonical cross-volume falsification catalog lives at:
 
 > → Primary: [Divergence-test substrate map](../../common/divergence-test-substrate-map.md) — operational tracking layer (33 rows: A1-HOPF, A2-SAGNAC, B7-PONDER-05, C15-CLEAVE-01, C17-PROTOCOL-11-SAGNAC-WIND, …)
 
+## Forward-Prediction Test Register (chord-vs-echo)
+
+The bench/null-result programme below tests the substrate's *internal* consistency. The **forward-prediction register** is the orthogonal axis: which predictions are AVE-distinct *chords* that experiment can actually discriminate against SM/GR/ΛCDM, and which are *echoes* (a match built in by construction). The classification axis is the FORM-deriving / VALUE-importing frame ([`form-deriving-value-importing.md`](../../common/form-deriving-value-importing.md); the chord/echo definitions `def-ch0rd1` / `def-ech0v1` at [`vocabulary-register.md`](../../common/vocabulary-register.md)). Because *every dimensionful magnitude is an echo by construction*, an AVE-distinct discriminating prediction lives only in (1) **FORM-EXISTENCE** divergences (a structure the SM vacuum lacks) and (2) **FORCED DIMENSIONLESS RATIOS** that do not dissolve into α, G, or m_e.
+
+Three test classes:
+
+- **BANKABLE** — a forced dimensionless ratio that gives an SM-divergent, observable number at an existing or near-term instrument. The discriminator is the *number*, not its provenance.
+- **FORM-EXISTENCE-FALSIFIER** — a structural feature (saturation / longitudinal scalar / native birefringence) the SM vacuum lacks; the test probes the *existence* of the structure. The magnitude itself is an echo, so the falsifier lives in the *coefficient ratio*, not the field-law.
+- **CONSISTENCY-ECHO** — a forced ratio whose root is the ν_vac = 2/7 ← K=2G family (itself GR-imported), or a dimensionful value that rides α/G/m_e. A match is corroborative but tests an imported value's consequence, not an independently-forced AVE number. Reported peer-mapped-honestly, never headlined as emergence.
+
+| Prediction | Class | SM / GR counterfactual | Discriminator observable | Data status | Canonical source |
+|---|---|---|---|---|---|
+| **Iron-Kα disk-edge** r_in = 7GM/c² (= 3.5 r_s) | BANKABLE (forced ratio, ν_vac=2/7) | GR ISCO at 6GM/c² | inner-accretion-disk edge via X-ray Fe-Kα reflection / kHz QPOs (matter observable, NOT the GR-standard photon ring) | untested; surviving discriminator per 2026-05-16 scope audit | [`divergence-test-substrate-map.md`:143,145](../../common/divergence-test-substrate-map.md) (C1-BH-RING row :452); [`ave-merger-ringdown-eigenvalue.md`](../../vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md) |
+| **g\* = 7³/4 = 85.75** effective DOF cutoff | BANKABLE (forced ratio, ν_vac=2/7) | SM g\*,SM = 106.75 at EW scale (24 more fermionic DOF) | Ω_GW +7.6% (LISA/DECIGO); EW expansion −10.4% (CMB-S4); EW latent heat −20% (FCC-ee/CEPC) | untested; awaits LISA / CMB Stage-4 / FCC-ee | [`divergence-test-substrate-map.md`:245,247](../../common/divergence-test-substrate-map.md) (C12-G-STAR row :470); [`g-star-derivation.md`:14-16](../../vol2/nuclear-field/ch10-open-problems/g-star-derivation.md) |
+| **Vacuum birefringence COEFFICIENT** ~10⁶× QED | FORM-EXISTENCE-FALSIFIER (saturation; echo-magnitude) | QED Euler–Heisenberg, α²-loop-suppressed coefficient (both E²-leading) | the COEFFICIENT ratio δn_AVE/δn_QED = 1/(4 a_EH α³) ~ 10⁶ at any field; a QED-sized coefficient falsifies AVE | not resolved at current high-intensity-laser / PVLAS bounds | [`divergence-test-substrate-map.md`:448,67](../../common/divergence-test-substrate-map.md) (B1-VAC-BIREFRINGE); [`epistemology-kill-switches.md`](../../vol4/falsification/ch11-experimental-bench/epistemology-kill-switches.md) (clm-pp3qwf) |
+| **sin²θ_W = 2/9** | CONSISTENCY-ECHO (forced ratio, 2/7-family-adjacent) | SM: a fit input (running, ~0.231 at M_Z) | weak mixing angle; AVE forces the dimensionless 2/9 | consistent at tree level; not a forward discriminator | [`form-deriving-value-importing.md`:105](../../common/form-deriving-value-importing.md); [`full-derivation-chain.md`](../../common/full-derivation-chain.md) |
+| **PPN /7 couplings** (1/7, 2/7, 9/7) | CONSISTENCY-ECHO (ν_vac=2/7 ← K=2G, GR-imported) | GR PPN with γ=β=1 | light/matter deflection ratios; Mach-Zehnder n_s=9/7 vs n_t=2/7 split | C11-MACH-ZEHNDER live-fire 249.64 rad (sim); ν_vac triangulation with C1+C12 | [`divergence-test-substrate-map.md`:469](../../common/divergence-test-substrate-map.md) (C11); [`form-deriving-value-importing.md`:105,113](../../common/form-deriving-value-importing.md) |
+| **Mass sector** (m_p −0.002%, lepton ladder) | CONSISTENCY-ECHO (dimensionful, rides m_e/ℓ_node) | SM: Yukawa fits | particle masses as ℓ_node geometric ratios | closed ECHO-final (near-saturation chord-residual closed-negative, PR #311) | [`form-deriving-value-importing.md`:74-77](../../common/form-deriving-value-importing.md) |
+
+> **The single independent operating-point test** that would convert the {α, G} story from echo to chord is 𝒥_cosmic (CMB axis-of-evil → Ω̂_freeze; the three-route u₀\* commitment in §three-route below). **Pass = chord, fail = echo.** All other forced-ratio discriminators above are largely ν_vac = 2/7-rooted, and ν_vac = 2/7 ← K=2G is GR-imported — so they test the *consequences* of an imported value. The cleanest AVE-distinct chords are the FORM-EXISTENCE rows (birefringence) plus any forced ratio whose root is not the 2/7 family.
+
 ## Per-test canonical leaves cited in the chapter
 
 ### Bench-scale kill-switches
