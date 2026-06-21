@@ -40,6 +40,17 @@ invented). The exemplars and the factoring discipline:
                  baryon_ladder_pdg_2024_anchor): the deviation / deviation_pct /
                  n_sigma / PASS-or-FLAG verdict contract.
 
+  birefringence.py — vacuum-birefringence bench physics: AVE retardance
+                 (sqrt-S Axiom-4 index shift, E^2-leading), AVE parity-odd
+                 optical-activity ROTATION (chiral srs +-75.462 deg/unit, the
+                 clean QED-zero discriminator), and the QED Euler-Heisenberg
+                 baseline (with the PVLAS A_e ~ 1.32e-24 T^-2 validate-on-known
+                 anchor). FORWARD from ave.core.constants; the QED prefactor band
+                 + PVLAS A_e are labeled non-AVE literature inputs. Grounded in
+                 vacuum-birefringence-e4.md (clm-pp3qwf) + engine-capability-map.md
+                 (#195 optical-activity) + the corrected coefficient-discriminator
+                 driver birefringence_coefficient_discriminator.py.
+
 DISCIPLINE: all physical constants are imported from ave.core.constants. There
 are ZERO hardcoded SI literals in this package (the FN empirical coefficients
 A_FN/B_FN/PHI_W are labeled experimental-input constants, lifted verbatim from
@@ -54,6 +65,21 @@ from ave.bench.apparatus import (
     fn_safe_max_amplitude,
     saturation_amplitude,
     v_yield_apparatus,
+)
+from ave.bench.birefringence import (
+    A_EH_LITERATURE,
+    BirefringencePoint,
+    bench_point,
+    coefficient_ratio,
+    delta_n_ave_exact,
+    delta_n_ave_leading,
+    delta_n_qed,
+    delta_n_qed_magnetic,
+    optical_activity_rate_deg_per_m,
+    optical_activity_rotation_deg,
+    optical_activity_rotation_qed,
+    substrate_identity_holds,
+    vacuum_magnetic_birefringence_constant,
 )
 from ave.bench.snr import (
     SNRPoint,
@@ -82,4 +108,18 @@ __all__ = [
     # validate
     "assert_recovers_known",
     "KnownComparison",
+    # birefringence
+    "delta_n_ave_exact",
+    "delta_n_ave_leading",
+    "delta_n_qed",
+    "delta_n_qed_magnetic",
+    "vacuum_magnetic_birefringence_constant",
+    "optical_activity_rate_deg_per_m",
+    "optical_activity_rotation_deg",
+    "optical_activity_rotation_qed",
+    "coefficient_ratio",
+    "substrate_identity_holds",
+    "bench_point",
+    "BirefringencePoint",
+    "A_EH_LITERATURE",
 ]

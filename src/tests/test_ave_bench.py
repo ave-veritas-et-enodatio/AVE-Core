@@ -426,3 +426,95 @@ class TestValidate:
         cmp = bench.assert_recovers_known(value=1.0001, reference=1.0, tol=1e-3, label="no-unc")
         assert cmp.n_sigma is None
         assert "sigma" not in cmp.summary()
+
+
+# ============================================================================
+# birefringence.py — vacuum-birefringence bench physics (AVE vs QED).
+# Validate-on-known: the QED model must recover the PVLAS A_e ~ 1.32e-24 T^-2,
+# and the substrate identity (E_crit/E_yield)^2 == 1/alpha must hold.
+# ============================================================================
+class TestBirefringence:
+    def test_validate_on_known_pvlas_A_e(self):
+        """The QED magnetic birefringence constant recovers the PVLAS textbook
+        value 1.32e-24 T^-2 (the load-bearing validate-on-known gate)."""
+        A_e = bench.vacuum_magnetic_birefringence_constant()
+        bench.assert_recovers_known(
+            value=A_e, reference=1.32e-24, tol=0.01,
+            label="PVLAS vacuum magnetic birefringence A_e [T^-2]",
+        )
+
+    def test_validate_on_known_qed_magnetic_delta_n_at_1T(self):
+        """delta_n_QED = 3 A_e B^2 recovers the textbook ~4e-24 at B = 1 T."""
+        dn = float(bench.delta_n_qed_magnetic(1.0))
+        bench.assert_recovers_known(
+            value=dn, reference=3.97e-24, tol=0.02,
+            label="QED magnetic differential delta_n at 1 T",
+        )
+
+    def test_substrate_identity_holds(self):
+        """(E_crit/E_yield)^2 == 1/alpha AND c*B_crit == E_crit (the ratio
+        collapse + field-energy equivalence)."""
+        assert bench.substrate_identity_holds() is True
+
+    def test_ave_retardance_is_negative_and_E2_leading(self):
+        """delta_n_AVE < 0 (vacuum softens) and scales as E^2 at small field
+        (the leading term, NOT E^4 — the retracted framing)."""
+        E1, E2 = 1e13, 2e13
+        dn1 = float(bench.delta_n_ave_exact(E1))
+        dn2 = float(bench.delta_n_ave_exact(E2))
+        assert dn1 < 0 and dn2 < 0
+        # doubling E quadruples |delta_n| (E^2 leading), not 16x (E^4).
+        assert np.isclose(dn2 / dn1, 4.0, rtol=1e-3)
+
+    def test_ave_retardance_small_field_precision(self):
+        """The expm1/log1p form is exact at small A where the naive
+        (1-A^2)^(1/4)-1 underflows to a spurious 0 (the precision-guard regression)."""
+        E = 1e9  # A ~ 8.8e-9
+        dn = float(bench.delta_n_ave_exact(E))
+        dn_lead = float(bench.delta_n_ave_leading(E))
+        assert dn != 0.0  # must NOT underflow to zero
+        assert np.isclose(dn, dn_lead, rtol=1e-4)  # leading term is exact there
+
+    def test_ave_retardance_nan_past_yield(self):
+        """A >= 1 (E >= E_YIELD) returns NaN (optical observable undefined past yield)."""
+        from ave.core.constants import E_YIELD
+
+        assert np.isnan(float(bench.delta_n_ave_exact(2.0 * E_YIELD)))
+
+    def test_coefficient_ratio_is_1_over_4_aEH_alpha3(self):
+        """The field-independent ratio = 1/(4 a_EH alpha^3) ~ 4.1e6 at a_EH=7/45."""
+        from ave.core.constants import ALPHA
+
+        a_eh = 7.0 / 45.0
+        assert np.isclose(bench.coefficient_ratio(a_eh), 1.0 / (4.0 * a_eh * ALPHA**3))
+        # and equals the swept |dn_AVE_leading|/dn_QED ratio (field-independent).
+        E = np.array([1e12, 1e14])
+        r = np.abs(bench.delta_n_ave_leading(E)) / bench.delta_n_qed(E, a_eh)
+        assert np.allclose(r, r[0], rtol=1e-9)
+        assert np.isclose(r[0], bench.coefficient_ratio(a_eh), rtol=1e-6)
+
+    def test_optical_activity_is_parity_odd(self):
+        """The rotation sign flips between enantiomorphs (parity-odd FORM)."""
+        rR = bench.optical_activity_rate_deg_per_m("right")
+        rL = bench.optical_activity_rate_deg_per_m("left")
+        assert rR > 0 and rL < 0
+        assert np.isclose(rR, -rL)
+
+    def test_qed_rotation_is_identically_zero(self):
+        """QED vacuum produces ZERO optical-activity rotation (the SM-counterfactual)."""
+        for L in (1e-3, 1.0, 1e3):
+            assert bench.optical_activity_rotation_qed(L) == 0.0
+
+    def test_optical_activity_scales_with_path_and_fraction(self):
+        """theta = rate * path * chirality_fraction (linear in both)."""
+        t1 = bench.optical_activity_rotation_deg(1.0, "right", chirality_fraction=1e-12)
+        t2 = bench.optical_activity_rotation_deg(2.0, "right", chirality_fraction=1e-12)
+        t3 = bench.optical_activity_rotation_deg(1.0, "right", chirality_fraction=2e-12)
+        assert np.isclose(t2, 2.0 * t1)
+        assert np.isclose(t3, 2.0 * t1)
+
+    def test_a_eh_band_includes_pvlas_and_single_mode(self):
+        """The reported a_EH band spans the single-mode 3/45 and PVLAS ~1.45 convs."""
+        band = bench.A_EH_LITERATURE
+        assert any(np.isclose(v, 3.0 / 45.0) for v in band.values())
+        assert any(1.4 < v < 1.5 for v in band.values())  # the PVLAS A_e differential

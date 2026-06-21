@@ -1,0 +1,384 @@
+{
+  "validate_on_known": {
+    "substrate_identity_(Ecrit/Eyield)^2==1/alpha_and_cBcrit==Ecrit": true,
+    "PVLAS_A_e_recovers_1.32e-24_Tinv2": true,
+    "A_e_value": 1.3246686621582372e-24,
+    "A_e_target": 1.32e-24,
+    "A_e_relerr": 0.0035368652713918544
+  },
+  "retardance": {
+    "a_eh_reference": 0.15555555555555556,
+    "rows": [
+      {
+        "E": 1000000000.0,
+        "A": 8.846343314402103e-09,
+        "dn_ave": -1.9564447509066697e-17,
+        "dn_ave_leading": -1.9564447509066697e-17,
+        "dn_qed": 4.730522302920288e-24,
+        "ratio": 4135790.142451923
+      },
+      {
+        "E": 100000000000.0,
+        "A": 8.846343314402104e-07,
+        "dn_ave": -1.9564447509072445e-13,
+        "dn_ave_leading": -1.9564447509066702e-13,
+        "dn_qed": 4.730522302920287e-20,
+        "ratio": 4135790.142453139
+      },
+      {
+        "E": 10000000000000.0,
+        "A": 8.846343314402104e-05,
+        "dn_ave": -1.9564447566481844e-09,
+        "dn_ave_leading": -1.95644475090667e-09,
+        "dn_qed": 4.730522302920288e-16,
+        "ratio": 4135790.154589092
+      },
+      {
+        "E": 100000000000000.0,
+        "A": 0.0008846343314402104,
+        "dn_ave": -1.9564453250583415e-07,
+        "dn_ave_leading": -1.95644475090667e-07,
+        "dn_qed": 4.730522302920288e-14,
+        "ratio": 4135791.356169215
+      },
+      {
+        "E": 1000000000000000.0,
+        "A": 0.008846343314402105,
+        "dn_ave": -1.9565021686687846e-05,
+        "dn_ave_leading": -1.9564447509066704e-05,
+        "dn_qed": 4.730522302920288e-12,
+        "ratio": 4135911.519666611
+      },
+      {
+        "E": 1e+16,
+        "A": 0.08846343314402104,
+        "dn_ave": -0.001962212617080006,
+        "dn_ave_leading": -0.00195644475090667,
+        "dn_qed": 4.730522302920287e-10,
+        "ratio": 4147983.0163123338
+      },
+      {
+        "E": 3e+16,
+        "A": 0.2653902994320631,
+        "dn_ave": -0.01809314963437505,
+        "dn_ave_leading": -0.01760800275816003,
+        "dn_qed": 4.257470072628259e-09,
+        "ratio": 4249742.05942113
+      }
+    ],
+    "ratio_field_independent": true,
+    "coefficient_ratio_band": {
+      "single-mode parallel  (7/45)": 4135790.1424519233,
+      "single-mode perp      (4/45)": 7237632.749290865,
+      "differential birefr.  (3/45)": 9650176.999054486,
+      "PVLAS A_e differential (~1.45)": 442466.58353669324
+    },
+    "crossover_field_Vm": 0.0,
+    "reachability": [
+      {
+        "E": 1000000000.0,
+        "dn_ave": -1.9564447509066697e-17,
+        "above_cavity_floor": false,
+        "source_tier": "benchtop DC (FN-safe)"
+      },
+      {
+        "E": 100000000000.0,
+        "dn_ave": -1.9564447509072445e-13,
+        "above_cavity_floor": true,
+        "source_tier": "petawatt laser ~1e22 W/m^2"
+      },
+      {
+        "E": 10000000000000.0,
+        "dn_ave": -1.9564447566481844e-09,
+        "above_cavity_floor": true,
+        "source_tier": "top-facility ~1e26 W/m^2"
+      },
+      {
+        "E": 100000000000000.0,
+        "dn_ave": -1.9564453250583415e-07,
+        "above_cavity_floor": true,
+        "source_tier": "top-facility ~1e26 W/m^2"
+      },
+      {
+        "E": 1000000000000000.0,
+        "dn_ave": -1.9565021686687846e-05,
+        "above_cavity_floor": true,
+        "source_tier": "extreme-proposal ~1e29 W/m^2"
+      },
+      {
+        "E": 1e+16,
+        "dn_ave": -0.001962212617080006,
+        "above_cavity_floor": true,
+        "source_tier": "unreachable (> extreme-proposal laser)"
+      },
+      {
+        "E": 3e+16,
+        "dn_ave": -0.01809314963437505,
+        "above_cavity_floor": true,
+        "source_tier": "unreachable (> extreme-proposal laser)"
+      }
+    ],
+    "cavity_dn_floor": 1e-15,
+    "note": "E^2-leading BOTH sides; coefficient discriminator; the E^4 framing was a sqrt(eps) conflation (RETRACTED, vacuum-birefringence-e4.md:20)."
+  },
+  "rotation": {
+    "bare_rate_deg_per_m_right": 195416778275744.16,
+    "bare_rate_deg_per_m_left": -195416778275744.16,
+    "bare_rate_deg_per_node": 75.462,
+    "achiral_control_deg_per_m": 0.0,
+    "qed_rotation_deg": 0.0,
+    "rotation_floor_deg": 1e-09,
+    "min_chirality_fraction_detectable_1m": 5.11726786626757e-24,
+    "grid": [
+      {
+        "path_length_m": 0.001,
+        "theta_qed_deg": 0.0,
+        "theta_deg_chir_1e+00": 195416778275.74417,
+        "theta_deg_chir_1e-06": 195416.77827574417,
+        "theta_deg_chir_1e-12": 0.19541677827574416,
+        "theta_deg_chir_1e-18": 1.954167782757442e-07,
+        "theta_deg_chir_1e-24": 1.9541677827574415e-13
+      },
+      {
+        "path_length_m": 0.01,
+        "theta_qed_deg": 0.0,
+        "theta_deg_chir_1e+00": 1954167782757.4417,
+        "theta_deg_chir_1e-06": 1954167.7827574415,
+        "theta_deg_chir_1e-12": 1.9541677827574415,
+        "theta_deg_chir_1e-18": 1.954167782757442e-06,
+        "theta_deg_chir_1e-24": 1.9541677827574414e-12
+      },
+      {
+        "path_length_m": 0.1,
+        "theta_qed_deg": 0.0,
+        "theta_deg_chir_1e+00": 19541677827574.418,
+        "theta_deg_chir_1e-06": 19541677.827574417,
+        "theta_deg_chir_1e-12": 19.541677827574418,
+        "theta_deg_chir_1e-18": 1.954167782757442e-05,
+        "theta_deg_chir_1e-24": 1.9541677827574415e-11
+      },
+      {
+        "path_length_m": 1.0,
+        "theta_qed_deg": 0.0,
+        "theta_deg_chir_1e+00": 195416778275744.16,
+        "theta_deg_chir_1e-06": 195416778.27574414,
+        "theta_deg_chir_1e-12": 195.41677827574415,
+        "theta_deg_chir_1e-18": 0.00019541677827574416,
+        "theta_deg_chir_1e-24": 1.9541677827574414e-10
+      }
+    ],
+    "note": "parity-odd FORM is the AVE-distinct chord (Axiom 1, I4_1 32, #195, def-0pt1ac); magnitude rides a tagged engineering scale (unpinned, reported as a ceiling x chirality_fraction band), NOT a forced number. QED vacuum has NO optical activity -> zero-vs-nonzero discriminator."
+  },
+  "magnetic": {
+    "A_e_Tinv2": 1.3246686621582372e-24,
+    "rows": [
+      {
+        "B_T": 1.0,
+        "dn_qed_magnetic": 3.974005986474711e-24,
+        "cB_Vm": 299792458.0,
+        "dn_ave_equiv": -1.758364851789833e-18,
+        "ratio": 442466.58353669354
+      },
+      {
+        "B_T": 2.5,
+        "dn_qed_magnetic": 2.4837537415466946e-23,
+        "cB_Vm": 749481145.0,
+        "dn_ave_equiv": -1.0989780323686456e-17,
+        "ratio": 442466.58353669354
+      },
+      {
+        "B_T": 5.0,
+        "dn_qed_magnetic": 9.935014966186778e-23,
+        "cB_Vm": 1498962290.0,
+        "dn_ave_equiv": -4.395912129474583e-17,
+        "ratio": 442466.5835366936
+      },
+      {
+        "B_T": 16.0,
+        "dn_qed_magnetic": 1.0173455325375261e-21,
+        "cB_Vm": 4796679328.0,
+        "dn_ave_equiv": -4.501414020581976e-16,
+        "ratio": 442466.5835366938
+      },
+      {
+        "B_T": 45.0,
+        "dn_qed_magnetic": 8.04736212261129e-21,
+        "cB_Vm": 13490660610.0,
+        "dn_ave_equiv": -3.560688824874431e-15,
+        "ratio": 442466.58353669586
+      }
+    ],
+    "note": "QED 3 A_e B^2 is the PVLAS observable; AVE magnetic-equivalent rides c*B/E_YIELD. Lab-B absolute signal tiny (cB << E_YIELD); coefficient gap persists."
+  },
+  "measurability": {
+    "wavelength_m": 1.064e-06,
+    "L_cavity_m": 1.0,
+    "photon_rate_Hz": 1000000000000000.0,
+    "dark_floor_Hz": 100.0,
+    "t_int_s": 1000.0,
+    "fields_Vm": [
+      10000000000000.0,
+      100000000000000.0,
+      1000000000000000.0,
+      1e+16
+    ],
+    "finesses": [
+      1000.0,
+      10000.0,
+      100000.0,
+      1000000.0
+    ],
+    "phase_grid_rad": [
+      [
+        7.355055476120993,
+        73.55055476120994,
+        735.5055476120993,
+        7355.055476120993
+      ],
+      [
+        735.5057613001284,
+        7355.057613001283,
+        73550.57613001284,
+        735505.7613001283
+      ],
+      [
+        73552.71310784903,
+        735527.1310784904,
+        7355271.310784903,
+        73552713.10784903
+      ],
+      [
+        7376739.16195491,
+        73767391.6195491,
+        737673916.195491,
+        7376739161.954909
+      ]
+    ],
+    "snr_grid": [
+      [
+        878096883.1544448,
+        961915012.2024596,
+        364286619.2402798,
+        553927368.3419149
+      ],
+      [
+        364485615.7801826,
+        555705194.0285287,
+        381183241.12527955,
+        695536015.1704714
+      ],
+      [
+        984708134.0064281,
+        983797030.5810788,
+        973252573.3360364,
+        733536327.5515238
+      ],
+      [
+        9579759.011024665,
+        95652590.71545467,
+        818037458.1738873,
+        154505919.69475642
+      ]
+    ],
+    "phase_floor_rad": 5e-09,
+    "apparatus_v_yield_V": 37680352376858.016,
+    "phase_above_floor_reach": [
+      {
+        "E_Vm": 10000000000000.0,
+        "finesse": 1000.0,
+        "phase_rad": 7.355055476120993,
+        "phase_over_floor": 1471011095.2241986
+      },
+      {
+        "E_Vm": 10000000000000.0,
+        "finesse": 10000.0,
+        "phase_rad": 73.55055476120994,
+        "phase_over_floor": 14710110952.241987
+      },
+      {
+        "E_Vm": 10000000000000.0,
+        "finesse": 100000.0,
+        "phase_rad": 735.5055476120993,
+        "phase_over_floor": 147101109522.41986
+      },
+      {
+        "E_Vm": 10000000000000.0,
+        "finesse": 1000000.0,
+        "phase_rad": 7355.055476120993,
+        "phase_over_floor": 1471011095224.1987
+      },
+      {
+        "E_Vm": 100000000000000.0,
+        "finesse": 1000.0,
+        "phase_rad": 735.5057613001284,
+        "phase_over_floor": 147101152260.02567
+      },
+      {
+        "E_Vm": 100000000000000.0,
+        "finesse": 10000.0,
+        "phase_rad": 7355.057613001283,
+        "phase_over_floor": 1471011522600.2566
+      },
+      {
+        "E_Vm": 100000000000000.0,
+        "finesse": 100000.0,
+        "phase_rad": 73550.57613001284,
+        "phase_over_floor": 14710115226002.566
+      },
+      {
+        "E_Vm": 100000000000000.0,
+        "finesse": 1000000.0,
+        "phase_rad": 735505.7613001283,
+        "phase_over_floor": 147101152260025.66
+      },
+      {
+        "E_Vm": 1000000000000000.0,
+        "finesse": 1000.0,
+        "phase_rad": 73552.71310784903,
+        "phase_over_floor": 14710542621569.807
+      },
+      {
+        "E_Vm": 1000000000000000.0,
+        "finesse": 10000.0,
+        "phase_rad": 735527.1310784904,
+        "phase_over_floor": 147105426215698.06
+      },
+      {
+        "E_Vm": 1000000000000000.0,
+        "finesse": 100000.0,
+        "phase_rad": 7355271.310784903,
+        "phase_over_floor": 1471054262156980.8
+      },
+      {
+        "E_Vm": 1000000000000000.0,
+        "finesse": 1000000.0,
+        "phase_rad": 73552713.10784903,
+        "phase_over_floor": 1.4710542621569806e+16
+      },
+      {
+        "E_Vm": 1e+16,
+        "finesse": 1000.0,
+        "phase_rad": 7376739.16195491,
+        "phase_over_floor": 1475347832390982.0
+      },
+      {
+        "E_Vm": 1e+16,
+        "finesse": 10000.0,
+        "phase_rad": 73767391.6195491,
+        "phase_over_floor": 1.4753478323909818e+16
+      },
+      {
+        "E_Vm": 1e+16,
+        "finesse": 100000.0,
+        "phase_rad": 737673916.195491,
+        "phase_over_floor": 1.4753478323909818e+17
+      },
+      {
+        "E_Vm": 1e+16,
+        "finesse": 1000000.0,
+        "phase_rad": 7376739161.954909,
+        "phase_over_floor": 1.475347832390982e+18
+      }
+    ]
+  }
+}
