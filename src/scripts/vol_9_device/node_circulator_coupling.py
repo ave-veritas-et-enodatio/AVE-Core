@@ -482,8 +482,110 @@ def gate_D_motion_to_mass(
 # ═════════════════════════════════════════════════════════════════════════════
 # FORCED-vs-IMPOSED verdict
 # ═════════════════════════════════════════════════════════════════════════════
-def forced_vs_imposed(*args, **kwargs):
-    raise NotImplementedError
+def non_reciprocity_test(
+    omega_b: float = 1.0,
+    omega_s: float = 1.3,
+    rate: float = 0.3,
+    dt: float = 0.05,
+    n_steps: int = 40000,
+) -> dict:
+    """Is the 2-mode skew coupling genuinely NON-RECIPROCAL, or a RECIPROCAL
+    Rabi flop dressed in a chirality phase?  TRUE non-reciprocity means: the
+    bulk->shear transfer for χ=+1 differs from the shear->bulk transfer (time-
+    reversed / swapped-source), i.e. the routing is directional.
+
+    Pinned plumber-physical question (surfaced for Grant): a circulator routes
+    power one-way around a ≥3-port RING; a 2-port skew rotation (gyrator) is a
+    Rabi flop — energy sloshes back and forth. The chirality phase can bias WHICH
+    way it sloshes FIRST and the steady-state asymmetry, but a 2-mode lossless
+    rotation cannot be fully one-way (that needs a 3rd port). We MEASURE the
+    asymmetry honestly rather than assume it."""
+    # forward: seed bulk, measure max shear fill, for chi=+1 and chi=-1.
+    a_bulk0 = np.array([1.0 + 0j, 0.0 + 0j])
+    a_shear0 = np.array([0.0 + 0j, 1.0 + 0j])
+
+    def maxfill_into_other(a0, chi, target_idx):
+        H = circulator_generator(omega_b, omega_s, rate, chi)
+        traj = evolve(a0, H, dt, n_steps)
+        nb, ns = mode_energies(traj)
+        return float(np.max(ns if target_idx == 1 else nb))
+
+    fwd_RH = maxfill_into_other(a_bulk0, +1, 1)   # bulk->shear, RH
+    fwd_LH = maxfill_into_other(a_bulk0, -1, 1)   # bulk->shear, LH
+    rev_RH = maxfill_into_other(a_shear0, +1, 0)  # shear->bulk, RH
+    rev_LH = maxfill_into_other(a_shear0, -1, 0)  # shear->bulk, LH
+
+    # reciprocity asymmetry: forward(bulk->shear) vs reverse(shear->bulk), same χ.
+    recip_asym_RH = abs(fwd_RH - rev_RH)
+    # chirality asymmetry: does RH differ from LH on the SAME direction?
+    chiral_asym_fwd = abs(fwd_RH - fwd_LH)
+
+    return {
+        "fwd_bulk_to_shear_RH": fwd_RH,
+        "fwd_bulk_to_shear_LH": fwd_LH,
+        "rev_shear_to_bulk_RH": rev_RH,
+        "rev_shear_to_bulk_LH": rev_LH,
+        "reciprocity_asymmetry_RH": recip_asym_RH,
+        "chirality_asymmetry_fwd": chiral_asym_fwd,
+        "is_reciprocal_rabi": bool(recip_asym_RH < 1e-6),
+        "chirality_changes_transfer": bool(chiral_asym_fwd > 1e-6),
+    }
+
+
+def forced_vs_imposed() -> dict:
+    """FORCED-vs-IMPOSED verdict (chord-vs-echo).  Trace WHERE the antisymmetry
+    / non-reciprocity comes from. Report honestly — an IMPOSED circulator is an
+    ECHO even if it works numerically.
+
+    The honest trace:
+      1. The SKEW STRUCTURE itself (the off-diagonal being the coupling, the
+         generator Hermitian) is a GENERIC two-mode-coupling form — ANY lossless
+         linear coupling between two oscillators has this shape. It is NOT
+         AVE-distinct; it is imposed by the choice 'realize the coupling as a
+         rotation' (the escape spec). FORCED only in the trivial sense that
+         lossless ⇒ unitary ⇒ Hermitian generator.
+      2. The CHIRALITY PHASE χ·θ_χ in the off-diagonal: the SIGN of χ is the
+         I4₁32 handedness (crystal_engine.py:41 'chirality sign h selects matter
+         vs antimatter') — that sign IS lattice-sourced. But the MAGNITUDE θ_χ =
+         2π·ν_vac and the κ̃ rate are topological converter constants we PLUG IN;
+         the lattice does not hand us a derived non-reciprocity magnitude (the
+         cubic-FDTD engine averages chirality OUT — device-circuit-models.md:163,
+         the circulator is STATED-pending-engine, magnitude NOT computed).
+      3. GENUINE NON-RECIPROCITY: a 2-mode lossless rotation is a Rabi flop —
+         the non_reciprocity_test measures whether forward ≠ reverse. A fully
+         one-way circulator needs ≥3 ports; the 2-mode coupling can carry a
+         chirality-biased asymmetry but is NOT a true one-way router.
+
+    VERDICT: the SKEW FORM is FORCED (lossless ⇒ Hermitian, trivially);
+    the non-reciprocity SIGN is lattice-sourced (chirality h), but the
+    non-reciprocity MAGNITUDE is IMPOSED (plugged θ_χ, κ̃ — the engine that would
+    DERIVE it averages chirality out). So: the circulator is an ECHO at the
+    magnitude level — it WORKS as a bounded helicity-transferring coupling, but
+    the non-reciprocity it carries is imposed-by-hand, not forced-by-derivation."""
+    nr = non_reciprocity_test()
+    # Is the non-reciprocity FORCED (lattice-derived magnitude) or IMPOSED (plugged)?
+    sign_is_lattice = True  # chi sign = I4132 handedness (crystal_engine.py:41)
+    magnitude_is_derived = False  # theta_chi, kappa plugged; engine averages chi out
+    skew_is_generic = True  # any lossless 2-mode coupling => Hermitian generator
+    return {
+        "non_reciprocity_measurement": nr,
+        "skew_form_forced": "TRIVIALLY (lossless => unitary => Hermitian generator; "
+        "generic two-mode coupling, not AVE-distinct)",
+        "non_reciprocity_sign_source": "LATTICE-FORCED (chi sign = I4_1 32 "
+        "handedness, crystal_engine.py:41)",
+        "non_reciprocity_magnitude_source": "IMPOSED (theta_chi=2pi*nu_vac + kappa "
+        "plugged; the chiral-crystal engine that would DERIVE the magnitude averages "
+        "chirality out — device-circuit-models.md:163, STATED-pending-engine)",
+        "is_reciprocal_rabi_2mode": nr["is_reciprocal_rabi"],
+        "verdict": "IMPOSED-AT-MAGNITUDE (ECHO). The skew form is forced trivially "
+        "by losslessness; the non-reciprocity SIGN is lattice-sourced (chirality), "
+        "but the non-reciprocity MAGNITUDE is plugged by hand. A bounded, "
+        "helicity-transferring coupling EXISTS and works — but it does not derive "
+        "its non-reciprocity from the lattice.",
+        "flag_for_grant": "The chiral-crystal engine (device-circuit-models.md:163) "
+        "averages chirality out, so the non-reciprocity magnitude cannot be derived "
+        "here — it is plugged. Deriving it is the STATED-pending-engine frontier.",
+    }
 
 
 # ═════════════════════════════════════════════════════════════════════════════
