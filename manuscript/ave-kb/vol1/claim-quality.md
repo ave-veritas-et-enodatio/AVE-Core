@@ -498,6 +498,8 @@ The bullet-cluster lensing-baryon spatial offset is explained as **ponderomotive
 
 > **Leaf references:** [magnetic-saturation](./dynamics/ch4-continuum-electrodynamics/magnetic-saturation.md).
 
+> **🔴 $X_L$ = the FLYWHEEL (spin/frequency-regulation) sector, NOT the rest-mass store (2026-06-20, Rule 12 — the rationale's "magnetic→$X_L$→rest mass (clm-lv3uw1)" gloss below PRESERVED unedited; Grant-CONFIRMED mass-sector ruling; SYNCS this entry to the PR#260 banner at `common/dual-reactance-storage-taxonomy.md:189`).** Where the rationale glosses the **magnetic** saturation branch ($\mu_{eff}\to0$) inductive sector "$X_L$" as **rest mass**, the **$X_L$ = the inductive FLYWHEEL = the T2 / Cosserat micro-rotation ($\omega$) spin sector** (the spin/Larmor clock), whose mass-gap is the Compton/Larmor *clock* gap, **NOT** the rest-mass store. The **rest mass is the A1 longitudinal DILATATION** depression (`vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md:20` "A1 dilatation-MASS"). The dual-reactance **COUNT** ($\mathcal{V}_{total}=2.0$, $X_C+X_L$) — the load-bearing factor in $\tau_{yield}$ here — is **UNAFFECTED**; only the "$X_L$ = rest mass" *label* is re-scoped. Consistency-class relabel, body preserved per Rule-12.
+
 ### Quality
 - confidence: 0.50
 - depends-on:
