@@ -1,112 +1,102 @@
-import os
+"""AVE constants-derivation pipeline flowchart (schematic).
+
+SCOPE NOTE: this is a SCHEMATIC of the calibration pipeline, not a computed
+figure. It shows how the three empirical calibration inputs (h, c, e) define the
+substrate LC network constants, which in turn set the continuum moduli. No
+physical value is computed here; the arrows are pipeline edges, not derivations.
+"""
 
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 
+from ave.viz import style
+from ave_path_util import SIM_OUTPUTS
+
+# assets/figures (repo-root-anchored sibling of assets/sim_outputs).
+_FIGURES_DIR = SIM_OUTPUTS.parent / "figures"
+
 
 def create_flowchart() -> None:
-    fig, ax = plt.subplots(figsize=(12, 8), facecolor="#050510")
-    ax.set_facecolor("#050510")
-    ax.axis("off")
+    style.apply("print")
 
-    # Define coordinates
+    fig, ax = plt.subplots(figsize=style.figsize("wide"))
+    ax.set_axis_off()
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0.05, 0.95)
+
     inputs_y = 0.8
     network_y = 0.5
     macro_y = 0.2
 
-    # Helper to draw boxes
-    def draw_box(x: float, y: float, text: str, color: str, width: float = 0.22, height: float = 0.12) -> None:
+    def draw_box(
+        x: float, y: float, text: str, color: str, width: float = 0.24, height: float = 0.13
+    ) -> None:
         box = patches.FancyBboxPatch(
             (x - width / 2, y - height / 2),
             width,
             height,
             boxstyle="round,pad=0.02",
             ec=color,
-            fc="#111122",
-            lw=2,
+            fc="white",
+            lw=1.8,
         )
         ax.add_patch(box)
-        ax.text(x, y, text, ha="center", va="center", color="white", fontsize=11, fontweight="bold")
+        ax.text(x, y, text, ha="center", va="center", color="black", fontsize=9, fontweight="bold")
 
-    # Helper to draw arrows
-    def draw_arrow(
-        start: tuple[float, float], end: tuple[float, float], color: str = "white", text: str | None = None
-    ) -> None:
+    def draw_arrow(start: tuple[float, float], end: tuple[float, float]) -> None:
         ax.annotate(
             "",
             xy=end,
             xytext=start,
-            arrowprops=dict(arrowstyle="->", color=color, lw=2, connectionstyle="arc3,rad=0.1"),
+            arrowprops=dict(
+                arrowstyle="->", color=style.COLORS["muted"], lw=1.8,
+                connectionstyle="arc3,rad=0.1",
+            ),
         )
-        if text:
-            mid_x = (start[0] + end[0]) / 2
-            mid_y = (start[1] + end[1]) / 2 + 0.02
-            ax.text(mid_x, mid_y, text, color=color, fontsize=9, ha="center")
 
-    # Inputs
-    draw_box(0.2, inputs_y, "Planck's Constant ($h$)\nCirculation Quantum", "#ffaa00")
-    draw_box(0.5, inputs_y, "Speed of Light ($c$)\nPhase Velocity", "#ffaa00")
-    draw_box(0.8, inputs_y, "Elementary Charge ($e$)\nFlux Quantum", "#ffaa00")
+    # 1. Empirical calibration inputs (accent / highlight).
+    in_color = style.COLORS["accent"]
+    draw_box(0.2, inputs_y, "Planck's constant ($h$)\nCirculation quantum", in_color)
+    draw_box(0.5, inputs_y, "Speed of light ($c$)\nPhase velocity", in_color)
+    draw_box(0.8, inputs_y, "Elementary charge ($e$)\nFlux quantum", in_color)
     ax.text(
-        0.5,
-        inputs_y + 0.1,
-        "1. Empirical Calibration Inputs",
-        color="#ffaa00",
-        fontsize=14,
-        fontweight="bold",
-        ha="center",
+        0.5, inputs_y + 0.1, "1. Empirical calibration inputs",
+        color=in_color, fontsize=12, fontweight="bold", ha="center",
     )
 
-    # Network Constants
-    draw_box(0.2, network_y, "Node Inductance\nL = h / (e² c)", "#00ffff")
-    draw_box(0.5, network_y, "Node Distance\n$ℓ_{node}$ (Topology)", "#00ffff")
-    draw_box(0.8, network_y, "Link Capacitance\nC = e² / (h c)", "#00ffff")
+    # 2. Derived network constants (ave / blue).
+    net_color = style.COLORS["ave"]
+    draw_box(0.2, network_y, "Node inductance\n$L = h / (e^2 c)$", net_color)
+    draw_box(0.5, network_y, "Node distance\n$\\ell_{node}$ (topology)", net_color)
+    draw_box(0.8, network_y, "Link capacitance\n$C = e^2 / (h c)$", net_color)
     ax.text(
-        0.5,
-        network_y + 0.1,
-        "2. Derived Network Constants (LC Lattice)",
-        color="#00ffff",
-        fontsize=14,
-        fontweight="bold",
-        ha="center",
+        0.5, network_y + 0.1, "2. Derived network constants (LC lattice)",
+        color=net_color, fontsize=12, fontweight="bold", ha="center",
     )
 
-    # Macroscopic
-    draw_box(0.2, macro_y, "Permeability\n$\mu_0 = L / ℓ_{node}$", "#00ff00")
-    draw_box(0.5, macro_y, "Impedance\n$Z_0 = \sqrt{L/C}$", "#00ff00")
-    draw_box(0.8, macro_y, "Permittivity\n$\epsilon_0 = C / ℓ_{node}$", "#00ff00")
+    # 3. Continuum moduli (comparison / vermillion for contrast).
+    mac_color = style.COLORS["comparison"]
+    draw_box(0.2, macro_y, "Permeability\n$\\mu_0 = L / \\ell_{node}$", mac_color)
+    draw_box(0.5, macro_y, "Impedance\n$Z_0 = \\sqrt{L/C}$", mac_color)
+    draw_box(0.8, macro_y, "Permittivity\n$\\epsilon_0 = C / \\ell_{node}$", mac_color)
     ax.text(
-        0.5,
-        macro_y + 0.1,
-        "3. Emergent Continuum Moduli",
-        color="#00ff00",
-        fontsize=14,
-        fontweight="bold",
-        ha="center",
+        0.5, macro_y + 0.1, "3. Continuum moduli",
+        color=mac_color, fontsize=12, fontweight="bold", ha="center",
     )
 
-    # Arrows
-    draw_arrow((0.2, inputs_y - 0.06), (0.2, network_y + 0.06), "#aaaaaa")
-    draw_arrow((0.8, inputs_y - 0.06), (0.8, network_y + 0.06), "#aaaaaa")
-    draw_arrow((0.5, inputs_y - 0.06), (0.5, network_y + 0.06), "#aaaaaa")
+    # Arrows: inputs -> network -> moduli.
+    draw_arrow((0.2, inputs_y - 0.07), (0.2, network_y + 0.07))
+    draw_arrow((0.5, inputs_y - 0.07), (0.5, network_y + 0.07))
+    draw_arrow((0.8, inputs_y - 0.07), (0.8, network_y + 0.07))
 
-    draw_arrow((0.2, network_y - 0.06), (0.2, macro_y + 0.06), "#aaaaaa")
-    draw_arrow((0.8, network_y - 0.06), (0.8, macro_y + 0.06), "#aaaaaa")
-    draw_arrow((0.2, network_y - 0.06), (0.5, macro_y + 0.06), "#aaaaaa")
-    draw_arrow((0.8, network_y - 0.06), (0.5, macro_y + 0.06), "#aaaaaa")
+    draw_arrow((0.2, network_y - 0.07), (0.2, macro_y + 0.07))
+    draw_arrow((0.8, network_y - 0.07), (0.8, macro_y + 0.07))
+    draw_arrow((0.2, network_y - 0.07), (0.5, macro_y + 0.07))
+    draw_arrow((0.8, network_y - 0.07), (0.5, macro_y + 0.07))
 
-    plt.suptitle(
-        "AVE Framework: Constants Derivation Pipeline",
-        color="white",
-        fontsize=18,
-        fontweight="bold",
-        y=0.95,
-    )
-
-    out_dir = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "figures")
-    os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, "calibration_flowchart.png")
-    plt.savefig(out_path, dpi=300, bbox_inches="tight", facecolor=fig.get_facecolor())
+    _FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+    out_path = _FIGURES_DIR / "calibration_flowchart.png"
+    style.save(fig, out_path)
     print(f"Saved: {out_path}")
 
 

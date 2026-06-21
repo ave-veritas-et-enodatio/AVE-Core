@@ -1,162 +1,119 @@
+"""Double-slit interpretation comparison: SM probability cloud vs AVE wake.
+
+Illustrative / interpretive figure (NOT a quantitative simulation). The wave
+number k is an arbitrary illustrative value chosen for legible fringes; the panels
+contrast the two *interpretations* of the same two-slit experiment, they do not
+predict a measured intensity.
+"""
+
 import matplotlib.pyplot as plt
 import numpy as np
 
+from ave.viz import style
 from ave_path_util import sim_output
+
+# Illustrative wave number (arbitrary units) — see module docstring.
+K_ILLUSTRATIVE = 4.0
 
 
 def create_comparison() -> None:
-    fig = plt.figure(figsize=(22, 10), facecolor="#050510")
+    style.apply("print")
 
-    # ---------------------------------------------------------
-    # Panel 1: Standard Model (Probability Amplitude)
-    # ---------------------------------------------------------
-    ax1 = fig.add_subplot(121)
-    ax1.set_facecolor("#050510")
-    ax1.set_title(
-        "Standard Model Interpretation\n(Point Particle as Probability Cloud)",
-        color="white",
-        pad=25,
-        fontsize=20,
-        fontweight="bold",
-    )
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=style.figsize("wide"))
 
     y, x = np.mgrid[-10:10:400j, 0:20:400j]
-
-    # Slit positions
     slit1_y, slit2_y = 3, -3
+    wall_x = 0
+    k = K_ILLUSTRATIVE
 
-    # SM: Particle is "everywhere" - spherical probability wave from both slits
-    # \psi = e^{ikr_1}/r_1 + e^{ikr_2}/r_2
-    k = 4.0
     r1 = np.sqrt(x**2 + (y - slit1_y) ** 2) + 0.1
     r2 = np.sqrt(x**2 + (y - slit2_y) ** 2) + 0.1
 
-    # Amplitude
+    # ---------------------------------------------------------
+    # Panel 1: Standard Model interpretation (probability cloud).
+    # Illustrative |psi|^2 from two spherical waves (same arbitrary k) faded in
+    # from the slits to render the "everywhere at once" probability cloud.
+    # ---------------------------------------------------------
     psi = np.exp(1j * k * r1) / np.sqrt(r1) + np.exp(1j * k * r2) / np.sqrt(r2)
-    prob_density = np.abs(psi) ** 2
-
-    # Add a smooth fade-in from the slits to represent the "cloud"
-    fade = np.clip(x / 5.0, 0, 1)
-    prob_density *= fade
-
-    # Visualize as a blurry quantum cloud (blues/purples)
-    # im1 = ax1.imshow(  # bulk lint fixup pass
-    #     prob_density,
-    #     extent=[0, 20, -10, 10],
-    #     origin="lower",
-    #     cmap="Purples_r",
-    #     alpha=0.9,
-    #     vmax=np.percentile(prob_density, 98),
-    # )
-
-    # Draw wall and slits
-    wall_x = 0
-    ax1.plot([wall_x, wall_x], [-10, slit2_y - 1], "w-", lw=4)
-    ax1.plot([wall_x, wall_x], [slit2_y + 1, slit1_y - 1], "w-", lw=4)
-    ax1.plot([wall_x, wall_x], [slit1_y + 1, 10], "w-", lw=4)
-
-    # Point particle icon as a blurry "superposition"
-    ax1.text(wall_x - 3, 0, r"$|\Psi\rangle$", color="#d8b4e2", fontsize=24, ha="center", va="center")
-    ax1.plot([-5, -1], [0, slit1_y], color="#d8b4e2", ls="--", alpha=0.5)
-    ax1.plot([-5, -1], [0, slit2_y], color="#d8b4e2", ls="--", alpha=0.5)
-
-    ax1.text(
-        5,
-        8,
-        "Particle passes through\nBOTH slits simultaneously",
-        color="white",
-        fontsize=12,
-        ha="left",
-        bbox=dict(facecolor="#111122", alpha=0.8, edgecolor="none"),
+    prob_density = np.abs(psi) ** 2 * np.clip(x / 5.0, 0, 1)
+    ax1.imshow(
+        prob_density,
+        extent=[0, 20, -10, 10],
+        origin="lower",
+        cmap=style.CMAP_SEQ,
+        vmin=0,
+        vmax=np.percentile(prob_density, 98),
     )
 
+    ax1.plot([wall_x, wall_x], [-10, slit2_y - 1], color=style.COLORS["data"], lw=3)
+    ax1.plot([wall_x, wall_x], [slit2_y + 1, slit1_y - 1], color=style.COLORS["data"], lw=3)
+    ax1.plot([wall_x, wall_x], [slit1_y + 1, 10], color=style.COLORS["data"], lw=3)
+
+    ax1.text(
+        wall_x - 3, 0, r"$|\Psi\rangle$",
+        color=style.COLORS["comparison"], fontsize=22, ha="center", va="center",
+    )
+    ax1.plot([-5, -1], [0, slit1_y], color=style.COLORS["comparison"], ls="--", alpha=0.6)
+    ax1.plot([-5, -1], [0, slit2_y], color=style.COLORS["comparison"], ls="--", alpha=0.6)
+
+    ax1.text(
+        5, 8, "Particle passes through\nBOTH slits simultaneously",
+        color=style.COLORS["data"], fontsize=10, ha="left",
+        bbox=dict(facecolor="white", alpha=0.9, edgecolor=style.COLORS["muted"]),
+    )
+    ax1.set_xlim(-6, 20)
+    ax1.set_ylim(-10, 10)
     ax1.set_axis_off()
 
     # ---------------------------------------------------------
-    # Panel 2: AVE Interpretation (Physical Wake)
+    # Panel 2: AVE interpretation (localized defect + physical wake).
     # ---------------------------------------------------------
-    ax2 = fig.add_subplot(122)
-    ax2.set_facecolor("#050510")
-    ax2.set_title(
-        "Applied Vacuum Engineering\n(Localized Defect + Physical Wake)",
-        color="white",
-        pad=25,
-        fontsize=20,
-        fontweight="bold",
-    )
-
-    # AVE: Particle is localized, goes through ONE slit. It generates a wake that goes through both.
-    # source_x, source_y = -4, 0  # bulk lint fixup pass
-
-    # Create the physical wave field (instantaneous pressure)
-    np.sqrt((x + 4) ** 2 + y**2) + 0.1
-    # wake_primary = np.sin(k * r_source) / np.sqrt(r_source)  # bulk lint fixup pass
-
-    # Secondary wavelets from slits (Huygens-Fresnel, but mechanical)
     wake_slit1 = np.sin(k * r1 - k * np.sqrt((-4) ** 2 + slit1_y**2)) / np.sqrt(r1)
     wake_slit2 = np.sin(k * r2 - k * np.sqrt((-4) ** 2 + slit2_y**2)) / np.sqrt(r2)
+    wake_energy = (wake_slit1 + wake_slit2) ** 2
 
-    # Combine (just a visual representation of classical interference)
-    total_wake = wake_slit1 + wake_slit2
-
-    # Use inferno heatmap on energy density |wake|² — makes fringes glow against dark bg
-    wake_energy = total_wake**2
     ax2.imshow(
         wake_energy,
         extent=[0, 20, -10, 10],
         origin="lower",
-        cmap="hot",
-        alpha=0.95,
+        cmap=style.CMAP_SEQ,
         vmin=0,
         vmax=np.percentile(wake_energy, 97),
     )
 
-    # Draw wall and slits (Thicker for clarity)
-    ax2.plot([wall_x, wall_x], [-10, slit2_y - 1], "w-", lw=5)
-    ax2.plot([wall_x, wall_x], [slit2_y + 1, slit1_y - 1], "w-", lw=5)
-    ax2.plot([wall_x, wall_x], [slit1_y + 1, 10], "w-", lw=5)
+    ax2.plot([wall_x, wall_x], [-10, slit2_y - 1], color=style.COLORS["data"], lw=3)
+    ax2.plot([wall_x, wall_x], [slit2_y + 1, slit1_y - 1], color=style.COLORS["data"], lw=3)
+    ax2.plot([wall_x, wall_x], [slit1_y + 1, 10], color=style.COLORS["data"], lw=3)
 
-    # Draw the particle objectively going through Slit 1
-    ax2.plot([-5, -1], [0, slit1_y], color="#00ff00", ls="-", lw=3)
-    ax2.plot(-1, slit1_y, "o", color="#00ff00", markersize=12, markeredgecolor="w", markeredgewidth=2)
+    # Topological defect through slit 1.
+    ax2.plot([-5, -1], [0, slit1_y], color=style.COLORS["accent"], ls="-", lw=2.5)
+    ax2.plot(
+        -1, slit1_y, "o", color=style.COLORS["accent"], markersize=10,
+        markeredgecolor="white", markeredgewidth=1.5,
+    )
     ax2.text(
-        -1,
-        slit1_y + 1.8,
-        "Topological\nDefect",
-        color="#00ff00",
-        fontsize=12,
-        ha="center",
-        fontweight="bold",
+        -1, slit1_y + 1.8, "Topological\ndefect",
+        color=style.COLORS["accent"], fontsize=10, ha="center", fontweight="bold",
     )
 
-    # Draw the wake going through Slit 2
-    ax2.plot([-5, -1], [0, slit2_y], color="#00ffff", ls=":", lw=3)
+    # Dark wake through slit 2.
+    ax2.plot([-5, -1], [0, slit2_y], color=style.COLORS["ave"], ls=":", lw=2.5)
     ax2.text(
-        -1,
-        slit2_y - 2.5,
-        "Dark Wake\n(Vacuum Strain)",
-        color="#00ffff",
-        fontsize=12,
-        ha="center",
-        fontweight="bold",
+        -1, slit2_y - 2.5, "Dark wake\n(vacuum strain)",
+        color=style.COLORS["ave"], fontsize=10, ha="center", fontweight="bold",
     )
 
     ax2.text(
-        5,
-        8,
-        "Particle passes through ONE slit.\nIts physical wake passes through BOTH.",
-        color="white",
-        fontsize=14,
-        ha="left",
-        bbox=dict(facecolor="#111122", alpha=0.9, edgecolor="#00aaff", lw=2),
+        5, 8, "Particle passes through ONE slit.\nIts physical wake passes through BOTH.",
+        color="white", fontsize=10, ha="left",
+        bbox=dict(facecolor="black", alpha=0.7, edgecolor=style.COLORS["ave"], lw=1.5),
     )
-
+    ax2.set_xlim(-6, 20)
+    ax2.set_ylim(-10, 10)
     ax2.set_axis_off()
 
-    plt.tight_layout()
-
     out_path = sim_output("double_slit_sm_vs_ave.png")
-    plt.savefig(out_path, dpi=400, bbox_inches="tight", facecolor=fig.get_facecolor())
+    style.save(fig, out_path)
     print(f"Saved: {out_path}")
 
 

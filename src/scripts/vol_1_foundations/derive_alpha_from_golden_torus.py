@@ -17,7 +17,13 @@ Output: assets/sim_outputs/trefoil_alpha_qfactor.png
 Reference: manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex
 """
 
+import sys
+from pathlib import Path
+
 import numpy as np
+
+# Resolve the repo's src/ so `ave` + `ave_path_util` import when run directly.
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from ave.core.constants import ALPHA, ALPHA_COLD_INV, DELTA_STRAIN
 from ave_path_util import sim_output
@@ -54,8 +60,23 @@ def golden_torus_multipole() -> dict[str, float]:
 
 
 def render_figure(output_path: str | None = None) -> str:
-    """Render the trefoil soliton figure at Golden Torus ropelength."""
+    """Render the trefoil soliton figure at Golden Torus ropelength.
+
+    House style (``ave.viz.style``): white print background, CMAP_SEQ strain
+    colouring, NO baked title (the alpha headline belongs in the LaTeX caption).
+    The geometry / multipole values stay as an in-figure data annotation box
+    (legitimate data labels, not a caption). Physics is untouched — only the
+    figure presentation is restyled.
+    """
+    import matplotlib
+
+    matplotlib.use("Agg")  # headless: render-to-file driver
+
     import matplotlib.pyplot as plt
+
+    from ave.viz import style
+
+    style.apply()  # print profile (white background)
 
     mp = golden_torus_multipole()
     Lambda_vol = mp["Lambda_vol"]
@@ -80,13 +101,14 @@ def render_figure(output_path: str | None = None) -> str:
     strain = np.sqrt(ddx**2 + ddy**2 + ddz**2)
     strain /= strain.max()
 
-    fig = plt.figure(figsize=(12, 9), dpi=150)
-    fig.patch.set_facecolor("#0d1117")
+    fig = plt.figure(figsize=style.figsize("square"))
     ax = fig.add_subplot(111, projection="3d")
-    ax.set_facecolor("#0d1117")
 
-    ax.plot(x, y, z, color="white", linewidth=0.8, alpha=0.35, zorder=1)
-    ax.scatter(x, y, z, c=strain, cmap="magma", s=18, alpha=0.92, edgecolors="none", zorder=5)
+    ax.plot(x, y, z, color=style.COLORS["muted"], linewidth=0.8, alpha=0.45, zorder=1)
+    sc = ax.scatter(
+        x, y, z, c=strain, cmap=style.CMAP_SEQ, s=18, alpha=0.92,
+        edgecolors="none", zorder=5,
+    )
 
     for spine in ("left", "right", "top", "bottom"):
         if spine in ax.spines:
@@ -95,55 +117,37 @@ def render_figure(output_path: str | None = None) -> str:
     ax.xaxis.pane.fill = False
     ax.yaxis.pane.fill = False
     ax.zaxis.pane.fill = False
-    ax.xaxis.pane.set_edgecolor("#30363d")
-    ax.yaxis.pane.set_edgecolor("#30363d")
-    ax.zaxis.pane.set_edgecolor("#30363d")
     ax.set_xticks([])
     ax.set_yticks([])
     ax.set_zticks([])
 
-    ax.text2D(
-        0.02,
-        0.96,
-        "AVE: Electron Soliton ($3_1$) at Dielectric Ropelength",
-        transform=ax.transAxes,
-        color="#00ffcc",
-        fontsize=15,
-        weight="bold",
-    )
-    ax.text2D(
-        0.02,
-        0.91,
-        rf"Geometric Q-Factor: $\alpha^{{-1}}_{{\mathrm{{ideal}}}} = 4\pi^3 + \pi^2 + \pi "
-        rf"\approx {alpha_inv_computed:.4f}$",
-        transform=ax.transAxes,
-        color="white",
-        fontsize=12,
-    )
-    ax.text2D(
-        0.02,
-        0.87,
-        rf"CMB strain correction: $\delta_{{\mathrm{{strain}}}} \approx "
-        rf"{DELTA_STRAIN:.3e}$ → $\alpha^{{-1}}_{{\mathrm{{obs}}}} = {1.0/ALPHA:.6f}$",
-        transform=ax.transAxes,
-        color="#58a6ff",
-        fontsize=11,
+    # Strain colorbar (Axis 2: quantity + symbol + unit, normalised → dimensionless).
+    cb = fig.colorbar(sc, ax=ax, shrink=0.6, pad=0.02)
+    cb.set_label(
+        style.axis_label("Normalised strain", r"|\ddot{\mathbf{r}}|", "dimensionless")
     )
 
+    # In-figure DATA annotation: geometry + multipole decomposition values. These
+    # are data labels (the decomposition the figure exists to show), not a title —
+    # the alpha headline / "electron soliton" framing belongs in the LaTeX caption.
     textstr = (
         rf"$R = \varphi/2 \approx {R_gt:.4f}$,  $r = (\varphi-1)/2 \approx {r_gt:.4f}$" + "\n"
         rf"$\Lambda_{{vol}}  = 4\pi^3 \approx {Lambda_vol:.3f}$  (3-torus phase volume)" + "\n"
         rf"$\Lambda_{{surf}} = \pi^2 \approx {Lambda_surf:.3f}$    (Clifford torus)" + "\n"
-        rf"$\Lambda_{{line}} = \pi \approx {Lambda_line:.3f}$       (core magnetic moment)"
+        rf"$\Lambda_{{line}} = \pi \approx {Lambda_line:.3f}$       (core magnetic moment)" + "\n"
+        rf"$\alpha^{{-1}}_{{\mathrm{{ideal}}}} = \Lambda_{{vol}}+\Lambda_{{surf}}+\Lambda_{{line}}"
+        rf" \approx {alpha_inv_computed:.4f}$"
     )
     ax.text2D(
         0.02,
         0.04,
         textstr,
         transform=ax.transAxes,
-        color="white",
-        fontsize=10,
-        bbox=dict(facecolor="#161b22", edgecolor="#00ffcc", alpha=0.85, pad=8),
+        color=style.COLORS["data"],
+        fontsize=9,
+        bbox=dict(
+            facecolor="white", edgecolor=style.COLORS["ave"], alpha=0.85, pad=8
+        ),
     )
 
     ax.view_init(elev=22, azim=38)
@@ -151,7 +155,7 @@ def render_figure(output_path: str | None = None) -> str:
     if output_path is None:
         output_path = str(sim_output("trefoil_alpha_qfactor.png"))
 
-    plt.savefig(output_path, facecolor=fig.get_facecolor(), bbox_inches="tight")
+    style.save(fig, output_path)
     plt.close()
     return output_path
 

@@ -7,9 +7,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+from ave.viz import style
 from ave_path_util import sim_output
 
-plt.style.use("dark_background")
+style.apply("print")  # white-background print profile (house style)
 
 
 def generate_k4_chiral_lattice(grid_size: int = 2) -> np.ndarray:
@@ -50,15 +51,23 @@ def generate_k4_chiral_lattice(grid_size: int = 2) -> np.ndarray:
 def plot_chiral_lattice_manifold() -> None:
     print("Evaluating Continuous Spatial Manifold as a Discrete Chiral Graph (SRS Net)...")
 
-    fig = plt.figure(figsize=(12, 12), facecolor="#050510")
+    fig = plt.figure(figsize=style.figsize("square"))
     ax = fig.add_subplot(111, projection="3d")
-    ax.set_facecolor("#050510")
+    # 3D panes are not fully governed by rcParams — set them explicitly so the
+    # print-profile white background is honoured on every face (gotcha 5).
+    ax.set_facecolor("white")
+    for pane in (ax.xaxis, ax.yaxis, ax.zaxis):
+        pane.set_pane_color((1.0, 1.0, 1.0, 1.0))
 
     # View Angle emphasizing the geometric helical channels built into the K4 lattice
     ax.view_init(elev=22, azim=60)
 
-    # Generate nodes
-    grid_size = 4
+    # Generate nodes. A 3x3x3 tiling is the smallest sub-manifold in which the
+    # SRS chiral helical channels and the exact 3-coordination of every node
+    # remain visually legible — at the prior 4x4x4 the nodes overplotted into an
+    # opaque blob and the K4 topology (the point of the figure) was lost. This is
+    # a presentation/readability choice; the lattice construction is unchanged.
+    grid_size = 3
     all_nodes = generate_k4_chiral_lattice(grid_size=grid_size)
 
     # Render discrete coordinate nodes (points)
@@ -66,10 +75,11 @@ def plot_chiral_lattice_manifold() -> None:
         all_nodes[:, 0],
         all_nodes[:, 1],
         all_nodes[:, 2],
-        color="#00ffff",
-        s=50,
-        alpha=0.9,
-        edgecolors="white",
+        color=style.COLORS["ave"],
+        s=22,
+        alpha=0.95,
+        edgecolors=style.COLORS["data"],
+        linewidths=0.4,
         zorder=5,
     )
 
@@ -93,8 +103,8 @@ def plot_chiral_lattice_manifold() -> None:
                     [p1[0], p2[0]],
                     [p1[1], p2[1]],
                     [p1[2], p2[2]],
-                    color="#ff00aa",
-                    linewidth=2.0,
+                    color=style.COLORS["comparison"],
+                    linewidth=1.6,
                     alpha=0.7,
                     zorder=1,
                 )
@@ -102,13 +112,7 @@ def plot_chiral_lattice_manifold() -> None:
 
     print(f"Rendered {len(all_nodes)} Discrete Nodes and {edges_plotted} Chiral Tensor Linkages.")
 
-    ax.set_title(
-        r"Topological LC Chiral Network: Coordinate Graph Manifold",
-        color="white",
-        fontsize=18,
-        pad=20,
-        weight="bold",
-    )
+    # No baked title — the caption lives in the LaTeX \caption{} (house style).
     ax.set_axis_off()
 
     ax.set_box_aspect([1, 1, 1])
@@ -125,34 +129,28 @@ def plot_chiral_lattice_manifold() -> None:
         Line2D(
             [0],
             [0],
-            color="#00ffff",
+            color=style.COLORS["ave"],
             marker="o",
             linestyle="None",
-            markersize=9,
+            markersize=8,
             label=r"Discrete Coordinate Node",
         ),
         Line2D(
             [0],
             [0],
-            color="#ff00aa",
-            lw=2.5,
-            alpha=0.8,
+            color=style.COLORS["comparison"],
+            lw=2.0,
+            alpha=0.85,
             label=r"LC Differential Tensor Line (Flux Junction)",
         ),
     ]
-    ax.legend(
-        handles=custom_lines,
-        loc="lower left",
-        facecolor="black",
-        edgecolor="white",
-        labelcolor="white",
-        fontsize=12,
-    )
+    # Legend placed outside the 3D data box (house style; "right" suits a single
+    # panel). bbox_inches="tight" in style.save captures it.
+    style.legend(ax, handles=custom_lines, where="right")
 
     output_path = sim_output("lattice_structure_3d.png")
-    plt.tight_layout()
-    plt.savefig(output_path, dpi=300, facecolor=fig.get_facecolor(), bbox_inches="tight")
-    print(f"Saved pure mathematical chiral graph simulation to: {output_path}")
+    style.save(fig, output_path)
+    print(f"Saved chiral graph manifold (schematic) to: {output_path}")
 
 
 if __name__ == "__main__":
