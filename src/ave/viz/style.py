@@ -94,6 +94,64 @@ REGIME_COLORS: dict[str, str] = {
     "IV": "#D55E00",   # vermillion   — Ruptured    (no propagation)
 }
 
+# Semantic names for the four regimes (the traffic-light reading: proceed /
+# caution-metric-lensing / rupture). Paired with REGIME_COLORS so the band
+# colour is never the only carrier of meaning (ave-figure-discipline Axis 4).
+REGIME_LABELS: dict[str, str] = {
+    "I": "I — Linear (proceed)",
+    "II": "II — Nonlinear (caution: lensing)",
+    "III": "III — Avalanche (deep lensing)",
+    "IV": "IV — Ruptured (no propagation)",
+}
+
+
+def shade_regimes(ax, bounds, *, axis: str = "x", labels: bool = True, alpha: float = 0.15):
+    """Shade the four canonical operating regimes on ``ax`` — the single mechanic.
+
+    Every regime-banded figure calls this, so they read identically (same
+    colours, labels, ordering). Presentation tier: the regime BOUNDARIES are
+    physics and stay in ``ave.core`` — the caller passes them in, keeping this
+    module's no-``ave.core``-dependency invariant intact.
+
+    Parameters
+    ----------
+    ax:
+        Axes to shade (data already plotted, so the limits are set).
+    bounds:
+        ``(r1, r2, r3)`` — the I/II, II/III, III/IV boundaries on the plotted
+        axis, imported by the caller from the canonical source (e.g.
+        ``ave.core.constants.R_I`` = √(2α); ``four-regimes.md``). Bands run
+        ``[lo, r1)=I``, ``[r1, r2)=II``, ``[r2, r3)=III``, ``[r3, hi]=IV``.
+    axis:
+        ``"x"`` (default) → vertical bands (``axvspan``); ``"y"`` → horizontal
+        (``axhspan``).
+    labels:
+        If True, attach REGIME_LABELS to the legend (one proxy per band).
+    alpha:
+        Band fill transparency.
+
+    Returns
+    -------
+    list
+        The band artists, in I→IV order.
+    """
+    r1, r2, r3 = bounds
+    if axis == "x":
+        lo, hi = ax.get_xlim()
+        span = ax.axvspan
+    elif axis == "y":
+        lo, hi = ax.get_ylim()
+        span = ax.axhspan
+    else:
+        raise ValueError(f"axis must be 'x' or 'y', got {axis!r}")
+    arts = []
+    for a, b, key in ((lo, r1, "I"), (r1, r2, "II"), (r2, r3, "III"), (r3, hi, "IV")):
+        if b > a:
+            arts.append(span(a, b, color=REGIME_COLORS[key], alpha=alpha, zorder=0,
+                             label=(REGIME_LABELS[key] if labels else "_nolegend_")))
+    return arts
+
+
 # The ordered colour cycle for unlabelled multi-series plots. Kept distinct from
 # the semantic names above but drawn from the same colourblind-safe family so an
 # auto-cycled plot still reads on-style. Order chosen for max adjacent contrast.

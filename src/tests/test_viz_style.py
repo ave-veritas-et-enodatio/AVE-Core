@@ -241,7 +241,7 @@ def test_save_clean_figure_no_warning(tmp_path):
 def test_package_reexports_api():
     import ave.viz as viz
 
-    for name in ("apply", "COLORS", "REGIME_COLORS", "CMAP_SEQ", "CMAP_DIV", "axis_label", "save", "figsize", "legend"):
+    for name in ("apply", "COLORS", "REGIME_COLORS", "REGIME_LABELS", "shade_regimes", "CMAP_SEQ", "CMAP_DIV", "axis_label", "save", "figsize", "legend"):
         assert hasattr(viz, name), f"ave.viz missing {name}"
 
 
@@ -293,4 +293,30 @@ def test_legend_rejects_unknown_where():
     ax.plot([0, 1], [0, 1], label="series")
     with pytest.raises(ValueError):
         style.legend(ax, where="diagonal")
+    plt.close(fig)
+
+
+# ---------------------------------------------------------------------------
+# REGIME_LABELS + shade_regimes — the canonical regime-band mechanic
+# ---------------------------------------------------------------------------
+def test_regime_labels_cover_four_regimes():
+    for key in ("I", "II", "III", "IV"):
+        assert key in style.REGIME_LABELS and key in style.REGIME_COLORS
+
+
+def test_shade_regimes_returns_four_bands_in_order():
+    style.apply("print")
+    fig, ax = plt.subplots()
+    ax.plot([0, 1.2], [0, 1])
+    arts = style.shade_regimes(ax, bounds=(0.121, 0.866, 1.0), axis="x")
+    plt.close(fig)
+    assert len(arts) == 4  # I/II/III/IV
+
+
+def test_shade_regimes_rejects_bad_axis():
+    style.apply("print")
+    fig, ax = plt.subplots()
+    ax.plot([0, 1], [0, 1])
+    with pytest.raises(ValueError):
+        style.shade_regimes(ax, bounds=(0.1, 0.5, 1.0), axis="z")
     plt.close(fig)
