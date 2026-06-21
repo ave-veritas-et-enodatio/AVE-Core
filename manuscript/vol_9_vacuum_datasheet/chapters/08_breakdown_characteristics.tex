@@ -36,6 +36,13 @@ The two thresholds locate the same axiomatic content at two operationally distin
 
 The corresponding field thresholds are $E_{yield} = V_{yield}/\ell_{node} \approx \qty{1.13e17}{\volt\per\metre}$ and $E_S = V_{snap}/\ell_{node} = m_e^2 c^3/(e\hbar) \approx \qty{1.32e18}{\volt\per\metre}$ (canonical numerical values imported from \kbleaf{src/ave/core/constants.py:432} via \texttt{E\_CRIT}; per the \texttt{ave-canonical-source} discipline, never hard-coded). The $E_S$ identity --- substrate's full-rupture electric field is identical to QED's Schwinger pair-production critical field --- is the load-bearing axiomatic-consistency closure between the substrate-physics and QED-engineering descriptions of the same natural phenomenon.
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.62\textwidth]{field_ladder.pdf}
+\caption{The two-threshold breakdown field ladder. $E_{yield} = V_{yield}/\ell_{node} = \sqrt{\alpha}\,E_S \approx \qty{1.13e17}{\volt\per\metre}$ is the macroscopic nonlinear onset; $E_S = V_{snap}/\ell_{node} = m_e^2 c^3/(e\hbar) \approx \qty{1.32e18}{\volt\per\metre}$ is the Schwinger microscopic rupture. The separation $E_S/E_{yield} = 1/\sqrt{\alpha} \approx 11.7$ is the same axiomatic factor that distinguishes $V_{snap}$ from $V_{yield}$. Lab-achievable foci ($\sim 10^{10}$~V/m) sit $\sim 7$ orders of magnitude below $E_{yield}$, deep in Regime~I. Field values imported from canonical constants via \kbleaf{figures/gen\_field\_ladder.py}; no observable target hardcoded.}
+\label{fig:vol9_field_ladder}
+\end{figure}
+
 Vol~9 Ch.~\ref{ch:vol9_absolute_maximum_ratings} (Absolute Maximum Ratings) tabulates these limits as substrate rupture thresholds. The present chapter documents the \emph{mechanism} of breakdown rather than the numerical limits themselves: how the substrate responds at and across these thresholds in Regimes~III and IV. Engineering practice operates well below $V_{yield}$ in all current commercial devices; the breakdown mechanism documented here is reached in nature (particle cores, neutron-star surface fields, BH event horizons, early-universe pair production), in the autoresonant Schwinger-bypass programme (Vol~4 PROJECT-ZENER-04), and at the doped-silicon scale via the standard semiconductor avalanche-multiplication identity.
 
 \section{Miller Multiplication and Regime III}

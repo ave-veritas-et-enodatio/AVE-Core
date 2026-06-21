@@ -125,6 +125,13 @@ $1.000$    & $0$ & $\to \infty$ & $0$ & $\to \infty$ & $0$ & IV (rupture; $r_3 =
 \noindent
 \textbf{Boundary values $r_1$, $r_2$, $r_3$:} derived from first principles in \kbleaf{ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md} ($r_1 = \sqrt{2\alpha} \approx 0.1208$ is the sub-$\alpha$-resolvability limit; $r_2 = \sqrt{3}/2 \approx 0.8660$ is the spin-2 avalanche-onset limit from $Q(r) = 1/S(r) = \ell_{\min} = 2$; $r_3 = 1$ is the Axiom~4 rupture boundary).
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{saturation_curves.pdf}
+\caption{Substrate operating-point characteristic curves vs the normalized saturation $r = A_0/A_{yield}$ (Tab.~\ref{tab:vol9_saturation_curves}), all following from the single Axiom~4 kernel $S(r) = \sqrt{1 - r^2}$: the transverse-T2 permittivity $\varepsilon_{eff}/\varepsilon_0 = S$ softens to $0$; the longitudinal-A1 compliance $C_{eff}/C_0$ and the Maxwell phase velocity $c_{EM}/c_0$ both stiffen as $1/S$ and diverge; the mechanical / rest-mass velocity $c_{shear}/c_0 = \sqrt{S}$ rolls to $0$. The four-regime boundaries $r_1 = \sqrt{2\alpha}$, $r_2 = \sqrt{3}/2$, $r_3 = 1$ are marked. Constants imported from \kbleaf{figures/gen\_saturation\_curves.py}; no observable target hardcoded.}
+\label{fig:vol9_saturation_curves}
+\end{figure}
+
 \section{Four-Regime Map}
 \label{sec:vol9_four_regimes}
 
