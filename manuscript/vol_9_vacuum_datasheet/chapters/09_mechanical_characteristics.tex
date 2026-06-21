@@ -82,6 +82,9 @@ $\ell_c^{\text{(K4)}}$ & $\sqrt{6}\,\ell_{node} \approx \num{9.46e-13}$ & \si{\m
 \noindent
 \textbf{Min/Max} columns are omitted: every primitive in this table is a substrate-axiomatic value at the cold-lattice limit, not a characterized engineering range. Engineering tolerances enter via operating-point ($A_0$, $T$) modulation, documented chapter-by-chapter.
 
+\noindent
+\textbf{Node-model channel tags (cross-reference to the 2-domain N-port).} The mechanical primitives above are the two CONFINED channels of the corrected graded-vacuum-impedance-network device model (Ch.~\ref{ch:vol9_pin_port_configuration} \S Device Circuit Models; canonical at \kbleaf{device-circuit-models.md}:143--149). The \textbf{bulk channel} carries the \textbf{MASS-``3''} (the A1 dilatation: $m_e c^2$ = trapped acoustic compression energy), with mechanical impedance $Z_{bulk} = \rho_{bulk}\, c_{bulk} = \sqrt{2}\,\rho_{bulk}\, c_0$ at $K = 2G$ and $\Gamma_{bulk} \to -1$ (CONFINED). The \textbf{shear channel} carries the \textbf{CHARGE-``3''} (the orthogonal Cosserat $(2,3)$ micro-rotation winding; charge $=$ Beltrami helicity), with $Z_{shear} = \rho_{bulk}\, c_{shear}$ and $\Gamma_{shear} \to -1$ (CONFINED). The EM channel ($Z_{EM} \equiv Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx 376.73\,\Omega$, $\Gamma_{EM} = 0$) is the sole external MATCHED radiative PORT --- not a mechanical primitive of this chapter, and crucially NOT in $Z_0$ units: $Z_{bulk}$ and $Z_{shear}$ are \emph{mechanical/acoustic} impedances ($\rho \times$ speed, Pa$\cdot$s/m), $\sim$12 orders of magnitude off $Z_0$ and a unit change away --- writing ``$Z_{bulk} = \sqrt{2}\, Z_0$'' is the canonical electrical-vs-mechanical mis-scope (units discipline per \kbleaf{device-circuit-models.md}:139). $A1 \perp T2$: the mass (A1 dilatation) and charge/spin (Cosserat micro-rotation) grades are orthogonal, never wired into one shared $(V_{inc}, V_{ref})$ phasor (the two-``3''s fence, \kbleaf{master-equation.md}:20).
+
 \section{Two Cosserat Characteristic Lengths --- Disambiguation (flagged)}
 \label{sec:vol9_mech_two_lc}
 
@@ -143,6 +146,8 @@ This is \emph{not} a fitted parameter. It is forced by two independent axiomatic
     \item Axiom~1 LC + Axiom~2 packing identity: the Feng--Thorpe--Garboczi EMT quadratic at packing fraction $p^* = 8\pi\alpha$ has the unique trace-reversal solution $K/G = 2$.
     \item Standard isotropic elastic identity: $\nu = (3K - 2G)/[2(3K + G)]$ evaluated at $K = 2G$ gives $\nu = 2/7$.
 \end{itemize}
+
+\input{figures/moduli_relationship.tex}
 
 The derivation lives canonically at \kbleaf{ave-kb/vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md} (\texttt{clm-x19btt}) with the Effective Medium Theory derivation of $K/G = 2$ at the canonical leaves \kbleaf{topological-packing-fraction.md} and \kbleaf{one-seventh-impedance-projection.md} in the same KB directory. Per CLAUDE.md INVARIANT-S2, this is an Ax~1+Ax~2 \emph{interlink} (cross-axiom identity), not a fundamental axiom in its own right; the canonical-source entry is \kbleaf{src/ave/core/constants.py:532} (\texttt{NU\_VAC}).
 
