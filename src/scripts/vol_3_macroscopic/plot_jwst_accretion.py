@@ -1,13 +1,12 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+from ave.viz import style
 from ave_path_util import sim_output
 
-# Aesthetic configuration
-plt.style.use("dark_background")
-COLOR_AVE = "#00ffff"  # Cyan for AVE
-COLOR_LCDM = "#ff00ff"  # Magenta for Lambda-CDM
-COLOR_DATA = "#ffff00"  # Yellow for JWST data points
+# House style: white-background print profile + Okabe-Ito palette (single source
+# of truth in ave.viz.style — no hand-set dark_background / facecolors / neon hex).
+style.apply()
 
 
 def plot_jwst_accretion() -> None:
@@ -46,21 +45,20 @@ def plot_jwst_accretion() -> None:
     # ---------------------------------------------------------
     # 3. Plotting
     # ---------------------------------------------------------
-    fig, ax = plt.subplots(figsize=(10, 6), dpi=150)
+    fig, ax = plt.subplots(figsize=style.figsize("single"))
 
     # Plot Models
     ax.plot(
         t,
         M_AVE,
-        color=COLOR_AVE,
-        lw=3,
-        label=r"AVE Mutual Inductance ($M_{seed} \cdot e^{t / 65.1}$)",
+        color=style.COLORS["ave"],
+        linestyle="-",
+        label=r"AVE Mutual Inductance ($M_{\mathrm{seed}}\, e^{t / 65.1}$)",
     )
     ax.plot(
         t,
         M_LCDM,
-        color=COLOR_LCDM,
-        lw=3,
+        color=style.COLORS["comparison"],
         linestyle="--",
         label=r"Standard $\Lambda$CDM ($M \propto t^{2.5}$)",
     )
@@ -69,13 +67,11 @@ def plot_jwst_accretion() -> None:
     ax.scatter(
         data_t,
         data_M,
-        color=COLOR_DATA,
-        s=150,
+        color=style.COLORS["data"],
+        s=110,
         zorder=5,
-        edgecolors="white",
-        linewidth=1.5,
         marker="*",
-        label="JWST Empirical Data ($z > 10$)",
+        label=r"JWST empirical data ($z > 10$)",
     )
 
     # Formatting
@@ -83,33 +79,27 @@ def plot_jwst_accretion() -> None:
     ax.set_ylim(1e5, 1e12)
     ax.set_xlim(0, 800)
 
-    ax.set_title("Early Galaxy Accretion: AVE vs $\Lambda$CDM", fontsize=16, fontweight="bold", pad=15)
-    ax.set_xlabel("Time since Big Bang (Million Years)", fontsize=14)
-    ax.set_ylabel("Stellar Mass ($M_{\odot}$)", fontsize=14)
+    ax.set_xlabel(style.axis_label("Time since Big Bang", "t", "Myr"))
+    ax.set_ylabel(style.axis_label("Stellar mass", r"M", r"$M_\odot$"))
 
-    # Grid and Legend
-    ax.grid(True, which="both", axis="both", color="white", alpha=0.1, linestyle="--")
-    ax.legend(loc="lower right", fontsize=12, framealpha=0.8, edgecolor="white")
-
-    # Annotate the paradox region
-    ax.axvspan(300, 600, color="white", alpha=0.05)
+    # Annotate the JWST high-z observation window (guide band, behind data).
+    ax.axvspan(300, 600, color=style.COLORS["muted"], alpha=0.12, zorder=0)
     ax.text(
         450,
         5e6,
-        "JWST High-z\nObservation Window",
-        color="white",
-        alpha=0.6,
-        fontsize=11,
+        "JWST high-$z$\nobservation window",
+        color=style.COLORS["muted"],
+        fontsize=9,
         horizontalalignment="center",
         verticalalignment="center",
     )
 
-    plt.tight_layout()
+    # Legend OUTSIDE the data (right of the axes).
+    style.legend(ax, where="right")
 
-    # Save Figure
-    filepath = sim_output("jwst_exponential_accretion.png")
-    plt.savefig(filepath, facecolor=fig.get_facecolor(), edgecolor="none", bbox_inches="tight")
-    print(f"Saved figure to: {filepath}")
+    # Save (PDF + PNG via the house saver; title lives in the LaTeX \caption).
+    paths = style.save(fig, sim_output("jwst_exponential_accretion.png"))
+    print(f"Saved figure to: {', '.join(str(p) for p in paths)}")
 
 
 if __name__ == "__main__":

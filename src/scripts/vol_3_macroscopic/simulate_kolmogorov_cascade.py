@@ -6,6 +6,12 @@ Generates a three-panel figure demonstrating:
     1. The topological Nyquist cutoff vs the classical Kolmogorov microscale
     2. Enstrophy bounds over the cascade process
     3. The derivation of the macroscopic avalanche exponent from 3D Poisson scaling.
+
+Figure appearance is the AVE house style (``ave.viz.style``): white-background
+print profile, Okabe-Ito colourblind-safe palette, legends outside the data, and
+no baked titles (panel descriptions live in the LaTeX ``\\caption{}``, not the
+raster). The plotted physics/data are unchanged — this driver only routes the
+numbers through the shared presentation layer.
 """
 
 import matplotlib.pyplot as plt
@@ -18,11 +24,16 @@ from ave.regime_3_saturated.kolmogorov_cutoff import (
     lattice_nyquist_wavenumber,
     spectral_cascade_demo,
 )
+from ave.viz import style
 from ave_path_util import sim_output
 
 
 def build_visualization() -> None:
     print("[*] Generating Kolmogorov Cascade Topology Visualizations...")
+
+    # House style: print profile (white bg), Okabe-Ito palette, constrained
+    # layout. Call once before any figure is created.
+    style.apply()
 
     # Typical water parameters
     nu_water = 1.0e-6  # m^2/s kinematic viscosity
@@ -35,18 +46,10 @@ def build_visualization() -> None:
     # -------------------------------------------------------------
     # Render Panels
     # -------------------------------------------------------------
-    fig, axes = plt.subplots(1, 3, figsize=(18, 6))
-    fig.patch.set_facecolor("#111111")
-
-    for ax in axes:
-        ax.set_facecolor("#111111")
-        ax.grid(color="#333333", linestyle="--", alpha=0.5)
-        ax.tick_params(colors="white")
-        ax.xaxis.label.set_color("white")
-        ax.yaxis.label.set_color("white")
-        ax.title.set_color("white")
-        for spine in ax.spines.values():
-            spine.set_edgecolor("#555555")
+    # "wide" preset width, scaled across three panels; constrained_layout (from
+    # the house stylesheet) reserves room so the panels never overlap.
+    base_w, base_h = style.figsize("wide")
+    fig, axes = plt.subplots(1, 3, figsize=(base_w * 1.6, base_h * 1.05))
 
     # Panel 1: Energy Spectrum
     ax1 = axes[0]
@@ -64,21 +67,35 @@ def build_visualization() -> None:
     ax1.loglog(
         k_range,
         E_classical,
-        color="#aaaaaa",
+        color=style.COLORS["comparison"],
         linestyle="--",
-        lw=2,
         label="Classical w/ Viscous Rolloff",
     )
-    ax1.loglog(k_range, E_axiomatic, color="#00ffcc", lw=3, label="Axiomatic Saturation Cutoff")
+    ax1.loglog(
+        k_range,
+        E_axiomatic,
+        color=style.COLORS["ave"],
+        linestyle="-",
+        label="Axiomatic Saturation Cutoff",
+    )
 
-    ax1.axvline(k_K, color="#ff9933", linestyle=":", lw=2, label=r"Classical Dissipation ($k_\eta$)")
-    ax1.axvline(k_max, color="#ff3333", linestyle="-", lw=2, label=r"Topological Nyquist ($k_{\max}$)")
+    ax1.axvline(
+        k_K,
+        color=style.COLORS["muted"],
+        linestyle=":",
+        label=r"Classical Dissipation ($k_\eta$)",
+    )
+    ax1.axvline(
+        k_max,
+        color=style.COLORS["accent"],
+        linestyle="-",
+        label=r"Topological Nyquist ($k_{\max}$)",
+    )
 
-    ax1.set_title("Energy Spectrum $E(k)$ vs Lattice Cutoff")
-    ax1.set_xlabel("Wavenumber $k$ $[m^{-1}]$")
-    ax1.set_ylabel("$E(k)$")
+    ax1.set_xlabel(style.axis_label("Wavenumber", "k", "$m^{-1}$"))
+    ax1.set_ylabel(style.axis_label("Energy spectrum", "E(k)", "$m^{3}\\,s^{-2}$"))
     ax1.set_ylim(bottom=1e-35)  # Let high energy parts stay visible
-    ax1.legend(loc="lower left")
+    style.legend(ax1, where="below")
 
     # Panel 2: Enstrophy / Demonstration
     ax2 = axes[1]
@@ -90,18 +107,23 @@ def build_visualization() -> None:
     ax2.plot(
         demo_data["k"],
         demo_data["E_k"],
-        "o-",
-        color="#ff33ff",
+        marker="o",
+        linestyle="-",
+        color=style.COLORS["ave"],
         markersize=3,
         label="Discrete Modal Cascade",
     )
-    ax2.axvline(demo_data["k_max"], color="#ff3333", lw=2, label="Lattice Yield")
+    ax2.axvline(
+        demo_data["k_max"],
+        color=style.COLORS["accent"],
+        linestyle="-",
+        label="Lattice Yield",
+    )
     ax2.set_xscale("log")
     ax2.set_yscale("log")
-    ax2.set_title("Shell Model Cascade Demonstration")
-    ax2.set_xlabel("Wavenumber $k$")
-    ax2.set_ylabel("Modal Energy Distribution")
-    ax2.legend()
+    ax2.set_xlabel(style.axis_label("Wavenumber", "k", "$m^{-1}$"))
+    ax2.set_ylabel(style.axis_label("Modal energy", "E(k)", "dimensionless"))
+    style.legend(ax2, where="below")
 
     # Panel 3: Avalanche Factor (Strain divergence)
     ax3 = axes[2]
@@ -122,33 +144,34 @@ def build_visualization() -> None:
     ax3.plot(
         r_strain,
         M_1D,
-        color="#aaaaaa",
+        color=style.COLORS["muted"],
         linestyle="--",
-        lw=2,
-        label="1D Axiom 4: Lorentz $\gamma^2$ ($n=2$)",
+        label=r"1D Axiom 4: Lorentz $\gamma^2$ ($n=2$)",
     )
     ax3.plot(
         r_strain,
         M_empirical,
-        color="#ff9933",
+        color=style.COLORS["comparison"],
         linestyle="-.",
-        lw=2,
         label="Empirical Solar Forecast ($n=1.8$)",
     )
-    ax3.plot(r_strain, M_3D, color="#ffcc00", lw=3, label=f"3D Isotropic Axiom 4 ($n={n_3d:.4f}$)")
+    ax3.plot(
+        r_strain,
+        M_3D,
+        color=style.COLORS["ave"],
+        linestyle="-",
+        label=f"3D Isotropic Axiom 4 ($n={n_3d:.4f}$)",
+    )
 
     ax3.set_yscale("log")
     ax3.set_xlim(0, 1.05)
     ax3.set_ylim(1, 1000)
-    ax3.set_title("Op22 Avalanche Factor $M(r)$")
-    ax3.set_xlabel("Topological Shear Strain $r$ (Ratio to Yield)")
-    ax3.set_ylabel("$M(r)$ Growth Factor")
-    ax3.legend(loc="upper left")
-
-    plt.tight_layout()
+    ax3.set_xlabel(style.axis_label("Topological shear strain", "r", "dimensionless"))
+    ax3.set_ylabel(style.axis_label("Avalanche factor", "M(r)", "dimensionless"))
+    style.legend(ax3, where="below")
 
     target = sim_output("kolmogorov_spectral_cutoff.png")
-    plt.savefig(target, dpi=300)
+    style.save(fig, target)
     print(f"[*] Visualized Kolmogorov Cascade: {target}")
 
 

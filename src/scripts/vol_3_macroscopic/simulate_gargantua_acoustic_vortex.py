@@ -35,6 +35,7 @@ import numpy as np
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
+from ave.viz import style  # noqa: E402
 from ave_path_util import manuscript_path, sim_output  # noqa: E402
 
 
@@ -371,39 +372,34 @@ def render_gargantua() -> None:
     image = np.clip(image, 0.0, 1.0)
 
     # ── Render ──
-    fig, ax = plt.subplots(figsize=(20, 10))
-    fig.patch.set_facecolor("black")
+    # House style (ave.viz.style): the canvas/text defaults live in exactly one
+    # place. This is a full-bleed astrophysical IMAGE render — there are no
+    # chart axes, legend, or palette to set; the HDR-tonemapped raymarch output
+    # IS the figure content (untouched physics). House style here means: no
+    # hand-set facecolor, no baked title/footer caption (those belong in the
+    # LaTeX \caption{}, not burned into the raster — ave-figure-discipline
+    # Axis 4), and a borderless tight save via style.save (which also emits the
+    # vector PDF and runs the baked-title guard).
+    style.apply()
 
-    ax.imshow(image, interpolation="bilinear", origin="lower")
+    fig, ax = plt.subplots(figsize=style.figsize("wide"), constrained_layout=False)
+    ax.imshow(image, interpolation="bilinear", origin="lower", aspect="auto")
+    ax.set_position([0.0, 0.0, 1.0, 1.0])
     ax.axis("off")
 
-    total_time = time.time() - t_start
-    ax.text(
-        30,
-        25,
-        "GARGANTUA ACOUSTIC VORTEX\n"
-        "AVE Raymarcher v2: Blackbody + Grav. Redshift + "
-        "Doppler Beaming + ACES Filmic\n"
-        r"Mass $\sim 10^8\;M_\odot$   Spin = 0.999   "
-        f"Samples/px = {N_SAMPLES}   "
-        f"Render time: {total_time:.0f}s",
-        color="white",
-        alpha=0.35,
-        fontsize=10,
-        family="monospace",
-        verticalalignment="bottom",
+    written = style.save(
+        fig,
+        sim_output("gargantua_acoustic_vortex.png"),
+        dpi=250,
     )
-
-    plt.tight_layout(pad=0)
-
-    out_path = str(sim_output("gargantua_acoustic_vortex.png"))
-    plt.savefig(out_path, dpi=250, facecolor=fig.get_facecolor(), bbox_inches="tight")
+    out_path = str(next(p for p in written if p.suffix == ".png"))
     plt.close()
 
-    # Copy to manuscript
+    # Copy the raster to the manuscript figures tree (PNG embed).
     shutil.copy2(out_path, manuscript_path("vol_3_macroscopic", "figures", "gargantua_acoustic_vortex.png"))
 
-    print(f"\n  Saved: {out_path}")
+    total_time = time.time() - t_start
+    print(f"\n  Saved: {', '.join(str(p) for p in written)}")
     print("  Copied to manuscript figures")
     print(f"  Total render time: {total_time:.1f}s")
     print("=" * 70)

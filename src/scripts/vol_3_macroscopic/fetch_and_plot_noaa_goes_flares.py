@@ -1,5 +1,5 @@
 """
-AVE Solar Weather Comparison — illustrative (synthesized timeline, NOT NOAA fetch).
+AVE Solar Weather Comparison — ILLUSTRATIVE (synthesized timeline, NOT a NOAA fetch).
 
 SCOPE NOTE (2026-05-17 driver-script honesty sweep):
 Despite the script name "fetch_and_plot_noaa_goes_flares", this script does
@@ -21,21 +21,35 @@ not constitute empirical validation despite the name.
 Title softened 2026-05-17: was "AVE Empirical Validation: NOAA GOES
 Satellite vs. Topological Solar Weather" — corrected to clarify the fetch
 is synthesized, not real.
+
+FIGURE-STYLE (2026-06-21, Vol-3 Phase-3b regen): restyled through
+``ave.viz.style`` (house print profile, Okabe-Ito palette, legend off the
+data, no baked raster title). Currency fix (LF-03): the prior raster title /
+scatter label claimed "Empirical Validation: NOAA GOES Satellite Telemetry"
+and labelled the synthesized Monte-Carlo scatter as live "Empirical NOAA
+GOES" telemetry. That is FALSE — the timeline is synthesized and the AVE
+0.46-yr FWHM is a forward prediction awaiting a live NOAA GOES fetch. The
+baked title is removed (caption belongs in the LaTeX \\caption{}); the
+synthesized series is now labelled as illustrative/synthesized, not as
+empirical telemetry. No physics/data values changed.
 """
 
 import matplotlib.pyplot as plt
 import numpy as np
 
+from ave.viz import style
 from ave_path_util import sim_output
+
+style.apply("print")
 
 
 def simulate_empirical_noaa_overlay() -> None:
-    print("[*] Generating Empirical NOAA GOES Satellite vs AVE Topological Diode comparison...")
+    print("[*] Generating ILLUSTRATIVE (synthesized) Solar-cycle vs AVE Topological Diode overlay...")
 
-    # We will simulate the empirical layout since live-fetching the entire 40-year
+    # We simulate the empirical layout since live-fetching the entire 40-year
     # NOAA GOES JSON catalog can be flaky without an API key or stable endpoint.
     # We use known historical Solar Maximum dates and empirical flare clustering
-    # to demonstrate the overlay.
+    # to demonstrate the overlay. THIS IS SYNTHESIZED, NOT A NOAA FETCH.
 
     # Solar Cycles (Approximate Maxima dates)
     # Cycle 23 Max: 2001.3
@@ -62,9 +76,9 @@ def simulate_empirical_noaa_overlay() -> None:
     np.max(theoretical_emission)
     # half_max = max_emission / 2.0  # bulk lint fixup pass
 
-    # Generate Empirical Scatter (Simulating GOES X and M class flares)
+    # Generate Synthesized Scatter (placeholder for GOES X and M class flares)
     # Flares in reality strictly cluster around the high-voltage peaks
-    np.random.seed(42)  # For reproducible "empirical" scatter visually matching reality
+    np.random.seed(42)  # For reproducible synthesized scatter
 
     empirical_years = []
     empirical_intensities = []
@@ -74,7 +88,7 @@ def simulate_empirical_noaa_overlay() -> None:
         rand_yr = np.random.uniform(1995, 2026)
         v_at_yr = 50.0 + 49.5 * np.cos((2 * np.pi * (rand_yr - 2001.3)) / 11.0)
 
-        # Empirical probability of a flare is tightly coupled to the avalanche curve
+        # Synthesized probability of a flare is tightly coupled to the avalanche curve
         v_ratio_rand = np.clip(v_at_yr / V_BD, 0, 0.99)
         m_rand = 1.0 / (1.0 - (v_ratio_rand) ** AVALANCHE_N)
         prob = (np.exp(v_at_yr / V_T) * m_rand) / (np.exp(100.0 / V_T) * 100)  # normalized
@@ -85,71 +99,67 @@ def simulate_empirical_noaa_overlay() -> None:
             intensity = np.random.uniform(5.0, 100.0)  # M and X class
             empirical_intensities.append(intensity)
 
-    # Rendering
-    fig, ax = plt.subplots(figsize=(14, 7))
-    fig.patch.set_facecolor("#0f0f0f")
-    ax.set_facecolor("#0f0f0f")
-    ax.grid(color="#333333", linestyle="--", alpha=0.5)
-    ax.tick_params(colors="white")
-    ax.xaxis.label.set_color("white")
-    ax.yaxis.label.set_color("white")
-    ax.title.set_color("white")
-    for spine in ax.spines.values():
-        spine.set_edgecolor("#555555")
+    # Rendering — house style (white print profile, Okabe-Ito palette)
+    fig, ax = plt.subplots(figsize=style.figsize("wide"))
 
-    # Plot Theoretical Avalanche Envelope
-    ax.plot(years, theoretical_emission, color="#ffcc00", lw=2, label="AVE Theoretical FWHM Envelope")
+    # Plot Theoretical Avalanche Envelope (the AVE-distinct claim)
+    ax.plot(
+        years,
+        theoretical_emission,
+        color=style.COLORS["ave"],
+        linestyle="-",
+        lw=2,
+        label="AVE topological diode: avalanche emission envelope",
+    )
 
     # Plot Dynamo Base Voltage (Scaled visually)
     ax.plot(
         years,
         dynamo_voltage,
-        color="#66ccff",
+        color=style.COLORS["accent"],
         linestyle="-.",
         lw=1.5,
-        alpha=0.6,
-        label="AC Topological Dynamo (Magnetic Winding)",
+        label="AC topological dynamo (magnetic winding)",
     )
 
-    # Plot Empirical NOAA GOES Telemetry
+    # Plot synthesized (illustrative) flare scatter — NOT live NOAA telemetry
     ax.scatter(
         empirical_years,
         empirical_intensities,
-        color="#ff3333",
+        color=style.COLORS["data"],
         marker="x",
         alpha=0.8,
         s=40,
-        label="Empirical NOAA GOES (M/X Class Flares)",
+        label="Synthesized flare scatter (illustrative placeholder, not NOAA fetch)",
     )
 
-    # Annotate FWHM Zones
+    # Annotate FWHM Zones — A-034 forward prediction (0.46-yr FWHM), validation pending
     # Cycle 23
     ax.axvspan(
         2001.3 - 0.23,
         2001.3 + 0.23,
-        color="#ff33ff",
+        color=style.COLORS["comparison"],
         alpha=0.2,
-        label="Theoretical 0.46-Year Avalanche FWHM",
+        label="AVE A-034 forward prediction: 0.46-yr avalanche FWHM (pending NOAA fetch)",
     )
     # Cycle 24
-    ax.axvspan(2001.3 + 11.0 - 0.23, 2001.3 + 11.0 + 0.23, color="#ff33ff", alpha=0.2)
+    ax.axvspan(2001.3 + 11.0 - 0.23, 2001.3 + 11.0 + 0.23, color=style.COLORS["comparison"], alpha=0.2)
     # Cycle 25
-    ax.axvspan(2001.3 + 22.0 - 0.23, 2001.3 + 22.0 + 0.23, color="#ff33ff", alpha=0.2)
+    ax.axvspan(2001.3 + 22.0 - 0.23, 2001.3 + 22.0 + 0.23, color=style.COLORS["comparison"], alpha=0.2)
 
     ax.set_yscale("log")
     ax.set_ylim([1, 1e4])
     ax.set_xlim([1995, 2026])
 
-    ax.set_title("Empirical Validation: NOAA GOES Satellite Telemetry vs. Topological FWHM Breakdown")
-    ax.set_xlabel("Time (Years)")
-    ax.set_ylabel("Emission Intensity (Flares) / Voltage")
-    ax.legend(loc="upper right", fontsize=10)
+    # No baked title — caption belongs in the LaTeX \caption{}.
+    ax.set_xlabel(style.axis_label("Time", "t", "yr"))
+    ax.set_ylabel(style.axis_label("Emission intensity / dynamo voltage", "", "arb. units"))
+    style.legend(ax, where="below", ncol=1)
 
-    plt.tight_layout()
-
-    target = sim_output("noaa_goes_empirical_validation.png")
-    plt.savefig(target, dpi=300)
-    print(f"[*] Visualized NOAA GOES Empirical Validation: {target}")
+    output_path = sim_output("noaa_goes_empirical_validation.png")
+    style.save(fig, output_path)
+    print(f"[*] Saved ILLUSTRATIVE synthesized solar-cycle overlay (NOT NOAA telemetry): {output_path}")
+    plt.close(fig)
 
 
 if __name__ == "__main__":

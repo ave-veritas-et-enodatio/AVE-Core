@@ -12,16 +12,37 @@ The script does NOT compute:
   - R = 8.314 J/(mol·K) recovered from the LC mapping
   - Comparison against standard kinetic theory predictions
 
-This is an illustrative narrative animation, NOT a PV=nRT derivation.
+This is an illustrative narrative animation, NOT a PV=nRT derivation. All
+quantities (box size, jitter "temperature", pressure reading) are in arbitrary
+illustrative units, so there is no physical constant to import here — the figure
+makes no quantitative claim against canon.
 
 Docstring corrected 2026-05-17.
+
+FIGURE RESTYLE (2026-06-21, Vol-3 Phase-3b figure regen):
+The static manuscript figure is restyled through ``ave.viz.style`` (house print
+profile — white background, Okabe-Ito palette), replacing the hand-set dark
+``#111111`` facecolor / white title text / cyan-magenta off-palette. The baked
+"Final State: V=..., P=..." title is removed: the caption lives in the LaTeX
+``\\caption{}`` of chapter 12, not in the raster (ave-figure-discipline Axis 4).
+The static figure now writes to the canonical, manuscript-cited output path
+``assets/sim_outputs/ideal_gas_compressed_static.pdf`` via ``ave_path_util``
+(previously a stray, untracked ``assets/figures/`` path). Physics/data unchanged.
 """
 
 import os
+import sys
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import animation
+
+# Resolve the repo's src/ so `ave` + `ave_path_util` import when run directly.
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+from ave.viz import style  # noqa: E402
+from ave_path_util import sim_output  # noqa: E402
 
 
 def main() -> None:
@@ -33,6 +54,8 @@ def main() -> None:
     print("  n↔trapped topological nodes, T↔transverse RMS jitter.")
     print("- No quantitative PV=nRT verification or R recovery.")
     print("  Illustrative animation, not derivation.\n")
+
+    style.apply()  # house print profile (white background) FIRST
 
     # Simulation Parameters
     num_particles = 150
@@ -55,23 +78,25 @@ def main() -> None:
     # This should functionally raise the Pressure (P) on the walls.
     # We track total momentum exchange with the walls.
 
-    fig, ax = plt.subplots(figsize=(8, 8), facecolor="#111111")
-    ax.set_facecolor("#111111")
+    fig, ax = plt.subplots(figsize=style.figsize("square"))
 
-    scatter = ax.scatter(positions[:, 0], positions[:, 1], s=30, color="cyan", edgecolors="white")
+    scatter = ax.scatter(
+        positions[:, 0], positions[:, 1], s=30,
+        color=style.COLORS["ave"], edgecolors=style.COLORS["data"], linewidths=0.4,
+    )
 
     # Moving wall properties
     wall_x = box_size
-    (wall_line,) = ax.plot([wall_x, wall_x], [0, box_size], color="magenta", lw=4)
+    (wall_line,) = ax.plot(
+        [wall_x, wall_x], [0, box_size],
+        color=style.COLORS["comparison"], lw=4, label="Compressing wall",
+    )
 
     ax.set_xlim(0, box_size)
     ax.set_ylim(0, box_size)
-    ax.set_title(f"PV=nRT LC Cavity (V={box_size**2:.1f}, P=0.0)", color="white", pad=20, fontsize=14)
-    ax.tick_params(colors="white")
-    ax.spines["bottom"].set_color("white")
-    ax.spines["top"].set_visible(False)
-    ax.spines["right"].set_visible(False)
-    ax.spines["left"].set_color("white")
+    ax.set_xlabel(style.axis_label("Cavity width", "x", "grid units"))
+    ax.set_ylabel(style.axis_label("Cavity height", "y", "grid units"))
+    ax.set_aspect("equal")
 
     print("[1] Simulating 2D Gas Kinematics within the LC Grid...")
 
@@ -85,9 +110,6 @@ def main() -> None:
         if frame > 20 and frame < 200:
             wall_x -= 0.02
             wall_line.set_data([wall_x, wall_x], [0, box_size])
-
-        # Current Area (Volume in 2D)
-        current_volume = wall_x * box_size
 
         # Update positions
         positions += velocities * dt
@@ -128,14 +150,6 @@ def main() -> None:
             pressure_reading = pressure_accumalator / perimeter
             pressure_accumalator = 0  # reset
 
-            # Since V drops, P must rise
-            ax.set_title(
-                f"PV=nRT LC Cavity (V={current_volume:.1f}, P={pressure_reading:.1f})",
-                color="white",
-                pad=20,
-                fontsize=14,
-            )
-
         return scatter, wall_line
 
     print("[2] Rendering Cavity Volume compression...")
@@ -144,36 +158,43 @@ def main() -> None:
     os.makedirs("standard_model/animations", exist_ok=True)
     out_path = "standard_model/animations/ideal_gas_pv_lc.gif"
     ani.save(out_path, writer="pillow", fps=30)
+    plt.close(fig)
 
     print("[3] Slicing compressed state for manuscript...")
-    fig_static, ax_static = plt.subplots(figsize=(8, 8), facecolor="#111111")
-    ax_static.set_facecolor("#111111")
+    fig_static, ax_static = plt.subplots(figsize=style.figsize("square"))
 
-    # Map final state
-    ax_static.scatter(positions[:, 0], positions[:, 1], s=30, color="cyan", edgecolors="white")
-    ax_static.plot([wall_x, wall_x], [0, box_size], color="magenta", lw=4)  # Final Wall
-    ax_static.plot([0, 0], [0, box_size], color="white", lw=1)  # Left
-    ax_static.plot([0, wall_x], [0, 0], color="white", lw=1)  # Bottom
-    ax_static.plot([0, wall_x], [box_size, box_size], color="white", lw=1)  # Top
+    # Map final state (house palette: nodes = AVE blue, wall = vermillion,
+    # cavity boundary = muted gray guides).
+    ax_static.scatter(
+        positions[:, 0], positions[:, 1], s=30,
+        color=style.COLORS["ave"], edgecolors=style.COLORS["data"], linewidths=0.4,
+        label="Trapped topological nodes $N$",
+    )
+    ax_static.plot(
+        [wall_x, wall_x], [0, box_size],
+        color=style.COLORS["comparison"], lw=4, label="Compressing wall",
+    )  # Final Wall
+    ax_static.plot([0, 0], [0, box_size], color=style.COLORS["muted"], lw=1)  # Left
+    ax_static.plot([0, wall_x], [0, 0], color=style.COLORS["muted"], lw=1)  # Bottom
+    ax_static.plot([0, wall_x], [box_size, box_size], color=style.COLORS["muted"], lw=1)  # Top
 
     ax_static.set_xlim(0, box_size)
     ax_static.set_ylim(0, box_size)
-    ax_static.set_title(
-        f"Final State: V={wall_x*box_size:.1f}, P={pressure_reading:.1f}",
-        color="white",
-        pad=20,
-        fontsize=14,
-    )
-    ax_static.axis("off")
+    ax_static.set_xlabel(style.axis_label("Cavity width", "x", "grid units"))
+    ax_static.set_ylabel(style.axis_label("Cavity height", "y", "grid units"))
+    ax_static.set_aspect("equal")
+    style.legend(ax_static, where="below", ncol=2)
 
-    os.makedirs("assets/figures", exist_ok=True)
-    static_out = "assets/figures/ideal_gas_compressed_static.pdf"
-    fig_static.savefig(static_out, facecolor="#111111", bbox_inches="tight", dpi=150)
+    # Canonical, manuscript-cited output (chapter 12 \includegraphics).
+    static_out = sim_output("ideal_gas_compressed_static")
+    written = style.save(fig_static, static_out)
+    plt.close(fig_static)
 
-    print("\n[STATUS: SUCCESS] The Equation of State PV=nRT successfully modeled")
-    print("as continuous macroscopic LC Impedance mapping.")
+    print("\n[STATUS: SUCCESS] Illustrative LC-cavity compression rendered")
+    print("(narrative mapping of PV=nRT onto continuous macroscopic LC impedance).")
     print(f"Animated propagation saved to {out_path}")
-    print(f"Static boundary state saved to {static_out}")
+    for p in written:
+        print(f"wrote {p}")
 
 
 if __name__ == "__main__":
