@@ -1116,10 +1116,11 @@ AVE-native canonical identification of the electron as a self-trapped photon —
 - _Specific Claims_
   - The electron is the same K4-substrate wave as the photon, above the saturation threshold (not an ontologically distinct particle).
   - Electron real-space topology is the $0_1$ unknot; the $(2,3)$ "trefoil" is the phase-space Clifford-torus winding, not a real-space knot.
-  - 8/8 topological-dynamical properties are axiom-derived; 6/8 observables are axiom-derived.
+  - 8/8 topological-dynamical properties are axiom-derived; **5/8 observables are axiom-derived** (corrected 2026-06-21 from 6/8 — the leading $g = 2$ is POSITED, not derived; see the Rule-12 scope-note in the Caveats).
 - _Specific Non-Claims and Caveats_
   - $m_e$ is honestly scoped as a calibration anchor, not an axiom-derived value.
   - g-2 closure is partial, pending K4-Cosserat numerical confirmation.
+  - 🔴 **Rule-12 scope-note (2026-06-21, workflow wwpskpweb):** distinguish two separate items the prior wording conflated. (i) The **leading $g = 2$** value is **POSITED** (the imported Dirac value), NOT axiom-derived — the $2\pi$/$4\pi$ double-cover forces **spin-½**, not the $\mu/S$ ratio (proton $g_p \approx 5.586$ / neutron $g_n \approx -3.826$ are also spin-½ with the same double-cover yet $g \neq 2$). (ii) The separate **anomalous** part $a_e = g{-}2$ Petermann coefficient is the partial-closure / $n_q$-additivity item (Q-G27 thread). The "6/8 observables axiom-derived" tally above counted the leading $g = 2$ as derived; the corrected tally is **5/8 axiom-derived** (spin-½ stays derived; leading $g = 2$ → posited) per [`electron-identification.md`](./particle-physics/ch01-topological-matter/electron-identification.md) §2 honest-scoping summary.
   - Flagged corpus citation issue (sm-translation-toolchain.md:22 "longitudinal wave" vs canonical transverse).
 
 > **Leaf references:** [electron-identification](./particle-physics/ch01-topological-matter/electron-identification.md).
@@ -1130,7 +1131,7 @@ AVE-native canonical identification of the electron as a self-trapped photon —
   - INVARIANT-S2 / Axioms 1–4 (per-property axiom audit: K4 lattice, TKI, minimum reflection, saturation)
   - clm-h9aqmt (electron-unknot ropelength / self-energy, framing #2)
 - solidity: 0.70 (ok to build on, see caveats) [= min(0.75, 0.70)]
-- rationale: A rigorous, self-critical per-property axiom audit: 8/8 topological-dynamical properties and 6/8 observables are traced to axioms, with $m_e$ honestly scoped as a calibration anchor (not derived), the Compton wavelength as definitional, and g-2 flagged as partial closure (pending $n_q$-additivity); one Clifford-torus uniqueness sub-item is disclosed and does not affect predictions. The audit is honest and well-grounded with explicit calibration/circularity flagging; it is an identification+audit, not a numerical prediction. Disclosed-bound.
+- rationale: A rigorous, self-critical per-property axiom audit: 8/8 topological-dynamical properties and 5/8 observables are traced to axioms (corrected 2026-06-21 from 6/8 — the LEADING g=2 value is POSITED/Dirac, not axiom-derived; the 2π/4π double-cover forces spin-½, not the μ/S ratio, with proton/neutron the decisive counterexample), with $m_e$ honestly scoped as a calibration anchor (not derived), the Compton wavelength as definitional, and the separate ANOMALOUS g−2 Petermann part flagged as partial closure (pending $n_q$-additivity); one Clifford-torus uniqueness sub-item is disclosed and does not affect predictions. The audit is honest and well-grounded with explicit calibration/circularity flagging; it is an identification+audit, not a numerical prediction. Disclosed-bound.
 - strengthen-by:
   - Close the g-2 Petermann $n_q$-additivity item via the K4-Cosserat Lagrangian numerical confirmation.
   - Resolve the flagged longitudinal-vs-transverse corpus citation (sm-translation-toolchain.md:22) pending Grant adjudication.
