@@ -209,6 +209,53 @@ def figsize(kind: str = "single") -> tuple[float, float]:
         ) from None
 
 
+def legend(ax, *args, where: str = "right", **kwargs):
+    """Place a legend OUTSIDE the axes so it never overlaps the data.
+
+    ave-figure-discipline Axis 3: ``loc="best"`` / auto-placement is NOT a
+    guarantee — when the data fills the axes (e.g. an oscillation spanning the
+    full vertical range), matplotlib still drops the legend onto the curve. This
+    helper reserves space outside the plot box instead; ``save``'s
+    ``bbox_inches="tight"`` ensures the outside legend is captured in the output.
+
+    Parameters
+    ----------
+    ax:
+        The Axes to attach the legend to.
+    *args, **kwargs:
+        Forwarded to ``ax.legend`` (handles/labels, ``ncol``, ``title``, ...).
+        An explicit ``loc`` or ``bbox_to_anchor`` in ``kwargs`` overrides the
+        ``where`` placement — the escape hatch for a legend the caller has
+        verified sits in genuine in-axes whitespace.
+    where:
+        ``"right"`` (default) — to the right of the axes; good for a single-panel
+        figure. Do NOT use on the left/middle panel of a multi-panel row, where
+        it lands on the neighbouring panel — use ``"below"`` there. ``"below"`` —
+        beneath the axes; good for multi-panel rows and many entries (pass
+        ``ncol`` to spread them).
+
+    Returns
+    -------
+    matplotlib.legend.Legend
+
+    Raises
+    ------
+    ValueError
+        If ``where`` is not ``"right"`` or ``"below"``.
+    """
+    placements = {
+        "right": dict(loc="upper left", bbox_to_anchor=(1.02, 1.0)),
+        "below": dict(loc="upper center", bbox_to_anchor=(0.5, -0.18)),
+    }
+    if where not in placements:
+        raise ValueError(
+            f"unknown legend placement {where!r}; expected 'right' or 'below'"
+        )
+    # An explicit caller loc/bbox wins (verified-whitespace escape hatch).
+    opts = {} if ("loc" in kwargs or "bbox_to_anchor" in kwargs) else placements[where]
+    return ax.legend(*args, **{**opts, **kwargs})
+
+
 def _baked_titles(fig: "mpl.figure.Figure") -> list[str]:
     """Return any non-empty suptitle / Axes title baked into ``fig``.
 

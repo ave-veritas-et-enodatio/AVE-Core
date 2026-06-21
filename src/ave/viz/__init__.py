@@ -17,6 +17,7 @@ Public API (re-exported from ``ave.viz.style``):
     axis_label  — canonical "Quantity $symbol$ [unit]" label string
     save        — vector-preferred save (PDF + PNG, bbox tight, title-discipline)
     figsize     — standard column-size presets ("single"/"double"/"wide"/"square")
+    legend      — place a legend OUTSIDE the axes (never overlaps the data)
 
 This is a presentation-tier package: NO dependency on the engine (``ave.core``),
 changes only how figures look — never what they show.
@@ -29,6 +30,7 @@ from ave.viz.style import (
     apply,
     axis_label,
     figsize,
+    legend,
     save,
 )
 
@@ -40,4 +42,5 @@ __all__ = [
     "axis_label",
     "save",
     "figsize",
+    "legend",
 ]

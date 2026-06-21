@@ -66,7 +66,10 @@ def build_figure() -> "matplotlib.figure.Figure":
     )
     ax_line.set_xlabel(style.axis_label("Time", "t", "ns"))
     ax_line.set_ylabel(style.axis_label("Amplitude", "A", "dimensionless"))
-    ax_line.legend()
+    # Legend OUTSIDE the axes: the data is a full-range oscillation, so there is
+    # no in-axes whitespace and "right" would land on the neighbouring panel —
+    # place it below, spread across one row (ave-figure-discipline Axis 3).
+    style.legend(ax_line, where="below", ncol=3)
 
     # --- Panel (b): sequential field — CMAP_SEQ + colorbar -------------------
     gy, gx = np.mgrid[-3:3:128j, -3:3:128j]

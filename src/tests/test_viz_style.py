@@ -203,5 +203,56 @@ def test_save_clean_figure_no_warning(tmp_path):
 def test_package_reexports_api():
     import ave.viz as viz
 
-    for name in ("apply", "COLORS", "CMAP_SEQ", "CMAP_DIV", "axis_label", "save", "figsize"):
+    for name in ("apply", "COLORS", "CMAP_SEQ", "CMAP_DIV", "axis_label", "save", "figsize", "legend"):
         assert hasattr(viz, name), f"ave.viz missing {name}"
+
+
+# ---------------------------------------------------------------------------
+# legend — placed OUTSIDE the axes so it never overlaps the data (Axis 3)
+# ---------------------------------------------------------------------------
+def _legend_anchor(leg):
+    """Return the legend's bbox_to_anchor point in axes coords, or None."""
+    bb = leg.get_bbox_to_anchor()
+    ax = leg.axes
+    inv = ax.transAxes.inverted()
+    # bbox is in display coords; map its lower-left back to axes fraction.
+    return inv.transform((bb.x0, bb.y0))
+
+
+def test_legend_right_is_outside_axes():
+    style.apply("print")
+    fig, ax = plt.subplots()
+    ax.plot([0, 1], [0, 1], label="series")
+    leg = style.legend(ax, where="right")
+    x, _ = _legend_anchor(leg)
+    plt.close(fig)
+    assert x > 1.0, "right legend should anchor outside the axes (x>1)"
+
+
+def test_legend_below_is_outside_axes():
+    style.apply("print")
+    fig, ax = plt.subplots()
+    ax.plot([0, 1], [0, 1], label="series")
+    leg = style.legend(ax, where="below", ncol=1)
+    _, y = _legend_anchor(leg)
+    plt.close(fig)
+    assert y < 0.0, "below legend should anchor beneath the axes (y<0)"
+
+
+def test_legend_explicit_loc_overrides_placement():
+    # Escape hatch: a caller passing loc= keeps its in-axes placement.
+    style.apply("print")
+    fig, ax = plt.subplots()
+    ax.plot([0, 1], [0, 1], label="series")
+    leg = style.legend(ax, where="right", loc="lower left")
+    plt.close(fig)
+    assert leg is not None
+
+
+def test_legend_rejects_unknown_where():
+    style.apply("print")
+    fig, ax = plt.subplots()
+    ax.plot([0, 1], [0, 1], label="series")
+    with pytest.raises(ValueError):
+        style.legend(ax, where="diagonal")
+    plt.close(fig)
