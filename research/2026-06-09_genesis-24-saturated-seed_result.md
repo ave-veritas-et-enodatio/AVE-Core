@@ -59,6 +59,40 @@ cited accurately above and match the body's own §7 (`:242`) usage.
 
 ---
 
+## 🔴 ADDENDUM (2026-06-21, Rule 12 — EMF Lenz-sign correction; the CORRECTING HEADER above is the preserved record, this is the adjudicated successor)
+
+The CORRECTING HEADER's diagnosis of a *"non-conservative secular pump"* / *detonation* rested on the path-1
+EMF being wired `emf = +2·V_inc·∂L/∂V_sq`. That `+2` was a **sign-wiring bug**: the method's own docstring
+and doc 67_ §13.6 both derive **`−2`** (the Lenz back-EMF — the reaction opposes the drive). The fix is in
+the EMF assignment in `_compute_emf_per_port` (`src/ave/topological/k4_cosserat_coupling.py`; note the bare `:703` line cite in the
+preserved header above is now stale — the EMF source has drifted line-number as the file grew, which is why
+this and forward cites anchor to the `_compute_emf_per_port` symbol instead). Empirical head-to-head on this same deep-saturated genesis-24 seed:
+
+| sign | E_V peak (emit window) | reverses | V-sector | full ledger |
+|---|---|---|---|---|
+| `+2` (bug) | `6.79×10⁸` | `False` (detonation) | runaway | FAILS |
+| `−2` (Lenz) | `~12` → unwinds to `~5` | `True` (bounded) | bounded, `v_secular<1` | does NOT fully close (`\|L\|` spikes to ~43 then relaxes; H-drift ~−7%) |
+
+So **the V-sector runaway is a CONFIRMED SIGN ARTIFACT, not intrinsic non-conservation.** (Scope: the `−2`
+fixes the V-sector-energy detonation; it does not by itself close the full three-part conservation ledger —
+`|L|` still transiently spikes before relaxing, H drifts ~−7%. This is a V-sector-energy correction, not a
+demonstrated full energize-LOCK.) Under the corrected `−2`,
+the smoke `dE_V` at frac 0.85 is **negative** (`E_V(Arm-1)=5.73 < E_V(Arm-2)=5.90 ⇒ dE_V=−0.17 ≤ eps_machine`),
+so the deep-saturation gate reads **verdict C1** (`dE_V ≤ eps`), not the body's verdict B. The :51 line above
+("`dE_V > 0` … decisively **not C1**") is therefore superseded: under `−2` the source is reversed and the
+test reads **C1**.
+
+**What is UNCHANGED:** the §8-structural finding — **(2,3) does not close; the residual gap is the winder
+primitive** — is sign-independent and **stands**. The corrected `−2` makes the C1 cleaner (a bounded,
+conservative source that nonetheless does not wind the topology), it does not revive an absorption-LOCK
+reading. The genesis GAP-1 (no ω→V winder) holds, now via a cleaner conservative C1 rather than a runaway.
+The path stays `use_lagrangian_emf_coupling=False` by default for the sign-INDEPENDENT Op14 varactor
+double-count (doc 67_ §14.1–§14.4, where both signs diverge on small-amplitude mixed-mode).
+
+Full capture: [`research/2026-06-21_emf-lenz-sign-correction_result.md`](2026-06-21_emf-lenz-sign-correction_result.md).
+
+---
+
 ## §0 — VERDICT: **B** — source channel FIRES, topology does NOT wind. Two gaps localized; one *new step past genesis-23*.
 
 > 🔴 **See CORRECTING HEADER above** — the "FORWARD STEP / one new step past genesis-23" framing in this §0

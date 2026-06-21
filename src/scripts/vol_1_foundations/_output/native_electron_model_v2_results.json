@@ -111,7 +111,7 @@
       "gamma_final": 0.0,
       "eps_gamma_mean": 0.9950752747562702,
       "abs_eps_minus_alpha": 0.9877779384122056,
-      "omega_persistence_ratio": 1660.78267293214,
+      "omega_persistence_ratio": 1660.7826729321425,
       "pca_shell": {
         "R": 0.0007634571172991534,
         "r": 0.0002178916113821456,
@@ -157,7 +157,7 @@
       "gamma_final": 0.0,
       "eps_gamma_mean": 0.9950752747644603,
       "abs_eps_minus_alpha": 0.9877779384203957,
-      "omega_persistence_ratio": 1627.723761995531,
+      "omega_persistence_ratio": 1627.7237619955317,
       "pca_shell": {
         "R": 0.0007633510240319937,
         "r": 0.00021790355241782498,
@@ -203,43 +203,43 @@
       "gamma_final": 0.0,
       "eps_gamma_mean": 0.9975376445552483,
       "abs_eps_minus_alpha": 0.9902403082111837,
-      "omega_persistence_ratio": 527926366392.8263,
+      "omega_persistence_ratio": 528160183873.82806,
       "pca_shell": {
-        "R": 13.804077561910596,
-        "r": 6.1374346821704,
-        "R_over_r": 2.24916081013656,
-        "centroid_v_inc": -8.253112112454142,
-        "centroid_v_ref": -14.74386995740469,
-        "angle_deg": -137.74506051081636
+        "R": 13.415466563145824,
+        "r": 6.040616478303971,
+        "R_over_r": 2.22087705970575,
+        "centroid_v_inc": 5.446348622495198,
+        "centroid_v_ref": 11.860737741663808,
+        "angle_deg": -137.46984827553902
       },
       "pca_bond": {
-        "R": 156.17232773504335,
-        "r": 74.94433935164075,
-        "R_over_r": 2.08384421139906,
-        "centroid_v_inc": -79.5666474873117,
-        "centroid_v_ref": -239.66473828393578,
-        "angle_deg": 171.40638383221162
+        "R": 153.429721110838,
+        "r": 81.20588117975657,
+        "R_over_r": 1.889391739635303,
+        "centroid_v_inc": 83.1436383872818,
+        "centroid_v_ref": 236.16884289711854,
+        "angle_deg": 169.12376995544338
       },
       "property_checks": {
         "P1_unknot_localized": true,
-        "P2_shell_Rr_near_phi_sq": true,
+        "P2_shell_Rr_near_phi_sq": false,
         "P2_bond_Rr_near_phi_sq": false,
         "P3_TIR_held": false,
         "P4_T2_omega_dominates_u": false,
         "P4b_omega_persistence_ge_0p5": true
       },
-      "properties_passed": 3,
+      "properties_passed": 2,
       "verdict": "MODEL_V2_CHANNEL_DESTABILIZED",
       "outcome": "E"
     }
   ],
   "classification": {
     "aggregate_verdict": "V2_CHANNELS_NO_BREAKTHROUGH",
-    "best_stable_variant": "baseline",
-    "best_stable_properties_passed": 2,
-    "stable_arms": ["baseline", "boundary_leak"],
-    "destabilized_arms": ["bemf_feedback", "leak_plus_bemf", "leak_bemf_emf"],
+    "best_variant": "bemf_feedback",
+    "best_properties_passed": 2,
+    "best_omega_persistence": 1660.7826729321425,
     "baseline_omega_persistence": 0.03413982910561822,
-    "note": "Do not treat runaway omega on BEMF arms as circulation success"
+    "improved_omega": true,
+    "improved_eps": false
   }
 }
