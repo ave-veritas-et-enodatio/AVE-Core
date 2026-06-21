@@ -187,15 +187,125 @@ def mode_energies(traj: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
 # ═════════════════════════════════════════════════════════════════════════════
 # GATE A — CONSERVE
 # ═════════════════════════════════════════════════════════════════════════════
-def gate_A_conserve(*args, **kwargs):
-    raise NotImplementedError
+def gate_A_conserve(
+    omega_b: float = 1.0,
+    omega_s: float = 1.3,
+    rate: float = 0.3,
+    chi: int = +1,
+    dt: float = 0.05,
+    n_steps: int = 40000,
+) -> dict:
+    """GATE A — CONSERVE.  Unitary evolution ⇒ N = |a_b|²+|a_s|² conserved to
+    machine precision over a LONG run, and |L|/H bounded (no pump). Axiom-3
+    lossless. This is conservation BY CONSTRUCTION — Gate B proves it is not
+    VACUOUS (energy genuinely exchanges).
+
+    'pump' = secular growth of total norm. We start from a generic (both modes
+    loaded, random phase) state, evolve long, and report (i) max norm drift,
+    (ii) the late-time linear slope of N(t) (a pump would have slope ≫ 0)."""
+    rng = np.random.default_rng(7)
+    a0 = rng.standard_normal(2) + 1j * rng.standard_normal(2)
+    H = circulator_generator(omega_b, omega_s, rate, chi)
+    traj = evolve(a0, H, dt, n_steps)
+    nb, ns = mode_energies(traj)
+    N = nb + ns
+    norm_drift = float(np.max(np.abs(N - N[0])))
+    # late-time slope of N(t) — the pump signature (per-step). Fit last 25 %.
+    tail = N[int(0.75 * len(N)):]
+    t = np.arange(len(tail), dtype=float)
+    slope = float(np.polyfit(t, tail, 1)[0])
+    # |L|/H bounded: the off-diagonal "angular-momentum-like" current
+    # j(t) = 2·Im(a_b* a_s) — its max amplitude relative to N (must be O(1)).
+    j = 2.0 * np.imag(np.conj(traj[:, 0]) * traj[:, 1])
+    j_over_N = float(np.max(np.abs(j)) / N[0])
+    passed = (norm_drift < 1e-9) and (abs(slope) < 1e-12) and (j_over_N < 2.0)
+    return {
+        "norm_drift": norm_drift,
+        "late_slope_per_step": slope,
+        "j_over_N_max": j_over_N,
+        "N_initial": float(N[0]),
+        "n_steps": n_steps,
+        "passed": bool(passed),
+        "verdict": "PASS — norm conserved to machine precision, no pump"
+        if passed
+        else "FAIL — pump / norm drift detected",
+    }
 
 
 # ═════════════════════════════════════════════════════════════════════════════
 # GATE B — TRANSFER
 # ═════════════════════════════════════════════════════════════════════════════
-def gate_B_transfer(*args, **kwargs):
-    raise NotImplementedError
+def gate_B_transfer(
+    omega_b: float = 1.0,
+    omega_s: float = 1.0,
+    rate: float = 0.3,
+    chi: int = +1,
+    dt: float = 0.05,
+    n_steps: int = 40000,
+) -> dict:
+    """GATE B — TRANSFER.  Load energy into the BULK mode ONLY (a_shear(0)=0);
+    measure how much energy FLOWS into the shear mode. The transfer fraction is
+    max_t |a_shear(t)|² / N — a MEASURED energy flow between INDEPENDENT channels
+    (not a closure identity: a_shear starts EMPTY, so any |a_shear|²>0 is energy
+    that physically arrived from a_bulk through the off-diagonal). This guards
+    the TAUTOLOGICAL-TRANSFER failure mode (graft-v4's radiated≔closure bin).
+
+    Must be ≫ the failed 2 %. For a 2-mode skew rotation the max transfer is
+        f_max = Ω² / (Ω² + Δ²/4),    Δ = ω_b − ω_s   (Rabi formula),
+    so RESONANT (Δ=0) ⇒ 100 % complete sloshing; detuned ⇒ throttled. We report
+    both the resonant and a detuned case so the throttling mechanism is explicit.
+    """
+    a0 = np.array([1.0 + 0j, 0.0 + 0j])  # bulk loaded, shear EMPTY
+    H = circulator_generator(omega_b, omega_s, rate, chi)
+    traj = evolve(a0, H, dt, n_steps)
+    nb, ns = mode_energies(traj)
+    N0 = nb[0] + ns[0]
+    transfer_frac = float(np.max(ns) / N0)
+    # Rabi prediction (analytic, independent of the integrator) — validate-on-known.
+    Delta = omega_b - omega_s
+    f_rabi = rate**2 / (rate**2 + (Delta / 2.0) ** 2)
+    rabi_match = bool(np.isclose(transfer_frac, f_rabi, rtol=1e-3, atol=1e-3))
+    # the shear mode genuinely OSCILLATES (Rabi flop) — count zero-up-crossings
+    # of ns − ns.mean() as a non-vacuity witness (it is not a static offset).
+    centered = ns - ns.mean()
+    sign = np.sign(centered)
+    crossings = int(np.sum((sign[:-1] < 0) & (sign[1:] >= 0)))
+    passed = (transfer_frac > 0.5) and rabi_match and (crossings >= 1)
+    return {
+        "transfer_fraction": transfer_frac,
+        "vs_failed_2pct": f"{transfer_frac/0.02:.0f}x the failed 2%",
+        "rabi_prediction": float(f_rabi),
+        "rabi_match": rabi_match,
+        "shear_oscillation_crossings": crossings,
+        "Delta_detuning": float(Delta),
+        "passed": bool(passed),
+        "verdict": "PASS — energy flows bulk->shear, matches Rabi, oscillates"
+        if passed
+        else "FAIL — no real transfer / not a measured flow",
+    }
+
+
+def transfer_vs_detuning(
+    rate: float = 0.3, chi: int = +1, dt: float = 0.05, n_steps: int = 60000
+) -> list[dict]:
+    """Sweep the bulk-shear detuning Δ = ω_b − ω_s; the transfer fraction must
+    follow the Rabi throttle Ω²/(Ω²+Δ²/4). This is the load-bearing mechanism
+    for Gate D (motion→mass): detuning is set by the operating point."""
+    omega_b = 1.0
+    rows = []
+    for Delta in [0.0, 0.2, 0.5, 1.0, 2.0]:
+        omega_s = omega_b - Delta
+        a0 = np.array([1.0 + 0j, 0.0 + 0j])
+        H = circulator_generator(omega_b, omega_s, rate, chi)
+        traj = evolve(a0, H, dt, n_steps)
+        _, ns = mode_energies(traj)
+        f = float(np.max(ns))
+        f_rabi = rate**2 / (rate**2 + (Delta / 2.0) ** 2)
+        rows.append(
+            {"Delta": float(Delta), "transfer_frac": f, "rabi": float(f_rabi),
+             "match": bool(np.isclose(f, f_rabi, rtol=2e-2, atol=2e-3))}
+        )
+    return rows
 
 
 # ═════════════════════════════════════════════════════════════════════════════
