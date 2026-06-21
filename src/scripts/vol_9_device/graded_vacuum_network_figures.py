@@ -57,6 +57,9 @@ _REPO_SRC = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", 
 if _REPO_SRC not in sys.path:
     sys.path.insert(0, _REPO_SRC)
 
+# ── house figure style (presentation tier; NO engine dependency) ───────────────
+from ave.viz import style  # noqa: E402
+
 # ── LIVE engine imports (READ-ONLY: figures only, no engine mutation) ──────────
 from ave.core.constants import ALPHA, Z_RADIATION  # noqa: E402
 
@@ -94,10 +97,17 @@ os.makedirs(_FIG_DIR, exist_ok=True)
 
 DPI = 130
 
-# Channel palette (consistent across all four slots).
-C_EM = "#1f6fb2"     # matched radiative port
-C_SHEAR = "#27ae60"  # deviatoric G (charge-3 Cosserat winding)
-C_BULK = "#c0392b"   # A1 dilatation (mass-3) at K=2G
+# Channel palette (consistent across all four slots) — Okabe-Ito via the house style
+# (ave-figure-discipline Axis 4). Pulled from style.COLORS so a palette re-tune in
+# ave.viz.style propagates here. Channel→colour mapping (colourblind-safe, distinct):
+#   EM    = blue        (the AVE/engine "primary" — the matched radiative port)
+#   shear = bluish-green accent (deviatoric G, charge-3 Cosserat winding)
+#   bulk  = vermillion   (A1 dilatation, mass-3, at K=2G — the "comparison" hue)
+C_EM = style.COLORS["ave"]          # #0072B2 blue   — matched radiative port
+C_SHEAR = style.COLORS["accent"]    # #009E73 green   — deviatoric G (charge-3)
+C_BULK = style.COLORS["comparison"]  # #D55E00 vermillion — A1 dilatation (mass-3)
+C_GUIDE = style.COLORS["muted"]     # #7F7F7F gray — reference lines / guides
+C_CIRC = "#CC79A7"                  # Okabe-Ito reddish-purple — chiral circulator / H_couple
 
 
 def _gamma_mu_load(S: np.ndarray) -> np.ndarray:
@@ -135,65 +145,59 @@ def fig_ii_smith() -> str:
     S_cap = float(saturation_kernel(np.array(0.99)))
     g_cap = float(_gamma_mu_load(np.array(S_cap)))
 
-    fig, (axL, axR) = plt.subplots(1, 2, figsize=(11.6, 5.2))
+    fig, (axL, axR) = plt.subplots(1, 2, figsize=(11.6, 5.6))
 
     # ── left: Γ vs S(A) per channel ──
     axL.plot(S, gamma_mech, color=C_BULK, lw=2.4,
-             label=r"$Z_{\rm bulk},\,Z_{\rm shear}$ ($\mu$-load $Z=Z_0\sqrt{S}$): $\Gamma\!\to\!-1$")
+             label=r"$Z_{\rm shear},Z_{\rm bulk}$ ($\mu$-load $Z=Z_0\sqrt{S}$): $\Gamma\!\to\!-1$")
     axL.plot(S, gamma_em, color=C_EM, lw=2.4, ls="-",
              label=r"$Z_{\rm EM}\equiv Z_0$ (matched port): $\Gamma=0$ (flat)")
-    axL.axhline(-1.0, color="grey", lw=0.9, ls=":")
-    axL.axhline(0.0, color="grey", lw=0.9, ls=":")
-    axL.plot(1.0, 0.0, "o", color="k", ms=6)
+    axL.axhline(-1.0, color=C_GUIDE, lw=0.9, ls=":")
+    axL.axhline(0.0, color=C_GUIDE, lw=0.9, ls=":")
+    axL.plot(1.0, 0.0, "o", color=style.COLORS["data"], ms=6)
     axL.annotate("vacuum: $S=1$, $\\Gamma=0$", xy=(1.0, 0.0), xytext=(0.55, -0.22),
-                 fontsize=8.5, arrowprops=dict(arrowstyle="->", lw=0.9))
+                 fontsize=8.5, arrowprops=dict(arrowstyle="->", lw=0.9, color=C_GUIDE))
     axL.plot(S_cap, g_cap, "s", color=C_BULK, ms=7)
     axL.annotate(f"$A_{{cap}}=0.99$: $S={S_cap:.3f}$,\n$\\Gamma\\approx{g_cap:.3f}$",
                  xy=(S_cap, g_cap), xytext=(0.40, -0.78), fontsize=8.5,
-                 arrowprops=dict(arrowstyle="->", lw=0.9))
+                 arrowprops=dict(arrowstyle="->", lw=0.9, color=C_GUIDE))
     axL.annotate("$S\\!\\to\\!0$ (cage SHORT)\n$\\Gamma\\!\\to\\!-1$", xy=(0.02, -0.97),
                  xytext=(0.12, -0.55), fontsize=8.5, color=C_BULK,
                  arrowprops=dict(arrowstyle="->", lw=0.9, color=C_BULK))
-    axL.set_xlabel(r"saturation $S(A)=\sqrt{1-A^2}$  (live engine kernel)")
-    axL.set_ylabel(r"reflection $\Gamma=(Z-1)/(Z+1)$")
+    axL.set_xlabel(style.axis_label(r"saturation (live engine kernel)",
+                                    r"S(A)=\sqrt{1-A^2}", ""))
+    axL.set_ylabel(style.axis_label("reflection", r"\Gamma=(Z-1)/(Z+1)", ""))
     axL.set_xlim(0.0, 1.02)
     axL.set_ylim(-1.12, 0.30)
     axL.invert_xaxis()  # saturation increases left→right (S:1→0)
     axL.grid(alpha=0.3)
-    axL.legend(fontsize=8.3, loc="upper left")
-    axL.set_title(r"Per-channel $\Gamma$ vs saturation $S(A)$")
+    style.legend(axL, fontsize=8.3, where="below")
 
     # ── right: the same trajectory on a (real-axis) Smith chart ──
     theta = np.linspace(0, 2 * np.pi, 400)
-    axR.plot(np.cos(theta), np.sin(theta), color="grey", lw=1.0)  # |Γ|=1 unit circle
+    axR.plot(np.cos(theta), np.sin(theta), color=C_GUIDE, lw=1.0)  # |Γ|=1 unit circle
     # constant-resistance circles (r=0,1,3) for orientation
     for r, a in ((0.0, 0.35), (1.0, 0.45), (3.0, 0.30)):
         cx = r / (1 + r)
         rad = 1.0 / (1 + r)
-        axR.plot(cx + rad * np.cos(theta), rad * np.sin(theta), color="grey", lw=0.7, alpha=a)
-    axR.axhline(0.0, color="grey", lw=0.7, alpha=0.5)
+        axR.plot(cx + rad * np.cos(theta), rad * np.sin(theta), color=C_GUIDE, lw=0.7, alpha=a)
+    axR.axhline(0.0, color=C_GUIDE, lw=0.7, alpha=0.5)
     # μ-load trajectory: Γ real, sweeping 0 → -1 as S:1→0 (along the negative real axis)
     axR.plot(gamma_mech, np.zeros_like(gamma_mech), color=C_BULK, lw=3.0,
-             label=r"$Z_{\rm bulk},Z_{\rm shear}$: $\Gamma:0\!\to\!-1$")
+             label=r"$Z_{\rm shear},Z_{\rm bulk}$: $\Gamma:0\!\to\!-1$")
     axR.plot(0.0, 0.0, "o", color=C_EM, ms=10,
              label=r"$Z_{\rm EM}$ matched: $\Gamma=0$ (centre)")
     axR.plot(-1.0, 0.0, "*", color=C_BULK, ms=15, label=r"short $\Gamma=-1$ ($S\!\to\!0$)")
     axR.set_xlim(-1.25, 1.25)
     axR.set_ylim(-1.25, 1.25)
     axR.set_aspect("equal")
-    axR.set_xlabel(r"$\mathrm{Re}\,\Gamma$")
-    axR.set_ylabel(r"$\mathrm{Im}\,\Gamma$")
-    axR.legend(fontsize=8.0, loc="upper right")
-    axR.set_title("Smith view ($Z_0$-normalised)")
+    axR.set_xlabel(style.axis_label("", r"\mathrm{Re}\,\Gamma", ""))
+    axR.set_ylabel(style.axis_label("", r"\mathrm{Im}\,\Gamma", ""))
+    style.legend(axR, fontsize=8.0, where="below")
 
-    fig.suptitle(
-        r"Graded-network per-channel reflection from the live varactor operator: "
-        r"$Z_{\rm EM}$ matched ($\Gamma=0$), $Z_{\rm shear}/Z_{\rm bulk}\to\Gamma=-1$ as $S(A)\to0$",
-        fontsize=10.5,
-    )
     p = os.path.join(_FIG_DIR, "vol9_graded_network_smith.png")
-    fig.tight_layout(rect=(0, 0, 1, 0.95))
-    fig.savefig(p, dpi=DPI)
+    fig.tight_layout()
+    fig.savefig(p, dpi=DPI, bbox_inches="tight")
     plt.close(fig)
     return p
 
@@ -237,31 +241,30 @@ def fig_iv_op_sweep() -> str:
 
     ax.annotate("$S\\to0$:  $Z_{\\rm bulk},Z_{\\rm shear}\\to0$ (cage SHORT)",
                 xy=(0.02, 0.05), xytext=(0.22, 0.55), fontsize=9,
-                arrowprops=dict(arrowstyle="->", lw=1.0))
-    ax.plot(1.0, 1.0, "o", color="k", ms=6)
+                arrowprops=dict(arrowstyle="->", lw=1.0, color=C_GUIDE))
+    ax.plot(1.0, 1.0, "o", color=style.COLORS["data"], ms=6)
     ax.annotate("vacuum $S=1$\n(all channels matched)", xy=(1.0, 1.0), xytext=(0.55, 1.45),
-                fontsize=8.5, arrowprops=dict(arrowstyle="->", lw=0.9))
+                fontsize=8.5, arrowprops=dict(arrowstyle="->", lw=0.9, color=C_GUIDE))
 
-    ax.set_xlabel(r"saturation $S(A)=\sqrt{1-A^2}$  (live engine kernel; $S:1\to0$ as the core saturates)")
-    ax.set_ylabel(r"channel impedance  $Z/Z_{\rm channel,0}$  (each in its own domain units)")
+    ax.set_xlabel(style.axis_label(
+        r"saturation (live engine kernel; $S:1\to0$ as the core saturates)",
+        r"S(A)=\sqrt{1-A^2}", ""))
+    ax.set_ylabel(style.axis_label(
+        "channel impedance (each in its own domain units)", r"Z/Z_{\rm channel,0}", ""))
     ax.set_xlim(0.0, 1.02)
     ax.set_ylim(0.0, max(1.7, RATIO_BULK_SHEAR_MECH + 0.15))
     ax.invert_xaxis()  # increasing saturation left→right
     ax.grid(alpha=0.3)
-    ax.legend(fontsize=8.6, loc="upper left")
-    ax.set_title(
-        "Operating-point sweep: channel impedances vs saturation $S$\n"
-        r"($Z_{\rm EM}$ flat; $Z_{\rm bulk}/Z_{\rm shear}\to0$ as $S\to0$ — from the live $Z=Z_0\sqrt{S}$ map)"
-    )
+    style.legend(ax, fontsize=8.6, where="below")
     # caveat banner: mixed impedance domains (the §6 three-impedance mis-scope warning)
     ax.text(0.5, 0.02,
             r"mixed domains: only $Z_{\rm EM}$ is electrical ($\Omega$); "
             r"$Z_{\rm shear},Z_{\rm bulk}$ are mechanical/acoustic ($\rho\times$speed)",
             transform=ax.transAxes, ha="center", va="bottom", fontsize=7.6,
-            bbox=dict(boxstyle="round", fc="#fff6e6", ec="grey", alpha=0.9))
+            bbox=dict(boxstyle="round", fc="#fff6e6", ec=C_GUIDE, alpha=0.9))
     p = os.path.join(_FIG_DIR, "vol9_graded_network_op_sweep.png")
     fig.tight_layout()
-    fig.savefig(p, dpi=DPI)
+    fig.savefig(p, dpi=DPI, bbox_inches="tight")
     plt.close(fig)
     return p
 
@@ -361,7 +364,7 @@ def fig_iii_forkA_discriminator() -> dict:
     Q_cold = cold["Q_ringdown"]
     Z_rad = float(Z_RADIATION)
 
-    fig, (axL, axR) = plt.subplots(1, 2, figsize=(12.2, 5.4))
+    fig, (axL, axR) = plt.subplots(1, 2, figsize=(12.2, 6.0))
 
     # ── LEFT: isolated intrinsic Q(N) → ∞  +  α-free cold-cage anchor ──
     Q_open = np.array(iso["Q_open"], dtype=float)
@@ -374,17 +377,13 @@ def fig_iii_forkA_discriminator() -> dict:
     axL.axhspan(band_lo, band_hi, color=C_EM, alpha=0.16)
     axL.axhline(Z_rad, color=C_EM, lw=1.0, ls=":",
                 label=rf"radiative floor $Z_{{\rm rad}}=Z_0/4\pi\approx{Z_rad:.2f}$ (band-consistent, $\neq$ identity, DEC-5)")
-    axL.axhline(ALPHA_INV, color="grey", lw=1.0, ls="--",
+    axL.axhline(ALPHA_INV, color=C_GUIDE, lw=1.0, ls="--",
                 label=rf"$\alpha^{{-1}}={ALPHA_INV:.1f}$ (baked echo — NOT reproduced cold)")
-    axL.set_xlabel(r"lattice resolution $N$ (dense isolation eigensolve)")
-    axL.set_ylabel(r"$Q=|\mathrm{Re}\,\omega|/(2|\mathrm{Im}\,\omega|)$")
+    axL.set_xlabel(style.axis_label("lattice resolution (dense isolation eigensolve)", "N", ""))
+    axL.set_ylabel(style.axis_label("", r"Q=|\mathrm{Re}\,\omega|/(2|\mathrm{Im}\,\omega|)", ""))
     axL.set_ylim(10, 1e9)
     axL.grid(alpha=0.3, which="both")
-    axL.legend(fontsize=7.6, loc="center right")
-    axL.set_title(
-        "ISOLATED arm (live engines): intrinsic $Q\\to\\infty$ (lossless-confined)\n"
-        rf"$\alpha$-free loaded floor $Q\approx{Q_cold:.1f}$ (cold cage) — neither is 137"
-    )
+    style.legend(axL, fontsize=7.6, where="below")
 
     # ── RIGHT: Fork-A discriminator schematic (coupled DEFERRED) ──
     g = np.linspace(-1.0, 1.0, 400)  # a detuning/coupling axis (schematic)
@@ -392,41 +391,38 @@ def fig_iii_forkA_discriminator() -> dict:
     # behaviour at H_couple=0 (the isolation arm IS the no-coupling limit).
     axR.plot(g, 0.6 * g, color=C_SHEAR, lw=2.4, label="isolated: free crossing (shear branch)")
     axR.plot(g, -0.6 * g, color=C_BULK, lw=2.4, label="isolated: free crossing (bulk branch)")
-    axR.plot(0.0, 0.0, "x", color="k", ms=10, mew=2.5)
+    axR.plot(0.0, 0.0, "x", color=style.COLORS["data"], ms=10, mew=2.5)
     axR.annotate("free crossing\n(no avoided gap)\n$H_{\\rm couple}=0$", xy=(0.0, 0.0),
-                 xytext=(0.18, 0.55), fontsize=8.5, arrowprops=dict(arrowstyle="->", lw=0.9))
+                 xytext=(0.18, 0.55), fontsize=8.5,
+                 arrowprops=dict(arrowstyle="->", lw=0.9, color=C_GUIDE))
     # COUPLED (DEFERRED): the avoided-crossing the coupled solve WOULD produce — drawn
     # as a faint dashed sketch with an explicit "NOT computed" stamp. NOT engine data.
     gap = 0.30
     upper = 0.5 * (0.6 * g - 0.6 * g) + np.sqrt((0.6 * g) ** 2 + gap ** 2)
     lower = -np.sqrt((0.6 * g) ** 2 + gap ** 2)
-    axR.plot(g, upper, color="grey", lw=1.6, ls="--", alpha=0.6)
-    axR.plot(g, lower, color="grey", lw=1.6, ls="--", alpha=0.6,
+    axR.plot(g, upper, color=C_GUIDE, lw=1.6, ls="--", alpha=0.6)
+    axR.plot(g, lower, color=C_GUIDE, lw=1.6, ls="--", alpha=0.6,
              label="coupled: avoided crossing (SCHEMATIC)")
     axR.annotate("mode-splitting gap\n$\\Rightarrow$ loaded $Q\\to$ OBSERVED $Q$ (not 137)",
                  xy=(0.0, gap), xytext=(-0.95, 0.55), fontsize=8.0,
-                 arrowprops=dict(arrowstyle="->", lw=0.9, color="grey"))
+                 arrowprops=dict(arrowstyle="->", lw=0.9, color=C_GUIDE))
     axR.text(0.5, 0.04,
              "COUPLED ARM DEFERRED — pending Build-B $H_{\\rm couple}$ (NOT implemented).\n"
              "Dashed avoided-crossing is a SCHEMATIC, not engine data (not faked: not computed).",
              transform=axR.transAxes, ha="center", va="bottom", fontsize=8.0,
-             bbox=dict(boxstyle="round", fc="#ffecec", ec="#c0392b", alpha=0.95))
+             bbox=dict(boxstyle="round", fc="#ffecec", ec=C_BULK, alpha=0.95))
+    # schematic axes (no physical units — a discriminator cartoon, not a data plot):
+    # keep plain text rather than forcing a misleading "[dimensionless]" bracket.
     axR.set_xlabel("coupling / detuning (schematic axis)")
-    axR.set_ylabel("mode frequency (schematic)")
+    axR.set_ylabel("mode frequency (schematic axis)")
     axR.set_xlim(-1.05, 1.05)
     axR.set_ylim(-1.0, 1.0)
     axR.grid(alpha=0.25)
-    axR.legend(fontsize=7.8, loc="upper left")
-    axR.set_title("Fork-A: isolated free-crossing (live) vs coupled mode-splitting (deferred)")
+    style.legend(axR, fontsize=7.8, where="below")
 
-    fig.suptitle(
-        "Fork-A discriminator — ISOLATED arm from the live isolation eigensolver + "
-        rf"$\alpha$-free cold-cage ringdown ($Q\approx{Q_cold:.1f}$); COUPLED arm deferred-pending-$H_{{\rm couple}}$",
-        fontsize=10.2,
-    )
     p = os.path.join(_FIG_DIR, "vol9_forkA_discriminator.png")
-    fig.tight_layout(rect=(0, 0, 1, 0.94))
-    fig.savefig(p, dpi=DPI)
+    fig.tight_layout()
+    fig.savefig(p, dpi=DPI, bbox_inches="tight")
     plt.close(fig)
     return {
         "path": p,
@@ -469,33 +465,39 @@ def fig_i_schematic() -> str:
 
     # ── shared chiral circulator (centre hub) ──
     hub = (3.0, 4.5)
-    circ = plt.Circle(hub, 0.95, fill=False, lw=2.2, color="#6c3483")
+    circ = plt.Circle(hub, 0.95, fill=False, lw=2.2, color=C_CIRC)
     ax.add_patch(circ)
     # circulating arrows (chirality)
     th = np.linspace(0.2, 1.55 * np.pi, 60)
-    ax.plot(hub[0] + 0.62 * np.cos(th), hub[1] + 0.62 * np.sin(th), color="#6c3483", lw=1.8)
+    ax.plot(hub[0] + 0.62 * np.cos(th), hub[1] + 0.62 * np.sin(th), color=C_CIRC, lw=1.8)
     ax.annotate("", xy=(hub[0] + 0.62 * np.cos(th[-1] + 0.08), hub[1] + 0.62 * np.sin(th[-1] + 0.08)),
                 xytext=(hub[0] + 0.62 * np.cos(th[-1]), hub[1] + 0.62 * np.sin(th[-1])),
-                arrowprops=dict(arrowstyle="-|>", lw=2.0, color="#6c3483"))
+                arrowprops=dict(arrowstyle="-|>", lw=2.0, color=C_CIRC))
     ax.text(hub[0], hub[1] - 0.02, "chiral\ncirculator", ha="center", va="center",
-            fontsize=8.5, color="#6c3483", fontweight="bold")
+            fontsize=8.5, color=C_CIRC, fontweight="bold")
     # input feed into the hub
     ax.annotate("", xy=(hub[0] - 0.95, hub[1]), xytext=(0.6, hub[1]),
-                arrowprops=dict(arrowstyle="-|>", lw=1.8, color="k"))
+                arrowprops=dict(arrowstyle="-|>", lw=1.8, color=style.COLORS["data"]))
     ax.text(0.45, hub[1] + 0.28, "drive /\nport", ha="left", va="bottom", fontsize=8.5)
 
     # ── branch geometry: three reactance arms to the right, fanned vertically ──
+    # CHANNEL-SPLIT labelling (2026-06-17 Rule-12; device-circuit-models.md:95-97,143-145):
+    # the two distinct Γ values are NOT two Γ_EM — they are the per-channel split of the
+    # ONE saturation boundary. EM channel: Γ_EM=0 (matched radiative PORT). Shear and bulk
+    # channels: Γ_shear=Γ_bulk=-1 (the two CONFINED channels collapse to the short). Each
+    # termination carries its own channel subscript so the figure reads as three channels,
+    # not three values of one Γ.
     arms = [
         # (y, color, name, Z-label, termination-label, term-color, term-Γ)
         (7.2, C_EM, r"$Z_{\rm EM}\equiv Z_0$" + "\n(EM grade)",
          "matched radiative port",
-         rf"$\Gamma_{{\rm EM}}=0$ (matched)", C_EM),
+         rf"$\Gamma_{{\rm EM}}=0$ (EM: matched)", C_EM),
         (4.5, C_SHEAR, r"$Z_{\rm shear}=\rho\,c_{\rm shear}$" + "\n(deviatoric $G$, charge-3)",
          r"$Z=Z_0\sqrt{S}\to0$",
-         r"$\Gamma=-1$ (cage SHORT)", C_SHEAR),
+         r"$\Gamma_{\rm shear}=-1$ (shear: cage SHORT)", C_SHEAR),
         (1.8, C_BULK, r"$Z_{\rm bulk}=\rho\,c_{\rm bulk}$" + "\n(A1 dilatation, mass-3, $K{=}2G$)",
          rf"$c_L/c_T={ratio:.3f}$ vs shear",
-         r"$\Gamma=-1$ (cage SHORT)", C_BULK),
+         r"$\Gamma_{\rm bulk}=-1$ (bulk: cage SHORT)", C_BULK),
     ]
     x0 = hub[0] + 0.95
     x_box = 6.0
@@ -530,31 +532,48 @@ def fig_i_schematic() -> str:
     # ── inter-grade coupling annotations ──
     # bulk ↔ shear : conserved H_couple (a real wire between the two mechanical grades)
     ax.annotate("", xy=(x_box, 1.8 + 0.55), xytext=(x_box, 4.5 - 0.55),
-                arrowprops=dict(arrowstyle="<|-|>", lw=1.6, color="#8e44ad", ls="--"))
+                arrowprops=dict(arrowstyle="<|-|>", lw=1.6, color=C_CIRC, ls="--"))
     ax.text(x_box + 1.05, 3.15, r"$H_{\rm couple}$" + "\n(bulk$\\leftrightarrow$shear,\nconserved)",
-            ha="left", va="center", fontsize=7.8, color="#8e44ad")
+            ha="left", va="center", fontsize=7.8, color=C_CIRC)
     # EM ↔ mechanical : needs a transducer (TKI, gated — flagged not asserted)
     ax.annotate("", xy=(x_box, 7.2 - 0.55), xytext=(x_box, 4.5 + 0.55),
-                arrowprops=dict(arrowstyle="<|-|>", lw=1.4, color="grey", ls=":"))
+                arrowprops=dict(arrowstyle="<|-|>", lw=1.4, color=C_GUIDE, ls=":"))
     ax.text(x_box + 1.05, 5.9, "EM$\\leftrightarrow$mech:\ntransducer (TKI),\ngated — flagged",
-            ha="left", va="center", fontsize=7.4, color="grey")
+            ha="left", va="center", fontsize=7.4, color=C_GUIDE)
 
-    ax.set_title(
-        "Graded vacuum impedance network: three reactance channels + chiral circulator "
-        "+ confinement terminations\n"
-        rf"(live anchors: $c_L/c_T={ratio:.3f}$, $Z_{{\rm rad}}=Z_0/4\pi\approx{Z_rad:.2f}\,\Omega$, "
-        rf"$\Gamma_{{\rm EM\to rad}}\approx{gamma_em_into_rad:.3f}$)",
-        fontsize=10.0,
-    )
+    # ── channel-split key (the 2026-06-17 Rule-12 disambiguation, on-figure) ──
+    # The two distinct Γ are a per-channel split of ONE boundary, not two Γ_EM:
+    #   EM channel    Γ_EM = 0   (matched radiative port)
+    #   shear + bulk  Γ_shear = Γ_bulk = -1   (the two confined channels collapse)
+    ax.text(0.02, 0.97,
+            r"channel-split (one boundary, three $\Gamma$):"
+            "\n"
+            r"  EM channel:  $\Gamma_{\rm EM}=0$  (matched port)"
+            "\n"
+            r"  shear + bulk:  $\Gamma_{\rm shear}=\Gamma_{\rm bulk}=-1$  (confined: cage SHORT)",
+            transform=ax.transAxes, ha="left", va="top", fontsize=7.6,
+            bbox=dict(boxstyle="round", fc="#f4f6f7", ec=C_GUIDE, alpha=0.95))
+
+    # live engine anchors as an on-figure key (NOT a caption — these are the
+    # computed numbers the schematic is labelled with; caption goes in LaTeX):
+    ax.text(0.98, 0.97,
+            rf"live anchors:  $c_L/c_T={ratio:.3f}$"
+            "\n"
+            rf"$Z_{{\rm rad}}=Z_0/4\pi\approx{Z_rad:.2f}\,\Omega$"
+            "\n"
+            rf"$\Gamma_{{\rm EM\to rad}}\approx{gamma_em_into_rad:.3f}$",
+            transform=ax.transAxes, ha="right", va="top", fontsize=7.6,
+            bbox=dict(boxstyle="round", fc="#f4f6f7", ec=C_GUIDE, alpha=0.95))
+
     ax.text(0.5, 0.015,
             r"mixed impedance domains: only $Z_{\rm EM}$ is electrical ($\Omega$); "
             r"$Z_{\rm shear},Z_{\rm bulk}$ mechanical/acoustic. Consistency re-expression of "
             r"the three-impedance law (foundation repair, open gates) — not a substrate primitive.",
             transform=ax.transAxes, ha="center", va="bottom", fontsize=7.2,
-            bbox=dict(boxstyle="round", fc="#f4f6f7", ec="grey", alpha=0.95))
+            bbox=dict(boxstyle="round", fc="#f4f6f7", ec=C_GUIDE, alpha=0.95))
     p = os.path.join(_FIG_DIR, "vol9_graded_network_schematic.png")
     fig.tight_layout()
-    fig.savefig(p, dpi=DPI)
+    fig.savefig(p, dpi=DPI, bbox_inches="tight")
     plt.close(fig)
     return p
 
@@ -562,6 +581,10 @@ def fig_i_schematic() -> str:
 def main() -> None:
     print("GRADED VACUUM IMPEDANCE NETWORK — figure generation (deterministic, engine-sourced)")
     print("=" * 78)
+    # House figure style: print profile (white bg, Okabe-Ito palette) — applied once,
+    # before any figure is built (ave-figure-discipline Axis 4).
+    style.apply()
+    print(f"  style profile = print (white bg); palette = Okabe-Ito ({style.COLORS['ave']} ave)")
     p_i = fig_i_schematic()
     print(f"  (i)   schematic        -> {os.path.relpath(p_i, _REPO_SRC)}  ({os.path.getsize(p_i)} B)")
     p_ii = fig_ii_smith()
