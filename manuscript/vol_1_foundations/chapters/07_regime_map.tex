@@ -11,19 +11,17 @@
 
 Every physical domain in the AVE framework reduces to a single dimensionless control parameter $r = A/A_c$, where $A$ is the local strain amplitude and $A_c$ is the domain-specific critical threshold derived from the four axioms. The saturation operator $S(r) = \sqrt{1 - r^2}$ (Axiom~4) changes character at well-defined boundaries, partitioning all of physics into four universal regimes.
 
-\textbf{A-034 universality (canonical 2026-05-15 evening):} this chapter's
-``every physical domain reduces to a single dimensionless control parameter''
-framing IS A-034 (Universal Saturation-Kernel Strain-Snap Mechanism). Per
-Grant 2026-05-15: \emph{``the bulk response of the lattice to strain is
-universal.''} 19 canonical instances span 21 orders of magnitude (atomic to
-cosmic), with empirical anchors: BCS $B_c(T)$ at \textbf{0.00\% error}, BH
-ring-down at 1.7\% from GR, Schwarzschild
-exact, cosmic K4 crystallization, biological membranes, engineered
-metamaterials, etc. (the solar-flare instance is a forward prediction,
-with NOAA validation pending a live fetch --- LF-03).
-% [2026-06-15 LF-03 -- prior wording preserved per Rule 12]: was "..., BH ring-down at 1.7\% from GR, NOAA-validated solar flares, Schwarzschild exact, ...". SUPERSEDED per KB leaf solar-flares-led-avalanche.md: synthesized illustrative timeline, not a live fetch; A-034 forward prediction, not a validated anchor. See Vol 3 Ch 4 \S\ref{sec:tki_strain_snap} +
-Backmatter Ch~\ref{app:universal_saturation_kernel} for the full catalog
-with 3-way symmetry classification (SYM / ASYM-N / ASYM-E).
+This universal control-parameter framing is the Universal Saturation Kernel
+(Axiom~4): the bulk response of the lattice to strain is scale-independent.
+The catalog of canonical instances spans 21 orders of magnitude, from atomic
+to cosmic. Empirical anchors include BCS $B_c(T)$, which matches the kernel
+form by definitional identity (per-material $T_c$, $B_{c0}$ inputs); the
+black-hole ring-down at 1.7\% from GR; and the Schwarzschild radius exactly.
+The solar-flare instance is a forward prediction (NOAA GOES validation
+outstanding). See Vol 3 Ch 4 \S\ref{sec:tki_strain_snap} and
+Backmatter Ch~\ref{app:universal_saturation_kernel} for the full catalog of
+26 canonical instances with the symmetry classification (SYM / ASYM-N /
+ASYM-E).
 
 This chapter establishes the regime classification as a \textbf{prerequisite gate}: no domain analysis proceeds without first identifying its regime and verifying the appropriate equation set.
 
@@ -52,7 +50,7 @@ IV  & Ruptured   & $r \geq 1.0$       & $S = 0$           & Topology destroyed  
 \noindent The boundary values are \textbf{derived from first principles}, not chosen by convention:
 
 \begin{itemize}
-    \item \textbf{$r_1 = \sqrt{2\alpha} \approx 0.1208$ (Small-Signal Limit):} The perturbative expansion (Eq.~\ref{eq:S_taylor}) gives a first-order correction $\Delta S = r^2/2$. The lattice's own self-coupling is $\alpha$ (the fine-structure constant = packing fraction / $8\pi$). When $\Delta S = \alpha$:
+    \item \textbf{$r_1 = \sqrt{2\alpha} \approx 0.1208$ (Small-Signal Limit):} The perturbative expansion (Eq.~\ref{eq:S_taylor}) gives a first-order correction $\Delta S = r^2/2$. The lattice's own self-coupling is $\alpha$ (the fine-structure constant, related to the lattice packing fraction by the identity $\alpha = p_c/8\pi$). When $\Delta S = \alpha$:
     \begin{equation}
         \frac{r^2}{2} = \alpha \qquad \Longrightarrow \qquad r_1 = \sqrt{2\alpha} \approx 0.1208
     \end{equation}
@@ -95,7 +93,7 @@ The four regimes map exactly to the standard operating regions of a semiconducto
 \end{tabularx}
 \end{center}
 
-\noindent This is not an analogy---it is the \textbf{same operator} ($S = \sqrt{1 - (V/V_{BR})^2}$ in the semiconductor case) applied at different scales. The nuclear periodic table already classifies each element by its $V_R/V_{BR}$ ratio and Miller exponent $n$ (the proton's cinquefoil crossing number $c = 5$).
+\noindent This is not an analogy---it is the \textbf{same operator} ($S = \sqrt{1 - (V/V_{BR})^2}$ in the semiconductor case) applied at different scales. The nuclear periodic table already classifies each element by its $V_R/V_{BR}$ ratio and Miller exponent $n$ (the proton's cinquefoil, phase-space $(2,5)$ winding, crossing number $c = 5$).
 
 \subsection{Perturbative Expansion (Regime~I)}
 
@@ -109,7 +107,7 @@ To leading order, $\Delta S \approx r^2/2$. At the derived boundary $r_1 = \sqrt
 \section{Domain Control Parameter Catalog}
 \label{sec:domain_catalog}
 
-Each domain has a unique physical interpretation of the amplitude $A$ and the critical threshold $A_c$. In every case, $A_c$ is \textbf{derived from the four axioms}---it is never a fitted or empirical parameter.
+Each domain has a unique physical interpretation of the amplitude $A$ and the critical threshold $A_c$. In most domains $A_c$ is \textbf{derived from the four axioms} (e.g.\ $V_{yield} = \sqrt{\alpha}\,m_e c^2/e$). In the condensed-matter (BCS) and galactic-rotation rows the critical threshold is an externally-measured material or empirical input ($T_c$, $B_{c0}$, $a_0$); there the kernel supplies the universal functional form and the threshold value is calibrated.
 
 \subsection{Electromagnetic (Dielectric)}
 
@@ -165,7 +163,7 @@ Control parameter & $r = \varepsilon_{11}$ \\
     \item Black hole at $r_s = 2GM/c^2$: $\varepsilon_{11} = 7/2 = 3.5$ --- Regime~IV
 \end{itemize}
 
-\noindent \textit{The neutron star result demands attention.} A 1.4~$M_\odot$ star at $R = 10$~km has $\varepsilon_{11} = 1.46 > 1$, placing it in Regime~IV (ruptured topology). This is the AVE analog of the Buchdahl limit: no static configuration can have $r < 9GM/4c^2$ (where $\varepsilon_{11} > 63/36 = 1.75$). In AVE, the saturation boundary defines an absolute limit on gravitational compactness --- the lattice topology cannot support strain beyond unity.
+\noindent \textit{The neutron star result demands attention.} A 1.4~$M_\odot$ star at $R = 10$~km has $\varepsilon_{11} = 1.46 > 1$, placing it in Regime~IV (ruptured topology). The saturation boundary $\varepsilon_{11} = 1$ defines the AVE compactness limit: no static configuration can have surface radius $R < 7GM/c^2$ (equivalently $2GM/c^2R < 2/7 = \nu_{vac}$, the vacuum Poisson ratio), below which the lattice topology cannot support the strain and ruptures. This is \emph{more} restrictive than the classical GR Buchdahl bound $R > 9GM/4c^2$ ($2GM/c^2R < 8/9$): an object at the GR Buchdahl radius already sits at $\varepsilon_{11} = 7\cdot(4/9) = 28/9 \approx 3.11$, deep in Regime~IV (ruptured).
 
 \begin{examplebox}[Evaluating the Gravitational Regime of a Black Hole]
 \textbf{Problem:} Calculate the dimensionless control parameter $r$ for the gravitational strain at the Event Horizon ($r_s = 2GM/c^2$) of a black hole, and determine its operating regime.
@@ -250,7 +248,7 @@ The ``dark matter problem'' \textbf{IS} the Regime~III$\to$IV phase transition. 
 
 \section{Regime-Specific Equation Sets}
 
-For each regime, the constitutive parameters simplify. Two saturation symmetries arise (per LIVING\_REFERENCE Axiom~4 derived consequences); each gets its own row block:
+For each regime, the constitutive parameters simplify. Two saturation symmetries arise as consequences of the Axiom~4 kernel; each gets its own row block:
 
 \subsection*{Symmetric saturation (gravity, BH interior, GW shear)}
 Both $\varepsilon$ and $\mu$ scale by $S = \sqrt{1-r^2}$. The EM impedance ratio cancels, so $Z = Z_0$ is invariant; the EM phase velocity diverges; the shear (GW / soliton group) velocity freezes.

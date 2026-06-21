@@ -4,8 +4,8 @@
 \begin{objectivebox}
 \begin{itemize}
     \item Understand how the scale-invariant $1/r$ topological tension unifies subatomic lepton mass and atomic nuclear binding.
-    \item Calculate inductive mass generation directly from geometric vacuum compliance ($K = \hbar/c$).
-    \item Recognize the physical origin of the three lepton generations from Cosserat geometric coupling boundaries (twist, torsion, curvature).
+    \item Calculate inductive mass generation directly from geometric vacuum compliance ($K \equiv \hbar/c$).
+    \item Recognize the physical origin of the three lepton generations from the three Cosserat coupling sectors (translation, torsion, curvature-twist).
     \item Replace probabilistic virtual particle exchange with deterministic, continuous Maxwellian FDTD tensor updates.
 \end{itemize}
 \end{objectivebox}
@@ -34,14 +34,14 @@ For the ground-state electron (circumference $= 2\pi R_e = \ell_{node}$), this i
 To prove that AVE does not rely on disconnected, ad-hoc parameter tuning, it must be demonstrated that the identical $1/r$ tensor calculates the mass of an elementary particle and the mass of a complex atomic nucleus.
 
 \subsection{The Lepton Tension Limit}
-The stable Ground State Electron is a $0_1$ Unknot topology---a single closed flux tube loop at minimum ropelength $= 2\pi$, spanning a normalised radius $R_e$. It generates an inductive resistance of $0.511 \text{ MeV}$. 
+The stable Ground State Electron is a $0_1$ Unknot topology---a single closed flux tube loop at minimum ropelength $= 2\pi$, spanning a normalised radius $R_e$. It carries an inductive (reactive) rest mass of $0.511\,\text{MeV}$.
 
-The Muon and Tau are not new ``flavors'' of particles requiring new quantum numbers; they are excitations of this same unknot geometry into higher Cosserat coupling sectors (derived in full in Volume II, Chapter~6 §lepton-spectrum --- corrected from earlier ``Volume II, Chapter 5'' cross-reference per FI-13 resolution 2026-05-18):
+The Muon and Tau are not new ``flavors'' of particles requiring new quantum numbers; they are excitations of this same unknot geometry into higher Cosserat coupling sectors (derived in full in Volume~II, Chapter~\ref{ch:electroweak_higgs}):
 \begin{itemize}
     \item \textbf{Muon:} one quantum of torsional coupling $\alpha\sqrt{3/7}$ yields $m_\mu = m_e/(\alpha\sqrt{3/7}) \approx 107.0 \text{ MeV}$ ($+1.24\%$).
     \item \textbf{Tau:} full bending stiffness $p_c/\alpha^2 = 8\pi/\alpha$ yields $m_\tau = 8\pi m_e / \alpha \approx 1760 \text{ MeV}$ ($-0.95\%$).
 \end{itemize}
-Three Cosserat sectors---translation, rotation, curvature-twist---yield exactly three generations.
+Three Cosserat sectors---translation, torsion, curvature-twist---yield exactly three generations.
 
 \subsection{The Nuclear Tension Limit}
 When constructing atomic nuclei, the same $1/r$ tension law applies symmetrically. Neon-20 ($Z=10, A=20$) is modelled as a $5$-node Alpha-particle lattice in a Triangular Bipyramid arrangement, with the $M \propto 1/d_{ij}$ mutual inductance summed over all $\binom{5}{2} = 10$ pairwise interactions:
@@ -53,7 +53,7 @@ When constructing atomic nuclei, the same $1/r$ tension law applies symmetricall
 
 \noindent\textbf{Methodology disclosure (per Vol 6 introduction).} Within the $(Z,A)$-forced bipyramid topology, the inter-alpha distance $R_{bipyramid}$ is the single fitted scalar adjusted per nucleus so the pairwise summation reproduces the CODATA mass. \emph{Predicted (axiom-derived):} the cluster topology as a function of $(Z, A)$ via minimum-impedance packing, the coupling $K_{mutual} = m_p c^2$, and the parameter count (one scalar per nucleus). \emph{Fitted per nucleus:} the numerical value of $R_{bipyramid}$. The Vol 6 introduction is the canonical statement of this fit/predict split; the Neon-20 result presented here is one application of that methodology, not a zero-parameter ab-initio prediction. The $5\alpha$ Triangular Bipyramid topology is itself the falsifiable axiomatic content; reproducing every measured nuclear mass under \emph{one} fitted scalar per nucleus (rather than the $\sim\!5$ parameters per nucleus required by liquid-drop or shell-model fits) is the structural claim that Vol 6 tests.
 
-The optimizer (\kbleaf{src/scripts/vol\_6\_periodic\_table/simulations/solve\_neon.py}, Nelder--Mead with \texttt{tol=1e-8}) converges at $R_{bipyramid} \approx 81.158\,d$, at which the topological mass evaluates to $18617.730$ MeV against the CODATA target~\cite{codata2018} ($18617.729$ MeV). The reported $<0.001\%$ residual is the optimizer's convergence tolerance on $R$, not an independent ab-initio prediction error on the mass. (Earlier editions of this chapter cited $R = 72.081\,d$ from a prior solver run with different unit conventions; the current canonical value is $81.158\,d$, matching Vol 6 Period 2.)
+The optimizer (\kbleaf{src/scripts/vol\_6\_periodic\_table/simulations/solve\_neon.py}, Nelder--Mead with \texttt{tol=1e-8}) converges at $R_{bipyramid} \approx 81.158\,d$, at which the topological mass evaluates to $18617.730$ MeV against the CODATA target~\cite{codata2018} ($18617.729$ MeV). The reported $<0.001\%$ residual is the optimizer's convergence tolerance on $R$, not an ab-initio mass-prediction error (matching Vol~6 Period~2).
 
 \begin{examplebox}[Calculating the Baseline Nuclear Interaction]
 \textbf{Problem:} Using the Universal Spatial Tension metric ($M \propto 1/r$), calculate the absolute mass equivalent of a single unperturbed topological bond ($K_{mutual}$) between two nuclear nodes.
@@ -80,7 +80,7 @@ This is demonstrated by executing topological geometric defects through a Transv
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.85\textwidth]{fdtd_continuous_yee_mesh.pdf}
-    \caption{\textbf{The Spatially-Staggered Finite-Difference Time-Domain (FDTD) Matrix.} (Simulation Output). A rendering of the fundamental causality cell of the vacuum hardware. To avoid division-by-zero singularities during macroscopic curl operations ($\nabla_d \times \mathbf{E}$), the lattice staggers its inductive (Kinematic $\mathbf{H}$) and capacitive (Structural $\mathbf{E}$) tensors by half a phase step. This discrete offset generates the invariant limits of $c$, eliminating the need to invoke non-local ``virtual particles'' to mediate force transmission.}
+    \caption{\textbf{The Spatially-Staggered Finite-Difference Time-Domain (FDTD) Matrix.} (Schematic.) A rendering of the fundamental causality cell of the vacuum hardware. To avoid division-by-zero singularities during macroscopic curl operations ($\nabla_d \times \mathbf{E}$), the lattice staggers its inductive (Kinematic $\mathbf{H}$) and capacitive (Structural $\mathbf{E}$) tensors by half a phase step. This discrete offset generates the invariant limits of $c$, eliminating the need to invoke non-local ``virtual particles'' to mediate force transmission.}
     \label{fig:fdtd_yee_lattice}
 \end{figure}
 
@@ -118,7 +118,7 @@ Neon-20 ($5\alpha$)$^\dagger$     & Nuclear ($1/d_{ij}$) & 18617.730 & 18617.729
 \begin{summarybox}
 \begin{itemize}
     \item A single scale-invariant $1/r$ topological tension law unifies lepton mass generation and nuclear binding energy.
-    \item The three lepton generations (electron, muon, tau) arise from Cosserat geometric coupling boundaries: twist, torsion, and curvature.
+    \item The three lepton generations (electron, muon, tau) arise from the three Cosserat coupling sectors: translation, torsion, and curvature-twist.
     \item Virtual particle exchange is replaced by deterministic, continuous Maxwellian FDTD tensor field updates.
 \end{itemize}
 \end{summarybox}
