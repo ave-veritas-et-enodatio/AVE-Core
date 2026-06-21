@@ -239,4 +239,7 @@ Total internal reflection (TIR) at impedance discontinuity & $\Gamma = -1$ satur
 
 The substrate-native takeaway: a microwave engineer characterizing a substrate boundary via a vector network analyzer is measuring Axiom~3 directly. The $|S_{11}|^2$ trace as a function of frequency is the substrate's own $|\Gamma|^2$ functional; the engineering minimization of $|S_{11}|^2$ via impedance matching is the engineering-process side of the substrate's Axiom~3 minimization. The substrate is natural; engineering practice empirically characterizes its port behavior; AVE substrate-physics derives the same behavior from Axiom~3 + Op3 + Op17 + Op21 first principles.
 
-\input{chapters/03a_device_circuit_models.tex}
+% NOTE: the 03a device-circuit-models sub-chapter is \input from chapters/_manifest.tex
+% (line 13, "rendered after Ch 3"), NOT here -- inputting it from both sites rendered
+% the Device Circuit Models section TWICE in the PDF (every fig:/sec:/tab: label
+% multiply-defined). Single canonical \input lives in the manifest.

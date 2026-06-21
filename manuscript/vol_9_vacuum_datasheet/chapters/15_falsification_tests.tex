@@ -217,6 +217,51 @@ Effective substrate prediction: $\delta\phi \sim 10^{-22}\, \phi_{naive}$ --- ef
 
 \textbf{Canonical source.} \kbleaf{src/ave/core/constants.py} header preamble; \kbleaf{omega-freeze-cosmic-grain-cascade.md} (\texttt{clm-dsb560}); Common Foreword $\S$``three-route framework commitment''; this datasheet Ch.~\ref{ch:vol9_cosmological_characteristics}.
 
+\section{Forward-Prediction Test Register (Chord-vs-Echo)}
+\label{sec:vol9_forward_prediction_register}
+
+The bench and null-result programmes above interrogate the substrate's \emph{internal} consistency. This section records the orthogonal axis: which substrate-physics predictions are AVE-distinct \emph{chords} that experiment can actually discriminate against the Standard Model / GR / $\Lambda$CDM, and which are \emph{echoes} (a match built in by construction). The classification axis is the FORM-deriving / VALUE-importing frame (Ch.~\ref{ch:vol9_general_description}~$\S$\ref{subsec:vol9_form_vs_value}; canonical leaf \kbleaf{ave-kb/common/form-deriving-value-importing.md}; chord / echo definitions \texttt{def-ch0rd1} / \texttt{def-ech0v1} at \kbleaf{ave-kb/common/vocabulary-register.md}).
+
+Because \emph{every dimensionful magnitude is an echo by construction} --- its numerical value traces back to one of the imported calibration constants $\{m_e, \alpha, G\}$ --- an AVE-distinct \emph{discriminating} prediction cannot live in any single dimensionful number matching experiment (that match is built in, or is the SM's match re-derived). The AVE-distinct chords experiment can discriminate live only in two places: \textbf{FORM-EXISTENCE} divergences (a structural feature the SM vacuum lacks --- saturation, the longitudinal scalar, native birefringence) and \textbf{FORCED DIMENSIONLESS RATIOS} that do not dissolve into $\alpha$, $G$, or $m_e$. The three test classes:
+
+\begin{itemize}
+    \item \textbf{BANKABLE} --- a forced dimensionless ratio giving an SM-divergent observable number at an existing or near-term instrument. The discriminator is the \emph{number}, not its provenance.
+    \item \textbf{FORM-EXISTENCE-FALSIFIER} --- a structural feature the SM vacuum lacks; the test probes the \emph{existence} of the structure. The magnitude is itself an echo, so the falsifier lives in the \emph{coefficient ratio}, not the field-law exponent.
+    \item \textbf{CONSISTENCY-ECHO} --- a forced ratio whose root is the $\nu_{vac} = 2/7 \leftarrow K = 2G$ family (itself GR-imported), or a dimensionful value riding $\alpha$ / $G$ / $m_e$. A match is corroborative but tests an imported value's \emph{consequence}, not an independently-forced AVE number. Reported peer-mapped-honestly, never headlined as emergence.
+\end{itemize}
+
+\begin{footnotesize}
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}p{0.15\linewidth} p{0.14\linewidth} p{0.17\linewidth} p{0.21\linewidth} p{0.11\linewidth} p{0.12\linewidth}@{}}
+\caption{Vol~9 forward-prediction register: each AVE-distinct prediction classified on the chord-vs-echo axis, with its SM/GR counterfactual, discriminator observable, data status, and canonical source.}\label{tab:vol9_forward_prediction_register}\\
+\toprule
+\textbf{Prediction} & \textbf{Class} & \textbf{SM / GR counterfactual} & \textbf{Discriminator observable} & \textbf{Data status} & \textbf{Canonical source} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Prediction} & \textbf{Class} & \textbf{SM / GR counterfactual} & \textbf{Discriminator observable} & \textbf{Data status} & \textbf{Canonical source} \\
+\midrule
+\endhead
+Iron-K$\alpha$ disk-edge $r_{in} = 7GM/c^2$ ($=3.5\,r_s$) & BANKABLE (forced ratio, $\nu_{vac}=2/7$) & GR ISCO at $6GM/c^2$ & inner-accretion-disk edge via X-ray Fe-K$\alpha$ reflection / kHz QPOs (matter observable, NOT the GR-standard photon ring) & Untested; surviving discriminator per 2026-05-16 scope audit & \kbleaf{divergence-test-substrate-map.md}:143 (C1-BH-RING); \kbleaf{ave-merger-ringdown-eigenvalue.md} \\
+$g_* = 7^3/4 = 85.75$ effective-DOF cutoff & BANKABLE (forced ratio, $\nu_{vac}=2/7$) & SM $g_{*,SM} = 106.75$ at EW scale (24 more fermionic DOF) & $\Omega_{GW}$ $+7.6\%$ (LISA/DECIGO); EW expansion $-10.4\%$ (CMB-S4); EW latent heat $-20\%$ (FCC-ee/CEPC) & Untested; awaits LISA / CMB Stage-4 / FCC-ee & \kbleaf{divergence-test-substrate-map.md}:245 (C12-G-STAR); \kbleaf{g-star-derivation.md}:14--16 \\
+Vacuum birefringence COEFFICIENT $\sim 10^6\times$ QED & FORM-EXISTENCE-FALSIFIER (saturation; echo-magnitude) & QED Euler--Heisenberg, $\alpha^2$-loop-suppressed coefficient (\emph{both} $E^2$-leading) & the COEFFICIENT ratio $\delta n_{AVE}/\delta n_{QED} = 1/(4 a_{EH}\alpha^3) \sim 10^6$ at any field; a QED-sized coefficient falsifies AVE & Not resolved at current high-intensity-laser / PVLAS bounds & \kbleaf{divergence-test-substrate-map.md}:448 (B1-VAC-BIREFRINGE); \kbleaf{epistemology-kill-switches.md} (\texttt{clm-pp3qwf}) \\
+$\sin^2\theta_W = 2/9$ & CONSISTENCY-ECHO (forced ratio, $2/7$-family-adjacent) & SM: a fit input (running, $\sim 0.231$ at $M_Z$) & weak mixing angle; AVE forces the dimensionless $2/9$ & Consistent at tree level; not a forward discriminator & \kbleaf{form-deriving-value-importing.md}:105; \kbleaf{full-derivation-chain.md} \\
+PPN $/7$ couplings ($1/7$, $2/7$, $9/7$) & CONSISTENCY-ECHO ($\nu_{vac}=2/7 \leftarrow K{=}2G$, GR-imported) & GR PPN with $\gamma = \beta = 1$ & light/matter deflection ratios; Mach-Zehnder $n_s = 9/7$ vs $n_t = 2/7$ split & C11-MACH-ZEHNDER live-fire 249.64 rad (sim); $\nu_{vac}$ triangulation with C1+C12 & \kbleaf{divergence-test-substrate-map.md}:469 (C11); \kbleaf{form-deriving-value-importing.md}:105 \\
+Mass sector ($m_p$ $-0.002\%$, lepton ladder) & CONSISTENCY-ECHO (dimensionful, rides $m_e/\ell_{node}$) & SM: Yukawa fits & particle masses as $\ell_{node}$ geometric ratios & Closed ECHO-final (near-saturation chord-residual closed-negative) & \kbleaf{form-deriving-value-importing.md}:74--77 \\
+\bottomrule
+\end{longtable}
+\end{footnotesize}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.98\textwidth]{bankable_falsification_windows.pdf}
+\caption{Falsification windows for the two BANKABLE forward predictions (driver \texttt{figures/gen\_bankable\_falsification\_windows.py}; all plotted quantities are pure dimensionless forced ratios --- no CODATA literal, no engine constant). \emph{(A)} Iron-K$\alpha$ disk edge: the AVE saturation-boundary horizon $r_{sat} = 7GM/c^2$ ($=3.5\,r_s$, red) vs the GR ISCO at $6GM/c^2$ (blue); the shaded $\Delta r = GM/c^2$ annulus is the discriminating window, resolved by the inner accretion-disk edge via X-ray Fe-K$\alpha$ reflection or kHz QPOs (a matter observable). The photon sphere at $3GM/c^2$ (dashed) is GR-standard and \emph{identical} in AVE --- not a discriminator. \emph{(B)} Effective-DOF cutoff: AVE $g_* = 7^3/4 = 85.75$ vs SM $g_{*,SM} = 106.75$ (a $\Delta g_* = 21$ band, 24 fewer fermionic DOF), with the three observable consequences ($\Omega_{GW}$ $+7.6\%$ at LISA/DECIGO; EW expansion $-10.4\%$ at CMB-S4; EW latent heat $-20\%$ at FCC-ee/CEPC). Both are forced $\nu_{vac} = 2/7$-rooted ratios (Table~\ref{tab:vol9_forward_prediction_register}); untested.}
+\label{fig:vol9_bankable_falsification_windows}
+\end{figure}
+
+\noindent
+\textbf{The single independent operating-point test.} The one route that would convert the $\{\alpha, G\}$ story from echo to chord is $\mathcal{J}_{cosmic}$ (CMB axis-of-evil $\to \hat{\Omega}_{freeze}$; the three-route $u_0^*$ commitment, $\S$\ref{sec:vol9_three_route_falsifiability}). \textbf{Pass $=$ chord, fail $=$ echo.} All other forced-ratio discriminators above are largely $\nu_{vac} = 2/7$-rooted, and $\nu_{vac} = 2/7 \leftarrow K = 2G$ is GR-imported --- so they test the \emph{consequences} of an imported value, not an independently-forced AVE number. The cleanest AVE-distinct chords are therefore the FORM-EXISTENCE rows (birefringence COEFFICIENT) plus any forced ratio whose root is not the $2/7$ family. The structural wins the framework retains independent of this register --- finite-by-construction (no renormalization), exact-quantized charge, spin-statistics derived, a real mass mechanism --- are peer-with-SM internal-structure claims, not forward discriminators; the discriminating chord lives in the forward predictions tabulated above.
+
 \section{Falsification Spec Table}
 \label{sec:vol9_falsification_spec_table}
 
