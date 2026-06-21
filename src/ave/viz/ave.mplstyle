@@ -1,0 +1,75 @@
+# AVE house matplotlib style — PRINT profile (the default).
+#
+# Single source of truth for manuscript / Vol-9 datasheet figure style. Loaded
+# by ``ave.viz.style.apply(profile="print")``. The goal: manuscript figures read
+# like a finished engineering textbook — white background, black text/axes,
+# print-friendly, consistent across every driver. The ``screen`` profile (dark
+# field-viz) is layered on top of this base in ``style.py`` (background/text
+# overrides only); the semantic palette is shared by both and lives in
+# ``style.COLORS`` (NOT here, so it stays one Python dict the maintainer can
+# re-tune in one place).
+#
+# DO NOT hand-edit this in a driver. To change house style, edit this file (or
+# COLORS in style.py) and every driver inherits it. Grant-ratifiable.
+
+# --- Background / canvas (PRINT: white) -------------------------------------
+figure.facecolor:   white
+axes.facecolor:     white
+savefig.facecolor:  white
+savefig.transparent: False
+
+# --- Text / axes color (PRINT: black) ---------------------------------------
+text.color:         black
+axes.edgecolor:     black
+axes.labelcolor:    black
+xtick.color:        black
+ytick.color:        black
+axes.titlecolor:    black
+
+# --- Font: one sans-serif family, axis-label >= tick-label ------------------
+font.family:        sans-serif
+font.sans-serif:    DejaVu Sans, Helvetica, Arial, sans-serif
+font.size:          11
+axes.titlesize:     13
+axes.labelsize:     12
+xtick.labelsize:    10
+ytick.labelsize:    10
+legend.fontsize:    10
+figure.titlesize:   14
+mathtext.fontset:   dejavusans
+
+# --- Layout: constrained_layout kills overlap (ave-figure-discipline Axis 3) -
+figure.constrained_layout.use: True
+figure.figsize:     6.5, 4.0
+figure.dpi:         200
+
+# --- Save defaults (vector-preferred; bbox tight) ---------------------------
+savefig.dpi:        200
+savefig.bbox:       tight
+savefig.format:     pdf
+
+# --- Grid: light, behind data ----------------------------------------------
+axes.grid:          True
+grid.color:         "#B0B0B0"
+grid.linewidth:     0.5
+grid.alpha:         0.4
+axes.axisbelow:     True
+
+# --- Lines / markers --------------------------------------------------------
+lines.linewidth:    1.8
+lines.markersize:   5
+axes.linewidth:     0.9
+
+# --- Legend: frame off, off the data ---------------------------------------
+legend.frameon:     False
+legend.loc:         best
+
+# --- Ticks: outward, both sides reasonable ----------------------------------
+xtick.direction:    out
+ytick.direction:    out
+xtick.major.size:   4
+ytick.major.size:   4
+
+# NOTE: axes.prop_cycle (the default color cycle) is set in style.py from the
+# Okabe-Ito COLORS dict so the palette lives in exactly one place. It is NOT set
+# here to avoid two sources of truth.
