@@ -194,25 +194,34 @@ def test_a1a_axiom1_topology_dof_and_srs_connectivity():
     # ── visual-debug layer (additive; never affects pass/fail) ──
     if VZ.viz_enabled():
         # degree histogram + a DOF-capability bar (the finding) + enantiomorph writhe
+        from ave.viz import style
+
+        C = style.COLORS
+
         def _draw(fig):
             ax1, ax2, ax3 = fig.subplots(1, 3)
-            ax1.hist(interior_deg, bins=np.arange(0.5, 6.5, 1.0), color="#1f77b4",
+            ax1.hist(interior_deg, bins=np.arange(0.5, 6.5, 1.0), color=C["ave"],
                      rwidth=0.8)
-            ax1.set_xlabel("interior node coordination Z₀")
-            ax1.set_ylabel("count")
-            ax1.set_title(f"srs degree-3 (all interior == 3); girth {girth}")
+            ax1.set_xlabel(style.axis_label("Interior node coordination", "Z_0", ""))
+            ax1.set_ylabel(style.axis_label("Count", "", ""))
+            # girth value is load-bearing -> keep as an in-axes annotation, not a title
+            ax1.annotate(f"all interior Z₀=3; girth {girth}", xy=(0.5, 0.92),
+                         xycoords="axes fraction", ha="center", fontsize=8,
+                         bbox=dict(boxstyle="round", fc="white", ec=C["muted"], alpha=0.9))
             ax2.bar(["carried\n(transverse)", "Axiom-1\n(3+3 Cosserat)"],
-                    [carried_dof, axiom_dof], color=["#2ca02c", "#d62728"])
-            ax2.set_ylabel("DOF per node")
-            ax2.set_title("FINDING: DOF-capability gap (flag-don't-fix)")
+                    [carried_dof, axiom_dof], color=[C["accent"], C["comparison"]])
+            ax2.set_ylabel(style.axis_label("DOF per node", "", ""))
             for i, v in enumerate([carried_dof, axiom_dof]):
                 ax2.annotate(str(v), xy=(i, v), xytext=(0, 3),
                              textcoords="offset points", ha="center", fontsize=11)
             ax3.bar(["right\n(I4₁32)", "left\n(I4₃32)"], [wR, wL],
-                    color=["#1f77b4", "#9467bd"])
-            ax3.axhline(0.0, color="k", lw=0.8)
-            ax3.set_ylabel("mean ring writhe (pseudoscalar)")
-            ax3.set_title(f"chiral graph: w_R·w_L<0 ? {enantiomorphs_distinct}")
+                    color=[C["ave"], "#CC79A7"])
+            ax3.axhline(0.0, color=C["data"], lw=0.8)
+            ax3.set_ylabel(style.axis_label("Mean ring writhe (pseudoscalar)", "", ""))
+            # the enantiomorph-distinct result is load-bearing -> in-axes annotation
+            ax3.annotate(f"w_R·w_L<0 ? {enantiomorphs_distinct}", xy=(0.5, 0.92),
+                         xycoords="axes fraction", ha="center", fontsize=8,
+                         bbox=dict(boxstyle="round", fc="white", ec=C["muted"], alpha=0.9))
 
         path = VZ.save_simple_figure(
             "A1a", "Axiom-1 topology — srs connectivity + DOF-capability finding", _draw)
@@ -671,27 +680,38 @@ def test_a4_axiom4_saturation_kernel_constitutive():
         Afine = np.linspace(0.0, 0.999, 400)
         Sf = EM.S_of_A(Afine)
 
+        from ave.viz import style
+
+        C = style.COLORS
+
         def _draw(fig):
             ax1, ax2 = fig.subplots(1, 2)
-            ax1.plot(Afine, Sf, color="#1f77b4", lw=1.6, label="S(A)=√(1−A²)")
-            ax1.plot(Afine, np.sqrt(1 - Afine**2), "k--", lw=0.8, label="quarter-arc (analytic)")
-            ax1.scatter(A_sweep, S_kernel, color="#d62728", zorder=5, s=18,
+            ax1.plot(Afine, Sf, color=C["ave"], lw=1.6, label="S(A)=√(1−A²)")
+            ax1.plot(Afine, np.sqrt(1 - Afine**2), color=C["data"], ls="--", lw=0.8,
+                     label="quarter-arc (analytic)")
+            ax1.scatter(A_sweep, S_kernel, color=C["comparison"], zorder=5, s=18,
                         label="swept operating points")
-            ax1.set_xlabel("A / A_yield")
-            ax1.set_ylabel("S(A)  (reactance scale)")
-            ax1.set_title("Axiom-4 kernel: the quarter-arc")
-            ax1.legend(fontsize=8)
-            ax2.plot(Afine, 1.0 / Sf, color="#2ca02c", lw=1.6,
-                     label="c_EM/c₀ = C_eff/C₀ = 1/S (stiffens)")
-            ax2.plot(Afine, Sf, color="#9467bd", lw=1.2,
+            ax1.set_xlabel(style.axis_label("Strain", "A/A_{yield}", ""))
+            ax1.set_ylabel(style.axis_label("Reactance scale", "S(A)", ""))
+            style.legend(ax1, fontsize=8, where="below", ncol=2)
+            # The TWO orthogonal reactances both scale as 1/S but are PHYSICALLY
+            # DISTINCT sectors (master-equation.md:20, genesis-24 double-count
+            # caution): the EM-transverse photon speed (⊥T2) and the longitudinal
+            # A1 bond compliance. They are NUMERICALLY identical here, so draw them
+            # as two distinct (offset-linestyle) curves with SEPARATE labels — the
+            # figure must NOT visually assert A1≡T2.
+            ax2.plot(Afine, 1.0 / Sf, color=C["ave"], lw=2.2, ls="-",
+                     label="c_EM/c₀ = 1/S  (EM ⊥T2, transverse)")
+            ax2.plot(Afine, 1.0 / Sf, color=C["accent"], lw=1.3, ls="--",
+                     label="C_eff/C₀ = 1/S  (longitudinal A1)")
+            ax2.plot(Afine, Sf, color="#CC79A7", lw=1.2,
                      label="ε_eff/ε₀ = μ_eff/μ₀ = S (softens)")
-            ax2.axvline(1.0, color="k", ls=":", lw=0.8)
+            ax2.axvline(1.0, color=C["data"], ls=":", lw=0.8)
             ax2.set_yscale("log")
             ax2.set_ylim(0.03, 60)
-            ax2.set_xlabel("A / A_yield")
-            ax2.set_ylabel("constitutive ratio (log)")
-            ax2.set_title("both orthogonal reactances follow S(A); wall at A→A_yield")
-            ax2.legend(fontsize=8)
+            ax2.set_xlabel(style.axis_label("Strain", "A/A_{yield}", ""))
+            ax2.set_ylabel(style.axis_label("Constitutive ratio", "", ""))
+            style.legend(ax2, fontsize=8, where="below", ncol=1)
 
         path = VZ.save_simple_figure(
             "A4", "Axiom-4 saturation kernel S(A)=√(1−A²) — constitutive gate", _draw)

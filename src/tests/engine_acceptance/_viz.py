@@ -51,8 +51,24 @@ def _mpl():
         matplotlib.use("Agg")
         import matplotlib.pyplot as plt
 
+        # AVE house figure style (print profile: white bg, black axes, Okabe-Ito
+        # palette + magma colormaps). One call here applies the house rcParams to
+        # EVERY debug figure this module emits — presentation tier only, the
+        # engine path is untouched (ave-figure-discipline Axis 4).
+        from ave.viz import style as _style
+
+        _style.apply()  # profile="print" (white bg) by default
+        print("[viz] ave.viz.style applied — profile=print (white bg, Okabe-Ito)")
+
         _MPL = plt
     return _MPL
+
+
+def _colors():
+    """The Okabe-Ito semantic palette (lazy import so a viz-off run stays cheap)."""
+    from ave.viz import style
+
+    return style.COLORS
 
 
 # ── output location + gating ─────────────────────────────────────────────────
@@ -164,13 +180,13 @@ def _panel_spacetime(ax, rec, *, axis_label="z", front=None):
         extent=[planes.min(), planes.max(), times.min(), times.max()],
         cmap="magma",
     )
-    ax.set_xlabel(f"{axis_label} (propagation axis, cartesian)")
-    ax.set_ylabel("timestep")
-    ax.set_title("x-t spacetime: energy density (color)")
+    C = _colors()
+    ax.set_xlabel(f"{axis_label} [cell index]")
+    ax.set_ylabel("Timestep $t$ [step]")
     cb = ax.figure.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
-    cb.set_label("|V|^2 per plane")
+    cb.set_label("Energy density $|V|^2$ per plane [arb.]")
     if front is not None:
-        ax.plot(front["z"], front["t"], color="cyan", lw=1.4, ls="--",
+        ax.plot(front["z"], front["t"], color=C["accent"], lw=1.4, ls="--",
                 label=front.get("label", "info front"))
         ax.legend(loc="upper left", fontsize=7, framealpha=0.5)
     return im
@@ -185,24 +201,23 @@ def _panel_filmstrip(ax, rec, *, axis_label="z"):
     for f in fracs:
         i = int(round(f * n))
         ax.plot(planes, st[i], lw=1.3, label=f"t={times[i]}")
-    ax.set_xlabel(f"{axis_label} (cartesian)")
-    ax.set_ylabel("|V|^2 per plane")
-    ax.set_title("filmstrip: waveform shape at t=0,1/4,1/2,3/4,T")
+    ax.set_xlabel(f"{axis_label} [cell index]")
+    ax.set_ylabel("Energy density $|V|^2$ per plane [arb.]")
     ax.legend(fontsize=7, ncol=2)
 
 
 def _panel_energy(ax, energy, *, drift_floor_label=None):
+    C = _colors()
     e0 = energy[0]
     rel = np.abs(energy - e0) / abs(e0)
     max_drift = float(rel.max())
-    ax.plot(np.arange(len(energy)), energy, color="#1f77b4", lw=1.0)
-    ax.set_xlabel("timestep")
-    ax.set_ylabel("total energy H = sum |V|^2", color="#1f77b4")
-    ax.set_title("energy conservation")
+    ax.plot(np.arange(len(energy)), energy, color=C["ave"], lw=1.0)
+    ax.set_xlabel("Timestep $t$ [step]")
+    ax.set_ylabel(r"Total energy $H=\sum|V|^2$ [arb.]", color=C["ave"])
     ax2 = ax.twinx()
-    ax2.plot(np.arange(len(rel)), np.maximum(rel, 1e-18), color="#d62728", lw=0.8)
+    ax2.plot(np.arange(len(rel)), np.maximum(rel, 1e-18), color=C["comparison"], lw=0.8)
     ax2.set_yscale("log")
-    ax2.set_ylabel("relative drift |H-H0|/H0 (log)", color="#d62728")
+    ax2.set_ylabel(r"Relative drift $|H-H_0|/H_0$ [dimensionless]", color=C["comparison"])
     note = f"max rel. drift = {max_drift:.3e}"
     if drift_floor_label:
         note += f"\n{drift_floor_label}"
@@ -212,7 +227,7 @@ def _panel_energy(ax, energy, *, drift_floor_label=None):
         xycoords="axes fraction",
         ha="center",
         fontsize=8,
-        bbox=dict(boxstyle="round", fc="#ffe9b3", ec="#caa24a", alpha=0.9),
+        bbox=dict(boxstyle="round", fc="white", ec=C["muted"], alpha=0.9),
     )
     return max_drift
 
@@ -236,13 +251,16 @@ def save_propagation_figure(
     plt = _mpl()
     ncols = 4 if extra is not None else 3
     fig, axes = plt.subplots(1, ncols, figsize=(5.2 * ncols, 4.6))
-    fig.suptitle(f"{test_id} — {title}", fontsize=12, y=1.02)
+    # No baked suptitle/title — captions live in the LaTeX \caption{} (ave-figure-
+    # discipline Axis 4). `title` is retained in the signature for the caller's
+    # bookkeeping / the print line, but is not rasterized.
     _panel_spacetime(axes[0], rec, axis_label=axis_label, front=front)
     _panel_filmstrip(axes[1], rec, axis_label=axis_label)
     _panel_energy(axes[2], rec["energy"], drift_floor_label=drift_floor_label)
     if extra is not None:
         extra(axes[3])
-    fig.tight_layout()
+    # house style uses constrained_layout (ave.mplstyle); no tight_layout (it
+    # conflicts with a colorbar under constrained_layout).
     path = _fig_path(test_id)
     fig.savefig(path, dpi=110, bbox_inches="tight")
     plt.close(fig)
@@ -293,21 +311,17 @@ def save_t1_1_flagship_figure(
     Energy conservation is annotated on row 1 (the test's seed). Returns the path.
     """
     plt = _mpl()
+    C = _colors()
     fig, axes = plt.subplots(2, 3, figsize=(16.0, 9.4))
-    sub = "photon PROPAGATION (lossless, kappa=0): HARDENED one-way packet (top) vs OLD Bloch fringe (bottom)"
-    fig.suptitle(f"{test_id} — {sub}", fontsize=12, y=1.005)
+    # No baked suptitle/title — the process description (top = hardened one-way
+    # packet, bottom = old Bloch fringe) lives in the LaTeX caption, not the
+    # raster (ave-figure-discipline Axis 4).
 
     # row 1 — hardened one-way packet (the clean diagonal photon-path band)
     _panel_spacetime(axes[0, 0], rec_oneway)
-    ttl = "x-t: HARDENED one-way packet — SINGLE clean diagonal"
-    if speed is not None and c_net is not None:
-        ttl += f"\nspeed {speed:+.4f} ≈ c_net {c_net:.4f}"
-        if r2 is not None:
-            ttl += f"  (R²={r2:.4f})"
-    axes[0, 0].set_title(ttl, fontsize=10)
     # overlay the measured energy-centroid line (the propagation-distance check).
-    # Plot only the segment BEFORE the packet first wraps the box, so the cyan
-    # line is a single clean diagonal (no fold-back rungs) showing centroid ≈ c·t.
+    # Plot only the segment BEFORE the packet first wraps the box, so the line is
+    # a single clean diagonal (no fold-back rungs) showing centroid ≈ c·t.
     if centroid is not None:
         planes = rec_oneway["planes"]
         span = planes.max() - planes.min()
@@ -317,21 +331,32 @@ def save_t1_1_flagship_figure(
         if last <= 1:
             last = len(c)
         seg = c[:last]
-        axes[0, 0].plot(seg, np.arange(last), color="cyan", lw=1.6, ls="--",
+        axes[0, 0].plot(seg, np.arange(last), color=C["accent"], lw=1.6, ls="--",
                         label="measured energy-centroid (≈ c·t, pre-wrap)")
         axes[0, 0].legend(loc="upper right", fontsize=7, framealpha=0.5)
+    # the measured propagation speed is load-bearing — keep it as an in-axes
+    # annotation (NOT a baked title), boxed in muted house style.
+    if speed is not None and c_net is not None:
+        note = f"speed {speed:+.4f} ≈ c_net {c_net:.4f}"
+        if r2 is not None:
+            note += f"  (R²={r2:.4f})"
+        axes[0, 0].annotate(
+            note, xy=(0.03, 0.04), xycoords="axes fraction", ha="left", fontsize=8,
+            color=C["data"],
+            bbox=dict(boxstyle="round", fc="white", ec=C["muted"], alpha=0.9),
+        )
     _panel_filmstrip(axes[0, 1], rec_oneway)
-    axes[0, 1].set_title("filmstrip: one-way envelope translating")
     _panel_energy(axes[0, 2], rec_oneway["energy"], drift_floor_label=drift_floor_label)
 
-    # row 2 — old delocalized directional Bloch seed (the standing fringe)
+    # row 2 — old delocalized directional Bloch seed (the standing fringe).
+    # Row identity (top = hardened packet, bottom = old Bloch fringe) is described
+    # in the LaTeX caption, not baked as an axes title.
     _panel_spacetime(axes[1, 0], rec_bloch)
-    axes[1, 0].set_title("x-t: OLD seed (delocalized Bloch = standing fringe)")
     _panel_filmstrip(axes[1, 1], rec_bloch)
-    axes[1, 1].set_title("filmstrip: OLD directional Bloch seed")
     _panel_energy(axes[1, 2], rec_bloch["energy"])
 
-    fig.tight_layout()
+    # house style uses constrained_layout (ave.mplstyle); no tight_layout (it
+    # conflicts with a colorbar under constrained_layout).
     path = _fig_path(test_id)
     fig.savefig(path, dpi=110, bbox_inches="tight")
     plt.close(fig)
@@ -346,9 +371,10 @@ def save_simple_figure(test_id: str, title: str, draw):
     """
     plt = _mpl()
     fig = plt.figure(figsize=(11, 4.6))
-    fig.suptitle(f"{test_id} — {title}", fontsize=12, y=1.02)
+    # No baked suptitle — caption lives in LaTeX (ave-figure-discipline Axis 4).
     draw(fig)
-    fig.tight_layout()
+    # house style uses constrained_layout (ave.mplstyle); no tight_layout (it
+    # conflicts with a colorbar under constrained_layout).
     path = _fig_path(test_id)
     fig.savefig(path, dpi=110, bbox_inches="tight")
     plt.close(fig)
@@ -359,7 +385,13 @@ def save_simple_figure(test_id: str, title: str, draw):
 def _panel_em_spacetime(ax, line: dict, *, region=None, title="x-t spacetime"):
     """x-t of a 1D graded EM line (run_em_line output): cell index × step, color
     = energy density. A constant-speed band whose SLOPE changes in the biased
-    region; the optional `region`=(lo,hi) cell window is outlined."""
+    region; the optional `region`=(lo,hi) cell window is outlined.
+
+    `title` is accepted for caller bookkeeping but NOT rasterized (caption lives
+    in LaTeX). The biased-region marker IS rasterized — it is a load-bearing
+    annotation locating the gradient.
+    """
+    C = _colors()
     st = line["spacetime"]
     N = line["N"]
     times = line["times"]
@@ -367,17 +399,16 @@ def _panel_em_spacetime(ax, line: dict, *, region=None, title="x-t spacetime"):
         st, origin="lower", aspect="auto",
         extent=[0, N, times.min(), times.max()], cmap="magma",
     )
-    ax.set_xlabel("cell index (propagation axis)")
-    ax.set_ylabel("timestep")
-    ax.set_title(title)
+    ax.set_xlabel("Cell index [propagation axis]")
+    ax.set_ylabel("Timestep $t$ [step]")
     cb = ax.figure.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
-    cb.set_label("energy density |V|²·C")
+    cb.set_label(r"Energy density $|V|^2\,C$ [arb.]")
     if region is not None:
         lo, hi = region
-        ax.axvline(lo, color="cyan", lw=1.0, ls="--")
-        ax.axvline(hi, color="cyan", lw=1.0, ls="--")
+        ax.axvline(lo, color=C["accent"], lw=1.0, ls="--")
+        ax.axvline(hi, color=C["accent"], lw=1.0, ls="--")
         ax.text(0.5 * (lo + hi), times.max() * 0.96, "biased region",
-                color="cyan", ha="center", va="top", fontsize=8)
+                color=C["accent"], ha="center", va="top", fontsize=8)
     return im
 
 
@@ -385,9 +416,10 @@ def save_l2_figure(test_id: str, title: str, draw):
     """Generic L2 figure composer — `draw(fig)` owns its axes/panels."""
     plt = _mpl()
     fig = plt.figure(figsize=(15.5, 4.8))
-    fig.suptitle(f"{test_id} — {title}", fontsize=12, y=1.03)
+    # No baked suptitle — caption lives in LaTeX (ave-figure-discipline Axis 4).
     draw(fig)
-    fig.tight_layout()
+    # house style uses constrained_layout (ave.mplstyle); no tight_layout (it
+    # conflicts with a colorbar under constrained_layout).
     path = _fig_path(test_id)
     fig.savefig(path, dpi=110, bbox_inches="tight")
     plt.close(fig)
