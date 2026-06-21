@@ -7,7 +7,7 @@
 \begin{itemize}
     \item Formulate General Relativity as Applied Vacuum Engineering: the optical metric of a refractive dielectric medium.
     \item Derive the Schwarzschild metric as the impedance profile of a spherically symmetric vacuum compression.
-    % [2026-06-08 c_L reconciliation -- prior wording preserved per Rule 12]: longitudinal compression waves propagate at $v_{long} = \sqrt{2}\,c \approx 1.41c$, set by the bulk modulus $K_{vac} = 2G_{vac}$. SUPERSEDED: $\sqrt{2}\,c = \sqrt{K/\rho}$ is the bulk-modulus (dilatational/fluid) speed, which omits the $4G/3$ shear term and is NOT the isotropic-solid P-wave.
+    % Two longitudinal speeds: solid P-wave $c_L=\sqrt{10/3}\,c$ (carries the $4G/3$ shear term); bulk-dilatational $\sqrt{2}\,c$ drops the shear term.
     \item Understand why $c$ is the maximum \emph{transverse} signal speed but the longitudinal (P) wave propagates at the isotropic-solid speed $c_L = \sqrt{(K_{vac} + \tfrac{4}{3}G_{vac})/\rho_{bulk}} = \sqrt{\tfrac{10}{3}}\,c \approx 1.83c$ at the $K_{vac} = 2G_{vac}$ operating point (equivalently Poisson ratio $\nu = 2/7$; canonical derivation in Vol~2 Ch~7). The pure bulk-modulus speed $\sqrt{K_{vac}/\rho_{bulk}} = \sqrt{2}\,c$ is the dilatational compression speed that drops the $4G/3$ shear term, not the P-wave.
 \end{itemize}
 \end{objectivebox}
@@ -51,7 +51,7 @@ Convolving this source with the 3D Laplacian Green's function ($-1/4\pi r$) yiel
 
 Standard physics invokes the Weak Equivalence Principle ($m_i=m_g$) as an axiomatic postulate. AVE derives it from macroscopic wave mechanics.
 
-Because a massive topological wave-packet acts as a 3D isotropic defect, it couples to the spatial volume via the $1/7$ Lagrangian isotropic projection (derived in Chapter 4). The effective scalar refractive index perceived by mass is $n_{scalar}(r)=1+\epsilon_{11}(r)/7=1+GM/c^{2}r$. The localised stored energy of the knot is its internal inductive rest mass ($m_i c^{2}$) scaled inversely by the refractive density:
+Because a massive topological wave-packet acts as a 3D isotropic defect, it couples to the spatial volume via the $1/7$ Lagrangian isotropic projection (derived in Chapter 1). The effective scalar refractive index perceived by mass is $n_{scalar}(r)=1+\epsilon_{11}(r)/7=1+GM/c^{2}r$. The localised stored energy of the knot is its internal inductive rest mass ($m_i c^{2}$) scaled inversely by the refractive density:
 
 \begin{resultbox}{Ponderomotive Wave Energy}
 \begin{equation}
@@ -80,9 +80,7 @@ The macroscopic vacuum moduli are elevated to rank-2 symmetric tensors. Because 
 
 A localised massive defect does not exert a uniform 3D hydrostatic compression; it exerts a radial pull, acting as the continuous source of the principal radial tensile strain ($\epsilon_{11} > 0$). Conversely, light propagates as a transverse shear wave and couples to the orthogonal transverse spatial metric ($h_{\perp}$). 
 
-In continuum mechanics, radial tension causes orthogonal transverse space to contract ($h_{\perp} = -\nu_{vac} \cdot \epsilon_{11}$). However, the effective refractive index ($n$) scales proportionally with the physical geometric optical density ($\rho_{opt}$) of the medium. Because optical density scales inversely with physical transverse spatial displacement ($n \propto \frac{1}{1 + h_{\perp}}$), applying the first-order Taylor expansion for small macroscopic strains ($\frac{1}{1+x} \approx 1-x$): 
-
-Therefore, a negative (compressive) transverse strain yields a positive increase in the effective refractive index:
+In continuum mechanics, radial tension causes orthogonal transverse space to contract ($h_{\perp} = -\nu_{vac} \cdot \epsilon_{11}$). However, the effective refractive index ($n$) scales proportionally with the physical geometric optical density ($\rho_{opt}$) of the medium. Because optical density scales inversely with physical transverse spatial displacement ($n \propto \frac{1}{1 + h_{\perp}}$), applying the first-order Taylor expansion for small macroscopic strains ($\frac{1}{1+x} \approx 1-x$), a negative (compressive) transverse strain yields a positive increase in the effective refractive index:
 
 \begin{resultbox}{Transverse Refractive Index}
 \begin{equation}
@@ -121,7 +119,7 @@ By calculating the total fractional change in the refractive index induced upon 
 
 This ratio ($1{:}1.000012$) dictates that the local speed of light measured on Earth ($299{,}792{,}458$ m/s) is artificially constrained by ambient galactic dielectric density. In the undisturbed, fully relaxed state of intergalactic space, the absolute unconstrained maximum speed of light accelerates by approximately ${\sim}\,3{,}600$ m/s to $c_{max} \approx 299{,}796{,}055$ m/s.
 
-This establishes the theoretical baseline required for macroscopic metric engineering (``Warp Transit''), where a vessel must artificially lower its local refractive index below the Earth baseline to achieve superluminal effective propagation ($n \ll 1.0$).
+This establishes, as an illustrative extrapolation of the same local-refraction relation to $\Phi \to 0$ (not an experimentally validated prediction), the baseline that macroscopic metric engineering (``Warp Transit'') would target: a vessel lowering its local refractive index below the Earth baseline toward superluminal effective propagation ($n \ll 1.0$).
 
 \subsection{Achromatic Impedance Matching}
 \label{sec:achromatic_matching}
@@ -145,13 +143,13 @@ Because the transverse impedance ratio is preserved across all gravitational gra
 
 
 \subsection{Verification: The Einstein Lensing Deflection}
-To falsify this Optical Metric, a numerical ray-tracing simulation of a photon passing the Sun. Integrating Snell's Law through this specific refractive gradient yields a total deflection angle of:
+To test this Optical Metric, a numerical ray-tracing simulation integrates a photon trajectory past the Sun. Integrating Snell's Law through this specific refractive gradient yields a total deflection angle of:
 \begin{resultbox}{Einstein Lensing Deflection}
 \begin{equation}
     \delta = \frac{4GM}{b c^2}
 \end{equation}
 \end{resultbox}
-This result reproduces the Einstein prediction, distinguishing the AVE framework from Newtonian corpuscular models ($\delta = 2GM/bc^2$) without invoking higher-dimensional curvature.
+This result reproduces the Einstein prediction, distinguishing the AVE framework from Newtonian corpuscular models ($\delta = 2GM/bc^2$) without invoking higher-dimensional curvature. This reproduction of the GR weak-field deflection is a consistency check via Gordon optical-metric isomorphism; the AVE-distinct, forward-testable departure appears only in the trans-Planckian discrete-lattice $(q\ell_{node})^4$ dispersion regime.
 
 \section{Resolving the Cauchy Implosion Paradox}
 
@@ -159,8 +157,8 @@ Standard 19th-century aether models were challenged by the Cauchy Implosion Para
 enforcing purely transverse wave limits required a negative bulk modulus ($K_{cauchy}=
 -4/3G_{vac}$), implying the universe would thermodynamically implode.
 
-The $\mathcal{M}_{A}$ substrate resolves this via its fundamental \textbf{LC Network Topology}. As structurally established
-in Chapter 4, the trace-reversed equilibrium of the non-affine amorphous substrate rigidly
+The substrate resolves this via its fundamental \textbf{LC Network Topology}. As structurally established
+in Chapter 1, the trace-reversed equilibrium of the non-affine substrate rigidly
 locks the macroscopic bulk impedance to double the transverse shear impedance ($K_{vac}\equiv2G_{vac}$).
 This positive bulk resistance guarantees that the spatial substrate is
 incompressible and thermodynamically stable against gravitational collapse.
@@ -168,13 +166,16 @@ incompressible and thermodynamically stable against gravitational collapse.
 \section{The Event Horizon as Dielectric Rupture}
 \label{sec:dielectric_rupture}
 
-The Event Horizon is classically defined as a coordinate singularity. In the AVE framework, it is identified as a \textbf{Dielectric Breakdown Boundary}. As matter aggregates, the local refractive strain ($n(r)-1$) increases. The absolute structural limit of the vacuum lattice is reached when the continuous tensor strain on the discrete edges reaches the Axiom 4 dielectric saturation limit (Unitary Strain).
-\begin{resultbox}{Dielectric Rupture (Event Horizon)}
+The Event Horizon is classically defined as a coordinate singularity. In the AVE framework it resolves into two distinct channel boundaries. As matter aggregates, the local \textbf{EM/transverse} refractive strain ($n(r)-1 = 2GM/(c^2 r)$) increases; it reaches unity at the Schwarzschild radius, the radius at which \emph{light} sees the General Relativistic event horizon ($n \to \infty$). Under Symmetric Gravity the EM impedance is invariant ($Z_{EM}=Z_0$, $\Gamma_{EM}=0$): the EM channel stays matched and does not reflect or rupture there. The $\Gamma=-1$ total-reflection wall is a separate, deeper boundary in the \textbf{shear and bulk} channels, where $\varepsilon_{11}=1$, $G_{shear}\to0$ and the bulk and shear impedances collapse ($Z_{shear},Z_{bulk}\to0$).
+\begin{resultbox}{Two channel boundaries (EM horizon vs shear/bulk rupture)}
 \begin{equation}
-    \text{Strain} = \frac{2GM}{c^2 R_{rupture}} \equiv 1.0 \implies R_{rupture} = \frac{2GM}{c^2}
+\begin{aligned}
+    \text{EM horizon:} &\quad \frac{2GM}{c^2 R_{rupture}} \equiv 1.0 \implies R_{rupture} = \frac{2GM}{c^2}, \\
+    \text{shear/bulk rupture:} &\quad r_{sat} = \frac{7GM}{c^2} = 3.5\,r_s
+\end{aligned}
 \end{equation}
 \end{resultbox}
-This identifies the Schwarzschild Radius not as a point of infinite curvature, but as the physical radius where the vacuum lattice exceeds its dielectric saturation limit and undergoes impedance rupture.
+This identifies the Schwarzschild radius not as a point of infinite curvature, but as the physical radius where the EM/transverse refractive strain reaches unity (the optical horizon, impedance-matched $\Gamma_{EM}=0$); the actual $\Gamma=-1$ impedance rupture is the shear and bulk boundary at $r_{sat}=7GM/c^2=3.5\,r_s$.
 
 \section{Gravitomagnetism: Frame Dragging as Mutual Inductance}
 \label{sec:gravitomagnetism_viscosity}
@@ -187,14 +188,14 @@ Furthermore, this inductive drag directly induces a circulating fluid velocity f
 \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{lense_thirring_inductive_drag.png}
-    \caption{\textbf{Gravitomagnetism as Mutual Inductance.} The Lense-Thirring frame-dragging effect is modelled as the mutual inductance of the substrate LC substrate. A rotating massive body inductively biases the adjacent vacuum lattice; due to the structural macroscopic inductance ($\mu_{vac}$), angular momentum diffuses radially outward, forming a steady-state magnetic bias field that replicates the General Relativistic $1/r^2$ decay field.}
+    \caption{\textbf{Gravitomagnetism as Mutual Inductance.} The Lense-Thirring frame-dragging effect is modelled as the mutual inductance of the substrate LC network. A rotating massive body inductively biases the adjacent vacuum lattice; due to the structural macroscopic inductance ($\mu_{vac}$), angular momentum diffuses radially outward, forming a steady-state magnetic bias field that replicates the General Relativistic $1/r^2$ decay field.}
     \label{fig:lense_thirring_inductive_drag}
 \end{figure}
 
 \begin{summarybox}
 \begin{itemize}
-    \item The Event Horizon acts structurally as the absolute Dielectric Breakdown Boundary where the local vacuum LC lattice reaches its mechanical saturation limit ($n \to \infty$).
-    \item The Schwarzschild radius represents the locus where continuous tensor strain exceeds the Axiom 4 dielectric yield threshold, causing the spatial mesh to undergo a pre-geometric scale thermodynamic phase transition.
+    \item The Schwarzschild radius is the EM/transverse optical horizon where the refractive index diverges ($n \to \infty$) yet the EM impedance stays matched ($Z_{EM}=Z_0$, $\Gamma_{EM}=0$, no EM reflection); it is the radius at which light sees the General Relativistic horizon.
+    \item The $\Gamma=-1$ shear and bulk impedance rupture ($G_{shear}\to0$, $Z_{shear},Z_{bulk}\to0$) is the separate, deeper boundary at $r_{sat}=7GM/c^2=3.5\,r_s$, where the continuous tensor strain reaches the Axiom 4 saturation limit and the spatial mesh undergoes a pre-geometric thermodynamic phase transition.
     \item Gravitomagnetism and the Lense-Thirring effect are rigorously modeled as macroscopic mutual inductance ($M_{12}$) across the substrate.
     \item A rotating massive body couples inductively to the surrounding spatial metric layer, forcing an inverse-square decaying rotational vector potential structurally identical to relativistic frame dragging.
 \end{itemize}

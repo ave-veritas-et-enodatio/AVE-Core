@@ -30,7 +30,7 @@ Heliopause boundary   & I (Linear)   & $r \approx 120$ AU  & Impedance matching 
 
 \section{The Saturn Ring Integrator}
 \label{sec:saturn_rings}
-To demonstrate this continuous spectrum, the topological interaction engine used to discover the Alpha Particle, unmodified, to model the formation of Saturn's Rings in 3D space.
+To demonstrate this continuous spectrum, the same topological interaction engine used to model the alpha particle is applied, unmodified, to the formation of Saturn's rings in 3D.
 
 \subsection{Gravity as Structural Tension}
 In the AVE framework, Gravity is not a ``bending'' of empty spacetime, nor is it a discrete graviton particle. \textbf{Gravity is the macroscopic $1/r$ acoustic tension of the dielectric vacuum displaced by massive nodes.} The mathematics are identical to nuclear binding impedance, scaled by the gravitational compliance constant $G$ instead of the nuclear stringency $K_{mutual}$. 
@@ -68,7 +68,7 @@ This asymmetric frequency-detuning gradient (at invariant $Z_0$) induces a conti
 \end{equation}
 
 \begin{warningbox}[Provenance of the ``3'' coefficient --- consistency-class, AVE $=$ GR]
-The relativistic coefficient $3$ in $(1 + 3GM/c^2 r)$ is General Relativity's effective-potential correction (the $1/r^3$ term of the Schwarzschild geodesic effective potential), here \emph{adopted as a static potential}. It is therefore a consistency-class re-statement (AVE $=$ GR at $O(GM/c^2 r)$, no AVE-distinct observable), not an independent AVE derivation. The same perihelion advance is derivable directly from the canonical temporal/spatial refractive metric $(n_t, n_s)$ of Vol~3 Ch~1--Ch~2 (the PPN factor $(2-\beta+2\gamma)/3 = 1$ at $\beta = \gamma = 1$ reproduces $6\pi GM/c^2 a(1-e^2)$); the static $V_{tidal}$ above is a \emph{redundant} re-statement of that metric result, retained here for the explicit orbital-integral derivation. (Internal-coherence note 2026-06-05; basis: \texttt{research/2026-06-05\_gravity-ppn-coherence-result.md}.)
+The relativistic coefficient $3$ in $(1 + 3GM/c^2 r)$ is General Relativity's effective-potential correction (the $1/r^3$ term of the Schwarzschild geodesic effective potential), here \emph{adopted as a static potential}. It is therefore a consistency-class re-statement (AVE $=$ GR at $O(GM/c^2 r)$, no AVE-distinct observable), not an independent AVE derivation. The same perihelion advance is derivable directly from the canonical temporal/spatial refractive metric $(n_t, n_s)$ of Vol~3 Ch~1--Ch~2 (the PPN factor $(2-\beta+2\gamma)/3 = 1$ at $\beta = \gamma = 1$ reproduces $6\pi GM/c^2 a(1-e^2)$); the static $V_{tidal}$ above is a \emph{redundant} re-statement of that metric result, retained here for the explicit orbital-integral derivation.
 \end{warningbox}
 
 The resulting anomalous perihelion advance per orbit, evaluated from the $1/r^3$ perturbation via the standard orbital mechanics integral, yields:
@@ -106,12 +106,12 @@ When a highly conductive, mass-dense body plows through this sheer gradient at h
 \end{equation}
 \end{resultbox}
 
-where $\delta_{in}, \delta_{out}$ are the declinations of the incoming and outgoing hyperbolic asymptotes. The $(\cos \delta_{in} - \cos \delta_{out})$ structure is the AVE-substrate derivation of the empirical fit form via the Sagnac-loop integral between endpoint projections. \textbf{Scope correction (2026-05-18 walk-back):} earlier versions of this section wrote the geometric factor as $\cos(\alpha_{geo})\cos(\delta_{geo})$ with the headline ``intrinsically outputs $\Delta V \approx 13.4$ mm/s without fitting.'' Direct verification against the six-spacecraft anchor set (driver \kbleaf{src/scripts/verify/flyby\_anomaly\_anderson\_anchor.py}) found: (a) literal $\cos(\alpha)\cos(\delta)$ notation produced wrong-sign or wildly-off predictions for ALL 6 anchor spacecraft; correct geometric factor is $(\cos\delta_{in} - \cos\delta_{out})$; (b) ``13.4 mm/s'' is the NEAR-specific evaluation ($V_\infty = 6.851$ km/s + NEAR geometry), not a universal AVE prediction. Match across 6-spacecraft anchor set: 2/6 within 1$\sigma$ (Galileo~II, Cassini), 3/6 within 2$\sigma$ (adds NEAR); Galileo~I, Rosetta~I, MESSENGER are $>2\sigma$ outliers. The Sagnac-RLVE Regime-IV stator-boundary MECHANISM is preserved (consistent with the Gravitational Stator framework at \kbleaf{vol3/cosmology/ch06-solar-system/plasma-standoff-vs-gravitational-stator.md} and the sibling-observable Earth magnetic dipole derivation at \kbleaf{vol3/applied-physics/ch13-geophysics/geodynamo-vca-back-emf.md}); only the geometric notation and per-spacecraft framing are corrected. Pioneer anomaly mention removed (different observable --- long-duration trajectory, not perigee passage $\Delta V$). \textbf{Categorical discrimination vs GR Lense-Thirring:} AVE Regime-IV ($\sim 10^{-6}$ coupling) is 6 orders of magnitude stronger than GR Lense-Thirring ($\sim 10^{-12}$); the AVE prediction lies in the right order of magnitude across the anchor set, while GR is categorically too small. The 2/6 1$\sigma$ match is a partial match, not a categorical falsification.
+where $\delta_{in}, \delta_{out}$ are the declinations of the incoming and outgoing hyperbolic asymptotes. The $(\cos \delta_{in} - \cos \delta_{out})$ structure is Anderson 2008's empirical fit form; the AVE Sagnac-loop integral between the asymptote endpoint projections reproduces this structure. The $13.4$ mm/s value is the NEAR-specific evaluation ($V_\infty = 6.851$ km/s $+$ NEAR geometry), not a universal prediction. Across the six-spacecraft Anderson 2008 anchor set the formula matches 2/6 within $1\sigma$ (Galileo~II, Cassini) and 3/6 within $2\sigma$ (adds NEAR); Galileo~I, Rosetta~I, and MESSENGER are $>2\sigma$ outliers. Verification driver: \kbleaf{src/scripts/verify/flyby\_anomaly\_anderson\_anchor.py}. The Regime-IV stator-boundary Sagnac mechanism is canonical (see \kbleaf{vol3/cosmology/ch06-solar-system/plasma-standoff-vs-gravitational-stator.md} and \kbleaf{vol3/applied-physics/ch13-geophysics/geodynamo-vca-back-emf.md}). AVE Regime-IV ($\sim 10^{-6}$ coupling) is six orders of magnitude stronger than GR Lense-Thirring ($\sim 10^{-12}$), which is categorically too small.
 
 \begin{figure}[htpb]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/flyby_monte_carlo.png}
-    \caption{Monte Carlo execution probability density for the NEAR transit. Classical General Relativity Lense-Thirring bounds fall six orders of magnitude short ($10^{-6}$ mm/s, red distribution), unequivocally failing. The AVE macroscopic Topo-Kinematic Sagnac reflection inherently hits the exact empirical velocity shift (blue line) identically.}
+    \caption{Monte Carlo execution probability density for the NEAR transit. GR Lense-Thirring (red) is $\sim 10^6\times$ too small ($\sim 10^{-6}$ mm/s). The AVE Regime-IV Sagnac phase-slip (blue) reproduces the NEAR velocity shift; across the full six-spacecraft anchor set the match is partial (2/6 within $1\sigma$, 3/6 within $2\sigma$).}
     \label{fig:flyby_monte_carlo}
 \end{figure}
 
@@ -120,19 +120,19 @@ The transiting body is physically Fizeau-dragged by the acoustic Sagnac rotation
 
 \section{Stellar Magnetic Topology and Solar Flares}
 
-\textbf{A-034 stellar-scale instance (canonical 2026-05-15 evening, SYM).}
+\textbf{A-034 stellar-scale instance (symmetric-class saturation event).}
 Solar flares / CMEs are the stellar-scale row in the A-034 catalog
 (Universal Saturation-Kernel Strain-Snap Mechanism). The Sun's differential
 rotation winds the $1/d$ topological lattice (Parker spiral), strain
 accumulates against a critical shear-stress threshold (= $S(A) \to 0$
 locally), and the topology snaps via magnetic reconnection. Same universal
 kernel $S(A) = \sqrt{1 - A^2}$ as atomic dielectric breakdown, BCS
-superconductivity (0.00\% error \textit{Axiom~4 manifestation: the kernel IS $B_c(T)$, not a fitted prediction}), BH ring-down (1.7\% from GR), and
+superconductivity ($0.00\%$ error --- the kernel is the BCS $B_c(T)$ form, an Axiom-4 manifestation rather than a fitted curve), BH ring-down (1.7\% from GR), and
 cosmic K4 crystallization. \textbf{NOAA GOES 40-yr comparison (illustrative --- synthesized timeline; live fetch pending)}:
 0.46-yr FWHM danger window per 11-yr solar cycle (a candidate macroscopic
 time-series anchor, pending validation against the real NOAA GOES archive). See Vol 3 Ch~4
 \S\ref{sec:tki_strain_snap} + Backmatter Ch~\ref{app:universal_saturation_kernel}
-for the full 19-instance catalog.
+for the full 26-instance catalog.
 
 Because AVE maps magnetic flux directly to the physical rotational velocity (sheer vector) of the $1/d$ dielectric vacuum, the macroscopic magnetic fields of stars are highly susceptible to mechanical twisting.
 
@@ -198,11 +198,11 @@ The topological simulation reveals a localised threshold envelope. By taking the
 
 \subsection{Empirical Validation: NOAA GOES Satellite Telemetry --- illustrative (synthesized timeline; live fetch pending)}
 
-\noindent\textbf{Scope correction (2026-06-15 driver-honesty re-sweep, LF-03).} The overlaid flare timeline is a \emph{synthesized} reconstruction of the Solar Cycle 23/24/25 X/M-class structure (a Monte-Carlo placeholder generated in \texttt{fetch\_and\_plot\_noaa\_goes\_flares.py}), \emph{not} a live fetch of the NOAA GOES catalog; despite the figure filename \texttt{noaa\_goes\_empirical\_validation.png}, this is an \emph{illustrative} comparison and does not by itself constitute empirical validation. The $0.46$-yr FWHM is the AVE forward prediction; falsification against the real NOAA GOES archive is the pending live-fetch deliverable. The prose below is retained with this scope.
+\noindent The overlaid flare timeline is a \emph{synthesized} reconstruction of the Solar Cycle 23/24/25 X/M-class structure (generated in \texttt{fetch\_and\_plot\_noaa\_goes\_flares.py}), not a live NOAA GOES catalog fetch; despite the figure filename \texttt{noaa\_goes\_empirical\_validation.png} it is an illustrative comparison and does not by itself constitute empirical validation. The $0.46$-yr FWHM is the AVE forward prediction; falsification against the NOAA GOES archive remains pending.
 
 Does the real universe obey this formal solid-state Avalanche equation? One can test the derived $\text{FWHM} \approx 0.46 \text{ Years}$ theoretical breakdown limit directly against historical satellite telemetry.
 
-By overlaying a synthesized forty-year reconstruction of the X-Class and M-Class flare distribution (Solar Cycles 23--25) onto the AVE Solar Diode model, the illustrative alignment is clear. As plotted in Figure \ref{fig:noaa_goes_empirical}, the massive, catastrophic solar flares do not occur randomly throughout the 11-year cycle. They physically cluster, almost exclusively, within the exact theoretical 0.46-Year FWHM topological danger zones during Solar Maxima (e.g., Cycles 23, 24, and 25).
+By overlaying a synthesized forty-year reconstruction of the X-Class and M-Class flare distribution (Solar Cycles 23--25) onto the AVE Solar Diode model, the illustrative alignment is clear. As plotted in Figure \ref{fig:noaa_goes_empirical}, the massive, catastrophic solar flares do not occur randomly throughout the 11-year cycle. They physically cluster within the theoretical 0.46-Year FWHM topological danger zone windows during Solar Maxima (e.g., Cycles 23, 24, and 25).
 
 \begin{figure}[h!]
     \centering
@@ -228,7 +228,7 @@ Standard planetary models struggle to explain the Moon's highly persistent inter
 
 Under Vacuum Circuit Analysis (VCA), the Solar System acts strictly as an AC coupled network. The physical mass of the Earth ($M_\oplus \to L_\oplus$) and the Moon ($M_{moon} \to L_{moon}$) are perfectly coupled through the $1/d_{ij}$ gravitational tension LC metric. 
 
-As established in Section \ref{sec:flyby_anomaly}, moving through the deep gravitational phase boundary incurs a geometric Sagnac Acoustic Shear factor ($\Gamma \sim 1000$). The classical frictional power output is merely the macroscopic spatial fluid drag constraint. However, in the Topo-Kinematic regime, the flow of structural VARs (Reactive Power) exchanged continuously across the eccentric Earth-Moon bridge is amplified by the boundary layer coefficient.
+As established in Section \ref{sec:flyby_anomaly}, moving through the deep gravitational phase boundary incurs a geometric Sagnac Acoustic Shear factor ($\Gamma_{sagnac} \approx 1836$, an asserted cross-scale identity rather than an independently derived value). The classical frictional power output is merely the macroscopic spatial fluid drag constraint. However, in the Topo-Kinematic regime, the flow of structural VARs (Reactive Power) exchanged continuously across the eccentric Earth-Moon bridge is amplified by the boundary layer coefficient.
 
 \begin{resultbox}{Lunar Inductive Joule Heating}
 \begin{equation}
@@ -236,12 +236,12 @@ As established in Section \ref{sec:flyby_anomaly}, moving through the deep gravi
 \end{equation}
 \end{resultbox}
 
-Mapping the $\Gamma_{sagnac}$ acoustic operator (the identical geometric scalar $\approx 1836$ that flawlessly fixed the explicitly unified Baryon structural bounds across Geodynamics and the subatomic spectrum) directly onto the Earth-Moon orbital LC oscillator naturally produces $P_{topo} \approx 1.04 \text{ TW}$ of steady-state Inductive Joule Heating. The topological resistance of the lunar geometry inherently guarantees its thermal persistence natively without requiring arbitrary radiogenic tuning, perfectly intersecting empirical derivations (Figure \ref{fig:lunar_heating}).
+Mapping the $\Gamma_{sagnac}$ amplification ($\approx 1836$, identified --- as an asserted cross-scale identity, not an independently derived mechanism --- with the proton-to-electron mass ratio $m_p/m_e$) onto the Earth-Moon orbital LC oscillator gives $P_{topo} \approx 1.04$ TW, recovering the empirical 1--2 TW lunar heat budget that classical tidal friction underpredicts by $\sim 10^3\times$ without radiogenic tuning (Figure \ref{fig:lunar_heating}). This is a consistency result conditional on the asserted $\Gamma_{sagnac} = m_p/m_e$ identity, not a parameter-free prediction; the formula also uses the empirical Love number $k_2 \approx 0.022$ and $Q \approx 38$ as inputs.
 
 \begin{figure}[htpb]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/lunar_inductive_heating.png}
-    \caption{Lunar Inductive Heating Topo-Kinematic AC resonance bridge. Classical gravity orbital strain predicts $< 0.001$ TW, failing Apollo probe derivations completely. VCA Topo-Kinematic bounds natively cross the Apollo constraints exactly.}
+    \caption{Lunar inductive heating via the Topo-Kinematic AC resonance bridge. Classical tidal-friction modeling predicts $\sim 0.5$ GW, underpredicting the Apollo-derived $1$--$2$ TW budget by $\sim 10^3\times$; the VCA result ($\approx 1.04$ TW) recovers the empirical band, conditional on the asserted $\Gamma_{sagnac}$ amplification and the empirical $k_2, Q$ inputs.}
     \label{fig:lunar_heating}
 \end{figure}
 

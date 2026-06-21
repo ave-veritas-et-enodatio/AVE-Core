@@ -68,12 +68,12 @@ The macroscopic pressure exerted by $N_A$ topological nodes on the cavity walls 
     P = \frac{N_A \cdot \langle U_{noise} \rangle}{V} \cdot \frac{2}{3} = \frac{N_A \cdot k_B \cdot T}{V}
 \end{equation}
 
-The factor of $2/3$ converts the 3D thermal energy to the 1D ponderomotive pressure along each Cartesian axis. Evaluating:
+The factor of $2/3$ relates the total 3D thermal energy to the pressure--volume product, via the equipartition of energy over the three Cartesian axes. Evaluating:
 \begin{equation}
     R = \frac{PV}{nT} = N_A \cdot k_B = 6.022 \times 10^{23} \times 1.381 \times 10^{-23} = 8.314 \text{ J/(mol$\cdot$K)}
 \end{equation}
 
-This is the exact CODATA value~\cite{codata2018} of the universal gas constant. The identity $R = N_A k_B$ is not a coincidence but a structural theorem: Boltzmann's constant is the per-node LC thermal energy scaling, and the gas constant is its macroscopic (per-mole) projection. No parameter beyond the lattice axioms is required.
+This is the exact CODATA value~\cite{codata2018} of the universal gas constant. The identity $R = N_A k_B$ recovers the empirical gas constant to $<0.001\%$ as a consistency check: the LC energy-balance mapping reproduces $PV = nRT$ with no corrected gas law, while $k_B$ and $N_A$ enter as the imported SI scaling constants. The forced structure is the mapping (pressure as LC energy density, temperature as RMS grid noise); the dimensionful values are calibration inputs.
 
 \subsection*{Quantitative Summary}
 \begin{center}
@@ -95,7 +95,7 @@ STP molar volume    & 22.414 L & 22.414 L & Exact \\
 \begin{itemize}
     \item The classical Ideal Gas Law derives purely as a localised 1D ponderomotive energy balance of the universal LC network geometry.
     \item Boltzmann's constant evaluates structurally as the absolute per-node LC thermal geometric energy scaling unit, rather than an abstract empirical parameter.
-    \item The Universal Gas Constant ($R = N_A k_B$) is derived mechanically as the macroscopic projection without invoking any phenomenological inputs.
+    \item The Universal Gas Constant ($R = N_A k_B$) follows mechanically as the macroscopic (per-mole) projection of the per-node LC thermal scaling; $k_B$ and $N_A$ enter as the imported SI calibration constants.
 \end{itemize}
 \end{summarybox}
 

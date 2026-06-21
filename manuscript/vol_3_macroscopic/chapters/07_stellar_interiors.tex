@@ -1,5 +1,5 @@
 % 07_stellar_interiors.tex
-% Ch.4: Stellar impedance profiles + Neutrino MSW
+% Stellar interiors: impedance profiles + neutrino MSW
 
 \chapter{Stellar Interiors and Neutrino Oscillation}
 \label{ch:stellar}
@@ -16,7 +16,7 @@
 \section{Stellar Regime Classification}
 \label{sec:stellar_regimes}
 
-Each stellar object occupies a well-defined position on the universal regime map via the gravitational control parameter $\varepsilon_{11} = 7GM/(c^2 r)$ from Chapter~Volume 1:
+Each stellar object occupies a well-defined position on the universal regime map via the gravitational control parameter $\varepsilon_{11} = 7GM/(c^2 r)$ introduced in Volume 1 (Universal Regime Map):
 
 \begin{table}[H]
 \centering\small
@@ -29,7 +29,7 @@ Each stellar object occupies a well-defined position on the universal regime map
 Solar surface              & $2.1 \times 10^{-6}$ & I  & Standard GR; $\Delta S < \alpha$ \\
 Red giant ($5\,M_\odot$, $100\,R_\odot$) & $7 \times 10^{-7}$ & I  & Linear optics \\
 White dwarf (Sirius~B)     & $3 \times 10^{-4}$   & I  & Gravitational redshift $\sim 10^{-4}$ \\
-Neutron star (1.4~$M_\odot$, 10~km) & 1.46     & IV & Ruptured topology; no static solution \\
+Neutron star (1.4~$M_\odot$, 10~km) & 1.46     & IV (core) & Regime-IV core with Regime-III crust held by the saturation phase transition (illustrative bound) \\
 Black hole at $r_s$        & 3.50                  & IV & Complete lattice rupture \\
 \bottomrule
 \end{tabularx}
@@ -110,7 +110,7 @@ and MSW resonance occurs at the critical density:
 
 \begin{table}[H]
 \centering\small
-\caption{Neutrino survival probability $P(\nu_e \to \nu_e)$ computed by the physics engine versus experimental measurements.  The engine uses the same \texttt{reflection\_coefficient()} function as all other domains.}
+\caption{Neutrino survival probability $P(\nu_e \to \nu_e)$ computed by the physics engine using the standard adiabatic MSW survival formula evaluated with the AVE-derived Fermi constant $G_F$, versus experimental measurements (consistency with Borexino/SNO).}
 \label{tab:neutrino_pee}
 \begin{tabularx}{\textwidth}{@{}lrrX@{}}
 \toprule
@@ -134,18 +134,20 @@ $^8$B (high $E$) & 10.0 & 0.31 & $0.34 \pm 0.02$ (SNO) \\
     For 10~MeV neutrinos produced in the core, $P_{ee} \approx 0.31$,
     matching the SNO observation ($\sim 0.34$ for $^8$B neutrinos).
     \textbf{Bottom left:} MSW resonance density vs.\ energy.
-    \textbf{Bottom right:} Mode coupling reflection coefficient
-    from the universal \texttt{reflection\_coefficient()} operator.}
+    \textbf{Bottom right:} Impedance mode-coupling reflection
+    coefficient (impedance-analogy diagnostic). The top-right
+    $P_{ee}$ panel is computed from the standard adiabatic MSW
+    survival formula evaluated with the AVE-derived $G_F$.}
     \label{fig:neutrino_msw}
 \end{figure}
 
 \section{Supernova Core Collapse: Macroscopic Dielectric Rupture}
 \label{sec:supernova_collapse}
 
-The regime classification in Table~\ref{tab:stellar_regimes} terminates at neutron stars ($\varepsilon_{11} = 1.46$, Regime~IV). What happens physically when a massive stellar core crosses the Regime~III/IV boundary?
+The regime classification in Table~\ref{tab:stellar_regimes} terminates at neutron stars ($\varepsilon_{11} = 1.46$, Regime~IV). What happens physically when a massive stellar core drives $\varepsilon_{11}$ past the saturation boundary ($\varepsilon_{11} \to 1$)?
 
 \paragraph{The AVE Mechanism.}
-In the AVE framework, stellar core collapse is a macroscopic realisation of Axiom~4 (Saturation). As gravitational compression drives the core density upward, the local lattice strain $\Delta S$ increases monotonically. When $\Delta S$ exceeds the saturation plateau $V_{yield}$ across a macroscopic volume, the vacuum LC lattice undergoes \textbf{bulk dielectric rupture}---the same physics that defines particle boundaries at the subatomic scale (Vol.~2, Ch.~1), but occurring simultaneously across $\sim 10^{57}$ lattice cells.
+In the AVE framework, stellar core collapse is a macroscopic realisation of Axiom~4 (Saturation). As gravitational compression drives the core density upward, the local saturation amplitude $A$ increases monotonically. When the local saturation amplitude reaches the Axiom~4 yield boundary ($A \to A_{yield}$, i.e.\ $\varepsilon_{11} \to 1$) across a macroscopic volume, the vacuum LC lattice undergoes \textbf{bulk dielectric rupture}---the same physics that defines particle boundaries at the subatomic scale (Vol.~2, dielectric-rupture / particle-boundary chapter), but occurring simultaneously across $\sim 10^{57}$ lattice cells.
 
 \paragraph{The Shockwave as Lattice Relaxation.}
 The rupture event is discontinuous. The instant the core lattice fractures:
@@ -156,14 +158,14 @@ The rupture event is discontinuous. The instant the core lattice fractures:
 \end{enumerate}
 
 \paragraph{Neutron Star Remnant.}
-The post-collapse remnant sits at $\varepsilon_{11} \approx 1.46$---deep in Regime~IV, where the lattice topology is permanently ruptured. The neutron star is therefore a macroscopic topological defect: a region where the vacuum LC lattice has undergone irreversible plastic deformation beyond the elastic yield point. Its extreme density, rapid rotation, and intense magnetic field are all consequences of the ruptured topology, computed from the same impedance operators used throughout this volume.
+The post-collapse remnant sits at $\varepsilon_{11} \approx 1.46$---deep in Regime~IV, where the lattice topology is permanently ruptured. The neutron star is therefore a macroscopic topological defect: a region where the vacuum LC lattice has crossed the Axiom~4 saturation phase transition (shear modulus $G_{shear} \to 0$), freezing at the transition boundary (Topological Halting) rather than collapsing to a point. Its extreme density, rapid rotation, and intense magnetic field are all consequences of the ruptured topology, computed from the same impedance operators used throughout this volume.
 
 \begin{summarybox}
 \begin{itemize}
     \item Stellar interiors evaluate natively as dense macroscopic scalar impedance profiles mapped directly onto the continuous spatial lattice.
-    \item The Solar Neutrino Problem evaluates mechanically; the MSW effect is an exact acoustic mode coupling and reflection process within this continuous impedance gradient.
-    \item Survival probabilities ($P_{ee}$) for high-energy core neutrinos match physical observations completely without requiring abstract quantum non-locality.
-    \item Supernova core collapse is a macroscopic Axiom~4 dielectric rupture: when gravitational compression drives the lattice past $V_{yield}$ across a bulk volume, the stored elastic energy releases as a mechanical shockwave propagating through the stellar impedance profile.
+    \item The Solar Neutrino Problem evaluates mechanically; the MSW effect is reinterpreted as impedance-dependent mode coupling, with survival probabilities reproduced from the standard MSW matter potential evaluated using the AVE-derived $G_F$ (consistency with Borexino/SNO).
+    \item Survival probabilities ($P_{ee}$) for core neutrinos reproduce the Borexino/SNO measurements within experimental error using the AVE-derived $G_F$, without invoking quantum non-locality.
+    \item Supernova core collapse is a macroscopic Axiom~4 dielectric rupture: when gravitational compression drives the lattice past the saturation yield boundary ($A \to A_{yield}$, i.e.\ $\varepsilon_{11} \to 1$; the yield threshold $V_{yield}$ is defined in Vol 4 Ch.1) across a bulk volume, the stored elastic energy releases as a mechanical shockwave propagating through the stellar impedance profile.
 \end{itemize}
 \end{summarybox}
 

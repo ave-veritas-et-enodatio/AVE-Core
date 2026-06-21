@@ -1,4 +1,4 @@
-% 12_white_dwarf_predictions.tex
+% 20_white_dwarf_predictions.tex
 % Full derivation chain for AVE gravitational predictions on white dwarfs
 \chapter{White Dwarf Gravitational Predictions}
 \label{ch:white_dwarf_predictions}
@@ -6,8 +6,8 @@
 
 \begin{objectivebox}
 \begin{itemize}
-    \item Derive white dwarf gravitational predictions (redshift, deflection, frame dragging) from the saturated Diamond lattice impedance metric.
-    \item Validate AVE predictions against GR to within $1.7\%$ for white dwarf surface modes.
+    \item Derive white dwarf gravitational predictions (saturation-corrected redshift and standing shear-wave eigenfrequencies) from the saturated Diamond lattice impedance metric; relate them to the deflection and frame-dragging channels treated in Ch~\ref{ch:general_relativity}.
+    \item Cross-validate the shear-eigenfrequency formula's shape against GR at a black-hole boundary (1.7\% on the quasi-normal-mode frequency), keeping the white-dwarf surface-mode prediction as a forward prediction.
 \end{itemize}
 \end{objectivebox}
 
@@ -139,6 +139,9 @@ AVE correction       & $\sim 0.05$ km/s & $z_{\text{GR}} \cdot \varepsilon_{11}^
 The AVE correction is in the correct direction (upward), but the 2.9~km/s residual
 is dominated by the 3--5\% uncertainty in the mass-radius relation,
 not by missing physics.
+The prediction is therefore correct in direction but not currently discriminating:
+at present mass-radius precision the $\sim$0.05~km/s saturation correction sits far
+below the measurement residual and does not yet distinguish AVE from GR.
 
 \subsection{Prediction B: Standing Shear Wave Eigenfrequencies}
 
@@ -171,10 +174,13 @@ GD 358 (ZZ Ceti) & 13.94 & \checkmark & \checkmark \\
 \end{resultbox}
 
 \noindent
-\textbf{Cross-check:} Applying the same formula to a Schwarzschild black hole
-(boundary at $r_{\text{sat}} = 7GM/c^2$ instead of $R$) reproduces the GR
-quasi-normal mode frequency to 1.7\% accuracy:
-$\omega \cdot M_{\text{geom}} = 0.3673$ vs.\ GR exact $0.3737$ for $\ell = 2$.
+\textbf{Cross-check (formula shape only, not WD-boundary corroboration):}
+Applying the same formula to a Schwarzschild black hole---using the boundary at
+$r_{\text{sat}} = 7GM/c^2$ instead of the WD surface $R$---reproduces the GR
+quasi-normal mode frequency to 1.7\% accuracy
+($\omega \cdot M_{\text{geom}} = 0.3673$ vs.\ GR exact $0.3737$ for $\ell = 2$).
+This is a cross-regime consistency check on the formula's shape using a different
+boundary radius; it does not corroborate the white-dwarf surface boundary choice.
 
 %% ─────────────────────────────────────────────────────────────────
 \section{Step 4: Symmetry Cancellations}
@@ -264,14 +270,15 @@ BH QNM cross-check      & 100--200 Hz    & LIGO       & Validated to 1.7\% \\
     Only the temporal component contributes to gravitational redshift;
     the spatial component governs the matter-wave (electron de~Broglie) parallax
     (C11-MACH-ZEHNDER) and frame dragging. Light deflection couples instead to the
-    transverse Cosserat-shear index $n_\perp = 1 + (2/7)\chi_{vol}$ (Ch~2).
+    transverse Cosserat-shear index $n_\perp = 1 + (2/7)\chi_{vol}$
+    (Ch~\ref{ch:general_relativity}, \S\ref{sec:double_deflection}).
 \end{enumerate}
 
 \begin{summarybox}
 \begin{itemize}
-    \item White dwarf gravitational predictions (redshift, light deflection, frame dragging) are derived entirely from the saturated Diamond lattice impedance metric---the same framework used for nuclear binding and water properties.
-    \item The temporal strain component governs gravitational redshift; the spatial component governs matter-wave parallax (C11) and frame dragging, while light deflection couples to the transverse index $n_\perp = 1 + (2/7)\chi_{vol}$ (Ch~2 double-deflection $\to 4GM/bc^2$).
-    \item AVE predictions match GR to within $1.7\%$ for surface modes, providing a high-$g$ validation of the universal impedance framework.
+    \item White dwarf gravitational predictions (redshift, light deflection, frame dragging) are situated within the saturated Diamond lattice impedance metric---the same framework used for nuclear binding and water properties; this chapter derives the saturation-corrected redshift and the standing shear-wave eigenfrequencies, with light deflection and frame dragging treated in Ch~\ref{ch:general_relativity}.
+    \item The temporal strain component governs gravitational redshift; the spatial component governs matter-wave parallax (C11) and frame dragging, while light deflection couples to the transverse index $n_\perp = 1 + (2/7)\chi_{vol}$ (Ch~\ref{ch:general_relativity} double-deflection $\to 4GM/bc^2$).
+    \item The same eigenfrequency formula, applied to a Schwarzschild black hole at $r_{\text{sat}} = 7GM/c^2$, reproduces the GR quasi-normal-mode frequency to within $1.7\%$---a cross-regime shape validation of the impedance formula. The white-dwarf surface-mode prediction itself ($\sim$10--20\,Hz) is a forward prediction awaiting a WD-merger ringdown observation.
 \end{itemize}
 \end{summarybox}
 

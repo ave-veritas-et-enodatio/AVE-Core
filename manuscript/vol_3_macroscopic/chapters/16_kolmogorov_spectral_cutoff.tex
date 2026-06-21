@@ -3,9 +3,9 @@
 
 \begin{objectivebox}
 \begin{itemize}
-    \item Resolve the classical Navier-Stokes singular energy cascade using the discrete LC lattice limits of the AVE framework.
+    \item Bound the classical Navier-Stokes energy cascade using the discrete LC lattice limits of the AVE framework (a lattice-conditional resolution, not a Clay-rigorous continuum proof).
     \item Formally derive the absolute Nyquist wavenumber boundary $k_{\max} = \pi/\ell_{\mathrm{node}}$.
-    \item Derive the macroscopic avalanche exponent $n = 38/21$ from continuous 3D Poisson constraint mapping rather than topological knot properties.
+    \item Derive the macroscopic 3D avalanche exponent $n_{3D} = 38/21$ from the 1D Axiom-4 value $n=2$ corrected by the vacuum Poisson ratio $\nu_{\mathrm{vac}}=2/7$ (lattice $K=2G$), not from soliton crossing-number topology.
 \end{itemize}
 \end{objectivebox}
 
@@ -19,34 +19,27 @@ where $k$ is the spatial wavenumber, $\varepsilon$ is the kinetic energy dissipa
 The critical mathematical failure of the classical continuum assumption lies at this boundary. Smooth partial differential equations do not prohibit localized flow configurations from driving the vorticity gradients to infinity before viscosity can arrest them, potentially leading to singularities---the core of the Navier-Stokes Millennium Prize problem.
 
 \section{The Lattice Nyquist Cutoff}
-Under the AVE framework, the continuum assumption breaks permanently at the structural limit of the vacuum lattice itself (Axiom 1). The discrete spacing between LC nodes $\ell_{\mathrm{node}}$ enforces an absolute maximum possible spatial frequency---a topological Nyquist limit for momentum transfer.
+Under the AVE framework, the continuum assumption breaks permanently at the structural limit of the vacuum lattice itself (Axiom 1). The discrete spacing between LC nodes $\ell_{\mathrm{node}}$ enforces an absolute maximum possible spatial frequency---a lattice Nyquist limit for momentum transfer.
 
 The absolute upper bound on the wavenumber is:
-\begin{resultbox}{Topological Nyquist Limit}
+\begin{resultbox}{Lattice Nyquist Limit}
 \begin{equation}
     k_{\max} = \frac{\pi}{\ell_{\mathrm{node}}}
 \end{equation}
 \end{resultbox}
-For water at standard state, the classical Kolmogorov microscale $\eta_K$ sits near $10^{-5}$ meters. The LC node pitch $\ell_{\mathrm{node}}$ is $3.8616 \times 10^{-13}$ meters. The separation of scales is astronomical ($>10^7$), explaining why the continuum Navier-Stokes assumption performs so exceptionally well in engineering contexts. However, the exact bounded threshold $k_{\max}$ means the system mathematically has finite degrees of freedom, preventing any infinite divergence in the formal solution.
+For water at standard state, the classical Kolmogorov microscale $\eta_K$ sits near $10^{-5}$ meters. The LC node pitch $\ell_{\mathrm{node}}$ is $3.8616 \times 10^{-13}$ meters. The scale separation exceeds $10^7$, which is why the continuum Navier-Stokes approximation remains accurate in engineering regimes. However, the exact bounded threshold $k_{\max}$ means the system mathematically has finite degrees of freedom, preventing any infinite divergence in the formal solution.
 
 \section{Saturated Energy Spectrum}
-Applying the universal Saturation Operator $\mathcal{S}$ (Axiom 4) directly to the spectral cascade bounds the available phase space at the Nyquist limit. The axiomatic energy spectrum incorporates this spatial saturation explicitly:
+Applying the universal Saturation Operator $S$ (Axiom 4) directly to the spectral cascade bounds the available phase space at the Nyquist limit. The axiomatic energy spectrum incorporates this spatial saturation explicitly:
 \begin{equation}
-    E(k) = C_K \varepsilon^{2/3} k^{-5/3} \mathcal{S}\left(\frac{k}{k_{\max}}\right) = C_K \varepsilon^{2/3} k^{-5/3} \sqrt{1 - \left(\frac{k}{k_{\max}}\right)^2}
+    E(k) = C_K \varepsilon^{2/3} k^{-5/3} S\left(\frac{k}{k_{\max}}\right) = C_K \varepsilon^{2/3} k^{-5/3} \sqrt{1 - \left(\frac{k}{k_{\max}}\right)^2}
 \end{equation}
-For $k \ll k_{\max}$, $\mathcal{S} \to 1.0$ and the relationship converges precisely to K41 scaling. As $k \to k_{\max}$, the available degrees of freedom for coherent vorticity vanish ($S \to 0$) terminating the cascade rigorously.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{kolmogorov_spectral_cutoff.png}
-    \caption{The Kolmogorov Cascade Visualization. Left Panel: The exact axiomatic topological Nyquist cutoff ($k_{\max}$) terminating the classical unbounded Kolmogorov spectrum. Center Panel: Enstrophy bounds during the modal cascade demonstrating the discrete structural halt. Right Panel: The 3D Avalanche Factor $M(r)$ derived from pure Axiom 4 and Poisson scaling matching empirical measurements without soliton geometries.}
-    \label{fig:kolmogorov_cascade}
-\end{figure}
+For $k \ll k_{\max}$, $S \to 1.0$ and the relationship converges precisely to K41 scaling. As $k \to k_{\max}$, the available degrees of freedom for coherent vorticity vanish ($S \to 0$) terminating the cascade rigorously.
 
 \section{The 3D Avalanche Exponent}
 The turbulent cascade is a bulk non-linear transfer of energy governed by the universal avalanche factor $M$, representing the inverse of the structural compliance. By Axiom 4, the raw 1D saturation power law is directly equivalent to the relativistic Lorentz factor squared: 
 \begin{equation}
-    M_{1D} = \frac{1}{\mathcal{S}^2} = \frac{1}{1 - r^2}
+    M_{1D} = \frac{1}{S^2} = \frac{1}{1 - r^2}
 \end{equation}
 yielding an avalanche exponent of $n=2$. 
 
@@ -56,14 +49,14 @@ However, fluid turbulence is a 3-dimensional isotropic phenomenon. As strain is 
     n_{3D} = 2 \left(1 - \frac{\nu_{\mathrm{vac}}}{d}\right) = 2\left(1 - \frac{2/7}{3}\right) = \frac{38}{21} \approx 1.8095
 \end{equation}
 \end{resultbox}
-This first-principles derivation sits within $0.53\%$ of empirical observations ($n \approx 1.8$) for large-scale solar dynamo cascades, demonstrating scale-invariant tabletop relativity in fluid cascades without relying on arbitrary particle topology (e.g. solitonic crossing knots, which govern subatomic limits rather than continuum cascades).
+This first-principles derivation sits within $0.53\%$ of the empirical solar-flare avalanche exponent ($n \approx 1.8$), a single-figure comparison rather than a precision-dataset match, demonstrating scale-invariant tabletop relativity in the continuum cascade, where the exponent is set by the lattice Poisson projection rather than by the soliton crossing-number topology that governs subatomic excitations.
 
 \section{Kolmogorov Constant Derivation}
 The universal Kolmogorov constant $C_K$ emerges strictly from the topological scattering properties of the K4 mesh lattice. For energy flux traversing a K4 junction vertex, the characteristic scattering matrix elements establish an orthoreflection fraction. Four uniform ports result in a forward cascade efficiency $\eta = 3 \times |S_{ij}|^2 = 0.75$. The Kolmogorov constant is simply the impedance inverse of this efficiency:
 \begin{equation}
     C_K = \frac{1}{\eta} = \frac{4}{3} \approx 1.333
 \end{equation}
-This perfectly aligns with direct numerical simulations (DNS) which place $C_K$ empirically in the tightly bound range of $1.4$ to $1.8$, and Sreenivasan's observational limits of $1.5 \pm 0.1$, proving that AVE derives the standard constants of fluid dynamics entirely free from arbitrary parametrization.
+The lattice S-matrix value $C_K = 4/3 \approx 1.333$ sits just below the classical empirical band (DNS estimates cluster near $1.5$; Sreenivasan $1.5 \pm 0.1$); the framework asserts order-of-magnitude compatibility with the imported classical constant, not a precision match. The cascade efficiency and avalanche exponent follow from the lattice S-matrix and the vacuum Poisson ratio without per-system tuning; the magnitude constant $C_K$ remains an imported classical value.
 
 \section{Connection to the Navier-Stokes Smoothness Derivation}
 This hard boundary $k_{\max}$ closes the logic required for the Phase 3 \emph{framework-conditional} derivation of local bounded enstrophy (see Vol~2's Millennium Problems chapter for the scope caveat: this is an engineering-physics resolution, not a Clay-rigorous proof). The integration over the energy spectrum to compute enstrophy $Z = \int_0^\infty k^2 E(k) dk$ naturally replaces infinity with $k_{\max}$. A 1D continuum can infinitely stretch vorticity; the 3-dimensional K4 discrete lattice physically stops stretching at $\ell_{\mathrm{node}}$, converting the residual to thermal phonon scatter.

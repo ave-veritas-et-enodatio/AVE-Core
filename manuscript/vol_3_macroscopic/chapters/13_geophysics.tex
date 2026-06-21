@@ -13,20 +13,6 @@
 \end{itemize}
 \end{objectivebox}
 
-\textbf{A-034 planetary-scale instance (canonical 2026-05-15 evening).}
-This chapter describes Earth's geomagnetic dynamo and planetary internal
-structure. The geomagnetic reversal phenomenon (Earth pole flip on
-$\sim 200{,}000$-yr irregular intervals) is the planetary-scale row in the
-A-034 catalog: Earth's spin imparts strain on the local lattice via the
-geodynamo, the strain accumulates against a ``Baryonic phase density
-threshold,'' and at threshold the magnetic topology reorganizes via pole
-reversal. Same kernel $S(A) = \sqrt{1 - A^2}$ as atomic dielectric
-breakdown, BCS superconductivity (0.00\% error), and BH ring-down.
-Notable framework prediction: Venus's slower spin keeps it below threshold,
-producing essentially zero magnetic field (canonical AVE prediction).
-See Vol 3 Ch~4 \S\ref{sec:tki_strain_snap} + Backmatter
-Ch~\ref{app:universal_saturation_kernel} for the full 19-instance catalog.
-
 \section{Seismic Wave Propagation on the FDTD Engine}
 \label{sec:seismic_fdtd_bridge}
 
@@ -116,15 +102,29 @@ Seismic energy arriving at angles greater than $\theta_c$ is perfectly reflected
 \end{summarybox}
 
 \section{The Geodynamo as a Topo-Kinematic VCA Back-EMF}
-Standard geophysics attributes the planetary magnetic field to heuristic, self-sustaining convective fluid dynamics in the outer liquid iron core. Under Vacuum Circuit Analysis (VCA), this framework is obsolete. The Solar System acts as a global AC induction motor. The Earth is a highly conductive rotor sweeping through the Sun's magnetic AC stator field.
 
-The Geodynamo is not generic fluid dynamics; it is rigorously an \textbf{Inductive Back-EMF generator}. 
+\textbf{A-034 planetary-scale instance.}
+The geomagnetic reversal phenomenon (Earth pole flip on
+$\sim 200{,}000$-yr irregular intervals) is the planetary-scale row in the
+A-034 catalog: Earth's spin imparts strain on the local lattice via the
+geodynamo, the strain accumulates against a ``Baryonic phase density
+threshold,'' and at threshold the magnetic topology reorganizes via pole
+reversal. Same kernel $S(A) = \sqrt{1 - A^2}$ as atomic dielectric
+breakdown, BCS superconductivity (0.00\% error), and BH ring-down.
+Venus's slower spin keeps it below threshold,
+producing essentially no global magnetic field.
+See Vol 3 Ch~4 \S\ref{sec:tki_strain_snap} + Backmatter
+Ch~\ref{app:universal_saturation_kernel} for the full 26-instance catalog.
+
+Standard geophysics attributes the planetary magnetic field to self-sustaining convective fluid dynamics in the outer liquid iron core. Vacuum Circuit Analysis (VCA) recasts the geodynamo as an inductive back-EMF generator rather than self-sustaining convective fluid dynamics: the Solar System acts as a global AC induction motor, and the Earth is a highly conductive rotor sweeping through the Sun's magnetic AC stator field.
+
+In this model the geodynamo is an \textbf{Inductive Back-EMF generator}.
 As the massive conductive fluid core ($R \approx 3,480$ km) rotates physically inside the solar Sagnac phase-boundary (amplified electromagnetically by the magnetopause $+1$ reflection boundary), it suffers a Topo-Kinematic Motional EMF:
 \begin{equation}
     \mathcal{E}_{emf} = ( \omega_\oplus \cdot R_{core} \cdot \Gamma_{sagnac} ) \cdot B_{stator} \cdot (2 R_{core})
 \end{equation}
 
-For Earth, rotating fast enough to fracture the Acoustic Shear layer ($\Gamma \approx \mu_B \approx 1836$ for baryonic phase boundaries) against a piled-up Solar Wind Magnetopause ($B \sim 400$ nT), this produces a driving electric potential of approximately $1.3 \times 10^6$ V. Integrating this Topological voltage across the AC Inductive Reactance of the core ($Z = \omega L \approx 3.2 \times 10^{-4}\;\Omega$), we explicitly generate an Eddy current $I_{eddy} \approx 4.0 \times 10^9$ A.
+For Earth, rotating fast enough to fracture the Acoustic Shear layer ($\Gamma_{sagnac} \approx 1836$ for baryonic phase boundaries --- the cross-scale identification $\Gamma_{sagnac} = m_p/m_e$, a numerical correspondence not independently derived) against a piled-up Solar Wind Magnetopause ($B \sim 400$ nT), this produces a driving electric potential of approximately $1.3 \times 10^6$ V. Integrating this topological voltage across the AC inductive reactance of the core ($Z = \omega L \approx 3.2 \times 10^{-4}\;\Omega$) yields an eddy current $I_{eddy} \approx 4.0 \times 10^9$ A.
 
 \begin{resultbox}{Planetary Magnetic Dipole (AC Motor Output)}
 \begin{equation}
@@ -132,11 +132,11 @@ For Earth, rotating fast enough to fracture the Acoustic Shear layer ($\Gamma \a
 \end{equation}
 \end{resultbox}
 
-The empirical dipole moment is $M_\oplus^{\text{obs}} = 8.0 \times 10^{22}$ A$\cdot$m$^2$ (IGRF-13). The VCA prediction overshoots by a factor of $\sim 1.9\times$, which is within the order-of-magnitude expected given the simplified geometry (uniform core conductivity, dipole-only field structure, neglected quadrupole leakage). Critically, this single formula---with zero tuned parameters---correctly predicts Earth's dynamo to $\mathcal{O}(1)$ while simultaneously predicting its \textit{absence} on Venus and Mars (see below), establishing robust falsifiability via the explicit death of the dynamo on neighboring planets (Figure~\ref{fig:geodynamo_vca}).
+The empirical dipole moment is $M_\oplus^{\text{obs}} = 8.0 \times 10^{22}$ A$\cdot$m$^2$ (IGRF-13). The VCA prediction overshoots by a factor of $\sim 1.9\times$, which is within the order-of-magnitude expected given the simplified geometry (uniform core conductivity, dipole-only field structure, neglected quadrupole leakage). This formula reproduces Earth's dynamo to order unity using an asserted cross-scale amplification factor $\Gamma_{sagnac} \approx 1836$ together with observational inputs (solar-wind $B$, core reactance), while simultaneously predicting its \textit{absence} on Venus and Mars (see below), consistent with the qualitative absence of a dynamo on those bodies (Figure~\ref{fig:geodynamo_vca}).
 
 \begin{figure}[htpb]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/vca_dynamo_comparison.png}
+    \includegraphics[width=0.8\textwidth]{vca_dynamo_comparison.png}
     \caption{Geodynamo Topo-Kinematic AC Dipole predictions. Reactance $X_L$ natively sustains Earth's dynamo, while lack of Phase Velocity ($U_{eq}$) zeroes Venus, and infinite DC Resistance ($R_{core}$) zeroes Mars.}
     \label{fig:geodynamo_vca}
 \end{figure}

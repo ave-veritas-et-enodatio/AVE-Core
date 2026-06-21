@@ -10,21 +10,21 @@
 \end{itemize}
 \end{objectivebox}
 
-If empirical chemistry is merely the macroscopic low-resolution blurring of underlying high-frequency $1/d_{ij}$ resonant topological arrays, then all bulk material properties (hardness, phase transition temperatures, optics, and magnetism) must be mathematically derivable from the base coordinate geometry of the nucleus.
+Bulk material properties (hardness, phase transition temperatures, optics, and magnetism) derive from the base coordinate geometry of the nucleus via the high-frequency $1/d_{ij}$ resonant topology. Empirical chemistry is the macroscopic low-resolution blurring of these underlying resonant topological arrays.
 
 \section{Calculated Absolute Properties}
 The entire Z=1 to Z=14 series to extract their inherent structural limits and map them directly to real-world material behaviors:
 \begin{itemize}
     \item \textbf{Thermal Stability (MeV/Nucleon):} Proportional to the total binding energy per nucleon ($U_{total} / A$). Tightly bound nodes require higher ambient thermal acoustic kinetic energy to rupture.
     \item \textbf{Internal Hardness (log GPa):} Proportional to the network's volume energy density ($	ext{MeV/fm}^3 \to 	ext{Gigapascals}$). An array that achieves high mutual coupling over a very small bounding volume strongly resists external mechanical deformation.
-    \item \textbf{Magnetic Susceptibility:} Derived purely from the geometric asymmetry (the Moment of Inertia tensor) of the array. Highly symmetric arrays strongly oppose external flux bias (Diamagnetism), while asymmetric, halo-bound arrays possess an inherent angular bias that readily aligns with external flow (Paramagnetism).
+    \item \textbf{Magnetic Susceptibility:} A function of the geometric asymmetry (the Moment of Inertia tensor) of the array (Figure~\ref{fig:magnetism_simulations}). Highly symmetric arrays strongly oppose external flux bias (Diamagnetism), while asymmetric, halo-bound arrays possess an inherent angular bias that readily aligns with external flow (Paramagnetism).
 \end{itemize}
 
 \subsection*{The Helium Metamaterial Paradox}
-A close review of the data reveals an apparent paradox: \textbf{Helium-4} (the Alpha Particle) possesses an internal structural hardness orders of magnitude higher than any other topological arrangement ($\sim 24.3 \log_{10} \text{GPa}$). If Helium is technically the hardest structure in the universe, why is it a gas instead of an indestructible solid metamaterial?
+\textbf{Helium-4} (the Alpha Particle) possesses an internal structural hardness orders of magnitude higher than any other topological arrangement ($\sim 23.5 \log_{10} \text{GPa}$, matching its tabulated value of $23.5304$). Helium is therefore the hardest structure in the series, yet it is a gas rather than an indestructible solid metamaterial.
 
 The answer lies in its Magnetic Susceptibility ($0.000$). Helium is a closed 4-node tetrahedron. All of its topological flux is routed internally, resulting in zero external gradient fields. Because it forms no external ``hooks'', it refuses to couple with neighbouring atoms. Macroscopically, it exhibits zero friction and acts as a Noble Gas.
-To build a high-performance ``Helium Metamaterial,'' arrays must be used constructed of multiple Alpha particles bound together so they share structural hooks---namely, \textbf{Beryllium-9} (dual-alpha) and \textbf{Carbon-12} (tri-alpha). Macroscopic Carbon arrays form Diamond, the hardest known material---a manifestation of topological alpha-core metamaterials.
+To build a high-performance ``Helium Metamaterial,'' arrays must be constructed of multiple alpha particles bound together so they share structural hooks---namely, \textbf{Beryllium-9} (dual-alpha) and \textbf{Carbon-12} (tri-alpha). Macroscopic Carbon arrays form Diamond, the hardest known material---a manifestation of topological alpha-core metamaterials.
 
 \begin{table}[h!]
     \centering
@@ -78,18 +78,19 @@ The nuclear energy density evaluates as:
     u_{nuc} = \frac{92.16 \text{ MeV}}{6.30 \times 10^{-44} \text{ m}^3} \times \frac{1.602 \times 10^{-13} \text{ J}}{1 \text{ MeV}} \approx 2.34 \times 10^{32} \text{ Pa} \approx 10^{23.4} \text{ GPa}
 \end{equation}
 
-This is the \textit{nuclear-scale} hardness. Macroscopic diamond hardness ($\sim 10^2$ GPa) is this value diluted by the packing fraction of the covalent carbon lattice ($\sim 10^{-21}$), which accounts for the vast empty space between nuclei in the crystalline lattice. The hierarchy of macroscopic materials hardness (Diamond $>$ Silicon Carbide $>$ Alumina $>$ Steel) is predicted entirely by the alpha-cluster count and binding energy per nucleon.
+This is the \textit{nuclear-scale} hardness. Macroscopic diamond hardness ($\sim 10^2$ GPa) is this value diluted by the packing fraction of the covalent carbon lattice ($\sim 10^{-21}$), which accounts for the vast empty space between nuclei in the crystalline lattice. The qualitative ordering of macroscopic hardness (Diamond $>$ Silicon Carbide $>$ Alumina $>$ Steel) tracks the alpha-cluster count and binding energy per nucleon; the absolute values follow only after the lattice packing-fraction dilution is supplied. The tabulated $K_{bulk}$, $G_{shear}$, and $E_{rupt}$ are eigenvalue proxies of the nuclear Hessian, not direct experimental moduli.
 
 \section{Metallicity from Magnetic Asymmetry}
 
-A quantitative predictor of metallic versus insulating behaviour emerges from the magnetic susceptibility column of Table~\ref{tab:derived_properties}. Elements with high paramagnetic asymmetry (Fluorine: 1.347, Carbon: 0.749) possess strong external gradient fields that readily couple to neighbouring atoms, enabling delocalised electron sharing. Elements with zero susceptibility (Helium, Oxygen, Magnesium) route all flux internally and resist inter-atomic coupling.
+A qualitative correlation between metallic versus insulating behaviour and the magnetic susceptibility column of Table~\ref{tab:derived_properties} emerges from the paramagnetic asymmetry. Elements with high paramagnetic asymmetry possess strong external gradient fields that can couple to neighbouring atoms, and elements with zero susceptibility (Helium, Oxygen, Magnesium) route all flux internally and resist inter-atomic coupling.
 
-The metallic transition occurs when the paramagnetic moment exceeds a threshold set by the nearest-neighbour impedance overlap:
+The correlation marks a metallic transition when the paramagnetic moment exceeds a threshold set by the nearest-neighbour impedance overlap:
 \begin{equation}
     \chi_{metal} > \chi_{crit} = \frac{1}{Z_{eff}} \approx 0.3
 \end{equation}
+where $Z_{eff}$ is the effective near-neighbour coordination impedance; the threshold value $\approx 0.3$ is an empirically-set parameter at present, not derived from an independent $Z_{eff}$.
 
-Sodium ($\chi = 0.522$), Aluminum ($\chi = 0.369$), and Lithium ($\chi = 0.591$) all exceed this threshold---correctly predicting their metallic character. Helium ($\chi = 0.000$), Neon ($\chi = 0.150$), and Magnesium ($\chi = 0.000$) fall below it---correctly predicting noble gas and alkaline earth insulating character.
+Sodium ($\chi = 0.522$), Aluminum ($\chi = 0.369$), and Lithium ($\chi = 0.591$) all exceed this threshold, consistent with their metallic character, while Helium ($\chi = 0.000$), Neon ($\chi = 0.150$), and Magnesium ($\chi = 0.000$) fall below it, consistent with noble gas and alkaline-earth insulating character. The scalar susceptibility does not capture covalent-directional coupling: Carbon ($\chi = 0.749$, diamond) and Fluorine ($\chi = 1.347$, halogen) both lie above the threshold yet form covalent insulators, so the predictor is a correlation over delocalised-coupling elements rather than a determinative law.
 
 \section{Single-Element Impedance Under Stress}
 \label{sec:element_impedance}
@@ -159,10 +160,10 @@ Evaluating the Hessian numerically for each element Z=1 through Z=14 yields the 
 
 \subsection{The Two Impedance Families}
 
-The impedance table reveals a striking binary partition. The elements divide cleanly into two distinct families based on their atomic impedance $Z_{atom}$:
+The impedance table (Table~\ref{tab:element_impedance}) partitions into two families. The elements divide into two distinct families based on their atomic impedance $Z_{atom}$:
 
 \paragraph{Closed-Shell Alpha Cores ($Z_{atom} \approx 1.37$, $Q = 2.0$, $E_{rupt} \approx 0.82$).}
-Helium-4, Carbon-12, Oxygen-16, Neon-20, Magnesium-24, and Silicon-28 all share nearly identical impedance signatures. These elements are constructed entirely from tetrahedral alpha clusters (4-node closed tetrahedra). Their quality factor is exactly $Q = 2.0$---a direct signature of the tetrahedral symmetry, which admits only two distinct eigenfrequencies. Their thermal rupture energy is uniformly $\sim 0.82$ MeV, indicating that the alpha-tetrahedron itself is the fundamental ``hard'' building block of all nuclear matter.
+Helium-4, Carbon-12, Oxygen-16, Neon-20, Magnesium-24, and Silicon-28 all share nearly identical impedance signatures. These elements are constructed entirely from tetrahedral alpha clusters (4-node closed tetrahedra). Their quality factor is $Q = 2.0$ (see Exercise 2), reflecting the tetrahedron's restricted eigenspectrum, which admits only two distinct eigenfrequencies. Their thermal rupture energy is uniformly $\sim 0.82$ MeV, indicating that the alpha-tetrahedron itself is the fundamental ``hard'' building block of all nuclear matter.
 
 \paragraph{Open-Shell Halo Elements ($Z_{atom} \sim 0.37$--$0.46$, $Q = 3$--$16$, $E_{rupt} \ll 0.82$).}
 Lithium-7, Beryllium-9, Boron-11, and Nitrogen-14 possess halo nucleons loosely coupled to their alpha cores. Their impedances are $\sim 3\times$ lower, their quality factors are much higher (broad frequency spectrum), and their thermal rupture energies are $10$--$100\times$ softer. These elements are structurally ``leaky''---a loosely coupled halo nucleon dominates the softest vibrational mode and is readily ejected by thermal perturbation.
@@ -190,7 +191,7 @@ Elements within the same impedance family ($|\Gamma_{ij}| \to 0$) bond efficient
 \begin{summarybox}
 \begin{itemize}
     \item Macroscopic material properties (elasticity, magnetism, density) scale dynamically from the intrinsic nuclear Hessian and the topological orientation of alpha-clusters vs. halo nucleons.
-    \item Chemical bonding mechanics (covalent, metallic, and ionic) are strictly dictated by the resultant inter-element reflection coefficient $\Gamma_{ij}$.
+    \item Chemical bonding mechanics (covalent, metallic, and ionic) are structurally classified by the resultant inter-element reflection coefficient $\Gamma_{ij}$.
     \item Closed-shell alpha-cluster elements map mathematically to tight quality factors ($Q=2.0$) natively supporting deep structural resonance, while halo elements exhibit "leaky" high-quality factors and low thermal rupture energies.
 \end{itemize}
 \end{summarybox}

@@ -13,8 +13,8 @@
 \end{itemize}
 \end{objectivebox}
 
-The most dramatic application of scale invariance closes the
-``dark matter problem.''  The MOND acceleration scale
+Scale invariance applied to galactic dynamics reframes the
+dark-matter problem as an unsaturated-lattice drag effect.  The MOND acceleration scale
 $a_0 \approx 1.2 \times 10^{-10}$~m/s$^2$ is first \textit{derived}:
 \begin{resultbox}{Derived MOND Acceleration Scale ($a_0$)}
 \begin{equation}
@@ -72,7 +72,7 @@ Outer galaxy ($> 15$ kpc) & $g_N \ll a_0$ & $\ll 1$ & I (unsaturated, ``dark mat
 \end{tabularx}
 \end{center}
 
-\noindent The dark matter problem \textbf{IS} the Regime~I observation of unsaturated vacuum lattice drag.  Inner-galaxy stars at $r \gg 1$ are in Regime~IV: the lattice is fully saturated, drag is zero, orbits are Keplerian.  Outer-galaxy stars at $r \ll 1$ are in Regime~I: the lattice is unsaturated, full drag produces $g_{eff} \to \sqrt{g_N \cdot a_0}$ (flat rotation curves).
+\noindent The dark matter problem is the Regime~I observation of unsaturated vacuum lattice drag.  Inner-galaxy stars at $r \gg 1$ are in Regime~IV: the lattice is fully saturated, drag is zero, orbits are Keplerian.  Outer-galaxy stars at $r \ll 1$ are in Regime~I: the lattice is unsaturated, full drag produces $g_{eff} \to \sqrt{g_N \cdot a_0}$ (flat rotation curves).
 
 \section{Physical Mechanism}
 
@@ -118,11 +118,11 @@ The physics engine implements both behaviors programmatically via the solver
 
 \subsection{Headline: SPARC 135-galaxy benchmark CONFIRMED (zero free parameters, 11.5\% Q=1 mean $|$residual$|$)}
 
-The AVE galactic-rotation prediction has been benchmarked against the full SPARC catalog (Lelli, McGaugh, Schombert 2016 AJ 152 157 --- 175 late-type galaxies, public). Live-fire validation 2026-05-17 via \kbleaf{src/scripts/vol\_3\_macroscopic/sparc\_catalog\_ingest.py}: 135 galaxies parsed (40 lack published $V_{flat}$); AVE prediction matches observed flat-rotation velocities with \textbf{zero free parameters} at the residuals shown in Table~\ref{tab:sparc_benchmark}.
+The AVE galactic-rotation prediction has been benchmarked against the full SPARC catalog (Lelli, McGaugh, Schombert 2016 AJ 152 157 --- 175 late-type galaxies, public). Benchmarked via \kbleaf{src/scripts/vol\_3\_macroscopic/sparc\_catalog\_ingest.py}: 135 galaxies parsed (40 lack published $V_{flat}$); AVE prediction matches observed flat-rotation velocities with \textbf{zero free parameters} at the residuals shown in Table~\ref{tab:sparc_benchmark}.
 
 \begin{table}[H]
 \centering\footnotesize
-\caption{SPARC 135-galaxy AVE benchmark, 2026-05-17 live-fire. Single canonical $a_0 = c H_\infty/(2\pi) \approx 1.07 \times 10^{-10}$ m/s\textsuperscript{2} for ALL galaxies (no per-galaxy fitting); standard SPARC $M^*/L_{3.6} = 0.5\ M_\odot/L_\odot$ (not a fit parameter); He correction $1.33 \times M_{HI}$. Baryonic mass $M_{disk} = M_* + M_{gas}$ with NO DM halo component.}
+\caption{SPARC 135-galaxy AVE benchmark. Single canonical $a_0 = c H_\infty/(2\pi) \approx 1.07 \times 10^{-10}$ m/s\textsuperscript{2} for ALL galaxies (no per-galaxy fitting); standard SPARC $M^*/L_{3.6} = 0.5\ M_\odot/L_\odot$ (not a fit parameter); He correction $1.33 \times M_{HI}$. Baryonic mass $M_{disk} = M_* + M_{gas}$ with NO DM halo component.}
 \label{tab:sparc_benchmark}
 \begin{tabularx}{\textwidth}{@{}lrrrX@{}}
 \toprule
@@ -138,11 +138,11 @@ Q=3 (worst) & 6 galaxies & 74.3\% & 94.4\% & Poor-quality data; large scatter ex
 
 \noindent\textbf{Mass range covered:} 4 decades, from DDO154 dwarf ($0.4 \times 10^9\ M_\odot$ baryonic) to ESO563-G021 giant ($188 \times 10^9\ M_\odot$ baryonic). The same single $a_0$ produces $\sim 11.5\%$ mean residual across the entire range for high-quality galaxies.
 
-\noindent\textbf{Comparison to standard physics:} WIMP DM requires per-galaxy halo fitting (NFW, Burkert, etc.\ with 2--3 fit parameters per galaxy). AVE matches the cleanest SPARC data at $\sim 10\%$ accuracy across 4 OOM with zero free parameters. The matrix row C13a-GAL-ROT in the divergence-test substrate map is promoted from \textit{partial-PASS-hard-code} to \textbf{forward-prediction CONFIRMED} per closure-roadmap \S 0.5 (2026-05-17).
+\noindent\textbf{Comparison to standard physics:} WIMP DM requires per-galaxy halo fitting (NFW, Burkert, etc.\ with 2--3 fit parameters per galaxy). AVE matches the cleanest SPARC data at $\sim 10\%$ accuracy across 4 OOM with zero free parameters. The galactic-rotation result is a zero-per-galaxy-parameter forward prediction confirmed against the SPARC catalog at the residuals above.
 
 \subsection{Legacy 5-galaxy demonstration (preserved for cross-check)}
 
-The physics engine also contains a smaller five-galaxy demonstration catalog (\kbleaf{gravity/galactic\_rotation.py}) spanning four decades of baryonic mass, used as a quick benchmark before the full SPARC ingestion landed.  Table~\ref{tab:galaxy_validation} preserves these values for cross-checking the SPARC ingestion pipeline.
+The physics engine also contains a smaller five-galaxy demonstration catalog (\kbleaf{src/ave/regime\_3\_saturated/galactic\_rotation.py}) spanning four decades of baryonic mass, used as a quick benchmark before the full SPARC ingestion landed.  Table~\ref{tab:galaxy_validation} preserves these values for cross-checking the SPARC ingestion pipeline.
 
 \begin{table}[H]
 \centering\footnotesize
@@ -182,7 +182,7 @@ The topological engine actively maps the transition boundary dynamically via the
 
 When scaling outwards from the dense Galactic Core (Regime IV), the local metric is initially completely saturated ($g_N \gg a_0$). However, as the enclosed baryonic mass density trails off radially, the metric tension $g_N$ drops. The exact radius where $g_N(r) \le a_0$ triggers the \textbf{Metric Rupture Boundary}. 
 
-Past this precise radius, the continuous LC vacuum metric structurally unsaturates and regains its native acoustic elasticity. This newly active, intact geometry actively resists massive macroscopic rotational velocity vectors ($g_{eff} \to \sqrt{g_N \cdot a_0}$) via topological inductive phase drag. This topological drag naturally flattens the rotation curve into the deep MOND asymptote without invoking any invisible phantom particles. For Milky Way scale masses, this rupture boundary invariably triggers between $15$--$25$ kpc.
+Past this precise radius, the continuous LC vacuum metric structurally unsaturates and regains its native acoustic elasticity. This newly active, intact geometry actively resists massive macroscopic rotational velocity vectors ($g_{eff} \to \sqrt{g_N \cdot a_0}$) via topological inductive phase drag. This topological drag naturally flattens the rotation curve into the deep MOND asymptote without invoking any invisible phantom particles. For Milky Way scale masses, this rupture boundary typically falls in the $15$--$25$ kpc range, consistent with the Regime~I onset ($> 15$ kpc) in the regime table of Section~\ref{sec:galactic_regimes}.
 
 \section{Collisionless Topology (The Bullet Cluster)}
 \label{sec:bullet_cluster}
@@ -200,10 +200,10 @@ Because the vacuum behaves as a linear LC network, localized metric strains exhi
     \label{fig:bullet_cluster_offset}
 \end{figure}
 
-The \texttt{simulate\_\allowbreak bullet\_\allowbreak cluster\_\allowbreak fdtd.py} script computes this as a \emph{static linear superposition} of the two MOND-saturation drag-halo metrics over the baseline unknot expansion primitive --- the spatial-superposition mechanism described above. \textbf{Scope note (2026-06-15 driver-honesty re-sweep, LF-03):} despite the \texttt{fdtd} filename, the script does \emph{not} perform finite-difference time-domain field evolution or TT-tensor shockwave propagation; the ``dynamic'' rotation renderings are an illustrative kinematic prescription, not solved field dynamics.
+The \texttt{simulate\_\allowbreak bullet\_\allowbreak cluster\_\allowbreak fdtd.py} script computes this as a \emph{static linear superposition} of the two MOND-saturation drag-halo metrics over the baseline unknot expansion primitive --- the spatial-superposition mechanism described above. \textbf{Scope:} despite the \texttt{fdtd} filename, the script does \emph{not} perform finite-difference time-domain field evolution or TT-tensor shockwave propagation; the ``dynamic'' rotation renderings are an illustrative kinematic prescription, not solved field dynamics.
 
 \subsection{Tabletop Falsification: Ferromagnetic Viscosity Analogue}
-To definitively prove that the Bullet Cluster offset is standard electromagnetic Mutual Inductance and not an exotic cosmological phenomenon, the framework proposes a direct macroscopic tabletop replication. 
+To demonstrate that the Bullet Cluster offset is consistent with electromagnetic mutual inductance rather than an exotic cosmological phenomenon, the framework proposes a macroscopic tabletop analogue. 
 
 The Vacuum $K_4$ LC lattice is modeled by a vat of dense ferromagnetic fluid (e.g. EFH1 with a base initial permeability of $\mu_r = 400$ and a definitive magnetic yield bounds of $B_{yield} = 44\text{ mT}$). The incoming galaxy cores are modeled by 2cm gyroscopic electromagnet spherical motors spinning through the vat.
 
@@ -212,31 +212,31 @@ As calculated in the runtime validation engine (\texttt{design\_\allowbreak tabl
 Extensive operational testing maps identical topological lensing mechanics directly onto the fluid:
 \begin{enumerate}
     \item When two such spheres are fired toward each other, the saturated stiff boundaries ($R < 5\text{ cm}$) physically jam and mechanically shock together in the center (representing the stalled X-Ray gas).
-    \item In the extensive outer domain ($R > 5\text{ cm}$), the fluid remains highly permeable and supports enormous Back-EMF magnetic wakes. When these wakes interact, they linearly superimpose and pass their viscous shear profiles completely collisionlessly through each other, perfectly replicating the exact Dark Matter lensing offset of the Bullet Cluster without requiring invisible particulate matter.
+    \item In the extensive outer domain ($R > 5\text{ cm}$), the fluid remains highly permeable and supports enormous Back-EMF magnetic wakes. When these wakes interact, they linearly superimpose and pass their viscous shear profiles collisionlessly through each other, qualitatively replicating the Dark Matter lensing offset of the Bullet Cluster without invoking particulate matter.
 \end{enumerate}
 
-\section{VLBI Gravitational Impedance Parallax --- RETRACTED 2026-05-16 audit}
+\section{VLBI Gravitational Impedance Parallax --- Not a Distinct Observable}
 
-This section previously proposed a VLBI Jupiter-grazing radio test claiming dark matter IS continuous phase-velocity gradient of the $377\,\Omega$ vacuum impedance baseline. \textbf{Audit (2026-05-16) retracted this claim} for two compounding reasons:
+A VLBI Jupiter-grazing radio test does not yield an AVE-distinct observable, for two reasons:
 
 \begin{enumerate}
     \item The ``$377\,\Omega$ stretching'' mechanism contradicts AVE's own $Z_0$-invariance theorem (Vol 3 Ch 3 achromatic-impedance-matching + Vol 4 Ch 1 z0-derivation). $Z_{local}(r) = \sqrt{\mu(r)/\varepsilon(r)} \equiv Z_0$ at every $r$ because $\varepsilon(r)$ and $\mu(r)$ scale symmetrically with $n(r)$. There is no $Z_0$ to ``stretch'' geometrically.
     \item The driver script \kbleaf{src/scripts/vol\_3\_macroscopic/vlbi\_impedance\_parallax.py} computes pure GR Shapiro delay ($n = 1 + 2GM/rc^2$). AVE's $n(r)$ is mathematically identical to the spatial transverse trace of the Gordon optical metric per Vol 3 Ch 3 refractive-index-of-gravity (line 14). No AVE-distinct VLBI observable is derived in the corpus.
 \end{enumerate}
 
-The corpus's actual derived DM mechanism is \textbf{kinematic mutual inductance of the spatial network} ($\nu_{kin} = \alpha c \ell_{node}$, per Vol 1 Ch 4 lc-electrodynamics), with the observable galactic-rotation chain driven by $a_0 = c H_\infty / (2\pi)$ via the Unruh-Hawking hoop projection (Vol 1 Ch 4 mond-hoop-stress). The matrix row C13-VLBI-DARK was split 2026-05-16 into three rows reflecting what the corpus actually derives: C13a (galactic rotation via $a_0 + \eta_{eff}$), C13b (bullet cluster via TT shockwave on Gordon metric), C13c (META row tracking three-mechanism coexistence as open theoretical gap). See KB \kbleaf{claim-quality-closure-roadmap.md} \S 0.5 and \kbleaf{divergence-test-substrate-map.md} C13 family section.
+The corpus's actual derived DM mechanism is \textbf{kinematic mutual inductance of the spatial network} ($\nu_{kin} = \alpha c \ell_{node}$, per Vol 1 Ch 4 lc-electrodynamics), with the observable galactic-rotation chain driven by $a_0 = c H_\infty / (2\pi)$ via the Unruh-Hawking hoop projection (Vol 1 Ch 4 mond-hoop-stress). The corpus derives three distinct dark-sector mechanisms: galactic rotation via $a_0 + \eta_{eff}$; the bullet-cluster offset via ponderomotive substrate-strain halos + Einstein lensing through the Gordon optical metric; and a META three-mechanism-coexistence gap. See KB \kbleaf{claim-quality-closure-roadmap.md} and \kbleaf{divergence-test-substrate-map.md}.
 
 \subsection{DAMA Parallax \& Crystal Phonon Modulation --- descriptive only}
 The DAMA/LIBRA collaboration claims persistent annual modulation indicative of a Dark Matter ``Wind.'' Under the AVE framework, the Earth is physically flying through the Milky Way's rest-frame LC kinematic mutual-inductance field. This bulk lattice phenomenon generates macroscopic phononic coupling inside the highly tensioned DAMA NaI(Tl) scintillating crystals, modulating the spontaneous acoustic defect decay rate.
 
 If the DAMA collaboration were to switch target crystals---for instance, from Sodium Iodide ($\rho = 3.67 \times 10^3 \text{ kg/m}^3$) to Sapphire ($\rho = 3.98 \times 10^3\text{ kg/m}^3$) or Germanium ($\rho = 5.32 \times 10^3\text{ kg/m}^3$)---the \textbf{phase} of the annual modulation would remain identical, driven by Earth's orbital kinematics. The \textbf{amplitude} of the anomaly should scale with the crystal's bulk-density coupling constant $\kappa_{crystal} = \rho_{crystal}/\rho_{bulk}$ and structural acoustic Q-factor.
 
-\textbf{Honest scope (2026-05-16 audit):} the amplitude formula itself is NOT derived in the corpus. The script \kbleaf{vlbi\_impedance\_parallax.py} computes the crystal-density ratios $\kappa$ but does not predict an annual-modulation amplitude. The C14-DAMA matrix row carries a TBD-pin on the amplitude derivation; this is a corpus derivation gap, classed as part of the C13c three-mechanism unification META item.
+\textbf{Scope:} the amplitude formula is not derived in the corpus. The script \kbleaf{vlbi\_impedance\_parallax.py} computes the crystal-density ratios $\kappa$ but does not predict an annual-modulation amplitude; the amplitude derivation is an open item.
 
 \begin{summarybox}
 \begin{itemize}
     \item Dark Matter is unmasked as the mechanical kinematic drag of an unsaturated vacuum lattice (Regimes I-III).
-    \item The MOND acceleration scale $a_0$ is a \textbf{Class E operating-point projection} of $H_\infty$ via the Hoop-stress $2\pi$ motif ($a_0 = c H_\infty / 2\pi$), downstream of $u_0^* \approx 0.187$ and joint-constrained with $\{G, H_\infty, \hat{\Omega}_{\text{freeze}}, \alpha\}$ per the \texttt{consistency-vs-emergence} v1.1 framework; not an independent single-observable prediction. The dielectric yielding boundary of the lattice supplies the substrate mechanism.
+    \item The MOND acceleration scale $a_0$ is a \textbf{Class E operating-point projection} of $H_\infty$ via the Hoop-stress $2\pi$ motif ($a_0 = c H_\infty / 2\pi$), downstream of the magic-angle operating point $u_0^*$ (whose value is calibration-anchored, not forward-derived), with $\alpha$ and $G$ fixing the operating point and the cosmological route $\mathcal{J}_{\text{cosmic}}$ providing the independent falsification test; not an independent single-observable prediction. The dielectric yielding boundary of the lattice supplies the substrate mechanism.
     \item The Tully-Fisher relation naturally emerges from the deep-MOND limits without invoking any additional physics or non-baryonic mass.
 \end{itemize}
 \end{summarybox}

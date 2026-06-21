@@ -11,11 +11,10 @@
 \end{itemize}
 \end{objectivebox}
 
-This chapter applies the six-step AVE methodology to the only universal regime
-with zero prior engine validation: \textbf{Regime~IV (Ruptured Topology)}.
-The analysis reveals a fundamental structural distinction between the
-black hole interior and particle confinement, despite both being instances
-of $S(A/A_c) = 0$.
+This chapter characterizes \textbf{Regime~IV (Ruptured Topology)}: the
+saturated black-hole interior. There is a fundamental structural distinction
+between the black hole interior and particle confinement, despite both being
+instances of $S(A/A_c) = 0$.
 
 \section{Motivation: The Missing Regime}
 
@@ -43,8 +42,14 @@ The impedance is therefore invariant:
     Z(r) = \sqrt{\frac{\mu'(r)}{\varepsilon'(r)}} = \sqrt{\frac{\mu_0}{\varepsilon_0}} = Z_0
     \qquad \text{(for all $r$, including $r < r_{sat}$)}
 \end{equation}
-This means there is \textbf{no impedance mismatch} at any gravitational boundary.
-The reflection coefficient $\Gamma = (Z_2 - Z_1)/(Z_2 + Z_1) = 0$ everywhere.
+This means there is \textbf{no EM impedance mismatch} at any gravitational
+boundary: in the EM/transverse channel $Z_{EM} = Z_0$ and the reflection
+coefficient $\Gamma_{EM} = (Z_2 - Z_1)/(Z_2 + Z_1) = 0$ everywhere. The EM
+refractive index $n(r) - 1 = 2GM/(c^2 r)$ reaches unity at the Schwarzschild
+radius $r_s = 2GM/c^2$ (where light sees the GR horizon, $n \to \infty$); this
+is the EM horizon, not a $\Gamma = -1$ reflector. The shear and bulk channels
+are treated separately: at $r_{sat} = 7GM/c^2 = 3.5\,r_s$ the shear modulus
+collapses ($G_{shear} \to 0$, $Z_{shear}, Z_{bulk} \to 0$, $\Gamma = -1$).
 
 \begin{resultbox}{The DC Operating Point}
 In electrical engineering terms, gravity is a matched transmission line.
@@ -104,25 +109,28 @@ in \textit{which} constitutive parameter saturates:
 
 \begin{resultbox}{Regime IV Isomorphism Table}
 \begin{center}
-\begin{tabularx}{\textwidth}{@{}lllcccX@{}}
+\begin{tabularx}{\textwidth}{@{}lll>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}XX@{}}
 \toprule
 \textbf{System} & \textbf{Saturates} & \textbf{Sym} & $Z$ & $\Gamma$ & \textbf{Interior} & \textbf{EE Analog} \\
 \midrule
 Electron          & $\mu$ (inductive) & Asym & $\to 0$   & $-1$ & Standing wave & LC tank \\
 Superconductor    & $\mu_{eff}$       & Asym & $\to 0$   & $-1$ & Standing wave & Shorted $L$ \\
 Nucleus (Pauli)   & $U(r)$ at $d_{sat}$ & Asym & $\to\infty$ & $+1$ & Repulsive wall & Open circuit \\
-BH interior       & $G_{shear}$       & \textbf{Sym}  & $= Z_0$   & $0$  & Dissipative sink & Past $V_{BR}$ \\
+BH interior       & $G_{shear}$       & \textbf{Sym}  & $Z_{EM}{=}Z_0$; $Z_{shear},Z_{bulk}{\to}0$   & $\Gamma_{EM}{=}0$; $\Gamma_{shear}{=}\Gamma_{bulk}{=}{-}1$  & EM-transparent; shear/bulk-reflecting & Past $V_{BR}$ \\
 \bottomrule
 \end{tabularx}
 \end{center}
 \end{resultbox}
 
 \noindent
-\textbf{The BH is the ONLY Regime~IV system with no impedance mismatch.}
+\textbf{The BH is the ONLY Regime~IV system with no EM-channel impedance
+mismatch} ($\Gamma_{EM} = 0$); its shear and bulk channels still reflect
+($\Gamma_{shear} = \Gamma_{bulk} = -1$ at $r_{sat}$).
 The electron is a \textit{knot} (topology wound up);
 the BH is a \textit{hole} (topology torn apart).
 Both use the same saturation operator, but the symmetry of saturation
-determines whether the interior is a resonant cavity or a dissipative sink.
+determines whether the interior is a resonant cavity (EM-reflecting) or an
+EM-transparent sink that still reflects shear/GW modes.
 
 \section{Step 5: Characteristic Scales}
 
@@ -134,8 +142,8 @@ determines whether the interior is a resonant cavity or a dissipative sink.
 10 $M_\odot$ BH     & 103.4 km  & 1.0 (at $r_{sat}$) & IV boundary \\
 62 $M_\odot$ BH     & 641.0 km  & 1.0 (at $r_{sat}$) & IV boundary \\
 Sgr A* (4.3M $M_\odot$) & 44,460 Mm & 1.0 (at $r_{sat}$) & IV boundary \\
-Electron ($3_1$ knot) & $\sim$0.39 fm & $\to 1$ from below & IV boundary \\
-Proton ($5_1$ knot)   & $\sim$0.87 fm & $\to 1$ from below & IV boundary \\
+Electron ($0_1$ unknot, real-space) & $\sim$0.39 fm & $\to 1$ from below & IV boundary \\
+Proton ($6^3_2$ Borromean linkage, real-space)   & $\sim$0.87 fm & $\to 1$ from below & IV boundary \\
 \bottomrule
 \end{tabularx}
 \end{center}
@@ -149,18 +157,23 @@ control parameter changes.
 \section{Step 6: Testability and Predictions}
 
 \begin{enumerate}
-    \item \textbf{No information paradox.}
-    The BH interior is a dissipative sink, not a unitary cavity.
-    Information is not ``stored''---it is absorbed by the ruptured lattice
-    (topology destroyed). This resolves the unitarity debate:
+    \item \textbf{No information paradox (EM/thermodynamic channel).}
+    In the EM channel the boundary is matched ($\Gamma_{EM} = 0$) and the
+    interior is a dissipative sink: EM/topological information is erased at
+    the ruptured boundary (the thermodynamic floor), not ``stored'' in a
+    unitary cavity. This resolves the unitarity debate in the EM channel:
     the question ``where does information go?'' has the same answer
-    as ``where does charge go when a capacitor breaks down?''
+    as ``where does charge go when a capacitor breaks down?'' The shear and
+    bulk channels reflect rather than absorb ($\Gamma_{shear} = \Gamma_{bulk}
+    = -1$ at $r_{sat}$), which is the basis of the GW-echo prediction.
 
-    \item \textbf{Hawking radiation = gravitational Schwinger effect.}
-    Vacuum fluctuations at $r \approx r_{sat}$ where $G_{shear} \to 0$
-    create particle pairs. This is the gravitational analogue of
-    Schwinger pair production at $E = E_{yield}$ (same $S \to 0$ boundary,
-    different constitutive sector).
+    \item \textbf{Hawking radiation = saturation-boundary noise leakage.}
+    Hawking radiation is the classical thermodynamic leakage of ambient
+    lattice (Nyquist) noise through the imperfect saturation boundary at
+    $r \approx r_{sat}$, with $T_H = \hbar c^3/(8\pi G M k_B)$ --- not
+    quantum tunnelling. It is the gravitational analogue of
+    saturation-boundary emission at $E = E_{yield}$ (same $S \to 0$
+    boundary, different constitutive sector).
 
     \item \textbf{BH merger ringdown (validated).}
     The collision of two ruptured regions creates a new $r_{sat}$ boundary.
@@ -176,8 +189,11 @@ control parameter changes.
     $S(\varepsilon_{11}) = 0$ for $r < r_{sat} = 7GM/c^2$.
 
     \item Unlike particle confinement (asymmetric saturation, $\Gamma = -1$),
-    the BH has \textbf{symmetric} saturation: $Z = Z_0$ everywhere,
-    $\Gamma = 0$. It is a dissipative sink, not a resonant cavity.
+    the BH is \textbf{symmetric in the EM channel}: $Z_{EM} = Z_0$ everywhere,
+    $\Gamma_{EM} = 0$ --- EM-transparent, a dissipative sink in that channel.
+    The shear and bulk channels still reflect at $r_{sat}$ ($Z_{shear},
+    Z_{bulk} \to 0$, $\Gamma_{shear} = \Gamma_{bulk} = -1$), so the interior
+    is a perfect reflector for shear/GW modes (the GW-echo falsifier).
 
     \item The $0 \cdot \infty$ singularity at $r \to 0$ is the signature
     that the LC model breaks down in the ruptured interior---analogous
@@ -195,7 +211,7 @@ control parameter changes.
 \section{The substrate-observability horizon — same mechanism at every scale}
 \label{sec:substrate_observability_horizon}
 
-\textbf{Cross-cutting note (canonical 2026-05-15).}
+\textbf{Cross-cutting note.}
 The BH interior's epistemic horizon --- no observer outside the event horizon
 can see the interior matter-history; only the three integrated invariants
 $M, Q, J$ are externally measurable --- is the SAME mechanism that walls
@@ -219,15 +235,15 @@ every scale where a $\Gamma = -1$ boundary forms:
   rotation correlations, Hubble flow anisotropy, frame-dragging at cosmic
   scale). The \emph{specific cosmic parameters} ($M_{\text{parent BH}}$,
   $J_{\text{parent BH}}$) that set those observables at lattice genesis
-  (\textit{``God's Hand''} in the AVE canonical framing) are fundamentally
-  inaccessible from inside. \emph{The mechanism itself is not inaccessible}
+  are fundamentally inaccessible from inside.
+  \emph{The mechanism itself is not inaccessible}
   per the A-034 catalog (Vol~3 Ch~4 \S\ref{sec:tki_strain_snap}): it is the
   universal saturation-kernel strain-snap mechanism, directly observable at
-  four other scales (atomic dielectric breakdown; substrate K4 magic-angle;
+  four other scales (atomic dielectric breakdown;
   planetary geomagnetic reversal in Ch~13; stellar solar flare in Ch~14;
   BH ring-down QNM in Ch~15).
 
-\item \textbf{Same epistemic horizon, different scales (refined per A-034).}
+\item \textbf{Same epistemic horizon, different scales (A-034 catalog).}
   The crystallization phase transition that produced our substrate IS the
   wall --- no observer exists within the resulting substrate from a position
   outside it. This is structurally identical to a Kerr BH astronomer's
@@ -240,7 +256,7 @@ every scale where a $\Gamma = -1$ boundary forms:
 This cross-cutting framing connects Ch~\ref{ch:bh_interior} to Vol~3 Ch~4
 (Generative Cosmology cosmic-boundary canonical + \S\ref{sec:tki_strain_snap}
 TKI Strain-Snap) and Backmatter Ch~\ref{app:universal_saturation_kernel}
-(Universal Saturation-Kernel Catalog with all 19 cross-scale instances).
+(Universal Saturation-Kernel Catalog with all 26 cross-scale instances).
 The substrate-observability rule is canonical at every scale AND canonical
 when applied to ourselves --- the framework's epistemic horizon for
 \emph{specific cosmic parameters}, not for the mechanism class.
