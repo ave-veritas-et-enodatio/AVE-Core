@@ -12,6 +12,7 @@ Public API (re-exported from ``ave.viz.style``):
 
     apply       — set rcParams from the house stylesheet ("print" | "screen")
     COLORS      — semantic Okabe-Ito colourblind-safe palette dict
+    REGIME_COLORS — four-regime band palette (I/II/III/IV), colourblind-safe
     CMAP_SEQ    — sequential field colormap ("magma")
     CMAP_DIV    — diverging / signed field colormap ("RdBu_r")
     axis_label  — canonical "Quantity $symbol$ [unit]" label string
@@ -27,6 +28,7 @@ from ave.viz.style import (
     CMAP_DIV,
     CMAP_SEQ,
     COLORS,
+    REGIME_COLORS,
     apply,
     axis_label,
     figsize,
@@ -37,6 +39,7 @@ from ave.viz.style import (
 __all__ = [
     "apply",
     "COLORS",
+    "REGIME_COLORS",
     "CMAP_SEQ",
     "CMAP_DIV",
     "axis_label",

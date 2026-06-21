@@ -59,6 +59,41 @@ COLORS: dict[str, str] = {
     "muted": "#7F7F7F",      # gray        — reference lines, annotations, guides
 }
 
+# ---------------------------------------------------------------------------
+# Regime palette — the four universal saturation regimes (ONE place)
+# ---------------------------------------------------------------------------
+# The four-regime map (ave-kb/.../ch7-regime-map/four-regimes.md) partitions all
+# of physics by the single control parameter r = A/A_c through the Axiom-4 kernel
+# S(r) = sqrt(1 - r^2). Every regime-banded figure in the corpus shades these four
+# bands; they previously used an ad-hoc green/amber/red "traffic-light" fill that
+# is NOT colourblind-safe (the amber/red pair collides under deuteranopia) and
+# drifted in hex per-driver. This dict single-sources them to the colourblind-safe
+# Okabe-Ito family so a regime band is the same colour in every figure.
+#
+# Semantics (a stoplight that IS colourblind-safe):
+#   I   green       — Linear: standard equations hold, propagate / proceed.
+#   II  yellow      — Nonlinear: caution. Axiom-4 curvature switches on; metric
+#                     lensing begins (the permittivity softens as eps = S while
+#                     the Maxwell speed stiffens as c_EM = 1/S).
+#   III orange      — Avalanche / Yield: deep lensing, energy-trapping dominates
+#                     (Q = 1/S >= 2); a phase transition is underway.
+#   IV  vermillion  — Ruptured: S = 0, K4 topology destroyed, propagation is NOT
+#                     allowed.
+#
+# Boundaries (single-sourced to four-regimes.md; DERIVED, not chosen):
+#   r1 = sqrt(2*alpha) ~ 0.1208  (Regime I/II : Delta-S = alpha, sub-alpha limit)
+#   r2 = sqrt(3)/2     ~ 0.8660  (Regime II/III: spin-2 avalanche onset Q = 2)
+#   r3 = 1.0                     (Regime III/IV: Axiom-4 rupture, S -> 0)
+# A driver pairs the band fill with its boundary lines; it does NOT re-derive the
+# hex. Keep colour paired with the I/II/III/IV text label — never rely on the band
+# colour alone (ave-figure-discipline Axis 4).
+REGIME_COLORS: dict[str, str] = {
+    "I": "#009E73",    # bluish-green — Linear      (proceed)
+    "II": "#F0E442",   # yellow       — Nonlinear   (caution: lensing onset)
+    "III": "#E69F00",  # orange       — Avalanche   (deep lensing / yield)
+    "IV": "#D55E00",   # vermillion   — Ruptured    (no propagation)
+}
+
 # The ordered colour cycle for unlabelled multi-series plots. Kept distinct from
 # the semantic names above but drawn from the same colourblind-safe family so an
 # auto-cycled plot still reads on-style. Order chosen for max adjacent contrast.
