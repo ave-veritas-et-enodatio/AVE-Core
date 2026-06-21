@@ -148,6 +148,13 @@ IV & Ruptured   & $r \ge 1$                                   & $S = 0$         
 \end{center}
 \end{resultbox}
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{four_regime_map.pdf}
+\caption{The four-regime map of the Axiom~4 kernel $S(r) = \sqrt{1 - r^2}$ on the excitation operating-point axis $r = A/A_c$: Regime~I Linear ($r < r_1 = \sqrt{2\alpha}$), II Nonlinear ($r_1 \le r < r_2$), III Avalanche ($r_2 = \sqrt{3}/2 \le r < r_3$, spin-2 sector), IV Ruptured ($r \ge r_3 = 1$). This is the \emph{excitation map of the solid phase} (\S\ref{sec:vol9_true_phase_diagram} demotes it from the substrate's thermodynamic phase diagram); $r_2 = \sqrt{3}/2$ is the spin-2-sector value (the vector/photon sector has $r_2 = 0$). Boundary values derive only from canonical constants via \kbleaf{figures/gen\_four\_regime\_map.py}; no observable target hardcoded.}
+\label{fig:vol9_four_regime_map}
+\end{figure}
+
 The boundary values are derived from first principles (canonical \texttt{four-regimes.md} \texttt{clm-b2anl4}):
 
 \begin{itemize}
@@ -253,7 +260,7 @@ The four operating-point regimes are separated by three substrate-natural bounda
 \midrule
 I $\to$ II & $r_1 = \sqrt{2\alpha} \approx 0.1208$ & $S \approx 0.993$ & Axiom 4 kernel curvature first exceeds lattice self-coupling $\alpha$; sub-$\alpha$ corrections resolved & Voltage-coefficient-of-capacitance becomes measurable (Class II ceramics, varactor C-vs-V departure) \\
 II $\to$ III & $r_2 = \sqrt{3}/2 \approx 0.8660$ (spin-2 sector) & $S = 0.500$ & $Q(r) = 1/S(r) = \ell_{\min} = 2$; energy-trapping per cycle exceeds radiated energy; Miller $M = 1/S^2 = 4$ & Avalanche-photodiode gain $M_{APD}$ becomes substantive ($M \ge 2$); Zener-knee transition \\
-III $\to$ IV & $r_3 = 1$ & $S = 0$ & Substrate topology destroyed; topological reorganization required; $V_{snap}$ at engineering scale = Schwinger $E_S$ at substrate scale & Schwinger pair production; semiconductor junction destruction; ruptured-plasma cascade at cosmological scale \\
+III $\to$ IV & $r_3 = 1$ (on this table's macroscopic axis $r = A/A_{yield}$) & $S = 0$ & Substrate topology destroyed; topological reorganization required. The $V_{snap}$ / Schwinger-$E_S$ identification reads on the \emph{microscopic} absolute-rupture axis $r = A/A_{snap}$, where $V_{snap}$ (and $E_S = V_{snap}/\ell_{node}$) sit at $r = 1$; on the macroscopic axis used in this column $V_{snap}$ is at $r = 1/\sqrt{\alpha} \approx 11.7$ (axis-disambiguation \texttt{clm-0vxzfu}) & Schwinger pair production; semiconductor junction destruction; ruptured-plasma cascade at cosmological scale \\
 \bottomrule
 \end{tabular}
 \caption{The three cross-regime transition boundaries ($r_1$, $r_2$, $r_3$) with substrate-physics signature and engineering observable.}

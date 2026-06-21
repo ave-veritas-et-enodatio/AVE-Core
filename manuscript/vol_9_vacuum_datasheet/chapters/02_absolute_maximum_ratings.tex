@@ -121,6 +121,13 @@ The five absolute-maximum ratings define the Regime~IV boundary (substrate ruptu
     \item \textbf{Regime IV (Ruptured)} --- $r \geq 1$ ($S = 0$). \emph{The values tabulated in \S\ref{sec:vol9_absmax_table} are the Regime~III/IV boundary.} Substrate topology destroyed; pair production / Meissner-class permeability collapse / event-horizon formation / thermal pair-creation cascade.
 \end{itemize}
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{absmax_quarter_arc.pdf}
+\caption{The Axiom~4 saturation kernel $S(r) = \sqrt{1 - r^2}$ on the operating-point axis $r = A/A_c$, with the four-regime bands shaded (Regime~I Linear $r < r_1 = \sqrt{2\alpha}$; II Nonlinear; III Avalanche $r_2 = \sqrt{3}/2 \le r < r_3$; IV Ruptured $r \ge r_3 = 1$). The five absolute-maximum ratings (Tab.~\ref{tab:vol9_absmax}) all sit at $r_3 = 1$. The deep-Regime-I markers show the largest currently achievable laboratory ratios ($E/E_S \sim 10^{-8}$, $B/B_{snap} \sim 10^{-8}$, $T/T_{melt} \sim 10^{-3}$; \S\ref{sec:vol9_absmax_table}), all $\gtrsim 8$ orders of magnitude below the rupture boundary. Boundary values derive only from canonical constants via \kbleaf{figures/gen\_absmax\_quarter\_arc.py}; no observable target is hardcoded.}
+\label{fig:vol9_absmax_quarter_arc}
+\end{figure}
+
 The engineering operating-margin recommendation for any device or substrate-physics measurement is therefore: \textbf{stay in Regime~I unless the experimental design explicitly targets a Regime~II measurement} (e.g., PONDER-05). Regime~II measurements require $V/V_{yield} \gtrsim 0.121$, which at $\ell_{node} = \qty{3.86e-13}{\metre}$ corresponds to local field gradients of order \qty{e16}{\volt\per\metre} sustained over scales below one node spacing --- achievable only in resonant cavity geometries with very high $Q$. Regime~III and IV are accessed only by nature (the deep interior of nucleons, neutron stars, black holes, the early universe) and by the autoresonant Schwinger-bypass programme (PROJECT-ZENER-04, AVE-Propulsion Ch.~5, canonical at \kbleaf{vol4/simulation/ch15-autoresonant-breakdown/}).
 
 \section{Falsification Cross-References}
