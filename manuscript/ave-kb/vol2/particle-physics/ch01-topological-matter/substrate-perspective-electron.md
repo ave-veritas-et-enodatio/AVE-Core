@@ -8,6 +8,8 @@ path-stable: "referenced from L3 closure synthesis + photon-identification + pho
 
 # What the Substrate "Sees" of the Canonical Electron
 
+> 🔴 **Rule-12 re-scope (2026-06-21, workflow wwpskpweb) — leading $g = 2$ is POSITED, not derived.** Several lines below (Key-Results row "Magnetic moment via SU(2) bundle"; §"The $g$-factor $= 2$"; the summary-table row "Gyromagnetic ratio $g = 2$") state or imply that the *value* $g = 2$ is **derived** from the SO(3)→SU(2) double-cover ($2\pi$ vs $4\pi$ → "ratio 2 → $g = 2$"). That step is a **non-sequitur** and is retracted. The double-cover is genuinely K4-native and forces **spin-½** (the chord — preserved below). It does **NOT** fix $g$, the magnetic-moment-to-spin ratio $\mu/S$ in $q/2m$ units. **Decisive falsifier:** the proton ($g_p \approx 5.586$) and neutron ($g_n \approx -3.826$) are *also* spin-½ and *also* carry the same $4\pi$ double-cover, yet $g \neq 2$ — so a ratio that equals 2 for *every* spin-½ particle cannot select $g = 2$. The leading $g = 2$ is the imported **Dirac value** (POSITED / consistency); see [`translation-circuit.md`](../../../common/translation-tables/translation-circuit.md):637 and [`electron-identification.md`](electron-identification.md) §2 g-row. The $2\pi \to 4\pi$ "ratio 2" text below is retained as the correct **spin-½** statement, not a $g$-value derivation.
+
 The substrate-perspective operational view of the canonical electron: NOT field-theorist's view (Cosserat $\omega$-field on horn-torus unknot etc.), but **what each lattice node locally experiences** when a canonical electron exists in the substrate. The lattice doesn't "see an electron" — it sees: a localized region of high $A^2$ saturation; a self-formed TIR wall at the loop boundary; a topologically conserved circulation pattern; a circulating current generating B-flux; a long-range refractive-index tail (gravitational mass); and a coupled K4-Cosserat field structure. **Charge, mass, spin, magnetic moment, gravitational coupling, Compton wavelength** are all EMERGENT readings of the substrate's joint state at the canonical electron configuration — not extra properties added on top.
 
 ## Key Results
@@ -19,7 +21,7 @@ The substrate-perspective operational view of the canonical electron: NOT field-
 | Macroscopic emergence | Charge $e$, mass $m_e$, spin $\hbar/2$, $g = 2$, Compton $\ell_{\text{node}}$, gravitational coupling — all readings of joint substrate state |
 | Self-organized fixed point | Saturation IS where field is; field IS where saturation traps it. Axiom 3 (Minimum Reflection) stabilizes the joint configuration |
 | Topological conservation | Unknot $c = 0$ topology is invariant; charge conservation = $[Q] \equiv [L]$ (Axiom 2); electron can't decay to vacuum without topological barrier |
-| Magnetic moment via SU(2) bundle | $g = 2$ emerges from SO(3) $\omega$-field period $2\pi$ vs spinor observable period $4\pi$ → ratio 2 |
+| Magnetic moment via SU(2) bundle | SO(3) $\omega$-field period $2\pi$ vs spinor observable period $4\pi$ → **spin-½** (forced). The leading $g = 2$ *value* is POSITED (Dirac), not derived from the ratio — see Rule-12 banner. |
 | Long-range gravitational coupling | Op14 saturation kernel propagates outward via $1/r^2$ → refractive index gradient → gravitational lensing analog at electron scale |
 
 ## §1 — What each lattice node has (substrate observables, per Axiom 1)
@@ -156,7 +158,7 @@ The unknot has circulating $\omega$-field around the loop. **Closed current loop
 
 This isn't quantum mechanical magic — it's **classical Newton's-laws-of-rotation applied to the loop's angular momentum** per [spin-gyroscopic-isomorphism](spin-gyroscopic-isomorphism.md).
 
-**The $g$-factor $= 2$** emerges from the SU(2) bundle: SO(3) $\omega$-field has period $2\pi$, but spinor observable has period $4\pi$ → ratio 2 → $g = 2$.
+**Spin-½** emerges from the SU(2) bundle: SO(3) $\omega$-field has period $2\pi$, but spinor observable has period $4\pi$ → the $2\pi$/$4\pi$ double-cover → **spin-½**. 🔴 **Rule-12 (2026-06-21):** the double-cover forces spin-½ only; it does **NOT** fix the *value* of the $g$-factor. The leading $g = 2$ is the imported **Dirac value** (POSITED / consistency), not "→ ratio 2 → $g = 2$." Proton ($g_p \approx 5.586$) / neutron ($g_n \approx -3.826$) are also spin-½ with the same double-cover yet $g \neq 2$ — the decisive falsifier. See [`translation-circuit.md`](../../../common/translation-tables/translation-circuit.md):637 and [`electron-identification.md`](electron-identification.md) §2.
 
 ### Op14 long-range coupling (gravitational analog)
 
@@ -187,7 +189,7 @@ The lattice doesn't "see an electron." It sees:
 1. **A localized region of high $A^2$ saturation** — high local impedance, slow local clock, $n_{\text{eff}} \gg 1$
 2. **A self-formed TIR wall at the boundary** — sharp $Z_{\text{eff}}$ gradient confining field
 3. **A topologically conserved circulation pattern** — closed loop, $c = 0$, can't decay
-4. **A circulating current** — generates B-flux, magnetic moment, $g = 2$ via SU(2) bundle
+4. **A circulating current** — generates B-flux and magnetic moment; the SU(2) bundle forces **spin-½** (the leading $g = 2$ value is POSITED, not derived from the bundle — see Rule-12 banner)
 5. **A long-range refractive-index tail** — gravitational mass, light bending, clock slowing in vicinity
 6. **A coupled K4-Cosserat field structure** — Layer 1 + 2 in Cosserat $\omega$, Layer 3 in K4 $V_{\text{inc}} / V_{\text{ref}}$
 
@@ -198,7 +200,8 @@ Macroscopically, these substrate observables **COMPOSE** into what we measure:
 | Charge $e$ | Topology + Axiom 2 TKI |
 | Mass $m_e$ | Circumference + Bounding Limit 1 + Op14 long-range tail |
 | Spin $\hbar/2$ | SU(2) bundle on $\omega$ + Cosserat microrotational DOF |
-| Gyromagnetic ratio $g = 2$ | SU(2)-induced $2\pi \to 4\pi$ doubling |
+| Spin-½ | SU(2)-induced $2\pi \to 4\pi$ doubling (forced — the chord) |
+| Gyromagnetic ratio $g = 2$ (leading value) | POSITED (Dirac value), not derived from the doubling — see Rule-12 banner; proton/neutron counterexample |
 | Compton wavelength $\ell_{\text{node}}$ | Reduced Compton = unknot circumference |
 | Gravitational coupling | Op14 long-range saturation tail |
 
