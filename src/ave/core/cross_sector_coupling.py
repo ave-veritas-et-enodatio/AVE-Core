@@ -126,6 +126,19 @@ def trilinear_buckle_forces(
         f_w    = −κ̃ g V (∇×ω)   [only if photon_deplete=True — indefinite H arm]
 
     Default photon_deplete=False: w is a bounded chiral director (stable).
+
+    🔴 CORRECTION (2026-06-20, Rule 12 — preserve the form above, scope the
+    "Conserved … energize-LOCK" claim here). The CONTINUUM H above cancels
+    exactly, BUT the DISCRETE trilinear dynamics do NOT deliver a
+    conserved-AND-transferring lock: H is INDEFINITE (linear in each of
+    V, w, ω ⇒ unbounded below). The conserve-and-transfer arm
+    (photon_deplete=True) PUMPS / DETONATES (H_bel −4107, graft-v4 §6); the
+    bounded arm (photon_deplete=False) does NOT transfer (~2 %, inert). The
+    genuine conserved-AND-transferring lock is the PARTIAL skew-Hermitian
+    circulator (a 2-port skew generator conserves + transfers 100 % but is
+    RECIPROCAL; one-way circulation needs the 3-port loop, magnitude imposed) —
+    see research/2026-06-20_node-circulator-coupling.md (PR #321) and
+    device-circuit-models.md:201.
     """
     curl_omega = curl_central(omega, dx)
     w_dot_curl = np.sum(w * curl_omega, axis=-1)
