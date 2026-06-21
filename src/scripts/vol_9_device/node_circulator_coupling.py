@@ -167,10 +167,12 @@ def _propagator(H: np.ndarray, dt: float) -> np.ndarray:
 
 def evolve(a0: np.ndarray, H: np.ndarray, dt: float, n_steps: int) -> np.ndarray:
     """Unitary trajectory a_k = U^k a0, U = e^{-iHdt}. Returns shape
-    (n_steps+1, 2) complex amplitudes [a_bulk, a_shear] at each step."""
+    (n_steps+1, M) complex amplitudes for an M-mode generator (M=2: [a_bulk,
+    a_shear]; M=3 adds the EM port)."""
     U = _propagator(H, dt)
-    traj = np.empty((n_steps + 1, 2), dtype=complex)
     a = np.asarray(a0, dtype=complex).copy()
+    M = a.shape[0]
+    traj = np.empty((n_steps + 1, M), dtype=complex)
     traj[0] = a
     for k in range(1, n_steps + 1):
         a = U @ a
@@ -589,10 +591,102 @@ def forced_vs_imposed() -> dict:
 
 
 # ═════════════════════════════════════════════════════════════════════════════
+# 3-MODE EXTENSION — does adding the EM port recover GENUINE non-reciprocity?
+# ═════════════════════════════════════════════════════════════════════════════
+def three_mode_generator(omegas, rate, chi) -> np.ndarray:
+    """A 3-mode HERMITIAN ring generator [bulk, shear, EM-port] with a chirality
+    phase distributed around the RING (the circulator topology — power routed
+    one-way around 3 ports). H_jk = Ω·e^{+iχθ_χ} on the forward ring edges,
+    H_kj = conj. A 3-port ring with a uniform chirality phase IS the canonical
+    non-reciprocal circulator (the phase cannot be gauged away on a loop)."""
+    wb, ws, we = omegas
+    p = np.exp(1j * chi * THETA_CHI)
+    H = np.array(
+        [
+            [wb, rate * p, rate * np.conj(p)],
+            [rate * np.conj(p), ws, rate * p],
+            [rate * p, rate * np.conj(p), we],
+        ],
+        dtype=complex,
+    )
+    assert np.allclose(H, H.conj().T), "3-mode generator not Hermitian"
+    return H
+
+
+def three_mode_nonreciprocity(
+    rate: float = 0.3, dt: float = 0.05, n_steps: int = 40000
+) -> dict:
+    """Test whether the 3-port ring carries GENUINE non-reciprocity that the
+    2-mode coupling could not: with a chirality phase on a LOOP, the routing
+    bulk->shear (forward around the ring) should differ from bulk->EM (backward
+    around the ring), and RH should differ from LH. The loop phase Φ = 3·χ·θ_χ
+    is gauge-INVARIANT (cannot be removed by per-mode phase rotations) ⇒ a real
+    Aharonov-Bohm-like chirality flux ⇒ genuine non-reciprocity."""
+    omegas = (1.0, 1.0, 1.0)  # degenerate ring, so only the loop phase matters
+    a0 = np.array([1.0 + 0j, 0.0, 0.0])  # seed the bulk port
+    out = {}
+    for chi in (+1, -1, 0):
+        H = three_mode_generator(omegas, rate, chi)
+        traj = evolve(a0, H, dt, n_steps)
+        e = np.abs(traj) ** 2
+        # net circulation sense: time-integrated (shear-fill − EM-fill).
+        # forward ring edge bulk->shear vs bulk->EM. A circulator routes ONE way.
+        net_directional = float(np.mean(e[:, 1] - e[:, 2]))
+        out[f"chi={chi:+d}"] = {
+            "max_shear_fill": float(np.max(e[:, 1])),
+            "max_EM_fill": float(np.max(e[:, 2])),
+            "net_directional_shear_minus_EM": net_directional,
+        }
+    # genuine non-reciprocity ⇔ RH net-directional ≠ LH net-directional, and
+    # the achiral (χ=0) case is directionally symmetric (≈0).
+    nd_RH = out["chi=+1"]["net_directional_shear_minus_EM"]
+    nd_LH = out["chi=-1"]["net_directional_shear_minus_EM"]
+    nd_achiral = out["chi=+0"]["net_directional_shear_minus_EM"]
+    genuine_nonrecip = bool(
+        abs(nd_RH - nd_LH) > 1e-3 and abs(nd_achiral) < 1e-3
+    )
+    out["RH_minus_LH_directionality"] = float(abs(nd_RH - nd_LH))
+    out["achiral_directionality"] = float(abs(nd_achiral))
+    out["genuine_nonreciprocity_3port"] = genuine_nonrecip
+    out["note"] = (
+        "3-PORT RING: the loop phase 3*chi*theta_chi is gauge-invariant => "
+        "real chirality flux. genuine_nonreciprocity_3port=True means adding the "
+        "EM port RECOVERS the chirality-dependent routing the 2-mode coupling "
+        "lost. This is the corpus chiral circulator (>=3 element, "
+        "device-circuit-models.md:161)."
+    )
+    return out
+
+
+# ═════════════════════════════════════════════════════════════════════════════
 # VALIDATE-ON-KNOWN
 # ═════════════════════════════════════════════════════════════════════════════
 def validate_on_known() -> dict:
-    raise NotImplementedError
+    """Hard-assert the analytic anchors the gates rest on. HALT on any failure.
+
+    (1) Unitarity: e^{-iHdt} is unitary to machine precision (Gate A foundation).
+    (2) Rabi formula: the 2-mode transfer fraction matches Ω²/(Ω²+Δ²/4) — the
+        analytic anchor Gates B and D rest on (integrator-independent).
+    (3) Norm conservation: |a|² conserved exactly under the unitary map."""
+    # (1) unitarity
+    H = circulator_generator(1.0, 1.3, 0.3, +1)
+    U = _propagator(H, 0.1)
+    unitary = bool(np.allclose(U @ U.conj().T, np.eye(2), atol=1e-12))
+    # (2) Rabi
+    res = gate_B_transfer(omega_b=1.0, omega_s=1.5, rate=0.25)
+    rabi_ok = res["rabi_match"]
+    # (3) norm
+    a0 = np.array([0.6 + 0.3j, -0.2 + 0.5j])
+    traj = evolve(a0, H, 0.05, 5000)
+    nb, ns = mode_energies(traj)
+    N = nb + ns
+    norm_ok = bool(np.max(np.abs(N - N[0])) < 1e-9)
+    out = {"unitary": unitary, "rabi_formula": rabi_ok, "norm_conserved": norm_ok}
+    if not (unitary and rabi_ok and norm_ok):
+        print("HALT: validate-on-known FAILED — the analytic anchors do not hold.")
+        print(json.dumps(out, indent=2))
+        sys.exit(1)
+    return out
 
 
 # ═════════════════════════════════════════════════════════════════════════════
