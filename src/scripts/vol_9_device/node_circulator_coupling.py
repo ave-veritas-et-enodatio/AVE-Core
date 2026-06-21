@@ -311,8 +311,91 @@ def transfer_vs_detuning(
 # ═════════════════════════════════════════════════════════════════════════════
 # GATE C — LOCK-ON-WINDING (ON vs OFF)
 # ═════════════════════════════════════════════════════════════════════════════
-def gate_C_lock_on_winding(*args, **kwargs):
-    raise NotImplementedError
+def _poloidal_winding(traj_shear: np.ndarray, dt: float) -> dict:
+    """The POLOIDAL WINDING observable of the shear LC quadrature.
+
+    a_shear = q + i·p/ω is the analytic signal of the (ω, π_ω) reactance pair.
+    The poloidal 'winding' (the charge "3") is the accumulated PHASE CIRCULATION
+    of this complex amplitude — the rate at which arg(a_shear) advances, and the
+    net winding number over the window. This is the LC-quadrature winding the
+    corpus identifies as charge (crystal_graft_v4.py:46-47), NOT the orthogonal
+    real-space rigid rotation L_ω. We measure it on the complex AMPLITUDE phase,
+    in PHASE-SPACE coordinates (A46 discipline)."""
+    phase = np.unwrap(np.angle(traj_shear))
+    # winding rate = mean phase advance per unit time; winding number = total/2π.
+    total_phase = float(phase[-1] - phase[0])
+    T = (len(traj_shear) - 1) * dt
+    rate = total_phase / T if T > 0 else 0.0
+    winding_number = total_phase / (2.0 * np.pi)
+    return {
+        "winding_rate": rate,
+        "winding_number": winding_number,
+        "final_phase": float(phase[-1]),
+    }
+
+
+def gate_C_lock_on_winding(
+    omega_b: float = 1.0,
+    omega_s: float = 1.3,
+    rate: float = 0.3,
+    chi: int = +1,
+    dt: float = 0.05,
+    n_steps: int = 40000,
+) -> dict:
+    """GATE C — LOCK-ON-WINDING.  The coupling must act on the POLOIDAL WINDING
+    amplitude (the charge mode a_shear), and coupling-ON must DIFFER from
+    coupling-OFF ON THAT WINDING OBSERVABLE. If ON ≡ OFF on the winding, it is
+    the SAME inert failure the previous lock had (it touched the orthogonal
+    rigid-rotation L_ω, not the winding) — and we report it as such.
+
+    Setup: seed a_shear with a real poloidal winding (nonzero phase circulation),
+    a_bulk with energy. Evolve with the circulator ON (rate=Ω) and OFF (rate=0),
+    and compare the winding RATE and the winding-number drift.
+
+    GUARD (INERT-LOCK): ΔWinding = |winding_rate_ON − winding_rate_OFF| must be
+    NONZERO and O(Ω). If ΔWinding ≈ 0 the coupling is inert on the winding."""
+    # seed: bulk loaded, shear carries an initial winding amplitude (unit |a|,
+    # a nonzero phase so it genuinely winds).
+    a0 = np.array([1.0 + 0j, 0.7 * np.exp(1j * 0.4)], dtype=complex)
+
+    H_on = circulator_generator(omega_b, omega_s, rate, chi)
+    H_off = circulator_generator(omega_b, omega_s, 0.0, chi)  # coupling OFF
+
+    traj_on = evolve(a0, H_on, dt, n_steps)
+    traj_off = evolve(a0, H_off, dt, n_steps)
+
+    w_on = _poloidal_winding(traj_on[:, 1], dt)
+    w_off = _poloidal_winding(traj_off[:, 1], dt)
+
+    d_rate = abs(w_on["winding_rate"] - w_off["winding_rate"])
+    d_number = abs(w_on["winding_number"] - w_off["winding_number"])
+    # also: does the shear-mode ENERGY trajectory differ ON vs OFF? (the lock
+    # MUST change the winding's energy content, not just leave it alone.)
+    _, ns_on = mode_energies(traj_on)
+    _, ns_off = mode_energies(traj_off)
+    energy_diff = float(np.max(np.abs(ns_on - ns_off)))
+
+    # PASS requires the ON-vs-OFF winding observable to genuinely differ, at a
+    # scale set by the coupling rate (not a rounding artifact).
+    inert = (d_rate < 1e-6) and (energy_diff < 1e-6)
+    passed = (d_rate > 0.01 * rate) and (energy_diff > 0.05)
+    return {
+        "winding_rate_ON": w_on["winding_rate"],
+        "winding_rate_OFF": w_off["winding_rate"],
+        "delta_winding_rate": d_rate,
+        "delta_winding_number": d_number,
+        "shear_energy_diff_ON_vs_OFF": energy_diff,
+        "inert_lock_detected": bool(inert),
+        "passed": bool(passed),
+        "verdict": "PASS — coupling changes the WINDING observable (not inert)"
+        if passed
+        else (
+            "FAIL — INERT on the winding (ON==OFF: same inert failure as the "
+            "previous lock targeting orthogonal L_omega)"
+            if inert
+            else "FAIL — winding change below threshold"
+        ),
+    }
 
 
 # ═════════════════════════════════════════════════════════════════════════════
