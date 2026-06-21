@@ -1,0 +1,32 @@
+% cosmic_hierarchy_ladder.tex — Cosmic-to-lattice scale ladder R_H -> ell_node (Vol 9 Ch.12)
+% Pure TikZ (no pgfplots): a labelled log-scale ladder from the cosmic Gamma=-1 horizon
+% down to the K4 node pitch, ~10^39 lumped substrate cells along the distributed TL.
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    rung/.style={draw, rounded corners=2pt, minimum width=4.6cm, minimum height=0.78cm, align=center, font=\scriptsize},
+    lbl/.style={font=\scriptsize, align=left},
+    arr/.style={->, thick, gray}
+]
+    % Vertical scale spine
+    \draw[arr] (0,-5.4) -- (0,0.6) node[above, font=\scriptsize, black] {scale (log)};
+
+    % Top: cosmic horizon
+    \node[rung, fill=blue!8] (rh) at (0,0) {Cosmic horizon $R_H \approx \num{1.33e26}$~m\\$\Gamma = -1$ boundary (Ax~1 + Ax~3)};
+    \node[lbl] at (3.9, 0) {$R_H \equiv c/H_\infty$};
+
+    % Middle: the hierarchy count
+    \node[rung, fill=orange!10] (cells) at (0,-2.6) {$\sim 10^{39}$ lumped substrate cells\\(cosmic-scale distributed TL)};
+    \node[lbl, text width=3.8cm] at (4.2, -2.6) {$R_H/\ell_{node} \sim 10^{39}$\\Machian-hierarchy precursor\\($\alpha/\alpha_G \sim 10^{42}$, gravity-weakness ratio)};
+
+    % Bottom: lattice node
+    \node[rung, fill=green!10] (ln) at (0,-5.0) {K4 node pitch $\ell_{node} \approx \num{3.86e-13}$~m\\$\ell_{node} \equiv \hbar/(m_e c)$ (Ax~1 calibration)};
+    \node[lbl] at (3.9, -5.0) {lower limit of the Machian integral};
+
+    % Connecting brace
+    \draw[arr] (rh.south) -- (cells.north);
+    \draw[arr] (cells.south) -- (ln.north);
+\end{tikzpicture}
+\caption{Cosmic-to-lattice scale ladder (Vol.~9 Ch.~12 \S\ref{sec:vol9_cosmo_hierarchy}). The substrate spans $R_H/\ell_{node} \sim 10^{39}$ lumped cells from the cosmic $\Gamma = -1$ horizon down to the K4 node pitch; the same hierarchy is the upper-vs-lower limit of the Machian impedance integral that sets Newton's $G$ (the gravity-weakness ratio $\alpha/\alpha_G \sim 10^{42}$ follows geometrically). Canonical at \kbleaf{translation-circuit.md} (\texttt{clm-eemap1}); \kbleaf{trampoline-framework.md} \S5.5.}
+\label{fig:vol9_cosmic_hierarchy_ladder}
+\end{figure}

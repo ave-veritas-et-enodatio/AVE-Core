@@ -26,6 +26,18 @@ The chapter preserves the framework's canonical cosmology framing without modifi
 - **Three-route falsifiability (re-scoped 2026-06-14, B2)** --- $\alpha$ (electromagnetic) and $G$ (gravitational, via Machian impedance integral) **fix** $u_0^*$ (the fit inputs; they converge by construction, not a test), while $\mathcal{J}_{cosmic}$ (cosmological, via CMB / LSS anomalies $\to \hat{\Omega}_{freeze}$) is the one **independent** route that **tests** it; disagreement on the cosmological route falsifies the single-operating-point claim (pass = chord, fail = echo).
 - **The substrate is natural** --- the cosmic substrate is the natural single-seed universe; engineering measures cosmic observables; AVE substrate-physics derives the Machian-$G$ *form* (its value mixed/calibration-fitted) and the consequences of $\hat{\Omega}_{freeze}$; the $u_0^*$ *value* is back-fit to CODATA $\alpha$, $G$, not forward-derived (see the magic-angle banner). No "engineered" cosmos; no "designed" universe.
 
+## Dark-sector cutoff $g_* = 343/4$ and the $\nu_{vac} = 2/7$ triangulation (session add)
+
+The chapter adds a **dark-sector** spec entry for the effective relativistic degrees of freedom (canonical at [`effective-dof-g-star.md`](../../vol3/condensed-matter/ch11-thermodynamics/effective-dof-g-star.md), `clm-uu6dl5`):
+
+$$g_* = \frac{n^3}{N_{K4}} = \frac{7^3}{4} = \frac{343}{4} = 85.75$$
+
+a **lattice-geometric** count (mode-cube $7^3$ over $N_{K4} = 4$ K4 sublattice valence) with **no reference to a particle catalog** — the AVE replacement for the Standard Model's $g_{*,SM} = 106.75$ (obtained by exhaustively counting all known species). The $7$ is the $\nu_{vac} = 2/7$ Poisson-ratio denominator (Ch.9 $\S$vac-Poisson). The $-21$ DOF deficit (24 fewer fermionic DOF; $\approx 0.8$ generations) is forward-predicted to give **primordial GW $+7.6\%$** ($\Omega_{GW} \propto g_*^{-1/3}$; LISA/DECIGO), **EW expansion rate $-10.4\%$** (CMB Stage-4), **EW latent heat $-20\%$** (FCC-ee/CEPC) — per [`divergence-test-substrate-map.md`](../../common/divergence-test-substrate-map.md) C12-G-STAR.
+
+**$\nu_{vac} = 2/7$ triangulation note (FORM-vs-VALUE chord-class).** $g_* = 7^3/4$ is a **FORCED DIMENSIONLESS RATIO** (a forced-form chord per [`form-deriving-value-importing.md`](../../common/form-deriving-value-importing.md)), but its root $\nu_{vac} = 2/7 \leftarrow K = 2G$ is **GR-imported** (the trace-reversal identity, NOT independently substrate-forced; PR #261). It co-loads tightly with two other $\nu_{vac} = 2/7$-rooted observables — the BH ring-down $r_{sat} = 7GM/c^2$ (C1-BH-RING) and the electron Mach-Zehnder $n_s/n_t = 9/7, 2/7$ split (C11-MACH-ZEHNDER) — so the three form one triangulation: **simultaneous FAIL of C1 $\wedge$ C11 $\wedge$ C12 $=$ framework-level falsification of the $\nu_{vac} = 2/7$ derivation** (the strongest single-axis discriminator the framework has; analogous to the three-route $\alpha + G + \mathcal{J}_{cosmic}$ commitment but for $\nu_{vac}$). Frame peer-mapped-honestly: the SM also does not derive its own DOF count from first principles — it counts species.
+
+**Dark-sector closures already pointer-cited** (promote to spec rows): the cosmological-constant closure $\rho_\Lambda$ from Friedmann at the corpus-derived $H_\infty$ (canonical [`cosmological-constant-closure.md`](../../vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md), `clm-s4n33u`; $10^{122}$ improvement on QED naive zero-point), and the MOND acceleration scale $a_0 = c H_\infty/(2\pi)$ (Vol 3 Ch.5 dark sector).
+
 ## Primary canonical sources
 
 | Source | Content |
@@ -41,7 +53,9 @@ The chapter preserves the framework's canonical cosmology framing without modifi
 | [`common/boundary-observables-m-q-j.md`](../../common/boundary-observables-m-q-j.md) | Canonical $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ three-invariant structure at every $\Gamma = -1$ saturation boundary; $\mathcal{J}_{cosmic} = \hat{\Omega}_{freeze} \cdot I_{cosmic}$ as cosmic-scale instance |
 | [`vol1/operators-and-regimes/ch7-regime-map/four-regimes.md`](../../vol1/operators-and-regimes/ch7-regime-map/four-regimes.md) | Regime IV substrate-rupture canonical statement; cosmic-scale instance = BH interior ruptured-plasma sink |
 | [`common/translation-tables/translation-circuit.md`](../../common/translation-tables/translation-circuit.md) (`clm-eemap1`) | EE-substrate-native META framework; canonical entry $R_H/\ell_{node} \sim 10^{39}$ as "number of lumped substrate cells along cosmic-scale distributed TL" |
-| `src/ave/core/constants.py` | `H_INFINITY` line 573; `R_HUBBLE` line 576; `XI_MACHIAN` line 471; `G` line 118; `ALPHA` line 101; `ALPHA_COLD_INV` line 164; `M_E` line 97; `L_NODE` line 194 |
+| [`vol3/condensed-matter/ch11-thermodynamics/effective-dof-g-star.md`](../../vol3/condensed-matter/ch11-thermodynamics/effective-dof-g-star.md) (`clm-uu6dl5`) | Effective relativistic DOF $g_* = 7^3/4 = 343/4 = 85.75$ from $\nu_{vac} = 2/7$ (vs SM $g_{*,SM} = 106.75$); lattice-geometric, no particle catalog; the dark-sector cutoff row |
+| [`common/divergence-test-substrate-map.md`](../../common/divergence-test-substrate-map.md) (C1-BH-RING, C11-MACH-ZEHNDER, C12-G-STAR) | The $\nu_{vac} = 2/7$ triangulation: $r_{sat} = 7GM/c^2$, $n_s/n_t = 9/7, 2/7$, and $g_* = 7^3/4$ all root in one Poisson ratio; simultaneous FAIL of the three rows $=$ framework-level falsification of $\nu_{vac} = 2/7$ |
+| `src/ave/core/constants.py` | `H_INFINITY` line 658; `R_HUBBLE` line 661; `XI_MACHIAN` line 556; `G` line 156; `ALPHA` line 133; `ALPHA_COLD_INV` line 222; `M_E` line 129; `L_NODE` line 257 |
 
 ## Manuscript counterpart
 

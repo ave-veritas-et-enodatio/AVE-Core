@@ -191,6 +191,20 @@ The substrate's three projections of the Cosserat microrotational coordinate $\b
 
 The substrate's right-handed $I4_1 32$ chirality (Axiom~1) ties Cosserat micro-rotation orientation directly to the substrate chirality bias; the $V$--$A$ structure of the weak interaction is the macroscopic manifestation of substrate chirality acting on the $\gamma_c$ Cosserat coupling sector. See Ch.~\ref{ch:vol9_topological_characteristics} \S Chirality Implications for the full enumeration of substrate-chirality observables (weak-force parity violation, $K$/$B$ meson CP violation, biological homochirality, $\hat{\Omega}_{freeze}$).
 
+\section{Chiral Inter-Tank Coupling: Gyrator vs Circulator (Fork-A)}
+\label{sec:vol9_magnetic_forka}
+
+The substrate's $I4_1 32$ chirality enters the magnetic / microrotational sector as a \textbf{non-reciprocal inter-tank coupling} between the bulk (mass / A1-dilatation) and shear (charge / Cosserat micro-rotation) sublattice tanks. The Fork-A node-coupling result (canonical at Ch.~\ref{ch:vol9_pin_port_configuration} \S Device Circuit Models, \kbleaf{device-circuit-models.md}:159--165,201--217; \kbleaf{research/2026-06-20\_node-circulator-coupling.md}) establishes a \textbf{conservative skew-Hermitian coupling that EXISTS} --- it is bounded / lossless (norm conserved to $1.1\times10^{-12}$ over 40k steps; does \emph{not} pump), transfers helicity (100\% bulk$\to$shear, against the failed trilinear graft-v3 $\sim$2\%), and acts on the poloidal winding (ON $\neq$ OFF). The verdict is \textbf{PARTIAL}, and the gyrator-vs-circulator distinction is load-bearing:
+
+\begin{itemize}
+    \item \textbf{The reciprocal 2-port skew $=$ the optical-activity GYRATOR.} The bare bulk$\leftrightarrow$shear skew coupling is \emph{reciprocal} --- forward (bulk$\to$shear) equals reverse, RH equals LH --- so it is the lossless reciprocal-Faraday polarization-plane rotator (the \textbf{gyrator}, \kbleaf{vocabulary-register.md} \texttt{def-0pt1ac}), \emph{not} a one-way router. This is the substrate origin of vacuum optical activity.
+    \item \textbf{Genuine non-reciprocity needs the 3-port CIRCULATOR.} One-way circulation requires the 3-port loop EM$\leftrightarrow$shear$\leftrightarrow$bulk (the EM / photon port as the third leg; \kbleaf{vocabulary-register.md} \texttt{def-ch1crc}), whose gauge-invariant loop phase $3\chi\theta_\chi$ flips with the handedness $\chi$ --- but the asymmetry is small ($\sim 1.75\times10^{-3}$).
+    \item \textbf{The magnitude is IMPOSED (echo).} The non-reciprocity magnitude is plugged ($\theta_\chi = 2\pi\nu_{vac}$ with $\nu_{vac} = 2/7$, $\tilde\kappa = 6/5$; all $\alpha$-free) because the cubic-FDTD chiral-crystal engine averages chirality out (\kbleaf{cvr\_model.py}:243). The coupling \emph{form} is forced (trivially, by losslessness); its \emph{magnitude} is imported --- the same FORM-deriving / VALUE-importing verdict (\kbleaf{common/form-deriving-value-importing.md}) as the rest of the node.
+\end{itemize}
+
+\noindent
+\textbf{Naming discipline.} Reserve \textbf{circulator} for the non-reciprocal inter-tank coupling (needs the 3-port); \textbf{gyrator} for the reciprocal optical-activity rotator. The chiral coupling read by HOPF-01/02 is consistency-class, magnitude-imposed --- not an AVE-distinct non-reciprocity-magnitude chord. The $\hat{\Omega}_{freeze}$ handedness that sets the sign is the chirality calibration input (Ch.~\ref{ch:vol9_topological_characteristics} \S Chirality Implications); see Tab.~\ref{tab:vol9_magnetic_scope} scope/provenance note.
+
 \section{EE Magnetic Translation}
 \label{sec:vol9_magnetic_ee_translation}
 
