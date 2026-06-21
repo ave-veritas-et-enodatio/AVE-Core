@@ -49,6 +49,7 @@ Vol 9 is a **synthesis volume**: no chapter contains a primary substrate-physics
 | 16 | [Cross-Volume Reference Index](ch16-cross-volume-reference/index.md) | Auto-generated parameter → derivation map |
 | 17 | [Engine Requirements for Faithful Simulation](ch17-engine-requirements/index.md) | Datasheet read as a simulator spec; per-line requirement ← documented engine-failure lesson |
 | 18 | [Experimental Prints](ch18-experimental-prints/index.md) | Topology laboratory exercises; DIY K4 kit; [RENDERING] default print pitch 100 mm/$\ell_{node}$ (corpus-mnemonic reference 38.6 mm/$\ell_{node}$) |
+| 19 | [Calibration Parameter Justification](ch19-calibration-justification/index.md) | Consolidated calibration / reference-conditions back-section; master table classifying every calibration parameter by role + chord/echo/mixed (`real_or_fitted`); points up to [**form-deriving-value-importing**](../common/form-deriving-value-importing.md) + [**interlock-register**](../common/interlock-register.md) |
 
 ## Multi-PR sequencing
 
