@@ -16,7 +16,7 @@
     "A_grid_max": 0.99,
     "Ceff_over_C0_at_A0.9": 2.294157338705618,
     "Zcore_over_Z0_at_A0.9": 0.6602195804079635,
-    "n_engine_minus_n_physical_max_gap": 0.23726409904882956
+    "n_EM_at_A0.9": 0.6602195804079635
   },
   "view2_transfer_function": {
     "omega_C_rad_s": 7.76344071105011e+20,
