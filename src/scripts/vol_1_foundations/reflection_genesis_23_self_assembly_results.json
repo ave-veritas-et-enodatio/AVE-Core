@@ -146,15 +146,15 @@
   "gap_localization": {
     "v0": 0.11563155400398491,
     "v_end": {
-      "max_V_inc": 0.08631309308640789,
-      "max_V_ref": 0.08605593101544182,
-      "max_Phi_link": 0.036310343820183395,
-      "V_sq_sum": 0.8141376147439237
+      "max_V_inc": 0.08412304673132485,
+      "max_V_ref": 0.08419321418562681,
+      "max_Phi_link": 0.03747587031240463,
+      "V_sq_sum": 0.7728911199718764
     },
     "phase_space": {
       "R_shell": 2.5411649948891553,
-      "vinc_amp": 0.20145793827457595,
-      "vref_amp": 0.1026640400356586,
+      "vinc_amp": 0.19269795163476483,
+      "vref_amp": 0.1005974494566169,
       "vinc_w_tor": 0.0,
       "vinc_rel_tor": 0.0,
       "vinc_w_pol": 0.0,
@@ -170,10 +170,10 @@
   },
   "verdict": "C",
   "figures": {
-    "fig1": "/Users/grantlindblom/AVE-staging/AVE-Core-genesis23-wt/src/scripts/vol_1_foundations/genesis23_fig1_phase_space_winding.png",
-    "fig2": "/Users/grantlindblom/AVE-staging/AVE-Core-genesis23-wt/src/scripts/vol_1_foundations/genesis23_fig2_localization.png",
-    "fig3": "/Users/grantlindblom/AVE-staging/AVE-Core-genesis23-wt/src/scripts/vol_1_foundations/genesis23_fig3_charge_chirality.png",
-    "fig4": "/Users/grantlindblom/AVE-staging/AVE-Core-genesis23-wt/src/scripts/vol_1_foundations/genesis23_fig4_spin_lock.png",
-    "fig5": "/Users/grantlindblom/AVE-staging/AVE-Core-genesis23-wt/src/scripts/vol_1_foundations/genesis23_fig5_alpha_leak.png"
+    "fig1": "/private/tmp/emf-fix/src/scripts/vol_1_foundations/genesis23_fig1_phase_space_winding.png",
+    "fig2": "/private/tmp/emf-fix/src/scripts/vol_1_foundations/genesis23_fig2_localization.png",
+    "fig3": "/private/tmp/emf-fix/src/scripts/vol_1_foundations/genesis23_fig3_charge_chirality.png",
+    "fig4": "/private/tmp/emf-fix/src/scripts/vol_1_foundations/genesis23_fig4_spin_lock.png",
+    "fig5": "/private/tmp/emf-fix/src/scripts/vol_1_foundations/genesis23_fig5_alpha_leak.png"
   }
 }

@@ -155,10 +155,11 @@ def _seed_audit(frac: float) -> dict:
 # Arm construction + per-step reactance-pair recording (A-Rule-10)
 # ──────────────────────────────────────────────────────────────────────────
 def _build_arm(arm: int, frac: float):
-    """Engine + IC per arm. emf=True (the ω→V EMF reciprocal k4_cosserat_coupling
-    :703 is the source channel — dead at V=0, live at V≠0). Impedance boundary ON
-    (verdict-II self-trap = the Smith-Γ wall). use_asymmetric_saturation=True
-    (default; the κ_chiral·h photon ω is the wall, the V-seed biases the EMF)."""
+    """Engine + IC per arm. emf=True (the ω→V EMF reciprocal source channel is
+    _compute_emf_per_port at k4_cosserat_coupling.py:838 — dead at V=0, live at
+    V≠0; the -2 Lenz back-EMF). Impedance boundary ON (verdict-II self-trap = the
+    Smith-Γ wall). use_asymmetric_saturation=True (default; the κ_chiral·h photon
+    ω is the wall, the V-seed biases the EMF)."""
     eng = g23._make_engine(emf=True)
     if arm == 1:        # seed + photon (+h)
         g23._seed_v_partner(eng, frac=frac)
@@ -356,32 +357,45 @@ def _make_figures(out, matrix, emit) -> dict:
 
     # FIG 4 — conservation ledger H, H_bel, |L| over the (Arm-1) window.
     # ave-driver-script-honesty: captions are COMPUTED from the plotted series
-    # (deepest frac 0.95), NOT templated. The ledger FAILS here (H drifts, |L|
-    # grows secularly, ledger.closes=False) — templated "flat = no H_drift" /
-    # "bounded precession" captions would CONTRADICT the plotted data.
+    # (deepest frac 0.95) against the SAME thresholds as _ledger_closes (|H_drift|
+    # <0.05, L_bounded, v_secular<3), NOT templated. Under the corrected -2 Lenz
+    # EMF (k4_cosserat_coupling.py:838) the V-SECTOR energy is BOUNDED and REVERSES
+    # (E_V peak O(10) then unwinds; v_secular<1) -- the +2 detonation (E_V->6.8e8)
+    # is gone. But the FULL three-part ledger still does NOT close on this run:
+    # |L| transiently spikes (no longer pinned, L_last<<L_max, but L_max>5*L[0])
+    # and H drifts ~ -7%. The caption reports BOTH honestly, each panel against
+    # its own threshold, so the figure tracks whatever the run actually produces.
     fig, ax = plt.subplots(1, 3, figsize=(15, 4.4))
     for f in FRACS:
         a1 = matrix[(1, f)]; ts = np.arange(len(a1["H_series"]))
         ax[0].plot(ts, a1["H_series"], "-", color=cols[f], label=f"frac={f}")
         ax[1].plot(ts, a1["Hbel_series"], "-", color=cols[f])
         ax[2].plot(ts, a1["L_series"], "-", color=cols[f])
+    _led = _ledger_closes(matrix[(1, 0.95)])
     _Hd = np.asarray(matrix[(1, 0.95)]["H_series"], float)
     _Ld = np.asarray(matrix[(1, 0.95)]["L_series"], float)
     _Hbd = np.asarray(matrix[(1, 0.95)]["Hbel_series"], float)
-    _hdrift = (_Hd[-1] - _Hd[0]) / (abs(_Hd[0]) or 1.0)
+    _hdrift = _led["H_drift"]
     _evpk = emit.get("E_V_peak", float("nan"))
-    ax[0].set_title(f"H (energy): DRIFTS {_hdrift:+.1%} over window (deepest frac)\n"
-                    f"-> NOT conserved; ledger FAILS")
+    _evrev = bool(emit.get("reverses", False))
+    _h_ok = abs(_hdrift) < 0.05
+    _l_ok = bool(_led["L_bounded"])
+    ax[0].set_title(f"H (energy): drift {_hdrift:+.1%} over window (deepest frac)\n"
+                    f"-> {'CONSERVED' if _h_ok else 'drifts above 5% floor'}")
     ax[0].set_xlabel("step"); ax[0].legend(fontsize=7)
     ax[1].set_title(f"H_bel (charge): |H_bel| {abs(_Hbd[0]):.0f}->{abs(_Hbd[-1]):.0f}\n"
                     f"(photon-attributable, sign=handedness)")
     ax[1].set_xlabel("step")
-    ax[2].set_title(f"|L| (spin): GROWS {_Ld[0]:.0f}->{_Ld.max():.0f} (secular, |L|~t)\n"
-                    f"-> NOT bounded precession")
+    ax[2].set_title(f"|L| (spin): first {_Ld[0]:.0f} / peak {_Ld.max():.0f} / last {_Ld[-1]:.0f}\n"
+                    f"-> {'bounded precession' if _l_ok else 'peak exceeds 5x-first bound (no longer pinned, but spikes)'}")
     ax[2].set_xlabel("step")
-    fig.suptitle("FIG 4 — conservation ledger (Arm-1): ledger FAILS -> secular PUMP, not energize-LOCK\n"
-                 f"(H drifts, |L| grows secularly; the same EMF :703 pump detonates E_V->{_evpk:.1e} "
-                 f"over the 100-step emit window)")
+    _closes = bool(_led["closes"])
+    _ledger_word = "CLOSES (conservative)" if _closes \
+        else "does NOT fully close (V-sector bounded; |L| spike + H-drift open)"
+    _evword = "bounded + reverses" if _evrev and _evpk < 1e3 else "detonates"
+    fig.suptitle(f"FIG 4 — conservation ledger (Arm-1): -2 Lenz EMF -- ledger {_ledger_word}\n"
+                 f"(k4_cosserat_coupling.py:838; V-sector E_V {_evword}, peak {_evpk:.2e} "
+                 f"over the 100-step emit window; +2 bug detonated E_V->6.8e8)")
     fig.tight_layout()
     p = os.path.join(HERE, "genesis24_fig4_ledger.png")
     fig.savefig(p, dpi=110); plt.close(fig); paths["fig4"] = p

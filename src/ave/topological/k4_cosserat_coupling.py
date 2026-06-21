@@ -260,9 +260,11 @@ class CoupledK4Cosserat:
         # NOTE: the prior NOTE here ("this AMPLIFIES the runaway / path-1 was
         # the wrong direction") was measured under a +2 sign-wiring BUG at the
         # EMF source (_compute_emf_per_port :838). Under the corrected -2 the
-        # EMF is BOUNDED / conservative on the deep genesis-24 saturated seed
-        # (E_V reverses=True, ledger closes). The path nonetheless stays
-        # OFF-by-default: on small-amplitude mixed-mode it double-counts Op14's
+        # V-sector energy is BOUNDED on the deep genesis-24 saturated seed
+        # (E_V peak ~12, reverses=True — the +2 detonation to 6.8e8 is gone;
+        # the full three-part ledger does not fully close, |L| still spikes).
+        # The path nonetheless stays OFF-by-default: on small-amplitude
+        # mixed-mode it double-counts Op14's
         # varactor C_eff(V) (doc 67_ §14.1-§14.4) — a SIGN-INDEPENDENT redundancy
         # where BOTH signs blow up. So use_lagrangian_emf_coupling=False default
         # is UNCHANGED. The disable_cosserat_lc_force (A28) channel below is a
@@ -841,11 +843,15 @@ class CoupledK4Cosserat:
         # Sign convention (Lenz back-EMF): the reaction OPPOSES the drive, so the
         # EMF acts AGAINST V's tendency to push Φ — the negative sign gives the
         # conservative reciprocal LC exchange (energy unwinds, not pumps).
-        # (Empirically verified on the genesis-24 deep-saturated seed: -2 is
-        # BOUNDED and reverses=True (E_V peak ~12, ledger closes); the prior +2
-        # "adds positively / oscillatory exchange" rationale was the wiring bug
-        # that DETONATES — E_V -> 6.79e8, reverses=False. See research/
-        # 2026-06-21_emf-lenz-sign-correction_result.md.)
+        # (Empirically verified on the genesis-24 deep-saturated seed: with -2
+        # the V-SECTOR energy is BOUNDED and reverses=True (E_V peak ~12, unwinds
+        # to ~5; v_secular<1) — the +2 detonation is GONE. The prior +2 "adds
+        # positively / oscillatory exchange" rationale was the wiring bug that
+        # DETONATES — E_V -> 6.79e8, reverses=False. NB: the V-sector detonation
+        # is what -2 fixes; the FULL three-part ledger does NOT fully close on
+        # that run (|L| still transiently spikes, H drifts ~-7%), so this is a
+        # V-sector-energy conservation fix, not a full energize-LOCK. See
+        # research/2026-06-21_emf-lenz-sign-correction_result.md.)
         emf = -2.0 * self.k4.V_inc * dL_dVsq_np[..., None]
 
         # Inactive sites get no EMF (mask_active is per-site boolean)
