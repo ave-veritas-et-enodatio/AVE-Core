@@ -495,32 +495,9 @@ Bob's marginal probability is independent of Alice's detector setting $\hat{a}$:
 \end{equation}
 Bob always observes a 50/50 outcome distribution. Alice cannot control which outcome she receives (the gear-train response is stochastic from her perspective due to the thermal noise floor), so no encodable information traverses the thread. The no-signalling theorem holds.
 
-\subsection{K4-TLM Lattice Verification}
+\subsection{K4-TLM Lattice Check (preliminary)}
 \label{subsec:k4tlm_entanglement}
-The topological protection mechanism is verified at the lattice level on a $32^3$-node Diamond K4-TLM lattice with nonlinear Axiom~4 saturation. Two saturated defect walls ($\Gamma = -1$, modelling particle cores) sit 19 nodes apart, connected by a $2\pi$ phase-wound standing wave with a $\sin(\pi x/L)$ envelope and helical port structure.
-
-Three noise regimes give:
-\begin{enumerate}
-    \item \textbf{Vacuum (T = 0):} No perturbations. The thread's phase coherence evolves from 1.00 to 0.73 as the evanescent lateral tail spreads on the periodic lattice---a finite-size boundary effect, not decoherence.
-    \item \textbf{Mild noise ($T \ll T_{pair}$):} Random Gaussian perturbations ($\sigma = 0.005$) applied to all active nodes. Coherence: $1.00 \to 0.74$---\textbf{indistinguishable from vacuum}. The winding is topologically immune to sub-threshold noise.
-    \item \textbf{Extreme noise ($T \gg T_{pair}$):} Continuous high-amplitude perturbations ($\sigma = 0.3$) overwhelm the saturation barrier. Coherence: $1.00 \to 0.28$---the $2\pi$ winding is destroyed.
-\end{enumerate}
-
-\noindent The key result is that Scenarios~1 and~2 are statistically identical: the $2\pi$ winding is a topological invariant of the lattice, and perturbations below the pair-creation energy cannot unwrap it. Only when the noise amplitude exceeds the Axiom~4 saturation threshold does the thread decohere.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1.0\textwidth]{k4_tlm_decoherence_3d.png}
-    \caption{\textbf{K4-TLM 3D Decoherence (Provisional --- figure pending a reproducible driver).} Final-state energy density on the Diamond lattice for the three scenarios. Yellow stars mark the saturated defect cores ($\Gamma = -1$). Cyan nodes carry the phase-wound thread; magenta indicates scattered noise energy. In the vacuum and mild-noise cases, the thread structure is preserved. In the extreme-noise case, the winding is disrupted and energy fills the lattice isotropically.}
-    \label{fig:k4tlm_decoherence}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{k4_tlm_winding_evolution.png}
-    \caption{\textbf{Thread Winding Evolution (Provisional --- figure pending a reproducible driver).} Phase coherence (top) and normalised amplitude (bottom) vs.~timestep. The vacuum (cyan) and mild-noise (orange) traces overlap, confirming topological protection. The extreme-noise trace (red) decays sharply as the winding is overwhelmed.}
-    \label{fig:k4tlm_winding}
-\end{figure}
+A preliminary K4-TLM lattice run --- a $32^3$-node Diamond lattice with nonlinear Axiom~4 saturation, with two saturated $\Gamma = -1$ defect cores connected by a $2\pi$ phase-wound standing wave --- is consistent with this protection mechanism: the winding is immune to sub-threshold perturbations and unwinds only once the drive exceeds the pair-creation energy. A reproducible generating driver is pending; the quantitative coherence traces are deferred until it is in place.
 
 \section*{Chapter Summary}
 \begin{itemize}
