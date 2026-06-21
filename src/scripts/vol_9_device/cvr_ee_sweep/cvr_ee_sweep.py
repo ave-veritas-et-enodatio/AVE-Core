@@ -36,8 +36,10 @@ import matplotlib  # noqa: E402
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
+from matplotlib.colors import ListedColormap  # noqa: E402
 
 from ave.core.constants import ALPHA  # noqa: E402
+from ave.viz import style  # noqa: E402
 
 # cvr_model lives beside this driver
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -47,6 +49,11 @@ OUT = Path(__file__).parent / "_output"
 OUT.mkdir(exist_ok=True)
 
 ALPHA_INV = 1.0 / ALPHA
+
+# House figure style (ave-figure-discipline): print profile, white bg, Okabe-Ito
+# palette. Applied once before any figure is created.
+style.apply()
+print(f"[style] ave.viz.style applied — profile=print (white bg), palette=Okabe-Ito")
 
 
 # ===========================================================================
@@ -61,52 +68,51 @@ def view1_dc_operating_point() -> dict:
     cSh = M.c_shear(A) / M.C_0  # c_shear/c0
 
     fig, axes = plt.subplots(2, 2, figsize=(11, 8))
-    fig.suptitle("CVR View 1 — DC Operating Point: the vacuum varactor C-V characteristic", fontsize=12)
 
     ax = axes[0, 0]
-    ax.plot(A, Ceff, "b-", lw=2, label=r"$C_{eff}/C_0 = 1/S(A_0)$")
-    ax.axvline(M.A_CAP, color="grey", ls=":", lw=1)
-    ax.text(M.A_CAP, 2, " A_CAP\n(apparatus clip)", fontsize=7, color="grey", va="bottom")
+    ax.plot(A, Ceff, "-", color=style.COLORS["ave"], lw=2, label=r"$C_{eff}/C_0 = 1/S(A_0)$")
+    ax.axvline(M.A_CAP, color=style.COLORS["muted"], ls=":", lw=1)
+    ax.text(M.A_CAP, 2, " A_CAP\n(apparatus clip)", fontsize=7, color=style.COLORS["muted"], va="bottom")
     ax.set_yscale("log")
-    ax.set_xlabel(r"operating point $A_0 = |V|/V_{yield}$")
-    ax.set_ylabel(r"$C_{eff}/C_0$")
-    ax.set_title("Vacuum varactor (diverges as A→1)", fontsize=10)
-    ax.legend(fontsize=8)
+    ax.set_xlabel(style.axis_label("Operating point", "A_0 = |V|/V_{yield}", ""))
+    ax.set_ylabel(style.axis_label("Effective capacitance", "C_{eff}/C_0", ""))
+    style.legend(ax, fontsize=8, where="below")
     ax.grid(alpha=0.3)
 
     ax = axes[0, 1]
-    ax.plot(A, Zc, "r-", lw=2, label=r"$Z_{core}/Z_0 = \sqrt{S(A_0)}$")
-    ax.axhline(0, color="k", lw=0.5)
-    ax.set_xlabel(r"operating point $A_0$")
-    ax.set_ylabel(r"$Z_{core}/Z_0$")
-    ax.set_title("Magnetic-branch impedance → 0 (Γ=−1 wall)", fontsize=10)
-    ax.text(0.05, 0.5, "magnetic μ_eff→0 (PRIMARY, clm-lv3uw1)\n≡ capacitive C_eff→∞ trajectory\n(sector-attribution FLAG-2)",
+    ax.plot(A, Zc, "-", color=style.COLORS["comparison"], lw=2, label=r"$Z_{core}/Z_0 = \sqrt{S(A_0)}$")
+    ax.axhline(0, color=style.COLORS["data"], lw=0.5)
+    ax.set_xlabel(style.axis_label("Operating point", "A_0", ""))
+    ax.set_ylabel(style.axis_label("Core impedance", "Z_{core}/Z_0", ""))
+    # NEUTRAL framing (PR#260 B3-DEGENERATE): the mu-vs-eps fork is a sign/spin
+    # selector, degenerate on the equilibrium observables — NOT a "magnetic
+    # PRIMARY" adjudication (that was walked back; sector-attribution resolved).
+    ax.text(0.05, 0.5, r"$\mu$-vs-$\varepsilon$ fork = sign/spin selector," + "\n"
+            + r"degenerate on $Z(A)=Z_0\sqrt{S}$" + "\n(both routes, same trajectory)",
             fontsize=6.5, transform=ax.transAxes, va="center",
-            bbox=dict(boxstyle="round", fc="wheat", alpha=0.6))
-    ax.legend(fontsize=8)
+            bbox=dict(boxstyle="round", fc="white",
+                      ec=style.COLORS["muted"], alpha=0.85))
+    style.legend(ax, fontsize=8, where="below")
     ax.grid(alpha=0.3)
 
     ax = axes[1, 0]
-    ax.plot(A, cEM, "m-", lw=2, label=r"$c_{EM}/c_0 = 1/S$  (Maxwell, →∞)")
-    ax.plot(A, cSh, "g-", lw=2, label=r"$c_{shear}/c_0 = \sqrt{S}$  (mechanical, →0)")
+    ax.plot(A, cEM, "-", color=style.COLORS["ave"], lw=2, label=r"$c_{EM}/c_0 = 1/S$  (Maxwell, →∞)")
+    ax.plot(A, cSh, "--", color=style.COLORS["accent"], lw=2, label=r"$c_{shear}/c_0 = \sqrt{S}$  (mechanical, →0)")
     ax.set_yscale("log")
-    ax.set_xlabel(r"operating point $A_0$")
-    ax.set_ylabel(r"$c_{eff}/c_0$")
-    ax.set_title("Two substrate speeds (INVARIANT-S2; do not conflate)", fontsize=10)
-    ax.legend(fontsize=8)
+    ax.set_xlabel(style.axis_label("Operating point", "A_0", ""))
+    ax.set_ylabel(style.axis_label("Substrate speed", "c_{eff}/c_0", ""))
+    style.legend(ax, fontsize=8, where="below")
     ax.grid(alpha=0.3)
 
     # refractive index: single-sourced exponent (defect closed — engine n_EM = S^{1/2})
     ax = axes[1, 1]
-    ax.plot(A, M.n_physical(A), "k-", lw=2, label=r"$n_{\mathrm{EM}}=S^{1/2}$ (single-sourced)")
-    ax.set_xlabel(r"operating point $A_0$")
-    ax.set_ylabel(r"refractive index $n$")
-    ax.set_title(r"Refractive index $n_{EM}=S^{1/2}$ (single-sourced, master_equation_fdtd.py:170)", fontsize=9)
-    ax.legend(fontsize=8)
+    ax.plot(A, M.n_physical(A), "-", color=style.COLORS["data"], lw=2, label=r"$n_{\mathrm{EM}}=S^{1/2}$ (single-sourced)")
+    ax.set_xlabel(style.axis_label("Operating point", "A_0", ""))
+    ax.set_ylabel(style.axis_label("Refractive index", "n", ""))
+    style.legend(ax, fontsize=8, where="below")
     ax.grid(alpha=0.3)
 
-    fig.tight_layout(rect=[0, 0, 1, 0.96])
-    fig.savefig(OUT / "fig1_dc_operating_point.png", dpi=130)
+    style.save(fig, OUT / "fig1_dc_operating_point.png", formats=("png",))
     plt.close(fig)
 
     return {
@@ -132,45 +138,43 @@ def view2_transfer_function() -> dict:
     BW = w0 / M.Q_TANK  # = alpha*w0
 
     fig, axes = plt.subplots(1, 3, figsize=(15, 4.5))
-    fig.suptitle(r"CVR View 2 — AC Transfer Function $H(s)$: the electron tank, $Q=1/\alpha$", fontsize=12)
 
     ax = axes[0]
-    ax.semilogx(w / w0, mag_db, "b-", lw=1.5)
-    ax.axhline(20 * np.log10(M.Q_TANK), color="r", ls="--", lw=1,
+    ax.semilogx(w / w0, mag_db, "-", color=style.COLORS["ave"], lw=1.5)
+    ax.axhline(20 * np.log10(M.Q_TANK), color=style.COLORS["comparison"], ls="--", lw=1,
                label=fr"peak $=20\log_{{10}}Q={20*np.log10(M.Q_TANK):.1f}$ dB")
-    ax.axvline(1.0, color="grey", ls=":", lw=1)
-    ax.set_xlabel(r"$\omega/\omega_C$")
-    ax.set_ylabel("|H| (dB)")
-    ax.set_title(fr"Bode magnitude — $Q=\alpha^{{-1}}={M.Q_TANK:.2f}$", fontsize=10)
-    ax.legend(fontsize=8)
+    ax.axvline(1.0, color=style.COLORS["muted"], ls=":", lw=1)
+    ax.set_xlabel(style.axis_label("Normalized frequency", r"\omega/\omega_C", ""))
+    ax.set_ylabel(style.axis_label("Magnitude", "|H|", "dB"))
+    style.legend(ax, fontsize=8, where="below")
     ax.grid(alpha=0.3, which="both")
 
     ax = axes[1]
-    ax.semilogx(w / w0, phase, "g-", lw=1.5)
-    ax.axvline(1.0, color="grey", ls=":", lw=1)
-    ax.set_xlabel(r"$\omega/\omega_C$")
-    ax.set_ylabel("arg H (deg)")
-    ax.set_title(fr"Bode phase (BW $=\alpha\omega_C={BW:.2e}$ rad/s)", fontsize=10)
+    ax.semilogx(w / w0, phase, "-", color=style.COLORS["accent"], lw=1.5)
+    ax.axvline(1.0, color=style.COLORS["muted"], ls=":", lw=1)
+    ax.set_xlabel(style.axis_label("Normalized frequency", r"\omega/\omega_C", ""))
+    ax.set_ylabel(style.axis_label("Phase", r"\arg H", "deg"))
     ax.grid(alpha=0.3, which="both")
 
     # pole-zero (normalized by w0)
     ax = axes[2]
-    ax.plot([p1.real / w0, p2.real / w0], [p1.imag / w0, p2.imag / w0], "rx", ms=12, mew=2,
+    ax.plot([p1.real / w0, p2.real / w0], [p1.imag / w0, p2.imag / w0], "x",
+            color=style.COLORS["comparison"], ms=12, mew=2,
             label=r"poles $s=-\alpha\omega_0/2 \pm j\omega_d$")
-    ax.axvline(0, color="k", lw=0.5)
-    ax.axhline(0, color="k", lw=0.5)
-    ax.set_xlabel(r"Re$(s)/\omega_0$")
-    ax.set_ylabel(r"Im$(s)/\omega_0$")
-    ax.set_title(fr"Pole pair — Re$=-\alpha/2={p1.real/w0:.5f}$", fontsize=10)
-    ax.text(0.04, 0.5, "distance from jω axis\n= α/2 = the per-cycle leak\n(theorem-3-1-q-factor.md:81)",
+    ax.axvline(0, color=style.COLORS["data"], lw=0.5)
+    ax.axhline(0, color=style.COLORS["data"], lw=0.5)
+    ax.set_xlabel(style.axis_label(r"Re$(s)$", r"\mathrm{Re}(s)/\omega_0", ""))
+    ax.set_ylabel(style.axis_label(r"Im$(s)$", r"\mathrm{Im}(s)/\omega_0", ""))
+    # anchor repointed :81 -> :85 (per-cycle-leak content drifted; :85 is the
+    # "fraction 1/Q = alpha leaks per cycle" line, :81 is the Z_0 definition)
+    ax.text(0.04, 0.5, "distance from jω axis\n= α/2 = the per-cycle leak\n(theorem-3-1-q-factor.md:85)",
             fontsize=6.5, transform=ax.transAxes, va="center",
-            bbox=dict(boxstyle="round", fc="lightblue", alpha=0.6))
-    ax.legend(fontsize=8, loc="lower left")
+            bbox=dict(boxstyle="round", fc="white", ec=style.COLORS["muted"], alpha=0.85))
+    style.legend(ax, fontsize=8, where="below")
     ax.grid(alpha=0.3)
     ax.set_xlim(-0.02, 0.005)
 
-    fig.tight_layout(rect=[0, 0, 1, 0.95])
-    fig.savefig(OUT / "fig2_transfer_function_bode.png", dpi=130)
+    style.save(fig, OUT / "fig2_transfer_function_bode.png", formats=("png",))
     plt.close(fig)
 
     return {
@@ -189,17 +193,17 @@ def view2_transfer_function() -> dict:
 def _draw_smith(ax):
     """Minimal Smith chart: unit circle + a few constant-R and constant-X arcs."""
     th = np.linspace(0, 2 * np.pi, 400)
-    ax.plot(np.cos(th), np.sin(th), "k-", lw=1)
+    ax.plot(np.cos(th), np.sin(th), "-", color=style.COLORS["data"], lw=1)
     for r in (0.5, 1.0, 2.0):  # constant-resistance circles
         c, rad = r / (1 + r), 1 / (1 + r)
-        ax.plot(c + rad * np.cos(th), rad * np.sin(th), color="grey", lw=0.5, alpha=0.6)
+        ax.plot(c + rad * np.cos(th), rad * np.sin(th), color=style.COLORS["muted"], lw=0.5, alpha=0.6)
     for x in (0.5, 1.0, 2.0, -0.5, -1.0, -2.0):  # constant-reactance arcs
         c, rad = 1.0, 1 / abs(x)
         t = np.linspace(0, 2 * np.pi, 400)
         xc, yc = 1 + rad * np.cos(t), (1 / x) + rad * np.sin(t)
         m = xc**2 + yc**2 <= 1.001
-        ax.plot(xc[m], yc[m], color="grey", lw=0.5, alpha=0.6)
-    ax.axhline(0, color="grey", lw=0.5, alpha=0.6)
+        ax.plot(xc[m], yc[m], color=style.COLORS["muted"], lw=0.5, alpha=0.6)
+    ax.axhline(0, color=style.COLORS["muted"], lw=0.5, alpha=0.6)
 
 
 def view3_reflection_smith() -> dict:
@@ -211,23 +215,22 @@ def view3_reflection_smith() -> dict:
     elec_pt = -g_elec  # phase ~180deg (short)
 
     fig, axes = plt.subplots(1, 2, figsize=(12, 5.6))
-    fig.suptitle(r"CVR View 3 — Reflection on the Smith Chart: $|\Gamma|^2 = 1-\alpha$ (AVE-distinct)", fontsize=12)
 
     ax = axes[0]
     _draw_smith(ax)
-    ax.plot(G.real, G.imag, "b-", lw=2.5, label=r"$\Gamma(A_0)$ locus, matched→short")
-    ax.plot([0], [0], "go", ms=8, label=r"$A_0{=}0$: $\Gamma{=}0$ (free photon, matched)")
-    ax.plot([elec_pt], [0], "r*", ms=18,
+    ax.plot(G.real, G.imag, "-", color=style.COLORS["ave"], lw=2.5, label=r"$\Gamma(A_0)$ locus, matched→short")
+    ax.plot([0], [0], "o", color=style.COLORS["accent"], ms=8, label=r"$A_0{=}0$: $\Gamma{=}0$ (free photon, matched)")
+    ax.plot([elec_pt], [0], "*", color=style.COLORS["comparison"], ms=18,
             label=fr"electron wall: $|\Gamma|^2{{=}}1{{-}}\alpha={1-ALPHA:.4f}$")
     ax.annotate("the gap to |Γ|=1\nIS α (the leak)", xy=(elec_pt, 0), xytext=(-0.55, 0.45),
-                fontsize=7, arrowprops=dict(arrowstyle="->", color="red"))
+                fontsize=7, color=style.COLORS["comparison"],
+                arrowprops=dict(arrowstyle="->", color=style.COLORS["comparison"]))
     ax.set_aspect("equal")
     ax.set_xlim(-1.15, 1.15)
     ax.set_ylim(-1.15, 1.15)
-    ax.set_xlabel(r"Re$(\Gamma)$")
-    ax.set_ylabel(r"Im$(\Gamma)$")
-    ax.set_title("Electron sits just INSIDE the unit circle", fontsize=10)
-    ax.legend(fontsize=7, loc="upper right")
+    ax.set_xlabel(style.axis_label(r"Re$(\Gamma)$", r"\mathrm{Re}(\Gamma)", ""))
+    ax.set_ylabel(style.axis_label(r"Im$(\Gamma)$", r"\mathrm{Im}(\Gamma)", ""))
+    style.legend(ax, fontsize=7, where="below")
 
     # chiral 2x2 S asymmetry (the winding handedness, parity-odd)
     ax = axes[1]
@@ -238,21 +241,19 @@ def view3_reflection_smith() -> dict:
     S_LR = Hc[0, 1]
     S_RL = Hc[1, 0]
     nonrecip = np.abs(S_LR - np.conjugate(S_RL))  # parity-odd signature; 0 iff reciprocal
-    ax.plot(w / w0, np.abs(S_LR), "b-", lw=1.5, label=r"$|S_{LR}|$")
-    ax.plot(w / w0, np.abs(S_RL), "r--", lw=1.5, label=r"$|S_{RL}|$ (= $|S_{LR}|$)")
-    ax.plot(w / w0, nonrecip, "m-", lw=2, label=r"$|S_{LR}-S_{RL}^*|$ (parity-odd)")
-    ax.set_xlabel(r"$\omega/\omega_C$")
-    ax.set_ylabel("off-diagonal scatter")
-    ax.set_title("Chiral 2×2 S: non-reciprocal off-diagonal", fontsize=10)
+    ax.plot(w / w0, np.abs(S_LR), "-", color=style.COLORS["ave"], lw=1.5, label=r"$|S_{LR}|$")
+    ax.plot(w / w0, np.abs(S_RL), "--", color=style.COLORS["comparison"], lw=1.5, label=r"$|S_{RL}|$ (= $|S_{LR}|$)")
+    ax.plot(w / w0, nonrecip, "-", color=style.COLORS["accent"], lw=2, label=r"$|S_{LR}-S_{RL}^*|$ (parity-odd)")
+    ax.set_xlabel(style.axis_label("Normalized frequency", r"\omega/\omega_C", ""))
+    ax.set_ylabel(style.axis_label("Off-diagonal scatter", "|S|", ""))
     ax.text(0.03, 0.74, "STATED / AVE-distinct candidate:\nS_LR ≠ S_RL* = (2,3) winding handedness.\n"
             "Magnitude χ needs chiral-crystal engine\n(cubic FDTD averages chirality out, FLAG-4)",
             fontsize=6.3, transform=ax.transAxes,
-            bbox=dict(boxstyle="round", fc="lavender", alpha=0.7))
-    ax.legend(fontsize=8, loc="upper right")
+            bbox=dict(boxstyle="round", fc="white", ec=style.COLORS["muted"], alpha=0.85))
+    style.legend(ax, fontsize=8, where="below")
     ax.grid(alpha=0.3)
 
-    fig.tight_layout(rect=[0, 0, 1, 0.95])
-    fig.savefig(OUT / "fig3_reflection_smith.png", dpi=130)
+    style.save(fig, OUT / "fig3_reflection_smith.png", formats=("png",))
     plt.close(fig)
 
     return {
@@ -271,41 +272,37 @@ def view4_phasor_reactance() -> dict:
     t = np.linspace(0, 4 * np.pi / w0, 1000)
     # incident/reflected at the near-matched cold point and near the wall
     fig, axes = plt.subplots(1, 2, figsize=(12, 5.4))
-    fig.suptitle(r"CVR View 4 — Phasor & Reactance: $E\sim(V_{inc}+V_{ref})$, $B\sim(V_{inc}-V_{ref})/Z$", fontsize=12)
 
     ax = axes[0]
-    for A0v, col, lab in [(0.0, "g", "A₀=0 (matched, |Γ|≈0)"),
-                          (0.95, "r", "A₀=0.95 (near wall, |Γ|→1)")]:
+    for A0v, col, lab in [(0.0, style.COLORS["accent"], "A₀=0 (matched, |Γ|≈0)"),
+                          (0.95, style.COLORS["comparison"], "A₀=0.95 (near wall, |Γ|→1)")]:
         G = float(M.gamma_of_A(np.array(A0v)))
         Vinc = np.cos(w0 * t)
         Vref = G * np.cos(w0 * t + np.pi)  # phase-inverted on reflection (Γ<0)
         E = Vinc + Vref
         B = (Vinc - Vref)  # /Z, normalized
-        ax.plot(E, B, col + "-", lw=1.5, label=lab)
-    ax.set_xlabel(r"$E \sim (V_{inc}+V_{ref})$")
-    ax.set_ylabel(r"$B \sim (V_{inc}-V_{ref})$")
-    ax.set_title("I/Q quadrature (photon-ee-mapping.md §4)", fontsize=10)
+        ax.plot(E, B, "-", color=col, lw=1.5, label=lab)
+    ax.set_xlabel(style.axis_label("E-field", r"E \sim (V_{inc}+V_{ref})", ""))
+    ax.set_ylabel(style.axis_label("B-field", r"B \sim (V_{inc}-V_{ref})", ""))
     ax.set_aspect("equal")
-    ax.legend(fontsize=8)
+    style.legend(ax, fontsize=8, where="below")
     ax.grid(alpha=0.3)
 
     # C<->L Lissajous breather: capacitive vs inductive energy trade
     ax = axes[1]
     Ec = np.cos(w0 * t) ** 2  # capacitive energy ~ V^2
     El = np.sin(w0 * t) ** 2  # inductive energy ~ I^2 (90deg out of phase)
-    ax.plot(Ec, El, "b-", lw=1.5)
-    ax.plot(Ec[::80], El[::80], "b.", ms=4)
-    ax.set_xlabel(r"capacitive energy $\propto V^2$ (E-sector)")
-    ax.set_ylabel(r"inductive energy $\propto I^2$ (B-sector)")
-    ax.set_title("C↔L breather: lossless reactive cycling", fontsize=10)
+    ax.plot(Ec, El, "-", color=style.COLORS["ave"], lw=1.5)
+    ax.plot(Ec[::80], El[::80], ".", color=style.COLORS["ave"], ms=4)
+    ax.set_xlabel(style.axis_label("Capacitive energy (E-sector)", r"E_C \propto V^2", ""))
+    ax.set_ylabel(style.axis_label("Inductive energy (B-sector)", r"E_L \propto I^2", ""))
     ax.text(0.5, 0.5, "Virial: ⟨E_C⟩=⟨E_L⟩=½m_ec²\n(resonant-lc-solitons.md:23)",
             fontsize=7, ha="center", transform=ax.transAxes,
-            bbox=dict(boxstyle="round", fc="lightyellow", alpha=0.7))
+            bbox=dict(boxstyle="round", fc="white", ec=style.COLORS["muted"], alpha=0.85))
     ax.set_aspect("equal")
     ax.grid(alpha=0.3)
 
-    fig.tight_layout(rect=[0, 0, 1, 0.95])
-    fig.savefig(OUT / "fig4_phasor_reactance.png", dpi=130)
+    style.save(fig, OUT / "fig4_phasor_reactance.png", formats=("png",))
     plt.close(fig)
 
     return {"phasor_quadrature": "E~(Vinc+Vref), B~(Vinc-Vref)/Z", "breather": "C<->L virial-balanced"}
@@ -318,7 +315,6 @@ def view5_stability_eigenmode() -> dict:
     A0 = 0.0
     w0 = M.omega_local(A0)
     fig, axes = plt.subplots(1, 2, figsize=(12, 5.4))
-    fig.suptitle("CVR View 5 — Stability / Eigenmode: root-locus + Nyquist (genesis in EE form)", fontsize=12)
 
     # root-locus as Q sweeps from low (lossy) to 1/alpha (electron): poles migrate
     # toward the jω axis (the high-Q confined eigenmode)
@@ -329,15 +325,14 @@ def view5_stability_eigenmode() -> dict:
         p, _ = M.poles(A0=A0, Q=Q)
         res.append(p.real / w0)
         ims.append(p.imag / w0)
-    sc = ax.scatter(res, ims, c=Qs, cmap="viridis", s=18)
-    ax.axvline(0, color="k", lw=0.5)
-    ax.set_xlabel(r"Re$(s)/\omega_0$")
-    ax.set_ylabel(r"Im$(s)/\omega_0$")
-    ax.set_title("Root-locus: Q↑ → pole → jω axis (confinement)", fontsize=10)
+    sc = ax.scatter(res, ims, c=Qs, cmap=style.CMAP_SEQ, s=18)
+    ax.axvline(0, color=style.COLORS["data"], lw=0.5)
+    ax.set_xlabel(style.axis_label(r"Re$(s)$", r"\mathrm{Re}(s)/\omega_0", ""))
+    ax.set_ylabel(style.axis_label(r"Im$(s)$", r"\mathrm{Im}(s)/\omega_0", ""))
     ax.text(0.03, 0.10, "high-Q boundary = the electron eigenmode\n(matched-resonance genesis,\nNOT spontaneous nucleation)",
             fontsize=6.5, transform=ax.transAxes,
-            bbox=dict(boxstyle="round", fc="honeydew", alpha=0.7))
-    plt.colorbar(sc, ax=ax, label="Q (→ 1/α)")
+            bbox=dict(boxstyle="round", fc="white", ec=style.COLORS["muted"], alpha=0.85))
+    plt.colorbar(sc, ax=ax, label=style.axis_label("Quality factor", r"Q \to 1/\alpha", ""))
     ax.grid(alpha=0.3)
 
     # Nyquist of the open-loop resonator
@@ -345,17 +340,15 @@ def view5_stability_eigenmode() -> dict:
     w = np.concatenate([-np.logspace(np.log10(3 * w0), np.log10(0.3 * w0), 800),
                         np.logspace(np.log10(0.3 * w0), np.log10(3 * w0), 800)])
     H = M.ELECTRON.H_scalar(1j * w, A0=A0)  # electron instance binds its own Q
-    ax.plot(H.real, H.imag, "b-", lw=1.2)
-    ax.plot([-1], [0], "rx", ms=10, label="−1 point")
-    ax.set_xlabel("Re H(jω)")
-    ax.set_ylabel("Im H(jω)")
-    ax.set_title("Nyquist locus (the eigenmode loop)", fontsize=10)
-    ax.legend(fontsize=8)
+    ax.plot(H.real, H.imag, "-", color=style.COLORS["ave"], lw=1.2)
+    ax.plot([-1], [0], "x", color=style.COLORS["comparison"], ms=10, label="−1 point")
+    ax.set_xlabel(style.axis_label(r"Re$H(j\omega)$", r"\mathrm{Re}\,H(j\omega)", ""))
+    ax.set_ylabel(style.axis_label(r"Im$H(j\omega)$", r"\mathrm{Im}\,H(j\omega)", ""))
+    style.legend(ax, fontsize=8, where="below")
     ax.grid(alpha=0.3)
     ax.set_aspect("equal")
 
-    fig.tight_layout(rect=[0, 0, 1, 0.95])
-    fig.savefig(OUT / "fig5_stability_eigenmode.png", dpi=130)
+    style.save(fig, OUT / "fig5_stability_eigenmode.png", formats=("png",))
     plt.close(fig)
 
     return {"Q_max": float(M.Q_TANK), "locus": "poles approach jω axis as Q→1/α"}
@@ -376,19 +369,22 @@ def view6_parameter_basin() -> dict:
     confined = (GG > DD).astype(float)
 
     fig, ax = plt.subplots(figsize=(7.5, 6))
-    fig.suptitle("CVR View 6 — Parameter basin: region of attraction (bias × drive)", fontsize=12)
-    im = ax.pcolormesh(AA, DD, confined, cmap="RdYlGn", shading="auto", vmin=0, vmax=1)
-    ax.plot(A0, G, "k-", lw=2, label=r"$|\Gamma(A_0)|$ wall edge")
-    ax.set_xlabel(r"operating-point bias $A_0$")
-    ax.set_ylabel("normalized drive")
-    ax.set_title("green = confined (|Γ|>drive); red = un-trapped", fontsize=10)
+    # Okabe-Ito-derived 2-colour categorical (retires colourblind-hostile RdYlGn):
+    # muted gray = un-trapped, AVE blue = confined. Binary field, so a 2-entry
+    # ListedColormap reads cleanly and prints to distinct greys.
+    basin_cmap = ListedColormap([style.COLORS["muted"], style.COLORS["ave"]])
+    im = ax.pcolormesh(AA, DD, confined, cmap=basin_cmap, shading="auto", vmin=0, vmax=1)
+    ax.plot(A0, G, "-", color=style.COLORS["data"], lw=2, label=r"$|\Gamma(A_0)|$ wall edge")
+    ax.set_xlabel(style.axis_label("Operating-point bias", "A_0", ""))
+    ax.set_ylabel(style.axis_label("Normalized drive", "d", ""))
     ax.text(0.03, 0.90, "STRUCTURAL region-of-attraction proxy\n(not a dynamical basin; substrate-native-check CP8)",
             fontsize=6.5, transform=ax.transAxes,
-            bbox=dict(boxstyle="round", fc="white", alpha=0.8))
-    ax.legend(fontsize=8, loc="lower right")
-    fig.colorbar(im, ax=ax, label="confined")
-    fig.tight_layout(rect=[0, 0, 1, 0.95])
-    fig.savefig(OUT / "fig6_parameter_basin.png", dpi=130)
+            bbox=dict(boxstyle="round", fc="white", ec=style.COLORS["muted"], alpha=0.85))
+    style.legend(ax, fontsize=8, where="below")
+    cbar = fig.colorbar(im, ax=ax, ticks=[0.25, 0.75])
+    cbar.set_ticklabels(["un-trapped", "confined"])
+    cbar.set_label(style.axis_label("Region of attraction", "", ""))
+    style.save(fig, OUT / "fig6_parameter_basin.png", formats=("png",))
     plt.close(fig)
     return {"basin": "structural region-of-attraction proxy (|Gamma|>drive)"}
 
