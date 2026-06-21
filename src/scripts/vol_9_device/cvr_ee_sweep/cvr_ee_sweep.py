@@ -96,16 +96,12 @@ def view1_dc_operating_point() -> dict:
     ax.legend(fontsize=8)
     ax.grid(alpha=0.3)
 
-    # exponent-defect panel: n_engine = S^0.25 vs n_physical = S^0.5
+    # refractive index: single-sourced exponent (defect closed — engine n_EM = S^{1/2})
     ax = axes[1, 1]
-    ax.plot(A, M.n_physical(A), "k-", lw=2, label=r"$n_{phys}=S^{0.5}$ (corrected)")
-    ax.plot(A, M.n_engine(A), "b--", lw=2, label=r"$n_{eng}=S^{0.25}$ (as-coded)")
-    ax.fill_between(A, M.n_physical(A), M.n_engine(A), color="orange", alpha=0.25)
+    ax.plot(A, M.n_physical(A), "k-", lw=2, label=r"$n_{\mathrm{EM}}=S^{1/2}$ (single-sourced)")
     ax.set_xlabel(r"operating point $A_0$")
     ax.set_ylabel(r"refractive index $n$")
-    ax.set_title("EXPONENT DEFECT (master_equation_fdtd.py:165)", fontsize=10)
-    ax.text(0.04, 0.05, "engine S^0.25 UNDERSTATES wall depth\n(physics-review item; Grant/auditor)",
-            fontsize=6.5, transform=ax.transAxes, color="darkorange")
+    ax.set_title(r"Refractive index $n_{EM}=S^{1/2}$ (single-sourced, master_equation_fdtd.py:170)", fontsize=9)
     ax.legend(fontsize=8)
     ax.grid(alpha=0.3)
 
@@ -117,7 +113,7 @@ def view1_dc_operating_point() -> dict:
         "A_grid_max": float(M.A_CAP),
         "Ceff_over_C0_at_A0.9": float(M.c_eff_capacitance(np.array(0.9))),
         "Zcore_over_Z0_at_A0.9": float(M.z_core(np.array(0.9)) / M.Z_0),
-        "n_engine_minus_n_physical_max_gap": float(np.max(M.n_engine(A) - M.n_physical(A))),
+        "n_EM_at_A0.9": float(M.n_physical(np.array(0.9))),
     }
 
 

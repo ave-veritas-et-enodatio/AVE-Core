@@ -8,7 +8,7 @@
     \item Catalog the $(p, q)$ torus-knot winding assignments for stable soliton sectors; identify the electron as the $(2, 3)$ phase-space trefoil on the Clifford torus (Axiom~2; \kbleaf{torus-knot-uniqueness.md}).
     \item Document the SU(2) / SO(3) double-cover origin of intrinsic spin-$\tfrac{1}{2}$ via the Finkelstein--Misner kink on the extended $0_1$ unknot defect, anchored in the Cosserat microrotational DOF (\kbleaf{finkelstein-misner-spin-half-derivation.md}).
     \item State the topological transduction constant $\xi_{topo} = e/\ell_{node}$ that bridges substrate-topology observables (discrete dislocation count) to EE observables (current, voltage, flux).
-    \item Translate substrate $(p, q)$ torus-knot solitons into their canonical EE projection: integer-winding toroidal transformer coupling patterns, per \texttt{ave-ee-first-mapping} v1.0 / \texttt{clm-eemap1}.
+    \item Translate substrate $(p, q)$ torus-knot solitons into their canonical EE projection: integer-winding toroidal transformer coupling patterns (see \kbleaf{translation-circuit.md}).
     \item Pointer to Vol~9 Ch.~\ref{ch:vol9_cosmological_characteristics} for the cosmological consequence of substrate chirality: $\hat{\Omega}_{freeze}$ selects right-handed $I4_1 32$ at lattice genesis, predicting parity-violation observables (weak force, $K$ / $B$ CP violation, biological homochirality).
 \end{itemize}
 \end{objectivebox}
@@ -18,11 +18,11 @@ The substrate is topological at the structural level: it is a 3D chiral Laves K4
 \section{K4 Chiral Space Group}
 \label{sec:vol9_k4_chiral_space_group}
 
-The substrate carrier space is a \textbf{3D chiral Laves K4 Cosserat crystal}, with the $I4_1 32$ chiral space group (right-handed; CLAUDE.md INVARIANT-S2 Axiom~1 verbatim). The $I4_1 32$ group (No.~214 in the International Tables, chiral cubic class) admits \textbf{no mirror or improper symmetries}: the substrate is fundamentally chiral at the lattice level. There is no parity-symmetric ground-state vacuum in AVE; the parity-violation observed in weak interactions, in $K$ and $B$-meson CP-violation, and in cosmic chirality of $\hat{\Omega}_{freeze}$ is the direct manifestation of substrate chirality rather than an emergent gauge-sector phenomenon.
+The substrate carrier space is a \textbf{3D chiral Laves K4 Cosserat crystal}, with the $I4_1 32$ chiral space group (right-handed; Axiom~1). The $I4_1 32$ group (No.~214 in the International Tables, chiral cubic class) admits \textbf{no mirror or improper symmetries}: the substrate is fundamentally chiral at the lattice level. There is no parity-symmetric ground-state vacuum in AVE; the parity-violation observed in weak interactions, in $K$ and $B$-meson CP-violation, and in cosmic chirality of $\hat{\Omega}_{freeze}$ is the direct manifestation of substrate chirality rather than an emergent gauge-sector phenomenon.
 
 The K4 graph (4-valent nearest-neighbour connectivity, $\ell_{node}$ pitch) provides the discrete topology; the Cosserat micropolar structure adds rotational degrees of freedom at each node beyond the standard elastic-continuum translational ones. Each node carries six intrinsic DOF: three translational (electric-field $\mathbf{E}$ origin, capacitive sector) and three microrotational (magnetic-field $\mathbf{B}$ origin, inductive sector). The Cosserat rotational DOF is the substrate-native origin of intrinsic spin: macroscopic angular momentum, the EM $\mathbf{B}$ field, and quantum spin-$\tfrac{1}{2}$ are three projections of the same per-node rotational coordinate (Axiom~1).
 
-The group-theoretic foundation for the mass-vs-photon channel split is the K4 4-port irrep decomposition $V_{\text{4-port}} = A_1 \oplus T_2$ (canonical at \kbleaf{ave-kb/vol1/operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md}, \texttt{clm-j550uh}, \texttt{clm-9kd2t3}): the K4-TLM scattering matrix $S = \tfrac{1}{2}\mathbf{1} - I$ has eigenvalues $\{+1, -1, -1, -1\}$, splitting into the $A_1$ scalar common-mode (longitudinal $u$, propagating at $\sqrt{2}\,c_0$ --- the mass / dilatation channel) and the $T_2$ traceless triplet (microrotational $\omega$, propagating at $c_0$ --- the photon, whose saturated bound mode is the electron's massive mode). $A_1 \perp T_2$ is the canonical orthogonality fence (\kbleaf{master-equation.md}:20).
+The group-theoretic foundation for the mass-vs-photon channel split is the K4 4-port irrep decomposition $V_{\text{4-port}} = A_1 \oplus T_2$ (canonical at \kbleaf{ave-kb/vol1/operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md}): the K4-TLM scattering matrix $S = \tfrac{1}{2}\mathbf{1} - I$ has eigenvalues $\{+1, -1, -1, -1\}$, splitting into the $A_1$ scalar common-mode (longitudinal $u$, propagating at $\sqrt{2}\,c_0$ --- the mass / dilatation channel) and the $T_2$ traceless triplet (microrotational $\omega$, propagating at $c_0$ --- the photon, whose saturated bound mode is the electron's massive mode). $A_1 \perp T_2$ is the canonical orthogonality fence (\kbleaf{master-equation.md}:20).
 
 \input{figures/k4_irrep_decomposition.tex}
 
@@ -42,13 +42,13 @@ Stable matter sectors are topological solitons on the substrate. The canonical t
 
 The smallest coprime pair with both windings $\geq 2$ is $(2, 3)$: the trefoil, $3_1$ in Rolfsen's tables, with crossing number $c = 3$, Hopf self-linking $Q_H = p q = 6$, and self-linking $\text{SL} = pq - p - q = 1$. \textbf{The electron is uniquely the $(2, 3)$ trefoil in phase-space Clifford-torus coordinates}, with the electron's real-space body remaining the $0_1$ unknot (the simplest closed flux-tube loop with no real-space crossings); the $(2, 3)$ trefoil lives in phase space, the soliton lives in real space (see canonical clarification at \kbleaf{vol1/ch8-alpha-golden-torus.md}).
 
-The phase-space coordinates here are the Clifford torus $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ --- substrate-native phase-space for the electron's bond-pair LC tank. Per \texttt{phase-space-coordinate-check} v1.0 discipline, this is NOT to be remapped into SM gauge-group coordinates: the $(2, 3)$ winding is a substrate topological invariant on the Clifford torus, not a gauge-group representation. The Clifford-torus coordinates and the K4-graph real-space coordinates are the load-bearing substrate-coordinate systems for the electron; both are preserved as substrate-native primary.
+The phase-space coordinates here are the Clifford torus $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ --- substrate-native phase-space for the electron's bond-pair LC tank. The $(2, 3)$ winding is a substrate topological invariant on the Clifford torus, not a gauge-group representation, and is not remapped into Standard-Model gauge-group coordinates. The Clifford-torus coordinates and the K4-graph real-space coordinates are the load-bearing substrate-coordinate systems for the electron; both are preserved as substrate-native primary.
 
 \input{figures/trefoil_vs_unknot.tex}
 
-Charge is the discrete geometric dislocation count on the substrate (Axiom~2, Topo-Kinematic Isomorphism): $[Q] \equiv [L]$ topologically; the bridge to SI charge units is the topological transduction constant $\xi_{topo} = e/\ell_{node} \approx \qty{4.149e-7}{\coulomb\per\metre}$. Higher-mass leptons (muon, tau) climb a Cosserat-torsion excitation ladder on the SAME $(2, 3)$ topology, NOT a $(p, q)$ ladder. Baryons climb a $(2, q)$ ladder on a Borromean three-loop substrate topology with per-loop winding $(2, 3), (2, 5), (2, 7), \ldots$ corresponding to proton, $\Delta(1232)$, $\Delta(1620)$, etc.
+Charge is the discrete geometric dislocation count on the substrate (Axiom~2, Topo-Kinematic Isomorphism): $[Q] \equiv [L]$ topologically; the bridge to SI charge units is the topological transduction constant $\xi_{topo} = e/\ell_{node} \approx \qty{4.149e-7}{\coulomb\per\metre}$. Higher-mass leptons (muon, tau) climb a Cosserat-torsion excitation ladder on the SAME $(2, 3)$ topology, NOT a $(p, q)$ ladder. Baryons climb a $(2, q)$ ladder on a Borromean three-loop substrate topology with per-loop winding $(2, 5), (2, 7), (2, 9), \ldots$ corresponding to proton, $\Delta(1232)$, $\Delta(1600)$, etc.
 
-\textbf{Charge quantization is a FORCED chord (FORM-vs-VALUE).} The integer-quantization of charge is one of the framework's cleanest \emph{forced} structures. Because charge is the integer geometric dislocation \emph{count} on a closed substrate defect (Axiom~2), and a continuous deformation cannot change a winding number, charge takes only integer multiples of $\xi_{topo}$ with no fine-tuning --- the integer is \emph{topologically forced}. In the FORM-deriving / VALUE-importing accounting (canonical at \kbleaf{common/form-deriving-value-importing.md}), the integer-quantization \textbf{FORM is a chord} (a forced dimensionless structure --- exact-quantized charge), while the dimensionful \textbf{VALUE} $e = \xi_{topo}\,\ell_{node}$ rides the calibration set ($e = \sqrt{\alpha}$ in natural units, so its magnitude inherits the $\alpha$-echo). The integer is forced; the scale is imported. Per the symmetric-standard discipline (\texttt{ave-discrimination-check}): the Standard Model also does not \emph{derive} charge quantization --- it imposes the $U(1)$ charge assignment (anomaly cancellation is a constraint, not a derivation), so the AVE forced-integer FORM is peer-or-ahead on this axis, mapped honestly.
+\textbf{Charge quantization is topologically forced; its scale is calibrated.} The integer quantization of charge is one of the framework's cleanest forced structures. Because charge is the integer geometric dislocation \emph{count} on a closed substrate defect (Axiom~2), and a continuous deformation cannot change a winding number, charge takes only integer multiples of $\xi_{topo}$ with no fine-tuning --- the integer is topologically forced. In the FORM-deriving / VALUE-importing accounting (canonical at \kbleaf{common/form-deriving-value-importing.md}), the integer quantization of charge is topologically forced (no fine-tuning): charge takes only integer multiples of $\xi_{topo}$ because a continuous deformation cannot change a winding number. The dimensionful scale $e = \xi_{topo}\,\ell_{node}$ is calibrated to the observed value ($e = \sqrt{\alpha}$ in natural units), so its magnitude is imported, not derived. The Standard Model does not derive charge quantization either; it imposes the $U(1)$ charge assignment (anomaly cancellation is a constraint, not a derivation). The substrate's integer charge is topologically forced by the winding count.
 
 \section{SU(2) / SO(3) Double Cover and Cosserat Spin-Half}
 \label{sec:vol9_su2_so3_double_cover}
@@ -61,7 +61,7 @@ The group-theoretic anchor: the K4 lattice's rotation group is the tetrahedral g
 
 The mechanism is bench-verifiable in continuum mechanics: any belt-trick demonstration is a direct macroscopic analogue. The substrate analogue is the same topology applied to the $0_1$ unknot extended defect on the K4 carrier. Open propagating modes (photons, transverse EM waves) do NOT inherit the $4\pi$ closure --- they are not closed extended defects, do not satisfy the FM-kink hypothesis, and live at the $S^2$ projection level of the Hopf fibration where the $U(1)$ fibre phase carrying $4\pi$ closure has been integrated out. The $4\pi$ structure is a property of closed extended substrate defects only, not of bulk propagating modes.
 
-Canonical derivation: \kbleaf{manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md} (claim \texttt{clm-salw2h}). Numerical anchor: the gyroscopic-isomorphism leaf demonstrates the classical Lenz's-law cross-product dynamics on the K4 substrate are numerically equivalent to the Pauli spinor evolution at $10^{-8}$ tolerance under identical RF field.
+Canonical derivation: \kbleaf{manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md}. Numerical anchor: the gyroscopic-isomorphism leaf demonstrates the classical Lenz's-law cross-product dynamics on the K4 substrate are numerically equivalent to the Pauli spinor evolution at $10^{-8}$ tolerance under identical RF field.
 
 \section{Topological Spec Table}
 \label{sec:vol9_topological_spec_table}
@@ -72,20 +72,20 @@ Canonical derivation: \kbleaf{manuscript/ave-kb/vol2/particle-physics/ch01-topol
 \toprule
 \textbf{Symbol} & \textbf{Typical} & \textbf{Units} & \textbf{Conditions} & \textbf{Substrate Mechanism / Canonical Source} \\
 \midrule
-$\xi_{topo}$ & $e / \ell_{node} \approx \num{4.149e-7}$ & \si{\coulomb\per\metre} & cold lattice $S(0) = 1$ & Topological transduction; Ax~2 (\kbleaf{translation-circuit.md} \texttt{clm-fy05jc}) \\
-Space group & $I4_1 32$ (\#214) & --- & chiral cubic class & K4 substrate carrier; Ax~1 (CLAUDE.md INVARIANT-S2) \\
+$\xi_{topo}$ & $e / \ell_{node} \approx \num{4.149e-7}$ & \si{\coulomb\per\metre} & cold lattice $S(0) = 1$ & Topological transduction; Ax~2 (\kbleaf{translation-circuit.md}) \\
+Space group & $I4_1 32$ (\#214) & --- & chiral cubic class & K4 substrate carrier; Ax~1 \\
 K4 valence & 4 & --- & nearest neighbour & K4 graph topology; Ax~1 \\
 Cosserat DOF & 6 / node & --- & 3 translational + 3 microrotational & Substrate-native spin origin; Ax~1 \\
-$(p, q)$ electron & $(2, 3)$ trefoil & --- & Clifford-torus phase-space & Smallest coprime non-trivial knot; \kbleaf{torus-knot-uniqueness.md} \texttt{clm-8c3yhs} \\
+$(p, q)$ electron & $(2, 3)$ trefoil & --- & Clifford-torus phase-space & Smallest coprime non-trivial knot; \kbleaf{torus-knot-uniqueness.md} \\
 Real-space body & $0_1$ unknot & --- & K4-substrate embedded & Simplest closed flux-tube loop; \kbleaf{electron-unknot.md} \\
 $(p, q)$ proton & $(2, 5)$ cinquefoil & --- & per-loop, Borromean 3-loop & Baryon ladder; \kbleaf{torus-knot-ladder-baryons.md} \\
 $(p, q)$ $\Delta(1232)$ & $(2, 7)$ heptafoil & --- & per-loop, Borromean 3-loop & Baryon ladder cont.; same source \\
-$(p, q)$ $\Delta(1620)$ & $(2, 9)$ & --- & per-loop, Borromean 3-loop & Baryon ladder cont.; same source \\
+$(p, q)$ $\Delta(1600)$ & $(2, 9)$ & --- & per-loop, Borromean 3-loop & Baryon ladder cont.; same source \\
 Photon real-space & open propagating mode & --- & SO(3) carrier & Open transverse EM wave on the substrate; does NOT carry $4\pi$ closure \\
 Neutrino real-space & $0_1$ unknot screw defect & --- & single-loop; $\{c_1, c_2, c_3\} = \{5, 7, 9\}$ resonance coupling & Distinct mechanism from electron lepton; couples to $(2,q_{odd})$ resonances \\
 Crossing $c(p,q)$ & $\min(p(q-1), q(p-1))$ & --- & --- & Standard knot theory; electron $c = 3$ \\
 Hopf self-link & $Q_H = p q$ & --- & --- & $(2, 3)$: $Q_H = 6$ \\
-Spin closure & $4\pi$ & rad & extended closed defects only & FM kink + $T \to 2T \subset SU(2)$ chain; \kbleaf{finkelstein-misner-spin-half-derivation.md} \texttt{clm-salw2h} \\
+Spin closure & $4\pi$ & rad & extended closed defects only & FM kink + $T \to 2T \subset SU(2)$ chain; \kbleaf{finkelstein-misner-spin-half-derivation.md} \\
 Photon spin closure & $2\pi$ & rad & open propagating modes & Hopf-projected to $S^2$; $U(1)$ fibre integrated out \\
 Chirality bias & right-handed & --- & set by $\hat{\Omega}_{freeze}$ at lattice genesis & Ax~1; Vol~9 Ch.~\ref{ch:vol9_cosmological_characteristics} \\
 \bottomrule
@@ -95,7 +95,7 @@ Chirality bias & right-handed & --- & set by $\hat{\Omega}_{freeze}$ at lattice 
 \end{table}
 
 \noindent
-Note on baryon entries: the $(2, q)$ assignments are per-loop windings on a Borromean three-loop substrate topology, NOT single-loop torus knots. The Borromean three-loop topology is the canonical baryon-sector identification (per \kbleaf{topological-fractionalization.md} loop-count taxonomy). The $(2, 5)$ cinquefoil winding is shared exclusively with the proton; muon is canonically $(2, 3)$ trefoil with one Cosserat torsion quantum, NOT a $(2, 5)$ cinquefoil (FI-13 resolution 2026-05-18).
+Note on baryon entries: the $(2, q)$ assignments are per-loop windings on a Borromean three-loop substrate topology, NOT single-loop torus knots. The Borromean three-loop topology is the canonical baryon-sector identification (per \kbleaf{topological-fractionalization.md} loop-count taxonomy). The $(2, 5)$ cinquefoil winding is shared exclusively with the proton; the muon is the $(2, 3)$ trefoil with one Cosserat torsion quantum, not a $(2, 5)$ cinquefoil.
 
 \section{Chirality Implications}
 \label{sec:vol9_chirality_implications}
@@ -117,7 +117,7 @@ The shared substrate-mechanism eliminates the need for separate parity-violation
 \section{EE Topological Translation}
 \label{sec:vol9_ee_topological_translation}
 
-Per the EE-as-substrate-native META framework (\texttt{ave-ee-first-mapping} v1.0; canonical leaf \kbleaf{translation-circuit.md} \texttt{clm-eemap1}), substrate $(p, q)$ torus-knot solitons project canonically onto integer-winding toroidal transformer coupling patterns. The EE language is not a translation source --- it is the closest-to-canonical substrate-native vocabulary, because the substrate IS a chiral LC network at minimal DOF and the EE corpus is the historical record of empirical interrogation of that substrate at its smallest accessible scale (electron dynamics in conductors, transformer flux coupling, distributed transmission lines, varactor dielectric saturation).
+Per the EE-as-substrate-native framework (\kbleaf{translation-circuit.md}), substrate $(p, q)$ torus-knot solitons project canonically onto integer-winding toroidal transformer coupling patterns. The EE language is not a translation source --- it is the closest-to-canonical substrate-native vocabulary, because the substrate IS a chiral LC network at minimal DOF and the EE corpus is the historical record of empirical interrogation of that substrate at its smallest accessible scale (electron dynamics in conductors, transformer flux coupling, distributed transmission lines, varactor dielectric saturation).
 
 The substrate-primitive to EE-component mapping for the topological sector (canonical leaf \kbleaf{translation-circuit.md} rows 121--123, 216, 437):
 
@@ -136,11 +136,11 @@ EE does NOT natively derive the specific $(p, q) = (2, 3)$ choice for the electr
 \label{sec:vol9_topological_cross_refs}
 
 \begin{itemize}
-    \item \kbleaf{ave-kb/vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md} (\texttt{clm-8c3yhs}) --- $(2, 3)$ uniqueness derivation; Clifford-torus phase-space framing; lepton vs baryon ladder taxonomy.
-    \item \kbleaf{ave-kb/vol2/particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md} (\texttt{clm-salw2h}) --- FM-kink mechanism for SU(2) double cover; $T \to 2T \subset SU(2)$ group-theoretic chain; gyroscopic-isomorphism numerical anchor at $10^{-8}$ tolerance.
-    \item \kbleaf{ave-kb/vol2/particle-physics/ch01-topological-matter/torus-knot-ladder.md}:10 (\texttt{clm-k6olj8}) --- $(2, q)$ baryon ladder with the \textbf{dimensionless soliton coupling-budget ratio} $r_{opt} = \kappa_{FS}/q$ (a \emph{pure number, NOT a length}; the $\ell_{node}$ units previously attached to it were spurious --- 2026-06-08 dimensional-provenance relabel).
-    \item \kbleaf{ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md} (\texttt{clm-rkisb8}) --- $K_4 \to A_4 \to 2T \subset SU(2)$ rigorous group-theoretic derivation.
-    \item \kbleaf{ave-kb/common/translation-tables/translation-circuit.md} (\texttt{clm-fy05jc}, \texttt{clm-eemap1}) --- $\xi_{topo}$ EE-mechanical identity and the EE-as-substrate-native META framework; canonical substrate-primitive $\to$ toroidal-transformer-winding mapping.
-    \item \kbleaf{ave-kb/common/omega-freeze-cosmic-grain-cascade.md} (\texttt{clm-dsb560}) --- $\hat{\Omega}_{freeze}$ as the cosmic-genesis chirality selector; pointer to Vol~9 Ch.~\ref{ch:vol9_cosmological_characteristics}.
-    \item CLAUDE.md INVARIANT-S2 Axiom 1 verbatim --- canonical statement: the substrate is the 3D chiral Laves K4 Cosserat crystal in $I4_1 32$.
+    \item \kbleaf{ave-kb/vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md} --- $(2, 3)$ uniqueness derivation; Clifford-torus phase-space framing; lepton vs baryon ladder taxonomy.
+    \item \kbleaf{ave-kb/vol2/particle-physics/ch01-topological-matter/finkelstein-misner-spin-half-derivation.md} --- FM-kink mechanism for SU(2) double cover; $T \to 2T \subset SU(2)$ group-theoretic chain; gyroscopic-isomorphism numerical anchor at $10^{-8}$ tolerance.
+    \item \kbleaf{ave-kb/vol2/particle-physics/ch01-topological-matter/torus-knot-ladder.md}:10 --- $(2, q)$ baryon ladder with the \textbf{dimensionless soliton coupling-budget ratio} $r_{opt} = \kappa_{FS}/q$ (a pure number, not a length).
+    \item \kbleaf{ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md} --- $K_4 \to A_4 \to 2T \subset SU(2)$ rigorous group-theoretic derivation.
+    \item \kbleaf{ave-kb/common/translation-tables/translation-circuit.md} --- $\xi_{topo}$ EE-mechanical identity and the EE-as-substrate-native framework; canonical substrate-primitive $\to$ toroidal-transformer-winding mapping.
+    \item \kbleaf{ave-kb/common/omega-freeze-cosmic-grain-cascade.md} --- $\hat{\Omega}_{freeze}$ as the cosmic-genesis chirality selector; pointer to Vol~9 Ch.~\ref{ch:vol9_cosmological_characteristics}.
+    \item Axiom~1 (canonical statement): the substrate is the 3D chiral Laves K4 Cosserat crystal in $I4_1 32$.
 \end{itemize}

@@ -1,5 +1,4 @@
 % 16_cross_volume_reference.tex
-% [2026-06-15 reconciliation, Rule 12]: the G and alpha cross-volume reference rows were relabeled per the 2026-06-14 rulings -- G "DERIVED" -> "MIXED" (form-derived + value-fitted xi; interlock-register.md ilk-gravmb), alpha "derivation/closure" -> "closed-form identification (Class-B, retained input)" in the mechanical PR (#242). The u_0* row + the Ch.4 "u_0* derivation" pointer are magic-angle content, APPLIED HERE in the magic-angle PR (#247) -- value back-fit, alpha+G fix it / J_cosmic tests it -- through the primary-auditor gate (audit-corrected 2026-06-15: this banner now matches the work in this PR). These are qualifications, not deletions; prior wording recoverable at origin/main.
 \chapter{Cross-Volume Reference Index}
 \label{ch:vol9_cross_volume_reference}
 
@@ -18,7 +17,7 @@
 
 Chapter~16 contains no new substrate-physics derivation. It is an INDEXICAL lookup chapter: every entry routes a query to a Vol~9 spec-table chapter (Chs.~2--15), to a canonical-derivation location in Vols~0--6, and to the canonical KB leaf where the substrate-physics claim is anchored. The substrate is natural; engineering practice catalogs its parameters; AVE substrate-physics derives the substrate-mechanism; this chapter is the navigation map between the three.
 
-All entries below were verified against the canonical leaves at the Vol~9 datasheet drafting time per the \texttt{verify-before-cite} v1.4 discipline (every \texttt{clm-} ID grep-verified at the canonical anchor; every chapter cross-reference label-resolved against the Vol~9 manuscript). The index reflects the canonical state at Vol~9 publication; for the live cross-reference graph, query the KB tools (\S\ref{sec:vol9_xref_kb}).
+All entries below route to a canonical KB leaf: every \texttt{clm-} ID resolves to a canonical anchor, and every chapter cross-reference resolves to a Vol~9 label. For the live cross-reference graph, query the KB tools (\S\ref{sec:vol9_xref_kb}).
 
 \section{Parameter $\to$ Canonical Source Lookup}
 \label{sec:vol9_xref_parameter_lookup}
@@ -63,11 +62,11 @@ $\xi_{topo}$ & Topological transduction $e/\ell_{node}$ (Ax 2) & 4, 11, 13 & Vol
 $L_{cell}$ & Per-bond inductance $\mu_0\,\ell_{node}$ & 5, 10 & Vol 1 Ch.~1 (Ax 1) & \kbleaf{common/translation-tables/translation-circuit.md} \S 4; \texttt{clm-eemap1} \\
 $C_{cell}$ & Per-bond capacitance $\varepsilon_0\,\ell_{node}$ & 5 & Vol 1 Ch.~1 (Ax 1) & \kbleaf{common/translation-tables/translation-circuit.md} \S 4; \texttt{clm-eemap1} \\
 $\omega_C$ & Bond LC natural frequency $c_0/\ell_{node}$ & 5 & Vol 1 Ch.~6 (Op14) & \kbleaf{common/operators.md} Op14 row \\
-$c_{EM}(A_0)$ & Maxwell phase velocity $c_0/S$ & 5, 7 & Vol 2 + Vol 3 ($\alpha$-invariance) & \kbleaf{vol2/.../pair-production-axiom-derivation.md}:111; \texttt{clm-8nkvwy} \\
-$c_{shear}(A_0)$ & Shear / group / rest-mass velocity $c_0\sqrt{S}$ & 5, 7, 9 & Vol 2 + Vol 3 (gravity-yield) & \kbleaf{vol2/.../pair-production-axiom-derivation.md}:113; \texttt{clm-8nkvwy} \\
+$c_{EM}(A_0)$ & Maxwell phase velocity $c_0/S$ & 5, 7 & Vol 2 + Vol 3 ($\alpha$-invariance) & \kbleaf{vol9/ch5-ac-electrical-characteristics/index.md}; \texttt{clm-8nkvwy} \\
+$c_{shear}(A_0)$ & Shear / group / rest-mass velocity $c_0\sqrt{S}$ & 5, 7, 9 & Vol 2 + Vol 3 (gravity-yield) & \kbleaf{vol9/ch5-ac-electrical-characteristics/index.md}; \texttt{clm-8nkvwy} \\
 % --- Ch 6 Temperature Characteristics ---
 $\delta_{strain}$ & Cosmic fractional vacuum strain at $T_{CMB}$ & 6 & Vol 3 Ch.~5 (dark sector) & \kbleaf{vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md}; \texttt{clm-hp7nlm}; \texttt{clm-009nkt} \\
-$\eta_\varepsilon$ & E-mode thermal-modulation coefficient & 6 & Vol 3 Ch.~5 (magnitude derivation CLOSED NEGATIVE, Q-DELTA-MAP-1-quant; SIGN-only) & \kbleaf{vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md}; \texttt{clm-hp7nlm} \\
+$\eta_\varepsilon$ & E-mode thermal-modulation coefficient & 6 & Vol 3 Ch.~5 (dark sector; sign-only specification --- magnitude not predicted) & \kbleaf{vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md}; \texttt{clm-hp7nlm} \\
 $m_\omega$ & Cosserat rotation-sector mass-gap $\sim 1$~MeV & 6, 10 & Vol 2 Ch.~5 (gauge-boson masses) & \kbleaf{vol2/.../gauge-boson-masses.md}; \texttt{clm-5zuo7g}; \kbleaf{common/trampoline-framework.md}:188 \\
 $T_{CMB}$ & CMB photon-bath temperature (operating point) & 6, 12 & Vol 3 Ch.~5 (dark sector) & \kbleaf{vol3/cosmology/ch05-dark-sector/delta-strain-cosmic-tcc.md} \S 2; \texttt{clm-hp7nlm} \\
 % --- Ch 7 Saturation Characteristics ---
@@ -100,7 +99,7 @@ $R_H/\ell_{node}$ & Cosmic-scale topological transduction count $\sim 10^{39}$ &
 $G$ & Newton's constant (MIXED: derived Machian-impedance form, calibration-fitted $\xi$ value; \kbleaf{common/interlock-register.md} \texttt{ilk-gravmb}) & 12 & Vol 3 Ch.~4 (Machian integral) & \kbleaf{common/full-derivation-chain.md}; \kbleaf{common/mathematical-closure.md} Layer 7 \\
 $\xi$ & Dimensionless Machian-hierarchy coupling $\approx \num{8.15e43}$ & 12 & Vol 3 Ch.~4 (Machian integral) & \kbleaf{src/ave/core/constants.py:556} (\texttt{XI\_MACHIAN}) \\
 $\hat{\Omega}_{freeze}$ & Cosmological initial-data parameter (cosmic angular momentum at lattice genesis) & 12, 15 & Vol 3 Ch.~4 (generative cosmology) & \kbleaf{common/omega-freeze-cosmic-grain-cascade.md}; \texttt{clm-dsb560}; \texttt{clm-a7cbqq} \\
-$u_0^*$ & Magic-angle operating point $\approx 0.187$ (value back-fit, not forward-derived; $\alpha$+$G$ \emph{fix} it, $\mathcal{J}_{cosmic}$ \emph{tests} it --- Ch.~15~$\S$\ref{sec:vol9_three_route_falsifiability}) & 12, 15 & Vol 3 Ch.~4 + L5 A-034 & \kbleaf{common/omega-freeze-cosmic-grain-cascade.md}; \texttt{clm-dsb560} \\
+$u_0^*$ & Magic-angle operating point $\approx 0.187$ (calibrated to $\alpha$ and $G$; $\mathcal{J}_{cosmic}$ provides an independent experimental test --- Ch.~15~$\S$\ref{sec:vol9_three_route_falsifiability}) & 12, 15 & Vol 3 Ch.~4 + L5 A-034 & \kbleaf{common/omega-freeze-cosmic-grain-cascade.md}; \texttt{clm-dsb560} \\
 $\mathcal{J}_{cosmic}$ & Cosmic-boundary winding $\hat{\Omega}_{freeze} \cdot I_{cosmic}$ & 12 & Vol 3 Ch.~4 + boundary-observables & \kbleaf{common/boundary-observables-m-q-j.md}; \kbleaf{common/omega-freeze-cosmic-grain-cascade.md} \\
 \bottomrule
 \end{longtable}
@@ -146,8 +145,8 @@ Faraday induction & Cosserat translational-microrotational bidirectional PDE cou
 Transformer leakage-$L$ & $\gamma_c$-mediated bond microrotation flux mismatch & 10, 13 & \kbleaf{vol2/.../gauge-boson-masses.md}; \texttt{clm-5zuo7g} \\
 Mechanical stress $\sigma$ & Substrate translational strain (Ax 1 + Ax 4) & 9 & Vol 3 Ch.~1 (gravity-yield) \\
 Couple-stress $\boldsymbol{\mu}_{couple}$ & Cosserat microrotation gradient $\gamma_c\,\nabla\boldsymbol{\omega}$ & 9, 10 & \kbleaf{common/trampoline-framework.md}:181 \\
-Phase velocity (Maxwell) & $c_{EM}(A_0) = c_0/S$ (translational LC propagation) & 5, 7 & \kbleaf{vol2/.../pair-production-axiom-derivation.md}:111; \texttt{clm-8nkvwy} \\
-Group / rest-mass velocity & $c_{shear}(A_0) = c_0\sqrt{S}$ (shear / Schwarzschild) & 5, 7, 9, 13 & \kbleaf{vol2/.../pair-production-axiom-derivation.md}:113; \texttt{clm-8nkvwy} \\
+Phase velocity (Maxwell) & $c_{EM}(A_0) = c_0/S$ (translational LC propagation) & 5, 7 & \kbleaf{vol9/ch5-ac-electrical-characteristics/index.md}; \texttt{clm-8nkvwy} \\
+Group / rest-mass velocity & $c_{shear}(A_0) = c_0\sqrt{S}$ (shear / Schwarzschild) & 5, 7, 9, 13 & \kbleaf{vol9/ch5-ac-electrical-characteristics/index.md}; \texttt{clm-8nkvwy} \\
 Gravitational time dilation & SYM-class $c_{shear}$ tracking $\sqrt{1-r_s/r}$ & 13 & \kbleaf{vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md}; \texttt{clm-3zz0f6} \\
 Schwinger pair rate & Substrate-saturation rupture at $E_S$; Beltrami-vortex pair & 8, 15 & \kbleaf{vol2/.../pair-production-axiom-derivation.md}; \texttt{clm-ezai5b} \\
 Hubble constant $H_\infty$ & Substrate cosmic boundary $c/R_H$; lattice-genesis & 12 & \kbleaf{vol3/.../lattice-genesis-hubble-tension.md}; \texttt{clm-wx5324} \\
@@ -187,7 +186,7 @@ The by-volume contribution map: which sections of Vols~0--6 originate the canoni
 \subsection{Vol 2 (Subatomic Scale) contributions}
 
 \begin{itemize}
-    \item \textbf{Ch.~1 Topological matter.} Pair-production axiom derivation (\texttt{clm-ezai5b}; canonical at \kbleaf{pair-production-axiom-derivation.md}); FM-kink spin-$\tfrac{1}{2}$ derivation (\texttt{clm-salw2h}); torus-knot uniqueness for the electron (\texttt{clm-8c3yhs}); $0_1$ unknot real-space body. SYM vs ASYM $\mu/\varepsilon$ scaling classification (\texttt{clm-8nkvwy}; lines 111--113 carry the two-effective-wave-speed canonical statement). Cross-referenced from Vol~9 Chs.~5, 7, 8, 11, 13, 15.
+    \item \textbf{Ch.~1 Topological matter.} Pair-production axiom derivation (\texttt{clm-ezai5b}; canonical at \kbleaf{pair-production-axiom-derivation.md}); FM-kink spin-$\tfrac{1}{2}$ derivation (\texttt{clm-salw2h}); torus-knot uniqueness for the electron (\texttt{clm-8c3yhs}); $0_1$ unknot real-space body. SYM vs ASYM $\mu/\varepsilon$ scaling classification (\texttt{clm-8nkvwy}; the two-effective-wave-speed canonical statement $c_{EM} = c_0/S$ vs $c_{shear} = c_0\sqrt{S}$ is consolidated at \kbleaf{vol9/ch5-ac-electrical-characteristics/index.md}). Cross-referenced from Vol~9 Chs.~5, 7, 8, 11, 13, 15.
     \item \textbf{Ch.~5 Electroweak mechanics.} $W$/$Z$ gauge-boson masses as Cosserat couple-stress evanescent-cutoff modes; weak-force range $l_c = \sqrt{\gamma_c/G_{vac}}$ (canonical at \kbleaf{gauge-boson-masses.md}:39; \texttt{clm-5zuo7g}). Cross-referenced from Vol~9 Chs.~6, 9, 10, 13, 15.
 \end{itemize}
 
@@ -196,7 +195,7 @@ The by-volume contribution map: which sections of Vols~0--6 originate the canoni
 \begin{itemize}
     \item \textbf{Ch.~1 Gravity and yield.} Vacuum Poisson ratio $\nu_{vac} = 2/7$ derivation (\kbleaf{vacuum-poisson-ratio.md}; \texttt{clm-x19btt}). SYM-class $\alpha$-invariance proof (\kbleaf{alpha-invariance-symmetric-gravity.md}; \texttt{clm-3zz0f6}). Cross-referenced from Vol~9 Chs.~3, 9, 13.
     \item \textbf{Ch.~3 Condensed matter.} Mode-counting heat capacity for $T_{melt}$ (\kbleaf{mode-counting-heat-capacity.md}; \texttt{clm-uu6dl5}). Cross-referenced from Vol~9 Ch.~2.
-    \item \textbf{Ch.~4 Generative cosmology.} Lattice-genesis Hubble-tension closure (\kbleaf{lattice-genesis-hubble-tension.md}; \texttt{clm-wx5324}); $\hat{\Omega}_{freeze}$ cosmic-grain cascade + magic-angle $u_0^*$ operating-point closure (value back-fit, not forward-derived; \kbleaf{omega-freeze-cosmic-grain-cascade.md}; \texttt{clm-dsb560}; \texttt{clm-a7cbqq}; \texttt{clm-pe8lpx}); Machian $G$ as boundary impedance integral (mixed: derived form, fitted value). Cross-referenced from Vol~9 Chs.~12, 15.
+    \item \textbf{Ch.~4 Generative cosmology.} Lattice-genesis Hubble-tension closure (\kbleaf{lattice-genesis-hubble-tension.md}; \texttt{clm-wx5324}); $\hat{\Omega}_{freeze}$ cosmic-grain cascade + magic-angle $u_0^*$ operating-point (calibrated value; \kbleaf{omega-freeze-cosmic-grain-cascade.md}; \texttt{clm-dsb560}; \texttt{clm-a7cbqq}; \texttt{clm-pe8lpx}); Machian $G$ as boundary-impedance integral (derived form, calibrated value). Cross-referenced from Vol~9 Chs.~12, 15.
     \item \textbf{Ch.~5 Dark sector.} Cosserat-Curie thermal-mode-population ASYM for $\delta_{strain}$ at $T_{CMB}$ (\kbleaf{delta-strain-cosmic-tcc.md}; \texttt{clm-hp7nlm}; \texttt{clm-009nkt}). Cross-referenced from Vol~9 Chs.~6, 13.
 \end{itemize}
 
@@ -232,9 +231,9 @@ The by-volume contribution map: which sections of Vols~0--6 originate the canoni
     \item \textbf{Trampoline framework.} \kbleaf{common/trampoline-framework.md}: Cosserat micro-inertia PDEs (line 181); rotation-sector mass-gap $\omega_m$ (line 188); Machian-$G$ bulk integral (\S 5.5). Vol~9 Chs.~6, 9, 10, 12 cite.
     \item \textbf{Appendix experiments (INVARIANT-S3).} \kbleaf{common/appendix-experiments.md}: Unified Index of Experimental Falsifications. Vol~9 Ch.~15 cites.
     \item \textbf{Omega-freeze cascade.} \kbleaf{common/omega-freeze-cosmic-grain-cascade.md}: $\hat{\Omega}_{freeze}$ + $u_0^*$ + cosmic chirality canonical home. Vol~9 Chs.~12, 15 cite.
-    \item \textbf{FORM-deriving / VALUE-importing organizing frame.} \kbleaf{common/form-deriving-value-importing.md} (PR \#319): the framework's current organizing principle --- the substrate FORCES the dimensionless FORMS (the chords: structure, the $/7$ couplings, exact-quantized charge, $g_* = 7^3/4$) and IMPORTS the dimensionful VALUES of the marked calibration set $\{m_e, \alpha, G\}$ (the echoes; $\alpha$ ECHO, $G$ MIXED, $K{=}2G$ GR-imported, $m_e$ definitional). The per-constant chord/echo/mixed accounting + the chord-class testing lens. Vol~9 Chs.~11, 12, 13 cite (charge-quantization chord, $g_*$ forced ratio, the node $\alpha$-transducer echo).
+    \item \textbf{FORM-deriving / VALUE-importing organizing frame.} \kbleaf{common/form-deriving-value-importing.md}: the framework's organizing principle --- the substrate FORCES the dimensionless FORMS (the chords: structure, the $/7$ couplings, exact-quantized charge, $g_* = 7^3/4$) and IMPORTS the dimensionful VALUES of the marked calibration set $\{m_e, \alpha, G\}$ (the echoes; $\alpha$ ECHO, $G$ MIXED, $K{=}2G$ GR-imported, $m_e$ definitional). The per-constant chord/echo/mixed accounting + the chord-class testing lens. Vol~9 Chs.~11, 12, 13 cite (charge-quantization chord, $g_*$ forced ratio, the node $\alpha$-transducer echo).
     \item \textbf{Divergence-test substrate map (forward-prediction / chord-vs-echo register).} \kbleaf{common/divergence-test-substrate-map.md}: the operational tracking layer tagging each AVE-distinct prediction divergence from SM / GR / $\Lambda$CDM. Carries the bankable Iron-K$\alpha$ $r_{sat} = 7GM/c^2$ vs GR-ISCO $6GM/c^2$ (C1-BH-RING), $g_* = 343/4 = 85.75$ (C12-G-STAR), the electron Mach-Zehnder $9/7$-vs-$2/7$ split (C11), the vacuum-birefringence COEFFICIENT form-existence falsifier, and the $\nu_{vac} = 2/7$ triangulation (C1 $\wedge$ C11 $\wedge$ C12 simultaneous-FAIL kill). Vol~9 Chs.~12, 15 cite.
-    \item \textbf{Device circuit models (2-domain N-port + Fork-A).} \kbleaf{vol9/ch3-pin-port-configuration/device-circuit-models.md} \S6: the graded-vacuum-impedance-network equivalent-circuit MODEL --- three wired reactance channels (EM matched port $Z_0$ + 2 confined mechanical ports), the EM-$\Omega$$\leftrightarrow$mechanical-$\rho c$ TKI-transformer (PR \#320; $\alpha$ localizes to the transducer $p_c = 8\pi\alpha$), and the Fork-A chiral circulator vs optical-activity gyrator distinction (PR \#321, PARTIAL). Vol~9 Chs.~9, 10, 13 cite (mass=bulk/A1, charge=shear/Cosserat, node worked-example).
+    \item \textbf{Device circuit models (2-domain N-port + Fork-A).} \kbleaf{vol9/ch3-pin-port-configuration/device-circuit-models.md} \S6: the graded-vacuum-impedance-network equivalent-circuit MODEL --- three wired reactance channels (EM matched port $Z_0$ + 2 confined mechanical ports), the EM-$\Omega$$\leftrightarrow$mechanical-$\rho c$ TKI-transformer ($\alpha$ localizes to the transducer $p_c = 8\pi\alpha$), and the Fork-A chiral-circulator vs optical-activity-gyrator distinction (provisional, pending experimental confirmation). Vol~9 Chs.~9, 10, 13 cite (mass=bulk/A1, charge=shear/Cosserat, node worked-example).
 \end{itemize}
 
 \section{Knowledge Base Cross-Reference}
@@ -276,7 +275,7 @@ Commands: \texttt{show}, \texttt{deps}/\texttt{-i}, \texttt{solidity-below}, \te
 The substrate documented in Vol~9 is the natural vacuum substrate. Engineering hardware that uses substrate primitives directly (rather than documenting them) lives in companion repositories sibling to AVE-Core, each with its own substrate-physics scope:
 
 \begin{itemize}
-    \item \textbf{AVE-APU (Axiomatic Processing Unit).} Hardware validation programme + declarative topology compilation (\texttt{atopile}) + physical post-CMOS processor specifications. Anchored on substrate primitives $V_{snap}$, $V_{yield}$, soliton density $\rho_{kink}$, plasma drag $P_{drag}$ documented in this datasheet. \textbf{Note on naming.} In earlier framing iterations, AVE-APU was labeled ``Volume 9: Axiomatic Processing Unit (Experimental Repository).'' That label is retired with the launch of Vol~9 The Vacuum Datasheet: AVE-APU is now a sibling companion hardware repository, not a numbered volume of AVE-Core. The Vol~9 label is reserved for the Vacuum Datasheet (this volume). Cross-references to APU content should use the repository name \texttt{AVE-APU}, not ``Volume 9: APU.''
+    \item \textbf{AVE-APU (Axiomatic Processing Unit).} Hardware validation programme + declarative topology compilation (\texttt{atopile}) + physical post-CMOS processor specifications. Anchored on substrate primitives $V_{snap}$, $V_{yield}$, soliton density $\rho_{kink}$, plasma drag $P_{drag}$ documented in this datasheet. \textbf{Note on naming.} The Vol~9 label denotes the Vacuum Datasheet (this volume). AVE-APU is a sibling companion hardware repository, not a numbered volume of AVE-Core; reference APU content by the repository name \texttt{AVE-APU}, not ``Volume 9: APU.''
     \item \textbf{AVE-PONDER.} Bench-scale falsification programme for the PONDER-05 dielectric-saturation test (Vol~9 Ch.~15 \S PONDER-05). Hardware at the AVE-PONDER repository; substrate-physics derivation lives in Vol~4 Ch.~1 (\kbleaf{parametric-coupling-kernel.md}).
     \item \textbf{AVE-HOPF.} Bench-scale falsification programme for the HOPF-01 chiral antenna test (Vol~9 Ch.~15 \S HOPF-01). Hardware at the AVE-HOPF repository; substrate-physics derivation lives in Vol~4 Ch.~11 (\kbleaf{open-source-hardware.md}; \texttt{clm-wzezvt}).
 \end{itemize}
@@ -287,7 +286,7 @@ The substrate documented in Vol~9 is the natural vacuum substrate. Engineering h
 \section{Index Maintenance}
 \label{sec:vol9_xref_maintenance}
 
-This index reflects the canonical state at Vol~9 publication. The live cross-reference graph evolves as canonical leaves are revised, new claim-quality entries land, and the per-chapter KB tree at \kbleaf{manuscript/ave-kb/vol9/} accumulates Vol-9-scoped consolidation content. Readers who need the current state of any cited claim should consult:
+The Knowledge Base is the live source for every cited claim; this index routes to it. For the current state of any cited claim, consult the canonical leaf and its claim-quality entry:
 
 \begin{itemize}
     \item The cited canonical leaf in the KB (paths listed in the Parameter and Observable lookup tables above).

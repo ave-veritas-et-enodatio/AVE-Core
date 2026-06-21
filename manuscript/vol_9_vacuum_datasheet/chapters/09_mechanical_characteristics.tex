@@ -8,7 +8,7 @@
     \item Spec out the bulk mechanical primitives: shear modulus $G_{vac}$, bulk modulus $K_{vac} = 2 G_{vac}$, Poisson ratio $\nu_{vac} = 2/7$, Cosserat couple-stress modulus $\gamma_c$, bulk mass density $\rho_{bulk}$, transverse / mechanical wave speed $v_T$, and Cosserat characteristic length $l_c = \sqrt{\gamma_c / G_{vac}}$.
     \item Tie each primitive to its canonical Axiom~1 + Axiom~2 + Axiom~4 derivation in Vols~1--3 and to its canonical-source entry in \kbleaf{src/ave/core/constants.py}.
     \item Establish the substrate-physics framing for two engineering observables that depend on these primitives: gravitational time dilation (via $c_{shear}(A_0) = c_0 \sqrt{S(A_0)}$ in SYM-class saturation) and weak-force range $r_W \sim l_c$.
-    \item Translate the mechanical primitives into the EE-substrate-native projection (\texttt{ave-ee-first-mapping} v1.0; canonical leaf \kbleaf{common/translation-tables/translation-circuit.md}): substrate-elastic-network $\leftrightarrow$ LC + transformer network bridged by $\xi_{topo}$.
+    \item Translate the mechanical primitives into the EE-substrate-native projection (canonical leaf \kbleaf{common/translation-tables/translation-circuit.md}): substrate-elastic-network $\leftrightarrow$ LC + transformer network bridged by $\xi_{topo}$.
 \end{itemize}
 \end{objectivebox}
 
@@ -24,7 +24,7 @@ Per Axiom~1 (Ch.~\ref{ch:fundamental_axioms}, canonical equation file \kbleaf{co
 
 This is the load-bearing structural distinction between the substrate and a Cauchy (classical-elastic) continuum: a Cauchy medium has translational DOFs only and recovers Lam\'e elasticity; a Cosserat micropolar medium adds independent micro-rotations $\omega$ at every material point, with bond couple-stress $\gamma_c$ coupling neighbouring rotations. The intrinsic-spin-from-microrotation interpretation is canonical (CLAUDE.md INVARIANT-S2 Axiom~1; Vol~1 Ch.~\ref{sec:cosserat_primer} Cosserat primer).
 
-The substrate is therefore documented in the engineering datasheet as a Cosserat micropolar elastic medium with EE-substrate-native projection: translational DOFs $\leftrightarrow$ \textbf{capacitor} (dielectric storage); microrotational DOFs $\leftrightarrow$ \textbf{inductive flywheel} (rotational moment-of-inertia + magnetic flux storage); inter-node couple-stress $\gamma_c$ $\leftrightarrow$ \textbf{transformer mutual-inductance gradient} (canonical at \kbleaf{common/translation-tables/translation-circuit.md} \S 4 mapping rows; \texttt{ave-ee-first-mapping} v1.0 means-test rows 10, 12).
+The substrate is therefore documented in the engineering datasheet as a Cosserat micropolar elastic medium with EE-substrate-native projection: translational DOFs $\leftrightarrow$ \textbf{capacitor} (dielectric storage); microrotational DOFs $\leftrightarrow$ \textbf{inductive flywheel} (rotational moment-of-inertia + magnetic flux storage); inter-node couple-stress $\gamma_c$ $\leftrightarrow$ \textbf{transformer mutual-inductance gradient} (canonical at \kbleaf{common/translation-tables/translation-circuit.md} \S 4 mapping rows).
 
 \section{Bulk Elastic Primitives}
 \label{sec:vol9_mech_bulk_table}
@@ -46,10 +46,10 @@ $K_{vac}$ & $2\, G_{vac}$ & \si{\pascal} &
 Bulk modulus from Effective Medium Theory at packing fraction $p^* = 8\pi\alpha$ (trace-reversal identity $K/G = 2$). Ax~1 LC mechanism + Ax~2 $\alpha$. Source: derived-numerology Appendix; Vol~3 Ch.~\ref{ch:gravity_and_yield}. \\
 
 $\nu_{vac}$ & $2/7 \approx 0.2857$ & --- &
-Vacuum Poisson ratio. Substrate-axiomatic identity (Ax~1 LC + Ax~2 $\alpha$ interlink); NOT a fitted parameter. Source: \kbleaf{src/ave/core/constants.py:532} (\texttt{NU\_VAC}); KB leaf \kbleaf{vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md} (\texttt{clm-x19btt}). See \S\ref{sec:vol9_mech_poisson} below. \\
+Vacuum Poisson ratio. Substrate-axiomatic identity (Ax~1 LC + Ax~2 $\alpha$ interlink); NOT a fitted parameter. Source: \kbleaf{src/ave/core/constants.py:532} (\texttt{NU\_VAC}); \kbleaf{vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md}. See \S\ref{sec:vol9_mech_poisson} below. \\
 
 $\gamma_c$ & substrate-native (set by $r_W = l_c$) & \si{\newton} &
-Cosserat couple-stress modulus (microrotational bending inductance). Sets the weak-force range scale $l_c = \sqrt{\gamma_c/G_{vac}}$. Substrate primitive of the rotation sector. Source: KB leaf \kbleaf{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} (\texttt{clm-5zuo7g}; canonical use at line~39). \\
+Cosserat couple-stress modulus (microrotational bending inductance). Sets the weak-force range scale $l_c = \sqrt{\gamma_c/G_{vac}}$. Substrate primitive of the rotation sector. Source: \kbleaf{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} line~39. \\
 
 $\rho_{bulk}$ & $\xi_{topo}^2\, \mu_0 / (P_C\, \ell_{node}^2)$ & \si{\kilogram\per\metre\cubed} &
 Bulk substrate mass density. Electromechanical $\xi_{topo}$ bridge (Ax~2) + critical packing fraction $P_C = 8\pi\alpha$ (Ax~1 LC) + node-spacing scale (Ax~1). Source: \kbleaf{src/ave/core/constants.py:664} (\texttt{RHO\_BULK}). \\
@@ -58,16 +58,16 @@ $v_T$ & $c_0$ (cold-lattice limit) & \si{\metre\per\second} &
 Transverse / mechanical wave speed. From $v_T = \sqrt{G_{vac}/\rho_{bulk}} = c_0$ by construction --- photons propagate at $c_0$ on the LC lattice. \emph{Reduces to $c_0$ at $S(0) = 1$; modulated by saturation per \S\ref{sec:vol9_mech_wave_speeds}.} \\
 
 $v_{bulk}$ ($A_1$) & $\sqrt{2}\, c_0$ & \si{\metre\per\second} &
-\textbf{Bulk-modulus dilatational speed} $= \sqrt{K_{vac}/\rho_{bulk}} = \sqrt{2}\,c_0$ at $K=2G$ --- the A1-scalar port-mode (drops the $4G/3$ shear term), \emph{not} the solid P-wave. Source: \kbleaf{src/ave/core/constants.py:676} (\texttt{V\_LONG}); reconciliation \texttt{clm-uu1qbo} / \kbleaf{03a\_device\_circuit\_models.tex}:80. See KEEP-BOTH row below. \\
+\textbf{Bulk-modulus dilatational speed} $= \sqrt{K_{vac}/\rho_{bulk}} = \sqrt{2}\,c_0$ at $K=2G$ --- the A1-scalar port-mode (drops the $4G/3$ shear term), \emph{not} the solid P-wave. Source: \kbleaf{src/ave/core/constants.py:676} (\texttt{V\_LONG}); \kbleaf{03a\_device\_circuit\_models.tex}:80. See the P-wave row below. \\
 
 $c_L$ (P-wave) & $\sqrt{10/3}\, c_0 \approx 1.83\, c_0$ & \si{\metre\per\second} &
-\textbf{Solid longitudinal P-wave speed} $= \sqrt{(K_{vac} + 4G_{vac}/3)/\rho_{bulk}} = \sqrt{10/3}\,c_0$ at $K=2G$ ($\nu_{vac}=2/7$; keeps the $4G/3$ shear term) --- the standard isotropic-solid P-wave, \emph{distinct} from the A1-dilatation $v_{bulk}=\sqrt{2}\,c_0$ above (2026-06-08 $c_L$ reversal, Rule-12). Source: \texttt{clm-uu1qbo} / \kbleaf{03a\_device\_circuit\_models.tex}:80; canonical vol\_2 Ch~7. Both are $\alpha$-free / $\alpha$-invariant. \\
+\textbf{Solid longitudinal P-wave speed} $= \sqrt{(K_{vac} + 4G_{vac}/3)/\rho_{bulk}} = \sqrt{10/3}\,c_0$ at $K=2G$ ($\nu_{vac}=2/7$; keeps the $4G/3$ shear term) --- the standard isotropic-solid P-wave, \emph{distinct} from the A1-dilatation $v_{bulk}=\sqrt{2}\,c_0$ above. Source: \kbleaf{03a\_device\_circuit\_models.tex}:80; canonical Vol~2 Ch.~7. Both are $\alpha$-free / $\alpha$-invariant. \\
 
 $l_c^{\text{(weak)}}$ & $\sqrt{\gamma_c / G_{vac}}$ ($\approx r_W \sim 10^{-18}$~m) & \si{\metre} &
-\textbf{Weak-force-range} Cosserat characteristic length; couple-stress-to-shear-modulus ratio identified with $r_W$. Source: KB leaf \kbleaf{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} line~39 (\texttt{clm-5zuo7g}). \emph{See disambiguation note below --- not the same object as $\ell_c^{\text{(K4)}}$.} \\
+\textbf{Weak-force-range} Cosserat characteristic length; couple-stress-to-shear-modulus ratio identified with $r_W$. Source: \kbleaf{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} line~39. \emph{See disambiguation note below --- not the same object as $\ell_c^{\text{(K4)}}$.} \\
 
 $\ell_c^{\text{(K4)}}$ & $\sqrt{6}\,\ell_{node} \approx \num{9.46e-13}$ & \si{\metre} &
-\textbf{Lattice} Cosserat coupling length --- the substrate-continuous discrete$\leftrightarrow$continuum length ratio of the K4 micropolar lattice, $\ell_c^2 = (\beta+\gamma)/[2(\mu+\kappa)] = 6\,\ell_{node}^2$ (Q-G47 Session~19: $\xi_{K1}=8/3$, $\xi_{K2}=32$). Source: \kbleaf{src/ave/core/constants.py} (\texttt{ELL\_C}); \kbleaf{claim-quality-closure-roadmap.md}:149; \kbleaf{continuous-springs-reframing.md}:36. \\
+\textbf{Lattice} Cosserat coupling length --- the substrate-continuous discrete$\leftrightarrow$continuum length ratio of the K4 micropolar lattice, $\ell_c^2 = (\beta+\gamma)/[2(\mu+\kappa)] = 6\,\ell_{node}^2$, with constitutive prefactors $\xi_{K1}=8/3$, $\xi_{K2}=32$. Source: \kbleaf{src/ave/core/constants.py} (\texttt{ELL\_C}); \kbleaf{continuous-springs-reframing.md}:36. \\
 
 \bottomrule
 \end{tabular}
@@ -85,10 +85,10 @@ $\ell_c^{\text{(K4)}}$ & $\sqrt{6}\,\ell_{node} \approx \num{9.46e-13}$ & \si{\m
 \noindent
 \textbf{Node-model channel tags (cross-reference to the 2-domain N-port).} The mechanical primitives above are the two CONFINED channels of the corrected graded-vacuum-impedance-network device model (Ch.~\ref{ch:vol9_pin_port_configuration} \S Device Circuit Models; canonical at \kbleaf{device-circuit-models.md}:143--149). The \textbf{bulk channel} carries the \textbf{MASS-``3''} (the A1 dilatation: $m_e c^2$ = trapped acoustic compression energy), with mechanical impedance $Z_{bulk} = \rho_{bulk}\, c_{bulk} = \sqrt{2}\,\rho_{bulk}\, c_0$ at $K = 2G$ and $\Gamma_{bulk} \to -1$ (CONFINED). The \textbf{shear channel} carries the \textbf{CHARGE-``3''} (the orthogonal Cosserat $(2,3)$ micro-rotation winding; charge $=$ Beltrami helicity), with $Z_{shear} = \rho_{bulk}\, c_{shear}$ and $\Gamma_{shear} \to -1$ (CONFINED). The EM channel ($Z_{EM} \equiv Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx 376.73\,\Omega$, $\Gamma_{EM} = 0$) is the sole external MATCHED radiative PORT --- not a mechanical primitive of this chapter, and crucially NOT in $Z_0$ units: $Z_{bulk}$ and $Z_{shear}$ are \emph{mechanical/acoustic} impedances ($\rho \times$ speed, Pa$\cdot$s/m), $\sim$12 orders of magnitude off $Z_0$ and a unit change away --- writing ``$Z_{bulk} = \sqrt{2}\, Z_0$'' is the canonical electrical-vs-mechanical mis-scope (units discipline per \kbleaf{device-circuit-models.md}:139). $A1 \perp T2$: the mass (A1 dilatation) and charge/spin (Cosserat micro-rotation) grades are orthogonal, never wired into one shared $(V_{inc}, V_{ref})$ phasor (the two-``3''s fence, \kbleaf{master-equation.md}:20).
 
-\section{Two Cosserat Characteristic Lengths --- Disambiguation (flagged)}
+\section{Two Cosserat Characteristic Lengths --- Disambiguation}
 \label{sec:vol9_mech_two_lc}
 
-The substrate carries \textbf{two distinct lengths that share the symbol ``$\ell_c$'' and the same formula structure} $\sqrt{\text{couple-stress}/\text{shear}}$, separated by roughly six orders of magnitude. This datasheet records both and keeps them separate; the collision is surfaced (not silently resolved) for auditor adjudication.
+The substrate carries \textbf{two distinct lengths that share the symbol ``$\ell_c$'' and the same formula structure} $\sqrt{\text{couple-stress}/\text{shear}}$, separated by roughly six orders of magnitude. This datasheet records both under distinct symbols and keeps them separate; their shared symbol is an open spec condition, not an established single object.
 
 \begin{table}[htbp]
 \centering\small
@@ -96,8 +96,8 @@ The substrate carries \textbf{two distinct lengths that share the symbol ``$\ell
 \toprule
 \textbf{Symbol} & \textbf{Value} & \textbf{Scale} & \textbf{Referent / canonical source} \\
 \midrule
-$\ell_c^{\text{(K4)}}$ & $\sqrt{6}\,\ell_{node} \approx \num{9.46e-13}$~m & $\approx 2.45\,\ell_{node}$ (lattice) & K4 discrete$\leftrightarrow$continuum coupling length; $\ell_c^2 = (\beta+\gamma)/[2(\mu+\kappa)] = 6\,\ell_{node}^2$. \kbleaf{constants.py} \texttt{ELL\_C}; \kbleaf{closure-roadmap.md}:149; \kbleaf{continuous-springs-reframing.md}:36. \\
-$l_c^{\text{(weak)}}$ & $\sqrt{\gamma_c/G_{vac}} \approx 10^{-18}$~m & weak-force range $r_W$ (sub-node) & Evanescent-cutoff length of the W/Z rotation sector. \kbleaf{gauge-boson-masses.md}:39 (\texttt{clm-5zuo7g}). \\
+$\ell_c^{\text{(K4)}}$ & $\sqrt{6}\,\ell_{node} \approx \num{9.46e-13}$~m & $\approx 2.45\,\ell_{node}$ (lattice) & K4 discrete$\leftrightarrow$continuum coupling length; $\ell_c^2 = (\beta+\gamma)/[2(\mu+\kappa)] = 6\,\ell_{node}^2$. \kbleaf{constants.py} \texttt{ELL\_C}; \kbleaf{continuous-springs-reframing.md}:36. \\
+$l_c^{\text{(weak)}}$ & $\sqrt{\gamma_c/G_{vac}} \approx 10^{-18}$~m & weak-force range $r_W$ (sub-node) & Evanescent-cutoff length of the W/Z rotation sector. \kbleaf{gauge-boson-masses.md}:39. \\
 \bottomrule
 \end{tabular}
 \caption{The two ``$\ell_c$'' objects. Same name, same formula structure ($\sqrt{\text{couple-stress}/\text{shear}}$), different physical referent and $\sim$6~OOM apart.}
@@ -105,7 +105,7 @@ $l_c^{\text{(weak)}}$ & $\sqrt{\gamma_c/G_{vac}} \approx 10^{-18}$~m & weak-forc
 \end{table}
 
 \noindent
-\textbf{Why this is a genuine flag (\texttt{flag-don't-fix}).} The lattice $\ell_c^{\text{(K4)}} = \sqrt{6}\,\ell_{node}$ is fixed by the K4 micropolar constitutive tensor (Q-G47 Session~19; $\xi_{K2}/(2\xi_{K1}) = 6$) and sits \emph{above} the node spacing. The weak-force $l_c^{\text{(weak)}} = \sqrt{\gamma_c/G_{vac}} \approx r_W$ sits six orders of magnitude \emph{below} the node spacing. A single Cosserat couple-stress/shear ratio cannot evaluate to both; either the two use different $(\gamma_c, G)$ operating points (lattice-scale vs.\ the electroweak-sector projection), or one identification is an over-loading of the symbol. This datasheet does not adjudicate which --- it records both with distinct symbols and routes the question to the auditor. Downstream Vol~9 references: Ch.~\ref{ch:vol9_magnetic_microrotational_characteristics} (magnetic) uses $l_c^{\text{(weak)}}$ for the W/Z range; the temporal section (Ch.~\ref{ch:vol9_ac_electrical_characteristics}) and the K=2G operating-point discussion use $\ell_c^{\text{(K4)}}$.
+The lattice $\ell_c^{\text{(K4)}} = \sqrt{6}\,\ell_{node}$ is fixed by the K4 micropolar constitutive tensor ($\xi_{K2}/(2\xi_{K1}) = 6$) and sits \emph{above} the node spacing. The weak-force $l_c^{\text{(weak)}} = \sqrt{\gamma_c/G_{vac}} \approx r_W$ sits six orders of magnitude \emph{below} the node spacing. The two identifications cannot share one couple-stress/shear operating point: either they use distinct $(\gamma_c, G)$ operating points (lattice-scale vs.\ electroweak-sector projection), or the symbol is over-loaded. This datasheet records both under distinct symbols; the identification remains provisional pending resolution. Downstream Vol~9 references: Ch.~\ref{ch:vol9_magnetic_microrotational_characteristics} (magnetic) uses $l_c^{\text{(weak)}}$ for the W/Z range; the temporal section (Ch.~\ref{ch:vol9_ac_electrical_characteristics}) and the K=2G operating-point discussion use $\ell_c^{\text{(K4)}}$.
 
 \section{Scope, Provenance, and Bench-Access}
 \label{sec:vol9_mech_scope_provenance}
@@ -122,12 +122,12 @@ $K_{vac}$ & COLLECTIVE (K=2G operating point) & DERIVED at $p^* = 8\pi\alpha$; t
 $\nu_{vac} = 2/7$ & COLLECTIVE & DERIVED (algebraic at $K=2G$) & --- \\
 $\gamma_c$ & per-bond & DERIVED (set by $r_W = l_c^{\text{(weak)}}$) & --- \\
 $\rho_{bulk}$ & COLLECTIVE & DERIVED ($\xi_{topo}^2\mu_0/(P_C\ell_{node}^2)$) & Sagnac-RLVE (rotor / bulk coupling) \\
-$v_T$, $v_{bulk}$ ($A_1$), $c_L$ (P-wave) & COLLECTIVE & DERIVED ($c_0$; $\sqrt{2}c_0$ bulk-modulus; $\sqrt{10/3}\,c_0$ solid P-wave --- KEEP-BOTH, \texttt{clm-uu1qbo}) & --- \\
+$v_T$, $v_{bulk}$ ($A_1$), $c_L$ (P-wave) & COLLECTIVE & DERIVED ($c_0$; $\sqrt{2}c_0$ bulk-modulus; $\sqrt{10/3}\,c_0$ solid P-wave --- both retained as distinct objects) & --- \\
 $l_c^{\text{(weak)}}$ & sub-node (weak range) & DERIVED ($\sqrt{\gamma_c/G_{vac}}$) --- \textbf{collides with $\ell_c^{\text{(K4)}}$, OPEN} & --- \\
 $\ell_c^{\text{(K4)}}$ & COLLECTIVE (lattice) & DERIVED ($\sqrt{6}\,\ell_{node}$, \texttt{ELL\_C}) & --- \\
 \bottomrule
 \end{tabular}
-\caption{Scope / provenance / bench-access for the mechanical primitives. The $K=2G$ operating point ($p_c = 8\pi\alpha$), $\nu_{vac}$, and $\ell_c^{\text{(K4)}}$ are COLLECTIVE; the $z_0 \approx 51.25$ coordination that locates $p^* = 8\pi\alpha$ is $\alpha$-circular-OPEN (not an independent $\alpha$ determination). The two-$\ell_c$ collision (\S\ref{sec:vol9_mech_two_lc}) is OPEN/auditor-gated.}
+\caption{Scope / provenance / bench-access for the mechanical primitives. The $K=2G$ operating point ($p_c = 8\pi\alpha$), $\nu_{vac}$, and $\ell_c^{\text{(K4)}}$ are COLLECTIVE; the $z_0 \approx 51.25$ coordination that locates $p^* = 8\pi\alpha$ is $\alpha$-circular-OPEN (not an independent $\alpha$ determination). The two-$\ell_c$ collision (\S\ref{sec:vol9_mech_two_lc}) is OPEN (provisional, pending resolution).}
 \label{tab:vol9_mech_scope}
 \end{table}
 
@@ -149,7 +149,7 @@ This is \emph{not} a fitted parameter. It is forced by two independent axiomatic
 
 \input{figures/moduli_relationship.tex}
 
-The derivation lives canonically at \kbleaf{ave-kb/vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md} (\texttt{clm-x19btt}) with the Effective Medium Theory derivation of $K/G = 2$ at the canonical leaves \kbleaf{topological-packing-fraction.md} and \kbleaf{one-seventh-impedance-projection.md} in the same KB directory. Per CLAUDE.md INVARIANT-S2, this is an Ax~1+Ax~2 \emph{interlink} (cross-axiom identity), not a fundamental axiom in its own right; the canonical-source entry is \kbleaf{src/ave/core/constants.py:532} (\texttt{NU\_VAC}).
+The derivation lives canonically at \kbleaf{ave-kb/vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md} with the Effective Medium Theory derivation of $K/G = 2$ at the canonical leaves \kbleaf{topological-packing-fraction.md} and \kbleaf{one-seventh-impedance-projection.md} in the same KB directory. Per CLAUDE.md INVARIANT-S2, this is an Ax~1+Ax~2 \emph{interlink} (cross-axiom identity), not a fundamental axiom in its own right; the canonical-source entry is \kbleaf{src/ave/core/constants.py:532} (\texttt{NU\_VAC}).
 
 The same $\nu_{vac} = 2/7$ propagates into downstream electroweak observables --- $\sin^2\theta_W = 1 - 7/9 = 2/9$ (on-shell, \kbleaf{src/ave/core/constants.py:563} \texttt{SIN2\_THETA\_W}); the Wolfenstein CKM parameterization with $\lambda = \sin^2\theta_W = 2/9$, $A = \cos\theta_W = \sqrt{7}/3$, $\sqrt{\rho^2 + \eta^2} = 1/\sqrt{7}$ (Vol~II's Electroweak Mechanics chapter); and the PMNS mixing angles with $\sin^2\theta_{12} = \nu_{vac} + 1/45 \approx 0.308$ (\kbleaf{src/ave/core/constants.py:653} \texttt{SIN2\_THETA\_12}). The Vol~9 datasheet records the mechanical Poisson ratio; the downstream electroweak observables are spec'd in their respective chapters.
 
@@ -162,18 +162,18 @@ The Cosserat couple-stress modulus $\gamma_c$ is the substrate-native bending in
 l_c = \sqrt{\gamma_c / G_{vac}},
 \]
 
-and is identified with the weak-force range $r_W \approx 10^{-18}$~m (canonical at KB leaf \kbleaf{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} line~39, \texttt{clm-5zuo7g}; Vol~II's Electroweak Mechanics chapter).
+and is identified with the weak-force range $r_W \approx 10^{-18}$~m (canonical at \kbleaf{vol2/particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md} line~39; Vol~II's Electroweak Mechanics chapter).
 
 \textbf{Substrate mechanism.} Per the canonical derivation (Vol~II's Electroweak Mechanics chapter; \kbleaf{gauge-boson-masses.md}): weak interactions lack the kinetic energy required to overcome the ambient LC rotational inductance. Any physical excitation operating \emph{below} the medium's natural cutoff frequency becomes an evanescent wave. The static field equation transforms from the Laplace equation $\nabla^2 \theta = 0$ to the massive Helmholtz equation $\nabla^2 \theta - \theta / l_c^2 = 0$, whose Green's function is the Yukawa potential $V_{weak}(r) \propto e^{-r/l_c}/r$. The $W^\pm$ and $Z^0$ bosons are the evanescent cutoff modes of the substrate's bending and torsional sectors respectively, with mass ratio $m_W/m_Z = \sqrt{7}/3$ set by the same $\nu_{vac} = 2/7$ Poisson identity (\S\ref{sec:vol9_mech_poisson} above).
 
-\textbf{EE-substrate-native projection} (\texttt{ave-ee-first-mapping} v1.0 means-test row~10): the Cosserat couple-stress modulus $\gamma_c$ \emph{is} the \textbf{transformer leakage inductance characteristic length} at the bond scale. The W/Z mass scale is set by the transformer-leakage-inductance characteristic frequency. The microrotational sector mass-gap $m_\omega \sim 1$~MeV (canonical at \kbleaf{common/trampoline-framework.md} line~188) is the \textbf{ferrite-Curie-temperature analog} for the substrate's magnetic-mode thermal-freeze threshold (means-test row~12).
+\textbf{EE-substrate-native projection.} The Cosserat couple-stress modulus $\gamma_c$ \emph{is} the \textbf{transformer leakage inductance characteristic length} at the bond scale. The W/Z mass scale is set by the transformer-leakage-inductance characteristic frequency. The microrotational sector mass-gap $m_\omega \sim 1$~MeV (canonical at \kbleaf{common/trampoline-framework.md} line~188) is the \textbf{ferrite-Curie-temperature analog} for the substrate's magnetic-mode thermal-freeze threshold.
 
 The Vol~9 magnetic / microrotational characteristics of the substrate --- the Cosserat flywheel inductance, the rotation-sector mass-gap, $B_{snap}$, and the weak-force range as a spec entry --- are documented separately in Ch.~10 (Magnetic / Microrotational Characteristics). This chapter records $\gamma_c$ as a bulk mechanical primitive; Ch.~10 develops the consequences for the magnetic sector.
 
 \section{Mechanical Wave Speeds}
 \label{sec:vol9_mech_wave_speeds}
 
-The transverse (shear) and dilatational mechanical wave speeds of the substrate at the cold-lattice limit are set by the bulk moduli and density. \textbf{Two distinct longitudinal speeds (KEEP-BOTH)} must be separated --- the A1-dilatation bulk-modulus port-mode and the solid P-wave (2026-06-08 $c_L$ reversal, Rule-12; \texttt{clm-uu1qbo} / \kbleaf{03a\_device\_circuit\_models.tex}:80):
+The transverse (shear) and dilatational mechanical wave speeds of the substrate at the cold-lattice limit are set by the bulk moduli and density. \textbf{Two distinct longitudinal speeds} must be separated --- the A1-dilatation bulk-modulus port-mode and the solid P-wave (\kbleaf{03a\_device\_circuit\_models.tex}:80):
 
 \begin{align}
 v_T(0) &= \sqrt{G_{vac} / \rho_{bulk}} = c_0, \nonumber \\
@@ -181,21 +181,21 @@ v_{bulk}(0) &= \sqrt{K_{vac} / \rho_{bulk}} = \sqrt{2}\, c_0, \nonumber \\
 c_L(0) &= \sqrt{\frac{K_{vac} + \tfrac{4}{3}G_{vac}}{\rho_{bulk}}} = \sqrt{\tfrac{10}{3}}\, c_0 \approx 1.83\, c_0. \nonumber
 \end{align}
 
-The transverse speed equals $c_0$ \emph{by construction} --- photons are transverse excitations of the LC lattice, so $v_T = c_0$ identically (canonical-source \kbleaf{src/ave/core/constants.py:672} \texttt{G\_VAC}; \kbleaf{src/ave/core/constants.py:664} \texttt{RHO\_BULK}). The \textbf{bulk-modulus dilatational speed} $v_{bulk} = \sqrt{2}\, c_0$ (the A1-scalar port-mode, which \emph{drops} the $4G/3$ shear term) follows from $K_{vac} = 2 G_{vac}$ (canonical-source \kbleaf{src/ave/core/constants.py:676} \texttt{V\_LONG}); the value previously labeled simply ``the longitudinal speed'' is this bulk-modulus quantity (retained per Rule-12), \emph{not} the solid P-wave. The \textbf{solid longitudinal P-wave speed} $c_L = \sqrt{(K_{vac}+4G_{vac}/3)/\rho_{bulk}} = \sqrt{10/3}\, c_0$ (the standard isotropic-solid form at $\nu_{vac}=2/7$, which \emph{keeps} the $4G/3$ term) is the distinct second object; the two differ by whether the shear term is carried, both are $\alpha$-free, and the choice shifts only the bulk/shear gap location (canonical reconciliation \texttt{clm-uu1qbo}; \kbleaf{03a\_device\_circuit\_models.tex}:80).
+The transverse speed equals $c_0$ \emph{by construction} --- photons are transverse excitations of the LC lattice, so $v_T = c_0$ identically (canonical-source \kbleaf{src/ave/core/constants.py:672} \texttt{G\_VAC}; \kbleaf{src/ave/core/constants.py:664} \texttt{RHO\_BULK}). The \textbf{bulk-modulus dilatational speed} $v_{bulk} = \sqrt{2}\, c_0$ (the A1-scalar port-mode, which \emph{drops} the $4G/3$ shear term) follows from $K_{vac} = 2 G_{vac}$ (canonical-source \kbleaf{src/ave/core/constants.py:676} \texttt{V\_LONG}); the bulk-modulus dilatational quantity $v_{bulk}=\sqrt{2}\,c_0$ is the A1-scalar port-mode, \emph{not} the solid P-wave. The \textbf{solid longitudinal P-wave speed} $c_L = \sqrt{(K_{vac}+4G_{vac}/3)/\rho_{bulk}} = \sqrt{10/3}\, c_0$ (the standard isotropic-solid form at $\nu_{vac}=2/7$, which \emph{keeps} the $4G/3$ term) is the distinct second object; the two differ by whether the shear term is carried, both are $\alpha$-free, and the choice shifts only the bulk/shear gap location (canonical at \kbleaf{03a\_device\_circuit\_models.tex}:80).
 
-\textbf{Saturation modulation.} At finite saturation operating point $A_0 \neq 0$, the substrate carries two distinct effective speeds, and conflating them is the canonical Pitfall~\#5 framework-leakage error (CLAUDE.md INVARIANT-S2, caught 2026-05-28 Phase~3-A3 WALK-BACK):
+\textbf{Saturation modulation.} At finite saturation operating point $A_0 \neq 0$, the substrate carries two distinct effective speeds, and conflating them is the canonical framework-leakage error (CLAUDE.md INVARIANT-S2):
 
 \begin{itemize}
-    \item $c_{EM}(A_0) = c_0 / S(A_0)$ --- the Maxwell phase velocity; appears in $\alpha = e^2/(4\pi\varepsilon_0 \hbar c)$ and all Maxwell-equation derivations. Canonical at KB leaf \texttt{clm-8nkvwy}.
-    \item $c_{shear}(A_0) = c_0\, \sqrt{S(A_0)}$ --- the substrate mechanical / group / rest-mass velocity; tracks the Schwarzschild $c\sqrt{1 - r_s/r}$ reduction in the SYM-class weak-field gravity limit. This is the spec entry for the mechanical $v_T$ at operating point $A_0$. Canonical at KB leaf \texttt{clm-8nkvwy}.
+    \item $c_{EM}(A_0) = c_0 / S(A_0)$ --- the Maxwell phase velocity; appears in $\alpha = e^2/(4\pi\varepsilon_0 \hbar c)$ and all Maxwell-equation derivations. Canonical at \kbleaf{vol1/claim-quality.md} (Symmetric vs Asymmetric Saturation).
+    \item $c_{shear}(A_0) = c_0\, \sqrt{S(A_0)}$ --- the substrate mechanical / group / rest-mass velocity; tracks the Schwarzschild $c\sqrt{1 - r_s/r}$ reduction in the SYM-class weak-field gravity limit. This is the spec entry for the mechanical $v_T$ at operating point $A_0$. Canonical at \kbleaf{vol1/claim-quality.md} (Symmetric vs Asymmetric Saturation).
 \end{itemize}
 
-Both reduce to $c_0$ at the cold-lattice limit $S(0) = 1$. The mechanical-characteristics datasheet entry is $v_T(A_0) = c_{shear}(A_0) = c_0 \sqrt{S(A_0)}$. Under SYM-class saturation scaling (gravity-class realization: $\mu$ and $\varepsilon$ scale together so $Z_0$ stays invariant), this produces gravitational time dilation via the Schwarzschild reduction \emph{while} simultaneously preserving $\alpha$ exactly (canonical proof at \kbleaf{ave-kb/vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md}, \texttt{clm-3zz0f6}). The substrate-physics of the gravity-class SYM scaling is documented in Vol~3 Ch.~\ref{ch:gravity_and_yield}; this datasheet entry records $v_T(A_0) = c_{shear}(A_0)$ as the canonical mechanical wave-speed spec under saturation modulation.
+Both reduce to $c_0$ at the cold-lattice limit $S(0) = 1$. The mechanical-characteristics datasheet entry is $v_T(A_0) = c_{shear}(A_0) = c_0 \sqrt{S(A_0)}$. Under SYM-class saturation scaling (gravity-class realization: $\mu$ and $\varepsilon$ scale together so $Z_0$ stays invariant), this produces gravitational time dilation via the Schwarzschild reduction \emph{while} simultaneously preserving $\alpha$ exactly (canonical at \kbleaf{ave-kb/vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md}). The substrate-physics of the gravity-class SYM scaling is documented in Vol~3 Ch.~\ref{ch:gravity_and_yield}; this datasheet entry records $v_T(A_0) = c_{shear}(A_0)$ as the canonical mechanical wave-speed spec under saturation modulation.
 
 \section{EE Mechanical Translation}
 \label{sec:vol9_mech_ee_translation}
 
-The EE-substrate-native projection of the mechanical primitives in this chapter (per \texttt{ave-ee-first-mapping} v1.0, canonical leaf \kbleaf{common/translation-tables/translation-circuit.md}, \texttt{clm-eemap1}). EE is the closest-to-substrate-native human-developed language for the K4-LC vacuum substrate; the mechanical sector projects cleanly onto EE without losing substrate-physics content because Cosserat micropolar mechanics IS the rotational-DOF / couple-stress side of the substrate's intrinsic LC + transformer network.
+The EE-substrate-native projection of the mechanical primitives in this chapter (canonical leaf \kbleaf{common/translation-tables/translation-circuit.md}). EE is the closest-to-substrate-native human-developed language for the K4-LC vacuum substrate; the mechanical sector projects cleanly onto EE without losing substrate-physics content because Cosserat micropolar mechanics IS the rotational-DOF / couple-stress side of the substrate's intrinsic LC + transformer network.
 
 \begin{table}[htbp]
 \centering
@@ -222,13 +222,13 @@ Mechanical wave speed $v_T = c_0$ at cold lattice & EE free-space propagation sp
 
 The $\xi_{topo} = e/\ell_{node}$ bridge (CLAUDE.md INVARIANT-C2; Axiom~2; canonical-source \kbleaf{src/ave/core/constants.py:291} \texttt{XI\_TOPO}) is the load-bearing translation between EE and mechanical observables: $\rho_{bulk}$ scales as $\xi_{topo}^2 \mu_0$ because the substrate's mass density IS the inductive-storage density of the K4-LC network at the node-spacing scale, with $\xi_{topo}$ supplying the EE-to-mechanical dimensional bridge. Every Vol~9 spec entry that crosses the EE / mechanical boundary inherits this $\xi_{topo}$ mapping.
 
-The EE-substrate-native projection of the entire mechanical sector --- LC-network capacitance + transformer mutual-inductance + leakage inductance + ferrite Curie analog + free-space propagation --- is means-test-validated against 20+ independent substrate-physics cross-checks (canonical at \texttt{ave-ee-first-mapping} v1.0 means-test corpus). The means-test status for this chapter's primitives:
+The EE-substrate-native projection of the entire mechanical sector --- LC-network capacitance + transformer mutual-inductance + leakage inductance + ferrite Curie analog + free-space propagation --- is cross-validated against 20+ independent substrate-physics checks (canonical at \kbleaf{common/translation-tables/translation-circuit.md}). The consistency status for this chapter's primitives:
 
 \begin{itemize}
-    \item $G_{vac}, \rho_{bulk}, v_T = c_0$: identity (LC-network shear modulus = $\rho c^2$; trivially consistent with EE free-space propagation $c_0 = 1/\sqrt{\mu_0\varepsilon_0}$). Means-test rows~2--3.
-    \item $K_{vac} = 2 G_{vac}$ + $\nu_{vac} = 2/7$: substrate-axiomatic from EMT at $p^* = 8\pi\alpha$; cross-validated against gradient-index refraction in Vol~3 gravity. Means-test row~9.
-    \item $\gamma_c$ + $l_c$: order-of-magnitude match against W/Z mass scale via transformer-leakage-inductance characteristic frequency. Means-test row~10.
-    \item Cosserat rotation-sector mass-gap $m_\omega \sim 1$~MeV (consequence for Ch.~10): canonical at \kbleaf{trampoline-framework.md} line~188. Means-test row~12.
+    \item $G_{vac}, \rho_{bulk}, v_T = c_0$: \emph{identity} (LC-network shear modulus = $\rho c^2$; trivially consistent with EE free-space propagation $c_0 = 1/\sqrt{\mu_0\varepsilon_0}$).
+    \item $K_{vac} = 2 G_{vac}$ + $\nu_{vac} = 2/7$: \emph{cross-validated} (substrate-axiomatic from EMT at $p^* = 8\pi\alpha$; consistent with gradient-index refraction in Vol~3 gravity).
+    \item $\gamma_c$ + $l_c$: \emph{order-of-magnitude} match against W/Z mass scale via transformer-leakage-inductance characteristic frequency.
+    \item Cosserat rotation-sector mass-gap $m_\omega \sim 1$~MeV (consequence for Ch.~10): \emph{cross-validated}; canonical at \kbleaf{trampoline-framework.md} line~188.
 \end{itemize}
 
 The EE projection is the engineering language closest to the substrate's native form for the mechanical sector; this chapter records the mechanical-sector spec in both projections.
