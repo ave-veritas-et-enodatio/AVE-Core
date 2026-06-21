@@ -29,6 +29,16 @@ The chapter is a **synthesis chapter** per Vol 9 charter — no substrate primit
 
 The Axiom 4 kernel governs **26 canonical cross-scale instances** per the canonical catalog at [`universal-saturation-kernel-catalog.md`](../../common/universal-saturation-kernel-catalog.md): 17 physical-substrate canonical + 2 biological-substrate + 5 engineered-substrate + 2 physical-substrate companion rows scoped for Sessions 4/5. The Vol 0 backmatter chapter and [`eq_axiom_4.tex`](../../../common_equations/eq_axiom_4.tex) cite the physical-substrate-only subset as **19 cross-scale topological-reorganization events** (17 canonical + 2 scoped). Both counts are correct at their respective scopes; cross-scale span is **21 orders of magnitude** uniformly (atomic ∼ $10^{-15}$ m to cosmic ∼ $10^{26}$ m).
 
+## Miller avalanche exponent — 1D vs 3D-corrected (canonical)
+
+The substrate Miller multiplication identity $M(r) = 1/S(r)^2 = 1/(1-r^2)$ is the **1D Miller
+form** (semiconductor avalanche-multiplication law $M = 1/(1-(V_R/V_{BR})^n)$ at exponent $n=2$).
+The **3D-corrected macroscopic exponent** is `AVALANCHE_N_3D = 2(1 − ν_vac/3) = 38/21 ≈ 1.8095`
+(`src/ave/core/constants.py:336`), where $ν_{vac}=2/7$ is the vacuum Poisson ratio: the 3D
+solid-angle correction to the carrier-multiplication geometry softens the 1D $n=2$ to $n≈1.81$.
+Both forms are canonical at their respective scopes — the $n=2$ 1D form for the bond-line
+(per-channel) avalanche, the $n=38/21$ 3D-corrected form for the bulk macroscopic avalanche.
+
 ## Manuscript counterpart
 
 `manuscript/vol_9_vacuum_datasheet/chapters/07_saturation_characteristics.tex` (populated Vol 9 PR-E sub-PR — Ch 7 buildout).
@@ -42,9 +52,15 @@ directly as an L0 constitutive gate by the engine-acceptance suite's **A4** test
 the quarter-arc identity, the EM projection (ε_eff=ε₀S, μ_eff=μ₀S, c_EM=c₀/S, Z_EM=Z₀),
 and the canonical longitudinal c_eff²=c₀²/S all to <1e-12, with cold limit S(0)=1 and the
 stiffening wall as A→A_yield. The L2 operating-point manifestations (T2.1 c_EM, T2.3 ASYM
-mirror) ride the SAME kernel. The A4 test surfaces the **S\*\*0.25-vs-S\*\*0.5 exponent
-flag** (`master_equation_fdtd.py:165-168` refractive_index vs :148-151 c_eff_squared) as
-a physics-review item (flag-don't-fix; Ch.17 requirement 13).
+mirror) ride the SAME kernel.
+
+**S^(1/4)-vs-S^(1/2) exponent flag — RESOLVED 2026-06-17.** The refractive-index exponent
+defect (legacy `S**0.25`) is resolved in favor of the **physical `S**0.5`**: the engine now
+returns `n_EM = c₀/c_eff = S(A)^(+1/2)` (`master_equation_fdtd.py:167-170`, `return S**0.5`)
+and `n_shear = S(A)^(−1/2)` (`:173-178`), consistent with the kernel anchor `c_eff²=c₀²/S`
+(`:148-151`) — the in-code comment at `:160-161` records the legacy `S^{1/4}` as a now-corrected
+exponent defect. The canonical wave-speed form is **c_shear = c₀√S** (= S^(1/2); matter/group/
+rest-mass speed), and `c_EM = c₀/S`. The flag is closed (no longer a physics-review item).
 
 ## Volume-scope classification
 

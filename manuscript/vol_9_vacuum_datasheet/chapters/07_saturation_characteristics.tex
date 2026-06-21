@@ -8,7 +8,7 @@
     \item Document the dielectric specialization $\varepsilon_{eff} = \varepsilon_0 S$, $\mu_{eff} = \mu_0 S$, $C_{eff} = C_0/S$ at atomic and bench scale, distinguish the two effective wave speeds $c_{EM}(A_0) = c_0/S$ and $c_{shear}(A_0) = c_0 \sqrt{S}$, and identify the operating-point state $A_0$ as a gauge-relative LC-tank saturation amplitude.
     \item Tabulate the characteristic curves for the substrate primitives ($S$, $C_{eff}/C_0$, $\varepsilon_{eff}/\varepsilon_0$, $c_{EM}/c_0$, $c_{shear}/c_0$, $\alpha_{eff}/\alpha_0$) vs.\ the normalized operating point $r = A_0/A_{yield}$.
     \item Summarize the four-regime map (Small-Signal / Large-Signal / Avalanche / Breakdown) and its semiconductor analog (linearized $g_m$ / saturating switching transient / Miller multiplication $M = 1/S^2$ / junction destruction).
-    \item Identify Project PONDER-05 at $V_{DC}/V_{yield} = 0.687$ as the canonical bench-scale falsifier of the dielectric specialization mechanism.
+    \item Document Project PONDER-05 at $V_{DC}/V_{yield} = 0.687$ as a \emph{material-scale consistency analog} of the kernel shape (a quartz voltage-coefficient-of-capacitance reproducing the saturation-arc form), not a vacuum-kernel falsifier (per INVARIANT-S2 + the ch7 KB index).
     \item Cross-reference the A-034 universal saturation-kernel catalog, which documents the same kernel governing all cross-scale topological-reorganization events at zero free parameters across 21 orders of magnitude.
 \end{itemize}
 \end{objectivebox}
@@ -31,6 +31,13 @@ $A$ is the local strain normalized to the substrate's bandwidth limit $A_{yield}
 \end{resultbox}
 
 The kernel is a substrate primitive of the natural vacuum, not an engineered constitutive relation. The quarter-arc shape is fixed by Axiom~4 alone --- there are no free parameters, no per-domain refit, and no scale-dependent kernel coefficients. The saturation amplitude $A_{yield}$ is the universal substrate bandwidth limit; its dielectric-dialect projection is $V_{yield} = \sqrt{\alpha}\, V_{snap} \approx \qty{43.65}{\kilo\volt}$ at the substrate's per-node LC scale (Vol~4 canonical leaf \texttt{clm-0vxzfu}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.98\textwidth]{A4_debug}
+\caption{Axiom-4 saturation kernel $S(A) = \sqrt{1-(A/A_{yield})^2}$ as the constitutive gate. \emph{Left:} the quarter-arc $S(A)$ (reactance scale) against $A/A_{yield}$, with the swept operating points overlaid on the analytic arc. \emph{Right:} the two orthogonal constitutive reactances tracking the same kernel --- $c_{EM}/c_0 = C_{eff}/C_0 = 1/S$ (stiffens, $\to\infty$) and $\varepsilon_{eff}/\varepsilon_0 = \mu_{eff}/\mu_0 = S$ (softens, $\to 0$) --- both reaching the stiffening wall as $A \to A_{yield}$. The A4 gate plot of the engine-acceptance suite; computed by \kbleaf{src/tests/engine\_acceptance/test\_l0\_axioms.py} (A4 test, \texttt{sup-2qja9z}), wired in Ch.~\ref{ch:vol9_engine_requirements}.}
+\label{fig:vol9_a4_kernel_gate}
+\end{figure}
 
 \section{Operating-Point State and Dielectric Specialization}
 \label{sec:vol9_dielectric_specialization}
@@ -143,12 +150,16 @@ IV Breakdown    & $r \ge 1$                            & $S = 0$           & Sub
 \textbf{Sector-dependence of $r_2$:} the $\ell_{\min} = 2$ argument that sets $r_2 = \sqrt{3}/2$ is specific to the spin-2 (gravitational-wave / shear-mode) sector. The vector/photon sector ($\ell_{\min} = 1$) has $r_2 = 0$ (avalanche concurrent with linear-Maxwell breakdown); the scalar sector ($\ell_{\min} = 0$) has no avalanche-onset boundary at all. The unqualified citation $r_2 = \sqrt{3}/2$ in this datasheet implicitly invokes the spin-2 sector; see \texttt{four-regimes.md} for the full sector-dependence treatment.
 
 \noindent
-\textbf{Miller multiplication identity:} the substrate-native form is $M(r) = 1/S(r)^2 = 1/(1 - r^2)$, identical to the engineering avalanche-multiplication law $M = 1/(1 - (V_R/V_{BR})^n)$ at $n = 2$. The semiconductor $V_{BR}$ is the engineering name for $V_{yield}$ at the doped-silicon scale; the same kernel governs both.
+\textbf{Miller multiplication identity (1D vs 3D-corrected):} the substrate-native \textbf{1D Miller form} is $M(r) = 1/S(r)^2 = 1/(1 - r^2)$, identical to the engineering avalanche-multiplication law $M = 1/(1 - (V_R/V_{BR})^n)$ at exponent $n = 2$. The \textbf{3D-corrected macroscopic exponent} is $n_{3D} = 2(1 - \nu_{vac}/3) = 38/21 \approx 1.8095$ (\kbleaf{src/ave/core/constants.py:336} \texttt{AVALANCHE\_N\_3D}), where the vacuum Poisson ratio $\nu_{vac} = 2/7$ supplies the solid-angle correction to the carrier-multiplication geometry: the 3D bulk avalanche softens the $n=2$ 1D (bond-line) form to $n \approx 1.81$. Both are canonical at their scopes. The semiconductor $V_{BR}$ is the engineering name for $V_{yield}$ at the doped-silicon scale; the same kernel governs both.
 
-\section{PONDER-05 Bench-Scale Falsifier}
+\section{PONDER-05 Bench-Scale Consistency Analog}
 \label{sec:vol9_ponder_05}
 
-The PONDER-05 differential-saturation-parallax bench measurement is the canonical bench-scale falsifier of the Axiom~4 dielectric specialization. Apparatus: paired DC-biased quartz resonator thrusters across a vertical gravity gradient, $V_{DC} = \qty{30}{\kilo\volt}$ holding the substrate at $V_{DC}/V_{yield} = 0.687$. At this operating point the kernel predicts $S(0.687) = 0.7266$, giving canonical substrate-physics observables:
+\begin{warningbox}[\texttt{Rule-12} retraction --- PONDER-05 is a \emph{material-scale consistency analog}, not a vacuum-kernel falsifier]
+This section previously framed PONDER-05 as ``the canonical bench-scale falsifier of the Axiom~4 dielectric specialization.'' That framing is \textbf{retracted} per INVARIANT-S2 and the ch7 KB index (\kbleaf{manuscript/ave-kb/vol9/ch7-saturation-characteristics/index.md}, item~5): PONDER-05 measures a \emph{quartz material} voltage-coefficient-of-capacitance that reproduces the saturation-arc \emph{shape}, which is a \textbf{material-scale consistency analog of the kernel SHAPE} --- it is \textbf{not} a vacuum-kernel falsifier. The conflation to avoid is that ``$V_{DC}/V_{yield}=0.687$ at \qty{30}{\kilo\volt}'' reads the apparatus voltage as the substrate's \emph{per-node} ratio: the vacuum per-node $A_0$ at \qty{30}{\kilo\volt} across real quartz (mm--\textmu m) is $\sim 10^{-7}$--$10^{-10}$ (\kbleaf{manuscript/ave-kb/vol4/claim-quality.md}:51), so the vacuum-kernel collapse is $\sim 0$; appreciable per-node $A_0$ requires facility-class fields $\sim 8\times10^{16}$~V/m. The original ``falsifier'' wording is preserved below for audit continuity; read the section as the material-scale consistency analog.
+\end{warningbox}
+
+The PONDER-05 differential-saturation-parallax bench measurement is a material-scale consistency analog of the Axiom~4 dielectric specialization: the quartz dielectric's own voltage-coefficient-of-capacitance reproduces the saturation-arc shape the kernel predicts. Apparatus: paired DC-biased quartz resonator thrusters across a vertical gravity gradient, $V_{DC} = \qty{30}{\kilo\volt}$ at an apparatus ratio $V_{DC}/V_{yield} = 0.687$. At this material operating point the kernel shape predicts $S(0.687) = 0.7266$, giving the quartz-scale observables:
 
 \begin{itemize}
     \item $\varepsilon_{eff}/\varepsilon_0 = S = 0.7266$ \quad ($-27.34\%$ from baseline)
@@ -158,7 +169,7 @@ The PONDER-05 differential-saturation-parallax bench measurement is the canonica
 
 The canonical operating-point statement is at KB leaf \kbleaf{ave-kb/vol4/falsification/ch11-experimental-bench/measurement-hierarchy-snr.md}:66; the substrate-physics derivation at \kbleaf{ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md} (Phase 0c + Phase 2-NA extensions); the divergence-test-matrix row at \kbleaf{ave-kb/common/divergence-test-substrate-map.md} row \texttt{B7-PONDER-05}; the hardware programme at sibling repo \texttt{AVE-PONDER} (manuscript chapter \kbleaf{vol\_ponder/chapters/04\_ponder\_05\_dc\_biased\_quartz.tex}).
 
-\textbf{Falsification criterion.} A null result at $V_{DC}/V_{yield} = 0.687$ (no $C_{eff}$ rise within bench noise floor) falsifies the Axiom~4 dielectric specialization directly. The cascade impact is documented in the divergence-test-substrate-map (B7-PONDER-05 cascades to B5/B6 PONDER, B1-VAC-BIREFRINGE, D4-A034, C9-LEVITATION through the shared $V_{yield}$ primitive). See Ch.~15 (Falsification Tests) for the full falsification programme.
+\textbf{Consistency criterion (material-scale).} A null result at the apparatus ratio $V_{DC}/V_{yield} = 0.687$ (no quartz $C_{eff}$ rise within bench noise floor) bears on the \emph{material-scale} consistency of the saturation-arc shape at the quartz dielectric, not on the vacuum kernel directly (the vacuum per-node $A_0$ is $\sim 10^{-7}$--$10^{-10}$ at this field; the vacuum-kernel falsifier is facility-class $\sim 8\times10^{16}$~V/m). The material-scale cascade is documented in the divergence-test-substrate-map (B7-PONDER-05 relates to B5/B6 PONDER, B1-VAC-BIREFRINGE, D4-A034, C9-LEVITATION through the shared $V_{yield}$ primitive). See Ch.~15 (Falsification Tests) for the full falsification programme and the separation of material-scale consistency analogs from facility-class vacuum-kernel falsifiers.
 
 \textbf{Operating-point near-optimality.} The PONDER-05 canonical $V_{DC}/V_{yield} = 0.687$ sits within $2.8\%$ of the substrate-mechanical 2D-aperture aperture-aggregate skewness peak at $a^{(2D)}_{peak} = 1/\sqrt{2} = 0.707$ (per \kbleaf{parametric-coupling-kernel.md} \S 14.5). The canonical operating point --- chosen for the 27.4\% $\varepsilon_{eff}$ collapse + \qty{469}{\micro\newton} thrust at engineering-conservative bias --- is operationally near-optimal for the amplitude-statistics readout layer as well; the substrate-native Op17 matched-impedance peak structure is shared across all three observables (thrust, $\varepsilon_{eff}$ collapse, aperture-aggregate skewness).
 
@@ -171,7 +182,7 @@ The same Axiom~4 kernel governs every cross-scale topological-reorganization eve
 
 \textbf{Symmetry classification (canonical).} The catalog partitions instances into SYM (vacuum $K = 2G$; $\varepsilon$ and $\mu$ saturate together; 19 instances), ASYM-N (single-sector --- only $\varepsilon$ or only $\mu$; 4 instances: BCS $\mu$-only, plasma $\varepsilon$-only, planetary mag-vs-spin candidate, cosmic-DE $\varepsilon$-only), ASYM-E (engineered $K/G \neq 2$; 1 instance: active topological metamaterials), and TBD (2 scoped instances: galactic spin-axis, LSS spin-axis). The PONDER-05 bench falsifier sits in the SYM class at the DC-biased-piezoelectric engineered row.
 
-\textbf{Tightest validations.} BCS $B_c(T) = B_{c0}\, S(T/T_c)$ at $0.00\%$ error across all measured Type-I/II superconductors (ASYM-N($\mu$) class); BH event horizon $\varepsilon_{11}(r) = 1$ matching Schwarzschild $r_s = 2GM/c^2$ exactly; BH merger QNM $\omega_R M_g = 18/49$ at $1.7\%$ from GR exact across 3 LIGO events; planetary-axis kernel scoring $14$--$15/16$ class matches across 16 planetary axis data points (Row 9-a + Row 9-b). The framework simplifies rather than complicates as evidence accumulates: the kernel does not change with scale, only the lattice scale changes.
+\textbf{Tightest validations.} BCS $B_c(T) = B_{c0}\, S(T/T_c)$ at $0.00\%$ error across all measured Type-I/II superconductors (ASYM-N($\mu$) class); BH event horizon $\varepsilon_{11}(r) = 1$ matching Schwarzschild $r_s = 2GM/c^2$ exactly; BH merger QNM $\omega_R M_g = 18/49$ at $1.7\%$ from GR exact across 3 LIGO events; planetary-axis kernel scoring $14$--$15/16$ class matches across 16 planetary axis data points (Row 9-a + Row 9-b). The kernel form does not change with scale across these entries; only the lattice scale changes.
 
 This datasheet chapter consolidates the kernel into datasheet format; the catalog leaf carries the full per-row substrate-mechanism documentation and per-row empirical anchor. No substrate primitive in this chapter is re-derived; all references point to the canonical leaves.
 
