@@ -32,6 +32,13 @@ $A$ is the local strain normalized to the substrate's bandwidth limit $A_{yield}
 
 The kernel is a substrate primitive of the natural vacuum, not an engineered constitutive relation. The quarter-arc shape is fixed by Axiom~4 alone --- there are no free parameters, no per-domain refit, and no scale-dependent kernel coefficients. The saturation amplitude $A_{yield}$ is the universal substrate bandwidth limit; its dielectric-dialect projection is $V_{yield} = \sqrt{\alpha}\, V_{snap} \approx \qty{43.65}{\kilo\volt}$ at the substrate's per-node LC scale (Vol~4 canonical leaf \texttt{clm-0vxzfu}).
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.98\textwidth]{A4_debug}
+\caption{Axiom-4 saturation kernel $S(A) = \sqrt{1-(A/A_{yield})^2}$ as the constitutive gate. \emph{Left:} the quarter-arc $S(A)$ (reactance scale) against $A/A_{yield}$, with the swept operating points overlaid on the analytic arc. \emph{Right:} the two orthogonal constitutive reactances tracking the same kernel --- $c_{EM}/c_0 = C_{eff}/C_0 = 1/S$ (stiffens, $\to\infty$) and $\varepsilon_{eff}/\varepsilon_0 = \mu_{eff}/\mu_0 = S$ (softens, $\to 0$) --- both reaching the stiffening wall as $A \to A_{yield}$. The A4 gate plot of the engine-acceptance suite; computed by \kbleaf{src/tests/engine\_acceptance/test\_l0\_axioms.py} (A4 test, \texttt{sup-2qja9z}), wired in Ch.~\ref{ch:vol9_engine_requirements}.}
+\label{fig:vol9_a4_kernel_gate}
+\end{figure}
+
 \section{Operating-Point State and Dielectric Specialization}
 \label{sec:vol9_dielectric_specialization}
 
@@ -175,7 +182,7 @@ The same Axiom~4 kernel governs every cross-scale topological-reorganization eve
 
 \textbf{Symmetry classification (canonical).} The catalog partitions instances into SYM (vacuum $K = 2G$; $\varepsilon$ and $\mu$ saturate together; 19 instances), ASYM-N (single-sector --- only $\varepsilon$ or only $\mu$; 4 instances: BCS $\mu$-only, plasma $\varepsilon$-only, planetary mag-vs-spin candidate, cosmic-DE $\varepsilon$-only), ASYM-E (engineered $K/G \neq 2$; 1 instance: active topological metamaterials), and TBD (2 scoped instances: galactic spin-axis, LSS spin-axis). The PONDER-05 bench falsifier sits in the SYM class at the DC-biased-piezoelectric engineered row.
 
-\textbf{Tightest validations.} BCS $B_c(T) = B_{c0}\, S(T/T_c)$ at $0.00\%$ error across all measured Type-I/II superconductors (ASYM-N($\mu$) class); BH event horizon $\varepsilon_{11}(r) = 1$ matching Schwarzschild $r_s = 2GM/c^2$ exactly; BH merger QNM $\omega_R M_g = 18/49$ at $1.7\%$ from GR exact across 3 LIGO events; planetary-axis kernel scoring $14$--$15/16$ class matches across 16 planetary axis data points (Row 9-a + Row 9-b). The framework simplifies rather than complicates as evidence accumulates: the kernel does not change with scale, only the lattice scale changes.
+\textbf{Tightest validations.} BCS $B_c(T) = B_{c0}\, S(T/T_c)$ at $0.00\%$ error across all measured Type-I/II superconductors (ASYM-N($\mu$) class); BH event horizon $\varepsilon_{11}(r) = 1$ matching Schwarzschild $r_s = 2GM/c^2$ exactly; BH merger QNM $\omega_R M_g = 18/49$ at $1.7\%$ from GR exact across 3 LIGO events; planetary-axis kernel scoring $14$--$15/16$ class matches across 16 planetary axis data points (Row 9-a + Row 9-b). The kernel form does not change with scale across these entries; only the lattice scale changes.
 
 This datasheet chapter consolidates the kernel into datasheet format; the catalog leaf carries the full per-row substrate-mechanism documentation and per-row empirical anchor. No substrate primitive in this chapter is re-derived; all references point to the canonical leaves.
 

@@ -209,6 +209,36 @@ Parameter basin & bias$\times$drive region of attraction (structural) & (folds i
 \label{tab:vol9_cvr_views}
 \end{table}
 
+\subsection{Phasor / reactance view}
+\label{subsec:vol9_cvr_phasor}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{fig4_phasor_reactance}
+\caption{Phasor / reactance view: the I/Q quadrature trajectory and the C$\leftrightarrow$L reactance breather of the electron tank as the bias $A_0$ sweeps. The capacitive ($V_{inc}/\omega$) and inductive ($\Phi_{link}/\dot\omega$) reactance pair is tracked over the recording window (both reactance states, not a single-phase snapshot). Computed by \kbleaf{src/scripts/vol\_9\_device/cvr\_ee\_sweep/cvr\_ee\_sweep.py}; \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/cvr-phasor-reactance.md}.}
+\label{fig:vol9_cvr_phasor}
+\end{figure}
+
+\subsection{Stability / eigenmode view}
+\label{subsec:vol9_cvr_stability}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{fig5_stability_eigenmode}
+\caption{Stability / eigenmode view: the root-locus of the pole pair $s_\pm = -\alpha\omega_0/2 \pm j\omega_d$, the Nyquist contour, and the genesis-by-matching locus. The pole's distance from the $j\omega$ axis is the per-cycle radiative leak $1/Q=\alpha$. Computed by \kbleaf{src/scripts/vol\_9\_device/cvr\_ee\_sweep/cvr\_ee\_sweep.py}; \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/cvr-stability-eigenmode.md}.}
+\label{fig:vol9_cvr_stability}
+\end{figure}
+
+\subsection{Parameter-basin view}
+\label{subsec:vol9_cvr_basin}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{fig6_parameter_basin}
+\caption{Parameter-basin view: the bias $\times$ drive region of attraction (structural map). The basin folds into the stability/eigenmode analysis (Fig.~\ref{fig:vol9_cvr_stability}); it delimits the bias/drive operating window over which the tank remains a bounded resonator. Computed by \kbleaf{src/scripts/vol\_9\_device/cvr\_ee\_sweep/cvr\_ee\_sweep.py}; folds into \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/cvr-stability-eigenmode.md}.}
+\label{fig:vol9_cvr_basin}
+\end{figure}
+
 \textbf{Scope and classification (\texttt{consistency-vs-emergence}).} The CVR sweep is a \textbf{consolidation / consistency} re-expression of already-derived canon (the LC tank, $\alpha=1/Q$, the magnetic-branch $\Gamma=-1$); it introduces no new substrate primitive. The one AVE-distinct corollary is $|\Gamma|^2=1-\alpha$ (the radiative leak made geometric) and the parity-odd chiral $S$; the $Q=1/\alpha$ Bode peak and the LC$\to E=mc^2$ recovery are CONSISTENCY (re-expressions). \textbf{Carried flags:} sector vs gauge --- the $\mu_{eff}\to0$-vs-$C_{eff}\to\infty$ spread is partly the two gauge sides of one wall ($Z\to0$ inside $\leftrightarrow Z\to\infty$ outside, M\"obius $Z\leftrightarrow1/Z$, $|\Gamma|=1$; \kbleaf{trampoline-framework.md}:641), not a physical branch; the physical axis is the two-``3''s (mass-dilatation $\perp$ charge-winding, \kbleaf{vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md}:20). Plus the exponent defect; the chiral-coupling magnitude STATED (now in the charge-``3'' leaf). The compression-extreme wall here is one end of the lattice extreme-map (\S the phase-diagram chapter; \kbleaf{vol3/cosmology/ch15-black-hole-orbitals/lattice-extreme-bh-rationality.md}).
 
 \section{Dispersion}
@@ -224,6 +254,9 @@ Two regimes:
     \item \textbf{Continuum regime} ($k \ll k_{Brillouin}$, i.e.\ $\omega \ll \omega_C$). Dispersion is negligible; the substrate behaves as a Maxwell continuum with the substrate primitives $\varepsilon_0$, $\mu_0$, $Z_0$, $c_0$. All terrestrial / atomic / particle-collider engineering operates deep in this regime.
     \item \textbf{Lattice regime} ($k \to k_{Brillouin}$, $\omega \to \omega_C$). K4-TLM lattice dispersion dominates. The continuum wave description fails; the discrete bond-by-bond TLM response governs. Above $\omega_C$, no coherent substrate oscillation exists --- the substrate Nyquist ceiling.
 \end{itemize}
+
+\noindent
+\textbf{Per-DOF dispersion split --- $(q\ell_{node})^2$ matter vs $(q\ell_{node})^4$ photon (figure: Phase-C create).} The per-DOF node constitutive layer beneath the scalar cell (each translation DOF an $(L_i,C_i)$ reactance) produces the dispersion tell that distinguishes the matter channel ($\propto (q\ell_{node})^2$) from the photon channel ($\propto (q\ell_{node})^4$); the demo \kbleaf{src/scripts/vol\_9\_device/per\_dof\_node\_dispersion\_demo.py} computes the three regimes (isotropic / deviatoric / high-$k$) and emits them as structured data (\texttt{\_output/per\_dof\_node\_dispersion\_demo.json}). It does \textbf{not} currently emit a plot, so the dispersion-split figure is a \textbf{Phase-C create} (a new plotting pass on the existing demo output), not wired in this Phase-A overhaul. The constitutive layer is documented at \kbleaf{ave-kb/vol9/ch3-pin-port-configuration/per-dof-vacuum-node-circuit.md}.
 
 \section{Temporal / Switching Characteristics}
 \label{sec:vol9_temporal_switching}

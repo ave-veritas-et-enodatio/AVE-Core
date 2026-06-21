@@ -170,13 +170,11 @@ The Vol~9 magnetic / microrotational characteristics of the substrate --- the Co
 
 The transverse (shear) and dilatational mechanical wave speeds of the substrate at the cold-lattice limit are set by the bulk moduli and density. \textbf{Two distinct longitudinal speeds (KEEP-BOTH)} must be separated --- the A1-dilatation bulk-modulus port-mode and the solid P-wave (2026-06-08 $c_L$ reversal, Rule-12; \texttt{clm-uu1qbo} / \kbleaf{03a\_device\_circuit\_models.tex}:80):
 
-\[
-v_T(0) = \sqrt{G_{vac} / \rho_{bulk}} = c_0,
-\qquad
-v_{bulk}(0) = \sqrt{K_{vac} / \rho_{bulk}} = \sqrt{2}\, c_0,
-\qquad
-c_L(0) = \sqrt{\frac{K_{vac} + \tfrac{4}{3}G_{vac}}{\rho_{bulk}}} = \sqrt{\tfrac{10}{3}}\, c_0 \approx 1.83\, c_0.
-\]
+\begin{align}
+v_T(0) &= \sqrt{G_{vac} / \rho_{bulk}} = c_0, \nonumber \\
+v_{bulk}(0) &= \sqrt{K_{vac} / \rho_{bulk}} = \sqrt{2}\, c_0, \nonumber \\
+c_L(0) &= \sqrt{\frac{K_{vac} + \tfrac{4}{3}G_{vac}}{\rho_{bulk}}} = \sqrt{\tfrac{10}{3}}\, c_0 \approx 1.83\, c_0. \nonumber
+\end{align}
 
 The transverse speed equals $c_0$ \emph{by construction} --- photons are transverse excitations of the LC lattice, so $v_T = c_0$ identically (canonical-source \kbleaf{src/ave/core/constants.py:672} \texttt{G\_VAC}; \kbleaf{src/ave/core/constants.py:664} \texttt{RHO\_BULK}). The \textbf{bulk-modulus dilatational speed} $v_{bulk} = \sqrt{2}\, c_0$ (the A1-scalar port-mode, which \emph{drops} the $4G/3$ shear term) follows from $K_{vac} = 2 G_{vac}$ (canonical-source \kbleaf{src/ave/core/constants.py:676} \texttt{V\_LONG}); the value previously labeled simply ``the longitudinal speed'' is this bulk-modulus quantity (retained per Rule-12), \emph{not} the solid P-wave. The \textbf{solid longitudinal P-wave speed} $c_L = \sqrt{(K_{vac}+4G_{vac}/3)/\rho_{bulk}} = \sqrt{10/3}\, c_0$ (the standard isotropic-solid form at $\nu_{vac}=2/7$, which \emph{keeps} the $4G/3$ term) is the distinct second object; the two differ by whether the shear term is carried, both are $\alpha$-free, and the choice shifts only the bulk/shear gap location (canonical reconciliation \texttt{clm-uu1qbo}; \kbleaf{03a\_device\_circuit\_models.tex}:80).
 
@@ -228,4 +226,4 @@ The EE-substrate-native projection of the entire mechanical sector --- LC-networ
     \item Cosserat rotation-sector mass-gap $m_\omega \sim 1$~MeV (consequence for Ch.~10): canonical at \kbleaf{trampoline-framework.md} line~188. Means-test row~12.
 \end{itemize}
 
-The substrate is natural; the EE projection is the cleanest-to-substrate-native language we have; this chapter records the mechanical-sector spec in both projections.
+The EE projection is the engineering language closest to the substrate's native form for the mechanical sector; this chapter records the mechanical-sector spec in both projections.
