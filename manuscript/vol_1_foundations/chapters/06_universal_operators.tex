@@ -1,5 +1,5 @@
-% 01_universal_operators.tex
-% Ch.1: The three universal operators — Z, S, Γ
+% 06_universal_operators.tex
+% Ch.6: The universal operators — Z, S, Γ
 
 \chapter{Universal Operators: Z, $S$, $\Gamma$}
 \label{ch:universal_operators}
@@ -7,19 +7,21 @@
 \begin{objectivebox}
 \begin{itemize}
     \item Define the 22 Universal Operators used identically across all spatial scales of the physics engine.
-    \item Understand how characteristic impedance ($Z_0$), dielectric saturation ($S$), and the reflection coefficient ($\Gamma$) dictate scale-invariant macroscopic physics.
+    \item Understand how characteristic impedance ($Z_0$), the universal saturation factor ($S$), and the reflection coefficient ($\Gamma$) dictate scale-invariant macroscopic physics.
     \item Apply these operators computationally to predict boundary reflections ranging from Pauli exclusion zones to the Earth's mantle.
 \end{itemize}
 \end{objectivebox}
 
-The complete derivation chain spans 14 orders of magnitude
+The complete derivation chain spans approximately 39 orders of magnitude
 in length scale (from the lattice pitch $\ell_{node} \approx 3.86 \times
 10^{-13}$~m to the Hubble radius $R_H \approx 1.33 \times 10^{26}$~m).
 A persistent question is whether these scales are merely analogical---linked
 by suggestive but structurally unrelated mathematics---or whether the
 \textit{same operator} acts at every scale.
 
-This book proves the latter.
+In the AVE framework, the same operator acts at every scale: a single
+characteristic-impedance operator with scale-specific boundary conditions.
+The Scale-Invariance theorem below makes this precise.
 
 \section{The Universal Impedance Operator}
 \label{sec:universal_impedance}
@@ -102,8 +104,7 @@ The saturation factor
     \label{eq:saturation_sigma}
 \end{equation}
 \end{resultbox}
-appears in four structurally distinct domains (preserved here as the
-original four-domain framing this chapter introduced):
+appears in four structurally distinct domains:
 
 \begin{enumerate}
     \item \textbf{Dielectric saturation} (Axiom 4): lattice permittivity
@@ -119,27 +120,28 @@ All four relationships identically call the shared \textit{engine function}
 (\texttt{scale\_invariant.}\allowbreak\texttt{saturation\_factor()}) that serves
 all four applications.
 
-\textbf{A-034 universality (canonical 2026-05-15 evening).} The four
-domains above are the original (pre-A-034) recognition of the universal
-saturation operator. The A-034 catalog (Backmatter Ch~\ref{app:universal_saturation_kernel})
-expands this to \textbf{19 canonical instances} spanning 21 orders of
-magnitude, grouped as:
+\textbf{Universal saturation kernel: full catalog.} The four domains above
+are the original four-domain demonstration of the universal saturation
+operator. The complete catalog (Backmatter Ch~\ref{app:universal_saturation_kernel})
+spans \textbf{26 canonical instances} across 21 orders of magnitude,
+grouped as:
 \begin{itemize}
-    \item \textit{Physical substrate (12):} atomic dielectric breakdown;
+    \item \textit{Physical substrate (17):} atomic dielectric breakdown;
     K4 substrate magic-angle; nuclear DT fusion; plasma cutoff;
     Kolmogorov spectral cutoff; planetary geomagnetic reversal; stellar
     solar flare; MOND galactic dynamics; Schwarzschild horizon; BH merger
-    ring-down; cosmic Big Bang crystallization; condensed-matter BCS.
+    ring-down; cosmic Big Bang crystallization; condensed-matter BCS;
+    and further physical-substrate rows catalogued in the Backmatter.
     \item \textit{Biological substrate (2):} lipid bilayer membrane LLCP;
     protein folding.
     \item \textit{Engineered substrate (5):} engineered metamaterials;
-    PONDER-05 quartz; sine-Gordon kink memory; autoresonant rupture;
-    vacuum-mirror bench.
+    DC-biased piezoelectric quartz; sine-Gordon kink memory; autoresonant
+    rupture; vacuum-mirror bench.
 \end{itemize}
-3-way symmetry classification: 16 SYM (vacuum $K=2G$), 2 ASYM-N (BCS
-$\mu$-only, plasma $\varepsilon$-only), 1 ASYM-E (engineered metamaterials
-with $K/G \neq 2$). Per Grant 2026-05-15: \emph{``the bulk response of
-the lattice to strain is universal.''}
+The bulk strain response of the lattice is universal. The instances fall
+into a 3-way symmetry classification: 19 SYM (vacuum $K=2G$), 4 ASYM-N
+(single-sector $\varepsilon$- or $\mu$-only), 1 ASYM-E (engineered,
+$K/G \neq 2$), with 2 instances pending scope.
 
 For the full catalog see Vol 3 Ch 4 \S\ref{sec:tki_strain_snap} +
 Backmatter Ch~\ref{app:universal_saturation_kernel}. Op2's engine
@@ -199,7 +201,7 @@ A reflection coefficient of $-1$ signifies total phase-reversed reflection. This
     $S = \sqrt{1-(V/V_c)^2}$ with physical operating points
     from gravitational waves (linear) to pair production (saturated).
     \textbf{Bottom left:} Characteristic impedance
-    mapped across 40 decades of length scale.
+    mapped across approximately 39 decades of length scale.
     \textbf{Bottom right:} Summary table of all scale-invariant
     applications.}
     \label{fig:cross_scale}
@@ -354,13 +356,13 @@ As the VCA modeling scales upward, \textbf{Operators 11 through 15} act as the C
 \begin{itemize}
     \item The AVE framework achieves strict scale invariance through a unified codebase: the exact same functions are called for subatomic particles and geophysical seismic waves.
     \item $Z = \sqrt{\mu/\varepsilon}$, $S = \sqrt{1 - (V/V_c)^2}$, and $\Gamma = (Z_2-Z_1)/(Z_2+Z_1)$ govern physics at all lengths scales without domain-specific phenomenological fixes.
-    \item The Universal Pairwise interaction uses these baseline operators to flawlessly model standard inverse-square distances and saturated boundary repulsions.
+    \item The Universal Pairwise interaction composes these baseline operators to model both the linear inverse-square (Coulomb/gravity) regime and the saturated boundary-repulsion (Pauli-wall) regime.
 \end{itemize}
 
 \begin{summarybox}
 \begin{itemize}
-    \item Twenty-Two Universal Operators ($Z_0$, $S$, $\Gamma$, and nineteen derived operators) are applied identically across 14 orders of magnitude in length scale.
-    \item Characteristic impedance, dielectric saturation, and reflection coefficient constitute the complete operator basis; all macroscopic phenomena decompose into these three primitives.
+    \item Twenty-Two Universal Operators ($Z_0$, $S$, $\Gamma$, and nineteen derived operators) are applied identically across approximately 39 orders of magnitude in length scale.
+    \item Characteristic impedance, the universal saturation factor, and reflection coefficient constitute the complete operator basis; all macroscopic phenomena decompose into these three primitives.
     \item The same operators predict phenomena from Pauli exclusion zones to seismic mantle reflections without domain-specific modifications.
 \end{itemize}
 \end{summarybox}

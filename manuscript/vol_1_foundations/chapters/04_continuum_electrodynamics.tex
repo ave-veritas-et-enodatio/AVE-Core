@@ -67,9 +67,9 @@ c_{eff}(V) = c_0 \left(1 - \left(\frac{V}{V_{yield}}\right)^2\right)^{-1/4}
 \end{equation}
 \end{resultbox}
 
-\paragraph{Domain of validity (EFT statement).} The direct substitution of $\varepsilon_{eff}(V)$ into the linear D'Alembert form is exact only in the leading-order long-wavelength EFT regime, where the field-gradient corrections that arise from $\nabla \cdot \mathbf{D} = \varepsilon_{eff}(V)\,\nabla \cdot \mathbf{E} + (\nabla \varepsilon_{eff})\cdot \mathbf{E} = 0$ are subdominant to the inertial term $\varepsilon_{eff}(V)\,\partial^2 V/\partial t^2$. This holds in the linear limit $V \ll V_{yield}$ (where $d\varepsilon_{eff}/dV \to 0$ and $\nabla \varepsilon_{eff} \to 0$). Particle confinement and standing-wave claims at $V \to V_{yield}$ depend on the dropped first-derivative gradient terms remaining negligible by symmetry at saturation; we use the leading-order form throughout this volume and flag the EFT caveat explicitly where downstream chapters invoke the master equation in the saturated regime. A higher-order correction including the $\nabla \varepsilon_{eff} \cdot \nabla V$ term is not derived here but is required for any quantitative claim that depends on the wave-equation form near $V_{yield}$ rather than on the saturation kernel $S$ alone.
+\paragraph{Domain of validity (EFT statement).} The direct substitution of $\varepsilon_{eff}(V)$ into the linear D'Alembert form is exact only in the leading-order long-wavelength EFT regime, where the field-gradient corrections that arise from $\nabla \cdot \mathbf{D} = \varepsilon_{eff}(V)\,\nabla \cdot \mathbf{E} + (\nabla \varepsilon_{eff})\cdot \mathbf{E} = 0$ are subdominant to the inertial term $\varepsilon_{eff}(V)\,\partial^2 V/\partial t^2$. This holds in the linear limit $V \ll V_{yield}$ (where $d\varepsilon_{eff}/dV \to 0$ and $\nabla \varepsilon_{eff} \to 0$). Particle confinement and standing-wave claims at $V \to V_{yield}$ depend on the dropped first-derivative gradient terms remaining negligible by symmetry at saturation; The leading-order form is used throughout this volume, with the EFT caveat noted explicitly wherever downstream chapters invoke the master equation in the saturated regime. A higher-order correction including the $\nabla \varepsilon_{eff} \cdot \nabla V$ term is not derived here but is required for any quantitative claim that depends on the wave-equation form near $V_{yield}$ rather than on the saturation kernel $S$ alone.
 
-Note: the wave speed \emph{increases} as permittivity drops (thinner dielectric $\to$ faster propagation), while the measured capacitance \emph{diverges} ($C_{eff} = C_0/S \to \infty$). The resulting non-linear wave equation is the \textbf{Unifying AVE Master Equation}:
+Note: the wave speed \emph{increases} as permittivity drops (thinner dielectric $\to$ faster propagation), while the longitudinal-A1 bond compliance $C_{eff} = C_0/S$ diverges (the stretch-reactance softening at yield) --- a distinct sector from the transverse permittivity, whose LCR-measured cell capacitance $C_{diel} = \varepsilon_{eff} A/d \propto S$ instead rolls off. The resulting non-linear wave equation is the \textbf{Unifying AVE Master Equation}:
 \begin{resultbox}{The Unifying AVE Master Equation}
 \begin{equation}
 \label{eq:master_wave}
@@ -84,22 +84,21 @@ This single line of non-linear differential topology formally replaces the fragm
     \item \textbf{Particle Assembly ($V \to 43.65\text{ kV}$):} The non-linear regime divides into two distinct saturation symmetries (per Axiom~4 confinement theorem):
     \begin{itemize}
         \item \emph{Asymmetric (electric-only) saturation}, where only $\varepsilon_{eff} \to 0$ while $\mu_{eff}$ remains intact, drives $Z = \sqrt{\mu_0/\varepsilon_{eff}} \to \infty$ --- the medium becomes electromagnetically opaque (evanescent, no energy transport). This is the dielectric-rupture branch (electric breakdown).
-        \item \emph{Particle confinement} proceeds via the magnetic branch instead: at a torus-knot self-intersection the field $\mathbf{B}$ saturates $\mu_{eff}$ first, driving $Z = \sqrt{\mu_{eff}/\varepsilon_0} \to 0$ and $\Gamma \to -1$ (short-circuit). The accelerating wave reflects off its own self-induced impedance boundary, trapping into a stabilised topological knot (a Fermion) and physically generating invariant rest mass without invoking the Higgs Mechanism.
+        \item \emph{Particle confinement} proceeds via the magnetic branch instead: at a torus-knot self-intersection the field $\mathbf{B}$ saturates $\mu_{eff}$ first, driving $Z = \sqrt{\mu_{eff}/\varepsilon_0} \to 0$ and $\Gamma \to -1$ (short-circuit). The accelerating wave reflects off its own self-induced impedance boundary, trapping into a stabilised topological soliton (a Fermion) and physically generating invariant rest mass without invoking the Higgs Mechanism.
     \end{itemize}
-    Both branches are governed by the same kernel $S(A) = \sqrt{1-(A/A_{yield})^2}$; they differ in which constitutive parameter saturates first. See LIVING\_REFERENCE Axiom~4 derived consequences for the symmetric vs asymmetric tables.
+    Both branches are governed by the same kernel $S(A) = \sqrt{1-(A/A_{yield})^2}$; they differ in which constitutive parameter saturates first. See the Axiom~4 derived-consequences tables (Backmatter Ch~\ref{app:universal_saturation_kernel}) for the symmetric vs asymmetric branches.
     \item \textbf{Gravity:} The trapped topological knot permanently strains the surrounding $\varepsilon_{eff}$ and $\mu_{eff}$ fields symmetrically ($n(r) = 1 + 2GM/rc^2$). This produces a continuous refractive gradient radially outward while preserving $Z_0$. Test photons propagating through this gradient refract toward the knot, executing the macroscopic acceleration attributed to gravity.
 \end{enumerate}
 
 \paragraph{Canonical engine for the Master Equation: Master Equation FDTD.}
 Eq.~\ref{eq:master_wave} has a canonical numerical realization in
 \texttt{src/ave/core/master\_equation\_fdtd.py} (the \texttt{MasterEquationFDTD}
-class), validated empirically by the v14 Mode I PASS on the breathing-soliton
-criterion (4/4 strict) per research doc 113. The engine implements 3D leapfrog
+class), which implements 3D leapfrog
 integration on eq.~\ref{eq:master_wave} with saturation kernel
 $S(A) = \sqrt{1-A^2}$ (Axiom 4 canonical) and effective wave speed
 $c_{\text{eff}}(V) = c_0 \cdot (1-A^2)^{-1/4}$.
 
-The framework's canonical two-engine architecture (doc 113 \S{}3.2):
+The framework's canonical two-engine architecture:
 \textbf{K4-TLM} is canonical for the sub-saturation bench regime;
 \textbf{Master Equation FDTD} is canonical for the bound-state regime.
 Both are Axiom-1/2/3/4 compliant; they cover different operating regimes
@@ -109,14 +108,14 @@ of the same substrate. Engines live under \texttt{src/ave/core/}.
 $S(A) = \sqrt{1 - A^2}$ in the Master Equation above is the SAME mechanism
 that governs every topological-reorganization event at every scale per the
 A-034 canonical synthesis (see Vol 3 Ch~4 \S\ref{sec:tki_strain_snap}
-+ Backmatter Ch~\ref{app:universal_saturation_kernel}). 19 canonical
++ Backmatter Ch~\ref{app:universal_saturation_kernel}). 26 canonical
 instances span 21 orders of magnitude. The Master Equation is the
 substrate-scale FDTD realization; the same kernel produces BCS
 $B_c(T)$ at 0.00\% error, BH ring-down at 1.7\% from GR exact, the
-solar flare statistics (NOAA validation pending live fetch --- LF-03),
+solar-flare statistics (an A-034 forward prediction over a synthesized
+illustrative timeline, not yet a live-validated anchor),
 and the cosmic K4 crystallization
 seed event. The bulk response of the lattice to strain is universal.
-% [2026-06-15 LF-03 -- prior wording preserved per Rule 12]: was "NOAA-validated solar flare statistics". SUPERSEDED per KB leaf solar-flares-led-avalanche.md: synthesized illustrative timeline, not a live fetch; A-034 forward prediction, not a validated anchor.
 
 \paragraph{Substrate-observability rule near saturation boundaries.}
 When the saturation kernel reaches $S(A) \to 0$ (the local $\Gamma = -1$
@@ -141,7 +140,6 @@ The baseline macroscopic bulk mass density ($\rho_{bulk}$) of the spatial vacuum
     m_{node} = \xi_{topo}^2 \mu_0 \ell_{node}
 \end{equation}
 \end{resultbox}
-% [2026-06-08 c_L reconciliation -- prior wording preserved per Rule 12]: resultbox "Longitudinal Tension Wave Velocity" gave v_longitudinal = sqrt(K_bulk/rho_node). SUPERSEDED: sqrt(K/rho) is the bulk-modulus (dilatational) speed, which omits the 4G/3 shear term; the isotropic-solid longitudinal P-wave carries that term.
 \begin{resultbox}{Longitudinal (P) Wave Velocity}
 \begin{equation}
     c_L = \sqrt{\frac{K_{bulk} + \tfrac{4}{3}G_{vac}}{\rho_{node}}}
@@ -170,8 +168,8 @@ $K_{vac} = 2G_{vac}$ (the Cauchy relation for the isotropic lattice).
 
 In classical kinetic network theory, the Kinematic Mutual Inductance ($\nu$) of a continuous network medium is defined as the product of its characteristic signal velocity ($v$) and its internal microscopic mean free path ($\lambda$), modulated by a dimensionless geometric momentum diffusion factor ($\kappa$): $\nu = \kappa v \lambda$.
 
-For the $\mathcal{M}_{A}$ hardware lattice, the absolute internal signal velocity is $c$, and the topological
-mean free path is exactly the fundamental spatial lattice pitch $l_{node}$. 
+For the chiral LC network, the absolute internal signal velocity is $c$, and the topological
+mean free path is exactly the fundamental spatial lattice pitch $l_{node}$.
 
 As established in Section 1.3.2, the geometric packing fraction ($p_c$) determines the structural porosity and transverse geometric scattering cross-section of the discrete graph (where $\alpha = p_c/8\pi$). Consequently, the macroscopic momentum diffusion across the lattice inherits this geometric scattering threshold ($\kappa \equiv \alpha$).
 
@@ -229,9 +227,9 @@ By evaluating the scalar volume summation of these topological knot crossings ($
 \end{equation}
 \end{resultbox}
 
-\noindent\textbf{Notation.} $\mathcal{V}_{total} = 2.0$ is the \textbf{dual-reactance count} --- the node's two reactance sectors ($X_C$ capacitive-E $+$ $X_L$ inductive-B, Axiom~1), counted, not integrated (canonical at \texttt{common/dual-reactance-storage-taxonomy.md}). The $6\,\mathcal{V}_{crossing}$ writing (six $6^3_2$ Borromean crossings, $\mathcal{V}_{crossing} \equiv \mathcal{V}_{total}/6$) is a \textbf{re-factoring of the same $\mathcal{V}_{total} = 2.0$} --- a vestige of the now-retired geometric ``halo volume'' framing, not an independent geometric derivation of the value (the proton's Borromean topology remains as topology but does not set the value 2). Substituting $\rho_{bulk} = \xi_{topo}^2 \mu_0/(p_c \ell_{node}^2)$ and using $\mu_0 c^2 = 1/\varepsilon_0$ rewrites this in the equivalent compact electrostatic form $\tau_{yield} = e^2\,\mathcal{V}_{total}/(8\pi\varepsilon_0\,\ell_{node}^4)$ used in the appendices summary table; the two presentations differ only by factoring choice and yield identical $1.04\times 10^{22}$~Pa.
+\noindent\textbf{Notation.} $\mathcal{V}_{total} = 2.0$ is the \textbf{dual-reactance count} --- the node's two reactance sectors ($X_C$ capacitive-E $+$ $X_L$ inductive-B, Axiom~1), counted, not integrated (canonical at \texttt{common/dual-reactance-storage-taxonomy.md}). The $6\,\mathcal{V}_{crossing}$ writing (six $6^3_2$ Borromean crossings, $\mathcal{V}_{crossing} \equiv \mathcal{V}_{total}/6$) is a \textbf{re-factoring of the same $\mathcal{V}_{total} = 2.0$} --- a presentation choice, not an independent geometric derivation of the value (the proton's Borromean topology is real topology but does not set the value 2). Substituting $\rho_{bulk} = \xi_{topo}^2 \mu_0/(p_c \ell_{node}^2)$ and using $\mu_0 c^2 = 1/\varepsilon_0$ rewrites this in the equivalent compact electrostatic form $\tau_{yield} = e^2\,\mathcal{V}_{total}/(8\pi\varepsilon_0\,\ell_{node}^4)$ used in the appendices summary table; the two presentations differ only by factoring choice and yield identical $1.04\times 10^{22}$~Pa.
 
-\noindent\textbf{Provenance of the $\mathcal{V}_{total} = 2$ factor (2026-06-02): inherited, not derived.} The 2 is a \textbf{count-tag} naming \emph{which} of the two mutually-exclusive Axiom-4 saturation branches the yield event is --- it is \textbf{not} an $E_C + E_L$ doubling summed within one event. The dielectric yield is the \textbf{electric} branch (asymmetric saturation: $\varepsilon_{eff} \to 0$ while $\mu_{eff}$ stays intact; $Z \to \infty$, open, $\Gamma \to +1$; single-sector $X_C$, per the master equation Eq.~above and \texttt{master-equation.md}:78), whose conjugate $X_L$ sector is a spectator at the rupture instant. The \emph{magnetic} branch ($\mu_{eff} \to 0$, $Z \to 0$, $\Gamma \to -1$, single-sector $X_L$) is the distinct \textbf{rest-mass} branch (Fermion confinement; \texttt{master-equation.md}:79). The two branches \emph{are} the saturations of the node's two reactance sectors, so the same $X_C + X_L = 2$ count threads from the baryon ($\mathcal{V} = 2$) through the yield-vs-mass branch split --- but $\tau_{yield}$ realizes only \emph{one} branch, so its 2 is provenance-inherited from $\mathcal{V}_{total}$, not forced by the yield event. The numerical value is unchanged and mass-confirmed. (STAYS-INHERITED; \texttt{research/2026-06-02\_tau-yield-reactance-count.md} \S7.)
+\noindent\textbf{Notation: provenance of the $\mathcal{V}_{total} = 2$ factor (inherited, not derived).} The 2 is a \textbf{count-tag} naming \emph{which} of the two mutually-exclusive Axiom-4 saturation branches the yield event is --- it is \textbf{not} an $E_C + E_L$ doubling summed within one event. The dielectric yield is the \textbf{electric} branch (asymmetric saturation: $\varepsilon_{eff} \to 0$ while $\mu_{eff}$ stays intact; $Z \to \infty$, open, $\Gamma \to +1$; single-sector $X_C$, the electric branch of the master equation Eq.~\ref{eq:master_wave}), whose conjugate $X_L$ sector is a spectator at the rupture instant. The \emph{magnetic} branch ($\mu_{eff} \to 0$, $Z \to 0$, $\Gamma \to -1$, single-sector $X_L$) is the distinct \textbf{rest-mass} branch (Fermion confinement). The two branches \emph{are} the saturations of the node's two reactance sectors, so the same $X_C + X_L = 2$ count threads from the baryon ($\mathcal{V} = 2$) through the yield-vs-mass branch split --- but $\tau_{yield}$ realizes only \emph{one} branch, so its 2 is provenance-inherited from $\mathcal{V}_{total}$, not forced by the yield event. The numerical value is unchanged and mass-confirmed.
 
 In regions of high gravitational shear (e.g., the spatial envelope surrounding a planetary body), the local magnetic field exceeds this structural saturation limit ($\tau > \tau_{yield}$).
 
@@ -248,7 +246,7 @@ This structural transition zone acts as a steep "Impedance Cliff". Massive, dens
 
 When diffuse matter drifts outward and hits the boundary between these two regimes, it collides with the sudden sheer mutual inductive drag of the unbroken deep space metric. It rapidly dissipates its kinetic energy into the surrounding lattice via topological Joule heating and becomes physically stalled. 
 
-The AVE framework predicts that macroscopic orbital systems will be bounded by wide toroidal or spherical bands of detritus at the Dielectric Saturation transition isoclines. This provides a mechanical origin for formations like the \textbf{Asteroid Belt} and the \textbf{Oort Cloud}: boundary accumulation regimes where low-mass objects stall against the resistive deep-space metric.
+The AVE framework predicts that macroscopic orbital systems will be bounded by wide toroidal or spherical bands of detritus at the magnetic-saturation (yield) transition isoclines ($\tau_{yield}$). This provides a mechanical origin for formations like the \textbf{Asteroid Belt} and the \textbf{Oort Cloud}: boundary accumulation regimes where low-mass objects stall against the resistive deep-space metric.
 
 \begin{figure}[h]
     \centering
@@ -274,8 +272,8 @@ saturating substrate. The phenomenological MOND acceleration threshold ($a_{0}$)
 corresponds to the fundamental Unruh-Hawking Drift of
 the expanding cosmic lattice.
 
-The asymptotic Hubble constant $H_\infty$ enters this MOND derivation via the geometric consistency identity between $H_\infty$ and the three canonical hardware scales of the AVE framework ($\ell_{node}$, $\alpha$, $G$ --- $\alpha$ closed via Ch.~\ref{ch:alpha_golden_torus}, $\ell_{node}$ closed via scale invariance, $G$ taken as Bounding Limit~3 (CODATA input) since the substrate-local Chain~B$'$ derivation of $G$ from thermodynamic equilibrium between lattice-genesis latent heat and the expanding-horizon holographic radiative capacity remains qualitative only --- see Vol~3 Ch~\ref{ch:gravity_and_yield} for the corpus-honest framing of this relation as a geometric consistency identity, not an independent first-principles prediction). % [2026-06-15 magic-angle u0* retraction -- prior wording preserved per Rule 12]: the u0*~0.187 value in this Class-E parenthetical is asserted/back-fit to CODATA alpha and G, not forward-derived (2026-06-14 walk-back). The honest-G framing of this sentence is unchanged. alpha+G fix the point; J_cosmic tests it.
-Per \texttt{consistency-vs-emergence} v1.1 (Grant canonized 2026-05-19 EOD), this is a \textbf{Class E operating-point projection} (joint-constrained with $\{G, \hat{\Omega}_{\text{freeze}}, \alpha\}$ at $u_0^* \approx 0.187$ --- a value \emph{asserted / back-fit} to CODATA $\alpha$ and $G$, not forward-derived per the 2026-06-14 walk-back; $\alpha$ and $G$ fix the operating point, $\mathcal{J}_{\text{cosmic}}$ independently tests it --- per the canonical $\Omega_\text{freeze}$ cosmic-grain cascade) that includes Class C consistency-check sub-structure --- the downstream $a_0 = c H_\infty/(2\pi)$ inherits Class E status via the Hoop-stress $2\pi$ projection. Evaluating the geometric consistency relation with CODATA $G$:
+The asymptotic Hubble constant $H_\infty$ enters this MOND derivation via the geometric consistency identity between $H_\infty$ and the three canonical hardware scales of the AVE framework ($\ell_{node}$, $\alpha$, $G$ --- $\alpha$ closed via Ch.~\ref{ch:alpha_golden_torus}, $\ell_{node}$ closed via scale invariance, $G$ taken as Bounding Limit~3 (CODATA input) since the substrate-local Chain~B$'$ derivation of $G$ from thermodynamic equilibrium between lattice-genesis latent heat and the expanding-horizon holographic radiative capacity remains qualitative only --- see Vol~3 Ch~\ref{ch:gravity_and_yield} for the framing of this relation as a geometric consistency identity, not an independent first-principles prediction).
+This $H_\infty$ relation is a \textbf{Class E operating-point projection} (joint-constrained with $\{G, \hat{\Omega}_{\text{freeze}}, \alpha\}$ at $u_0^* \approx 0.187$ --- a value \emph{asserted / back-fit} to CODATA $\alpha$ and $G$, not forward-derived; $\alpha$ and $G$ fix the operating point while $\mathcal{J}_{\text{cosmic}}$ independently tests it --- per the canonical $\Omega_\text{freeze}$ cosmic-grain cascade) with Class C consistency-check sub-structure; the downstream $a_0 = c H_\infty/(2\pi)$ inherits Class E status via the Hoop-stress $2\pi$ projection. Evaluating the geometric consistency relation with CODATA $G$:
 \begin{resultbox}{Asymptotic Hubble Constant}
 \begin{equation}
     H_\infty = \frac{28\pi m_e^3 c G}{\hbar^2 \alpha^2} \approx 2.247 \times 10^{-18} \text{ s}^{-1} \approx 69.32 \text{ km/s/Mpc}
@@ -297,7 +295,6 @@ By applying this exact continuum mechanics projection to the topological knot, t
 a_{genesis}=\frac{a_r}{2\pi}=\frac{c\cdot H_{\infty}}{2\pi} = \frac{14 m_e^3 c^2 G}{\hbar^2 \alpha^2} \approx 1.07 \times 10^{-10} \text{ m/s}^2
 \end{equation}
 \end{resultbox}
-% [2026-06-08 c_L reconciliation -- prior wording preserved per Rule 12]: resultbox "Longitudinal Lattice Compression Velocity" gave v_longitudinal = sqrt(K_vac/rho_bulk) = sqrt(2 G_vac/rho_bulk) = sqrt(2) c approx 4.24e8 m/s approx 1.41c. SUPERSEDED: sqrt(K/rho)=sqrt(2)c is the bulk-modulus (dilatational) speed, which omits the 4G/3 shear term and is NOT the isotropic-solid P-wave (it IS the K4 A_1 scalar port-mode measured at cardinal-axis v/c=1.45).
 \begin{resultbox}{Longitudinal (P) Wave Velocity}
 \begin{equation}
     c_L = \sqrt{\frac{K_{vac} + \tfrac{4}{3}G_{vac}}{\rho_{bulk}}} = \sqrt{\tfrac{10}{3}}\,c \approx 5.48 \times 10^{8} \text{ m/s} \approx 1.83c
@@ -343,7 +340,6 @@ Substituting the standard CODATA values:
 \[ H_\infty \approx \frac{28\pi(9.109 \times 10^{-31})^3(3.00\times 10^8)(6.674 \times 10^{-11})}{(1.054 \times 10^{-34})^2 (1/137.036)^2} \approx 2.247 \times 10^{-18}\,\text{s}^{-1} \]
 Converting to standard astronomical units ($1 \,\text{Mpc} \approx 3.086 \times 10^{19} \,\text{km}$):
 \[ H_\infty \times 3.086 \times 10^{19} \approx 69.32\,\text{km/s/Mpc} \]
-% [2026-06-15 zero-parameter reconciliation -- prior wording preserved per Rule 12]: was "providing zero-parameter closure to the Hubble Tension". SUPERSEDED: H_infinity rests on the G-conditional consistency identity H_inf = 28 pi m_e^3 cG/(hbar^2 alpha^2) -- a Class E operating-point projection, NOT a zero-parameter ab-initio prediction (G is a retained input; claim-quality clm references the G-conditional status).
 This result falls exactly within the tension bound of modern TRGB and Cepheid observations, providing a \textbf{Class E operating-point-projection} closure to the Hubble Tension: $H_\infty$ rests on the $G$-conditional consistency identity $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2)$ (with $G$ a retained input), not a zero-parameter ab-initio prediction.
 \end{examplebox}
 
@@ -383,7 +379,7 @@ Because the vacuum is a \textbf{Chiral LC Network}, it transmits momentum drag v
 \begin{summarybox}
 \begin{itemize}
     \item The AVE Master Equation unifies expanding cosmology and electromagnetism through strain-dependent non-linear dielectric response.
-    \item Three analytical operating regimes (Linear, Nonlinear, Yield) emerge from the saturation function $S(r) = \sqrt{1-r^2}$.
+    \item Three analytical operating regimes (Linear, Nonlinear, Yield) emerge from the saturation function $S(A) = \sqrt{1-A^2}$.
     \item The MOND acceleration $a_0 = cH_\infty / 2\pi$ and Dark Matter phenomenology are derived from macroscopic LC phase impedance without new particles.
 \end{itemize}
 \end{summarybox}
