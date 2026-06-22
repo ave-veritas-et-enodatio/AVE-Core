@@ -13,10 +13,10 @@ The industrial dominance of Aluminum derives from two geometric properties: (1) 
 
 [Figure: aluminum_27_dynamic_flux.png --- see manuscript/vol_6_periodic_table/figures/]
 
-The Aluminum-27 topology rendered across the $X$-$Z$ plane. The $6\alpha$ Octahedral core pushes the Tritium array up the $Z$-axis. The visual perfectly maps the asymmetric moment created by the $53.119d$ offset gap.
+The Aluminum-27 topology rendered across the $X$-$Z$ plane. The $6\alpha$ Octahedral core pushes the Tritium array up the $Z$-axis. The visual maps the asymmetric moment created by the $52.6d$ ($R_{\text{halo}} = 52.605d$) offset gap.
 
 [Figure: circuit_al27.pdf --- see manuscript/vol_6_periodic_table/figures/]
 
-The Aluminum-27 SPICE architecture. A colossal 351 unique dynamic parameters couple the core 24 nucleon array linearly into the 3 discrete nodes of the polar Tritium halo.
+The Aluminum-27 SPICE architecture. The 351 unique dynamic parameters couple the core 24 nucleon array linearly into the 3 discrete nodes of the polar Tritium halo.
 
 ---
