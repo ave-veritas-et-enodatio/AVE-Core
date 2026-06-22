@@ -267,7 +267,7 @@ and are excluded from the window there — honest behavior, not a magnitude over
 > comparison, traceability only. Propagated to `clm-pp3qwf` / `vacuum-birefringence-e4.md` /
 > `vacuum-impedance-mirror.md` / `divergence-test-substrate-map.md` (B1) + the vol4/vol9 manuscript twins +
 > the figure (regenerated through `ave.viz.style`) + the facility-sweep driver/JSON + `ave.bench`
-> (`coefficient_ratio_differential`, `delta_n_ave_differential_exact`). Body below PRESERVED verbatim.
+> (`coefficient_ratio_differential`, `delta_n_ave_differential_exact`).
 
 **FLAG-A — the matched-observable ratio is 1.93×10⁷, not 4.14×10⁶, for a differential polarimeter.**
 The corpus `vacuum-birefringence-e4.md:18` and the prior result doc headline **4.14×10⁶**, which is

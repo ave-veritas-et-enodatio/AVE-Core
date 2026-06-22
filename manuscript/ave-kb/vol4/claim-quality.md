@@ -388,7 +388,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ## Vacuum Birefringence Discriminator: COEFFICIENT (AVE $\sim 10^7\times$ QED at the matched differential observable)
 <!-- id: clm-pp3qwf -->
 
-> 🔵 **FLAG-A adjudicated (Grant, 2026-06-21, Rule 12 — body below PRESERVED verbatim; additive correction).**
+> 🔵 **Differential-observable correction (Grant, 2026-06-21).**
 > A birefringence instrument (polarimeter/ellipsometer) measures the **par−minus−perp differential**
 > $n_\parallel-n_\perp$, rejecting the isotropic common-mode shift. The falsifier observable is therefore
 > the **DERIVED differential** $\delta n_{bir}=n_\parallel-n_\perp\approx-\tfrac12 A^2$ (uniaxial probe tensor

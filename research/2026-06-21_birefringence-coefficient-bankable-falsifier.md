@@ -1,9 +1,9 @@
 # Vacuum-Birefringence Coefficient — the Bankable AVE-Distinct Falsifier (facility proposal)
 
 **Date:** 2026-06-21
-**Status:** PROPOSAL (facility-grade). Coefficient result LOCKED + validate-on-known PASS. OQ-1 (field→cavity-phase coupling) now **PARTIALLY CLOSED** (adversarial-verify verdict `partially-closed`): the coupling is **DERIVED** from the Axiom-4 kernel and the geometry factor *g* is **PINNED per apparatus config** — see the derivation [`research/2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md`](2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md). Named residuals carried (R-1 differential-vs-leaf observable, R-2 single-invariant modeling choice, R-3 detector-floor validate-on-known owed); §5, §8 below superseded with the pinned per-config numbers (Rule-12).
+**Status:** PROPOSAL (facility-grade). Coefficient result LOCKED + validate-on-known PASS. OQ-1 (field→cavity-phase coupling) now **PARTIALLY CLOSED** (adversarial-verify verdict `partially-closed`): the coupling is **DERIVED** from the Axiom-4 kernel and the geometry factor *g* is **PINNED per apparatus config** — see the derivation [`research/2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md`](2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md). Named residuals carried (R-1 differential-vs-leaf observable, R-2 single-invariant modeling choice, R-3 detector-floor validate-on-known owed); §5, §8 below superseded with the pinned per-config numbers.
 
-> 🔵 **FLAG-A ADJUDICATED (Grant, 2026-06-21, Rule 12 — body below PRESERVED verbatim; additive ruling).**
+> 🔵 **Current ruling (Grant, 2026-06-21).**
 > R-1 is **resolved**: a birefringence instrument measures the **par−minus−perp differential**, so the
 > **falsifier headline is the matched differential** $\delta n_{AVE}/\delta n_{QED}=(45/6)/\alpha^3=7.5/\alpha^3\approx1.93\times10^7$
 > (AVE differential $-\tfrac12 A^2$ vs QED **differenced** Euler-Heisenberg $3/45$). The scalar single-arm
@@ -44,12 +44,6 @@ integration-time gap — an unambiguous AVE-sized-vs-QED-sized call). The **chor
 content) is the *structural* tree-$O(1)/4$-saturation-vs-$\alpha^2$-loop FORM, present at every field;
 the *magnitude* $4.14\times10^6$ is honestly an **α-echo** at the value level (symmetric standard:
 QED's coefficient is equally α-rooted).
-
-> 🔴 **SUPERSEDED (Rule-12, 2026-06-21 OQ-1 close).** The first-cut text read: *"The single remaining
-> gate is OQ-1: the field → cavity-phase coupling $g$ is here derived only to leading order … and
-> asserted as a Gaussian-beam overlap parameter rather than derived as an Axiom-4 coupling."* That
-> first-cut leading-order/asserted framing is now superseded — see the replacement immediately below.
-> Body preserved for audit-trail continuity.
 
 **OQ-1 is now PARTIALLY CLOSED (verify verdict `partially-closed`).** The field → cavity-phase coupling
 is **DERIVED** through the chain focal-E → uniaxial probe tensor $\varepsilon\delta_{ij}+2\varepsilon'E_{0i}E_{0j}$
@@ -248,14 +242,11 @@ $[\sim5\times10^{-9},\,1]$ — **enclosing the realistic $g\sim10^{-3}$**.
 
 ## 5. The geometry factor *g* — PINNED per config (OQ-1 partially closed)
 
-> 🔴 **SUPERSEDED-IN-PART (Rule-12, 2026-06-21 OQ-1 close).** This section was the FIRST-CUT
-> "$g$ derived only to leading order, asserted as a Gaussian-beam overlap parameter" residual. It is
-> now superseded by the DERIVED + PINNED per-config $g_{eff}$ in **§5.1** below (full derivation:
+> 🔵 **Current: the per-config $g_{eff}$ is DERIVED + PINNED in §5.1 below** (full derivation:
 > [`2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md`](2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md)).
-> The first-cut spatial/temporal/sweet-spot text is preserved verbatim below it for audit-trail
-> continuity; read §5.1 for the landed numbers (the first-cut "$1.4\times10^{-8}$ worst credible"
-> and "$g\approx7.9\times10^{-4}$ sweet spot" are correct as the spatial single-pass values but
-> did not yet pin the coherent-pass/temporal-gate structure that §5.1 resolves).
+> Read §5.1 for the landed numbers; the §5.2 spatial "$1.4\times10^{-8}$ worst credible" and
+> "$g\approx7.9\times10^{-4}$ sweet spot" are correct as the spatial single-pass values but
+> did not yet pin the coherent-pass/temporal-gate structure that §5.1 resolves.
 
 ### 5.1 The PINNED per-config coupling (DERIVED — the OQ-1 close)
 
@@ -300,7 +291,7 @@ uniaxial-tensor birefringence arc, $\delta n_{bir}=-\tfrac12 A^2$ vs the scalar 
 `…_config_coupling.{png,pdf}` (realized $\psi$ per config from the pinned $g_{eff}$);
 `…_gate_constraint.{png,pdf}` (the pump-duration × finesse gating constraint — DD1 resolved).
 
-### 5.2 First-cut $g$ residual (superseded by §5.1 — preserved for audit trail)
+### 5.2 Spatial single-pass $g$ (superseded by §5.1)
 
 $g$ is the **field → cavity-phase coupling residual** — the pump-probe overlap fraction that maps
 the field *at the focus* to a *detected* cavity-phase. It is an **optics/engineering coupling
@@ -395,13 +386,10 @@ instrument records. Physics verdict (AVE-distinct at all fields, ~6-OOM gap) is 
 
 ## 8. The honest experimental ask (PINNED per config — supersedes the first-cut)
 
-> 🔴 **SUPERSEDED (Rule-12, 2026-06-21 OQ-1 close).** The first-cut ask read "$\psi_{AVE}\sim
-> 2\times10^{-4}$–$2\times10^{-2}$ rad → 5σ in $<1\,\mu$s" with a *modest-$F$, overlap-limited,
-> calibrated-$g$* recommendation premised on "high-$F$ drives out of small-angle." That premise is
-> superseded: the **pinned** §5.1 analysis shows $F=10^3$ at the PW-class field **stays in
-> small-angle** ($\psi_{AVE}=2.19\times10^{-2}$ rad $<0.1$ rad), so the CW high-$F$ finesse lever is
-> *recommended*, not avoided. The pinned ask + recommended config follow; first-cut table preserved
-> below for audit trail.
+> 🔵 **Current ask (pinned per config, §5.1).** An earlier modest-$F$ / overlap-limited recommendation
+> was premised on "high-$F$ drives out of small-angle"; the **pinned** §5.1 analysis shows $F=10^3$ at
+> the PW-class field **stays in small-angle** ($\psi_{AVE}=2.19\times10^{-2}$ rad $<0.1$ rad), so the CW
+> high-$F$ finesse lever is *recommended*, not avoided. The pinned ask + recommended config follow.
 
 **PINNED ask (the apparatus-config is an explicit Grant/engineering decision — 3 configs, §5.1):**
 
@@ -425,7 +413,7 @@ or QED-sized" an unambiguous experimental call. **Engineering caveat (honest res
 absolute margin rides the polarimetry/detector floor, which is still owed a validate-on-known against a
 published cavity (§10). The **coefficient** does not.
 
-**First-cut ask (superseded by the pinned table above — preserved for audit trail):**
+**Earlier ask (superseded by the pinned table above):**
 
 | Parameter | Ask | Provenance |
 |---|---|---|
