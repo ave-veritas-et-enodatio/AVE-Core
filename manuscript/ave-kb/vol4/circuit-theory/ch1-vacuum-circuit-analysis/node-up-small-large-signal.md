@@ -158,12 +158,27 @@ claim that *any* DC bias scales both; a static-external single-grade drive is R2
 > O(1) structure QED lacks) and that the static-B route is **exactly** transparent — a categorical
 > prediction.
 
-> **VCA-R01 code note.** The live engine at `origin/main` keys $\mu$-saturation on the *static*
-> $|\mathbf B|=\mu_0|\mathbf H|$ at four sites in `src/ave/core/fdtd_3d.py` and one in
-> `src/ave/axioms/scale_invariant.py`. Per this leaf the $\mu$-grade is keyed on the circulating
-> current / its rate, NOT the static $|\mathbf B|$ magnitude — so a static external $\mathbf B$ must
-> give $S_\mu=1$, $\delta n_\mu=0$. The current code instead saturates $\mu$ on static $|\mathbf B|$,
-> contradicting both the $I$-keyed primitive and the engine's own Lenz coupling. See the code-fix
-> status in the PR that lands this leaf.
+> **VCA-R01 code note (LIVE BUG; fix flagged for a separate validated PR).** The engine keys
+> $\mu$-saturation on the *static* $|\mathbf B|=\mu_0|\mathbf H|$ against $b_{yield}=B_{SNAP}$ at four
+> sites in `src/ave/core/fdtd_3d.py` (`:231`, `:245`, `:396`–`:397`, `:425`–`:426`) and one in
+> `src/ave/axioms/scale_invariant.py` (`:198`, `mu_eff`). Per this leaf the $\mu$-grade is keyed on
+> the circulating current $I$ (relativistic inductor), NOT the static $|\mathbf B|$ — so a static
+> external $\mathbf B$ must give $S_\mu=1$, $\delta n_\mu=0$ (regime R3). The current code instead
+> saturates $\mu$ on static $|\mathbf B|$, contradicting both the $I$-keyed primitive
+> ([`relativistic-inductor.md`](relativistic-inductor.md):15) and the engine's own Lenz/Faraday
+> coupling. ($B_{SNAP}$ is an energy-density scale, NOT the kernel argument.)
+>
+> **Fix-direction (NOT applied here — substrate-first, do not guess).** The correct $I$-keyed
+> implementation is subtle/ambiguous and not yet derived: (1) no per-cell circulation $\to I_{max}$
+> threshold mapping exists in the corpus — keying on $I=\oint\mathbf H\cdot d\boldsymbol\ell$ (or the
+> rate $dB/dt$) and mapping it onto $I_{max}=\xi_{topo}c=124.4$ A on a Yee grid is a *derivation*, not
+> a variable swap, and inventing the threshold would violate substrate-first-for-numbers; (2) two
+> distinct $\mu$-saturation paths coexist (the simple $\mu_{eff}(|B|)$ and the chirality-aware
+> `_update_saturation_kernels(\omega,\dots)` in `cosserat_field_3d.py`) and a correct fix must
+> reconcile both; (3) `scale_invariant.mu_eff()` is called from 8 modules passing a B-magnitude.
+> The bug is machine-confirmed by the regression test
+> `src/tests/test_vca_r01_static_b_mu_keying.py` — the desired R3 behaviour (static B → $S_\mu=1$) is
+> an `xfail` that flips to PASS once VCA-R01 is fixed; a positive-control test confirms the live
+> $|B|$-keyed defect is present (not a phantom). `code_fix_decision = flagged-for-separate-PR-bug-documented`.
 
 ---
