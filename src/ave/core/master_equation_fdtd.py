@@ -163,6 +163,9 @@ class MasterEquationFDTD:
     # symbol n_eff is OVERLOADED (√S EM at vacuum-birefringence-e4.md:12 vs
     # 1/√S gravitational at substrate-perspective-electron.md:58) — FLAGGED to
     # the KB owner in the task-12 PR, not silently reconciled.
+    # PHASE vs GROUP: this n_em_index()=sqrt(S) is the GROUP/SIGNAL index (the
+    # optical/birefringence observable). The Maxwell PHASE index is S (c_EM=c0/S);
+    # see gravity_sign_freq_modulation.py (n_EM_phase) and ave-kb/CLAUDE.md:79-80.
     def n_em_index(self):
         """EM-transverse refractive index n_EM = c₀/c_eff = S(A)^(+1/2) → 0 as
         A → 1 (the photon channel; the saturated core stiffens, n falls to 0)."""
