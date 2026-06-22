@@ -36,7 +36,7 @@ To test this, an ultra-high-Q optical fiber ring resonator (or high-finesse Fabr
 2. As the DC electric field is ramped up, the local metric stiffness alters, causing a measurable phase shift ($\Delta \Phi$) and pushing the resonance fringes.
 3. The shift in resonance frequency is mapped dynamically against the applied field magnitude.
 
-[Figure: vacuum_birefringence_E4.png — see manuscript/vol_4_engineering/chapters/]
+[Figure: vacuum_birefringence_differential.png — see manuscript/vol_4_engineering/chapters/]
 
 A linearly-polarized pump + a 45°-launched probe in a high-finesse cavity, read out by an ellipsometer, measures the **par$-$perp differential** $\delta n_{bir}\approx-\tfrac12 A^2$ as accumulated ellipticity $\psi$ (the birefringence readout is a polarization-**phase** difference, accumulated as ellipticity $\psi$ — a dissipationless retardance, not absorption). At the **matched differential observable**, AVE sits a field-independent $\delta n_{AVE}/\delta n_{QED}=7.5/\alpha^3\approx1.93\times10^7$ above QED's differenced Euler-Heisenberg ($3/45$) birefringence, present at **all** fields. A **QED-sized differential coefficient** ($\delta n_{bir}\sim(3/45)\alpha^2(E/E_{crit})^2$) falsifies AVE; an AVE-sized coefficient falsifies QED at this observable. (An $E^2$ slope does **not** falsify AVE — QED is also $E^2$-leading. The discriminator is the coefficient, not the exponent.)
 
