@@ -142,14 +142,14 @@ Quick verification that recent 2026-05 corpus work doesn't shift C15 framing:
 
 Per [`project-cleave-01.md`](../../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md) §"Outcome adjudication":
 
-| Outcome | Interpretation | Verified against current canon? |
-|---|---|---|
-| **A** (41.5 mV/μm matches within ADA4530-1 noise floor) | Ax2 [Q]≡[L] confirmed at bench; foreword-promotion-grade | ✓ Consistent |
-| **B** (slope differs from 41.5 mV/μm) | Topological charge-length identity holds qualitatively; coefficient revision | ✓ Consistent |
-| **C** (V_out ≈ 0 within noise floor) | **Ax2 dies + framework falsified at substrate-foundational axiom level** | ✓ Consistent — F-severity per matrix |
-| **D** (parasitic leakage / triboelectric) | Re-design with better guards; re-test | ✓ Consistent |
+**Note (2026-06-22 chord-gating revision, branch `bench/cleave01-chord-gated`):** this audit's original outcome table (dated 2026-05-20) gated on the slope-ECHO. That is SUPERSEDED — the binding GO/NO-GO now gates on the CHORD (4-corner gap-independent integer floor), per the rewritten KB-leaf "Outcome adjudication" + Phase-3 prereg §4/§6/§7. The current table:
 
-No outcome-matrix updates needed; KB leaf is current.
+| Outcome | Adjudication axis | Interpretation |
+|---|---|---|
+| **A — chord confirmed (GO)** | 4-corner {linear ∧ polarity-odd ∧ material-indep ∧ gap-INDEPENDENT} survives $\ge4\times$ gap-sweep at fixed $C_{in}$; positive-control passed | Ax2 [Q]≡[L] confirmed at bench; foreword-promotion-grade. Slope-match = non-gating secondary corroborator. |
+| **B — partial (chord ambiguous)** | floor detected but gap-sweep inconclusive | Integer-charge chord suggested; gap-independence corner not established. NOT a GO. |
+| **C — null (chord falsified, NO-GO)** | no gap-INDEPENDENT floor survives the sweep; positive-control passing | **Ax2 dies + framework falsified at substrate-foundational axiom level.** F-severity per matrix. |
+| **D — confound** | floor fails a corner OR positive-control did not register | Re-design with better guards; re-test. |
 
 ## What this audit closes
 
