@@ -17,6 +17,15 @@ the strain prediction and matches Ṗ_b within 2% of empirical).
 
 Docstring corrected 2026-05-17: prints retained for illustrative narrative
 but scope-flagged as visualization, not strain prediction.
+
+Figure restyle (2026-06-21 Vol-3 figure-regen sweep): the static manuscript
+PDF is now produced through the ``ave.viz.style`` house style (print profile)
+— white background, perceptually-uniform colormap (retires ``hot``), colorbar
+with quantity+symbol+unit, and NO baked title (the title belongs in the LaTeX
+``\\caption{}``). The under-exposure defect (faint red strain on a near-black
+``#0a0a2e`` raster) is fixed by the print profile plus a data-tracking colour
+scale. The underlying physics/data are unchanged. The interactive GIF keeps the
+dark field-viz aesthetic via the ``screen`` profile.
 """
 
 import os
@@ -26,6 +35,7 @@ import numpy as np
 from matplotlib import animation
 
 from ave.core.grid import VacuumGrid
+from ave.viz import style
 
 
 def main() -> None:
@@ -53,13 +63,14 @@ def main() -> None:
     orbit_radius = 12
     orbit_speed = 0.15
 
-    fig, ax = plt.subplots(figsize=(8, 8), facecolor="#0a0a2e")
-    ax.set_facecolor("#0a0a2e")
+    # --- Interactive animation: dark field-viz aesthetic (screen profile) ----
+    style.apply("screen")
+    fig, ax = plt.subplots(figsize=style.figsize("square"))
 
-    # Energy density heatmap (strain²) for high contrast
-    img = ax.imshow(grid.strain_z**2, cmap="hot", vmin=0, vmax=2.0, origin="lower")
+    # Energy density heatmap (strain²); magma is perceptually uniform and keeps
+    # the low-energy field visible (retires the under-exposing `hot` colormap).
+    img = ax.imshow(grid.strain_z**2, cmap=style.CMAP_SEQ, vmin=0, vmax=2.0, origin="lower")
     ax.axis("off")
-    ax.set_title("Gravitational Waves: Inductive Shear in the LC Vacuum", color="white", pad=20, fontsize=14)
 
     print("[1] Simulating 2D binary black hole orbital pumping...")
 
@@ -93,20 +104,36 @@ def main() -> None:
     os.makedirs("standard_model/animations", exist_ok=True)
     out_path = "standard_model/animations/gravitational_waves_lc.gif"
     ani.save(out_path, writer="pillow", fps=25)
+    plt.close(fig)
 
-    # Extract a static frame showing the spiral wave pattern
+    # --- Static manuscript frame: house print profile (white bg) -------------
     print("[3] Slicing final frame for manuscript PDF...")
     final_frame_data = np.copy(grid.strain_z)
+    energy = final_frame_data**2
 
-    fig_static, ax_static = plt.subplots(figsize=(8, 8), facecolor="#0a0a2e")
-    ax_static.set_facecolor("#0a0a2e")
-    ax_static.imshow(final_frame_data**2, cmap="hot", vmin=0, vmax=2.0, origin="lower")
-    ax_static.axis("off")
-    ax_static.set_title("Binary Orbit: Quadrupole LC Strain Radiation", color="white", pad=20, fontsize=14)
+    style.apply("print")
+    fig_static, ax_static = plt.subplots(figsize=style.figsize("square"))
+
+    # Data-tracking upper limit so the (low-amplitude) radiated field is exposed
+    # against the white page — a rendering fix, not a data change.
+    vmax_static = max(np.percentile(energy, 99.5), 1e-12)
+    im = ax_static.imshow(
+        energy,
+        cmap=style.CMAP_SEQ,
+        vmin=0,
+        vmax=vmax_static,
+        origin="lower",
+    )
+    ax_static.set_xlabel(style.axis_label("Grid position", "x", "cell"))
+    ax_static.set_ylabel(style.axis_label("Grid position", "y", "cell"))
+
+    cbar = fig_static.colorbar(im, ax=ax_static, fraction=0.046, pad=0.04)
+    cbar.set_label(style.axis_label("Strain energy density", r"\epsilon_z^2", "dimensionless"))
 
     os.makedirs("assets/figures", exist_ok=True)
     static_out = "assets/figures/gravitational_waves_lc_static.pdf"
-    fig_static.savefig(static_out, facecolor="#0a0a2e", bbox_inches="tight", dpi=150)
+    style.save(fig_static, static_out)
+    plt.close(fig_static)
 
     print("\n[STATUS: SUCCESS] General Relativity mapped as Applied Vacuum Engineering.")
     print(f"Animated propagation saved to {out_path}")

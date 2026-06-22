@@ -18,6 +18,7 @@ import numpy as np
 from ave.core.constants import K_B
 from ave.regime_1_linear.fluids_factory import WaterMolecule
 from ave.regime_3_saturated.cavitation_collapse import AxiomaticRayleighPlesset, PayloadConfig
+from ave.viz import style
 from ave_path_util import manuscript_path
 
 
@@ -119,8 +120,17 @@ def run_simulation(payload_type: str = "argon") -> tuple:
 
 
 def generate_manuscript_figures() -> None:
-    """Generates the Vol 3 publication figures demonstrating Tabletop Relativity."""
+    """Generates the Vol 3 publication figures demonstrating Tabletop Relativity.
+
+    Figure bodies are restyled through ``ave.viz.style`` (house print profile);
+    the descriptive titles live in the LaTeX ``\\caption{}`` of the Vol-3
+    chapter, not baked into the raster (ave-figure-discipline Axis 4). The
+    underlying physics/data are unchanged.
+    """
     print("Generating Manuscript Figures...")
+
+    # House print profile (white background, house grid/palette) FIRST.
+    style.apply()
 
     # Run the Argon payload for the baseline experimental comparison
     sol, solver = run_simulation("argon")
@@ -139,16 +149,12 @@ def generate_manuscript_figures() -> None:
     t_collapse = t[idx_collapse]
 
     # ---- FIGURE 1: Sonoluminescence R(t) Phase ----
-    plt.figure(figsize=(8, 5))
-    plt.plot(t, R, color="blue", linewidth=2)
-    plt.title("Axiomatic Sonoluminescence: Bubble Radius R(t)", fontsize=14, fontweight="bold")
-    plt.xlabel("Time (μs)", fontsize=12)
-    plt.ylabel("Bubble Radius (μm)", fontsize=12)
-    plt.grid(True, alpha=0.3)
-    plt.tight_layout()
-    plt.savefig(manuscript_path("vol_3_macroscopic", "figures", "vol3_sonoluminescence_collapse.pdf"))
-    plt.savefig(manuscript_path("vol_3_macroscopic", "figures", "vol3_sonoluminescence_collapse.png"), dpi=300)
-    plt.close()
+    fig, ax = plt.subplots(figsize=style.figsize("single"))
+    ax.plot(t, R, color=style.COLORS["ave"], linestyle="-")
+    ax.set_xlabel(style.axis_label("Time", "t", r"$\mu$s"))
+    ax.set_ylabel(style.axis_label("Bubble radius", "R", r"$\mu$m"))
+    style.save(fig, manuscript_path("vol_3_macroscopic", "figures", "vol3_sonoluminescence_collapse"))
+    plt.close(fig)
 
     # ---- FIGURE 2: Tabletop Relativity (Effective Mass Divergence) ----
     # Focus only on the collapse spike (last ~0.1 us before collapse)
@@ -156,25 +162,20 @@ def generate_manuscript_figures() -> None:
     t_spike = t[spike_mask]
     gamma_spike = gamma_equiv[spike_mask]
 
-    plt.figure(figsize=(8, 5))
-    plt.plot(t_spike, gamma_spike, color="red", linewidth=2.5)
-    plt.title("Tabletop Relativity: Axiom 4 Metric Saturation", fontsize=14, fontweight="bold")
-    plt.xlabel("Time (μs)", fontsize=12)
-    plt.ylabel("Relative Fluid Inertia $(\\rho_{eff} / \\rho_0)$", fontsize=12)
-    plt.yscale("log")
-    plt.grid(True, which="both", alpha=0.3)
-    plt.annotate(
-        r"$\rho_{eff} \rightarrow \infty$ as $U \rightarrow c_0$",
+    fig, ax = plt.subplots(figsize=style.figsize("single"))
+    ax.plot(t_spike, gamma_spike, color=style.COLORS["ave"], linestyle="-")
+    ax.set_xlabel(style.axis_label("Time", "t", r"$\mu$s"))
+    ax.set_ylabel(style.axis_label("Relative fluid inertia", r"\rho_{\mathrm{eff}}/\rho_0", "dimensionless"))
+    ax.set_yscale("log")
+    ax.annotate(
+        r"$\rho_{\mathrm{eff}} \rightarrow \infty$ as $U \rightarrow c_0$",
         xy=(t_collapse, np.max(gamma_spike)),
         xytext=(t_collapse - 0.1, np.max(gamma_spike) * 0.1),
-        arrowprops=dict(facecolor="black", shrink=0.05, width=1.5, headwidth=6),
-        fontsize=12,
-        fontweight="bold",
+        arrowprops=dict(color=style.COLORS["muted"], shrink=0.05, width=1.0, headwidth=5),
+        color=style.COLORS["muted"],
     )
-    plt.tight_layout()
-    plt.savefig(manuscript_path("vol_3_macroscopic", "figures", "vol3_tabletop_relativity_lorentz.pdf"))
-    plt.savefig(manuscript_path("vol_3_macroscopic", "figures", "vol3_tabletop_relativity_lorentz.png"), dpi=300)
-    plt.close()
+    style.save(fig, manuscript_path("vol_3_macroscopic", "figures", "vol3_tabletop_relativity_lorentz"))
+    plt.close(fig)
 
     print("Figures saved: vol3_sonoluminescence_collapse.pdf, vol3_tabletop_relativity_lorentz.pdf")
 

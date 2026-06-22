@@ -18,14 +18,27 @@ This script:
 1. Derives the Macroscopic I-V curve for a stellar diode.
 2. Maps predicted flare classifications (C, M, X-class) directly to the I-V thresholds.
 3. Computes the Full-Width at Half-Maximum (FWHM) of the Solar Maximum topological saturation zone.
+
+FIGURE-STYLE NOTE (2026-06-21 Vol-3 figure-regen sweep):
+Restyled to the AVE house style (ave.viz.style) — white "print" profile, the
+Okabe-Ito colourblind-safe palette, legends placed OUTSIDE the data, and baked
+panel titles removed (panel titles belong in the LaTeX \\caption{}, not the
+raster). The macroscopic Shockley + avalanche I-V is illustrative/phenomenological
+(V_BD, I_S, V_T are macroscopic-analogy fits, NOT derived from AVE axioms; only
+AVALANCHE_N is from Axiom 4) — no physics/data was changed by the restyle, only
+the figure's appearance.
 """
 
 import matplotlib.pyplot as plt
 import numpy as np
 
+from ave.viz import style
+
 # AVE Engine — for context on the macroscopic yield limit
 from ave.core.constants import AVALANCHE_N_3D
 from ave_path_util import sim_output
+
+style.apply("print")
 
 # ── PHENOMENOLOGICAL PARAMETERS ──────────────────────────────────────────
 # These are phenomenological fits to the Shockley diode + avalanche model.
@@ -113,92 +126,119 @@ def generate_weather_calculator() -> None:
         fwhm_duration = 0
 
     # -------------------------------------------------------------
-    # RENDER PANELS
+    # RENDER PANELS  (house style: white print profile, Okabe-Ito palette,
+    # legends OUTSIDE the data, no baked titles — titles live in \caption{})
     # -------------------------------------------------------------
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 7))
-    fig.patch.set_facecolor("#0f0f0f")
-
-    for ax in [ax1, ax2]:
-        ax.set_facecolor("#0f0f0f")
-        ax.grid(color="#333333", linestyle="--", alpha=0.5)
-        ax.tick_params(colors="white")
-        ax.xaxis.label.set_color("white")
-        ax.yaxis.label.set_color("white")
-        ax.title.set_color("white")
-        for spine in ax.spines.values():
-            spine.set_edgecolor("#555555")
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=style.figsize("wide"))
 
     # Panel 1: Macroscopic I-V Curve
-    ax1.plot(voltages, currents, color="#00ffcc", lw=3, label=r"Macroscopic $I-V$ (Shockley+Avalanche)")
-    ax1.axvline(V_BD, color="#ff3333", linestyle="--", lw=2, label=r"Topological Yield Limit ($V_{bd}$)")
+    ax1.plot(
+        voltages,
+        currents,
+        color=style.COLORS["ave"],
+        linestyle="-",
+        label=r"Macroscopic $I$-$V$ (Shockley + avalanche)",
+    )
+    ax1.axvline(
+        V_BD,
+        color=style.COLORS["comparison"],
+        linestyle="--",
+        label=r"Topological yield limit $V_{bd}$",
+    )
 
-    # Highlight Flare Classes as current regimes
+    # Highlight Flare Classes as current regimes (colourblind-safe regime fills)
     ax1.fill_between(
         voltages,
         C_CLASS_THRESHOLD,
         M_CLASS_THRESHOLD,
-        color="#ffff99",
-        alpha=0.2,
-        label="C-Class Regime",
+        color=style.REGIME_COLORS["II"],
+        alpha=0.20,
+        label="C-class regime",
     )
     ax1.fill_between(
         voltages,
         M_CLASS_THRESHOLD,
         X_CLASS_THRESHOLD,
-        color="#ff9933",
-        alpha=0.3,
-        label="M-Class Regime",
+        color=style.REGIME_COLORS["III"],
+        alpha=0.25,
+        label="M-class regime",
     )
     ax1.fill_between(
         voltages,
         X_CLASS_THRESHOLD,
         max(currents),
-        color="#ff3333",
-        alpha=0.4,
-        label="X-Class Avalanche Region",
+        color=style.REGIME_COLORS["IV"],
+        alpha=0.30,
+        label="X-class avalanche region",
     )
 
     ax1.set_yscale("log")
     ax1.set_ylim([1e-3, 1e4])
     ax1.set_xlim([0, 105])
-    ax1.set_title("Stellar Diode: Macroscopic I-V Transconductance")
-    ax1.set_xlabel("Topological Strain / Dynamo Winding (Macroscopic Volts V)")
-    ax1.set_ylabel("Photon Emission Rate (Macroscopic Amperes I)")
-    ax1.legend(loc="upper left", fontsize=9)
+    ax1.set_xlabel(style.axis_label("Dynamo winding", "V", "macro. V"))
+    ax1.set_ylabel(style.axis_label("Photon emission rate", "I", "macro. A"))
+    style.legend(ax1, where="below", ncol=2)
 
     # Panel 2: Predictive Solar Weather & FWHM
-    ax2.plot(years, flare_probability, color="#ffcc00", lw=2, label="Flare Probability (I)")
-    ax2.plot(years, dynamo_voltage, color="#66ccff", linestyle="-.", lw=1.5, label="Dynamo Voltage (V)")
+    ax2.plot(
+        years,
+        flare_probability,
+        color=style.COLORS["ave"],
+        linestyle="-",
+        label=r"Flare probability $I$",
+    )
+    ax2.plot(
+        years,
+        dynamo_voltage,
+        color=style.COLORS["accent"],
+        linestyle="-.",
+        label=r"Dynamo voltage $V$",
+    )
 
     # Plot the FWHM
     ax2.hlines(
         half_max,
         fwhm_start_yr,
         fwhm_end_yr,
-        color="#ff33ff",
-        lw=3,
-        label=f"Solar Max FWHM: {fwhm_duration:.2f} Years",
+        color=style.COLORS["data"],
+        lw=2.5,
+        label=f"Solar-max FWHM: {fwhm_duration:.2f} yr",
     )
-    ax2.scatter([fwhm_start_yr, fwhm_end_yr], [half_max, half_max], color="white", zorder=5)
+    ax2.scatter(
+        [fwhm_start_yr, fwhm_end_yr],
+        [half_max, half_max],
+        color=style.COLORS["data"],
+        zorder=5,
+    )
 
     # Mark Flare Thresholds on the dynamic timeline
-    ax2.axhline(M_CLASS_THRESHOLD, color="#ff9933", linestyle="--", alpha=0.5, label="M-Class Threshold")
-    ax2.axhline(X_CLASS_THRESHOLD, color="#ff3333", linestyle="--", alpha=0.5, label="X-Class Threshold")
+    ax2.axhline(
+        M_CLASS_THRESHOLD,
+        color=style.REGIME_COLORS["III"],
+        linestyle="--",
+        alpha=0.7,
+        label="M-class threshold",
+    )
+    ax2.axhline(
+        X_CLASS_THRESHOLD,
+        color=style.REGIME_COLORS["IV"],
+        linestyle="--",
+        alpha=0.7,
+        label="X-class threshold",
+    )
 
     ax2.set_yscale("log")
     ax2.set_xlim([0, 22])
     ax2.set_ylim([1e-2, 1e4])
-    ax2.set_title("11-Year Cycle Tracking & FWHM (Solar Weather Forecast)")
-    ax2.set_xlabel("Time (Years)")
-    ax2.set_ylabel("Emission Probability / Voltage")
-    ax2.legend(loc="lower right", fontsize=9)
-
-    plt.tight_layout()
+    ax2.set_xlabel(style.axis_label("Time", "t", "yr"))
+    ax2.set_ylabel(style.axis_label("Emission / voltage", "", "macro. units"))
+    style.legend(ax2, where="below", ncol=2)
 
     target = sim_output("solar_weather_iv_calculator.png")
-    plt.savefig(target, dpi=300)
+    style.save(fig, target, formats=("png",))
     print(f"[*] Visualized Solar Weather Calculator & I-V Curves: {target}")
     print(f"[*] Calculated Solar Maximum FWHM: {fwhm_duration:.2f} Years.")
+    plt.close(fig)
 
 
 # Quick inline helper to avoid importing scipy.signal just for one basic peak find if not needed

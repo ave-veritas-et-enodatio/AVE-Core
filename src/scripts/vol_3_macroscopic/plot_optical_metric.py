@@ -1,17 +1,24 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.colors import LinearSegmentedColormap
 
+from ave.viz import style
 from ave_path_util import sim_output
 
-# Aesthetic configuration
-plt.style.use("dark_background")
-COLOR_NODE = "#00ffff"
-COLOR_GRID = "#ff00ff"
+# House style: PRINT profile (white background, Okabe-Ito palette). Replaces the
+# former dark_background + neon (#00ffff / #ff00ff) schematic palette
+# (ave-figure-discipline Axis 4). Title moves to the LaTeX \caption (not baked).
+style.apply()
+
+# Schematic colours from the semantic house palette (paired with line/marker so
+# colour is never the only carrier of meaning, Axis 4):
+#   grid  -> muted gray  (the unperturbed dielectric LC network)
+#   node  -> AVE blue    (the localized topological defect / mass)
+COLOR_GRID = style.COLORS["muted"]
+COLOR_NODE = style.COLORS["ave"]
 
 
 def plot_optical_metric() -> None:
-    fig, ax = plt.subplots(figsize=(10, 8), dpi=150)
+    fig, ax = plt.subplots(figsize=style.figsize("square"))
     ax.set_aspect("equal")
     ax.axis("off")
 
@@ -26,20 +33,6 @@ def plot_optical_metric() -> None:
 
     # Avoid div by zero
     R_safe = np.clip(R, 0.5, None)
-
-    # Ponderomotive force / Refractive index gradient
-    # n(r) = 1 + GM/c^2r. We simulate the density visually.
-    1.0 + 8.0 / (R_safe**1.5)
-
-    # Normalize density for colormapping
-    # norm_density = (density - np.min(density)) / (np.max(density) - np.min(density))  # bulk lint fixup pass
-
-    # Custom colormap from black -> purple -> cyan
-    colors = ["#000000", "#220022", "#660066", "#aa00aa", "#00cccc", "#00ffff"]
-    cmap = LinearSegmentedColormap.from_list("ave_gravity", colors, N=256)
-
-    # Plot background refractive density field
-    # heatmap = ax.contourf(X, Y, density, levels=200, cmap=cmap, alpha=0.6, zorder=1)  # bulk lint fixup pass
 
     # Plot distorted LC grid lines
     # Radial displacement inward to simulate geometric densification
@@ -82,14 +75,12 @@ def plot_optical_metric() -> None:
     ax.add_artist(circle2)
     ax.add_artist(circle3)
 
-    # Title
-    ax.set_title("Optical Metric: Gravity as Dielectric Refraction", fontsize=16, fontweight="bold", pad=20)
+    # Title lives in the LaTeX \caption (ave-figure-discipline Axis 4) — not baked
+    # into the raster.
 
-    plt.tight_layout()
-
-    # Save Figure
+    # Save Figure (vector-preferred PDF + PNG, house defaults via style.save)
     filepath = sim_output("optical_refractive_gradient.png")
-    plt.savefig(filepath, facecolor=fig.get_facecolor(), edgecolor="none", bbox_inches="tight")
+    style.save(fig, filepath)
     print(f"Saved figure to: {filepath}")
 
 

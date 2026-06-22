@@ -9,9 +9,9 @@ adjacent electron inductors (NOT Cooper pairs + phonon exchange).
 
 The script does NOT compute:
   - T_c (critical temperature) for any specific superconductor
-  - Comparison against BCS prediction T_c = 1.13 Θ_D exp(-1/N(0)V)
+  - Comparison against BCS prediction T_c = 1.13 Theta_D exp(-1/N(0)V)
   - Niobium, MgB2, YBCO, or any specific T_c numerical match
-  - Meissner-effect penetration depth λ_L
+  - Meissner-effect penetration depth lambda_L
 
 This is an illustrative Kuramoto demo of the AVE phase-lock interpretation,
 NOT a T_c prediction. Quantitative superconductor benchmarks require a
@@ -19,12 +19,33 @@ dedicated AVE-engine workstream (would parallel the SPARC ingest pattern
 for condensed-matter targets).
 
 Docstring corrected 2026-05-17.
+
+FIGURE STYLE (2026-06-21 Vol-3 figure-regen sweep):
+Restyled through ``ave.viz.style`` (house print profile, white background,
+Okabe-Ito palette, legend outside the data). The descriptive title lives in
+the LaTeX ``\\caption{}`` of chapter 09, not baked into the raster. Only the
+PRESENTATION changed; the Kuramoto simulation (coupling K, temperature
+schedule, order-parameter / resistance traces) is byte-for-byte unchanged.
+The figure is written through the canonical ``ave_path_util.sim_output``
+resolver so it lands at ``assets/sim_outputs/superconductivity_phase_lock.pdf``
+— the path the manuscript ``\\includegraphics`` resolves via ``graphicspath``.
 """
 
-import os
+import sys
+from pathlib import Path
 
-import matplotlib.pyplot as plt
-import numpy as np
+import matplotlib
+
+matplotlib.use("Agg")  # headless render-to-file driver
+
+import matplotlib.pyplot as plt  # noqa: E402
+import numpy as np  # noqa: E402
+
+# Resolve the repo's src/ so `ave_path_util` + `ave.viz` import when run directly.
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+from ave.viz import style  # noqa: E402
+from ave_path_util import sim_output  # noqa: E402
 
 
 def main() -> None:
@@ -100,56 +121,55 @@ def main() -> None:
 
     print("[3] Phase Transition Achieved.")
 
-    # Render the phase-transition graph
-    fig, ax = plt.subplots(figsize=(10, 6), facecolor="#111111")
-    ax.set_facecolor("#111111")
+    # ------------------------------------------------------------------
+    # Render the phase-transition graph (house print profile)
+    # ------------------------------------------------------------------
+    style.apply()  # white-background "print" profile, Okabe-Ito palette FIRST
 
-    # X-axis will be temperature (reading right to left, cooling down)
+    fig, ax = plt.subplots(figsize=style.figsize("single"))
+
+    # X-axis is temperature, read right-to-left (cooling down). The arrays are
+    # reversed exactly as before so the plotted data is unchanged.
     ax.plot(
         T_schedule[::-1],
         resistance_history[::-1],
-        color="cyan",
-        lw=3,
-        label="Macroscopic Electrical Resistance",
+        color=style.COLORS["ave"],
+        linestyle="-",
+        label="Macroscopic electrical resistance",
     )
     ax.plot(
         T_schedule[::-1],
         coherence_history[::-1],
-        color="magenta",
-        lw=2,
+        color=style.COLORS["comparison"],
         linestyle="--",
-        label="Electron Phase Coherence (0 to 1)",
+        label="Electron phase coherence (0 to 1)",
     )
 
-    ax.axvline(x=0.5, color="white", linestyle=":", lw=2, label="Critical Phase-Lock Threshold ($T_c$)")
-
-    ax.set_title("Superconductivity as Classical Kinematic Phase-Lock", color="white", pad=15, fontsize=14)
-    ax.set_xlabel("Ambient Acoustic Matrix Jitter (Temperature)", color="white", fontsize=12)
-    ax.set_ylabel("Normalized State", color="white", fontsize=12)
-
-    ax.invert_xaxis()  # Plot cooling from Left to Right
-
-    ax.tick_params(colors="white")
-    ax.spines["bottom"].set_color("white")
-    ax.spines["top"].set_visible(False)
-    ax.spines["right"].set_visible(False)
-    ax.spines["left"].set_color("white")
-
-    ax.legend(facecolor="#111111", edgecolor="white", labelcolor="white")
-
-    out_path = "assets/figures/superconductivity_phase_lock.pdf"
-
-    # Duplicate to assets for safety
-    os.makedirs("assets/figures", exist_ok=True)
-    plt.savefig(
-        "assets/figures/superconductivity_phase_lock.pdf",
-        facecolor="#111111",
-        bbox_inches="tight",
-        dpi=150,
+    # Critical phase-lock threshold (illustrative T_c marker).
+    ax.axvline(
+        x=0.5,
+        color=style.COLORS["muted"],
+        linestyle=":",
+        label=r"Critical phase-lock threshold ($T_c$)",
     )
 
-    print("\n[STATUS: SUCCESS] The BCS Cooper-Pair model is obsolete.")
-    print(f"Classical Zero-Impedance phase-transition plot saved to {out_path}")
+    ax.set_xlabel(
+        style.axis_label("Temperature (acoustic jitter)", "T", "dimensionless")
+    )
+    ax.set_ylabel(style.axis_label("Normalized state", "", ""))
+
+    ax.invert_xaxis()  # plot cooling from left (warm) to right (cold)
+
+    # Legend OUTSIDE the data (the old figure dropped it onto the curves).
+    style.legend(ax, where="right")
+
+    out_path = sim_output("superconductivity_phase_lock.pdf")
+    written = style.save(fig, out_path)
+    plt.close(fig)
+
+    print("\n[STATUS: SUCCESS] Classical kinematic phase-lock figure rendered.")
+    for p in written:
+        print(f"wrote {p}")
 
 
 if __name__ == "__main__":

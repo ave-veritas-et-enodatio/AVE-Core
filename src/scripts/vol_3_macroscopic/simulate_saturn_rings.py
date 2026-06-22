@@ -21,7 +21,13 @@ import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import numpy as np
 
+from ave.viz import style
 from ave_path_util import sim_output
+
+# House figure style (white "print" profile, Okabe-Ito palette, no baked titles).
+# Presentation tier only — no ave.core dependency, so the dimensionless-toy
+# isolation below is preserved (ave-figure-discipline / ave.viz README).
+style.apply()
 
 # JAX GPU acceleration (graceful fallback to numpy)
 try:
@@ -138,74 +144,96 @@ def simulate_rings() -> np.ndarray:
     return history
 
 
+# Saturn-disk axis extent: the ring is initialised in R_inner..R_outer = 20..60
+# with N(0, 0.5) vertical thickness, so the data live in a flat disk of radius
+# ~60 and half-thickness ~2. The previous render set xy-limits to +/-80 and a
+# z-limit of +/-20 — the disk filled ~10% of a vast empty box and read as a thin
+# band (ave-figure-discipline Axis 3 rendering defect). Frame the data instead.
+_XY_LIM = 65.0   # snug around R_outer = 60
+_Z_LIM = 8.0     # snug around the ~+/-2 ring thickness (slight headroom)
+
+
+def _draw_frame(ax, frame_pos: np.ndarray, *, elev: float, azim: float) -> None:
+    """Draw one N-body frame onto ``ax`` in the house palette (no clipping)."""
+    ax.clear()
+    ax.set_xlim([-_XY_LIM, _XY_LIM])
+    ax.set_ylim([-_XY_LIM, _XY_LIM])
+    ax.set_zlim([-_Z_LIM, _Z_LIM])
+    ax.set_box_aspect((1, 1, 0.28))  # honour the flat-disk geometry, no z-stretch
+
+    # Drop the 3D box/panes/axis-spines entirely: this is a spatial scatter of an
+    # abstract Keplerian disk, the coordinate axes carry no quantity worth a tick,
+    # and the leftover spine "wishbone" lines otherwise read as stray clipping
+    # artifacts on the white print background (ave-figure-discipline Axis 3).
+    ax.set_axis_off()
+    ax.grid(False)
+
+    saturn_pos = frame_pos[0]
+    ring_pos = frame_pos[1:]
+    # Saturn = central node; rings = test masses. Okabe-Ito palette: 'accent'
+    # (bluish-green) marks the central node, 'ave' (blue) the ring nodes.
+    ax.plot(
+        [saturn_pos[0]], [saturn_pos[1]], [saturn_pos[2]],
+        "o", color=style.COLORS["accent"], markersize=22, alpha=0.95,
+        label="Central node (Saturn)",
+    )
+    ax.plot(
+        ring_pos[:, 0], ring_pos[:, 1], ring_pos[:, 2],
+        ".", color=style.COLORS["ave"], markersize=2.5, alpha=0.7,
+        label="Ring nodes (ice shards)",
+    )
+    ax.view_init(elev=elev, azim=azim)
+
+
+def render_static_frame(history: np.ndarray) -> None:
+    """Render a single representative late-time frame to the manuscript PNG/PDF.
+
+    The manuscript (Vol-3 Ch.14) embeds ``saturn_rings_evolution.png`` as "a
+    single frame of the N-Body topological evolution". This emits that frame
+    through the house style (white bg, framed data, no baked title — the caption
+    lives in the LaTeX ``\\caption{}``). Physics is untouched: it samples one
+    frame of the same Verlet integration.
+    """
+    print("[*] Rendering single representative frame (manuscript PNG)...")
+    # A late, structured frame (~80% through) shows the clumped/sheared disk the
+    # caption describes, not the initial uniform ring.
+    frame_idx = int(0.8 * (history.shape[0] - 1))
+
+    fig = plt.figure(figsize=style.figsize("square"))
+    ax = fig.add_subplot(111, projection="3d")
+    # A moderate elevation reads the disk + its gaps without flattening to a line.
+    _draw_frame(ax, history[frame_idx], elev=32.0, azim=45.0)
+    style.legend(ax, where="below", ncol=2)
+
+    target = sim_output("saturn_rings_evolution.png")
+    written = style.save(fig, target)
+    plt.close(fig)
+    print(f"[*] Static frame written: {', '.join(str(p) for p in written)}")
+
+
 def animate_simulation(history: np.ndarray) -> None:
     print("[*] Rendering 3D Temporal Evolution GIF...")
 
-    fig = plt.figure(figsize=(10, 10))
-    # Dark modern background
-    fig.patch.set_facecolor("#050510")
+    fig = plt.figure(figsize=style.figsize("square"))
     ax = fig.add_subplot(111, projection="3d")
-    ax.set_facecolor("#050510")
-
-    # Plot configuration
-    lim = 80.0
-    ax.set_xlim([-lim, lim])
-    ax.set_ylim([-lim, lim])
-    ax.set_zlim([-lim / 4, lim / 4])
-
-    # Style axes
-    ax.grid(False)
-    ax.xaxis.pane.fill = False
-    ax.yaxis.pane.fill = False
-    ax.zaxis.pane.fill = False
-    ax.xaxis.pane.set_edgecolor("#050510")
-    ax.yaxis.pane.set_edgecolor("#050510")
-    ax.zaxis.pane.set_edgecolor("#050510")
-
-    # Hide axis ticks
-    ax.set_xticks([])
-    ax.set_yticks([])
-    ax.set_zticks([])
-
-    # Initialize scatter plots
-    # Index 0 is Saturn
-    (saturn_scatter,) = ax.plot([], [], [], "o", color="#ffcc66", markersize=35, alpha=0.9)
-    (rings_scatter,) = ax.plot([], [], [], ".", color="#a0d0ff", markersize=2, alpha=0.6)
-
-    title = ax.set_title(
-        "Macroscopic 1/d Topological Evolution\nSaturn Ring Network",
-        color="white",
-        fontsize=14,
-        pad=20,
-    )
 
     def update(frame: int) -> tuple:
-        # Extract frame data
-        frame_pos = history[frame]
-
-        # Saturn
-        saturn_pos = frame_pos[0]
-        saturn_scatter.set_data(np.array([saturn_pos[0]]), np.array([saturn_pos[1]]))
-        saturn_scatter.set_3d_properties(np.array([saturn_pos[2]]))
-
-        # Rings
-        ring_pos = frame_pos[1:]
-        rings_scatter.set_data(ring_pos[:, 0], ring_pos[:, 1])
-        rings_scatter.set_3d_properties(ring_pos[:, 2])
-
-        # Slowly rotate the camera angle over time
-        ax.view_init(elev=30 - frame * 0.1, azim=frame * 0.5)
-
-        return saturn_scatter, rings_scatter, title
+        # Slowly orbit the camera over time while keeping the data framed.
+        _draw_frame(
+            ax, history[frame], elev=32.0 - frame * 0.04, azim=frame * 0.5
+        )
+        return (ax,)
 
     anim = animation.FuncAnimation(fig, update, frames=FRAMES, interval=50, blit=False)
 
     target = sim_output("saturn_rings_evolution.gif")
 
     anim.save(target, writer="pillow", fps=20)
+    plt.close(fig)
     print(f"[*] Scale-Invariant Topology Generated: {target}")
 
 
 if __name__ == "__main__":
     hist = simulate_rings()
+    render_static_frame(hist)
     animate_simulation(hist)
