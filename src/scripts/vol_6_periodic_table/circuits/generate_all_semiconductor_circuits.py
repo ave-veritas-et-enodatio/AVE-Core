@@ -785,7 +785,7 @@ def _build_element_data() -> list[dict]:
             regime="Small Signal",
             n_pairs=91,
             n_connections=1540,
-            description="Peak binding energy per nucleon.",
+            description="Minimum mass per nucleon (fusion endpoint).",
         ),
         # Core+Halo elements
         dict(
