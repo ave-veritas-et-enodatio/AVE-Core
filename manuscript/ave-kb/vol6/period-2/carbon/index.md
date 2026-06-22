@@ -8,7 +8,7 @@ subtree-experiments: []
 
 # Carbon (Z=6)
 
-Carbon-12 is the lightest element solved by the full semiconductor binding engine. Its three Alpha particles ($3\alpha$) form an equilateral ring at $R_{ring} \approx 56.554d$, creating a vast central void that maps to a 3-Phase Delta-Wye Transformer. The semiconductor engine reproduces the CODATA mass to $0.000\,000\%$ error at $V_R/V_{BR} = 0.019$ (Small Signal, $M = 1.000$). The open ring topology with four geometric vertices governs catenation and diamond lattice formation.
+Carbon-12 is the lightest element solved by the full semiconductor binding engine. Its three Alpha particles ($3\alpha$) form an equilateral ring at $R_{ring} \approx 56.527d$, creating a vast central void that maps to a 3-Phase Delta-Wye Transformer. The semiconductor engine locks the single geometric DOF ($R$) to reproduce the CODATA mass; the symmetric ring closes to a $0.000\,000\%$ geometric fit-residual (structurally zero by construction) at $V_R/V_{BR} = 0.019$ (Small Signal, $M = 1.000$). The open ring topology with four geometric vertices governs catenation and diamond lattice formation.
 
 Source: `08_carbon.tex` | No `\label{ch:carbon}` in source
 
@@ -17,8 +17,8 @@ Source: `08_carbon.tex` | No `\label{ch:carbon}` in source
 | Result | Expression |
 |---|---|
 | Binding energy | $E_B(^{12}\text{C}) = 3\Delta m_\alpha + M_{12} + M_{23} + M_{31} = 92.160$ MeV |
-| CODATA mass | $11\,174.863$ MeV ($0.000\,000\%$ error) |
-| Ring radius | $R_{ring} \approx 56.554d$ ($\approx 48$ fm wide) |
+| CODATA mass | $11\,174.863$ MeV ($0.000\,000\%$ geometric fit-residual; structurally zero by construction) |
+| Ring radius | $R_{ring} \approx 56.527d$ ($\approx 48$ fm wide) |
 | EE equivalent | 3-Phase Delta-Wye Transformer (3 Alpha LC tanks, weak mutual coupling) |
 | Semiconductor regime | Small Signal, $V_R/V_{BR} = 0.019$, $M = 1.000$, 3 inter-alpha pairs |
 | Orbital topology | Four solitons at $90^\circ$ on $n=2$: tetrahedral $sp^3$ hybridization |
