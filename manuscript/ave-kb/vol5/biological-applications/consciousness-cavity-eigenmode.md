@@ -13,7 +13,7 @@ The "hard problem" of consciousness---why subjective experience exists at all---
 
 Each neuron is an LC oscillator with a characteristic resonant frequency $\omega_0$ set by its membrane capacitance and axonal inductance. When sufficient neurons phase-lock into a coherent state (coupling coefficient $k > k_c$), a macroscopic cavity mode emerges that spans the cortex. This mode is qualitatively distinct from the sum of individual oscillations, in the same way that the Meissner effect in a superconductor is qualitatively distinct from the individual electron currents that produce it.
 
-The isomorphism is exact:
+The structural isomorphism is:
 
 | **System** | **Individual** | **Phase-locked state** |
 |---|---|---|
@@ -45,7 +45,7 @@ Under this model, memories and consciousness have fundamentally different transf
 
 - **Consciousness (dynamic standing wave).** Consciousness is the macroscopic cavity mode that emerges when the circuit is *running*. It cannot be transferred---only the conditions for its emergence can be duplicated. If the complete synaptic impedance profile were copied to an identical substrate and powered on, a standing wave would emerge, but it would be a *new* consciousness---not a transfer of the original. The original standing wave persists in the original brain.
 
-This yields a strong prediction: "mind uploading" creates a *twin*, not a migration. The original consciousness persists, and the copy develops its own. The two would immediately diverge as they accumulate different sensory inputs (different impedance modifications from that point forward).
+This yields a tentative prediction: "mind uploading" creates a *twin*, not a migration. The original consciousness persists, and the copy develops its own. The two would immediately diverge as they accumulate different sensory inputs (different impedance modifications from that point forward).
 
 ## Testable Predictions
 

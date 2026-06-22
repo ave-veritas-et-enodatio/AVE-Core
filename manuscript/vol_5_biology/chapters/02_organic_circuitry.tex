@@ -32,8 +32,9 @@ IS identically the saturation kernel, not a numerical prediction; classification
 \texttt{docs/framing\_and\_presentation.md} \S A1), BH ring-down (1.7\% from
 GR), solar flares, and cosmic K4 crystallization. The bulk response of the
 lattice to strain is universal. See Vol 3 Ch~4 \S\ref{sec:tki_strain_snap}
-+ Backmatter Ch~\ref{app:universal_saturation_kernel} for the 19-instance
-catalog with 3-way symmetry classification.
++ Backmatter Ch~\ref{app:universal_saturation_kernel} for the 26-instance
+catalog with 3-way symmetry classification (SYM / ASYM-N / ASYM-E; two
+spin-sector rows remain provisional).
 
 \section{Introduction to Organic RLC Topology}
 
@@ -696,14 +697,14 @@ The conventional puzzle: a 100-residue protein with $\sim 3$ dihedral states per
 
 \begin{enumerate}
     \item Each residue is a \textbf{cascaded transmission-line section} with input impedance set by the preceding chain segment plus its own $Z_{\text{topo}}$ shunt.
-    \item The 3D fold is the geometry that \textbf{minimizes the backbone $|S_{11}(\omega_0)|^2$} --- the standing-wave reflection at the amide-V frequency. Constructive impedance matching is achieved by a unique 3D placement of residues; destructive mismatches force the chain to bend, twist, or sheet at specific locations.
+    \item The 3D fold is the geometry that \textbf{minimizes the backbone $|S_{11}(\omega_0)|^2$} --- the standing-wave reflection at the amide-V frequency. Constructive impedance matching is conjectured to be achieved by a unique 3D placement of residues; destructive mismatches force the chain to bend, twist, or sheet at specific locations.
     \item \textbf{Secondary structure preference} follows directly:
     \begin{itemize}
         \item Small, low-$|Z_{\text{topo}}|$ sidechains (Ala, Gly) present minimal shunt loading on the backbone waveguide $\to$ smooth helical winding ($\alpha$-helix).
         \item Bulky, branched, or rigid sidechains (Pro, Trp) create impedance discontinuities $\to$ chain flattens into extended $\beta$-sheet or rigid kinks.
         \item Charged sidechains contribute reactance ($X \neq 0$) $\to$ frequency-dependent phase shifts couple to long-range backbone resonance.
     \end{itemize}
-    \item The minimum-$|S_{11}|^2$ configuration is the \textbf{native fold} --- there is no search; the chain mechanically snaps to its impedance-matched geometry, and the snap IS the protein-folding saturation-kernel instance.
+    \item The minimum-$|S_{11}|^2$ configuration is the \textbf{native fold} --- on this picture there is no search; the chain mechanically snaps to its impedance-matched geometry, and the snap IS the protein-folding saturation-kernel instance.
 \end{enumerate}
 
 \subsection{Protein Folding as a Universal Saturation-Kernel Instance}
@@ -715,7 +716,7 @@ Per Axiom~4, the substrate dielectric saturates as $C_{\text{eff}}(A) = C_0 / \s
 \end{equation}
 This is the \emph{same} kernel that gives BCS $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$, the BH ring-down $\omega_R M_g = 18/49$, the solar-flare CME avalanche, and the cosmic K4 crystallization seed event (all canonical at $0.00\%$ for BCS, $1.7\%$ for ring-down; see Vol 3 Ch~\ref{ch:cosmology} \S\ref{sec:tki_strain_snap}). At a particular configuration the strain $A \to 1$ on a critical bond, $S(A) \to 0$, and the substrate \emph{cannot} respond linearly --- it must reorganize topologically. The reorganization IS the folding snap. Protein folding is the SYM (symmetric) universal-kernel saturation event at the protein-length scale.
 
-\paragraph{Why this resolves Levinthal physically.} The chain is not searching configuration space; it is \emph{being driven} by substrate strain to the unique configuration where the kernel-saturation events on every bond simultaneously satisfy $A_i < 1$ (no further snapping required). This is the impedance-matched, lowest-$|S_{11}|^2$ geometry. The folding timescale ($\mu$s) reflects substrate dielectric relaxation, not configuration enumeration.
+\paragraph{Why this resolves Levinthal physically.} On this framework-level picture the chain is not searching configuration space; it is \emph{being driven} by substrate strain toward the (conjectured-unique) configuration where the kernel-saturation events on every bond simultaneously satisfy $A_i < 1$ (no further snapping required). This is the impedance-matched, lowest-$|S_{11}|^2$ geometry. The folding timescale ($\mu$s) reflects substrate dielectric relaxation, not configuration enumeration. The uniqueness of that configuration --- the step that carries the Levinthal resolution --- is conjectured, not yet demonstrated by a closed derivation.
 
 \paragraph{What the engineering compendium adds.} Per-amino-acid $Z_{\text{topo}}^i$ values (the 20-residue lookup table with $R_i$, $X_i$, $|Z|_i$ columns), the cascaded ABCD-matrix folding solver, multiplexed basis-state initialization ($\alpha$-helix vs.\ $\beta$-sheet starting configurations to avoid gradient-descent local minima), and the Op2 topological-crossing correction for knotted proteins are held in a separate engineering compendium. The framework above is the complete substrate-physics derivation; the compendium adds quantitative residue-by-residue tables and the production-grade solver architecture.
 

@@ -25,7 +25,7 @@ The regime classification is what makes the [Levinthal mechanical resolution](./
 - **Backbone in Regime I-II** (transition) carries the transmission-line cascade that supports the impedance-matching dynamics
 - **R-group, chain, and folded-protein scales all in Regime I** (linear) means the [$Z_{\text{topo}}$ shunt loading](./z-topo-definition.md) and $|S_{11}|^2$ minimization are well-defined linear-circuit-theory calculations, NOT requiring non-linear saturation-kernel treatment at those scales
 
-This is what justifies the "no configuration search" framing: the non-linear physics (A-034 snap) operates ONLY at the covalent-bond core; everything else is linear cascaded-TL impedance matching, which has a unique solution (the native fold).
+This is what justifies the "no configuration search" framing: the non-linear physics (A-034 snap) operates ONLY at the covalent-bond core; everything else is linear cascaded-TL impedance matching, which is conjectured to have a unique solution (the native fold). The uniqueness of that solution is asserted, not yet demonstrated by a closed derivation.
 
 ### Cross-references
 
