@@ -11,7 +11,7 @@ Because Beryllium-9 is fundamentally two symmetrical balanced loads (the identic
 
 In a Wheatstone Bridge, two parallel legs of a circuit are balanced against each other, with a galvanometer or bridge component spanning the middle. In Beryllium-9, the enormous structural tension required to separate the Alpha cores from aggregating creates the high "voltage" potential across the bridge. The lone bridging neutron sits exactly in the middle of this geometric potential drop.
 
-This is why Beryllium-9 is so fragile; if the geometric parameters of the core are disrupted in stellar nucleosynthesis, the bridge "galvanometer" loses its precise balance, and the entire dual-core structure catastrophically ruptures into an endothermic spray of independent Alpha particles (the decay of $^8He$). The Mutual Inductance formalisms mapping the physical spacing of the particles require no new symbols---the standard dashed mutual coupling arrows ($M_{bridge}$) used extensively in RF and power circuit diagrams perfectly describe this topological gravity.
+This is why Beryllium-9 is so fragile; if the geometric parameters of the core are disrupted in stellar nucleosynthesis, the bridge "galvanometer" loses its precise balance, and the entire dual-core structure catastrophically ruptures into an endothermic spray of independent Alpha particles (the decay of $^8Be$). The Mutual Inductance formalisms mapping the physical spacing of the particles require no new symbols---the standard dashed mutual coupling arrows ($M_{bridge}$) used extensively in RF and power circuit diagrams perfectly describe this topological gravity.
 
 The combined topological mutual impedance of the stretched network geometrically yields the CODATA binding energy limit via:
 
