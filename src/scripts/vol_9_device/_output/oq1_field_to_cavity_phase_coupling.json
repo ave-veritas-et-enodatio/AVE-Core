@@ -1,0 +1,119 @@
+{
+  "validate_on_known": {
+    "A_e_value_Tinv2": 1.3246686621582372e-24,
+    "A_e_target_Tinv2": 1.32e-24,
+    "A_e_relerr": 0.0035368652713918544,
+    "A_e_recovers_PVLAS": true,
+    "substrate_identity_(Ecrit/Eyield)^2==1/alpha_and_cBcrit==Ecrit": true
+  },
+  "ratios": {
+    "differential_matched_AVE(-1/2)/QED(3/45)": 19300353.99810898,
+    "differential_matched_closed_7.5_over_alpha3": 19300353.998108976,
+    "corpus_single_arm_AVE(-1/4)/QED_parallel(7/45)": 4135790.1424519233
+  },
+  "per_config": {
+    "E_peak_Vm": 274492372739852.56,
+    "A_saturation": 0.002428253766441565,
+    "dn_ave_differential_leading": -2.948208177118824e-06,
+    "dn_ave_differential_exact": -2.9482255611279484e-06,
+    "dn_qed_differential": 1.5275409857289064e-13,
+    "ratio_differential_matched": 19300353.99810898,
+    "configs": [
+      {
+        "name": "(i) CW high-F",
+        "pump_mode": "CW",
+        "z_R_m": 2.513274122871834e-06,
+        "g_spatial": 0.00039465784511788,
+        "g_temporal": 1.0,
+        "n_coherent_passes": 636.6197723675814,
+        "tau_build_s": 1.061767491775229e-08,
+        "tau_rt_s": 3.335640951981521e-11,
+        "g_eff": 0.25124698752202496,
+        "psi_ave_rad": 0.021870930190613307,
+        "psi_qed_rad": 1.133188033377843e-09,
+        "psi_ratio_ave_over_qed": 19300353.998108983,
+        "small_angle_valid": true
+      },
+      {
+        "name": "(ii) pulsed single-pass",
+        "pump_mode": "pulse_single",
+        "z_R_m": 2.513274122871834e-06,
+        "g_spatial": 0.00039465784511788,
+        "g_temporal": 1.0,
+        "n_coherent_passes": 1.0,
+        "tau_build_s": 1.0617674917752291e-11,
+        "tau_rt_s": 3.335640951981521e-11,
+        "g_eff": 0.00039465784511788,
+        "psi_ave_rad": 3.435477680700299e-05,
+        "psi_qed_rad": 1.7800076003978483e-12,
+        "psi_ratio_ave_over_qed": 19300353.998108983,
+        "small_angle_valid": true
+      },
+      {
+        "name": "(iii-fs) pulsed gated-cavity (30 fs pump)",
+        "pump_mode": "pulse_gated_cavity",
+        "z_R_m": 2.513274122871834e-06,
+        "g_spatial": 0.00039465784511788,
+        "g_temporal": 1.0,
+        "n_coherent_passes": 1.0,
+        "tau_build_s": 1.061767491775229e-08,
+        "tau_rt_s": 3.335640951981521e-11,
+        "g_eff": 0.00039465784511788,
+        "psi_ave_rad": 3.435477680700299e-05,
+        "psi_qed_rad": 1.7800076003978483e-12,
+        "psi_ratio_ave_over_qed": 19300353.998108983,
+        "small_angle_valid": true
+      },
+      {
+        "name": "(iii-ns) pulsed gated-cavity (20 ns gate pump)",
+        "pump_mode": "pulse_gated_cavity",
+        "z_R_m": 2.513274122871834e-06,
+        "g_spatial": 0.00039465784511788,
+        "g_temporal": 1.0,
+        "n_coherent_passes": 599.5849159999999,
+        "tau_build_s": 1.061767491775229e-08,
+        "tau_rt_s": 3.335640951981521e-11,
+        "g_eff": 0.23663089091374506,
+        "psi_ave_rad": 0.020598605966025633,
+        "psi_qed_rad": 1.0672657075639054e-09,
+        "psi_ratio_ave_over_qed": 19300353.998108983,
+        "small_angle_valid": true
+      }
+    ],
+    "recommendation": {
+      "recommended": "(i) CW high-F",
+      "recommended_psi_ave_rad": 0.021870930190613307,
+      "recommended_g_eff": 0.25124698752202496,
+      "polarimetry_floor_rad": 1e-09,
+      "fs_gated_cavity_recovers_finesse": false,
+      "fs_gated_cavity_g_eff": 0.00039465784511788,
+      "single_pass_g_eff": 0.00039465784511788,
+      "ns_gated_cavity_g_eff": 0.23663089091374506,
+      "ns_gated_cavity_n_coherent": 599.5849159999999,
+      "pump_duration_to_gate_full_F_s": 1.061767491775229e-08
+    }
+  },
+  "figures": {
+    "birefringence_arc": {
+      "paths": [
+        "/private/tmp/biref-harden/src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling_birefringence_arc.pdf",
+        "/private/tmp/biref-harden/src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling_birefringence_arc.png"
+      ],
+      "caption": "DERIVED uniaxial probe-response birefringence from the scalar Axiom-4 kernel. The linearly-polarized pump turns the scalar permittivity eps(|E|^2)=eps0 sqrt(1-A^2) into a uniaxial probe tensor eps_ij=eps delta_ij+2eps' E0_i E0_j; the par-minus-perp differential leads at -1/2 A^2 (a factor 2 above the scalar single-arm -1/4 A^2). At the PW-class operating point A=2.4e-03, |n_par-n_perp|=2.88e-06."
+    },
+    "config_coupling": {
+      "paths": [
+        "/private/tmp/biref-harden/src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling_config_coupling.pdf",
+        "/private/tmp/biref-harden/src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling_config_coupling.png"
+      ],
+      "caption": "Realized AVE polarimeter ellipticity per apparatus config at the PW-class operating point (E=2.74e+14 V/m, A=2.4e-03), from the PINNED coupling g_eff. g_eff per config: (i) 2.51e-01, (ii) 3.95e-04, (iii-fs) 3.95e-04, (iii-ns) 2.37e-01. The 30 fs gated cavity (iii-fs) recovers NOTHING beyond single-pass (g_eff identical to (ii)) because the fs pump is gone before the recirculating probe returns (3.3e-11 s round trip); a ns-class gate pump (iii-ns) recovers near-full finesse. Recommended: (i) CW high-F."
+    },
+    "gate_constraint": {
+      "paths": [
+        "/private/tmp/biref-harden/src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling_gate_constraint.pdf",
+        "/private/tmp/biref-harden/src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling_gate_constraint.png"
+      ],
+      "caption": "The gated-cavity finesse-recovery constraint (DD1's unmodeled lever, now modeled). A co-timed pulsed probe recirculated in a resonant cavity recovers the full finesse build-up (2F/pi=637 passes at F=1e+03) ONLY when the pump persists across the cavity build-up time tau_build=1.06e-08 s. A 30 fs pump gates only n_coherent=1 (single pass): it is gone before the recirculating probe re-enters the focus (3.3e-11 s round trip). Recovering both finesse AND temporal overlap requires a ns-class pump (a 3.5e+05x larger pulse energy at fixed peak field)."
+    }
+  }
+}

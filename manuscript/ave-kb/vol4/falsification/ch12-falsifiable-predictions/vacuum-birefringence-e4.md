@@ -31,4 +31,17 @@ To test this, an ultra-high-Q optical fiber ring resonator (or high-finesse Fabr
 
 High-intensity laser interferometry measuring the COEFFICIENT of the (shared $E^2$-leading) index shift separates QED and AVE: at $E\sim10^{14}$ V/m, AVE predicts $\delta n\approx 2.0\times10^{-7}$ (high-finesse-cavity measurable) against the QED baseline $\delta n\approx 5\times10^{-14}$, a $\sim10^6$ gap present at **all** fields. A **QED-sized coefficient** ($\delta n\sim\alpha^2(E/E_{crit})^2$) falsifies AVE; an AVE-sized coefficient falsifies QED at this observable. (An $E^2$ slope does **not** falsify AVE — QED is also $E^2$-leading. The discriminator is the coefficient, not the exponent.)
 
+> **OQ-1 strengthen-by (field→cavity-phase coupling, partially-closed).** The field→cavity-phase
+> coupling that maps this index shift to a polarimeter readout is now **DERIVED** from the scalar
+> Axiom-4 kernel (focal-E → uniaxial probe-response tensor $\varepsilon_{ij}=\varepsilon\delta_{ij}+2\varepsilon'E_{0i}E_{0j}$
+> → cavity round-trip birefringent phase → ellipticity), with the geometry factor $g$ **pinned per
+> apparatus config**: see [`research/2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md`](../../../../../research/2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md)
+> and the facility proposal [`research/2026-06-21_birefringence-coefficient-bankable-falsifier.md`](../../../../../research/2026-06-21_birefringence-coefficient-bankable-falsifier.md).
+> **FLAG (auditor/Grant call, not landed here):** that derivation produces a **par−minus−perp
+> differential** $\delta n_{bir}\approx-\tfrac12 A^2$ (a factor 2 above **this leaf's** scalar
+> single-arm $\delta n=\sqrt S-1\approx-\tfrac14 A^2$, `clm-pp3qwf`), giving a matched-observable
+> differential ratio $7.5/\alpha^3\approx1.93\times10^7$ vs the single-arm $1/(4\cdot\tfrac{7}{45}\alpha^3)\approx4.14\times10^6$
+> headlined above. `clm-pp3qwf` is **unchanged** (scalar single-arm); whether to promote the
+> differential observable into the claim is an open auditor/Grant adjudication (FLAG-A in the proposal §10).
+
 ---

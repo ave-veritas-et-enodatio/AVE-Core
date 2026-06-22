@@ -17,11 +17,15 @@ THE FIVE SWEEP AXES (facility design space):
   finesse  — Fabry-Perot probe-cavity finesse, 1e2 -> 1e5 (PVLAS/BMV lineage).
   lambda   — probe wavelength (Nd:YAG 1064 nm, doubled 532 nm, Ti:Sa 800 nm).
   L        — interaction / cavity length (overlap-limited mm -> cm).
-  g        — pump-probe geometry coupling factor (field -> cavity-phase residual),
-             from DERIVE-1: sweet spot g ~ 7.9e-4 (collinear, co-timed fs pulsed,
-             diffraction-limited, cm cavity), worst credible g ~ 1.4e-8 (collinear
-             trans-avg CW probe). We sweep INCLUDING the g ~ 1e-3 worst-case the
-             brief calls out, down to g = 1e-8.
+  g        — pump-probe geometry coupling factor (field -> cavity-phase coupling),
+             now the OQ-1 PINNED per-config g_eff (oq1_field_to_cavity_phase_-
+             coupling.py): g_eff ~ 0.251 (full coherent finesse: CW pump high-F
+             or ns-gated pulsed cavity) and g_eff ~ 3.95e-4 (single-pass /
+             fs-gated cavity, g_spatial only — NO finesse recovery, the fs pump
+             is gone before the recirculating probe returns), plus the
+             worst-credible 1e-5 / 1e-8 tail. (Supersedes the first-cut DERIVE-1
+             bound 7.9e-4; the OQ-1 derivation pins it as a Gaussian-focus x
+             cavity-timing overlap.)
 
 THE NO-STRAWMAN CONTRACT (ave.bench R1): at EVERY sweep point the QED
 Euler-Heisenberg baseline is co-computed THROUGH THE SAME machinery
@@ -207,9 +211,16 @@ FINESSE_GRID = np.array([1.0e2, 1.0e3, 1.0e4, 1.0e5])
 LAMBDA_GRID = np.array([532.0e-9, 800.0e-9, 1064.0e-9])
 # Interaction / cavity length: overlap-limited mm -> cm.
 LENGTH_GRID = np.array([1.0e-3, 1.0e-2])
-# Geometry coupling g (DERIVE-1): sweet spot 7.9e-4, the g~1e-3 worst-case the
-# brief calls out, down to the worst-credible 1e-8.
-G_GRID = np.array([7.9e-4, 1.0e-3, 1.0e-5, 1.0e-8])
+# Geometry coupling g. UPDATED (OQ-1, oq1_field_to_cavity_phase_coupling.py): the
+# PINNED per-config g_eff from the derived Gaussian-focus x cavity-timing chain
+# replaces the first-cut DERIVE-1 bound. The two distinct derived operating
+# points are: g_eff ~ 0.25 (full coherent finesse build-up: CW pump high-F, or a
+# ns-gated pulsed cavity) and g_eff ~ 3.9e-4 (single-pass / fs-gated cavity:
+# g_spatial only, NO finesse recovery — the fs pump is gone before the
+# recirculating probe returns). We keep the worst-credible 1e-5 / 1e-8 tail so
+# the divergence-window g-floor is still mapped. (See OQ-1 §3; g_eff is
+# APPARATUS-INPUT-derived, consistency-class, OUTSIDE the AVE constants gate.)
+G_GRID = np.array([2.51e-1, 3.95e-4, 1.0e-5, 1.0e-8])
 
 
 @dataclass(frozen=True)
@@ -366,10 +377,12 @@ def extract_window(points: list[SweepPoint]) -> dict:
         "note": "1/(2 pi alpha)=21.81 units artifact (DERIVE-2 flag-don't-fix); "
         "NOT a physical EH coefficient; excluded from the physical band.",
     }
-    # The g-floor: the smallest g in the window at the best (E, F) — the lever
-    # the brief asks to be exercised including the g~1e-3 worst case.
+    # The g-floor: the smallest g in the window at the best (E, F). The grid now
+    # carries the OQ-1 PINNED g_eff points (0.251 full-finesse, 3.95e-4
+    # single-pass/fs-gated) plus the worst-credible 1e-5/1e-8 tail.
     out["g_floor_in_window"] = float(gs.min())
-    out["g_includes_1e-3_worst_case"] = bool(np.any(np.isclose(gs, 1.0e-3)))
+    out["g_includes_pinned_single_pass_3.95e-4"] = bool(np.any(np.isclose(gs, 3.95e-4)))
+    out["g_includes_pinned_full_finesse_0.251"] = bool(np.any(np.isclose(gs, 2.51e-1)))
     # Fastest 5-sigma in the window (the headline integration-time number).
     fastest = min(in_win, key=lambda p: p.t_5sigma_s)
     out["fastest_5sigma"] = {
@@ -388,9 +401,10 @@ def extract_window(points: list[SweepPoint]) -> dict:
 def _fig_signal_vs_field(points: list[SweepPoint], out_stub: Path) -> tuple[list[Path], str]:
     """Panel: psi_AVE vs psi_QED across E at the sweet-spot g, with the two
     polarimetry floors. Both legs ride the SAME machinery (R1)."""
-    # Slice the sweep at the headline geometry: sweet-spot g, F=1e3, 1064 nm,
-    # cm cavity — co-computed AVE and QED on the identical grid.
-    g0, F0, lam0, L0 = 7.9e-4, 1.0e3, 1064.0e-9, 1.0e-2
+    # Slice the sweep at the headline geometry: the OQ-1 PINNED single-pass
+    # g_eff=3.95e-4, F=1e3, 1064 nm, cm cavity — co-computed AVE and QED on the
+    # identical grid.
+    g0, F0, lam0, L0 = 3.95e-4, 1.0e3, 1064.0e-9, 1.0e-2
     sl = sorted(
         (p for p in points
          if np.isclose(p.g, g0) and np.isclose(p.finesse, F0)
@@ -464,7 +478,8 @@ def _fig_window_E_vs_g(points: list[SweepPoint], out_stub: Path) -> tuple[list[P
         f"({PSI_FLOOR_REALISTIC:.0e} rad), exceeds its co-computed QED counterpart, "
         f"and stays inside the small-angle linearization (<{SMALL_ANGLE_CEILING} rad). "
         f"{n_win} of {len(Es)*len(gs)} (E, g) cells at this slice are in-window; the "
-        f"window includes the g={1e-3:.0e} worst-case. Cell colour is the "
+        f"window spans the OQ-1 PINNED g_eff points (3.95e-4 single-pass, 0.251 "
+        f"full-finesse) and the worst-credible 1e-5/1e-8 tail. Cell colour is the "
         f"field-independent AVE/QED ratio (uniform across the window — g cancels in "
         f"the ratio)."
     )
@@ -577,7 +592,8 @@ def main() -> None:
               f"(A=[{w['A_saturation']['min']:.2e}, {w['A_saturation']['max']:.2e}], deep-linear)")
         print(f"    finesse   : [{w['finesse']['min']:.0e}, {w['finesse']['max']:.0e}]")
         print(f"    g         : [{w['g']['min']:.0e}, {w['g']['max']:.0e}]  "
-              f"(includes g=1e-3 worst-case: {win['g_includes_1e-3_worst_case']})")
+              f"(PINNED g_eff: single-pass 3.95e-4={win['g_includes_pinned_single_pass_3.95e-4']}, "
+              f"full-finesse 0.251={win['g_includes_pinned_full_finesse_0.251']})")
         print(f"    psi_AVE   : [{w['psi_ave_rad']['min']:.2e}, {w['psi_ave_rad']['max']:.2e}] rad")
         print(f"    AVE/QED   : ratio [{w['psi_ratio_ave_over_qed']['min']:.3e}, "
               f"{w['psi_ratio_ave_over_qed']['max']:.3e}] "

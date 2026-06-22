@@ -174,9 +174,14 @@ electrode emits / the gap arcs before the probe accumulates a detectable phase.
 > corrected, field-independent coefficient ratio is $4.14\times10^6$ (see the
 > $E^4$-walk-back at [`vacuum-birefringence-e4.md:20`](../ch12-falsifiable-predictions/vacuum-birefringence-e4.md)).
 > Linear-pump uniaxial-tensor derivation + facility sweep + the geometry-factor $g$ residual (the
-> OQ-1 field→cavity-phase coupling, now derived to leading order):
-> [`research/2026-06-21_birefringence-coefficient-bankable-falsifier.md`](../../../../../research/2026-06-21_birefringence-coefficient-bankable-falsifier.md);
-> coefficient channel cross-link: [`vacuum-birefringence-e4.md`](../ch12-falsifiable-predictions/vacuum-birefringence-e4.md)
+> OQ-1 field→cavity-phase coupling): the coupling is now **DERIVED** from the Axiom-4 kernel and
+> $g$ is **PINNED per apparatus config** (OQ-1 **partially-closed** per adversarial-verify; named
+> residuals R-1 the derived par−perp differential is a NEW observable vs this leaf's scalar single-arm,
+> R-2 single-invariant modeling choice, R-3 detector-floor validate-on-known owed):
+> [`research/2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md`](../../../../../research/2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md)
+> (derivation) +
+> [`research/2026-06-21_birefringence-coefficient-bankable-falsifier.md`](../../../../../research/2026-06-21_birefringence-coefficient-bankable-falsifier.md)
+> (proposal); coefficient channel cross-link: [`vacuum-birefringence-e4.md`](../ch12-falsifiable-predictions/vacuum-birefringence-e4.md)
 > (`clm-pp3qwf`).
 
 ### The Falsification Protocol (interferometric)
