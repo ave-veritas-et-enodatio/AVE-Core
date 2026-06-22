@@ -96,22 +96,22 @@
   "figures": {
     "birefringence_arc": {
       "paths": [
-        "/private/tmp/biref-harden/src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling_birefringence_arc.pdf",
-        "/private/tmp/biref-harden/src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling_birefringence_arc.png"
+        "/private/tmp/oq1-bir-fix/src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling_birefringence_arc.pdf",
+        "/private/tmp/oq1-bir-fix/src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling_birefringence_arc.png"
       ],
       "caption": "DERIVED uniaxial probe-response birefringence from the scalar Axiom-4 kernel. The linearly-polarized pump turns the scalar permittivity eps(|E|^2)=eps0 sqrt(1-A^2) into a uniaxial probe tensor eps_ij=eps delta_ij+2eps' E0_i E0_j; the par-minus-perp differential leads at -1/2 A^2 (a factor 2 above the scalar single-arm -1/4 A^2). At the PW-class operating point A=2.4e-03, |n_par-n_perp|=2.88e-06."
     },
     "config_coupling": {
       "paths": [
-        "/private/tmp/biref-harden/src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling_config_coupling.pdf",
-        "/private/tmp/biref-harden/src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling_config_coupling.png"
+        "/private/tmp/oq1-bir-fix/src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling_config_coupling.pdf",
+        "/private/tmp/oq1-bir-fix/src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling_config_coupling.png"
       ],
       "caption": "Realized AVE polarimeter ellipticity per apparatus config at the PW-class operating point (E=2.74e+14 V/m, A=2.4e-03), from the PINNED coupling g_eff. g_eff per config: (i) 2.51e-01, (ii) 3.95e-04, (iii-fs) 3.95e-04, (iii-ns) 2.37e-01. The 30 fs gated cavity (iii-fs) recovers NOTHING beyond single-pass (g_eff identical to (ii)) because the fs pump is gone before the recirculating probe returns (3.3e-11 s round trip); a ns-class gate pump (iii-ns) recovers near-full finesse. Recommended: (i) CW high-F."
     },
     "gate_constraint": {
       "paths": [
-        "/private/tmp/biref-harden/src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling_gate_constraint.pdf",
-        "/private/tmp/biref-harden/src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling_gate_constraint.png"
+        "/private/tmp/oq1-bir-fix/src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling_gate_constraint.pdf",
+        "/private/tmp/oq1-bir-fix/src/scripts/vol_9_device/_output/oq1_field_to_cavity_phase_coupling_gate_constraint.png"
       ],
       "caption": "The gated-cavity finesse-recovery constraint (DD1's unmodeled lever, now modeled). A co-timed pulsed probe recirculated in a resonant cavity recovers the full finesse build-up (2F/pi=637 passes at F=1e+03) ONLY when the pump persists across the cavity build-up time tau_build=1.06e-08 s. A 30 fs pump gates only n_coherent=1 (single pass): it is gone before the recirculating probe re-enters the focus (3.3e-11 s round trip). Recovering both finesse AND temporal overlap requires a ns-class pump (a 3.5e+05x larger pulse energy at fixed peak field)."
     }
