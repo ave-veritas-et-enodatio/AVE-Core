@@ -1,7 +1,7 @@
 # Vacuum-Birefringence Coefficient — the Bankable AVE-Distinct Falsifier (facility proposal)
 
 **Date:** 2026-06-21
-**Status:** PROPOSAL (facility-grade). Coefficient result LOCKED + validate-on-known PASS; one open gate (OQ-1 geometry factor *g*, bounded here to leading order).
+**Status:** PROPOSAL (facility-grade). Coefficient result LOCKED + validate-on-known PASS. OQ-1 (field→cavity-phase coupling) now **PARTIALLY CLOSED** (adversarial-verify verdict `partially-closed`): the coupling is **DERIVED** from the Axiom-4 kernel and the geometry factor *g* is **PINNED per apparatus config** — see the derivation [`research/2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md`](2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md). Named residuals carried (R-1 differential-vs-leaf observable, R-2 single-invariant modeling choice, R-3 detector-floor validate-on-known owed); §5, §8 below superseded with the pinned per-config numbers (Rule-12).
 **Canonical claim:** `clm-pp3qwf` (Vol-4 Ch.12 `vacuum-birefringence-e4.md`; solidity 0.8) — this doc is its **strengthen-by**.
 **Drivers:** `src/scripts/vol_9_device/vacuum_birefringence_facility_sweep.py` (this branch); `AVE-Bench-Birefringence/scripts/birefringence_coefficient_bench.py` (R1–R8); shared `ave.bench.{sweep,apparatus,snr,validate}` + `ave.bench.birefringence`.
 **Worktree provenance:** `/tmp/biref-harden`, branch `analysis/birefringence-hardening`, on `origin/main` 5f91d1af; sweep commit ec9b9830.
@@ -30,14 +30,30 @@ finesse, while QED sits a factor $4.14\times10^6$ below throughout (a $\sim10^{1
 integration-time gap — an unambiguous AVE-sized-vs-QED-sized call). The **chord** (the bankable
 content) is the *structural* tree-$O(1)/4$-saturation-vs-$\alpha^2$-loop FORM, present at every field;
 the *magnitude* $4.14\times10^6$ is honestly an **α-echo** at the value level (symmetric standard:
-QED's coefficient is equally α-rooted). **The single remaining gate is OQ-1**: the field →
-cavity-phase coupling $g$ is here derived only to *leading order* (the dominant systematic = pump-probe
-Rayleigh-range overlap, bounded to $\sim10^{-3}$, range $[\sim5\times10^{-9},\,1]$) and asserted as a
-Gaussian-beam overlap parameter rather than derived as an Axiom-4 coupling — the **coefficient** is
-robust and stands, but the **absolute** sensitivity/integration numbers remain first-cut until $g$ is
-derived and validated-on-known against a published cavity floor. **Do not headline "$10^4\times$ QED at
-$g\sim10^{-3}$": $g$ cancels in the ratio (always $4.14\times10^6$); $g$ sets only the absolute
-signal-vs-floor margin.**
+QED's coefficient is equally α-rooted).
+
+> 🔴 **SUPERSEDED (Rule-12, 2026-06-21 OQ-1 close).** The first-cut text read: *"The single remaining
+> gate is OQ-1: the field → cavity-phase coupling $g$ is here derived only to leading order … and
+> asserted as a Gaussian-beam overlap parameter rather than derived as an Axiom-4 coupling."* That
+> first-cut leading-order/asserted framing is now superseded — see the replacement immediately below.
+> Body preserved for audit-trail continuity.
+
+**OQ-1 is now PARTIALLY CLOSED (verify verdict `partially-closed`).** The field → cavity-phase coupling
+is **DERIVED** through the chain focal-E → uniaxial probe tensor $\varepsilon\delta_{ij}+2\varepsilon'E_{0i}E_{0j}$
+(the exact differential of the scalar Axiom-4 kernel) → cavity round-trip birefringent phase →
+ellipticity, and the geometry factor $g$ is **PINNED per apparatus config** as an explicit
+Gaussian-focus ($g_{spatial}=(2z_R/L)\arctan(L/2z_R)$, exact Lorentzian integral) × cavity-timing
+($g_{temporal}$, pump-gated coherent-pass count) overlap (derivation:
+[`2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md`](2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md)).
+Three **named residuals** remain (verdict honesty — do **not** over-state "closed"): **R-1** the
+DERIVED par−perp *differential* ($-\tfrac12 A^2$) is a NEW observable, not the canonical leaf's scalar
+single-arm ($-\tfrac14 A^2$, `clm-pp3qwf` :12,:14) — whether to promote it is an auditor/Grant call;
+**R-2** $u=|E|^2$ as THE invariant is an AVE modeling choice vs QED's two invariants ($E^2-B^2$,
+$E\cdot B$, which split 7/45 vs 4/45); **R-3** the polarimetry/detector floor is still owed a
+validate-on-known against a published cavity. **The coefficient depends on none of R-1/R-2/R-3.**
+**Do not headline "$10^4\times$ QED at $g\sim10^{-3}$": $g$ cancels in the ratio (always
+$4.14\times10^6$, or $1.93\times10^7$ at the matched differential observable, FLAG-A §6/§10); $g$
+sets only the absolute realized signal-vs-floor margin.**
 
 ---
 
@@ -217,7 +233,61 @@ $[\sim5\times10^{-9},\,1]$ — **enclosing the realistic $g\sim10^{-3}$**.
   vs peak field across the $g\in[10^{-8},10^{-3}]$ tiers (1 W probe); $g$ sets the absolute
   integration time, **not** the AVE/QED ratio.
 
-## 5. The residual — the geometry factor *g* (DERIVE-1, the dominant systematic)
+## 5. The geometry factor *g* — PINNED per config (OQ-1 partially closed)
+
+> 🔴 **SUPERSEDED-IN-PART (Rule-12, 2026-06-21 OQ-1 close).** This section was the FIRST-CUT
+> "$g$ derived only to leading order, asserted as a Gaussian-beam overlap parameter" residual. It is
+> now superseded by the DERIVED + PINNED per-config $g_{eff}$ in **§5.1** below (full derivation:
+> [`2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md`](2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md)).
+> The first-cut spatial/temporal/sweet-spot text is preserved verbatim below it for audit-trail
+> continuity; read §5.1 for the landed numbers (the first-cut "$1.4\times10^{-8}$ worst credible"
+> and "$g\approx7.9\times10^{-4}$ sweet spot" are correct as the spatial single-pass values but
+> did not yet pin the coherent-pass/temporal-gate structure that §5.1 resolves).
+
+### 5.1 The PINNED per-config coupling (DERIVED — the OQ-1 close)
+
+$g_{eff}$ is now a DERIVED function of explicit apparatus-inputs, $g_{eff} = g_{spatial}\cdot
+g_{temporal}\cdot n_{coherent}$, with $g_{spatial,axial}=(2z_R/L)\arctan(L/2z_R)$ the **exact**
+Lorentzian path integral (numeric quad $==$ closed form to machine precision; CHECK-3 PASS sub-part),
+and $n_{coherent}=\min(2F/\pi,\ \tau_{pump}/\tau_{rt})$ the pump-gated coherent-pass count
+($\tau_{build}=FL/\pi c$ threshold). At the PW-class point ($E_{peak}=2.745\times10^{14}$ V/m,
+$A=2.43\times10^{-3}$, $w_0=\lambda_{pump}=800$ nm, $L=1$ cm, $F=10^3$, $\lambda_{probe}=1064$ nm;
+$z_R=2.51\,\mu$m, $g_{spatial}=3.95\times10^{-4}$):
+
+| Config | mode | $n_{coherent}$ | **$g_{eff}$** | **$\psi_{AVE}$ [rad]** | $\psi_{QED}$ [rad] | small-angle |
+|---|---|---|---|---|---|---|
+| **(i) CW high-$F$ (RECOMMENDED)** | CW pump, full build-up | $2F/\pi=637$ | **0.251** | **$2.19\times10^{-2}$** | $1.13\times10^{-9}$ | OK |
+| (ii) pulsed single-pass | co-timed pulse, 1 transit | 1 | $3.95\times10^{-4}$ | $3.44\times10^{-5}$ | $1.78\times10^{-12}$ | OK |
+| (iii-fs) gated cavity, 30 fs pump | recirculated, fs pump | **1** | $3.95\times10^{-4}$ | $3.44\times10^{-5}$ | $1.78\times10^{-12}$ | OK |
+| (iii-ns) gated cavity, 20 ns gate pump | recirculated, ns pump | 600 | **0.237** | **$2.06\times10^{-2}$** | $1.07\times10^{-9}$ | OK |
+
+(AVE/QED $=1.930\times10^7$ at **every** config — the matched par−perp differential ratio (FLAG-A
+§6/§10); $g_{eff}$ cancels in the ratio.)
+
+**The DD1 gated-cavity lever, RESOLVED to a NULL for an fs pump.** For the finesse build-up to add
+coherently the pump must be present each time the recirculating probe re-enters the focus (every
+$\tau_{rt}=L/c=33.4$ ps). A **30 fs pump gates exactly ONE coherent pass** ($n_{pump}=30\,\text{fs}/33.4\,\text{ps}=9.0\times10^{-4}\ll1$):
+the gated cavity recovers **nothing** beyond single-pass ($g_{eff}$(iii-fs) $=$ $g_{eff}$(ii) exactly) —
+the pump is gone before the probe completes one round trip. Recovering BOTH finesse AND temporal
+overlap requires a **ns-class gate pump** ($\geq\tau_{build}=FL/\pi c=10.6$ ns), i.e. a $\sim3.5\times10^5\times$
+larger pulse energy at fixed peak field. **You do not get both from one fs pump** — the mutually-exclusive
+lever flagged in the first-cut (§5, below) is a hard pump-duration × finesse-product constraint, not a
+free knob.
+
+**RECOMMENDED CONFIG (Grant/engineering decision): (i) CW high-$F$ polarimeter** — full coherent
+finesse, $g_{eff}=0.251$, $\psi_{AVE}=2.19\times10^{-2}$ rad at PW-class field, in small-angle and
+$\sim10^7\times$ above the realistic $10^{-9}$ rad polarimetry floor. The **ns-gated pulsed cavity
+(iii-ns)** is the near-equal pulsed-pump alternative ($g_{eff}=0.237$) for facilities that can only
+deliver the peak field in a pulse but can stretch the gate to ns. The pulsed single-pass / fs-gated
+configs ($g_{eff}=3.95\times10^{-4}$) remain detectable ($\psi=3.4\times10^{-5}$ rad, $\sim10^4\times$
+floor) but forgo the finesse lever.
+
+*Figures (committed):* `oq1_field_to_cavity_phase_coupling_birefringence_arc.{png,pdf}` (the DERIVED
+uniaxial-tensor birefringence arc, $\delta n_{bir}=-\tfrac12 A^2$ vs the scalar single-arm $-\tfrac14 A^2$);
+`…_config_coupling.{png,pdf}` (realized $\psi$ per config from the pinned $g_{eff}$);
+`…_gate_constraint.{png,pdf}` (the pump-duration × finesse gating constraint — DD1 resolved).
+
+### 5.2 First-cut $g$ residual (superseded by §5.1 — preserved for audit trail)
 
 $g$ is the **field → cavity-phase coupling residual** — the pump-probe overlap fraction that maps
 the field *at the focus* to a *detected* cavity-phase. It is an **optics/engineering coupling
@@ -246,10 +316,12 @@ rad (small-angle OK); $F=10^5\to0.29$ rad (out of small-angle — a reason to st
 Grounded in `derive_g.py` / `derive_g_floor.py` (scratch); $E_{YIELD}$ from `constants.py:438`,
 kernel $\delta n=(1-A^2)^{1/4}-1\approx-\tfrac14 A^2$ from `birefringence_coefficient_bench.py:135-144`.
 
-**The mutually-exclusive lever (flag).** The co-timed fs pulsed probe ($g_{temporal}=1$) forgoes
-cavity build-up (single-pass); the CW high-$F$ probe gets finesse enhancement but pays
-$g_{temporal}\sim9\times10^{-4}$. A combined gated-build-up pulsed-probe-in-resonant-cavity
-treatment is *not* modeled here and could recover both — a follow-up lever (§10).
+**The mutually-exclusive lever (flag — now RESOLVED in §5.1).** The co-timed fs pulsed probe
+($g_{temporal}=1$) forgoes cavity build-up (single-pass); the CW high-$F$ probe gets finesse
+enhancement but pays $g_{temporal}\sim9\times10^{-4}$. A combined gated-build-up
+pulsed-probe-in-resonant-cavity treatment is *not* modeled here and could recover both — a follow-up
+lever (§10). **→ RESOLVED in §5.1: for an fs pump the gated cavity recovers a NULL (one pass only);
+both finesse and temporal overlap need a ns-class gate pump.**
 
 ## 6. The a_EH convention lock (DERIVE-2)
 
@@ -308,7 +380,39 @@ ellipticity (PVLAS/BMV-style par-minus-perp) instrument is properly compared aga
 (ratio $9.65\times10^6$). The bench-design lane must pick the $a_{EH}$ that matches the observable the
 instrument records. Physics verdict (AVE-distinct at all fields, ~6-OOM gap) is identical either way.
 
-## 8. The honest experimental ask
+## 8. The honest experimental ask (PINNED per config — supersedes the first-cut)
+
+> 🔴 **SUPERSEDED (Rule-12, 2026-06-21 OQ-1 close).** The first-cut ask read "$\psi_{AVE}\sim
+> 2\times10^{-4}$–$2\times10^{-2}$ rad → 5σ in $<1\,\mu$s" with a *modest-$F$, overlap-limited,
+> calibrated-$g$* recommendation premised on "high-$F$ drives out of small-angle." That premise is
+> superseded: the **pinned** §5.1 analysis shows $F=10^3$ at the PW-class field **stays in
+> small-angle** ($\psi_{AVE}=2.19\times10^{-2}$ rad $<0.1$ rad), so the CW high-$F$ finesse lever is
+> *recommended*, not avoided. The pinned ask + recommended config follow; first-cut table preserved
+> below for audit trail.
+
+**PINNED ask (the apparatus-config is an explicit Grant/engineering decision — 3 configs, §5.1):**
+
+| Parameter | PINNED ask | Provenance / tag |
+|---|---|---|
+| Pump intensity | $I\sim10^{22}$ W/cm² ($E_{peak}=2.745\times10^{14}$ V/m, PW-class) | APPARATUS-INPUT; reachable (ELI/Apollon-class) |
+| Pump pulse | linearly-polarized, diffraction-limited $w_0\sim\lambda_{pump}$ ($z_R=2.51\,\mu$m) | sets $g_{spatial}=3.95\times10^{-4}$ (exact integral) |
+| Probe | 1–10 W at 1064 nm at the PVLAS-tier shot floor ($S_\psi\sim2\times10^{-10}$ rad/$\sqrt{\text{Hz}}$) | APPARATUS-INPUT (floor still owed validate-on-known, R-3) |
+| Cavity / finesse | $L=1$ cm, $F=10^3$ | $F=10^3$ stays in small-angle at PW-class (pinned) |
+| **Geometry-factor $g_{eff}$** | **PINNED per config** (DERIVED): (i) CW high-$F$ **0.251**; (ii)/(iii-fs) single-pass **$3.95\times10^{-4}$**; (iii-ns) ns-gated **0.237** | DERIVED, §5.1; $g$ cancels in the AVE/QED ratio |
+| **Recommended config** | **(i) CW high-$F$** → $\psi_{AVE}=\mathbf{2.19\times10^{-2}}$ **rad**; alt (iii-ns) ns-gated pulsed → $2.06\times10^{-2}$ rad | Grant/engineering decision (3 configs traded, §5.1) |
+| Integration | $\psi_{AVE}\sim2\times10^{-2}$ rad (recommended) / $3.4\times10^{-5}$ rad (single-pass) → **5σ in $\ll1\,\mu$s** | shot-floor SNR; AVE detection integration-trivial |
+
+**The AVE signal margin is overlap($g_{eff}$)-set, and the AVE/QED ratio is $g$-INDEPENDENT.** The
+recommended **CW high-$F$ polarimeter** delivers $\psi_{AVE}=2.19\times10^{-2}$ rad against
+$\psi_{QED}=1.13\times10^{-9}$ rad — the matched-differential ratio $1.93\times10^7$ (FLAG-A §6/§10).
+The QED-vs-AVE integration-time gap is $\sim(1.93\times10^7)^2\sim3.7\times10^{14}$ (matched differential)
+/ $\sim(4.14\times10^6)^2\sim1.7\times10^{13}$ (corpus single-arm) — i.e. a QED-coefficient signal would
+take $10^{13}$–$10^{14}\times$ longer to reach the same SNR, which is what makes "did we see AVE-sized
+or QED-sized" an unambiguous experimental call. **Engineering caveat (honest residual R-3):** the
+absolute margin rides the polarimetry/detector floor, which is still owed a validate-on-known against a
+published cavity (§10). The **coefficient** does not.
+
+**First-cut ask (superseded by the pinned table above — preserved for audit trail):**
 
 | Parameter | Ask | Provenance |
 |---|---|---|
@@ -318,11 +422,6 @@ instrument records. Physics verdict (AVE-distinct at all fields, ~6-OOM gap) is 
 | Cavity | $L\sim$ cm, **modest** finesse $F\sim1$–$10^3$ over the pump-Rayleigh overlap | high-$F$ drives out of small-angle |
 | Geometry | a **calibrated** $g$ (overlap), not more finesse | $g$ is the dominant systematic, §5 |
 | Integration | $\psi_{AVE}\sim2\times10^{-4}$–$2\times10^{-2}$ rad → **5σ in $<1\,\mu$s** | sweep §4; AVE detection is integration-trivial |
-
-**The AVE signal is overlap($g$)-limited, NOT cavity-finesse-limited.** The experimental ask is a
-*calibrated $g$*, not more finesse. The QED-vs-AVE integration-time gap is $\sim(4.14\times10^6)^2
-\sim1.7\times10^{13}$ — i.e. a QED-coefficient signal would take $\sim10^{13}\times$ longer to reach
-the same SNR, which is what makes "did we see AVE-sized or QED-sized" an unambiguous experimental call.
 
 ## 9. Discipline tags (chord-vs-echo / consistency-vs-emergence / coordinate / symmetric-standard)
 
@@ -358,15 +457,21 @@ $g$-dependent absolute-signal margin* (FLAG-(i), §10).
    to an explicitly-labeled "$A_e$ magnetic-form back-solve, off by $1/(2\pi\alpha)$ — DO NOT use as
    an electric-mode $a_{EH}$" comment (or remove it). This is the open `prereg:122` §5.2 flag.
 
-3. **OQ-1 partial close (this doc is the strengthen-by).** The field → cavity-phase coupling is now
-   derived **to leading order** via the pump-probe decomposition: the dominant systematic is the
-   pump-probe spatial overlap $g$ ($L_{eff}\approx z_R$ vs the cm cavity length), quantified and
-   bounded (§5). The **COEFFICIENT** ($4.14\times10^6$) is robust and field-independent; the
-   **absolute $\psi$/integration-time** numbers ride $g$ and remain FIRST-CUT until $g$ is derived
-   from the Axiom-4 kernel + cavity geometry as a *coupling* (not asserted as a Gaussian-beam overlap
-   parameter). The OQ-1 entry in `AVE-Bench-Birefringence/docs/open_questions.md` should be updated
-   to "leading-order closed, residual = $g$" (auditor/implementer-commit, next session — that file
-   lives in the sibling repo, not this PR's tree).
+3. **OQ-1 — PARTIALLY CLOSED (this doc is the strengthen-by; verdict `partially-closed`).** The field
+   → cavity-phase coupling is now **DERIVED** from the Axiom-4 kernel (focal-E → uniaxial probe tensor
+   → cavity round-trip phase → ellipticity) and the geometry factor $g_{eff}$ is **PINNED per
+   apparatus config** (§5.1; derivation
+   [`2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md`](2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md)).
+   The **COEFFICIENT** ($4.14\times10^6$ single-arm / $1.93\times10^7$ matched differential) is robust
+   and field-independent; the absolute $\psi$/integration numbers are now PINNED (no longer first-cut).
+   Three **named residuals** keep this *partially*-closed, not closed: **R-1** the derived par−perp
+   *differential* ($-\tfrac12 A^2$) is a NEW observable, not the canonical leaf's scalar single-arm
+   ($-\tfrac14 A^2$, `clm-pp3qwf` :12,:14) — promoting it into the leaf is an **auditor/Grant call**
+   (FLAG-A, §6/§10-#10); **R-2** $u=|E|^2$ as THE invariant is an AVE modeling choice (QED uses two
+   invariants → 7/45 vs 4/45); **R-3** the detector floor is owed a validate-on-known (open-item #4).
+   The OQ-1 entry in `AVE-Bench-Birefringence/docs/open_questions.md` should be updated to
+   "**partially-closed: coupling DERIVED + $g$ PINNED; residuals R-1/R-2/R-3**"
+   (auditor/implementer-commit, next session — that file lives in the sibling repo, not this PR's tree).
 
 4. **validate-on-known still owed on the detector floor.** The $10^{-15}$ (optimistic) / $10^{-13}$
    (realistic) index-shift floor and the $10^{-9}$/$10^{-11}$ rad polarimetry floors are asserted from
@@ -374,9 +479,13 @@ $g$-dependent absolute-signal margin* (FLAG-(i), §10).
    A validate-on-known against a real PVLAS/BMV ellipticity floor is owed before the SNR/integration
    numbers fully harden. (The COEFFICIENT result does not depend on this.)
 
-5. **Mutually-exclusive lever (§5).** Co-timed fs pulsed probe ($g_t=1$, single-pass) vs CW high-$F$
-   (finesse build-up, $g_t\sim9\times10^{-4}$). A gated-build-up combined treatment could recover both
-   — un-modeled, worth a follow-up.
+5. **Mutually-exclusive lever (§5) — RESOLVED (§5.1).** Co-timed fs pulsed probe ($g_t=1$,
+   single-pass) vs CW high-$F$ (finesse build-up). The gated-build-up combined treatment is now
+   **modeled**: an fs pump gates only **one** coherent pass (it is gone $33$ ps before the recirculating
+   probe returns), so the gated cavity recovers a **NULL** for an fs pump — both finesse and temporal
+   overlap need a **ns-class gate pump** ($\geq\tau_{build}=10.6$ ns, $\sim3.5\times10^5\times$ larger
+   pulse energy). The recommended configs are CW high-$F$ (full finesse, $g_{eff}=0.251$) or ns-gated
+   pulsed cavity ($g_{eff}=0.237$).
 
 6. **Transverse-overlap dilution (§5).** Mode-matching the probe waist toward $w_0$ (or multi-pass
    focal recycling) is an un-modeled $g_{spatial}$ lever (~25× at $w_p\gg w_0$).
@@ -395,3 +504,18 @@ $g$-dependent absolute-signal margin* (FLAG-(i), §10).
    `AVE-Bench-Birefringence/docs/design/` and update its `open_questions.md` OQ-1 in a separate,
    separately-reviewed commit on that repo (cross-repo promotion is a different session per workspace
    discipline). Tracked here so it is not lost.
+
+10. **FLAG-A (flag-don't-fix) — matched-observable ratio + new-observable promotion (R-1; auditor/Grant
+    lands, surfaced here, NOT silently fixed).** The OQ-1 derivation produced a NEW observable: the
+    par−minus−perp **differential** $\delta n_{bir}=-\tfrac12 A^2$ (a factor 2 above the canonical leaf's
+    scalar single-arm $-\tfrac14 A^2$). At the **matched** differential observable a PVLAS/BMV
+    ellipsometer actually reads, the ratio is **AVE($-\tfrac12$)/QED($3/45$) $=7.5/\alpha^3=1.93\times10^7$**
+    (closed form, verified) — NOT the corpus headline $4.14\times10^6$, which pairs AVE single-arm
+    ($-\tfrac14$) with QED single-mode-parallel ($7/45$) — a **mismatched** pairing. RECOMMEND (auditor
+    lands): state the headline observable-matched — single-arm-retardance probe → $4.14\times10^6$
+    (AVE $-\tfrac14$ vs QED $7/45$); differential ellipsometer → $1.93\times10^7$ (AVE $-\tfrac12$ vs QED
+    $3/45$). And decide whether to promote the differential observable into `clm-pp3qwf` (the canonical
+    leaf currently headlines only the scalar single-arm; the differential framing entered via §2 of
+    this proposal, not the leaf). The physics verdict (AVE-distinct at all fields, $\gtrsim6$-OOM gap) is
+    identical either way; the chord-vs-echo split is unaffected (FORM = chord; magnitude = α-echo at
+    either ratio). Surfaced verbatim, not reframed.
