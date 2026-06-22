@@ -10,7 +10,7 @@
     \item State the epistemic class: \textbf{identity-class consistency} on discrete graph topology (\texttt{consistency-vs-emergence} v1.3); \textbf{[RENDERING]} absolute scale per \kbleaf{assets/3d\_models/ACCURATE\_SCALING.md}. A printed model asserts \textbf{no new substrate-physics claim}; per INVARIANT-S9 it is not registered as an \texttt{exp-} experiment.
     \item State the \textbf{representation principle}: a 3D print is a real-space object, so real space is rendered \emph{isomorphic}, the DOF basis is rendered as \emph{labeled accents}, and phase space is rendered \emph{only} as a labeled proxy stamped \texttt{[STATE-SPACE --- NOT A COORDINATE]}.
     \item Document the rebuilt kit: watertight \texttt{is\_volume} parts, BOM tiers (structural base, DOF accents, phase-space proxy, chiral srs instrument, keyed assembly jig), the $0.10\,\mathrm{mm}$ diametral press-fit, the default print pitch $100\,\mathrm{mm}$ per $\ell_{node}$, and the corpus-mnemonic reference scale $38.6\,\mathrm{mm}$.
-    \item Publish Laboratory Exercises L-EP1 (keyed-jig assembly with the real press-fit) and L-EP2 (monolith vs kit) with explicit pass criteria tied to \texttt{build\_diamond\_net}.
+    \item Publish Laboratory Exercises L-EP1 (keyed-jig assembly with the real press-fit), L-EP2 (monolith vs kit), and L-EP3 (production diamond vs chiral \texttt{srs} instrument) with explicit pass criteria tied to \texttt{build\_diamond\_net}.
 \end{itemize}
 \end{objectivebox}
 
@@ -189,6 +189,17 @@ Optional particle snap-ins are \textbf{topology demos only} (\kbleaf{assets/3d\_
 \textbf{Objective.} At fixed $L$ and \texttt{KIT\_PRINT\_MM\_PER\_L\_NODE}, confirm the monolithic STL span and bond pitch agree with the kit manifest \texttt{assembled\_bbox\_mm} ($\sim\!300\times300\times300\,\mathrm{mm}$ at $L=4$) and \texttt{bonds[].center\_pitch\_mm}.
 
 \textbf{Pass.} Bbox and pitch consistent within print tolerance; A/B nodes are \textbf{identical bodies}, distinguished only by color and the embossed A/B key (no shape difference). \textbf{Fail.} Systematic scale mismatch (indicates driver regression or double-counted \texttt{a\_cell} in export), or any printed body that encodes a storage split via shape.
+\end{exercisebox}
+
+\section{Laboratory Exercise L-EP3: The Chirality Instrument (Optional)}
+\label{sec:vol9_lab_LEP3}
+
+\begin{exercisebox}
+\textbf{Laboratory Exercise L-EP3 --- Production diamond vs chiral srs instrument}
+
+\textbf{Objective.} Hold the degree-3 \texttt{srs} acceptance instrument (both enantiomorphs, \texttt{srs\_node\_right}/\texttt{srs\_node\_left} + \texttt{srs\_bond} + handedness glyph) beside the degree-4 production diamond and confirm they are \textbf{distinct objects}: the srs net is trivalent with $120^\circ$ bonds and is handed; the production net is tetrahedral (degree-4) and achiral.
+
+\textbf{Pass.} The handedness glyph distinguishes $I4_132$ (right) from $I4_332$ (left); the builder can state which piece carries the optical-activity / chirality story (the \texttt{srs} \emph{instrument}) and which is the production substrate (the diamond). \textbf{Fail.} Conflating the two nets, or treating the srs piece as the production engine substrate. This exercise asserts nothing beyond the adjudicated diamond-primary / achiral-cold reading (Ch.~\ref{ch:vol9_topological_characteristics}).
 \end{exercisebox}
 
 \section{Cross-Chapter Map}
