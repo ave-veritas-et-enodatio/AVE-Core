@@ -176,9 +176,46 @@ def delta_n_ave_exact(E: np.ndarray | float) -> np.ndarray:
 
 
 def delta_n_ave_leading(E: np.ndarray | float) -> np.ndarray:
-    """AVE index shift, leading term only: delta_n ~ -(1/4)(E/E_YIELD)^2."""
+    """AVE ISOTROPIC single-arm index shift, leading term: delta_n_iso ~ -(1/4)(E/E_YIELD)^2.
+
+    NOTE: this is the COMMON-MODE shift a birefringence instrument rejects, not
+    the falsifier observable. For the par-perp birefringence use
+    delta_n_ave_differential (the falsifier observable, -1/2 A^2).
+    """
     A = np.asarray(E, dtype=float) / E_YIELD
     return -C_AVE_LEADING * A**2
+
+
+def delta_n_ave_differential_exact(E: np.ndarray | float) -> np.ndarray:
+    """AVE par-perp BIREFRINGENCE delta_n_bir = n_par - n_perp (FALSIFIER observable).
+
+    Under a linearly-polarized pump the scalar Ax-4 kernel becomes a uniaxial
+    probe tensor eps_ij = eps delta_ij + 2 eps' E0_i E0_j (optic axis || pump;
+    eps' = d eps / d(E^2)). The two eigen-indices are
+        n_perp = sqrt(S)         = (1 - A^2)^(1/4),
+        n_par  = sqrt(S - A^2/S) = sqrt((1 - 2 A^2) / sqrt(1 - A^2)),
+    and the birefringence the polarimeter measures is their DIFFERENCE
+        delta_n_bir = n_par - n_perp  ->  -(1/2) A^2 to leading order
+    (exactly 2x the isotropic single-arm shift; DERIVED, OQ-1 Step 1). Returns
+    NaN past yield (A^2 >= 1/2 for n_par, A^2 >= 1 for n_perp).
+    """
+    A2 = (np.asarray(E, dtype=float) / E_YIELD) ** 2
+    safe1 = np.where(A2 < 1.0, A2, 0.0)
+    S = np.sqrt(1.0 - safe1)
+    n_perp = np.where(A2 < 1.0, np.sqrt(S), np.nan)
+    par_arg = np.where(A2 < 0.5, (1.0 - 2.0 * safe1) / S, np.nan)
+    n_par = np.where(A2 < 0.5, np.sqrt(par_arg), np.nan)
+    return n_par - n_perp
+
+
+def delta_n_ave_differential(E: np.ndarray | float) -> np.ndarray:
+    """AVE par-perp birefringence, leading term: delta_n_bir ~ -(1/2)(E/E_YIELD)^2.
+
+    The matched falsifier observable (exactly 2x the isotropic single-arm
+    delta_n_ave_leading). DERIVED from the uniaxial probe tensor (OQ-1 Step 1).
+    """
+    A = np.asarray(E, dtype=float) / E_YIELD
+    return -0.5 * A**2
 
 
 # ============================================================================
@@ -266,13 +303,41 @@ def optical_activity_rotation_qed(path_length_m: float) -> float:
 # CROSSOVER / COEFFICIENT DISCRIMINATOR
 # ============================================================================
 def coefficient_ratio(a_eh: float = 7.0 / 45.0) -> float:
-    """Field-INDEPENDENT retardance ratio delta_n_AVE/delta_n_QED = 1/(4 a_EH alpha^3).
+    """Field-INDEPENDENT SINGLE-ARM retardance ratio delta_n_AVE_iso/delta_n_QED.
 
-    Both responses are E^2-leading, so the ratio is constant in E — the
-    discriminator is the COEFFICIENT. Uses the substrate identity
+    The AVE SCALAR single-arm (isotropic) index shift delta_n_iso ~ -(1/4) A^2
+    over the QED single-mode coefficient a_eh:
+        delta_n_AVE_iso / delta_n_QED = 1 / (4 a_EH alpha^3).
+    Both responses are E^2-leading, so the ratio is constant in E.
+
+    NOTE (FLAG-A adjudicated 2026-06-21): this is the ISOTROPIC single-arm
+    comparison, NOT the falsifier headline. A birefringence instrument measures
+    the par-perp DIFFERENTIAL (use coefficient_ratio_differential), which rejects
+    the common-mode isotropic shift. coefficient_ratio(7/45) ~ 4.14e6 pairs the
+    AVE single-arm against the QED PARALLEL single-mode (mismatched observables);
+    it is retained for traceability only. Uses the substrate identity
     (E_CRIT/E_YIELD)^2 = 1/alpha (verified by substrate_identity_holds).
     """
     return 1.0 / (4.0 * a_eh * ALPHA**3)
+
+
+def coefficient_ratio_differential() -> float:
+    """Field-INDEPENDENT MATCHED par-perp DIFFERENTIAL ratio (the falsifier headline).
+
+    A birefringence instrument measures n_par - n_perp, rejecting the isotropic
+    common-mode shift. Both observables are differenced the same way:
+        AVE differential delta_n_bir = n_par - n_perp ~ -(1/2) A^2  (DERIVED;
+            uniaxial probe tensor = exact differential of the scalar Ax-4 kernel)
+        QED differential = (3/45) alpha^2 (E/E_crit)^2  (Euler-Heisenberg 7/45
+            parallel and 4/45 perp eigen-indices differenced)
+    =>  delta_n_AVE / delta_n_QED = (1/2) / ((3/45) alpha^2) * (E_CRIT/E_YIELD)^2
+                                  = (45/6) / alpha^3 = 7.5 / alpha^3 ~ 1.93e7.
+    Field-independent (both E^2-leading), riding the substrate identity
+    (E_CRIT/E_YIELD)^2 = 1/alpha. The MAGNITUDE is an alpha-echo (symmetric
+    standard: QED's coefficient is equally alpha-rooted); the FORM (tree-O(1)/2
+    saturation vs alpha^2 loop) is the AVE-distinct chord.
+    """
+    return (0.5 / ((3.0 / 45.0) * ALPHA**2)) * (E_CRIT / E_YIELD) ** 2
 
 
 def substrate_identity_holds() -> bool:
