@@ -275,7 +275,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 - _Specific Claims_
   - Each section formulates a biological/clinical phenomenon (cancer, red-light therapy, methylene blue, creatine, consciousness, EMDR) in AVE impedance terms — reflection coefficient $\Gamma$, impedance match/mismatch, cavity eigenmode, decoupling capacitor — and lists falsifiable predictions (typically 2–4 testable predictions per section).
   - The reinterpretations are structural identifications of the form "phenomenon X is operationally equivalent to circuit element Y under the AVE framework"; they reuse the universal `impedance()`, `saturation_factor()`, and `reflection_coefficient()` operators defined in earlier chapters.
-  - The "consciousness as macroscopic cavity eigenmode" claim asserts substrate independence: a sufficiently coupled resonator network ($N \gtrsim N_c$, $k > k_c$) would undergo the same phase transition; "mind uploading creates a twin, not a migration" is presented as a strong prediction of the model.
+  - The "consciousness as macroscopic cavity eigenmode" claim asserts substrate independence: a sufficiently coupled resonator network ($N \gtrsim N_c$, $k > k_c$) would undergo the same phase transition; "mind uploading creates a twin, not a migration" is presented as a tentative prediction of the model.
 - _Specific Non-Claims and Caveats_
   - **None of these sections constitute derived numerical predictions.** They are interpretive applications. No section in Ch. 6 produces a quantity validated against measured biological data with quoted error.
   - Does NOT claim clinical efficacy for any therapy listed (red light, methylene blue, EMDR, creatine, MB+660 nm combination). Clinical observations are referenced as the phenomenon to be explained; the AVE explanation is the hypothesis, not a treatment recommendation.
@@ -555,7 +555,7 @@ For each amino acid the sidechain R-group attaches as a shunt stub on the backbo
 ## Native Fold as Minimum-$|S_{11}|^2$ Impedance Match (Levinthal Mechanical Resolution)
 <!-- id: clm-s11nf0 -->
 
-Protein folding is reframed as deterministic impedance matching rather than a search over $\sim 5 \times 10^{47}$ configurations. Each residue is a cascaded transmission-line section loaded by its $Z_\text{topo}$ shunt; the native 3D fold is the unique geometry minimizing the backbone standing-wave reflection $|S_{11}(\omega_0)|^2$ at the amide-V frequency. Secondary-structure preference follows directly from $Z_\text{topo}$ magnitude/reactance (low → α-helix, high → β-sheet/kink, charged $X \neq 0$ → long-range phase coupling). The chain is driven by substrate strain to the impedance-matched geometry; the $\mu$s folding timescale reflects substrate dielectric relaxation, not configuration enumeration.
+Protein folding is reframed as deterministic impedance matching rather than a search over $\sim 5 \times 10^{47}$ configurations. Each residue is a cascaded transmission-line section loaded by its $Z_\text{topo}$ shunt; the native 3D fold is conjectured to be the unique geometry minimizing the backbone standing-wave reflection $|S_{11}(\omega_0)|^2$ at the amide-V frequency. Secondary-structure preference follows directly from $Z_\text{topo}$ magnitude/reactance (low → α-helix, high → β-sheet/kink, charged $X \neq 0$ → long-range phase coupling). The chain is driven by substrate strain to the impedance-matched geometry; the $\mu$s folding timescale reflects substrate dielectric relaxation, not configuration enumeration.
 
 - _Specific Claims_
   - The native fold is the minimum-$|S_{11}(\omega_0)|^2$ geometry on the backbone TL cascade — no configuration search.
@@ -615,7 +615,7 @@ Biological circuitry is classified across five length scales: the covalent bond 
 
 - _Specific Claims_
   - Five-scale regime table: covalent bond → Regime II yield; backbone → Regime I--II; R-group / chain / folded protein → Regime I linear.
-  - The non-linear saturation-kernel physics is confined to the covalent-bond core; all larger scales are linear-circuit-theory calculable, giving the folding problem a unique solution.
+  - The non-linear saturation-kernel physics is confined to the covalent-bond core; all larger scales are linear-circuit-theory calculable, conjectured to give the folding problem a unique solution.
 - _Specific Non-Claims and Caveats_
   - $\Delta\phi/\alpha$ values are order-of-magnitude regime indicators, not precision measurements.
 

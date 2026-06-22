@@ -11,7 +11,7 @@ claims: [clm-8zwyl3]
 
 Photobiomodulation (red/near-infrared light therapy, 620--850 nm) is widely observed to accelerate wound healing, reduce inflammation, and improve mitochondrial function. The conventional explanation centres on photon absorption by cytochrome $c$ oxidase (Complex IV of the mitochondrial electron transport chain), but no mechanistic model explains why the therapeutic window is so narrow or why shorter wavelengths are harmful.
 
-The AVE framework provides a complete explanation. Cytochrome $c$ oxidase is a molecular resonant cavity whose absorption band is impedance-matched to the red/NIR frequency range. The key operator is the reflection coefficient:
+The AVE framework provides a candidate explanation. Cytochrome $c$ oxidase is a molecular resonant cavity whose absorption band is impedance-matched to the red/NIR frequency range. The key operator is the reflection coefficient:
 
 $$\Gamma(\lambda) = \frac{Z_{\mathrm{tissue}}(\lambda) - Z_{\mathrm{cyt\,c}}(\lambda)}{Z_{\mathrm{tissue}}(\lambda) + Z_{\mathrm{cyt\,c}}(\lambda)}$$
 
