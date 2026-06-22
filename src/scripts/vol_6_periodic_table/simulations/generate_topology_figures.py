@@ -1,5 +1,3 @@
-import pathlib
-
 #!/usr/bin/env python3
 """
 AVE ORBITAL TOPOLOGY FIGURE GENERATOR
@@ -11,10 +9,8 @@ Each figure shows:
   - Bidirectional force arrows (outward repulsion, inward confinement)
   - Nuclear core and electron configuration labels
 
-All output goes to periodic_table/figures/<element>_topology.png
+All output goes to manuscript/vol_6_periodic_table/figures/<element>_topology.png
 """
-import os
-
 import matplotlib
 import numpy as np
 
@@ -24,7 +20,18 @@ matplotlib.use("Agg")
 # ---------------------------------------------------------------------------
 import matplotlib.pyplot as plt  # noqa: E402
 
-OUTDIR = f"{str(pathlib.Path(__file__).parent.parent.parent.parent.absolute())}/periodic_table/figures"
+from ave.viz import style  # noqa: E402
+from ave_path_util import manuscript_path  # noqa: E402
+
+# White house print profile (ave.viz.style) — replaces the bypassed dark-bg
+# savefig(facecolor="#0a0a0a") this driver used to ship into the LaTeX manuscript.
+style.apply()
+
+# Manuscript figures land in the source-controlled vol_6 figures tree (the dir
+# the chapters \includegraphics). The old `<src>/periodic_table/figures` OUTDIR
+# pointed at a non-existent tree; route through the canonical manuscript_path
+# resolver instead.
+OUTDIR = manuscript_path("vol_6_periodic_table", "figures", "_probe").parent
 
 
 # ============================================================================
@@ -392,46 +399,25 @@ ELEMENTS = [
 
 def generate_topology(elem: dict) -> str:
     """Generate an orbital topology figure for one element."""
-    fig, ax = plt.subplots(figsize=(10, 10), facecolor="#0a0a0a")
-    ax.set_facecolor("#0a0a0a")
+    fig, ax = plt.subplots(figsize=(7.0, 7.0))
     ax.set_xlim(-1.65, 1.65)
     ax.set_ylim(-1.65, 1.65)
     ax.set_aspect("equal")
     ax.axis("off")
 
-    # =========================================================================
-    # RADIAL METRIC STRAIN HEATMAP BACKGROUND
-    # Simulates the continuous 1/r² strain field radiating from the nucleus.
-    # Uses the 'inferno' colormap: bright core → dark edges, like the
-    # lithium_topological_strain.png reference.
-    # =========================================================================
-    N = 500
-    x_grid = np.linspace(-1.65, 1.65, N)
-    y_grid = np.linspace(-1.65, 1.65, N)
-    X, Y = np.meshgrid(x_grid, y_grid)
-    R_grid = np.sqrt(X**2 + Y**2) + 0.01  # avoid divide by zero
-
-    # Scale the strain field: brighter core for heavier elements
-    Z_eff = elem["Z"]
-    strain = Z_eff / (R_grid**2 + 0.15)  # softened 1/r² well
-    strain = strain / strain.max()  # normalize to [0, 1]
-
-    # Apply inferno colormap with reduced alpha so shells remain visible
-    ax.imshow(
-        strain,
-        extent=[-1.65, 1.65, -1.65, 1.65],
-        origin="lower",
-        cmap="inferno",
-        alpha=0.35,
-        zorder=0,
-        aspect="auto",
-    )
+    # NOTE (ave-driver-script-honesty, Grant-ratified): the decorative radial
+    # "strain" heatmap that used to live here (strain = Z_eff/(R²+0.15),
+    # normalized to its own max, imshow cmap="inferno") was DELETED. Normalizing
+    # to its own max cancels Z, so the field was identical on every element — a
+    # cartoon, not the real refractive gradient, with no colorbar/units. The
+    # topology diagram below carries only the discrete computed geometry
+    # (shells, soliton angular spacing, force directions, nucleus).
 
     # =========================================================================
-    # POLAR LATTICE GRID — subtle concentric rings + radial spokes
-    # Represents the underlying fabric over which the strain heatmap is painted.
+    # POLAR LATTICE GRID — subtle concentric rings + radial spokes (light, on white)
+    # Represents the underlying harmonic fabric the shells live on.
     # =========================================================================
-    grid_color = "#333355"
+    grid_color = style.COLORS["muted"]  # gray, colourblind-safe, reads on white
     n_rings = 8
     max_ring_r = 1.6
     for k in range(1, n_rings + 1):
@@ -463,7 +449,9 @@ def generate_topology(elem: dict) -> str:
     # Draw harmonic background shells (light dashed)
     max_r = max(s["r"] for s in elem["shells"])
     for nr in np.linspace(0.25, max_r * 0.8, 3):
-        circle = plt.Circle((0, 0), nr, fill=False, color="#444444", linestyle="--", linewidth=0.5, zorder=1)
+        circle = plt.Circle(
+            (0, 0), nr, fill=False, color=grid_color, linestyle="--", linewidth=0.5, alpha=0.5, zorder=1
+        )
         ax.add_patch(circle)
 
     # =========================================================================
@@ -478,7 +466,6 @@ def generate_topology(elem: dict) -> str:
     for shell_idx, shell in enumerate(elem["shells"]):
         r = shell["r"]
         n_elec = shell["electrons"]
-        color = shell["color"]
         label = shell["label"]
         offset = shell.get("angle_offset", 0)
 
@@ -490,20 +477,20 @@ def generate_topology(elem: dict) -> str:
         is_closed = n_elec >= capacity
         is_outer = r == max_r
 
-        # Shell track circle
+        # Shell track circle — Okabe-Ito categorical encoding
         if is_closed:
-            track_color = "#44cc88"  # green = saturated
+            track_color = "#009E73"  # bluish-green = saturated / closed shell
         elif is_outer:
-            track_color = "#ff9900"  # orange = active valence
+            track_color = "#E69F00"  # orange = active valence
         else:
-            track_color = "#888888"  # grey = partial inner (shouldn't occur for these elements)
+            track_color = style.COLORS["muted"]  # gray = partial inner (rare for these elements)
 
         track_lw = 2.5 if is_outer else 1.5
         circle = plt.Circle((0, 0), r, fill=False, color=track_color, linewidth=track_lw, linestyle="-", zorder=2)
         ax.add_patch(circle)
 
-        # Shell label
-        ax.text(r * 0.65, -r * 0.65, label, color=track_color, fontsize=10, ha="center", zorder=5)
+        # Shell label — dark text on white, placed just off the track
+        ax.text(r * 0.65, -r * 0.65, label, color="#222222", fontsize=10, ha="center", zorder=5)
 
         # Place electrons/solitons
         if n_elec == 0:
@@ -515,19 +502,20 @@ def generate_topology(elem: dict) -> str:
             x = r * np.cos(angle)
             y = r * np.sin(angle)
 
-            # Inner soliton dots are larger now (was 8, now 10)
-            # Outer valence solitons remain 12
+            # Inner soliton dots smaller, outer valence solitons larger. Fill =
+            # the shell's Okabe-Ito track colour (closed green / valence orange);
+            # dark edge so the marker reads on the white background (a white edge
+            # would be invisible on white).
             marker_size = 12 if is_outer else 10
-            marker_color = color if is_outer else track_color
             ax.plot(
                 x,
                 y,
                 "o",
-                color=marker_color,
+                color=track_color,
                 markersize=marker_size,
                 zorder=8,
-                markeredgecolor="white",
-                markeredgewidth=0.4,
+                markeredgecolor="#222222",
+                markeredgewidth=0.5,
             )
 
             # Force arrows ONLY on outermost non-closed shells with >1 soliton
@@ -535,9 +523,13 @@ def generate_topology(elem: dict) -> str:
             if is_outer and not is_closed and n_elec > 1:
                 rmag = np.sqrt(x**2 + y**2)
                 dx_out, dy_out = x / rmag, y / rmag
-                # dx_in, dy_in = -dx_out, -dy_out  # bulk lint fixup pass
+                # Inward (confinement) unit vector is the radial outward, negated.
+                # (Previously dx_in was referenced but its definition was commented
+                # out — a NameError that would crash on every element whose outer
+                # shell triggers force arrows, e.g. boron/carbon/nitrogen.)
+                dx_in, dy_in = -dx_out, -dy_out
 
-                # Outward repulsion arrows (red)
+                # Outward repulsion arrows (vermillion, Okabe-Ito)
                 for fan in [-0.2, -0.1, 0, 0.1, 0.2]:
                     ca, sa = np.cos(fan), np.sin(fan)
                     fdx = dx_out * ca - dy_out * sa
@@ -546,20 +538,20 @@ def generate_topology(elem: dict) -> str:
                         "",
                         xy=(x + fdx * 0.22, y + fdy * 0.22),
                         xytext=(x + fdx * 0.06, y + fdy * 0.06),
-                        arrowprops=dict(arrowstyle="->", color="#ff4422", lw=1.2, mutation_scale=9),
+                        arrowprops=dict(arrowstyle="->", color="#D55E00", lw=1.2, mutation_scale=9),
                         zorder=9,
                     )
 
-                # Inward confinement arrows (blue)
+                # Inward confinement arrows (blue, Okabe-Ito)
                 for fan in [-0.12, 0, 0.12]:
                     ca, sa = np.cos(fan), np.sin(fan)
-                    fdx = dx_in * ca - dy_out * sa
-                    fdy = dx_in * sa + dy_out * ca
+                    fdx = dx_in * ca - dy_in * sa
+                    fdy = dx_in * sa + dy_in * ca
                     ax.annotate(
                         "",
                         xy=(x + fdx * 0.18, y + fdy * 0.18),
                         xytext=(x + fdx * 0.05, y + fdy * 0.05),
-                        arrowprops=dict(arrowstyle="->", color="#44aaff", lw=1.4, mutation_scale=9),
+                        arrowprops=dict(arrowstyle="->", color="#0072B2", lw=1.4, mutation_scale=9),
                         zorder=9,
                     )
 
@@ -575,7 +567,7 @@ def generate_topology(elem: dict) -> str:
                     lx,
                     ly,
                     f"${sep_deg:.0f}°$",
-                    color="#ff9900",
+                    color="#E69F00",
                     fontsize=11,
                     ha="center",
                     va="center",
@@ -583,14 +575,14 @@ def generate_topology(elem: dict) -> str:
                     zorder=5,
                 )
 
-    # Nucleus
+    # Nucleus — Okabe-Ito blue core, white symbol on top (reads on the blue fill)
     nuc_size = 22
-    ax.plot(0, 0, "o", color="#00e6b0", markersize=nuc_size, zorder=10)
+    ax.plot(0, 0, "o", color="#0072B2", markersize=nuc_size, zorder=10)
     ax.text(
         0,
         0,
         elem["symbol"],
-        color="#0a0a0a",
+        color="white",
         fontsize=14,
         fontweight="bold",
         ha="center",
@@ -598,58 +590,14 @@ def generate_topology(elem: dict) -> str:
         zorder=11,
     )
 
-    # Title
-    ax.text(
-        0,
-        1.55,
-        elem["title"],
-        color="white",
-        fontsize=15,
-        ha="center",
-        va="center",
-        fontweight="bold",
-        zorder=12,
-    )
-    ax.text(
-        0,
-        1.42,
-        elem["subtitle"],
-        color="#cccccc",
-        fontsize=11,
-        ha="center",
-        va="center",
-        style="italic",
-        zorder=12,
-    )
+    # On-figure title/subtitle REMOVED: the chapter supplies a LaTeX \caption
+    # (elem["title"]/elem["subtitle"] would double-print). Likewise the
+    # H-specific editorial prose ("the standing wave closes on itself…") is
+    # caption material, not a raster overlay — dropped so the figure carries
+    # only the computed geometry + a legend.
 
-    # =========================================================================
-    # HYDROGEN ANNOTATION: use the empty lower space
-    # =========================================================================
-    if elem["symbol"] == "H":
-        ax.text(
-            0,
-            -1.25,
-            "The standing wave closes on itself —",
-            color="#aaaaaa",
-            fontsize=10,
-            ha="center",
-            va="center",
-            style="italic",
-            zorder=12,
-        )
-        ax.text(
-            0,
-            -1.38,
-            "no angular partner, no repulsion, no strain dipole.",
-            color="#aaaaaa",
-            fontsize=10,
-            ha="center",
-            va="center",
-            style="italic",
-            zorder=12,
-        )
-
-    # Legend (only if outer shell has force arrows)
+    # Legend (only if the outer shell carries force arrows) — placed OUTSIDE the
+    # data via the house helper so it never lands on the diagram.
     has_forces = any(
         s["r"] == max_r and s["electrons"] > 1 and s["electrons"] < shell_capacities.get(idx + 1, 8)
         for idx, s in enumerate(elem["shells"])
@@ -662,7 +610,7 @@ def generate_topology(elem: dict) -> str:
                 [0],
                 [0],
                 marker=">",
-                color="#ff4422",
+                color="#D55E00",  # vermillion — repulsion
                 label="Outward: Soliton Repulsion",
                 markersize=8,
                 linestyle="None",
@@ -671,27 +619,25 @@ def generate_topology(elem: dict) -> str:
                 [0],
                 [0],
                 marker="<",
-                color="#44aaff",
+                color="#0072B2",  # blue — confinement
                 label="Inward: Harmonic Confinement",
                 markersize=8,
                 linestyle="None",
             ),
         ]
-        legend = ax.legend(
-            handles=legend_elements,
-            loc="lower left",
-            facecolor="#1a1a1a",
-            edgecolor="#444444",
-            fontsize=9,
-        )
-        for t in legend.get_texts():
-            t.set_color("white")
+        style.legend(ax, handles=legend_elements, where="below", fontsize=9)
 
-    outpath = os.path.join(OUTDIR, f"{elem['name']}_topology.png")
-    plt.savefig(outpath, dpi=300, bbox_inches="tight", facecolor="#0a0a0a")
-    plt.close()
+    outpath = OUTDIR / f"{elem['name']}_topology.png"
+    # style.save writes vector+raster; the chapters \includegraphics the .png.
+    # Keep only the PNG (drop the stray .pdf the helper emits — the manuscript
+    # does not use it for this family).
+    written = style.save(fig, outpath, dpi=300)
+    for p in written:
+        if p.suffix == ".pdf":
+            p.unlink(missing_ok=True)
+    plt.close(fig)
     print(f"  [ok] {elem['name']}_topology.png")
-    return outpath
+    return str(outpath)
 
 
 if __name__ == "__main__":
