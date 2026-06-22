@@ -27,7 +27,7 @@ Sodium-23 ($Z=11$, $A=23$) is a $5\alpha + ^3\text{H}$ core-plus-halo structure:
 |---|---|
 | [Topological Structure and Isotope Stability](structure-isotope-stability.md) | Mono-isotopic $5\alpha + T$ configuration; $^{22}$Na and $^{24}$Na instability |
 | [Continuous Vacuum Density Flux](vacuum-density-flux.md) | Nearly spherical core strain with subtle polar bulge |
-| [The Core Proximity Effect ($351d$ vs $50d$)](core-proximity-effect.md) | Why Fluorine and Sodium are chemical opposites despite identical halo structure |
+| [The Core Proximity Effect ($398d$ vs $50d$)](core-proximity-effect.md) | Why Fluorine and Sodium are chemical opposites despite identical halo structure |
 | [EE Equivalent: Dual-Band Coupled Filter](ee-equivalent.md) | 253-parameter SPICE matrix; primary core band + secondary halo sideband; $D_1/D_2$ spectral doublet |
 | [Topological Area: Alkali Reactivity & Electrochemical Cells](topological-area.md) | Narrow stability margin defines alkali reactivity; battery chemistry as mechanical halo transfer |
 | [Orbital Knot Topology](orbital-knot-topology.md) | $[\text{Ne}]$ core + one valence soliton on $n=3$ |
