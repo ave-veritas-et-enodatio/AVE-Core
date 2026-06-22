@@ -10,21 +10,21 @@ path-stable: "referenced from vol1 ch6 universal-operators + vol3 ch3 gravity + 
 
 **A-010 canonical.** Op14's dynamic impedance $Z_{\text{eff}}(r) = Z_0 / \sqrt{S(r)}$ doesn't just modulate impedance — it **modulates the local clock rate**. This is the substrate-native mechanism for time dilation, with direct cross-volume parallel to gravity's refractive-index local-clock effect $\tau_{\text{local}} = n(r) \cdot \tau_{\text{unstrained}}$ per Vol 3 Ch 3. **Three regime behaviors must NOT be conflated**: uniform slowing (reactive, no dissipation) vs. uniform damping (dissipative) vs. spatially-varying slowing (mode-decomposition matters). At full saturation rupture $A^2 \to 1$: $\omega_{\text{local}} \to 0$, the **local clock freezes**.
 
-> **🔴 STALE-EXPONENT FLAG (2026-06-10, Rule 12 — the Key-Results table row and the §1 equations below are PRESERVED unedited; this dated flag supersedes their exponent; pre-adjudicated by the merged temporal-values doc).** The clock-rate exponent written below — $\omega_{\text{local}} = \omega_{\text{global}}\cdot\sqrt{1-A^2} \propto (1-A^2)^{1/2}$ (the "Op14 local-clock modulation" Key-Results row and the §1 displayed equation) — is **STALE**: it is a **pre-split single-speed model** ($c_{\text{eff}} = c_0\sqrt{1-A^2}$) from **before** the $c_{\text{EM}}$/$c_{\text{shear}}$ sector split (`clm-8nkvwy`). The **matter clock** (the one that means "time dilation") rides the **shear** speed $c_{\text{shear}} = c_0\cdot(1-A^2)^{+1/4}$, so $\omega_{\text{shear}} = \omega_{\text{global}}\cdot(1-A^2)^{+1/4} = \omega_{\text{global}}\sqrt{S}$ — the exponent here is **off by a factor of 2** ($\tfrac12$ vs the correct $\tfrac14$). Adjudicated at `research/2026-06-09_substrate-temporal-values-definition.md:51` (merged via PR #149; that doc explicitly names `op14-local-clock-modulation.md:17,31` "STALE … Off by a factor of 2 in the exponent. Flag for correction"). The full three-leaf reconciliation is a **PR-gated walk-back** the temporal-values doc deferred (`:54`); this is the flag, not the rewrite. The qualitative results (clock slows with saturation; freezes at $A^2\to1$) are exponent-independent and unaffected.
+> **Matter-clock exponent (corrected to the $1/4$ shear form, 2026-06-22).** The local matter clock rides the **shear** speed $c_{\text{shear}} = c_0\cdot(1-A^2)^{1/4} = c_0\sqrt{S}$ (`research/2026-06-09_substrate-temporal-values-definition.md:29`, `clm-8nkvwy`; the code `src/ave/axioms/scale_invariant.py:294` already carries the correct $(1-A^2)^{1/4}$ — code-ahead-of-leaf). Since $\omega_{\text{local}}\propto c_{\text{eff}}$ (a wave crosses a cell in $\tau=\ell/c_{\text{eff}}$), the matter-clock forms are $\omega_{\text{local}} = \omega_{\text{global}}(1-A^2)^{1/4}$ and $\tau_{\text{local}} = \tau_{\text{unstrained}}(1-A^2)^{-1/4}$. The earlier $(1-A^2)^{1/2}$ exponent was the pre-split single-speed model ($c_{\text{eff}}=c_0\sqrt{1-A^2}$, before the $c_{\text{EM}}$/$c_{\text{shear}}$ split); it was off by a factor of 2 in the exponent and is now corrected in the equations below. The qualitative results (clock slows with saturation; freezes at $A^2\to1$) are exponent-independent.
 
 ## Key Results
 
 | Result | Statement |
 |---|---|
-| Op14 local-clock modulation | $\omega_{\text{local}}(r) = \omega_{\text{global}} \cdot \sqrt{1 - A^2(r)}$ |
-| Local time dilation | $\tau_{\text{local}}(r) = \tau_{\text{unstrained}} / \sqrt{1 - A^2(r)}$ — saturation slows local clock |
+| Op14 local-clock modulation | $\omega_{\text{local}}(r) = \omega_{\text{global}} \cdot (1 - A^2(r))^{1/4} = \omega_{\text{global}}\sqrt{S}$ (shear matter-clock) |
+| Local time dilation | $\tau_{\text{local}}(r) = \tau_{\text{unstrained}} / (1 - A^2(r))^{1/4}$ — saturation slows local clock |
 | At low saturation | $\omega_{\text{local}} \approx \omega_{\text{global}}$ (Regime I, linear vacuum) |
 | At saturation onset ($A^2 \approx \sqrt{2\alpha}$) | $\omega_{\text{local}} \approx 0.95 \cdot \omega_{\text{global}}$ (Regime II) |
 | At rupture boundary ($A^2 \to 1$) | $\omega_{\text{local}} \to 0$ — local clock freezes; $\Gamma = -1$ TIR wall forms |
 | Cross-volume parallel | Vol 3 Ch 3 gravitational $\tau_{\text{local}} = n(r) \cdot \tau_{\text{unstrained}}$ with $n(r) = 1/\sqrt{S}$ |
 | Mechanism class | Reactive (no dissipation); energy redistributed in time, NOT lost |
 
-> **🔴 STALE-FLAG (2026-06-10, Rule 12 — table rows above PRESERVED unedited; Grant rename-queue adjudication R6).** The rows "Op14 local-clock modulation" ($\omega_{\text{local}} = \omega_{\text{global}}\sqrt{1-A^2}$) and "Local time dilation" ($\tau_{\text{local}} = \tau_{\text{unstrained}}/\sqrt{1-A^2}$) carry the **single-speed $(1-A^2)^{1/2}$ exponent**, now superseded. The **matter clock** is the SHEAR sector — $c_{\text{shear}} = c_0(1-A^2)^{1/4}$ (`research/2026-06-09_substrate-temporal-values-definition.md:29`) — so the local clock repoints to $\omega_{\text{local}} = \omega_{\text{global}}(1-A^2)^{1/4}$ and $\tau_{\text{local}} = \tau_{\text{unstrained}}(1-A^2)^{-1/4}$. The factor-2 exponent is the canon-flagged staleness (see the §1 STALE-flag below, where the doc's own $c_{\text{eff}}$ already carries the correct $(1-A^2)^{1/4}$). Registry §5 R6.
+> **Exponent note.** The two rows above carry the corrected SHEAR matter-clock exponent $(1-A^2)^{1/4}$ ($c_{\text{shear}} = c_0(1-A^2)^{1/4}$, `research/2026-06-09_substrate-temporal-values-definition.md:29`), matching the code (`scale_invariant.py:294`). The earlier single-speed $(1-A^2)^{1/2}$ form was off by a factor of 2 and is superseded here.
 
 ## §1 — The substrate-native mechanism for time dilation
 
@@ -32,11 +32,11 @@ Op14's saturation kernel $S(A) = \sqrt{1 - A^2}$ slows wave propagation at high 
 
 $$c_{\text{eff}}(r) = c_0 \cdot \sqrt{S(r)} = c_0 \cdot \sqrt{\sqrt{1 - A^2(r)}}$$
 
-$$\omega_{\text{local}}(r) = \omega_{\text{global}} \cdot \sqrt{1 - A^2(r)}$$
+$$\omega_{\text{local}}(r) = \omega_{\text{global}} \cdot (1 - A^2(r))^{1/4} = \omega_{\text{global}}\sqrt{S(r)}$$
 
-$$\tau_{\text{local}}(r) = \frac{\tau_{\text{unstrained}}}{\sqrt{1 - A^2(r)}}$$
+$$\tau_{\text{local}}(r) = \frac{\tau_{\text{unstrained}}}{(1 - A^2(r))^{1/4}}$$
 
-> **🔴 STALE-FLAG (2026-06-10, Rule 12 — equations above PRESERVED unedited; Grant rename-queue adjudication R6).** **Internal inconsistency, visible right here:** the $c_{\text{eff}}$ line gives $c_{\text{eff}} = c_0\sqrt{S} = c_0(1-A^2)^{1/4}$ — **correct**, this IS the SHEAR matter-clock form $c_{\text{shear}} = c_0(1-A^2)^{1/4}$ (`research/2026-06-09_substrate-temporal-values-definition.md:29`). But the $\omega_{\text{local}}$ and $\tau_{\text{local}}$ lines use the $(1-A^2)^{1/2}$ exponent. Since $\omega_{\text{local}} \propto c_{\text{eff}}$ (a wave crosses a cell in $\tau = \ell/c_{\text{eff}}$, §1 above), the consistent matter-clock forms are $\omega_{\text{local}} = \omega_{\text{global}}(1-A^2)^{1/4}$ and $\tau_{\text{local}} = \tau_{\text{unstrained}}(1-A^2)^{-1/4}$. The $\sqrt{1-A^2}$ written here is **STALE** (the factor-2 exponent). Bodies preserved per Rule 12; repoint per temporal-values:29. Registry §5 R6.
+> **Exponent note.** All three lines now carry the consistent SHEAR matter-clock exponent: $c_{\text{eff}} = c_0\sqrt{S} = c_0(1-A^2)^{1/4} = c_{\text{shear}}$ (`research/2026-06-09_substrate-temporal-values-definition.md:29`), and since $\omega_{\text{local}}\propto c_{\text{eff}}$ (a wave crosses a cell in $\tau=\ell/c_{\text{eff}}$), $\omega_{\text{local}} = \omega_{\text{global}}(1-A^2)^{1/4}$, $\tau_{\text{local}} = \tau_{\text{unstrained}}(1-A^2)^{-1/4}$. The code already carries this: `src/ave/axioms/scale_invariant.py:294`. The earlier $(1-A^2)^{1/2}$ form (pre-sector-split single-speed model) was off by a factor of 2 and is corrected.
 
 The local clock slows because the substrate's response to amplitude is **non-linear**: as $A^2 \to 1$, the kernel $S$ flattens to zero, so any wave needs longer to propagate through the saturated region.
 
@@ -69,7 +69,7 @@ Per A-010 clarification 2026-04-27: Op14 saturation modulates local clock rate *
 
 | Behavior | Mechanism | Time-domain signature | Energy fate |
 |---|---|---|---|
-| **Uniform slowing** (Op14 reactive) | $\omega_{\text{local}}(r) = \omega_{\text{global}} \cdot \sqrt{1 - A^2(r)}$ uniformly across all modes | Phase advances slower; amplitude preserved | Conserved (reactive) |
+| **Uniform slowing** (Op14 reactive) | $\omega_{\text{local}}(r) = \omega_{\text{global}} \cdot (1 - A^2(r))^{1/4}$ uniformly across all modes (shear matter-clock) | Phase advances slower; amplitude preserved | Conserved (reactive) |
 | **Uniform damping** (dissipative) | $A(t) = A_0 e^{-\gamma t}$ | All modes decay exponentially | Dissipated (irreversible) |
 | **Spatially-varying slowing** (Op14 + seed) | $\omega_{\text{local}}(r)$ varies across seed spatial extent: $\omega_{\text{local}}(\text{core}) \approx 0.22 \omega_{\text{global}}$; $\omega_{\text{local}}(\text{shell}) \approx 0.84 \omega_{\text{global}}$; $\omega_{\text{local}}(\text{exterior}) \approx \omega_{\text{global}}$ | Mode-specific phase shifts; can produce mode mixing, frequency aliasing in eigsolves | Conserved (reactive), but mode decomposition matters |
 
