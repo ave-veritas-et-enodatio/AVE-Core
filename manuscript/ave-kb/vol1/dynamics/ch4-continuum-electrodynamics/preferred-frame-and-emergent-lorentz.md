@@ -20,7 +20,7 @@ The K4 lattice has a preferred rest frame (identified with the CMB rest frame to
 | **Globular Cluster test (NEW 2026-05-17 night)** | 165 MW globular clusters from Baumgardt+Vasiliev 2021 catalog, median $\|v_{CMB}\|$ = 563.88 km/s, σ=111.50 km/s; matches √(543² + 150²) ≈ 563 cosmic-flow + GC-orbital-velocity quadrature to <1%. Outcome III pre-registered: substrate-velocity prediction does NOT extend to GC-class populations; scope narrows to LSR-class only. See [`../../../../../../research/2026-05-17_substrate_equilibrium_velocity_GLOBULAR_CLUSTER_result.md`](../../../../../research/2026-05-17_substrate_equilibrium_velocity_GLOBULAR_CLUSTER_result.md). |
 | **Cubic-symmetry suppression** | Anisotropic EM corrections suppressed by $(q\ell_{node})^4$ for $q \ll \pi/\ell_{node}$ (first anisotropic invariant for cubic point group is quartic) |
 | **Optical-scale anisotropy** | $\delta_{aniso} \sim (q\ell_{node})^4 \approx 2.2 \times 10^{-22}$ at $\lambda = 633$ nm; current cavity bounds $\sim 10^{-19}$ to $10^{-20}$ per SME operator (Nagel 2015, Sanner 2019); 2-3 OOM below bound |
-| **Microwave-scale anisotropy** | $\delta_{aniso} \sim 2.5 \times 10^{-34}$ at 30 GHz |
+| **Microwave-scale anisotropy** | $\delta_{aniso} \sim 3.5 \times 10^{-39}$ at 30 GHz |
 | **Trans-Planckian probes survive** | At $q \sim \pi/\ell_{node}$ (GRB Trans-Planckian regime), the cubic symmetry no longer averages — preferred-frame effects ARE observable |
 | **Emergent Lorentz at observable scales** | Strict Lorentz invariance at $\lambda \gg \ell_{node}$ is a derived consequence of K4 cubic symmetry, not an axiom — analogous to optical isotropy of a diamond crystal despite anisotropic unit cell |
 
