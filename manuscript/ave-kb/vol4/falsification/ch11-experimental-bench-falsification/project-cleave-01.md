@@ -25,7 +25,7 @@ Per Axiom 2 (Topo-Kinematic Isomorphism, [Q] ≡ [L]) in [`vol1/axioms-and-latti
 
 An EE can validate this by designing a precision metrology board. The PCBA utilizes an ultra-low bias current electrometer operational amplifier (e.g., the Analog Devices ADA4530-1, 20 fA bias current). The non-inverting input is connected to an isolated, floating copper plate inside a vacuum chamber. The board utilizes strict guard rings and Teflon standoffs to eliminate parasitic leakage.
 
-A commercial Piezoelectric (PZT) linear actuator is mounted to a grounded plate directly facing the floating plate. Using a high-precision DAC, the PZT actuator is stepped exactly $1.0\,\mu\text{m}$ away from the floating plate in under $100\,\text{ms}$.
+A commercial Piezoelectric (PZT) linear actuator (closed-loop, on a linear nanopositioner) is mounted to a grounded plate directly facing the floating plate. Using a high-precision DAC, the actuator steps the gap in controlled $\sim\!1\,\mu\text{m}$ displacement increments (settle in under $100\,\text{ms}$) **at each of $\ge4$ baseline gaps spanning a $\ge4\times$ geometric gap-sweep** — the binding discriminator is the gap-INDEPENDENT integer-charge floor surviving that sweep at fixed $C_{in}$ (the chord), NOT a single $1\,\mu\text{m}$ step (see "The Falsification Metric" + Outcome adjudication below). A per-step $\sim\!1\,\mu\text{m}$ displacement liberates $\sim\!0.415$ pC, but a single step at one gap cannot separate the flat $\xi_{topo}$ floor from the $\propto1/g^2$ CPD background — the $\ge4\times$ sweep is what does.
 
 ### The Falsification Metric
 

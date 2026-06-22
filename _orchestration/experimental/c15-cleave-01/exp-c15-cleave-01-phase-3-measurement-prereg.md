@@ -34,13 +34,13 @@ Per `ave-prereg` Step 4 (closed-solution): do **not** re-derive; integrate + pin
 
 ## §3 — Dimensional analysis (canonical-primitive verification, `ave-prereg` Step 3.5)
 
-Verified against `src/ave/core/constants.py` (imported, not hard-coded) on 2026-06-01:
+Verified against `src/ave/core/constants.py` (imported, not hard-coded); line numbers re-verified per `verify-before-cite` on 2026-06-22:
 
-| Primitive | Canonical value | Source |
+| Primitive | Canonical value | Source (verified line) |
 |---|---|---|
-| $\ell_{node} = \hbar/(m_e c)$ | $3.8616\times10^{-13}$ m | `constants.py:234` (`L_NODE`) |
+| $\ell_{node} = \hbar/(m_e c)$ | $3.8616\times10^{-13}$ m | `constants.py:257` (`L_NODE`) |
 | $e$ | $1.602177\times10^{-19}$ C | `constants.py:100` (`e_charge`) |
-| $\xi_{topo} = e/\ell_{node}$ | $4.1490\times10^{-7}$ C/m | `constants.py:246` (`XI_TOPO`) |
+| $\xi_{topo} = e/\ell_{node}$ | $4.1490\times10^{-7}$ C/m | `constants.py:291` (`XI_TOPO`) |
 
 Forward evaluation at $x = 1\,\mu$m:
 - $dQ/dx = \xi_{topo} = 4.149\times10^{-7}$ C/m $\Rightarrow$ **$Q(1\,\mu\text{m}) = 0.4149$ pC** — depends only on $\{m_e,\ell_{node},e\}$, **zero free parameters**.
@@ -72,6 +72,7 @@ Frozen BEFORE measurement. The controls are not optional add-ons — each one **
 6. **Zero-displacement null**: PZT energized but zero net step $\to$ expect 0.0 (controls drive-coupling artifacts).
 7. **Calibrated positive-control (anti-false-null).** Inject a known $0.415$ pC charge onto the floating electrode via a calibrated reference path in the same session. An all-null result counts as Outcome C (chord falsified) **only if** the calibration channel registers the injected charge in that same session — otherwise the null is a dead-instrument artifact (Outcome D), not a falsification. (Femto-repo `prereg.md` positive-control parity.)
 8. **Guard-ring + Teflon-standoff leakage floor** (ADA4530-1, 20 fA bias): pre-register the noise floor; every corner signal must be $\ge N\times$ over it.
+9. **Thermal-drift operator rule (`CLV-REQ-THERMAL`, derived $\le1$ K).** Log $\ge2$ calibrated RTDs with the data and **pause the sweep if lab temperature drifts $>1$ K** across the multi-hour $N\ge50$ acquisition. This $\le1$ K threshold is the derived operator drift-pause spec ([`cleave-01-requirements-boundary-conditions.md`](../../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/cleave-01-requirements-boundary-conditions.md) §6.2, `CLV-REQ-THERMAL`: Vos drift referred to the floor needs $dT_{sweep}<1.21$ K max-tempco) and **SUPERSEDES the older "$>5$ K pause" operator rule** carried in the Femto-side `TEST_PROCEDURE.md` (~4× too loose — it under-protects the chord). Landing the $\le1$ K into the Femto-side `TEST_PROCEDURE.md` is a separate-session cross-repo edit.
 
 ## §6 — Outcome bins (GO/NO-GO gates on the CHORD; slope is non-gating)
 
@@ -127,5 +128,5 @@ A concise GO/NO-GO-on-spend summary for the ~$7.7k build commitment. This is a d
 
 - Framing per `pre-test-physics-check` 2026-06-01: corpus settles the mechanism (Axiom-2 $Q\equiv\xi_{topo}x$) + the SM-0.0 counterfactual + the dielectric-independence control; **no open plumber-question**. Charge-pinning of the discriminator added to close the readout-$C$-floating seam (the leaf's "assume $C=10$ pF" $\to$ charge-based binary + quantitative).
 - **Chord-gating revision (2026-06-22, this branch `bench/cleave01-chord-gated`):** the binding GO/NO-GO was re-anchored from the slope-echo (41.5 mV/µm) to the 4-corner gap-independent integer-charge chord, per `2026-06-04_round2-adjudications.md:54` (4-corner, no single classical mechanism fakes all four) + `boundary-observables-m-q-j.md:20` ($\mathcal{Q} = \mathrm{Link} \in \mathbb{Z}$) + the leaf F3 $\sqrt{\alpha}$ echo note. The round-2 framing cure (SM≠0.0; CPD gap-dependent; gap-sweep separates) was half-landed (body framing patched; bins/controls not). This revision rewrites §4 discriminator, §5 controls (gap-sweep + faker-rejection + positive-control as binding), §6 outcome bins, §7 falsifier so the chord — not the echo — gates. $C_{in}$-held-fixed subtlety embedded per `:60`.
-- $\xi_{topo}$ verified against `constants.py` (`XI_TOPO:246`, `L_NODE:234`, `e_charge:100`) per `ave-canonical-source`.
+- $\xi_{topo}$ verified against `constants.py` (`XI_TOPO:291`, `L_NODE:257`, `e_charge:100` — line numbers re-verified 2026-06-22 per `verify-before-cite`; the earlier `:246`/`:234` cites were stale-line drift, values always correct) per `ave-canonical-source`.
 - Canonical prediction `clm-ydksh6` / `exp-742kv5` / `project-cleave-01.md` unchanged — this is the **protocol**, not a re-derivation.

@@ -18,6 +18,36 @@ experiments: [exp-742kv5]
 
 **Discipline tags.** The **floor** ($Q = \xi_{topo}\,x$, gap-independent integer-charge) is an **Axiom-2 MANIFESTATION (emergence-class)** prediction — zero free parameters, forced by $\xi_{topo} = e/\ell_{node}$. The **slope magnitude** (0.415 pC/µm) is a **consistency-class echo** ($\xi_{topo} = \sqrt{\alpha}$ in native units AND $\ell_{node}$ = electron Compton wavelength — doubly over-determined). Per `consistency-vs-emergence`: the requirements that protect the **chord** carry the emergence weight; the tight requirements that protect the **slope** are consistency-polishing and are explicitly demoted (they gate the non-gating Level-2 corroborator only).
 
+### REQ-ID INDEX — the canonical requirement identifiers (the bench repo cites + builds to these)
+
+**These `CLV-REQ-<NAME>` identifiers are the canonical, stable CLEAVE-01 requirement IDs.** The bench-engineering sibling repo `AVE-Bench-FemtoElectrometer` **REFERENCES these IDs and builds to spec**; this Vol-4 KB leaf is the **single source of truth** for every derived requirement. The IDs are **descriptive and reorder-proof** — each names the physics object it constrains (readout / gap / PZT / vacuum / thermal / vibration / EMI / calibration / a named master coupling), **NOT** a section number — so a future §-reorder, insertion, or split leaves every ID and every external citation intact. **Stamping an ID changes no derived number, no STATUS:OPEN, and selects no design knob.** Each requirement below carries its `CLV-REQ-*` tag inline at the point of derivation.
+
+| REQ-ID | One-line requirement | Open knob(s) it depends on |
+|---|---|---|
+| `CLV-REQ-FLOOR` | The derived floor $dQ/dx = \xi_{topo} = e/\ell_{node} = 414.9$ fC/µm the bench must detect (zero free params) | none (physics-set) |
+| `CLV-REQ-CPL-A` | Master coupling A — position→charge: $dV/dx = \xi_{topo}/C_{in} = 41.49$ nV/pm; gap jitter rides the signal transfer function (non-averageable) | $C_{in}$ (D2) |
+| `CLV-REQ-CPL-B` | Master coupling B — 1/f + drift noise model (held-DC step over multi-hour sweep); binding spec = LEVEL STABILITY, not single-shot resolution | none (physics-set) |
+| `CLV-REQ-CPL-C` | Master coupling C — CPD systematic ~21.3% of floor $\propto1/g^2$; 19.97%-of-floor swing the chord-shape must beat across the sweep | none (physics-set) |
+| `CLV-REQ-CPL-D` | Master coupling D — 20 fA bias-current ramp = 20.0 fC/s rails a passive node $\Rightarrow$ step-differencing/DC-restore/reset-integration mandatory (a topology BC) | readout topology (D3) |
+| `CLV-REQ-READOUT` | Charge-readout chain: in-band noise floor, charge-domain level resolution, ENOB, sub-Hz BW, $C_{in}$ inheritance, validate-on-known (§3) | $\delta$ (D1), $C_{in}$ (D2), topology (D3) |
+| `CLV-REQ-DRIFT` | Readout LEVEL STABILITY (the GATING readout spec): drift-referred-to-charge $\le\delta\times414.9$ fC AND beat the 83 fC CPD swing; reached by ARCHITECTURE (H1) | $\delta$ (D1), drift scheme (D4) |
+| `CLV-REQ-GAP` | Gap-actuation + metrology: closed-loop linear nanopositioner; travel ratio, position resolution/repeatability/INL/hold, gap-knowledge, linear-DOF, thermal gap drift (§4) | $\delta$ (D1), $g_0$/stroke (D6), stage make-vs-buy (A6) |
+| `CLV-REQ-CFIX` | $C_{in}$-FIXED across the $\ge4\times$ sweep (the moving plate IS a $1/g$ cap): $|dC_{in}/C_{in}|\le\delta/k$ (H3, UNCLOSED tension) | $C_{in}$-fixed topology (D5) |
+| `CLV-REQ-PZT` | PZT-drive (sub-yield, NOT a field-bias chain): drive-noise mechanical + electrostatic paths, synchronous-step confound, DC stability, range (§5) | $C_{in}$ (D2), $g_0$/stroke (D6) |
+| `CLV-REQ-VAC` | Vacuum $\le10^{-6}$ Torr (surface-leakage + patch-stationarity driver, NOT arc-breakdown); ion-gauge filament OFF during read (§6.1) | none (physics-set); A4/A5 make-vs-buy |
+| `CLV-REQ-THERMAL` | Thermal $dT\le1$ K over the sweep + 2× calibrated RTDs logged (derived; NOT the binding systematic) (§6.2) | none (physics-set); CTE fixturing (A3/A4) |
+| `CLV-REQ-VIB` | Vibration/seismic (the BINDING environmental systematic): gap RMS jitter $\le14.6$ pm in 1–50 Hz + turbo-decouple (§6.3) | $C_{in}$ (D2); isolation/stage make-vs-buy (A6) |
+| `CLV-REQ-EMI` | EMI/Faraday SE 64–84 dB + break the BNC-shield→chamber→gauge ground loop + guarded triax (§6.4) | none (physics-set); design/discipline |
+| `CLV-REQ-CAL` | Calibration / in-situ-$C$ / charge-reference: in-situ $C_{in}$ split-by-level + one-instrument-three-jobs charge-injection reference (§7) | $\delta$ (D1); $C_{in}$ method (D5), reference topology (A6) |
+| `CLV-REQ-VALIDATE` | Validate-on-known (anti-false-null, gates Outcome C): inject ~0.415 pC, resolve to $\le0.1\times$ floor in-session before trusting $V=Q/C$ (§3.8, §7.2) | none (physics-set); reference topology (A6) |
+| `CLV-REQ-H1` | Hardest item H1 — readout level stability sub-µV over the multi-hour sweep (= `CLV-REQ-DRIFT`, NEAR EDGE) | $\delta$ (D1), drift scheme (D4) |
+| `CLV-REQ-H2` | Hardest item H2 — gap HOLD pm-class + VIBRATION isolation together (= `CLV-REQ-VIB`+`CLV-REQ-GAP`, AT EDGE) | $C_{in}$ (D2); stage+isolation (A6) |
+| `CLV-REQ-H3` | Hardest item H3 — $C_{in}$-FIXED across the sweep (= `CLV-REQ-CFIX`, UNCLOSED) | $C_{in}$-fixed topology (D5) |
+| `CLV-REQ-H4` | Hardest item H4 — absolute + relative gap-knowledge for the flat-vs-$1/g^2$ fit (= part of `CLV-REQ-GAP`; swap to closed-loop) | $g_0$/stroke (D6), stage make-vs-buy (A6) |
+| `CLV-REQ-H5` | Hardest item H5 — travel/stroke $\ge4\times$ feasibility BLOCKER (15–30 µm actuators CANNOT execute the sweep; = part of `CLV-REQ-GAP`) | $g_0$/stroke (D6), stage make-vs-buy (A6) |
+
+> The `CLV-REQ-H1..H5` IDs are **aliases-by-severity** onto the load-bearing primary IDs (`CLV-REQ-DRIFT`, `CLV-REQ-VIB`/`CLV-REQ-GAP`, `CLV-REQ-CFIX`), preserved as their own IDs so the §8 hardest-items register is independently citable. They name the same physics, not a new requirement.
+
 ### §1 — The derived floor + the master couplings (physics-set, frozen, zero free parameters)
 
 Verified against `src/ave/core/constants.py` (imported, not hard-coded), 2026-06-22 per `ave-canonical-source`:
@@ -28,9 +58,9 @@ Verified against `src/ave/core/constants.py` (imported, not hard-coded), 2026-06
 | $e$ | $1.602177\times10^{-19}$ C | `constants.py:100` (`e_charge`) |
 | $\xi_{topo} = e/\ell_{node}$ | $4.1490\times10^{-7}$ C/m | `constants.py:291` (`XI_TOPO`) |
 
-> **FLAG (flag-don't-fix, cite-line drift — surfaced for the auditor, NOT silently patched).** The Phase-3 prereg §3 and the leaf cite $\xi_{topo}$ at `constants.py:246` and $\ell_{node}$ at `:234`; the **verified** lines on this branch are `XI_TOPO:291` / `L_NODE:257` / `e_charge:100`. The *values* are correct ($4.1490\times10^{-7}$ C/m); only the line numbers drifted. Surfaced as a corpus seam for the auditor lane; not headlined and not fixed here (the prereg/leaf are not edited in this revision).
+> **FLAG (cite-line drift — FIXED this revision on the AVE-Core side; surfaced for the auditor).** The Phase-3 prereg §3 + Provenance cited $\xi_{topo}$ at `constants.py:246` and $\ell_{node}$ at `:234`; the **verified** lines on this branch are `XI_TOPO:291` / `L_NODE:257` / `e_charge:100`. The *values* were always correct ($4.1490\times10^{-7}$ C/m); only the line numbers drifted. The prereg cites are corrected this revision (per `verify-before-cite`, grepped against `constants.py` on 2026-06-22). `project-cleave-01.md` carries NO `constants.py` line citations (file-level pointer only — verified), so there is nothing to patch there.
 
-**The floor (the thing the bench must detect).** Per Axiom 2 ($[Q] \equiv [L]$), one $e$ per $\ell_{node}$ of relative displacement gives the parameter-free transduction
+**The floor (the thing the bench must detect) — `CLV-REQ-FLOOR`.** Per Axiom 2 ($[Q] \equiv [L]$), one $e$ per $\ell_{node}$ of relative displacement gives the parameter-free transduction
 $$
 \frac{dQ}{dx} = \xi_{topo} = \frac{e}{\ell_{node}} = 4.1490\times10^{-7}\ \text{C/m}
 \quad\Rightarrow\quad
@@ -38,21 +68,21 @@ $$
 $$
 At the *assumed* readout capacitance $C_{in} = 10$ pF the voltage projection is $dV/dx = \xi_{topo}/C_{in} = \boxed{41.49\ \text{mV/}\mu\text{m}}$. The **charge** floor is design-independent; the **voltage** floor inherits $C_{in}$ (the only knob in $V = Q/C$).
 
-**Master coupling A — position → charge (the load-bearing one).** The predicted floor *is* the transduction $dV/dx = \xi_{topo}/C_{in}$. Therefore a **position error $dx$ produces a voltage $\xi_{topo}\,dx/C_{in}$ that is indistinguishable from a real displacement-charge signal** — gap jitter / creep / repeatability is NOT a noise term that averaging beats; it rides the *same transfer function* as the signal. Numerically:
+**Master coupling A — position → charge (the load-bearing one) — `CLV-REQ-CPL-A`.** The predicted floor *is* the transduction $dV/dx = \xi_{topo}/C_{in}$. Therefore a **position error $dx$ produces a voltage $\xi_{topo}\,dx/C_{in}$ that is indistinguishable from a real displacement-charge signal** — gap jitter / creep / repeatability is NOT a noise term that averaging beats; it rides the *same transfer function* as the signal. Numerically:
 $$
 \frac{dV}{dx}\bigg|_{C_{in}=10\,\text{pF}} = \frac{\xi_{topo}}{C_{in}} = \boxed{41.49\ \text{nV/pm}}
 $$
 **Consequence (frozen):** a 1 nm gap excursion forges $41.5\ \mu$V — which, against a sub-µV floor (§3), *swamps it by $\sim$40×*. **Vibration isolation and pm-class gap-hold are therefore the hardest mechanical specs on the bench, and they are physics-set: the per-pm sensitivity is fixed by $e/\ell_{node}$ and can only be moved by raising $C_{in}$ (which shrinks the readout voltage) or by mechanical-loop stiffness.**
 
-**Master coupling B — the binding noise model is 1/f + drift, NOT white noise.** The observable is a **held-DC step** (~100 ms settle + ~1 s hold) compared across an **$N\ge50$, multi-hour, $\ge4\times$ gap-sweep**. The measurement band is therefore sub-Hz down to the inverse sweep duration ($\sim10^{-4}$ Hz). White noise is irrelevant: $e_n\sqrt{1/(2\,t_{hold})} = 14\ \text{nV/}\sqrt{\text{Hz}}\times\sqrt{0.5} \approx 9.9$ nV over a 1 s hold — $\sim4\times10^3$ below one 41.5 mV step. **What binds is the in-band (0.1–10 Hz) 1/f voltage noise (~4 µV p-p $\to$ ~0.61 µV rms) plus sub-0.1-Hz drift.** This is a *fundamental* property of any DC-comparison measurement, not a part choice: **the binding spec is LEVEL STABILITY over the sweep, not single-shot resolution.** (Reproduces the prior equipment-audit's "white-noise-×-√1Hz is the wrong model, overstates SNR by 1–2 OOM" finding.)
+**Master coupling B — the binding noise model is 1/f + drift, NOT white noise — `CLV-REQ-CPL-B`.** The observable is a **held-DC step** (~100 ms settle + ~1 s hold) compared across an **$N\ge50$, multi-hour, $\ge4\times$ gap-sweep**. The measurement band is therefore sub-Hz down to the inverse sweep duration ($\sim10^{-4}$ Hz). White noise is irrelevant: $e_n\sqrt{1/(2\,t_{hold})} = 14\ \text{nV/}\sqrt{\text{Hz}}\times\sqrt{0.5} \approx 9.9$ nV over a 1 s hold — $\sim4\times10^3$ below one 41.5 mV step. **What binds is the in-band (0.1–10 Hz) 1/f voltage noise (~4 µV p-p $\to$ ~0.61 µV rms) plus sub-0.1-Hz drift.** This is a *fundamental* property of any DC-comparison measurement, not a part choice: **the binding spec is LEVEL STABILITY over the sweep, not single-shot resolution.** (Reproduces the prior equipment-audit's "white-noise-×-√1Hz is the wrong model, overstates SNR by 1–2 OOM" finding.)
 
-**Master coupling C — the CPD systematic the chord rides against.** The dominant classical background is contact-potential-difference (CPD / moving-Kelvin-probe), itself polarity-odd, at **~21.3% of the floor at the reference gap, scaling $\propto 1/g^2$** (`2026-06-04_round2-adjudications.md:48` "21.3% of floor, ∝1/g²"; `:54` 4-corner means-test). Across a $1\times\!\to\!4\times$ sweep the CPD *contribution* swings by
+**Master coupling C — the CPD systematic the chord rides against — `CLV-REQ-CPL-C`.** The dominant classical background is contact-potential-difference (CPD / moving-Kelvin-probe), itself polarity-odd, at **~21.3% of the floor at the reference gap, scaling $\propto 1/g^2$** (`2026-06-04_round2-adjudications.md:48` "21.3% of floor, ∝1/g²"; `:54` 4-corner means-test). Across a $1\times\!\to\!4\times$ sweep the CPD *contribution* swings by
 $$
 0.213\times\left(1 - \tfrac{1}{16}\right) = \boxed{19.97\%\ \text{of floor}} \approx 8.3\ \text{mV} \approx 83\ \text{fC},
 $$
 dropping to $0.213/16 = 1.33\%$ of floor at the far ($4g_0$) end. **The bench's level-stability must beat this 20%-of-floor CPD swing to assert flat-vs-$1/g^2$** — this is the quantitative bar the chord adjudication rides against, and it is the reason the gating requirement is delta-loose (§2): the chord is a SHAPE.
 
-**Master coupling D — the bias-current charge ramp (a topology requirement, not a number).** A 20 fA input bias current on a passive 10 pF node injects $I_b/C_{in} = 2.0$ mV/s $= 20.0$ fC/s continuously. Over a 1 s hold this alone is ~4.8% of the 414.9 fC floor; over the multi-hour sweep a **bare follower into a passive node RAILS.** Therefore **step-differencing / DC-restore / reset-integration is mandatory** — a *topology* boundary condition, not a tolerance. (Reference: `AVE-Bench-FemtoElectrometer/hardware/cad/reference_design.md` §9 specifies a bare unity-gain follower into a passive 10 pF node with NO DC bleed path — flagged in the trade-study as the topology decision; not adjudicated here.)
+**Master coupling D — the bias-current charge ramp (a topology requirement, not a number) — `CLV-REQ-CPL-D`.** A 20 fA input bias current on a passive 10 pF node injects $I_b/C_{in} = 2.0$ mV/s $= 20.0$ fC/s continuously. Over a 1 s hold this alone is ~4.8% of the 414.9 fC floor; over the multi-hour sweep a **bare follower into a passive node RAILS.** Therefore **step-differencing / DC-restore / reset-integration is mandatory** — a *topology* boundary condition, not a tolerance. (Reference: `AVE-Bench-FemtoElectrometer/hardware/cad/reference_design.md` §9 specifies a bare unity-gain follower into a passive 10 pF node with NO DC bleed path — flagged in the trade-study as the topology decision; not adjudicated here.)
 
 **No fundamental wall.** $kTC$ noise on 10 pF at 300 K is $\sqrt{kT/C} = 20.35$ µV rms $= 0.20$ fC — at/below the floor and reset-differenced away by an integrator topology. There is no quantum/thermodynamic wall anywhere in the chain; every requirement below is reachable in principle, the engineering is in the *architecture* (drift-rejection, gap-hold), not in any part's intrinsic limit.
 
@@ -81,7 +111,7 @@ $$
 
 The **recommended freeze** (a trade-study option, NOT selected here) is $\delta_{chord} = 10\%$ (gating) + $\delta_{slope} = 5\%$ (non-gating), matched to the ~5% $C_{in}$-knowledge floor. **This datasheet states the requirement *at every $\delta$*; the freeze is Q-C15-02 (OPEN).**
 
-### §3 — Charge-readout requirement (electrometer follower + precision digitizer, $V = Q/C_{in}$)
+### §3 — Charge-readout requirement (`CLV-REQ-READOUT`) — electrometer follower + precision digitizer, $V = Q/C_{in}$
 
 **Two-tier; the BINDING tier is held-DC LEVEL STABILITY over the multi-hour $N\ge50$ sweep, NOT single-shot resolution.**
 
@@ -116,7 +146,7 @@ The **drift-corrected LEVEL** that gap-independence demands (sub-µV stability o
 
 **(3.5) Topology — the bias-ramp bleed (physics-set existence, design cure).** Per §1 Master Coupling D: the 20 fA = 20.0 fC/s ramp forces step-differencing / DC-restore / reset-integration. **The ramp EXISTS = physics; the cure (follower+differencing vs charge-reset integrator) is an OPEN topology knob (trade-study).**
 
-**(3.6) Drift / level stability (the GATING readout requirement) — parametric in $\delta$.** Total readout-chain drift (Vos drift + reference/gain drift + $C_{in}$ tempco + sub-0.1-Hz 1/f wander) over the full sweep must satisfy
+**(3.6) Drift / level stability (the GATING readout requirement) — `CLV-REQ-DRIFT` — parametric in $\delta$.** Total readout-chain drift (Vos drift + reference/gain drift + $C_{in}$ tempco + sub-0.1-Hz 1/f wander) over the full sweep must satisfy
 $$
 \text{drift}_{\text{referred-to-charge}} \le \delta\times 414.9\ \text{fC}, \qquad\text{AND must beat the CPD swing } 83\ \text{fC (}19.97\%\text{)}.
 $$
@@ -124,9 +154,9 @@ Component budget at 10 pF: Vos drift 0.13 µV/°C typ is NOT the limiter (it has
 
 **(3.7) $C_{in}$ inheritance — parametric in $\delta$, plus a load-bearing stability term.** The slope corroborator inherits $C_{in}$ error 1:1 ($Q = C_{in}V$): absolute $C_{in}$ known to $\le\delta$ (Level-2, non-gating). **Load-bearing for the chord:** $C_{in}$ held FIXED across the sweep to $\le0.5\%$ (a drift books as Outcome B, not a false GO; `2026-06-04_round2-adjudications.md:60`). **PHYSICS-SET 1:1 inheritance; the in-situ-$C$ method is OPEN (Q-C15-04).**
 
-**(3.8) Validate-on-known (anti-false-null, gates Outcome C).** Inject a known ~0.415 pC step and confirm the chain resolves it to $\le 0.1\times$ floor *before* trusting $V = Q/C$ (prereg §5.7). DESIGN; COTS. **An Outcome-C cascade walk-back is gated on this passing in-session** (else the null is a dead-instrument artifact, Outcome D).
+**(3.8) Validate-on-known (anti-false-null, gates Outcome C) — `CLV-REQ-VALIDATE`.** Inject a known ~0.415 pC step and confirm the chain resolves it to $\le 0.1\times$ floor *before* trusting $V = Q/C$ (prereg §5.7). DESIGN; COTS. **An Outcome-C cascade walk-back is gated on this passing in-session** (else the null is a dead-instrument artifact, Outcome D).
 
-### §4 — Gap-actuation + metrology requirement (closed-loop linear nanopositioner)
+### §4 — Gap-actuation + metrology requirement (`CLV-REQ-GAP`) — closed-loop linear nanopositioner
 
 **The load-bearing subsystem** (because position error maps 1:1 onto charge through the *same* transduction $\xi_{topo}/C_{in}$ — §1 Master Coupling A; gap jitter is NON-averageable). A **closed-loop, capacitive-sensor, flexure-guided LINEAR** nanopositioner (translation along the gap normal, NOT a tilt mount). Tolerances at safety factor $k=3$ (each error $\le\delta/k$ of the floor budget); written parametric in $\delta$.
 
@@ -155,7 +185,7 @@ The TIGHT lever is the **relative per-point / $4\times$-ratio accuracy** (~1%) t
 
 **(4.4) Linear DOF, not tilt — physics-set.** The plates must translate along the gap normal staying PARALLEL; tilt changes $C_{in}$ and the gap definition. KMS/POLARIS-K1 mirror-TILT mounts are the wrong DOF. **PHYSICS-SET; the parallelism fixture is a DESIGN item.**
 
-**(4.5) $C_{in}$-FIXED across a $4\times$ sweep — parametric in $\delta$, the UNCLOSED design tension.** The moving plate-pair $C_{plate} = \varepsilon_0 A/g$ tracks $\sim 1/g$ (at $A=1\,\text{cm}^2$: 8.85 pF @100 µm $\to$ 35 pF @25 µm — a $\sim4\times$ swing, FATAL if it IS $C_{in}$). Requirement:
+**(4.5) $C_{in}$-FIXED across a $4\times$ sweep — `CLV-REQ-CFIX` — parametric in $\delta$, the UNCLOSED design tension.** The moving plate-pair $C_{plate} = \varepsilon_0 A/g$ tracks $\sim 1/g$ (at $A=1\,\text{cm}^2$: 8.85 pF @100 µm $\to$ 35 pF @25 µm — a $\sim4\times$ swing, FATAL if it IS $C_{in}$). Requirement:
 $$
 \left|\frac{dC_{in}}{C_{in}}\right|_{\text{any two sweep points}} \le \frac{\delta}{k}\quad(\le 3.3\%\text{ at }\delta=10\%),
 $$
@@ -163,9 +193,9 @@ met EITHER by a FIXED reference cap dominating $C_{in}$ with moving-plate coupli
 
 **(4.6) Thermal gap drift — parametric in $\delta$, CTE design lever.** $\alpha_{CTE} L\,dT < (\delta/k)\times(1\,\mu\text{m step})$: Al 10 mm mount $\to dT < 145$ mK ($\delta=10\%$); low-CTE Invar/Zerodur 10 mm $\to dT < 3.3$ K (~20× relaxation — a DESIGN lever). Closed-loop cap-sensor servo cancels thermal drift in the controlled DOF iff the sensor reference shares the plates' low-CTE frame.
 
-> **FLAG (internal corpus inconsistency, flag-don't-fix — both paths given).** The KB leaf `project-cleave-01.md:28` and `AVE-Bench-FemtoElectrometer/hardware/TEST_PROCEDURE.md:31` still carry the SUPERSEDED single-1-µm-step framing at a ~100 µm baseline with a 15–30 µm actuator, which is physically incapable of the $\ge4\times$ sweep the chord-gated prereg makes load-bearing. The mechanical chain is specced to the obsolete measurement — the ROOT CAUSE of the open-loop/tilt-mount under-spec. The Femto-side cure is flagged in the prereg (§9, F-R2-3) for a SEPARATE session per cross-repo-session-scope; not performed here.
+> **FLAG (internal corpus inconsistency — AVE-Core side ALIGNED this revision; Femto side remains).** The KB leaf `project-cleave-01.md:28` **PCBA-Implementation prose is aligned this revision** to the chord-gated $\ge4\times$ gap-sweep framing (per-site, consistent with that leaf's own "Falsification Metric" + Outcome-A sections and the prereg). The Femto-side `AVE-Bench-FemtoElectrometer/hardware/TEST_PROCEDURE.md:31` still carries the SUPERSEDED single-1-µm-step framing at a ~100 µm baseline with a 15–30 µm actuator, which is physically incapable of the $\ge4\times$ sweep the chord-gated prereg makes load-bearing — the mechanical chain is specced to the obsolete measurement (ROOT CAUSE of the open-loop/tilt-mount under-spec). The Femto-side cure is flagged in the prereg (§9, F-R2-3) for a SEPARATE session per cross-repo-session-scope; not performed here.
 
-### §5 — PZT-drive requirement (NOT a field-bias chain; sub-yield, Q-C15-01)
+### §5 — PZT-drive requirement (`CLV-REQ-PZT`) — NOT a field-bias chain; sub-yield, Q-C15-01
 
 Referred to the binding readout floor $V_{floor}\approx0.61$ µV rms ($Q_{floor}\approx6$ aC). Budget fraction $\beta=0.3$ (drive $\le30\%$ of floor $\to$ adds $<5\%$ in quadrature).
 
@@ -187,16 +217,16 @@ At a worst-case high-sensitivity $k_{pzt}=150$ nm/V: $dV_{drive}\le 29$ µV rms 
 
 Each sub-spec derived FROM the systematic it controls. The chord-clean specs (vibration, thermal) bind on the 0.61 µV intrinsic floor + the 21%-CPD separation (delta-INDEPENDENT); the delta-PARAMETRIC versions are the looser Level-2-slope budgets.
 
-**(6.1) Vacuum — physics-set $\le10^{-6}$ Torr.** Driver is **surface-leakage-vs-20 fA-budget + patch stationarity, NOT arc-breakdown.** A 1 V node excursion across humid PTFE ($\rho_s\sim10^{13}\ \Omega/\square$) leaks ~100 fA = 5× over the 20 fA budget; at $\le10^{-6}$ Torr the adsorbed-water layer desorbs ($\rho_s\to\sim10^{16}\ \Omega/\square$) and surface leak falls to ~0.1 fA = 200× under budget. Arc-breakdown non-binding (100 V PZT $\ll$ ~kV Paschen at 100 µm·atm). STABILITY: reactive partial-pressure stable to $\pm20\%$ over the sweep (keep the $1/g^2$ CPD/patch background stationary). CLEANLINESS: hydrocarbon-free (dry scroll + turbo). **Ion-gauge filament OFF during the held-DC read** (charge/ion source). $\le10^{-6}$ Torr is explicitly NOT UHV (Q-C15-01).
+**(6.1) Vacuum — `CLV-REQ-VAC` — physics-set $\le10^{-6}$ Torr.** Driver is **surface-leakage-vs-20 fA-budget + patch stationarity, NOT arc-breakdown.** A 1 V node excursion across humid PTFE ($\rho_s\sim10^{13}\ \Omega/\square$) leaks ~100 fA = 5× over the 20 fA budget; at $\le10^{-6}$ Torr the adsorbed-water layer desorbs ($\rho_s\to\sim10^{16}\ \Omega/\square$) and surface leak falls to ~0.1 fA = 200× under budget. Arc-breakdown non-binding (100 V PZT $\ll$ ~kV Paschen at 100 µm·atm). STABILITY: reactive partial-pressure stable to $\pm20\%$ over the sweep (keep the $1/g^2$ CPD/patch background stationary). CLEANLINESS: hydrocarbon-free (dry scroll + turbo). **Ion-gauge filament OFF during the held-DC read** (charge/ion source). $\le10^{-6}$ Torr is explicitly NOT UHV (Q-C15-01).
 
-**(6.2) Thermal — derived ~1 K (NOT the binding systematic).** Vos drift (0.13 µV/°C typ, 0.5 max) referred to the floor across the sweep: total drift $<0.61$ µV needs $dT_{sweep}<4.66$ K (typ) / 1.21 K (max-tempco). $C_{in}$ tempco (30 ppm/K) is Level-2-slope-only and loose. **TOLERANCE: $dT\le1$ K + 2× calibrated RTDs logged with the data.**
-> **FLAG (operator-rule under-protection, flag-don't-fix).** The corpus "pause if lab drifts $>5$ K" rule (`project-cleave-01.md` / equipment-audit subsystem 5) is ~4× looser than the derived $\le1$ K. NOT a physics contradiction — but it under-protects the chord. Surfaced; not silently tightened in the doc.
+**(6.2) Thermal — `CLV-REQ-THERMAL` — derived ~1 K (NOT the binding systematic).** Vos drift (0.13 µV/°C typ, 0.5 max) referred to the floor across the sweep: total drift $<0.61$ µV needs $dT_{sweep}<4.66$ K (typ) / 1.21 K (max-tempco). $C_{in}$ tempco (30 ppm/K) is Level-2-slope-only and loose. **TOLERANCE: $dT\le1$ K + 2× calibrated RTDs logged with the data. This $\le1$ K is the canonical operator drift-pause threshold the bench repo builds to (`CLV-REQ-THERMAL`); it SUPERSEDES the older corpus "pause if lab drifts $>5$ K" operator rule.**
+> **FLAG (operator-rule tightened to the derived spec — surfaced for the auditor; the remaining un-landed site is cross-repo).** The older corpus "pause if lab drifts $>5$ K" operator rule (carried in the Femto-side `AVE-Bench-FemtoElectrometer/hardware/TEST_PROCEDURE.md` equipment-audit subsystem 5 — verified ABSENT from every AVE-Core-side cleave file on this branch: prereg, `project-cleave-01.md`, sim-audit) is ~4× looser than the derived $\le1$ K. NOT a physics contradiction — but it under-protects the chord. **On the AVE-Core side the canonical operator threshold is now the derived $\le1$ K (`CLV-REQ-THERMAL`), stated above.** Landing the $\le1$ K tightening into the Femto-side `TEST_PROCEDURE.md` is a Femto-repo edit, flagged for a SEPARATE session per `cross-repo-session-scope` (alongside the §4.6 / F-R2-3 stale-framing cure) — NOT performed here.
 
-**(6.3) Vibration / seismic (the BINDING environmental systematic) — physics-set.** Gap RMS jitter $\le14.6$ pm in 1–50 Hz (chord-clean): $0.61\ \mu\text{V}/41.49\ \text{nV/pm} = 14.6$ pm. Needs isolation transmissibility $T<3\times10^{-4}$ (71 dB, quiet ~50 nm ambient) to $T<1.5\times10^{-5}$ (97 dB, noisy ~1000 nm ambient) across 1–50 Hz. PLUS a hard requirement to **DECOUPLE the turbo pump** (kRPM rotor = vibration SOURCE on the chamber) via bellows/remote-mount OR valve-off-and-coast during each held-DC read. Delta-bound regime: $\le10/20/50$ pm at $\delta=1/2/5\%$ — but the 14.6 pm chord-clean spec governs. **PHYSICS-SET (= the floor slope itself); only movable by raising $C_{in}$ or mechanical-loop stiffness. NEAR/AT the COTS edge — the hardest environmental requirement, shared with the gap-metrology subsystem.**
+**(6.3) Vibration / seismic (the BINDING environmental systematic) — `CLV-REQ-VIB` — physics-set.** Gap RMS jitter $\le14.6$ pm in 1–50 Hz (chord-clean): $0.61\ \mu\text{V}/41.49\ \text{nV/pm} = 14.6$ pm. Needs isolation transmissibility $T<3\times10^{-4}$ (71 dB, quiet ~50 nm ambient) to $T<1.5\times10^{-5}$ (97 dB, noisy ~1000 nm ambient) across 1–50 Hz. PLUS a hard requirement to **DECOUPLE the turbo pump** (kRPM rotor = vibration SOURCE on the chamber) via bellows/remote-mount OR valve-off-and-coast during each held-DC read. Delta-bound regime: $\le10/20/50$ pm at $\delta=1/2/5\%$ — but the 14.6 pm chord-clean spec governs. **PHYSICS-SET (= the floor slope itself); only movable by raising $C_{in}$ or mechanical-loop stiffness. NEAR/AT the COTS edge — the hardest environmental requirement, shared with the gap-metrology subsystem.**
 
-**(6.4) EMI / Faraday — derived 64–84 dB.** Referred pickup $dV_{in} = (C_{ant}/C_{in})V_{int}$; for $dV_{in}<0.61$ µV with $C_{ant}/C_{in}=10^{-3}$, $V_{int}<0.61$ mV $\to$ SE $\ge20\log_{10}(\text{ambient}/0.61\text{ mV})$ = 64 dB (1 V/m) to 84 dB (10 V/m) at mains 50/60 Hz. PLUS: break the documented BNC-shield→chamber→gauge-controller ground loop (single-point star ground + line filter), run guarded triax (not bare coax), gate the ion-gauge filament OFF during reads. **DESIGN/discipline, not exotic hardware.**
+**(6.4) EMI / Faraday — `CLV-REQ-EMI` — derived 64–84 dB.** Referred pickup $dV_{in} = (C_{ant}/C_{in})V_{int}$; for $dV_{in}<0.61$ µV with $C_{ant}/C_{in}=10^{-3}$, $V_{int}<0.61$ mV $\to$ SE $\ge20\log_{10}(\text{ambient}/0.61\text{ mV})$ = 64 dB (1 V/m) to 84 dB (10 V/m) at mains 50/60 Hz. PLUS: break the documented BNC-shield→chamber→gauge-controller ground loop (single-point star ground + line filter), run guarded triax (not bare coax), gate the ion-gauge filament OFF during reads. **DESIGN/discipline, not exotic hardware.**
 
-### §7 — Calibration / in-situ-C / charge-reference requirement
+### §7 — Calibration / in-situ-C / charge-reference requirement (`CLV-REQ-CAL`)
 
 **(7.1) In-situ $C_{in}$ — SPLIT by level.** LEVEL-1 (chord/GO-NO-GO): absolute $C_{in}$ NOT required; required is $C_{in}$ STABILITY across the sweep $dC_{in}/C_{in}<\sim4\%$ (delta-INDEPENDENT — derived from the CPD $1/g^2$ contrast 19.7% resolved to 1/5) + the §4.5 design constraint (moving-plate $C<\sim5\%$ of $C_{in}$). LEVEL-2 (slope, non-gating): absolute in-situ $C_{in}$ known to $\le\delta$, measured AS A WHOLE on the powered assembled board (an LCR-meter 2-terminal passive reading does NOT see the op-amp's powered input parasitics / guard-Miller at DC — pre-flight check only).
 
@@ -209,13 +239,13 @@ Each sub-spec derived FROM the systematic it controls. The chord-clean specs (vi
 
 **Hardest (the spec-drivers):**
 
-| # | Requirement | Why hardest | Class |
-|---|---|---|---|
-| H1 | Readout LEVEL STABILITY (§3.6): sub-µV held level over the multi-hour $N\ge50$ sweep | reached by ARCHITECTURE (auto-zero/chopper/CDS or gap-dither+lock-in), not a better ADC | NEAR EDGE |
-| H2 | Gap HOLD pm-class (§4.2) + VIBRATION isolation (§6.3): 41.49 nV/pm $\Rightarrow$ nm jitter = 40 µV swamps the floor | stage + isolation together; coupling is physics-set, non-averageable | AT EDGE |
-| H3 | $C_{in}$-FIXED across the sweep (§3.7, §4.5): moving plate IS a $1/g$ cap | UNCLOSED design tension (Q-C15-04 ignores motion-dependence) | UNCLOSED |
-| H4 | Absolute + relative gap-knowledge (§4.3) for the flat-vs-$1/g^2$ fit | open-loop PZT cannot place $g$ | swap to closed-loop |
-| H5 | Travel/stroke (§4.1): $\ge4\times$ at 100 µm needs ~300 µm; selected 15–30 µm actuators CANNOT execute the sweep at all | a feasibility BLOCKER, not a tolerance | de-spec $g_0$ or buy travel |
+| # | REQ-ID | Requirement | Why hardest | Class |
+|---|---|---|---|---|
+| H1 | `CLV-REQ-H1` (= `CLV-REQ-DRIFT`) | Readout LEVEL STABILITY (§3.6): sub-µV held level over the multi-hour $N\ge50$ sweep | reached by ARCHITECTURE (auto-zero/chopper/CDS or gap-dither+lock-in), not a better ADC | NEAR EDGE |
+| H2 | `CLV-REQ-H2` (= `CLV-REQ-VIB` + `CLV-REQ-GAP`) | Gap HOLD pm-class (§4.2) + VIBRATION isolation (§6.3): 41.49 nV/pm $\Rightarrow$ nm jitter = 40 µV swamps the floor | stage + isolation together; coupling is physics-set, non-averageable | AT EDGE |
+| H3 | `CLV-REQ-H3` (= `CLV-REQ-CFIX`) | $C_{in}$-FIXED across the sweep (§3.7, §4.5): moving plate IS a $1/g$ cap | UNCLOSED design tension (Q-C15-04 ignores motion-dependence) | UNCLOSED |
+| H4 | `CLV-REQ-H4` (⊂ `CLV-REQ-GAP` §4.3) | Absolute + relative gap-knowledge (§4.3) for the flat-vs-$1/g^2$ fit | open-loop PZT cannot place $g$ | swap to closed-loop |
+| H5 | `CLV-REQ-H5` (⊂ `CLV-REQ-GAP` §4.1) | Travel/stroke (§4.1): $\ge4\times$ at 100 µm needs ~300 µm; selected 15–30 µm actuators CANNOT execute the sweep at all | a feasibility BLOCKER, not a tolerance | de-spec $g_0$ or buy travel |
 
 **Physics-set fundamental limits (nature forces — cannot move):**
 (a) the floor 414.9 fC/µm = 41.49 mV/µm @10 pF ($\xi_{topo}=e/\ell_{node}$, zero free params);
@@ -226,10 +256,10 @@ Each sub-spec derived FROM the systematic it controls. The chord-clean specs (vi
 (f) the $4\times$ gap RATIO as the flat-vs-$1/g^2$ lever.
 **There is NO quantum/thermodynamic WALL** ($kTC$ = 0.20 fC, at/below floor, reset-differenced away); all else is design-choice or COTS-reachable.
 
-**Flag register (flag-don't-fix, surfaced for the auditor lane / Grant — NOT resolved here):**
-1. Cite-line drift: prereg/leaf cite `XI_TOPO:246`/`L_NODE:234`; verified lines are `:291`/`:257` (values correct). §1.
-2. Internal corpus inconsistency: leaf `:28` + Femto `TEST_PROCEDURE.md:31` carry the superseded single-1-µm-step framing (incapable of $\ge4\times$); the mechanical chain is specced to the obsolete measurement. §4.6 (Femto cure = separate session, F-R2-3).
-3. Operator-rule under-protection: corpus "$>5$ K pause" is ~4× looser than the derived $\le1$ K. §6.2.
+**Flag register (surfaced for the auditor lane / Grant):**
+1. Cite-line drift — **FIXED on the AVE-Core side this revision.** The Phase-3 prereg cited `XI_TOPO:246`/`L_NODE:234`; the verified lines on this branch are `XI_TOPO:291`/`L_NODE:257`/`e_charge:100` (values always correct). The prereg §3 table + Provenance line are corrected this revision; `project-cleave-01.md` carries NO `constants.py` line cites (only a file-level pointer — verified), so nothing to fix there. §1.
+2. Internal corpus inconsistency — **`project-cleave-01.md:28` PROSE ALIGNED this revision** to the chord-gated $\ge4\times$ gap-sweep framing (per-site, consistent with the leaf's own chord-gated Outcome section + the prereg). The Femto-side `TEST_PROCEDURE.md:31` still carries the superseded single-1-µm-step framing — that mechanical-chain cure is a Femto-repo edit, separate session (F-R2-3). §4.6.
+3. Operator-rule under-protection — **TIGHTENED on the AVE-Core side this revision** to the derived $\le1$ K = `CLV-REQ-THERMAL` (canonical operator drift-pause threshold). The older "$>5$ K pause" string is verified ABSENT from every AVE-Core-side cleave file and lives only in the Femto-side `TEST_PROCEDURE.md` — landing the $\le1$ K there is a separate-session Femto-repo edit. §6.2.
 4. Prior-DRAFT arithmetic corrected: single-shot ENOB 7/8/9 $\to$ 4.6/5.6/6.9; bias 48 $\to$ 20.0 fC/s; $kTC$ 50 $\to$ 0.20 fC. §1/§3.3.
 5. White-noise seam: Q-C15-02:40 quotes 15 nV/√Hz @1 kHz vs the task brief's 14 nV/√Hz @10 kHz — both within datasheet spread, neither binds (white noise irrelevant sub-Hz). §1.
 6. Consistency-vs-emergence: the floor is Axiom-2 MANIFESTATION (zero free params, emergence-class); the slope is a consistency-class echo (PR#361 says so). The tight Level-2 specs must NOT be read as gating the emergence claim.
