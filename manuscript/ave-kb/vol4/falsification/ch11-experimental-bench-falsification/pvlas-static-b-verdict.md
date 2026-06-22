@@ -51,6 +51,16 @@ node-up code note,
 > no $B/B_{SNAP}$ saturation of $\mu$ under a static field; the argument is $I/I_{max}$, and a static
 > $\mathbf B$ produces $I_{vac}=0$.
 
+> **⚑ FLAG (current-status, for a future Grant framing call — NOT resolved here).** The two magnetic
+> yield-scales in the corpus disagree by ~5×: the **energy-density-matched** $B_{SNAP}=1.89\times10^9$ T
+> (from $B_{SNAP}^2/2\mu_0 = m_ec^2/\ell_{node}^3 = 1$) vs the **$\varepsilon$-proxy** $E_{yield}/c
+> \approx 3.77\times10^8$ T (the $cB\leftrightarrow E_{yield}$ duality applied to $E_{yield}\approx
+> 1.13\times10^{17}$ V/m). The ratio is $B_{SNAP}/(E_{yield}/c)\approx 5.0$. Two corpus
+> magnetic-birefringence treatments key on these inconsistent scales. This does **not** touch the R3
+> static-B verdict — $A_I=0\Rightarrow\delta n_\mu=0$ regardless of which $B$-scale is adopted, since
+> a static $\mathbf B$ never enters the $\mu$-kernel as an amplitude. Surfaced per flag-don't-fix; a
+> scale is deliberately **not** picked pending Grant adjudication.
+
 ## §2 — The verdict: consistent, not falsifying
 
 | Framework | Static-B birefringence prediction |
