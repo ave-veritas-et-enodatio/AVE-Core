@@ -47,7 +47,7 @@ The Topological network maps to empirical observables by calculating overlapping
 \section*{First Ionization Energy Summary}
 \addcontentsline{toc}{section}{First Ionization Energy Summary}
 
-The electronic ionization energy solver (\texttt{radial\_eigenvalue.py}) computes first ionization energies for $Z = 1$ to $14$ using a three-phase pipeline: (A)~ODE cavity eigenvalue with axiom-derived CDF screening, (B)~Hopf mode splitting with three corrections (A:~hierarchical cascade for Be-type, B:~SIR boundary for Mg-type, C:~Op10 junction projection for Al-type co-resonant shells), (C)~crossing scattering.  All values use zero free parameters.
+The electronic ionization energy solver (\texttt{radial\_eigenvalue.py}) computes first ionization energies for $Z = 1$ to $14$ (and $Z = 31$ to $36$) using a three-phase pipeline: (P1)~ODE cavity eigenvalue with axiom-derived CDF screening, (P2)~Hopf mode splitting with four corrections (A:~hierarchical cascade for Be-type, B:~SIR boundary for Mg-type, C:~Op10 junction projection for Al-type co-resonant shells, D:~Topo-Kinematic Polar Conjugate Mirror for Period-4+ $d^{10}$-enclosed elements), (P3)~crossing scattering.  The solver uses zero fit constants \emph{given the standard aufbau filling order} (which AVE asserts as input, not derives): every A/B/C/D correction traces to $P_C = 8\pi\alpha$, $\alpha$, and integer shell/topology predicates, with no per-element scalar tuned to the target ionization energy. The tabulated accuracies are gated against the engine's pinned reference values, not independently NIST-validated; the residuals are real (e.g.\ the $-2.80\%$ Boron deviation), so the figures reproduce the engine's reference values rather than implying NIST-exact agreement.
 
 \begin{table}[htbp]
     \centering
@@ -80,7 +80,7 @@ The electronic ionization energy solver (\texttt{radial\_eigenvalue.py}) compute
     Krypton    & 36 & 14.446 & 13.999 & $+3.19\%$ & D (Topo-Kinematic) \\
     \hline\hline
     \end{tabularx}
-    \caption{First ionization energies: AVE engine vs NIST experimental values. Correction A = hierarchical cascade. Correction B = SIR boundary reflection. Correction C = Op10 junction projection. Correction D = Topo-Kinematic Polar Conjugate Mirror ($\Gamma < 0$ TIR bounding via $3d^{10}$, $4d^{10}$, $5d^{10}$ shells). All elements evaluated rigidly with zero free parameters.}
+    \caption{First ionization energies: AVE engine vs experimental values. Correction A = hierarchical cascade. Correction B = SIR boundary reflection. Correction C = Op10 junction projection. Correction D = Topo-Kinematic Polar Conjugate Mirror ($\Gamma < 0$ TIR bounding via $3d^{10}$, $4d^{10}$, $5d^{10}$ shells). All elements evaluated with zero fit constants given the standard aufbau filling order; the Error column reproduces the engine's reference values (CI-gated against a pinned code snapshot, not NIST-validated) and is not uniformly NIST-exact (e.g.\ the $-2.80\%$ Boron residual).}
     \label{tab:ie_summary}
 \end{table}
 

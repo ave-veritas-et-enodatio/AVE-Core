@@ -39,7 +39,7 @@ Between the absolute $\alpha$ closures, fractional sub-clusters are violently ex
 
 - **Fluorine-19 ($4\alpha$ Core + Tritium Halo):** The sparse Tetrahedron core forces the asymmetric halo outward, creating a violently reactive dipole (a Halogen).
 - **Sodium-23 ($5\alpha$ Core + Tritium Halo):** The denser Pentagonal Ring core clamps the exact same Tritium halo tightly inward, generating a dense, rigid asymmetric bulge (an Alkali Metal).
-- **Iron-56 ($14\alpha$):** The FCC-14 packing produces the absolute minimum binding energy per nucleon---the thermodynamic endpoint of stellar fusion. Solved to $0.0001\%$ error.
+- **Iron-56 ($14\alpha$):** The FCC-14 packing produces the minimum mass-per-nucleon---the fusion endpoint and thermodynamic endpoint of stellar fusion. Solved to $0.0001\%$ error.
 
 #### Emergence of the Golden Ratio
 

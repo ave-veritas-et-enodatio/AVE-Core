@@ -7,7 +7,7 @@ claims: [clm-7tk051]
 
 # First Ionization Energy Summary
 
-The electronic ionization energy solver (`radial_eigenvalue.py`) computes first ionization energies for $Z = 1$ to $14$ (and $Z = 31$ to $36$) using a three-phase pipeline: (A) ODE cavity eigenvalue with axiom-derived CDF screening, (B) Hopf mode splitting with four corrections (A: hierarchical cascade for Be-type, B: SIR boundary for Mg-type, C: Op10 junction projection for Al-type co-resonant shells, D: Topo-Kinematic Polar Conjugate Mirror for Period-4+ elements), (C) crossing scattering. All values use zero free parameters.
+The electronic ionization energy solver (`radial_eigenvalue.py`) computes first ionization energies for $Z = 1$ to $14$ (and $Z = 31$ to $36$) using a three-phase pipeline: (P1) ODE cavity eigenvalue with axiom-derived CDF screening, (P2) Hopf mode splitting with four corrections (A: hierarchical cascade for Be-type, B: SIR boundary for Mg-type, C: Op10 junction projection for Al-type co-resonant shells, D: Topo-Kinematic Polar Conjugate Mirror for Period-4+ elements), (P3) crossing scattering. The solver uses zero fit constants *given the standard aufbau filling order* (asserted as input, not derived): every A/B/C/D correction traces to $P_C = 8\pi\alpha$, $\alpha$, and integer shell/topology predicates, with no per-element scalar tuned to the target ionization energy.
 
 | Element | Z | AVE (eV) | Exp (eV) | Error | Correction |
 |---|:---:|---:|---:|---:|---|
@@ -32,6 +32,6 @@ The electronic ionization energy solver (`radial_eigenvalue.py`) computes first 
 | Bromine | 35 | 11.911 | 11.814 | $+0.82\%$ | D (Topo-Kinematic) |
 | Krypton | 36 | 14.446 | 13.999 | $+3.19\%$ | D (Topo-Kinematic) |
 
-Correction A = hierarchical cascade. Correction B = SIR boundary reflection. Correction C = Op10 junction projection. Correction D = Topo-Kinematic Polar Conjugate Mirror ($\Gamma < 0$ TIR bounding via $3d^{10}$, $4d^{10}$, $5d^{10}$ shells). All elements evaluated rigidly with zero free parameters.
+Correction A = hierarchical cascade. Correction B = SIR boundary reflection. Correction C = Op10 junction projection. Correction D = Topo-Kinematic Polar Conjugate Mirror ($\Gamma < 0$ TIR bounding via $3d^{10}$, $4d^{10}$, $5d^{10}$ shells). All elements evaluated with zero fit constants given the standard aufbau filling order; the Error column reproduces the engine's reference values (CI-gated against a pinned code snapshot, not NIST-validated) and is not uniformly NIST-exact (e.g. the $-2.80\%$ Boron residual).
 
 > ↗ See also: [Polar Conjugate Topo-Kinematic Bounding](polar-conjugate-bounding.md) — Correction D derivation for heavy elements
