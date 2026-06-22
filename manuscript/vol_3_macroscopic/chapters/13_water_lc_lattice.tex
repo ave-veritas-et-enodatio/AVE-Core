@@ -4,7 +4,7 @@
 
 \begin{objectivebox}
 \begin{itemize}
-    \item Derive seven macroscopic water observables from a single Op4 spring constant $k_{\text{hb}} = 2.247$~N/m with no per-observable fitting; the bond geometry and eigenmode are cross-volume derived primaries.
+    \item Derive seven macroscopic water observables from a single Op4 spring constant $k_{\text{hb}} = 2.247$~N/m with no per-observable fitting; the bond geometry and eigenmode are cross-volume derived primaries; the $+4$\textdegree{}C density maximum is a statistical cooperative-lattice result of the two-state LDL/HDL partition, not a closed-form output.
     \item Distinguish three phase boundaries from one eigenmode: density maximum, melting, and boiling.
     \item Apply the Axiom~4 saturation correction $S(r) = \sqrt{1-r^2}$ to the melting point and understand why it does not apply to the enthalpy of vaporisation.
     \item Interpret the liquid corrections ($2/\pi$ for sound speed, $\sqrt{2}$ for surface tension) as encoding crystalline vs.\\ disordered K4 junction topology.
@@ -113,14 +113,19 @@ Three distinct physical processes each use a different combination of the bare a
 \toprule
 \textbf{Process} & \textbf{Eigenmode} & \textbf{Physics} \\
 \midrule
-$T(\rho_\mathrm{max})$ & $T_0(1-\alpha)$ & Harmonic peak energy storage \\
+$T(\rho_\mathrm{max})$ & $T_0$ (scale) & Cooperative two-state average (statistical) \\
 $T_\mathrm{melt}$      & $T_\mathrm{sat}(1-\alpha)$ & Single-port saturation (Axiom~4 softening) \\
 $T_b$                   & $(z/3) \cdot T_0$ & Multi-port junction decoupling \\
 \bottomrule
 \end{tabularx}
 \end{center}
 
-The factor $(1-\alpha)$ is the Axiom~2 vacuum--lattice impedance loading, which red-shifts every LC mode by the fine-structure constant $\alpha = 7.297 \times 10^{-3}$.
+% Rule-12 reclassification (2026-06-21, Grant THEORY-CURRENCY ruling): the (1-alpha)
+% "Axiom-2 vacuum-lattice loading" is reclassified from a derived chord to an ASSERTED
+% alpha-calibration (consistency identification / ECHO). No derivation links the EM
+% coupling alpha to hydrogen-bond LC-mode loading. Body preserved per ave-walk-back;
+% epistemic-status framing corrected. Canon: water-anomaly-lc-partition.md.
+The factor $(1-\alpha)$ is an asserted $\alpha$-calibration loading (a consistency identification, not an independently derived chord: the substrate does not derive that the EM coupling $\alpha$ loads the H-bond LC modes), applied to refine the bare eigenmodes toward their observed values ($\alpha = 7.297 \times 10^{-3}$).
 
 %=====================================================================
 \section{Prediction 1: Speed of Sound at 25\textdegree{}C}
@@ -158,15 +163,15 @@ Experimental: $c_\mathrm{exp} = 1496.7$~m/s. \quad Error: $\mathbf{+0.52\%}$.
 
 \subsection{Derivation}
 
-The density maximum occurs at the \textbf{bare harmonic eigenmode}, loaded by the Axiom~2 vacuum coupling $\alpha$. This is the temperature of peak standing-wave energy storage in the lattice. Saturation softening (which drives melting) occurs at a \emph{lower} temperature:
-\begin{equation}
-\boxed{
-    T(\rho_\mathrm{max}) = T_0\,(1-\alpha) = 279.45 \times 0.99270 = 277.41 \text{ K} = 4.26\text{\textdegree{}C}
-}
-\end{equation}
+% Rule-12 demotion (2026-06-21, Grant THEORY-CURRENCY ruling): the +4 degC density
+% maximum is a STATISTICAL cooperative-lattice result of the two-state LDL/HDL
+% partition, NOT a closed-form T_0(1-alpha) prediction. The boxed closed-form was
+% removed; the harmonic eigenmode is retained only as the temperature SCALE.
+% Canon: water-anomaly-lc-partition.md (statistical-property derivation + 2026 LLCP).
+The bare harmonic eigenmode $T_0 = 279.45$~K sets the temperature \emph{scale} of the density-anomaly domain. The $+3.98$\textdegree{}C density maximum itself, however, is \textbf{not} a closed-form 1D output: it emerges as a \emph{statistical cooperative average} of the two-state liquid partition (expanded low-density-liquid, LDL, vs.\ collapsed high-density-liquid, HDL). Because infinite 3D cooperative melting grids are computationally NP-hard, no single 1D polynomial yields $3.98$\textdegree{}C without explicit 3D cooperative-lattice simulation; the density peak is fundamentally a supercritical statistical average of the dual-geometry competition (\kbleaf{vol3/condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md}). The harmonic-peak \emph{scale} (not the closed-form output) is $T_0(1-\alpha) = 279.45 \times 0.99270 = 277.41$~K $= 4.26$\textdegree{}C.
 
 \subsection{Result}
-Experimental: $T(\rho_\mathrm{max}) = 3.98$\textdegree{}C. \quad Error: $\mathbf{+0.28}$\textdegree{}C.
+Observed (X-ray LLCP-corroborated): $T(\rho_\mathrm{max}) = 3.98$\textdegree{}C. The statistical cooperative two-state average reproduces this anomaly; the harmonic-peak scale lies $+0.28$\textdegree{}C above it. This is \textbf{statistical agreement} with the observed maximum, not a closed-form prediction error.
 
 
 %=====================================================================
@@ -328,7 +333,7 @@ All seven observables are derived from a single input: the Op4 H-bond spring con
 \textbf{Observable} & \textbf{AVE} & \textbf{Experiment} & \textbf{Error} & \textbf{Source} \\
 \midrule
 Speed of sound (25\textdegree{}C) & 1504.4 m/s  & 1496.7 m/s  & $+0.52\%$    & $c_\mathrm{1D} \times 2/\pi$ \\
-$T(\rho_\mathrm{max})$            & 4.26\textdegree{}C   & 3.98\textdegree{}C   & $+0.28$\textdegree{}C & $T_0(1-\alpha)$ \\
+$T(\rho_\mathrm{max})$            & 4.26\textdegree{}C   & 3.98\textdegree{}C   & $+0.28$\textdegree{}C & two-state cooperative avg.\ \\
 Melting point                       & 273.53 K    & 273.15 K    & $+0.14\%$    & $T_\mathrm{sat}(1-\alpha)$ \\
 $\Delta H_\mathrm{vap}$            & 41.35 kJ/mol & 40.66 kJ/mol & $+1.69\%$  & $z/2 \cdot E(1-\alpha) \cdot N_A$ \\
 Surface tension (25\textdegree{}C) & 67.31 mN/m  & 71.97 mN/m  & $-6.47\%$    & $n_s \cdot E_{hb} \cdot P_C$ \\
@@ -343,8 +348,8 @@ Maximum error: $6.47\%$. Mean absolute error: $1.42\%$.
 
 \begin{summarybox}
 \begin{itemize}
-    \item Seven independent macroscopic observables of bulk water derive from a single Op4-derived spring constant $k_\mathrm{hb} = 2.247$~N/m. No fitted parameters or statistical models are employed.
-    \item Three distinct phase boundaries emerge from one eigenmode: the density maximum (harmonic peak, $T_0(1-\alpha)$), melting (single-port saturation, $T_\mathrm{sat}(1-\alpha)$), and boiling (multi-port junction decoupling, $(z/3)\,T_0$).
+    \item Seven independent macroscopic observables of bulk water derive from a single Op4-derived spring constant $k_\mathrm{hb} = 2.247$~N/m; the H-bond-coupled modes carry an asserted $\alpha$-calibration loading, and the $+4$\textdegree{}C density maximum is a statistical cooperative-lattice result.
+    \item Three distinct phase boundaries emerge from one eigenmode: the density maximum (cooperative two-state average), melting (single-port saturation, $T_\mathrm{sat}(1-\alpha)$), and boiling (multi-port junction decoupling, $(z/3)\,T_0$).
     \item The Axiom~4 saturation correction $S(r) = \sqrt{1-r^2}$ is essential for the melting point ($+2.31\% \to +0.14\%$) but inapplicable to the enthalpy of vaporisation (well depth $\neq$ spring stiffness).
     \item The 3D LC lattice topology (via the substrate packing fraction $P_C = 8\pi\alpha$) grounds properties such as surface tension in uniform geometric limits rather than heuristic orientational averages.
 \end{itemize}
