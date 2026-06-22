@@ -172,3 +172,6 @@ guest-session/
 # electron-genesis showcase: large deterministic capture intermediate (regenerate
 # via electron_genesis_capture.py; figures + validation JSON are committed)
 research/figures/*.npz
+
+# kit release artifacts (built by package_kit_release.py)
+dist/
