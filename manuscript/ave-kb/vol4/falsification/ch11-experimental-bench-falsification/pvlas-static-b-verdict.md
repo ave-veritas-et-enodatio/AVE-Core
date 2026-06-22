@@ -37,7 +37,14 @@ $$
 $$
 
 The vacuum stays at $Z_{eff}=Z_0$ and is **transparent** — independent of how large the static field
-is. The engine sweep confirms $\delta n_\mu = 0$ flat across $2.5\,\text{T}\to1\,\text{kT}$.
+is. This is **analytically exact**, not a numerical fit: the kernel argument $A_I=I_{vac}/I_{max}$ is
+*identically zero* under a static $\mathbf B$, so $S_\mu=\sqrt{1-0^2}=1$ at **every** field strength
+(hence trivially "flat" across $2.5\,\text{T}\to1\,\text{kT}$). The direct-kernel positive control
+`src/tests/test_vca_node_regime_sweep.py` (which evaluates the Axiom-4 kernel directly, **not** the
+fdtd engine) confirms $S_\mu=1$, $\delta n_\mu=0$ at $B=2.5,10,50,100,500,1000$ T. (The fdtd engine
+would **not** reproduce this — it carries the live $|\mathbf B|$-keying VCA-R01 defect; see the
+node-up code note,
+[`node-up-small-large-signal.md`](../../circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md):§5.)
 
 > **Not $B_{SNAP}$.** $B_{SNAP}=1.89\times10^9$ T is an energy-density scale
 > ($B_{SNAP}^2/2\mu_0 = m_ec^2/\ell_{node}^3 = 1$), **not** the $\mu$-grade kernel argument. There is

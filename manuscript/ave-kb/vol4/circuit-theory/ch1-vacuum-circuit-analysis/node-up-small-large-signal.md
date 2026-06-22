@@ -76,11 +76,19 @@ under a given drive. Three regimes span the cases relevant to gravity, the bench
   has no $\partial\mathbf B/\partial t$ to load the $\mu$ grade, so it loads $\varepsilon$ only.
   $Z$ changes → $\Gamma\ne0$ → the vacuum-impedance-mirror bench mechanism. This is the **E-route**,
   and it is where the leading $\delta n\approx\tfrac14 A_V^2$ (and the OQ-1 par−perp differential
-  $-\tfrac12 A_V^2$) lives. Verified sweep: $\delta n\approx\tfrac14(E/E_{yield})^2$ ($\mu$ unloaded).
+  $-\tfrac12 A_V^2$) lives. **Analytic V-keyed (varactor) law:** $S_\varepsilon=\sqrt{1-A_V^2}$,
+  $S_\mu=1$ ⟹ $\delta n=\sqrt{S_\varepsilon}-1\to-\tfrac14 A_V^2$ to leading order
+  ($A_V=E/E_{yield}$, $\mu$ unloaded). Direct-kernel positive control (evaluates the kernel, NOT
+  the fdtd engine): `src/tests/test_vca_node_regime_sweep.py` (R2 sweep $E=10^{12}$–$10^{17}$ V/m;
+  leading coefficient computed $=\tfrac14$).
 - **R3 (static-B)** is the magnet case. $\partial\mathbf B/\partial t = 0$ ⟹ no internal vacuum
   circulation ⟹ $I_{vac}=0$ ⟹ $A_I=0$ ⟹ $S_\mu=1$ ⟹ $\mu_{eff}=\mu_0$ ⟹ $\delta n_\mu = 0$
-  **exactly**. Verified flat across $2.5\,\text{T}\to1\,\text{kT}$: the $\mu$-grade index shift is
-  identically zero, independent of static field strength.
+  **analytically exact**. This is "flat" across $2.5\,\text{T}\to1\,\text{kT}$ **trivially**: the
+  kernel argument $A_I=I_{vac}/I_{max}$ is *identically zero* under a static $\mathbf B$, so
+  $S_\mu=\sqrt{1-0^2}=1$ at **every** field strength — not a numerical finding but a consequence of
+  the $\mu$-grade being keyed on circulation, not $|\mathbf B|$. Direct-kernel positive control
+  (evaluates the Axiom-4 kernel directly, NOT the fdtd engine): `src/tests/test_vca_node_regime_sweep.py`
+  ($S_\mu=1$, $\delta n_\mu=0$ at $B=2.5,10,50,100,500,1000$ T).
 
 ## §3 — Small-signal probe → $\delta n$
 
@@ -145,7 +153,7 @@ claim that *any* DC bias scales both; a static-external single-grade drive is R2
 | $L_{eff}=L_0/S(A_I)$, relativistic inductor keyed on $I$; $I_{max}=\xi_{topo}c$ | **DERIVED** | clm-p5cf3t ([`relativistic-inductor.md`](relativistic-inductor.md):15,:18), Topo-Kinematic mapping |
 | R1 symmetric: $S_\varepsilon=S_\mu=S\Rightarrow Z=Z_0$ reflectionless | **DERIVED** | INVARIANT-S2 W6 (`manuscript/ave-kb/CLAUDE.md`:75) |
 | R2 static-E: $S_\varepsilon<1,S_\mu=1\Rightarrow Z_0/\sqrt{S_\varepsilon}$, $\delta n\approx\tfrac14 A_V^2$ | **DERIVED** | W6 static-E asymmetric clause + Op14 Meissner-asymmetric $Z_{eff}=Z_0\sqrt{S_\mu/S_\varepsilon}$ |
-| R3 static-B: $S_\mu=1\Rightarrow\delta n_\mu=0$ exactly | **DERIVED** | $I$-keyed inductor + Lenz (no $dI/dt$ ⟹ no internal circulation); confirmed 2.5 T–1 kT sweep |
+| R3 static-B: $S_\mu=1\Rightarrow\delta n_\mu=0$ exactly | **DERIVED (analytically exact)** | $I$-keyed inductor + Lenz (no $dI/dt$ ⟹ $I_{vac}=0$ ⟹ $A_I=0$ ⟹ $S_\mu=1$ identically); direct-kernel positive control `src/tests/test_vca_node_regime_sweep.py` |
 | $B_{SNAP}$ = energy-density scale, not $\mu$-kernel argument | **DERIVED** | $B_{SNAP}^2/2\mu_0 = m_ec^2/\ell_{node}^3 = 1$ |
 | OQ-1 par−perp differential $-\tfrac12 A_V^2$, ratio $7.5/\alpha^3$ | **DERIVED (E-route)** | clm-pp3qwf; the magnitude is an $\alpha$-echo (value rides $\alpha^{-3}$) |
 | Which grade is "magnetic primary" vs "capacitive primary" under chirality | **ASSERTED** (degenerate) | wall-branch fork B3-DEGENERATE (PR#260); mute on this leaf's static-field result |
@@ -176,9 +184,20 @@ claim that *any* DC bias scales both; a static-external single-grade drive is R2
 > distinct $\mu$-saturation paths coexist (the simple $\mu_{eff}(|B|)$ and the chirality-aware
 > `_update_saturation_kernels(\omega,\dots)` in `cosserat_field_3d.py`) and a correct fix must
 > reconcile both; (3) `scale_invariant.mu_eff()` is called from 8 modules passing a B-magnitude.
-> The bug is machine-confirmed by the regression test
-> `src/tests/test_vca_r01_static_b_mu_keying.py` — the desired R3 behaviour (static B → $S_\mu=1$) is
-> an `xfail` that flips to PASS once VCA-R01 is fixed; a positive-control test confirms the live
-> $|B|$-keyed defect is present (not a phantom). `code_fix_decision = flagged-for-separate-PR-bug-documented`.
+>
+> **Engine-vs-direct-kernel (the gap IS the defect).** Evaluating the Axiom-4 kernel **directly** on
+> the canonical $I$-keyed argument gives $A_I=I_{vac}/I_{max}=0$ ⟹ $S_\mu=1$ ⟹ $\delta n_\mu=0$
+> (regime R3, analytically exact) — this is the direct-kernel positive control
+> `src/tests/test_vca_node_regime_sweep.py`. The **fdtd engine** would NOT reproduce this: it keys
+> $\mu$-saturation on the static $|\mathbf B|$ (against $b_{yield}=B_{SNAP}$), so a large static
+> $\mathbf B$ drives $\mu_{eff}\to0$ there. *That gap — direct-kernel $\delta n_\mu=0$ vs the engine's
+> $|B|$-keyed $\mu_{eff}\to0$ — is precisely the documented VCA-R01 defect.* The defect is
+> machine-confirmed by the regression test `src/tests/test_vca_r01_static_b_mu_keying.py` — the
+> desired R3 behaviour (static B → $S_\mu=1$) is an `xfail` that flips to PASS once VCA-R01 is fixed;
+> a positive-control assertion inside that same file confirms the live $|B|$-keyed defect is present
+> (not a phantom). The two tests are **explicitly distinct**: `test_vca_node_regime_sweep.py`
+> confirms the *analytic node-up laws* at the kernel level (independent of the engine bug);
+> `test_vca_r01_static_b_mu_keying.py` documents the *engine* defect.
+> `code_fix_decision = flagged-for-separate-PR-bug-documented`.
 
 ---
