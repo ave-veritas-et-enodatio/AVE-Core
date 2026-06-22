@@ -1357,3 +1357,38 @@ The electron's EE field components — a real (resistive/radiative) part $R$ and
   - Quantify the static-B sensitivity threshold at which an AVE no-static-B prediction becomes distinguishable from QED's $\sim10^{-23}$ (currently a categorical chord, not a numbered bound).
 
 ---
+
+## Graded-Network Response: TLM Dispersion + Symmetric/Asymmetric Loading
+<!-- id: clm-gvn4r1 -->
+
+- The K4 lattice is a **graded LC transmission line**: per-node $L_{cell}=\mu_0\ell_{node}$, $C_{cell}=\varepsilon_0\ell_{node}$ wired by $z=3$ mutual inductive struts. This leaf assembles the single-node response (clm-vca7r1) into the network layer and reads off the four consequences a single node cannot host (dispersion, graded index, macroscopic bridge, boundary $\Gamma$, route-separability). **Class-C CONSISTENCY re-expression** (matches the per-DOF / device-network tags); originates no new substrate primitive and no new dimensionful value.
+- _Specific Claims_
+  - **Dispersion (Q1):** the lossless LC ladder gives $\omega(q)=(2c_0/\ell_{node})|\sin(q\ell_{node}/2)|$; the continuum limit recovers $c_{EM}=c_0$ and $Z_0=\sqrt{\mu_0/\varepsilon_0}=376.73\,\Omega$ EXACTLY ($\ell_{node}$ cancels — **validate-on-known**, NOT emergence). The leading $(q\ell_{node})^2$ term is an **isotropic scalar** (K4 2nd-moment tensor $=(4/3)\mathbb{I}$); the **first anisotropic invariant is QUARTIC** $(q\ell_{node})^4$ (cubic harmonic $q_x^4+q_y^4+q_z^4$), set by the tetrahedral 4th moment — reproduces preferred-frame:48,:50 (clm-yr6tu4) network-up.
+  - **Graded index (Q2):** a spatial bias $A_0(x)$ projects through the single Axiom-4 kernel onto both grades. **SYM co-grade** ($S_\varepsilon=S_\mu=S$) ⟹ $Z(x)=Z_0$ invariant ⟹ reflectionless lens ($n=1/\sqrt{S}$, $\delta n\approx+\tfrac14 A^2$) = the achromatic-impedance-matching leaf (clm-rd9cjm) = gravity-as-graded-index. **ASYM static-E** ($S_\mu=1$ forced by zero circulation) ⟹ $Z(x)=Z_0(1-A^2)^{-1/4}$ varies ⟹ reflective ($\delta n\approx-\tfrac14 A^2$) = the vacuum-impedance mirror. One network, two regimes; the switch is loading-symmetry, not gradient profile.
+  - **Macroscopic bridge (Q3, load-bearing):** per-node $\delta n$ accumulates as the standard coherent optical-path integral $\phi=(2\pi/\lambda)\int n\,dl$ — $\ell_{node}$ cancels exactly (like $v_g=c$) — times the Fabry-Perot finesse build-up $(2F/\pi)$, NOT a per-node $\times N$ count. The birefringence COEFFICIENT $7.5/\alpha^3\approx1.93\times10^7$ (clm-pp3qwf) SURVIVES the node→macroscopic translation intact. This re-grounds the **already-canonical** OQ-1 field→cavity coupling (claim-quality.md:391); it does NOT re-derive it.
+  - **Boundary $\Gamma$ (Q4):** governed by co-grading SYMMETRY. SYM ⟹ $Z=Z_0$ everywhere ⟹ $\Gamma=0$ ACHROMATIC even at an abrupt $n$-jump (light bends, never reflects = AVE-distinct). ASYM static-E ⟹ $\Gamma\ne0\approx A^2/8$ (Fabry-Perot fringes; adiabatic-taper suppression $\sim L^{-2}$).
+  - **Routes don't mix (Q5):** $\varepsilon$(E-route) and $\mu$(B-route) are structurally decoupled at network scale (different kernel arguments; static E has no $dB/dt$). The static-B-transparent verdict (clm-pvlas1) is ROBUST at network scale.
+- _Specific Non-Claims and Caveats_
+  - **CATEGORY-ERROR GUARD:** the chiral circulator / $H_{couple}$ wires the MECHANICAL bulk(A1/mass) grade to the shear(Cosserat/charge) grade — NEITHER is the $\varepsilon$-varactor nor the $\mu$-inductor of the EM-transverse port. It is NOT the $\varepsilon$/$\mu$ route-coupling element and its magnitude is un-computed (STATED-pending-engine, cvr_model.py:243).
+  - **SCOPE GUARD on the $(q\ell_{node})^4$ chord:** it is a chord ONLY because the lattice is cubic/tetrahedral (a generic lattice gives $(q\ell_{node})^2$ anisotropy) AND only at the FORM level (magnitude IMPORTED, per-dof:71). Do NOT headline the network re-grounding as a solidity lift. The no-LIV continuum-limit theorem remains OPEN (gate `wejkhvnfb`).
+  - The birefringence-coefficient MAGNITUDE $1.93\times10^7=7.5/\alpha^3$ is an **$\alpha$-echo** at the value level (claim-quality.md:399,405). The AVE-distinct chord is existence-of-saturation (tree-level $O(1)$) + the static-B exact-zero.
+
+> **Leaf references:** [graded-network-response](./circuit-theory/ch1-vacuum-circuit-analysis/graded-network-response.md).
+
+### Quality
+- confidence: 0.83
+- depends-on:
+  - clm-vca7r1 (node-up single-tank R1/R2/R3 operating points; static-field grade asymmetry)
+  - clm-pp3qwf (E-route birefringence differential coefficient $7.5/\alpha^3$)
+  - clm-yr6tu4 ($(q\ell_{node})^4$ cubic-symmetry anisotropy; weak-C scoped)
+  - clm-rd9cjm (achromatic impedance matching = the SYM-loading limit)
+  - clm-p5cf3t (relativistic inductor; $I$-keyed $\mu$-sector)
+  - Axiom 4 (universal saturation kernel, projected onto each grade)
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.83, 0.55)]
+- rationale: The network layer is clean projections of already-derived primitives onto the LC-ladder framing — $c_{EM}=c_0$/$Z_0$ are validate-on-known (the $\ell_{node}$ cancellation, z0-derivation:37,:40), the $(q\ell_{node})^4$ tell is the K4 4th-moment cubic harmonic (preferred-frame:48,:50, clm-yr6tu4's 0.78 weak-C band), and the SYM/ASYM regimes are the achromatic-lens (clm-rd9cjm) and vacuum-impedance-mirror (clm-pp3qwf) limits of one graded network. The macroscopic bridge re-grounds the already-CLOSED OQ-1 coupling (claim-quality.md:391); the coefficient survives because $\ell_{node}$ cancels and $g_{eff}$ cancels in the AVE/QED ratio. No new free parameter. **Solidity capped at 0.55 by the lowest dependency, clm-rd9cjm (achromatic impedance matching, vol3:0.55) — the SYM-loading limit this leaf extends; "use as input only, don't build deeper" until that parent strengthens.** The chord content (the $(q\ell_{node})^4$ form, the achromatic $\Gamma=0$ null, the static-B exact-zero, route-cleanness) is independently grounded in clm-yr6tu4 / clm-vca7r1 / clm-pvlas1 and is NOT capped down by the achromatic-lens magnitude; the 0.55 reflects the build-on-this metadata floor, not the chord-vs-echo verdict.
+- strengthen-by:
+  - Close the no-LIV / exact-continuum-limit decoupling theorem (gate `wejkhvnfb`) so the $(q\ell_{node})^4$ horn is a derived theorem, not a regime-grounded prediction.
+  - Compute the chiral-circulator non-reciprocity magnitude (pending the chiral-crystal engine, cvr_model.py:243) — needed for any NON-RECIPROCAL boundary $\Gamma$ ($S_{21}\ne S_{12}$) bench observable.
+  - A K4-native graded-$A_0(x)$ FDTD confirmation (CPML, PML-excluded probe, reactance-pair tracking of both $V$ and $I$ states) once the VCA-R01 engine $\mu$-keying bug is fixed.
+
+---

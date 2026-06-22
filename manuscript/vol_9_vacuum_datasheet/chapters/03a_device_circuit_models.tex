@@ -119,6 +119,36 @@ The substrate-native graded-vacuum-network isolation eigensolver yields a lossle
 
 \input{figures/node_circulator_ring.tex}
 
+\subsection{Graded-Network Small-Signal Response (TLM dispersion + symmetric/asymmetric loading)}
+\label{sec:vol9_graded_network_response}
+
+\noindent\textbf{Canonical source (KB).} The network-layer response sits ABOVE the single vacuum node (\kbleaf{ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md}, clm-vca7r1). Its full derivation --- the LC-ladder dispersion, the $(q\,\ell_{\mathrm{node}})^4$ anisotropy tell, the symmetric/asymmetric graded-index regimes, the macroscopic bridge, the boundary $\Gamma$, and the route-separability guard --- is the canonical leaf \kbleaf{ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/graded-network-response.md} (clm-gvn4r1). Edit the KB leaf first; this section is the manuscript render.
+
+\noindent\textbf{Classification.} Class-C \textsc{consistency} re-expression (matches the per-DOF and device-network tags; per \textsc{invariant-n1} the network is the circuit MODEL of the medium, not a new substrate-noun, \S\ref{sec:vol9_graded_vacuum_network}). $c_{\mathrm{EM}}=c_0$ and $Z_0=376.73\,\Omega$ are \textbf{validate-on-known} anchors recovered from the ladder continuum limit, \emph{not} emergence. The re-grounding does \emph{not} lift solidity.
+
+\medskip\noindent\textbf{Dispersion (Q1).} The K4 lattice is a graded LC transmission line: per-node $L_{\mathrm{cell}}=\mu_0\ell_{\mathrm{node}}$, $C_{\mathrm{cell}}=\varepsilon_0\ell_{\mathrm{node}}$ wired by the $z=3$ mutual inductive struts. The lossless ladder gives $\omega(q)=(2c_0/\ell_{\mathrm{node}})\,|\sin(q\ell_{\mathrm{node}}/2)|$; the continuum limit recovers $c_{\mathrm{EM}}=\ell_{\mathrm{node}}/\sqrt{L_{\mathrm{cell}}C_{\mathrm{cell}}}=c_0$ and $Z_0=\sqrt{L_{\mathrm{cell}}/C_{\mathrm{cell}}}=\sqrt{\mu_0/\varepsilon_0}$ exactly ($\ell_{\mathrm{node}}$ cancels --- the naive $1/\sqrt{LC}$ is off by $1/\ell_{\mathrm{node}}\sim10^{12}$, the documented validate-on-known gate). The leading $(q\ell_{\mathrm{node}})^2$ term is an \textbf{isotropic scalar} (K4 2nd-moment tensor $=(4/3)\mathbb{I}$); the \textbf{first anisotropic invariant is QUARTIC}, $(q\ell_{\mathrm{node}})^4$ (cubic harmonic $q_x^4+q_y^4+q_z^4$), set by the tetrahedral 4th moment ($0.444$ cube / $0.889$ face / $1.037$ bond axis). This is the photon's first anisotropy and is the AVE-distinct FORM-level CHORD; the magnitude ($\sim2.2\times10^{-22}$ at $633$ nm optical, $3.5\times10^{-39}$ at $30$ GHz microwave) is \textbf{imported, not derived} (\kbleaf{ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md}, clm-yr6tu4, weak-C scoped).
+
+\medskip\noindent\textbf{Graded index --- one network, two regimes (Q2/Q4).} A spatial bias $A_0(x)$ projects through the single Axiom-4 kernel onto both grades. The switch between a reflectionless lens and a reflective mirror is the \emph{loading symmetry}, not the gradient profile:
+
+\begin{table}[htbp]
+\centering\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}p{2.7cm} l l p{3.6cm}@{}}
+\toprule
+\textbf{Loading} & \textbf{$Z(x)$} & \textbf{$\delta n$} & \textbf{Boundary $\Gamma$} \\
+\midrule
+SYM co-grade (gravity-class) & $Z_0$ invariant & $+\tfrac14 A^2$ & $\Gamma=0$ achromatic (even at an abrupt $n$-jump) \\
+ASYM static-$\mathbf E$ ($S_\mu{=}1$) & $Z_0(1{-}A^2)^{-1/4}$ varies & $-\tfrac14 A^2$ & $\Gamma\ne0\approx A^2/8$ (FP fringes; taper-suppressed) \\
+\bottomrule
+\end{tabular}
+\caption{$Z(x)=Z_0\sqrt{S_\mu/S_\varepsilon}$; SYM gives $n=1/\sqrt{S}$. The SYM limit is the achromatic-impedance-matching leaf (gravity-as-graded-index); the ASYM limit is the vacuum-impedance mirror. The graded factor $S$ cancels in the impedance RATIO (SYM) but not in the MAGNITUDE (grading the index either way). Canonical source: \kbleaf{ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/graded-network-response.md} \S2--\S4.}
+\label{tab:vol9_graded_network_regimes}
+\end{table}
+
+\medskip\noindent\textbf{Macroscopic bridge (Q3, load-bearing).} Per-node $\delta n$ accumulates as the standard coherent optical-path integral $\phi=(2\pi/\lambda)\int n\,dl$ --- $\ell_{\mathrm{node}}$ cancels exactly (the same cancellation as $v_g=c$) --- times the Fabry-Perot finesse build-up $(2F/\pi)$, \emph{not} a per-node $\times N$ multiplication and \emph{not} a $\sqrt{N}$ random walk. So the birefringence COEFFICIENT $\delta n_{\mathrm{AVE}}/\delta n_{\mathrm{QED}}=7.5/\alpha^3\approx1.93\times10^7$ SURVIVES the node$\to$macroscopic translation intact ($g_{\mathrm{eff}}$ cancels in the AVE/QED ratio; the $(q\ell_{\mathrm{node}})^4$ correction is $15$--$21$ OOM below the field signal and anisotropic-only). This re-grounds the already-canonical OQ-1 field$\to$cavity coupling (\kbleaf{ave-kb/vol4/claim-quality.md}, OQ-1 DERIVED/CLOSED 2026-06-21; driver \texttt{src/scripts/vol\_9\_device/oq1\_field\_to\_cavity\_phase\_coupling.py}); it does \emph{not} re-derive it.
+
+\medskip\noindent\textbf{Routes don't mix (Q5) --- category-error guard.} At the network scale the $\varepsilon$-route (static-$\mathbf E$) and $\mu$-route (static-$\mathbf B$) are structurally decoupled (different kernel arguments; static $\mathbf E$ has no $\partial\mathbf B/\partial t$, so $S_\mu=1$ exactly), so the static-B-transparent verdict is ROBUST at network scale. \textbf{The chiral circulator is NOT the $\varepsilon$/$\mu$ route-coupling element:} it wires the mechanical bulk(A1/mass) grade to the shear(Cosserat/charge) grade (\S\ref{sec:vol9_node_circulator_ring}, device-circuit-models \S6.3), NEITHER of which is the $\varepsilon$-varactor or $\mu$-inductor of the EM-transverse port; citing it as the route-coupling is a category error (its magnitude is also un-computed, STATED-pending-engine). The macroscopic bridge is \emph{finesse}-accumulation $(2F/\pi)$, \emph{not} per-node $\times N$ --- this is the distinction the diagram must preserve.
+
 \subsection{Cascaded Vacuum Line (Device String)}
 \label{sec:vol9_cascaded_vacuum_line}
 

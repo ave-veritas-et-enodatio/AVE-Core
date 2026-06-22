@@ -265,6 +265,7 @@
 {"claim_id": "clm-ghs75o", "leaf_path": "vol2/appendices/app-b-paradoxes/peierls-nabarro-paradox.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-gr8d63", "leaf_path": "common/two-engine-architecture-a027.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-gv1wu4", "leaf_path": "vol4/falsification/ch11-experimental-bench/measurement-hierarchy-snr.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-gvn4r1", "leaf_path": "vol4/circuit-theory/ch1-vacuum-circuit-analysis/graded-network-response.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-gw2wgc", "leaf_path": "vol4/falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-gw2wgc", "leaf_path": "vol4/falsification/ch11-experimental-bench/epistemology-kill-switches.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-gw2wgc", "leaf_path": "vol4/falsification/ch12-falsifiable-predictions/binary-kill-switches.md", "leaf_kind": "leaf", "tier2_marked": false}
