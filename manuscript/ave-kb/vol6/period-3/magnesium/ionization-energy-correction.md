@@ -47,7 +47,7 @@ $$
 > $$
 >     IE_\text{Mg, AVE} = 7.59\;\text{eV} \quad (\text{exp: } 7.646\;\text{eV}, \quad \Delta = -0.7\%)
 > $$
- This resolves the prior $+3.5\%$ residual with zero free parameters.  The correction is gated to $n_\text{adjacent} \geq 2$ (inner shell has $p$-subshells), ensuring mutual exclusivity with the Be-type hierarchical cascade.  See Vol. 2 for the full derivation.
+ This resolves the prior $+3.5\%$ residual with zero fit constants given the standard $[\text{Ne}]\,3s^2$ filling order (an asserted input, not derived here); the accuracy is gated against the engine's pinned reference values rather than against a NIST-exact target.  The correction is gated to $n_\text{adjacent} \geq 2$ (inner shell has $p$-subshells), ensuring mutual exclusivity with the Be-type hierarchical cascade.  See Vol. 2 for the full derivation.
 
 \begin{summarybox}
 \begin{itemize}

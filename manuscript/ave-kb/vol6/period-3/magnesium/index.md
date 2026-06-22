@@ -16,7 +16,7 @@ Magnesium-24 ($Z=12$, $A=24$) is a perfect $6\alpha$ Octahedron: 6 Alpha cluster
 |---|---|
 | CODATA mass | $22\,335.793$ MeV |
 | Core geometry | $6\alpha$ Perfect Octahedron at $R_{\text{oct}} = 78.0\,d$ |
-| Coupling pairs | 15 inter-alpha pairs (12 edge-adjacent at $R\sqrt{2}$, 2 face-diagonal + 1 body-diagonal at $2R$) |
+| Coupling pairs | 15 inter-alpha pairs (12 edge-adjacent at $R\sqrt{2}$, 3 antipodal body-diagonal at $2R$) |
 | Operating point | $V_R/V_{BR} = 0.040$, $M = 1.000$ (Small Signal) |
 | SPICE parameters | 276-element network (24 nucleons $\times$ 23/2) |
 | EE equivalent | 6-phase balanced Wheatstone bridge |
