@@ -10,13 +10,12 @@ claims: [clm-a95yx1, clm-y7uvdc]
 
 ### The Topological Hydrogen Atom (Protium)
 
-In standard quantum mechanics, the inability to define precise simultaneous coordinates for the electron gave rise to the Schrodinger equation, treating the atomic orbital as a probabilistic "cloud." Within the Applied Vacuum Engineering (AVE) framework, this probability heuristic is superseded by deterministic, continuous topology.
+In standard quantum mechanics, the inability to define precise simultaneous coordinates for the electron gave rise to the Schrodinger equation, treating the atomic orbital as a probabilistic "cloud." Within the Applied Vacuum Engineering (AVE) framework, this orbital is re-described as a deterministic, continuous topological standing wave -- a substrate-mechanism account that recovers the same atomic structure as standard quantum mechanics (peer-with-QM, not a distinct empirical prediction).
 
 Because the vacuum is a highly constrained substrate elastodynamic medium, particles are not dimensionless points; they are localized geometric LC standing waves (Topological Solitons). The Hydrogen atom (Protium) is therefore strictly defined as a topological hierarchy: a $6^3_2$ Borromean linkage (the proton) acting as a massive central inductive core, orbited by the electron's $0_1$ unknot flux tube (carrying the canonical $(2,3)$ phase-space Clifford-torus winding per [Vol 1 Ch 8](../../../vol1/ch8-alpha-golden-torus.md)) surfing the induced refractive gradient.
 
 #### The Geometric Bohr Radius ($a_0$)
 
-<!-- [2026-06-15 KB-reconciliation (vol_6 brief §A.2) -- prior wording preserved per Rule 12]: the alpha caveat below is ADDED; the $l_{node}$ / "base coherence length" / fundamental-metric-unit framing is UNCHANGED (GATED pending the grid-pitch ruling, vol_6 brief §B.2 -- do not edit). SUPERSEDED framing: "($\alpha_{geom}^{-1} \approx 137.036$)" was presented as a clean geometric property of the Golden Torus with no input/ECHO/Class-B caveat. Corrected: alpha is a retained INPUT (value-scoped echo beneath the canonical Class-B identification, resting on R*r=1/4 which the substrate does not independently select). Byte-identical twin 03_hydrogen.tex:55. (Do not introduce the auditor-only alpha-value-fraction figure -- it is not a corpus string.) -->
 The distance at which the electron organically stabilizes is not governed by a postulated angular momentum operator, but by the macroscopic impedance of the spatial medium itself. The base coherence length of the continuous vacuum ($l_{node}$) acts as the fundamental metric unit. When mapped through the topological surface impedance of the Golden Torus ($\alpha_{geom}^{-1} \approx 137.036$ — a retained calibration _input_, not a substrate-selected output: its value is a value-scoped echo beneath the canonical Class-B identification, resting on $R \cdot r = 1/4$ which the substrate does not independently select, per [Vol 1 Ch 8](../../../vol1/ch8-alpha-golden-torus.md)), the spatial separation expands deterministically to the Bohr radius:
 
 $$
@@ -37,7 +36,7 @@ $$
 E_k = \frac{1}{2} m_e v_e^2 = \frac{1}{2} m_e (\alpha_{geom} c)^2 \approx 13.606 \text{ eV}
 $$
 
-This macroscopic derivation identically matches the empirical Rydberg energy limit without invoking any non-deterministic quantum probability amplitudes.
+This classical LC standing-wave route reproduces the empirical Rydberg energy by direct substitution of the AVE definitions of $l_{node}$ and $\alpha_{geom}$ -- an algebraic consistency identity recovering the same value as the quantum-mechanical result, not a distinct prediction.
 
 #### Phase-Locked Quantization (The de Broglie Resonance)
 
