@@ -1,0 +1,5 @@
+# Generated print artifacts — regenerate with:
+#   PYTHONPATH=src python src/scripts/vol_1_foundations/generate_vacuum_lattice_kit.py
+# The generators (src/scripts/vol_1_foundations/kit_*.py + generate_vacuum_lattice_kit.py)
+# are the source of truth; the watertight STLs are reproducible and not tracked.
+*.stl

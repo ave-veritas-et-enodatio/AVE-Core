@@ -2,93 +2,146 @@
 
 <!-- kb-frontmatter
 kind: leaf
-no-claim: "Vol-9 Ch.18 experimental-prints routing leaf: documents FDM kit exports and topology laboratory exercises only. No new substrate-physics claim — identity-class consistency on discrete graph isomorphism."
+no-claim: "Vol-9 Ch.18 experimental-prints routing leaf: documents the rebuilt FDM vacuum-lattice kit (real-space / DOF-basis / phase-space three-tier representation) and its topology-laboratory exercises. No new substrate-physics claim — identity-class consistency on the K4-graph diamond topology, with absolute scale tagged [RENDERING]."
 -->
 
 # Experimental Prints — Topology Laboratory Exercises
 
-> **PROVISIONAL / WORK-IN-PROGRESS.** The emitted STLs are geometry-faithful previews of the engine diamond-K4 topology, but are **not yet watertight or print/mate-validated**. Known limitations: (a) the boolean-CSG export is not yet welded watertight — the node meshes reload non-manifold (`vacuum_node_A_capacitive.stl` and `vacuum_node_B_inductive.stl` reload `watertight=False`, `is_volume=False`; the bond reloads `watertight=True` but `is_volume=False`); the kit driver now runs an on-disk QC that reports the true reloaded state per part. (b) bond↔socket press-fit interference is currently **0 mm** — the parts will **not** mate as-is. Mesh remediation is tracked.
+Vol.~9 Ch.~18 documents **bench-adjacent pedagogical exercises** using a 3D-printable kit that renders the production diamond K4 vacuum lattice. These are **not** falsification experiments (Ch.~15) and **not** numerical simulations (Ch.~17). They are **hands-on consistency checks** that the exported graph matches the engine substrate (`build_diamond_net`).
 
-Vol.~9 Ch.~18 documents **bench-adjacent pedagogical exercises** using 3D-printable exports of the production diamond K4 vacuum lattice. These are **not** falsification experiments (Ch.~15) and **not** numerical simulations (Ch.~17). They are **hands-on consistency checks** that the exported graph matches the engine substrate (`build_diamond_net`).
+> **STATUS — REBUILT + VALIDATED (2026-06-21).** The kit was rebuilt from the cube/sphere preview into a representative, printable model. All ~25 part STLs reload **watertight + `is_volume=True`** (verified on-disk; the saved-QC gate is GATING — the generator exits non-zero if any gated part fails). Press-fit interference is **0.10 mm diametral**. The legacy limitations (non-manifold node STLs; 0 mm press-fit) are **resolved** and are recorded below under *Resolved status* for provenance — they are not current.
 
 ## Epistemic position
 
 | Aspect | Status |
 |---|---|
-| **What is verified** | Graph isomorphism: bipartite A/B nodes, $z=4$ Op5 ports, TL bonds along tetrahedral NN vectors |
-| **What is NOT verified** | Physical absolute scale, sub-node body resolution, particle mass sizes |
+| **What is verified** | Graph isomorphism: bipartite A/B nodes, $z=4$ tetrahedral ports, TL bonds along the tetrahedral NN vectors (kit port dirs $==$ engine `_DIAMOND_PORTS`; all bonds bipartite A–B; port-pair angle $109.47° = \arccos(-1/3)$) |
+| **What is NOT verified** | Physical absolute scale, sub-node body resolution, particle mass sizes; no LC dynamics; no $(2,q)$ phase-space windings as geometry |
 | **Scale class** | **[RENDERING]** per [`assets/3d_models/ACCURATE_SCALING.md`](../../../../assets/3d_models/ACCURATE_SCALING.md) |
-| **Discipline** | `consistency-vs-emergence` v1.3: **identity-class consistency** on discrete topology |
+| **Discipline** | `consistency-vs-emergence` v1.3: **identity-class consistency** on discrete topology. No new substrate-physics claim is asserted by a printed model. |
 
-Corpus $\ell_{node} \approx 386\,\mathrm{fm}$. **Kit default print pitch: $100\,\mathrm{mm}$ per $\ell_{node}$** (~10.4 mm hex collar flat-to-flat). Corpus mnemonic $38.6\,\mathrm{mm}$ is documented separately — too fine for most FDM. Override: `KIT_PRINT_MM_PER_L_NODE` (try 80–100).
+A printed model is a **real-space object**; this fixes what it can and cannot honestly represent — the governing principle below.
 
-**Print pose.** Kit STLs export bed-ready (`stl_export_frame: print_pose` in manifest): Type-A cube face flat; Type-B L-ring in XY; bond axis vertical (+Z). Assembly coordinates in the JSON remain engineering-frame.
+## The representation principle (three coordinate tiers)
+
+A 3D print lives in real space, so each canonical quantity is rendered only in the tier it actually inhabits:
+
+| Quantity | Coordinate system | Representation in the kit |
+|---|---|---|
+| Node positions, bonds, 4 tetrahedral ports | **real space** | **isomorphic** — the printed skeleton (degree-4 diamond, true $\sqrt{3}\,\ell_{node}$ pitch) |
+| Translational vs micro-rotational vs breathing DOF basis | real-space *directions* at each node | **snap-on color accents** — triad ($\mathbf E$) + 3 rings ($\mathbf B$) + breathing core ($V$) |
+| LC-tank saturation-amplitude $A$, $(V_{inc}, V_{ref})$ phasor / impedance plane | **phase space** | **labeled proxy only** — impedance disc + phasor dial, never a printed length |
+
+**Real space is isomorphic.** The kit prints the degree-4 diamond production net with an **identical solid node body for both A and B** sublattices, four tetrahedral hex sockets, and bonds at the true $\sqrt{3}\,\ell_{node}$ pitch. **A/B is the bipartite SUBLATTICE label only** (shown by color + a snap-on embossed A/B key) — *not* the old cube-vs-sphere storage split. Per Axiom 1 (Ch.~9), **every** node is a full LC oscillator carrying all 6 spatial DOF (3 translational $\to \mathbf E$ store *and* 3 microrotational $\to \mathbf B$ store); the prior `_capacitive` (A) / `_inductive` (B) shapes encoded a denied storage asymmetry and have been removed.
+
+**The DOF basis is shown by accents, not by node shape.** Three snap-on color-accent parts, identical on every node:
+
+- **triad_E** — 3-axis orthogonal triad = 3 translational DOF $\to \mathbf E$ / dielectric displacement $\to \boldsymbol\varepsilon^2$ store.
+- **rings_B** — 3 orthogonal rings = 3 micro-rotational DOF $\to \mathbf B$ / inductive flywheel / spin $\to \boldsymbol\kappa^2$ store.
+- **breathing_V** — a radial breathing indicator at the node core = the **A1 volumetric breathing mode** $\to V^2$ store $=$ **mass**.
+
+This is the **7-mode store split** $A^2 = \varepsilon^2 + \kappa^2 + V^2$ (6 spatial DOF + 1 A1 breathing). The breathing axis is kept **independent of the rotation rings** — **A1 $\perp$ T2** (`master-equation.md:20`): the mass (A1 dilatation) and charge/spin (Cosserat micro-rotation) grades are orthogonal and never share one phasor.
+
+**Phase space is a labeled proxy, never a length.** The LC-tank state — the saturation amplitude $A$ and the $(V_{inc}, V_{ref})$ phasor — is rendered only by a separate **impedance disc + phasor dial**, each stamped **`[STATE-SPACE — NOT A COORDINATE]`** (the physical analog of the `[RENDERING]` scale tag). Because **A1 $\perp$ T2**, the phasor instrument provides *two independent orthogonal* indicators, never one merged dial. The saturation amplitude $A$ is the LC-tank **state**, not a 7th spatial DOF.
 
 ## Production substrate vs chirality instrument
 
 | Export | Engine source | Role |
 |---|---|---|
-| **Production vacuum** | `build_diamond_net` | D1 production K4 (achiral Fd-3m); **this is the exercise substrate** |
-| **srs showpiece** | `build_srs_net` | Degree-3 chirality **acceptance instrument** (optical activity / A1b); **not** the production engine net |
+| **Production vacuum** | `build_diamond_net` | Degree-4 diamond K4 (achiral Fd-3m); **this is the exercise substrate** |
+| **Chiral srs instrument** | `build_srs_net` | Degree-3 chirality **acceptance instrument** (both enantiomorphs $I4_1 32$ right / $I4_3 32$ left, $120°$ bonds); **not** the production engine net |
 
-## Kit SKU (DIY assembly)
+The kit honestly labels its substrate "diamond production K4 (`build_diamond_net`)" and ships the srs piece as a clearly distinct degree-3 instrument with a handedness glyph. The "K4" surface form is a documented three-way overload (axiom-name *chiral Laves K4* $=$ degree-3 srs; engine *K4* $=$ degree-4 diamond; rotation group $K_4$); the kit does not silently conflate them. The kit follows the adjudicated **diamond-primary / achiral-cold** reading: production is the achiral diamond, and chirality is the srs instrument's story.
 
-Three repeatable molds + JSON manifest (`assets/3d_models/kit/`):
+## Kit roster (BOM tiers)
 
-| Part | File | Print count (example $L=4$ starter) |
-|---|---|---|
-| Type-A capacitive cell | `vacuum_node_A_capacitive.stl` | 8 |
-| Type-B inductive cell | `vacuum_node_B_inductive.stl` | 8 |
-| Diamond TL bond insert | `vacuum_tl_bond_diamond.stl` | 14 |
-| Assembly manifest | `vacuum_assembly_L4.json` | 1 |
+Generated by `src/scripts/vol_1_foundations/generate_vacuum_lattice_kit.py`; manifest `assets/3d_models/kit/vacuum_assembly_L4.json` (schema `ave-vacuum-kit/v2`). STL artifacts are **generated (gitignored)** — the generators are the source of truth.
 
-**A/B = bipartite sublattice, not a DOF split.** Type-A / Type-B is the diamond **bipartite sublattice** (and the print's shape / port-orientation key), **not** a partition of the substrate's degrees of freedom. Per Axiom 1 (Ch.~9: 6 DOF per K4 node = 3 translational $\to \mathbf{E}$ *and* 3 microrotational $\to \mathbf{B}$), **every** node is a full LC oscillator carrying all six DOF — both the $\varepsilon_0$ E-store and the $\mu_0$ B-store. The `_capacitive` (A) / `_inductive` (B) tags are an **E-vs-B emphasis mnemonic** giving the two bodies a distinguishable shape (cube vs sphere+ring) for hand assembly; they do **not** mean an A node stores only $\mathbf{E}$ or a B node stores only $\mathbf{B}$.
+| Tier | Parts |
+|---|---|
+| **Structural base** (monochrome, one filament each) | `vacuum_node_A.stl`, `vacuum_node_B.stl`, `vacuum_bond.stl` |
+| **DOF accents** (color per store, snap-on) | `accent_triad_E.stl` (E / $\varepsilon^2$), `accent_rings_B.stl` (B / $\kappa^2$), `accent_breathing_V.stl` (A1 / mass / $V^2$), `key_A.stl`, `key_B.stl` |
+| **Phase space** (state-space proxy) | `phase_impedance_disc.stl`, `phase_dial_body.stl`, `phase_dial_pointer.stl`, `phase_dial2_body.stl`, `phase_dial2_pointer.stl` |
+| **Chiral srs instrument** | `srs_node_right.stl`, `srs_node_left.stl`, `srs_bond.stl`, `srs_handedness_right.stl`, `srs_handedness_left.stl` |
+| **Assembly jig** | `jig_unit_cell.stl`, `jig_tile_*.stl` (tiled to the $250\times210$ bed) |
+| **Reference only** | `reference_tetra_unit_cell.stl` (fused visual preview, not for printing), `scale_plate.stl` |
 
-Bond centre pitch $= \sqrt{3}\,\times$ (mm per $\ell_{node}$); insert length fits port-collar mouths on an A--B pair.
+**Starter chunk ($L=4$ finite crystal).** 16 nodes (8 A + 8 B), 14 bonds; assembled bbox $300\times300\times300$ mm. Node bodies are identical (A/B differ only by key + color).
 
-**Friction-fit joinery (kit v1, PROVISIONAL).** Hexagonal port collars with **hollow socket bores** from a boolean mesh that is *intended* to be watertight but is **not yet** on the saved STLs (see WIP banner — node meshes reload non-manifold). Bond OD is set **equal** to the socket inner flat-to-flat (`KIT_BOND_RADIUS = KIT_SOCKET_RADIUS`), so the actual **bond↔socket interference is 0 mm** and parts will not grip as-is — the `KIT_FRICTION_INTERFERENCE_MM=0.05` default is applied only between the peg and socket, not the bond the kit actually prints. The 0.05 mm/side is the design target, not the shipped press-fit. Regenerate after watertight/press-fit remediation.
+**Hero first print (recommended starter).** A single **tetrahedral unit cell** — 1 node_A + 4 node_B + 4 bonds + accents + `jig_unit_cell` (~9 parts) — shows $z=4$ coordination, A/B bipartiteness, and the tetrahedral ports without the full 30-part $L4$ build.
+
+## Keyed base jig (forced assembly)
+
+The four tetrahedral ports are geometrically identical, so the kit ships a **keyed baseplate** (tiled to the $250\times210$ bed) with **embossed node-id + A/B pockets** and **per-port pips**. A builder drops each node into its keyed pocket and the pips show which port $\to$ which neighbor. The placement map and the port$\to$neighbor map are carried in the manifest (`nodes[].ports`, each `{port: 0–3, neighbor: <node id>}`), so both *where each node goes* and *which port mates which neighbor* are forced rather than guessed.
+
+## Scale and magnification
+
+Corpus $\ell_{node} = \hbar/(m_e c) \approx 386\,\mathrm{fm}$ is **definitional** (the electron reduced-Compton length), not derived. **Kit default print pitch: $100\,\mathrm{mm}$ per $\ell_{node}$** — magnification $\approx 2.59\times10^{11}$ (`KIT_PRINT_MM_PER_L_NODE`, default 100; bridges the shared module). The corpus mnemonic $38.6\,\mathrm{mm}$ is **reference-only** (a digit tie, $\ell_{node}/10$ in fm), not the print scale. A `scale_plate` part embosses a language-free $1\text{-}\ell_{node}$ scale bar; the whole joinery/geometry block is tagged **[RENDERING]**.
 
 ## Driver registry
 
 | Script | Output |
 |---|---|
-| `src/scripts/vol_1_foundations/generate_vacuum_lattice_kit.py` | Kit STLs + manifest |
+| `src/scripts/vol_1_foundations/generate_vacuum_lattice_kit.py` | Kit STLs + manifest (rebuilt driver; part roster + manifest builder) |
 | `src/scripts/vol_1_foundations/generate_axiom1_diamond_vacuum_stl.py` | Monolithic LC lattice (+ optional particle embed) |
 | `src/scripts/vol_1_foundations/generate_vacuum_lattice_stl.py` | Tube-network previews + unit-cell excerpts |
 | `src/scripts/vol_1_foundations/vacuum_lc_geometry.py` | Shared LC cell / TL bond mesh geometry |
 
-Environment: `KIT_PRINT_MM_PER_L_NODE` (kit default **100**), `ASSEMBLY_L` (default **4**), `KIT_FRICTION_INTERFERENCE_MM`. Requires `trimesh` + `manifold3d` for export.
+Regenerate: `PYTHONPATH=src python src/scripts/vol_1_foundations/generate_vacuum_lattice_kit.py`. Environment: `KIT_PRINT_MM_PER_L_NODE` (kit default **100**), `ASSEMBLY_L` (default **4**), `KIT_FRICTION_INTERFERENCE_MM` (per-side mm; default 0.05), `KIT_ALLOW_NONMANIFOLD=1` (WIP escape hatch for the GATING QC). Requires `trimesh` + `manifold3d`.
 
 ## Laboratory Exercise L-EP1 — Assemble the production chunk
 
 **Objective.** Confirm by assembly that the production vacuum is a **bipartite diamond** with **four tetrahedral ports per node** and **TL segments between port tips** (not centre-to-centre struts).
 
-**Materials.** Printed kit parts; manifest `vacuum_assembly_L{L}.json`; flat assembly surface or jig.
+**Materials.** Printed kit parts; the keyed base jig; manifest `vacuum_assembly_L{L}.json`.
 
 **Procedure.**
 
-1. Read manifest `counts` and `joinery` (port collar radius, bond pitch, orientation key on port index 0).
-2. Place Type-A nodes at every manifest `nodes[]` entry with `sublattice: "A"`; Type-B at `"B"`.
-3. Press bond hex inserts into exterior port sockets on each `bonds[]` pair (bond flat-to-flat matches socket bore).
-4. **Checklist (pass/fail):** every active node has degree 4; every bond is A--B; bond directions match `direction_unit` within jig tolerance; no PBC wrap edges in finite chunk.
+1. Print the jig tiles; assemble the keyed baseplate.
+2. Read manifest `counts`, `joinery`, and `nodes[].ports` (the port$\to$neighbor map).
+3. Drop each node into its keyed jig pocket (pocket emboss $=$ node id $+$ A/B); colour A vs B per the sublattice key.
+4. Press bonds into the sockets following the per-port pips (`nodes[].ports`).
+5. *(Optional)* snap on the DOF accents (triad_E / rings_B / breathing_V) coloured per store; set the phasor dial / read the impedance disc as the LC-tank STATE (not a position).
+6. **Checklist (pass/fail):** every active node has degree 4; every bond is A–B; bond directions match `direction_unit` within jig tolerance; no PBC wrap edges in the finite chunk.
 
-**Pass criterion.** Assembled graph matches `build_diamond_net(L)` finite-crystal bond list (engine-isomorphic). **Fail** if degree $\neq 4$, mixed-parity inactive sites appear, or bond length outliers indicate PBC wrap struts.
+**Pass criterion.** Assembled graph matches `build_diamond_net(L)` finite-crystal bond list (engine-isomorphic). **Fail** if degree $\neq 4$, mixed-parity inactive sites appear, or bond-length outliers indicate PBC wrap struts.
 
 ## Laboratory Exercise L-EP2 — Monolith vs kit (optional)
 
-**Objective.** Compare monolithic `vacuum_axiom1_diamond_lc_full_lattice.stl` against the kit assembly for **same $L$ chunk** at same `PRINT_MM_PER_L_NODE`.
+**Objective.** Compare the monolithic lattice export against the kit assembly for the **same $L$ chunk** at the same print pitch.
 
-**Pass criterion.** Bbox span and bond pitch agree within print tolerance; A/B cell bodies visually distinct (cube vs sphere+ring EE map).
+**Pass criterion.** Bbox span and bond pitch agree within print tolerance; node bodies are identical (A/B distinguished only by key + colour, *not* by shape — the storage-split mnemonic is gone).
 
-## Open items (not closed by prints)
+## Laboratory Exercise L-EP3 — The chirality instrument (optional)
 
-- Sub-node body scale (proton $D_p \ll \ell_{node}$) — unrenderable as resolved lattice geometry.
-- Phase-space $(2,q)$ windings — dynamics **inside** nodes/bonds, not separate kit bricks.
-- Accurate inter-particle size ratios — see ACCURATE_SCALING.md; particle snap-ins are topology demos only.
+**Objective.** Hold the degree-3 srs acceptance instrument (both enantiomorphs) beside the degree-4 production diamond and confirm they are **distinct objects**: srs is $120°$, degree-3, handed; the production net is tetrahedral, degree-4, achiral.
+
+**Pass criterion.** The handedness glyph distinguishes $I4_1 32$ (right) from $I4_3 32$ (left); the builder can state which piece carries the optical-activity / chirality story (the srs instrument) and which is the production substrate (the diamond). Asserts nothing beyond the adjudicated diamond-primary / achiral-cold reading.
+
+## Resolved status (was: known limitations)
+
+| Item | Legacy state | Current (2026-06-21) |
+|---|---|---|
+| Node STL manifoldness | Node A/B reloaded non-manifold (`watertight=False`, `is_volume=False`); bond `is_volume=False` | **Resolved** — all gated parts reload `watertight=True` + `is_volume=True`; root cause was the numpy-stl round-trip, fixed by direct `trimesh` export |
+| QC gating | Report-only, shipped known-broken STLs | **Resolved** — `saved_qc` is GATING (`sys.exit(1)` on any gated failure; `KIT_ALLOW_NONMANIFOLD=1` to override for WIP) |
+| Press-fit | $0.00$ mm interference (bond OD $=$ socket bore) — would not mate | **Resolved** — $0.10$ mm diametral interference; tune via `KIT_FRICTION_INTERFERENCE_MM` |
+| A/B representativeness | Cube (A) vs sphere+ring (B) encoded a denied storage split | **Resolved** — identical node body; A/B is colour + snap-on key only |
+| Unkeyed ports | 4 identical ports, no placement guidance | **Resolved** — keyed base jig + `nodes[].ports` map force placement and port$\to$neighbor |
+| Bond pose / insertion | 143 mm bond printed vertical (20:1, topples); zero axial insertion | **Resolved** — bond prints horizontal with real insertion depth |
+
+## Open items (Grant-gated physics — NOT touched by the print)
+
+The print stays consistent with the adjudicated reading and asserts nothing beyond it; these seams remain open in the corpus, unchanged:
+
+- **Chirality realization** — achiral diamond + excited $k_\chi$ Cosserat order-parameter vs natively-chiral lattice (an unmerged z4-walk-back exists; physics is reconciled via $Fd\text{-}3m \supset I4_1 32$, but the single-source Axiom-1 wording remains a naming defect).
+- **Crystalline vs amorphous** — degree-4 crystalline $Fd\text{-}3m$ graph vs the amorphous $z_0$ effective-coordination picture (a real open seam the corpus admits). The kit prints the degree-4 crystalline graph and implies neither $z_0$ nor $z_{\text{eff}}$.
+- **Proton multi-node vs nucleus-in-single-node** — sub-node body scale ($D_p \ll \ell_{node}$) is unrenderable as resolved lattice geometry; particle snap-ins would be topology demos only.
+- **Phase-space $(2,q)$ windings** — dynamics *inside* nodes/bonds, represented only by the phase-space disc/dial, never as separate kit bricks.
 
 ## Cross-references
 
-- Ch.~11 Topological Characteristics (K4 graph, bipartite sublattice)
-- Ch.~3 Pin and Port Configuration (Op5 ports, TL bonds)
+- Ch.~11 Topological Characteristics (K4 graph, bipartite sublattice, A1 $\oplus$ T2 split)
+- Ch.~9 Mechanical Characteristics (6 DOF + A1 breathing; A1 $\perp$ T2)
+- Ch.~3 Pin and Port Configuration (tetrahedral ports, TL bonds, breathing mode)
 - Ch.~1 General Description (LC cell per node)
 - Ch.~17 Engine Requirements (simulator spec — complementary, not replaced by prints)

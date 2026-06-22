@@ -30,7 +30,6 @@ B_RING_TUBE = 0.022 * MM_PER_L_NODE_UNIT
 PORT_LEN = 0.055 * MM_PER_L_NODE_UNIT
 PORT_RADIUS = 0.032 * MM_PER_L_NODE_UNIT
 TL_RADIUS = 0.026 * MM_PER_L_NODE_UNIT
-KEY_FIN_THICK = 0.008 * MM_PER_L_NODE_UNIT  # legacy monolith only (unused in kit)
 
 # Friction-fit joinery (FDM press-fit; override via KIT_FRICTION_INTERFERENCE_MM)
 PEG_LEN = 0.42 * PORT_LEN
@@ -57,7 +56,6 @@ KIT_TL_RADIUS = KIT_PEG_RADIUS * 0.88  # monolith / legacy only
 KIT_HEX_SIDES = 6
 # Legacy monolith / pre-kit names (unused by kit exporters)
 COLLAR_EMBED = KIT_COLLAR_EMBED
-SOCKET_POCKET_DEPTH = 0.045 * MM_PER_L_NODE_UNIT
 KIT_SPHERE_WALL = 0.026 * MM_PER_L_NODE_UNIT
 
 DIAMOND_CENTER_PITCH_MM = float(np.sqrt(3.0) * MM_PER_L_NODE_UNIT)
@@ -384,33 +382,6 @@ def _sphere_shell_mesh(
     arr = np.zeros(len(faces), dtype=stl_mesh.Mesh.dtype)
     arr["vectors"] = np.array(faces)
     return stl_mesh.Mesh(arr)
-
-
-def _cube_frame_mesh(center: np.ndarray, half: float) -> stl_mesh.Mesh:
-    """Hollow cube frame (12 edge beams) — interior void for port through-bores."""
-    cx, cy, cz = center
-    h = half
-    corners = np.array([
-        [cx - h, cy - h, cz - h],
-        [cx + h, cy - h, cz - h],
-        [cx + h, cy + h, cz - h],
-        [cx - h, cy + h, cz - h],
-        [cx - h, cy - h, cz + h],
-        [cx + h, cy - h, cz + h],
-        [cx + h, cy + h, cz + h],
-        [cx - h, cy + h, cz + h],
-    ])
-    edges = (
-        (0, 1), (1, 2), (2, 3), (3, 0),
-        (4, 5), (5, 6), (6, 7), (7, 4),
-        (0, 4), (1, 5), (2, 6), (3, 7),
-    )
-    beam = KIT_FRAME_BEAM_RADIUS
-    parts = [
-        sweep_tube_open(np.array([corners[i], corners[j]]), beam, n_radial=10, cap=True)
-        for i, j in edges
-    ]
-    return combine_meshes(parts)
 
 
 def _mesh_to_trimesh(mesh: stl_mesh.Mesh):
