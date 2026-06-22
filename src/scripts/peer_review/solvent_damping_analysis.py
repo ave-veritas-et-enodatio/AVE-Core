@@ -2,9 +2,10 @@
 Solvent Damping Noise-Floor Analysis
 ======================================
 
-Gap 3A: Formulate cytosol noise as a reactive boundary load on the
-         protein folding S₁₁ engine. Quantify whether the thermal
-         solvent bath degrades the predicted folding S₁₁ minimum.
+Formulate cytosol noise as a reactive boundary load on the
+         protein folding S₁₁ engine. Quantify the thermal solvent
+         bath's shunt admittance relative to the backbone, and the
+         resulting S₁₁ minimum vs. solvent loading.
 
 PHYSICS:
     In the AVE framework, the aqueous cytosol surrounding a folding
@@ -34,7 +35,7 @@ Run: PYTHONPATH=src python src/scripts/peer_review/solvent_damping_analysis.py
 import matplotlib
 import numpy as np
 
-from ave.core.constants import C_0, K_B, XI_TOPO, e_charge
+from ave.core.constants import C_0, K_B, M_U, XI_TOPO, e_charge
 from ave.solvers.transmission_line import build_nodal_y_matrix, s11_from_y_matrix
 from ave_path_util import sim_output
 
@@ -85,7 +86,7 @@ K_HB_ELECTRICAL = K_HB_SPRING * XI_TOPO**2
 
 # Backbone impedance (reference, from Vol 5 amino acid analysis)
 # Z_backbone ≈ sqrt(L_C / C_CN) where L_C = m_C/ξ², C_CN = ξ²/k_CN
-M_C = 12.011 * 1.66054e-27  # Carbon mass [kg]
+M_C = 12.011 * M_U  # Carbon mass [kg] (M_U from ave.core.constants)
 K_CN = 461.0  # C-N force constant [N/m]
 L_C = M_C / XI_TOPO**2
 C_CN = XI_TOPO**2 / K_CN
@@ -98,7 +99,7 @@ F_BACKBONE = 1 / (2 * np.pi * np.sqrt(L_C * C_CN))
 
 print("=" * 100)
 print("SOLVENT DAMPING NOISE-FLOOR ANALYSIS")
-print("Gap 3A: Cytosol as Reactive Boundary Load on Protein S₁₁")
+print("Cytosol as Reactive Boundary Load on Protein S₁₁")
 print("=" * 100)
 
 print(
@@ -169,7 +170,7 @@ Z_seg = np.ones(N_RESIDUES - 1) * 1.0  # normalized impedance
 # Sweep solvent loading from 0 (vacuum) to 1.0 (heavily loaded)
 solvent_fractions = [0.0, 0.001, 0.01, 0.05, 0.1, 0.5, 1.0]
 
-print(f"\n  {'Y_solv/Y_bb':>12s} {'min|S₁₁|²':>12s} {'Δmin':>10s} {'Q_eff':>8s} {'Verdict':>14s}")
+print(f"\n  {'Y_solv/Y_bb':>12s} {'min|S₁₁|²':>12s} {'Δmin':>10s} {'Q_eff':>8s} {'Δmin class':>14s}")
 print("  " + "-" * 70)
 
 s11_results = {}
@@ -242,15 +243,14 @@ print(
     f"""
 
 ╔═════════════════════════════════════════════════════╗
-║    SOLVENT NOISE-FLOOR: FEASIBILITY VERDICT        ║
+║    SOLVENT NOISE-FLOOR: SUMMARY                    ║
 ╠═════════════════════════════════════════════════════╣
 ║                                                     ║
 ║  Physical solvent loading ratio:                    ║
 ║    Y_solvent / Y_backbone = {LOADING_RATIO:.2e}            ║
 ║                                                     ║
-║  This means the solvent shunt is {LOADING_RATIO*100:.4f}% of        ║
-║  the backbone admittance — deeply in the            ║
-║  NEGLIGIBLE regime.                                 ║
+║  The solvent shunt is {LOADING_RATIO*100:.4f}% of the           ║
+║  backbone admittance (~10^-23 of the backbone).     ║
 ║                                                     ║
 ║  Physical mechanism:                                ║
 ║    The backbone operates at THz frequencies where   ║
@@ -267,17 +267,17 @@ print(
 ║    shunt to ground every λ/10 (solvent H-bonds).    ║
 ║    The cable's S₂₁ is barely perturbed.             ║
 ║                                                     ║
-║  Biological Consequence:                            ║
+║  Backbone vs. bath:                                 ║
 ║    The protein backbone operates as a high-Q         ║
 ║    transmission line INSIDE a low-Q thermal bath.   ║
-║    The folding S₁₁ minimum is robust because the    ║
-║    solvent coupling is reactive (mass loading),     ║
-║    not resistive (dissipative). The reactive load    ║
-║    shifts resonances slightly but does not destroy  ║
-║    the impedance matching that drives folding.      ║
+║    The computed solvent coupling is predominantly   ║
+║    reactive (mass loading) rather than resistive    ║
+║    (dissipative); the reactive load shifts          ║
+║    resonances slightly. The S₁₁ minimum vs. solvent ║
+║    loading is summarised in §3.                     ║
 ║                                                     ║
-║  VERDICT: SOLVENT NOISE IS NEGLIGIBLE               ║
-║  The protein's topological S₁₁ signal dominates.   ║
+║  Solvent shunt admittance ~10^-23 of the backbone   ║
+║  admittance at f_backbone.                          ║
 ╚═════════════════════════════════════════════════════╝
 """
 )
@@ -342,7 +342,7 @@ ax.axvline(
 )
 ax.set_xlabel("Solvent Loading (Y_solv / Y_backbone)", fontsize=11)
 ax.set_ylabel("min |S₁₁|²", fontsize=11)
-ax.set_title("Folding Signal Robustness", fontsize=12, fontweight="bold")
+ax.set_title("S₁₁ minimum vs. solvent loading", fontsize=12, fontweight="bold")
 ax.legend(fontsize=9, facecolor="#1a1a2e", edgecolor="#333355", labelcolor="white")
 
 # ── Panel 3: Impedance mismatch diagram ──
@@ -382,18 +382,19 @@ ax = axes[1, 1]
 ax.axis("off")
 
 verdict_text = (
-    f"SOLVENT NOISE-FLOOR VERDICT\n"
+    f"SOLVENT NOISE-FLOOR SUMMARY\n"
     f"{'─'*40}\n\n"
     f"Body temperature:    310 K (37°C)\n"
     f"Wien peak frequency: {F_WIEN/1e12:.1f} THz\n"
     f"kT / E_HB:           {KT/E_HB_J:.4f} ({KT/E_HB_J*100:.1f}%)\n\n"
     f"Backbone impedance:  {Z_BACKBONE:.2f} Ω\n"
     f"Solvent loading:     {LOADING_RATIO:.2e}\n\n"
-    f"Physical solvent shunt is\n"
-    f"{LOADING_RATIO*100:.4f}% of backbone admittance\n\n"
-    f"→ S₁₁ folding signal is ROBUST\n"
-    f"→ Solvent acts as weak reactive load\n"
-    f"→ High-Q backbone reflects thermal noise\n"
+    f"Solvent shunt admittance is\n"
+    f"{LOADING_RATIO*100:.4f}% of backbone admittance\n"
+    f"(~10⁻²³ of the backbone)\n\n"
+    f"S₁₁ minimum vs. solvent loading: see §3\n"
+    f"Solvent coupling is predominantly reactive\n"
+    f"High-Q backbone reflects thermal noise\n"
 )
 
 ax.text(
@@ -408,13 +409,13 @@ ax.text(
     bbox=dict(boxstyle="round,pad=0.5", facecolor="#1a1a2e", edgecolor="#00ff88", linewidth=2),
 )
 
-# Big green verdict
+# Summary band
 ax.text(
     0.5,
     0.08,
-    "EXPERIMENT FEASIBLE",
+    "SOLVENT SHUNT ~10⁻²³ OF BACKBONE",
     transform=ax.transAxes,
-    fontsize=18,
+    fontsize=14,
     fontweight="bold",
     color="#00ff88",
     ha="center",
@@ -422,7 +423,7 @@ ax.text(
 )
 
 fig.suptitle(
-    "Solvent Damping Noise-Floor Analysis\n" "Gap 3A: Cytosol Reactive Load on Protein S₁₁ Engine",
+    "Solvent Damping Noise-Floor Analysis\n" "Cytosol Reactive Load on Protein S₁₁ Engine",
     fontsize=15,
     fontweight="bold",
     color="white",

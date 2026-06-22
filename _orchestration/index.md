@@ -32,6 +32,10 @@
 - **#290** `analysis/2026-06-17-pdf-build-consistency` — full-build consistency pass (foreword reconciliation, xref repair, abstract tone).
 - **#291** `analysis/substrate-noun-retirement` (base #290) — retire `$\mathcal{M}_A$` substrate object glyph; prose-only INVARIANT-N1 + `def-91c4e8`.
 
+## 2026-06-22 Vol-5 solver-audit hand-off
+
+Vol-5 solver-currency / driver-honesty audit (30 scripts, 6 batches). AVE-Core-side fix landed on `chore/vol5-solver-currency` (`spice_netlist_compiler.py` V_YIELD/I_MAX drift + false "from constants.py" docstrings; `ave_vacuum_cell.lib` synced; `solvent_damping_analysis.py` overclaim-text stripped to neutral datasheet voice — figure NOT regenerated, R1 impedance-folding walk-back staged-not-landed). The 25 AVE-Protein (IP) findings are hand-off-only for a focused AVE-Protein session: [`2026-06-22_vol5-ave-protein-solver-handoff.md`](2026-06-22_vol5-ave-protein-solver-handoff.md). Do NOT fix AVE-Protein from a Vol-5/AVE-Core session (cross-repo + live-R1-fork discipline).
+
 ## 2026-06-16 reconciliation (ground-up acceptance-test engine pivot — ACTIVE)
 
 **Authoritative execution plan:** [`2026-06-16_groundup-engine-acceptance-plan.md`](2026-06-16_groundup-engine-acceptance-plan.md).
