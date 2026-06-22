@@ -395,7 +395,7 @@ The cross-cutting Symmetric vs Asymmetric Saturation entry (in `../claim-quality
 - strengthen-by:
   - Derive the $V_R/V_{BR}$ ratios from topology without the per-nucleus $R$ fit
   - Predict silicon's electronic properties (band gap / switching threshold) quantitatively from $V_R/V_{BR}=0.050$
-  - Derive the $^{28}$Si+$\alpha$ endothermic $Q$-value rather than citing it
+  - Derive the $^{28}$Si+$\alpha$ capture $Q$-value rather than citing it
 
 ---
 
