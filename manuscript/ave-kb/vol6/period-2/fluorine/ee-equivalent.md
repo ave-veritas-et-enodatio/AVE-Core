@@ -11,7 +11,7 @@ claims: [clm-sd04x4]
 
 In conventional models, Fluorine is described as having 7 valence electrons, aggressively seeking one more to close its shell. Under the AVE framework, "electronegativity" is not a probabilistic charge density, but a direct consequence of macroscopic geometric asymmetry.
 
-The $399d$ massive Tritium whip extending from the nucleus creates a powerful, unbalanced inductive void. Like an open transmission line or an exposed antenna, this asymmetric node aggressively couples magnetically ($M_{ij}$) to any passing geometric mass to mechanically stabilize its tremendous mechanical lever arm. This topological desperation translates smoothly into classical chemical behavior.
+The $398d$ massive Tritium whip extending from the nucleus creates a powerful, unbalanced inductive void. Like an open transmission line or an exposed antenna, this asymmetric node aggressively couples magnetically ($M_{ij}$) to any passing geometric mass to mechanically stabilize its tremendous mechanical lever arm. This topological desperation translates smoothly into classical chemical behavior.
 
 [Figure: circuit_f19.pdf — see manuscript/vol_6_periodic_table/figures/]
 

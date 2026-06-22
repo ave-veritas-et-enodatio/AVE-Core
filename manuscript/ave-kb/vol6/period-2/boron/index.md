@@ -8,7 +8,7 @@ subtree-experiments: []
 
 # Boron (Z=5)
 
-Boron-11 returns to a spherical concentric arrangement: a single Alpha core surrounded by a 7-nucleon halo at $R_{halo} = 11.84d$, sitting precisely at the Topological Horizon limit ($4\pi - \sqrt{2}/2 \approx 11.859$). This maps to a Parasitic Array antenna with extremely weak mutual inductance ($M_{c-h}$) between core and halo. The near-horizon positioning explains Boron's industrial use in neutron-capture control rods.
+Boron-11 ($2\alpha + ^3$H) adopts a concentric core-plus-halo arrangement: a compact $2\alpha$ core with a dispersed Tritium ($^3$H) halo at $R_{halo} = 11.84d$, sitting precisely at the Topological Horizon limit ($4\pi - \sqrt{2}/2 \approx 11.859$). This maps to a Parasitic Array antenna with extremely weak mutual inductance ($M_{c-h}$) between core and halo. The near-horizon positioning explains Boron's industrial use in neutron-capture control rods.
 
 Source: `07_boron.tex` | No `\label{ch:boron}` in source
 

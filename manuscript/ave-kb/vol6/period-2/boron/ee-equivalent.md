@@ -13,7 +13,7 @@ In electrical engineering, Boron-11 acts identically to a **Parasitic Array** an
 
 **Boron-11 EE Equivalent Network.** The central high-$Q$ core attempts to couple to 7 distant inductive loads ($L_{halo}$). Because $M_{c-h} \ll L_{core}$, the structure is intensely inefficient, meaning Boron readily shares phase (electrons) to attempt to tighten the bridge.
 
-The Alpha core is the highly resonant, high-Q inductive tank. The 7 surrounding outer nucleons act as independent, poorly-coupled parasitic directors/reflectors. The mutual inductance ($M_{c-h}$) between the core and the halo is extremely weak due to the $1/r$ falloff across the $11.84d$ gap.
+The $2\alpha$ core is the highly resonant, high-Q inductive tank. The peripheral Tritium ($^3$H) halo node acts as an independent, poorly-coupled parasitic director/reflector. The mutual inductance ($M_{c-h}$) between the core and the halo is extremely weak due to the $1/r$ falloff across the $11.84d$ gap.
 
 This extreme geometric dispersion is tracked exactly by the corresponding topological impedance matrix sum, matching the empirical CODATA mass defect:
 

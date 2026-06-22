@@ -394,7 +394,7 @@ tex_fe56 = (
 
 % Legend
 \node[text=white, text width=9cm, align=center, draw=white, dashed, inner sep=8pt] at (0, -5) {
-    \textbf{Peak Binding Energy per Nucleon}\\
+    \textbf{Minimum Mass per Nucleon (Fusion Endpoint)}\\
     FCC-14: 8 corner + 6 face-center alpha clusters.\\
     91 inter-alpha coupling pairs.\\
     \textit{Total Network: 1540 discrete connections.}

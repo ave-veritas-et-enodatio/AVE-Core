@@ -7,7 +7,7 @@
 \begin{itemize}
     \item Compute nuclear binding energy via a discrete mutual impedance network with $O(N_\alpha^2)$ scaling.
     \item Apply the semiconductor avalanche multiplication model ($M = 1/(1-(V_R/V_{BR})^n)$) to capture nonlinear Coulomb enhancement in heavy nuclei.
-    \item Reproduce CODATA masses to sub-0.01\% for light elements ($Z \leq 14$) using only alpha-cluster geometry and mutual coupling constants.
+    \item Reproduce CODATA masses to sub-0.01\% for light elements ($Z \leq 14$) using a single fitted inter-alpha distance $R$ per nucleus within the $(Z,A)$-forced alpha-cluster topology and axiom-derived coupling constants --- the accuracies are fitting tolerances on $R$, not ab-initio prediction errors (methodology note, Chapter~\ref{ch:intro}).
 \end{itemize}
 \end{objectivebox}
 
@@ -74,12 +74,12 @@ In an LC tank, the Quality Factor ($Q$) defines the ratio of stored reactive ene
 
 Within the AVE framework, "dissipation" maps physically to the acoustic drag (vacuum friction) across the geometric perimeter of the defect. $Q$ is calculated as the ratio of Total Internal Mutual Inductance ($U_{stored}$) to the Effective Topological Radius ($R_{eff}$).
 
-The symmetrical Helium-4 core achieves a massively dominant $Q$-factor ($19.22$), proving why the Alpha particle is virtually indestructible. Conversely, the vast asymmetrical spatial gap in Lithium-7 causes its $Q$-factor to plummet ($2.85$), making its outer shell highly susceptible to decay or chemical bonding. Beryllium-9's endothermic bridge topology manages a moderate $Q$-factor ($7.93$).
+The symmetric Helium-4 core has the highest $Q$-factor ($19.22$) in this set, consistent with the alpha particle's exceptional stability. Conversely, the vast asymmetrical spatial gap in Lithium-7 causes its $Q$-factor to plummet ($2.85$), making its outer shell highly susceptible to decay or chemical bonding. Beryllium-9's endothermic bridge topology manages a moderate $Q$-factor ($7.93$).
 
 \subsection{Topological S-Parameters ($S_{11}$)}
 When high-energy physicists measure the "Scattering Cross-Section" of a nucleus via particle bombardment, they are explicitly measuring its $S_{11}$ reflection parameter. This is a pure function of the topological bounding footprint (Area $\propto \pi r^2$) of the localized impedance defect.
 
-Because of the massive $\sim 9.72d$ secondary shell offset in Lithium-7, it exhibits a ridiculously huge theoretical $S_{11}$ radar scattering cross-section compared to all preceding elements. A physical photon or neutron wave hitting $^7Li$ has an exponentially higher probability of striking an impedance mismatch and scattering than it does hitting the ultra-compact $^4He$ Alpha core.
+Because of the massive $\sim 9.72d$ secondary shell offset in Lithium-7, it exhibits a markedly larger theoretical $S_{11}$ radar scattering cross-section compared to all preceding elements. A physical photon or neutron wave hitting $^7Li$ has an exponentially higher probability of striking an impedance mismatch and scattering than it does hitting the ultra-compact $^4He$ Alpha core.
 
 \begin{figure}[htbp]
     \centering
@@ -231,12 +231,11 @@ When treating the structural nucleus strictly as a resonant LC geometric grid, t
 \end{enumerate}
 
 \subsection{The Sulfur-32 Breakdown}
-The empirical boundary between the Small Signal and Large Signal regimes occurs explicitly at Sulfur-32 ($Z=16$, $8\alpha$). While Carbon-12 through Silicon-28 assemble via exothermic alpha-capture, the reaction $^{28}\text{Si} + \alpha \rightarrow ^{32}\text{S}$ is massively \textit{endothermic} by $\approx 75$ MeV, requiring silicon-burning supernova conditions.
+The empirical boundary between the Small Signal and Large Signal regimes occurs explicitly at Sulfur-32 ($Z=16$, $8\alpha$). While Carbon-12 through Silicon-28 assemble via exothermic alpha-capture, the cube topology of S-32 is the first to cross into avalanche breakdown; net silicon burning is photodisintegration-driven at supernova temperatures rather than proceeding by simple alpha-capture.
 
 \section{Semiconductor Circuit Analysis of Nuclear Binding}
 \label{sec:semiconductor_nuclear}
 
-% [2026-06-15 KB-reconciliation (vol_6 brief §A.4, parallel-site) -- prior wording preserved per Rule 12]: read "Every parameter derives from the four AVE axioms with zero empirical fits." SUPERSEDED: "every parameter" overclaims -- it omits the per-nucleus geometric DOF. Reconciled to the honest KB twin semiconductor-nuclear-analysis.md:14 (which scopes it to NON-GEOMETRIC constants and discloses the per-nucleus R-fit in its ⚠ methodology note at :11). This .tex chapter carried no R-disclosure.
 The nuclear binding problem maps precisely onto the large-signal analysis of semiconductor junction devices. This is not an analogy---the vacuum LC lattice \textit{is} the dielectric medium, the nucleon knots \textit{are} the junction dopants, and the Coulomb field \textit{is} the reverse-bias voltage. All non-geometric constants ($K_{mutual}$, $\alpha$, $D_{intra}$, breakdown voltages) derive from the four AVE axioms with zero empirical fits; the remaining geometric degree of freedom is the per-nucleus inter-alpha distance $R$, fit so the $\sum K/d_{ij}$ summation reproduces each CODATA mass --- so the tabulated $\le 0.03\%$ accuracies are fitting tolerances on $R$, not ab-initio mass-prediction errors.
 
 \subsection{Two Binding Models: Bare vs Semiconductor}
@@ -281,7 +280,7 @@ Every constant used in this model traces directly to a named identifier in the \
 \hline
 \textbf{LaTeX Symbol} & \textbf{Python Identifier} & \textbf{Value} & \textbf{Unit} & \textbf{Source} \\
 \hline
-$\ell_\text{node}$ & \texttt{L\_NODE} & $3.862\times10^{-13}$ & m & Axiom 1 \\
+$l_\text{node}$ & \texttt{L\_NODE} & $3.862\times10^{-13}$ & m & Axiom 1 \\
 $\alpha$ & \texttt{ALPHA} & $0.007297$ & --- & Axiom 2 \\
 $\hbar$ & \texttt{HBAR} & $1.055\times10^{-34}$ & J$\cdot$s & Axiom 1 \\
 $c_0$ & \texttt{C\_0} & $2.998\times10^{8}$ & m/s & Axiom 1 \\
@@ -363,7 +362,6 @@ where all sums run over the $16 \times \binom{N_\alpha}{2}$ inter-alpha nucleon-
 
 \begin{table}[htbp]
 \centering
-% [2026-06-15 KB-reconciliation (vol_6 brief §A.4, parallel-site) -- prior caption preserved per Rule 12]: read "All parameters are axiom-derived; zero empirical fits." SUPERSEDED: scopes to the NON-GEOMETRIC constants; the per-nucleus inter-alpha distance R is fit (see §\ref{sec:semiconductor_nuclear} + semiconductor-nuclear-analysis.md:11/:128). Predicted masses below are reproduced at the per-nucleus fitted R.
 \caption{Predicted nuclear masses from the semiconductor avalanche model. The non-geometric constants are axiom-derived (zero empirical fits); the per-nucleus inter-alpha distance $R$ is fit to reproduce each CODATA mass. The avalanche multiplier $M$ remains at unity for $Z \le 14$ (Small Signal) and jumps to $32.8$ at $Z=16$ (Large Signal).}
 \label{tab:avalanche_results}
 \begin{tabularx}{\textwidth}{@{}l c c c c X@{}}
@@ -371,10 +369,10 @@ where all sums run over the $16 \times \binom{N_\alpha}{2}$ inter-alpha nucleon-
 \textbf{Element} & $N_\alpha$ & $V_R / V_{BR}$ & $M$ & \textbf{Error} & \textbf{Regime} \\
 \hline
 He-4  & 1 & --- & --- & $0.0000\%$ & Single tank \\
-C-12  & 3 & 0.022 & 1.000 & $0.0000\%$ & Small Signal \\
-O-16  & 4 & 0.033 & 1.000 & $0.0000\%$ & Small Signal \\
-Ne-20 & 5 & 0.035 & 1.000 & $0.0000\%$ & Small Signal \\
-Mg-24 & 6 & 0.043 & 1.000 & $0.0001\%$ & Small Signal \\
+C-12  & 3 & 0.019 & 1.000 & $0.0000\%$ & Small Signal \\
+O-16  & 4 & 0.030 & 1.000 & $0.0000\%$ & Small Signal \\
+Ne-20 & 5 & 0.032 & 1.000 & $0.0000\%$ & Small Signal \\
+Mg-24 & 6 & 0.040 & 1.000 & $0.0001\%$ & Small Signal \\
 Si-28 & 7 & 0.050 & 1.000 & $0.0002\%$ & Small Signal \\
 \textbf{S-32}  & \textbf{8} & \textbf{0.994} & \textbf{32.8} & $\mathbf{0.0000\%}$ & \textbf{Large Signal} \\
 \hline
@@ -386,9 +384,9 @@ Si-28 & 7 & 0.050 & 1.000 & $0.0002\%$ & Small Signal \\
 An essential consequence of this framework: each nuclear topology behaves as a distinct semiconductor \textit{device}, fabricated on the same vacuum lattice \textit{material}. The breakdown voltage $V_{BR}$ is a material constant (derived from $\alpha\hbar c$ and $D_\text{intra}$), but each topology determines a different $V_R / V_{BR}$ ratio---exactly as a silicon BJT and a gallium-nitride HEMT share the same semiconductor physics but have different breakdown characteristics due to their crystal geometries.
 
 \begin{itemize}
-    \item \textbf{Triangle} (C-12, 3$\alpha$): Low vertex density $\rightarrow$ $V_R/V_{BR} = 0.022$ $\rightarrow$ deep Small Signal.
-    \item \textbf{Tetrahedron} (O-16, 4$\alpha$): Moderate packing $\rightarrow$ $V_R/V_{BR} = 0.033$ $\rightarrow$ Small Signal.
-    \item \textbf{Pentagonal bipyramid} (Si-28, 7$\alpha$): High packing but open faces $\rightarrow$ $V_R/V_{BR} = 0.050$ $\rightarrow$ boundary of Small Signal. \textit{This mathematical positioning precisely at the edge of the non-linear transition fundamentally defines why Silicon is the dominant material in microelectronics: it is highly stable in bulk, yet sits close enough to the breakdown threshold that it can be easily manipulated (doped) to switch states dynamically.}
+    \item \textbf{Triangle} (C-12, 3$\alpha$): Low vertex density $\rightarrow$ $V_R/V_{BR} = 0.019$ $\rightarrow$ deep Small Signal.
+    \item \textbf{Tetrahedron} (O-16, 4$\alpha$): Moderate packing $\rightarrow$ $V_R/V_{BR} = 0.030$ $\rightarrow$ Small Signal.
+    \item \textbf{Pentagonal bipyramid} (Si-28, 7$\alpha$): High packing but open faces $\rightarrow$ $V_R/V_{BR} = 0.050$ $\rightarrow$ boundary of Small Signal. \textit{Silicon's topology sits at the boundary of the Small-Signal regime; in the AVE picture this co-locates with its role as a switchable-bandgap semiconductor --- highly stable in bulk, yet close enough to the breakdown threshold to be doped and switched dynamically.}
     \item \textbf{Cube} (S-32, 8$\alpha$): Maximum closed packing $\rightarrow$ $V_R/V_{BR} = 0.994$ $\rightarrow$ avalanche breakdown ($M = 32.8$).
     \item \textbf{Bicapped Antiprism} (Ar-40, 10$\alpha$): Open expansion restores $V_R/V_{BR} = 0.062$ $\rightarrow$ Small Signal.
     \item \textbf{Bicapped Antiprism} (Ca-40, 10$\alpha$): Same geometry, 2 additional protons push $V_R/V_{BR} = 0.994$ $\rightarrow$ second Large Signal solution ($M = 32.9$).
@@ -404,7 +402,7 @@ The cube (S-32) is the first topology where the cumulative Coulomb load per alph
 
 The inter-alpha distances ($R$) in this engine are not arbitrary static force equilibria; they are dynamic standing-wave resonance conditions. In the AVE framework, nucleons are not static DC point charges, but dynamic electromagnetic gyroscopes oscillating at the rest-mass Compton frequency ($\omega = mc^2/\hbar$).
 
-At nuclear distances ($R < 80$ fm), the entire geometry exists deep inside a single macroscopic lattice node ($\ell_{node} \approx 386$ fm). Because the local metric strain evaluating to $\Delta\phi / \alpha = \ell_{node} / r$ is strictly greater than 1, the entire nuclear interior operates at the absolute Axiom 4 dielectric saturation limit ($C_{eff} \to \infty$, $Z \to 0\,\Omega$). The K/r and $\alpha\hbar c/r$ terms used in Eq.~\ref{eq:semiconductor_mass} already represent the saturated internal coupling forces within this bounded zone.
+At nuclear distances ($R < 80$ fm), the entire geometry exists deep inside a single macroscopic lattice node ($l_{node} \approx 386$ fm). Because the local metric strain evaluating to $\Delta\phi / \alpha = l_{node} / r$ is strictly greater than 1, the entire nuclear interior operates at the absolute Axiom 4 dielectric saturation limit ($C_{eff} \to \infty$, $Z \to 0\,\Omega$). The K/r and $\alpha\hbar c/r$ terms used in Eq.~\ref{eq:semiconductor_mass} already represent the saturated internal coupling forces within this bounded zone.
 
 Because the vacuum inside the nucleus is fully saturated, the static force terms share identical $1/r$ dependence and cannot produce an equilibrium location on their own. Instead, the equilibrium distance $R$ is determined dynamically by the topology acting as a \textbf{coupled cavity resonator}.
 
@@ -418,7 +416,7 @@ In classical discrete electrical engineering, when an AC geometric bridge or LC 
 When unstable isotopes are modeled using the AVE mutual impedance simulator, their localized geometries inherently prevent the formulation of a highly resonant, stable core.
 
 \subsection{Tritium ($^3H$) Beta Decay}
-Tritium ($1p, 2n$) lacks the necessary geometric symmetry to fold into a tight topological knot. The solver proves that to match its empirical mass defect ($8.48$ MeV), its nodes must be stretched to a wide $\sim 3.5d$ separation. This results in a critically low Topological $Q$-factor of just $3.20$. To eliminate this extreme parasitic strain, the topology spontaneously ejects a unit of phase (an electron via $\beta$-decay) to transition into the stable Helium-3 ($^3He$) lattice, which boasts a tight, highly symmetrical $Q=19.52$ footprint. The topological contraction yields an exothermic energy release of $\sim 11.3$ MeV.
+Tritium ($1p, 2n$) lacks the necessary geometric symmetry to fold into a tight topological knot. The solver proves that to match its empirical mass defect ($8.48$ MeV), its nodes must be stretched to a wide $\sim 3.5d$ separation. This results in a critically low Topological $Q$-factor of just $3.20$. To eliminate this extreme parasitic strain, the topology spontaneously ejects a unit of phase (an electron via $\beta$-decay) to transition into the stable Helium-3 ($^3He$) lattice, which boasts a tight, highly symmetrical $Q=19.52$ footprint. The empirical mass-energy difference for this transition is $m(^3\text{H})c^2 - m(^3\text{He})c^2 \approx 0.529$ MeV, of which the $\beta$-endpoint kinetic energy is $\sim 18.6$ keV. The framework's contribution here is \textit{mechanistic} --- the $Q$-factor jump ($3.20 \to 19.52$) explains \textit{why} the transition occurs spontaneously and which direction it runs; the released energy \textit{magnitude} is taken from empirical mass-energy data, not derived independently here.
 
 \subsection{Beryllium-8 ($^8Be$) Alpha Fission}
 Conversely, the Beryllium-8 geometry ($4p, 4n$) consists of two massive $^4He$ Alpha tanks but fundamentally lacks the critical central bridging neutron required to establish mutual inductance ($M_{bridge}$) between them. As an open Wheatstone bridge with zero central coupling, the two macro-components instantly repel and cleanly shatter back into independent Alpha fragments.
@@ -426,7 +424,7 @@ Conversely, the Beryllium-8 geometry ($4p, 4n$) consists of two massive $^4He$ A
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=1.0\textwidth]{figures/isotope_decay_analytics.png}
-    \caption{\textbf{Radioactive Decay via Q-Factor Optimization.} \textit{Left:} Tritium's unstable topology collapses into the tighter Helium-3 structure, dumping $\sim 11.3$ MeV of surplus strain. \textit{Right:} Beryllium-8 represents a broken inductive bridge; without a central neutron to mediate the structural tension, it instantly cleaves into two Alpha cores.}
+    \caption{\textbf{Radioactive Decay via Q-Factor Optimization.} \textit{Left:} Tritium's unstable topology collapses into the tighter Helium-3 structure; the $Q$-factor jump ($3.20 \to 19.52$) is the framework's mechanistic driver, with the empirical mass-energy difference ($\approx 0.529$ MeV) accounting for the released energy. \textit{Right:} Beryllium-8 represents a broken inductive bridge; without a central neutron to mediate the structural tension, it instantly cleaves into two Alpha cores.}
     \label{fig:isotope_decay}
 \end{figure}
 
@@ -434,7 +432,7 @@ Conversely, the Beryllium-8 geometry ($4p, 4n$) consists of two massive $^4He$ A
 \begin{itemize}
     \item Nuclear binding energy is computed via a discrete mutual impedance network rather than brute-force 3D volume integration, reducing scaling from $O(N^3)$ to $O(N_\alpha^2)$.
     \item The semiconductor avalanche multiplication model ($M = 1/(1-(V_R/V_{BR})^n)$) captures the nonlinear Coulomb enhancement in heavy nuclei using zero free parameters beyond the axiom-derived breakdown voltage.
-    \item The computational engine reproduces CODATA masses to sub-0.01\% for light elements ($Z \leq 14$) using only alpha-cluster geometry and mutual coupling constants.
+    \item The computational engine reproduces CODATA masses to sub-0.01\% for light elements ($Z \leq 14$) using a single fitted inter-alpha distance $R$ per nucleus within the $(Z,A)$-forced alpha-cluster topology and axiom-derived coupling constants; the accuracies are fitting tolerances on $R$.
 \end{itemize}
 \end{summarybox}
 

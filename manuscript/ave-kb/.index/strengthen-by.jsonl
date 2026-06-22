@@ -332,7 +332,7 @@
 {"claim_id": "clm-jwyy6l", "item_idx": 1, "text": "Extend to relativistic mass $E=\\gamma m_0c^2$ from $L_{eff}=L_0/\\sqrt{1-v^2/c^2}$ within this leaf.", "mentioned_ids": []}
 {"claim_id": "clm-jy8h1x", "item_idx": 0, "text": "Derive the $V_R/V_{BR}$ ratios from topology without the per-nucleus $R$ fit", "mentioned_ids": []}
 {"claim_id": "clm-jy8h1x", "item_idx": 1, "text": "Predict silicon's electronic properties (band gap / switching threshold) quantitatively from $V_R/V_{BR}=0.050$", "mentioned_ids": []}
-{"claim_id": "clm-jy8h1x", "item_idx": 2, "text": "Derive the $^{28}$Si+$\\alpha$ endothermic $Q$-value rather than citing it", "mentioned_ids": []}
+{"claim_id": "clm-jy8h1x", "item_idx": 2, "text": "Derive the $^{28}$Si+$\\alpha$ capture $Q$-value rather than citing it", "mentioned_ids": []}
 {"claim_id": "clm-jz0xaw", "item_idx": 0, "text": "Show the prefactor 4 survives (or how it changes) for non-uniform ω configurations, not just uniform ω_z.", "mentioned_ids": []}
 {"claim_id": "clm-jz0xaw", "item_idx": 1, "text": "State the convention for the micropolar coupling normalization (factor placement in W) so the \"units of G_c\" framing is unambiguous.", "mentioned_ids": []}
 {"claim_id": "clm-k3p9wz", "item_idx": 0, "text": "Derive the macroscopic Sagnac drag-boundary amplification from AVE micropolar/Cosserat dynamics and show it must equal $m_p/m_e$ — i.e. make `mathematical-closure.md`'s \"structurally equal\" claim a derivation rather than an assertion.", "mentioned_ids": []}

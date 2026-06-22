@@ -23,7 +23,7 @@ This is the scale-invariant analog of `hierarchical\_binding()` in the nuclear c
 > $$
 >     IE_\text{Be} = 9.28\;\text{eV} \quad (\text{exp: } 9.322\;\text{eV}, \quad \Delta = -0.45\%)
 > $$
- This resolves the prior $-7.1\%$ residual with zero free parameters.  The correction is gated to $n_\text{adjacent} = 1$ (pure $s$-shell inner core), ensuring it does not fire for period~3 atoms where the SIR boundary model applies (see Vol. 2).
+ This resolves the prior $-7.1\%$ residual with zero fit constants _given the standard filling order_ ($1s^2\,2s^2$), which AVE asserts as an input rather than derives.  The correction is gated to $n_\text{adjacent} = 1$ (pure $s$-shell inner core), ensuring it does not fire for period~3 atoms where the SIR boundary model applies (see Vol. 2).  The quoted accuracy is verified against the engine's reference values under the pinned solver snapshot; it is not asserted as a NIST-validated prediction.
 
 \begin{summarybox}
 \begin{itemize}

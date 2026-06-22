@@ -13,7 +13,7 @@ Individually, Alpha cores ($^4He$) are fiercely dense, inert, and highly repulsi
 
 Therefore, the nucleus of Oxygen-16 forms a **Tetrahedron of Tetrahedrons**.
 
-By applying the AVE $M_{ij} = K / d$ mutual impedance solver against the empirical CODATA nuclear mass of Oxygen-16 ($14895.080$ MeV), it is possible to analytically derive the exact macroscopic physical distance that these four Alpha cores lock into. The solver explicitly proves that the 16 nodes achieve this exact inductive binding energy when the four Alpha centers sit precisely at $R_{tet} = 33.393d$ from the system's geometric barycenter.
+Applying the AVE $M_{ij} = K / d$ mutual impedance solver against the empirical CODATA nuclear mass of Oxygen-16 ($14895.080$ MeV) fits the single macroscopic distance that these four Alpha cores lock into: the $(Z,A)$-forced tetrahedral topology fixes the shape class, and the one fitted scalar $R_{tet}$ reproduces the inductive binding energy when the four Alpha centers sit at $R_{tet} = 33.393d$ from the system's geometric barycenter (see the fit-vs-prediction methodology note in Ch. 1).
 
 If this radius shrank, the Alpha cores would repel and shatter the nucleus. If they drifted further apart, the mutual inductance $M_{tet}$ would drop below the threshold required for stability, and the element would spontaneously decouple into a spray of Alpha radiation.
 

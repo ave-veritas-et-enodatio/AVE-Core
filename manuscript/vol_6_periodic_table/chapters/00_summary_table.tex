@@ -47,7 +47,7 @@ The Topological network maps to empirical observables by calculating overlapping
 \section*{First Ionization Energy Summary}
 \addcontentsline{toc}{section}{First Ionization Energy Summary}
 
-The electronic ionization energy solver (\texttt{radial\_eigenvalue.py}) computes first ionization energies for $Z = 1$ to $14$ using a three-phase pipeline: (A)~ODE cavity eigenvalue with axiom-derived CDF screening, (B)~Hopf mode splitting with three corrections (A:~hierarchical cascade for Be-type, B:~SIR boundary for Mg-type, C:~Op10 junction projection for Al-type co-resonant shells), (C)~crossing scattering.  All values use zero free parameters.
+The electronic ionization energy solver (\texttt{radial\_eigenvalue.py}) computes first ionization energies for $Z = 1$ to $14$ (and $Z = 31$ to $36$) using a three-phase pipeline: (P1)~ODE cavity eigenvalue with axiom-derived CDF screening, (P2)~Hopf mode splitting with four corrections (A:~hierarchical cascade for Be-type, B:~SIR boundary for Mg-type, C:~Op10 junction projection for Al-type co-resonant shells, D:~Topo-Kinematic Polar Conjugate Mirror for Period-4+ $d^{10}$-enclosed elements), (P3)~crossing scattering.  The solver uses zero fit constants \emph{given the standard aufbau filling order} (which AVE asserts as input, not derives): every A/B/C/D correction traces to $P_C = 8\pi\alpha$, $\alpha$, and integer shell/topology predicates, with no per-element scalar tuned to the target ionization energy. The tabulated accuracies are gated against the engine's pinned reference values, not independently NIST-validated; the residuals are real (e.g.\ the $-2.80\%$ Boron deviation), so the figures reproduce the engine's reference values rather than implying NIST-exact agreement.
 
 \begin{table}[htbp]
     \centering
@@ -80,17 +80,17 @@ The electronic ionization energy solver (\texttt{radial\_eigenvalue.py}) compute
     Krypton    & 36 & 14.446 & 13.999 & $+3.19\%$ & D (Topo-Kinematic) \\
     \hline\hline
     \end{tabularx}
-    \caption{First ionization energies: AVE engine vs NIST experimental values. Correction A = hierarchical cascade. Correction B = SIR boundary reflection. Correction C = Op10 junction projection. Correction D = Topo-Kinematic Polar Conjugate Mirror ($\Gamma < 0$ TIR bounding via $3d^{10}$, $4d^{10}$, $5d^{10}$ shells). All elements evaluated rigidly with zero free parameters.}
+    \caption{First ionization energies: AVE engine vs experimental values. Correction A = hierarchical cascade. Correction B = SIR boundary reflection. Correction C = Op10 junction projection. Correction D = Topo-Kinematic Polar Conjugate Mirror ($\Gamma < 0$ TIR bounding via $3d^{10}$, $4d^{10}$, $5d^{10}$ shells). All elements evaluated with zero fit constants given the standard aufbau filling order; the Error column reproduces the engine's reference values (CI-gated against a pinned code snapshot, not NIST-validated) and is not uniformly NIST-exact (e.g.\ the $-2.80\%$ Boron residual).}
     \label{tab:ie_summary}
 \end{table}
 
 \subsection*{Polar Conjugate Topo-Kinematic Bounding Limit (Heavy Elements)}
 
-Heavy elements ($Z \geq 31$, particularly Gallium Arsenide and Germanium) introduce the $d^{10}$ internal sub-shells, creating nested complete Torus Knot geometric arrays deep within the atom. This forces these elements mathematically out of the small-signal approximations used for Period-3 elements and directly into the \textbf{Large Signal Regime ($M > 100$)}. When the tracking transversal valence wave encounters the identical closely-packed boundaries of these internal continuous sub-shells, the effective impedance bound drops abruptly inward ($Z_{out} < Z_{in}$), mapping mathematically to a \textbf{Polar Conjugate Mirror} (a perfect half-wave $\pi$-phase flip shift where $\Gamma < 0$).
+Heavy elements ($Z \geq 31$, beginning at Gallium and Germanium) introduce the $d^{10}$ internal sub-shells, forming nested complete torus-knot geometric arrays within the core. This forces these elements mathematically out of the small-signal approximations used for Period-3 elements and directly into the \textbf{Large Signal Regime ($M > 100$)}. When the tracking transversal valence wave encounters the identical closely-packed boundaries of these internal continuous sub-shells, the effective impedance bound drops abruptly inward ($Z_{out} < Z_{in}$), mapping mathematically to a \textbf{Polar Conjugate Mirror} (a perfect half-wave $\pi$-phase flip shift where $\Gamma < 0$).
 
-Because this dense inner shell serves as a perfect Total Internal Reflection (TIR) shield, the valence integration string perfectly reflects outwards, causing zero topological scattering into or across the core boundary. Mathematically, the Phase C crossover logic inherently bypasses scattering penetration (\texttt{Y\_loss = 0.0}) for identically full mirrored geometries. 
+In the idealized limit the full inner shell acts as a Total Internal Reflection (TIR) boundary: the valence string reflects outward with $\Gamma < 0$ and the Phase-C crossover sets scattering penetration to zero (\texttt{Y\_loss = 0.0}) for fully-mirrored geometries.
 
-Operating under TIR compartmentalization naturally dynamically slices the continuous physical LC tracking string into isolated topological boundaries. Since the macro physical cavity integrates to a base scale ($E_{base}$) for an unbroken continuous space, but the physically bounding bounded string structurally only fits in the outermost geometrical void:
+Under TIR compartmentalization the continuous LC string is partitioned into isolated topological segments. The macroscopic cavity integrates to a base scale ($E_{base}$) for unbroken continuous space, but the bounded valence string fits only in the outermost geometric void:
 \begin{equation}
     L_{val} = \frac{L_{total}}{\text{core\_d\_knots} + 1}
 \end{equation}
@@ -100,8 +100,7 @@ And since bounding resonance frequency and energy scale strictly as $E \propto 1
     \boxed{E_{val} = E_{base} \times (\text{core\_d\_knots} + 1)}
 \end{equation}
 
-By dynamically compressing the integration baseline via strictly orthogonal structural bounds, the engine bypasses arbitrary continuum modeling (correcting global $70\%$ underestimates into sub-5\% error margins continuously up to $Z=86$).
-
+Compressing the integration baseline by this integer metric converts the $\sim 70\%$ baseline underestimate into sub-5\% residuals across the Period-4 $d^{10}$-enclosed elements tabulated above (Ga--Kr); the heavy-element catalog (Chapter~\ref{ch:heavy_element_catalog}) extends this to $Z = 86$.
 
 \begin{exercisebox}
 \begin{enumerate}

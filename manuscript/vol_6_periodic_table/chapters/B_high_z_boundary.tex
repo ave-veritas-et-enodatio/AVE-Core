@@ -1,14 +1,11 @@
 \section{High-Z Nuclear Geometry: Accuracy Frontier}
 \label{sec:high_z_frontier}
 
-A thorough reviewer will immediately ask: \textit{The 1/d topological binding model produces sub-0.1\% accuracy for light elements. What happens above Lead?}
-
-This section quantifies the accuracy frontier rigorously. The engine was run across 57 stable isotopes from Hydrogen to Oganesson ($Z=1$ to $Z=118$). Three distinct regimes emerge:
+The $1/d$ topological binding model produces sub-0.1\% accuracy for light elements; this section quantifies its accuracy above Lead ($Z > 82$), where the light-element regime no longer applies. The engine was run across 57 stable isotopes from Hydrogen to Oganesson ($Z=1$ to $Z=118$). The engine results partition into three regimes:
 
 \subsection{Regime Classification}
 
 \begin{enumerate}
-    % [2026-06-15 KB-reconciliation (vol_6 brief §A.4) -- prior wording preserved per Rule 12]: read "...Maximum error: $0.12\%$ (Si-28). Zero free parameters." SUPERSEDED: the analytic regime solves each nucleus at a per-nucleus fitted inter-alpha distance R (e.g. R_bipyramid=81.181d, 12_neon.tex:23); the topology is zero-parameter but R is the one fitted scalar, so these accuracies are fitting tolerances on R, not ab-initio prediction errors (00_introduction.tex:21; mass-defect-summary.md:14).
     \item \textbf{Analytic Regime ($Z \leq 14$):} Each nucleus is solved with a hand-crafted, physically motivated geometry (tetrahedral alpha clusters, bipyramids, octahedra). Mean accuracy: $|\Delta| = 0.055\%$. Maximum error: $0.12\%$ (Si-28). Topology zero-parameter (forced by $(Z,A)$); one fitted scalar $R$ per nucleus (the quoted accuracies are fitting tolerances on $R$).
     \item \textbf{Fibonacci Heuristic ($15 \leq Z \leq 82$):} Alpha clusters are placed on a spherical Fibonacci lattice with a density-scaled radius $r_{core} = d(15 + 0.95A)$. Mean accuracy: $|\Delta| = 0.24\%$. Maximum error: $0.41\%$ (S-32). This regime covers the entire transition metal series, lanthanides, and all elements through Lead.
     \item \textbf{Superheavy Extrapolation ($Z > 82$):} Same Fibonacci model extended beyond the last stable element. Mean accuracy: $|\Delta| = 0.39\%$. The monotonic degradation is gradual---no cliff edge is observed.
@@ -18,9 +15,8 @@ This section quantifies the accuracy frontier rigorously. The engine was run acr
 
 The accuracy degrades \emph{logarithmically}, not linearly, with $Z$. Plotting $|\Delta|$ vs.\ $Z$ on a semi-log scale reveals a smooth slope with slope $\sim 0.003\%$ per unit $Z$. This behavior is expected from the combinatorial growth of the $1/d_{ij}$ summation: the number of pairwise interactions scales as $A(A-1)/2 \sim A^2$, but each individual error contribution is suppressed by $1/r$ falloff.
 
-Even at $Z = 118$ (Oganesson, $A = 294$), the total mass prediction error is only $0.46\%$---corresponding to $\sim 1260$ MeV out of $273{,}890$ MeV total nuclear mass. This is remarkable given that:
+Even at $Z = 118$ (Oganesson, $A = 294$), the total mass prediction error is only $0.440\%$ (catalog Ch.~\ref{ch:heavy_element_catalog})---corresponding to $\sim 1205$ MeV out of the $273{,}798.968$ MeV CODATA nuclear mass (AVE $272{,}594.005$ MeV). This accuracy is achieved despite:
 \begin{itemize}
-    % [2026-06-15 KB-reconciliation (vol_6 brief §D.3) -- prior wording preserved per Rule 12]: read "The model uses \textbf{zero fitted parameters} beyond the axiom-derived $K_{mutual}$, $d_{proton}$, and $\alpha\hbar c$." SUPERSEDED: omits the two empirical packing coefficients (15 and 0.95) in the Fibonacci-regime density-scaled radius $r_{core}=d(15+0.95A)$ (this section, item 2 above) -- those coefficients are NOT axiom-derived. The Fibonacci/superheavy regime carries no PER-NUCLEUS fit (the radius is a closed-form function of A), but the two global packing coefficients are empirical.
     \item The model uses \textbf{no per-nucleus fitted parameter} in this Fibonacci/superheavy regime beyond the axiom-derived $K_{mutual}$, $d_{proton}$, and $\alpha\hbar c$; its only empirical inputs are the two global Fibonacci-packing coefficients ($15$ and $0.95$) in the density-scaled radius $r_{core}=d(15+0.95A)$ above, which are not axiom-derived.
     \item The geometry is a crude spherical Fibonacci lattice, not an optimized structure.
     \item No shell corrections, pairing terms, or surface tension adjustments are applied.
@@ -30,28 +26,28 @@ For comparison, the semi-empirical Bethe-Weizs\"{a}cker mass formula---which use
 
 \subsection{The Structural Instability Boundary}
 
-The Coulomb-to-strong ratio, defined as:
+The Coulomb-to-strong ratio $\rho_{CS}$, defined as:
 \begin{equation}
-    \frac{V_R}{V_{BR}} = \frac{Z^2 / A^{1/3}}{Z_{Fe}^2 / A_{Fe}^{1/3}}
+    \rho_{CS} = \frac{Z^2 / A^{1/3}}{Z_{Fe}^2 / A_{Fe}^{1/3}}
 \end{equation}
-normalized to Iron-56, quantifies the proximity to structural breakdown. This is the nuclear analog of the avalanche breakdown voltage ratio in semiconductor physics.
+normalized to Iron-56, quantifies the proximity to structural breakdown. Note that $\rho_{CS}$ is a \emph{distinct} quantity from the per-cluster avalanche reverse-bias ratio $V_R/V_{BR}$ used elsewhere in this volume (whose Miller multiplier $M$ diverges as $V_R/V_{BR} \to 1$): $\rho_{CS}$ is a global Coulomb-vs-strong scaling normalized to the iron peak, and is the high-$Z$ analog of the avalanche-breakdown stress ratio rather than the per-cluster ratio itself.
 
 \begin{center}
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{lcccc}
 \toprule
-\textbf{Element} & $Z$ & $V_R / V_{BR}$ & $B/A$ [MeV] & \textbf{Regime} \\
+\textbf{Element} & $Z$ & $\rho_{CS}$ & $B/A$ [MeV] & \textbf{Regime} \\
 \midrule
-Fe-56  & 26  & 1.00 & 8.55 & Peak $B/A$ \\
+Fe-56  & 26  & 1.00 & 8.55 & Fusion endpoint \\
 Pb-208 & 82  & 6.42 & 7.87 & Last naturally abundant stable \\
 Bi-209 & 83  & 6.57 & 8.13 & Last stable isotope \\
 U-238  & 92  & 7.73 & 7.57 & Natural fissile \\
-Og-294 & 118 & 11.85 & 7.45 & Predicted Island of Stability edge \\
+Og-294 & 118 & 11.85 & 7.45 & Small Signal (Island-of-Stability edge) \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-The structural instability boundary in the AVE framework is reached when $V_R/V_{BR} \to 1/\alpha$ ($\approx 137$). At this ratio, the Coulomb field at the nuclear surface approaches $E_{yield}$ and the intra-alpha coupling pathways saturate. No terrestrial or astrophysical nucleus approaches this limit---the most extreme superheavy element (Oganesson) is still at $V_R/V_{BR} \approx 12$, well within the framework's validity.
+The structural instability boundary in the AVE framework is reached when $\rho_{CS} \to 1/\alpha$ ($\approx 137$). At this ratio, the Coulomb field at the nuclear surface approaches $E_{yield}$ and the intra-alpha coupling pathways saturate. This $\rho_{CS}$ rupture limit at $\sim 137$ is not the same threshold as the per-cluster avalanche ratio $V_R/V_{BR} \to 1$ (where the Miller multiplier $M$ diverges); the two are distinct ratios. No terrestrial or astrophysical nucleus approaches the $\rho_{CS}$ limit---the most extreme confirmed superheavy element (Oganesson) is still at $\rho_{CS} \approx 12$, well within the framework's validity.
 
 \subsection{Island of Stability: Quantitative Mass-Defect Predictions}
 \label{sec:island_stability}
@@ -62,7 +58,7 @@ The $1/d_{ij}$ Fibonacci solver was exercised at six candidate Island of Stabili
 \renewcommand{\arraystretch}{1.3}
 \begin{tabularx}{\textwidth}{@{}l c c c c c X@{}}
 \toprule
-\textbf{Isotope} & $Z$ & $A$ & $M_{\text{AVE}}$ [MeV] & $B$ [MeV] & $B/A$ [MeV] & $V_R/V_{BR}$ \\
+\textbf{Isotope} & $Z$ & $A$ & $M_{\text{AVE}}$ [MeV] & $B$ [MeV] & $B/A$ [MeV] & $\rho_{CS}$ \\
 \midrule
 ${}^{290}$Fl & 114 & 290 & 269,009 & 3,318 & 11.441 & 11.11 \\
 ${}^{298}$Fl & 114 & 298 & 276,496 & 3,347 & 11.232 & 11.01 \\
@@ -75,19 +71,19 @@ ${}^{316}$Ubh & 126 & 316 & 293,024 & 3,716 & 11.759 & 13.19 \\
 \end{center}
 
 \paragraph{What the model predicts.}
-All six isotopes are \textbf{bound} ($B > 0$) with $B/A \approx 11.2$--$11.8$ MeV. The structural instability ratio $V_R/V_{BR}$ ranges from 11--13, well below the $1/\alpha \approx 137$ lattice rupture limit. The AVE framework predicts that these elements \textit{can exist} as meta-stable nuclear configurations---consistent with the standard nuclear shell model prediction.
+All six isotopes are \textbf{bound} ($B > 0$) with $B/A \approx 11.2$--$11.8$ MeV. The structural instability ratio $\rho_{CS}$ ranges from 11--13, well below the $1/\alpha \approx 137$ lattice rupture limit. The AVE framework predicts that these elements \textit{can exist} as meta-stable nuclear configurations---consistent with the standard nuclear shell model prediction.
 
 \paragraph{What the model does NOT predict (yet).}
 The Fibonacci packing produces a \textbf{smooth, monotonically increasing} $B/A$ trend through the superheavy region. It does \textit{not} resolve the magic-number shell closures at $Z = 114$, 120, or 126 that would create local $B/A$ peaks (the ``island'' effect). The smooth Fibonacci topology lacks the discrete impedance-gap structure that produces magic numbers for light nuclei ($Z = 2, 8, 20, 28, 50, 82$) in the analytic regime.
 
 Resolving the Island of Stability as a quantitatively falsifiable prediction requires upgrading the Fibonacci solver to an $S_{11}$-optimized geometry that captures the superheavy shell closures. This is a \textbf{computational} investment, not a new-physics requirement---the same $K_{mutual}$, $d_p$, and $\alpha\hbar c$ coupling constants are used.
 
-\subsection{Honest Assessment: Where The Model Needs Work}
+\subsection{Model Limitations and Open Refinements}
 
 \begin{enumerate}
     \item \textbf{Fibonacci packing is a heuristic.} The spherical Fibonacci lattice does not minimize the $S_{11}$ of the nuclear circuit---it merely provides a reasonable initial geometry. An $S_{11}$-optimized geometry (as implemented in the alpha cascade ABCD engine for small nuclei) would improve accuracy for mid-$Z$ elements by resolving the correct shell structure.
     \item \textbf{Core deformations are not modeled.} Beyond $Z \approx 28$ (Nickel), many nuclei exhibit prolate/oblate deformations that alter the $1/d_{ij}$ sum. The current spherical packing does not capture this.
-    \item \textbf{Lanthanide/Actinide $f$-shell structure is absent.} The filled $4f$ and $5f$ subshells create nested complete torus-knot arrays that modify the macroscopic nuclear impedance. This is documented as the ``Polar Conjugate Mirror'' effect in the Vol~6 heavy element catalog but is not yet integrated into the automated solver.
+    \item \textbf{Lanthanide/Actinide $f$-shell structure is absent.} The filled $4f$ and $5f$ subshells create nested complete torus-knot arrays that modify the macroscopic nuclear impedance. This is documented as the ``Polar Conjugate Mirror'' effect in the heavy element catalog (Ch.~\ref{ch:heavy_element_catalog}) but is not yet integrated into the automated solver.
     \item \textbf{Magic-number shell closures are absent.} The Fibonacci model produces a smooth $B/A$ curve through the superheavy region. The magic-number peaks at $Z = 114$, 120, 126 require discrete impedance gaps in the nuclear potential well---analogous to the analytic regime's shell structure---which the smooth Fibonacci packing does not capture. This is documented as the primary open solver upgrade.
 \end{enumerate}
 
@@ -96,7 +92,7 @@ Resolving the Island of Stability as a quantitatively falsifiable prediction req
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1.0\textwidth]{high_z_boundary_analysis.png}
-    \caption{\textbf{High-Z Nuclear Geometry Boundary Analysis.} \textbf{Top Left:} Mass prediction accuracy vs.\ atomic number. The three regimes (Analytic, Fibonacci, Superheavy) show logarithmic accuracy degradation from $0.06\%$ to $0.46\%$ across 118 elements. \textbf{Top Right:} CODATA binding energy per nucleon, peaking at Fe-56 and declining toward superheavy elements. \textbf{Bottom Left:} Coulomb-to-strong ratio (avalanche breakdown proximity). Oganesson ($Z=118$) is at $V_R/V_{BR} = 11.9$, still far from the $1/\alpha \approx 137$ structural collapse limit. \textbf{Bottom Right:} Computational scaling of the $1/d_{ij}$ summation. The $O(A^2)$ pairwise cost remains tractable through $Z = 120$ ($\sim 43{,}000$ pairs).}
+    \caption{\textbf{High-Z Nuclear Geometry Boundary Analysis.} \textbf{Top Left:} Mass prediction accuracy vs.\ atomic number. The three regimes (Analytic, Fibonacci, Superheavy) show logarithmic accuracy degradation from $0.06\%$ to $0.46\%$ across 118 elements. \textbf{Top Right:} CODATA binding energy per nucleon, peaking in the iron region and declining toward superheavy elements. \textbf{Bottom Left:} Coulomb-to-strong ratio $\rho_{CS}$ (structural-breakdown proximity). Oganesson ($Z=118$) is at $\rho_{CS} = 11.85$, still far from the $1/\alpha \approx 137$ structural collapse limit. \textbf{Bottom Right:} Computational scaling of the $1/d_{ij}$ summation. The $O(A^2)$ pairwise cost remains tractable through $Z = 120$ ($\sim 43{,}000$ pairs).}
     \label{fig:high_z_boundary}
 \end{figure}
 

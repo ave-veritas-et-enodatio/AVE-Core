@@ -23,6 +23,6 @@ The AVE equivalent is the **Global Minimization of Mutual Impedance**. As demons
 - **Linear ($CO_2$):** Analogous to a physically stretched parasitic array where the ends map to distant nodes optimizing the $1/d_{ij}$ spacing.
 - **Tetrahedral ($CH_4$ - Methane):** The tetrahedral molecular layout identically matches the fundamental packing structure of the Helium-4 core. The four Hydrogen atoms space themselves into a perfect tetrahedron to reach an evenly distributed resonant ground state. Molecular bonding geometries are just macroscopic fractal repetitions of the exact same packing geometry observed in the fundamental Alpha core.
 
-The magic of the topological mapping is that there is no arbitrary distinction between Nuclear Physics, Quantum Mechanics, and Chemistry. The exact same EE rule governing why the Proton weighs what it does ($M_{ij} = K/d$) is the exact same mechanical rule determining why water ($H_2O$) bonds at a $104.5^\circ$ angle.
+In the AVE picture the same mutual-impedance rule ($M_{ij} = K/d$) underlies nuclear binding, atomic structure, and chemical bonding, so they share a single mechanical description rather than three separate ones. This is a substrate-mechanism re-identification that is peer with the standard quantum-chemical treatment, not a distinct empirical prediction (`clm-jqnzz7`, confidence 0.30); the water ($H_2O$) $104.5^\circ$ angle is an illustrative structural analogy here, not a derivation.
 
 ---

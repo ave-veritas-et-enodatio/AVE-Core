@@ -20,7 +20,7 @@ Source: `09_nitrogen.tex` | No `\label{ch:nitrogen}` in source
 | Nuclear structure | Asymmetric, numerically optimized 14-nucleon array ($3\alpha + d$) |
 | EE equivalent | Irregular Asymmetric LC Mesh (heterogeneous $M_{ij}$, broad-spectrum impedance) |
 | Semiconductor regime | $3\alpha$ core at $R = 56.527d$ (Small Signal) + deuteron polar halo |
-| Orbital topology | Five solitons at $72^\circ$ on $n=2$; half-filled $p$-shell from geometric incompressibility |
+| Orbital topology | Five $n=2$ (L-shell) electrons ($2s^2\,2p^3$) at $72^\circ$ on $n=2$ (seven total incl. $1s^2$ core); half-filled $p$-shell from geometric incompressibility |
 
 ## Derivations and Detail
 

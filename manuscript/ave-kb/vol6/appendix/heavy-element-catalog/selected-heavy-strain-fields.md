@@ -7,7 +7,7 @@ no-claim: figure captions only - strain-field visualisations
 
 ## Nuclear Strain Fields of Selected Heavy Elements
 
-The following figures show the vacuum strain density and flux streamlines for the same six elements, computed from the nucleon coordinates returned by the AVE element simulator. All spatial coordinates are in units of the proton spin radius $d = 4\hbar / m_p c \approx 0.841\text{ fm}$, derived from the physics engine. Nucleon positions for Z $\geq$ 16 use the spherical Fibonacci alpha-packing model---a geometric proxy that preserves the $1/r$ mutual impedance topology while pending exact Platonic/Archimedean solutions for each element.
+The following figures show the vacuum strain density and flux streamlines for the same six elements, computed from the nucleon coordinates returned by the AVE element simulator. All spatial coordinates are in units of the proton spin radius $d = 4\hbar / m_p c \approx 0.841\text{ fm}$, derived from the physics engine. Nucleon positions for Z $\geq$ 16 use the spherical Fibonacci alpha-packing model---a geometric proxy that preserves the $1/r$ mutual impedance topology; exact Platonic/Archimedean solutions are not yet tabulated for each of these elements.
 
 [Figure: sulfur_32_density_equator.png, sulfur_32_dynamic_flux.png --- see manuscript/vol_6_periodic_table/figures/]
 
@@ -31,6 +31,6 @@ The following figures show the vacuum strain density and flux streamlines for th
 
 [Figure: iron_56_density_equator.png, iron_56_dynamic_flux.png --- see manuscript/vol_6_periodic_table/figures/]
 
-**Iron-56**: FCC-14 packing at peak nuclear binding energy per nucleon ($0.0001\%$ error). 14 alpha clusters visible in the flux plot.
+**Iron-56**: FCC-14 packing at minimum mass-per-nucleon (the fusion endpoint) ($0.0001\%$ error). 14 alpha clusters visible in the flux plot.
 
 ---

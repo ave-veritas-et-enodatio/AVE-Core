@@ -376,11 +376,11 @@ The cross-cutting Symmetric vs Asymmetric Saturation entry (in `../claim-quality
 
 - _Specific Claims_
   - Three regimes: Linear (Small Signal, $V \ll V_{\text{yield}}$, $\epsilon_{\text{eff}} \approx \epsilon_0$), Non-Linear (Large Signal, $V_{\text{yield}} \le V < V_{\text{snap}}$), Saturated (Breakdown, $V \ge V_{\text{snap}}$, $\epsilon_{\text{eff}} \to 0$).
-  - Empirical Small/Large boundary at S-32 ($Z=16$): $V_R/V_{BR}$ jumps from $0.050$ (Si-28) to $0.994$ (S-32). Carbon through Silicon assemble exothermically; $^{28}\text{Si} + \alpha \to ^{32}\text{S}$ is endothermic by $\sim 75$ MeV (silicon-burning supernova condition).
+  - Empirical Small/Large boundary at S-32 ($Z=16$): $V_R/V_{BR}$ jumps from $0.050$ (Si-28) to $0.994$ (S-32). Carbon through Silicon assemble via exothermic alpha-capture; the cube topology of S-32 is the first to cross into avalanche breakdown (net silicon burning is photodisintegration-driven at supernova temperatures rather than simple alpha-capture).
   - Si-28 sitting at the Small/Large boundary ($V_R/V_{BR} = 0.050$, deep Small Signal but adjacent to the transition) is the framework's structural account of why silicon dominates microelectronics: stable in bulk, dynamically switchable.
 - _Specific Non-Claims and Caveats_
   - The "natively explains why silicon is the dominant material in microelectronics" argument is a **structural / interpretive** claim. Does NOT claim a quantitative prediction of silicon's electronics properties (band gap, mobility, etc.) from $V_R/V_{BR} = 0.050$.
-  - Does NOT claim the $\sim 75$ MeV endothermic figure for $^{28}\text{Si} + \alpha \to ^{32}\text{S}$ is AVE-derived — it is the empirical $Q$-value cited as evidence of the regime transition.
+  - Does NOT assign a per-reaction silicon-burning energetics value; the Small$\to$Large transition is identified by the $V_R/V_{BR}$ avalanche-breakdown gate, not by a nucleosynthesis $Q$-value.
   - V_YIELD vs V_SNAP distinction is project-wide (LIVING_REFERENCE.md Critical Distinctions #1): V_SNAP $= 511$ kV (absolute destruction), V_YIELD $= 43.65$ kV (kinetic onset of nonlinearity). Vol 6 nuclear binding operates at $V_{BR} \approx 3.631$ MeV per alpha cluster, which is the **alpha-cluster internal Coulomb capacity**, not the lattice V_YIELD or V_SNAP. The three voltage scales (V_YIELD, V_SNAP, V_BR) live at different scales; reviewers should not conflate them.
 
 > **Leaf references:** [semiconductor-regime-chemistry](./framework/chemistry-translation/semiconductor-regime-chemistry.md), [operating-regimes](./framework/computational-mass-defect/operating-regimes.md), [semiconductor-nuclear-analysis](./framework/computational-mass-defect/semiconductor-nuclear-analysis.md), [symmetric-shell-collapse](./period-3/magnesium/symmetric-shell-collapse.md), [symmetric-core-collapse](./period-3/silicon/symmetric-core-collapse.md).
@@ -391,11 +391,11 @@ The cross-cutting Symmetric vs Asymmetric Saturation entry (in `../claim-quality
   - Axiom 4 (Universal Saturation Kernel; $S$-kernel regimes)
   - clm-llqd1n (per-nucleus fit producing the $V_R/V_{BR}$ ratios)
 - solidity: 0.60 (use as input only, don't build deeper) [= min(0.70, 0.60)]
-- rationale: The three-regime classification (Linear / Non-Linear / Saturated) on $V_R/V_{BR}$ is the clean nuclear specialization of the Axiom-4 saturation kernel, with $V_{BR}\approx3.631$ MeV axiom-derived and the S-32 boundary jump ($0.050\to0.994$) falling directly out of the binding formula. The "explains why silicon dominates microelectronics" and the ~75 MeV $^{28}$Si+$\alpha$ endothermicity are explicitly disclosed as interpretive / empirical-$Q$-value inputs, and the regime ratios inherit the per-nucleus fit of clm-llqd1n. Closes on disclosed imports — disclosed-methodology bound.
+- rationale: The three-regime classification (Linear / Non-Linear / Saturated) on $V_R/V_{BR}$ is the clean nuclear specialization of the Axiom-4 saturation kernel, with $V_{BR}\approx3.631$ MeV axiom-derived and the S-32 boundary jump ($0.050\to0.994$) falling directly out of the binding formula. The "explains why silicon dominates microelectronics" claim is explicitly disclosed as interpretive, the Small$\to$Large transition is identified by the $V_R/V_{BR}$ avalanche-breakdown gate (no per-reaction nucleosynthesis $Q$-value asserted), and the regime ratios inherit the per-nucleus fit of clm-llqd1n. Closes on disclosed imports — disclosed-methodology bound.
 - strengthen-by:
   - Derive the $V_R/V_{BR}$ ratios from topology without the per-nucleus $R$ fit
   - Predict silicon's electronic properties (band gap / switching threshold) quantitatively from $V_R/V_{BR}=0.050$
-  - Derive the $^{28}$Si+$\alpha$ endothermic $Q$-value rather than citing it
+  - Derive the $^{28}$Si+$\alpha$ capture $Q$-value rather than citing it
 
 ---
 

@@ -22,13 +22,13 @@ Adding a neutron to the halo ($^{28}$Al) would create a $^4\text{H}$-like fragme
 The vacuum metric of Aluminum-27 closely resembles Sodium-23 but with a denser core: the $6\alpha$ Octahedral core dominates the gravitational well, while the Tritium halo at $52.6d$ introduces a mild polar asymmetry along the $z$-axis. The dipole moment is substantially smaller than Fluorine's massive $398d$ whip, producing a moderate rather than extreme electronegativity. The equatorial cross-section is nearly indistinguishable from Magnesium-24---the halo's influence is primarily axial.
 
 \section{The Gradual Halo Separation Effect}
-The empirical CODATA nuclear mass for Aluminum-27 locks precisely at $25126.501$ MeV. When this parameter is fed strictly into the $M_{ij}$ inductive matrix, the numerical solver converges flawlessly at a single macroscopic geometric translation point.
+The empirical CODATA nuclear mass for Aluminum-27 is $25126.501$ MeV. This mass is the input; the solver fits the single scalar halo distance $R_{halo}$ that reproduces it within the $(Z,A)$-forced $6\alpha + T$ topology (the topology is zero-parameter; the halo distance is the one fitted degree of freedom).
 
-To achieve $0.0000\%$ mapping error, the Tritium halo bonds to the primary $Z$-axis (North Pole) Alpha centroid of the underlying Octahedron, radially bounding outward to exactly $R_{halo} = 52.6d$.
+The fit converges to a tolerance below $0.000001\%$ on $R_{halo}$; the Tritium halo bonds to the primary $Z$-axis (North Pole) Alpha centroid of the underlying Octahedron, bounding outward to $R_{halo} = 52.6d$. Aluminum-27 is a core-plus-halo fit nucleus, not one of the closed-shell exact-geometric-identity cases; its end-to-end topological mass ($25132.926$ MeV) agrees with CODATA to $0.02557\%$ (see the summary table, Ch.~\ref{ch:summary}, and Box~\ref{box:internal_peer_scope}).
 
 Compare this bound to Sodium-23. Sodium is built on the $5\alpha$ Bipyramid, which binds the exact same Tritium triangle at $R_{halo} = 50.2d$. 
 
-As the scalar capacity of the core increases from $5\alpha$ to $6\alpha$, the bulk matrix repels the halo slightly further. Aluminum's $52.6d$ lever defines a slightly more relaxed, moderately reactive geometry. This mathematically isolates exactly why post-transition metals possess distinct, less aggressive electronegative characteristics than pure Alkali metals. 
+As the scalar capacity of the core increases from $5\alpha$ to $6\alpha$, the bulk matrix repels the halo slightly further. Aluminum's $52.6d$ lever defines a slightly more relaxed, moderately reactive geometry. This structural asymmetry accounts for why post-transition metals show moderate, less aggressive electronegativities than pure Alkali metals.
 
 \section{Electrical Engineering Equivalent: The Asymmetrically Loaded Octahedral Network}
 Aluminum-27 inherits the Magnesium-24 Octahedral core network (276 internal SPICE parameters) and superimposes a polar Tritium parasitic array. The resulting 351-parameter matrix creates a dual-resonance system: the high-$Q$ 6-phase core dominates the primary frequency band, while the 3-node halo at $53d$ introduces a secondary sideband coupling channel. Unlike Sodium-23 (where the halo sits at $50d$ atop a bipyramidal core, creating a deeply coupled sideband), Aluminum's Octahedral core is sufficiently massive and symmetric that the $53d$ offset generates only a mild perturbation on the primary response. This weak secondary coupling is the EE origin of Aluminum's trivalent bonding---three distinct halo-to-pole inductive channels, each sharing one-third of the total halo coupling energy.
@@ -41,14 +41,14 @@ The industrial dominance of Aluminum derives from two geometric properties: (1) 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/aluminum_27_dynamic_flux.png}
-    \caption{The Aluminum-27 topology rendered across the $X-Z$ plane. The $6\alpha$ Octahedral core pushes the Tritium array up the $Z$-axis. The visual perfectly maps the asymmetric moment created by the $53.119d$ offset gap.}
+    \caption{The Aluminum-27 topology rendered across the $X-Z$ plane. The $6\alpha$ Octahedral core pushes the Tritium array up the $Z$-axis. The visual maps the asymmetric moment created by the $52.6d$ ($R_{\text{halo}} = 52.605d$) offset gap.}
     \label{fig:aluminum_27_density}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{figures/circuit_al27.pdf}
-    \caption{The Aluminum-27 SPICE architecture. A colossal 351 unique dynamic parameters couple the core 24 nucleon array linearly into the 3 discrete nodes of the polar Tritium halo.}
+    \caption{The Aluminum-27 SPICE architecture. The 351 unique dynamic parameters couple the core 24 nucleon array linearly into the 3 discrete nodes of the polar Tritium halo.}
     \label{fig:circuit_al27}
 \end{figure}
 
@@ -61,9 +61,9 @@ The industrial dominance of Aluminum derives from two geometric properties: (1) 
 \end{figure}
 
 \section{Semiconductor Regime Classification}
-Aluminum-27 ($6\alpha + ^3\text{H}$) is the third core-plus-halo element. The semiconductor engine fixes the Magnesium-24 octahedral core at $R_{\text{core}} = 78.0\,d$ (Small Signal, $V_R/V_{BR} = 0.040$, $M = 1$), then solves for the Tritium halo: $R_{\text{halo}} = 52.605\,d$, with $0.000\,000\%$ error against $25\,126.501$ MeV.
+Aluminum-27 ($6\alpha + ^3\text{H}$) is the third core-plus-halo element. The semiconductor engine fixes the Magnesium-24 octahedral core at $R_{\text{core}} = 78.0\,d$ (Small Signal, $V_R/V_{BR} = 0.040$, $M = 1$), then fits the single scalar Tritium halo distance: $R_{\text{halo}} = 52.605\,d$. The $0.000\,000\%$ figure is the fit-convergence tolerance on $R_{\text{halo}}$, not the mass-prediction error---Aluminum-27 is a core-plus-halo fit nucleus (NOT in the closed-shell exact set), and its end-to-end topological mass agrees with the CODATA $25\,126.501$ MeV to the $0.02557\%$ recorded in the summary table.
 
-The halo evolution from Period 3 is now fully resolved: $R_{\text{halo}} = 398d$ (Fluorine) $\to$ $50d$ (Sodium) $\to$ $53d$ (Aluminum). As the core grows from $4\alpha$ to $5\alpha$ to $6\alpha$, the halo contracts dramatically and then stabilizes. The Sodium-to-Aluminum shift of only $2.4d$ demonstrates that the $5\alpha \to 6\alpha$ core expansion has negligible effect on halo proximity---the octahedral core is already dense enough to saturate the core-halo attraction. This geometric plateau explains why post-transition metals (Al, Ga, In) share moderate, similar electronegativities rather than exhibiting the extreme variation seen across Halogens and Alkali metals.
+The Period-3 halo evolution runs $R_{\text{halo}} = 398d$ (Fluorine) $\to$ $50d$ (Sodium) $\to$ $53d$ (Aluminum). As the core grows from $4\alpha$ to $5\alpha$ to $6\alpha$, the halo contracts dramatically and then stabilizes. The Sodium-to-Aluminum shift of only $2.4d$ indicates that the $5\alpha \to 6\alpha$ core expansion has negligible effect on halo proximity---the octahedral core is already dense enough to saturate the core-halo attraction. This geometric plateau explains why post-transition metals (Al, Ga, In) share moderate, similar electronegativities rather than exhibiting the extreme variation seen across Halogens and Alkali metals.
 
 \section{Ionization Energy: Op10 Junction Projection (Correction~C)}
 \label{sec:al_ie_correction_c}
@@ -88,7 +88,7 @@ Outer ($r > r_2$) & $13 - 10 = 3$ & $3s^2\,3p^1$ & MCL loading \\
 The SIR mode-weighting applies when the inner shell is deeply nested: $n_\text{out}^2/n_\text{inner}^2 \geq 4$.  For Al: $9/4 = 2.25 < 4$---the $n = 2$ shell is co-resonant with the $n = 3$ valence, not enclosed by it.  Full SIR mode-weighting overcorrects by $\sim 40\%$ because it strips all core phase from $E_\text{base}$.
 
 \paragraph{Correction~C: Op10 junction projection.}
-The $3p$ soliton crosses the saturated $n = 2$ torus boundary \emph{twice} per radial oscillation (inward and outward passages).  Each crossing is a junction in the Op10 sense.  The correction chain uses five operators with zero free parameters:
+The $3p$ soliton crosses the saturated $n = 2$ torus boundary \emph{twice} per radial oscillation (inward and outward passages).  Each crossing is a junction in the Op10 sense.  The correction chain uses five operators with zero fit constants given the standard $[\text{Ne}]\,3s^2\,3p^1$ filling order (an asserted input, not derived here); the accuracy below is gated against the engine's reference values rather than against a NIST-exact target:
 
 \begin{enumerate}
     \item \textbf{Axiom~2 (Gauss screening):}  $Z_\text{in} = 11$, $Z_\text{out} = 3$ at the $n = 2$ boundary.
@@ -113,8 +113,8 @@ For period-2 $p$-block atoms (B--Ne), the inner shell is $1s^2$ with $|\Gamma|^2
 \begin{summarybox}
 \begin{itemize}
     \item Aluminum-27 is the $6\alpha + 1$ halo analogue to Fluorine-19's $4\alpha + 1$ structure, with $R_{\text{halo}} = 53d$ demonstrating the geometric plateau of post-transition metals.
-    \item The Sodium-to-Aluminum halo shift of only $2.4d$ proves that the $5\alpha \to 6\alpha$ core expansion has negligible effect on halo proximity---the octahedral core saturates core--halo attraction.
-    \item \textbf{Resolved:} The first ionization energy ($5.937$~eV vs $5.986$~eV, $-0.82\%$) is reproduced by Op10 junction projection at the co-resonant $n = 2$ shell boundary (Correction~C), using the same operator that governs protein backbone bend loss.
+    \item The Sodium-to-Aluminum halo shift of only $2.4d$ indicates that the $5\alpha \to 6\alpha$ core expansion has negligible effect on halo proximity---the octahedral core saturates core--halo attraction.
+    \item The first ionization energy ($5.937$~eV vs $5.986$~eV, $-0.82\%$) is reproduced by Op10 junction projection at the co-resonant $n = 2$ shell boundary (Correction~C), using the same operator that governs protein backbone bend loss.
 \end{itemize}
 \end{summarybox}
 
@@ -122,7 +122,7 @@ For period-2 $p$-block atoms (B--Ne), the inner shell is $1s^2$ with $|\Gamma|^2
 \begin{enumerate}
     \item Explain why the halo distance stabilises near $50$--$53d$ for Sodium and Aluminum despite a $5\alpha \to 6\alpha$ core expansion.
     \item Use the $R_{\text{halo}}$ plateau to predict why post-transition metals (Al, Ga, In) share moderate, similar electronegativities.
-    \item Derive the Op10 crossing angle $\theta = 69.7^\circ$ for Aluminum from $|\Gamma|^2 = 0.327$ and verify that the resulting IE matches the NIST value.
+    \item Derive the Op10 crossing angle $\theta = 69.7^\circ$ for Aluminum from $|\Gamma|^2 = 0.327$ and verify that the resulting IE matches the engine's reference value.
 \end{enumerate}
 \end{exercisebox}
 
