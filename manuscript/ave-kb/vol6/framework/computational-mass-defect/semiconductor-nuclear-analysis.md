@@ -125,7 +125,6 @@ where all sums run over the $16 \times \binom{N_\alpha}{2}$ inter-alpha nucleon-
 | Si-28 | 7 | 0.050 | 1.000 | $0.0002\%$ | Small Signal |
 | **S-32** | **8** | **0.994** | **32.8** | $\mathbf{0.0000\%}$ | **Large Signal** |
 
-<!-- [2026-06-15 KB-reconciliation (vol_6 brief §A.4 · AF-04 parallel-site fix) -- prior caption preserved per Rule 12]: read "All parameters are axiom-derived; zero empirical fits." SUPERSEDED: scopes to the NON-GEOMETRIC constants; the per-nucleus inter-alpha distance R is fit (this leaf's ⚠ methodology note at the head of the section). Brought into sync with the byte-identical .tex twin (01_computational.tex caption, reconciled in PR #239) — KB-is-truth, so the leaf must not be left the stale laggard. -->
 *Predicted nuclear masses from the semiconductor avalanche model. The non-geometric constants are axiom-derived (zero empirical fits); the per-nucleus inter-alpha distance $R$ is fit to reproduce each CODATA mass (see the ⚠ methodology note above). The avalanche multiplier $M$ remains at unity for $Z \le 14$ (Small Signal) and jumps to $32.8$ at $Z=16$ (Large Signal).*
 
 ### Topology as Semiconductor Device Type
