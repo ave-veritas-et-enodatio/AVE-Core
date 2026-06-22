@@ -8,7 +8,6 @@ subtree-experiments: []
 
 # Computational Mass Defect via Mutual Impedance
 
-<!-- [2026-06-15 KB-reconciliation (vol_6 brief §A.4, parallel-site) -- prior wording preserved per Rule 12]: read "...to compute nuclear masses via mutual impedance summation with zero empirical parameters." SUPERSEDED: omits the per-nucleus fitted scalar R disclosed by this folder's own canonical leaf (semiconductor-nuclear-analysis.md:11 ⚠ methodology note). Scoped to "no empirical constants beyond the axiom-derived set; R is the one fitted geometric DOF per nucleus." -->
 A fundamental challenge in standard continuous vacuum theories is calculating the total integrated strain (and therefore the total energy or mass) of complex overlapping geometrical fields. Because the AVE framework defines the vacuum as a discrete $LC$ network, established Electrical Engineering network theory is leveraged to compute nuclear masses via mutual impedance summation with no empirical constants beyond the axiom-derived set — the per-nucleus inter-alpha distance $R$ is the one fitted geometric scalar per nucleus (see [Semiconductor Nuclear Analysis](semiconductor-nuclear-analysis.md), ⚠ methodology note).
 
 ## Key Results
