@@ -11,6 +11,6 @@ claims: [clm-y7uvdc]
 
 [Figure: silicon_28_topology.png --- see manuscript/vol_6_periodic_table/figures/]
 
-Silicon-28 orbital knot topology. $[\text{Ne}]$ core (green) with four valence $sp^3$ solitons at $90^\circ$ on $n=3$ (orange). The semiconductor boundary: the last stable Small Signal element.
+Silicon-28 orbital knot topology (a mapping of the four valence electrons to solitons, not a derivation of tetrahedral hybridization). $[\text{Ne}]$ core (green) with four valence $sp^3$ solitons shown on orthogonal projection axes on $n=3$ (orange). The semiconductor boundary: the last stable Small Signal element.
 
 ---
