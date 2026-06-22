@@ -7,7 +7,7 @@
 \begin{itemize}
     \item Compute nuclear binding energy via a discrete mutual impedance network with $O(N_\alpha^2)$ scaling.
     \item Apply the semiconductor avalanche multiplication model ($M = 1/(1-(V_R/V_{BR})^n)$) to capture nonlinear Coulomb enhancement in heavy nuclei.
-    \item Reproduce CODATA masses to sub-0.01\% for light elements ($Z \leq 14$) using only alpha-cluster geometry and mutual coupling constants.
+    \item Reproduce CODATA masses to sub-0.01\% for light elements ($Z \leq 14$) using a single fitted inter-alpha distance $R$ per nucleus within the $(Z,A)$-forced alpha-cluster topology and axiom-derived coupling constants --- the accuracies are fitting tolerances on $R$, not ab-initio prediction errors (methodology note, Chapter~\ref{ch:intro}).
 \end{itemize}
 \end{objectivebox}
 
@@ -74,12 +74,12 @@ In an LC tank, the Quality Factor ($Q$) defines the ratio of stored reactive ene
 
 Within the AVE framework, "dissipation" maps physically to the acoustic drag (vacuum friction) across the geometric perimeter of the defect. $Q$ is calculated as the ratio of Total Internal Mutual Inductance ($U_{stored}$) to the Effective Topological Radius ($R_{eff}$).
 
-The symmetrical Helium-4 core achieves a massively dominant $Q$-factor ($19.22$), proving why the Alpha particle is virtually indestructible. Conversely, the vast asymmetrical spatial gap in Lithium-7 causes its $Q$-factor to plummet ($2.85$), making its outer shell highly susceptible to decay or chemical bonding. Beryllium-9's endothermic bridge topology manages a moderate $Q$-factor ($7.93$).
+The symmetric Helium-4 core has the highest $Q$-factor ($19.22$) in this set, consistent with the alpha particle's exceptional stability. Conversely, the vast asymmetrical spatial gap in Lithium-7 causes its $Q$-factor to plummet ($2.85$), making its outer shell highly susceptible to decay or chemical bonding. Beryllium-9's endothermic bridge topology manages a moderate $Q$-factor ($7.93$).
 
 \subsection{Topological S-Parameters ($S_{11}$)}
 When high-energy physicists measure the "Scattering Cross-Section" of a nucleus via particle bombardment, they are explicitly measuring its $S_{11}$ reflection parameter. This is a pure function of the topological bounding footprint (Area $\propto \pi r^2$) of the localized impedance defect.
 
-Because of the massive $\sim 9.72d$ secondary shell offset in Lithium-7, it exhibits a ridiculously huge theoretical $S_{11}$ radar scattering cross-section compared to all preceding elements. A physical photon or neutron wave hitting $^7Li$ has an exponentially higher probability of striking an impedance mismatch and scattering than it does hitting the ultra-compact $^4He$ Alpha core.
+Because of the massive $\sim 9.72d$ secondary shell offset in Lithium-7, it exhibits a markedly larger theoretical $S_{11}$ radar scattering cross-section compared to all preceding elements. A physical photon or neutron wave hitting $^7Li$ has an exponentially higher probability of striking an impedance mismatch and scattering than it does hitting the ultra-compact $^4He$ Alpha core.
 
 \begin{figure}[htbp]
     \centering
@@ -280,7 +280,7 @@ Every constant used in this model traces directly to a named identifier in the \
 \hline
 \textbf{LaTeX Symbol} & \textbf{Python Identifier} & \textbf{Value} & \textbf{Unit} & \textbf{Source} \\
 \hline
-$\ell_\text{node}$ & \texttt{L\_NODE} & $3.862\times10^{-13}$ & m & Axiom 1 \\
+$l_\text{node}$ & \texttt{L\_NODE} & $3.862\times10^{-13}$ & m & Axiom 1 \\
 $\alpha$ & \texttt{ALPHA} & $0.007297$ & --- & Axiom 2 \\
 $\hbar$ & \texttt{HBAR} & $1.055\times10^{-34}$ & J$\cdot$s & Axiom 1 \\
 $c_0$ & \texttt{C\_0} & $2.998\times10^{8}$ & m/s & Axiom 1 \\
@@ -402,7 +402,7 @@ The cube (S-32) is the first topology where the cumulative Coulomb load per alph
 
 The inter-alpha distances ($R$) in this engine are not arbitrary static force equilibria; they are dynamic standing-wave resonance conditions. In the AVE framework, nucleons are not static DC point charges, but dynamic electromagnetic gyroscopes oscillating at the rest-mass Compton frequency ($\omega = mc^2/\hbar$).
 
-At nuclear distances ($R < 80$ fm), the entire geometry exists deep inside a single macroscopic lattice node ($\ell_{node} \approx 386$ fm). Because the local metric strain evaluating to $\Delta\phi / \alpha = \ell_{node} / r$ is strictly greater than 1, the entire nuclear interior operates at the absolute Axiom 4 dielectric saturation limit ($C_{eff} \to \infty$, $Z \to 0\,\Omega$). The K/r and $\alpha\hbar c/r$ terms used in Eq.~\ref{eq:semiconductor_mass} already represent the saturated internal coupling forces within this bounded zone.
+At nuclear distances ($R < 80$ fm), the entire geometry exists deep inside a single macroscopic lattice node ($l_{node} \approx 386$ fm). Because the local metric strain evaluating to $\Delta\phi / \alpha = l_{node} / r$ is strictly greater than 1, the entire nuclear interior operates at the absolute Axiom 4 dielectric saturation limit ($C_{eff} \to \infty$, $Z \to 0\,\Omega$). The K/r and $\alpha\hbar c/r$ terms used in Eq.~\ref{eq:semiconductor_mass} already represent the saturated internal coupling forces within this bounded zone.
 
 Because the vacuum inside the nucleus is fully saturated, the static force terms share identical $1/r$ dependence and cannot produce an equilibrium location on their own. Instead, the equilibrium distance $R$ is determined dynamically by the topology acting as a \textbf{coupled cavity resonator}.
 
@@ -432,7 +432,7 @@ Conversely, the Beryllium-8 geometry ($4p, 4n$) consists of two massive $^4He$ A
 \begin{itemize}
     \item Nuclear binding energy is computed via a discrete mutual impedance network rather than brute-force 3D volume integration, reducing scaling from $O(N^3)$ to $O(N_\alpha^2)$.
     \item The semiconductor avalanche multiplication model ($M = 1/(1-(V_R/V_{BR})^n)$) captures the nonlinear Coulomb enhancement in heavy nuclei using zero free parameters beyond the axiom-derived breakdown voltage.
-    \item The computational engine reproduces CODATA masses to sub-0.01\% for light elements ($Z \leq 14$) using only alpha-cluster geometry and mutual coupling constants.
+    \item The computational engine reproduces CODATA masses to sub-0.01\% for light elements ($Z \leq 14$) using a single fitted inter-alpha distance $R$ per nucleus within the $(Z,A)$-forced alpha-cluster topology and axiom-derived coupling constants; the accuracies are fitting tolerances on $R$.
 \end{itemize}
 \end{summarybox}
 
