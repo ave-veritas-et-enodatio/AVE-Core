@@ -7,7 +7,7 @@ claims: [clm-sd04x4]
 
 ## Electrical Engineering Equivalent: The 3-Phase Delta-Wye Map
 
-Modeled electrically, Carbon-12 maps to three immense parallel LC (Inductance-Capacitance) tank circuits. Because the component Alphas are individually completely stable and resonant ($Q=19.52$ each), they act as high-efficiency standalone phase oscillators.
+Modeled electrically, Carbon-12 maps to three immense parallel LC (Inductance-Capacitance) tank circuits. Because the component Alphas are individually completely stable and resonant ($Q=19.19$ each), they act as high-efficiency standalone phase oscillators.
 
 In heavy electrical power systems, this layout natively mirrors a **3-Phase Delta-Wye (Y) Transformer**. The massive $56.6d$ spatial gap between these tanks imposes an extremely high resistance on their interaction. The network relies solely on weak mutual inductive coupling ($M_{12}, M_{23}, M_{31}$) linking the fields across the vacuum in a theoretical circumferential Delta ($\Delta$) ring, while concurrently establishing a perfectly canceled vacuum "neutral" node in the geometric center---structurally analogous to a Wye (Y) ground.
 

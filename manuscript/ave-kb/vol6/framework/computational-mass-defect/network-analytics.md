@@ -15,7 +15,7 @@ In an LC tank, the Quality Factor ($Q$) defines the ratio of stored reactive ene
 
 Within the AVE framework, "dissipation" maps physically to the acoustic drag (vacuum friction) across the geometric perimeter of the defect. $Q$ is calculated as the ratio of Total Internal Mutual Inductance ($U_{stored}$) to the Effective Topological Radius ($R_{eff}$).
 
-The symmetric Helium-4 core has the highest $Q$-factor ($19.22$) in this set, consistent with the alpha particle's exceptional stability. Conversely, the vast asymmetrical spatial gap in Lithium-7 causes its $Q$-factor to plummet ($2.85$), making its outer shell highly susceptible to decay or chemical bonding. Beryllium-9's endothermic bridge topology manages a moderate $Q$-factor ($7.93$).
+The symmetric Helium-4 core has the highest $Q$-factor ($19.19$) in this set, consistent with the alpha particle's exceptional stability. Conversely, the vast asymmetrical spatial gap in Lithium-7 causes its $Q$-factor to plummet ($2.85$), making its outer shell highly susceptible to decay or chemical bonding. Beryllium-9's endothermic bridge topology manages a moderate $Q$-factor ($7.93$).
 
 ### Topological S-Parameters ($S_{11}$)
 
