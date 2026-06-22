@@ -52,6 +52,21 @@ where $\boldsymbol{\sigma}$ is the (asymmetric) Cauchy stress tensor with antisy
 
 The substrate $\mathbf{B}$-field is the spatial coarse-graining of $\boldsymbol{\omega}$; Faraday's law of induction is the substrate-native consequence of bidirectional translational-rotational coupling: time-varying $\mathbf{E}$ (translation of charge) drives time-varying $\boldsymbol{\omega}$ (microrotation), with the cross-coupling captured by the $2\sigma^A$ term in the rotational PDE. The EE Faraday law $\nabla \times \mathbf{E} = -\partial_t \mathbf{B}$ is the substrate's Cosserat-bidirectional-coupling identity projected onto the macroscopic LC continuum.
 
+\section{Node Response: the $V$-keyed / $I$-keyed Dual and the Static-Field Asymmetry}
+\label{sec:vol9_node_response_dual}
+
+The two reactive grades of the node LC tank saturate through the \emph{same} Axiom~4 kernel $S(A) = \sqrt{1 - (A/A_{\mathrm{yield}})^2}$ but are keyed on \emph{different} drive variables: the $\varepsilon$-grade is a varactor keyed on the voltage $V$ ($C_{\mathrm{eff}}(V) = C_0/S(V/V_{\mathrm{yield}})$), and the $\mu$-grade is the \textbf{relativistic inductor} keyed on the circulating current $I$ ($L_{\mathrm{eff}}(I) = L_0/S(I/I_{\mathrm{max}})$, $I_{\mathrm{max}} = \xi_{\mathrm{topo}}\, c \approx \qty{124.4}{\ampere}$; canonical leaf \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor.md}). The relativistic inductor is therefore the \textbf{magnetic-sector saturation primitive}: the kernel argument is the circulation $I$, not the static field magnitude $|\mathbf B|$, and not $B_{\mathrm{snap}}$ (which is an \emph{energy-density} scale, $B_{\mathrm{snap}}^2/2\mu_0 = m_e c^2/\ell_{\mathrm{node}}^3 = 1$, not a kernel argument).
+
+This keyed-argument duality fixes the node's operating point under three drive regimes (Fig.~\ref{fig:vol9_node_response_regimes}):
+
+\input{figures/node_response_regimes.tex}
+
+\begin{itemize}
+    \item \textbf{R1 (symmetric internal loading):} both grades driven (a mass-soliton carrying internal $\mathbf E$ \emph{and} $\mathbf B$), $S_\varepsilon = S_\mu = S$, so $Z = Z_0\sqrt{\mu_0 S/\varepsilon_0 S} = Z_0$ stays invariant (reflectionless) --- the Symmetric-Gravity operating point (INVARIANT-S2, W6 scope, \kbleaf{manuscript/ave-kb/CLAUDE.md} \S Operating-point).
+    \item \textbf{R2 (static-$\mathbf E$ / E-route):} a static $\mathbf E$ has no $\partial_t\mathbf B$ to load the $\mu$-grade, so it biases the $\varepsilon$-varactor only ($S_\varepsilon < 1$, $S_\mu = 1$); $Z_{\mathrm{eff}} = Z_0\sqrt{S_\mu/S_\varepsilon}$ changes ($\Gamma \neq 0$, the Op14 Meissner-asymmetric / vacuum-impedance-mirror mechanism), with $\delta n \approx \tfrac14 (E/E_{\mathrm{yield}})^2$. This is the route the OQ-1 birefringence falsifier exercises (Ch.~\ref{ch:vol9_falsification_tests}).
+    \item \textbf{R3 (static-$\mathbf B$):} a static $\mathbf B$ ($\partial_t\mathbf B = 0$, sustained by the magnet's transport current, not the vacuum's circulation) induces \emph{no} internal vacuum circulation, so $I_{\mathrm{vac}} = 0 \Rightarrow A_I = 0 \Rightarrow S_\mu = 1 \Rightarrow \mu_{\mathrm{eff}} = \mu_0 \Rightarrow \delta n_\mu = 0$ \textbf{analytically exact}. This is ``flat'' across \qtyrange{2.5}{1000}{\tesla} \emph{trivially}: the kernel argument $A_I = I_{\mathrm{vac}}/I_{\mathrm{max}}$ is identically zero under a static $\mathbf B$, so $S_\mu = 1$ at every field strength --- not a numerical finding but a consequence of the $\mu$-grade keying on circulation, not $|\mathbf B|$ (direct-kernel positive control \texttt{src/tests/test\_vca\_node\_regime\_sweep.py}, which evaluates the Axiom-4 kernel directly, \emph{not} the fdtd engine). The substrate is transparent to a static $\mathbf B$; the PVLAS/BMV static-B birefringence null is therefore \emph{consistent} with AVE, not a falsification (canonical leaves \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md}, \kbleaf{vol4/falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md}).
+\end{itemize}
+
 \section{Magnetic / Microrotational Spec Table}
 \label{sec:vol9_magnetic_spec_table}
 
@@ -94,7 +109,7 @@ Gauge-boson mass ratio. Set by the substrate-axiomatic $\nu_{vac} = 2/7$ Poisson
 \end{table}
 
 \noindent
-\textbf{Conditions} for all entries: cold-lattice limit $T \to 0$ ($S(0) = 1$), saturation operating point $A_0 = 0$, isotropic substrate (no ASYM scaling, no boundary effects). Modulation under finite $A_0$ via the Axiom~4 saturation kernel propagates through $\mu_{eff}(A_0) = \mu_0\, S(A_0)$ in the SYM-class limit (canonical at Ch.~\ref{ch:vol9_saturation_characteristics}); finite-temperature Cosserat-Curie thermal-freeze of B-modes is documented in Ch.~\ref{ch:vol9_temperature_characteristics}.
+\textbf{Conditions} for all entries: cold-lattice limit $T \to 0$ ($S(0) = 1$), saturation operating point $A_0 = 0$, isotropic substrate (no ASYM scaling, no boundary effects). Modulation under finite $A_0$ via the Axiom~4 saturation kernel propagates through $\mu_{eff}(A_0) = \mu_0\, S(A_0)$ in the SYM-class limit (canonical at Ch.~\ref{ch:vol9_saturation_characteristics}) --- this is the R1 symmetric-internal-loading operating point of \S\ref{sec:vol9_node_response_dual}; under a \emph{static external} field the response is asymmetric (R2, static-$\mathbf E$) or transparent ($\mu_{eff} = \mu_0$, R3 static-$\mathbf B$), since the $\mu$-grade keys on the circulating current $I$, not the static field magnitude; finite-temperature Cosserat-Curie thermal-freeze of B-modes is documented in Ch.~\ref{ch:vol9_temperature_characteristics}.
 
 \noindent
 \textbf{Min/Max} columns are omitted: every primitive is a substrate-axiomatic value at the cold-lattice limit, not a characterized engineering range. Engineering tolerances enter via operating-point ($A_0$, $T$) modulation, documented chapter-by-chapter.

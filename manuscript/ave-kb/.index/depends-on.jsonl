@@ -499,6 +499,9 @@
 {"source": "clm-ph2uux", "target": "clm-efo113", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "the 1D telegrapher form drops field-gradient corrections near Δφ→α", "fraction": null}
 {"source": "clm-pp3qwf", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "E/E_{yield}", "fraction": null}
 {"source": "clm-pp3qwf", "target": "clm-vjv4zf", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-pvlas1", "target": "clm-p5cf3t", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-pvlas1", "target": "clm-pp3qwf", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-pvlas1", "target": "clm-vca7r1", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-q39qct", "target": "clm-9s9apq", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the z=3 chiral-SRS justification for the 3-strut-per-node connectivity used as a fixture", "fraction": null}
 {"source": "clm-q4c615", "target": "clm-ofys5v", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the causal/impedance disconnection that makes the cosmic parameters inaccessible", "fraction": null}
 {"source": "clm-q4c615", "target": "clm-ze4clw", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "the three cosmic invariants that remain observable from inside", "fraction": null}
@@ -625,6 +628,9 @@
 {"source": "clm-v6ti0v", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "$\\eta\\to0$ dielectric-phase-transition drag suppression", "fraction": null}
 {"source": "clm-v6ti0v", "target": "clm-i9l284", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-v6ti0v", "target": "clm-o2shcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-vca7r1", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "universal saturation kernel, projected onto each grade", "fraction": null}
+{"source": "clm-vca7r1", "target": "clm-i9l284", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-vca7r1", "target": "clm-p5cf3t", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-viawy9", "target": "clm-0ktpcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies α in the natural-units form ⟨V²⟩_T = k_B T·4π/α via ε₀=α/4π", "fraction": null}
 {"source": "clm-vjv4zf", "target": "INVARIANT-C1", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "$V_{yield}\\approx43.65$ kV", "fraction": null}
 {"source": "clm-vjv4zf", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "A", "fraction": null}

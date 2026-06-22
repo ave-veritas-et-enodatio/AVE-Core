@@ -7,6 +7,20 @@ claims: [clm-pp3qwf]
 
 ## The Vacuum Birefringence Limit: the COEFFICIENT (AVE $\sim 10^7\times$ QED at the matched differential observable)
 
+> **Route scope (E-route only; DERIVED via the node-up dual).** This birefringence prediction is
+> the **static-E (E-route)** prediction: it requires biasing the **$V$-keyed varactor**
+> ($\varepsilon$-grade, operating-point regime R2), which a static (or DC-biased) electric field does.
+> A **static $\mathbf B$ does NOT produce this birefringence** — the $\mu$-grade is an ideal
+> relativistic inductor keyed on the circulating current $I$, so a static $\mathbf B$
+> ($\partial\mathbf B/\partial t=0$) leaves it unloaded ($S_\mu=1$, $\delta n_\mu = 0$ exactly). The
+> node-up small/large-signal derivation
+> ([`node-up-small-large-signal.md`](../../circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md):§2–§4)
+> supplies this E-route scope; the static-B null verdict (PVLAS/BMV **consistent** with AVE, plus the
+> **bold no-static-B side-prediction**) is canonical at
+> [`pvlas-static-b-verdict.md`](../ch11-experimental-bench-falsification/pvlas-static-b-verdict.md).
+> **Side-prediction:** AVE predicts NO static-B vacuum birefringence at any field strength; the
+> matched differential E-route ratio is $\delta n_{AVE}/\delta n_{QED}=7.5/\alpha^3\approx1.93\times10^7$.
+
 A core distinction between standard Quantum Electrodynamics (QED) and the Applied Vacuum Engineering (AVE) framework is the *magnitude* of vacuum optical nonlinearity under extreme fields — not its leading power. **Both predict an $E^2$-leading index shift; the discriminator is the COEFFICIENT.**
 
 A birefringence instrument (polarimeter / ellipsometer, PVLAS/BMV lineage) measures the **DIFFERENCE** $n_\parallel - n_\perp$ between the two polarization eigenmodes of the pumped vacuum — a pure phase/interference observable. The isotropic (common-mode) index shift, shared by both eigenmodes, is **rejected by the instrument**. The falsifier observable is therefore the *differential*, and the AVE-vs-QED comparison must be made differential-against-differential (matched observables).

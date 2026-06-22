@@ -1,0 +1,31 @@
+% node_response_regimes.tex — LC-tank node response under three drive regimes (Vol 9 Ch.10)
+% Included from chapters/10_magnetic_microrotational_characteristics.tex
+% Self-contained TikZ (no external PDF generation) — compile-safe.
+\begin{figure}[htbp]
+\centering
+\begin{circuitikz}[american, scale=0.85, transform shape]
+    % --- The node LC tank (shared) ---
+    \draw (0,0) node[left] {node} to[short, o-] (1,0);
+    \draw (1,0) to[L, l=$L_{\mathrm{eff}}(I)$, i>=$I$] (3.5,0);
+    \draw (3.5,0) to[short] (5.0,0);
+    \draw (4.25,0) to[C, l=$C_{\mathrm{eff}}(V)$, *-] (4.25,-1.6) node[ground] {};
+    \draw (5.0,0) to[short, -o] (6.0,0) node[right] {};
+    % grade labels
+    \node[align=center, font=\scriptsize] at (2.25, 0.95) {$\mu$-grade: keyed on $I$};
+    \node[align=center, font=\scriptsize] at (4.25, 1.25) {$\varepsilon$-grade: keyed on $V$};
+\end{circuitikz}
+
+\vspace{0.6em}
+{\small
+\begin{tabular}{@{}lllll@{}}
+\toprule
+Regime & Drive & $(S_\varepsilon, S_\mu)$ & $Z_{\mathrm{eff}}$ & $\delta n$ \\
+\midrule
+R1 symmetric & internal $\mathbf E$,$\mathbf B$ & $(S, S)$ & $Z_0$ & $1/S - 1$ \\
+R2 static-$\mathbf E$ & $\partial_t\mathbf B = 0$ & $(S{<}1, 1)$ & $Z_0/\sqrt{S_\varepsilon}$ & $\approx \tfrac14 A_V^2$ \\
+R3 static-$\mathbf B$ & $\partial_t\mathbf B = 0$ & $(1, 1)$ & $Z_0$ & $0$ exactly \\
+\bottomrule
+\end{tabular}}
+\caption{LC-tank node response under three drive regimes. The $\mu$-grade is a relativistic inductor keyed on the circulating current $I$; a static $\mathbf B$ ($\partial_t\mathbf B = 0$) induces no internal circulation, so $S_\mu = 1$ and $\delta n_\mu = 0$ exactly (R3 --- the substrate reason the PVLAS/BMV static-B null is consistent with AVE). The $\varepsilon$-grade is a varactor keyed on $V$; a static $\mathbf E$ biases it (R2 --- the E-route). Canonical leaf: \kbleaf{vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md}.}
+\label{fig:vol9_node_response_regimes}
+\end{figure}

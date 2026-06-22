@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [clm-5s5b0d, clm-7tynm2, clm-baoa36, clm-cltls0, clm-cwjd8t, clm-fh6w3y, clm-gw2wgc, clm-h55fy1, clm-iz3svl, clm-k9up5c, clm-kl1ern, clm-oiw6cb, clm-om0rtq, clm-p12mem, clm-pp3qwf, clm-qsgl7d, clm-ui3m8a, clm-wzezvt, clm-ydksh6, clm-yr6tu4]
+subtree-claims: [clm-5s5b0d, clm-7tynm2, clm-baoa36, clm-cltls0, clm-cwjd8t, clm-fh6w3y, clm-gw2wgc, clm-h55fy1, clm-iz3svl, clm-k9up5c, clm-kl1ern, clm-oiw6cb, clm-om0rtq, clm-p12mem, clm-pp3qwf, clm-pvlas1, clm-qsgl7d, clm-ui3m8a, clm-wzezvt, clm-ydksh6, clm-yr6tu4]
 subtree-experiments: [exp-0n5p16, exp-1ddtr0, exp-1up5ww, exp-6kwkx7, exp-71uhr0, exp-742kv5, exp-7jekc6, exp-ct4cts, exp-onqclb, exp-po1a0v, exp-rth12t, exp-v6nzcq]
 -->
 
@@ -59,6 +59,7 @@ Comprehensive catalogue of tabletop falsification experiments, existing experime
 | [Achromatic Lens Test](achromatic-lens-test.md) | Protocol 9: metamaterial impedance lens; $\Gamma = 0$ across all angles |
 | [Boundary Trapping Test](boundary-trapping-test.md) | Protocol 10: asteroid belt and Oort Cloud as impedance termination shocks |
 | [Vacuum Impedance Mirror](vacuum-impedance-mirror.md) | Induced $Z_{local} \to \infty$ via asymmetric saturation; APD back-scatter detection; full $\Gamma(V)$ derivation |
+| [PVLAS Static-B Verdict](pvlas-static-b-verdict.md) | Static-B null is CONSISTENT with AVE (not a falsification); $\mu$ = ideal relativistic inductor (circulation-keyed) → $\delta n_\mu=0$ exactly under static B; bold side-prediction = no static-B birefringence; E-route ($7.5/\alpha^3\approx1.93\times10^7$) is the real test |
 | [Sagnac-Parallax](sagnac-parallax.md) | Protocol 11: 24-hour galactic wind vectoring via static Sagnac loop |
 | [GEO-Synchronous Impedance](geo-synchronous-impedance.md) | Protocol 12: vertical laser TOF anomaly mapping Earth's LC saturation envelope |
 
