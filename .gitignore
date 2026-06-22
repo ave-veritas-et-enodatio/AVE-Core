@@ -56,6 +56,10 @@ sim_outputs/
 assets/sim_outputs/*
 !assets/sim_outputs/lattice_structure_3d.png
 !assets/sim_outputs/aluminum_27_magnetism.png
+!assets/sim_outputs/amino_acid_batch_resonance.png
+!assets/sim_outputs/amino_acid_chain_sensitivity.png
+!assets/sim_outputs/amino_acid_ftir_comparison.png
+!assets/sim_outputs/amino_acid_resonance.png
 !assets/sim_outputs/autoresonance_pll.png
 !assets/sim_outputs/ave_gup_resolution.png
 !assets/sim_outputs/bh_orbital_resonance.png
@@ -65,6 +69,7 @@ assets/sim_outputs/*
 !assets/sim_outputs/bullet_annotated_stills.png
 !assets/sim_outputs/casimir_acoustic_filtering.png
 !assets/sim_outputs/casimir_superconductor.png
+!assets/sim_outputs/cholesterol_topological_phase_buffer.png
 !assets/sim_outputs/condensate_transmission_line.png
 !assets/sim_outputs/cross_scale_triptych.png
 !assets/sim_outputs/cryogenic_rigidity_falsification.png
