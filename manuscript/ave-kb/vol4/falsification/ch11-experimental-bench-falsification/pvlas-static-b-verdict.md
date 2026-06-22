@@ -23,7 +23,9 @@ L_{eff}(I) = \frac{L_0}{S(A_I)}, \qquad A_I = \frac{I}{I_{max}}, \qquad I_{max}=
 $$
 
 ([`relativistic-inductor.md`](../../circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor.md):15,:18;
-node-up derivation [`node-up-small-large-signal.md`](../../circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md):§4).
+node-up derivation [`node-up-small-large-signal.md`](../../circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md):§4;
+full derivation + rescue-guard + the arithmetic-error catch in
+[`research/2026-06-22_node-up-small-large-signal_result.md`](../../../../../research/2026-06-22_node-up-small-large-signal_result.md)).
 The kernel argument is the **internal vacuum circulation** $I$, a rate/flux variable. By Lenz's law
 internal circulation is induced only by a *changing* flux, $\partial\mathbf B/\partial t \ne 0$.
 
@@ -92,6 +94,10 @@ $$
 above differenced Euler-Heisenberg — the OQ-1 discriminator
 ([`vacuum-birefringence-e4.md`](../../falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md),
 clm-pp3qwf). A HIBEF-class facility field (approaching $E_{yield}\approx1.13\times10^{17}$ V/m via
-focal enhancement) is the AVE-distinguishing experiment, **not** a high static-B magnet.
+focal enhancement) is the AVE-distinguishing experiment, **not** a high static-B magnet. The facility
+landscape for the E-route test — HIBEF @ European XFEL (the only purpose-built bench), the PW-laser field
+sources, and the magnetic-route facilities (PVLAS / BMV / OVAL / VMB@CERN) noted as **not** testing AVE — is
+surveyed with cited tolerances in
+[`research/2026-06-22_vacuum-birefringence-facility-tolerance-survey.md`](../../../../../research/2026-06-22_vacuum-birefringence-facility-tolerance-survey.md).
 
 ---

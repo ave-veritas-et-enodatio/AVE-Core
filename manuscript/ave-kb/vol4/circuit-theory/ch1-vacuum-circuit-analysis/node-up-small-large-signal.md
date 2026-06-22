@@ -16,6 +16,12 @@ fixes the **operating-point** (large-signal) state of each grade independently, 
 fixes the **small-signal** index a probe sees. The asymmetry under a *static external* field
 is the load-bearing consequence: a static $\mathbf{B}$ leaves the $\mu$ grade unloaded.
 
+> **Derivation provenance.** The node-up V/I-keyed dual, the three-regime sweep with numbers, the
+> rescue-guard, and the deferred VCA-R01 code-bug are derived in
+> [`research/2026-06-22_node-up-small-large-signal_result.md`](../../../../../research/2026-06-22_node-up-small-large-signal_result.md)
+> (FORK-1 resolution). The C4 / INVARIANT-S2 reconciliation behind §4 is in
+> [`research/2026-06-22_c4-symmetric-loading-reconciliation.md`](../../../../../research/2026-06-22_c4-symmetric-loading-reconciliation.md).
+
 ## §1 — The LC-tank node and the two keyed reactances
 
 Each substrate cell is a resonant LC tank ($L_{cell}=\mu_0\ell_{node}$, $C_{cell}=\varepsilon_0\ell_{node}$,
@@ -60,7 +66,9 @@ soliton rest-energy density). The $\mu$-grade saturates on $I/I_{max}$, not $B/B
 ## §2 — Large-signal operating point per grade (the three regimes R1/R2/R3)
 
 The operating point is the large-signal state $(S_\varepsilon, S_\mu)$ the two grades settle into
-under a given drive. Three regimes span the cases relevant to gravity, the bench, and the magnet:
+under a given drive. Three regimes span the cases relevant to gravity, the bench, and the magnet (the
+full per-regime sweep with numbers is tabulated in
+[`research/2026-06-22_node-up-small-large-signal_result.md`](../../../../../research/2026-06-22_node-up-small-large-signal_result.md):§3):
 
 | Regime | Drive | $S_\varepsilon$ | $S_\mu$ | $Z_{eff}$ | Small-signal $\delta n$ |
 |---|---|---|---|---|---|
@@ -139,7 +147,9 @@ falsification leaf:
    [`pvlas-static-b-verdict.md`](../../falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md).
 2. **The real test is the E-route** (HIBEF-class facility field), where the $V$-keyed varactor is
    genuinely biased (R2), giving the OQ-1 differential coefficient $7.5/\alpha^3\approx1.93\times10^7$
-   vs differenced Euler-Heisenberg.
+   vs differenced Euler-Heisenberg. The facility landscape for this E-route test (HIBEF + the PW-laser
+   field sources, with the magnetic-route facilities noted as **not** testing AVE) is surveyed in
+   [`research/2026-06-22_vacuum-birefringence-facility-tolerance-survey.md`](../../../../../research/2026-06-22_vacuum-birefringence-facility-tolerance-survey.md).
 
 The same asymmetry resolves the W6 / H3 tension flagged in the 2026-06-05 gravity-sign prereg: the
 canonical "DC bias scales both grades" form is the **R1 symmetric-internal** operating point, NOT a
@@ -198,6 +208,8 @@ claim that *any* DC bias scales both; a static-external single-grade drive is R2
 > (not a phantom). The two tests are **explicitly distinct**: `test_vca_node_regime_sweep.py`
 > confirms the *analytic node-up laws* at the kernel level (independent of the engine bug);
 > `test_vca_r01_static_b_mu_keying.py` documents the *engine* defect.
-> `code_fix_decision = flagged-for-separate-PR-bug-documented`.
+> `code_fix_decision = flagged-for-separate-PR-bug-documented`. (Full bug analysis + fix-direction
+> reasoning:
+> [`research/2026-06-22_node-up-small-large-signal_result.md`](../../../../../research/2026-06-22_node-up-small-large-signal_result.md):§6.)
 
 ---
