@@ -110,6 +110,9 @@ class TestPackageSkeleton:
             "SNRPoint",
             "assert_recovers_known",
             "KnownComparison",
+            "coefficient_ratio_differential",
+            "delta_n_ave_differential",
+            "delta_n_ave_differential_exact",
         ]:
             assert hasattr(bench, name), f"ave.bench missing public symbol {name}"
 
@@ -481,17 +484,90 @@ class TestBirefringence:
 
         assert np.isnan(float(bench.delta_n_ave_exact(2.0 * E_YIELD)))
 
-    def test_coefficient_ratio_is_1_over_4_aEH_alpha3(self):
-        """The field-independent ratio = 1/(4 a_EH alpha^3) ~ 4.1e6 at a_EH=7/45."""
+    def test_coefficient_ratio_DEMOTED_single_arm_traceability(self):
+        """DEMOTED single-arm/isotropic-vs-parallel traceability comparison (NOT
+        the falsifier headline). coefficient_ratio = 1/(4 a_EH alpha^3) ~ 4.1e6 at
+        a_EH=7/45 pairs the AVE SCALAR single-arm (-1/4 A^2, the common-mode shift
+        a polarimeter REJECTS) against the QED PARALLEL single-mode (7/45) —
+        MISMATCHED observables. Retained for traceability only; the matched
+        falsifier headline is coefficient_ratio_differential (see
+        test_coefficient_ratio_differential_is_7p5_over_alpha3). This test documents
+        the mismatched pair, it is NOT the headline number.
+        """
         from ave.core.constants import ALPHA
 
         a_eh = 7.0 / 45.0
         assert np.isclose(bench.coefficient_ratio(a_eh), 1.0 / (4.0 * a_eh * ALPHA**3))
+        # The demoted single-arm number is ~4.14e6 (mismatched-observable, not headline).
+        assert np.isclose(bench.coefficient_ratio(a_eh), 4.14e6, rtol=2e-2)
         # and equals the swept |dn_AVE_leading|/dn_QED ratio (field-independent).
         E = np.array([1e12, 1e14])
         r = np.abs(bench.delta_n_ave_leading(E)) / bench.delta_n_qed(E, a_eh)
         assert np.allclose(r, r[0], rtol=1e-9)
         assert np.isclose(r[0], bench.coefficient_ratio(a_eh), rtol=1e-6)
+
+    def test_coefficient_ratio_differential_is_7p5_over_alpha3(self):
+        """The MATCHED-differential falsifier headline = 7.5/alpha^3 ~ 1.93e7.
+
+        A birefringence instrument measures n_par - n_perp (rejecting the isotropic
+        common-mode shift); AVE differential -1/2 A^2 against QED differential 3/45
+        gives (45/6)/alpha^3 = 7.5/alpha^3. Field-independent.
+        """
+        from ave.core.constants import ALPHA
+
+        assert np.isclose(
+            bench.coefficient_ratio_differential(), 7.5 / ALPHA**3, rtol=1e-9
+        )
+        # The headline magnitude ~1.93e7 (matched differential).
+        assert np.isclose(bench.coefficient_ratio_differential(), 1.93e7, rtol=2e-2)
+        # It is exactly 2x the demoted single-arm-vs-parallel number (1/2 vs 1/4
+        # numerator) divided by the QED differential-vs-parallel (3/45 vs 7/45):
+        #   7.5/alpha^3 = (1/2)/((3/45) alpha^2) * (1/alpha) = (45/6)/alpha^3.
+        assert np.isclose(7.5 / ALPHA**3, (45.0 / 6.0) / ALPHA**3, rtol=1e-12)
+
+    def test_delta_n_ave_differential_leading_is_minus_half_A2(self):
+        """delta_n_ave_differential leading coefficient = -1/2 (i.e. -1/2 A^2),
+        exactly 2x the isotropic single-arm -1/4 A^2."""
+        from ave.core.constants import E_YIELD
+
+        E = 1e9  # small field, A ~ 8.8e-9
+        A2 = (E / E_YIELD) ** 2
+        dn_bir = float(bench.delta_n_ave_differential(E))
+        assert np.isclose(dn_bir / A2, -0.5, rtol=1e-12)
+        # and is exactly twice the isotropic single-arm shift (-1/4 A^2).
+        dn_iso = float(bench.delta_n_ave_leading(E))
+        assert np.isclose(dn_bir, 2.0 * dn_iso, rtol=1e-12)
+
+    def test_delta_n_ave_differential_exact_small_field_and_eigenindices(self):
+        """delta_n_ave_differential_exact -> -1/2 A^2 at small A; the two
+        eigen-indices have leading n_par ~ -3/4 A^2, n_perp ~ -1/4 A^2; and the
+        differential is NaN for A^2 >= 1/2 (n_par undefined past its yield).
+
+        NOTE: the exact form is a difference of two near-1 eigen-indices, so it
+        catastrophically cancels below A^2 ~ 1e-15; E=1e13 (A^2 ~ 7.8e-9) is in
+        the small-A regime where the leading term is exact yet above the
+        cancellation floor (the leading-order helper has no such floor — see
+        test_delta_n_ave_differential_leading_is_minus_half_A2).
+        """
+        from ave.core.constants import E_YIELD
+
+        E = 1e13  # small field, A^2 ~ 7.8e-9 (above the cancellation floor)
+        A2 = (E / E_YIELD) ** 2
+        dn_bir = float(bench.delta_n_ave_differential_exact(E))
+        # leading -1/2 A^2 (matches the leading-order helper).
+        assert np.isclose(dn_bir / A2, -0.5, rtol=1e-4)
+        assert np.isclose(
+            dn_bir, float(bench.delta_n_ave_differential(E)), rtol=1e-4
+        )
+        # Eigen-index leading coefficients: n_perp - 1 ~ -1/4 A^2, n_par - 1 ~ -3/4 A^2.
+        S = np.sqrt(1.0 - A2)
+        n_perp = np.sqrt(S)
+        n_par = np.sqrt((1.0 - 2.0 * A2) / S)
+        assert np.isclose((n_perp - 1.0) / A2, -0.25, rtol=1e-4)
+        assert np.isclose((n_par - 1.0) / A2, -0.75, rtol=1e-4)
+        # NaN past yield: A^2 >= 1/2 makes n_par (and hence the differential) undefined.
+        E_past = np.sqrt(0.6) * E_YIELD  # A^2 = 0.6 >= 1/2
+        assert np.isnan(float(bench.delta_n_ave_differential_exact(E_past)))
 
     def test_optical_activity_is_parity_odd(self):
         """The rotation sign flips between enantiomorphs (parity-odd FORM)."""
