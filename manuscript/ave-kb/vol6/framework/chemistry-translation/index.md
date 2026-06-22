@@ -14,7 +14,7 @@ This chapter translates established chemistry and quantum mechanical terminologi
 
 | Result | Statement |
 |---|---|
-| Quantum orbitals | Physically re-contextualized as structural secondary topological shells or halos; the $1s$ shell maps to the Helium-4 Alpha node ($Q=19.52$) |
+| Quantum orbitals | Physically re-contextualized as structural secondary topological shells or halos; the $1s$ shell maps to the Helium-4 Alpha node ($Q=19.19$) |
 | Lewis dot valency | Counts unbound $M_{ij}$ reactive potential; covalent bonding is shared mutual inductance between loosely bound outer nucleons |
 | VSEPR | Maps to Global Minimization of Mutual Impedance; molecular geometries are macroscopic fractal repetitions of Alpha core packing geometry |
 | Semiconductor regime classification | $V_R/V_{BR}$ ratio determines chemical behavior: Small Signal (stable, linear chemistry), Large Signal (complex allotropy), Core+Halo (nuclear dipole = electronegativity) |

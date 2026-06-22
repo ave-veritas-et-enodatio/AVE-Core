@@ -319,13 +319,13 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
 <!-- id: clm-o9xphr -->
 
 - _Specific Claims_
-  - Topological Q-factor (ratio of stored mutual inductance to effective topological radius) is the framework's stability metric: He-4 at $Q \approx 19.2$, Be-9 at $Q \approx 7.9$, Li-7 at $Q \approx 2.85$, Tritium at $Q \approx 3.2$.
+  - Topological Q-factor (ratio of stored mutual inductance to effective topological radius) is the framework's stability metric: He-4 at $Q \approx 19.2$, Be-9 at $Q \approx 7.9$, Li-7 at $Q \approx 2.85$, Tritium at $Q \approx 3.27$.
   - High-Q nuclei (Alpha-clustered, symmetric) are predicted to be inert / stable; low-Q nuclei (asymmetric, halo-extended) are predicted to be reactive / decay-prone.
-  - Applied to specific cases: Tritium $\to ^3$He decay is driven by Q-factor optimization ($3.20 \to 19.52$); Be-8 fission into 2$\alpha$ is driven by missing central bridging neutron (open Wheatstone bridge).
+  - Applied to specific cases: Tritium $\to ^3$He decay is driven by Q-factor optimization ($3.27 \to 19.04$); Be-8 fission into 2$\alpha$ is driven by missing central bridging neutron (open Wheatstone bridge).
 - _Specific Non-Claims and Caveats_
   - Does NOT claim the Q-factor formula derives nuclear half-lives quantitatively. The stability arguments are qualitative (high-Q $\to$ stable, low-Q $\to$ reactive); does NOT predict $T_{1/2}$ values at the quantitative level the empirical decay tables provide.
   - Does NOT claim the $S_{11}$ scattering cross-section reproduces measured cross-sections at quantitative precision per-element. The $S_{11}$ argument is structural (compact topology = small cross-section, extended halo = large cross-section); per-event cross-section comparisons are not tabulated in the leaves.
-  - The Tritium $\to ^3$He decay leaf is explicit that the $Q$-factor jump ($3.20 \to 19.52$) is the framework's *mechanistic* contribution — it identifies why the decay runs in that direction. The empirical mass-energy difference $\approx 0.529$ MeV (and the $\sim 18.6$ keV $\beta$-endpoint) is taken from CODATA, not derived independently in vol6. An attempt to derive the magnitude from the framework's pairwise coupling across the two geometries is tracked as future work.
+  - The Tritium $\to ^3$He decay leaf is explicit that the $Q$-factor jump ($3.27 \to 19.04$) is the framework's *mechanistic* contribution — it identifies why the decay runs in that direction. The empirical mass-energy difference $\approx 0.529$ MeV (and the $\sim 18.6$ keV $\beta$-endpoint) is taken from CODATA, not derived independently in vol6. An attempt to derive the magnitude from the framework's pairwise coupling across the two geometries is tracked as future work.
 
 > **Leaf references:** [network-analytics](./framework/computational-mass-defect/network-analytics.md), [radioactive-decay-impedance](./framework/computational-mass-defect/radioactive-decay-impedance.md), [topological-circuit-conventions](./framework/computational-mass-defect/topological-circuit-conventions.md).
 
@@ -335,7 +335,7 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
   - clm-qjwj12 ($\Gamma\to Q$ / mass-as-inductance conventions)
   - clm-llqd1n (per-nucleus geometry the $Q$/$S_{11}$ are computed on)
 - solidity: 0.30 (do not build on, rework needed) [= min(0.30, 0.50)]
-- rationale: $Q$ (stored-inductance / effective-radius) and $S_{11}$ (topological footprint) are presented as qualitative stability/reactivity proxies; the numeric $Q$ values (He-4 19.2, Be-9 7.9, Li-7 2.85, T 3.2) are stated as solver outputs without an in-leaf calculation, and the leaves explicitly disclaim quantitative half-life or cross-section predictions. The Tritium→³He decay direction ($Q$: 3.20→19.52) is a mechanistic narrative; the energy magnitudes are taken from CODATA. Asserted-partial — structural proxy with stated-not-derived numbers.
+- rationale: $Q$ (stored-inductance / effective-radius) and $S_{11}$ (topological footprint) are presented as qualitative stability/reactivity proxies; the numeric $Q$ values (He-4 19.2, Be-9 7.9, Li-7 2.85, T 3.27) are stated as solver outputs without an in-leaf calculation, and the leaves explicitly disclaim quantitative half-life or cross-section predictions. The Tritium→³He decay direction ($Q$: 3.27→19.04) is a mechanistic narrative; the energy magnitudes are taken from CODATA. Asserted-partial — structural proxy with stated-not-derived numbers.
 - strengthen-by:
   - Show the $Q$-factor computation explicitly from the coupled-network impedance matrix for each cited nucleus
   - Derive a quantitative $Q\to T_{1/2}$ relation and test it against decay tables
@@ -490,7 +490,7 @@ The "Computational Mass Defect" framework rests on a small set of axiomatic mapp
 Vol 6 maps standard chemistry vocabulary (electron orbitals, Lewis dot structures, VSEPR molecular geometries) onto the AVE topological framework. The mappings are presented as ontological re-identifications — what chemistry treats as probability-cloud configurations or repulsion rules, AVE treats as macroscopic spatial strain bubbles, unbound mutual-inductance reactive potential, and global mutual-impedance minimization on the nuclear topology.
 
 - _Specific Claims_
-  - "$1s$" shell ↔ closed Helium-4 alpha node ($Q \approx 19.52$, internally resonant, geometrically saturated).
+  - "$1s$" shell ↔ closed Helium-4 alpha node ($Q \approx 19.19$, internally resonant, geometrically saturated).
   - "$2s$ / $2p$" shells ↔ disjoint secondary topological halo around the alpha core; e.g., the lone Lithium $2s^1$ outer nucleon at the empirical $\sim 11.84d$ offset is the AVE re-identification of the chemistry shell label.
   - Lewis-dot valence count ↔ count of outer topological vertices extending beyond the core's stabilizing influence (Carbon's valency-4 reflects the $3\alpha$ ring's four geometric vertices into the vacuum).
   - VSEPR geometry rules ↔ Global Minimization of Mutual Impedance: nucleon nodes shift through 3D space to minimize localized inductive choking. Specific instance: methane's tetrahedral $CH_4$ geometry mirrors the Helium-4 alpha core packing; same packing rule, fractal repetition.
@@ -556,7 +556,7 @@ Each per-element "Topological Area" leaf identifies a macroscopic chemical / mat
 
 - _Specific Claims_
   - Hydrogen: small $S_{11}$ cross-section ($\approx 2.27\,d^2$) is the structural reason fusion ignition requires extreme pressure/temperature.
-  - Helium: high $Q$-factor ($\approx 19.52$) directly accounts for chemical inertness and acoustic / radiation shielding capability.
+  - Helium: high $Q$-factor ($\approx 19.19$) directly accounts for chemical inertness and acoustic / radiation shielding capability.
   - Carbon: open $3\alpha$ ring's four geometric vertices into the vacuum is the topological origin of catenation and diamond's tetrahedral lattice hardness.
   - Oxygen: $4\alpha$ tetrahedral cage's deep high-$Q$ gravity wells inductively rip looser topologies (combustion, cellular respiration).
   - Sodium / Aluminum (alkali / post-transition halo): tightly bound $50d$–$53d$ Tritium halo strips off to electronegative partners — defines alkali-metal electrochemical-cell behavior.
