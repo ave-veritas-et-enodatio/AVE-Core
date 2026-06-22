@@ -84,8 +84,86 @@ under a given drive. Three regimes span the cases relevant to gravity, the bench
 
 ## §3 — Small-signal probe → $\delta n$
 
+A weak probe wave through a region held at operating point $(S_\varepsilon, S_\mu)$ sees the
+linearized effective parameters $\varepsilon_{eff}=\varepsilon_0 S_\varepsilon$,
+$\mu_{eff}=\mu_0 S_\mu$. The transverse-EM index is
+
+$$
+n = \frac{c_0}{c_{EM}} = \sqrt{\frac{\varepsilon_{eff}\,\mu_{eff}}{\varepsilon_0\,\mu_0}}
+  = \sqrt{S_\varepsilon\, S_\mu}, \qquad
+Z_{eff} = Z_0\sqrt{\frac{S_\mu}{S_\varepsilon}}.
+$$
+
+- **R1:** $S_\varepsilon=S_\mu=S$ ⟹ $n=S$, $\delta n = S-1$ in the wave-speed convention, or in the
+  capacitive operating-point convention $1/S - 1$; $Z_{eff}=Z_0$ (reflectionless, common-mode only).
+- **R2:** $S_\varepsilon=S<1$, $S_\mu=1$ ⟹ $n=\sqrt{S}$, $\delta n_{iso}=\sqrt{S}-1\approx-\tfrac14
+  A_V^2$ (isotropic), and $Z_{eff}=Z_0/\sqrt{S}$ ⟹ $\Gamma\ne0$. Under a linearly-polarized pump the
+  $\varepsilon$-grade response is uniaxial, giving the OQ-1 birefringence
+  $\delta n_{bir}=n_\parallel-n_\perp\approx-\tfrac12 A_V^2$ (clm-pp3qwf,
+  [`vacuum-birefringence-e4.md`](../../falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md)).
+- **R3:** $S_\mu=1$ and (static-B-only) $S_\varepsilon=1$ ⟹ $n=1$, $\delta n_\mu = 0$ exactly,
+  $Z_{eff}=Z_0$ — the vacuum is **transparent** to a static $\mathbf B$.
+
 ## §4 — The static-field asymmetry result
 
+The keyed-argument duality forces an **asymmetry between the two static-field routes**:
+
+> **[Resultbox]** *Static-field grade asymmetry*
+>
+> $$
+> \boxed{\;\text{static } \mathbf E:\ S_\varepsilon < 1,\ S_\mu = 1\ \Rightarrow\ \delta n\ne0\ (\text{E-route})
+> \qquad
+> \text{static } \mathbf B:\ S_\varepsilon = 1,\ S_\mu = 1\ \Rightarrow\ \delta n = 0\ \text{EXACTLY}\;}
+> $$
+
+A static $\mathbf E$ is a real operating-point bias for the $V$-keyed varactor — it loads
+$\varepsilon$ and shifts $n$. A static $\mathbf B$ ($\partial\mathbf B/\partial t = 0$) is **not** an
+operating point for the $I$-keyed inductor: with no $dI/dt$ there is no induced internal vacuum
+circulation, so $A_I=0$, $S_\mu=1$, $\mu_{eff}=\mu_0$, and the $\mu$-grade contributes **nothing**
+to the index. The vacuum stays at $Z_0$ and is transparent.
+
+This is the substrate reason behind two corpus-level consequences, canonicalized in the sibling
+falsification leaf:
+
+1. **PVLAS / BMV null is CONSISTENT with AVE** (not a falsification): those instruments apply a
+   *static* (or quasi-DC) $\mathbf B$ and read birefringence. AVE predicts $\delta n_\mu = 0$ under
+   static $\mathbf B$, so a null is the *expected* AVE result — see
+   [`pvlas-static-b-verdict.md`](../../falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md).
+2. **The real test is the E-route** (HIBEF-class facility field), where the $V$-keyed varactor is
+   genuinely biased (R2), giving the OQ-1 differential coefficient $7.5/\alpha^3\approx1.93\times10^7$
+   vs differenced Euler-Heisenberg.
+
+The same asymmetry resolves the W6 / H3 tension flagged in the 2026-06-05 gravity-sign prereg: the
+canonical "DC bias scales both grades" form is the **R1 symmetric-internal** operating point, NOT a
+claim that *any* DC bias scales both; a static-external single-grade drive is R2 (E) or R3 (B).
+
 ## §5 — Derived-vs-asserted ledger
+
+| Element | Status | Basis |
+|---|---|---|
+| $C_{eff}=C_0/S(A_V)$, varactor keyed on $V$ | **DERIVED** | Axiom 4 dielectric specialization (`manuscript/ave-kb/CLAUDE.md`:73) |
+| $L_{eff}=L_0/S(A_I)$, relativistic inductor keyed on $I$; $I_{max}=\xi_{topo}c$ | **DERIVED** | clm-p5cf3t ([`relativistic-inductor.md`](relativistic-inductor.md):15,:18), Topo-Kinematic mapping |
+| R1 symmetric: $S_\varepsilon=S_\mu=S\Rightarrow Z=Z_0$ reflectionless | **DERIVED** | INVARIANT-S2 W6 (`manuscript/ave-kb/CLAUDE.md`:75) |
+| R2 static-E: $S_\varepsilon<1,S_\mu=1\Rightarrow Z_0/\sqrt{S_\varepsilon}$, $\delta n\approx\tfrac14 A_V^2$ | **DERIVED** | W6 static-E asymmetric clause + Op14 Meissner-asymmetric $Z_{eff}=Z_0\sqrt{S_\mu/S_\varepsilon}$ |
+| R3 static-B: $S_\mu=1\Rightarrow\delta n_\mu=0$ exactly | **DERIVED** | $I$-keyed inductor + Lenz (no $dI/dt$ ⟹ no internal circulation); confirmed 2.5 T–1 kT sweep |
+| $B_{SNAP}$ = energy-density scale, not $\mu$-kernel argument | **DERIVED** | $B_{SNAP}^2/2\mu_0 = m_ec^2/\ell_{node}^3 = 1$ |
+| OQ-1 par−perp differential $-\tfrac12 A_V^2$, ratio $7.5/\alpha^3$ | **DERIVED (E-route)** | clm-pp3qwf; the magnitude is an $\alpha$-echo (value rides $\alpha^{-3}$) |
+| Which grade is "magnetic primary" vs "capacitive primary" under chirality | **ASSERTED** (degenerate) | wall-branch fork B3-DEGENERATE (PR#260); mute on this leaf's static-field result |
+
+> **Consistency-vs-emergence tag.** This leaf is **CONSISTENCY / manifestation class**: it
+> re-expresses the already-derived Axiom-4 kernel and the relativistic-inductor primitive (clm-p5cf3t)
+> as the operating-point taxonomy and reads off the static-field asymmetry. It originates no new
+> dimensionful constant. The R2 ratio $7.5/\alpha^3$ is an **$\alpha$-echo** at the value level (AVE
+> does not derive $\alpha$); the AVE-distinct CHORD is that the vacuum saturates at all (tree-level
+> O(1) structure QED lacks) and that the static-B route is **exactly** transparent — a categorical
+> prediction.
+
+> **VCA-R01 code note.** The live engine at `origin/main` keys $\mu$-saturation on the *static*
+> $|\mathbf B|=\mu_0|\mathbf H|$ at four sites in `src/ave/core/fdtd_3d.py` and one in
+> `src/ave/axioms/scale_invariant.py`. Per this leaf the $\mu$-grade is keyed on the circulating
+> current / its rate, NOT the static $|\mathbf B|$ magnitude — so a static external $\mathbf B$ must
+> give $S_\mu=1$, $\delta n_\mu=0$. The current code instead saturates $\mu$ on static $|\mathbf B|$,
+> contradicting both the $I$-keyed primitive and the engine's own Lenz coupling. See the code-fix
+> status in the PR that lands this leaf.
 
 ---

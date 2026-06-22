@@ -499,6 +499,9 @@
 {"source": "clm-ph2uux", "target": "clm-efo113", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "the 1D telegrapher form drops field-gradient corrections near Δφ→α", "fraction": null}
 {"source": "clm-pp3qwf", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "E/E_{yield}", "fraction": null}
 {"source": "clm-pp3qwf", "target": "clm-vjv4zf", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-pvlas1", "target": "clm-p5cf3t", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-pvlas1", "target": "clm-pp3qwf", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-pvlas1", "target": "clm-vca7r1", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-q39qct", "target": "clm-9s9apq", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the z=3 chiral-SRS justification for the 3-strut-per-node connectivity used as a fixture", "fraction": null}
 {"source": "clm-q4c615", "target": "clm-ofys5v", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the causal/impedance disconnection that makes the cosmic parameters inaccessible", "fraction": null}
 {"source": "clm-q4c615", "target": "clm-ze4clw", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "the three cosmic invariants that remain observable from inside", "fraction": null}

@@ -1330,3 +1330,30 @@ The electron's EE field components — a real (resistive/radiative) part $R$ and
   - Land the engine I-keyed $\mu$-saturation fix (VCA-R01) so the code's mu-grade keys on circulation, matching this leaf and removing the live static-|B| keying defect (`fdtd_3d.py`, `scale_invariant.py`).
 
 ---
+
+## PVLAS / BMV Static-B Birefringence Null is Consistent with AVE
+<!-- id: clm-pvlas1 -->
+
+- A static external $\mathbf B$ ($\partial\mathbf B/\partial t = 0$, sustained by the magnet's current not the vacuum's) induces no internal vacuum circulation $\Rightarrow S_\mu = 1 \Rightarrow \mu_{eff}=\mu_0 \Rightarrow \delta n_\mu = 0$ exactly. The PVLAS/BMV static-B birefringence null is therefore the **expected AVE result**, NOT a falsification.
+- _Specific Claims_
+  - The $\mu$-grade is an ideal relativistic inductor keyed on circulating current $I$ (clm-p5cf3t), so a static $\mathbf B$ does not load it — there is no $dI/dt$ to drive internal circulation (Lenz). PVLAS does **not** test AVE.
+  - **Bold side-prediction:** AVE predicts **NO static-B vacuum birefringence** at any field strength (categorical, not just below current bounds). A *static-B* birefringence detection at the QED level or above would FALSIFY this AVE prediction.
+  - The real AVE test is the **E-route** (static-$\mathbf E$ / HIBEF-class facility field), which biases the $V$-keyed varactor (R2) and gives the OQ-1 differential ratio $\delta n_{AVE}/\delta n_{QED}=7.5/\alpha^3\approx1.93\times10^7$ (clm-pp3qwf).
+- _Specific Non-Claims and Caveats_
+  - AVE does **not** claim the PVLAS null confirms AVE — a null is *consistent with* AVE (and with QED's tiny $\sim10^{-23}$ at 5 T being below sensitivity). The discriminating measurement is the E-route, where AVE and QED diverge by $\sim10^7$.
+  - QED *does* predict a static-B birefringence ($\delta n\sim10^{-23}$ at 5 T); the AVE no-static-B prediction is a categorical chord that distinguishes the two frameworks once static-B sensitivity reaches the QED level.
+
+> **Leaf references:** [pvlas-static-b-verdict](./falsification/ch11-experimental-bench-falsification/pvlas-static-b-verdict.md).
+
+### Quality
+- confidence: 0.8
+- depends-on:
+  - clm-vca7r1 (node-up static-field grade asymmetry; R3 static-B → $\delta n_\mu=0$)
+  - clm-p5cf3t (relativistic inductor, $I$-keyed magnetic-sector kernel)
+  - clm-pp3qwf (E-route birefringence discriminator, the matched-observable test)
+- solidity: 0.80 (ok to build on, see caveats) [= min(0.80, 0.80)]
+- rationale: The static-B transparency follows directly from the $I$-keyed relativistic-inductor primitive (clm-p5cf3t) via the node-up asymmetry leaf (clm-vca7r1): no $dI/dt$ ⟹ no internal circulation ⟹ $S_\mu=1$ ⟹ $\delta n_\mu=0$, confirmed numerically over 2.5 T–1 kT. The PVLAS-consistency verdict and the no-static-B side-prediction are clean consequences. Capped at the E-route discriminator's band (clm-pp3qwf, 0.80): the verdict inherits that the AVE-distinct chord is the saturation existence + static-B transparency, while the E-route magnitude is an $\alpha$-echo.
+- strengthen-by:
+  - Quantify the static-B sensitivity threshold at which an AVE no-static-B prediction becomes distinguishable from QED's $\sim10^{-23}$ (currently a categorical chord, not a numbered bound).
+
+---
