@@ -13,6 +13,6 @@ Neon-20 ($Z=10, A=20$) perfectly balances 10 protons and 10 neutrons. This absol
 
 The most thermodynamically stable geometric envelope for 5 mutually repulsive, structurally independent macroscopic nodes on a sphere is a **Triangular Bipyramid**. This configuration places an equilateral ring of 3 Alphas on the equator, capped by 2 Alphas occupying the absolute polar $z$-axis.
 
-By executing the $M_{ij}$ solver targeting the empirical CODATA Nuclear Mass of Neon-20 ($18617.730$ MeV), the analysis finds that this $5\alpha$ construct perfectly satisfies the binding energy limit when the 5 vertices are positioned at exactly $R_{bipyramid} = 81.181d$ from the origin.
+Executing the $M_{ij}$ solver targeting the empirical CODATA Nuclear Mass of Neon-20 ($18617.730$ MeV), the $(Z,A)$-forced $5\alpha$ bipyramid topology reproduces the binding energy when its single fitted scalar places the 5 vertices at $R_{bipyramid} = 81.181d$ from the origin.
 
 ---

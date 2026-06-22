@@ -17,12 +17,11 @@ The most thermodynamically stable geometric envelope for 5 mutually repulsive, s
     \centering
     \includegraphics[width=0.95\textwidth]{figures/nuclear_geometry_5a_6a.png}
     \caption{\textbf{Alpha-Cluster Geometries: $5\alpha$ Bipyramid and $6\alpha$ Octahedron.} Left: The $5\alpha$ trigonal bipyramid (Neon-20) with 10 inter-alpha coupling links showing equatorial ($d_{12}$) and axial ($d_{13}$) separations. Right: The $6\alpha$ regular octahedron (Magnesium-24) with 15 coupling links. Below each: the 2D topological graph projection showing the complete $K/d$ mutual impedance network.
-    % [2026-06-15 KB-reconciliation (vol_6 brief §D.2/§A.4) -- prior wording preserved per Rule 12]: read "These geometries are solved from the CODATA mass target with zero free parameters---the engine finds the unique radius at which the pairwise $\sum K/d_{ij}$ sum reproduces the empirical mass defect." SUPERSEDED: self-contradictory in the same sentence -- "the unique radius" the engine finds IS the fitted scalar R (R_bipyramid=81.181d at :23; the chapter's own "Addressing the Curve-Fitting Fallacy" section :26 states R is "tuned until the math matches the empirical mass limit"). Topology is zero-parameter; R is the one fitted DOF. Aligns the caption with 00_introduction.tex:21 + the chapter body.
     These geometries are solved from the CODATA mass target at one fitted scalar per nucleus---the cluster topology is zero-parameter (forced by $(Z,A)$), and the engine finds the unique inter-alpha radius $R$ at which the pairwise $\sum K/d_{ij}$ sum reproduces the empirical mass defect (see ``Addressing the Curve-Fitting Fallacy'' below).}
     \label{fig:nuclear_geometry_5a_6a}
 \end{figure}
 
-By executing the $M_{ij}$ solver targeting the empirical CODATA Nuclear Mass of Neon-20 ($18617.730$ MeV), the analysis finds that this $5\alpha$ construct perfectly satisfies the binding energy limit when the 5 vertices are positioned at exactly $R_{bipyramid} = 81.181d$ from the origin.
+Executing the $M_{ij}$ solver targeting the empirical CODATA Nuclear Mass of Neon-20 ($18617.730$ MeV), the $(Z,A)$-forced $5\alpha$ bipyramid topology reproduces the binding energy when its single fitted scalar places the 5 vertices at $R_{bipyramid} = 81.181d$ from the origin.
 
 \section{Addressing the Curve-Fitting Fallacy}
 A legitimate scientific scrutiny of the Variable-Spacetime Impedance (AVE) Framework often centers around the following critique: \textit{If one hypothesizes a shape and simply tunes a single scalar radius ($R$) until the math matches the empirical mass limit, is this not just curve-fitting?}
@@ -34,11 +33,11 @@ The proof of AVE's physical reality lies not in the fact that a solution exists,
 Consider the continuous progression from Oxygen to Neon:
 \begin{itemize}
     \item \textbf{Oxygen-16 ($4\alpha$):} A perfectly symmetric Tetrahedron. The optimal solver distance is tightly bound at \textbf{$33d$}. This compactness explains Oxygen's profound stability.
-    \item \textbf{Fluorine-19 ($4\alpha$ + $^3\text{H}$):} The stable Oxygen core cannot be penetrated. To hit the empirical mass limit, the additional 3 nucleons (the Tritium halo) must exist at a radically distant \textbf{$351d$}. If the framework were merely curve-fitting random numbers, this distance might be trivially small. Instead, the solver outputs an extreme, hundreds-of-femtometers lever-arm. This massive mechanical asymmetry \textit{is} electronegativity—the geometric antenna is strongly predisposed to seek an inductive partner (like Hydrogen) to stabilize its violent moment of inertia. 
+    \item \textbf{Fluorine-19 ($4\alpha$ + $^3\text{H}$):} The stable Oxygen core cannot be penetrated. To hit the empirical mass limit, the additional 3 nucleons (the Tritium halo) must exist at a radically distant \textbf{$398d$}. If the framework were merely curve-fitting random numbers, this distance might be trivially small. Instead, the solver outputs an extreme, hundreds-of-femtometers lever-arm. This massive mechanical asymmetry \textit{is} electronegativity—the geometric antenna is strongly predisposed to seek an inductive partner (like Hydrogen) to stabilize its violent moment of inertia. 
     \item \textbf{Neon-20 ($5\alpha$):} Adding one more nucleon closes the shell, jumping to the highly symmetric Triangular Bipyramid. The solver immediately snaps the structure back down to a tight, stable \textbf{$81d$}. 
 \end{itemize}
 
-The framework is not curve-fitting; it uses the flawless empirical mass data to reverse-engineer the absolute mechanical blueprint of the nucleus. The distances derived ($33d \rightarrow 351d \rightarrow 81d$) perfectly and exclusively predict the observed behavioral realities of Inert Gas $\rightarrow$ Reactive Halogen $\rightarrow$ Noble Gas. 
+The framework is not curve-fitting; it uses the flawless empirical mass data to reverse-engineer the absolute mechanical blueprint of the nucleus. The directional variation of the fitted distances ($33d \rightarrow 398d \rightarrow 81d$: compact $\rightarrow$ extreme halo $\rightarrow$ compact) tracks the observed Inert Gas $\rightarrow$ Reactive Halogen $\rightarrow$ Noble Gas chemistry---an interpretive, directional correspondence, not a closed quantitative derivation (see \S\ref{box:internal_peer_scope}).
 
 \section{Electrical Engineering Equivalent: The 5-Phase Ring Oscillator}
 Neon-20's Triangular Bipyramid topology maps cleanly to a 5-phase ring oscillator: five high-$Q$ LC tanks mutually coupled through 10 symmetric inductive links ($M_{ij} = K/d_{ij}$). Unlike Carbon-12's planar $\Delta$-ring (3 tanks, 3 links) or Oxygen-16's tetrahedral mesh (4 tanks, 6 links), the bipyramidal geometry creates a non-planar network with two distinct coupling distances---equatorial ring pairs ($3\times$) and pole-to-equator pairs ($6\times$)---plus the single pole-to-pole link ($1\times$). The 190-parameter SPICE matrix (20 nucleons $\times$ 19/2 pairs) captures this multi-band coupling hierarchy.
@@ -71,14 +70,14 @@ When subjected to an external electric field (as in a neon discharge tube), the 
 \end{figure}
 
 \section{Semiconductor Regime Classification}
-Neon-20 ($5\alpha$) is the second noble gas in the semiconductor engine and the first element with a fully 3D alpha-cluster geometry (Triangular Bipyramid). The engine solves $R_{\text{bipyr}} = 81.158\,d$ at $V_R/V_{BR} = 0.032$, $M = 1.000$ (exact Small Signal), reproducing the CODATA mass of $18\,617.730$ MeV to $0.000\,000\%$ error.
+Neon-20 ($5\alpha$) is the second noble gas in the semiconductor engine and the first element with a fully 3D alpha-cluster geometry (Triangular Bipyramid). The engine locks the single geometric degree of freedom ($R_{\text{bipyr}} = 81.158\,d$) at $V_R/V_{BR} = 0.032$, $M = 1.000$ (exact Small Signal), reproducing the CODATA mass of $18\,617.730$ MeV; the symmetric bipyramid closes to a $0.000\,000\%$ geometric fit-residual (structurally zero by solver construction, per the Platonic-progression geometric-identity case; distinct from the mass-prediction error in the validation set).
 
-The $81d$ radius represents a dramatic structural relaxation: after the massive $398d$ Fluorine halo, the addition of one more alpha particle to close the $5\alpha$ shell causes the geometry to snap from a violently asymmetric $4\alpha+T$ antenna into a perfectly balanced bipyramid. This $398d \to 81d$ collapse quantitatively explains the Halogen-to-Noble-Gas transition. The $V_R/V_{BR}$ ratio rises slightly from O-16's $0.030$ to $0.032$, reflecting the denser packing of 5 alphas and the 10 inter-alpha coupling pairs, but remains firmly in the linear regime.
+The $81d$ radius represents a dramatic structural relaxation: after the massive $398d$ Fluorine halo, the addition of one more alpha particle to close the $5\alpha$ shell causes the geometry to snap from a violently asymmetric $4\alpha+T$ antenna into a perfectly balanced bipyramid. In the AVE picture this $398d \to 81d$ collapse tracks the Halogen-to-Noble-Gas transition (peer-with-QM). The $V_R/V_{BR}$ ratio rises slightly from O-16's $0.030$ to $0.032$, reflecting the denser packing of 5 alphas and the 10 inter-alpha coupling pairs, but remains firmly in the linear regime.
 
 \begin{summarybox}
 \begin{itemize}
     \item Neon-20 is a perfectly balanced $5\alpha$ trigonal bipyramid, closing the noble gas shell with a dramatic structural relaxation from Fluorine's $398d$ halo to $81d$ radius.
-    \item The $398d \to 81d$ collapse quantitatively explains the Halogen-to-Noble-Gas transition as a geometric shell closure phenomenon.
+    \item The $398d \to 81d$ collapse tracks the Halogen-to-Noble-Gas transition as a geometric shell closure phenomenon (peer-with-QM).
 \end{itemize}
 \end{summarybox}
 
