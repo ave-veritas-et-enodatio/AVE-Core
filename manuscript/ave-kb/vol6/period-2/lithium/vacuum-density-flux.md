@@ -9,11 +9,9 @@ claims: [clm-h8nmpu]
 
 The dual-shell structural nature of Lithium becomes explicitly visible when plotting the resultant macroscopic vacuum scalar density field (refractive strain).
 
-[Figure: lithium_7_density_equator.png — see manuscript/vol_6_periodic_table/figures/]
+[Figure: lithium_7_density_z_pos.png — see manuscript/vol_6_periodic_table/figures/]
 
 Slice through the $Z=0.85$ plane intersecting the Alpha particle core. The density gradient locally resembles Helium.
-
-<!-- NOTE: Source file 05_lithium.tex contains duplicate \label{fig:li7_density_equator} on both minipage figures (lines 23 and 29). -->
 
 [Figure: lithium_7_density_equator.png — see manuscript/vol_6_periodic_table/figures/]
 

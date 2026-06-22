@@ -9,7 +9,7 @@ claims: [clm-y7uvdc]
 
 ### Lithium ($^7$Li) and the Physical Origin of Atomic Shells
 
-The structural reality of the Axiom 4 topological varactor limit dictates the entire architecture of the Periodic Table of Elements. Historically, the transition from Helium to Lithium required the formal introduction of the Pauli Exclusion Principle---a statistical postulate asserting that no two fermions can occupy the identical quantum state. In the Applied Vacuum Engineering (AVE) framework, Pauli Exclusion is not an abstract rule; it is a macroscopic structural limit governed identically by classical RF impedance.
+The structural reality of the Axiom 4 topological varactor limit dictates the entire architecture of the Periodic Table of Elements. Historically, the transition from Helium to Lithium required the formal introduction of the Pauli Exclusion Principle---a statistical postulate asserting that no two fermions can occupy the identical quantum state. In the Applied Vacuum Engineering (AVE) framework, the same exclusion arises as a substrate mechanism: the dielectric-saturation limit on the inner shell acts as a $\Gamma = -1$ RF mirror, enforcing the identical single-track-occupancy constraint that QM attributes to Pauli (peer-with-QM, not a distinct empirical prediction).
 
 In the Lithium atom ($Z=3$), the highly charged nuclear core induces an even steeper metric gradient, pulling the $1s$ topological standing wave inward to $r \approx a_0 / 2.7$. Identical to Helium, two phase-locked $0_1$ unknot solitons occupy this inner resonance, completely saturating the local spatial capacitance.
 
@@ -19,7 +19,7 @@ Repelled by this rigid metric boundary, the third electron is forced outward unt
 
 This macroscopic spatial reflection pushes the third electron drastically outward to an expanded topological radius ($r_{2s} \approx 3.1 \, a_0$). Because it is separated by a vast expanse of un-strained space, it is severely shielded from the nuclear gradient by the inner saturated halo ($Z_{eff} \approx 1.3$).
 
-This geometric isolation directly yields a drastically reduced structural binding energy for the outer electron. Therefore, the extreme reactive volatility and ionic bonding characteristics of Alkali metals are computationally derived without invoking a single quantum probability amplitude. Chemistry is mechanically proven to be nothing more than the sequential spatial saturation and RF reflection of macroscopic LC standing waves within the continuous substrate vacuum fluid.
+This geometric isolation directly yields a drastically reduced structural binding energy for the outer electron. The extreme reactive volatility and ionic bonding characteristics of Alkali metals are thus reproduced by the deterministic LC-standing-wave model. In the AVE picture, shell structure arises as the sequential spatial saturation and RF reflection of macroscopic LC standing waves in the continuous substrate -- a continuum-mechanical account that recovers the same shell sequence as the quantum shell model (peer-with-QM, not a distinct empirical prediction).
 
 [Figure: lithium_7_topology.png — see manuscript/vol_6_periodic_table/figures/]
 
