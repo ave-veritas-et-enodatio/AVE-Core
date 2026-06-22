@@ -17,6 +17,7 @@ For each amino acid, the sidechain R-group attaches as a **shunt stub** branchin
 
 where:
 - $Z_{\text{backbone}} = \sqrt{L_{\text{bb}}/C_{\text{bb}}} \approx 17.0\,\Omega$ — characteristic impedance of the peptide unit C$_\alpha$--C'(=O)--N(--H)--C$_\alpha$
+  > ↗ See also: explicit component values $L_C \approx 115.9$ fH ([Transceiver Backbone](../molecular-foundations/organic-circuitry/transceiver-backbone.md)) and $C_{CN} \approx 373$ aF ([Bond Stiffness to Capacitance](../molecular-foundations/organic-circuitry/bond-stiffness-to-capacitance.md)); cf. Vol 5 Ch 7 §solvent-damping ($\sqrt{L_C/C_{CN}}$) — reconstruct $17.0\,\Omega$ from these.
 - $Z_R = \sqrt{L_R/C_R}$ — sidechain impedance with $L_R = \sum_{\text{atoms}} m_a/\xi_{\text{topo}}^2$, $C_R = \sum_{\text{bonds}} \xi_{\text{topo}}^2/k_b$ summed over the sidechain
 - $\omega_0 \approx 2\pi \times 23$ THz — amide-V resonance frequency
 

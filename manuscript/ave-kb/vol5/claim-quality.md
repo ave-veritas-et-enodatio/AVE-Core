@@ -437,7 +437,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 <!-- id: clm-pav5m3 -->
 
 - _Specific Claims_
-  - The 20 canonical amino acids are partitioned into three sidechain-impedance classes relative to a backbone baseline $Z_\text{backbone} \approx 7$:
+  - The 20 canonical amino acids are partitioned into three sidechain-impedance classes relative to a backbone quality factor $Q_\text{backbone} \approx 7$:
     - **Hydrophobic (low $Z$):** Ala, Val, Leu, Ile, Pro, Phe, Trp, Met — $|\Gamma| \approx 0$ (impedance-matched, minimal folding drive).
     - **Polar/Charged (high $|Z|$):** Glu, Asp (capacitive), Lys, Arg (inductive) — large $|\Gamma|$, strong folding drive at sequence positions where impedance mismatch is maximal.
     - **Special:** Gly ($Z \approx 0$, maximum flexibility), Cys (disulphide bridge, reactive short-circuit between distant residues).
@@ -445,7 +445,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 - _Specific Non-Claims and Caveats_
   - The class boundaries are qualitative groupings, not numerical thresholds — the leaf does not bound the $Z$ values of individual residues, only their class assignment.
   - Does NOT claim experimental measurement of a per-residue $Z$ value. The per-residue impedance table $Z_\text{topo}$ is referenced as a deliverable of the protein-folding-engine chapters, which live in the private `AVE-Protein` repository (see entry `clm-u4vmgk`).
-  - The "$Z_\text{backbone} \approx 7$" baseline is stated without leaf-level derivation in this volume; treat as an input from the engine repo.
+  - The "$Q_\text{backbone} \approx 7$" quality factor is stated without leaf-level derivation in this volume; treat as an input from the engine repo.
   - The "minimal folding drive" interpretation for hydrophobic residues and "strong folding drive" for polar/charged residues is a qualitative reading of the reflection-coefficient mechanism, not a quantitative claim about folding energetics per residue.
 
 > **Leaf references:** [amino-acid-impedance-classification](./molecular-foundations/biophysics-intro/amino-acid-impedance-classification.md).
@@ -456,10 +456,10 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
   - Axiom 3 (Minimum Reflection — $\Gamma$-driven impedance mismatch as folding drive)
   - clm-lm9b3j ($Z = \sqrt{L/C}$ sidechain impedances feeding the classification)
 - solidity: 0.30 (do not build on, rework needed) [= min(0.30, 1.00)]
-- rationale: The three-class partition (hydrophobic low-$Z$ / polar-charged high-$|Z|$ / special Gly $\approx 0$, Cys short-circuit) is a qualitative grouping mapping the standard biochemical taxonomy onto the AVE reflection-coefficient framework. The leaf bounds no individual residue $Z$ value — only class membership — and the $Z_\text{backbone} \approx 7$ baseline is stated without in-repo derivation (an import from the engine repo). No numbers, no thresholds: asserted classification with structural motivation.
+- rationale: The three-class partition (hydrophobic low-$Z$ / polar-charged high-$|Z|$ / special Gly $\approx 0$, Cys short-circuit) is a qualitative grouping mapping the standard biochemical taxonomy onto the AVE reflection-coefficient framework. The leaf bounds no individual residue $Z$ value — only class membership — and the $Q_\text{backbone} \approx 7$ quality factor is stated without in-repo derivation (an import from the engine repo). No numbers, no thresholds: asserted classification with structural motivation.
 - strengthen-by:
   - Compute and tabulate per-residue $Z_\text{topo}$ values from the $L_R/C_R$ summation rules so the class boundaries become numerical.
-  - Derive the $Z_\text{backbone} \approx 7$ baseline in an in-repo leaf rather than importing it.
+  - Derive the $Q_\text{backbone} \approx 7$ quality factor in an in-repo leaf rather than importing it.
 
 ---
 

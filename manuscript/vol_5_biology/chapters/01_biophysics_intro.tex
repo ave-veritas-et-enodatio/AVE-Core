@@ -8,7 +8,7 @@
 \begin{objectivebox}
 \begin{itemize}
     \item Derive the C$\alpha$--C$\alpha$ virtual bond distance $d_0 \approx 3.80$~\AA\ from the AVE lattice pitch $\ell_{\text{node}}$ through a chain of topological identities involving the Bohr radius and covalent bond lengths.
-    \item Classify the 20 canonical amino acids by their sidechain impedance relative to the backbone baseline ($Z_{\text{backbone}} \approx 7$).
+    \item Classify the 20 canonical amino acids by their sidechain impedance relative to the backbone quality factor ($Q_{\text{backbone}} \approx 7$).
     \item Interpret topological structural evaluations as a Level~6 Emergence validation using only \texttt{impedance()}, \texttt{saturation\_factor()}, and \texttt{reflection\_coefficient()}.
     \item Evaluate the Molecular Chiral FRET Parallax as a future falsification target, understanding why terrestrial baselines are insufficient.
 \end{itemize}
@@ -67,7 +67,7 @@ Every step uses constants from the fundamental AVE topological derivations (Volu
 
 \section{Amino Acid Impedance Classification}
 
-The 20 canonical amino acids are classified by their sidechain impedance relative to the backbone baseline ($Z_{backbone} \approx 7$):
+The 20 canonical amino acids are classified by their sidechain impedance relative to the backbone quality factor ($Q_{backbone} \approx 7$):
 
 \begin{itemize}
     \item \textbf{Hydrophobic (low $Z$):} Ala, Val, Leu, Ile, Pro, Phe, Trp, Met --- compact sidechains with low reactive coupling. $|\Gamma| \approx 0$ (impedance-matched, minimal folding drive).
@@ -126,7 +126,7 @@ By attaching Cy3/Cy5 fluorophore pairs to the terminal ends of a rigid structura
 \begin{summarybox}
 \begin{itemize}
     \item The protein backbone is derived from the proton radius through a chain of AVE identities: $\ell_{\text{node}} \to a_0 \to r_{\text{cov}} \to d_0 \approx 3.80$~\AA, introducing zero free parameters.
-    \item The 20 canonical amino acids are classified by sidechain impedance relative to the backbone baseline ($Z_{\text{backbone}} \approx 7$), mapping hydrophobic, polar, and charged residues to reactive coupling strengths.
+    \item The 20 canonical amino acids are classified by sidechain impedance relative to the backbone quality factor ($Q_{\text{backbone}} \approx 7$), mapping hydrophobic, polar, and charged residues to reactive coupling strengths.
     \item Macroscopic rigid proteins establish theoretical bounds to sub-3~\AA\ precision using only \texttt{impedance()}, \texttt{saturation\_factor()}, and \texttt{reflection\_coefficient()}---the same three functions used at every other scale.
 \end{itemize}
 \end{summarybox}

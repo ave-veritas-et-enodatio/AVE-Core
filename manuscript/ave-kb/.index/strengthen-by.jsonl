@@ -433,7 +433,7 @@
 {"claim_id": "clm-p7rfkb", "item_idx": 0, "text": "Derive $m_H/v=1/\\sqrt{N_{K4}}$ from the K4-cell breathing dynamics quantitatively rather than asserting $N_{K4}=4$.", "mentioned_ids": []}
 {"claim_id": "clm-p7rfkb", "item_idx": 1, "text": "Produce at least one acoustic-relaxation observable (width/decay-channel signature) that distinguishes the reinterpretation from the SM Higgs.", "mentioned_ids": []}
 {"claim_id": "clm-pav5m3", "item_idx": 0, "text": "Compute and tabulate per-residue $Z_\\text{topo}$ values from the $L_R/C_R$ summation rules so the class boundaries become numerical.", "mentioned_ids": []}
-{"claim_id": "clm-pav5m3", "item_idx": 1, "text": "Derive the $Z_\\text{backbone} \\approx 7$ baseline in an in-repo leaf rather than importing it.", "mentioned_ids": []}
+{"claim_id": "clm-pav5m3", "item_idx": 1, "text": "Derive the $Q_\\text{backbone} \\approx 7$ quality factor in an in-repo leaf rather than importing it.", "mentioned_ids": []}
 {"claim_id": "clm-pe8lpx", "item_idx": 0, "text": "Derive, for at least one channel, the quantitative coupling from Ω_freeze to the observable (not just axis identity)", "mentioned_ids": []}
 {"claim_id": "clm-pe8lpx", "item_idx": 1, "text": "Pre-register the joint multi-channel alignment statistic and its isotropic-null distribution", "mentioned_ids": []}
 {"claim_id": "clm-pe8lpx", "item_idx": 2, "text": "Separate falsifiable channels from currently-unfalsifiable/conditional ones in the claim scope", "mentioned_ids": []}
