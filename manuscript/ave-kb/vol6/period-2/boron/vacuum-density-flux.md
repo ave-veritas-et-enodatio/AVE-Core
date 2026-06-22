@@ -11,6 +11,6 @@ Because the Boron-11 halo operates so close to the theoretical decoupling horizo
 
 [Figure: boron_11_density_equator.png — see manuscript/vol_6_periodic_table/figures/]
 
-**Boron-11 Vacuum Density Flux (Equatorial Slice).** The extreme spacing ($11.84d$) between the saturated Alpha core and the 7-nucleon halo generates vast parasitic strain gradients across the vacuum.
+**Boron-11 Vacuum Density Flux (Equatorial Slice).** The extreme spacing ($11.84d$) between the saturated $2\alpha$ core and the Tritium ($^3$H) halo generates vast parasitic strain gradients across the vacuum.
 
 ---
