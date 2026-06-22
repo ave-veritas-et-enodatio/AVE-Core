@@ -21,6 +21,12 @@ Reference: Backmatter App 6 — SPICE Verification Manual
 import textwrap
 from pathlib import Path
 
+from ave.core.constants import C_0, V_YIELD, XI_TOPO
+
+# Current saturation limit (xi_topo × c ≈ 124.384 A): the topological-current
+# analog of the dielectric yield voltage, sourced from canonical constants.
+I_YIELD_MAX: float = XI_TOPO * C_0
+
 # Location of the canonical .lib file (theoretical model, kept in Core)
 _LIB_DIR = Path(__file__).resolve().parent / "spice_models"
 _LIB_FILE = _LIB_DIR / "ave_vacuum_cell.lib"
@@ -33,7 +39,7 @@ def _lib_include_path() -> str:
 
 def compile_ee_bench_dc_sweep(
     c0: float = 10e-12,
-    v_yield: float = 43653.7,
+    v_yield: float = V_YIELD,
     v_max: float = 45000.0,
     v_step: float = 100.0,
     title: str = "EE Bench Dielectric Yield Plateau — AVE DC Sweep",
@@ -102,8 +108,8 @@ def compile_lcr_network(
     f_start: float = 1e9,
     f_stop: float = 1e15,
     n_points: int = 1000,
-    v_yield: float = 43653.7,
-    i_max: float = 124.4,
+    v_yield: float = V_YIELD,
+    i_max: float = I_YIELD_MAX,
     use_nonlinear: bool = True,
 ) -> str:
     """
@@ -209,7 +215,7 @@ def compile_amino_acid_network(
     molecule_name: str,
     bonds: list[dict],
     title: str | None = None,
-    v_yield: float = 43653.7,
+    v_yield: float = V_YIELD,
 ) -> str:
     """
     Compile an amino acid's molecular topology to an ngspice netlist.
@@ -231,7 +237,7 @@ def compile_amino_acid_network(
     title : str or None
         Netlist title (auto-generated if None).
     v_yield : float
-        Dielectric yield voltage.
+        Dielectric yield voltage (default: V_YIELD from constants.py).
 
     Returns
     -------
