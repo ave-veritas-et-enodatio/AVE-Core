@@ -261,6 +261,14 @@ and are excluded from the window there — honest behavior, not a magnitude over
 
 ## 6. FLAG-DON'T-FIX (surfaced, not silently resolved)
 
+> 🔵 **FLAG-A ADJUDICATED + LANDED (Grant, 2026-06-21).** The recommendation below is now the ruling and
+> is executed across the corpus: the **matched differential 1.93×10⁷ = 7.5/α³ is the falsifier headline**
+> (AVE −½ vs QED differenced 3/45); the single-arm 4.14×10⁶ is the isotropic common-mode (polarimeter-blind)
+> comparison, traceability only. Propagated to `clm-pp3qwf` / `vacuum-birefringence-e4.md` /
+> `vacuum-impedance-mirror.md` / `divergence-test-substrate-map.md` (B1) + the vol4/vol9 manuscript twins +
+> the figure (regenerated through `ave.viz.style`) + the facility-sweep driver/JSON + `ave.bench`
+> (`coefficient_ratio_differential`, `delta_n_ave_differential_exact`). Body below PRESERVED verbatim.
+
 **FLAG-A — the matched-observable ratio is 1.93×10⁷, not 4.14×10⁶, for a differential polarimeter.**
 The corpus `vacuum-birefringence-e4.md:18` and the prior result doc headline **4.14×10⁶**, which is
 `1/(4·(7/45)·α³)` — the AVE **scalar single-arm** shift (−¼A²) over the QED **parallel single-mode**

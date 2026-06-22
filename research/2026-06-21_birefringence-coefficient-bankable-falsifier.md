@@ -2,6 +2,19 @@
 
 **Date:** 2026-06-21
 **Status:** PROPOSAL (facility-grade). Coefficient result LOCKED + validate-on-known PASS. OQ-1 (field→cavity-phase coupling) now **PARTIALLY CLOSED** (adversarial-verify verdict `partially-closed`): the coupling is **DERIVED** from the Axiom-4 kernel and the geometry factor *g* is **PINNED per apparatus config** — see the derivation [`research/2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md`](2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md). Named residuals carried (R-1 differential-vs-leaf observable, R-2 single-invariant modeling choice, R-3 detector-floor validate-on-known owed); §5, §8 below superseded with the pinned per-config numbers (Rule-12).
+
+> 🔵 **FLAG-A ADJUDICATED (Grant, 2026-06-21, Rule 12 — body below PRESERVED verbatim; additive ruling).**
+> R-1 is **resolved**: a birefringence instrument measures the **par−minus−perp differential**, so the
+> **falsifier headline is the matched differential** $\delta n_{AVE}/\delta n_{QED}=(45/6)/\alpha^3=7.5/\alpha^3\approx1.93\times10^7$
+> (AVE differential $-\tfrac12 A^2$ vs QED **differenced** Euler-Heisenberg $3/45$). The scalar single-arm
+> $-\tfrac14 A^2$ is the **isotropic common-mode** shift the instrument rejects (NOT the birefringence);
+> the single-arm/isotropic-vs-parallel ratio $4.14\times10^6=1/(4\cdot\tfrac{7}{45}\alpha^3)$ paired
+> **MISMATCHED** observables (AVE single-arm vs QED parallel single-mode) and is **traceability only**.
+> Every `4.14×10⁶`-as-headline in the body below is superseded by `1.93×10⁷`; the body's R-1 "open
+> auditor/Grant call" is now closed. The leaf `clm-pp3qwf`, the vol4/vol9 manuscript twins, the figure
+> (regenerated through `ave.viz.style`), and the facility-sweep driver/JSON all now headline the matched
+> differential. **Chord vs echo unchanged:** CHORD = the vacuum saturates at all (tree-level O(1)
+> existence vs QED's $\alpha^2$-loop); MAGNITUDE $1.93\times10^7$ is an $\alpha$-echo (symmetric standard).
 **Canonical claim:** `clm-pp3qwf` (Vol-4 Ch.12 `vacuum-birefringence-e4.md`; solidity 0.8) — this doc is its **strengthen-by**.
 **Drivers:** `src/scripts/vol_9_device/vacuum_birefringence_facility_sweep.py` (this branch); `AVE-Bench-Birefringence/scripts/birefringence_coefficient_bench.py` (R1–R8); shared `ave.bench.{sweep,apparatus,snr,validate}` + `ave.bench.birefringence`.
 **Worktree provenance:** `/tmp/biref-harden`, branch `analysis/birefringence-hardening`, on `origin/main` 5f91d1af; sweep commit ec9b9830.
