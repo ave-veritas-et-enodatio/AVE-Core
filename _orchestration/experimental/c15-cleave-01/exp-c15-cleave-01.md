@@ -16,7 +16,7 @@ Cleave-01 tests **Axiom 2 (Topo-Kinematic Isomorphism, [Q] ≡ [L])** directly a
 
 **KB explicit prediction**: $41.5 \,\text{mV}$ per $1 \,\mu\text{m}$ displacement on a $10 \,\text{pF}$ input. $0.415 \,\text{pC}$ charge per step.
 
-**KB explicit falsification statement** (literal): *"if 0.0 mV, the framework is falsified."*
+**KB explicit falsification statement** (literal, original round-1 framing): *"if 0.0 mV, the framework is falsified."* **Chord-gated framing (2026-06-22, supersedes the round-1 magnitude framing for adjudication):** the falsifier is **no gap-INDEPENDENT integer charge floor surviving the $\ge4\times$ gap-sweep at fixed $C_{in}$** (Outcome C), NOT a 0.0 mV reading per se — CPD also gives a non-zero step, and a non-zero step is not by itself a GO. The slope magnitude (41.5 mV/µm) is a consistency-class echo ($\xi_{topo}=\sqrt{\alpha}$ + Compton-$\ell_{node}$, doubly over-determined), demoted to a non-gating secondary corroborator. See Phase-3 prereg §4/§6/§7 + KB leaf.
 
 **Cascade reach** — ξ_topo appears in:
 - **B4-PROTEIN** (Ramachandran enforcement uses ξ_topo per Vol 5 protein-folding engine)
@@ -24,11 +24,11 @@ Cleave-01 tests **Axiom 2 (Topo-Kinematic Isomorphism, [Q] ≡ [L])** directly a
 - **C16-TORSION-05** (Project TORSION-05 thrust uses ξ_topo for V↔M coupling)
 - **B5-PONDER-01** + **B6-PONDER-02** + **B7-PONDER-05** (all PONDER thrust derivations use ξ_topo at V_yield boundary)
 
-If C15-CLEAVE-01 fails (0.0 mV observed), Ax2 dies → ALL 6 downstream rows fall + the framework's electromechanical-bridge axiom is killed.
+If C15-CLEAVE-01 fails (no gap-independent integer charge floor survives the gap-sweep — Outcome C), Ax2 dies → ALL 6 downstream rows fall + the framework's electromechanical-bridge axiom is killed.
 
 ## Standard EE counterfactual
 
-A standard capacitor with PZT actuator generates charge via mechanical strain on the dielectric (piezoelectric effect $d_{31}$ etc.), but NOT via a TOPOLOGICAL charge-length identity. The AVE prediction is that the OBSERVED charge has an additional component $Q_{topo} = \xi_{topo} \cdot x$ that scales LINEARLY with displacement (not with the dielectric's $d_{ij}$ coefficients). Discriminator: vary dielectric without changing PZT displacement — standard EE predicts $Q$ varies with dielectric; AVE predicts the $\xi_{topo} \cdot x$ component is dielectric-independent.
+A standard capacitor with PZT actuator generates charge via mechanical strain on the dielectric (piezoelectric effect $d_{31}$ etc.), but NOT via a TOPOLOGICAL charge-length identity. **Round-2 correction (2026-06-04):** the round-1 "SM predicts exactly 0.0" was FALSE — contact-potential-difference (CPD / moving-Kelvin-probe) gives a polarity-odd, ~21%-of-floor charge that is gap-DEPENDENT ($\propto V_{CPD}/g^2$). The AVE prediction is a $Q_{topo} = \xi_{topo} \cdot x$ floor that is the **4-corner conjunction** {linear ∧ polarity-odd ∧ material-independent ∧ gap-INDEPENDENT}. Discriminator: a $\ge4\times$ gap-sweep at fixed $C_{in}$ separates the gap-flat floor from the $\propto1/g^2$ CPD background; polarity-reversal removes even-in-$V$ fakers (electrostriction/flexo/secondary-piezo); time-gating removes decaying tribo; dielectric-swap removes material-dependent piezo. SM predicts no gap-independent floor; AVE predicts one — two-sided, non-fakeable on the chord.
 
 ## Phase table
 
@@ -105,21 +105,23 @@ Detailed prose for **active phases** (Phase 1a-rev1 forward to Phase 4) lives in
 
 ### Phase 3 measurement (PENDING — gated on Phase 2)
 
-**Action**: ave-prereg-format pre-registration FROZEN before any measurement (closes Q-C15-02 precision target). Then PZT step sweep (1 μm steps); record output voltage; verify $41.5 \,\text{mV} / \mu\text{m}$ slope on 10 pF input. Discriminator dielectric test (Q-C15-03 ✓ adjudicated: vacuum-gap-only as Phase 3 default).
+**Action**: ave-prereg-format pre-registration FROZEN before any measurement (closes Q-C15-02 precision target). Then the **$\ge4\times$ gap-sweep at fixed $C_{in}$** (the chord measurement) + polarity-reversal + dielectric-swap + time-gating + calibrated positive-control per Phase-3 prereg §5; adjudicate the 4-corner conjunction (chord) per §6. The 0.415 pC/µm (41.5 mV/µm at 10 pF) slope is recorded as a non-gating secondary corroborator, NOT the GO axis. Discriminator dielectric test (Q-C15-03 ✓ adjudicated: vacuum-gap-only as Phase 3 default).
 
-**Predicted observable**: $V_{out} = \xi_{topo} \cdot x / C_{in} = 41.5 \,\text{mV/μm}$ at $C_{in} = 10 \,\text{pF}$. Linear in $x$. Dielectric-independent.
+**Primary observable (the chord)**: a gap-INDEPENDENT, polarity-odd, material-independent, linear-in-$x$ integer charge floor ($\mathcal{Q}=\mathrm{Link}\in\mathbb{Z}$) surviving the gap-sweep. **Secondary corroborator (non-gating)**: $V_{out} = \xi_{topo} \cdot x / C_{in} = 41.5 \,\text{mV/μm}$ at $C_{in} = 10 \,\text{pF}$ (the over-determined $\sqrt{\alpha}$/Compton echo).
 
 **Time**: ~1 week measurement + analysis
 **Skill discipline**: ave-prereg + ave-discrimination-check Step 1.5 + ave-evidence-framing-discipline + verify-before-cite on all canonical-constant citations
 
 ### Phase 4 outcome adjudication (CONDITIONAL on Phase 3)
 
-| Outcome | Interpretation |
-|---|---|
-| **A**: $V_{out}$ matches $41.5 \,\text{mV/μm}$ within ADA4530-1 noise floor | **Ax2 confirmed at bench**. ξ_topo cascade (B4 + C9 + C16 + B5-7) all gain bench-scale corroboration. **Major positive — foreword-promotion-grade**. |
-| **B**: $V_{out}$ detected but slope differs from $41.5 \,\text{mV/μm}$ | Partial. Topological charge-length identity holds (qualitatively positive), but $\xi_{topo}$ coefficient needs structural revision |
-| **C**: $V_{out} \approx 0$ within noise floor (KB-explicit falsification condition) | **Ax2 dies. Framework falsified at substrate-foundational axiom level.** Cascade walk-back: B4 + C9 + C16 + B5-7 ALL fail. Major structural finding (framework-killing). |
-| **D**: Confound (parasitic leakage / triboelectric / outgassing) | Discriminate from C via re-design with better guards; re-test |
+GO/NO-GO gates on the **chord** (4-corner gap-independent integer floor), NOT the slope (the echo). Per the Phase-3 prereg §6 + KB-leaf "Outcome adjudication":
+
+| Outcome | Adjudication axis | Interpretation |
+|---|---|---|
+| **A — chord confirmed (GO)** | 4-corner {linear ∧ polarity-odd ∧ material-indep ∧ gap-INDEPENDENT} survives $\ge4\times$ gap-sweep at fixed $C_{in}$; positive-control passed | **Ax2 confirmed at bench**. ξ_topo cascade (B4 + C9 + C16 + B5-7) gains bench-scale corroboration. **Foreword-promotion-grade**. Slope-match to 0.415 pC/µm = non-gating secondary corroborator (slope deviation = A-with-$\alpha$-chain-flag, NOT a demotion). |
+| **B — partial (chord ambiguous)** | floor detected but gap-sweep inconclusive | Integer-charge chord suggested; gap-independence corner not established. Re-run gap-sweep. NOT a GO. |
+| **C — null (chord falsified, NO-GO)** | no gap-INDEPENDENT floor survives the sweep (absent or fully CPD-$1/g^2$); positive-control passing | **Ax2 dies. Framework falsified at substrate-foundational axiom level.** Cascade walk-back: B4 + C9 + C16 + B5-7 ALL fail. Framework-killing. |
+| **D — confound** | floor fails a corner OR positive-control did not register | Discriminate from C via re-design with better guards; re-test |
 
 **Outcome A** → write canonical result doc + matrix update across ENTIRE ξ_topo family + foreword promotion + skill-amendment (this becomes the canonical Ax2-bench-validation citation across all volumes).
 

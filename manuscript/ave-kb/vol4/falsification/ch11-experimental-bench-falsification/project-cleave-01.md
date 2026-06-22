@@ -35,7 +35,7 @@ $$
 Q = \xi_{topo} \cdot x = (4.149 \times 10^{-7}\,\text{C/m}) \times 10^{-6}\,\text{m} = \mathbf{0.415\,\text{pC (picoCoulombs)}}
 $$
 
-Assuming a highly-controlled PCBA parasitic input capacitance of exactly $10\,\text{pF}$, the voltage readout step ($V = Q/C$) dictates a clean, instantaneous step of exactly **$41.5\,\text{mV}$** on the oscilloscope. If the oscilloscope registers $0.0\,\text{mV}$, the framework is falsified. If it reads exactly $41.5\,\text{mV}$ per micron of displacement, the foundational hardware constant of the universe has been validated on a tabletop.
+Assuming a highly-controlled PCBA parasitic input capacitance of exactly $10\,\text{pF}$, the voltage readout step ($V = Q/C$) projects to a clean step of approximately **$41.5\,\text{mV}$** on the oscilloscope at $1\,\mu\text{m}$ — but **the slope magnitude is NOT the falsifiable axis** (see below). The slope is a consistency-class echo: $\xi_{topo} = \sqrt{\alpha}$ in native units AND $\ell_{node}$ is the electron Compton wavelength, so the $41.5\,\text{mV/µm}$ figure is doubly over-determined and a slope-match cannot by itself distinguish chord from $\alpha$-chain (F3 note). **What the bench tests — the chord — is the topological integer-charge floor**: a gap-INDEPENDENT, polarity-odd, material-independent, linear-in-$x$ charge component ($\mathcal{Q} = \mathrm{Link}(\partial\Omega,\mathbf{F}) \in \mathbb{Z}$) surviving a $\ge 4\times$ gap-sweep at fixed $C_{in}$, which no single classical mechanism can fake (the 4-corner conjunction). If no such gap-independent floor survives the sweep, the framework is falsified at Axiom-2. If the 4-corner floor survives, the **topological integer-charge chord** ($[Q] \equiv [L]$) has been validated on a tabletop — a two-sided, non-fakeable result. The slope value ($41.5\,\text{mV/µm}$) is a secondary corroborator of the over-determined $\xi_{topo}$ magnitude, not the test.
 
 ### Discriminator vs standard piezoelectric / triboelectric effects (two-sided)
 
@@ -43,6 +43,17 @@ A standard capacitor with PZT actuator generates charge via mechanical strain on
 
 - **P1 (presence):** is there a non-zero, **gap-independent** charge floor at all from displacement of *uncharged* matter in clean vacuum? The polarity-odd, gap-INDEPENDENT component is classically $0.0$ mV; the raw vacuum charge is NOT — contact-potential-difference (CPD) gives a polarity-odd, gap-DEPENDENT term ($\propto V_{CPD}/g^2$, the dominant Casimir/Kelvin-probe systematic), separated from the floor by the gap-sweep. AVE predicts the $\xi_{topo}\cdot x = 41.5$ mV/μm floor as the **gap-independent** ($e/\ell_{node}$ is a pure constant) residue surviving the gap-sweep.
 - **P2 (dielectric-invariance):** swap the dielectric in the gap at fixed $C_{in}$ — standard EE predicts $Q$ varies with the dielectric's $d_{ij}$ (the piezo/tribo piece rides material); AVE predicts the $\xi_{topo}\cdot x$ floor is the **fixed** (dielectric-invariant) component, with the material-dependent piece riding on top of it. The two-sided test reads the floor as the invariant residue under material swap.
+
+**The 4-corner chord + mundane-faker rejection.** The non-fakeable signature is the conjunction of FOUR corners — {**linear**-in-$x$ ∧ **polarity-odd** ∧ **material-independent** ∧ **gap-INDEPENDENT**} surviving a $\ge4\times$ gap-sweep — because no single classical mechanism survives all four ([`2026-06-04_round2-adjudications.md:54`](../../../../../_orchestration/experimental/2026-06-04_round2-adjudications.md)):
+
+| Mundane faker | Corner it fails | How separated |
+|---|---|---|
+| CPD / moving-Kelvin-probe (~21%-of-floor, itself polarity-odd) | gap-INDEPENDENT (CPD is $\propto V_{CPD}/g^2$) | $\ge4\times$ **gap-sweep**: CPD drops $\propto1/g^2$, floor stays flat |
+| electrostriction / flexoelectric / secondary-piezo | polarity-ODD (these are even-in-$V$) | **polarity-reversal**: even fakers don't flip sign |
+| triboelectric contact charging | static (tribo step **decays**) | **time-gating**: record relaxation profile |
+| direct piezoelectric ($d_{ij}$) | material-INDEPENDENT (rides dielectric; zero in vacuum) | **dielectric-material swap** at fixed $C_{in}$ |
+
+> **C_in-held-fixed subtlety (load-bearing).** The measured *voltage* floor is gap-independent only at **fixed readout capacitance** $C_{in}$. The gap-sweep MUST hold $C_{in}$ fixed (or explicitly account for it) or the gap-independence corner is contaminated (`2026-06-04_round2-adjudications.md:60`). This is a protocol-design requirement on the gap-sweep, not a separate physics claim.
 
 **Node-occupation gap — CLOSED (2026-06-03).** P2's dielectric-invariance rests on the solid-dielectric **node-occupation** case (does the Pauli-saturated occupancy of the dielectric's atoms perturb the floor?). This was green-field; it is now closed by substrate-native derivation at [`research/2026-06-03_topological-charge-occupation-robustness.md`](../../../../../research/2026-06-03_topological-charge-occupation-robustness.md). Result: the floor **LOCKS**. The charge $\mathcal{Q} = \mathrm{Link}(\partial\Omega, \mathbf{F}_{\text{substrate}}) \in \mathbb{Z}$ is a **gap-protected integer** (boundary linking number — the no-hair observable, [`boundary-observables-m-q-j.md`](../../../common/boundary-observables-m-q-j.md)); the dielectric's atoms are bounded $\Gamma=-1$ soliton assemblies whose Pauli-filled interior occupancy is no-hair-INVISIBLE to the swept boundary loop (Atom row of the boundary-observables table). The conversion $\xi_{topo} = e/\ell_{node}$ is a **frozen-metric unit-bridge** ($\ell_{node} = \hbar/m_e c$ is the electron Compton wavelength, unchanged by a slab in the gap). So the occupied-node fraction enters neither factor → the floor is dielectric-invariant. Grant's spine: node-occupation = Pauli exclusion = the Axiom-4 saturation ceiling (corpus-derived; boundary-collision form canonical at [`resonant-lc-solitons.md`](../../circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md), per-node-budget form PROVISIONAL per `vol2/claim-quality.md:1178`).
 
@@ -62,7 +73,7 @@ A standard capacitor with PZT actuator generates charge via mechanical strain on
 
 ### ξ_topo cascade impact (largest single-row cascade in matrix per Matrix 1 Cascade column)
 
-If C15-CLEAVE-01 fails (0.0 mV observed), the canonical ξ_topo electromechanical transduction constant fails → Ax2 dies → 6+ downstream rows fall:
+If C15-CLEAVE-01 fails (no gap-independent integer charge floor survives the gap-sweep — Outcome C), the canonical ξ_topo electromechanical transduction constant fails → Ax2 dies → 6+ downstream rows fall:
 
 - **B4-PROTEIN** (Ramachandran enforcement uses ξ_topo per Vol 5 protein-folding engine)
 - **C9-LEVITATION** ($m_{max} = V_{yield} \cdot \xi_{topo} / g$)
@@ -75,12 +86,18 @@ This is the **largest single-row cascade in the matrix**. F-severity (framework-
 
 ### Outcome adjudication (Phase 4 of sub-epic [`exp-c15-cleave-01.md`](../../../../../_orchestration/experimental/c15-cleave-01/exp-c15-cleave-01.md))
 
-| Outcome | Interpretation |
-|---|---|
-| **A**: $V_{out}$ matches $41.5 \,\text{mV/μm}$ within ADA4530-1 noise floor | **Ax2 confirmed at bench**. ξ_topo cascade (B4 + C9 + C16 + B5-7) all gain bench-scale corroboration. Major positive — foreword-promotion-grade. |
-| **B**: $V_{out}$ detected but slope differs from $41.5 \,\text{mV/μm}$ | Partial — topological charge-length identity holds qualitatively; coefficient revision needed |
-| **C**: $V_{out} \approx 0$ within noise floor | **Ax2 dies. Framework falsified at substrate-foundational axiom level.** Cascade walk-back across ξ_topo family. |
-| **D**: Confound (parasitic leakage / triboelectric / outgassing) | Re-design with better guards; re-test |
+The GO/NO-GO gates on the **chord** (the 4-corner gap-independent integer floor), NOT the slope (the echo). The slope is a non-gating secondary corroborator inside Outcome A.
+
+| Outcome | Adjudication axis | Interpretation |
+|---|---|---|
+| **A — chord confirmed (GO)** | 4-corner conjunction {linear-in-$x$ ∧ polarity-odd ∧ material-indep ∧ gap-INDEPENDENT} survives the $\ge4\times$ gap-sweep at fixed $C_{in}$; calibrated positive-control passed in-session | **Ax2 ([Q]≡[L]) topological-integer-charge chord confirmed at bench.** ξ_topo cascade (B4 + C9 + C16 + B5-7) gains bench-scale corroboration. Foreword-promotion-grade. *Secondary (non-gating): slope-match to 0.415 pC/µm strengthens the $\sqrt{\alpha}$/Compton echo; a slope deviation books as A-with-$\alpha$-chain-flag (F3), it does NOT demote the GO.* |
+| **B — partial (chord ambiguous)** | floor detected (non-zero, polarity-odd, material-indep) but gap-sweep inconclusive ($C_{in}$ drift / too few gaps / floor not separated from $1/g^2$ CPD) | Integer-charge chord suggested but gap-independence corner not established. Re-run gap-sweep at fixed $C_{in}$, wider span. **NOT a GO.** |
+| **C — null (chord falsified, NO-GO)** | no gap-INDEPENDENT floor survives the sweep — displacement charge absent within noise OR fully explained by the $\propto1/g^2$ CPD background — all §5 corners checked + positive-control passing | **Ax2 dies. Framework falsified at substrate-foundational axiom level.** Cascade walk-back across ξ_topo family. *A slope-deviation with the floor still gap-independent is A-with-flag, NOT C.* |
+| **D — confound** | floor fails a corner (tracks dielectric / fails polarity-reversal / decaying tribo / fails zero-displacement null) OR positive-control did NOT register (dead-instrument null) | Re-design guards; re-test. NOT adjudicated A or C. |
+
+### Femto-side (cross-repo) propagation status (2026-06-22)
+
+The bench-engineering sibling `AVE-Bench-FemtoElectrometer` holds the hardware/test-procedure artifacts. The Femto repo's own round-2 analysis IS cured (`docs/analysis/2026-06-04_cleave-round2-smcounterfactual-result.md` + `prereg.md` on its **`main`**: SM "exactly 0.0" found FALSE at ~21%-of-floor CPD; gap-independence cure; 4-corner + faker tables; calibrated positive-control). **FLAG (SEPARATE session):** the Femto repo's default checkout still carries STALE round-1 framing in `hardware/TEST_PROCEDURE.md` / `docs/open_questions.md` / `docs/glossary.md` ("standard EE predicts Q→0"; slope/linearity discriminator, NOT 4-corner). Landing the gap-independence / 4-corner / positive-control framing across those stale Femto sites is a **Femto-repo edit, flagged for a SEPARATE session per cross-repo-session-scope — NOT performed in the AVE-Core revision that landed this leaf.** The round-2 doc itself flags this un-landed remainder (F-R2-3).
 
 ### Engineering substrate status (2026-05-20 EOD++++++++++++++)
 
