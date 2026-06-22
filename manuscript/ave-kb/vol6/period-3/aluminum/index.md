@@ -16,7 +16,7 @@ Aluminum-27 ($Z=13$, $A=27$) is a $6\alpha + ^3\text{H}$ core-plus-halo structur
 |---|---|
 | CODATA mass | $25\,126.501$ MeV |
 | Core geometry | $6\alpha$ Magnesium-24 Octahedron at $R_{\text{core}} = 78.0\,d$ |
-| Halo distance | $R_{\text{halo}} = 52.605\,d$ ($0.000\,000\%$ error) |
+| Halo distance | $R_{\text{halo}} = 52.605\,d$ ($0.000\,000\%$ fit tolerance on $R$; end-to-end mass residual $0.02557\%$) |
 | Core operating point | $V_R/V_{BR} = 0.040$, $M = 1$ (Small Signal) |
 | SPICE parameters | 351-parameter matrix (276 core + 75 core-to-halo) |
 | EE equivalent | Asymmetrically loaded octahedral network (dual-resonance, trivalent coupling) |
