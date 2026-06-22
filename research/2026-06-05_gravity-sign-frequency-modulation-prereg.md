@@ -32,11 +32,11 @@ Saturation modulates the per-node LC frequency ω = 1/√(L_eff·C_eff) **reacti
 **[C2] SYM-class invariant-Z + α-invariance (`CLAUDE.md:69`):**
 > Under SYM-class scaling (gravity-class realization) — μ(r) and ε(r) scale together by the same factor so Z_0 stays invariant — the asymmetry between c_EM and c_shear makes α EXACTLY invariant … SYM scaling produces gravitational time-dilation via c_shear tracking √S (Schwarzschild reduction) WHILE simultaneously preserving α exactly.
 
-**[C3] Ax 4 dielectric specialization (`CLAUDE.md:58`) — BOTH sectors scale (load-bearing for H3 tension):**
+**[C3] Ax 4 dielectric specialization (`manuscript/ave-kb/CLAUDE.md:73`; was `:58`) — BOTH sectors scale (load-bearing for H3 tension):**
 > Dielectric specialization (atomic / bench scale, A = Δφ/α): `C_eff = C_0/S`, `ε_eff = ε_0 S`, `μ_eff = μ_0 S`.
 
-**[C4] Op14 small-signal varactor-bias modulation (`CLAUDE.md:60`) — DC bias scales BOTH μ and ε (tension with H3):**
-> Small-signal transverse propagation through a region at operating point A_0 sees modulated effective parameters `ε_eff = ε_0 S(A_0)`, `μ_eff = μ_0 S(A_0)`, `C_eff = C_0/S(A_0)` — the same varactor-bias mechanism producing refractive-index gradients across all scales (Op14 local clock modulation, Op16 universal wave speed).
+**[C4] Op14 small-signal varactor-bias modulation (INVARIANT-S2, `manuscript/ave-kb/CLAUDE.md:75`; was `:60`) — DC bias scales BOTH μ and ε ONLY under symmetric internal loading (W6 scope; tension with H3 RESOLVED, see below):**
+> Small-signal transverse propagation through a region at operating point A_0 sees modulated effective parameters `ε_eff = ε_0 S(A_0)`, `μ_eff = μ_0 S(A_0)`, `C_eff = C_0/S(A_0)` — the same varactor-bias mechanism producing refractive-index gradients across all scales (Op14 local clock modulation, Op16 universal wave speed). **W6 scope (commit e5307e53):** this both-sectors-scale form is the SYMMETRIC-loading operating point (both grades driven, e.g. mass-soliton with internal E AND B); a static-E-only drive is ASYMMETRIC (loads ε only, S_μ=1) and a static-B-only drive loads neither μ (no dB/dt → no internal circulation) — it does NOT follow that any DC bias scales both. See the node-up derivation `manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md`.
 
 **[C5] LC-tank node frequency (`manuscript/vol_9_vacuum_datasheet/chapters/10_magnetic_microrotational_characteristics.tex:41`):**
 > oscillator `ω_C = 1/√(L_cell C_cell) = c_0/ℓ_node`, per Ch. AC characteristic frequency
