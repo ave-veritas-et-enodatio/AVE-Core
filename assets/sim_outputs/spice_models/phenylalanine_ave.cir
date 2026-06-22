@@ -1,0 +1,35 @@
+* AVE SPICE Model: L-Phenylalanine
+* Provenance: vendored from the Applied-Vacuum-Engineering archive (pure L/C topology data).
+* Backbone topology mapped to L/C tensors
+
+* --- The Amino Source (NH3+) ---
+V_amino in 0 SIN(0 1V 30THz)
+L_nh3 in n_amino 1.3511297647809685e-13pH
+C_nc n_amino n_alpha 4.0522706029886115e-16fF
+
+* --- The Alpha Carbon (C-alpha) ---
+L_alpha n_alpha n_alpha_out 1.1585894083442053e-13pH
+
+* --- R-Group Filter Stub (L-Phenylalanine) ---
+C_r_beta_bond n_alpha n_r_beta 4.576118317492612e-16fF
+L_r_beta n_r_beta n_r_beta_split 1.1585894083442053e-13pH
+C_beta_h1 n_r_beta_split n_bh1 3.6465177285491996e-16fF
+L_bh1 n_bh1 0 9.72290214763884e-15pH
+C_beta_h2 n_r_beta_split n_bh2 3.6465177285491996e-16fF
+L_bh2 n_bh2 0 9.72290214763884e-15pH
+C_beta_ring n_r_beta_split n_ring 4.576118317492612e-16fF
+L_ring n_ring 0 7.437681557447173e-13pH
+
+C_cc n_alpha_out n_carboxyl_c 4.576118317492612e-16fF
+
+* --- The Carboxyl Sink (COO-) ---
+L_carboxyl_c n_carboxyl_c n_carboxyl_split 1.1585894083442053e-13pH
+C_co_double n_carboxyl_split n_o_double 1.446001793287132e-16fF
+L_o_double n_o_double 0 1.543351792973122e-13pH
+C_co_single n_carboxyl_split out 3.605123844092135e-16fF
+L_o_single out n_term 1.543351792973122e-13pH
+R_load n_term 0 376.7303Ohm
+
+* --- AC Simulation Directives ---
+.ac dec 100 1G 1000G
+.end
