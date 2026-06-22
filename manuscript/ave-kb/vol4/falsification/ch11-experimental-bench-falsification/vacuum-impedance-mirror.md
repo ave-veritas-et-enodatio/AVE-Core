@@ -152,6 +152,33 @@ electrode emits / the gap arcs before the probe accumulates a detectable phase.
 > the discriminators are **manifestation/structural-class**. Derivation + SNR:
 > [`research/2026-06-04_ivim-interferometric-rescope-result.md`](../../../../../research/2026-06-04_ivim-interferometric-rescope-result.md).
 
+> 🔴 **Scope reconciliation (2026-06-21, Rule 12 — body above PRESERVED verbatim; additive).**
+> Discriminator-(ii)'s claim "the AVE kernel keys off $|E|$ (isotropic → scalar phase, so
+> cross-polarized $\Delta\phi_\parallel - \Delta\phi_\perp = 0$)" is **correct only in the
+> CIRCULAR / ISOTROPIC-pump limit** — where the pump field magnitude $|E|$ has no preferred
+> transverse axis and the scalar kernel $n=(1-A^2)^{1/4}$ produces a purely scalar phase
+> ($\Delta\phi_\parallel - \Delta\phi_\perp = 0$, no AVE birefringence). It does **not** hold
+> for a **LINEARLY-polarized** pump. Under a linear pump the same scalar-$|E|$ kernel, expanded
+> about the pump operating point, yields a **uniaxial probe-response tensor**
+> $\varepsilon_{ij} = \varepsilon\,\delta_{ij} + 2\varepsilon'\,E_{0i}E_{0j}$ (optic axis
+> $\parallel$ the pump polarization $\hat E_0$, with $\varepsilon' = \partial\varepsilon/\partial(E_0^2)$).
+> This **is** birefringence proper: probe-parallel vs probe-perpendicular phase velocities differ
+> by $\delta n \sim O(\delta n_{iso})$, and a probe at $45^\circ$ acquires an **ellipticity** $\psi$
+> — the readout of the **ratified linear-pump → polarimeter** (PVLAS/BMV lineage), NOT the retired
+> DC-electrode framing. So AVE is **not** birefringence-free in general; it is birefringence-free
+> only for an isotropic pump, and produces a measurable ellipticity under the (standard,
+> facility-realizable) linearly-polarized pump. The AVE-vs-QED content then lives in the **coefficient**
+> of that ellipticity (the field-independent $\delta n_{AVE}/\delta n_{QED} = 1/(4\,a_{EH}\,\alpha^3)
+> \approx 4.14\times10^6$, `clm-pp3qwf`), not in a zero-vs-nonzero birefringence binary. The "8.38×10¹²"
+> figure in discriminator-(i) above is the **superseded** $E^2$-vs-$E^4$ phase-slope ratio; the
+> corrected, field-independent coefficient ratio is $4.14\times10^6$ (see the
+> $E^4$-walk-back at [`vacuum-birefringence-e4.md:20`](../ch12-falsifiable-predictions/vacuum-birefringence-e4.md)).
+> Linear-pump uniaxial-tensor derivation + facility sweep + the geometry-factor $g$ residual (the
+> OQ-1 field→cavity-phase coupling, now derived to leading order):
+> [`research/2026-06-21_birefringence-coefficient-bankable-falsifier.md`](../../../../../research/2026-06-21_birefringence-coefficient-bankable-falsifier.md);
+> coefficient channel cross-link: [`vacuum-birefringence-e4.md`](../ch12-falsifiable-predictions/vacuum-birefringence-e4.md)
+> (`clm-pp3qwf`).
+
 ### The Falsification Protocol (interferometric)
 
 A tabletop electrodynamic experiment to test the **phase-slope** structural discriminator. If standard linear QED is correct, a static DC electric field shifts the probe phase only at the Euler-Heisenberg (loop) coefficient; if AVE is correct, the phase tracks the tree-level kernel slope. (NB: at the recommended geometry the signal is below shot-noise — this protocol resolves the AVE-vs-QED *slope* only at facility-class fields; see Re-scope box.)
