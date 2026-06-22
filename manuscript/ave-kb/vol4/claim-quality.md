@@ -385,8 +385,29 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 ---
 
-## Vacuum Birefringence Discriminator: COEFFICIENT (AVE $\sim 10^6\times$ QED)
+## Vacuum Birefringence Discriminator: COEFFICIENT (AVE $\sim 10^7\times$ QED at the matched differential observable)
 <!-- id: clm-pp3qwf -->
+
+> 🔵 **FLAG-A adjudicated (Grant, 2026-06-21, Rule 12 — body below PRESERVED verbatim; additive correction).**
+> A birefringence instrument (polarimeter/ellipsometer) measures the **par−minus−perp differential**
+> $n_\parallel-n_\perp$, rejecting the isotropic common-mode shift. The falsifier observable is therefore
+> the **DERIVED differential** $\delta n_{bir}=n_\parallel-n_\perp\approx-\tfrac12 A^2$ (uniaxial probe tensor
+> $\varepsilon_{ij}=\varepsilon\delta_{ij}+2\varepsilon'E_{0i}E_{0j}$ = exact differential of the scalar Ax-4
+> kernel; OQ-1 Step 1), exactly $2\times$ the scalar single-arm. QED is differenced the same way → it rides
+> the difference coefficient $3/45$ (parallel $7/45$ and perpendicular $4/45$ eigen-indices differenced —
+> standard Euler-Heisenberg), not the single $7/45$. The **matched, field-independent headline ratio is
+> $\delta n_{AVE}/\delta n_{QED}=(1/2)/((3/45)\alpha^2)\cdot(E_{crit}/E_{yield})^2=(45/6)/\alpha^3=7.5/\alpha^3\approx1.93\times10^7$.**
+> The scalar $\delta n_{iso}=\sqrt S-1\approx-\tfrac14 A^2$ in the body below is the **isotropic (common-mode)
+> index shift** the polarimeter is blind to — kept, but NOT the birefringence; the body's $4.14\times10^6=1/(4\,a_{EH}\,\alpha^3)$
+> compared MISMATCHED observables (AVE single-arm vs QED parallel single-mode) and is RELABELED the
+> single-arm/isotropic-vs-parallel comparison, not the falsifier headline. **Chord vs echo:** the CHORD is
+> that the vacuum saturates at all (tree-level O(1) existence) vs QED's $\alpha^2$-loop birefringence; the
+> MAGNITUDE $1.93\times10^7=7.5/\alpha^3$ is an $\alpha$-echo at the value level (symmetric standard: QED's
+> $a_{EH}\alpha^2$ is equally $\alpha$-rooted). OQ-1 coupling now DERIVED (prior "Gaussian-overlap asserted"
+> residual closed); named residuals: CHECK-3 gated-cavity $\tau_{rt}$ factor-2 approximation, and the
+> polarimetry-floor validate-on-known still owed — the COEFFICIENT depends on neither. Canonical at
+> [vacuum-birefringence-e4](./falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md);
+> derivation `research/2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md`.
 
 - AVE: $\delta n = -\tfrac14 (E/E_{yield})^2$ (index shift, $\varepsilon$-only, $n=\sqrt{\varepsilon_{eff}/\varepsilon_0}=\sqrt{S}$); QED: $\delta n \approx a_{EH}\,\alpha^2 (E/E_{crit})^2$ (Euler-Heisenberg, $a_{EH}\sim 7/45$). **Both are $E^2$-leading**; the discriminator is the COEFFICIENT, not the exponent.
 - _Specific Claims_
@@ -407,8 +428,9 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 - solidity: 0.80 (ok to build on, see caveats) [= min(0.80, 0.90)]
 - rationale: The discriminator is the COEFFICIENT of the (shared $E^2$-leading) index shift, not the exponent. AVE's $\delta n=\sqrt{S}-1\approx -\tfrac14(E/E_{yield})^2$ (the $n=\sqrt{\varepsilon_{eff}/\varepsilon_0}$ identity applied to the Ax-4 kernel) carries an O(1) coefficient against an un-suppressed yield field $E_{yield}\approx 1.13\times10^{17}$ V/m; QED's Euler-Heisenberg $\delta n\approx a_{EH}\alpha^2(E/E_{crit})^2$ is $\alpha^2$-loop-suppressed against $E_{crit}\approx 1.32\times10^{18}$ V/m. The field-independent ratio $1/(4\,a_{EH}\,\alpha^3)\sim 10^6$ is AVE-distinct at ALL fields (forward driver `birefringence_coefficient_discriminator.py`). The historical "$\Delta n\propto E^4$" framing was a $\sqrt{\varepsilon}$ conflation (it Taylor-expanded the permittivity DEPTH $1-S=+A^2/2$, itself $E^2$-leading, not the index shift) — corrected; an $E^2$ slope does not falsify AVE.
 - strengthen-by:
-  - Establish a concrete high-intensity-laser facility path (FIELD-specified, not gap-voltage) reaching $E\gtrsim 10^{14}$ V/m where $\delta n_{AVE}\sim 2\times10^{-7}$ is high-finesse-cavity measurable and the $\sim10^6$ coefficient gap is resolvable against the QED baseline.
-  - Pin the QED Euler-Heisenberg single-mode prefactor $a_{EH}$ (literature input, $\sim7/45$) under the facility's exact field-polarization geometry to tighten the ratio band.
+  - **OQ-1 field→cavity-phase coupling: DERIVED (CLOSED 2026-06-21).** The prior "Gaussian-overlap asserted" residual is closed — the coupling is the exact differential of the scalar Ax-4 kernel (uniaxial tensor → cavity round-trip ellipticity), $g$ pinned per apparatus config. Remaining residuals: (a) CHECK-3 gated-cavity $\tau_{rt}$ factor-2 / "recovers both finesse and temporal overlap" approximation; (b) polarimetry-floor validate-on-known still owed against a published cavity. The COEFFICIENT ($7.5/\alpha^3$) depends on neither. Derivation: `research/2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md`; driver `src/scripts/vol_9_device/oq1_field_to_cavity_phase_coupling.py` (validate-on-known PASS: PVLAS $A_e$ to 0.35%).
+  - Establish a concrete high-intensity-laser facility path (FIELD-specified, not gap-voltage) reaching $E\gtrsim 10^{14}$ V/m where $\delta n_{bir}^{AVE}\sim$ high-finesse-cavity measurable and the $1.93\times10^7$ matched-differential coefficient gap is resolvable against the QED differenced ($3/45$) baseline.
+  - Pin the QED Euler-Heisenberg eigen-prefactors $7/45$ (parallel) and $4/45$ (perpendicular), hence the difference $3/45$, under the facility's exact field-polarization geometry to tighten the ratio band.
 
 ---
 
