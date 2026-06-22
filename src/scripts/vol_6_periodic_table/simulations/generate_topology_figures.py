@@ -371,8 +371,8 @@ ELEMENTS = [
         "symbol": "Fe",
         "Z": 26,
         "A": 56,
-        "title": "Iron-56: Maximum Binding Energy",
-        "subtitle": "$[Ar]\\, 3d^6 \\, 4s^2$ — peak nuclear stability (FCC-14)",
+        "title": "Iron-56: Minimum Mass per Nucleon",
+        "subtitle": "$[Ar]\\, 3d^6 \\, 4s^2$ — fusion endpoint (FCC-14)",
         "shells": [
             {"r": 0.35, "label": "$n=1$", "electrons": 2, "color": "#4488ff", "angle_offset": 0},
             {"r": 0.6, "label": "$n=2$", "electrons": 8, "color": "#44cc88", "angle_offset": 0},

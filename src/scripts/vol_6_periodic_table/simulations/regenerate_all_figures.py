@@ -172,7 +172,7 @@ elements = [
     ("calcium_40", 20, 40, 140.0, [0], 140.0, "Calcium-40: Large Signal Alkaline Earth"),
     ("titanium_48", 22, 48, 160.0, [0], 160.0, "Titanium-48: Cuboctahedral Packing"),
     ("chromium_52", 24, 52, 170.0, [0], 170.0, "Chromium-52: Icosahedron+1 Packing"),
-    ("iron_56", 26, 56, 180.0, [0], 180.0, "Iron-56: FCC-14 Peak Stability"),
+    ("iron_56", 26, 56, 180.0, [0], 180.0, "Iron-56: FCC-14 Fusion Endpoint"),
 ]
 
 

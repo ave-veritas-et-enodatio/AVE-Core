@@ -363,10 +363,10 @@ legend_elements = [
 ]
 style.legend(ax, handles=legend_elements, where="below", fontsize=8, ncol=3)
 
-# Neutral spec title (workstream ref "Gap 1A/1B" removed per spec Batch H).
-fig.suptitle("High-Z Nuclear Geometry Boundary", fontsize=14, y=1.0)
+# On-figure title intentionally omitted: the chapter \caption (B_high_z_boundary.tex)
+# is the single source of the figure title (house-style: title in caption, not on-figure).
 
-plt.tight_layout(rect=[0, 0, 1, 0.97])
+plt.tight_layout()
 
 out_path = manuscript_path("vol_6_periodic_table", "figures", "high_z_boundary_analysis.png")
 written = style.save(fig, out_path, formats=("png",))
