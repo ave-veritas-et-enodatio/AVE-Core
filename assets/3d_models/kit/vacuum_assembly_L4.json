@@ -67,10 +67,7 @@
     ],
     "assembly_jig": [
       "jig_unit_cell.stl",
-      "jig_tile_0.stl",
-      "jig_tile_1.stl",
-      "jig_tile_2.stl",
-      "jig_tile_3.stl"
+      "jig_tile_<row>_<col>.stl (tiled to the 250x210 bed)"
     ],
     "reference_only": [
       "reference_tetra_unit_cell.stl",

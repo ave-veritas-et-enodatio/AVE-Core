@@ -189,7 +189,7 @@ def build_manifest(net: cl.LatticeNet, L: int, parts_qc: list[dict]) -> dict:
                 "srs_node_right.stl", "srs_node_left.stl", "srs_bond.stl",
                 "srs_handedness_right.stl", "srs_handedness_left.stl",
             ],
-            "assembly_jig": ["jig_unit_cell.stl"] + [f"jig_tile_{i}.stl" for i in range(4)],
+            "assembly_jig": ["jig_unit_cell.stl", "jig_tile_<row>_<col>.stl (tiled to the 250x210 bed)"],
             "reference_only": ["reference_tetra_unit_cell.stl", "scale_plate.stl"],
         },
         "hero_first_print": {
