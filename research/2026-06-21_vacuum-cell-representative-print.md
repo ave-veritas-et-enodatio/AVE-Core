@@ -101,12 +101,13 @@ Bed 250×210×210 mm; 0.4 mm nozzle; PLA/PETG; single extruder ⇒ no soluble su
 - **Chiral srs piece: INCLUDE** (both enantiomorphs; acceptance instrument label).
 - **Color: single-color prints + snap/glue-on color accent parts** (no multi-material).
 
-**NEW forks surfaced by the audit (recommendation given; proceeding unless vetoed):**
-- **7th mode (A1 breathing/mass):** add the breathing indicator (§3 item 1) so the node shows the full ε²+κ²+V² store structure. *Rec: YES — it's squarely "highly representative" and ties the mass-"3" in.*
-- **Bond geometry:** (a) full-length true-pitch strut (~143 mm) printed **horizontal** with real insertion pegs; vs (b) short insert + spacing carried by a printed **base jig**. *Rec: ship the jig regardless (it solves port-keying), default the build to compact scale (~60 mm/ℓ_node → 86 mm bonds) for deskability, keep true-pitch as an env override — consistent with the earlier "keep honest pitch" lean while staying buildable.*
-- **Keying:** the 4 tetrahedral ports are identical → **printed base jig with sockets at node positions** (forces correct placement) + port-index emboss + port→neighbor map in manifest. *Rec: YES — required for real assemblability.*
-- **Hero first print:** single diamond unit cell (2 nodes + 4 bonds, ~6 parts) as the recommended starter; L4 (30 parts) demoted to "next." *Rec: YES.*
-- **Showpiece** (`generate_axiom1_lattice_showpiece_stl.py`): add FDM-floor guard + a prominent "degree-3 srs chirality INSTRUMENT, not production diamond" label. *Rec: YES (low effort, removes a teaching hazard).*
+**RESOLVED — Grant 2026-06-21 (round 2):**
+- **7th mode (A1 breathing/mass): YES** — add the breathing indicator (§3 item 1).
+- **Bond geometry: (a) full-length TRUE-PITCH strut (~143 mm), printed HORIZONTAL** with real insertion pegs. ("a for now" — true √3·ℓ_node pitch is the default; compact scale available via env override.)
+- **Base jig: YES** — printed baseplate with sockets at node positions forces correct placement + solves the unkeyed-port problem; port-index emboss + port→neighbor map in manifest.
+- **Hero first print: YES** — single diamond unit cell (~6 parts) recommended starter; L4 demoted to "next."
+- **Showpiece:** add FDM-floor guard + "degree-3 srs INSTRUMENT, not production diamond" label.
+- **Build method (Grant directive):** maximize parallel compute — implement via a parallel workflow (independent parts fan out; the node+accent+bond mating core stays one author for fit integrity).
 
 **NOT touched (Grant-gated physics open seams):** chirality realization, crystalline-vs-amorphous, proton multi-node — the print follows the adjudicated diamond-primary/achiral-cold reading and asserts nothing beyond it.
 
