@@ -55,7 +55,8 @@ Dividing by the Voronoi geometric volume of a single spatial node ($V_{node} = p
 
 In classical kinetic network theory, the Kinematic Mutual Inductance ($\nu$) of a continuous network medium is defined as the product of its characteristic signal velocity ($v$) and its internal microscopic mean free path ($\lambda$), modulated by a dimensionless geometric momentum diffusion factor ($\kappa$): $\nu = \kappa v \lambda$.
 
-For the $\mathcal{M}_{A}$ hardware lattice, the absolute internal signal velocity is $c$, and the topological mean free path is exactly the fundamental spatial lattice pitch $\ell_{node}$.
+<!-- 🔴 Rule-12 2026-06-21 INVARIANT-N1 𝓜_A→prose retirement: the retired $\mathcal{M}_{A}$ glyph (Amorphous-substrate symbol, retired 2026-06-18 per INVARIANT-N1 — the "A" carried the closed geometry-leak "amorphous") is replaced here by substrate-native prose ("chiral LC network"). Physics unchanged. -->
+For the chiral LC network hardware lattice, the absolute internal signal velocity is $c$, and the topological mean free path is exactly the fundamental spatial lattice pitch $\ell_{node}$.
 
 As established in Section 1.3.2, the geometric packing fraction ($p_c$) determines the structural porosity and transverse geometric scattering cross-section of the discrete graph (where $\alpha = p_c/8\pi$). Consequently, the macroscopic momentum diffusion across the lattice inherits this geometric scattering threshold ($\kappa \equiv \alpha$).
 

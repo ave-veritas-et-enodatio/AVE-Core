@@ -47,6 +47,7 @@ When evaluating the full kinetic energy density term using this mechanical subst
 > [\mathcal{L}_{kin}]=\frac{1}{2}\epsilon_{0}|\partial_{t}A|^{2}\Rightarrow(\xi_{topo}^{2}[\text{N}^{-1}])\left(\xi_{topo}^{-1}\frac{\text{kg}}{\text{s}^2}\right)^{2}=\left(\frac{\xi_{topo}^{2}}{\xi_{topo}^{2}}\right)\frac{\text{kg}^{2}}{\text{N}\cdot \text{s}^{4}}=\frac{\text{kg}^{2}}{(\text{kg}\cdot \text{m}/\text{s}^{2})\cdot \text{s}^{4}}\equiv\left[\frac{\text{N}}{\text{m}^{2}}\right]
 > $$
 
-Minimizing the quantum action is mathematically equivalent to minimizing the continuous inductive bulk stress (Pascals) of the $\mathcal{M}_{A}$ manifold.
+<!-- 🔴 Rule-12 2026-06-21 INVARIANT-N1 𝓜_A→prose retirement: the retired $\mathcal{M}_{A}$ glyph (Amorphous-substrate symbol, retired 2026-06-18 per INVARIANT-N1 — the "A" carried the closed geometry-leak "amorphous") plus the retired-implication word "manifold" are replaced here by substrate-native prose ("chiral LC network"). Physics unchanged. -->
+Minimizing the quantum action is mathematically equivalent to minimizing the continuous inductive bulk stress (Pascals) of the chiral LC network.
 
 ---
