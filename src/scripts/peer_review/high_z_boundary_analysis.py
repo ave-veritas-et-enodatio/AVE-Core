@@ -22,7 +22,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
 from ave.core.constants import ALPHA, D_PROTON, HBAR_C_MEV_FM, K_MUTUAL, M_N_MEV_TARGET, M_P_MEV_AVE  # noqa: E402
-from ave_path_util import sim_output  # noqa: E402
+from ave.viz import style  # noqa: E402
+from ave_path_util import manuscript_path  # noqa: E402
 
 # ═════════════════════════════════════════════════════════════════
 # CODATA Nuclear Mass Table (selected stable isotopes, Z=1-118)
@@ -275,9 +276,9 @@ for r in results:
     if vr_vbr < 0.5:
         stability = "STABLE"
     elif vr_vbr < 1.0:
-        stability = "NEAR-PEAK B/A"
+        stability = "NEAR ENDPOINT"
     elif vr_vbr < 1.8:
-        stability = "POST-PEAK"
+        stability = "POST ENDPOINT"
     else:
         stability = "⚠️ MARGINAL"
 
@@ -288,39 +289,30 @@ for r in results:
 # ═════════════════════════════════════════════════════════════════
 print("\n  Generating publication figure...")
 
-fig, axes = plt.subplots(2, 2, figsize=(16, 12))
-fig.patch.set_facecolor("#0a0a14")
-for ax in axes.flat:
-    ax.set_facecolor("#0f0f1c")
-    ax.tick_params(colors="white", which="both")
-    ax.xaxis.label.set_color("white")
-    ax.yaxis.label.set_color("white")
-    ax.title.set_color("white")
-    for spine in ax.spines.values():
-        spine.set_color("#333355")
+# White print profile (ave.viz.style) — house style, not hand-rolled rcParams.
+style.apply()
 
-# Colors by regime
-colors = []
-for r in regimes:
-    if r == "Analytic":
-        colors.append("#00ff88")
-    elif r == "Fibonacci":
-        colors.append("#4488ff")
-    else:
-        colors.append("#ff4444")
+fig, axes = plt.subplots(2, 2, figsize=(13, 10))
+
+# Regime colours — Okabe-Ito (colourblind-safe), single-sourced from the palette.
+REGIME_COLOR = {
+    "Analytic": style.COLORS["accent"],      # bluish-green
+    "Fibonacci": style.COLORS["ave"],        # blue
+    "Superheavy": style.COLORS["comparison"],  # vermillion
+}
+colors = [REGIME_COLOR[r] for r in regimes]
 
 # ── Panel 1: Accuracy vs Z ──────────────────────────────────────
 ax = axes[0, 0]
-ax.scatter(zvals, errs, c=colors, s=40, alpha=0.8, edgecolors="white", linewidth=0.5)
-ax.axhline(0.01, color="#00ff88", linestyle=":", alpha=0.5, label="0.01% (analytic target)")
-ax.axhline(0.5, color="#ffff44", linestyle="--", alpha=0.5, label="0.5% (heuristic floor)")
-ax.axvline(14.5, color="#ffffff", linestyle="--", alpha=0.3, label="Z=14 (analytic boundary)")
-ax.axvline(82.5, color="#ff4444", linestyle="--", alpha=0.3, label="Z=82 (Pb stability limit)")
-ax.set_xlabel("Atomic Number Z", fontsize=11)
-ax.set_ylabel("|Δ Mass| [%]", fontsize=11)
-ax.set_title("Mass Prediction Accuracy vs. Atomic Number", fontsize=12, fontweight="bold")
+ax.scatter(zvals, errs, c=colors, s=40, alpha=0.85, edgecolors="black", linewidth=0.4)
+ax.axhline(0.01, color=style.COLORS["accent"], linestyle=":", alpha=0.7, label="0.01% (analytic target)")
+ax.axhline(0.5, color=style.COLORS["muted"], linestyle="--", alpha=0.8, label="0.5% (heuristic floor)")
+ax.axvline(14.5, color="black", linestyle="--", alpha=0.4, label="Z=14 (analytic boundary)")
+ax.axvline(82.5, color=style.COLORS["comparison"], linestyle="--", alpha=0.5, label="Z=82 (Pb stability limit)")
+ax.set_xlabel(style.axis_label("Atomic Number", "Z", ""))
+ax.set_ylabel(style.axis_label("Mass error", r"|\Delta m|", "%"))
 ax.set_yscale("log")
-ax.legend(loc="upper left", fontsize=8, facecolor="#1a1a2e", edgecolor="#333355", labelcolor="white")
+style.legend(ax, where="below", fontsize=8, ncol=2)
 
 # ── Panel 2: Binding Energy per Nucleon ─────────────────────────
 ax = axes[0, 1]
@@ -329,82 +321,57 @@ for r in results:
     N = r["A"] - r["Z"]
     raw = r["Z"] * M_P_MEV_AVE + N * M_N_MEV_TARGET
     ba_vals.append((raw - r["codata"]) / r["A"])
-ax.scatter(zvals, ba_vals, c=colors, s=40, alpha=0.8, edgecolors="white", linewidth=0.5)
-ax.axvline(26, color="#ffff44", linestyle=":", alpha=0.5, label="Fe-56 (B/A max)")
-ax.axhline(8.8, color="#ff4444", linestyle=":", alpha=0.3, label="B/A ≈ 8.8 MeV")
-ax.set_xlabel("Atomic Number Z", fontsize=11)
-ax.set_ylabel("B/A [MeV/nucleon]", fontsize=11)
-ax.set_title("Binding Energy per Nucleon (CODATA)", fontsize=12, fontweight="bold")
-ax.legend(loc="lower right", fontsize=8, facecolor="#1a1a2e", edgecolor="#333355", labelcolor="white")
+ax.scatter(zvals, ba_vals, c=colors, s=40, alpha=0.85, edgecolors="black", linewidth=0.4)
+ax.axvline(26, color=style.COLORS["muted"], linestyle=":", alpha=0.8, label="Fe-56 (fusion endpoint)")
+ax.axhline(8.8, color=style.COLORS["comparison"], linestyle=":", alpha=0.5, label="B/A ≈ 8.8 MeV")
+ax.set_xlabel(style.axis_label("Atomic Number", "Z", ""))
+ax.set_ylabel(style.axis_label("Binding energy / nucleon", "B/A", "MeV"))
+style.legend(ax, where="below", fontsize=8, ncol=2)
 
 # ── Panel 3: V_R/V_BR Stability Ratio ──────────────────────────
 ax = axes[1, 0]
 vr_vbr_vals = [(r["Z"] ** 2 / r["A"] ** (1.0 / 3.0)) / (26**2 / 56 ** (1.0 / 3.0)) for r in results]
-ax.scatter(zvals, vr_vbr_vals, c=colors, s=40, alpha=0.8, edgecolors="white", linewidth=0.5)
-ax.axhline(1.0, color="#ffff44", linestyle="--", alpha=0.5, label="Fe-56 reference")
-ax.axhline(1.8, color="#ff4444", linestyle="--", alpha=0.5, label="Structural instability")
-ax.fill_between([82, 120], [0, 0], [3, 3], alpha=0.1, color="#ff4444")
-ax.set_xlabel("Atomic Number Z", fontsize=11)
-ax.set_ylabel("V_R / V_BR (Coulomb/Strong ratio)", fontsize=11)
-ax.set_title("Avalanche Breakdown Proximity", fontsize=12, fontweight="bold")
-ax.legend(loc="upper left", fontsize=8, facecolor="#1a1a2e", edgecolor="#333355", labelcolor="white")
-ax.text(
-    100,
-    0.5,
-    "SUPERHEAVY\nFRONTIER",
-    color="#ff4444",
-    fontsize=14,
-    fontweight="bold",
-    ha="center",
-    va="center",
-    alpha=0.4,
-)
+ax.scatter(zvals, vr_vbr_vals, c=colors, s=40, alpha=0.85, edgecolors="black", linewidth=0.4)
+ax.axhline(1.0, color=style.COLORS["muted"], linestyle="--", alpha=0.8, label="Fe-56 reference")
+ax.axhline(1.8, color=style.COLORS["comparison"], linestyle="--", alpha=0.7, label="Structural instability")
+ax.fill_between([82, 120], [0, 0], [3, 3], alpha=0.1, color=style.COLORS["comparison"])
+ax.set_xlabel(style.axis_label("Atomic Number", "Z", ""))
+ax.set_ylabel(style.axis_label("Coulomb / strong ratio", r"V_R/V_{BR}", "dimensionless"))
+style.legend(ax, where="below", fontsize=8, ncol=2)
 
 # ── Panel 4: Computational Scaling ──────────────────────────────
 ax = axes[1, 1]
 npairs = [r["n_pairs"] for r in results]
-ax.scatter(zvals, npairs, c=colors, s=40, alpha=0.8, edgecolors="white", linewidth=0.5)
-ax.set_xlabel("Atomic Number Z", fontsize=11)
-ax.set_ylabel("Pairwise Interactions A(A-1)/2", fontsize=11)
-ax.set_title("Computational Scaling of 1/d Summation", fontsize=12, fontweight="bold")
+ax.scatter(zvals, npairs, c=colors, s=40, alpha=0.85, edgecolors="black", linewidth=0.4)
+ax.set_xlabel(style.axis_label("Atomic Number", "Z", ""))
+ax.set_ylabel(style.axis_label("Pairwise interactions", "A(A-1)/2", "count"))
 ax.set_yscale("log")
-ax.text(
-    60,
-    100,
-    "O(A²) scaling\nmakes brute-force\n1/d tractable\nto Z≈120",
-    color="#aabbdd",
-    fontsize=10,
-    ha="center",
-    va="center",
-)
-
-# Legend
-legend_elements = [
-    Patch(facecolor="#00ff88", edgecolor="white", label="Analytic (Z≤14)"),
-    Patch(facecolor="#4488ff", edgecolor="white", label="Fibonacci (15≤Z≤82)"),
-    Patch(facecolor="#ff4444", edgecolor="white", label="Superheavy (Z>82)"),
-]
-axes[1, 1].legend(
-    handles=legend_elements,
-    loc="upper left",
+ax.annotate(
+    "O(A²) scaling: brute-force\n1/d tractable to Z≈120",
+    xy=(0.04, 0.96),
+    xycoords="axes fraction",
+    color=style.COLORS["muted"],
     fontsize=9,
-    facecolor="#1a1a2e",
-    edgecolor="#333355",
-    labelcolor="white",
+    ha="left",
+    va="top",
 )
+# Regime legend (categorical encoding) for this panel, placed outside.
+legend_elements = [
+    Patch(facecolor=style.COLORS["accent"], edgecolor="black", label="Analytic (Z≤14)"),
+    Patch(facecolor=style.COLORS["ave"], edgecolor="black", label="Fibonacci (15≤Z≤82)"),
+    Patch(facecolor=style.COLORS["comparison"], edgecolor="black", label="Superheavy (Z>82)"),
+]
+style.legend(ax, handles=legend_elements, where="below", fontsize=8, ncol=3)
 
-fig.suptitle(
-    "High-Z Nuclear Geometry Boundary Analysis\n" "Gap 1A/1B: Accuracy Frontier of the AVE 1/d Binding Model",
-    fontsize=15,
-    fontweight="bold",
-    color="white",
-    y=0.98,
-)
-plt.tight_layout(rect=[0, 0, 1, 0.94])
+# On-figure title intentionally omitted: the chapter \caption (B_high_z_boundary.tex)
+# is the single source of the figure title (house-style: title in caption, not on-figure).
 
-out_path = sim_output("high_z_boundary_analysis.png")
-plt.savefig(out_path, dpi=200, bbox_inches="tight", facecolor=fig.get_facecolor())
-print(f"  → Saved: {out_path}")
+plt.tight_layout()
+
+out_path = manuscript_path("vol_6_periodic_table", "figures", "high_z_boundary_analysis.png")
+written = style.save(fig, out_path, formats=("png",))
+for p in written:
+    print(f"  → Saved: {p}")
 plt.close()
 
 print("\n  ✅ High-Z boundary analysis complete.")

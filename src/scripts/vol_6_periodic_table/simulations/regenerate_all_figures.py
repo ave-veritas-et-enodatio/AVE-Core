@@ -2,24 +2,63 @@
 """
 AVE UNIFIED DENSITY FIGURE GENERATOR
 =====================================
-Regenerates ALL density/flux heatmap figures for the periodic table chapters.
+Regenerates ALL density/flux heatmap figures for the periodic table chapters
+(``manuscript/vol_6_periodic_table/figures/``, which the chapters
+``\\includegraphics``).
+
+HONESTY NOTE (ave-driver-script-honesty)
+----------------------------------------
+The scalar field is built by ``density_field_inv_*`` as a sum of analytic
+``1/r`` / ``1/(r^2+c)`` kernels placed at the REAL solved nucleon coordinates
+returned by ``get_nucleon_coordinates(Z, A)`` in ``simulate_element.py``. The
+field's STRUCTURE (number of centres, multi-alpha lattice, halo offsets,
+per-element stretch) is therefore the real solved geometry — this is NOT the
+Z-cancelling single-centre topology glow that was dropped. What is NOT
+engine-solved is the per-point MAGNITUDE: it is a geometric proximity envelope,
+not the converged strain/permittivity field. So the layer is KEPT and rendered
+honestly (white house style, CMAP_SEQ + colorbar with units), but the colorbar
+is labelled as the geometric node-proximity field it actually is, not as an
+"engine strain density". See the figure-pass flag list.
+
 All coordinates sourced from simulate_element.py (which uses ave.core.constants).
-Outputs directly to periodic_table/figures/ for LaTeX inclusion.
 """
 import os
 import pathlib
+import sys
+import types
 
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
 matplotlib.use("Agg")
+
+# Path bootstrap (FLAGGED provenance fix): the simulation package directory is
+# named ``vol_6_periodic_table`` on disk, but these drivers import it under the
+# alias ``periodic_table`` (per src/scripts/AGENTS.md). The directory has no
+# __init__.py (namespace pkg), so register it under the ``periodic_table`` name
+# here. Without this the driver raises ModuleNotFoundError and the manuscript
+# density/flux PNGs cannot be regenerated. See the figure-pass flag list.
+if "periodic_table" not in sys.modules:
+    _pt_dir = pathlib.Path(__file__).resolve().parent.parent  # .../vol_6_periodic_table
+    _pt = types.ModuleType("periodic_table")
+    _pt.__path__ = [str(_pt_dir)]
+    sys.modules["periodic_table"] = _pt
+
+from ave.viz import style  # noqa: E402
+from ave_path_util import manuscript_path  # noqa: E402
 from periodic_table.simulations.simulate_element import get_nucleon_coordinates  # noqa: E402
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
-REPO_ROOT = pathlib.Path(__file__).parent.parent.parent.parent.absolute()
-OUTDIR = os.path.join(REPO_ROOT, "periodic_table", "figures")
-os.makedirs(OUTDIR, exist_ok=True)
+style.apply()  # white print profile (house style); call once before any figure.
+
+# The chapters \includegraphics{figures/<name>_density_*.png} from the manuscript
+# tree, so write there (not a hand-rolled src/periodic_table path, which does not
+# exist and silently dropped output away from the manuscript).
+OUTDIR = str(manuscript_path("vol_6_periodic_table", "figures"))
+
+# Honest colorbar label for the geometric node-proximity field (NOT an
+# engine-solved strain density — see the module honesty note).
+_CBAR_LABEL = style.axis_label("Node-proximity field", r"\rho_{\mathrm{geom}}", "1/d")
 
 
 def density_field_inv_r(nodes: list, X: np.ndarray, Y: np.ndarray, z_slice: float = 0.0) -> np.ndarray:
@@ -40,95 +79,76 @@ def density_field_inv_r2(nodes: list, X: np.ndarray, Y: np.ndarray, z_slice: flo
     return density
 
 
-def plot_density_hot(nodes: list, bounds: float, z_slice: float, title: str, filename: str) -> None:
+def plot_density_hot(nodes: list, bounds: float, z_slice: float, filename: str) -> None:
     grid_size = 400
     xs = np.linspace(-bounds, bounds, grid_size)
     ys = np.linspace(-bounds, bounds, grid_size)
     X, Y = np.meshgrid(xs, ys)
     density = density_field_inv_r(nodes, X, Y, z_slice)
 
-    fig, ax = plt.subplots(figsize=(10, 8), facecolor="black")
-    ax.set_facecolor("black")
+    fig, ax = plt.subplots(figsize=style.figsize("square"))
     vmax_val = 14 if len(nodes) > 10 else 12
     im = ax.imshow(
         density,
         extent=[X.min(), X.max(), Y.min(), Y.max()],
         origin="lower",
-        cmap="hot",
-        alpha=0.9,
+        cmap=style.CMAP_SEQ,
         vmin=0,
         vmax=vmax_val,
     )
     DY, DX = np.gradient(density)
-    ax.streamplot(X, Y, DX, DY, color="white", linewidth=0.5, density=1.5, arrowsize=0.8)
+    # Light-grey streamlines read against the dark (low-field) magma background
+    # while staying subordinate to the colormap; nodes in house blue.
+    ax.streamplot(X, Y, DX, DY, color="#cccccc", linewidth=0.5, density=1.5, arrowsize=0.8)
     for nx, ny, nz in nodes:
         if abs(nz - z_slice) < 5.0:
-            ax.plot(nx, ny, "wo", markersize=3, alpha=0.8)
-            ax.plot(nx, ny, "co", markersize=6, alpha=0.4)
-    ax.set_title(title, color="white", pad=20)
-    ax.set_xlabel(r"Spatial Radius ($d$)  [$d \approx 0.841$ fm]", color="white")
-    ax.set_ylabel(r"Spatial Radius ($d$)  [fm]", color="white")
-    ax.tick_params(colors="white")
-    cbar = plt.colorbar(im, ax=ax, label="Vacuum Strain Density ($1/d$)")
-    cbar.ax.yaxis.label.set_color("white")
-    plt.gcf().axes[-1].tick_params(colors="white")
-    plt.savefig(filename, dpi=300, bbox_inches="tight", facecolor="black")
-    plt.close()
+            ax.plot(nx, ny, "o", color="#56B4E9", markersize=5, alpha=0.95)
+    ax.set_xlabel(style.axis_label("Spatial radius", "x", "d (0.841 fm)"))
+    ax.set_ylabel(style.axis_label("Spatial radius", "y", "d (0.841 fm)"))
+    cbar = plt.colorbar(im, ax=ax, label=_CBAR_LABEL)  # noqa: F841
+    # No on-figure title: the chapter supplies the LaTeX \caption.
+    style.save(fig, filename, formats=("png",))
+    plt.close(fig)
     print(f"  [ok] {os.path.basename(filename)}")
 
 
-def plot_flux_inferno(
-    nodes: list, bounds: float, z_slice: float, title: str, filename: str, grid_res: int = 120
-) -> None:
+def plot_flux_inferno(nodes: list, bounds: float, z_slice: float, filename: str, grid_res: int = 120) -> None:
     x = np.linspace(-bounds, bounds, grid_res)
     y = np.linspace(-bounds, bounds, grid_res)
     X, Y = np.meshgrid(x, y)
     density = density_field_inv_r2(nodes, X, Y, z_slice)
 
-    fig, ax = plt.subplots(figsize=(10, 8))
-    fig.patch.set_facecolor("#0f0f0f")
-    ax.set_facecolor("#0f0f0f")
-    cmap = plt.cm.inferno.copy()
-    cmap.set_bad(color="#0f0f0f")
-    ax.imshow(
+    fig, ax = plt.subplots(figsize=style.figsize("square"))
+    im = ax.imshow(
         density,
         extent=[-bounds, bounds, -bounds, bounds],
         origin="lower",
-        cmap=cmap,
-        alpha=0.9,
+        cmap=style.CMAP_SEQ,
         vmin=0.0,
     )
     grad_y, grad_x = np.gradient(density)
+    # Light-grey flux arrows read against the dark (low-field) magma background;
+    # nodes in house blue.
     ax.streamplot(
         x,
         y,
         grad_x,
         grad_y,
-        color="#aaaaaa",
-        linewidth=1.2,
+        color="#cccccc",
+        linewidth=1.0,
         density=1.5,
         arrowstyle="->",
-        arrowsize=1.5,
+        arrowsize=1.2,
     )
     for cx, cy, cz in nodes:
         depth_scale = np.exp(-np.abs(cz / (bounds / 3.0)))
-        ax.scatter(cx, cy, color="#00ffcc", s=300 * depth_scale, marker="+", linewidth=2, alpha=0.8)
-        ax.scatter(
-            cx,
-            cy,
-            color="#00ffcc",
-            s=100 * depth_scale,
-            edgecolor="#00ffcc",
-            facecolor="none",
-            linewidth=1.5,
-            alpha=0.9,
-        )
-    ax.set_title(title, color="white", fontsize=16, pad=20)
-    ax.set_xlabel(r"Spatial Radius ($d$)  [$d \approx 0.841$ fm]", color="white", fontsize=11)
-    ax.set_ylabel(r"Spatial Radius ($d$)  [fm]", color="white", fontsize=11)
-    ax.tick_params(colors="white")
-    plt.savefig(filename, facecolor=fig.get_facecolor(), dpi=300, bbox_inches="tight")
-    plt.close()
+        ax.scatter(cx, cy, color="#56B4E9", s=120 * depth_scale, marker="+", linewidth=2, alpha=0.95)
+    ax.set_xlabel(style.axis_label("Spatial radius", "x", "d (0.841 fm)"))
+    ax.set_ylabel(style.axis_label("Spatial radius", "y", "d (0.841 fm)"))
+    cbar = plt.colorbar(im, ax=ax, label=_CBAR_LABEL)  # noqa: F841
+    # No on-figure title: the chapter supplies the LaTeX \caption.
+    style.save(fig, filename, formats=("png",))
+    plt.close(fig)
     print(f"  [ok] {os.path.basename(filename)}")
 
 
@@ -152,7 +172,7 @@ elements = [
     ("calcium_40", 20, 40, 140.0, [0], 140.0, "Calcium-40: Large Signal Alkaline Earth"),
     ("titanium_48", 22, 48, 160.0, [0], 160.0, "Titanium-48: Cuboctahedral Packing"),
     ("chromium_52", 24, 52, 170.0, [0], 170.0, "Chromium-52: Icosahedron+1 Packing"),
-    ("iron_56", 26, 56, 180.0, [0], 180.0, "Iron-56: FCC-14 Peak Stability"),
+    ("iron_56", 26, 56, 180.0, [0], 180.0, "Iron-56: FCC-14 Fusion Endpoint"),
 ]
 
 
@@ -162,7 +182,7 @@ if __name__ == "__main__":
     print(f"Output: {OUTDIR}")
     print("=" * 70)
 
-    for name, Z, A, d_bounds, d_slices, f_bounds, f_title in elements:
+    for name, Z, A, d_bounds, d_slices, f_bounds, _f_title in elements:
         print(f"\n--- {name.replace('_', ' ').title()} (Z={Z}, A={A}) ---")
         nodes = get_nucleon_coordinates(Z, A)
         if not nodes:
@@ -172,11 +192,10 @@ if __name__ == "__main__":
         for z_slice in d_slices:
             label = "equator" if z_slice == 0 else "z_pos"
             fn = os.path.join(OUTDIR, f"{name}_density_{label}.png")
-            title = f"{name.replace('_', ' ').title()}\nVacuum Strain Density ($Z={z_slice}d$)"
-            plot_density_hot(nodes, d_bounds, z_slice, title, fn)
+            plot_density_hot(nodes, d_bounds, z_slice, fn)
 
         fn_flux = os.path.join(OUTDIR, f"{name}_dynamic_flux.png")
-        plot_flux_inferno(nodes, f_bounds, 0.0, f_title, fn_flux)
+        plot_flux_inferno(nodes, f_bounds, 0.0, fn_flux)
 
     print(f"\n{'=' * 70}")
     print("ALL FIGURES REGENERATED")
