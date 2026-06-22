@@ -37,6 +37,18 @@ Design rule (from `phase-space-coordinate-check`): no real-space length in the p
 2. **Bond couple-stress helix groove** — helical groove along the bond, twist ∝ phase advance along the TL / couple-stress γ_c gradient, handedness = chirality. Reuses `_micropolar_helix_curve` / `twist_turns` (`generate_axiom1_lattice_showpiece_stl.py:88,146`).
 3. **Companion impedance-plane disc** — separate printed Smith/Lissajous puck, stamped `[STATE-SPACE — NOT A COORDINATE]`, sits beside the lattice. Keeps the two coordinate systems physically separate (Vol 4 circuit-theory ch1 phasor/Smith leaves).
 4. **Per-node phasor dial (deluxe)** — optional movable pointer(s) per node; phase = literal angle; lets a user dial a propagating mode / standing wave. Two orthogonal dials per A1⊥T2.
+5. **Chiral srs companion piece (Grant 2026-06-21).** A small `build_srs_net` chunk (degree-3, 120° bonds, both enantiomorphs `right`=I4₁32 / `left`=I4₃32) shipped ALONGSIDE the production diamond kit — the *instrument* substrate that carries the optical-activity / charge / chirality story (Vol 9 Ch 11 chirality sector). Must be clearly labeled "acceptance instrument, NOT the production engine net" (`18_experimental_prints.tex:34`) so the two are never conflated. Reuses the existing srs network generator (`generate_vacuum_lattice_stl.py` `build_srs_net`), kit-ified into a degree-3 node + 120° bond.
+
+### 3.1 Color / material architecture (Grant 2026-06-21)
+
+**Single-color prints + snap/glue-on color accent parts.** Every printed part is monochrome — one filament per part, no multi-material, no mid-print filament swaps (ideal for the single-extruder MK3+). Visual differentiation is delivered by **separate, small color-accent parts** that snap (friction peg) or glue onto the monochrome base:
+
+| Tier | Parts | Color |
+|---|---|---|
+| **Structural base** (each monochrome) | diamond node body, srs node body, bonds, impedance disc, dial body | one filament each |
+| **Color accents** (separate snap/glue parts) | translational triad (E-color), micro-rotation rings (B-color), A/B sublattice key cap, srs handedness marker, dial pointer | distinct filament per accent type |
+
+Implication: the DOF markers and keys are **printed as separate parts with their own friction pegs / glue pads**, not fused to the node body. This keeps every base print simple + monochrome + watertight, and lets a builder color-code E vs B vs sublattice without a multi-material printer. Accent parts must clear the FDM min-feature floor (~0.8–1.0 mm) at the chosen scale; the 100 mm/ℓ_node default gives headroom.
 
 ## 4. Canonical facts the geometry must honor ⏳ (audit-grounded — fill from workflow `w7qwv0e6g`)
 
@@ -67,10 +79,10 @@ Bed 250×210×210 mm; 0.4 mm nozzle; PLA/PETG; single extruder ⇒ no soluble su
 5. Vol 9 docs lockstep (KB leaf → ch18.tex → kit README) + figures (Task #9).
 6. Validate; push; PR ready-for-review.
 
-## 8. Open decisions for Grant (inline, not blocking scaffolding)
+## 8. Decisions (RESOLVED — Grant 2026-06-21)
 
-- **Diamond-only vs +chiral-srs piece?** Production print is achiral diamond; the I4₁32 srs chirality carries the optical-activity/charge story. Include a small srs companion piece, or keep the kit strictly diamond + represent chirality only via the bond-helix handedness?
-- **Color/material strategy** on a single-extruder MK3+: triad vs rings vs skeleton want visual separation → manual filament-swap at a layer, separate snap-on color parts, or paint? Default plan: geometry-distinct (no color reliance) + optional paint guide.
+- **Chiral srs piece: INCLUDE.** Ship a small chiral srs companion alongside the production diamond kit (§3 item 5). Both enantiomorphs; labeled as acceptance instrument.
+- **Color/material: single-color prints + snap/glue-on color accent parts (§3.1).** No multi-material, no mid-print swaps. Every base part monochrome; color lives in separate accent parts.
 
 ---
 *Skill plan: `.agents/handoffs/2026-06-21_vacuum-cell-print_skill-plan.md`. Prereg corpus-inventory = audit workflow `w7qwv0e6g`.*
