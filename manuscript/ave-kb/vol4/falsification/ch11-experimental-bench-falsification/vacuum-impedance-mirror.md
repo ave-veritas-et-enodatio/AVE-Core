@@ -168,15 +168,25 @@ electrode emits / the gap arcs before the probe accumulates a detectable phase.
 > DC-electrode framing. So AVE is **not** birefringence-free in general; it is birefringence-free
 > only for an isotropic pump, and produces a measurable ellipticity under the (standard,
 > facility-realizable) linearly-polarized pump. The AVE-vs-QED content then lives in the **coefficient**
-> of that ellipticity (the field-independent $\delta n_{AVE}/\delta n_{QED} = 1/(4\,a_{EH}\,\alpha^3)
-> \approx 4.14\times10^6$, `clm-pp3qwf`), not in a zero-vs-nonzero birefringence binary. The "8.38×10¹²"
-> figure in discriminator-(i) above is the **superseded** $E^2$-vs-$E^4$ phase-slope ratio; the
-> corrected, field-independent coefficient ratio is $4.14\times10^6$ (see the
-> $E^4$-walk-back at [`vacuum-birefringence-e4.md:20`](../ch12-falsifiable-predictions/vacuum-birefringence-e4.md)).
+> of that ellipticity — and because a polarimeter measures the **par−minus−perp differential**
+> $n_\parallel-n_\perp$ (rejecting the isotropic common-mode shift), the matched, field-independent
+> headline is $\delta n_{AVE}/\delta n_{QED}=(45/6)/\alpha^3=7.5/\alpha^3\approx1.93\times10^7$
+> (AVE differential $-\tfrac12 A^2$ vs QED differenced Euler-Heisenberg $3/45$), `clm-pp3qwf` — not a
+> zero-vs-nonzero birefringence binary. The "8.38×10¹²" figure in discriminator-(i) above is the
+> **superseded** $E^2$-vs-$E^4$ phase-slope ratio. (The single-arm/isotropic-vs-parallel comparison
+> $1/(4\,a_{EH}\,\alpha^3)\approx4.14\times10^6$ — AVE scalar single-arm $-\tfrac14 A^2$ vs QED parallel
+> single-mode $7/45$ — pairs MISMATCHED observables and is retained only for traceability, not the
+> falsifier headline; see [`vacuum-birefringence-e4.md`](../ch12-falsifiable-predictions/vacuum-birefringence-e4.md).)
 > Linear-pump uniaxial-tensor derivation + facility sweep + the geometry-factor $g$ residual (the
-> OQ-1 field→cavity-phase coupling, now derived to leading order):
-> [`research/2026-06-21_birefringence-coefficient-bankable-falsifier.md`](../../../../../research/2026-06-21_birefringence-coefficient-bankable-falsifier.md);
-> coefficient channel cross-link: [`vacuum-birefringence-e4.md`](../ch12-falsifiable-predictions/vacuum-birefringence-e4.md)
+> OQ-1 field→cavity-phase coupling): the coupling is now **DERIVED** from the Axiom-4 kernel and
+> $g$ is **PINNED per apparatus config** (OQ-1 **partially-closed** per adversarial-verify; FLAG-A
+> adjudicated 2026-06-21 — the par−perp differential IS the falsifier observable, $1.93\times10^7$;
+> named residuals R-1 CHECK-3 gated-cavity $\tau_{rt}$ factor-2 approximation, R-2 single-invariant
+> modeling choice, R-3 detector-floor validate-on-known owed — the COEFFICIENT depends on none):
+> [`research/2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md`](../../../../../research/2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md)
+> (derivation) +
+> [`research/2026-06-21_birefringence-coefficient-bankable-falsifier.md`](../../../../../research/2026-06-21_birefringence-coefficient-bankable-falsifier.md)
+> (proposal); coefficient channel cross-link: [`vacuum-birefringence-e4.md`](../ch12-falsifiable-predictions/vacuum-birefringence-e4.md)
 > (`clm-pp3qwf`).
 
 ### The Falsification Protocol (interferometric)

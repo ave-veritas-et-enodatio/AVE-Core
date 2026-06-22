@@ -114,7 +114,7 @@ assets/sim_outputs/*
 !assets/sim_outputs/transmon_decoherence_plot.png
 !assets/sim_outputs/trefoil_alpha_qfactor.png
 !assets/sim_outputs/unruh_hawking_hoop_stress.png
-!assets/sim_outputs/vacuum_birefringence_E4.png
+!assets/sim_outputs/vacuum_birefringence_differential.png
 !assets/sim_outputs/vacuum_dielectric_saturation.png
 !assets/sim_outputs/vacuum_mirror_sensitivities.png
 !assets/sim_outputs/spice_cvr_loop_L0_anhysteretic.png

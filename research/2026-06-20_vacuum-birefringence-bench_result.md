@@ -1,5 +1,14 @@
 # Vacuum-Birefringence BENCH-MODEL — RESULT (the bankable-number gate)
 
+> 🔵 **Current headline number.** This doc's bankable number and the per-row $4.14\times10^6$ in §0 / the table below were computed as
+> the AVE **scalar single-arm** ($-\tfrac14 A^2$) over the QED **parallel single-mode** ($7/45$). A
+> birefringence instrument measures the **par−minus−perp differential**, so the corrected falsifier
+> headline is the **matched differential** $\delta n_{AVE}/\delta n_{QED}=7.5/\alpha^3\approx1.93\times10^7$
+> (AVE differential $-\tfrac12 A^2$ vs QED **differenced** Euler-Heisenberg $3/45$). The single-arm
+> $4.14\times10^6$ below is the isotropic common-mode (polarimeter-blind) comparison — traceability only.
+> Canonical: [`2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md`](2026-06-21_oq1-field-to-cavity-phase-coupling-derivation.md).
+> Chord-vs-echo unchanged (CHORD = saturation exists; MAGNITUDE = $\alpha$-echo).
+
 **Status:** RESULT (2026-06-20). First concrete step of the testing pivot (memory `project_state_of_ave_and_testing_pivot.md`): build the infra to fully model a bench + run a full sensitivity sweep -> produce THE bankable number that decides whether AVE's vacuum-birefringence prediction diverges from the SM at reachable fields.
 **Driver:** `src/scripts/vol_9_device/vacuum_birefringence_bench.py`
 **Physics module:** `src/ave/bench/birefringence.py` (extends the `ave.bench` shared package, #318)
