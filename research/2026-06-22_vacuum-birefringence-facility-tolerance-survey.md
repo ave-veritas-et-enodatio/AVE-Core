@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-22 · **Lane:** implementer · **Branch:** `docs/birefringence-arc-2026-06-22`
 **Scope:** the global facility landscape + tolerance ranges that could run the AVE vacuum-birefringence test.
-Homework + tracking only — NO proposal, NO outreach ranking. Every number carries an inline
+Characterization + tracking only — not a ranking or a recommendation. Every number carries an inline
 `[facility, source]` citation.
 **Workflow:** `w14ptjz80` (26 setups, 4 sub-surveys, citations sourced & verified in-code against
 `src/ave/bench/birefringence.py`).
