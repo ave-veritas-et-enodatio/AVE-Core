@@ -276,9 +276,9 @@ for r in results:
     if vr_vbr < 0.5:
         stability = "STABLE"
     elif vr_vbr < 1.0:
-        stability = "NEAR-PEAK B/A"
+        stability = "NEAR ENDPOINT"
     elif vr_vbr < 1.8:
-        stability = "POST-PEAK"
+        stability = "POST ENDPOINT"
     else:
         stability = "⚠️ MARGINAL"
 
@@ -322,7 +322,7 @@ for r in results:
     raw = r["Z"] * M_P_MEV_AVE + N * M_N_MEV_TARGET
     ba_vals.append((raw - r["codata"]) / r["A"])
 ax.scatter(zvals, ba_vals, c=colors, s=40, alpha=0.85, edgecolors="black", linewidth=0.4)
-ax.axvline(26, color=style.COLORS["muted"], linestyle=":", alpha=0.8, label="Fe-56 (B/A max)")
+ax.axvline(26, color=style.COLORS["muted"], linestyle=":", alpha=0.8, label="Fe-56 (fusion endpoint)")
 ax.axhline(8.8, color=style.COLORS["comparison"], linestyle=":", alpha=0.5, label="B/A ≈ 8.8 MeV")
 ax.set_xlabel(style.axis_label("Atomic Number", "Z", ""))
 ax.set_ylabel(style.axis_label("Binding energy / nucleon", "B/A", "MeV"))
