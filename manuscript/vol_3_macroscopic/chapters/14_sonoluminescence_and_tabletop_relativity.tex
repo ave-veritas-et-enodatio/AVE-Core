@@ -3,7 +3,7 @@
 
 \begin{objectivebox}
 \begin{itemize}
-    \item Formalize the Topo-Relativistic limits natively embedded within classical fluid flow.
+    \item State the topological-saturation limits that bound classical fluid collapse (Tabletop Relativity).
     \item Replace the classical Rayleigh-Plesset equation's static inertia with the saturated Axiom 4 topological inertia $\rho_{eff} \rightarrow \gamma_{topo}^3 \rho_0$.
     \item Prove that sonoluminescent flashes halt mechanically at structural thermal plasma limits, strictly precluding classical integration singularities without ad-hoc smoothing caps.
 \end{itemize}
@@ -14,17 +14,17 @@ Continuum fluid dynamics relies on localized linear mass invariance. During phen
 
 Under strictly interpreted Navier-Stokes models (the framework powering the classical Rayleigh-Plesset equation), symmetric collapse velocities continuously accelerate logarithmically, ultimately demanding non-physical singularities at $R=0$ characterized by division by zero and infinite kinetic pressures.
 
-Generations of research have heuristically capped these values by invoking sudden adiabatic heat ratios, specific-heat divergence exceptions, and hardcoded computational bounds. In the AVE theoretical framework, the answer directly echoes the resolution to the Millennium Prize Problem concerning Navier-Stokes smoothness: At mathematical extremes, the vacuum metric itself yields.
+Generations of research have heuristically capped these values by invoking sudden adiabatic heat ratios, specific-heat divergence exceptions, and hardcoded computational bounds. In the AVE theoretical framework, the answer parallels the AVE lattice-conditional resolution of Navier-Stokes regularity (a finite-lattice bound from the substrate cutoff, not a Clay-rigorous continuum proof): at mathematical extremes, the vacuum metric itself yields.
 
 \section{Axiom 4: The Tabletop Relativity Substitute}
 Special Relativity formally limits kinetic velocity in empty spacetime ($c$) by establishing that effective inertial mass diverges: $m_{eff} = m_0 \gamma$. This is traditionally believed to explicitly apply strictly to $c$.
 
-AVE extends this mathematically, establishing that mechanical deformation of a structural substrate perfectly mimics this logic exactly up to its acoustic shear limit $c_0$.
-By Axiom 4, the topological yield operator bounds lattice stability:
+AVE extends this mathematically, establishing that mechanical deformation of a structural substrate reproduces the same structural (kernel) form as Special Relativity --- an acoustic emulation, not literal SR --- up to its acoustic (longitudinal) sound speed $c_{sound}$.
+By Axiom 4, the Universal Saturation Kernel bounds lattice stability:
 \begin{equation}
-    S_{topo}(\text{M}) = \sqrt{1 - \text{M}^2}
+    S(\text{M}) = \sqrt{1 - \text{M}^2}
 \end{equation}
-Where the Mach number $\text{M} = U / c_{sound}$. The divergence of effective physical mass resistance is directly generated mathematically equivalent to Special Relativity:
+This is the Axiom 4 Universal Saturation Kernel $S(A) = \sqrt{1 - (A/A_{yield})^2}$ specialized to $A = U$, $A_{yield} = c_{sound}$, where the Mach number $\text{M} = U / c_{sound}$. The divergence of effective longitudinal inertia carries the same structural form as the Special-Relativity Lorentz factor:
 \begin{equation}
     \rho_{eff} = \frac{\rho_0}{S^3} = \rho_0 \gamma_{topo}^3
 \end{equation}
@@ -32,6 +32,7 @@ Where the Mach number $\text{M} = U / c_{sound}$. The divergence of effective ph
 When substituted into the Keller-Miksis derivative of the Rayleigh-Plesset collapse equation mapping macro flow towards $c_{sound}$, the equation actively halts independent of radius integration as inertia completely dominates dynamic forces.
 
 \section{Topological Bouncing and Flash Clamping}
+Figure~\ref{fig:sonoluminescence_rt} shows the integrated $R(t)$ collapse halting under topological load before reaching $R=0$.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth]{vol3_sonoluminescence_collapse.pdf}
@@ -41,21 +42,22 @@ When substituted into the Keller-Miksis derivative of the Rayleigh-Plesset colla
 
 The topological flash resulting from collapse acts dynamically dependent on the gas payload buffer:
 \begin{itemize}
-    \item \textbf{Argon/Xenon Payloads}: The wall halts mechanically, instantly restricting the internal kinetic conversion to $\sim 10,000 \text{--} 20,000$ K exactly, bounded by the absolute ionization limits of the noble gases (e.g. $15.76$ eV for Argon) providing a thermal buffer.
-    \item \textbf{Pure Vapor Limit}: If the interior lacks buffer gas, the topological boundary absorbs the stress into extreme lattice strain resembling localized Regime III transition peaks ($>$ 2 Million K) mapping mathematically equivalent to isolated black hole horizon topologies.
+    \item \textbf{Argon/Xenon Payloads}: The wall halts mechanically, restricting the internal kinetic conversion to $\sim 12{,}000\text{--}20{,}000$ K, bounded by the ionization limits of the noble gases (e.g. $15.76$ eV for Argon) providing a thermal buffer.
+    \item \textbf{Pure Vapor Limit}: If the interior lacks buffer gas, the topological boundary absorbs the stress into extreme lattice strain reaching the maximum Regime III capacity ($>$2{,}000{,}000 K) at the Regime III$\rightarrow$IV transition, emulating a black-hole interior transition at the bubble scale (structural saturation-operator analogy, not literal thermodynamic equivalence).
 \end{itemize}
 
+Figure~\ref{fig:topological_tabletop_relativity} plots the divergence of $\rho_{eff}/\rho_0$ against the wall Mach number.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth]{vol3_tabletop_relativity_lorentz.pdf}
-    \caption{The strict topological divergence of the relative longitudinal inertia ($\rho_{eff}/\rho_0$) tracking exactly identically to the relativistic Lorentz mapping. As wall velocity $U \to c_0$, mass diverges symmetrically toward infinity, stopping singularity unconditionally without empirical capping.}
+    \caption{The topological divergence of the relative longitudinal inertia ($\rho_{eff}/\rho_0$) tracking the relativistic Lorentz form. As wall velocity $U \to c_{sound}$, the effective longitudinal inertia diverges and the collapse halts before $R=0$ without an ad-hoc cap.}
     \label{fig:topological_tabletop_relativity}
 \end{figure}
 
 \begin{summarybox}
 \begin{itemize}
-    \item Fluid Mechanics natively encompasses relativistic boundaries explicitly scaling to $c_0$.
-    \item The Sonoluminescence flash requires zero arbitrary parameters to predict experimentally verified absolute physical barriers.
+    \item Fluid mechanics carries Lorentz-form saturation boundaries scaling to the longitudinal sound speed $c_{sound}$.
+    \item The sonoluminescence flash temperature emerges from the saturation wall plus the payload-gas ionization potential, with no ad-hoc smoothing cap; predicted ranges are consistent with observed flash temperatures.
     \item Continuity equations naturally bridge to saturated singularity-preventers cleanly satisfying underlying phenomenological constraints.
 \end{itemize}
 \end{summarybox}

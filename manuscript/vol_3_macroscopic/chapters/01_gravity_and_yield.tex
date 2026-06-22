@@ -4,9 +4,9 @@
 
 \begin{objectivebox}
 \begin{itemize}
-    \item Derive the $K=2G$ trace-reversal condition from Effective Medium Theory and the topological packing fraction $p^* = 8\pi\alpha$.
-    \item Identify the Regime~I--II--III threshold sequence and understand why gravity is the weakest macroscopic force.
-    \item Calculate the macroscopic yield voltage $V_{\text{yield}} \approx 43.65$~kV as the structural saturation limit of the LC lattice.
+    \item Show that the imported trace-reversal condition $K=2G$ ($\nu_{vac}=2/7$) is consistent with the substrate's Effective-Medium-Theory operating point, where the rigidity crossing sits at the packing fraction $p^* = 8\pi\alpha$.
+    \item Identify the Regime~I--IV threshold sequence and understand why gravity is the weakest macroscopic force.
+    \item Calculate the kinetic yield threshold $E_k = \sqrt{\alpha}\,m_e c^2 \approx 43.65$~keV as the structural saturation limit of point-collision stress in the LC lattice.
 \end{itemize}
 \end{objectivebox}
 
@@ -32,23 +32,25 @@ Substituting $K = 2G$ into the standard equation for Poisson's ratio mathematica
 \subsection{The Mechanism of Trace-Reversal in Amorphous Solids}
 While the $\nu_{vac} \equiv 2/7$ ratio is dictated by the macroscopic 4D metric signature, the physical mechanism enabling this state is provided by the amorphous, over-braced nature of the substrate graph.
 
-In a perfect affine crystal or a standard random spring network, pure hydrostatic compression yields a baseline Cauchy solid ($K \approx \frac{5}{3}G$). However, the true macroscopic vacuum cannot support affine geometry. To satisfy the QED volumetric packing fraction ($p_c \approx 0.1834$), the spatial graph must span secondary spatial links out to $1.187 \times l_{node}$. 
+In a perfect affine crystal or a standard random spring network, pure hydrostatic compression yields a baseline Cauchy solid ($K \approx \frac{5}{3}G$). However, the true macroscopic vacuum cannot support affine geometry. To match the substrate packing fraction $p_c = 8\pi\alpha \approx 0.1834$ (with $\alpha$ entering as a calibration input), the spatial graph must span secondary spatial links out to $1.187 \times l_{node}$.
 
 Under macroscopic shear, this geometric over-bracing forces a \textbf{non-affine microscopic deformation}. As the volume compresses, the randomly oriented secondary links are forced to buckle. This localised, non-affine buckling couples to the independent microrotational degrees of freedom ($\theta_i$) of the Chiral LC Network, engaging the transverse couple-stress modulus. 
 
 \subsection{EMT Verification}
-The Effective Medium Theory of Feng, Thorpe, and Garboczi analytically verifies this requirement. By solving the self-consistent EMT for a 3D amorphous (disordered, non-crystalline) diluted central-force network with coordination $z_0 \approx 51.25$, the $K/G$ ratio is computed as a function of $p$. The ratio diverges at the rigidity threshold $p_G = 0.117$ (incompressible fluid, $\nu = 1/2$), decreases monotonically, and crosses $K/G = 2$ at $p^* = 8\pi\alpha = 0.1834$ ($\nu = 2/7$), confirming the trace-reversal identity as a geometric consequence of the network topology.
+The Effective Medium Theory of Feng, Thorpe, and Garboczi analytically verifies this requirement. By solving the self-consistent EMT for a 3D amorphous (disordered, non-crystalline) diluted central-force network with coordination $z_0 \approx 51.25$, the $K/G$ ratio is computed as a function of $p$. The ratio diverges at the rigidity threshold $p_G = 0.117$ (incompressible fluid, $\nu = 1/2$), decreases monotonically, and crosses $K/G = 2$ at $p^* = 8\pi\alpha = 0.1834$ ($\nu = 2/7$). This is a consistency illustration that the GR-imported trace-reversal identity $K=2G$ holds at the substrate's operating point; because $z_0$ is itself fixed by $p_c = 8\pi\alpha$, the crossing sits at $\alpha$ by construction and is not an independent determination of $\alpha$ or of $K=2G$.
+
+The resulting $K/G$ trajectory and its crossing of the trace-reversal value are shown in Fig.~\ref{fig:trace_reversal_percolation}.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{rigidity_percolation_kg_convergence.png}
-    \caption{\textbf{EMT Trace-Reversal of the Vacuum Graph.} Effective Medium Theory for a 3D amorphous central-force network ($z_0 \approx 51.25$) demonstrates that $K/G$ crosses the trace-reversal value of 2 at $p^* = 8\pi\alpha \approx 0.1834$. The vacuum is a rigid solid operating $56.7\%$ above the rigidity onset ($p_G = 0.117$), not at the fluid-solid boundary.}
+    \caption{\textbf{EMT Trace-Reversal of the Vacuum Graph.} Effective Medium Theory for a 3D amorphous central-force network ($z_0 \approx 51.25$) shows the $K/G$ trace-reversal crossing at the operating point $p^* = 8\pi\alpha \approx 0.1834$ (with $\alpha$ entering as a calibration input). The vacuum is a rigid solid operating $56.7\%$ above the rigidity onset ($p_G = 0.117$), not at the fluid-solid boundary.}
     \label{fig:trace_reversal_percolation}
 \end{figure}
 
 \section{Macroscopic Gravity as Optical Refraction}
 
-Gravity is traditionally modeled as the geometric curvature of spacetime resulting from mass. However, in the Electromagnetic the substrate framework, ``Mass'' is simply localized, tightly confined electromagnetic wave energy (Hopfions), and ``Gravity'' is the phenomenological illusion of \textbf{Optical Refraction}. 
+Gravity is traditionally modeled as the geometric curvature of spacetime resulting from mass. However, in the substrate framework, ``Mass'' is simply localized, tightly confined electromagnetic wave energy (Hopfions), and ``Gravity'' is the phenomenological illusion of \textbf{Optical Refraction}.
 
 A massive fundamental particle (a bound EM wave) generates intense localized polarization of the surrounding vacuum's impedance layer. It locally alters the dielectric compliance ($\epsilon$) and inductive inertia ($\mu$). Because the local speed of light is rigidly defined by the vacuum impedance ($c_{local} = 1/\sqrt{\epsilon_{local} \mu_{local}}$), this polarization creates a continuous spherical gradient in $c$.
 
@@ -58,7 +60,7 @@ When a macro-particle (or a photon) travels through this gradient, it does not `
 
 To project the extreme confined energy of the localized 1D electromagnetic string ($T_{EM}=m_{e}c^{2}/\ell_{node}$) into the 3D isotropic bulk metric of macroscopic gravity, the evaluation requires the geometric coupling of the electromagnetic stress tensor.
 
-A fundamental topological defect inherently exerts purely 1D uniaxial \textbf{polarization stress} ($\sigma_{11}$) on the local discrete LC edges. Because the surrounding macroscopic $\mathcal{M}_{A}$ vacuum is a continuous resonant network, the lateral electromagnetic fields are not rigidly locked; they physically contract via the inherent trace-reversal kinematics ($K=2G$ effective continuum). In standard 3D continuum dynamics, the total volumetric impedance trace ($\theta$) induced by a uniaxial stress is strictly governed by the medium's effective Poisson ratio:
+A fundamental topological defect inherently exerts purely 1D uniaxial \textbf{polarization stress} ($\sigma_{11}$) on the local discrete LC edges. Because the surrounding macroscopic chiral LC network is a continuous resonant network, the lateral electromagnetic fields are not rigidly locked; they physically contract via the inherent trace-reversal kinematics ($K=2G$ effective continuum). In standard 3D continuum dynamics, the total volumetric impedance trace ($\theta$) induced by a uniaxial stress is strictly governed by the medium's effective Poisson ratio:
 
 \begin{resultbox}{Volumetric Impedance Trace}
 \begin{equation}
@@ -88,9 +90,9 @@ This constitutes a continuum-mechanics derivation. The $1/7$ projection factor i
 
 In the AVE framework, macroscopic gravity ($G$) is derived by scaling the 1D quantum electromagnetic tension ($T_{EM}$) by the Machian Hierarchy Coupling ($\xi$). This dimensionless coupling represents the total structural impedance of the macroscopic universe evaluated out to the cosmic causal horizon ($R_{H}$).
 
-\textbf{Form-vs-value scope ($G$-ruling 2026-06-14, \texttt{ilk-gravmb}):} the \emph{form} of this relation is derived --- gravity is the Machian-impedance scaling of $T_{EM}$ by $\xi$ under the $1/7$ trace-reversed bulk projection (the same $/7$ family as the macroscopic PPN couplings). Its \emph{value} is a calibration input: the coupling $\xi=4\pi(R_{H}/\ell_{node})\alpha^{-2}$ embeds the Hubble horizon $R_{H}\equiv c/H_{\infty}$, so $\xi$ is back-solved from the empirical $G$ (equivalently $\xi=\hbar c/(7Gm_{e}^{2})$) rather than forward-derived. $G$ is therefore classified \emph{mixed} --- derived-form, calibration-fitted-value --- \emph{not} an independent first-principles determination of Newton's constant; a forward value-derivation (Chain~B$'$) is currently open and preserved in the closure-roadmap.
+\textbf{Form-versus-value scope:} the \emph{form} of this relation is derived --- gravity is the Machian-impedance scaling of $T_{EM}$ by $\xi$ under the $1/7$ trace-reversed bulk projection (the same $/7$ family as the macroscopic PPN couplings). Its \emph{value} is a calibration input: $\xi=4\pi(R_{H}/\ell_{node})\alpha^{-2}$ embeds $R_{H}\equiv c/H_{\infty}$, so $\xi$ is back-solved from the empirical $G$ (equivalently $\xi=\hbar c/(7Gm_{e}^{2})$) rather than forward-derived. $G$ is therefore classified \emph{mixed} --- derived-form, calibration-fitted-value --- not an independent first-principles determination of Newton's constant; a forward value-derivation remains open.
 
-To define this boundary condition from the continuous spatial integration of the discrete $\mathcal{M}_{A}$ graph geometry, the analysis evaluates the cross-sectional porosity of the lattice. Because macroscopic wave transmission must pass through the discrete structural nodes, the effective differential solid angle is modified by the cross-sectional porosity ($\Phi_{A}\equiv\alpha^{2}$).
+To define this boundary condition from the continuous spatial integration of the discrete lattice graph geometry, the analysis evaluates the cross-sectional porosity of the lattice. Because macroscopic wave transmission must pass through the discrete structural nodes, the effective differential solid angle is modified by the cross-sectional porosity ($\Phi_{A}\equiv\alpha^{2}$).
 
 Integrating the dimensionless radial distance ($r/\ell_{node}$) out to the topological horizon $R_{H}$ over this effective porous solid angle ($d\Omega_{eff}=d\Omega/\alpha^{2}$) yields:
 
@@ -100,16 +102,14 @@ Integrating the dimensionless radial distance ($r/\ell_{node}$) out to the topol
 \end{equation}
 \end{resultbox}
 
-\textbf{NAMESPACE CAVEAT (canonical 2026-05-15 evening):} this $\xi$ is the
-Machian impedance integral evaluated at cosmic scale --- magnitude
-$\sim 10^{43}$, cosmological scope. It is DISTINCT from the substrate-scale
-prefactors $\xi_{K1}, \xi_{K2}$ which are dimensionless O(1) Cosserat
-micropolar moduli prefactors at K4 substrate scale (see Vol 1
-Ch~\ref{ch:macroscopic_moduli} and Glossary §1.5 for the namespace
-de-collision). Different scopes, same letter. The substrate-scale
-$\xi_{K2}/\xi_{K1} = 12$ is K4-symmetry-forced; this Machian $\xi$ above
-is the cosmological boundary impedance that converts $T_{EM}$ to Newton's
-$G$.
+\textbf{Notation:} this $\xi$ is the Machian impedance integral evaluated at
+cosmic scale --- magnitude $\sim 10^{43}$, cosmological scope. It is distinct
+from the substrate-scale prefactors $\xi_{K1}, \xi_{K2}$ (dimensionless $O(1)$
+Cosserat micropolar moduli prefactors at K4 substrate scale; see Vol 1
+Ch~\ref{ch:macroscopic_moduli} and the Glossary). Different scopes, same
+letter. The substrate-scale $\xi_{K2}/\xi_{K1} = 12$ is K4-symmetry-forced;
+this Machian $\xi$ is the cosmological boundary impedance that converts
+$T_{EM}$ to Newton's $G$.
 
 By applying the $1/7$ tensor projection, Macroscopic Gravity is defined as $G=c^{4}/(7\xi T_{EM})$. Because standard cosmology defines the asymptotic causal horizon as $R_{H}\equiv c/H_{\infty}$, substituting this into the integration binds the fundamental constants into a single geometric equivalence:
 
@@ -165,7 +165,7 @@ R_H = (3.455 \times 10^{38}) \times (3.8616 \times 10^{-13}\text{ m}) \approx \m
 \end{equation}
 \end{resultbox}
 
-\textbf{$1.334 \times 10^{26}$ meters evaluates to an asymptotic horizon scale of 14.1 billion light-years.} Because the asymptotic Hubble time ($t_H$) is defined by the time required for light to traverse this causal horizon ($t_H = R_H/c$), the framework derives the \textbf{Asymptotic Hubble Time of the Universe as 14.1 billion years} (corresponding to an expansion rate of $H_\infty \approx 69.32$ km/s/Mpc). This lies between the modern Hubble Tension bounds, and sits slightly above the chronologically integrated age of 13.8 billion years due to early matter-dominated deceleration. The geometric integration of the 3D discrete Chiral LC lattice derives the macroscopic scale and age bounds of the observable universe from the mass-gap of the electron, the fine-structure limit, \emph{and} the gravitational coupling $\alpha_{G}=Gm_{e}^{2}/\hbar c$ (which enters the $R_{H}/\ell_{node}$ chain above): zero free parameters \emph{beyond the three interlocked inputs} $\{m_{e},\alpha,G\}$. \textbf{(Scope-corrected 2026-06-14: $G$ was previously omitted from this ``parameter-free'' headline; the $R_{H}$ chain routes through $\alpha_{G}$, so $G$ is a third, interlocked input --- not an absent one.)}
+\textbf{$1.334 \times 10^{26}$ meters evaluates to an asymptotic horizon scale of 14.1 billion light-years.} Because the asymptotic Hubble time ($t_H$) is defined by the time required for light to traverse this causal horizon ($t_H = R_H/c$), the framework derives the \textbf{Asymptotic Hubble Time of the Universe as 14.1 billion years} (corresponding to an expansion rate of $H_\infty \approx 69.32$ km/s/Mpc). This lies between the modern Hubble Tension bounds, and sits slightly above the chronologically integrated age of 13.8 billion years due to early matter-dominated deceleration. The geometric integration of the 3D discrete Chiral LC lattice derives the macroscopic scale and age bounds of the observable universe from the mass-gap of the electron, the fine-structure limit, \emph{and} the gravitational coupling $\alpha_{G}=Gm_{e}^{2}/\hbar c$ (which enters the $R_{H}/\ell_{node}$ chain above): zero free parameters \emph{beyond the three interlocked inputs} $\{m_{e},\alpha,G\}$.
 
 \section{Microscopic Point-Yield and The Particle Decay Paradox}
 
@@ -203,7 +203,7 @@ Because $6.99\text{ N}\gg0.212\text{ N}$, the muon exceeds the local macroscopic
 
 \begin{summarybox}
 \begin{itemize}
-    \item Gravity is derived fundamentally as the macroscopic $1/r$ continuous acoustic tension of the dielectric vacuum displaced by massive nodes.
+    \item Gravity is the optical refraction of waves through the $c(r)$ gradient set by a massive node's polarization of the vacuum impedance ($n(r) = 1 + 2GM/c^2r$ via the $1/7$ trace-reversed bulk projection) --- not a mechanical pulling stress.
     \item The kinetic yield threshold of the LC lattice is rigorously bounded at $\sqrt{\alpha} \cdot m_e c^2 \approx 43.65$ keV, preventing infinite stress singularities.
     \item Stable fundamental particles like the electron exist below this yield limit because their tension is distributed across extended topological graphs ($2\pi$ ropelength), averting localized dielectric phase transitions.
     \item Heavy fundamental fermions (Muons, Taus) exceed the structural yield limit of the LC mesh and exist in continuous lattice breakdown, naturally generating radioactive decay.

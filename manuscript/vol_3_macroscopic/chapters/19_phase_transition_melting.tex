@@ -5,7 +5,7 @@
 \begin{objectivebox}
 \begin{itemize}
     \item Derive the water melting point ($T_m = 273.46$~K, $+0.14\%$ error) as the anharmonic saturation eigenmode of the proton-transfer $LC$ oscillator.
-    \item Understand how all seven bulk water properties emerge from a single proton $LC$ eigenmode with zero free parameters.
+    \item Understand how all seven bulk water properties emerge from a single proton $LC$ eigenmode with no fitted parameters---every input is engine-derived or a fundamental constant ($m_\text{H}$, $\hbar$, $k_B$, $\alpha$).
     \item Explain the density anomaly as a competition between melting contraction and thermal expansion near the theoretical melting eigenmode.
 \end{itemize}
 \end{objectivebox}
@@ -183,7 +183,7 @@ $d_\text{hb}$ & 1.754 \AA & Op4 equilibrium & Engine-derived \\
 $k_\text{hb}$ & 2.248 N/m & $2E_\text{hb}/d_\text{hb}^2$ & Engine-derived \\
 $k_\text{OH}$ & 791 N/m & Coulomb bond solver & Engine-derived \\
 $k_\text{series}$ & 2.242 N/m & Eq.~\eqref{eq:k_series} & Engine-derived \\
-$m_\text{H}$ & $1.674 \times 10^{-27}$ kg & Proton mass & Fundamental \\
+$m_\text{H}$ & $1.673 \times 10^{-27}$ kg & Proton mass & Imported constant \\
 $\hbar$ & $1.055 \times 10^{-34}$ J$\cdot$s & & Fundamental \\
 $k_B$ & $1.381 \times 10^{-23}$ J/K & & Fundamental \\
 \midrule
@@ -296,7 +296,7 @@ The final residual of $+0.14\%$ ($0.38$~K) is within the uncertainty of the Op4 
 
 \subsection{Seven Observables from One Spring Constant}
 
-The proton eigenmode derived in this section is the foundation for a broader result: \emph{seven} independent macroscopic observables of bulk water are derivable from the single input $k_\text{hb} = 2.247$~N/m. The complete proof---including speed of sound ($+0.5\%$), temperature of maximum density ($+0.28^{\circ}$C), enthalpy of vaporisation ($+1.7\%$), surface tension ($-1.1\%$), boiling point ($-0.15\%$), and specific heat ($-0.7\%$)---is presented in Volume~III, Chapter~\ref{ch:water_lc_lattice}.
+The proton eigenmode derived in this section underlies a broader result: \emph{seven} independent macroscopic observables of bulk water are derivable from the single input $k_\text{hb} = 2.248$~N/m. The complete proof---including speed of sound ($+0.5\%$), temperature of maximum density ($+0.28^{\circ}$C), enthalpy of vaporisation ($+1.7\%$), surface tension ($-1.1\%$), boiling point ($-0.15\%$), and specific heat ($-0.7\%$)---is developed in Volume~III, Chapter~\ref{ch:water_lc_lattice}.
 
 \begin{summarybox}
 \begin{itemize}
@@ -457,12 +457,12 @@ cosine in the sequence $\arccos(-1/N)$.
 
 The classic thermodynamic anomaly of water---that it shrinks upon melting to reach a maximum density at $\sim 4^\circ$C---arises directly from the yielding of its topological LC matrix. 
 
-Classical models struggle to reproduce the density of liquid water (998~kg/m$^3$ at 20$^\circ$C) from its molecular geometry without invoking arbitrary empirical packing radii. If one treats a water molecule as a continuous solid boundary (like a 3-sphere exact geometric union), its bare spatial volume is rigidly $5.56\ \AA^3$. Dividing this by the $\varphi_{FCC}$ Kepler packing fraction yields an absurd packed density of nearly 4000~kg/m$^3$.
+Classical models struggle to reproduce the density of liquid water (998~kg/m$^3$ at 20$^\circ$C) from its molecular geometry without invoking arbitrary empirical packing radii. If one treats a water molecule as a continuous solid boundary (like a 3-sphere exact geometric union), its bare spatial volume is rigidly $5.56\ \AA^3$. Dividing this by the $\varphi_{FCC}$ Kepler packing fraction yields an unphysical packed density of nearly 4000~kg/m$^3$ (roughly $4\times$ the observed value).
 
-In AVE (Axiom~1), spatial volume is not the geometric hull of a particle, but the volumetric capacity of a loaded discrete network cell. We derive the macroscopic liquid state (State II) volume without spatial bounds, relying strictly on the K=2G topological collapse (Axiom~2).
+In AVE (Axiom~1), spatial volume is not the geometric hull of a particle, but the volumetric capacity of a loaded discrete network cell. The macroscopic liquid-state (State II) volume is derived without spatial bounds, relying strictly on the $K=2G$ topological collapse (Axiom~2).
 
 \subsection{State I: The Open Lattice ($V_I$)}
-The rigid, unyielded State I is a tetrahedral lattice dictated by the Op4 pairwise minimum distance ($d_{OO} = d_{OH} + d_{hb} = 2.726\ \AA$). The unit cell volume natively occupied by one molecule in this expanded topology is:
+The rigid, unyielded State I is a tetrahedral lattice dictated by the Op4 pairwise minimum distance ($d_{OO} = d_{OH} + d_{hb} = 2.727\ \AA$). The unit cell volume natively occupied by one molecule in this expanded topology is:
 \begin{equation}
     V_I = \frac{8}{3\sqrt{3}} d_{OO}^3 = 31.21\ \AA^3
 \end{equation}
@@ -471,7 +471,7 @@ This establishes a theoretical ice density of 958~kg/m$^3$ (experimental Ice Ih 
 \subsection{State II: FCC Maximal Yield ($V_{II}$)}
 When the thermal energy surpasses the Op4 barrier ($f_I < 1.0$), the strict tetrahedral orientation fractures. The network yields to the universal packing ceiling prescribed by Axiom~2: $K=2G \rightarrow$ FCC packing.
 
-Crucially, the foundational node-to-node proximity ($d_{OO} = 2.726\ \AA$) does not change---the Op4 minimum remains intact even in the disorganized slush. The only metric that changes is the global topology: the exact spatial cells of State I forfeit their stretched spatial arrangement and collapse into FCC maximal packing. Therefore, the volume of the fully yielded State II fluid is simply the State I volume compacted by Kepler's packing fraction $\varphi = \pi\sqrt{2}/6 \approx 0.7405$:
+Crucially, the foundational node-to-node proximity ($d_{OO} = 2.727\ \AA$) does not change---the Op4 minimum remains intact even in the disorganized slush. The only metric that changes is the global topology: the exact spatial cells of State I forfeit their stretched spatial arrangement and collapse into FCC maximal packing. Therefore, the volume of the fully yielded State II fluid is simply the State I volume compacted by Kepler's packing fraction $\varphi = \pi\sqrt{2}/6 \approx 0.7405$:
 \begin{resultbox}{Topological Cell Collapse (State II Volume)}
 \begin{equation}
     V_{II} = V_I \times \varphi_{FCC} = V_I \times \frac{\pi\sqrt{2}}{6} \approx 23.11\ \AA^3
@@ -484,7 +484,7 @@ By evaluating the structural mixture at $20^\circ$C, the lattice survival fracti
     V_{avg} = f_I V_I + (1-f_I) V_{II} + V_{th} 
     \approx 0.735(31.21) + 0.265(23.11) + 0.67 = 29.74\ \AA^3
 \end{equation}
-The resulting macroscopic density is $m_{H_2O} / V_{avg} = 1005.8$~kg/m$^3$. This yields precisely the experimental liquid state with a $\mathbf{+0.7\%}$ error, entirely devoid of empirical collision or hard-sphere parameters.
+The resulting macroscopic density is $m_{H_2O} / V_{avg} = 1005.8$~kg/m$^3$. This reproduces the experimental liquid-state density to $+0.7\%$, entirely devoid of empirical collision or hard-sphere parameters.
 
 The density anomaly occurs because the melting term $(V_I \to V_{II})$ is a pure contraction, while thermal vibrations $(V_{th})$ are pure expansions. The competition balances precisely near the theoretical melting eigenmode.
 

@@ -4,7 +4,7 @@
 
 \begin{objectivebox}
 \begin{itemize}
-    \item Derive seven independent macroscopic water observables from a single Op4 spring constant $k_{\text{hb}} = 2.247$~N/m with zero fitted parameters.
+    \item Derive seven macroscopic water observables from a single Op4 spring constant $k_{\text{hb}} = 2.247$~N/m with no per-observable fitting; the bond geometry and eigenmode are cross-volume derived primaries.
     \item Distinguish three phase boundaries from one eigenmode: density maximum, melting, and boiling.
     \item Apply the Axiom~4 saturation correction $S(r) = \sqrt{1-r^2}$ to the melting point and understand why it does not apply to the enthalpy of vaporisation.
     \item Interpret the liquid corrections ($2/\pi$ for sound speed, $\sqrt{2}$ for surface tension) as encoding crystalline vs.\\ disordered K4 junction topology.
@@ -55,7 +55,9 @@ Specific heat
 \end{tabular}
 \end{center}
 
-This mapping constitutes a complete \textbf{Rosetta Stone} between macroscopic fluid thermodynamics and microwave network analysis. Every quantity on the left is computable with the tools on the right.
+Here ``mode'' denotes a full LC oscillator (kinetic plus potential), which stores $k_B T$ by equipartition. This is distinct from the per-quadratic-degree-of-freedom $\tfrac{1}{2}k_B T$ bookkeeping used in the vacuum-lattice heat-capacity accounting; the two conventions count different objects and are not in conflict.
+
+This mapping provides a complete translation between macroscopic fluid thermodynamics and microwave network analysis. Every quantity on the left is computable with the tools on the right.
 
 
 \section{The Proton Eigenmode}
@@ -132,12 +134,14 @@ The H-bond network is a 3D LC transmission line (Axiom~1). The phase velocity of
 \end{equation}
 where $d_\mathrm{OO} = d_\mathrm{OH} + d_\mathrm{hb} = 2.727$~\AA{} is the nearest-neighbour O--O distance and $m_\mathrm{H_2O} = 2.9915 \times 10^{-26}$~kg.
 
-In a \textbf{crystal}, all K4 junctions are aligned. The 3D projection averages $\cos^2\theta$ over the tetrahedral geometry, giving $1/\sqrt{3}$. In a \textbf{liquid}, the random orientations of the K4-TLM junctions require averaging the \emph{phase} (not power) of the transmitted wave through the disordered network. The sinusoidal phase weighting gives:
+In a \textbf{crystal}, all K4 junctions are aligned. The 3D projection averages $\cos^2\theta$ over the tetrahedral geometry, giving $1/\sqrt{3}$. In a \textbf{liquid}, the random orientations of the K4-TLM junctions require averaging the \emph{phase} (not power) of the transmitted wave through the disordered network. Because phase (not intensity) is averaged, the relevant quantity is the mean of the projection factor $\cos\theta$ taken directly over the misalignment angle $\theta$ uniformly distributed across the forward quadrant $[0,\pi/2]$:
 \begin{equation}
-    \frac{\langle \cos\theta \rangle_\mathrm{hemisphere}}{\langle 1 \rangle_\mathrm{hemisphere}} = \frac{\int_0^{\pi/2} \cos^2\theta \sin\theta\, d\theta}{\int_0^{\pi/2} \cos\theta \sin\theta\, d\theta} = \frac{1/3}{1/2} = \frac{2}{3}
+    \langle \cos\theta \rangle_\mathrm{phase}
+    = \frac{\int_0^{\pi/2} \cos\theta\, d\theta}{\int_0^{\pi/2} d\theta}
+    = \frac{1}{\pi/2}
+    = \frac{2}{\pi}
 \end{equation}
-
-Combined with the 1D$\to$3D normalisation of the forward-hemisphere solid angle, the liquid phase velocity factor is $2/\pi$:
+This single composite average is the liquid phase velocity factor:
 \begin{equation}
 \boxed{
     c = c_\mathrm{1D} \times \frac{2}{\pi} = 1504.4 \text{ m/s}
@@ -201,7 +205,7 @@ The bond energy $E_\mathrm{hb}$ is loaded by the vacuum lattice coupling $\alpha
     E_\mathrm{eff} = E_\mathrm{hb}\,(1-\alpha)
 \end{equation}
 
-\textbf{Why saturation $S(r)$ does not apply here}: the enthalpy of vaporisation measures the total energy stored in the Op4 well, which is a fixed geometric depth ($E_\mathrm{hb}$). The saturation function $S(r)$ softens the \emph{restoring force} (spring constant), but does not change the well depth. At the boiling point, $r = 0.273$ gives $S = 0.962$; applying this would \emph{overshoot} to $-2.2\%$ error, confirming that well depth and spring stiffness are distinct quantities.
+\textbf{Why saturation $S(r)$ does not apply here}: the enthalpy of vaporisation is a \emph{bulk} quantity that disrupts the complete bond inventory --- it integrates the full Op4 well depth $E_\mathrm{hb}$ from the strained operating point all the way to dissociation. Because the path covers the entire well, the fixed geometric depth is the conserved quantity and the instantaneous restoring force (which $S(r)$ softens) cancels out of the integral. The surface tension of Prediction~5 is by contrast an \emph{interfacial} quantity: it is the reflected energy held at a terminated port at the \emph{finite} operating strain, so it does track the softened stiffness through $S(r)$ and is evaluated at fixed temperature rather than integrated to dissociation. This is the physical criterion that makes $\Delta H_\mathrm{vap}$ saturation-immune while surface tension is saturation-softened. As a consistency check, applying $S(r)$ to $\Delta H_\mathrm{vap}$ ($r = 0.273$, $S = 0.962$ at the boiling point) would \emph{overshoot} to $-2.2\%$ error, confirming that the integrated well depth and the instantaneous spring stiffness are distinct quantities.
 
 The vaporisation enthalpy is:
 \begin{equation}
@@ -220,7 +224,7 @@ Experimental: $\Delta H_\mathrm{vap} = 40.66$~kJ/mol. \quad Error: $\mathbf{+1.6
 
 \subsection{Derivation}
 
-The calculation of surface tension requires abandoning classical definitions of microscopic "lever-arms" and orientational averaging. Instead, the boundary strictly obeys the continuum LC matrix topology mapped via \textbf{Delesse's Stereological Theorem}, stating that the interactive fractional area of an ideal 2D mathematical boundary cross-sectioning a 3D phase is fundamentally identical to the volumetric packing fraction ($P_C \approx 0.1834$) of the matrix.
+The calculation of surface tension requires abandoning classical definitions of microscopic ``lever-arms'' and orientational averaging. Instead, the boundary obeys the continuum LC matrix topology mapped via Delesse's stereological principle \cite{delesse1847procede}, by which the fractional area of an ideal 2D mathematical boundary cross-sectioning a 3D phase equals the volume fraction occupied by that phase. The relevant packing fraction here is the substrate topological packing fraction $P_C = p^* = 8\pi\alpha \approx 0.1834$ (the operating-point packing of the chiral K4 lattice), not a water-specific matrix property.
 
 \subsubsection{Geometric Phase Limit: State II}
 
@@ -241,7 +245,7 @@ Therefore, the stereological projection mathematically limits the macroscopic en
 }
 \end{equation}
 
-When linearly softened by the standard thermal strain scaling operator $S = \sqrt{1 - r^2}$ at 25$^\circ$C (where $r_{strain} = \sqrt{k_B T / E_{hb}}$), the derived surface tension is $67.31$ mN/m.
+When softened by the Axiom~4 saturation operator $S = \sqrt{1 - r_\mathrm{surf}^2}$ at 25$^\circ$C, the derived surface tension is $67.31$ mN/m. The interfacial strain $r_\mathrm{surf} = \sqrt{k_B T / E_\mathrm{hb}}$ carries no factor of $\tfrac{1}{2}$, in contrast to the bulk-oscillator strain $r_\mathrm{bulk} = \sqrt{k_B T / (2 E_\mathrm{hb})}$ used for the eigenmode (Section~\ref{sec:proton_eigenmode}): a surface bond is a single-sided open termination ($\Gamma = +1$) loaded against the full well depth, whereas a bulk oscillator partitions thermal energy equally between its two conjugate (kinetic and potential) reservoirs, halving the effective strain denominator.
 
 \subsection{Result}
 Experimental: $\gamma = 71.97$~mN/m. \quad Error: $\mathbf{-6.47\%}$.
@@ -259,7 +263,7 @@ Both melting and boiling are phase transitions, but they use \textbf{different e
     \item \textbf{Boiling} = multi-port junction decoupling ($z/3$ channels resonate) $\to$ uses $T_0$ (harmonic)
 \end{itemize}
 
-For a molecule to decouple from the lattice, all $z/3 = 4/3$ effective K4 junction ports must reach resonance simultaneously. The isotropy factor $z/3$ accounts for the tetrahedral projection onto 3D --- the same factor that normalises the speed of sound. Here it appears as a \emph{multiplier}: the energy required to excite all 3D channels is $z/3$ times the single-bond eigenmode:
+For a molecule to decouple from the lattice, all $z/3 = 4/3$ effective K4 junction ports must reach resonance simultaneously. The isotropy factor $z/3$ counts the tetrahedral coordination $z = 4$ projected onto the three spatial channels. It appears here as a \emph{multiplier}: the energy required to excite all 3D channels is $z/3$ times the single-bond eigenmode:
 \begin{equation}
 \boxed{
     T_b = \frac{z}{3}\, T_0 = \frac{4}{3} \times 279.45 = 372.60 \text{ K} = 99.45\text{\textdegree{}C}
@@ -342,7 +346,7 @@ Maximum error: $6.47\%$. Mean absolute error: $1.42\%$.
     \item Seven independent macroscopic observables of bulk water derive from a single Op4-derived spring constant $k_\mathrm{hb} = 2.247$~N/m. No fitted parameters or statistical models are employed.
     \item Three distinct phase boundaries emerge from one eigenmode: the density maximum (harmonic peak, $T_0(1-\alpha)$), melting (single-port saturation, $T_\mathrm{sat}(1-\alpha)$), and boiling (multi-port junction decoupling, $(z/3)\,T_0$).
     \item The Axiom~4 saturation correction $S(r) = \sqrt{1-r^2}$ is essential for the melting point ($+2.31\% \to +0.14\%$) but inapplicable to the enthalpy of vaporisation (well depth $\neq$ spring stiffness).
-    \item Pure 41D LC lattice Topology (e.g. $P_C = 8\pi\alpha$) natively grounds properties like Surface Tension out of pure uniform limits rather than using heuristic geometric orientations.
+    \item The 3D LC lattice topology (via the substrate packing fraction $P_C = 8\pi\alpha$) grounds properties such as surface tension in uniform geometric limits rather than heuristic orientational averages.
 \end{itemize}
 \end{summarybox}
 

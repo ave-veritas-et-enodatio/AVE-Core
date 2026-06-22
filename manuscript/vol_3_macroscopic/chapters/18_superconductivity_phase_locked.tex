@@ -13,32 +13,32 @@ In classical physics, a "perfect conductor" and a "superconductor" are distinctl
 The orthodox explanation for the Meissner effect relies on macroscopic quantum phenomena, specifically the formation of Cooper Pairs (Bosons) condensing into a singular, delocalized ground state. While mathematically predictive, this framing obscures the fundamental deterministic mechanics governing the state transition. 
 
 \subsection{The Topological Flywheel Lattice}
-By formally treating the fundamental electron as a $3_1$ topological inductive flywheel (\emph{Section 5}), zero resistance and perfect diamagnetism can be derived and perfect diamagnetism exclusively using 19th-century classical mechanics applied to a discrete Chiral LC lattice.
+By treating the fundamental electron as a topological inductive flywheel (a $0_1$ unknot soliton; see Vol.~I, Ch.~3), zero resistance and perfect diamagnetism can be derived using classical mechanics applied to a discrete chiral LC lattice.
 
 Because each electron natively stores kinetic helicity ($\mathbf{L} = I\boldsymbol{\omega}$), its circulating evanescent magnetic field acts as a physical boundary condition locking it to adjacent electrons. The macroscopic conductive lattice is modeled as an $N$-body array of literal, physical \textbf{gears}.
 
 \begin{enumerate}
     \item \textbf{Normal Metals ($T > T_c$):} At high temperatures, the intense thermal momentum of the background vacuum metric constantly fractures the delicate elastic coupling between adjacent electron geometries. The "teeth" of the gears are effectively melted. An applied torque (external magnetic field) forces the boundary electrons to spin, propagating chaotic rotational diffusion deep into the bulk via highly-reluctant inductive drag (the Skin Effect).
-    \item \textbf{Superconductors ($T < T_c$):} Below the critical phase transition, the thermal noise drops below the fundamental geometric coupling strength. Trillions of previously independent electron flywheels perfectly, elastically interlock. The entire macroscopic conductor structurally crystallizes into a single, rigid \textbf{Phase-Locked Gear Train}.
+    \item \textbf{Superconductors ($T < T_c$):} Below the critical phase transition, the thermal noise drops below the fundamental geometric coupling strength. Previously independent electron flywheels elastically interlock. The macroscopic conductor crystallizes into a single, rigid \textbf{Phase-Locked Gear Train}.
 \end{enumerate}
 
 \subsection{Mechanical Derivation of the Meissner Effect}
 If the superconductor is a monolithic, interlocked macroscopic gear train, attempting to apply a localized external B-field (boundary torque) alters the physics entirely. You are no longer trying to rotate a single, isolated electron; you are trying to physically crank the combined, monolithic moment of inertia ($I_{\text{total}}$) of trillions of interlocked gyroscopes simultaneously.
 
-Because the total inertia of the phase-locked bulk is effectively infinite, the boundary gears rigidly refuse to rotate in response to the localized torque. This perfect mechanical reflection of applied rotational force manifests electromagnetically as the total expulsion of the magnetic field.
+Because the total inertia of the phase-locked bulk is effectively infinite, the boundary gears do not rotate in response to the localized torque. This mechanical reflection of applied rotational force manifests electromagnetically as the expulsion of the magnetic field.
 
-Using FDTD LC Network models, the application was simulated of an oscillating boundary torque (RF magnetic field) to both a standard disordered "Hot" lattice and a rigidly interlocked "Cold" phase-locked $20 \times 10$ array. In the Hot state, thermal noise actively prevents the geometric nodes from fully locking, allowing the macroscopic torque to diffuse into the spatial metric (generating heat and normal classical resistance).
+An FDTD LC-network model simulates an oscillating boundary torque (RF magnetic field) applied to both a disordered "Hot" lattice and a rigidly interlocked "Cold" phase-locked $20 \times 10$ array. In the Hot state, thermal noise prevents the geometric nodes from locking, allowing the macroscopic torque to diffuse into the spatial metric (generating heat and normal classical resistance).
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{meissner_gear_train.png}
-    \caption{\textbf{The Mechanical Origin of the Meissner Effect.} (Left) Normal Conduction: Boundary torque causes localized slipping and deep chaotic highly-reluctant penetration into the bulk, mimicking standard Resistance and the Skin Effect. (Right) Superconduction: When the flywheels are phase-locked, the resulting infinite macroscopic inertia prevents boundary rotation. The resulting exponential dropoff of angular velocity perfectly derives the London Penetration Depth ($\lambda_L$) purely from classical rotational statics.}
+    \caption{\textbf{The Mechanical Origin of the Meissner Effect.} (Left) Normal Conduction: Boundary torque causes localized slipping and reluctant penetration into the bulk, mimicking standard Resistance and the Skin Effect. (Right) Superconduction: When the flywheels are phase-locked, the resulting infinite macroscopic inertia prevents boundary rotation. The resulting exponential decay of angular velocity derives the London Penetration Depth ($\lambda_L$) from classical rotational statics.}
     \label{fig:meissner_gear_train_phase_locked}
 \end{figure}
 
-As shown in Figure \ref{fig:meissner_gear_train_phase_locked}, when the coupling constant eclipses the external torque boundary condition, the boundary nodes perfectly halt. The penetration of angular momentum experiences immediate, severe exponential throttling. 
+As shown in Figure \ref{fig:meissner_gear_train_phase_locked}, when the coupling constant exceeds the external torque boundary condition, the boundary nodes halt. The penetration of angular momentum decays exponentially.
 
-The exponential decay curve derived exclusively from classical rotational inertia matches perfectly with the orthodox \textbf{London Penetration Depth}:
+The exponential decay curve derived from classical rotational inertia matches the orthodox \textbf{London Penetration Depth}:
 \begin{equation}
     B(x) = B_0 e^{-x/\lambda_L} \quad \Longleftrightarrow \quad \omega(x) = \omega_0 e^{-x/\lambda_{\text{inertial}}}
 \end{equation}
@@ -46,16 +46,16 @@ The exponential decay curve derived exclusively from classical rotational inerti
 Consequently, what quantum mechanics describes as "zero electrical resistance" through a macroscopic complex wave function is functionally identical to the \textbf{lossless transmission of angular momentum} across a perfectly rigid, noiseless mechanical gearbox.
 
 \subsection{Room-Temperature Casimir Superconductivity}
-Given that Superconductivity is strictly a classical Kuramoto phase-lock governed by the reduction of ambient thermal lattice noise ($T_c$), Superconductivity can be engineered at absolute room temperature via geometric shielding. 
+Given that superconductivity is a classical Kuramoto phase-lock governed by the reduction of ambient thermal lattice noise ($T_c$), it can in principle be engineered at room temperature via geometric shielding.
 
 By placing the conductive electron lattice inside a nanoscale Casimir Cavity, the physical boundaries act as an \textbf{Acoustic High-Pass Filter} for the vacuum metric. The cavity geometrically prohibits all long-wavelength ambient thermal noise ($\lambda > 2d$) from interpenetrating the wire. 
 
-In Figure \ref{fig:casimir_superconductor}, two identical $N=500$ topological arrays are simulated via the Kuramoto Mean-Field model at 300K. The open-field array fails to synchronize ($R \approx 0$). However, the array physically shielded by a Casimir notch experiences a drastic reduction in RMS transverse noise, allowing the topological geometries to spontaneously achieve absolute macroscopic phase-lock ($R = 1$) without thermodynamics intervening.
+In Figure \ref{fig:casimir_superconductor}, two identical $N=500$ topological arrays are simulated via the Kuramoto Mean-Field model at 300~K. The open-field array fails to synchronize ($R \approx 0$). The array shielded by a Casimir notch experiences a reduction in RMS transverse noise, allowing the topological geometries to achieve macroscopic phase-lock ($R = 1$).
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{casimir_superconductor.png}
-    \caption{\textbf{Artificial Kuramoto Phase-Lock (Room-Temperature Superconductivity).} A macroscopic simulation mapping the topological Order Parameter ($R$). An unshielded wire subject to 300K thermal lattice geometry (gray) experiences chaotic inductive scattering, causing electrical resistance. The same wire enclosed inside an engineered Casimir High-Pass Cavity (green) is geometrically protected from ambient low-frequency phonons. The resulting artificial mechanical silence induces a spontaneous classical phase transition, locking the ensemble into zero-resistance macroscopic structural rigidity ($R=1$).}
+    \caption{\textbf{Artificial Kuramoto Phase-Lock (Room-Temperature Superconductivity).} A macroscopic simulation mapping the topological Order Parameter ($R$). An unshielded wire subject to 300~K thermal lattice geometry (gray) experiences inductive scattering, causing electrical resistance. The same wire enclosed inside an engineered Casimir High-Pass Cavity (green) is geometrically protected from ambient low-frequency phonons. The resulting reduction in thermal drive induces a classical phase transition, locking the ensemble into zero-resistance macroscopic structural rigidity ($R=1$).}
     \label{fig:casimir_superconductor}
 \end{figure}
 
@@ -73,13 +73,13 @@ At $T = 300$ K, $\lambda_{th} = 7{,}633$ nm. The fraction of thermal noise power
 
 The effective thermal noise temperature experienced by the conductor is therefore:
 \begin{equation}
-    T_{eff} = T \times f_{noise} = \frac{2\,d\,k_B\,T}{\hbar c}
+    T_{eff} = T \times f_{noise} = \frac{2\,d\,k_B\,T^2}{\hbar c}
 \end{equation}
 
 Phase-lock occurs when $T_{eff} < T_c$ (the conductor's intrinsic critical temperature). This gives the cavity gap criterion:
 \begin{resultbox}{Room-Temperature Casimir Superconductivity Criterion}
 \begin{equation}
-    \boxed{d < \frac{\hbar c \, T_c}{2\,k_B\,T}}
+    \boxed{d < \frac{\hbar c \, T_c}{2\,k_B\,T^2}}
 \end{equation}
 \end{resultbox}
 
@@ -95,10 +95,10 @@ $d$ [nm] & $f_{noise}$ & $T_{eff}$ [K] & Status \\
 \midrule
 10  & 0.003 & 0.8  & $\checkmark$ Phase-locked (all materials) \\
 50  & 0.013 & 3.9  & $\checkmark$ Phase-locked (Al $T_c = 1.2$ K fails) \\
-100 & 0.026 & 7.9  & $\checkmark$ Phase-locked (Nb $T_c = 9.3$ K) \\
+100 & 0.026 & 7.9  & $\checkmark$ Phase-locked (Nb $T_c = 9.25$ K) \\
 200 & 0.052 & 15.7 & $\checkmark$ Phase-locked (MgB$_2$ $T_c = 39$ K) \\
 500 & 0.131 & 39.3 & $\checkmark$ Phase-locked (YBCO $T_c = 92$ K) \\
-1000 & 0.262 & 78.6 & $\times$ Below YBCO, above MgB$_2$ \\
+1000 & 0.262 & 78.6 & $\checkmark$ Phase-locked (only YBCO; below MgB$_2$) \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -106,21 +106,21 @@ $d$ [nm] & $f_{noise}$ & $T_{eff}$ [K] & Status \\
 \subsubsection{Falsifiable Experimental Prediction}
 
 \begin{resultbox}{Room-Temperature Superconductor Prescription}
-\textbf{Material:} Niobium thin film ($T_c = 9.25$ K, $\lambda_L = 39$ nm). \\
+\textbf{Material:} Niobium thin film ($T_c = 9.25$ K, $\lambda_L = 22.5$ nm). \\
 \textbf{Geometry:} Film deposited between parallel Casimir cavity walls with gap $d \approx 100$ nm. \\
 \textbf{Prediction:} At $T = 300$ K, the cavity reduces effective thermal noise to $T_{eff} \approx 7.9$ K $< T_c$. \\
 The film should exhibit zero DC resistance and Meissner-effect diamagnetism ($\chi_m = -1$) at room temperature. \\[6pt]
 \textbf{Kill switch:} If a $d = 100$ nm Nb-filled Casimir cavity shows nonzero resistance at 300 K, the gear-train phase-lock model is falsified at this scale.
 \end{resultbox}
 
-\noindent The prediction is parameter-free: the only inputs are $\hbar$, $c$, $k_B$ (definitional constants), $T_c$ (measured for each material), and $\lambda_L$ (measured). No adjustable couplings or fitting coefficients appear. The cavity gap $d$ is the single engineering degree of freedom.
+\noindent The criterion introduces no fitted coupling: given the measured material constants $T_c$ and $\lambda_L$, the required cavity gap $d$ follows from $\hbar$, $c$, and $k_B$ alone. The cavity gap $d$ is the single engineering degree of freedom. This is a forward engineering prediction, not yet experimentally confirmed.
 
 \begin{summarybox}
 \begin{itemize}
-    \item Room-temperature superconductivity is predicted via engineered Casimir High-Pass Cavities. The cavity gap criterion $d < \hbar c \, T_c / (2 k_B T)$ is derived from the thermal mode suppression ratio $f_{noise} = 2d/\lambda_{th}$.
+    \item Room-temperature superconductivity is predicted via engineered Casimir High-Pass Cavities. The cavity gap criterion $d < \hbar c \, T_c / (2 k_B T^2)$ is derived from the thermal mode suppression ratio $f_{noise} = 2d/\lambda_{th}$.
     \item For Niobium ($T_c = 9.25$ K), a gap of $d \approx 100$ nm reduces $T_{eff}$ to 7.9 K, enabling phase-lock at 300 K.
     \item For YBCO ($T_c = 92$ K), gaps up to $d \approx 500$ nm suffice, relaxing fabrication constraints.
-    \item The geometric constraint $d > \lambda_L$ (39--150 nm) ensures supercurrent flow is not geometrically prohibited.
+    \item The geometric constraint $d > \lambda_L$ (22.5--118.8 nm across the catalog materials) ensures supercurrent flow is not geometrically prohibited.
 \end{itemize}
 \end{summarybox}
 

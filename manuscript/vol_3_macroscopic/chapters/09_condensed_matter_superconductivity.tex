@@ -10,20 +10,21 @@
 \end{itemize}
 \end{objectivebox}
 
-\textbf{A-034 BCS canonical anchor (canonical 2026-05-15 evening, ASYM-N
-$\mu$-only).} This chapter contains A-034's tightest single-instance
-empirical validation. The BCS critical field
-$B_c(T) = B_{c0}\sqrt{1 - (T/T_c)^2}$ is IDENTICALLY the Axiom 4 saturation
-factor $S(T/T_c)$, with $T$ as the strain amplitude and $T_c$ as the
-domain-specific yield limit. \textbf{0.00\% error across all measured BCS
-superconductors} --- the framework's tightest validation of the universal
-saturation kernel. Classified as ASYM-N (asymmetric natural, $\mu$-only
-sector) per the 3-way symmetry classification: only the $\mu$-sector
-saturates (inductor shorts via Meissner effect); the $\varepsilon$-sector
-remains finite. Sibling instance: plasma cutoff (ASYM-N $\varepsilon$-only).
+\textbf{A-034 BCS critical-field anchor (ASYM-N $\mu$-only).} The BCS
+critical field $B_c(T) = B_{c0}\sqrt{1 - (T/T_c)^2}$ is algebraically
+identical to the Axiom~4 saturation factor $S(T/T_c)$, with $T$ as the
+strain amplitude and $T_c$ as the domain-specific yield limit. The match
+is a definitional identity (the formulae are the same operator), not a
+forward prediction: $B_{c0}$ and $T_c$ are per-material experimental
+inputs, so the four validated materials (Al, Pb, Nb, MgB$_2$) deviate by
+$0.0000\%$ by construction. The AVE-distinct content is the cross-instance
+universality of the kernel, not a per-material forward prediction. Only the
+$\mu$-sector saturates here (the inductor shorts via the Meissner effect)
+while the $\varepsilon$-sector stays finite; the plasma cutoff is the
+complementary $\varepsilon$-only instance.
 
 This is the canonical $\varepsilon$-$\mu$ duality extended to the full
-19-instance catalog. See Vol 3 Ch~4 \S\ref{sec:tki_strain_snap} +
+26-instance catalog. See Vol 3 Ch~4 \S\ref{sec:tki_strain_snap} +
 Backmatter Ch~\ref{app:universal_saturation_kernel} (Universal
 Saturation-Kernel Catalog).
 
@@ -53,12 +54,12 @@ This macroscopic phase transition is rigorously governed by the classical \textb
 \end{equation}
 \end{resultbox}
 
-When the transverse thermal jitter ($\xi_i(T)$) drops below the threshold coupling strength ($K$), the order parameter ($R = |\frac{1}{N}\sum e^{i\theta_j}|$) undergoes a classical phase transition to $R=1$. The entire macroscopic ensemble becomes phase-locked ($\dot{\theta}_i = \Omega_{macro}$ for all nodes).
+When the transverse thermal jitter ($\xi_i(T)$) drops below the threshold coupling strength ($K$), the order parameter ($R = |\frac{1}{N}\sum e^{i\theta_j}|$) undergoes a classical phase transition to $R=1$. The entire macroscopic ensemble becomes phase-locked ($\dot{\theta}_i = \Omega_{macro}$ for all nodes); see Figure~\ref{fig:superconductivity_phase_lock}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth]{superconductivity_phase_lock.pdf}
-    \caption{A simulated kinetic mapping of an electron gas. As transverse thermal jitter ($T$) drops past the critical threshold ($T_c$), the individual $0_1$ topological inductors synchronise their physical rotation phases ($r=1$). This macroscopic phase-lock drops relative induction ($d\vec{B}/dt$ between adjacent nodes) to zero, eliminating all electrical resistance. No `Cooper Pairs' or `Quantum Condensates' are required.}
+    \caption{A simulated kinetic mapping of an electron gas. As transverse thermal jitter ($T$) drops past the critical threshold ($T_c$), the individual $0_1$ topological inductors synchronise their physical rotation phases ($R=1$). This macroscopic phase-lock drops relative induction ($d\vec{B}/dt$ between adjacent nodes) to zero, eliminating all electrical resistance. No `Cooper Pairs' or `Quantum Condensates' are required.}
     \label{fig:superconductivity_phase_lock}
 \end{figure}
 
@@ -108,7 +109,7 @@ Consequently, what quantum mechanics describes as ``perfect diamagnetism'' throu
 
 \section{Superconductor Catalog: AVE Engine Predictions}
 
-The AVE superconductor engine (\texttt{ave.plasma.superconductor}) computes critical fields and London depths from first principles via the universal saturation operator $S(T/T_c) = \sqrt{1 - (T/T_c)^2}$.
+The AVE superconductor engine (\texttt{ave.plasma.superconductor}) computes critical-field profiles via the universal saturation operator $S(T/T_c) = \sqrt{1 - (T/T_c)^2}$ given per-material $T_c$ and $B_{c0}$, and London depths from the catalog formula using free-electron $n_s$ estimates.
 
 \begin{center}
 \small
@@ -146,7 +147,7 @@ Normal ($T > T_c$)                 & II (Yield) & Thermal disorder breaks phase 
 \section{The Universal Saturation Operator: $\varepsilon$--$\mu$ Duality}
 \label{sec:superconductivity_duality}
 
-The most striking confirmation of scale invariance is the
+A clear instance of the kernel's scale invariance is the
 \textit{duality} between plasma physics and superconductivity.
 Both are instances of the \textit{same} saturation operator acting
 on complementary sectors of the impedance:
@@ -268,7 +269,7 @@ MgB$_2$   & 0.108 & I (deep)    & Superconducting \\
 \section{Condensed Matter $\leftrightarrow$ AVE Translation Dictionary}
 \label{sec:cm_ave_translation}
 
-The preceding sections show that superconductivity and the Meissner effect emerge from classical Kuramoto phase-locking of topological inductors, verified by the universal saturation operator.  Table~the main text maps each condensed matter concept to its AVE structural equivalent.
+The preceding sections show that superconductivity and the Meissner effect emerge from classical Kuramoto phase-locking of topological inductors, verified by the universal saturation operator.  Table~\ref{tab:trans_condensed} maps each condensed matter concept to its AVE structural equivalent.
 
 \input{../common/translation_condensed_matter.tex}
 

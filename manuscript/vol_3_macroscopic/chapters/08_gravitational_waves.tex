@@ -1,5 +1,5 @@
 % 08_gravitational_waves.tex
-% Ch.5: GW propagation + GW detection as impedance antenna
+% Gravitational Waves: GW propagation + GW detection as impedance antenna
 
 \chapter{Gravitational Waves}
 \label{ch:gravitational_waves}
@@ -29,7 +29,7 @@ where $r_s = 2GM/c^2$. Because both components scale proportionally, the macrosc
     \label{eq:Z_grav}
 \end{equation}
 \end{resultbox}
-Therefore, the reflection coefficient $\Gamma$ across any gravitational gradient evaluates identically to zero ($\Gamma = 0$). While the local speed of light slows down near mass ($c_l = c/n$), the impedance matching remains perfect. Gravitational waves experience zero reflection and zero scattering as they traverse deep gravitational wells, propagating seamlessly.
+Therefore, the EM-transverse reflection coefficient $\Gamma_{EM}$ across any gravitational gradient evaluates identically to zero ($\Gamma_{EM} = 0$). While the local speed of light slows down near mass ($c_l = c/n$), the EM impedance matching remains perfect. In the weak-field regions traversed by detected signals, gravitational waves propagate without reflection or scattering. At the saturation boundary ($r_{sat} = 7GM/c^2$) the shear channel reflects totally ($\Gamma_{shear} = -1$, where $G_{shear} \to 0$), distinct from the EM channel which remains matched ($\Gamma_{EM} = 0$).
 
 \begin{figure}[H]
     \centering
@@ -38,11 +38,16 @@ Therefore, the reflection coefficient $\Gamma$ across any gravitational gradient
     computed from the physics engine module \texttt{gw\_propagation.py}.
     \textbf{Top left:} Under Symmetric Gravity, both $\varepsilon$ and $\mu$ scale
     as $n(r)$, preserving $Z = Z_0$ everywhere outside the horizon.
-    At the horizon ($n \to \infty$), saturation drives $S \to 0$,
-    collapsing both $\mu_{eff} \to 0$ and $\varepsilon_{eff} \to 0$.
+    At the EM event horizon $r_s = 2GM/c^2$ the refractive index diverges
+    ($n \to \infty$, $c_l \to 0$). The lattice phase transition ($S \to 0$,
+    with the shear/bulk moduli collapsing) occurs at the deeper saturation
+    boundary $r_{sat} = 7GM/c^2 = 3.5\,r_s$.
     \textbf{Top right:} Impedance $Z(r)/Z_0 = 1$ (invariant) in the propagation region.
-    \textbf{Bottom left:} Reflection coefficient $\Gamma = 0$
-    (zero reflection --- gravitational waves propagate losslessly).
+    \textbf{Bottom left:} EM-channel reflection coefficient $\Gamma_{EM} = 0$
+    (light is index-captured / transparent under symmetric gravity). The
+    transverse-shear (GW) channel is distinct: at the saturation boundary
+    $r_{sat} = 7GM/c^2$ the shear impedance $Z_{shear} \to 0$, giving
+    $\Gamma_{shear} = -1$ (total reflection).
     \textbf{Bottom right:} Refractive index $n > 1$ near the mass
     (gravitational lensing = dielectric refraction).}
     \label{fig:gw_schwarzschild}
@@ -53,7 +58,7 @@ Therefore, the reflection coefficient $\Gamma$ across any gravitational gradient
 LIGO gravitational waves have strain
 $h \sim 10^{-21}$.  The equivalent voltage per lattice cell is
 $V_{GW} = h \cdot c \cdot \ell_{\text{node}} \cdot 2\pi f
-\sim 10^{-19}\;\text{V}$, which is $\sim 10^{-24}$ times smaller than
+\sim 10^{-19}\;\text{V}$, which is $\sim 2 \times 10^{-25}$ times smaller than
 $V_{\text{snap}} \approx 511\;\text{kV}$.  Far below the saturation
 threshold, the lattice acts as a perfect lossless linear transmission
 line.  Gravitational waves propagate to cosmological distances without
@@ -63,19 +68,19 @@ parameters.
 \section{Orbital Damping: The Transmission Line Phase Slip}
 \label{sec:orbital_damping}
 
-While gravitational waves propagate losslessly through the linear regions of the LC lattice, their sheer continuous generation requires real power to be extracted from the driving source. This is classically termed "Gravitational Radiation damping." Under the AVE framework, this mechanism is explicitly modeled as Topo-Kinematic \textbf{Transmission Line Phase Damping}.
+While gravitational waves propagate losslessly through the linear regions of the LC lattice, their continuous generation requires real power to be extracted from the driving source. This is classically termed "Gravitational Radiation damping." Under the AVE framework, this mechanism is explicitly modeled as Topo-Kinematic \textbf{Transmission Line Phase Damping}.
 
 \subsection{Hulse-Taylor Binary Pulsar (PSR B1913+16)}
-The physics engine (\texttt{simulate\_binary\_lc\_damping.py}) algebraically proves that Einstein's radiation formulas are perfectly isomorphic to classical transmission line phase mechanics. By modeling the Hulse-Taylor binary pulsar as a macro-electrical orbital circuit, we derive its exact decay rate from first principles:
+Modeling the Hulse-Taylor binary pulsar as a macro-electrical orbital LC tank (\texttt{simulate\_\allowbreak binary\_\allowbreak lc\_\allowbreak damping.py}) reproduces the observed period decay rate. The quadrupole radiation reaction is re-expressed as transmission-line phase-slip damping; the $(v/c)^5$ quadrupole scaling and the Peters--Mathews coefficients are carried over from the standard radiation formula, so the result is a consistency reproduction rather than an independent first-principles derivation:
 
 \begin{enumerate}
-    \item \textbf{Reactive Tank Power ($Q$):} The immense gravitational and kinetic energies of the two $\approx 1.4 M_\odot$ neutron stars sloshing back and forth simulate perfectly to a reactive resonant tank. Because standard Newtonian gravity represents an orthogonal V/I phase angle ($\cos(90^\circ) = 0$), this orbital energy normally oscillates losslessly.
-    \item \textbf{Quadrupole Phase Slip ($\delta$):} The extreme asymmetric quadrupole acceleration violently plucks the surrounding elastic LC metric. Because lattice tension propagates strictly at $c_0$, the differential acceleration wave inevitably suffers an inductive phase retardation slip ($\delta$) over the metric spatial span.
+    \item \textbf{Reactive Tank Power ($Q$):} The gravitational and kinetic energy of the two $\approx 1.4 M_\odot$ neutron stars maps to a reactive resonant tank. Because Newtonian gravity holds an orthogonal V/I phase angle ($\cos(90^\circ) = 0$), the orbital energy oscillates losslessly.
+    \item \textbf{Quadrupole Phase Slip ($\delta$):} The asymmetric quadrupole acceleration excites the surrounding elastic LC metric. Because lattice tension propagates at $c_0$, the differential acceleration wave acquires an inductive phase-retardation slip ($\delta$) over the metric span.
     \item \textbf{Real Power Dissipation ($P_{real}$):} An electrical reactive tank experiencing a forced phase slip must bleed real power. The phase defect un-aligns the orthogonality, and real power radiates radially outwards into the bulk lattice network ($P_{real} \approx Q \cdot \delta$).
     \item \textbf{Orbital Decay ($\dot{P}_b$):} Subjecting this real power drain over the empirical Hulse-Taylor orbital bounds algebraically evaluates an exact period decay rate of $\mathbf{-2.402 \times 10^{-12}\text{ s/s}}$.
 \end{enumerate}
 
-This pure topological VCA circuit simulation equates exactly to historical empirical observations, demonstrating that General Relativistic quadrupole radiation operates exactly as standard transmission line phase-retardation driven by standard spatial LC nodes.
+The circuit model reproduces the observed orbital decay to within $\sim 2\%$, showing that the general-relativistic quadrupole result can be cast as transmission-line phase-retardation across the LC lattice.
 
 \section{GW Detection: The Impedance Antenna}
 \label{sec:gw_detection}
@@ -84,11 +89,12 @@ A gravitational wave detector is an impedance antenna.  LIGO's 4~km
 Fabry--P\'erot arms form resonant cavities in the LC vacuum, where
 each light bounce amplifies the GW-induced impedance modulation.
 The passing GW strain $h$ perturbs the local vacuum impedance:
-\begin{resultbox}{GW-Induced Impedance Perturbation}
+\begin{resultbox}{GW-Induced Shear-Impedance Perturbation}
 \begin{equation}
-    \delta Z = Z_0 \cdot h
+    \delta Z_{shear} = Z_{shear} \cdot h
 \end{equation}
 \end{resultbox}
+where $Z_{shear} = \rho\,c_{shear}$ is the shear (transverse-mechanical) impedance. The EM characteristic impedance $Z_0 \equiv Z_{EM}$ is the matched radiative port and is invariant under symmetric gravity; it is a distinct channel.
 The accumulated phase shift after $N$ bounces is:
 \begin{resultbox}{Fabry-P\'erot Accumulated Phase Shift}
 \begin{equation}
@@ -124,10 +130,10 @@ geometric mean is the Standard Quantum Limit:
 The lattice voltage ratio for LIGO GW is:
 \begin{resultbox}{LIGO GW Saturation Ratio}
 \begin{equation}
-    \frac{V_{GW}}{V_{\text{snap}}} \approx 1.4 \times 10^{-28}
+    \frac{V_{GW}}{V_{\text{snap}}} \approx 2 \times 10^{-25}
 \end{equation}
 \end{resultbox}
-Twenty-eight orders of magnitude below saturation.  The vacuum is
+Twenty-five orders of magnitude below saturation.  The vacuum is
 a \textit{perfect} lossless transmission line for gravitational waves,
 exactly as observed.
 

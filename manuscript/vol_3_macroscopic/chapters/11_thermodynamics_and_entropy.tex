@@ -29,7 +29,7 @@ Because the individual $\mathbf{E}$ and $\mathbf{H}$ phase vectors are stochasti
 
 When a highly ordered, stable topological structure (such as an electron or a coherent photon wave-packet) exists, its energy is locally concentrated and phase-locked. However, when this ordered potential energy is released or structurally compromised, it converts into transverse, high-frequency kinetic displacement current ($d\vec{D}/dt$) waves---acoustic shocks radiating through the $377 \ \Omega$ LC grid.
 
-Because the vacuum grid acts as a radiative medium, these waves propagate outward spherically. As the radius ($r$) of the wave-front increases, the surface area ($4\pi r^2$) grows exponentially. The finite energy of the initial event is forced to spread geometrically across an exponentially increasing number of discrete grid nodes. 
+Because the vacuum grid acts as a radiative medium, these waves propagate outward spherically. As the radius ($r$) of the wave-front increases, the surface area ($4\pi r^2$) grows as the square of the radius ($\propto r^2$). The finite energy of the initial event is forced to spread geometrically across a quadratically increasing number of discrete grid nodes.
 
 \begin{figure}[H]
     \centering
@@ -90,7 +90,7 @@ The vacuum itself is a transmission line with characteristic impedance $Z_0 = \s
     \label{eq:vacuum_nyquist}
 \end{equation}
 \end{resultbox}
-This is not an analogy. The substrate lattice is a physical transmission line. The Nyquist relation applies literally: each lattice node radiates thermal noise proportional to its local impedance.
+Within AVE the substrate lattice is a physical transmission line, so the Nyquist relation applies directly: each lattice node radiates thermal noise proportional to its local impedance.
 
 \subsection{Boundary-Impedance Thermalization}
 
@@ -114,9 +114,9 @@ This establishes the fundamental principle of \textbf{boundary-impedance thermal
 
 \subsection{Application: Transmon Qubit Decoherence}
 
-The transmon qubit (Chapter~Volume 4) provides a direct experimental demonstration. A Josephson junction is an LC oscillator with junction leads connected to a $300\;\text{K}$ reservoir. The thermal noise enters exclusively through the lead boundaries---the edge nodes where the junction impedance meets the cryogenic feedline impedance.
+The transmon qubit (Volume~IV) provides a direct experimental demonstration. A Josephson junction is an LC oscillator with junction leads connected to a $300\;\text{K}$ reservoir. The thermal noise enters exclusively through the lead boundaries---the edge nodes where the junction impedance meets the cryogenic feedline impedance.
 
-A correct simulation must therefore inject stochastic noise only at the boundary nodes, not uniformly across the bulk field. The resulting coherence metric (the Cauchy-Schwarz normalised overlap between the instantaneous state and the initial eigenmode) is bounded $C(t) \in [0, 1]$ and decays via oscillatory relaxation, reproducing the observed error-rate timelines of modern cryo-cooled qubits (Figure~Volume 4).
+A correct simulation must therefore inject stochastic noise only at the boundary nodes, not uniformly across the bulk field. The resulting coherence metric (the Cauchy-Schwarz normalised overlap between the instantaneous state and the initial eigenmode) is bounded $C(t) \in [0, 1]$ and decays via oscillatory relaxation, reproducing the observed error-rate timelines of modern cryo-cooled qubits (Volume~IV).
 
 \subsection{Ohmic Damping: The Dissipation Arm}
 
@@ -142,7 +142,7 @@ where $\omega_0$ is the resonant frequency and $L_{eff}$ is the effective induct
 
 \subsection{The 7-Mode Compliance Manifold}
 
-The Poisson ratio of the vacuum lattice, $\nu_{vac} = 2/7$ (derived in Chapter~Volume 1), reveals the internal structure of each lattice node. The denominator $n = 7$ counts the \textbf{independent compliance modes per node}:
+The Poisson ratio of the vacuum lattice, $\nu_{vac} = 2/7$ (derived in Volume~I), reveals the internal structure of each lattice node. The denominator $n = 7$ counts the \textbf{independent compliance modes per node}:
 \begin{enumerate}
     \item 3 translational degrees of freedom (displacement along $x$, $y$, $z$)
     \item 3 rotational degrees of freedom (torsion about $x$, $y$, $z$)
@@ -240,40 +240,14 @@ Integrating Equation~(\ref{eq:planck_distribution}) over all frequencies yields 
 
 \subsection{Consistency-Check: Baryon Asymmetry}
 
-% [Rule-12 walk-back, 2026-06-20] D2 KB<->tex lockstep with KB leaves
-% vol3/condensed-matter/ch11-thermodynamics/baryon-asymmetry{,-derivation}.md
-\begin{warningbox}[SUPERSEDED HEADLINE (Rule-12 walk-back, 2026-06-20)]
-\footnotesize
-The ``independently verified \dots all other factors derived from AVE
-constants \dots 0.38\% error'' framing below is \textbf{RETRACTED}. Per
-auditor \textbf{FINDING 2} (2026-06-10,
-\texttt{research/2026-06-10\_freeze-handedness-survey\_note.md:50}), the
-$\eta$ result is \textbf{consistency-class with an imported
-electroweak-baryogenesis formula} ($\alpha_W^4 C_{sph}/g_*$ scaffold is
-SM-imported), \textbf{not emergence-class --- do not headline}. Corrections:
-$g_*$ is \emph{reverse-validated} against $\eta_{obs}$, not independently
-measured, so the downstream-$\eta$ agreement is a consistency check, not an
-``independent verification'' of $g_*$; and $C_{sph} = 28/79$ is the textbook
-SM Harvey-Turner factor, so ``all other factors derived'' is false. Governing
-Vol-2 claim \texttt{clm-4vwsjc} pinned conf 0.4 / do-not-build; local
-\texttt{clm-uu6dl5} already flags the composite-consistency caveat.
-\textbf{SYMMETRIC-STANDARD:} the order-of-magnitude $\eta \sim 6\times10^{-10}$
-is peer-or-ahead of the SM (no $\eta$ at all). \textbf{Non-reproducible
-number:} $6.08\times10^{-10}$ / $0.38\%$ matches no code path; engine-canonical
-(thermal $\kappa_{FS} = 24.95$) gives $6.05\times10^{-10}$ / 0.79\%; the
-displayed cold $\pi/8\pi$ gives $6.01\times10^{-10}$ / 1.51\% (cold/thermal
-split OPEN, flag-don't-fix). Body preserved per Rule 12; displayed number
-corrected in place.
-\end{warningbox}
-
-The lattice DoF count $g_* = 85.75$ is \emph{reverse-validated} against the observed baryon-to-photon ratio $\eta$ (not independently measured). Substituting into the standard electroweak-baryogenesis formula (with the SM-imported $C_{sph} = 28/79$ and $\alpha_W^4$ riding $\alpha$):
+The lattice DoF count $g_* = 85.75$ is reverse-validated against the observed baryon-to-photon ratio $\eta$ (not independently measured). The result is an order-of-magnitude consistency check against an electroweak-baryogenesis scaffold whose $C_{sph} = 28/79$ Harvey-Turner factor and $\alpha_W^4$ (riding $\alpha$) are imported, not an emergence-class zero-parameter derivation. Substituting into the standard electroweak-baryogenesis formula:
 \begin{resultbox}{The Baryon Asymmetry}
 \begin{equation}
     \eta = \frac{(\pi / \kappa_{FS}) \cdot \alpha_W^4 \cdot C_{sph}}{g_*} = \frac{(\pi / 8\pi) \cdot \alpha_W^4 \cdot (28/79)}{85.75} \approx 6.05 \times 10^{-10}
     \label{eq:baryon_asymmetry}
 \end{equation}
 \end{resultbox}
-The observed value is $\eta_{obs} = 6.1 \times 10^{-10}$ (WMAP/Planck). Order-of-magnitude consistency-check (engine-canonical thermal $\kappa_{FS}$: \textbf{0.79\%}; displayed cold-$8\pi$: 1.51\%). % [Rule-12 walk-back 2026-06-20 -- prior wording preserved]: was "= 6.08 \times 10^{-10} ... \textbf{Error: 0.38\%.}" RETRACTED per FINDING 2.
+The observed value is $\eta_{obs} = 6.1 \times 10^{-10}$ (WMAP/Planck). Order-of-magnitude consistency-check (engine-canonical thermal $\kappa_{FS}$: \textbf{0.79\%}; displayed cold-$8\pi$: 1.51\%).
 Using the Standard Model value $g_{*,SM} = 106.75$ yields 20\% error.
 
 \section{Thermal Softening of Topological Structures}
@@ -283,7 +257,7 @@ The preceding sections treated the lattice as a passive thermal reservoir. Consi
 
 \subsection{The Thermal Correction to the Skyrme Coupling}
 
-The proton (Chapter~Volume 2) is a $6_2^3$ Borromean linkage confined by the $(2,5)$ cinquefoil torus knot. Its internal tension is governed by the Faddeev-Skyrme coupling constant $\kappa_{FS} = 8\pi$ (the cold, zero-temperature value). The proton's core exists at an effective temperature $T_{core} \sim m_p c^2 / k_B \approx 10^{13}\;\text{K}$.
+The proton (Volume~II) is a $6_2^3$ Borromean linkage confined by the $(2,5)$ cinquefoil torus knot. Its internal tension is governed by the Faddeev-Skyrme coupling constant $\kappa_{FS} = 8\pi$ (the cold, zero-temperature value). The proton's core exists at an effective temperature $T_{core} \sim m_p c^2 / k_B \approx 10^{13}\;\text{K}$.
 
 At this temperature, the baseline RMS thermal noise of the vacuum partially averages out the sharp gradient tensor $(\partial_\mu \mathbf{n} \times \partial_\nu \mathbf{n})^2$ that stabilises the quartic Skyrme repulsion. The thermally corrected coupling is:
 \begin{resultbox}{Thermal Softening Correction}
@@ -333,7 +307,7 @@ $\delta_{th}$ is not a free parameter.  It is built from three independently der
 
 The previous value $\delta_{th} = 1/(28\pi) \approx 0.01137$ implicitly combined Effects~1 and~2 into a single correction.  The factorisation makes the physics transparent: the lattice resolution limit is an Axiom~4 structural identity, while the residual $\delta_{th}$ captures purely thermodynamic noise averaging.
 
-Both $\nu_{vac}$ and $\kappa_{cold}$ are pure geometric constants derived independently from the lattice axioms.  The thermal correction to the proton mass is therefore a \textbf{zero-parameter result}: it depends only on the topology of the vacuum, not on any empirical measurement of temperature or coupling strength.
+Both $\nu_{vac}$ and $\kappa_{cold}$ are pure geometric constants derived independently from the lattice axioms.  The thermal correction to the proton mass is therefore a \textbf{one-residual correction with zero baryon-data-tuned parameters}: it depends only on lattice topology and electron-sector inputs ($m_e$, $\alpha$), not on any empirical measurement of temperature or coupling strength.
 
 \section{Phase Transitions as Impedance Matching Events}
 \label{sec:phase_transitions}
@@ -356,7 +330,7 @@ The Meissner effect follows directly: when $\mu_{eff} \to 0$ at saturation (Axio
 
 \subsection{Casimir Cooling: Geometric Phase Transitions}
 
-The Casimir effect (Chapter~Volume 4) provides a mechanism for \textbf{engineering} phase transitions without cryogenic cooling. By placing a conductor inside a nanoscale cavity of gap width $d$, long-wavelength thermal modes ($\lambda > 2d$) are geometrically excluded from the cavity interior.
+The Casimir effect (Volume~IV) provides a mechanism for \textbf{engineering} phase transitions without cryogenic cooling. By placing a conductor inside a nanoscale cavity of gap width $d$, long-wavelength thermal modes ($\lambda > 2d$) are geometrically excluded from the cavity interior.
 
 This acts as a high-pass filter on the ambient noise spectrum. The effective local temperature inside the cavity is:
 \begin{resultbox}{Casimir Effective Temperature}
@@ -365,7 +339,7 @@ This acts as a high-pass filter on the ambient noise spectrum. The effective loc
     \label{eq:casimir_temperature}
 \end{equation}
 \end{resultbox}
-where $f_c = c_0 / (2d)$ is the cavity cutoff frequency. When the resulting $T_{eff}$ drops below $T_c$, the enclosed conductor undergoes a geometric phase transition into the superconducting state---at room ambient temperature (see Chapter~Volume 4, Figure~\ref{fig:casimir_superconductor}).
+where $f_c = c_0 / (2d)$ is the cavity cutoff frequency. When the resulting $T_{eff}$ drops below $T_c$, the enclosed conductor undergoes a geometric phase transition into the superconducting state---at room ambient temperature (see Volume~IV, Figure~\ref{fig:casimir_superconductor}).
 
 \subsection{Fluid Anomalies: The Two-State LC Partition Framework}
 \label{sec:water_partition}
@@ -397,7 +371,7 @@ Furthermore, the macroscopic fluid Dielectric Constant—normally plotted strict
 The physics engine formally enforces this non-linear LC transition boundary in \kbleaf{regime\_1\_linear/hexagonal\_lattice.py}. The factory replaces generalized scalar distributions with an explicit geometric lattice yield tensor that structurally snaps to $0$ strictly at the Axiom 4 limit ($\sim 30^\circ$C). Code path: \texttt{Cooperative\allowbreak Hexagonal\allowbreak Lattice.\allowbreak evaluate\_\allowbreak structural\_\allowbreak fraction(T)}.
 
 \paragraph{Empirical Calibration (The 2026 X-Ray Validation).}
-This non-linear transition directly maps to the physical Liquid-Liquid Critical Point (LLCP) observed in supercooled water. Recent sub-femtosecond X-ray laser measurements \cite{nilsson2026llcp} empirically intercepted water structurally splitting into two disjoint macroscopic geometries at bridging boundaries. Under the AVE structural lens, their ``Low-Density Liquid'' (LDL) equates flawlessly to the expanded tetrahedral phase ($V_I$) aligned with the vacuum void fraction, while their ``High-Density Liquid'' (HDL) captures the collapse into uniform random-close-packing ($V_{II}$). Their observed rapid, unstable structural fluctuations near the critical threshold perfectly corroborate the mathematical limits of the cooperative lattice yield. It confirms that the $+4\,^{\circ}\text{C}$ density maximum is fundamentally a supercritical statistical average of this dual-geometric struggle, exactly as derived.
+This non-linear transition directly maps to the physical Liquid-Liquid Critical Point (LLCP) observed in supercooled water. Recent sub-femtosecond X-ray laser measurements \cite{nilsson2026llcp} empirically intercepted water structurally splitting into two disjoint macroscopic geometries at bridging boundaries. Under the AVE structural lens, their ``Low-Density Liquid'' (LDL) corresponds to the expanded tetrahedral phase ($V_I$) aligned with the vacuum void fraction, while their ``High-Density Liquid'' (HDL) captures the collapse into uniform random-close-packing ($V_{II}$). The observed structural fluctuations near the critical threshold are consistent with the cooperative lattice yield limit, supporting the interpretation of the $+4\,^{\circ}\text{C}$ density maximum as a statistical average over the two geometries.
 
 \subsection{General Classification}
 
@@ -430,7 +404,7 @@ The thermodynamic framework of AVE is fully contained in the following logical c
     \item The \textbf{Fluctuation-Dissipation Theorem} is the Nyquist relation applied to the lattice impedance ($Z_0 \approx 377\;\Omega$).
     \item \textbf{Thermal noise enters through boundaries}, not bulk, proportional to the impedance mismatch ($1 - |\Gamma|^2$).
     \item The lattice supports $g_* = 7^3/4 = 85.75$ effective degrees of freedom, fixing the \textbf{heat capacity} and the baryon asymmetry.
-    \item \textbf{Topological structures} experience thermal softening ($\delta_{th} = 1/(14\pi^2)$), a zero-parameter correction that closes the proton mass gap.
+    \item \textbf{Topological structures} experience thermal softening ($\delta_{th} = 1/(14\pi^2)$), a one-residual correction (zero baryon-data-tuned parameters) that brings $m_p/m_e$ to within 0.002\% of CODATA.
     \item \textbf{Phase transitions} are impedance matching catastrophes in the physical lattice.
 \end{enumerate}
 
@@ -448,6 +422,6 @@ By defining Temperature as electromagnetic noise, Entropy as geometric spreading
 \begin{exercisebox}
 \begin{enumerate}
     \item Use the Fluctuation-Dissipation Theorem to derive the thermal noise term entering a macroscopic acoustic boundary, proving it scales exactly with the impedance mismatch ($1 - |\Gamma|^2$).
-    \item Calculate the zero-parameter topological structural softening factor $\delta_{th}$ and demonstrate how it formally closes the proton thermal mass gap.
+    \item Calculate the topological structural softening factor $\delta_{th} = 1/(14\pi^2)$ from $\nu_{vac}$, $\kappa_{cold}$, and the rectified-noise $2/\pi$ ratio, and show it refines $m_p/m_e$ to within 0.002\% of CODATA (a one-residual, zero-baryon-data-tuned correction).
 \end{enumerate}
 \end{exercisebox}

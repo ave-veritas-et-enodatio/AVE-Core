@@ -10,9 +10,8 @@
 \end{itemize}
 \end{objectivebox}
 
-\textbf{A-034 gravitational anchors (canonical 2026-05-15 evening, SYM;
-LIGO ringdown CLOSURE 2026-05-18 Phase 3+4+5).} This chapter contains
-TWO of A-034's strongest empirical anchors in the 19-instance catalog:
+\textbf{A-034 gravitational anchors (SYM).} This chapter contains
+TWO of A-034's strongest empirical anchors in the 26-instance catalog:
 (1) BH event horizon at $\varepsilon_{11}(r) = 2GM/(c^2 r) = 1$ matches
 the Schwarzschild radius \textbf{exactly} (canonical AVE-native derivation);
 (2) BH merger ring-down QNM eigenvalue $\omega_R M_g = 18/49 = 0.3673$
@@ -29,7 +28,7 @@ leaf + driver \kbleaf{src/scripts/vol\_3\_macroscopic/ligo\_ringdown\_driver.py}
 Both phenomena are governed by the universal saturation kernel
 $S(A) = \sqrt{1 - A^2}$ at gravitational scale --- same kernel as atomic
 dielectric breakdown, BCS superconductivity (0.00\% error \textit{Axiom~4 manifestation: the kernel IS $B_c(T)$, not a numerical prediction}), solar flares
-(NOAA validation pending live fetch --- LF-03), and cosmic K4 crystallization. % [2026-06-15 LF-03 -- prior wording preserved per Rule 12]: was "solar flares (NOAA 40-yr)". SUPERSEDED per KB leaf solar-flares-led-avalanche.md: synthesized illustrative timeline, not a live fetch; A-034 forward prediction, not a validated anchor. The BH event horizon is
+(NOAA validation pending live fetch), and cosmic K4 crystallization. The BH event horizon is
 where $S(A) \to 0$ globally; the ring-down is the saturation cavity's
 QNM response. See Vol 3 Ch~4 \S\ref{sec:tki_strain_snap} +
 Backmatter Ch~\ref{app:universal_saturation_kernel} for the full catalog.
@@ -50,7 +49,7 @@ As established in Chapter~\ref{ch:relativity}, gravity is a refractive gradient:
 \end{resultbox}
 where the factor 7 emerges from the Machian stress boundary $T_{max} = c^4/(7G)$.
 
-Critically, gravity is \textbf{Symmetric}: the transverse impedance $Z(r) = \sqrt{\mu'(r)/\varepsilon'(r)} = Z_0$ is \textit{invariant} at all radii, because both $\mu'$ and $\varepsilon'$ scale identically with $n(r)$. There is \textbf{no impedance mismatch} and \textbf{no reflection coefficient} ($\Gamma = 0$ everywhere). This is the fundamental distinction between the electron's confinement ($\Gamma = -1$ at the knot boundary, where $Z \to 0$) and the black hole's confinement.
+Critically, gravity is \textbf{Symmetric in the EM-transverse channel}: the EM characteristic impedance $Z_{EM}(r) = \sqrt{\mu'(r)/\varepsilon'(r)} = Z_0$ is \textit{invariant} at all radii, because both $\mu'$ and $\varepsilon'$ scale identically with $n(r)$. There is \textbf{no EM impedance mismatch} and \textbf{no EM reflection coefficient} ($\Gamma_{EM} = 0$ everywhere under SYM scaling); here $Z_0 \equiv Z_{EM}$ only, and the shear and bulk channels carry separate impedances $Z_{shear}$ and $Z_{bulk}$. The EM channel sees the standard GR horizon where the transverse refractive index $n(r) - 1 = 2GM/(c^2 r)$ reaches unity at the Schwarzschild radius $r_s = 2GM/c^2$ ($n \to \infty$), but it is matched, not reflected. The $\Gamma = -1$ total-reflection wall lives instead in the shear and bulk channels at the radial-strain unity radius $r_{sat} = 7GM/c^2 = 3.5\,r_s$, where $G_{shear} \to 0$ and $Z_{shear}, Z_{bulk} \to 0$. This is the fundamental distinction between the electron's confinement (bulk-channel TIR, $\Gamma_{bulk} = -1$ at the knot boundary where $Z_{bulk} \to 0$) and the black hole's confinement.
 
 \subsection{The Saturation Boundary as a Phase Transition}
 
@@ -61,7 +60,7 @@ When $\varepsilon_{11}(r) = 1$ (at $r_{sat} = 7\,M_g = 3.5\,r_s$), the lattice r
     \item Gravitational waves, being \textit{transverse shear waves}, \textbf{cannot propagate} in the ruptured interior
 \end{itemize}
 
-The saturated interior therefore acts as a \textbf{perfect reflector for shear waves}---not through impedance mismatch ($\Gamma$), but through the phase transition that eliminates the shear restoring force. This is identical to the vanishing of transverse acoustic modes at a solid--liquid boundary.
+The saturated interior therefore acts as a \textbf{perfect reflector for shear waves}. The phase transition eliminates the shear restoring force ($G_{shear} \to 0$, $c_{shear} \to 0$), which \textbf{is} a shear-channel impedance collapse: $Z_{shear} = \rho\,c_{shear} \to 0 \Rightarrow \Gamma_{shear} = -1$. The bulk-longitudinal channel collapses with it ($c_{bulk} \to 0 \Rightarrow Z_{bulk} \to 0 \Rightarrow \Gamma_{bulk} = -1$), while the EM-transverse channel remains matched ($\Gamma_{EM} = 0$). This is identical to the vanishing of transverse acoustic modes at a solid--liquid boundary, which is exactly $Z_{shear} \to 0$ at the interface.
 
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
@@ -70,11 +69,11 @@ The saturated interior therefore acts as a \textbf{perfect reflector for shear w
 \textbf{Property} & \textbf{Electron} & \textbf{Black Hole} \\
 \midrule
 Confinement Boundary & $\ell_{node} \approx 3.86 \times 10^{-13}$ m & $r_{sat} = 7\,GM/c^2 = 3.5\,r_s$ \\
-Confinement Mechanism & Impedance mismatch ($\Gamma = -1$) & Lattice phase transition ($G_{shear} \to 0$) \\
+Confinement Mechanism & Bulk TIR ($\Gamma_{bulk} = -1$, $Z_{bulk} \to 0$) & Shear + bulk phase transition ($\Gamma_{shear} = \Gamma_{bulk} = -1$; $\Gamma_{EM} = 0$) \\
 ``Ground-State'' Orbital & Bohr radius $a_0 = \ell_{node}/\alpha$ & Saturation cavity $r_{eff} = 49M_g/9$ \\
 Shell Gaps & Spectral emission lines & Accretion disk QPOs \\
 Interior Physics & Constructive (topology preserved) & Destructive (topology melts) \\
-Impedance & $Z \to 0$ at knot core & $Z = Z_0$ always (Symmetric Gravity) \\
+Impedance (per channel) & $Z_{bulk} \to 0$ at knot core & $Z_{EM} = Z_0$ (SYM); $Z_{shear}, Z_{bulk} \to 0$ at $r_{sat}$ \\
 \bottomrule
 \end{tabularx}
 \end{center}
@@ -338,7 +337,7 @@ The following table records which AVE axioms are fully exercised in the current 
 \toprule
 \textbf{Axiom} & \textbf{Statement} & \textbf{Status} & \textbf{Coverage} \\
 \midrule
-1 & LC lattice, $Z_0 = \sqrt{\mu_0/\varepsilon_0}$ & \textbf{Full} & Symmetric Gravity ($Z = Z_0$) \\
+1 & LC lattice, $Z_0 = \sqrt{\mu_0/\varepsilon_0}$ & \textbf{Full} & Symmetric Gravity (EM channel $Z_{EM} = Z_0$) \\
 2 & Topological defects (self-trapped $\gamma$) & \textbf{Full} & BH-electron isomorphism \\
 3 & Gravity = dielectric strain $n(r)$ & \textbf{Full} & Kerr saturation boundary, QPOs \\
 4 & Saturation ($V_{SNAP}$, viscosity) & \textbf{Full} & Phase transition, $Q = \ell$, $\tau_{ring}$ \\
