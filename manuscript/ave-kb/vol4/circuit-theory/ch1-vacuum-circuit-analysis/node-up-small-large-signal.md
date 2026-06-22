@@ -72,14 +72,16 @@ full per-regime sweep with numbers is tabulated in
 
 | Regime | Drive | $S_\varepsilon$ | $S_\mu$ | $Z_{eff}$ | Small-signal $\delta n$ |
 |---|---|---|---|---|---|
-| **R1** symmetric internal | both grades (internal $\mathbf E$ **and** $\mathbf B$, e.g. mass-soliton) | $S$ | $S$ | $Z_0\sqrt{\mu_0 S/\varepsilon_0 S}=Z_0$ (invariant) | $\delta n = 1/S - 1$ (isotropic; reflectionless) |
-| **R2** static-E route | static $\mathbf E$ only ($\partial\mathbf B/\partial t=0$) | $<1$ | $1$ | $Z_0\sqrt{S_\mu/S_\varepsilon}=Z_0/\sqrt{S_\varepsilon}$ (changes) | $\delta n\approx\tfrac14(E/E_{yield})^2$ ($\Gamma\ne0$) |
+| **R1** symmetric internal | both grades (internal $\mathbf E$ **and** $\mathbf B$, e.g. mass-soliton) | $S$ | $S$ | $Z_0\sqrt{\mu_0 S/\varepsilon_0 S}=Z_0$ (invariant) | $n=1/\sqrt{S}$, $\delta n\approx+\tfrac14 A^2$ (isotropic; reflectionless) |
+| **R2** static-E route | static $\mathbf E$ only ($\partial\mathbf B/\partial t=0$) | $<1$ | $1$ | $Z_0\sqrt{S_\mu/S_\varepsilon}=Z_0/\sqrt{S_\varepsilon}$ (changes) | $\delta n\approx-\tfrac14(E/E_{yield})^2$ (isotropic, common-mode; $\Gamma\ne0$) |
 | **R3** static-B | static $\mathbf B$ only ($\partial\mathbf B/\partial t=0$) | $1$ | $1$ (no internal circulation) | $Z_0$ (unchanged) | $\delta n_\mu = 0$ **EXACTLY** |
 
 - **R1 (symmetric internal loading)** is the canonical INVARIANT-S2 W6 operating point
   (`manuscript/ave-kb/CLAUDE.md`:75): when *both* sectors are driven, $S_\varepsilon=S_\mu=S$, so
   $Z=Z_0$ stays invariant and the boundary is reflectionless — Symmetric Gravity. A small-signal
-  probe sees the common-mode index $\delta n = 1/S - 1$.
+  probe sees the common-mode (canonical ray/probe) index $n=1/\sqrt{S}$ ⟹ $\delta n=1/\sqrt{S}-1\approx
+  +\tfrac14 A^2$ (canonical Op16 ray speed $c_{shear}=c_0\sqrt{S}$ drops; light slows, gravity-well-like;
+  `operators.md`:56).
 - **R2 (static-E / bench / HIBEF route)** is the Op14 Meissner-asymmetric case: a static $\mathbf E$
   has no $\partial\mathbf B/\partial t$ to load the $\mu$ grade, so it loads $\varepsilon$ only.
   $Z$ changes → $\Gamma\ne0$ → the vacuum-impedance-mirror bench mechanism. This is the **E-route**,
@@ -110,8 +112,15 @@ n = \frac{c_0}{c_{EM}} = \sqrt{\frac{\varepsilon_{eff}\,\mu_{eff}}{\varepsilon_0
 Z_{eff} = Z_0\sqrt{\frac{S_\mu}{S_\varepsilon}}.
 $$
 
-- **R1:** $S_\varepsilon=S_\mu=S$ ⟹ $n=S$, $\delta n = S-1$ in the wave-speed convention, or in the
-  capacitive operating-point convention $1/S - 1$; $Z_{eff}=Z_0$ (reflectionless, common-mode only).
+- **R1:** $S_\varepsilon=S_\mu=S$. The **canonical ray/probe observable** is the Op16 universal wave
+  speed $c_{shear}=c_0\sqrt{S}$ ⟹ probe index $n=1/\sqrt{S}$, $\delta n=1/\sqrt{S}-1\approx+\tfrac14 A^2$
+  (positive; light slows, gravity-well-like; `operators.md`:56). $Z_{eff}=Z_0$ (reflectionless,
+  common-mode only). *(Phase-velocity aside, not the probe observable: the transverse-EM Maxwell
+  **phase** index is $n_{EM}=\sqrt{S_\varepsilon S_\mu}=S$, i.e. phase velocity $c_{EM}=c_0/S$ which
+  **rises** above $c_0$ and carries no energy — distinct from the canonical ray/probe index
+  $n=1/\sqrt{S}$. The reciprocal "both-reactance signal" form $n=1/S$, $\delta n\approx+\tfrac12 A^2$
+  is **rejected** — it propagates nothing; the universal propagating-wave speed is $c_0\sqrt{S}$ per
+  Op16, not $c_0 S$.)*
 - **R2:** $S_\varepsilon=S<1$, $S_\mu=1$ ⟹ $n=\sqrt{S}$, $\delta n_{iso}=\sqrt{S}-1\approx-\tfrac14
   A_V^2$ (isotropic), and $Z_{eff}=Z_0/\sqrt{S}$ ⟹ $\Gamma\ne0$. Under a linearly-polarized pump the
   $\varepsilon$-grade response is uniaxial, giving the OQ-1 birefringence
@@ -162,7 +171,7 @@ claim that *any* DC bias scales both; a static-external single-grade drive is R2
 | $C_{eff}=C_0/S(A_V)$, varactor keyed on $V$ | **DERIVED** | Axiom 4 dielectric specialization (`manuscript/ave-kb/CLAUDE.md`:73) |
 | $L_{eff}=L_0/S(A_I)$, relativistic inductor keyed on $I$; $I_{max}=\xi_{topo}c$ | **DERIVED** | clm-p5cf3t ([`relativistic-inductor.md`](relativistic-inductor.md):15,:18), Topo-Kinematic mapping |
 | R1 symmetric: $S_\varepsilon=S_\mu=S\Rightarrow Z=Z_0$ reflectionless | **DERIVED** | INVARIANT-S2 W6 (`manuscript/ave-kb/CLAUDE.md`:75) |
-| R2 static-E: $S_\varepsilon<1,S_\mu=1\Rightarrow Z_0/\sqrt{S_\varepsilon}$, $\delta n\approx\tfrac14 A_V^2$ | **DERIVED** | W6 static-E asymmetric clause + Op14 Meissner-asymmetric $Z_{eff}=Z_0\sqrt{S_\mu/S_\varepsilon}$ |
+| R2 static-E: $S_\varepsilon<1,S_\mu=1\Rightarrow Z_0/\sqrt{S_\varepsilon}$, $\delta n\approx-\tfrac14 A_V^2$ | **DERIVED** | W6 static-E asymmetric clause + Op14 Meissner-asymmetric $Z_{eff}=Z_0\sqrt{S_\mu/S_\varepsilon}$ |
 | R3 static-B: $S_\mu=1\Rightarrow\delta n_\mu=0$ exactly | **DERIVED (analytically exact)** | $I$-keyed inductor + Lenz (no $dI/dt$ ⟹ $I_{vac}=0$ ⟹ $A_I=0$ ⟹ $S_\mu=1$ identically); direct-kernel positive control `src/tests/test_vca_node_regime_sweep.py` |
 | $B_{SNAP}$ = energy-density scale, not $\mu$-kernel argument | **DERIVED** | $B_{SNAP}^2/2\mu_0 = m_ec^2/\ell_{node}^3 = 1$ |
 | OQ-1 par−perp differential $-\tfrac12 A_V^2$, ratio $7.5/\alpha^3$ | **DERIVED (E-route)** | clm-pp3qwf; the magnitude is an $\alpha$-echo (value rides $\alpha^{-3}$) |
