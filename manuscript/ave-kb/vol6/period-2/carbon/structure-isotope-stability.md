@@ -20,7 +20,7 @@ Through recursive numerical execution of the topological solver, balancing the i
 The analytical solver proves that to achieve $E_B = 92.160$ MeV, the individual Alpha cores must sit exactly at a radius of:
 
 $$
-R_{ring} \approx 56.554 \times d
+R_{ring} \approx 56.527 \times d
 $$
 
 Where $d$ is the fundamental topological offset metric.

@@ -8,13 +8,13 @@ claims: [clm-f5ucdo, clm-l416hl]
 ## Topological Structure and Isotope Stability
 <!-- claim-quality: clm-f5ucdo (per-element manifestation: $1\alpha + ^3$H halo geometry; $R_{halo}$ as per-nucleus fitted scalar) -->
 
-Boron-11 ($Z=5$, $A=11$) represents a critical phase transition in the topological assembly of the periodic table. While elements like Beryllium construct linear crystalline lattices (dual cores), Boron returns to a spherical concentric arrangement around a single $^4He$ Alpha Core.
+Boron-11 ($Z=5$, $A=11$) represents a critical phase transition in the topological assembly of the periodic table. While elements like Beryllium construct linear crystalline lattices (dual cores), Boron-11 ($2\alpha + ^3\text{H}$) adopts a concentric core-plus-halo arrangement: a compact $2\alpha$ core (providing one inter-alpha coupling pair) with a dispersed Tritium ($^3$H) halo.
 
-However, because the $Z=2$ Alpha core is already geometrically saturated, the remaining 7 nucleons ($1\alpha + 1t$) are forced into a massively dispersed outer halo. These nucleons must array themselves spherically to minimize parasitic strain against the dense impedance of the inner core.
+Because the $2\alpha$ core is already geometrically saturated, the remaining Tritium halo node is forced into a massively dispersed outer offset. It must array itself spherically to minimize parasitic strain against the dense impedance of the inner $2\alpha$ core.
 
-A critical validation of the AVE topological physics model is its ability to derive structural geometry natively, without injecting empirical outside parameters.
+In the AVE topological physics model the cluster topology is $(Z,A)$-forced and the coupling $K$ is axiom-derived; the single inter-alpha/halo distance $R$ is the one scalar fit per nucleus to reproduce the CODATA mass (one fitted scalar per nucleus, topology forced — see the methodology note in Ch. 1).
 
-When reverse-engineering the exact position of Boron's 7-nucleon halo using the standard Reactive Mutual impedance ($M_{ij}$) network mapped against the CODATA mass (10252.54 MeV), the spatial distance required resolves explicitly to:
+Fitting the position of Boron's Tritium halo using the standard Reactive Mutual impedance ($M_{ij}$) network against the CODATA mass (10252.548 MeV), the spatial distance resolves to:
 
 $$
 R_{halo} = 11.8404 d

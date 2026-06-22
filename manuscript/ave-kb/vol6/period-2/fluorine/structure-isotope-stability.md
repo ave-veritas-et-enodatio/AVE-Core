@@ -16,9 +16,9 @@ Instead, Fluorine-19 structurally manifests as a stable, massive Oxygen-16 core 
 
 ## Topological Structure and Isotope Stability
 
-Fluorine-19 is the only stable isotope of Fluorine ($100\%$ natural abundance). This mono-isotopic character is a direct consequence of the core-plus-halo architecture. The $4\alpha$ Oxygen-16 tetrahedron is one of the most deeply bound nuclear structures in nature ($V_R/V_{BR} = 0.030$, Small Signal, $0.000\%$ error). Any perturbation of the core---adding or removing a neutron---would disrupt the tetrahedral symmetry and catastrophically destabilize the junction network.
+Fluorine-19 is the only stable isotope of Fluorine ($100\%$ natural abundance). This mono-isotopic character is a direct consequence of the core-plus-halo architecture. The $4\alpha$ Oxygen-16 tetrahedron is one of the most deeply bound nuclear structures in nature ($V_R/V_{BR} = 0.030$, Small Signal). Any perturbation of the core---adding or removing a neutron---would disrupt the tetrahedral symmetry and catastrophically destabilize the junction network.
 
-The Tritium halo ($^3\text{H} = 1p + 2n$) is similarly constrained: removing one of its neutrons collapses the triangle into a deuteron, which binds far too weakly at the extreme $398d$ distance to maintain structural cohesion. Adding a neutron produces $^4\text{H}$, which is particle-unstable. Therefore, $^{19}$F is the unique, sole configuration where both core and halo are individually stable and the combined binding satisfies a $0.000\%$ mass solution.
+The Tritium halo ($^3\text{H} = 1p + 2n$) is similarly constrained: removing one of its neutrons collapses the triangle into a deuteron, which binds far too weakly at the extreme $398d$ distance to maintain structural cohesion. Adding a neutron produces $^4\text{H}$, which is particle-unstable. Therefore, $^{19}$F is the unique, sole configuration where both core and halo are individually stable and the combined binding reproduces the CODATA mass to within the per-nucleus halo-$R$ fitting tolerance.
 <!-- claim-quality: clm-8psuqe (the extreme $\sim 398\,d$ Tritium halo lever arm — same Tritium structural element as Na-23, Al-27 with widely different $R_{halo}$ — is the load-bearing case for the topology-determined halo / electronegativity claim) -->
 
 ---

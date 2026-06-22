@@ -8,7 +8,7 @@ subtree-experiments: []
 
 # Neon (Z=10)
 
-Neon-20 ($5\alpha$) is the second noble gas and the first element with a fully 3D alpha-cluster geometry: a Triangular Bipyramid at $R_{bipyramid} = 81.181d$. The $398d \to 81d$ structural collapse from Fluorine quantitatively explains the Halogen-to-Noble-Gas transition. The semiconductor engine solves $0.000\,000\%$ error at $V_R/V_{BR} = 0.032$ (Small Signal). Neon's chapter also addresses the curve-fitting critique by demonstrating that derived distances ($33d \to 351d \to 81d$) predict chemical behavior.
+Neon-20 ($5\alpha$) is the second noble gas and the first element with a fully 3D alpha-cluster geometry: a Triangular Bipyramid at $R_{bipyramid} = 81.181d$. The $398d \to 81d$ structural collapse from Fluorine tracks the Halogen-to-Noble-Gas transition. The symmetric bipyramid has a single geometric DOF, which the engine locks to a $0.000\,000\%$ geometric fit-residual (structurally zero by construction) at $V_R/V_{BR} = 0.032$ (Small Signal). Neon's chapter also addresses the curve-fitting critique by showing that the directional variation of the fitted distances ($33d \to 398d \to 81d$) tracks chemical behavior (interpretive correspondence, not a closed derivation).
 
 Source: `12_neon.tex` | `\label{ch:neon}`
 
@@ -18,12 +18,12 @@ Source: `12_neon.tex` | `\label{ch:neon}`
 
 | Result | Expression |
 |---|---|
-| CODATA mass | $18\,617.730$ MeV ($0.000\,000\%$ error) |
+| CODATA mass | $18\,617.730$ MeV ($0.000\,000\%$ geometric fit-residual; structurally zero by construction) |
 | Bipyramid radius | $R_{\text{bipyr}} = 81.158d$ (engine) / $81.181d$ (chapter body) |
 | Semiconductor regime | Small Signal, $V_R/V_{BR} = 0.032$, $M = 1.000$, 10 inter-alpha pairs |
 | EE equivalent | 5-Phase Ring Oscillator (190-parameter SPICE matrix) |
 | Orbital topology | Complete $n=2$ closure: 8 solitons at $45^\circ$, zero net strain dipole |
-| Curve-fitting falsification | $33d \to 351d \to 81d$ progression predicts Inert Gas $\to$ Halogen $\to$ Noble Gas |
+| Curve-fitting falsification | $33d \to 398d \to 81d$ progression tracks Inert Gas $\to$ Halogen $\to$ Noble Gas (directional correspondence) |
 
 ## Derivations and Detail
 
