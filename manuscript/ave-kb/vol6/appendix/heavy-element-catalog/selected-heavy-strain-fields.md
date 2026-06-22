@@ -31,6 +31,6 @@ The following figures show the vacuum strain density and flux streamlines for th
 
 [Figure: iron_56_density_equator.png, iron_56_dynamic_flux.png --- see manuscript/vol_6_periodic_table/figures/]
 
-**Iron-56**: FCC-14 packing at peak nuclear binding energy per nucleon ($0.0001\%$ error). 14 alpha clusters visible in the flux plot.
+**Iron-56**: FCC-14 packing at minimum mass-per-nucleon (the fusion endpoint) ($0.0001\%$ error). 14 alpha clusters visible in the flux plot.
 
 ---

@@ -31,6 +31,6 @@ The following figures depict the soliton orbital topology for elements with exac
 
 [Figure: iron_56_topology.png --- see manuscript/vol_6_periodic_table/figures/]
 
-**Iron-56**: $[\text{Ar}]\, 3d^6\, 4s^2$. Peak nuclear binding energy per nucleon. Six $3d$ solitons at $60^\circ$ plus two $4s$ solitons at $180^\circ$. FCC-14 packing ($0.0001\%$ error).
+**Iron-56**: $[\text{Ar}]\, 3d^6\, 4s^2$. Minimum mass-per-nucleon (the fusion endpoint). Six $3d$ solitons at $60^\circ$ plus two $4s$ solitons at $180^\circ$. FCC-14 packing ($0.0001\%$ error).
 
 ---

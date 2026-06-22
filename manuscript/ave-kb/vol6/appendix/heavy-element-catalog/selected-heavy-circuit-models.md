@@ -31,6 +31,6 @@ The following circuit diagrams depict the alpha-cluster subcircuit architecture 
 
 [Figure: circuit_fe56.pdf --- see manuscript/vol_6_periodic_table/figures/]
 
-**Iron-56**: $14\alpha$ FCC-14 architecture. Peak binding energy per nucleon. 1540 connections across 91 inter-alpha pairs.
+**Iron-56**: $14\alpha$ FCC-14 architecture. Minimum mass-per-nucleon (the fusion endpoint). 1540 connections across 91 inter-alpha pairs.
 
 ---
