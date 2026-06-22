@@ -4,17 +4,16 @@
 
 \begin{objectivebox}
 \begin{itemize}
-    \item Apply the semiconductor avalanche binding model to all heavy elements ($Z = 15$ to $Z = 119$) with zero additional free parameters.
-    \item Identify Iron-56 as the global binding energy maximum and understand the superheavy stability margin.
+    \item Apply the semiconductor avalanche binding model to all heavy elements ($Z = 15$ to $Z = 119$) with no additional empirical constants beyond the light-element framework---the per-nucleus inter-alpha distance $R$ remains the one fitted scalar, and the Fibonacci-proxy elements carry two global packing coefficients.
+    \item Identify Iron-56 as the peak binding-energy-per-nucleon (the fusion endpoint) and understand the superheavy stability margin.
 \end{itemize}
 \end{objectivebox}
 
 This appendix catalogs the binding energies and topological configurations of elements beyond Silicon-28. All predictions utilize the semiconductor avalanche binding model (Eq.~\ref{eq:semiconductor_mass}).
 
-% [2026-06-15 KB-reconciliation (vol_6 brief §D.3/§A.4, heavy-Z parallel of B_high_z_boundary:22) -- prior wording preserved per Rule 12]: read "this engine operates with \textbf{zero empirical mass-fitting parameters}. The coupling constant ($K$), Coulomb strength ($\alpha\hbar c$), breakdown capacity ($V_{BR}$), avalanche exponent ($n=5$), and internal charge radius ($d$) are all derived rigidly from the topological graph structure." SUPERSEDED: the listed CONSTANTS are indeed axiom-derived, but "zero empirical mass-fitting parameters" omits (i) the per-nucleus inter-alpha distance R, which the next paragraph itself identifies as "the operational R" the solver finds to reproduce the binding energy (= a per-nucleus fit), and (ii) for the Fibonacci-proxy elements, the empirical packing coefficients 15 and 0.95 in $r_{core}=d(15+0.95A)$ (B_high_z_boundary.tex:12). Scoped to "no empirical CONSTANTS" + explicit R/Fibonacci disclosure.
 By substituting the empirical term $d$ with the exact topological derivation of the proton gyroscopic spin radius ($d = 4\hbar/m_pc \approx 0.841\text{ fm}$), this engine uses \textbf{no empirical mass-fitting constants}: the coupling constant ($K$), Coulomb strength ($\alpha\hbar c$), breakdown capacity ($V_{BR}$), avalanche exponent ($n=5$), and internal charge radius ($d$) are all derived rigidly from the topological graph structure. The one fitted geometric degree of freedom is the per-nucleus inter-alpha distance $R$ (``the operational $R$'' identified by the solver below); the Fibonacci-proxy elements additionally carry the two empirical packing coefficients of $r_{core}=d(15+0.95A)$ (see \S\ref{sec:high_z_frontier}).
 
-As discussed in Section~\ref{sub:R_coupled_cavity}, the inter-alpha distance $R$ is determined by the topology acting as a coupled cavity resonator. The numerical solver identifies the operational $R$ by mapping the structural geometry to the standing wave wavelength of the required kinetic binding energy. Elements such as Sulfur-32 ($M = 32.8$), Calcium-40 ($M = 32.9$), Gallium ($M > 100$), Germanium ($M > 100$), and Arsenic ($M > 100$) explicitly require the non-linear \textbf{Large Signal regime}. Entries marked with residual error $> 0.01\%$ use the spherical Fibonacci packing model and are pending analytical re-solution.
+As discussed in Section~\ref{sub:R_coupled_cavity}, the inter-alpha distance $R$ is determined by the topology acting as a coupled cavity resonator. The numerical solver identifies the operational $R$ by mapping the structural geometry to the standing wave wavelength of the required kinetic binding energy. Elements such as Sulfur-32 ($M = 32.8$), Calcium-40 ($M = 32.9$), Gallium ($M > 100$), Germanium ($M > 100$), and Arsenic ($M > 100$) explicitly require the non-linear \textbf{Large Signal regime}. Entries marked with residual error $> 0.01\%$ use the spherical Fibonacci packing model (a geometric proxy); exact Platonic/Archimedean solutions are not yet tabulated for these.
 
 \section{Mass Prediction Accuracy}
 
@@ -23,7 +22,7 @@ Figure~\ref{fig:mass_error_vs_Z} summarizes the predictive accuracy of the semic
 \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{figures/mass_error_vs_Z.png}
-    \caption{\textbf{AVE Mass Prediction Accuracy vs.\ Atomic Number.} Green markers indicate exact semiconductor engine solutions ($0.000\%$ error). Orange: Large Signal (avalanche) regime. Cyan: sub-$0.1\%$ Fibonacci packing solutions. Yellow: $0.1$--$0.5\%$ residual. Red: $>0.5\%$ error, pending re-solution with resolved geometry.}
+    \caption{\textbf{AVE Mass Prediction Accuracy vs.\ Atomic Number.} Green markers indicate exact semiconductor engine solutions ($0.000\%$ error). Orange: Large Signal (avalanche) regime. Cyan: sub-$0.1\%$ Fibonacci packing solutions. Yellow: $0.1$--$0.5\%$ residual. Red: $>0.5\%$ error, Fibonacci-proxy entries without a tabulated exact geometry.}
     \label{fig:mass_error_vs_Z}
 \end{figure}
 
@@ -220,7 +219,7 @@ The following figures depict the soliton orbital topology for elements with exac
 
 \section{Nuclear Strain Fields of Selected Heavy Elements}
 
-The following figures show the vacuum strain density and flux streamlines for the same six elements, computed from the nucleon coordinates returned by the AVE element simulator. All spatial coordinates are in units of the proton spin radius $d = 4\hbar / m_p c \approx 0.841\text{ fm}$, derived from the physics engine. Nucleon positions for Z~$\geq$~16 use the spherical Fibonacci alpha-packing model\textemdash a geometric proxy that preserves the $1/r$ mutual impedance topology while pending exact Platonic/Archimedean solutions for each element.
+The following figures show the vacuum strain density and flux streamlines for the same six elements, computed from the nucleon coordinates returned by the AVE element simulator. All spatial coordinates are in units of the proton spin radius $d = 4\hbar / m_p c \approx 0.841\text{ fm}$, derived from the physics engine. Nucleon positions for Z~$\geq$~16 use the spherical Fibonacci alpha-packing model\textemdash a geometric proxy that preserves the $1/r$ mutual impedance topology; exact Platonic/Archimedean solutions are not yet tabulated for each of these elements.
 
 \begin{figure}[h]
     \centering
@@ -370,7 +369,7 @@ The following circuit diagrams depict the alpha-cluster subcircuit architecture 
 \begin{summarybox}
 \begin{itemize}
     \item All heavy elements ($Z = 15$ to $Z = 119$) are catalogued using the semiconductor avalanche binding model with zero additional free parameters beyond the light-element framework.
-    \item The transition from Small Signal ($M \approx 1$) to Large Signal ($M \gg 1$) at Sulfur-32 marks the onset of avalanche multiplication, with Iron-56 representing the global binding energy maximum.
+    \item The transition from Small Signal ($M \approx 1$) to Large Signal ($M \gg 1$) at Sulfur-32 marks the onset of avalanche multiplication, with Iron-56 representing the peak binding-energy-per-nucleon (the fusion endpoint).
     \item Superheavy elements ($Z > 82$) are predicted by extrapolating the avalanche model to the regime where $V_R/V_{BR} \to 1$ and structural stability becomes marginal.
 \end{itemize}
 \end{summarybox}
