@@ -1,0 +1,31 @@
+* AVE SPICE Model: L-Asparagine
+* Provenance: vendored from the Applied-Vacuum-Engineering archive (pure L/C topology data).
+* Backbone topology mapped to L/C tensors
+
+* --- The Amino Source (NH3+) ---
+V_amino in 0 SIN(0 1V 30THz)
+L_nh3 in n_amino 1.3511297647809685e-13pH
+C_nc n_amino n_alpha 4.0522706029886115e-16fF
+
+* --- The Alpha Carbon (C-alpha) ---
+L_alpha n_alpha n_alpha_out 1.1585894083442053e-13pH
+
+* --- R-Group Filter Stub (L-Asparagine) ---
+C_r_beta n_alpha n_beta 4.576118317492612e-16fF
+L_beta n_beta n_beta_split 1.353047451296982e-13pH
+C_beta_gamma n_beta_split n_gamma 4.576118317492612e-16fF
+L_gamma_amide n_gamma 0 4.247529009051073e-13pH
+
+C_cc n_alpha_out n_carboxyl_c 4.576118317492612e-16fF
+
+* --- The Carboxyl Sink (COO-) ---
+L_carboxyl_c n_carboxyl_c n_carboxyl_split 1.1585894083442053e-13pH
+C_co_double n_carboxyl_split n_o_double 1.446001793287132e-16fF
+L_o_double n_o_double 0 1.543351792973122e-13pH
+C_co_single n_carboxyl_split out 3.605123844092135e-16fF
+L_o_single out n_term 1.543351792973122e-13pH
+R_load n_term 0 376.7303Ohm
+
+* --- AC Simulation Directives ---
+.ac dec 100 1G 1000G
+.end
