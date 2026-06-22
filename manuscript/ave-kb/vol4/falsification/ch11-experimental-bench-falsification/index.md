@@ -59,6 +59,7 @@ Comprehensive catalogue of tabletop falsification experiments, existing experime
 | [Achromatic Lens Test](achromatic-lens-test.md) | Protocol 9: metamaterial impedance lens; $\Gamma = 0$ across all angles |
 | [Boundary Trapping Test](boundary-trapping-test.md) | Protocol 10: asteroid belt and Oort Cloud as impedance termination shocks |
 | [Vacuum Impedance Mirror](vacuum-impedance-mirror.md) | Induced $Z_{local} \to \infty$ via asymmetric saturation; APD back-scatter detection; full $\Gamma(V)$ derivation |
+| [PVLAS Static-B Verdict](pvlas-static-b-verdict.md) | Static-B null is CONSISTENT with AVE (not a falsification); $\mu$ = ideal relativistic inductor (circulation-keyed) → $\delta n_\mu=0$ exactly under static B; bold side-prediction = no static-B birefringence; E-route ($7.5/\alpha^3\approx1.93\times10^7$) is the real test |
 | [Sagnac-Parallax](sagnac-parallax.md) | Protocol 11: 24-hour galactic wind vectoring via static Sagnac loop |
 | [GEO-Synchronous Impedance](geo-synchronous-impedance.md) | Protocol 12: vertical laser TOF anomaly mapping Earth's LC saturation envelope |
 
