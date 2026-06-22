@@ -138,6 +138,21 @@ GO/NO-GO gates on the **chord** (4-corner gap-independent integer floor), NOT th
 | **Q-C15-11** | Cross-repo atopile module synchronization (paired with Q-HWMOD-01 in AVE-Hardware-Modules) | OPEN — TRACK-ONLY | Phase 1a-rev1 → Phase 4. No active migration unless module evolution blocks pre-existing design improvement OR >2 design repos use same inline definition |
 | **Q-C15-12** | **Phase 1a-rev1 Stage B merge path** | **✓ CLOSED 2026-05-20 EOD++++++++++++++** | Grant adjudicated Path 1; Stage A fix + Stage B revision landed clean; paired Q-HWMOD-04 in AVE-Hardware-Modules also CLOSED |
 
+### Requirements + trade-study design-knob decisions (2026-06-22; formalized from the derived requirements datasheet)
+
+The 6 CLEAVE-01 design knobs are registered below as OPEN decisions, each cross-linked to its worked option set in the trade-study decision-register. The **derived** boundary conditions these knobs parametrize live in the requirements leaf [`cleave-01-requirements-boundary-conditions.md`](../../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/cleave-01-requirements-boundary-conditions.md) (`clm-fuajdb`, solidity-tagged physics); the **open** option-analysis lives in [`cleave-01-trade-study-decision-register.md`](../../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/cleave-01-trade-study-decision-register.md) (`no-claim`, STATUS:OPEN, selects nothing). **Decision pending Grant + collaborator; no selection made.** Q-C15-02 and Q-C15-04 remain the canonical anchors for the $\delta$- and $C_{in}$-class knobs; the new IDs decompose them into the 6 distinct decisions. The **REQ-IDs touched** column cites the canonical `CLV-REQ-*` requirement identifiers (master list = the REQ-ID INDEX at the top of the requirements leaf) each decision moves — **citing a REQ-ID selects no option and changes no derived number.**
+
+| # | Decision (design knob) | Status | Trade-study cross-link | Anchors | REQ-IDs touched |
+|---|---|---|---|---|---|
+| **Q-C15-13** | $\delta$: freeze $\delta_{chord}$ (gating) vs $\delta_{slope}$ (non-gating) | OPEN — decision pending (Grant + collaborator) | trade-study **D1** | refines Q-C15-02 | `CLV-REQ-READOUT`, `CLV-REQ-DRIFT`, `CLV-REQ-GAP`, `CLV-REQ-CAL` |
+| **Q-C15-14** | $C_{in}$: 10 pF vs 1 pF (the single biggest lever; 1 pF raises the floor 10×) | OPEN — decision pending (Grant + collaborator) | trade-study **D2** | refines Q-C15-04 | `CLV-REQ-CPL-A`, `CLV-REQ-READOUT`, `CLV-REQ-DRIFT`, `CLV-REQ-VIB` |
+| **Q-C15-15** | Readout front-end topology: follower+differencing vs charge-reset integrator | OPEN — decision pending (Grant + collaborator) | trade-study **D3** | refines Q-C15-04 | `CLV-REQ-CPL-D`, `CLV-REQ-READOUT` |
+| **Q-C15-16** | Drift-rejection scheme: auto-zero/chopper/CDS vs cRIO gap-dither + lock-in (record cRIO as an OPTION) | OPEN — decision pending (Grant + collaborator) | trade-study **D4** | refines Q-C15-02 | `CLV-REQ-DRIFT` (=`CLV-REQ-H1`), `CLV-REQ-CPL-B` |
+| **Q-C15-17** | $C_{in}$-fixed-vs-gap-motion topology: fixed-ref-cap + weak-coupling sweep electrode vs in-situ-measure-and-divide (the UNCLOSED H3 tension; resolve before freezing gap hardware) | OPEN — decision pending (Grant + collaborator) | trade-study **D5** | refines Q-C15-04 | `CLV-REQ-CFIX` (=`CLV-REQ-H3`), `CLV-REQ-CAL` |
+| **Q-C15-18** | Baseline gap $g_0$ + sweep range + N ($\ge4\times$ RATIO is physics-set; absolute $g_0$/stroke open; 15–30 µm actuators CANNOT execute the sweep — H5 blocker) | OPEN — decision pending (Grant + collaborator) | trade-study **D6** | refines Q-C15-02 | `CLV-REQ-GAP` (=`CLV-REQ-H5`), `CLV-REQ-PZT`, `CLV-REQ-CPL-C` |
+
+> The make-vs-buy decisions (femto-amp PCB / PZT-drive board / thermal / chamber+fixturing / pump-gauge / precision metrology) are recorded as worked, team-aware option sets in trade-study **Part A** (A1–A6), STATUS:OPEN throughout. Cost is out of scope there (adjudicated separately).
+
 ## Sibling-repo update queue
 
 The following sibling-repo files contain cross-refs to old `_orchestration/exp-c15-cleave-01-*.md` paths that need walk-back to the new `_orchestration/experimental/c15-cleave-01/...` structure. **NOT modified in this implementor session — orchestrator dispatches sibling-repo cross-ref updates on separate branches per sibling.**
