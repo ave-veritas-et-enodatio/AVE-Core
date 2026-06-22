@@ -18,7 +18,7 @@ Source: `11_fluorine.tex` | `\label{ch:fluorine}`
 
 | Result | Expression |
 |---|---|
-| CODATA mass | $17\,692.302$ MeV ($0.000\,000\%$ error) |
+| CODATA mass | $17\,692.302$ MeV (reproduced to $0.000\,000\%$ fitting tolerance on the per-nucleus halo $R$; not an ab-initio mass-prediction error) |
 | Core radius | $R_{\text{core}} = 33.383d$ (Oxygen-16 tetrahedron) |
 | Halo radius | $R_{\text{halo}} = 398.478d$ ($\approx 335$ fm) |
 | EE equivalent | Profoundly unbalanced inductive antenna ($4\alpha$ core + Tritium whip) |
@@ -29,7 +29,7 @@ Source: `11_fluorine.tex` | `\label{ch:fluorine}`
 
 | Document | Contents |
 |---|---|
-| [Topological Structure and Isotope Stability](structure-isotope-stability.md) | Mono-isotopic constraint, core-halo architecture, $0.000\%$ mass solution |
+| [Topological Structure and Isotope Stability](structure-isotope-stability.md) | Mono-isotopic constraint, core-halo architecture, per-nucleus halo-$R$ fit |
 | [Continuous Vacuum Density Flux](vacuum-density-flux.md) | Dipolar strain filament from $398d$ halo offset |
 | [The Macroscopic Halo Offset](topological-area.md) | $R_{halo}$ derivation, SPICE junction model, electronegativity as moment arm |
 | [Topological Area / EE Equivalent: Electronegativity as Asymmetric Inductance](ee-equivalent.md) | Circuit figure, orbital topology figure, inductive void coupling (§4 content) |
