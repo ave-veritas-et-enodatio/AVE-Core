@@ -1,34 +1,12 @@
 {
-  "schema": "ave-vacuum-kit/v1",
-  "substrate": "diamond production K4 (build_diamond_net)",
+  "schema": "ave-vacuum-kit/v2",
+  "substrate": "diamond production K4 / degree-4 / Fd-3m (build_diamond_net)",
   "rendering_only": true,
   "print_mm_per_l_node": 100.0,
   "corpus_mnemonic_mm_per_l_node": 38.6,
-  "stl_export_frame": "print_pose",
-  "print_pose": {
-    "node_A": {
-      "bed_face": "solid cube, one face on XY",
-      "notes": "Exterior port collars at 4 corners; no wireframe weak joints."
-    },
-    "node_B": {
-      "bed_face": "equatorial L-ring in XY; port sockets radiate from hollow sphere",
-      "notes": "Sphere shell; lowest ring point on bed."
-    },
-    "bond": {
-      "bed_face": "bond axis vertical (+Z); uniform solid hex",
-      "notes": "Print standing; bond OD matches collar socket bore ID."
-    }
-  },
-  "prusa_mk3p_slicer_hints": {
-    "nozzle_mm": 0.4,
-    "layer_height_mm": 0.2,
-    "perimeters_nodes": 3,
-    "perimeters_bonds": 4,
-    "infill_nodes_pct": 20,
-    "infill_bonds_pct": 40,
-    "supports": "none (parts are print-pose oriented)",
-    "brim": "optional on node A port overhangs"
-  },
+  "magnification_vs_physical": 258960507640.593,
+  "l_node_fm": 386.16,
+  "representation_note": "Real space (nodes/bonds/4 ports) is isomorphic; the DOF basis is shown by snap-on accents (triad_E/rings_B/breathing_V); phase space (LC-tank state) is the disc/dial ONLY, never a printed length. A/B is the bipartite sublattice label, NOT a storage split \u2014 node bodies are identical.",
   "lattice_L": 4,
   "finite_chunk": true,
   "assembled_bbox_mm": [
@@ -39,46 +17,390 @@
   "counts": {
     "nodes": 16,
     "bonds": 14,
-    "node_A_print": 8,
-    "node_B_print": 8,
-    "bond_insert_print": 14
-  },
-  "part_skus": {
-    "node_A": "vacuum_node_A_capacitive.stl",
-    "node_B": "vacuum_node_B_inductive.stl",
-    "bond": "vacuum_tl_bond_diamond.stl"
+    "node_A": 8,
+    "node_B": 8
   },
   "joinery": {
-    "type": "friction_fit_peg_socket",
-    "bond_center_pitch_mm": 173.20508075688772,
-    "orientation_key": "A=solid cube vs B=hollow sphere+ring; match manifest sublattice labels",
-    "cross_section": "hexagon",
-    "port_collar_circumradius_mm": 6.0,
-    "port_collar_flat_to_flat_mm": 10.392304845413264,
-    "socket_inner_circumradius_mm": 3.55,
-    "socket_inner_flat_to_flat_mm": 6.148780366869514,
-    "bond_outer_circumradius_mm": 3.55,
-    "bond_outer_flat_to_flat_mm": 6.148780366869514,
-    "bond_matches": "socket_inner_bore",
-    "peg_circumradius_mm": 3.5999999999999996,
-    "peg_flat_to_flat_mm": 6.235382907247957,
-    "wall_radial_mm": 2.4,
-    "peg_length_mm": 2.6,
-    "collar_embed_mm": 3.2,
-    "collar_embed_A_mm": 10.2,
-    "attach_radius_A_mm": 14.722431864335457,
-    "attach_radius_B_mm": 7.875,
-    "friction_interference_mm": 0.05,
-    "bond_shaft_length_mm": 137.60764889255228,
-    "bond_total_length_mm": 142.80764889255227,
-    "fdm_target_printer": "Prusa i3 MK3+ (0.4 mm nozzle)"
+    "type": "friction_fit_hex_peg_socket",
+    "press_fit_diametral_interference_mm": 0.1,
+    "tune_env": "KIT_FRICTION_INTERFERENCE_MM (per-side mm; default 0.05; try 0.03-0.08)",
+    "S_mm_per_node": 100.0,
+    "NODE_HALF_mm": 10.0,
+    "node_corner_dist_mm": 17.321,
+    "R_JOINT_socket_mm": 3.6,
+    "socket_depth_mm": 7.0,
+    "R_SHAFT_mm": 5.0,
+    "R_TIP_mm": 3.65,
+    "insert_depth_mm": 6.0,
+    "bond_visible_span_mm": 138.564,
+    "bond_total_len_mm": 150.564,
+    "ACCENT_JOINT_mm": 1.8,
+    "ACCENT_PEG_R_mm": 1.85,
+    "INTERF_MM": 0.05
+  },
+  "bom_tiers": {
+    "structural_base_monochrome": [
+      "vacuum_node_A.stl",
+      "vacuum_node_B.stl",
+      "vacuum_bond.stl"
+    ],
+    "dof_accents_color_per_store": [
+      "accent_triad_E.stl  (E / translational / eps^2)",
+      "accent_rings_B.stl  (B / microrotational / kappa^2)",
+      "accent_breathing_V.stl  (A1 / mass / V^2)",
+      "key_A.stl",
+      "key_B.stl"
+    ],
+    "phase_space_state_space": [
+      "phase_impedance_disc.stl",
+      "phase_dial_body.stl",
+      "phase_dial_pointer.stl",
+      "phase_dial2_body.stl",
+      "phase_dial2_pointer.stl"
+    ],
+    "chiral_srs_instrument": [
+      "srs_node_right.stl",
+      "srs_node_left.stl",
+      "srs_bond.stl",
+      "srs_handedness_right.stl",
+      "srs_handedness_left.stl"
+    ],
+    "assembly_jig": [
+      "jig_unit_cell.stl",
+      "jig_tile_0.stl",
+      "jig_tile_1.stl",
+      "jig_tile_2.stl",
+      "jig_tile_3.stl"
+    ],
+    "reference_only": [
+      "reference_tetra_unit_cell.stl",
+      "scale_plate.stl"
+    ]
+  },
+  "hero_first_print": {
+    "name": "tetrahedral unit cell (degree-4 coordination shell)",
+    "bom": "1x node_A + 4x node_B + 4x bond + accents + jig_unit_cell",
+    "why": "shows z=4 coordination, A/B bipartiteness, tetrahedral ports in ~9 parts"
+  },
+  "prusa_mk3p_slicer_hints": {
+    "nozzle_mm": 0.4,
+    "layer_height_mm": 0.2,
+    "perimeters": 3,
+    "infill_pct": 20,
+    "supports": "none \u2014 every part is posed flat / solid (bond prints horizontal)",
+    "elephant_foot_compensation_mm": 0.15,
+    "filament": "one color per part; assign accent colors per BOM tier"
   },
   "assembly_steps": [
-    "Print node_A \u00d7 counts.node_A_print, node_B \u00d7 counts.node_B_print, bond \u00d7 counts.bond_insert_print.",
-    "Place nodes at manifest.nodes[].pos_mm (A/B type per sublattice).",
-    "Press bond pegs into port sockets from outside; bore is open through collar into cell pocket.",
-    "Distinguish A (solid cube) vs B (sphere shell + L-ring) per manifest sublattice.",
-    "Tune press-fit: KIT_FRICTION_INTERFERENCE_MM env (default 0.05 mm radial; try 0.03\u20130.08 for your filament)."
+    "Print the jig tiles; assemble the baseplate (snap/glue tile edges).",
+    "Print node_A x counts.node_A, node_B x counts.node_B in two colors.",
+    "Drop each node into its keyed jig pocket (pocket emboss = node id + A/B).",
+    "Press bonds into sockets; pocket port-pips show which port -> which neighbor (manifest nodes[].ports).",
+    "Optional: snap on DOF accents (triad_E / rings_B / breathing_V) + A/B key, color per store.",
+    "Optional: set the phasor dial / read the impedance disc as the LC-tank STATE (not a position).",
+    "Tune press-fit via KIT_FRICTION_INTERFERENCE_MM if loose/tight."
+  ],
+  "parts_qc": [
+    {
+      "label": "vacuum_node_A.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 710,
+      "bbox_mm": [
+        20.0,
+        20.0,
+        20.0
+      ],
+      "gate": true
+    },
+    {
+      "label": "vacuum_node_B.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 704,
+      "bbox_mm": [
+        20.0,
+        20.0,
+        20.0
+      ],
+      "gate": true
+    },
+    {
+      "label": "vacuum_bond.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 36218,
+      "bbox_mm": [
+        150.56,
+        8.66,
+        10.0
+      ],
+      "gate": true
+    },
+    {
+      "label": "vacuum_bond_left.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 34098,
+      "bbox_mm": [
+        150.56,
+        8.66,
+        10.0
+      ],
+      "gate": true
+    },
+    {
+      "label": "accent_triad_E.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 1008,
+      "bbox_mm": [
+        14.7,
+        14.7,
+        18.0
+      ],
+      "gate": true
+    },
+    {
+      "label": "accent_rings_B.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 5500,
+      "bbox_mm": [
+        16.4,
+        16.4,
+        16.4
+      ],
+      "gate": true
+    },
+    {
+      "label": "accent_breathing_V.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 5096,
+      "bbox_mm": [
+        14.0,
+        14.0,
+        10.9
+      ],
+      "gate": true
+    },
+    {
+      "label": "key_A.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 256,
+      "bbox_mm": [
+        10.0,
+        10.0,
+        7.3
+      ],
+      "gate": true
+    },
+    {
+      "label": "key_B.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 256,
+      "bbox_mm": [
+        10.0,
+        10.0,
+        7.3
+      ],
+      "gate": true
+    },
+    {
+      "label": "phase_impedance_disc.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 12356,
+      "bbox_mm": [
+        74.0,
+        74.0,
+        5.0
+      ],
+      "gate": true
+    },
+    {
+      "label": "phase_dial_body.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 1344,
+      "bbox_mm": [
+        44.0,
+        44.0,
+        9.0
+      ],
+      "gate": true
+    },
+    {
+      "label": "phase_dial_pointer.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 322,
+      "bbox_mm": [
+        22.5,
+        9.0,
+        3.2
+      ],
+      "gate": true
+    },
+    {
+      "label": "phase_dial2_body.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 1920,
+      "bbox_mm": [
+        50.6,
+        50.6,
+        12.6
+      ],
+      "gate": true
+    },
+    {
+      "label": "phase_dial2_pointer.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 468,
+      "bbox_mm": [
+        38.39,
+        17.86,
+        3.2
+      ],
+      "gate": true
+    },
+    {
+      "label": "srs_node_right.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 142,
+      "bbox_mm": [
+        25.0,
+        20.0,
+        20.0
+      ],
+      "gate": true
+    },
+    {
+      "label": "srs_node_left.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 150,
+      "bbox_mm": [
+        25.0,
+        20.0,
+        20.0
+      ],
+      "gate": true
+    },
+    {
+      "label": "srs_bond.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 14788,
+      "bbox_mm": [
+        77.36,
+        10.0,
+        8.66
+      ],
+      "gate": true
+    },
+    {
+      "label": "srs_handedness_right.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 9864,
+      "bbox_mm": [
+        16.4,
+        17.7,
+        12.5
+      ],
+      "gate": true
+    },
+    {
+      "label": "srs_handedness_left.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 9852,
+      "bbox_mm": [
+        16.4,
+        17.7,
+        12.5
+      ],
+      "gate": true
+    },
+    {
+      "label": "jig_unit_cell.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 2186,
+      "bbox_mm": [
+        68.88,
+        36.0,
+        12.2
+      ],
+      "gate": true
+    },
+    {
+      "label": "jig_tile_0_0.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 4452,
+      "bbox_mm": [
+        151.68,
+        136.0,
+        12.2
+      ],
+      "gate": true
+    },
+    {
+      "label": "jig_tile_0_1.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 4844,
+      "bbox_mm": [
+        151.68,
+        136.0,
+        12.2
+      ],
+      "gate": true
+    },
+    {
+      "label": "jig_tile_1_0.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 4762,
+      "bbox_mm": [
+        151.68,
+        136.0,
+        12.2
+      ],
+      "gate": true
+    },
+    {
+      "label": "jig_tile_1_1.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 5154,
+      "bbox_mm": [
+        151.68,
+        136.0,
+        12.2
+      ],
+      "gate": true
+    },
+    {
+      "label": "scale_plate.stl",
+      "watertight": true,
+      "is_volume": true,
+      "faces": 188,
+      "bbox_mm": [
+        110.0,
+        18.0,
+        8.0
+      ],
+      "gate": true
+    }
   ],
   "nodes": [
     {
@@ -93,6 +415,12 @@
         -150.0,
         -150.0,
         -150.0
+      ],
+      "ports": [
+        {
+          "port": 0,
+          "neighbor": 4
+        }
       ]
     },
     {
@@ -107,6 +435,12 @@
         -150.0,
         -150.0,
         50.0
+      ],
+      "ports": [
+        {
+          "port": 0,
+          "neighbor": 5
+        }
       ]
     },
     {
@@ -121,6 +455,12 @@
         -150.0,
         50.0,
         -150.0
+      ],
+      "ports": [
+        {
+          "port": 0,
+          "neighbor": 6
+        }
       ]
     },
     {
@@ -135,6 +475,16 @@
         -150.0,
         50.0,
         50.0
+      ],
+      "ports": [
+        {
+          "port": 0,
+          "neighbor": 7
+        },
+        {
+          "port": 1,
+          "neighbor": 4
+        }
       ]
     },
     {
@@ -149,6 +499,24 @@
         -50.0,
         -50.0,
         -50.0
+      ],
+      "ports": [
+        {
+          "port": 0,
+          "neighbor": 0
+        },
+        {
+          "port": 1,
+          "neighbor": 3
+        },
+        {
+          "port": 2,
+          "neighbor": 9
+        },
+        {
+          "port": 3,
+          "neighbor": 10
+        }
       ]
     },
     {
@@ -163,6 +531,16 @@
         -50.0,
         -50.0,
         150.0
+      ],
+      "ports": [
+        {
+          "port": 0,
+          "neighbor": 1
+        },
+        {
+          "port": 3,
+          "neighbor": 11
+        }
       ]
     },
     {
@@ -177,6 +555,16 @@
         -50.0,
         150.0,
         -50.0
+      ],
+      "ports": [
+        {
+          "port": 0,
+          "neighbor": 2
+        },
+        {
+          "port": 2,
+          "neighbor": 11
+        }
       ]
     },
     {
@@ -191,6 +579,12 @@
         -50.0,
         150.0,
         150.0
+      ],
+      "ports": [
+        {
+          "port": 0,
+          "neighbor": 3
+        }
       ]
     },
     {
@@ -205,6 +599,12 @@
         50.0,
         -150.0,
         -150.0
+      ],
+      "ports": [
+        {
+          "port": 0,
+          "neighbor": 12
+        }
       ]
     },
     {
@@ -219,6 +619,16 @@
         50.0,
         -150.0,
         50.0
+      ],
+      "ports": [
+        {
+          "port": 0,
+          "neighbor": 13
+        },
+        {
+          "port": 2,
+          "neighbor": 4
+        }
       ]
     },
     {
@@ -233,6 +643,16 @@
         50.0,
         50.0,
         -150.0
+      ],
+      "ports": [
+        {
+          "port": 0,
+          "neighbor": 14
+        },
+        {
+          "port": 3,
+          "neighbor": 4
+        }
       ]
     },
     {
@@ -247,6 +667,24 @@
         50.0,
         50.0,
         50.0
+      ],
+      "ports": [
+        {
+          "port": 0,
+          "neighbor": 15
+        },
+        {
+          "port": 1,
+          "neighbor": 12
+        },
+        {
+          "port": 2,
+          "neighbor": 6
+        },
+        {
+          "port": 3,
+          "neighbor": 5
+        }
       ]
     },
     {
@@ -261,6 +699,16 @@
         150.0,
         -50.0,
         -50.0
+      ],
+      "ports": [
+        {
+          "port": 0,
+          "neighbor": 8
+        },
+        {
+          "port": 1,
+          "neighbor": 11
+        }
       ]
     },
     {
@@ -275,6 +723,12 @@
         150.0,
         -50.0,
         150.0
+      ],
+      "ports": [
+        {
+          "port": 0,
+          "neighbor": 9
+        }
       ]
     },
     {
@@ -289,6 +743,12 @@
         150.0,
         150.0,
         -50.0
+      ],
+      "ports": [
+        {
+          "port": 0,
+          "neighbor": 10
+        }
       ]
     },
     {
@@ -303,6 +763,12 @@
         150.0,
         150.0,
         150.0
+      ],
+      "ports": [
+        {
+          "port": 0,
+          "neighbor": 11
+        }
       ]
     }
   ],
@@ -312,329 +778,133 @@
       "v": 4,
       "u_sublattice": "A",
       "v_sublattice": "B",
-      "center_pitch_mm": 173.20508075688772,
-      "insert_length_mm": 137.60764889255228,
-      "direction_unit": [
-        0.5773502691892924,
-        0.5773502691892924,
-        0.5773502691892924
-      ],
-      "port_tip_u_mm": [
-        -137.74722325027452,
-        -137.74722325027452,
-        -137.74722325027452
-      ],
-      "port_tip_v_mm": [
-        -58.299410119596075,
-        -58.299410119596075,
-        -58.299410119596075
-      ]
+      "u_port": 0,
+      "v_port": 0,
+      "center_pitch_mm": 173.205
     },
     {
       "u": 1,
       "v": 5,
       "u_sublattice": "A",
       "v_sublattice": "B",
-      "center_pitch_mm": 173.20508075688772,
-      "insert_length_mm": 137.60764889255228,
-      "direction_unit": [
-        0.5773502691892924,
-        0.5773502691892924,
-        0.5773502691892924
-      ],
-      "port_tip_u_mm": [
-        -137.74722325027452,
-        -137.74722325027452,
-        62.25277674972549
-      ],
-      "port_tip_v_mm": [
-        -58.299410119596075,
-        -58.299410119596075,
-        141.70058988040392
-      ]
+      "u_port": 0,
+      "v_port": 0,
+      "center_pitch_mm": 173.205
     },
     {
       "u": 2,
       "v": 6,
       "u_sublattice": "A",
       "v_sublattice": "B",
-      "center_pitch_mm": 173.20508075688772,
-      "insert_length_mm": 137.60764889255228,
-      "direction_unit": [
-        0.5773502691892924,
-        0.5773502691892924,
-        0.5773502691892924
-      ],
-      "port_tip_u_mm": [
-        -137.74722325027452,
-        62.25277674972549,
-        -137.74722325027452
-      ],
-      "port_tip_v_mm": [
-        -58.299410119596075,
-        141.70058988040392,
-        -58.299410119596075
-      ]
+      "u_port": 0,
+      "v_port": 0,
+      "center_pitch_mm": 173.205
     },
     {
       "u": 3,
       "v": 7,
       "u_sublattice": "A",
       "v_sublattice": "B",
-      "center_pitch_mm": 173.20508075688772,
-      "insert_length_mm": 137.60764889255228,
-      "direction_unit": [
-        0.5773502691892924,
-        0.5773502691892924,
-        0.5773502691892924
-      ],
-      "port_tip_u_mm": [
-        -137.74722325027452,
-        62.25277674972549,
-        62.25277674972549
-      ],
-      "port_tip_v_mm": [
-        -58.299410119596075,
-        141.70058988040392,
-        141.70058988040392
-      ]
+      "u_port": 0,
+      "v_port": 0,
+      "center_pitch_mm": 173.205
     },
     {
       "u": 3,
       "v": 4,
       "u_sublattice": "A",
       "v_sublattice": "B",
-      "center_pitch_mm": 173.20508075688772,
-      "insert_length_mm": 137.60764889255228,
-      "direction_unit": [
-        0.5773502691892924,
-        -0.5773502691892924,
-        -0.5773502691892924
-      ],
-      "port_tip_u_mm": [
-        -137.74722325027452,
-        37.74722325027451,
-        37.74722325027451
-      ],
-      "port_tip_v_mm": [
-        -58.299410119596075,
-        -41.700589880403925,
-        -41.700589880403925
-      ]
+      "u_port": 1,
+      "v_port": 1,
+      "center_pitch_mm": 173.205
     },
     {
       "u": 4,
       "v": 9,
       "u_sublattice": "B",
       "v_sublattice": "A",
-      "center_pitch_mm": 173.20508075688772,
-      "insert_length_mm": 137.60764889255228,
-      "direction_unit": [
-        0.5773502691892924,
-        -0.5773502691892924,
-        0.5773502691892924
-      ],
-      "port_tip_u_mm": [
-        -41.700589880403925,
-        -58.299410119596075,
-        -41.700589880403925
-      ],
-      "port_tip_v_mm": [
-        37.74722325027451,
-        -137.74722325027452,
-        37.74722325027451
-      ]
+      "u_port": 2,
+      "v_port": 2,
+      "center_pitch_mm": 173.205
     },
     {
       "u": 4,
       "v": 10,
       "u_sublattice": "B",
       "v_sublattice": "A",
-      "center_pitch_mm": 173.20508075688772,
-      "insert_length_mm": 137.60764889255228,
-      "direction_unit": [
-        0.5773502691892924,
-        0.5773502691892924,
-        -0.5773502691892924
-      ],
-      "port_tip_u_mm": [
-        -41.700589880403925,
-        -41.700589880403925,
-        -58.299410119596075
-      ],
-      "port_tip_v_mm": [
-        37.74722325027451,
-        37.74722325027451,
-        -137.74722325027452
-      ]
+      "u_port": 3,
+      "v_port": 3,
+      "center_pitch_mm": 173.205
     },
     {
       "u": 5,
       "v": 11,
       "u_sublattice": "B",
       "v_sublattice": "A",
-      "center_pitch_mm": 173.20508075688772,
-      "insert_length_mm": 137.60764889255228,
-      "direction_unit": [
-        0.5773502691892924,
-        0.5773502691892924,
-        -0.5773502691892924
-      ],
-      "port_tip_u_mm": [
-        -41.700589880403925,
-        -41.700589880403925,
-        141.70058988040392
-      ],
-      "port_tip_v_mm": [
-        37.74722325027451,
-        37.74722325027451,
-        62.25277674972549
-      ]
+      "u_port": 3,
+      "v_port": 3,
+      "center_pitch_mm": 173.205
     },
     {
       "u": 6,
       "v": 11,
       "u_sublattice": "B",
       "v_sublattice": "A",
-      "center_pitch_mm": 173.20508075688772,
-      "insert_length_mm": 137.60764889255228,
-      "direction_unit": [
-        0.5773502691892924,
-        -0.5773502691892924,
-        0.5773502691892924
-      ],
-      "port_tip_u_mm": [
-        -41.700589880403925,
-        141.70058988040392,
-        -41.700589880403925
-      ],
-      "port_tip_v_mm": [
-        37.74722325027451,
-        62.25277674972549,
-        37.74722325027451
-      ]
+      "u_port": 2,
+      "v_port": 2,
+      "center_pitch_mm": 173.205
     },
     {
       "u": 8,
       "v": 12,
       "u_sublattice": "A",
       "v_sublattice": "B",
-      "center_pitch_mm": 173.20508075688772,
-      "insert_length_mm": 137.60764889255228,
-      "direction_unit": [
-        0.5773502691892924,
-        0.5773502691892924,
-        0.5773502691892924
-      ],
-      "port_tip_u_mm": [
-        62.25277674972549,
-        -137.74722325027452,
-        -137.74722325027452
-      ],
-      "port_tip_v_mm": [
-        141.70058988040392,
-        -58.299410119596075,
-        -58.299410119596075
-      ]
+      "u_port": 0,
+      "v_port": 0,
+      "center_pitch_mm": 173.205
     },
     {
       "u": 9,
       "v": 13,
       "u_sublattice": "A",
       "v_sublattice": "B",
-      "center_pitch_mm": 173.20508075688772,
-      "insert_length_mm": 137.60764889255228,
-      "direction_unit": [
-        0.5773502691892924,
-        0.5773502691892924,
-        0.5773502691892924
-      ],
-      "port_tip_u_mm": [
-        62.25277674972549,
-        -137.74722325027452,
-        62.25277674972549
-      ],
-      "port_tip_v_mm": [
-        141.70058988040392,
-        -58.299410119596075,
-        141.70058988040392
-      ]
+      "u_port": 0,
+      "v_port": 0,
+      "center_pitch_mm": 173.205
     },
     {
       "u": 10,
       "v": 14,
       "u_sublattice": "A",
       "v_sublattice": "B",
-      "center_pitch_mm": 173.20508075688772,
-      "insert_length_mm": 137.60764889255228,
-      "direction_unit": [
-        0.5773502691892924,
-        0.5773502691892924,
-        0.5773502691892924
-      ],
-      "port_tip_u_mm": [
-        62.25277674972549,
-        62.25277674972549,
-        -137.74722325027452
-      ],
-      "port_tip_v_mm": [
-        141.70058988040392,
-        141.70058988040392,
-        -58.299410119596075
-      ]
+      "u_port": 0,
+      "v_port": 0,
+      "center_pitch_mm": 173.205
     },
     {
       "u": 11,
       "v": 15,
       "u_sublattice": "A",
       "v_sublattice": "B",
-      "center_pitch_mm": 173.20508075688772,
-      "insert_length_mm": 137.60764889255228,
-      "direction_unit": [
-        0.5773502691892924,
-        0.5773502691892924,
-        0.5773502691892924
-      ],
-      "port_tip_u_mm": [
-        62.25277674972549,
-        62.25277674972549,
-        62.25277674972549
-      ],
-      "port_tip_v_mm": [
-        141.70058988040392,
-        141.70058988040392,
-        141.70058988040392
-      ]
+      "u_port": 0,
+      "v_port": 0,
+      "center_pitch_mm": 173.205
     },
     {
       "u": 11,
       "v": 12,
       "u_sublattice": "A",
       "v_sublattice": "B",
-      "center_pitch_mm": 173.20508075688772,
-      "insert_length_mm": 137.60764889255228,
-      "direction_unit": [
-        0.5773502691892924,
-        -0.5773502691892924,
-        -0.5773502691892924
-      ],
-      "port_tip_u_mm": [
-        62.25277674972549,
-        37.74722325027451,
-        37.74722325027451
-      ],
-      "port_tip_v_mm": [
-        141.70058988040392,
-        -41.700589880403925,
-        -41.700589880403925
-      ]
+      "u_port": 1,
+      "v_port": 1,
+      "center_pitch_mm": 173.205
     }
   ],
   "canonical_port_hats_A": [
     [
-      0.5773502691890484,
-      0.5773502691890484,
-      0.5773502691890484
+      0.5773502691896258,
+      0.5773502691896258,
+      0.5773502691896258
     ],
     [
       0.5773502691896258,
