@@ -625,6 +625,36 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 ---
 
+## CLEAVE-01 Requirements / Boundary Conditions (derived apparatus floors for the $\xi_{topo}$ bench)
+<!-- id: clm-fuajdb -->
+
+- The **derived, frozen boundary conditions** any CLEAVE-01 apparatus must satisfy to adjudicate its own falsifier, read top-down from the measurement physics. Every number is physics-set from $\{m_e, \ell_{node}, e\}$ + the held-DC/multi-hour-sweep noise model, or is written parametric in an open design knob ($\delta$, $C_{in}$).
+- _Specific Claims_
+  - The position→charge master coupling is $dV/dx = \xi_{topo}/C_{in} = 41.49$ nV/pm at $C_{in}=10$ pF — gap jitter rides the *same* transfer function as the signal and is non-averageable, so pm-class gap-hold + vibration isolation are the hardest mechanical specs (physics-set, zero free parameters).
+  - The binding noise model for a held-DC step over a multi-hour $N\ge50$ sweep is 1/f + drift (~0.61 µV rms in-band), NOT white noise (~10 nV/hold) — so the binding readout spec is LEVEL STABILITY ($\sigma_Q \le \delta\times414.9$ fC), not single-shot resolution. This is a fundamental property of any DC-comparison measurement.
+  - The CPD background is ~21.3% of floor scaling $1/g^2$; across a $1\times\!\to\!4\times$ sweep it swings 19.97% of floor — the level-stability bar the chord adjudication must beat.
+  - The bias-current ramp (20.0 fC/s on 10 pF) rails a bare follower $\Rightarrow$ step-differencing / reset-integration is a topology boundary condition. $kTC$ = 0.20 fC sets no wall.
+  - All design-dependent specs (charge resolution, ENOB, drift, repeatability, gap-knowledge, $C_{in}$-fixed, thermal, vibration, EMI) are stated as the requirement *as a function of* the open knob, with safety factor $k=3$.
+- _Specific Non-Claims and Caveats_
+  - **Selects NOTHING.** This claim is the derived requirement set; the make-vs-buy selections and design-knob choices live in the sibling **trade-study decision-register (STATUS:OPEN, a `no-claim` record)** and are NOT adjudicated here.
+  - The slope magnitude (0.415 pC/µm) is a consistency-class echo ($\xi_{topo}=\sqrt{\alpha}$ native + $\ell_{node}$=Compton); the tight Level-2 specs that protect it are consistency-polishing and must NOT be read as gating the emergence-class chord. The chord (gap-independent integer floor) is $\delta$- and $C_{in}$-absolute-independent.
+  - Cite-line drift surfaced (prereg cites `XI_TOPO:246`/`L_NODE:234`; verified `:291`/`:257`) and an internal corpus inconsistency (leaf/Femto carry the superseded single-1-µm-step framing) are flagged flag-don't-fix, NOT resolved here.
+  - Not performed; this is the apparatus boundary-condition datasheet, not a measurement result.
+
+> **Leaf references:** [cleave-01-requirements-boundary-conditions](./falsification/ch11-experimental-bench-falsification/cleave-01-requirements-boundary-conditions.md).
+
+### Quality
+- confidence: 0.85
+- depends-on:
+  - clm-ydksh6 (the canonical CLEAVE-01 $Q=\xi_{topo}x$ prediction these floors spec the bench against)
+- solidity: 0.85 (ok to build on) [= min(0.85, 0.85)]
+- rationale: The boundary conditions are clean dimensional + noise-model algebra off the canonical $\xi_{topo}=e/\ell_{node}$ floor — the 41.49 nV/pm coupling, the 19.97% CPD swing, the 20.0 fC/s bias ramp, the 0.20 fC $kTC$, and the ENOB/level-stability math all reproduce from canonical primitives (verified against `constants.py:291/257/100`). The 1/f-not-white binding-noise argument is the load-bearing structural finding and is correct for a held-DC step over a multi-hour sweep. Pinned at the parent prediction's 0.85: the derivations are sound and parametric (no pinned number pre-empts an open knob), but the floors inherit the parent's contingency on $C_{in}$ and the still-OPEN $C_{in}$-fixed topology (Q-C15-04). Honestly scoped: it derives requirements, it selects nothing.
+- strengthen-by:
+  - Close Q-C15-04 (the $C_{in}$-FIXED-while-$g$-sweeps topology) so the H3 boundary condition transfers from "tension" to a met mechanical or metrological spec.
+  - Freeze Q-C15-02 ($\delta_{chord}$, $\delta_{slope}$) so the parametric specs collapse to pinned numbers.
+
+---
+
 ## ROENTGEN-03 Solid-State Sagnac Induction ($B \approx 4.2$ pT)
 <!-- id: clm-qsgl7d -->
 

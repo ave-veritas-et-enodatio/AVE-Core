@@ -244,6 +244,8 @@
 {"claim_id": "clm-fr3mos", "item_idx": 1, "text": "Derive the regime boundaries quantitatively (e.g., the resonance bandwidth around ω_C) rather than asserting the three-regime partition qualitatively", "mentioned_ids": []}
 {"claim_id": "clm-fr3mos", "item_idx": 2, "text": "Connect ω = ω_C resonance to a quantitative saturation-engagement condition (link to the i4p11y trapping trajectory)", "mentioned_ids": []}
 {"claim_id": "clm-fr3mos", "item_idx": 3, "text": "Show the V_yield = √α V_snap threshold's α-conditioning consistently with the trefoil/unknot body-topology dependence", "mentioned_ids": []}
+{"claim_id": "clm-fuajdb", "item_idx": 0, "text": "Close Q-C15-04 (the $C_{in}$-FIXED-while-$g$-sweeps topology) so the H3 boundary condition transfers from \"tension\" to a met mechanical or metrological spec.", "mentioned_ids": []}
+{"claim_id": "clm-fuajdb", "item_idx": 1, "text": "Freeze Q-C15-02 ($\\delta_{chord}$, $\\delta_{slope}$) so the parametric specs collapse to pinned numbers.", "mentioned_ids": []}
 {"claim_id": "clm-fy05jc", "item_idx": 0, "text": "none entry-local — translation tables are correctly self-bounded as notation maps; substantive predictions live in the per-volume target leaves with their own quality entries", "mentioned_ids": []}
 {"claim_id": "clm-g0mkne", "item_idx": 0, "text": "Derive the Q=1/α quality-factor calibration of the rotational sector rather than importing it from Ch 8.", "mentioned_ids": []}
 {"claim_id": "clm-g0mkne", "item_idx": 1, "text": "Show the massless-A₁ / massive-T₂ split from the K4 ⊗ Cosserat coupling explicitly rather than cross-referencing the photon-identification leaf.", "mentioned_ids": []}

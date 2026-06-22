@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [clm-5s5b0d, clm-7tynm2, clm-baoa36, clm-cltls0, clm-cwjd8t, clm-fh6w3y, clm-gw2wgc, clm-h55fy1, clm-iz3svl, clm-k9up5c, clm-kl1ern, clm-oiw6cb, clm-om0rtq, clm-p12mem, clm-pp3qwf, clm-pvlas1, clm-qsgl7d, clm-ui3m8a, clm-wzezvt, clm-ydksh6, clm-yr6tu4]
+subtree-claims: [clm-5s5b0d, clm-7tynm2, clm-baoa36, clm-cltls0, clm-cwjd8t, clm-fh6w3y, clm-fuajdb, clm-gw2wgc, clm-h55fy1, clm-iz3svl, clm-k9up5c, clm-kl1ern, clm-oiw6cb, clm-om0rtq, clm-p12mem, clm-pp3qwf, clm-pvlas1, clm-qsgl7d, clm-ui3m8a, clm-wzezvt, clm-ydksh6, clm-yr6tu4]
 subtree-experiments: [exp-0n5p16, exp-1ddtr0, exp-1up5ww, exp-6kwkx7, exp-71uhr0, exp-742kv5, exp-7jekc6, exp-ct4cts, exp-onqclb, exp-po1a0v, exp-rth12t, exp-v6nzcq]
 -->
 
@@ -25,6 +25,7 @@ Comprehensive catalogue of tabletop falsification experiments, existing experime
 | VFDT null result | $v_{vac} \approx 1.33 \times 10^{-13}\,\text{m/s}$; phase shift $\sim 10^{-14}\,\text{rad}$ (undetectable) | tabletop-graveyard |
 | RVR scalar gap | $\delta_L \approx 7.4 \times 10^{-26}$; requires $Q \ge 2.7 \times 10^{25}$ (impossible) | tabletop-graveyard |
 | CLEAVE-01 charge prediction | $Q = \xi_{topo} \cdot x = 0.415\,\text{pC}$ per $\mu\text{m}$; $V = 41.5\,\text{mV}$ | project-cleave-01 |
+| CLEAVE-01 apparatus floors (derived) | $dV/dx = \xi_{topo}/C_{in} = 41.49\,\text{nV/pm}$; binding noise = 1/f+drift (~0.61 µV rms), $\sigma_Q \le \delta\times414.9$ fC; CPD swing 19.97% of floor | cleave-01-requirements-boundary-conditions |
 | Levitation limit | $m_{max} = V_{yield} \xi_{topo}/g = 1.846\,\text{g}$ | metric-levitation-limit |
 | $\sqrt{\alpha}$ yield limit | $V_{yield} = \sqrt{\alpha} \times 511\,\text{kV} = 43.65\,\text{kV}$ | zero-parameter-derivations |
 | YBCO phased array thrust | $F_{total} = 10^6 \times 0.02448\,\text{N} = 24{,}480\,\text{N}$ (2.5 metric tons) | ybco-phased-array |
@@ -43,6 +44,8 @@ Comprehensive catalogue of tabletop falsification experiments, existing experime
 | [Sagnac-RLVE](sagnac-rlve.md) | Definitive sub-\$5k test; exact derivation ($\Delta\phi \approx 2.07\,\text{Rad}$); hardware spec; $\Psi$ ratio |
 | [Existing Experimental Signatures](existing-experimental-signatures.md) | Proton radius puzzle; neutron lifetime anomaly; Hubble tension; LIGO echoes; vortex core limits |
 | [Project CLEAVE-01](project-cleave-01.md) | Femto-coulomb electrometer; $Q = \xi_{topo} x$; 41.5 mV per micron |
+| [CLEAVE-01 Requirements / Boundary Conditions](cleave-01-requirements-boundary-conditions.md) | **Derived** apparatus floors (all work shown): 41.49 nV/pm position→charge coupling; 1/f+drift binding-noise model; ENOB/level-stability math; parametric in $\delta$ and $C_{in}$. Physics — solidity-tagged `clm-fuajdb` |
+| [CLEAVE-01 Trade Study / Decision Register](cleave-01-trade-study-decision-register.md) | **OPEN decision-record (`no-claim`, STATUS:OPEN)**: every make-vs-buy + 6 design-knobs as worked option sets (team-aware build-feasibility); cross-linked to Q-C15. **Selects nothing** |
 | [Project HOPF-02](project-hopf-02.md) | S-parameter VNA falsification; anomalous chiral $S_{11}$ notch; Snell parallax test |
 | [Project ROENTGEN-03](project-roentgen-03.md) | Solid-state Sagnac induction; 4.2 pT Lock-In detection — RETIRED to corroborative-null (2026-06-03) |
 | [Project ZENER-04](project-zener-04.md) | Impedance avalanche detector; Marx generator; avalanche knee at 43.65 kV |
