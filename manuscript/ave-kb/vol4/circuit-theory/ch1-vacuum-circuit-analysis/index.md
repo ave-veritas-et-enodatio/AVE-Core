@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [clm-1eg13f, clm-4r4jiy, clm-6t3p6x, clm-8nkvwy, clm-fd1e7a, clm-fgo20a, clm-i9l284, clm-kezk9z, clm-n3un96, clm-o2shcn, clm-p2tp9i, clm-p5cf3t, clm-pp3qwf, clm-rtdmsn, clm-u462e4, clm-v6ti0v, clm-vca7r1, clm-vjv4zf]
+subtree-claims: [clm-1eg13f, clm-4r4jiy, clm-6t3p6x, clm-8nkvwy, clm-fd1e7a, clm-fgo20a, clm-gvn4r1, clm-i9l284, clm-kezk9z, clm-n3un96, clm-o2shcn, clm-p2tp9i, clm-p5cf3t, clm-pp3qwf, clm-rtdmsn, clm-u462e4, clm-v6ti0v, clm-vca7r1, clm-vjv4zf]
 subtree-experiments: []
 -->
 
@@ -45,6 +45,7 @@ The Vacuum Circuit Analysis (VCA) framework establishes a single, exact dimensio
 | [Z0 Derivation](z0-derivation.md) | Discrete LC ladder; $Z_0$ scale invariance; gravitational stealth; black hole echoes |
 | [Relativistic Inductor](relativistic-inductor.md) | Current-dependent inductance; $E = mc^2$ from inductor energy; SPICE enforcement of $c$ |
 | [Node-Up Small/Large-Signal Response](node-up-small-large-signal.md) | The LC-tank dual ($\varepsilon$-varactor on $V$ / $\mu$-relativistic-inductor on $I$); R1/R2/R3 operating points; static-field grade asymmetry (static-$\mathbf E$ loads, static-$\mathbf B$ → $\delta n_\mu=0$ exactly); derived-vs-asserted ledger; VCA-R01 |
+| [Graded-Network Response](graded-network-response.md) | The K4 graded LC transmission line (network layer above the single node): LC-ladder dispersion → $c_{EM}=c_0$, $Z_0$ (validate-on-known); the QUARTIC $(q\ell_{node})^4$ anisotropy tell (K4 2nd moment isotropic, 4th moment cubic-harmonic); SYM-lens-vs-ASYM-mirror graded index; the $\ell_{node}$-invariant coherent optical-path macroscopic bridge (coefficient survives); achromatic $\Gamma=0$ vs reflective $\Gamma\ne0$ boundary; routes-don't-mix + chiral-circulator category-error guard; chord-vs-echo ledger |
 | [Q-G24 Newtonian-Limit Closure](relativistic-inductor-newtonian-limit.md) | Full $E = \gamma m_0 c^2$ relativistic dispersion from LC tank + virial equipartition + relativistic-inductor mapping; three independent Derrick-bypass mechanisms (lattice floor / Faddeev-Skyrme / bilateral chiral); no fit parameters |
 | [Q-G22 Strain Convention (Geometric vs Field-Ratio)](q-g22-strain-convention.md) | Clarification: corpus uses $A_{geom} = \ell_{node}/r$ ($\propto 1/r$, geometric confinement ratio) for kernel applications; IVIM bench uses $A_{field} = E\ell_{node}/V_{yield}$ ($\propto 1/r^2$, field ratio) for apparatus calculations; both internally consistent, different physical measures |
 | [TVS Transition](tvs-transition.md) | Solid-to-slipstream phase transition as TVS Zener diode |

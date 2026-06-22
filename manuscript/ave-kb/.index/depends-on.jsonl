@@ -293,6 +293,12 @@
 {"source": "clm-gr8d63", "target": "clm-0ktpcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "both convergence routes bottleneck on α", "fraction": null}
 {"source": "clm-gr8d63", "target": "clm-zgllr2", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies the two engines whose convergence is the claim", "fraction": null}
 {"source": "clm-gv1wu4", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "A", "fraction": null}
+{"source": "clm-gvn4r1", "target": "axiom-4", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "universal saturation kernel, projected onto each grade", "fraction": null}
+{"source": "clm-gvn4r1", "target": "clm-p5cf3t", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-gvn4r1", "target": "clm-pp3qwf", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-gvn4r1", "target": "clm-rd9cjm", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-gvn4r1", "target": "clm-vca7r1", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
+{"source": "clm-gvn4r1", "target": "clm-yr6tu4", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": null}
 {"source": "clm-gw2wgc", "target": "axiom-1", "relation": "depends", "target_kind": "axiom", "target_solidity_recorded": null, "strength": null, "context": "chiral LC bandgap → weak-force chirality", "fraction": null}
 {"source": "clm-gx1mpl", "target": "clm-ys0xl1", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "K4 4-neighbor graph topology underlying the shared-B-node path", "fraction": null}
 {"source": "clm-gz7ryg", "target": "clm-sysqaf", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": "supplies S(A)=√(1−A²) as the postulated kernel", "fraction": null}
