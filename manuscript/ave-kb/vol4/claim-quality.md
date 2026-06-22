@@ -1302,3 +1302,31 @@ The electron's EE field components — a real (resistive/radiative) part $R$ and
   - Close FLAG-2 (capacitive vs magnetic sector attribution) so the bundle's sector field is no longer provisional.
 
 ---
+
+## Node-Up Small/Large-Signal Response and the Static-Field Grade Asymmetry
+<!-- id: clm-vca7r1 -->
+
+- The vacuum LC tank's two reactive grades key on **different drive variables**: $\varepsilon$-grade = varactor on $V$ ($C_{eff}=C_0/S(A_V)$); $\mu$-grade = relativistic inductor on circulating $I$ ($L_{eff}=L_0/S(A_I)$, $I_{max}=\xi_{topo}c\approx124.4$ A). Same Axiom-4 kernel, two keyed arguments.
+- _Specific Claims_
+  - **R1 (symmetric internal loading):** both grades driven ($S_\varepsilon=S_\mu=S$) $\Rightarrow Z=Z_0$ invariant (reflectionless), small-signal $\delta n = 1/S - 1$ — the Symmetric-Gravity operating point (INVARIANT-S2 W6 scope, `manuscript/ave-kb/CLAUDE.md`:75).
+  - **R2 (static-E route):** a static $\mathbf E$ loads $\varepsilon$ only ($S_\varepsilon<1$, $S_\mu=1$) $\Rightarrow$ asymmetric $Z_{eff}=Z_0\sqrt{S_\mu/S_\varepsilon}$, $\delta n\approx\tfrac14(E/E_{yield})^2$ — the bench / HIBEF E-route.
+  - **R3 (static-B):** a static $\mathbf B$ ($\partial\mathbf B/\partial t=0$, sustained by the magnet's current not the vacuum's) induces no internal circulation $\Rightarrow I_{vac}=0 \Rightarrow S_\mu=1 \Rightarrow \mu_{eff}=\mu_0 \Rightarrow \delta n_\mu = 0$ **EXACTLY** (verified 2.5 T → 1 kT). The $\mu$-grade is an ideal relativistic inductor; only $dI/dt$ (circulation rate) loads it.
+  - The static-field **asymmetry** (E loads, B does not) is the load-bearing consequence of the keyed-argument duality and the substrate mechanism behind the no-static-B-birefringence side-prediction.
+- _Specific Non-Claims and Caveats_
+  - $B_{SNAP}=1.89\times10^9$ T is an **energy-density scale** ($B_{SNAP}^2/2\mu_0 = m_ec^2/\ell_{node}^3$), NOT a rival kernel argument; the $\mu$-grade kernel argument is $I/I_{max}$, not $B/B_{SNAP}$.
+  - The three regimes are the **operating-point** (large-signal) states; the small-signal $\delta n$ is the linearized probe response about each operating point. R1/R2 magnitudes are leading-order; the exact R2 differential is the OQ-1 par−perp result (clm-pp3qwf).
+
+> **Leaf references:** [node-up-small-large-signal](./circuit-theory/ch1-vacuum-circuit-analysis/node-up-small-large-signal.md).
+
+### Quality
+- confidence: 0.85
+- depends-on:
+  - clm-p5cf3t (relativistic inductor $L_{eff}(I)$, $I$-keyed magnetic-sector kernel)
+  - Axiom 4 (universal saturation kernel, projected onto each grade)
+  - clm-i9l284 (topo-kinematic $I=\xi_{topo}v$, $L=\xi_{topo}^{-2}m$ mappings)
+- solidity: 0.85 (ok to build on) [= min(0.85, 0.85)]
+- rationale: The R1/R2/R3 operating points are clean projections of the already-derived Axiom-4 kernel onto the $V$-keyed varactor and the $I$-keyed relativistic inductor (clm-p5cf3t), with INVARIANT-S2's W6 scope (`manuscript/ave-kb/CLAUDE.md`:75) supplying the symmetric-vs-asymmetric taxonomy. R3's $\delta n_\mu=0$-exactly is a direct consequence of the inductor being keyed on circulation $I$ (no $dI/dt$ under static B → no internal current → $S_\mu=1$); it is derived, not asserted, and was confirmed numerically over 2.5 T–1 kT. Capped at the relativistic-inductor parent's band: the construction rests on the $I$-keyed primitive plus the kernel, no new free parameter.
+- strengthen-by:
+  - Land the engine I-keyed $\mu$-saturation fix (VCA-R01) so the code's mu-grade keys on circulation, matching this leaf and removing the live static-|B| keying defect (`fdtd_3d.py`, `scale_invariant.py`).
+
+---
