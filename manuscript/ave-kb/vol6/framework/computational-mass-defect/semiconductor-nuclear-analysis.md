@@ -118,10 +118,10 @@ where all sums run over the $16 \times \binom{N_\alpha}{2}$ inter-alpha nucleon-
 | **Element** | $N_\alpha$ | $V_R / V_{BR}$ | $M$ | **Error** | **Regime** |
 |---|---|---|---|---|---|
 | He-4 | 1 | --- | --- | $0.0000\%$ | Single tank |
-| C-12 | 3 | 0.022 | 1.000 | $0.0000\%$ | Small Signal |
-| O-16 | 4 | 0.033 | 1.000 | $0.0000\%$ | Small Signal |
-| Ne-20 | 5 | 0.035 | 1.000 | $0.0000\%$ | Small Signal |
-| Mg-24 | 6 | 0.043 | 1.000 | $0.0001\%$ | Small Signal |
+| C-12 | 3 | 0.019 | 1.000 | $0.0000\%$ | Small Signal |
+| O-16 | 4 | 0.030 | 1.000 | $0.0000\%$ | Small Signal |
+| Ne-20 | 5 | 0.032 | 1.000 | $0.0000\%$ | Small Signal |
+| Mg-24 | 6 | 0.040 | 1.000 | $0.0001\%$ | Small Signal |
 | Si-28 | 7 | 0.050 | 1.000 | $0.0002\%$ | Small Signal |
 | **S-32** | **8** | **0.994** | **32.8** | $\mathbf{0.0000\%}$ | **Large Signal** |
 
@@ -132,8 +132,8 @@ where all sums run over the $16 \times \binom{N_\alpha}{2}$ inter-alpha nucleon-
 
 An essential consequence of this framework: each nuclear topology behaves as a distinct semiconductor *device*, fabricated on the same vacuum lattice *material*. The breakdown voltage $V_{BR}$ is a material constant (derived from $\alpha\hbar c$ and $D_\text{intra}$), but each topology determines a different $V_R / V_{BR}$ ratio---exactly as a silicon BJT and a gallium-nitride HEMT share the same semiconductor physics but have different breakdown characteristics due to their crystal geometries.
 
-- **Triangle** (C-12, 3$\alpha$): Low vertex density $\rightarrow$ $V_R/V_{BR} = 0.022$ $\rightarrow$ deep Small Signal.
-- **Tetrahedron** (O-16, 4$\alpha$): Moderate packing $\rightarrow$ $V_R/V_{BR} = 0.033$ $\rightarrow$ Small Signal.
+- **Triangle** (C-12, 3$\alpha$): Low vertex density $\rightarrow$ $V_R/V_{BR} = 0.019$ $\rightarrow$ deep Small Signal.
+- **Tetrahedron** (O-16, 4$\alpha$): Moderate packing $\rightarrow$ $V_R/V_{BR} = 0.030$ $\rightarrow$ Small Signal.
 - **Pentagonal bipyramid** (Si-28, 7$\alpha$): High packing but open faces $\rightarrow$ $V_R/V_{BR} = 0.050$ $\rightarrow$ boundary of Small Signal. *Silicon's topology sits at the boundary of the Small-Signal regime; in the AVE picture this co-locates with its role as a switchable-bandgap semiconductor --- highly stable in bulk, yet close enough to the breakdown threshold to be doped and switched dynamically.*
 - **Cube** (S-32, 8$\alpha$): Maximum closed packing $\rightarrow$ $V_R/V_{BR} = 0.994$ $\rightarrow$ avalanche breakdown ($M = 32.8$).
 - **Bicapped Antiprism** (Ar-40, 10$\alpha$): Open expansion restores $V_R/V_{BR} = 0.062$ $\rightarrow$ Small Signal.
