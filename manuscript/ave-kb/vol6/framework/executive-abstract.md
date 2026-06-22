@@ -25,7 +25,7 @@ When atomic structures cluster into completed Alpha ($\alpha$) particle configur
 - **Oxygen-16 ($4\alpha$):** Bounds perfectly into a **Tetrahedron**. Small Signal regime.
 - **Neon-20 ($5\alpha$):** Bounds perfectly into a **Triangular Bipyramid**. Small Signal regime.
 - **Magnesium-24 ($6\alpha$):** Bounds perfectly into an **Octahedron**. Small Signal regime.
-- **Silicon-28 ($7\alpha$):** Bounds perfectly into a **Pentagonal Bipyramid**. Small Signal boundary---this positioning at the edge of the non-linear transition fundamentally defines Silicon's primacy in microelectronics.
+- **Silicon-28 ($7\alpha$):** Bounds perfectly into a **Pentagonal Bipyramid**. Small Signal boundary---in the AVE picture this positioning at the edge of the non-linear transition co-locates with Silicon's role as a switchable-bandgap semiconductor.
 - **Sulfur-32 ($8\alpha$):** The **Cube** topology---the first element requiring the **Large Signal** Miller avalanche correction ($M = 32.8$, $V_R/V_{BR} = 0.994$). Solved to $0.0000\%$ error.
 - **Argon-40 ($10\alpha$):** **Bicapped Square Antiprism**. Returns to Small Signal ($V_R/V_{BR} = 0.062$). Solved to $0.0002\%$ error.
 - **Calcium-40 ($10\alpha$):** Same geometry as Argon, but the additional 2 protons push the cumulative Coulomb load back into the **Large Signal** regime ($M = 32.9$, $V_R/V_{BR} = 0.994$). Solved to $0.0000\%$ error---the second exact avalanche solution.
@@ -54,6 +54,10 @@ Every element documented in this sequence is bound by the exact same physical me
 The mutual coupling constant $K$ is derived from the proton's cinquefoil crossing number ($c=5$) and the Coulomb constant ($\alpha\hbar c$), yielding $K = (5\pi/2)\cdot\alpha\hbar c / (1 - \alpha/3) \approx 11.337$ MeV$\cdot$fm with zero empirical calibration.
 The equivalent circuit matrix, evaluated at the per-nucleus inter-alpha distance $R$ fit to reproduce each CODATA mass, achieves a **$\le 0.0000\%$ fitting tolerance** against the CODATA targets.
 
-For the first time, atomic structure is not a probability cloud; it is rigid, deterministic vacuum engineering.
+In this picture atomic structure is described not as a probability cloud but as a deterministic standing-wave assembly on the vacuum lattice --- a substrate-mechanism re-description that recovers the same structure standard quantum chemistry obtains, and is peer with it rather than a distinct empirical prediction.
+
+### Scope — peer with standard quantum chemistry
+
+The periodic-table structure derived in this volume is a substrate-mechanism re-description of atomic structure that is **peer with standard quantum chemistry**, not a distinct empirical prediction: the same shells, aufbau filling, and hybridization that quantum mechanics obtains are recovered here on the vacuum lattice, and (per the framework's own calibration) are **not empirically distinguishable from standard quantum mechanics / chemistry** — see `clm-jqnzz7` / `clm-y7uvdc` / `clm-f8k2um` (confidence 0.30). AVE's genuine structural wins are finite-by-construction (no renormalization), exact topologically-quantized charge, and derived spin-statistics; the framework's *distinct, falsifiable* predictions live in the forward-prediction volumes, not in the periodic table itself.
 
 ---

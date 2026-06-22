@@ -134,7 +134,7 @@ An essential consequence of this framework: each nuclear topology behaves as a d
 
 - **Triangle** (C-12, 3$\alpha$): Low vertex density $\rightarrow$ $V_R/V_{BR} = 0.022$ $\rightarrow$ deep Small Signal.
 - **Tetrahedron** (O-16, 4$\alpha$): Moderate packing $\rightarrow$ $V_R/V_{BR} = 0.033$ $\rightarrow$ Small Signal.
-- **Pentagonal bipyramid** (Si-28, 7$\alpha$): High packing but open faces $\rightarrow$ $V_R/V_{BR} = 0.050$ $\rightarrow$ boundary of Small Signal. *This mathematical positioning precisely at the edge of the non-linear transition fundamentally defines why Silicon is the dominant material in microelectronics: it is highly stable in bulk, yet sits close enough to the breakdown threshold that it can be easily manipulated (doped) to switch states dynamically.*
+- **Pentagonal bipyramid** (Si-28, 7$\alpha$): High packing but open faces $\rightarrow$ $V_R/V_{BR} = 0.050$ $\rightarrow$ boundary of Small Signal. *Silicon's topology sits at the boundary of the Small-Signal regime; in the AVE picture this co-locates with its role as a switchable-bandgap semiconductor --- highly stable in bulk, yet close enough to the breakdown threshold to be doped and switched dynamically.*
 - **Cube** (S-32, 8$\alpha$): Maximum closed packing $\rightarrow$ $V_R/V_{BR} = 0.994$ $\rightarrow$ avalanche breakdown ($M = 32.8$).
 - **Bicapped Antiprism** (Ar-40, 10$\alpha$): Open expansion restores $V_R/V_{BR} = 0.062$ $\rightarrow$ Small Signal.
 - **Bicapped Antiprism** (Ca-40, 10$\alpha$): Same geometry, 2 additional protons push $V_R/V_{BR} = 0.994$ $\rightarrow$ second Large Signal solution ($M = 32.9$).
