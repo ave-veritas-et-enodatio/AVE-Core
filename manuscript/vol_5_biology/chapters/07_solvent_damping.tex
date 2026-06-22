@@ -65,7 +65,7 @@ To quantify the margin rigorously, a parametric sweep was performed on a 10-resi
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{cccc}
 \toprule
-$Y_\text{solv}/Y_\text{bb}$ & min $|S_{11}|^2$ & $\Delta$ from vacuum & Verdict \\
+$Y_\text{solv}/Y_\text{bb}$ & min $|S_{11}|^2$ & $\Delta$ from vacuum & Effect \\
 \midrule
 $0$ (vacuum)         & 0.302  & ---      & Baseline \\
 $10^{-3}$            & 0.301  & $-0.002$ & Negligible \\
@@ -88,11 +88,11 @@ The physical solvent loading ($\sim 10^{-23}$) is 20 orders of magnitude below t
     \item \textbf{Counterion screening is not modeled.} In physiological salt concentrations ($\sim$150~mM NaCl), the Debye screening length ($\kappa^{-1} \sim 8$~\AA) modifies long-range electrostatic coupling. This may shift the optimal H-bond stub parameters but does not affect the backbone impedance.
 \end{enumerate}
 
-These limitations are quantitative refinements, not fundamental challenges to the feasibility verdict. The $10^{23}\times$ impedance mismatch provides an enormous margin.
+These limitations are quantitative refinements, not fundamental challenges to the impedance-mismatch protection. The $10^{23}\times$ impedance mismatch provides an enormous margin.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1.0\textwidth]{solvent_damping_analysis.png}
-    \caption{\textbf{Solvent Damping Noise-Floor Analysis.} \textbf{Top Left:} $S_{11}$ frequency response for increasing solvent loading on a 10-residue backbone model. The physical cytosol loading ($\sim 10^{-23}$) is indistinguishable from vacuum. \textbf{Top Right:} Folding signal robustness---$S_{11}$ minimum vs.\ solvent loading fraction. Even extreme (physically impossible) loading barely perturbs the minimum. \textbf{Bottom Left:} Backbone vs.\ solvent impedance mismatch across frequency. The $\sim 20$ decades of impedance separation at 24~THz explains why thermal noise is reflected. \textbf{Bottom Right:} Summary verdict.}
+    \caption{\textbf{Solvent Damping Noise-Floor Analysis.} \textbf{Top Left:} $S_{11}$ frequency response for increasing solvent loading on a 10-residue backbone model. The physical cytosol loading ($\sim 10^{-23}$) is indistinguishable from vacuum. \textbf{Top Right:} Folding signal robustness---$S_{11}$ minimum vs.\ solvent loading fraction. Even extreme (physically impossible) loading barely perturbs the minimum. \textbf{Bottom Left:} Backbone vs.\ solvent impedance mismatch across frequency. The $\sim 20$ decades of impedance separation at 24~THz explains why thermal noise is reflected. \textbf{Bottom Right:} Impedance-mismatch margin summary (physical loading vs.\ sensitivity threshold).}
     \label{fig:solvent_damping}
 \end{figure}

@@ -12,9 +12,9 @@
 \end{itemize}
 \end{objectivebox}
 
-\textbf{A-034 biological-substrate instances (canonical 2026-05-15 evening, SYM).}
-This chapter contains TWO biological-substrate rows in the A-034 catalog
-(Universal Saturation-Kernel Strain-Snap Mechanism):
+\textbf{Biological-substrate instances of the universal saturation kernel.}
+This chapter contains two biological-substrate rows in the universal
+saturation-kernel catalog (Axiom~4):
 
 \begin{enumerate}
     \item \textbf{Lipid bilayer membrane LLCP}: cholesterol = engineered
@@ -37,7 +37,7 @@ catalog with 3-way symmetry classification.
 
 \section{Introduction to Organic RLC Topology}
 
-Standard biology and organic chemistry model molecular interactions using the ``ball-and-stick'' visual metaphor, defined by abstract bond enthalpies and electron cloud probabilities. However, under the Applied Vacuum Engineering (AVE) framework, this chemical abstraction is incomplete. Molecules are not collections of distinct billiard balls; they are continuous, resonant RLC (Resistor-Inductor-Capacitor) circuit topologies embedded within the dielectric $M_A$ vacuum lattice.
+Standard biology and organic chemistry model molecular interactions using the ``ball-and-stick'' visual metaphor, defined by abstract bond enthalpies and electron cloud probabilities. However, under the Applied Vacuum Engineering (AVE) framework, this chemical abstraction is incomplete. Molecules are not collections of distinct billiard balls; they are continuous, resonant RLC (Resistor-Inductor-Capacitor) circuit topologies embedded within the dielectric vacuum lattice.
 
 By mathematically mapping atomic mass to \textbf{Geometric Inductance} ($L$) and covalent bond stiffness to \textbf{Dielectric Capacitance} ($C$), organic chemistry becomes a subset of macroscopic RF circuit design. This chapter derives the \emph{exact} translation layer required to simulate amino acids as pure SPICE electronic circuits, proving that the foundation of biology operates via high-frequency AC resonance.
 
@@ -59,7 +59,7 @@ This constant provides the universal electromechanical coupling of the lattice. 
 
 \subsection{Mass $\rightarrow$ Inductance:  $L = m / \xi^2$}
 
-In AVE, the atomic nucleus is a tightly bound, high-density topological knot in the $M_A$ lattice. This knot provides localized rotational inertia. In electrical terms, inertia is defined as \textbf{Inductance} ($L$). The dimensional transduction via $\xi^2$ yields:
+In AVE, the atomic nucleus is a tightly bound, high-density topological knot in the vacuum lattice. This knot provides localized rotational inertia. In electrical terms, inertia is defined as \textbf{Inductance} ($L$). The dimensional transduction via $\xi^2$ yields:
 \begin{resultbox}{Topological Inductance of an Atom}
 \begin{equation}
     L_\text{atom} \;=\; \frac{m_\text{atom}}{\xi^2_\text{topo}}
@@ -199,7 +199,7 @@ To test the prediction, the computed transfer function is overlaid against known
 
 \textbf{Results:} For Glycine, 10 of 11 known FTIR peaks fall within the predicted passband ($|H|^2 > -60$ dB). For Alanine, 10 of 11 peaks pass the same threshold. The single ``steep'' peak in each case occurs in the high-frequency rolloff zone ($>$2500 cm$^{-1}$ for Glycine, $\sim$1100 cm$^{-1}$ for Alanine), where the single-backbone-unit model does not resolve individual bond stretching modes.
 
-This is an expected physical limitation: the transfer function $H(f)$ describes the \emph{power transmission through the entire backbone}, not the local absorption at each bond site. Individual bond stretches (C--H at 3000 cm$^{-1}$, N--H at 3400 cm$^{-1}$) are self-consistent by construction (Section~\ref{eq:f_check}), but their visibility in the backbone transfer function depends on the impedance matching between the R-group stub and the main chain. The backbone passband---which \emph{is} the genuine prediction---matches the experimentally observed fingerprint amide region without adjustment.
+This is an expected physical limitation: the transfer function $H(f)$ describes the \emph{power transmission through the entire backbone}, not the local absorption at each bond site. Individual bond stretches (C--H at 3000 cm$^{-1}$, N--H at 3400 cm$^{-1}$) are self-consistent by construction (Eq.~\ref{eq:f_check}), but their visibility in the backbone transfer function depends on the impedance matching between the R-group stub and the main chain. The backbone passband---which \emph{is} the genuine prediction---matches the experimentally observed fingerprint amide region without adjustment.
 
 \section{Peptide Chain Extension Test}
 
@@ -660,14 +660,12 @@ This pushes the catastrophic snap temperature to $T_c^{\text{buffered}} = T_c \t
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.9\linewidth]{../../assets/sim_outputs/cholesterol_topological_phase_buffer.png}
+    \includegraphics[width=0.9\linewidth]{cholesterol_topological_phase_buffer.png}
     \caption{\textbf{The Topological Phase Buffer}. Left: cooperative thermal strain $A(T) = 9 k_B T / E_{HB}$ crosses the pure yield limit ($A_{yield} = 1$) near $5^\circ$C but remains below the cholesterol-buffered yield ($A_{yield} = 1 + \varphi$) through the entire biological range. Center: the Axiom~4 saturation operator $S(T)$. Right: the reflection coefficient $|\Gamma(T)|$ showing the catastrophic snap for the pure membrane and the damped response for the cholesterol-buffered case.}
     \label{fig:cholesterol_topological_phase_buffer}
 \end{figure}
 
 Consequently, cholesterol anchors the chiral transmission line precisely over the structural $K=2G$ threshold. By maintaining this critical supercritical fluctuation state globally, the entire cellular boundary is kept at maximum topological elasticity---pliant enough to propagate pressure waves, yet rigid enough to govern high-Q allosteric state-switching in embedded protein circuits without catastrophic dielectric failure.
-
-% EOF
 
 \subsection{Discussion}
 
@@ -678,7 +676,7 @@ No empirical force constants, IR frequencies, or bond lengths are utilized as tr
 \section{Topological Impedance and the Levinthal Resolution (Framework)}
 \label{sec:z_topo_framework}
 
-The amino-acid SPICE infrastructure built above (\S\ref{sec:atomic_translation_layer} through hydrogen-bond Op4) supplies every ingredient needed to resolve Levinthal's paradox mechanically. This section gives the \emph{framework} --- the definitional content and the mechanism --- in self-contained form. The per-amino-acid quantitative table ($Z_{\text{topo}}^i$ for all 20 standard residues), the full SPICE backbone derivation, the cascaded ABCD-matrix folding solver, and the simulation roadmap are deliberately held in a separate engineering compendium for IP reasons; the framework here is sufficient to predict secondary-structure preference from sequence and to identify protein folding as an A-034 universal saturation-kernel instance.
+The amino-acid SPICE infrastructure built above (\S\ref{sec:atomic_translation_layer} through hydrogen-bond Op4) supplies every ingredient needed to resolve Levinthal's paradox mechanically. This section gives the \emph{framework} --- the definitional content and the mechanism --- in self-contained form. The per-amino-acid quantitative table ($Z_{\text{topo}}^i$ for all 20 standard residues), the full SPICE backbone derivation, the cascaded ABCD-matrix folding solver, and the simulation roadmap are documented in a separate engineering compendium; the framework here is sufficient to predict secondary-structure preference from sequence and to identify protein folding as a universal saturation-kernel instance.
 
 \subsection{Topological Impedance \texorpdfstring{$Z_{\text{topo}}$}{Z\_topo}}
 
@@ -705,10 +703,10 @@ The conventional puzzle: a 100-residue protein with $\sim 3$ dihedral states per
         \item Bulky, branched, or rigid sidechains (Pro, Trp) create impedance discontinuities $\to$ chain flattens into extended $\beta$-sheet or rigid kinks.
         \item Charged sidechains contribute reactance ($X \neq 0$) $\to$ frequency-dependent phase shifts couple to long-range backbone resonance.
     \end{itemize}
-    \item The minimum-$|S_{11}|^2$ configuration is the \textbf{native fold} --- there is no search; the chain mechanically snaps to its impedance-matched geometry, and the snap IS the protein-folding A-034 instance.
+    \item The minimum-$|S_{11}|^2$ configuration is the \textbf{native fold} --- there is no search; the chain mechanically snaps to its impedance-matched geometry, and the snap IS the protein-folding saturation-kernel instance.
 \end{enumerate}
 
-\subsection{Protein Folding as a Universal Saturation-Kernel Instance (A-034)}
+\subsection{Protein Folding as a Universal Saturation-Kernel Instance}
 
 Per Axiom~4, the substrate dielectric saturates as $C_{\text{eff}}(A) = C_0 / \sqrt{1 - A^2}$, with $A$ the local strain amplitude (Vol 1 Ch~\ref{ch:fundamental_axioms}; canonical catalog in Backmatter Ch~\ref{app:universal_saturation_kernel}). At the atomic-separation scale, $A \equiv d_0/d$ where $d_0$ is the dielectric-saturation-onset separation and $d$ is the current bond distance:
 \begin{equation}
@@ -719,7 +717,7 @@ This is the \emph{same} kernel that gives BCS $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}
 
 \paragraph{Why this resolves Levinthal physically.} The chain is not searching configuration space; it is \emph{being driven} by substrate strain to the unique configuration where the kernel-saturation events on every bond simultaneously satisfy $A_i < 1$ (no further snapping required). This is the impedance-matched, lowest-$|S_{11}|^2$ geometry. The folding timescale ($\mu$s) reflects substrate dielectric relaxation, not configuration enumeration.
 
-\paragraph{What the engineering compendium adds.} Per-amino-acid $Z_{\text{topo}}^i$ values (the 20-residue lookup table with $R_i$, $X_i$, $|Z|_i$ columns), the cascaded ABCD-matrix folding solver, multiplexed basis-state initialization ($\alpha$-helix vs.\ $\beta$-sheet starting configurations to avoid gradient-descent local minima), and the Op2 topological-crossing correction for knotted proteins are held in a separate engineering compendium for IP reasons. The framework above is the complete substrate-physics derivation; the compendium adds quantitative residue-by-residue tables and the production-grade solver architecture.
+\paragraph{What the engineering compendium adds.} Per-amino-acid $Z_{\text{topo}}^i$ values (the 20-residue lookup table with $R_i$, $X_i$, $|Z|_i$ columns), the cascaded ABCD-matrix folding solver, multiplexed basis-state initialization ($\alpha$-helix vs.\ $\beta$-sheet starting configurations to avoid gradient-descent local minima), and the Op2 topological-crossing correction for knotted proteins are held in a separate engineering compendium. The framework above is the complete substrate-physics derivation; the compendium adds quantitative residue-by-residue tables and the production-grade solver architecture.
 
 \subsection*{Regime Classification of Biological Length Scales}
 \begin{center}

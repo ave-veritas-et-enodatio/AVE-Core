@@ -9,7 +9,7 @@ claims: [clm-lm9b3j]
 
 ## Mass → Inductance: $L = m / \xi^2$
 
-In AVE, the atomic nucleus is a tightly bound, high-density topological knot in the $M_A$ lattice. This knot provides localized rotational inertia. In electrical terms, inertia is defined as **Inductance** ($L$). The dimensional transduction via $\xi^2$ yields:
+In AVE, the atomic nucleus is a tightly bound, high-density topological knot in the vacuum lattice. This knot provides localized rotational inertia. In electrical terms, inertia is defined as **Inductance** ($L$). The dimensional transduction via $\xi^2$ yields:
 
 > **[Resultbox]** *Topological Inductance of an Atom*
 >
