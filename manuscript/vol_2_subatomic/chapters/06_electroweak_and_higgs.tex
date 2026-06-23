@@ -54,6 +54,9 @@ An internal coupling constant used in the W mass derivation is the torsion-shear
     \sin\theta_W^{(\text{PAT})} = \sqrt{\frac{3}{7}} \approx 0.6547
 \end{equation}
 
+% 🔴 OPEN FLAG (Rule 12) -- the "torsion-shear / PAT" label on sqrt(3/7); Grant's physics adjudication pending; label NOT swapped per substitution-not-retraction. This flag covers EVERY use of the "torsion-shear" label for sqrt(3/7) in this chapter (the W-mass site above and the muon-coupling sites below). Lockstep with KB leaves lepton-spectrum.md:29, higgs-mechanism.md:54, spontaneous-symmetry-breaking.md:38 and backmatter/02_full_derivation_chain.tex:469.
+\noindent\textbf{[OPEN FLAG --- $\sqrt{3/7}$ ``torsion--shear'' label; Grant's physics adjudication pending (Rule 12; label NOT swapped)]:} $\sqrt{3/7} = \sqrt{1 - 2\nu_{vac}}$ at $\nu_{vac} = 2/7$ is \emph{exactly} the dilatational/compressional (bulk) elastic signature: $(1-2\nu)$ is the bulk/volumetric combination, $(1+\nu) = 9/7$ the shear/deviatoric one (the corpus uses $(1+\nu)$ as the $Z$-factor $3/\sqrt{7} = \sqrt{9/7}$). The genuinely-shear $(1+\nu)$ combination is thus used elsewhere while the \emph{bulk} combination $\sqrt{1-2\nu}$ here (and at every $\sqrt{3/7}$ ``torsion--shear'' site in this chapter) carries that label --- an elastic-type contradiction. \emph{Open question for adjudication:} does an independent torsion route reach $\sqrt{3/7}$, or is this the dilatational (bulk) projection and the ``torsion--shear'' label wrong? The engine constant \texttt{\_SIN\_THETA\_W\_PAT} (\texttt{src/ave/topological/cosserat.py:65}) is NOT renamed --- deferred to adjudication.
+
 This is the ratio of torsional to total mechanical coupling in the cylindrical flux tube geometry.
 
 \section{The W and Z Boson Masses}
@@ -82,7 +85,7 @@ Each factor has a first-principles geometric origin:
     \item $\pi$ --- spherical geometry of the $1/r^2$ integral
     \item $\alpha^2$ --- two-vertex coupling (Axiom 4 dielectric $\times 2$)
     \item $p_c = 8\pi\alpha$ --- packing fraction (Axiom 4: Saturation)
-    \item $\sqrt{3/7}$ --- torsion-shear projection from the PAT and $\nu = 2/7$
+    \item $\sqrt{3/7}$ --- torsion-shear projection from the PAT and $\nu = 2/7$ % [OPEN-FLAGGED: sqrt(3/7) "torsion-shear" label contested -- see the [OPEN FLAG] block near Eq. sin theta_W^(PAT) above (Rule 12)]
     \item $2\pi$ --- ring topology of the unknot (Axiom 1)
 \end{enumerate}
 
@@ -154,14 +157,15 @@ The electron is the $0_1$ unknot ground state. No torsional excitation is presen
 \begin{examplebox}[Deriving the Muon Mass via Cosserat Torsional Excitation]
 \textbf{Problem:} The muon is the $0_1$ unknot absorbing exactly one quantum of chiral torsional coupling. Derive its deterministic mass eigenvalue.
 
-\textbf{Solution:} The torsional coupling constant is $\alpha\sqrt{3/7}$, where $\alpha$ is the dielectric compliance (one chirality interaction) and $\sqrt{3/7}$ is the PAT torsion-shear projection. 
+\textbf{Solution:} The torsional coupling constant is $\alpha\sqrt{3/7}$, where $\alpha$ is the dielectric compliance (one chirality interaction) and $\sqrt{3/7}$ is the PAT torsion-shear projection. % [OPEN-FLAGGED: sqrt(3/7) "torsion-shear" label contested -- see the [OPEN FLAG] block near Eq. sin theta_W^(PAT) above (Rule 12)]
+
 Because the muon is a stable static defect, only \textit{one} factor of $\alpha$ appears (a single-vertex process, unlike the transient W boson which requires $\alpha^2$).
 \[ m_\mu = \frac{m_e}{\alpha \sqrt{3/7}} \]
 Evaluating this structurally against $m_e \approx 0.511 \text{ MeV}$ gives:
 \[ m_\mu = \frac{0.511 \text{ MeV}}{\alpha \sqrt{3/7}} \approx 107.0 \text{ MeV} \quad (\text{Exp: } 105.66 \text{ MeV, } +1.24\%) \]
 \end{examplebox}
 
-The coupling $\alpha\sqrt{3/7}$ carries a direct geometric consequence for the unknot's flux tube. The factor $\sqrt{3/7}$ is the PAT torsion-shear projection: the fraction of the translational (shear) impedance density that maps onto the torsional (rotational) degree of freedom when $\nu_{vac} = 2/7$. As the unknot is traversed, the cross-sectional impedance pattern rotates by exactly $\sqrt{3/7}$ turns ($\approx 236°$):
+The coupling $\alpha\sqrt{3/7}$ carries a direct geometric consequence for the unknot's flux tube. The factor $\sqrt{3/7}$ is the PAT torsion-shear projection: the fraction of the translational (shear) impedance density that maps onto the torsional (rotational) degree of freedom when $\nu_{vac} = 2/7$. As the unknot is traversed, the cross-sectional impedance pattern rotates by exactly $\sqrt{3/7}$ turns ($\approx 236°$): % [OPEN-FLAGGED: sqrt(3/7) "PAT torsion-shear" label contested -- see the [OPEN FLAG] block near Eq. sin theta_W^(PAT) above (Rule 12)]
 \begin{equation}
     \Phi_{\text{twist}} = 2\pi\sqrt{\frac{3}{7}} \approx 4.11 \text{ rad} \approx 236°
     \label{eq:muon_twist_angle}
@@ -171,7 +175,7 @@ This helical impedance spiral is visible in the 3D-printable STL model (\texttt{
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.75\textwidth]{topology_muon.png}
-    \caption{\textbf{Muon Topology: Cosserat Torsional Excitation.} The muon is the $0_1$ unknot absorbing one quantum of rotational (torsional) coupling, producing a helical impedance spiral wound along the flux tube. The tube cross-section rotates by $\sqrt{3/7} \approx 0.655$ turns per revolution, set by the PAT projection of the Cosserat torsion-shear coupling.}
+    \caption{\textbf{Muon Topology: Cosserat Torsional Excitation.} The muon is the $0_1$ unknot absorbing one quantum of rotational (torsional) coupling, producing a helical impedance spiral wound along the flux tube. The tube cross-section rotates by $\sqrt{3/7} \approx 0.655$ turns per revolution, set by the PAT projection of the Cosserat torsion-shear coupling.} % [OPEN-FLAGGED: sqrt(3/7) "torsion-shear" label contested -- see the [OPEN FLAG] block near Eq. sin theta_W^(PAT) above (Rule 12)]
     \label{fig:topology_muon}
 \end{figure}
 
