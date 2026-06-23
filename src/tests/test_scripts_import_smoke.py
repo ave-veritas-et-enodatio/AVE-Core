@@ -55,11 +55,10 @@ _TARGET_PACKAGE_PREFIX = "ave.core."
 # this branch controls, the out-of-scope breakages stay VISIBLE (as xfail),
 # and nothing is silently fixed or silently swallowed.
 _KNOWN_BROKEN: dict[str, str] = {
-    # Fixed in-flight by open PR #377 (GRAVITATIONAL_CONSTANT -> G); left
-    # untouched on this branch to avoid a merge conflict.
-    "scripts/vol_3_macroscopic/simulate_geodynamo_vca.py:12:GRAVITATIONAL_CONSTANT": (
-        "owned by open PR #377; correct symbol is 'G' in ave.core.constants"
-    ),
+    # (simulate_geodynamo_vca.py:12:GRAVITATIONAL_CONSTANT was here; merged PR #377
+    #  fixed it to G, so the violation is no longer generated. Per the liveness
+    #  guard below, the now-dead allowlist key was removed — the gate worked as
+    #  designed: a fixed-upstream entry hard-fails until dropped.)
     # Surfaced by THIS gate (not in the D3 scope): k4_tlm.py defines
     # 'build_scattering_matrix', these two scripts import 'build_k4_scattering_matrix'.
     # Flagged for the k4_tlm owner; NOT fixed here per flag-don't-fix.
@@ -219,9 +218,10 @@ def test_known_broken_allowlist_is_live() -> None:
     is simply no longer generated, so no XPASS fires and the dead entry would
     otherwise linger untested. This asserts every ``_KNOWN_BROKEN`` key still
     matches a currently-generated violation; when an owner lands their fix
-    (e.g. PR #377 for geodynamo, or the k4_tlm symbol), the corresponding key
+    (e.g. the k4_tlm build_scattering_matrix symbol), the corresponding key
     goes stale and this test hard-fails, forcing its removal. That is what makes
-    'the allowlist cannot silently outlive the bug' actually true.
+    'the allowlist cannot silently outlive the bug' actually true. (Demonstrated:
+    merged PR #377 fixed geodynamo, so its key was removed here.)
     """
     live_labels = {label for label, _ in _VIOLATIONS}
     stale = sorted(key for key in _KNOWN_BROKEN if key not in live_labels)
